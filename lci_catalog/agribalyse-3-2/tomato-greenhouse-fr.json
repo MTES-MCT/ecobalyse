@@ -20,7 +20,7 @@
       "id": "4a99833f-f8f7-5d11-9ec8-bd997ab09158",
       "inediblePart": 0.1,
       "inediblePartMatch": {
-        "confidence": 0.98,
+        "confidence": 0.95,
         "rule": "Matched with Cucumbers in agb_inedible.csv"
       },
       "ingredientCategories": [
@@ -60,7 +60,7 @@
       "id": "b94d40bd-3394-59d3-9397-fe097a5f7138",
       "inediblePart": 0.03,
       "inediblePartMatch": {
-        "confidence": 0.98,
+        "confidence": 0.95,
         "rule": "Matched with Tomatoes in agb_inedible.csv"
       },
       "ingredientCategories": [
@@ -92,8 +92,8 @@
       "alias": "cherry-tomato-fr",
       "cropGroup": "LEGUMES-FLEURS",
       "cropGroupMatch": {
-        "confidence": 1.0,
-        "rule": "vegetable default"
+        "confidence": 0.95,
+        "rule": "matched 'tomato' in cropgroup.csv"
       },
       "defaultOrigin": "France",
       "displayName": "Tomates cerises FR",
@@ -106,10 +106,10 @@
       "ingredientCategories": [
         "vegetable_fresh"
       ],
-      "ingredientDensity": 0.9,
+      "ingredientDensity": 1.0,
       "ingredientDensityMatch": {
-        "confidence": 1.0,
-        "rule": "vegetable default from food_type_density.csv"
+        "confidence": 0.95,
+        "rule": "Matched with tomato in density.csv"
       },
       "rawToCookedRatio": 0.856,
       "rawToCookedRatioMatch": {

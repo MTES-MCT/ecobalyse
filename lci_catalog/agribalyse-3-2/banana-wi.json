@@ -15,7 +15,7 @@
         "confidence": 1.0,
         "rule": "matched 'banana' in cropgroup.csv"
       },
-      "defaultOrigin": "FranceOutreMer",
+      "defaultOrigin": "France",
       "displayName": "Banane FR Outre-Mer",
       "id": "ed59e002-178b-5132-9df5-6883261dfa1c",
       "inediblePart": 0.3,

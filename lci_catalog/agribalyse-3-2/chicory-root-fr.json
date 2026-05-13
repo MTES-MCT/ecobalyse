@@ -10,10 +10,10 @@
   "metadata": [
     {
       "alias": "chicory-root-fr",
-      "cropGroup": "LEGUMES-FLEURS",
+      "cropGroup": "AUTRES CULTURES INDUSTRIELLES",
       "cropGroupMatch": {
-        "confidence": 1.0,
-        "rule": "vegetable default"
+        "confidence": 0.95,
+        "rule": "matched 'chicory' in cropgroup.csv"
       },
       "defaultOrigin": "France",
       "displayName": "Racine de chicorée FR",

@@ -10,7 +10,7 @@
       "alias": "cucurbitacea-seed-eu",
       "cropGroup": "SEMENCES",
       "cropGroupMatch": {
-        "confidence": 1.0,
+        "confidence": 0.95,
         "rule": "matched 'semences epeautre' in cropgroup.csv"
       },
       "defaultOrigin": "EuropeAndMaghreb",
@@ -50,7 +50,7 @@
       "alias": "poppy-seed-eu",
       "cropGroup": "SEMENCES",
       "cropGroupMatch": {
-        "confidence": 1.0,
+        "confidence": 0.95,
         "rule": "matched 'semences epeautre' in cropgroup.csv"
       },
       "defaultOrigin": "EuropeAndMaghreb",
@@ -58,7 +58,7 @@
       "id": "72925a8b-cd45-5967-a561-f9c977549930",
       "inediblePart": 0.0,
       "inediblePartMatch": {
-        "confidence": 0.98,
+        "confidence": 0.961,
         "rule": "Matched with poppy seed in inedible_part.csv"
       },
       "ingredientCategories": [

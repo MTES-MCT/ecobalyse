@@ -121,6 +121,44 @@
         "rule": "dairy NOVA 1 → always (perishable)"
       },
       "visible": true
+    },
+    {
+      "alias": "sheep-milk-non-eu",
+      "animalGroup1": "sheep",
+      "animalGroup2": "sheep",
+      "animalProduct": "milk",
+      "defaultOrigin": "OutOfEuropeAndMaghreb",
+      "displayName": "Lait de brebis HORS UE",
+      "id": "5870e3a4-c845-54c4-8ea6-66b280b41821",
+      "inediblePart": 0.0,
+      "inediblePartMatch": {
+        "confidence": 1.0,
+        "rule": "dairy NOVA 1 default from food_type_inedible_part.csv"
+      },
+      "ingredientCategories": [
+        "dairy_product"
+      ],
+      "ingredientDensity": 1.03,
+      "ingredientDensityMatch": {
+        "confidence": 1.0,
+        "rule": "dairy default from food_type_density.csv"
+      },
+      "rawToCookedRatio": 1.0,
+      "rawToCookedRatioMatch": {
+        "confidence": 1.0,
+        "rule": "dairy default from food_type_cooked_to_raw.csv"
+      },
+      "scenario": "import",
+      "scopes": [
+        "food",
+        "food2"
+      ],
+      "transportCooling": "always",
+      "transportCoolingMatch": {
+        "confidence": 1.0,
+        "rule": "dairy NOVA 1 → always (perishable)"
+      },
+      "visible": true
     }
   ],
   "scopes": [

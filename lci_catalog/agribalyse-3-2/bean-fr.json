@@ -9,10 +9,10 @@
   "metadata": [
     {
       "alias": "spring-pea-fr",
-      "cropGroup": "LEGUMINEUSES A GRAIN",
+      "cropGroup": "PROTEAGINEUX",
       "cropGroupMatch": {
-        "confidence": 1.0,
-        "rule": "legume default"
+        "confidence": 0.95,
+        "rule": "matched 'pois de printemps' in cropgroup.csv"
       },
       "defaultOrigin": "France",
       "displayName": "Pois de printemps FR",
@@ -27,8 +27,8 @@
       ],
       "ingredientDensity": 0.8,
       "ingredientDensityMatch": {
-        "confidence": 1.0,
-        "rule": "legume default from food_type_density.csv"
+        "confidence": 0.95,
+        "rule": "Matched with pea in density.csv"
       },
       "rawToCookedRatio": 1.0,
       "rawToCookedRatioMatch": {
@@ -69,10 +69,10 @@
     },
     {
       "alias": "spring-pea-default",
-      "cropGroup": "LEGUMINEUSES A GRAIN",
+      "cropGroup": "PROTEAGINEUX",
       "cropGroupMatch": {
-        "confidence": 1.0,
-        "rule": "legume default"
+        "confidence": 0.95,
+        "rule": "matched 'pois de printemps' in cropgroup.csv"
       },
       "defaultOrigin": "OutOfEuropeAndMaghreb",
       "displayName": "Pois de printemps Origine Inconnue",
@@ -87,8 +87,8 @@
       ],
       "ingredientDensity": 0.8,
       "ingredientDensityMatch": {
-        "confidence": 1.0,
-        "rule": "legume default from food_type_density.csv"
+        "confidence": 0.95,
+        "rule": "Matched with pea in density.csv"
       },
       "rawToCookedRatio": 1.0,
       "rawToCookedRatioMatch": {
@@ -111,12 +111,52 @@
       "alias": "spring-pea-eu",
       "cropGroup": "PROTEAGINEUX",
       "cropGroupMatch": {
-        "confidence": 1.0,
+        "confidence": 0.95,
         "rule": "matched 'pois de printemps' in cropgroup.csv"
       },
       "defaultOrigin": "EuropeAndMaghreb",
       "displayName": "Pois de printemps UE",
       "id": "70622657-e093-5e2c-9370-6ef093f96624",
+      "inediblePart": 0.2,
+      "inediblePartMatch": {
+        "confidence": 1.0,
+        "rule": "legume NOVA 1 default from food_type_inedible_part.csv"
+      },
+      "ingredientCategories": [
+        "vegetable_fresh"
+      ],
+      "ingredientDensity": 0.8,
+      "ingredientDensityMatch": {
+        "confidence": 0.95,
+        "rule": "Matched with pea in density.csv"
+      },
+      "rawToCookedRatio": 1.0,
+      "rawToCookedRatioMatch": {
+        "confidence": 0.95,
+        "rule": "Matched with pea in cooked_to_raw.csv"
+      },
+      "scenario": "import",
+      "scopes": [
+        "food",
+        "food2"
+      ],
+      "transportCooling": "always",
+      "transportCoolingMatch": {
+        "confidence": 1.0,
+        "rule": "legume NOVA 1 → always (perishable)"
+      },
+      "visible": true
+    },
+    {
+      "alias": "spring-pea-non-eu",
+      "cropGroup": "PROTEAGINEUX",
+      "cropGroupMatch": {
+        "confidence": 0.95,
+        "rule": "matched 'pois de printemps' in cropgroup.csv"
+      },
+      "defaultOrigin": "OutOfEuropeAndMaghreb",
+      "displayName": "Pois de printemps HORS UE",
+      "id": "b0330498-73cb-51c4-805f-9394e59273b8",
       "inediblePart": 0.2,
       "inediblePartMatch": {
         "confidence": 1.0,

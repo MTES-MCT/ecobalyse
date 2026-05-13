@@ -134,11 +134,51 @@
       "cropGroup": "LEGUMES-FLEURS",
       "cropGroupMatch": {
         "confidence": 1.0,
-        "rule": "matched 'brussels sprout' in cropgroup.csv"
+        "rule": "vegetable default"
       },
       "defaultOrigin": "EuropeAndMaghreb",
       "displayName": "Champignon, morille UE",
       "id": "cf129ec2-588b-544b-8991-43cc70c93625",
+      "inediblePart": 0.1,
+      "inediblePartMatch": {
+        "confidence": 0.95,
+        "rule": "Matched with Mushroom in agb_inedible.csv"
+      },
+      "ingredientCategories": [
+        "vegetable_fresh"
+      ],
+      "ingredientDensity": 0.9,
+      "ingredientDensityMatch": {
+        "confidence": 1.0,
+        "rule": "vegetable default from food_type_density.csv"
+      },
+      "rawToCookedRatio": 0.856,
+      "rawToCookedRatioMatch": {
+        "confidence": 1.0,
+        "rule": "vegetable default from food_type_cooked_to_raw.csv"
+      },
+      "scenario": "import",
+      "scopes": [
+        "food",
+        "food2"
+      ],
+      "transportCooling": "always",
+      "transportCoolingMatch": {
+        "confidence": 1.0,
+        "rule": "vegetable NOVA 1 → always (perishable)"
+      },
+      "visible": true
+    },
+    {
+      "alias": "mushroom-morel-non-eu",
+      "cropGroup": "LEGUMES-FLEURS",
+      "cropGroupMatch": {
+        "confidence": 1.0,
+        "rule": "vegetable default"
+      },
+      "defaultOrigin": "OutOfEuropeAndMaghreb",
+      "displayName": "Champignon, morille HORS UE",
+      "id": "6236c2b7-2388-5c1a-98ce-bd52c0dbffa3",
       "inediblePart": 0.1,
       "inediblePartMatch": {
         "confidence": 0.95,

@@ -13,7 +13,7 @@
       "cropGroup": "LEGUMES-FLEURS",
       "cropGroupMatch": {
         "confidence": 1.0,
-        "rule": "matched 'carrot' in cropgroup.csv"
+        "rule": "vegetable default"
       },
       "defaultOrigin": "France",
       "displayName": "Poireau FR",
@@ -53,11 +53,51 @@
       "cropGroup": "LEGUMES-FLEURS",
       "cropGroupMatch": {
         "confidence": 1.0,
-        "rule": "matched 'carrot' in cropgroup.csv"
+        "rule": "vegetable default"
       },
       "defaultOrigin": "EuropeAndMaghreb",
       "displayName": "Poireau UE",
       "id": "0feaacf9-6320-5b4b-a607-6eefa00f68dd",
+      "inediblePart": 0.2,
+      "inediblePartMatch": {
+        "confidence": 1.0,
+        "rule": "Matched with Leek in agb_inedible.csv"
+      },
+      "ingredientCategories": [
+        "vegetable_fresh"
+      ],
+      "ingredientDensity": 0.9,
+      "ingredientDensityMatch": {
+        "confidence": 1.0,
+        "rule": "leek found in density.csv"
+      },
+      "rawToCookedRatio": 0.856,
+      "rawToCookedRatioMatch": {
+        "confidence": 1.0,
+        "rule": "vegetable default from food_type_cooked_to_raw.csv"
+      },
+      "scenario": "import",
+      "scopes": [
+        "food",
+        "food2"
+      ],
+      "transportCooling": "always",
+      "transportCoolingMatch": {
+        "confidence": 1.0,
+        "rule": "vegetable NOVA 1 → always (perishable)"
+      },
+      "visible": true
+    },
+    {
+      "alias": "leek-non-eu",
+      "cropGroup": "LEGUMES-FLEURS",
+      "cropGroupMatch": {
+        "confidence": 1.0,
+        "rule": "vegetable default"
+      },
+      "defaultOrigin": "OutOfEuropeAndMaghreb",
+      "displayName": "Poireau HORS UE",
+      "id": "63672696-8c4b-599c-9be5-5c06bbf3d8b8",
       "inediblePart": 0.2,
       "inediblePartMatch": {
         "confidence": 1.0,

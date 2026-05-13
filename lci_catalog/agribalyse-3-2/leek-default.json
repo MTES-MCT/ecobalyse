@@ -14,7 +14,7 @@
       "cropGroup": "LEGUMES-FLEURS",
       "cropGroupMatch": {
         "confidence": 1.0,
-        "rule": "matched 'carrot' in cropgroup.csv"
+        "rule": "vegetable default"
       },
       "defaultOrigin": "OutOfEuropeAndMaghreb",
       "displayName": "Poireau Origine Inconnue",

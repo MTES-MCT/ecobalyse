@@ -1,0 +1,37 @@
+{
+  "activityName": "Comte cheese, from cow's milk, at plant {FR} U",
+  "categories": [
+    "ingredient",
+    "material",
+    "material_type:other_food_items"
+  ],
+  "displayName": "Comté FR AOP",
+  "id": "d3772933-1a5a-547f-b6ce-6bf65ac3b2cc",
+  "metadata": [
+    {
+      "alias": "comte-aop-2025",
+      "defaultOrigin": "France",
+      "displayName": "Comté FR AOP (2025)",
+      "explain": "A voir si transport bien réfrigéré ?\nBonus à modifier en fonction des données du cahier des charges. ",
+      "id": "f804033a-fe59-4ec5-b24b-c7482b2a6cf6",
+      "inediblePart": 0,
+      "ingredientCategories": [
+        "dairy_product"
+      ],
+      "ingredientDensity": 1.0,
+      "rawToCookedRatio": 1.0,
+      "scenario": "reference",
+      "scopes": [
+        "food",
+        "food2"
+      ],
+      "transportCooling": "always",
+      "visible": true
+    }
+  ],
+  "scopes": [
+    "food",
+    "food2"
+  ],
+  "source": "Agribalyse 3.2"
+}

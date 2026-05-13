@@ -47,6 +47,46 @@
         "rule": "grain → none (non-perishable)"
       },
       "visible": true
+    },
+    {
+      "alias": "oats-non-eu",
+      "cropGroup": "AUTRES CEREALES",
+      "cropGroupMatch": {
+        "confidence": 1.0,
+        "rule": "matched 'avoine' in cropgroup.csv"
+      },
+      "defaultOrigin": "OutOfEuropeAndMaghreb",
+      "displayName": "Avoine HORS UE",
+      "id": "d8198264-e84f-51c9-9d54-1908734fe17f",
+      "inediblePart": 0.0,
+      "inediblePartMatch": {
+        "confidence": 1.0,
+        "rule": "grain NOVA 1 default from food_type_inedible_part.csv"
+      },
+      "ingredientCategories": [
+        "grain_raw"
+      ],
+      "ingredientDensity": 0.41,
+      "ingredientDensityMatch": {
+        "confidence": 1.0,
+        "rule": "Oats found in fao_density.csv"
+      },
+      "rawToCookedRatio": 2.259,
+      "rawToCookedRatioMatch": {
+        "confidence": 0.95,
+        "rule": "Matched with oat in cooked_to_raw.csv"
+      },
+      "scenario": "import",
+      "scopes": [
+        "food",
+        "food2"
+      ],
+      "transportCooling": "none",
+      "transportCoolingMatch": {
+        "confidence": 1.0,
+        "rule": "grain → none (non-perishable)"
+      },
+      "visible": true
     }
   ],
   "scopes": [

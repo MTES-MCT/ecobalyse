@@ -10,7 +10,7 @@
       "alias": "white-cabbage-eu",
       "cropGroup": "LEGUMES-FLEURS",
       "cropGroupMatch": {
-        "confidence": 1.0,
+        "confidence": 0.95,
         "rule": "matched 'cabbage' in cropgroup.csv"
       },
       "defaultOrigin": "EuropeAndMaghreb",
@@ -18,7 +18,7 @@
       "id": "6a1eddb0-92ac-5e8c-ae51-908634b6f33d",
       "inediblePart": 0.2,
       "inediblePartMatch": {
-        "confidence": 0.98,
+        "confidence": 0.95,
         "rule": "Matched with Cabbage in agb_inedible.csv"
       },
       "ingredientCategories": [
@@ -26,12 +26,12 @@
       ],
       "ingredientDensity": 0.9,
       "ingredientDensityMatch": {
-        "confidence": 0.98,
+        "confidence": 0.95,
         "rule": "Matched with cabbage in density.csv"
       },
       "rawToCookedRatio": 0.856,
       "rawToCookedRatioMatch": {
-        "confidence": 0.98,
+        "confidence": 0.95,
         "rule": "Matched with cabbage in cooked_to_raw.csv"
       },
       "scenario": "import",
@@ -45,6 +45,46 @@
         "rule": "vegetable NOVA 1 → always (perishable)"
       },
       "visible": false
+    },
+    {
+      "alias": "white-cabbage-non-eu",
+      "cropGroup": "LEGUMES-FLEURS",
+      "cropGroupMatch": {
+        "confidence": 0.95,
+        "rule": "matched 'cabbage' in cropgroup.csv"
+      },
+      "defaultOrigin": "OutOfEuropeAndMaghreb",
+      "displayName": "Chou blanc HORS UE",
+      "id": "8a11482b-65fe-587f-aa89-290378250e42",
+      "inediblePart": 0.2,
+      "inediblePartMatch": {
+        "confidence": 0.95,
+        "rule": "Matched with Cabbage in agb_inedible.csv"
+      },
+      "ingredientCategories": [
+        "vegetable_fresh"
+      ],
+      "ingredientDensity": 0.9,
+      "ingredientDensityMatch": {
+        "confidence": 0.95,
+        "rule": "Matched with cabbage in density.csv"
+      },
+      "rawToCookedRatio": 0.856,
+      "rawToCookedRatioMatch": {
+        "confidence": 0.95,
+        "rule": "Matched with cabbage in cooked_to_raw.csv"
+      },
+      "scenario": "import",
+      "scopes": [
+        "food",
+        "food2"
+      ],
+      "transportCooling": "always",
+      "transportCoolingMatch": {
+        "confidence": 1.0,
+        "rule": "vegetable NOVA 1 → always (perishable)"
+      },
+      "visible": true
     }
   ],
   "scopes": [

@@ -21,7 +21,7 @@
       "id": "3dad54e3-d598-5daf-999d-f4dbdddc7c56",
       "inediblePart": 0.1,
       "inediblePartMatch": {
-        "confidence": 0.98,
+        "confidence": 0.95,
         "rule": "Matched with Beetroots in agb_inedible.csv"
       },
       "ingredientCategories": [

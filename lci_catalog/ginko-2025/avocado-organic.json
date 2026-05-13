@@ -21,7 +21,7 @@
       "id": "64247aed-1faa-5501-8a80-d37cd9a4ea60",
       "inediblePart": 0.3,
       "inediblePartMatch": {
-        "confidence": 0.98,
+        "confidence": 0.95,
         "rule": "Matched with Avocados in agb_inedible.csv"
       },
       "ingredientCategories": [

@@ -12,7 +12,7 @@
       "alias": "millet-whole-fr",
       "cropGroup": "AUTRES CEREALES",
       "cropGroupMatch": {
-        "confidence": 1.0,
+        "confidence": 0.95,
         "rule": "matched 'millet' in cropgroup.csv"
       },
       "defaultOrigin": "France",

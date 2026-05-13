@@ -15,7 +15,7 @@
         "confidence": 1.0,
         "rule": "fruit default"
       },
-      "defaultOrigin": "FranceOutreMer",
+      "defaultOrigin": "France",
       "displayName": "Goyave FR Outre-Mer",
       "id": "9843e808-978d-5e45-89b2-1c076851386c",
       "inediblePart": 0.2,
@@ -173,7 +173,7 @@
       "cropGroup": "VERGERS",
       "cropGroupMatch": {
         "confidence": 1.0,
-        "rule": "matched 'orange' in cropgroup.csv"
+        "rule": "fruit default"
       },
       "defaultOrigin": "OutOfEuropeAndMaghreb",
       "displayName": "Fruit de la passion Origine Inconnue",
@@ -253,7 +253,7 @@
       "cropGroup": "VERGERS",
       "cropGroupMatch": {
         "confidence": 1.0,
-        "rule": "matched 'poires pour transformation' in cropgroup.csv"
+        "rule": "fruit default"
       },
       "defaultOrigin": "EuropeAndMaghreb",
       "displayName": "Goyave UE Antilles",
@@ -293,7 +293,7 @@
       "cropGroup": "VERGERS",
       "cropGroupMatch": {
         "confidence": 1.0,
-        "rule": "matched 'orange' in cropgroup.csv"
+        "rule": "fruit default"
       },
       "defaultOrigin": "EuropeAndMaghreb",
       "displayName": "Kiwi UE",

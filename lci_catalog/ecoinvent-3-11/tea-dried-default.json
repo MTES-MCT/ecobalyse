@@ -13,8 +13,8 @@
       "alias": "tea-dried-default",
       "cropGroup": "DIVERS",
       "cropGroupMatch": {
-        "confidence": 1.0,
-        "rule": "beverage default"
+        "confidence": 0.95,
+        "rule": "matched 'tea' in cropgroup.csv"
       },
       "defaultOrigin": "OutOfEuropeAndMaghreb",
       "displayName": "Thé, feuilles séchées Origine Inconnue",

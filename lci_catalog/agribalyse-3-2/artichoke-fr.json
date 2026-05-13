@@ -20,7 +20,7 @@
       "id": "dd97d0a6-dcac-5dee-8af0-bbbe28a47bcf",
       "inediblePart": 0.1,
       "inediblePartMatch": {
-        "confidence": 0.98,
+        "confidence": 0.953,
         "rule": "Matched with Jerusalemen artichoke in agb_inedible.csv"
       },
       "ingredientCategories": [
@@ -53,7 +53,7 @@
       "cropGroup": "LEGUMES-FLEURS",
       "cropGroupMatch": {
         "confidence": 1.0,
-        "rule": "matched 'chou-fleur' in cropgroup.csv"
+        "rule": "vegetable default"
       },
       "defaultOrigin": "France",
       "displayName": "Chou-rave FR",
@@ -109,7 +109,7 @@
       "ingredientDensity": 0.9,
       "ingredientDensityMatch": {
         "confidence": 1.0,
-        "rule": "Rhubarbe FR found in ingredients.json"
+        "rule": "vegetable default from food_type_density.csv"
       },
       "rawToCookedRatio": 0.856,
       "rawToCookedRatioMatch": {
@@ -272,8 +272,8 @@
       "alias": "green-cabbage-fr",
       "cropGroup": "LEGUMES-FLEURS",
       "cropGroupMatch": {
-        "confidence": 1.0,
-        "rule": "vegetable default"
+        "confidence": 0.95,
+        "rule": "matched 'cabbage' in cropgroup.csv"
       },
       "defaultOrigin": "France",
       "displayName": "Chou vert FR",
@@ -288,8 +288,8 @@
       ],
       "ingredientDensity": 0.9,
       "ingredientDensityMatch": {
-        "confidence": 1.0,
-        "rule": "vegetable default from food_type_density.csv"
+        "confidence": 0.95,
+        "rule": "Matched with cabbage in density.csv"
       },
       "rawToCookedRatio": 0.856,
       "rawToCookedRatioMatch": {
@@ -313,7 +313,7 @@
       "cropGroup": "LEGUMES-FLEURS",
       "cropGroupMatch": {
         "confidence": 1.0,
-        "rule": "matched 'chou-fleur' in cropgroup.csv"
+        "rule": "vegetable default"
       },
       "defaultOrigin": "France",
       "displayName": "Chou frisé FR",
@@ -360,7 +360,7 @@
       "id": "c3d02976-6c1d-51a6-8713-e8dc009a18e0",
       "inediblePart": 0.6,
       "inediblePartMatch": {
-        "confidence": 0.98,
+        "confidence": 0.952,
         "rule": "Matched with Artichokes in agb_inedible.csv"
       },
       "ingredientCategories": [
@@ -430,10 +430,10 @@
     },
     {
       "alias": "cardoon-eu",
-      "cropGroup": "AUTRES CEREALES",
+      "cropGroup": "LEGUMES-FLEURS",
       "cropGroupMatch": {
         "confidence": 1.0,
-        "rule": "matched 'avoine' in cropgroup.csv"
+        "rule": "vegetable default"
       },
       "defaultOrigin": "EuropeAndMaghreb",
       "displayName": "Cardoon UE",
@@ -512,7 +512,7 @@
       "alias": "green-cabbage-eu",
       "cropGroup": "LEGUMES-FLEURS",
       "cropGroupMatch": {
-        "confidence": 1.0,
+        "confidence": 0.95,
         "rule": "matched 'cabbage' in cropgroup.csv"
       },
       "defaultOrigin": "EuropeAndMaghreb",
@@ -553,14 +553,14 @@
       "cropGroup": "LEGUMES-FLEURS",
       "cropGroupMatch": {
         "confidence": 1.0,
-        "rule": "matched 'carrot' in cropgroup.csv"
+        "rule": "vegetable default"
       },
       "defaultOrigin": "EuropeAndMaghreb",
       "displayName": "Topinambour UE",
       "id": "def22b3d-6c34-53a7-a594-942a798c0e8f",
       "inediblePart": 0.1,
       "inediblePartMatch": {
-        "confidence": 0.98,
+        "confidence": 0.953,
         "rule": "Matched with Jerusalemen artichoke in agb_inedible.csv"
       },
       "ingredientCategories": [
@@ -593,7 +593,7 @@
       "cropGroup": "LEGUMES-FLEURS",
       "cropGroupMatch": {
         "confidence": 1.0,
-        "rule": "matched 'chou-fleur' in cropgroup.csv"
+        "rule": "vegetable default"
       },
       "defaultOrigin": "EuropeAndMaghreb",
       "displayName": "Chou frisé UE",
@@ -633,7 +633,7 @@
       "cropGroup": "LEGUMES-FLEURS",
       "cropGroupMatch": {
         "confidence": 1.0,
-        "rule": "matched 'chou-fleur' in cropgroup.csv"
+        "rule": "vegetable default"
       },
       "defaultOrigin": "EuropeAndMaghreb",
       "displayName": "Chou-rave UE",
@@ -670,10 +670,10 @@
     },
     {
       "alias": "rhubarb-eu",
-      "cropGroup": "VERGERS",
+      "cropGroup": "LEGUMES-FLEURS",
       "cropGroupMatch": {
         "confidence": 1.0,
-        "rule": "matched 'poires pour transformation' in cropgroup.csv"
+        "rule": "vegetable default"
       },
       "defaultOrigin": "EuropeAndMaghreb",
       "displayName": "Rhubarbe UE",
@@ -713,14 +713,14 @@
       "cropGroup": "LEGUMES-FLEURS",
       "cropGroupMatch": {
         "confidence": 1.0,
-        "rule": "matched 'fennel' in cropgroup.csv"
+        "rule": "vegetable default"
       },
       "defaultOrigin": "EuropeAndMaghreb",
       "displayName": "Artichaut UE",
       "id": "f370924b-f15c-53dc-9728-38010bb6a7c9",
       "inediblePart": 0.6,
       "inediblePartMatch": {
-        "confidence": 0.98,
+        "confidence": 0.952,
         "rule": "Matched with Artichokes in agb_inedible.csv"
       },
       "ingredientCategories": [

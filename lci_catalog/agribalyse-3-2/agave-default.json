@@ -51,14 +51,54 @@
     },
     {
       "alias": "agave-eu",
-      "cropGroup": "FRUITS A COQUES",
+      "cropGroup": "LEGUMES-FLEURS",
       "cropGroupMatch": {
         "confidence": 1.0,
-        "rule": "matched 'caroube' in cropgroup.csv"
+        "rule": "vegetable default"
       },
       "defaultOrigin": "EuropeAndMaghreb",
       "displayName": "Agave UE",
       "id": "9830bf5f-40cb-5fe2-a212-99d1d9d565a9",
+      "inediblePart": 0.2,
+      "inediblePartMatch": {
+        "confidence": 1.0,
+        "rule": "vegetable NOVA 1 default from food_type_inedible_part.csv"
+      },
+      "ingredientCategories": [
+        "vegetable_fresh"
+      ],
+      "ingredientDensity": 0.9,
+      "ingredientDensityMatch": {
+        "confidence": 1.0,
+        "rule": "vegetable default from food_type_density.csv"
+      },
+      "rawToCookedRatio": 0.856,
+      "rawToCookedRatioMatch": {
+        "confidence": 1.0,
+        "rule": "vegetable default from food_type_cooked_to_raw.csv"
+      },
+      "scenario": "import",
+      "scopes": [
+        "food",
+        "food2"
+      ],
+      "transportCooling": "always",
+      "transportCoolingMatch": {
+        "confidence": 1.0,
+        "rule": "vegetable NOVA 1 → always (perishable)"
+      },
+      "visible": true
+    },
+    {
+      "alias": "agave-non-eu",
+      "cropGroup": "LEGUMES-FLEURS",
+      "cropGroupMatch": {
+        "confidence": 1.0,
+        "rule": "vegetable default"
+      },
+      "defaultOrigin": "OutOfEuropeAndMaghreb",
+      "displayName": "Agave HORS UE",
+      "id": "28ea331e-3c42-5c47-9469-b5f8d785565c",
       "inediblePart": 0.2,
       "inediblePartMatch": {
         "confidence": 1.0,

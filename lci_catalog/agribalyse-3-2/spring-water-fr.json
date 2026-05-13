@@ -43,8 +43,8 @@
       ],
       "transportCooling": "none",
       "transportCoolingMatch": {
-        "confidence": 0.997,
-        "rule": "Matched with Autres eaux et autres boissons (non encore répertoriées) (2025) in ingredients.json"
+        "confidence": 0.642,
+        "rule": "Matched with bread in transport_cooling.csv"
       },
       "visible": true
     }

@@ -10,7 +10,7 @@
       "alias": "soft-wheat-eu",
       "cropGroup": "BLE TENDRE",
       "cropGroupMatch": {
-        "confidence": 1.0,
+        "confidence": 0.95,
         "rule": "matched 'wheat' in cropgroup.csv"
       },
       "defaultOrigin": "EuropeAndMaghreb",

@@ -10,7 +10,7 @@
       "alias": "durum-wheat-eu",
       "cropGroup": "AUTRES CEREALES",
       "cropGroupMatch": {
-        "confidence": 1.0,
+        "confidence": 0.95,
         "rule": "matched 'blé dur hiver' in cropgroup.csv"
       },
       "defaultOrigin": "EuropeAndMaghreb",
@@ -48,10 +48,10 @@
     },
     {
       "alias": "amaranth-eu",
-      "cropGroup": "AUTRES CULTURES INDUSTRIELLES",
+      "cropGroup": "BLE TENDRE",
       "cropGroupMatch": {
         "confidence": 1.0,
-        "rule": "matched 'chicorée à inuline' in cropgroup.csv"
+        "rule": "wheat/flour pattern"
       },
       "defaultOrigin": "EuropeAndMaghreb",
       "displayName": "Amarante UE",

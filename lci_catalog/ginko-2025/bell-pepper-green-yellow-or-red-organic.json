@@ -10,11 +10,11 @@
   "location": "FR",
   "metadata": [
     {
-      "alias": "bell-pepper-green-yellow-or-red-organic",
+      "alias": "bell-pepper-organic",
       "cropGroup": "LEGUMES-FLEURS",
       "cropGroupMatch": {
-        "confidence": 1.0,
-        "rule": "vegetable default"
+        "confidence": 0.95,
+        "rule": "matched 'bell pepper' in cropgroup.csv"
       },
       "defaultOrigin": "France",
       "displayName": "Poivron, vert, jaune ou rouge Bio",
@@ -30,8 +30,8 @@
       ],
       "ingredientDensity": 0.9,
       "ingredientDensityMatch": {
-        "confidence": 1.0,
-        "rule": "vegetable default from food_type_density.csv"
+        "confidence": 0.95,
+        "rule": "Matched with bell pepper in density.csv"
       },
       "rawToCookedRatio": 0.856,
       "rawToCookedRatioMatch": {

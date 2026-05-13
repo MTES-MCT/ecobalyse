@@ -13,7 +13,7 @@
       "alias": "chickpea-dried-fr",
       "cropGroup": "LEGUMINEUSES A GRAIN",
       "cropGroupMatch": {
-        "confidence": 1.0,
+        "confidence": 0.95,
         "rule": "matched 'chickpea' in cropgroup.csv"
       },
       "defaultOrigin": "France",
@@ -53,7 +53,7 @@
       "alias": "chickpea-dried-organic",
       "cropGroup": "LEGUMINEUSES A GRAIN",
       "cropGroupMatch": {
-        "confidence": 1.0,
+        "confidence": 0.95,
         "rule": "matched 'chickpea' in cropgroup.csv"
       },
       "defaultOrigin": "France",

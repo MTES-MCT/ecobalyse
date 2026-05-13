@@ -1,0 +1,38 @@
+{
+  "activityName": "Soybean oil, refined, at plant {FR} U",
+  "categories": [
+    "ingredient",
+    "material",
+    "material_type:other_food_items"
+  ],
+  "displayName": "Huile de soja (raffinée) FR",
+  "id": "aa0a0ccc-1598-58a1-bbc8-dc1913fa8cc0",
+  "metadata": [
+    {
+      "alias": "refined-soybean-oil-2025",
+      "cropGroup": "PROTEAGINEUX",
+      "defaultOrigin": "France",
+      "displayName": "Huile de soja (raffinée) FR (2025)",
+      "explain": "Cet ICV correspond à la production de l'huile de soja, de la culture jusqu'aux portes de l'usine. La trituration et le raffinage sont représentatifs de la production en France. Un mix d'importation des graines de soja est considéré (origines France, Brésil, Etats-Unis, Canada, et transport inclus). Le transport aval de l'huile de soja n'est pas inclus dans cet ICV.\nSelon le mix de consommation français de l'huile de soja, l'origine par défaut devrait être Hors Europe. \nLa densité de l'huile de soja est de 0,922.  \nComme le précise la méthodologie AGRIBALYSE, il n'y a pas de transport frigorifique pour les huiles végétales.",
+      "id": "188a3d66-f214-4821-9bac-7e8fdc715721",
+      "inediblePart": 0,
+      "ingredientCategories": [
+        "nut_oilseed_processed"
+      ],
+      "ingredientDensity": 1,
+      "rawToCookedRatio": 1.0,
+      "scenario": "reference",
+      "scopes": [
+        "food",
+        "food2"
+      ],
+      "transportCooling": "none",
+      "visible": true
+    }
+  ],
+  "scopes": [
+    "food",
+    "food2"
+  ],
+  "source": "Agribalyse 3.2"
+}

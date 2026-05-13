@@ -43,6 +43,44 @@
         "rule": "meat NOVA 1 → always (perishable)"
       },
       "visible": false
+    },
+    {
+      "alias": "pork-default",
+      "animalGroup1": "pig",
+      "animalGroup2": "pig",
+      "animalProduct": "meat",
+      "defaultOrigin": "OutOfEuropeAndMaghreb",
+      "displayName": "Porc Origine Inconnue",
+      "id": "7d94e5d1-ef4b-55ec-8212-b23be63c16a3",
+      "inediblePart": 0.05,
+      "inediblePartMatch": {
+        "confidence": 1.0,
+        "rule": "meat NOVA 1 default from food_type_inedible_part.csv"
+      },
+      "ingredientCategories": [
+        "animal_product"
+      ],
+      "ingredientDensity": 1.05,
+      "ingredientDensityMatch": {
+        "confidence": 1.0,
+        "rule": "pork found in density.csv"
+      },
+      "rawToCookedRatio": 0.792,
+      "rawToCookedRatioMatch": {
+        "confidence": 1.0,
+        "rule": "Matched with pork in cooked_to_raw.csv"
+      },
+      "scenario": "import",
+      "scopes": [
+        "food",
+        "food2"
+      ],
+      "transportCooling": "always",
+      "transportCoolingMatch": {
+        "confidence": 1.0,
+        "rule": "meat NOVA 1 → always (perishable)"
+      },
+      "visible": false
     }
   ],
   "scopes": [

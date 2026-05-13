@@ -10,11 +10,11 @@
   "location": "IN-UP",
   "metadata": [
     {
-      "alias": "bell-pepper-green-yellow-or-red-default",
+      "alias": "bell-pepper-default",
       "cropGroup": "LEGUMES-FLEURS",
       "cropGroupMatch": {
-        "confidence": 1.0,
-        "rule": "vegetable default"
+        "confidence": 0.95,
+        "rule": "matched 'bell pepper' in cropgroup.csv"
       },
       "defaultOrigin": "OutOfEuropeAndMaghreb",
       "displayName": "Poivron, vert, jaune ou rouge Origine Inconnue",
@@ -29,8 +29,8 @@
       ],
       "ingredientDensity": 0.9,
       "ingredientDensityMatch": {
-        "confidence": 1.0,
-        "rule": "vegetable default from food_type_density.csv"
+        "confidence": 0.95,
+        "rule": "Matched with bell pepper in density.csv"
       },
       "rawToCookedRatio": 0.856,
       "rawToCookedRatioMatch": {
@@ -53,7 +53,7 @@
       "alias": "chili-pepper-default",
       "cropGroup": "LEGUMES-FLEURS",
       "cropGroupMatch": {
-        "confidence": 1.0,
+        "confidence": 0.95,
         "rule": "matched 'chili pepper' in cropgroup.csv"
       },
       "defaultOrigin": "OutOfEuropeAndMaghreb",

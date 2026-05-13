@@ -12,8 +12,8 @@
       "alias": "pine-nut-fr",
       "cropGroup": "FRUITS A COQUES",
       "cropGroupMatch": {
-        "confidence": 1.0,
-        "rule": "nut default"
+        "confidence": 0.95,
+        "rule": "matched 'noix' in cropgroup.csv"
       },
       "defaultOrigin": "France",
       "displayName": "Pignons de pin FR",
@@ -26,10 +26,10 @@
       "ingredientCategories": [
         "nut_oilseed_raw"
       ],
-      "ingredientDensity": 0.6,
+      "ingredientDensity": 0.63,
       "ingredientDensityMatch": {
-        "confidence": 1.0,
-        "rule": "nut_oilseed default from food_type_density.csv"
+        "confidence": 0.95,
+        "rule": "Matched with Nuts in fao_density.csv"
       },
       "rawToCookedRatio": 1.0,
       "rawToCookedRatioMatch": {

@@ -29,7 +29,7 @@
       "ingredientDensity": 0.85,
       "ingredientDensityMatch": {
         "confidence": 1.0,
-        "rule": "Clémentine FR found in ingredients.json"
+        "rule": "fruit default from food_type_density.csv"
       },
       "rawToCookedRatio": 0.856,
       "rawToCookedRatioMatch": {
@@ -111,7 +111,7 @@
       "ingredientDensity": 0.85,
       "ingredientDensityMatch": {
         "confidence": 1.0,
-        "rule": "Clémentine FR found in ingredients.json"
+        "rule": "fruit default from food_type_density.csv"
       },
       "rawToCookedRatio": 0.856,
       "rawToCookedRatioMatch": {
@@ -135,11 +135,51 @@
       "cropGroup": "VERGERS",
       "cropGroupMatch": {
         "confidence": 1.0,
-        "rule": "matched 'poires pour transformation' in cropgroup.csv"
+        "rule": "fruit default"
       },
       "defaultOrigin": "EuropeAndMaghreb",
       "displayName": "Clémentine UE",
       "id": "87260d07-2179-580d-9576-68cef7e803ec",
+      "inediblePart": 0.2,
+      "inediblePartMatch": {
+        "confidence": 1.0,
+        "rule": "fruit NOVA 1 default from food_type_inedible_part.csv"
+      },
+      "ingredientCategories": [
+        "vegetable_fresh"
+      ],
+      "ingredientDensity": 0.85,
+      "ingredientDensityMatch": {
+        "confidence": 1.0,
+        "rule": "fruit default from food_type_density.csv"
+      },
+      "rawToCookedRatio": 0.856,
+      "rawToCookedRatioMatch": {
+        "confidence": 1.0,
+        "rule": "fruit default from food_type_cooked_to_raw.csv"
+      },
+      "scenario": "import",
+      "scopes": [
+        "food",
+        "food2"
+      ],
+      "transportCooling": "always",
+      "transportCoolingMatch": {
+        "confidence": 1.0,
+        "rule": "fruit NOVA 1 → always (perishable)"
+      },
+      "visible": true
+    },
+    {
+      "alias": "clementine-non-eu",
+      "cropGroup": "VERGERS",
+      "cropGroupMatch": {
+        "confidence": 1.0,
+        "rule": "fruit default"
+      },
+      "defaultOrigin": "OutOfEuropeAndMaghreb",
+      "displayName": "Clémentine HORS UE",
+      "id": "91c4bcb6-595d-5e95-a1dc-1584d584e0ce",
       "inediblePart": 0.2,
       "inediblePartMatch": {
         "confidence": 1.0,

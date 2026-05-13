@@ -1,16 +1,16 @@
 {
-  "activityName": "Rye grain {RER}| rye production | Cut-off, U - Adapted from Ecoinvent U",
+  "activityName": "Rye grain {RoW}| rye production | Cut-off, U - Adapted from Ecoinvent U",
   "categories": [
     "ingredient"
   ],
-  "displayName": "Rye grain (RER)",
+  "displayName": "Rye grain (ROW)",
   "id": "52992c30-4b58-5aaa-9383-8d76966683f2",
   "metadata": [
     {
       "alias": "rye-whole-eu",
       "cropGroup": "AUTRES CEREALES",
       "cropGroupMatch": {
-        "confidence": 1.0,
+        "confidence": 0.95,
         "rule": "matched 'seigle' in cropgroup.csv"
       },
       "defaultOrigin": "EuropeAndMaghreb",
@@ -26,7 +26,47 @@
       ],
       "ingredientDensity": 0.705,
       "ingredientDensityMatch": {
-        "confidence": 0.98,
+        "confidence": 0.961,
+        "rule": "Matched with Rye, whole in fao_density.csv"
+      },
+      "rawToCookedRatio": 2.259,
+      "rawToCookedRatioMatch": {
+        "confidence": 1.0,
+        "rule": "grain default from food_type_cooked_to_raw.csv"
+      },
+      "scenario": "import",
+      "scopes": [
+        "food",
+        "food2"
+      ],
+      "transportCooling": "none",
+      "transportCoolingMatch": {
+        "confidence": 1.0,
+        "rule": "grain → none (non-perishable)"
+      },
+      "visible": true
+    },
+    {
+      "alias": "rye-whole-non-eu",
+      "cropGroup": "AUTRES CEREALES",
+      "cropGroupMatch": {
+        "confidence": 0.95,
+        "rule": "matched 'seigle' in cropgroup.csv"
+      },
+      "defaultOrigin": "OutOfEuropeAndMaghreb",
+      "displayName": "Seigle entier HORS UE",
+      "id": "1bc0fd22-11bf-5f70-9eba-f884f1f488f1",
+      "inediblePart": 0.0,
+      "inediblePartMatch": {
+        "confidence": 1.0,
+        "rule": "grain NOVA 1 default from food_type_inedible_part.csv"
+      },
+      "ingredientCategories": [
+        "grain_raw"
+      ],
+      "ingredientDensity": 0.705,
+      "ingredientDensityMatch": {
+        "confidence": 0.961,
         "rule": "Matched with Rye, whole in fao_density.csv"
       },
       "rawToCookedRatio": 2.259,

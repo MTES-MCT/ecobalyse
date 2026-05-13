@@ -9,13 +9,13 @@
   "id": "1d960b87-5360-543c-afb3-592f217fe6cd",
   "metadata": [
     {
-      "alias": "vanilla-alcoholic-or-aqueou-extract-fr-overseas",
+      "alias": "vanilla-fr-overseas",
       "cropGroup": "AUTRES CULTURES INDUSTRIELLES",
       "cropGroupMatch": {
-        "confidence": 1.0,
+        "confidence": 0.95,
         "rule": "matched 'vanille' in cropgroup.csv"
       },
-      "defaultOrigin": "FranceOutreMer",
+      "defaultOrigin": "France",
       "displayName": "Extrait de vanille, alcoolique ou aqueux FR Outre-Mer",
       "id": "56776050-b4f4-5db7-a878-2e2003fff390",
       "inediblePart": 0.0,
@@ -92,12 +92,52 @@
       "alias": "vanilla-eu-antilles",
       "cropGroup": "AUTRES CULTURES INDUSTRIELLES",
       "cropGroupMatch": {
-        "confidence": 1.0,
+        "confidence": 0.95,
         "rule": "matched 'vanille' in cropgroup.csv"
       },
       "defaultOrigin": "EuropeAndMaghreb",
       "displayName": "Extrait de vanille, alcoolique ou aqueux UE Antilles",
       "id": "a8cc0638-9d79-5974-8343-e6cfa913ec5b",
+      "inediblePart": 0.0,
+      "inediblePartMatch": {
+        "confidence": 1.0,
+        "rule": "spice_condiment NOVA 1 default from food_type_inedible_part.csv"
+      },
+      "ingredientCategories": [
+        "spice_condiment_additive"
+      ],
+      "ingredientDensity": 0.5,
+      "ingredientDensityMatch": {
+        "confidence": 1.0,
+        "rule": "spice_condiment default from food_type_density.csv"
+      },
+      "rawToCookedRatio": 1.0,
+      "rawToCookedRatioMatch": {
+        "confidence": 1.0,
+        "rule": "spice_condiment default from food_type_cooked_to_raw.csv"
+      },
+      "scenario": "import",
+      "scopes": [
+        "food",
+        "food2"
+      ],
+      "transportCooling": "none",
+      "transportCoolingMatch": {
+        "confidence": 1.0,
+        "rule": "spice_condiment → none (non-perishable)"
+      },
+      "visible": true
+    },
+    {
+      "alias": "vanilla-non-eu",
+      "cropGroup": "AUTRES CULTURES INDUSTRIELLES",
+      "cropGroupMatch": {
+        "confidence": 0.95,
+        "rule": "matched 'vanille' in cropgroup.csv"
+      },
+      "defaultOrigin": "OutOfEuropeAndMaghreb",
+      "displayName": "Extrait de vanille, alcoolique ou aqueux HORS UE",
+      "id": "77dc04ff-6163-5b79-8657-381436135399",
       "inediblePart": 0.0,
       "inediblePartMatch": {
         "confidence": 1.0,

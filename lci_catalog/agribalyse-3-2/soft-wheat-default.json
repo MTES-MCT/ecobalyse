@@ -13,7 +13,7 @@
       "alias": "soft-wheat-default",
       "cropGroup": "BLE TENDRE",
       "cropGroupMatch": {
-        "confidence": 1.0,
+        "confidence": 0.95,
         "rule": "matched 'wheat' in cropgroup.csv"
       },
       "defaultOrigin": "OutOfEuropeAndMaghreb",
@@ -31,6 +31,46 @@
       "ingredientDensityMatch": {
         "confidence": 0.95,
         "rule": "Matched with Wheat in fao_density.csv"
+      },
+      "rawToCookedRatio": 2.259,
+      "rawToCookedRatioMatch": {
+        "confidence": 1.0,
+        "rule": "grain default from food_type_cooked_to_raw.csv"
+      },
+      "scenario": "import",
+      "scopes": [
+        "food",
+        "food2"
+      ],
+      "transportCooling": "none",
+      "transportCoolingMatch": {
+        "confidence": 1.0,
+        "rule": "grain → none (non-perishable)"
+      },
+      "visible": true
+    },
+    {
+      "alias": "millet-whole-default",
+      "cropGroup": "AUTRES CEREALES",
+      "cropGroupMatch": {
+        "confidence": 0.95,
+        "rule": "matched 'millet' in cropgroup.csv"
+      },
+      "defaultOrigin": "OutOfEuropeAndMaghreb",
+      "displayName": "Millet entier Origine Inconnue",
+      "id": "9591a756-7917-52d6-9b0c-ca286988348e",
+      "inediblePart": 0.0,
+      "inediblePartMatch": {
+        "confidence": 1.0,
+        "rule": "grain NOVA 1 default from food_type_inedible_part.csv"
+      },
+      "ingredientCategories": [
+        "grain_raw"
+      ],
+      "ingredientDensity": 0.64,
+      "ingredientDensityMatch": {
+        "confidence": 0.95,
+        "rule": "Matched with Millet in fao_density.csv"
       },
       "rawToCookedRatio": 2.259,
       "rawToCookedRatioMatch": {

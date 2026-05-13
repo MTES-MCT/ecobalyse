@@ -13,15 +13,15 @@
       "alias": "sunflower-seed-organic",
       "cropGroup": "TOURNESOL",
       "cropGroupMatch": {
-        "confidence": 1.0,
-        "rule": "sunflower pattern"
+        "confidence": 0.95,
+        "rule": "matched 'sunflower' in cropgroup.csv"
       },
       "defaultOrigin": "France",
       "displayName": "Tournesol, graine Bio",
       "id": "df6101fa-9313-5947-aad7-02467496a83c",
       "inediblePart": 0.0,
       "inediblePartMatch": {
-        "confidence": 0.98,
+        "confidence": 0.96,
         "rule": "Matched with sunflower seed in inedible_part.csv"
       },
       "ingredientCategories": [

@@ -10,10 +10,10 @@
   "location": "MG",
   "metadata": [
     {
-      "alias": "vanilla-alcoholic-or-aqueou-extract-default",
+      "alias": "vanilla-default",
       "cropGroup": "AUTRES CULTURES INDUSTRIELLES",
       "cropGroupMatch": {
-        "confidence": 1.0,
+        "confidence": 0.95,
         "rule": "matched 'vanille' in cropgroup.csv"
       },
       "defaultOrigin": "OutOfEuropeAndMaghreb",

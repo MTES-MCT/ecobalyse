@@ -9,10 +9,10 @@
   "id": "fd82f2d0-0857-5328-9307-9273102d36fa",
   "metadata": [
     {
-      "alias": "rice-all-variety-white-wild-c-thai-or-basmati-rice-raw-raw-fr",
+      "alias": "rice-raw-fr",
       "cropGroup": "RIZ",
       "cropGroupMatch": {
-        "confidence": 1.0,
+        "confidence": 0.95,
         "rule": "matched 'rice' in cropgroup.csv"
       },
       "defaultOrigin": "France",

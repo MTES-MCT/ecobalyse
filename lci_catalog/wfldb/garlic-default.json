@@ -54,11 +54,51 @@
       "cropGroup": "LEGUMES-FLEURS",
       "cropGroupMatch": {
         "confidence": 1.0,
-        "rule": "matched 'carrot' in cropgroup.csv"
+        "rule": "vegetable default"
       },
       "defaultOrigin": "EuropeAndMaghreb",
       "displayName": "Ail UE",
       "id": "00d5fa04-b2fd-5a3c-a5fa-c87598ce8a53",
+      "inediblePart": 0.1,
+      "inediblePartMatch": {
+        "confidence": 1.0,
+        "rule": "Matched with Garlic in agb_inedible.csv"
+      },
+      "ingredientCategories": [
+        "vegetable_fresh"
+      ],
+      "ingredientDensity": 0.3,
+      "ingredientDensityMatch": {
+        "confidence": 1.0,
+        "rule": "garlic found in density.csv"
+      },
+      "rawToCookedRatio": 0.856,
+      "rawToCookedRatioMatch": {
+        "confidence": 1.0,
+        "rule": "Matched with garlic in cooked_to_raw.csv"
+      },
+      "scenario": "import",
+      "scopes": [
+        "food",
+        "food2"
+      ],
+      "transportCooling": "always",
+      "transportCoolingMatch": {
+        "confidence": 1.0,
+        "rule": "vegetable NOVA 1 → always (perishable)"
+      },
+      "visible": true
+    },
+    {
+      "alias": "garlic-non-eu",
+      "cropGroup": "LEGUMES-FLEURS",
+      "cropGroupMatch": {
+        "confidence": 1.0,
+        "rule": "vegetable default"
+      },
+      "defaultOrigin": "OutOfEuropeAndMaghreb",
+      "displayName": "Ail HORS UE",
+      "id": "df25f0b8-080e-5dad-9bba-6ce69f59bb6a",
       "inediblePart": 0.1,
       "inediblePartMatch": {
         "confidence": 1.0,

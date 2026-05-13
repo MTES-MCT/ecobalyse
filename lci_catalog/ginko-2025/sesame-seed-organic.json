@@ -11,10 +11,10 @@
   "metadata": [
     {
       "alias": "sesame-seed-organic",
-      "cropGroup": "AUTRES CEREALES",
+      "cropGroup": "SEMENCES",
       "cropGroupMatch": {
-        "confidence": 1.0,
-        "rule": "grain default"
+        "confidence": 0.95,
+        "rule": "matched 'semences epeautre' in cropgroup.csv"
       },
       "defaultOrigin": "France",
       "displayName": "Graines de sésame Bio",

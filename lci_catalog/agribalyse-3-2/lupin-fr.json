@@ -29,7 +29,7 @@
       "ingredientDensity": 0.8,
       "ingredientDensityMatch": {
         "confidence": 1.0,
-        "rule": "Lupin FR found in ingredients.json"
+        "rule": "legume default from food_type_density.csv"
       },
       "rawToCookedRatio": 0.856,
       "rawToCookedRatioMatch": {
@@ -69,7 +69,7 @@
       "ingredientDensity": 0.8,
       "ingredientDensityMatch": {
         "confidence": 1.0,
-        "rule": "Lupin FR found in ingredients.json"
+        "rule": "legume default from food_type_density.csv"
       },
       "rawToCookedRatio": 0.856,
       "rawToCookedRatioMatch": {
@@ -98,6 +98,46 @@
       "defaultOrigin": "EuropeAndMaghreb",
       "displayName": "Lupin UE",
       "id": "9dd4a557-f3f6-5bbb-8410-2e8a2dfc1441",
+      "inediblePart": 0.2,
+      "inediblePartMatch": {
+        "confidence": 1.0,
+        "rule": "legume NOVA 1 default from food_type_inedible_part.csv"
+      },
+      "ingredientCategories": [
+        "vegetable_fresh"
+      ],
+      "ingredientDensity": 0.8,
+      "ingredientDensityMatch": {
+        "confidence": 1.0,
+        "rule": "legume default from food_type_density.csv"
+      },
+      "rawToCookedRatio": 0.856,
+      "rawToCookedRatioMatch": {
+        "confidence": 1.0,
+        "rule": "legume default from food_type_cooked_to_raw.csv"
+      },
+      "scenario": "import",
+      "scopes": [
+        "food",
+        "food2"
+      ],
+      "transportCooling": "always",
+      "transportCoolingMatch": {
+        "confidence": 1.0,
+        "rule": "legume NOVA 1 → always (perishable)"
+      },
+      "visible": true
+    },
+    {
+      "alias": "lupin-non-eu",
+      "cropGroup": "PROTEAGINEUX",
+      "cropGroupMatch": {
+        "confidence": 1.0,
+        "rule": "matched 'lupin' in cropgroup.csv"
+      },
+      "defaultOrigin": "OutOfEuropeAndMaghreb",
+      "displayName": "Lupin HORS UE",
+      "id": "0a199744-fe6e-576f-ad8b-b99ef8c5ac88",
       "inediblePart": 0.2,
       "inediblePartMatch": {
         "confidence": 1.0,

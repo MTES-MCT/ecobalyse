@@ -11,10 +11,10 @@
   "metadata": [
     {
       "alias": "chicory-root-default",
-      "cropGroup": "LEGUMES-FLEURS",
+      "cropGroup": "AUTRES CULTURES INDUSTRIELLES",
       "cropGroupMatch": {
-        "confidence": 1.0,
-        "rule": "vegetable default"
+        "confidence": 0.95,
+        "rule": "matched 'chicory' in cropgroup.csv"
       },
       "defaultOrigin": "OutOfEuropeAndMaghreb",
       "displayName": "Racine de chicorée Origine Inconnue",

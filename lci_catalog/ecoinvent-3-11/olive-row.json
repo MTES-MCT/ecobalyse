@@ -1,0 +1,56 @@
+{
+  "activityName": "Olive {RoW}| olive production | Cut-off, U",
+  "categories": [
+    "ingredient"
+  ],
+  "displayName": "Olive (ROW)",
+  "id": "4061221a-682f-5f3e-974c-2933493298a7",
+  "metadata": [
+    {
+      "alias": "olive-non-eu",
+      "cropGroup": "OLIVIERS",
+      "cropGroupMatch": {
+        "confidence": 0.95,
+        "rule": "matched 'olive' in cropgroup.csv"
+      },
+      "defaultOrigin": "OutOfEuropeAndMaghreb",
+      "displayName": "Olives HORS UE",
+      "id": "70fa757d-1626-5a99-be30-99dff4973485",
+      "inediblePart": 0.5,
+      "inediblePartMatch": {
+        "confidence": 1.0,
+        "rule": "Matched with Olives in agb_inedible.csv"
+      },
+      "ingredientCategories": [
+        "vegetable_fresh"
+      ],
+      "ingredientDensity": 0.65,
+      "ingredientDensityMatch": {
+        "confidence": 0.95,
+        "rule": "Matched with Olives, green, with stone in fao_density.csv"
+      },
+      "rawToCookedRatio": 0.856,
+      "rawToCookedRatioMatch": {
+        "confidence": 1.0,
+        "rule": "fruit default from food_type_cooked_to_raw.csv"
+      },
+      "scenario": "import",
+      "scopes": [
+        "food",
+        "food2"
+      ],
+      "transportCooling": "always",
+      "transportCoolingMatch": {
+        "confidence": 1.0,
+        "rule": "fruit NOVA 1 → always (perishable)"
+      },
+      "visible": false
+    }
+  ],
+  "scopes": [
+    "food",
+    "food2"
+  ],
+  "source": "Ecoinvent 3.11",
+  "unit": "kg"
+}

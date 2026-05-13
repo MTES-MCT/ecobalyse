@@ -13,8 +13,8 @@
       "alias": "barley-whole-default",
       "cropGroup": "ORGE",
       "cropGroupMatch": {
-        "confidence": 1.0,
-        "rule": "barley pattern"
+        "confidence": 0.95,
+        "rule": "matched 'barley' in cropgroup.csv"
       },
       "defaultOrigin": "OutOfEuropeAndMaghreb",
       "displayName": "Orge entière Origine Inconnue",
@@ -27,10 +27,10 @@
       "ingredientCategories": [
         "grain_raw"
       ],
-      "ingredientDensity": 0.75,
+      "ingredientDensity": 0.65,
       "ingredientDensityMatch": {
-        "confidence": 1.0,
-        "rule": "grain default from food_type_density.csv"
+        "confidence": 0.952,
+        "rule": "Matched with Barley, whole in fao_density.csv"
       },
       "rawToCookedRatio": 2.259,
       "rawToCookedRatioMatch": {

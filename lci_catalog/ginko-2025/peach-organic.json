@@ -28,10 +28,10 @@
         "vegetable_fresh",
         "organic"
       ],
-      "ingredientDensity": 0.85,
+      "ingredientDensity": 0.9,
       "ingredientDensityMatch": {
-        "confidence": 1.0,
-        "rule": "fruit default from food_type_density.csv"
+        "confidence": 0.95,
+        "rule": "Matched with peach in density.csv"
       },
       "rawToCookedRatio": 0.856,
       "rawToCookedRatioMatch": {

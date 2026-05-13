@@ -11,8 +11,8 @@
       "alias": "pear-fr",
       "cropGroup": "VERGERS",
       "cropGroupMatch": {
-        "confidence": 1.0,
-        "rule": "fruit default"
+        "confidence": 0.95,
+        "rule": "matched 'poires pour transformation' in cropgroup.csv"
       },
       "defaultOrigin": "France",
       "displayName": "Poires FR",
@@ -25,10 +25,10 @@
       "ingredientCategories": [
         "vegetable_fresh"
       ],
-      "ingredientDensity": 0.85,
+      "ingredientDensity": 0.95,
       "ingredientDensityMatch": {
-        "confidence": 1.0,
-        "rule": "fruit default from food_type_density.csv"
+        "confidence": 0.95,
+        "rule": "Matched with pear in density.csv"
       },
       "rawToCookedRatio": 0.856,
       "rawToCookedRatioMatch": {

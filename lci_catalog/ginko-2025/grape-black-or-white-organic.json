@@ -10,11 +10,11 @@
   "location": "IT",
   "metadata": [
     {
-      "alias": "grape-black-or-white-organic",
+      "alias": "grape-organic",
       "cropGroup": "VIGNES",
       "cropGroupMatch": {
-        "confidence": 1.0,
-        "rule": "grape/wine pattern"
+        "confidence": 0.95,
+        "rule": "matched 'grape' in cropgroup.csv"
       },
       "defaultOrigin": "France",
       "displayName": "Raisins (noirs ou blancs) Bio",
@@ -28,10 +28,10 @@
         "vegetable_fresh",
         "organic"
       ],
-      "ingredientDensity": 0.85,
+      "ingredientDensity": 1.0,
       "ingredientDensityMatch": {
-        "confidence": 1.0,
-        "rule": "fruit default from food_type_density.csv"
+        "confidence": 0.95,
+        "rule": "Matched with grape in density.csv"
       },
       "rawToCookedRatio": 0.856,
       "rawToCookedRatioMatch": {

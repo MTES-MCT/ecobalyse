@@ -1,0 +1,117 @@
+{
+  "activityName": "Rapeseed, at farm {GLO} - Adapted from WFLDB U",
+  "categories": [
+    "ingredient",
+    "material"
+  ],
+  "displayName": "Colza UE",
+  "id": "37bf23d8-2c84-5aee-8715-8b38424ce44f",
+  "metadata": [
+    {
+      "alias": "rapeseed-eu-2025",
+      "cropGroup": "COLZA",
+      "defaultOrigin": "EuropeAndMaghreb",
+      "displayName": "Colza UE (2025)",
+      "explain": "icv UE = icv Glo",
+      "id": "33e9d781-cdd1-4a9b-a6b6-18ee8855c996",
+      "inediblePart": 0,
+      "ingredientCategories": [
+        "nut_oilseed_raw"
+      ],
+      "ingredientDensity": 0.72,
+      "rawToCookedRatio": 1.0,
+      "scenario": "import",
+      "scopes": [
+        "food",
+        "food2"
+      ],
+      "transportCooling": "none",
+      "visible": false
+    },
+    {
+      "alias": "rapeseed-default",
+      "cropGroup": "COLZA",
+      "cropGroupMatch": {
+        "confidence": 1.0,
+        "rule": "matched 'rapeseed' in cropgroup.csv"
+      },
+      "defaultOrigin": "OutOfEuropeAndMaghreb",
+      "displayName": "Colza Origine Inconnue",
+      "id": "c1be6c42-5f21-5afc-af09-1cd4c2f426b6",
+      "inediblePart": 0.5,
+      "inediblePartMatch": {
+        "confidence": 1.0,
+        "rule": "nut_oilseed NOVA 1 default from food_type_inedible_part.csv"
+      },
+      "ingredientCategories": [
+        "nut_oilseed_raw"
+      ],
+      "ingredientDensity": 0.77,
+      "ingredientDensityMatch": {
+        "confidence": 1.0,
+        "rule": "Rapeseed found in fao_density.csv"
+      },
+      "rawToCookedRatio": 2.259,
+      "rawToCookedRatioMatch": {
+        "confidence": 1.0,
+        "rule": "Matched with rapeseed in cooked_to_raw.csv"
+      },
+      "scenario": "import",
+      "scopes": [
+        "food",
+        "food2"
+      ],
+      "transportCooling": "none",
+      "transportCoolingMatch": {
+        "confidence": 1.0,
+        "rule": "nut_oilseed → none (non-perishable)"
+      },
+      "visible": true
+    },
+    {
+      "alias": "rapeseed-non-eu",
+      "cropGroup": "COLZA",
+      "cropGroupMatch": {
+        "confidence": 1.0,
+        "rule": "matched 'rapeseed' in cropgroup.csv"
+      },
+      "defaultOrigin": "OutOfEuropeAndMaghreb",
+      "displayName": "Colza HORS UE",
+      "id": "8f2dd82b-c471-5282-a464-cfe564a165e8",
+      "inediblePart": 0.5,
+      "inediblePartMatch": {
+        "confidence": 1.0,
+        "rule": "nut_oilseed NOVA 1 default from food_type_inedible_part.csv"
+      },
+      "ingredientCategories": [
+        "nut_oilseed_raw"
+      ],
+      "ingredientDensity": 0.77,
+      "ingredientDensityMatch": {
+        "confidence": 1.0,
+        "rule": "Rapeseed found in fao_density.csv"
+      },
+      "rawToCookedRatio": 2.259,
+      "rawToCookedRatioMatch": {
+        "confidence": 1.0,
+        "rule": "Matched with rapeseed in cooked_to_raw.csv"
+      },
+      "scenario": "import",
+      "scopes": [
+        "food",
+        "food2"
+      ],
+      "transportCooling": "none",
+      "transportCoolingMatch": {
+        "confidence": 1.0,
+        "rule": "nut_oilseed → none (non-perishable)"
+      },
+      "visible": true
+    }
+  ],
+  "scopes": [
+    "food",
+    "food2"
+  ],
+  "source": "Agribalyse 3.2"
+}

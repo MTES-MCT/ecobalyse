@@ -31,7 +31,7 @@
       "ingredientDensity": 0.63,
       "ingredientDensityMatch": {
         "confidence": 0.95,
-        "rule": "Matched with Cassava, boiled in fao_density.csv"
+        "rule": "Matched with Cassava, raw in fao_density.csv"
       },
       "rawToCookedRatio": 0.856,
       "rawToCookedRatioMatch": {
@@ -96,7 +96,7 @@
       "cropGroup": "LEGUMES-FLEURS",
       "cropGroupMatch": {
         "confidence": 1.0,
-        "rule": "matched 'chou-fleur' in cropgroup.csv"
+        "rule": "vegetable default"
       },
       "defaultOrigin": "France",
       "displayName": "Igname Bio",

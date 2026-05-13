@@ -1,0 +1,37 @@
+{
+  "activityName": "Emmental cheese, from cow's milk, at plant {FR} U",
+  "categories": [
+    "ingredient",
+    "material",
+    "material_type:other_food_items"
+  ],
+  "displayName": "Emmental FR",
+  "id": "c6051714-549e-540b-9f88-9d7c34c82ec8",
+  "metadata": [
+    {
+      "alias": "emmental-2025",
+      "defaultOrigin": "France",
+      "displayName": "Emmental FR (2025)",
+      "explain": "A voir si transport bien réfrigéré ?\nBonus à modifier en fonction des données du cahier des charges.",
+      "id": "74314f2e-aa88-4ac1-aa78-bb29dceebf0b",
+      "inediblePart": 0,
+      "ingredientCategories": [
+        "dairy_product"
+      ],
+      "ingredientDensity": 1.0,
+      "rawToCookedRatio": 1.0,
+      "scenario": "reference",
+      "scopes": [
+        "food",
+        "food2"
+      ],
+      "transportCooling": "always",
+      "visible": true
+    }
+  ],
+  "scopes": [
+    "food",
+    "food2"
+  ],
+  "source": "Agribalyse 3.2"
+}

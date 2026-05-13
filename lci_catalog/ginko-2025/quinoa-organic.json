@@ -31,7 +31,7 @@
       "ingredientDensity": 0.75,
       "ingredientDensityMatch": {
         "confidence": 1.0,
-        "rule": "Quinoa FR found in ingredients.json"
+        "rule": "grain default from food_type_density.csv"
       },
       "rawToCookedRatio": 2.259,
       "rawToCookedRatioMatch": {

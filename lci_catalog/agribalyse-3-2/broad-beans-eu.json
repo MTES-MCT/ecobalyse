@@ -272,10 +272,10 @@
     },
     {
       "alias": "lima-bean-eu",
-      "cropGroup": "PROTEAGINEUX",
+      "cropGroup": "LEGUMINEUSES A GRAIN",
       "cropGroupMatch": {
         "confidence": 1.0,
-        "rule": "matched 'spring faba' in cropgroup.csv"
+        "rule": "legume default"
       },
       "defaultOrigin": "EuropeAndMaghreb",
       "displayName": "Haricots de Lima UE",

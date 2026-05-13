@@ -10,12 +10,52 @@
       "alias": "rice-raw-eu",
       "cropGroup": "RIZ",
       "cropGroupMatch": {
-        "confidence": 1.0,
+        "confidence": 0.95,
         "rule": "matched 'rice' in cropgroup.csv"
       },
       "defaultOrigin": "EuropeAndMaghreb",
       "displayName": "Riz cru, toutes variétés (blanc, sauvage, riz thaï ou basmati, cru) UE",
       "id": "4b967a1f-c621-5c68-878e-4c75a712b4ff",
+      "inediblePart": 0.0,
+      "inediblePartMatch": {
+        "confidence": 1.0,
+        "rule": "grain NOVA 1 default from food_type_inedible_part.csv"
+      },
+      "ingredientCategories": [
+        "grain_raw"
+      ],
+      "ingredientDensity": 0.85,
+      "ingredientDensityMatch": {
+        "confidence": 0.95,
+        "rule": "Matched with Rice, raw in fao_density.csv"
+      },
+      "rawToCookedRatio": 2.259,
+      "rawToCookedRatioMatch": {
+        "confidence": 1.0,
+        "rule": "grain default from food_type_cooked_to_raw.csv"
+      },
+      "scenario": "import",
+      "scopes": [
+        "food",
+        "food2"
+      ],
+      "transportCooling": "none",
+      "transportCoolingMatch": {
+        "confidence": 1.0,
+        "rule": "grain → none (non-perishable)"
+      },
+      "visible": true
+    },
+    {
+      "alias": "rice-raw-non-eu",
+      "cropGroup": "RIZ",
+      "cropGroupMatch": {
+        "confidence": 0.95,
+        "rule": "matched 'rice' in cropgroup.csv"
+      },
+      "defaultOrigin": "OutOfEuropeAndMaghreb",
+      "displayName": "Riz cru, toutes variétés (blanc, sauvage, riz thaï ou basmati, cru) HORS UE",
+      "id": "eb910448-ee1f-5483-8ba9-1280ea8ff613",
       "inediblePart": 0.0,
       "inediblePartMatch": {
         "confidence": 1.0,

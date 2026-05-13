@@ -12,8 +12,8 @@
       "alias": "rye-whole-fr",
       "cropGroup": "AUTRES CEREALES",
       "cropGroupMatch": {
-        "confidence": 1.0,
-        "rule": "grain default"
+        "confidence": 0.95,
+        "rule": "matched 'seigle' in cropgroup.csv"
       },
       "defaultOrigin": "France",
       "displayName": "Seigle entier FR",
@@ -26,10 +26,10 @@
       "ingredientCategories": [
         "grain_raw"
       ],
-      "ingredientDensity": 0.75,
+      "ingredientDensity": 0.705,
       "ingredientDensityMatch": {
-        "confidence": 1.0,
-        "rule": "grain default from food_type_density.csv"
+        "confidence": 0.961,
+        "rule": "Matched with Rye, whole in fao_density.csv"
       },
       "rawToCookedRatio": 2.259,
       "rawToCookedRatioMatch": {

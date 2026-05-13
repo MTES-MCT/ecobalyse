@@ -28,10 +28,10 @@
         "grain_raw",
         "organic"
       ],
-      "ingredientDensity": 0.54,
+      "ingredientDensity": 0.535,
       "ingredientDensityMatch": {
-        "confidence": 1.0,
-        "rule": "Sorgho FR found in ingredients.json"
+        "confidence": 0.95,
+        "rule": "Matched with Sorghum, seed in fao_density.csv"
       },
       "rawToCookedRatio": 2.259,
       "rawToCookedRatioMatch": {

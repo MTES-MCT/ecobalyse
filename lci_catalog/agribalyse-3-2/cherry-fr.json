@@ -50,10 +50,10 @@
     },
     {
       "alias": "greengage-plum-fr",
-      "cropGroup": "ARBORICULTURE",
+      "cropGroup": "VERGERS",
       "cropGroupMatch": {
         "confidence": 1.0,
-        "rule": "matched 'banane export' in cropgroup.csv"
+        "rule": "fruit default"
       },
       "defaultOrigin": "France",
       "displayName": "Prune reine-claude FR",

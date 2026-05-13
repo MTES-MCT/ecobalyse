@@ -9,6 +9,46 @@
   "id": "9507422d-6b86-5782-be6e-a41828b55a8a",
   "metadata": [
     {
+      "alias": "kumquat-fr",
+      "cropGroup": "VERGERS",
+      "cropGroupMatch": {
+        "confidence": 1.0,
+        "rule": "fruit default"
+      },
+      "defaultOrigin": "France",
+      "displayName": "Kumquat FR",
+      "id": "6caaa004-8117-50c2-9977-8511cbb3e23f",
+      "inediblePart": 0.2,
+      "inediblePartMatch": {
+        "confidence": 1.0,
+        "rule": "fruit NOVA 1 default from food_type_inedible_part.csv"
+      },
+      "ingredientCategories": [
+        "vegetable_fresh"
+      ],
+      "ingredientDensity": 0.85,
+      "ingredientDensityMatch": {
+        "confidence": 1.0,
+        "rule": "fruit default from food_type_density.csv"
+      },
+      "rawToCookedRatio": 0.856,
+      "rawToCookedRatioMatch": {
+        "confidence": 1.0,
+        "rule": "fruit default from food_type_cooked_to_raw.csv"
+      },
+      "scenario": "reference",
+      "scopes": [
+        "food",
+        "food2"
+      ],
+      "transportCooling": "always",
+      "transportCoolingMatch": {
+        "confidence": 1.0,
+        "rule": "fruit NOVA 1 → always (perishable)"
+      },
+      "visible": true
+    },
+    {
       "alias": "grapefruit-fr",
       "cropGroup": "VIGNES",
       "cropGroupMatch": {
@@ -52,8 +92,8 @@
       "alias": "orange-fr",
       "cropGroup": "VERGERS",
       "cropGroupMatch": {
-        "confidence": 1.0,
-        "rule": "fruit default"
+        "confidence": 0.95,
+        "rule": "matched 'orange' in cropgroup.csv"
       },
       "defaultOrigin": "France",
       "displayName": "Oranges FR",
@@ -68,8 +108,8 @@
       ],
       "ingredientDensity": 0.95,
       "ingredientDensityMatch": {
-        "confidence": 1.0,
-        "rule": "Oranges FR found in ingredients.json"
+        "confidence": 0.95,
+        "rule": "Matched with orange in density.csv"
       },
       "rawToCookedRatio": 0.856,
       "rawToCookedRatioMatch": {

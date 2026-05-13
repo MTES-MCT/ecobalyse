@@ -7,13 +7,13 @@
   "id": "b89c1ad9-ab9a-5c2d-a258-5a53c15be4cd",
   "metadata": [
     {
-      "alias": "beef-organic",
+      "alias": "beef-organic-2025",
       "animalGroup1": "cattle",
       "animalGroup2": "cow",
       "animalProduct": "meat",
       "defaultOrigin": "France",
-      "displayName": "Boeuf Bio",
-      "id": "ee9f059d-cb4f-5e74-9981-7ced79fdc330",
+      "displayName": "Boeuf Bio (2025)",
+      "id": "bd3ffa87-e790-51ae-aa9b-10c49b581184",
       "inediblePart": 0.05,
       "inediblePartMatch": {
         "confidence": 1.0,

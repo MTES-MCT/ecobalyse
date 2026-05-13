@@ -11,10 +11,10 @@
   "metadata": [
     {
       "alias": "spring-pea-organic",
-      "cropGroup": "LEGUMINEUSES A GRAIN",
+      "cropGroup": "PROTEAGINEUX",
       "cropGroupMatch": {
-        "confidence": 1.0,
-        "rule": "legume default"
+        "confidence": 0.95,
+        "rule": "matched 'pois de printemps' in cropgroup.csv"
       },
       "defaultOrigin": "France",
       "displayName": "Pois de printemps Bio",
@@ -30,8 +30,8 @@
       ],
       "ingredientDensity": 0.8,
       "ingredientDensityMatch": {
-        "confidence": 1.0,
-        "rule": "legume default from food_type_density.csv"
+        "confidence": 0.95,
+        "rule": "Matched with pea in density.csv"
       },
       "rawToCookedRatio": 1.0,
       "rawToCookedRatioMatch": {

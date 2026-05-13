@@ -10,11 +10,11 @@
   "location": "FR",
   "metadata": [
     {
-      "alias": "melon-honeydew-charentai-cataloupe-cavaillon-default",
-      "cropGroup": "VERGERS",
+      "alias": "melon-default",
+      "cropGroup": "LEGUMES-FLEURS",
       "cropGroupMatch": {
-        "confidence": 1.0,
-        "rule": "fruit default"
+        "confidence": 0.95,
+        "rule": "matched 'melon' in cropgroup.csv"
       },
       "defaultOrigin": "OutOfEuropeAndMaghreb",
       "displayName": "Melon (miellat, Charentais, Cataloupe, Cavaillon) Origine Inconnue",
@@ -29,8 +29,8 @@
       ],
       "ingredientDensity": 0.85,
       "ingredientDensityMatch": {
-        "confidence": 0.98,
-        "rule": "Matched with Melon (miellat, Charentais, Cataloupe, Cavaillon) FR in ingredients.json"
+        "confidence": 1.0,
+        "rule": "fruit default from food_type_density.csv"
       },
       "rawToCookedRatio": 0.856,
       "rawToCookedRatioMatch": {

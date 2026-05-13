@@ -10,10 +10,10 @@
   "metadata": [
     {
       "alias": "chia-seed-dried-default",
-      "cropGroup": "LEGUMES-FLEURS",
+      "cropGroup": "SEMENCES",
       "cropGroupMatch": {
-        "confidence": 1.0,
-        "rule": "vegetable default"
+        "confidence": 0.95,
+        "rule": "matched 'semences epeautre' in cropgroup.csv"
       },
       "defaultOrigin": "OutOfEuropeAndMaghreb",
       "displayName": "Graines de chia Origine Inconnue",
@@ -52,7 +52,7 @@
       "alias": "cucurbitacea-seed-default",
       "cropGroup": "SEMENCES",
       "cropGroupMatch": {
-        "confidence": 1.0,
+        "confidence": 0.95,
         "rule": "matched 'semences epeautre' in cropgroup.csv"
       },
       "defaultOrigin": "OutOfEuropeAndMaghreb",
@@ -90,17 +90,17 @@
     },
     {
       "alias": "poppy-seed-default",
-      "cropGroup": "AUTRES OLEAGINEUX",
+      "cropGroup": "SEMENCES",
       "cropGroupMatch": {
-        "confidence": 1.0,
-        "rule": "oilseed pattern"
+        "confidence": 0.95,
+        "rule": "matched 'semences epeautre' in cropgroup.csv"
       },
       "defaultOrigin": "OutOfEuropeAndMaghreb",
       "displayName": "Graines de pavot Origine Inconnue",
       "id": "1972fc81-8757-516d-9208-a2c521a31967",
       "inediblePart": 0.0,
       "inediblePartMatch": {
-        "confidence": 0.98,
+        "confidence": 0.961,
         "rule": "Matched with poppy seed in inedible_part.csv"
       },
       "ingredientCategories": [
@@ -146,10 +146,10 @@
       "ingredientCategories": [
         "vegetable_fresh"
       ],
-      "ingredientDensity": 0.8,
+      "ingredientDensity": 0.745,
       "ingredientDensityMatch": {
-        "confidence": 1.0,
-        "rule": "legume default from food_type_density.csv"
+        "confidence": 0.95,
+        "rule": "Matched with Alfalfa, seed in fao_density.csv"
       },
       "rawToCookedRatio": 0.856,
       "rawToCookedRatioMatch": {

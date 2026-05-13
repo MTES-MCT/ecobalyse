@@ -7,7 +7,7 @@
   ],
   "displayName": "Œuf Origine Inconnue",
   "id": "001c68f3-e5ba-5f66-84e4-13594098e02a",
-  "location": "DE",
+  "location": "CA",
   "metadata": [
     {
       "alias": "egg-default",
@@ -55,6 +55,44 @@
       "defaultOrigin": "EuropeAndMaghreb",
       "displayName": "Œuf UE",
       "id": "25ffe2a6-8bb1-59c2-ab4b-723933ad0640",
+      "inediblePart": 0.1,
+      "inediblePartMatch": {
+        "confidence": 1.0,
+        "rule": "Matched with Egg in agb_inedible.csv"
+      },
+      "ingredientCategories": [
+        "animal_product"
+      ],
+      "ingredientDensity": 1.0,
+      "ingredientDensityMatch": {
+        "confidence": 1.0,
+        "rule": "egg found in density.csv"
+      },
+      "rawToCookedRatio": 0.974,
+      "rawToCookedRatioMatch": {
+        "confidence": 1.0,
+        "rule": "Matched with egg in cooked_to_raw.csv"
+      },
+      "scenario": "import",
+      "scopes": [
+        "food",
+        "food2"
+      ],
+      "transportCooling": "always",
+      "transportCoolingMatch": {
+        "confidence": 1.0,
+        "rule": "meat NOVA 1 → always (perishable)"
+      },
+      "visible": true
+    },
+    {
+      "alias": "egg-non-eu",
+      "animalGroup1": "poultry",
+      "animalGroup2": "chicken",
+      "animalProduct": "egg",
+      "defaultOrigin": "OutOfEuropeAndMaghreb",
+      "displayName": "Œuf HORS UE",
+      "id": "9122a17b-7a34-5e33-8416-4186310baafc",
       "inediblePart": 0.1,
       "inediblePartMatch": {
         "confidence": 1.0,

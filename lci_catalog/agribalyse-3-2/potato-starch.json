@@ -1,0 +1,37 @@
+{
+  "activityName": "Potato starch {GLO}| market for | Cut-off, S - Copied from Ecoinvent U",
+  "categories": [
+    "ingredient",
+    "material",
+    "material_type:other_food_items"
+  ],
+  "displayName": "Fécule de pomme de terre par défaut",
+  "id": "8bfee7f3-3f0e-54f1-8f71-55933c720a03",
+  "metadata": [
+    {
+      "alias": "potato-starch-2025",
+      "cropGroup": "LEGUMES-FLEURS",
+      "defaultOrigin": "OutOfEuropeAndMaghreb",
+      "displayName": "Fécule de pomme de terre par défaut (2025)",
+      "id": "b042c68d-6c0d-448d-91e6-7a8a424abd4a",
+      "inediblePart": 0,
+      "ingredientCategories": [
+        "vegetable_processed"
+      ],
+      "ingredientDensity": 0.72,
+      "rawToCookedRatio": 1.0,
+      "scenario": "import",
+      "scopes": [
+        "food",
+        "food2"
+      ],
+      "transportCooling": "none",
+      "visible": true
+    }
+  ],
+  "scopes": [
+    "food",
+    "food2"
+  ],
+  "source": "Agribalyse 3.2"
+}

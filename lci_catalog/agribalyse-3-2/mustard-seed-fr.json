@@ -10,10 +10,10 @@
   "metadata": [
     {
       "alias": "mustard-seed-fr",
-      "cropGroup": "DIVERS",
+      "cropGroup": "AUTRES CULTURES INDUSTRIELLES",
       "cropGroupMatch": {
-        "confidence": 1.0,
-        "rule": "spice_condiment default"
+        "confidence": 0.95,
+        "rule": "matched 'moutarde' in cropgroup.csv"
       },
       "defaultOrigin": "France",
       "displayName": "Graines de moutarde FR",
@@ -26,10 +26,10 @@
       "ingredientCategories": [
         "spice_condiment_additive"
       ],
-      "ingredientDensity": 0.5,
+      "ingredientDensity": 1.0,
       "ingredientDensityMatch": {
-        "confidence": 1.0,
-        "rule": "spice_condiment default from food_type_density.csv"
+        "confidence": 0.95,
+        "rule": "Matched with mustard in density.csv"
       },
       "rawToCookedRatio": 1.0,
       "rawToCookedRatioMatch": {
@@ -50,10 +50,10 @@
     },
     {
       "alias": "mustard-seed-default",
-      "cropGroup": "DIVERS",
+      "cropGroup": "AUTRES CULTURES INDUSTRIELLES",
       "cropGroupMatch": {
-        "confidence": 1.0,
-        "rule": "spice_condiment default"
+        "confidence": 0.95,
+        "rule": "matched 'moutarde' in cropgroup.csv"
       },
       "defaultOrigin": "OutOfEuropeAndMaghreb",
       "displayName": "Graines de moutarde Origine Inconnue",
@@ -66,10 +66,10 @@
       "ingredientCategories": [
         "spice_condiment_additive"
       ],
-      "ingredientDensity": 0.5,
+      "ingredientDensity": 1.0,
       "ingredientDensityMatch": {
-        "confidence": 1.0,
-        "rule": "spice_condiment default from food_type_density.csv"
+        "confidence": 0.95,
+        "rule": "Matched with mustard in density.csv"
       },
       "rawToCookedRatio": 1.0,
       "rawToCookedRatioMatch": {
@@ -92,12 +92,52 @@
       "alias": "mustard-seed-eu",
       "cropGroup": "AUTRES CULTURES INDUSTRIELLES",
       "cropGroupMatch": {
-        "confidence": 1.0,
+        "confidence": 0.95,
         "rule": "matched 'moutarde' in cropgroup.csv"
       },
       "defaultOrigin": "EuropeAndMaghreb",
       "displayName": "Graines de moutarde UE",
       "id": "916b5e85-7f90-5c74-ad85-d716518d04ac",
+      "inediblePart": 0.0,
+      "inediblePartMatch": {
+        "confidence": 0.95,
+        "rule": "Matched with mustard in inedible_part.csv"
+      },
+      "ingredientCategories": [
+        "spice_condiment_additive"
+      ],
+      "ingredientDensity": 1.0,
+      "ingredientDensityMatch": {
+        "confidence": 0.95,
+        "rule": "Matched with mustard in density.csv"
+      },
+      "rawToCookedRatio": 1.0,
+      "rawToCookedRatioMatch": {
+        "confidence": 0.95,
+        "rule": "Matched with mustard in cooked_to_raw.csv"
+      },
+      "scenario": "import",
+      "scopes": [
+        "food",
+        "food2"
+      ],
+      "transportCooling": "none",
+      "transportCoolingMatch": {
+        "confidence": 1.0,
+        "rule": "spice_condiment → none (non-perishable)"
+      },
+      "visible": true
+    },
+    {
+      "alias": "mustard-seed-non-eu",
+      "cropGroup": "AUTRES CULTURES INDUSTRIELLES",
+      "cropGroupMatch": {
+        "confidence": 0.95,
+        "rule": "matched 'moutarde' in cropgroup.csv"
+      },
+      "defaultOrigin": "OutOfEuropeAndMaghreb",
+      "displayName": "Graines de moutarde HORS UE",
+      "id": "1ef72379-1224-5d01-a733-3562c730728a",
       "inediblePart": 0.0,
       "inediblePartMatch": {
         "confidence": 0.95,

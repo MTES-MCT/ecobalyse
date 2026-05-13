@@ -1,0 +1,80 @@
+{
+  "activityName": "Radish, organic 2025 {FR}| radish production, in unheated greenhouse | Cut-off, U",
+  "categories": [
+    "ingredient",
+    "material"
+  ],
+  "displayName": "Radis Bio",
+  "id": "d0192856-fcd0-5f56-90d6-f8707cf835fc",
+  "location": "FR",
+  "metadata": [
+    {
+      "alias": "radish-organic-2025",
+      "cropGroup": "LEGUMES-FLEURS",
+      "defaultOrigin": "France",
+      "displayName": "Radis Bio (2025)",
+      "explain": "radis bio = radio bio glo ginko",
+      "id": "076b3d53-fc81-454b-9c90-e19767de8b0b",
+      "inediblePart": 0.1,
+      "ingredientCategories": [
+        "vegetable_fresh",
+        "organic"
+      ],
+      "ingredientDensity": 0.6375,
+      "rawToCookedRatio": 1.0,
+      "scenario": "organic",
+      "scopes": [
+        "food",
+        "food2"
+      ],
+      "transportCooling": "always",
+      "visible": true
+    },
+    {
+      "alias": "radish-organic",
+      "cropGroup": "LEGUMES-FLEURS",
+      "cropGroupMatch": {
+        "confidence": 1.0,
+        "rule": "vegetable default"
+      },
+      "defaultOrigin": "France",
+      "displayName": "Radis Bio",
+      "id": "3339f591-583c-5906-af4e-491e299d5d7c",
+      "inediblePart": 0.03,
+      "inediblePartMatch": {
+        "confidence": 1.0,
+        "rule": "Matched with Radish in agb_inedible.csv"
+      },
+      "ingredientCategories": [
+        "vegetable_fresh",
+        "organic"
+      ],
+      "ingredientDensity": 0.6,
+      "ingredientDensityMatch": {
+        "confidence": 1.0,
+        "rule": "radish found in density.csv"
+      },
+      "rawToCookedRatio": 0.856,
+      "rawToCookedRatioMatch": {
+        "confidence": 1.0,
+        "rule": "Matched with radish in cooked_to_raw.csv"
+      },
+      "scenario": "organic",
+      "scopes": [
+        "food",
+        "food2"
+      ],
+      "transportCooling": "always",
+      "transportCoolingMatch": {
+        "confidence": 1.0,
+        "rule": "vegetable NOVA 1 → always (perishable)"
+      },
+      "visible": true
+    }
+  ],
+  "scopes": [
+    "food",
+    "food2"
+  ],
+  "source": "Ginko 2025"
+}

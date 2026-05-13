@@ -21,7 +21,7 @@
       "id": "999485a8-08af-5135-bf2c-48ce04c68f81",
       "inediblePart": 0.1,
       "inediblePartMatch": {
-        "confidence": 0.98,
+        "confidence": 0.95,
         "rule": "Matched with Potatoes in agb_inedible.csv"
       },
       "ingredientCategories": [

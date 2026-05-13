@@ -35,11 +35,6 @@
       "animalGroup1": "poultry",
       "animalGroup2": "chicken",
       "animalProduct": "meat",
-      "cropGroup": "PRAIRIES PERMANENTES",
-      "cropGroupMatch": {
-        "confidence": 1.0,
-        "rule": "matched 'prairies naturelles' in cropgroup.csv"
-      },
       "defaultOrigin": "France",
       "displayName": "Poulet FR",
       "id": "5b787acc-bc8d-5c7a-907c-09441b47151d",
@@ -138,6 +133,120 @@
         "rule": "poultry keyword found in Rabbit"
       },
       "scenario": "reference",
+      "scopes": [
+        "food",
+        "food2"
+      ],
+      "transportCooling": "always",
+      "transportCoolingMatch": {
+        "confidence": 1.0,
+        "rule": "meat NOVA 1 → always (perishable)"
+      },
+      "visible": false
+    },
+    {
+      "alias": "broiler-default",
+      "animalGroup1": "poultry",
+      "animalGroup2": "chicken",
+      "animalProduct": "meat",
+      "defaultOrigin": "OutOfEuropeAndMaghreb",
+      "displayName": "Poulet Origine Inconnue",
+      "id": "8d3a194f-b478-556c-bacc-18d452baefa4",
+      "inediblePart": 0.05,
+      "inediblePartMatch": {
+        "confidence": 1.0,
+        "rule": "meat NOVA 1 default from food_type_inedible_part.csv"
+      },
+      "ingredientCategories": [
+        "animal_product"
+      ],
+      "ingredientDensity": 1.05,
+      "ingredientDensityMatch": {
+        "confidence": 1.0,
+        "rule": "meat default from food_type_density.csv"
+      },
+      "rawToCookedRatio": 0.755,
+      "rawToCookedRatioMatch": {
+        "confidence": 1.0,
+        "rule": "poultry keyword found in Broiler"
+      },
+      "scenario": "import",
+      "scopes": [
+        "food",
+        "food2"
+      ],
+      "transportCooling": "always",
+      "transportCoolingMatch": {
+        "confidence": 1.0,
+        "rule": "meat NOVA 1 → always (perishable)"
+      },
+      "visible": false
+    },
+    {
+      "alias": "poultry-default",
+      "animalGroup1": "poultry",
+      "animalGroup2": "chicken",
+      "animalProduct": "meat",
+      "defaultOrigin": "OutOfEuropeAndMaghreb",
+      "displayName": "Volaille Origine Inconnue",
+      "id": "c7b79f39-3672-530e-8966-f612b67de746",
+      "inediblePart": 0.05,
+      "inediblePartMatch": {
+        "confidence": 1.0,
+        "rule": "meat NOVA 1 default from food_type_inedible_part.csv"
+      },
+      "ingredientCategories": [
+        "animal_product"
+      ],
+      "ingredientDensity": 1.05,
+      "ingredientDensityMatch": {
+        "confidence": 1.0,
+        "rule": "meat default from food_type_density.csv"
+      },
+      "rawToCookedRatio": 0.755,
+      "rawToCookedRatioMatch": {
+        "confidence": 1.0,
+        "rule": "poultry keyword found in Poultry"
+      },
+      "scenario": "import",
+      "scopes": [
+        "food",
+        "food2"
+      ],
+      "transportCooling": "always",
+      "transportCoolingMatch": {
+        "confidence": 1.0,
+        "rule": "meat NOVA 1 → always (perishable)"
+      },
+      "visible": false
+    },
+    {
+      "alias": "rabbit-default",
+      "animalGroup1": "poultry",
+      "animalGroup2": "chicken",
+      "animalProduct": "meat",
+      "defaultOrigin": "OutOfEuropeAndMaghreb",
+      "displayName": "Lapin Origine Inconnue",
+      "id": "1e72c100-92f9-54e3-8289-d8efc3890acc",
+      "inediblePart": 0.05,
+      "inediblePartMatch": {
+        "confidence": 1.0,
+        "rule": "meat NOVA 1 default from food_type_inedible_part.csv"
+      },
+      "ingredientCategories": [
+        "animal_product"
+      ],
+      "ingredientDensity": 1.0,
+      "ingredientDensityMatch": {
+        "confidence": 1.0,
+        "rule": "rabbit found in density.csv"
+      },
+      "rawToCookedRatio": 0.755,
+      "rawToCookedRatioMatch": {
+        "confidence": 1.0,
+        "rule": "poultry keyword found in Rabbit"
+      },
+      "scenario": "import",
       "scopes": [
         "food",
         "food2"

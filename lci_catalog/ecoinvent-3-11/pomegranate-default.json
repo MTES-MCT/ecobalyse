@@ -14,7 +14,7 @@
       "cropGroup": "VERGERS",
       "cropGroupMatch": {
         "confidence": 1.0,
-        "rule": "matched 'orange' in cropgroup.csv"
+        "rule": "fruit default"
       },
       "defaultOrigin": "OutOfEuropeAndMaghreb",
       "displayName": "Grenade Origine Inconnue",
@@ -54,11 +54,51 @@
       "cropGroup": "VERGERS",
       "cropGroupMatch": {
         "confidence": 1.0,
-        "rule": "matched 'orange' in cropgroup.csv"
+        "rule": "fruit default"
       },
       "defaultOrigin": "EuropeAndMaghreb",
       "displayName": "Grenade UE",
       "id": "3a8121a5-b26a-519b-8f86-1ee6783aa892",
+      "inediblePart": 0.2,
+      "inediblePartMatch": {
+        "confidence": 1.0,
+        "rule": "Matched with Pomegranate in agb_inedible.csv"
+      },
+      "ingredientCategories": [
+        "vegetable_fresh"
+      ],
+      "ingredientDensity": 0.85,
+      "ingredientDensityMatch": {
+        "confidence": 1.0,
+        "rule": "fruit default from food_type_density.csv"
+      },
+      "rawToCookedRatio": 0.856,
+      "rawToCookedRatioMatch": {
+        "confidence": 1.0,
+        "rule": "fruit default from food_type_cooked_to_raw.csv"
+      },
+      "scenario": "import",
+      "scopes": [
+        "food",
+        "food2"
+      ],
+      "transportCooling": "always",
+      "transportCoolingMatch": {
+        "confidence": 1.0,
+        "rule": "fruit NOVA 1 → always (perishable)"
+      },
+      "visible": true
+    },
+    {
+      "alias": "pomegranate-non-eu",
+      "cropGroup": "VERGERS",
+      "cropGroupMatch": {
+        "confidence": 1.0,
+        "rule": "fruit default"
+      },
+      "defaultOrigin": "OutOfEuropeAndMaghreb",
+      "displayName": "Grenade HORS UE",
+      "id": "fd54ea90-f010-5102-b8bd-b439ba2d1aa8",
       "inediblePart": 0.2,
       "inediblePartMatch": {
         "confidence": 1.0,

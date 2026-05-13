@@ -147,6 +147,46 @@
         "rule": "legume NOVA 1 → always (perishable)"
       },
       "visible": true
+    },
+    {
+      "alias": "lentil-non-eu",
+      "cropGroup": "LEGUMINEUSES A GRAIN",
+      "cropGroupMatch": {
+        "confidence": 1.0,
+        "rule": "matched 'lentil' in cropgroup.csv"
+      },
+      "defaultOrigin": "OutOfEuropeAndMaghreb",
+      "displayName": "Lentille HORS UE",
+      "id": "efaed529-e1c8-57d9-9637-2cc16ad0c5b0",
+      "inediblePart": 0.2,
+      "inediblePartMatch": {
+        "confidence": 1.0,
+        "rule": "legume NOVA 1 default from food_type_inedible_part.csv"
+      },
+      "ingredientCategories": [
+        "vegetable_fresh"
+      ],
+      "ingredientDensity": 0.8,
+      "ingredientDensityMatch": {
+        "confidence": 1.0,
+        "rule": "lentil found in density.csv"
+      },
+      "rawToCookedRatio": 2.33,
+      "rawToCookedRatioMatch": {
+        "confidence": 1.0,
+        "rule": "Matched with lentil in cooked_to_raw.csv"
+      },
+      "scenario": "import",
+      "scopes": [
+        "food",
+        "food2"
+      ],
+      "transportCooling": "always",
+      "transportCoolingMatch": {
+        "confidence": 1.0,
+        "rule": "legume NOVA 1 → always (perishable)"
+      },
+      "visible": true
     }
   ],
   "scopes": [

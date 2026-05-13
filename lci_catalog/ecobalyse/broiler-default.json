@@ -7,7 +7,7 @@
   "id": "877499d7-7a29-58f6-8a0d-e1eef40b2ec4",
   "metadata": [
     {
-      "alias": "broiler-default",
+      "alias": "broiler-default-2025",
       "animalGroup1": "poultry",
       "animalGroup2": "chicken",
       "animalProduct": "meat",
@@ -17,8 +17,8 @@
         "rule": "matched 'prairies naturelles' in cropgroup.csv"
       },
       "defaultOrigin": "OutOfEuropeAndMaghreb",
-      "displayName": "Poulet Origine Inconnue",
-      "id": "8d3a194f-b478-556c-bacc-18d452baefa4",
+      "displayName": "Poulet Origine Inconnue (2025)",
+      "id": "9059b1ee-6dbe-5150-9766-79a2bcbf73f4",
       "inediblePart": 0.05,
       "inediblePartMatch": {
         "confidence": 1.0,
@@ -50,13 +50,13 @@
       "visible": false
     },
     {
-      "alias": "poultry-default",
+      "alias": "poultry-default-2025",
       "animalGroup1": "poultry",
       "animalGroup2": "chicken",
       "animalProduct": "meat",
       "defaultOrigin": "OutOfEuropeAndMaghreb",
-      "displayName": "Volaille Origine Inconnue",
-      "id": "c7b79f39-3672-530e-8966-f612b67de746",
+      "displayName": "Volaille Origine Inconnue (2025)",
+      "id": "34400ed0-0d5f-520a-9f26-f7f7c1a47579",
       "inediblePart": 0.05,
       "inediblePartMatch": {
         "confidence": 1.0,
@@ -88,13 +88,13 @@
       "visible": false
     },
     {
-      "alias": "rabbit-default",
+      "alias": "rabbit-default-2025",
       "animalGroup1": "poultry",
       "animalGroup2": "chicken",
       "animalProduct": "meat",
       "defaultOrigin": "OutOfEuropeAndMaghreb",
-      "displayName": "Lapin Origine Inconnue",
-      "id": "1e72c100-92f9-54e3-8289-d8efc3890acc",
+      "displayName": "Lapin Origine Inconnue (2025)",
+      "id": "ecab66c8-ce64-5b82-b943-89b14d992ee6",
       "inediblePart": 0.05,
       "inediblePartMatch": {
         "confidence": 1.0,

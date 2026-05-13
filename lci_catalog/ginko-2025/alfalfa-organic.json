@@ -27,10 +27,10 @@
         "vegetable_fresh",
         "organic"
       ],
-      "ingredientDensity": 0.8,
+      "ingredientDensity": 0.745,
       "ingredientDensityMatch": {
-        "confidence": 1.0,
-        "rule": "legume default from food_type_density.csv"
+        "confidence": 0.95,
+        "rule": "Matched with Alfalfa, seed in fao_density.csv"
       },
       "rawToCookedRatio": 0.856,
       "rawToCookedRatioMatch": {
@@ -51,10 +51,10 @@
     },
     {
       "alias": "chia-seed-dried-organic",
-      "cropGroup": "LEGUMES-FLEURS",
+      "cropGroup": "SEMENCES",
       "cropGroupMatch": {
-        "confidence": 1.0,
-        "rule": "vegetable default"
+        "confidence": 0.95,
+        "rule": "matched 'semences epeautre' in cropgroup.csv"
       },
       "defaultOrigin": "France",
       "displayName": "Graines de chia Bio",
@@ -94,7 +94,7 @@
       "alias": "cucurbitacea-seed-organic",
       "cropGroup": "SEMENCES",
       "cropGroupMatch": {
-        "confidence": 1.0,
+        "confidence": 0.95,
         "rule": "matched 'semences epeautre' in cropgroup.csv"
       },
       "defaultOrigin": "France",
@@ -133,17 +133,17 @@
     },
     {
       "alias": "poppy-seed-organic",
-      "cropGroup": "AUTRES OLEAGINEUX",
+      "cropGroup": "SEMENCES",
       "cropGroupMatch": {
-        "confidence": 1.0,
-        "rule": "oilseed pattern"
+        "confidence": 0.95,
+        "rule": "matched 'semences epeautre' in cropgroup.csv"
       },
       "defaultOrigin": "France",
       "displayName": "Graines de pavot Bio",
       "id": "339e9754-e04d-5aff-9fb1-545b7436f424",
       "inediblePart": 0.0,
       "inediblePartMatch": {
-        "confidence": 0.98,
+        "confidence": 0.961,
         "rule": "Matched with poppy seed in inedible_part.csv"
       },
       "ingredientCategories": [

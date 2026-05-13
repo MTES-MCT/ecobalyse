@@ -7,13 +7,13 @@
   "id": "b28af936-efee-5c90-a792-e5113364a9fe",
   "metadata": [
     {
-      "alias": "pork-default",
+      "alias": "pork-default-2025",
       "animalGroup1": "pig",
       "animalGroup2": "pig",
       "animalProduct": "meat",
       "defaultOrigin": "OutOfEuropeAndMaghreb",
-      "displayName": "Porc Origine Inconnue",
-      "id": "7d94e5d1-ef4b-55ec-8212-b23be63c16a3",
+      "displayName": "Porc Origine Inconnue (2025)",
+      "id": "c5eae51a-5d7a-5d54-a66e-29dd8e9daf2e",
       "inediblePart": 0.05,
       "inediblePartMatch": {
         "confidence": 1.0,

@@ -12,15 +12,15 @@
       "alias": "sunflower-seed-fr",
       "cropGroup": "TOURNESOL",
       "cropGroupMatch": {
-        "confidence": 1.0,
-        "rule": "sunflower pattern"
+        "confidence": 0.95,
+        "rule": "matched 'sunflower' in cropgroup.csv"
       },
       "defaultOrigin": "France",
       "displayName": "Tournesol, graine FR",
       "id": "1929b7c8-7e92-5ddd-b5ef-9b4321b72940",
       "inediblePart": 0.0,
       "inediblePartMatch": {
-        "confidence": 0.98,
+        "confidence": 0.96,
         "rule": "Matched with sunflower seed in inedible_part.csv"
       },
       "ingredientCategories": [

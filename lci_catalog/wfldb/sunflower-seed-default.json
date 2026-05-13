@@ -13,15 +13,15 @@
       "alias": "sunflower-seed-default",
       "cropGroup": "TOURNESOL",
       "cropGroupMatch": {
-        "confidence": 1.0,
-        "rule": "sunflower pattern"
+        "confidence": 0.95,
+        "rule": "matched 'sunflower' in cropgroup.csv"
       },
       "defaultOrigin": "OutOfEuropeAndMaghreb",
       "displayName": "Tournesol, graine Origine Inconnue",
       "id": "30dd2403-628a-5475-b78f-2248e00d351d",
       "inediblePart": 0.0,
       "inediblePartMatch": {
-        "confidence": 0.98,
+        "confidence": 0.96,
         "rule": "Matched with sunflower seed in inedible_part.csv"
       },
       "ingredientCategories": [
@@ -53,7 +53,7 @@
       "alias": "sunflower-seed-eu",
       "cropGroup": "TOURNESOL",
       "cropGroupMatch": {
-        "confidence": 1.0,
+        "confidence": 0.95,
         "rule": "matched 'sunflower' in cropgroup.csv"
       },
       "defaultOrigin": "EuropeAndMaghreb",
@@ -61,7 +61,7 @@
       "id": "fdfc249d-a6ca-5825-a65c-123a5b554043",
       "inediblePart": 0.0,
       "inediblePartMatch": {
-        "confidence": 0.98,
+        "confidence": 0.96,
         "rule": "Matched with sunflower seed in inedible_part.csv"
       },
       "ingredientCategories": [

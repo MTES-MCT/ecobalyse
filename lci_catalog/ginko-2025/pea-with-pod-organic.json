@@ -12,7 +12,7 @@
       "alias": "pea-with-pod-organic",
       "cropGroup": "LEGUMINEUSES A GRAIN",
       "cropGroupMatch": {
-        "confidence": 1.0,
+        "confidence": 0.95,
         "rule": "matched 'pea' in cropgroup.csv"
       },
       "defaultOrigin": "France",
@@ -53,7 +53,7 @@
       "alias": "snow-pea-organic",
       "cropGroup": "LEGUMINEUSES A GRAIN",
       "cropGroupMatch": {
-        "confidence": 1.0,
+        "confidence": 0.95,
         "rule": "matched 'pea' in cropgroup.csv"
       },
       "defaultOrigin": "France",
@@ -94,7 +94,7 @@
       "alias": "split-pea-organic",
       "cropGroup": "LEGUMINEUSES A GRAIN",
       "cropGroupMatch": {
-        "confidence": 1.0,
+        "confidence": 0.95,
         "rule": "matched 'pea' in cropgroup.csv"
       },
       "defaultOrigin": "France",
@@ -133,10 +133,10 @@
     },
     {
       "alias": "winter-pea-organic",
-      "cropGroup": "LEGUMINEUSES A GRAIN",
+      "cropGroup": "PROTEAGINEUX",
       "cropGroupMatch": {
-        "confidence": 1.0,
-        "rule": "legume default"
+        "confidence": 0.95,
+        "rule": "matched 'pois d'hiver' in cropgroup.csv"
       },
       "defaultOrigin": "France",
       "displayName": "Pois d'hiver Bio",
@@ -152,8 +152,8 @@
       ],
       "ingredientDensity": 0.8,
       "ingredientDensityMatch": {
-        "confidence": 1.0,
-        "rule": "legume default from food_type_density.csv"
+        "confidence": 0.95,
+        "rule": "Matched with pea in density.csv"
       },
       "rawToCookedRatio": 1.0,
       "rawToCookedRatioMatch": {

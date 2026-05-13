@@ -13,7 +13,7 @@
       "alias": "coffee-bean-default",
       "cropGroup": "ARBORICULTURE",
       "cropGroupMatch": {
-        "confidence": 1.0,
+        "confidence": 0.95,
         "rule": "matched 'coffee bean' in cropgroup.csv"
       },
       "defaultOrigin": "OutOfEuropeAndMaghreb",

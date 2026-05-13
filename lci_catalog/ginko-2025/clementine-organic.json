@@ -31,7 +31,7 @@
       "ingredientDensity": 0.85,
       "ingredientDensityMatch": {
         "confidence": 1.0,
-        "rule": "Clémentine FR found in ingredients.json"
+        "rule": "fruit default from food_type_density.csv"
       },
       "rawToCookedRatio": 0.856,
       "rawToCookedRatioMatch": {

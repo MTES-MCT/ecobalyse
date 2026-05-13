@@ -1,0 +1,39 @@
+{
+  "activityName": "Sunflower grain, consumption mix, organic 2025 {FR} U",
+  "categories": [
+    "ingredient",
+    "material",
+    "material_type:other_food_items"
+  ],
+  "displayName": "Tournesol Bio",
+  "id": "122b9612-09cb-5d1d-ba18-3d4e3809e509",
+  "metadata": [
+    {
+      "alias": "sunflower-organic",
+      "cropGroup": "TOURNESOL",
+      "defaultOrigin": "France",
+      "displayName": "Tournesol Bio",
+      "explain": "icv bio : consumption mix bio Gingko",
+      "id": "dbcc6b38-8309-4bb0-a66e-525ec9dcc79c",
+      "inediblePart": 0,
+      "ingredientCategories": [
+        "nut_oilseed_raw",
+        "organic"
+      ],
+      "ingredientDensity": 0.72,
+      "rawToCookedRatio": 1.0,
+      "scenario": "organic",
+      "scopes": [
+        "food",
+        "food2"
+      ],
+      "transportCooling": "none",
+      "visible": true
+    }
+  ],
+  "scopes": [
+    "food",
+    "food2"
+  ],
+  "source": "Ginko 2025"
+}

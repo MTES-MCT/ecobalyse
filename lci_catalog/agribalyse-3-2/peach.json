@@ -8,10 +8,10 @@
   "metadata": [
     {
       "alias": "fig-eu",
-      "cropGroup": "ARBORICULTURE",
+      "cropGroup": "VERGERS",
       "cropGroupMatch": {
         "confidence": 1.0,
-        "rule": "matched 'banana' in cropgroup.csv"
+        "rule": "fruit default"
       },
       "defaultOrigin": "EuropeAndMaghreb",
       "displayName": "Figue UE",
@@ -51,7 +51,7 @@
       "cropGroup": "VERGERS",
       "cropGroupMatch": {
         "confidence": 1.0,
-        "rule": "matched 'poires pour transformation' in cropgroup.csv"
+        "rule": "fruit default"
       },
       "defaultOrigin": "EuropeAndMaghreb",
       "displayName": "Nectarine UE",
@@ -104,10 +104,10 @@
       "ingredientCategories": [
         "vegetable_fresh"
       ],
-      "ingredientDensity": 0.85,
+      "ingredientDensity": 0.9,
       "ingredientDensityMatch": {
-        "confidence": 1.0,
-        "rule": "fruit default from food_type_density.csv"
+        "confidence": 0.95,
+        "rule": "Matched with peach in density.csv"
       },
       "rawToCookedRatio": 0.856,
       "rawToCookedRatioMatch": {

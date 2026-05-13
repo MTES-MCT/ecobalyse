@@ -13,8 +13,8 @@
       "alias": "sweet-potato-default",
       "cropGroup": "LEGUMES-FLEURS",
       "cropGroupMatch": {
-        "confidence": 1.0,
-        "rule": "vegetable default"
+        "confidence": 0.95,
+        "rule": "matched 'potato' in cropgroup.csv"
       },
       "defaultOrigin": "OutOfEuropeAndMaghreb",
       "displayName": "Patate douce Origine Inconnue",
@@ -27,10 +27,10 @@
       "ingredientCategories": [
         "vegetable_fresh"
       ],
-      "ingredientDensity": 0.9,
+      "ingredientDensity": 0.44,
       "ingredientDensityMatch": {
-        "confidence": 1.0,
-        "rule": "vegetable default from food_type_density.csv"
+        "confidence": 0.95,
+        "rule": "Matched with Sweet potato, raw in fao_density.csv"
       },
       "rawToCookedRatio": 0.856,
       "rawToCookedRatioMatch": {

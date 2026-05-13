@@ -1,0 +1,38 @@
+{
+  "activityName": "Grapeseed oil, refined at plant {FR} U",
+  "categories": [
+    "ingredient",
+    "material",
+    "material_type:other_food_items"
+  ],
+  "displayName": "Huile de pépin de raisin (raffinée) FR",
+  "id": "d964e4e0-c201-5306-be65-4dc2886dacaf",
+  "metadata": [
+    {
+      "alias": "refined-grapeseed-oil-2025",
+      "cropGroup": "VIGNES",
+      "defaultOrigin": "France",
+      "displayName": "Huile de pépin de raisin (raffinée) FR (2025)",
+      "explain": "Cet ICV correspond à la production de l'huile de pépins de raisin, de la collecte jusqu'aux portes de l'usine. La trituration et le raffinage sont représentatifs de la production en France. Le transport des pépins et de l'huile brute est inclus dans cet ICV. Le transport aval de l'huile de pépins de raisin raffinée n'est pas inclus dans cet ICV. \nLa densité de l'huile de pépins de raisin est de 0,923.\nComme le précise la méthodologie AGRIBALYSE, il n'y a pas de transport frigorifique pour les huiles végétales.",
+      "id": "1e3d325d-b369-4f03-b3a3-f4261924fca4",
+      "inediblePart": 0,
+      "ingredientCategories": [
+        "nut_oilseed_processed"
+      ],
+      "ingredientDensity": 1,
+      "rawToCookedRatio": 1.0,
+      "scenario": "reference",
+      "scopes": [
+        "food",
+        "food2"
+      ],
+      "transportCooling": "none",
+      "visible": true
+    }
+  ],
+  "scopes": [
+    "food",
+    "food2"
+  ],
+  "source": "Agribalyse 3.2"
+}

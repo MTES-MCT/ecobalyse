@@ -27,10 +27,10 @@
       "ingredientCategories": [
         "spice_condiment_additive"
       ],
-      "ingredientDensity": 0.5,
+      "ingredientDensity": 0.95,
       "ingredientDensityMatch": {
-        "confidence": 1.0,
-        "rule": "spice_condiment default from food_type_density.csv"
+        "confidence": 0.95,
+        "rule": "Matched with Sugar in fao_density.csv"
       },
       "rawToCookedRatio": 1.0,
       "rawToCookedRatioMatch": {

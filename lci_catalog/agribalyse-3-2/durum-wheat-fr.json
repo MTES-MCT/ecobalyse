@@ -10,10 +10,10 @@
   "metadata": [
     {
       "alias": "amaranth-fr",
-      "cropGroup": "AUTRES CULTURES INDUSTRIELLES",
+      "cropGroup": "BLE TENDRE",
       "cropGroupMatch": {
         "confidence": 1.0,
-        "rule": "matched 'chicorée à inuline' in cropgroup.csv"
+        "rule": "wheat/flour pattern"
       },
       "defaultOrigin": "France",
       "displayName": "Amarante FR",
@@ -50,10 +50,10 @@
     },
     {
       "alias": "durum-wheat-fr",
-      "cropGroup": "BLE TENDRE",
+      "cropGroup": "AUTRES CEREALES",
       "cropGroupMatch": {
-        "confidence": 1.0,
-        "rule": "wheat/flour pattern"
+        "confidence": 0.95,
+        "rule": "matched 'blé dur hiver' in cropgroup.csv"
       },
       "defaultOrigin": "France",
       "displayName": "Blé dur FR",
@@ -66,10 +66,10 @@
       "ingredientCategories": [
         "grain_raw"
       ],
-      "ingredientDensity": 0.75,
+      "ingredientDensity": 0.77,
       "ingredientDensityMatch": {
-        "confidence": 1.0,
-        "rule": "grain default from food_type_density.csv"
+        "confidence": 0.95,
+        "rule": "Matched with Wheat in fao_density.csv"
       },
       "rawToCookedRatio": 2.259,
       "rawToCookedRatioMatch": {

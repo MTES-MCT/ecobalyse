@@ -11,10 +11,10 @@
   "metadata": [
     {
       "alias": "cotton-seed-default",
-      "cropGroup": "LEGUMES-FLEURS",
+      "cropGroup": "SEMENCES",
       "cropGroupMatch": {
-        "confidence": 1.0,
-        "rule": "vegetable default"
+        "confidence": 0.95,
+        "rule": "matched 'semences epeautre' in cropgroup.csv"
       },
       "defaultOrigin": "OutOfEuropeAndMaghreb",
       "displayName": "Graine de coton Origine Inconnue",

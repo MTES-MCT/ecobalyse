@@ -1,9 +1,9 @@
 {
-  "activityName": "Sweet corn {HU}| sweet corn production | Cut-off, U",
+  "activityName": "Sweet corn {US}| sweet corn production | Cut-off, U",
   "categories": [
     "ingredient"
   ],
-  "displayName": "Sweet corn (HU)",
+  "displayName": "Sweet corn (US)",
   "id": "7d255c03-7e40-5495-9bf0-d9718d9b4fc2",
   "metadata": [
     {
@@ -16,6 +16,46 @@
       "defaultOrigin": "EuropeAndMaghreb",
       "displayName": "Maïs UE",
       "id": "96962794-5565-544b-ba7b-ba05b859711e",
+      "inediblePart": 0.0,
+      "inediblePartMatch": {
+        "confidence": 1.0,
+        "rule": "grain NOVA 1 default from food_type_inedible_part.csv"
+      },
+      "ingredientCategories": [
+        "grain_raw"
+      ],
+      "ingredientDensity": 0.72,
+      "ingredientDensityMatch": {
+        "confidence": 1.0,
+        "rule": "corn found in density.csv"
+      },
+      "rawToCookedRatio": 2.259,
+      "rawToCookedRatioMatch": {
+        "confidence": 1.0,
+        "rule": "grain default from food_type_cooked_to_raw.csv"
+      },
+      "scenario": "import",
+      "scopes": [
+        "food",
+        "food2"
+      ],
+      "transportCooling": "none",
+      "transportCoolingMatch": {
+        "confidence": 1.0,
+        "rule": "grain → none (non-perishable)"
+      },
+      "visible": false
+    },
+    {
+      "alias": "corn-non-eu",
+      "cropGroup": "MAIS GRAIN ET ENSILAGE",
+      "cropGroupMatch": {
+        "confidence": 1.0,
+        "rule": "matched 'corn' in cropgroup.csv"
+      },
+      "defaultOrigin": "OutOfEuropeAndMaghreb",
+      "displayName": "Maïs HORS UE",
+      "id": "960e7dda-6655-5288-8601-47c789cb9948",
       "inediblePart": 0.0,
       "inediblePartMatch": {
         "confidence": 1.0,

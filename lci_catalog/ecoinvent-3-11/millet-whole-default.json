@@ -10,15 +10,15 @@
   "location": "US",
   "metadata": [
     {
-      "alias": "millet-whole-default",
+      "alias": "millet-whole-default-2025",
       "cropGroup": "AUTRES CEREALES",
       "cropGroupMatch": {
         "confidence": 1.0,
         "rule": "matched 'millet' in cropgroup.csv"
       },
       "defaultOrigin": "OutOfEuropeAndMaghreb",
-      "displayName": "Millet entier Origine Inconnue",
-      "id": "9591a756-7917-52d6-9b0c-ca286988348e",
+      "displayName": "Millet entier Origine Inconnue (2025)",
+      "id": "d884b107-f8a6-571e-8408-e01d3c55337c",
       "inediblePart": 0.0,
       "inediblePartMatch": {
         "confidence": 1.0,

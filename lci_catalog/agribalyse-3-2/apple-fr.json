@@ -53,7 +53,7 @@
       "cropGroup": "VERGERS",
       "cropGroupMatch": {
         "confidence": 1.0,
-        "rule": "matched 'orange' in cropgroup.csv"
+        "rule": "fruit default"
       },
       "defaultOrigin": "France",
       "displayName": "Grenade FR",

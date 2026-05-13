@@ -7,13 +7,13 @@
   "id": "97794c50-6932-5707-a453-29b8af52b242",
   "metadata": [
     {
-      "alias": "pork-organic",
+      "alias": "pork-organic-2025",
       "animalGroup1": "pig",
       "animalGroup2": "pig",
       "animalProduct": "meat",
       "defaultOrigin": "France",
-      "displayName": "Porc Bio",
-      "id": "eb795534-730a-561b-b520-15d11a670927",
+      "displayName": "Porc Bio (2025)",
+      "id": "e0158192-a68e-57d1-a256-fe10db5d1de0",
       "inediblePart": 0.0,
       "inediblePartMatch": {
         "confidence": 1.0,

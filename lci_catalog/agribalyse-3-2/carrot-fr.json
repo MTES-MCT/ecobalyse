@@ -12,8 +12,8 @@
       "alias": "carrot-fr",
       "cropGroup": "LEGUMES-FLEURS",
       "cropGroupMatch": {
-        "confidence": 1.0,
-        "rule": "vegetable default"
+        "confidence": 0.95,
+        "rule": "matched 'carrot' in cropgroup.csv"
       },
       "defaultOrigin": "France",
       "displayName": "Carottes FR",
@@ -26,10 +26,10 @@
       "ingredientCategories": [
         "vegetable_fresh"
       ],
-      "ingredientDensity": 0.9,
+      "ingredientDensity": 1.0,
       "ingredientDensityMatch": {
-        "confidence": 1.0,
-        "rule": "vegetable default from food_type_density.csv"
+        "confidence": 0.95,
+        "rule": "Matched with carrot in density.csv"
       },
       "rawToCookedRatio": 0.856,
       "rawToCookedRatioMatch": {
@@ -130,10 +130,10 @@
     },
     {
       "alias": "parsnip-fr",
-      "cropGroup": "AUTRES OLEAGINEUX",
+      "cropGroup": "LEGUMES-FLEURS",
       "cropGroupMatch": {
         "confidence": 1.0,
-        "rule": "matched 'autres oleagineux' in cropgroup.csv"
+        "rule": "vegetable default"
       },
       "defaultOrigin": "France",
       "displayName": "Panais FR",
@@ -189,7 +189,7 @@
       "ingredientDensity": 0.9,
       "ingredientDensityMatch": {
         "confidence": 1.0,
-        "rule": "Rutabaga FR found in ingredients.json"
+        "rule": "vegetable default from food_type_density.csv"
       },
       "rawToCookedRatio": 0.856,
       "rawToCookedRatioMatch": {
@@ -213,7 +213,7 @@
       "cropGroup": "LEGUMES-FLEURS",
       "cropGroupMatch": {
         "confidence": 1.0,
-        "rule": "matched 'endive' in cropgroup.csv"
+        "rule": "vegetable default"
       },
       "defaultOrigin": "France",
       "displayName": "Salsifi FR",
@@ -253,7 +253,7 @@
       "cropGroup": "LEGUMES-FLEURS",
       "cropGroupMatch": {
         "confidence": 1.0,
-        "rule": "matched 'carrot' in cropgroup.csv"
+        "rule": "vegetable default"
       },
       "defaultOrigin": "France",
       "displayName": "Navet FR",

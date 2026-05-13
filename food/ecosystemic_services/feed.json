@@ -32,13 +32,13 @@
   "broiler-fr-organic-live": {
     "barley-2025": 0.45,
     "soft-wheat-organic": 0.33,
-    "soybean-organic-2025": 0.45,
+    "soybean-organic": 0.45,
     "sweet-corn-organic-fr-2025": 1.51
   },
   "broiler-organic-fr-live": {
     "barley-2025": 0.45,
     "soft-wheat-organic": 0.33,
-    "soybean-organic-2025": 0.45,
+    "soybean-organic": 0.45,
     "sweet-corn-organic-fr-2025": 1.51
   },
   "cow-milk-fr": {
@@ -52,10 +52,10 @@
     "grazed-grass-permanent-2025": 22.03
   },
   "cull-cow-organic-national-average-live": {
-    "alfalfa-organic-2025": 0.59,
+    "alfalfa-organic": 0.59,
     "grazed-grass-permanent-2025": 15.01,
     "grazed-grass-temporary-2025": 4.48,
-    "oats-organic-2025": 0.14,
+    "oats-organic": 0.14,
     "silage-maize-organic-2025": 0.34,
     "soft-wheat-organic": 0.19,
     "triticale-organic-2025": 0.69
@@ -63,7 +63,7 @@
   "egg-bleublanccoeur-2025": {
     "bean-fr-2025": 0.27,
     "soft-wheat-organic": 1.09,
-    "soybean-organic-2025": 0.2,
+    "soybean-organic": 0.2,
     "sweet-corn-fr-2025": 0.48
   },
   "egg-indoor-code2-2025": {
@@ -78,13 +78,13 @@
   },
   "egg-organic": {
     "soft-wheat-organic": 0.45,
-    "soybean-organic-2025": 0.34,
+    "soybean-organic": 0.34,
     "sunflower-organic": 0.13,
     "sweet-corn-organic-fr-2025": 0.8
   },
   "egg-organic-code0-2025": {
     "soft-wheat-organic": 0.45,
-    "soybean-organic-2025": 0.34,
+    "soybean-organic": 0.34,
     "sunflower-organic": 0.13,
     "sweet-corn-organic-fr-2025": 0.8
   },
@@ -134,7 +134,7 @@
     "barley-organic-2025": 0.53,
     "bean-organic-2025": 0.72,
     "soft-wheat-organic": 0.36,
-    "soybean-organic-2025": 0.29,
+    "soybean-organic": 0.29,
     "triticale-organic-2025": 0.77
   },
   "swine-industrial-ca-live": {

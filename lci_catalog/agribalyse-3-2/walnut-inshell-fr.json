@@ -92,7 +92,7 @@
       "alias": "walnut-fr",
       "cropGroup": "FRUITS A COQUES",
       "cropGroupMatch": {
-        "confidence": 1.0,
+        "confidence": 0.95,
         "rule": "matched 'walnut' in cropgroup.csv"
       },
       "defaultOrigin": "France",
@@ -108,7 +108,7 @@
       ],
       "ingredientDensity": 0.5,
       "ingredientDensityMatch": {
-        "confidence": 0.98,
+        "confidence": 0.95,
         "rule": "Matched with walnut in density.csv"
       },
       "rawToCookedRatio": 1.0,
@@ -254,7 +254,7 @@
       "alias": "walnut-eu",
       "cropGroup": "FRUITS A COQUES",
       "cropGroupMatch": {
-        "confidence": 1.0,
+        "confidence": 0.95,
         "rule": "matched 'walnut' in cropgroup.csv"
       },
       "defaultOrigin": "EuropeAndMaghreb",
@@ -270,7 +270,7 @@
       ],
       "ingredientDensity": 0.5,
       "ingredientDensityMatch": {
-        "confidence": 0.98,
+        "confidence": 0.95,
         "rule": "Matched with walnut in density.csv"
       },
       "rawToCookedRatio": 1.0,

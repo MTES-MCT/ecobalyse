@@ -1,0 +1,37 @@
+{
+  "activityName": "Candied fruits, recipe, at plant {FR} U",
+  "categories": [
+    "ingredient",
+    "material",
+    "material_type:other_food_items"
+  ],
+  "displayName": "Fruits confits FR",
+  "id": "98e02da4-68bd-5330-92a8-0a3015ca8658",
+  "metadata": [
+    {
+      "alias": "candied-fruits-2025",
+      "cropGroup": "DIVERS",
+      "defaultOrigin": "France",
+      "displayName": "Fruits confits FR (2025)",
+      "id": "b1350dc9-f4da-4827-b984-f36b6f192c5a",
+      "inediblePart": 0,
+      "ingredientCategories": [
+        "vegetable_processed"
+      ],
+      "ingredientDensity": 0.447,
+      "rawToCookedRatio": 1.0,
+      "scenario": "reference",
+      "scopes": [
+        "food",
+        "food2"
+      ],
+      "transportCooling": "none",
+      "visible": true
+    }
+  ],
+  "scopes": [
+    "food",
+    "food2"
+  ],
+  "source": "Agribalyse 3.2"
+}

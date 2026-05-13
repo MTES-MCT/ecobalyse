@@ -12,7 +12,7 @@
       "alias": "hazelnut-in-shell-fr",
       "cropGroup": "FRUITS A COQUES",
       "cropGroupMatch": {
-        "confidence": 1.0,
+        "confidence": 0.95,
         "rule": "matched 'noisettes' in cropgroup.csv"
       },
       "defaultOrigin": "France",
@@ -73,7 +73,7 @@
       "alias": "hazelnut-in-shell-eu",
       "cropGroup": "FRUITS A COQUES",
       "cropGroupMatch": {
-        "confidence": 1.0,
+        "confidence": 0.95,
         "rule": "matched 'noisettes' in cropgroup.csv"
       },
       "defaultOrigin": "EuropeAndMaghreb",

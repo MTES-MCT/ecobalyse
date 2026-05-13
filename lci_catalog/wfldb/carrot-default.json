@@ -12,8 +12,8 @@
       "alias": "carrot-default",
       "cropGroup": "LEGUMES-FLEURS",
       "cropGroupMatch": {
-        "confidence": 1.0,
-        "rule": "vegetable default"
+        "confidence": 0.95,
+        "rule": "matched 'carrot' in cropgroup.csv"
       },
       "defaultOrigin": "OutOfEuropeAndMaghreb",
       "displayName": "Carottes Origine Inconnue",
@@ -26,10 +26,10 @@
       "ingredientCategories": [
         "vegetable_fresh"
       ],
-      "ingredientDensity": 0.9,
+      "ingredientDensity": 1.0,
       "ingredientDensityMatch": {
-        "confidence": 1.0,
-        "rule": "vegetable default from food_type_density.csv"
+        "confidence": 0.95,
+        "rule": "Matched with carrot in density.csv"
       },
       "rawToCookedRatio": 0.856,
       "rawToCookedRatioMatch": {
@@ -69,7 +69,7 @@
       "ingredientDensity": 0.63,
       "ingredientDensityMatch": {
         "confidence": 0.95,
-        "rule": "Matched with Cassava, boiled in fao_density.csv"
+        "rule": "Matched with Cassava, raw in fao_density.csv"
       },
       "rawToCookedRatio": 0.856,
       "rawToCookedRatioMatch": {
@@ -170,10 +170,10 @@
     },
     {
       "alias": "parsnip-default",
-      "cropGroup": "AUTRES OLEAGINEUX",
+      "cropGroup": "LEGUMES-FLEURS",
       "cropGroupMatch": {
         "confidence": 1.0,
-        "rule": "matched 'autres oleagineux' in cropgroup.csv"
+        "rule": "vegetable default"
       },
       "defaultOrigin": "OutOfEuropeAndMaghreb",
       "displayName": "Panais Origine Inconnue",
@@ -229,7 +229,7 @@
       "ingredientDensity": 0.9,
       "ingredientDensityMatch": {
         "confidence": 1.0,
-        "rule": "Rutabaga FR found in ingredients.json"
+        "rule": "vegetable default from food_type_density.csv"
       },
       "rawToCookedRatio": 0.856,
       "rawToCookedRatioMatch": {
@@ -253,7 +253,7 @@
       "cropGroup": "LEGUMES-FLEURS",
       "cropGroupMatch": {
         "confidence": 1.0,
-        "rule": "matched 'endive' in cropgroup.csv"
+        "rule": "vegetable default"
       },
       "defaultOrigin": "OutOfEuropeAndMaghreb",
       "displayName": "Salsifi Origine Inconnue",
@@ -308,8 +308,8 @@
       ],
       "ingredientDensity": 0.75,
       "ingredientDensityMatch": {
-        "confidence": 0.95,
-        "rule": "Matched with Tapioca Origine Inconnue in ingredients.json"
+        "confidence": 1.0,
+        "rule": "grain default from food_type_density.csv"
       },
       "rawToCookedRatio": 2.259,
       "rawToCookedRatioMatch": {
@@ -373,7 +373,7 @@
       "cropGroup": "LEGUMES-FLEURS",
       "cropGroupMatch": {
         "confidence": 1.0,
-        "rule": "matched 'carrot' in cropgroup.csv"
+        "rule": "vegetable default"
       },
       "defaultOrigin": "OutOfEuropeAndMaghreb",
       "displayName": "Navet Origine Inconnue",
@@ -413,7 +413,7 @@
       "cropGroup": "LEGUMES-FLEURS",
       "cropGroupMatch": {
         "confidence": 1.0,
-        "rule": "matched 'chou-fleur' in cropgroup.csv"
+        "rule": "vegetable default"
       },
       "defaultOrigin": "OutOfEuropeAndMaghreb",
       "displayName": "Igname Origine Inconnue",

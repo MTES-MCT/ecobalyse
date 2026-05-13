@@ -9,11 +9,11 @@
   "id": "cac779d9-52e2-5978-9551-71e107141598",
   "metadata": [
     {
-      "alias": "bell-pepper-green-yellow-or-red-fr",
+      "alias": "bell-pepper-fr",
       "cropGroup": "LEGUMES-FLEURS",
       "cropGroupMatch": {
-        "confidence": 1.0,
-        "rule": "vegetable default"
+        "confidence": 0.95,
+        "rule": "matched 'bell pepper' in cropgroup.csv"
       },
       "defaultOrigin": "France",
       "displayName": "Poivron, vert, jaune ou rouge FR",
@@ -28,8 +28,8 @@
       ],
       "ingredientDensity": 0.9,
       "ingredientDensityMatch": {
-        "confidence": 1.0,
-        "rule": "vegetable default from food_type_density.csv"
+        "confidence": 0.95,
+        "rule": "Matched with bell pepper in density.csv"
       },
       "rawToCookedRatio": 0.856,
       "rawToCookedRatioMatch": {
@@ -52,7 +52,7 @@
       "alias": "chili-pepper-fr",
       "cropGroup": "LEGUMES-FLEURS",
       "cropGroupMatch": {
-        "confidence": 1.0,
+        "confidence": 0.95,
         "rule": "matched 'chili pepper' in cropgroup.csv"
       },
       "defaultOrigin": "France",
@@ -152,7 +152,7 @@
       "alias": "bell-pepper-eu",
       "cropGroup": "LEGUMES-FLEURS",
       "cropGroupMatch": {
-        "confidence": 1.0,
+        "confidence": 0.95,
         "rule": "matched 'bell pepper' in cropgroup.csv"
       },
       "defaultOrigin": "EuropeAndMaghreb",
@@ -192,7 +192,7 @@
       "alias": "chili-pepper-eu",
       "cropGroup": "LEGUMES-FLEURS",
       "cropGroupMatch": {
-        "confidence": 1.0,
+        "confidence": 0.95,
         "rule": "matched 'chili pepper' in cropgroup.csv"
       },
       "defaultOrigin": "EuropeAndMaghreb",

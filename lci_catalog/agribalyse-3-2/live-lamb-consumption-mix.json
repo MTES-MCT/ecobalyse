@@ -1,0 +1,55 @@
+{
+  "activityName": "Live lamb, consumption mix {FR} U",
+  "categories": [
+    "ingredient"
+  ],
+  "displayName": "Live lamb, consumption mix (FR)",
+  "id": "9888b073-a101-5bd8-a5e9-94bb9c052c3f",
+  "metadata": [
+    {
+      "alias": "lamb-organic",
+      "animalGroup1": "sheep",
+      "animalGroup2": "sheep",
+      "animalProduct": "meat",
+      "defaultOrigin": "France",
+      "displayName": "Agneau Bio",
+      "id": "034bbddf-d9b2-5a29-8397-4abcd65a7999",
+      "inediblePart": 0.05,
+      "inediblePartMatch": {
+        "confidence": 1.0,
+        "rule": "meat NOVA 1 default from food_type_inedible_part.csv"
+      },
+      "ingredientCategories": [
+        "animal_product",
+        "organic"
+      ],
+      "ingredientDensity": 1.05,
+      "ingredientDensityMatch": {
+        "confidence": 1.0,
+        "rule": "lamb found in density.csv"
+      },
+      "rawToCookedRatio": 0.792,
+      "rawToCookedRatioMatch": {
+        "confidence": 1.0,
+        "rule": "meat default from food_type_cooked_to_raw.csv"
+      },
+      "scenario": "organic",
+      "scopes": [
+        "food",
+        "food2"
+      ],
+      "transportCooling": "always",
+      "transportCoolingMatch": {
+        "confidence": 1.0,
+        "rule": "meat NOVA 1 → always (perishable)"
+      },
+      "visible": false
+    }
+  ],
+  "scopes": [
+    "food",
+    "food2"
+  ],
+  "source": "Agribalyse 3.2",
+  "unit": "kg"
+}

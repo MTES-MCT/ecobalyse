@@ -13,7 +13,7 @@
       "alias": "hemp-grain-organic",
       "cropGroup": "PLANTES A FIBRES",
       "cropGroupMatch": {
-        "confidence": 1.0,
+        "confidence": 0.95,
         "rule": "matched 'chanvre' in cropgroup.csv"
       },
       "defaultOrigin": "France",

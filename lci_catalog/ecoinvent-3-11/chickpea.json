@@ -10,12 +10,52 @@
       "alias": "chickpea-dried-eu",
       "cropGroup": "LEGUMINEUSES A GRAIN",
       "cropGroupMatch": {
-        "confidence": 1.0,
+        "confidence": 0.95,
         "rule": "matched 'chickpea' in cropgroup.csv"
       },
       "defaultOrigin": "EuropeAndMaghreb",
       "displayName": "Pois chiches UE",
       "id": "c141b0e1-8755-5de3-91cd-44a45f00a7d1",
+      "inediblePart": 0.2,
+      "inediblePartMatch": {
+        "confidence": 1.0,
+        "rule": "legume NOVA 1 default from food_type_inedible_part.csv"
+      },
+      "ingredientCategories": [
+        "vegetable_fresh"
+      ],
+      "ingredientDensity": 0.8,
+      "ingredientDensityMatch": {
+        "confidence": 1.0,
+        "rule": "legume default from food_type_density.csv"
+      },
+      "rawToCookedRatio": 0.856,
+      "rawToCookedRatioMatch": {
+        "confidence": 1.0,
+        "rule": "legume default from food_type_cooked_to_raw.csv"
+      },
+      "scenario": "import",
+      "scopes": [
+        "food",
+        "food2"
+      ],
+      "transportCooling": "none",
+      "transportCoolingMatch": {
+        "confidence": 1.0,
+        "rule": "dried packaging → none"
+      },
+      "visible": true
+    },
+    {
+      "alias": "chickpea-dried-non-eu",
+      "cropGroup": "LEGUMINEUSES A GRAIN",
+      "cropGroupMatch": {
+        "confidence": 0.95,
+        "rule": "matched 'chickpea' in cropgroup.csv"
+      },
+      "defaultOrigin": "OutOfEuropeAndMaghreb",
+      "displayName": "Pois chiches HORS UE",
+      "id": "5c830f3e-2467-58b4-b9cc-c5ce6eedf306",
       "inediblePart": 0.2,
       "inediblePartMatch": {
         "confidence": 1.0,

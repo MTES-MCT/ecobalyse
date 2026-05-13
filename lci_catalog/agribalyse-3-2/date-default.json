@@ -10,15 +10,15 @@
   "location": "GLO",
   "metadata": [
     {
-      "alias": "date-default",
+      "alias": "date-default-2025",
       "cropGroup": "VERGERS",
       "cropGroupMatch": {
         "confidence": 1.0,
         "rule": "fruit default"
       },
       "defaultOrigin": "OutOfEuropeAndMaghreb",
-      "displayName": "Dattes Origine Inconnue",
-      "id": "e888149b-0a27-50b7-bac8-26afc6e895f1",
+      "displayName": "Dattes Origine Inconnue (2025)",
+      "id": "b212ea5a-fc5d-533a-84b3-80add4011864",
       "inediblePart": 0.2,
       "inediblePartMatch": {
         "confidence": 1.0,

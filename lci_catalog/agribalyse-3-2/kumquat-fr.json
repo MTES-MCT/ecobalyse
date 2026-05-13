@@ -9,46 +9,6 @@
   "id": "86e21e49-df5f-5d4d-bff0-30f392f35c41",
   "metadata": [
     {
-      "alias": "kumquat-fr",
-      "cropGroup": "VERGERS",
-      "cropGroupMatch": {
-        "confidence": 1.0,
-        "rule": "fruit default"
-      },
-      "defaultOrigin": "France",
-      "displayName": "Kumquat FR",
-      "id": "6caaa004-8117-50c2-9977-8511cbb3e23f",
-      "inediblePart": 0.2,
-      "inediblePartMatch": {
-        "confidence": 1.0,
-        "rule": "fruit NOVA 1 default from food_type_inedible_part.csv"
-      },
-      "ingredientCategories": [
-        "vegetable_fresh"
-      ],
-      "ingredientDensity": 0.85,
-      "ingredientDensityMatch": {
-        "confidence": 1.0,
-        "rule": "Kumquat FR found in ingredients.json"
-      },
-      "rawToCookedRatio": 0.856,
-      "rawToCookedRatioMatch": {
-        "confidence": 1.0,
-        "rule": "fruit default from food_type_cooked_to_raw.csv"
-      },
-      "scenario": "reference",
-      "scopes": [
-        "food",
-        "food2"
-      ],
-      "transportCooling": "always",
-      "transportCoolingMatch": {
-        "confidence": 1.0,
-        "rule": "fruit NOVA 1 → always (perishable)"
-      },
-      "visible": true
-    },
-    {
       "alias": "grapefruit-default",
       "cropGroup": "VIGNES",
       "cropGroupMatch": {
@@ -109,7 +69,7 @@
       "ingredientDensity": 0.85,
       "ingredientDensityMatch": {
         "confidence": 1.0,
-        "rule": "Kumquat FR found in ingredients.json"
+        "rule": "fruit default from food_type_density.csv"
       },
       "rawToCookedRatio": 0.856,
       "rawToCookedRatioMatch": {
@@ -132,8 +92,8 @@
       "alias": "orange-default",
       "cropGroup": "VERGERS",
       "cropGroupMatch": {
-        "confidence": 1.0,
-        "rule": "fruit default"
+        "confidence": 0.95,
+        "rule": "matched 'orange' in cropgroup.csv"
       },
       "defaultOrigin": "OutOfEuropeAndMaghreb",
       "displayName": "Oranges Origine Inconnue",
@@ -148,8 +108,8 @@
       ],
       "ingredientDensity": 0.95,
       "ingredientDensityMatch": {
-        "confidence": 1.0,
-        "rule": "Oranges FR found in ingredients.json"
+        "confidence": 0.95,
+        "rule": "Matched with orange in density.csv"
       },
       "rawToCookedRatio": 0.856,
       "rawToCookedRatioMatch": {
@@ -210,10 +170,10 @@
     },
     {
       "alias": "grapefruit-eu",
-      "cropGroup": "VERGERS",
+      "cropGroup": "VIGNES",
       "cropGroupMatch": {
         "confidence": 1.0,
-        "rule": "matched 'poires pour transformation' in cropgroup.csv"
+        "rule": "grape/wine pattern"
       },
       "defaultOrigin": "EuropeAndMaghreb",
       "displayName": "Pamplemousse UE",
@@ -252,7 +212,7 @@
       "alias": "orange-eu",
       "cropGroup": "VERGERS",
       "cropGroupMatch": {
-        "confidence": 1.0,
+        "confidence": 0.95,
         "rule": "matched 'orange' in cropgroup.csv"
       },
       "defaultOrigin": "EuropeAndMaghreb",
@@ -277,6 +237,46 @@
         "rule": "fruit default from food_type_cooked_to_raw.csv"
       },
       "scenario": "import",
+      "scopes": [
+        "food",
+        "food2"
+      ],
+      "transportCooling": "always",
+      "transportCoolingMatch": {
+        "confidence": 1.0,
+        "rule": "fruit NOVA 1 → always (perishable)"
+      },
+      "visible": true
+    },
+    {
+      "alias": "kumquat-fr-2025",
+      "cropGroup": "VERGERS",
+      "cropGroupMatch": {
+        "confidence": 1.0,
+        "rule": "fruit default"
+      },
+      "defaultOrigin": "France",
+      "displayName": "Kumquat FR (2025)",
+      "id": "444b178e-2284-524a-894c-f5a5146c1755",
+      "inediblePart": 0.2,
+      "inediblePartMatch": {
+        "confidence": 1.0,
+        "rule": "fruit NOVA 1 default from food_type_inedible_part.csv"
+      },
+      "ingredientCategories": [
+        "vegetable_fresh"
+      ],
+      "ingredientDensity": 0.85,
+      "ingredientDensityMatch": {
+        "confidence": 1.0,
+        "rule": "Kumquat FR found in ingredients.json"
+      },
+      "rawToCookedRatio": 0.856,
+      "rawToCookedRatioMatch": {
+        "confidence": 1.0,
+        "rule": "fruit default from food_type_cooked_to_raw.csv"
+      },
+      "scenario": "reference",
       "scopes": [
         "food",
         "food2"

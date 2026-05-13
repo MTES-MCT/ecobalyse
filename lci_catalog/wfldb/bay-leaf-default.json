@@ -89,10 +89,10 @@
       "visible": true
     },
     {
-      "alias": "herb-marjoram-oregano-savory-thyme-basil-rosemary-sage-dried-default",
+      "alias": "herb-dried-default",
       "cropGroup": "AUTRES CULTURES INDUSTRIELLES",
       "cropGroupMatch": {
-        "confidence": 1.0,
+        "confidence": 0.95,
         "rule": "matched 'rosemary' in cropgroup.csv"
       },
       "defaultOrigin": "OutOfEuropeAndMaghreb",
@@ -108,8 +108,8 @@
       ],
       "ingredientDensity": 0.5,
       "ingredientDensityMatch": {
-        "confidence": 0.999,
-        "rule": "Matched with Herbes séchées (marjolaine, origan, sarriette, thym, basilic, romarin, sauge) FR in ingredients.json"
+        "confidence": 1.0,
+        "rule": "spice_condiment default from food_type_density.csv"
       },
       "rawToCookedRatio": 1.0,
       "rawToCookedRatioMatch": {
@@ -129,10 +129,10 @@
       "visible": true
     },
     {
-      "alias": "herb-dill-basil-chervil-rosemary-sage-thyme-fresh-default",
+      "alias": "herb-fresh-default",
       "cropGroup": "AUTRES CULTURES INDUSTRIELLES",
       "cropGroupMatch": {
-        "confidence": 1.0,
+        "confidence": 0.95,
         "rule": "matched 'rosemary' in cropgroup.csv"
       },
       "defaultOrigin": "OutOfEuropeAndMaghreb",
@@ -212,7 +212,7 @@
       "alias": "tarragon-fresh-default",
       "cropGroup": "AUTRES CULTURES INDUSTRIELLES",
       "cropGroupMatch": {
-        "confidence": 1.0,
+        "confidence": 0.95,
         "rule": "matched 'tarragon' in cropgroup.csv"
       },
       "defaultOrigin": "OutOfEuropeAndMaghreb",

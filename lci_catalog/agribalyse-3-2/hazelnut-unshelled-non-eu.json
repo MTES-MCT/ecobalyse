@@ -1,0 +1,59 @@
+{
+  "activityName": "Hazelnut, unshelled, at plant {TR} U",
+  "categories": [
+    "ingredient",
+    "material",
+    "material_type:other_food_items"
+  ],
+  "displayName": "Noisette décortiquée par défaut",
+  "id": "08102afb-c044-51e3-bc3c-24e7bad4e2dc",
+  "metadata": [
+    {
+      "alias": "hazelnut-unshelled-non-eu-2025",
+      "cropGroup": "FRUITS A COQUES",
+      "defaultOrigin": "OutOfEuropeAndMaghreb",
+      "displayName": "Noisette décortiquée par défaut (2025)",
+      "explain": "icv par défaut = ICV TR",
+      "id": "4d7a741d-4bd7-4b39-8648-1f9a2f719eac",
+      "inediblePart": 0.5,
+      "ingredientCategories": [
+        "nut_oilseed_raw"
+      ],
+      "ingredientDensity": 0.72,
+      "rawToCookedRatio": 1.0,
+      "scenario": "import",
+      "scopes": [
+        "food",
+        "food2"
+      ],
+      "transportCooling": "none",
+      "visible": false
+    },
+    {
+      "alias": "unknown-dried-fruits-2025",
+      "cropGroup": "FRUITS A COQUES",
+      "defaultOrigin": "OutOfEuropeAndMaghreb",
+      "displayName": "Autres fruits secs (non encore répertoriés) (2025)",
+      "explain": "icv par défaut = ICV TR",
+      "id": "7cf22e4f-49b0-4430-818a-17de54f2b740",
+      "inediblePart": 0.5,
+      "ingredientCategories": [
+        "nut_oilseed_raw"
+      ],
+      "ingredientDensity": 0.72,
+      "rawToCookedRatio": 1.0,
+      "scenario": "import",
+      "scopes": [
+        "food",
+        "food2"
+      ],
+      "transportCooling": "none",
+      "visible": true
+    }
+  ],
+  "scopes": [
+    "food",
+    "food2"
+  ],
+  "source": "Agribalyse 3.2"
+}

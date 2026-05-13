@@ -1,0 +1,39 @@
+{
+  "activityName": "Winter pea, from intercrop, organic, system number 1, at farm gate {FR} U",
+  "categories": [
+    "ingredient",
+    "material",
+    "material_type:other_food_items"
+  ],
+  "displayName": "Pois chiche Bio",
+  "id": "89871c43-7b9f-53b4-a7b1-70b29eb565f4",
+  "metadata": [
+    {
+      "alias": "chickpea-organic-2025",
+      "cropGroup": "LEGUMINEUSES A GRAIN",
+      "defaultOrigin": "France",
+      "displayName": "Pois chiche Bio (2025)",
+      "explain": "ICV pois chiche conventionnel déterminé à partir du mix de consommation de pois chiche d'Agribalyse (Winter pea conventional, at farm gate). L'ICV bio a été choisi par cohérence avec son équivalent conventionnel (Winter Pea Organic) => vigilance sur la définition de \"système 1\" (attente du retour des instituts techniques)",
+      "id": "20aea108-cab8-4223-b8b7-4747599e228c",
+      "inediblePart": 0.2,
+      "ingredientCategories": [
+        "nut_oilseed_raw",
+        "organic"
+      ],
+      "ingredientDensity": 0.72,
+      "rawToCookedRatio": 2.33,
+      "scenario": "organic",
+      "scopes": [
+        "food",
+        "food2"
+      ],
+      "transportCooling": "none",
+      "visible": true
+    }
+  ],
+  "scopes": [
+    "food",
+    "food2"
+  ],
+  "source": "Agribalyse 3.2"
+}

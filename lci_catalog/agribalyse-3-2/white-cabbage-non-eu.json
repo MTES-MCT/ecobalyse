@@ -12,15 +12,15 @@
       "alias": "white-cabbage-fr",
       "cropGroup": "LEGUMES-FLEURS",
       "cropGroupMatch": {
-        "confidence": 1.0,
-        "rule": "vegetable default"
+        "confidence": 0.95,
+        "rule": "matched 'cabbage' in cropgroup.csv"
       },
       "defaultOrigin": "France",
       "displayName": "Chou blanc FR",
       "id": "7c78115b-3268-4b78-add5-98b0f85bfc34",
       "inediblePart": 0.2,
       "inediblePartMatch": {
-        "confidence": 0.98,
+        "confidence": 0.95,
         "rule": "Matched with Cabbage in agb_inedible.csv"
       },
       "ingredientCategories": [
@@ -28,12 +28,12 @@
       ],
       "ingredientDensity": 0.9,
       "ingredientDensityMatch": {
-        "confidence": 1.0,
-        "rule": "vegetable default from food_type_density.csv"
+        "confidence": 0.95,
+        "rule": "Matched with cabbage in density.csv"
       },
       "rawToCookedRatio": 0.856,
       "rawToCookedRatioMatch": {
-        "confidence": 0.98,
+        "confidence": 0.95,
         "rule": "Matched with cabbage in cooked_to_raw.csv"
       },
       "scenario": "reference",
@@ -93,15 +93,15 @@
       "alias": "white-cabbage-default",
       "cropGroup": "LEGUMES-FLEURS",
       "cropGroupMatch": {
-        "confidence": 1.0,
-        "rule": "vegetable default"
+        "confidence": 0.95,
+        "rule": "matched 'cabbage' in cropgroup.csv"
       },
       "defaultOrigin": "OutOfEuropeAndMaghreb",
       "displayName": "Chou blanc Origine Inconnue",
       "id": "9a42ef66-b45b-597f-b8b4-bb7792e5bde9",
       "inediblePart": 0.2,
       "inediblePartMatch": {
-        "confidence": 0.98,
+        "confidence": 0.95,
         "rule": "Matched with Cabbage in agb_inedible.csv"
       },
       "ingredientCategories": [
@@ -109,12 +109,12 @@
       ],
       "ingredientDensity": 0.9,
       "ingredientDensityMatch": {
-        "confidence": 1.0,
-        "rule": "vegetable default from food_type_density.csv"
+        "confidence": 0.95,
+        "rule": "Matched with cabbage in density.csv"
       },
       "rawToCookedRatio": 0.856,
       "rawToCookedRatioMatch": {
-        "confidence": 0.98,
+        "confidence": 0.95,
         "rule": "Matched with cabbage in cooked_to_raw.csv"
       },
       "scenario": "import",

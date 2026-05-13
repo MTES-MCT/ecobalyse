@@ -13,8 +13,8 @@
       "alias": "brazil-nut-organic",
       "cropGroup": "FRUITS A COQUES",
       "cropGroupMatch": {
-        "confidence": 1.0,
-        "rule": "nut default"
+        "confidence": 0.95,
+        "rule": "matched 'noix' in cropgroup.csv"
       },
       "defaultOrigin": "France",
       "displayName": "Noix du Brésil Bio",
@@ -28,10 +28,10 @@
         "nut_oilseed_raw",
         "organic"
       ],
-      "ingredientDensity": 0.6,
+      "ingredientDensity": 0.63,
       "ingredientDensityMatch": {
-        "confidence": 1.0,
-        "rule": "nut_oilseed default from food_type_density.csv"
+        "confidence": 0.95,
+        "rule": "Matched with Nuts in fao_density.csv"
       },
       "rawToCookedRatio": 1.0,
       "rawToCookedRatioMatch": {
@@ -71,7 +71,7 @@
       ],
       "ingredientDensity": 0.5,
       "ingredientDensityMatch": {
-        "confidence": 0.98,
+        "confidence": 0.95,
         "rule": "Matched with pistachio in density.csv"
       },
       "rawToCookedRatio": 1.0,

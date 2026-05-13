@@ -7,11 +7,11 @@
   "id": "5f9b2c9d-9fd2-55d5-8731-6e375302d146",
   "metadata": [
     {
-      "alias": "grape-black-or-white-fr",
+      "alias": "grape-fr",
       "cropGroup": "VIGNES",
       "cropGroupMatch": {
-        "confidence": 1.0,
-        "rule": "grape/wine pattern"
+        "confidence": 0.95,
+        "rule": "matched 'grape' in cropgroup.csv"
       },
       "defaultOrigin": "France",
       "displayName": "Raisins (noirs ou blancs) FR",
@@ -24,10 +24,10 @@
       "ingredientCategories": [
         "vegetable_fresh"
       ],
-      "ingredientDensity": 0.85,
+      "ingredientDensity": 1.0,
       "ingredientDensityMatch": {
-        "confidence": 1.0,
-        "rule": "fruit default from food_type_density.csv"
+        "confidence": 0.95,
+        "rule": "Matched with grape in density.csv"
       },
       "rawToCookedRatio": 0.856,
       "rawToCookedRatioMatch": {

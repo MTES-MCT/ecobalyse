@@ -10,10 +10,10 @@
   "metadata": [
     {
       "alias": "cotton-seed-fr",
-      "cropGroup": "LEGUMES-FLEURS",
+      "cropGroup": "SEMENCES",
       "cropGroupMatch": {
-        "confidence": 1.0,
-        "rule": "vegetable default"
+        "confidence": 0.95,
+        "rule": "matched 'semences epeautre' in cropgroup.csv"
       },
       "defaultOrigin": "France",
       "displayName": "Graine de coton FR",

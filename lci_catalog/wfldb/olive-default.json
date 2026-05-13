@@ -11,10 +11,10 @@
   "metadata": [
     {
       "alias": "olive-default",
-      "cropGroup": "VERGERS",
+      "cropGroup": "OLIVIERS",
       "cropGroupMatch": {
-        "confidence": 1.0,
-        "rule": "fruit default"
+        "confidence": 0.95,
+        "rule": "matched 'olive' in cropgroup.csv"
       },
       "defaultOrigin": "OutOfEuropeAndMaghreb",
       "displayName": "Olives Origine Inconnue",
@@ -29,8 +29,8 @@
       ],
       "ingredientDensity": 0.65,
       "ingredientDensityMatch": {
-        "confidence": 1.0,
-        "rule": "Olives FR found in ingredients.json"
+        "confidence": 0.95,
+        "rule": "Matched with Olives, green, with stone in fao_density.csv"
       },
       "rawToCookedRatio": 0.856,
       "rawToCookedRatioMatch": {

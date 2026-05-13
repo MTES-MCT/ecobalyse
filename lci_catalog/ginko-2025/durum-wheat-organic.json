@@ -11,10 +11,10 @@
   "metadata": [
     {
       "alias": "durum-wheat-organic",
-      "cropGroup": "BLE TENDRE",
+      "cropGroup": "AUTRES CEREALES",
       "cropGroupMatch": {
-        "confidence": 1.0,
-        "rule": "wheat/flour pattern"
+        "confidence": 0.95,
+        "rule": "matched 'blé dur hiver' in cropgroup.csv"
       },
       "defaultOrigin": "France",
       "displayName": "Blé dur Bio",
@@ -28,10 +28,10 @@
         "grain_raw",
         "organic"
       ],
-      "ingredientDensity": 0.75,
+      "ingredientDensity": 0.77,
       "ingredientDensityMatch": {
-        "confidence": 1.0,
-        "rule": "grain default from food_type_density.csv"
+        "confidence": 0.95,
+        "rule": "Matched with Wheat in fao_density.csv"
       },
       "rawToCookedRatio": 2.259,
       "rawToCookedRatioMatch": {

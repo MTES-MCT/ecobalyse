@@ -7,11 +7,11 @@
   "id": "d0448664-37cd-5b7a-b0e8-e182a6e6c269",
   "metadata": [
     {
-      "alias": "grape-black-or-white-default",
+      "alias": "grape-default",
       "cropGroup": "VIGNES",
       "cropGroupMatch": {
-        "confidence": 1.0,
-        "rule": "grape/wine pattern"
+        "confidence": 0.95,
+        "rule": "matched 'grape' in cropgroup.csv"
       },
       "defaultOrigin": "OutOfEuropeAndMaghreb",
       "displayName": "Raisins (noirs ou blancs) Origine Inconnue",
@@ -24,10 +24,10 @@
       "ingredientCategories": [
         "vegetable_fresh"
       ],
-      "ingredientDensity": 0.85,
+      "ingredientDensity": 1.0,
       "ingredientDensityMatch": {
-        "confidence": 1.0,
-        "rule": "fruit default from food_type_density.csv"
+        "confidence": 0.95,
+        "rule": "Matched with grape in density.csv"
       },
       "rawToCookedRatio": 0.856,
       "rawToCookedRatioMatch": {
@@ -50,7 +50,7 @@
       "alias": "grape-eu",
       "cropGroup": "VIGNES",
       "cropGroupMatch": {
-        "confidence": 1.0,
+        "confidence": 0.95,
         "rule": "matched 'grape' in cropgroup.csv"
       },
       "defaultOrigin": "EuropeAndMaghreb",

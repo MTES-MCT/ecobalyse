@@ -1,0 +1,39 @@
+{
+  "activityName": "Egg, conventional, indoor system, non-cage, at farm gate {FR} U",
+  "categories": [
+    "ingredient",
+    "material",
+    "material_type:eggs"
+  ],
+  "displayName": "Oeuf FR",
+  "id": "9a38e883-4ad0-5740-b63d-a4eab07aa491",
+  "metadata": [
+    {
+      "alias": "egg-indoor-code2-2025",
+      "animalGroup1": "poultry",
+      "animalGroup2": "chicken",
+      "animalProduct": "egg",
+      "defaultOrigin": "France",
+      "displayName": "Oeuf FR (2025)",
+      "id": "cf30d3bc-e99c-418a-b7e3-89a894d410a5",
+      "inediblePart": 0.2,
+      "ingredientCategories": [
+        "animal_product"
+      ],
+      "ingredientDensity": 1.0,
+      "rawToCookedRatio": 0.974,
+      "scenario": "reference",
+      "scopes": [
+        "food",
+        "food2"
+      ],
+      "transportCooling": "none",
+      "visible": true
+    }
+  ],
+  "scopes": [
+    "food",
+    "food2"
+  ],
+  "source": "Agribalyse 3.2"
+}

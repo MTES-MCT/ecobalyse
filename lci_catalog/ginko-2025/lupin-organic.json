@@ -31,7 +31,7 @@
       "ingredientDensity": 0.8,
       "ingredientDensityMatch": {
         "confidence": 1.0,
-        "rule": "Lupin FR found in ingredients.json"
+        "rule": "legume default from food_type_density.csv"
       },
       "rawToCookedRatio": 0.856,
       "rawToCookedRatioMatch": {

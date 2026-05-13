@@ -7,13 +7,13 @@
   "id": "5cd7bf39-6699-59f1-9838-655df48d27da",
   "metadata": [
     {
-      "alias": "lamb-organic",
+      "alias": "lamb-organic-2025",
       "animalGroup1": "sheep",
       "animalGroup2": "sheep",
       "animalProduct": "meat",
       "defaultOrigin": "France",
-      "displayName": "Agneau Bio",
-      "id": "034bbddf-d9b2-5a29-8397-4abcd65a7999",
+      "displayName": "Agneau Bio (2025)",
+      "id": "40a0b555-9861-5fc0-9403-a1270da13963",
       "inediblePart": 0.05,
       "inediblePartMatch": {
         "confidence": 1.0,

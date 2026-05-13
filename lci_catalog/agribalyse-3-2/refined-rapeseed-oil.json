@@ -1,0 +1,38 @@
+{
+  "activityName": "Rapeseed oil, refined, at oil mill {FR} U",
+  "categories": [
+    "ingredient",
+    "material",
+    "material_type:other_food_items"
+  ],
+  "displayName": "Huile de colza (raffinée) FR",
+  "id": "4f84affb-e3f9-5a97-9a49-a9e4d965bd49",
+  "metadata": [
+    {
+      "alias": "refined-rapeseed-oil-2025",
+      "cropGroup": "COLZA",
+      "defaultOrigin": "France",
+      "displayName": "Huile de colza (raffinée) FR (2025)",
+      "explain": "Cet ICV correspond à la production de l'huile de colza, de la culture jusqu'aux portes de l'usine. La trituration et le raffinage sont représentatifs de la production en France pour un usage alimentaire. Le transport des graines de colza est inclus mais le transport aval de l'huile de colza n'est pas inclus dans cet ICV. \nCet ICV se retrouve dans de nombreux autres produits Agribalyse contenant de l'huile de colza. \nSelon le mix de consommation français de l'huile de colza, l'origine par défaut devrait être Europe. \nLa densité de l'huile de colza est de 0,915. \nComme le précise la méthodologie AGRIBALYSE, il n'y a pas de transport frigorifique pour les huiles végétales.\n\nRemarque : l'ICV \"\"Rapeseed oil, at oil mill {GLO} - Adapted from WFLDB U\"\" correspond à la donnée huile de colza de Agribalyse 3.0. Cette donnée n'est pas spécifique à la production française. Cet ICV n'est pas utilisé dans les autres produits Agribalyse.",
+      "id": "c3697176-e682-43c3-b16a-3992ff8f1404",
+      "inediblePart": 0,
+      "ingredientCategories": [
+        "nut_oilseed_processed"
+      ],
+      "ingredientDensity": 1,
+      "rawToCookedRatio": 1.0,
+      "scenario": "reference",
+      "scopes": [
+        "food",
+        "food2"
+      ],
+      "transportCooling": "none",
+      "visible": true
+    }
+  ],
+  "scopes": [
+    "food",
+    "food2"
+  ],
+  "source": "Agribalyse 3.2"
+}

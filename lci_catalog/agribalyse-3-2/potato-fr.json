@@ -20,7 +20,7 @@
       "id": "0528ba96-12c6-5f56-8b9f-a2343fc8e12b",
       "inediblePart": 0.1,
       "inediblePartMatch": {
-        "confidence": 0.98,
+        "confidence": 0.95,
         "rule": "Matched with Potatoes in agb_inedible.csv"
       },
       "ingredientCategories": [
@@ -52,8 +52,8 @@
       "alias": "sweet-potato-fr",
       "cropGroup": "LEGUMES-FLEURS",
       "cropGroupMatch": {
-        "confidence": 1.0,
-        "rule": "vegetable default"
+        "confidence": 0.95,
+        "rule": "matched 'potato' in cropgroup.csv"
       },
       "defaultOrigin": "France",
       "displayName": "Patate douce FR",
@@ -66,10 +66,10 @@
       "ingredientCategories": [
         "vegetable_fresh"
       ],
-      "ingredientDensity": 0.9,
+      "ingredientDensity": 0.44,
       "ingredientDensityMatch": {
-        "confidence": 1.0,
-        "rule": "vegetable default from food_type_density.csv"
+        "confidence": 0.95,
+        "rule": "Matched with Sweet potato, raw in fao_density.csv"
       },
       "rawToCookedRatio": 0.856,
       "rawToCookedRatioMatch": {
@@ -92,7 +92,7 @@
       "alias": "sweet-potato-eu",
       "cropGroup": "LEGUMES-FLEURS",
       "cropGroupMatch": {
-        "confidence": 1.0,
+        "confidence": 0.95,
         "rule": "matched 'potato' in cropgroup.csv"
       },
       "defaultOrigin": "EuropeAndMaghreb",
@@ -106,10 +106,50 @@
       "ingredientCategories": [
         "vegetable_fresh"
       ],
-      "ingredientDensity": 0.65,
+      "ingredientDensity": 0.44,
       "ingredientDensityMatch": {
         "confidence": 0.95,
-        "rule": "Matched with Sweet potato, boiled in fao_density.csv"
+        "rule": "Matched with Sweet potato, raw in fao_density.csv"
+      },
+      "rawToCookedRatio": 0.856,
+      "rawToCookedRatioMatch": {
+        "confidence": 0.95,
+        "rule": "Matched with potato in cooked_to_raw.csv"
+      },
+      "scenario": "import",
+      "scopes": [
+        "food",
+        "food2"
+      ],
+      "transportCooling": "always",
+      "transportCoolingMatch": {
+        "confidence": 1.0,
+        "rule": "vegetable NOVA 1 → always (perishable)"
+      },
+      "visible": true
+    },
+    {
+      "alias": "sweet-potato-non-eu",
+      "cropGroup": "LEGUMES-FLEURS",
+      "cropGroupMatch": {
+        "confidence": 0.95,
+        "rule": "matched 'potato' in cropgroup.csv"
+      },
+      "defaultOrigin": "OutOfEuropeAndMaghreb",
+      "displayName": "Patate douce HORS UE",
+      "id": "d70d39f5-d4f7-52be-8c29-c7dfb9c46add",
+      "inediblePart": 0.1,
+      "inediblePartMatch": {
+        "confidence": 0.95,
+        "rule": "Matched with Potatoes in agb_inedible.csv"
+      },
+      "ingredientCategories": [
+        "vegetable_fresh"
+      ],
+      "ingredientDensity": 0.44,
+      "ingredientDensityMatch": {
+        "confidence": 0.95,
+        "rule": "Matched with Sweet potato, raw in fao_density.csv"
       },
       "rawToCookedRatio": 0.856,
       "rawToCookedRatioMatch": {

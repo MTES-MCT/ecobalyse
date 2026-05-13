@@ -10,10 +10,10 @@
   "metadata": [
     {
       "alias": "saffron-fr",
-      "cropGroup": "AUTRES CULTURES INDUSTRIELLES",
+      "cropGroup": "DIVERS",
       "cropGroupMatch": {
         "confidence": 1.0,
-        "rule": "matched 'ginger' in cropgroup.csv"
+        "rule": "spice_condiment default"
       },
       "defaultOrigin": "France",
       "displayName": "Safran FR",
@@ -52,8 +52,8 @@
       "alias": "black-pepper-default",
       "cropGroup": "DIVERS",
       "cropGroupMatch": {
-        "confidence": 1.0,
-        "rule": "spice_condiment default"
+        "confidence": 0.95,
+        "rule": "matched 'pepper' in cropgroup.csv"
       },
       "defaultOrigin": "OutOfEuropeAndMaghreb",
       "displayName": "Poivre noir Origine Inconnue",
@@ -106,10 +106,10 @@
       "ingredientCategories": [
         "spice_condiment_additive"
       ],
-      "ingredientDensity": 0.5,
+      "ingredientDensity": 0.56,
       "ingredientDensityMatch": {
-        "confidence": 1.0,
-        "rule": "spice_condiment default from food_type_density.csv"
+        "confidence": 0.95,
+        "rule": "Matched with Cinnamon, powder in fao_density.csv"
       },
       "rawToCookedRatio": 1.0,
       "rawToCookedRatioMatch": {
@@ -130,10 +130,10 @@
     },
     {
       "alias": "saffron-default",
-      "cropGroup": "AUTRES CULTURES INDUSTRIELLES",
+      "cropGroup": "DIVERS",
       "cropGroupMatch": {
         "confidence": 1.0,
-        "rule": "matched 'ginger' in cropgroup.csv"
+        "rule": "spice_condiment default"
       },
       "defaultOrigin": "OutOfEuropeAndMaghreb",
       "displayName": "Safran Origine Inconnue",
@@ -170,14 +170,134 @@
     },
     {
       "alias": "saffron-eu",
-      "cropGroup": "AUTRES CULTURES INDUSTRIELLES",
+      "cropGroup": "DIVERS",
       "cropGroupMatch": {
         "confidence": 1.0,
-        "rule": "matched 'ginger' in cropgroup.csv"
+        "rule": "spice_condiment default"
       },
       "defaultOrigin": "EuropeAndMaghreb",
       "displayName": "Safran UE",
       "id": "23035522-46ca-58f3-aaae-b4bec71368ce",
+      "inediblePart": 0.0,
+      "inediblePartMatch": {
+        "confidence": 1.0,
+        "rule": "spice_condiment NOVA 1 default from food_type_inedible_part.csv"
+      },
+      "ingredientCategories": [
+        "spice_condiment_additive"
+      ],
+      "ingredientDensity": 0.5,
+      "ingredientDensityMatch": {
+        "confidence": 1.0,
+        "rule": "spice_condiment default from food_type_density.csv"
+      },
+      "rawToCookedRatio": 1.0,
+      "rawToCookedRatioMatch": {
+        "confidence": 1.0,
+        "rule": "spice_condiment default from food_type_cooked_to_raw.csv"
+      },
+      "scenario": "import",
+      "scopes": [
+        "food",
+        "food2"
+      ],
+      "transportCooling": "none",
+      "transportCoolingMatch": {
+        "confidence": 1.0,
+        "rule": "spice_condiment → none (non-perishable)"
+      },
+      "visible": true
+    },
+    {
+      "alias": "black-pepper-non-eu",
+      "cropGroup": "DIVERS",
+      "cropGroupMatch": {
+        "confidence": 0.95,
+        "rule": "matched 'pepper' in cropgroup.csv"
+      },
+      "defaultOrigin": "OutOfEuropeAndMaghreb",
+      "displayName": "Poivre noir HORS UE",
+      "id": "66a509c8-926d-5459-b2ab-d3b48720281a",
+      "inediblePart": 0.03,
+      "inediblePartMatch": {
+        "confidence": 0.95,
+        "rule": "Matched with Peppers in agb_inedible.csv"
+      },
+      "ingredientCategories": [
+        "spice_condiment_additive"
+      ],
+      "ingredientDensity": 0.5,
+      "ingredientDensityMatch": {
+        "confidence": 1.0,
+        "rule": "spice_condiment default from food_type_density.csv"
+      },
+      "rawToCookedRatio": 1.0,
+      "rawToCookedRatioMatch": {
+        "confidence": 1.0,
+        "rule": "spice_condiment default from food_type_cooked_to_raw.csv"
+      },
+      "scenario": "import",
+      "scopes": [
+        "food",
+        "food2"
+      ],
+      "transportCooling": "none",
+      "transportCoolingMatch": {
+        "confidence": 1.0,
+        "rule": "spice_condiment → none (non-perishable)"
+      },
+      "visible": true
+    },
+    {
+      "alias": "cinnamon-non-eu",
+      "cropGroup": "DIVERS",
+      "cropGroupMatch": {
+        "confidence": 1.0,
+        "rule": "spice_condiment default"
+      },
+      "defaultOrigin": "OutOfEuropeAndMaghreb",
+      "displayName": "Cannelle HORS UE",
+      "id": "22dd97eb-a2d8-5d7b-9c9a-58c55c3fbfc1",
+      "inediblePart": 0.0,
+      "inediblePartMatch": {
+        "confidence": 1.0,
+        "rule": "spice_condiment NOVA 1 default from food_type_inedible_part.csv"
+      },
+      "ingredientCategories": [
+        "spice_condiment_additive"
+      ],
+      "ingredientDensity": 0.56,
+      "ingredientDensityMatch": {
+        "confidence": 0.95,
+        "rule": "Matched with Cinnamon, powder in fao_density.csv"
+      },
+      "rawToCookedRatio": 1.0,
+      "rawToCookedRatioMatch": {
+        "confidence": 1.0,
+        "rule": "spice_condiment default from food_type_cooked_to_raw.csv"
+      },
+      "scenario": "import",
+      "scopes": [
+        "food",
+        "food2"
+      ],
+      "transportCooling": "none",
+      "transportCoolingMatch": {
+        "confidence": 1.0,
+        "rule": "spice_condiment → none (non-perishable)"
+      },
+      "visible": true
+    },
+    {
+      "alias": "saffron-non-eu",
+      "cropGroup": "DIVERS",
+      "cropGroupMatch": {
+        "confidence": 1.0,
+        "rule": "spice_condiment default"
+      },
+      "defaultOrigin": "OutOfEuropeAndMaghreb",
+      "displayName": "Safran HORS UE",
+      "id": "bbbc2735-e6d9-51f0-b744-94ba5d5d8003",
       "inediblePart": 0.0,
       "inediblePartMatch": {
         "confidence": 1.0,

@@ -67,15 +67,15 @@
       "ingredientCategories": [
         "vegetable_fresh"
       ],
-      "ingredientDensity": 0.9,
+      "ingredientDensity": 1.0,
       "ingredientDensityMatch": {
-        "confidence": 1.0,
-        "rule": "vegetable default from food_type_density.csv"
+        "confidence": 0.95,
+        "rule": "Matched with onion in density.csv"
       },
       "rawToCookedRatio": 0.856,
       "rawToCookedRatioMatch": {
-        "confidence": 1.0,
-        "rule": "vegetable default from food_type_cooked_to_raw.csv"
+        "confidence": 0.95,
+        "rule": "Matched with onion in cooked_to_raw.csv"
       },
       "scenario": "import",
       "scopes": [

@@ -7,7 +7,7 @@
   "id": "e409257e-dc33-528c-9c44-c70b7811a67b",
   "metadata": [
     {
-      "alias": "broiler-organic",
+      "alias": "broiler-organic-2025",
       "animalGroup1": "poultry",
       "animalGroup2": "chicken",
       "animalProduct": "meat",
@@ -17,8 +17,8 @@
         "rule": "matched 'prairies naturelles' in cropgroup.csv"
       },
       "defaultOrigin": "France",
-      "displayName": "Poulet Bio",
-      "id": "d5ebedac-5c53-5de7-ace9-0a122a072200",
+      "displayName": "Poulet Bio (2025)",
+      "id": "e0a1afb5-7eee-5fd4-ac40-30da85bbea87",
       "inediblePart": 0.05,
       "inediblePartMatch": {
         "confidence": 1.0,
@@ -51,13 +51,13 @@
       "visible": false
     },
     {
-      "alias": "poultry-organic",
+      "alias": "poultry-organic-2025",
       "animalGroup1": "poultry",
       "animalGroup2": "chicken",
       "animalProduct": "meat",
       "defaultOrigin": "France",
-      "displayName": "Volaille Bio",
-      "id": "f7082531-2885-5883-9f07-d15e07899873",
+      "displayName": "Volaille Bio (2025)",
+      "id": "cc32ba6c-8d45-515e-9f8d-734903d383b7",
       "inediblePart": 0.05,
       "inediblePartMatch": {
         "confidence": 1.0,
@@ -90,13 +90,13 @@
       "visible": false
     },
     {
-      "alias": "rabbit-organic",
+      "alias": "rabbit-organic-2025",
       "animalGroup1": "poultry",
       "animalGroup2": "chicken",
       "animalProduct": "meat",
       "defaultOrigin": "France",
-      "displayName": "Lapin Bio",
-      "id": "9f9c8201-bf32-5562-be28-a637b6a6f7b7",
+      "displayName": "Lapin Bio (2025)",
+      "id": "4fb928be-7f49-59e1-af0b-2092143be6c1",
       "inediblePart": 0.05,
       "inediblePartMatch": {
         "confidence": 1.0,

@@ -9,7 +9,7 @@
   "id": "e32ce795-0af6-5d90-8fed-2ed0e249baad",
   "metadata": [
     {
-      "alias": "sea-salt-celery-salt-or-fleur-de-sel-fr",
+      "alias": "sea-salt-fr",
       "defaultOrigin": "France",
       "displayName": "Sel de mer, sel de céleri ou fleur de sel FR",
       "id": "64e82939-f3fe-52f4-8611-29b245c0e66e",
@@ -36,15 +36,15 @@
         "food",
         "food2"
       ],
-      "transportCooling": "always",
+      "transportCooling": "none",
       "transportCoolingMatch": {
         "confidence": 0.95,
-        "rule": "Matched with Céleri FR in ingredients.json"
+        "rule": "Matched with salt in transport_cooling.csv"
       },
       "visible": true
     },
     {
-      "alias": "sea-salt-celery-salt-or-fleur-de-sel-default",
+      "alias": "sea-salt-default",
       "defaultOrigin": "OutOfEuropeAndMaghreb",
       "displayName": "Sel de mer, sel de céleri ou fleur de sel Origine Inconnue",
       "id": "9e3c5bdd-474a-561a-8d5f-ea03b9c537a3",
@@ -71,10 +71,10 @@
         "food",
         "food2"
       ],
-      "transportCooling": "always",
+      "transportCooling": "none",
       "transportCoolingMatch": {
         "confidence": 0.95,
-        "rule": "Matched with Céleri FR in ingredients.json"
+        "rule": "Matched with salt in transport_cooling.csv"
       },
       "visible": true
     },
@@ -83,6 +83,41 @@
       "defaultOrigin": "EuropeAndMaghreb",
       "displayName": "Sel de mer, sel de céleri ou fleur de sel UE",
       "id": "d91d56f7-139a-55e5-b30d-b27b2fdfc026",
+      "inediblePart": 0.0,
+      "inediblePartMatch": {
+        "confidence": 1.0,
+        "rule": "fish_seafood NOVA 2-4 default from food_type_inedible_part.csv"
+      },
+      "ingredientCategories": [
+        "animal_product"
+      ],
+      "ingredientDensity": 1.05,
+      "ingredientDensityMatch": {
+        "confidence": 1.0,
+        "rule": "fish_seafood default from food_type_density.csv"
+      },
+      "rawToCookedRatio": 0.819,
+      "rawToCookedRatioMatch": {
+        "confidence": 1.0,
+        "rule": "fish_seafood default from food_type_cooked_to_raw.csv"
+      },
+      "scenario": "import",
+      "scopes": [
+        "food",
+        "food2"
+      ],
+      "transportCooling": "none",
+      "transportCoolingMatch": {
+        "confidence": 0.95,
+        "rule": "Matched with salt in transport_cooling.csv"
+      },
+      "visible": true
+    },
+    {
+      "alias": "sea-salt-non-eu",
+      "defaultOrigin": "OutOfEuropeAndMaghreb",
+      "displayName": "Sel de mer, sel de céleri ou fleur de sel HORS UE",
+      "id": "5382613c-160f-562f-87bc-05ad85bd63a8",
       "inediblePart": 0.0,
       "inediblePartMatch": {
         "confidence": 1.0,

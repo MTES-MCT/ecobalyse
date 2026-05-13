@@ -16,7 +16,7 @@
         "confidence": 1.0,
         "rule": "matched 'mango' in cropgroup.csv"
       },
-      "defaultOrigin": "FranceOutreMer",
+      "defaultOrigin": "France",
       "displayName": "Mangue Bio",
       "id": "c15d6695-452c-5401-b820-b3fe8c0f843b",
       "inediblePart": 0.2,
