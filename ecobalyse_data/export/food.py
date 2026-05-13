@@ -6,6 +6,7 @@ from typing import List, Optional
 import matplotlib.pyplot as plt
 
 import config
+from common.base_ingredient import infer_base_ingredient
 from common.export import (
     export_json,
 )
@@ -371,6 +372,7 @@ def activity_to_ingredients(eco_activity: dict, es_by_alias: dict) -> List[Ingre
         ingredients.append(
             Ingredient(
                 alias=food_metadata["alias"],
+                base_ingredient=infer_base_ingredient(food_metadata["alias"]),
                 categories=food_metadata.get("ingredientCategories", []),
                 crop_group=food_metadata.get("cropGroup"),
                 default_origin=food_metadata["defaultOrigin"],

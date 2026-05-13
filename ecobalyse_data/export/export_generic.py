@@ -5,6 +5,7 @@ from typing import List, Optional
 import orjson
 
 from common import activities_processes_sort_key, remove_detailed_impacts
+from common.base_ingredient import infer_base_ingredient
 from common.export import export_json
 from ecobalyse_data.bw.search import cached_search_one
 from ecobalyse_data.export.land_occupation import compute_land_occupation_batch
@@ -45,6 +46,7 @@ def _build_variant_metadata(
 
     if food_variant is not None:
         metadata["ingredient"] = IngredientMetadata(
+            base_ingredient=infer_base_ingredient(food_variant["alias"]),
             crop_group=food_variant.get("cropGroup"),
             default_origin=food_variant["defaultOrigin"],
             density=food_variant["ingredientDensity"],

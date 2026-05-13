@@ -85,6 +85,7 @@
         "plotSize": -0.625
       },
       "ingredient": {
+        "baseIngredient": "bean",
         "cropGroup": "AUTRES CEREALES",
         "defaultOrigin": "France",
         "density": 1.0,
@@ -147,6 +148,7 @@
         "plotSize": -0.625
       },
       "ingredient": {
+        "baseIngredient": "grazed-grass-permanent",
         "cropGroup": "PRAIRIES PERMANENTES",
         "defaultOrigin": "France",
         "density": 1.0,
@@ -207,6 +209,7 @@
         "plotSize": -0.625
       },
       "ingredient": {
+        "baseIngredient": "milk",
         "cropGroup": null,
         "defaultOrigin": "France",
         "density": 1.0,
