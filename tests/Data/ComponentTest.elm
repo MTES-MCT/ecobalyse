@@ -1324,7 +1324,7 @@ suite =
                     , suiteFromResult "nonRecyclableImpacts"
                         ("""{
                               "components": [
-                                { "id": "8ca2ca05-8aec-4121-acaa-7cdcc03150a9", "quantity": 1}
+                                { "id": "8ca2ca05-8aec-4121-acaa-7cdcc03150a9", "quantity": 1 }
                               ],
                               "consumptions": [
                                 { "amount": 1, "processId": "931c9bb0-619a-5f75-b41b-ab8061e2ad92" }
