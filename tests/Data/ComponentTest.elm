@@ -938,15 +938,40 @@ suite =
                             )
                         ]
                     , suiteFromResult2 "computeTransportDistance"
-                        -- Note: exagerating distances to make this test resilient to future data updates
-                        (db.countries |> Country.findByCode (Country.Code "PT") |> Result.map (\c -> { c | distanceToHub = Length.kilometers 10000 }))
-                        (db.countries |> Country.findByCode (Country.Code "FR") |> Result.map (\c -> { c | distanceToHub = Length.kilometers 20000 }))
+                        (db.countries |> Country.findByCode (Country.Code "PT"))
+                        (db.countries |> Country.findByCode (Country.Code "FR"))
                         (\france portugal ->
-                            [ it "should"
+                            [ it "should compute distance between two countries"
                                 (Component.computeTransportDistance requirements (Just portugal) (Just france)
+                                    |> Result.map
+                                        (\{ air, road, sea } ->
+                                            ( Length.inKilometers air > 0
+                                            , Length.inKilometers road > 0
+                                            , Length.inKilometers sea > 0
+                                            )
+                                        )
+                                    |> Expect.equal (Ok ( True, True, True ))
+                                )
+                            , it "should compute distance between two countries accounting transport to hubs"
+                                (Component.computeTransportDistance requirements
+                                    -- Note: exagerating distances to hub, to make this test resilient to future data updates
+                                    (Just { portugal | distanceToHub = Length.kilometers 20000 })
+                                    (Just { france | distanceToHub = Length.kilometers 10000 })
                                     |> Result.map (.road >> Length.inKilometers)
                                     |> Result.withDefault 0
                                     |> Expect.greaterThan 30000
+                                )
+                            , it "should fallback to default distances when the country of departure is undefined"
+                                (Component.computeTransportDistance requirements Nothing (Just france)
+                                    |> Expect.equal (Ok requirements.config.transports.defaultDistance)
+                                )
+                            , it "should fallback to default distances when the destination country is undefined"
+                                (Component.computeTransportDistance requirements (Just portugal) Nothing
+                                    |> Expect.equal (Ok requirements.config.transports.defaultDistance)
+                                )
+                            , it "should fallback to default distances when neither countries are defined"
+                                (Component.computeTransportDistance requirements Nothing Nothing
+                                    |> Expect.equal (Ok requirements.config.transports.defaultDistance)
                                 )
                             ]
                         )
