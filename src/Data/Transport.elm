@@ -13,7 +13,7 @@ module Data.Transport exposing
     , default
     , encode
     , getTransportBetween
-    , getTransportBetween2
+    , getTransportBetweenLegacy
     , makeCooled
     , noTransport
     , sum
@@ -231,8 +231,10 @@ roadSeaTransportRatio { road, sea } =
         Split.zero
 
 
-getTransportBetween : Impacts -> Country.Code -> Country.Code -> Distances -> Transport
-getTransportBetween impacts cA cB distances =
+{-| Deprecated, usage should be gradually replaced with getTransportBetween
+-}
+getTransportBetweenLegacy : Impacts -> Country.Code -> Country.Code -> Distances -> Transport
+getTransportBetweenLegacy impacts cA cB distances =
     case
         ( distances |> Dict.get cA |> Maybe.andThen (Dict.get cB)
         , distances |> Dict.get cB |> Maybe.andThen (Dict.get cA)
@@ -248,12 +250,12 @@ getTransportBetween impacts cA cB distances =
             erroneous impacts
 
 
-{-| Another version of getTransportBetween, returning a Result with an error when a distance
+{-| A newer version of getTransportBetweenLegacy, returning a Result with an error when a distance
 couldn't be found.
 FIXME: the whole codebase should eventually be migrated to use this version.
 -}
-getTransportBetween2 : Country -> Country -> Distances -> Result String Transport
-getTransportBetween2 cA cB distances =
+getTransportBetween : Country -> Country -> Distances -> Result String Transport
+getTransportBetween cA cB distances =
     case
         ( distances |> Dict.get cA.code |> Maybe.andThen (Dict.get cB.code)
         , distances |> Dict.get cB.code |> Maybe.andThen (Dict.get cA.code)

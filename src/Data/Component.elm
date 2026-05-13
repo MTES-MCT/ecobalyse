@@ -876,7 +876,7 @@ computeTransportDistance { config, db } maybeFrom maybeTo =
     case ( maybeFrom, maybeTo ) of
         ( Just from, Just to ) ->
             db.distances
-                |> Transport.getTransportBetween2 from to
+                |> Transport.getTransportBetween from to
                 |> Result.map
                     (\transport ->
                         { transport
