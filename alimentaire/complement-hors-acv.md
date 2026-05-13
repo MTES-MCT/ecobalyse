@@ -28,6 +28,27 @@ $$
 | Diversité culturale   | Cultures (et élevage via la ration) | Valeur toujours positive |
 | Prairies              | Élevages                            | Valeur toujours positive |
 
+### Calibration des 4 composantes
+
+Faisant suite à la concertation de 2025, un travail d'explicitation de la calibration des 4 composantes a été effectué.
+
+A partir du détail des formules de calcul (cf. [tableur complet](https://docs.google.com/spreadsheets/d/1wkwTva7ofeIHJorrlwmJuv-x0uB2jud4r6pqb7aJOwc/edit?usp=sharing)), les externalités positives peuvent s'exprimer comme des points d'impact (négatifs) générés au titre de chacune des composantes pour la mobilisation d'un mètre carré annuel.
+
+| Composante          | Externalités positives générées | Situation de référence                   |
+| ------------------- | ------------------------------- | ---------------------------------------- |
+| Haies               | 6,3 points / m2.an              | Surface avec 140 ml de haie / ha         |
+| Taille de parcelles | 7,1 points / m2.an              | Parcelles de taille minimale             |
+| Diversité culturale | 8,4 points / m2.an              | Indice de Simpson > 15 (diversité forte) |
+| Prairies            | 7,2 points / m2.an              | Prairie permanente                       |
+
+{% hint style="info" %}
+Comment ont été calibrées ces quatre composantes ?
+
+Si le conseil scientifique reconnait dans son second rapport, que l'introduction de compléments visant à valoriser la biodiversité territoriale est légitime, ses membres ont régulièrement souligné que ces compléments ne devraient généralement pas représenter plus de 30% de l'ensemble des impacts attachés à un produit. Ainsi, ces 4 composantes ont été calibrées pour que, ajoutées, elles représent de l'ordre de 30% des impacts générés dans le cas de deux ingrédients emblématiques générant beaucoup de services écosystémiques : le blé bio et le boeuf bio.
+
+![](<../.gitbook/assets/image (390).png>)
+{% endhint %}
+
 ### Rations animales
 
 Les rations animales utilisées pour les calculs des compléments pour les productions animales sont détaillées dans les onglets "feed-per-kg" ([lien vers le tableur](https://docs.google.com/spreadsheets/d/1wkwTva7ofeIHJorrlwmJuv-x0uB2jud4r6pqb7aJOwc/edit?gid=1080931129#gid=1080931129)).
