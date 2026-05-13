@@ -1332,41 +1332,44 @@ endOfLifeView ({ componentConfig, query, scope, updateRecyclable } as config) li
                     [ div [ class "h5" ] [ text "Fin de vie" ]
                     ]
                 ]
-            , div [ class "d-flex" ]
-                [ div [ class "BoolSelector" ]
-                    [ small []
-                        [ label [ class "LeftSelector", title "Recyclable" ]
-                            [ input
-                                [ type_ "radio"
-                                , attribute "role" "switch"
-                                , checked query.recyclable
-                                , onInput <| always (updateRecyclable True)
-                                ]
-                                []
-                            , Icon.recycle
-                            ]
-                        , label [ class "RightSelector", title "Non recyclable" ]
-                            [ input
-                                [ type_ "radio"
-                                , attribute "role" "switch"
-                                , checked (not query.recyclable)
-                                , onInput <| always (updateRecyclable False)
-                                ]
-                                []
-                            , Icon.trash
-                            ]
+            , div [ class "d-flex align-items-center justify-content-between" ]
+                [ span [ class "pe-3" ] [ text "Ce produit est-il recyclable\u{00A0}?" ]
+                , div [ class "form-check form-check-inline" ]
+                    [ input
+                        [ type_ "radio"
+                        , class "form-check-input"
+                        , name "recyclable"
+                        , id "recyclable-yes"
+                        , onClick <| updateRecyclable True
+                        , checked query.recyclable
                         ]
+                        []
+                    , label [ class "form-check-label", for "recyclable-yes" ]
+                        [ text "Oui" ]
                     ]
-                , div [ class "d-flex align-items-center gap-2 ps-2" ]
-                    [ lifeCycle.production
-                        |> Component.getEndOfLifeImpacts
-                            { config = componentConfig
-                            , db = config.db
-                            , scope = config.scope
-                            }
-                            query.recyclable
-                        |> Format.formatImpact config.impact
+                , div [ class "form-check form-check-inline" ]
+                    [ input
+                        [ type_ "radio"
+                        , class "form-check-input"
+                        , name "recyclable"
+                        , id "recyclable-no"
+                        , onClick <| updateRecyclable False
+                        , checked <| not query.recyclable
+                        ]
+                        []
+                    , label [ class "form-check-label", for "recyclable-no" ]
+                        [ text "Non" ]
                     ]
+                ]
+            , div [ class "d-flex align-items-center justify-content-end gap-2 ps-2", style "min-width" "80px" ]
+                [ lifeCycle.production
+                    |> Component.getEndOfLifeImpacts
+                        { config = componentConfig
+                        , db = config.db
+                        , scope = config.scope
+                        }
+                        query.recyclable
+                    |> Format.formatImpact config.impact
                 ]
             ]
         , div [ class "card-body table-responsive p-0" ]

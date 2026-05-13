@@ -1170,7 +1170,7 @@ decodeQuery =
         |> DU.strictOptional "distribution" Process.decodeId
         |> DU.strictOptional "durability" Unit.decodeRatio
         |> Decode.required "components" (Decode.list decodeItem)
-        |> DU.strictOptionalWithDefault "recyclable" Decode.bool False
+        |> Decode.optional "recyclable" Decode.bool True
         |> Decode.optional "transportCooling" (Decode.map TransportCooling Decode.bool) defaultTransportCooling
 
 
