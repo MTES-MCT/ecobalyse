@@ -4,16 +4,16 @@ icon: function
 
 # Complément hors ACV
 
-La valorisation des services écosystémiques est intégrée à travers l'introduction de compléments au cadre ACV. Ces compléments visent à prendre en compte les **externalités environnementales de certains modes de production** telles que désignées dans l’[article 2 de la loi Climat et résilience](https://www.legifrance.gouv.fr/jorf/article_jo/JORFARTI000043956979). Ces externalités ne sont aujourd'hui pas intégrées à l'ACV. Pourtant, elles sont essentielles pour appréhender au mieux l'impact systémique de l'agriculture, notamment à l'échelle des territoires. En effet, les pratiques agricoles façonnent grandement les écosystèmes et les paysages, que ce soit en termes de biodiversité (maintien de zones refuges, de corridors écologiques, d'une mosaïque paysagère diversifiée, etc.) ou en termes de résilience face aux aléas divers (préservation contre l'érosion des sols, bouclage des cycles et moindre dépendance à certains nutriments exogènes, régulation naturelle des ravageurs de cultures, etc.). Cinq compléments sont ainsi ajoutés pour prendre en compte ces effets.
+La valorisation des services écosystémiques est intégrée à travers l'introduction de compléments au cadre ACV. Ces compléments visent à prendre en compte les **externalités environnementales de certains modes de production** telles que désignées dans l’[article 2 de la loi Climat et résilience](https://www.legifrance.gouv.fr/jorf/article_jo/JORFARTI000043956979). Ces externalités ne sont aujourd'hui pas intégrées à l'ACV. Pourtant, elles sont essentielles pour appréhender au mieux l'impact systémique de l'agriculture, notamment à l'échelle des territoires. En effet, les pratiques agricoles façonnent grandement les écosystèmes et les paysages, que ce soit en termes de biodiversité (maintien de zones refuges, de corridors écologiques, d'une mosaïque paysagère diversifiée, etc.) ou en termes de résilience face aux aléas divers (préservation contre l'érosion des sols, régulation naturelle des ravageurs de cultures, etc.). Quatre compléments sont ainsi ajoutés pour prendre en compte ces effets.
 
 ## Introduction et formules de calcul
 
 Les services écosystémiques sont attachées à la production agricole. Ils sont donc intégrés à l'étape "Ingrédients" du cycle de vie.
 
-Pour chaque ingrédient, le coût environnemental est la somme de la composante ACV du coût environnemental et de chacun des 5 services écosystémiques introduits ci-après :&#x20;
+Pour chaque ingrédient, le coût environnemental est la somme de la composante ACV du coût environnemental et de chacun des 4 services écosystémiques introduits ci-après :&#x20;
 
 $$
-CoûtEnvironnemental = ComposanteACV + \sum_{1}^{5}ServicesEcosystémiques
+CoûtEnvironnemental = ComposanteACV + \sum_{1}^{4}ServicesEcosystémiques
 $$
 
 2 types de services écosystémiques sont à distinguer :&#x20;
@@ -21,17 +21,16 @@ $$
 * Les services écosystémiques "cultures", qui s'appliquent aux productions végétales, ainsi qu'aux productions animales via les végétaux consommés dans la ration alimentaire (en intégrant également les prairies).
 * Les services écosystémiques "élevages" qui ne s'appliquent qu'aux productions animales.
 
-| Service écosystémique  | Application                         | Valeur                                   |
-| ---------------------- | ----------------------------------- | ---------------------------------------- |
-| Haies                  | Cultures (et élevage via la ration) | Valeur toujours positive                 |
-| Taille de parcelles    | Cultures (et élevage via la ration) | Valeur toujours positive                 |
-| Diversité culturale    | Cultures (et élevage via la ration) | Valeur toujours positive                 |
-| Prairies permanentes   | Élevages                            | Valeur toujours positive                 |
-| Chargement territorial | Élevages                            | Valeur pouvant être positive ou négative |
+| Service écosystémique | Application                         | Valeur                   |
+| --------------------- | ----------------------------------- | ------------------------ |
+| Haies                 | Cultures (et élevage via la ration) | Valeur toujours positive |
+| Taille de parcelles   | Cultures (et élevage via la ration) | Valeur toujours positive |
+| Diversité culturale   | Cultures (et élevage via la ration) | Valeur toujours positive |
+| Prairies              | Élevages                            | Valeur toujours positive |
 
 ### Rations animales
 
-Les rations animales utilisées pour les calculs des compléments pour les productions animales sont détaillées dans l'onglet "animal-kg" \[_lien vers le tableur à venir en vue du webinaire sur les services écosystémiques animaux_].
+Les rations animales utilisées pour les calculs des compléments pour les productions animales sont détaillées dans les onglets "feed-per-kg" ([lien vers le tableur](https://docs.google.com/spreadsheets/d/1wkwTva7ofeIHJorrlwmJuv-x0uB2jud4r6pqb7aJOwc/edit?gid=1080931129#gid=1080931129)).
 
 ### Services écosystémiques "cultures" / Groupes de culture
 
@@ -93,7 +92,7 @@ Pour appliquer les services écosystémiques "cultures" (haies, tailles de parce
 
 ### Formules de calcul
 
-L'ensemble des formules de calcul implémentées pour le calcul de chacun des 5 services écosystémiques, en distinguant les services écosystémiques "cultures" et les services écosystémiques "élevages" sont détaillés dans le tableur suivant :&#x20;
+L'ensemble des formules de calcul implémentées pour le calcul de chacun des 4 services écosystémiques, en distinguant les services écosystémiques "cultures" et les services écosystémiques "élevages" sont détaillés dans le tableur suivant :&#x20;
 
 [https://docs.google.com/spreadsheets/d/1wkwTva7ofeIHJorrlwmJuv-x0uB2jud4r6pqb7aJOwc/edit?usp=sharing](https://docs.google.com/spreadsheets/d/1wkwTva7ofeIHJorrlwmJuv-x0uB2jud4r6pqb7aJOwc/edit?usp=sharing)
 
@@ -328,77 +327,6 @@ Avec :
 * SurfacePrairies : La surface de prairies permanentes mobilisée, telle qu'issue directement de l'inventaire de cycle de vie mobilisé. Cette surface est exprime en m2.an.
 
 Il est donc proposé de valoriser la mobilisation de prairies permanentes de façon simplement linéaire. Chaque m2.an de prairie permanente mobilisée se traduit par un service écosystémique d'une valeur de CoefPrairies.
-
-## Complément "chargement territorial"
-
-### Approche globale
-
-Ce complément vient prendre en compte les enjeux liés à la densité territoriale en élevage. Il s'agit ainsi de modéliser le fait que :&#x20;
-
-* l'élevage est utile, sur un territoire, pour le bouclage des cycles ou encore l'apport locale d'intrants pour les cultures, bio notamment ;
-* a contrario, un territoire qui présenterait une trop forte densité territoriale en élevage peut se retrouver avec des impacts environnementaux propres à cette situation (ex : phénomène des algues vertes).
-
-{% hint style="info" %}
-Contrairement aux 4 premiers compléments qui ne modélisent que des services écosystémiques, c'est à dire des impacts positifs (donc des points d'impacts négatifs) liés à des cultures ou modes d'élevage, le complément "chargement territorial" peut à la fois modéliser des services écosystémiques (pour un élevage qui viendrait majoritairement de territoires sur lesquels la présence de cet élevage bénéficie à l'équilibre territorial et au bouclage local du cycle de l'azote), mais aussi des impacts négatifs (pour un élevage qui viendrait majoritairement de territoires sur lesquels la densité d'élevage observée est déjà très importante).
-{% endhint %}
-
-Pour appréhender le chargement territoriale, la **maille géographique considérée est le département**. Ce choix apparaît à la fois cohérent en termes de vision locale pour le bouclage du cycle de l'azote, mais aussi adapté pour la mobilisation de données.
-
-Ainsi, des données sont mobilisées pour estimer, sur chaque département, le nombre d'animaux d'élevage présents : bovins, ovins, caprins, porcins, lapins, volaille, équités. Ces données permettent d'estimer, pour chaque département, le nombre d'unité gros bétail (UGB) par hectare de surface agricole utile (SAU).&#x20;
-
-Une formule est ensuite proposée (cf. ci-après), pour traduire ce nombre d'UGB / ha soit en service écosystémique pour les départements sur lesquels la densité d'élevage est faible, soit en impact environnemental pour les départements sur lesquels la densité d'élevage est forte.
-
-A partir des consultations conduites en 2023, il est considéré :&#x20;
-
-* une valeur nulle entre 1 et 1,5 UGB/ha ;
-* des services écosystémiques pour l'élevage issu de départements  dont la densité est inférieure à 1 UGB par hectare de SAU ;
-* des impacts environnementaux pour l'élevage issu de départements dont la densité est supérieure à 1,5 UGB par hectare de SAU.&#x20;
-
-Pour chaque type d'animal, en distinguant bio et conventionnel, on calcul ensuite la moyenne de ce service/impact écosystémique pondérée par la répartition des animaux concernés dans les différents départements. Pour calculer ensuite le service / impact écosystémique pour 1 kg de chaque produit, on multiplie cette valeur par la contribution en UGB de chaque kilo.
-
-La modélisation ainsi proposée fait ressortir des écarts entre les catégories d'animaux élevés. Schématiquement :&#x20;
-
-* les porcins et les volailles sont plus concentrés sur des départements à forte densité en élevage que les bovins ;
-* une différence est notés pour l'élevage bio qui paraît moins concentré sur ces départements à forte densité en élevage ;
-* les caprins et les ovins sont plus répartis sur le territoire, avec une résultante globalement positive (plus d'apport lié à la présence sur des départements à faible densité en élevage que d'impact liés à la présence sur des départemnts à forte densité).
-
-<figure><img src="../.gitbook/assets/Chargement territorial.png" alt=""><figcaption></figcaption></figure>
-
-### Données
-
-Les données mobilisées, distinguant l'élevage conventionnel et l'élevage bio, sont disponibles dans l'onglet Hypothèses chargement du [tableur de calcul](https://docs.google.com/spreadsheets/d/1wkwTva7ofeIHJorrlwmJuv-x0uB2jud4r6pqb7aJOwc/edit?usp=sharing).
-
-Les données mobilisées sont essentiellement :&#x20;
-
-* les surfaces agricoles utiles par département ;
-* le nombre d'animaux par département et par catégorie ;
-* le nombre d'animaux élevés en agriculture biologique, par département et par catégorie.
-
-### Formule
-
-Pour modéliser le service écosystémique (ou l'impact) lié au chargement territoriale, différentes formules sont successivement appliquées.
-
-&#x20;Formule :&#x20;
-
-$$
-SE_{chargement} = Coef_{chargement}*Nbr_{UGB/kg}*Chargement_{groupeXmode d'élevage}
-$$
-
-&#x20;Avec :&#x20;
-
-* CoefChargement : Un coefficient global appliqué au résultat et qui pilote le poids donné à ce résultat dans le coût environnemental. Dans le cadre ACV, cela correspond au rapport entre le coefficient de pondération et le facteur de normalisation de la catégorie d'impact considérée. Ce coefficient est dans l'onglet "Elevage" du [tableur de calcul](https://docs.google.com/spreadsheets/d/1wkwTva7ofeIHJorrlwmJuv-x0uB2jud4r6pqb7aJOwc/edit?usp=sharing).
-* Nbr UGB/kg : Le nombre d'UGB mobilisé par kg de produit considéré. Ce nombre dépend à la fois du groupe d'animal considéré (bovin / vache), mais aussi du type de production (viande, lait, oeufs...). Les valeurs considérées sont détaillées dans l'onglet "Détail chargement" du [tableur de calcul](https://docs.google.com/spreadsheets/d/1wkwTva7ofeIHJorrlwmJuv-x0uB2jud4r6pqb7aJOwc/edit?usp=sharing).
-* Chargement groupeXmode d'élevage : Pour chaque groupe d'animal et chaque mode d'élevage considéré (bio, import, référence) , on recherche la résultante du calcul du service écosystémique (ou de l'impact) départemental moyen pondéré par la présence du groupe d'animal sur chaque département. Ce calcul, est détaillé étape par étape, dans l'onglet "Hypothèses chargement" du [tableur de calcul](https://docs.google.com/spreadsheets/d/1wkwTva7ofeIHJorrlwmJuv-x0uB2jud4r6pqb7aJOwc/edit?usp=sharing).
-
-Dans chaque département, le service écosystémique (ou l'impact) est calculé à partir de la densité d'élevage, exprimée en UGB / hectare de SAU, en appliquant la formule cubique suivante qui modélise les effets recherchés, avec notamment une valeur proche de 0 entre 1 et 1,5 UGB / ha.
-
-$$
-ContributionDpt = -1,067 * densité^3 +4,000 * densité^2-4,933*densité+2,000
-$$
-
-<figure><img src="../.gitbook/assets/{468BD0B8-F9EA-4660-8859-23E8F501F980}.png" alt=""><figcaption></figcaption></figure>
-
-A partir de cette contribution département, le chargement attribué à chaque groupe et mode d'élevage est établi à partir d'une somme pondérée de la contribution départementale par la présence des animaux considérés sur chaque département.&#x20;
 
 ## Traitement des produits agricoles importés
 
