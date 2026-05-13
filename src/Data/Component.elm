@@ -34,6 +34,7 @@ module Data.Component exposing
     , computeInitialAmount
     , computeItemResults
     , computeScoring
+    , computeTransportDistance
     , computeTransportedMassImpacts
     , computeVolumeFromMass
     , createItem
@@ -533,13 +534,11 @@ applyTransforms requirements transportCooling initialCountry unit transforms mat
             (RE.foldlWhileOk
                 (\{ country, process } ( previousCountry, results ) ->
                     loadEnergyMixes requirements.config country
-                        |> Result.map
+                        |> Result.andThen
                             (\mixes ->
-                                ( country
-                                , results
+                                results
                                     |> applyTransportedMassImpacts requirements transportCooling (extractMass results) previousCountry country
-                                    |> applyTransform process mixes
-                                )
+                                    |> Result.map (\results_ -> ( country, applyTransform process mixes results_ ))
                             )
                 )
                 ( initialCountry, materialResults )
@@ -550,30 +549,30 @@ applyTransforms requirements transportCooling initialCountry unit transforms mat
 {-| Add transport impacts for a mass and two optional countries to a results, falling back to transport config
 defaults when both are unknown.
 -}
-applyTransportedMassImpacts : Requirements db -> TransportCooling -> Mass -> Maybe Country -> Maybe Country -> Results -> Results
+applyTransportedMassImpacts : Requirements db -> TransportCooling -> Mass -> Maybe Country -> Maybe Country -> Results -> Result String Results
 applyTransportedMassImpacts requirements transportCooling mass maybeFrom maybeTo (Results results) =
-    let
-        transport =
-            computeTransportedMassImpacts requirements transportCooling maybeFrom maybeTo mass
-    in
-    Results
-        { results
-            | impacts = Impact.sumImpacts [ results.impacts, transport.impacts ]
-            , items =
-                results.items
-                    ++ [ Results
-                            { amount = results.amount
-                            , complementsImpacts = Complement.emptyComplementsResultsImpacts
-                            , impacts = transport.impacts
-                            , items = []
-                            , label = Just "Transport"
-                            , mass = mass
-                            , materialType = Nothing
-                            , quantity = 1
-                            , stage = Just TransportStage
-                            }
-                       ]
-        }
+    computeTransportedMassImpacts requirements transportCooling maybeFrom maybeTo mass
+        |> Result.map
+            (\transport ->
+                Results
+                    { results
+                        | impacts = Impact.sumImpacts [ results.impacts, transport.impacts ]
+                        , items =
+                            results.items
+                                ++ [ Results
+                                        { amount = results.amount
+                                        , complementsImpacts = Complement.emptyComplementsResultsImpacts
+                                        , impacts = transport.impacts
+                                        , items = []
+                                        , label = Just "Transport"
+                                        , mass = mass
+                                        , materialType = Nothing
+                                        , quantity = 1
+                                        , stage = Just TransportStage
+                                        }
+                                   ]
+                    }
+            )
 
 
 applyWaste : Split -> Amount -> Amount
@@ -863,36 +862,60 @@ computeShareImpacts mass { process, split } =
         |> Maybe.withDefault Impact.empty
 
 
-{-| Computes the transport distance between two countries.
+{-| Computes the transport distance between two countries, including the road distance to hub for each country.
+Fallbacks to default config distances in case a country is not defined.
 
-Note: this only computes the transport distances, not the impacts (as a transported mass would be required)
+Notes:
+
+  - this only computes the transport distances, not the impacts (as a transported mass would be required)
+  - the distance to hub computation logic should eventually be backported to non-generic scopes
 
 -}
-computeTransportDistance : Requirements db -> Maybe Country -> Maybe Country -> Transport
+computeTransportDistance : Requirements db -> Maybe Country -> Maybe Country -> Result String Transport
 computeTransportDistance { config, db } maybeFrom maybeTo =
     case ( maybeFrom, maybeTo ) of
         ( Just from, Just to ) ->
             db.distances
-                |> Transport.getTransportBetween Impact.empty from.code to.code
+                |> Transport.getTransportBetween from to
+                |> Result.map
+                    (\transport ->
+                        { transport
+                            | road =
+                                if from == to then
+                                    -- same country, add transport to hub once
+                                    transport.road
+                                        |> Quantity.plus from.distanceToHub
+
+                                else
+                                    -- different countries, add distances to hub at both ends
+                                    Quantity.sum
+                                        [ from.distanceToHub
+                                        , transport.road
+                                        , to.distanceToHub
+                                        ]
+                        }
+                    )
 
         _ ->
-            config.transports.defaultDistance
+            Ok config.transports.defaultDistance
 
 
 {-| Computes the transport distances and impacts from a transported mass.
 -}
-computeTransportedMassImpacts : Requirements db -> TransportCooling -> Maybe Country -> Maybe Country -> Mass -> Transport
+computeTransportedMassImpacts : Requirements db -> TransportCooling -> Maybe Country -> Maybe Country -> Mass -> Result String Transport
 computeTransportedMassImpacts ({ config } as requirements) (TransportCooling cooled) maybeFrom maybeTo mass =
     computeTransportDistance requirements maybeFrom maybeTo
         -- Note: air transport is not handled for now
-        |> Transport.applyTransportRatios Split.zero
-        |> (if cooled then
-                Transport.makeCooled
+        |> Result.map
+            (Transport.applyTransportRatios Split.zero
+                >> (if cooled then
+                        Transport.makeCooled
 
-            else
-                identity
-           )
-        |> Transport.computeImpacts config.transports.modeProcesses mass
+                    else
+                        identity
+                   )
+            )
+        |> Result.map (Transport.computeImpacts config.transports.modeProcesses mass)
 
 
 {-| Computes transports impacts:
@@ -908,111 +931,86 @@ computeTransportedMassImpacts ({ config } as requirements) (TransportCooling coo
 computeTransports : Requirements db -> Query -> LifeCycle -> Result String LifeCycle
 computeTransports ({ config, db } as requirements) query lifeCycle =
     Result.map2
-        (\expandedItems maybeAssemblyCountry ->
+        (\resultedElements maybeAssemblyCountry ->
             let
-                resultedElements =
-                    getResultedElementList lifeCycle.production expandedItems
+                distributionCountry =
+                    Just config.distribution.country
 
                 totalProductMass =
                     extractMass lifeCycle.production
+
+                transportElements fn =
+                    resultedElements
+                        |> List.map fn
+                        |> RE.combine
+                        |> Result.map Transport.sum
+
+                transportImpacts =
+                    computeTransportedMassImpacts requirements query.transportCooling
+
+                setLifeCycleTransports toAssembly toDistribution =
+                    { lifeCycle | transports = LifeCycleTransport toAssembly toDistribution }
             in
-            case ( expandedItems, maybeAssemblyCountry ) of
-                ( [], Just _ ) ->
+            case ( List.length query.items, maybeAssemblyCountry ) of
+                ( 0, Just _ ) ->
                     Err "Une liste de composants vide ne peut être assemblée"
 
-                ( [ _ ], Just _ ) ->
+                ( 1, Just _ ) ->
                     Err "Un composant unique ne peut pas être assemblé"
 
                 -- Many components assembled; for all components, each elements are individually shipped to assembly,
                 -- then the assembled product mass is transported to distribution
-                ( _ :: _ :: _, Just assemblyCountry ) ->
-                    resultedElements
-                        |> Result.map
-                            (List.map
-                                (\( expandedElement, elementResults ) ->
-                                    extractMass elementResults
-                                        |> computeTransportedMassImpacts requirements
-                                            query.transportCooling
-                                            (getFinalElementCountry expandedElement)
-                                            (Just assemblyCountry)
-                                )
-                                >> Transport.sum
+                ( _, Just assemblyCountry ) ->
+                    Result.map2 setLifeCycleTransports
+                        -- toAssembly
+                        (transportElements
+                            (\( expandedElement, elementResults ) ->
+                                extractMass elementResults
+                                    |> transportImpacts (getFinalElementCountry expandedElement) (Just assemblyCountry)
                             )
-                        |> Result.map
-                            (\toAssembly ->
-                                { lifeCycle
-                                    | transports =
-                                        { toAssembly = toAssembly
-                                        , toDistribution =
-                                            totalProductMass
-                                                |> computeTransportedMassImpacts requirements
-                                                    query.transportCooling
-                                                    maybeAssemblyCountry
-                                                    (Just config.distribution.country)
-                                        }
-                                }
-                            )
+                        )
+                        -- toDistribution
+                        (totalProductMass
+                            |> transportImpacts maybeAssemblyCountry distributionCountry
+                        )
 
                 -- Default state, empty transports
-                ( [], Nothing ) ->
+                ( 0, Nothing ) ->
                     Ok { lifeCycle | transports = emptyLifeCycleTransports }
 
                 -- Single unique component; its elements are directly shipped to distribution individually,
                 -- with no transport to assembly stage
-                ( [ _ ], Nothing ) ->
-                    resultedElements
-                        |> Result.map
-                            (List.map
-                                (\( expandedElement, elementResults ) ->
-                                    extractMass elementResults
-                                        |> computeTransportedMassImpacts requirements
-                                            query.transportCooling
-                                            (getFinalElementCountry expandedElement)
-                                            (Just config.distribution.country)
-                                )
-                                >> Transport.sum
+                ( 1, Nothing ) ->
+                    Result.map2 setLifeCycleTransports
+                        -- toAssembly
+                        (Ok Transport.noTransport)
+                        -- toDistribution
+                        (transportElements
+                            (\( expandedElement, elementResults ) ->
+                                extractMass elementResults
+                                    |> transportImpacts (getFinalElementCountry expandedElement) distributionCountry
                             )
-                        |> Result.map
-                            (\toDistribution ->
-                                { lifeCycle
-                                    | transports = { emptyLifeCycleTransports | toDistribution = toDistribution }
-                                }
-                            )
+                        )
 
                 -- Many items with no assembly country specified; all item elements are individually shipped to
                 -- the assembly stage unique default unknown transport distances,
                 -- then the total mass of the assembled end product is transported to distribution country
-                ( _ :: _ :: _, Nothing ) ->
-                    resultedElements
-                        |> Result.map
-                            (List.map
-                                (\( _, elementResults ) ->
-                                    -- all item elements are individually shipped to the assembly stage using default unknown transport distances
-                                    extractMass elementResults
-                                        |> computeTransportedMassImpacts requirements
-                                            query.transportCooling
-                                            Nothing
-                                            Nothing
-                                )
-                                >> Transport.sum
+                ( _, Nothing ) ->
+                    Result.map2 setLifeCycleTransports
+                        -- toAssembly
+                        (transportElements
+                            (\( _, elementResults ) ->
+                                -- all item elements are individually shipped to the assembly stage using default unknown transport distances
+                                extractMass elementResults
+                                    |> transportImpacts Nothing Nothing
                             )
-                        |> Result.map
-                            (\toAssemblyTransport ->
-                                { lifeCycle
-                                    | transports =
-                                        { toAssembly = toAssemblyTransport
-                                        , toDistribution =
-                                            -- total mass of the assembled end product is transported to the distribution country
-                                            totalProductMass
-                                                |> computeTransportedMassImpacts requirements
-                                                    query.transportCooling
-                                                    Nothing
-                                                    (Just config.distribution.country)
-                                        }
-                                }
-                            )
+                        )
+                        -- toDistribution
+                        (totalProductMass
+                            |> transportImpacts Nothing distributionCountry
+                        )
         )
-        (expandItems db query.items)
+        (query.items |> expandItems db |> Result.andThen (getResultedElementList lifeCycle.production))
         (Country.resolveMaybe query.assemblyCountry db.countries)
         |> RE.join
 

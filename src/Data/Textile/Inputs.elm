@@ -511,7 +511,7 @@ computeMaterialTransport distances nextCountryCode { country, material, share } 
                     |> Maybe.withDefault material.defaultCountry
         in
         distances
-            |> Transport.getTransportBetween emptyImpacts countryCode nextCountryCode
+            |> Transport.getTransportBetweenLegacy emptyImpacts countryCode nextCountryCode
 
     else
         Transport.default Impact.empty

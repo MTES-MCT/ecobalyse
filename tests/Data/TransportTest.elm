@@ -5,7 +5,7 @@ import Data.Country as Country
 import Data.Impact as Impact
 import Data.Impact.Definition as Definition
 import Data.Split as Split exposing (Split)
-import Data.Transport as Transport exposing (Transport, getTransportBetween)
+import Data.Transport as Transport exposing (Transport, getTransportBetweenLegacy)
 import Data.Unit as Unit
 import Dict.Any as AnyDict
 import Expect
@@ -110,11 +110,11 @@ suite =
                 )
             , describe "getTransportBetween"
                 [ db.distances
-                    |> Transport.getTransportBetween Impact.empty (Country.Code "FR") (Country.Code "CN")
+                    |> Transport.getTransportBetweenLegacy Impact.empty (Country.Code "FR") (Country.Code "CN")
                     |> Expect.equal chinaToFrance
                     |> asTest "should retrieve distance between two countries"
                 , db.distances
-                    |> Transport.getTransportBetween Impact.empty (Country.Code "CN") (Country.Code "FR")
+                    |> Transport.getTransportBetweenLegacy Impact.empty (Country.Code "CN") (Country.Code "FR")
                     |> Expect.equal chinaToFrance
                     |> asTest "should retrieve distance between two swapped countries"
                 , db.countries
@@ -123,7 +123,7 @@ suite =
                     |> List.map
                         (\( cA, cB ) ->
                             db.distances
-                                |> getTransportBetween Impact.empty cA cB
+                                |> getTransportBetweenLegacy Impact.empty cA cB
                         )
                     |> List.filter
                         (\{ road, sea, air } ->

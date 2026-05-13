@@ -259,7 +259,7 @@ computeTransports db inputs next ({ processInfo } as current) =
 
             else
                 db.distances
-                    |> Transport.getTransportBetween current.transport.impacts current.country.code next.country.code
+                    |> Transport.getTransportBetweenLegacy current.transport.impacts current.country.code next.country.code
                     |> computeTransportSummary current
                     |> computeTransportImpacts current.transport.impacts
                         db.textile.wellKnown

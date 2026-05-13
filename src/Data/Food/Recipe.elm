@@ -374,7 +374,7 @@ computeIngredientTransportForCountry db planeTransport { code } =
 
     else
         db.distances
-            |> Transport.getTransportBetween emptyImpacts code france
+            |> Transport.getTransportBetweenLegacy emptyImpacts code france
             |> Transport.applyTransportRatios planeRatio
             -- For some regions we should always add 2000kms of road
             -- See https://github.com/MTES-MCT/ecobalyse/issues/1982
