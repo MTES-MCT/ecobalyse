@@ -88,6 +88,7 @@ type alias Config db msg =
     , updateElementTransformCountry : TargetElement -> Index -> Maybe Country.Code -> msg
     , updateItemName : TargetItem -> String -> msg
     , updateItemQuantity : Index -> Quantity -> msg
+    , updateRecyclable : Bool -> msg
     }
 
 
@@ -1323,67 +1324,83 @@ addConsumptionButton ({ openSelectConsumptionModal, query } as config) =
 
 
 endOfLifeView : Config db msg -> LifeCycle -> Html msg
-endOfLifeView ({ componentConfig, scope } as config) lifeCycle =
+endOfLifeView ({ componentConfig, query, scope, updateRecyclable } as config) lifeCycle =
     div [ class "card shadow-sm" ]
         [ div [ class "card-header d-flex align-items-center justify-content-between" ]
             [ div [ class "IngredientPlaneOrBoatSelector" ]
-                [ h2 [ class "h5 mb-0" ]
-                    [ text "Fin de vie" ]
-                , div []
-                    [ text "Recyclable\u{202F}:\u{202F}"
-                    , label [ class "PlaneSelector" ]
-                        [ input
-                            [ type_ "radio"
-                            , attribute "role" "switch"
-                            , checked True
-                            ]
-                            []
-                        , Icon.plane
-                        ]
-                    , label [ class "BoatSelector" ]
-                        [ input
-                            [ type_ "radio"
-                            , attribute "role" "switch"
-                            , checked False
-                            ]
-                            []
-                        , Icon.boat
-                        ]
+                [ div [ class "mb-0 d-flex" ]
+                    [ div [ class "h5" ] [ text "Fin de vie" ]
                     ]
                 ]
-            , div [ class "d-flex align-items-center gap-2" ]
-                [ lifeCycle.production
-                    |> Component.getEndOfLifeImpacts
-                        { config = componentConfig
-                        , db = config.db
-                        , scope = config.scope
-                        }
-                    |> Format.formatImpact config.impact
-                ]
-            ]
-        , div [ class "card-body table-responsive p-0" ]
-            [ if config.componentConfig.endOfLife |> Config.scopeEnabled scope then
-                table [ class "table mb-0 fs-7" ]
-                    [ thead []
-                        [ tr []
-                            [ th [ class "text-end" ] [ text "Matière" ]
-                            , th [ class "text-end" ] [ text "Masse" ]
-                            , th [ class "text-end" ] [ text "Recyclage" ]
-                            , th [ class "text-end" ] [ text "Incinération" ]
-                            , th [ class "text-end" ] [ text "Enfouissement" ]
-                            , th [ class "text-end pe-3" ] [ text "Impact" ]
+            , div [ class "d-flex" ]
+                [ div [ class "BoolSelector" ]
+                    [ small []
+                        [ label [ class "LeftSelector", title "Recyclable" ]
+                            [ input
+                                [ type_ "radio"
+                                , attribute "role" "switch"
+                                , checked query.recyclable
+                                , onInput <| always (updateRecyclable True)
+                                ]
+                                []
+                            , Icon.recycle
+                            ]
+                        , label [ class "RightSelector", title "Non recyclable" ]
+                            [ input
+                                [ type_ "radio"
+                                , attribute "role" "switch"
+                                , checked (not query.recyclable)
+                                , onInput <| always (updateRecyclable False)
+                                ]
+                                []
+                            , Icon.trash
                             ]
                         ]
-                    , lifeCycle.production
-                        |> Component.getEndOfLifeDetailedImpacts
+                    ]
+                , div [ class "d-flex align-items-center gap-2 px-2" ]
+                    [ lifeCycle.production
+                        |> Component.getEndOfLifeImpacts
                             { config = componentConfig
                             , db = config.db
                             , scope = config.scope
                             }
-                        |> AnyDict.toList
-                        |> List.sortBy (Tuple.first >> Category.materialTypeToLabel)
-                        |> List.concatMap (endOfLifeMaterialRow config)
-                        |> tbody []
+                            query.recyclable
+                        |> Format.formatImpact config.impact
+                    ]
+                ]
+            ]
+        , div [ class "card-body table-responsive p-0" ]
+            [ if config.componentConfig.endOfLife |> Config.scopeEnabled scope then
+                div []
+                    [ if query.recyclable then
+                        table [ class "table mb-0 fs-7" ]
+                            [ thead []
+                                [ tr []
+                                    [ th [ class "text-end" ] [ text "Matière" ]
+                                    , th [ class "text-end" ] [ text "Masse" ]
+                                    , th [ class "text-end" ] [ text "Recyclage" ]
+                                    , th [ class "text-end" ] [ text "Incinération" ]
+                                    , th [ class "text-end" ] [ text "Enfouissement" ]
+                                    , th [ class "text-end pe-3" ] [ text "Impact" ]
+                                    ]
+                                ]
+                            , lifeCycle.production
+                                |> Component.getEndOfLifeDetailedImpacts
+                                    { config = componentConfig
+                                    , db = config.db
+                                    , scope = config.scope
+                                    }
+                                |> AnyDict.toList
+                                |> List.sortBy (Tuple.first >> Category.materialTypeToLabel)
+                                |> List.concatMap (endOfLifeMaterialRow config)
+                                |> tbody []
+                            ]
+
+                      else
+                        div [ class "card-body d-flex align-items-center justify-content-start gap-2" ]
+                            [ Icon.info
+                            , text <| "Ce produit n’est pas recyclable, vous devez le marquer comme tel pour activer l’étape de fin de vie."
+                            ]
                     ]
 
               else
