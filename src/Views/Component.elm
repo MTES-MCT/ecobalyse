@@ -1357,7 +1357,7 @@ endOfLifeView ({ componentConfig, query, scope, updateRecyclable } as config) li
                             ]
                         ]
                     ]
-                , div [ class "d-flex align-items-center gap-2 px-2" ]
+                , div [ class "d-flex align-items-center gap-2 ps-2" ]
                     [ lifeCycle.production
                         |> Component.getEndOfLifeImpacts
                             { config = componentConfig
