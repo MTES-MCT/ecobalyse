@@ -20,15 +20,3 @@ wheels/
 
 # OS cruft
 .DS_Store
-
-# Never commit detailed impacts by error
-processes_impacts.json
-processes_generic_impacts.json
-processes_impacts_full.json
-!tests/snapshots/processes_impacts.json
-!tests/snapshots/processes_generic_impacts.json
-
-# Misc
-.ipynb_checkpoints/
-*.ipynb
-graphs/

@@ -69,7 +69,7 @@ To produce 1 kg of `beef-with-bone` you need 1.5 kg of `beef-cattle-conventional
 - `source_ref` — free-text anchor a reviewer can use to find the ratio in the source system:
   - For `brightway`: the Brightway activity name (e.g. `Meat with bone, beef, for direct consumption {FR}`).
   - For `cmaps`: the `alias` in `activities_to_create.json` (e.g. `blue-cheese-auvergne-v1`).
-  
+
 ### How to update
 
 - **Brightway rows.** Open Brightway, navigate to the activity, and copy the `amount` on the relevant exchange. Update `ratio` here and fill in `source_ref` with the activity name.

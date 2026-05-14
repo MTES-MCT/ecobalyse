@@ -33,8 +33,7 @@ jobs:
           python-version: ${{ matrix.python-version }}
 
       - name: Lint the project
-        run: just check-all
-
+        run: just ci
 
       - name: Run python tests
         run: just test

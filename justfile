@@ -1,7 +1,11 @@
 # https://github.com/casey/just
+# Temporary Justfile, used only by the pre-commit and CI
+# while we are merging the repositories
 
 set dotenv-load := true
-uv := "PYTHONPATH=. uv"
+uv := "PYTHONPATH=./data uv"
+
+
 
 ################################################################################
 ## Recipes
@@ -12,75 +16,19 @@ default:
 
 
 ################################################################################
-### Imports
-
-import-all: import-food import-ecoinvent import-method create-activities sync-datapackages
-
-import-food:
-  {{uv}} run python import_food.py
-
-import-ecoinvent:
-  {{uv}} run python import_ecoinvent.py
-
-import-method:
-  {{uv}} run python import_method.py
-
-create-activities:
-  {{uv}} run python create_activities.py
-
-sync-datapackages:
-  {{uv}} run python common/sync_datapackages.py
-
-
-################################################################################
-### Exports
-
-export-all:
-  {{uv}} run python ./bin/export.py processes
-  {{uv}} run python ./bin/export.py metadata
-
-export-food:
-  {{uv}} run python ./bin/export.py processes --scopes food --merge
-  {{uv}} run python ./bin/export.py metadata --scopes food
-
-export-generic:
-  {{uv}} run python ./bin/export.py processes --scopes object --merge
-  {{uv}} run python ./bin/export.py metadata --scopes generic
-
-export-textile:
-  {{uv}} run python ./bin/export.py processes --scopes textile --merge
-  {{uv}} run python ./bin/export.py metadata --scopes textile
-
-export-veli:
-  {{uv}} run python ./bin/export.py processes --scopes veli --merge
-
-export-transports:
-    {{ uv }} run python -m common.distances.transports
-
-################################################################################
-### Cleaning
-
-delete-database db:
-  {{uv}} run python -m common.delete_database {{db}}
-
-delete-methods:
-  {{uv}} run python -m common.delete_methods
-
-
-################################################################################
 ### Linting & formatting
 
 check-activities:
-  {{uv}} run check-jsonschema --schemafile schemas/lci-schema.json tests/fixtures/lci_catalog/*/* lci_catalog/*/*
+  {{uv}} run check-jsonschema --schemafile data/schemas/lci-schema.json data/tests/fixtures/lci_catalog/*/* data/lci_catalog/*/*
 
 check-processes *target:
-  {{uv}} run check-jsonschema --schemafile tests/processes-schema.json public/data/processes*.json tests/fixtures/processes_impacts_output.json tests/snapshots/processes_impacts.json
+  {{uv}} run check-jsonschema --schemafile data/tests/processes-schema.json data/public/data/processes*.json data/tests/fixtures/processes_impacts_output.json data/tests/snapshots/processes_impacts.json
 
 check-json +target=".":
-  {{uv}} run python ./bin/json_formatter.py {{target}}
+  {{uv}} run python ./data/bin/json_formatter.py {{target}}
 
 fix-json +target=".":
-  {{uv}} run python ./bin/json_formatter.py --fix {{target}}
+  {{uv}} run python ./data/bin/json_formatter.py --fix {{target}}
 
 check-python +target=".":
   {{uv}} run ruff check --force-exclude --extend-select I {{target}}
@@ -95,15 +43,11 @@ check-all: check-activities check-processes check-json check-python
 fix-all: fix-json fix-python
 
 
+ci: check-all
+
+
 ################################################################################
 ### Testing
 
 test:
-  {{uv}} run pytest
-
-
-################################################################################
-### Jupyter lab
-
-jupyter:
-  {{uv}} run --group jupyter jupyter lab
+  cd data && {{uv}} run pytest
