@@ -17,6 +17,7 @@ repos:
         name: run prettier
         language: system
         files: ^.*$
+        exclude: data
         types_or: [javascript, json]
         entry: |
           bash -c 'npm --prefix . run fix:prettier --write "${@}"' --
@@ -25,6 +26,7 @@ repos:
         name: run ruff check
         language: system
         files: ^.*$
+        exclude: data
         types_or: [python]
         entry: |
           bash -c 'npm --prefix . run fix:ruff:check "${@}"' --
@@ -33,6 +35,7 @@ repos:
         name: run ruff format
         language: system
         files: ^.*$
+        exclude: data
         types_or: [python]
         entry: |
           bash -c 'npm --prefix . run fix:ruff:format "${@}"' --
@@ -41,43 +44,33 @@ repos:
         name: run elm-format
         language: system
         files: ^.*$
+        exclude: data
         types_or: [elm]
         entry: |
           bash -c 'npm --prefix . run fix:elm-format "${@}"' --
 
-# repos:
-  # - repo: https://github.com/pre-commit/pre-commit-hooks
-    # rev: v2.3.0
-    # hooks:
-      # - id: check-yaml
-      # - id: end-of-file-fixer
-      # - id: trailing-whitespace
-      # - id: no-commit-to-branch
-        # name: "don't commit to master"
-        # args: [--branch, main]
-#
-  # - repo: local
-    # hooks:
-      # - id: fix-json
-        # name: run JSON formatter
-        # language: system
-        # files: ^.*$
-        # types_or: [json]
-        # entry: |
-          # bash -c 'just fix-json "${@}"' --
-#
-      # - id: fix-python
-        # name: run ruff check
-        # language: system
-        # files: ^.*$
-        # types_or: [python]
-        # entry: |
-          # bash -c 'just fix-python "${@}"' --
+# from ecobalyse-data ; some duplication is expected for the moment
+      - id: fix-json
+        name: run JSON formatter
+        language: system
+        files: ^data/.*$
+        types_or: [json]
+        entry: |
+          bash -c 'just fix-json "${@}"' --
 
-      # - id: check-json-schemas
-        # name: check json schemas
-        # language: system
-        # files: ^data/public/data/processes.*\.json$
-        # types_or: [json]
-        # entry: |
-#           bash -c 'just check-processes'
+      - id: fix-python
+        name: run ruff check
+        language: system
+        files: ^data/.*$
+        types_or: [python]
+        entry: |
+          bash -c 'just fix-python "${@}"' --
+
+      # TODO: need to move once the processes files end in their final destination
+      - id: check-json-schemas
+        name: check json schemas
+        language: system
+        files: ^data/public/data/processes.*\.json$
+        types_or: [json]
+        entry: |
+          bash -c 'just check-processes'

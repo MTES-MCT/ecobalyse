@@ -24,17 +24,17 @@ check-activities:
 check-processes *target:
   {{uv}} run check-jsonschema --schemafile data/tests/processes-schema.json data/public/data/processes*.json data/tests/fixtures/processes_impacts_output.json data/tests/snapshots/processes_impacts.json
 
-check-json +target=".":
+check-json +target="data":
   {{uv}} run python ./data/bin/json_formatter.py {{target}}
 
-fix-json +target=".":
+fix-json +target="data":
   {{uv}} run python ./data/bin/json_formatter.py --fix {{target}}
 
-check-python +target=".":
+check-python +target="data":
   {{uv}} run ruff check --force-exclude --extend-select I {{target}}
   {{uv}} run ruff format --force-exclude --check {{target}}
 
-fix-python +target=".":
+fix-python +target="data":
   {{uv}} run ruff check --force-exclude --extend-select I --fix {{target}}
   {{uv}} run ruff format --force-exclude {{target}}
 
