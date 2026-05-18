@@ -1,0 +1,37 @@
+{
+  "activityName": "Mango, pulp raw, organic, CMAPS {GLO} U",
+  "categories": [
+    "ingredient",
+    "material"
+  ],
+  "displayName": "Mangue, pulpe, crue Origine Inconnue BIO",
+  "id": "74e4df22-6b26-404d-884c-49974e9ee480",
+  "metadata": [
+    {
+      "alias": "mango-pulp-raw-default-organic",
+      "cropGroup": "VERGERS",
+      "defaultOrigin": "OutOfEuropeAndMaghreb",
+      "displayName": "Mangue, pulpe, crue Origine Inconnue BIO",
+      "id": "b453b005-f6cb-4e4b-9d98-033302b491e3",
+      "inediblePart": 0,
+      "ingredientCategories": [
+        "vegetable_fresh",
+        "organic"
+      ],
+      "ingredientDensity": 1,
+      "rawToCookedRatio": 1,
+      "scenario": "organic",
+      "scopes": [
+        "food",
+        "food2"
+      ],
+      "transportCooling": "always",
+      "visible": false
+    }
+  ],
+  "scopes": [
+    "food",
+    "food2"
+  ],
+  "source": "Ecobalyse"
+}

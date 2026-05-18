@@ -1,0 +1,24 @@
+{
+  "activityName": "Others cakes, 160g | Packaging System, Proxy Pack, Rigid plastic, other than bottles {FR} U",
+  "categories": [
+    "material",
+    "packaging",
+    "packaging_type:box"
+  ],
+  "displayName": "Boîte en plastique (PET) pour autres gâteaux - 160g - Proxy",
+  "id": "0c499d36-1024-4be5-9406-df7a0726dfb0",
+  "metadata": [
+    {
+      "id": "4818c674-2189-46bb-96f2-993713052500",
+      "scopes": [
+        "food2"
+      ]
+    }
+  ],
+  "scopes": [
+    "food",
+    "food2"
+  ],
+  "source": "Agribalyse 3.2",
+  "unit": "item"
+}

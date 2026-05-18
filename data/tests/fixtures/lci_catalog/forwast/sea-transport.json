@@ -1,0 +1,17 @@
+{
+  "activityName": "_80 Post and telecommunication, DK",
+  "categories": [
+    "transport"
+  ],
+  "comment": "Ancien identifiant (12/2024): 86ac591e1e5c1d96a0d004ac830563d9.",
+  "displayName": "transport maritime",
+  "elecMJ": 0,
+  "heatMJ": 0,
+  "id": "dce12233-0280-568c-afb3-9171e72ad389",
+  "scopes": [
+    "textile"
+  ],
+  "source": "forwast",
+  "unit": "t⋅km",
+  "waste": 0
+}

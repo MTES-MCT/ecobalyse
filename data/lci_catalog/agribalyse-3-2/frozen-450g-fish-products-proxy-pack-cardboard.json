@@ -1,0 +1,24 @@
+{
+  "activityName": "Frozen fish products, 450g | Packaging System, Proxy Pack, Cardboard {FR} U",
+  "categories": [
+    "material",
+    "packaging",
+    "packaging_type:box"
+  ],
+  "displayName": "Boîte en carton pour poisson congelé - 450g - Proxy",
+  "id": "f0465338-b7be-4b81-8220-34faa7208311",
+  "metadata": [
+    {
+      "id": "51d6b0a3-895c-46ef-80fb-c9cd992ab651",
+      "scopes": [
+        "food2"
+      ]
+    }
+  ],
+  "scopes": [
+    "food",
+    "food2"
+  ],
+  "source": "Agribalyse 3.2",
+  "unit": "item"
+}

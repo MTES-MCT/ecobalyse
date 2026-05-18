@@ -1,0 +1,37 @@
+{
+  "activityName": "Tomato paste, 30 degrees Brix, at plant {GLO} - Adapted from WFLDB U",
+  "categories": [
+    "ingredient",
+    "material",
+    "material_type:other_food_items"
+  ],
+  "displayName": "Purée de tomates par défaut",
+  "id": "871a25c9-5d85-5fcb-a1a5-4b925d942524",
+  "metadata": [
+    {
+      "alias": "tomato-paste-2025",
+      "cropGroup": "LEGUMES-FLEURS",
+      "defaultOrigin": "OutOfEuropeAndMaghreb",
+      "displayName": "Purée de tomates par défaut (2025)",
+      "id": "6523c72b-2c28-474d-9bf8-45e018bbd0be",
+      "inediblePart": 0,
+      "ingredientCategories": [
+        "vegetable_processed"
+      ],
+      "ingredientDensity": 1.0,
+      "rawToCookedRatio": 1.0,
+      "scenario": "import",
+      "scopes": [
+        "food",
+        "food2"
+      ],
+      "transportCooling": "none",
+      "visible": true
+    }
+  ],
+  "scopes": [
+    "food",
+    "food2"
+  ],
+  "source": "Agribalyse 3.2"
+}

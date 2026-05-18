@@ -1,0 +1,162 @@
+name,processingState
+fresh vegetable,raw
+canned vegetable,processed
+frozen vegetable,processed
+dried vegetable,processed
+jarred vegetable,processed
+fresh fruit,raw
+canned fruit,processed
+frozen fruit,processed
+dried fruit,processed
+jam,processed
+compote,processed
+fresh meat,raw
+frozen meat,processed
+dried meat,processed
+deli meat,processed
+canned meat,processed
+fresh fish,raw
+frozen fish,processed
+canned fish,processed
+smoked fish,processed
+dried fish,processed
+seafood,raw
+crustacean,raw
+fresh milk,raw
+UHT milk,processed
+cheese,processed
+yogurt,processed
+butter,processed
+fresh cream,processed
+milk powder,processed
+cereal,raw
+flour,processed
+bread,processed
+pasta,processed
+rice,raw
+semolina,processed
+nut,raw
+seed,raw
+oil,processed
+peanut butter,processed
+spice,processed
+aromatic herb,raw
+sauce,processed
+vinegar,processed
+mustard,processed
+salt,processed
+sugar,processed
+egg,raw
+egg powder,processed
+cabbage,raw
+tomato,raw
+carrot,raw
+potato,raw
+lettuce,raw
+spinach,raw
+broccoli,raw
+cauliflower,raw
+cucumber,raw
+zucchini,raw
+pumpkin,raw
+bell pepper,raw
+onion,raw
+garlic,raw
+leek,raw
+asparagus,raw
+bean,raw
+pea,raw
+lentil,raw
+apple,raw
+orange,raw
+banana,raw
+strawberry,raw
+raspberry,raw
+blueberry,raw
+grape,raw
+cherry,raw
+peach,raw
+pear,raw
+plum,raw
+apricot,raw
+mango,raw
+pineapple,raw
+watermelon,raw
+melon,raw
+kiwi,raw
+avocado,raw
+fig,raw
+lemon,raw
+lime,raw
+beef,raw
+cow,raw
+pork,raw
+pig,raw
+chicken,raw
+turkey,raw
+duck,raw
+lamb,raw
+goat,raw
+rabbit,raw
+veal,raw
+salmon,raw
+tuna,raw
+cod,raw
+herring,raw
+sardine,raw
+mackerel,raw
+trout,raw
+sole,raw
+shrimp,raw
+lobster,raw
+crab,raw
+mussel,raw
+oyster,raw
+squid,raw
+wheat,raw
+corn,raw
+barley,raw
+oat,raw
+rye,raw
+soybean,raw
+sunflower,raw
+rapeseed,raw
+almond,raw
+hazelnut,raw
+walnut,raw
+peanut,raw
+cashew,raw
+pistachio,raw
+coconut,raw
+baking powder,processed
+baking soda,processed
+maple syrup,processed
+syrup,processed
+corn syrup,processed
+glucose syrup,processed
+agave syrup,processed
+textured soy protein,processed
+soy protein,processed
+wheat gluten,processed
+gluten,processed
+yeast,processed
+spirits,processed
+brandy,processed
+vodka,processed
+whiskey,processed
+rum,processed
+gin,processed
+liqueur,processed
+wine,processed
+beer,processed
+quinoa,processed
+sorghum,processed
+triticale,processed
+spelt,processed
+tapioca,processed
+starch,processed
+chestnut,raw
+ginger,raw
+parsnip,raw
+salsify,raw
+celeriac,raw

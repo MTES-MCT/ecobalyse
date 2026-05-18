@@ -1,0 +1,59 @@
+{
+  "activityName": "Tea, dried {CN}| tea production, dried | Cut-off, U",
+  "categories": [
+    "ingredient",
+    "material",
+    "material_type:other_food_items"
+  ],
+  "displayName": "Thé, feuilles séchées Origine Inconnue",
+  "id": "d97f0811-5279-53fc-961a-4992626e8077",
+  "location": "CN",
+  "metadata": [
+    {
+      "alias": "tea-dried-default",
+      "cropGroup": "DIVERS",
+      "cropGroupMatch": {
+        "confidence": 0.95,
+        "rule": "matched 'tea' in cropgroup.csv"
+      },
+      "defaultOrigin": "OutOfEuropeAndMaghreb",
+      "displayName": "Thé, feuilles séchées Origine Inconnue",
+      "id": "6b1e7d82-2817-5f58-bb85-3f117e48cffd",
+      "inediblePart": 0.0,
+      "inediblePartMatch": {
+        "confidence": 1.0,
+        "rule": "beverage NOVA 1 default from food_type_inedible_part.csv"
+      },
+      "ingredientCategories": [
+        "misc"
+      ],
+      "ingredientDensity": 0.9,
+      "ingredientDensityMatch": {
+        "confidence": 1.0,
+        "rule": "beverage default from predict.py"
+      },
+      "rawToCookedRatio": 1.0,
+      "rawToCookedRatioMatch": {
+        "confidence": 1.0,
+        "rule": "beverage default from food_type_cooked_to_raw.csv"
+      },
+      "scenario": "import",
+      "scopes": [
+        "food",
+        "food2"
+      ],
+      "transportCooling": "none",
+      "transportCoolingMatch": {
+        "confidence": 1.0,
+        "rule": "dried packaging → none"
+      },
+      "visible": true
+    }
+  ],
+  "scopes": [
+    "food",
+    "food2"
+  ],
+  "source": "Ecoinvent 3.11",
+  "unit": "kg"
+}

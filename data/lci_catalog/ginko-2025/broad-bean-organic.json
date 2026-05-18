@@ -1,0 +1,224 @@
+{
+  "activityName": "Fava bean, Swiss integrated production, organic 2025 {CH}| fava bean production, Swiss integrated production, at farm | Cut-off, U",
+  "categories": [
+    "ingredient",
+    "material",
+    "material_type:fruits_and_vegetables"
+  ],
+  "displayName": "Fève Bio",
+  "id": "e26ec937-b713-5a48-9308-3dbadaa95c54",
+  "location": "CH",
+  "metadata": [
+    {
+      "alias": "broad-bean-organic",
+      "cropGroup": "PROTEAGINEUX",
+      "cropGroupMatch": {
+        "confidence": 1.0,
+        "rule": "matched 'broad bean' in cropgroup.csv"
+      },
+      "defaultOrigin": "France",
+      "displayName": "Fève Bio",
+      "id": "c8bf67df-29af-571f-850a-2f31fff43c75",
+      "inediblePart": 0.2,
+      "inediblePartMatch": {
+        "confidence": 1.0,
+        "rule": "legume NOVA 1 default from food_type_inedible_part.csv"
+      },
+      "ingredientCategories": [
+        "vegetable_fresh",
+        "organic"
+      ],
+      "ingredientDensity": 0.8,
+      "ingredientDensityMatch": {
+        "confidence": 0.95,
+        "rule": "Matched with bean in density.csv"
+      },
+      "rawToCookedRatio": 0.856,
+      "rawToCookedRatioMatch": {
+        "confidence": 1.0,
+        "rule": "legume default from food_type_cooked_to_raw.csv"
+      },
+      "scenario": "organic",
+      "scopes": [
+        "food",
+        "food2"
+      ],
+      "transportCooling": "always",
+      "transportCoolingMatch": {
+        "confidence": 1.0,
+        "rule": "legume NOVA 1 → always (perishable)"
+      },
+      "visible": true
+    },
+    {
+      "alias": "flageolet-bean-green-dried-organic",
+      "cropGroup": "LEGUMINEUSES A GRAIN",
+      "cropGroupMatch": {
+        "confidence": 1.0,
+        "rule": "legume default"
+      },
+      "defaultOrigin": "France",
+      "displayName": "Haricots flageolets verts Bio",
+      "id": "c68a008e-7c0a-54c1-bc0f-42cdd132a643",
+      "inediblePart": 0.2,
+      "inediblePartMatch": {
+        "confidence": 1.0,
+        "rule": "legume NOVA 1 default from food_type_inedible_part.csv"
+      },
+      "ingredientCategories": [
+        "vegetable_fresh",
+        "organic"
+      ],
+      "ingredientDensity": 0.8,
+      "ingredientDensityMatch": {
+        "confidence": 1.0,
+        "rule": "legume default from food_type_density.csv"
+      },
+      "rawToCookedRatio": 0.856,
+      "rawToCookedRatioMatch": {
+        "confidence": 1.0,
+        "rule": "legume default from food_type_cooked_to_raw.csv"
+      },
+      "scenario": "organic",
+      "scopes": [
+        "food",
+        "food2"
+      ],
+      "transportCooling": "none",
+      "transportCoolingMatch": {
+        "confidence": 1.0,
+        "rule": "dried packaging → none"
+      },
+      "visible": true
+    },
+    {
+      "alias": "lima-bean-organic",
+      "cropGroup": "LEGUMINEUSES A GRAIN",
+      "cropGroupMatch": {
+        "confidence": 1.0,
+        "rule": "legume default"
+      },
+      "defaultOrigin": "France",
+      "displayName": "Haricots de Lima Bio",
+      "id": "81402397-f98a-5fbe-8ce0-93ee600a1bf5",
+      "inediblePart": 0.2,
+      "inediblePartMatch": {
+        "confidence": 1.0,
+        "rule": "legume NOVA 1 default from food_type_inedible_part.csv"
+      },
+      "ingredientCategories": [
+        "vegetable_fresh",
+        "organic"
+      ],
+      "ingredientDensity": 0.8,
+      "ingredientDensityMatch": {
+        "confidence": 1.0,
+        "rule": "legume default from food_type_density.csv"
+      },
+      "rawToCookedRatio": 0.856,
+      "rawToCookedRatioMatch": {
+        "confidence": 1.0,
+        "rule": "legume default from food_type_cooked_to_raw.csv"
+      },
+      "scenario": "organic",
+      "scopes": [
+        "food",
+        "food2"
+      ],
+      "transportCooling": "always",
+      "transportCoolingMatch": {
+        "confidence": 1.0,
+        "rule": "legume NOVA 1 → always (perishable)"
+      },
+      "visible": true
+    },
+    {
+      "alias": "mung-bean-sprouted-organic",
+      "cropGroup": "LEGUMINEUSES A GRAIN",
+      "cropGroupMatch": {
+        "confidence": 1.0,
+        "rule": "legume default"
+      },
+      "defaultOrigin": "France",
+      "displayName": "Haricot mungo Bio",
+      "id": "ed1ccbba-0745-5cec-889c-26e8d9d845d6",
+      "inediblePart": 0.2,
+      "inediblePartMatch": {
+        "confidence": 1.0,
+        "rule": "legume NOVA 1 default from food_type_inedible_part.csv"
+      },
+      "ingredientCategories": [
+        "vegetable_fresh",
+        "organic"
+      ],
+      "ingredientDensity": 0.8,
+      "ingredientDensityMatch": {
+        "confidence": 1.0,
+        "rule": "legume default from food_type_density.csv"
+      },
+      "rawToCookedRatio": 0.856,
+      "rawToCookedRatioMatch": {
+        "confidence": 1.0,
+        "rule": "legume default from food_type_cooked_to_raw.csv"
+      },
+      "scenario": "organic",
+      "scopes": [
+        "food",
+        "food2"
+      ],
+      "transportCooling": "always",
+      "transportCoolingMatch": {
+        "confidence": 1.0,
+        "rule": "legume NOVA 1 → always (perishable)"
+      },
+      "visible": true
+    },
+    {
+      "alias": "red-bean-dried-organic",
+      "cropGroup": "LEGUMINEUSES A GRAIN",
+      "cropGroupMatch": {
+        "confidence": 1.0,
+        "rule": "legume default"
+      },
+      "defaultOrigin": "France",
+      "displayName": "Haricots rouges Bio",
+      "id": "ac918e69-cf8d-590e-bbe0-69e9cd9abc39",
+      "inediblePart": 0.2,
+      "inediblePartMatch": {
+        "confidence": 1.0,
+        "rule": "legume NOVA 1 default from food_type_inedible_part.csv"
+      },
+      "ingredientCategories": [
+        "vegetable_fresh",
+        "organic"
+      ],
+      "ingredientDensity": 0.8,
+      "ingredientDensityMatch": {
+        "confidence": 1.0,
+        "rule": "legume default from food_type_density.csv"
+      },
+      "rawToCookedRatio": 0.856,
+      "rawToCookedRatioMatch": {
+        "confidence": 1.0,
+        "rule": "legume default from food_type_cooked_to_raw.csv"
+      },
+      "scenario": "organic",
+      "scopes": [
+        "food",
+        "food2"
+      ],
+      "transportCooling": "none",
+      "transportCoolingMatch": {
+        "confidence": 1.0,
+        "rule": "dried packaging → none"
+      },
+      "visible": true
+    }
+  ],
+  "scopes": [
+    "food",
+    "food2"
+  ],
+  "source": "Ginko 2025",
+  "unit": "kg"
+}

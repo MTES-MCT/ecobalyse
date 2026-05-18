@@ -1,0 +1,37 @@
+{
+  "categories": [
+    "use"
+  ],
+  "comment": "Ancien identifiant (12/2024): 8c040f35-e137-424b-a67f-2e50b628c1bf.",
+  "displayName": "Utilisation : Impact hors repassage (Manteau)",
+  "elecMJ": 0.9663,
+  "heatMJ": 0,
+  "id": "8f3de83a-4545-528e-83d6-e6a065696394",
+  "impacts": {
+    "acd": 9.39401e-05,
+    "cch": 0.0340193,
+    "etf": 0,
+    "etf-c": 0,
+    "fru": 0.717395,
+    "fwe": 1.10861e-05,
+    "htc": 0,
+    "htc-c": 0,
+    "htn": 0,
+    "htn-c": 0,
+    "ior": 1.34883,
+    "ldu": 1.05972,
+    "mru": 1.25858e-07,
+    "ozd": 8.43237e-09,
+    "pco": 5.66588e-05,
+    "pma": 1.93206e-09,
+    "swe": 2.00761e-05,
+    "tre": 0.000109398,
+    "wtu": 0
+  },
+  "scopes": [
+    "textile"
+  ],
+  "source": "Custom",
+  "unit": "kg",
+  "waste": 0
+}

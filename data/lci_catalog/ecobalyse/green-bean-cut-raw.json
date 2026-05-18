@@ -1,0 +1,56 @@
+{
+  "activityName": "Green bean, cut raw, CMAPS {GLO} U",
+  "categories": [
+    "ingredient",
+    "material"
+  ],
+  "displayName": "Haricot vert, découpé, cru FR",
+  "id": "2c848966-1ee4-4f82-9899-0d8a1a16ba94",
+  "metadata": [
+    {
+      "alias": "green-bean-cut-raw-default",
+      "cropGroup": "LEGUMES-FLEURS",
+      "defaultOrigin": "OutOfEuropeAndMaghrebByPlane",
+      "displayName": "Haricot vert, découpé, cru Origine Inconnue",
+      "id": "2c450d9b-f216-4c02-9044-27b6dc46a563",
+      "inediblePart": 0,
+      "ingredientCategories": [
+        "vegetable_fresh"
+      ],
+      "ingredientDensity": 1,
+      "rawToCookedRatio": 1,
+      "scenario": "import",
+      "scopes": [
+        "food",
+        "food2"
+      ],
+      "transportCooling": "always",
+      "visible": true
+    },
+    {
+      "alias": "green-bean-cut-raw-fr",
+      "cropGroup": "LEGUMES-FLEURS",
+      "defaultOrigin": "France",
+      "displayName": "Haricot vert, découpé, cru FR",
+      "id": "8989ec81-9285-40f6-949f-a3d9e2c5874d",
+      "inediblePart": 0,
+      "ingredientCategories": [
+        "vegetable_fresh"
+      ],
+      "ingredientDensity": 1,
+      "rawToCookedRatio": 1,
+      "scenario": "reference",
+      "scopes": [
+        "food",
+        "food2"
+      ],
+      "transportCooling": "always",
+      "visible": true
+    }
+  ],
+  "scopes": [
+    "food",
+    "food2"
+  ],
+  "source": "Ecobalyse"
+}

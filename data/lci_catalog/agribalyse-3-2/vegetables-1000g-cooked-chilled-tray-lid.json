@@ -1,0 +1,24 @@
+{
+  "activityName": "Vegetables cooked chilled, 1000g | Packaging System, N0, All, Tray with lid {FR} U",
+  "categories": [
+    "material",
+    "packaging",
+    "packaging_type:tray"
+  ],
+  "displayName": "Barquette en plastique (PA/PP thermoformé) pour légume cuit, réfrigéré - 1000g",
+  "id": "28460f5e-7cf3-495a-80b2-23b097eb567a",
+  "metadata": [
+    {
+      "id": "b484e4d7-2c55-4471-a383-b6578a4ed134",
+      "scopes": [
+        "food2"
+      ]
+    }
+  ],
+  "scopes": [
+    "food",
+    "food2"
+  ],
+  "source": "Agribalyse 3.2",
+  "unit": "item"
+}

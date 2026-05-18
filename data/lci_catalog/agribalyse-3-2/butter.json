@@ -1,0 +1,55 @@
+{
+  "activityName": "Butter, 82% fat, unsalted, at dairy {FR} U",
+  "categories": [
+    "ingredient",
+    "material",
+    "material_type:other_food_items"
+  ],
+  "displayName": "Beurre FR",
+  "id": "570fc07d-d926-5405-8b71-6f855c8f06e1",
+  "metadata": [
+    {
+      "alias": "butter-2025",
+      "defaultOrigin": "France",
+      "displayName": "Beurre FR (2025)",
+      "id": "bbda834e-1548-4682-a461-c367dc1ce517",
+      "inediblePart": 0,
+      "ingredientCategories": [
+        "dairy_product"
+      ],
+      "ingredientDensity": 1.0,
+      "rawToCookedRatio": 1.0,
+      "scenario": "reference",
+      "scopes": [
+        "food",
+        "food2"
+      ],
+      "transportCooling": "always",
+      "visible": true
+    },
+    {
+      "alias": "unknown-dairy-product-2025",
+      "defaultOrigin": "France",
+      "displayName": "Autres produits laitiers (non encore répertoriés) (2025)",
+      "id": "f30016f7-2e54-45ee-96e8-cd0140872ce6",
+      "inediblePart": 0,
+      "ingredientCategories": [
+        "dairy_product"
+      ],
+      "ingredientDensity": 1.0,
+      "rawToCookedRatio": 1.0,
+      "scenario": "reference",
+      "scopes": [
+        "food",
+        "food2"
+      ],
+      "transportCooling": "always",
+      "visible": true
+    }
+  ],
+  "scopes": [
+    "food",
+    "food2"
+  ],
+  "source": "Agribalyse 3.2"
+}

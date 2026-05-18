@@ -1,0 +1,36 @@
+{
+  "activityName": "Hazelnut, shelled, CMAPS {GLO} U",
+  "categories": [
+    "ingredient",
+    "material"
+  ],
+  "displayName": "Noisette, décortiquée FR",
+  "id": "8c03db2b-5b89-46fa-812c-1b8a335f84a5",
+  "metadata": [
+    {
+      "alias": "hazelnut-shelled-fr",
+      "cropGroup": "FRUITS A COQUES",
+      "defaultOrigin": "France",
+      "displayName": "Noisette, décortiquée FR",
+      "id": "bd727c29-d612-4eef-a3d5-540205c6e0a5",
+      "inediblePart": 0,
+      "ingredientCategories": [
+        "nut_oilseed_raw"
+      ],
+      "ingredientDensity": 1,
+      "rawToCookedRatio": 1,
+      "scenario": "reference",
+      "scopes": [
+        "food",
+        "food2"
+      ],
+      "transportCooling": "none",
+      "visible": true
+    }
+  ],
+  "scopes": [
+    "food",
+    "food2"
+  ],
+  "source": "Ecobalyse"
+}

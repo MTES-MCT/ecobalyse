@@ -1,0 +1,36 @@
+{
+  "activityName": "Green olive, pitted, import WFLDB, CMAPS {GLO} U",
+  "categories": [
+    "ingredient",
+    "material"
+  ],
+  "displayName": "Olive verte, dénoyautée Origine Inconnue",
+  "id": "619d398c-9916-408e-9670-1e732a565857",
+  "metadata": [
+    {
+      "alias": "green-olive-pitted-default",
+      "cropGroup": "OLIVIERS",
+      "defaultOrigin": "OutOfEuropeAndMaghreb",
+      "displayName": "Olive verte, dénoyautée Origine Inconnue",
+      "id": "17090caf-7fe3-4ace-ac50-a77a75824b46",
+      "inediblePart": 0,
+      "ingredientCategories": [
+        "vegetable_fresh"
+      ],
+      "ingredientDensity": 1,
+      "rawToCookedRatio": 1,
+      "scenario": "import",
+      "scopes": [
+        "food",
+        "food2"
+      ],
+      "transportCooling": "always",
+      "visible": true
+    }
+  ],
+  "scopes": [
+    "food",
+    "food2"
+  ],
+  "source": "Ecobalyse"
+}

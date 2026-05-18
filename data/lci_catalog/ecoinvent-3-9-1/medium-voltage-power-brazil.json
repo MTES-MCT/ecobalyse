@@ -1,0 +1,26 @@
+{
+  "activityName": "electricity, medium voltage//[BR] market group for electricity, medium voltage",
+  "categories": [
+    "energy"
+  ],
+  "comment": "Ancien identifiant (12/2024): 825dae104f028cb558dac151f7c45f03.",
+  "displayName": "Électricité moyenne tension, Brésil",
+  "elecMJ": 0,
+  "heatMJ": 0,
+  "id": "2fac57eb-e7e7-5008-94fa-a943010112df",
+  "metadata": [
+    {
+      "id": "8180de0a-7456-4d37-a460-36a0b6a392fe",
+      "scopes": [
+        "food2"
+      ]
+    }
+  ],
+  "scopes": [
+    "textile",
+    "food2"
+  ],
+  "source": "Ecoinvent 3.9.1",
+  "unit": "kWh",
+  "waste": 0
+}

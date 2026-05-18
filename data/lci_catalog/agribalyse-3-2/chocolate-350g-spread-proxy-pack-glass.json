@@ -1,0 +1,24 @@
+{
+  "activityName": "Chocolate spread, 350g | Packaging System, Proxy Pack, Glass {FR} U",
+  "categories": [
+    "material",
+    "packaging",
+    "packaging_type:jar"
+  ],
+  "displayName": "Pot en verre pour pâte à tartiner chocolatée - 350g - Proxy",
+  "id": "ed25ea46-4e67-41ff-ba70-1003fb6c2668",
+  "metadata": [
+    {
+      "id": "680b9e40-0c66-418f-b399-fd18d65a0508",
+      "scopes": [
+        "food2"
+      ]
+    }
+  ],
+  "scopes": [
+    "food",
+    "food2"
+  ],
+  "source": "Agribalyse 3.2",
+  "unit": "item"
+}

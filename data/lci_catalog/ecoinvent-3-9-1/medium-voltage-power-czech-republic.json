@@ -1,0 +1,29 @@
+{
+  "activityName": "electricity, medium voltage//[CZ] market for electricity, medium voltage",
+  "categories": [
+    "energy"
+  ],
+  "comment": "Ancien identifiant (12/2024): 2764d908c1a6fe88976d6eabf16295da.",
+  "displayName": "Électricité moyenne tension, République Tchèque",
+  "elecMJ": 0,
+  "heatMJ": 0,
+  "id": "5ee392cf-954e-56c8-b555-427d55023548",
+  "metadata": [
+    {
+      "id": "7b15dda8-7491-48ca-af48-a13a8b320a53",
+      "scopes": [
+        "object",
+        "food2"
+      ]
+    }
+  ],
+  "scopes": [
+    "textile",
+    "object",
+    "veli",
+    "food2"
+  ],
+  "source": "Ecoinvent 3.9.1",
+  "unit": "kWh",
+  "waste": 0
+}

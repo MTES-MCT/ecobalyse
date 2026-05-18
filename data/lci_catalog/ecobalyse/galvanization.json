@@ -1,0 +1,28 @@
+{
+  "activityName": "zinc coating, adapted from Ecoinvent",
+  "categories": [
+    "transformation",
+    "material_type:ferrous_metals"
+  ],
+  "comment": "50µm Zn, 2mm Fe (62.5m²/t Fe). Adapted from 'zinc coating, pieces, RER', Ecoinvent (65µm Zn).",
+  "displayName": "Galvanization de l'acier",
+  "elecMJ": 0.06,
+  "heatMJ": 1.22,
+  "id": "9b7a0e1d-1b06-4cb7-abd4-1f987e1936bd",
+  "metadata": [
+    {
+      "id": "1011f3e6-cc7c-4683-89c5-fe48fb59a6a8",
+      "scopes": [
+        "object",
+        "veli"
+      ]
+    }
+  ],
+  "scopes": [
+    "object",
+    "veli"
+  ],
+  "source": "Ecobalyse",
+  "unit": "kg",
+  "waste": 0
+}

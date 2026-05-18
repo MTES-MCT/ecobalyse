@@ -1,0 +1,24 @@
+{
+  "activityName": "Vegetables cooked frozen, 750g | Packaging System, N0, All, LDPE bag {FR} U",
+  "categories": [
+    "material",
+    "packaging",
+    "packaging_type:bag"
+  ],
+  "displayName": "Sachet en plastique (PE) pour légumes surgelés - 750g",
+  "id": "7ebd45dc-00de-437a-9cbe-d9155160a2b9",
+  "metadata": [
+    {
+      "id": "4257c2b4-e9ff-4b99-91b5-5078dfebb79a",
+      "scopes": [
+        "food2"
+      ]
+    }
+  ],
+  "scopes": [
+    "food",
+    "food2"
+  ],
+  "source": "Agribalyse 3.2",
+  "unit": "item"
+}

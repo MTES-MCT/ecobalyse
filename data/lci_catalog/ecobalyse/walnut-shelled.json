@@ -1,0 +1,36 @@
+{
+  "activityName": "Walnut, shelled, CMAPS {GLO} U",
+  "categories": [
+    "ingredient",
+    "material"
+  ],
+  "displayName": "Noix, décortiquée, fraîche ou sèche FR",
+  "id": "7b87e244-7534-4282-ad8a-7e73e7c70e7f",
+  "metadata": [
+    {
+      "alias": "walnut-shelled-fr",
+      "cropGroup": "FRUITS A COQUES",
+      "defaultOrigin": "France",
+      "displayName": "Noix, décortiquée, fraîche ou sèche FR",
+      "id": "c989d7c8-dc40-4567-a473-d5551ed81ee0",
+      "inediblePart": 0,
+      "ingredientCategories": [
+        "nut_oilseed_raw"
+      ],
+      "ingredientDensity": 1,
+      "rawToCookedRatio": 1,
+      "scenario": "reference",
+      "scopes": [
+        "food",
+        "food2"
+      ],
+      "transportCooling": "none",
+      "visible": true
+    }
+  ],
+  "scopes": [
+    "food",
+    "food2"
+  ],
+  "source": "Ecobalyse"
+}

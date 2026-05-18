@@ -1,0 +1,98 @@
+{
+  "activityName": "Quinoa FR, conventional, at farm gate {FR} U",
+  "categories": [
+    "ingredient",
+    "material",
+    "material_type:other_food_items"
+  ],
+  "displayName": "Quinoa FR",
+  "id": "6ae3a729-3ffc-5981-bfc4-3d081fc34ca6",
+  "metadata": [
+    {
+      "alias": "quinoa-fr",
+      "cropGroup": "AUTRES CEREALES",
+      "cropGroupMatch": {
+        "confidence": 1.0,
+        "rule": "matched 'quinoa' in cropgroup.csv"
+      },
+      "defaultOrigin": "France",
+      "displayName": "Quinoa FR",
+      "id": "5adf35b2-34ce-56eb-a983-28d7af1b5ca1",
+      "inediblePart": 0.0,
+      "inediblePartMatch": {
+        "confidence": 1.0,
+        "rule": "grain NOVA 1 default from food_type_inedible_part.csv"
+      },
+      "ingredientCategories": [
+        "grain_raw"
+      ],
+      "ingredientDensity": 0.75,
+      "ingredientDensityMatch": {
+        "confidence": 1.0,
+        "rule": "grain default from food_type_density.csv"
+      },
+      "rawToCookedRatio": 2.259,
+      "rawToCookedRatioMatch": {
+        "confidence": 1.0,
+        "rule": "grain default from food_type_cooked_to_raw.csv"
+      },
+      "scenario": "reference",
+      "scopes": [
+        "food",
+        "food2"
+      ],
+      "transportCooling": "none",
+      "transportCoolingMatch": {
+        "confidence": 1.0,
+        "rule": "grain → none (non-perishable)"
+      },
+      "visible": true
+    },
+    {
+      "alias": "quinoa-eu",
+      "cropGroup": "AUTRES CEREALES",
+      "cropGroupMatch": {
+        "confidence": 1.0,
+        "rule": "matched 'quinoa' in cropgroup.csv"
+      },
+      "defaultOrigin": "EuropeAndMaghreb",
+      "displayName": "Quinoa UE",
+      "id": "bb1ef16c-0217-59f8-aede-5dbe713979f5",
+      "inediblePart": 0.0,
+      "inediblePartMatch": {
+        "confidence": 1.0,
+        "rule": "grain NOVA 1 default from food_type_inedible_part.csv"
+      },
+      "ingredientCategories": [
+        "grain_raw"
+      ],
+      "ingredientDensity": 0.75,
+      "ingredientDensityMatch": {
+        "confidence": 1.0,
+        "rule": "grain default from food_type_density.csv"
+      },
+      "rawToCookedRatio": 2.259,
+      "rawToCookedRatioMatch": {
+        "confidence": 1.0,
+        "rule": "grain default from food_type_cooked_to_raw.csv"
+      },
+      "scenario": "import",
+      "scopes": [
+        "food",
+        "food2"
+      ],
+      "transportCooling": "none",
+      "transportCoolingMatch": {
+        "confidence": 1.0,
+        "rule": "grain → none (non-perishable)"
+      },
+      "visible": true
+    }
+  ],
+  "scopes": [
+    "food",
+    "food2"
+  ],
+  "source": "Agribalyse 3.2",
+  "unit": "kg"
+}

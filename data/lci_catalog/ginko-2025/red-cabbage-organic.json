@@ -1,0 +1,39 @@
+{
+  "activityName": "Red Cabbage, consumption mix, organic 2025 {FR} U",
+  "categories": [
+    "ingredient",
+    "material",
+    "material_type:fruits_and_vegetables"
+  ],
+  "displayName": "Chou rouge Bio",
+  "id": "ad7ce0b2-ad65-5096-8f81-17cc0aaf4f48",
+  "metadata": [
+    {
+      "alias": "red-cabbage-organic-2025",
+      "cropGroup": "LEGUMES-FLEURS",
+      "defaultOrigin": "France",
+      "displayName": "Chou rouge Bio (2025)",
+      "explain": "icv bio = icv mix ginko",
+      "id": "ba292cce-6815-45e3-be3e-ed34a3b04a6f",
+      "inediblePart": 0.2,
+      "ingredientCategories": [
+        "vegetable_fresh",
+        "organic"
+      ],
+      "ingredientDensity": 0.362,
+      "rawToCookedRatio": 0.856,
+      "scenario": "organic",
+      "scopes": [
+        "food",
+        "food2"
+      ],
+      "transportCooling": "always",
+      "visible": true
+    }
+  ],
+  "scopes": [
+    "food",
+    "food2"
+  ],
+  "source": "Ginko 2025"
+}

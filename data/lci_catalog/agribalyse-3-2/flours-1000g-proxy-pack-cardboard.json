@@ -1,0 +1,24 @@
+{
+  "activityName": "Flours, 1000g | Packaging System, Proxy Pack, Cardboard {FR} U",
+  "categories": [
+    "material",
+    "packaging",
+    "packaging_type:bag"
+  ],
+  "displayName": "Sachet en papier pour farine - 1000g - Proxy",
+  "id": "fafcfa38-7ede-4acb-8ff8-54dd7183dda1",
+  "metadata": [
+    {
+      "id": "4f441c18-5f86-4a6b-945d-d559ac0780d3",
+      "scopes": [
+        "food2"
+      ]
+    }
+  ],
+  "scopes": [
+    "food",
+    "food2"
+  ],
+  "source": "Agribalyse 3.2",
+  "unit": "item"
+}

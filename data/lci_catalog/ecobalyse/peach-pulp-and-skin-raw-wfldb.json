@@ -1,0 +1,36 @@
+{
+  "activityName": "Peach, pulp and skin raw, import WFLDB, CMAPS {GLO} U",
+  "categories": [
+    "ingredient",
+    "material"
+  ],
+  "displayName": "Pêche, pulpe et peau, crue Origine Inconnue",
+  "id": "7a7797d1-b656-408f-97c3-b31237ca3b76",
+  "metadata": [
+    {
+      "alias": "peach-pulp-and-skin-raw-default",
+      "cropGroup": "VERGERS",
+      "defaultOrigin": "OutOfEuropeAndMaghreb",
+      "displayName": "Pêche, pulpe et peau, crue Origine Inconnue",
+      "id": "d7789ffc-b986-416f-bafa-b1e705d720c4",
+      "inediblePart": 0,
+      "ingredientCategories": [
+        "vegetable_fresh"
+      ],
+      "ingredientDensity": 1,
+      "rawToCookedRatio": 1,
+      "scenario": "import",
+      "scopes": [
+        "food",
+        "food2"
+      ],
+      "transportCooling": "always",
+      "visible": true
+    }
+  ],
+  "scopes": [
+    "food",
+    "food2"
+  ],
+  "source": "Ecobalyse"
+}

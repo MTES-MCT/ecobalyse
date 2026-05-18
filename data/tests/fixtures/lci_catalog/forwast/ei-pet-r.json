@@ -1,0 +1,38 @@
+{
+  "activityName": "_73 Furniture and other manufactured goods n.e.c., EU27",
+  "categories": [
+    "material",
+    "textile_material"
+  ],
+  "comment": "Ancien identifiant (12/2024): 087896096b5bede914ef3ec1062b1c02.",
+  "displayName": "Production de PET recyclé, granulés, amorphe",
+  "elecMJ": 0,
+  "heatMJ": 0,
+  "id": "c217670c-4d00-5b6f-90bc-1592f8617c11",
+  "metadata": [
+    {
+      "alias": "ei-pet-r",
+      "cff": {
+        "manufacturerAllocation": 0.5,
+        "recycledQualityRatio": 1
+      },
+      "defaultCountry": "CN",
+      "displayName": "Production de PET recyclé, granulés, amorphe",
+      "geographicOrigin": "Asie - Pacifique",
+      "id": "8f44c680-1263-4588-b79b-a9e4dc3d8de4",
+      "name": "Polyester recyclé",
+      "origin": "Synthetic",
+      "primary": true,
+      "recycledFrom": "9dba0e95-0c35-4f8b-9267-62ddf47d4984",
+      "scopes": [
+        "textile"
+      ]
+    }
+  ],
+  "scopes": [
+    "textile"
+  ],
+  "source": "forwast",
+  "unit": "kg",
+  "waste": 0
+}

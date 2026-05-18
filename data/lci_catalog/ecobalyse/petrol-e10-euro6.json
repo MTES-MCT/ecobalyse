@@ -1,0 +1,26 @@
+{
+  "activityName": "petrol, E10, EURO6",
+  "categories": [
+    "energy",
+    "use"
+  ],
+  "comment": "see https://fabrique-numerique.gitbook.io/ecobalyse/vehicules/cycle-de-vie/utilisation-du-vehicule/construction-des-procedes-carburant",
+  "displayName": "Essence (E10), norme Euro6",
+  "elecMJ": 0,
+  "heatMJ": 0,
+  "id": "8fe4ef38-1c18-5cb0-a4e6-107e3998f5ff",
+  "metadata": [
+    {
+      "id": "96da7da0-19f6-46fb-b7d7-2d888e7046e0",
+      "scopes": [
+        "veli"
+      ]
+    }
+  ],
+  "scopes": [
+    "veli"
+  ],
+  "source": "Ecobalyse",
+  "unit": "L",
+  "waste": 0
+}

@@ -1,0 +1,55 @@
+{
+  "activityName": "Live pig, consumption mix {FR} U {{pork-organic-2025}}",
+  "categories": [
+    "ingredient"
+  ],
+  "displayName": "Porc Bio",
+  "id": "97794c50-6932-5707-a453-29b8af52b242",
+  "metadata": [
+    {
+      "alias": "pork-organic-2025",
+      "animalGroup1": "pig",
+      "animalGroup2": "pig",
+      "animalProduct": "meat",
+      "defaultOrigin": "France",
+      "displayName": "Porc Bio (2025)",
+      "id": "e0158192-a68e-57d1-a256-fe10db5d1de0",
+      "inediblePart": 0.0,
+      "inediblePartMatch": {
+        "confidence": 1.0,
+        "rule": "meat NOVA 2-4 default from food_type_inedible_part.csv"
+      },
+      "ingredientCategories": [
+        "animal_product",
+        "organic"
+      ],
+      "ingredientDensity": 1.05,
+      "ingredientDensityMatch": {
+        "confidence": 1.0,
+        "rule": "pork found in density.csv"
+      },
+      "rawToCookedRatio": 0.792,
+      "rawToCookedRatioMatch": {
+        "confidence": 1.0,
+        "rule": "Matched with pork in cooked_to_raw.csv"
+      },
+      "scenario": "organic",
+      "scopes": [
+        "food",
+        "food2"
+      ],
+      "transportCooling": "always",
+      "transportCoolingMatch": {
+        "confidence": 0.95,
+        "rule": "Matched with Poitrine de porc (alim. ani. 100% FR) in ingredients.json"
+      },
+      "visible": false
+    }
+  ],
+  "scopes": [
+    "food",
+    "food2"
+  ],
+  "source": "Ecobalyse",
+  "unit": "kg"
+}

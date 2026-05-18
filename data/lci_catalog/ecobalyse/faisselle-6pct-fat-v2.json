@@ -1,0 +1,35 @@
+{
+  "activityName": "Faisselle, 6pct fat, variant 2, CMAPS {GLO} U",
+  "categories": [
+    "ingredient",
+    "material"
+  ],
+  "displayName": "Faisselle, 6% MG environ Origine Inconnue",
+  "id": "a5ac65c6-8fd1-4f23-a2e2-c04abf8a2187",
+  "metadata": [
+    {
+      "alias": "faisselle-6pct-fat-default",
+      "defaultOrigin": "OutOfEuropeAndMaghreb",
+      "displayName": "Faisselle, 6% MG environ Origine Inconnue",
+      "id": "249074d1-e53c-4c6e-bcc7-f1c8624fe892",
+      "inediblePart": 0,
+      "ingredientCategories": [
+        "dairy_product"
+      ],
+      "ingredientDensity": 1,
+      "rawToCookedRatio": 1,
+      "scenario": "import",
+      "scopes": [
+        "food",
+        "food2"
+      ],
+      "transportCooling": "always",
+      "visible": true
+    }
+  ],
+  "scopes": [
+    "food",
+    "food2"
+  ],
+  "source": "Ecobalyse"
+}

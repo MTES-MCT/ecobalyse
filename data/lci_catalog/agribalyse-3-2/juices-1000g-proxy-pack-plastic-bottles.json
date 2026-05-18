@@ -1,0 +1,24 @@
+{
+  "activityName": "Juices, 1000g | Packaging System, Proxy Pack, Plastic bottles {FR} U",
+  "categories": [
+    "material",
+    "packaging",
+    "packaging_type:bottle"
+  ],
+  "displayName": "Bouteille en plastique (PET) pour jus - 1000g - Proxy",
+  "id": "d0ce8fbf-5d3e-4aba-9734-50d683466cea",
+  "metadata": [
+    {
+      "id": "8f631b5b-dafb-4940-81e6-0c9695dd5102",
+      "scopes": [
+        "food2"
+      ]
+    }
+  ],
+  "scopes": [
+    "food",
+    "food2"
+  ],
+  "source": "Agribalyse 3.2",
+  "unit": "item"
+}

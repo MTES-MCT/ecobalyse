@@ -1,0 +1,80 @@
+{
+  "activityName": "Egg, organic, at farm gate {FR} U",
+  "categories": [
+    "ingredient",
+    "material",
+    "material_type:eggs"
+  ],
+  "displayName": "Oeuf Bio",
+  "id": "443b5511-8714-51c5-9ded-c428a27c08d0",
+  "location": "FR",
+  "metadata": [
+    {
+      "alias": "egg-organic-code0-2025",
+      "animalGroup1": "poultry",
+      "animalGroup2": "chicken",
+      "animalProduct": "egg",
+      "defaultOrigin": "France",
+      "displayName": "Oeuf Bio (2025)",
+      "id": "cfd4a437-aa49-49ff-818e-353421f2fc09",
+      "inediblePart": 0.2,
+      "ingredientCategories": [
+        "animal_product",
+        "organic"
+      ],
+      "ingredientDensity": 1.0,
+      "rawToCookedRatio": 0.974,
+      "scenario": "organic",
+      "scopes": [
+        "food",
+        "food2"
+      ],
+      "transportCooling": "none",
+      "visible": true
+    },
+    {
+      "alias": "egg-organic",
+      "animalGroup1": "poultry",
+      "animalGroup2": "chicken",
+      "animalProduct": "egg",
+      "defaultOrigin": "France",
+      "displayName": "Œuf Bio",
+      "id": "5814ac7d-fe30-5a9c-8a10-e2b9554b63b0",
+      "inediblePart": 0.1,
+      "inediblePartMatch": {
+        "confidence": 1.0,
+        "rule": "Matched with Egg in agb_inedible.csv"
+      },
+      "ingredientCategories": [
+        "animal_product",
+        "organic"
+      ],
+      "ingredientDensity": 1.0,
+      "ingredientDensityMatch": {
+        "confidence": 1.0,
+        "rule": "egg found in density.csv"
+      },
+      "rawToCookedRatio": 0.974,
+      "rawToCookedRatioMatch": {
+        "confidence": 1.0,
+        "rule": "Matched with egg in cooked_to_raw.csv"
+      },
+      "scenario": "organic",
+      "scopes": [
+        "food",
+        "food2"
+      ],
+      "transportCooling": "always",
+      "transportCoolingMatch": {
+        "confidence": 1.0,
+        "rule": "meat NOVA 1 → always (perishable)"
+      },
+      "visible": true
+    }
+  ],
+  "scopes": [
+    "food",
+    "food2"
+  ],
+  "source": "Agribalyse 3.2"
+}

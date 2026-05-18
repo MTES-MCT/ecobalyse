@@ -1,0 +1,139 @@
+{
+  "activityName": "Garlic, fresh, at farm (WFLDB)",
+  "categories": [
+    "ingredient",
+    "material",
+    "material_type:fruits_and_vegetables"
+  ],
+  "displayName": "Ail Origine Inconnue",
+  "id": "07df4ddb-700e-5f24-8fe1-69ca28b962e4",
+  "location": "US",
+  "metadata": [
+    {
+      "alias": "garlic-default",
+      "cropGroup": "LEGUMES-FLEURS",
+      "cropGroupMatch": {
+        "confidence": 1.0,
+        "rule": "vegetable default"
+      },
+      "defaultOrigin": "OutOfEuropeAndMaghreb",
+      "displayName": "Ail Origine Inconnue",
+      "id": "d8c8a918-a11a-502f-a5cf-90052d96c133",
+      "inediblePart": 0.1,
+      "inediblePartMatch": {
+        "confidence": 1.0,
+        "rule": "Matched with Garlic in agb_inedible.csv"
+      },
+      "ingredientCategories": [
+        "vegetable_fresh"
+      ],
+      "ingredientDensity": 0.3,
+      "ingredientDensityMatch": {
+        "confidence": 1.0,
+        "rule": "garlic found in density.csv"
+      },
+      "rawToCookedRatio": 0.856,
+      "rawToCookedRatioMatch": {
+        "confidence": 1.0,
+        "rule": "Matched with garlic in cooked_to_raw.csv"
+      },
+      "scenario": "import",
+      "scopes": [
+        "food",
+        "food2"
+      ],
+      "transportCooling": "always",
+      "transportCoolingMatch": {
+        "confidence": 1.0,
+        "rule": "vegetable NOVA 1 → always (perishable)"
+      },
+      "visible": true
+    },
+    {
+      "alias": "garlic-eu",
+      "cropGroup": "LEGUMES-FLEURS",
+      "cropGroupMatch": {
+        "confidence": 1.0,
+        "rule": "vegetable default"
+      },
+      "defaultOrigin": "EuropeAndMaghreb",
+      "displayName": "Ail UE",
+      "id": "00d5fa04-b2fd-5a3c-a5fa-c87598ce8a53",
+      "inediblePart": 0.1,
+      "inediblePartMatch": {
+        "confidence": 1.0,
+        "rule": "Matched with Garlic in agb_inedible.csv"
+      },
+      "ingredientCategories": [
+        "vegetable_fresh"
+      ],
+      "ingredientDensity": 0.3,
+      "ingredientDensityMatch": {
+        "confidence": 1.0,
+        "rule": "garlic found in density.csv"
+      },
+      "rawToCookedRatio": 0.856,
+      "rawToCookedRatioMatch": {
+        "confidence": 1.0,
+        "rule": "Matched with garlic in cooked_to_raw.csv"
+      },
+      "scenario": "import",
+      "scopes": [
+        "food",
+        "food2"
+      ],
+      "transportCooling": "always",
+      "transportCoolingMatch": {
+        "confidence": 1.0,
+        "rule": "vegetable NOVA 1 → always (perishable)"
+      },
+      "visible": true
+    },
+    {
+      "alias": "garlic-non-eu",
+      "cropGroup": "LEGUMES-FLEURS",
+      "cropGroupMatch": {
+        "confidence": 1.0,
+        "rule": "vegetable default"
+      },
+      "defaultOrigin": "OutOfEuropeAndMaghreb",
+      "displayName": "Ail HORS UE",
+      "id": "df25f0b8-080e-5dad-9bba-6ce69f59bb6a",
+      "inediblePart": 0.1,
+      "inediblePartMatch": {
+        "confidence": 1.0,
+        "rule": "Matched with Garlic in agb_inedible.csv"
+      },
+      "ingredientCategories": [
+        "vegetable_fresh"
+      ],
+      "ingredientDensity": 0.3,
+      "ingredientDensityMatch": {
+        "confidence": 1.0,
+        "rule": "garlic found in density.csv"
+      },
+      "rawToCookedRatio": 0.856,
+      "rawToCookedRatioMatch": {
+        "confidence": 1.0,
+        "rule": "Matched with garlic in cooked_to_raw.csv"
+      },
+      "scenario": "import",
+      "scopes": [
+        "food",
+        "food2"
+      ],
+      "transportCooling": "always",
+      "transportCoolingMatch": {
+        "confidence": 1.0,
+        "rule": "vegetable NOVA 1 → always (perishable)"
+      },
+      "visible": true
+    }
+  ],
+  "scopes": [
+    "food",
+    "food2"
+  ],
+  "source": "WFLDB",
+  "unit": "kg"
+}

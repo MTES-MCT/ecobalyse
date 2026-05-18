@@ -1,0 +1,24 @@
+{
+  "activityName": "Yoghurts, 600g | Packaging System, N0, All, Plastic bottles pack {FR} U",
+  "categories": [
+    "material",
+    "packaging",
+    "packaging_type:pack"
+  ],
+  "displayName": "Lot de 6 bouteilles plastique pour yaourts à boire - 600g",
+  "id": "734e65ec-56c5-4a59-bc6b-ecf19b7d5abe",
+  "metadata": [
+    {
+      "id": "fd973b13-97bd-4aad-b9cd-d84d65752652",
+      "scopes": [
+        "food2"
+      ]
+    }
+  ],
+  "scopes": [
+    "food",
+    "food2"
+  ],
+  "source": "Agribalyse 3.2",
+  "unit": "item"
+}

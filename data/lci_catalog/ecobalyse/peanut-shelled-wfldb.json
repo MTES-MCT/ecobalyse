@@ -1,0 +1,36 @@
+{
+  "activityName": "Peanut, shelled, import WFLDB, CMAPS {GLO} U",
+  "categories": [
+    "ingredient",
+    "material"
+  ],
+  "displayName": "Cacahuète ou Arachide décortiquée (cuites, grillées, salées, bouilles) Origine Inconnue",
+  "id": "00856128-a71b-4bdf-9bdf-bbd80907be02",
+  "metadata": [
+    {
+      "alias": "peanut-shelled-default",
+      "cropGroup": "AUTRES OLEAGINEUX",
+      "defaultOrigin": "OutOfEuropeAndMaghreb",
+      "displayName": "Cacahuète ou Arachide décortiquée (cuites, grillées, salées, bouilles) Origine Inconnue",
+      "id": "7dd4caa8-d883-457c-a468-3107c4e55f20",
+      "inediblePart": 0,
+      "ingredientCategories": [
+        "nut_oilseed_raw"
+      ],
+      "ingredientDensity": 1,
+      "rawToCookedRatio": 1,
+      "scenario": "import",
+      "scopes": [
+        "food",
+        "food2"
+      ],
+      "transportCooling": "none",
+      "visible": true
+    }
+  ],
+  "scopes": [
+    "food",
+    "food2"
+  ],
+  "source": "Ecobalyse"
+}

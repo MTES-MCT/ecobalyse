@@ -1,0 +1,26 @@
+{
+  "activityName": "Battery cell EoL recycling, LFP, CFF",
+  "categories": [
+    "end-of-life",
+    "material_type:battery_cell"
+  ],
+  "comment": "Based on Delegated Act to Regulation (EU) 2023/1542, methodology for the calculation and verification of the carbon footprint of electric vehicle batteries, with 50% Li recycling (hydrometallurgical), according to EU-2023/1542 2027 target",
+  "displayName": "Recyclage de cellules de batterie Li-ion LFP, CFF",
+  "elecMJ": 0,
+  "heatMJ": 0,
+  "id": "eaf3dd96-039a-4fd0-8152-cca846b968dd",
+  "metadata": [
+    {
+      "id": "658aa88f-c4c9-4e19-9988-c1f5d4fc5994",
+      "scopes": [
+        "veli"
+      ]
+    }
+  ],
+  "scopes": [
+    "veli"
+  ],
+  "source": "Ecobalyse",
+  "unit": "kg",
+  "waste": 0
+}

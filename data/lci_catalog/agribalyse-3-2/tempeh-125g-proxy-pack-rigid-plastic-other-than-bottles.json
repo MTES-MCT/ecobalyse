@@ -1,0 +1,24 @@
+{
+  "activityName": "Tempeh, 125g | Packaging System, Proxy Pack, Rigid plastic, other than bottles {FR} U",
+  "categories": [
+    "material",
+    "packaging",
+    "packaging_type:tray"
+  ],
+  "displayName": "Barquette en plastique (PP) pour tempeh - 125g - Proxy",
+  "id": "9772abf2-4da1-4984-8358-1a227ce3400a",
+  "metadata": [
+    {
+      "id": "5d1431b4-5565-4c23-950e-383b88775c9c",
+      "scopes": [
+        "food2"
+      ]
+    }
+  ],
+  "scopes": [
+    "food",
+    "food2"
+  ],
+  "source": "Agribalyse 3.2",
+  "unit": "item"
+}

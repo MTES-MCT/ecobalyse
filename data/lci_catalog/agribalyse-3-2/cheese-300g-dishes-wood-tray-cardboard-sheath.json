@@ -1,0 +1,24 @@
+{
+  "activityName": "Cheese dishes, 300g | Packaging System, N0, All, Wood tray with cardboard sheath {FR} U",
+  "categories": [
+    "material",
+    "packaging",
+    "packaging_type:tray"
+  ],
+  "displayName": "Barquette en bois et étui carton pour plat au fromage - 300g",
+  "id": "724e8f6c-88be-4943-9291-9f2157363332",
+  "metadata": [
+    {
+      "id": "180aa5b6-875e-43e1-8882-500de502d89d",
+      "scopes": [
+        "food2"
+      ]
+    }
+  ],
+  "scopes": [
+    "food",
+    "food2"
+  ],
+  "source": "Agribalyse 3.2",
+  "unit": "item"
+}

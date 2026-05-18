@@ -1,0 +1,29 @@
+{
+  "activityName": "electricity, medium voltage//[AU] market for electricity, medium voltage",
+  "categories": [
+    "energy"
+  ],
+  "comment": "Ancien identifiant (12/2024): 53c7378e585cf74cea4837819be6e631.",
+  "displayName": "Électricité moyenne tension, Australie",
+  "elecMJ": 0,
+  "heatMJ": 0,
+  "id": "05bcd5b4-09eb-5f9c-8a02-fd9d91412ccf",
+  "metadata": [
+    {
+      "id": "998b0cc8-dfb5-410d-bdd1-0d958c7cb803",
+      "scopes": [
+        "object",
+        "food2"
+      ]
+    }
+  ],
+  "scopes": [
+    "textile",
+    "object",
+    "veli",
+    "food2"
+  ],
+  "source": "Ecoinvent 3.9.1",
+  "unit": "kWh",
+  "waste": 0
+}

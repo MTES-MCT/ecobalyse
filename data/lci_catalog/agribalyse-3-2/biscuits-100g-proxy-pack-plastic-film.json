@@ -1,0 +1,24 @@
+{
+  "activityName": "Biscuits, 100g | Packaging System, Proxy Pack, Plastic film {FR} U",
+  "categories": [
+    "material",
+    "packaging",
+    "packaging_type:bag"
+  ],
+  "displayName": "Sachet en plastique (PP) pour biscuit - 100g - Proxy",
+  "id": "160ed74d-dc00-466e-a16b-8d45a234567c",
+  "metadata": [
+    {
+      "id": "6091c4d6-f421-4129-b847-e172223998a6",
+      "scopes": [
+        "food2"
+      ]
+    }
+  ],
+  "scopes": [
+    "food",
+    "food2"
+  ],
+  "source": "Agribalyse 3.2",
+  "unit": "item"
+}

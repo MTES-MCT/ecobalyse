@@ -1,0 +1,41 @@
+PACKAGINGS = [
+    "PS",
+    "LDPE",
+    "PP",
+    "Cardboard",
+    "No packaging",
+    "Already packed - PET",
+    "Glass",
+    "Steel",
+    "PVC",
+    "PET",
+    "Paper",
+    "HDPE",
+    "Already packed - PP/PE",
+    "Already packed - Aluminium",
+    "Already packed - Steel",
+    "Already packed - Glass",
+    "Corrugated board and aluminium packaging",
+    "Corrugated board and LDPE packaging",
+    "Aluminium",
+    "PP/PE",
+    "Corrugated board and PP packaging",
+]
+STAGES = ["at consumer", "at packaging", "at supermarket", "at distribution"]
+TRANSPORT_TYPES = [
+    "Chilled",
+    "Ambient (average)",
+    "Ambient (long)",
+    "Ambient (short)",
+    "Frozen",
+]
+PREPARATION_MODES = [
+    "Oven",
+    "No preparation",
+    "Microwave",
+    "Boiling",
+    "Chilled at consumer",
+    "Pan frying",
+    "Water cooker",
+    "Deep frying",
+]

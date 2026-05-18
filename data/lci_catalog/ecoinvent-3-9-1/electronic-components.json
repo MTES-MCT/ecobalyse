@@ -1,0 +1,26 @@
+{
+  "activityName": "electronic component, passive, unspecified//[GLO] market for electronic component, passive, unspecified",
+  "categories": [
+    "material",
+    "material_type:pwb"
+  ],
+  "comment": "",
+  "displayName": "Composants électroniques",
+  "elecMJ": 0,
+  "heatMJ": 0,
+  "id": "6d72fe4f-bc8a-5d8a-948f-b137763ccc7f",
+  "metadata": [
+    {
+      "id": "51956fb2-304d-4e63-a3ef-b3eed44fde38",
+      "scopes": [
+        "veli"
+      ]
+    }
+  ],
+  "scopes": [
+    "veli"
+  ],
+  "source": "Ecoinvent 3.9.1",
+  "unit": "kg",
+  "waste": 0
+}

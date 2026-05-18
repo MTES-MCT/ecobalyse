@@ -1,0 +1,116 @@
+{
+  "activityName": "Pear, conventional, national average, at orchard {FR} U",
+  "categories": [
+    "ingredient",
+    "material"
+  ],
+  "displayName": "Poire FR",
+  "id": "00b230d5-f589-5352-add1-18d24e58799f",
+  "metadata": [
+    {
+      "alias": "pear-fr",
+      "cropGroup": "VERGERS",
+      "cropGroupMatch": {
+        "confidence": 0.95,
+        "rule": "matched 'poires pour transformation' in cropgroup.csv"
+      },
+      "defaultOrigin": "France",
+      "displayName": "Poires FR",
+      "id": "30393713-e95d-5610-8fe8-ccd139933d37",
+      "inediblePart": 0.1,
+      "inediblePartMatch": {
+        "confidence": 0.95,
+        "rule": "Matched with Pear in agb_inedible.csv"
+      },
+      "ingredientCategories": [
+        "vegetable_fresh"
+      ],
+      "ingredientDensity": 0.95,
+      "ingredientDensityMatch": {
+        "confidence": 0.95,
+        "rule": "Matched with pear in density.csv"
+      },
+      "rawToCookedRatio": 0.856,
+      "rawToCookedRatioMatch": {
+        "confidence": 1.0,
+        "rule": "fruit default from food_type_cooked_to_raw.csv"
+      },
+      "scenario": "reference",
+      "scopes": [
+        "food",
+        "food2"
+      ],
+      "transportCooling": "always",
+      "transportCoolingMatch": {
+        "confidence": 1.0,
+        "rule": "fruit NOVA 1 → always (perishable)"
+      },
+      "visible": true
+    },
+    {
+      "alias": "prickly-pear-fr",
+      "cropGroup": "VERGERS",
+      "cropGroupMatch": {
+        "confidence": 1.0,
+        "rule": "prickly pear pattern"
+      },
+      "defaultOrigin": "France",
+      "displayName": "Figue de barbarie FR",
+      "id": "4e4a0a80-f053-5707-aa73-29e4f6c83213",
+      "inediblePart": 0.1,
+      "inediblePartMatch": {
+        "confidence": 0.95,
+        "rule": "Matched with Pear in agb_inedible.csv"
+      },
+      "ingredientCategories": [
+        "grain_raw"
+      ],
+      "ingredientDensity": 0.95,
+      "ingredientDensityMatch": {
+        "confidence": 0.95,
+        "rule": "Matched with pear in density.csv"
+      },
+      "rawToCookedRatio": 2.259,
+      "rawToCookedRatioMatch": {
+        "confidence": 1.0,
+        "rule": "grain default from food_type_cooked_to_raw.csv"
+      },
+      "scenario": "reference",
+      "scopes": [
+        "food",
+        "food2"
+      ],
+      "transportCooling": "none",
+      "transportCoolingMatch": {
+        "confidence": 1.0,
+        "rule": "grain → none (non-perishable)"
+      },
+      "visible": true
+    },
+    {
+      "alias": "pear-fr-2025",
+      "cropGroup": "VERGERS",
+      "defaultOrigin": "France",
+      "displayName": "Poire FR (2025)",
+      "id": "eab762ca-1edc-4fcc-ba6d-c247bbab0ec8",
+      "inediblePart": 0.1,
+      "ingredientCategories": [
+        "vegetable_fresh"
+      ],
+      "ingredientDensity": 0.447,
+      "rawToCookedRatio": 0.856,
+      "scenario": "reference",
+      "scopes": [
+        "food",
+        "food2"
+      ],
+      "transportCooling": "none",
+      "visible": true
+    }
+  ],
+  "scopes": [
+    "food",
+    "food2"
+  ],
+  "source": "Agribalyse 3.2"
+}

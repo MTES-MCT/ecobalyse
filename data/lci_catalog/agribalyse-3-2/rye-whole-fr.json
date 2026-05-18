@@ -1,0 +1,58 @@
+{
+  "activityName": "Rye grain, feed, Swiss integrated production {CH}| production | Cut-off, U - Copied from Ecoinvent U",
+  "categories": [
+    "ingredient",
+    "material",
+    "material_type:other_food_items"
+  ],
+  "displayName": "Seigle entier FR",
+  "id": "86150d85-24d2-5636-96c2-9ef02a14ca2b",
+  "metadata": [
+    {
+      "alias": "rye-whole-fr",
+      "cropGroup": "AUTRES CEREALES",
+      "cropGroupMatch": {
+        "confidence": 0.95,
+        "rule": "matched 'seigle' in cropgroup.csv"
+      },
+      "defaultOrigin": "France",
+      "displayName": "Seigle entier FR",
+      "id": "404e758a-d98b-5cb5-9483-ef18232cf0bf",
+      "inediblePart": 0.0,
+      "inediblePartMatch": {
+        "confidence": 1.0,
+        "rule": "grain NOVA 1 default from food_type_inedible_part.csv"
+      },
+      "ingredientCategories": [
+        "grain_raw"
+      ],
+      "ingredientDensity": 0.705,
+      "ingredientDensityMatch": {
+        "confidence": 0.961,
+        "rule": "Matched with Rye, whole in fao_density.csv"
+      },
+      "rawToCookedRatio": 2.259,
+      "rawToCookedRatioMatch": {
+        "confidence": 1.0,
+        "rule": "grain default from food_type_cooked_to_raw.csv"
+      },
+      "scenario": "reference",
+      "scopes": [
+        "food",
+        "food2"
+      ],
+      "transportCooling": "none",
+      "transportCoolingMatch": {
+        "confidence": 1.0,
+        "rule": "grain → none (non-perishable)"
+      },
+      "visible": true
+    }
+  ],
+  "scopes": [
+    "food",
+    "food2"
+  ],
+  "source": "Agribalyse 3.2",
+  "unit": "kg"
+}

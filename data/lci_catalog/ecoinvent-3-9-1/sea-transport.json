@@ -1,0 +1,30 @@
+{
+  "activityName": "transport, freight, sea, container ship//[GLO] market for transport, freight, sea, container ship",
+  "categories": [
+    "transport"
+  ],
+  "comment": "Ancien identifiant (12/2024): 86ac591e1e5c1d96a0d004ac830563d9.",
+  "displayName": "transport maritime",
+  "elecMJ": 0,
+  "heatMJ": 0,
+  "id": "20a62b2c-a543-5076-83aa-c5b7d340206a",
+  "metadata": [
+    {
+      "id": "ffff684d-2162-493a-ab2e-826f82f29f58",
+      "scopes": [
+        "object",
+        "food2"
+      ]
+    }
+  ],
+  "scopes": [
+    "textile",
+    "veli",
+    "object",
+    "food",
+    "food2"
+  ],
+  "source": "Ecoinvent 3.9.1",
+  "unit": "t⋅km",
+  "waste": 0
+}

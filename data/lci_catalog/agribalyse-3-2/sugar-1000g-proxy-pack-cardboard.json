@@ -1,0 +1,24 @@
+{
+  "activityName": "Sugar, 1000g | Packaging System, Proxy Pack, Cardboard {FR} U",
+  "categories": [
+    "material",
+    "packaging",
+    "packaging_type:bag"
+  ],
+  "displayName": "Sachet en papier pour sucre - 1000g - Proxy",
+  "id": "ada440c9-f18f-4df5-bac6-4145040320e0",
+  "metadata": [
+    {
+      "id": "2d1e846c-8158-44d6-9d0d-383afefde540",
+      "scopes": [
+        "food2"
+      ]
+    }
+  ],
+  "scopes": [
+    "food",
+    "food2"
+  ],
+  "source": "Agribalyse 3.2",
+  "unit": "item"
+}

@@ -1,0 +1,36 @@
+{
+  "activityName": "Pineapple, pulp raw, variant 2, CMAPS {GLO} U",
+  "categories": [
+    "ingredient",
+    "material"
+  ],
+  "displayName": "Ananas, pulpe, cru Origine Inconnue",
+  "id": "f5d7d4e4-1b33-4c8b-bdd3-6b1c05bb2eed",
+  "metadata": [
+    {
+      "alias": "pineapple-pulp-raw-default",
+      "cropGroup": "VERGERS",
+      "defaultOrigin": "OutOfEuropeAndMaghreb",
+      "displayName": "Ananas, pulpe, cru Origine Inconnue",
+      "id": "7fdafd83-7d6c-4200-85ed-a5d5fdcaa9ea",
+      "inediblePart": 0,
+      "ingredientCategories": [
+        "vegetable_fresh"
+      ],
+      "ingredientDensity": 1,
+      "rawToCookedRatio": 1,
+      "scenario": "import",
+      "scopes": [
+        "food",
+        "food2"
+      ],
+      "transportCooling": "always",
+      "visible": false
+    }
+  ],
+  "scopes": [
+    "food",
+    "food2"
+  ],
+  "source": "Ecobalyse"
+}

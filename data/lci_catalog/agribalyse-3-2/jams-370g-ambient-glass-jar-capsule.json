@@ -1,0 +1,24 @@
+{
+  "activityName": "Jams ambient, 370g | Packaging System, N0, All, Glass jar with capsule {FR} U",
+  "categories": [
+    "material",
+    "packaging",
+    "packaging_type:jar"
+  ],
+  "displayName": "Pot en verre avec couvercle pour confitures - 370g",
+  "id": "43e2a206-0f91-45be-92f1-ebd3d9949b55",
+  "metadata": [
+    {
+      "id": "ae288eef-dca7-4af2-9fc9-92395d40fc49",
+      "scopes": [
+        "food2"
+      ]
+    }
+  ],
+  "scopes": [
+    "food",
+    "food2"
+  ],
+  "source": "Agribalyse 3.2",
+  "unit": "item"
+}

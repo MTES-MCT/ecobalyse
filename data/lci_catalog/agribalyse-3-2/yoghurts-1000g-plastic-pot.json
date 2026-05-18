@@ -1,0 +1,24 @@
+{
+  "activityName": "Yoghurts, 1000g | Packaging System, N0, All, Plastic pot {FR} U",
+  "categories": [
+    "material",
+    "packaging",
+    "packaging_type:jar"
+  ],
+  "displayName": "Pot en plastique (PP) pour yaourt - 1000g",
+  "id": "97e356a1-a0ec-4e48-a07e-3d3595565baf",
+  "metadata": [
+    {
+      "id": "6df1701d-42a0-4c8c-96f8-8275f47bcda1",
+      "scopes": [
+        "food2"
+      ]
+    }
+  ],
+  "scopes": [
+    "food",
+    "food2"
+  ],
+  "source": "Agribalyse 3.2",
+  "unit": "item"
+}

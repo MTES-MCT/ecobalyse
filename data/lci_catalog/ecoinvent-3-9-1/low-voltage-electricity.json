@@ -1,0 +1,25 @@
+{
+  "activityName": "electricity, low voltage//[FR] market for electricity, low voltage",
+  "categories": [
+    "energy",
+    "use"
+  ],
+  "displayName": "Electricité basse tension, France",
+  "id": "931c9bb0-619a-5f75-b41b-ab8061e2ad92",
+  "metadata": [
+    {
+      "id": "eec31f13-d00a-4741-a84f-85d887026f8c",
+      "scopes": [
+        "veli",
+        "food2"
+      ]
+    }
+  ],
+  "scopes": [
+    "food",
+    "textile",
+    "veli",
+    "food2"
+  ],
+  "source": "Ecoinvent 3.9.1"
+}

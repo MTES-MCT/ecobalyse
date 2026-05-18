@@ -1,0 +1,26 @@
+{
+  "activityName": "diesel, B7, EURO4",
+  "categories": [
+    "energy",
+    "use"
+  ],
+  "comment": "see https://fabrique-numerique.gitbook.io/ecobalyse/vehicules/cycle-de-vie/utilisation-du-vehicule/construction-des-procedes-carburant",
+  "displayName": "Diesel (B7), norme Euro4",
+  "elecMJ": 0,
+  "heatMJ": 0,
+  "id": "18b897d0-3204-5f5b-80bc-7a09bfab0b81",
+  "metadata": [
+    {
+      "id": "18480897-317f-4ebc-b504-988d3a477925",
+      "scopes": [
+        "veli"
+      ]
+    }
+  ],
+  "scopes": [
+    "veli"
+  ],
+  "source": "Ecobalyse",
+  "unit": "L",
+  "waste": 0
+}

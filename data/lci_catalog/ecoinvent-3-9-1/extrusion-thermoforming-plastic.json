@@ -1,0 +1,32 @@
+{
+  "activityName": "extrusion of plastic sheets and thermoforming, inline//[GLO] market for extrusion of plastic sheets and thermoforming, inline",
+  "categories": [
+    "transformation",
+    "material_type:pet",
+    "material_type:pp",
+    "material_type:hdpe",
+    "material_type:ldpe",
+    "material_type:rigid_plastics"
+  ],
+  "comment": "",
+  "displayName": "Extrusion + thermoformage (plastique)",
+  "elecMJ": 0,
+  "heatMJ": 0,
+  "id": "141995a8-7ed5-5689-bd2b-81a2a3142e16",
+  "metadata": [
+    {
+      "id": "4a08bcab-5c25-4dec-961a-0f7208f40084",
+      "scopes": [
+        "object",
+        "veli"
+      ]
+    }
+  ],
+  "scopes": [
+    "object",
+    "veli"
+  ],
+  "source": "Ecoinvent 3.9.1",
+  "unit": "kg",
+  "waste": 0.06
+}

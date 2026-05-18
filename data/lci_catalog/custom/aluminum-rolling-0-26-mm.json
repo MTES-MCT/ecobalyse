@@ -1,0 +1,48 @@
+{
+  "categories": [
+    "transformation",
+    "material_type:aluminium"
+  ],
+  "comment": "Sheet production (0.2-6mm), including scrap remelting. Source: Life Cycle Inventory (LCI) data for aluminium production and transformation processes in Europe, European Aluminium, 2025, 2022 data",
+  "displayName": "Lamination aluminium 0.2-6mm",
+  "elecMJ": 2.07,
+  "heatMJ": 2.783,
+  "id": "8801c892-c156-5c72-a4ee-fc47f8ad7822",
+  "impacts": {
+    "acd": 0,
+    "cch": 0,
+    "etf": 0,
+    "etf-c": 0,
+    "fru": 0,
+    "fwe": 0,
+    "htc": 0,
+    "htc-c": 0,
+    "htn": 0,
+    "htn-c": 0,
+    "ior": 0,
+    "ldu": 0,
+    "mru": 0,
+    "ozd": 0,
+    "pco": 0,
+    "pma": 0,
+    "swe": 0,
+    "tre": 0,
+    "wtu": 0
+  },
+  "metadata": [
+    {
+      "id": "971df5fa-c32e-4a7e-b1aa-14ce9f240b5c",
+      "scopes": [
+        "object",
+        "veli"
+      ]
+    }
+  ],
+  "scopes": [
+    "object",
+    "veli"
+  ],
+  "source": "Custom",
+  "unit": "kg",
+  "waste": 0
+}

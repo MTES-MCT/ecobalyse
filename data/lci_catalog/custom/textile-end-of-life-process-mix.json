@@ -1,0 +1,37 @@
+{
+  "categories": [
+    "end-of-life"
+  ],
+  "comment": "Précalcul Ecobalyse à partir de Base Impacts",
+  "displayName": "Fin de vie hors voiture (transport en camion, incinération, mise en décharge)",
+  "elecMJ": 0,
+  "heatMJ": 0,
+  "id": "ab96b73f-8534-59ad-9f34-a579abe3b023",
+  "impacts": {
+    "acd": 0.000407082,
+    "cch": 1.1636,
+    "etf": 0,
+    "etf-c": 0,
+    "fru": -1.19948,
+    "fwe": 8.92823e-06,
+    "htc": 0,
+    "htc-c": 0,
+    "htn": 0,
+    "htn-c": 0,
+    "ior": -0.140706,
+    "ldu": 0,
+    "mru": 5.50423e-08,
+    "ozd": -1.59271e-10,
+    "pco": 0.00103153,
+    "pma": 3.88588e-09,
+    "swe": 0.000700685,
+    "tre": 0.00245086,
+    "wtu": 0
+  },
+  "scopes": [
+    "textile"
+  ],
+  "source": "Custom",
+  "unit": "kg",
+  "waste": 0
+}

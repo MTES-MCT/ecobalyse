@@ -1,0 +1,24 @@
+{
+  "activityName": "Meat on skewer, 334g | Packaging System, N0, All, EPS Tray with film {FR} U",
+  "categories": [
+    "material",
+    "packaging",
+    "packaging_type:tray"
+  ],
+  "displayName": "Barquette en plastique (PSE) pour brochette de viande - 334g",
+  "id": "15625c17-8f2b-4862-91fa-bd0ad7168f42",
+  "metadata": [
+    {
+      "id": "6d70e482-6b72-44d0-b962-0ff44fc9bbb0",
+      "scopes": [
+        "food2"
+      ]
+    }
+  ],
+  "scopes": [
+    "food",
+    "food2"
+  ],
+  "source": "Agribalyse 3.2",
+  "unit": "item"
+}

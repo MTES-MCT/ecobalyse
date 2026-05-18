@@ -1,0 +1,38 @@
+{
+  "activityName": "Apple compote, recipe, at plant {FR} U",
+  "categories": [
+    "ingredient",
+    "material",
+    "material_type:fruits_and_vegetables"
+  ],
+  "displayName": "Compote de pomme FR",
+  "id": "4c9bbe9d-9502-5810-a006-bdb2c82923e4",
+  "metadata": [
+    {
+      "alias": "apple-compote-fr-2025",
+      "cropGroup": "VERGERS",
+      "defaultOrigin": "France",
+      "displayName": "Compote de pomme FR (2025)",
+      "explain": "In a jar, no need to refrigerate.",
+      "id": "f51ef7f1-9d4c-4c4a-a4a6-c011c520f419",
+      "inediblePart": 0,
+      "ingredientCategories": [
+        "vegetable_processed"
+      ],
+      "ingredientDensity": 0.447,
+      "rawToCookedRatio": 0.856,
+      "scenario": "reference",
+      "scopes": [
+        "food",
+        "food2"
+      ],
+      "transportCooling": "none",
+      "visible": true
+    }
+  ],
+  "scopes": [
+    "food",
+    "food2"
+  ],
+  "source": "Agribalyse 3.2"
+}

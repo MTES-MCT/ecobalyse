@@ -1,0 +1,28 @@
+{
+  "activityName": "epoxy resin, liquid//[RER] epoxy resin production, liquid",
+  "categories": [
+    "material",
+    "material_type:wood"
+  ],
+  "comment": "",
+  "displayName": "Revêtement bois (résine epoxy)",
+  "elecMJ": 0,
+  "heatMJ": 0,
+  "id": "67c54f19-a6d0-5739-825e-a335ea66d0a8",
+  "metadata": [
+    {
+      "id": "7b03ba64-20f1-4dd6-8ebb-0f2aa5ae7fe1",
+      "scopes": [
+        "object",
+        "veli"
+      ]
+    }
+  ],
+  "scopes": [
+    "object",
+    "veli"
+  ],
+  "source": "Ecoinvent 3.9.1",
+  "unit": "kg",
+  "waste": 0
+}

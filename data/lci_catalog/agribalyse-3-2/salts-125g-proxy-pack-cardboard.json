@@ -1,0 +1,24 @@
+{
+  "activityName": "Salts, 125g | Packaging System, Proxy Pack, Cardboard {FR} U",
+  "categories": [
+    "material",
+    "packaging",
+    "packaging_type:box"
+  ],
+  "displayName": "Boîte en carton pour sel - 125g - Proxy",
+  "id": "b3ef973e-0b8b-4bcf-b5aa-213da974596d",
+  "metadata": [
+    {
+      "id": "86a82cbb-3cd2-4e00-9f2a-31a75a6b636c",
+      "scopes": [
+        "food2"
+      ]
+    }
+  ],
+  "scopes": [
+    "food",
+    "food2"
+  ],
+  "source": "Agribalyse 3.2",
+  "unit": "item"
+}

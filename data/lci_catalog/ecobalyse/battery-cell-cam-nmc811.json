@@ -1,0 +1,26 @@
+{
+  "activityName": "CAM of Battery cell, NMC811, CN",
+  "categories": [
+    "material",
+    "material_type:battery_cell"
+  ],
+  "comment": "For 1kg Cathode Active Material. Based on GREET model (average of available battery size)",
+  "displayName": "CAM de cellule de batterie, NMC811, CN",
+  "elecMJ": 0,
+  "heatMJ": 0,
+  "id": "1f262425-8ac4-43ec-af39-596398676a7c",
+  "metadata": [
+    {
+      "id": "fe88a1fe-95f7-4aa6-b1b4-278a4cdceb2d",
+      "scopes": [
+        "veli"
+      ]
+    }
+  ],
+  "scopes": [
+    "veli"
+  ],
+  "source": "Ecobalyse",
+  "unit": "kg",
+  "waste": 0
+}

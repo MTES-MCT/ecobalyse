@@ -1,0 +1,45 @@
+{
+  "categories": [
+    "use"
+  ],
+  "comment": "Consommation d’électricité telle que définie par la méthode Agribalyse 3.0 dans les tableaux 41, 42, 43 sur les techniques de préparation.",
+  "displayName": "Congélation",
+  "elecMJ": 1.0584,
+  "heatMJ": 0,
+  "id": "da7d7621-a9e9-4156-b05a-5e3b88733a99",
+  "impacts": {
+    "acd": 0,
+    "cch": 0,
+    "etf": 0,
+    "etf-c": 0,
+    "fru": 0,
+    "fwe": 0,
+    "htc": 0,
+    "htc-c": 0,
+    "htn": 0,
+    "htn-c": 0,
+    "ior": 0,
+    "ldu": 0,
+    "mru": 0,
+    "ozd": 0,
+    "pco": 0,
+    "pma": 0,
+    "swe": 0,
+    "tre": 0,
+    "wtu": 0
+  },
+  "metadata": [
+    {
+      "id": "0048f6f5-5f8f-4a34-acde-4e0d909883d4",
+      "scopes": [
+        "food2"
+      ]
+    }
+  ],
+  "scopes": [
+    "food2"
+  ],
+  "source": "Custom",
+  "unit": "kg",
+  "waste": 0
+}

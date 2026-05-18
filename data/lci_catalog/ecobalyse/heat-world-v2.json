@@ -1,0 +1,27 @@
+{
+  "activityName": "heat, industrial, market, RoW",
+  "categories": [
+    "energy"
+  ],
+  "comment": "23% natural gas and 77% other, see detail here: https://fabrique-numerique.gitbook.io/ecobalyse/methodes-transverses-specifiques/energies-des-etapes-de-transformation",
+  "displayName": "Mix chaleur, World, v2",
+  "elecMJ": 0,
+  "heatMJ": 0,
+  "id": "f2116343-71e2-4c15-b093-de186f356971",
+  "metadata": [
+    {
+      "id": "6ba085ec-9b21-40d4-94b3-949703a2d721",
+      "scopes": [
+        "object",
+        "veli"
+      ]
+    }
+  ],
+  "scopes": [
+    "object",
+    "veli"
+  ],
+  "source": "Ecobalyse",
+  "unit": "kg",
+  "waste": 0
+}

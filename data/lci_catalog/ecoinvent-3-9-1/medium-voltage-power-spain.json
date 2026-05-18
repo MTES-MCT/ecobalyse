@@ -1,0 +1,17 @@
+{
+  "activityName": "electricity, medium voltage//[ES] market for electricity, medium voltage",
+  "categories": [
+    "energy"
+  ],
+  "comment": "Ancien identifiant (12/2024): 80ff4bc21a0e197ea3f69d809fd8d4f1.",
+  "displayName": "Électricité moyenne tension, Espagne",
+  "elecMJ": 0,
+  "heatMJ": 0,
+  "id": "5d7e3f90-7c23-560d-bc71-8e726fb4549e",
+  "scopes": [
+    "textile"
+  ],
+  "source": "Ecoinvent 3.9.1",
+  "unit": "kWh",
+  "waste": 0
+}

@@ -1,0 +1,59 @@
+{
+  "categories": [
+    "material",
+    "textile_material",
+    "material_type:organic_fibers"
+  ],
+  "comment": "corr1: Données Base Impacts 2.01 uuid_bi=2b24abb0-c1ec-4298-9b58-350904a26104 auquel a été retranché l'impact de la filature\nAncien identifiant (12/2024): 9c6ab710-4a08-c720-cede-24428a013fda.",
+  "displayName": "Production de coton recyclé (déchets de production)",
+  "elecMJ": 0,
+  "heatMJ": 0,
+  "id": "7c1986fd-fb5c-53b9-8a7a-aea3650145eb",
+  "impacts": {
+    "acd": 0,
+    "cch": 0.01986,
+    "etf": 0,
+    "etf-c": 0,
+    "fru": 25.71,
+    "fwe": 0,
+    "htc": 0,
+    "htc-c": 0,
+    "htn": 0,
+    "htn-c": 0,
+    "ior": 10.17,
+    "ldu": 24.11,
+    "mru": 9.604e-06,
+    "ozd": 3.286e-07,
+    "pco": 0.00116,
+    "pma": 1.045e-07,
+    "swe": 5.067e-05,
+    "tre": 0,
+    "wtu": 0
+  },
+  "metadata": [
+    {
+      "alias": "coton-rdp",
+      "cff": {
+        "manufacturerAllocation": 0.8,
+        "recycledQualityRatio": 0.5
+      },
+      "defaultCountry": "FR",
+      "displayName": "Production de coton recyclé (déchets de production)",
+      "geographicOrigin": "Espagne & France",
+      "id": "d3d20384-88fb-4c75-ac12-c647365ac6c5",
+      "name": "Coton recyclé (déchets de production)",
+      "origin": "NaturalFromVegetal",
+      "primary": true,
+      "recycledFrom": "62a4d6fb-3276-4ba5-93a3-889ecd3bff84",
+      "scopes": [
+        "textile"
+      ]
+    }
+  ],
+  "scopes": [
+    "textile"
+  ],
+  "source": "Custom",
+  "unit": "kg",
+  "waste": 0
+}

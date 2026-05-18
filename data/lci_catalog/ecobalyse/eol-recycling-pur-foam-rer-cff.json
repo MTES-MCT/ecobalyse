@@ -1,0 +1,28 @@
+{
+  "activityName": "PUR foam EoL recycling, RER, CFF",
+  "categories": [
+    "end-of-life",
+    "material_type:pur_foam"
+  ],
+  "comment": "According to CFF: A=0.5, Q=0.75",
+  "displayName": "Recyclage de mousse PUR, CFF",
+  "elecMJ": 0,
+  "heatMJ": 0,
+  "id": "a3b34ba9-e7df-4cd5-9958-7823107e18d4",
+  "metadata": [
+    {
+      "id": "dbfb60bb-045f-4e81-9f88-8b411fc4a665",
+      "scopes": [
+        "object",
+        "veli"
+      ]
+    }
+  ],
+  "scopes": [
+    "object",
+    "veli"
+  ],
+  "source": "Ecobalyse",
+  "unit": "kg",
+  "waste": 0
+}

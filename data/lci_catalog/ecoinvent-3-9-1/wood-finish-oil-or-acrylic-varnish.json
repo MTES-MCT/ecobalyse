@@ -1,0 +1,28 @@
+{
+  "activityName": "acrylic varnish, with water, in 53% solution state//[RER] acrylic varnish production, with water, in 53% solution state",
+  "categories": [
+    "material",
+    "material_type:wood"
+  ],
+  "comment": "",
+  "displayName": "Revêtement bois (huile ou vernis acrylique)",
+  "elecMJ": 0,
+  "heatMJ": 0,
+  "id": "1da6ae98-bf83-598c-9776-cbdf1a4c6dd1",
+  "metadata": [
+    {
+      "id": "76fa04fe-e6ab-46a7-91c9-28589035d4f2",
+      "scopes": [
+        "object",
+        "veli"
+      ]
+    }
+  ],
+  "scopes": [
+    "object",
+    "veli"
+  ],
+  "source": "Ecoinvent 3.9.1",
+  "unit": "kg",
+  "waste": 0
+}

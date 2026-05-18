@@ -1,0 +1,37 @@
+{
+  "activityName": "Banana, pulp raw, organic, CMAPS {GLO} U",
+  "categories": [
+    "ingredient",
+    "material"
+  ],
+  "displayName": "Banane, pulpe, crue Origine Inconnue BIO",
+  "id": "5f5ce91a-2bdf-45ee-95c0-083dc1545b43",
+  "metadata": [
+    {
+      "alias": "banana-pulp-raw-default-organic",
+      "cropGroup": "VERGERS",
+      "defaultOrigin": "OutOfEuropeAndMaghreb",
+      "displayName": "Banane, pulpe, crue Origine Inconnue BIO",
+      "id": "d9ac7880-c51e-4f4b-a2b8-c7e9408e3bae",
+      "inediblePart": 0,
+      "ingredientCategories": [
+        "vegetable_fresh",
+        "organic"
+      ],
+      "ingredientDensity": 1,
+      "rawToCookedRatio": 1,
+      "scenario": "organic",
+      "scopes": [
+        "food",
+        "food2"
+      ],
+      "transportCooling": "always",
+      "visible": false
+    }
+  ],
+  "scopes": [
+    "food",
+    "food2"
+  ],
+  "source": "Ecobalyse"
+}

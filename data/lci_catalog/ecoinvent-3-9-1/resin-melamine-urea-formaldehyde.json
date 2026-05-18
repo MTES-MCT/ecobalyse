@@ -1,0 +1,28 @@
+{
+  "activityName": "melamine urea formaldehyde adhesive//[GLO] market for melamine urea formaldehyde adhesive",
+  "categories": [
+    "material",
+    "material_type:other"
+  ],
+  "comment": "",
+  "displayName": "Résine (mélamine-urée-formaldéhyde)",
+  "elecMJ": 0,
+  "heatMJ": 0,
+  "id": "a69e69d6-2c03-5ee6-9f00-8338d98fa8a1",
+  "metadata": [
+    {
+      "id": "195980ce-f6b5-4416-8898-11e77e9ff698",
+      "scopes": [
+        "object",
+        "veli"
+      ]
+    }
+  ],
+  "scopes": [
+    "object",
+    "veli"
+  ],
+  "source": "Ecoinvent 3.9.1",
+  "unit": "kg",
+  "waste": 0
+}

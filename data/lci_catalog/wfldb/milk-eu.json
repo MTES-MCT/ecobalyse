@@ -1,0 +1,39 @@
+{
+  "activityName": "Raw cow milk archetype, feed mix IT-154, at farm (WFLDB)",
+  "categories": [
+    "ingredient",
+    "material",
+    "material_type:other_food_items"
+  ],
+  "displayName": "Lait UE",
+  "id": "b7386800-8318-56d3-8f1b-1f802f304a8c",
+  "metadata": [
+    {
+      "alias": "milk-eu-2025",
+      "animalGroup1": "cattle",
+      "animalGroup2": "cow",
+      "animalProduct": "milk",
+      "defaultOrigin": "EuropeAndMaghreb",
+      "displayName": "Lait UE (2025)",
+      "id": "dbba1f04-b86c-42aa-96f9-93cfcdf4a141",
+      "inediblePart": 0,
+      "ingredientCategories": [
+        "dairy_product"
+      ],
+      "ingredientDensity": 1.0,
+      "rawToCookedRatio": 1.0,
+      "scenario": "import",
+      "scopes": [
+        "food",
+        "food2"
+      ],
+      "transportCooling": "always",
+      "visible": false
+    }
+  ],
+  "scopes": [
+    "food",
+    "food2"
+  ],
+  "source": "WFLDB"
+}

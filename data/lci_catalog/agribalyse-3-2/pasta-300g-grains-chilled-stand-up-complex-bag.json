@@ -1,0 +1,24 @@
+{
+  "activityName": "Pasta and grains chilled, 300g | Packaging System, N0, All, Stand up complex bag {FR} U",
+  "categories": [
+    "material",
+    "packaging",
+    "packaging_type:bag"
+  ],
+  "displayName": "Sachet stand up en papier/plastique (PA/PE) pour pâtes fraiches - 300g",
+  "id": "bca09a49-d448-437b-b681-bad54abce187",
+  "metadata": [
+    {
+      "id": "d242c8d2-10d6-4877-a455-5b0bbf31d2a3",
+      "scopes": [
+        "food2"
+      ]
+    }
+  ],
+  "scopes": [
+    "food",
+    "food2"
+  ],
+  "source": "Agribalyse 3.2",
+  "unit": "item"
+}

@@ -1,0 +1,35 @@
+{
+  "activityName": "Fourme d'Ambert cheese, variant 2, CMAPS {GLO} U",
+  "categories": [
+    "ingredient",
+    "material"
+  ],
+  "displayName": "Fourme d'Ambert Origine Inconnue",
+  "id": "000a47b8-7563-4c12-832a-ed3c964ad5a3",
+  "metadata": [
+    {
+      "alias": "fourme-dambert-cheese-default",
+      "defaultOrigin": "OutOfEuropeAndMaghreb",
+      "displayName": "Fourme d'Ambert Origine Inconnue",
+      "id": "111167b6-1d8d-4ef3-8bcb-5145b68b2218",
+      "inediblePart": 0,
+      "ingredientCategories": [
+        "dairy_product"
+      ],
+      "ingredientDensity": 1,
+      "rawToCookedRatio": 1,
+      "scenario": "import",
+      "scopes": [
+        "food",
+        "food2"
+      ],
+      "transportCooling": "always",
+      "visible": false
+    }
+  ],
+  "scopes": [
+    "food",
+    "food2"
+  ],
+  "source": "Ecobalyse"
+}

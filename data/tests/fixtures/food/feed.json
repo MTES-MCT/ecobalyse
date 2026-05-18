@@ -1,0 +1,15 @@
+{
+  "cull-cow-grass-fed-fr-live": {
+    "grazed-grass-permanent-2025": 0.5
+  },
+  "egg-bleublanccoeur": {
+    "grazed-grass-permanent-2025": 1.0
+  },
+  "milk": {
+    "bean-fr": 1.0
+  },
+  "milk-organic": {
+    "bean-fr": 0.7,
+    "grazed-grass-permanent-2025": 0.3
+  }
+}

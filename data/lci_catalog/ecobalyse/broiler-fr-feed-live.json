@@ -1,0 +1,39 @@
+{
+  "activityName": "Broiler, conventional, at farm gate {FR} U {{chicken-breast-fr-feed-2025}}",
+  "categories": [
+    "ingredient",
+    "material",
+    "material_type:other_food_items"
+  ],
+  "displayName": "Poulet conventionnel vivant FR (alim. ani. 100% FR), issu de poulet FR",
+  "id": "cb140c68-7b90-5156-b232-9f6d093a15da",
+  "metadata": [
+    {
+      "alias": "broiler-fr-feed-live",
+      "animalGroup1": "poultry",
+      "animalGroup2": "chicken",
+      "animalProduct": "meat",
+      "defaultOrigin": "France",
+      "displayName": "Poulet conventionnel vivant FR (alim. ani. 100% FR), issu de poulet FR",
+      "id": "f10ef82a-3da2-5b37-a1b3-2ec9a0d62b1f",
+      "inediblePart": 0,
+      "ingredientCategories": [
+        "animal_product"
+      ],
+      "ingredientDensity": 1.0,
+      "rawToCookedRatio": 1.0,
+      "scenario": "reference",
+      "scopes": [
+        "food",
+        "food2"
+      ],
+      "transportCooling": "always",
+      "visible": false
+    }
+  ],
+  "scopes": [
+    "food",
+    "food2"
+  ],
+  "source": "Ecobalyse"
+}

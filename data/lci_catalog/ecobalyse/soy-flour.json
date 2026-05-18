@@ -1,0 +1,36 @@
+{
+  "activityName": "Soy flour, CMAPS {GLO} U",
+  "categories": [
+    "ingredient",
+    "material"
+  ],
+  "displayName": "Farine de soja FR",
+  "id": "cec61f25-5d74-4692-a738-0bedbecd6877",
+  "metadata": [
+    {
+      "alias": "soy-flour-fr",
+      "cropGroup": "AUTRES OLEAGINEUX",
+      "defaultOrigin": "France",
+      "displayName": "Farine de soja FR",
+      "id": "09272c02-2492-4428-bff1-bca793db8593",
+      "inediblePart": 0,
+      "ingredientCategories": [
+        "grain_processed"
+      ],
+      "ingredientDensity": 1,
+      "rawToCookedRatio": 1,
+      "scenario": "reference",
+      "scopes": [
+        "food",
+        "food2"
+      ],
+      "transportCooling": "always",
+      "visible": true
+    }
+  ],
+  "scopes": [
+    "food",
+    "food2"
+  ],
+  "source": "Ecobalyse"
+}

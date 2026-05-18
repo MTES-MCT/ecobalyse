@@ -1,0 +1,81 @@
+{
+  "activityName": "Blueberry, at farm, organic 2025 {CA}",
+  "categories": [
+    "ingredient",
+    "material",
+    "material_type:fruits_and_vegetables"
+  ],
+  "displayName": "Myrtille Bio",
+  "id": "62f50fa0-12c8-5ff8-8066-d8ba68416b3d",
+  "location": "CA",
+  "metadata": [
+    {
+      "alias": "blueberry-organic-2025",
+      "cropGroup": "LEGUMES-FLEURS",
+      "defaultOrigin": "OutOfEuropeAndMaghreb",
+      "displayName": "Myrtille Bio (2025)",
+      "explain": "icv par défaut = icv CA",
+      "id": "df1fe70a-08c0-4b8a-9f88-0caeb002d26a",
+      "inediblePart": 0.03,
+      "ingredientCategories": [
+        "vegetable_fresh",
+        "organic"
+      ],
+      "ingredientDensity": 0.447,
+      "rawToCookedRatio": 0.856,
+      "scenario": "organic",
+      "scopes": [
+        "food",
+        "food2"
+      ],
+      "transportCooling": "always",
+      "visible": true
+    },
+    {
+      "alias": "blueberry-organic",
+      "cropGroup": "VERGERS",
+      "cropGroupMatch": {
+        "confidence": 1.0,
+        "rule": "fruit default"
+      },
+      "defaultOrigin": "France",
+      "displayName": "Myrtille Bio",
+      "id": "00484931-4bae-51e6-b779-b734d916acd4",
+      "inediblePart": 0.03,
+      "inediblePartMatch": {
+        "confidence": 0.95,
+        "rule": "Matched with Blueberries in agb_inedible.csv"
+      },
+      "ingredientCategories": [
+        "vegetable_fresh",
+        "organic"
+      ],
+      "ingredientDensity": 0.9,
+      "ingredientDensityMatch": {
+        "confidence": 1.0,
+        "rule": "blueberry found in density.csv"
+      },
+      "rawToCookedRatio": 0.856,
+      "rawToCookedRatioMatch": {
+        "confidence": 1.0,
+        "rule": "fruit default from food_type_cooked_to_raw.csv"
+      },
+      "scenario": "organic",
+      "scopes": [
+        "food",
+        "food2"
+      ],
+      "transportCooling": "always",
+      "transportCoolingMatch": {
+        "confidence": 1.0,
+        "rule": "fruit NOVA 1 → always (perishable)"
+      },
+      "visible": true
+    }
+  ],
+  "scopes": [
+    "food",
+    "food2"
+  ],
+  "source": "Ginko 2025"
+}

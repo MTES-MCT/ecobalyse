@@ -1,0 +1,218 @@
+{
+  "activityName": "Agaricus bisporus mushroom, fresh, at plant {NL} - Adapted from WFLDB U",
+  "categories": [
+    "ingredient",
+    "material",
+    "material_type:fruits_and_vegetables"
+  ],
+  "displayName": "Champignon frais UE",
+  "id": "007db9be-fbb0-5c2f-ac8a-4780bc4a5304",
+  "metadata": [
+    {
+      "alias": "mushroom-morel-fr",
+      "cropGroup": "LEGUMES-FLEURS",
+      "cropGroupMatch": {
+        "confidence": 1.0,
+        "rule": "vegetable default"
+      },
+      "defaultOrigin": "France",
+      "displayName": "Champignon, morille FR",
+      "id": "cb04bbd1-4b45-5e5d-8e6a-508d350b6487",
+      "inediblePart": 0.1,
+      "inediblePartMatch": {
+        "confidence": 0.95,
+        "rule": "Matched with Mushroom in agb_inedible.csv"
+      },
+      "ingredientCategories": [
+        "vegetable_fresh"
+      ],
+      "ingredientDensity": 0.9,
+      "ingredientDensityMatch": {
+        "confidence": 1.0,
+        "rule": "vegetable default from food_type_density.csv"
+      },
+      "rawToCookedRatio": 0.856,
+      "rawToCookedRatioMatch": {
+        "confidence": 1.0,
+        "rule": "vegetable default from food_type_cooked_to_raw.csv"
+      },
+      "scenario": "reference",
+      "scopes": [
+        "food",
+        "food2"
+      ],
+      "transportCooling": "always",
+      "transportCoolingMatch": {
+        "confidence": 1.0,
+        "rule": "vegetable NOVA 1 → always (perishable)"
+      },
+      "visible": true
+    },
+    {
+      "alias": "mushroom-eu-2025",
+      "cropGroup": "LEGUMES-FLEURS",
+      "defaultOrigin": "EuropeAndMaghreb",
+      "displayName": "Champignon frais UE (2025)",
+      "explain": "Procédé champignon produit en usine (at plant) aux Pays-Bas",
+      "id": "5d22559d-c16d-4545-94b9-be2ff51e2879",
+      "inediblePart": 0.1,
+      "ingredientCategories": [
+        "vegetable_fresh"
+      ],
+      "ingredientDensity": 0.118,
+      "rawToCookedRatio": 0.856,
+      "scenario": "import",
+      "scopes": [
+        "food",
+        "food2"
+      ],
+      "transportCooling": "always",
+      "visible": true
+    },
+    {
+      "alias": "mushroom-fr-2025",
+      "cropGroup": "LEGUMES-FLEURS",
+      "defaultOrigin": "France",
+      "displayName": "Champignon frais FR (2025)",
+      "id": "d330d763-6baa-442f-b479-55425b1fa54f",
+      "inediblePart": 0.1,
+      "ingredientCategories": [
+        "vegetable_fresh"
+      ],
+      "ingredientDensity": 0.118,
+      "rawToCookedRatio": 0.856,
+      "scenario": "reference",
+      "scopes": [
+        "food",
+        "food2"
+      ],
+      "transportCooling": "always",
+      "visible": true
+    },
+    {
+      "alias": "mushroom-morel-default",
+      "cropGroup": "LEGUMES-FLEURS",
+      "cropGroupMatch": {
+        "confidence": 1.0,
+        "rule": "vegetable default"
+      },
+      "defaultOrigin": "OutOfEuropeAndMaghreb",
+      "displayName": "Champignon, morille Origine Inconnue",
+      "id": "5a29aa60-9bb9-5a93-acf3-bbba3afb2edd",
+      "inediblePart": 0.1,
+      "inediblePartMatch": {
+        "confidence": 0.95,
+        "rule": "Matched with Mushroom in agb_inedible.csv"
+      },
+      "ingredientCategories": [
+        "vegetable_fresh"
+      ],
+      "ingredientDensity": 0.9,
+      "ingredientDensityMatch": {
+        "confidence": 1.0,
+        "rule": "vegetable default from food_type_density.csv"
+      },
+      "rawToCookedRatio": 0.856,
+      "rawToCookedRatioMatch": {
+        "confidence": 1.0,
+        "rule": "vegetable default from food_type_cooked_to_raw.csv"
+      },
+      "scenario": "import",
+      "scopes": [
+        "food",
+        "food2"
+      ],
+      "transportCooling": "always",
+      "transportCoolingMatch": {
+        "confidence": 1.0,
+        "rule": "vegetable NOVA 1 → always (perishable)"
+      },
+      "visible": true
+    },
+    {
+      "alias": "mushroom-morel-eu",
+      "cropGroup": "LEGUMES-FLEURS",
+      "cropGroupMatch": {
+        "confidence": 1.0,
+        "rule": "vegetable default"
+      },
+      "defaultOrigin": "EuropeAndMaghreb",
+      "displayName": "Champignon, morille UE",
+      "id": "cf129ec2-588b-544b-8991-43cc70c93625",
+      "inediblePart": 0.1,
+      "inediblePartMatch": {
+        "confidence": 0.95,
+        "rule": "Matched with Mushroom in agb_inedible.csv"
+      },
+      "ingredientCategories": [
+        "vegetable_fresh"
+      ],
+      "ingredientDensity": 0.9,
+      "ingredientDensityMatch": {
+        "confidence": 1.0,
+        "rule": "vegetable default from food_type_density.csv"
+      },
+      "rawToCookedRatio": 0.856,
+      "rawToCookedRatioMatch": {
+        "confidence": 1.0,
+        "rule": "vegetable default from food_type_cooked_to_raw.csv"
+      },
+      "scenario": "import",
+      "scopes": [
+        "food",
+        "food2"
+      ],
+      "transportCooling": "always",
+      "transportCoolingMatch": {
+        "confidence": 1.0,
+        "rule": "vegetable NOVA 1 → always (perishable)"
+      },
+      "visible": true
+    },
+    {
+      "alias": "mushroom-morel-non-eu",
+      "cropGroup": "LEGUMES-FLEURS",
+      "cropGroupMatch": {
+        "confidence": 1.0,
+        "rule": "vegetable default"
+      },
+      "defaultOrigin": "OutOfEuropeAndMaghreb",
+      "displayName": "Champignon, morille HORS UE",
+      "id": "6236c2b7-2388-5c1a-98ce-bd52c0dbffa3",
+      "inediblePart": 0.1,
+      "inediblePartMatch": {
+        "confidence": 0.95,
+        "rule": "Matched with Mushroom in agb_inedible.csv"
+      },
+      "ingredientCategories": [
+        "vegetable_fresh"
+      ],
+      "ingredientDensity": 0.9,
+      "ingredientDensityMatch": {
+        "confidence": 1.0,
+        "rule": "vegetable default from food_type_density.csv"
+      },
+      "rawToCookedRatio": 0.856,
+      "rawToCookedRatioMatch": {
+        "confidence": 1.0,
+        "rule": "vegetable default from food_type_cooked_to_raw.csv"
+      },
+      "scenario": "import",
+      "scopes": [
+        "food",
+        "food2"
+      ],
+      "transportCooling": "always",
+      "transportCoolingMatch": {
+        "confidence": 1.0,
+        "rule": "vegetable NOVA 1 → always (perishable)"
+      },
+      "visible": true
+    }
+  ],
+  "scopes": [
+    "food",
+    "food2"
+  ],
+  "source": "Agribalyse 3.2"
+}

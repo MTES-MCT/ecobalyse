@@ -1,0 +1,24 @@
+{
+  "activityName": "Fresh sausages, 330g | Packaging System, N0, All, PP Tray with Lid {FR} U",
+  "categories": [
+    "material",
+    "packaging",
+    "packaging_type:tray"
+  ],
+  "displayName": "Barquette en plastique (PP) pour saucisse fraîche - 330g",
+  "id": "f7ac3460-f207-483a-b854-2562715a45c0",
+  "metadata": [
+    {
+      "id": "3993c044-2fb8-4cef-8524-53e27850ea68",
+      "scopes": [
+        "food2"
+      ]
+    }
+  ],
+  "scopes": [
+    "food",
+    "food2"
+  ],
+  "source": "Agribalyse 3.2",
+  "unit": "item"
+}

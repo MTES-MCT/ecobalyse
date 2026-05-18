@@ -1,0 +1,24 @@
+{
+  "activityName": "Vegetables dried or dehydrated, 80g | Packaging System, N0, All, glass jar {FR} U",
+  "categories": [
+    "material",
+    "packaging",
+    "packaging_type:jar"
+  ],
+  "displayName": "Pot en verre pour légumes séchés ou déshydratés - 80g",
+  "id": "ff14f383-cd79-4526-8399-b7c7fa63c6af",
+  "metadata": [
+    {
+      "id": "e5c4bf8e-baec-4f17-ad9c-45d72b17dbf7",
+      "scopes": [
+        "food2"
+      ]
+    }
+  ],
+  "scopes": [
+    "food",
+    "food2"
+  ],
+  "source": "Agribalyse 3.2",
+  "unit": "item"
+}

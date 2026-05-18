@@ -1,0 +1,24 @@
+{
+  "activityName": "Still wine, 75cl | Packaging System, N0, All, Glass bottle (green) 690g with cork stopper {FR} U",
+  "categories": [
+    "material",
+    "packaging",
+    "packaging_type:bottle"
+  ],
+  "displayName": "Bouteille en verre vert de 690g pour vin tranquille - 75cl",
+  "id": "7d3a53ec-dfd0-43b6-a257-1ee8520976a3",
+  "metadata": [
+    {
+      "id": "7ca5df3a-8c11-4222-904f-2449dc567ea2",
+      "scopes": [
+        "food2"
+      ]
+    }
+  ],
+  "scopes": [
+    "food",
+    "food2"
+  ],
+  "source": "Agribalyse 3.2",
+  "unit": "item"
+}

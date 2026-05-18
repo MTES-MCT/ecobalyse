@@ -1,0 +1,38 @@
+{
+  "activityName": "polyethylene terephthalate, granulate, amorphous, recycled//[RoW] polyethylene terephthalate production, granulate, amorphous, recycled",
+  "categories": [
+    "material",
+    "textile_material"
+  ],
+  "comment": "Ancien identifiant (12/2024): 087896096b5bede914ef3ec1062b1c02.",
+  "displayName": "Plastique PET, granulés, amorphe, recyclé",
+  "elecMJ": 0,
+  "heatMJ": 0,
+  "id": "994efc14-cc89-526c-b9d0-0d6a99adbd4f",
+  "metadata": [
+    {
+      "alias": "ei-pet-r",
+      "cff": {
+        "manufacturerAllocation": 0.5,
+        "recycledQualityRatio": 1
+      },
+      "defaultCountry": "CN",
+      "displayName": "Plastique PET, granulés, amorphe, recyclé",
+      "geographicOrigin": "Asie - Pacifique",
+      "id": "8f44c680-1263-4588-b79b-a9e4dc3d8de4",
+      "name": "Polyester recyclé",
+      "origin": "Synthetic",
+      "primary": true,
+      "recycledFrom": "9dba0e95-0c35-4f8b-9267-62ddf47d4984",
+      "scopes": [
+        "textile"
+      ]
+    }
+  ],
+  "scopes": [
+    "textile"
+  ],
+  "source": "Ecoinvent 3.9.1",
+  "unit": "kg",
+  "waste": 0
+}

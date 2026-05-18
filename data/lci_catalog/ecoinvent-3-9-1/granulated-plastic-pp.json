@@ -1,0 +1,28 @@
+{
+  "activityName": "polypropylene, granulate//[RER] polypropylene production, granulate",
+  "categories": [
+    "material",
+    "material_type:pp"
+  ],
+  "comment": "",
+  "displayName": "Plastique PP, granulé",
+  "elecMJ": 0,
+  "heatMJ": 0,
+  "id": "59b42284-3e45-5343-8a20-1d7d66137461",
+  "metadata": [
+    {
+      "id": "01d21ed5-9fc6-4d36-a0ea-cfea8035385b",
+      "scopes": [
+        "object",
+        "veli"
+      ]
+    }
+  ],
+  "scopes": [
+    "object",
+    "veli"
+  ],
+  "source": "Ecoinvent 3.9.1",
+  "unit": "kg",
+  "waste": 0
+}

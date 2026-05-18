@@ -1,0 +1,24 @@
+{
+  "activityName": "Creams, 200g | Packaging System, N0, All, Plastic pot {FR} U",
+  "categories": [
+    "material",
+    "packaging",
+    "packaging_type:jar"
+  ],
+  "displayName": "Pot en plastique (PP) pour crème - 200g",
+  "id": "3d22ea24-cebf-4b2b-9cb5-e99b66ab4ac4",
+  "metadata": [
+    {
+      "id": "ebd4f9ac-290c-4f07-bc81-a9f332c8f916",
+      "scopes": [
+        "food2"
+      ]
+    }
+  ],
+  "scopes": [
+    "food",
+    "food2"
+  ],
+  "source": "Agribalyse 3.2",
+  "unit": "item"
+}

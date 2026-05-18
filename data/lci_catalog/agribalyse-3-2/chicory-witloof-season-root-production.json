@@ -1,0 +1,96 @@
+{
+  "activityName": "Chicory witloof, season, conventional, root production, at farm gate {FR} U",
+  "categories": [
+    "ingredient"
+  ],
+  "displayName": "Chicory witloof, season, conventional, root production, at farm gate (FR)",
+  "id": "aece7ffb-2881-5513-8663-7b4513a74178",
+  "metadata": [
+    {
+      "alias": "chicory-root-eu",
+      "cropGroup": "AUTRES CULTURES INDUSTRIELLES",
+      "cropGroupMatch": {
+        "confidence": 0.95,
+        "rule": "matched 'chicory' in cropgroup.csv"
+      },
+      "defaultOrigin": "EuropeAndMaghreb",
+      "displayName": "Racine de chicorée UE",
+      "id": "875f1006-298e-53fd-95ba-ecc1beca2693",
+      "inediblePart": 0.2,
+      "inediblePartMatch": {
+        "confidence": 0.95,
+        "rule": "Matched with Chicory in agb_inedible.csv"
+      },
+      "ingredientCategories": [
+        "vegetable_fresh"
+      ],
+      "ingredientDensity": 0.9,
+      "ingredientDensityMatch": {
+        "confidence": 1.0,
+        "rule": "vegetable default from food_type_density.csv"
+      },
+      "rawToCookedRatio": 0.856,
+      "rawToCookedRatioMatch": {
+        "confidence": 1.0,
+        "rule": "vegetable default from food_type_cooked_to_raw.csv"
+      },
+      "scenario": "import",
+      "scopes": [
+        "food",
+        "food2"
+      ],
+      "transportCooling": "always",
+      "transportCoolingMatch": {
+        "confidence": 1.0,
+        "rule": "vegetable NOVA 1 → always (perishable)"
+      },
+      "visible": true
+    },
+    {
+      "alias": "chicory-root-non-eu",
+      "cropGroup": "AUTRES CULTURES INDUSTRIELLES",
+      "cropGroupMatch": {
+        "confidence": 0.95,
+        "rule": "matched 'chicory' in cropgroup.csv"
+      },
+      "defaultOrigin": "OutOfEuropeAndMaghreb",
+      "displayName": "Racine de chicorée HORS UE",
+      "id": "0f83ca15-c957-5977-ae23-a187a9431299",
+      "inediblePart": 0.2,
+      "inediblePartMatch": {
+        "confidence": 0.95,
+        "rule": "Matched with Chicory in agb_inedible.csv"
+      },
+      "ingredientCategories": [
+        "vegetable_fresh"
+      ],
+      "ingredientDensity": 0.9,
+      "ingredientDensityMatch": {
+        "confidence": 1.0,
+        "rule": "vegetable default from food_type_density.csv"
+      },
+      "rawToCookedRatio": 0.856,
+      "rawToCookedRatioMatch": {
+        "confidence": 1.0,
+        "rule": "vegetable default from food_type_cooked_to_raw.csv"
+      },
+      "scenario": "import",
+      "scopes": [
+        "food",
+        "food2"
+      ],
+      "transportCooling": "always",
+      "transportCoolingMatch": {
+        "confidence": 1.0,
+        "rule": "vegetable NOVA 1 → always (perishable)"
+      },
+      "visible": true
+    }
+  ],
+  "scopes": [
+    "food",
+    "food2"
+  ],
+  "source": "Agribalyse 3.2",
+  "unit": "kg"
+}

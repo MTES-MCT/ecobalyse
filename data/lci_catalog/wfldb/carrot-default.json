@@ -1,0 +1,458 @@
+{
+  "activityName": "Carrot, at farm (WFLDB)",
+  "categories": [
+    "ingredient",
+    "material"
+  ],
+  "displayName": "Carottes Origine Inconnue",
+  "id": "76947d75-2670-5bf3-9e73-36e0aa224c15",
+  "location": "IL",
+  "metadata": [
+    {
+      "alias": "carrot-default",
+      "cropGroup": "LEGUMES-FLEURS",
+      "cropGroupMatch": {
+        "confidence": 0.95,
+        "rule": "matched 'carrot' in cropgroup.csv"
+      },
+      "defaultOrigin": "OutOfEuropeAndMaghreb",
+      "displayName": "Carottes Origine Inconnue",
+      "id": "b55f946b-c884-54ce-9b25-40de7eeb7e5d",
+      "inediblePart": 0.1,
+      "inediblePartMatch": {
+        "confidence": 1.0,
+        "rule": "Matched with Carrots in agb_inedible.csv"
+      },
+      "ingredientCategories": [
+        "vegetable_fresh"
+      ],
+      "ingredientDensity": 1.0,
+      "ingredientDensityMatch": {
+        "confidence": 0.95,
+        "rule": "Matched with carrot in density.csv"
+      },
+      "rawToCookedRatio": 0.856,
+      "rawToCookedRatioMatch": {
+        "confidence": 0.95,
+        "rule": "Matched with carrot in cooked_to_raw.csv"
+      },
+      "scenario": "import",
+      "scopes": [
+        "food",
+        "food2"
+      ],
+      "transportCooling": "always",
+      "transportCoolingMatch": {
+        "confidence": 1.0,
+        "rule": "vegetable NOVA 1 → always (perishable)"
+      },
+      "visible": true
+    },
+    {
+      "alias": "cassava-default",
+      "cropGroup": "LEGUMES-FLEURS",
+      "cropGroupMatch": {
+        "confidence": 1.0,
+        "rule": "matched 'cassava' in cropgroup.csv"
+      },
+      "defaultOrigin": "OutOfEuropeAndMaghreb",
+      "displayName": "Manioc Origine Inconnue",
+      "id": "404a2c55-f154-5e1c-85fd-8ec539a63470",
+      "inediblePart": 0.1,
+      "inediblePartMatch": {
+        "confidence": 1.0,
+        "rule": "Matched with Cassava in agb_inedible.csv"
+      },
+      "ingredientCategories": [
+        "vegetable_fresh"
+      ],
+      "ingredientDensity": 0.63,
+      "ingredientDensityMatch": {
+        "confidence": 0.95,
+        "rule": "Matched with Cassava, raw in fao_density.csv"
+      },
+      "rawToCookedRatio": 0.856,
+      "rawToCookedRatioMatch": {
+        "confidence": 1.0,
+        "rule": "vegetable default from food_type_cooked_to_raw.csv"
+      },
+      "scenario": "import",
+      "scopes": [
+        "food",
+        "food2"
+      ],
+      "transportCooling": "always",
+      "transportCoolingMatch": {
+        "confidence": 1.0,
+        "rule": "vegetable NOVA 1 → always (perishable)"
+      },
+      "visible": true
+    },
+    {
+      "alias": "celeriac-default",
+      "cropGroup": "LEGUMES-FLEURS",
+      "cropGroupMatch": {
+        "confidence": 1.0,
+        "rule": "matched 'celeriac' in cropgroup.csv"
+      },
+      "defaultOrigin": "OutOfEuropeAndMaghreb",
+      "displayName": "Céleri-rave Origine Inconnue",
+      "id": "5fbb6d80-01c0-5ab1-b1af-23ffc5518320",
+      "inediblePart": 0.1,
+      "inediblePartMatch": {
+        "confidence": 1.0,
+        "rule": "Matched with Celeriac in agb_inedible.csv"
+      },
+      "ingredientCategories": [
+        "vegetable_fresh"
+      ],
+      "ingredientDensity": 0.9,
+      "ingredientDensityMatch": {
+        "confidence": 1.0,
+        "rule": "vegetable default from food_type_density.csv"
+      },
+      "rawToCookedRatio": 0.856,
+      "rawToCookedRatioMatch": {
+        "confidence": 1.0,
+        "rule": "vegetable default from food_type_cooked_to_raw.csv"
+      },
+      "scenario": "import",
+      "scopes": [
+        "food",
+        "food2"
+      ],
+      "transportCooling": "always",
+      "transportCoolingMatch": {
+        "confidence": 1.0,
+        "rule": "vegetable NOVA 1 → always (perishable)"
+      },
+      "visible": true
+    },
+    {
+      "alias": "horseradish-fresh-default",
+      "cropGroup": "LEGUMES-FLEURS",
+      "cropGroupMatch": {
+        "confidence": 1.0,
+        "rule": "vegetable default"
+      },
+      "defaultOrigin": "OutOfEuropeAndMaghreb",
+      "displayName": "Raifort frais Origine Inconnue",
+      "id": "a4b546fa-a89a-5373-82aa-e94112e3fd48",
+      "inediblePart": 0.2,
+      "inediblePartMatch": {
+        "confidence": 1.0,
+        "rule": "vegetable NOVA 1 default from food_type_inedible_part.csv"
+      },
+      "ingredientCategories": [
+        "vegetable_fresh"
+      ],
+      "ingredientDensity": 0.9,
+      "ingredientDensityMatch": {
+        "confidence": 1.0,
+        "rule": "vegetable default from food_type_density.csv"
+      },
+      "rawToCookedRatio": 0.856,
+      "rawToCookedRatioMatch": {
+        "confidence": 1.0,
+        "rule": "vegetable default from food_type_cooked_to_raw.csv"
+      },
+      "scenario": "import",
+      "scopes": [
+        "food",
+        "food2"
+      ],
+      "transportCooling": "always",
+      "transportCoolingMatch": {
+        "confidence": 1.0,
+        "rule": "vegetable NOVA 1 → always (perishable)"
+      },
+      "visible": true
+    },
+    {
+      "alias": "parsnip-default",
+      "cropGroup": "LEGUMES-FLEURS",
+      "cropGroupMatch": {
+        "confidence": 1.0,
+        "rule": "vegetable default"
+      },
+      "defaultOrigin": "OutOfEuropeAndMaghreb",
+      "displayName": "Panais Origine Inconnue",
+      "id": "e9444944-a97a-546d-be5e-43ca74efb7e6",
+      "inediblePart": 0.2,
+      "inediblePartMatch": {
+        "confidence": 1.0,
+        "rule": "vegetable NOVA 1 default from food_type_inedible_part.csv"
+      },
+      "ingredientCategories": [
+        "vegetable_fresh"
+      ],
+      "ingredientDensity": 0.9,
+      "ingredientDensityMatch": {
+        "confidence": 1.0,
+        "rule": "vegetable default from food_type_density.csv"
+      },
+      "rawToCookedRatio": 0.856,
+      "rawToCookedRatioMatch": {
+        "confidence": 1.0,
+        "rule": "vegetable default from food_type_cooked_to_raw.csv"
+      },
+      "scenario": "import",
+      "scopes": [
+        "food",
+        "food2"
+      ],
+      "transportCooling": "always",
+      "transportCoolingMatch": {
+        "confidence": 1.0,
+        "rule": "vegetable NOVA 1 → always (perishable)"
+      },
+      "visible": true
+    },
+    {
+      "alias": "rutabaga-default",
+      "cropGroup": "LEGUMES-FLEURS",
+      "cropGroupMatch": {
+        "confidence": 1.0,
+        "rule": "vegetable default"
+      },
+      "defaultOrigin": "OutOfEuropeAndMaghreb",
+      "displayName": "Rutabaga Origine Inconnue",
+      "id": "020de0fa-d979-5199-85ee-f29ed211e200",
+      "inediblePart": 0.2,
+      "inediblePartMatch": {
+        "confidence": 1.0,
+        "rule": "vegetable NOVA 1 default from food_type_inedible_part.csv"
+      },
+      "ingredientCategories": [
+        "vegetable_fresh"
+      ],
+      "ingredientDensity": 0.9,
+      "ingredientDensityMatch": {
+        "confidence": 1.0,
+        "rule": "vegetable default from food_type_density.csv"
+      },
+      "rawToCookedRatio": 0.856,
+      "rawToCookedRatioMatch": {
+        "confidence": 1.0,
+        "rule": "vegetable default from food_type_cooked_to_raw.csv"
+      },
+      "scenario": "import",
+      "scopes": [
+        "food",
+        "food2"
+      ],
+      "transportCooling": "always",
+      "transportCoolingMatch": {
+        "confidence": 1.0,
+        "rule": "vegetable NOVA 1 → always (perishable)"
+      },
+      "visible": true
+    },
+    {
+      "alias": "salsify-default",
+      "cropGroup": "LEGUMES-FLEURS",
+      "cropGroupMatch": {
+        "confidence": 1.0,
+        "rule": "vegetable default"
+      },
+      "defaultOrigin": "OutOfEuropeAndMaghreb",
+      "displayName": "Salsifi Origine Inconnue",
+      "id": "83f34dda-137f-54a3-b231-6e38d0431bcf",
+      "inediblePart": 0.2,
+      "inediblePartMatch": {
+        "confidence": 1.0,
+        "rule": "Matched with Salsify in agb_inedible.csv"
+      },
+      "ingredientCategories": [
+        "vegetable_fresh"
+      ],
+      "ingredientDensity": 0.9,
+      "ingredientDensityMatch": {
+        "confidence": 1.0,
+        "rule": "vegetable default from food_type_density.csv"
+      },
+      "rawToCookedRatio": 0.856,
+      "rawToCookedRatioMatch": {
+        "confidence": 1.0,
+        "rule": "vegetable default from food_type_cooked_to_raw.csv"
+      },
+      "scenario": "import",
+      "scopes": [
+        "food",
+        "food2"
+      ],
+      "transportCooling": "always",
+      "transportCoolingMatch": {
+        "confidence": 1.0,
+        "rule": "vegetable NOVA 1 → always (perishable)"
+      },
+      "visible": true
+    },
+    {
+      "alias": "tapioca-default",
+      "cropGroup": "LEGUMES-FLEURS",
+      "cropGroupMatch": {
+        "confidence": 1.0,
+        "rule": "matched 'tapioca' in cropgroup.csv"
+      },
+      "defaultOrigin": "OutOfEuropeAndMaghreb",
+      "displayName": "Tapioca Origine Inconnue",
+      "id": "dbb74330-9562-5252-8359-8bed45768d0c",
+      "inediblePart": 0.0,
+      "inediblePartMatch": {
+        "confidence": 1.0,
+        "rule": "grain NOVA 2-4 default from food_type_inedible_part.csv"
+      },
+      "ingredientCategories": [
+        "grain_processed"
+      ],
+      "ingredientDensity": 0.75,
+      "ingredientDensityMatch": {
+        "confidence": 1.0,
+        "rule": "grain default from food_type_density.csv"
+      },
+      "rawToCookedRatio": 2.259,
+      "rawToCookedRatioMatch": {
+        "confidence": 1.0,
+        "rule": "grain default from food_type_cooked_to_raw.csv"
+      },
+      "scenario": "import",
+      "scopes": [
+        "food",
+        "food2"
+      ],
+      "transportCooling": "none",
+      "transportCoolingMatch": {
+        "confidence": 1.0,
+        "rule": "grain → none (non-perishable)"
+      },
+      "visible": true
+    },
+    {
+      "alias": "taro-tuber-default",
+      "cropGroup": "LEGUMES-FLEURS",
+      "cropGroupMatch": {
+        "confidence": 1.0,
+        "rule": "vegetable default"
+      },
+      "defaultOrigin": "OutOfEuropeAndMaghreb",
+      "displayName": "Taro, tubercule Origine Inconnue",
+      "id": "09fd984b-25db-51cf-8834-ec0757af3f9a",
+      "inediblePart": 0.2,
+      "inediblePartMatch": {
+        "confidence": 1.0,
+        "rule": "vegetable NOVA 1 default from food_type_inedible_part.csv"
+      },
+      "ingredientCategories": [
+        "vegetable_fresh"
+      ],
+      "ingredientDensity": 0.9,
+      "ingredientDensityMatch": {
+        "confidence": 1.0,
+        "rule": "vegetable default from food_type_density.csv"
+      },
+      "rawToCookedRatio": 0.856,
+      "rawToCookedRatioMatch": {
+        "confidence": 1.0,
+        "rule": "vegetable default from food_type_cooked_to_raw.csv"
+      },
+      "scenario": "import",
+      "scopes": [
+        "food",
+        "food2"
+      ],
+      "transportCooling": "always",
+      "transportCoolingMatch": {
+        "confidence": 1.0,
+        "rule": "vegetable NOVA 1 → always (perishable)"
+      },
+      "visible": true
+    },
+    {
+      "alias": "turnip-default",
+      "cropGroup": "LEGUMES-FLEURS",
+      "cropGroupMatch": {
+        "confidence": 1.0,
+        "rule": "vegetable default"
+      },
+      "defaultOrigin": "OutOfEuropeAndMaghreb",
+      "displayName": "Navet Origine Inconnue",
+      "id": "022b51ee-ee0e-5ed6-b901-e4d6e9111d82",
+      "inediblePart": 0.2,
+      "inediblePartMatch": {
+        "confidence": 0.95,
+        "rule": "Matched with Turnips in agb_inedible.csv"
+      },
+      "ingredientCategories": [
+        "vegetable_fresh"
+      ],
+      "ingredientDensity": 0.9,
+      "ingredientDensityMatch": {
+        "confidence": 1.0,
+        "rule": "vegetable default from food_type_density.csv"
+      },
+      "rawToCookedRatio": 0.856,
+      "rawToCookedRatioMatch": {
+        "confidence": 1.0,
+        "rule": "Matched with turnip in cooked_to_raw.csv"
+      },
+      "scenario": "import",
+      "scopes": [
+        "food",
+        "food2"
+      ],
+      "transportCooling": "always",
+      "transportCoolingMatch": {
+        "confidence": 1.0,
+        "rule": "vegetable NOVA 1 → always (perishable)"
+      },
+      "visible": true
+    },
+    {
+      "alias": "yam-default",
+      "cropGroup": "LEGUMES-FLEURS",
+      "cropGroupMatch": {
+        "confidence": 1.0,
+        "rule": "vegetable default"
+      },
+      "defaultOrigin": "OutOfEuropeAndMaghreb",
+      "displayName": "Igname Origine Inconnue",
+      "id": "e047defb-6364-5dd6-b503-a5ae43a8960d",
+      "inediblePart": 0.2,
+      "inediblePartMatch": {
+        "confidence": 1.0,
+        "rule": "vegetable NOVA 1 default from food_type_inedible_part.csv"
+      },
+      "ingredientCategories": [
+        "vegetable_fresh"
+      ],
+      "ingredientDensity": 0.9,
+      "ingredientDensityMatch": {
+        "confidence": 1.0,
+        "rule": "vegetable default from food_type_density.csv"
+      },
+      "rawToCookedRatio": 0.856,
+      "rawToCookedRatioMatch": {
+        "confidence": 1.0,
+        "rule": "vegetable default from food_type_cooked_to_raw.csv"
+      },
+      "scenario": "import",
+      "scopes": [
+        "food",
+        "food2"
+      ],
+      "transportCooling": "always",
+      "transportCoolingMatch": {
+        "confidence": 1.0,
+        "rule": "vegetable NOVA 1 → always (perishable)"
+      },
+      "visible": true
+    }
+  ],
+  "scopes": [
+    "food",
+    "food2"
+  ],
+  "source": "WFLDB",
+  "unit": "kg"
+}

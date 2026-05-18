@@ -1,0 +1,37 @@
+# Usage examples:
+# `docker compose run bw just` (list the commands available)
+# `docker compose run bw just import-all`
+# `docker compose run bw just import-food export-food`
+
+name: ebdata
+
+services:
+  bw:
+    build:
+      context: .
+      dockerfile: docker/Dockerfile
+
+    volumes:
+      # Map the folders defined in the .env file or the environment to hardcoded
+      # paths in the container
+      - $BRIGHTWAY2_DIR:/cache/brightway
+      - $EB_DB_CACHE_DIR:/cache/db-cache
+      - $EB_OUTPUT_DIR:/cache/output
+
+    environment:
+      - PYTHONPATH=.
+      # Overwrite these variables from the environment, in order to use
+      # the hardcoded paths defined in the `volumes` key
+      - BRIGHTWAY2_DIR=/cache/brightway
+      - EB_OUTPUT_DIR=/cache/output
+      - EB_DB_CACHE_DIR=/cache/db-cache
+      # TODO: not sure yet if we want the local export or not
+      - EB_LOCAL_EXPORT=false
+      # Get these variables values from the .env file or the environment
+      - EB_S3_ENDPOINT
+      - EB_S3_REGION
+      - EB_S3_ACCESS_KEY_ID
+      - EB_S3_SECRET_ACCESS_KEY
+      - EB_S3_BUCKET
+      - EB_S3_DB_PREFIX
+      - EB_LOG_LEVEL

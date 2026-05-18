@@ -1,0 +1,639 @@
+name;density
+Apple juice, canned or bottled, unsweetened, with added ascorbic acid;1.0433966932875
+Apple juice, canned or bottled, unsweetened, without added ascorbic acid;1.0433966932875
+Beverages, fruit juice drink, reduced sugar, with vitamin E added;1.0430973612375
+Carbonated beverage, tonic water;1.02105488163341
+Cranberry juice cocktail, bottled;1.051653269
+Cranberry-apple juice drink, bottled;1.06352677365
+Fruit drinks, low calories, undiluted;1.02
+Fruit drinks, undiluted;1.105
+Fruit juice;1.06
+Fruit juice drinks;1.04
+Fruit juice drinks, ready to drink;1.035
+Grape juice;1.054
+Grape juice, canned or bottled, unsweetened, with added ascorbic acid;1.06352677365
+Grape juice, canned or bottled, unsweetened, without added ascorbic acid;1.06352677365
+Guanabana nectar, canned;1.017679081325
+Guava nectar, canned;1.022667948825
+Ice, crushed;0.64
+Juice, apple and grape blend, with added ascorbic acid;1.048111173075
+Juice, apple, grape and pear blend, with added ascorbic acid and calcium;1.049657722
+Lemonade, frozen concentrate, pink;1.23723914
+Lemonade, frozen concentrate, white;1.167345106325
+Lime juice cordial, undiluted;1.102
+Mango nectar, canned;0.997723611325
+Meal supplement drink, NESTLE, SUPLIGEN, canned, peanut flavor;1.037634551325
+Orange juice;1.038
+Orange juice with calcium;1.038
+Orange juice, canned, unsweetened;1.04290612128341
+Orange soda (sweetened with sugar);1.029
+QUAKER OATS, PROPEL Fitness Water, fruit-flavored, non-carbonated;1.000218045075
+Soft drinks, cola type;1.04
+Soft drinks, diet soda;0.988
+Soft drinks, lemonade type;1.02
+Soft drinks, lucozade type;1.07
+Soy drink;1.08
+Soya + milk + sugar;1.05
+Soya + sugar;1.05
+Sports drink, COCA-COLA, POWERADE, lemon-lime flavored, ready-to-drink;1.02760692765
+Sports drink, PEPSICO QUAKER GATORADE, GATORADE, original, fruit-flavored, ready-to-drink;1.02760692765
+Tamarind nectar, canned;1.012690213825
+Water;1.0
+Water, ice, 0 °C;0.916
+Water, ice, 4 °C;0.999
+Water, liquid, 20 °C;0.998
+Water, mineralwater;1.0375
+Coffee, brewed;1.0
+Coffee, expresso;1.0
+Coffee, green (beans);0.605
+Coffee, powder (nescafé);0.25
+Coffee, roasted (beans);0.365
+Miso, broth, ready to drink;1.06
+Powder, chocolate drinking powder;0.525
+Powders;0.225
+Tea, black (tea leaves);0.48
+Tea, herbal, Ciakimora (leaves + water);1.0
+Tea, herbal, Ciakimora leaves ;0.23
+Tea, flakes;0.38
+Tea, powdered;0.43
+Tea, liquid;1.0
+Tea, only (tea leaves + water);1.0
+Tea, ready-to-drink, ARIZONA iced tea, with lemon flavor;1.033693346
+Tea, ready-to-drink, LIPTON BRISK iced tea, with lemon flavor;1.031697799
+Tea, ready-to-drink, NESTLE, COOL NESTEA ice tea lemon flavor;1.033693346
+Beer, lager;1.005
+Beer, light;1.00024284004581
+Beer, light, BUD LIGHT;1.00046748845
+Beer, light, BUDWEISER SELECT;0.99687550385
+Beer, light, MICHELOB ULTRA;0.99587773035
+Beer, local (non specific);0.959999978542328
+Beer, pale ale;1.003
+Beer, pilsner;1.007
+Beer, pilsner, 4 °C;1.008
+Beer, regular, all;1.00804038566943
+Beer, regular, BUDWEISER;1.0047579145
+Beer, stout, bottled;1.014
+Beer, stout, extra;1.002
+Beer, strong ale;1.018
+Beer, type bitter or brown ale;1.008
+Beer, type draught;1.004
+Beer, type Keg;1.001
+Beer, type mild, draught;1.009
+Beer, commercial (white cap etc.);0.97000002861023
+Alcohol, ethyl;0.789
+Amaretto;1.1
+Amaretto di Saranno;1.08
+Anisette;1.175
+Apricot brandy;1.06
+Apricot liquor;1.09
+Bailey's irish cream;1.05
+Benedictine;1.04
+Benedictine D.O.M.;1.07
+Blackberry brandy;1.06
+Blackberry liquor;1.1
+Blue curacao;1.11
+Brandy;1.04
+Campari;1.06
+Cherry brandy;1.06
+Cherry liqueur;1.12
+Coffee liquor;1.13
+Cointreau;1.04
+Crème de almond;1.16
+Crème de banana;1.14
+Crème de cacao;1.14
+Creme de cassis;1.18
+Crème de noyaux;1.165
+Drambuie;1.08
+Frangelico;1.08
+Galliano;1.11
+Green chartreuse;1.01
+Green crème de menthe;1.12
+Kummel;1.04
+Liqueur;1.09
+Liqueur, type advocaat;1.093
+Liqueur, type cherry brandy;1.093
+Liqueur, type curacao;1.052
+Midori melon liquor;1.05
+Orange curacao;1.08
+Parfrait d'amour;1.13
+Peach brandy;1.06
+Peach liqueur;1.04
+Peppermint schnapps;1.04
+Port;1.026
+Rock and Rye;1.05
+Sherry, dry;0.988
+Sherry, medium;0.998
+Sherry, sweet;1.009
+Sloe gin;1.04
+Southern comfort;0.97
+Spirits, 40% alcohol;0.95
+Spirits, 45% alcohol (whiskey);0.939
+Spirits, 70% alcohol;0.885
+Spirits, 75% alcohol;0.873
+Strawberry liqueur;1.12
+Tia Maria;1.09
+Triple sec;1.09
+Tuaca;0.98
+Vermouth, dry;1.005
+Vermouth, sweet;1.046
+White crème de cacao;1.14
+White crème de menthe;1.12
+Yellow chartreuse;1.06
+Cider, dry;1.007
+Cider, sweet;1.012
+Cider, vintage;1.017
+Wine, red;0.998
+Wine, rose, medium;1.003
+Wine, table, all;0.992595116698516
+Wine, table, red;0.99167265234853
+Wine, table, red, Barbera;0.99207371888125
+Wine, table, red, Burgundy;0.996547664014222
+Wine, table, red, Cabernet Franc;0.990925447911592
+Wine, table, red, Cabernet Sauvignon;0.991801415417814
+Wine, table, red, Carignane;0.9927846325
+Wine, table, red, Claret;0.993700769968222
+Wine, table, red, Gamay;0.991574000686593
+Wine, table, red, Lemberger;0.993337943304444
+Wine, table, red, Merlot;0.991254947344033
+Wine, table, red, Mouvedre;0.9909886402
+Wine, table, red, Petite Sirah;0.993794379282
+Wine, table, red, Pinot Noir;0.990556155775312
+Wine, table, red, Sangiovese;0.991159687114222
+Wine, table, red, Syrah;0.991810140348408
+Wine, table, red, Zinfandel;0.99208619105
+Wine, table, white;0.99254566574675
+Wine, table, white, Chardonnay;0.989190074243034
+Wine, table, white, Chenin Blanc;0.995476062558969
+Wine, table, white, Fume Blanc;0.9900158110375
+Wine, table, white, Gewurztraminer;0.994750833185373
+Wine, table, white, late harvest;1.03837520627691
+Wine, table, white, late harvest, Gewurztraminer;1.02903706963341
+Wine, table, white, Muller Thurgau;0.996791076846188
+Wine, table, white, Muscat;1.01101422404318
+Wine, table, white, Pinot Blanc;0.988857033213555
+Wine, table, white, Pinot Gris (Grigio);0.98882962816705
+Wine, table, white, Riesling;0.997961436824921
+Wine, table, white, Sauvignon Blanc;0.990176753299933
+Wine, table, white, Semillon;0.995414248495097
+Wine, white;1.02
+Wine, white, dry or sparkling;0.995
+Wine, white, medium;1.005
+Wine, white, sweet;1.016
+Milk (at 15.6 C);1.035
+Milk (non-fat dry);0.56
+Milk (powdered whole);0.56
+Milk (powdered);0.21
+Milk shake, fruit and other;1.0
+Milk, acidophilus cultured;1.01
+Milk, buttermilk;1.022
+Milk, chocolate milk, skimmed;1.056
+Milk, cow, whole;1.03999996185303
+Milk, evaporated;1.07
+Milk, goat, whole;1.08
+Milk, liquid (whole, semi-skimmed, skimmed);1.03
+Milk, liquid, partially skimmed;1.034
+Milk, liquid, skimmed;1.033
+Milk, liquid, skimmed;1.036
+Milk, liquid, whole;1.03
+Milk, liquid, whole;1.031
+Butter;0.911
+Butter, margarine;0.96
+Buttermilk, dried;0.5
+Casein;0.58
+Cheese, emmentaler, grated;0.34
+Cream, 13% fat;1.013
+Cream, 38% fat;0.984
+Cream, 9% fat;1.017
+Cream, double (about 40-50% fat);0.94
+Cream, heavy;0.994
+Cream, light;1.012
+Cream, single (about 20% fat);1.0
+Cream, sour (crème fraiche about 18% fat);1.005
+Cream, sour (crème fraiche about 38% fat);0.978
+Cream, whipped;0.496
+Cream, whipping (about 40% fat);0.96
+Ice cream ;0.554
+Ice cream, dairy;0.61
+Ice cream, light (formerly ice milk);0.555314851315974
+Ice cream, light, no sugar added;0.579724295329863
+Ice cream, no sugar added;0.537007768305557
+Ice cream, non dairy;0.51
+Ice cream, regular;0.561417212319446
+Ice cream, rich;0.622440822354169
+Sour milk, cow, whole;0.980000019073486
+Yoghurt, berry, low fat, artificially sweetened;1.06
+Yoghurt, fruits;1.0525
+Yoghurt, low fat, fruit;1.08
+Yoghurt, plain, unsweetened;1.06
+Yoghurt, plain, unsweetened;1.031
+Yoghurt, strawberry, low fat;1.08
+Cooking oil, elianto oil, salad, golden fry, rina;0.879999995231628
+Cooking oil, sima;0.88
+Cooking oil, tily, chipo, pura;0.88
+Oil, cod (at 15.6 C);0.928
+Oil, corn (at 15.6 C);0.924
+Oil, cotton seed (at 15.6 C);0.905
+Oil, lard (at 15.6 C);0.92
+Oil, linseed (at 15.6 C);0.935
+Oil, olive (at 15.6 C);0.915
+Oil, other than palmoil;0.92
+Oil, palm (at 15.6 C);0.924
+Oil, palmoil;0.89
+Oil, peanut (at 15.6 C);0.92
+Oil, rapeseed (at 20 C);0.92
+Oil, seasame seed (at 15.6 C);0.923
+Oil, sunflower;0.96
+Oil, vegetable, coconut;0.924
+Oil, vegetable, corn;0.922
+Oil, vegetable, olive;0.918
+Oil, vegetable, palm;0.915
+Oil, vegetable, peanut;0.914
+Oil, vegetable, soya;0.927
+Oil, whale (at 15.6 C);0.925
+Animal fat;0.7
+Lard;0.919
+Lard (at 15.6 C);0.96
+Mayonnaise, light;1.0
+Mayonnaise, traditional;0.91
+Solid vegetable fat kimbo;0.6
+Solid vegetable fat rina ;0.67
+Barley;0.62
+Barley malt, flour;0.72
+Barley, fine ground;0.74
+Barley, meal;0.45
+Barley, flour;0.61
+Barley, flour, malted ;0.64
+Barley, ground;0.4
+Barley, malted;0.49
+Barley, rolled;0.36
+Barley, scoured;0.66
+Barley, whole;0.6499999999999999
+Biscuits;0.47
+Bran;0.56
+Bread;0.29
+Bread, cornbread ;0.433
+Bread, roll, soft;0.18
+Bread, white;0.42
+Bread, white, sliced, prepacked;0.29
+Breadcrumbs;0.45
+Breakfast cereal, cornflakes (dry cereal) ;0.117
+Breakfast cereal, muesli w/ fruits&nuts;0.37
+Breakfast cereal, raisin bran;0.26
+Breakfast cereal, type Cheerios;0.13
+Breakfast cereal, type Corn flakes;0.1
+Breakfast cereal, type Crispix;0.13
+Breakfast cereal, type frosted flakes;0.18
+Breakfast cereal, type Just Right;0.24
+Breakfast cereal, type rice krispies;0.12
+Buckwheat, bran;0.25
+Buckwheat, flour;0.66
+Buckwheat, whole;0.625
+Bulrush mille, fermented flour;0.56
+Cake ;0.415
+Cake mix;0.7
+Corn/maize flour, white;0.550000011920929
+Corn/maize starch, loosely packed;0.54
+Corn/maize sugar;0.33
+Corn/maize, boiled;0.899999976158142
+Corn/maize, boiled with fat;0.899999976158142
+Corn/maize, bran;0.21
+Corn/maize, chops (coarse);0.6699999999999999
+Corn/maize, chops (fine);0.6
+Corn/maize, chops (medium);0.64
+Corn/maize, cobs;0.27
+Corn/maize, cracked (coarse);0.64
+Corn/maize, ear;0.9
+Corn/maize, ear;0.9
+Corn/maize, fermented flour ;0.55
+Corn/maize, flour;0.82
+Corn/maize, meal;0.64
+Corn/maize, flour ;0.62
+Corn/maize, germ flour;0.56
+Corn/maize, gluten flour;0.6
+Corn/maize, grits;0.665
+Corn/maize, ground;0.56
+Corn/maize, kibbled;0.3349999999999999
+Corn/maize, mash;0.72
+Corn/maize, shelled;0.72
+Corn/maize, starch;0.67
+Corn/maize, starch, tightly packed;0.63
+Corn/maize, white, boiled;0.850000023841858
+Corn/maize, white, dry;0.810000002384186
+Corn/maize, whole kernel, dried, cracked (Njenga);0.810000002384186
+Corn/maize, whole kernel, dried, cracked, boiled (Njenga);1.07000005245209
+Corn/maize, whole shelled;0.72
+Donut mix;0.64
+Dough mix;0.59
+Finger millet, fermented flour;0.61
+Millet;0.64
+Millet;0.64
+Millet flour, bulrush;0.560000002384186
+Millet flour, finger;0.610000014305115
+Millet, bulrush;0.899999976158142
+Millet, finger;0.810000002384186
+Oat Flour;0.53
+Oat middlings;0.61
+Oats;0.41
+Oats;0.43
+Oats groats, whole;0.74
+Oats, ground;0.46
+Oats, hulls;0.13
+Oats, rolled;0.3399999999999999
+Pasta, short macaroni style, boiled;0.55
+Pasta, short macaroni style, raw;0.39
+Pasta/ noodles, boiled;0.589999973773956
+Porridge flour bonavist, boiled;0.730000019073486
+Porridge flour bonavist, raw;0.839999973773956
+Porridge flour ken-uji + lemon extract;0.540000021457672
+Porridge flour ken-uji:F.mill, bul, sorg, wheat;0.600000023841858
+Porridge, maize, flour + water;1.04999995231628
+Rice;0.72
+Rice, boiled;0.73
+Rice, boiled with fat;0.699999988079071
+Rice, bran;0.42
+Rice, hulled;0.75
+Rice, puffed;0.1
+Rice, raw;0.85
+Rice, rough;0.58
+Rice, white, boiled;0.73
+Rice, white, raw;0.82
+Rye;0.72
+Rye, bran;0.28
+Rye, flour ;0.67
+Rye, malted;0.51
+Rye, middlings;0.67
+Rye, shorts;0.54
+Rye, whole;0.705
+Semolina, raw;0.78
+Sorghum, fermented flour;0.54
+Sorghum, flour;0.540000021457672
+Sorghum, seed;0.535
+Soy, flour ;0.7
+Soya, flour ;0.64
+Wheat;0.77
+Wheat, bran;0.22
+Wheat, cracked;0.56
+Wheat, cut;0.74
+Wheat, flour;0.48
+Wheat, flour;0.5799999833107
+Wheat, flour ;0.67
+Wheat, flour ;0.521
+Wheat, flour, malted;0.66
+Wheat, flour, white;0.67
+Wheat, flour, wholemeal;0.55
+Wheat, gluten;0.69
+Wheat, hulls;0.7
+Wheat, middlings;0.24
+Wheat, shaved;0.54
+Wheat, whole;0.7749999999999999
+Whey;0.56
+Arrowroot/cocoyam, boiled;0.535
+Arrowroot/cocoyam, raw;0.519999980926514
+Cassava,flour;0.550000011920929
+Cassava, boiled;0.63
+Cassava, raw;0.629999995231628
+Potato, english, boiled;0.59
+Potato, english, raw;0.589999973773956
+Potatoes, flakes;0.21
+Potatoes, powdered;0.77
+Sweet potato, boiled;0.65
+Sweet potato, raw;0.44
+Yam, boiled;0.79
+Yam, raw;0.66
+Almonds;0.46
+Cashews;0.5
+Coconut Chips;0.61
+Flaxseed;0.7
+Nuts;0.63
+Peanuts;0.53
+Peanuts, shelled;0.69
+Peanuts, unshelled;0.325
+Pistachio, raw, with shell;0.6
+Pistachio, raw, without shell;0.646
+Rapeseed;0.77
+Sunflower, seed;0.62
+Apple slices, dried;0.24
+Loquat;0.6
+Paw Paw, unripe;0.56
+Alfalfa, leaf, meal;0.23
+Alfalfa,meal, dehydrated 13%;0.275
+Alfalfa, meal, dehydrated 17%;0.3199999999999999
+Alfalfa, meal, fine ground;0.295
+Alfalfa, meal, suncured 13%;0.22
+Alfalfa, seed;0.745
+Alfalfa, stem meal;0.19
+Carrot, raw, chopped;0.54
+Carrot, raw, grated;0.71
+Cauliflower, boiled;0.45
+Chili, green;0.5
+Chili, red;0.5
+French green beans;0.529999971389771
+Fresh green peas (minji);0.730000019073486
+Leaves, managu, raw (black night shade);0.2
+Leaves, onion, spring onion, raw;0.44
+Corn/maize, green, sweet corn, boiled;0.73
+Corn/maize, green, sweet corn, raw;0.61
+Olives, green, with stone;0.65
+Onions, chopped;0.22
+Onions, minced;0.13
+Onions, powdered;0.4
+Onions, fried, cubed;0.75
+Onions, raw, cubed;0.55
+Salad, green, leaves, raw;0.06
+Spinach, frozen, cooked;1.046
+Spinach, leaves, raw;0.08
+Sweet pepper, raw, cubes;0.51
+Sweet pepper, raw, half rings;0.39
+Beans, white;0.73
+Cowpeas;0.72
+Cowpeas, dried, boiled;0.75
+Cowpeas, dried, raw;0.959999978542328
+Greengram, boiled;0.76
+Greengram, raw;0.79
+Kidney beans, dry, boiled;0.790000021457672
+Kidney beans, dry, raw;0.75
+Kidney beans, green, boiled;0.7
+Kidney beans, green, raw;0.68
+Lentils, green, small, boiled;0.85
+Lentils, green, small, raw;0.89
+Pigeon peas, boiled;0.75
+Pigeon peas, raw;0.84
+Soybean;0.74
+Soybean, flakes;0.58
+Soybean, hulls;0.4
+Soybean, meal;0.64
+Soybean, boiled;0.790000021457672
+Soybean, boiled with fat;0.699999988079071
+Cinnamon, powder;0.56
+Clover, seed;0.77
+Dry flavoring mix Roiko and other flavorings;0.7
+Garlic, flakes;0.35
+Garlic, powder;0.32
+Sage, leaves;0.29
+Spice, barbecue;0.48
+Spice, blend;0.58
+Prawns, whole, boiled, with shell;0.58
+Prawns, whole, boiled, without shell;0.77
+Egg, yoke, powder;0.37
+Egg, chicken, boiled/poached;0.6
+Eggs, powdered;0.35
+Blood, flour;0.48
+Blood, meal;0.62
+Bone and meat meal, loose;0.72
+Bone meal, loose;0.88
+Cow intestine, boiled;0.58
+Cow, lean, no bone, raw;0.96
+Cow, intestine, raw;0.93
+Goat, intestine, boiled;0.56
+Goat, intestine, raw;0.83
+Pork, fatty, with bone, boiled;0.63
+Pork, fatty, with bone, raw;0.97
+Pork, medium, with bone, boiled;0.7
+Pork, medium, with bone, raw;0.93
+Potato chips;0.09
+Potato chips, pringles;0.12
+Snacks, puffed, lowfat;0.11
+Glucolin, glucose;0.4
+Glucose (at 15.6 C);1.395
+Jam ;1.333
+Jam, sweetened;1.43
+Jelly ;1.245
+Nutella;1.26
+Sucrose;0.85
+Sucrose Octoacetate;0.53
+Sugar;0.95
+Sugar, dextrose;0.62
+Sugar, dextrose;0.58
+Sugar, granulated;0.7
+Sugar, powdered;0.56
+Sugar, white;0.9
+Sugar, white;0.88
+Syrup, blackcurrant, undiluted;1.28
+Syrup, corn;1.38
+Syrup, corn, light;1.4042664239
+Syrup, fruit, blackberry;1.34
+Syrup, grenadine;1.18
+Syrup, maple;1.31869071668341
+Syrup, pancake ;1.312
+Baking powder;0.9
+Gelatin;0.72
+Monosodium glutamate;1.62
+Mustard powdered;0.26
+Protein supplement;0.54
+Salad dressing;1.1
+Salt, sodium chloride;2.165
+Salt, fine table;1.38
+Salt, granulated;1.28
+Salt, table;1.217
+Sauce, soy;1.12
+Sodium bicarbonate;2.2
+Vitamin additive;0.66
+Vitamin compound;0.67
+Vitamin enrichment;0.64
+Vitamin mix;0.7
+Vitamin powder;0.56
+Yeast;0.95
+Bean soup;1.054
+Cheddar cheese soup;1.046
+Chicken noodle soup;1.0
+Egg drop soup;1.017
+Mushroom soup;1.017
+Soup, meat;1.03999996185303
+Soup, mixed;1.04999995231628
+Soup, thick (squash, potato);1.09
+Soup, vegetable;0.990000009536743
+Tomato soup;1.017
+Beef and noodles (no sauce);0.65
+Beef and noodles in gravy (mixture);1.038
+Beef stew, canned;1.05
+Beef, noodles and vegetables (no sauce);0.675
+Broccoli casserole;0.95
+Cheese tortellini;1.029
+Chicken and dumplings (mixture);1.038
+Eggplant parmesan;0.825
+Githeri (muthugo + beans) + meat;0.949999988079071
+Githeri (muthugo + beans) + meat + vegetable + potato/banana;0.990000009536743
+Githeri (muthugo + beans) + onion, boiled with fat;0.980000019073486
+Githeri (muthugo + beans) + potato/banana;0.879999995231628
+Githeri (muthugo + beans) + vegetable;1.03999996185303
+Githeri (muthugo + beans) + vegetable + meat;0.939999997615814
+Githeri + meat;0.75
+Githeri + meat + vegetable + potato/banana;1.04999995231628
+Githeri + onion, boiled with fat;0.8299999833107
+Githeri + peas;1.03999996185303
+Githeri + potato/banana;1.10000002384186
+Githeri + roots + vegetable;1.12999999523163
+Githeri + vegetable;1.29999995231628
+Githeri + vegetable + meat;0.839999973773956
+Githeri + vegetable + potato/banana;0.949999988079071
+Githeri plain (muthugo + beans + water);0.980000019073486
+Githeri, beans + vegetable + potatoes;0.930000007152557
+Githeri, maize + peas;0.97000002861023
+Githeri, plain (maize + beans + water);0.71
+Gitwero, banana + beans;1.20000004768372
+Gitwero, banana + beans + vegetable;1.20000004768372
+Gitwero, banana + potato + beans;1.03999996185303
+Gitwero, banana + vegetable;1.20000004768372
+Gitwero, banana, boiled with fat;1.19000005722046
+Gitwero, banana/potato;1.29999995231628
+Gitwero, banana/potato + meat;1.08000004291534
+Gitwero, banana/potato + vegetable;1.22000002861023
+Gitwero, root (yam, arrowroot, etc.);1.13999998569489
+Gitwero, roots + banana;1.02999997138977
+Gitwero, roots + banana;1.02999997138977
+Green bean casserole;0.95
+Lasagna;1.042
+Macaroni and cheese, canned;0.996
+Mataha (Maize stew) (Maize stew), maize + peas;0.860000014305115
+Mataha (maize stew), beans + banana;1.22000002861023
+Mataha (maize stew), beans + banana + potato;1.25
+Mataha (maize stew), beans + banana + potato + vegetable;1.14999997615814
+Mataha (maize stew), beans + potato/banana + vegetable;1.13999998569489
+Mataha (maize stew), beans + vegetable;1.01999998092651
+Mataha (maize stew), beans + vegetable + banana;1.0
+Mataha (maize stew), maize + banana;1.0900000333786
+Mataha (maize stew), maize + banana/potato + vegetable;1.10000002384186
+Mataha (maize stew), maize + beans + potato;0.75
+Mataha (maize stew), maize + beans + potato + vegetable;0.949999988079071
+Mataha (maize stew), maize + beans + potato, boiled with fat;0.75
+Mataha (maize stew), maize + beans + vegetable + banana;0.699999988079071
+Mataha (maize stew), maize + vegetable;0.899999976158142
+Mataha (maize stew), paw paw;1.33000004291534
+Mexican casserole w/beef, beans, cheese, chips;0.6
+Mini ravioli, canned;1.046
+Moussaka;0.846
+Muthugo (maize without germ and cover) only;0.759999990463257
+Noodles/pasta with fat;0.800000011920929
+Rice + beans;0.75
+Rice + beans + potato/banana;0.850000023841858
+Rice + meat;0.730000019073486
+Rice + meat + vegetable;0.8299999833107
+Rice + potato/banana;0.800000011920929
+Rice + roots (yam, arrowroot etc.);0.899999976158142
+Rice + vegetable;0.649999976158142
+Rice + vegetable + potato/banana;0.800000011920929
+Rice, plain (rice + water);0.699999988079071
+Spaghetti and meat balls, canned;1.038
+Stew, banana;1.07000005245209
+Stew, banana + potato + vegetable;1.05999994277954
+Stew, beans;1.01
+Stew, beans/ peas + meat + vegetables;0.939999997615814
+Stew, beans/ peas + vegetables;1.07000005245209
+Stew, meat;1.12000000476837
+Stew, pea + potato/banana;1.10000002384186
+Stew, pea + potato/banana + vegetable;1.22000002861023
+Stew, potato;1.10000002384186
+Stew, potato + beans + vegetable;1.08000004291534
+Stew, vegetable;0.680000007152557
+Stew, vegetable + meat;0.860000014305115
+Stew, vegetable + potato;1.10000002384186
+Stew, vegetable + potato + meat;1.08000004291534
+Stew: eggs + veg;0.68
+Tuna noodle casserole;0.933
+Ugali + beans;0.800000011920929
+Ugali + beans + vegetable;0.800000011920929
+Ugali + vegetable, crumbed;0.75
+Ugali + vegetables, boiled with fat;1.20000004768372
+Ugali, plain (flour + water), crumbed;0.75
+Wieners and sauerkraut (mixture);0.612
+Zesty Italian ‘‘hamburger helper’’;1.038

@@ -1,0 +1,60 @@
+{
+  "activityName": "Quinoa FR, organic 2025, at farm gate {FR} U",
+  "categories": [
+    "ingredient",
+    "material",
+    "material_type:other_food_items"
+  ],
+  "displayName": "Quinoa Bio",
+  "id": "fe482c9c-eb04-5440-b5dc-ab9bef6ec86a",
+  "location": "FR",
+  "metadata": [
+    {
+      "alias": "quinoa-organic",
+      "cropGroup": "AUTRES CEREALES",
+      "cropGroupMatch": {
+        "confidence": 1.0,
+        "rule": "matched 'quinoa' in cropgroup.csv"
+      },
+      "defaultOrigin": "France",
+      "displayName": "Quinoa Bio",
+      "id": "2cd666b8-b286-5159-9162-c261158d456a",
+      "inediblePart": 0.0,
+      "inediblePartMatch": {
+        "confidence": 1.0,
+        "rule": "grain NOVA 1 default from food_type_inedible_part.csv"
+      },
+      "ingredientCategories": [
+        "grain_raw",
+        "organic"
+      ],
+      "ingredientDensity": 0.75,
+      "ingredientDensityMatch": {
+        "confidence": 1.0,
+        "rule": "grain default from food_type_density.csv"
+      },
+      "rawToCookedRatio": 2.259,
+      "rawToCookedRatioMatch": {
+        "confidence": 1.0,
+        "rule": "grain default from food_type_cooked_to_raw.csv"
+      },
+      "scenario": "organic",
+      "scopes": [
+        "food",
+        "food2"
+      ],
+      "transportCooling": "none",
+      "transportCoolingMatch": {
+        "confidence": 1.0,
+        "rule": "grain → none (non-perishable)"
+      },
+      "visible": true
+    }
+  ],
+  "scopes": [
+    "food",
+    "food2"
+  ],
+  "source": "Ginko 2025",
+  "unit": "kg"
+}

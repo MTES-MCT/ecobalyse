@@ -1,0 +1,137 @@
+{
+  "activityName": "Durum wheat grain, conventional, national average, at farm gate {FR} U",
+  "categories": [
+    "ingredient",
+    "material",
+    "material_type:other_food_items"
+  ],
+  "displayName": "Blé dur FR",
+  "id": "3102b143-60d6-539c-b7c5-6df221985b78",
+  "metadata": [
+    {
+      "alias": "amaranth-fr",
+      "cropGroup": "BLE TENDRE",
+      "cropGroupMatch": {
+        "confidence": 1.0,
+        "rule": "wheat/flour pattern"
+      },
+      "defaultOrigin": "France",
+      "displayName": "Amarante FR",
+      "id": "29794e32-f506-59a5-a8cd-4cdf16d7048d",
+      "inediblePart": 0.0,
+      "inediblePartMatch": {
+        "confidence": 1.0,
+        "rule": "grain NOVA 1 default from food_type_inedible_part.csv"
+      },
+      "ingredientCategories": [
+        "grain_raw"
+      ],
+      "ingredientDensity": 0.75,
+      "ingredientDensityMatch": {
+        "confidence": 1.0,
+        "rule": "grain default from food_type_density.csv"
+      },
+      "rawToCookedRatio": 2.259,
+      "rawToCookedRatioMatch": {
+        "confidence": 1.0,
+        "rule": "grain default from food_type_cooked_to_raw.csv"
+      },
+      "scenario": "reference",
+      "scopes": [
+        "food",
+        "food2"
+      ],
+      "transportCooling": "none",
+      "transportCoolingMatch": {
+        "confidence": 1.0,
+        "rule": "grain → none (non-perishable)"
+      },
+      "visible": true
+    },
+    {
+      "alias": "durum-wheat-fr",
+      "cropGroup": "AUTRES CEREALES",
+      "cropGroupMatch": {
+        "confidence": 0.95,
+        "rule": "matched 'blé dur hiver' in cropgroup.csv"
+      },
+      "defaultOrigin": "France",
+      "displayName": "Blé dur FR",
+      "id": "28013f55-a3ce-4ae6-9a97-133ce7724ece",
+      "inediblePart": 0.0,
+      "inediblePartMatch": {
+        "confidence": 1.0,
+        "rule": "grain NOVA 1 default from food_type_inedible_part.csv"
+      },
+      "ingredientCategories": [
+        "grain_raw"
+      ],
+      "ingredientDensity": 0.77,
+      "ingredientDensityMatch": {
+        "confidence": 0.95,
+        "rule": "Matched with Wheat in fao_density.csv"
+      },
+      "rawToCookedRatio": 2.259,
+      "rawToCookedRatioMatch": {
+        "confidence": 1.0,
+        "rule": "Matched with durum wheat in cooked_to_raw.csv"
+      },
+      "scenario": "reference",
+      "scopes": [
+        "food",
+        "food2"
+      ],
+      "transportCooling": "none",
+      "transportCoolingMatch": {
+        "confidence": 1.0,
+        "rule": "grain → none (non-perishable)"
+      },
+      "visible": true
+    },
+    {
+      "alias": "spelt-fr",
+      "cropGroup": "AUTRES CEREALES",
+      "cropGroupMatch": {
+        "confidence": 1.0,
+        "rule": "matched 'spelt' in cropgroup.csv"
+      },
+      "defaultOrigin": "France",
+      "displayName": "Epeautre FR",
+      "id": "919683c4-82c7-5ff3-90f2-a8c6666af83a",
+      "inediblePart": 0.0,
+      "inediblePartMatch": {
+        "confidence": 1.0,
+        "rule": "grain NOVA 1 default from food_type_inedible_part.csv"
+      },
+      "ingredientCategories": [
+        "grain_raw"
+      ],
+      "ingredientDensity": 0.75,
+      "ingredientDensityMatch": {
+        "confidence": 1.0,
+        "rule": "grain default from food_type_density.csv"
+      },
+      "rawToCookedRatio": 2.259,
+      "rawToCookedRatioMatch": {
+        "confidence": 1.0,
+        "rule": "grain default from food_type_cooked_to_raw.csv"
+      },
+      "scenario": "reference",
+      "scopes": [
+        "food",
+        "food2"
+      ],
+      "transportCooling": "none",
+      "transportCoolingMatch": {
+        "confidence": 1.0,
+        "rule": "grain → none (non-perishable)"
+      },
+      "visible": true
+    }
+  ],
+  "scopes": [
+    "food",
+    "food2"
+  ],
+  "source": "Agribalyse 3.2"
+}

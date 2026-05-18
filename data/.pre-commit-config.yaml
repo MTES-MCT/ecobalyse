@@ -1,0 +1,37 @@
+repos:
+  - repo: https://github.com/pre-commit/pre-commit-hooks
+    rev: v2.3.0
+    hooks:
+    - id: check-yaml
+    - id: end-of-file-fixer
+    - id: trailing-whitespace
+    - id: no-commit-to-branch
+      name: "don't commit to master"
+      args: [--branch, main]
+
+  - repo: local
+    hooks:
+      - id: fix-json
+        name: run JSON formatter
+        language: system
+        files: ^.*$
+        types_or: [json]
+        entry: |
+          bash -c 'just fix-json "${@}"' --
+
+      - id: fix-python
+        name: run ruff check
+        language: system
+        files: ^.*$
+        types_or: [python]
+        entry: |
+          bash -c 'just fix-python "${@}"' --
+
+
+      - id: check-json-schemas
+        name: check json schemas
+        language: system
+        files: ^public/data/processes.*\.json$
+        types_or: [json]
+        entry: |
+          just check-processes

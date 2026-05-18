@@ -1,0 +1,35 @@
+{
+  "activityName": "Egg, shelled raw, import WFLDB, CMAPS {GLO} U",
+  "categories": [
+    "ingredient",
+    "material"
+  ],
+  "displayName": "Oeuf, décoquillé, de poule, de cane ou d'oie, cru Origine Inconnue",
+  "id": "06d00072-ee52-4474-83ba-9fb74adb89b5",
+  "metadata": [
+    {
+      "alias": "egg-shelled-raw-default",
+      "defaultOrigin": "OutOfEuropeAndMaghreb",
+      "displayName": "Oeuf, décoquillé, de poule, de cane ou d'oie, cru Origine Inconnue",
+      "id": "f3410a4c-8760-4d79-b1be-7bc961483b6e",
+      "inediblePart": 0,
+      "ingredientCategories": [
+        "animal_product"
+      ],
+      "ingredientDensity": 1,
+      "rawToCookedRatio": 1,
+      "scenario": "import",
+      "scopes": [
+        "food",
+        "food2"
+      ],
+      "transportCooling": "always",
+      "visible": true
+    }
+  ],
+  "scopes": [
+    "food",
+    "food2"
+  ],
+  "source": "Ecobalyse"
+}

@@ -1,0 +1,60 @@
+{
+  "activityName": "Palm date, organic 2025 {GLO}| palm date production | Cut-off, U",
+  "categories": [
+    "ingredient",
+    "material",
+    "material_type:fruits_and_vegetables"
+  ],
+  "displayName": "Dattes Bio",
+  "id": "d8ea457d-453b-5532-afbe-ec494c326441",
+  "location": "GLO",
+  "metadata": [
+    {
+      "alias": "date-organic",
+      "cropGroup": "VERGERS",
+      "cropGroupMatch": {
+        "confidence": 1.0,
+        "rule": "fruit default"
+      },
+      "defaultOrigin": "France",
+      "displayName": "Dattes Bio",
+      "id": "ec2ec730-91d6-5980-9230-817cc8386211",
+      "inediblePart": 0.2,
+      "inediblePartMatch": {
+        "confidence": 1.0,
+        "rule": "fruit NOVA 1 default from food_type_inedible_part.csv"
+      },
+      "ingredientCategories": [
+        "vegetable_fresh",
+        "organic"
+      ],
+      "ingredientDensity": 0.85,
+      "ingredientDensityMatch": {
+        "confidence": 1.0,
+        "rule": "fruit default from food_type_density.csv"
+      },
+      "rawToCookedRatio": 0.856,
+      "rawToCookedRatioMatch": {
+        "confidence": 1.0,
+        "rule": "fruit default from food_type_cooked_to_raw.csv"
+      },
+      "scenario": "organic",
+      "scopes": [
+        "food",
+        "food2"
+      ],
+      "transportCooling": "always",
+      "transportCoolingMatch": {
+        "confidence": 1.0,
+        "rule": "fruit NOVA 1 → always (perishable)"
+      },
+      "visible": true
+    }
+  ],
+  "scopes": [
+    "food",
+    "food2"
+  ],
+  "source": "Ginko 2025",
+  "unit": "kg"
+}

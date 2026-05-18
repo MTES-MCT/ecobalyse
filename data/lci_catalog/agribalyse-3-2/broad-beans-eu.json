@@ -1,0 +1,399 @@
+{
+  "activityName": "Fava bean, Swiss integrated production {CH}| fava bean production, Swiss integrated production, at farm | Cut-off, U - Adapted from Ecoinvent U",
+  "categories": [
+    "ingredient",
+    "material"
+  ],
+  "displayName": "Fève UE",
+  "id": "18d33ded-b853-5f0a-a0dc-2337cc4d9553",
+  "metadata": [
+    {
+      "alias": "broad-bean-fr",
+      "cropGroup": "PROTEAGINEUX",
+      "cropGroupMatch": {
+        "confidence": 1.0,
+        "rule": "matched 'broad bean' in cropgroup.csv"
+      },
+      "defaultOrigin": "France",
+      "displayName": "Fève FR",
+      "id": "d1d5713d-021f-4438-95c8-0496da3f0f5f",
+      "inediblePart": 0.2,
+      "inediblePartMatch": {
+        "confidence": 1.0,
+        "rule": "legume NOVA 1 default from food_type_inedible_part.csv"
+      },
+      "ingredientCategories": [
+        "vegetable_fresh"
+      ],
+      "ingredientDensity": 0.8,
+      "ingredientDensityMatch": {
+        "confidence": 0.95,
+        "rule": "Matched with bean in density.csv"
+      },
+      "rawToCookedRatio": 0.856,
+      "rawToCookedRatioMatch": {
+        "confidence": 1.0,
+        "rule": "legume default from food_type_cooked_to_raw.csv"
+      },
+      "scenario": "reference",
+      "scopes": [
+        "food",
+        "food2"
+      ],
+      "transportCooling": "always",
+      "transportCoolingMatch": {
+        "confidence": 1.0,
+        "rule": "legume NOVA 1 → always (perishable)"
+      },
+      "visible": true
+    },
+    {
+      "alias": "flageolet-bean-green-dried-fr",
+      "cropGroup": "LEGUMINEUSES A GRAIN",
+      "cropGroupMatch": {
+        "confidence": 1.0,
+        "rule": "legume default"
+      },
+      "defaultOrigin": "France",
+      "displayName": "Haricots flageolets verts FR",
+      "id": "c797468e-8020-58d2-aae9-2e0f956af969",
+      "inediblePart": 0.2,
+      "inediblePartMatch": {
+        "confidence": 1.0,
+        "rule": "legume NOVA 1 default from food_type_inedible_part.csv"
+      },
+      "ingredientCategories": [
+        "vegetable_fresh"
+      ],
+      "ingredientDensity": 0.8,
+      "ingredientDensityMatch": {
+        "confidence": 1.0,
+        "rule": "legume default from food_type_density.csv"
+      },
+      "rawToCookedRatio": 0.856,
+      "rawToCookedRatioMatch": {
+        "confidence": 1.0,
+        "rule": "legume default from food_type_cooked_to_raw.csv"
+      },
+      "scenario": "reference",
+      "scopes": [
+        "food",
+        "food2"
+      ],
+      "transportCooling": "none",
+      "transportCoolingMatch": {
+        "confidence": 1.0,
+        "rule": "dried packaging → none"
+      },
+      "visible": true
+    },
+    {
+      "alias": "red-bean-dried-fr",
+      "cropGroup": "LEGUMINEUSES A GRAIN",
+      "cropGroupMatch": {
+        "confidence": 1.0,
+        "rule": "legume default"
+      },
+      "defaultOrigin": "France",
+      "displayName": "Haricots rouges FR",
+      "id": "04d08216-6cc1-532c-86a8-3c17f94a6db5",
+      "inediblePart": 0.2,
+      "inediblePartMatch": {
+        "confidence": 1.0,
+        "rule": "legume NOVA 1 default from food_type_inedible_part.csv"
+      },
+      "ingredientCategories": [
+        "vegetable_fresh"
+      ],
+      "ingredientDensity": 0.8,
+      "ingredientDensityMatch": {
+        "confidence": 1.0,
+        "rule": "legume default from food_type_density.csv"
+      },
+      "rawToCookedRatio": 0.856,
+      "rawToCookedRatioMatch": {
+        "confidence": 1.0,
+        "rule": "legume default from food_type_cooked_to_raw.csv"
+      },
+      "scenario": "reference",
+      "scopes": [
+        "food",
+        "food2"
+      ],
+      "transportCooling": "none",
+      "transportCoolingMatch": {
+        "confidence": 1.0,
+        "rule": "dried packaging → none"
+      },
+      "visible": true
+    },
+    {
+      "alias": "broad-beans-eu-2025",
+      "cropGroup": "PROTEAGINEUX",
+      "defaultOrigin": "EuropeAndMaghreb",
+      "displayName": "Fève UE (2025)",
+      "explain": "Procédé suisse (seul dispo dans AGB)\nRatios : reprise des hypothèses des petit-pois",
+      "id": "ec58c11c-c5fd-4884-8d66-3d434aa1da1d",
+      "inediblePart": 0.2,
+      "ingredientCategories": [
+        "vegetable_fresh"
+      ],
+      "ingredientDensity": 0.72,
+      "rawToCookedRatio": 2.33,
+      "scenario": "import",
+      "scopes": [
+        "food",
+        "food2"
+      ],
+      "transportCooling": "none",
+      "visible": true
+    },
+    {
+      "alias": "flageolet-bean-eu-2025",
+      "cropGroup": "LEGUMES-FLEURS",
+      "defaultOrigin": "EuropeAndMaghreb",
+      "displayName": "Haricot flageolet UE (2025)",
+      "explain": "Densité : même hyp que petit pois",
+      "id": "1ab7c8e7-fb50-4e5d-b153-372f853514cf",
+      "inediblePart": 0.2,
+      "ingredientCategories": [
+        "nut_oilseed_raw"
+      ],
+      "ingredientDensity": 0.72,
+      "rawToCookedRatio": 2.33,
+      "scenario": "import",
+      "scopes": [
+        "food",
+        "food2"
+      ],
+      "transportCooling": "none",
+      "visible": true
+    },
+    {
+      "alias": "flageolet-bean-fr-2025",
+      "cropGroup": "LEGUMES-FLEURS",
+      "defaultOrigin": "France",
+      "displayName": "Haricot flageolet FR (2025)",
+      "explain": "Densité : même hyp que petit pois",
+      "id": "b5c5285f-8dfe-4865-bdc9-8d86b6977d14",
+      "inediblePart": 0.2,
+      "ingredientCategories": [
+        "nut_oilseed_raw"
+      ],
+      "ingredientDensity": 0.72,
+      "rawToCookedRatio": 2.33,
+      "scenario": "reference",
+      "scopes": [
+        "food",
+        "food2"
+      ],
+      "transportCooling": "none",
+      "visible": true
+    },
+    {
+      "alias": "broad-bean-eu",
+      "cropGroup": "PROTEAGINEUX",
+      "cropGroupMatch": {
+        "confidence": 1.0,
+        "rule": "matched 'broad bean' in cropgroup.csv"
+      },
+      "defaultOrigin": "EuropeAndMaghreb",
+      "displayName": "Fève UE",
+      "id": "70727141-03b4-5f49-8216-88830b7ae11b",
+      "inediblePart": 0.2,
+      "inediblePartMatch": {
+        "confidence": 1.0,
+        "rule": "legume NOVA 1 default from food_type_inedible_part.csv"
+      },
+      "ingredientCategories": [
+        "vegetable_fresh"
+      ],
+      "ingredientDensity": 0.8,
+      "ingredientDensityMatch": {
+        "confidence": 0.95,
+        "rule": "Matched with bean in density.csv"
+      },
+      "rawToCookedRatio": 0.856,
+      "rawToCookedRatioMatch": {
+        "confidence": 1.0,
+        "rule": "legume default from food_type_cooked_to_raw.csv"
+      },
+      "scenario": "import",
+      "scopes": [
+        "food",
+        "food2"
+      ],
+      "transportCooling": "always",
+      "transportCoolingMatch": {
+        "confidence": 1.0,
+        "rule": "legume NOVA 1 → always (perishable)"
+      },
+      "visible": true
+    },
+    {
+      "alias": "flageolet-bean-green-dried-eu",
+      "cropGroup": "LEGUMINEUSES A GRAIN",
+      "cropGroupMatch": {
+        "confidence": 1.0,
+        "rule": "legume default"
+      },
+      "defaultOrigin": "EuropeAndMaghreb",
+      "displayName": "Haricots flageolets verts UE",
+      "id": "e634ae9e-b825-5dcf-a0c1-14cbf495c35d",
+      "inediblePart": 0.2,
+      "inediblePartMatch": {
+        "confidence": 1.0,
+        "rule": "legume NOVA 1 default from food_type_inedible_part.csv"
+      },
+      "ingredientCategories": [
+        "vegetable_fresh"
+      ],
+      "ingredientDensity": 0.8,
+      "ingredientDensityMatch": {
+        "confidence": 1.0,
+        "rule": "legume default from food_type_density.csv"
+      },
+      "rawToCookedRatio": 0.856,
+      "rawToCookedRatioMatch": {
+        "confidence": 1.0,
+        "rule": "legume default from food_type_cooked_to_raw.csv"
+      },
+      "scenario": "import",
+      "scopes": [
+        "food",
+        "food2"
+      ],
+      "transportCooling": "none",
+      "transportCoolingMatch": {
+        "confidence": 1.0,
+        "rule": "dried packaging → none"
+      },
+      "visible": true
+    },
+    {
+      "alias": "lima-bean-eu",
+      "cropGroup": "LEGUMINEUSES A GRAIN",
+      "cropGroupMatch": {
+        "confidence": 1.0,
+        "rule": "legume default"
+      },
+      "defaultOrigin": "EuropeAndMaghreb",
+      "displayName": "Haricots de Lima UE",
+      "id": "3a3a72d4-8df1-5c4b-987c-30594730d724",
+      "inediblePart": 0.2,
+      "inediblePartMatch": {
+        "confidence": 1.0,
+        "rule": "legume NOVA 1 default from food_type_inedible_part.csv"
+      },
+      "ingredientCategories": [
+        "vegetable_fresh"
+      ],
+      "ingredientDensity": 0.8,
+      "ingredientDensityMatch": {
+        "confidence": 1.0,
+        "rule": "legume default from food_type_density.csv"
+      },
+      "rawToCookedRatio": 0.856,
+      "rawToCookedRatioMatch": {
+        "confidence": 1.0,
+        "rule": "legume default from food_type_cooked_to_raw.csv"
+      },
+      "scenario": "import",
+      "scopes": [
+        "food",
+        "food2"
+      ],
+      "transportCooling": "always",
+      "transportCoolingMatch": {
+        "confidence": 1.0,
+        "rule": "legume NOVA 1 → always (perishable)"
+      },
+      "visible": true
+    },
+    {
+      "alias": "mung-bean-sprouted-eu",
+      "cropGroup": "LEGUMINEUSES A GRAIN",
+      "cropGroupMatch": {
+        "confidence": 1.0,
+        "rule": "legume default"
+      },
+      "defaultOrigin": "EuropeAndMaghreb",
+      "displayName": "Haricot mungo UE",
+      "id": "79cd73a5-7b3c-5ac0-b6af-87d8562438b3",
+      "inediblePart": 0.2,
+      "inediblePartMatch": {
+        "confidence": 1.0,
+        "rule": "legume NOVA 1 default from food_type_inedible_part.csv"
+      },
+      "ingredientCategories": [
+        "vegetable_fresh"
+      ],
+      "ingredientDensity": 0.8,
+      "ingredientDensityMatch": {
+        "confidence": 1.0,
+        "rule": "legume default from food_type_density.csv"
+      },
+      "rawToCookedRatio": 0.856,
+      "rawToCookedRatioMatch": {
+        "confidence": 1.0,
+        "rule": "legume default from food_type_cooked_to_raw.csv"
+      },
+      "scenario": "import",
+      "scopes": [
+        "food",
+        "food2"
+      ],
+      "transportCooling": "always",
+      "transportCoolingMatch": {
+        "confidence": 1.0,
+        "rule": "legume NOVA 1 → always (perishable)"
+      },
+      "visible": true
+    },
+    {
+      "alias": "red-bean-dried-eu",
+      "cropGroup": "LEGUMINEUSES A GRAIN",
+      "cropGroupMatch": {
+        "confidence": 1.0,
+        "rule": "legume default"
+      },
+      "defaultOrigin": "EuropeAndMaghreb",
+      "displayName": "Haricots rouges UE",
+      "id": "64c9962d-8250-50a5-86d2-9c0379220645",
+      "inediblePart": 0.2,
+      "inediblePartMatch": {
+        "confidence": 1.0,
+        "rule": "legume NOVA 1 default from food_type_inedible_part.csv"
+      },
+      "ingredientCategories": [
+        "vegetable_fresh"
+      ],
+      "ingredientDensity": 0.8,
+      "ingredientDensityMatch": {
+        "confidence": 1.0,
+        "rule": "legume default from food_type_density.csv"
+      },
+      "rawToCookedRatio": 0.856,
+      "rawToCookedRatioMatch": {
+        "confidence": 1.0,
+        "rule": "legume default from food_type_cooked_to_raw.csv"
+      },
+      "scenario": "import",
+      "scopes": [
+        "food",
+        "food2"
+      ],
+      "transportCooling": "none",
+      "transportCoolingMatch": {
+        "confidence": 1.0,
+        "rule": "dried packaging → none"
+      },
+      "visible": true
+    }
+  ],
+  "scopes": [
+    "food",
+    "food2"
+  ],
+  "source": "Agribalyse 3.2"
+}

@@ -1,0 +1,24 @@
+{
+  "activityName": "Pork, 710g | Packaging System, N0, All, EPS Tray with film {FR} U",
+  "categories": [
+    "material",
+    "packaging",
+    "packaging_type:tray"
+  ],
+  "displayName": "Barquette en plastique (PSE) pour viandes et abats - 300g à 1100g",
+  "id": "61bed329-a97b-4e49-816c-59c608d7bc17",
+  "metadata": [
+    {
+      "id": "be8989e8-3f6b-45f4-8d1e-bf515d02d7a1",
+      "scopes": [
+        "food2"
+      ]
+    }
+  ],
+  "scopes": [
+    "food",
+    "food2"
+  ],
+  "source": "Agribalyse 3.2",
+  "unit": "item"
+}

@@ -1,0 +1,56 @@
+{
+  "activityName": "Zucchini {GLO}| zucchini production | Cut-off, U",
+  "categories": [
+    "ingredient"
+  ],
+  "displayName": "Zucchini (GLO)",
+  "id": "7be320b4-ce5e-5115-8b41-e3edccb3e363",
+  "metadata": [
+    {
+      "alias": "zucchini-non-eu",
+      "cropGroup": "LEGUMES-FLEURS",
+      "cropGroupMatch": {
+        "confidence": 1.0,
+        "rule": "matched 'zucchini' in cropgroup.csv"
+      },
+      "defaultOrigin": "OutOfEuropeAndMaghreb",
+      "displayName": "Courgettes HORS UE",
+      "id": "7fd3a93e-d205-5af6-bbe4-b9718986f075",
+      "inediblePart": 0.2,
+      "inediblePartMatch": {
+        "confidence": 1.0,
+        "rule": "vegetable NOVA 1 default from food_type_inedible_part.csv"
+      },
+      "ingredientCategories": [
+        "vegetable_fresh"
+      ],
+      "ingredientDensity": 1.0,
+      "ingredientDensityMatch": {
+        "confidence": 1.0,
+        "rule": "zucchini found in density.csv"
+      },
+      "rawToCookedRatio": 0.856,
+      "rawToCookedRatioMatch": {
+        "confidence": 1.0,
+        "rule": "Matched with zucchini in cooked_to_raw.csv"
+      },
+      "scenario": "import",
+      "scopes": [
+        "food",
+        "food2"
+      ],
+      "transportCooling": "always",
+      "transportCoolingMatch": {
+        "confidence": 1.0,
+        "rule": "vegetable NOVA 1 → always (perishable)"
+      },
+      "visible": false
+    }
+  ],
+  "scopes": [
+    "food",
+    "food2"
+  ],
+  "source": "Ecoinvent 3.11",
+  "unit": "kg"
+}

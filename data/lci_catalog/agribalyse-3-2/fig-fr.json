@@ -1,0 +1,138 @@
+{
+  "activityName": "Peach, conventional, national average, at orchard {FR} U",
+  "categories": [
+    "ingredient",
+    "material",
+    "material_type:fruits_and_vegetables"
+  ],
+  "displayName": "Figue FR",
+  "id": "517dfbb5-abc8-59bd-b0a0-f315a22fdaab",
+  "metadata": [
+    {
+      "alias": "fig-fr",
+      "cropGroup": "VERGERS",
+      "cropGroupMatch": {
+        "confidence": 1.0,
+        "rule": "fruit default"
+      },
+      "defaultOrigin": "France",
+      "displayName": "Figue FR",
+      "id": "c273baca-8341-5d48-932e-ed8507cfddfd",
+      "inediblePart": 0.2,
+      "inediblePartMatch": {
+        "confidence": 1.0,
+        "rule": "fruit NOVA 1 default from food_type_inedible_part.csv"
+      },
+      "ingredientCategories": [
+        "vegetable_fresh"
+      ],
+      "ingredientDensity": 0.9,
+      "ingredientDensityMatch": {
+        "confidence": 1.0,
+        "rule": "fig found in density.csv"
+      },
+      "rawToCookedRatio": 0.856,
+      "rawToCookedRatioMatch": {
+        "confidence": 1.0,
+        "rule": "fruit default from food_type_cooked_to_raw.csv"
+      },
+      "scenario": "reference",
+      "scopes": [
+        "food",
+        "food2"
+      ],
+      "transportCooling": "always",
+      "transportCoolingMatch": {
+        "confidence": 1.0,
+        "rule": "fruit NOVA 1 → always (perishable)"
+      },
+      "visible": true
+    },
+    {
+      "alias": "nectarine-fr",
+      "cropGroup": "VERGERS",
+      "cropGroupMatch": {
+        "confidence": 1.0,
+        "rule": "fruit default"
+      },
+      "defaultOrigin": "France",
+      "displayName": "Nectarine FR",
+      "id": "7cd66c2a-0af8-538c-82fb-cbb4242fbb0f",
+      "inediblePart": 0.2,
+      "inediblePartMatch": {
+        "confidence": 1.0,
+        "rule": "fruit NOVA 1 default from food_type_inedible_part.csv"
+      },
+      "ingredientCategories": [
+        "vegetable_fresh"
+      ],
+      "ingredientDensity": 0.85,
+      "ingredientDensityMatch": {
+        "confidence": 1.0,
+        "rule": "fruit default from food_type_density.csv"
+      },
+      "rawToCookedRatio": 0.856,
+      "rawToCookedRatioMatch": {
+        "confidence": 1.0,
+        "rule": "fruit default from food_type_cooked_to_raw.csv"
+      },
+      "scenario": "reference",
+      "scopes": [
+        "food",
+        "food2"
+      ],
+      "transportCooling": "always",
+      "transportCoolingMatch": {
+        "confidence": 1.0,
+        "rule": "fruit NOVA 1 → always (perishable)"
+      },
+      "visible": true
+    },
+    {
+      "alias": "peach-fr",
+      "cropGroup": "VERGERS",
+      "cropGroupMatch": {
+        "confidence": 1.0,
+        "rule": "fruit default"
+      },
+      "defaultOrigin": "France",
+      "displayName": "Pêches FR",
+      "id": "74b8e366-049c-54ee-b6de-29b5496d317d",
+      "inediblePart": 0.2,
+      "inediblePartMatch": {
+        "confidence": 0.95,
+        "rule": "Matched with Peach in agb_inedible.csv"
+      },
+      "ingredientCategories": [
+        "vegetable_fresh"
+      ],
+      "ingredientDensity": 0.9,
+      "ingredientDensityMatch": {
+        "confidence": 0.95,
+        "rule": "Matched with peach in density.csv"
+      },
+      "rawToCookedRatio": 0.856,
+      "rawToCookedRatioMatch": {
+        "confidence": 0.95,
+        "rule": "Matched with peach in cooked_to_raw.csv"
+      },
+      "scenario": "reference",
+      "scopes": [
+        "food",
+        "food2"
+      ],
+      "transportCooling": "always",
+      "transportCoolingMatch": {
+        "confidence": 1.0,
+        "rule": "fruit NOVA 1 → always (perishable)"
+      },
+      "visible": true
+    }
+  ],
+  "scopes": [
+    "food",
+    "food2"
+  ],
+  "source": "Agribalyse 3.2",
+  "unit": "kg"
+}

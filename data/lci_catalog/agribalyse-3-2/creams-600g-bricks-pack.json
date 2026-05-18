@@ -1,0 +1,24 @@
+{
+  "activityName": "Creams, 600g | Packaging System, N0, All, Bricks pack {FR} U",
+  "categories": [
+    "material",
+    "packaging",
+    "packaging_type:pack"
+  ],
+  "displayName": "Lot de briques (multimatériaux) pour crème - 600g",
+  "id": "deda3422-acc1-4e2e-b155-b8846bfbc17f",
+  "metadata": [
+    {
+      "id": "b94c22c1-13fa-481c-b976-ba3933cb347a",
+      "scopes": [
+        "food2"
+      ]
+    }
+  ],
+  "scopes": [
+    "food",
+    "food2"
+  ],
+  "source": "Agribalyse 3.2",
+  "unit": "item"
+}

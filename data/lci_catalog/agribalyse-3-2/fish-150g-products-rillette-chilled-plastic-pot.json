@@ -1,0 +1,24 @@
+{
+  "activityName": "Fish products rillette, chilled, 150g | Packaging System, N0, All, Plastic pot {FR} U",
+  "categories": [
+    "material",
+    "packaging",
+    "packaging_type:jar"
+  ],
+  "displayName": "Pot en plastique (PP) impression IML pour rillette de poissons, réfrigérée - 150g",
+  "id": "4acc353a-e791-4bf1-8cd3-459149ec2d96",
+  "metadata": [
+    {
+      "id": "abee8f2b-0b51-489a-919f-2364e33e66c2",
+      "scopes": [
+        "food2"
+      ]
+    }
+  ],
+  "scopes": [
+    "food",
+    "food2"
+  ],
+  "source": "Agribalyse 3.2",
+  "unit": "item"
+}

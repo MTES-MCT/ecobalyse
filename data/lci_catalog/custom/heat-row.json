@@ -1,0 +1,49 @@
+{
+  "categories": [
+    "energy"
+  ],
+  "comment": "Reconstitution du mix depuis Ecoinvent 3.9.1\nAncien identifiant (12/2024): heat-row.",
+  "displayName": "Mix chaleur (Monde)",
+  "elecMJ": 0,
+  "heatMJ": 0,
+  "id": "3561ace1-f710-50ce-a69c-9cf842e729e4",
+  "impacts": {
+    "acd": 0.00070501444827913,
+    "cch": 0.0932968401023615,
+    "etf": 0.219549602051125,
+    "etf-c": 0.238243035935154,
+    "fru": 0.842111952376359,
+    "fwe": 2.42659334763169e-05,
+    "htc": 3.02724952156766e-11,
+    "htc-c": 3.44138972151141e-11,
+    "htn": 7.26941297821406e-10,
+    "htn-c": 4.17693285519197e-11,
+    "ior": 0.00050713308668143,
+    "ldu": 0.581963754085644,
+    "mru": 2.35465198569959e-08,
+    "ozd": 4.52611629318977e-10,
+    "pco": 0.00029990152307772,
+    "pma": 1.28413227896674e-08,
+    "swe": 9.17228259927689e-05,
+    "tre": 0.000968230176779089,
+    "wtu": 0.000906321955087608
+  },
+  "metadata": [
+    {
+      "id": "f3b295ad-b7fe-4c15-9588-5d959a327440",
+      "scopes": [
+        "object",
+        "food2"
+      ]
+    }
+  ],
+  "scopes": [
+    "textile",
+    "object",
+    "veli",
+    "food2"
+  ],
+  "source": "Custom",
+  "unit": "MJ",
+  "waste": 0
+}

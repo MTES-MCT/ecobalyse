@@ -1,0 +1,36 @@
+{
+  "activityName": "Sweet corn, canned drained, variant 1, CMAPS {GLO} U",
+  "categories": [
+    "ingredient",
+    "material"
+  ],
+  "displayName": "Maïs doux, appertisé, égoutté FR",
+  "id": "274d39f1-dc2e-4885-a542-3a45b99dc615",
+  "metadata": [
+    {
+      "alias": "sweet-corn-canned-drained-fr",
+      "cropGroup": "MAIS GRAIN ET ENSILAGE",
+      "defaultOrigin": "France",
+      "displayName": "Maïs doux, appertisé, égoutté FR",
+      "id": "f90f8157-2b73-48d0-86f0-039ee3a52618",
+      "inediblePart": 0,
+      "ingredientCategories": [
+        "vegetable_processed"
+      ],
+      "ingredientDensity": 1,
+      "rawToCookedRatio": 1,
+      "scenario": "reference",
+      "scopes": [
+        "food",
+        "food2"
+      ],
+      "transportCooling": "none",
+      "visible": true
+    }
+  ],
+  "scopes": [
+    "food",
+    "food2"
+  ],
+  "source": "Ecobalyse"
+}

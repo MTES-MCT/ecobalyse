@@ -1,0 +1,28 @@
+{
+  "activityName": "aluminium EoL recycling, RER, CFF",
+  "categories": [
+    "end-of-life",
+    "material_type:aluminium"
+  ],
+  "comment": "According to CFF: A=0.2, Q=1",
+  "displayName": "Recyclage de l'aluminium, CFF",
+  "elecMJ": 0,
+  "heatMJ": 0,
+  "id": "7f0621d1-c8ba-416a-af03-450fc2639c97",
+  "metadata": [
+    {
+      "id": "8b60398a-d6b8-467f-89c1-0a0bcd85ba62",
+      "scopes": [
+        "object",
+        "veli"
+      ]
+    }
+  ],
+  "scopes": [
+    "object",
+    "veli"
+  ],
+  "source": "Ecobalyse",
+  "unit": "kg",
+  "waste": 0
+}

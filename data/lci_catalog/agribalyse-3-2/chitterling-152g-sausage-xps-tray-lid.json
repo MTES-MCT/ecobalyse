@@ -1,0 +1,24 @@
+{
+  "activityName": "Chitterling sausage, 152g | Packaging System, N0, All, XPS tray with lid {FR} U",
+  "categories": [
+    "material",
+    "packaging",
+    "packaging_type:tray"
+  ],
+  "displayName": "Barquette en plastique (PSX) pour andouille/andouillette - 152g",
+  "id": "032ac0f3-ff62-42ad-b25d-3762aaf3c067",
+  "metadata": [
+    {
+      "id": "cdba5dde-4714-4422-97eb-bec2cc47a62e",
+      "scopes": [
+        "food2"
+      ]
+    }
+  ],
+  "scopes": [
+    "food",
+    "food2"
+  ],
+  "source": "Agribalyse 3.2",
+  "unit": "item"
+}

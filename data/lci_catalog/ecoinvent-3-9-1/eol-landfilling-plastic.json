@@ -1,0 +1,32 @@
+{
+  "activityName": "waste plastic, mixture//[RoW] treatment of waste plastic, mixture, sanitary landfill",
+  "categories": [
+    "end-of-life",
+    "material_type:pet",
+    "material_type:hdpe",
+    "material_type:ldpe",
+    "material_type:pp",
+    "material_type:rigid_plastics"
+  ],
+  "comment": "",
+  "displayName": "Enfouissement du plastique",
+  "elecMJ": 0,
+  "heatMJ": 0,
+  "id": "9f53caf6-50c1-4e84-bde1-1c2f25f26f44",
+  "metadata": [
+    {
+      "id": "f2c04faa-a41e-4ebd-ab44-d2dc4f4af629",
+      "scopes": [
+        "object",
+        "veli"
+      ]
+    }
+  ],
+  "scopes": [
+    "object",
+    "veli"
+  ],
+  "source": "Ecoinvent 3.9.1",
+  "unit": "kg",
+  "waste": 0
+}

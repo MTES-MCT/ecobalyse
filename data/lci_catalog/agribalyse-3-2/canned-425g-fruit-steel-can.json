@@ -1,0 +1,24 @@
+{
+  "activityName": "Canned fruit, 425g | Packaging System, N0, All, Steel can {FR} U",
+  "categories": [
+    "material",
+    "packaging",
+    "packaging_type:box"
+  ],
+  "displayName": "Boîte en acier avec étiquette pour légumes ou fruits, ambiant - 400g à 425g",
+  "id": "e8cb6119-10b6-4e31-beac-2d66986c7145",
+  "metadata": [
+    {
+      "id": "78167314-2a6d-4e40-bb65-89280b32373d",
+      "scopes": [
+        "food2"
+      ]
+    }
+  ],
+  "scopes": [
+    "food",
+    "food2"
+  ],
+  "source": "Agribalyse 3.2",
+  "unit": "item"
+}

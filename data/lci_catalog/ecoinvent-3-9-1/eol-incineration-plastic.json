@@ -1,0 +1,34 @@
+{
+  "activityName": "waste plastic, mixture//[CH] treatment of waste plastic, mixture, municipal incineration",
+  "categories": [
+    "end-of-life",
+    "material_type:rubber",
+    "material_type:composites",
+    "material_type:pet",
+    "material_type:hdpe",
+    "material_type:ldpe",
+    "material_type:pp",
+    "material_type:rigid_plastics"
+  ],
+  "comment": "",
+  "displayName": "Incinération du plastique",
+  "elecMJ": 0,
+  "heatMJ": 0,
+  "id": "17986210-aeb8-5f4f-99fd-cbecb5439fde",
+  "metadata": [
+    {
+      "id": "7f7af998-8313-47e7-b043-80fcf4d67042",
+      "scopes": [
+        "object",
+        "veli"
+      ]
+    }
+  ],
+  "scopes": [
+    "object",
+    "veli"
+  ],
+  "source": "Ecoinvent 3.9.1",
+  "unit": "kg",
+  "waste": 0
+}

@@ -1,0 +1,29 @@
+{
+  "activityName": "brass//[RoW] market for brass",
+  "categories": [
+    "material",
+    "material_type:copper"
+  ],
+  "comment": "",
+  "displayName": "Laiton",
+  "elecMJ": 0,
+  "heatMJ": 0,
+  "id": "dc44ae3c-8552-5822-a76d-f95ef68682da",
+  "metadata": [
+    {
+      "id": "b87b7c27-6d51-4890-bc41-604586feda5e",
+      "scopes": [
+        "object",
+        "veli"
+      ]
+    }
+  ],
+  "scopes": [
+    "textile",
+    "object",
+    "veli"
+  ],
+  "source": "Ecoinvent 3.9.1",
+  "unit": "kg",
+  "waste": 0
+}

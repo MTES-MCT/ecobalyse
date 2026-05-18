@@ -1,0 +1,38 @@
+{
+  "activityName": "Impression pigmentaire, procédé représentatif, traitement moyen des eaux usées",
+  "categories": [
+    "transformation"
+  ],
+  "comment": "Données provenant de Base Impacts 2.01. Ancien identifiant (12/2024): 710987ca-f483-4f1c-9122-38b620f4062b.",
+  "displayName": "Impression pigmentaire, procédé représentatif, traitement moyen des eaux usées",
+  "elecMJ": 4.56,
+  "heatMJ": 7.25,
+  "id": "9418bfb4-34e5-5bba-920f-b50e2feff1bd",
+  "impacts": {
+    "acd": 0.000211988,
+    "cch": 0.0620522,
+    "etf": 0,
+    "etf-c": 0,
+    "fru": 1.35876,
+    "fwe": 6.81551e-05,
+    "htc": 0,
+    "htc-c": 0,
+    "htn": 0,
+    "htn-c": 0,
+    "ior": 0.000938064,
+    "ldu": 0.29734,
+    "mru": 2.87832e-07,
+    "ozd": 7.62257e-09,
+    "pco": 0.000253113,
+    "pma": 4.09434e-09,
+    "swe": 0.00138926,
+    "tre": 0.000257148,
+    "wtu": 0
+  },
+  "scopes": [
+    "textile"
+  ],
+  "source": "Custom",
+  "unit": "m2",
+  "waste": 0
+}

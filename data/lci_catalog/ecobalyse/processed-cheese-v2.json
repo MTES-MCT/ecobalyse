@@ -1,0 +1,35 @@
+{
+  "activityName": "Processed cheese, variant 2, CMAPS {GLO} U",
+  "categories": [
+    "ingredient",
+    "material"
+  ],
+  "displayName": "Fromage fondu Origine Inconnue",
+  "id": "4466448d-6385-4089-9bc1-0118cea6050b",
+  "metadata": [
+    {
+      "alias": "processed-cheese-default",
+      "defaultOrigin": "OutOfEuropeAndMaghreb",
+      "displayName": "Fromage fondu Origine Inconnue",
+      "id": "3c39b347-16c7-4929-bf91-f159dc8fe6da",
+      "inediblePart": 0,
+      "ingredientCategories": [
+        "dairy_product"
+      ],
+      "ingredientDensity": 1,
+      "rawToCookedRatio": 1,
+      "scenario": "import",
+      "scopes": [
+        "food",
+        "food2"
+      ],
+      "transportCooling": "always",
+      "visible": true
+    }
+  ],
+  "scopes": [
+    "food",
+    "food2"
+  ],
+  "source": "Ecobalyse"
+}

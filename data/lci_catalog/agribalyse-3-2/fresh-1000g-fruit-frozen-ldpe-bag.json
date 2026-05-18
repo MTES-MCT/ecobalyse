@@ -1,0 +1,24 @@
+{
+  "activityName": "Fresh fruit frozen, 1000g | Packaging System, N0, All, LDPE bag {FR} U",
+  "categories": [
+    "material",
+    "packaging",
+    "packaging_type:bag"
+  ],
+  "displayName": "Sachet en plastique (PE) pour fruits frais, surgelés - 1000g",
+  "id": "0f167133-a51f-4f2b-8b89-376478df25b9",
+  "metadata": [
+    {
+      "id": "befad7f7-aff0-4a50-aed9-e3c23320bc58",
+      "scopes": [
+        "food2"
+      ]
+    }
+  ],
+  "scopes": [
+    "food",
+    "food2"
+  ],
+  "source": "Agribalyse 3.2",
+  "unit": "item"
+}

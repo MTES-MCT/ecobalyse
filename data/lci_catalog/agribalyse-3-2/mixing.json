@@ -1,0 +1,21 @@
+{
+  "activityName": "[Dummy] Mixing, processing, at plant {FR} U",
+  "categories": [
+    "transformation"
+  ],
+  "displayName": "Mélange",
+  "id": "dfd4d1d3-0266-5980-b702-f24dede02c01",
+  "metadata": [
+    {
+      "id": "69f0860c-9966-4c18-9cd8-fc2017e5a8af",
+      "scopes": [
+        "food2"
+      ]
+    }
+  ],
+  "scopes": [
+    "food",
+    "food2"
+  ],
+  "source": "Agribalyse 3.2"
+}

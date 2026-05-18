@@ -1,0 +1,35 @@
+{
+  "activityName": "Butter, 82pct fat, variant 1, CMAPS {GLO} U",
+  "categories": [
+    "ingredient",
+    "material"
+  ],
+  "displayName": "Beurre à 82% MG ou huile de beurre FR",
+  "id": "dd1160bc-8ea5-407e-abc7-e317e8f8b126",
+  "metadata": [
+    {
+      "alias": "butter-82pct-fat-fr",
+      "defaultOrigin": "France",
+      "displayName": "Beurre à 82% MG ou huile de beurre FR",
+      "id": "f7254e88-81d4-488f-bf99-badd7427d0bd",
+      "inediblePart": 0,
+      "ingredientCategories": [
+        "dairy_product"
+      ],
+      "ingredientDensity": 1,
+      "rawToCookedRatio": 1,
+      "scenario": "reference",
+      "scopes": [
+        "food",
+        "food2"
+      ],
+      "transportCooling": "always",
+      "visible": true
+    }
+  ],
+  "scopes": [
+    "food",
+    "food2"
+  ],
+  "source": "Ecobalyse"
+}

@@ -1,0 +1,38 @@
+{
+  "activityName": "Transport en voiture jusqu'au point de collecte précalculé pour la fin de vie",
+  "categories": [
+    "transport"
+  ],
+  "comment": "Données provenant de Base Impacts 2.01. Ancien identifiant (12/2024): 1ead35dd-fc71-4b0c-9410-7e39da95c7dc.",
+  "displayName": "Transport en voiture jusqu'au point de collecte précalculé pour la fin de vie",
+  "elecMJ": 0,
+  "heatMJ": 0,
+  "id": "2fd6b74f-600a-577c-ba37-b84d8f0482c2",
+  "impacts": {
+    "acd": 0.00011505,
+    "cch": 0.0364904,
+    "etf": 0,
+    "etf-c": 0,
+    "fru": 0.471935,
+    "fwe": 1.8876e-07,
+    "htc": 0,
+    "htc-c": 0,
+    "htn": 0,
+    "htn-c": 0,
+    "ior": 7.41e-05,
+    "ldu": 0.146289,
+    "mru": 2.7105e-09,
+    "ozd": 8.6775e-14,
+    "pco": 9.165e-05,
+    "pma": 9.945e-10,
+    "swe": 3.705e-05,
+    "tre": 0.0004758,
+    "wtu": 0
+  },
+  "scopes": [
+    "textile"
+  ],
+  "source": "Custom",
+  "unit": "item",
+  "waste": 0
+}

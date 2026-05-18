@@ -1,0 +1,24 @@
+{
+  "activityName": "Duck confit, 1000g | Packaging System, N0, All, Vacuum bag {FR} U",
+  "categories": [
+    "material",
+    "packaging",
+    "packaging_type:bag"
+  ],
+  "displayName": "Sachet sous-vide en plastique (PA/PE) pour canard confit - 1000g",
+  "id": "919aff43-bd0f-4c69-90c5-cdccfa166679",
+  "metadata": [
+    {
+      "id": "6e6c6482-5837-411e-867c-9314b2c501ac",
+      "scopes": [
+        "food2"
+      ]
+    }
+  ],
+  "scopes": [
+    "food",
+    "food2"
+  ],
+  "source": "Agribalyse 3.2",
+  "unit": "item"
+}

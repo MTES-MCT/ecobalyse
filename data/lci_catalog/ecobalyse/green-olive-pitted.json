@@ -1,0 +1,36 @@
+{
+  "activityName": "Green olive, pitted, CMAPS {GLO} U",
+  "categories": [
+    "ingredient",
+    "material"
+  ],
+  "displayName": "Olive verte, dénoyautée FR",
+  "id": "1158b63b-40e1-4fe8-b22d-d8d34ee36b60",
+  "metadata": [
+    {
+      "alias": "green-olive-pitted-fr",
+      "cropGroup": "OLIVIERS",
+      "defaultOrigin": "France",
+      "displayName": "Olive verte, dénoyautée FR",
+      "id": "492a7f49-2fb2-4368-92cb-09a02764e482",
+      "inediblePart": 0,
+      "ingredientCategories": [
+        "vegetable_fresh"
+      ],
+      "ingredientDensity": 1,
+      "rawToCookedRatio": 1,
+      "scenario": "reference",
+      "scopes": [
+        "food",
+        "food2"
+      ],
+      "transportCooling": "always",
+      "visible": true
+    }
+  ],
+  "scopes": [
+    "food",
+    "food2"
+  ],
+  "source": "Ecobalyse"
+}

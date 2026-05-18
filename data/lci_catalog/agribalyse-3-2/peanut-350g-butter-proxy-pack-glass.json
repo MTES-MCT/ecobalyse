@@ -1,0 +1,24 @@
+{
+  "activityName": "Peanut butter, 350g | Packaging System, Proxy Pack, Glass {FR} U",
+  "categories": [
+    "material",
+    "packaging",
+    "packaging_type:jar"
+  ],
+  "displayName": "Pot en verre pour beurre de cacahuète - 350g - Proxy",
+  "id": "f605fa1e-5691-4d77-9f8b-00af3c1fa557",
+  "metadata": [
+    {
+      "id": "b77d413b-1731-4dbc-8be8-07c74255452b",
+      "scopes": [
+        "food2"
+      ]
+    }
+  ],
+  "scopes": [
+    "food",
+    "food2"
+  ],
+  "source": "Agribalyse 3.2",
+  "unit": "item"
+}

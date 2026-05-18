@@ -1,0 +1,24 @@
+{
+  "activityName": "Dairy desserts - cat B, 330g | Packaging System, N0, All, Plastic bottle {FR} U",
+  "categories": [
+    "material",
+    "packaging",
+    "packaging_type:bottle"
+  ],
+  "displayName": "Bouteille en plastique (PEHD) pour dessert & produit laitier - 33 cL",
+  "id": "5ac6b4c8-60a2-4d31-8d38-4c62b20fd026",
+  "metadata": [
+    {
+      "id": "8fab73c6-838a-478d-a359-462296d981d5",
+      "scopes": [
+        "food2"
+      ]
+    }
+  ],
+  "scopes": [
+    "food",
+    "food2"
+  ],
+  "source": "Agribalyse 3.2",
+  "unit": "item"
+}

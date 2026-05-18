@@ -1,0 +1,37 @@
+{
+  "activityName": "Orange, pulp raw, organic, CMAPS {GLO} U",
+  "categories": [
+    "ingredient",
+    "material"
+  ],
+  "displayName": "Orange, pulpe, crue Origine Inconnue BIO",
+  "id": "efbe0be9-d775-4cfd-b40e-6cb134d5abe4",
+  "metadata": [
+    {
+      "alias": "orange-pulp-raw-default-organic",
+      "cropGroup": "VERGERS",
+      "defaultOrigin": "OutOfEuropeAndMaghreb",
+      "displayName": "Orange, pulpe, crue Origine Inconnue BIO",
+      "id": "e33e5b25-d557-4e3a-ad2f-04e8b68972a1",
+      "inediblePart": 0,
+      "ingredientCategories": [
+        "vegetable_fresh",
+        "organic"
+      ],
+      "ingredientDensity": 1,
+      "rawToCookedRatio": 1,
+      "scenario": "organic",
+      "scopes": [
+        "food",
+        "food2"
+      ],
+      "transportCooling": "always",
+      "visible": false
+    }
+  ],
+  "scopes": [
+    "food",
+    "food2"
+  ],
+  "source": "Ecobalyse"
+}

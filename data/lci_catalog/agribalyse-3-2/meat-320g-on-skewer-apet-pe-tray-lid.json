@@ -1,0 +1,24 @@
+{
+  "activityName": "Meat on skewer, 320g | Packaging System, N0, All, APET/PE tray with lid {FR} U",
+  "categories": [
+    "material",
+    "packaging",
+    "packaging_type:tray"
+  ],
+  "displayName": "Barquette en plastique (APET/PE) pour brochette de viande - 320g",
+  "id": "1bd10c7a-55c2-462b-8da7-b185220941f0",
+  "metadata": [
+    {
+      "id": "9b1981dd-56e5-4b42-9793-87751355408a",
+      "scopes": [
+        "food2"
+      ]
+    }
+  ],
+  "scopes": [
+    "food",
+    "food2"
+  ],
+  "source": "Agribalyse 3.2",
+  "unit": "item"
+}

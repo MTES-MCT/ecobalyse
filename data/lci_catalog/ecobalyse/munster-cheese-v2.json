@@ -1,0 +1,35 @@
+{
+  "activityName": "Munster cheese, variant 2, CMAPS {GLO} U",
+  "categories": [
+    "ingredient",
+    "material"
+  ],
+  "displayName": "Munster Origine Inconnue",
+  "id": "9d89f2cd-17c9-4488-a56d-e724dc57e58d",
+  "metadata": [
+    {
+      "alias": "munster-cheese-default",
+      "defaultOrigin": "OutOfEuropeAndMaghreb",
+      "displayName": "Munster Origine Inconnue",
+      "id": "bc586388-bd0d-4457-b8a2-ff9c825b4b93",
+      "inediblePart": 0,
+      "ingredientCategories": [
+        "dairy_product"
+      ],
+      "ingredientDensity": 1,
+      "rawToCookedRatio": 1,
+      "scenario": "import",
+      "scopes": [
+        "food",
+        "food2"
+      ],
+      "transportCooling": "always",
+      "visible": false
+    }
+  ],
+  "scopes": [
+    "food",
+    "food2"
+  ],
+  "source": "Ecobalyse"
+}

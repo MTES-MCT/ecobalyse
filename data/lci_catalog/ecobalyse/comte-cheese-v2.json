@@ -1,0 +1,35 @@
+{
+  "activityName": "Comte cheese, variant 2, CMAPS {GLO} U",
+  "categories": [
+    "ingredient",
+    "material"
+  ],
+  "displayName": "Comté Origine Inconnue",
+  "id": "02ed0b35-44eb-4257-8497-4c4d09bad9bf",
+  "metadata": [
+    {
+      "alias": "comte-cheese-default",
+      "defaultOrigin": "OutOfEuropeAndMaghreb",
+      "displayName": "Comté Origine Inconnue",
+      "id": "281a1191-0582-4a8d-b018-e4bf7150870e",
+      "inediblePart": 0,
+      "ingredientCategories": [
+        "dairy_product"
+      ],
+      "ingredientDensity": 1,
+      "rawToCookedRatio": 1,
+      "scenario": "import",
+      "scopes": [
+        "food",
+        "food2"
+      ],
+      "transportCooling": "always",
+      "visible": false
+    }
+  ],
+  "scopes": [
+    "food",
+    "food2"
+  ],
+  "source": "Ecobalyse"
+}

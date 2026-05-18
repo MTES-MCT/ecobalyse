@@ -1,0 +1,29 @@
+{
+  "activityName": "electricity, medium voltage//[RNA] market group for electricity, medium voltage",
+  "categories": [
+    "energy"
+  ],
+  "comment": "Ancien identifiant (12/2024): elec-medium-region-north-america.",
+  "displayName": "Électricité moyenne tension, Amérique du nord",
+  "elecMJ": 0,
+  "heatMJ": 0,
+  "id": "6911c87b-6cf9-5b33-be9a-e50a9e132575",
+  "metadata": [
+    {
+      "id": "7c299e26-d5bd-4129-bbc6-c925a07d1a7e",
+      "scopes": [
+        "object",
+        "food2"
+      ]
+    }
+  ],
+  "scopes": [
+    "textile",
+    "object",
+    "veli",
+    "food2"
+  ],
+  "source": "Ecoinvent 3.9.1",
+  "unit": "kWh",
+  "waste": 0
+}

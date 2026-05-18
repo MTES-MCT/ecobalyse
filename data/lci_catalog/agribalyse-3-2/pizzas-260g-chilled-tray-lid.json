@@ -1,0 +1,24 @@
+{
+  "activityName": "Pizzas, chilled, 260g | Packaging System, N0, All, Tray with lid {FR} U",
+  "categories": [
+    "material",
+    "packaging",
+    "packaging_type:tray"
+  ],
+  "displayName": "Barquette en plastique (PET/PEBD) pour part de pizza, réfrigérée - 260g",
+  "id": "1e87f97f-4d8b-41d1-b76a-35cee18d6969",
+  "metadata": [
+    {
+      "id": "9d5ffa39-a178-4cad-ac7e-5f0f80d8f60f",
+      "scopes": [
+        "food2"
+      ]
+    }
+  ],
+  "scopes": [
+    "food",
+    "food2"
+  ],
+  "source": "Agribalyse 3.2",
+  "unit": "item"
+}

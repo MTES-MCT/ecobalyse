@@ -1,0 +1,36 @@
+{
+  "activityName": "Rice flour, CMAPS {GLO} U",
+  "categories": [
+    "ingredient",
+    "material"
+  ],
+  "displayName": "Farine de riz FR",
+  "id": "d7e5123d-d9c4-4eb2-8627-44fd182518bd",
+  "metadata": [
+    {
+      "alias": "rice-flour-fr",
+      "cropGroup": "RIZ",
+      "defaultOrigin": "France",
+      "displayName": "Farine de riz FR",
+      "id": "08c1c93d-67dd-41ed-b01b-45c8fb79b709",
+      "inediblePart": 0,
+      "ingredientCategories": [
+        "grain_processed"
+      ],
+      "ingredientDensity": 1,
+      "rawToCookedRatio": 1,
+      "scenario": "reference",
+      "scopes": [
+        "food",
+        "food2"
+      ],
+      "transportCooling": "always",
+      "visible": true
+    }
+  ],
+  "scopes": [
+    "food",
+    "food2"
+  ],
+  "source": "Ecobalyse"
+}

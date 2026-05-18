@@ -1,0 +1,27 @@
+{
+  "activityName": "electricity, medium voltage//[PT] market for electricity, medium voltage",
+  "categories": [
+    "energy"
+  ],
+  "comment": "",
+  "displayName": "Electricité moyenne tension, Portugal",
+  "elecMJ": 0,
+  "heatMJ": 0,
+  "id": "c16db557-907d-5146-a65c-0ef4a2098f99",
+  "metadata": [
+    {
+      "id": "15cd9062-bbb2-4b5b-b688-f872864d860e",
+      "scopes": [
+        "object",
+        "veli"
+      ]
+    }
+  ],
+  "scopes": [
+    "object",
+    "veli"
+  ],
+  "source": "Ecoinvent 3.9.1",
+  "unit": "kWh",
+  "waste": 0
+}

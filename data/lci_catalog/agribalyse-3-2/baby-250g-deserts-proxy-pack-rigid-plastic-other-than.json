@@ -1,0 +1,24 @@
+{
+  "activityName": "Baby deserts, 250g | Packaging System, Proxy Pack, Rigid plastic, other than bottles {FR} U",
+  "categories": [
+    "material",
+    "packaging",
+    "packaging_type:tray"
+  ],
+  "displayName": "Pot en plastique (PP) pour dessert pour bébés - 250g - Proxy",
+  "id": "cb910040-9736-4c83-9feb-552b9de13a77",
+  "metadata": [
+    {
+      "id": "99dfca77-db4d-45ba-92bb-fa8d25b11952",
+      "scopes": [
+        "food2"
+      ]
+    }
+  ],
+  "scopes": [
+    "food",
+    "food2"
+  ],
+  "source": "Agribalyse 3.2",
+  "unit": "item"
+}

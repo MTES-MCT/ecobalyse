@@ -1,0 +1,54 @@
+{
+  "activityName": "Goat cheese, fresh to aged, CMAPS {GLO} U",
+  "categories": [
+    "ingredient",
+    "material"
+  ],
+  "displayName": "Fromage de chèvre (frais, bûche, affiné, pasteurisé, crottin) FR",
+  "id": "fae0d7f6-06a0-4baf-9eba-61b95acd9500",
+  "metadata": [
+    {
+      "alias": "goat-cheese-fresh-to-aged-default",
+      "defaultOrigin": "OutOfEuropeAndMaghreb",
+      "displayName": "Fromage de chèvre (frais, bûche, affiné, pasteurisé, crottin) Origine Inconnue",
+      "id": "25870e14-1fc4-4ba3-bf2a-feecb8619b7f",
+      "inediblePart": 0,
+      "ingredientCategories": [
+        "dairy_product"
+      ],
+      "ingredientDensity": 1,
+      "rawToCookedRatio": 1,
+      "scenario": "import",
+      "scopes": [
+        "food",
+        "food2"
+      ],
+      "transportCooling": "always",
+      "visible": false
+    },
+    {
+      "alias": "goat-cheese-fresh-to-aged-fr",
+      "defaultOrigin": "France",
+      "displayName": "Fromage de chèvre (frais, bûche, affiné, pasteurisé, crottin) FR",
+      "id": "ababbc96-a3b7-4b5f-a4b1-6b53e1c6eb28",
+      "inediblePart": 0,
+      "ingredientCategories": [
+        "dairy_product"
+      ],
+      "ingredientDensity": 1,
+      "rawToCookedRatio": 1,
+      "scenario": "reference",
+      "scopes": [
+        "food",
+        "food2"
+      ],
+      "transportCooling": "always",
+      "visible": false
+    }
+  ],
+  "scopes": [
+    "food",
+    "food2"
+  ],
+  "source": "Ecobalyse"
+}

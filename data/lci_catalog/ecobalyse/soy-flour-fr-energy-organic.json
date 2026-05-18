@@ -1,0 +1,37 @@
+{
+  "activityName": "Soy flour, organic, CMAPS {FR} U",
+  "categories": [
+    "ingredient",
+    "material"
+  ],
+  "displayName": "Farine de soja Origine Inconnue BIO",
+  "id": "0e0c1f9d-15e4-4f69-b783-a740d00eadc2",
+  "metadata": [
+    {
+      "alias": "soy-flour-default-organic",
+      "cropGroup": "AUTRES OLEAGINEUX",
+      "defaultOrigin": "OutOfEuropeAndMaghreb",
+      "displayName": "Farine de soja Origine Inconnue BIO",
+      "id": "ce3993fb-23d3-4dc8-be22-af9c240ace13",
+      "inediblePart": 0,
+      "ingredientCategories": [
+        "grain_processed",
+        "organic"
+      ],
+      "ingredientDensity": 1,
+      "rawToCookedRatio": 1,
+      "scenario": "organic",
+      "scopes": [
+        "food",
+        "food2"
+      ],
+      "transportCooling": "always",
+      "visible": false
+    }
+  ],
+  "scopes": [
+    "food",
+    "food2"
+  ],
+  "source": "Ecobalyse"
+}

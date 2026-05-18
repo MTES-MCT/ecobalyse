@@ -1,0 +1,36 @@
+{
+  "activityName": "Barley flour, CMAPS {GLO} U",
+  "categories": [
+    "ingredient",
+    "material"
+  ],
+  "displayName": "Farine d'orge FR",
+  "id": "7eed490b-ebb0-4329-ab6f-d360a7a6b222",
+  "metadata": [
+    {
+      "alias": "barley-flour-fr",
+      "cropGroup": "ORGE",
+      "defaultOrigin": "France",
+      "displayName": "Farine d'orge FR",
+      "id": "6665e6d0-38da-4010-87e7-7fb54f85643d",
+      "inediblePart": 0,
+      "ingredientCategories": [
+        "grain_processed"
+      ],
+      "ingredientDensity": 1,
+      "rawToCookedRatio": 1,
+      "scenario": "reference",
+      "scopes": [
+        "food",
+        "food2"
+      ],
+      "transportCooling": "always",
+      "visible": true
+    }
+  ],
+  "scopes": [
+    "food",
+    "food2"
+  ],
+  "source": "Ecobalyse"
+}

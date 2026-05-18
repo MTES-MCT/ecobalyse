@@ -1,0 +1,28 @@
+{
+  "activityName": "synthetic rubber//[RER] synthetic rubber production",
+  "categories": [
+    "material",
+    "material_type:rubber"
+  ],
+  "comment": "",
+  "displayName": "Caoutchouc synthétique",
+  "elecMJ": 0,
+  "heatMJ": 0,
+  "id": "5cae8f4a-125c-57a7-853b-b5648902badc",
+  "metadata": [
+    {
+      "id": "9c5a7a8e-6483-4da8-9cc2-0a90a30cb93a",
+      "scopes": [
+        "object",
+        "veli"
+      ]
+    }
+  ],
+  "scopes": [
+    "object",
+    "veli"
+  ],
+  "source": "Ecoinvent 3.9.1",
+  "unit": "kg",
+  "waste": 0
+}

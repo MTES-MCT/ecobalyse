@@ -1,0 +1,29 @@
+{
+  "activityName": "wood chips, wet, measured as dry mass, in m3 //[Europe without Switzerland] market for wood chips, wet, measured as dry mass, in m3",
+  "categories": [
+    "material",
+    "material_type:wood"
+  ],
+  "comment": "",
+  "displayName": "Bois d'industrie",
+  "elecMJ": 0,
+  "heatMJ": 0,
+  "id": "994c7524-1d73-430b-9daa-800904613370",
+  "massPerUnit": 565,
+  "metadata": [
+    {
+      "id": "cfd38f78-03a4-4d5d-9909-d68e20b9943b",
+      "scopes": [
+        "object",
+        "veli"
+      ]
+    }
+  ],
+  "scopes": [
+    "object",
+    "veli"
+  ],
+  "source": "Ecobalyse",
+  "unit": "m3",
+  "waste": 0
+}

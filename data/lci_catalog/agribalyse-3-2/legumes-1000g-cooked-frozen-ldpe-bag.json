@@ -1,0 +1,24 @@
+{
+  "activityName": "Legumes cooked frozen, 1000g | Packaging System, N0, All, LDPE bag {FR} U",
+  "categories": [
+    "material",
+    "packaging",
+    "packaging_type:bag"
+  ],
+  "displayName": "Sachet en plastique (PE) pour légumes surgelés - 1000g",
+  "id": "bdda4824-2340-46de-a53e-8dd309dc0e7a",
+  "metadata": [
+    {
+      "id": "2c25ed8e-5b6a-4413-83da-6d888ba4dcc7",
+      "scopes": [
+        "food2"
+      ]
+    }
+  ],
+  "scopes": [
+    "food",
+    "food2"
+  ],
+  "source": "Agribalyse 3.2",
+  "unit": "item"
+}

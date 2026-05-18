@@ -1,0 +1,37 @@
+{
+  "activityName": "Basmati rice, consumption mix {FR} U",
+  "categories": [
+    "ingredient",
+    "material",
+    "material_type:other_food_items"
+  ],
+  "displayName": "Riz basmati UE",
+  "id": "742f7798-b666-5551-a959-965856c51063",
+  "metadata": [
+    {
+      "alias": "rice-basmati-eu-2025",
+      "cropGroup": "RIZ",
+      "defaultOrigin": "EuropeAndMaghreb",
+      "displayName": "Riz basmati UE (2025)",
+      "id": "3294e42c-c053-42e5-bcc0-a35f189681d6",
+      "inediblePart": 0,
+      "ingredientCategories": [
+        "grain_raw"
+      ],
+      "ingredientDensity": 0.72,
+      "rawToCookedRatio": 2.259,
+      "scenario": "import",
+      "scopes": [
+        "food",
+        "food2"
+      ],
+      "transportCooling": "none",
+      "visible": true
+    }
+  ],
+  "scopes": [
+    "food",
+    "food2"
+  ],
+  "source": "Agribalyse 3.2"
+}

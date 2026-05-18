@@ -1,0 +1,29 @@
+{
+  "activityName": "waste textile, soiled//[CH] treatment of waste textile, soiled, municipal incineration with fly ash extraction",
+  "categories": [
+    "end-of-life",
+    "material_type:organic_fibers",
+    "material_type:synthetic_fibers"
+  ],
+  "comment": "",
+  "displayName": "Incinération des textiles",
+  "elecMJ": 0,
+  "heatMJ": 0,
+  "id": "ef781102-e9b6-4097-999c-7c988d80ba50",
+  "metadata": [
+    {
+      "id": "09b50832-bf5a-470d-8b8d-ecbd59cd1f9d",
+      "scopes": [
+        "object",
+        "veli"
+      ]
+    }
+  ],
+  "scopes": [
+    "object",
+    "veli"
+  ],
+  "source": "Ecoinvent 3.9.1",
+  "unit": "kg",
+  "waste": 0
+}

@@ -1,0 +1,54 @@
+{
+  "activityName": "Feta type cheese, sheep milk, CMAPS {GLO} U",
+  "categories": [
+    "ingredient",
+    "material"
+  ],
+  "displayName": "Fromage 100% brebis type Feta FR",
+  "id": "96832c94-3420-466e-9fbc-e99178754462",
+  "metadata": [
+    {
+      "alias": "feta-type-cheese-sheep-milk-default",
+      "defaultOrigin": "OutOfEuropeAndMaghreb",
+      "displayName": "Fromage 100% brebis type Feta Origine Inconnue",
+      "id": "66ea7ae4-f0b7-4afb-bd13-221256373808",
+      "inediblePart": 0,
+      "ingredientCategories": [
+        "dairy_product"
+      ],
+      "ingredientDensity": 1,
+      "rawToCookedRatio": 1,
+      "scenario": "import",
+      "scopes": [
+        "food",
+        "food2"
+      ],
+      "transportCooling": "always",
+      "visible": false
+    },
+    {
+      "alias": "feta-type-cheese-sheep-milk-fr",
+      "defaultOrigin": "France",
+      "displayName": "Fromage 100% brebis type Feta FR",
+      "id": "4e6c1382-1f0c-4937-a319-0c70ac91f959",
+      "inediblePart": 0,
+      "ingredientCategories": [
+        "dairy_product"
+      ],
+      "ingredientDensity": 1,
+      "rawToCookedRatio": 1,
+      "scenario": "reference",
+      "scopes": [
+        "food",
+        "food2"
+      ],
+      "transportCooling": "always",
+      "visible": false
+    }
+  ],
+  "scopes": [
+    "food",
+    "food2"
+  ],
+  "source": "Ecobalyse"
+}

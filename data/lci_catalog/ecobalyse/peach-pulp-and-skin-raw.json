@@ -1,0 +1,36 @@
+{
+  "activityName": "Peach, pulp and skin raw, CMAPS {GLO} U",
+  "categories": [
+    "ingredient",
+    "material"
+  ],
+  "displayName": "Pêche, pulpe et peau, crue FR",
+  "id": "41316527-02d9-45a1-89a6-ec6c4699fbe9",
+  "metadata": [
+    {
+      "alias": "peach-pulp-and-skin-raw-fr",
+      "cropGroup": "VERGERS",
+      "defaultOrigin": "France",
+      "displayName": "Pêche, pulpe et peau, crue FR",
+      "id": "a827f92a-7419-4218-b65a-e5513db15f48",
+      "inediblePart": 0,
+      "ingredientCategories": [
+        "vegetable_fresh"
+      ],
+      "ingredientDensity": 1,
+      "rawToCookedRatio": 1,
+      "scenario": "reference",
+      "scopes": [
+        "food",
+        "food2"
+      ],
+      "transportCooling": "always",
+      "visible": true
+    }
+  ],
+  "scopes": [
+    "food",
+    "food2"
+  ],
+  "source": "Ecobalyse"
+}

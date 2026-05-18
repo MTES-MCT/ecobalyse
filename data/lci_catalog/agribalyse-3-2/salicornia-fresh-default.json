@@ -1,0 +1,99 @@
+{
+  "activityName": "Seaweed non-optimized production, 1kg algae (Laminaria), fresh weight {FR} U",
+  "categories": [
+    "ingredient",
+    "material",
+    "material_type:fruits_and_vegetables"
+  ],
+  "displayName": "Salicorne, fraîche Origine Inconnue",
+  "id": "7b084f7e-34ee-5295-a2b0-0b63938c7e8c",
+  "location": "FR",
+  "metadata": [
+    {
+      "alias": "salicornia-fresh-default",
+      "cropGroup": "LEGUMES-FLEURS",
+      "cropGroupMatch": {
+        "confidence": 1.0,
+        "rule": "vegetable default"
+      },
+      "defaultOrigin": "OutOfEuropeAndMaghreb",
+      "displayName": "Salicorne, fraîche Origine Inconnue",
+      "id": "216d7676-f583-55c1-8bec-e7467a8f5a38",
+      "inediblePart": 0.2,
+      "inediblePartMatch": {
+        "confidence": 1.0,
+        "rule": "vegetable NOVA 1 default from food_type_inedible_part.csv"
+      },
+      "ingredientCategories": [
+        "vegetable_fresh"
+      ],
+      "ingredientDensity": 0.9,
+      "ingredientDensityMatch": {
+        "confidence": 1.0,
+        "rule": "vegetable default from food_type_density.csv"
+      },
+      "rawToCookedRatio": 0.856,
+      "rawToCookedRatioMatch": {
+        "confidence": 1.0,
+        "rule": "vegetable default from food_type_cooked_to_raw.csv"
+      },
+      "scenario": "import",
+      "scopes": [
+        "food",
+        "food2"
+      ],
+      "transportCooling": "always",
+      "transportCoolingMatch": {
+        "confidence": 1.0,
+        "rule": "vegetable NOVA 1 → always (perishable)"
+      },
+      "visible": true
+    },
+    {
+      "alias": "seaweed-default",
+      "cropGroup": "DIVERS",
+      "cropGroupMatch": {
+        "confidence": 1.0,
+        "rule": "matched 'seaweed' in cropgroup.csv"
+      },
+      "defaultOrigin": "OutOfEuropeAndMaghreb",
+      "displayName": "Algue Origine Inconnue",
+      "id": "f85915bb-9679-530c-b06b-0180c64aa4ed",
+      "inediblePart": 0.2,
+      "inediblePartMatch": {
+        "confidence": 1.0,
+        "rule": "vegetable NOVA 1 default from food_type_inedible_part.csv"
+      },
+      "ingredientCategories": [
+        "vegetable_fresh"
+      ],
+      "ingredientDensity": 0.9,
+      "ingredientDensityMatch": {
+        "confidence": 1.0,
+        "rule": "vegetable default from food_type_density.csv"
+      },
+      "rawToCookedRatio": 0.856,
+      "rawToCookedRatioMatch": {
+        "confidence": 1.0,
+        "rule": "vegetable default from food_type_cooked_to_raw.csv"
+      },
+      "scenario": "import",
+      "scopes": [
+        "food",
+        "food2"
+      ],
+      "transportCooling": "always",
+      "transportCoolingMatch": {
+        "confidence": 1.0,
+        "rule": "vegetable NOVA 1 → always (perishable)"
+      },
+      "visible": true
+    }
+  ],
+  "scopes": [
+    "food",
+    "food2"
+  ],
+  "source": "Agribalyse 3.2",
+  "unit": "kg"
+}

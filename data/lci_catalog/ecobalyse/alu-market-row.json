@@ -1,0 +1,28 @@
+{
+  "activityName": "aluminium ingot, market, RoW",
+  "categories": [
+    "material",
+    "material_type:aluminium"
+  ],
+  "comment": "https://fabrique-numerique.gitbook.io/ecobalyse/methodes-transverses-specifiques/procedes-acier-et-aluminium",
+  "displayName": "Aluminium, mix marché, hors Europe et Chine",
+  "elecMJ": 0,
+  "heatMJ": 0,
+  "id": "ce5e5069-485a-52c2-9458-3dc45470ffac",
+  "metadata": [
+    {
+      "id": "2bd832fa-3376-4ebd-b699-2a7f0f32ce84",
+      "scopes": [
+        "object",
+        "veli"
+      ]
+    }
+  ],
+  "scopes": [
+    "object",
+    "veli"
+  ],
+  "source": "Ecobalyse",
+  "unit": "kg",
+  "waste": 0
+}

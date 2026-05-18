@@ -1,0 +1,179 @@
+{
+  "activityName": "Peanut, in shell, at farm (WFLDB)",
+  "categories": [
+    "ingredient",
+    "material",
+    "material_type:other_food_items"
+  ],
+  "displayName": "Noix du Brésil Origine Inconnue",
+  "id": "dfa803f3-847e-5283-a969-d726e3b844d1",
+  "location": "IN",
+  "metadata": [
+    {
+      "alias": "brazil-nut-default",
+      "cropGroup": "FRUITS A COQUES",
+      "cropGroupMatch": {
+        "confidence": 0.95,
+        "rule": "matched 'noix' in cropgroup.csv"
+      },
+      "defaultOrigin": "OutOfEuropeAndMaghreb",
+      "displayName": "Noix du Brésil Origine Inconnue",
+      "id": "81a21989-c2e3-5d93-8013-7f13251d7982",
+      "inediblePart": 0.5,
+      "inediblePartMatch": {
+        "confidence": 1.0,
+        "rule": "nut_oilseed NOVA 1 default from food_type_inedible_part.csv"
+      },
+      "ingredientCategories": [
+        "nut_oilseed_raw"
+      ],
+      "ingredientDensity": 0.63,
+      "ingredientDensityMatch": {
+        "confidence": 0.95,
+        "rule": "Matched with Nuts in fao_density.csv"
+      },
+      "rawToCookedRatio": 1.0,
+      "rawToCookedRatioMatch": {
+        "confidence": 1.0,
+        "rule": "nut_oilseed default from food_type_cooked_to_raw.csv"
+      },
+      "scenario": "import",
+      "scopes": [
+        "food",
+        "food2"
+      ],
+      "transportCooling": "none",
+      "transportCoolingMatch": {
+        "confidence": 1.0,
+        "rule": "nut_oilseed → none (non-perishable)"
+      },
+      "visible": true
+    },
+    {
+      "alias": "peanut-default",
+      "cropGroup": "FRUITS A COQUES",
+      "cropGroupMatch": {
+        "confidence": 1.0,
+        "rule": "nut default"
+      },
+      "defaultOrigin": "OutOfEuropeAndMaghreb",
+      "displayName": "Arachide Origine Inconnue",
+      "id": "50a3465b-0922-55ec-9732-7423ed8f1c87",
+      "inediblePart": 0.0,
+      "inediblePartMatch": {
+        "confidence": 0.95,
+        "rule": "Matched with peanut butter in inedible_part.csv"
+      },
+      "ingredientCategories": [
+        "nut_oilseed_raw"
+      ],
+      "ingredientDensity": 0.55,
+      "ingredientDensityMatch": {
+        "confidence": 1.0,
+        "rule": "peanut found in density.csv"
+      },
+      "rawToCookedRatio": 1.0,
+      "rawToCookedRatioMatch": {
+        "confidence": 0.95,
+        "rule": "Matched with peanut butter in cooked_to_raw.csv"
+      },
+      "scenario": "import",
+      "scopes": [
+        "food",
+        "food2"
+      ],
+      "transportCooling": "none",
+      "transportCoolingMatch": {
+        "confidence": 1.0,
+        "rule": "nut_oilseed → none (non-perishable)"
+      },
+      "visible": true
+    },
+    {
+      "alias": "pine-nut-default",
+      "cropGroup": "FRUITS A COQUES",
+      "cropGroupMatch": {
+        "confidence": 0.95,
+        "rule": "matched 'noix' in cropgroup.csv"
+      },
+      "defaultOrigin": "OutOfEuropeAndMaghreb",
+      "displayName": "Pignons de pin Origine Inconnue",
+      "id": "28c098db-c276-5df3-8880-87f302e7ccaf",
+      "inediblePart": 0.5,
+      "inediblePartMatch": {
+        "confidence": 1.0,
+        "rule": "nut_oilseed NOVA 1 default from food_type_inedible_part.csv"
+      },
+      "ingredientCategories": [
+        "nut_oilseed_raw"
+      ],
+      "ingredientDensity": 0.63,
+      "ingredientDensityMatch": {
+        "confidence": 0.95,
+        "rule": "Matched with Nuts in fao_density.csv"
+      },
+      "rawToCookedRatio": 1.0,
+      "rawToCookedRatioMatch": {
+        "confidence": 1.0,
+        "rule": "nut_oilseed default from food_type_cooked_to_raw.csv"
+      },
+      "scenario": "import",
+      "scopes": [
+        "food",
+        "food2"
+      ],
+      "transportCooling": "none",
+      "transportCoolingMatch": {
+        "confidence": 1.0,
+        "rule": "nut_oilseed → none (non-perishable)"
+      },
+      "visible": true
+    },
+    {
+      "alias": "pistachio-default",
+      "cropGroup": "FRUITS A COQUES",
+      "cropGroupMatch": {
+        "confidence": 1.0,
+        "rule": "matched 'pistaches' in cropgroup.csv"
+      },
+      "defaultOrigin": "OutOfEuropeAndMaghreb",
+      "displayName": "Pistaches Origine Inconnue",
+      "id": "1cf8f49e-d1a5-5ffe-9af3-8c15988e2353",
+      "inediblePart": 0.5,
+      "inediblePartMatch": {
+        "confidence": 1.0,
+        "rule": "nut_oilseed NOVA 1 default from food_type_inedible_part.csv"
+      },
+      "ingredientCategories": [
+        "nut_oilseed_raw"
+      ],
+      "ingredientDensity": 0.5,
+      "ingredientDensityMatch": {
+        "confidence": 0.95,
+        "rule": "Matched with pistachio in density.csv"
+      },
+      "rawToCookedRatio": 1.0,
+      "rawToCookedRatioMatch": {
+        "confidence": 1.0,
+        "rule": "nut_oilseed default from food_type_cooked_to_raw.csv"
+      },
+      "scenario": "import",
+      "scopes": [
+        "food",
+        "food2"
+      ],
+      "transportCooling": "none",
+      "transportCoolingMatch": {
+        "confidence": 1.0,
+        "rule": "nut_oilseed → none (non-perishable)"
+      },
+      "visible": true
+    }
+  ],
+  "scopes": [
+    "food",
+    "food2"
+  ],
+  "source": "WFLDB",
+  "unit": "kg"
+}

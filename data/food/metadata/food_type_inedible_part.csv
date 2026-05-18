@@ -1,0 +1,21 @@
+food_type;nova_group;inedible_part;source
+vegetable;1;0.20;inedible_part.csv fresh vegetable
+fruit;1;0.20;inedible_part.csv fresh fruit
+fish_seafood;1;0.40;AGB whole fish average
+meat;1;0.05;AGB reference
+nut_oilseed;1;0.50;AGB nuts in shell
+grain;1;0.0;always edible
+dairy;1;0.0;always edible
+spice_condiment;1;0.0;always edible
+beverage;1;0.0;always edible
+legume;1;0.20;Agribalyse/CIQUAL fresh legumes
+legume;2;0.0;processed
+vegetable;2;0.0;processed
+fruit;2;0.0;processed
+fish_seafood;2;0.0;processed fillet
+meat;2;0.0;processed boneless
+nut_oilseed;2;0.0;processed shelled
+grain;2;0.0;processed
+dairy;2;0.0;processed
+spice_condiment;2;0.0;processed
+beverage;2;0.0;processed

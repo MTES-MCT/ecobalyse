@@ -1,0 +1,58 @@
+{
+  "activityName": "Flaxseed, straw, ret, Normandie, at farm gate {FR} U",
+  "categories": [
+    "ingredient",
+    "material",
+    "material_type:fruits_and_vegetables"
+  ],
+  "displayName": "Graines de lin FR",
+  "id": "cfdfa6e8-fd0c-51f9-89e4-2beccb0b66bc",
+  "metadata": [
+    {
+      "alias": "flaxseed-fr",
+      "cropGroup": "AUTRES OLEAGINEUX",
+      "cropGroupMatch": {
+        "confidence": 1.0,
+        "rule": "matched 'flaxseed' in cropgroup.csv"
+      },
+      "defaultOrigin": "France",
+      "displayName": "Graines de lin FR",
+      "id": "07fe355e-70c5-5294-8f27-46d8d01e7047",
+      "inediblePart": 0.2,
+      "inediblePartMatch": {
+        "confidence": 1.0,
+        "rule": "vegetable NOVA 1 default from food_type_inedible_part.csv"
+      },
+      "ingredientCategories": [
+        "vegetable_fresh"
+      ],
+      "ingredientDensity": 0.7,
+      "ingredientDensityMatch": {
+        "confidence": 1.0,
+        "rule": "Flaxseed found in fao_density.csv"
+      },
+      "rawToCookedRatio": 0.856,
+      "rawToCookedRatioMatch": {
+        "confidence": 1.0,
+        "rule": "vegetable default from food_type_cooked_to_raw.csv"
+      },
+      "scenario": "reference",
+      "scopes": [
+        "food",
+        "food2"
+      ],
+      "transportCooling": "always",
+      "transportCoolingMatch": {
+        "confidence": 1.0,
+        "rule": "vegetable NOVA 1 → always (perishable)"
+      },
+      "visible": true
+    }
+  ],
+  "scopes": [
+    "food",
+    "food2"
+  ],
+  "source": "Agribalyse 3.2",
+  "unit": "kg"
+}

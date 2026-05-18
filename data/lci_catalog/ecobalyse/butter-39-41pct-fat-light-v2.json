@@ -1,0 +1,35 @@
+{
+  "activityName": "Butter, 39-41pct fat light, variant 2, CMAPS {GLO} U",
+  "categories": [
+    "ingredient",
+    "material"
+  ],
+  "displayName": "Beurre à 39-41% MG, léger, doux Origine Inconnue",
+  "id": "4d0e2d52-adf7-4e88-8685-b202f9836eca",
+  "metadata": [
+    {
+      "alias": "butter-39-41pct-fat-light-default",
+      "defaultOrigin": "OutOfEuropeAndMaghreb",
+      "displayName": "Beurre à 39-41% MG, léger, doux Origine Inconnue",
+      "id": "1dd1d7ed-2266-4317-bb45-709f850bd1e1",
+      "inediblePart": 0,
+      "ingredientCategories": [
+        "dairy_product"
+      ],
+      "ingredientDensity": 1,
+      "rawToCookedRatio": 1,
+      "scenario": "import",
+      "scopes": [
+        "food",
+        "food2"
+      ],
+      "transportCooling": "always",
+      "visible": true
+    }
+  ],
+  "scopes": [
+    "food",
+    "food2"
+  ],
+  "source": "Ecobalyse"
+}

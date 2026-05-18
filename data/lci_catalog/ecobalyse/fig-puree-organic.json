@@ -1,0 +1,37 @@
+{
+  "activityName": "Fig puree, organic, CMAPS {GLO} U",
+  "categories": [
+    "ingredient",
+    "material"
+  ],
+  "displayName": "Purée de figue Bio",
+  "id": "0c48e3d9-8b23-4eca-9ded-00589eabcc03",
+  "metadata": [
+    {
+      "alias": "fig-puree-fr-organic",
+      "cropGroup": "VERGERS",
+      "defaultOrigin": "France",
+      "displayName": "Purée de figue Bio",
+      "id": "fbc24164-a9e0-4b91-a5cf-100ba573590a",
+      "inediblePart": 0,
+      "ingredientCategories": [
+        "vegetable_processed",
+        "organic"
+      ],
+      "ingredientDensity": 1,
+      "rawToCookedRatio": 1,
+      "scenario": "organic",
+      "scopes": [
+        "food",
+        "food2"
+      ],
+      "transportCooling": "always",
+      "visible": true
+    }
+  ],
+  "scopes": [
+    "food",
+    "food2"
+  ],
+  "source": "Ecobalyse"
+}

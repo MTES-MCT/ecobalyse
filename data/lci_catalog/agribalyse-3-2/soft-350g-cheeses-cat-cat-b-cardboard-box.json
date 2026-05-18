@@ -1,0 +1,24 @@
+{
+  "activityName": "Soft cheeses - cat A and cat B, 350g | Packaging System, N0, All, Cardboard box {FR} U",
+  "categories": [
+    "material",
+    "packaging",
+    "packaging_type:box"
+  ],
+  "displayName": "Boîte en carton pour fromage à pâte molle - 350g",
+  "id": "bf2ed341-2676-4e52-acc3-3ed55cc1c95d",
+  "metadata": [
+    {
+      "id": "a6636b08-0894-4b21-9c49-d1a7b9797055",
+      "scopes": [
+        "food2"
+      ]
+    }
+  ],
+  "scopes": [
+    "food",
+    "food2"
+  ],
+  "source": "Agribalyse 3.2",
+  "unit": "item"
+}

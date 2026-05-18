@@ -1,0 +1,35 @@
+{
+  "activityName": "Cheddar cheese, variant 1, CMAPS {GLO} U",
+  "categories": [
+    "ingredient",
+    "material"
+  ],
+  "displayName": "Cheddar FR",
+  "id": "459b34b2-441f-4e9c-8cd5-e948deab2694",
+  "metadata": [
+    {
+      "alias": "cheddar-cheese-fr",
+      "defaultOrigin": "France",
+      "displayName": "Cheddar FR",
+      "id": "a4d7e7a6-66e3-4fa9-8179-63b804dd2d68",
+      "inediblePart": 0,
+      "ingredientCategories": [
+        "dairy_product"
+      ],
+      "ingredientDensity": 1,
+      "rawToCookedRatio": 1,
+      "scenario": "reference",
+      "scopes": [
+        "food",
+        "food2"
+      ],
+      "transportCooling": "always",
+      "visible": true
+    }
+  ],
+  "scopes": [
+    "food",
+    "food2"
+  ],
+  "source": "Ecobalyse"
+}

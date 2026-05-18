@@ -1,0 +1,24 @@
+{
+  "activityName": "Pasta raw, 500g | Packaging System, N0, All, OPP bag {FR} U",
+  "categories": [
+    "material",
+    "packaging",
+    "packaging_type:bag"
+  ],
+  "displayName": "Sachet en plastique (OPP) pour pâtes sèches - 500g",
+  "id": "e7846488-231a-4c73-9a89-4ec28ab926c7",
+  "metadata": [
+    {
+      "id": "9f18411d-f04e-4b02-829b-9f4b960d2ad3",
+      "scopes": [
+        "food2"
+      ]
+    }
+  ],
+  "scopes": [
+    "food",
+    "food2"
+  ],
+  "source": "Agribalyse 3.2",
+  "unit": "item"
+}

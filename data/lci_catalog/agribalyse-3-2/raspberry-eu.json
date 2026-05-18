@@ -1,0 +1,198 @@
+{
+  "activityName": "Raspberry, at farm {RS} - Adapted from WFLDB U",
+  "categories": [
+    "ingredient",
+    "material",
+    "material_type:fruits_and_vegetables"
+  ],
+  "displayName": "Framboise UE",
+  "id": "fa788be2-e63a-5c3a-b770-1aa7304b1b97",
+  "metadata": [
+    {
+      "alias": "raspberry-fr",
+      "cropGroup": "VERGERS",
+      "cropGroupMatch": {
+        "confidence": 1.0,
+        "rule": "fruit default"
+      },
+      "defaultOrigin": "France",
+      "displayName": "Framboise FR",
+      "id": "59dadebf-dedf-5343-a087-ab05f1c70947",
+      "inediblePart": 0.03,
+      "inediblePartMatch": {
+        "confidence": 0.95,
+        "rule": "Matched with Raspberries in agb_inedible.csv"
+      },
+      "ingredientCategories": [
+        "vegetable_fresh"
+      ],
+      "ingredientDensity": 0.9,
+      "ingredientDensityMatch": {
+        "confidence": 1.0,
+        "rule": "raspberry found in density.csv"
+      },
+      "rawToCookedRatio": 0.856,
+      "rawToCookedRatioMatch": {
+        "confidence": 1.0,
+        "rule": "Matched with raspberry in cooked_to_raw.csv"
+      },
+      "scenario": "reference",
+      "scopes": [
+        "food",
+        "food2"
+      ],
+      "transportCooling": "always",
+      "transportCoolingMatch": {
+        "confidence": 1.0,
+        "rule": "fruit NOVA 1 → always (perishable)"
+      },
+      "visible": true
+    },
+    {
+      "alias": "raspberry-eu-2025",
+      "cropGroup": "LEGUMES-FLEURS",
+      "defaultOrigin": "EuropeAndMaghreb",
+      "displayName": "Framboise UE (2025)",
+      "explain": "icv ue = icv RS (seul dispo dans agb)",
+      "id": "50939126-d4a5-4b94-b110-63e8b9e66173",
+      "inediblePart": 0.03,
+      "ingredientCategories": [
+        "vegetable_fresh"
+      ],
+      "ingredientDensity": 0.447,
+      "rawToCookedRatio": 0.856,
+      "scenario": "import",
+      "scopes": [
+        "food",
+        "food2"
+      ],
+      "transportCooling": "always",
+      "visible": true
+    },
+    {
+      "alias": "raspberry-default",
+      "cropGroup": "VERGERS",
+      "cropGroupMatch": {
+        "confidence": 1.0,
+        "rule": "fruit default"
+      },
+      "defaultOrigin": "OutOfEuropeAndMaghreb",
+      "displayName": "Framboise Origine Inconnue",
+      "id": "d93befed-4e46-58c0-ae12-f80cbdb79012",
+      "inediblePart": 0.03,
+      "inediblePartMatch": {
+        "confidence": 0.95,
+        "rule": "Matched with Raspberries in agb_inedible.csv"
+      },
+      "ingredientCategories": [
+        "vegetable_fresh"
+      ],
+      "ingredientDensity": 0.9,
+      "ingredientDensityMatch": {
+        "confidence": 1.0,
+        "rule": "raspberry found in density.csv"
+      },
+      "rawToCookedRatio": 0.856,
+      "rawToCookedRatioMatch": {
+        "confidence": 1.0,
+        "rule": "Matched with raspberry in cooked_to_raw.csv"
+      },
+      "scenario": "import",
+      "scopes": [
+        "food",
+        "food2"
+      ],
+      "transportCooling": "always",
+      "transportCoolingMatch": {
+        "confidence": 1.0,
+        "rule": "fruit NOVA 1 → always (perishable)"
+      },
+      "visible": true
+    },
+    {
+      "alias": "raspberry-eu",
+      "cropGroup": "VERGERS",
+      "cropGroupMatch": {
+        "confidence": 1.0,
+        "rule": "fruit default"
+      },
+      "defaultOrigin": "EuropeAndMaghreb",
+      "displayName": "Framboise UE",
+      "id": "0bc3b0d6-cb4b-556b-bed4-6bcc6c89387b",
+      "inediblePart": 0.03,
+      "inediblePartMatch": {
+        "confidence": 0.95,
+        "rule": "Matched with Raspberries in agb_inedible.csv"
+      },
+      "ingredientCategories": [
+        "vegetable_fresh"
+      ],
+      "ingredientDensity": 0.9,
+      "ingredientDensityMatch": {
+        "confidence": 1.0,
+        "rule": "raspberry found in density.csv"
+      },
+      "rawToCookedRatio": 0.856,
+      "rawToCookedRatioMatch": {
+        "confidence": 1.0,
+        "rule": "Matched with raspberry in cooked_to_raw.csv"
+      },
+      "scenario": "import",
+      "scopes": [
+        "food",
+        "food2"
+      ],
+      "transportCooling": "always",
+      "transportCoolingMatch": {
+        "confidence": 1.0,
+        "rule": "fruit NOVA 1 → always (perishable)"
+      },
+      "visible": true
+    },
+    {
+      "alias": "raspberry-non-eu",
+      "cropGroup": "VERGERS",
+      "cropGroupMatch": {
+        "confidence": 1.0,
+        "rule": "fruit default"
+      },
+      "defaultOrigin": "OutOfEuropeAndMaghreb",
+      "displayName": "Framboise HORS UE",
+      "id": "8d685a2b-b9f7-5f25-be4f-bcf66455c76f",
+      "inediblePart": 0.03,
+      "inediblePartMatch": {
+        "confidence": 0.95,
+        "rule": "Matched with Raspberries in agb_inedible.csv"
+      },
+      "ingredientCategories": [
+        "vegetable_fresh"
+      ],
+      "ingredientDensity": 0.9,
+      "ingredientDensityMatch": {
+        "confidence": 1.0,
+        "rule": "raspberry found in density.csv"
+      },
+      "rawToCookedRatio": 0.856,
+      "rawToCookedRatioMatch": {
+        "confidence": 1.0,
+        "rule": "Matched with raspberry in cooked_to_raw.csv"
+      },
+      "scenario": "import",
+      "scopes": [
+        "food",
+        "food2"
+      ],
+      "transportCooling": "always",
+      "transportCoolingMatch": {
+        "confidence": 1.0,
+        "rule": "fruit NOVA 1 → always (perishable)"
+      },
+      "visible": true
+    }
+  ],
+  "scopes": [
+    "food",
+    "food2"
+  ],
+  "source": "Agribalyse 3.2"
+}

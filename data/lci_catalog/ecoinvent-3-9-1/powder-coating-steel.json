@@ -1,0 +1,28 @@
+{
+  "activityName": "powder coat, steel//[RER] powder coating, steel",
+  "categories": [
+    "material",
+    "material_type:ferrous_metals"
+  ],
+  "comment": "",
+  "displayName": "Thermolaquage acier",
+  "elecMJ": 0,
+  "heatMJ": 0,
+  "id": "bef7a8c2-24f1-596c-b0c8-2759eef42e05",
+  "metadata": [
+    {
+      "id": "a8a6df0f-483f-4690-b21f-01a0b6993637",
+      "scopes": [
+        "object",
+        "veli"
+      ]
+    }
+  ],
+  "scopes": [
+    "object",
+    "veli"
+  ],
+  "source": "Ecoinvent 3.9.1",
+  "unit": "m2",
+  "waste": 0
+}

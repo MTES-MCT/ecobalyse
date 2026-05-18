@@ -1,0 +1,24 @@
+{
+  "activityName": "Pork, 250g | Packaging System, N0, All, Sold by weight {FR} U",
+  "categories": [
+    "material",
+    "packaging",
+    "packaging_type:sheet"
+  ],
+  "displayName": "Feuille pour viande vendue au rayon boucherie - 250g à 350g",
+  "id": "ed7cc779-7cd4-4f84-b6d8-80270f2288b0",
+  "metadata": [
+    {
+      "id": "e6f062b8-3bef-4f54-aaeb-996d08317e53",
+      "scopes": [
+        "food2"
+      ]
+    }
+  ],
+  "scopes": [
+    "food",
+    "food2"
+  ],
+  "source": "Agribalyse 3.2",
+  "unit": "item"
+}

@@ -1,0 +1,27 @@
+{
+  "activityName": "Pyrometallurgical treatment of battery cell, DA",
+  "categories": [
+    "end-of-life"
+  ],
+  "comment": "For 1kg battery cell. Source : Delegated Act to Regulation (EU) 2023/1542, methodology for the calculation and verification of the carbon footprint of electric vehicle batteries, Table 4",
+  "displayName": "Pyrométallurgie",
+  "elecMJ": 0,
+  "heatMJ": 0,
+  "id": "cf6adc7f-6b00-4649-9a54-655c9ea2fdaa",
+  "metadata": [
+    {
+      "id": "e2d8db51-4627-4c5a-9476-2b21db43eb87",
+      "scopes": [
+        "object",
+        "veli"
+      ]
+    }
+  ],
+  "scopes": [
+    "object",
+    "veli"
+  ],
+  "source": "Ecobalyse",
+  "unit": "kg",
+  "waste": 0
+}

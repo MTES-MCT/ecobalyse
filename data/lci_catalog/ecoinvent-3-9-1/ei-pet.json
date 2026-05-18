@@ -1,0 +1,36 @@
+{
+  "activityName": "polyethylene terephthalate, granulate, amorphous//[RoW] polyethylene terephthalate production, granulate, amorphous",
+  "categories": [
+    "material",
+    "textile_material",
+    "material_type:synthetic_fibers"
+  ],
+  "comment": "Ancien identifiant (12/2024): f32024fc5e736e01fa14321363900581.",
+  "displayName": "Plastique PET, granulés, amorphe",
+  "elecMJ": 0,
+  "heatMJ": 0,
+  "id": "61bab541-9097-5680-9884-254c98f25d80",
+  "metadata": [
+    {
+      "alias": "ei-pet",
+      "defaultCountry": "CN",
+      "displayName": "Plastique PET, granulés, amorphe",
+      "geographicOrigin": "Asie - Pacifique",
+      "id": "9dba0e95-0c35-4f8b-9267-62ddf47d4984",
+      "name": "Polyester",
+      "origin": "Synthetic",
+      "primary": true,
+      "scopes": [
+        "object",
+        "textile"
+      ]
+    }
+  ],
+  "scopes": [
+    "textile",
+    "object"
+  ],
+  "source": "Ecoinvent 3.9.1",
+  "unit": "kg",
+  "waste": 0
+}

@@ -1,0 +1,33 @@
+{
+  "activityName": "fibre, jute//[RoW] fibre production, jute, retting",
+  "categories": [
+    "material",
+    "textile_material"
+  ],
+  "comment": "Ancien identifiant (12/2024): 4d81aa5f76872e1e4c0e1bb14b01e93b.",
+  "displayName": "Production de jute, rouissage",
+  "elecMJ": 0,
+  "heatMJ": 0,
+  "id": "8782714f-1332-589a-85ca-885c47f5e58b",
+  "metadata": [
+    {
+      "alias": "ei-jute-kenaf",
+      "defaultCountry": "CN",
+      "displayName": "Production de jute, rouissage",
+      "geographicOrigin": "Asie - Pacifique",
+      "id": "a09b2677-2900-4417-a202-e5f9a1abcce1",
+      "name": "Jute",
+      "origin": "NaturalFromVegetal",
+      "primary": false,
+      "scopes": [
+        "textile"
+      ]
+    }
+  ],
+  "scopes": [
+    "textile"
+  ],
+  "source": "Ecoinvent 3.9.1",
+  "unit": "kg",
+  "waste": 0
+}

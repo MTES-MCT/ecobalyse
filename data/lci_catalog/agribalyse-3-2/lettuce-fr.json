@@ -1,0 +1,297 @@
+{
+  "activityName": "Lettuce, conventional, national average, at farm gate {FR} U",
+  "categories": [
+    "ingredient",
+    "material",
+    "material_type:fruits_and_vegetables"
+  ],
+  "displayName": "Laitue FR",
+  "id": "41590079-3f24-54f3-912d-c0a149f40d30",
+  "metadata": [
+    {
+      "alias": "endive-fr",
+      "cropGroup": "LEGUMES-FLEURS",
+      "cropGroupMatch": {
+        "confidence": 1.0,
+        "rule": "matched 'endive' in cropgroup.csv"
+      },
+      "defaultOrigin": "France",
+      "displayName": "Endive FR",
+      "id": "b26efb2f-8811-4fbb-9d01-3d7f0d8135ef",
+      "inediblePart": 0.2,
+      "inediblePartMatch": {
+        "confidence": 1.0,
+        "rule": "Matched with Endive in agb_inedible.csv"
+      },
+      "ingredientCategories": [
+        "vegetable_fresh"
+      ],
+      "ingredientDensity": 0.9,
+      "ingredientDensityMatch": {
+        "confidence": 1.0,
+        "rule": "vegetable default from food_type_density.csv"
+      },
+      "rawToCookedRatio": 0.856,
+      "rawToCookedRatioMatch": {
+        "confidence": 1.0,
+        "rule": "Matched with endive in cooked_to_raw.csv"
+      },
+      "scenario": "reference",
+      "scopes": [
+        "food",
+        "food2"
+      ],
+      "transportCooling": "always",
+      "transportCoolingMatch": {
+        "confidence": 1.0,
+        "rule": "vegetable NOVA 1 → always (perishable)"
+      },
+      "visible": true
+    },
+    {
+      "alias": "red-endive-fr",
+      "cropGroup": "LEGUMES-FLEURS",
+      "cropGroupMatch": {
+        "confidence": 0.95,
+        "rule": "matched 'endive' in cropgroup.csv"
+      },
+      "defaultOrigin": "France",
+      "displayName": "Endive rouge FR",
+      "id": "83a79131-1285-5622-94d6-f48c0103756f",
+      "inediblePart": 0.2,
+      "inediblePartMatch": {
+        "confidence": 1.0,
+        "rule": "Matched with Red endive in agb_inedible.csv"
+      },
+      "ingredientCategories": [
+        "vegetable_fresh"
+      ],
+      "ingredientDensity": 0.9,
+      "ingredientDensityMatch": {
+        "confidence": 1.0,
+        "rule": "vegetable default from food_type_density.csv"
+      },
+      "rawToCookedRatio": 0.856,
+      "rawToCookedRatioMatch": {
+        "confidence": 0.95,
+        "rule": "Matched with endive in cooked_to_raw.csv"
+      },
+      "scenario": "reference",
+      "scopes": [
+        "food",
+        "food2"
+      ],
+      "transportCooling": "always",
+      "transportCoolingMatch": {
+        "confidence": 1.0,
+        "rule": "vegetable NOVA 1 → always (perishable)"
+      },
+      "visible": true
+    },
+    {
+      "alias": "salad-lettuce-fr",
+      "cropGroup": "LEGUMES-FLEURS",
+      "cropGroupMatch": {
+        "confidence": 1.0,
+        "rule": "vegetable default"
+      },
+      "defaultOrigin": "France",
+      "displayName": "Salade, laitue FR",
+      "id": "84dd103a-c90d-5318-814c-737c019ea78c",
+      "inediblePart": 0.4,
+      "inediblePartMatch": {
+        "confidence": 0.95,
+        "rule": "Matched with Lettuce in agb_inedible.csv"
+      },
+      "ingredientCategories": [
+        "vegetable_fresh"
+      ],
+      "ingredientDensity": 0.3,
+      "ingredientDensityMatch": {
+        "confidence": 0.95,
+        "rule": "Matched with lettuce in density.csv"
+      },
+      "rawToCookedRatio": 0.856,
+      "rawToCookedRatioMatch": {
+        "confidence": 0.95,
+        "rule": "Matched with lettuce in cooked_to_raw.csv"
+      },
+      "scenario": "reference",
+      "scopes": [
+        "food",
+        "food2"
+      ],
+      "transportCooling": "always",
+      "transportCoolingMatch": {
+        "confidence": 1.0,
+        "rule": "vegetable NOVA 1 → always (perishable)"
+      },
+      "visible": true
+    },
+    {
+      "alias": "lettuce-fr-2025",
+      "cropGroup": "LEGUMES-FLEURS",
+      "defaultOrigin": "France",
+      "displayName": "Laitue FR (2025)",
+      "id": "6348bb16-2d8c-4b82-8dbc-8b7dc587c09b",
+      "inediblePart": 0.4,
+      "ingredientCategories": [
+        "vegetable_fresh"
+      ],
+      "ingredientDensity": 0.118,
+      "rawToCookedRatio": 0.856,
+      "scenario": "reference",
+      "scopes": [
+        "food",
+        "food2"
+      ],
+      "transportCooling": "always",
+      "visible": true
+    },
+    {
+      "alias": "lambs-lettuce-fr-2025",
+      "cropGroup": "LEGUMES-FLEURS",
+      "defaultOrigin": "France",
+      "displayName": "Mâche FR (2025)",
+      "id": "4f53cbe2-feac-42ea-90cf-62856732103b",
+      "inediblePart": 0.4,
+      "ingredientCategories": [
+        "vegetable_fresh"
+      ],
+      "ingredientDensity": 0.118,
+      "rawToCookedRatio": 0.856,
+      "scenario": "reference",
+      "scopes": [
+        "food",
+        "food2"
+      ],
+      "transportCooling": "always",
+      "visible": true
+    },
+    {
+      "alias": "endive-eu",
+      "cropGroup": "LEGUMES-FLEURS",
+      "cropGroupMatch": {
+        "confidence": 1.0,
+        "rule": "matched 'endive' in cropgroup.csv"
+      },
+      "defaultOrigin": "EuropeAndMaghreb",
+      "displayName": "Endive UE",
+      "id": "0320e108-7550-5304-83cb-cbdd24172139",
+      "inediblePart": 0.2,
+      "inediblePartMatch": {
+        "confidence": 1.0,
+        "rule": "Matched with Endive in agb_inedible.csv"
+      },
+      "ingredientCategories": [
+        "vegetable_fresh"
+      ],
+      "ingredientDensity": 0.9,
+      "ingredientDensityMatch": {
+        "confidence": 1.0,
+        "rule": "vegetable default from food_type_density.csv"
+      },
+      "rawToCookedRatio": 0.856,
+      "rawToCookedRatioMatch": {
+        "confidence": 1.0,
+        "rule": "Matched with endive in cooked_to_raw.csv"
+      },
+      "scenario": "import",
+      "scopes": [
+        "food",
+        "food2"
+      ],
+      "transportCooling": "always",
+      "transportCoolingMatch": {
+        "confidence": 1.0,
+        "rule": "vegetable NOVA 1 → always (perishable)"
+      },
+      "visible": true
+    },
+    {
+      "alias": "red-endive-eu",
+      "cropGroup": "LEGUMES-FLEURS",
+      "cropGroupMatch": {
+        "confidence": 0.95,
+        "rule": "matched 'endive' in cropgroup.csv"
+      },
+      "defaultOrigin": "EuropeAndMaghreb",
+      "displayName": "Endive rouge UE",
+      "id": "78804878-493f-57d0-ae3e-abea8192c922",
+      "inediblePart": 0.2,
+      "inediblePartMatch": {
+        "confidence": 1.0,
+        "rule": "Matched with Red endive in agb_inedible.csv"
+      },
+      "ingredientCategories": [
+        "vegetable_fresh"
+      ],
+      "ingredientDensity": 0.9,
+      "ingredientDensityMatch": {
+        "confidence": 1.0,
+        "rule": "vegetable default from food_type_density.csv"
+      },
+      "rawToCookedRatio": 0.856,
+      "rawToCookedRatioMatch": {
+        "confidence": 0.95,
+        "rule": "Matched with endive in cooked_to_raw.csv"
+      },
+      "scenario": "import",
+      "scopes": [
+        "food",
+        "food2"
+      ],
+      "transportCooling": "always",
+      "transportCoolingMatch": {
+        "confidence": 1.0,
+        "rule": "vegetable NOVA 1 → always (perishable)"
+      },
+      "visible": true
+    },
+    {
+      "alias": "salad-lettuce-eu",
+      "cropGroup": "LEGUMES-FLEURS",
+      "cropGroupMatch": {
+        "confidence": 1.0,
+        "rule": "vegetable default"
+      },
+      "defaultOrigin": "EuropeAndMaghreb",
+      "displayName": "Salade, laitue UE",
+      "id": "81894508-a3ba-56b8-87f2-6545439cae72",
+      "inediblePart": 0.4,
+      "inediblePartMatch": {
+        "confidence": 0.95,
+        "rule": "Matched with Lettuce in agb_inedible.csv"
+      },
+      "ingredientCategories": [
+        "vegetable_fresh"
+      ],
+      "ingredientDensity": 0.3,
+      "ingredientDensityMatch": {
+        "confidence": 0.95,
+        "rule": "Matched with lettuce in density.csv"
+      },
+      "rawToCookedRatio": 0.856,
+      "rawToCookedRatioMatch": {
+        "confidence": 0.95,
+        "rule": "Matched with lettuce in cooked_to_raw.csv"
+      },
+      "scenario": "import",
+      "scopes": [
+        "food",
+        "food2"
+      ],
+      "transportCooling": "always",
+      "transportCoolingMatch": {
+        "confidence": 1.0,
+        "rule": "vegetable NOVA 1 → always (perishable)"
+      },
+      "visible": true
+    }
+  ],
+  "scopes": [
+    "food",
+    "food2"
+  ],
+  "source": "Agribalyse 3.2"
+}

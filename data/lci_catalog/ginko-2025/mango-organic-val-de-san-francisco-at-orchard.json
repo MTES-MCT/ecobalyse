@@ -1,0 +1,139 @@
+{
+  "activityName": "Mango, organic 2025, Val de San Francisco, at orchard {BR} U",
+  "categories": [
+    "ingredient"
+  ],
+  "displayName": "Mango, organic 2025, Val de San Francisco, at orchard (BR)",
+  "id": "44c35c92-61e7-5701-b29f-1fe61b374c0e",
+  "metadata": [
+    {
+      "alias": "breadfruit-organic",
+      "cropGroup": "VERGERS",
+      "cropGroupMatch": {
+        "confidence": 1.0,
+        "rule": "fruit default"
+      },
+      "defaultOrigin": "France",
+      "displayName": "Fruit à pain Bio",
+      "id": "78584bdd-c9a5-517a-ab3a-1ab5fe94bef0",
+      "inediblePart": 0.2,
+      "inediblePartMatch": {
+        "confidence": 1.0,
+        "rule": "fruit NOVA 1 default from food_type_inedible_part.csv"
+      },
+      "ingredientCategories": [
+        "vegetable_fresh",
+        "organic"
+      ],
+      "ingredientDensity": 0.85,
+      "ingredientDensityMatch": {
+        "confidence": 1.0,
+        "rule": "fruit default from food_type_density.csv"
+      },
+      "rawToCookedRatio": 0.856,
+      "rawToCookedRatioMatch": {
+        "confidence": 1.0,
+        "rule": "fruit default from food_type_cooked_to_raw.csv"
+      },
+      "scenario": "organic",
+      "scopes": [
+        "food",
+        "food2"
+      ],
+      "transportCooling": "always",
+      "transportCoolingMatch": {
+        "confidence": 1.0,
+        "rule": "fruit NOVA 1 → always (perishable)"
+      },
+      "visible": true
+    },
+    {
+      "alias": "carambola-organic",
+      "cropGroup": "VERGERS",
+      "cropGroupMatch": {
+        "confidence": 1.0,
+        "rule": "fruit default"
+      },
+      "defaultOrigin": "France",
+      "displayName": "Carambole Bio",
+      "id": "4e19bb98-3b26-51e4-bc18-bcb118810a6c",
+      "inediblePart": 0.2,
+      "inediblePartMatch": {
+        "confidence": 1.0,
+        "rule": "fruit NOVA 1 default from food_type_inedible_part.csv"
+      },
+      "ingredientCategories": [
+        "vegetable_fresh",
+        "organic"
+      ],
+      "ingredientDensity": 0.85,
+      "ingredientDensityMatch": {
+        "confidence": 1.0,
+        "rule": "fruit default from food_type_density.csv"
+      },
+      "rawToCookedRatio": 0.856,
+      "rawToCookedRatioMatch": {
+        "confidence": 1.0,
+        "rule": "fruit default from food_type_cooked_to_raw.csv"
+      },
+      "scenario": "organic",
+      "scopes": [
+        "food",
+        "food2"
+      ],
+      "transportCooling": "always",
+      "transportCoolingMatch": {
+        "confidence": 1.0,
+        "rule": "fruit NOVA 1 → always (perishable)"
+      },
+      "visible": true
+    },
+    {
+      "alias": "lychee-organic",
+      "cropGroup": "VERGERS",
+      "cropGroupMatch": {
+        "confidence": 1.0,
+        "rule": "fruit default"
+      },
+      "defaultOrigin": "France",
+      "displayName": "Litchi Bio",
+      "id": "97179c67-b8a8-5d3d-95b0-4b188de6ba92",
+      "inediblePart": 0.2,
+      "inediblePartMatch": {
+        "confidence": 1.0,
+        "rule": "fruit NOVA 1 default from food_type_inedible_part.csv"
+      },
+      "ingredientCategories": [
+        "vegetable_fresh",
+        "organic"
+      ],
+      "ingredientDensity": 1.0,
+      "ingredientDensityMatch": {
+        "confidence": 1.0,
+        "rule": "lychee found in density.csv"
+      },
+      "rawToCookedRatio": 0.856,
+      "rawToCookedRatioMatch": {
+        "confidence": 1.0,
+        "rule": "Matched with lychee in cooked_to_raw.csv"
+      },
+      "scenario": "organic",
+      "scopes": [
+        "food",
+        "food2"
+      ],
+      "transportCooling": "always",
+      "transportCoolingMatch": {
+        "confidence": 1.0,
+        "rule": "fruit NOVA 1 → always (perishable)"
+      },
+      "visible": true
+    }
+  ],
+  "scopes": [
+    "food",
+    "food2"
+  ],
+  "source": "Ginko 2025",
+  "unit": "kg"
+}

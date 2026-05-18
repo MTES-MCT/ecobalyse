@@ -1,0 +1,24 @@
+{
+  "activityName": "Individual chocolates, 200g | Packaging System, Proxy Pack, Rigid plastic, other than bottles {FR} U",
+  "categories": [
+    "material",
+    "packaging",
+    "packaging_type:box"
+  ],
+  "displayName": "Boîte en plastique (PET) pour chocolats individuels - 200g - Proxy",
+  "id": "4dd329cd-c99d-40b1-8c65-0006b3842d68",
+  "metadata": [
+    {
+      "id": "cf4831eb-169a-445a-a18d-e319df5b5158",
+      "scopes": [
+        "food2"
+      ]
+    }
+  ],
+  "scopes": [
+    "food",
+    "food2"
+  ],
+  "source": "Agribalyse 3.2",
+  "unit": "item"
+}

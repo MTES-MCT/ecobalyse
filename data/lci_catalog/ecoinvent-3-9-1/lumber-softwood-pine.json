@@ -1,0 +1,52 @@
+{
+  "activityName": "sawlog and veneer log, softwood, measured as solid wood under bark//[DE] softwood forestry, pine, sustainable forest management",
+  "categories": [
+    "material",
+    "material_type:wood"
+  ],
+  "comment": "",
+  "displayName": "Bois d'oeuvre (Résineux / Pin)",
+  "elecMJ": 0,
+  "heatMJ": 0,
+  "id": "cd7b462e-17ab-5c15-b7e2-ad4273c1e322",
+  "massPerUnit": 490,
+  "metadata": [
+    {
+      "alias": "pine-softwood-intensive-plantation",
+      "displayName": "Bois d'oeuvre (Résineux / Pin) plantation intensive",
+      "forestManagement": "intensivePlantation",
+      "id": "fba45d5f-64fc-44ae-ac75-9301c95c4657",
+      "scopes": [
+        "object",
+        "veli"
+      ]
+    },
+    {
+      "alias": "pine-softwood-sustainable-management",
+      "displayName": "Bois d'oeuvre (Résineux / Pin) gestion durable",
+      "forestManagement": "sustainableManagement",
+      "id": "f4a5d1ad-9362-4b18-9555-d5ab58f3b993",
+      "scopes": [
+        "object",
+        "veli"
+      ]
+    },
+    {
+      "alias": "pine-softwood-certified-sustainable-management",
+      "displayName": "Bois d'oeuvre (Résineux / Pin) gestion durable certifiée",
+      "forestManagement": "certifiedSustainableManagement",
+      "id": "9c80ffd0-ecff-4cb1-9b3a-9009d42cb425",
+      "scopes": [
+        "object",
+        "veli"
+      ]
+    }
+  ],
+  "scopes": [
+    "object",
+    "veli"
+  ],
+  "source": "Ecoinvent 3.9.1",
+  "unit": "m3",
+  "waste": 0
+}

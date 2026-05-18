@@ -1,0 +1,35 @@
+{
+  "activityName": "Tomme cheese, cow milk, variant 2, CMAPS {GLO} U",
+  "categories": [
+    "ingredient",
+    "material"
+  ],
+  "displayName": "Tomme ou tome de vache Origine Inconnue",
+  "id": "a4a43764-e81c-4a26-bef0-c4e5d6e4fd24",
+  "metadata": [
+    {
+      "alias": "tomme-cheese-cow-milk-default",
+      "defaultOrigin": "OutOfEuropeAndMaghreb",
+      "displayName": "Tomme ou tome de vache Origine Inconnue",
+      "id": "aa40dbec-5457-45bc-b815-80fce2b82aaa",
+      "inediblePart": 0,
+      "ingredientCategories": [
+        "dairy_product"
+      ],
+      "ingredientDensity": 1,
+      "rawToCookedRatio": 1,
+      "scenario": "import",
+      "scopes": [
+        "food",
+        "food2"
+      ],
+      "transportCooling": "always",
+      "visible": false
+    }
+  ],
+  "scopes": [
+    "food",
+    "food2"
+  ],
+  "source": "Ecobalyse"
+}

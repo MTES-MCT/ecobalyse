@@ -1,0 +1,238 @@
+{
+  "activityName": "Melon, conventional, national average, at farm gate {FR} U",
+  "categories": [
+    "ingredient",
+    "material",
+    "material_type:fruits_and_vegetables"
+  ],
+  "displayName": "Melon FR",
+  "id": "4111a9a4-48a1-5dd7-9467-c677f36526f7",
+  "metadata": [
+    {
+      "alias": "melon-fr",
+      "cropGroup": "LEGUMES-FLEURS",
+      "cropGroupMatch": {
+        "confidence": 0.95,
+        "rule": "matched 'melon' in cropgroup.csv"
+      },
+      "defaultOrigin": "France",
+      "displayName": "Melon (miellat, Charentais, Cataloupe, Cavaillon) FR",
+      "id": "35ea48ae-0063-5789-8648-cc8560eabfd9",
+      "inediblePart": 0.2,
+      "inediblePartMatch": {
+        "confidence": 1.0,
+        "rule": "fruit NOVA 1 default from food_type_inedible_part.csv"
+      },
+      "ingredientCategories": [
+        "vegetable_fresh"
+      ],
+      "ingredientDensity": 0.85,
+      "ingredientDensityMatch": {
+        "confidence": 1.0,
+        "rule": "fruit default from food_type_density.csv"
+      },
+      "rawToCookedRatio": 0.856,
+      "rawToCookedRatioMatch": {
+        "confidence": 1.0,
+        "rule": "fruit default from food_type_cooked_to_raw.csv"
+      },
+      "scenario": "reference",
+      "scopes": [
+        "food",
+        "food2"
+      ],
+      "transportCooling": "always",
+      "transportCoolingMatch": {
+        "confidence": 1.0,
+        "rule": "fruit NOVA 1 → always (perishable)"
+      },
+      "visible": true
+    },
+    {
+      "alias": "watermelon-fr",
+      "cropGroup": "LEGUMES-FLEURS",
+      "cropGroupMatch": {
+        "confidence": 1.0,
+        "rule": "matched 'pastèque' in cropgroup.csv"
+      },
+      "defaultOrigin": "France",
+      "displayName": "Pastèque FR",
+      "id": "a00cdec5-26d5-54f1-8fc1-ab386434d9d5",
+      "inediblePart": 0.2,
+      "inediblePartMatch": {
+        "confidence": 1.0,
+        "rule": "fruit NOVA 1 default from food_type_inedible_part.csv"
+      },
+      "ingredientCategories": [
+        "vegetable_fresh"
+      ],
+      "ingredientDensity": 1.0,
+      "ingredientDensityMatch": {
+        "confidence": 1.0,
+        "rule": "watermelon found in density.csv"
+      },
+      "rawToCookedRatio": 0.856,
+      "rawToCookedRatioMatch": {
+        "confidence": 1.0,
+        "rule": "fruit default from food_type_cooked_to_raw.csv"
+      },
+      "scenario": "reference",
+      "scopes": [
+        "food",
+        "food2"
+      ],
+      "transportCooling": "always",
+      "transportCoolingMatch": {
+        "confidence": 1.0,
+        "rule": "fruit NOVA 1 → always (perishable)"
+      },
+      "visible": true
+    },
+    {
+      "alias": "melon-fr-2025",
+      "cropGroup": "LEGUMES-FLEURS",
+      "defaultOrigin": "France",
+      "displayName": "Melon FR (2025)",
+      "id": "dc5c2f84-937c-4059-b7f9-352658cd4c57",
+      "inediblePart": 0.4,
+      "ingredientCategories": [
+        "vegetable_fresh"
+      ],
+      "ingredientDensity": 0.447,
+      "rawToCookedRatio": 0.856,
+      "scenario": "reference",
+      "scopes": [
+        "food",
+        "food2"
+      ],
+      "transportCooling": "none",
+      "visible": true
+    },
+    {
+      "alias": "melon-eu-2025",
+      "cropGroup": "LEGUMES-FLEURS",
+      "defaultOrigin": "EuropeAndMaghreb",
+      "displayName": "Melon UE (2025)",
+      "explain": "ICV UE = ICV FR",
+      "id": "cfabc9a1-1e99-48fc-bfea-9a2fbf6777a6",
+      "inediblePart": 0.4,
+      "ingredientCategories": [
+        "vegetable_fresh"
+      ],
+      "ingredientDensity": 0.447,
+      "rawToCookedRatio": 0.856,
+      "scenario": "import",
+      "scopes": [
+        "food",
+        "food2"
+      ],
+      "transportCooling": "none",
+      "visible": true
+    },
+    {
+      "alias": "melon-non-eu-2025",
+      "cropGroup": "LEGUMES-FLEURS",
+      "defaultOrigin": "OutOfEuropeAndMaghreb",
+      "displayName": "Melon par défaut (2025)",
+      "id": "7b30c4ad-e851-4274-8062-4e14850108a9",
+      "inediblePart": 0.4,
+      "ingredientCategories": [
+        "vegetable_fresh"
+      ],
+      "ingredientDensity": 0.447,
+      "rawToCookedRatio": 0.856,
+      "scenario": "import",
+      "scopes": [
+        "food",
+        "food2"
+      ],
+      "transportCooling": "none",
+      "visible": true
+    },
+    {
+      "alias": "melon-eu",
+      "cropGroup": "LEGUMES-FLEURS",
+      "cropGroupMatch": {
+        "confidence": 0.95,
+        "rule": "matched 'melon' in cropgroup.csv"
+      },
+      "defaultOrigin": "EuropeAndMaghreb",
+      "displayName": "Melon (miellat, Charentais, Cataloupe, Cavaillon) UE",
+      "id": "d8814568-a69d-51ce-92ec-14b7c181d30b",
+      "inediblePart": 0.2,
+      "inediblePartMatch": {
+        "confidence": 1.0,
+        "rule": "fruit NOVA 1 default from food_type_inedible_part.csv"
+      },
+      "ingredientCategories": [
+        "vegetable_fresh"
+      ],
+      "ingredientDensity": 0.85,
+      "ingredientDensityMatch": {
+        "confidence": 1.0,
+        "rule": "fruit default from food_type_density.csv"
+      },
+      "rawToCookedRatio": 0.856,
+      "rawToCookedRatioMatch": {
+        "confidence": 1.0,
+        "rule": "fruit default from food_type_cooked_to_raw.csv"
+      },
+      "scenario": "import",
+      "scopes": [
+        "food",
+        "food2"
+      ],
+      "transportCooling": "always",
+      "transportCoolingMatch": {
+        "confidence": 1.0,
+        "rule": "fruit NOVA 1 → always (perishable)"
+      },
+      "visible": true
+    },
+    {
+      "alias": "watermelon-eu",
+      "cropGroup": "LEGUMES-FLEURS",
+      "cropGroupMatch": {
+        "confidence": 1.0,
+        "rule": "matched 'pastèque' in cropgroup.csv"
+      },
+      "defaultOrigin": "EuropeAndMaghreb",
+      "displayName": "Pastèque UE",
+      "id": "becdf1e8-b157-5dd9-9e7d-ce8045507714",
+      "inediblePart": 0.2,
+      "inediblePartMatch": {
+        "confidence": 1.0,
+        "rule": "fruit NOVA 1 default from food_type_inedible_part.csv"
+      },
+      "ingredientCategories": [
+        "vegetable_fresh"
+      ],
+      "ingredientDensity": 1.0,
+      "ingredientDensityMatch": {
+        "confidence": 1.0,
+        "rule": "watermelon found in density.csv"
+      },
+      "rawToCookedRatio": 0.856,
+      "rawToCookedRatioMatch": {
+        "confidence": 1.0,
+        "rule": "fruit default from food_type_cooked_to_raw.csv"
+      },
+      "scenario": "import",
+      "scopes": [
+        "food",
+        "food2"
+      ],
+      "transportCooling": "always",
+      "transportCoolingMatch": {
+        "confidence": 1.0,
+        "rule": "fruit NOVA 1 → always (perishable)"
+      },
+      "visible": true
+    }
+  ],
+  "scopes": [
+    "food",
+    "food2"
+  ],
+  "source": "Agribalyse 3.2"
+}

@@ -1,0 +1,24 @@
+{
+  "activityName": "Fish products tuna, ambient, 160g | Packaging System, N0, All, Steel can {FR} U",
+  "categories": [
+    "material",
+    "packaging",
+    "packaging_type:box"
+  ],
+  "displayName": "Boîte en acier pour thon - 160g",
+  "id": "bf11fa4b-4c07-4166-8312-4b5550a3be1d",
+  "metadata": [
+    {
+      "id": "80cdc5aa-7aa7-40df-bbea-e15cf0f9494f",
+      "scopes": [
+        "food2"
+      ]
+    }
+  ],
+  "scopes": [
+    "food",
+    "food2"
+  ],
+  "source": "Agribalyse 3.2",
+  "unit": "item"
+}

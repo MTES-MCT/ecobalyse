@@ -1,0 +1,24 @@
+{
+  "activityName": "Non-chocolate confectionery, 250g | Packaging System, Proxy Pack, Plastic film {FR} U",
+  "categories": [
+    "material",
+    "packaging",
+    "packaging_type:bag"
+  ],
+  "displayName": "Sachet en plastique (PET) pour confiseries non chocolatées - 250g - Proxy",
+  "id": "9f01b9ca-7d5a-412f-a3c3-404a90fb31e5",
+  "metadata": [
+    {
+      "id": "b2c77b26-d1a4-4d66-b73f-f79cf4503cad",
+      "scopes": [
+        "food2"
+      ]
+    }
+  ],
+  "scopes": [
+    "food",
+    "food2"
+  ],
+  "source": "Agribalyse 3.2",
+  "unit": "item"
+}

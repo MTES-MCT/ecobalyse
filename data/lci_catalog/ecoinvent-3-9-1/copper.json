@@ -1,0 +1,28 @@
+{
+  "activityName": "copper, cathode//[GLO] market for copper, cathode",
+  "categories": [
+    "material",
+    "material_type:copper"
+  ],
+  "comment": "",
+  "displayName": "Cuivre",
+  "elecMJ": 0,
+  "heatMJ": 0,
+  "id": "3c56d00b-f96c-4be8-9efa-12f6fa57b496",
+  "metadata": [
+    {
+      "id": "a363f079-bc3f-424a-a2e1-06b9c76b4fc3",
+      "scopes": [
+        "object",
+        "veli"
+      ]
+    }
+  ],
+  "scopes": [
+    "object",
+    "veli"
+  ],
+  "source": "Ecoinvent 3.9.1",
+  "unit": "kg",
+  "waste": 0
+}

@@ -1,0 +1,52 @@
+[project]
+name = "ecobalyse-data"
+version = "0.1.0"
+description = "Produce the input data required to make the Ecobalyse application work."
+readme = "README.md"
+requires-python = "==3.12.*"
+dependencies = [
+    "boto3 ~= 1.40",
+    "dynaconf ~= 3.2",
+    "frozendict ~= 2.4",
+    "orjson ~= 3.10",
+    "platformdirs ~= 4.5",
+    "rich ~= 14.2",
+    "typer ~= 0.15",
+
+    # Brightway
+    "bw2analyzer == 0.11.7",
+    "bw2calc == 2.0.1",
+    "bw2data == 4.4.3",
+    "bw2io[multifunctional] == 0.9.5",
+    "bw2parameters == 1.1.0",
+    'pypardiso ~= 0.4; platform_machine!="arm64" and platform_machine!="aarch64"',
+
+]
+
+[dependency-groups]
+dev = [
+    "check-jsonschema ~= 0.35",
+    "deadcode ~= 2.4",
+    "pre-commit ~= 4.0",
+    "pytest ~= 8.3",
+    "pytest-mock ~= 3.14",
+    "ruff ~= 0.8",
+    "vulture ~= 2.14",
+]
+
+jupyter = [
+    "ipywidgets>=8.1.5",
+    "jupyter-collaboration>=3.0.1",
+    "jupyterlab>=4.3.2",
+    "notebook>=7.3.0",
+]
+
+# SimaPro (API + plotting)
+simapro = ["fastapi[all] ~= 0.115", "matplotlib ~= 3.10.7"]
+
+[tool.ruff.lint]
+extend-select = ["I"]
+
+[tool.pytest.ini_options]
+pythonpath = ["."]
+testpaths = ["tests"]

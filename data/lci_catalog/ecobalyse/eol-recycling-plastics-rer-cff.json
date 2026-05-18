@@ -1,0 +1,31 @@
+{
+  "activityName": "plastics EoL recycling, RER, CFF",
+  "categories": [
+    "end-of-life",
+    "material_type:hdpe",
+    "material_type:ldpe",
+    "material_type:pp",
+    "material_type:rigid_plastics"
+  ],
+  "comment": "According to CFF: A=0.5, Q=0.9",
+  "displayName": "Recyclage du plastique, hors PET et PUR, CFF",
+  "elecMJ": 0,
+  "heatMJ": 0,
+  "id": "bcc6fc60-bb17-450d-a654-eeb14ed72885",
+  "metadata": [
+    {
+      "id": "f404c75d-c211-4ea1-b392-702693a26b75",
+      "scopes": [
+        "object",
+        "veli"
+      ]
+    }
+  ],
+  "scopes": [
+    "object",
+    "veli"
+  ],
+  "source": "Ecobalyse",
+  "unit": "kg",
+  "waste": 0
+}

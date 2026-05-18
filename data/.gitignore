@@ -1,0 +1,35 @@
+# Python-generated files
+__pycache__/
+.pytest_cache/
+.ruff_cache/
+*.py[oc]
+build/
+dist/
+wheels/
+*.egg-info
+
+# Virtual environments
+.venv/
+
+# Local environment files
+.envrc
+.env
+
+# IDE files
+.vscode/
+
+# OS cruft
+.DS_Store
+
+# Never commit detailed impacts by error
+processes_impacts.json
+processes_generic_impacts.json
+processes_impacts_full.json
+!tests/snapshots/processes_impacts.json
+!tests/snapshots/processes_generic_impacts.json
+!tests/snapshots/processes_impacts_full.json
+
+# Misc
+.ipynb_checkpoints/
+*.ipynb
+graphs/

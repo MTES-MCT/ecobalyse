@@ -1,0 +1,21 @@
+{
+  "activityName": "Transport, freight, lorry with refrigeration machine, 7.5-16 ton, EURO5, R134a refrigerant, cooling {GLO}| transport, freight, lorry with refrigeration machine, 7.5-16 ton, EURO5, R134a refrigerant, cooling | Cut-off, S - Copied from Ecoinvent U",
+  "categories": [
+    "transport"
+  ],
+  "displayName": "Camion frigorifique",
+  "id": "219b986c-9751-58cf-977e-7ba8f0b4ae2b",
+  "metadata": [
+    {
+      "id": "7ce0e82a-0b26-48fd-b260-0d8f4ed25001",
+      "scopes": [
+        "food2"
+      ]
+    }
+  ],
+  "scopes": [
+    "food",
+    "food2"
+  ],
+  "source": "Agribalyse 3.2"
+}

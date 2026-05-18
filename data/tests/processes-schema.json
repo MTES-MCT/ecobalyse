@@ -1,0 +1,127 @@
+{
+  "$schema": "https://json-schema.org/draft/2019-09/schema#",
+  "type": "array",
+  "items": {
+    "type": "object",
+    "properties": {
+      "alias": {
+        "type": ["string", "null"]
+      },
+      "categories": {
+        "type": "array",
+        "items": {
+          "type": "string"
+        }
+      },
+      "comment": {
+        "type": "string"
+      },
+      "massPerUnit": {
+        "type": ["number", "null"],
+        "exclusiveMinimum": 0
+      },
+      "displayName": {
+        "type": ["string", "null"]
+      },
+      "elecMJ": {
+        "type": "number",
+        "minimum": 0
+      },
+      "heatMJ": {
+        "type": "number",
+        "minimum": 0
+      },
+      "id": {
+        "type": "string",
+        "format": "uuid"
+      },
+      "impacts": {
+        "type": "object",
+        "properties": {
+          "acd": { "type": "number" },
+          "cch": { "type": "number" },
+          "etf": { "type": "number" },
+          "etf-c": { "type": "number" },
+          "fru": { "type": "number" },
+          "fwe": { "type": "number" },
+          "htc": { "type": "number" },
+          "htc-c": { "type": "number" },
+          "htn": { "type": "number" },
+          "htn-c": { "type": "number" },
+          "ior": { "type": "number" },
+          "ldu": { "type": "number" },
+          "mru": { "type": "number" },
+          "ozd": { "type": "number" },
+          "pco": { "type": "number" },
+          "pma": { "type": "number" },
+          "swe": { "type": "number" },
+          "tre": { "type": "number" },
+          "wtu": { "type": "number" },
+          "ecs": { "type": "number" }
+        },
+        "required": [
+          "acd",
+          "cch",
+          "etf",
+          "etf-c",
+          "fru",
+          "fwe",
+          "htc",
+          "htc-c",
+          "htn",
+          "htn-c",
+          "ior",
+          "ldu",
+          "mru",
+          "ozd",
+          "pco",
+          "pma",
+          "swe",
+          "tre",
+          "wtu",
+          "ecs"
+        ]
+      },
+      "source": {
+        "enum": [
+          "Agribalyse 3.2",
+          "Custom",
+          "Ecobalyse",
+          "Ecoinvent 3.9.1",
+          "Ecoinvent 3.11",
+          "Ginko 2025",
+          "WFLDB",
+          "Woolmark",
+          "forwast",
+          "PastoEco"
+        ],
+        "type": "string"
+      },
+      "activityName": {
+        "type": "string"
+      },
+      "unit": {
+        "type": "string",
+        "enum": ["kg", "t⋅km", "kWh", "MJ", "L", "item", "m2", "m3"]
+      },
+      "waste": {
+        "type": "number",
+        "minimum": 0,
+        "maximum": 1
+      }
+    },
+    "required": [
+      "activityName",
+      "categories",
+      "comment",
+      "massPerUnit",
+      "elecMJ",
+      "heatMJ",
+      "id",
+      "impacts",
+      "source",
+      "unit",
+      "waste"
+    ]
+  }
+}

@@ -1,0 +1,33 @@
+{
+  "activityName": "fibre, viscose//[GLO] market for fibre, viscose",
+  "categories": [
+    "material",
+    "textile_material"
+  ],
+  "comment": "Ancien identifiant (12/2024): f89bba0c170190e003fa3f643591cca5.",
+  "displayName": "Fibre de viscose",
+  "elecMJ": 0,
+  "heatMJ": 0,
+  "id": "d60beb93-af80-56f5-84bf-71f5c76fd4a8",
+  "metadata": [
+    {
+      "alias": "ei-viscose",
+      "defaultCountry": "CN",
+      "displayName": "Fibre de viscose",
+      "geographicOrigin": "Asie - Pacifique",
+      "id": "c087d394-5901-4b03-ba7a-7d4b0db0490c",
+      "name": "Viscose",
+      "origin": "ArtificialFromOrganic",
+      "primary": true,
+      "scopes": [
+        "textile"
+      ]
+    }
+  ],
+  "scopes": [
+    "textile"
+  ],
+  "source": "Ecoinvent 3.9.1",
+  "unit": "kg",
+  "waste": 0
+}

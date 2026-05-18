@@ -1,0 +1,58 @@
+{
+  "activityName": "Seed-cotton {RoW}| seed-cotton production, conventional | Cut-off, U - Adapted from Ecoinvent U",
+  "categories": [
+    "ingredient",
+    "material",
+    "material_type:fruits_and_vegetables"
+  ],
+  "displayName": "Graine de coton FR",
+  "id": "fa1095a5-4727-54c5-9c81-7802bd6b4d89",
+  "metadata": [
+    {
+      "alias": "cotton-seed-fr",
+      "cropGroup": "SEMENCES",
+      "cropGroupMatch": {
+        "confidence": 0.95,
+        "rule": "matched 'semences epeautre' in cropgroup.csv"
+      },
+      "defaultOrigin": "France",
+      "displayName": "Graine de coton FR",
+      "id": "4344cfec-c1ea-5b29-9374-d78dc27767a5",
+      "inediblePart": 0.2,
+      "inediblePartMatch": {
+        "confidence": 1.0,
+        "rule": "vegetable NOVA 1 default from food_type_inedible_part.csv"
+      },
+      "ingredientCategories": [
+        "vegetable_fresh"
+      ],
+      "ingredientDensity": 0.9,
+      "ingredientDensityMatch": {
+        "confidence": 1.0,
+        "rule": "vegetable default from food_type_density.csv"
+      },
+      "rawToCookedRatio": 0.856,
+      "rawToCookedRatioMatch": {
+        "confidence": 1.0,
+        "rule": "vegetable default from food_type_cooked_to_raw.csv"
+      },
+      "scenario": "reference",
+      "scopes": [
+        "food",
+        "food2"
+      ],
+      "transportCooling": "always",
+      "transportCoolingMatch": {
+        "confidence": 1.0,
+        "rule": "vegetable NOVA 1 → always (perishable)"
+      },
+      "visible": true
+    }
+  ],
+  "scopes": [
+    "food",
+    "food2"
+  ],
+  "source": "Agribalyse 3.2",
+  "unit": "kg"
+}

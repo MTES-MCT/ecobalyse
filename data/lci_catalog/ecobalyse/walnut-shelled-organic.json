@@ -1,0 +1,37 @@
+{
+  "activityName": "Walnut, shelled, organic, CMAPS {GLO} U",
+  "categories": [
+    "ingredient",
+    "material"
+  ],
+  "displayName": "Noix, décortiquée, fraîche ou sèche BIO",
+  "id": "4ef9c8ab-fe0d-4ccb-80a5-b01bc99f949b",
+  "metadata": [
+    {
+      "alias": "walnut-shelled-fr-organic",
+      "cropGroup": "FRUITS A COQUES",
+      "defaultOrigin": "France",
+      "displayName": "Noix, décortiquée, fraîche ou sèche BIO",
+      "id": "31e1240a-c67d-400c-a087-45b19a52a4d4",
+      "inediblePart": 0,
+      "ingredientCategories": [
+        "nut_oilseed_raw",
+        "organic"
+      ],
+      "ingredientDensity": 1,
+      "rawToCookedRatio": 1,
+      "scenario": "organic",
+      "scopes": [
+        "food",
+        "food2"
+      ],
+      "transportCooling": "none",
+      "visible": true
+    }
+  ],
+  "scopes": [
+    "food",
+    "food2"
+  ],
+  "source": "Ecobalyse"
+}

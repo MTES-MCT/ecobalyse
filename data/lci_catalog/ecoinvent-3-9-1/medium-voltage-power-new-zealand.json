@@ -1,0 +1,26 @@
+{
+  "activityName": "electricity, medium voltage//[NZ] market for electricity, medium voltage",
+  "categories": [
+    "energy"
+  ],
+  "comment": "Ancien identifiant (12/2024): 609797e4710a81c9903bc72c141ff191.",
+  "displayName": "Électricité moyenne tension, Nouvelle-Zélande",
+  "elecMJ": 0,
+  "heatMJ": 0,
+  "id": "2d7bf521-6ab0-5e08-9175-75ae8835a4fa",
+  "metadata": [
+    {
+      "id": "079000da-8513-4615-82ae-97468da7d6b4",
+      "scopes": [
+        "food2"
+      ]
+    }
+  ],
+  "scopes": [
+    "textile",
+    "food2"
+  ],
+  "source": "Ecoinvent 3.9.1",
+  "unit": "kWh",
+  "waste": 0
+}

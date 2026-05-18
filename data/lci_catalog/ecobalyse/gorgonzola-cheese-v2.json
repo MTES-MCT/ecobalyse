@@ -1,0 +1,35 @@
+{
+  "activityName": "Gorgonzola cheese, variant 2, CMAPS {GLO} U",
+  "categories": [
+    "ingredient",
+    "material"
+  ],
+  "displayName": "Gorgonzola Origine Inconnue",
+  "id": "b7bbb132-dadf-4405-923a-2c51b5fd312f",
+  "metadata": [
+    {
+      "alias": "gorgonzola-cheese-default",
+      "defaultOrigin": "OutOfEuropeAndMaghreb",
+      "displayName": "Gorgonzola Origine Inconnue",
+      "id": "cbf101fd-164f-461d-b1cb-cf9c9574d309",
+      "inediblePart": 0,
+      "ingredientCategories": [
+        "dairy_product"
+      ],
+      "ingredientDensity": 1,
+      "rawToCookedRatio": 1,
+      "scenario": "import",
+      "scopes": [
+        "food",
+        "food2"
+      ],
+      "transportCooling": "always",
+      "visible": false
+    }
+  ],
+  "scopes": [
+    "food",
+    "food2"
+  ],
+  "source": "Ecobalyse"
+}

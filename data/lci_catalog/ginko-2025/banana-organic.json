@@ -1,0 +1,60 @@
+{
+  "activityName": "Banana, at farm, organic 2025 {GLO}",
+  "categories": [
+    "ingredient",
+    "material",
+    "material_type:fruits_and_vegetables"
+  ],
+  "displayName": "Banane Bio",
+  "id": "3c560332-5653-5be5-b540-085689905c4b",
+  "location": "GLO",
+  "metadata": [
+    {
+      "alias": "banana-organic",
+      "cropGroup": "ARBORICULTURE",
+      "cropGroupMatch": {
+        "confidence": 1.0,
+        "rule": "matched 'banana' in cropgroup.csv"
+      },
+      "defaultOrigin": "France",
+      "displayName": "Banane Bio",
+      "id": "b3f92ca9-3121-4e2d-9e1d-0cc2c5d392fe",
+      "inediblePart": 0.3,
+      "inediblePartMatch": {
+        "confidence": 1.0,
+        "rule": "Matched with Banana in agb_inedible.csv"
+      },
+      "ingredientCategories": [
+        "vegetable_fresh",
+        "organic"
+      ],
+      "ingredientDensity": 0.95,
+      "ingredientDensityMatch": {
+        "confidence": 1.0,
+        "rule": "banana found in density.csv"
+      },
+      "rawToCookedRatio": 0.856,
+      "rawToCookedRatioMatch": {
+        "confidence": 1.0,
+        "rule": "Matched with banana in cooked_to_raw.csv"
+      },
+      "scenario": "organic",
+      "scopes": [
+        "food",
+        "food2"
+      ],
+      "transportCooling": "always",
+      "transportCoolingMatch": {
+        "confidence": 1.0,
+        "rule": "fruit NOVA 1 → always (perishable)"
+      },
+      "visible": true
+    }
+  ],
+  "scopes": [
+    "food",
+    "food2"
+  ],
+  "source": "Ginko 2025",
+  "unit": "kg"
+}

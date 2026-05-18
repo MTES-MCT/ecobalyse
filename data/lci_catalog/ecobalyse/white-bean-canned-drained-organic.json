@@ -1,0 +1,37 @@
+{
+  "activityName": "White bean, canned drained, organic, CMAPS {GLO} U",
+  "categories": [
+    "ingredient",
+    "material"
+  ],
+  "displayName": "Haricot blanc, appertisé, égoutté FR BIO",
+  "id": "4b91543d-804e-496f-a4fb-b1c4b2eea801",
+  "metadata": [
+    {
+      "alias": "white-bean-canned-drained-fr-organic",
+      "cropGroup": "LEGUMES-FLEURS",
+      "defaultOrigin": "France",
+      "displayName": "Haricot blanc, appertisé, égoutté FR BIO",
+      "id": "069dc73e-78b4-417f-aa18-cc090b3639c3",
+      "inediblePart": 0,
+      "ingredientCategories": [
+        "vegetable_processed",
+        "organic"
+      ],
+      "ingredientDensity": 1,
+      "rawToCookedRatio": 1,
+      "scenario": "organic",
+      "scopes": [
+        "food",
+        "food2"
+      ],
+      "transportCooling": "none",
+      "visible": false
+    }
+  ],
+  "scopes": [
+    "food",
+    "food2"
+  ],
+  "source": "Ecobalyse"
+}

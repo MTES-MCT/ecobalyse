@@ -1,0 +1,37 @@
+{
+  "categories": [
+    "use"
+  ],
+  "comment": "Ancien identifiant (12/2024): 2b39a7ac-38bd-435f-85a4-783023d845bf.",
+  "displayName": "Utilisation : Impact hors repassage (Pull)",
+  "elecMJ": 1.0266,
+  "heatMJ": 0,
+  "id": "a9ed30ef-4849-586f-98be-0c356054947e",
+  "impacts": {
+    "acd": 9.39401e-05,
+    "cch": 0.0340193,
+    "etf": 0,
+    "etf-c": 0,
+    "fru": 0.717395,
+    "fwe": 1.10861e-05,
+    "htc": 0,
+    "htc-c": 0,
+    "htn": 0,
+    "htn-c": 0,
+    "ior": 1.34883,
+    "ldu": 1.05972,
+    "mru": 1.25858e-07,
+    "ozd": 8.43237e-09,
+    "pco": 5.66588e-05,
+    "pma": 1.93206e-09,
+    "swe": 2.00761e-05,
+    "tre": 0.000109398,
+    "wtu": 0
+  },
+  "scopes": [
+    "textile"
+  ],
+  "source": "Custom",
+  "unit": "kg",
+  "waste": 0
+}

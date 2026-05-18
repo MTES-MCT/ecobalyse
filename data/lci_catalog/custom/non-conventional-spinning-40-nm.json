@@ -1,0 +1,49 @@
+{
+  "categories": [
+    "transformation",
+    "material_type:organic_fibers"
+  ],
+  "comment": "",
+  "displayName": "Filature non conventionnelle (40 Nm)",
+  "elecMJ": 6.552,
+  "heatMJ": 0,
+  "id": "6fbc1c36-dd19-5113-8cda-3479e8587281",
+  "impacts": {
+    "acd": 0,
+    "cch": 0,
+    "etf": 0,
+    "etf-c": 0,
+    "fru": 0,
+    "fwe": 0,
+    "htc": 0,
+    "htc-c": 0,
+    "htn": 0,
+    "htn-c": 0,
+    "ior": 0,
+    "ldu": 0,
+    "mru": 0,
+    "ozd": 0,
+    "pco": 0,
+    "pma": 0,
+    "swe": 0,
+    "tre": 0,
+    "wtu": 0
+  },
+  "metadata": [
+    {
+      "id": "5502669e-d936-46c8-8caa-61bb3fa7e470",
+      "scopes": [
+        "object",
+        "veli"
+      ]
+    }
+  ],
+  "scopes": [
+    "textile",
+    "object",
+    "veli"
+  ],
+  "source": "Custom",
+  "unit": "kg",
+  "waste": 0.12
+}

@@ -1,0 +1,26 @@
+{
+  "activityName": "Battery, Li-ion, LFP, rechargeable {CN}| battery production, Li-ion, LFP, rechargeable | Cut-off, U",
+  "categories": [
+    "material",
+    "material_type:battery_cell"
+  ],
+  "comment": "densité energétique : 8.6 kWh/kg",
+  "displayName": "Batterie Li-ion, LFP",
+  "elecMJ": 0,
+  "heatMJ": 0,
+  "id": "681c57a3-7fe7-5491-adb6-7bd11ea5cef9",
+  "metadata": [
+    {
+      "id": "4b8c24f4-7236-4467-a436-97015550fe63",
+      "scopes": [
+        "veli"
+      ]
+    }
+  ],
+  "scopes": [
+    "veli"
+  ],
+  "source": "Ecoinvent 3.11",
+  "unit": "kg",
+  "waste": 0
+}

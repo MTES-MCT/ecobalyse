@@ -1,0 +1,22 @@
+{
+  "activityName": "Polyethylene terephthalate, granulate, bottle grade {RER}| production | Cut-off, S - Copied from Ecoinvent U",
+  "categories": [
+    "material",
+    "packaging"
+  ],
+  "displayName": "PET",
+  "id": "327429d4-c20d-5e3e-85bd-161b151130ae",
+  "metadata": [
+    {
+      "id": "6410bbf5-8f96-4b2c-afdc-3476ca5ff388",
+      "scopes": [
+        "food2"
+      ]
+    }
+  ],
+  "scopes": [
+    "food",
+    "food2"
+  ],
+  "source": "Agribalyse 3.2"
+}

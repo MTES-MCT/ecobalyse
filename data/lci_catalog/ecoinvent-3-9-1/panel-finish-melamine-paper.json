@@ -1,0 +1,28 @@
+{
+  "activityName": "coating, with melamine impregnated paper//[RER] coating service, melamine impregnated paper, double-sided",
+  "categories": [
+    "material",
+    "material_type:wood"
+  ],
+  "comment": "",
+  "displayName": "Revêtement panneaux (papier mélaminé)",
+  "elecMJ": 0,
+  "heatMJ": 0,
+  "id": "b9de3bd1-1e71-5fcc-9054-1f0b60dde1a1",
+  "metadata": [
+    {
+      "id": "18efcc88-0524-49b4-906b-1b9fb65f9228",
+      "scopes": [
+        "object",
+        "veli"
+      ]
+    }
+  ],
+  "scopes": [
+    "object",
+    "veli"
+  ],
+  "source": "Ecoinvent 3.9.1",
+  "unit": "m2",
+  "waste": 0
+}

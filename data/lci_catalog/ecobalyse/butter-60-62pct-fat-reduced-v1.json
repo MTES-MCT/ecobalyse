@@ -1,0 +1,35 @@
+{
+  "activityName": "Butter, 60-62pct fat reduced, variant 1, CMAPS {GLO} U",
+  "categories": [
+    "ingredient",
+    "material"
+  ],
+  "displayName": "Beurre à 60-62% MG, à teneur réduite en matière grasse, doux FR",
+  "id": "9f5b4546-d708-4cf2-a067-22d01d3a2a1d",
+  "metadata": [
+    {
+      "alias": "butter-60-62pct-fat-reduced-fr",
+      "defaultOrigin": "France",
+      "displayName": "Beurre à 60-62% MG, à teneur réduite en matière grasse, doux FR",
+      "id": "e9cee56b-149c-4d79-8f10-4d49410d78c7",
+      "inediblePart": 0,
+      "ingredientCategories": [
+        "dairy_product"
+      ],
+      "ingredientDensity": 1,
+      "rawToCookedRatio": 1,
+      "scenario": "reference",
+      "scopes": [
+        "food",
+        "food2"
+      ],
+      "transportCooling": "always",
+      "visible": true
+    }
+  ],
+  "scopes": [
+    "food",
+    "food2"
+  ],
+  "source": "Ecobalyse"
+}

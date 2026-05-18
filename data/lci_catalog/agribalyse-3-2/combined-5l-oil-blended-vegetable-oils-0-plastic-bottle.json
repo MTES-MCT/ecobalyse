@@ -1,0 +1,24 @@
+{
+  "activityName": "Combined oil (blended vegetable oils), 0,5L | Packaging System, N0, All, Plastic bottle (clear) {FR} U",
+  "categories": [
+    "material",
+    "packaging",
+    "packaging_type:bottle"
+  ],
+  "displayName": "Bouteille en plastique (PET) pour mélange d'huiles végétales - 0,5L",
+  "id": "cdd96db2-8cf8-4511-883e-7e50b17189e0",
+  "metadata": [
+    {
+      "id": "380286e1-ddde-4a1b-b9fe-eac05f9758f8",
+      "scopes": [
+        "food2"
+      ]
+    }
+  ],
+  "scopes": [
+    "food",
+    "food2"
+  ],
+  "source": "Agribalyse 3.2",
+  "unit": "item"
+}

@@ -1,0 +1,28 @@
+{
+  "activityName": "steel, low-alloyed, market, CN",
+  "categories": [
+    "material",
+    "material_type:ferrous_metals"
+  ],
+  "comment": "",
+  "displayName": "Acier, mix marché, hors Europe",
+  "elecMJ": 0,
+  "heatMJ": 0,
+  "id": "adf6e7c5-80be-540b-aa34-4b613901da7b",
+  "metadata": [
+    {
+      "id": "3e514eac-185c-449e-bdc2-e1082ca0576d",
+      "scopes": [
+        "object",
+        "veli"
+      ]
+    }
+  ],
+  "scopes": [
+    "object",
+    "veli"
+  ],
+  "source": "Ecobalyse",
+  "unit": "kg",
+  "waste": 0
+}

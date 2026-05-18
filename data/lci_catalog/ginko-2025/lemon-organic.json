@@ -1,0 +1,60 @@
+{
+  "activityName": "Lemon, at farm, organic 2025 {IT} U",
+  "categories": [
+    "ingredient",
+    "material",
+    "material_type:fruits_and_vegetables"
+  ],
+  "displayName": "Citron Bio",
+  "id": "c65c9638-df73-5c54-baaa-86cb04554163",
+  "location": "IT",
+  "metadata": [
+    {
+      "alias": "lemon-organic",
+      "cropGroup": "VERGERS",
+      "cropGroupMatch": {
+        "confidence": 1.0,
+        "rule": "fruit default"
+      },
+      "defaultOrigin": "France",
+      "displayName": "Citron Bio",
+      "id": "87289d0e-18f9-5675-a672-e58cfe59dc41",
+      "inediblePart": 0.3,
+      "inediblePartMatch": {
+        "confidence": 1.0,
+        "rule": "Matched with Lemon in agb_inedible.csv"
+      },
+      "ingredientCategories": [
+        "vegetable_fresh",
+        "organic"
+      ],
+      "ingredientDensity": 1.0,
+      "ingredientDensityMatch": {
+        "confidence": 1.0,
+        "rule": "lemon found in density.csv"
+      },
+      "rawToCookedRatio": 0.856,
+      "rawToCookedRatioMatch": {
+        "confidence": 1.0,
+        "rule": "fruit default from food_type_cooked_to_raw.csv"
+      },
+      "scenario": "organic",
+      "scopes": [
+        "food",
+        "food2"
+      ],
+      "transportCooling": "always",
+      "transportCoolingMatch": {
+        "confidence": 1.0,
+        "rule": "fruit NOVA 1 → always (perishable)"
+      },
+      "visible": true
+    }
+  ],
+  "scopes": [
+    "food",
+    "food2"
+  ],
+  "source": "Ginko 2025",
+  "unit": "kg"
+}

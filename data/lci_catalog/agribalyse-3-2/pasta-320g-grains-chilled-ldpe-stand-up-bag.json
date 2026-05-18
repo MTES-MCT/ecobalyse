@@ -1,0 +1,24 @@
+{
+  "activityName": "Pasta and grains chilled, 320g | Packaging System, N0, All, LDPE stand up bag {FR} U",
+  "categories": [
+    "material",
+    "packaging",
+    "packaging_type:bag"
+  ],
+  "displayName": "Sachet stand up en plastique (PE) pour pâtes et graines, réfrigérées - 320g",
+  "id": "6095ebd4-78dc-41ba-b16f-cbeccba11b4d",
+  "metadata": [
+    {
+      "id": "5f8db4a2-a06d-438b-978e-1852b2d2b263",
+      "scopes": [
+        "food2"
+      ]
+    }
+  ],
+  "scopes": [
+    "food",
+    "food2"
+  ],
+  "source": "Agribalyse 3.2",
+  "unit": "item"
+}

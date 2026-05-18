@@ -1,0 +1,24 @@
+{
+  "activityName": "Fish products, surimi, 400g | Packaging System, N0, All, Cardboard tray and plastic bag {FR} U",
+  "categories": [
+    "material",
+    "packaging",
+    "packaging_type:bag"
+  ],
+  "displayName": "Sachet en plastique (PP) et barquette carton pour surimi - 400g",
+  "id": "42122c28-7acb-41da-bc41-3657833fabec",
+  "metadata": [
+    {
+      "id": "baf45d3a-b7e2-492b-b720-a6456dde0169",
+      "scopes": [
+        "food2"
+      ]
+    }
+  ],
+  "scopes": [
+    "food",
+    "food2"
+  ],
+  "source": "Agribalyse 3.2",
+  "unit": "item"
+}

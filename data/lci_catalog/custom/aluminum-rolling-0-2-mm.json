@@ -1,0 +1,48 @@
+{
+  "categories": [
+    "transformation",
+    "material_type:aluminium"
+  ],
+  "comment": "Foil production (<0.2mm), including scrap remelting, Source: Life Cycle Inventory (LCI) data for aluminium production and transformation processes in Europe, European Aluminium, 2025, 2022 data",
+  "displayName": "Lamination aluminium, <0.2mm",
+  "elecMJ": 5.765,
+  "heatMJ": 7.856,
+  "id": "02fc29cb-be3c-495e-9508-cd4504032b36",
+  "impacts": {
+    "acd": 0,
+    "cch": 0,
+    "etf": 0,
+    "etf-c": 0,
+    "fru": 0,
+    "fwe": 0,
+    "htc": 0,
+    "htc-c": 0,
+    "htn": 0,
+    "htn-c": 0,
+    "ior": 0,
+    "ldu": 0,
+    "mru": 0,
+    "ozd": 0,
+    "pco": 0,
+    "pma": 0,
+    "swe": 0,
+    "tre": 0,
+    "wtu": 0
+  },
+  "metadata": [
+    {
+      "id": "b1022b13-67ca-44c0-a041-4c272f81abf2",
+      "scopes": [
+        "object",
+        "veli"
+      ]
+    }
+  ],
+  "scopes": [
+    "object",
+    "veli"
+  ],
+  "source": "Custom",
+  "unit": "kg",
+  "waste": 0
+}

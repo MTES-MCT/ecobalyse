@@ -1,0 +1,11 @@
+food_type;ratio;source
+vegetable;0.856;Agribalyse/CIQUAL
+fruit;0.856;Agribalyse/CIQUAL
+grain;2.259;Agribalyse/CIQUAL cereals
+legume;0.856;Agribalyse/CIQUAL fresh legumes
+fish_seafood;0.819;Agribalyse/CIQUAL
+meat;0.792;Agribalyse/CIQUAL red meat
+dairy;1.0;no cooking change
+nut_oilseed;1.0;no cooking change
+spice_condiment;1.0;no cooking change
+beverage;1.0;no cooking change

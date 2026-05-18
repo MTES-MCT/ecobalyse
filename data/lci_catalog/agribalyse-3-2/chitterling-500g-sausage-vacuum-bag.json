@@ -1,0 +1,24 @@
+{
+  "activityName": "Chitterling sausage, 500g | Packaging System, N0, All, Vacuum bag {FR} U",
+  "categories": [
+    "material",
+    "packaging",
+    "packaging_type:bag"
+  ],
+  "displayName": "Sachet sous-vide en plastique (PA/PE) pour andouille/andouillette - 400g à 500g",
+  "id": "536f88c6-1269-4b69-b1e0-e5beaafe2aa3",
+  "metadata": [
+    {
+      "id": "1cfcc0f3-5f96-467b-be16-5df80f558507",
+      "scopes": [
+        "food2"
+      ]
+    }
+  ],
+  "scopes": [
+    "food",
+    "food2"
+  ],
+  "source": "Agribalyse 3.2",
+  "unit": "item"
+}

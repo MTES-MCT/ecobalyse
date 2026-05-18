@@ -1,0 +1,24 @@
+{
+  "activityName": "Pates and terrines, 170g | Packaging System, N0, All, XPS tray with lid {FR} U",
+  "categories": [
+    "material",
+    "packaging",
+    "packaging_type:tray"
+  ],
+  "displayName": "Barquette en plastique (PSX) pour pâté et terrine - 170g",
+  "id": "732664f0-9bee-4f29-8aa8-a4d469e392b3",
+  "metadata": [
+    {
+      "id": "98f8a34b-6c83-4305-96f4-dab2a7a67731",
+      "scopes": [
+        "food2"
+      ]
+    }
+  ],
+  "scopes": [
+    "food",
+    "food2"
+  ],
+  "source": "Agribalyse 3.2",
+  "unit": "item"
+}

@@ -1,0 +1,24 @@
+{
+  "activityName": "Other desserts - cat C, 285g | Packaging System, N0, All, Cardboard box {FR} U",
+  "categories": [
+    "material",
+    "packaging",
+    "packaging_type:box"
+  ],
+  "displayName": "Boîte en carton, barquette aluminium, sachet plastique (PEBD) pour gâteau - 330g",
+  "id": "79d05fb1-d000-41f4-850b-54afd8d2dc9c",
+  "metadata": [
+    {
+      "id": "1fdd9d17-c874-4651-b224-1d4e209f1e79",
+      "scopes": [
+        "food2"
+      ]
+    }
+  ],
+  "scopes": [
+    "food",
+    "food2"
+  ],
+  "source": "Agribalyse 3.2",
+  "unit": "item"
+}

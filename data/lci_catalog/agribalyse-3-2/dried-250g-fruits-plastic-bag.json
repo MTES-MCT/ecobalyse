@@ -1,0 +1,24 @@
+{
+  "activityName": "Dried fruits, 250g | Packaging System, N0, All, Plastic bag {FR} U",
+  "categories": [
+    "material",
+    "packaging",
+    "packaging_type:bag"
+  ],
+  "displayName": "Sachet en plastique (PP/PEBD) pour fruits séchés - 250g",
+  "id": "7c50d9cc-6203-45ba-85de-1eef9e01b2c0",
+  "metadata": [
+    {
+      "id": "e529a1e7-cb19-479e-8372-e80d6014b428",
+      "scopes": [
+        "food2"
+      ]
+    }
+  ],
+  "scopes": [
+    "food",
+    "food2"
+  ],
+  "source": "Agribalyse 3.2",
+  "unit": "item"
+}

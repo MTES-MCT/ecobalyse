@@ -1,0 +1,36 @@
+{
+  "activityName": "Rice flour, CMAPS {FR} U",
+  "categories": [
+    "ingredient",
+    "material"
+  ],
+  "displayName": "Farine de riz Origine Inconnue",
+  "id": "9ce352b8-1e6c-45bb-b820-d3f9e159a63a",
+  "metadata": [
+    {
+      "alias": "rice-flour-default",
+      "cropGroup": "RIZ",
+      "defaultOrigin": "OutOfEuropeAndMaghreb",
+      "displayName": "Farine de riz Origine Inconnue",
+      "id": "9db59fb1-143d-420d-a0b8-a5887c6def60",
+      "inediblePart": 0,
+      "ingredientCategories": [
+        "grain_processed"
+      ],
+      "ingredientDensity": 1,
+      "rawToCookedRatio": 1,
+      "scenario": "import",
+      "scopes": [
+        "food",
+        "food2"
+      ],
+      "transportCooling": "always",
+      "visible": true
+    }
+  ],
+  "scopes": [
+    "food",
+    "food2"
+  ],
+  "source": "Ecobalyse"
+}

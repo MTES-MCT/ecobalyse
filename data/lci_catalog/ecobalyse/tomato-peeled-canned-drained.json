@@ -1,0 +1,36 @@
+{
+  "activityName": "Tomato, peeled canned drained, CMAPS {GLO} U",
+  "categories": [
+    "ingredient",
+    "material"
+  ],
+  "displayName": "Tomate, pelée, appertisée, égouttée FR",
+  "id": "860a477c-26ed-4a13-ba2b-2a1fd65c5638",
+  "metadata": [
+    {
+      "alias": "tomato-peeled-canned-drained-fr",
+      "cropGroup": "LEGUMES-FLEURS",
+      "defaultOrigin": "France",
+      "displayName": "Tomate, pelée, appertisée, égouttée FR",
+      "id": "b25e27fa-fb20-4834-b50a-dc00cc778027",
+      "inediblePart": 0,
+      "ingredientCategories": [
+        "vegetable_processed"
+      ],
+      "ingredientDensity": 1,
+      "rawToCookedRatio": 1,
+      "scenario": "reference",
+      "scopes": [
+        "food",
+        "food2"
+      ],
+      "transportCooling": "none",
+      "visible": false
+    }
+  ],
+  "scopes": [
+    "food",
+    "food2"
+  ],
+  "source": "Ecobalyse"
+}

@@ -1,0 +1,56 @@
+{
+  "activityName": "Parsley, dried, CMAPS {GLO} U",
+  "categories": [
+    "ingredient",
+    "material"
+  ],
+  "displayName": "Persil, séché FR",
+  "id": "07dac20e-4a8f-46de-8046-89d67a1d80de",
+  "metadata": [
+    {
+      "alias": "parsley-dried-default",
+      "cropGroup": "LEGUMES-FLEURS",
+      "defaultOrigin": "OutOfEuropeAndMaghreb",
+      "displayName": "Persil, séché Origine Inconnue",
+      "id": "e62a495b-450b-4a3d-a398-46941f4e1fe6",
+      "inediblePart": 0,
+      "ingredientCategories": [
+        "spice_condiment_additive"
+      ],
+      "ingredientDensity": 1,
+      "rawToCookedRatio": 1,
+      "scenario": "import",
+      "scopes": [
+        "food",
+        "food2"
+      ],
+      "transportCooling": "none",
+      "visible": true
+    },
+    {
+      "alias": "parsley-dried-fr",
+      "cropGroup": "LEGUMES-FLEURS",
+      "defaultOrigin": "France",
+      "displayName": "Persil, séché FR",
+      "id": "b035fc78-488a-4a04-8033-97b42977d79a",
+      "inediblePart": 0,
+      "ingredientCategories": [
+        "spice_condiment_additive"
+      ],
+      "ingredientDensity": 1,
+      "rawToCookedRatio": 1,
+      "scenario": "reference",
+      "scopes": [
+        "food",
+        "food2"
+      ],
+      "transportCooling": "none",
+      "visible": false
+    }
+  ],
+  "scopes": [
+    "food",
+    "food2"
+  ],
+  "source": "Ecobalyse"
+}

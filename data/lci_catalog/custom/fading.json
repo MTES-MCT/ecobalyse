@@ -1,0 +1,38 @@
+{
+  "activityName": "Délavage chimique, procédé majorant, traitement inefficace des eaux usées",
+  "categories": [
+    "transformation"
+  ],
+  "comment": "Données provenant de Base Impacts 2.01. Ancien identifiant (12/2024): 49adf2a8-c74f-46af-b4c7-e1a8e1f5a6cb.",
+  "displayName": "Délavage chimique, procédé majorant, traitement inefficace des eaux usées",
+  "elecMJ": 6.53,
+  "heatMJ": 37.81,
+  "id": "24edc372-b238-5426-8ac9-059218936641",
+  "impacts": {
+    "acd": 0.000923442,
+    "cch": 0.183115,
+    "etf": 0,
+    "etf-c": 0,
+    "fru": 2.03693,
+    "fwe": 0.000349432,
+    "htc": 0,
+    "htc-c": 0,
+    "htn": 0,
+    "htn-c": 0,
+    "ior": 0.00336641,
+    "ldu": 0.720837,
+    "mru": 5.70479e-07,
+    "ozd": 9.90771e-09,
+    "pco": 0.000386687,
+    "pma": 9.24585e-09,
+    "swe": 0.00337439,
+    "tre": 0.000366822,
+    "wtu": 0
+  },
+  "scopes": [
+    "textile"
+  ],
+  "source": "Custom",
+  "unit": "kg",
+  "waste": 0
+}

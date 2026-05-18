@@ -1,0 +1,57 @@
+{
+  "activityName": "Sunflower oil, at oil mill {GLO} - Adapted from WFLDB U",
+  "categories": [
+    "ingredient",
+    "material",
+    "material_type:other_food_items"
+  ],
+  "displayName": "Huile de tournesol par défaut",
+  "id": "0065536b-4fd4-592d-a4dd-d82a0a2bd8e2",
+  "metadata": [
+    {
+      "alias": "sunflower-oil-2025",
+      "cropGroup": "TOURNESOL",
+      "defaultOrigin": "EuropeAndMaghreb",
+      "displayName": "Huile de tournesol par défaut (2025)",
+      "id": "3cfab110-363e-442a-9170-1af337fe9ea3",
+      "inediblePart": 0,
+      "ingredientCategories": [
+        "nut_oilseed_processed"
+      ],
+      "ingredientDensity": 1.0,
+      "rawToCookedRatio": 1.0,
+      "scenario": "import",
+      "scopes": [
+        "food",
+        "food2"
+      ],
+      "transportCooling": "once_transformed",
+      "visible": true
+    },
+    {
+      "alias": "unknown-oil-2025",
+      "cropGroup": "TOURNESOL",
+      "defaultOrigin": "EuropeAndMaghreb",
+      "displayName": "Autres huiles (non encore répertoriées) (2025)",
+      "id": "66e7706b-5129-410c-b070-0a7feff2680f",
+      "inediblePart": 0,
+      "ingredientCategories": [
+        "nut_oilseed_processed"
+      ],
+      "ingredientDensity": 1.0,
+      "rawToCookedRatio": 1.0,
+      "scenario": "import",
+      "scopes": [
+        "food",
+        "food2"
+      ],
+      "transportCooling": "once_transformed",
+      "visible": true
+    }
+  ],
+  "scopes": [
+    "food",
+    "food2"
+  ],
+  "source": "Agribalyse 3.2"
+}

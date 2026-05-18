@@ -1,0 +1,29 @@
+{
+  "activityName": "waste plastic, consumer electronics//[CH] treatment of waste plastic, consumer electronics, municipal incineration with fly ash extraction",
+  "categories": [
+    "end-of-life",
+    "material_type:pwb",
+    "material_type:battery_cell"
+  ],
+  "comment": "",
+  "displayName": "Incinération des plastiques de composants électroniques",
+  "elecMJ": 0,
+  "heatMJ": 0,
+  "id": "4d1fff47-ed71-4a79-8d54-3f401b703cb4",
+  "metadata": [
+    {
+      "id": "14a60b7d-a1b2-4ff0-8247-b676681a7925",
+      "scopes": [
+        "object",
+        "veli"
+      ]
+    }
+  ],
+  "scopes": [
+    "object",
+    "veli"
+  ],
+  "source": "Ecoinvent 3.9.1",
+  "unit": "kg",
+  "waste": 0
+}

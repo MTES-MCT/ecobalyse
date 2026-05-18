@@ -1,0 +1,28 @@
+{
+  "activityName": "steel, low-alloyed, recycled, RER, CFF",
+  "categories": [
+    "material",
+    "material_type:ferrous_metals"
+  ],
+  "comment": "Matériau 100% issu du recyclage, calculé selon la méthode CFF (A=0.8, Q=1)",
+  "displayName": "Acier recyclé, Europe",
+  "elecMJ": 0,
+  "heatMJ": 0,
+  "id": "7fe00f75-df7d-49fb-862c-cc10e6cc2de7",
+  "metadata": [
+    {
+      "id": "12a5c5b0-b632-4eaf-a3d9-0e01a37f1249",
+      "scopes": [
+        "object",
+        "veli"
+      ]
+    }
+  ],
+  "scopes": [
+    "object",
+    "veli"
+  ],
+  "source": "Ecobalyse",
+  "unit": "kg",
+  "waste": 0
+}

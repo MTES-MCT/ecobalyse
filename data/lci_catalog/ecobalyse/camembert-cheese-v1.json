@@ -1,0 +1,35 @@
+{
+  "activityName": "Camembert cheese, variant 1, CMAPS {GLO} U",
+  "categories": [
+    "ingredient",
+    "material"
+  ],
+  "displayName": "Camembert FR",
+  "id": "eac36eb0-3316-41b3-878d-0db3be556fce",
+  "metadata": [
+    {
+      "alias": "camembert-cheese-fr",
+      "defaultOrigin": "France",
+      "displayName": "Camembert FR",
+      "id": "f54e93a0-a404-4167-b62b-c94ba524cea4",
+      "inediblePart": 0,
+      "ingredientCategories": [
+        "dairy_product"
+      ],
+      "ingredientDensity": 1,
+      "rawToCookedRatio": 1,
+      "scenario": "reference",
+      "scopes": [
+        "food",
+        "food2"
+      ],
+      "transportCooling": "always",
+      "visible": true
+    }
+  ],
+  "scopes": [
+    "food",
+    "food2"
+  ],
+  "source": "Ecobalyse"
+}

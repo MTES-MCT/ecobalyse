@@ -1,0 +1,17 @@
+{
+  "activityName": "electricity, medium voltage//[AL] market for electricity, medium voltage",
+  "categories": [
+    "energy"
+  ],
+  "comment": "Ancien identifiant (12/2024): d33cefdc558e3fe890174e6f1e205015.",
+  "displayName": "Électricité moyenne tension, Albanie",
+  "elecMJ": 0,
+  "heatMJ": 0,
+  "id": "ac850be0-f09e-58eb-b334-3eb9fcd599d8",
+  "scopes": [
+    "textile"
+  ],
+  "source": "Ecoinvent 3.9.1",
+  "unit": "kWh",
+  "waste": 0
+}

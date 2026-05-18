@@ -1,0 +1,24 @@
+{
+  "activityName": "Pates and terrines, 170g | Packaging System, N0, All, APET/PE tray with lid {FR} U",
+  "categories": [
+    "material",
+    "packaging",
+    "packaging_type:tray"
+  ],
+  "displayName": "Barquette en plastique (APET/PE) pour pâté et terrine - 170g à 175g",
+  "id": "aefe3703-5f58-40e8-900a-f2752e9e5b34",
+  "metadata": [
+    {
+      "id": "7f42037e-5696-4bc2-9a0c-09d485eb101c",
+      "scopes": [
+        "food2"
+      ]
+    }
+  ],
+  "scopes": [
+    "food",
+    "food2"
+  ],
+  "source": "Agribalyse 3.2",
+  "unit": "item"
+}

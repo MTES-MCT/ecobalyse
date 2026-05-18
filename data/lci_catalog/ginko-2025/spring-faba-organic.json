@@ -1,0 +1,60 @@
+{
+  "activityName": "Spring faba bean, organic 2025, reduced protection, at farm gate {FR} U",
+  "categories": [
+    "ingredient",
+    "material",
+    "material_type:fruits_and_vegetables"
+  ],
+  "displayName": "Fèves printanières Bio",
+  "id": "2f2a99e4-24c2-564b-a7c5-c74b9a3955db",
+  "location": "FR",
+  "metadata": [
+    {
+      "alias": "spring-faba-organic",
+      "cropGroup": "PROTEAGINEUX",
+      "cropGroupMatch": {
+        "confidence": 1.0,
+        "rule": "matched 'spring faba' in cropgroup.csv"
+      },
+      "defaultOrigin": "France",
+      "displayName": "Fèves printanières Bio",
+      "id": "5b8140c0-a398-5d7e-b8f7-f22e5d5c5710",
+      "inediblePart": 0.2,
+      "inediblePartMatch": {
+        "confidence": 1.0,
+        "rule": "legume NOVA 1 default from food_type_inedible_part.csv"
+      },
+      "ingredientCategories": [
+        "vegetable_fresh",
+        "organic"
+      ],
+      "ingredientDensity": 0.8,
+      "ingredientDensityMatch": {
+        "confidence": 1.0,
+        "rule": "legume default from food_type_density.csv"
+      },
+      "rawToCookedRatio": 0.856,
+      "rawToCookedRatioMatch": {
+        "confidence": 1.0,
+        "rule": "legume default from food_type_cooked_to_raw.csv"
+      },
+      "scenario": "organic",
+      "scopes": [
+        "food",
+        "food2"
+      ],
+      "transportCooling": "always",
+      "transportCoolingMatch": {
+        "confidence": 1.0,
+        "rule": "legume NOVA 1 → always (perishable)"
+      },
+      "visible": true
+    }
+  ],
+  "scopes": [
+    "food",
+    "food2"
+  ],
+  "source": "Ginko 2025",
+  "unit": "kg"
+}

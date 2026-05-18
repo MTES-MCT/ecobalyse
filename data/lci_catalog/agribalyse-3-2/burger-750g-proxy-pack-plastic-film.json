@@ -1,0 +1,24 @@
+{
+  "activityName": "Burger, 750g | Packaging System, Proxy Pack, Plastic film {FR} U",
+  "categories": [
+    "material",
+    "packaging",
+    "packaging_type:bag"
+  ],
+  "displayName": "Sachet en plastique (PP) pour burger - 750g - Proxy",
+  "id": "3d04fdb9-a591-4940-be32-1c6182f8fe49",
+  "metadata": [
+    {
+      "id": "c0e4d83e-6933-4eb5-a98f-f33f8f3e85b4",
+      "scopes": [
+        "food2"
+      ]
+    }
+  ],
+  "scopes": [
+    "food",
+    "food2"
+  ],
+  "source": "Agribalyse 3.2",
+  "unit": "item"
+}

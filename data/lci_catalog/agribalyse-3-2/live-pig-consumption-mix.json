@@ -1,0 +1,55 @@
+{
+  "activityName": "Live pig, consumption mix {FR} U",
+  "categories": [
+    "ingredient"
+  ],
+  "displayName": "Live pig, consumption mix (FR)",
+  "id": "ec694943-f9c8-5a8e-8959-1380d32738c9",
+  "metadata": [
+    {
+      "alias": "pork-organic",
+      "animalGroup1": "pig",
+      "animalGroup2": "pig",
+      "animalProduct": "meat",
+      "defaultOrigin": "France",
+      "displayName": "Porc Bio",
+      "id": "eb795534-730a-561b-b520-15d11a670927",
+      "inediblePart": 0.05,
+      "inediblePartMatch": {
+        "confidence": 1.0,
+        "rule": "meat NOVA 1 default from food_type_inedible_part.csv"
+      },
+      "ingredientCategories": [
+        "animal_product",
+        "organic"
+      ],
+      "ingredientDensity": 1.05,
+      "ingredientDensityMatch": {
+        "confidence": 1.0,
+        "rule": "pork found in density.csv"
+      },
+      "rawToCookedRatio": 0.792,
+      "rawToCookedRatioMatch": {
+        "confidence": 1.0,
+        "rule": "Matched with pork in cooked_to_raw.csv"
+      },
+      "scenario": "organic",
+      "scopes": [
+        "food",
+        "food2"
+      ],
+      "transportCooling": "always",
+      "transportCoolingMatch": {
+        "confidence": 1.0,
+        "rule": "meat NOVA 1 → always (perishable)"
+      },
+      "visible": false
+    }
+  ],
+  "scopes": [
+    "food",
+    "food2"
+  ],
+  "source": "Agribalyse 3.2",
+  "unit": "kg"
+}

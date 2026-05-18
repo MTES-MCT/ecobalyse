@@ -1,0 +1,96 @@
+[default]
+ENV_NAME = "default" # Do not override this value, it’s used by the unit tests
+
+LOG_LEVEL = "INFO"
+LOCAL_EXPORT = true
+PLOT_EXPORT = false
+
+PROCESSES_IMPACTS_FILE = "processes_impacts.json"
+PROCESSES_IMPACTS_FULL_FILE = "processes_impacts_full.json"
+PROCESSES_AGGREGATED_FILE = "processes.json"
+COMPARED_IMPACTS_FILE = "compared_impacts.csv"
+IMPACTS_FILE = "impacts.json"
+
+[default.dbfiles]
+# Method
+METHOD = "Environmental Footprint 3.1 (adapted).1.0.CSV.zip"
+METHOD_MD5 = "4459dc1b55bb080529f32d814d9fbb02"
+
+# Biosphere
+BIOSPHERE_FLOWS = "ecoinvent_elementary_flows_3.9.xml"
+BIOSPHERE_FLOWS_MD5 = "1dde01994a46a915901ddd9a02477ba2"
+BIOSPHERE_LCIA = "lcia_39_ecoinvent.zip"
+BIOSPHERE_LCIA_MD5 = "1413f38934fd8071a61494f4257f3e2a"
+
+# EcoInvent
+EI391 = "Ecoinvent3.9.1.CSV.zip"
+EI391_MD5 = "05fd5eece651bf5743e389a2ede80914"
+EI311 = "Ecoinvent3.11.CSV.zip"
+EI311_MD5 = "98e7681cc57a729c952f48af7be9b164"
+WOOL = "wool.2.CSV.zip"
+WOOL_MD5 = "246b8ec57389086829bce58a689e7904"
+
+# Food
+AGRIBALYSE = "AGB32_final.CSV.zip"                           # Agribalyse 3.2
+AGRIBALYSE_MD5 = "044fdeb632e6e38711ef05a0ae596c55"
+PASTOECO = "pastoeco.2.CSV.zip"
+PASTOECO_MD5 = "a561b9b5ee4005594034702ae487fb25"
+GINKO = "ginko2025.2.csv.zip" # additional organic processes
+GINKO_MD5 = "a3ca278dd3247183e6ab5773751a7331"
+CTCPA = "Export emballages_PACK AGB_CTCPA.CSV.zip"
+CTCPA_MD5 = "65952e7823b77d4bf03dd068d829cfe2"
+WFLDB = "WFLDB.CSV.zip"
+WFLDB_MD5 = "f619341f47c971b0d53ad28bd985fade"
+
+[default.bw]
+METHOD = "Environmental Footprint 3.1 (adapted)"
+AGRIBALYSE = "Agribalyse 3.2"
+BIOSPHERE = "biosphere3"
+ECOINVENT = "Ecoinvent 3.9.1"
+PROJECT = "ecobalyse"
+
+[default.scopes.food]
+DIRNAME = "food"
+ECOSYSTEMIC_FACTORS_FILE = "ecosystemic_services/ecosystemic_factors.csv"
+FEED_FILE = "ecosystemic_services/feed.json"
+RAW_TO_TRANSFORMED_RATIOS_FILE = "ecosystemic_services/raw_to_transformed_ratios.json"
+INGREDIENTS_FILE = "ingredients.json"
+GRAZED_GRASS_PERMANENT_KEY = "grazed-grass-permanent-2025"
+GRAZED_GRASS_TEMPORARY_KEY = "grazed-grass-temporary-2025"
+
+[default.scopes.generic]
+DIRNAME = "food"
+
+[default.scopes.textile]
+DIRNAME = "textile"
+MATERIALS_FILE = "materials.json"
+
+[default.scopes.veli]
+DIRNAME = "veli"
+
+[testing]
+ENV_NAME = "testing" # Do not override this value, it's used by the unit tests
+
+LOCAL_EXPORT = false
+PLOT_EXPORT = false
+
+[testing.bw]
+METHOD = "Environmental Footprint 3.1 (adapted) patch wtu"
+BIOSPHERE = "ecoinvent-3.9.1-biosphere"
+PROJECT = "forwast"
+
+
+[testing.scopes.food]
+DIRNAME = "food"
+FEED_FILE = "feed.json"
+RAW_TO_TRANSFORMED_RATIOS_FILE = "raw_to_transformed_ratios.json"
+ECOSYSTEMIC_FACTORS_FILE = "ecosystemic_factors.csv"
+GRAZED_GRASS_PERMANENT_KEY = "grazed-grass-permanent-2025"
+GRAZED_GRASS_TEMPORARY_KEY = "grazed-grass-temporary-2025"
+
+
+[testing.scopes.textile]
+DIRNAME = "textile"
+
+[testing.scopes.generic]
+DIRNAME = "food"

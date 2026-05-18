@@ -1,0 +1,48 @@
+{
+  "categories": [
+    "transformation",
+    "material_type:ferrous_metals"
+  ],
+  "comment": "Source: BAT Reference Document for the Ferrous Metals Processing Industry, JRC, 2022, average for hot rolling, inclunding reheating and post-heating. Including scrap remelting in EAF (0% waste).",
+  "displayName": "Lamination acier",
+  "elecMJ": 0.3,
+  "heatMJ": 3,
+  "id": "e1cad0c4-63dd-57e1-9c74-93f84e435dce",
+  "impacts": {
+    "acd": 0,
+    "cch": 0,
+    "etf": 0,
+    "etf-c": 0,
+    "fru": 0,
+    "fwe": 0,
+    "htc": 0,
+    "htc-c": 0,
+    "htn": 0,
+    "htn-c": 0,
+    "ior": 0,
+    "ldu": 0,
+    "mru": 0,
+    "ozd": 0,
+    "pco": 0,
+    "pma": 0,
+    "swe": 0,
+    "tre": 0,
+    "wtu": 0
+  },
+  "metadata": [
+    {
+      "id": "ea284007-49a8-4be1-95fc-452ea180285a",
+      "scopes": [
+        "object",
+        "veli"
+      ]
+    }
+  ],
+  "scopes": [
+    "object",
+    "veli"
+  ],
+  "source": "Custom",
+  "unit": "kg",
+  "waste": 0
+}

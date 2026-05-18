@@ -1,0 +1,24 @@
+{
+  "activityName": "Mixed salads, chilled, 240g | Packaging System, N0, All, Plastic tray with cardboard sheath {FR} U",
+  "categories": [
+    "material",
+    "packaging",
+    "packaging_type:tray"
+  ],
+  "displayName": "Barquette en plastique (PET) et fourreau carton pour salade composée, réfrigérée - 240g",
+  "id": "95cb1700-375d-44cd-acba-fcad23412943",
+  "metadata": [
+    {
+      "id": "fe9cae41-e6f8-478d-81da-722ce4f81745",
+      "scopes": [
+        "food2"
+      ]
+    }
+  ],
+  "scopes": [
+    "food",
+    "food2"
+  ],
+  "source": "Agribalyse 3.2",
+  "unit": "item"
+}

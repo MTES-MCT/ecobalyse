@@ -1,0 +1,36 @@
+{
+  "activityName": "Strawberry, frozen raw, CMAPS {GLO} U",
+  "categories": [
+    "ingredient",
+    "material"
+  ],
+  "displayName": "Fraise, crue, surgelé FR",
+  "id": "6e03a10f-e645-4eae-9f42-994cc25ac07d",
+  "metadata": [
+    {
+      "alias": "strawberry-frozen-raw-fr",
+      "cropGroup": "VERGERS",
+      "defaultOrigin": "France",
+      "displayName": "Fraise, crue, surgelé FR",
+      "id": "f755ca3d-eb70-4569-a605-d99a62e1f98e",
+      "inediblePart": 0,
+      "ingredientCategories": [
+        "vegetable_processed"
+      ],
+      "ingredientDensity": 1,
+      "rawToCookedRatio": 1,
+      "scenario": "reference",
+      "scopes": [
+        "food",
+        "food2"
+      ],
+      "transportCooling": "always",
+      "visible": true
+    }
+  ],
+  "scopes": [
+    "food",
+    "food2"
+  ],
+  "source": "Ecobalyse"
+}

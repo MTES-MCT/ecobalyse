@@ -1,0 +1,35 @@
+{
+  "activityName": "Comte cheese, variant 1, CMAPS {GLO} U",
+  "categories": [
+    "ingredient",
+    "material"
+  ],
+  "displayName": "Comté FR",
+  "id": "a30ad6b3-c2cb-44e6-99b4-d6128c5b4447",
+  "metadata": [
+    {
+      "alias": "comte-cheese-fr",
+      "defaultOrigin": "France",
+      "displayName": "Comté FR",
+      "id": "afec1f74-2b0e-4c68-97ad-bdc79e4c2806",
+      "inediblePart": 0,
+      "ingredientCategories": [
+        "dairy_product"
+      ],
+      "ingredientDensity": 1,
+      "rawToCookedRatio": 1,
+      "scenario": "reference",
+      "scopes": [
+        "food",
+        "food2"
+      ],
+      "transportCooling": "always",
+      "visible": true
+    }
+  ],
+  "scopes": [
+    "food",
+    "food2"
+  ],
+  "source": "Ecobalyse"
+}

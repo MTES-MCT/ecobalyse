@@ -1,0 +1,24 @@
+{
+  "activityName": "Meat dishes, with garnish, chilled, 450g | Packaging System, N0, All, Plastic tray and cardboard case {FR} U",
+  "categories": [
+    "material",
+    "packaging",
+    "packaging_type:tray"
+  ],
+  "displayName": "Barquette en plastique (PA/PEBD/EVOH) pour plat de viande avec garniture, réfrigéré - 450g",
+  "id": "54982e11-1f16-4f27-9c64-1726aef14cea",
+  "metadata": [
+    {
+      "id": "4fc869d1-e365-4267-81a1-6948157551f1",
+      "scopes": [
+        "food2"
+      ]
+    }
+  ],
+  "scopes": [
+    "food",
+    "food2"
+  ],
+  "source": "Agribalyse 3.2",
+  "unit": "item"
+}

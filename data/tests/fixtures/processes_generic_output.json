@@ -1,0 +1,318 @@
+[
+  {
+    "activityName": "Example activity from scratch",
+    "alias": null,
+    "categories": [],
+    "comment": "",
+    "displayName": "Example activity from scratch",
+    "elecMJ": 0,
+    "heatMJ": 0,
+    "id": "a1b2c3d4-e5f6-7890-abcd-ef1234567890",
+    "impacts": {
+      "acd": 0,
+      "cch": 0,
+      "ecs": 103.08,
+      "etf": 0,
+      "etf-c": 0,
+      "fru": 0,
+      "fwe": 0,
+      "htc": 0,
+      "htc-c": 0,
+      "htn": 0,
+      "htn-c": 0,
+      "ior": 0,
+      "ldu": 0,
+      "mru": 0,
+      "ozd": 0,
+      "pco": 0,
+      "pma": 0,
+      "swe": 0,
+      "tre": 0,
+      "wtu": 0
+    },
+    "landOccupation": null,
+    "location": null,
+    "massPerUnit": null,
+    "metadata": null,
+    "scopes": [
+      "object"
+    ],
+    "source": "Ecobalyse",
+    "unit": "kg",
+    "waste": 0
+  },
+  {
+    "activityName": "_22 Vegetable and animal oils and fats, EU27",
+    "alias": "bean-fr",
+    "categories": [
+      "ingredient"
+    ],
+    "comment": "",
+    "displayName": "Pois FR",
+    "elecMJ": 0,
+    "heatMJ": 0,
+    "id": "bfdf1505-8426-499e-8286-a1e4b4920c7e",
+    "impacts": {
+      "acd": 0,
+      "cch": 0,
+      "ecs": 102.58,
+      "etf": 0,
+      "etf-c": 0,
+      "fru": 0,
+      "fwe": 0,
+      "htc": 0,
+      "htc-c": 0,
+      "htn": 0,
+      "htn-c": 0,
+      "ior": 0,
+      "ldu": 0,
+      "mru": 0,
+      "ozd": 0,
+      "pco": 0,
+      "pma": 0,
+      "swe": 0,
+      "tre": 0,
+      "wtu": 0
+    },
+    "landOccupation": 1.0,
+    "location": "GLO",
+    "massPerUnit": null,
+    "metadata": {
+      "complements": {
+        "cropDiversity": 0,
+        "hedges": -0.443,
+        "livestockDensity": null,
+        "permanentPasture": null,
+        "plotSize": -0.625
+      },
+      "ingredient": {
+        "cropGroup": "AUTRES CEREALES",
+        "defaultOrigin": "France",
+        "density": 1.0,
+        "inediblePart": 0,
+        "processId": "af42fc20-e3ec-5b99-9b9c-83ba6735e597",
+        "rawToCookedRatio": 2.259,
+        "scenario": "reference",
+        "transportCooling": "none",
+        "visible": true
+      }
+    },
+    "scopes": [
+      "food2"
+    ],
+    "source": "forwast",
+    "unit": "kg",
+    "waste": 0
+  },
+  {
+    "activityName": "_22 Vegetable and animal oils and fats, EU27",
+    "alias": "grazed-grass-permanent-2025",
+    "categories": [
+      "ingredient"
+    ],
+    "comment": "",
+    "displayName": "Herbe de prairie permanente FR",
+    "elecMJ": 0,
+    "heatMJ": 0,
+    "id": "c88d387e-8435-4741-b742-0094dbdcee45",
+    "impacts": {
+      "acd": 0,
+      "cch": 0,
+      "ecs": 102.58,
+      "etf": 0,
+      "etf-c": 0,
+      "fru": 0,
+      "fwe": 0,
+      "htc": 0,
+      "htc-c": 0,
+      "htn": 0,
+      "htn-c": 0,
+      "ior": 0,
+      "ldu": 0,
+      "mru": 0,
+      "ozd": 0,
+      "pco": 0,
+      "pma": 0,
+      "swe": 0,
+      "tre": 0,
+      "wtu": 0
+    },
+    "landOccupation": 1.0,
+    "location": "GLO",
+    "massPerUnit": null,
+    "metadata": {
+      "complements": {
+        "cropDiversity": 0,
+        "hedges": -0.764,
+        "livestockDensity": null,
+        "permanentPasture": null,
+        "plotSize": -0.625
+      },
+      "ingredient": {
+        "cropGroup": "PRAIRIES PERMANENTES",
+        "defaultOrigin": "France",
+        "density": 1.0,
+        "inediblePart": 0,
+        "processId": "af42fc20-e3ec-5b99-9b9c-83ba6735e597",
+        "rawToCookedRatio": 1.0,
+        "scenario": "reference",
+        "transportCooling": "none",
+        "visible": false
+      }
+    },
+    "scopes": [],
+    "source": "forwast",
+    "unit": "kg",
+    "waste": 0
+  },
+  {
+    "activityName": "_22 Vegetable and animal oils and fats, EU27",
+    "alias": "milk",
+    "categories": [
+      "ingredient"
+    ],
+    "comment": "",
+    "displayName": "Lait FR",
+    "elecMJ": 0,
+    "heatMJ": 0,
+    "id": "8f3863e7-f981-4367-90a2-e1aaa096a6e0",
+    "impacts": {
+      "acd": 0,
+      "cch": 0,
+      "ecs": 102.58,
+      "etf": 0,
+      "etf-c": 0,
+      "fru": 0,
+      "fwe": 0,
+      "htc": 0,
+      "htc-c": 0,
+      "htn": 0,
+      "htn-c": 0,
+      "ior": 0,
+      "ldu": 0,
+      "mru": 0,
+      "ozd": 0,
+      "pco": 0,
+      "pma": 0,
+      "swe": 0,
+      "tre": 0,
+      "wtu": 0
+    },
+    "landOccupation": 1.3911,
+    "location": "GLO",
+    "massPerUnit": null,
+    "metadata": {
+      "complements": {
+        "cropDiversity": 0,
+        "hedges": -0.443,
+        "livestockDensity": 0.00017,
+        "permanentPasture": 0,
+        "plotSize": -0.625
+      },
+      "ingredient": {
+        "cropGroup": null,
+        "defaultOrigin": "France",
+        "density": 1.0,
+        "inediblePart": 0,
+        "processId": "af42fc20-e3ec-5b99-9b9c-83ba6735e597",
+        "rawToCookedRatio": 1.0,
+        "scenario": "reference",
+        "transportCooling": "always",
+        "visible": true
+      }
+    },
+    "scopes": [],
+    "source": "forwast",
+    "unit": "kg",
+    "waste": 0
+  },
+  {
+    "activityName": "_32 Wood products, except furniture, EU27",
+    "alias": "example-object",
+    "categories": [],
+    "comment": "",
+    "displayName": "Example object 1",
+    "elecMJ": 0,
+    "heatMJ": 0,
+    "id": "0e9c64fe-8a5c-40ba-b60c-ff2b47b56627",
+    "impacts": {
+      "acd": 0,
+      "cch": 0,
+      "ecs": 31.765,
+      "etf": 0,
+      "etf-c": 0,
+      "fru": 0,
+      "fwe": 0,
+      "htc": 0,
+      "htc-c": 0,
+      "htn": 0,
+      "htn-c": 0,
+      "ior": 0,
+      "ldu": 0,
+      "mru": 0,
+      "ozd": 0,
+      "pco": 0,
+      "pma": 0,
+      "swe": 0,
+      "tre": 0,
+      "wtu": 0
+    },
+    "landOccupation": 1500.0,
+    "location": "GLO",
+    "massPerUnit": null,
+    "metadata": null,
+    "scopes": [
+      "object"
+    ],
+    "source": "forwast",
+    "unit": "kg",
+    "waste": 0
+  },
+  {
+    "activityName": "_32 Wood products, except furniture, EU27",
+    "alias": "example-object-sustainable",
+    "categories": [],
+    "comment": "",
+    "displayName": "Example object 1 (gestion durable)",
+    "elecMJ": 0,
+    "heatMJ": 0,
+    "id": "b2c3d4e5-f6a7-8901-bcde-f12345678901",
+    "impacts": {
+      "acd": 0,
+      "cch": 0,
+      "ecs": 31.765,
+      "etf": 0,
+      "etf-c": 0,
+      "fru": 0,
+      "fwe": 0,
+      "htc": 0,
+      "htc-c": 0,
+      "htn": 0,
+      "htn-c": 0,
+      "ior": 0,
+      "ldu": 0,
+      "mru": 0,
+      "ozd": 0,
+      "pco": 0,
+      "pma": 0,
+      "swe": 0,
+      "tre": 0,
+      "wtu": 0
+    },
+    "landOccupation": 1500.0,
+    "location": "GLO",
+    "massPerUnit": null,
+    "metadata": {
+      "complements": {
+        "forest": -0.4142
+      },
+      "forestManagement": "certifiedSustainableManagement"
+    },
+    "scopes": [
+      "object"
+    ],
+    "source": "forwast",
+    "unit": "kg",
+    "waste": 0
+  }
+]

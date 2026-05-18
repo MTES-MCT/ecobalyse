@@ -1,0 +1,35 @@
+{
+  "activityName": "Petit suisse, 10pct fat, variant 2, CMAPS {GLO} U",
+  "categories": [
+    "ingredient",
+    "material"
+  ],
+  "displayName": "Fromage frais type petit suisse, nature, 10% MG environ Origine Inconnue",
+  "id": "6047806e-ff99-410e-96f6-77cb99f0c0a4",
+  "metadata": [
+    {
+      "alias": "petit-suisse-10pct-fat-default",
+      "defaultOrigin": "OutOfEuropeAndMaghreb",
+      "displayName": "Fromage frais type petit suisse, nature, 10% MG environ Origine Inconnue",
+      "id": "90aebf32-5568-46dc-ad72-f5d1a799a806",
+      "inediblePart": 0,
+      "ingredientCategories": [
+        "dairy_product"
+      ],
+      "ingredientDensity": 1,
+      "rawToCookedRatio": 1,
+      "scenario": "import",
+      "scopes": [
+        "food",
+        "food2"
+      ],
+      "transportCooling": "always",
+      "visible": true
+    }
+  ],
+  "scopes": [
+    "food",
+    "food2"
+  ],
+  "source": "Ecobalyse"
+}

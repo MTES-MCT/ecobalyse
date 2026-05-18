@@ -1,0 +1,24 @@
+{
+  "activityName": "Processed cheeses - cat A, 250g | Packaging System, N0, All, Aluminium foils within cardboard tray {FR} U",
+  "categories": [
+    "material",
+    "packaging",
+    "packaging_type:sheet"
+  ],
+  "displayName": "Feuilles aluminium et étui carton pour fromage fondu - 250g",
+  "id": "5e424818-b422-4df2-8371-fcf552f22cdb",
+  "metadata": [
+    {
+      "id": "9b092799-b3a7-43f9-88bd-03359970a47b",
+      "scopes": [
+        "food2"
+      ]
+    }
+  ],
+  "scopes": [
+    "food",
+    "food2"
+  ],
+  "source": "Agribalyse 3.2",
+  "unit": "item"
+}

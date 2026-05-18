@@ -1,0 +1,38 @@
+{
+  "activityName": "Sunflower oil, refined, low dehulling at plant {FR} U",
+  "categories": [
+    "ingredient",
+    "material",
+    "material_type:other_food_items"
+  ],
+  "displayName": "Huile de tournesol (raffinée) FR",
+  "id": "8e0beff3-1532-50ab-bbec-9a61933ba66f",
+  "metadata": [
+    {
+      "alias": "refined-sunflower-oil-2025",
+      "cropGroup": "TOURNESOL",
+      "defaultOrigin": "France",
+      "displayName": "Huile de tournesol (raffinée) FR (2025)",
+      "explain": "Cet ICV correspond à la production de l'huile de tournesol, de la culture jusqu'aux portes de l'usine. Un mix d'importation des graines de tournesol est considéré (origines France,  Roumanie, Bulgarie, Argentine et transport inclus). La trituration et le raffinage sont représentatifs de la production en France. Cet ICV est l'ICV majoritaire du mix de consommation d'huile de tournesol en France. Le transport aval de l'huile de tournesol n'est pas inclus dans cet ICV. \nCet ICV se retrouve dans de nombreux autres produits Agribalyse contenant de l'huile de tournesol. \nSelon le mix de consommation français de l'huile de tournesol, l'origine par défaut devrait être Europe. \nLa densité de l'huile de tournesol est de 0,920. \nComme le précise la méthodologie AGRIBALYSE, il n'y a pas de transport frigorifique pour les huiles végétales.\n\nRemarque : l'ICV \"\"Sunflower oil, at oil mill {GLO} - Adapted from WFLDB U\"\" correspond à la donnée huile de tournesol de Agribalyse 3.0. Cette donnée n'est pas spécifique à la  production française. Cet ICV n'est pas utilisé dans les autres produits Agribalyse.",
+      "id": "583d00ab-0340-444b-9581-71175f0a937b",
+      "inediblePart": 0,
+      "ingredientCategories": [
+        "nut_oilseed_processed"
+      ],
+      "ingredientDensity": 1,
+      "rawToCookedRatio": 1.0,
+      "scenario": "reference",
+      "scopes": [
+        "food",
+        "food2"
+      ],
+      "transportCooling": "none",
+      "visible": true
+    }
+  ],
+  "scopes": [
+    "food",
+    "food2"
+  ],
+  "source": "Agribalyse 3.2"
+}

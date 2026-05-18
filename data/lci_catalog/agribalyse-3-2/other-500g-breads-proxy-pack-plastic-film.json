@@ -1,0 +1,24 @@
+{
+  "activityName": "Other breads, 500g | Packaging System, Proxy Pack, Plastic film {FR} U",
+  "categories": [
+    "material",
+    "packaging",
+    "packaging_type:bag"
+  ],
+  "displayName": "Sachet en plastique (PE) pour autre pain - 500g - Proxy",
+  "id": "1a1eb97f-4f27-464f-bf09-a688028b18cf",
+  "metadata": [
+    {
+      "id": "c3af55fc-9bb5-4ae1-bb08-d7c3face918a",
+      "scopes": [
+        "food2"
+      ]
+    }
+  ],
+  "scopes": [
+    "food",
+    "food2"
+  ],
+  "source": "Agribalyse 3.2",
+  "unit": "item"
+}

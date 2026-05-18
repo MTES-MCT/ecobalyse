@@ -1,0 +1,28 @@
+{
+  "activityName": "electricity, medium voltage//[TN] market for electricity, medium voltage",
+  "categories": [
+    "energy"
+  ],
+  "comment": "Ancien identifiant (12/2024): b42506cbed4b459815c78d741b453e8e.",
+  "displayName": "Électricité moyenne tension, Tunisie",
+  "elecMJ": 0,
+  "heatMJ": 0,
+  "id": "f32261a1-a93e-5b57-b5a5-0f79d4a0244b",
+  "metadata": [
+    {
+      "id": "389dd6bd-be8a-47af-b4ec-d0c8db954951",
+      "scopes": [
+        "object",
+        "veli"
+      ]
+    }
+  ],
+  "scopes": [
+    "textile",
+    "object",
+    "veli"
+  ],
+  "source": "Ecoinvent 3.9.1",
+  "unit": "kWh",
+  "waste": 0
+}

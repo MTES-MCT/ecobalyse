@@ -1,0 +1,24 @@
+{
+  "activityName": "Milk, other than from cow, 1000g | Packaging System, N0, All, HDPE bottle {FR} U",
+  "categories": [
+    "material",
+    "packaging",
+    "packaging_type:bottle"
+  ],
+  "displayName": "Bouteille en plastique (PEHD) pour lait - 1L",
+  "id": "f405ad19-681d-4324-8c29-aaa52c370039",
+  "metadata": [
+    {
+      "id": "a9675406-0d61-4f9b-a2b1-295563deb1f6",
+      "scopes": [
+        "food2"
+      ]
+    }
+  ],
+  "scopes": [
+    "food",
+    "food2"
+  ],
+  "source": "Agribalyse 3.2",
+  "unit": "item"
+}

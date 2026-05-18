@@ -1,0 +1,58 @@
+{
+  "activityName": "Chicory roots, conventional, at farm gate {FR} U",
+  "categories": [
+    "ingredient",
+    "material",
+    "material_type:fruits_and_vegetables"
+  ],
+  "displayName": "Racine de chicorée FR",
+  "id": "6413fe1d-c1d1-50de-8c93-fa65dcc5e067",
+  "metadata": [
+    {
+      "alias": "chicory-root-fr",
+      "cropGroup": "AUTRES CULTURES INDUSTRIELLES",
+      "cropGroupMatch": {
+        "confidence": 0.95,
+        "rule": "matched 'chicory' in cropgroup.csv"
+      },
+      "defaultOrigin": "France",
+      "displayName": "Racine de chicorée FR",
+      "id": "980571f0-c174-5822-a5bd-94d0d7ae47a6",
+      "inediblePart": 0.2,
+      "inediblePartMatch": {
+        "confidence": 0.95,
+        "rule": "Matched with Chicory in agb_inedible.csv"
+      },
+      "ingredientCategories": [
+        "vegetable_fresh"
+      ],
+      "ingredientDensity": 0.9,
+      "ingredientDensityMatch": {
+        "confidence": 1.0,
+        "rule": "vegetable default from food_type_density.csv"
+      },
+      "rawToCookedRatio": 0.856,
+      "rawToCookedRatioMatch": {
+        "confidence": 1.0,
+        "rule": "vegetable default from food_type_cooked_to_raw.csv"
+      },
+      "scenario": "reference",
+      "scopes": [
+        "food",
+        "food2"
+      ],
+      "transportCooling": "always",
+      "transportCoolingMatch": {
+        "confidence": 1.0,
+        "rule": "vegetable NOVA 1 → always (perishable)"
+      },
+      "visible": true
+    }
+  ],
+  "scopes": [
+    "food",
+    "food2"
+  ],
+  "source": "Agribalyse 3.2",
+  "unit": "kg"
+}

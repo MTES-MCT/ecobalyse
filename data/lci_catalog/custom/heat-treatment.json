@@ -1,0 +1,50 @@
+{
+  "categories": [
+    "transformation",
+    "material_type:ferrous_metals",
+    "material_type:aluminium",
+    "material_type:copper"
+  ],
+  "comment": "Source: BAT Reference Document for the Ferrous Metals Processing Industry, JRC, 2022, average for annealing",
+  "displayName": "Traitement thermique",
+  "elecMJ": 0,
+  "heatMJ": 1.5,
+  "id": "88f4f125-db8a-5560-b757-a7d4b3d883de",
+  "impacts": {
+    "acd": 0,
+    "cch": 0,
+    "etf": 0,
+    "etf-c": 0,
+    "fru": 0,
+    "fwe": 0,
+    "htc": 0,
+    "htc-c": 0,
+    "htn": 0,
+    "htn-c": 0,
+    "ior": 0,
+    "ldu": 0,
+    "mru": 0,
+    "ozd": 0,
+    "pco": 0,
+    "pma": 0,
+    "swe": 0,
+    "tre": 0,
+    "wtu": 0
+  },
+  "metadata": [
+    {
+      "id": "d935e937-35e7-471d-8d78-f5c6c1685adf",
+      "scopes": [
+        "object",
+        "veli"
+      ]
+    }
+  ],
+  "scopes": [
+    "object",
+    "veli"
+  ],
+  "source": "Custom",
+  "unit": "kg",
+  "waste": 0
+}

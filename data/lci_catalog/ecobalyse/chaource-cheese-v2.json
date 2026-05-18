@@ -1,0 +1,54 @@
+{
+  "activityName": "Chaource cheese, variant 2, CMAPS {GLO} U",
+  "categories": [
+    "ingredient",
+    "material"
+  ],
+  "displayName": "Chaource Origine Inconnue",
+  "id": "2dca84f9-d108-4f76-9c15-1af362136813",
+  "metadata": [
+    {
+      "alias": "chaource-cheese-default",
+      "defaultOrigin": "OutOfEuropeAndMaghreb",
+      "displayName": "Chaource Origine Inconnue",
+      "id": "9b814dd0-7efc-4af0-ae48-15ac78f42990",
+      "inediblePart": 0,
+      "ingredientCategories": [
+        "dairy_product"
+      ],
+      "ingredientDensity": 1,
+      "rawToCookedRatio": 1,
+      "scenario": "import",
+      "scopes": [
+        "food",
+        "food2"
+      ],
+      "transportCooling": "always",
+      "visible": false
+    },
+    {
+      "alias": "coulommiers-cheese-default",
+      "defaultOrigin": "OutOfEuropeAndMaghreb",
+      "displayName": "Coulommiers Origine Inconnue",
+      "id": "83f83239-8da0-4d22-a8df-a53feb5713c8",
+      "inediblePart": 0,
+      "ingredientCategories": [
+        "dairy_product"
+      ],
+      "ingredientDensity": 1,
+      "rawToCookedRatio": 1,
+      "scenario": "import",
+      "scopes": [
+        "food",
+        "food2"
+      ],
+      "transportCooling": "always",
+      "visible": false
+    }
+  ],
+  "scopes": [
+    "food",
+    "food2"
+  ],
+  "source": "Ecobalyse"
+}

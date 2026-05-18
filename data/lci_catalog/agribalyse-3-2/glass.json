@@ -1,0 +1,22 @@
+{
+  "activityName": "Packaging glass, white {RER w/o CH+DE}| production | Cut-off, S - Copied from Ecoinvent U",
+  "categories": [
+    "material",
+    "packaging"
+  ],
+  "displayName": "Verre",
+  "id": "318cc7ba-e796-5f12-b93e-f704f01a3f05",
+  "metadata": [
+    {
+      "id": "d1b1f214-5514-4171-aeb2-b79dcc50783f",
+      "scopes": [
+        "food2"
+      ]
+    }
+  ],
+  "scopes": [
+    "food",
+    "food2"
+  ],
+  "source": "Agribalyse 3.2"
+}

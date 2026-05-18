@@ -1,0 +1,24 @@
+{
+  "activityName": "Still wine, 3L | Packaging System, N0, All, Wine box 3L with recyclable pocket {FR} U",
+  "categories": [
+    "material",
+    "packaging",
+    "packaging_type:bag"
+  ],
+  "displayName": "Bag in box avec poche recyclable pour vin tranquille - 3L",
+  "id": "b1c873fa-8ed8-465b-bb56-7db49327b950",
+  "metadata": [
+    {
+      "id": "5e1f0939-a287-4faa-917d-3b7d2635c033",
+      "scopes": [
+        "food2"
+      ]
+    }
+  ],
+  "scopes": [
+    "food",
+    "food2"
+  ],
+  "source": "Agribalyse 3.2",
+  "unit": "item"
+}

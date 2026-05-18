@@ -1,0 +1,28 @@
+{
+  "activityName": "steel, low-alloyed, market, FR",
+  "categories": [
+    "material",
+    "material_type:ferrous_metals"
+  ],
+  "comment": "",
+  "displayName": "Acier, mix marché, Europe",
+  "elecMJ": 0,
+  "heatMJ": 0,
+  "id": "72baac75-80a1-5bd9-a7ce-facdd5255658",
+  "metadata": [
+    {
+      "id": "21a0d5b0-861e-4bed-98a9-46c61d2a0618",
+      "scopes": [
+        "object",
+        "veli"
+      ]
+    }
+  ],
+  "scopes": [
+    "object",
+    "veli"
+  ],
+  "source": "Ecobalyse",
+  "unit": "kg",
+  "waste": 0
+}

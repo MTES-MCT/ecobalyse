@@ -1,0 +1,39 @@
+{
+  "activityName": "Peanut, in shell, at farm, organic 2025 {GLO}",
+  "categories": [
+    "ingredient",
+    "material",
+    "material_type:other_food_items"
+  ],
+  "displayName": "Pistache avec coque Bio",
+  "id": "9eefad0d-204e-5072-aaad-cfca514816cf",
+  "metadata": [
+    {
+      "alias": "pistachio-organic-2025",
+      "cropGroup": "FRUITS A COQUES",
+      "defaultOrigin": "EuropeAndMaghreb",
+      "displayName": "Pistache avec coque Bio (2025)",
+      "explain": "icv par défaut = icv CN (pays producteur majorant)",
+      "id": "115a010d-270f-43f8-9827-b27348a08d13",
+      "inediblePart": 0.5,
+      "ingredientCategories": [
+        "nut_oilseed_raw",
+        "organic"
+      ],
+      "ingredientDensity": 0.72,
+      "rawToCookedRatio": 1.0,
+      "scenario": "organic",
+      "scopes": [
+        "food",
+        "food2"
+      ],
+      "transportCooling": "none",
+      "visible": true
+    }
+  ],
+  "scopes": [
+    "food",
+    "food2"
+  ],
+  "source": "Ginko 2025"
+}

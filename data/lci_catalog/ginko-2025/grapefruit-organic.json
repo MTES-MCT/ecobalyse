@@ -1,0 +1,60 @@
+{
+  "activityName": "Grapefruit for juice, organic 2025, at farm gate {US} U",
+  "categories": [
+    "ingredient",
+    "material",
+    "material_type:fruits_and_vegetables"
+  ],
+  "displayName": "Pamplemousse Bio",
+  "id": "bb01ed48-da3e-52a9-89f7-c24a0e62260e",
+  "location": "US",
+  "metadata": [
+    {
+      "alias": "grapefruit-organic",
+      "cropGroup": "VIGNES",
+      "cropGroupMatch": {
+        "confidence": 1.0,
+        "rule": "grape/wine pattern"
+      },
+      "defaultOrigin": "France",
+      "displayName": "Pamplemousse Bio",
+      "id": "f3051192-4b06-5b56-8cba-b34800bb90ab",
+      "inediblePart": 0.3,
+      "inediblePartMatch": {
+        "confidence": 1.0,
+        "rule": "Matched with Grapefruit in agb_inedible.csv"
+      },
+      "ingredientCategories": [
+        "vegetable_fresh",
+        "organic"
+      ],
+      "ingredientDensity": 0.85,
+      "ingredientDensityMatch": {
+        "confidence": 1.0,
+        "rule": "fruit default from food_type_density.csv"
+      },
+      "rawToCookedRatio": 0.856,
+      "rawToCookedRatioMatch": {
+        "confidence": 1.0,
+        "rule": "fruit default from food_type_cooked_to_raw.csv"
+      },
+      "scenario": "organic",
+      "scopes": [
+        "food",
+        "food2"
+      ],
+      "transportCooling": "always",
+      "transportCoolingMatch": {
+        "confidence": 1.0,
+        "rule": "fruit NOVA 1 → always (perishable)"
+      },
+      "visible": true
+    }
+  ],
+  "scopes": [
+    "food",
+    "food2"
+  ],
+  "source": "Ginko 2025",
+  "unit": "kg"
+}

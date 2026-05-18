@@ -1,0 +1,29 @@
+{
+  "activityName": "electricity, medium voltage//[MA] market for electricity, medium voltage",
+  "categories": [
+    "energy"
+  ],
+  "comment": "Ancien identifiant (12/2024): d3287580187139b11ce76f80013510d0.",
+  "displayName": "Électricité moyenne tension, Maroc",
+  "elecMJ": 0,
+  "heatMJ": 0,
+  "id": "a3197e15-9193-5212-8be9-77a3a9961d96",
+  "metadata": [
+    {
+      "id": "b4c7ddd9-069a-4122-9820-2094ae5c2218",
+      "scopes": [
+        "object",
+        "food2"
+      ]
+    }
+  ],
+  "scopes": [
+    "textile",
+    "object",
+    "veli",
+    "food2"
+  ],
+  "source": "Ecoinvent 3.9.1",
+  "unit": "kWh",
+  "waste": 0
+}

@@ -1,0 +1,24 @@
+{
+  "activityName": "Combined oil (blended vegetable oils), 0,68L | Packaging System, N0, All, Plastic squeeze {FR} U",
+  "categories": [
+    "material",
+    "packaging",
+    "packaging_type:flask"
+  ],
+  "displayName": "Flacon souple en plastique (PET) pour mélange d'huiles végétales - 0,68L",
+  "id": "6e5f7b1d-ddf0-49fa-a53b-44edd984f5cf",
+  "metadata": [
+    {
+      "id": "89665d26-56e9-4b40-aae2-cbadf448d903",
+      "scopes": [
+        "food2"
+      ]
+    }
+  ],
+  "scopes": [
+    "food",
+    "food2"
+  ],
+  "source": "Agribalyse 3.2",
+  "unit": "item"
+}

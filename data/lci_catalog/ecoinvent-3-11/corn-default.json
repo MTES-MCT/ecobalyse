@@ -1,0 +1,59 @@
+{
+  "activityName": "Sweet corn {US-MN}| sweet corn production | Cut-off, U",
+  "categories": [
+    "ingredient",
+    "material",
+    "material_type:other_food_items"
+  ],
+  "displayName": "Maïs Origine Inconnue",
+  "id": "cc0589fc-823d-59dc-9d0c-67929fc01e90",
+  "location": "US-MN",
+  "metadata": [
+    {
+      "alias": "corn-default",
+      "cropGroup": "MAIS GRAIN ET ENSILAGE",
+      "cropGroupMatch": {
+        "confidence": 1.0,
+        "rule": "matched 'corn' in cropgroup.csv"
+      },
+      "defaultOrigin": "OutOfEuropeAndMaghreb",
+      "displayName": "Maïs Origine Inconnue",
+      "id": "11fd6550-211b-5c84-8424-5331b1cb3ca6",
+      "inediblePart": 0.0,
+      "inediblePartMatch": {
+        "confidence": 1.0,
+        "rule": "grain NOVA 1 default from food_type_inedible_part.csv"
+      },
+      "ingredientCategories": [
+        "grain_raw"
+      ],
+      "ingredientDensity": 0.72,
+      "ingredientDensityMatch": {
+        "confidence": 1.0,
+        "rule": "corn found in density.csv"
+      },
+      "rawToCookedRatio": 2.259,
+      "rawToCookedRatioMatch": {
+        "confidence": 1.0,
+        "rule": "grain default from food_type_cooked_to_raw.csv"
+      },
+      "scenario": "import",
+      "scopes": [
+        "food",
+        "food2"
+      ],
+      "transportCooling": "none",
+      "transportCoolingMatch": {
+        "confidence": 1.0,
+        "rule": "grain → none (non-perishable)"
+      },
+      "visible": true
+    }
+  ],
+  "scopes": [
+    "food",
+    "food2"
+  ],
+  "source": "Ecoinvent 3.11",
+  "unit": "kg"
+}

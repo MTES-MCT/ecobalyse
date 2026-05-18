@@ -1,0 +1,24 @@
+{
+  "activityName": "Semihard cheeses - cat A, 250g | Packaging System, N0, All, Plastic film {FR} U",
+  "categories": [
+    "material",
+    "packaging",
+    "packaging_type:other"
+  ],
+  "displayName": "Film plastique (PEBD) pour fromage à pâte dûre - 250g",
+  "id": "3ed15a42-a01e-443c-8b51-60c456739151",
+  "metadata": [
+    {
+      "id": "78be712d-39b4-4a45-aaab-5e1e4cf79ee8",
+      "scopes": [
+        "food2"
+      ]
+    }
+  ],
+  "scopes": [
+    "food",
+    "food2"
+  ],
+  "source": "Agribalyse 3.2",
+  "unit": "item"
+}

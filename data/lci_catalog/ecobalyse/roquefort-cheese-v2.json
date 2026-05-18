@@ -1,0 +1,35 @@
+{
+  "activityName": "Roquefort cheese, variant 2, CMAPS {GLO} U",
+  "categories": [
+    "ingredient",
+    "material"
+  ],
+  "displayName": "Roquefort Origine Inconnue",
+  "id": "a2080269-93b6-486a-85a2-90d886f3ea92",
+  "metadata": [
+    {
+      "alias": "roquefort-cheese-default",
+      "defaultOrigin": "OutOfEuropeAndMaghreb",
+      "displayName": "Roquefort Origine Inconnue",
+      "id": "a748e21c-5c50-4f87-a456-5f2307af9cec",
+      "inediblePart": 0,
+      "ingredientCategories": [
+        "dairy_product"
+      ],
+      "ingredientDensity": 1,
+      "rawToCookedRatio": 1,
+      "scenario": "import",
+      "scopes": [
+        "food",
+        "food2"
+      ],
+      "transportCooling": "always",
+      "visible": false
+    }
+  ],
+  "scopes": [
+    "food",
+    "food2"
+  ],
+  "source": "Ecobalyse"
+}

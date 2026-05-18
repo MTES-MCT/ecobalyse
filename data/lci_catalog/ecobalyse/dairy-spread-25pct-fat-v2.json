@@ -1,0 +1,35 @@
+{
+  "activityName": "Dairy spread, 25pct fat, variant 2, CMAPS {GLO} U",
+  "categories": [
+    "ingredient",
+    "material"
+  ],
+  "displayName": "Matière grasse laitière à 25% MG, légère, \"à tartiner\", doux Origine Inconnue",
+  "id": "de184828-68e7-485d-9414-e9613b03bf73",
+  "metadata": [
+    {
+      "alias": "dairy-spread-25pct-fat-default",
+      "defaultOrigin": "OutOfEuropeAndMaghreb",
+      "displayName": "Matière grasse laitière à 25% MG, légère, \"à tartiner\", doux Origine Inconnue",
+      "id": "b04dc618-b52e-47ec-9e6e-c9ba8b6757ee",
+      "inediblePart": 0,
+      "ingredientCategories": [
+        "dairy_product"
+      ],
+      "ingredientDensity": 1,
+      "rawToCookedRatio": 1,
+      "scenario": "import",
+      "scopes": [
+        "food",
+        "food2"
+      ],
+      "transportCooling": "always",
+      "visible": true
+    }
+  ],
+  "scopes": [
+    "food",
+    "food2"
+  ],
+  "source": "Ecobalyse"
+}

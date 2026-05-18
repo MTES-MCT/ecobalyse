@@ -1,0 +1,53 @@
+{
+  "categories": [
+    "material",
+    "textile_material"
+  ],
+  "comment": "Ancien identifiant (12/2024): elasthane-lycra.",
+  "displayName": "Elasthane (Lycra)",
+  "elecMJ": 0,
+  "heatMJ": 0,
+  "id": "b2340802-bde9-56e4-984f-37110706225e",
+  "impacts": {
+    "acd": 0.0275292,
+    "cch": 5.23468,
+    "etf": 252.947,
+    "etf-c": 269.015,
+    "fru": 96.2984,
+    "fwe": 0.00119992,
+    "htc": 9.50992e-09,
+    "htc-c": 1.36043e-08,
+    "htn": 7.51072e-08,
+    "htn-c": 1.52798e-08,
+    "ior": 0.153048,
+    "ldu": 9.61444,
+    "mru": 4.68847e-05,
+    "ozd": 1.65834e-07,
+    "pco": 0.0188027,
+    "pma": 5.89458e-07,
+    "swe": 0.00652228,
+    "tre": 0.0551337,
+    "wtu": 5.02984
+  },
+  "metadata": [
+    {
+      "alias": "elasthane",
+      "defaultCountry": "CN",
+      "displayName": "Elasthane (Lycra)",
+      "geographicOrigin": "Asie - Pacifique",
+      "id": "9973088b-c929-4cc5-894a-1e4d28c161d4",
+      "name": "Elasthane (Lycra)",
+      "origin": "Synthetic",
+      "primary": false,
+      "scopes": [
+        "textile"
+      ]
+    }
+  ],
+  "scopes": [
+    "textile"
+  ],
+  "source": "Custom",
+  "unit": "kg",
+  "waste": 0
+}

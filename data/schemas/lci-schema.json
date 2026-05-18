@@ -1,0 +1,230 @@
+{
+  "$schema": "https://json-schema.org/draft/2019-09/schema#",
+  "additionalProperties": false,
+  "properties": {
+    "activityName": {
+      "type": "string"
+    },
+    "categories": {
+      "items": {
+        "type": "string"
+      },
+      "type": "array"
+    },
+    "comment": {
+      "type": "string"
+    },
+    "displayName": {
+      "type": "string"
+    },
+    "elecMJ": {
+      "minimum": 0,
+      "type": "number"
+    },
+    "heatMJ": {
+      "minimum": 0,
+      "type": "number"
+    },
+    "id": {
+      "format": "uuid",
+      "type": "string"
+    },
+    "impacts": {
+      "properties": {
+        "acd": {
+          "type": "number"
+        },
+        "cch": {
+          "type": "number"
+        },
+        "etf": {
+          "type": "number"
+        },
+        "etf-c": {
+          "type": "number"
+        },
+        "fru": {
+          "type": "number"
+        },
+        "fwe": {
+          "type": "number"
+        },
+        "htc": {
+          "type": "number"
+        },
+        "htc-c": {
+          "type": "number"
+        },
+        "htn": {
+          "type": "number"
+        },
+        "htn-c": {
+          "type": "number"
+        },
+        "ior": {
+          "type": "number"
+        },
+        "ldu": {
+          "type": "number"
+        },
+        "mru": {
+          "type": "number"
+        },
+        "ozd": {
+          "type": "number"
+        },
+        "pco": {
+          "type": "number"
+        },
+        "pma": {
+          "type": "number"
+        },
+        "swe": {
+          "type": "number"
+        },
+        "tre": {
+          "type": "number"
+        },
+        "wtu": {
+          "type": "number"
+        }
+      },
+      "required": [
+        "acd",
+        "cch",
+        "etf",
+        "etf-c",
+        "fru",
+        "fwe",
+        "htc",
+        "htc-c",
+        "htn",
+        "htn-c",
+        "ior",
+        "ldu",
+        "mru",
+        "ozd",
+        "pco",
+        "pma",
+        "swe",
+        "tre",
+        "wtu"
+      ],
+      "type": "object"
+    },
+    "landOccupation": {
+      "type": "number"
+    },
+    "location": {
+      "type": "string"
+    },
+    "massPerUnit": {
+      "exclusiveMinimum": 0,
+      "type": [
+        "number",
+        "null"
+      ]
+    },
+    "metadata": {
+      "items": {
+        "properties": {
+          "alias": {
+            "type": "string"
+          },
+          "displayName": {
+            "type": "string"
+          },
+          "forestManagement": {
+            "enum": [
+              "intensivePlantation",
+              "sustainableManagement",
+              "certifiedSustainableManagement",
+              "diversifiedForest",
+              "certifiedDiversifiedForest"
+            ],
+            "type": "string"
+          },
+          "id": {
+            "format": "uuid",
+            "type": "string"
+          },
+          "scopes": {
+            "items": {
+              "enum": [
+                "food",
+                "food2",
+                "textile",
+                "object",
+                "veli"
+              ],
+              "type": "string"
+            },
+            "type": "array"
+          }
+        },
+        "required": [
+          "scopes"
+        ],
+        "type": "object"
+      },
+      "type": [
+        "array",
+        "null"
+      ]
+    },
+    "scopes": {
+      "items": {
+        "enum": [
+          "food",
+          "food2",
+          "textile",
+          "object",
+          "veli"
+        ],
+        "type": "string"
+      },
+      "type": "array"
+    },
+    "source": {
+      "enum": [
+        "Agribalyse 3.2",
+        "Custom",
+        "Ecobalyse",
+        "Ecoinvent 3.9.1",
+        "Ecoinvent 3.11",
+        "Ginko 2025",
+        "WFLDB",
+        "Woolmark",
+        "forwast",
+        "PastoEco"
+      ],
+      "type": "string"
+    },
+    "unit": {
+      "enum": [
+        "kg",
+        "t⋅km",
+        "kWh",
+        "MJ",
+        "L",
+        "item",
+        "m2",
+        "m3"
+      ],
+      "type": "string"
+    },
+    "waste": {
+      "maximum": 1,
+      "minimum": 0,
+      "type": "number"
+    }
+  },
+  "required": [
+    "categories",
+    "displayName",
+    "id",
+    "scopes",
+    "source"
+  ],
+  "type": "object"
+}

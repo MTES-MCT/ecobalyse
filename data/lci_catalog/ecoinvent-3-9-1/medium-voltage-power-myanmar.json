@@ -1,0 +1,28 @@
+{
+  "activityName": "electricity, medium voltage//[MM] market for electricity, medium voltage",
+  "categories": [
+    "energy"
+  ],
+  "comment": "Ancien identifiant (12/2024): 4968e9f8cf72cb72700d94b242048db0.",
+  "displayName": "Électricité moyenne tension, Myanmar",
+  "elecMJ": 0,
+  "heatMJ": 0,
+  "id": "3b57b822-5e54-5116-b07d-55bcedcd6abf",
+  "metadata": [
+    {
+      "id": "a951d11a-94a2-44d0-9c0f-c64f3c6e1d4e",
+      "scopes": [
+        "object",
+        "veli"
+      ]
+    }
+  ],
+  "scopes": [
+    "object",
+    "textile",
+    "veli"
+  ],
+  "source": "Ecoinvent 3.9.1",
+  "unit": "kWh",
+  "waste": 0
+}

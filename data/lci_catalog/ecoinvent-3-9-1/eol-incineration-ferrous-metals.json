@@ -1,0 +1,28 @@
+{
+  "activityName": "scrap steel//[CH] treatment of scrap steel, municipal incineration with fly ash extraction",
+  "categories": [
+    "end-of-life",
+    "material_type:ferrous_metals"
+  ],
+  "comment": "",
+  "displayName": "Incinération de métaux ferreux",
+  "elecMJ": 0,
+  "heatMJ": 0,
+  "id": "5719f399-c2a3-5268-84e2-894aba588f1b",
+  "metadata": [
+    {
+      "id": "aea851ac-8f25-413a-82ba-5efd4630ea1f",
+      "scopes": [
+        "object",
+        "veli"
+      ]
+    }
+  ],
+  "scopes": [
+    "object",
+    "veli"
+  ],
+  "source": "Ecoinvent 3.9.1",
+  "unit": "kg",
+  "waste": 0
+}

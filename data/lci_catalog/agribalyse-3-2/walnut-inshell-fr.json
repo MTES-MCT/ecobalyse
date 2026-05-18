@@ -1,0 +1,299 @@
+{
+  "activityName": "Walnut, dried inshell, conventional, national average, at farm gate {FR} U",
+  "categories": [
+    "ingredient",
+    "material",
+    "material_type:other_food_items"
+  ],
+  "displayName": "Noix avec coque FR",
+  "id": "d8540361-d9cf-56df-b716-9f4636ec250c",
+  "metadata": [
+    {
+      "alias": "chestnut-fr",
+      "cropGroup": "FRUITS A COQUES",
+      "cropGroupMatch": {
+        "confidence": 1.0,
+        "rule": "nut default"
+      },
+      "defaultOrigin": "France",
+      "displayName": "Châtaigne FR",
+      "id": "dec29776-2b90-5238-9ebc-ebc924c70bd4",
+      "inediblePart": 0.5,
+      "inediblePartMatch": {
+        "confidence": 1.0,
+        "rule": "nut_oilseed NOVA 1 default from food_type_inedible_part.csv"
+      },
+      "ingredientCategories": [
+        "nut_oilseed_raw"
+      ],
+      "ingredientDensity": 0.6,
+      "ingredientDensityMatch": {
+        "confidence": 1.0,
+        "rule": "nut_oilseed default from food_type_density.csv"
+      },
+      "rawToCookedRatio": 1.0,
+      "rawToCookedRatioMatch": {
+        "confidence": 1.0,
+        "rule": "Matched with chestnut in cooked_to_raw.csv"
+      },
+      "scenario": "reference",
+      "scopes": [
+        "food",
+        "food2"
+      ],
+      "transportCooling": "none",
+      "transportCoolingMatch": {
+        "confidence": 1.0,
+        "rule": "nut_oilseed → none (non-perishable)"
+      },
+      "visible": true
+    },
+    {
+      "alias": "macadamia-nut-fr",
+      "cropGroup": "FRUITS A COQUES",
+      "cropGroupMatch": {
+        "confidence": 1.0,
+        "rule": "nut default"
+      },
+      "defaultOrigin": "France",
+      "displayName": "Noix de macadamia FR",
+      "id": "9519cadf-178f-5d87-bbb0-8c1ebae84f41",
+      "inediblePart": 0.5,
+      "inediblePartMatch": {
+        "confidence": 1.0,
+        "rule": "nut_oilseed NOVA 1 default from food_type_inedible_part.csv"
+      },
+      "ingredientCategories": [
+        "nut_oilseed_raw"
+      ],
+      "ingredientDensity": 0.6,
+      "ingredientDensityMatch": {
+        "confidence": 1.0,
+        "rule": "nut_oilseed default from food_type_density.csv"
+      },
+      "rawToCookedRatio": 1.0,
+      "rawToCookedRatioMatch": {
+        "confidence": 1.0,
+        "rule": "nut_oilseed default from food_type_cooked_to_raw.csv"
+      },
+      "scenario": "reference",
+      "scopes": [
+        "food",
+        "food2"
+      ],
+      "transportCooling": "none",
+      "transportCoolingMatch": {
+        "confidence": 1.0,
+        "rule": "nut_oilseed → none (non-perishable)"
+      },
+      "visible": true
+    },
+    {
+      "alias": "walnut-fr",
+      "cropGroup": "FRUITS A COQUES",
+      "cropGroupMatch": {
+        "confidence": 0.95,
+        "rule": "matched 'walnut' in cropgroup.csv"
+      },
+      "defaultOrigin": "France",
+      "displayName": "Noix FR",
+      "id": "402e65f9-9bb2-5670-8ab4-62668dd2ce81",
+      "inediblePart": 0.5,
+      "inediblePartMatch": {
+        "confidence": 1.0,
+        "rule": "Matched with Walnuts in agb_inedible.csv"
+      },
+      "ingredientCategories": [
+        "nut_oilseed_raw"
+      ],
+      "ingredientDensity": 0.5,
+      "ingredientDensityMatch": {
+        "confidence": 0.95,
+        "rule": "Matched with walnut in density.csv"
+      },
+      "rawToCookedRatio": 1.0,
+      "rawToCookedRatioMatch": {
+        "confidence": 1.0,
+        "rule": "nut_oilseed default from food_type_cooked_to_raw.csv"
+      },
+      "scenario": "reference",
+      "scopes": [
+        "food",
+        "food2"
+      ],
+      "transportCooling": "none",
+      "transportCoolingMatch": {
+        "confidence": 1.0,
+        "rule": "nut_oilseed → none (non-perishable)"
+      },
+      "visible": true
+    },
+    {
+      "alias": "walnut-inshell-fr-2025",
+      "cropGroup": "FRUITS A COQUES",
+      "defaultOrigin": "France",
+      "displayName": "Noix avec coque FR (2025)",
+      "id": "6aacd47b-541c-4aab-85fb-bcd2c924effb",
+      "inediblePart": 0.5,
+      "ingredientCategories": [
+        "nut_oilseed_raw"
+      ],
+      "ingredientDensity": 0.72,
+      "landOccupation": 7.33,
+      "rawToCookedRatio": 1.0,
+      "scenario": "reference",
+      "scopes": [
+        "food",
+        "food2"
+      ],
+      "transportCooling": "none",
+      "visible": true
+    },
+    {
+      "alias": "chestnut-inshell-fr-2025",
+      "cropGroup": "FRUITS A COQUES",
+      "defaultOrigin": "France",
+      "displayName": "Châtaigne avec coque FR (2025)",
+      "id": "ae6a572a-d814-495e-b6a9-5b0acff707d9",
+      "inediblePart": 0.5,
+      "ingredientCategories": [
+        "nut_oilseed_raw"
+      ],
+      "ingredientDensity": 0.72,
+      "landOccupation": 7.33,
+      "rawToCookedRatio": 1.0,
+      "scenario": "reference",
+      "scopes": [
+        "food",
+        "food2"
+      ],
+      "transportCooling": "none",
+      "visible": true
+    },
+    {
+      "alias": "walnut-inshell-eu-2025",
+      "cropGroup": "FRUITS A COQUES",
+      "defaultOrigin": "EuropeAndMaghreb",
+      "displayName": "Noix avec coque UE (2025)",
+      "id": "0060abe9-a6c2-47fb-bc87-404a9bbd3971",
+      "inediblePart": 0.5,
+      "ingredientCategories": [
+        "nut_oilseed_raw"
+      ],
+      "ingredientDensity": 0.72,
+      "rawToCookedRatio": 1.0,
+      "scenario": "import",
+      "scopes": [
+        "food",
+        "food2"
+      ],
+      "transportCooling": "none",
+      "visible": true
+    },
+    {
+      "alias": "walnut-inshell-non-eu-2025",
+      "cropGroup": "FRUITS A COQUES",
+      "defaultOrigin": "OutOfEuropeAndMaghreb",
+      "displayName": "Noix avec coque par défaut (2025)",
+      "id": "69d6cbd1-914d-40ea-aaa1-082911ed2fdd",
+      "inediblePart": 0.5,
+      "ingredientCategories": [
+        "nut_oilseed_raw"
+      ],
+      "ingredientDensity": 0.72,
+      "rawToCookedRatio": 1.0,
+      "scenario": "import",
+      "scopes": [
+        "food",
+        "food2"
+      ],
+      "transportCooling": "none",
+      "visible": true
+    },
+    {
+      "alias": "chestnut-eu",
+      "cropGroup": "FRUITS A COQUES",
+      "cropGroupMatch": {
+        "confidence": 1.0,
+        "rule": "nut default"
+      },
+      "defaultOrigin": "EuropeAndMaghreb",
+      "displayName": "Châtaigne UE",
+      "id": "864fa080-832e-5984-8869-2c7311b80062",
+      "inediblePart": 0.5,
+      "inediblePartMatch": {
+        "confidence": 1.0,
+        "rule": "nut_oilseed NOVA 1 default from food_type_inedible_part.csv"
+      },
+      "ingredientCategories": [
+        "nut_oilseed_raw"
+      ],
+      "ingredientDensity": 0.6,
+      "ingredientDensityMatch": {
+        "confidence": 1.0,
+        "rule": "nut_oilseed default from food_type_density.csv"
+      },
+      "rawToCookedRatio": 1.0,
+      "rawToCookedRatioMatch": {
+        "confidence": 1.0,
+        "rule": "Matched with chestnut in cooked_to_raw.csv"
+      },
+      "scenario": "import",
+      "scopes": [
+        "food",
+        "food2"
+      ],
+      "transportCooling": "none",
+      "transportCoolingMatch": {
+        "confidence": 1.0,
+        "rule": "nut_oilseed → none (non-perishable)"
+      },
+      "visible": true
+    },
+    {
+      "alias": "walnut-eu",
+      "cropGroup": "FRUITS A COQUES",
+      "cropGroupMatch": {
+        "confidence": 0.95,
+        "rule": "matched 'walnut' in cropgroup.csv"
+      },
+      "defaultOrigin": "EuropeAndMaghreb",
+      "displayName": "Noix UE",
+      "id": "4e996d8a-160a-5f73-a9b5-ace3b8f69369",
+      "inediblePart": 0.5,
+      "inediblePartMatch": {
+        "confidence": 1.0,
+        "rule": "Matched with Walnuts in agb_inedible.csv"
+      },
+      "ingredientCategories": [
+        "nut_oilseed_raw"
+      ],
+      "ingredientDensity": 0.5,
+      "ingredientDensityMatch": {
+        "confidence": 0.95,
+        "rule": "Matched with walnut in density.csv"
+      },
+      "rawToCookedRatio": 1.0,
+      "rawToCookedRatioMatch": {
+        "confidence": 1.0,
+        "rule": "nut_oilseed default from food_type_cooked_to_raw.csv"
+      },
+      "scenario": "import",
+      "scopes": [
+        "food",
+        "food2"
+      ],
+      "transportCooling": "none",
+      "transportCoolingMatch": {
+        "confidence": 1.0,
+        "rule": "nut_oilseed → none (non-perishable)"
+      },
+      "visible": true
+    }
+  ],
+  "scopes": [
+    "food",
+    "food2"
+  ],
+  "source": "Agribalyse 3.2"
+}

@@ -1,0 +1,29 @@
+{
+  "activityName": "electricity, medium voltage//[RAS] market group for electricity, medium voltage",
+  "categories": [
+    "energy"
+  ],
+  "comment": "Ancien identifiant (12/2024): elec-medium-region-asia.",
+  "displayName": "Électricité moyenne tension, Asie",
+  "elecMJ": 0,
+  "heatMJ": 0,
+  "id": "a2129ece-5dd9-5e66-969c-2603b3c97244",
+  "metadata": [
+    {
+      "id": "56d90bbb-7960-4c61-a62e-b533294ee85c",
+      "scopes": [
+        "object",
+        "food2"
+      ]
+    }
+  ],
+  "scopes": [
+    "textile",
+    "object",
+    "veli",
+    "food2"
+  ],
+  "source": "Ecoinvent 3.9.1",
+  "unit": "kWh",
+  "waste": 0
+}

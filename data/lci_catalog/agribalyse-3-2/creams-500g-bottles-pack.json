@@ -1,0 +1,24 @@
+{
+  "activityName": "Creams, 500g | Packaging System, N0, All, Bottles pack {FR} U",
+  "categories": [
+    "material",
+    "packaging",
+    "packaging_type:pack"
+  ],
+  "displayName": "Lot de 2 bouteilles en plastique (PEHD) pour crème - 500g",
+  "id": "c556470b-9c40-4866-9829-9fa2f887884b",
+  "metadata": [
+    {
+      "id": "c2f9a542-82bc-4d26-99c3-7abcba7f4e51",
+      "scopes": [
+        "food2"
+      ]
+    }
+  ],
+  "scopes": [
+    "food",
+    "food2"
+  ],
+  "source": "Agribalyse 3.2",
+  "unit": "item"
+}

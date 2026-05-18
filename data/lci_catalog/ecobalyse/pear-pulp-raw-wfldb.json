@@ -1,0 +1,36 @@
+{
+  "activityName": "Pear, pulp raw, import WFLDB, CMAPS {GLO} U",
+  "categories": [
+    "ingredient",
+    "material"
+  ],
+  "displayName": "Poire, pulpe, crue Origine Inconnue",
+  "id": "a6286f75-91ee-4651-9e2b-fba62ac41ad6",
+  "metadata": [
+    {
+      "alias": "pear-pulp-raw-default",
+      "cropGroup": "VERGERS",
+      "defaultOrigin": "OutOfEuropeAndMaghreb",
+      "displayName": "Poire, pulpe, crue Origine Inconnue",
+      "id": "fbb4af15-c363-46b8-9706-b5686e35d1c2",
+      "inediblePart": 0,
+      "ingredientCategories": [
+        "vegetable_fresh"
+      ],
+      "ingredientDensity": 1,
+      "rawToCookedRatio": 1,
+      "scenario": "import",
+      "scopes": [
+        "food",
+        "food2"
+      ],
+      "transportCooling": "always",
+      "visible": true
+    }
+  ],
+  "scopes": [
+    "food",
+    "food2"
+  ],
+  "source": "Ecobalyse"
+}

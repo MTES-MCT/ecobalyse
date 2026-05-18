@@ -1,0 +1,98 @@
+{
+  "activityName": "Sweet sorghum grain {RoW}| sweet sorghum production | Cut-off, U - Adapted from Ecoinvent U",
+  "categories": [
+    "ingredient",
+    "material",
+    "material_type:other_food_items"
+  ],
+  "displayName": "Sorgho FR",
+  "id": "2171b416-da21-57f2-b2e3-98060e941fee",
+  "metadata": [
+    {
+      "alias": "sorghum-fr",
+      "cropGroup": "AUTRES CEREALES",
+      "cropGroupMatch": {
+        "confidence": 1.0,
+        "rule": "matched 'sorgho' in cropgroup.csv"
+      },
+      "defaultOrigin": "France",
+      "displayName": "Sorgho FR",
+      "id": "dd76552e-2cf6-5ec6-9ea8-1a3c3bd9a38f",
+      "inediblePart": 0.0,
+      "inediblePartMatch": {
+        "confidence": 1.0,
+        "rule": "grain NOVA 1 default from food_type_inedible_part.csv"
+      },
+      "ingredientCategories": [
+        "grain_raw"
+      ],
+      "ingredientDensity": 0.535,
+      "ingredientDensityMatch": {
+        "confidence": 0.95,
+        "rule": "Matched with Sorghum, seed in fao_density.csv"
+      },
+      "rawToCookedRatio": 2.259,
+      "rawToCookedRatioMatch": {
+        "confidence": 1.0,
+        "rule": "grain default from food_type_cooked_to_raw.csv"
+      },
+      "scenario": "reference",
+      "scopes": [
+        "food",
+        "food2"
+      ],
+      "transportCooling": "none",
+      "transportCoolingMatch": {
+        "confidence": 1.0,
+        "rule": "grain → none (non-perishable)"
+      },
+      "visible": true
+    },
+    {
+      "alias": "sorghum-non-eu",
+      "cropGroup": "AUTRES CEREALES",
+      "cropGroupMatch": {
+        "confidence": 1.0,
+        "rule": "matched 'sorgho' in cropgroup.csv"
+      },
+      "defaultOrigin": "OutOfEuropeAndMaghreb",
+      "displayName": "Sorgho HORS UE",
+      "id": "6781efe4-afc3-5114-af10-9836c7357bc0",
+      "inediblePart": 0.0,
+      "inediblePartMatch": {
+        "confidence": 1.0,
+        "rule": "grain NOVA 1 default from food_type_inedible_part.csv"
+      },
+      "ingredientCategories": [
+        "grain_raw"
+      ],
+      "ingredientDensity": 0.535,
+      "ingredientDensityMatch": {
+        "confidence": 0.95,
+        "rule": "Matched with Sorghum, seed in fao_density.csv"
+      },
+      "rawToCookedRatio": 2.259,
+      "rawToCookedRatioMatch": {
+        "confidence": 1.0,
+        "rule": "grain default from food_type_cooked_to_raw.csv"
+      },
+      "scenario": "import",
+      "scopes": [
+        "food",
+        "food2"
+      ],
+      "transportCooling": "none",
+      "transportCoolingMatch": {
+        "confidence": 1.0,
+        "rule": "grain → none (non-perishable)"
+      },
+      "visible": true
+    }
+  ],
+  "scopes": [
+    "food",
+    "food2"
+  ],
+  "source": "Agribalyse 3.2",
+  "unit": "kg"
+}

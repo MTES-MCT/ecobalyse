@@ -1,0 +1,24 @@
+{
+  "activityName": "Butters, 250g | Packaging System, N0, All, Paper foil {FR} U",
+  "categories": [
+    "material",
+    "packaging",
+    "packaging_type:sheet"
+  ],
+  "displayName": "Feuille en papier parafiné pour beurre - 250g",
+  "id": "3d3147ce-6038-42e4-a3cf-5ea86c908ef7",
+  "metadata": [
+    {
+      "id": "ccd7aaab-3df5-4716-890b-3f9d210ce392",
+      "scopes": [
+        "food2"
+      ]
+    }
+  ],
+  "scopes": [
+    "food",
+    "food2"
+  ],
+  "source": "Agribalyse 3.2",
+  "unit": "item"
+}

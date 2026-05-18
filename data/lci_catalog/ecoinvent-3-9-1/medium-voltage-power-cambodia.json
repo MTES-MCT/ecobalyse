@@ -1,0 +1,28 @@
+{
+  "activityName": "electricity, medium voltage//[KH] market for electricity, medium voltage",
+  "categories": [
+    "energy"
+  ],
+  "comment": "Ancien identifiant (12/2024): de2cd7848f853b1c9b8a5d7b0f255144.",
+  "displayName": "Électricité moyenne tension, Cambodge",
+  "elecMJ": 0,
+  "heatMJ": 0,
+  "id": "e274d3fd-eee9-54dc-ba1a-ca14a8717e93",
+  "metadata": [
+    {
+      "id": "bf039624-c433-4ecf-93b4-4a34267cbb22",
+      "scopes": [
+        "object",
+        "veli"
+      ]
+    }
+  ],
+  "scopes": [
+    "object",
+    "textile",
+    "veli"
+  ],
+  "source": "Ecoinvent 3.9.1",
+  "unit": "kWh",
+  "waste": 0
+}

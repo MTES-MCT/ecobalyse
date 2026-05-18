@@ -1,0 +1,24 @@
+{
+  "activityName": "Eggs, raw, 360g | Packaging System, Proxy Pack, Cardboard {FR} U",
+  "categories": [
+    "material",
+    "packaging",
+    "packaging_type:box"
+  ],
+  "displayName": "Boîte en carton pour œufs frais - 360g - Proxy",
+  "id": "9985b97f-1a8a-40ab-8024-1e31d8ab2bd4",
+  "metadata": [
+    {
+      "id": "188604da-a21d-40ac-8378-86cfd690363f",
+      "scopes": [
+        "food2"
+      ]
+    }
+  ],
+  "scopes": [
+    "food",
+    "food2"
+  ],
+  "source": "Agribalyse 3.2",
+  "unit": "item"
+}

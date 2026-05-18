@@ -1,0 +1,24 @@
+{
+  "activityName": "Cereal powder, 220g | Packaging System, Proxy Pack, Steel {FR} U",
+  "categories": [
+    "material",
+    "packaging",
+    "packaging_type:jar"
+  ],
+  "displayName": "Pot en acier pour poudre de céréales - 220g - Proxy",
+  "id": "7958ec10-55b7-4f46-a6b5-f9158ad99d5a",
+  "metadata": [
+    {
+      "id": "b9c70add-6e29-4fca-9bc5-9b169cf1c23e",
+      "scopes": [
+        "food2"
+      ]
+    }
+  ],
+  "scopes": [
+    "food",
+    "food2"
+  ],
+  "source": "Agribalyse 3.2",
+  "unit": "item"
+}

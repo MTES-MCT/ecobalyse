@@ -1,0 +1,24 @@
+{
+  "activityName": "Cooked seafood, 600g | Packaging System, Proxy Pack, Plastic film {FR} U",
+  "categories": [
+    "material",
+    "packaging",
+    "packaging_type:bag"
+  ],
+  "displayName": "Sachet en plastique (PE) pour fruit de mer cuits - 600g - Proxy",
+  "id": "90d8d8d8-96e3-4cd3-8b59-007abfbadcc6",
+  "metadata": [
+    {
+      "id": "264dd229-18fa-476d-aa25-5a0a4c7f5707",
+      "scopes": [
+        "food2"
+      ]
+    }
+  ],
+  "scopes": [
+    "food",
+    "food2"
+  ],
+  "source": "Agribalyse 3.2",
+  "unit": "item"
+}

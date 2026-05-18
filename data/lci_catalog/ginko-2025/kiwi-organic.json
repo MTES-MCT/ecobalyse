@@ -1,0 +1,39 @@
+{
+  "activityName": "Kiwi, consumption mix, organic 2025 {FR} U",
+  "categories": [
+    "ingredient",
+    "material",
+    "material_type:fruits_and_vegetables"
+  ],
+  "displayName": "Kiwi Bio",
+  "id": "5be2d9d0-38c8-5894-9625-094cb47aabac",
+  "metadata": [
+    {
+      "alias": "kiwi-organic-2025",
+      "cropGroup": "VERGERS",
+      "defaultOrigin": "France",
+      "displayName": "Kiwi Bio (2025)",
+      "explain": "ocv bio = icv mix ginko",
+      "id": "7a04d33d-fb27-41f8-bbb3-85dc5662f24c",
+      "inediblePart": 0.1,
+      "ingredientCategories": [
+        "vegetable_fresh",
+        "organic"
+      ],
+      "ingredientDensity": 0.447,
+      "rawToCookedRatio": 0.856,
+      "scenario": "organic",
+      "scopes": [
+        "food",
+        "food2"
+      ],
+      "transportCooling": "always",
+      "visible": false
+    }
+  ],
+  "scopes": [
+    "food",
+    "food2"
+  ],
+  "source": "Ginko 2025"
+}

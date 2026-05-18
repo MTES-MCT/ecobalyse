@@ -1,0 +1,35 @@
+{
+  "activityName": "Cantal cheese, variant 1, CMAPS {GLO} U",
+  "categories": [
+    "ingredient",
+    "material"
+  ],
+  "displayName": "Cantal, Salers ou Laguiole FR",
+  "id": "9cf7c19e-9e67-4f62-8047-cd79ca8bfd07",
+  "metadata": [
+    {
+      "alias": "cantal-cheese-fr",
+      "defaultOrigin": "France",
+      "displayName": "Cantal, Salers ou Laguiole FR",
+      "id": "c398359a-dc79-483a-9b53-687ab17406ab",
+      "inediblePart": 0,
+      "ingredientCategories": [
+        "dairy_product"
+      ],
+      "ingredientDensity": 1,
+      "rawToCookedRatio": 1,
+      "scenario": "reference",
+      "scopes": [
+        "food",
+        "food2"
+      ],
+      "transportCooling": "always",
+      "visible": true
+    }
+  ],
+  "scopes": [
+    "food",
+    "food2"
+  ],
+  "source": "Ecobalyse"
+}

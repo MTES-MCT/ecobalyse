@@ -1,0 +1,24 @@
+{
+  "activityName": "Ice cream cone, 402g | Packaging System, Proxy Pack, Cardboard {FR} U",
+  "categories": [
+    "material",
+    "packaging",
+    "packaging_type:sheet"
+  ],
+  "displayName": "Feuille en papier pour cornet de glace - 402g - Proxy",
+  "id": "2d794334-71f6-4da8-9fb8-58e3a486e62d",
+  "metadata": [
+    {
+      "id": "f11675c2-4e25-4ecb-bf33-c028309a7431",
+      "scopes": [
+        "food2"
+      ]
+    }
+  ],
+  "scopes": [
+    "food",
+    "food2"
+  ],
+  "source": "Agribalyse 3.2",
+  "unit": "item"
+}

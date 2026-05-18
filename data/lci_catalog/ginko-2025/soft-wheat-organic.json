@@ -1,0 +1,60 @@
+{
+  "activityName": "Soft wheat grain, organic 2025, breadmaking quality, 15% moisture, at farm gate {FR} U",
+  "categories": [
+    "ingredient",
+    "material",
+    "material_type:other_food_items"
+  ],
+  "displayName": "Blé tendre Bio",
+  "id": "992cc10e-4594-54cf-8a6d-07649a7fae8a",
+  "location": "FR",
+  "metadata": [
+    {
+      "alias": "soft-wheat-organic",
+      "cropGroup": "BLE TENDRE",
+      "cropGroupMatch": {
+        "confidence": 0.95,
+        "rule": "matched 'wheat' in cropgroup.csv"
+      },
+      "defaultOrigin": "France",
+      "displayName": "Blé tendre Bio",
+      "id": "a98b8776-a96d-48e9-b218-976f5452907a",
+      "inediblePart": 0.0,
+      "inediblePartMatch": {
+        "confidence": 1.0,
+        "rule": "grain NOVA 1 default from food_type_inedible_part.csv"
+      },
+      "ingredientCategories": [
+        "grain_raw",
+        "organic"
+      ],
+      "ingredientDensity": 0.77,
+      "ingredientDensityMatch": {
+        "confidence": 0.95,
+        "rule": "Matched with Wheat in fao_density.csv"
+      },
+      "rawToCookedRatio": 2.259,
+      "rawToCookedRatioMatch": {
+        "confidence": 1.0,
+        "rule": "grain default from food_type_cooked_to_raw.csv"
+      },
+      "scenario": "organic",
+      "scopes": [
+        "food",
+        "food2"
+      ],
+      "transportCooling": "none",
+      "transportCoolingMatch": {
+        "confidence": 1.0,
+        "rule": "grain → none (non-perishable)"
+      },
+      "visible": true
+    }
+  ],
+  "scopes": [
+    "food",
+    "food2"
+  ],
+  "source": "Ginko 2025",
+  "unit": "kg"
+}

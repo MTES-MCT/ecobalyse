@@ -1,0 +1,17 @@
+{
+  "activityName": "electricity, medium voltage//[ET] market for electricity, medium voltage",
+  "categories": [
+    "energy"
+  ],
+  "comment": "Ancien identifiant (12/2024): 2c27aa8ba10e717c63b8508b487909bd.",
+  "displayName": "Électricité moyenne tension, Éthiopie",
+  "elecMJ": 0,
+  "heatMJ": 0,
+  "id": "381ea140-2e13-5ec3-99b9-f398e80ea730",
+  "scopes": [
+    "textile"
+  ],
+  "source": "Ecoinvent 3.9.1",
+  "unit": "kWh",
+  "waste": 0
+}

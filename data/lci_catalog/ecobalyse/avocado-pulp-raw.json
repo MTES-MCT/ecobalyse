@@ -1,0 +1,36 @@
+{
+  "activityName": "Avocado, pulp raw, CMAPS {GLO} U",
+  "categories": [
+    "ingredient",
+    "material"
+  ],
+  "displayName": "Avocat, pulpe, cru Origine Inconnue",
+  "id": "7c2a23b4-9a3a-4a36-a4b5-3b0df2d21180",
+  "metadata": [
+    {
+      "alias": "avocado-pulp-raw-default",
+      "cropGroup": "VERGERS",
+      "defaultOrigin": "OutOfEuropeAndMaghreb",
+      "displayName": "Avocat, pulpe, cru Origine Inconnue",
+      "id": "43ed69d7-e064-4b3d-8c7e-610d9a0b4039",
+      "inediblePart": 0,
+      "ingredientCategories": [
+        "vegetable_fresh"
+      ],
+      "ingredientDensity": 1,
+      "rawToCookedRatio": 1,
+      "scenario": "import",
+      "scopes": [
+        "food",
+        "food2"
+      ],
+      "transportCooling": "always",
+      "visible": true
+    }
+  ],
+  "scopes": [
+    "food",
+    "food2"
+  ],
+  "source": "Ecobalyse"
+}

@@ -1,0 +1,36 @@
+{
+  "activityName": "Cucumber, pulp raw, import WFLDB, CMAPS {GLO} U",
+  "categories": [
+    "ingredient",
+    "material"
+  ],
+  "displayName": "Concombre, pulpe, cru Origine Inconnue",
+  "id": "34d6a1f5-50c8-40ed-9f23-1258037923af",
+  "metadata": [
+    {
+      "alias": "cucumber-pulp-raw-default",
+      "cropGroup": "LEGUMES-FLEURS",
+      "defaultOrigin": "OutOfEuropeAndMaghreb",
+      "displayName": "Concombre, pulpe, cru Origine Inconnue",
+      "id": "6e7ac5e3-0dab-4f5b-877b-dac995e19d33",
+      "inediblePart": 0,
+      "ingredientCategories": [
+        "vegetable_fresh"
+      ],
+      "ingredientDensity": 1,
+      "rawToCookedRatio": 1,
+      "scenario": "import",
+      "scopes": [
+        "food",
+        "food2"
+      ],
+      "transportCooling": "always",
+      "visible": true
+    }
+  ],
+  "scopes": [
+    "food",
+    "food2"
+  ],
+  "source": "Ecobalyse"
+}

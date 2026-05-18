@@ -1,0 +1,24 @@
+{
+  "activityName": "Semihard cheeses - cat A, 200g | Packaging System, N0, All, Plastic bag with zipper closure {FR} U",
+  "categories": [
+    "material",
+    "packaging",
+    "packaging_type:bag"
+  ],
+  "displayName": "Sachet plastique zippé (multimatériaux) pour fromage râpé - 200g",
+  "id": "7794c22c-f28e-4040-af27-18fd85208dc8",
+  "metadata": [
+    {
+      "id": "15c0c4d0-6743-4092-b9c6-8a37ca6a1669",
+      "scopes": [
+        "food2"
+      ]
+    }
+  ],
+  "scopes": [
+    "food",
+    "food2"
+  ],
+  "source": "Agribalyse 3.2",
+  "unit": "item"
+}

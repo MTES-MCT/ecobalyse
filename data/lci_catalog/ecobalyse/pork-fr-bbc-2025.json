@@ -1,0 +1,39 @@
+{
+  "activityName": "Bacon, back, at plant {{pork-fr-bbc-2025}}",
+  "categories": [
+    "ingredient",
+    "material",
+    "material_type:other_food_items"
+  ],
+  "displayName": "Viande de porc (alim. ani. 100% FR) (2025)",
+  "id": "79dc0633-2115-513c-a011-98982292e461",
+  "metadata": [
+    {
+      "alias": "pork-fr-bbc-2025",
+      "animalGroup1": "pig",
+      "animalGroup2": "pig",
+      "animalProduct": "meat",
+      "defaultOrigin": "France",
+      "displayName": "Viande de porc (alim. ani. 100% FR)",
+      "id": "6fb662dc-583f-47d5-814f-2cc6a8c1f3b9",
+      "inediblePart": 0,
+      "ingredientCategories": [
+        "animal_product"
+      ],
+      "ingredientDensity": 1.0,
+      "rawToCookedRatio": 1.0,
+      "scenario": "reference",
+      "scopes": [
+        "food",
+        "food2"
+      ],
+      "transportCooling": "always",
+      "visible": true
+    }
+  ],
+  "scopes": [
+    "food",
+    "food2"
+  ],
+  "source": "Ecobalyse"
+}

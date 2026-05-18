@@ -1,0 +1,142 @@
+{
+  "activityName": "French bean, organic 2025, national average, at farm gate {FR} U",
+  "categories": [
+    "ingredient",
+    "material",
+    "material_type:fruits_and_vegetables"
+  ],
+  "displayName": "Haricots verts Bio",
+  "id": "e456bced-db40-52fa-8980-307ddb49c27a",
+  "location": "FR",
+  "metadata": [
+    {
+      "alias": "french-bean-organic",
+      "cropGroup": "LEGUMINEUSES A GRAIN",
+      "cropGroupMatch": {
+        "confidence": 1.0,
+        "rule": "legume default"
+      },
+      "defaultOrigin": "France",
+      "displayName": "Haricots verts Bio",
+      "id": "c5c31046-21fd-5963-a294-397d9a24e379",
+      "inediblePart": 0.1,
+      "inediblePartMatch": {
+        "confidence": 0.95,
+        "rule": "Matched with French bean in agb_inedible.csv"
+      },
+      "ingredientCategories": [
+        "vegetable_fresh",
+        "organic"
+      ],
+      "ingredientDensity": 0.8,
+      "ingredientDensityMatch": {
+        "confidence": 1.0,
+        "rule": "legume default from food_type_density.csv"
+      },
+      "rawToCookedRatio": 0.856,
+      "rawToCookedRatioMatch": {
+        "confidence": 1.0,
+        "rule": "legume default from food_type_cooked_to_raw.csv"
+      },
+      "scenario": "organic",
+      "scopes": [
+        "food",
+        "food2"
+      ],
+      "transportCooling": "always",
+      "transportCoolingMatch": {
+        "confidence": 1.0,
+        "rule": "legume NOVA 1 → always (perishable)"
+      },
+      "visible": true
+    },
+    {
+      "alias": "tamarind-organic",
+      "cropGroup": "LEGUMINEUSES A GRAIN",
+      "cropGroupMatch": {
+        "confidence": 1.0,
+        "rule": "legume pattern"
+      },
+      "defaultOrigin": "France",
+      "displayName": "Tamarin Bio",
+      "id": "8cc15b25-df6e-5ac3-82a7-4e798fdbcef2",
+      "inediblePart": 0.2,
+      "inediblePartMatch": {
+        "confidence": 1.0,
+        "rule": "fruit NOVA 1 default from food_type_inedible_part.csv"
+      },
+      "ingredientCategories": [
+        "vegetable_fresh",
+        "organic"
+      ],
+      "ingredientDensity": 1.3,
+      "ingredientDensityMatch": {
+        "confidence": 1.0,
+        "rule": "tamarind found in density.csv"
+      },
+      "rawToCookedRatio": 0.856,
+      "rawToCookedRatioMatch": {
+        "confidence": 1.0,
+        "rule": "fruit default from food_type_cooked_to_raw.csv"
+      },
+      "scenario": "organic",
+      "scopes": [
+        "food",
+        "food2"
+      ],
+      "transportCooling": "always",
+      "transportCoolingMatch": {
+        "confidence": 1.0,
+        "rule": "fruit NOVA 1 → always (perishable)"
+      },
+      "visible": true
+    },
+    {
+      "alias": "white-bean-dried-organic",
+      "cropGroup": "LEGUMINEUSES A GRAIN",
+      "cropGroupMatch": {
+        "confidence": 1.0,
+        "rule": "legume default"
+      },
+      "defaultOrigin": "France",
+      "displayName": "Haricots blancs séchés Bio",
+      "id": "39e00dfd-bde5-59c9-a2d0-21531ead2035",
+      "inediblePart": 0.2,
+      "inediblePartMatch": {
+        "confidence": 1.0,
+        "rule": "legume NOVA 1 default from food_type_inedible_part.csv"
+      },
+      "ingredientCategories": [
+        "vegetable_fresh",
+        "organic"
+      ],
+      "ingredientDensity": 0.8,
+      "ingredientDensityMatch": {
+        "confidence": 1.0,
+        "rule": "legume default from food_type_density.csv"
+      },
+      "rawToCookedRatio": 0.856,
+      "rawToCookedRatioMatch": {
+        "confidence": 1.0,
+        "rule": "legume default from food_type_cooked_to_raw.csv"
+      },
+      "scenario": "organic",
+      "scopes": [
+        "food",
+        "food2"
+      ],
+      "transportCooling": "none",
+      "transportCoolingMatch": {
+        "confidence": 1.0,
+        "rule": "dried packaging → none"
+      },
+      "visible": true
+    }
+  ],
+  "scopes": [
+    "food",
+    "food2"
+  ],
+  "source": "Ginko 2025",
+  "unit": "kg"
+}

@@ -1,0 +1,35 @@
+{
+  "activityName": "Beef, boneless raw, variant 1, CMAPS {GLO} U",
+  "categories": [
+    "ingredient",
+    "material"
+  ],
+  "displayName": "Pièces de boeuf, désossée, crue (côte, épaule, gite, joue, jarret, rosbif, onglet, bavette...) FR",
+  "id": "692d6745-4b5a-4576-9869-15cabc16bb0c",
+  "metadata": [
+    {
+      "alias": "beef-boneless-raw-fr",
+      "defaultOrigin": "France",
+      "displayName": "Pièces de boeuf, désossée, crue (côte, épaule, gite, joue, jarret, rosbif, onglet, bavette...) FR",
+      "id": "588013fe-4b06-43aa-8991-65f949a7815d",
+      "inediblePart": 0,
+      "ingredientCategories": [
+        "animal_product"
+      ],
+      "ingredientDensity": 1,
+      "rawToCookedRatio": 1,
+      "scenario": "reference",
+      "scopes": [
+        "food",
+        "food2"
+      ],
+      "transportCooling": "always",
+      "visible": false
+    }
+  ],
+  "scopes": [
+    "food",
+    "food2"
+  ],
+  "source": "Ecobalyse"
+}

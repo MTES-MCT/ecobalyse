@@ -1,0 +1,24 @@
+{
+  "activityName": "Pastries and starters, 400g | Packaging System, Proxy Pack, Plastic film {FR} U",
+  "categories": [
+    "material",
+    "packaging",
+    "packaging_type:bag"
+  ],
+  "displayName": "Sachet en plastique (PP) pour pâtisseries salées - 400g - Proxy",
+  "id": "6ebc9923-0b57-4f79-bd08-d8cb204a3d0a",
+  "metadata": [
+    {
+      "id": "fbdbe35c-bea2-4af4-9214-c061c8f4119c",
+      "scopes": [
+        "food2"
+      ]
+    }
+  ],
+  "scopes": [
+    "food",
+    "food2"
+  ],
+  "source": "Agribalyse 3.2",
+  "unit": "item"
+}

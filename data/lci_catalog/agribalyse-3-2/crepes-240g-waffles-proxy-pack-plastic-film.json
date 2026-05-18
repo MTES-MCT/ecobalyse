@@ -1,0 +1,24 @@
+{
+  "activityName": "Crepes and waffles, 240g | Packaging System, Proxy Pack, Plastic film {FR} U",
+  "categories": [
+    "material",
+    "packaging",
+    "packaging_type:bag"
+  ],
+  "displayName": "Sachet en plastique (PE) pour crêpe et gaufre - 240g - Proxy",
+  "id": "e29e17b8-b33d-44a8-aef1-38e1f28363f3",
+  "metadata": [
+    {
+      "id": "56a80a42-2e74-4d03-8568-6bb12d6ac42d",
+      "scopes": [
+        "food2"
+      ]
+    }
+  ],
+  "scopes": [
+    "food",
+    "food2"
+  ],
+  "source": "Agribalyse 3.2",
+  "unit": "item"
+}

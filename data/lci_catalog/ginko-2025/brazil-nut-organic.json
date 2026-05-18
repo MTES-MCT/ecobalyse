@@ -1,0 +1,101 @@
+{
+  "activityName": "Peanut, organic 2025 {AR}| peanut production | Cut-off, U",
+  "categories": [
+    "ingredient",
+    "material",
+    "material_type:other_food_items"
+  ],
+  "displayName": "Noix du Brésil Bio",
+  "id": "0b00078d-0bec-5a6e-b7df-3b1b335f045d",
+  "location": "AR",
+  "metadata": [
+    {
+      "alias": "brazil-nut-organic",
+      "cropGroup": "FRUITS A COQUES",
+      "cropGroupMatch": {
+        "confidence": 0.95,
+        "rule": "matched 'noix' in cropgroup.csv"
+      },
+      "defaultOrigin": "France",
+      "displayName": "Noix du Brésil Bio",
+      "id": "050374dc-6dd8-5e5f-8543-2d124767edc0",
+      "inediblePart": 0.5,
+      "inediblePartMatch": {
+        "confidence": 1.0,
+        "rule": "nut_oilseed NOVA 1 default from food_type_inedible_part.csv"
+      },
+      "ingredientCategories": [
+        "nut_oilseed_raw",
+        "organic"
+      ],
+      "ingredientDensity": 0.63,
+      "ingredientDensityMatch": {
+        "confidence": 0.95,
+        "rule": "Matched with Nuts in fao_density.csv"
+      },
+      "rawToCookedRatio": 1.0,
+      "rawToCookedRatioMatch": {
+        "confidence": 1.0,
+        "rule": "nut_oilseed default from food_type_cooked_to_raw.csv"
+      },
+      "scenario": "organic",
+      "scopes": [
+        "food",
+        "food2"
+      ],
+      "transportCooling": "none",
+      "transportCoolingMatch": {
+        "confidence": 1.0,
+        "rule": "nut_oilseed → none (non-perishable)"
+      },
+      "visible": true
+    },
+    {
+      "alias": "pistachio-organic",
+      "cropGroup": "FRUITS A COQUES",
+      "cropGroupMatch": {
+        "confidence": 1.0,
+        "rule": "matched 'pistaches' in cropgroup.csv"
+      },
+      "defaultOrigin": "France",
+      "displayName": "Pistaches Bio",
+      "id": "420449d8-4485-57df-91cf-abcf592a8e58",
+      "inediblePart": 0.5,
+      "inediblePartMatch": {
+        "confidence": 1.0,
+        "rule": "nut_oilseed NOVA 1 default from food_type_inedible_part.csv"
+      },
+      "ingredientCategories": [
+        "nut_oilseed_raw",
+        "organic"
+      ],
+      "ingredientDensity": 0.5,
+      "ingredientDensityMatch": {
+        "confidence": 0.95,
+        "rule": "Matched with pistachio in density.csv"
+      },
+      "rawToCookedRatio": 1.0,
+      "rawToCookedRatioMatch": {
+        "confidence": 1.0,
+        "rule": "nut_oilseed default from food_type_cooked_to_raw.csv"
+      },
+      "scenario": "organic",
+      "scopes": [
+        "food",
+        "food2"
+      ],
+      "transportCooling": "none",
+      "transportCoolingMatch": {
+        "confidence": 1.0,
+        "rule": "nut_oilseed → none (non-perishable)"
+      },
+      "visible": true
+    }
+  ],
+  "scopes": [
+    "food",
+    "food2"
+  ],
+  "source": "Ginko 2025",
+  "unit": "kg"
+}

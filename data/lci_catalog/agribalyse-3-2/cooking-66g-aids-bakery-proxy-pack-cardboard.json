@@ -1,0 +1,24 @@
+{
+  "activityName": "Cooking aids for bakery, 66g | Packaging System, Proxy Pack, Cardboard {FR} U",
+  "categories": [
+    "material",
+    "packaging",
+    "packaging_type:bag"
+  ],
+  "displayName": "Sachet en papier pour aide culinaire pour boulangerie - 66g - Proxy",
+  "id": "015ab9c4-9ecb-4dc1-bbfd-7ed7d72e75e6",
+  "metadata": [
+    {
+      "id": "3bd2cd70-10a5-4b1f-9a9f-509dd08dc40f",
+      "scopes": [
+        "food2"
+      ]
+    }
+  ],
+  "scopes": [
+    "food",
+    "food2"
+  ],
+  "source": "Agribalyse 3.2",
+  "unit": "item"
+}

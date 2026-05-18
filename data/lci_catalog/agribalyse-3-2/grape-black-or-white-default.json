@@ -1,0 +1,96 @@
+{
+  "activityName": "Grape, wine grape, at farm {IT} - Adapted from WFLDB U",
+  "categories": [
+    "ingredient"
+  ],
+  "displayName": "Raisins (noirs ou blancs) Origine Inconnue",
+  "id": "d0448664-37cd-5b7a-b0e8-e182a6e6c269",
+  "metadata": [
+    {
+      "alias": "grape-default",
+      "cropGroup": "VIGNES",
+      "cropGroupMatch": {
+        "confidence": 0.95,
+        "rule": "matched 'grape' in cropgroup.csv"
+      },
+      "defaultOrigin": "OutOfEuropeAndMaghreb",
+      "displayName": "Raisins (noirs ou blancs) Origine Inconnue",
+      "id": "3733e844-5e53-5404-9b26-28fcb67896c8",
+      "inediblePart": 0.1,
+      "inediblePartMatch": {
+        "confidence": 0.95,
+        "rule": "Matched with Grape in agb_inedible.csv"
+      },
+      "ingredientCategories": [
+        "vegetable_fresh"
+      ],
+      "ingredientDensity": 1.0,
+      "ingredientDensityMatch": {
+        "confidence": 0.95,
+        "rule": "Matched with grape in density.csv"
+      },
+      "rawToCookedRatio": 0.856,
+      "rawToCookedRatioMatch": {
+        "confidence": 1.0,
+        "rule": "fruit default from food_type_cooked_to_raw.csv"
+      },
+      "scenario": "import",
+      "scopes": [
+        "food",
+        "food2"
+      ],
+      "transportCooling": "always",
+      "transportCoolingMatch": {
+        "confidence": 1.0,
+        "rule": "fruit NOVA 1 → always (perishable)"
+      },
+      "visible": true
+    },
+    {
+      "alias": "grape-eu",
+      "cropGroup": "VIGNES",
+      "cropGroupMatch": {
+        "confidence": 0.95,
+        "rule": "matched 'grape' in cropgroup.csv"
+      },
+      "defaultOrigin": "EuropeAndMaghreb",
+      "displayName": "Raisins (noirs ou blancs) UE",
+      "id": "654989b5-c728-5bf5-b673-832ef1612b1a",
+      "inediblePart": 0.1,
+      "inediblePartMatch": {
+        "confidence": 0.95,
+        "rule": "Matched with Grape in agb_inedible.csv"
+      },
+      "ingredientCategories": [
+        "vegetable_fresh"
+      ],
+      "ingredientDensity": 1.0,
+      "ingredientDensityMatch": {
+        "confidence": 0.95,
+        "rule": "Matched with grape in density.csv"
+      },
+      "rawToCookedRatio": 0.856,
+      "rawToCookedRatioMatch": {
+        "confidence": 1.0,
+        "rule": "fruit default from food_type_cooked_to_raw.csv"
+      },
+      "scenario": "import",
+      "scopes": [
+        "food",
+        "food2"
+      ],
+      "transportCooling": "always",
+      "transportCoolingMatch": {
+        "confidence": 1.0,
+        "rule": "fruit NOVA 1 → always (perishable)"
+      },
+      "visible": true
+    }
+  ],
+  "scopes": [
+    "food",
+    "food2"
+  ],
+  "source": "Agribalyse 3.2",
+  "unit": "kg"
+}

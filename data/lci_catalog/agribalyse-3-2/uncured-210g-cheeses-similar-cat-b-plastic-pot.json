@@ -1,0 +1,24 @@
+{
+  "activityName": "Uncured cheeses and similar - cat B, 210g | Packaging System, N0, All, Plastic pot {FR} U",
+  "categories": [
+    "material",
+    "packaging",
+    "packaging_type:jar"
+  ],
+  "displayName": "Pot plastique (PP) pour fromage à tartiner - 210g",
+  "id": "45187e72-6665-47c8-9b54-adacd186a622",
+  "metadata": [
+    {
+      "id": "d4edac1e-b903-42cd-a8b5-39f0cdf666ca",
+      "scopes": [
+        "food2"
+      ]
+    }
+  ],
+  "scopes": [
+    "food",
+    "food2"
+  ],
+  "source": "Agribalyse 3.2",
+  "unit": "item"
+}

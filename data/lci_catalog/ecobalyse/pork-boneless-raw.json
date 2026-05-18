@@ -1,0 +1,35 @@
+{
+  "activityName": "Pork, boneless raw, CMAPS {GLO} U",
+  "categories": [
+    "ingredient",
+    "material"
+  ],
+  "displayName": "Pièces de porc, désossée, crue (poitrine, longe, jarret, cote, rouelle, carre, filet, roti, palette, jambonneau, escalope, travers, échine) FR",
+  "id": "9c6d8e85-7368-452f-bf95-685f084992bc",
+  "metadata": [
+    {
+      "alias": "pork-boneless-raw-fr",
+      "defaultOrigin": "France",
+      "displayName": "Pièces de porc, désossée, crue (poitrine, longe, jarret, cote, rouelle, carre, filet, roti, palette, jambonneau, escalope, travers, échine) FR",
+      "id": "343bbf40-2f01-4bd7-bfd5-ecc8a6b61df5",
+      "inediblePart": 0,
+      "ingredientCategories": [
+        "animal_product"
+      ],
+      "ingredientDensity": 1,
+      "rawToCookedRatio": 1,
+      "scenario": "reference",
+      "scopes": [
+        "food",
+        "food2"
+      ],
+      "transportCooling": "always",
+      "visible": false
+    }
+  ],
+  "scopes": [
+    "food",
+    "food2"
+  ],
+  "source": "Ecobalyse"
+}

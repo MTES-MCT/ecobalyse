@@ -1,0 +1,24 @@
+{
+  "activityName": "Fish, Frozen, 400g | Packaging System, Proxy Pack, Plastic film {FR} U",
+  "categories": [
+    "material",
+    "packaging",
+    "packaging_type:bag"
+  ],
+  "displayName": "Sachet en plastique (PP) pour poisson cru congelé - 400g - Proxy",
+  "id": "086c8ba0-d919-4486-8358-3d9515407777",
+  "metadata": [
+    {
+      "id": "c05872d1-2fdf-499c-8c6d-01bd70f1823d",
+      "scopes": [
+        "food2"
+      ]
+    }
+  ],
+  "scopes": [
+    "food",
+    "food2"
+  ],
+  "source": "Agribalyse 3.2",
+  "unit": "item"
+}

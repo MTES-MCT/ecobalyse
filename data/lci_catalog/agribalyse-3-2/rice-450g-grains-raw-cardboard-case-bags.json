@@ -1,0 +1,24 @@
+{
+  "activityName": "Rice and grains raw, 450g | Packaging System, N0, All, Cardboard case and bags {FR} U",
+  "categories": [
+    "material",
+    "packaging",
+    "packaging_type:bag"
+  ],
+  "displayName": "Sachets cuissons plastique (PEHD) dans étui carton pour riz et graines secs - 450g",
+  "id": "cef4cef2-bba5-4071-9181-bb98405e759e",
+  "metadata": [
+    {
+      "id": "3570fa15-76f0-4c50-a859-bba04a850620",
+      "scopes": [
+        "food2"
+      ]
+    }
+  ],
+  "scopes": [
+    "food",
+    "food2"
+  ],
+  "source": "Agribalyse 3.2",
+  "unit": "item"
+}

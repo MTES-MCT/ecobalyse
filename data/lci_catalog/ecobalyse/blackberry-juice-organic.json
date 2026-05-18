@@ -1,0 +1,37 @@
+{
+  "activityName": "Blackberry juice, organic, CMAPS {GLO} U",
+  "categories": [
+    "ingredient",
+    "material"
+  ],
+  "displayName": "Jus de mûre BIO",
+  "id": "88cee097-8a2b-4500-96d8-540952d7acd3",
+  "metadata": [
+    {
+      "alias": "blackberry-juice-default-organic",
+      "cropGroup": "VERGERS",
+      "defaultOrigin": "OutOfEuropeAndMaghreb",
+      "displayName": "Jus de mûre BIO",
+      "id": "0fc17234-1140-4887-854c-a9c3e2f80758",
+      "inediblePart": 0,
+      "ingredientCategories": [
+        "vegetable_processed",
+        "organic"
+      ],
+      "ingredientDensity": 1,
+      "rawToCookedRatio": 1,
+      "scenario": "organic",
+      "scopes": [
+        "food",
+        "food2"
+      ],
+      "transportCooling": "always",
+      "visible": true
+    }
+  ],
+  "scopes": [
+    "food",
+    "food2"
+  ],
+  "source": "Ecobalyse"
+}

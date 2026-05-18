@@ -1,0 +1,36 @@
+{
+  "activityName": "Salmon, fillet, raw, at processing {FR} U",
+  "categories": [
+    "ingredient",
+    "material",
+    "material_type:other_food_items"
+  ],
+  "displayName": "Saumon cru UE",
+  "id": "b11a9236-ae0e-5426-a68a-822f771a3335",
+  "metadata": [
+    {
+      "alias": "salmon-raw-eu-2025",
+      "defaultOrigin": "EuropeAndMaghreb",
+      "displayName": "Saumon cru UE (2025)",
+      "id": "cacf491b-5529-4e0c-af3f-75ab1d007655",
+      "inediblePart": 0.2,
+      "ingredientCategories": [
+        "animal_product"
+      ],
+      "ingredientDensity": 1.0,
+      "rawToCookedRatio": 1.0,
+      "scenario": "import",
+      "scopes": [
+        "food",
+        "food2"
+      ],
+      "transportCooling": "always",
+      "visible": true
+    }
+  ],
+  "scopes": [
+    "food",
+    "food2"
+  ],
+  "source": "Agribalyse 3.2"
+}

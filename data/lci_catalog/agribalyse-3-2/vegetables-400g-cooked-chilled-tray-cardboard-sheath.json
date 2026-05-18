@@ -1,0 +1,24 @@
+{
+  "activityName": "Vegetables cooked chilled, 400g | Packaging System, N0, All, tray with cardboard sheath {FR} U",
+  "categories": [
+    "material",
+    "packaging",
+    "packaging_type:tray"
+  ],
+  "displayName": "Barquette en plastique (PP) dans étui carton pour purées, réfrigérées - 400g",
+  "id": "70127ead-f31d-4bcd-9eff-eb917681d98b",
+  "metadata": [
+    {
+      "id": "2fde6050-9bcb-4128-bfdb-b4c9d9dd7caa",
+      "scopes": [
+        "food2"
+      ]
+    }
+  ],
+  "scopes": [
+    "food",
+    "food2"
+  ],
+  "source": "Agribalyse 3.2",
+  "unit": "item"
+}

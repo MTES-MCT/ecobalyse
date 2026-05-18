@@ -1,0 +1,24 @@
+{
+  "activityName": "Honey, 375g | Packaging System, Proxy Pack, Glass {FR} U",
+  "categories": [
+    "material",
+    "packaging",
+    "packaging_type:jar"
+  ],
+  "displayName": "Pot en verre pour miel - 375g - Proxy",
+  "id": "5ed8ff43-40f8-4d99-8d1c-14019fac5b7d",
+  "metadata": [
+    {
+      "id": "a4eba5d8-4898-4346-980f-9e2125f2c060",
+      "scopes": [
+        "food2"
+      ]
+    }
+  ],
+  "scopes": [
+    "food",
+    "food2"
+  ],
+  "source": "Agribalyse 3.2",
+  "unit": "item"
+}

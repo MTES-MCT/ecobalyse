@@ -1,0 +1,24 @@
+{
+  "activityName": "Fish cooked, 200g | Packaging System, N0, All, Skin packaging {FR} U",
+  "categories": [
+    "material",
+    "packaging",
+    "packaging_type:tray"
+  ],
+  "displayName": "Barquette skin en plastique (PET/PEBD) pour poisson cuit - 200g",
+  "id": "7dbfccac-5e25-4d10-b76a-8eb1dadb9b4b",
+  "metadata": [
+    {
+      "id": "c2b70956-f7ef-44cd-8e43-3f5a75c59963",
+      "scopes": [
+        "food2"
+      ]
+    }
+  ],
+  "scopes": [
+    "food",
+    "food2"
+  ],
+  "source": "Agribalyse 3.2",
+  "unit": "item"
+}

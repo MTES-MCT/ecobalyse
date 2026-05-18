@@ -1,0 +1,24 @@
+{
+  "activityName": "Nectars, 1000g | Packaging System, Proxy Pack, Plastic bottles {FR} U",
+  "categories": [
+    "material",
+    "packaging",
+    "packaging_type:bottle"
+  ],
+  "displayName": "Bouteille en plastique (PET) pour nectars - 1000g - Proxy",
+  "id": "2fb5bed2-2a08-41cd-8b7d-e3e0e200fa6d",
+  "metadata": [
+    {
+      "id": "f6fbedcb-2678-4894-bc24-59960e5f19aa",
+      "scopes": [
+        "food2"
+      ]
+    }
+  ],
+  "scopes": [
+    "food",
+    "food2"
+  ],
+  "source": "Agribalyse 3.2",
+  "unit": "item"
+}

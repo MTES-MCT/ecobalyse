@@ -1,0 +1,99 @@
+{
+  "activityName": "Radish {GLO}| radish production, in heated greenhouse | Cut-off, U",
+  "categories": [
+    "ingredient",
+    "material",
+    "material_type:other_food_items"
+  ],
+  "displayName": "Radis Origine Inconnue",
+  "id": "16f248b7-5c7f-59b9-94d0-bcf93a1decdb",
+  "location": "GLO",
+  "metadata": [
+    {
+      "alias": "radish-default",
+      "cropGroup": "LEGUMES-FLEURS",
+      "cropGroupMatch": {
+        "confidence": 1.0,
+        "rule": "vegetable default"
+      },
+      "defaultOrigin": "OutOfEuropeAndMaghreb",
+      "displayName": "Radis Origine Inconnue",
+      "id": "f1769f71-8a52-5e10-b3a0-efdc2a1918f8",
+      "inediblePart": 0.03,
+      "inediblePartMatch": {
+        "confidence": 1.0,
+        "rule": "Matched with Radish in agb_inedible.csv"
+      },
+      "ingredientCategories": [
+        "vegetable_fresh"
+      ],
+      "ingredientDensity": 0.6,
+      "ingredientDensityMatch": {
+        "confidence": 1.0,
+        "rule": "radish found in density.csv"
+      },
+      "rawToCookedRatio": 0.856,
+      "rawToCookedRatioMatch": {
+        "confidence": 1.0,
+        "rule": "Matched with radish in cooked_to_raw.csv"
+      },
+      "scenario": "import",
+      "scopes": [
+        "food",
+        "food2"
+      ],
+      "transportCooling": "always",
+      "transportCoolingMatch": {
+        "confidence": 1.0,
+        "rule": "vegetable NOVA 1 → always (perishable)"
+      },
+      "visible": true
+    },
+    {
+      "alias": "radish-non-eu",
+      "cropGroup": "LEGUMES-FLEURS",
+      "cropGroupMatch": {
+        "confidence": 1.0,
+        "rule": "vegetable default"
+      },
+      "defaultOrigin": "OutOfEuropeAndMaghreb",
+      "displayName": "Radis HORS UE",
+      "id": "9fd0eb3b-0bc8-5697-9436-206c4016f0cb",
+      "inediblePart": 0.03,
+      "inediblePartMatch": {
+        "confidence": 1.0,
+        "rule": "Matched with Radish in agb_inedible.csv"
+      },
+      "ingredientCategories": [
+        "vegetable_fresh"
+      ],
+      "ingredientDensity": 0.6,
+      "ingredientDensityMatch": {
+        "confidence": 1.0,
+        "rule": "radish found in density.csv"
+      },
+      "rawToCookedRatio": 0.856,
+      "rawToCookedRatioMatch": {
+        "confidence": 1.0,
+        "rule": "Matched with radish in cooked_to_raw.csv"
+      },
+      "scenario": "import",
+      "scopes": [
+        "food",
+        "food2"
+      ],
+      "transportCooling": "always",
+      "transportCoolingMatch": {
+        "confidence": 1.0,
+        "rule": "vegetable NOVA 1 → always (perishable)"
+      },
+      "visible": true
+    }
+  ],
+  "scopes": [
+    "food",
+    "food2"
+  ],
+  "source": "Ecoinvent 3.11",
+  "unit": "kg"
+}

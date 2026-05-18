@@ -1,0 +1,28 @@
+{
+  "activityName": "waste glass//[CH] treatment of waste glass, municipal incineration with fly ash extraction",
+  "categories": [
+    "end-of-life",
+    "material_type:glass"
+  ],
+  "comment": "",
+  "displayName": "Incinération du verre",
+  "elecMJ": 0,
+  "heatMJ": 0,
+  "id": "ce0aa4e1-4c3a-460d-845c-d12a8ecf4dd8",
+  "metadata": [
+    {
+      "id": "2501916b-ce82-48a8-941c-cb4af7791e5c",
+      "scopes": [
+        "object",
+        "veli"
+      ]
+    }
+  ],
+  "scopes": [
+    "object",
+    "veli"
+  ],
+  "source": "Ecoinvent 3.9.1",
+  "unit": "kg",
+  "waste": 0
+}

@@ -1,0 +1,24 @@
+{
+  "activityName": "Uncured cheeses and similar - cat A, 200g | Packaging System, N0, All, Plastic tray with double lid {FR} U",
+  "categories": [
+    "material",
+    "packaging",
+    "packaging_type:tray"
+  ],
+  "displayName": "Barquette en plastique (PE/PA) pour fromage frais - 200g",
+  "id": "34e092bb-c61a-4b39-94dc-9bd7d3be5561",
+  "metadata": [
+    {
+      "id": "55af055e-079e-469c-b6c9-88c814352f45",
+      "scopes": [
+        "food2"
+      ]
+    }
+  ],
+  "scopes": [
+    "food",
+    "food2"
+  ],
+  "source": "Agribalyse 3.2",
+  "unit": "item"
+}

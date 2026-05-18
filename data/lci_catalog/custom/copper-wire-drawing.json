@@ -1,0 +1,48 @@
+{
+  "categories": [
+    "transformation",
+    "material_type:copper"
+  ],
+  "comment": "Source: Ecoinvent 3.9.1, wire drawing, copper, RER. Only energy and losses are modeled",
+  "displayName": "Tréfillage du cuivre",
+  "elecMJ": 1.6,
+  "heatMJ": 1.48,
+  "id": "60a8b985-d0b4-4606-a1c6-fc7fdf28494c",
+  "impacts": {
+    "acd": 0,
+    "cch": 0,
+    "etf": 0,
+    "etf-c": 0,
+    "fru": 0,
+    "fwe": 0,
+    "htc": 0,
+    "htc-c": 0,
+    "htn": 0,
+    "htn-c": 0,
+    "ior": 0,
+    "ldu": 0,
+    "mru": 0,
+    "ozd": 0,
+    "pco": 0,
+    "pma": 0,
+    "swe": 0,
+    "tre": 0,
+    "wtu": 0
+  },
+  "metadata": [
+    {
+      "id": "d077f06e-4ae9-48b7-8019-64523e577b95",
+      "scopes": [
+        "object",
+        "veli"
+      ]
+    }
+  ],
+  "scopes": [
+    "object",
+    "veli"
+  ],
+  "source": "Custom",
+  "unit": "kg",
+  "waste": 0.038
+}

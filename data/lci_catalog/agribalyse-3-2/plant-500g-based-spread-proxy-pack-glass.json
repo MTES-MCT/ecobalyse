@@ -1,0 +1,24 @@
+{
+  "activityName": "Plant based spread, 500g | Packaging System, Proxy Pack, Glass {FR} U",
+  "categories": [
+    "material",
+    "packaging",
+    "packaging_type:jar"
+  ],
+  "displayName": "Pot en plastique (PP) pour fromage végétal - 125g - Proxy",
+  "id": "02886d50-9d19-43bf-b9ed-4d49b360b296",
+  "metadata": [
+    {
+      "id": "07eec62f-92b6-439b-931b-1fc9ca492583",
+      "scopes": [
+        "food2"
+      ]
+    }
+  ],
+  "scopes": [
+    "food",
+    "food2"
+  ],
+  "source": "Agribalyse 3.2",
+  "unit": "item"
+}

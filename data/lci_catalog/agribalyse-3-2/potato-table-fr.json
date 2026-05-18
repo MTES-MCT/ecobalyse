@@ -1,0 +1,37 @@
+{
+  "activityName": "Ware potato, conventional, for fresh market, other varieties, at farm gate {FR} U",
+  "categories": [
+    "ingredient",
+    "material",
+    "material_type:fruits_and_vegetables"
+  ],
+  "displayName": "Pomme de terre de table FR",
+  "id": "502d8075-c62e-51ff-893f-f2b9faed162a",
+  "metadata": [
+    {
+      "alias": "potato-table-fr-2025",
+      "cropGroup": "LEGUMES-FLEURS",
+      "defaultOrigin": "France",
+      "displayName": "Pomme de terre de table FR (2025)",
+      "id": "1bcf7aa8-a26c-4340-b98a-c41d015a99b7",
+      "inediblePart": 0.1,
+      "ingredientCategories": [
+        "vegetable_fresh"
+      ],
+      "ingredientDensity": 0.6375,
+      "rawToCookedRatio": 0.856,
+      "scenario": "reference",
+      "scopes": [
+        "food",
+        "food2"
+      ],
+      "transportCooling": "always",
+      "visible": true
+    }
+  ],
+  "scopes": [
+    "food",
+    "food2"
+  ],
+  "source": "Agribalyse 3.2"
+}

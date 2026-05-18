@@ -1,0 +1,24 @@
+{
+  "activityName": "Sandwich, 190g | Packaging System, Proxy Pack, Plastic film {FR} U",
+  "categories": [
+    "material",
+    "packaging",
+    "packaging_type:other"
+  ],
+  "displayName": "Film en plastique (PE) pour sandwich - 190g - Proxy",
+  "id": "451bb115-c242-40e9-89f7-4884db859c69",
+  "metadata": [
+    {
+      "id": "3fe4c238-f3e3-4530-a711-333bdcaa7353",
+      "scopes": [
+        "food2"
+      ]
+    }
+  ],
+  "scopes": [
+    "food",
+    "food2"
+  ],
+  "source": "Agribalyse 3.2",
+  "unit": "item"
+}

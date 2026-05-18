@@ -1,0 +1,96 @@
+{
+  "activityName": "Barley grain {RoW}| barley production | Cut-off, U - Adapted from Ecoinvent U",
+  "categories": [
+    "ingredient"
+  ],
+  "displayName": "Barley grain (ROW)",
+  "id": "bfd9f7a5-5920-574f-84e4-69450e278567",
+  "metadata": [
+    {
+      "alias": "barley-whole-eu",
+      "cropGroup": "ORGE",
+      "cropGroupMatch": {
+        "confidence": 0.95,
+        "rule": "matched 'barley' in cropgroup.csv"
+      },
+      "defaultOrigin": "EuropeAndMaghreb",
+      "displayName": "Orge entière UE",
+      "id": "6cf9e844-ecdf-5ab5-adee-41a45d709ab1",
+      "inediblePart": 0.0,
+      "inediblePartMatch": {
+        "confidence": 1.0,
+        "rule": "grain NOVA 1 default from food_type_inedible_part.csv"
+      },
+      "ingredientCategories": [
+        "grain_raw"
+      ],
+      "ingredientDensity": 0.65,
+      "ingredientDensityMatch": {
+        "confidence": 0.952,
+        "rule": "Matched with Barley, whole in fao_density.csv"
+      },
+      "rawToCookedRatio": 2.259,
+      "rawToCookedRatioMatch": {
+        "confidence": 0.95,
+        "rule": "Matched with barley in cooked_to_raw.csv"
+      },
+      "scenario": "import",
+      "scopes": [
+        "food",
+        "food2"
+      ],
+      "transportCooling": "none",
+      "transportCoolingMatch": {
+        "confidence": 1.0,
+        "rule": "grain → none (non-perishable)"
+      },
+      "visible": false
+    },
+    {
+      "alias": "barley-whole-non-eu",
+      "cropGroup": "ORGE",
+      "cropGroupMatch": {
+        "confidence": 0.95,
+        "rule": "matched 'barley' in cropgroup.csv"
+      },
+      "defaultOrigin": "OutOfEuropeAndMaghreb",
+      "displayName": "Orge entière HORS UE",
+      "id": "d265033b-7b93-510d-b299-50120bf0f3f5",
+      "inediblePart": 0.0,
+      "inediblePartMatch": {
+        "confidence": 1.0,
+        "rule": "grain NOVA 1 default from food_type_inedible_part.csv"
+      },
+      "ingredientCategories": [
+        "grain_raw"
+      ],
+      "ingredientDensity": 0.65,
+      "ingredientDensityMatch": {
+        "confidence": 0.952,
+        "rule": "Matched with Barley, whole in fao_density.csv"
+      },
+      "rawToCookedRatio": 2.259,
+      "rawToCookedRatioMatch": {
+        "confidence": 0.95,
+        "rule": "Matched with barley in cooked_to_raw.csv"
+      },
+      "scenario": "import",
+      "scopes": [
+        "food",
+        "food2"
+      ],
+      "transportCooling": "none",
+      "transportCoolingMatch": {
+        "confidence": 1.0,
+        "rule": "grain → none (non-perishable)"
+      },
+      "visible": true
+    }
+  ],
+  "scopes": [
+    "food",
+    "food2"
+  ],
+  "source": "Agribalyse 3.2",
+  "unit": "kg"
+}

@@ -1,0 +1,24 @@
+{
+  "activityName": "Pop corn, 100g | Packaging System, Proxy Pack, Plastic film {FR} U",
+  "categories": [
+    "material",
+    "packaging",
+    "packaging_type:bag"
+  ],
+  "displayName": "Sachet en plastique (PP) pour pop corn - 100g - Proxy",
+  "id": "d29b17af-4039-4785-8ffb-0afbf615d705",
+  "metadata": [
+    {
+      "id": "54198827-66b3-4c81-b458-62b2532c751b",
+      "scopes": [
+        "food2"
+      ]
+    }
+  ],
+  "scopes": [
+    "food",
+    "food2"
+  ],
+  "source": "Agribalyse 3.2",
+  "unit": "item"
+}

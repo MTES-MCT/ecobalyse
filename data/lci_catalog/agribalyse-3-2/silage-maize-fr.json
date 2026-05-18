@@ -1,0 +1,60 @@
+{
+  "activityName": "Silage maize, conventional, national average, animal feed, at farm gate, production {FR} U",
+  "categories": [
+    "ingredient",
+    "material",
+    "material_type:other_food_items"
+  ],
+  "displayName": "Ensilage maïs FR",
+  "id": "f22c4816-818b-569a-8f42-931035f860c8",
+  "metadata": [
+    {
+      "alias": "silage-maize-fr-2025",
+      "cropGroup": "MAIS GRAIN ET ENSILAGE",
+      "defaultOrigin": "France",
+      "displayName": "Ensilage maïs FR (2025)",
+      "explain": "Part non comestible : chataigne, olive",
+      "id": "dc872330-8d35-4b02-bf45-4481b89a093e",
+      "inediblePart": 0.5,
+      "ingredientCategories": [
+        "grain_raw"
+      ],
+      "ingredientDensity": 0.24,
+      "rawToCookedRatio": 2.259,
+      "scenario": "reference",
+      "scopes": [
+        "food",
+        "food2"
+      ],
+      "transportCooling": "none",
+      "visible": true
+    },
+    {
+      "alias": "silage-maize-organic-2025",
+      "cropGroup": "MAIS GRAIN ET ENSILAGE",
+      "defaultOrigin": "France",
+      "displayName": "Ensilage maïs Bio (2025)",
+      "explain": "Part non comestible : chataigne, olive",
+      "id": "305cc005-eb5c-4e94-b5cf-9aa21c619577",
+      "inediblePart": 0.5,
+      "ingredientCategories": [
+        "grain_raw",
+        "organic"
+      ],
+      "ingredientDensity": 0.24,
+      "rawToCookedRatio": 2.259,
+      "scenario": "organic",
+      "scopes": [
+        "food",
+        "food2"
+      ],
+      "transportCooling": "none",
+      "visible": true
+    }
+  ],
+  "scopes": [
+    "food",
+    "food2"
+  ],
+  "source": "Agribalyse 3.2"
+}
