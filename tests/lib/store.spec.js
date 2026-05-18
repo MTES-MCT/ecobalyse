@@ -22,7 +22,7 @@ describe("lib.store", () => {
   describe("initializeStoreKey", () => {
     test("should initialize ongoing store with auth only when only stable store exists", () => {
       const authStableStore = {
-        auth2: { token: "stable-session-token" },
+        auth: { token: "stable-session-token" },
         bookmarks: anonStableStore.bookmarks,
       };
       const localStorage = {
@@ -37,7 +37,7 @@ describe("lib.store", () => {
 
     test("should backport auth only to stable store when only ongoing store exists", () => {
       const authOngoingStore = {
-        auth2: { token: "ongoing-session-token" },
+        auth: { token: "ongoing-session-token" },
         bookmarks: anonOngoingStore.bookmarks,
       };
       const localStorage = {
@@ -47,12 +47,12 @@ describe("lib.store", () => {
       const key = initializeStoreKey(localStorage);
 
       expect(key).toBe("ecobalyse");
-      expect(JSON.parse(localStorage.store)).toEqual({ auth2: authOngoingStore.auth2 });
+      expect(JSON.parse(localStorage.store)).toEqual({ auth: authOngoingStore.auth });
     });
 
     test("should not alter stores when both stable and ongoing stores exist", () => {
-      const stableSession = { auth2: { token: "stable-session-token" } };
-      const ongoingSession = { auth2: { token: "ongoing-session-token" } };
+      const stableSession = { auth: { token: "stable-session-token" } };
+      const ongoingSession = { auth: { token: "ongoing-session-token" } };
       const localStorage = {
         ecobalyse: JSON.stringify(ongoingSession),
         store: JSON.stringify(stableSession),
