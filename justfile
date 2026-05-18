@@ -1,5 +1,5 @@
 # https://github.com/casey/just
-# Temporary Justfile, used only by the pre-commit and CI
+# FIXME: Temporary Justfile, used only by the pre-commit and CI
 # while we are merging the repositories
 
 set dotenv-load := true

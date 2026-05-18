@@ -49,7 +49,8 @@ repos:
         entry: |
           bash -c 'npm --prefix . run fix:elm-format "${@}"' --
 
-# from ecobalyse-data ; some duplication is expected for the moment
+# from ecobalyse-data
+# FIXME: some duplication is expected at the moment
       - id: fix-json
         name: run JSON formatter
         language: system
@@ -66,7 +67,7 @@ repos:
         entry: |
           bash -c 'just fix-python "${@}"' --
 
-      # TODO: need to move once the processes files end in their final destination
+      # FIXME: need to move once the processes files end in their final destination
       - id: check-json-schemas
         name: check json schemas
         language: system
