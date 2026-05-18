@@ -1,0 +1,38 @@
+{
+  "activityName": "Sunflower, at farm {FR} - Adapted from WFLDB U",
+  "categories": [
+    "ingredient",
+    "material",
+    "material_type:other_food_items"
+  ],
+  "displayName": "Tournesol FR",
+  "id": "bf00fe85-788a-5676-948c-da40b630bb15",
+  "metadata": [
+    {
+      "alias": "sunflower-fr",
+      "cropGroup": "TOURNESOL",
+      "defaultOrigin": "France",
+      "displayName": "Tournesol FR",
+      "explain": "part non comestible des noix",
+      "id": "f105f36b-f467-4aea-8da7-8bc2e113db20",
+      "inediblePart": 0.5,
+      "ingredientCategories": [
+        "nut_oilseed_raw"
+      ],
+      "ingredientDensity": 0.72,
+      "rawToCookedRatio": 1.0,
+      "scenario": "reference",
+      "scopes": [
+        "food",
+        "food2"
+      ],
+      "transportCooling": "none",
+      "visible": true
+    }
+  ],
+  "scopes": [
+    "food",
+    "food2"
+  ],
+  "source": "Agribalyse 3.2"
+}

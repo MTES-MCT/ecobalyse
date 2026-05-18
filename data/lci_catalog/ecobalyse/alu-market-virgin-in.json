@@ -1,0 +1,28 @@
+{
+  "activityName": "aluminium ingot, virgin, market, IN",
+  "categories": [
+    "material",
+    "material_type:aluminium"
+  ],
+  "comment": "",
+  "displayName": "Aluminium vierge, mix marché, Inde",
+  "elecMJ": 0,
+  "heatMJ": 0,
+  "id": "e1ab1dc3-fa30-58d9-b211-779f3a426200",
+  "metadata": [
+    {
+      "id": "81103034-fa68-4329-b092-0e86c4c297e4",
+      "scopes": [
+        "object",
+        "veli"
+      ]
+    }
+  ],
+  "scopes": [
+    "object",
+    "veli"
+  ],
+  "source": "Ecobalyse",
+  "unit": "kg",
+  "waste": 0
+}

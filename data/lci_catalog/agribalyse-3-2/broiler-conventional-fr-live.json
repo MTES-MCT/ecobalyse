@@ -1,0 +1,267 @@
+{
+  "activityName": "Broiler, conventional, at farm gate {FR} U",
+  "categories": [
+    "ingredient",
+    "material",
+    "material_type:other_food_items"
+  ],
+  "displayName": "Poulet conventionnel vivant FR",
+  "id": "b98f0823-abe6-57fd-b49f-e1f9638e0256",
+  "metadata": [
+    {
+      "alias": "broiler-conventional-fr-live",
+      "animalGroup1": "poultry",
+      "animalGroup2": "chicken",
+      "animalProduct": "meat",
+      "defaultOrigin": "France",
+      "displayName": "Poulet conventionnel vivant FR",
+      "id": "8b7e4cff-e083-5f79-80e8-5b51cb10e5e6",
+      "inediblePart": 0,
+      "ingredientCategories": [
+        "animal_product"
+      ],
+      "ingredientDensity": 1.0,
+      "rawToCookedRatio": 1.0,
+      "scenario": "reference",
+      "scopes": [
+        "food",
+        "food2"
+      ],
+      "transportCooling": "always",
+      "visible": false
+    },
+    {
+      "alias": "broiler-fr",
+      "animalGroup1": "poultry",
+      "animalGroup2": "chicken",
+      "animalProduct": "meat",
+      "defaultOrigin": "France",
+      "displayName": "Poulet FR",
+      "id": "5b787acc-bc8d-5c7a-907c-09441b47151d",
+      "inediblePart": 0.05,
+      "inediblePartMatch": {
+        "confidence": 1.0,
+        "rule": "meat NOVA 1 default from food_type_inedible_part.csv"
+      },
+      "ingredientCategories": [
+        "animal_product"
+      ],
+      "ingredientDensity": 1.05,
+      "ingredientDensityMatch": {
+        "confidence": 1.0,
+        "rule": "meat default from food_type_density.csv"
+      },
+      "rawToCookedRatio": 0.755,
+      "rawToCookedRatioMatch": {
+        "confidence": 1.0,
+        "rule": "poultry keyword found in Broiler"
+      },
+      "scenario": "reference",
+      "scopes": [
+        "food",
+        "food2"
+      ],
+      "transportCooling": "always",
+      "transportCoolingMatch": {
+        "confidence": 1.0,
+        "rule": "meat NOVA 1 → always (perishable)"
+      },
+      "visible": false
+    },
+    {
+      "alias": "poultry-fr",
+      "animalGroup1": "poultry",
+      "animalGroup2": "chicken",
+      "animalProduct": "meat",
+      "defaultOrigin": "France",
+      "displayName": "Volaille FR",
+      "id": "7fbeb096-3076-55a7-b5e2-341ba3e1d59e",
+      "inediblePart": 0.05,
+      "inediblePartMatch": {
+        "confidence": 1.0,
+        "rule": "meat NOVA 1 default from food_type_inedible_part.csv"
+      },
+      "ingredientCategories": [
+        "animal_product"
+      ],
+      "ingredientDensity": 1.05,
+      "ingredientDensityMatch": {
+        "confidence": 1.0,
+        "rule": "meat default from food_type_density.csv"
+      },
+      "rawToCookedRatio": 0.755,
+      "rawToCookedRatioMatch": {
+        "confidence": 1.0,
+        "rule": "poultry keyword found in Poultry"
+      },
+      "scenario": "reference",
+      "scopes": [
+        "food",
+        "food2"
+      ],
+      "transportCooling": "always",
+      "transportCoolingMatch": {
+        "confidence": 1.0,
+        "rule": "meat NOVA 1 → always (perishable)"
+      },
+      "visible": false
+    },
+    {
+      "alias": "rabbit-fr",
+      "animalGroup1": "poultry",
+      "animalGroup2": "chicken",
+      "animalProduct": "meat",
+      "defaultOrigin": "France",
+      "displayName": "Lapin FR",
+      "id": "0d3c6e8c-bd97-5011-9011-1d7771db43b0",
+      "inediblePart": 0.05,
+      "inediblePartMatch": {
+        "confidence": 1.0,
+        "rule": "meat NOVA 1 default from food_type_inedible_part.csv"
+      },
+      "ingredientCategories": [
+        "animal_product"
+      ],
+      "ingredientDensity": 1.0,
+      "ingredientDensityMatch": {
+        "confidence": 1.0,
+        "rule": "rabbit found in density.csv"
+      },
+      "rawToCookedRatio": 0.755,
+      "rawToCookedRatioMatch": {
+        "confidence": 1.0,
+        "rule": "poultry keyword found in Rabbit"
+      },
+      "scenario": "reference",
+      "scopes": [
+        "food",
+        "food2"
+      ],
+      "transportCooling": "always",
+      "transportCoolingMatch": {
+        "confidence": 1.0,
+        "rule": "meat NOVA 1 → always (perishable)"
+      },
+      "visible": false
+    },
+    {
+      "alias": "broiler-default",
+      "animalGroup1": "poultry",
+      "animalGroup2": "chicken",
+      "animalProduct": "meat",
+      "defaultOrigin": "OutOfEuropeAndMaghreb",
+      "displayName": "Poulet Origine Inconnue",
+      "id": "8d3a194f-b478-556c-bacc-18d452baefa4",
+      "inediblePart": 0.05,
+      "inediblePartMatch": {
+        "confidence": 1.0,
+        "rule": "meat NOVA 1 default from food_type_inedible_part.csv"
+      },
+      "ingredientCategories": [
+        "animal_product"
+      ],
+      "ingredientDensity": 1.05,
+      "ingredientDensityMatch": {
+        "confidence": 1.0,
+        "rule": "meat default from food_type_density.csv"
+      },
+      "rawToCookedRatio": 0.755,
+      "rawToCookedRatioMatch": {
+        "confidence": 1.0,
+        "rule": "poultry keyword found in Broiler"
+      },
+      "scenario": "import",
+      "scopes": [
+        "food",
+        "food2"
+      ],
+      "transportCooling": "always",
+      "transportCoolingMatch": {
+        "confidence": 1.0,
+        "rule": "meat NOVA 1 → always (perishable)"
+      },
+      "visible": false
+    },
+    {
+      "alias": "poultry-default",
+      "animalGroup1": "poultry",
+      "animalGroup2": "chicken",
+      "animalProduct": "meat",
+      "defaultOrigin": "OutOfEuropeAndMaghreb",
+      "displayName": "Volaille Origine Inconnue",
+      "id": "c7b79f39-3672-530e-8966-f612b67de746",
+      "inediblePart": 0.05,
+      "inediblePartMatch": {
+        "confidence": 1.0,
+        "rule": "meat NOVA 1 default from food_type_inedible_part.csv"
+      },
+      "ingredientCategories": [
+        "animal_product"
+      ],
+      "ingredientDensity": 1.05,
+      "ingredientDensityMatch": {
+        "confidence": 1.0,
+        "rule": "meat default from food_type_density.csv"
+      },
+      "rawToCookedRatio": 0.755,
+      "rawToCookedRatioMatch": {
+        "confidence": 1.0,
+        "rule": "poultry keyword found in Poultry"
+      },
+      "scenario": "import",
+      "scopes": [
+        "food",
+        "food2"
+      ],
+      "transportCooling": "always",
+      "transportCoolingMatch": {
+        "confidence": 1.0,
+        "rule": "meat NOVA 1 → always (perishable)"
+      },
+      "visible": false
+    },
+    {
+      "alias": "rabbit-default",
+      "animalGroup1": "poultry",
+      "animalGroup2": "chicken",
+      "animalProduct": "meat",
+      "defaultOrigin": "OutOfEuropeAndMaghreb",
+      "displayName": "Lapin Origine Inconnue",
+      "id": "1e72c100-92f9-54e3-8289-d8efc3890acc",
+      "inediblePart": 0.05,
+      "inediblePartMatch": {
+        "confidence": 1.0,
+        "rule": "meat NOVA 1 default from food_type_inedible_part.csv"
+      },
+      "ingredientCategories": [
+        "animal_product"
+      ],
+      "ingredientDensity": 1.0,
+      "ingredientDensityMatch": {
+        "confidence": 1.0,
+        "rule": "rabbit found in density.csv"
+      },
+      "rawToCookedRatio": 0.755,
+      "rawToCookedRatioMatch": {
+        "confidence": 1.0,
+        "rule": "poultry keyword found in Rabbit"
+      },
+      "scenario": "import",
+      "scopes": [
+        "food",
+        "food2"
+      ],
+      "transportCooling": "always",
+      "transportCoolingMatch": {
+        "confidence": 1.0,
+        "rule": "meat NOVA 1 → always (perishable)"
+      },
+      "visible": false
+    }
+  ],
+  "scopes": [
+    "food",
+    "food2"
+  ],
+  "source": "Agribalyse 3.2"
+}

@@ -1,0 +1,36 @@
+{
+  "activityName": "Corn flour, CMAPS {FR} U",
+  "categories": [
+    "ingredient",
+    "material"
+  ],
+  "displayName": "Farine de maïs Origine Inconnue",
+  "id": "20244ef9-5b5a-4eb1-a0fa-251cc0f4a828",
+  "metadata": [
+    {
+      "alias": "corn-flour-default",
+      "cropGroup": "MAIS GRAIN ET ENSILAGE",
+      "defaultOrigin": "OutOfEuropeAndMaghreb",
+      "displayName": "Farine de maïs Origine Inconnue",
+      "id": "c21da490-8d7c-447f-b02e-d85d8a1dbfc1",
+      "inediblePart": 0,
+      "ingredientCategories": [
+        "grain_processed"
+      ],
+      "ingredientDensity": 1,
+      "rawToCookedRatio": 1,
+      "scenario": "import",
+      "scopes": [
+        "food",
+        "food2"
+      ],
+      "transportCooling": "always",
+      "visible": false
+    }
+  ],
+  "scopes": [
+    "food",
+    "food2"
+  ],
+  "source": "Ecobalyse"
+}

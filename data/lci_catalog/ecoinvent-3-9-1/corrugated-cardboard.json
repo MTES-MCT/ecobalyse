@@ -1,0 +1,28 @@
+{
+  "activityName": "corrugated board box//[RER] corrugated board box production",
+  "categories": [
+    "material",
+    "material_type:containerboard"
+  ],
+  "comment": "",
+  "displayName": "Carton ondulé",
+  "elecMJ": 0,
+  "heatMJ": 0,
+  "id": "b992fdec-14e3-5404-bbcd-114fa3535fda",
+  "metadata": [
+    {
+      "id": "e1631a47-95b0-46e8-bde3-0f77850fa1d1",
+      "scopes": [
+        "object",
+        "veli"
+      ]
+    }
+  ],
+  "scopes": [
+    "object",
+    "veli"
+  ],
+  "source": "Ecoinvent 3.9.1",
+  "unit": "kg",
+  "waste": 0
+}

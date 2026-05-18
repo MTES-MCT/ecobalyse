@@ -1,0 +1,24 @@
+{
+  "activityName": "Butters, 250g | Packaging System, N0, All, Plastic tub {FR} U",
+  "categories": [
+    "material",
+    "packaging",
+    "packaging_type:tray"
+  ],
+  "displayName": "Barquette en plastique (PP) pour beurre - 250g",
+  "id": "52108799-57fd-447a-957c-98c3f1c21030",
+  "metadata": [
+    {
+      "id": "a413575d-0f4e-4be3-99f9-1e28de8fb724",
+      "scopes": [
+        "food2"
+      ]
+    }
+  ],
+  "scopes": [
+    "food",
+    "food2"
+  ],
+  "source": "Agribalyse 3.2",
+  "unit": "item"
+}

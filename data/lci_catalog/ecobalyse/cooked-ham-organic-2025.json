@@ -1,0 +1,40 @@
+{
+  "activityName": "Cooked ham case ready at plant {{cooked-ham-organic-2025}}",
+  "categories": [
+    "ingredient",
+    "material",
+    "material_type:other_food_items"
+  ],
+  "displayName": "Jambon cuit Bio (2025)",
+  "id": "0ccbe554-2dd8-52b8-b3b5-744bf12bdc5f",
+  "metadata": [
+    {
+      "alias": "cooked-ham-organic-2025",
+      "animalGroup1": "pig",
+      "animalGroup2": "pig",
+      "animalProduct": "meat",
+      "defaultOrigin": "France",
+      "displayName": "Jambon cuit Bio (2025)",
+      "id": "4de5e41e-3271-4489-aa27-a973e4045082",
+      "inediblePart": 0,
+      "ingredientCategories": [
+        "animal_product",
+        "organic"
+      ],
+      "ingredientDensity": 1.0,
+      "rawToCookedRatio": 1.0,
+      "scenario": "organic",
+      "scopes": [
+        "food",
+        "food2"
+      ],
+      "transportCooling": "always",
+      "visible": true
+    }
+  ],
+  "scopes": [
+    "food",
+    "food2"
+  ],
+  "source": "Ecobalyse"
+}

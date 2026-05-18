@@ -1,0 +1,26 @@
+{
+  "activityName": "electricity, medium voltage//[US] market group for electricity, medium voltage",
+  "categories": [
+    "energy"
+  ],
+  "comment": "Ancien identifiant (12/2024): 99b549d4ba7a0f5f4ab6050d6a6689ad.",
+  "displayName": "Électricité moyenne tension, USA",
+  "elecMJ": 0,
+  "heatMJ": 0,
+  "id": "5756830a-a96c-5303-b6aa-a15cc727daaa",
+  "metadata": [
+    {
+      "id": "aefbf44a-93bb-4177-9cfa-61c1f47e4130",
+      "scopes": [
+        "food2"
+      ]
+    }
+  ],
+  "scopes": [
+    "textile",
+    "food2"
+  ],
+  "source": "Ecoinvent 3.9.1",
+  "unit": "kWh",
+  "waste": 0
+}

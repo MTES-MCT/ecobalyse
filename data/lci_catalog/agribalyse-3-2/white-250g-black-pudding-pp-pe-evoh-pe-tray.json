@@ -1,0 +1,24 @@
+{
+  "activityName": "White and black pudding, 250g | Packaging System, N0, All, PP/PE/EVOH/PE tray with lid {FR} U",
+  "categories": [
+    "material",
+    "packaging",
+    "packaging_type:tray"
+  ],
+  "displayName": "Barquette en plastique (PP/PE/EVOH/PE) pour boudin - 250g",
+  "id": "567a0395-a56b-4a76-9b0c-fee9619dafd9",
+  "metadata": [
+    {
+      "id": "0c1e098f-46de-484d-916b-4e81dedb5741",
+      "scopes": [
+        "food2"
+      ]
+    }
+  ],
+  "scopes": [
+    "food",
+    "food2"
+  ],
+  "source": "Agribalyse 3.2",
+  "unit": "item"
+}

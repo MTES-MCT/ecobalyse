@@ -1,0 +1,35 @@
+{
+  "activityName": "Pork, boneless raw, modified variant 2, CMAPS {GLO} U",
+  "categories": [
+    "ingredient",
+    "material"
+  ],
+  "displayName": "Pièces de porc, désossée, crue (poitrine, longe, jarret, cote, rouelle, carre, filet, roti, palette, jambonneau, escalope, travers, échine) Origine Inconnue",
+  "id": "33566059-fd60-4159-87c7-8e7019107d8b",
+  "metadata": [
+    {
+      "alias": "pork-boneless-raw-default",
+      "defaultOrigin": "OutOfEuropeAndMaghreb",
+      "displayName": "Pièces de porc, désossée, crue (poitrine, longe, jarret, cote, rouelle, carre, filet, roti, palette, jambonneau, escalope, travers, échine) Origine Inconnue",
+      "id": "f1f14219-f4b4-405e-8dd1-b70e52f3d11c",
+      "inediblePart": 0,
+      "ingredientCategories": [
+        "animal_product"
+      ],
+      "ingredientDensity": 1,
+      "rawToCookedRatio": 1,
+      "scenario": "import",
+      "scopes": [
+        "food",
+        "food2"
+      ],
+      "transportCooling": "always",
+      "visible": false
+    }
+  ],
+  "scopes": [
+    "food",
+    "food2"
+  ],
+  "source": "Ecobalyse"
+}

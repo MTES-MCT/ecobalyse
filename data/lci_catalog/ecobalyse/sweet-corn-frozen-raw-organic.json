@@ -1,0 +1,37 @@
+{
+  "activityName": "Sweet corn, frozen raw, organic, CMAPS {GLO} U",
+  "categories": [
+    "ingredient",
+    "material"
+  ],
+  "displayName": "Maïs doux, surgelé, cru BIO",
+  "id": "e230e270-9008-447f-9a89-6431d8fc4e5a",
+  "metadata": [
+    {
+      "alias": "sweet-corn-frozen-raw-fr-organic",
+      "cropGroup": "MAIS GRAIN ET ENSILAGE",
+      "defaultOrigin": "France",
+      "displayName": "Maïs doux, surgelé, cru BIO",
+      "id": "230a1b18-686f-4cb7-9e0a-8ea91bc4b4b9",
+      "inediblePart": 0,
+      "ingredientCategories": [
+        "vegetable_processed",
+        "organic"
+      ],
+      "ingredientDensity": 1,
+      "rawToCookedRatio": 1,
+      "scenario": "organic",
+      "scopes": [
+        "food",
+        "food2"
+      ],
+      "transportCooling": "always",
+      "visible": true
+    }
+  ],
+  "scopes": [
+    "food",
+    "food2"
+  ],
+  "source": "Ecobalyse"
+}

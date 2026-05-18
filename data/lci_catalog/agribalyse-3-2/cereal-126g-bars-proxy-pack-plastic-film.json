@@ -1,0 +1,24 @@
+{
+  "activityName": "Cereal bars, 126g | Packaging System, Proxy Pack, Plastic film {FR} U",
+  "categories": [
+    "material",
+    "packaging",
+    "packaging_type:bag"
+  ],
+  "displayName": "Sachet en plastique (PP) pour barre de céréales - 126g - Proxy",
+  "id": "63207afc-d352-407c-940d-908a7e66e939",
+  "metadata": [
+    {
+      "id": "237b4fee-7b43-4eb2-aa15-e228c53da5b4",
+      "scopes": [
+        "food2"
+      ]
+    }
+  ],
+  "scopes": [
+    "food",
+    "food2"
+  ],
+  "source": "Agribalyse 3.2",
+  "unit": "item"
+}

@@ -1,0 +1,24 @@
+{
+  "activityName": "Sparkling wine, 75cl | Packaging System, N0, All, Glass bottle (green) 835g with cork stopper {FR} U",
+  "categories": [
+    "material",
+    "packaging",
+    "packaging_type:bottle"
+  ],
+  "displayName": "Bouteille en verre vert de 835g pour vin effervescent - 75cl",
+  "id": "a59a1304-9607-48ea-83f9-7bbec6cb9fc2",
+  "metadata": [
+    {
+      "id": "7ea25190-9d2c-4085-81cb-8e7d1f9bdaa8",
+      "scopes": [
+        "food2"
+      ]
+    }
+  ],
+  "scopes": [
+    "food",
+    "food2"
+  ],
+  "source": "Agribalyse 3.2",
+  "unit": "item"
+}

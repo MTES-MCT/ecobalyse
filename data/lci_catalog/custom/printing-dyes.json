@@ -1,0 +1,37 @@
+{
+  "categories": [
+    "transformation"
+  ],
+  "comment": "corr2 : inventaires enrichis (substances chimiques)\nAncien identifiant (12/2024): ecobalyse-impression-fixe-lave-colorants.",
+  "displayName": "Impression fixé-lavé (colorants)",
+  "elecMJ": 0,
+  "heatMJ": 0,
+  "id": "cfdc5e31-25fc-56ff-9a54-04670ecad301",
+  "impacts": {
+    "acd": 0,
+    "cch": 0,
+    "etf": 0,
+    "etf-c": 367,
+    "fru": 0,
+    "fwe": 0,
+    "htc": 0,
+    "htc-c": 2.77e-12,
+    "htn": 0,
+    "htn-c": 3.27e-09,
+    "ior": 0,
+    "ldu": 0,
+    "mru": 0,
+    "ozd": 0,
+    "pco": 0,
+    "pma": 0,
+    "swe": 0,
+    "tre": 0,
+    "wtu": 0
+  },
+  "scopes": [
+    "textile"
+  ],
+  "source": "Custom",
+  "unit": "m2",
+  "waste": 0
+}

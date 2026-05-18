@@ -1,0 +1,46 @@
+{
+  "categories": [
+    "transformation",
+    "material_type:fish_and_shellfish"
+  ],
+  "comment": "Raw to cooked ratio defined in Agribalyse 3 methodology",
+  "displayName": "Cuisson des poissons et crustacées",
+  "elecMJ": 0,
+  "heatMJ": 0,
+  "id": "a0a31b32-829c-4ed9-81e1-eb7f6a525ba6",
+  "impacts": {
+    "acd": 0,
+    "cch": 0,
+    "etf": 0,
+    "etf-c": 0,
+    "fru": 0,
+    "fwe": 0,
+    "htc": 0,
+    "htc-c": 0,
+    "htn": 0,
+    "htn-c": 0,
+    "ior": 0,
+    "ldu": 0,
+    "mru": 0,
+    "ozd": 0,
+    "pco": 0,
+    "pma": 0,
+    "swe": 0,
+    "tre": 0,
+    "wtu": 0
+  },
+  "metadata": [
+    {
+      "id": "30569d83-8cec-4034-9585-037f015d0f50",
+      "scopes": [
+        "food2"
+      ]
+    }
+  ],
+  "scopes": [
+    "food2"
+  ],
+  "source": "Custom",
+  "unit": "kg",
+  "waste": 0.181
+}

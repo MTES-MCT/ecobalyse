@@ -1,0 +1,35 @@
+{
+  "activityName": "Tomme cheese, cow milk, variant 1, CMAPS {GLO} U",
+  "categories": [
+    "ingredient",
+    "material"
+  ],
+  "displayName": "Tomme ou tome de vache FR",
+  "id": "42c47c6f-5d48-4269-82da-92c13604d495",
+  "metadata": [
+    {
+      "alias": "tomme-cheese-cow-milk-fr",
+      "defaultOrigin": "France",
+      "displayName": "Tomme ou tome de vache FR",
+      "id": "5bfdb3f2-9bc9-40ae-a55d-78cbd7c32639",
+      "inediblePart": 0,
+      "ingredientCategories": [
+        "dairy_product"
+      ],
+      "ingredientDensity": 1,
+      "rawToCookedRatio": 1,
+      "scenario": "reference",
+      "scopes": [
+        "food",
+        "food2"
+      ],
+      "transportCooling": "always",
+      "visible": true
+    }
+  ],
+  "scopes": [
+    "food",
+    "food2"
+  ],
+  "source": "Ecobalyse"
+}

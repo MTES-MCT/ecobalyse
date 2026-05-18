@@ -1,0 +1,37 @@
+{
+  "categories": [
+    "use"
+  ],
+  "comment": "Ancien identifiant (12/2024): 4964273a-cdbd-43cf-8cf8-4b017aee4f03.",
+  "displayName": "Utilisation : Impact hors repassage (Jean)",
+  "elecMJ": 1.0266,
+  "heatMJ": 0,
+  "id": "cefc9a3c-1bb2-50a4-a3ce-f56b891f764a",
+  "impacts": {
+    "acd": 9.39401e-05,
+    "cch": 0.0340193,
+    "etf": 0,
+    "etf-c": 0,
+    "fru": 0.717395,
+    "fwe": 1.10861e-05,
+    "htc": 0,
+    "htc-c": 0,
+    "htn": 0,
+    "htn-c": 0,
+    "ior": 1.34883,
+    "ldu": 1.05972,
+    "mru": 1.25858e-07,
+    "ozd": 8.43237e-09,
+    "pco": 5.66588e-05,
+    "pma": 1.93206e-09,
+    "swe": 2.00761e-05,
+    "tre": 0.000109398,
+    "wtu": 0
+  },
+  "scopes": [
+    "textile"
+  ],
+  "source": "Custom",
+  "unit": "kg",
+  "waste": 0
+}

@@ -1,0 +1,49 @@
+{
+  "categories": [
+    "energy"
+  ],
+  "comment": "Reconstitution du mix depuis Ecoinvent 3.9.1\nAncien identifiant (12/2024): heat-europe.",
+  "displayName": "Mix chaleur (Europe)",
+  "elecMJ": 0,
+  "heatMJ": 0,
+  "id": "f6ea2983-e024-5de2-b323-273f2436deba",
+  "impacts": {
+    "acd": 0.000322,
+    "cch": 0.06361097712,
+    "etf": 0.1292908013,
+    "etf-c": 0.1326450947,
+    "fru": 0.7438844108,
+    "fwe": 1.67e-05,
+    "htc": 1.53e-11,
+    "htc-c": 1.48e-11,
+    "htn": 3.59e-10,
+    "htn-c": 2.12e-11,
+    "ior": 0.000638865368,
+    "ldu": 0.2967023465,
+    "mru": 1.62e-08,
+    "ozd": 1.4e-09,
+    "pco": 0.0001728696296,
+    "pma": 3.38e-09,
+    "swe": 4.57e-05,
+    "tre": 0.0004876404948,
+    "wtu": 0.001886512187
+  },
+  "metadata": [
+    {
+      "id": "27adfc6e-bbf2-4d94-bea4-a5e0ad1fe074",
+      "scopes": [
+        "object",
+        "food2"
+      ]
+    }
+  ],
+  "scopes": [
+    "textile",
+    "object",
+    "veli",
+    "food2"
+  ],
+  "source": "Custom",
+  "unit": "MJ",
+  "waste": 0
+}

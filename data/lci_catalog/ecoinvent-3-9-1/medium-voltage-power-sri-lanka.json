@@ -1,0 +1,17 @@
+{
+  "activityName": "electricity, medium voltage//[SK] market for electricity, medium voltage",
+  "categories": [
+    "energy"
+  ],
+  "comment": "Ancien identifiant (12/2024): e0f11b283ad36b3da097649bee199149.",
+  "displayName": "Électricité moyenne tension, Sri Lanka",
+  "elecMJ": 0,
+  "heatMJ": 0,
+  "id": "59d67f99-8f91-5464-af4c-0b569f97b74e",
+  "scopes": [
+    "textile"
+  ],
+  "source": "Ecoinvent 3.9.1",
+  "unit": "kWh",
+  "waste": 0
+}

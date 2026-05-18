@@ -1,0 +1,36 @@
+{
+  "activityName": "Sweet corn, frozen raw, variant 1, CMAPS {GLO} U",
+  "categories": [
+    "ingredient",
+    "material"
+  ],
+  "displayName": "Maïs doux, surgelé, cru FR",
+  "id": "788bd8ce-ef29-43a3-abcf-4e384aeb711c",
+  "metadata": [
+    {
+      "alias": "sweet-corn-frozen-raw-fr",
+      "cropGroup": "MAIS GRAIN ET ENSILAGE",
+      "defaultOrigin": "France",
+      "displayName": "Maïs doux, surgelé, cru FR",
+      "id": "4100d0ea-9b58-4575-8aae-f28ae4d8ecaf",
+      "inediblePart": 0,
+      "ingredientCategories": [
+        "vegetable_processed"
+      ],
+      "ingredientDensity": 1,
+      "rawToCookedRatio": 1,
+      "scenario": "reference",
+      "scopes": [
+        "food",
+        "food2"
+      ],
+      "transportCooling": "always",
+      "visible": true
+    }
+  ],
+  "scopes": [
+    "food",
+    "food2"
+  ],
+  "source": "Ecobalyse"
+}

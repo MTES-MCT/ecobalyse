@@ -1,0 +1,24 @@
+{
+  "activityName": "Sirop, 500g | Packaging System, Proxy Pack, Rigid plastic, other than bottles {FR} U",
+  "categories": [
+    "material",
+    "packaging",
+    "packaging_type:bottle"
+  ],
+  "displayName": "Bouteille en acier pour sirop - 500g - Proxy",
+  "id": "a358ef07-0591-489f-808d-2b94a7396eb2",
+  "metadata": [
+    {
+      "id": "954ca15f-e1ba-4317-b107-64b2dad9640d",
+      "scopes": [
+        "food2"
+      ]
+    }
+  ],
+  "scopes": [
+    "food",
+    "food2"
+  ],
+  "source": "Agribalyse 3.2",
+  "unit": "item"
+}

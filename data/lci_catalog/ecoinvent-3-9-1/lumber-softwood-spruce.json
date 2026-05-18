@@ -1,0 +1,52 @@
+{
+  "activityName": "sawlog and veneer log, softwood, measured as solid wood under bark//[DE] softwood forestry, spruce, sustainable forest management",
+  "categories": [
+    "material",
+    "material_type:wood"
+  ],
+  "comment": "",
+  "displayName": "Bois d'oeuvre (Résineux / Epicea)",
+  "elecMJ": 0,
+  "heatMJ": 0,
+  "id": "857bd47a-62f2-5662-81b2-df286aa7973f",
+  "massPerUnit": 430,
+  "metadata": [
+    {
+      "alias": "spruce-softwood-intensive-plantation",
+      "displayName": "Bois d'oeuvre (Résineux / Epicea) plantation intensive",
+      "forestManagement": "intensivePlantation",
+      "id": "53e21f32-88b5-4fb5-96ec-724276519a85",
+      "scopes": [
+        "object",
+        "veli"
+      ]
+    },
+    {
+      "alias": "spruce-softwood-sustainable-management",
+      "displayName": "Bois d'oeuvre (Résineux / Epicea) gestion durable",
+      "forestManagement": "sustainableManagement",
+      "id": "db2d4e64-d79d-417c-abe5-7f6c14b974b5",
+      "scopes": [
+        "object",
+        "veli"
+      ]
+    },
+    {
+      "alias": "spruce-softwood-certified-sustainable-management",
+      "displayName": "Bois d'oeuvre (Résineux / Epicea) gestion durable certifiée",
+      "forestManagement": "certifiedSustainableManagement",
+      "id": "e851186c-ee0c-4de2-b96e-49bc2409184c",
+      "scopes": [
+        "object",
+        "veli"
+      ]
+    }
+  ],
+  "scopes": [
+    "object",
+    "veli"
+  ],
+  "source": "Ecoinvent 3.9.1",
+  "unit": "m3",
+  "waste": 0
+}

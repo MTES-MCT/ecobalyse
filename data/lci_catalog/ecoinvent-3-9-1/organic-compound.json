@@ -1,0 +1,27 @@
+{
+  "activityName": "chemical, organic//[GLO] market for chemical, organic",
+  "categories": [
+    "material",
+    "material_type:composites",
+    "material_type:rubber"
+  ],
+  "comment": "",
+  "displayName": "Composé organique",
+  "elecMJ": 0,
+  "heatMJ": 0,
+  "id": "414c96f4-31f9-535b-807d-901752f9b37e",
+  "metadata": [
+    {
+      "id": "9e71da1a-8e74-462f-becc-cd6f0bbfcccc",
+      "scopes": [
+        "veli"
+      ]
+    }
+  ],
+  "scopes": [
+    "veli"
+  ],
+  "source": "Ecoinvent 3.9.1",
+  "unit": "kg",
+  "waste": 0
+}

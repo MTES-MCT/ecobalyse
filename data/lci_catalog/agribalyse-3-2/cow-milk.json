@@ -1,0 +1,54 @@
+{
+  "activityName": "Cow milk {CA-QC}| milk production, from cow | Cut-off, S - Copied from Ecoinvent U",
+  "categories": [
+    "ingredient"
+  ],
+  "displayName": "Cow milk (CA-QC)",
+  "id": "dceabbbb-f3ff-565b-af5c-80304aa4e14a",
+  "metadata": [
+    {
+      "alias": "cow-milk-non-eu",
+      "animalGroup1": "cattle",
+      "animalGroup2": "cow",
+      "animalProduct": "milk",
+      "defaultOrigin": "OutOfEuropeAndMaghreb",
+      "displayName": "Lait de vache HORS UE",
+      "id": "413dbd30-f224-580c-bf02-51664910430e",
+      "inediblePart": 0.0,
+      "inediblePartMatch": {
+        "confidence": 1.0,
+        "rule": "dairy NOVA 1 default from food_type_inedible_part.csv"
+      },
+      "ingredientCategories": [
+        "dairy_product"
+      ],
+      "ingredientDensity": 1.05,
+      "ingredientDensityMatch": {
+        "confidence": 0.95,
+        "rule": "Matched with cow in density.csv"
+      },
+      "rawToCookedRatio": 1.0,
+      "rawToCookedRatioMatch": {
+        "confidence": 1.0,
+        "rule": "dairy default from food_type_cooked_to_raw.csv"
+      },
+      "scenario": "import",
+      "scopes": [
+        "food",
+        "food2"
+      ],
+      "transportCooling": "always",
+      "transportCoolingMatch": {
+        "confidence": 1.0,
+        "rule": "dairy NOVA 1 → always (perishable)"
+      },
+      "visible": true
+    }
+  ],
+  "scopes": [
+    "food",
+    "food2"
+  ],
+  "source": "Agribalyse 3.2",
+  "unit": "kg"
+}

@@ -1,0 +1,28 @@
+{
+  "activityName": "waste paperboard//[RoW] treatment of waste paperboard, sanitary landfill",
+  "categories": [
+    "end-of-life",
+    "material_type:containerboard"
+  ],
+  "comment": "",
+  "displayName": "Enfouissement du carton",
+  "elecMJ": 0,
+  "heatMJ": 0,
+  "id": "f1c884d2-7088-4274-8af0-cd86692e8e6b",
+  "metadata": [
+    {
+      "id": "1b5bb8c7-162b-4518-84db-7cf14d02c3be",
+      "scopes": [
+        "object",
+        "veli"
+      ]
+    }
+  ],
+  "scopes": [
+    "object",
+    "veli"
+  ],
+  "source": "Ecoinvent 3.9.1",
+  "unit": "kg",
+  "waste": 0
+}

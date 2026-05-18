@@ -1,0 +1,26 @@
+{
+  "activityName": "Graphite production for battery cell, CN",
+  "categories": [
+    "material",
+    "material_type:battery_cell"
+  ],
+  "comment": "Carriere (Tokai), 2024, Carbon footprint assessment of manufacturing of synthetic graphite battery anode material for electric mobility applications",
+  "displayName": "Graphite pour cellule de batterie, CN",
+  "elecMJ": 0,
+  "heatMJ": 0,
+  "id": "473611b4-2c32-4bd4-bff0-7c4a628ee54e",
+  "metadata": [
+    {
+      "id": "ff3e1c5b-5982-4d9d-af78-d07c75b1f6b5",
+      "scopes": [
+        "veli"
+      ]
+    }
+  ],
+  "scopes": [
+    "veli"
+  ],
+  "source": "Ecobalyse",
+  "unit": "kg",
+  "waste": 0
+}

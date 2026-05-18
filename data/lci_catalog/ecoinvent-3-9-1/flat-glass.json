@@ -1,0 +1,28 @@
+{
+  "activityName": "flat glass, uncoated//[RER] flat glass production, uncoated",
+  "categories": [
+    "material",
+    "material_type:glass"
+  ],
+  "comment": "",
+  "displayName": "Verre plat",
+  "elecMJ": 0,
+  "heatMJ": 0,
+  "id": "5e74cbf6-a403-557a-b456-85bde8dbf383",
+  "metadata": [
+    {
+      "id": "29b1a0f9-4887-49f7-910f-e50ad9e1b572",
+      "scopes": [
+        "object",
+        "veli"
+      ]
+    }
+  ],
+  "scopes": [
+    "object",
+    "veli"
+  ],
+  "source": "Ecoinvent 3.9.1",
+  "unit": "kg",
+  "waste": 0
+}

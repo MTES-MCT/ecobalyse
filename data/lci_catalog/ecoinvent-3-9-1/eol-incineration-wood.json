@@ -1,0 +1,28 @@
+{
+  "activityName": "waste wood, untreated//[CH] treatment of waste wood, untreated, municipal incineration",
+  "categories": [
+    "end-of-life",
+    "material_type:wood"
+  ],
+  "comment": "",
+  "displayName": "Incinération du bois",
+  "elecMJ": 0,
+  "heatMJ": 0,
+  "id": "316be695-bf3e-5562-9f09-77f213c3ec67",
+  "metadata": [
+    {
+      "id": "8c102569-dcef-4016-842b-6f662a082b66",
+      "scopes": [
+        "object",
+        "veli"
+      ]
+    }
+  ],
+  "scopes": [
+    "object",
+    "veli"
+  ],
+  "source": "Ecoinvent 3.9.1",
+  "unit": "kg",
+  "waste": 0
+}

@@ -1,0 +1,24 @@
+{
+  "activityName": "Rusks (swedish toast), 225g | Packaging System, Proxy Pack, Cardboard {FR} U",
+  "categories": [
+    "material",
+    "packaging",
+    "packaging_type:bag"
+  ],
+  "displayName": "Sachet en papier pour biscotte - 225g - Proxy",
+  "id": "d7c61e7b-6fd9-417d-b8e7-bdc133916da6",
+  "metadata": [
+    {
+      "id": "92b112f3-781a-4ca3-b6d2-a0ad2934e296",
+      "scopes": [
+        "food2"
+      ]
+    }
+  ],
+  "scopes": [
+    "food",
+    "food2"
+  ],
+  "source": "Agribalyse 3.2",
+  "unit": "item"
+}

@@ -1,0 +1,36 @@
+{
+  "activityName": "wool; sheep; production mix; at farm; 1 kg greasy wool",
+  "categories": [
+    "material",
+    "textile_material",
+    "material_type:organic_fibers"
+  ],
+  "comment": "Ancien identifiant (12/2024): wool-default.",
+  "displayName": "Laine par défaut",
+  "elecMJ": 0,
+  "heatMJ": 0,
+  "id": "3b45f504-83ac-5d0d-ab96-388850f3ef6f",
+  "metadata": [
+    {
+      "alias": "ei-laine-par-defaut",
+      "defaultCountry": "CN",
+      "displayName": "Laine par défaut",
+      "geographicOrigin": "Asie - Pacifique",
+      "id": "1fc3e17d-5661-429d-a150-7986eae16d9d",
+      "name": "Laine par défaut",
+      "origin": "NaturalFromAnimal",
+      "primary": false,
+      "scopes": [
+        "object",
+        "textile"
+      ]
+    }
+  ],
+  "scopes": [
+    "textile",
+    "object"
+  ],
+  "source": "Woolmark",
+  "unit": "kg",
+  "waste": 0
+}

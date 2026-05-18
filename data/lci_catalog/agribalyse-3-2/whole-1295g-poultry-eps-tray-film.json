@@ -1,0 +1,24 @@
+{
+  "activityName": "Whole poultry, 1295g | Packaging System, N0, All, EPS Tray with film {FR} U",
+  "categories": [
+    "material",
+    "packaging",
+    "packaging_type:tray"
+  ],
+  "displayName": "Barquette en plastique (PSE) pour volaille entière - 1295g",
+  "id": "69c4f2de-cdb0-4b8e-82ba-6025b206d233",
+  "metadata": [
+    {
+      "id": "92b913c3-2422-490e-9e3e-b1cb1c360189",
+      "scopes": [
+        "food2"
+      ]
+    }
+  ],
+  "scopes": [
+    "food",
+    "food2"
+  ],
+  "source": "Agribalyse 3.2",
+  "unit": "item"
+}

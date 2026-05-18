@@ -1,0 +1,34 @@
+{
+  "activityName": "municipal solid waste//[RoW] treatment of municipal solid waste, sanitary landfill",
+  "categories": [
+    "end-of-life",
+    "material_type:rubber",
+    "material_type:composites",
+    "material_type:synthetic_fibers",
+    "material_type:organic_fibers",
+    "material_type:pwb",
+    "material_type:battery_cell",
+    "material_type:other"
+  ],
+  "comment": "",
+  "displayName": "Enfouissement d'ordures ménagères",
+  "elecMJ": 0,
+  "heatMJ": 0,
+  "id": "d4954f69-e647-531d-aa32-c34be5556736",
+  "metadata": [
+    {
+      "id": "63db8dee-78a5-4979-ae9b-fcc76d66ee4f",
+      "scopes": [
+        "object",
+        "veli"
+      ]
+    }
+  ],
+  "scopes": [
+    "object",
+    "veli"
+  ],
+  "source": "Ecoinvent 3.9.1",
+  "unit": "kg",
+  "waste": 0
+}

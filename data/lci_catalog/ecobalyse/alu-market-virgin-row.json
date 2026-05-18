@@ -1,0 +1,28 @@
+{
+  "activityName": "aluminium ingot, virgin, market, RoW",
+  "categories": [
+    "material",
+    "material_type:aluminium"
+  ],
+  "comment": "https://fabrique-numerique.gitbook.io/ecobalyse/methodes-transverses-specifiques/procedes-acier-et-aluminium",
+  "displayName": "Aluminium vierge, mix marché, hors Europe et Inde",
+  "elecMJ": 0,
+  "heatMJ": 0,
+  "id": "159c4209-cb85-5784-ac76-a93a2458075b",
+  "metadata": [
+    {
+      "id": "cc8e1090-e90a-4dcb-89a2-4b45daac88af",
+      "scopes": [
+        "object",
+        "veli"
+      ]
+    }
+  ],
+  "scopes": [
+    "object",
+    "veli"
+  ],
+  "source": "Ecobalyse",
+  "unit": "kg",
+  "waste": 0
+}

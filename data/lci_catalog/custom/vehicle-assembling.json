@@ -1,0 +1,45 @@
+{
+  "categories": [
+    "transformation"
+  ],
+  "comment": "https://fabrique-numerique.gitbook.io/ecobalyse/vehicules/cycle-de-vie/assemblage",
+  "displayName": "Assemblage véhicule",
+  "elecMJ": 3.6,
+  "heatMJ": 3,
+  "id": "f7c7e44a-c11e-4c8e-afc1-8a96fac85e3b",
+  "impacts": {
+    "acd": 0,
+    "cch": 0,
+    "etf": 0,
+    "etf-c": 0,
+    "fru": 0,
+    "fwe": 0,
+    "htc": 0,
+    "htc-c": 0,
+    "htn": 0,
+    "htn-c": 0,
+    "ior": 0,
+    "ldu": 0,
+    "mru": 0,
+    "ozd": 0,
+    "pco": 0,
+    "pma": 0,
+    "swe": 0,
+    "tre": 0,
+    "wtu": 0
+  },
+  "metadata": [
+    {
+      "id": "c51ab87d-f368-4704-a5ec-7ea17ba87d46",
+      "scopes": [
+        "veli"
+      ]
+    }
+  ],
+  "scopes": [
+    "veli"
+  ],
+  "source": "Custom",
+  "unit": "kg",
+  "waste": 0
+}

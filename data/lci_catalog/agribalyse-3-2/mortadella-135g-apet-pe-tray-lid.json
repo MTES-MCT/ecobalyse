@@ -1,0 +1,24 @@
+{
+  "activityName": "Mortadella, 135g | Packaging System, N0, All, APET/PE tray with lid {FR} U",
+  "categories": [
+    "material",
+    "packaging",
+    "packaging_type:tray"
+  ],
+  "displayName": "Barquette en plastique (APET/PE) pour mortadelle tranchée - 135g",
+  "id": "329f19b6-4994-49a0-b700-9c7b9d0a0447",
+  "metadata": [
+    {
+      "id": "1735d0ae-f519-40b8-b117-9fd6d98a747a",
+      "scopes": [
+        "food2"
+      ]
+    }
+  ],
+  "scopes": [
+    "food",
+    "food2"
+  ],
+  "source": "Agribalyse 3.2",
+  "unit": "item"
+}

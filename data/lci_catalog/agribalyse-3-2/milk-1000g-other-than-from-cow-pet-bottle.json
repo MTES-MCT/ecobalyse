@@ -1,0 +1,24 @@
+{
+  "activityName": "Milk, other than from cow, 1000g | Packaging System, N0, All, PET bottle {FR} U",
+  "categories": [
+    "material",
+    "packaging",
+    "packaging_type:bottle"
+  ],
+  "displayName": "Bouteille en plastique (PET) pour lait - 1L",
+  "id": "d585c6ab-c4c1-4bc7-ba8d-a06e943ad065",
+  "metadata": [
+    {
+      "id": "63e823d6-8cea-4ac1-897c-8927ece9016c",
+      "scopes": [
+        "food2"
+      ]
+    }
+  ],
+  "scopes": [
+    "food",
+    "food2"
+  ],
+  "source": "Agribalyse 3.2",
+  "unit": "item"
+}

@@ -1,0 +1,24 @@
+{
+  "activityName": "Vegetables cooked frozen, 500g | Packaging System, N0, All, Tray with cardboard case {FR} U",
+  "categories": [
+    "material",
+    "packaging",
+    "packaging_type:case"
+  ],
+  "displayName": "Etui en carton et barquette en plastique (PP) pour légumes, surgelés - 500g",
+  "id": "3b312971-e9a3-4da1-ad35-bb37a647310a",
+  "metadata": [
+    {
+      "id": "42b785f2-0263-4dde-934d-211617ddb0c8",
+      "scopes": [
+        "food2"
+      ]
+    }
+  ],
+  "scopes": [
+    "food",
+    "food2"
+  ],
+  "source": "Agribalyse 3.2",
+  "unit": "item"
+}

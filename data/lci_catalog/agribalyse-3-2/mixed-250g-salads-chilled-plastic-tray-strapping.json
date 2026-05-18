@@ -1,0 +1,24 @@
+{
+  "activityName": "Mixed salads, chilled, 250g | Packaging System, N0, All, Plastic tray with strapping {FR} U",
+  "categories": [
+    "material",
+    "packaging",
+    "packaging_type:tray"
+  ],
+  "displayName": "Barquette en plastique (PET) avec cerclage carton pour salade composée, réfrigérée - 250g",
+  "id": "222dd6dd-3542-44ee-9495-9662efa25cc8",
+  "metadata": [
+    {
+      "id": "6800a0d8-323d-4afd-98c1-fa46992ee085",
+      "scopes": [
+        "food2"
+      ]
+    }
+  ],
+  "scopes": [
+    "food",
+    "food2"
+  ],
+  "source": "Agribalyse 3.2",
+  "unit": "item"
+}

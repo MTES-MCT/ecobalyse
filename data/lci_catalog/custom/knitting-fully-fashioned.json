@@ -1,0 +1,37 @@
+{
+  "categories": [
+    "transformation"
+  ],
+  "comment": "Ancien identifiant (12/2024): 6524ac1e-cc95-4b5a-b462-2fccad7a0bce.",
+  "displayName": "Tricotage fully-fashioned",
+  "elecMJ": 6.06443,
+  "heatMJ": 0,
+  "id": "66ef36be-7691-5adc-a684-e83d45e53452",
+  "impacts": {
+    "acd": 0,
+    "cch": 0,
+    "etf": 0,
+    "etf-c": 0,
+    "fru": 0,
+    "fwe": 0,
+    "htc": 0,
+    "htc-c": 0,
+    "htn": 0,
+    "htn-c": 0,
+    "ior": 0,
+    "ldu": 0,
+    "mru": 0,
+    "ozd": 0,
+    "pco": 0,
+    "pma": 0,
+    "swe": 0,
+    "tre": 0,
+    "wtu": 0
+  },
+  "scopes": [
+    "textile"
+  ],
+  "source": "Custom",
+  "unit": "kg",
+  "waste": 0.005
+}

@@ -1,0 +1,37 @@
+{
+  "activityName": "Ware potato, conventional, for industrial use, at farm gate {FR} U",
+  "categories": [
+    "ingredient",
+    "material",
+    "material_type:fruits_and_vegetables"
+  ],
+  "displayName": "Pomme de terre industrie FR",
+  "id": "e949fbaa-d02d-59cb-be3d-c552ffed37c2",
+  "metadata": [
+    {
+      "alias": "potato-industry-fr-2025",
+      "cropGroup": "LEGUMES-FLEURS",
+      "defaultOrigin": "France",
+      "displayName": "Pomme de terre industrie FR (2025)",
+      "id": "f87309f5-bfbf-49a5-ae57-1a0319a7b7d3",
+      "inediblePart": 0.1,
+      "ingredientCategories": [
+        "vegetable_fresh"
+      ],
+      "ingredientDensity": 0.6375,
+      "rawToCookedRatio": 0.856,
+      "scenario": "reference",
+      "scopes": [
+        "food",
+        "food2"
+      ],
+      "transportCooling": "none",
+      "visible": true
+    }
+  ],
+  "scopes": [
+    "food",
+    "food2"
+  ],
+  "source": "Agribalyse 3.2"
+}

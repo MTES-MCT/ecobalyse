@@ -1,0 +1,36 @@
+{
+  "activityName": "Corn flour, CMAPS {GLO} U",
+  "categories": [
+    "ingredient",
+    "material"
+  ],
+  "displayName": "Farine de maïs FR",
+  "id": "6ef925f1-e91c-4ef8-9d6a-f24c599a4282",
+  "metadata": [
+    {
+      "alias": "corn-flour-fr",
+      "cropGroup": "MAIS GRAIN ET ENSILAGE",
+      "defaultOrigin": "France",
+      "displayName": "Farine de maïs FR",
+      "id": "7d5afd1c-43b6-4540-8451-714369091add",
+      "inediblePart": 0,
+      "ingredientCategories": [
+        "grain_processed"
+      ],
+      "ingredientDensity": 1,
+      "rawToCookedRatio": 1,
+      "scenario": "reference",
+      "scopes": [
+        "food",
+        "food2"
+      ],
+      "transportCooling": "always",
+      "visible": true
+    }
+  ],
+  "scopes": [
+    "food",
+    "food2"
+  ],
+  "source": "Ecobalyse"
+}

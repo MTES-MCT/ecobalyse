@@ -1,0 +1,37 @@
+{
+  "activityName": "Cucumber, pulp raw, organic, CMAPS {GLO} U",
+  "categories": [
+    "ingredient",
+    "material"
+  ],
+  "displayName": "Concombre, pulpe, cru BIO",
+  "id": "5d6cd3c4-a2c4-4d72-9d78-ea3db29915fb",
+  "metadata": [
+    {
+      "alias": "cucumber-pulp-raw-fr-organic",
+      "cropGroup": "LEGUMES-FLEURS",
+      "defaultOrigin": "France",
+      "displayName": "Concombre, pulpe, cru BIO",
+      "id": "ead00f14-63de-4c48-93d2-2661cdb52028",
+      "inediblePart": 0,
+      "ingredientCategories": [
+        "vegetable_fresh",
+        "organic"
+      ],
+      "ingredientDensity": 1,
+      "rawToCookedRatio": 1,
+      "scenario": "organic",
+      "scopes": [
+        "food",
+        "food2"
+      ],
+      "transportCooling": "always",
+      "visible": false
+    }
+  ],
+  "scopes": [
+    "food",
+    "food2"
+  ],
+  "source": "Ecobalyse"
+}

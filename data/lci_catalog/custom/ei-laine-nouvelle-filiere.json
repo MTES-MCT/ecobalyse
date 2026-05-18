@@ -1,0 +1,56 @@
+{
+  "categories": [
+    "material",
+    "textile_material",
+    "material_type:organic_fibers"
+  ],
+  "comment": "corr4: Impacts de la laine par défaut multiplié par le coefficient 4%/37%=0.108. Cela vient d'une différence de taux d'allocation : 4% pour cette laine et 37% pour la laine par défaut.",
+  "displayName": "Laine nouvelle filière",
+  "elecMJ": 0,
+  "heatMJ": 0,
+  "id": "40ec17ee-6b44-5ee2-8fbc-559aed52764f",
+  "impacts": {
+    "acd": 0.039,
+    "cch": 2.081,
+    "etf": 12.19,
+    "etf-c": 21.51,
+    "fru": 0.56,
+    "fwe": 0.000852,
+    "htc": 1.17e-09,
+    "htc-c": 1.71e-09,
+    "htn": 3.68e-08,
+    "htn-c": 7.89e-09,
+    "ior": 0.00537,
+    "ldu": 1029.118,
+    "mru": 2.15e-06,
+    "ozd": 5.09e-09,
+    "pco": 0.00157,
+    "pma": 2.77e-07,
+    "swe": 0.00212,
+    "tre": 0.172,
+    "wtu": 0.481
+  },
+  "metadata": [
+    {
+      "alias": "ei-laine-nouvelle-filiere",
+      "defaultCountry": "CN",
+      "displayName": "Laine nouvelle filière",
+      "geographicOrigin": "Asie - Pacifique",
+      "id": "72e29a61-52a9-4eb5-b3fc-5fb87edea041",
+      "name": "Laine nouvelle filière",
+      "origin": "NaturalFromAnimal",
+      "primary": true,
+      "scopes": [
+        "object",
+        "textile"
+      ]
+    }
+  ],
+  "scopes": [
+    "textile",
+    "object"
+  ],
+  "source": "Custom",
+  "unit": "kg",
+  "waste": 0
+}

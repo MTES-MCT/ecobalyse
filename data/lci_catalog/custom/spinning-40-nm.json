@@ -1,0 +1,49 @@
+{
+  "categories": [
+    "transformation",
+    "material_type:synthetic_fibers"
+  ],
+  "comment": "",
+  "displayName": "Filage (40 Nm)",
+  "elecMJ": 4.896,
+  "heatMJ": 0,
+  "id": "aeb21302-d7b6-5c6c-b5dc-fbaf475b7ffc",
+  "impacts": {
+    "acd": 0,
+    "cch": 0,
+    "etf": 0,
+    "etf-c": 0,
+    "fru": 0,
+    "fwe": 0,
+    "htc": 0,
+    "htc-c": 0,
+    "htn": 0,
+    "htn-c": 0,
+    "ior": 0,
+    "ldu": 0,
+    "mru": 0,
+    "ozd": 0,
+    "pco": 0,
+    "pma": 0,
+    "swe": 0,
+    "tre": 0,
+    "wtu": 0
+  },
+  "metadata": [
+    {
+      "id": "05157564-93b2-49cd-8ff1-e062e28a63c5",
+      "scopes": [
+        "object",
+        "veli"
+      ]
+    }
+  ],
+  "scopes": [
+    "textile",
+    "object",
+    "veli"
+  ],
+  "source": "Custom",
+  "unit": "kg",
+  "waste": 0.03
+}

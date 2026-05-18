@@ -1,0 +1,28 @@
+{
+  "activityName": "waste paperboard//[CH] treatment of waste paperboard, municipal incineration with fly ash extraction",
+  "categories": [
+    "end-of-life",
+    "material_type:containerboard"
+  ],
+  "comment": "",
+  "displayName": "Incineration du carton",
+  "elecMJ": 0,
+  "heatMJ": 0,
+  "id": "69b06815-105c-4333-a6fc-fdd0055428c4",
+  "metadata": [
+    {
+      "id": "f1cac277-770f-4a94-8892-2b80643b1089",
+      "scopes": [
+        "object",
+        "veli"
+      ]
+    }
+  ],
+  "scopes": [
+    "object",
+    "veli"
+  ],
+  "source": "Ecoinvent 3.9.1",
+  "unit": "kg",
+  "waste": 0
+}

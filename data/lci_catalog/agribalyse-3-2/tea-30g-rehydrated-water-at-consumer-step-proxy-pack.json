@@ -1,0 +1,24 @@
+{
+  "activityName": "Tea rehydrated with water at consumer step, 30g | Packaging System, Proxy Pack, Cardboard {FR} U",
+  "categories": [
+    "material",
+    "packaging",
+    "packaging_type:box"
+  ],
+  "displayName": "Boîte en carton pour thé - 30g - Proxy",
+  "id": "bc97bf3a-d74f-498a-bdf5-bdb83f6cea27",
+  "metadata": [
+    {
+      "id": "24b1146e-e3f6-4a1e-8fc4-5fb3e5e43e27",
+      "scopes": [
+        "food2"
+      ]
+    }
+  ],
+  "scopes": [
+    "food",
+    "food2"
+  ],
+  "source": "Agribalyse 3.2",
+  "unit": "item"
+}

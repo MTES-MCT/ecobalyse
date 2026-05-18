@@ -1,0 +1,25 @@
+{
+  "activityName": "electricity, medium voltage//[NL] market for electricity, medium voltage",
+  "categories": [
+    "energy"
+  ],
+  "comment": "",
+  "displayName": "Electricité moyenne tension, Pays-bas",
+  "elecMJ": 0,
+  "heatMJ": 0,
+  "id": "e6e29828-3dc7-5239-9e6b-918cce78aff6",
+  "metadata": [
+    {
+      "id": "f5c66349-7590-4036-90b3-c30ca20faf2e",
+      "scopes": [
+        "veli"
+      ]
+    }
+  ],
+  "scopes": [
+    "veli"
+  ],
+  "source": "Ecoinvent 3.9.1",
+  "unit": "kWh",
+  "waste": 0
+}

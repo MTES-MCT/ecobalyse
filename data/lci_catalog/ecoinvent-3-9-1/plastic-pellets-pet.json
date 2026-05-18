@@ -1,0 +1,29 @@
+{
+  "activityName": "polyethylene terephthalate, granulate, amorphous//[GLO] market for polyethylene terephthalate, granulate, amorphous",
+  "categories": [
+    "material",
+    "material_type:pet",
+    "material_type:synthetic_fibers"
+  ],
+  "comment": "",
+  "displayName": "Plastique PET, granulés",
+  "elecMJ": 0,
+  "heatMJ": 0,
+  "id": "1477fa12-1ea5-565d-b549-88356b039694",
+  "metadata": [
+    {
+      "id": "0e4122f6-f1ce-4d80-afbb-5e366402d8e6",
+      "scopes": [
+        "object",
+        "veli"
+      ]
+    }
+  ],
+  "scopes": [
+    "object",
+    "veli"
+  ],
+  "source": "Ecoinvent 3.9.1",
+  "unit": "kg",
+  "waste": 0
+}

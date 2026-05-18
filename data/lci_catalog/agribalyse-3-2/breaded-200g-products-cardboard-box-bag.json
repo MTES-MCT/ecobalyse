@@ -1,0 +1,24 @@
+{
+  "activityName": "Breaded products, 200g | Packaging System, N0, All, Cardboard box with bag {FR} U",
+  "categories": [
+    "material",
+    "packaging",
+    "packaging_type:bag"
+  ],
+  "displayName": "Sachet en plastique (PA/PE) dans une Boîte en carton pour produit pané - 200g",
+  "id": "1f3427dc-8867-44eb-9982-2a57a42dda53",
+  "metadata": [
+    {
+      "id": "a7dc8d47-ffe5-4bdc-b086-daf5c7ca2684",
+      "scopes": [
+        "food2"
+      ]
+    }
+  ],
+  "scopes": [
+    "food",
+    "food2"
+  ],
+  "source": "Agribalyse 3.2",
+  "unit": "item"
+}

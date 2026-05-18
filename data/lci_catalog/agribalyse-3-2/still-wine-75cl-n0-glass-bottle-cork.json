@@ -1,0 +1,24 @@
+{
+  "activityName": "Still wine, 75cl | Packaging System, N0, All, Glass bottle (green) 450g with cork stopper {FR} U",
+  "categories": [
+    "material",
+    "packaging",
+    "packaging_type:bottle"
+  ],
+  "displayName": "Bouteille de vin en verre (couleur: vert) 75cl, 450g, bouchon en liège",
+  "id": "d10b53b4-c4f5-42c1-a093-7e7e1b4f07b6",
+  "metadata": [
+    {
+      "id": "eb4ea1fd-cf22-4735-8fd4-8ae78ac47e52",
+      "scopes": [
+        "food2"
+      ]
+    }
+  ],
+  "scopes": [
+    "food",
+    "food2"
+  ],
+  "source": "Agribalyse 3.2",
+  "unit": "item"
+}

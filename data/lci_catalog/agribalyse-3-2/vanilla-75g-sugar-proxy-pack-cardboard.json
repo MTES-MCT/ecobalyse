@@ -1,0 +1,24 @@
+{
+  "activityName": "Vanilla sugar, 75g | Packaging System, Proxy Pack, Cardboard {FR} U",
+  "categories": [
+    "material",
+    "packaging",
+    "packaging_type:bag"
+  ],
+  "displayName": "Sachet en papier pour sucre vanillé - 75g - Proxy",
+  "id": "def2bf00-f371-43d9-b641-598967b918de",
+  "metadata": [
+    {
+      "id": "b5799d15-3093-4f26-943c-0abb50133ca8",
+      "scopes": [
+        "food2"
+      ]
+    }
+  ],
+  "scopes": [
+    "food",
+    "food2"
+  ],
+  "source": "Agribalyse 3.2",
+  "unit": "item"
+}

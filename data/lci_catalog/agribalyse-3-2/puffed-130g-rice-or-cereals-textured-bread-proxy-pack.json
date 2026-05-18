@@ -1,0 +1,24 @@
+{
+  "activityName": "Puffed rice or cereals textured bread, 130g | Packaging System, Proxy Pack, Plastic film {FR} U",
+  "categories": [
+    "material",
+    "packaging",
+    "packaging_type:bag"
+  ],
+  "displayName": "Sachet en plastique (PP) pour pain soufflé ou pain de céréales texturé - 130g - Proxy",
+  "id": "e7933db8-1840-4e48-861e-13fb9c872d85",
+  "metadata": [
+    {
+      "id": "d4da6fbb-d6dc-4344-8c61-f30d92ee2839",
+      "scopes": [
+        "food2"
+      ]
+    }
+  ],
+  "scopes": [
+    "food",
+    "food2"
+  ],
+  "source": "Agribalyse 3.2",
+  "unit": "item"
+}

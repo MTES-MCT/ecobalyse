@@ -1,0 +1,36 @@
+{
+  "activityName": "Strawberry, frozen raw, import WFLDB, CMAPS {GLO} U",
+  "categories": [
+    "ingredient",
+    "material"
+  ],
+  "displayName": "Fraise, crue, surgelé Origine Inconnue",
+  "id": "96dbb623-98f9-44fd-9d5d-b5059dc40104",
+  "metadata": [
+    {
+      "alias": "strawberry-frozen-raw-default",
+      "cropGroup": "VERGERS",
+      "defaultOrigin": "OutOfEuropeAndMaghreb",
+      "displayName": "Fraise, crue, surgelé Origine Inconnue",
+      "id": "fa58f801-a4f7-4f17-b287-12265bee56cc",
+      "inediblePart": 0,
+      "ingredientCategories": [
+        "vegetable_processed"
+      ],
+      "ingredientDensity": 1,
+      "rawToCookedRatio": 1,
+      "scenario": "import",
+      "scopes": [
+        "food",
+        "food2"
+      ],
+      "transportCooling": "always",
+      "visible": true
+    }
+  ],
+  "scopes": [
+    "food",
+    "food2"
+  ],
+  "source": "Ecobalyse"
+}

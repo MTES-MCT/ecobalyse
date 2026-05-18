@@ -1,0 +1,60 @@
+{
+  "activityName": "Coffee, green beans (Arabica), at farm, organic 2025 {IN}",
+  "categories": [
+    "ingredient",
+    "material",
+    "material_type:other_food_items"
+  ],
+  "displayName": "Café en grains Bio",
+  "id": "b65f4908-1bee-5174-96e5-552d478f91f9",
+  "location": "IN",
+  "metadata": [
+    {
+      "alias": "coffee-bean-organic",
+      "cropGroup": "ARBORICULTURE",
+      "cropGroupMatch": {
+        "confidence": 0.95,
+        "rule": "matched 'coffee bean' in cropgroup.csv"
+      },
+      "defaultOrigin": "France",
+      "displayName": "Café en grains Bio",
+      "id": "02b7f1bd-56ea-5243-8c22-baa8c6d6052e",
+      "inediblePart": 0.2,
+      "inediblePartMatch": {
+        "confidence": 1.0,
+        "rule": "legume NOVA 1 default from food_type_inedible_part.csv"
+      },
+      "ingredientCategories": [
+        "vegetable_fresh",
+        "organic"
+      ],
+      "ingredientDensity": 0.8,
+      "ingredientDensityMatch": {
+        "confidence": 0.95,
+        "rule": "Matched with bean in density.csv"
+      },
+      "rawToCookedRatio": 1.0,
+      "rawToCookedRatioMatch": {
+        "confidence": 0.95,
+        "rule": "Matched with coffee in cooked_to_raw.csv"
+      },
+      "scenario": "organic",
+      "scopes": [
+        "food",
+        "food2"
+      ],
+      "transportCooling": "always",
+      "transportCoolingMatch": {
+        "confidence": 1.0,
+        "rule": "legume NOVA 1 → always (perishable)"
+      },
+      "visible": true
+    }
+  ],
+  "scopes": [
+    "food",
+    "food2"
+  ],
+  "source": "Ginko 2025",
+  "unit": "kg"
+}

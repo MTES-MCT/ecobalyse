@@ -1,0 +1,24 @@
+{
+  "activityName": "Water, 3000g | Packaging System, Proxy Pack, Plastic bottles {FR} U",
+  "categories": [
+    "material",
+    "packaging",
+    "packaging_type:bottle"
+  ],
+  "displayName": "Bouteille en plastique (PET) pour eau - 3000g - Proxy",
+  "id": "a7ed6fb9-e9cc-4c16-914c-a2906b753ad0",
+  "metadata": [
+    {
+      "id": "0fe7a169-3f64-42e2-9cf4-078e9d2f5b34",
+      "scopes": [
+        "food2"
+      ]
+    }
+  ],
+  "scopes": [
+    "food",
+    "food2"
+  ],
+  "source": "Agribalyse 3.2",
+  "unit": "item"
+}

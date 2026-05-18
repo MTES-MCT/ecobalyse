@@ -1,0 +1,35 @@
+{
+  "activityName": "Roquefort cheese, variant 1, CMAPS {GLO} U",
+  "categories": [
+    "ingredient",
+    "material"
+  ],
+  "displayName": "Roquefort FR",
+  "id": "96ee726e-be65-41a5-b94d-9f053810bc65",
+  "metadata": [
+    {
+      "alias": "roquefort-cheese-fr",
+      "defaultOrigin": "France",
+      "displayName": "Roquefort FR",
+      "id": "547c7bb5-1958-415e-a386-8bc7176dfb73",
+      "inediblePart": 0,
+      "ingredientCategories": [
+        "dairy_product"
+      ],
+      "ingredientDensity": 1,
+      "rawToCookedRatio": 1,
+      "scenario": "reference",
+      "scopes": [
+        "food",
+        "food2"
+      ],
+      "transportCooling": "always",
+      "visible": true
+    }
+  ],
+  "scopes": [
+    "food",
+    "food2"
+  ],
+  "source": "Ecobalyse"
+}

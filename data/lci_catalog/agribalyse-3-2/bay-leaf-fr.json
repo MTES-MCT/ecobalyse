@@ -1,0 +1,257 @@
+{
+  "activityName": "Mint {RoW}| mint production | Cut-off, U - Adapted from Ecoinvent U",
+  "categories": [
+    "ingredient",
+    "material"
+  ],
+  "displayName": "Feuilles de laurier FR",
+  "id": "32e87acc-19ec-5c76-98c6-68a37ff0183e",
+  "metadata": [
+    {
+      "alias": "bay-leaf-fr",
+      "cropGroup": "DIVERS",
+      "cropGroupMatch": {
+        "confidence": 1.0,
+        "rule": "spice_condiment default"
+      },
+      "defaultOrigin": "France",
+      "displayName": "Feuilles de laurier FR",
+      "id": "a7984dfe-8c9d-5880-9122-ae277de30640",
+      "inediblePart": 0.0,
+      "inediblePartMatch": {
+        "confidence": 1.0,
+        "rule": "spice_condiment NOVA 1 default from food_type_inedible_part.csv"
+      },
+      "ingredientCategories": [
+        "spice_condiment_additive"
+      ],
+      "ingredientDensity": 0.5,
+      "ingredientDensityMatch": {
+        "confidence": 1.0,
+        "rule": "spice_condiment default from food_type_density.csv"
+      },
+      "rawToCookedRatio": 1.0,
+      "rawToCookedRatioMatch": {
+        "confidence": 1.0,
+        "rule": "spice_condiment default from food_type_cooked_to_raw.csv"
+      },
+      "scenario": "reference",
+      "scopes": [
+        "food",
+        "food2"
+      ],
+      "transportCooling": "none",
+      "transportCoolingMatch": {
+        "confidence": 1.0,
+        "rule": "spice_condiment → none (non-perishable)"
+      },
+      "visible": true
+    },
+    {
+      "alias": "dill-fresh-fr",
+      "cropGroup": "LEGUMES-FLEURS",
+      "cropGroupMatch": {
+        "confidence": 1.0,
+        "rule": "vegetable default"
+      },
+      "defaultOrigin": "France",
+      "displayName": "Aneth, frais FR",
+      "id": "2be86df2-76cd-5cea-8f9b-73e46fe5e1dd",
+      "inediblePart": 0.2,
+      "inediblePartMatch": {
+        "confidence": 1.0,
+        "rule": "vegetable NOVA 1 default from food_type_inedible_part.csv"
+      },
+      "ingredientCategories": [
+        "vegetable_fresh"
+      ],
+      "ingredientDensity": 0.9,
+      "ingredientDensityMatch": {
+        "confidence": 1.0,
+        "rule": "vegetable default from food_type_density.csv"
+      },
+      "rawToCookedRatio": 0.856,
+      "rawToCookedRatioMatch": {
+        "confidence": 1.0,
+        "rule": "vegetable default from food_type_cooked_to_raw.csv"
+      },
+      "scenario": "reference",
+      "scopes": [
+        "food",
+        "food2"
+      ],
+      "transportCooling": "always",
+      "transportCoolingMatch": {
+        "confidence": 1.0,
+        "rule": "vegetable NOVA 1 → always (perishable)"
+      },
+      "visible": true
+    },
+    {
+      "alias": "herb-dried-fr",
+      "cropGroup": "AUTRES CULTURES INDUSTRIELLES",
+      "cropGroupMatch": {
+        "confidence": 0.95,
+        "rule": "matched 'rosemary' in cropgroup.csv"
+      },
+      "defaultOrigin": "France",
+      "displayName": "Herbes séchées (marjolaine, origan, sarriette, thym, basilic, romarin, sauge) FR",
+      "id": "311a8023-5db1-5594-91ac-6f350740a538",
+      "inediblePart": 0.0,
+      "inediblePartMatch": {
+        "confidence": 1.0,
+        "rule": "spice_condiment NOVA 1 default from food_type_inedible_part.csv"
+      },
+      "ingredientCategories": [
+        "spice_condiment_additive"
+      ],
+      "ingredientDensity": 0.5,
+      "ingredientDensityMatch": {
+        "confidence": 1.0,
+        "rule": "spice_condiment default from food_type_density.csv"
+      },
+      "rawToCookedRatio": 1.0,
+      "rawToCookedRatioMatch": {
+        "confidence": 1.0,
+        "rule": "spice_condiment default from food_type_cooked_to_raw.csv"
+      },
+      "scenario": "reference",
+      "scopes": [
+        "food",
+        "food2"
+      ],
+      "transportCooling": "none",
+      "transportCoolingMatch": {
+        "confidence": 1.0,
+        "rule": "dried packaging → none"
+      },
+      "visible": true
+    },
+    {
+      "alias": "herb-fresh-fr",
+      "cropGroup": "AUTRES CULTURES INDUSTRIELLES",
+      "cropGroupMatch": {
+        "confidence": 0.95,
+        "rule": "matched 'rosemary' in cropgroup.csv"
+      },
+      "defaultOrigin": "France",
+      "displayName": "Herbes fraîches (aneth, basilic, cerfeuil, romarin, sauge, thym) FR",
+      "id": "eb1ec96a-d923-599a-97c0-fccb20d48cb2",
+      "inediblePart": 0.2,
+      "inediblePartMatch": {
+        "confidence": 1.0,
+        "rule": "vegetable NOVA 1 default from food_type_inedible_part.csv"
+      },
+      "ingredientCategories": [
+        "vegetable_fresh"
+      ],
+      "ingredientDensity": 0.9,
+      "ingredientDensityMatch": {
+        "confidence": 1.0,
+        "rule": "vegetable default from food_type_density.csv"
+      },
+      "rawToCookedRatio": 0.856,
+      "rawToCookedRatioMatch": {
+        "confidence": 1.0,
+        "rule": "vegetable default from food_type_cooked_to_raw.csv"
+      },
+      "scenario": "reference",
+      "scopes": [
+        "food",
+        "food2"
+      ],
+      "transportCooling": "always",
+      "transportCoolingMatch": {
+        "confidence": 1.0,
+        "rule": "vegetable NOVA 1 → always (perishable)"
+      },
+      "visible": true
+    },
+    {
+      "alias": "mint-fr",
+      "cropGroup": "AUTRES CULTURES INDUSTRIELLES",
+      "cropGroupMatch": {
+        "confidence": 1.0,
+        "rule": "matched 'mint' in cropgroup.csv"
+      },
+      "defaultOrigin": "France",
+      "displayName": "Menthe FR",
+      "id": "fea15bdb-4ecd-5ce8-8783-9fd6ba06aa41",
+      "inediblePart": 0.1,
+      "inediblePartMatch": {
+        "confidence": 1.0,
+        "rule": "Matched with Mint in agb_inedible.csv"
+      },
+      "ingredientCategories": [
+        "vegetable_fresh"
+      ],
+      "ingredientDensity": 0.9,
+      "ingredientDensityMatch": {
+        "confidence": 1.0,
+        "rule": "vegetable default from food_type_density.csv"
+      },
+      "rawToCookedRatio": 0.856,
+      "rawToCookedRatioMatch": {
+        "confidence": 1.0,
+        "rule": "vegetable default from food_type_cooked_to_raw.csv"
+      },
+      "scenario": "reference",
+      "scopes": [
+        "food",
+        "food2"
+      ],
+      "transportCooling": "always",
+      "transportCoolingMatch": {
+        "confidence": 1.0,
+        "rule": "vegetable NOVA 1 → always (perishable)"
+      },
+      "visible": true
+    },
+    {
+      "alias": "tarragon-fresh-fr",
+      "cropGroup": "AUTRES CULTURES INDUSTRIELLES",
+      "cropGroupMatch": {
+        "confidence": 0.95,
+        "rule": "matched 'tarragon' in cropgroup.csv"
+      },
+      "defaultOrigin": "France",
+      "displayName": "Estragon frais FR",
+      "id": "ad8bbde9-e11c-5302-ab26-4a354f0e90ba",
+      "inediblePart": 0.2,
+      "inediblePartMatch": {
+        "confidence": 0.95,
+        "rule": "Matched with Tarragon in agb_inedible.csv"
+      },
+      "ingredientCategories": [
+        "spice_condiment_additive"
+      ],
+      "ingredientDensity": 0.5,
+      "ingredientDensityMatch": {
+        "confidence": 1.0,
+        "rule": "spice_condiment default from food_type_density.csv"
+      },
+      "rawToCookedRatio": 1.0,
+      "rawToCookedRatioMatch": {
+        "confidence": 1.0,
+        "rule": "spice_condiment default from food_type_cooked_to_raw.csv"
+      },
+      "scenario": "reference",
+      "scopes": [
+        "food",
+        "food2"
+      ],
+      "transportCooling": "none",
+      "transportCoolingMatch": {
+        "confidence": 1.0,
+        "rule": "spice_condiment → none (non-perishable)"
+      },
+      "visible": true
+    }
+  ],
+  "scopes": [
+    "food",
+    "food2"
+  ],
+  "source": "Agribalyse 3.2",
+  "unit": "kg"
+}

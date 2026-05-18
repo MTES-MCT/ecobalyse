@@ -1,0 +1,33 @@
+{
+  "activityName": "Fibre, flax, long, scutched {RER}| fibre production, flax, scutching | Cut-off, U",
+  "categories": [
+    "material",
+    "textile_material"
+  ],
+  "comment": "Ancien identifiant (12/2024): cf76c9e1872effbd04d49aec742e7952.",
+  "displayName": "Production de fibres de lin, rouissage",
+  "elecMJ": 0,
+  "heatMJ": 0,
+  "id": "b4e7353b-7963-5d88-b4bc-84bd925f5a86",
+  "metadata": [
+    {
+      "alias": "ei-lin",
+      "defaultCountry": "FR",
+      "displayName": "Production de fibres de lin, rouissage",
+      "geographicOrigin": "Europe",
+      "id": "a52e486c-b67e-40af-8337-e8143cbf9076",
+      "name": "Lin",
+      "origin": "NaturalFromVegetal",
+      "primary": true,
+      "scopes": [
+        "textile"
+      ]
+    }
+  ],
+  "scopes": [
+    "textile"
+  ],
+  "source": "Ecoinvent 3.11",
+  "unit": "kg",
+  "waste": 0
+}

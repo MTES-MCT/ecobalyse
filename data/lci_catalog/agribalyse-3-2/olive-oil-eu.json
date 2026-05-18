@@ -1,0 +1,37 @@
+{
+  "activityName": "Extra Virgin Olive Oil, consumption mix {FR} U",
+  "categories": [
+    "ingredient",
+    "material",
+    "material_type:other_food_items"
+  ],
+  "displayName": "Huile d'olive UE",
+  "id": "7cec809d-b5dc-560b-bb8f-0c9e14f74dfc",
+  "metadata": [
+    {
+      "alias": "olive-oil-eu-2025",
+      "cropGroup": "OLIVIERS",
+      "defaultOrigin": "EuropeAndMaghreb",
+      "displayName": "Huile d'olive UE (2025)",
+      "id": "f1b219e6-7a77-429b-b372-461e3ad0d3bd",
+      "inediblePart": 0,
+      "ingredientCategories": [
+        "nut_oilseed_processed"
+      ],
+      "ingredientDensity": 1.0,
+      "rawToCookedRatio": 1.0,
+      "scenario": "import",
+      "scopes": [
+        "food",
+        "food2"
+      ],
+      "transportCooling": "none",
+      "visible": true
+    }
+  ],
+  "scopes": [
+    "food",
+    "food2"
+  ],
+  "source": "Agribalyse 3.2"
+}

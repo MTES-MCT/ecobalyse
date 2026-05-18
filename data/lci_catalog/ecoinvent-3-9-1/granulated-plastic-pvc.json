@@ -1,0 +1,28 @@
+{
+  "activityName": "polyvinylchloride, suspension polymerised//[GLO] market for polyvinylchloride, suspension polymerised",
+  "categories": [
+    "material",
+    "material_type:rigid_plastics"
+  ],
+  "comment": "",
+  "displayName": "Plastique PVC, granulé",
+  "elecMJ": 0,
+  "heatMJ": 0,
+  "id": "dffa72ce-b159-5a02-99fb-a76cfebec72f",
+  "metadata": [
+    {
+      "id": "65e40baa-1c85-4f85-a139-e5d55bef3961",
+      "scopes": [
+        "object",
+        "veli"
+      ]
+    }
+  ],
+  "scopes": [
+    "object",
+    "veli"
+  ],
+  "source": "Ecoinvent 3.9.1",
+  "unit": "kg",
+  "waste": 0
+}

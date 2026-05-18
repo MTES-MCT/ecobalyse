@@ -1,0 +1,28 @@
+{
+  "activityName": "scrap copper//[Europe without Switzerland] treatment of scrap copper, municipal incineration",
+  "categories": [
+    "end-of-life",
+    "material_type:copper"
+  ],
+  "comment": "",
+  "displayName": "Incinération du cuivre",
+  "elecMJ": 0,
+  "heatMJ": 0,
+  "id": "508c69bd-4864-4a2f-9078-f0fb73765d7a",
+  "metadata": [
+    {
+      "id": "b22a21c6-4b9c-47ae-a670-57fe608d4061",
+      "scopes": [
+        "object",
+        "veli"
+      ]
+    }
+  ],
+  "scopes": [
+    "object",
+    "veli"
+  ],
+  "source": "Ecoinvent 3.9.1",
+  "unit": "kg",
+  "waste": 0
+}

@@ -1,0 +1,36 @@
+{
+  "activityName": "Flageolet bean, frozen, variant 2, CMAPS {GLO} U",
+  "categories": [
+    "ingredient",
+    "material"
+  ],
+  "displayName": "Haricot flageolet, surgelé Origine Inconnue",
+  "id": "84737b0f-b67c-400f-908f-e8a498bfd520",
+  "metadata": [
+    {
+      "alias": "flageolet-bean-frozen-default",
+      "cropGroup": "PROTEAGINEUX",
+      "defaultOrigin": "OutOfEuropeAndMaghreb",
+      "displayName": "Haricot flageolet, surgelé Origine Inconnue",
+      "id": "61cbb8ae-c2a2-4717-a6d3-1ac87281c3c1",
+      "inediblePart": 0,
+      "ingredientCategories": [
+        "vegetable_processed"
+      ],
+      "ingredientDensity": 1,
+      "rawToCookedRatio": 1,
+      "scenario": "import",
+      "scopes": [
+        "food",
+        "food2"
+      ],
+      "transportCooling": "always",
+      "visible": false
+    }
+  ],
+  "scopes": [
+    "food",
+    "food2"
+  ],
+  "source": "Ecobalyse"
+}

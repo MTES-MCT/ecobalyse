@@ -1,0 +1,28 @@
+{
+  "activityName": "electricity, medium voltage//[VN] market for electricity, medium voltage",
+  "categories": [
+    "energy"
+  ],
+  "comment": "Ancien identifiant (12/2024): 3f90d52cc1dfe32119bf53db2713c407.",
+  "displayName": "Électricité moyenne tension, Viet Nam",
+  "elecMJ": 0,
+  "heatMJ": 0,
+  "id": "f3ad3ac5-731a-5ef5-b9e1-13ce71780444",
+  "metadata": [
+    {
+      "id": "927aa04e-94b6-4e89-b978-70d282c9c634",
+      "scopes": [
+        "object",
+        "veli"
+      ]
+    }
+  ],
+  "scopes": [
+    "textile",
+    "object",
+    "veli"
+  ],
+  "source": "Ecoinvent 3.9.1",
+  "unit": "kWh",
+  "waste": 0
+}

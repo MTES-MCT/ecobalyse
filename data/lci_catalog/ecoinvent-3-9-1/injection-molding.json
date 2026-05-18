@@ -1,0 +1,32 @@
+{
+  "activityName": "injection moulding//[RER] injection moulding",
+  "categories": [
+    "transformation",
+    "material_type:pet",
+    "material_type:pp",
+    "material_type:hdpe",
+    "material_type:ldpe",
+    "material_type:rigid_plastics"
+  ],
+  "comment": "",
+  "displayName": "Moulage par injection",
+  "elecMJ": 0,
+  "heatMJ": 0,
+  "id": "111539de-deea-588a-9581-6f6ceaa2dfa9",
+  "metadata": [
+    {
+      "id": "85b74ce2-2cbc-4d73-a5a2-5c5ffde16319",
+      "scopes": [
+        "object",
+        "veli"
+      ]
+    }
+  ],
+  "scopes": [
+    "object",
+    "veli"
+  ],
+  "source": "Ecoinvent 3.9.1",
+  "unit": "kg",
+  "waste": 0.006
+}

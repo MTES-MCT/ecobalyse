@@ -1,0 +1,54 @@
+{
+  "activityName": "Greek yogurt, sheep milk, CMAPS {GLO} U",
+  "categories": [
+    "ingredient",
+    "material"
+  ],
+  "displayName": "Yaourt à la grecque, au lait de brebis FR",
+  "id": "4153d5fd-5e85-4c28-81ed-6d50579f63d9",
+  "metadata": [
+    {
+      "alias": "greek-yogurt-sheep-milk-default",
+      "defaultOrigin": "OutOfEuropeAndMaghreb",
+      "displayName": "Yaourt à la grecque, au lait de brebis Origine Inconnue",
+      "id": "08c3afd4-9e92-4006-af86-9a5b4bf61984",
+      "inediblePart": 0,
+      "ingredientCategories": [
+        "dairy_product"
+      ],
+      "ingredientDensity": 1,
+      "rawToCookedRatio": 1,
+      "scenario": "import",
+      "scopes": [
+        "food",
+        "food2"
+      ],
+      "transportCooling": "always",
+      "visible": false
+    },
+    {
+      "alias": "greek-yogurt-sheep-milk-fr",
+      "defaultOrigin": "France",
+      "displayName": "Yaourt à la grecque, au lait de brebis FR",
+      "id": "53bf7b0b-e254-4488-a322-5adbcd649574",
+      "inediblePart": 0,
+      "ingredientCategories": [
+        "dairy_product"
+      ],
+      "ingredientDensity": 1,
+      "rawToCookedRatio": 1,
+      "scenario": "reference",
+      "scopes": [
+        "food",
+        "food2"
+      ],
+      "transportCooling": "always",
+      "visible": true
+    }
+  ],
+  "scopes": [
+    "food",
+    "food2"
+  ],
+  "source": "Ecobalyse"
+}

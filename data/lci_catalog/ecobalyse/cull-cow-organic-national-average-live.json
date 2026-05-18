@@ -1,0 +1,40 @@
+{
+  "activityName": "Cull cow, organic, national average, at farm gate FR U",
+  "categories": [
+    "ingredient",
+    "material",
+    "material_type:other_food_items"
+  ],
+  "displayName": "Bovin bio moyen vivant FR",
+  "id": "6be00c07-d618-504d-b823-4b7a704226f2",
+  "metadata": [
+    {
+      "alias": "cull-cow-organic-national-average-live",
+      "animalGroup1": "cattle",
+      "animalGroup2": "cow",
+      "animalProduct": "meat",
+      "defaultOrigin": "France",
+      "displayName": "Bovin bio moyen vivant FR",
+      "id": "8602a1cb-18a2-54aa-b491-1bbb7e495500",
+      "inediblePart": 0,
+      "ingredientCategories": [
+        "animal_product",
+        "organic"
+      ],
+      "ingredientDensity": 1.0,
+      "rawToCookedRatio": 1.0,
+      "scenario": "organic",
+      "scopes": [
+        "food",
+        "food2"
+      ],
+      "transportCooling": "always",
+      "visible": false
+    }
+  ],
+  "scopes": [
+    "food",
+    "food2"
+  ],
+  "source": "Ecobalyse"
+}

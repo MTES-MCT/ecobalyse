@@ -1,0 +1,24 @@
+{
+  "activityName": "Chestnut cream or canned, 370g | Packaging System, Proxy Pack, Glass {FR} U",
+  "categories": [
+    "material",
+    "packaging",
+    "packaging_type:jar"
+  ],
+  "displayName": "Pot en verre pour crème de marrons - 370g - Proxy",
+  "id": "1686b240-6292-4eae-ad10-0525404cbb10",
+  "metadata": [
+    {
+      "id": "46d3c67f-19c4-46a2-9bcc-81dbcfb4ec33",
+      "scopes": [
+        "food2"
+      ]
+    }
+  ],
+  "scopes": [
+    "food",
+    "food2"
+  ],
+  "source": "Agribalyse 3.2",
+  "unit": "item"
+}

@@ -1,0 +1,39 @@
+{
+  "activityName": "Meat without bone, lamb {FR} U",
+  "categories": [
+    "ingredient",
+    "material",
+    "material_type:red_meats"
+  ],
+  "displayName": "Viande d'agneau (désossée) FR",
+  "id": "6e8e9591-9d76-549d-b551-9d7d228fb5bb",
+  "metadata": [
+    {
+      "alias": "lamb-meat-without-bone",
+      "animalGroup1": "sheep",
+      "animalGroup2": "sheep",
+      "animalProduct": "meat",
+      "defaultOrigin": "France",
+      "displayName": "Viande d'agneau (désossée) FR",
+      "id": "d79e0fce-8633-4189-a937-7b8010abafed",
+      "inediblePart": 0,
+      "ingredientCategories": [
+        "animal_product"
+      ],
+      "ingredientDensity": 1.0,
+      "rawToCookedRatio": 0.792,
+      "scenario": "reference",
+      "scopes": [
+        "food",
+        "food2"
+      ],
+      "transportCooling": "always",
+      "visible": true
+    }
+  ],
+  "scopes": [
+    "food",
+    "food2"
+  ],
+  "source": "Agribalyse 3.2"
+}

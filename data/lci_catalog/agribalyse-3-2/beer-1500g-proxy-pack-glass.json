@@ -1,0 +1,24 @@
+{
+  "activityName": "Beer, 1500g | Packaging System, Proxy Pack, Glass {FR} U",
+  "categories": [
+    "material",
+    "packaging",
+    "packaging_type:bottle"
+  ],
+  "displayName": "Bouteille en verre pour bière - 1500g - Proxy",
+  "id": "a84f815c-11e8-43d2-ac5a-ddcfe918766b",
+  "metadata": [
+    {
+      "id": "64ca7713-d68d-423e-a0b3-10b5b290bb7f",
+      "scopes": [
+        "food2"
+      ]
+    }
+  ],
+  "scopes": [
+    "food",
+    "food2"
+  ],
+  "source": "Agribalyse 3.2",
+  "unit": "item"
+}

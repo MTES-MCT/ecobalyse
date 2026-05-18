@@ -1,0 +1,24 @@
+{
+  "activityName": "Beef and veal, 250g | Packaging System, N0, All, APET/PE tray with lid {FR} U",
+  "categories": [
+    "material",
+    "packaging",
+    "packaging_type:tray"
+  ],
+  "displayName": "Barquette en plastique (APET/PE) pour viandes (hors volaille) - 250g",
+  "id": "56fd7f00-0530-4555-8bc8-c05334410f88",
+  "metadata": [
+    {
+      "id": "a32ee530-1cde-4b58-bae6-6a851026fea4",
+      "scopes": [
+        "food2"
+      ]
+    }
+  ],
+  "scopes": [
+    "food",
+    "food2"
+  ],
+  "source": "Agribalyse 3.2",
+  "unit": "item"
+}

@@ -1,0 +1,45 @@
+{
+  "categories": [
+    "use"
+  ],
+  "comment": "Consommation d’électricité telle que définie par la méthode Agribalyse 3.0 dans les tableaux 41, 42, 43 sur les techniques de préparation.",
+  "displayName": "Réfrigération",
+  "elecMJ": 0.27972,
+  "heatMJ": 0,
+  "id": "3812ad73-36ef-4b8d-a491-dd82a03942f2",
+  "impacts": {
+    "acd": 0,
+    "cch": 0,
+    "etf": 0,
+    "etf-c": 0,
+    "fru": 0,
+    "fwe": 0,
+    "htc": 0,
+    "htc-c": 0,
+    "htn": 0,
+    "htn-c": 0,
+    "ior": 0,
+    "ldu": 0,
+    "mru": 0,
+    "ozd": 0,
+    "pco": 0,
+    "pma": 0,
+    "swe": 0,
+    "tre": 0,
+    "wtu": 0
+  },
+  "metadata": [
+    {
+      "id": "b4642cec-b72e-4116-81c5-5dbfccb46055",
+      "scopes": [
+        "food2"
+      ]
+    }
+  ],
+  "scopes": [
+    "food2"
+  ],
+  "source": "Custom",
+  "unit": "kg",
+  "waste": 0
+}

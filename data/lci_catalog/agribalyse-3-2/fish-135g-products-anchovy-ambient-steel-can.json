@@ -1,0 +1,24 @@
+{
+  "activityName": "Fish products anchovy, ambient, 135g | Packaging System, N0, All, Steel can {FR} U",
+  "categories": [
+    "material",
+    "packaging",
+    "packaging_type:box"
+  ],
+  "displayName": "Boîte en acier pour anchois, ambiant - 135g",
+  "id": "0d634750-0a5e-4ab5-ba98-ca1ed5ac6667",
+  "metadata": [
+    {
+      "id": "4e5bd78b-2c6b-485e-92e3-845b929f218d",
+      "scopes": [
+        "food2"
+      ]
+    }
+  ],
+  "scopes": [
+    "food",
+    "food2"
+  ],
+  "source": "Agribalyse 3.2",
+  "unit": "item"
+}

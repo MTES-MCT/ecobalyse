@@ -1,0 +1,28 @@
+{
+  "activityName": "electricity, medium voltage//[BD] market for electricity, medium voltage",
+  "categories": [
+    "energy"
+  ],
+  "comment": "Ancien identifiant (12/2024): 0b69950358f3e8f0d3fb049d71481186.",
+  "displayName": "Électricité moyenne tension, Bangladesh",
+  "elecMJ": 0,
+  "heatMJ": 0,
+  "id": "26055a0a-ec6d-5985-a220-84841949077d",
+  "metadata": [
+    {
+      "id": "667831a6-ab17-408f-9207-b4525a2f4405",
+      "scopes": [
+        "object",
+        "veli"
+      ]
+    }
+  ],
+  "scopes": [
+    "object",
+    "textile",
+    "veli"
+  ],
+  "source": "Ecoinvent 3.9.1",
+  "unit": "kWh",
+  "waste": 0
+}

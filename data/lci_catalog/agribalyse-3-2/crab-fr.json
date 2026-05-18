@@ -1,0 +1,37 @@
+{
+  "activityName": "Brown crab, 1 kg of product, at landing {FR} U",
+  "categories": [
+    "ingredient",
+    "material",
+    "material_type:fish_and_shellfish"
+  ],
+  "displayName": "Crabe FR",
+  "id": "f8c88512-2b57-5f1a-abba-46ac604886f4",
+  "metadata": [
+    {
+      "alias": "crab-fr-2025",
+      "defaultOrigin": "France",
+      "displayName": "Crabe FR (2025)",
+      "id": "6875d374-d24e-45d1-93c1-39aa52e3713c",
+      "inediblePart": 0.5,
+      "ingredientCategories": [
+        "animal_product"
+      ],
+      "ingredientDensity": 1.0,
+      "landOccupation": 0.329,
+      "rawToCookedRatio": 0.819,
+      "scenario": "reference",
+      "scopes": [
+        "food",
+        "food2"
+      ],
+      "transportCooling": "always",
+      "visible": true
+    }
+  ],
+  "scopes": [
+    "food",
+    "food2"
+  ],
+  "source": "Agribalyse 3.2"
+}

@@ -1,0 +1,59 @@
+{
+  "activityName": "Cocoa bean {ID}| cocoa bean production, sun-dried | Cut-off, U",
+  "categories": [
+    "ingredient",
+    "material",
+    "material_type:fruits_and_vegetables"
+  ],
+  "displayName": "Fève de cacao Origine Inconnue",
+  "id": "60c5c68d-74ad-5499-9cd8-40f9f70d9569",
+  "location": "ID",
+  "metadata": [
+    {
+      "alias": "cocoa-bean-default",
+      "cropGroup": "ARBORICULTURE",
+      "cropGroupMatch": {
+        "confidence": 1.0,
+        "rule": "matched 'cocoa bean' in cropgroup.csv"
+      },
+      "defaultOrigin": "OutOfEuropeAndMaghreb",
+      "displayName": "Fève de cacao Origine Inconnue",
+      "id": "8958164d-9c4b-5f4c-9b78-0a42f4452543",
+      "inediblePart": 0.2,
+      "inediblePartMatch": {
+        "confidence": 1.0,
+        "rule": "vegetable NOVA 1 default from food_type_inedible_part.csv"
+      },
+      "ingredientCategories": [
+        "vegetable_fresh"
+      ],
+      "ingredientDensity": 0.9,
+      "ingredientDensityMatch": {
+        "confidence": 1.0,
+        "rule": "vegetable default from food_type_density.csv"
+      },
+      "rawToCookedRatio": 0.856,
+      "rawToCookedRatioMatch": {
+        "confidence": 1.0,
+        "rule": "vegetable default from food_type_cooked_to_raw.csv"
+      },
+      "scenario": "import",
+      "scopes": [
+        "food",
+        "food2"
+      ],
+      "transportCooling": "none",
+      "transportCoolingMatch": {
+        "confidence": 1.0,
+        "rule": "vegetable NOVA 1 → none (perishable)"
+      },
+      "visible": true
+    }
+  ],
+  "scopes": [
+    "food",
+    "food2"
+  ],
+  "source": "Ecoinvent 3.11",
+  "unit": "kg"
+}

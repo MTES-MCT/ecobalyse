@@ -1,0 +1,24 @@
+{
+  "activityName": "Soft cheeses - cat G, 450g | Packaging System, N0, All, Paper and plastic foil {FR} U",
+  "categories": [
+    "material",
+    "packaging",
+    "packaging_type:sheet"
+  ],
+  "displayName": "Feuille complexe pour fromage à pâte molle - 450g",
+  "id": "4e74b0f4-eb7d-4bdc-b08d-18aec3695a5d",
+  "metadata": [
+    {
+      "id": "6ed0c3a1-6452-4ab9-84bd-614c753563dd",
+      "scopes": [
+        "food2"
+      ]
+    }
+  ],
+  "scopes": [
+    "food",
+    "food2"
+  ],
+  "source": "Agribalyse 3.2",
+  "unit": "item"
+}

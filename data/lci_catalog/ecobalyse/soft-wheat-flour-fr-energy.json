@@ -1,0 +1,36 @@
+{
+  "activityName": "Soft wheat flour, CMAPS {FR} U",
+  "categories": [
+    "ingredient",
+    "material"
+  ],
+  "displayName": "Farine de blé tendre, froment ou millet Origine Inconnue",
+  "id": "c78acecf-3809-4a36-9ed9-713a3e237401",
+  "metadata": [
+    {
+      "alias": "soft-wheat-flour-default",
+      "cropGroup": "BLE TENDRE",
+      "defaultOrigin": "OutOfEuropeAndMaghreb",
+      "displayName": "Farine de blé tendre, froment ou millet Origine Inconnue",
+      "id": "4e6c21ba-5a0f-40dd-a96e-98ad69443cdf",
+      "inediblePart": 0,
+      "ingredientCategories": [
+        "grain_processed"
+      ],
+      "ingredientDensity": 1,
+      "rawToCookedRatio": 1,
+      "scenario": "import",
+      "scopes": [
+        "food",
+        "food2"
+      ],
+      "transportCooling": "always",
+      "visible": true
+    }
+  ],
+  "scopes": [
+    "food",
+    "food2"
+  ],
+  "source": "Ecobalyse"
+}

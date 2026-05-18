@@ -1,0 +1,58 @@
+{
+  "activityName": "Rice, non-basmati {CN}| rice production, non-basmati | Cut-off, U - Adapted from Ecoinvent U",
+  "categories": [
+    "ingredient",
+    "material",
+    "material_type:other_food_items"
+  ],
+  "displayName": "Riz cru, toutes variétés (blanc, sauvage, riz thaï ou basmati, cru) FR",
+  "id": "fd82f2d0-0857-5328-9307-9273102d36fa",
+  "metadata": [
+    {
+      "alias": "rice-raw-fr",
+      "cropGroup": "RIZ",
+      "cropGroupMatch": {
+        "confidence": 0.95,
+        "rule": "matched 'rice' in cropgroup.csv"
+      },
+      "defaultOrigin": "France",
+      "displayName": "Riz cru, toutes variétés (blanc, sauvage, riz thaï ou basmati, cru) FR",
+      "id": "12653456-9e3f-5909-9c94-b020e2530138",
+      "inediblePart": 0.0,
+      "inediblePartMatch": {
+        "confidence": 1.0,
+        "rule": "grain NOVA 1 default from food_type_inedible_part.csv"
+      },
+      "ingredientCategories": [
+        "grain_raw"
+      ],
+      "ingredientDensity": 0.85,
+      "ingredientDensityMatch": {
+        "confidence": 0.95,
+        "rule": "Matched with Rice, raw in fao_density.csv"
+      },
+      "rawToCookedRatio": 2.259,
+      "rawToCookedRatioMatch": {
+        "confidence": 1.0,
+        "rule": "grain default from food_type_cooked_to_raw.csv"
+      },
+      "scenario": "reference",
+      "scopes": [
+        "food",
+        "food2"
+      ],
+      "transportCooling": "none",
+      "transportCoolingMatch": {
+        "confidence": 1.0,
+        "rule": "grain → none (non-perishable)"
+      },
+      "visible": true
+    }
+  ],
+  "scopes": [
+    "food",
+    "food2"
+  ],
+  "source": "Agribalyse 3.2",
+  "unit": "kg"
+}

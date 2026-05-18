@@ -1,0 +1,170 @@
+{
+  "activityName": "Sheep milk, conventional, Roquefort system, at farm gate {FR} U",
+  "categories": [
+    "ingredient",
+    "material",
+    "material_type:other_food_items"
+  ],
+  "displayName": "Lait de brebis FR",
+  "id": "4461cfce-0540-526a-b994-e3fdb175af26",
+  "metadata": [
+    {
+      "alias": "sheep-milk-fr",
+      "animalGroup1": "sheep",
+      "animalGroup2": "sheep",
+      "animalProduct": "milk",
+      "defaultOrigin": "France",
+      "displayName": "Lait de brebis FR",
+      "id": "6f944dbb-8808-546a-b63e-75678c2e2531",
+      "inediblePart": 0.0,
+      "inediblePartMatch": {
+        "confidence": 1.0,
+        "rule": "dairy NOVA 1 default from food_type_inedible_part.csv"
+      },
+      "ingredientCategories": [
+        "dairy_product"
+      ],
+      "ingredientDensity": 1.03,
+      "ingredientDensityMatch": {
+        "confidence": 1.0,
+        "rule": "dairy default from food_type_density.csv"
+      },
+      "rawToCookedRatio": 1.0,
+      "rawToCookedRatioMatch": {
+        "confidence": 1.0,
+        "rule": "dairy default from food_type_cooked_to_raw.csv"
+      },
+      "scenario": "reference",
+      "scopes": [
+        "food",
+        "food2"
+      ],
+      "transportCooling": "always",
+      "transportCoolingMatch": {
+        "confidence": 1.0,
+        "rule": "dairy NOVA 1 → always (perishable)"
+      },
+      "visible": true
+    },
+    {
+      "alias": "sheep-milk-default",
+      "animalGroup1": "sheep",
+      "animalGroup2": "sheep",
+      "animalProduct": "milk",
+      "defaultOrigin": "OutOfEuropeAndMaghreb",
+      "displayName": "Lait de brebis Origine Inconnue",
+      "id": "e5b6e5a2-07c0-5a37-950c-a1087fe0712f",
+      "inediblePart": 0.0,
+      "inediblePartMatch": {
+        "confidence": 1.0,
+        "rule": "dairy NOVA 1 default from food_type_inedible_part.csv"
+      },
+      "ingredientCategories": [
+        "dairy_product"
+      ],
+      "ingredientDensity": 1.03,
+      "ingredientDensityMatch": {
+        "confidence": 1.0,
+        "rule": "dairy default from food_type_density.csv"
+      },
+      "rawToCookedRatio": 1.0,
+      "rawToCookedRatioMatch": {
+        "confidence": 1.0,
+        "rule": "dairy default from food_type_cooked_to_raw.csv"
+      },
+      "scenario": "import",
+      "scopes": [
+        "food",
+        "food2"
+      ],
+      "transportCooling": "always",
+      "transportCoolingMatch": {
+        "confidence": 1.0,
+        "rule": "dairy NOVA 1 → always (perishable)"
+      },
+      "visible": true
+    },
+    {
+      "alias": "sheep-milk-eu",
+      "animalGroup1": "sheep",
+      "animalGroup2": "sheep",
+      "animalProduct": "milk",
+      "defaultOrigin": "EuropeAndMaghreb",
+      "displayName": "Lait de brebis UE",
+      "id": "19042243-3376-5152-88a3-75a8c5295995",
+      "inediblePart": 0.0,
+      "inediblePartMatch": {
+        "confidence": 1.0,
+        "rule": "dairy NOVA 1 default from food_type_inedible_part.csv"
+      },
+      "ingredientCategories": [
+        "dairy_product"
+      ],
+      "ingredientDensity": 1.03,
+      "ingredientDensityMatch": {
+        "confidence": 1.0,
+        "rule": "dairy default from food_type_density.csv"
+      },
+      "rawToCookedRatio": 1.0,
+      "rawToCookedRatioMatch": {
+        "confidence": 1.0,
+        "rule": "dairy default from food_type_cooked_to_raw.csv"
+      },
+      "scenario": "import",
+      "scopes": [
+        "food",
+        "food2"
+      ],
+      "transportCooling": "always",
+      "transportCoolingMatch": {
+        "confidence": 1.0,
+        "rule": "dairy NOVA 1 → always (perishable)"
+      },
+      "visible": true
+    },
+    {
+      "alias": "sheep-milk-non-eu",
+      "animalGroup1": "sheep",
+      "animalGroup2": "sheep",
+      "animalProduct": "milk",
+      "defaultOrigin": "OutOfEuropeAndMaghreb",
+      "displayName": "Lait de brebis HORS UE",
+      "id": "5870e3a4-c845-54c4-8ea6-66b280b41821",
+      "inediblePart": 0.0,
+      "inediblePartMatch": {
+        "confidence": 1.0,
+        "rule": "dairy NOVA 1 default from food_type_inedible_part.csv"
+      },
+      "ingredientCategories": [
+        "dairy_product"
+      ],
+      "ingredientDensity": 1.03,
+      "ingredientDensityMatch": {
+        "confidence": 1.0,
+        "rule": "dairy default from food_type_density.csv"
+      },
+      "rawToCookedRatio": 1.0,
+      "rawToCookedRatioMatch": {
+        "confidence": 1.0,
+        "rule": "dairy default from food_type_cooked_to_raw.csv"
+      },
+      "scenario": "import",
+      "scopes": [
+        "food",
+        "food2"
+      ],
+      "transportCooling": "always",
+      "transportCoolingMatch": {
+        "confidence": 1.0,
+        "rule": "dairy NOVA 1 → always (perishable)"
+      },
+      "visible": true
+    }
+  ],
+  "scopes": [
+    "food",
+    "food2"
+  ],
+  "source": "Agribalyse 3.2",
+  "unit": "kg"
+}

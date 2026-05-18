@@ -1,0 +1,35 @@
+{
+  "activityName": "Blue cheese Auvergne, variant 1, CMAPS {GLO} U",
+  "categories": [
+    "ingredient",
+    "material"
+  ],
+  "displayName": "Fromage bleu d'Auvergne FR",
+  "id": "ff0ff47b-c8d2-4562-bbe7-ffdd87cc434e",
+  "metadata": [
+    {
+      "alias": "blue-cheese-auvergne-fr",
+      "defaultOrigin": "France",
+      "displayName": "Fromage bleu d'Auvergne FR",
+      "id": "0cb50cd4-2842-4336-9710-c1bf52a2209e",
+      "inediblePart": 0,
+      "ingredientCategories": [
+        "dairy_product"
+      ],
+      "ingredientDensity": 1,
+      "rawToCookedRatio": 1,
+      "scenario": "reference",
+      "scopes": [
+        "food",
+        "food2"
+      ],
+      "transportCooling": "always",
+      "visible": true
+    }
+  ],
+  "scopes": [
+    "food",
+    "food2"
+  ],
+  "source": "Ecobalyse"
+}

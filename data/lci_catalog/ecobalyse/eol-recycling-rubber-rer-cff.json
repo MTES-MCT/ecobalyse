@@ -1,0 +1,28 @@
+{
+  "activityName": "rubber EoL recycling, RER, CFF",
+  "categories": [
+    "end-of-life",
+    "material_type:rubber"
+  ],
+  "comment": "According to CFF: A=0.5, Q=0.75",
+  "displayName": "Recyclage du caoutchouc, CFF",
+  "elecMJ": 0,
+  "heatMJ": 0,
+  "id": "78267ce8-c598-4d08-adee-a8626211bb1a",
+  "metadata": [
+    {
+      "id": "28b20f88-d8ca-4a92-be9c-86b9044a4b62",
+      "scopes": [
+        "object",
+        "veli"
+      ]
+    }
+  ],
+  "scopes": [
+    "object",
+    "veli"
+  ],
+  "source": "Ecobalyse",
+  "unit": "kg",
+  "waste": 0
+}

@@ -1,0 +1,59 @@
+{
+  "activityName": "Hazelnut, in shell, at farm (WFLDB)",
+  "categories": [
+    "ingredient",
+    "material",
+    "material_type:other_food_items"
+  ],
+  "displayName": "Noisettes en coquille Origine Inconnue",
+  "id": "c1411403-04b0-5157-8045-c6449a002e84",
+  "location": "US",
+  "metadata": [
+    {
+      "alias": "hazelnut-in-shell-default",
+      "cropGroup": "FRUITS A COQUES",
+      "cropGroupMatch": {
+        "confidence": 0.95,
+        "rule": "matched 'noisettes' in cropgroup.csv"
+      },
+      "defaultOrigin": "OutOfEuropeAndMaghreb",
+      "displayName": "Noisettes en coquille Origine Inconnue",
+      "id": "36b1e838-2886-5a11-9f08-a35df87f5758",
+      "inediblePart": 0.5,
+      "inediblePartMatch": {
+        "confidence": 1.0,
+        "rule": "with shell keyword found in Hazelnuts, in shell"
+      },
+      "ingredientCategories": [
+        "nut_oilseed_raw"
+      ],
+      "ingredientDensity": 0.55,
+      "ingredientDensityMatch": {
+        "confidence": 0.95,
+        "rule": "Matched with hazelnut in density.csv"
+      },
+      "rawToCookedRatio": 1.0,
+      "rawToCookedRatioMatch": {
+        "confidence": 0.95,
+        "rule": "Matched with hazelnut in cooked_to_raw.csv"
+      },
+      "scenario": "import",
+      "scopes": [
+        "food",
+        "food2"
+      ],
+      "transportCooling": "none",
+      "transportCoolingMatch": {
+        "confidence": 1.0,
+        "rule": "nut_oilseed → none (non-perishable)"
+      },
+      "visible": true
+    }
+  ],
+  "scopes": [
+    "food",
+    "food2"
+  ],
+  "source": "WFLDB",
+  "unit": "kg"
+}

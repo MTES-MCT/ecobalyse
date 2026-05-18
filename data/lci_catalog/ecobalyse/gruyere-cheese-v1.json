@@ -1,0 +1,35 @@
+{
+  "activityName": "Gruyere cheese, variant 1, CMAPS {GLO} U",
+  "categories": [
+    "ingredient",
+    "material"
+  ],
+  "displayName": "Gruyère FR",
+  "id": "2294405d-4505-4417-b805-934895a85b37",
+  "metadata": [
+    {
+      "alias": "gruyere-cheese-fr",
+      "defaultOrigin": "France",
+      "displayName": "Gruyère FR",
+      "id": "0db53c94-9dcf-449f-9a2e-c45b189d46ee",
+      "inediblePart": 0,
+      "ingredientCategories": [
+        "dairy_product"
+      ],
+      "ingredientDensity": 1,
+      "rawToCookedRatio": 1,
+      "scenario": "reference",
+      "scopes": [
+        "food",
+        "food2"
+      ],
+      "transportCooling": "always",
+      "visible": true
+    }
+  ],
+  "scopes": [
+    "food",
+    "food2"
+  ],
+  "source": "Ecobalyse"
+}

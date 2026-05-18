@@ -1,0 +1,24 @@
+{
+  "activityName": "Salad dressing, 0,33L | Packaging System, N0, All, Plastic bottle {FR} U",
+  "categories": [
+    "material",
+    "packaging",
+    "packaging_type:bottle"
+  ],
+  "displayName": "Bouteille en plastique (PET) pour sauce salade - 0,33L",
+  "id": "f3d3d9e1-1783-4ab8-bcbc-3c3a23aee060",
+  "metadata": [
+    {
+      "id": "d102d7d0-22db-4f5f-8348-1d86a787c4aa",
+      "scopes": [
+        "food2"
+      ]
+    }
+  ],
+  "scopes": [
+    "food",
+    "food2"
+  ],
+  "source": "Agribalyse 3.2",
+  "unit": "item"
+}

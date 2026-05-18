@@ -1,0 +1,28 @@
+{
+  "activityName": "transport, freight train//[GLO] market group for transport, freight train",
+  "categories": [
+    "transport"
+  ],
+  "comment": "Ancien identifiant (12/2024): 7037ea59d8d644fd35f80fd1982f9fe9.",
+  "displayName": "transport ferroviaire",
+  "elecMJ": 0,
+  "heatMJ": 0,
+  "id": "cdc841c2-493f-56d6-8fc2-ae5fad2a4917",
+  "metadata": [
+    {
+      "id": "0e434f9e-998f-4156-9c59-3411c800f7e7",
+      "scopes": [
+        "object",
+        "veli"
+      ]
+    }
+  ],
+  "scopes": [
+    "textile",
+    "object",
+    "veli"
+  ],
+  "source": "Ecoinvent 3.9.1",
+  "unit": "t⋅km",
+  "waste": 0
+}

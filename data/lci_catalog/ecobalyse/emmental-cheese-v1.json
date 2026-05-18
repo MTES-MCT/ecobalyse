@@ -1,0 +1,35 @@
+{
+  "activityName": "Emmental cheese, variant 1, CMAPS {GLO} U",
+  "categories": [
+    "ingredient",
+    "material"
+  ],
+  "displayName": "Emmental ou emmenthal FR",
+  "id": "7c666e95-fd3a-4313-94f1-9c8f72962854",
+  "metadata": [
+    {
+      "alias": "emmental-cheese-fr",
+      "defaultOrigin": "France",
+      "displayName": "Emmental ou emmenthal FR",
+      "id": "9a990c37-72b3-40c5-a700-aee1f686a029",
+      "inediblePart": 0,
+      "ingredientCategories": [
+        "dairy_product"
+      ],
+      "ingredientDensity": 1,
+      "rawToCookedRatio": 1,
+      "scenario": "reference",
+      "scopes": [
+        "food",
+        "food2"
+      ],
+      "transportCooling": "always",
+      "visible": true
+    }
+  ],
+  "scopes": [
+    "food",
+    "food2"
+  ],
+  "source": "Ecobalyse"
+}

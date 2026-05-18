@@ -1,0 +1,38 @@
+{
+  "activityName": "Sweet corn, at farm (WFLDB)",
+  "categories": [
+    "ingredient",
+    "material",
+    "material_type:other_food_items"
+  ],
+  "displayName": "Maïs doux UE",
+  "id": "bb5f2ee6-2b42-5422-b5e6-23f3c3075cee",
+  "location": "GLO",
+  "metadata": [
+    {
+      "alias": "sweet-corn-eu-2025",
+      "cropGroup": "MAIS GRAIN ET ENSILAGE",
+      "defaultOrigin": "EuropeAndMaghreb",
+      "displayName": "Maïs doux UE (2025)",
+      "id": "20c97ec2-4950-4cb6-ac9d-a3a97b63c4ea",
+      "inediblePart": 0.5,
+      "ingredientCategories": [
+        "grain_raw"
+      ],
+      "ingredientDensity": 0.24,
+      "rawToCookedRatio": 2.259,
+      "scenario": "import",
+      "scopes": [
+        "food",
+        "food2"
+      ],
+      "transportCooling": "none",
+      "visible": false
+    }
+  ],
+  "scopes": [
+    "food",
+    "food2"
+  ],
+  "source": "WFLDB"
+}

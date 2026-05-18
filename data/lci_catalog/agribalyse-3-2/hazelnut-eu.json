@@ -1,0 +1,118 @@
+{
+  "activityName": "Hazelnut, in shell, at farm {IT} - Adapted from WFLDB U",
+  "categories": [
+    "ingredient",
+    "material",
+    "material_type:other_food_items"
+  ],
+  "displayName": "Noisette avec coque UE",
+  "id": "5480e882-3629-5734-b444-f70363982918",
+  "metadata": [
+    {
+      "alias": "hazelnut-in-shell-fr",
+      "cropGroup": "FRUITS A COQUES",
+      "cropGroupMatch": {
+        "confidence": 0.95,
+        "rule": "matched 'noisettes' in cropgroup.csv"
+      },
+      "defaultOrigin": "France",
+      "displayName": "Noisettes en coquille FR",
+      "id": "dff414b5-b55f-5ed4-b066-6cc89bea5b7b",
+      "inediblePart": 0.5,
+      "inediblePartMatch": {
+        "confidence": 1.0,
+        "rule": "with shell keyword found in Hazelnuts, in shell"
+      },
+      "ingredientCategories": [
+        "nut_oilseed_raw"
+      ],
+      "ingredientDensity": 0.55,
+      "ingredientDensityMatch": {
+        "confidence": 0.95,
+        "rule": "Matched with hazelnut in density.csv"
+      },
+      "rawToCookedRatio": 1.0,
+      "rawToCookedRatioMatch": {
+        "confidence": 0.95,
+        "rule": "Matched with hazelnut in cooked_to_raw.csv"
+      },
+      "scenario": "reference",
+      "scopes": [
+        "food",
+        "food2"
+      ],
+      "transportCooling": "none",
+      "transportCoolingMatch": {
+        "confidence": 1.0,
+        "rule": "nut_oilseed → none (non-perishable)"
+      },
+      "visible": true
+    },
+    {
+      "alias": "hazelnut-eu-2025",
+      "cropGroup": "FRUITS A COQUES",
+      "defaultOrigin": "EuropeAndMaghreb",
+      "displayName": "Noisette avec coque UE (2025)",
+      "explain": "icv ue = icv IT",
+      "id": "dd6c5ca4-9d8a-4b4f-9d5e-fada405f7c39",
+      "inediblePart": 0.5,
+      "ingredientCategories": [
+        "nut_oilseed_raw"
+      ],
+      "ingredientDensity": 0.72,
+      "rawToCookedRatio": 1.0,
+      "scenario": "import",
+      "scopes": [
+        "food",
+        "food2"
+      ],
+      "transportCooling": "none",
+      "visible": true
+    },
+    {
+      "alias": "hazelnut-in-shell-eu",
+      "cropGroup": "FRUITS A COQUES",
+      "cropGroupMatch": {
+        "confidence": 0.95,
+        "rule": "matched 'noisettes' in cropgroup.csv"
+      },
+      "defaultOrigin": "EuropeAndMaghreb",
+      "displayName": "Noisettes en coquille UE",
+      "id": "7b3e1b2d-5a38-585a-92d5-ebd497e18463",
+      "inediblePart": 0.5,
+      "inediblePartMatch": {
+        "confidence": 1.0,
+        "rule": "with shell keyword found in Hazelnuts, in shell"
+      },
+      "ingredientCategories": [
+        "nut_oilseed_raw"
+      ],
+      "ingredientDensity": 0.55,
+      "ingredientDensityMatch": {
+        "confidence": 0.95,
+        "rule": "Matched with hazelnut in density.csv"
+      },
+      "rawToCookedRatio": 1.0,
+      "rawToCookedRatioMatch": {
+        "confidence": 0.95,
+        "rule": "Matched with hazelnut in cooked_to_raw.csv"
+      },
+      "scenario": "import",
+      "scopes": [
+        "food",
+        "food2"
+      ],
+      "transportCooling": "none",
+      "transportCoolingMatch": {
+        "confidence": 1.0,
+        "rule": "nut_oilseed → none (non-perishable)"
+      },
+      "visible": true
+    }
+  ],
+  "scopes": [
+    "food",
+    "food2"
+  ],
+  "source": "Agribalyse 3.2"
+}

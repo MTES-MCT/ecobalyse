@@ -1,0 +1,35 @@
+{
+  "activityName": "Camembert cheese, variant 2, CMAPS {GLO} U",
+  "categories": [
+    "ingredient",
+    "material"
+  ],
+  "displayName": "Camembert Origine Inconnue",
+  "id": "814519db-c292-40f6-bda4-9fa627a35def",
+  "metadata": [
+    {
+      "alias": "camembert-cheese-default",
+      "defaultOrigin": "OutOfEuropeAndMaghreb",
+      "displayName": "Camembert Origine Inconnue",
+      "id": "16154f33-6d58-479d-8bff-577c59a51278",
+      "inediblePart": 0,
+      "ingredientCategories": [
+        "dairy_product"
+      ],
+      "ingredientDensity": 1,
+      "rawToCookedRatio": 1,
+      "scenario": "import",
+      "scopes": [
+        "food",
+        "food2"
+      ],
+      "transportCooling": "always",
+      "visible": true
+    }
+  ],
+  "scopes": [
+    "food",
+    "food2"
+  ],
+  "source": "Ecobalyse"
+}

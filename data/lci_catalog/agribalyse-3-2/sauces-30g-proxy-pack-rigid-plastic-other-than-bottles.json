@@ -1,0 +1,24 @@
+{
+  "activityName": "Sauces, 30g | Packaging System, Proxy Pack, Rigid plastic, other than bottles {FR} U",
+  "categories": [
+    "material",
+    "packaging",
+    "packaging_type:flask"
+  ],
+  "displayName": "Flacon en plastique (PE) pour sauces - 30g - Proxy",
+  "id": "4a4935c8-f31f-4810-8fef-717adde4018e",
+  "metadata": [
+    {
+      "id": "5d95dfb6-844c-4746-a2db-56de94ae3185",
+      "scopes": [
+        "food2"
+      ]
+    }
+  ],
+  "scopes": [
+    "food",
+    "food2"
+  ],
+  "source": "Agribalyse 3.2",
+  "unit": "item"
+}

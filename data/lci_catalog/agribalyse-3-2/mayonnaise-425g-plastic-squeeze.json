@@ -1,0 +1,24 @@
+{
+  "activityName": "Mayonnaise, 425g | Packaging System, N0, All, Plastic squeeze {FR} U",
+  "categories": [
+    "material",
+    "packaging",
+    "packaging_type:flask"
+  ],
+  "displayName": "Flacon souple en plastique (PET) pour mayonnaise - 425g",
+  "id": "6bfbd705-f185-4989-8096-23d7a4d1d4a0",
+  "metadata": [
+    {
+      "id": "0cb61144-6701-49c9-b18a-3997d4682398",
+      "scopes": [
+        "food2"
+      ]
+    }
+  ],
+  "scopes": [
+    "food",
+    "food2"
+  ],
+  "source": "Agribalyse 3.2",
+  "unit": "item"
+}

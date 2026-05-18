@@ -1,0 +1,24 @@
+{
+  "activityName": "Fresh sausages, 330g | Packaging System, N0, All, APET Tray with Lid {FR} U",
+  "categories": [
+    "material",
+    "packaging",
+    "packaging_type:tray"
+  ],
+  "displayName": "Barquette en plastique (APET) pour saucisse fraîche - 250g à 330g",
+  "id": "ae3b4667-1f8e-4b48-849e-f5f3810faa27",
+  "metadata": [
+    {
+      "id": "6ae763c1-16e1-478e-8a97-6b1a1d77c017",
+      "scopes": [
+        "food2"
+      ]
+    }
+  ],
+  "scopes": [
+    "food",
+    "food2"
+  ],
+  "source": "Agribalyse 3.2",
+  "unit": "item"
+}

@@ -1,0 +1,96 @@
+{
+  "activityName": "Water extraction, container filling and grouping, at water factory {FR} - Adapted from WFLDB U",
+  "categories": [
+    "ingredient"
+  ],
+  "displayName": "Water extraction, container filling and grouping, at water factory (FR)",
+  "id": "94505f63-f1b7-5f74-933a-611ab0d8fa60",
+  "metadata": [
+    {
+      "alias": "spring-water-eu",
+      "cropGroup": "DIVERS",
+      "cropGroupMatch": {
+        "confidence": 1.0,
+        "rule": "beverage default"
+      },
+      "defaultOrigin": "EuropeAndMaghreb",
+      "displayName": "Eau de source UE",
+      "id": "2c2bec89-b05e-5493-a58e-b504fb81c6ea",
+      "inediblePart": 0.0,
+      "inediblePartMatch": {
+        "confidence": 1.0,
+        "rule": "beverage NOVA 1 default from food_type_inedible_part.csv"
+      },
+      "ingredientCategories": [
+        "misc"
+      ],
+      "ingredientDensity": 1.0,
+      "ingredientDensityMatch": {
+        "confidence": 0.95,
+        "rule": "Matched with Water in fao_density.csv"
+      },
+      "rawToCookedRatio": 1.0,
+      "rawToCookedRatioMatch": {
+        "confidence": 1.0,
+        "rule": "beverage default from food_type_cooked_to_raw.csv"
+      },
+      "scenario": "import",
+      "scopes": [
+        "food",
+        "food2"
+      ],
+      "transportCooling": "none",
+      "transportCoolingMatch": {
+        "confidence": 0.642,
+        "rule": "Matched with bread in transport_cooling.csv"
+      },
+      "visible": true
+    },
+    {
+      "alias": "spring-water-non-eu",
+      "cropGroup": "DIVERS",
+      "cropGroupMatch": {
+        "confidence": 1.0,
+        "rule": "beverage default"
+      },
+      "defaultOrigin": "OutOfEuropeAndMaghreb",
+      "displayName": "Eau de source HORS UE",
+      "id": "18b6919c-d41f-537d-97ab-ae2bef5ad9d7",
+      "inediblePart": 0.0,
+      "inediblePartMatch": {
+        "confidence": 1.0,
+        "rule": "beverage NOVA 1 default from food_type_inedible_part.csv"
+      },
+      "ingredientCategories": [
+        "misc"
+      ],
+      "ingredientDensity": 1.0,
+      "ingredientDensityMatch": {
+        "confidence": 0.95,
+        "rule": "Matched with Water in fao_density.csv"
+      },
+      "rawToCookedRatio": 1.0,
+      "rawToCookedRatioMatch": {
+        "confidence": 1.0,
+        "rule": "beverage default from food_type_cooked_to_raw.csv"
+      },
+      "scenario": "import",
+      "scopes": [
+        "food",
+        "food2"
+      ],
+      "transportCooling": "none",
+      "transportCoolingMatch": {
+        "confidence": 0.642,
+        "rule": "Matched with bread in transport_cooling.csv"
+      },
+      "visible": true
+    }
+  ],
+  "scopes": [
+    "food",
+    "food2"
+  ],
+  "source": "Agribalyse 3.2",
+  "unit": "L"
+}

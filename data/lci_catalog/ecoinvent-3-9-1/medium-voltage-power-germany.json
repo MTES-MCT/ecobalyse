@@ -1,0 +1,27 @@
+{
+  "activityName": "electricity, medium voltage//[DE] market for electricity, medium voltage",
+  "categories": [
+    "energy"
+  ],
+  "comment": "",
+  "displayName": "Electricité moyenne tension, Allemagne",
+  "elecMJ": 0,
+  "heatMJ": 0,
+  "id": "c16e7089-e58e-5721-a9b3-aae889103ab6",
+  "metadata": [
+    {
+      "id": "c1b8fb8e-e32f-4814-8bf9-43008a2510f2",
+      "scopes": [
+        "object",
+        "veli"
+      ]
+    }
+  ],
+  "scopes": [
+    "object",
+    "veli"
+  ],
+  "source": "Ecoinvent 3.9.1",
+  "unit": "kWh",
+  "waste": 0
+}

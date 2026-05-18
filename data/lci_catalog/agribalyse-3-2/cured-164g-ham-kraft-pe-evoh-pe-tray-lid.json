@@ -1,0 +1,24 @@
+{
+  "activityName": "Cured ham, 164g | Packaging System, N0, All, Kraft/PE/EVOH/PE tray with lid {FR} U",
+  "categories": [
+    "material",
+    "packaging",
+    "packaging_type:tray"
+  ],
+  "displayName": "Barquette (papier kraft/PE/EVOH/PE) pour jambon sec/cru - 164g",
+  "id": "0039ba49-3c34-4432-95c4-0d74aec1d192",
+  "metadata": [
+    {
+      "id": "a0c699d2-4fcf-4539-80a6-a88530f702e6",
+      "scopes": [
+        "food2"
+      ]
+    }
+  ],
+  "scopes": [
+    "food",
+    "food2"
+  ],
+  "source": "Agribalyse 3.2",
+  "unit": "item"
+}

@@ -1,0 +1,51 @@
+{
+  "activityName": "Tap water {Europe without Switzerland}| market for | Cut-off, S - Copied from Ecoinvent U",
+  "categories": [
+    "ingredient",
+    "material",
+    "material_type:other_food_items"
+  ],
+  "displayName": "Eau du robinet UE",
+  "id": "7e1fb122-1320-519c-8751-2d926eb435da",
+  "metadata": [
+    {
+      "alias": "tap-water-2025",
+      "defaultOrigin": "EuropeAndMaghreb",
+      "displayName": "Eau du robinet UE (2025)",
+      "id": "36b3ffec-51e7-4e26-b1b5-7d52554e0aa6",
+      "inediblePart": 0,
+      "ingredientCategories": [],
+      "ingredientDensity": 1.0,
+      "rawToCookedRatio": 1.0,
+      "scenario": "import",
+      "scopes": [
+        "food",
+        "food2"
+      ],
+      "transportCooling": "none",
+      "visible": true
+    },
+    {
+      "alias": "unknown-drink-2025",
+      "defaultOrigin": "EuropeAndMaghreb",
+      "displayName": "Autres eaux et autres boissons (non encore répertoriées) (2025)",
+      "id": "1bd78657-5169-4a53-aadd-881aedc7d3e7",
+      "inediblePart": 0,
+      "ingredientCategories": [],
+      "ingredientDensity": 1.0,
+      "rawToCookedRatio": 1.0,
+      "scenario": "import",
+      "scopes": [
+        "food",
+        "food2"
+      ],
+      "transportCooling": "none",
+      "visible": true
+    }
+  ],
+  "scopes": [
+    "food",
+    "food2"
+  ],
+  "source": "Agribalyse 3.2"
+}

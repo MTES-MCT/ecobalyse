@@ -1,0 +1,46 @@
+{
+  "categories": [
+    "transformation",
+    "material_type:offal"
+  ],
+  "comment": "Raw to cooked ratio defined in Agribalyse 3 methodology",
+  "displayName": "Cuisson des abats",
+  "elecMJ": 0,
+  "heatMJ": 0,
+  "id": "6a860b14-340b-466b-a488-67c17b3766fe",
+  "impacts": {
+    "acd": 0,
+    "cch": 0,
+    "etf": 0,
+    "etf-c": 0,
+    "fru": 0,
+    "fwe": 0,
+    "htc": 0,
+    "htc-c": 0,
+    "htn": 0,
+    "htn-c": 0,
+    "ior": 0,
+    "ldu": 0,
+    "mru": 0,
+    "ozd": 0,
+    "pco": 0,
+    "pma": 0,
+    "swe": 0,
+    "tre": 0,
+    "wtu": 0
+  },
+  "metadata": [
+    {
+      "id": "e4853321-772f-4a03-a9ba-6b3ddd77cac2",
+      "scopes": [
+        "food2"
+      ]
+    }
+  ],
+  "scopes": [
+    "food2"
+  ],
+  "source": "Custom",
+  "unit": "kg",
+  "waste": 0.27
+}

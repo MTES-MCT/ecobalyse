@@ -1,0 +1,24 @@
+{
+  "activityName": "Pasta, rice cooked ambient, 250g | Packaging System, N0, All, Stand up bag {FR} U",
+  "categories": [
+    "material",
+    "packaging",
+    "packaging_type:bag"
+  ],
+  "displayName": "Sachet stand up en plastique (PE) pour riz cuisinés - 250g",
+  "id": "f6b91149-62a8-409a-8b16-1062fca18a43",
+  "metadata": [
+    {
+      "id": "59f02a5b-1699-47ea-8028-6ca213ef3de3",
+      "scopes": [
+        "food2"
+      ]
+    }
+  ],
+  "scopes": [
+    "food",
+    "food2"
+  ],
+  "source": "Agribalyse 3.2",
+  "unit": "item"
+}

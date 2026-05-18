@@ -1,0 +1,24 @@
+{
+  "activityName": "Seafood cooked, 180g | Packaging System, N0, All, Plastic tray {FR} U",
+  "categories": [
+    "material",
+    "packaging",
+    "packaging_type:tray"
+  ],
+  "displayName": "Barquette en plastique (PET/PEBD) pour fruits de mer cuits - 180g",
+  "id": "b9dce851-c29f-4b42-9d8d-c2a0b53d3128",
+  "metadata": [
+    {
+      "id": "8d62ac27-ddf1-46ae-a3ed-822a4915b736",
+      "scopes": [
+        "food2"
+      ]
+    }
+  ],
+  "scopes": [
+    "food",
+    "food2"
+  ],
+  "source": "Agribalyse 3.2",
+  "unit": "item"
+}

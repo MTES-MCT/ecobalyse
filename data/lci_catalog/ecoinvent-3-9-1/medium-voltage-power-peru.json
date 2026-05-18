@@ -1,0 +1,26 @@
+{
+  "activityName": "electricity, medium voltage//[PE] market for electricity, medium voltage",
+  "categories": [
+    "energy"
+  ],
+  "comment": "Ancien identifiant (12/2024): debdaaba938a58ac1ab0131e47186092.",
+  "displayName": "Électricité moyenne tension, Pérou",
+  "elecMJ": 0,
+  "heatMJ": 0,
+  "id": "239bfc03-92d6-5a23-bba9-877ffb6d1757",
+  "metadata": [
+    {
+      "id": "545b9602-f81a-4bcd-a343-94627dc1a353",
+      "scopes": [
+        "food2"
+      ]
+    }
+  ],
+  "scopes": [
+    "textile",
+    "food2"
+  ],
+  "source": "Ecoinvent 3.9.1",
+  "unit": "kWh",
+  "waste": 0
+}

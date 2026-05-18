@@ -1,0 +1,39 @@
+{
+  "activityName": "Pig, conventional, national average, at farm gate {FR} U",
+  "categories": [
+    "ingredient",
+    "material",
+    "material_type:other_food_items"
+  ],
+  "displayName": "Porc conventionnel vivant FR",
+  "id": "02ea0433-a76b-5019-a740-b4e02165d987",
+  "metadata": [
+    {
+      "alias": "pig-conventional-fr-live",
+      "animalGroup1": "pig",
+      "animalGroup2": "pig",
+      "animalProduct": "meat",
+      "defaultOrigin": "France",
+      "displayName": "Porc conventionnel vivant FR",
+      "id": "3e6953d5-12a6-5fb6-b219-ae9f083b4ec2",
+      "inediblePart": 0,
+      "ingredientCategories": [
+        "animal_product"
+      ],
+      "ingredientDensity": 1.0,
+      "rawToCookedRatio": 1.0,
+      "scenario": "reference",
+      "scopes": [
+        "food",
+        "food2"
+      ],
+      "transportCooling": "always",
+      "visible": false
+    }
+  ],
+  "scopes": [
+    "food",
+    "food2"
+  ],
+  "source": "Agribalyse 3.2"
+}

@@ -1,0 +1,24 @@
+{
+  "activityName": "Mayonnaise, 470g | Packaging System, N0, All, Glass jar {FR} U",
+  "categories": [
+    "material",
+    "packaging",
+    "packaging_type:jar"
+  ],
+  "displayName": "Bocal en verre pour mayonnaise - 470g",
+  "id": "37392563-16e7-4c36-9051-5868792a48bb",
+  "metadata": [
+    {
+      "id": "6f3d6735-1e5b-48fc-ac66-7526fa6ab34e",
+      "scopes": [
+        "food2"
+      ]
+    }
+  ],
+  "scopes": [
+    "food",
+    "food2"
+  ],
+  "source": "Agribalyse 3.2",
+  "unit": "item"
+}

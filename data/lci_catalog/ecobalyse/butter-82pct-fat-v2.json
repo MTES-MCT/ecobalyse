@@ -1,0 +1,35 @@
+{
+  "activityName": "Butter, 82pct fat, variant 2, CMAPS {GLO} U",
+  "categories": [
+    "ingredient",
+    "material"
+  ],
+  "displayName": "Beurre à 82% MG ou huile de beurre Origine Inconnue",
+  "id": "66c53478-f219-4c5a-984f-7bf6c663ffde",
+  "metadata": [
+    {
+      "alias": "butter-82pct-fat-default",
+      "defaultOrigin": "OutOfEuropeAndMaghreb",
+      "displayName": "Beurre à 82% MG ou huile de beurre Origine Inconnue",
+      "id": "9f7ca704-e3b6-4ad9-b376-6c0662ebeeec",
+      "inediblePart": 0,
+      "ingredientCategories": [
+        "dairy_product"
+      ],
+      "ingredientDensity": 1,
+      "rawToCookedRatio": 1,
+      "scenario": "import",
+      "scopes": [
+        "food",
+        "food2"
+      ],
+      "transportCooling": "always",
+      "visible": true
+    }
+  ],
+  "scopes": [
+    "food",
+    "food2"
+  ],
+  "source": "Ecobalyse"
+}

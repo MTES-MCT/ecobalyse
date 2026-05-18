@@ -1,0 +1,38 @@
+{
+  "activityName": "Impression fixé-lavé, procédé représentatif, traitement moyen des eaux usées",
+  "categories": [
+    "transformation"
+  ],
+  "comment": "Données provenant de Base Impacts 2.01. Ancien identifiant (12/2024): 0810b8e5-a3d9-4607-bccc-83d112573260.",
+  "displayName": "Impression fixé-lavé, procédé représentatif, traitement moyen des eaux usées",
+  "elecMJ": 5.22,
+  "heatMJ": 8.72,
+  "id": "5c21e378-b941-57f7-98c9-67345847dbda",
+  "impacts": {
+    "acd": 0.000692673,
+    "cch": 0.0377105,
+    "etf": 0,
+    "etf-c": 0,
+    "fru": 0.624761,
+    "fwe": 9.07767e-05,
+    "htc": 0,
+    "htc-c": 0,
+    "htn": 0,
+    "htn-c": 0,
+    "ior": 0.00143026,
+    "ldu": 0.234857,
+    "mru": 5.70619e-07,
+    "ozd": 3.79884e-09,
+    "pco": 0.000185692,
+    "pma": 5.63363e-09,
+    "swe": 0.00142631,
+    "tre": 0.000133536,
+    "wtu": 0
+  },
+  "scopes": [
+    "textile"
+  ],
+  "source": "Custom",
+  "unit": "m2",
+  "waste": 0
+}

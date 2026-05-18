@@ -1,0 +1,24 @@
+{
+  "activityName": "Fish products sardine, ambient, 135g | Packaging System, N0, All, Steel can {FR} U",
+  "categories": [
+    "material",
+    "packaging",
+    "packaging_type:box"
+  ],
+  "displayName": "Boîter en acier imprimée pour sardine, ambiant - 135g",
+  "id": "37d11b2d-0002-4ae5-a06b-75dc8586b24d",
+  "metadata": [
+    {
+      "id": "4fd56be8-c211-4ef5-912c-ceabb43d93cf",
+      "scopes": [
+        "food2"
+      ]
+    }
+  ],
+  "scopes": [
+    "food",
+    "food2"
+  ],
+  "source": "Agribalyse 3.2",
+  "unit": "item"
+}

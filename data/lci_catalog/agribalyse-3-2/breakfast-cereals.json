@@ -1,0 +1,37 @@
+{
+  "activityName": "Breakfast cereals, rich in fibre, with chocolate, fortified with vitamins and chemical elements, recipe, at plant {FR} U",
+  "categories": [
+    "ingredient",
+    "material",
+    "material_type:other_food_items"
+  ],
+  "displayName": "Mélange de céréales FR",
+  "id": "6723a379-33f1-5571-ad41-5fb83ed6fd41",
+  "metadata": [
+    {
+      "alias": "breakfast-cereals-2025",
+      "cropGroup": "AUTRES CEREALES",
+      "defaultOrigin": "France",
+      "displayName": "Mélange de céréales FR (2025)",
+      "id": "1508af02-c164-4189-9fac-0057566e0950",
+      "inediblePart": 0,
+      "ingredientCategories": [
+        "grain_processed"
+      ],
+      "ingredientDensity": 0.72,
+      "rawToCookedRatio": 2.259,
+      "scenario": "reference",
+      "scopes": [
+        "food",
+        "food2"
+      ],
+      "transportCooling": "none",
+      "visible": true
+    }
+  ],
+  "scopes": [
+    "food",
+    "food2"
+  ],
+  "source": "Agribalyse 3.2"
+}

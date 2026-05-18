@@ -1,0 +1,24 @@
+{
+  "activityName": "Cooked ham, 224g | Packaging System, N0, All, Kraft/PE/EVOH/PE tray with lid {FR} U",
+  "categories": [
+    "material",
+    "packaging",
+    "packaging_type:tray"
+  ],
+  "displayName": "Barquette (papier kraft/PE/EVOH/PE) pour jambon cuit - 224g",
+  "id": "6bc3e083-e989-4bb0-bf49-99a8e68694a4",
+  "metadata": [
+    {
+      "id": "0f39b3ce-45ba-4311-bcae-5ca6f6d8597e",
+      "scopes": [
+        "food2"
+      ]
+    }
+  ],
+  "scopes": [
+    "food",
+    "food2"
+  ],
+  "source": "Agribalyse 3.2",
+  "unit": "item"
+}

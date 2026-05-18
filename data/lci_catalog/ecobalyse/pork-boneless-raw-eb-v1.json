@@ -1,0 +1,36 @@
+{
+  "activityName": "Pork, boneless raw, modified variant 1, CMAPS {GLO} U",
+  "categories": [
+    "ingredient",
+    "material"
+  ],
+  "displayName": "Pièces de porc, désossée, crue (poitrine, longe, jarret, cote, rouelle, carre, filet, roti, palette, jambonneau, escalope, travers, échine) FR BIO",
+  "id": "feab8fda-bdef-4dc8-a9c1-e274fe4ea1e0",
+  "metadata": [
+    {
+      "alias": "pork-boneless-raw-fr-organic",
+      "defaultOrigin": "France",
+      "displayName": "Pièces de porc, désossée, crue (poitrine, longe, jarret, cote, rouelle, carre, filet, roti, palette, jambonneau, escalope, travers, échine) FR BIO",
+      "id": "5d7758f9-8cc7-45aa-a312-00a289b467dc",
+      "inediblePart": 0,
+      "ingredientCategories": [
+        "animal_product",
+        "organic"
+      ],
+      "ingredientDensity": 1,
+      "rawToCookedRatio": 1,
+      "scenario": "organic",
+      "scopes": [
+        "food",
+        "food2"
+      ],
+      "transportCooling": "always",
+      "visible": false
+    }
+  ],
+  "scopes": [
+    "food",
+    "food2"
+  ],
+  "source": "Ecobalyse"
+}

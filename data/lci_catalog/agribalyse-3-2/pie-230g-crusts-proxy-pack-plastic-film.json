@@ -1,0 +1,24 @@
+{
+  "activityName": "Pie crusts, 230g | Packaging System, Proxy Pack, Plastic film {FR} U",
+  "categories": [
+    "material",
+    "packaging",
+    "packaging_type:bag"
+  ],
+  "displayName": "Sachet en plastique (PE) pour pâte à tarte - 230g - Proxy",
+  "id": "82220618-7490-4e5d-953f-1fafec1b8d07",
+  "metadata": [
+    {
+      "id": "3661094f-a7c3-45d8-a77f-09b4430ce956",
+      "scopes": [
+        "food2"
+      ]
+    }
+  ],
+  "scopes": [
+    "food",
+    "food2"
+  ],
+  "source": "Agribalyse 3.2",
+  "unit": "item"
+}

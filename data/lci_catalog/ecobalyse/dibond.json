@@ -1,0 +1,28 @@
+{
+  "activityName": "Aluminium+LDPE panel, RER",
+  "categories": [
+    "material",
+    "material_type:composites"
+  ],
+  "comment": "2.9kg/m² panel ; 2*0.3mm (1.62kg/m²) Aluminium + 1.29kg/m² LDPE. Source: 3A Composites GmbH)",
+  "displayName": "Panneau Aluminium+PEBD 2mm",
+  "elecMJ": 0,
+  "heatMJ": 0,
+  "id": "5864bb6f-ea66-4e46-8e15-c563fb42a1bd",
+  "metadata": [
+    {
+      "id": "b801de8a-9987-4d09-9363-08b8e713c685",
+      "scopes": [
+        "object",
+        "veli"
+      ]
+    }
+  ],
+  "scopes": [
+    "object",
+    "veli"
+  ],
+  "source": "Ecobalyse",
+  "unit": "kg",
+  "waste": 0
+}

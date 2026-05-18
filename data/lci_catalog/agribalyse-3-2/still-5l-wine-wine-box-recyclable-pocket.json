@@ -1,0 +1,24 @@
+{
+  "activityName": "Still wine, 5L | Packaging System, N0, All, Wine box 5L with recyclable pocket {FR} U",
+  "categories": [
+    "material",
+    "packaging",
+    "packaging_type:bag"
+  ],
+  "displayName": "Bag in box avec poche recyclable pour vin tranquille - 5L",
+  "id": "acf10bc2-11ae-47b3-85a6-267c9c491286",
+  "metadata": [
+    {
+      "id": "5d8edc18-d2ff-4024-bd45-b114d58fbfe7",
+      "scopes": [
+        "food2"
+      ]
+    }
+  ],
+  "scopes": [
+    "food",
+    "food2"
+  ],
+  "source": "Agribalyse 3.2",
+  "unit": "item"
+}

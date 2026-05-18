@@ -1,0 +1,26 @@
+{
+  "activityName": "Battery, lead acid, rechargeable, stationary {RoW}| battery production, lead acid, rechargeable, stationary | Cut-off, U",
+  "categories": [
+    "material",
+    "material_type:battery_cell"
+  ],
+  "comment": "densité energétique : 33.3 kWh/kg",
+  "displayName": "Batterie Plomb",
+  "elecMJ": 0,
+  "heatMJ": 0,
+  "id": "baa00e99-2c18-5d16-bbfc-512c4de77b65",
+  "metadata": [
+    {
+      "id": "f92ed520-3845-4a5a-8745-e87fd6863f03",
+      "scopes": [
+        "veli"
+      ]
+    }
+  ],
+  "scopes": [
+    "veli"
+  ],
+  "source": "Ecoinvent 3.11",
+  "unit": "kg",
+  "waste": 0
+}

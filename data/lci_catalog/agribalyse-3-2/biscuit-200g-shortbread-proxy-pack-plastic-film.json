@@ -1,0 +1,24 @@
+{
+  "activityName": "Biscuit shortbread, 200g | Packaging System, Proxy Pack, Plastic film {FR} U",
+  "categories": [
+    "material",
+    "packaging",
+    "packaging_type:bag"
+  ],
+  "displayName": "Sachet en plastique (PP) pour sablés - 200g - Proxy",
+  "id": "6fe50d4e-b32a-4b72-bc93-8a9fce071ece",
+  "metadata": [
+    {
+      "id": "e95db79a-42b7-4acd-8044-5e361939f11d",
+      "scopes": [
+        "food2"
+      ]
+    }
+  ],
+  "scopes": [
+    "food",
+    "food2"
+  ],
+  "source": "Agribalyse 3.2",
+  "unit": "item"
+}

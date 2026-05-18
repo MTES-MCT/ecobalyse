@@ -1,0 +1,24 @@
+{
+  "activityName": "Breaded products, 1000g | Packaging System, N0, All, APET/PE tray with lid {FR} U",
+  "categories": [
+    "material",
+    "packaging",
+    "packaging_type:tray"
+  ],
+  "displayName": "Barquette en plastique (APET/PE) pour produit pané - 1000g",
+  "id": "c22456c3-c538-4a07-abd1-6f70cbd18525",
+  "metadata": [
+    {
+      "id": "0684c45e-417c-42ba-b810-5fcb85adb0a3",
+      "scopes": [
+        "food2"
+      ]
+    }
+  ],
+  "scopes": [
+    "food",
+    "food2"
+  ],
+  "source": "Agribalyse 3.2",
+  "unit": "item"
+}

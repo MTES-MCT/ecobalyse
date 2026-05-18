@@ -1,0 +1,597 @@
+{
+  "ARBORICULTURE": {
+    "cropDiversity": {
+      "import": 4.0,
+      "organic": null,
+      "reference": null
+    },
+    "hedges": {
+      "import": 0.0,
+      "organic": 120.0,
+      "reference": 120.0
+    },
+    "plotSize": {
+      "import": 9.0,
+      "organic": 3.0,
+      "reference": 3.0
+    }
+  },
+  "AUTRES CEREALES": {
+    "cropDiversity": {
+      "import": 4.0,
+      "organic": 8.965,
+      "reference": 6.768
+    },
+    "hedges": {
+      "import": 0.0,
+      "organic": 71.0,
+      "reference": 62.0
+    },
+    "plotSize": {
+      "import": 9.0,
+      "organic": 3.0,
+      "reference": 3.0
+    }
+  },
+  "AUTRES CULTURES INDUSTRIELLES": {
+    "cropDiversity": {
+      "import": 4.0,
+      "organic": 9.196,
+      "reference": 5.745
+    },
+    "hedges": {
+      "import": 0.0,
+      "organic": 53.0,
+      "reference": 13.0
+    },
+    "plotSize": {
+      "import": 9.0,
+      "organic": 1.0,
+      "reference": 6.0
+    }
+  },
+  "AUTRES GELS": {
+    "cropDiversity": {
+      "import": 4.0,
+      "organic": null,
+      "reference": null
+    },
+    "hedges": {
+      "import": 0.0,
+      "organic": 120.0,
+      "reference": 120.0
+    },
+    "plotSize": {
+      "import": 9.0,
+      "organic": 3.0,
+      "reference": 3.0
+    }
+  },
+  "AUTRES OLEAGINEUX": {
+    "cropDiversity": {
+      "import": 4.0,
+      "organic": 10.736,
+      "reference": 7.119
+    },
+    "hedges": {
+      "import": 0.0,
+      "organic": 49.0,
+      "reference": 37.0
+    },
+    "plotSize": {
+      "import": 9.0,
+      "organic": 5.0,
+      "reference": 4.0
+    }
+  },
+  "BLE TENDRE": {
+    "cropDiversity": {
+      "import": 4.0,
+      "organic": 9.9,
+      "reference": 6.493
+    },
+    "hedges": {
+      "import": 0.0,
+      "organic": 47.0,
+      "reference": 39.0
+    },
+    "plotSize": {
+      "import": 9.0,
+      "organic": 4.0,
+      "reference": 5.0
+    }
+  },
+  "CANNE A SUCRE": {
+    "cropDiversity": {
+      "import": 4.0,
+      "organic": null,
+      "reference": null
+    },
+    "hedges": {
+      "import": 0.0,
+      "organic": 63.0,
+      "reference": 63.0
+    },
+    "plotSize": {
+      "import": null,
+      "organic": null,
+      "reference": null
+    }
+  },
+  "COLZA": {
+    "cropDiversity": {
+      "import": 4.0,
+      "organic": 9.926,
+      "reference": 6.516
+    },
+    "hedges": {
+      "import": 0.0,
+      "organic": 56.0,
+      "reference": 32.0
+    },
+    "plotSize": {
+      "import": 9.0,
+      "organic": 4.0,
+      "reference": 6.0
+    }
+  },
+  "DIVERS": {
+    "cropDiversity": {
+      "import": 4.0,
+      "organic": 6.637,
+      "reference": 6.124
+    },
+    "hedges": {
+      "import": 0.0,
+      "organic": 5.0,
+      "reference": 5.0
+    },
+    "plotSize": {
+      "import": 9.0,
+      "organic": 5.0,
+      "reference": 5.0
+    }
+  },
+  "ESTIVES LANDES": {
+    "cropDiversity": {
+      "import": 4.0,
+      "organic": 5.227,
+      "reference": 3.503
+    },
+    "hedges": {
+      "import": 0.0,
+      "organic": 14.0,
+      "reference": 8.0
+    },
+    "plotSize": {
+      "import": 9.0,
+      "organic": 5.0,
+      "reference": 7.0
+    }
+  },
+  "FOURRAGE": {
+    "cropDiversity": {
+      "import": 4.0,
+      "organic": 8.776,
+      "reference": 6.683
+    },
+    "hedges": {
+      "import": 0.0,
+      "organic": 71.0,
+      "reference": 70.0
+    },
+    "plotSize": {
+      "import": 9.0,
+      "organic": 3.0,
+      "reference": 3.0
+    }
+  },
+  "FRUITS A COQUES": {
+    "cropDiversity": {
+      "import": 4.0,
+      "organic": 7.276,
+      "reference": 7.484
+    },
+    "hedges": {
+      "import": 0.0,
+      "organic": 42.0,
+      "reference": 42.0
+    },
+    "plotSize": {
+      "import": 9.0,
+      "organic": 1.0,
+      "reference": 1.0
+    }
+  },
+  "GEL (surfaces gelées sans production)": {
+    "cropDiversity": {
+      "import": 4.0,
+      "organic": 10.102,
+      "reference": 7.297
+    },
+    "hedges": {
+      "import": 0.0,
+      "organic": 42.0,
+      "reference": 42.0
+    },
+    "plotSize": {
+      "import": 9.0,
+      "organic": 5.0,
+      "reference": 5.0
+    }
+  },
+  "GEL INDUSTRIEL": {
+    "cropDiversity": {
+      "import": 4.0,
+      "organic": 6.851,
+      "reference": 5.832
+    },
+    "hedges": {
+      "import": 0.0,
+      "organic": 63.0,
+      "reference": 63.0
+    },
+    "plotSize": {
+      "import": 9.0,
+      "organic": 8.5,
+      "reference": 8.5
+    }
+  },
+  "LEGUMES-FLEURS": {
+    "cropDiversity": {
+      "import": 4.0,
+      "organic": 10.301,
+      "reference": 6.298
+    },
+    "hedges": {
+      "import": 0.0,
+      "organic": 81.0,
+      "reference": 35.0
+    },
+    "plotSize": {
+      "import": 9.0,
+      "organic": 1.0,
+      "reference": 3.0
+    }
+  },
+  "LEGUMINEUSES A GRAIN": {
+    "cropDiversity": {
+      "import": 4.0,
+      "organic": 11.483,
+      "reference": 6.952
+    },
+    "hedges": {
+      "import": 0.0,
+      "organic": 46.0,
+      "reference": 29.0
+    },
+    "plotSize": {
+      "import": 9.0,
+      "organic": 4.0,
+      "reference": 4.0
+    }
+  },
+  "MAIS GRAIN ET ENSILAGE": {
+    "cropDiversity": {
+      "import": 4.0,
+      "organic": 8.544,
+      "reference": 6.483
+    },
+    "hedges": {
+      "import": 0.0,
+      "organic": 78.0,
+      "reference": 68.0
+    },
+    "plotSize": {
+      "import": 9.0,
+      "organic": 4.0,
+      "reference": 4.0
+    }
+  },
+  "OLIVIERS": {
+    "cropDiversity": {
+      "import": 4.0,
+      "organic": 6.406,
+      "reference": 6.374
+    },
+    "hedges": {
+      "import": 0.0,
+      "organic": 61.0,
+      "reference": 68.0
+    },
+    "plotSize": {
+      "import": 9.0,
+      "organic": 1.0,
+      "reference": 1.0
+    }
+  },
+  "ORGE": {
+    "cropDiversity": {
+      "import": 4.0,
+      "organic": 9.693,
+      "reference": 6.64
+    },
+    "hedges": {
+      "import": 0.0,
+      "organic": 56.0,
+      "reference": 36.0
+    },
+    "plotSize": {
+      "import": 9.0,
+      "organic": 3.0,
+      "reference": 5.0
+    }
+  },
+  "PLANTES A FIBRES": {
+    "cropDiversity": {
+      "import": 4.0,
+      "organic": 9.601,
+      "reference": 5.441
+    },
+    "hedges": {
+      "import": 0.0,
+      "organic": 20.0,
+      "reference": 20.0
+    },
+    "plotSize": {
+      "import": 9.0,
+      "organic": 9.0,
+      "reference": 9.0
+    }
+  },
+  "PRAIRIES PERMANENTES": {
+    "cropDiversity": {
+      "import": 4.0,
+      "organic": 5.537,
+      "reference": 4.691
+    },
+    "hedges": {
+      "import": 0.0,
+      "organic": 112.0,
+      "reference": 107.0
+    },
+    "plotSize": {
+      "import": 9.0,
+      "organic": 2.0,
+      "reference": 3.0
+    }
+  },
+  "PRAIRIES TEMPORAIRES": {
+    "cropDiversity": {
+      "import": 4.0,
+      "organic": 7.32,
+      "reference": 6.48
+    },
+    "hedges": {
+      "import": 0.0,
+      "organic": 120.0,
+      "reference": 114.0
+    },
+    "plotSize": {
+      "import": 9.0,
+      "organic": 2.0,
+      "reference": 2.0
+    }
+  },
+  "PROTEAGINEUX": {
+    "cropDiversity": {
+      "import": 4.0,
+      "organic": 10.423,
+      "reference": 6.961
+    },
+    "hedges": {
+      "import": 0.0,
+      "organic": 62.0,
+      "reference": 33.0
+    },
+    "plotSize": {
+      "import": 9.0,
+      "organic": 4.0,
+      "reference": 5.0
+    }
+  },
+  "RIZ": {
+    "cropDiversity": {
+      "import": 4.0,
+      "organic": 6.774,
+      "reference": 8.428
+    },
+    "hedges": {
+      "import": 0.0,
+      "organic": 19.0,
+      "reference": 16.0
+    },
+    "plotSize": {
+      "import": 9.0,
+      "organic": 7.0,
+      "reference": 8.0
+    }
+  },
+  "SEMENCES": {
+    "cropDiversity": {
+      "import": 4.0,
+      "organic": null,
+      "reference": null
+    },
+    "hedges": {
+      "import": 0.0,
+      "organic": 45.0,
+      "reference": 45.0
+    },
+    "plotSize": {
+      "import": 9.0,
+      "organic": 3.0,
+      "reference": 3.0
+    }
+  },
+  "TOURNESOL": {
+    "cropDiversity": {
+      "import": 4.0,
+      "organic": 11.036,
+      "reference": 7.903
+    },
+    "hedges": {
+      "import": 0.0,
+      "organic": 54.0,
+      "reference": 40.0
+    },
+    "plotSize": {
+      "import": 9.0,
+      "organic": 5.0,
+      "reference": 5.0
+    }
+  },
+  "VERGERS": {
+    "cropDiversity": {
+      "import": 4.0,
+      "organic": 8.128,
+      "reference": 8.424
+    },
+    "hedges": {
+      "import": 0.0,
+      "organic": 100.0,
+      "reference": 61.0
+    },
+    "plotSize": {
+      "import": 9.0,
+      "organic": 1.0,
+      "reference": 1.0
+    }
+  },
+  "VIGNES": {
+    "cropDiversity": {
+      "import": 4.0,
+      "organic": 5.402,
+      "reference": 6.303
+    },
+    "hedges": {
+      "import": 0.0,
+      "organic": 40.0,
+      "reference": 35.0
+    },
+    "plotSize": {
+      "import": 9.0,
+      "organic": 1.0,
+      "reference": 1.0
+    }
+  },
+  "cattle": {
+    "cropDiversity": {
+      "import": null,
+      "organic": null,
+      "reference": null
+    },
+    "hedges": {
+      "import": null,
+      "organic": null,
+      "reference": null
+    },
+    "plotSize": {
+      "import": null,
+      "organic": null,
+      "reference": null
+    }
+  },
+  "equid": {
+    "cropDiversity": {
+      "import": null,
+      "organic": null,
+      "reference": null
+    },
+    "hedges": {
+      "import": null,
+      "organic": null,
+      "reference": null
+    },
+    "plotSize": {
+      "import": null,
+      "organic": null,
+      "reference": null
+    }
+  },
+  "goat": {
+    "cropDiversity": {
+      "import": null,
+      "organic": null,
+      "reference": null
+    },
+    "hedges": {
+      "import": null,
+      "organic": null,
+      "reference": null
+    },
+    "plotSize": {
+      "import": null,
+      "organic": null,
+      "reference": null
+    }
+  },
+  "pig": {
+    "cropDiversity": {
+      "import": null,
+      "organic": null,
+      "reference": null
+    },
+    "hedges": {
+      "import": null,
+      "organic": null,
+      "reference": null
+    },
+    "plotSize": {
+      "import": null,
+      "organic": null,
+      "reference": null
+    }
+  },
+  "poultry": {
+    "cropDiversity": {
+      "import": null,
+      "organic": null,
+      "reference": null
+    },
+    "hedges": {
+      "import": null,
+      "organic": null,
+      "reference": null
+    },
+    "plotSize": {
+      "import": null,
+      "organic": null,
+      "reference": null
+    }
+  },
+  "rabbit": {
+    "cropDiversity": {
+      "import": null,
+      "organic": null,
+      "reference": null
+    },
+    "hedges": {
+      "import": null,
+      "organic": null,
+      "reference": null
+    },
+    "plotSize": {
+      "import": null,
+      "organic": null,
+      "reference": null
+    }
+  },
+  "sheep": {
+    "cropDiversity": {
+      "import": null,
+      "organic": null,
+      "reference": null
+    },
+    "hedges": {
+      "import": null,
+      "organic": null,
+      "reference": null
+    },
+    "plotSize": {
+      "import": null,
+      "organic": null,
+      "reference": null
+    }
+  }
+}

@@ -1,0 +1,26 @@
+{
+  "activityName": "Battery cell, Li-ion, NMC811 {CN}| battery cell production, Li-ion, NMC811 | Cut-off, U",
+  "categories": [
+    "material",
+    "material_type:battery_cell"
+  ],
+  "comment": "densité energétique : 6.7 kWh/kg",
+  "displayName": "Batterie Li-ion, NMC811",
+  "elecMJ": 0,
+  "heatMJ": 0,
+  "id": "701a84f7-2fef-57f0-9d83-1b1374a95911",
+  "metadata": [
+    {
+      "id": "c69b94af-c09c-480e-bc89-a81546ff87d3",
+      "scopes": [
+        "veli"
+      ]
+    }
+  ],
+  "scopes": [
+    "veli"
+  ],
+  "source": "Ecoinvent 3.11",
+  "unit": "kg",
+  "waste": 0
+}

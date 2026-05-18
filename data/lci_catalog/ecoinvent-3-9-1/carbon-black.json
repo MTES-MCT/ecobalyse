@@ -1,0 +1,27 @@
+{
+  "activityName": "carbon black//[GLO] carbon black production",
+  "categories": [
+    "material"
+  ],
+  "comment": "",
+  "displayName": "Noir de carbone",
+  "elecMJ": 0,
+  "heatMJ": 0,
+  "id": "7abdc9ef-0613-53be-8b75-c5e37c867060",
+  "metadata": [
+    {
+      "id": "fa3e3c43-1093-427a-a897-433e51e8ab62",
+      "scopes": [
+        "object",
+        "veli"
+      ]
+    }
+  ],
+  "scopes": [
+    "object",
+    "veli"
+  ],
+  "source": "Ecoinvent 3.9.1",
+  "unit": "kg",
+  "waste": 0
+}

@@ -1,0 +1,36 @@
+{
+  "activityName": "Barley flour, import WFLDB, CMAPS {FR} U",
+  "categories": [
+    "ingredient",
+    "material"
+  ],
+  "displayName": "Farine d'orge Origine Inconnue",
+  "id": "12712421-5454-400e-82b5-9e4dcb66d650",
+  "metadata": [
+    {
+      "alias": "barley-flour-default",
+      "cropGroup": "ORGE",
+      "defaultOrigin": "OutOfEuropeAndMaghreb",
+      "displayName": "Farine d'orge Origine Inconnue",
+      "id": "ad8c9420-d051-4151-8eef-bdbb02604809",
+      "inediblePart": 0,
+      "ingredientCategories": [
+        "grain_processed"
+      ],
+      "ingredientDensity": 1,
+      "rawToCookedRatio": 1,
+      "scenario": "import",
+      "scopes": [
+        "food",
+        "food2"
+      ],
+      "transportCooling": "always",
+      "visible": true
+    }
+  ],
+  "scopes": [
+    "food",
+    "food2"
+  ],
+  "source": "Ecobalyse"
+}

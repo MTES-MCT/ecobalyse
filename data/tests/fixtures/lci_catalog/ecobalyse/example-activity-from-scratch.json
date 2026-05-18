@@ -1,0 +1,21 @@
+{
+  "activityName": "Example activity from scratch",
+  "categories": [],
+  "comment": "",
+  "displayName": "Example activity from scratch",
+  "id": "c651e52a-3965-54af-a216-fb5e90a80d8e",
+  "metadata": [
+    {
+      "id": "a1b2c3d4-e5f6-7890-abcd-ef1234567890",
+      "scopes": [
+        "object"
+      ]
+    }
+  ],
+  "scopes": [
+    "object"
+  ],
+  "source": "Ecobalyse",
+  "unit": "kg",
+  "waste": 0
+}

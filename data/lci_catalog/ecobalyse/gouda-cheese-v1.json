@@ -1,0 +1,35 @@
+{
+  "activityName": "Gouda cheese, variant 1, CMAPS {GLO} U",
+  "categories": [
+    "ingredient",
+    "material"
+  ],
+  "displayName": "Gouda FR",
+  "id": "8a70129f-4515-4482-a595-d97c0fadf984",
+  "metadata": [
+    {
+      "alias": "gouda-cheese-fr",
+      "defaultOrigin": "France",
+      "displayName": "Gouda FR",
+      "id": "7bd4b612-bddd-4daa-8fc2-3b6f361e8ed1",
+      "inediblePart": 0,
+      "ingredientCategories": [
+        "dairy_product"
+      ],
+      "ingredientDensity": 1,
+      "rawToCookedRatio": 1,
+      "scenario": "reference",
+      "scopes": [
+        "food",
+        "food2"
+      ],
+      "transportCooling": "always",
+      "visible": true
+    }
+  ],
+  "scopes": [
+    "food",
+    "food2"
+  ],
+  "source": "Ecobalyse"
+}

@@ -1,0 +1,35 @@
+{
+  "activityName": "Feta type cheese, cow milk, variant 2, CMAPS {GLO} U",
+  "categories": [
+    "ingredient",
+    "material"
+  ],
+  "displayName": "Fromage type feta, au lait de vache Origine Inconnue",
+  "id": "972a9793-b74b-4f4a-b9c2-98d4b84a5b03",
+  "metadata": [
+    {
+      "alias": "feta-type-cheese-cow-milk-default",
+      "defaultOrigin": "OutOfEuropeAndMaghreb",
+      "displayName": "Fromage type feta, au lait de vache Origine Inconnue",
+      "id": "5328bd83-450c-4844-944f-d4af860829a0",
+      "inediblePart": 0,
+      "ingredientCategories": [
+        "dairy_product"
+      ],
+      "ingredientDensity": 1,
+      "rawToCookedRatio": 1,
+      "scenario": "import",
+      "scopes": [
+        "food",
+        "food2"
+      ],
+      "transportCooling": "always",
+      "visible": true
+    }
+  ],
+  "scopes": [
+    "food",
+    "food2"
+  ],
+  "source": "Ecobalyse"
+}

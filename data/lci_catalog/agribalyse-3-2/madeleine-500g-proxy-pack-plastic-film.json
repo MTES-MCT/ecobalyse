@@ -1,0 +1,24 @@
+{
+  "activityName": "Madeleine, 500g | Packaging System, Proxy Pack, Plastic film {FR} U",
+  "categories": [
+    "material",
+    "packaging",
+    "packaging_type:bag"
+  ],
+  "displayName": "Sachet en plastique (PE) pour madeleine - 500g - Proxy",
+  "id": "5d1d28a6-1b39-4c18-8cba-1ea051155889",
+  "metadata": [
+    {
+      "id": "1c53b6fc-f8bf-4bc6-b902-d72f3a0a4350",
+      "scopes": [
+        "food2"
+      ]
+    }
+  ],
+  "scopes": [
+    "food",
+    "food2"
+  ],
+  "source": "Agribalyse 3.2",
+  "unit": "item"
+}

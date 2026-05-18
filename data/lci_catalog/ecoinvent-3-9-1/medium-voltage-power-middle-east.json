@@ -1,0 +1,29 @@
+{
+  "activityName": "electricity, medium voltage//[RME] market group for electricity, medium voltage",
+  "categories": [
+    "energy"
+  ],
+  "comment": "Ancien identifiant (12/2024): elec-medium-region-middle-east.",
+  "displayName": "Électricité moyenne tension, Moyen-Orient",
+  "elecMJ": 0,
+  "heatMJ": 0,
+  "id": "fe6437fa-5d9a-5a7f-a2a8-430066232e5c",
+  "metadata": [
+    {
+      "id": "226fd97a-34e8-4568-8593-413213336262",
+      "scopes": [
+        "object",
+        "food2"
+      ]
+    }
+  ],
+  "scopes": [
+    "textile",
+    "object",
+    "veli",
+    "food2"
+  ],
+  "source": "Ecoinvent 3.9.1",
+  "unit": "kWh",
+  "waste": 0
+}

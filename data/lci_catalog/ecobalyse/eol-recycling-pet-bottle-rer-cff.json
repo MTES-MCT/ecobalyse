@@ -1,0 +1,28 @@
+{
+  "activityName": "pet bottle EoL recycling, RER, CFF",
+  "categories": [
+    "end-of-life",
+    "material_type:pet"
+  ],
+  "comment": "According to CFF: A=0.5, Q=0.95",
+  "displayName": "Recyclage de PET rigide, CFF",
+  "elecMJ": 0,
+  "heatMJ": 0,
+  "id": "2a42fa9d-4454-4976-b6ce-f218e82d6c65",
+  "metadata": [
+    {
+      "id": "2dc2b8d5-db53-4c9a-ac63-69cd3fcbc42a",
+      "scopes": [
+        "object",
+        "veli"
+      ]
+    }
+  ],
+  "scopes": [
+    "object",
+    "veli"
+  ],
+  "source": "Ecobalyse",
+  "unit": "kg",
+  "waste": 0
+}

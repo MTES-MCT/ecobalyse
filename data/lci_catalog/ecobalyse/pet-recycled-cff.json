@@ -1,0 +1,28 @@
+{
+  "activityName": "polyethylene terephthalate, granulate, amorphous, recycled, GLO, CFF",
+  "categories": [
+    "material",
+    "material_type:pet"
+  ],
+  "comment": "Matériau 100% issu du recyclage, calculé selon la méthode CFF (A=0.8, Q=1)",
+  "displayName": "Plastique PET, granulés, recyclé",
+  "elecMJ": 0,
+  "heatMJ": 0,
+  "id": "4b66e694-2eeb-42de-be52-d1c2990e5160",
+  "metadata": [
+    {
+      "id": "d46b2b8f-7354-4518-a8e1-a4d2a659898e",
+      "scopes": [
+        "object",
+        "veli"
+      ]
+    }
+  ],
+  "scopes": [
+    "object",
+    "veli"
+  ],
+  "source": "Ecobalyse",
+  "unit": "kg",
+  "waste": 0
+}

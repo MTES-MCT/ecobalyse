@@ -1,0 +1,33 @@
+{
+  "activityName": "polypropylene, granulate//[RoW] polypropylene production, granulate",
+  "categories": [
+    "material",
+    "textile_material"
+  ],
+  "comment": "Ancien identifiant (12/2024): 6e442b958af0d26f85ecacce2eeb23d0.",
+  "displayName": "Polypropylène, granulés",
+  "elecMJ": 0,
+  "heatMJ": 0,
+  "id": "28a36af2-cca9-5baa-a83e-d01b2e52ced6",
+  "metadata": [
+    {
+      "alias": "ei-pp",
+      "defaultCountry": "FR",
+      "displayName": "Polypropylène, granulés",
+      "geographicOrigin": "Europe",
+      "id": "73ef624d-250e-4a9a-af5d-43505b21b527",
+      "name": "Polypropylène",
+      "origin": "Synthetic",
+      "primary": false,
+      "scopes": [
+        "textile"
+      ]
+    }
+  ],
+  "scopes": [
+    "textile"
+  ],
+  "source": "Ecoinvent 3.9.1",
+  "unit": "kg",
+  "waste": 0
+}

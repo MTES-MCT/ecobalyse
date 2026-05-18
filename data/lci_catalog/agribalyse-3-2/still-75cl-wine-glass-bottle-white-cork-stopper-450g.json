@@ -1,0 +1,24 @@
+{
+  "activityName": "Still wine, 75cl | Packaging System, N0, All, Glass bottle (white) 450g with cork stopper {FR} U",
+  "categories": [
+    "material",
+    "packaging",
+    "packaging_type:bottle"
+  ],
+  "displayName": "Bouteille en verre blanc de 450g pour vin tranquille - 75cl",
+  "id": "ff896f19-557a-4e74-b56e-434f9b71dc8e",
+  "metadata": [
+    {
+      "id": "4aef9bfa-3639-43b6-8115-014e767a9aef",
+      "scopes": [
+        "food2"
+      ]
+    }
+  ],
+  "scopes": [
+    "food",
+    "food2"
+  ],
+  "source": "Agribalyse 3.2",
+  "unit": "item"
+}

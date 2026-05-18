@@ -1,0 +1,27 @@
+{
+  "activityName": "electricity, medium voltage//[PL] market for electricity, medium voltage",
+  "categories": [
+    "energy"
+  ],
+  "comment": "",
+  "displayName": "Electricité moyenne tension, Pologne",
+  "elecMJ": 0,
+  "heatMJ": 0,
+  "id": "97aec3c3-4ed3-5e3a-99ca-d96cfac629df",
+  "metadata": [
+    {
+      "id": "00e1a953-283c-4b65-8821-238bcafecc54",
+      "scopes": [
+        "object",
+        "veli"
+      ]
+    }
+  ],
+  "scopes": [
+    "object",
+    "veli"
+  ],
+  "source": "Ecoinvent 3.9.1",
+  "unit": "kWh",
+  "waste": 0
+}

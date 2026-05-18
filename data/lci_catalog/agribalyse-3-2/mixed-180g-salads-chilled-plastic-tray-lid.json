@@ -1,0 +1,24 @@
+{
+  "activityName": "Mixed salads, chilled, 180g | Packaging System, N0, All, Plastic tray with lid {FR} U",
+  "categories": [
+    "material",
+    "packaging",
+    "packaging_type:tray"
+  ],
+  "displayName": "Barquette en plastique (PP) pour salade composée, réfrigérée - 180g",
+  "id": "e1c8c622-7ba8-4587-8c2c-2372ac571b06",
+  "metadata": [
+    {
+      "id": "f1ef5f9f-065b-4676-b3c8-a25b70e52404",
+      "scopes": [
+        "food2"
+      ]
+    }
+  ],
+  "scopes": [
+    "food",
+    "food2"
+  ],
+  "source": "Agribalyse 3.2",
+  "unit": "item"
+}

@@ -1,0 +1,60 @@
+{
+  "activityName": "Rapeseed, organic 2025, 9% moisture, national average, animal feed, at farm gate, production {FR} U",
+  "categories": [
+    "ingredient",
+    "material",
+    "material_type:other_food_items"
+  ],
+  "displayName": "Colza Bio",
+  "id": "8610dcdb-d565-522e-a67c-547c1e03a449",
+  "location": "FR",
+  "metadata": [
+    {
+      "alias": "rapeseed-organic",
+      "cropGroup": "COLZA",
+      "cropGroupMatch": {
+        "confidence": 1.0,
+        "rule": "matched 'rapeseed' in cropgroup.csv"
+      },
+      "defaultOrigin": "France",
+      "displayName": "Colza Bio",
+      "id": "d8f2333d-8b37-5b2a-b146-ecbc893beace",
+      "inediblePart": 0.5,
+      "inediblePartMatch": {
+        "confidence": 1.0,
+        "rule": "nut_oilseed NOVA 1 default from food_type_inedible_part.csv"
+      },
+      "ingredientCategories": [
+        "nut_oilseed_raw",
+        "organic"
+      ],
+      "ingredientDensity": 0.77,
+      "ingredientDensityMatch": {
+        "confidence": 1.0,
+        "rule": "Rapeseed found in fao_density.csv"
+      },
+      "rawToCookedRatio": 2.259,
+      "rawToCookedRatioMatch": {
+        "confidence": 1.0,
+        "rule": "Matched with rapeseed in cooked_to_raw.csv"
+      },
+      "scenario": "organic",
+      "scopes": [
+        "food",
+        "food2"
+      ],
+      "transportCooling": "none",
+      "transportCoolingMatch": {
+        "confidence": 1.0,
+        "rule": "nut_oilseed → none (non-perishable)"
+      },
+      "visible": true
+    }
+  ],
+  "scopes": [
+    "food",
+    "food2"
+  ],
+  "source": "Ginko 2025",
+  "unit": "kg"
+}

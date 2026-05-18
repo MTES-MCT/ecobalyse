@@ -1,0 +1,24 @@
+{
+  "activityName": "Starters, Exotic products, 280g | Packaging System, Proxy Pack, Rigid plastic, other than bottles {FR} U",
+  "categories": [
+    "material",
+    "packaging",
+    "packaging_type:tray"
+  ],
+  "displayName": "Barquette en plastique (PET) pour entrées, produits exotiques - 280g - Proxy",
+  "id": "f755207c-ed56-4666-9b0e-4f2c515f7f18",
+  "metadata": [
+    {
+      "id": "926fb107-f3df-41a5-8e1f-7b5abfd51f81",
+      "scopes": [
+        "food2"
+      ]
+    }
+  ],
+  "scopes": [
+    "food",
+    "food2"
+  ],
+  "source": "Agribalyse 3.2",
+  "unit": "item"
+}

@@ -1,0 +1,29 @@
+{
+  "activityName": "wood chips, from post-consumer wood, measured as dry mass, in m3//[RER] market for wood chips, from post-consumer wood, measured as dry mass, in m3",
+  "categories": [
+    "material",
+    "material_type:wood"
+  ],
+  "comment": "Average density from softwood (490kg/m3)and hardwood (640kg/m3) species",
+  "displayName": "Bois recyclé (copeaux), post-consommation",
+  "elecMJ": 0,
+  "heatMJ": 0,
+  "id": "16d436ab-7a90-4b91-b268-85befecb7d6d",
+  "massPerUnit": 565,
+  "metadata": [
+    {
+      "id": "5ec73317-7049-4bcc-8da1-f011951e67ec",
+      "scopes": [
+        "object",
+        "veli"
+      ]
+    }
+  ],
+  "scopes": [
+    "object",
+    "veli"
+  ],
+  "source": "Ecobalyse",
+  "unit": "m3",
+  "waste": 0
+}

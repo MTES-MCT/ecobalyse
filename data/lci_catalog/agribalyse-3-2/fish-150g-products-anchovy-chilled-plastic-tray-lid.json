@@ -1,0 +1,24 @@
+{
+  "activityName": "Fish products anchovy, chilled, 150g | Packaging System, N0, All, Plastic tray with lid {FR} U",
+  "categories": [
+    "material",
+    "packaging",
+    "packaging_type:tray"
+  ],
+  "displayName": "Barquette en plastique (PP) pour anchois mariné, réfrigéré - 150g",
+  "id": "42ef6cc8-0331-4273-90c1-ce01f3f179e6",
+  "metadata": [
+    {
+      "id": "2726a53c-f62c-42a4-8542-fca9eac0d5ca",
+      "scopes": [
+        "food2"
+      ]
+    }
+  ],
+  "scopes": [
+    "food",
+    "food2"
+  ],
+  "source": "Agribalyse 3.2",
+  "unit": "item"
+}

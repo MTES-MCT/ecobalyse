@@ -1,0 +1,42 @@
+{
+  "activityName": "sawlog and veneer log, hardwood, measured as solid wood under bark//[DE] hardwood forestry, beech, sustainable forest management",
+  "categories": [
+    "material",
+    "material_type:wood"
+  ],
+  "comment": "",
+  "displayName": "Bois d'oeuvre (Feuillus / Hêtre)",
+  "elecMJ": 0,
+  "heatMJ": 0,
+  "id": "17431e06-2973-516e-b043-be9ad405e4fb",
+  "massPerUnit": 660,
+  "metadata": [
+    {
+      "alias": "beech-hardwood-diversified-forest",
+      "displayName": "Bois d'oeuvre (Feuillus / Hêtre) forêt diversifiée",
+      "forestManagement": "diversifiedForest",
+      "id": "d738711a-c339-4e9e-8d63-b202f6b5c131",
+      "scopes": [
+        "object",
+        "veli"
+      ]
+    },
+    {
+      "alias": "beech-hardwood-certified-diversified-forest",
+      "displayName": "Bois d'oeuvre (Feuillus / Hêtre) forêt diversifiée certifiée",
+      "forestManagement": "certifiedDiversifiedForest",
+      "id": "a638fe22-3050-4fc2-817d-0fb3be0730ad",
+      "scopes": [
+        "object",
+        "veli"
+      ]
+    }
+  ],
+  "scopes": [
+    "object",
+    "veli"
+  ],
+  "source": "Ecoinvent 3.9.1",
+  "unit": "m3",
+  "waste": 0
+}

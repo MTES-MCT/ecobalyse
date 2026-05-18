@@ -1,0 +1,36 @@
+{
+  "activityName": "Toulouse sausage, cooked, recipe, at plant {FR} U",
+  "categories": [
+    "ingredient",
+    "material",
+    "material_type:other_food_items"
+  ],
+  "displayName": "Saucisse de Toulouse (cuite) FR",
+  "id": "b19dd010-16ff-5064-9ec9-06ac0eea9597",
+  "metadata": [
+    {
+      "alias": "sausage-toulouse-cooked-2025",
+      "defaultOrigin": "France",
+      "displayName": "Saucisse de Toulouse (cuite) FR (2025)",
+      "id": "0a86af92-e0c5-4667-9cd2-d63bcc0d9726",
+      "inediblePart": 0,
+      "ingredientCategories": [
+        "animal_product"
+      ],
+      "ingredientDensity": 1.0,
+      "rawToCookedRatio": 1.0,
+      "scenario": "reference",
+      "scopes": [
+        "food",
+        "food2"
+      ],
+      "transportCooling": "always",
+      "visible": true
+    }
+  ],
+  "scopes": [
+    "food",
+    "food2"
+  ],
+  "source": "Agribalyse 3.2"
+}

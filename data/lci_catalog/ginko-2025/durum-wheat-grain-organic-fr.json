@@ -1,0 +1,98 @@
+{
+  "activityName": "Durum wheat grain, organic 2025, national average, at farm gate {FR} U",
+  "categories": [
+    "ingredient"
+  ],
+  "displayName": "Durum wheat grain, organic 2025, national average, at farm gate (FR)",
+  "id": "d23d6953-6bf7-5acc-a512-e073e2547f3a",
+  "metadata": [
+    {
+      "alias": "amaranth-organic",
+      "cropGroup": "BLE TENDRE",
+      "cropGroupMatch": {
+        "confidence": 1.0,
+        "rule": "wheat/flour pattern"
+      },
+      "defaultOrigin": "France",
+      "displayName": "Amarante Bio",
+      "id": "d37ce32b-06f7-58d0-b4f6-700938fa1aae",
+      "inediblePart": 0.0,
+      "inediblePartMatch": {
+        "confidence": 1.0,
+        "rule": "grain NOVA 1 default from food_type_inedible_part.csv"
+      },
+      "ingredientCategories": [
+        "grain_raw",
+        "organic"
+      ],
+      "ingredientDensity": 0.75,
+      "ingredientDensityMatch": {
+        "confidence": 1.0,
+        "rule": "grain default from food_type_density.csv"
+      },
+      "rawToCookedRatio": 2.259,
+      "rawToCookedRatioMatch": {
+        "confidence": 1.0,
+        "rule": "grain default from food_type_cooked_to_raw.csv"
+      },
+      "scenario": "organic",
+      "scopes": [
+        "food",
+        "food2"
+      ],
+      "transportCooling": "none",
+      "transportCoolingMatch": {
+        "confidence": 1.0,
+        "rule": "grain → none (non-perishable)"
+      },
+      "visible": true
+    },
+    {
+      "alias": "spelt-organic",
+      "cropGroup": "AUTRES CEREALES",
+      "cropGroupMatch": {
+        "confidence": 1.0,
+        "rule": "matched 'spelt' in cropgroup.csv"
+      },
+      "defaultOrigin": "France",
+      "displayName": "Epeautre Bio",
+      "id": "fa88195b-4cc2-57ea-86d8-59bd654d722f",
+      "inediblePart": 0.0,
+      "inediblePartMatch": {
+        "confidence": 1.0,
+        "rule": "grain NOVA 1 default from food_type_inedible_part.csv"
+      },
+      "ingredientCategories": [
+        "grain_raw",
+        "organic"
+      ],
+      "ingredientDensity": 0.75,
+      "ingredientDensityMatch": {
+        "confidence": 1.0,
+        "rule": "grain default from food_type_density.csv"
+      },
+      "rawToCookedRatio": 2.259,
+      "rawToCookedRatioMatch": {
+        "confidence": 1.0,
+        "rule": "grain default from food_type_cooked_to_raw.csv"
+      },
+      "scenario": "organic",
+      "scopes": [
+        "food",
+        "food2"
+      ],
+      "transportCooling": "none",
+      "transportCoolingMatch": {
+        "confidence": 1.0,
+        "rule": "grain → none (non-perishable)"
+      },
+      "visible": true
+    }
+  ],
+  "scopes": [
+    "food",
+    "food2"
+  ],
+  "source": "Ginko 2025",
+  "unit": "kg"
+}

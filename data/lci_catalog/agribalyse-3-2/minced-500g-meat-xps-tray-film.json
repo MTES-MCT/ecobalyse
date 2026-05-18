@@ -1,0 +1,24 @@
+{
+  "activityName": "Minced meat, 500g | Packaging System, N0, All, XPS Tray with film {FR} U",
+  "categories": [
+    "material",
+    "packaging",
+    "packaging_type:tray"
+  ],
+  "displayName": "Barquette en plastique (PSX) pour viande émincée - 500g",
+  "id": "cd9cb2bd-68c5-430d-b6ce-f73366cb83a6",
+  "metadata": [
+    {
+      "id": "100c350a-36d5-471f-bc62-10dbab05593d",
+      "scopes": [
+        "food2"
+      ]
+    }
+  ],
+  "scopes": [
+    "food",
+    "food2"
+  ],
+  "source": "Agribalyse 3.2",
+  "unit": "item"
+}

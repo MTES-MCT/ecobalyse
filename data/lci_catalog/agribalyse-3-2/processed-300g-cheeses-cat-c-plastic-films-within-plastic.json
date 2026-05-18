@@ -1,0 +1,24 @@
+{
+  "activityName": "Processed cheeses - cat C, 300g | Packaging System, N0, All, Plastic films within plastic bag {FR} U",
+  "categories": [
+    "material",
+    "packaging",
+    "packaging_type:sheet"
+  ],
+  "displayName": "Feuilles plastique (PP) et sachet plastique (multimatériaux) pour fromage fondu - 300g",
+  "id": "fd430dcb-8903-4ce0-9751-21442407180e",
+  "metadata": [
+    {
+      "id": "a99a0e44-2336-4c6b-b19a-3b88cc377639",
+      "scopes": [
+        "food2"
+      ]
+    }
+  ],
+  "scopes": [
+    "food",
+    "food2"
+  ],
+  "source": "Agribalyse 3.2",
+  "unit": "item"
+}

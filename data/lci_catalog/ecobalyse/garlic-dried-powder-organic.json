@@ -1,0 +1,37 @@
+{
+  "activityName": "Garlic, dried powder, organic, CMAPS {GLO} U",
+  "categories": [
+    "ingredient",
+    "material"
+  ],
+  "displayName": "Ail séché, poudre FR BIO",
+  "id": "cc5fc515-4692-4e9c-b7e4-0fc21055d0ed",
+  "metadata": [
+    {
+      "alias": "garlic-dried-powder-fr-organic",
+      "cropGroup": "LEGUMES-FLEURS",
+      "defaultOrigin": "France",
+      "displayName": "Ail séché, poudre FR BIO",
+      "id": "e7a924f4-f919-46cc-b853-8dc0f2d23d17",
+      "inediblePart": 0,
+      "ingredientCategories": [
+        "spice_condiment_additive",
+        "organic"
+      ],
+      "ingredientDensity": 1,
+      "rawToCookedRatio": 1,
+      "scenario": "organic",
+      "scopes": [
+        "food",
+        "food2"
+      ],
+      "transportCooling": "none",
+      "visible": false
+    }
+  ],
+  "scopes": [
+    "food",
+    "food2"
+  ],
+  "source": "Ecobalyse"
+}

@@ -1,0 +1,28 @@
+{
+  "activityName": "copper EoL recycling, RER, CFF",
+  "categories": [
+    "end-of-life",
+    "material_type:copper"
+  ],
+  "comment": "According to CFF: A=0.2, Q=1",
+  "displayName": "Recyclage du cuivre, CFF",
+  "elecMJ": 0,
+  "heatMJ": 0,
+  "id": "0efb5188-68b0-418c-8f7b-b494f821ae8e",
+  "metadata": [
+    {
+      "id": "eb35f932-df90-4e0c-9192-661b425c6771",
+      "scopes": [
+        "object",
+        "veli"
+      ]
+    }
+  ],
+  "scopes": [
+    "object",
+    "veli"
+  ],
+  "source": "Ecobalyse",
+  "unit": "kg",
+  "waste": 0
+}

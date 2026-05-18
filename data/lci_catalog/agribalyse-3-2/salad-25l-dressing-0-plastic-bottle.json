@@ -1,0 +1,24 @@
+{
+  "activityName": "Salad dressing, 0,25L | Packaging System, N0, All, Plastic bottle {FR} U",
+  "categories": [
+    "material",
+    "packaging",
+    "packaging_type:bottle"
+  ],
+  "displayName": "Bouteille en plastique (PET) pour sauce salade - 0,25L",
+  "id": "444b968f-99e6-497b-ac40-13efe9bd693b",
+  "metadata": [
+    {
+      "id": "e8e78d16-adb9-4f56-8c5b-54931303c1b9",
+      "scopes": [
+        "food2"
+      ]
+    }
+  ],
+  "scopes": [
+    "food",
+    "food2"
+  ],
+  "source": "Agribalyse 3.2",
+  "unit": "item"
+}

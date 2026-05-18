@@ -1,0 +1,53 @@
+{
+  "activityName": "Snail, wild {BE} U",
+  "categories": [
+    "ingredient",
+    "material",
+    "material_type:fish_and_shellfish"
+  ],
+  "displayName": "Escargot FR",
+  "id": "c7d4ab4a-6fa6-53c7-bfd7-153460748c54",
+  "metadata": [
+    {
+      "alias": "snail-fr",
+      "defaultOrigin": "France",
+      "displayName": "Escargot FR",
+      "id": "470c4cc2-29eb-5b31-975f-bfe688e0a63c",
+      "inediblePart": 0.4,
+      "inediblePartMatch": {
+        "confidence": 1.0,
+        "rule": "fish_seafood NOVA 1 default from food_type_inedible_part.csv"
+      },
+      "ingredientCategories": [
+        "animal_product"
+      ],
+      "ingredientDensity": 1.05,
+      "ingredientDensityMatch": {
+        "confidence": 1.0,
+        "rule": "fish_seafood default from food_type_density.csv"
+      },
+      "rawToCookedRatio": 0.819,
+      "rawToCookedRatioMatch": {
+        "confidence": 1.0,
+        "rule": "fish_seafood default from food_type_cooked_to_raw.csv"
+      },
+      "scenario": "reference",
+      "scopes": [
+        "food",
+        "food2"
+      ],
+      "transportCooling": "always",
+      "transportCoolingMatch": {
+        "confidence": 1.0,
+        "rule": "fish_seafood NOVA 1 → always (perishable)"
+      },
+      "visible": true
+    }
+  ],
+  "scopes": [
+    "food",
+    "food2"
+  ],
+  "source": "Agribalyse 3.2",
+  "unit": "kg"
+}

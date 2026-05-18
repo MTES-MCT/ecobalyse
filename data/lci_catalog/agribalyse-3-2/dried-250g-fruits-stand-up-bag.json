@@ -1,0 +1,24 @@
+{
+  "activityName": "Dried fruits, 250g | Packaging System, N0, All, Stand up bag {FR} U",
+  "categories": [
+    "material",
+    "packaging",
+    "packaging_type:bag"
+  ],
+  "displayName": "Sachet stand up en plastique (multimatériaux) pour fruits séchés - 250g",
+  "id": "5c40329b-4b0a-46ae-a493-c510fcab51b4",
+  "metadata": [
+    {
+      "id": "813b4aeb-7d1e-4896-aa8d-01e3c47c4062",
+      "scopes": [
+        "food2"
+      ]
+    }
+  ],
+  "scopes": [
+    "food",
+    "food2"
+  ],
+  "source": "Agribalyse 3.2",
+  "unit": "item"
+}

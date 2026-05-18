@@ -1,0 +1,38 @@
+{
+  "activityName": "Transport en camion non spécifié France",
+  "categories": [
+    "transport"
+  ],
+  "comment": "Données provenant de Base Impacts 2.01. Ancien identifiant (12/2024): f49b27fa-f22e-c6e1-ab4b-e9f873e2e648.",
+  "displayName": "Transport en camion non spécifié France",
+  "elecMJ": 0,
+  "heatMJ": 0,
+  "id": "3db67ae7-c169-5837-8e0a-3c3c31ffda67",
+  "impacts": {
+    "acd": 0.0016869,
+    "cch": 0.269575,
+    "etf": 0,
+    "etf-c": 0,
+    "fru": 4.00542,
+    "fwe": 9.94279e-08,
+    "htc": 0,
+    "htc-c": 0,
+    "htn": 0,
+    "htn-c": 0,
+    "ior": 0.0327635,
+    "ldu": 0,
+    "mru": 8.96321e-07,
+    "ozd": 5.37976e-10,
+    "pco": 0.00167797,
+    "pma": 1.94827e-08,
+    "swe": 0.000851857,
+    "tre": 0.00889829,
+    "wtu": 0
+  },
+  "scopes": [
+    "textile"
+  ],
+  "source": "Custom",
+  "unit": "t⋅km",
+  "waste": 0
+}

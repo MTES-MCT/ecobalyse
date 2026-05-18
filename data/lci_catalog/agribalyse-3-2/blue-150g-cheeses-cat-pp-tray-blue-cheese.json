@@ -1,0 +1,24 @@
+{
+  "activityName": "Blue cheeses - cat A, 150g | Packaging System, N0, All, PP tray for blue cheese {FR} U",
+  "categories": [
+    "material",
+    "packaging",
+    "packaging_type:tray"
+  ],
+  "displayName": "Barquette en plastique (PP) avec couvercle pour fromage bleu - 150g",
+  "id": "7e1c3ba3-e5e5-4896-9527-d017b0af0974",
+  "metadata": [
+    {
+      "id": "b4f0c5ec-73c2-48d7-81d0-b302a49f8ce5",
+      "scopes": [
+        "food2"
+      ]
+    }
+  ],
+  "scopes": [
+    "food",
+    "food2"
+  ],
+  "source": "Agribalyse 3.2",
+  "unit": "item"
+}

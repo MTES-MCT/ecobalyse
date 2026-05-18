@@ -1,0 +1,24 @@
+{
+  "activityName": "Sandwich, 135g | Packaging System, N0, All, Plastic tray with lid {FR} U",
+  "categories": [
+    "material",
+    "packaging",
+    "packaging_type:tray"
+  ],
+  "displayName": "Barquette en plastique (PET/PEBD) pour sandwich - 135g",
+  "id": "2382212a-043b-4a2f-8bcc-894ee77c5bd3",
+  "metadata": [
+    {
+      "id": "f90aec80-fd2f-445c-8bf6-07a3fc7f8d55",
+      "scopes": [
+        "food2"
+      ]
+    }
+  ],
+  "scopes": [
+    "food",
+    "food2"
+  ],
+  "source": "Agribalyse 3.2",
+  "unit": "item"
+}

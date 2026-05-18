@@ -1,0 +1,37 @@
+{
+  "activityName": "Peanut, shelled, organic, CMAPS {GLO} U",
+  "categories": [
+    "ingredient",
+    "material"
+  ],
+  "displayName": "Cacahuète ou Arachide décortiquée (cuites, grillées, salées, bouilles) Origine Inconnue BIO",
+  "id": "51952acd-1193-4ddf-af9d-87a03918b7d4",
+  "metadata": [
+    {
+      "alias": "peanut-shelled-default-organic",
+      "cropGroup": "AUTRES OLEAGINEUX",
+      "defaultOrigin": "OutOfEuropeAndMaghreb",
+      "displayName": "Cacahuète ou Arachide décortiquée (cuites, grillées, salées, bouilles) Origine Inconnue BIO",
+      "id": "53d680c7-61f1-445a-9f29-ca3265fc676a",
+      "inediblePart": 0,
+      "ingredientCategories": [
+        "nut_oilseed_raw",
+        "organic"
+      ],
+      "ingredientDensity": 1,
+      "rawToCookedRatio": 1,
+      "scenario": "organic",
+      "scopes": [
+        "food",
+        "food2"
+      ],
+      "transportCooling": "none",
+      "visible": false
+    }
+  ],
+  "scopes": [
+    "food",
+    "food2"
+  ],
+  "source": "Ecobalyse"
+}

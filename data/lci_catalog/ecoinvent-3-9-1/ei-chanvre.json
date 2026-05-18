@@ -1,0 +1,33 @@
+{
+  "activityName": "sunn hemp plant, harvested//[RoW] sunn hemp production",
+  "categories": [
+    "material",
+    "textile_material"
+  ],
+  "comment": "Ancien identifiant (12/2024): fa590941e8bbf72c8956b5c3ba793eb7.",
+  "displayName": "Production de chanvre",
+  "elecMJ": 0,
+  "heatMJ": 0,
+  "id": "82aab465-3b46-52d2-9625-a68625a3f9fc",
+  "metadata": [
+    {
+      "alias": "ei-chanvre",
+      "defaultCountry": "CN",
+      "displayName": "Production de chanvre",
+      "geographicOrigin": "Asie - Pacifique",
+      "id": "0c1a4654-b030-4fe1-86b7-d96ce0b85bb8",
+      "name": "Chanvre",
+      "origin": "NaturalFromVegetal",
+      "primary": true,
+      "scopes": [
+        "textile"
+      ]
+    }
+  ],
+  "scopes": [
+    "textile"
+  ],
+  "source": "Ecoinvent 3.9.1",
+  "unit": "kg",
+  "waste": 0
+}

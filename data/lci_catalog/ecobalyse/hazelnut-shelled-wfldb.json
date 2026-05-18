@@ -1,0 +1,36 @@
+{
+  "activityName": "Hazelnut, shelled, import WFLDB, CMAPS {GLO} U",
+  "categories": [
+    "ingredient",
+    "material"
+  ],
+  "displayName": "Noisette, décortiquée Origine Inconnue",
+  "id": "e600fee0-90ea-4601-8456-3a235c9753f5",
+  "metadata": [
+    {
+      "alias": "hazelnut-shelled-default",
+      "cropGroup": "FRUITS A COQUES",
+      "defaultOrigin": "OutOfEuropeAndMaghreb",
+      "displayName": "Noisette, décortiquée Origine Inconnue",
+      "id": "79b53a3e-0cad-4a78-a779-a6e88e1549b7",
+      "inediblePart": 0,
+      "ingredientCategories": [
+        "nut_oilseed_raw"
+      ],
+      "ingredientDensity": 1,
+      "rawToCookedRatio": 1,
+      "scenario": "import",
+      "scopes": [
+        "food",
+        "food2"
+      ],
+      "transportCooling": "none",
+      "visible": true
+    }
+  ],
+  "scopes": [
+    "food",
+    "food2"
+  ],
+  "source": "Ecobalyse"
+}

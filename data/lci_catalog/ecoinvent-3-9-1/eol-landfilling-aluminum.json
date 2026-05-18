@@ -1,0 +1,29 @@
+{
+  "activityName": "waste aluminium//[RoW] treatment of waste aluminium, sanitary landfill",
+  "categories": [
+    "end-of-life",
+    "material_type:aluminium",
+    "material_type:copper"
+  ],
+  "comment": "",
+  "displayName": "Enfouissement de l'aluminium",
+  "elecMJ": 0,
+  "heatMJ": 0,
+  "id": "8a4e4b49-f599-4b18-af80-87e3a38e04ae",
+  "metadata": [
+    {
+      "id": "6e1bb4f8-716b-4162-bda9-330125955ea0",
+      "scopes": [
+        "object",
+        "veli"
+      ]
+    }
+  ],
+  "scopes": [
+    "object",
+    "veli"
+  ],
+  "source": "Ecoinvent 3.9.1",
+  "unit": "kg",
+  "waste": 0
+}

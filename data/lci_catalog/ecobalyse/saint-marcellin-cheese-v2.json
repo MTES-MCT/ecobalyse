@@ -1,0 +1,35 @@
+{
+  "activityName": "Saint-Marcellin cheese, variant 2, CMAPS {GLO} U",
+  "categories": [
+    "ingredient",
+    "material"
+  ],
+  "displayName": "Saint-Marcellin Origine Inconnue",
+  "id": "2a5ec6cd-a863-450b-83ab-4d975f85d8d0",
+  "metadata": [
+    {
+      "alias": "saint-marcellin-cheese-default",
+      "defaultOrigin": "OutOfEuropeAndMaghreb",
+      "displayName": "Saint-Marcellin Origine Inconnue",
+      "id": "d3f8b290-a87b-4c04-81d5-7889d02a7e62",
+      "inediblePart": 0,
+      "ingredientCategories": [
+        "dairy_product"
+      ],
+      "ingredientDensity": 1,
+      "rawToCookedRatio": 1,
+      "scenario": "import",
+      "scopes": [
+        "food",
+        "food2"
+      ],
+      "transportCooling": "always",
+      "visible": false
+    }
+  ],
+  "scopes": [
+    "food",
+    "food2"
+  ],
+  "source": "Ecobalyse"
+}

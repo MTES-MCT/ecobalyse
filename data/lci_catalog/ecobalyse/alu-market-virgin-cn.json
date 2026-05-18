@@ -1,0 +1,28 @@
+{
+  "activityName": "aluminium ingot, virgin, market, CN",
+  "categories": [
+    "material",
+    "material_type:aluminium"
+  ],
+  "comment": "https://fabrique-numerique.gitbook.io/ecobalyse/methodes-transverses-specifiques/procedes-acier-et-aluminium",
+  "displayName": "Aluminium, mix marché, Chine",
+  "elecMJ": 0,
+  "heatMJ": 0,
+  "id": "9257bb08-bb65-5d58-8bee-fee9b93ff7c5",
+  "metadata": [
+    {
+      "id": "63e8a99a-d6e5-4aa5-8fe4-71c3d0ca2107",
+      "scopes": [
+        "object",
+        "veli"
+      ]
+    }
+  ],
+  "scopes": [
+    "object",
+    "veli"
+  ],
+  "source": "Ecobalyse",
+  "unit": "kg",
+  "waste": 0
+}

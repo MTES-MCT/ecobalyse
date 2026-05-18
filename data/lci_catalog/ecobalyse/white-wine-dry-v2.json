@@ -1,0 +1,36 @@
+{
+  "activityName": "White wine, dry, variant 2, CMAPS {GLO} U",
+  "categories": [
+    "ingredient",
+    "material"
+  ],
+  "displayName": "Vin blanc (sec) Origine Inconnue",
+  "id": "29aded8c-4bd4-4a17-942a-a2628cdcd895",
+  "metadata": [
+    {
+      "alias": "white-wine-dry-default",
+      "cropGroup": "VIGNES",
+      "defaultOrigin": "OutOfEuropeAndMaghreb",
+      "displayName": "Vin blanc (sec) Origine Inconnue",
+      "id": "4050697c-75eb-4608-8fac-e7137e3d2941",
+      "inediblePart": 0,
+      "ingredientCategories": [
+        "misc"
+      ],
+      "ingredientDensity": 1,
+      "rawToCookedRatio": 1,
+      "scenario": "import",
+      "scopes": [
+        "food",
+        "food2"
+      ],
+      "transportCooling": "none",
+      "visible": false
+    }
+  ],
+  "scopes": [
+    "food",
+    "food2"
+  ],
+  "source": "Ecobalyse"
+}

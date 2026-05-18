@@ -1,0 +1,36 @@
+{
+  "activityName": "Lettuce, cut washed raw, variant 1, CMAPS {GLO} U",
+  "categories": [
+    "ingredient",
+    "material"
+  ],
+  "displayName": "Salade crue, découpée, nettoyée (laitue, mache, mesclun, jeunes pousses, scarole, pissenlit, roquette, cresson) FR",
+  "id": "3d8ad82d-2709-4789-8226-162133ea2ba8",
+  "metadata": [
+    {
+      "alias": "lettuce-cut-washed-raw-fr",
+      "cropGroup": "LEGUMES-FLEURS",
+      "defaultOrigin": "France",
+      "displayName": "Salade crue, découpée, nettoyée (laitue, mache, mesclun, jeunes pousses, scarole, pissenlit, roquette, cresson) FR",
+      "id": "747506c6-3907-4b45-af41-2a0ed04c6f59",
+      "inediblePart": 0,
+      "ingredientCategories": [
+        "vegetable_fresh"
+      ],
+      "ingredientDensity": 1,
+      "rawToCookedRatio": 1,
+      "scenario": "reference",
+      "scopes": [
+        "food",
+        "food2"
+      ],
+      "transportCooling": "always",
+      "visible": false
+    }
+  ],
+  "scopes": [
+    "food",
+    "food2"
+  ],
+  "source": "Ecobalyse"
+}

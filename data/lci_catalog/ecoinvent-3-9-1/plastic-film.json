@@ -1,0 +1,28 @@
+{
+  "activityName": "packaging film, low density polyethylene//[RER] packaging film production, low density polyethylene",
+  "categories": [
+    "material",
+    "material_type:ldpe"
+  ],
+  "comment": "",
+  "displayName": "Film plastique",
+  "elecMJ": 0,
+  "heatMJ": 0,
+  "id": "3a32da6a-c655-5a2a-8bb7-5f47e4d6847f",
+  "metadata": [
+    {
+      "id": "c5e8e39e-276f-4a31-8289-1265af9c9a9e",
+      "scopes": [
+        "object",
+        "veli"
+      ]
+    }
+  ],
+  "scopes": [
+    "object",
+    "veli"
+  ],
+  "source": "Ecoinvent 3.9.1",
+  "unit": "kg",
+  "waste": 0
+}

@@ -1,0 +1,78 @@
+{
+  "activityName": "Maize grain, conventional, 28% moisture, national average, animal feed, at farm gate {FR} U",
+  "categories": [
+    "ingredient",
+    "material",
+    "material_type:other_food_items"
+  ],
+  "displayName": "Maïs doux FR",
+  "id": "cb2a7bff-4fdf-558d-b7db-c9ac0f57356f",
+  "metadata": [
+    {
+      "alias": "corn-fr",
+      "cropGroup": "MAIS GRAIN ET ENSILAGE",
+      "cropGroupMatch": {
+        "confidence": 1.0,
+        "rule": "matched 'corn' in cropgroup.csv"
+      },
+      "defaultOrigin": "France",
+      "displayName": "Maïs FR",
+      "id": "2d48fa6b-180f-59f8-9b08-c2d3663fec10",
+      "inediblePart": 0.0,
+      "inediblePartMatch": {
+        "confidence": 1.0,
+        "rule": "grain NOVA 1 default from food_type_inedible_part.csv"
+      },
+      "ingredientCategories": [
+        "grain_raw"
+      ],
+      "ingredientDensity": 0.72,
+      "ingredientDensityMatch": {
+        "confidence": 1.0,
+        "rule": "corn found in density.csv"
+      },
+      "rawToCookedRatio": 2.259,
+      "rawToCookedRatioMatch": {
+        "confidence": 1.0,
+        "rule": "grain default from food_type_cooked_to_raw.csv"
+      },
+      "scenario": "reference",
+      "scopes": [
+        "food",
+        "food2"
+      ],
+      "transportCooling": "none",
+      "transportCoolingMatch": {
+        "confidence": 1.0,
+        "rule": "grain → none (non-perishable)"
+      },
+      "visible": true
+    },
+    {
+      "alias": "sweet-corn-fr-2025",
+      "cropGroup": "MAIS GRAIN ET ENSILAGE",
+      "defaultOrigin": "France",
+      "displayName": "Maïs doux FR (2025)",
+      "explain": "Part non comestible : chataigne, olive",
+      "id": "40fa68b6-381e-4dd6-ba70-8b43cfdee64e",
+      "inediblePart": 0.5,
+      "ingredientCategories": [
+        "grain_raw"
+      ],
+      "ingredientDensity": 0.24,
+      "rawToCookedRatio": 2.259,
+      "scenario": "reference",
+      "scopes": [
+        "food",
+        "food2"
+      ],
+      "transportCooling": "none",
+      "visible": true
+    }
+  ],
+  "scopes": [
+    "food",
+    "food2"
+  ],
+  "source": "Agribalyse 3.2"
+}

@@ -1,0 +1,39 @@
+{
+  "activityName": "Broiler, conventional, at farm gate {FR} U {{chicken-breast-br-max-2025}}",
+  "categories": [
+    "ingredient",
+    "material",
+    "material_type:other_food_items"
+  ],
+  "displayName": "Poulet conventionnel vivant import (soja brésilien max) issu de poulet FR",
+  "id": "ece05143-86e2-53d2-b9f8-84a3fdd7d823",
+  "metadata": [
+    {
+      "alias": "broiler-br-max-live",
+      "animalGroup1": "poultry",
+      "animalGroup2": "chicken",
+      "animalProduct": "meat",
+      "defaultOrigin": "France",
+      "displayName": "Poulet conventionnel vivant import (soja brésilien max) issu de poulet FR",
+      "id": "5f4456c2-a93b-5cda-9b2b-6df7ae8179f5",
+      "inediblePart": 0,
+      "ingredientCategories": [
+        "animal_product"
+      ],
+      "ingredientDensity": 1.0,
+      "rawToCookedRatio": 1.0,
+      "scenario": "reference",
+      "scopes": [
+        "food",
+        "food2"
+      ],
+      "transportCooling": "always",
+      "visible": false
+    }
+  ],
+  "scopes": [
+    "food",
+    "food2"
+  ],
+  "source": "Ecobalyse"
+}

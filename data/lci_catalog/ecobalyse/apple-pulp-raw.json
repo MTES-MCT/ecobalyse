@@ -1,0 +1,36 @@
+{
+  "activityName": "Apple, pulp raw, CMAPS {GLO} U",
+  "categories": [
+    "ingredient",
+    "material"
+  ],
+  "displayName": "Pomme, pulpe, crue FR",
+  "id": "b67707e7-827b-4ef3-aa4c-c2d764d8c526",
+  "metadata": [
+    {
+      "alias": "apple-pulp-raw-fr",
+      "cropGroup": "VERGERS",
+      "defaultOrigin": "France",
+      "displayName": "Pomme, pulpe, crue FR",
+      "id": "a96a5b65-c45b-4e44-bbc6-cd4246a6b15c",
+      "inediblePart": 0,
+      "ingredientCategories": [
+        "vegetable_fresh"
+      ],
+      "ingredientDensity": 1,
+      "rawToCookedRatio": 1,
+      "scenario": "reference",
+      "scopes": [
+        "food",
+        "food2"
+      ],
+      "transportCooling": "always",
+      "visible": true
+    }
+  ],
+  "scopes": [
+    "food",
+    "food2"
+  ],
+  "source": "Ecobalyse"
+}

@@ -1,0 +1,46 @@
+{
+  "categories": [
+    "transformation",
+    "material_type:red_meats"
+  ],
+  "comment": "Raw to cooked ratio defined in Agribalyse 3 methodology",
+  "displayName": "Cuisson des viandes rouges",
+  "elecMJ": 0,
+  "heatMJ": 0,
+  "id": "c6bab4ab-570a-4648-96cd-67ee5b6a6b32",
+  "impacts": {
+    "acd": 0,
+    "cch": 0,
+    "etf": 0,
+    "etf-c": 0,
+    "fru": 0,
+    "fwe": 0,
+    "htc": 0,
+    "htc-c": 0,
+    "htn": 0,
+    "htn-c": 0,
+    "ior": 0,
+    "ldu": 0,
+    "mru": 0,
+    "ozd": 0,
+    "pco": 0,
+    "pma": 0,
+    "swe": 0,
+    "tre": 0,
+    "wtu": 0
+  },
+  "metadata": [
+    {
+      "id": "ffc7f2d9-b682-4317-bf29-cd65cd298c11",
+      "scopes": [
+        "food2"
+      ]
+    }
+  ],
+  "scopes": [
+    "food2"
+  ],
+  "source": "Custom",
+  "unit": "kg",
+  "waste": 0.208
+}

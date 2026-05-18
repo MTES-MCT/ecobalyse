@@ -1,0 +1,24 @@
+{
+  "activityName": "Margarines, 500g | Packaging System, N0, All, Complex sheet {FR} U",
+  "categories": [
+    "material",
+    "packaging",
+    "packaging_type:sheet"
+  ],
+  "displayName": "Feuille complexe (PP/alu) pour margarine - 500g",
+  "id": "7f3ef50c-b508-46b8-82b9-339dbff9a26d",
+  "metadata": [
+    {
+      "id": "a246b612-dd6c-45ec-9146-cca0d1548eb8",
+      "scopes": [
+        "food2"
+      ]
+    }
+  ],
+  "scopes": [
+    "food",
+    "food2"
+  ],
+  "source": "Agribalyse 3.2",
+  "unit": "item"
+}

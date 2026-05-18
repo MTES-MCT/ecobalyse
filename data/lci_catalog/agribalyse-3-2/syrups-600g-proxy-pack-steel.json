@@ -1,0 +1,24 @@
+{
+  "activityName": "Syrups, 600g | Packaging System, Proxy Pack, Steel {FR} U",
+  "categories": [
+    "material",
+    "packaging",
+    "packaging_type:bottle"
+  ],
+  "displayName": "Bouteille en acier pour sirop - 600g - Proxy",
+  "id": "286db16a-4977-4739-a664-0386c377a71d",
+  "metadata": [
+    {
+      "id": "5c11d750-5dba-4992-bc78-817e08ee54d7",
+      "scopes": [
+        "food2"
+      ]
+    }
+  ],
+  "scopes": [
+    "food",
+    "food2"
+  ],
+  "source": "Agribalyse 3.2",
+  "unit": "item"
+}

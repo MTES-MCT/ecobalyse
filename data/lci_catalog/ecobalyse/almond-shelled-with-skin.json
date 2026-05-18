@@ -1,0 +1,56 @@
+{
+  "activityName": "Almond, shelled with skin, CMAPS {GLO} U",
+  "categories": [
+    "ingredient",
+    "material"
+  ],
+  "displayName": "Amande, décortiquée, avec peau FR",
+  "id": "942ce7b6-96e7-4716-a56a-58043e5fe48e",
+  "metadata": [
+    {
+      "alias": "almond-shelled-with-skin-default",
+      "cropGroup": "FRUITS A COQUES",
+      "defaultOrigin": "OutOfEuropeAndMaghreb",
+      "displayName": "Amande, décortiquée, avec peau Origine Inconnue",
+      "id": "f470bfc2-9272-4897-8083-42787e3df37d",
+      "inediblePart": 0,
+      "ingredientCategories": [
+        "nut_oilseed_raw"
+      ],
+      "ingredientDensity": 1,
+      "rawToCookedRatio": 1,
+      "scenario": "import",
+      "scopes": [
+        "food",
+        "food2"
+      ],
+      "transportCooling": "none",
+      "visible": true
+    },
+    {
+      "alias": "almond-shelled-with-skin-fr",
+      "cropGroup": "FRUITS A COQUES",
+      "defaultOrigin": "France",
+      "displayName": "Amande, décortiquée, avec peau FR",
+      "id": "69a756eb-5360-434a-9c2c-b6650db97399",
+      "inediblePart": 0,
+      "ingredientCategories": [
+        "nut_oilseed_raw"
+      ],
+      "ingredientDensity": 1,
+      "rawToCookedRatio": 1,
+      "scenario": "reference",
+      "scopes": [
+        "food",
+        "food2"
+      ],
+      "transportCooling": "none",
+      "visible": true
+    }
+  ],
+  "scopes": [
+    "food",
+    "food2"
+  ],
+  "source": "Ecobalyse"
+}

@@ -1,0 +1,24 @@
+{
+  "activityName": "Fish products rillette, chilled, 90g | Packaging System, N0, All, Glass jar with capsule {FR} U",
+  "categories": [
+    "material",
+    "packaging",
+    "packaging_type:jar"
+  ],
+  "displayName": "Bocal en verre pour rillette, réfrigérée - 90g",
+  "id": "69ee80a7-abbd-4431-9e3e-273135f97afa",
+  "metadata": [
+    {
+      "id": "22e865f2-0b44-450d-8452-2dd8bca2a956",
+      "scopes": [
+        "food2"
+      ]
+    }
+  ],
+  "scopes": [
+    "food",
+    "food2"
+  ],
+  "source": "Agribalyse 3.2",
+  "unit": "item"
+}

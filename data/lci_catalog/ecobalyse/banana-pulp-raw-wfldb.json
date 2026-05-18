@@ -1,0 +1,36 @@
+{
+  "activityName": "Banana, pulp raw, import WFLDB, CMAPS {GLO} U",
+  "categories": [
+    "ingredient",
+    "material"
+  ],
+  "displayName": "Banane, pulpe, crue Origine Inconnue",
+  "id": "8aa6385d-defe-411c-bb3e-81ded789ddd1",
+  "metadata": [
+    {
+      "alias": "banana-pulp-raw-default",
+      "cropGroup": "VERGERS",
+      "defaultOrigin": "OutOfEuropeAndMaghreb",
+      "displayName": "Banane, pulpe, crue Origine Inconnue",
+      "id": "74238fd3-c190-48b5-9214-b31bda7d2fbe",
+      "inediblePart": 0,
+      "ingredientCategories": [
+        "vegetable_fresh"
+      ],
+      "ingredientDensity": 1,
+      "rawToCookedRatio": 1,
+      "scenario": "import",
+      "scopes": [
+        "food",
+        "food2"
+      ],
+      "transportCooling": "always",
+      "visible": true
+    }
+  ],
+  "scopes": [
+    "food",
+    "food2"
+  ],
+  "source": "Ecobalyse"
+}

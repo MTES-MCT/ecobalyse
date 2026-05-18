@@ -1,0 +1,40 @@
+{
+  "activityName": "Meat without bone chicken for direct consumption {{chicken-breast-fr-feed-2025}}",
+  "categories": [
+    "ingredient",
+    "material",
+    "material_type:poultry"
+  ],
+  "displayName": "Blanc de poulet cru (alim. ani. 100%FR) FR (2025)",
+  "id": "53f3f0e1-45e3-5676-a4ec-b78b5d2dfffc",
+  "metadata": [
+    {
+      "alias": "chicken-breast-fr-feed-2025",
+      "animalGroup1": "poultry",
+      "animalGroup2": "chicken",
+      "animalProduct": "meat",
+      "defaultOrigin": "France",
+      "displayName": "Blanc de poulet cru (alim. ani. 100%FR) FR (2025)",
+      "explain": "Poulet élevé en France dont l'alimentation vient de France. Seul l'origine du soja change par rapport au poulet classique",
+      "id": "f94df72e-20fd-4cc5-ab64-ce3921649d58",
+      "inediblePart": 0,
+      "ingredientCategories": [
+        "animal_product"
+      ],
+      "ingredientDensity": 1.0,
+      "rawToCookedRatio": 0.755,
+      "scenario": "reference",
+      "scopes": [
+        "food",
+        "food2"
+      ],
+      "transportCooling": "always",
+      "visible": false
+    }
+  ],
+  "scopes": [
+    "food",
+    "food2"
+  ],
+  "source": "Ecobalyse"
+}

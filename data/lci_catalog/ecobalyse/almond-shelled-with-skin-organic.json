@@ -1,0 +1,37 @@
+{
+  "activityName": "Almond, shelled with skin, organic, CMAPS {GLO} U",
+  "categories": [
+    "ingredient",
+    "material"
+  ],
+  "displayName": "Amande, décortiquée, avec peau BIO",
+  "id": "9b516955-9c3a-47f0-9815-bb05131fe8ac",
+  "metadata": [
+    {
+      "alias": "almond-shelled-with-skin-default-organic",
+      "cropGroup": "FRUITS A COQUES",
+      "defaultOrigin": "OutOfEuropeAndMaghreb",
+      "displayName": "Amande, décortiquée, avec peau BIO",
+      "id": "64e2c40d-0565-4247-ac68-e189d6a88204",
+      "inediblePart": 0,
+      "ingredientCategories": [
+        "nut_oilseed_raw",
+        "organic"
+      ],
+      "ingredientDensity": 1,
+      "rawToCookedRatio": 1,
+      "scenario": "organic",
+      "scopes": [
+        "food",
+        "food2"
+      ],
+      "transportCooling": "none",
+      "visible": true
+    }
+  ],
+  "scopes": [
+    "food",
+    "food2"
+  ],
+  "source": "Ecobalyse"
+}

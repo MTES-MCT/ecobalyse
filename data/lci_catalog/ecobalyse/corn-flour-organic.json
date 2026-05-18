@@ -1,0 +1,37 @@
+{
+  "activityName": "Corn flour, organic, CMAPS {GLO} U",
+  "categories": [
+    "ingredient",
+    "material"
+  ],
+  "displayName": "Farine de maïs FR BIO",
+  "id": "a6eab5b2-7c8b-40ff-a24c-31a23b934958",
+  "metadata": [
+    {
+      "alias": "corn-flour-fr-organic",
+      "cropGroup": "MAIS GRAIN ET ENSILAGE",
+      "defaultOrigin": "France",
+      "displayName": "Farine de maïs FR BIO",
+      "id": "ad0de72a-ad5e-4776-b63f-b82779022e9e",
+      "inediblePart": 0,
+      "ingredientCategories": [
+        "grain_processed",
+        "organic"
+      ],
+      "ingredientDensity": 1,
+      "rawToCookedRatio": 1,
+      "scenario": "organic",
+      "scopes": [
+        "food",
+        "food2"
+      ],
+      "transportCooling": "always",
+      "visible": true
+    }
+  ],
+  "scopes": [
+    "food",
+    "food2"
+  ],
+  "source": "Ecobalyse"
+}

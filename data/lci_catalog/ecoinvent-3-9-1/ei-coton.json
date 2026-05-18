@@ -1,0 +1,36 @@
+{
+  "activityName": "fibre, cotton//[RoW] fibre production, cotton, ginning",
+  "categories": [
+    "material",
+    "textile_material",
+    "material_type:organic_fibers"
+  ],
+  "comment": "Ancien identifiant (12/2024): a211822aabe83653a6079b9d5677daed.",
+  "displayName": "Production de fibres de coton",
+  "elecMJ": 0,
+  "heatMJ": 0,
+  "id": "f0dbe27b-1e74-55d0-88a2-bda812441744",
+  "metadata": [
+    {
+      "alias": "ei-coton",
+      "defaultCountry": "CN",
+      "displayName": "Production de fibres de coton",
+      "geographicOrigin": "Asie - Pacifique",
+      "id": "62a4d6fb-3276-4ba5-93a3-889ecd3bff84",
+      "name": "Coton",
+      "origin": "NaturalFromVegetal",
+      "primary": true,
+      "scopes": [
+        "object",
+        "textile"
+      ]
+    }
+  ],
+  "scopes": [
+    "textile",
+    "object"
+  ],
+  "source": "Ecoinvent 3.9.1",
+  "unit": "kg",
+  "waste": 0
+}

@@ -1,0 +1,24 @@
+{
+  "activityName": "Ice cream stick, 287,2g | Packaging System, Proxy Pack, Plastic film {FR} U",
+  "categories": [
+    "material",
+    "packaging",
+    "packaging_type:bag"
+  ],
+  "displayName": "Sachet en plastique (PP) pour glace en bâtonnet - 287,2g - Proxy",
+  "id": "196ed5ef-55c3-4b8d-9a62-602e487a0cbd",
+  "metadata": [
+    {
+      "id": "3b3dce5e-6a5f-4cb2-9ba3-1688c4413ec1",
+      "scopes": [
+        "food2"
+      ]
+    }
+  ],
+  "scopes": [
+    "food",
+    "food2"
+  ],
+  "source": "Agribalyse 3.2",
+  "unit": "item"
+}

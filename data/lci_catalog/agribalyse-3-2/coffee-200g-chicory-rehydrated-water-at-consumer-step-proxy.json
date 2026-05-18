@@ -1,0 +1,24 @@
+{
+  "activityName": "Coffee/chicory rehydrated with water at consumer step, 200g | Packaging System, Proxy Pack, Glass {FR} U",
+  "categories": [
+    "material",
+    "packaging",
+    "packaging_type:jar"
+  ],
+  "displayName": "Pot en verre pour café/chicorée - 200g - Proxy",
+  "id": "78862770-8dbe-4004-a543-09b9acf34586",
+  "metadata": [
+    {
+      "id": "cc445a9f-e56f-4b7c-9098-67a5cc22868a",
+      "scopes": [
+        "food2"
+      ]
+    }
+  ],
+  "scopes": [
+    "food",
+    "food2"
+  ],
+  "source": "Agribalyse 3.2",
+  "unit": "item"
+}

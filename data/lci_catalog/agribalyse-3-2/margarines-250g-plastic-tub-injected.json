@@ -1,0 +1,24 @@
+{
+  "activityName": "Margarines, 250g | Packaging System, N0, All, Plastic tub (injected) {FR} U",
+  "categories": [
+    "material",
+    "packaging",
+    "packaging_type:tray"
+  ],
+  "displayName": "Barquette en plastique (injectée) pour margarine - 250g",
+  "id": "05759c2d-f189-445f-bcfb-1b5d42bb7f36",
+  "metadata": [
+    {
+      "id": "428dcf56-ba2b-4c3a-831f-b0f28f5aa5e5",
+      "scopes": [
+        "food2"
+      ]
+    }
+  ],
+  "scopes": [
+    "food",
+    "food2"
+  ],
+  "source": "Agribalyse 3.2",
+  "unit": "item"
+}

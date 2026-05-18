@@ -1,0 +1,24 @@
+{
+  "activityName": "Croutons, 90g | Packaging System, Proxy Pack, Plastic film {FR} U",
+  "categories": [
+    "material",
+    "packaging",
+    "packaging_type:bag"
+  ],
+  "displayName": "Sachet en plastique (PP) pour croûtons - 90g - Proxy",
+  "id": "4f45e929-fe0d-4d40-83ba-9f445defdabe",
+  "metadata": [
+    {
+      "id": "c6d2b250-929e-475a-a70b-a73a39856a6b",
+      "scopes": [
+        "food2"
+      ]
+    }
+  ],
+  "scopes": [
+    "food",
+    "food2"
+  ],
+  "source": "Agribalyse 3.2",
+  "unit": "item"
+}

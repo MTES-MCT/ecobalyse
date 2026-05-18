@@ -1,0 +1,24 @@
+{
+  "activityName": "Butters, 250g | Packaging System, N0, All, Complex foil {FR} U",
+  "categories": [
+    "material",
+    "packaging",
+    "packaging_type:sheet"
+  ],
+  "displayName": "Feuille complexe (PP/alu) pour beurre - 250g",
+  "id": "fc5abb74-2b90-43ab-939d-9ed1b3041c84",
+  "metadata": [
+    {
+      "id": "db972cf9-8174-41c5-9801-301c6ce6d49f",
+      "scopes": [
+        "food2"
+      ]
+    }
+  ],
+  "scopes": [
+    "food",
+    "food2"
+  ],
+  "source": "Agribalyse 3.2",
+  "unit": "item"
+}

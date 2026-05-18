@@ -1,0 +1,9 @@
+{
+  "cull-cow-grass-fed-fr-live": {
+    "ground-beef-grass-fed": {
+      "ratio": 2.0,
+      "source": "brightway",
+      "source_ref": ""
+    }
+  }
+}

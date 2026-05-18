@@ -1,0 +1,54 @@
+{
+  "activityName": "Beaufort cheese, variant 1, CMAPS {GLO} U",
+  "categories": [
+    "ingredient",
+    "material"
+  ],
+  "displayName": "Beaufort FR",
+  "id": "7245e4f7-c2d1-47d5-9018-30fc56d9995a",
+  "metadata": [
+    {
+      "alias": "beaufort-cheese-fr",
+      "defaultOrigin": "France",
+      "displayName": "Beaufort FR",
+      "id": "2e8c166a-b78a-4550-a8c8-c565a9f4bd1b",
+      "inediblePart": 0,
+      "ingredientCategories": [
+        "dairy_product"
+      ],
+      "ingredientDensity": 1,
+      "rawToCookedRatio": 1,
+      "scenario": "reference",
+      "scopes": [
+        "food",
+        "food2"
+      ],
+      "transportCooling": "always",
+      "visible": true
+    },
+    {
+      "alias": "mimolette-cheese-fr",
+      "defaultOrigin": "France",
+      "displayName": "Mimolette FR",
+      "id": "dedfd5eb-6ec4-44d5-9586-e14b4f6631a1",
+      "inediblePart": 0,
+      "ingredientCategories": [
+        "dairy_product"
+      ],
+      "ingredientDensity": 1,
+      "rawToCookedRatio": 1,
+      "scenario": "reference",
+      "scopes": [
+        "food",
+        "food2"
+      ],
+      "transportCooling": "always",
+      "visible": true
+    }
+  ],
+  "scopes": [
+    "food",
+    "food2"
+  ],
+  "source": "Ecobalyse"
+}

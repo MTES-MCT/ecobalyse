@@ -1,0 +1,28 @@
+{
+  "activityName": "steel, unalloyed//[RER] steel production, converter, unalloyed",
+  "categories": [
+    "material",
+    "material_type:ferrous_metals"
+  ],
+  "comment": "",
+  "displayName": "Acier non allié, vierge, Europe",
+  "elecMJ": 0,
+  "heatMJ": 0,
+  "id": "39fd91f1-72b6-5fa3-89d4-ce25b352d107",
+  "metadata": [
+    {
+      "id": "7cd80a58-6d07-4abc-ab41-624c0d1487c7",
+      "scopes": [
+        "object",
+        "veli"
+      ]
+    }
+  ],
+  "scopes": [
+    "object",
+    "veli"
+  ],
+  "source": "Ecoinvent 3.9.1",
+  "unit": "kg",
+  "waste": 0
+}

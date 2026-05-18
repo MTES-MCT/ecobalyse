@@ -1,0 +1,36 @@
+{
+  "activityName": "Lemon, pulp raw, CMAPS {GLO} U",
+  "categories": [
+    "ingredient",
+    "material"
+  ],
+  "displayName": "Citron, pulpe, cru FR",
+  "id": "e923659d-dae8-4bb0-b130-2696721216ae",
+  "metadata": [
+    {
+      "alias": "lemon-pulp-raw-fr",
+      "cropGroup": "VERGERS",
+      "defaultOrigin": "France",
+      "displayName": "Citron, pulpe, cru FR",
+      "id": "ffe80fe6-b401-4069-b817-92154bbd9fe4",
+      "inediblePart": 0,
+      "ingredientCategories": [
+        "vegetable_fresh"
+      ],
+      "ingredientDensity": 1,
+      "rawToCookedRatio": 1,
+      "scenario": "reference",
+      "scopes": [
+        "food",
+        "food2"
+      ],
+      "transportCooling": "always",
+      "visible": true
+    }
+  ],
+  "scopes": [
+    "food",
+    "food2"
+  ],
+  "source": "Ecobalyse"
+}

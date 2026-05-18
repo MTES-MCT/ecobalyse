@@ -1,0 +1,21 @@
+{
+  "activityName": "Cooking, industrial, 1kg of cooked product {FR} U",
+  "categories": [
+    "transformation"
+  ],
+  "displayName": "Cuisson",
+  "id": "a2836bb8-7f45-5cfa-bb00-8b38046291cf",
+  "metadata": [
+    {
+      "id": "e297d2a0-1945-4f48-838f-fbbb4a6cde72",
+      "scopes": [
+        "food2"
+      ]
+    }
+  ],
+  "scopes": [
+    "food",
+    "food2"
+  ],
+  "source": "Agribalyse 3.2"
+}

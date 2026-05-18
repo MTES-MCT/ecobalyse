@@ -1,0 +1,35 @@
+{
+  "activityName": "Processed cheese, variant 1, CMAPS {GLO} U",
+  "categories": [
+    "ingredient",
+    "material"
+  ],
+  "displayName": "Fromage fondu FR",
+  "id": "336dd311-926b-465b-9555-786b442a3edc",
+  "metadata": [
+    {
+      "alias": "processed-cheese-fr",
+      "defaultOrigin": "France",
+      "displayName": "Fromage fondu FR",
+      "id": "671f681c-3ee2-4a98-8399-81663f6e24db",
+      "inediblePart": 0,
+      "ingredientCategories": [
+        "dairy_product"
+      ],
+      "ingredientDensity": 1,
+      "rawToCookedRatio": 1,
+      "scenario": "reference",
+      "scopes": [
+        "food",
+        "food2"
+      ],
+      "transportCooling": "always",
+      "visible": true
+    }
+  ],
+  "scopes": [
+    "food",
+    "food2"
+  ],
+  "source": "Ecobalyse"
+}

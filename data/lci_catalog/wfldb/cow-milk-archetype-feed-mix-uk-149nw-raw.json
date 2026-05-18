@@ -1,0 +1,55 @@
+{
+  "activityName": "Raw cow milk archetype, feed mix UK-149NW, at farm (WFLDB)",
+  "categories": [
+    "ingredient"
+  ],
+  "displayName": "Raw cow milk archetype, feed mix UK-149NW, at farm",
+  "id": "919beed2-5a89-5f03-8090-e05dc54dfa35",
+  "location": "RER",
+  "metadata": [
+    {
+      "alias": "cow-milk-eu",
+      "animalGroup1": "cattle",
+      "animalGroup2": "cow",
+      "animalProduct": "milk",
+      "defaultOrigin": "EuropeAndMaghreb",
+      "displayName": "Lait de vache UE",
+      "id": "f092e399-eb0c-5f4d-abc3-8df379b20dfc",
+      "inediblePart": 0.0,
+      "inediblePartMatch": {
+        "confidence": 1.0,
+        "rule": "dairy NOVA 1 default from food_type_inedible_part.csv"
+      },
+      "ingredientCategories": [
+        "dairy_product"
+      ],
+      "ingredientDensity": 1.05,
+      "ingredientDensityMatch": {
+        "confidence": 0.95,
+        "rule": "Matched with cow in density.csv"
+      },
+      "rawToCookedRatio": 1.0,
+      "rawToCookedRatioMatch": {
+        "confidence": 1.0,
+        "rule": "dairy default from food_type_cooked_to_raw.csv"
+      },
+      "scenario": "import",
+      "scopes": [
+        "food",
+        "food2"
+      ],
+      "transportCooling": "always",
+      "transportCoolingMatch": {
+        "confidence": 1.0,
+        "rule": "dairy NOVA 1 → always (perishable)"
+      },
+      "visible": false
+    }
+  ],
+  "scopes": [
+    "food",
+    "food2"
+  ],
+  "source": "WFLDB",
+  "unit": "kg"
+}

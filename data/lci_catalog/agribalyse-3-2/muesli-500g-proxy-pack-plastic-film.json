@@ -1,0 +1,24 @@
+{
+  "activityName": "Muesli, 500g | Packaging System, Proxy Pack, Plastic film {FR} U",
+  "categories": [
+    "material",
+    "packaging",
+    "packaging_type:bag"
+  ],
+  "displayName": "Sachet en plastique (PE) pour muesli - 500g - Proxy",
+  "id": "c6e0cbca-cf0d-4f29-8626-2f8df965a3ce",
+  "metadata": [
+    {
+      "id": "46e095ab-2593-4b96-9380-a6f5bbb4a40e",
+      "scopes": [
+        "food2"
+      ]
+    }
+  ],
+  "scopes": [
+    "food",
+    "food2"
+  ],
+  "source": "Agribalyse 3.2",
+  "unit": "item"
+}

@@ -1,0 +1,37 @@
+{
+  "activityName": "Rice flour, organic, CMAPS {FR} U",
+  "categories": [
+    "ingredient",
+    "material"
+  ],
+  "displayName": "Farine de riz Origine Inconnue BIO",
+  "id": "f7f402bd-05a8-435e-8165-1090616be307",
+  "metadata": [
+    {
+      "alias": "rice-flour-default-organic",
+      "cropGroup": "RIZ",
+      "defaultOrigin": "OutOfEuropeAndMaghreb",
+      "displayName": "Farine de riz Origine Inconnue BIO",
+      "id": "91148f1f-8aaa-45c1-952c-32262208c03e",
+      "inediblePart": 0,
+      "ingredientCategories": [
+        "grain_processed",
+        "organic"
+      ],
+      "ingredientDensity": 1,
+      "rawToCookedRatio": 1,
+      "scenario": "organic",
+      "scopes": [
+        "food",
+        "food2"
+      ],
+      "transportCooling": "always",
+      "visible": false
+    }
+  ],
+  "scopes": [
+    "food",
+    "food2"
+  ],
+  "source": "Ecobalyse"
+}

@@ -1,0 +1,35 @@
+{
+  "activityName": "Emmental cheese, variant 2, CMAPS {GLO} U",
+  "categories": [
+    "ingredient",
+    "material"
+  ],
+  "displayName": "Emmental ou emmenthal Origine Inconnue",
+  "id": "d0b23683-9c77-44e6-bde8-a42854010497",
+  "metadata": [
+    {
+      "alias": "emmental-cheese-default",
+      "defaultOrigin": "OutOfEuropeAndMaghreb",
+      "displayName": "Emmental ou emmenthal Origine Inconnue",
+      "id": "26e08d1a-fe98-48fc-8440-d6fe0c5c1a36",
+      "inediblePart": 0,
+      "ingredientCategories": [
+        "dairy_product"
+      ],
+      "ingredientDensity": 1,
+      "rawToCookedRatio": 1,
+      "scenario": "import",
+      "scopes": [
+        "food",
+        "food2"
+      ],
+      "transportCooling": "always",
+      "visible": false
+    }
+  ],
+  "scopes": [
+    "food",
+    "food2"
+  ],
+  "source": "Ecobalyse"
+}

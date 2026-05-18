@@ -1,0 +1,24 @@
+{
+  "activityName": "Cocktails, 700g | Packaging System, Proxy Pack, Glass {FR} U",
+  "categories": [
+    "material",
+    "packaging",
+    "packaging_type:bottle"
+  ],
+  "displayName": "Bouteille en verre pour cocktail - 700g - Proxy",
+  "id": "f873d528-850d-4f9d-95e1-5d6d944ed24c",
+  "metadata": [
+    {
+      "id": "023c70d4-73d9-4f84-acee-893e1a4ff60f",
+      "scopes": [
+        "food2"
+      ]
+    }
+  ],
+  "scopes": [
+    "food",
+    "food2"
+  ],
+  "source": "Agribalyse 3.2",
+  "unit": "item"
+}

@@ -1,0 +1,60 @@
+{
+  "activityName": "Wheat grain, organic 2025 {FR}| wheat production | Cut-off, U",
+  "categories": [
+    "ingredient",
+    "material",
+    "material_type:other_food_items"
+  ],
+  "displayName": "Millet entier Bio",
+  "id": "3cf9ad2c-958a-5905-a6e2-afce13869286",
+  "location": "FR",
+  "metadata": [
+    {
+      "alias": "millet-whole-organic",
+      "cropGroup": "AUTRES CEREALES",
+      "cropGroupMatch": {
+        "confidence": 0.95,
+        "rule": "matched 'millet' in cropgroup.csv"
+      },
+      "defaultOrigin": "France",
+      "displayName": "Millet entier Bio",
+      "id": "77d55e50-5971-57d0-ac30-1b1a6692b8f7",
+      "inediblePart": 0.0,
+      "inediblePartMatch": {
+        "confidence": 1.0,
+        "rule": "grain NOVA 1 default from food_type_inedible_part.csv"
+      },
+      "ingredientCategories": [
+        "grain_raw",
+        "organic"
+      ],
+      "ingredientDensity": 0.64,
+      "ingredientDensityMatch": {
+        "confidence": 0.95,
+        "rule": "Matched with Millet in fao_density.csv"
+      },
+      "rawToCookedRatio": 2.259,
+      "rawToCookedRatioMatch": {
+        "confidence": 1.0,
+        "rule": "grain default from food_type_cooked_to_raw.csv"
+      },
+      "scenario": "organic",
+      "scopes": [
+        "food",
+        "food2"
+      ],
+      "transportCooling": "none",
+      "transportCoolingMatch": {
+        "confidence": 1.0,
+        "rule": "grain → none (non-perishable)"
+      },
+      "visible": true
+    }
+  ],
+  "scopes": [
+    "food",
+    "food2"
+  ],
+  "source": "Ginko 2025",
+  "unit": "kg"
+}

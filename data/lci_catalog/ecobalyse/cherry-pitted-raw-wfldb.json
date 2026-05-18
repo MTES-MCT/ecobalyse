@@ -1,0 +1,36 @@
+{
+  "activityName": "Cherry, pitted raw, import WFLDB, CMAPS {GLO} U",
+  "categories": [
+    "ingredient",
+    "material"
+  ],
+  "displayName": "Cerise, dénoyautée, crue Origine Inconnue",
+  "id": "568caaff-aa95-4984-9081-eb99135b7b30",
+  "metadata": [
+    {
+      "alias": "cherry-pitted-raw-default",
+      "cropGroup": "VERGERS",
+      "defaultOrigin": "OutOfEuropeAndMaghreb",
+      "displayName": "Cerise, dénoyautée, crue Origine Inconnue",
+      "id": "417a0eff-a10d-4231-839b-d953f644d69c",
+      "inediblePart": 0,
+      "ingredientCategories": [
+        "vegetable_fresh"
+      ],
+      "ingredientDensity": 1,
+      "rawToCookedRatio": 1,
+      "scenario": "import",
+      "scopes": [
+        "food",
+        "food2"
+      ],
+      "transportCooling": "always",
+      "visible": true
+    }
+  ],
+  "scopes": [
+    "food",
+    "food2"
+  ],
+  "source": "Ecobalyse"
+}

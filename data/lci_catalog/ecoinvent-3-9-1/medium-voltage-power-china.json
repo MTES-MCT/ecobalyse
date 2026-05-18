@@ -1,0 +1,29 @@
+{
+  "activityName": "electricity, medium voltage//[CN] market group for electricity, medium voltage",
+  "categories": [
+    "energy"
+  ],
+  "comment": "Ancien identifiant (12/2024): 8bbc2475141687462993329f9b7c2ddf.",
+  "displayName": "Électricité moyenne tension, Chine",
+  "elecMJ": 0,
+  "heatMJ": 0,
+  "id": "251fa8f5-3e07-5f37-8bed-fa42a367f262",
+  "metadata": [
+    {
+      "id": "7199fd97-bb8f-4665-aaaa-bf8f907cb9cf",
+      "scopes": [
+        "object",
+        "food2"
+      ]
+    }
+  ],
+  "scopes": [
+    "textile",
+    "object",
+    "veli",
+    "food2"
+  ],
+  "source": "Ecoinvent 3.9.1",
+  "unit": "kWh",
+  "waste": 0
+}

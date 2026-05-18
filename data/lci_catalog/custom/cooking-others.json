@@ -1,0 +1,46 @@
+{
+  "categories": [
+    "transformation",
+    "material_type:other_food_items"
+  ],
+  "comment": "Raw to cooked ratio defined in Agribalyse 3 methodology",
+  "displayName": "Cuisson divers",
+  "elecMJ": 0,
+  "heatMJ": 0,
+  "id": "71c3f799-4765-414c-bc1e-6da668b261a0",
+  "impacts": {
+    "acd": 0,
+    "cch": 0,
+    "etf": 0,
+    "etf-c": 0,
+    "fru": 0,
+    "fwe": 0,
+    "htc": 0,
+    "htc-c": 0,
+    "htn": 0,
+    "htn-c": 0,
+    "ior": 0,
+    "ldu": 0,
+    "mru": 0,
+    "ozd": 0,
+    "pco": 0,
+    "pma": 0,
+    "swe": 0,
+    "tre": 0,
+    "wtu": 0
+  },
+  "metadata": [
+    {
+      "id": "6de57003-6767-49e2-a5a1-36ead9b78c42",
+      "scopes": [
+        "food2"
+      ]
+    }
+  ],
+  "scopes": [
+    "food2"
+  ],
+  "source": "Custom",
+  "unit": "kg",
+  "waste": 0
+}

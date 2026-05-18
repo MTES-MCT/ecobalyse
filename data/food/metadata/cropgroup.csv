@@ -1,0 +1,197 @@
+name,cropGroup
+apple,VERGERS
+orange,VERGERS
+mango,VERGERS
+tomato,LEGUMES-FLEURS
+carrot,LEGUMES-FLEURS
+strawberry,LEGUMES-FLEURS
+wheat,BLE TENDRE
+rice,RIZ
+corn,MAIS GRAIN ET ENSILAGE
+barley,ORGE
+oat,AUTRES CEREALES
+quinoa,AUTRES CEREALES
+walnut,FRUITS A COQUES
+almond,FRUITS A COQUES
+sunflower,TOURNESOL
+rapeseed,COLZA
+olive,OLIVIERS
+grape,VIGNES
+soybean,AUTRES OLEAGINEUX
+lentil,LEGUMINEUSES A GRAIN
+chickpea,LEGUMINEUSES A GRAIN
+pea,LEGUMINEUSES A GRAIN
+basil,AUTRES CULTURES INDUSTRIELLES
+pepper,DIVERS
+coffee,DIVERS
+tea,DIVERS
+blé tendre hiver,BLE TENDRE
+blé tendre printemps,BLE TENDRE
+mais grain,MAIS GRAIN ET ENSILAGE
+mais doux,MAIS GRAIN ET ENSILAGE
+mais ensilage,MAIS GRAIN ET ENSILAGE
+orge hiver,ORGE
+orge de printemps,ORGE
+autres céréales,AUTRES CEREALES
+alpiste,AUTRES CEREALES
+avoine,AUTRES CEREALES
+epeautre,AUTRES CEREALES
+millet,AUTRES CEREALES
+seigle,AUTRES CEREALES
+sorgho,AUTRES CEREALES
+sarrasin,AUTRES CEREALES
+triticale,AUTRES CEREALES
+blé dur hiver,AUTRES CEREALES
+blé dur printemps,AUTRES CEREALES
+colza hiver,COLZA
+colza printemps,COLZA
+tournesol,TOURNESOL
+autres oleagineux,AUTRES OLEAGINEUX
+chanvre oleagineux,AUTRES OLEAGINEUX
+lin non textile,AUTRES OLEAGINEUX
+soja,AUTRES OLEAGINEUX
+feveroles,PROTEAGINEUX
+lupin doux,PROTEAGINEUX
+pois d'hiver,PROTEAGINEUX
+pois de printemps,PROTEAGINEUX
+protéagineux autres,PROTEAGINEUX
+protéagineux fourragers,PROTEAGINEUX
+chanvre,PLANTES A FIBRES
+lin textile,PLANTES A FIBRES
+semence de chanvre,SEMENCES
+semences epeautre,SEMENCES
+semence lin textile,SEMENCES
+semence lin oleagineux,SEMENCES
+mais semence,SEMENCES
+semences de riz grains long,SEMENCES
+semences de riz grain court,SEMENCES
+semences potagères,SEMENCES
+semences fourragères,SEMENCES
+riz,RIZ
+lentilles,LEGUMINEUSES A GRAIN
+pois chiches,LEGUMINEUSES A GRAIN
+fourrages déshydratés,LEGUMINEUSES A GRAIN
+vesces,LEGUMINEUSES A GRAIN
+fourrage annuel sarclé,FOURRAGE
+estive,ESTIVES LANDES
+landes parcours boc,ESTIVES LANDES
+prairies naturelles,PRAIRIES PERMANENTES
+prairies temporaires +5 ans,PRAIRIES PERMANENTES
+prairies temporaires,PRAIRIES TEMPORAIRES
+vergers,VERGERS
+cerise bigarreaux industrie,VERGERS
+pêches pour transformation,VERGERS
+poires pour transformation,VERGERS
+prunes d'Ente pour transformation,VERGERS
+vigne,VIGNES
+amande,FRUITS A COQUES
+chataigniers,FRUITS A COQUES
+noisettes,FRUITS A COQUES
+noix,FRUITS A COQUES
+caroube,FRUITS A COQUES
+pistaches,FRUITS A COQUES
+oliveraie,OLIVIERS
+betteraves sucrières,AUTRES CULTURES INDUSTRIELLES
+chicorée à inuline,AUTRES CULTURES INDUSTRIELLES
+houblon,AUTRES CULTURES INDUSTRIELLES
+moutarde,AUTRES CULTURES INDUSTRIELLES
+plantes méd pérennes,AUTRES CULTURES INDUSTRIELLES
+plantes à parfum,AUTRES CULTURES INDUSTRIELLES
+tabac,AUTRES CULTURES INDUSTRIELLES
+plantes aromatiques,AUTRES CULTURES INDUSTRIELLES
+curcuma,AUTRES CULTURES INDUSTRIELLES
+plantes médicinales,AUTRES CULTURES INDUSTRIELLES
+géranium,AUTRES CULTURES INDUSTRIELLES
+vanille,AUTRES CULTURES INDUSTRIELLES
+vétiver,AUTRES CULTURES INDUSTRIELLES
+légumes de plein champs,LEGUMES-FLEURS
+oignons,LEGUMES-FLEURS
+pdt de consommation,LEGUMES-FLEURS
+pdt féculières,LEGUMES-FLEURS
+petit pois,LEGUMES-FLEURS
+tomates transformés,LEGUMES-FLEURS
+tubercules tropicaux,LEGUMES-FLEURS
+chou-fleur,LEGUMES-FLEURS
+endive,LEGUMES-FLEURS
+fraise,LEGUMES-FLEURS
+melon,LEGUMES-FLEURS
+pastèque,LEGUMES-FLEURS
+canne à sucre,CANNE A SUCRE
+agrumes transformés,ARBORICULTURE
+ananas,ARBORICULTURE
+banane export,ARBORICULTURE
+banane creole,ARBORICULTURE
+café cacao,ARBORICULTURE
+autres cultures,DIVERS
+bois,DIVERS
+culture energetique,DIVERS
+hors culture,DIVERS
+sylviculture,DIVERS
+flaxseed,AUTRES OLEAGINEUX
+flax seed,AUTRES OLEAGINEUX
+grapes,VIGNES
+grape,VIGNES
+raisins,VIGNES
+raisin,VIGNES
+spring faba,PROTEAGINEUX
+winter faba,PROTEAGINEUX
+spelt,AUTRES CEREALES
+sorghum,AUTRES CEREALES
+buckwheat,AUTRES CEREALES
+rye,AUTRES CEREALES
+sugar beet,AUTRES CULTURES INDUSTRIELLES
+beetroot,AUTRES CULTURES INDUSTRIELLES
+vanilla,AUTRES CULTURES INDUSTRIELLES
+hop,AUTRES CULTURES INDUSTRIELLES
+hops,AUTRES CULTURES INDUSTRIELLES
+mustard,AUTRES CULTURES INDUSTRIELLES
+chicory,AUTRES CULTURES INDUSTRIELLES
+tobacco,AUTRES CULTURES INDUSTRIELLES
+coriander,AUTRES CULTURES INDUSTRIELLES
+thyme,AUTRES CULTURES INDUSTRIELLES
+rosemary,AUTRES CULTURES INDUSTRIELLES
+sage,AUTRES CULTURES INDUSTRIELLES
+mint,AUTRES CULTURES INDUSTRIELLES
+oregano,AUTRES CULTURES INDUSTRIELLES
+parsley,AUTRES CULTURES INDUSTRIELLES
+tarragon,AUTRES CULTURES INDUSTRIELLES
+lavender,AUTRES CULTURES INDUSTRIELLES
+turmeric,AUTRES CULTURES INDUSTRIELLES
+ginger,AUTRES CULTURES INDUSTRIELLES
+faba bean,PROTEAGINEUX
+fava bean,PROTEAGINEUX
+broad bean,PROTEAGINEUX
+lupin,PROTEAGINEUX
+seaweed,DIVERS
+algae,DIVERS
+kelp,DIVERS
+sugarcane,CANNE A SUCRE
+sugar cane,CANNE A SUCRE
+banana,ARBORICULTURE
+pineapple,ARBORICULTURE
+coffee bean,ARBORICULTURE
+cocoa bean,ARBORICULTURE
+bell pepper,LEGUMES-FLEURS
+chili pepper,LEGUMES-FLEURS
+cucumber,LEGUMES-FLEURS
+zucchini,LEGUMES-FLEURS
+eggplant,LEGUMES-FLEURS
+fennel,LEGUMES-FLEURS
+melon,LEGUMES-FLEURS
+watermelon,LEGUMES-FLEURS
+tapioca,LEGUMES-FLEURS
+cassava,LEGUMES-FLEURS
+manioc,LEGUMES-FLEURS
+onion,LEGUMES-FLEURS
+potato,LEGUMES-FLEURS
+cauliflower,LEGUMES-FLEURS
+brussels sprout,LEGUMES-FLEURS
+chou de bruxelles,LEGUMES-FLEURS
+broccoli,LEGUMES-FLEURS
+brocoli,LEGUMES-FLEURS
+celeriac,LEGUMES-FLEURS
+céleri-rave,LEGUMES-FLEURS
+celeri-rave,LEGUMES-FLEURS
+cabbage,LEGUMES-FLEURS
+chou,LEGUMES-FLEURS
+endive,LEGUMES-FLEURS

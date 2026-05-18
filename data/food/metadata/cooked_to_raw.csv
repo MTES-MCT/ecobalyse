@@ -1,0 +1,130 @@
+food;value
+fruit;0.856
+papaya;0.856
+pineapple;0.856
+mandarin;0.856
+raspberry;0.856
+plum;0.856
+banana;0.856
+apricot;0.856
+peach;0.856
+kiwi;0.856
+vegetable;0.856
+spinach;0.856
+lettuce;0.856
+potato;0.856
+zucchini;0.856
+endive;0.856
+artichoke;0.856
+beetroot;0.856
+root vegetable;0.856
+celery;0.856
+turnip;0.856
+carrot;0.856
+broccoli;0.856
+onion;0.856
+cabbage;0.856
+lychee;0.856
+garlic;0.856
+fish;0.819
+shellfish;0.819
+crustacean;0.819
+crab;0.819
+shrimp;0.819
+squid;0.819
+lobster;0.819
+seed;2.259
+soybean;2.259
+silage;2.259
+cereal;2.259
+durum wheat;2.259
+barley;2.259
+triticale;2.259
+rapeseed;2.259
+oat;2.259
+rice;2.259
+legume;2.33
+dehydrated soup;12
+dehydrated onion;1.9
+lentil;2.33
+egg;0.974
+red meat;0.792
+meat;0.792
+pork;0.792
+ground beef;0.792
+ham;0.792
+chicken;0.755
+poultry;0.755
+offal;0.73
+radish;0.856
+dairy product;1
+cream;1
+cheese;1
+emmental;1
+fruit juice;1
+liquid;1
+beverage;1
+syrup;1
+honey;1
+soup;1
+vegetable oil;1
+oil;1
+butter;1
+animal fat;1
+chestnut;1
+pea;1
+nut;1
+hazelnut;1
+flour;1
+powder;1
+coffee;1
+other ingredient;1
+fresh vegetable;1.18
+canned vegetable;1.0
+frozen vegetable;1.11
+dried vegetable;3.33
+jarred vegetable;1.0
+fresh fruit;1.0
+canned fruit;1.0
+frozen fruit;1.0
+dried fruit;4.0
+jam;1.0
+compote;1.0
+fresh meat;1.33
+frozen meat;1.33
+dried meat;2.5
+deli meat;1.0
+canned meat;1.0
+fresh fish;1.18
+frozen fish;1.18
+canned fish;1.0
+smoked fish;1.11
+dried fish;2.86
+seafood;1.11
+crustacean;1.11
+fresh milk;1.0
+UHT milk;1.0
+cheese;1.0
+yogurt;1.0
+butter;1.0
+fresh cream;1.0
+milk powder;10.0
+cereal;2.5
+flour;1.0
+bread;1.11
+pasta;2.5
+rice;2.86
+semolina;2.5
+nut;1.0
+seed;1.0
+oil;1.0
+peanut butter;1.0
+spice;1.0
+aromatic herb;1.0
+sauce;1.0
+vinegar;1.0
+mustard;1.0
+salt;1.0
+sugar;1.0
+egg;1.11
+egg powder;4.0

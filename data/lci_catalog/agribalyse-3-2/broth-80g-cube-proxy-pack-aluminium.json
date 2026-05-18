@@ -1,0 +1,24 @@
+{
+  "activityName": "Broth - cube, 80g | Packaging System, Proxy Pack, Aluminium {FR} U",
+  "categories": [
+    "material",
+    "packaging",
+    "packaging_type:sheet"
+  ],
+  "displayName": "Feuille en aluminium pour cube de bouillon - 80g - Proxy",
+  "id": "ab3f47fd-f0db-42da-a6d0-775e51af253a",
+  "metadata": [
+    {
+      "id": "05bf4185-f0dd-4557-9127-aeb7ff28972d",
+      "scopes": [
+        "food2"
+      ]
+    }
+  ],
+  "scopes": [
+    "food",
+    "food2"
+  ],
+  "source": "Agribalyse 3.2",
+  "unit": "item"
+}

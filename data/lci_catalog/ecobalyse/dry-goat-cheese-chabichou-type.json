@@ -1,0 +1,54 @@
+{
+  "activityName": "Dry goat cheese, chabichou type, CMAPS {GLO} U",
+  "categories": [
+    "ingredient",
+    "material"
+  ],
+  "displayName": "Fromage de chèvre sec (chabichou, picodon, crottin de Chavignol) FR",
+  "id": "42b35681-8889-4757-ab87-3e331688f924",
+  "metadata": [
+    {
+      "alias": "dry-goat-cheese-chabichou-type-default",
+      "defaultOrigin": "OutOfEuropeAndMaghreb",
+      "displayName": "Fromage de chèvre sec (chabichou, picodon, crottin de Chavignol) Origine Inconnue",
+      "id": "d6286f22-8f31-457b-93ac-365954379903",
+      "inediblePart": 0,
+      "ingredientCategories": [
+        "dairy_product"
+      ],
+      "ingredientDensity": 1,
+      "rawToCookedRatio": 1,
+      "scenario": "import",
+      "scopes": [
+        "food",
+        "food2"
+      ],
+      "transportCooling": "always",
+      "visible": false
+    },
+    {
+      "alias": "dry-goat-cheese-chabichou-type-fr",
+      "defaultOrigin": "France",
+      "displayName": "Fromage de chèvre sec (chabichou, picodon, crottin de Chavignol) FR",
+      "id": "da23f30c-ad60-44d2-9b8d-86183459b6ab",
+      "inediblePart": 0,
+      "ingredientCategories": [
+        "dairy_product"
+      ],
+      "ingredientDensity": 1,
+      "rawToCookedRatio": 1,
+      "scenario": "reference",
+      "scopes": [
+        "food",
+        "food2"
+      ],
+      "transportCooling": "always",
+      "visible": false
+    }
+  ],
+  "scopes": [
+    "food",
+    "food2"
+  ],
+  "source": "Ecobalyse"
+}

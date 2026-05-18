@@ -1,0 +1,96 @@
+{
+  "activityName": "Wheat grain {RoW}| wheat production | Cut-off, U - Adapted from Ecoinvent U",
+  "categories": [
+    "ingredient"
+  ],
+  "displayName": "Wheat grain (ROW)",
+  "id": "ceb88fa5-9d41-5268-b7f8-73b34374de14",
+  "metadata": [
+    {
+      "alias": "soft-wheat-non-eu",
+      "cropGroup": "BLE TENDRE",
+      "cropGroupMatch": {
+        "confidence": 0.95,
+        "rule": "matched 'wheat' in cropgroup.csv"
+      },
+      "defaultOrigin": "OutOfEuropeAndMaghreb",
+      "displayName": "Blé tendre HORS UE",
+      "id": "1402fd8a-d473-51fd-9d07-b4c0eb798dcc",
+      "inediblePart": 0.0,
+      "inediblePartMatch": {
+        "confidence": 1.0,
+        "rule": "grain NOVA 1 default from food_type_inedible_part.csv"
+      },
+      "ingredientCategories": [
+        "grain_raw"
+      ],
+      "ingredientDensity": 0.77,
+      "ingredientDensityMatch": {
+        "confidence": 0.95,
+        "rule": "Matched with Wheat in fao_density.csv"
+      },
+      "rawToCookedRatio": 2.259,
+      "rawToCookedRatioMatch": {
+        "confidence": 1.0,
+        "rule": "grain default from food_type_cooked_to_raw.csv"
+      },
+      "scenario": "import",
+      "scopes": [
+        "food",
+        "food2"
+      ],
+      "transportCooling": "none",
+      "transportCoolingMatch": {
+        "confidence": 1.0,
+        "rule": "grain → none (non-perishable)"
+      },
+      "visible": true
+    },
+    {
+      "alias": "millet-whole-non-eu",
+      "cropGroup": "AUTRES CEREALES",
+      "cropGroupMatch": {
+        "confidence": 0.95,
+        "rule": "matched 'millet' in cropgroup.csv"
+      },
+      "defaultOrigin": "OutOfEuropeAndMaghreb",
+      "displayName": "Millet entier HORS UE",
+      "id": "4b996c06-a53a-5ed9-9add-22f59f7a9f6d",
+      "inediblePart": 0.0,
+      "inediblePartMatch": {
+        "confidence": 1.0,
+        "rule": "grain NOVA 1 default from food_type_inedible_part.csv"
+      },
+      "ingredientCategories": [
+        "grain_raw"
+      ],
+      "ingredientDensity": 0.64,
+      "ingredientDensityMatch": {
+        "confidence": 0.95,
+        "rule": "Matched with Millet in fao_density.csv"
+      },
+      "rawToCookedRatio": 2.259,
+      "rawToCookedRatioMatch": {
+        "confidence": 1.0,
+        "rule": "grain default from food_type_cooked_to_raw.csv"
+      },
+      "scenario": "import",
+      "scopes": [
+        "food",
+        "food2"
+      ],
+      "transportCooling": "none",
+      "transportCoolingMatch": {
+        "confidence": 1.0,
+        "rule": "grain → none (non-perishable)"
+      },
+      "visible": true
+    }
+  ],
+  "scopes": [
+    "food",
+    "food2"
+  ],
+  "source": "Agribalyse 3.2",
+  "unit": "kg"
+}

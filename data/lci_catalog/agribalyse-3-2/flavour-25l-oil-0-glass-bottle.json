@@ -1,0 +1,24 @@
+{
+  "activityName": "Flavour oil, 0,25L | Packaging System, N0, All, Glass bottle {FR} U",
+  "categories": [
+    "material",
+    "packaging",
+    "packaging_type:bottle"
+  ],
+  "displayName": "Bouteille en verre pour huile à goût - 0,25L",
+  "id": "be26ec9e-770a-4068-a700-28b8227d4a6d",
+  "metadata": [
+    {
+      "id": "5c7f9a3f-97ff-4129-b9b6-bcccbbae162a",
+      "scopes": [
+        "food2"
+      ]
+    }
+  ],
+  "scopes": [
+    "food",
+    "food2"
+  ],
+  "source": "Agribalyse 3.2",
+  "unit": "item"
+}

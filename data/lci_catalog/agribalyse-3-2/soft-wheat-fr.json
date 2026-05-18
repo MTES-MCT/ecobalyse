@@ -1,0 +1,58 @@
+{
+  "activityName": "Soft wheat grain, conventional, breadmaking quality, 15% moisture, at farm gate {FR} U",
+  "categories": [
+    "ingredient",
+    "material",
+    "material_type:other_food_items"
+  ],
+  "displayName": "Blé tendre FR",
+  "id": "759ad276-1be6-50d7-97f9-c94c5694aa28",
+  "metadata": [
+    {
+      "alias": "soft-wheat-fr",
+      "cropGroup": "BLE TENDRE",
+      "cropGroupMatch": {
+        "confidence": 0.95,
+        "rule": "matched 'wheat' in cropgroup.csv"
+      },
+      "defaultOrigin": "France",
+      "displayName": "Blé tendre FR",
+      "id": "38788025-a65e-4edf-a92f-aab0b89b0d61",
+      "inediblePart": 0.0,
+      "inediblePartMatch": {
+        "confidence": 1.0,
+        "rule": "grain NOVA 1 default from food_type_inedible_part.csv"
+      },
+      "ingredientCategories": [
+        "grain_raw"
+      ],
+      "ingredientDensity": 0.77,
+      "ingredientDensityMatch": {
+        "confidence": 0.95,
+        "rule": "Matched with Wheat in fao_density.csv"
+      },
+      "rawToCookedRatio": 2.259,
+      "rawToCookedRatioMatch": {
+        "confidence": 1.0,
+        "rule": "grain default from food_type_cooked_to_raw.csv"
+      },
+      "scenario": "reference",
+      "scopes": [
+        "food",
+        "food2"
+      ],
+      "transportCooling": "none",
+      "transportCoolingMatch": {
+        "confidence": 1.0,
+        "rule": "grain → none (non-perishable)"
+      },
+      "visible": true
+    }
+  ],
+  "scopes": [
+    "food",
+    "food2"
+  ],
+  "source": "Agribalyse 3.2",
+  "unit": "kg"
+}

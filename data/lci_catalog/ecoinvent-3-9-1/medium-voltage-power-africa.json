@@ -1,0 +1,29 @@
+{
+  "activityName": "electricity, medium voltage//[RAF] market group for electricity, medium voltage",
+  "categories": [
+    "energy"
+  ],
+  "comment": "Ancien identifiant (12/2024): elec-medium-region-africa.",
+  "displayName": "Électricité moyenne tension, Afrique",
+  "elecMJ": 0,
+  "heatMJ": 0,
+  "id": "15958106-68d0-5130-8ed8-d8557cdcc1fa",
+  "metadata": [
+    {
+      "id": "d5a98724-27fd-45a1-a713-afcf8f653089",
+      "scopes": [
+        "object",
+        "food2"
+      ]
+    }
+  ],
+  "scopes": [
+    "textile",
+    "object",
+    "veli",
+    "food2"
+  ],
+  "source": "Ecoinvent 3.9.1",
+  "unit": "kWh",
+  "waste": 0
+}

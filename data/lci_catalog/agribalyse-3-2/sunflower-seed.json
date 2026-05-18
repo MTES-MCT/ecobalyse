@@ -1,0 +1,56 @@
+{
+  "activityName": "Sunflower seed {UA}| sunflower production | Cut-off, U - Adapted from Ecoinvent U",
+  "categories": [
+    "ingredient"
+  ],
+  "displayName": "Sunflower seed (UA)",
+  "id": "03a7ade0-81b5-5acb-acee-0665d51dc699",
+  "metadata": [
+    {
+      "alias": "sunflower-seed-non-eu",
+      "cropGroup": "TOURNESOL",
+      "cropGroupMatch": {
+        "confidence": 0.95,
+        "rule": "matched 'sunflower' in cropgroup.csv"
+      },
+      "defaultOrigin": "OutOfEuropeAndMaghreb",
+      "displayName": "Tournesol, graine HORS UE",
+      "id": "5d1e4843-a051-5fd4-999d-65bdf697560d",
+      "inediblePart": 0.0,
+      "inediblePartMatch": {
+        "confidence": 0.96,
+        "rule": "Matched with sunflower seed in inedible_part.csv"
+      },
+      "ingredientCategories": [
+        "nut_oilseed_raw"
+      ],
+      "ingredientDensity": 0.62,
+      "ingredientDensityMatch": {
+        "confidence": 1.0,
+        "rule": "Sunflower, seed found in fao_density.csv"
+      },
+      "rawToCookedRatio": 1.0,
+      "rawToCookedRatioMatch": {
+        "confidence": 1.0,
+        "rule": "nut_oilseed default from food_type_cooked_to_raw.csv"
+      },
+      "scenario": "import",
+      "scopes": [
+        "food",
+        "food2"
+      ],
+      "transportCooling": "none",
+      "transportCoolingMatch": {
+        "confidence": 1.0,
+        "rule": "nut_oilseed → none (non-perishable)"
+      },
+      "visible": true
+    }
+  ],
+  "scopes": [
+    "food",
+    "food2"
+  ],
+  "source": "Agribalyse 3.2",
+  "unit": "kg"
+}

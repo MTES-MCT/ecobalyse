@@ -1,0 +1,46 @@
+{
+  "categories": [
+    "transformation",
+    "material_type:fruits_and_vegetables"
+  ],
+  "comment": "Raw to cooked ratio defined in Agribalyse 3 methodology",
+  "displayName": "Cuisson des fruits et légumes frais",
+  "elecMJ": 0,
+  "heatMJ": 0,
+  "id": "c5c7d3af-20fc-49c1-ab4c-1a04d37f8602",
+  "impacts": {
+    "acd": 0,
+    "cch": 0,
+    "etf": 0,
+    "etf-c": 0,
+    "fru": 0,
+    "fwe": 0,
+    "htc": 0,
+    "htc-c": 0,
+    "htn": 0,
+    "htn-c": 0,
+    "ior": 0,
+    "ldu": 0,
+    "mru": 0,
+    "ozd": 0,
+    "pco": 0,
+    "pma": 0,
+    "swe": 0,
+    "tre": 0,
+    "wtu": 0
+  },
+  "metadata": [
+    {
+      "id": "de307fb4-99d3-4a01-962b-242ace7b2739",
+      "scopes": [
+        "food2"
+      ]
+    }
+  ],
+  "scopes": [
+    "food2"
+  ],
+  "source": "Custom",
+  "unit": "kg",
+  "waste": 0.144
+}

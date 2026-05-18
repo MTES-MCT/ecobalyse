@@ -1,0 +1,37 @@
+{
+  "activityName": "Oat flour, organic, CMAPS {GLO} U",
+  "categories": [
+    "ingredient",
+    "material"
+  ],
+  "displayName": "Farine d'avoine Origine Inconnue BIO",
+  "id": "9cb40ed1-169b-4cfb-9f8d-9ab55397f8c7",
+  "metadata": [
+    {
+      "alias": "oat-flour-default-organic",
+      "cropGroup": "AUTRES CEREALES",
+      "defaultOrigin": "OutOfEuropeAndMaghreb",
+      "displayName": "Farine d'avoine Origine Inconnue BIO",
+      "id": "84fce162-aadc-4ab7-ae58-fb529a9267d9",
+      "inediblePart": 0,
+      "ingredientCategories": [
+        "grain_processed",
+        "organic"
+      ],
+      "ingredientDensity": 1,
+      "rawToCookedRatio": 1,
+      "scenario": "organic",
+      "scopes": [
+        "food",
+        "food2"
+      ],
+      "transportCooling": "always",
+      "visible": false
+    }
+  ],
+  "scopes": [
+    "food",
+    "food2"
+  ],
+  "source": "Ecobalyse"
+}

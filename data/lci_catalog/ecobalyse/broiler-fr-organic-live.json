@@ -1,0 +1,40 @@
+{
+  "activityName": "Broiler, organic, at farm gate {FR} U {{chicken-breast-fr-organic-2025}}",
+  "categories": [
+    "ingredient",
+    "material",
+    "material_type:other_food_items"
+  ],
+  "displayName": "Poulet bio vivant FR (alim. ani. 100% FR issu de poulet bio FR)",
+  "id": "2e91c78a-925c-57c7-b13e-759ea6671127",
+  "metadata": [
+    {
+      "alias": "broiler-fr-organic-live",
+      "animalGroup1": "poultry",
+      "animalGroup2": "chicken",
+      "animalProduct": "meat",
+      "defaultOrigin": "France",
+      "displayName": "Poulet bio vivant FR (alim. ani. 100% FR issu de poulet bio FR)",
+      "id": "1d8e7cac-fc93-501f-8d33-98f1d6d34da8",
+      "inediblePart": 0,
+      "ingredientCategories": [
+        "animal_product",
+        "organic"
+      ],
+      "ingredientDensity": 1.0,
+      "rawToCookedRatio": 1.0,
+      "scenario": "organic",
+      "scopes": [
+        "food",
+        "food2"
+      ],
+      "transportCooling": "always",
+      "visible": false
+    }
+  ],
+  "scopes": [
+    "food",
+    "food2"
+  ],
+  "source": "Ecobalyse"
+}

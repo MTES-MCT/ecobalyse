@@ -1,0 +1,56 @@
+{
+  "activityName": "Red berries, frozen raw, CMAPS {GLO} U",
+  "categories": [
+    "ingredient",
+    "material"
+  ],
+  "displayName": "Fruits rouges, crus (framboises, fraises, groseilles, cassis), surgelé FR",
+  "id": "cd11a1a0-b7bd-4fe3-9f66-67284d8345a0",
+  "metadata": [
+    {
+      "alias": "red-berries-frozen-raw-default",
+      "cropGroup": "VERGERS",
+      "defaultOrigin": "OutOfEuropeAndMaghreb",
+      "displayName": "Fruits rouges, crus (framboises, fraises, groseilles, cassis), surgelé Origine Inconnue",
+      "id": "5a2a6036-7852-46a0-ab39-ced0bbfdce0f",
+      "inediblePart": 0,
+      "ingredientCategories": [
+        "vegetable_processed"
+      ],
+      "ingredientDensity": 1,
+      "rawToCookedRatio": 1,
+      "scenario": "import",
+      "scopes": [
+        "food",
+        "food2"
+      ],
+      "transportCooling": "always",
+      "visible": true
+    },
+    {
+      "alias": "red-berries-frozen-raw-fr",
+      "cropGroup": "VERGERS",
+      "defaultOrigin": "France",
+      "displayName": "Fruits rouges, crus (framboises, fraises, groseilles, cassis), surgelé FR",
+      "id": "e06b120f-588c-4247-bd83-8f9428fead1e",
+      "inediblePart": 0,
+      "ingredientCategories": [
+        "vegetable_processed"
+      ],
+      "ingredientDensity": 1,
+      "rawToCookedRatio": 1,
+      "scenario": "reference",
+      "scopes": [
+        "food",
+        "food2"
+      ],
+      "transportCooling": "always",
+      "visible": true
+    }
+  ],
+  "scopes": [
+    "food",
+    "food2"
+  ],
+  "source": "Ecobalyse"
+}

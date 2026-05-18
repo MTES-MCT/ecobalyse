@@ -1,0 +1,28 @@
+{
+  "activityName": "aluminium ingot, recycled, RER, CFF",
+  "categories": [
+    "material",
+    "material_type:aluminium"
+  ],
+  "comment": "Matériau 100% issu du recyclage, calculé selon la méthode CFF (A=0.8, Q=1)",
+  "displayName": "Aluminium recyclé, Europe",
+  "elecMJ": 0,
+  "heatMJ": 0,
+  "id": "a23b7b63-dd7c-49cf-9cf0-00196dd207c0",
+  "metadata": [
+    {
+      "id": "1c65a929-85bf-4e85-8a88-8aaa64ea17b8",
+      "scopes": [
+        "object",
+        "veli"
+      ]
+    }
+  ],
+  "scopes": [
+    "object",
+    "veli"
+  ],
+  "source": "Ecobalyse",
+  "unit": "kg",
+  "waste": 0
+}

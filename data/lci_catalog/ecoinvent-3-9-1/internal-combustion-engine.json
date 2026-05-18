@@ -1,0 +1,26 @@
+{
+  "activityName": "internal combustion engine, passenger car//[GLO] internal combustion engine production, passenger car",
+  "categories": [
+    "material",
+    "material_type:ferrous_metals"
+  ],
+  "comment": "",
+  "displayName": "Moteur thermique (MCI)",
+  "elecMJ": 0,
+  "heatMJ": 0,
+  "id": "d4b65f58-3862-4229-bf2e-8ed7c21379c4",
+  "metadata": [
+    {
+      "id": "8b28671a-83f2-46e6-8c1c-e973a47dde97",
+      "scopes": [
+        "veli"
+      ]
+    }
+  ],
+  "scopes": [
+    "veli"
+  ],
+  "source": "Ecoinvent 3.9.1",
+  "unit": "kg",
+  "waste": 0
+}

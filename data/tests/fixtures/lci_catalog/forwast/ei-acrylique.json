@@ -1,0 +1,33 @@
+{
+  "activityName": "_31 Leather products, footwear, EU27",
+  "categories": [
+    "material",
+    "textile_material"
+  ],
+  "comment": "Ancien identifiant (12/2024): 75b27555d86fe1c66686cdf4339efc89.",
+  "displayName": "Production de plexiglas (Polyméthacrylate de méthyle)",
+  "elecMJ": 0,
+  "heatMJ": 0,
+  "id": "0d34a0c0-e666-5a63-b1af-f686c5914632",
+  "metadata": [
+    {
+      "alias": "ei-acrylique",
+      "defaultCountry": "CN",
+      "displayName": "Production de plexiglas (Polyméthacrylate de méthyle)",
+      "geographicOrigin": "Asie - Pacifique",
+      "id": "f6b6684b-c4ff-4df0-84a4-e09e59d32e5f",
+      "name": "Acrylique",
+      "origin": "Synthetic",
+      "primary": false,
+      "scopes": [
+        "textile"
+      ]
+    }
+  ],
+  "scopes": [
+    "textile"
+  ],
+  "source": "forwast",
+  "unit": "kg",
+  "waste": 0
+}

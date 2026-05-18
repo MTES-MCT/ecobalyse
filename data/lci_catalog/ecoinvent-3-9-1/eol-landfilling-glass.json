@@ -1,0 +1,28 @@
+{
+  "activityName": "waste glass//[CH] treatment of waste glass, inert material landfill",
+  "categories": [
+    "end-of-life",
+    "material_type:glass"
+  ],
+  "comment": "",
+  "displayName": "Enfouissement du verre",
+  "elecMJ": 0,
+  "heatMJ": 0,
+  "id": "13600949-96eb-4d97-aa9e-14b8783b5a2a",
+  "metadata": [
+    {
+      "id": "6c3b8124-1bd0-49c8-8bb6-e8fbdc85e8bc",
+      "scopes": [
+        "object",
+        "veli"
+      ]
+    }
+  ],
+  "scopes": [
+    "object",
+    "veli"
+  ],
+  "source": "Ecoinvent 3.9.1",
+  "unit": "kg",
+  "waste": 0
+}

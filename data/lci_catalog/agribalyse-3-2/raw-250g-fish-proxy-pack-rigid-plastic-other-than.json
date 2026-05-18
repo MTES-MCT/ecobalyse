@@ -1,0 +1,24 @@
+{
+  "activityName": "Raw fish, 250g | Packaging System, Proxy Pack, Rigid plastic, other than bottles {FR} U",
+  "categories": [
+    "material",
+    "packaging",
+    "packaging_type:tray"
+  ],
+  "displayName": "Barquette en plastique (PET) pour poisson cru - 250g - Proxy",
+  "id": "5730bd7e-8644-4893-b7a2-7a8a442b2ff1",
+  "metadata": [
+    {
+      "id": "bed7e196-fd70-42aa-9367-94b62832afb5",
+      "scopes": [
+        "food2"
+      ]
+    }
+  ],
+  "scopes": [
+    "food",
+    "food2"
+  ],
+  "source": "Agribalyse 3.2",
+  "unit": "item"
+}

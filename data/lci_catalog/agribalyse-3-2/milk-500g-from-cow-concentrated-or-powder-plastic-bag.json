@@ -1,0 +1,24 @@
+{
+  "activityName": "Milk from cow, concentrated or in powder, 500g | Packaging System, N0, All, Plastic bag {FR} U",
+  "categories": [
+    "material",
+    "packaging",
+    "packaging_type:bag"
+  ],
+  "displayName": "Sachet en plastique (multimatériaux) pour lait en poudre - 500g",
+  "id": "56f941c4-cdf6-4a14-a95b-c1ced03b47c0",
+  "metadata": [
+    {
+      "id": "823eff59-b580-4728-b153-63e59c121b97",
+      "scopes": [
+        "food2"
+      ]
+    }
+  ],
+  "scopes": [
+    "food",
+    "food2"
+  ],
+  "source": "Agribalyse 3.2",
+  "unit": "item"
+}

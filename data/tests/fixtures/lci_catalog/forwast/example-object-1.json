@@ -1,0 +1,32 @@
+{
+  "activityName": "_32 Wood products, except furniture, EU27",
+  "categories": [],
+  "comment": "",
+  "displayName": "Example object 1",
+  "id": "40fb8473-0378-5d6a-96b0-ce960b87a1fd",
+  "landOccupation": 1500,
+  "metadata": [
+    {
+      "alias": "example-object",
+      "id": "0e9c64fe-8a5c-40ba-b60c-ff2b47b56627",
+      "scopes": [
+        "object"
+      ]
+    },
+    {
+      "alias": "example-object-sustainable",
+      "displayName": "Example object 1 (gestion durable)",
+      "forestManagement": "certifiedSustainableManagement",
+      "id": "b2c3d4e5-f6a7-8901-bcde-f12345678901",
+      "scopes": [
+        "object"
+      ]
+    }
+  ],
+  "scopes": [
+    "object"
+  ],
+  "source": "forwast",
+  "unit": "kg",
+  "waste": 0
+}

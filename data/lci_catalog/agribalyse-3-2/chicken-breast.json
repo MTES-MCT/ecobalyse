@@ -1,0 +1,39 @@
+{
+  "activityName": "Meat without bone, chicken, for direct consumption {FR} U",
+  "categories": [
+    "ingredient",
+    "material",
+    "material_type:poultry"
+  ],
+  "displayName": "Blanc de poulet cru FR",
+  "id": "72e94715-bb24-59c1-8917-c4d00489c1fe",
+  "metadata": [
+    {
+      "alias": "chicken-breast",
+      "animalGroup1": "poultry",
+      "animalGroup2": "chicken",
+      "animalProduct": "meat",
+      "defaultOrigin": "France",
+      "displayName": "Blanc de poulet cru FR",
+      "id": "a360871c-fc35-4cb3-af2c-5eeb8bd6f984",
+      "inediblePart": 0,
+      "ingredientCategories": [
+        "animal_product"
+      ],
+      "ingredientDensity": 1.0,
+      "rawToCookedRatio": 0.755,
+      "scenario": "reference",
+      "scopes": [
+        "food",
+        "food2"
+      ],
+      "transportCooling": "always",
+      "visible": true
+    }
+  ],
+  "scopes": [
+    "food",
+    "food2"
+  ],
+  "source": "Agribalyse 3.2"
+}

@@ -1,0 +1,28 @@
+{
+  "activityName": "wood EoL recycling, RER, CFF",
+  "categories": [
+    "end-of-life",
+    "material_type:wood"
+  ],
+  "comment": "According to CFF: A=0.71, Q=0.85",
+  "displayName": "Recyclage du bois, CFF",
+  "elecMJ": 0,
+  "heatMJ": 0,
+  "id": "15277b3c-e9d6-423d-9e96-04d77d59888e",
+  "metadata": [
+    {
+      "id": "286b98fe-6171-4ce6-ba20-3414b60412b5",
+      "scopes": [
+        "object",
+        "veli"
+      ]
+    }
+  ],
+  "scopes": [
+    "object",
+    "veli"
+  ],
+  "source": "Ecobalyse",
+  "unit": "kg",
+  "waste": 0
+}

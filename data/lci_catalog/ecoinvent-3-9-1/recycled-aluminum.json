@@ -1,0 +1,28 @@
+{
+  "activityName": "aluminium, cast alloy//[RER] treatment of aluminium scrap, post-consumer, prepared for recycling, at refiner",
+  "categories": [
+    "material",
+    "material_type:aluminium"
+  ],
+  "comment": "",
+  "displayName": "Aluminium recyclé",
+  "elecMJ": 0,
+  "heatMJ": 0,
+  "id": "5482d569-0596-5f7b-befa-a82362392f45",
+  "metadata": [
+    {
+      "id": "f3c7bb4a-a40a-433b-9ce3-a9a35c142a02",
+      "scopes": [
+        "object",
+        "veli"
+      ]
+    }
+  ],
+  "scopes": [
+    "object",
+    "veli"
+  ],
+  "source": "Ecoinvent 3.9.1",
+  "unit": "kg",
+  "waste": 0
+}

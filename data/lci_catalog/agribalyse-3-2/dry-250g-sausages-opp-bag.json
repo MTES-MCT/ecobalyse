@@ -1,0 +1,24 @@
+{
+  "activityName": "Dry sausages, 250g | Packaging System, N0, All, OPP bag {FR} U",
+  "categories": [
+    "material",
+    "packaging",
+    "packaging_type:bag"
+  ],
+  "displayName": "Sachet plastique (OPP) pour saucisson sec - 250g",
+  "id": "c72e12c0-23bf-4a9d-97aa-31a36de33925",
+  "metadata": [
+    {
+      "id": "7f1f9252-80a9-4fe8-a14b-7e8f77ad975a",
+      "scopes": [
+        "food2"
+      ]
+    }
+  ],
+  "scopes": [
+    "food",
+    "food2"
+  ],
+  "source": "Agribalyse 3.2",
+  "unit": "item"
+}

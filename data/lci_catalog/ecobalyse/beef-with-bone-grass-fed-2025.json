@@ -1,0 +1,39 @@
+{
+  "activityName": "Meat with bone, beef for direct consumption {{beef-with-bone-grass-fed-2025}}",
+  "categories": [
+    "ingredient",
+    "material",
+    "material_type:red_meats"
+  ],
+  "displayName": "Viande de boeuf avec os - vache de réforme 100% herbe FR (2025)",
+  "id": "61651aef-b4eb-5e46-9ebb-c02be2d31936",
+  "metadata": [
+    {
+      "alias": "beef-with-bone-grass-fed",
+      "animalGroup1": "cattle",
+      "animalGroup2": "cow",
+      "animalProduct": "meat",
+      "defaultOrigin": "France",
+      "displayName": "Viande de boeuf avec os - vache de réforme 100% herbe FR",
+      "id": "f38271f1-bdba-40cd-a296-2bc741fbf915",
+      "inediblePart": 0.2,
+      "ingredientCategories": [
+        "animal_product"
+      ],
+      "ingredientDensity": 1.0,
+      "rawToCookedRatio": 0.792,
+      "scenario": "reference",
+      "scopes": [
+        "food",
+        "food2"
+      ],
+      "transportCooling": "always",
+      "visible": false
+    }
+  ],
+  "scopes": [
+    "food",
+    "food2"
+  ],
+  "source": "Ecobalyse"
+}

@@ -1,0 +1,39 @@
+{
+  "activityName": "Ground beef, fresh, case ready, for direct consumption, at plant {FR} U",
+  "categories": [
+    "ingredient",
+    "material",
+    "material_type:red_meats"
+  ],
+  "displayName": "Boeuf haché cru FR",
+  "id": "149ac87d-7e47-56c6-a39a-e6b5cf8dea56",
+  "metadata": [
+    {
+      "alias": "ground-beef-2025",
+      "animalGroup1": "cattle",
+      "animalGroup2": "cow",
+      "animalProduct": "meat",
+      "defaultOrigin": "France",
+      "displayName": "Boeuf haché cru FR (2025)",
+      "id": "41d65ed4-230f-4a47-a67c-9a8015f50420",
+      "inediblePart": 0,
+      "ingredientCategories": [
+        "animal_product"
+      ],
+      "ingredientDensity": 1.0,
+      "rawToCookedRatio": 0.792,
+      "scenario": "reference",
+      "scopes": [
+        "food",
+        "food2"
+      ],
+      "transportCooling": "always",
+      "visible": false
+    }
+  ],
+  "scopes": [
+    "food",
+    "food2"
+  ],
+  "source": "Agribalyse 3.2"
+}

@@ -1,0 +1,37 @@
+{
+  "activityName": "Lemon, pulp raw, organic, CMAPS {GLO} U",
+  "categories": [
+    "ingredient",
+    "material"
+  ],
+  "displayName": "Citron, pulpe, cru Origine Inconnue BIO",
+  "id": "3fdf7ddc-7d0c-4256-b91c-3ab0fc2d37d8",
+  "metadata": [
+    {
+      "alias": "lemon-pulp-raw-default-organic",
+      "cropGroup": "VERGERS",
+      "defaultOrigin": "OutOfEuropeAndMaghreb",
+      "displayName": "Citron, pulpe, cru Origine Inconnue BIO",
+      "id": "f30c2ffc-a2f6-4bae-8ef2-b06ebc063b64",
+      "inediblePart": 0,
+      "ingredientCategories": [
+        "vegetable_fresh",
+        "organic"
+      ],
+      "ingredientDensity": 1,
+      "rawToCookedRatio": 1,
+      "scenario": "organic",
+      "scopes": [
+        "food",
+        "food2"
+      ],
+      "transportCooling": "always",
+      "visible": false
+    }
+  ],
+  "scopes": [
+    "food",
+    "food2"
+  ],
+  "source": "Ecobalyse"
+}

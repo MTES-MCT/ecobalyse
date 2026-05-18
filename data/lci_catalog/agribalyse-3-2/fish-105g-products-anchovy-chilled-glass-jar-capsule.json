@@ -1,0 +1,24 @@
+{
+  "activityName": "Fish products anchovy, chilled, 105g | Packaging System, N0, All, Glass jar with capsule {FR} U",
+  "categories": [
+    "material",
+    "packaging",
+    "packaging_type:jar"
+  ],
+  "displayName": "Bocal en verre pour anchois, réfrigéré - 105g",
+  "id": "398d7746-95c1-43da-81c4-6317bd7e4b79",
+  "metadata": [
+    {
+      "id": "be3a08da-bfb2-4a53-97a4-5b6a26620b3e",
+      "scopes": [
+        "food2"
+      ]
+    }
+  ],
+  "scopes": [
+    "food",
+    "food2"
+  ],
+  "source": "Agribalyse 3.2",
+  "unit": "item"
+}

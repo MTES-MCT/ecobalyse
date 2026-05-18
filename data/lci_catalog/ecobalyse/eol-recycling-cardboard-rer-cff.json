@@ -1,0 +1,28 @@
+{
+  "activityName": "cardboard EoL recycling, RER, CFF",
+  "categories": [
+    "end-of-life",
+    "material_type:containerboard"
+  ],
+  "comment": "",
+  "displayName": "Recyclage du carton",
+  "elecMJ": 0,
+  "heatMJ": 0,
+  "id": "aac51539-40e5-4803-a530-23f093338a4a",
+  "metadata": [
+    {
+      "id": "2a63e533-3e2d-4da3-b9d0-889e423f4976",
+      "scopes": [
+        "object",
+        "veli"
+      ]
+    }
+  ],
+  "scopes": [
+    "object",
+    "veli"
+  ],
+  "source": "Ecobalyse",
+  "unit": "kg",
+  "waste": 0
+}

@@ -1,0 +1,39 @@
+{
+  "activityName": "Egg, conventional, outdoor system, at farm gate {FR} U",
+  "categories": [
+    "ingredient",
+    "material",
+    "material_type:eggs"
+  ],
+  "displayName": "Oeuf (code 1) FR",
+  "id": "ad59238f-a580-5942-b0f8-5b4547008744",
+  "metadata": [
+    {
+      "alias": "egg-outdoor-code1-2025",
+      "animalGroup1": "poultry",
+      "animalGroup2": "chicken",
+      "animalProduct": "egg",
+      "defaultOrigin": "France",
+      "displayName": "Oeuf (code 1) FR (2025)",
+      "id": "b2e75be9-65b8-487d-b5b3-f9c2aa047cf7",
+      "inediblePart": 0.2,
+      "ingredientCategories": [
+        "animal_product"
+      ],
+      "ingredientDensity": 1.0,
+      "rawToCookedRatio": 0.974,
+      "scenario": "reference",
+      "scopes": [
+        "food",
+        "food2"
+      ],
+      "transportCooling": "none",
+      "visible": false
+    }
+  ],
+  "scopes": [
+    "food",
+    "food2"
+  ],
+  "source": "Agribalyse 3.2"
+}

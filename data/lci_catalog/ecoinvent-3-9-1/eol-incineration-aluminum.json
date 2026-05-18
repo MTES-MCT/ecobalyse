@@ -1,0 +1,28 @@
+{
+  "activityName": "scrap aluminium//[CH] treatment of scrap aluminium, municipal incineration with fly ash extraction",
+  "categories": [
+    "end-of-life",
+    "material_type:aluminium"
+  ],
+  "comment": "",
+  "displayName": "Incinération de l'aluminium",
+  "elecMJ": 0,
+  "heatMJ": 0,
+  "id": "2e4a7955-5ecc-4e2c-aebd-2e0259750021",
+  "metadata": [
+    {
+      "id": "2b902a26-83ef-4cf1-8431-1788842737df",
+      "scopes": [
+        "object",
+        "veli"
+      ]
+    }
+  ],
+  "scopes": [
+    "object",
+    "veli"
+  ],
+  "source": "Ecoinvent 3.9.1",
+  "unit": "kg",
+  "waste": 0
+}

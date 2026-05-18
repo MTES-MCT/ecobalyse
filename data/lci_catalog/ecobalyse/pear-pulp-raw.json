@@ -1,0 +1,36 @@
+{
+  "activityName": "Pear, pulp raw, CMAPS {GLO} U",
+  "categories": [
+    "ingredient",
+    "material"
+  ],
+  "displayName": "Poire, pulpe, crue FR",
+  "id": "563f6419-dbb2-4639-82a0-4bb7ae3a5f6c",
+  "metadata": [
+    {
+      "alias": "pear-pulp-raw-fr",
+      "cropGroup": "VERGERS",
+      "defaultOrigin": "France",
+      "displayName": "Poire, pulpe, crue FR",
+      "id": "d47a8c6e-6e25-45f7-8a3b-bf7a31b5eaf4",
+      "inediblePart": 0,
+      "ingredientCategories": [
+        "vegetable_fresh"
+      ],
+      "ingredientDensity": 1,
+      "rawToCookedRatio": 1,
+      "scenario": "reference",
+      "scopes": [
+        "food",
+        "food2"
+      ],
+      "transportCooling": "always",
+      "visible": true
+    }
+  ],
+  "scopes": [
+    "food",
+    "food2"
+  ],
+  "source": "Ecobalyse"
+}

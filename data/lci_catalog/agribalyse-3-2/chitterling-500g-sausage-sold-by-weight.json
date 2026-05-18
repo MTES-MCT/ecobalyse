@@ -1,0 +1,24 @@
+{
+  "activityName": "Chitterling sausage, 500g | Packaging System, N0, All, Sold by weight {FR} U",
+  "categories": [
+    "material",
+    "packaging",
+    "packaging_type:sheet"
+  ],
+  "displayName": "Feuille pour charcuterie vendue à la coupe - 150g à 500g",
+  "id": "45dac57e-27bb-4b72-8c60-bd7f5fa622af",
+  "metadata": [
+    {
+      "id": "968f5782-b8ef-4bc2-bd4e-e38352a2252f",
+      "scopes": [
+        "food2"
+      ]
+    }
+  ],
+  "scopes": [
+    "food",
+    "food2"
+  ],
+  "source": "Agribalyse 3.2",
+  "unit": "item"
+}

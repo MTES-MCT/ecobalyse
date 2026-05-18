@@ -1,0 +1,24 @@
+{
+  "activityName": "Fish products anchovy, ambient, 100g | Packaging System, N0, All, Aluminium can {FR} U",
+  "categories": [
+    "material",
+    "packaging",
+    "packaging_type:box"
+  ],
+  "displayName": "Boîte en aluminium pour anchois - 100g",
+  "id": "7d73a15c-be04-4cbc-9e5d-c43ad1fcf35d",
+  "metadata": [
+    {
+      "id": "968075d6-98c9-4827-8102-ea051974af35",
+      "scopes": [
+        "food2"
+      ]
+    }
+  ],
+  "scopes": [
+    "food",
+    "food2"
+  ],
+  "source": "Agribalyse 3.2",
+  "unit": "item"
+}

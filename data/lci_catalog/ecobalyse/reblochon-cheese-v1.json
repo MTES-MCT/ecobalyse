@@ -1,0 +1,35 @@
+{
+  "activityName": "Reblochon cheese, variant 1, CMAPS {GLO} U",
+  "categories": [
+    "ingredient",
+    "material"
+  ],
+  "displayName": "Reblochon FR (GLO)",
+  "id": "056411b4-5f1d-43b2-a810-67f3a7823d67",
+  "metadata": [
+    {
+      "alias": "reblochon-cheese-fr",
+      "defaultOrigin": "France",
+      "displayName": "Reblochon FR",
+      "id": "c8d83557-46c6-46ab-9d01-fcb0e058f46f",
+      "inediblePart": 0,
+      "ingredientCategories": [
+        "dairy_product"
+      ],
+      "ingredientDensity": 1,
+      "rawToCookedRatio": 1,
+      "scenario": "reference",
+      "scopes": [
+        "food",
+        "food2"
+      ],
+      "transportCooling": "always",
+      "visible": true
+    }
+  ],
+  "scopes": [
+    "food",
+    "food2"
+  ],
+  "source": "Ecobalyse"
+}

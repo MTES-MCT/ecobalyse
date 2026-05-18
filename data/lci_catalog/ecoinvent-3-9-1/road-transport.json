@@ -1,0 +1,30 @@
+{
+  "activityName": "transport, freight, lorry, unspecified//[GLO] market group for transport, freight, lorry, unspecified",
+  "categories": [
+    "transport"
+  ],
+  "comment": "Ancien identifiant (12/2024): f37aba954435f9f158c19a9449d373b2.",
+  "displayName": "transport routier",
+  "elecMJ": 0,
+  "heatMJ": 0,
+  "id": "46e96f29-9ca5-5475-bb3c-6397f43b7a5b",
+  "metadata": [
+    {
+      "id": "805042e2-fefa-4ad7-b215-2a3da719aadb",
+      "scopes": [
+        "object",
+        "food2"
+      ]
+    }
+  ],
+  "scopes": [
+    "textile",
+    "veli",
+    "object",
+    "food",
+    "food2"
+  ],
+  "source": "Ecoinvent 3.9.1",
+  "unit": "t⋅km",
+  "waste": 0
+}

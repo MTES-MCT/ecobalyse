@@ -1,0 +1,36 @@
+{
+  "activityName": "Lemon, pulp raw, import WFLDB, CMAPS {GLO} U",
+  "categories": [
+    "ingredient",
+    "material"
+  ],
+  "displayName": "Citron, pulpe, cru Origine Inconnue",
+  "id": "872c1bda-8eae-4e34-bda4-abb094f2b7de",
+  "metadata": [
+    {
+      "alias": "lemon-pulp-raw-default",
+      "cropGroup": "VERGERS",
+      "defaultOrigin": "OutOfEuropeAndMaghreb",
+      "displayName": "Citron, pulpe, cru Origine Inconnue",
+      "id": "4fba3fff-ce86-4827-8c1f-aab86f16e469",
+      "inediblePart": 0,
+      "ingredientCategories": [
+        "vegetable_fresh"
+      ],
+      "ingredientDensity": 1,
+      "rawToCookedRatio": 1,
+      "scenario": "import",
+      "scopes": [
+        "food",
+        "food2"
+      ],
+      "transportCooling": "always",
+      "visible": true
+    }
+  ],
+  "scopes": [
+    "food",
+    "food2"
+  ],
+  "source": "Ecobalyse"
+}

@@ -1,0 +1,40 @@
+{
+  "activityName": "Meat without bone, beef for direct consumption {{beef-without-bone-organic-2025}}",
+  "categories": [
+    "ingredient",
+    "material",
+    "material_type:red_meats"
+  ],
+  "displayName": "Viande de boeuf sans os Bio (2025)",
+  "id": "5834b4db-bfae-47d7-91b8-24f6479aeac8",
+  "metadata": [
+    {
+      "alias": "beef-without-bone-organic",
+      "animalGroup1": "cattle",
+      "animalGroup2": "cow",
+      "animalProduct": "meat",
+      "defaultOrigin": "France",
+      "displayName": "Viande de boeuf sans os Bio (crue)",
+      "id": "ff532795-d725-4c6b-82bc-022d38b83bff",
+      "inediblePart": 0,
+      "ingredientCategories": [
+        "animal_product",
+        "organic"
+      ],
+      "ingredientDensity": 1.0,
+      "rawToCookedRatio": 0.792,
+      "scenario": "organic",
+      "scopes": [
+        "food",
+        "food2"
+      ],
+      "transportCooling": "always",
+      "visible": true
+    }
+  ],
+  "scopes": [
+    "food",
+    "food2"
+  ],
+  "source": "Ecobalyse"
+}

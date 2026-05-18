@@ -1,0 +1,38 @@
+{
+  "activityName": "Maize grain, non-irrigated, at farm {BR} - Adapted from WFLDB U",
+  "categories": [
+    "ingredient",
+    "material",
+    "material_type:other_food_items"
+  ],
+  "displayName": "Maïs doux par défaut",
+  "id": "155ffeb2-2732-52ff-9d6d-39d6fa6d49b0",
+  "metadata": [
+    {
+      "alias": "sweet-corn-br-2025",
+      "cropGroup": "MAIS GRAIN ET ENSILAGE",
+      "defaultOrigin": "OutOfEuropeAndMaghreb",
+      "displayName": "Maïs doux par défaut (2025)",
+      "explain": "Part non comestible : chataigne, olive",
+      "id": "be9a2aa4-4c8b-4801-abcf-01ba1581f053",
+      "inediblePart": 0.5,
+      "ingredientCategories": [
+        "grain_raw"
+      ],
+      "ingredientDensity": 0.24,
+      "rawToCookedRatio": 2.259,
+      "scenario": "import",
+      "scopes": [
+        "food",
+        "food2"
+      ],
+      "transportCooling": "none",
+      "visible": true
+    }
+  ],
+  "scopes": [
+    "food",
+    "food2"
+  ],
+  "source": "Agribalyse 3.2"
+}

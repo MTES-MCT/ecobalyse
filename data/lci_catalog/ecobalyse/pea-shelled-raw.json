@@ -1,0 +1,56 @@
+{
+  "activityName": "Pea, shelled raw, CMAPS {GLO} U",
+  "categories": [
+    "ingredient",
+    "material"
+  ],
+  "displayName": "Petits pois, écossés, crus FR",
+  "id": "6ed02f8d-eb21-4733-92c2-9ecf1411e369",
+  "metadata": [
+    {
+      "alias": "pea-shelled-raw-default",
+      "cropGroup": "PROTEAGINEUX",
+      "defaultOrigin": "OutOfEuropeAndMaghreb",
+      "displayName": "Petits pois, écossés, crus Origine Inconnue",
+      "id": "6444663c-f3ef-4afa-a36d-767aa44ab8f9",
+      "inediblePart": 0,
+      "ingredientCategories": [
+        "vegetable_fresh"
+      ],
+      "ingredientDensity": 1,
+      "rawToCookedRatio": 1,
+      "scenario": "import",
+      "scopes": [
+        "food",
+        "food2"
+      ],
+      "transportCooling": "always",
+      "visible": true
+    },
+    {
+      "alias": "pea-shelled-raw-fr",
+      "cropGroup": "PROTEAGINEUX",
+      "defaultOrigin": "France",
+      "displayName": "Petits pois, écossés, crus FR",
+      "id": "79cca60b-cfb3-42b8-9847-4f5473cb61b7",
+      "inediblePart": 0,
+      "ingredientCategories": [
+        "vegetable_fresh"
+      ],
+      "ingredientDensity": 1,
+      "rawToCookedRatio": 1,
+      "scenario": "reference",
+      "scopes": [
+        "food",
+        "food2"
+      ],
+      "transportCooling": "always",
+      "visible": true
+    }
+  ],
+  "scopes": [
+    "food",
+    "food2"
+  ],
+  "source": "Ecobalyse"
+}

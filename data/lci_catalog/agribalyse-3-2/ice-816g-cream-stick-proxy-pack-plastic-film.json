@@ -1,0 +1,24 @@
+{
+  "activityName": "Ice cream stick, 816g | Packaging System, Proxy Pack, Plastic film {FR} U",
+  "categories": [
+    "material",
+    "packaging",
+    "packaging_type:bag"
+  ],
+  "displayName": "Sachet en plastique (PE) pour glace en bâtonnet - 816g - Proxy",
+  "id": "e872798c-b575-4cd6-9249-41ea027788cb",
+  "metadata": [
+    {
+      "id": "dc90cf67-2b8b-4c45-b645-a4d47c3fac68",
+      "scopes": [
+        "food2"
+      ]
+    }
+  ],
+  "scopes": [
+    "food",
+    "food2"
+  ],
+  "source": "Agribalyse 3.2",
+  "unit": "item"
+}

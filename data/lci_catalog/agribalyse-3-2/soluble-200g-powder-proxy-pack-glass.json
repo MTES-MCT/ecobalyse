@@ -1,0 +1,24 @@
+{
+  "activityName": "Soluble powder, 200g | Packaging System, Proxy Pack, Glass {FR} U",
+  "categories": [
+    "material",
+    "packaging",
+    "packaging_type:jar"
+  ],
+  "displayName": "Pot en verre pour poudre soluble - 200g - Proxy",
+  "id": "a82e9953-3f59-461c-bc13-76e5c3e933bf",
+  "metadata": [
+    {
+      "id": "387fa25c-7320-4e16-942e-721d547d2d4c",
+      "scopes": [
+        "food2"
+      ]
+    }
+  ],
+  "scopes": [
+    "food",
+    "food2"
+  ],
+  "source": "Agribalyse 3.2",
+  "unit": "item"
+}

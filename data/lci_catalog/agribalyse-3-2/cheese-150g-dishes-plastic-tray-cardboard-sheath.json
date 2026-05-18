@@ -1,0 +1,24 @@
+{
+  "activityName": "Cheese dishes, 150g | Packaging System, N0, All, Plastic tray with cardboard sheath {FR} U",
+  "categories": [
+    "material",
+    "packaging",
+    "packaging_type:tray"
+  ],
+  "displayName": "Barquette en plastique (PET) et fourreau carton pour plat au fromage - 150g",
+  "id": "b9fb49d4-97d0-4f48-aebc-570f73489ace",
+  "metadata": [
+    {
+      "id": "6bcce476-6f10-4741-8889-04f9621dd908",
+      "scopes": [
+        "food2"
+      ]
+    }
+  ],
+  "scopes": [
+    "food",
+    "food2"
+  ],
+  "source": "Agribalyse 3.2",
+  "unit": "item"
+}

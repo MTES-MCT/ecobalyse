@@ -1,0 +1,37 @@
+{
+  "activityName": "Apricot, pitted raw, organic, CMAPS {GLO} U",
+  "categories": [
+    "ingredient",
+    "material"
+  ],
+  "displayName": "Abricot, dénoyauté, cru BIO",
+  "id": "77ad9d8c-b7dc-4062-ada8-fdc47d7e5d86",
+  "metadata": [
+    {
+      "alias": "apricot-pitted-raw-fr-organic",
+      "cropGroup": "VERGERS",
+      "defaultOrigin": "France",
+      "displayName": "Abricot, dénoyauté, cru BIO",
+      "id": "88ec9863-d7f0-45b2-9d26-85f11fffe518",
+      "inediblePart": 0,
+      "ingredientCategories": [
+        "vegetable_fresh",
+        "organic"
+      ],
+      "ingredientDensity": 1,
+      "rawToCookedRatio": 1,
+      "scenario": "organic",
+      "scopes": [
+        "food",
+        "food2"
+      ],
+      "transportCooling": "always",
+      "visible": false
+    }
+  ],
+  "scopes": [
+    "food",
+    "food2"
+  ],
+  "source": "Ecobalyse"
+}

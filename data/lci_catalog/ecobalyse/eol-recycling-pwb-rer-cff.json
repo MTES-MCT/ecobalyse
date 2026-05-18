@@ -1,0 +1,28 @@
+{
+  "activityName": "Printed Wiring Board EoL recycling, CFF",
+  "categories": [
+    "end-of-life",
+    "material_type:pwb"
+  ],
+  "comment": "For 1kg PWB. Based on Delegated Act to Regulation (EU) 2023/1542, methodology for the calculation and verification of the carbon footprint of electric vehicle batteries.",
+  "displayName": "Recyclage de carte de circuit imprimé, CFF",
+  "elecMJ": 0,
+  "heatMJ": 0,
+  "id": "2e9b3cbc-22c7-4557-820f-81d090edd3cc",
+  "metadata": [
+    {
+      "id": "be67b092-a873-4626-8f03-a9fa66c9e966",
+      "scopes": [
+        "object",
+        "veli"
+      ]
+    }
+  ],
+  "scopes": [
+    "object",
+    "veli"
+  ],
+  "source": "Ecobalyse",
+  "unit": "kg",
+  "waste": 0
+}

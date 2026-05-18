@@ -1,0 +1,24 @@
+{
+  "activityName": "Rapeseed oil, 1L | Packaging System, N0, All, Plastic bottle (clear) {FR} U",
+  "categories": [
+    "material",
+    "packaging",
+    "packaging_type:bottle"
+  ],
+  "displayName": "Bouteille en plastique (PET) pour huiles végétales (sauf huile d'olive) - 1L",
+  "id": "efc283ac-b62e-4d6c-a876-15709cb4ed86",
+  "metadata": [
+    {
+      "id": "18692014-0c1f-4a5a-8b44-67364840e0ae",
+      "scopes": [
+        "food2"
+      ]
+    }
+  ],
+  "scopes": [
+    "food",
+    "food2"
+  ],
+  "source": "Agribalyse 3.2",
+  "unit": "item"
+}

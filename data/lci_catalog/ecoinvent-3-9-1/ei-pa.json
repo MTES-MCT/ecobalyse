@@ -1,0 +1,33 @@
+{
+  "activityName": "nylon 6-6//[RoW] nylon 6-6 production",
+  "categories": [
+    "material",
+    "textile_material"
+  ],
+  "comment": "Ancien identifiant (12/2024): 88a1395a1c61be31b0bc692e977dd10b.",
+  "displayName": "Plastique PA (nylon 6-6)",
+  "elecMJ": 0,
+  "heatMJ": 0,
+  "id": "b2318c3f-6d7b-5d95-b201-6b95470db3b7",
+  "metadata": [
+    {
+      "alias": "ei-pa",
+      "defaultCountry": "FR",
+      "displayName": "Plastique PA (nylon 6-6)",
+      "geographicOrigin": "Europe",
+      "id": "c84280ff-e921-4d5c-92d6-51030bf4f74e",
+      "name": "Nylon",
+      "origin": "Synthetic",
+      "primary": true,
+      "scopes": [
+        "textile"
+      ]
+    }
+  ],
+  "scopes": [
+    "textile"
+  ],
+  "source": "Ecoinvent 3.9.1",
+  "unit": "kg",
+  "waste": 0
+}

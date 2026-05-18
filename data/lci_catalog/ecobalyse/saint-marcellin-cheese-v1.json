@@ -1,0 +1,35 @@
+{
+  "activityName": "Saint-Marcellin cheese, variant 1, CMAPS {GLO} U",
+  "categories": [
+    "ingredient",
+    "material"
+  ],
+  "displayName": "Saint-Marcellin FR",
+  "id": "49ffc98b-ef6f-4f09-a04b-1fe792484862",
+  "metadata": [
+    {
+      "alias": "saint-marcellin-cheese-fr",
+      "defaultOrigin": "France",
+      "displayName": "Saint-Marcellin FR",
+      "id": "79459a80-f24e-47c6-ba8c-25285d662ecd",
+      "inediblePart": 0,
+      "ingredientCategories": [
+        "dairy_product"
+      ],
+      "ingredientDensity": 1,
+      "rawToCookedRatio": 1,
+      "scenario": "reference",
+      "scopes": [
+        "food",
+        "food2"
+      ],
+      "transportCooling": "always",
+      "visible": true
+    }
+  ],
+  "scopes": [
+    "food",
+    "food2"
+  ],
+  "source": "Ecobalyse"
+}

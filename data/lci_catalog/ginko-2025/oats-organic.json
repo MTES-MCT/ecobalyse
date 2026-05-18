@@ -1,0 +1,60 @@
+{
+  "activityName": "Oat grain, organic 2025 {RoW}| oat production | Cut-off, U",
+  "categories": [
+    "ingredient",
+    "material",
+    "material_type:other_food_items"
+  ],
+  "displayName": "Avoine Bio",
+  "id": "5cfe78cb-ffd7-5284-a320-65283a047fed",
+  "location": "RoW",
+  "metadata": [
+    {
+      "alias": "oats-organic",
+      "cropGroup": "AUTRES CEREALES",
+      "cropGroupMatch": {
+        "confidence": 1.0,
+        "rule": "matched 'avoine' in cropgroup.csv"
+      },
+      "defaultOrigin": "France",
+      "displayName": "Avoine Bio",
+      "id": "b837dc4f-3e6a-5471-a0d2-12a3080f7893",
+      "inediblePart": 0.0,
+      "inediblePartMatch": {
+        "confidence": 1.0,
+        "rule": "grain NOVA 1 default from food_type_inedible_part.csv"
+      },
+      "ingredientCategories": [
+        "grain_raw",
+        "organic"
+      ],
+      "ingredientDensity": 0.41,
+      "ingredientDensityMatch": {
+        "confidence": 1.0,
+        "rule": "Oats found in fao_density.csv"
+      },
+      "rawToCookedRatio": 2.259,
+      "rawToCookedRatioMatch": {
+        "confidence": 0.95,
+        "rule": "Matched with oat in cooked_to_raw.csv"
+      },
+      "scenario": "organic",
+      "scopes": [
+        "food",
+        "food2"
+      ],
+      "transportCooling": "none",
+      "transportCoolingMatch": {
+        "confidence": 1.0,
+        "rule": "grain → none (non-perishable)"
+      },
+      "visible": true
+    }
+  ],
+  "scopes": [
+    "food",
+    "food2"
+  ],
+  "source": "Ginko 2025",
+  "unit": "kg"
+}

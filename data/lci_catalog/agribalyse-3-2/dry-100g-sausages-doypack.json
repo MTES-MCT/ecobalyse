@@ -1,0 +1,24 @@
+{
+  "activityName": "Dry sausages, 100g | Packaging System, N0, All, Doypack {FR} U",
+  "categories": [
+    "material",
+    "packaging",
+    "packaging_type:bag"
+  ],
+  "displayName": "Sachet doypack en plastique (multimatériaux) pour mini stick de saucisson sec - 100g",
+  "id": "08e8d6de-0819-4475-8210-eca523cacf52",
+  "metadata": [
+    {
+      "id": "b08c9d1b-ba49-466e-a31f-016fba3a97df",
+      "scopes": [
+        "food2"
+      ]
+    }
+  ],
+  "scopes": [
+    "food",
+    "food2"
+  ],
+  "source": "Agribalyse 3.2",
+  "unit": "item"
+}

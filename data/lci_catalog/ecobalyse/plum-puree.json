@@ -1,0 +1,36 @@
+{
+  "activityName": "Plum puree, CMAPS {GLO} U",
+  "categories": [
+    "ingredient",
+    "material"
+  ],
+  "displayName": "Purée de prune FR",
+  "id": "c050c8c5-262a-4851-a8f0-b31da30c32f8",
+  "metadata": [
+    {
+      "alias": "plum-puree-fr",
+      "cropGroup": "VERGERS",
+      "defaultOrigin": "France",
+      "displayName": "Purée de prune FR",
+      "id": "110d2ff9-8a29-4b02-8ee8-3f16e1e14e11",
+      "inediblePart": 0,
+      "ingredientCategories": [
+        "vegetable_processed"
+      ],
+      "ingredientDensity": 1,
+      "rawToCookedRatio": 1,
+      "scenario": "reference",
+      "scopes": [
+        "food",
+        "food2"
+      ],
+      "transportCooling": "always",
+      "visible": true
+    }
+  ],
+  "scopes": [
+    "food",
+    "food2"
+  ],
+  "source": "Ecobalyse"
+}

@@ -1,0 +1,35 @@
+{
+  "activityName": "Poultry, boneless raw, modified variant 2, CMAPS {GLO} U",
+  "categories": [
+    "ingredient",
+    "material"
+  ],
+  "displayName": "Pièce de volaille et lapin, désossée, crue (poulet, dinde, chapon, canard, oie, lapin) Origine Inconnue",
+  "id": "4f1edf79-457b-492a-b2ea-173bde2f2365",
+  "metadata": [
+    {
+      "alias": "poultry-boneless-raw-default",
+      "defaultOrigin": "OutOfEuropeAndMaghreb",
+      "displayName": "Pièce de volaille et lapin, désossée, crue (poulet, dinde, chapon, canard, oie, lapin) Origine Inconnue",
+      "id": "5b38697b-b1d4-4522-9d10-aeb224003405",
+      "inediblePart": 0,
+      "ingredientCategories": [
+        "animal_product"
+      ],
+      "ingredientDensity": 1,
+      "rawToCookedRatio": 1,
+      "scenario": "import",
+      "scopes": [
+        "food",
+        "food2"
+      ],
+      "transportCooling": "always",
+      "visible": false
+    }
+  ],
+  "scopes": [
+    "food",
+    "food2"
+  ],
+  "source": "Ecobalyse"
+}

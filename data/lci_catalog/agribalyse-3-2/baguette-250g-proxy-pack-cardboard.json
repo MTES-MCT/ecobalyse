@@ -1,0 +1,24 @@
+{
+  "activityName": "Baguette, 250g | Packaging System, Proxy Pack, Cardboard {FR} U",
+  "categories": [
+    "material",
+    "packaging",
+    "packaging_type:bag"
+  ],
+  "displayName": "Sachet en papier pour baguette - 250g - Proxy",
+  "id": "d979fd5e-219b-4b60-8c88-ce6f134a89ff",
+  "metadata": [
+    {
+      "id": "664f00b5-2d50-44d1-8709-91f9dfe453a2",
+      "scopes": [
+        "food2"
+      ]
+    }
+  ],
+  "scopes": [
+    "food",
+    "food2"
+  ],
+  "source": "Agribalyse 3.2",
+  "unit": "item"
+}

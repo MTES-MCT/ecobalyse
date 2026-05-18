@@ -1,0 +1,35 @@
+{
+  "activityName": "Mozzarella, cow milk, variant 2, CMAPS {GLO} U",
+  "categories": [
+    "ingredient",
+    "material"
+  ],
+  "displayName": "Mozzarella au lait de vache Origine Inconnue",
+  "id": "cd275278-5182-4380-ae4b-c973f4401d13",
+  "metadata": [
+    {
+      "alias": "mozzarella-cow-milk-default",
+      "defaultOrigin": "OutOfEuropeAndMaghreb",
+      "displayName": "Mozzarella au lait de vache Origine Inconnue",
+      "id": "3a0c1c19-ef08-4abd-b441-df53b0e27f2a",
+      "inediblePart": 0,
+      "ingredientCategories": [
+        "dairy_product"
+      ],
+      "ingredientDensity": 1,
+      "rawToCookedRatio": 1,
+      "scenario": "import",
+      "scopes": [
+        "food",
+        "food2"
+      ],
+      "transportCooling": "always",
+      "visible": true
+    }
+  ],
+  "scopes": [
+    "food",
+    "food2"
+  ],
+  "source": "Ecobalyse"
+}

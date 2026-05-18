@@ -1,0 +1,24 @@
+{
+  "activityName": "Pates and terrines, 180g | Packaging System, N0, All, Sold by weight from stoneware terrine {FR} U",
+  "categories": [
+    "material",
+    "packaging",
+    "packaging_type:sheet"
+  ],
+  "displayName": "Feuille pour pâté et terrine vendus à la coupe (venant d'une terrine en grès) - 180g",
+  "id": "55c723f6-7240-4154-8ef2-87392275167f",
+  "metadata": [
+    {
+      "id": "709c2ae6-a983-4c56-b40d-97986660f092",
+      "scopes": [
+        "food2"
+      ]
+    }
+  ],
+  "scopes": [
+    "food",
+    "food2"
+  ],
+  "source": "Agribalyse 3.2",
+  "unit": "item"
+}

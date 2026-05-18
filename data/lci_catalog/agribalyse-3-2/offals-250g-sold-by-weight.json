@@ -1,0 +1,24 @@
+{
+  "activityName": "Offals, 250g | Packaging System, N0, All, Sold by weight {FR} U",
+  "categories": [
+    "material",
+    "packaging",
+    "packaging_type:sheet"
+  ],
+  "displayName": "Feuille pour abat vendu au rayon boucherie - 238g à 334g",
+  "id": "f72ffc99-b01f-4a0c-a217-5ac6e5864766",
+  "metadata": [
+    {
+      "id": "585efc7e-31b9-402d-a92c-62e4a87514fd",
+      "scopes": [
+        "food2"
+      ]
+    }
+  ],
+  "scopes": [
+    "food",
+    "food2"
+  ],
+  "source": "Agribalyse 3.2",
+  "unit": "item"
+}

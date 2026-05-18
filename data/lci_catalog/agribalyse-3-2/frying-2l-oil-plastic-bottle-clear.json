@@ -1,0 +1,24 @@
+{
+  "activityName": "Frying oil, 2L | Packaging System, N0, All, Plastic bottle (clear) {FR} U",
+  "categories": [
+    "material",
+    "packaging",
+    "packaging_type:bottle"
+  ],
+  "displayName": "Bouteille en plastique (PET) pour huiles végétales (sauf huile d'olive) - 2L",
+  "id": "39e6eb6b-7812-4e05-9a7b-6886bcd70f3a",
+  "metadata": [
+    {
+      "id": "35f219a6-b756-44f3-8f80-fde8d6bee5a2",
+      "scopes": [
+        "food2"
+      ]
+    }
+  ],
+  "scopes": [
+    "food",
+    "food2"
+  ],
+  "source": "Agribalyse 3.2",
+  "unit": "item"
+}

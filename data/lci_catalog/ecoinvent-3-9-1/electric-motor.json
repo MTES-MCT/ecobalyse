@@ -1,0 +1,26 @@
+{
+  "activityName": "electric motor, electric passenger car//[GLO] electric motor production, vehicle (electric powertrain)",
+  "categories": [
+    "material",
+    "material_type:ferrous_metals"
+  ],
+  "comment": "",
+  "displayName": "Moteur électrique",
+  "elecMJ": 0,
+  "heatMJ": 0,
+  "id": "9262bd60-d77b-52f9-a1c8-b9c3bb76248a",
+  "metadata": [
+    {
+      "id": "97a70d45-d7d5-4ee5-86b4-ee506300cdaa",
+      "scopes": [
+        "veli"
+      ]
+    }
+  ],
+  "scopes": [
+    "veli"
+  ],
+  "source": "Ecoinvent 3.9.1",
+  "unit": "kg",
+  "waste": 0
+}

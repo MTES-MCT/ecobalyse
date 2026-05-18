@@ -1,0 +1,39 @@
+{
+  "activityName": "Meat without bone, beef for direct consumption {{beef-without-bone-feedlot-2025}}",
+  "categories": [
+    "ingredient",
+    "material",
+    "material_type:red_meats"
+  ],
+  "displayName": "Viande de boeuf sans os par défaut (2025)",
+  "id": "ca2328f4-90ee-500a-a377-6d7fddd89aaa",
+  "metadata": [
+    {
+      "alias": "beef-without-bone-feedlot",
+      "animalGroup1": "cattle",
+      "animalGroup2": "cow",
+      "animalProduct": "meat",
+      "defaultOrigin": "OutOfEuropeAndMaghreb",
+      "displayName": "Viande de boeuf sans os par défaut",
+      "id": "91f8ec52-d3bb-44db-84be-08bb1996caf8",
+      "inediblePart": 0,
+      "ingredientCategories": [
+        "animal_product"
+      ],
+      "ingredientDensity": 1.0,
+      "rawToCookedRatio": 0.792,
+      "scenario": "import",
+      "scopes": [
+        "food",
+        "food2"
+      ],
+      "transportCooling": "always",
+      "visible": true
+    }
+  ],
+  "scopes": [
+    "food",
+    "food2"
+  ],
+  "source": "Ecobalyse"
+}

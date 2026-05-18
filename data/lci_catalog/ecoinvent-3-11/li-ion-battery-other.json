@@ -1,0 +1,26 @@
+{
+  "activityName": "Battery, Li-ion, NCA, rechargeable {CN}| battery production, Li-ion, NCA, rechargeable | Cut-off, U",
+  "categories": [
+    "material",
+    "material_type:battery_cell"
+  ],
+  "comment": "densité energétique : 6.3 kWh/kg",
+  "displayName": "Batterie Li-ion, Autres",
+  "elecMJ": 0,
+  "heatMJ": 0,
+  "id": "65de8793-2840-5c8e-a044-eb2f883c9c7a",
+  "metadata": [
+    {
+      "id": "40b87327-fbdb-4533-9961-48643df49371",
+      "scopes": [
+        "veli"
+      ]
+    }
+  ],
+  "scopes": [
+    "veli"
+  ],
+  "source": "Ecoinvent 3.11",
+  "unit": "kg",
+  "waste": 0
+}

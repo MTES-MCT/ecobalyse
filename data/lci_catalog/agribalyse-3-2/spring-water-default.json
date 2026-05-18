@@ -1,0 +1,59 @@
+{
+  "activityName": "Tap water {ZA}| market for tap water | Cut-off, S - Copied from Ecoinvent U",
+  "categories": [
+    "ingredient",
+    "material",
+    "material_type:other_food_items"
+  ],
+  "displayName": "Eau de source Origine Inconnue",
+  "id": "47e8165a-1e55-5f8f-a1d3-5ace4fa34ec2",
+  "location": "ZA",
+  "metadata": [
+    {
+      "alias": "spring-water-default",
+      "cropGroup": "DIVERS",
+      "cropGroupMatch": {
+        "confidence": 1.0,
+        "rule": "beverage default"
+      },
+      "defaultOrigin": "OutOfEuropeAndMaghreb",
+      "displayName": "Eau de source Origine Inconnue",
+      "id": "ff4bfbab-b234-5427-847e-ad10a30c3e49",
+      "inediblePart": 0.0,
+      "inediblePartMatch": {
+        "confidence": 1.0,
+        "rule": "beverage NOVA 1 default from food_type_inedible_part.csv"
+      },
+      "ingredientCategories": [
+        "misc"
+      ],
+      "ingredientDensity": 1.0,
+      "ingredientDensityMatch": {
+        "confidence": 0.95,
+        "rule": "Matched with Water in fao_density.csv"
+      },
+      "rawToCookedRatio": 1.0,
+      "rawToCookedRatioMatch": {
+        "confidence": 1.0,
+        "rule": "beverage default from food_type_cooked_to_raw.csv"
+      },
+      "scenario": "import",
+      "scopes": [
+        "food",
+        "food2"
+      ],
+      "transportCooling": "none",
+      "transportCoolingMatch": {
+        "confidence": 0.642,
+        "rule": "Matched with bread in transport_cooling.csv"
+      },
+      "visible": true
+    }
+  ],
+  "scopes": [
+    "food",
+    "food2"
+  ],
+  "source": "Agribalyse 3.2",
+  "unit": "kg"
+}
