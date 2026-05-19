@@ -1252,7 +1252,7 @@ emptyQuery =
     , distribution = Nothing
     , durability = Nothing
     , items = []
-    , recyclable = False
+    , recyclable = True
     , transportCooling = defaultTransportCooling
     }
 
@@ -1648,11 +1648,7 @@ getEndOfLifeDetailedImpacts : Requirements db -> Bool -> Results -> DetailedEndO
 getEndOfLifeDetailedImpacts { config, scope } recyclable =
     let
         collectionRatio =
-            if recyclable then
-                getEndOfLifeScopeCollectionRate config scope
-
-            else
-                Split.zero
+            scope |> getEndOfLifeScopeCollectionRate config recyclable
 
         nonCollectionRatio =
             Split.complement collectionRatio
@@ -1713,12 +1709,16 @@ getEndOfLifeImpacts ({ config, scope } as requirements) recyclable (Results resu
         Impact.empty
 
 
-getEndOfLifeScopeCollectionRate : Config -> Scope -> Split
-getEndOfLifeScopeCollectionRate { endOfLife } scope =
-    endOfLife.scopeCollectionRates
-        |> AnyDict.get scope
-        -- Assume every material is fully collected by default
-        |> Maybe.withDefault Split.full
+getEndOfLifeScopeCollectionRate : Config -> Bool -> Scope -> Split
+getEndOfLifeScopeCollectionRate { endOfLife } recyclable scope =
+    if recyclable then
+        endOfLife.scopeCollectionRates
+            |> AnyDict.get scope
+            -- Assume every material is fully collected by default
+            |> Maybe.withDefault Split.full
+
+    else
+        Split.zero
 
 
 {-| Get an element's country last transform if any, or the country of its material otherwise.

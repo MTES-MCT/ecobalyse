@@ -1135,7 +1135,7 @@ suite =
                         -- setup
                         (chair
                             |> Result.andThen (computeItemsWithRequirements requirements)
-                            |> Result.map (.production >> Component.getEndOfLifeDetailedImpacts requirements)
+                            |> Result.map (.production >> Component.getEndOfLifeDetailedImpacts requirements True)
                         )
                         -- tests
                         (\chairMaterialGroups ->
@@ -1328,17 +1328,18 @@ suite =
                               ],
                               "consumptions": [
                                 { "amount": 1, "processId": "931c9bb0-619a-5f75-b41b-ab8061e2ad92" }
-                              ]
+                              ],
+                              "recyclable": false
                             }"""
                             |> decodeJsonThen Component.decodeQuery (Component.compute requirements)
                             |> Result.map (\results -> ( results, Component.stagesImpacts results ))
                         )
                         (\( _, stagesImpacts ) ->
-                            [ it "should by default not compute end of life stage impacts when not recyclable"
+                            [ it "should also compute end of life stage impacts when not recyclable"
                                 (stagesImpacts.endOfLife
                                     |> Maybe.map getEcsImpact
                                     |> Maybe.withDefault 0
-                                    |> Expect.equal 0
+                                    |> Expect.greaterThan 0
                                 )
                             ]
                         )

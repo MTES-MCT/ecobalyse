@@ -1375,36 +1375,29 @@ endOfLifeView ({ componentConfig, query, scope, updateRecyclable } as config) li
         , div [ class "card-body table-responsive p-0" ]
             [ if config.componentConfig.endOfLife |> Config.scopeEnabled scope then
                 div []
-                    [ if query.recyclable then
-                        table [ class "table mb-0 fs-7" ]
-                            [ thead []
-                                [ tr []
-                                    [ th [ class "text-end" ] [ text "Matière" ]
-                                    , th [ class "text-end" ] [ text "Masse" ]
-                                    , th [ class "text-end" ] [ text "Recyclage" ]
-                                    , th [ class "text-end" ] [ text "Incinération" ]
-                                    , th [ class "text-end" ] [ text "Enfouissement" ]
-                                    , th [ class "text-end pe-3" ] [ text "Impact" ]
-                                    ]
+                    [ table [ class "table mb-0 fs-7" ]
+                        [ thead []
+                            [ tr []
+                                [ th [ class "text-end" ] [ text "Matière" ]
+                                , th [ class "text-end" ] [ text "Masse" ]
+                                , th [ class "text-end" ] [ text "Recyclage" ]
+                                , th [ class "text-end" ] [ text "Incinération" ]
+                                , th [ class "text-end" ] [ text "Enfouissement" ]
+                                , th [ class "text-end pe-3" ] [ text "Impact" ]
                                 ]
-                            , lifeCycle.production
-                                |> Component.getEndOfLifeDetailedImpacts
-                                    { config = componentConfig
-                                    , db = config.db
-                                    , scope = config.scope
-                                    }
-                                    query.recyclable
-                                |> AnyDict.toList
-                                |> List.sortBy (Tuple.first >> Category.materialTypeToLabel)
-                                |> List.concatMap (endOfLifeMaterialRow config)
-                                |> tbody []
                             ]
-
-                      else
-                        div [ class "card-body d-flex align-items-center justify-content-start gap-2" ]
-                            [ Icon.info
-                            , text <| "Ce produit n’est pas recyclable, vous devez le marquer comme tel pour activer l’étape de fin de vie."
-                            ]
+                        , lifeCycle.production
+                            |> Component.getEndOfLifeDetailedImpacts
+                                { config = componentConfig
+                                , db = config.db
+                                , scope = config.scope
+                                }
+                                query.recyclable
+                            |> AnyDict.toList
+                            |> List.sortBy (Tuple.first >> Category.materialTypeToLabel)
+                            |> List.concatMap (endOfLifeMaterialRow config)
+                            |> tbody []
+                        ]
                     ]
 
               else
@@ -1417,10 +1410,10 @@ endOfLifeView ({ componentConfig, query, scope, updateRecyclable } as config) li
 
 
 endOfLifeMaterialRow : Config db msg -> ( Category.Material, EndOfLifeMaterialImpacts ) -> List (Html msg)
-endOfLifeMaterialRow ({ componentConfig, scope } as config) ( materialType, { collected, nonCollected } ) =
+endOfLifeMaterialRow ({ componentConfig, query, scope } as config) ( materialType, { collected, nonCollected } ) =
     let
         collectionShare =
-            scope |> Component.getEndOfLifeScopeCollectionRate componentConfig
+            scope |> Component.getEndOfLifeScopeCollectionRate componentConfig query.recyclable
 
         nonCollectionShare =
             Split.complement collectionShare

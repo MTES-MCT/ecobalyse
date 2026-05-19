@@ -36,8 +36,8 @@ decode decodeQuery =
         |> Pipe.required "id" Uuid.decoder
         |> Pipe.required "name" Decode.string
         |> Pipe.required "query" decodeQuery
-        -- By default, if not specified, nothing is recyclable
-        |> DU.strictOptionalWithDefault "recyclable" Decode.bool False
+        -- By default, if not specified, everything is recyclable
+        |> DU.strictOptionalWithDefault "recyclable" Decode.bool True
         |> Pipe.required "scope" Scope.decode
 
 
