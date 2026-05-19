@@ -4,6 +4,7 @@ src/
 tests/
 styles.scss
 review/
+data/
 
 node_modules/@parcel
 node_modules/@swc
