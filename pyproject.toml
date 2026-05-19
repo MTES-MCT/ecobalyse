@@ -69,7 +69,7 @@ data = [
      # Brightway
      "bw2analyzer == 0.11.7",
      "bw2calc == 2.0.1",
-     "bw2data == 4.4.3",
+     "bw2data==4.6.2",
      "bw2io[multifunctional] == 0.9.5",
      "bw2parameters == 1.1.0",
      'pypardiso ~= 0.4; platform_machine!="arm64" and platform_machine!="aarch64"',
