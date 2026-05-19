@@ -63,7 +63,7 @@ data = [
      "frozendict ~= 2.4",
      "orjson ~= 3.10",
      "platformdirs ~= 4.5",
-     "rich ~= 14.2",
+     "rich~=15.0",
      "typer ~= 0.15",
 
      # Brightway
