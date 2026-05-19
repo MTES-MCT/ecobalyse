@@ -59,9 +59,7 @@
           "amount": 150,
           "processId": "eec31f13-d00a-4741-a84f-85d887026f8c"
         }
-      ],
-      "durability": 1,
-      "recyclable": true
+      ]
     },
     "scope": "veli"
   },
@@ -138,9 +136,7 @@
           "amount": 150,
           "processId": "eec31f13-d00a-4741-a84f-85d887026f8c"
         }
-      ],
-      "durability": 1,
-      "recyclable": true
+      ]
     },
     "scope": "veli"
   },
@@ -292,9 +288,7 @@
           "amount": 150,
           "processId": "eec31f13-d00a-4741-a84f-85d887026f8c"
         }
-      ],
-      "durability": 1,
-      "recyclable": true
+      ]
     },
     "scope": "veli"
   },
@@ -341,9 +335,7 @@
           "id": "d2228b50-8187-4940-92a5-6dffe2a2ba85",
           "quantity": 1
         }
-      ],
-      "durability": 1,
-      "recyclable": true
+      ]
     },
     "scope": "veli"
   },
@@ -399,9 +391,7 @@
           "id": "d2228b50-8187-4940-92a5-6dffe2a2ba85",
           "quantity": 1
         }
-      ],
-      "durability": 1,
-      "recyclable": true
+      ]
     },
     "scope": "veli"
   },
@@ -513,9 +503,7 @@
           "id": "d2228b50-8187-4940-92a5-6dffe2a2ba85",
           "quantity": 1
         }
-      ],
-      "durability": 1,
-      "recyclable": true
+      ]
     },
     "scope": "veli"
   },
@@ -572,9 +560,7 @@
           "amount": 10000,
           "processId": "eec31f13-d00a-4741-a84f-85d887026f8c"
         }
-      ],
-      "durability": 1,
-      "recyclable": true
+      ]
     },
     "scope": "veli"
   },
@@ -631,9 +617,7 @@
           "amount": 2000,
           "processId": "eec31f13-d00a-4741-a84f-85d887026f8c"
         }
-      ],
-      "durability": 1,
-      "recyclable": true
+      ]
     },
     "scope": "veli"
   },
@@ -745,9 +729,7 @@
           "amount": 1000,
           "processId": "eec31f13-d00a-4741-a84f-85d887026f8c"
         }
-      ],
-      "durability": 1,
-      "recyclable": true
+      ]
     },
     "scope": "veli"
   }
