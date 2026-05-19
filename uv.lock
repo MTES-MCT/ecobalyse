@@ -340,7 +340,7 @@ wheels = [
 
 [[package]]
 name = "bw2analyzer"
-version = "0.11.7"
+version = "0.11.8"
 source = { registry = "https://pypi.org/simple" }
 dependencies = [
     { name = "bw2calc" },
@@ -354,9 +354,8 @@ dependencies = [
     { name = "tabulate" },
     { name = "tqdm" },
 ]
-sdist = { url = "https://files.pythonhosted.org/packages/db/5a/ffbd4eca957533c21f41c2ea2b0601a99dd510957ab0792b2a9c668f3a20/bw2analyzer-0.11.7.tar.gz", hash = "sha256:2336589b1f292d64a0b1dcf95d841444146fb09de192e17aa78c1edc1e8b788b", size = 39142, upload-time = "2023-08-12T13:22:49.47Z" }
 wheels = [
-    { url = "https://files.pythonhosted.org/packages/b1/04/81fab5e3882b471f0df327be49e1d7e9da66e1567190b59d6ca895c9a249/bw2analyzer-0.11.7-py3-none-any.whl", hash = "sha256:3286aa6f6e23115d1fe11825e242bf59455ea85dec8e92659dcd7a800f3861a9", size = 29021, upload-time = "2023-09-15T05:28:14.253Z" },
+    { url = "https://files.pythonhosted.org/packages/32/6b/61fafac04ca2c19739029ccfbe635c2121495df65a78483ae0a3253bfe49/bw2analyzer-0.11.8-py3-none-any.whl", hash = "sha256:b1a5b5fd10bde0e423c18410bd3b896d46070e274e6e2d768d9504113f8ff49c", size = 29050, upload-time = "2023-09-15T14:21:40.688Z" },
 ]
 
 [[package]]
@@ -857,7 +856,7 @@ requires-dist = [
 [package.metadata.requires-dev]
 data = [
     { name = "boto3", specifier = "~=1.40" },
-    { name = "bw2analyzer", specifier = "==0.11.7" },
+    { name = "bw2analyzer", specifier = "==0.11.8" },
     { name = "bw2calc", specifier = "==2.0.1" },
     { name = "bw2data", specifier = "==4.4.3" },
     { name = "bw2io", extras = ["multifunctional"], specifier = "==0.9.5" },
