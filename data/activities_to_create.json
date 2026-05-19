@@ -3778,12 +3778,12 @@
         "name": "polypropylene, granulate//[GLO] market for polypropylene, granulate"
       },
       {
-        "amount": 7.1,
+        "amount": 19,
         "database": "Ecoinvent 3.9.1",
         "name": "electricity, medium voltage//[CN] market group for electricity, medium voltage"
       },
       {
-        "amount": 38.4,
+        "amount": 102,
         "name": "heat, industrial, market, RoW"
       }
     ],
@@ -3839,12 +3839,12 @@
         "name": "polypropylene, granulate//[GLO] market for polypropylene, granulate"
       },
       {
-        "amount": 7.1,
+        "amount": 19,
         "database": "Ecoinvent 3.9.1",
         "name": "electricity, medium voltage//[FR] market for electricity, medium voltage"
       },
       {
-        "amount": 38.4,
+        "amount": 102,
         "name": "heat, industrial, market, RER"
       }
     ],
