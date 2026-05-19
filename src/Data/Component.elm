@@ -1644,11 +1644,15 @@ getElementResult ( itemIndex, elementIndex ) productionResults =
         |> Result.andThen (extractItems >> LE.getAt elementIndex >> Result.fromMaybe errors.elementNotFound)
 
 
-getEndOfLifeDetailedImpacts : Requirements db -> Results -> DetailedEndOfLifeImpacts
-getEndOfLifeDetailedImpacts { config, scope } =
+getEndOfLifeDetailedImpacts : Requirements db -> Bool -> Results -> DetailedEndOfLifeImpacts
+getEndOfLifeDetailedImpacts { config, scope } recyclable =
     let
         collectionRatio =
-            getEndOfLifeScopeCollectionRate config scope
+            if recyclable then
+                getEndOfLifeScopeCollectionRate config scope
+
+            else
+                Split.zero
 
         nonCollectionRatio =
             Split.complement collectionRatio
@@ -1683,9 +1687,9 @@ getEndOfLifeDetailedImpacts { config, scope } =
 
 getEndOfLifeImpacts : Requirements db -> Bool -> Results -> Impacts
 getEndOfLifeImpacts ({ config, scope } as requirements) recyclable (Results results) =
-    if (config.endOfLife |> Config.scopeEnabled scope) && recyclable then
+    if config.endOfLife |> Config.scopeEnabled scope then
         Results results
-            |> getEndOfLifeDetailedImpacts requirements
+            |> getEndOfLifeDetailedImpacts requirements recyclable
             |> AnyDict.map
                 (\_ { collected, nonCollected } ->
                     let

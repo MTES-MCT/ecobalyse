@@ -1390,6 +1390,7 @@ endOfLifeView ({ componentConfig, query, scope, updateRecyclable } as config) li
                                     , db = config.db
                                     , scope = config.scope
                                     }
+                                    query.recyclable
                                 |> AnyDict.toList
                                 |> List.sortBy (Tuple.first >> Category.materialTypeToLabel)
                                 |> List.concatMap (endOfLifeMaterialRow config)
