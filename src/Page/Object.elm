@@ -139,7 +139,7 @@ type Msg
     | UpdateElementAmount TargetElement (Maybe Amount)
     | UpdateElementMaterialCountry TargetElement (Maybe Country.Code)
     | UpdateElementTransformCountry TargetElement Index (Maybe Country.Code)
-    | UpdateRecyclable Bool
+    | UpdateRecyclability Bool
     | UpdateRenamedBookmarkName Bookmark String
 
 
@@ -673,7 +673,7 @@ update ({ navKey } as session) msg model =
                     )
                 |> App.withCmds [ Plausible.send session <| Plausible.ComponentUpdated model.scope ]
 
-        ( UpdateRecyclable recyclable, _ ) ->
+        ( UpdateRecyclability recyclable, _ ) ->
             createPageUpdate session model
                 |> updateQuery (query |> Component.updateRecyclable recyclable)
 
@@ -901,7 +901,7 @@ simulatorView ({ componentConfig } as session) ({ scope } as model) =
                 , updateElementTransformCountry = UpdateElementTransformCountry
                 , updateItemName = UpdateComponentItemName
                 , updateItemQuantity = UpdateComponentItemQuantity
-                , updateRecyclable = UpdateRecyclable
+                , updateRecyclable = UpdateRecyclability
                 }
             ]
         , div [ class "col-lg-4 bg-white" ]
@@ -1134,7 +1134,7 @@ modalView session ({ modals } as model) modal =
                         , updateElementTransformCountry = UpdateElementTransformCountry
                         , updateItemName = UpdateComponentItemName
                         , updateItemQuantity = UpdateComponentItemQuantity
-                        , updateRecyclable = UpdateRecyclable
+                        , updateRecyclable = UpdateRecyclability
                         }
                         targetElement
                     ]
