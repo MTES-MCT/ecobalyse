@@ -983,8 +983,8 @@ displayTransportDistances db ingredient ingredientQuery event =
                 needsCooling =
                     ingredient.ingredient.transportCooling /= Ingredient.NoCooling
             in
-            [ div [ class "BoolSelector" ]
-                [ label [ class "LeftSelector" ]
+            [ div [ class "IngredientPlaneOrBoatSelector" ]
+                [ label [ class "PlaneSelector" ]
                     [ input
                         [ type_ "radio"
                         , attribute "role" "switch"
@@ -994,7 +994,7 @@ displayTransportDistances db ingredient ingredientQuery event =
                         []
                     , Icon.plane
                     ]
-                , label [ class "RightSelector" ]
+                , label [ class "BoatSelector" ]
                     [ input
                         [ type_ "radio"
                         , attribute "role" "switch"
