@@ -10,6 +10,7 @@ import Data.Process as Process exposing (Process)
 import Data.Process.Category as Category
 import Data.Scope as Scope
 import Data.Split as Split exposing (Split)
+import Data.Transport as Transport
 import Data.Unit as Unit
 import Dict.Any as AnyDict
 import Expect
@@ -943,6 +944,7 @@ suite =
                         (\france portugal ->
                             [ it "should compute distance between two countries"
                                 (Component.computeTransportDistance requirements (Just portugal) (Just france)
+                                    |> Result.map (Maybe.withDefault Transport.noTransport)
                                     |> Result.map
                                         (\{ air, road, sea } ->
                                             ( Length.inKilometers air > 0
@@ -957,21 +959,22 @@ suite =
                                     -- Note: exagerating distances to hub, to make this test resilient to future data updates
                                     (Just { portugal | distanceToHub = Length.kilometers 20000 })
                                     (Just { france | distanceToHub = Length.kilometers 10000 })
+                                    |> Result.map (Maybe.withDefault Transport.noTransport)
                                     |> Result.map (.road >> Length.inKilometers)
                                     |> Result.withDefault 0
                                     |> Expect.greaterThan 30000
                                 )
-                            , it "should fallback to default distances when the country of departure is undefined"
+                            , it "should handle unknown country of departure"
                                 (Component.computeTransportDistance requirements Nothing (Just france)
-                                    |> Expect.equal (Ok requirements.config.transports.defaultDistance)
+                                    |> Expect.equal (Ok Nothing)
                                 )
-                            , it "should fallback to default distances when the destination country is undefined"
+                            , it "should handle unknown country of destination"
                                 (Component.computeTransportDistance requirements (Just portugal) Nothing
-                                    |> Expect.equal (Ok requirements.config.transports.defaultDistance)
+                                    |> Expect.equal (Ok Nothing)
                                 )
-                            , it "should fallback to default distances when neither countries are defined"
+                            , it "should handle both countries unknown"
                                 (Component.computeTransportDistance requirements Nothing Nothing
-                                    |> Expect.equal (Ok requirements.config.transports.defaultDistance)
+                                    |> Expect.equal (Ok Nothing)
                                 )
                             ]
                         )
