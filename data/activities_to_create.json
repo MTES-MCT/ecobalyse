@@ -3507,7 +3507,7 @@
     "exchanges": [
       {
         "amount": 1.34,
-        "name": "nickel sulfate//[GLO] market for nickel sulfate"
+        "name": "nickel sulfate//[GLO] nickel sulfate production"
       },
       {
         "amount": 0.168,
@@ -3530,7 +3530,7 @@
         "name": "lithium hydroxide//[GLO] lithium hydroxide production"
       },
       {
-        "amount": 0,
+        "amount": 0.007,
         "name": "N-methyl-2-pyrrolidone//[RoW] N-methyl-2-pyrrolidone production"
       },
       {
