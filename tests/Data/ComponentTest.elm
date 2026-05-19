@@ -1332,9 +1332,9 @@ suite =
                               "recyclable": false
                             }"""
                             |> decodeJsonThen Component.decodeQuery (Component.compute requirements)
-                            |> Result.map (\results -> ( results, Component.stagesImpacts results ))
+                            |> Result.map Component.stagesImpacts
                         )
-                        (\( _, stagesImpacts ) ->
+                        (\stagesImpacts ->
                             [ it "should also compute end of life stage impacts when not recyclable"
                                 (stagesImpacts.endOfLife
                                     |> Maybe.map getEcsImpact
