@@ -1,10 +1,10 @@
 @font-face {
   font-family: 'icomoon';
-  src:  url('fonts/icomoon.eot?t2gidz');
-  src:  url('fonts/icomoon.eot?t2gidz#iefix') format('embedded-opentype'),
-    url('fonts/icomoon.ttf?t2gidz') format('truetype'),
-    url('fonts/icomoon.woff?t2gidz') format('woff'),
-    url('fonts/icomoon.svg?t2gidz#icomoon') format('svg');
+  src:  url('fonts/icomoon.eot?b9fihz');
+  src:  url('fonts/icomoon.eot?b9fihz#iefix') format('embedded-opentype'),
+    url('fonts/icomoon.ttf?b9fihz') format('truetype'),
+    url('fonts/icomoon.woff?b9fihz') format('woff'),
+    url('fonts/icomoon.svg?b9fihz#icomoon') format('svg');
   font-weight: normal;
   font-style: normal;
   font-display: block;
@@ -25,8 +25,71 @@
   -moz-osx-font-smoothing: grayscale;
 }
 
-.icon-recycle:before {
-  content: "\f1b8";
+.icon-file-download:before {
+  content: "\e91b";
+}
+.icon-file-upload:before {
+  content: "\e91c";
+}
+.icon-file-export:before {
+  content: "\e910";
+}
+.icon-leaf:before {
+  content: "\e901";
+}
+.icon-search:before {
+  content: "\e902";
+}
+.icon-package:before {
+  content: "\e912";
+}
+.icon-ham:before {
+  content: "\e918";
+}
+.icon-external:before {
+  content: "\e908";
+}
+.icon-atom:before {
+  content: "\e903";
+}
+.icon-rail:before {
+  content: "\e916";
+}
+.icon-cross-rounded:before {
+  content: "\e90f";
+}
+.icon-save:before {
+  content: "\e90c";
+}
+.icon-plug:before {
+  content: "\e911";
+}
+.icon-transform:before {
+  content: "\e907";
+}
+.icon-material:before {
+  content: "\e906";
+}
+.icon-undo:before {
+  content: "\e90d";
+}
+.icon-cancel:before {
+  content: "\e905";
+}
+.icon-fork-way:before {
+  content: "\e913";
+}
+.icon-mail:before {
+  content: "\e90e";
+}
+.icon-list:before {
+  content: "\e904";
+}
+.icon-home:before {
+  content: "\e90b";
+}
+.icon-calculator:before {
+  content: "\e940";
 }
 .icon-sign-in:before {
   content: "\e915";
@@ -102,70 +165,4 @@
 }
 .icon-examples:before {
   content: "\f277";
-}
-.icon-file-download:before {
-  content: "\e91b";
-}
-.icon-file-upload:before {
-  content: "\e91c";
-}
-.icon-file-export:before {
-  content: "\e910";
-}
-.icon-leaf:before {
-  content: "\e901";
-}
-.icon-search:before {
-  content: "\e902";
-}
-.icon-package:before {
-  content: "\e912";
-}
-.icon-ham:before {
-  content: "\e918";
-}
-.icon-external:before {
-  content: "\e908";
-}
-.icon-atom:before {
-  content: "\e903";
-}
-.icon-rail:before {
-  content: "\e916";
-}
-.icon-cross-rounded:before {
-  content: "\e90f";
-}
-.icon-save:before {
-  content: "\e90c";
-}
-.icon-plug:before {
-  content: "\e911";
-}
-.icon-transform:before {
-  content: "\e907";
-}
-.icon-material:before {
-  content: "\e906";
-}
-.icon-undo:before {
-  content: "\e90d";
-}
-.icon-cancel:before {
-  content: "\e905";
-}
-.icon-fork-way:before {
-  content: "\e913";
-}
-.icon-mail:before {
-  content: "\e90e";
-}
-.icon-list:before {
-  content: "\e904";
-}
-.icon-home:before {
-  content: "\e90b";
-}
-.icon-calculator:before {
-  content: "\e940";
 }
