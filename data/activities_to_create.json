@@ -3609,7 +3609,68 @@
   },
   {
     "activityCreationType": "from_scratch",
-    "alias": "battery-cell-lfp-solid-cn",
+    "alias": "battery-cell-lfp-hydrothermal-cn",
+    "comment": "For 1kg cell. Based on GREET model (average of available battery size)",
+    "database": "Ecobalyse",
+    "exchanges": [
+      {
+        "amount": 0.455,
+        "name": "CAM of Battery cell, LFP Hydrothermal, CN"
+      },
+      {
+        "amount": 0.234,
+        "name": "Graphite production for battery cell, CN"
+      },
+      {
+        "amount": 0.014,
+        "database": "Ecoinvent 3.9.1",
+        "name": "polyvinylfluoride//[RoW] polyvinylfluoride production"
+      },
+      {
+        "amount": 0.138,
+        "database": "Ecoinvent 3.9.1",
+        "name": "copper collector foil, for Li-ion battery//[GLO] copper collector foil production, for Li-ion battery"
+      },
+      {
+        "amount": 0.021,
+        "name": "aluminium ingot, market, CN"
+      },
+      {
+        "amount": 0.021,
+        "database": "Ecoinvent 3.9.1",
+        "name": "lithium hexafluorophosphate//[CN] lithium hexafluorophosphate production"
+      },
+      {
+        "amount": 0.058,
+        "database": "Ecoinvent 3.9.1",
+        "name": "ethylene carbonate//[CN] ethylene carbonate production"
+      },
+      {
+        "amount": 0.058,
+        "database": "Ecoinvent 3.9.1",
+        "name": "dimethyl carbonate//[RoW] dimethyl carbonate production"
+      },
+      {
+        "amount": 0.002,
+        "database": "Ecoinvent 3.9.1",
+        "name": "polypropylene, granulate//[GLO] market for polypropylene, granulate"
+      },
+      {
+        "amount": 19,
+        "database": "Ecoinvent 3.9.1",
+        "name": "electricity, medium voltage//[CN] market group for electricity, medium voltage"
+      },
+      {
+        "amount": 102,
+        "name": "heat, industrial, market, RoW"
+      }
+    ],
+    "location": "CN",
+    "newName": "Battery cell production, LFP Hydrothermal, CN"
+  },
+  {
+    "activityCreationType": "from_scratch",
+    "alias": "battery-cell-lfp-solid-state-cn",
     "comment": "For 1kg cell. Based on GREET model (average of available battery size)",
     "database": "Ecobalyse",
     "exchanges": [
@@ -3656,12 +3717,12 @@
         "name": "polypropylene, granulate//[GLO] market for polypropylene, granulate"
       },
       {
-        "amount": 9.2,
+        "amount": 19,
         "database": "Ecoinvent 3.9.1",
         "name": "electricity, medium voltage//[CN] market group for electricity, medium voltage"
       },
       {
-        "amount": 0,
+        "amount": 102,
         "name": "heat, industrial, market, RoW"
       }
     ],
