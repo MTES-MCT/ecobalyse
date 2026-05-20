@@ -167,7 +167,7 @@ class FormatNumberJsonEncoder(json.JSONEncoder):
                 if obj == 0:
                     return int(0)
                 else:
-                    return float(f"{obj:.5g}")
+                    return float(f"{obj:.4g}")
             elif isinstance(obj, dict):
                 return {k: recursive_format_number(v) for k, v in obj.items()}
             # it looks like we are using tuples as lists, so treat them the same way
