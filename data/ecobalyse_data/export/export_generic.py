@@ -202,7 +202,7 @@ def compute_processes_generic(
                 ],
                 source=process["source"],
                 unit=process.get("unit"),
-                waste=process.get("waste", 0),
+                qty_variation_ratio=process.get("qtyVariationRatio", 1),
             )
             entry_dict = entry.model_dump(by_alias=True)
             entry_dict["metadata"] = metadata_out
