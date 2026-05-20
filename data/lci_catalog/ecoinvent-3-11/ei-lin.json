@@ -24,10 +24,10 @@
       ]
     }
   ],
+  "qtyVariationRatio": 1,
   "scopes": [
     "textile"
   ],
   "source": "Ecoinvent 3.11",
-  "unit": "kg",
-  "waste": 0
+  "unit": "kg"
 }

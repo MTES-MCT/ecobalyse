@@ -8,10 +8,10 @@
   "elecMJ": 0,
   "heatMJ": 0,
   "id": "ac850be0-f09e-58eb-b334-3eb9fcd599d8",
+  "qtyVariationRatio": 1,
   "scopes": [
     "textile"
   ],
   "source": "Ecoinvent 3.9.1",
-  "unit": "kWh",
-  "waste": 0
+  "unit": "kWh"
 }

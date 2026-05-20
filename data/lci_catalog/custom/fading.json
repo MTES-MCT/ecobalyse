@@ -29,10 +29,10 @@
     "tre": 0.000366822,
     "wtu": 0
   },
+  "qtyVariationRatio": 1,
   "scopes": [
     "textile"
   ],
   "source": "Custom",
-  "unit": "kg",
-  "waste": 0
+  "unit": "kg"
 }

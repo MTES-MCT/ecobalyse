@@ -23,10 +23,10 @@
       ]
     }
   ],
+  "qtyVariationRatio": 1,
   "scopes": [
     "object"
   ],
   "source": "forwast",
-  "unit": "kg",
-  "waste": 0
+  "unit": "kg"
 }

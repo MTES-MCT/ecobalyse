@@ -17,11 +17,11 @@
       ]
     }
   ],
+  "qtyVariationRatio": 1,
   "scopes": [
     "object",
     "veli"
   ],
   "source": "Ecoinvent 3.9.1",
-  "unit": "kWh",
-  "waste": 0
+  "unit": "kWh"
 }
