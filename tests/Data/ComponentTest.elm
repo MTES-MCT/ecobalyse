@@ -617,7 +617,7 @@ suite =
                                     (results
                                         |> Result.map extractEcsImpact
                                         |> Result.withDefault 0
-                                        |> Expect.within (Expect.Absolute 1) 69261
+                                        |> Expect.within (Expect.Absolute 1) 69254
                                     )
                                 , it "should compute mass according on material unit"
                                     (results

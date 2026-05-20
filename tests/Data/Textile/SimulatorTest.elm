@@ -68,7 +68,7 @@ suite =
                         [ { query
                             | countrySpinning = Nothing
                           }
-                            |> expectImpact db ecs 1290.7
+                            |> expectImpact db ecs 1290.84
                             |> asTest "compute a simulation ecs impact"
                         ]
                     )

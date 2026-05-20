@@ -14,7 +14,7 @@
     "impacts": {
       "acd": 0,
       "cch": 0,
-      "ecs": 561.66,
+      "ecs": 561.7,
       "etf": 0,
       "etf-c": 0,
       "fru": 0,
@@ -57,7 +57,7 @@
     "impacts": {
       "acd": 0,
       "cch": 0,
-      "ecs": 150.13,
+      "ecs": 150.1,
       "etf": 0,
       "etf-c": 0,
       "fru": 0,
@@ -98,7 +98,7 @@
     "impacts": {
       "acd": 0,
       "cch": 0,
-      "ecs": 59.727,
+      "ecs": 59.73,
       "etf": 0,
       "etf-c": 0,
       "fru": 0,
@@ -141,7 +141,7 @@
     "impacts": {
       "acd": 0,
       "cch": 0,
-      "ecs": 771.13,
+      "ecs": 771.1,
       "etf": 0,
       "etf-c": 0,
       "fru": 0,
@@ -184,7 +184,7 @@
     "impacts": {
       "acd": 0,
       "cch": 0,
-      "ecs": 759.68,
+      "ecs": 759.7,
       "etf": 0,
       "etf-c": 0,
       "fru": 0,
@@ -226,7 +226,7 @@
     "impacts": {
       "acd": 0,
       "cch": 0,
-      "ecs": 1501.1,
+      "ecs": 1501.0,
       "etf": 0,
       "etf-c": 0,
       "fru": 0,
@@ -269,7 +269,7 @@
     "impacts": {
       "acd": 0,
       "cch": 0,
-      "ecs": 111.42,
+      "ecs": 111.4,
       "etf": 0,
       "etf-c": 0,
       "fru": 0,
@@ -312,7 +312,7 @@
     "impacts": {
       "acd": 0,
       "cch": 0,
-      "ecs": 79.123,
+      "ecs": 79.12,
       "etf": 0,
       "etf-c": 0,
       "fru": 0,
@@ -355,7 +355,7 @@
     "impacts": {
       "acd": 0,
       "cch": 0,
-      "ecs": 67.553,
+      "ecs": 67.55,
       "etf": 0,
       "etf-c": 0,
       "fru": 0,
@@ -398,7 +398,7 @@
     "impacts": {
       "acd": 0,
       "cch": 0,
-      "ecs": 33.297,
+      "ecs": 33.3,
       "etf": 0,
       "etf-c": 0,
       "fru": 0,
@@ -441,7 +441,7 @@
     "impacts": {
       "acd": 0,
       "cch": 0,
-      "ecs": 38.333,
+      "ecs": 38.33,
       "etf": 0,
       "etf-c": 0,
       "fru": 0,
@@ -484,7 +484,7 @@
     "impacts": {
       "acd": 0,
       "cch": 0,
-      "ecs": 113.06,
+      "ecs": 113.1,
       "etf": 0,
       "etf-c": 0,
       "fru": 0,
@@ -527,7 +527,7 @@
     "impacts": {
       "acd": 0,
       "cch": 0,
-      "ecs": 3.9406,
+      "ecs": 3.941,
       "etf": 0,
       "etf-c": 0,
       "fru": 0,
@@ -570,7 +570,7 @@
     "impacts": {
       "acd": 0,
       "cch": 0,
-      "ecs": 2.1675,
+      "ecs": 2.167,
       "etf": 0,
       "etf-c": 0,
       "fru": 0,
@@ -613,7 +613,7 @@
     "impacts": {
       "acd": 0,
       "cch": 0,
-      "ecs": 153.27,
+      "ecs": 153.3,
       "etf": 0,
       "etf-c": 0,
       "fru": 0,
@@ -656,7 +656,7 @@
     "impacts": {
       "acd": 0,
       "cch": 0,
-      "ecs": 18.241,
+      "ecs": 18.24,
       "etf": 0,
       "etf-c": 0,
       "fru": 0,
@@ -742,7 +742,7 @@
     "impacts": {
       "acd": 0,
       "cch": 0,
-      "ecs": 21.441,
+      "ecs": 21.44,
       "etf": 0,
       "etf-c": 0,
       "fru": 0,
@@ -785,7 +785,7 @@
     "impacts": {
       "acd": 0,
       "cch": 0,
-      "ecs": 1.0883,
+      "ecs": 1.088,
       "etf": 0,
       "etf-c": 0,
       "fru": 0,
@@ -828,7 +828,7 @@
     "impacts": {
       "acd": 0,
       "cch": 0,
-      "ecs": 56.617,
+      "ecs": 56.62,
       "etf": 0,
       "etf-c": 0,
       "fru": 0,
@@ -871,7 +871,7 @@
     "impacts": {
       "acd": 0,
       "cch": 0,
-      "ecs": 81.399,
+      "ecs": 81.4,
       "etf": 0,
       "etf-c": 0,
       "fru": 0,
@@ -957,7 +957,7 @@
     "impacts": {
       "acd": 0,
       "cch": 0,
-      "ecs": 5.5484,
+      "ecs": 5.548,
       "etf": 0,
       "etf-c": 0,
       "fru": 0,
@@ -1000,7 +1000,7 @@
     "impacts": {
       "acd": 0,
       "cch": 0,
-      "ecs": 92.302,
+      "ecs": 92.3,
       "etf": 0,
       "etf-c": 0,
       "fru": 0,
@@ -1084,7 +1084,7 @@
     "impacts": {
       "acd": 0,
       "cch": 0,
-      "ecs": 80.515,
+      "ecs": 80.52,
       "etf": 0,
       "etf-c": 0,
       "fru": 0,
@@ -1127,7 +1127,7 @@
     "impacts": {
       "acd": 0,
       "cch": 0,
-      "ecs": 72.133,
+      "ecs": 72.13,
       "etf": 0,
       "etf-c": 0,
       "fru": 0,
@@ -1170,7 +1170,7 @@
     "impacts": {
       "acd": 0,
       "cch": 0,
-      "ecs": 64.027,
+      "ecs": 64.03,
       "etf": 0,
       "etf-c": 0,
       "fru": 0,
@@ -1213,7 +1213,7 @@
     "impacts": {
       "acd": 0,
       "cch": 0,
-      "ecs": 681.13,
+      "ecs": 681.1,
       "etf": 0,
       "etf-c": 0,
       "fru": 0,
@@ -1256,7 +1256,7 @@
     "impacts": {
       "acd": 0,
       "cch": 0,
-      "ecs": 11.288,
+      "ecs": 11.29,
       "etf": 0,
       "etf-c": 0,
       "fru": 0,
@@ -1342,7 +1342,7 @@
     "impacts": {
       "acd": 0,
       "cch": 0,
-      "ecs": 1363.2,
+      "ecs": 1363.0,
       "etf": 0,
       "etf-c": 0,
       "fru": 0,
@@ -1385,7 +1385,7 @@
     "impacts": {
       "acd": 0,
       "cch": 0,
-      "ecs": 2321.1,
+      "ecs": 2321.0,
       "etf": 0,
       "etf-c": 0,
       "fru": 0,
@@ -1428,7 +1428,7 @@
     "impacts": {
       "acd": 0,
       "cch": 0,
-      "ecs": 79.909,
+      "ecs": 79.91,
       "etf": 0,
       "etf-c": 0,
       "fru": 0,
@@ -1448,7 +1448,7 @@
       "wtu": 0
     },
     "location": "FR",
-    "massPerUnit": 0.99585,
+    "massPerUnit": 0.9959,
     "scopes": [
       "food"
     ],
@@ -1471,7 +1471,7 @@
     "impacts": {
       "acd": 0,
       "cch": 0,
-      "ecs": 15.098,
+      "ecs": 15.1,
       "etf": 0,
       "etf-c": 0,
       "fru": 0,
@@ -1514,7 +1514,7 @@
     "impacts": {
       "acd": 0,
       "cch": 0,
-      "ecs": 24.555,
+      "ecs": 24.56,
       "etf": 0,
       "etf-c": 0,
       "fru": 0,
@@ -1557,7 +1557,7 @@
     "impacts": {
       "acd": 0,
       "cch": 0,
-      "ecs": 2.9403,
+      "ecs": 2.94,
       "etf": 0,
       "etf-c": 0,
       "fru": 0,
@@ -1600,7 +1600,7 @@
     "impacts": {
       "acd": 0,
       "cch": 0,
-      "ecs": 8.8335,
+      "ecs": 8.834,
       "etf": 0,
       "etf-c": 0,
       "fru": 0,
@@ -1643,7 +1643,7 @@
     "impacts": {
       "acd": 0,
       "cch": 0,
-      "ecs": 5.8604,
+      "ecs": 5.86,
       "etf": 0,
       "etf-c": 0,
       "fru": 0,
@@ -1686,7 +1686,7 @@
     "impacts": {
       "acd": 0,
       "cch": 0,
-      "ecs": 264.83,
+      "ecs": 264.8,
       "etf": 0,
       "etf-c": 0,
       "fru": 0,
@@ -1729,7 +1729,7 @@
     "impacts": {
       "acd": 0,
       "cch": 0,
-      "ecs": 813.66,
+      "ecs": 813.7,
       "etf": 0,
       "etf-c": 0,
       "fru": 0,
@@ -1772,7 +1772,7 @@
     "impacts": {
       "acd": 0,
       "cch": 0,
-      "ecs": 385.75,
+      "ecs": 385.8,
       "etf": 0,
       "etf-c": 0,
       "fru": 0,
@@ -1815,7 +1815,7 @@
     "impacts": {
       "acd": 0,
       "cch": 0,
-      "ecs": 3.0519,
+      "ecs": 3.052,
       "etf": 0,
       "etf-c": 0,
       "fru": 0,
@@ -1858,7 +1858,7 @@
     "impacts": {
       "acd": 0,
       "cch": 0,
-      "ecs": 10.959,
+      "ecs": 10.96,
       "etf": 0,
       "etf-c": 0,
       "fru": 0,
@@ -1901,7 +1901,7 @@
     "impacts": {
       "acd": 0,
       "cch": 0,
-      "ecs": 8.8295,
+      "ecs": 8.83,
       "etf": 0,
       "etf-c": 0,
       "fru": 0,
@@ -1944,7 +1944,7 @@
     "impacts": {
       "acd": 0,
       "cch": 0,
-      "ecs": 4.0833,
+      "ecs": 4.083,
       "etf": 0,
       "etf-c": 0,
       "fru": 0,
@@ -2030,7 +2030,7 @@
     "impacts": {
       "acd": 0,
       "cch": 0,
-      "ecs": 11.915,
+      "ecs": 11.91,
       "etf": 0,
       "etf-c": 0,
       "fru": 0,
@@ -2073,7 +2073,7 @@
     "impacts": {
       "acd": 0,
       "cch": 0,
-      "ecs": 11.887,
+      "ecs": 11.89,
       "etf": 0,
       "etf-c": 0,
       "fru": 0,
@@ -2116,7 +2116,7 @@
     "impacts": {
       "acd": 0,
       "cch": 0,
-      "ecs": 32.366,
+      "ecs": 32.37,
       "etf": 0,
       "etf-c": 0,
       "fru": 0,
@@ -2159,7 +2159,7 @@
     "impacts": {
       "acd": 0,
       "cch": 0,
-      "ecs": 7.7272,
+      "ecs": 7.727,
       "etf": 0,
       "etf-c": 0,
       "fru": 0,
@@ -2202,7 +2202,7 @@
     "impacts": {
       "acd": 0,
       "cch": 0,
-      "ecs": 6.4759,
+      "ecs": 6.476,
       "etf": 0,
       "etf-c": 0,
       "fru": 0,
@@ -2245,7 +2245,7 @@
     "impacts": {
       "acd": 0,
       "cch": 0,
-      "ecs": 374.56,
+      "ecs": 374.6,
       "etf": 0,
       "etf-c": 0,
       "fru": 0,
@@ -2288,7 +2288,7 @@
     "impacts": {
       "acd": 0,
       "cch": 0,
-      "ecs": 588.62,
+      "ecs": 588.6,
       "etf": 0,
       "etf-c": 0,
       "fru": 0,
@@ -2331,7 +2331,7 @@
     "impacts": {
       "acd": 0,
       "cch": 0,
-      "ecs": 46.527,
+      "ecs": 46.53,
       "etf": 0,
       "etf-c": 0,
       "fru": 0,
@@ -2374,7 +2374,7 @@
     "impacts": {
       "acd": 0,
       "cch": 0,
-      "ecs": 594.97,
+      "ecs": 595.0,
       "etf": 0,
       "etf-c": 0,
       "fru": 0,
@@ -2417,7 +2417,7 @@
     "impacts": {
       "acd": 0,
       "cch": 0,
-      "ecs": 540.83,
+      "ecs": 540.8,
       "etf": 0,
       "etf-c": 0,
       "fru": 0,
@@ -2460,7 +2460,7 @@
     "impacts": {
       "acd": 0,
       "cch": 0,
-      "ecs": 4.1898,
+      "ecs": 4.19,
       "etf": 0,
       "etf-c": 0,
       "fru": 0,
@@ -2480,7 +2480,7 @@
       "wtu": 0
     },
     "location": "FR",
-    "massPerUnit": 0.0089333,
+    "massPerUnit": 0.008933,
     "scopes": [
       "food"
     ],
@@ -2503,7 +2503,7 @@
     "impacts": {
       "acd": 0,
       "cch": 0,
-      "ecs": 422.33,
+      "ecs": 422.3,
       "etf": 0,
       "etf-c": 0,
       "fru": 0,
@@ -2546,7 +2546,7 @@
     "impacts": {
       "acd": 0,
       "cch": 0,
-      "ecs": 747.37,
+      "ecs": 747.4,
       "etf": 0,
       "etf-c": 0,
       "fru": 0,
@@ -2589,7 +2589,7 @@
     "impacts": {
       "acd": 0,
       "cch": 0,
-      "ecs": 27.843,
+      "ecs": 27.84,
       "etf": 0,
       "etf-c": 0,
       "fru": 0,
@@ -2609,7 +2609,7 @@
       "wtu": 0
     },
     "location": "FR",
-    "massPerUnit": 0.11032,
+    "massPerUnit": 0.1103,
     "scopes": [
       "food"
     ],
@@ -2632,7 +2632,7 @@
     "impacts": {
       "acd": 0,
       "cch": 0,
-      "ecs": 948.35,
+      "ecs": 948.3,
       "etf": 0,
       "etf-c": 0,
       "fru": 0,
@@ -2675,7 +2675,7 @@
     "impacts": {
       "acd": 0,
       "cch": 0,
-      "ecs": 2.5315,
+      "ecs": 2.532,
       "etf": 0,
       "etf-c": 0,
       "fru": 0,
@@ -2718,7 +2718,7 @@
     "impacts": {
       "acd": 0,
       "cch": 0,
-      "ecs": 1.7884,
+      "ecs": 1.788,
       "etf": 0,
       "etf-c": 0,
       "fru": 0,
@@ -2761,7 +2761,7 @@
     "impacts": {
       "acd": 0,
       "cch": 0,
-      "ecs": 7.2673,
+      "ecs": 7.267,
       "etf": 0,
       "etf-c": 0,
       "fru": 0,
@@ -2804,7 +2804,7 @@
     "impacts": {
       "acd": 0,
       "cch": 0,
-      "ecs": 1.9729,
+      "ecs": 1.973,
       "etf": 0,
       "etf-c": 0,
       "fru": 0,
@@ -2847,7 +2847,7 @@
     "impacts": {
       "acd": 0,
       "cch": 0,
-      "ecs": 40.649,
+      "ecs": 40.65,
       "etf": 0,
       "etf-c": 0,
       "fru": 0,
@@ -2890,7 +2890,7 @@
     "impacts": {
       "acd": 0,
       "cch": 0,
-      "ecs": 39.048,
+      "ecs": 39.05,
       "etf": 0,
       "etf-c": 0,
       "fru": 0,
@@ -2933,7 +2933,7 @@
     "impacts": {
       "acd": 0,
       "cch": 0,
-      "ecs": 12.115,
+      "ecs": 12.11,
       "etf": 0,
       "etf-c": 0,
       "fru": 0,
@@ -2976,7 +2976,7 @@
     "impacts": {
       "acd": 0,
       "cch": 0,
-      "ecs": 86.395,
+      "ecs": 86.39,
       "etf": 0,
       "etf-c": 0,
       "fru": 0,
@@ -3019,7 +3019,7 @@
     "impacts": {
       "acd": 0,
       "cch": 0,
-      "ecs": 8.7313,
+      "ecs": 8.731,
       "etf": 0,
       "etf-c": 0,
       "fru": 0,
@@ -3062,7 +3062,7 @@
     "impacts": {
       "acd": 0,
       "cch": 0,
-      "ecs": 13.277,
+      "ecs": 13.28,
       "etf": 0,
       "etf-c": 0,
       "fru": 0,
@@ -3082,7 +3082,7 @@
       "wtu": 0
     },
     "location": "FR",
-    "massPerUnit": 0.11535,
+    "massPerUnit": 0.1153,
     "scopes": [
       "food"
     ],
@@ -3146,7 +3146,7 @@
     "impacts": {
       "acd": 0,
       "cch": 0,
-      "ecs": 3.1301,
+      "ecs": 3.13,
       "etf": 0,
       "etf-c": 0,
       "fru": 0,
@@ -3189,7 +3189,7 @@
     "impacts": {
       "acd": 0,
       "cch": 0,
-      "ecs": 30.551,
+      "ecs": 30.55,
       "etf": 0,
       "etf-c": 0,
       "fru": 0,
@@ -3232,7 +3232,7 @@
     "impacts": {
       "acd": 0,
       "cch": 0,
-      "ecs": 42.956,
+      "ecs": 42.96,
       "etf": 0,
       "etf-c": 0,
       "fru": 0,
@@ -3275,7 +3275,7 @@
     "impacts": {
       "acd": 0,
       "cch": 0,
-      "ecs": 64.205,
+      "ecs": 64.21,
       "etf": 0,
       "etf-c": 0,
       "fru": 0,
@@ -3361,7 +3361,7 @@
     "impacts": {
       "acd": 0,
       "cch": 0,
-      "ecs": 31.618,
+      "ecs": 31.62,
       "etf": 0,
       "etf-c": 0,
       "fru": 0,
@@ -3404,7 +3404,7 @@
     "impacts": {
       "acd": 0,
       "cch": 0,
-      "ecs": 31.837,
+      "ecs": 31.84,
       "etf": 0,
       "etf-c": 0,
       "fru": 0,
@@ -3447,7 +3447,7 @@
     "impacts": {
       "acd": 0,
       "cch": 0,
-      "ecs": 35.365,
+      "ecs": 35.37,
       "etf": 0,
       "etf-c": 0,
       "fru": 0,
@@ -3490,7 +3490,7 @@
     "impacts": {
       "acd": 0,
       "cch": 0,
-      "ecs": 45.351,
+      "ecs": 45.35,
       "etf": 0,
       "etf-c": 0,
       "fru": 0,
@@ -3619,7 +3619,7 @@
     "impacts": {
       "acd": 0,
       "cch": 0,
-      "ecs": 13.019,
+      "ecs": 13.02,
       "etf": 0,
       "etf-c": 0,
       "fru": 0,
@@ -3662,7 +3662,7 @@
     "impacts": {
       "acd": 0,
       "cch": 0,
-      "ecs": 2.7305,
+      "ecs": 2.73,
       "etf": 0,
       "etf-c": 0,
       "fru": 0,
@@ -3705,7 +3705,7 @@
     "impacts": {
       "acd": 0,
       "cch": 0,
-      "ecs": 15.737,
+      "ecs": 15.74,
       "etf": 0,
       "etf-c": 0,
       "fru": 0,
@@ -3748,7 +3748,7 @@
     "impacts": {
       "acd": 0,
       "cch": 0,
-      "ecs": 29.316,
+      "ecs": 29.32,
       "etf": 0,
       "etf-c": 0,
       "fru": 0,
@@ -3768,7 +3768,7 @@
       "wtu": 0
     },
     "location": "FR",
-    "massPerUnit": 0.12382,
+    "massPerUnit": 0.1238,
     "scopes": [
       "food"
     ],
@@ -3791,7 +3791,7 @@
     "impacts": {
       "acd": 0,
       "cch": 0,
-      "ecs": 5.5929,
+      "ecs": 5.593,
       "etf": 0,
       "etf-c": 0,
       "fru": 0,
@@ -3834,7 +3834,7 @@
     "impacts": {
       "acd": 0,
       "cch": 0,
-      "ecs": 6.9047,
+      "ecs": 6.905,
       "etf": 0,
       "etf-c": 0,
       "fru": 0,
@@ -3877,7 +3877,7 @@
     "impacts": {
       "acd": 0,
       "cch": 0,
-      "ecs": 853.08,
+      "ecs": 853.1,
       "etf": 0,
       "etf-c": 0,
       "fru": 0,
@@ -3920,7 +3920,7 @@
     "impacts": {
       "acd": 0,
       "cch": 0,
-      "ecs": 400.01,
+      "ecs": 400.0,
       "etf": 0,
       "etf-c": 0,
       "fru": 0,
@@ -3963,7 +3963,7 @@
     "impacts": {
       "acd": 0,
       "cch": 0,
-      "ecs": 17.238,
+      "ecs": 17.24,
       "etf": 0,
       "etf-c": 0,
       "fru": 0,
@@ -3983,7 +3983,7 @@
       "wtu": 0
     },
     "location": "FR",
-    "massPerUnit": 0.21482,
+    "massPerUnit": 0.2148,
     "scopes": [
       "food"
     ],
@@ -4006,7 +4006,7 @@
     "impacts": {
       "acd": 0,
       "cch": 0,
-      "ecs": 357.08,
+      "ecs": 357.1,
       "etf": 0,
       "etf-c": 0,
       "fru": 0,
@@ -4049,7 +4049,7 @@
     "impacts": {
       "acd": 0,
       "cch": 0,
-      "ecs": 188.19,
+      "ecs": 188.2,
       "etf": 0,
       "etf-c": 0,
       "fru": 0,
@@ -4092,7 +4092,7 @@
     "impacts": {
       "acd": 0,
       "cch": 0,
-      "ecs": 12.477,
+      "ecs": 12.48,
       "etf": 0,
       "etf-c": 0,
       "fru": 0,
@@ -4135,7 +4135,7 @@
     "impacts": {
       "acd": 0,
       "cch": 0,
-      "ecs": 53.894,
+      "ecs": 53.89,
       "etf": 0,
       "etf-c": 0,
       "fru": 0,
@@ -4219,7 +4219,7 @@
     "impacts": {
       "acd": 0,
       "cch": 0,
-      "ecs": 1.3578,
+      "ecs": 1.358,
       "etf": 0,
       "etf-c": 0,
       "fru": 0,
@@ -4262,7 +4262,7 @@
     "impacts": {
       "acd": 0,
       "cch": 0,
-      "ecs": 5.7754,
+      "ecs": 5.775,
       "etf": 0,
       "etf-c": 0,
       "fru": 0,
@@ -4305,7 +4305,7 @@
     "impacts": {
       "acd": 0,
       "cch": 0,
-      "ecs": 9.0345,
+      "ecs": 9.035,
       "etf": 0,
       "etf-c": 0,
       "fru": 0,
@@ -4348,7 +4348,7 @@
     "impacts": {
       "acd": 0,
       "cch": 0,
-      "ecs": 3.7138,
+      "ecs": 3.714,
       "etf": 0,
       "etf-c": 0,
       "fru": 0,
@@ -4391,7 +4391,7 @@
     "impacts": {
       "acd": 0,
       "cch": 0,
-      "ecs": 15.128,
+      "ecs": 15.13,
       "etf": 0,
       "etf-c": 0,
       "fru": 0,
@@ -4434,7 +4434,7 @@
     "impacts": {
       "acd": 0,
       "cch": 0,
-      "ecs": 7.6175,
+      "ecs": 7.618,
       "etf": 0,
       "etf-c": 0,
       "fru": 0,
@@ -4477,7 +4477,7 @@
     "impacts": {
       "acd": 0,
       "cch": 0,
-      "ecs": 14.129,
+      "ecs": 14.13,
       "etf": 0,
       "etf-c": 0,
       "fru": 0,
@@ -4497,7 +4497,7 @@
       "wtu": 0
     },
     "location": "FR",
-    "massPerUnit": 0.17608,
+    "massPerUnit": 0.1761,
     "scopes": [
       "food"
     ],
@@ -4520,7 +4520,7 @@
     "impacts": {
       "acd": 0,
       "cch": 0,
-      "ecs": 44.625,
+      "ecs": 44.62,
       "etf": 0,
       "etf-c": 0,
       "fru": 0,
@@ -4540,7 +4540,7 @@
       "wtu": 0
     },
     "location": "FR",
-    "massPerUnit": 0.55613,
+    "massPerUnit": 0.5561,
     "scopes": [
       "food"
     ],
@@ -4563,7 +4563,7 @@
     "impacts": {
       "acd": 0,
       "cch": 0,
-      "ecs": 799.41,
+      "ecs": 799.4,
       "etf": 0,
       "etf-c": 0,
       "fru": 0,
@@ -4606,7 +4606,7 @@
     "impacts": {
       "acd": 0,
       "cch": 0,
-      "ecs": 8.8073,
+      "ecs": 8.807,
       "etf": 0,
       "etf-c": 0,
       "fru": 0,
@@ -4649,7 +4649,7 @@
     "impacts": {
       "acd": 0,
       "cch": 0,
-      "ecs": 37.979,
+      "ecs": 37.98,
       "etf": 0,
       "etf-c": 0,
       "fru": 0,
@@ -4669,7 +4669,7 @@
       "wtu": 0
     },
     "location": "FR",
-    "massPerUnit": 0.47331,
+    "massPerUnit": 0.4733,
     "scopes": [
       "food"
     ],
@@ -4692,7 +4692,7 @@
     "impacts": {
       "acd": 0,
       "cch": 0,
-      "ecs": 1234.7,
+      "ecs": 1235.0,
       "etf": 0,
       "etf-c": 0,
       "fru": 0,
@@ -4735,7 +4735,7 @@
     "impacts": {
       "acd": 0,
       "cch": 0,
-      "ecs": 1234.9,
+      "ecs": 1235.0,
       "etf": 0,
       "etf-c": 0,
       "fru": 0,
@@ -4821,7 +4821,7 @@
     "impacts": {
       "acd": 0,
       "cch": 0,
-      "ecs": 581.91,
+      "ecs": 581.9,
       "etf": 0,
       "etf-c": 0,
       "fru": 0,
@@ -4864,7 +4864,7 @@
     "impacts": {
       "acd": 0,
       "cch": 0,
-      "ecs": 2.4321,
+      "ecs": 2.432,
       "etf": 0,
       "etf-c": 0,
       "fru": 0,
@@ -4907,7 +4907,7 @@
     "impacts": {
       "acd": 0,
       "cch": 0,
-      "ecs": 3811.4,
+      "ecs": 3811.0,
       "etf": 0,
       "etf-c": 0,
       "fru": 0,
@@ -4948,7 +4948,7 @@
     "impacts": {
       "acd": 0,
       "cch": 0,
-      "ecs": 1675.8,
+      "ecs": 1676.0,
       "etf": 0,
       "etf-c": 0,
       "fru": 0,
@@ -4991,7 +4991,7 @@
     "impacts": {
       "acd": 0,
       "cch": 0,
-      "ecs": 1734.7,
+      "ecs": 1735.0,
       "etf": 0,
       "etf-c": 0,
       "fru": 0,
@@ -5034,7 +5034,7 @@
     "impacts": {
       "acd": 0,
       "cch": 0,
-      "ecs": 37.842,
+      "ecs": 37.84,
       "etf": 0,
       "etf-c": 0,
       "fru": 0,
@@ -5077,7 +5077,7 @@
     "impacts": {
       "acd": 0,
       "cch": 0,
-      "ecs": 10.873,
+      "ecs": 10.87,
       "etf": 0,
       "etf-c": 0,
       "fru": 0,
@@ -5120,7 +5120,7 @@
     "impacts": {
       "acd": 0,
       "cch": 0,
-      "ecs": 14.207,
+      "ecs": 14.21,
       "etf": 0,
       "etf-c": 0,
       "fru": 0,
@@ -5206,7 +5206,7 @@
     "impacts": {
       "acd": 0,
       "cch": 0,
-      "ecs": 14.354,
+      "ecs": 14.35,
       "etf": 0,
       "etf-c": 0,
       "fru": 0,
@@ -5226,7 +5226,7 @@
       "wtu": 0
     },
     "location": "FR",
-    "massPerUnit": 0.17889,
+    "massPerUnit": 0.1789,
     "scopes": [
       "food"
     ],
@@ -5249,7 +5249,7 @@
     "impacts": {
       "acd": 0,
       "cch": 0,
-      "ecs": 12.252,
+      "ecs": 12.25,
       "etf": 0,
       "etf-c": 0,
       "fru": 0,
@@ -5292,7 +5292,7 @@
     "impacts": {
       "acd": 0,
       "cch": 0,
-      "ecs": 7.5146,
+      "ecs": 7.515,
       "etf": 0,
       "etf-c": 0,
       "fru": 0,
@@ -5335,7 +5335,7 @@
     "impacts": {
       "acd": 0,
       "cch": 0,
-      "ecs": 1348.4,
+      "ecs": 1348.0,
       "etf": 0,
       "etf-c": 0,
       "fru": 0,
@@ -5421,7 +5421,7 @@
     "impacts": {
       "acd": 0,
       "cch": 0,
-      "ecs": 9.2888,
+      "ecs": 9.289,
       "etf": 0,
       "etf-c": 0,
       "fru": 0,
@@ -5507,7 +5507,7 @@
     "impacts": {
       "acd": 0,
       "cch": 0,
-      "ecs": 1.2543,
+      "ecs": 1.254,
       "etf": 0,
       "etf-c": 0,
       "fru": 0,
@@ -5548,7 +5548,7 @@
     "impacts": {
       "acd": 0,
       "cch": 0,
-      "ecs": 17.421,
+      "ecs": 17.42,
       "etf": 0,
       "etf-c": 0,
       "fru": 0,
@@ -5591,7 +5591,7 @@
     "impacts": {
       "acd": 0,
       "cch": 0,
-      "ecs": 380.93,
+      "ecs": 380.9,
       "etf": 0,
       "etf-c": 0,
       "fru": 0,
@@ -5633,7 +5633,7 @@
     "impacts": {
       "acd": 0,
       "cch": 0,
-      "ecs": 93.406,
+      "ecs": 93.41,
       "etf": 0,
       "etf-c": 0,
       "fru": 0,
@@ -5674,7 +5674,7 @@
     "impacts": {
       "acd": 0,
       "cch": 0,
-      "ecs": 147.86,
+      "ecs": 147.9,
       "etf": 0,
       "etf-c": 0,
       "fru": 0,
@@ -5717,7 +5717,7 @@
     "impacts": {
       "acd": 0,
       "cch": 0,
-      "ecs": 146.22,
+      "ecs": 146.2,
       "etf": 0,
       "etf-c": 0,
       "fru": 0,
@@ -5760,7 +5760,7 @@
     "impacts": {
       "acd": 0,
       "cch": 0,
-      "ecs": 140.21,
+      "ecs": 140.2,
       "etf": 0,
       "etf-c": 0,
       "fru": 0,
@@ -5803,7 +5803,7 @@
     "impacts": {
       "acd": 0,
       "cch": 0,
-      "ecs": 0.94897,
+      "ecs": 0.949,
       "etf": 0,
       "etf-c": 0,
       "fru": 0,
@@ -5846,7 +5846,7 @@
     "impacts": {
       "acd": 0,
       "cch": 0,
-      "ecs": 1133.7,
+      "ecs": 1134.0,
       "etf": 0,
       "etf-c": 0,
       "fru": 0,
@@ -5889,7 +5889,7 @@
     "impacts": {
       "acd": 0,
       "cch": 0,
-      "ecs": 6.6708,
+      "ecs": 6.671,
       "etf": 0,
       "etf-c": 0,
       "fru": 0,
@@ -5932,7 +5932,7 @@
     "impacts": {
       "acd": 0,
       "cch": 0,
-      "ecs": 14.435,
+      "ecs": 14.43,
       "etf": 0,
       "etf-c": 0,
       "fru": 0,
@@ -5975,7 +5975,7 @@
     "impacts": {
       "acd": 0,
       "cch": 0,
-      "ecs": 11.264,
+      "ecs": 11.26,
       "etf": 0,
       "etf-c": 0,
       "fru": 0,
@@ -6018,7 +6018,7 @@
     "impacts": {
       "acd": 0,
       "cch": 0,
-      "ecs": 6.1281,
+      "ecs": 6.128,
       "etf": 0,
       "etf-c": 0,
       "fru": 0,
@@ -6061,7 +6061,7 @@
     "impacts": {
       "acd": 0,
       "cch": 0,
-      "ecs": 2.0886,
+      "ecs": 2.089,
       "etf": 0,
       "etf-c": 0,
       "fru": 0,
@@ -6104,7 +6104,7 @@
     "impacts": {
       "acd": 0,
       "cch": 0,
-      "ecs": 0.47953,
+      "ecs": 0.4795,
       "etf": 0,
       "etf-c": 0,
       "fru": 0,
@@ -6147,7 +6147,7 @@
     "impacts": {
       "acd": 0,
       "cch": 0,
-      "ecs": 192.71,
+      "ecs": 192.7,
       "etf": 0,
       "etf-c": 0,
       "fru": 0,
@@ -6190,7 +6190,7 @@
     "impacts": {
       "acd": 0,
       "cch": 0,
-      "ecs": 1179.5,
+      "ecs": 1179.0,
       "etf": 0,
       "etf-c": 0,
       "fru": 0,
@@ -6233,7 +6233,7 @@
     "impacts": {
       "acd": 0,
       "cch": 0,
-      "ecs": 12.191,
+      "ecs": 12.19,
       "etf": 0,
       "etf-c": 0,
       "fru": 0,
@@ -6276,7 +6276,7 @@
     "impacts": {
       "acd": 0,
       "cch": 0,
-      "ecs": 7.3619,
+      "ecs": 7.362,
       "etf": 0,
       "etf-c": 0,
       "fru": 0,
@@ -6319,7 +6319,7 @@
     "impacts": {
       "acd": 0,
       "cch": 0,
-      "ecs": 13.907,
+      "ecs": 13.91,
       "etf": 0,
       "etf-c": 0,
       "fru": 0,
@@ -6362,7 +6362,7 @@
     "impacts": {
       "acd": 0,
       "cch": 0,
-      "ecs": 27.327,
+      "ecs": 27.33,
       "etf": 0,
       "etf-c": 0,
       "fru": 0,
@@ -6382,7 +6382,7 @@
       "wtu": 0
     },
     "location": "FR",
-    "massPerUnit": 0.13027,
+    "massPerUnit": 0.1303,
     "scopes": [
       "food"
     ],
@@ -6405,7 +6405,7 @@
     "impacts": {
       "acd": 0,
       "cch": 0,
-      "ecs": 15.083,
+      "ecs": 15.08,
       "etf": 0,
       "etf-c": 0,
       "fru": 0,
@@ -6425,7 +6425,7 @@
       "wtu": 0
     },
     "location": "FR",
-    "massPerUnit": 0.10444,
+    "massPerUnit": 0.1044,
     "scopes": [
       "food"
     ],
@@ -6491,7 +6491,7 @@
     "impacts": {
       "acd": 0,
       "cch": 0,
-      "ecs": 817.96,
+      "ecs": 818.0,
       "etf": 0,
       "etf-c": 0,
       "fru": 0,
@@ -6534,7 +6534,7 @@
     "impacts": {
       "acd": 0,
       "cch": 0,
-      "ecs": 12.241,
+      "ecs": 12.24,
       "etf": 0,
       "etf-c": 0,
       "fru": 0,
@@ -6577,7 +6577,7 @@
     "impacts": {
       "acd": 0,
       "cch": 0,
-      "ecs": 43.369,
+      "ecs": 43.37,
       "etf": 0,
       "etf-c": 0,
       "fru": 0,
@@ -6620,7 +6620,7 @@
     "impacts": {
       "acd": 0,
       "cch": 0,
-      "ecs": 5.9114,
+      "ecs": 5.911,
       "etf": 0,
       "etf-c": 0,
       "fru": 0,
@@ -6663,7 +6663,7 @@
     "impacts": {
       "acd": 0,
       "cch": 0,
-      "ecs": 5.4943,
+      "ecs": 5.494,
       "etf": 0,
       "etf-c": 0,
       "fru": 0,
@@ -6706,7 +6706,7 @@
     "impacts": {
       "acd": 0,
       "cch": 0,
-      "ecs": 4.4842,
+      "ecs": 4.484,
       "etf": 0,
       "etf-c": 0,
       "fru": 0,
@@ -6749,7 +6749,7 @@
     "impacts": {
       "acd": 0,
       "cch": 0,
-      "ecs": 5.0072,
+      "ecs": 5.007,
       "etf": 0,
       "etf-c": 0,
       "fru": 0,
@@ -6792,7 +6792,7 @@
     "impacts": {
       "acd": 0,
       "cch": 0,
-      "ecs": 10.974,
+      "ecs": 10.97,
       "etf": 0,
       "etf-c": 0,
       "fru": 0,
@@ -6835,7 +6835,7 @@
     "impacts": {
       "acd": 0,
       "cch": 0,
-      "ecs": 3.7831,
+      "ecs": 3.783,
       "etf": 0,
       "etf-c": 0,
       "fru": 0,
@@ -6878,7 +6878,7 @@
     "impacts": {
       "acd": 0,
       "cch": 0,
-      "ecs": 7.7089,
+      "ecs": 7.709,
       "etf": 0,
       "etf-c": 0,
       "fru": 0,
@@ -6921,7 +6921,7 @@
     "impacts": {
       "acd": 0,
       "cch": 0,
-      "ecs": 5.2494,
+      "ecs": 5.249,
       "etf": 0,
       "etf-c": 0,
       "fru": 0,
@@ -6964,7 +6964,7 @@
     "impacts": {
       "acd": 0,
       "cch": 0,
-      "ecs": 2.8912,
+      "ecs": 2.891,
       "etf": 0,
       "etf-c": 0,
       "fru": 0,
@@ -7007,7 +7007,7 @@
     "impacts": {
       "acd": 0,
       "cch": 0,
-      "ecs": 1.8268,
+      "ecs": 1.827,
       "etf": 0,
       "etf-c": 0,
       "fru": 0,
@@ -7050,7 +7050,7 @@
     "impacts": {
       "acd": 0,
       "cch": 0,
-      "ecs": 2.3794,
+      "ecs": 2.379,
       "etf": 0,
       "etf-c": 0,
       "fru": 0,
@@ -7093,7 +7093,7 @@
     "impacts": {
       "acd": 0,
       "cch": 0,
-      "ecs": 13.538,
+      "ecs": 13.54,
       "etf": 0,
       "etf-c": 0,
       "fru": 0,
@@ -7177,7 +7177,7 @@
     "impacts": {
       "acd": 0,
       "cch": 0,
-      "ecs": 112.62,
+      "ecs": 112.6,
       "etf": 0,
       "etf-c": 0,
       "fru": 0,
@@ -7218,7 +7218,7 @@
     "impacts": {
       "acd": 0,
       "cch": 0,
-      "ecs": 112.67,
+      "ecs": 112.7,
       "etf": 0,
       "etf-c": 0,
       "fru": 0,
@@ -7261,7 +7261,7 @@
     "impacts": {
       "acd": 0,
       "cch": 0,
-      "ecs": 118.16,
+      "ecs": 118.2,
       "etf": 0,
       "etf-c": 0,
       "fru": 0,
@@ -7304,7 +7304,7 @@
     "impacts": {
       "acd": 0,
       "cch": 0,
-      "ecs": 90.592,
+      "ecs": 90.59,
       "etf": 0,
       "etf-c": 0,
       "fru": 0,
@@ -7347,7 +7347,7 @@
     "impacts": {
       "acd": 0,
       "cch": 0,
-      "ecs": 175.91,
+      "ecs": 175.9,
       "etf": 0,
       "etf-c": 0,
       "fru": 0,
@@ -7390,7 +7390,7 @@
     "impacts": {
       "acd": 0,
       "cch": 0,
-      "ecs": 2912.7,
+      "ecs": 2913.0,
       "etf": 0,
       "etf-c": 0,
       "fru": 0,
@@ -7433,7 +7433,7 @@
     "impacts": {
       "acd": 0,
       "cch": 0,
-      "ecs": 806.14,
+      "ecs": 806.1,
       "etf": 0,
       "etf-c": 0,
       "fru": 0,
@@ -7476,7 +7476,7 @@
     "impacts": {
       "acd": 0,
       "cch": 0,
-      "ecs": 414.37,
+      "ecs": 414.4,
       "etf": 0,
       "etf-c": 0,
       "fru": 0,
@@ -7562,7 +7562,7 @@
     "impacts": {
       "acd": 0,
       "cch": 0,
-      "ecs": 412.68,
+      "ecs": 412.7,
       "etf": 0,
       "etf-c": 0,
       "fru": 0,
@@ -7648,7 +7648,7 @@
     "impacts": {
       "acd": 0,
       "cch": 0,
-      "ecs": 317.14,
+      "ecs": 317.1,
       "etf": 0,
       "etf-c": 0,
       "fru": 0,
@@ -7691,7 +7691,7 @@
     "impacts": {
       "acd": 0,
       "cch": 0,
-      "ecs": 307.99,
+      "ecs": 308.0,
       "etf": 0,
       "etf-c": 0,
       "fru": 0,
@@ -7734,7 +7734,7 @@
     "impacts": {
       "acd": 0,
       "cch": 0,
-      "ecs": 21.441,
+      "ecs": 21.44,
       "etf": 0,
       "etf-c": 0,
       "fru": 0,
@@ -7777,7 +7777,7 @@
     "impacts": {
       "acd": 0,
       "cch": 0,
-      "ecs": 2.8238,
+      "ecs": 2.824,
       "etf": 0,
       "etf-c": 0,
       "fru": 0,
@@ -7820,7 +7820,7 @@
     "impacts": {
       "acd": 0,
       "cch": 0,
-      "ecs": 105.46,
+      "ecs": 105.5,
       "etf": 0,
       "etf-c": 0,
       "fru": 0,
@@ -7863,7 +7863,7 @@
     "impacts": {
       "acd": 0,
       "cch": 0,
-      "ecs": 700.05,
+      "ecs": 700.0,
       "etf": 0,
       "etf-c": 0,
       "fru": 0,
@@ -7906,7 +7906,7 @@
     "impacts": {
       "acd": 0,
       "cch": 0,
-      "ecs": 701.49,
+      "ecs": 701.5,
       "etf": 0,
       "etf-c": 0,
       "fru": 0,
@@ -7949,7 +7949,7 @@
     "impacts": {
       "acd": 0,
       "cch": 0,
-      "ecs": 59.308,
+      "ecs": 59.31,
       "etf": 0,
       "etf-c": 0,
       "fru": 0,
@@ -7992,7 +7992,7 @@
     "impacts": {
       "acd": 0,
       "cch": 0,
-      "ecs": 90.119,
+      "ecs": 90.12,
       "etf": 0,
       "etf-c": 0,
       "fru": 0,
@@ -8035,7 +8035,7 @@
     "impacts": {
       "acd": 0,
       "cch": 0,
-      "ecs": 493.84,
+      "ecs": 493.8,
       "etf": 0,
       "etf-c": 0,
       "fru": 0,
@@ -8078,7 +8078,7 @@
     "impacts": {
       "acd": 0,
       "cch": 0,
-      "ecs": 530.75,
+      "ecs": 530.8,
       "etf": 0,
       "etf-c": 0,
       "fru": 0,
@@ -8120,7 +8120,7 @@
     "impacts": {
       "acd": 0,
       "cch": 0,
-      "ecs": 61.735,
+      "ecs": 61.74,
       "etf": 0,
       "etf-c": 0,
       "fru": 0,
@@ -8162,7 +8162,7 @@
     "impacts": {
       "acd": 0,
       "cch": 0,
-      "ecs": 108.61,
+      "ecs": 108.6,
       "etf": 0,
       "etf-c": 0,
       "fru": 0,
@@ -8205,7 +8205,7 @@
     "impacts": {
       "acd": 0,
       "cch": 0,
-      "ecs": 19.857,
+      "ecs": 19.86,
       "etf": 0,
       "etf-c": 0,
       "fru": 0,
@@ -8248,7 +8248,7 @@
     "impacts": {
       "acd": 0,
       "cch": 0,
-      "ecs": 12.064,
+      "ecs": 12.06,
       "etf": 0,
       "etf-c": 0,
       "fru": 0,
@@ -8291,7 +8291,7 @@
     "impacts": {
       "acd": 0,
       "cch": 0,
-      "ecs": 9.0753,
+      "ecs": 9.075,
       "etf": 0,
       "etf-c": 0,
       "fru": 0,
@@ -8311,7 +8311,7 @@
       "wtu": 0
     },
     "location": "FR",
-    "massPerUnit": 0.037527,
+    "massPerUnit": 0.03753,
     "scopes": [
       "food"
     ],
@@ -8334,7 +8334,7 @@
     "impacts": {
       "acd": 0,
       "cch": 0,
-      "ecs": 9.5301,
+      "ecs": 9.53,
       "etf": 0,
       "etf-c": 0,
       "fru": 0,
@@ -8377,7 +8377,7 @@
     "impacts": {
       "acd": 0,
       "cch": 0,
-      "ecs": 4.2691,
+      "ecs": 4.269,
       "etf": 0,
       "etf-c": 0,
       "fru": 0,
@@ -8420,7 +8420,7 @@
     "impacts": {
       "acd": 0,
       "cch": 0,
-      "ecs": 11.068,
+      "ecs": 11.07,
       "etf": 0,
       "etf-c": 0,
       "fru": 0,
@@ -8440,7 +8440,7 @@
       "wtu": 0
     },
     "location": "FR",
-    "massPerUnit": 0.11475,
+    "massPerUnit": 0.1148,
     "scopes": [
       "food"
     ],
@@ -8463,7 +8463,7 @@
     "impacts": {
       "acd": 0,
       "cch": 0,
-      "ecs": 5.6707,
+      "ecs": 5.671,
       "etf": 0,
       "etf-c": 0,
       "fru": 0,
@@ -8506,7 +8506,7 @@
     "impacts": {
       "acd": 0,
       "cch": 0,
-      "ecs": 11.856,
+      "ecs": 11.86,
       "etf": 0,
       "etf-c": 0,
       "fru": 0,
@@ -8549,7 +8549,7 @@
     "impacts": {
       "acd": 0,
       "cch": 0,
-      "ecs": 6.2584,
+      "ecs": 6.258,
       "etf": 0,
       "etf-c": 0,
       "fru": 0,
@@ -8592,7 +8592,7 @@
     "impacts": {
       "acd": 0,
       "cch": 0,
-      "ecs": 10.428,
+      "ecs": 10.43,
       "etf": 0,
       "etf-c": 0,
       "fru": 0,
@@ -8612,7 +8612,7 @@
       "wtu": 0
     },
     "location": "FR",
-    "massPerUnit": 0.10668,
+    "massPerUnit": 0.1067,
     "scopes": [
       "food"
     ],
@@ -8635,7 +8635,7 @@
     "impacts": {
       "acd": 0,
       "cch": 0,
-      "ecs": 9.9894,
+      "ecs": 9.989,
       "etf": 0,
       "etf-c": 0,
       "fru": 0,
@@ -8678,7 +8678,7 @@
     "impacts": {
       "acd": 0,
       "cch": 0,
-      "ecs": 4.2691,
+      "ecs": 4.269,
       "etf": 0,
       "etf-c": 0,
       "fru": 0,
@@ -8721,7 +8721,7 @@
     "impacts": {
       "acd": 0,
       "cch": 0,
-      "ecs": 7.1689,
+      "ecs": 7.169,
       "etf": 0,
       "etf-c": 0,
       "fru": 0,
@@ -8764,7 +8764,7 @@
     "impacts": {
       "acd": 0,
       "cch": 0,
-      "ecs": 6.3944,
+      "ecs": 6.394,
       "etf": 0,
       "etf-c": 0,
       "fru": 0,
@@ -8807,7 +8807,7 @@
     "impacts": {
       "acd": 0,
       "cch": 0,
-      "ecs": 14.459,
+      "ecs": 14.46,
       "etf": 0,
       "etf-c": 0,
       "fru": 0,
@@ -8850,7 +8850,7 @@
     "impacts": {
       "acd": 0,
       "cch": 0,
-      "ecs": 18.102,
+      "ecs": 18.1,
       "etf": 0,
       "etf-c": 0,
       "fru": 0,
@@ -8870,7 +8870,7 @@
       "wtu": 0
     },
     "location": "FR",
-    "massPerUnit": 0.11111,
+    "massPerUnit": 0.1111,
     "scopes": [
       "food"
     ],
@@ -8893,7 +8893,7 @@
     "impacts": {
       "acd": 0,
       "cch": 0,
-      "ecs": 13.881,
+      "ecs": 13.88,
       "etf": 0,
       "etf-c": 0,
       "fru": 0,
@@ -8936,7 +8936,7 @@
     "impacts": {
       "acd": 0,
       "cch": 0,
-      "ecs": 4.9249,
+      "ecs": 4.925,
       "etf": 0,
       "etf-c": 0,
       "fru": 0,
@@ -8956,7 +8956,7 @@
       "wtu": 0
     },
     "location": "FR",
-    "massPerUnit": 0.019513,
+    "massPerUnit": 0.01951,
     "scopes": [
       "food"
     ],
@@ -8979,7 +8979,7 @@
     "impacts": {
       "acd": 0,
       "cch": 0,
-      "ecs": 28.368,
+      "ecs": 28.37,
       "etf": 0,
       "etf-c": 0,
       "fru": 0,
@@ -8999,7 +8999,7 @@
       "wtu": 0
     },
     "location": "FR",
-    "massPerUnit": 0.28518,
+    "massPerUnit": 0.2852,
     "scopes": [
       "food"
     ],
@@ -9022,7 +9022,7 @@
     "impacts": {
       "acd": 0,
       "cch": 0,
-      "ecs": 178.57,
+      "ecs": 178.6,
       "etf": 0,
       "etf-c": 0,
       "fru": 0,
@@ -9108,7 +9108,7 @@
     "impacts": {
       "acd": 0,
       "cch": 0,
-      "ecs": 1.8157,
+      "ecs": 1.816,
       "etf": 0,
       "etf-c": 0,
       "fru": 0,
@@ -9151,7 +9151,7 @@
     "impacts": {
       "acd": 0,
       "cch": 0,
-      "ecs": 46.073,
+      "ecs": 46.07,
       "etf": 0,
       "etf-c": 0,
       "fru": 0,
@@ -9237,7 +9237,7 @@
     "impacts": {
       "acd": 0,
       "cch": 0,
-      "ecs": 28.841,
+      "ecs": 28.84,
       "etf": 0,
       "etf-c": 0,
       "fru": 0,
@@ -9280,7 +9280,7 @@
     "impacts": {
       "acd": 0,
       "cch": 0,
-      "ecs": 231.32,
+      "ecs": 231.3,
       "etf": 0,
       "etf-c": 0,
       "fru": 0,
@@ -9323,7 +9323,7 @@
     "impacts": {
       "acd": 0,
       "cch": 0,
-      "ecs": 6.4252,
+      "ecs": 6.425,
       "etf": 0,
       "etf-c": 0,
       "fru": 0,
@@ -9366,7 +9366,7 @@
     "impacts": {
       "acd": 0,
       "cch": 0,
-      "ecs": 1.6758,
+      "ecs": 1.676,
       "etf": 0,
       "etf-c": 0,
       "fru": 0,
@@ -9409,7 +9409,7 @@
     "impacts": {
       "acd": 0,
       "cch": 0,
-      "ecs": 1.3232,
+      "ecs": 1.323,
       "etf": 0,
       "etf-c": 0,
       "fru": 0,
@@ -9452,7 +9452,7 @@
     "impacts": {
       "acd": 0,
       "cch": 0,
-      "ecs": 13.305,
+      "ecs": 13.31,
       "etf": 0,
       "etf-c": 0,
       "fru": 0,
@@ -9495,7 +9495,7 @@
     "impacts": {
       "acd": 0,
       "cch": 0,
-      "ecs": 6.9105,
+      "ecs": 6.91,
       "etf": 0,
       "etf-c": 0,
       "fru": 0,
@@ -9538,7 +9538,7 @@
     "impacts": {
       "acd": 0,
       "cch": 0,
-      "ecs": 7.6518,
+      "ecs": 7.652,
       "etf": 0,
       "etf-c": 0,
       "fru": 0,
@@ -9667,7 +9667,7 @@
     "impacts": {
       "acd": 0,
       "cch": 0,
-      "ecs": 2.5567,
+      "ecs": 2.557,
       "etf": 0,
       "etf-c": 0,
       "fru": 0,
@@ -9710,7 +9710,7 @@
     "impacts": {
       "acd": 0,
       "cch": 0,
-      "ecs": 54.887,
+      "ecs": 54.89,
       "etf": 0,
       "etf-c": 0,
       "fru": 0,
@@ -9753,7 +9753,7 @@
     "impacts": {
       "acd": 0,
       "cch": 0,
-      "ecs": 21.218,
+      "ecs": 21.22,
       "etf": 0,
       "etf-c": 0,
       "fru": 0,
@@ -9796,7 +9796,7 @@
     "impacts": {
       "acd": 0,
       "cch": 0,
-      "ecs": 172.53,
+      "ecs": 172.5,
       "etf": 0,
       "etf-c": 0,
       "fru": 0,
@@ -9839,7 +9839,7 @@
     "impacts": {
       "acd": 0,
       "cch": 0,
-      "ecs": 61.376,
+      "ecs": 61.38,
       "etf": 0,
       "etf-c": 0,
       "fru": 0,
@@ -9882,7 +9882,7 @@
     "impacts": {
       "acd": 0,
       "cch": 0,
-      "ecs": 37.369,
+      "ecs": 37.37,
       "etf": 0,
       "etf-c": 0,
       "fru": 0,
@@ -9964,7 +9964,7 @@
     "impacts": {
       "acd": 0,
       "cch": 0,
-      "ecs": 483.67,
+      "ecs": 483.7,
       "etf": 0,
       "etf-c": 0,
       "fru": 0,
@@ -10007,7 +10007,7 @@
     "impacts": {
       "acd": 0,
       "cch": 0,
-      "ecs": 43.303,
+      "ecs": 43.3,
       "etf": 0,
       "etf-c": 0,
       "fru": 0,
@@ -10027,7 +10027,7 @@
       "wtu": 0
     },
     "location": "FR",
-    "massPerUnit": 0.44659,
+    "massPerUnit": 0.4466,
     "scopes": [
       "food"
     ],
@@ -10050,7 +10050,7 @@
     "impacts": {
       "acd": 0,
       "cch": 0,
-      "ecs": 113.18,
+      "ecs": 113.2,
       "etf": 0,
       "etf-c": 0,
       "fru": 0,
@@ -10093,7 +10093,7 @@
     "impacts": {
       "acd": 0,
       "cch": 0,
-      "ecs": 28.887,
+      "ecs": 28.89,
       "etf": 0,
       "etf-c": 0,
       "fru": 0,
@@ -10136,7 +10136,7 @@
     "impacts": {
       "acd": 0,
       "cch": 0,
-      "ecs": 40.988,
+      "ecs": 40.99,
       "etf": 0,
       "etf-c": 0,
       "fru": 0,
@@ -10179,7 +10179,7 @@
     "impacts": {
       "acd": 0,
       "cch": 0,
-      "ecs": 3169.8,
+      "ecs": 3170.0,
       "etf": 0,
       "etf-c": 0,
       "fru": 0,
@@ -10222,7 +10222,7 @@
     "impacts": {
       "acd": 0,
       "cch": 0,
-      "ecs": 380.25,
+      "ecs": 380.2,
       "etf": 0,
       "etf-c": 0,
       "fru": 0,
@@ -10265,7 +10265,7 @@
     "impacts": {
       "acd": 0,
       "cch": 0,
-      "ecs": 1936.3,
+      "ecs": 1936.0,
       "etf": 0,
       "etf-c": 0,
       "fru": 0,
@@ -10308,7 +10308,7 @@
     "impacts": {
       "acd": 0,
       "cch": 0,
-      "ecs": 676.22,
+      "ecs": 676.2,
       "etf": 0,
       "etf-c": 0,
       "fru": 0,
@@ -10351,7 +10351,7 @@
     "impacts": {
       "acd": 0,
       "cch": 0,
-      "ecs": 480.09,
+      "ecs": 480.1,
       "etf": 0,
       "etf-c": 0,
       "fru": 0,
@@ -10394,7 +10394,7 @@
     "impacts": {
       "acd": 0,
       "cch": 0,
-      "ecs": 1370.6,
+      "ecs": 1371.0,
       "etf": 0,
       "etf-c": 0,
       "fru": 0,
@@ -10437,7 +10437,7 @@
     "impacts": {
       "acd": 0,
       "cch": 0,
-      "ecs": 978.29,
+      "ecs": 978.3,
       "etf": 0,
       "etf-c": 0,
       "fru": 0,
@@ -10480,7 +10480,7 @@
     "impacts": {
       "acd": 0,
       "cch": 0,
-      "ecs": 1064.3,
+      "ecs": 1064.0,
       "etf": 0,
       "etf-c": 0,
       "fru": 0,
@@ -10521,7 +10521,7 @@
     "impacts": {
       "acd": 0,
       "cch": 0,
-      "ecs": 3.7471,
+      "ecs": 3.747,
       "etf": 0,
       "etf-c": 0,
       "fru": 0,
@@ -10564,7 +10564,7 @@
     "impacts": {
       "acd": 0,
       "cch": 0,
-      "ecs": 133.77,
+      "ecs": 133.8,
       "etf": 0,
       "etf-c": 0,
       "fru": 0,
@@ -10607,7 +10607,7 @@
     "impacts": {
       "acd": 0,
       "cch": 0,
-      "ecs": 12.883,
+      "ecs": 12.88,
       "etf": 0,
       "etf-c": 0,
       "fru": 0,
@@ -10627,7 +10627,7 @@
       "wtu": 0
     },
     "location": "FR",
-    "massPerUnit": 0.16055,
+    "massPerUnit": 0.1605,
     "scopes": [
       "food"
     ],
@@ -10650,7 +10650,7 @@
     "impacts": {
       "acd": 0,
       "cch": 0,
-      "ecs": 190.14,
+      "ecs": 190.1,
       "etf": 0,
       "etf-c": 0,
       "fru": 0,
@@ -10693,7 +10693,7 @@
     "impacts": {
       "acd": 0,
       "cch": 0,
-      "ecs": 130.34,
+      "ecs": 130.3,
       "etf": 0,
       "etf-c": 0,
       "fru": 0,
@@ -10736,7 +10736,7 @@
     "impacts": {
       "acd": 0,
       "cch": 0,
-      "ecs": 13.129,
+      "ecs": 13.13,
       "etf": 0,
       "etf-c": 0,
       "fru": 0,
@@ -10779,7 +10779,7 @@
     "impacts": {
       "acd": 0,
       "cch": 0,
-      "ecs": 8.7728,
+      "ecs": 8.773,
       "etf": 0,
       "etf-c": 0,
       "fru": 0,
@@ -10822,7 +10822,7 @@
     "impacts": {
       "acd": 0,
       "cch": 0,
-      "ecs": 15.708,
+      "ecs": 15.71,
       "etf": 0,
       "etf-c": 0,
       "fru": 0,
@@ -10865,7 +10865,7 @@
     "impacts": {
       "acd": 0,
       "cch": 0,
-      "ecs": 6.7699,
+      "ecs": 6.77,
       "etf": 0,
       "etf-c": 0,
       "fru": 0,
@@ -10908,7 +10908,7 @@
     "impacts": {
       "acd": 0,
       "cch": 0,
-      "ecs": 20.797,
+      "ecs": 20.8,
       "etf": 0,
       "etf-c": 0,
       "fru": 0,
@@ -10951,7 +10951,7 @@
     "impacts": {
       "acd": 0,
       "cch": 0,
-      "ecs": 22.899,
+      "ecs": 22.9,
       "etf": 0,
       "etf-c": 0,
       "fru": 0,
@@ -10994,7 +10994,7 @@
     "impacts": {
       "acd": 0,
       "cch": 0,
-      "ecs": 23.796,
+      "ecs": 23.8,
       "etf": 0,
       "etf-c": 0,
       "fru": 0,
@@ -11037,7 +11037,7 @@
     "impacts": {
       "acd": 0,
       "cch": 0,
-      "ecs": 21.908,
+      "ecs": 21.91,
       "etf": 0,
       "etf-c": 0,
       "fru": 0,
@@ -11057,7 +11057,7 @@
       "wtu": 0
     },
     "location": "FR",
-    "massPerUnit": 0.22775,
+    "massPerUnit": 0.2278,
     "scopes": [
       "food"
     ],
@@ -11080,7 +11080,7 @@
     "impacts": {
       "acd": 0,
       "cch": 0,
-      "ecs": 23.128,
+      "ecs": 23.13,
       "etf": 0,
       "etf-c": 0,
       "fru": 0,
@@ -11123,7 +11123,7 @@
     "impacts": {
       "acd": 0,
       "cch": 0,
-      "ecs": 53.092,
+      "ecs": 53.09,
       "etf": 0,
       "etf-c": 0,
       "fru": 0,
@@ -11209,7 +11209,7 @@
     "impacts": {
       "acd": 0,
       "cch": 0,
-      "ecs": 2.4967,
+      "ecs": 2.497,
       "etf": 0,
       "etf-c": 0,
       "fru": 0,
@@ -11251,7 +11251,7 @@
     "impacts": {
       "acd": 0,
       "cch": 0,
-      "ecs": 79.723,
+      "ecs": 79.72,
       "etf": 0,
       "etf-c": 0,
       "fru": 0,
@@ -11294,7 +11294,7 @@
     "impacts": {
       "acd": 0,
       "cch": 0,
-      "ecs": 1877.7,
+      "ecs": 1878.0,
       "etf": 0,
       "etf-c": 0,
       "fru": 0,
@@ -11337,7 +11337,7 @@
     "impacts": {
       "acd": 0,
       "cch": 0,
-      "ecs": 14.285,
+      "ecs": 14.29,
       "etf": 0,
       "etf-c": 0,
       "fru": 0,
@@ -11380,7 +11380,7 @@
     "impacts": {
       "acd": 0,
       "cch": 0,
-      "ecs": 643.46,
+      "ecs": 643.5,
       "etf": 0,
       "etf-c": 0,
       "fru": 0,
@@ -11466,7 +11466,7 @@
     "impacts": {
       "acd": 0,
       "cch": 0,
-      "ecs": 48.952,
+      "ecs": 48.95,
       "etf": 0,
       "etf-c": 0,
       "fru": 0,
@@ -11552,7 +11552,7 @@
     "impacts": {
       "acd": 0,
       "cch": 0,
-      "ecs": 22.368,
+      "ecs": 22.37,
       "etf": 0,
       "etf-c": 0,
       "fru": 0,
@@ -11572,7 +11572,7 @@
       "wtu": 0
     },
     "location": "FR",
-    "massPerUnit": 0.23115,
+    "massPerUnit": 0.2311,
     "scopes": [
       "food"
     ],
@@ -11638,7 +11638,7 @@
     "impacts": {
       "acd": 0,
       "cch": 0,
-      "ecs": 281.41,
+      "ecs": 281.4,
       "etf": 0,
       "etf-c": 0,
       "fru": 0,
@@ -11681,7 +11681,7 @@
     "impacts": {
       "acd": 0,
       "cch": 0,
-      "ecs": 112.79,
+      "ecs": 112.8,
       "etf": 0,
       "etf-c": 0,
       "fru": 0,
@@ -11767,7 +11767,7 @@
     "impacts": {
       "acd": 0,
       "cch": 0,
-      "ecs": 20.306,
+      "ecs": 20.31,
       "etf": 0,
       "etf-c": 0,
       "fru": 0,
@@ -11810,7 +11810,7 @@
     "impacts": {
       "acd": 0,
       "cch": 0,
-      "ecs": 536.67,
+      "ecs": 536.7,
       "etf": 0,
       "etf-c": 0,
       "fru": 0,
@@ -11851,7 +11851,7 @@
     "impacts": {
       "acd": 0,
       "cch": 0,
-      "ecs": 115.52,
+      "ecs": 115.5,
       "etf": 0,
       "etf-c": 0,
       "fru": 0,
@@ -11894,7 +11894,7 @@
     "impacts": {
       "acd": 0,
       "cch": 0,
-      "ecs": 330.53,
+      "ecs": 330.5,
       "etf": 0,
       "etf-c": 0,
       "fru": 0,
@@ -11936,7 +11936,7 @@
     "impacts": {
       "acd": 0,
       "cch": 0,
-      "ecs": 442.58,
+      "ecs": 442.6,
       "etf": 0,
       "etf-c": 0,
       "fru": 0,
@@ -11977,7 +11977,7 @@
     "impacts": {
       "acd": 0,
       "cch": 0,
-      "ecs": 1365.6,
+      "ecs": 1366.0,
       "etf": 0,
       "etf-c": 0,
       "fru": 0,
@@ -12018,7 +12018,7 @@
     "impacts": {
       "acd": 0,
       "cch": 0,
-      "ecs": 597.39,
+      "ecs": 597.4,
       "etf": 0,
       "etf-c": 0,
       "fru": 0,
@@ -12059,7 +12059,7 @@
     "impacts": {
       "acd": 0,
       "cch": 0,
-      "ecs": 1880.1,
+      "ecs": 1880.0,
       "etf": 0,
       "etf-c": 0,
       "fru": 0,
@@ -12100,7 +12100,7 @@
     "impacts": {
       "acd": 0,
       "cch": 0,
-      "ecs": 675.24,
+      "ecs": 675.2,
       "etf": 0,
       "etf-c": 0,
       "fru": 0,
@@ -12143,7 +12143,7 @@
     "impacts": {
       "acd": 0,
       "cch": 0,
-      "ecs": 2393.3,
+      "ecs": 2393.0,
       "etf": 0,
       "etf-c": 0,
       "fru": 0,
@@ -12186,7 +12186,7 @@
     "impacts": {
       "acd": 0,
       "cch": 0,
-      "ecs": 2336.8,
+      "ecs": 2337.0,
       "etf": 0,
       "etf-c": 0,
       "fru": 0,
@@ -12272,7 +12272,7 @@
     "impacts": {
       "acd": 0,
       "cch": 0,
-      "ecs": 3.4985,
+      "ecs": 3.499,
       "etf": 0,
       "etf-c": 0,
       "fru": 0,
@@ -12315,7 +12315,7 @@
     "impacts": {
       "acd": 0,
       "cch": 0,
-      "ecs": 114.05,
+      "ecs": 114.0,
       "etf": 0,
       "etf-c": 0,
       "fru": 0,
@@ -12358,7 +12358,7 @@
     "impacts": {
       "acd": 0,
       "cch": 0,
-      "ecs": 2.9224,
+      "ecs": 2.922,
       "etf": 0,
       "etf-c": 0,
       "fru": 0,
@@ -12487,7 +12487,7 @@
     "impacts": {
       "acd": 0,
       "cch": 0,
-      "ecs": 29.712,
+      "ecs": 29.71,
       "etf": 0,
       "etf-c": 0,
       "fru": 0,
@@ -12530,7 +12530,7 @@
     "impacts": {
       "acd": 0,
       "cch": 0,
-      "ecs": 121.31,
+      "ecs": 121.3,
       "etf": 0,
       "etf-c": 0,
       "fru": 0,
@@ -12573,7 +12573,7 @@
     "impacts": {
       "acd": 0,
       "cch": 0,
-      "ecs": 50.263,
+      "ecs": 50.26,
       "etf": 0,
       "etf-c": 0,
       "fru": 0,
@@ -12616,7 +12616,7 @@
     "impacts": {
       "acd": 0,
       "cch": 0,
-      "ecs": 8.1649,
+      "ecs": 8.165,
       "etf": 0,
       "etf-c": 0,
       "fru": 0,
@@ -12659,7 +12659,7 @@
     "impacts": {
       "acd": 0,
       "cch": 0,
-      "ecs": 5.8451,
+      "ecs": 5.845,
       "etf": 0,
       "etf-c": 0,
       "fru": 0,
@@ -12702,7 +12702,7 @@
     "impacts": {
       "acd": 0,
       "cch": 0,
-      "ecs": 2.7586,
+      "ecs": 2.759,
       "etf": 0,
       "etf-c": 0,
       "fru": 0,
@@ -12745,7 +12745,7 @@
     "impacts": {
       "acd": 0,
       "cch": 0,
-      "ecs": 9.5273,
+      "ecs": 9.527,
       "etf": 0,
       "etf-c": 0,
       "fru": 0,
@@ -12788,7 +12788,7 @@
     "impacts": {
       "acd": 0,
       "cch": 0,
-      "ecs": 7.6571,
+      "ecs": 7.657,
       "etf": 0,
       "etf-c": 0,
       "fru": 0,
@@ -12831,7 +12831,7 @@
     "impacts": {
       "acd": 0,
       "cch": 0,
-      "ecs": 10.703,
+      "ecs": 10.7,
       "etf": 0,
       "etf-c": 0,
       "fru": 0,
@@ -12874,7 +12874,7 @@
     "impacts": {
       "acd": 0,
       "cch": 0,
-      "ecs": 19.493,
+      "ecs": 19.49,
       "etf": 0,
       "etf-c": 0,
       "fru": 0,
@@ -12917,7 +12917,7 @@
     "impacts": {
       "acd": 0,
       "cch": 0,
-      "ecs": 27.426,
+      "ecs": 27.43,
       "etf": 0,
       "etf-c": 0,
       "fru": 0,
@@ -12960,7 +12960,7 @@
     "impacts": {
       "acd": 0,
       "cch": 0,
-      "ecs": 11.484,
+      "ecs": 11.48,
       "etf": 0,
       "etf-c": 0,
       "fru": 0,
@@ -13003,7 +13003,7 @@
     "impacts": {
       "acd": 0,
       "cch": 0,
-      "ecs": 22.163,
+      "ecs": 22.16,
       "etf": 0,
       "etf-c": 0,
       "fru": 0,
@@ -13046,7 +13046,7 @@
     "impacts": {
       "acd": 0,
       "cch": 0,
-      "ecs": 10.255,
+      "ecs": 10.26,
       "etf": 0,
       "etf-c": 0,
       "fru": 0,
@@ -13089,7 +13089,7 @@
     "impacts": {
       "acd": 0,
       "cch": 0,
-      "ecs": 13.162,
+      "ecs": 13.16,
       "etf": 0,
       "etf-c": 0,
       "fru": 0,
@@ -13132,7 +13132,7 @@
     "impacts": {
       "acd": 0,
       "cch": 0,
-      "ecs": 2053.9,
+      "ecs": 2054.0,
       "etf": 0,
       "etf-c": 0,
       "fru": 0,
@@ -13175,7 +13175,7 @@
     "impacts": {
       "acd": 0,
       "cch": 0,
-      "ecs": 2571.9,
+      "ecs": 2572.0,
       "etf": 0,
       "etf-c": 0,
       "fru": 0,
@@ -13347,7 +13347,7 @@
     "impacts": {
       "acd": 0,
       "cch": 0,
-      "ecs": 29.231,
+      "ecs": 29.23,
       "etf": 0,
       "etf-c": 0,
       "fru": 0,
@@ -13390,7 +13390,7 @@
     "impacts": {
       "acd": 0,
       "cch": 0,
-      "ecs": 25.757,
+      "ecs": 25.76,
       "etf": 0,
       "etf-c": 0,
       "fru": 0,
@@ -13476,7 +13476,7 @@
     "impacts": {
       "acd": 0,
       "cch": 0,
-      "ecs": 7.9752,
+      "ecs": 7.975,
       "etf": 0,
       "etf-c": 0,
       "fru": 0,
@@ -13519,7 +13519,7 @@
     "impacts": {
       "acd": 0,
       "cch": 0,
-      "ecs": 7.3574,
+      "ecs": 7.357,
       "etf": 0,
       "etf-c": 0,
       "fru": 0,
@@ -13562,7 +13562,7 @@
     "impacts": {
       "acd": 0,
       "cch": 0,
-      "ecs": 1085.9,
+      "ecs": 1086.0,
       "etf": 0,
       "etf-c": 0,
       "fru": 0,
@@ -13605,7 +13605,7 @@
     "impacts": {
       "acd": 0,
       "cch": 0,
-      "ecs": 10.019,
+      "ecs": 10.02,
       "etf": 0,
       "etf-c": 0,
       "fru": 0,
@@ -13648,7 +13648,7 @@
     "impacts": {
       "acd": 0,
       "cch": 0,
-      "ecs": 15.867,
+      "ecs": 15.87,
       "etf": 0,
       "etf-c": 0,
       "fru": 0,
@@ -13734,7 +13734,7 @@
     "impacts": {
       "acd": 0,
       "cch": 0,
-      "ecs": 5.3728,
+      "ecs": 5.373,
       "etf": 0,
       "etf-c": 0,
       "fru": 0,
@@ -13777,7 +13777,7 @@
     "impacts": {
       "acd": 0,
       "cch": 0,
-      "ecs": 0.22738,
+      "ecs": 0.2274,
       "etf": 0,
       "etf-c": 0,
       "fru": 0,
@@ -13862,7 +13862,7 @@
     "impacts": {
       "acd": 0,
       "cch": 0,
-      "ecs": 9.4886,
+      "ecs": 9.489,
       "etf": 0,
       "etf-c": 0,
       "fru": 0,
@@ -13905,7 +13905,7 @@
     "impacts": {
       "acd": 0,
       "cch": 0,
-      "ecs": 32.914,
+      "ecs": 32.91,
       "etf": 0,
       "etf-c": 0,
       "fru": 0,
@@ -13925,7 +13925,7 @@
       "wtu": 0
     },
     "location": "FR",
-    "massPerUnit": 0.13717,
+    "massPerUnit": 0.1372,
     "scopes": [
       "food"
     ],
@@ -13948,7 +13948,7 @@
     "impacts": {
       "acd": 0,
       "cch": 0,
-      "ecs": 12.438,
+      "ecs": 12.44,
       "etf": 0,
       "etf-c": 0,
       "fru": 0,
@@ -13991,7 +13991,7 @@
     "impacts": {
       "acd": 0,
       "cch": 0,
-      "ecs": 15.344,
+      "ecs": 15.34,
       "etf": 0,
       "etf-c": 0,
       "fru": 0,
@@ -14032,7 +14032,7 @@
     "impacts": {
       "acd": 0,
       "cch": 0,
-      "ecs": 673.39,
+      "ecs": 673.4,
       "etf": 0,
       "etf-c": 0,
       "fru": 0,
@@ -14075,7 +14075,7 @@
     "impacts": {
       "acd": 0,
       "cch": 0,
-      "ecs": 11.526,
+      "ecs": 11.53,
       "etf": 0,
       "etf-c": 0,
       "fru": 0,
@@ -14161,7 +14161,7 @@
     "impacts": {
       "acd": 0,
       "cch": 0,
-      "ecs": 12.731,
+      "ecs": 12.73,
       "etf": 0,
       "etf-c": 0,
       "fru": 0,
@@ -14204,7 +14204,7 @@
     "impacts": {
       "acd": 0,
       "cch": 0,
-      "ecs": 229.13,
+      "ecs": 229.1,
       "etf": 0,
       "etf-c": 0,
       "fru": 0,
@@ -14247,7 +14247,7 @@
     "impacts": {
       "acd": 0,
       "cch": 0,
-      "ecs": 103.61,
+      "ecs": 103.6,
       "etf": 0,
       "etf-c": 0,
       "fru": 0,
@@ -14290,7 +14290,7 @@
     "impacts": {
       "acd": 0,
       "cch": 0,
-      "ecs": 23.952,
+      "ecs": 23.95,
       "etf": 0,
       "etf-c": 0,
       "fru": 0,
@@ -14333,7 +14333,7 @@
     "impacts": {
       "acd": 0,
       "cch": 0,
-      "ecs": 7.2189,
+      "ecs": 7.219,
       "etf": 0,
       "etf-c": 0,
       "fru": 0,
@@ -14376,7 +14376,7 @@
     "impacts": {
       "acd": 0,
       "cch": 0,
-      "ecs": 1.8157,
+      "ecs": 1.816,
       "etf": 0,
       "etf-c": 0,
       "fru": 0,
@@ -14419,7 +14419,7 @@
     "impacts": {
       "acd": 0,
       "cch": 0,
-      "ecs": 2.7672,
+      "ecs": 2.767,
       "etf": 0,
       "etf-c": 0,
       "fru": 0,
@@ -14505,7 +14505,7 @@
     "impacts": {
       "acd": 0,
       "cch": 0,
-      "ecs": 299.71,
+      "ecs": 299.7,
       "etf": 0,
       "etf-c": 0,
       "fru": 0,
@@ -14548,7 +14548,7 @@
     "impacts": {
       "acd": 0,
       "cch": 0,
-      "ecs": 118.76,
+      "ecs": 118.8,
       "etf": 0,
       "etf-c": 0,
       "fru": 0,
@@ -14591,7 +14591,7 @@
     "impacts": {
       "acd": 0,
       "cch": 0,
-      "ecs": 2.6611,
+      "ecs": 2.661,
       "etf": 0,
       "etf-c": 0,
       "fru": 0,
@@ -14634,7 +14634,7 @@
     "impacts": {
       "acd": 0,
       "cch": 0,
-      "ecs": 183.65,
+      "ecs": 183.6,
       "etf": 0,
       "etf-c": 0,
       "fru": 0,
@@ -14677,7 +14677,7 @@
     "impacts": {
       "acd": 0,
       "cch": 0,
-      "ecs": 38.661,
+      "ecs": 38.66,
       "etf": 0,
       "etf-c": 0,
       "fru": 0,
@@ -14720,7 +14720,7 @@
     "impacts": {
       "acd": 0,
       "cch": 0,
-      "ecs": 22.734,
+      "ecs": 22.73,
       "etf": 0,
       "etf-c": 0,
       "fru": 0,
@@ -14763,7 +14763,7 @@
     "impacts": {
       "acd": 0,
       "cch": 0,
-      "ecs": 85.401,
+      "ecs": 85.4,
       "etf": 0,
       "etf-c": 0,
       "fru": 0,
@@ -14804,7 +14804,7 @@
     "impacts": {
       "acd": 0,
       "cch": 0,
-      "ecs": 103.63,
+      "ecs": 103.6,
       "etf": 0,
       "etf-c": 0,
       "fru": 0,
@@ -14890,7 +14890,7 @@
     "impacts": {
       "acd": 0,
       "cch": 0,
-      "ecs": 40.401,
+      "ecs": 40.4,
       "etf": 0,
       "etf-c": 0,
       "fru": 0,
@@ -14933,7 +14933,7 @@
     "impacts": {
       "acd": 0,
       "cch": 0,
-      "ecs": 68.237,
+      "ecs": 68.24,
       "etf": 0,
       "etf-c": 0,
       "fru": 0,
@@ -14976,7 +14976,7 @@
     "impacts": {
       "acd": 0,
       "cch": 0,
-      "ecs": 20.626,
+      "ecs": 20.63,
       "etf": 0,
       "etf-c": 0,
       "fru": 0,
@@ -15019,7 +15019,7 @@
     "impacts": {
       "acd": 0,
       "cch": 0,
-      "ecs": 474.88,
+      "ecs": 474.9,
       "etf": 0,
       "etf-c": 0,
       "fru": 0,
@@ -15062,7 +15062,7 @@
     "impacts": {
       "acd": 0,
       "cch": 0,
-      "ecs": 121.68,
+      "ecs": 121.7,
       "etf": 0,
       "etf-c": 0,
       "fru": 0,
@@ -15105,7 +15105,7 @@
     "impacts": {
       "acd": 0,
       "cch": 0,
-      "ecs": 95.893,
+      "ecs": 95.89,
       "etf": 0,
       "etf-c": 0,
       "fru": 0,
@@ -15148,7 +15148,7 @@
     "impacts": {
       "acd": 0,
       "cch": 0,
-      "ecs": 72.036,
+      "ecs": 72.04,
       "etf": 0,
       "etf-c": 0,
       "fru": 0,
@@ -15191,7 +15191,7 @@
     "impacts": {
       "acd": 0,
       "cch": 0,
-      "ecs": 91.239,
+      "ecs": 91.24,
       "etf": 0,
       "etf-c": 0,
       "fru": 0,
@@ -15234,7 +15234,7 @@
     "impacts": {
       "acd": 0,
       "cch": 0,
-      "ecs": 2.8476,
+      "ecs": 2.848,
       "etf": 0,
       "etf-c": 0,
       "fru": 0,
@@ -15277,7 +15277,7 @@
     "impacts": {
       "acd": 0,
       "cch": 0,
-      "ecs": 5.5994,
+      "ecs": 5.599,
       "etf": 0,
       "etf-c": 0,
       "fru": 0,
@@ -15320,7 +15320,7 @@
     "impacts": {
       "acd": 0,
       "cch": 0,
-      "ecs": 12.527,
+      "ecs": 12.53,
       "etf": 0,
       "etf-c": 0,
       "fru": 0,
@@ -15363,7 +15363,7 @@
     "impacts": {
       "acd": 0,
       "cch": 0,
-      "ecs": 9.4922,
+      "ecs": 9.492,
       "etf": 0,
       "etf-c": 0,
       "fru": 0,
@@ -15406,7 +15406,7 @@
     "impacts": {
       "acd": 0,
       "cch": 0,
-      "ecs": 11.003,
+      "ecs": 11.0,
       "etf": 0,
       "etf-c": 0,
       "fru": 0,
@@ -15448,7 +15448,7 @@
     "impacts": {
       "acd": 0,
       "cch": 0,
-      "ecs": 245.89,
+      "ecs": 245.9,
       "etf": 0,
       "etf-c": 0,
       "fru": 0,
@@ -15490,7 +15490,7 @@
     "impacts": {
       "acd": 0,
       "cch": 0,
-      "ecs": 85.603,
+      "ecs": 85.6,
       "etf": 0,
       "etf-c": 0,
       "fru": 0,
@@ -15533,7 +15533,7 @@
     "impacts": {
       "acd": 0,
       "cch": 0,
-      "ecs": 178.89,
+      "ecs": 178.9,
       "etf": 0,
       "etf-c": 0,
       "fru": 0,
@@ -15574,7 +15574,7 @@
     "impacts": {
       "acd": 0,
       "cch": 0,
-      "ecs": 91.627,
+      "ecs": 91.63,
       "etf": 0,
       "etf-c": 0,
       "fru": 0,
@@ -15617,7 +15617,7 @@
     "impacts": {
       "acd": 0,
       "cch": 0,
-      "ecs": 101.66,
+      "ecs": 101.7,
       "etf": 0,
       "etf-c": 0,
       "fru": 0,
@@ -15660,7 +15660,7 @@
     "impacts": {
       "acd": 0,
       "cch": 0,
-      "ecs": 434.48,
+      "ecs": 434.5,
       "etf": 0,
       "etf-c": 0,
       "fru": 0,
@@ -15703,7 +15703,7 @@
     "impacts": {
       "acd": 0,
       "cch": 0,
-      "ecs": 405.83,
+      "ecs": 405.8,
       "etf": 0,
       "etf-c": 0,
       "fru": 0,
@@ -15746,7 +15746,7 @@
     "impacts": {
       "acd": 0,
       "cch": 0,
-      "ecs": 26.944,
+      "ecs": 26.94,
       "etf": 0,
       "etf-c": 0,
       "fru": 0,
@@ -15832,7 +15832,7 @@
     "impacts": {
       "acd": 0,
       "cch": 0,
-      "ecs": 7.0954,
+      "ecs": 7.095,
       "etf": 0,
       "etf-c": 0,
       "fru": 0,
@@ -15875,7 +15875,7 @@
     "impacts": {
       "acd": 0,
       "cch": 0,
-      "ecs": 4.1956,
+      "ecs": 4.196,
       "etf": 0,
       "etf-c": 0,
       "fru": 0,
@@ -15918,7 +15918,7 @@
     "impacts": {
       "acd": 0,
       "cch": 0,
-      "ecs": 14.301,
+      "ecs": 14.3,
       "etf": 0,
       "etf-c": 0,
       "fru": 0,
@@ -15961,7 +15961,7 @@
     "impacts": {
       "acd": 0,
       "cch": 0,
-      "ecs": 14.449,
+      "ecs": 14.45,
       "etf": 0,
       "etf-c": 0,
       "fru": 0,
@@ -16047,7 +16047,7 @@
     "impacts": {
       "acd": 0,
       "cch": 0,
-      "ecs": 3.4609,
+      "ecs": 3.461,
       "etf": 0,
       "etf-c": 0,
       "fru": 0,
@@ -16090,7 +16090,7 @@
     "impacts": {
       "acd": 0,
       "cch": 0,
-      "ecs": 5.4324,
+      "ecs": 5.432,
       "etf": 0,
       "etf-c": 0,
       "fru": 0,
@@ -16133,7 +16133,7 @@
     "impacts": {
       "acd": 0,
       "cch": 0,
-      "ecs": 2.3529,
+      "ecs": 2.353,
       "etf": 0,
       "etf-c": 0,
       "fru": 0,
@@ -16219,7 +16219,7 @@
     "impacts": {
       "acd": 0,
       "cch": 0,
-      "ecs": 5.9936,
+      "ecs": 5.994,
       "etf": 0,
       "etf-c": 0,
       "fru": 0,
@@ -16262,7 +16262,7 @@
     "impacts": {
       "acd": 0,
       "cch": 0,
-      "ecs": 11.711,
+      "ecs": 11.71,
       "etf": 0,
       "etf-c": 0,
       "fru": 0,
@@ -16348,7 +16348,7 @@
     "impacts": {
       "acd": 0,
       "cch": 0,
-      "ecs": 5.9008,
+      "ecs": 5.901,
       "etf": 0,
       "etf-c": 0,
       "fru": 0,
@@ -16391,7 +16391,7 @@
     "impacts": {
       "acd": 0,
       "cch": 0,
-      "ecs": 6.4852,
+      "ecs": 6.485,
       "etf": 0,
       "etf-c": 0,
       "fru": 0,
@@ -16477,7 +16477,7 @@
     "impacts": {
       "acd": 0,
       "cch": 0,
-      "ecs": 59.027,
+      "ecs": 59.03,
       "etf": 0,
       "etf-c": 0,
       "fru": 0,
@@ -16520,7 +16520,7 @@
     "impacts": {
       "acd": 0,
       "cch": 0,
-      "ecs": 7.1233,
+      "ecs": 7.123,
       "etf": 0,
       "etf-c": 0,
       "fru": 0,
@@ -16563,7 +16563,7 @@
     "impacts": {
       "acd": 0,
       "cch": 0,
-      "ecs": 53.049,
+      "ecs": 53.05,
       "etf": 0,
       "etf-c": 0,
       "fru": 0,
@@ -16606,7 +16606,7 @@
     "impacts": {
       "acd": 0,
       "cch": 0,
-      "ecs": 164.11,
+      "ecs": 164.1,
       "etf": 0,
       "etf-c": 0,
       "fru": 0,
@@ -16647,7 +16647,7 @@
     "impacts": {
       "acd": 0,
       "cch": 0,
-      "ecs": 176.91,
+      "ecs": 176.9,
       "etf": 0,
       "etf-c": 0,
       "fru": 0,
@@ -16690,7 +16690,7 @@
     "impacts": {
       "acd": 0,
       "cch": 0,
-      "ecs": 92.729,
+      "ecs": 92.73,
       "etf": 0,
       "etf-c": 0,
       "fru": 0,
@@ -16733,7 +16733,7 @@
     "impacts": {
       "acd": 0,
       "cch": 0,
-      "ecs": 92.087,
+      "ecs": 92.09,
       "etf": 0,
       "etf-c": 0,
       "fru": 0,
@@ -16776,7 +16776,7 @@
     "impacts": {
       "acd": 0,
       "cch": 0,
-      "ecs": 14.708,
+      "ecs": 14.71,
       "etf": 0,
       "etf-c": 0,
       "fru": 0,
@@ -16819,7 +16819,7 @@
     "impacts": {
       "acd": 0,
       "cch": 0,
-      "ecs": 1059.6,
+      "ecs": 1060.0,
       "etf": 0,
       "etf-c": 0,
       "fru": 0,
@@ -16862,7 +16862,7 @@
     "impacts": {
       "acd": 0,
       "cch": 0,
-      "ecs": 178.79,
+      "ecs": 178.8,
       "etf": 0,
       "etf-c": 0,
       "fru": 0,
@@ -16904,7 +16904,7 @@
     "impacts": {
       "acd": 0,
       "cch": 0,
-      "ecs": 383.24,
+      "ecs": 383.2,
       "etf": 0,
       "etf-c": 0,
       "fru": 0,
@@ -16947,7 +16947,7 @@
     "impacts": {
       "acd": 0,
       "cch": 0,
-      "ecs": 252.83,
+      "ecs": 252.8,
       "etf": 0,
       "etf-c": 0,
       "fru": 0,
@@ -16990,7 +16990,7 @@
     "impacts": {
       "acd": 0,
       "cch": 0,
-      "ecs": 20.753,
+      "ecs": 20.75,
       "etf": 0,
       "etf-c": 0,
       "fru": 0,
@@ -17031,7 +17031,7 @@
     "impacts": {
       "acd": 0,
       "cch": 0,
-      "ecs": 86.789,
+      "ecs": 86.79,
       "etf": 0,
       "etf-c": 0,
       "fru": 0,
@@ -17116,7 +17116,7 @@
     "impacts": {
       "acd": 0,
       "cch": 0,
-      "ecs": 5.9832,
+      "ecs": 5.983,
       "etf": 0,
       "etf-c": 0,
       "fru": 0,
@@ -17159,7 +17159,7 @@
     "impacts": {
       "acd": 0,
       "cch": 0,
-      "ecs": 618.98,
+      "ecs": 619.0,
       "etf": 0,
       "etf-c": 0,
       "fru": 0,
@@ -17202,7 +17202,7 @@
     "impacts": {
       "acd": 0,
       "cch": 0,
-      "ecs": 554.84,
+      "ecs": 554.8,
       "etf": 0,
       "etf-c": 0,
       "fru": 0,
@@ -17245,7 +17245,7 @@
     "impacts": {
       "acd": 0,
       "cch": 0,
-      "ecs": 562.08,
+      "ecs": 562.1,
       "etf": 0,
       "etf-c": 0,
       "fru": 0,
@@ -17331,7 +17331,7 @@
     "impacts": {
       "acd": 0,
       "cch": 0,
-      "ecs": 152.37,
+      "ecs": 152.4,
       "etf": 0,
       "etf-c": 0,
       "fru": 0,
@@ -17374,7 +17374,7 @@
     "impacts": {
       "acd": 0,
       "cch": 0,
-      "ecs": 161.82,
+      "ecs": 161.8,
       "etf": 0,
       "etf-c": 0,
       "fru": 0,
@@ -17417,7 +17417,7 @@
     "impacts": {
       "acd": 0,
       "cch": 0,
-      "ecs": 13.966,
+      "ecs": 13.97,
       "etf": 0,
       "etf-c": 0,
       "fru": 0,
@@ -17460,7 +17460,7 @@
     "impacts": {
       "acd": 0,
       "cch": 0,
-      "ecs": 16.544,
+      "ecs": 16.54,
       "etf": 0,
       "etf-c": 0,
       "fru": 0,
@@ -17503,7 +17503,7 @@
     "impacts": {
       "acd": 0,
       "cch": 0,
-      "ecs": 21.665,
+      "ecs": 21.67,
       "etf": 0,
       "etf-c": 0,
       "fru": 0,
@@ -17546,7 +17546,7 @@
     "impacts": {
       "acd": 0,
       "cch": 0,
-      "ecs": 5.9602,
+      "ecs": 5.96,
       "etf": 0,
       "etf-c": 0,
       "fru": 0,
@@ -17589,7 +17589,7 @@
     "impacts": {
       "acd": 0,
       "cch": 0,
-      "ecs": 101.92,
+      "ecs": 101.9,
       "etf": 0,
       "etf-c": 0,
       "fru": 0,
@@ -17631,7 +17631,7 @@
     "impacts": {
       "acd": 0,
       "cch": 0,
-      "ecs": 569.79,
+      "ecs": 569.8,
       "etf": 0,
       "etf-c": 0,
       "fru": 0,
@@ -17673,7 +17673,7 @@
     "impacts": {
       "acd": 0,
       "cch": 0,
-      "ecs": 170.98,
+      "ecs": 171.0,
       "etf": 0,
       "etf-c": 0,
       "fru": 0,
@@ -17757,7 +17757,7 @@
     "impacts": {
       "acd": 0,
       "cch": 0,
-      "ecs": 245.75,
+      "ecs": 245.7,
       "etf": 0,
       "etf-c": 0,
       "fru": 0,
@@ -17799,7 +17799,7 @@
     "impacts": {
       "acd": 0,
       "cch": 0,
-      "ecs": 191.12,
+      "ecs": 191.1,
       "etf": 0,
       "etf-c": 0,
       "fru": 0,
@@ -17842,7 +17842,7 @@
     "impacts": {
       "acd": 0,
       "cch": 0,
-      "ecs": 0.63096,
+      "ecs": 0.631,
       "etf": 0,
       "etf-c": 0,
       "fru": 0,
@@ -17885,7 +17885,7 @@
     "impacts": {
       "acd": 0,
       "cch": 0,
-      "ecs": 2.6611,
+      "ecs": 2.661,
       "etf": 0,
       "etf-c": 0,
       "fru": 0,
@@ -17928,7 +17928,7 @@
     "impacts": {
       "acd": 0,
       "cch": 0,
-      "ecs": 8.0854,
+      "ecs": 8.085,
       "etf": 0,
       "etf-c": 0,
       "fru": 0,
@@ -17971,7 +17971,7 @@
     "impacts": {
       "acd": 0,
       "cch": 0,
-      "ecs": 509.97,
+      "ecs": 510.0,
       "etf": 0,
       "etf-c": 0,
       "fru": 0,
@@ -18014,7 +18014,7 @@
     "impacts": {
       "acd": 0,
       "cch": 0,
-      "ecs": 5.4362,
+      "ecs": 5.436,
       "etf": 0,
       "etf-c": 0,
       "fru": 0,
@@ -18057,7 +18057,7 @@
     "impacts": {
       "acd": 0,
       "cch": 0,
-      "ecs": 15.656,
+      "ecs": 15.66,
       "etf": 0,
       "etf-c": 0,
       "fru": 0,
@@ -18100,7 +18100,7 @@
     "impacts": {
       "acd": 0,
       "cch": 0,
-      "ecs": 5.5123,
+      "ecs": 5.512,
       "etf": 0,
       "etf-c": 0,
       "fru": 0,
@@ -18143,7 +18143,7 @@
     "impacts": {
       "acd": 0,
       "cch": 0,
-      "ecs": 14.789,
+      "ecs": 14.79,
       "etf": 0,
       "etf-c": 0,
       "fru": 0,
@@ -18229,7 +18229,7 @@
     "impacts": {
       "acd": 0,
       "cch": 0,
-      "ecs": 22.742,
+      "ecs": 22.74,
       "etf": 0,
       "etf-c": 0,
       "fru": 0,
@@ -18272,7 +18272,7 @@
     "impacts": {
       "acd": 0,
       "cch": 0,
-      "ecs": 4.9016,
+      "ecs": 4.902,
       "etf": 0,
       "etf-c": 0,
       "fru": 0,
@@ -18315,7 +18315,7 @@
     "impacts": {
       "acd": 0,
       "cch": 0,
-      "ecs": 0.56787,
+      "ecs": 0.5679,
       "etf": 0,
       "etf-c": 0,
       "fru": 0,
@@ -18401,7 +18401,7 @@
     "impacts": {
       "acd": 0,
       "cch": 0,
-      "ecs": 11.088,
+      "ecs": 11.09,
       "etf": 0,
       "etf-c": 0,
       "fru": 0,
@@ -18444,7 +18444,7 @@
     "impacts": {
       "acd": 0,
       "cch": 0,
-      "ecs": 33.833,
+      "ecs": 33.83,
       "etf": 0,
       "etf-c": 0,
       "fru": 0,
@@ -18487,7 +18487,7 @@
     "impacts": {
       "acd": 0,
       "cch": 0,
-      "ecs": 2.5966,
+      "ecs": 2.597,
       "etf": 0,
       "etf-c": 0,
       "fru": 0,
@@ -18530,7 +18530,7 @@
     "impacts": {
       "acd": 0,
       "cch": 0,
-      "ecs": 510.82,
+      "ecs": 510.8,
       "etf": 0,
       "etf-c": 0,
       "fru": 0,
@@ -18573,7 +18573,7 @@
     "impacts": {
       "acd": 0,
       "cch": 0,
-      "ecs": 983.17,
+      "ecs": 983.2,
       "etf": 0,
       "etf-c": 0,
       "fru": 0,
@@ -18615,7 +18615,7 @@
     "impacts": {
       "acd": 0,
       "cch": 0,
-      "ecs": 15.473,
+      "ecs": 15.47,
       "etf": 0,
       "etf-c": 0,
       "fru": 0,
@@ -18658,7 +18658,7 @@
     "impacts": {
       "acd": 0,
       "cch": 0,
-      "ecs": 37.993,
+      "ecs": 37.99,
       "etf": 0,
       "etf-c": 0,
       "fru": 0,
@@ -18678,7 +18678,7 @@
       "wtu": 0
     },
     "location": "FR",
-    "massPerUnit": 0.39038,
+    "massPerUnit": 0.3904,
     "scopes": [
       "food"
     ],
@@ -18701,7 +18701,7 @@
     "impacts": {
       "acd": 0,
       "cch": 0,
-      "ecs": 11.429,
+      "ecs": 11.43,
       "etf": 0,
       "etf-c": 0,
       "fru": 0,
@@ -18787,7 +18787,7 @@
     "impacts": {
       "acd": 0,
       "cch": 0,
-      "ecs": 382.87,
+      "ecs": 382.9,
       "etf": 0,
       "etf-c": 0,
       "fru": 0,
@@ -18830,7 +18830,7 @@
     "impacts": {
       "acd": 0,
       "cch": 0,
-      "ecs": 229.49,
+      "ecs": 229.5,
       "etf": 0,
       "etf-c": 0,
       "fru": 0,
@@ -18872,7 +18872,7 @@
     "impacts": {
       "acd": 0,
       "cch": 0,
-      "ecs": 247.73,
+      "ecs": 247.7,
       "etf": 0,
       "etf-c": 0,
       "fru": 0,
@@ -18915,7 +18915,7 @@
     "impacts": {
       "acd": 0,
       "cch": 0,
-      "ecs": 209.14,
+      "ecs": 209.1,
       "etf": 0,
       "etf-c": 0,
       "fru": 0,
@@ -19001,7 +19001,7 @@
     "impacts": {
       "acd": 0,
       "cch": 0,
-      "ecs": 15.178,
+      "ecs": 15.18,
       "etf": 0,
       "etf-c": 0,
       "fru": 0,
@@ -19087,7 +19087,7 @@
     "impacts": {
       "acd": 0,
       "cch": 0,
-      "ecs": 140.48,
+      "ecs": 140.5,
       "etf": 0,
       "etf-c": 0,
       "fru": 0,
@@ -19173,7 +19173,7 @@
     "impacts": {
       "acd": 0,
       "cch": 0,
-      "ecs": 664.39,
+      "ecs": 664.4,
       "etf": 0,
       "etf-c": 0,
       "fru": 0,
@@ -19216,7 +19216,7 @@
     "impacts": {
       "acd": 0,
       "cch": 0,
-      "ecs": 172.63,
+      "ecs": 172.6,
       "etf": 0,
       "etf-c": 0,
       "fru": 0,
@@ -19257,7 +19257,7 @@
     "impacts": {
       "acd": 0,
       "cch": 0,
-      "ecs": 298.91,
+      "ecs": 298.9,
       "etf": 0,
       "etf-c": 0,
       "fru": 0,
@@ -19300,7 +19300,7 @@
     "impacts": {
       "acd": 0,
       "cch": 0,
-      "ecs": 8.2033,
+      "ecs": 8.203,
       "etf": 0,
       "etf-c": 0,
       "fru": 0,
@@ -19343,7 +19343,7 @@
     "impacts": {
       "acd": 0,
       "cch": 0,
-      "ecs": 2.5095,
+      "ecs": 2.51,
       "etf": 0,
       "etf-c": 0,
       "fru": 0,
@@ -19384,7 +19384,7 @@
     "impacts": {
       "acd": 0,
       "cch": 0,
-      "ecs": 167.96,
+      "ecs": 168.0,
       "etf": 0,
       "etf-c": 0,
       "fru": 0,
@@ -19427,7 +19427,7 @@
     "impacts": {
       "acd": 0,
       "cch": 0,
-      "ecs": 61.671,
+      "ecs": 61.67,
       "etf": 0,
       "etf-c": 0,
       "fru": 0,
@@ -19470,7 +19470,7 @@
     "impacts": {
       "acd": 0,
       "cch": 0,
-      "ecs": 10.353,
+      "ecs": 10.35,
       "etf": 0,
       "etf-c": 0,
       "fru": 0,
@@ -19513,7 +19513,7 @@
     "impacts": {
       "acd": 0,
       "cch": 0,
-      "ecs": 13.335,
+      "ecs": 13.33,
       "etf": 0,
       "etf-c": 0,
       "fru": 0,
@@ -19556,7 +19556,7 @@
     "impacts": {
       "acd": 0,
       "cch": 0,
-      "ecs": 16.642,
+      "ecs": 16.64,
       "etf": 0,
       "etf-c": 0,
       "fru": 0,
@@ -19599,7 +19599,7 @@
     "impacts": {
       "acd": 0,
       "cch": 0,
-      "ecs": 813.69,
+      "ecs": 813.7,
       "etf": 0,
       "etf-c": 0,
       "fru": 0,
@@ -19642,7 +19642,7 @@
     "impacts": {
       "acd": 0,
       "cch": 0,
-      "ecs": 31.633,
+      "ecs": 31.63,
       "etf": 0,
       "etf-c": 0,
       "fru": 0,
@@ -19685,7 +19685,7 @@
     "impacts": {
       "acd": 0,
       "cch": 0,
-      "ecs": 1.7072,
+      "ecs": 1.707,
       "etf": 0,
       "etf-c": 0,
       "fru": 0,
@@ -19728,7 +19728,7 @@
     "impacts": {
       "acd": 0,
       "cch": 0,
-      "ecs": 9.7668,
+      "ecs": 9.767,
       "etf": 0,
       "etf-c": 0,
       "fru": 0,
@@ -19814,7 +19814,7 @@
     "impacts": {
       "acd": 0,
       "cch": 0,
-      "ecs": 2.7229,
+      "ecs": 2.723,
       "etf": 0,
       "etf-c": 0,
       "fru": 0,
@@ -19857,7 +19857,7 @@
     "impacts": {
       "acd": 0,
       "cch": 0,
-      "ecs": 7.4193,
+      "ecs": 7.419,
       "etf": 0,
       "etf-c": 0,
       "fru": 0,
@@ -19900,7 +19900,7 @@
     "impacts": {
       "acd": 0,
       "cch": 0,
-      "ecs": 7.8447,
+      "ecs": 7.845,
       "etf": 0,
       "etf-c": 0,
       "fru": 0,
@@ -19943,7 +19943,7 @@
     "impacts": {
       "acd": 0,
       "cch": 0,
-      "ecs": 1164.1,
+      "ecs": 1164.0,
       "etf": 0,
       "etf-c": 0,
       "fru": 0,
@@ -19986,7 +19986,7 @@
     "impacts": {
       "acd": 0,
       "cch": 0,
-      "ecs": 12.885,
+      "ecs": 12.89,
       "etf": 0,
       "etf-c": 0,
       "fru": 0,
@@ -20029,7 +20029,7 @@
     "impacts": {
       "acd": 0,
       "cch": 0,
-      "ecs": 5.0398,
+      "ecs": 5.04,
       "etf": 0,
       "etf-c": 0,
       "fru": 0,
@@ -20115,7 +20115,7 @@
     "impacts": {
       "acd": 0,
       "cch": 0,
-      "ecs": 9.7579,
+      "ecs": 9.758,
       "etf": 0,
       "etf-c": 0,
       "fru": 0,
@@ -20158,7 +20158,7 @@
     "impacts": {
       "acd": 0,
       "cch": 0,
-      "ecs": 5457.4,
+      "ecs": 5457.0,
       "etf": 0,
       "etf-c": 0,
       "fru": 0,
@@ -20199,7 +20199,7 @@
     "impacts": {
       "acd": 0,
       "cch": 0,
-      "ecs": 2604.8,
+      "ecs": 2605.0,
       "etf": 0,
       "etf-c": 0,
       "fru": 0,
@@ -20242,7 +20242,7 @@
     "impacts": {
       "acd": 0,
       "cch": 0,
-      "ecs": 798.86,
+      "ecs": 798.9,
       "etf": 0,
       "etf-c": 0,
       "fru": 0,
@@ -20285,7 +20285,7 @@
     "impacts": {
       "acd": 0,
       "cch": 0,
-      "ecs": 2.0076,
+      "ecs": 2.008,
       "etf": 0,
       "etf-c": 0,
       "fru": 0,
@@ -20328,7 +20328,7 @@
     "impacts": {
       "acd": 0,
       "cch": 0,
-      "ecs": 4.5562,
+      "ecs": 4.556,
       "etf": 0,
       "etf-c": 0,
       "fru": 0,
@@ -20371,7 +20371,7 @@
     "impacts": {
       "acd": 0,
       "cch": 0,
-      "ecs": 4.4455,
+      "ecs": 4.445,
       "etf": 0,
       "etf-c": 0,
       "fru": 0,
@@ -20414,7 +20414,7 @@
     "impacts": {
       "acd": 0,
       "cch": 0,
-      "ecs": 2.7618,
+      "ecs": 2.762,
       "etf": 0,
       "etf-c": 0,
       "fru": 0,
@@ -20457,7 +20457,7 @@
     "impacts": {
       "acd": 0,
       "cch": 0,
-      "ecs": 15.254,
+      "ecs": 15.25,
       "etf": 0,
       "etf-c": 0,
       "fru": 0,
@@ -20500,7 +20500,7 @@
     "impacts": {
       "acd": 0,
       "cch": 0,
-      "ecs": 214.91,
+      "ecs": 214.9,
       "etf": 0,
       "etf-c": 0,
       "fru": 0,
@@ -20543,7 +20543,7 @@
     "impacts": {
       "acd": 0,
       "cch": 0,
-      "ecs": 13.013,
+      "ecs": 13.01,
       "etf": 0,
       "etf-c": 0,
       "fru": 0,
@@ -20563,7 +20563,7 @@
       "wtu": 0
     },
     "location": "FR",
-    "massPerUnit": 0.020105,
+    "massPerUnit": 0.02011,
     "scopes": [
       "food"
     ],
@@ -20586,7 +20586,7 @@
     "impacts": {
       "acd": 0,
       "cch": 0,
-      "ecs": 100.72,
+      "ecs": 100.7,
       "etf": 0,
       "etf-c": 0,
       "fru": 0,
@@ -20629,7 +20629,7 @@
     "impacts": {
       "acd": 0,
       "cch": 0,
-      "ecs": 37.714,
+      "ecs": 37.71,
       "etf": 0,
       "etf-c": 0,
       "fru": 0,
@@ -20715,7 +20715,7 @@
     "impacts": {
       "acd": 0,
       "cch": 0,
-      "ecs": 10.612,
+      "ecs": 10.61,
       "etf": 0,
       "etf-c": 0,
       "fru": 0,
@@ -20801,7 +20801,7 @@
     "impacts": {
       "acd": 0,
       "cch": 0,
-      "ecs": 16.846,
+      "ecs": 16.85,
       "etf": 0,
       "etf-c": 0,
       "fru": 0,
@@ -20842,7 +20842,7 @@
     "impacts": {
       "acd": 0,
       "cch": 0,
-      "ecs": 8.0845,
+      "ecs": 8.084,
       "etf": 0,
       "etf-c": 0,
       "fru": 0,
@@ -20885,7 +20885,7 @@
     "impacts": {
       "acd": 0,
       "cch": 0,
-      "ecs": 31.633,
+      "ecs": 31.63,
       "etf": 0,
       "etf-c": 0,
       "fru": 0,
@@ -20971,7 +20971,7 @@
     "impacts": {
       "acd": 0,
       "cch": 0,
-      "ecs": 4.3813,
+      "ecs": 4.381,
       "etf": 0,
       "etf-c": 0,
       "fru": 0,
@@ -21014,7 +21014,7 @@
     "impacts": {
       "acd": 0,
       "cch": 0,
-      "ecs": 4.0914,
+      "ecs": 4.091,
       "etf": 0,
       "etf-c": 0,
       "fru": 0,
@@ -21057,7 +21057,7 @@
     "impacts": {
       "acd": 0,
       "cch": 0,
-      "ecs": 8.1769,
+      "ecs": 8.177,
       "etf": 0,
       "etf-c": 0,
       "fru": 0,
@@ -21100,7 +21100,7 @@
     "impacts": {
       "acd": 0,
       "cch": 0,
-      "ecs": 7.3748,
+      "ecs": 7.375,
       "etf": 0,
       "etf-c": 0,
       "fru": 0,
@@ -21186,7 +21186,7 @@
     "impacts": {
       "acd": 0,
       "cch": 0,
-      "ecs": 6.8463,
+      "ecs": 6.846,
       "etf": 0,
       "etf-c": 0,
       "fru": 0,
@@ -21229,7 +21229,7 @@
     "impacts": {
       "acd": 0,
       "cch": 0,
-      "ecs": 7.4757,
+      "ecs": 7.476,
       "etf": 0,
       "etf-c": 0,
       "fru": 0,
@@ -21272,7 +21272,7 @@
     "impacts": {
       "acd": 0,
       "cch": 0,
-      "ecs": 1.7721,
+      "ecs": 1.772,
       "etf": 0,
       "etf-c": 0,
       "fru": 0,
@@ -21315,7 +21315,7 @@
     "impacts": {
       "acd": 0,
       "cch": 0,
-      "ecs": 3.6644,
+      "ecs": 3.664,
       "etf": 0,
       "etf-c": 0,
       "fru": 0,
@@ -21358,7 +21358,7 @@
     "impacts": {
       "acd": 0,
       "cch": 0,
-      "ecs": 6.8322,
+      "ecs": 6.832,
       "etf": 0,
       "etf-c": 0,
       "fru": 0,
@@ -21444,7 +21444,7 @@
     "impacts": {
       "acd": 0,
       "cch": 0,
-      "ecs": 27.777,
+      "ecs": 27.78,
       "etf": 0,
       "etf-c": 0,
       "fru": 0,
@@ -21487,7 +21487,7 @@
     "impacts": {
       "acd": 0,
       "cch": 0,
-      "ecs": 86.499,
+      "ecs": 86.5,
       "etf": 0,
       "etf-c": 0,
       "fru": 0,
@@ -21530,7 +21530,7 @@
     "impacts": {
       "acd": 0,
       "cch": 0,
-      "ecs": 37.842,
+      "ecs": 37.84,
       "etf": 0,
       "etf-c": 0,
       "fru": 0,
@@ -21573,7 +21573,7 @@
     "impacts": {
       "acd": 0,
       "cch": 0,
-      "ecs": 1325.5,
+      "ecs": 1325.0,
       "etf": 0,
       "etf-c": 0,
       "fru": 0,
@@ -21616,7 +21616,7 @@
     "impacts": {
       "acd": 0,
       "cch": 0,
-      "ecs": 44.818,
+      "ecs": 44.82,
       "etf": 0,
       "etf-c": 0,
       "fru": 0,
@@ -21659,7 +21659,7 @@
     "impacts": {
       "acd": 0,
       "cch": 0,
-      "ecs": 29.571,
+      "ecs": 29.57,
       "etf": 0,
       "etf-c": 0,
       "fru": 0,
@@ -21702,7 +21702,7 @@
     "impacts": {
       "acd": 0,
       "cch": 0,
-      "ecs": 249.64,
+      "ecs": 249.6,
       "etf": 0,
       "etf-c": 0,
       "fru": 0,
@@ -21745,7 +21745,7 @@
     "impacts": {
       "acd": 0,
       "cch": 0,
-      "ecs": 73.957,
+      "ecs": 73.96,
       "etf": 0,
       "etf-c": 0,
       "fru": 0,
@@ -21788,7 +21788,7 @@
     "impacts": {
       "acd": 0,
       "cch": 0,
-      "ecs": 686.65,
+      "ecs": 686.7,
       "etf": 0,
       "etf-c": 0,
       "fru": 0,
@@ -21831,7 +21831,7 @@
     "impacts": {
       "acd": 0,
       "cch": 0,
-      "ecs": 1313.4,
+      "ecs": 1313.0,
       "etf": 0,
       "etf-c": 0,
       "fru": 0,
@@ -21915,7 +21915,7 @@
     "impacts": {
       "acd": 0,
       "cch": 0,
-      "ecs": 120.97,
+      "ecs": 121.0,
       "etf": 0,
       "etf-c": 0,
       "fru": 0,
@@ -21958,7 +21958,7 @@
     "impacts": {
       "acd": 0,
       "cch": 0,
-      "ecs": 72.828,
+      "ecs": 72.83,
       "etf": 0,
       "etf-c": 0,
       "fru": 0,
@@ -22001,7 +22001,7 @@
     "impacts": {
       "acd": 0,
       "cch": 0,
-      "ecs": 323.52,
+      "ecs": 323.5,
       "etf": 0,
       "etf-c": 0,
       "fru": 0,
@@ -22087,7 +22087,7 @@
     "impacts": {
       "acd": 0,
       "cch": 0,
-      "ecs": 59.206,
+      "ecs": 59.21,
       "etf": 0,
       "etf-c": 0,
       "fru": 0,
@@ -22107,7 +22107,7 @@
       "wtu": 0
     },
     "location": "FR",
-    "massPerUnit": 0.64867,
+    "massPerUnit": 0.6487,
     "scopes": [
       "food"
     ],
@@ -22130,7 +22130,7 @@
     "impacts": {
       "acd": 0,
       "cch": 0,
-      "ecs": 78.006,
+      "ecs": 78.01,
       "etf": 0,
       "etf-c": 0,
       "fru": 0,
@@ -22150,7 +22150,7 @@
       "wtu": 0
     },
     "location": "FR",
-    "massPerUnit": 0.86367,
+    "massPerUnit": 0.8637,
     "scopes": [
       "food"
     ],
@@ -22173,7 +22173,7 @@
     "impacts": {
       "acd": 0,
       "cch": 0,
-      "ecs": 83.252,
+      "ecs": 83.25,
       "etf": 0,
       "etf-c": 0,
       "fru": 0,
@@ -22193,7 +22193,7 @@
       "wtu": 0
     },
     "location": "FR",
-    "massPerUnit": 0.92367,
+    "massPerUnit": 0.9237,
     "scopes": [
       "food"
     ],
@@ -22216,7 +22216,7 @@
     "impacts": {
       "acd": 0,
       "cch": 0,
-      "ecs": 44.263,
+      "ecs": 44.26,
       "etf": 0,
       "etf-c": 0,
       "fru": 0,
@@ -22259,7 +22259,7 @@
     "impacts": {
       "acd": 0,
       "cch": 0,
-      "ecs": 107.51,
+      "ecs": 107.5,
       "etf": 0,
       "etf-c": 0,
       "fru": 0,
@@ -22302,7 +22302,7 @@
     "impacts": {
       "acd": 0,
       "cch": 0,
-      "ecs": 94.446,
+      "ecs": 94.45,
       "etf": 0,
       "etf-c": 0,
       "fru": 0,
@@ -22345,7 +22345,7 @@
     "impacts": {
       "acd": 0,
       "cch": 0,
-      "ecs": 60.582,
+      "ecs": 60.58,
       "etf": 0,
       "etf-c": 0,
       "fru": 0,
@@ -22387,7 +22387,7 @@
     "impacts": {
       "acd": 0,
       "cch": 0,
-      "ecs": 119.46,
+      "ecs": 119.5,
       "etf": 0,
       "etf-c": 0,
       "fru": 0,
@@ -22430,7 +22430,7 @@
     "impacts": {
       "acd": 0,
       "cch": 0,
-      "ecs": 581.91,
+      "ecs": 581.9,
       "etf": 0,
       "etf-c": 0,
       "fru": 0,
@@ -22473,7 +22473,7 @@
     "impacts": {
       "acd": 0,
       "cch": 0,
-      "ecs": 12.647,
+      "ecs": 12.65,
       "etf": 0,
       "etf-c": 0,
       "fru": 0,
@@ -22516,7 +22516,7 @@
     "impacts": {
       "acd": 0,
       "cch": 0,
-      "ecs": 33.008,
+      "ecs": 33.01,
       "etf": 0,
       "etf-c": 0,
       "fru": 0,
@@ -22536,7 +22536,7 @@
       "wtu": 0
     },
     "location": "FR",
-    "massPerUnit": 0.18022,
+    "massPerUnit": 0.1802,
     "scopes": [
       "food"
     ],
@@ -22579,7 +22579,7 @@
       "wtu": 0
     },
     "location": "FR",
-    "massPerUnit": 0.18022,
+    "massPerUnit": 0.1802,
     "scopes": [
       "food"
     ],
@@ -22602,7 +22602,7 @@
     "impacts": {
       "acd": 0,
       "cch": 0,
-      "ecs": 40.879,
+      "ecs": 40.88,
       "etf": 0,
       "etf-c": 0,
       "fru": 0,
@@ -22622,7 +22622,7 @@
       "wtu": 0
     },
     "location": "FR",
-    "massPerUnit": 0.22724,
+    "massPerUnit": 0.2272,
     "scopes": [
       "food"
     ],
@@ -22645,7 +22645,7 @@
     "impacts": {
       "acd": 0,
       "cch": 0,
-      "ecs": 41.655,
+      "ecs": 41.65,
       "etf": 0,
       "etf-c": 0,
       "fru": 0,
@@ -22665,7 +22665,7 @@
       "wtu": 0
     },
     "location": "FR",
-    "massPerUnit": 0.22724,
+    "massPerUnit": 0.2272,
     "scopes": [
       "food"
     ],
@@ -22688,7 +22688,7 @@
     "impacts": {
       "acd": 0,
       "cch": 0,
-      "ecs": 38.861,
+      "ecs": 38.86,
       "etf": 0,
       "etf-c": 0,
       "fru": 0,
@@ -22731,7 +22731,7 @@
     "impacts": {
       "acd": 0,
       "cch": 0,
-      "ecs": 43.671,
+      "ecs": 43.67,
       "etf": 0,
       "etf-c": 0,
       "fru": 0,
@@ -22774,7 +22774,7 @@
     "impacts": {
       "acd": 0,
       "cch": 0,
-      "ecs": 64.657,
+      "ecs": 64.66,
       "etf": 0,
       "etf-c": 0,
       "fru": 0,
@@ -22860,7 +22860,7 @@
     "impacts": {
       "acd": 0,
       "cch": 0,
-      "ecs": 47.099,
+      "ecs": 47.1,
       "etf": 0,
       "etf-c": 0,
       "fru": 0,
@@ -22903,7 +22903,7 @@
     "impacts": {
       "acd": 0,
       "cch": 0,
-      "ecs": 69.913,
+      "ecs": 69.91,
       "etf": 0,
       "etf-c": 0,
       "fru": 0,
@@ -22946,7 +22946,7 @@
     "impacts": {
       "acd": 0,
       "cch": 0,
-      "ecs": 32.122,
+      "ecs": 32.12,
       "etf": 0,
       "etf-c": 0,
       "fru": 0,
@@ -22989,7 +22989,7 @@
     "impacts": {
       "acd": 0,
       "cch": 0,
-      "ecs": 135.37,
+      "ecs": 135.4,
       "etf": 0,
       "etf-c": 0,
       "fru": 0,
@@ -23032,7 +23032,7 @@
     "impacts": {
       "acd": 0,
       "cch": 0,
-      "ecs": 133.69,
+      "ecs": 133.7,
       "etf": 0,
       "etf-c": 0,
       "fru": 0,
@@ -23118,7 +23118,7 @@
     "impacts": {
       "acd": 0,
       "cch": 0,
-      "ecs": 592.98,
+      "ecs": 593.0,
       "etf": 0,
       "etf-c": 0,
       "fru": 0,
@@ -23161,7 +23161,7 @@
     "impacts": {
       "acd": 0,
       "cch": 0,
-      "ecs": 69.671,
+      "ecs": 69.67,
       "etf": 0,
       "etf-c": 0,
       "fru": 0,
@@ -23204,7 +23204,7 @@
     "impacts": {
       "acd": 0,
       "cch": 0,
-      "ecs": 301.94,
+      "ecs": 301.9,
       "etf": 0,
       "etf-c": 0,
       "fru": 0,
@@ -23247,7 +23247,7 @@
     "impacts": {
       "acd": 0,
       "cch": 0,
-      "ecs": 142.49,
+      "ecs": 142.5,
       "etf": 0,
       "etf-c": 0,
       "fru": 0,
@@ -23290,7 +23290,7 @@
     "impacts": {
       "acd": 0,
       "cch": 0,
-      "ecs": 21.277,
+      "ecs": 21.28,
       "etf": 0,
       "etf-c": 0,
       "fru": 0,
@@ -23331,7 +23331,7 @@
     "impacts": {
       "acd": 0,
       "cch": 0,
-      "ecs": 37.567,
+      "ecs": 37.57,
       "etf": 0,
       "etf-c": 0,
       "fru": 0,
@@ -23374,7 +23374,7 @@
     "impacts": {
       "acd": 0,
       "cch": 0,
-      "ecs": 1.4946,
+      "ecs": 1.495,
       "etf": 0,
       "etf-c": 0,
       "fru": 0,
@@ -23417,7 +23417,7 @@
     "impacts": {
       "acd": 0,
       "cch": 0,
-      "ecs": 148.44,
+      "ecs": 148.4,
       "etf": 0,
       "etf-c": 0,
       "fru": 0,
@@ -23460,7 +23460,7 @@
     "impacts": {
       "acd": 0,
       "cch": 0,
-      "ecs": 172.14,
+      "ecs": 172.1,
       "etf": 0,
       "etf-c": 0,
       "fru": 0,
@@ -23503,7 +23503,7 @@
     "impacts": {
       "acd": 0,
       "cch": 0,
-      "ecs": 148.14,
+      "ecs": 148.1,
       "etf": 0,
       "etf-c": 0,
       "fru": 0,
@@ -23589,7 +23589,7 @@
     "impacts": {
       "acd": 0,
       "cch": 0,
-      "ecs": 245.94,
+      "ecs": 245.9,
       "etf": 0,
       "etf-c": 0,
       "fru": 0,
@@ -23632,7 +23632,7 @@
     "impacts": {
       "acd": 0,
       "cch": 0,
-      "ecs": 459.95,
+      "ecs": 460.0,
       "etf": 0,
       "etf-c": 0,
       "fru": 0,
@@ -23673,7 +23673,7 @@
     "impacts": {
       "acd": 0,
       "cch": 0,
-      "ecs": 284.03,
+      "ecs": 284.0,
       "etf": 0,
       "etf-c": 0,
       "fru": 0,
@@ -23759,7 +23759,7 @@
     "impacts": {
       "acd": 0,
       "cch": 0,
-      "ecs": 338.16,
+      "ecs": 338.2,
       "etf": 0,
       "etf-c": 0,
       "fru": 0,
@@ -23845,7 +23845,7 @@
     "impacts": {
       "acd": 0,
       "cch": 0,
-      "ecs": 72.546,
+      "ecs": 72.55,
       "etf": 0,
       "etf-c": 0,
       "fru": 0,
@@ -23888,7 +23888,7 @@
     "impacts": {
       "acd": 0,
       "cch": 0,
-      "ecs": 10.952,
+      "ecs": 10.95,
       "etf": 0,
       "etf-c": 0,
       "fru": 0,
@@ -23931,7 +23931,7 @@
     "impacts": {
       "acd": 0,
       "cch": 0,
-      "ecs": 0.27214,
+      "ecs": 0.2721,
       "etf": 0,
       "etf-c": 0,
       "fru": 0,
@@ -23974,7 +23974,7 @@
     "impacts": {
       "acd": 0,
       "cch": 0,
-      "ecs": 0.29554,
+      "ecs": 0.2955,
       "etf": 0,
       "etf-c": 0,
       "fru": 0,
@@ -24017,7 +24017,7 @@
     "impacts": {
       "acd": 0,
       "cch": 0,
-      "ecs": 15.279,
+      "ecs": 15.28,
       "etf": 0,
       "etf-c": 0,
       "fru": 0,
@@ -24060,7 +24060,7 @@
     "impacts": {
       "acd": 0,
       "cch": 0,
-      "ecs": 5.4703,
+      "ecs": 5.47,
       "etf": 0,
       "etf-c": 0,
       "fru": 0,
@@ -24103,7 +24103,7 @@
     "impacts": {
       "acd": 0,
       "cch": 0,
-      "ecs": 1.7222,
+      "ecs": 1.722,
       "etf": 0,
       "etf-c": 0,
       "fru": 0,
@@ -24187,7 +24187,7 @@
     "impacts": {
       "acd": 0,
       "cch": 0,
-      "ecs": 8.1343,
+      "ecs": 8.134,
       "etf": 0,
       "etf-c": 0,
       "fru": 0,
@@ -24230,7 +24230,7 @@
     "impacts": {
       "acd": 0,
       "cch": 0,
-      "ecs": 111.02,
+      "ecs": 111.0,
       "etf": 0,
       "etf-c": 0,
       "fru": 0,
@@ -24273,7 +24273,7 @@
     "impacts": {
       "acd": 0,
       "cch": 0,
-      "ecs": 83.301,
+      "ecs": 83.3,
       "etf": 0,
       "etf-c": 0,
       "fru": 0,
@@ -24316,7 +24316,7 @@
     "impacts": {
       "acd": 0,
       "cch": 0,
-      "ecs": 223.74,
+      "ecs": 223.7,
       "etf": 0,
       "etf-c": 0,
       "fru": 0,
@@ -24359,7 +24359,7 @@
     "impacts": {
       "acd": 0,
       "cch": 0,
-      "ecs": 370.87,
+      "ecs": 370.9,
       "etf": 0,
       "etf-c": 0,
       "fru": 0,
@@ -24402,7 +24402,7 @@
     "impacts": {
       "acd": 0,
       "cch": 0,
-      "ecs": 37.874,
+      "ecs": 37.87,
       "etf": 0,
       "etf-c": 0,
       "fru": 0,
@@ -24445,7 +24445,7 @@
     "impacts": {
       "acd": 0,
       "cch": 0,
-      "ecs": 115.35,
+      "ecs": 115.3,
       "etf": 0,
       "etf-c": 0,
       "fru": 0,
@@ -24488,7 +24488,7 @@
     "impacts": {
       "acd": 0,
       "cch": 0,
-      "ecs": 1068.1,
+      "ecs": 1068.0,
       "etf": 0,
       "etf-c": 0,
       "fru": 0,
@@ -24531,7 +24531,7 @@
     "impacts": {
       "acd": 0,
       "cch": 0,
-      "ecs": 104.04,
+      "ecs": 104.0,
       "etf": 0,
       "etf-c": 0,
       "fru": 0,
@@ -24574,7 +24574,7 @@
     "impacts": {
       "acd": 0,
       "cch": 0,
-      "ecs": 114.68,
+      "ecs": 114.7,
       "etf": 0,
       "etf-c": 0,
       "fru": 0,
@@ -24703,7 +24703,7 @@
     "impacts": {
       "acd": 0,
       "cch": 0,
-      "ecs": 1782.6,
+      "ecs": 1783.0,
       "etf": 0,
       "etf-c": 0,
       "fru": 0,
@@ -24785,7 +24785,7 @@
     "impacts": {
       "acd": 0,
       "cch": 0,
-      "ecs": 2.5849,
+      "ecs": 2.585,
       "etf": 0,
       "etf-c": 0,
       "fru": 0,
@@ -24828,7 +24828,7 @@
     "impacts": {
       "acd": 0,
       "cch": 0,
-      "ecs": 66.011,
+      "ecs": 66.01,
       "etf": 0,
       "etf-c": 0,
       "fru": 0,
@@ -24871,7 +24871,7 @@
     "impacts": {
       "acd": 0,
       "cch": 0,
-      "ecs": 862.76,
+      "ecs": 862.8,
       "etf": 0,
       "etf-c": 0,
       "fru": 0,
@@ -24914,7 +24914,7 @@
     "impacts": {
       "acd": 0,
       "cch": 0,
-      "ecs": 813.66,
+      "ecs": 813.7,
       "etf": 0,
       "etf-c": 0,
       "fru": 0,
@@ -24957,7 +24957,7 @@
     "impacts": {
       "acd": 0,
       "cch": 0,
-      "ecs": 10.968,
+      "ecs": 10.97,
       "etf": 0,
       "etf-c": 0,
       "fru": 0,
@@ -25000,7 +25000,7 @@
     "impacts": {
       "acd": 0,
       "cch": 0,
-      "ecs": 25.953,
+      "ecs": 25.95,
       "etf": 0,
       "etf-c": 0,
       "fru": 0,
@@ -25020,7 +25020,7 @@
       "wtu": 0
     },
     "location": "FR",
-    "massPerUnit": 0.27177,
+    "massPerUnit": 0.2718,
     "scopes": [
       "food"
     ],
@@ -25043,7 +25043,7 @@
     "impacts": {
       "acd": 0,
       "cch": 0,
-      "ecs": 6.2516,
+      "ecs": 6.252,
       "etf": 0,
       "etf-c": 0,
       "fru": 0,
@@ -25086,7 +25086,7 @@
     "impacts": {
       "acd": 0,
       "cch": 0,
-      "ecs": 3.1296,
+      "ecs": 3.13,
       "etf": 0,
       "etf-c": 0,
       "fru": 0,
@@ -25129,7 +25129,7 @@
     "impacts": {
       "acd": 0,
       "cch": 0,
-      "ecs": 1.9952,
+      "ecs": 1.995,
       "etf": 0,
       "etf-c": 0,
       "fru": 0,
@@ -25172,7 +25172,7 @@
     "impacts": {
       "acd": 0,
       "cch": 0,
-      "ecs": 230.05,
+      "ecs": 230.1,
       "etf": 0,
       "etf-c": 0,
       "fru": 0,
@@ -25215,7 +25215,7 @@
     "impacts": {
       "acd": 0,
       "cch": 0,
-      "ecs": 2.5677,
+      "ecs": 2.568,
       "etf": 0,
       "etf-c": 0,
       "fru": 0,
@@ -25258,7 +25258,7 @@
     "impacts": {
       "acd": 0,
       "cch": 0,
-      "ecs": 10.376,
+      "ecs": 10.38,
       "etf": 0,
       "etf-c": 0,
       "fru": 0,
@@ -25301,7 +25301,7 @@
     "impacts": {
       "acd": 0,
       "cch": 0,
-      "ecs": 10.572,
+      "ecs": 10.57,
       "etf": 0,
       "etf-c": 0,
       "fru": 0,
@@ -25344,7 +25344,7 @@
     "impacts": {
       "acd": 0,
       "cch": 0,
-      "ecs": 11.075,
+      "ecs": 11.08,
       "etf": 0,
       "etf-c": 0,
       "fru": 0,
@@ -25387,7 +25387,7 @@
     "impacts": {
       "acd": 0,
       "cch": 0,
-      "ecs": 15.656,
+      "ecs": 15.66,
       "etf": 0,
       "etf-c": 0,
       "fru": 0,
@@ -25407,7 +25407,7 @@
       "wtu": 0
     },
     "location": "FR",
-    "massPerUnit": 0.10551,
+    "massPerUnit": 0.1055,
     "scopes": [
       "food"
     ],
@@ -25430,7 +25430,7 @@
     "impacts": {
       "acd": 0,
       "cch": 0,
-      "ecs": 15.146,
+      "ecs": 15.15,
       "etf": 0,
       "etf-c": 0,
       "fru": 0,
@@ -25473,7 +25473,7 @@
     "impacts": {
       "acd": 0,
       "cch": 0,
-      "ecs": 8.2641,
+      "ecs": 8.264,
       "etf": 0,
       "etf-c": 0,
       "fru": 0,
@@ -25516,7 +25516,7 @@
     "impacts": {
       "acd": 0,
       "cch": 0,
-      "ecs": 22.941,
+      "ecs": 22.94,
       "etf": 0,
       "etf-c": 0,
       "fru": 0,
@@ -25536,7 +25536,7 @@
       "wtu": 0
     },
     "location": "FR",
-    "massPerUnit": 0.23815,
+    "massPerUnit": 0.2382,
     "scopes": [
       "food"
     ],
@@ -25559,7 +25559,7 @@
     "impacts": {
       "acd": 0,
       "cch": 0,
-      "ecs": 7.2531,
+      "ecs": 7.253,
       "etf": 0,
       "etf-c": 0,
       "fru": 0,
@@ -25602,7 +25602,7 @@
     "impacts": {
       "acd": 0,
       "cch": 0,
-      "ecs": 19.751,
+      "ecs": 19.75,
       "etf": 0,
       "etf-c": 0,
       "fru": 0,
@@ -25622,7 +25622,7 @@
       "wtu": 0
     },
     "location": "FR",
-    "massPerUnit": 0.20542,
+    "massPerUnit": 0.2054,
     "scopes": [
       "food"
     ],
@@ -25645,7 +25645,7 @@
     "impacts": {
       "acd": 0,
       "cch": 0,
-      "ecs": 22.328,
+      "ecs": 22.33,
       "etf": 0,
       "etf-c": 0,
       "fru": 0,
@@ -25688,7 +25688,7 @@
     "impacts": {
       "acd": 0,
       "cch": 0,
-      "ecs": 25.886,
+      "ecs": 25.89,
       "etf": 0,
       "etf-c": 0,
       "fru": 0,
@@ -25731,7 +25731,7 @@
     "impacts": {
       "acd": 0,
       "cch": 0,
-      "ecs": 115.81,
+      "ecs": 115.8,
       "etf": 0,
       "etf-c": 0,
       "fru": 0,
@@ -25774,7 +25774,7 @@
     "impacts": {
       "acd": 0,
       "cch": 0,
-      "ecs": 233.45,
+      "ecs": 233.5,
       "etf": 0,
       "etf-c": 0,
       "fru": 0,
@@ -25817,7 +25817,7 @@
     "impacts": {
       "acd": 0,
       "cch": 0,
-      "ecs": 188.17,
+      "ecs": 188.2,
       "etf": 0,
       "etf-c": 0,
       "fru": 0,
@@ -25860,7 +25860,7 @@
     "impacts": {
       "acd": 0,
       "cch": 0,
-      "ecs": 246.45,
+      "ecs": 246.5,
       "etf": 0,
       "etf-c": 0,
       "fru": 0,
@@ -25946,7 +25946,7 @@
     "impacts": {
       "acd": 0,
       "cch": 0,
-      "ecs": 17.865,
+      "ecs": 17.87,
       "etf": 0,
       "etf-c": 0,
       "fru": 0,
@@ -26116,7 +26116,7 @@
     "impacts": {
       "acd": 0,
       "cch": 0,
-      "ecs": 0.22738,
+      "ecs": 0.2274,
       "etf": 0,
       "etf-c": 0,
       "fru": 0,
@@ -26159,7 +26159,7 @@
     "impacts": {
       "acd": 0,
       "cch": 0,
-      "ecs": 75.511,
+      "ecs": 75.51,
       "etf": 0,
       "etf-c": 0,
       "fru": 0,
@@ -26179,7 +26179,7 @@
       "wtu": 0
     },
     "location": "FR",
-    "massPerUnit": 0.11094,
+    "massPerUnit": 0.1109,
     "scopes": [
       "food"
     ],
@@ -26202,7 +26202,7 @@
     "impacts": {
       "acd": 0,
       "cch": 0,
-      "ecs": 106.42,
+      "ecs": 106.4,
       "etf": 0,
       "etf-c": 0,
       "fru": 0,
@@ -26243,7 +26243,7 @@
     "impacts": {
       "acd": 0,
       "cch": 0,
-      "ecs": 325.22,
+      "ecs": 325.2,
       "etf": 0,
       "etf-c": 0,
       "fru": 0,
@@ -26327,7 +26327,7 @@
     "impacts": {
       "acd": 0,
       "cch": 0,
-      "ecs": 135.76,
+      "ecs": 135.8,
       "etf": 0,
       "etf-c": 0,
       "fru": 0,
@@ -26368,7 +26368,7 @@
     "impacts": {
       "acd": 0,
       "cch": 0,
-      "ecs": 155.76,
+      "ecs": 155.8,
       "etf": 0,
       "etf-c": 0,
       "fru": 0,
@@ -26411,7 +26411,7 @@
     "impacts": {
       "acd": 0,
       "cch": 0,
-      "ecs": 223.37,
+      "ecs": 223.4,
       "etf": 0,
       "etf-c": 0,
       "fru": 0,
@@ -26454,7 +26454,7 @@
     "impacts": {
       "acd": 0,
       "cch": 0,
-      "ecs": 86.109,
+      "ecs": 86.11,
       "etf": 0,
       "etf-c": 0,
       "fru": 0,
@@ -26497,7 +26497,7 @@
     "impacts": {
       "acd": 0,
       "cch": 0,
-      "ecs": 5.9302,
+      "ecs": 5.93,
       "etf": 0,
       "etf-c": 0,
       "fru": 0,
@@ -26540,7 +26540,7 @@
     "impacts": {
       "acd": 0,
       "cch": 0,
-      "ecs": 7.1164,
+      "ecs": 7.116,
       "etf": 0,
       "etf-c": 0,
       "fru": 0,
@@ -26583,7 +26583,7 @@
     "impacts": {
       "acd": 0,
       "cch": 0,
-      "ecs": 149.69,
+      "ecs": 149.7,
       "etf": 0,
       "etf-c": 0,
       "fru": 0,
@@ -26626,7 +26626,7 @@
     "impacts": {
       "acd": 0,
       "cch": 0,
-      "ecs": 3.8427,
+      "ecs": 3.843,
       "etf": 0,
       "etf-c": 0,
       "fru": 0,
@@ -26668,7 +26668,7 @@
     "impacts": {
       "acd": 0,
       "cch": 0,
-      "ecs": 124.05,
+      "ecs": 124.0,
       "etf": 0,
       "etf-c": 0,
       "fru": 0,
@@ -26711,7 +26711,7 @@
     "impacts": {
       "acd": 0,
       "cch": 0,
-      "ecs": 42.672,
+      "ecs": 42.67,
       "etf": 0,
       "etf-c": 0,
       "fru": 0,
@@ -26754,7 +26754,7 @@
     "impacts": {
       "acd": 0,
       "cch": 0,
-      "ecs": 20.724,
+      "ecs": 20.72,
       "etf": 0,
       "etf-c": 0,
       "fru": 0,
@@ -26774,7 +26774,7 @@
       "wtu": 0
     },
     "location": "FR",
-    "massPerUnit": 0.12002,
+    "massPerUnit": 0.12,
     "scopes": [
       "food"
     ],
@@ -26797,7 +26797,7 @@
     "impacts": {
       "acd": 0,
       "cch": 0,
-      "ecs": 38.205,
+      "ecs": 38.2,
       "etf": 0,
       "etf-c": 0,
       "fru": 0,
@@ -26817,7 +26817,7 @@
       "wtu": 0
     },
     "location": "FR",
-    "massPerUnit": 0.38915,
+    "massPerUnit": 0.3891,
     "scopes": [
       "food"
     ],
@@ -26840,7 +26840,7 @@
     "impacts": {
       "acd": 0,
       "cch": 0,
-      "ecs": 12.465,
+      "ecs": 12.46,
       "etf": 0,
       "etf-c": 0,
       "fru": 0,
@@ -26883,7 +26883,7 @@
     "impacts": {
       "acd": 0,
       "cch": 0,
-      "ecs": 17.649,
+      "ecs": 17.65,
       "etf": 0,
       "etf-c": 0,
       "fru": 0,
@@ -26903,7 +26903,7 @@
       "wtu": 0
     },
     "location": "FR",
-    "massPerUnit": 0.12258,
+    "massPerUnit": 0.1226,
     "scopes": [
       "food"
     ],
@@ -26926,7 +26926,7 @@
     "impacts": {
       "acd": 0,
       "cch": 0,
-      "ecs": 546.54,
+      "ecs": 546.5,
       "etf": 0,
       "etf-c": 0,
       "fru": 0,
@@ -27012,7 +27012,7 @@
     "impacts": {
       "acd": 0,
       "cch": 0,
-      "ecs": 22.739,
+      "ecs": 22.74,
       "etf": 0,
       "etf-c": 0,
       "fru": 0,
@@ -27098,7 +27098,7 @@
     "impacts": {
       "acd": 0,
       "cch": 0,
-      "ecs": 18.323,
+      "ecs": 18.32,
       "etf": 0,
       "etf-c": 0,
       "fru": 0,
@@ -27222,7 +27222,7 @@
     "impacts": {
       "acd": 0,
       "cch": 0,
-      "ecs": 757.66,
+      "ecs": 757.7,
       "etf": 0,
       "etf-c": 0,
       "fru": 0,
@@ -27305,7 +27305,7 @@
     "impacts": {
       "acd": 0,
       "cch": 0,
-      "ecs": 19.026,
+      "ecs": 19.03,
       "etf": 0,
       "etf-c": 0,
       "fru": 0,
@@ -27388,7 +27388,7 @@
     "impacts": {
       "acd": 0,
       "cch": 0,
-      "ecs": 1042.6,
+      "ecs": 1043.0,
       "etf": 0,
       "etf-c": 0,
       "fru": 0,
@@ -27466,7 +27466,7 @@
     ],
     "comment": "",
     "displayName": "Filature conventionnelle (40 Nm)",
-    "elecMJ": 13.104,
+    "elecMJ": 13.1,
     "heatMJ": 0,
     "id": "ace9db61-adc8-5287-a13b-dcd79a83fc28",
     "impacts": {
@@ -27596,7 +27596,7 @@
     "impacts": {
       "acd": 0,
       "cch": 0,
-      "ecs": 2026.2,
+      "ecs": 2026.0,
       "etf": 0,
       "etf-c": 0,
       "fru": 0,
@@ -27637,7 +27637,7 @@
     "impacts": {
       "acd": 0,
       "cch": 0,
-      "ecs": 787.71,
+      "ecs": 787.7,
       "etf": 0,
       "etf-c": 0,
       "fru": 0,
@@ -27678,7 +27678,7 @@
     "impacts": {
       "acd": 0,
       "cch": 0,
-      "ecs": 6.7036,
+      "ecs": 6.704,
       "etf": 0,
       "etf-c": 0,
       "fru": 0,
@@ -27719,7 +27719,7 @@
     "impacts": {
       "acd": 0,
       "cch": 0,
-      "ecs": 6.9821,
+      "ecs": 6.982,
       "etf": 0,
       "etf-c": 0,
       "fru": 0,
@@ -27762,7 +27762,7 @@
     "impacts": {
       "acd": 0,
       "cch": 0,
-      "ecs": 300.53,
+      "ecs": 300.5,
       "etf": 0,
       "etf-c": 0,
       "fru": 0,
@@ -27886,7 +27886,7 @@
     "impacts": {
       "acd": 0,
       "cch": 0,
-      "ecs": 4.0836,
+      "ecs": 4.084,
       "etf": 0,
       "etf-c": 0,
       "fru": 0,
@@ -27927,7 +27927,7 @@
     "impacts": {
       "acd": 0,
       "cch": 0,
-      "ecs": 7.0828,
+      "ecs": 7.083,
       "etf": 0,
       "etf-c": 0,
       "fru": 0,
@@ -27970,7 +27970,7 @@
     "impacts": {
       "acd": 0,
       "cch": 0,
-      "ecs": 147.07,
+      "ecs": 147.1,
       "etf": 0,
       "etf-c": 0,
       "fru": 0,
@@ -28013,7 +28013,7 @@
     "impacts": {
       "acd": 0,
       "cch": 0,
-      "ecs": 179.46,
+      "ecs": 179.5,
       "etf": 0,
       "etf-c": 0,
       "fru": 0,
@@ -28136,7 +28136,7 @@
     "impacts": {
       "acd": 0,
       "cch": 0,
-      "ecs": 1626.9,
+      "ecs": 1627.0,
       "etf": 0,
       "etf-c": 0,
       "fru": 0,
@@ -28255,7 +28255,7 @@
     ],
     "comment": "",
     "displayName": "Tissage (40Nm et 250 g/m2)",
-    "elecMJ": 20.952,
+    "elecMJ": 20.95,
     "heatMJ": 0,
     "id": "852452b3-430f-5d07-8ef5-f701dad19c52",
     "impacts": {
@@ -28343,7 +28343,7 @@
     "impacts": {
       "acd": 0,
       "cch": 0,
-      "ecs": 20.604,
+      "ecs": 20.6,
       "etf": 0,
       "etf-c": 0,
       "fru": 0,
@@ -28384,7 +28384,7 @@
     "impacts": {
       "acd": 0,
       "cch": 0,
-      "ecs": 1.9419,
+      "ecs": 1.942,
       "etf": 0,
       "etf-c": 0,
       "fru": 0,
@@ -28460,7 +28460,7 @@
     ],
     "comment": "Ancien identifiant (12/2024): 6524ac1e-cc95-4b5a-b462-2fccad7a0bce.",
     "displayName": "Tricotage fully-fashioned",
-    "elecMJ": 6.0644,
+    "elecMJ": 6.064,
     "heatMJ": 0,
     "id": "66ef36be-7691-5adc-a684-e83d45e53452",
     "impacts": {
@@ -28583,7 +28583,7 @@
     ],
     "comment": "Ancien identifiant (12/2024): 11648b33-f117-4eca-bb09-233c0ad0757f.",
     "displayName": "Tricotage seamless",
-    "elecMJ": 13.211,
+    "elecMJ": 13.21,
     "heatMJ": 0,
     "id": "b2dba726-83d2-55b2-8107-91c9e47bdca7",
     "impacts": {
@@ -28624,13 +28624,13 @@
     ],
     "comment": "Ancien identifiant (12/2024): 406d1f98-1052-458d-8f50-1901853d896d.",
     "displayName": "Utilisation : Impact hors repassage (Chemisier)",
-    "elecMJ": 0.80952,
+    "elecMJ": 0.8095,
     "heatMJ": 0,
     "id": "163e6de6-9f3f-588c-af3a-7b375438180f",
     "impacts": {
       "acd": 0,
       "cch": 0,
-      "ecs": 15.134,
+      "ecs": 15.13,
       "etf": 0,
       "etf-c": 0,
       "fru": 0,
@@ -28665,13 +28665,13 @@
     ],
     "comment": "Ancien identifiant (12/2024): 4964273a-cdbd-43cf-8cf8-4b017aee4f03.",
     "displayName": "Utilisation : Impact hors repassage (Jean)",
-    "elecMJ": 1.0266,
+    "elecMJ": 1.027,
     "heatMJ": 0,
     "id": "cefc9a3c-1bb2-50a4-a3ce-f56b891f764a",
     "impacts": {
       "acd": 0,
       "cch": 0,
-      "ecs": 15.134,
+      "ecs": 15.13,
       "etf": 0,
       "etf-c": 0,
       "fru": 0,
@@ -28706,13 +28706,13 @@
     ],
     "comment": "Ancien identifiant (12/2024): 2572015b-7320-4ce1-bc99-cc6de371a654.",
     "displayName": "Utilisation : Impact hors repassage (Jupe)",
-    "elecMJ": 0.80952,
+    "elecMJ": 0.8095,
     "heatMJ": 0,
     "id": "5ca66e62-356c-57ea-81e9-82951cb7f473",
     "impacts": {
       "acd": 0,
       "cch": 0,
-      "ecs": 15.134,
+      "ecs": 15.13,
       "etf": 0,
       "etf-c": 0,
       "fru": 0,
@@ -28753,7 +28753,7 @@
     "impacts": {
       "acd": 0,
       "cch": 0,
-      "ecs": 15.134,
+      "ecs": 15.13,
       "etf": 0,
       "etf-c": 0,
       "fru": 0,
@@ -28788,13 +28788,13 @@
     ],
     "comment": "Ancien identifiant (12/2024): ea7afeed-c058-4dbb-be01-66704a9afb1f.",
     "displayName": "Utilisation : Impact hors repassage (Pantalon)",
-    "elecMJ": 1.0266,
+    "elecMJ": 1.027,
     "heatMJ": 0,
     "id": "f38c0b5f-873c-5d98-b216-4bf66c5bc520",
     "impacts": {
       "acd": 0,
       "cch": 0,
-      "ecs": 15.134,
+      "ecs": 15.13,
       "etf": 0,
       "etf-c": 0,
       "fru": 0,
@@ -28829,13 +28829,13 @@
     ],
     "comment": "Ancien identifiant (12/2024): 2b39a7ac-38bd-435f-85a4-783023d845bf.",
     "displayName": "Utilisation : Impact hors repassage (Pull)",
-    "elecMJ": 1.0266,
+    "elecMJ": 1.027,
     "heatMJ": 0,
     "id": "a9ed30ef-4849-586f-98be-0c356054947e",
     "impacts": {
       "acd": 0,
       "cch": 0,
-      "ecs": 15.134,
+      "ecs": 15.13,
       "etf": 0,
       "etf-c": 0,
       "fru": 0,
@@ -28870,13 +28870,13 @@
     ],
     "comment": "Ancien identifiant (12/2024): d3bff7b7-efc1-459b-856d-ea0801d6912f.",
     "displayName": "Utilisation : Impact hors repassage (Robe)",
-    "elecMJ": 0.80952,
+    "elecMJ": 0.8095,
     "heatMJ": 0,
     "id": "91dad606-b36f-5241-bcf0-c80774647a64",
     "impacts": {
       "acd": 0,
       "cch": 0,
-      "ecs": 15.134,
+      "ecs": 15.13,
       "etf": 0,
       "etf-c": 0,
       "fru": 0,
@@ -28911,13 +28911,13 @@
     ],
     "comment": "Ancien identifiant (12/2024): 7f76529e-521d-4795-bb36-ff896c4692da.",
     "displayName": "Utilisation : Impact hors repassage (T-shirt)",
-    "elecMJ": 1.0266,
+    "elecMJ": 1.027,
     "heatMJ": 0,
     "id": "56a3b3e0-df9f-570b-b656-dab6724ab70c",
     "impacts": {
       "acd": 0,
       "cch": 0,
-      "ecs": 15.134,
+      "ecs": 15.13,
       "etf": 0,
       "etf-c": 0,
       "fru": 0,
@@ -28959,7 +28959,7 @@
     "impacts": {
       "acd": 0,
       "cch": 0,
-      "ecs": 1502.4,
+      "ecs": 1502.0,
       "etf": 0,
       "etf-c": 0,
       "fru": 0,
@@ -29001,7 +29001,7 @@
     "impacts": {
       "acd": 0,
       "cch": 0,
-      "ecs": 640.79,
+      "ecs": 640.8,
       "etf": 0,
       "etf-c": 0,
       "fru": 0,
@@ -29043,7 +29043,7 @@
     "impacts": {
       "acd": 0,
       "cch": 0,
-      "ecs": 41.715,
+      "ecs": 41.72,
       "etf": 0,
       "etf-c": 0,
       "fru": 0,
@@ -29127,7 +29127,7 @@
     "impacts": {
       "acd": 0,
       "cch": 0,
-      "ecs": 21.052,
+      "ecs": 21.05,
       "etf": 0,
       "etf-c": 0,
       "fru": 0,
@@ -29169,7 +29169,7 @@
     "impacts": {
       "acd": 0,
       "cch": 0,
-      "ecs": 137.96,
+      "ecs": 138.0,
       "etf": 0,
       "etf-c": 0,
       "fru": 0,
@@ -29211,7 +29211,7 @@
     "impacts": {
       "acd": 0,
       "cch": 0,
-      "ecs": 360.96,
+      "ecs": 361.0,
       "etf": 0,
       "etf-c": 0,
       "fru": 0,
@@ -29253,7 +29253,7 @@
     "impacts": {
       "acd": 0,
       "cch": 0,
-      "ecs": 34.709,
+      "ecs": 34.71,
       "etf": 0,
       "etf-c": 0,
       "fru": 0,
@@ -29295,7 +29295,7 @@
     "impacts": {
       "acd": 0,
       "cch": 0,
-      "ecs": 212.54,
+      "ecs": 212.5,
       "etf": 0,
       "etf-c": 0,
       "fru": 0,
@@ -29337,7 +29337,7 @@
     "impacts": {
       "acd": 0,
       "cch": 0,
-      "ecs": 329.52,
+      "ecs": 329.5,
       "etf": 0,
       "etf-c": 0,
       "fru": 0,
@@ -29380,7 +29380,7 @@
     "impacts": {
       "acd": 0,
       "cch": 0,
-      "ecs": 1298.4,
+      "ecs": 1298.0,
       "etf": 0,
       "etf-c": 0,
       "fru": 0,
@@ -29422,7 +29422,7 @@
     "impacts": {
       "acd": 0,
       "cch": 0,
-      "ecs": 88.963,
+      "ecs": 88.96,
       "etf": 0,
       "etf-c": 0,
       "fru": 0,
@@ -29464,7 +29464,7 @@
     "impacts": {
       "acd": 0,
       "cch": 0,
-      "ecs": 264.08,
+      "ecs": 264.1,
       "etf": 0,
       "etf-c": 0,
       "fru": 0,
@@ -29506,7 +29506,7 @@
     "impacts": {
       "acd": 0,
       "cch": 0,
-      "ecs": 49.229,
+      "ecs": 49.23,
       "etf": 0,
       "etf-c": 0,
       "fru": 0,
@@ -29548,7 +29548,7 @@
     "impacts": {
       "acd": 0,
       "cch": 0,
-      "ecs": 114.46,
+      "ecs": 114.5,
       "etf": 0,
       "etf-c": 0,
       "fru": 0,
@@ -29590,7 +29590,7 @@
     "impacts": {
       "acd": 0,
       "cch": 0,
-      "ecs": 296.51,
+      "ecs": 296.5,
       "etf": 0,
       "etf-c": 0,
       "fru": 0,
@@ -29632,7 +29632,7 @@
     "impacts": {
       "acd": 0,
       "cch": 0,
-      "ecs": 774.35,
+      "ecs": 774.4,
       "etf": 0,
       "etf-c": 0,
       "fru": 0,
@@ -29674,7 +29674,7 @@
     "impacts": {
       "acd": 0,
       "cch": 0,
-      "ecs": 1205.9,
+      "ecs": 1206.0,
       "etf": 0,
       "etf-c": 0,
       "fru": 0,
@@ -29716,7 +29716,7 @@
     "impacts": {
       "acd": 0,
       "cch": 0,
-      "ecs": 2124.6,
+      "ecs": 2125.0,
       "etf": 0,
       "etf-c": 0,
       "fru": 0,
@@ -29758,7 +29758,7 @@
     "impacts": {
       "acd": 0,
       "cch": 0,
-      "ecs": 2665.2,
+      "ecs": 2665.0,
       "etf": 0,
       "etf-c": 0,
       "fru": 0,
@@ -29800,7 +29800,7 @@
     "impacts": {
       "acd": 0,
       "cch": 0,
-      "ecs": 4533.2,
+      "ecs": 4533.0,
       "etf": 0,
       "etf-c": 0,
       "fru": 0,
@@ -29842,7 +29842,7 @@
     "impacts": {
       "acd": 0,
       "cch": 0,
-      "ecs": 571.42,
+      "ecs": 571.4,
       "etf": 0,
       "etf-c": 0,
       "fru": 0,
@@ -29884,7 +29884,7 @@
     "impacts": {
       "acd": 0,
       "cch": 0,
-      "ecs": 342.45,
+      "ecs": 342.4,
       "etf": 0,
       "etf-c": 0,
       "fru": 0,
@@ -29926,7 +29926,7 @@
     "impacts": {
       "acd": 0,
       "cch": 0,
-      "ecs": 663.58,
+      "ecs": 663.6,
       "etf": 0,
       "etf-c": 0,
       "fru": 0,
@@ -29968,7 +29968,7 @@
     "impacts": {
       "acd": 0,
       "cch": 0,
-      "ecs": 1030.3,
+      "ecs": 1030.0,
       "etf": 0,
       "etf-c": 0,
       "fru": 0,
@@ -30010,7 +30010,7 @@
     "impacts": {
       "acd": 0,
       "cch": 0,
-      "ecs": 552.73,
+      "ecs": 552.7,
       "etf": 0,
       "etf-c": 0,
       "fru": 0,
@@ -30095,7 +30095,7 @@
     "impacts": {
       "acd": 0,
       "cch": 0,
-      "ecs": 769.08,
+      "ecs": 769.1,
       "etf": 0,
       "etf-c": 0,
       "fru": 0,
@@ -30138,7 +30138,7 @@
     "impacts": {
       "acd": 0,
       "cch": 0,
-      "ecs": 480.06,
+      "ecs": 480.1,
       "etf": 0,
       "etf-c": 0,
       "fru": 0,
@@ -30179,7 +30179,7 @@
     "impacts": {
       "acd": 0,
       "cch": 0,
-      "ecs": 810.24,
+      "ecs": 810.2,
       "etf": 0,
       "etf-c": 0,
       "fru": 0,
@@ -30222,7 +30222,7 @@
     "impacts": {
       "acd": 0,
       "cch": 0,
-      "ecs": 577.36,
+      "ecs": 577.4,
       "etf": 0,
       "etf-c": 0,
       "fru": 0,
@@ -30264,7 +30264,7 @@
     "impacts": {
       "acd": 0,
       "cch": 0,
-      "ecs": 535.76,
+      "ecs": 535.8,
       "etf": 0,
       "etf-c": 0,
       "fru": 0,
@@ -30306,7 +30306,7 @@
     "impacts": {
       "acd": 0,
       "cch": 0,
-      "ecs": 836.86,
+      "ecs": 836.9,
       "etf": 0,
       "etf-c": 0,
       "fru": 0,
@@ -30348,7 +30348,7 @@
     "impacts": {
       "acd": 0,
       "cch": 0,
-      "ecs": 719.44,
+      "ecs": 719.4,
       "etf": 0,
       "etf-c": 0,
       "fru": 0,
@@ -30475,7 +30475,7 @@
     "impacts": {
       "acd": 0,
       "cch": 0,
-      "ecs": 970.42,
+      "ecs": 970.4,
       "etf": 0,
       "etf-c": 0,
       "fru": 0,
@@ -30517,7 +30517,7 @@
     "impacts": {
       "acd": 0,
       "cch": 0,
-      "ecs": 1525.9,
+      "ecs": 1526.0,
       "etf": 0,
       "etf-c": 0,
       "fru": 0,
@@ -30643,7 +30643,7 @@
     "impacts": {
       "acd": 0,
       "cch": 0,
-      "ecs": 714.06,
+      "ecs": 714.1,
       "etf": 0,
       "etf-c": 0,
       "fru": 0,
@@ -30685,7 +30685,7 @@
     "impacts": {
       "acd": 0,
       "cch": 0,
-      "ecs": 1110.3,
+      "ecs": 1110.0,
       "etf": 0,
       "etf-c": 0,
       "fru": 0,
@@ -30727,7 +30727,7 @@
     "impacts": {
       "acd": 0,
       "cch": 0,
-      "ecs": 70.433,
+      "ecs": 70.43,
       "etf": 0,
       "etf-c": 0,
       "fru": 0,
@@ -30769,7 +30769,7 @@
     "impacts": {
       "acd": 0,
       "cch": 0,
-      "ecs": 78.106,
+      "ecs": 78.11,
       "etf": 0,
       "etf-c": 0,
       "fru": 0,
@@ -30811,7 +30811,7 @@
     "impacts": {
       "acd": 0,
       "cch": 0,
-      "ecs": 11.587,
+      "ecs": 11.59,
       "etf": 0,
       "etf-c": 0,
       "fru": 0,
@@ -30853,7 +30853,7 @@
     "impacts": {
       "acd": 0,
       "cch": 0,
-      "ecs": 513.47,
+      "ecs": 513.5,
       "etf": 0,
       "etf-c": 0,
       "fru": 0,
@@ -30895,7 +30895,7 @@
     "impacts": {
       "acd": 0,
       "cch": 0,
-      "ecs": 802.27,
+      "ecs": 802.3,
       "etf": 0,
       "etf-c": 0,
       "fru": 0,
@@ -30979,7 +30979,7 @@
     "impacts": {
       "acd": 0,
       "cch": 0,
-      "ecs": 1154.8,
+      "ecs": 1155.0,
       "etf": 0,
       "etf-c": 0,
       "fru": 0,
@@ -31021,7 +31021,7 @@
     "impacts": {
       "acd": 0,
       "cch": 0,
-      "ecs": 496.64,
+      "ecs": 496.6,
       "etf": 0,
       "etf-c": 0,
       "fru": 0,
@@ -31063,7 +31063,7 @@
     "impacts": {
       "acd": 0,
       "cch": 0,
-      "ecs": 1226.5,
+      "ecs": 1226.0,
       "etf": 0,
       "etf-c": 0,
       "fru": 0,
@@ -31105,7 +31105,7 @@
     "impacts": {
       "acd": 0,
       "cch": 0,
-      "ecs": 360.29,
+      "ecs": 360.3,
       "etf": 0,
       "etf-c": 0,
       "fru": 0,
@@ -31147,7 +31147,7 @@
     "impacts": {
       "acd": 0,
       "cch": 0,
-      "ecs": 785.57,
+      "ecs": 785.6,
       "etf": 0,
       "etf-c": 0,
       "fru": 0,
@@ -31189,7 +31189,7 @@
     "impacts": {
       "acd": 0,
       "cch": 0,
-      "ecs": 1223.7,
+      "ecs": 1224.0,
       "etf": 0,
       "etf-c": 0,
       "fru": 0,
@@ -31232,7 +31232,7 @@
     "impacts": {
       "acd": 0,
       "cch": 0,
-      "ecs": 1226.5,
+      "ecs": 1227.0,
       "etf": 0,
       "etf-c": 0,
       "fru": 0,
@@ -31275,7 +31275,7 @@
     "impacts": {
       "acd": 0,
       "cch": 0,
-      "ecs": 1240.3,
+      "ecs": 1240.0,
       "etf": 0,
       "etf-c": 0,
       "fru": 0,
@@ -31317,7 +31317,7 @@
     "impacts": {
       "acd": 0,
       "cch": 0,
-      "ecs": 84.473,
+      "ecs": 84.47,
       "etf": 0,
       "etf-c": 0,
       "fru": 0,
@@ -31359,7 +31359,7 @@
     "impacts": {
       "acd": 0,
       "cch": 0,
-      "ecs": 157.19,
+      "ecs": 157.2,
       "etf": 0,
       "etf-c": 0,
       "fru": 0,
@@ -31401,7 +31401,7 @@
     "impacts": {
       "acd": 0,
       "cch": 0,
-      "ecs": 69.191,
+      "ecs": 69.19,
       "etf": 0,
       "etf-c": 0,
       "fru": 0,
@@ -31486,7 +31486,7 @@
     "impacts": {
       "acd": 0,
       "cch": 0,
-      "ecs": 19.301,
+      "ecs": 19.3,
       "etf": 0,
       "etf-c": 0,
       "fru": 0,
@@ -31528,7 +31528,7 @@
     "impacts": {
       "acd": 0,
       "cch": 0,
-      "ecs": 228.81,
+      "ecs": 228.8,
       "etf": 0,
       "etf-c": 0,
       "fru": 0,
@@ -31613,7 +31613,7 @@
     "impacts": {
       "acd": 0,
       "cch": 0,
-      "ecs": 1083.5,
+      "ecs": 1084.0,
       "etf": 0,
       "etf-c": 0,
       "fru": 0,
@@ -31655,7 +31655,7 @@
     "impacts": {
       "acd": 0,
       "cch": 0,
-      "ecs": 317.03,
+      "ecs": 317.0,
       "etf": 0,
       "etf-c": 0,
       "fru": 0,
@@ -31697,7 +31697,7 @@
     "impacts": {
       "acd": 0,
       "cch": 0,
-      "ecs": 490.14,
+      "ecs": 490.1,
       "etf": 0,
       "etf-c": 0,
       "fru": 0,
@@ -31739,7 +31739,7 @@
     "impacts": {
       "acd": 0,
       "cch": 0,
-      "ecs": 371.71,
+      "ecs": 371.7,
       "etf": 0,
       "etf-c": 0,
       "fru": 0,
@@ -31781,7 +31781,7 @@
     "impacts": {
       "acd": 0,
       "cch": 0,
-      "ecs": 576.82,
+      "ecs": 576.8,
       "etf": 0,
       "etf-c": 0,
       "fru": 0,
@@ -31823,7 +31823,7 @@
     "impacts": {
       "acd": 0,
       "cch": 0,
-      "ecs": 1386.5,
+      "ecs": 1386.0,
       "etf": 0,
       "etf-c": 0,
       "fru": 0,
@@ -31865,7 +31865,7 @@
     "impacts": {
       "acd": 0,
       "cch": 0,
-      "ecs": 963.39,
+      "ecs": 963.4,
       "etf": 0,
       "etf-c": 0,
       "fru": 0,
@@ -31907,7 +31907,7 @@
     "impacts": {
       "acd": 0,
       "cch": 0,
-      "ecs": 1371.4,
+      "ecs": 1371.0,
       "etf": 0,
       "etf-c": 0,
       "fru": 0,
@@ -31949,7 +31949,7 @@
     "impacts": {
       "acd": 0,
       "cch": 0,
-      "ecs": 351.19,
+      "ecs": 351.2,
       "etf": 0,
       "etf-c": 0,
       "fru": 0,
@@ -31991,7 +31991,7 @@
     "impacts": {
       "acd": 0,
       "cch": 0,
-      "ecs": 341.03,
+      "ecs": 341.0,
       "etf": 0,
       "etf-c": 0,
       "fru": 0,
@@ -32033,7 +32033,7 @@
     "impacts": {
       "acd": 0,
       "cch": 0,
-      "ecs": 719.67,
+      "ecs": 719.7,
       "etf": 0,
       "etf-c": 0,
       "fru": 0,
@@ -32075,7 +32075,7 @@
     "impacts": {
       "acd": 0,
       "cch": 0,
-      "ecs": 1119.2,
+      "ecs": 1119.0,
       "etf": 0,
       "etf-c": 0,
       "fru": 0,
@@ -32117,7 +32117,7 @@
     "impacts": {
       "acd": 0,
       "cch": 0,
-      "ecs": 186.45,
+      "ecs": 186.5,
       "etf": 0,
       "etf-c": 0,
       "fru": 0,
@@ -32159,7 +32159,7 @@
     "impacts": {
       "acd": 0,
       "cch": 0,
-      "ecs": 286.55,
+      "ecs": 286.5,
       "etf": 0,
       "etf-c": 0,
       "fru": 0,
@@ -32201,7 +32201,7 @@
     "impacts": {
       "acd": 0,
       "cch": 0,
-      "ecs": 535.91,
+      "ecs": 535.9,
       "etf": 0,
       "etf-c": 0,
       "fru": 0,
@@ -32243,7 +32243,7 @@
     "impacts": {
       "acd": 0,
       "cch": 0,
-      "ecs": 837.83,
+      "ecs": 837.8,
       "etf": 0,
       "etf-c": 0,
       "fru": 0,
@@ -32327,7 +32327,7 @@
     "impacts": {
       "acd": 0,
       "cch": 0,
-      "ecs": 134.13,
+      "ecs": 134.1,
       "etf": 0,
       "etf-c": 0,
       "fru": 0,
@@ -32369,7 +32369,7 @@
     "impacts": {
       "acd": 0,
       "cch": 0,
-      "ecs": 346.51,
+      "ecs": 346.5,
       "etf": 0,
       "etf-c": 0,
       "fru": 0,
@@ -32411,7 +32411,7 @@
     "impacts": {
       "acd": 0,
       "cch": 0,
-      "ecs": 85.394,
+      "ecs": 85.39,
       "etf": 0,
       "etf-c": 0,
       "fru": 0,
@@ -32495,7 +32495,7 @@
     "impacts": {
       "acd": 0,
       "cch": 0,
-      "ecs": 77.107,
+      "ecs": 77.11,
       "etf": 0,
       "etf-c": 0,
       "fru": 0,
@@ -32537,7 +32537,7 @@
     "impacts": {
       "acd": 0,
       "cch": 0,
-      "ecs": -17.036,
+      "ecs": -17.04,
       "etf": 0,
       "etf-c": 0,
       "fru": 0,
@@ -32579,7 +32579,7 @@
     "impacts": {
       "acd": 0,
       "cch": 0,
-      "ecs": 580.78,
+      "ecs": 580.8,
       "etf": 0,
       "etf-c": 0,
       "fru": 0,
@@ -32621,7 +32621,7 @@
     "impacts": {
       "acd": 0,
       "cch": 0,
-      "ecs": 908.96,
+      "ecs": 909.0,
       "etf": 0,
       "etf-c": 0,
       "fru": 0,
@@ -32663,7 +32663,7 @@
     "impacts": {
       "acd": 0,
       "cch": 0,
-      "ecs": 166.82,
+      "ecs": 166.8,
       "etf": 0,
       "etf-c": 0,
       "fru": 0,
@@ -32705,7 +32705,7 @@
     "impacts": {
       "acd": 0,
       "cch": 0,
-      "ecs": 255.43,
+      "ecs": 255.4,
       "etf": 0,
       "etf-c": 0,
       "fru": 0,
@@ -32747,7 +32747,7 @@
     "impacts": {
       "acd": 0,
       "cch": 0,
-      "ecs": 197.67,
+      "ecs": 197.7,
       "etf": 0,
       "etf-c": 0,
       "fru": 0,
@@ -32789,7 +32789,7 @@
     "impacts": {
       "acd": 0,
       "cch": 0,
-      "ecs": 304.33,
+      "ecs": 304.3,
       "etf": 0,
       "etf-c": 0,
       "fru": 0,
@@ -32831,7 +32831,7 @@
     "impacts": {
       "acd": 0,
       "cch": 0,
-      "ecs": 245.34,
+      "ecs": 245.3,
       "etf": 0,
       "etf-c": 0,
       "fru": 0,
@@ -32957,7 +32957,7 @@
     "impacts": {
       "acd": 0,
       "cch": 0,
-      "ecs": 680.67,
+      "ecs": 680.7,
       "etf": 0,
       "etf-c": 0,
       "fru": 0,
@@ -32999,7 +32999,7 @@
     "impacts": {
       "acd": 0,
       "cch": 0,
-      "ecs": 320.83,
+      "ecs": 320.8,
       "etf": 0,
       "etf-c": 0,
       "fru": 0,
@@ -33041,7 +33041,7 @@
     "impacts": {
       "acd": 0,
       "cch": 0,
-      "ecs": 772.12,
+      "ecs": 772.1,
       "etf": 0,
       "etf-c": 0,
       "fru": 0,
@@ -33083,7 +33083,7 @@
     "impacts": {
       "acd": 0,
       "cch": 0,
-      "ecs": 568.16,
+      "ecs": 568.2,
       "etf": 0,
       "etf-c": 0,
       "fru": 0,
@@ -33125,7 +33125,7 @@
     "impacts": {
       "acd": 0,
       "cch": 0,
-      "ecs": 888.95,
+      "ecs": 889.0,
       "etf": 0,
       "etf-c": 0,
       "fru": 0,
@@ -33167,7 +33167,7 @@
     "impacts": {
       "acd": 0,
       "cch": 0,
-      "ecs": 728.08,
+      "ecs": 728.1,
       "etf": 0,
       "etf-c": 0,
       "fru": 0,
@@ -33209,7 +33209,7 @@
     "impacts": {
       "acd": 0,
       "cch": 0,
-      "ecs": 1132.6,
+      "ecs": 1133.0,
       "etf": 0,
       "etf-c": 0,
       "fru": 0,
@@ -33251,7 +33251,7 @@
     "impacts": {
       "acd": 0,
       "cch": 0,
-      "ecs": 187.32,
+      "ecs": 187.3,
       "etf": 0,
       "etf-c": 0,
       "fru": 0,
@@ -33293,7 +33293,7 @@
     "impacts": {
       "acd": 0,
       "cch": 0,
-      "ecs": 73.491,
+      "ecs": 73.49,
       "etf": 0,
       "etf-c": 0,
       "fru": 0,
@@ -33377,7 +33377,7 @@
     "impacts": {
       "acd": 0,
       "cch": 0,
-      "ecs": 131.64,
+      "ecs": 131.6,
       "etf": 0,
       "etf-c": 0,
       "fru": 0,
@@ -33419,7 +33419,7 @@
     "impacts": {
       "acd": 0,
       "cch": 0,
-      "ecs": 3140.9,
+      "ecs": 3141.0,
       "etf": 0,
       "etf-c": 0,
       "fru": 0,
@@ -33461,7 +33461,7 @@
     "impacts": {
       "acd": 0,
       "cch": 0,
-      "ecs": 151.96,
+      "ecs": 152.0,
       "etf": 0,
       "etf-c": 0,
       "fru": 0,
@@ -33504,7 +33504,7 @@
     "impacts": {
       "acd": 0,
       "cch": 0,
-      "ecs": 5373.1,
+      "ecs": 5373.0,
       "etf": 0,
       "etf-c": 0,
       "fru": 0,
@@ -33547,7 +33547,7 @@
     "impacts": {
       "acd": 0,
       "cch": 0,
-      "ecs": 1802.7,
+      "ecs": 1803.0,
       "etf": 0,
       "etf-c": 0,
       "fru": 0,
@@ -33590,7 +33590,7 @@
     "impacts": {
       "acd": 0,
       "cch": 0,
-      "ecs": 2526.6,
+      "ecs": 2527.0,
       "etf": 0,
       "etf-c": 0,
       "fru": 0,
@@ -33632,7 +33632,7 @@
     "impacts": {
       "acd": 0,
       "cch": 0,
-      "ecs": 793.98,
+      "ecs": 794.0,
       "etf": 0,
       "etf-c": 0,
       "fru": 0,
@@ -33716,7 +33716,7 @@
     "impacts": {
       "acd": 0,
       "cch": 0,
-      "ecs": 1335.5,
+      "ecs": 1335.0,
       "etf": 0,
       "etf-c": 0,
       "fru": 0,
@@ -33758,7 +33758,7 @@
     "impacts": {
       "acd": 0,
       "cch": 0,
-      "ecs": 3379.6,
+      "ecs": 3380.0,
       "etf": 0,
       "etf-c": 0,
       "fru": 0,
@@ -33800,7 +33800,7 @@
     "impacts": {
       "acd": 0,
       "cch": 0,
-      "ecs": 1297.7,
+      "ecs": 1298.0,
       "etf": 0,
       "etf-c": 0,
       "fru": 0,
@@ -33843,7 +33843,7 @@
     "impacts": {
       "acd": 0,
       "cch": 0,
-      "ecs": 1233.4,
+      "ecs": 1233.0,
       "etf": 0,
       "etf-c": 0,
       "fru": 0,
@@ -33885,7 +33885,7 @@
     "impacts": {
       "acd": 0,
       "cch": 0,
-      "ecs": 154.66,
+      "ecs": 154.7,
       "etf": 0,
       "etf-c": 0,
       "fru": 0,
@@ -33927,7 +33927,7 @@
     "impacts": {
       "acd": 0,
       "cch": 0,
-      "ecs": 779.52,
+      "ecs": 779.5,
       "etf": 0,
       "etf-c": 0,
       "fru": 0,
@@ -33969,7 +33969,7 @@
     "impacts": {
       "acd": 0,
       "cch": 0,
-      "ecs": 30.221,
+      "ecs": 30.22,
       "etf": 0,
       "etf-c": 0,
       "fru": 0,
@@ -34011,7 +34011,7 @@
     "impacts": {
       "acd": 0,
       "cch": 0,
-      "ecs": 13.655,
+      "ecs": 13.66,
       "etf": 0,
       "etf-c": 0,
       "fru": 0,
@@ -34095,7 +34095,7 @@
     "impacts": {
       "acd": 0,
       "cch": 0,
-      "ecs": 765.45,
+      "ecs": 765.5,
       "etf": 0,
       "etf-c": 0,
       "fru": 0,
@@ -34136,7 +34136,7 @@
     "impacts": {
       "acd": 0,
       "cch": 0,
-      "ecs": 1085.9,
+      "ecs": 1086.0,
       "etf": 0,
       "etf-c": 0,
       "fru": 0,
@@ -34177,7 +34177,7 @@
     "impacts": {
       "acd": 0,
       "cch": 0,
-      "ecs": 579.78,
+      "ecs": 579.8,
       "etf": 0,
       "etf-c": 0,
       "fru": 0,
@@ -34218,7 +34218,7 @@
     "impacts": {
       "acd": 0,
       "cch": 0,
-      "ecs": 1235.8,
+      "ecs": 1236.0,
       "etf": 0,
       "etf-c": 0,
       "fru": 0,
@@ -34259,7 +34259,7 @@
     "impacts": {
       "acd": 0,
       "cch": 0,
-      "ecs": 620.04,
+      "ecs": 620.0,
       "etf": 0,
       "etf-c": 0,
       "fru": 0,
@@ -34301,7 +34301,7 @@
     "impacts": {
       "acd": 0,
       "cch": 0,
-      "ecs": 59.458,
+      "ecs": 59.46,
       "etf": 0,
       "etf-c": 0,
       "fru": 0,
@@ -34343,7 +34343,7 @@
     "impacts": {
       "acd": 0,
       "cch": 0,
-      "ecs": 396.69,
+      "ecs": 396.7,
       "etf": 0,
       "etf-c": 0,
       "fru": 0,
@@ -34385,7 +34385,7 @@
     "impacts": {
       "acd": 0,
       "cch": 0,
-      "ecs": 24.684,
+      "ecs": 24.68,
       "etf": 0,
       "etf-c": 0,
       "fru": 0,
@@ -34428,7 +34428,7 @@
     "impacts": {
       "acd": 0,
       "cch": 0,
-      "ecs": 1162.5,
+      "ecs": 1163.0,
       "etf": 0,
       "etf-c": 0,
       "fru": 0,
@@ -34471,7 +34471,7 @@
     "impacts": {
       "acd": 0,
       "cch": 0,
-      "ecs": 1634.5,
+      "ecs": 1635.0,
       "etf": 0,
       "etf-c": 0,
       "fru": 0,
@@ -34514,7 +34514,7 @@
     "impacts": {
       "acd": 0,
       "cch": 0,
-      "ecs": 3490.7,
+      "ecs": 3491.0,
       "etf": 0,
       "etf-c": 0,
       "fru": 0,
@@ -34557,7 +34557,7 @@
     "impacts": {
       "acd": 0,
       "cch": 0,
-      "ecs": 1581.6,
+      "ecs": 1582.0,
       "etf": 0,
       "etf-c": 0,
       "fru": 0,
@@ -34600,7 +34600,7 @@
     "impacts": {
       "acd": 0,
       "cch": 0,
-      "ecs": 1022.7,
+      "ecs": 1023.0,
       "etf": 0,
       "etf-c": 0,
       "fru": 0,
@@ -34643,7 +34643,7 @@
     "impacts": {
       "acd": 0,
       "cch": 0,
-      "ecs": 1210.9,
+      "ecs": 1211.0,
       "etf": 0,
       "etf-c": 0,
       "fru": 0,
@@ -34686,7 +34686,7 @@
     "impacts": {
       "acd": 0,
       "cch": 0,
-      "ecs": 1140.2,
+      "ecs": 1140.0,
       "etf": 0,
       "etf-c": 0,
       "fru": 0,
@@ -34729,7 +34729,7 @@
     "impacts": {
       "acd": 0,
       "cch": 0,
-      "ecs": 4367.9,
+      "ecs": 4368.0,
       "etf": 0,
       "etf-c": 0,
       "fru": 0,
@@ -34772,7 +34772,7 @@
     "impacts": {
       "acd": 0,
       "cch": 0,
-      "ecs": 1457.7,
+      "ecs": 1458.0,
       "etf": 0,
       "etf-c": 0,
       "fru": 0,
@@ -34815,7 +34815,7 @@
     "impacts": {
       "acd": 0,
       "cch": 0,
-      "ecs": 2047.7,
+      "ecs": 2048.0,
       "etf": 0,
       "etf-c": 0,
       "fru": 0,
@@ -34898,7 +34898,7 @@
     "impacts": {
       "acd": 0,
       "cch": 0,
-      "ecs": 548.53,
+      "ecs": 548.5,
       "etf": 0,
       "etf-c": 0,
       "fru": 0,
@@ -34940,7 +34940,7 @@
     "impacts": {
       "acd": 0,
       "cch": 0,
-      "ecs": 857.84,
+      "ecs": 857.8,
       "etf": 0,
       "etf-c": 0,
       "fru": 0,
@@ -34982,7 +34982,7 @@
     "impacts": {
       "acd": 0,
       "cch": 0,
-      "ecs": 437.76,
+      "ecs": 437.8,
       "etf": 0,
       "etf-c": 0,
       "fru": 0,
@@ -35024,7 +35024,7 @@
     "impacts": {
       "acd": 0,
       "cch": 0,
-      "ecs": 682.25,
+      "ecs": 682.3,
       "etf": 0,
       "etf-c": 0,
       "fru": 0,
@@ -35066,7 +35066,7 @@
     "impacts": {
       "acd": 0,
       "cch": 0,
-      "ecs": 587.79,
+      "ecs": 587.8,
       "etf": 0,
       "etf-c": 0,
       "fru": 0,
@@ -35108,7 +35108,7 @@
     "impacts": {
       "acd": 0,
       "cch": 0,
-      "ecs": 920.07,
+      "ecs": 920.1,
       "etf": 0,
       "etf-c": 0,
       "fru": 0,
@@ -35150,7 +35150,7 @@
     "impacts": {
       "acd": 0,
       "cch": 0,
-      "ecs": 134.65,
+      "ecs": 134.6,
       "etf": 0,
       "etf-c": 0,
       "fru": 0,
@@ -35192,7 +35192,7 @@
     "impacts": {
       "acd": 0,
       "cch": 0,
-      "ecs": 204.31,
+      "ecs": 204.3,
       "etf": 0,
       "etf-c": 0,
       "fru": 0,
@@ -35234,7 +35234,7 @@
     "impacts": {
       "acd": 0,
       "cch": 0,
-      "ecs": 361.28,
+      "ecs": 361.3,
       "etf": 0,
       "etf-c": 0,
       "fru": 0,
@@ -35276,7 +35276,7 @@
     "impacts": {
       "acd": 0,
       "cch": 0,
-      "ecs": 20.489,
+      "ecs": 20.49,
       "etf": 0,
       "etf-c": 0,
       "fru": 0,
@@ -35318,7 +35318,7 @@
     "impacts": {
       "acd": 0,
       "cch": 0,
-      "ecs": 110.68,
+      "ecs": 110.7,
       "etf": 0,
       "etf-c": 0,
       "fru": 0,
@@ -35360,7 +35360,7 @@
     "impacts": {
       "acd": 0,
       "cch": 0,
-      "ecs": 116.49,
+      "ecs": 116.5,
       "etf": 0,
       "etf-c": 0,
       "fru": 0,
@@ -35402,7 +35402,7 @@
     "impacts": {
       "acd": 0,
       "cch": 0,
-      "ecs": 817.82,
+      "ecs": 817.8,
       "etf": 0,
       "etf-c": 0,
       "fru": 0,
@@ -35444,7 +35444,7 @@
     "impacts": {
       "acd": 0,
       "cch": 0,
-      "ecs": 1274.8,
+      "ecs": 1275.0,
       "etf": 0,
       "etf-c": 0,
       "fru": 0,
@@ -35486,7 +35486,7 @@
     "impacts": {
       "acd": 0,
       "cch": 0,
-      "ecs": 1334.9,
+      "ecs": 1335.0,
       "etf": 0,
       "etf-c": 0,
       "fru": 0,
@@ -35529,7 +35529,7 @@
     "impacts": {
       "acd": 0,
       "cch": 0,
-      "ecs": 171.25,
+      "ecs": 171.2,
       "etf": 0,
       "etf-c": 0,
       "fru": 0,
@@ -35572,7 +35572,7 @@
     "impacts": {
       "acd": 0,
       "cch": 0,
-      "ecs": 179.88,
+      "ecs": 179.9,
       "etf": 0,
       "etf-c": 0,
       "fru": 0,
@@ -35615,7 +35615,7 @@
     "impacts": {
       "acd": 0,
       "cch": 0,
-      "ecs": 175.47,
+      "ecs": 175.5,
       "etf": 0,
       "etf-c": 0,
       "fru": 0,
@@ -35658,7 +35658,7 @@
     "impacts": {
       "acd": 0,
       "cch": 0,
-      "ecs": 168.89,
+      "ecs": 168.9,
       "etf": 0,
       "etf-c": 0,
       "fru": 0,
@@ -35701,7 +35701,7 @@
     "impacts": {
       "acd": 0,
       "cch": 0,
-      "ecs": 177.88,
+      "ecs": 177.9,
       "etf": 0,
       "etf-c": 0,
       "fru": 0,
@@ -35743,7 +35743,7 @@
     "impacts": {
       "acd": 0,
       "cch": 0,
-      "ecs": 151.69,
+      "ecs": 151.7,
       "etf": 0,
       "etf-c": 0,
       "fru": 0,
@@ -35827,7 +35827,7 @@
     "impacts": {
       "acd": 0,
       "cch": 0,
-      "ecs": 112.54,
+      "ecs": 112.5,
       "etf": 0,
       "etf-c": 0,
       "fru": 0,
@@ -35869,7 +35869,7 @@
     "impacts": {
       "acd": 0,
       "cch": 0,
-      "ecs": 299.04,
+      "ecs": 299.0,
       "etf": 0,
       "etf-c": 0,
       "fru": 0,
@@ -35911,7 +35911,7 @@
     "impacts": {
       "acd": 0,
       "cch": 0,
-      "ecs": 181.81,
+      "ecs": 181.8,
       "etf": 0,
       "etf-c": 0,
       "fru": 0,
@@ -35953,7 +35953,7 @@
     "impacts": {
       "acd": 0,
       "cch": 0,
-      "ecs": 1469.3,
+      "ecs": 1469.0,
       "etf": 0,
       "etf-c": 0,
       "fru": 0,
@@ -35995,7 +35995,7 @@
     "impacts": {
       "acd": 0,
       "cch": 0,
-      "ecs": 396.26,
+      "ecs": 396.3,
       "etf": 0,
       "etf-c": 0,
       "fru": 0,
@@ -36037,7 +36037,7 @@
     "impacts": {
       "acd": 0,
       "cch": 0,
-      "ecs": 22.808,
+      "ecs": 22.81,
       "etf": 0,
       "etf-c": 0,
       "fru": 0,
@@ -36079,7 +36079,7 @@
     "impacts": {
       "acd": 0,
       "cch": 0,
-      "ecs": 245.55,
+      "ecs": 245.5,
       "etf": 0,
       "etf-c": 0,
       "fru": 0,
@@ -36121,7 +36121,7 @@
     "impacts": {
       "acd": 0,
       "cch": 0,
-      "ecs": 18.219,
+      "ecs": 18.22,
       "etf": 0,
       "etf-c": 0,
       "fru": 0,
@@ -36205,7 +36205,7 @@
     "impacts": {
       "acd": 0,
       "cch": 0,
-      "ecs": 442.13,
+      "ecs": 442.1,
       "etf": 0,
       "etf-c": 0,
       "fru": 0,
@@ -36247,7 +36247,7 @@
     "impacts": {
       "acd": 0,
       "cch": 0,
-      "ecs": 221.51,
+      "ecs": 221.5,
       "etf": 0,
       "etf-c": 0,
       "fru": 0,
@@ -36289,7 +36289,7 @@
     "impacts": {
       "acd": 0,
       "cch": 0,
-      "ecs": 342.11,
+      "ecs": 342.1,
       "etf": 0,
       "etf-c": 0,
       "fru": 0,
@@ -36331,7 +36331,7 @@
     "impacts": {
       "acd": 0,
       "cch": 0,
-      "ecs": 49.154,
+      "ecs": 49.15,
       "etf": 0,
       "etf-c": 0,
       "fru": 0,
@@ -36373,7 +36373,7 @@
     "impacts": {
       "acd": 0,
       "cch": 0,
-      "ecs": 287.78,
+      "ecs": 287.8,
       "etf": 0,
       "etf-c": 0,
       "fru": 0,
@@ -36415,7 +36415,7 @@
     "impacts": {
       "acd": 0,
       "cch": 0,
-      "ecs": 306.69,
+      "ecs": 306.7,
       "etf": 0,
       "etf-c": 0,
       "fru": 0,
@@ -36499,7 +36499,7 @@
     "impacts": {
       "acd": 0,
       "cch": 0,
-      "ecs": 1407.5,
+      "ecs": 1407.0,
       "etf": 0,
       "etf-c": 0,
       "fru": 0,
@@ -36541,7 +36541,7 @@
     "impacts": {
       "acd": 0,
       "cch": 0,
-      "ecs": 417.51,
+      "ecs": 417.5,
       "etf": 0,
       "etf-c": 0,
       "fru": 0,
@@ -36583,7 +36583,7 @@
     "impacts": {
       "acd": 0,
       "cch": 0,
-      "ecs": 621.52,
+      "ecs": 621.5,
       "etf": 0,
       "etf-c": 0,
       "fru": 0,
@@ -36625,7 +36625,7 @@
     "impacts": {
       "acd": 0,
       "cch": 0,
-      "ecs": 963.65,
+      "ecs": 963.6,
       "etf": 0,
       "etf-c": 0,
       "fru": 0,
@@ -36667,7 +36667,7 @@
     "impacts": {
       "acd": 0,
       "cch": 0,
-      "ecs": 1267.3,
+      "ecs": 1267.0,
       "etf": 0,
       "etf-c": 0,
       "fru": 0,
@@ -36709,7 +36709,7 @@
     "impacts": {
       "acd": 0,
       "cch": 0,
-      "ecs": 1168.1,
+      "ecs": 1168.0,
       "etf": 0,
       "etf-c": 0,
       "fru": 0,
@@ -36751,7 +36751,7 @@
     "impacts": {
       "acd": 0,
       "cch": 0,
-      "ecs": 1288.7,
+      "ecs": 1289.0,
       "etf": 0,
       "etf-c": 0,
       "fru": 0,
@@ -36793,7 +36793,7 @@
     "impacts": {
       "acd": 0,
       "cch": 0,
-      "ecs": 1277.1,
+      "ecs": 1277.0,
       "etf": 0,
       "etf-c": 0,
       "fru": 0,
@@ -36835,7 +36835,7 @@
     "impacts": {
       "acd": 0,
       "cch": 0,
-      "ecs": 1246.6,
+      "ecs": 1247.0,
       "etf": 0,
       "etf-c": 0,
       "fru": 0,
@@ -36877,7 +36877,7 @@
     "impacts": {
       "acd": 0,
       "cch": 0,
-      "ecs": 1709.8,
+      "ecs": 1710.0,
       "etf": 0,
       "etf-c": 0,
       "fru": 0,
@@ -36919,7 +36919,7 @@
     "impacts": {
       "acd": 0,
       "cch": 0,
-      "ecs": 512.07,
+      "ecs": 512.1,
       "etf": 0,
       "etf-c": 0,
       "fru": 0,
@@ -36961,7 +36961,7 @@
     "impacts": {
       "acd": 0,
       "cch": 0,
-      "ecs": 800.05,
+      "ecs": 800.0,
       "etf": 0,
       "etf-c": 0,
       "fru": 0,
@@ -37003,7 +37003,7 @@
     "impacts": {
       "acd": 0,
       "cch": 0,
-      "ecs": 656.57,
+      "ecs": 656.6,
       "etf": 0,
       "etf-c": 0,
       "fru": 0,
@@ -37045,7 +37045,7 @@
     "impacts": {
       "acd": 0,
       "cch": 0,
-      "ecs": 1019.2,
+      "ecs": 1019.0,
       "etf": 0,
       "etf-c": 0,
       "fru": 0,
@@ -37088,7 +37088,7 @@
     "impacts": {
       "acd": 0,
       "cch": 0,
-      "ecs": 211.28,
+      "ecs": 211.3,
       "etf": 0,
       "etf-c": 0,
       "fru": 0,
@@ -37130,7 +37130,7 @@
     "impacts": {
       "acd": 0,
       "cch": 0,
-      "ecs": 656.54,
+      "ecs": 656.5,
       "etf": 0,
       "etf-c": 0,
       "fru": 0,
@@ -37172,7 +37172,7 @@
     "impacts": {
       "acd": 0,
       "cch": 0,
-      "ecs": 300.47,
+      "ecs": 300.5,
       "etf": 0,
       "etf-c": 0,
       "fru": 0,
@@ -37256,7 +37256,7 @@
     "impacts": {
       "acd": 0,
       "cch": 0,
-      "ecs": 941.42,
+      "ecs": 941.4,
       "etf": 0,
       "etf-c": 0,
       "fru": 0,
@@ -37298,7 +37298,7 @@
     "impacts": {
       "acd": 0,
       "cch": 0,
-      "ecs": 457.87,
+      "ecs": 457.9,
       "etf": 0,
       "etf-c": 0,
       "fru": 0,
@@ -37340,7 +37340,7 @@
     "impacts": {
       "acd": 0,
       "cch": 0,
-      "ecs": 220.49,
+      "ecs": 220.5,
       "etf": 0,
       "etf-c": 0,
       "fru": 0,
@@ -37382,7 +37382,7 @@
     "impacts": {
       "acd": 0,
       "cch": 0,
-      "ecs": 555.54,
+      "ecs": 555.5,
       "etf": 0,
       "etf-c": 0,
       "fru": 0,
@@ -37424,7 +37424,7 @@
     "impacts": {
       "acd": 0,
       "cch": 0,
-      "ecs": 868.95,
+      "ecs": 868.9,
       "etf": 0,
       "etf-c": 0,
       "fru": 0,
@@ -37466,7 +37466,7 @@
     "impacts": {
       "acd": 0,
       "cch": 0,
-      "ecs": 791.85,
+      "ecs": 791.8,
       "etf": 0,
       "etf-c": 0,
       "fru": 0,
@@ -37508,7 +37508,7 @@
     "impacts": {
       "acd": 0,
       "cch": 0,
-      "ecs": 210.05,
+      "ecs": 210.1,
       "etf": 0,
       "etf-c": 0,
       "fru": 0,
@@ -37550,7 +37550,7 @@
     "impacts": {
       "acd": 0,
       "cch": 0,
-      "ecs": 316.62,
+      "ecs": 316.6,
       "etf": 0,
       "etf-c": 0,
       "fru": 0,
@@ -37592,7 +37592,7 @@
     "impacts": {
       "acd": 0,
       "cch": 0,
-      "ecs": 688.82,
+      "ecs": 688.8,
       "etf": 0,
       "etf-c": 0,
       "fru": 0,
@@ -37634,7 +37634,7 @@
     "impacts": {
       "acd": 0,
       "cch": 0,
-      "ecs": 1070.3,
+      "ecs": 1070.0,
       "etf": 0,
       "etf-c": 0,
       "fru": 0,
@@ -37676,7 +37676,7 @@
     "impacts": {
       "acd": 0,
       "cch": 0,
-      "ecs": 488.24,
+      "ecs": 488.2,
       "etf": 0,
       "etf-c": 0,
       "fru": 0,
@@ -37718,7 +37718,7 @@
     "impacts": {
       "acd": 0,
       "cch": 0,
-      "ecs": 762.27,
+      "ecs": 762.3,
       "etf": 0,
       "etf-c": 0,
       "fru": 0,
@@ -37760,7 +37760,7 @@
     "impacts": {
       "acd": 0,
       "cch": 0,
-      "ecs": 257.83,
+      "ecs": 257.8,
       "etf": 0,
       "etf-c": 0,
       "fru": 0,
@@ -37802,7 +37802,7 @@
     "impacts": {
       "acd": 0,
       "cch": 0,
-      "ecs": 103.04,
+      "ecs": 103.0,
       "etf": 0,
       "etf-c": 0,
       "fru": 0,
@@ -37844,7 +37844,7 @@
     "impacts": {
       "acd": 0,
       "cch": 0,
-      "ecs": 97.067,
+      "ecs": 97.07,
       "etf": 0,
       "etf-c": 0,
       "fru": 0,
@@ -37887,7 +37887,7 @@
     "impacts": {
       "acd": 0,
       "cch": 0,
-      "ecs": 1505.6,
+      "ecs": 1506.0,
       "etf": 0,
       "etf-c": 0,
       "fru": 0,
@@ -37930,7 +37930,7 @@
     "impacts": {
       "acd": 0,
       "cch": 0,
-      "ecs": 2041.7,
+      "ecs": 2042.0,
       "etf": 0,
       "etf-c": 0,
       "fru": 0,
@@ -37973,7 +37973,7 @@
     "impacts": {
       "acd": 0,
       "cch": 0,
-      "ecs": 1714.1,
+      "ecs": 1714.0,
       "etf": 0,
       "etf-c": 0,
       "fru": 0,
@@ -38016,7 +38016,7 @@
     "impacts": {
       "acd": 0,
       "cch": 0,
-      "ecs": 1929.7,
+      "ecs": 1930.0,
       "etf": 0,
       "etf-c": 0,
       "fru": 0,
@@ -38059,7 +38059,7 @@
     "impacts": {
       "acd": 0,
       "cch": 0,
-      "ecs": 47.351,
+      "ecs": 47.35,
       "etf": 0,
       "etf-c": 0,
       "fru": 0,
@@ -38102,7 +38102,7 @@
     "impacts": {
       "acd": 0,
       "cch": 0,
-      "ecs": 54.891,
+      "ecs": 54.89,
       "etf": 0,
       "etf-c": 0,
       "fru": 0,
@@ -38145,7 +38145,7 @@
     "impacts": {
       "acd": 0,
       "cch": 0,
-      "ecs": 50.283,
+      "ecs": 50.28,
       "etf": 0,
       "etf-c": 0,
       "fru": 0,
@@ -38188,7 +38188,7 @@
     "impacts": {
       "acd": 0,
       "cch": 0,
-      "ecs": 53.315,
+      "ecs": 53.31,
       "etf": 0,
       "etf-c": 0,
       "fru": 0,
@@ -38230,7 +38230,7 @@
     "impacts": {
       "acd": 0,
       "cch": 0,
-      "ecs": 1564.2,
+      "ecs": 1564.0,
       "etf": 0,
       "etf-c": 0,
       "fru": 0,
@@ -38272,7 +38272,7 @@
     "impacts": {
       "acd": 0,
       "cch": 0,
-      "ecs": 91.292,
+      "ecs": 91.29,
       "etf": 0,
       "etf-c": 0,
       "fru": 0,
@@ -38314,7 +38314,7 @@
     "impacts": {
       "acd": 0,
       "cch": 0,
-      "ecs": 1027.2,
+      "ecs": 1027.0,
       "etf": 0,
       "etf-c": 0,
       "fru": 0,
@@ -38356,7 +38356,7 @@
     "impacts": {
       "acd": 0,
       "cch": 0,
-      "ecs": 572.36,
+      "ecs": 572.4,
       "etf": 0,
       "etf-c": 0,
       "fru": 0,
@@ -38398,7 +38398,7 @@
     "impacts": {
       "acd": 0,
       "cch": 0,
-      "ecs": 895.62,
+      "ecs": 895.6,
       "etf": 0,
       "etf-c": 0,
       "fru": 0,
@@ -38440,7 +38440,7 @@
     "impacts": {
       "acd": 0,
       "cch": 0,
-      "ecs": 85.043,
+      "ecs": 85.04,
       "etf": 0,
       "etf-c": 0,
       "fru": 0,
@@ -38482,7 +38482,7 @@
     "impacts": {
       "acd": 0,
       "cch": 0,
-      "ecs": 4378.7,
+      "ecs": 4379.0,
       "etf": 0,
       "etf-c": 0,
       "fru": 0,
@@ -38524,7 +38524,7 @@
     "impacts": {
       "acd": 0,
       "cch": 0,
-      "ecs": 102.21,
+      "ecs": 102.2,
       "etf": 0,
       "etf-c": 0,
       "fru": 0,
@@ -38567,7 +38567,7 @@
     "impacts": {
       "acd": 0,
       "cch": 0,
-      "ecs": 405.94,
+      "ecs": 405.9,
       "etf": 0,
       "etf-c": 0,
       "fru": 0,
@@ -38609,7 +38609,7 @@
     "impacts": {
       "acd": 0,
       "cch": 0,
-      "ecs": 153.05,
+      "ecs": 153.0,
       "etf": 0,
       "etf-c": 0,
       "fru": 0,
@@ -38651,7 +38651,7 @@
     "impacts": {
       "acd": 0,
       "cch": 0,
-      "ecs": 226.99,
+      "ecs": 227.0,
       "etf": 0,
       "etf-c": 0,
       "fru": 0,
@@ -38693,7 +38693,7 @@
     "impacts": {
       "acd": 0,
       "cch": 0,
-      "ecs": 168.75,
+      "ecs": 168.7,
       "etf": 0,
       "etf-c": 0,
       "fru": 0,
@@ -38735,7 +38735,7 @@
     "impacts": {
       "acd": 0,
       "cch": 0,
-      "ecs": 69.628,
+      "ecs": 69.63,
       "etf": 0,
       "etf-c": 0,
       "fru": 0,
@@ -38777,7 +38777,7 @@
     "impacts": {
       "acd": 0,
       "cch": 0,
-      "ecs": 143.58,
+      "ecs": 143.6,
       "etf": 0,
       "etf-c": 0,
       "fru": 0,
@@ -38861,7 +38861,7 @@
     "impacts": {
       "acd": 0,
       "cch": 0,
-      "ecs": 116.93,
+      "ecs": 116.9,
       "etf": 0,
       "etf-c": 0,
       "fru": 0,
@@ -38903,7 +38903,7 @@
     "impacts": {
       "acd": 0,
       "cch": 0,
-      "ecs": 305.68,
+      "ecs": 305.7,
       "etf": 0,
       "etf-c": 0,
       "fru": 0,
@@ -38987,7 +38987,7 @@
     "impacts": {
       "acd": 0,
       "cch": 0,
-      "ecs": 684.62,
+      "ecs": 684.6,
       "etf": 0,
       "etf-c": 0,
       "fru": 0,
@@ -39029,7 +39029,7 @@
     "impacts": {
       "acd": 0,
       "cch": 0,
-      "ecs": 1063.7,
+      "ecs": 1064.0,
       "etf": 0,
       "etf-c": 0,
       "fru": 0,
@@ -39071,7 +39071,7 @@
     "impacts": {
       "acd": 0,
       "cch": 0,
-      "ecs": 449.94,
+      "ecs": 449.9,
       "etf": 0,
       "etf-c": 0,
       "fru": 0,
@@ -39113,7 +39113,7 @@
     "impacts": {
       "acd": 0,
       "cch": 0,
-      "ecs": 1393.7,
+      "ecs": 1394.0,
       "etf": 0,
       "etf-c": 0,
       "fru": 0,
@@ -39155,7 +39155,7 @@
     "impacts": {
       "acd": 0,
       "cch": 0,
-      "ecs": 665.46,
+      "ecs": 665.5,
       "etf": 0,
       "etf-c": 0,
       "fru": 0,
@@ -39198,7 +39198,7 @@
     "impacts": {
       "acd": 0,
       "cch": 0,
-      "ecs": 102.59,
+      "ecs": 102.6,
       "etf": 0,
       "etf-c": 0,
       "fru": 0,
@@ -39240,7 +39240,7 @@
     "impacts": {
       "acd": 0,
       "cch": 0,
-      "ecs": 165.75,
+      "ecs": 165.7,
       "etf": 0,
       "etf-c": 0,
       "fru": 0,
@@ -39282,7 +39282,7 @@
     "impacts": {
       "acd": 0,
       "cch": 0,
-      "ecs": 129.66,
+      "ecs": 129.7,
       "etf": 0,
       "etf-c": 0,
       "fru": 0,
@@ -39366,7 +39366,7 @@
     "impacts": {
       "acd": 0,
       "cch": 0,
-      "ecs": 215.33,
+      "ecs": 215.3,
       "etf": 0,
       "etf-c": 0,
       "fru": 0,
@@ -39408,7 +39408,7 @@
     "impacts": {
       "acd": 0,
       "cch": 0,
-      "ecs": 1039.5,
+      "ecs": 1040.0,
       "etf": 0,
       "etf-c": 0,
       "fru": 0,
@@ -39494,7 +39494,7 @@
     "impacts": {
       "acd": 0,
       "cch": 0,
-      "ecs": 2965.4,
+      "ecs": 2965.0,
       "etf": 0,
       "etf-c": 0,
       "fru": 0,
@@ -39535,7 +39535,7 @@
     "impacts": {
       "acd": 0,
       "cch": 0,
-      "ecs": 88.593,
+      "ecs": 88.59,
       "etf": 0,
       "etf-c": 0,
       "fru": 0,
@@ -39577,7 +39577,7 @@
     "impacts": {
       "acd": 0,
       "cch": 0,
-      "ecs": 67.335,
+      "ecs": 67.33,
       "etf": 0,
       "etf-c": 0,
       "fru": 0,
@@ -39618,7 +39618,7 @@
     "impacts": {
       "acd": 0,
       "cch": 0,
-      "ecs": 173.41,
+      "ecs": 173.4,
       "etf": 0,
       "etf-c": 0,
       "fru": 0,
@@ -39661,7 +39661,7 @@
     "impacts": {
       "acd": 0,
       "cch": 0,
-      "ecs": 136.72,
+      "ecs": 136.7,
       "etf": 0,
       "etf-c": 0,
       "fru": 0,
@@ -39704,7 +39704,7 @@
     "impacts": {
       "acd": 0,
       "cch": 0,
-      "ecs": 644.11,
+      "ecs": 644.1,
       "etf": 0,
       "etf-c": 0,
       "fru": 0,
@@ -39745,7 +39745,7 @@
     "impacts": {
       "acd": 0,
       "cch": 0,
-      "ecs": 521.98,
+      "ecs": 522.0,
       "etf": 0,
       "etf-c": 0,
       "fru": 0,
@@ -39786,7 +39786,7 @@
     "impacts": {
       "acd": 0,
       "cch": 0,
-      "ecs": 77.007,
+      "ecs": 77.01,
       "etf": 0,
       "etf-c": 0,
       "fru": 0,
@@ -39829,7 +39829,7 @@
     "impacts": {
       "acd": 0,
       "cch": 0,
-      "ecs": 34.309,
+      "ecs": 34.31,
       "etf": 0,
       "etf-c": 0,
       "fru": 0,
@@ -39870,7 +39870,7 @@
     "impacts": {
       "acd": 0,
       "cch": 0,
-      "ecs": 224.78,
+      "ecs": 224.8,
       "etf": 0,
       "etf-c": 0,
       "fru": 0,
@@ -39913,7 +39913,7 @@
     "impacts": {
       "acd": 0,
       "cch": 0,
-      "ecs": 238.87,
+      "ecs": 238.9,
       "etf": 0,
       "etf-c": 0,
       "fru": 0,
@@ -39954,7 +39954,7 @@
     "impacts": {
       "acd": 0,
       "cch": 0,
-      "ecs": 1825.3,
+      "ecs": 1825.0,
       "etf": 0,
       "etf-c": 0,
       "fru": 0,
@@ -39997,7 +39997,7 @@
     "impacts": {
       "acd": 0,
       "cch": 0,
-      "ecs": 2430.1,
+      "ecs": 2430.0,
       "etf": 0,
       "etf-c": 0,
       "fru": 0,
@@ -40040,7 +40040,7 @@
     "impacts": {
       "acd": 0,
       "cch": 0,
-      "ecs": 222.26,
+      "ecs": 222.3,
       "etf": 0,
       "etf-c": 0,
       "fru": 0,
@@ -40083,7 +40083,7 @@
     "impacts": {
       "acd": 0,
       "cch": 0,
-      "ecs": 377.16,
+      "ecs": 377.2,
       "etf": 0,
       "etf-c": 0,
       "fru": 0,
@@ -40124,7 +40124,7 @@
     "impacts": {
       "acd": 0,
       "cch": 0,
-      "ecs": 245.81,
+      "ecs": 245.8,
       "etf": 0,
       "etf-c": 0,
       "fru": 0,
@@ -40167,7 +40167,7 @@
     "impacts": {
       "acd": 0,
       "cch": 0,
-      "ecs": 49.184,
+      "ecs": 49.18,
       "etf": 0,
       "etf-c": 0,
       "fru": 0,
@@ -40209,7 +40209,7 @@
     "impacts": {
       "acd": 0,
       "cch": 0,
-      "ecs": 223.81,
+      "ecs": 223.8,
       "etf": 0,
       "etf-c": 0,
       "fru": 0,
@@ -40252,7 +40252,7 @@
     "impacts": {
       "acd": 0,
       "cch": 0,
-      "ecs": 369.57,
+      "ecs": 369.6,
       "etf": 0,
       "etf-c": 0,
       "fru": 0,
@@ -40377,7 +40377,7 @@
     "impacts": {
       "acd": 0,
       "cch": 0,
-      "ecs": 70.877,
+      "ecs": 70.88,
       "etf": 0,
       "etf-c": 0,
       "fru": 0,
@@ -40418,7 +40418,7 @@
     "impacts": {
       "acd": 0,
       "cch": 0,
-      "ecs": 76.974,
+      "ecs": 76.97,
       "etf": 0,
       "etf-c": 0,
       "fru": 0,
@@ -40459,7 +40459,7 @@
     "impacts": {
       "acd": 0,
       "cch": 0,
-      "ecs": 41.931,
+      "ecs": 41.93,
       "etf": 0,
       "etf-c": 0,
       "fru": 0,
@@ -40500,7 +40500,7 @@
     "impacts": {
       "acd": 0,
       "cch": 0,
-      "ecs": 73.173,
+      "ecs": 73.17,
       "etf": 0,
       "etf-c": 0,
       "fru": 0,
@@ -40541,7 +40541,7 @@
     "impacts": {
       "acd": 0,
       "cch": 0,
-      "ecs": 312.72,
+      "ecs": 312.7,
       "etf": 0,
       "etf-c": 0,
       "fru": 0,
@@ -40582,7 +40582,7 @@
     "impacts": {
       "acd": 0,
       "cch": 0,
-      "ecs": 77.184,
+      "ecs": 77.18,
       "etf": 0,
       "etf-c": 0,
       "fru": 0,
@@ -40625,7 +40625,7 @@
     "impacts": {
       "acd": 0,
       "cch": 0,
-      "ecs": 103.95,
+      "ecs": 103.9,
       "etf": 0,
       "etf-c": 0,
       "fru": 0,
@@ -40668,7 +40668,7 @@
     "impacts": {
       "acd": 0,
       "cch": 0,
-      "ecs": 118.45,
+      "ecs": 118.5,
       "etf": 0,
       "etf-c": 0,
       "fru": 0,
@@ -40711,7 +40711,7 @@
     "impacts": {
       "acd": 0,
       "cch": 0,
-      "ecs": 421.86,
+      "ecs": 421.9,
       "etf": 0,
       "etf-c": 0,
       "fru": 0,
@@ -40754,7 +40754,7 @@
     "impacts": {
       "acd": 0,
       "cch": 0,
-      "ecs": 553.27,
+      "ecs": 553.3,
       "etf": 0,
       "etf-c": 0,
       "fru": 0,
@@ -40838,7 +40838,7 @@
     "impacts": {
       "acd": 0,
       "cch": 0,
-      "ecs": 158.61,
+      "ecs": 158.6,
       "etf": 0,
       "etf-c": 0,
       "fru": 0,
@@ -40879,7 +40879,7 @@
     "impacts": {
       "acd": 0,
       "cch": 0,
-      "ecs": 287.35,
+      "ecs": 287.4,
       "etf": 0,
       "etf-c": 0,
       "fru": 0,
@@ -40920,7 +40920,7 @@
     "impacts": {
       "acd": 0,
       "cch": 0,
-      "ecs": 47.891,
+      "ecs": 47.89,
       "etf": 0,
       "etf-c": 0,
       "fru": 0,
@@ -40961,7 +40961,7 @@
     "impacts": {
       "acd": 0,
       "cch": 0,
-      "ecs": 1573.2,
+      "ecs": 1573.0,
       "etf": 0,
       "etf-c": 0,
       "fru": 0,
@@ -41004,7 +41004,7 @@
     "impacts": {
       "acd": 0,
       "cch": 0,
-      "ecs": 597.01,
+      "ecs": 597.0,
       "etf": 0,
       "etf-c": 0,
       "fru": 0,
@@ -41045,7 +41045,7 @@
     "impacts": {
       "acd": 0,
       "cch": 0,
-      "ecs": 60.318,
+      "ecs": 60.32,
       "etf": 0,
       "etf-c": 0,
       "fru": 0,
@@ -41088,7 +41088,7 @@
     "impacts": {
       "acd": 0,
       "cch": 0,
-      "ecs": 2387.3,
+      "ecs": 2387.0,
       "etf": 0,
       "etf-c": 0,
       "fru": 0,
@@ -41129,7 +41129,7 @@
     "impacts": {
       "acd": 0,
       "cch": 0,
-      "ecs": 82.302,
+      "ecs": 82.3,
       "etf": 0,
       "etf-c": 0,
       "fru": 0,
@@ -41172,7 +41172,7 @@
     "impacts": {
       "acd": 0,
       "cch": 0,
-      "ecs": 199.59,
+      "ecs": 199.6,
       "etf": 0,
       "etf-c": 0,
       "fru": 0,
@@ -41215,7 +41215,7 @@
     "impacts": {
       "acd": 0,
       "cch": 0,
-      "ecs": 174.96,
+      "ecs": 175.0,
       "etf": 0,
       "etf-c": 0,
       "fru": 0,
@@ -41256,7 +41256,7 @@
     "impacts": {
       "acd": 0,
       "cch": 0,
-      "ecs": 123.12,
+      "ecs": 123.1,
       "etf": 0,
       "etf-c": 0,
       "fru": 0,
@@ -41297,7 +41297,7 @@
     "impacts": {
       "acd": 0,
       "cch": 0,
-      "ecs": 27.296,
+      "ecs": 27.3,
       "etf": 0,
       "etf-c": 0,
       "fru": 0,
@@ -41338,7 +41338,7 @@
     "impacts": {
       "acd": 0,
       "cch": 0,
-      "ecs": 21.921,
+      "ecs": 21.92,
       "etf": 0,
       "etf-c": 0,
       "fru": 0,
@@ -41379,7 +41379,7 @@
     "impacts": {
       "acd": 0,
       "cch": 0,
-      "ecs": 18.894,
+      "ecs": 18.89,
       "etf": 0,
       "etf-c": 0,
       "fru": 0,
@@ -41421,7 +41421,7 @@
     "impacts": {
       "acd": 0,
       "cch": 0,
-      "ecs": 7376.7,
+      "ecs": 7377.0,
       "etf": 0,
       "etf-c": 0,
       "fru": 0,
@@ -41464,7 +41464,7 @@
     "impacts": {
       "acd": 0,
       "cch": 0,
-      "ecs": 257.68,
+      "ecs": 257.7,
       "etf": 0,
       "etf-c": 0,
       "fru": 0,
@@ -41506,7 +41506,7 @@
     "impacts": {
       "acd": 0,
       "cch": 0,
-      "ecs": 19.331,
+      "ecs": 19.33,
       "etf": 0,
       "etf-c": 0,
       "fru": 0,
@@ -41548,7 +41548,7 @@
     "impacts": {
       "acd": 0,
       "cch": 0,
-      "ecs": 7.4762,
+      "ecs": 7.476,
       "etf": 0,
       "etf-c": 0,
       "fru": 0,
@@ -41589,7 +41589,7 @@
     "impacts": {
       "acd": 0,
       "cch": 0,
-      "ecs": 55.541,
+      "ecs": 55.54,
       "etf": 0,
       "etf-c": 0,
       "fru": 0,
@@ -41630,7 +41630,7 @@
     "impacts": {
       "acd": 0,
       "cch": 0,
-      "ecs": 49.541,
+      "ecs": 49.54,
       "etf": 0,
       "etf-c": 0,
       "fru": 0,
@@ -41671,7 +41671,7 @@
     "impacts": {
       "acd": 0,
       "cch": 0,
-      "ecs": 18.144,
+      "ecs": 18.14,
       "etf": 0,
       "etf-c": 0,
       "fru": 0,
@@ -41712,7 +41712,7 @@
     "impacts": {
       "acd": 0,
       "cch": 0,
-      "ecs": 61.802,
+      "ecs": 61.8,
       "etf": 0,
       "etf-c": 0,
       "fru": 0,
@@ -41753,7 +41753,7 @@
     "impacts": {
       "acd": 0,
       "cch": 0,
-      "ecs": 42.169,
+      "ecs": 42.17,
       "etf": 0,
       "etf-c": 0,
       "fru": 0,
@@ -41794,7 +41794,7 @@
     "impacts": {
       "acd": 0,
       "cch": 0,
-      "ecs": 20.678,
+      "ecs": 20.68,
       "etf": 0,
       "etf-c": 0,
       "fru": 0,
@@ -41918,7 +41918,7 @@
     "impacts": {
       "acd": 0,
       "cch": 0,
-      "ecs": 78.243,
+      "ecs": 78.24,
       "etf": 0,
       "etf-c": 0,
       "fru": 0,
@@ -41959,7 +41959,7 @@
     "impacts": {
       "acd": 0,
       "cch": 0,
-      "ecs": 25.486,
+      "ecs": 25.49,
       "etf": 0,
       "etf-c": 0,
       "fru": 0,
@@ -42000,7 +42000,7 @@
     "impacts": {
       "acd": 0,
       "cch": 0,
-      "ecs": 15.206,
+      "ecs": 15.21,
       "etf": 0,
       "etf-c": 0,
       "fru": 0,
@@ -42041,7 +42041,7 @@
     "impacts": {
       "acd": 0,
       "cch": 0,
-      "ecs": 44.133,
+      "ecs": 44.13,
       "etf": 0,
       "etf-c": 0,
       "fru": 0,
@@ -42082,7 +42082,7 @@
     "impacts": {
       "acd": 0,
       "cch": 0,
-      "ecs": 57.611,
+      "ecs": 57.61,
       "etf": 0,
       "etf-c": 0,
       "fru": 0,
@@ -42123,7 +42123,7 @@
     "impacts": {
       "acd": 0,
       "cch": 0,
-      "ecs": 21.936,
+      "ecs": 21.94,
       "etf": 0,
       "etf-c": 0,
       "fru": 0,
@@ -42164,7 +42164,7 @@
     "impacts": {
       "acd": 0,
       "cch": 0,
-      "ecs": 7.8692,
+      "ecs": 7.869,
       "etf": 0,
       "etf-c": 0,
       "fru": 0,
@@ -42205,7 +42205,7 @@
     "impacts": {
       "acd": 0,
       "cch": 0,
-      "ecs": 37.134,
+      "ecs": 37.13,
       "etf": 0,
       "etf-c": 0,
       "fru": 0,
@@ -42246,7 +42246,7 @@
     "impacts": {
       "acd": 0,
       "cch": 0,
-      "ecs": 34.192,
+      "ecs": 34.19,
       "etf": 0,
       "etf-c": 0,
       "fru": 0,
@@ -42287,7 +42287,7 @@
     "impacts": {
       "acd": 0,
       "cch": 0,
-      "ecs": 47.556,
+      "ecs": 47.56,
       "etf": 0,
       "etf-c": 0,
       "fru": 0,
@@ -42328,7 +42328,7 @@
     "impacts": {
       "acd": 0,
       "cch": 0,
-      "ecs": 58.221,
+      "ecs": 58.22,
       "etf": 0,
       "etf-c": 0,
       "fru": 0,
@@ -42369,7 +42369,7 @@
     "impacts": {
       "acd": 0,
       "cch": 0,
-      "ecs": 25.721,
+      "ecs": 25.72,
       "etf": 0,
       "etf-c": 0,
       "fru": 0,
@@ -42451,7 +42451,7 @@
     "impacts": {
       "acd": 0,
       "cch": 0,
-      "ecs": 51.735,
+      "ecs": 51.74,
       "etf": 0,
       "etf-c": 0,
       "fru": 0,
@@ -42492,7 +42492,7 @@
     "impacts": {
       "acd": 0,
       "cch": 0,
-      "ecs": 27.719,
+      "ecs": 27.72,
       "etf": 0,
       "etf-c": 0,
       "fru": 0,
@@ -42533,7 +42533,7 @@
     "impacts": {
       "acd": 0,
       "cch": 0,
-      "ecs": 31.668,
+      "ecs": 31.67,
       "etf": 0,
       "etf-c": 0,
       "fru": 0,
@@ -42574,7 +42574,7 @@
     "impacts": {
       "acd": 0,
       "cch": 0,
-      "ecs": 33.107,
+      "ecs": 33.11,
       "etf": 0,
       "etf-c": 0,
       "fru": 0,
@@ -42615,7 +42615,7 @@
     "impacts": {
       "acd": 0,
       "cch": 0,
-      "ecs": 38.469,
+      "ecs": 38.47,
       "etf": 0,
       "etf-c": 0,
       "fru": 0,
@@ -42656,7 +42656,7 @@
     "impacts": {
       "acd": 0,
       "cch": 0,
-      "ecs": 28.881,
+      "ecs": 28.88,
       "etf": 0,
       "etf-c": 0,
       "fru": 0,
@@ -42740,7 +42740,7 @@
     "impacts": {
       "acd": 0,
       "cch": 0,
-      "ecs": 1672.6,
+      "ecs": 1673.0,
       "etf": 0,
       "etf-c": 0,
       "fru": 0,
@@ -42782,7 +42782,7 @@
     "impacts": {
       "acd": 0,
       "cch": 0,
-      "ecs": 884.15,
+      "ecs": 884.1,
       "etf": 0,
       "etf-c": 0,
       "fru": 0,
@@ -42824,7 +42824,7 @@
     "impacts": {
       "acd": 0,
       "cch": 0,
-      "ecs": 348.98,
+      "ecs": 349.0,
       "etf": 0,
       "etf-c": 0,
       "fru": 0,
@@ -42866,7 +42866,7 @@
     "impacts": {
       "acd": 0,
       "cch": 0,
-      "ecs": 557.77,
+      "ecs": 557.8,
       "etf": 0,
       "etf-c": 0,
       "fru": 0,
@@ -42908,7 +42908,7 @@
     "impacts": {
       "acd": 0,
       "cch": 0,
-      "ecs": 119.37,
+      "ecs": 119.4,
       "etf": 0,
       "etf-c": 0,
       "fru": 0,
@@ -42951,7 +42951,7 @@
     "impacts": {
       "acd": 0,
       "cch": 0,
-      "ecs": 276.22,
+      "ecs": 276.2,
       "etf": 0,
       "etf-c": 0,
       "fru": 0,
@@ -42993,7 +42993,7 @@
     "impacts": {
       "acd": 0,
       "cch": 0,
-      "ecs": 495.09,
+      "ecs": 495.1,
       "etf": 0,
       "etf-c": 0,
       "fru": 0,
@@ -43035,7 +43035,7 @@
     "impacts": {
       "acd": 0,
       "cch": 0,
-      "ecs": 192.73,
+      "ecs": 192.7,
       "etf": 0,
       "etf-c": 0,
       "fru": 0,
@@ -43078,7 +43078,7 @@
     "impacts": {
       "acd": 0,
       "cch": 0,
-      "ecs": 113.79,
+      "ecs": 113.8,
       "etf": 0,
       "etf-c": 0,
       "fru": 0,
@@ -43121,7 +43121,7 @@
     "impacts": {
       "acd": 0,
       "cch": 0,
-      "ecs": 109.81,
+      "ecs": 109.8,
       "etf": 0,
       "etf-c": 0,
       "fru": 0,
@@ -43163,7 +43163,7 @@
     "impacts": {
       "acd": 0,
       "cch": 0,
-      "ecs": 160.04,
+      "ecs": 160.0,
       "etf": 0,
       "etf-c": 0,
       "fru": 0,
@@ -43205,7 +43205,7 @@
     "impacts": {
       "acd": 0,
       "cch": 0,
-      "ecs": 294.42,
+      "ecs": 294.4,
       "etf": 0,
       "etf-c": 0,
       "fru": 0,
@@ -43246,7 +43246,7 @@
     "impacts": {
       "acd": 0,
       "cch": 0,
-      "ecs": 5.3602,
+      "ecs": 5.36,
       "etf": 0,
       "etf-c": 0,
       "fru": 0,
@@ -43287,7 +43287,7 @@
     "impacts": {
       "acd": 0,
       "cch": 0,
-      "ecs": 15.462,
+      "ecs": 15.46,
       "etf": 0,
       "etf-c": 0,
       "fru": 0,
@@ -43329,7 +43329,7 @@
     "impacts": {
       "acd": 0,
       "cch": 0,
-      "ecs": 1.3013,
+      "ecs": 1.301,
       "etf": 0,
       "etf-c": 0,
       "fru": 0,
@@ -43373,7 +43373,7 @@
     "impacts": {
       "acd": 0,
       "cch": 0,
-      "ecs": 328.87,
+      "ecs": 328.9,
       "etf": 0,
       "etf-c": 0,
       "fru": 0,
@@ -43416,7 +43416,7 @@
     "impacts": {
       "acd": 0,
       "cch": 0,
-      "ecs": 19.718,
+      "ecs": 19.72,
       "etf": 0,
       "etf-c": 0,
       "fru": 0,
@@ -43459,7 +43459,7 @@
     "impacts": {
       "acd": 0,
       "cch": 0,
-      "ecs": 30.464,
+      "ecs": 30.46,
       "etf": 0,
       "etf-c": 0,
       "fru": 0,
@@ -43502,7 +43502,7 @@
     "impacts": {
       "acd": 0,
       "cch": 0,
-      "ecs": 235.08,
+      "ecs": 235.1,
       "etf": 0,
       "etf-c": 0,
       "fru": 0,
@@ -43545,7 +43545,7 @@
     "impacts": {
       "acd": 0,
       "cch": 0,
-      "ecs": 39.064,
+      "ecs": 39.06,
       "etf": 0,
       "etf-c": 0,
       "fru": 0,
@@ -43588,7 +43588,7 @@
     "impacts": {
       "acd": 0,
       "cch": 0,
-      "ecs": 77.359,
+      "ecs": 77.36,
       "etf": 0,
       "etf-c": 0,
       "fru": 0,
@@ -43631,7 +43631,7 @@
     "impacts": {
       "acd": 0,
       "cch": 0,
-      "ecs": 14.739,
+      "ecs": 14.74,
       "etf": 0,
       "etf-c": 0,
       "fru": 0,
@@ -43674,7 +43674,7 @@
     "impacts": {
       "acd": 0,
       "cch": 0,
-      "ecs": 25.569,
+      "ecs": 25.57,
       "etf": 0,
       "etf-c": 0,
       "fru": 0,
@@ -43760,7 +43760,7 @@
     "impacts": {
       "acd": 0,
       "cch": 0,
-      "ecs": 111.09,
+      "ecs": 111.1,
       "etf": 0,
       "etf-c": 0,
       "fru": 0,
@@ -43803,7 +43803,7 @@
     "impacts": {
       "acd": 0,
       "cch": 0,
-      "ecs": 76.327,
+      "ecs": 76.33,
       "etf": 0,
       "etf-c": 0,
       "fru": 0,
@@ -43846,7 +43846,7 @@
     "impacts": {
       "acd": 0,
       "cch": 0,
-      "ecs": 32.746,
+      "ecs": 32.75,
       "etf": 0,
       "etf-c": 0,
       "fru": 0,
@@ -43889,7 +43889,7 @@
     "impacts": {
       "acd": 0,
       "cch": 0,
-      "ecs": 32.027,
+      "ecs": 32.03,
       "etf": 0,
       "etf-c": 0,
       "fru": 0,
@@ -43932,7 +43932,7 @@
     "impacts": {
       "acd": 0,
       "cch": 0,
-      "ecs": 11.191,
+      "ecs": 11.19,
       "etf": 0,
       "etf-c": 0,
       "fru": 0,
@@ -43975,7 +43975,7 @@
     "impacts": {
       "acd": 0,
       "cch": 0,
-      "ecs": 23.903,
+      "ecs": 23.9,
       "etf": 0,
       "etf-c": 0,
       "fru": 0,
@@ -44061,7 +44061,7 @@
     "impacts": {
       "acd": 0,
       "cch": 0,
-      "ecs": 290.93,
+      "ecs": 290.9,
       "etf": 0,
       "etf-c": 0,
       "fru": 0,
@@ -44104,7 +44104,7 @@
     "impacts": {
       "acd": 0,
       "cch": 0,
-      "ecs": 10.339,
+      "ecs": 10.34,
       "etf": 0,
       "etf-c": 0,
       "fru": 0,
@@ -44147,7 +44147,7 @@
     "impacts": {
       "acd": 0,
       "cch": 0,
-      "ecs": 26.321,
+      "ecs": 26.32,
       "etf": 0,
       "etf-c": 0,
       "fru": 0,
@@ -44190,7 +44190,7 @@
     "impacts": {
       "acd": 0,
       "cch": 0,
-      "ecs": 255.63,
+      "ecs": 255.6,
       "etf": 0,
       "etf-c": 0,
       "fru": 0,
@@ -44233,7 +44233,7 @@
     "impacts": {
       "acd": 0,
       "cch": 0,
-      "ecs": 130.84,
+      "ecs": 130.8,
       "etf": 0,
       "etf-c": 0,
       "fru": 0,
@@ -44276,7 +44276,7 @@
     "impacts": {
       "acd": 0,
       "cch": 0,
-      "ecs": 2913.3,
+      "ecs": 2913.0,
       "etf": 0,
       "etf-c": 0,
       "fru": 0,
@@ -44319,7 +44319,7 @@
     "impacts": {
       "acd": 0,
       "cch": 0,
-      "ecs": 339.98,
+      "ecs": 340.0,
       "etf": 0,
       "etf-c": 0,
       "fru": 0,
@@ -44362,7 +44362,7 @@
     "impacts": {
       "acd": 0,
       "cch": 0,
-      "ecs": 108.39,
+      "ecs": 108.4,
       "etf": 0,
       "etf-c": 0,
       "fru": 0,
@@ -44403,7 +44403,7 @@
     "impacts": {
       "acd": 0,
       "cch": 0,
-      "ecs": 111.46,
+      "ecs": 111.5,
       "etf": 0,
       "etf-c": 0,
       "fru": 0,
@@ -44446,7 +44446,7 @@
     "impacts": {
       "acd": 0,
       "cch": 0,
-      "ecs": 19.008,
+      "ecs": 19.01,
       "etf": 0,
       "etf-c": 0,
       "fru": 0,
@@ -44488,7 +44488,7 @@
     "impacts": {
       "acd": 0,
       "cch": 0,
-      "ecs": 57.784,
+      "ecs": 57.78,
       "etf": 0,
       "etf-c": 0,
       "fru": 0,
@@ -44531,7 +44531,7 @@
     "impacts": {
       "acd": 0,
       "cch": 0,
-      "ecs": 197.59,
+      "ecs": 197.6,
       "etf": 0,
       "etf-c": 0,
       "fru": 0,
@@ -44574,7 +44574,7 @@
     "impacts": {
       "acd": 0,
       "cch": 0,
-      "ecs": 30.869,
+      "ecs": 30.87,
       "etf": 0,
       "etf-c": 0,
       "fru": 0,
@@ -44617,7 +44617,7 @@
     "impacts": {
       "acd": 0,
       "cch": 0,
-      "ecs": 57.267,
+      "ecs": 57.27,
       "etf": 0,
       "etf-c": 0,
       "fru": 0,
@@ -44660,7 +44660,7 @@
     "impacts": {
       "acd": 0,
       "cch": 0,
-      "ecs": 66.373,
+      "ecs": 66.37,
       "etf": 0,
       "etf-c": 0,
       "fru": 0,
@@ -44703,7 +44703,7 @@
     "impacts": {
       "acd": 0,
       "cch": 0,
-      "ecs": 131.17,
+      "ecs": 131.2,
       "etf": 0,
       "etf-c": 0,
       "fru": 0,
@@ -44746,7 +44746,7 @@
     "impacts": {
       "acd": 0,
       "cch": 0,
-      "ecs": 299.13,
+      "ecs": 299.1,
       "etf": 0,
       "etf-c": 0,
       "fru": 0,
@@ -44789,7 +44789,7 @@
     "impacts": {
       "acd": 0,
       "cch": 0,
-      "ecs": 657.35,
+      "ecs": 657.3,
       "etf": 0,
       "etf-c": 0,
       "fru": 0,
@@ -44832,7 +44832,7 @@
     "impacts": {
       "acd": 0,
       "cch": 0,
-      "ecs": 1269.3,
+      "ecs": 1269.0,
       "etf": 0,
       "etf-c": 0,
       "fru": 0,
@@ -44875,7 +44875,7 @@
     "impacts": {
       "acd": 0,
       "cch": 0,
-      "ecs": 154.51,
+      "ecs": 154.5,
       "etf": 0,
       "etf-c": 0,
       "fru": 0,
@@ -44918,7 +44918,7 @@
     "impacts": {
       "acd": 0,
       "cch": 0,
-      "ecs": 66.153,
+      "ecs": 66.15,
       "etf": 0,
       "etf-c": 0,
       "fru": 0,
@@ -44961,7 +44961,7 @@
     "impacts": {
       "acd": 0,
       "cch": 0,
-      "ecs": 49.665,
+      "ecs": 49.67,
       "etf": 0,
       "etf-c": 0,
       "fru": 0,
@@ -45004,7 +45004,7 @@
     "impacts": {
       "acd": 0,
       "cch": 0,
-      "ecs": 20.422,
+      "ecs": 20.42,
       "etf": 0,
       "etf-c": 0,
       "fru": 0,
@@ -45047,7 +45047,7 @@
     "impacts": {
       "acd": 0,
       "cch": 0,
-      "ecs": 25.772,
+      "ecs": 25.77,
       "etf": 0,
       "etf-c": 0,
       "fru": 0,
@@ -45090,7 +45090,7 @@
     "impacts": {
       "acd": 0,
       "cch": 0,
-      "ecs": 43.686,
+      "ecs": 43.69,
       "etf": 0,
       "etf-c": 0,
       "fru": 0,
@@ -45133,7 +45133,7 @@
     "impacts": {
       "acd": 0,
       "cch": 0,
-      "ecs": 15.308,
+      "ecs": 15.31,
       "etf": 0,
       "etf-c": 0,
       "fru": 0,
@@ -45175,7 +45175,7 @@
     "impacts": {
       "acd": 0,
       "cch": 0,
-      "ecs": 254.51,
+      "ecs": 254.5,
       "etf": 0,
       "etf-c": 0,
       "fru": 0,
@@ -45218,7 +45218,7 @@
     "impacts": {
       "acd": 0,
       "cch": 0,
-      "ecs": 96.657,
+      "ecs": 96.66,
       "etf": 0,
       "etf-c": 0,
       "fru": 0,
@@ -45261,7 +45261,7 @@
     "impacts": {
       "acd": 0,
       "cch": 0,
-      "ecs": 54.257,
+      "ecs": 54.26,
       "etf": 0,
       "etf-c": 0,
       "fru": 0,
@@ -45304,7 +45304,7 @@
     "impacts": {
       "acd": 0,
       "cch": 0,
-      "ecs": 22.444,
+      "ecs": 22.44,
       "etf": 0,
       "etf-c": 0,
       "fru": 0,
@@ -45345,7 +45345,7 @@
     "impacts": {
       "acd": 0,
       "cch": 0,
-      "ecs": 25.602,
+      "ecs": 25.6,
       "etf": 0,
       "etf-c": 0,
       "fru": 0,
@@ -45388,7 +45388,7 @@
     "impacts": {
       "acd": 0,
       "cch": 0,
-      "ecs": 30.941,
+      "ecs": 30.94,
       "etf": 0,
       "etf-c": 0,
       "fru": 0,
@@ -45431,7 +45431,7 @@
     "impacts": {
       "acd": 0,
       "cch": 0,
-      "ecs": 109.26,
+      "ecs": 109.3,
       "etf": 0,
       "etf-c": 0,
       "fru": 0,
@@ -45473,7 +45473,7 @@
     "impacts": {
       "acd": 0,
       "cch": 0,
-      "ecs": 97.571,
+      "ecs": 97.57,
       "etf": 0,
       "etf-c": 0,
       "fru": 0,
@@ -45516,7 +45516,7 @@
     "impacts": {
       "acd": 0,
       "cch": 0,
-      "ecs": 31.509,
+      "ecs": 31.51,
       "etf": 0,
       "etf-c": 0,
       "fru": 0,
@@ -45559,7 +45559,7 @@
     "impacts": {
       "acd": 0,
       "cch": 0,
-      "ecs": 13.119,
+      "ecs": 13.12,
       "etf": 0,
       "etf-c": 0,
       "fru": 0,
@@ -45602,7 +45602,7 @@
     "impacts": {
       "acd": 0,
       "cch": 0,
-      "ecs": 79.549,
+      "ecs": 79.55,
       "etf": 0,
       "etf-c": 0,
       "fru": 0,
@@ -45645,7 +45645,7 @@
     "impacts": {
       "acd": 0,
       "cch": 0,
-      "ecs": 19.089,
+      "ecs": 19.09,
       "etf": 0,
       "etf-c": 0,
       "fru": 0,
@@ -45688,7 +45688,7 @@
     "impacts": {
       "acd": 0,
       "cch": 0,
-      "ecs": -51.943,
+      "ecs": -51.94,
       "etf": 0,
       "etf-c": 0,
       "fru": 0,
@@ -45731,7 +45731,7 @@
     "impacts": {
       "acd": 0,
       "cch": 0,
-      "ecs": 35.273,
+      "ecs": 35.27,
       "etf": 0,
       "etf-c": 0,
       "fru": 0,
@@ -45817,7 +45817,7 @@
     "impacts": {
       "acd": 0,
       "cch": 0,
-      "ecs": 148.14,
+      "ecs": 148.1,
       "etf": 0,
       "etf-c": 0,
       "fru": 0,
@@ -45860,7 +45860,7 @@
     "impacts": {
       "acd": 0,
       "cch": 0,
-      "ecs": 58.648,
+      "ecs": 58.65,
       "etf": 0,
       "etf-c": 0,
       "fru": 0,
@@ -45946,7 +45946,7 @@
     "impacts": {
       "acd": 0,
       "cch": 0,
-      "ecs": 249.48,
+      "ecs": 249.5,
       "etf": 0,
       "etf-c": 0,
       "fru": 0,
@@ -45989,7 +45989,7 @@
     "impacts": {
       "acd": 0,
       "cch": 0,
-      "ecs": 158.09,
+      "ecs": 158.1,
       "etf": 0,
       "etf-c": 0,
       "fru": 0,
@@ -46075,7 +46075,7 @@
     "impacts": {
       "acd": 0,
       "cch": 0,
-      "ecs": 206.61,
+      "ecs": 206.6,
       "etf": 0,
       "etf-c": 0,
       "fru": 0,
@@ -46118,7 +46118,7 @@
     "impacts": {
       "acd": 0,
       "cch": 0,
-      "ecs": 17.165,
+      "ecs": 17.17,
       "etf": 0,
       "etf-c": 0,
       "fru": 0,
@@ -46161,7 +46161,7 @@
     "impacts": {
       "acd": 0,
       "cch": 0,
-      "ecs": 33.057,
+      "ecs": 33.06,
       "etf": 0,
       "etf-c": 0,
       "fru": 0,
@@ -46204,7 +46204,7 @@
     "impacts": {
       "acd": 0,
       "cch": 0,
-      "ecs": 267.95,
+      "ecs": 267.9,
       "etf": 0,
       "etf-c": 0,
       "fru": 0,
@@ -46246,7 +46246,7 @@
     "impacts": {
       "acd": 0,
       "cch": 0,
-      "ecs": 16.171,
+      "ecs": 16.17,
       "etf": 0,
       "etf-c": 0,
       "fru": 0,
@@ -46289,7 +46289,7 @@
     "impacts": {
       "acd": 0,
       "cch": 0,
-      "ecs": 183.29,
+      "ecs": 183.3,
       "etf": 0,
       "etf-c": 0,
       "fru": 0,
@@ -46332,7 +46332,7 @@
     "impacts": {
       "acd": 0,
       "cch": 0,
-      "ecs": 205.12,
+      "ecs": 205.1,
       "etf": 0,
       "etf-c": 0,
       "fru": 0,
@@ -46375,7 +46375,7 @@
     "impacts": {
       "acd": 0,
       "cch": 0,
-      "ecs": 36.549,
+      "ecs": 36.55,
       "etf": 0,
       "etf-c": 0,
       "fru": 0,
@@ -46418,7 +46418,7 @@
     "impacts": {
       "acd": 0,
       "cch": 0,
-      "ecs": 265.04,
+      "ecs": 265.0,
       "etf": 0,
       "etf-c": 0,
       "fru": 0,
@@ -46461,7 +46461,7 @@
     "impacts": {
       "acd": 0,
       "cch": 0,
-      "ecs": 229.21,
+      "ecs": 229.2,
       "etf": 0,
       "etf-c": 0,
       "fru": 0,
@@ -46504,7 +46504,7 @@
     "impacts": {
       "acd": 0,
       "cch": 0,
-      "ecs": 81.302,
+      "ecs": 81.3,
       "etf": 0,
       "etf-c": 0,
       "fru": 0,
@@ -46547,7 +46547,7 @@
     "impacts": {
       "acd": 0,
       "cch": 0,
-      "ecs": 862.19,
+      "ecs": 862.2,
       "etf": 0,
       "etf-c": 0,
       "fru": 0,
@@ -46590,7 +46590,7 @@
     "impacts": {
       "acd": 0,
       "cch": 0,
-      "ecs": 14.276,
+      "ecs": 14.28,
       "etf": 0,
       "etf-c": 0,
       "fru": 0,
@@ -46633,7 +46633,7 @@
     "impacts": {
       "acd": 0,
       "cch": 0,
-      "ecs": 29.348,
+      "ecs": 29.35,
       "etf": 0,
       "etf-c": 0,
       "fru": 0,
@@ -46676,7 +46676,7 @@
     "impacts": {
       "acd": 0,
       "cch": 0,
-      "ecs": 113.32,
+      "ecs": 113.3,
       "etf": 0,
       "etf-c": 0,
       "fru": 0,
@@ -46719,7 +46719,7 @@
     "impacts": {
       "acd": 0,
       "cch": 0,
-      "ecs": 86.836,
+      "ecs": 86.84,
       "etf": 0,
       "etf-c": 0,
       "fru": 0,
@@ -46762,7 +46762,7 @@
     "impacts": {
       "acd": 0,
       "cch": 0,
-      "ecs": 6.9318,
+      "ecs": 6.932,
       "etf": 0,
       "etf-c": 0,
       "fru": 0,
@@ -46805,7 +46805,7 @@
     "impacts": {
       "acd": 0,
       "cch": 0,
-      "ecs": 5.1347,
+      "ecs": 5.135,
       "etf": 0,
       "etf-c": 0,
       "fru": 0,
@@ -46848,7 +46848,7 @@
     "impacts": {
       "acd": 0,
       "cch": 0,
-      "ecs": 152.99,
+      "ecs": 153.0,
       "etf": 0,
       "etf-c": 0,
       "fru": 0,
@@ -46891,7 +46891,7 @@
     "impacts": {
       "acd": 0,
       "cch": 0,
-      "ecs": 106.85,
+      "ecs": 106.9,
       "etf": 0,
       "etf-c": 0,
       "fru": 0,
@@ -46934,7 +46934,7 @@
     "impacts": {
       "acd": 0,
       "cch": 0,
-      "ecs": 43.251,
+      "ecs": 43.25,
       "etf": 0,
       "etf-c": 0,
       "fru": 0,
@@ -46977,7 +46977,7 @@
     "impacts": {
       "acd": 0,
       "cch": 0,
-      "ecs": 20.989,
+      "ecs": 20.99,
       "etf": 0,
       "etf-c": 0,
       "fru": 0,
@@ -47020,7 +47020,7 @@
     "impacts": {
       "acd": 0,
       "cch": 0,
-      "ecs": 62.109,
+      "ecs": 62.11,
       "etf": 0,
       "etf-c": 0,
       "fru": 0,
@@ -47063,7 +47063,7 @@
     "impacts": {
       "acd": 0,
       "cch": 0,
-      "ecs": 18.572,
+      "ecs": 18.57,
       "etf": 0,
       "etf-c": 0,
       "fru": 0,
@@ -47106,7 +47106,7 @@
     "impacts": {
       "acd": 0,
       "cch": 0,
-      "ecs": 341.21,
+      "ecs": 341.2,
       "etf": 0,
       "etf-c": 0,
       "fru": 0,
@@ -47149,7 +47149,7 @@
     "impacts": {
       "acd": 0,
       "cch": 0,
-      "ecs": 17.403,
+      "ecs": 17.4,
       "etf": 0,
       "etf-c": 0,
       "fru": 0,
@@ -47192,7 +47192,7 @@
     "impacts": {
       "acd": 0,
       "cch": 0,
-      "ecs": 16.844,
+      "ecs": 16.84,
       "etf": 0,
       "etf-c": 0,
       "fru": 0,
@@ -47235,7 +47235,7 @@
     "impacts": {
       "acd": 0,
       "cch": 0,
-      "ecs": 103.99,
+      "ecs": 104.0,
       "etf": 0,
       "etf-c": 0,
       "fru": 0,
@@ -47278,7 +47278,7 @@
     "impacts": {
       "acd": 0,
       "cch": 0,
-      "ecs": 120.27,
+      "ecs": 120.3,
       "etf": 0,
       "etf-c": 0,
       "fru": 0,
@@ -47320,7 +47320,7 @@
     "impacts": {
       "acd": 0,
       "cch": 0,
-      "ecs": 54.849,
+      "ecs": 54.85,
       "etf": 0,
       "etf-c": 0,
       "fru": 0,
@@ -47406,7 +47406,7 @@
     "impacts": {
       "acd": 0,
       "cch": 0,
-      "ecs": 768.81,
+      "ecs": 768.8,
       "etf": 0,
       "etf-c": 0,
       "fru": 0,
@@ -47449,7 +47449,7 @@
     "impacts": {
       "acd": 0,
       "cch": 0,
-      "ecs": 174.08,
+      "ecs": 174.1,
       "etf": 0,
       "etf-c": 0,
       "fru": 0,
@@ -47492,7 +47492,7 @@
     "impacts": {
       "acd": 0,
       "cch": 0,
-      "ecs": 291.47,
+      "ecs": 291.5,
       "etf": 0,
       "etf-c": 0,
       "fru": 0,
@@ -47535,7 +47535,7 @@
     "impacts": {
       "acd": 0,
       "cch": 0,
-      "ecs": 273.36,
+      "ecs": 273.4,
       "etf": 0,
       "etf-c": 0,
       "fru": 0,
@@ -47578,7 +47578,7 @@
     "impacts": {
       "acd": 0,
       "cch": 0,
-      "ecs": 189.31,
+      "ecs": 189.3,
       "etf": 0,
       "etf-c": 0,
       "fru": 0,
@@ -47621,7 +47621,7 @@
     "impacts": {
       "acd": 0,
       "cch": 0,
-      "ecs": 248.14,
+      "ecs": 248.1,
       "etf": 0,
       "etf-c": 0,
       "fru": 0,
@@ -47663,7 +47663,7 @@
     "impacts": {
       "acd": 0,
       "cch": 0,
-      "ecs": 71.118,
+      "ecs": 71.12,
       "etf": 0,
       "etf-c": 0,
       "fru": 0,
@@ -47706,7 +47706,7 @@
     "impacts": {
       "acd": 0,
       "cch": 0,
-      "ecs": 2036.1,
+      "ecs": 2036.0,
       "etf": 0,
       "etf-c": 0,
       "fru": 0,
@@ -47749,7 +47749,7 @@
     "impacts": {
       "acd": 0,
       "cch": 0,
-      "ecs": 742.39,
+      "ecs": 742.4,
       "etf": 0,
       "etf-c": 0,
       "fru": 0,
@@ -47792,7 +47792,7 @@
     "impacts": {
       "acd": 0,
       "cch": 0,
-      "ecs": 875.22,
+      "ecs": 875.2,
       "etf": 0,
       "etf-c": 0,
       "fru": 0,
@@ -47878,7 +47878,7 @@
     "impacts": {
       "acd": 0,
       "cch": 0,
-      "ecs": 260.29,
+      "ecs": 260.3,
       "etf": 0,
       "etf-c": 0,
       "fru": 0,
@@ -47919,7 +47919,7 @@
     "impacts": {
       "acd": 0,
       "cch": 0,
-      "ecs": 1083.9,
+      "ecs": 1084.0,
       "etf": 0,
       "etf-c": 0,
       "fru": 0,
@@ -47962,7 +47962,7 @@
     "impacts": {
       "acd": 0,
       "cch": 0,
-      "ecs": 68.016,
+      "ecs": 68.02,
       "etf": 0,
       "etf-c": 0,
       "fru": 0,
@@ -48005,7 +48005,7 @@
     "impacts": {
       "acd": 0,
       "cch": 0,
-      "ecs": 220.66,
+      "ecs": 220.7,
       "etf": 0,
       "etf-c": 0,
       "fru": 0,
@@ -48048,7 +48048,7 @@
     "impacts": {
       "acd": 0,
       "cch": 0,
-      "ecs": 1698.3,
+      "ecs": 1698.0,
       "etf": 0,
       "etf-c": 0,
       "fru": 0,
@@ -48091,7 +48091,7 @@
     "impacts": {
       "acd": 0,
       "cch": 0,
-      "ecs": 2464.6,
+      "ecs": 2465.0,
       "etf": 0,
       "etf-c": 0,
       "fru": 0,
@@ -48134,7 +48134,7 @@
     "impacts": {
       "acd": 0,
       "cch": 0,
-      "ecs": 251.29,
+      "ecs": 251.3,
       "etf": 0,
       "etf-c": 0,
       "fru": 0,
@@ -48177,7 +48177,7 @@
     "impacts": {
       "acd": 0,
       "cch": 0,
-      "ecs": 208.63,
+      "ecs": 208.6,
       "etf": 0,
       "etf-c": 0,
       "fru": 0,
@@ -48220,7 +48220,7 @@
     "impacts": {
       "acd": 0,
       "cch": 0,
-      "ecs": 566.18,
+      "ecs": 566.2,
       "etf": 0,
       "etf-c": 0,
       "fru": 0,
@@ -48263,7 +48263,7 @@
     "impacts": {
       "acd": 0,
       "cch": 0,
-      "ecs": 183.91,
+      "ecs": 183.9,
       "etf": 0,
       "etf-c": 0,
       "fru": 0,
@@ -48305,7 +48305,7 @@
     "impacts": {
       "acd": 0,
       "cch": 0,
-      "ecs": 63.283,
+      "ecs": 63.28,
       "etf": 0,
       "etf-c": 0,
       "fru": 0,
@@ -48348,7 +48348,7 @@
     "impacts": {
       "acd": 0,
       "cch": 0,
-      "ecs": 1887.3,
+      "ecs": 1887.0,
       "etf": 0,
       "etf-c": 0,
       "fru": 0,
@@ -48432,7 +48432,7 @@
     "impacts": {
       "acd": 0,
       "cch": 0,
-      "ecs": 74.123,
+      "ecs": 74.12,
       "etf": 0,
       "etf-c": 0,
       "fru": 0,
@@ -48475,7 +48475,7 @@
     "impacts": {
       "acd": 0,
       "cch": 0,
-      "ecs": 190.61,
+      "ecs": 190.6,
       "etf": 0,
       "etf-c": 0,
       "fru": 0,
@@ -48518,7 +48518,7 @@
     "impacts": {
       "acd": 0,
       "cch": 0,
-      "ecs": 743.12,
+      "ecs": 743.1,
       "etf": 0,
       "etf-c": 0,
       "fru": 0,
@@ -48560,7 +48560,7 @@
     "impacts": {
       "acd": 0,
       "cch": 0,
-      "ecs": 221.96,
+      "ecs": 222.0,
       "etf": 0,
       "etf-c": 0,
       "fru": 0,
@@ -48603,7 +48603,7 @@
     "impacts": {
       "acd": 0,
       "cch": 0,
-      "ecs": 38.608,
+      "ecs": 38.61,
       "etf": 0,
       "etf-c": 0,
       "fru": 0,
@@ -48687,7 +48687,7 @@
     "impacts": {
       "acd": 0,
       "cch": 0,
-      "ecs": 91.045,
+      "ecs": 91.04,
       "etf": 0,
       "etf-c": 0,
       "fru": 0,
@@ -48728,7 +48728,7 @@
     "impacts": {
       "acd": 0,
       "cch": 0,
-      "ecs": 203.16,
+      "ecs": 203.2,
       "etf": 0,
       "etf-c": 0,
       "fru": 0,
@@ -48771,7 +48771,7 @@
     "impacts": {
       "acd": 0,
       "cch": 0,
-      "ecs": 4363.3,
+      "ecs": 4363.0,
       "etf": 0,
       "etf-c": 0,
       "fru": 0,
@@ -48814,7 +48814,7 @@
     "impacts": {
       "acd": 0,
       "cch": 0,
-      "ecs": 354.86,
+      "ecs": 354.9,
       "etf": 0,
       "etf-c": 0,
       "fru": 0,
@@ -48857,7 +48857,7 @@
     "impacts": {
       "acd": 0,
       "cch": 0,
-      "ecs": 80.353,
+      "ecs": 80.35,
       "etf": 0,
       "etf-c": 0,
       "fru": 0,
@@ -48900,7 +48900,7 @@
     "impacts": {
       "acd": 0,
       "cch": 0,
-      "ecs": 630.85,
+      "ecs": 630.9,
       "etf": 0,
       "etf-c": 0,
       "fru": 0,
@@ -48943,7 +48943,7 @@
     "impacts": {
       "acd": 0,
       "cch": 0,
-      "ecs": 206.89,
+      "ecs": 206.9,
       "etf": 0,
       "etf-c": 0,
       "fru": 0,
@@ -48986,7 +48986,7 @@
     "impacts": {
       "acd": 0,
       "cch": 0,
-      "ecs": 1364.2,
+      "ecs": 1364.0,
       "etf": 0,
       "etf-c": 0,
       "fru": 0,
@@ -49029,7 +49029,7 @@
     "impacts": {
       "acd": 0,
       "cch": 0,
-      "ecs": 705.31,
+      "ecs": 705.3,
       "etf": 0,
       "etf-c": 0,
       "fru": 0,
