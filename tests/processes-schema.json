@@ -92,10 +92,9 @@
         "type": "string",
         "enum": ["kg", "t⋅km", "kWh", "MJ", "L", "item", "m2", "m3"]
       },
-      "waste": {
+      "qtyVariationRatio": {
         "type": "number",
-        "minimum": 0,
-        "maximum": 1
+        "exclusiveMinimum": 0
       }
     },
     "required": [
@@ -109,7 +108,7 @@
       "impacts",
       "source",
       "unit",
-      "waste"
+      "qtyVariationRatio"
     ]
   }
 }

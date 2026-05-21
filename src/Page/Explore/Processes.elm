@@ -9,7 +9,6 @@ import Data.Process as Process exposing (Process)
 import Data.Process.Category as ProcessCategory
 import Data.Scope exposing (Scope)
 import Data.Session as Session exposing (Session)
-import Data.Split as Split
 import Data.Unit as Unit
 import Energy
 import Html exposing (..)
@@ -102,9 +101,9 @@ baseColumns detailed scope =
       , toValue = Table.FloatValue <| .heat >> Energy.inMegajoules
       , toCell = .heat >> Format.megajoules
       }
-    , { label = "Pertes"
-      , toValue = Table.FloatValue <| .waste >> Split.toPercent
-      , toCell = .waste >> Format.splitAsPercentage 2
+    , { label = "Ratio de variation de quantité"
+      , toValue = Table.FloatValue <| .qtyVariationRatio >> Unit.qtyVariationRatioToFloat
+      , toCell = .qtyVariationRatio >> Unit.qtyVariationRatioToFloat >> String.fromFloat >> text
       }
     , { label = "Masse par unité"
       , toValue = Table.StringValue <| .massPerUnit >> Maybe.map String.fromFloat >> Maybe.withDefault "N/A"

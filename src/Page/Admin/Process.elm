@@ -14,6 +14,7 @@ import Data.Process.Category as Category
 import Data.Scope as Scope exposing (Scope)
 import Data.Session as Session exposing (Session)
 import Data.Text as Text
+import Data.Unit as Unit
 import Html exposing (..)
 import Html.Attributes exposing (..)
 import Html.Keyed as Keyed
@@ -211,7 +212,7 @@ processRowView definitions selected process =
         , td [ class "text-end" ]
             [ Format.megajoules process.heat ]
         , td [ class "text-end" ]
-            [ Format.splitAsPercentage 2 process.waste ]
+            [ process.qtyVariationRatio |> Unit.qtyVariationRatioToFloat |> String.fromFloat |> text ]
         , td [ class "text-end" ]
             [ Format.massPerUnit process ]
         , td [ class "text-end" ]

@@ -30,7 +30,6 @@ import Data.Impact.Definition as Definition
 import Data.Process.Category as Category exposing (Category)
 import Data.Process.Metadata as Metadata exposing (Metadata)
 import Data.Scope as Scope exposing (Scope)
-import Data.Split as Split exposing (Split)
 import Data.Text as Text
 import Data.Unit as Unit
 import Data.Uuid as Uuid exposing (Uuid)
@@ -61,11 +60,11 @@ type alias Process =
     , location : Maybe String
     , massPerUnit : Maybe Float
     , metadata : Maybe Metadata
+    , qtyVariationRatio : Unit.QuantityVariationRatio
     , scopes : List Scope
     , searchableWords : List String
     , source : String
     , unit : Unit
-    , waste : Split
     }
 
 
@@ -144,11 +143,11 @@ decode impactsDecoder =
         |> Pipe.required "location" (Decode.maybe Decode.string)
         |> Pipe.required "massPerUnit" (Decode.maybe Decode.float)
         |> DU.strictOptional "metadata" Metadata.decode
+        |> Pipe.required "qtyVariationRatio" Unit.decodeQuantityVariationRatio
         |> Pipe.required "scopes" (Decode.list Scope.decode)
         |> Pipe.hardcoded []
         |> Pipe.required "source" Decode.string
         |> Pipe.required "unit" (Decode.string |> Decode.andThen (DE.fromResult << unitFromString))
-        |> Pipe.required "waste" Split.decodeFloat
         |> Decode.map computeSearchableWords
 
 
@@ -167,10 +166,10 @@ encode process =
         , ( "location", EncodeExtra.maybe Encode.string process.location )
         , ( "massPerUnit", EncodeExtra.maybe Encode.float process.massPerUnit )
         , ( "metadata", EncodeExtra.maybe Metadata.encode process.metadata )
+        , ( "qtyVariationRatio", Unit.encodeQuantityVariationRatio process.qtyVariationRatio )
         , ( "scopes", process.scopes |> Encode.list Scope.encode )
         , ( "source", Encode.string process.source )
         , ( "unit", process.unit |> unitToString |> Encode.string )
-        , ( "waste", Split.encodeFloat process.waste )
         ]
 
 

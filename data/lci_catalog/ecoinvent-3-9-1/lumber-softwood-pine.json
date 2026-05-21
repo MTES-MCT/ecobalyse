@@ -42,11 +42,11 @@
       ]
     }
   ],
+  "qtyVariationRatio": 1,
   "scopes": [
     "object",
     "veli"
   ],
   "source": "Ecoinvent 3.9.1",
-  "unit": "m3",
-  "waste": 0
+  "unit": "m3"
 }

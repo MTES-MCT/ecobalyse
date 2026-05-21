@@ -17,6 +17,7 @@
       ]
     }
   ],
+  "qtyVariationRatio": 1,
   "scopes": [
     "textile",
     "object",
@@ -24,6 +25,5 @@
     "food2"
   ],
   "source": "Ecoinvent 3.9.1",
-  "unit": "kWh",
-  "waste": 0
+  "unit": "kWh"
 }
