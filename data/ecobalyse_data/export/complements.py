@@ -63,6 +63,13 @@ BEEF_WITHOUT_BONE_ORGANIC_PERMANENT_PASTURE = 28.1
 BEEF_WITHOUT_BONE_ORGANIC_PLOT_SIZE = 33.9
 
 FOOD_COMPLEMENTS_COEFFICIENTS = {
+    "cropDiversity": 1.11,
+    "hedges": 6.34,
+    "permanentPasture": 7.28,
+    "plotsize": 7.12,
+}
+
+FOOD_COMPLEMENTS_COEFFICIENTS = {
     # ~1.11, defined as 10% bonus to soft-wheat-organic
     "cropDiversity": 0.1
     * SOFT_WHEAT_ORGANIC_ECS_WITHOUT_COMPLEMENTS
