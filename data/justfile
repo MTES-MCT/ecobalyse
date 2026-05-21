@@ -66,8 +66,8 @@ export-veli:
 export-transports:
     {{ uv }} run python -m common.distances.transports
 
-# Export a Brightway db: `just export-bw-db ecospold1 --activities` or `just export-bw-db simapro`
-export-bw-db *args:
+# Export a Brightway db; run `just export-bw-db` alone to list available commands
+export-bw-db *args="--help":
   {{uv}} run python ./bin/export_bw_db.py {{args}}
 
 ################################################################################
