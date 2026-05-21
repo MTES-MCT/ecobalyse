@@ -361,7 +361,7 @@ wheels = [
 
 [[package]]
 name = "bw2calc"
-version = "2.0.1"
+version = "2.4.0"
 source = { registry = "https://pypi.org/simple" }
 dependencies = [
     { name = "bw-processing" },
@@ -372,10 +372,11 @@ dependencies = [
     { name = "pydantic" },
     { name = "scipy" },
     { name = "stats-arrays" },
+    { name = "xarray" },
 ]
-sdist = { url = "https://files.pythonhosted.org/packages/7b/5b/a5a3705dbb4b571aa193144671c2e0ec7f635a53d975baad9ca92b7e6133/bw2calc-2.0.1.tar.gz", hash = "sha256:b13df4125b9716d8338fae7122f3771d42237220a80bd8e4e1d6319443dc9666", size = 57387, upload-time = "2024-12-10T14:04:03.451Z" }
+sdist = { url = "https://files.pythonhosted.org/packages/1a/61/c7d67e6491787f49ded6bcde5b4bc50c1a87d0bc9394645543eeaad8ebc1/bw2calc-2.4.0.tar.gz", hash = "sha256:5c2f26291dc7946dbc0338e87bac53677857e73a6016baf3e42775280cde97ce", size = 56885, upload-time = "2026-02-27T14:37:44.159Z" }
 wheels = [
-    { url = "https://files.pythonhosted.org/packages/d2/ae/6ba57b6d7f41374f35145ac0fa48582ff6fd066809f3fb949c078cd4a853/bw2calc-2.0.1-py3-none-any.whl", hash = "sha256:47e3456b7f651dfbc991b3da70f920620c14fa0597fb193b7d3cc5a5df94d976", size = 31632, upload-time = "2024-12-10T14:04:00.872Z" },
+    { url = "https://files.pythonhosted.org/packages/8d/cc/977d543fc497e6f9152b8b2040418322a0ee8e307ecf59a329ca993ca6ff/bw2calc-2.4.0-py3-none-any.whl", hash = "sha256:0791bcd026479ece65625015d7a1b465a56c1a9d568dc2ca1e4c256eac074f7f", size = 37219, upload-time = "2026-02-27T14:37:42.912Z" },
 ]
 
 [[package]]
@@ -858,7 +859,7 @@ requires-dist = [
 data = [
     { name = "boto3", specifier = "~=1.40" },
     { name = "bw2analyzer", specifier = "==0.11.7" },
-    { name = "bw2calc", specifier = "==2.0.1" },
+    { name = "bw2calc", specifier = "==2.4.0" },
     { name = "bw2data", specifier = "==4.4.3" },
     { name = "bw2io", extras = ["multifunctional"], specifier = "==0.9.5" },
     { name = "bw2parameters", specifier = "==1.1.0" },
@@ -3776,6 +3777,20 @@ wheels = [
     { url = "https://files.pythonhosted.org/packages/8e/b2/feecfe29f28483d888d76a48f03c4c4d8afea944dbee2b0cd3380f9df032/wrapt-2.1.2-cp312-cp312-win_amd64.whl", hash = "sha256:1c51c738d7d9faa0b3601708e7e2eda9bf779e1b601dce6c77411f2a1b324a63", size = 60441, upload-time = "2026-03-06T02:52:47.138Z" },
     { url = "https://files.pythonhosted.org/packages/44/e1/e328f605d6e208547ea9fd120804fcdec68536ac748987a68c47c606eea8/wrapt-2.1.2-cp312-cp312-win_arm64.whl", hash = "sha256:c8e46ae8e4032792eb2f677dbd0d557170a8e5524d22acc55199f43efedd39bf", size = 58836, upload-time = "2026-03-06T02:53:22.053Z" },
     { url = "https://files.pythonhosted.org/packages/1a/c7/8528ac2dfa2c1e6708f647df7ae144ead13f0a31146f43c7264b4942bf12/wrapt-2.1.2-py3-none-any.whl", hash = "sha256:b8fd6fa2b2c4e7621808f8c62e8317f4aae56e59721ad933bac5239d913cf0e8", size = 43993, upload-time = "2026-03-06T02:53:12.905Z" },
+]
+
+[[package]]
+name = "xarray"
+version = "2026.4.0"
+source = { registry = "https://pypi.org/simple" }
+dependencies = [
+    { name = "numpy" },
+    { name = "packaging" },
+    { name = "pandas" },
+]
+sdist = { url = "https://files.pythonhosted.org/packages/4b/a6/6fe936a798a3a38a79c7422d1a31afd2e9a14690fcb0ccff96bc01f04bf2/xarray-2026.4.0.tar.gz", hash = "sha256:c4ac9a01a945d90d5b1628e2af045099a9d4943536d4f2ee3ae963c3b222d15b", size = 3132311, upload-time = "2026-04-13T19:45:36.688Z" }
+wheels = [
+    { url = "https://files.pythonhosted.org/packages/dc/83/6d810a8a9ebc9c307989b418840c20e46907c74d707beb67ab566773e6fc/xarray-2026.4.0-py3-none-any.whl", hash = "sha256:d43751d9fb4a90f9249c30431684f00c41bc874f1edccd862631a40cbc0edf08", size = 1414326, upload-time = "2026-04-13T19:45:34.659Z" },
 ]
 
 [[package]]
