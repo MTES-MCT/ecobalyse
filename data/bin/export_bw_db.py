@@ -20,7 +20,7 @@ from ecobalyse_data.typer import bw_database_validation, bw_databases_validation
 projects.set_current(settings.bw.project)
 available_bw_databases = ", ".join(bw2data.databases)
 
-app = typer.Typer()
+app = typer.Typer(no_args_is_help=True)
 
 
 @app.command()
@@ -83,35 +83,35 @@ def ecospold1(
             "--output", "-o", help="Output XML file (default: <db_names>.XML)."
         ),
     ] = None,
-    from_activities: Annotated[
+    whole_lci_catalog: Annotated[
         bool,
         typer.Option(
-            "--activities",
+            "--all",
             "-a",
-            help="Export activities defined in the lci_catalog/ tree.",
+            help="Export all activities defined in the lci_catalog/ tree.",
         ),
     ] = False,
 ):
     """Export one or more Brightway databases to EcoSpold 1 XML format."""
-    if from_activities:
+    if whole_lci_catalog:
         lci_catalog = PROJECT_ROOT_DIR / "lci_catalog"
         logger.info(f"Loading activities from {lci_catalog}")
-        eco_activities = []
+        activities = []
         for lci_path in sorted(lci_catalog.glob("*/*.json")):
             with open(lci_path, "r") as f:
-                eco_activities.append(json.load(f))
+                activities.append(json.load(f))
 
         bw_activities = []
-        for eco_activity in eco_activities:
-            if eco_activity.get("impacts"):
+        for activity in activities:
+            if activity.get("impacts"):
                 logger.debug(
-                    f"Skipping '{eco_activity.get('displayName', eco_activity.get('activityName'))}' (hardcoded impacts)"
+                    f"Skipping '{activity.get('displayName', activity.get('activityName'))}' (hardcoded impacts)"
                 )
                 continue
             bw_activity = cached_search_one(
-                eco_activity["source"],
-                eco_activity["activityName"],
-                location=eco_activity.get("location"),
+                activity["source"],
+                activity["activityName"],
+                location=activity.get("location"),
             )
             bw_activities.append(bw_activity)
 
