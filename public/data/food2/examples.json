@@ -1,1 +1,51 @@
-[]
+[
+  {
+    "category": "",
+    "id": "3022477d-42ab-4540-b364-e2819ab20fea",
+    "name": "Compote de pomme FR",
+    "query": {
+      "assemblyCountry": "FR",
+      "components": [
+        {
+          "custom": {
+            "elements": [
+              {
+                "amount": 0.015,
+                "material": {
+                  "country": "FR",
+                  "id": "d9519b9d-d166-4bb0-8f34-27bb874b104a"
+                },
+                "transforms": [
+                  {
+                    "country": "FR",
+                    "id": "de307fb4-99d3-4a01-962b-242ace7b2739"
+                  }
+                ]
+              }
+            ],
+            "name": "Compote"
+          },
+          "quantity": 4
+        },
+        {
+          "custom": {
+            "elements": [
+              {
+                "amount": 1,
+                "material": {
+                  "id": "d64edb92-6adc-4a06-a0d0-250cf57c54bd"
+                },
+                "transforms": []
+              }
+            ],
+            "name": "Lot de 4 pots en plastique avec fourreau carton"
+          },
+          "quantity": 1
+        }
+      ],
+      "recyclable": true,
+      "transportCooling": false
+    },
+    "scope": "food2"
+  }
+]
