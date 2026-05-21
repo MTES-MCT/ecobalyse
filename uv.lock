@@ -891,7 +891,7 @@ jupyter = [
     { name = "notebook", specifier = ">=7.3.0" },
 ]
 simapro = [
-    { name = "fastapi", extras = ["all"], specifier = "~=0.115" },
+    { name = "fastapi", extras = ["all"], specifier = "~=0.136" },
     { name = "matplotlib", specifier = "~=3.10.7" },
 ]
 
