@@ -104,7 +104,7 @@ Niveau 1 :
 ## Paramètres retenus pour le coût environnemental&#x20;
 
 {% hint style="warning" %}
-Dans la première version, il est considéré que la recyclabilité produit est toujours effective (r\_p=1) et le taux de collecte est fixé à 70% pour tous les secteurs.
+Dans la première version, il est considéré que le taux de collecte est fixé à 70% pour tous les secteurs.
 {% endhint %}
 
 ### Taux de collecte `TC`
@@ -193,4 +193,6 @@ La colonne total correspond au total pour 1kg de matériau, collecté ou non col
 ## Exemples&#x20;
 
 Le détail des calculs avec paramètres et procédés appliqué est disponible en téléchargeant le fichier suivant :&#x20;
+
+{% file src="../.gitbook/assets/Ecobalyse - EoL processes - Clean (1).xlsx" %}
 
