@@ -33,14 +33,12 @@
     {
       "id": "4935fdeb-99f7-46ff-8b10-46d07c55860b",
       "scopes": [
-        "object",
-        "veli"
+        "object"
       ]
     }
   ],
   "scopes": [
-    "object",
-    "veli"
+    "object"
   ],
   "source": "Custom",
   "unit": "kg",
