@@ -5,8 +5,8 @@
   ],
   "comment": "Raw to cooked ratio defined in Agribalyse 3 methodology",
   "displayName": "Cuisson des volailles et viandes blanches",
-  "elecMJ": 2.58,
-  "heatMJ": 0.754,
+  "elecMJ": 0,
+  "heatMJ": 0,
   "id": "3d652890-d758-4517-ada3-06dfacf25d39",
   "impacts": {
     "acd": 0,

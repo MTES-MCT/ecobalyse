@@ -5,8 +5,8 @@
   ],
   "comment": "Raw to cooked ratio defined in Agribalyse 3 methodology",
   "displayName": "Cuisson des fruits et légumes frais",
-  "elecMJ": 2.58,
-  "heatMJ": 0.754,
+  "elecMJ": 0,
+  "heatMJ": 0,
   "id": "c5c7d3af-20fc-49c1-ab4c-1a04d37f8602",
   "impacts": {
     "acd": 0,

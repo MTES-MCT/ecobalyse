@@ -5,8 +5,8 @@
   ],
   "comment": "Raw to cooked ratio defined in Agribalyse 3 methodology",
   "displayName": "Cuisson divers",
-  "elecMJ": 2.58,
-  "heatMJ": 0.754,
+  "elecMJ": 0,
+  "heatMJ": 0,
   "id": "71c3f799-4765-414c-bc1e-6da668b261a0",
   "impacts": {
     "acd": 0,

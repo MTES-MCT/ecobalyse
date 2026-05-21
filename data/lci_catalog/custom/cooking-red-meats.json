@@ -5,8 +5,8 @@
   ],
   "comment": "Raw to cooked ratio defined in Agribalyse 3 methodology",
   "displayName": "Cuisson des viandes rouges",
-  "elecMJ": 2.58,
-  "heatMJ": 0.754,
+  "elecMJ": 0,
+  "heatMJ": 0,
   "id": "c6bab4ab-570a-4648-96cd-67ee5b6a6b32",
   "impacts": {
     "acd": 0,

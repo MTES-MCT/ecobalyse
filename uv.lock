@@ -812,6 +812,7 @@ dev = [
     { name = "ruff" },
 ]
 dev-data = [
+    { name = "check-jsonschema" },
     { name = "deadcode" },
     { name = "pre-commit" },
     { name = "pytest" },
@@ -875,6 +876,7 @@ dev = [
     { name = "ruff", specifier = ">=0.15.12" },
 ]
 dev-data = [
+    { name = "check-jsonschema", specifier = "~=0.35" },
     { name = "deadcode", specifier = "~=2.4" },
     { name = "pre-commit", specifier = "~=4.0" },
     { name = "pytest", specifier = "~=8.3" },
