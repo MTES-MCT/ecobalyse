@@ -1034,7 +1034,7 @@ elementTransformsView config targetElement materialResults materialCountry trans
                             }
                         ]
                     , td [ class "align-middle text-end text-nowrap" ]
-                        [ Format.splitAsPercentage 2 transform.process.waste ]
+                        [ transform.process.qtyVariationRatio |> Unit.qtyVariationRatioToFloat |> String.fromFloat |> text ]
                     , td [ class "text-end align-middle text-nowrap" ]
                         [ Component.extractAmount transformResult
                             |> Format.amount transform.process

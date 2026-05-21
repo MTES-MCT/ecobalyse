@@ -5,6 +5,7 @@ module Data.Unit exposing
     , NonPhysicalDurability(..)
     , PhysicalDurability(..)
     , PickPerMeter(..)
+    , QuantityVariationRatio(..)
     , Ratio(..)
     , SurfaceMass
     , ThreadDensity(..)
@@ -12,6 +13,7 @@ module Data.Unit exposing
     , decodeAndNegateImpact
     , decodeImpact
     , decodePhysicalDurability
+    , decodeQuantityVariationRatio
     , decodeRatio
     , decodeSurfaceMass
     , decodeYarnSize
@@ -19,6 +21,7 @@ module Data.Unit exposing
     , encodeNonPhysicalDurability
     , encodePhysicalDurability
     , encodePickPerMeter
+    , encodeQuantityVariationRatio
     , encodeRatio
     , encodeSurfaceMass
     , encodeThreadDensity
@@ -46,6 +49,8 @@ module Data.Unit exposing
     , physicalDurabilityToFloat
     , pickPerMeter
     , pickPerMeterToFloat
+    , qtyVariationRatio
+    , qtyVariationRatioToFloat
     , ratio
     , ratioToFloat
     , ratioedForKWh
@@ -59,6 +64,7 @@ module Data.Unit exposing
     , threadDensityLow
     , threadDensityToFloat
     , threadDensityToInt
+    , wasteToQtyVariation
     , yarnSizeInGrams
     , yarnSizeInKilometers
     , yarnSizeKilometersPerKg
@@ -102,6 +108,40 @@ decodeRatio =
 
 encodeRatio : Ratio -> Encode.Value
 encodeRatio (Ratio float) =
+    Encode.float float
+
+
+
+-- Quantity Variation Ratio
+
+
+type QuantityVariationRatio
+    = QuantityVariationRatio Float
+
+
+qtyVariationRatio : Float -> QuantityVariationRatio
+qtyVariationRatio float =
+    QuantityVariationRatio float
+
+
+qtyVariationRatioToFloat : QuantityVariationRatio -> Float
+qtyVariationRatioToFloat (QuantityVariationRatio float) =
+    float
+
+
+wasteToQtyVariation : Split -> QuantityVariationRatio
+wasteToQtyVariation waste =
+    qtyVariationRatio (1 - Split.toFloat waste)
+
+
+decodeQuantityVariationRatio : Decoder QuantityVariationRatio
+decodeQuantityVariationRatio =
+    Decode.float
+        |> Decode.map qtyVariationRatio
+
+
+encodeQuantityVariationRatio : QuantityVariationRatio -> Encode.Value
+encodeQuantityVariationRatio (QuantityVariationRatio float) =
     Encode.float float
 
 
