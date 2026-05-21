@@ -51,39 +51,12 @@ def compute_forest_complement(
 # bonus/malus on a specific reference ingredient. Example: cropDiversity is
 # defined as a 10% bonus to soft-wheat-organic.
 #
-# Reference scores recorded on 2026-05-18.
 # Detailed in https://github.com/MTES-MCT/ecobalyse/issues/2051
 
-SOFT_WHEAT_ORGANIC_ECS_WITHOUT_COMPLEMENTS = 81.3
-SOFT_WHEAT_ORGANIC_CROP_DIVERSITY = 7.3
-
-BEEF_WITHOUT_BONE_ORGANIC_ECS_WITHOUT_COMPLEMENTS = 2047.7
-BEEF_WITHOUT_BONE_ORGANIC_HEDGES = 35.6
-BEEF_WITHOUT_BONE_ORGANIC_PERMANENT_PASTURE = 28.1
-BEEF_WITHOUT_BONE_ORGANIC_PLOT_SIZE = 33.9
 
 FOOD_COMPLEMENTS_COEFFICIENTS = {
     "cropDiversity": 1.11,
     "hedges": 6.34,
     "permanentPasture": 7.28,
-    "plotsize": 7.12,
-}
-
-FOOD_COMPLEMENTS_COEFFICIENTS = {
-    # ~1.11, defined as 10% bonus to soft-wheat-organic
-    "cropDiversity": 0.1
-    * SOFT_WHEAT_ORGANIC_ECS_WITHOUT_COMPLEMENTS
-    / SOFT_WHEAT_ORGANIC_CROP_DIVERSITY,
-    # ~5.75, defined as 10% bonus to beef-without-bone-organic
-    "hedges": 0.1
-    * BEEF_WITHOUT_BONE_ORGANIC_ECS_WITHOUT_COMPLEMENTS
-    / BEEF_WITHOUT_BONE_ORGANIC_HEDGES,
-    # ~7.29, defined as 10% bonus to beef-without-bone-organic
-    "permanentPasture": 0.1
-    * BEEF_WITHOUT_BONE_ORGANIC_ECS_WITHOUT_COMPLEMENTS
-    / BEEF_WITHOUT_BONE_ORGANIC_PERMANENT_PASTURE,
-    # ~6.04, defined as 10% bonus to beef-without-bone-organic
-    "plotSize": 0.1
-    * BEEF_WITHOUT_BONE_ORGANIC_ECS_WITHOUT_COMPLEMENTS
-    / BEEF_WITHOUT_BONE_ORGANIC_PLOT_SIZE,
+    "plotSize": 7.12,
 }
