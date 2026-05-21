@@ -107,6 +107,9 @@ jobs:
     - name: Run client tests
       run: npm run test:client
 
+    - name: Run jslib tests
+      run: npm run test:jslib
+
     - name: Run server tests
       run: npm run test:server && npm run test:backend
 
