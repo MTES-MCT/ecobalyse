@@ -914,6 +914,7 @@ computeTransportedMassImpacts ({ config } as requirements) (TransportCooling coo
             (Maybe.map (Transport.applyTransportRatios Split.zero)
                 >> Maybe.withDefault config.transports.defaultDistance
                 -- Always reset air transport, which is unhandled by design for now
+                -- see https://github.com/MTES-MCT/ecobalyse/issues/2282#issuecomment-4505548371
                 >> (\transport -> { transport | air = Quantity.zero })
             )
         -- remap cooled transportation modes if needed
