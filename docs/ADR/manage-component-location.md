@@ -64,7 +64,7 @@ teinture moyenne / country :
 
 - complexification du modèle de calcul
 - complexification de l'ui (localisation géré par l'utilisateur sur chaque élément et procédé sous le composant Vs actuellement gestion au premier niveau)
-
+- explicitation (donc clarification) de l'hypothèse appliquée à chaque étape
 ## Vocabulaire et concept
 - composant = une partie d'un produit lui-même composé d'éléments
 - élément = une matière première au moins auquel il est possible d'ajouter des procédés de transformation en fonction du material type de la matière première
