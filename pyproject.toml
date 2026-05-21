@@ -76,6 +76,7 @@ data = [
  ]
 
 dev-data = [
+    "check-jsonschema ~= 0.35",
     "deadcode ~= 2.4",
     "pre-commit ~= 4.0",
     "pytest ~= 8.3",

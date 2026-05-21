@@ -111,6 +111,7 @@ module Data.Component exposing
     , updateElementTransformCountry
     , updateItem
     , updateItemCustomName
+    , updateRecyclable
     , validateItem
     , validateQuery
     )
@@ -185,6 +186,7 @@ type alias Query =
     -- though it's still an ongoing discussion and we need to move forward and iterate.
     , durability : Maybe Unit.Ratio
     , items : List Item
+    , recyclable : Bool
     , transportCooling : TransportCooling
     }
 
@@ -625,7 +627,7 @@ compute requirements query =
         |> Result.map (List.foldr addResults emptyResults)
         |> Result.map (\(Results results) -> { emptyLifeCycle | production = Results { results | label = Just "Production" } })
         |> Result.andThen (computeDistributionImpacts requirements query)
-        |> Result.map (computeEndOfLifeResults requirements)
+        |> Result.map (computeEndOfLifeResults requirements query)
         |> Result.andThen (computeTransports requirements query)
         |> Result.andThen (computeUseImpacts requirements query)
 
@@ -683,12 +685,12 @@ computeElementResults requirements transportCooling =
             )
 
 
-computeEndOfLifeResults : Requirements db -> LifeCycle -> LifeCycle
-computeEndOfLifeResults requirements lifeCycle =
+computeEndOfLifeResults : Requirements db -> Query -> LifeCycle -> LifeCycle
+computeEndOfLifeResults requirements query lifeCycle =
     { lifeCycle
         | endOfLife =
             lifeCycle.production
-                |> getEndOfLifeImpacts requirements
+                |> getEndOfLifeImpacts requirements query.recyclable
     }
 
 
@@ -1166,6 +1168,7 @@ decodeQuery =
         |> DU.strictOptional "distribution" Process.decodeId
         |> DU.strictOptional "durability" Unit.decodeRatio
         |> Decode.required "components" (Decode.list decodeItem)
+        |> Decode.optional "recyclable" Decode.bool True
         |> Decode.optional "transportCooling" (Decode.map TransportCooling Decode.bool) defaultTransportCooling
 
 
@@ -1247,6 +1250,7 @@ emptyQuery =
     , distribution = Nothing
     , durability = Nothing
     , items = []
+    , recyclable = True
     , transportCooling = defaultTransportCooling
     }
 
@@ -1401,6 +1405,7 @@ encodeQuery query =
           )
         , ( "distribution", query.distribution |> Maybe.map Process.encodeId )
         , ( "durability", query.durability |> Maybe.map Unit.encodeRatio )
+        , ( "recyclable", query.recyclable |> Encode.bool |> Just )
         , ( "transportCooling", query.transportCooling |> isTransportCooled |> Encode.bool |> Just )
         ]
 
@@ -1637,11 +1642,11 @@ getElementResult ( itemIndex, elementIndex ) productionResults =
         |> Result.andThen (extractItems >> LE.getAt elementIndex >> Result.fromMaybe errors.elementNotFound)
 
 
-getEndOfLifeDetailedImpacts : Requirements db -> Results -> DetailedEndOfLifeImpacts
-getEndOfLifeDetailedImpacts { config, scope } =
+getEndOfLifeDetailedImpacts : Requirements db -> Bool -> Results -> DetailedEndOfLifeImpacts
+getEndOfLifeDetailedImpacts { config, scope } recyclable =
     let
         collectionRatio =
-            getEndOfLifeScopeCollectionRate config scope
+            scope |> getEndOfLifeScopeCollectionRate config recyclable
 
         nonCollectionRatio =
             Split.complement collectionRatio
@@ -1674,11 +1679,11 @@ getEndOfLifeDetailedImpacts { config, scope } =
         >> AnyDict.fromList Category.materialTypeToString
 
 
-getEndOfLifeImpacts : Requirements db -> Results -> Impacts
-getEndOfLifeImpacts ({ config, scope } as requirements) (Results results) =
+getEndOfLifeImpacts : Requirements db -> Bool -> Results -> Impacts
+getEndOfLifeImpacts ({ config, scope } as requirements) recyclable (Results results) =
     if config.endOfLife |> Config.scopeEnabled scope then
         Results results
-            |> getEndOfLifeDetailedImpacts requirements
+            |> getEndOfLifeDetailedImpacts requirements recyclable
             |> AnyDict.map
                 (\_ { collected, nonCollected } ->
                     let
@@ -1702,12 +1707,16 @@ getEndOfLifeImpacts ({ config, scope } as requirements) (Results results) =
         Impact.empty
 
 
-getEndOfLifeScopeCollectionRate : Config -> Scope -> Split
-getEndOfLifeScopeCollectionRate { endOfLife } scope =
-    endOfLife.scopeCollectionRates
-        |> AnyDict.get scope
-        -- Assume every material is fully collected by default
-        |> Maybe.withDefault Split.full
+getEndOfLifeScopeCollectionRate : Config -> Bool -> Scope -> Split
+getEndOfLifeScopeCollectionRate { endOfLife } recyclable scope =
+    if recyclable then
+        endOfLife.scopeCollectionRates
+            |> AnyDict.get scope
+            -- Assume every material is fully collected by default
+            |> Maybe.withDefault Split.full
+
+    else
+        Split.zero
 
 
 {-| Get an element's country last transform if any, or the country of its material otherwise.
@@ -2272,6 +2281,11 @@ updateItem itemIndex =
     LE.updateAt itemIndex
 
 
+updateRecyclable : Bool -> Query -> Query
+updateRecyclable recyclable query =
+    { query | recyclable = recyclable }
+
+
 validateConsumption : Requirements db -> Consumption -> Result String Consumption
 validateConsumption requirements consumption =
     Ok Consumption
@@ -2370,5 +2384,6 @@ validateQuery ({ db } as requirements) query =
         |> RE.andMap (validateDistribution requirements query.distribution)
         |> RE.andMap (validateDurability requirements query.durability)
         |> RE.andMap (query.items |> RE.combineMap (validateItem db.components))
+        |> RE.andMap (Ok query.recyclable)
         |> RE.andMap (Ok query.transportCooling)
-        |> Result.mapError (\s -> "Requête invalide: " ++ s)
+        |> Result.mapError (\s -> "Requête invalide\u{202F}: " ++ s)
