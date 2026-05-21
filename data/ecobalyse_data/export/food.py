@@ -12,6 +12,7 @@ from common.export import (
 )
 from config import settings
 from ecobalyse_data.bw.search import cached_search_one
+from ecobalyse_data.export.complements import FOOD_COMPLEMENTS_COEFFICIENTS
 from ecobalyse_data.export.land_occupation import compute_land_occupation_batch
 from ecobalyse_data.export.utils import get_metadata_for_scope
 from ecobalyse_data.logging import logger
@@ -203,9 +204,12 @@ def compute_vegetal_ecosystemic_services(food_metadata, ecosystemic_factors) -> 
             settings.scopes.food.grazed_grass_temporary_key,
         ):
             # don't multiply by landOccupation for grazed grass as unit is already in m2.year
-            factor_final = -1 * factor_transformed
+            factor_landocc = -1 * factor_transformed
         else:
-            factor_final = -1 * factor_transformed * food_metadata["landOccupation"]
+            factor_landocc = -1 * factor_transformed * food_metadata["landOccupation"]
+        # To get the complement final value, we need to multiply it by its FOOD_COMPLEMENTS_COEFFICIENTS
+        factor_final = factor_landocc * FOOD_COMPLEMENTS_COEFFICIENTS[eco_service]
+
         services[eco_service] = number_format_ecosystemic_service(factor_final)
 
     return services
@@ -237,8 +241,15 @@ def compute_animal_ecosystemic_services(
     services["plotSize"] = number_format_ecosystemic_service(plotSize)
     services["cropDiversity"] = number_format_ecosystemic_service(cropDiversity)
 
+    # permanentPasture is computed here from a raw feed qty, so we apply FOOD_COMPLEMENTS_COEFFICIENTS to it
+    # We don't need to apply FOOD_COMPLEMENTS_COEFFICIENTS to the other complements (hedges, plotSize, cropDiversity)
+    # as they are weighted sum of vegetal complements that compute_vegetal_ecosystemic_services
+    # already multiplied by the FOOD_COMPLEMENTS_COEFFICIENTS
+
     services["permanentPasture"] = number_format_ecosystemic_service(
-        -1 * feed_quantities.get(settings.scopes.food.grazed_grass_permanent_key, 0)
+        -1
+        * feed_quantities.get(settings.scopes.food.grazed_grass_permanent_key, 0)
+        * FOOD_COMPLEMENTS_COEFFICIENTS["permanentPasture"]
     )
     return services
 
