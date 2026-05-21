@@ -380,7 +380,7 @@ wheels = [
 
 [[package]]
 name = "bw2data"
-version = "4.4.3"
+version = "4.6.2"
 source = { registry = "https://pypi.org/simple" }
 dependencies = [
     { name = "blinker" },
@@ -405,9 +405,9 @@ dependencies = [
     { name = "voluptuous" },
     { name = "wrapt" },
 ]
-sdist = { url = "https://files.pythonhosted.org/packages/6e/a7/0d76b0643bf35d8c2be7065084ccac132f6c5161a7322b5df2ac68df8b2a/bw2data-4.4.3.tar.gz", hash = "sha256:7ae45536c6abedeb385586c7b4646c4620e3cdeb747f3e97250bbc86e6d741ae", size = 89311, upload-time = "2025-03-21T06:24:31.049Z" }
+sdist = { url = "https://files.pythonhosted.org/packages/b9/11/527a594e324c4367ba861146be7a9c26166fd4ac59208760fe37b351eb96/bw2data-4.6.2.tar.gz", hash = "sha256:e2ed09cb99755d3da640377013e9e77fb8683d9c9147c3fa64d894b80eabaa8f", size = 99740, upload-time = "2026-04-15T09:20:43.373Z" }
 wheels = [
-    { url = "https://files.pythonhosted.org/packages/6a/40/8524eeff84b27a7702e724570327479c0c876f00788f184cd9afc14128d7/bw2data-4.4.3-py3-none-any.whl", hash = "sha256:99a523658690d1886db45f43fa7db4e8c34bc2ce055e3595808325e2b63e2613", size = 101230, upload-time = "2025-03-21T06:24:29.133Z" },
+    { url = "https://files.pythonhosted.org/packages/b3/ce/5db2c6278cefb0c93495bf75396756686a71901468ddd6250d9c4cc0d5db/bw2data-4.6.2-py3-none-any.whl", hash = "sha256:56e27fc1b219d2aa37567ec9dad31e86c65c58d64b9f05b8cc105a946c328c65", size = 105890, upload-time = "2026-04-15T09:20:41.768Z" },
 ]
 
 [[package]]
@@ -859,7 +859,7 @@ data = [
     { name = "boto3", specifier = "~=1.40" },
     { name = "bw2analyzer", specifier = "==0.11.7" },
     { name = "bw2calc", specifier = "==2.0.1" },
-    { name = "bw2data", specifier = "==4.4.3" },
+    { name = "bw2data", specifier = "==4.6.2" },
     { name = "bw2io", extras = ["multifunctional"], specifier = "==0.9.5" },
     { name = "bw2parameters", specifier = "==1.1.0" },
     { name = "dynaconf", specifier = "~=3.2" },
