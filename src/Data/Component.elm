@@ -910,10 +910,11 @@ computeTransportDistance { db } maybeFrom maybeTo =
 computeTransportedMassImpacts : Requirements db -> TransportCooling -> Maybe Country -> Maybe Country -> Mass -> Result String Transport
 computeTransportedMassImpacts ({ config } as requirements) (TransportCooling cooled) maybeFrom maybeTo mass =
     computeTransportDistance requirements maybeFrom maybeTo
-        -- apply transport mode ratios; note: air transport is not handled for now
         |> Result.map
             (Maybe.map (Transport.applyTransportRatios Split.zero)
                 >> Maybe.withDefault config.transports.defaultDistance
+                -- Always reset air transport, which is unhandled by design for now
+                >> (\transport -> { transport | air = Quantity.zero })
             )
         -- remap cooled transportation modes if needed
         |> Result.map
