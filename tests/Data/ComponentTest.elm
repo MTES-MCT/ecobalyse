@@ -1135,7 +1135,7 @@ suite =
                         -- setup
                         (chair
                             |> Result.andThen (computeItemsWithRequirements requirements)
-                            |> Result.map (.production >> Component.getEndOfLifeDetailedImpacts requirements)
+                            |> Result.map (.production >> Component.getEndOfLifeDetailedImpacts requirements True)
                         )
                         -- tests
                         (\chairMaterialGroups ->
@@ -1270,11 +1270,12 @@ suite =
                     , suiteFromResult "stagesImpacts"
                         ("""{
                               "components": [
-                                { "id": "8ca2ca05-8aec-4121-acaa-7cdcc03150a9", "quantity": 1 }
+                                { "id": "8ca2ca05-8aec-4121-acaa-7cdcc03150a9", "quantity": 1}
                               ],
                               "consumptions": [
                                 { "amount": 1, "processId": "931c9bb0-619a-5f75-b41b-ab8061e2ad92" }
-                              ]
+                              ],
+                              "recyclable": true
                             }"""
                             |> decodeJsonThen Component.decodeQuery (Component.compute requirements)
                             |> Result.map (\results -> ( results, Component.stagesImpacts results ))
@@ -1317,6 +1318,28 @@ suite =
                                             |> Impact.sumImpacts
                                             |> getEcsImpact
                                         )
+                                )
+                            ]
+                        )
+                    , suiteFromResult "nonRecyclableImpacts"
+                        ("""{
+                              "components": [
+                                { "id": "8ca2ca05-8aec-4121-acaa-7cdcc03150a9", "quantity": 1 }
+                              ],
+                              "consumptions": [
+                                { "amount": 1, "processId": "931c9bb0-619a-5f75-b41b-ab8061e2ad92" }
+                              ],
+                              "recyclable": false
+                            }"""
+                            |> decodeJsonThen Component.decodeQuery (Component.compute requirements)
+                            |> Result.map Component.stagesImpacts
+                        )
+                        (\stagesImpacts ->
+                            [ it "should also compute end of life stage impacts when not recyclable"
+                                (stagesImpacts.endOfLife
+                                    |> Maybe.map getEcsImpact
+                                    |> Maybe.withDefault 0
+                                    |> Expect.greaterThan 0
                                 )
                             ]
                         )
