@@ -5,8 +5,8 @@
   ],
   "comment": "Raw to cooked ratio defined in Agribalyse 3 methodology",
   "displayName": "Cuisson des œufs",
-  "elecMJ": 0,
-  "heatMJ": 0,
+  "elecMJ": 2.58,
+  "heatMJ": 0.754,
   "id": "117f536d-40f5-409d-8a57-77bcbe2bbc1a",
   "impacts": {
     "acd": 0,

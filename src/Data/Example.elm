@@ -11,9 +11,11 @@ module Data.Example exposing
     , toSearchableString
     )
 
+import Data.Common.DecodeUtils as DU
 import Data.Scope as Scope exposing (Scope)
 import Data.Uuid as Uuid exposing (Uuid)
 import Json.Decode as Decode exposing (Decoder)
+import Json.Decode.Pipeline as Pipe
 import Url.Parser as Parser exposing (Parser)
 
 
@@ -22,18 +24,21 @@ type alias Example query =
     , id : Uuid
     , name : String
     , query : query
+    , recyclable : Bool
     , scope : Scope
     }
 
 
 decode : Decoder query -> Decoder (Example query)
 decode decodeQuery =
-    Decode.map5 Example
-        (Decode.field "category" Decode.string)
-        (Decode.field "id" Uuid.decoder)
-        (Decode.field "name" Decode.string)
-        (Decode.field "query" decodeQuery)
-        (Decode.field "scope" Scope.decode)
+    Decode.succeed Example
+        |> Pipe.required "category" Decode.string
+        |> Pipe.required "id" Uuid.decoder
+        |> Pipe.required "name" Decode.string
+        |> Pipe.required "query" decodeQuery
+        -- By default, if not specified, everything is recyclable
+        |> DU.strictOptionalWithDefault "recyclable" Decode.bool True
+        |> Pipe.required "scope" Scope.decode
 
 
 decodeListFromJsonString : Decoder query -> String -> Result String (List (Example query))

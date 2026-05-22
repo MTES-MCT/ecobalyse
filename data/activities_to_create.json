@@ -3507,7 +3507,7 @@
     "exchanges": [
       {
         "amount": 1.34,
-        "name": "nickel sulfate//[GLO] market for nickel sulfate"
+        "name": "nickel sulfate//[GLO] nickel sulfate production"
       },
       {
         "amount": 0.168,
@@ -3530,7 +3530,7 @@
         "name": "lithium hydroxide//[GLO] lithium hydroxide production"
       },
       {
-        "amount": 0,
+        "amount": 0.007,
         "name": "N-methyl-2-pyrrolidone//[RoW] N-methyl-2-pyrrolidone production"
       },
       {
@@ -3609,7 +3609,68 @@
   },
   {
     "activityCreationType": "from_scratch",
-    "alias": "battery-cell-lfp-solid-cn",
+    "alias": "battery-cell-lfp-hydrothermal-cn",
+    "comment": "For 1kg cell. Based on GREET model (average of available battery size)",
+    "database": "Ecobalyse",
+    "exchanges": [
+      {
+        "amount": 0.455,
+        "name": "CAM of Battery cell, LFP Hydrothermal, CN"
+      },
+      {
+        "amount": 0.234,
+        "name": "Graphite production for battery cell, CN"
+      },
+      {
+        "amount": 0.014,
+        "database": "Ecoinvent 3.9.1",
+        "name": "polyvinylfluoride//[RoW] polyvinylfluoride production"
+      },
+      {
+        "amount": 0.138,
+        "database": "Ecoinvent 3.9.1",
+        "name": "copper collector foil, for Li-ion battery//[GLO] copper collector foil production, for Li-ion battery"
+      },
+      {
+        "amount": 0.021,
+        "name": "aluminium ingot, market, CN"
+      },
+      {
+        "amount": 0.021,
+        "database": "Ecoinvent 3.9.1",
+        "name": "lithium hexafluorophosphate//[CN] lithium hexafluorophosphate production"
+      },
+      {
+        "amount": 0.058,
+        "database": "Ecoinvent 3.9.1",
+        "name": "ethylene carbonate//[CN] ethylene carbonate production"
+      },
+      {
+        "amount": 0.058,
+        "database": "Ecoinvent 3.9.1",
+        "name": "dimethyl carbonate//[RoW] dimethyl carbonate production"
+      },
+      {
+        "amount": 0.002,
+        "database": "Ecoinvent 3.9.1",
+        "name": "polypropylene, granulate//[GLO] market for polypropylene, granulate"
+      },
+      {
+        "amount": 19,
+        "database": "Ecoinvent 3.9.1",
+        "name": "electricity, medium voltage//[CN] market group for electricity, medium voltage"
+      },
+      {
+        "amount": 102,
+        "name": "heat, industrial, market, RoW"
+      }
+    ],
+    "location": "CN",
+    "newName": "Battery cell production, LFP Hydrothermal, CN"
+  },
+  {
+    "activityCreationType": "from_scratch",
+    "alias": "battery-cell-lfp-solid-state-cn",
     "comment": "For 1kg cell. Based on GREET model (average of available battery size)",
     "database": "Ecobalyse",
     "exchanges": [
@@ -3656,12 +3717,12 @@
         "name": "polypropylene, granulate//[GLO] market for polypropylene, granulate"
       },
       {
-        "amount": 9.2,
+        "amount": 19,
         "database": "Ecoinvent 3.9.1",
         "name": "electricity, medium voltage//[CN] market group for electricity, medium voltage"
       },
       {
-        "amount": 0,
+        "amount": 102,
         "name": "heat, industrial, market, RoW"
       }
     ],
@@ -3717,12 +3778,12 @@
         "name": "polypropylene, granulate//[GLO] market for polypropylene, granulate"
       },
       {
-        "amount": 7.1,
+        "amount": 19,
         "database": "Ecoinvent 3.9.1",
         "name": "electricity, medium voltage//[CN] market group for electricity, medium voltage"
       },
       {
-        "amount": 38.4,
+        "amount": 102,
         "name": "heat, industrial, market, RoW"
       }
     ],
@@ -3778,12 +3839,12 @@
         "name": "polypropylene, granulate//[GLO] market for polypropylene, granulate"
       },
       {
-        "amount": 7.1,
+        "amount": 19,
         "database": "Ecoinvent 3.9.1",
         "name": "electricity, medium voltage//[FR] market for electricity, medium voltage"
       },
       {
-        "amount": 38.4,
+        "amount": 102,
         "name": "heat, industrial, market, RER"
       }
     ],
@@ -3909,7 +3970,7 @@
         "name": "Hydrometallurgical treatment of battery cell, metal alloy, DA"
       },
       {
-        "amount": -0.0959,
+        "amount": -0.0993,
         "name": "copper, cathode//[GLO] market for copper, cathode"
       },
       {
@@ -3921,7 +3982,7 @@
         "name": "nickel sulfate//[GLO] market for nickel sulfate"
       },
       {
-        "amount": -0.0429,
+        "amount": -0.0426,
         "name": "lithium carbonate//[GLO] market for lithium carbonate"
       }
     ],
@@ -3945,19 +4006,19 @@
         "name": "Hydrometallurgical treatment of battery cell, metal alloy, DA"
       },
       {
-        "amount": -0.0764,
+        "amount": -0.0874,
         "name": "copper, cathode//[GLO] market for copper, cathode"
       },
       {
-        "amount": -0.0522,
+        "amount": -0.0511,
         "name": "cobalt sulfate//[CN] cobalt sulfate production"
       },
       {
-        "amount": -0.4169,
+        "amount": -0.408,
         "name": "nickel sulfate//[GLO] market for nickel sulfate"
       },
       {
-        "amount": -0.0425,
+        "amount": -0.0416,
         "name": "lithium carbonate//[GLO] market for lithium carbonate"
       }
     ],
