@@ -9711,5 +9711,325 @@
         }
       ]
     }
+  },
+  {
+    "activityCreationType": "from_scratch",
+    "alias": "packaging-food-glass",
+    "comment": "Includes all life cycle stages, including transport and end-of-life treatment, based on Agribalyse Pack_AGB project, 2024, simplified.",
+    "database": "Ecobalyse",
+    "exchanges": [
+      {
+        "amount": 1,
+        "database": "Ecoinvent 3.9.1",
+        "name": "packaging glass, white//[RER w/o CH+DE] packaging glass production, white"
+      },
+      {
+        "amount": 0.285,
+        "database": "Agribalyse 3.2",
+        "name": "Transport, for glass packaging only, raw material and packaging production in FR, freight, lorry >32 metric ton, EURO6 {RER}"
+      },
+      {
+        "amount": 1.29,
+        "database": "Agribalyse 3.2",
+        "name": "Transport, for all type of packaging, packaging production in EU, freight, lorry >32 metric ton, EURO6 {RER}"
+      },
+      {
+        "amount": 0.02,
+        "database": "Agribalyse 3.2",
+        "name": "Transport, freight, lorry >32 metric ton, EURO6, per liter of diesel {RER}"
+      },
+      {
+        "amount": 0.07,
+        "database": "Ecoinvent 3.9.1",
+        "name": "electricity, medium voltage//[FR] market for electricity, medium voltage"
+      },
+      {
+        "amount": 0.07,
+        "database": "Ecoinvent 3.9.1",
+        "name": "waste glass//[CH] treatment of waste glass, inert material landfill"
+      },
+      {
+        "amount": 0.16,
+        "database": "Ecoinvent 3.9.1",
+        "name": "waste glass//[CH] treatment of waste glass, municipal incineration"
+      },
+      {
+        "amount": 0.77,
+        "database": "Ecobalyse",
+        "name": "glass EoL recycling, RER, CFF"
+      }
+    ],
+    "location": "RER",
+    "newName": "Glass packaging"
+  },
+  {
+    "activityCreationType": "from_scratch",
+    "alias": "packaging-food-steel",
+    "comment": "Includes all life cycle stages, including transport and end-of-life treatment, based on Agribalyse Pack_AGB project, 2024, simplified.",
+    "database": "Ecobalyse",
+    "exchanges": [
+      {
+        "amount": 1,
+        "database": "Ecoinvent 3.9.1",
+        "name": "steel, unalloyed//[RER] steel production, converter, unalloyed"
+      },
+      {
+        "amount": 1,
+        "database": "Ecoinvent 3.9.1",
+        "name": "sheet rolling, steel//[RER] sheet rolling, steel"
+      },
+      {
+        "amount": 1.34,
+        "database": "Agribalyse 3.2",
+        "name": "Transport, for all type of packaging, packaging production in FR, freight, lorry >32 metric ton, EURO6 {RER}"
+      },
+      {
+        "amount": 0.99,
+        "database": "Agribalyse 3.2",
+        "name": "Transport, for all type of packaging, packaging production in EU, freight, lorry >32 metric ton, EURO6 {RER}"
+      },
+      {
+        "amount": 0.02,
+        "database": "Agribalyse 3.2",
+        "name": "Transport, freight, lorry >32 metric ton, EURO6, per liter of diesel {RER}"
+      },
+      {
+        "amount": 0.07,
+        "database": "Ecoinvent 3.9.1",
+        "name": "electricity, medium voltage//[FR] market for electricity, medium voltage"
+      },
+      {
+        "amount": 0.05,
+        "database": "Ecoinvent 3.9.1",
+        "name": "scrap steel//[Europe without Switzerland] treatment of scrap steel, inert material landfill"
+      },
+      {
+        "amount": 0.14,
+        "database": "Ecoinvent 3.9.1",
+        "name": "scrap steel//[CH] treatment of scrap steel, municipal incineration"
+      },
+      {
+        "amount": 0.81,
+        "database": "Ecobalyse",
+        "name": "steel EoL recycling, RER, CFF"
+      }
+    ],
+    "location": "RER",
+    "newName": "Steel packaging"
+  },
+  {
+    "activityCreationType": "from_scratch",
+    "alias": "packaging-food-aluminium",
+    "comment": "Includes all life cycle stages, including transport and end-of-life treatment, based on Agribalyse Pack_AGB project, 2024, simplified.",
+    "database": "Ecobalyse",
+    "exchanges": [
+      {
+        "amount": 1,
+        "database": "Ecoinvent 3.9.1",
+        "name": "aluminium, primary, ingot//[IAI Area, EU27 & EFTA] aluminium production, primary, ingot"
+      },
+      {
+        "amount": 1,
+        "database": "Ecoinvent 3.9.1",
+        "name": "sheet rolling, aluminium//[RER] sheet rolling, aluminium"
+      },
+      {
+        "amount": 1.16,
+        "database": "Agribalyse 3.2",
+        "name": "Transport, for all type of packaging, packaging production in FR, freight, lorry >32 metric ton, EURO6 {RER}"
+      },
+      {
+        "amount": 1.26,
+        "database": "Agribalyse 3.2",
+        "name": "Transport, for all type of packaging, packaging production in EU, freight, lorry >32 metric ton, EURO6 {RER}"
+      },
+      {
+        "amount": 0.02,
+        "database": "Agribalyse 3.2",
+        "name": "Transport, freight, lorry >32 metric ton, EURO6, per liter of diesel {RER}"
+      },
+      {
+        "amount": 0.07,
+        "database": "Ecoinvent 3.9.1",
+        "name": "electricity, medium voltage//[FR] market for electricity, medium voltage"
+      },
+      {
+        "amount": 0.18,
+        "database": "Ecoinvent 3.9.1",
+        "name": "waste aluminium//[CH] treatment of waste aluminium, sanitary landfill"
+      },
+      {
+        "amount": 0.45,
+        "database": "Ecoinvent 3.9.1",
+        "name": "scrap aluminium//[Europe without Switzerland] treatment of scrap aluminium, municipal incineration"
+      },
+      {
+        "amount": 0.37,
+        "database": "Ecobalyse",
+        "name": "aluminium EoL recycling, RER, CFF"
+      }
+    ],
+    "location": "RER",
+    "newName": "Aluminium packaging"
+  },
+  {
+    "activityCreationType": "from_scratch",
+    "alias": "packaging-food-cardboard",
+    "comment": "Includes all life cycle stages, including transport and end-of-life treatment, based on Agribalyse Pack_AGB project, 2024, simplified.",
+    "database": "Ecobalyse",
+    "exchanges": [
+      {
+        "amount": 1,
+        "database": "Ecoinvent 3.9.1",
+        "name": "containerboard, linerboard//[RER] containerboard production, linerboard, kraftliner"
+      },
+      {
+        "amount": 1.5,
+        "database": "Agribalyse 3.2",
+        "name": "Transport, for all type of packaging, packaging production in FR, freight, lorry >32 metric ton, EURO6 {RER}"
+      },
+      {
+        "amount": 0.75,
+        "database": "Agribalyse 3.2",
+        "name": "Transport, for all type of packaging, packaging production in EU, freight, lorry >32 metric ton, EURO6 {RER}"
+      },
+      {
+        "amount": 0.02,
+        "database": "Agribalyse 3.2",
+        "name": "Transport, freight, lorry >32 metric ton, EURO6, per liter of diesel {RER}"
+      },
+      {
+        "amount": 0.07,
+        "database": "Ecoinvent 3.9.1",
+        "name": "electricity, medium voltage//[FR] market for electricity, medium voltage"
+      },
+      {
+        "amount": 0.08,
+        "database": "Ecoinvent 3.9.1",
+        "name": "waste paperboard//[CH] treatment of waste paperboard, sanitary landfill"
+      },
+      {
+        "amount": 0.22,
+        "database": "Ecoinvent 3.9.1",
+        "name": "waste paperboard//[CH] treatment of waste paperboard, municipal incineration"
+      },
+      {
+        "amount": 0.7,
+        "database": "Ecobalyse",
+        "name": "cardboard EoL recycling, RER, CFF"
+      }
+    ],
+    "location": "RER",
+    "newName": "Cardboard packaging"
+  },
+  {
+    "activityCreationType": "from_scratch",
+    "alias": "packaging-food-pet",
+    "comment": "Includes all life cycle stages, including transport and end-of-life treatment, based on Agribalyse Pack_AGB project, 2024, simplified.",
+    "database": "Ecobalyse",
+    "exchanges": [
+      {
+        "amount": 1,
+        "database": "Ecoinvent 3.9.1",
+        "name": "polyethylene terephthalate, granulate, bottle grade//[RER] polyethylene terephthalate production, granulate, bottle grade"
+      },
+      {
+        "amount": 1,
+        "database": "Ecoinvent 3.9.1",
+        "name": "injection moulding//[RER] injection moulding"
+      },
+      {
+        "amount": 1.34,
+        "database": "Agribalyse 3.2",
+        "name": "Transport, for all type of packaging, packaging production in FR, freight, lorry >32 metric ton, EURO6 {RER}"
+      },
+      {
+        "amount": 0.99,
+        "database": "Agribalyse 3.2",
+        "name": "Transport, for all type of packaging, packaging production in EU, freight, lorry >32 metric ton, EURO6 {RER}"
+      },
+      {
+        "amount": 0.02,
+        "database": "Agribalyse 3.2",
+        "name": "Transport, freight, lorry >32 metric ton, EURO6, per liter of diesel {RER}"
+      },
+      {
+        "amount": 0.07,
+        "database": "Ecoinvent 3.9.1",
+        "name": "electricity, medium voltage//[FR] market for electricity, medium voltage"
+      },
+      {
+        "amount": 0.13,
+        "database": "Ecoinvent 3.9.1",
+        "name": "waste plastic, mixture//[CH] treatment of waste plastic, mixture, sanitary landfill"
+      },
+      {
+        "amount": 0.31,
+        "database": "Ecoinvent 3.9.1",
+        "name": "waste plastic, mixture//[CH] treatment of waste plastic, mixture, municipal incineration"
+      },
+      {
+        "amount": 0.56,
+        "database": "Ecobalyse",
+        "name": "pet bottle EoL recycling, RER, CFF"
+      }
+    ],
+    "location": "RER",
+    "newName": "PET packaging"
+  },
+  {
+    "activityCreationType": "from_scratch",
+    "alias": "packaging-food-pvc",
+    "comment": "Includes all life cycle stages, including transport and end-of-life treatment, based on Agribalyse Pack_AGB project, 2024, simplified.",
+    "database": "Ecobalyse",
+    "exchanges": [
+      {
+        "amount": 1,
+        "database": "Ecoinvent 3.9.1",
+        "name": ""
+      },
+      {
+        "amount": 1,
+        "database": "Ecoinvent 3.9.1",
+        "name": "injection moulding//[RER] injection moulding"
+      },
+      {
+        "amount": 1.34,
+        "database": "Agribalyse 3.2",
+        "name": "Transport, for all type of packaging, packaging production in FR, freight, lorry >32 metric ton, EURO6 {RER}"
+      },
+      {
+        "amount": 0.99,
+        "database": "Agribalyse 3.2",
+        "name": "Transport, for all type of packaging, packaging production in EU, freight, lorry >32 metric ton, EURO6 {RER}"
+      },
+      {
+        "amount": 0.02,
+        "database": "Agribalyse 3.2",
+        "name": "Transport, freight, lorry >32 metric ton, EURO6, per liter of diesel {RER}"
+      },
+      {
+        "amount": 0.07,
+        "database": "Ecoinvent 3.9.1",
+        "name": "electricity, medium voltage//[FR] market for electricity, medium voltage"
+      },
+      {
+        "amount": 0.27,
+        "database": "Ecoinvent 3.9.1",
+        "name": "waste plastic, mixture//[CH] treatment of waste plastic, mixture, sanitary landfill"
+      },
+      {
+        "amount": 0.67,
+        "database": "Ecoinvent 3.9.1",
+        "name": "waste plastic, mixture//[CH] treatment of waste plastic, mixture, municipal incineration"
+      },
+      {
+        "amount": 0.06,
+        "database": "Ecobalyse",
+        "name": "plastics EoL recycling, RER, CFF"
+      }
+    ],
+    "location": "RER",
+    "newName": "PVC packaging"
   }
 ]
