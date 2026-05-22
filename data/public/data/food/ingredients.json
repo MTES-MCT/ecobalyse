@@ -3780,10 +3780,10 @@
     "defaultOrigin": "France",
     "density": 1.0,
     "ecosystemicServices": {
-      "cropDiversity": 8.0,
-      "hedges": 1.57,
+      "cropDiversity": 15.0,
+      "hedges": 2.33,
       "permanentPasture": 0,
-      "plotSize": 1.74
+      "plotSize": 2.56
     },
     "id": "169a7125-0365-419a-8f91-f0da65ff6f57",
     "inediblePart": 0,
@@ -4516,6 +4516,34 @@
     "visible": true
   },
   {
+    "activityName": "Spring oats, organic, national average, at feed plant {FR} U",
+    "alias": "oats-organic-2025",
+    "baseIngredient": "oats",
+    "categories": [
+      "grain_raw",
+      "organic"
+    ],
+    "cropGroup": "AUTRES CEREALES",
+    "defaultOrigin": "EuropeAndMaghreb",
+    "density": 0.72,
+    "ecosystemicServices": {
+      "cropDiversity": 3.47,
+      "hedges": 1.2,
+      "permanentPasture": null,
+      "plotSize": 1.48
+    },
+    "id": "1af0933a-0139-480c-832d-053513d0ccba",
+    "inediblePart": 0,
+    "landOccupation": 2.368,
+    "location": "FR",
+    "name": "Avoine Bio (2025)",
+    "processId": "66b57474-7f48-5016-b79c-87bc090fd016",
+    "rawToCookedRatio": 2.259,
+    "scenario": "organic",
+    "transportCooling": "none",
+    "visible": false
+  },
+  {
     "activityName": "Rye grain {RoW}| rye production | Cut-off, U - Adapted from Ecoinvent U",
     "alias": "rye-whole-non-eu",
     "baseIngredient": "rye-whole",
@@ -4840,10 +4868,10 @@
     "defaultOrigin": "France",
     "density": 1.0,
     "ecosystemicServices": {
-      "cropDiversity": 4.89,
-      "hedges": 1.79,
+      "cropDiversity": 13.3,
+      "hedges": 2.7,
       "permanentPasture": 0,
-      "plotSize": 1.91
+      "plotSize": 2.88
     },
     "id": "1d8e7cac-fc93-501f-8d33-98f1d6d34da8",
     "inediblePart": 0,
@@ -11405,10 +11433,10 @@
     "defaultOrigin": "France",
     "density": 1.0,
     "ecosystemicServices": {
-      "cropDiversity": 13.0,
-      "hedges": 3.37,
+      "cropDiversity": 18.4,
+      "hedges": 3.96,
       "permanentPasture": 0,
-      "plotSize": 4.45
+      "plotSize": 5.08
     },
     "id": "4dcd0514-ad5f-5853-be2c-c0a8a09025c5",
     "inediblePart": 0,
@@ -11433,10 +11461,10 @@
     "defaultOrigin": "France",
     "density": 1.0,
     "ecosystemicServices": {
-      "cropDiversity": 25.4,
-      "hedges": 6.61,
+      "cropDiversity": 36.0,
+      "hedges": 7.75,
       "permanentPasture": 0,
-      "plotSize": 8.72
+      "plotSize": 9.95
     },
     "id": "4de5e41e-3271-4489-aa27-a973e4045082",
     "inediblePart": 0,
@@ -11516,10 +11544,10 @@
     "defaultOrigin": "France",
     "density": 1.0,
     "ecosystemicServices": {
-      "cropDiversity": 69.0,
-      "hedges": 43.7,
+      "cropDiversity": 15.5,
+      "hedges": 39.6,
       "permanentPasture": 34.5,
-      "plotSize": 41.6
+      "plotSize": 35.3
     },
     "id": "4e3009f3-1b33-41d7-b6f3-dc7230331da0",
     "inediblePart": 0,
@@ -12999,10 +13027,10 @@
     "defaultOrigin": "France",
     "density": 1.0,
     "ecosystemicServices": {
-      "cropDiversity": 7.21,
-      "hedges": 1.42,
+      "cropDiversity": 13.6,
+      "hedges": 2.1,
       "permanentPasture": 0,
-      "plotSize": 1.57
+      "plotSize": 2.3
     },
     "id": "5814ac7d-fe30-5a9c-8a10-e2b9554b63b0",
     "inediblePart": 0.1,
@@ -15670,10 +15698,10 @@
     "defaultOrigin": "France",
     "density": 1.0,
     "ecosystemicServices": {
-      "cropDiversity": 45.0,
-      "hedges": 28.5,
+      "cropDiversity": 10.1,
+      "hedges": 25.8,
       "permanentPasture": 22.5,
-      "plotSize": 27.1
+      "plotSize": 23.0
     },
     "id": "6912db61-530f-4630-956a-b94a6ded0134",
     "inediblePart": 0.2,
@@ -17375,10 +17403,10 @@
     "defaultOrigin": "France",
     "density": 1.0,
     "ecosystemicServices": {
-      "cropDiversity": 4.89,
-      "hedges": 1.79,
+      "cropDiversity": 13.3,
+      "hedges": 2.7,
       "permanentPasture": 0,
-      "plotSize": 1.91
+      "plotSize": 2.88
     },
     "id": "753daf84-d104-5829-a4a2-0cd67b770083",
     "inediblePart": 0,
@@ -18854,10 +18882,10 @@
     "defaultOrigin": "France",
     "density": 1.0,
     "ecosystemicServices": {
-      "cropDiversity": 8.0,
-      "hedges": 1.63,
+      "cropDiversity": 11.7,
+      "hedges": 2.04,
       "permanentPasture": 0,
-      "plotSize": 2.31
+      "plotSize": 2.74
     },
     "id": "7ef7399a-1d56-4947-b773-9f6438a50fda",
     "inediblePart": 0.2,
@@ -19805,10 +19833,10 @@
     "defaultOrigin": "France",
     "density": 1.0,
     "ecosystemicServices": {
-      "cropDiversity": 30.0,
-      "hedges": 19.0,
+      "cropDiversity": 6.75,
+      "hedges": 17.2,
       "permanentPasture": 15.0,
-      "plotSize": 18.1
+      "plotSize": 15.3
     },
     "id": "8602a1cb-18a2-54aa-b491-1bbb7e495500",
     "inediblePart": 0,
@@ -21932,6 +21960,34 @@
     "scenario": "import",
     "transportCooling": "none",
     "visible": true
+  },
+  {
+    "activityName": "Soybean, organic, animal feed, at farm gate {FR} U",
+    "alias": "soybean-organic-2025",
+    "baseIngredient": "soybean",
+    "categories": [
+      "nut_oilseed_raw",
+      "organic"
+    ],
+    "cropGroup": "AUTRES OLEAGINEUX",
+    "defaultOrigin": "France",
+    "density": 0.72,
+    "ecosystemicServices": {
+      "cropDiversity": 18.9,
+      "hedges": 2.04,
+      "permanentPasture": null,
+      "plotSize": 2.19
+    },
+    "id": "92d34545-6952-466e-bf6d-c1f1f6069b48",
+    "inediblePart": 0,
+    "landOccupation": 5.8275,
+    "location": "FR",
+    "name": "Soja Bio (2025)",
+    "processId": "47f90f36-8629-5d8d-ae17-c64305c68ddb",
+    "rawToCookedRatio": 2.33,
+    "scenario": "organic",
+    "transportCooling": "none",
+    "visible": false
   },
   {
     "activityName": "Cauliflower, organic 2025, national average, at farm gate {FR} U",
@@ -25990,10 +26046,10 @@
     "defaultOrigin": "France",
     "density": 1.0,
     "ecosystemicServices": {
-      "cropDiversity": 9.45,
-      "hedges": 3.46,
+      "cropDiversity": 25.7,
+      "hedges": 5.21,
       "permanentPasture": 0,
-      "plotSize": 3.69
+      "plotSize": 5.57
     },
     "id": "b19b0dc0-3478-46a0-b8a1-3225ea939ff1",
     "inediblePart": 0,
@@ -26802,10 +26858,10 @@
     "defaultOrigin": "France",
     "density": 1.0,
     "ecosystemicServices": {
-      "cropDiversity": 9.45,
-      "hedges": 3.46,
+      "cropDiversity": 25.7,
+      "hedges": 5.21,
       "permanentPasture": 0,
-      "plotSize": 3.69
+      "plotSize": 5.57
     },
     "id": "b682ae30-9df9-4385-9005-4b4725c70d54",
     "inediblePart": 0,
@@ -30659,10 +30715,10 @@
     "defaultOrigin": "France",
     "density": 1.0,
     "ecosystemicServices": {
-      "cropDiversity": 7.21,
-      "hedges": 1.42,
+      "cropDiversity": 13.6,
+      "hedges": 2.1,
       "permanentPasture": 0,
-      "plotSize": 1.57
+      "plotSize": 2.3
     },
     "id": "cfd4a437-aa49-49ff-818e-353421f2fc09",
     "inediblePart": 0.2,
@@ -33540,10 +33596,10 @@
     "defaultOrigin": "France",
     "density": 1.05,
     "ecosystemicServices": {
-      "cropDiversity": 27.3,
-      "hedges": 7.09,
+      "cropDiversity": 38.7,
+      "hedges": 8.32,
       "permanentPasture": 0,
-      "plotSize": 9.36
+      "plotSize": 10.7
     },
     "id": "e0158192-a68e-57d1-a256-fe10db5d1de0",
     "inediblePart": 0,
@@ -38238,6 +38294,34 @@
     "visible": true
   },
   {
+    "activityName": "Alfalfa, hay, organic, animal feed, at farm gate {FR} U",
+    "alias": "alfalfa-organic-2025",
+    "baseIngredient": "alfalfa",
+    "categories": [
+      "grain_raw",
+      "organic"
+    ],
+    "cropGroup": "AUTRES CEREALES",
+    "defaultOrigin": "OutOfEuropeAndMaghreb",
+    "density": 0.72,
+    "ecosystemicServices": {
+      "cropDiversity": 2.28,
+      "hedges": 0.788,
+      "permanentPasture": null,
+      "plotSize": 0.971
+    },
+    "id": "fd187fa6-9cbc-4839-b13f-365c5371cee6",
+    "inediblePart": 0,
+    "landOccupation": 1.5541,
+    "location": "FR",
+    "name": "Luzerne Bio (2025)",
+    "processId": "38e5aebd-b15c-5724-90bc-3cf114d103f2",
+    "rawToCookedRatio": 2.259,
+    "scenario": "organic",
+    "transportCooling": "none",
+    "visible": false
+  },
+  {
     "activityName": "Lettuce {GLO}| lettuce production, in heated greenhouse | Cut-off, U",
     "alias": "salad-lettuce-default",
     "baseIngredient": "salad-lettuce",
@@ -38514,10 +38598,10 @@
     "defaultOrigin": "France",
     "density": 1.0,
     "ecosystemicServices": {
-      "cropDiversity": 56.2,
-      "hedges": 35.6,
+      "cropDiversity": 12.6,
+      "hedges": 32.3,
       "permanentPasture": 28.1,
-      "plotSize": 33.9
+      "plotSize": 28.7
     },
     "id": "ff532795-d725-4c6b-82bc-022d38b83bff",
     "inediblePart": 0,
