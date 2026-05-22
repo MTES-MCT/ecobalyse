@@ -1,0 +1,38 @@
+{
+  "activityName": "Soybean, organic, animal feed, at farm gate {FR} U",
+  "categories": [
+    "ingredient",
+    "material",
+    "material_type:other_food_items"
+  ],
+  "displayName": "Soja Bio (2025)",
+  "id": "47f90f36-8629-5d8d-ae17-c64305c68ddb",
+  "metadata": [
+    {
+      "alias": "soybean-organic-2025",
+      "cropGroup": "AUTRES OLEAGINEUX",
+      "defaultOrigin": "France",
+      "displayName": "Soja Bio (2025)",
+      "id": "92d34545-6952-466e-bf6d-c1f1f6069b48",
+      "inediblePart": 0,
+      "ingredientCategories": [
+        "nut_oilseed_raw",
+        "organic"
+      ],
+      "ingredientDensity": 0.72,
+      "rawToCookedRatio": 2.33,
+      "scenario": "organic",
+      "scopes": [
+        "food",
+        "food2"
+      ],
+      "transportCooling": "none",
+      "visible": false
+    }
+  ],
+  "scopes": [
+    "food",
+    "food2"
+  ],
+  "source": "Agribalyse 3.2"
+}
