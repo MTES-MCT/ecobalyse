@@ -1,6 +1,5 @@
 module Data.Food.EcosystemicServices exposing
     ( EcosystemicServices
-    , coefficients
     , decode
     , empty
     , labels
@@ -15,10 +14,6 @@ type alias EcosystemicServices =
     AbstractEcosystemicServices Unit.Impact
 
 
-type alias Coefficients =
-    AbstractEcosystemicServices Unit.Ratio
-
-
 type alias Labels =
     AbstractEcosystemicServices String
 
@@ -28,15 +23,6 @@ type alias AbstractEcosystemicServices a =
     , hedges : a
     , permanentPasture : a
     , plotSize : a
-    }
-
-
-coefficients : Coefficients
-coefficients =
-    { cropDiversity = Unit.ratio 1
-    , hedges = Unit.ratio 1
-    , permanentPasture = Unit.ratio 1
-    , plotSize = Unit.ratio 1
     }
 
 
