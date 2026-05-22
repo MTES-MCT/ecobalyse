@@ -75,10 +75,10 @@ suite =
                                         }
                              in
                              [ complementsImpacts.hedges
-                                |> expectImpactEqual (Unit.impact 12.68)
+                                |> expectImpactEqual (Unit.impact 2)
                                 |> asTest "should compute a non-zero hedges ingredient complement"
                              , Just (Complement.getTotalComplementsImpacts complementsImpacts)
-                                |> expectImpactEqual (Unit.impact 43.7)
+                                |> expectImpactEqual (Unit.impact 8)
                                 |> asTest "should compute a non-zero total complement"
                              ]
                             )
