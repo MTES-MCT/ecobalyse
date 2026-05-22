@@ -871,9 +871,10 @@ Notes:
   - the distance to hub computation logic should eventually be backported to non-generic scopes
 
 -}
-computeTransportDistance : Requirements db -> Maybe Country -> Maybe Country -> Result String Transport
-computeTransportDistance { config, db } maybeFrom maybeTo =
+computeTransportDistance : Requirements db -> Maybe Country -> Maybe Country -> Result String (Maybe Transport)
+computeTransportDistance { db } maybeFrom maybeTo =
     case ( maybeFrom, maybeTo ) of
+        -- both countries are know: compute the distance
         ( Just from, Just to ) ->
             db.distances
                 |> Transport.getTransportBetween from to
@@ -895,9 +896,11 @@ computeTransportDistance { config, db } maybeFrom maybeTo =
                                         ]
                         }
                     )
+                |> Result.map Just
 
         _ ->
-            Ok config.transports.defaultDistance
+            -- at least one country is unknown; no distances returned
+            Ok Nothing
 
 
 {-| Computes the transport distances and impacts from a transported mass.
@@ -905,16 +908,22 @@ computeTransportDistance { config, db } maybeFrom maybeTo =
 computeTransportedMassImpacts : Requirements db -> TransportCooling -> Maybe Country -> Maybe Country -> Mass -> Result String Transport
 computeTransportedMassImpacts ({ config } as requirements) (TransportCooling cooled) maybeFrom maybeTo mass =
     computeTransportDistance requirements maybeFrom maybeTo
-        -- Note: air transport is not handled for now
         |> Result.map
-            (Transport.applyTransportRatios Split.zero
-                >> (if cooled then
-                        Transport.makeCooled
-
-                    else
-                        identity
-                   )
+            (Maybe.map (Transport.applyTransportRatios Split.zero)
+                >> Maybe.withDefault config.transports.defaultDistance
+                -- Always reset air transport, which is unhandled by design for now
+                -- see https://github.com/MTES-MCT/ecobalyse/issues/2282#issuecomment-4505548371
+                >> (\transport -> { transport | air = Quantity.zero })
             )
+        -- remap cooled transportation modes if needed
+        |> Result.map
+            (if cooled then
+                Transport.makeCooled
+
+             else
+                identity
+            )
+        -- compute resulting impacts
         |> Result.map (Transport.computeImpacts config.transports.modeProcesses mass)
 
 
