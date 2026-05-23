@@ -354,6 +354,7 @@ class Ecospold1Exporter:
             NoUncertainty.id: "0",
             UndefinedUncertainty.id: "0",
             LognormalUncertainty.id: "1",
+            NormalUncertainty.id: "2",
             TriangularUncertainty.id: "3",
             UniformUncertainty.id: "4",
         }
@@ -370,6 +371,9 @@ class Ecospold1Exporter:
         flow_data = etree.SubElement(dataset, "flowData")
 
         # Reference product exchange (outputGroup=0, number=0)
+        # `infrastructureProcess` mirrors the dataset-level tag so a
+        # capital-goods process's reference flow isn't silently flagged as
+        # operational.
         ref_unit = UNITS.get(u := node["unit"], u)
         ref_exc = etree.SubElement(
             flow_data,
@@ -379,7 +383,9 @@ class Ecospold1Exporter:
                 "name": node["name"],
                 "unit": ref_unit,
                 "meanValue": pretty_number(node.get("production amount", 1.0)),
-                "infrastructureProcess": bool_to_text(False),
+                "infrastructureProcess": bool_to_text(
+                    tags.get("ecoSpold01infrastructureProcess")
+                ),
                 "uncertaintyType": "0",
             },
         )
@@ -390,8 +396,11 @@ class Ecospold1Exporter:
             if exc["type"] == "production":
                 continue  # already emitted as reference product above
             exc_number += 1
-            # For technosphere inputs, use supplier's dataset number
-            if exc.get("type") == "technosphere" and key_to_dsnum:
+            # For technosphere inputs and avoided-product substitutions, the
+            # EcoSpold1 `number` references the supplier dataset's `number`.
+            # Falls back to 0 when the supplier isn't part of this export
+            # (downstream linkers then resolve by name).
+            if exc.get("type") in ("technosphere", "substitution") and key_to_dsnum:
                 number = str(key_to_dsnum.get(exc.get("input_key"), 0))
             else:
                 number = str(exc_number)
@@ -486,7 +495,7 @@ def _prepare_dataset(activity):
         exc_data["unit"] = exc.get("unit", exc.input.get("unit", ""))
         exc_data["name"] = exc.input.get("name", "")
         exc_data["categories"] = exc.input.get("categories", [])
-        if exc["type"] == "technosphere":
+        if exc["type"] in ("technosphere", "substitution"):
             exc_data["input_key"] = exc["input"]
         ds["exchanges"].append(exc_data)
 
@@ -509,16 +518,23 @@ def _prepare_dataset(activity):
         logger.warning(f"Skipping '{ds['name']}' (no exchanges)")
         return None
 
-    # Patch category fields to SimaPro-ish buckets
+    # Preserve the activity's real category; fall back to a generic SimaPro
+    # bucket only when Brightway has none. Previously every dataset was forced
+    # to "Others / Carbon content biogenic materials", which erased the
+    # taxonomy and made downstream filtering by domain impossible.
     if isinstance(ds.get("tags"), list):
         ds["tags"] = dict(ds["tags"])
     ds.setdefault("tags", {})
-    ds["tags"]["ecoSpold01category"] = "Others"
-    ds["tags"]["ecoSpold01subCategory"] = "Carbon content biogenic materials"
+    activity_category = ds.get("category") or "Others"
+    activity_subcategory = ds.get("subcategory") or activity_category
+    ds["tags"].setdefault("ecoSpold01category", activity_category)
+    ds["tags"].setdefault("ecoSpold01subCategory", activity_subcategory)
 
     ds["category"] = ds["tags"]["ecoSpold01category"]
-    ds["localCategory"] = ds["tags"]["ecoSpold01category"]
-    ds["localSubCategory"] = ds["tags"]["ecoSpold01subCategory"]
+    ds["localCategory"] = ds.get("localCategory") or ds["tags"]["ecoSpold01category"]
+    ds["localSubCategory"] = (
+        ds.get("localSubCategory") or ds["tags"]["ecoSpold01subCategory"]
+    )
 
     # Geography
     ds["tags"]["ecoSpold01geographyLocation"] = ds.get("location", "GLO")
