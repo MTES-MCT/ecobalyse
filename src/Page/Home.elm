@@ -110,7 +110,7 @@ viewHero { enabledSections } =
                 )
               , ( enabledSections.food
                 , { label = "Calculer l’impact de l’alimentation"
-                  , subLabel = Just "Méthodologie en concertation"
+                  , subLabel = Just "Méthodologie validée"
                   , callToAction = False
                   , link = RouteLink Route.FoodBuilderHome
                   , testId = "food-callout-button"
