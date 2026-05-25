@@ -885,9 +885,8 @@ computeTransportDistance { db } maybeFrom maybeTo =
                         { transport
                             | road =
                                 if from == to then
-                                    -- same country, add transport to hub once
-                                    transport.road
-                                        |> Quantity.plus from.distanceToHub
+                                    -- same country, add transport to hub once, ignore distance from transports.json
+                                    from.distanceToHub
 
                                 else
                                     -- different countries, add distances to hub at both ends
