@@ -839,7 +839,7 @@ requires-dist = [
     { name = "asyncpg", specifier = ">=0.30.0" },
     { name = "asyncstdlib", specifier = ">=3.13.1" },
     { name = "check-jsonschema", specifier = ">=0.37.2" },
-    { name = "emails", specifier = ">=0.6" },
+    { name = "emails", specifier = ">=1.1.2" },
     { name = "litestar", extras = ["jwt", "sqlalchemy", "standard"], specifier = ">=2.21.1" },
     { name = "msgspec", specifier = ">=0.19.0" },
     { name = "orjson", specifier = ">=3.11.9" },
@@ -919,16 +919,16 @@ wheels = [
 
 [[package]]
 name = "emails"
-version = "1.1.1"
+version = "1.1.2"
 source = { registry = "https://pypi.org/simple" }
 dependencies = [
     { name = "dkimpy" },
     { name = "puremagic" },
     { name = "python-dateutil" },
 ]
-sdist = { url = "https://files.pythonhosted.org/packages/47/a5/d5472729b4b56d3868776aef9b43b0803048cc53f8999f1a0f1b4d05c360/emails-1.1.1.tar.gz", hash = "sha256:f2ac9d73d84e83d7f1a3924837fa15b59c0bce9bf658ac3b0b80398bc6d8b57d", size = 37160, upload-time = "2026-04-02T17:26:44.807Z" }
+sdist = { url = "https://files.pythonhosted.org/packages/25/bb/073e0244a4da617a1e7add93779e3a40ec173a36ff81b396450d73313f33/emails-1.1.2.tar.gz", hash = "sha256:9fd216b691704b3df9ad70073fc85945ba4e8eac80198233919cfa2488af8665", size = 37156, upload-time = "2026-05-18T13:26:29.958Z" }
 wheels = [
-    { url = "https://files.pythonhosted.org/packages/32/60/fe7f7e4240446400a1cd3358d38887132e34c1abdfdb457ce5acfd108090/emails-1.1.1-py3-none-any.whl", hash = "sha256:927079dc5c8aec755d017171510c78c0ba56a9f5bf47b0ea82b785f700b43469", size = 42915, upload-time = "2026-04-02T17:26:43.314Z" },
+    { url = "https://files.pythonhosted.org/packages/bb/7a/d64aea2f1bd6838fed3131460394c0d9d67c016a3fa1b45ef861a83310bc/emails-1.1.2-py3-none-any.whl", hash = "sha256:0ab991876921eeac13039d5be93192ab27da1600afa7d7ea6d51dfa7cd006eda", size = 42920, upload-time = "2026-05-18T13:26:28.702Z" },
 ]
 
 [[package]]
