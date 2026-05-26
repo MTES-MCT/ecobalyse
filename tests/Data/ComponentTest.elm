@@ -662,7 +662,7 @@ suite =
                         [ it "should sequentially apply splits"
                             (Amount.fromFloat 100
                                 |> Component.computeInitialAmount [ Unit.qtyVariationRatio 0.8, Unit.qtyVariationRatio 0.5 ]
-                                -- 100 / (1 - 0.2) / (1 - 0.5) = 250
+                                -- 100 / 0.8 / 0.5 = 250
                                 |> Expect.equal (Ok <| Amount.fromFloat 250)
                             )
                         , it "should succeed with initial amount when no transforms is applied"

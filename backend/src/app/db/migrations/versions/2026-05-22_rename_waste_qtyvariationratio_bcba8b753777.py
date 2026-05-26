@@ -65,14 +65,22 @@ def downgrade() -> None:
 def schema_upgrades() -> None:
     """schema upgrade migrations go here."""
     op.alter_column(
-        "process", "waste", new_column_name="qty_variation_ratio", schema=None
+        "process",
+        "waste",
+        new_column_name="qty_variation_ratio",
+        schema=None,
+        server_default="1",
     )
 
 
 def schema_downgrades() -> None:
     """schema downgrade migrations go here."""
     op.alter_column(
-        "process", "qty_variation_ratio", new_column_name="waste", schema=None
+        "process",
+        "qty_variation_ratio",
+        new_column_name="waste",
+        schema=None,
+        server_default="0",
     )
 
 

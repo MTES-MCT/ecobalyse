@@ -43,7 +43,7 @@ class Process(UUIDAuditBase):
 
     unit: Mapped[Unit] = mapped_column(Enum(Unit, values_callable=get_enum_values))
     location: Mapped[Optional[str]] = mapped_column(String, nullable=True)
-    qty_variation_ratio: Mapped[float] = mapped_column(Float, nullable=False, default=0)
+    qty_variation_ratio: Mapped[float] = mapped_column(Float, nullable=False, default=1)
 
     # -----------
     # ORM Relationships

@@ -52,7 +52,7 @@ genericWaste qtyVariationRatio stageOutputMass =
             -- Use input mass waste ratio formula by default
             -- See https://fabrique-numerique.gitbook.io/ecobalyse/textile/cycle-de-vie-des-produits-textiles/pertes-et-rebus
             --
-            -- inputMass = outputMass / 1 - Input processWasteRatio
+            -- inputMass = outputMass / Input QuantityVariationRatio
             stageOutputMass
                 |> Quantity.divideBy (Unit.qtyVariationRatioToFloat qtyVariationRatio)
     in
