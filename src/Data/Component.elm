@@ -878,14 +878,16 @@ computeTransportDistance { db } maybeFrom maybeTo =
         ( Just from, Just to ) ->
             db.distances
                 |> Transport.getTransportBetween from to
+                -- Always reset air transport, which is unhandled by design for now
+                -- see https://github.com/MTES-MCT/ecobalyse/issues/2282#issuecomment-4505548371
+                |> Result.map (Transport.applyTransportRatios Split.zero)
                 |> Result.map
                     (\transport ->
                         { transport
                             | road =
                                 if from == to then
-                                    -- same country, add transport to hub once
-                                    transport.road
-                                        |> Quantity.plus from.distanceToHub
+                                    -- same country, add transport to hub once, ignore distance from transports.json
+                                    from.distanceToHub
 
                                 else
                                     -- different countries, add distances to hub at both ends
@@ -909,9 +911,8 @@ computeTransportedMassImpacts : Requirements db -> TransportCooling -> Maybe Cou
 computeTransportedMassImpacts ({ config } as requirements) (TransportCooling cooled) maybeFrom maybeTo mass =
     computeTransportDistance requirements maybeFrom maybeTo
         |> Result.map
-            (Maybe.map (Transport.applyTransportRatios Split.zero)
-                >> Maybe.withDefault config.transports.defaultDistance
-                -- Always reset air transport, which is unhandled by design for now
+            (Maybe.withDefault config.transports.defaultDistance
+                -- Reset default air transport distance
                 -- see https://github.com/MTES-MCT/ecobalyse/issues/2282#issuecomment-4505548371
                 >> (\transport -> { transport | air = Quantity.zero })
             )

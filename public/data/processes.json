@@ -86,6 +86,49 @@
     "unit": "kg"
   },
   {
+    "activityName": "Alfalfa, hay, organic, animal feed, at farm gate {FR} U",
+    "categories": [
+      "ingredient",
+      "material",
+      "material_type:other_food_items"
+    ],
+    "comment": "AGRIBALYSE v3.2 dataset, 2024. \nThis LCI represents organic alfalfa for animal feeding at farm gate. It was created as an average of all organic alfalfa LCI created in the ACV Bio project. These data are based on typical cases and are not representative of a national or regional average.\nIncluded processes: The inventory includes the processes of crop production.",
+    "displayName": "Luzerne Bio (2025)",
+    "elecMJ": 0,
+    "heatMJ": 0,
+    "id": "38e5aebd-b15c-5724-90bc-3cf114d103f2",
+    "impacts": {
+      "acd": 0,
+      "cch": 0,
+      "ecs": 32.903,
+      "etf": 0,
+      "etf-c": 0,
+      "fru": 0,
+      "fwe": 0,
+      "htc": 0,
+      "htc-c": 0,
+      "htn": 0,
+      "htn-c": 0,
+      "ior": 0,
+      "ldu": 0,
+      "mru": 0,
+      "ozd": 0,
+      "pco": 0,
+      "pma": 0,
+      "swe": 0,
+      "tre": 0,
+      "wtu": 0
+    },
+    "location": "FR",
+    "massPerUnit": null,
+    "scopes": [
+      "food"
+    ],
+    "source": "Agribalyse 3.2",
+    "unit": "kg",
+    "waste": 0
+  },
+  {
     "activityName": "Algae (Laminaria), fresh, at farm {FR} U",
     "categories": [
       "ingredient"
@@ -22030,6 +22073,49 @@
     "unit": "kg"
   },
   {
+    "activityName": "Soybean, organic, animal feed, at farm gate {FR} U",
+    "categories": [
+      "ingredient",
+      "material",
+      "material_type:other_food_items"
+    ],
+    "comment": "AGRIBALYSE v3.2 dataset, 2024. \nThis LCI represents organic soybean for animal feeding at farm gate. It was created as an average of all organic soybean LCI created in the ACV Bio project. These data are based on typical cases and are not representative of a national or regional average.\nIncluded processes: The inventory includes the processes of crop production.",
+    "displayName": "Soja Bio (2025)",
+    "elecMJ": 0,
+    "heatMJ": 0,
+    "id": "47f90f36-8629-5d8d-ae17-c64305c68ddb",
+    "impacts": {
+      "acd": 0,
+      "cch": 0,
+      "ecs": 143.31,
+      "etf": 0,
+      "etf-c": 0,
+      "fru": 0,
+      "fwe": 0,
+      "htc": 0,
+      "htc-c": 0,
+      "htn": 0,
+      "htn-c": 0,
+      "ior": 0,
+      "ldu": 0,
+      "mru": 0,
+      "ozd": 0,
+      "pco": 0,
+      "pma": 0,
+      "swe": 0,
+      "tre": 0,
+      "wtu": 0
+    },
+    "location": "FR",
+    "massPerUnit": null,
+    "scopes": [
+      "food"
+    ],
+    "source": "Agribalyse 3.2",
+    "unit": "kg",
+    "waste": 0
+  },
+  {
     "activityName": "Sparkling wine, 25cl | Packaging System, N0, All, Aluminium can 25cl {FR} U",
     "categories": [
       "material",
@@ -22329,6 +22415,49 @@
     ],
     "source": "Agribalyse 3.2",
     "unit": "kg"
+  },
+  {
+    "activityName": "Spring oats, organic, national average, at feed plant {FR} U",
+    "categories": [
+      "ingredient",
+      "material",
+      "material_type:other_food_items"
+    ],
+    "comment": "AGRIBALYSE v3.2 dataset, 2024. \nTranslated name: spring oats, organic, national average, at feed plant\nIncluded processes: The inventory includes : the production and transformation (as crushing, milling, drying, etc), if needed, of raw materials, the transport of the raw materials to the first processing plant, the transport of these to the final feed processing centre (only if production not done on farm), the energy needed to produce of the final feedstuff (dosing, mixing squeezing and pelleting) as well as the transport of the feedstuff from the plant to the farm (if any).\nCut-off rule/Exclusions : not energy-related process emissions in the feedstuff plants as well as packaging.\nRemark: AGRIBALYSE - supporting LCI (based on data from INRA UMR SAS).\nRefers to 1 kg of processed feedstuff (fresh weight).\nVersion: 1.40\nEnergy values: Net Values",
+    "displayName": "Avoine Bio (2025)",
+    "elecMJ": 0,
+    "heatMJ": 0,
+    "id": "66b57474-7f48-5016-b79c-87bc090fd016",
+    "impacts": {
+      "acd": 0,
+      "cch": 0,
+      "ecs": 54.408,
+      "etf": 0,
+      "etf-c": 0,
+      "fru": 0,
+      "fwe": 0,
+      "htc": 0,
+      "htc-c": 0,
+      "htn": 0,
+      "htn-c": 0,
+      "ior": 0,
+      "ldu": 0,
+      "mru": 0,
+      "ozd": 0,
+      "pco": 0,
+      "pma": 0,
+      "swe": 0,
+      "tre": 0,
+      "wtu": 0
+    },
+    "location": "FR",
+    "massPerUnit": null,
+    "scopes": [
+      "food"
+    ],
+    "source": "Agribalyse 3.2",
+    "unit": "kg",
+    "waste": 0
   },
   {
     "activityName": "Spring pea seed, organic, at farm gate {FR} U",
