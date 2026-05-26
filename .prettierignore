@@ -36,4 +36,4 @@ public/data/veli/examples.json
 public/data/transports.json
 
 # The data folder is not formatted via prettier for the moment
-data/
+/data/
