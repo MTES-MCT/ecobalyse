@@ -28752,7 +28752,7 @@
     "impacts": {
       "acd": 0,
       "cch": 0,
-      "ecs": 522.1,
+      "ecs": 533.0,
       "etf": 0,
       "etf-c": 0,
       "fru": 0,
@@ -30478,7 +30478,7 @@
     "impacts": {
       "acd": 0,
       "cch": 0,
-      "ecs": 107.2,
+      "ecs": 119.2,
       "etf": 0,
       "etf-c": 0,
       "fru": 0,
@@ -32834,7 +32834,7 @@
     "impacts": {
       "acd": 0,
       "cch": 0,
-      "ecs": 114.9,
+      "ecs": 115.9,
       "etf": 0,
       "etf-c": 0,
       "fru": 0,
@@ -35237,7 +35237,7 @@
     "impacts": {
       "acd": 0,
       "cch": 0,
-      "ecs": 231.1,
+      "ecs": 342.3,
       "etf": 0,
       "etf-c": 0,
       "fru": 0,
@@ -35279,7 +35279,7 @@
     "impacts": {
       "acd": 0,
       "cch": 0,
-      "ecs": 236.7,
+      "ecs": 347.9,
       "etf": 0,
       "etf-c": 0,
       "fru": 0,
@@ -35363,7 +35363,7 @@
     "impacts": {
       "acd": 0,
       "cch": 0,
-      "ecs": 229.3,
+      "ecs": 340.6,
       "etf": 0,
       "etf-c": 0,
       "fru": 0,
@@ -35405,7 +35405,7 @@
     "impacts": {
       "acd": 0,
       "cch": 0,
-      "ecs": 242.5,
+      "ecs": 353.7,
       "etf": 0,
       "etf-c": 0,
       "fru": 0,
@@ -35440,14 +35440,14 @@
       "packaging"
     ],
     "comment": "Includes all life cycle stages, including transport and end-of-life treatment, based on Agribalyse Pack_AGB project, 2024, simplified.",
-    "displayName": "PVC",
+    "displayName": "Plastique PVC",
     "elecMJ": 0,
     "heatMJ": 0,
     "id": "cd9cf355-72f8-4213-af98-a67e17922fdd",
     "impacts": {
       "acd": 0,
       "cch": 0,
-      "ecs": 755.6,
+      "ecs": 866.9,
       "etf": 0,
       "etf-c": 0,
       "fru": 0,
@@ -38527,7 +38527,7 @@
     "impacts": {
       "acd": 0,
       "cch": 0,
-      "ecs": 152.7,
+      "ecs": 153.6,
       "etf": 0,
       "etf-c": 0,
       "fru": 0,

@@ -9744,12 +9744,12 @@
         "name": "electricity, medium voltage//[FR] market for electricity, medium voltage"
       },
       {
-        "amount": 0.07,
+        "amount": -0.07,
         "database": "Ecoinvent 3.9.1",
         "name": "waste glass//[CH] treatment of waste glass, inert material landfill"
       },
       {
-        "amount": 0.16,
+        "amount": -0.16,
         "database": "Ecoinvent 3.9.1",
         "name": "waste glass//[CH] treatment of waste glass, municipal incineration"
       },
@@ -9799,12 +9799,12 @@
         "name": "electricity, medium voltage//[FR] market for electricity, medium voltage"
       },
       {
-        "amount": 0.05,
+        "amount": -0.05,
         "database": "Ecoinvent 3.9.1",
         "name": "scrap steel//[Europe without Switzerland] treatment of scrap steel, inert material landfill"
       },
       {
-        "amount": 0.14,
+        "amount": -0.14,
         "database": "Ecoinvent 3.9.1",
         "name": "scrap steel//[CH] treatment of scrap steel, municipal incineration"
       },
@@ -9854,12 +9854,12 @@
         "name": "electricity, medium voltage//[FR] market for electricity, medium voltage"
       },
       {
-        "amount": 0.18,
+        "amount": -0.18,
         "database": "Ecoinvent 3.9.1",
         "name": "waste aluminium//[CH] treatment of waste aluminium, sanitary landfill"
       },
       {
-        "amount": 0.45,
+        "amount": -0.45,
         "database": "Ecoinvent 3.9.1",
         "name": "scrap aluminium//[Europe without Switzerland] treatment of scrap aluminium, municipal incineration"
       },
@@ -9904,12 +9904,12 @@
         "name": "electricity, medium voltage//[FR] market for electricity, medium voltage"
       },
       {
-        "amount": 0.08,
+        "amount": -0.08,
         "database": "Ecoinvent 3.9.1",
         "name": "waste paperboard//[CH] treatment of waste paperboard, sanitary landfill"
       },
       {
-        "amount": 0.22,
+        "amount": -0.22,
         "database": "Ecoinvent 3.9.1",
         "name": "waste paperboard//[CH] treatment of waste paperboard, municipal incineration"
       },
@@ -10014,12 +10014,12 @@
         "name": "electricity, medium voltage//[FR] market for electricity, medium voltage"
       },
       {
-        "amount": 0.27,
+        "amount": -0.27,
         "database": "Ecoinvent 3.9.1",
         "name": "waste plastic, mixture//[CH] treatment of waste plastic, mixture, sanitary landfill"
       },
       {
-        "amount": 0.67,
+        "amount": -0.67,
         "database": "Ecoinvent 3.9.1",
         "name": "waste plastic, mixture//[CH] treatment of waste plastic, mixture, municipal incineration"
       },
@@ -10069,12 +10069,12 @@
         "name": "electricity, medium voltage//[FR] market for electricity, medium voltage"
       },
       {
-        "amount": 0.27,
+        "amount": -0.27,
         "database": "Ecoinvent 3.9.1",
         "name": "waste plastic, mixture//[CH] treatment of waste plastic, mixture, sanitary landfill"
       },
       {
-        "amount": 0.67,
+        "amount": -0.67,
         "database": "Ecoinvent 3.9.1",
         "name": "waste plastic, mixture//[CH] treatment of waste plastic, mixture, municipal incineration"
       },
@@ -10119,12 +10119,12 @@
         "name": "electricity, medium voltage//[FR] market for electricity, medium voltage"
       },
       {
-        "amount": 0.27,
+        "amount": -0.27,
         "database": "Ecoinvent 3.9.1",
         "name": "waste plastic, mixture//[CH] treatment of waste plastic, mixture, sanitary landfill"
       },
       {
-        "amount": 0.67,
+        "amount": -0.67,
         "database": "Ecoinvent 3.9.1",
         "name": "waste plastic, mixture//[CH] treatment of waste plastic, mixture, municipal incineration"
       },
@@ -10174,12 +10174,12 @@
         "name": "electricity, medium voltage//[FR] market for electricity, medium voltage"
       },
       {
-        "amount": 0.27,
+        "amount": -0.27,
         "database": "Ecoinvent 3.9.1",
         "name": "waste plastic, mixture//[CH] treatment of waste plastic, mixture, sanitary landfill"
       },
       {
-        "amount": 0.67,
+        "amount": -0.67,
         "database": "Ecoinvent 3.9.1",
         "name": "waste plastic, mixture//[CH] treatment of waste plastic, mixture, municipal incineration"
       },
@@ -10229,12 +10229,12 @@
         "name": "electricity, medium voltage//[FR] market for electricity, medium voltage"
       },
       {
-        "amount": 0.27,
+        "amount": -0.27,
         "database": "Ecoinvent 3.9.1",
         "name": "waste plastic, mixture//[CH] treatment of waste plastic, mixture, sanitary landfill"
       },
       {
-        "amount": 0.67,
+        "amount": -0.67,
         "database": "Ecoinvent 3.9.1",
         "name": "waste plastic, mixture//[CH] treatment of waste plastic, mixture, municipal incineration"
       },
