@@ -981,18 +981,30 @@ suite =
                                 (Component.computeTransportDistance requirements Nothing Nothing
                                     |> Expect.equal (Ok Nothing)
                                 )
-                            , it "should handle unknown country of departure"
-                                (Component.computeTransportDistance requirements Nothing (Just france)
-                                    |> Result.map (Maybe.map (.road >> Length.inKilometers) >> Maybe.withDefault -99)
-                                    |> Result.withDefault -99
-                                    |> Expect.greaterThan 0
-                                )
-                            , it "should handle unknown country of destination"
-                                (Component.computeTransportDistance requirements (Just portugal) Nothing
-                                    |> Result.map (Maybe.map (.road >> Length.inKilometers) >> Maybe.withDefault -99)
-                                    |> Result.withDefault -99
-                                    |> Expect.greaterThan 0
-                                )
+                            , let
+                                getRoad from to =
+                                    Component.computeTransportDistance requirements from to
+                                        |> Result.map (Maybe.map (.road >> Length.inKilometers) >> Maybe.withDefault -99)
+                                        |> Result.withDefault -99
+                              in
+                              describe "single unknown country"
+                                [ it "should handle unknown country of departure"
+                                    (getRoad Nothing (Just france)
+                                        |> Expect.within (Expect.Absolute 1)
+                                            ([ france.distanceToHub, requirements.config.transports.defaultDistance.road ]
+                                                |> Quantity.sum
+                                                |> Length.inKilometers
+                                            )
+                                    )
+                                , it "should handle unknown country of destination"
+                                    (getRoad (Just portugal) Nothing
+                                        |> Expect.within (Expect.Absolute 1)
+                                            ([ portugal.distanceToHub, requirements.config.transports.defaultDistance.road ]
+                                                |> Quantity.sum
+                                                |> Length.inKilometers
+                                            )
+                                    )
+                                ]
                             ]
                         )
                     , suiteFromResult2 "computeTransportedMassImpacts"
