@@ -1117,7 +1117,7 @@ regionSelector config =
             , onInput <|
                 \str ->
                     config.select <|
-                        if String.isEmpty str then
+                        if String.isEmpty str || str == "---" then
                             Nothing
 
                         else
