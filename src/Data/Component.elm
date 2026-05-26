@@ -872,9 +872,32 @@ Notes:
 
 -}
 computeTransportDistance : Requirements db -> Maybe Country -> Maybe Country -> Result String (Maybe Transport)
-computeTransportDistance { db } maybeFrom maybeTo =
+computeTransportDistance { config, db } maybeFrom maybeTo =
+    let
+        { defaultDistance } =
+            config.transports
+
+        -- When a single country is known (departure or destination), sum its distance to hub and default
+        -- road transport
+        handleSingleKnownCountry country =
+            Just
+                { defaultDistance
+                  -- Always reset air transport, which is unhandled by design for now
+                  -- see https://github.com/MTES-MCT/ecobalyse/issues/2282#issuecomment-4505548371
+                    | air = Quantity.zero
+                    , road = Quantity.sum [ defaultDistance.road, country.distanceToHub ]
+                }
+    in
     case ( maybeFrom, maybeTo ) of
-        -- both countries are know: compute the distance
+        -- only departure country is known
+        ( Just from, Nothing ) ->
+            Ok <| handleSingleKnownCountry from
+
+        -- only destination country is known
+        ( Nothing, Just to ) ->
+            Ok <| handleSingleKnownCountry to
+
+        -- both countries are known
         ( Just from, Just to ) ->
             db.distances
                 |> Transport.getTransportBetween from to
@@ -900,8 +923,8 @@ computeTransportDistance { db } maybeFrom maybeTo =
                     )
                 |> Result.map Just
 
-        _ ->
-            -- at least one country is unknown; no distances returned
+        -- no countries are known; no distances returned
+        ( Nothing, Nothing ) ->
             Ok Nothing
 
 
@@ -909,10 +932,17 @@ computeTransportDistance { db } maybeFrom maybeTo =
 -}
 computeTransportedMassImpacts : Requirements db -> TransportCooling -> Maybe Country -> Maybe Country -> Mass -> Result String Transport
 computeTransportedMassImpacts ({ config } as requirements) (TransportCooling cooled) maybeFrom maybeTo mass =
+    let
+        { defaultDistance } =
+            config.transports
+    in
     computeTransportDistance requirements maybeFrom maybeTo
         |> Result.map
-            (Maybe.withDefault config.transports.defaultDistance
-                -- Reset default air transport distance
+            (Maybe.map (Transport.applyTransportRatios Split.zero)
+                -- default road transport to hub must be doubled when no distance could be determined
+                -- @see https://github.com/MTES-MCT/ecobalyse/issues/2345
+                >> Maybe.withDefault { defaultDistance | road = defaultDistance.road |> Quantity.multiplyBy 2 }
+                -- Always reset air transport, which is unhandled by design for now
                 -- see https://github.com/MTES-MCT/ecobalyse/issues/2282#issuecomment-4505548371
                 >> (\transport -> { transport | air = Quantity.zero })
             )
