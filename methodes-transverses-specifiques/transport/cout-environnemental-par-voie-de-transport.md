@@ -139,7 +139,7 @@ Il en résulte les coûts environnementaux par mode de transport suivant (corres
 Pour 1 kg transporté par voie maritime, le coût environnemental est calculé comme suit :
 
 $$
-I_{v.mer}=\frac{m}{1000}*(D_{mer,bateau}∗I_{bateau}+D_{mer,camion}∗I_{camion})
+I_{v.mer}=\frac{m}{1000}*(D_{intrazone, Inde}∗I_{camion}+D_{mer}∗I_{bateau}+D_{intrazone, France}∗I_{camion})
 $$
 
 $$
@@ -167,10 +167,6 @@ $$
 Pour 1 kg transporté par voie maritime, le coût environnemental est calculé comme suit :
 
 $$
-I_{v.mer}=\frac{m}{1000}*(D_{mer,bateau}∗I_{bateau}+D_{mer,camion}∗I_{camion})
-$$
-
-$$
-I_{v.mer}=\frac{1}{1000}*(18000∗1.3+2000∗15.5)=38.9 Pts
+I_{v.mer}=\frac{1}{1000}*(18000∗1.3+2000∗15.5)=54.3 Pts
 $$
 
