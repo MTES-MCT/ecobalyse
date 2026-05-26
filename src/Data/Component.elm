@@ -492,7 +492,7 @@ applyTransform transform { elec, heat } (Results { amount, label, impacts, items
             amount |> applyQtyVariationRatio transform.qtyVariationRatio
 
         outputMass =
-            mass |> Quantity.multiplyBy (Unit.qtyVariationRatioToFloat transform.qtyVariationRatio)
+            mass |> Unit.applyQtyVariationRatioToMass transform.qtyVariationRatio
     in
     Results
         { amount = outputAmount

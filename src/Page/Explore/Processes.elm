@@ -103,7 +103,7 @@ baseColumns detailed scope =
       }
     , { label = "Ratio de variation de quantité"
       , toValue = Table.FloatValue <| .qtyVariationRatio >> Unit.qtyVariationRatioToFloat
-      , toCell = .qtyVariationRatio >> Unit.qtyVariationRatioToFloat >> String.fromFloat >> text
+      , toCell = .qtyVariationRatio >> Format.qtyVariationRatio
       }
     , { label = "Masse par unité"
       , toValue = Table.StringValue <| .massPerUnit >> Maybe.map String.fromFloat >> Maybe.withDefault "N/A"

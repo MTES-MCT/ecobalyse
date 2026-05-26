@@ -10,6 +10,7 @@ module Data.Unit exposing
     , SurfaceMass
     , ThreadDensity(..)
     , YarnSize
+    , applyQtyVariationRatioToMass
     , decodeAndNegateImpact
     , decodeImpact
     , decodePhysicalDurability
@@ -117,6 +118,11 @@ encodeRatio (Ratio float) =
 
 type QuantityVariationRatio
     = QuantityVariationRatio Float
+
+
+applyQtyVariationRatioToMass : QuantityVariationRatio -> Mass -> Mass
+applyQtyVariationRatioToMass qtyRatio mass =
+    mass |> Quantity.multiplyBy (qtyVariationRatioToFloat qtyRatio)
 
 
 qtyVariationRatio : Float -> QuantityVariationRatio
