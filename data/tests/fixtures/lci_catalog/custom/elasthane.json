@@ -44,10 +44,10 @@
       ]
     }
   ],
+  "qtyVariationRatio": 1,
   "scopes": [
     "textile"
   ],
   "source": "Custom",
-  "unit": "kg",
-  "waste": 0
+  "unit": "kg"
 }

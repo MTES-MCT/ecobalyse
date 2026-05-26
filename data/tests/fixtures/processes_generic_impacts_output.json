@@ -34,12 +34,12 @@
     "location": null,
     "massPerUnit": null,
     "metadata": null,
+    "qtyVariationRatio": 1.0,
     "scopes": [
       "object"
     ],
     "source": "Ecobalyse",
-    "unit": "kg",
-    "waste": 0
+    "unit": "kg"
   },
   {
     "activityName": "_22 Vegetable and animal oils and fats, EU27",
@@ -97,12 +97,12 @@
         "visible": true
       }
     },
+    "qtyVariationRatio": 1.0,
     "scopes": [
       "food2"
     ],
     "source": "forwast",
-    "unit": "kg",
-    "waste": 0
+    "unit": "kg"
   },
   {
     "activityName": "_22 Vegetable and animal oils and fats, EU27",
@@ -160,10 +160,10 @@
         "visible": false
       }
     },
+    "qtyVariationRatio": 1.0,
     "scopes": [],
     "source": "forwast",
-    "unit": "kg",
-    "waste": 0
+    "unit": "kg"
   },
   {
     "activityName": "_22 Vegetable and animal oils and fats, EU27",
@@ -221,10 +221,10 @@
         "visible": true
       }
     },
+    "qtyVariationRatio": 1.0,
     "scopes": [],
     "source": "forwast",
-    "unit": "kg",
-    "waste": 0
+    "unit": "kg"
   },
   {
     "activityName": "_32 Wood products, except furniture, EU27",
@@ -261,12 +261,12 @@
     "location": "GLO",
     "massPerUnit": null,
     "metadata": null,
+    "qtyVariationRatio": 1.0,
     "scopes": [
       "object"
     ],
     "source": "forwast",
-    "unit": "kg",
-    "waste": 0
+    "unit": "kg"
   },
   {
     "activityName": "_32 Wood products, except furniture, EU27",
@@ -308,11 +308,11 @@
       },
       "forestManagement": "certifiedSustainableManagement"
     },
+    "qtyVariationRatio": 1.0,
     "scopes": [
       "object"
     ],
     "source": "forwast",
-    "unit": "kg",
-    "waste": 0
+    "unit": "kg"
   }
 ]
