@@ -6,14 +6,6 @@ description: >-
 
 # Coût environnemental par voie de transport
 
-{% hint style="info" %}
-Dans cette page, les définitions et paramètres suivants sont utilisés :
-
-* `i` la voie de transport (terre, mer, air, fer)
-* `j` le mode de transport (camion, bateau, avion, train)
-* `D_i,j` la distance effectuée par la voie i avec le mode de transport j
-{% endhint %}
-
 ## Contexte
 
 Lorsqu'un produit est transporté par voie maritime (voie `mer`), en général deux modes de transport sont mobilisés : le bateau, mais aussi le camion pour le transport terrestre vers le port d'origine et depuis le port de destination :&#x20;
@@ -67,13 +59,13 @@ Avec les paramètres définis précédemment.
 
 ## Paramètres retenus pour le coût environnemental
 
-### Distances entre pays `Di`
+### Distances entre pays `D_i`
 
 La distance pour chaque voie et mode de transport est calculés en fonction du pays d'origines et de destination pour chaque étape de transport considérée.
 
-Le tableau suivant décrit les sources de données et le mode de calcul des distances pour dans la situation où l'utilisateur connais les pays d'origine et de destination, et ceux-ci sont proposés dans Ecobalyse (Situation 1).
+Le tableau suivant décrit les sources de données et le mode de calcul des distances pour dans la situation où l'utilisateur connais les pays d'origine et de destination, et ceux-ci sont proposés dans Ecobalyse (**Situation 1**).
 
-<table><thead><tr><th width="170">Distances</th><th>Source</th></tr></thead><tbody><tr><td>D_terre,camion</td><td>Distance calculée avec <a href="https://www.searates.com/services/distances-time/">https://www.searates.com/services/distances-time</a> (calculateur recommandé par le PEF, <a href="https://eplca.jrc.ec.europa.eu/permalink/PEFCR_guidance_v6.3-2.pdf">Product Environmental Footprint Category Rules Guidance</a>, 7.14.3 From factory to final client)</td></tr><tr><td>D_mer, bateau</td><td>Distance calculée avec <a href="https://www.searates.com/services/distances-time/">https://www.searates.com/services/distances-time</a> (calculateur recommandé par la méthode PEF)</td></tr><tr><td>D_air, avion</td><td>Distance à vol d'oiseau calculée avec geopy.distance, entre le centre de chaque pays.</td></tr><tr><td>D_fer, train</td><td>Distance calculée avec <a href="https://www.searates.com/services/distances-time/">https://www.searates.com/services/distances-time</a> (calculateur recommandé par la méthode PEF)</td></tr></tbody></table>
+<table><thead><tr><th width="170">Distances</th><th>Source</th></tr></thead><tbody><tr><td>D_terre (camion)</td><td>Distance calculée avec <a href="https://www.searates.com/services/distances-time/">https://www.searates.com/services/distances-time</a> (calculateur recommandé par le PEF, <a href="https://eplca.jrc.ec.europa.eu/permalink/PEFCR_guidance_v6.3-2.pdf">Product Environmental Footprint Category Rules Guidance</a>, 7.14.3 From factory to final client)</td></tr><tr><td>D_mer (bateau)</td><td>Distance calculée avec <a href="https://www.searates.com/services/distances-time/">https://www.searates.com/services/distances-time</a> (calculateur recommandé par la méthode PEF)</td></tr><tr><td>D_air (avion)</td><td>Distance à vol d'oiseau calculée avec geopy.distance, entre le centre de chaque pays.</td></tr><tr><td>D_fer (train)</td><td>Distance calculée avec <a href="https://www.searates.com/services/distances-time/">https://www.searates.com/services/distances-time</a> (calculateur recommandé par la méthode PEF)</td></tr></tbody></table>
 
 [Toutes les distances entre pays (identifiés par leurs code alpha-2) sont visibles sur cette page](https://github.com/MTES-MCT/wikicarbone/blob/master/public/data/transports.json) (hors distances vers et depuis les ports et aéroports).
 
@@ -90,18 +82,16 @@ Les autres distances sont paramétrées pour chaque zone géogaphique et sont di
 Dans ce cas, il faut choisir la région du pays.\
 Exemple pour le pays _Allemagne ⇒_ je sélectionne la région _Europe de l'Ouest._
 
-Afin de définir les distances et modes de transport utilisés pour chaque région, un pays est défini en arrière plan :
-
-* Europe de l'Ouest = Espagne
-* Europe de l'Est = République Tchèque
-* Asie = Chine
-* Afrique = Ethiopie
-* Amérique du Nord = Etats-Unis
-* Amérique latine = Brésil
-* Océanie = Australie
-* Moyen-Orient = Turquie
-
-Le transport est ensuite calculé de la même façon que si ce pays était directement sélectionné.
+* Des distance `D_intrazone` sont définies pour chaque zone géographique.
+* Un pays est défini en arrière plan pour déterminer la valeur `D_i` :
+  * Europe de l'Ouest = Espagne
+  * Europe de l'Est = République Tchèque
+  * Asie = Chine
+  * Afrique = Ethiopie
+  * Amérique du Nord = Etats-Unis
+  * Amérique latine = Brésil
+  * Océanie = Australie
+  * Moyen-Orient = Turquie
 
 </details>
 
