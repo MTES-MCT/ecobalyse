@@ -1,7 +1,7 @@
 # 🚚 Transport
 
 {% hint style="warning" %}
-Ces méthodes s'appliquent pour l'instant aux objets uniquement. Pour le textile et l'alimentaire, le transport est pour l'instant modélisé de façon spécifique. Les méthodes sont détaillées dans les pages [Transport Textile](https://fabrique-numerique.gitbook.io/ecobalyse/textile/cycle-de-vie-des-produits-textiles/transport-textile) et [Transport Alimentaire](https://fabrique-numerique.gitbook.io/ecobalyse/alimentaire/impacts-consideres/transport)..
+Ces méthodes s'appliquent pour la version courante d'Ecobalyse, pas pour la version réglementaire Textile.
 {% endhint %}
 
 {% hint style="warning" %}
@@ -23,40 +23,36 @@ Pour les étapes 1 à 3, plusieurs voies de transport peuvent être utilisées. 
 
 Pour l'étape 4, un transport terrestre est considéré, avec une distance appelée D\_terre,distriFR
 
-## Voies et modes de transports
+## Un transport international modélisé en 3 phases
 
-Afin de bien modéliser les scénarios de transport, Ecobalyse distingue les notions de voie de transport et de mode de transport :&#x20;
+Ecobalyse modélise chaque étape de transport sous la forme de trois phases distinctes :&#x20;
+
+1. Transport du site de départ au hub régional de départ (hub routier, port ou aéroport), en camion
+2. Transport du hub de départ au hub d'arrivée, avec un mode de transport dépendant de divers paramètres (type de produit, régions concernées).&#x20;
+3. Transport du hub régional de départ au site d'arrivée, en camion
+
+_A titre d'exemple, un transport par voie maritime se décompose comme suit, avec deux modes de transport (bateau et camion) :_&#x20;
+
+<figure><img src="../../.gitbook/assets/image (372).png" alt=""><figcaption></figcaption></figure>
+
+### Voies et modes de transports
+
+Afin de bien modéliser les scénarios de transport, Ecobalyse distingue ainsi les notions de voie de transport et de mode de transport :&#x20;
 
 * Le mode de transport permettant de transporter une marchandise (bateau, camion, avion, train...)
 * Quatre voies de transport sont considérées, faisant chacune appel à un ou deux modes de transport :
   * Terrestre (terre)\
     Mode de transport : camion
   * Maritime (mer)\
-    Modes de transport : bateau + camion\
-    &#xNAN;_&#x44;ans le cas d'un transport par voie maritime, le transport est réalisé en trois étapes : transport par camion vers le port de départ, transport par bateau de port à port, transport par camion depuis le port d'arrivée._
+    Modes de transport : bateau + camion
   * Aérienne (air)\
-    Modes de transport : avion + camion\
-    &#xNAN;_&#x44;ans le cas d'un transport par voie aérienne, le transport est réalisé en trois étapes : transport par camion vers l'aéroport de départ, transport par avion d'aéroport à aéroport, transport par camion depuis l'aéroport d'arrivée._&#x20;
-  * Ferroviaire (fer)\
-    Modes de transport : train
+    Modes de transport : avion + camion<br>
 
 A des fins de simplification, ces quatre voies ne sont pas toujours proposés pour toutes les étapes de transport.
-
-### Exemple d'application des notions de voies et de mode de transport
-
-_A titre d'exemple,_&#x20;
-
-* _un transport par voie maritime se décompose comme suit, avec deux modes de transport (bateau et camion) :_&#x20;
-
-<figure><img src="../../.gitbook/assets/image (372).png" alt=""><figcaption></figcaption></figure>
-
-* _Sur une période donnée, les exemplaires d'un produit peuvent être transportés en moyenne à 50% par voie maritime, à 30% par voie terrestre et à 20% par voie aérienne. Les voies maritimes et aérienne comprenant une part de transport par camion._
 
 ## Descriptif de la documentation Transport
 
 * La page [Coût environnemental par voie de transport](https://fabrique-numerique.gitbook.io/ecobalyse/transverse/transport/cout-environnemental-par-voie-de-transport) détaille le calcul du coût environnemental pour chacune des voies de transport, en fonction des situations.
 * La page [Choix des voies de transport](https://fabrique-numerique.gitbook.io/ecobalyse/transverse/transport/choix-des-voies-de-transport) détaille la façon dont une ou plusieurs voies de transport sont combinées pour une étape de transport donnée.
-* Des pages dédiées par secteur décrivent les voies de transport proposées à chaque étape, et les éventuels paramètres spécifiques au secteur :
-  * [Textile](https://fabrique-numerique.gitbook.io/ecobalyse/draft-documentation-transverse/transport/transport-textile)
-  * [Alimentaire](https://fabrique-numerique.gitbook.io/ecobalyse/transverse/transport/transport-alimentaire)
+* Des pages dédiées par secteur décrivent si besoin les voies de transport proposées à chaque étape, et les éventuels paramètres spécifiques au secteur.
 
