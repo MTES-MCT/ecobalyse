@@ -121,12 +121,12 @@
     },
     "location": "FR",
     "massPerUnit": null,
+    "qtyVariationRatio": 1,
     "scopes": [
       "food"
     ],
     "source": "Agribalyse 3.2",
-    "unit": "kg",
-    "waste": 0
+    "unit": "kg"
   },
   {
     "activityName": "Algae (Laminaria), fresh, at farm {FR} U",
@@ -22108,12 +22108,12 @@
     },
     "location": "FR",
     "massPerUnit": null,
+    "qtyVariationRatio": 1,
     "scopes": [
       "food"
     ],
     "source": "Agribalyse 3.2",
-    "unit": "kg",
-    "waste": 0
+    "unit": "kg"
   },
   {
     "activityName": "Sparkling wine, 25cl | Packaging System, N0, All, Aluminium can 25cl {FR} U",
@@ -22452,12 +22452,12 @@
     },
     "location": "FR",
     "massPerUnit": null,
+    "qtyVariationRatio": 1,
     "scopes": [
       "food"
     ],
     "source": "Agribalyse 3.2",
-    "unit": "kg",
-    "waste": 0
+    "unit": "kg"
   },
   {
     "activityName": "Spring pea seed, organic, at farm gate {FR} U",
