@@ -874,14 +874,7 @@ elementMaterialView config targetElement materialResults material amount =
             [ Component.getTotalImpacts materialResults
                 |> Format.formatImpact config.impact
             ]
-        , td [ class "pe-3 text-nowrap" ]
-            [ button
-                [ type_ "button"
-                , class "btn btn-sm btn-outline-secondary"
-                , onClick (config.removeElement targetElement)
-                ]
-                [ Icon.trash ]
-            ]
+        , td [ class "pe-3 text-nowrap" ] []
         ]
     , if complementsImpacts /= Complement.emptyComplementsResultsImpacts then
         tr [ class "fs-7" ]
