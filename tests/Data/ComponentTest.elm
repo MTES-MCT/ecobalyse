@@ -165,8 +165,12 @@ suite =
                                     |> Expect.within (Expect.Absolute 0.00001) 1
                                 )
                             , it "should apply quantity variation ratio when one transform is passed"
-                                (getTestMass [ { weaving | qtyVariationRatio = Unit.qtyVariationRatio 0.5 } ]
-                                    |> Expect.within (Expect.Absolute 0.00001) 0.5
+                                (getTestMass [ { weaving | qtyVariationRatio = Unit.qtyVariationRatio 0.2 } ]
+                                    |> Expect.within (Expect.Absolute 0.00001) 0.2
+                                )
+                            , it "should apply quantity variation superior to 1"
+                                (getTestMass [ { weaving | qtyVariationRatio = Unit.qtyVariationRatio 2 } ]
+                                    |> Expect.within (Expect.Absolute 0.00001) 2
                                 )
                             , it "should apply quantity variation ratio sequentially when multiple transforms are passed"
                                 (getTestMass
