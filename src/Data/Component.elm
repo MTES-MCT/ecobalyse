@@ -938,10 +938,9 @@ computeTransportedMassImpacts ({ config } as requirements) (TransportCooling coo
     in
     computeTransportDistance requirements maybeFrom maybeTo
         |> Result.map
-            (Maybe.map (Transport.applyTransportRatios Split.zero)
-                -- default road transport to hub must be doubled when no distance could be determined
-                -- @see https://github.com/MTES-MCT/ecobalyse/issues/2345
-                >> Maybe.withDefault { defaultDistance | road = defaultDistance.road |> Quantity.multiplyBy 2 }
+            -- default road transport to hub must be doubled when no distance could be determined
+            -- @see https://github.com/MTES-MCT/ecobalyse/issues/2345
+            (Maybe.withDefault { defaultDistance | road = defaultDistance.road |> Quantity.multiplyBy 2 }
                 -- Always reset air transport, which is unhandled by design for now
                 -- see https://github.com/MTES-MCT/ecobalyse/issues/2282#issuecomment-4505548371
                 >> (\transport -> { transport | air = Quantity.zero })
