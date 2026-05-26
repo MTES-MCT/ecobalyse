@@ -121,7 +121,7 @@
     },
     "location": "FR",
     "massPerUnit": null,
-    "qtyVariationRatio": 1,
+    "qtyVariationRatio": 1.0,
     "scopes": [
       "food"
     ],
@@ -22108,7 +22108,7 @@
     },
     "location": "FR",
     "massPerUnit": null,
-    "qtyVariationRatio": 1,
+    "qtyVariationRatio": 1.0,
     "scopes": [
       "food"
     ],
@@ -22452,7 +22452,7 @@
     },
     "location": "FR",
     "massPerUnit": null,
-    "qtyVariationRatio": 1,
+    "qtyVariationRatio": 1.0,
     "scopes": [
       "food"
     ],
