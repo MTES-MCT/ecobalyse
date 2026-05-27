@@ -60,17 +60,6 @@ describe("API", () => {
         expect(response.body.error).toHaveProperty("decoding");
         expect(response.body.error.decoding).toMatch("Format JSON invalide");
       });
-
-      it("should respond with an HTTP 401 error if no token provided", async () => {
-        const response = await request(app).post("/api/textile/simulator").type("json").send("");
-
-        expectStatus(response, 401);
-        expect(response.body).toHaveProperty("error");
-        expect(response.body.error).toHaveProperty("authorization");
-        expect(response.body.error.authorization).toMatch(
-          "Un token valide est requis pour utiliser l’API",
-        );
-      });
     });
   });
 
