@@ -112,11 +112,11 @@ Pour chaque candidat restant, l’indicateur synthétique ECS est calculé à pa
 Afin d’optimiser les temps de calcul, un mécanisme de mise en cache est utilisé :\
 si un ICV a déjà été évalué précédemment, sa valeur ECS est réutilisée.
 
-Ces premières étapes produisent, pour chaque ingrédient, un [fichier CSV](https://ademecloud.sharepoint.com/:x:/s/C-GroupeAffichageEnvironnemental-AffichageAlimentaire-ADEME/IQBqUiFEOU5tRa7H9nPqB-R-AZNrNlSxhs6jqIREBxnjuJ4?e=9P4XFD) qui liste exhaustivement les inventaires candidats potentiels issus des trois bases. Ce fichier est modifiable à la main pour permettre de corriger / ajouter / supprimer des inventaires candidats. Il est ensuite réinjecté dans le code pour la sélection de l'ICV final.
+Ces premières étapes produisent, pour chaque ingrédient, un [fichier CSV](https://ademecloud.sharepoint.com/:x:/s/C-GroupeAffichageEnvironnemental-AffichageAlimentaire-ADEME/IQCx7wK1xblDRKFF4cUnyayBAVjoYEPTwwiaYben3YMlP_0?e=q9CdDO) qui liste exhaustivement les inventaires candidats potentiels issus des trois bases. Ce fichier est modifiable à la main pour permettre de corriger / ajouter / supprimer des inventaires candidats. Il est ensuite réinjecté dans le code pour la sélection de l'ICV final.
 
 <mark style="color:red;">**Étape 4 – Priorisation géographique**</mark>
 
-A partir du [fichier d'ICV candidats](https://ademecloud.sharepoint.com/:x:/s/C-GroupeAffichageEnvironnemental-AffichageAlimentaire-ADEME/IQBqUiFEOU5tRa7H9nPqB-R-AZNrNlSxhs6jqIREBxnjuJ4?e=9P4XFD), les candidats sont ensuite hiérarchisés selon leur localisation :
+A partir du [fichier d'ICV candidats](https://ademecloud.sharepoint.com/:x:/s/C-GroupeAffichageEnvironnemental-AffichageAlimentaire-ADEME/IQCx7wK1xblDRKFF4cUnyayBAVjoYEPTwwiaYben3YMlP_0), les candidats sont ensuite hiérarchisés selon leur localisation :
 
 1. Priorité aux inventaires localisés dans l’Union européenne
 2. À défaut, inventaires localisés en Europe hors UE + France
@@ -192,7 +192,7 @@ L’ensemble des inventaires candidats provient du même processus de générati
 
 Contrairement à la variante UE, il n’est pas nécessaire de relancer l’ensemble du processus de recherche et de scoring des ICV.
 
-La variante « hors UE » utilise directement en entrée le [**fichier d’ICV candidats**](https://ademecloud.sharepoint.com/:x:/s/C-GroupeAffichageEnvironnemental-AffichageAlimentaire-ADEME/IQBqUiFEOU5tRa7H9nPqB-R-AZNrNlSxhs6jqIREBxnjuJ4) **déjà constitué** lors de l’étape précédente (sélection UE).\
+La variante « hors UE » utilise directement en entrée le [**fichier d’ICV candidats**](https://ademecloud.sharepoint.com/:x:/s/C-GroupeAffichageEnvironnemental-AffichageAlimentaire-ADEME/IQCx7wK1xblDRKFF4cUnyayBAVjoYEPTwwiaYben3YMlP_0?e=q9CdDO) **déjà constitué** lors de l’étape précédente (sélection UE).\
 Ce fichier, potentiellement enrichi ou corrigé manuellement, contient pour chaque ingrédient :
 
 * la liste complète des inventaires candidats identifiés ;
@@ -261,7 +261,7 @@ Cette information est exportée dans un fichier CSV de résultats finaux, permet
 
 _<mark style="color:$primary;">La méthode mise en œuvre pour la variante</mark> <mark style="color:$primary;"></mark><mark style="color:$primary;">**« Production hors Union européenne »**</mark> <mark style="color:$primary;"></mark><mark style="color:$primary;">repose donc sur :</mark>_
 
-* _<mark style="color:$primary;">l'utilisation du</mark>_ [_<mark style="color:$primary;">fichier commun d’ICV candidats</mark>_](https://ademecloud.sharepoint.com/:x:/s/C-GroupeAffichageEnvironnemental-AffichageAlimentaire-ADEME/IQBqUiFEOU5tRa7H9nPqB-R-AZNrNlSxhs6jqIREBxnjuJ4) _<mark style="color:$primary;">valable pour la variante UE ;</mark>_
+* _<mark style="color:$primary;">l'utilisation du</mark>_ [_<mark style="color:$primary;">fichier commun d’ICV candidats</mark>_](https://ademecloud.sharepoint.com/:x:/s/C-GroupeAffichageEnvironnemental-AffichageAlimentaire-ADEME/IQCx7wK1xblDRKFF4cUnyayBAVjoYEPTwwiaYben3YMlP_0) _<mark style="color:$primary;">valable pour la variante UE ;</mark>_
 * _<mark style="color:$primary;">une hiérarchisation géographique privilégiant explicitement les inventaires non européens ;</mark>_
 * _<mark style="color:$primary;">une sélection finale fondée sur le rapprochement à une moyenne ECS représentative ;</mark>_
 * _<mark style="color:$primary;">des règles de départage assurant une cohérence entre bases de données.</mark>_
