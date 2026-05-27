@@ -172,6 +172,10 @@
         "null"
       ]
     },
+    "qtyVariationRatio": {
+      "exclusiveMinimum": 0,
+      "type": "number"
+    },
     "scopes": {
       "items": {
         "enum": [
@@ -212,11 +216,6 @@
         "m3"
       ],
       "type": "string"
-    },
-    "waste": {
-      "maximum": 1,
-      "minimum": 0,
-      "type": "number"
     }
   },
   "required": [

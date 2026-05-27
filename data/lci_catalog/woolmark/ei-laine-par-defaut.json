@@ -26,11 +26,11 @@
       ]
     }
   ],
+  "qtyVariationRatio": 1,
   "scopes": [
     "textile",
     "object"
   ],
   "source": "Woolmark",
-  "unit": "kg",
-  "waste": 0
+  "unit": "kg"
 }

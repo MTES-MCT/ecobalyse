@@ -38,11 +38,11 @@
       ]
     }
   ],
+  "qtyVariationRatio": 0.5,
   "scopes": [
     "object",
     "veli"
   ],
   "source": "Custom",
-  "unit": "m3",
-  "waste": 0.5
+  "unit": "m3"
 }

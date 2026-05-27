@@ -8,7 +8,7 @@ dependencies = [
     "boto3 ~= 1.40",
     "dynaconf ~= 3.2",
     "frozendict ~= 2.4",
-    "orjson ~= 3.10",
+    "orjson~=3.11",
     "platformdirs ~= 4.5",
     "rich ~= 14.2",
     "typer ~= 0.15",
@@ -28,7 +28,7 @@ dev = [
     "check-jsonschema ~= 0.35",
     "deadcode ~= 2.4",
     "pre-commit ~= 4.0",
-    "pytest ~= 8.3",
+    "pytest~=9.0",
     "pytest-mock ~= 3.14",
     "ruff ~= 0.8",
     "vulture ~= 2.14",
@@ -37,7 +37,7 @@ dev = [
 jupyter = [
     "ipywidgets>=8.1.5",
     "jupyter-collaboration>=3.0.1",
-    "jupyterlab>=4.3.2",
+    "jupyterlab>=4.5.7",
     "notebook>=7.3.0",
 ]
 

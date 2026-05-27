@@ -1027,6 +1027,7 @@ simulatorFormView session model ({ inputs } as simulator) =
         , updateElementTransformCountry = \_ _ _ -> NoOp
         , updateItemName = \_ _ -> NoOp
         , updateItemQuantity = UpdateTrimQuantity
+        , updateRecyclable = \_ -> NoOp
         }
     , div [ class "card shadow-sm pb-2" ]
         [ div [ class "card-header d-flex justify-content-between align-items-center" ]

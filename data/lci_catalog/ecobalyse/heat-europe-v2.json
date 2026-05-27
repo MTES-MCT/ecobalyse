@@ -17,11 +17,11 @@
       ]
     }
   ],
+  "qtyVariationRatio": 1,
   "scopes": [
     "object",
     "veli"
   ],
   "source": "Ecobalyse",
-  "unit": "kg",
-  "waste": 0
+  "unit": "kg"
 }

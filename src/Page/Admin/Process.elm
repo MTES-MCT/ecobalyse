@@ -211,7 +211,7 @@ processRowView definitions selected process =
         , td [ class "text-end" ]
             [ Format.megajoules process.heat ]
         , td [ class "text-end" ]
-            [ Format.splitAsPercentage 2 process.waste ]
+            [ process.qtyVariationRatio |> Format.qtyVariationRatio ]
         , td [ class "text-end" ]
             [ Format.massPerUnit process ]
         , td [ class "text-end" ]

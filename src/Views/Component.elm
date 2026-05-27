@@ -88,6 +88,7 @@ type alias Config db msg =
     , updateElementTransformCountry : TargetElement -> Index -> Maybe Country.Code -> msg
     , updateItemName : TargetItem -> String -> msg
     , updateItemQuantity : Index -> Quantity -> msg
+    , updateRecyclable : Bool -> msg
     }
 
 
@@ -1034,7 +1035,7 @@ elementTransformsView config targetElement materialResults materialCountry trans
                             }
                         ]
                     , td [ class "align-middle text-end text-nowrap" ]
-                        [ Format.splitAsPercentage 2 transform.process.waste ]
+                        [ transform.process.qtyVariationRatio |> Unit.qtyVariationRatioToFloat |> String.fromFloat |> text ]
                     , td [ class "text-end align-middle text-nowrap" ]
                         [ Component.extractAmount transformResult
                             |> Format.amount transform.process
@@ -1323,44 +1324,80 @@ addConsumptionButton ({ openSelectConsumptionModal, query } as config) =
 
 
 endOfLifeView : Config db msg -> LifeCycle -> Html msg
-endOfLifeView ({ componentConfig, scope } as config) lifeCycle =
+endOfLifeView ({ componentConfig, query, scope, updateRecyclable } as config) lifeCycle =
     div [ class "card shadow-sm" ]
         [ div [ class "card-header d-flex align-items-center justify-content-between" ]
-            [ h2 [ class "h5 mb-0" ]
-                [ text "Fin de vie" ]
-            , div [ class "d-flex align-items-center gap-2" ]
+            [ div [ class "IngredientPlaneOrBoatSelector" ]
+                [ div [ class "mb-0 d-flex" ]
+                    [ div [ class "h5" ] [ text "Fin de vie" ]
+                    ]
+                ]
+            , div [ class "d-flex align-items-center justify-content-between" ]
+                [ span [ class "pe-3" ] [ text "Ce produit est-il recyclable\u{00A0}?" ]
+                , div [ class "form-check form-check-inline" ]
+                    [ input
+                        [ type_ "radio"
+                        , class "form-check-input"
+                        , name "recyclable"
+                        , id "recyclable-yes"
+                        , onClick <| updateRecyclable True
+                        , checked query.recyclable
+                        ]
+                        []
+                    , label [ class "form-check-label", for "recyclable-yes" ]
+                        [ text "Oui" ]
+                    ]
+                , div [ class "form-check form-check-inline" ]
+                    [ input
+                        [ type_ "radio"
+                        , class "form-check-input"
+                        , name "recyclable"
+                        , id "recyclable-no"
+                        , onClick <| updateRecyclable False
+                        , checked <| not query.recyclable
+                        ]
+                        []
+                    , label [ class "form-check-label", for "recyclable-no" ]
+                        [ text "Non" ]
+                    ]
+                ]
+            , div [ class "d-flex align-items-center justify-content-end gap-2 ps-2", style "min-width" "80px" ]
                 [ lifeCycle.production
                     |> Component.getEndOfLifeImpacts
                         { config = componentConfig
                         , db = config.db
                         , scope = config.scope
                         }
+                        query.recyclable
                     |> Format.formatImpact config.impact
                 ]
             ]
         , div [ class "card-body table-responsive p-0" ]
             [ if config.componentConfig.endOfLife |> Config.scopeEnabled scope then
-                table [ class "table mb-0 fs-7" ]
-                    [ thead []
-                        [ tr []
-                            [ th [ class "text-end" ] [ text "Matière" ]
-                            , th [ class "text-end" ] [ text "Masse" ]
-                            , th [ class "text-end" ] [ text "Recyclage" ]
-                            , th [ class "text-end" ] [ text "Incinération" ]
-                            , th [ class "text-end" ] [ text "Enfouissement" ]
-                            , th [ class "text-end pe-3" ] [ text "Impact" ]
+                div []
+                    [ table [ class "table mb-0 fs-7" ]
+                        [ thead []
+                            [ tr []
+                                [ th [ class "text-end" ] [ text "Matière" ]
+                                , th [ class "text-end" ] [ text "Masse" ]
+                                , th [ class "text-end" ] [ text "Recyclage" ]
+                                , th [ class "text-end" ] [ text "Incinération" ]
+                                , th [ class "text-end" ] [ text "Enfouissement" ]
+                                , th [ class "text-end pe-3" ] [ text "Impact" ]
+                                ]
                             ]
+                        , lifeCycle.production
+                            |> Component.getEndOfLifeDetailedImpacts
+                                { config = componentConfig
+                                , db = config.db
+                                , scope = config.scope
+                                }
+                                query.recyclable
+                            |> AnyDict.toList
+                            |> List.sortBy (Tuple.first >> Category.materialTypeToLabel)
+                            |> List.concatMap (endOfLifeMaterialRow config)
+                            |> tbody []
                         ]
-                    , lifeCycle.production
-                        |> Component.getEndOfLifeDetailedImpacts
-                            { config = componentConfig
-                            , db = config.db
-                            , scope = config.scope
-                            }
-                        |> AnyDict.toList
-                        |> List.sortBy (Tuple.first >> Category.materialTypeToLabel)
-                        |> List.concatMap (endOfLifeMaterialRow config)
-                        |> tbody []
                     ]
 
               else
@@ -1373,10 +1410,10 @@ endOfLifeView ({ componentConfig, scope } as config) lifeCycle =
 
 
 endOfLifeMaterialRow : Config db msg -> ( Category.Material, EndOfLifeMaterialImpacts ) -> List (Html msg)
-endOfLifeMaterialRow ({ componentConfig, scope } as config) ( materialType, { collected, nonCollected } ) =
+endOfLifeMaterialRow ({ componentConfig, query, scope } as config) ( materialType, { collected, nonCollected } ) =
     let
         collectionShare =
-            scope |> Component.getEndOfLifeScopeCollectionRate componentConfig
+            scope |> Component.getEndOfLifeScopeCollectionRate componentConfig query.recyclable
 
         nonCollectionShare =
             Split.complement collectionShare
