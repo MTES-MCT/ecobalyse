@@ -188,7 +188,7 @@ api.all(/(.*)/, bodyParser.json(), jsonErrorHandler, async (req, res) => {
   const token = extractTokenFromHeaders(req.headers);
   if (!token) {
     return res.status(401).send({
-      error: { authorization: "Un token est requis pour utiliser l’API" },
+      error: { authorization: "Un token valide est requis pour utiliser l’API" },
       documentation: "https://ecobalyse.beta.gouv.fr/#/api",
     });
   }

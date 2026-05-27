@@ -68,7 +68,7 @@ describe("API", () => {
         expect(response.body).toHaveProperty("error");
         expect(response.body.error).toHaveProperty("authorization");
         expect(response.body.error.authorization).toMatch(
-          "Un token est requis pour utiliser l’API",
+          "Un token valide est requis pour utiliser l’API",
         );
       });
     });
