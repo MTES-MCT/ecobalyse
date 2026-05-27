@@ -2,6 +2,7 @@
   {
     "aquaticPollutionScenario": "Worst",
     "code": "---",
+    "distanceToHub": 0,
     "electricityProcessId": "ed6d177e-44bb-5ba4-beec-d683dc21be9f",
     "heatProcessId": "3561ace1-f710-50ce-a69c-9cf842e729e4",
     "name": "Pays inconnu (par défaut)",
@@ -11,6 +12,7 @@
   {
     "aquaticPollutionScenario": "Best",
     "code": "REO",
+    "distanceToHub": 500,
     "electricityProcessId": "ee114bf1-8c51-5c1e-8065-d762400447e2",
     "heatProcessId": "f6ea2983-e024-5de2-b323-273f2436deba",
     "name": "Région - Europe de l'Ouest",
@@ -20,6 +22,7 @@
   {
     "aquaticPollutionScenario": "Best",
     "code": "REE",
+    "distanceToHub": 2000,
     "electricityProcessId": "5ee392cf-954e-56c8-b555-427d55023548",
     "heatProcessId": "f6ea2983-e024-5de2-b323-273f2436deba",
     "name": "Région - Europe de l'Est",
@@ -30,6 +33,7 @@
     "aquaticPollutionScenario": "Best",
     "code": "REM",
     "comment": "Elec and heat mixes are the same than 'Région - Europe de l'Est' but are not used by the 'food' simulator",
+    "distanceToHub": 2000,
     "electricityProcessId": "5ee392cf-954e-56c8-b555-427d55023548",
     "heatProcessId": "f6ea2983-e024-5de2-b323-273f2436deba",
     "name": "Région - Europe et Maghreb",
@@ -39,6 +43,7 @@
   {
     "aquaticPollutionScenario": "Worst",
     "code": "RAS",
+    "distanceToHub": 2000,
     "electricityProcessId": "a2129ece-5dd9-5e66-969c-2603b3c97244",
     "heatProcessId": "3561ace1-f710-50ce-a69c-9cf842e729e4",
     "name": "Région - Asie",
@@ -48,6 +53,7 @@
   {
     "aquaticPollutionScenario": "Worst",
     "code": "RAF",
+    "distanceToHub": 2000,
     "electricityProcessId": "15958106-68d0-5130-8ed8-d8557cdcc1fa",
     "heatProcessId": "3561ace1-f710-50ce-a69c-9cf842e729e4",
     "name": "Région - Afrique",
@@ -57,6 +63,7 @@
   {
     "aquaticPollutionScenario": "Average",
     "code": "RME",
+    "distanceToHub": 2000,
     "electricityProcessId": "fe6437fa-5d9a-5a7f-a2a8-430066232e5c",
     "heatProcessId": "3561ace1-f710-50ce-a69c-9cf842e729e4",
     "name": "Région - Moyen-Orient",
@@ -66,6 +73,7 @@
   {
     "aquaticPollutionScenario": "Average",
     "code": "RLA",
+    "distanceToHub": 2000,
     "electricityProcessId": "aa315629-988f-5886-bafe-247821f356fc",
     "heatProcessId": "3561ace1-f710-50ce-a69c-9cf842e729e4",
     "name": "Région - Amérique Latine",
@@ -75,6 +83,7 @@
   {
     "aquaticPollutionScenario": "Worst",
     "code": "RNA",
+    "distanceToHub": 2000,
     "electricityProcessId": "6911c87b-6cf9-5b33-be9a-e50a9e132575",
     "heatProcessId": "3561ace1-f710-50ce-a69c-9cf842e729e4",
     "name": "Région - Amérique du nord",
@@ -84,6 +93,7 @@
   {
     "aquaticPollutionScenario": "Worst",
     "code": "ROC",
+    "distanceToHub": 2000,
     "electricityProcessId": "05bcd5b4-09eb-5f9c-8a02-fd9d91412ccf",
     "heatProcessId": "3561ace1-f710-50ce-a69c-9cf842e729e4",
     "name": "Région - Océanie",
@@ -94,6 +104,7 @@
     "aquaticPollutionScenario": "Best",
     "code": "ROF",
     "comment": "Elec and heat mixes are the same than 'France' but are not used by the 'food' simulator",
+    "distanceToHub": 150,
     "electricityProcessId": "931c9bb0-619a-5f75-b41b-ab8061e2ad92",
     "heatProcessId": "f6ea2983-e024-5de2-b323-273f2436deba",
     "name": "France d’outre-mer",
@@ -103,6 +114,7 @@
   {
     "aquaticPollutionScenario": "Worst",
     "code": "MM",
+    "distanceToHub": 500,
     "electricityProcessId": "3b57b822-5e54-5116-b07d-55bcedcd6abf",
     "heatProcessId": "3561ace1-f710-50ce-a69c-9cf842e729e4",
     "name": "Myanmar",
@@ -112,6 +124,7 @@
   {
     "aquaticPollutionScenario": "Worst",
     "code": "BD",
+    "distanceToHub": 500,
     "electricityProcessId": "26055a0a-ec6d-5985-a220-84841949077d",
     "heatProcessId": "3561ace1-f710-50ce-a69c-9cf842e729e4",
     "name": "Bangladesh",
@@ -121,6 +134,7 @@
   {
     "aquaticPollutionScenario": "Worst",
     "code": "BR",
+    "distanceToHub": 500,
     "electricityProcessId": "2fac57eb-e7e7-5008-94fa-a943010112df",
     "heatProcessId": "3561ace1-f710-50ce-a69c-9cf842e729e4",
     "name": "Brésil",
@@ -130,6 +144,7 @@
   {
     "aquaticPollutionScenario": "Average",
     "code": "CN",
+    "distanceToHub": 500,
     "electricityProcessId": "251fa8f5-3e07-5f37-8bed-fa42a367f262",
     "heatProcessId": "3561ace1-f710-50ce-a69c-9cf842e729e4",
     "name": "Chine",
@@ -139,6 +154,7 @@
   {
     "aquaticPollutionScenario": "Best",
     "code": "DE",
+    "distanceToHub": 500,
     "electricityProcessId": "c1b8fb8e-e32f-4814-8bf9-43008a2510f2",
     "heatProcessId": "f6ea2983-e024-5de2-b323-273f2436deba",
     "name": "Allemagne",
@@ -148,6 +164,7 @@
   {
     "aquaticPollutionScenario": "Best",
     "code": "ES",
+    "distanceToHub": 500,
     "electricityProcessId": "5d7e3f90-7c23-560d-bc71-8e726fb4549e",
     "heatProcessId": "f6ea2983-e024-5de2-b323-273f2436deba",
     "name": "Espagne",
@@ -157,6 +174,7 @@
   {
     "aquaticPollutionScenario": "Best",
     "code": "FR",
+    "distanceToHub": 500,
     "electricityProcessId": "931c9bb0-619a-5f75-b41b-ab8061e2ad92",
     "heatProcessId": "f6ea2983-e024-5de2-b323-273f2436deba",
     "name": "France",
@@ -166,6 +184,7 @@
   {
     "aquaticPollutionScenario": "Worst",
     "code": "IN",
+    "distanceToHub": 500,
     "electricityProcessId": "ed6d177e-44bb-5ba4-beec-d683dc21be9f",
     "heatProcessId": "3561ace1-f710-50ce-a69c-9cf842e729e4",
     "name": "Inde",
@@ -175,6 +194,7 @@
   {
     "aquaticPollutionScenario": "Best",
     "code": "IT",
+    "distanceToHub": 500,
     "electricityProcessId": "56055c38-1483-56c0-97d7-d66e66665a0c",
     "heatProcessId": "f6ea2983-e024-5de2-b323-273f2436deba",
     "name": "Italie",
@@ -184,6 +204,7 @@
   {
     "aquaticPollutionScenario": "Average",
     "code": "KE",
+    "distanceToHub": 500,
     "electricityProcessId": "73bfddbc-a57d-51f4-80dc-3c3fc9477dcb",
     "heatProcessId": "3561ace1-f710-50ce-a69c-9cf842e729e4",
     "name": "Kenya",
@@ -193,6 +214,7 @@
   {
     "aquaticPollutionScenario": "Average",
     "code": "KH",
+    "distanceToHub": 500,
     "electricityProcessId": "e274d3fd-eee9-54dc-ba1a-ca14a8717e93",
     "heatProcessId": "3561ace1-f710-50ce-a69c-9cf842e729e4",
     "name": "Cambodge",
@@ -202,6 +224,7 @@
   {
     "aquaticPollutionScenario": "Average",
     "code": "MA",
+    "distanceToHub": 500,
     "electricityProcessId": "a3197e15-9193-5212-8be9-77a3a9961d96",
     "heatProcessId": "3561ace1-f710-50ce-a69c-9cf842e729e4",
     "name": "Maroc",
@@ -211,6 +234,7 @@
   {
     "aquaticPollutionScenario": "Best",
     "code": "NL",
+    "distanceToHub": 500,
     "electricityProcessId": "f5c66349-7590-4036-90b3-c30ca20faf2e",
     "heatProcessId": "f6ea2983-e024-5de2-b323-273f2436deba",
     "name": "Pays-bas",
@@ -220,6 +244,7 @@
   {
     "aquaticPollutionScenario": "Best",
     "code": "NZ",
+    "distanceToHub": 500,
     "electricityProcessId": "2d7bf521-6ab0-5e08-9175-75ae8835a4fa",
     "heatProcessId": "3561ace1-f710-50ce-a69c-9cf842e729e4",
     "name": "Nouvelle-Zélande",
@@ -229,6 +254,7 @@
   {
     "aquaticPollutionScenario": "Worst",
     "code": "PE",
+    "distanceToHub": 500,
     "electricityProcessId": "239bfc03-92d6-5a23-bba9-877ffb6d1757",
     "heatProcessId": "3561ace1-f710-50ce-a69c-9cf842e729e4",
     "name": "Pérou",
@@ -238,6 +264,7 @@
   {
     "aquaticPollutionScenario": "Worst",
     "code": "PK",
+    "distanceToHub": 500,
     "electricityProcessId": "1f73a42e-c744-5842-9358-27b35ee3295b",
     "heatProcessId": "3561ace1-f710-50ce-a69c-9cf842e729e4",
     "name": "Pakistan",
@@ -247,6 +274,7 @@
   {
     "aquaticPollutionScenario": "Best",
     "code": "PL",
+    "distanceToHub": 500,
     "electricityProcessId": "00e1a953-283c-4b65-8821-238bcafecc54",
     "heatProcessId": "f6ea2983-e024-5de2-b323-273f2436deba",
     "name": "Pologne",
@@ -256,6 +284,7 @@
   {
     "aquaticPollutionScenario": "Best",
     "code": "PT",
+    "distanceToHub": 500,
     "electricityProcessId": "15cd9062-bbb2-4b5b-b688-f872864d860e",
     "heatProcessId": "f6ea2983-e024-5de2-b323-273f2436deba",
     "name": "Portugal",
@@ -265,6 +294,7 @@
   {
     "aquaticPollutionScenario": "Average",
     "code": "TN",
+    "distanceToHub": 500,
     "electricityProcessId": "f32261a1-a93e-5b57-b5a5-0f79d4a0244b",
     "heatProcessId": "3561ace1-f710-50ce-a69c-9cf842e729e4",
     "name": "Tunisie",
@@ -274,6 +304,7 @@
   {
     "aquaticPollutionScenario": "Average",
     "code": "TR",
+    "distanceToHub": 500,
     "electricityProcessId": "930c987b-9fcc-5bfb-a5fd-f3cb2d7e420a",
     "heatProcessId": "3561ace1-f710-50ce-a69c-9cf842e729e4",
     "name": "Turquie",
@@ -283,6 +314,7 @@
   {
     "aquaticPollutionScenario": "Best",
     "code": "US",
+    "distanceToHub": 500,
     "electricityProcessId": "5756830a-a96c-5303-b6aa-a15cc727daaa",
     "heatProcessId": "3561ace1-f710-50ce-a69c-9cf842e729e4",
     "name": "Etats-Unis",
@@ -292,6 +324,7 @@
   {
     "aquaticPollutionScenario": "Average",
     "code": "VN",
+    "distanceToHub": 500,
     "electricityProcessId": "f3ad3ac5-731a-5ef5-b9e1-13ce71780444",
     "heatProcessId": "3561ace1-f710-50ce-a69c-9cf842e729e4",
     "name": "Vietnam",

@@ -16,12 +16,12 @@
       ]
     }
   ],
+  "qtyVariationRatio": 1,
   "scopes": [
     "textile",
     "food",
     "food2"
   ],
   "source": "Ecobalyse",
-  "unit": "t⋅km",
-  "waste": 0
+  "unit": "t⋅km"
 }

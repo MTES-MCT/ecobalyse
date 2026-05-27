@@ -16,7 +16,6 @@ import Data.Impact.Definition as Definition
 import Data.Process as Process exposing (Process)
 import Data.Process.Category as Category
 import Data.Scope as Scope
-import Data.Split as Split exposing (Split)
 import Data.Transport as Transport
 import Data.Unit as Unit
 import Dict.Any as AnyDict
@@ -160,17 +159,24 @@ suite =
                                     |> Component.extractMass
                                     |> Mass.inKilograms
                           in
-                          describe "waste"
-                            [ it "should not apply any waste when no transforms are passed"
+                          describe "qtyVariationRatio"
+                            [ it "should not apply any quantity variation ratio when no transforms are passed"
                                 (getTestMass []
                                     |> Expect.within (Expect.Absolute 0.00001) 1
                                 )
-                            , it "should apply waste when one transform is passed"
-                                (getTestMass [ { weaving | waste = Split.half } ]
-                                    |> Expect.within (Expect.Absolute 0.00001) 0.5
+                            , it "should apply quantity variation ratio when one transform is passed"
+                                (getTestMass [ { weaving | qtyVariationRatio = Unit.qtyVariationRatio 0.2 } ]
+                                    |> Expect.within (Expect.Absolute 0.00001) 0.2
                                 )
-                            , it "should apply waste sequentially when multiple transforms are passed"
-                                (getTestMass [ { weaving | waste = Split.half }, { weaving | waste = Split.half } ]
+                            , it "should apply quantity variation superior to 1"
+                                (getTestMass [ { weaving | qtyVariationRatio = Unit.qtyVariationRatio 2 } ]
+                                    |> Expect.within (Expect.Absolute 0.00001) 2
+                                )
+                            , it "should apply quantity variation ratio sequentially when multiple transforms are passed"
+                                (getTestMass
+                                    [ { weaving | qtyVariationRatio = Unit.qtyVariationRatio 0.5 }
+                                    , { weaving | qtyVariationRatio = Unit.qtyVariationRatio 0.5 }
+                                    ]
                                     |> Expect.within (Expect.Absolute 0.00001) 0.25
                                 )
                             ]
@@ -319,31 +325,31 @@ suite =
                                         (List.map Component.nonLocalizedExpandedProcess transforms)
                                     |> Result.withDefault Component.emptyResults
                           in
-                          describe "impacts & waste"
+                          describe "impacts & qtyVariationRatio"
                             [ let
                                 noElecAndNoHeat =
                                     getTestResults
                                         [ fading
                                             |> resetProcessElecAndHeat
-                                            |> setProcessWaste Split.half
+                                            |> setProcessQtyVariationRatio (Unit.qtyVariationRatio 0.5)
                                             |> setProcessEcsImpact (Unit.impact 10)
                                         , fading
                                             |> resetProcessElecAndHeat
-                                            |> setProcessWaste Split.half
+                                            |> setProcessQtyVariationRatio (Unit.qtyVariationRatio 0.5)
                                             |> setProcessEcsImpact (Unit.impact 20)
                                         ]
                               in
                               describe "excluding elec and heat"
                                 [ -- Note: impacts are always computed from input mass
                                   -- 100 + (1kg * 10) + (0.5kg * 20) = 120
-                                  it "should handle impacts+waste when applying transforms: impacts"
+                                  it "should handle impacts+qtyVariationRatio when applying transforms: impacts"
                                     (noElecAndNoHeat
                                         |> extractEcsImpact
                                         |> Expect.within (Expect.Absolute 1) 155.13510000000002
                                     )
 
                                 -- (1kg * 0.5) * 0.5 == 0.25
-                                , it "should handle impacts+waste when applying transforms: mass"
+                                , it "should handle impacts+qtyVariationRatio when applying transforms: mass"
                                     (noElecAndNoHeat
                                         |> Component.extractMass
                                         |> Mass.inKilograms
@@ -354,20 +360,20 @@ suite =
                                 withElecAndHeat =
                                     getTestResults
                                         [ fading
-                                            |> setProcessWaste Split.half
+                                            |> setProcessQtyVariationRatio (Unit.qtyVariationRatio 0.5)
                                             |> setProcessEcsImpact (Unit.impact 10)
                                         , fading
-                                            |> setProcessWaste Split.half
+                                            |> setProcessQtyVariationRatio (Unit.qtyVariationRatio 0.5)
                                             |> setProcessEcsImpact (Unit.impact 20)
                                         ]
                               in
                               describe "including elec and heat"
-                                [ it "should handle impacts+waste when applying transforms: impacts"
+                                [ it "should handle impacts+qtyVariationRatio when applying transforms: impacts"
                                     (withElecAndHeat
                                         |> extractEcsImpact
                                         |> Expect.within (Expect.Absolute 1) 769.7222644999999
                                     )
-                                , it "should handle impacts+waste when applying transforms: mass"
+                                , it "should handle impacts+qtyVariationRatio when applying transforms: mass"
                                     (withElecAndHeat
                                         |> Component.extractMass
                                         |> Mass.inKilograms
@@ -659,8 +665,8 @@ suite =
                     , describe "computeInitialAmount"
                         [ it "should sequentially apply splits"
                             (Amount.fromFloat 100
-                                |> Component.computeInitialAmount [ Split.twenty, Split.half ]
-                                -- 100 / (1 - 0.2) / (1 - 0.5) = 250
+                                |> Component.computeInitialAmount [ Unit.qtyVariationRatio 0.8, Unit.qtyVariationRatio 0.5 ]
+                                -- 100 / 0.8 / 0.5 = 250
                                 |> Expect.equal (Ok <| Amount.fromFloat 250)
                             )
                         , it "should succeed with initial amount when no transforms is applied"
@@ -668,10 +674,10 @@ suite =
                                 |> Component.computeInitialAmount []
                                 |> Expect.equal (Ok <| Amount.fromFloat 100)
                             )
-                        , it "should error when a passed waste ratio is 100%"
+                        , it "should error when a quantity variation ratio is 0"
                             (Amount.fromFloat 100
-                                |> Component.computeInitialAmount [ Split.full ]
-                                |> expectResultErrorContains "Un taux de perte ne peut pas être de 100%"
+                                |> Component.computeInitialAmount [ Unit.qtyVariationRatio 0 ]
+                                |> expectResultErrorContains "Un ratio de variation de quantité ne peut pas être de 0"
                             )
                         ]
                     , describe "computeItemResults"
@@ -959,7 +965,7 @@ suite =
                                             , Length.inKilometers sea > 0
                                             )
                                         )
-                                    |> Expect.equal (Ok ( True, True, True ))
+                                    |> Expect.equal (Ok ( False, True, True ))
                                 )
                             , it "should compute distance between two countries accounting transport to hubs"
                                 (Component.computeTransportDistance requirements
@@ -1749,9 +1755,9 @@ setProcessEcsImpact ecs process =
     }
 
 
-setProcessWaste : Split -> Process -> Process
-setProcessWaste waste process =
-    { process | waste = waste }
+setProcessQtyVariationRatio : Unit.QuantityVariationRatio -> Process -> Process
+setProcessQtyVariationRatio qtyVariationRatio process =
+    { process | qtyVariationRatio = qtyVariationRatio }
 
 
 setupTestDb : Db -> Db
@@ -1930,13 +1936,13 @@ dryDistribution =
             "location": null,
             "massPerUnit": null,
             "metadata": null,
+            "qtyVariationRatio": 1,
             "scopes": [
                 "food2",
                 "object"
             ],
             "source": "Custom",
-            "unit": "m3",
-            "waste": 0
+            "unit": "m3"
         }
         """
 
@@ -1976,10 +1982,10 @@ injectionMoulding =
                 },
                 "location": "RER",
                 "massPerUnit": null,
+                "qtyVariationRatio": 0.994,
                 "scopes": ["object", "veli"],
                 "source": "Ecoinvent 3.9.1",
-                "unit": "kg",
-                "waste": 0.006
+                "unit": "kg"
             }
         """
 
@@ -2019,14 +2025,14 @@ lowVoltageElec =
                 },
                 "location": "FR",
                 "massPerUnit": null,
+                "qtyVariationRatio": 1,
                 "scopes": [
                     "food",
                     "textile",
                     "veli"
                 ],
                 "source": "Ecoinvent 3.9.1",
-                "unit": "kWh",
-                "waste": 0
+                "unit": "kWh"
             }
         """
 
@@ -2066,10 +2072,10 @@ plastic =
                 },
                 "location": "RER",
                 "massPerUnit": null,
+                "qtyVariationRatio": 1,
                 "scopes": ["object"],
                 "source": "Ecoinvent 3.9.1",
-                "unit": "kg",
-                "waste": 0
+                "unit": "kg"
             }
         """
 
@@ -2109,10 +2115,10 @@ sawing =
                 },
                 "location": "GLO",
                 "massPerUnit": null,
+                "qtyVariationRatio": 0.5,
                 "scopes": ["object"],
                 "source": "Ecobalyse",
-                "unit": "m3",
-                "waste": 0.5
+                "unit": "m3"
             }
         """
 
@@ -2152,10 +2158,10 @@ steel =
                 },
                 "location": "GLO",
                 "massPerUnit": null,
+                "qtyVariationRatio": 1,
                 "scopes": ["food2", "textile"],
                 "source": "Ecoinvent 3.9.1",
-                "unit": "kg",
-                "waste": 0
+                "unit": "kg"
             }
         """
 
@@ -2201,10 +2207,10 @@ wood =
                   },
                   "forestManagement": "intensivePlantation"
                 },
+                "qtyVariationRatio": 1,
                 "scopes": ["object", "veli"],
                 "source": "Ecoinvent 3.9.1",
-                "unit": "m3",
-                "waste": 0
+                "unit": "m3"
             }
         """
 

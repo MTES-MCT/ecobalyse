@@ -38,12 +38,12 @@
       ]
     }
   ],
+  "qtyVariationRatio": 0.88,
   "scopes": [
     "textile",
     "object",
     "veli"
   ],
   "source": "Custom",
-  "unit": "kg",
-  "waste": 0.12
+  "unit": "kg"
 }

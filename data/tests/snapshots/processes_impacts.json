@@ -34,12 +34,12 @@
     },
     "location": null,
     "massPerUnit": null,
+    "qtyVariationRatio": 1.0,
     "scopes": [
       "textile"
     ],
     "source": "Custom",
-    "unit": "kg",
-    "waste": 0
+    "unit": "kg"
   },
   {
     "activityName": "This process is not linked to a Brightway activity",
@@ -75,12 +75,12 @@
     },
     "location": null,
     "massPerUnit": null,
+    "qtyVariationRatio": 1.0,
     "scopes": [
       "textile"
     ],
     "source": "Custom",
-    "unit": "kg",
-    "waste": 0
+    "unit": "kg"
   },
   {
     "activityName": "_18 Meat products, Poultry and meat n.e.c., DK",
@@ -116,12 +116,12 @@
     },
     "location": "GLO",
     "massPerUnit": null,
+    "qtyVariationRatio": 1.0,
     "scopes": [
       "food"
     ],
     "source": "forwast",
-    "unit": "kg",
-    "waste": 0
+    "unit": "kg"
   },
   {
     "activityName": "_22 Vegetable and animal oils and fats, EU27",
@@ -157,12 +157,12 @@
     },
     "location": "GLO",
     "massPerUnit": null,
+    "qtyVariationRatio": 1.0,
     "scopes": [
       "food"
     ],
     "source": "forwast",
-    "unit": "kg",
-    "waste": 0
+    "unit": "kg"
   },
   {
     "activityName": "_31 Leather products, footwear, EU27",
@@ -199,12 +199,12 @@
     },
     "location": "GLO",
     "massPerUnit": null,
+    "qtyVariationRatio": 1.0,
     "scopes": [
       "textile"
     ],
     "source": "forwast",
-    "unit": "kg",
-    "waste": 0
+    "unit": "kg"
   },
   {
     "activityName": "_73 Furniture and other manufactured goods n.e.c., EU27",
@@ -241,12 +241,12 @@
     },
     "location": "GLO",
     "massPerUnit": null,
+    "qtyVariationRatio": 1.0,
     "scopes": [
       "textile"
     ],
     "source": "forwast",
-    "unit": "kg",
-    "waste": 0
+    "unit": "kg"
   },
   {
     "activityName": "_80 Post and telecommunication, DK",
@@ -282,12 +282,12 @@
     },
     "location": "GLO",
     "massPerUnit": null,
+    "qtyVariationRatio": 1.0,
     "scopes": [
       "textile"
     ],
     "source": "forwast",
-    "unit": "t⋅km",
-    "waste": 0
+    "unit": "t⋅km"
   },
   {
     "activityName": "__4 Grain crops, DK",
@@ -323,11 +323,11 @@
     },
     "location": "GLO",
     "massPerUnit": null,
+    "qtyVariationRatio": 1.0,
     "scopes": [
       "food"
     ],
     "source": "forwast",
-    "unit": "kg",
-    "waste": 0
+    "unit": "kg"
   }
 ]

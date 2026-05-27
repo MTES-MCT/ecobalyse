@@ -34,7 +34,7 @@ suite =
             in
             [ describe "Formula.genericWaste"
                 [ kg 1
-                    |> Formula.genericWaste Split.half
+                    |> Formula.genericWaste (Unit.qtyVariationRatio 0.5)
                     |> Expect.equal { mass = kg 2, waste = kg 1 }
                     |> asTest "should compute generic waste using input waste ratio"
                 ]

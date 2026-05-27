@@ -172,11 +172,11 @@ async def test_detailed_process_access(
             "wtu": 5.0,
         },
         "location": "GLO",
+        "qtyVariationRatio": 1.0,
         "massPerUnit": None,
         "scopes": ["textile"],
         "source": "Custom",
         "unit": "kg",
-        "waste": 0.0,
     }
 
     # Authenticated user with non accepted terms should not have detailed impacts
@@ -293,8 +293,8 @@ async def test_processes_access(
         },
         "location": "GLO",
         "massPerUnit": None,
+        "qtyVariationRatio": 1,
         "scopes": ["textile"],
         "source": "Custom",
         "unit": "kg",
-        "waste": 0.0,
     }

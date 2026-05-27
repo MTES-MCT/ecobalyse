@@ -148,7 +148,7 @@ class ProcessGeneric(EcoModel):
     scopes: List[Scope]
     source: str
     unit: Optional[UnitEnum]
-    waste: float
+    qty_variation_ratio: float
 
 
 class EcosystemicServices(EcoModel):
@@ -196,4 +196,4 @@ class Process(EcoModel):
     # Process identifier in Simapro
     activity_name: str
     unit: Optional[UnitEnum]
-    waste: float
+    qty_variation_ratio: float

@@ -18,10 +18,10 @@
       ]
     }
   ],
+  "qtyVariationRatio": 1,
   "scopes": [
     "veli"
   ],
   "source": "Ecoinvent 3.9.1",
-  "unit": "kg",
-  "waste": 0
+  "unit": "kg"
 }

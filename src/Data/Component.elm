@@ -132,7 +132,7 @@ import Data.Scoring as Scoring exposing (Scoring)
 import Data.Split as Split exposing (Split)
 import Data.Stages exposing (Stages)
 import Data.Transport as Transport exposing (Transport)
-import Data.Unit as Unit
+import Data.Unit as Unit exposing (QuantityVariationRatio)
 import Data.Uuid as Uuid exposing (Uuid)
 import Dict.Any as AnyDict
 import Energy
@@ -489,12 +489,10 @@ applyTransform transform { elec, heat } (Results { amount, label, impacts, items
                 |> Impact.multiplyBy (Amount.toFloat amount)
 
         outputAmount =
-            amount |> applyWaste transform.waste
+            amount |> applyQtyVariationRatio transform.qtyVariationRatio
 
         outputMass =
-            mass
-                |> Quantity.minus
-                    (mass |> Quantity.multiplyBy (Split.toFloat transform.waste))
+            mass |> Unit.applyQtyVariationRatioToMass transform.qtyVariationRatio
     in
     Results
         { amount = outputAmount
@@ -577,9 +575,9 @@ applyTransportedMassImpacts requirements transportCooling mass maybeFrom maybeTo
             )
 
 
-applyWaste : Split -> Amount -> Amount
-applyWaste waste =
-    Amount.map (\amount -> amount - (amount * Split.toFloat waste))
+applyQtyVariationRatio : QuantityVariationRatio -> Amount -> Amount
+applyQtyVariationRatio qtyVariationRatio =
+    Amount.map (\amount -> amount * Unit.qtyVariationRatioToFloat qtyVariationRatio)
 
 
 checkTransformsUnit : Process.Unit -> List ExpandedLocalizedProcess -> Result String (List ExpandedLocalizedProcess)
@@ -677,7 +675,7 @@ computeElementResults requirements transportCooling =
         >> Result.andThen
             (\{ amount, material, transforms } ->
                 amount
-                    |> computeInitialAmount (List.map (.process >> .waste) transforms)
+                    |> computeInitialAmount (List.map (.process >> .qtyVariationRatio) transforms)
                     |> Result.andThen
                         (\initialAmount ->
                             material.process
@@ -698,16 +696,16 @@ computeEndOfLifeResults requirements query lifeCycle =
 
 {-| Compute an initially required amount from sequentially applied waste ratios
 -}
-computeInitialAmount : List Split -> Amount -> Result String Amount
-computeInitialAmount wastes amount =
-    if List.member Split.full wastes then
-        Err "Un taux de perte ne peut pas être de 100%"
+computeInitialAmount : List QuantityVariationRatio -> Amount -> Result String Amount
+computeInitialAmount qtyVariationRatios amount =
+    if List.member 0 (qtyVariationRatios |> List.map Unit.qtyVariationRatioToFloat) then
+        Err "Un ratio de variation de quantité ne peut pas être de 0"
 
     else
-        wastes
+        qtyVariationRatios
             |> List.foldr
-                (\waste ->
-                    Amount.map (\float -> float / (1 - Split.toFloat waste))
+                (\qtyVariationRatio ->
+                    Amount.map (\float -> float / Unit.qtyVariationRatioToFloat qtyVariationRatio)
                 )
                 amount
             |> Ok
@@ -880,14 +878,16 @@ computeTransportDistance { db } maybeFrom maybeTo =
         ( Just from, Just to ) ->
             db.distances
                 |> Transport.getTransportBetween from to
+                -- Always reset air transport, which is unhandled by design for now
+                -- see https://github.com/MTES-MCT/ecobalyse/issues/2282#issuecomment-4505548371
+                |> Result.map (Transport.applyTransportRatios Split.zero)
                 |> Result.map
                     (\transport ->
                         { transport
                             | road =
                                 if from == to then
-                                    -- same country, add transport to hub once
-                                    transport.road
-                                        |> Quantity.plus from.distanceToHub
+                                    -- same country, add transport to hub once, ignore distance from transports.json
+                                    from.distanceToHub
 
                                 else
                                     -- different countries, add distances to hub at both ends
@@ -911,9 +911,8 @@ computeTransportedMassImpacts : Requirements db -> TransportCooling -> Maybe Cou
 computeTransportedMassImpacts ({ config } as requirements) (TransportCooling cooled) maybeFrom maybeTo mass =
     computeTransportDistance requirements maybeFrom maybeTo
         |> Result.map
-            (Maybe.map (Transport.applyTransportRatios Split.zero)
-                >> Maybe.withDefault config.transports.defaultDistance
-                -- Always reset air transport, which is unhandled by design for now
+            (Maybe.withDefault config.transports.defaultDistance
+                -- Reset default air transport distance
                 -- see https://github.com/MTES-MCT/ecobalyse/issues/2282#issuecomment-4505548371
                 >> (\transport -> { transport | air = Quantity.zero })
             )
