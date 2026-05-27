@@ -91,6 +91,7 @@ type Msg
     | AuthMsg Auth.Msg
     | ComponentAdminMsg ComponentAdmin.Msg
     | ComponentConfigReceived Url (WebData Component.Config)
+    | DataReceived Flags Url Nav.Key (WebData Db)
     | DetailedProcessesReceived Url (BackendHttp.WebData String)
     | EditorialMsg Editorial.Msg
     | ExploreMsg Explore.Msg
@@ -149,9 +150,15 @@ init flags requestedUrl navKey =
                         ComponentConfig.decode db
                             |> Http.get "/data/components/config.json" (ComponentConfigReceived requestedUrl)
                     , Plausible.send session <| Plausible.PageViewed requestedUrl
+                    , loadData (DataReceived flags requestedUrl navKey)
                     ]
                 )
         )
+
+
+loadData : (WebData Db -> Msg) -> Cmd Msg
+loadData msg =
+    Cmd.none
 
 
 setupSession : Nav.Key -> Flags -> Db -> Component.Config -> Session
@@ -404,6 +411,46 @@ update rawMsg ({ state } as model) =
                             ++ " utilisée, les résultats fournis sont probablement invalides ou incomplets."
 
                 ( ComponentConfigReceived _ _, _ ) ->
+                    ( model, Cmd.none )
+
+                -- Data over HTTP
+                ( DataReceived flags requestedUrl navKey (RemoteData.Success db), _ ) ->
+                    case Component.defaultConfig db of
+                        Err err ->
+                            ( { mobileNavigationOpened = False
+                              , navKey = session.navKey
+                              , state = Errored err
+                              , tray = Toast.tray
+                              , url = requestedUrl
+                              }
+                            , Cmd.none
+                            )
+
+                        Ok componentConfig ->
+                            let
+                                newSession =
+                                    setupSession navKey flags db componentConfig
+                            in
+                            ( { mobileNavigationOpened = False
+                              , navKey = navKey
+                              , state = Loaded session LoadingPage
+                              , tray = Toast.tray
+                              , url = requestedUrl
+                              }
+                            , Cmd.batch
+                                [ Ports.appStarted ()
+                                , Request.Version.loadVersion VersionReceived
+                                , if Session.isAuthenticated newSession then
+                                    Request.Auth.processes newSession (DetailedProcessesReceived requestedUrl)
+
+                                  else
+                                    ComponentConfig.decode db
+                                        |> Http.get "/data/components/config.json" (ComponentConfigReceived requestedUrl)
+                                , Plausible.send newSession <| Plausible.PageViewed requestedUrl
+                                ]
+                            )
+
+                ( DataReceived _ _ _ _, _ ) ->
                     ( model, Cmd.none )
 
                 -- Detailed processes
