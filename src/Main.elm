@@ -31,6 +31,7 @@ import RemoteData exposing (WebData)
 import RemoteData.Http as Http
 import Request.Auth
 import Request.BackendHttp as BackendHttp
+import Request.Db as RequestDb exposing (RawJsonData)
 import Request.Version exposing (VersionData)
 import Route
 import Static.Db as StaticDb exposing (Db)
@@ -74,7 +75,8 @@ type State
 
 
 type alias Model =
-    { mobileNavigationOpened : Bool
+    { dbLoadingState : RawJsonData
+    , mobileNavigationOpened : Bool
 
     -- Duplicate the nav key in the model so Parcel's hot module reloading finds it always in the same place.
     , navKey : Nav.Key
@@ -91,7 +93,6 @@ type Msg
     | AuthMsg Auth.Msg
     | ComponentAdminMsg ComponentAdmin.Msg
     | ComponentConfigReceived Url (WebData Component.Config)
-    | DataReceived Flags Url Nav.Key (WebData Db)
     | DetailedProcessesReceived Url (BackendHttp.WebData String)
     | EditorialMsg Editorial.Msg
     | ExploreMsg Explore.Msg
@@ -99,6 +100,8 @@ type Msg
     | HomeMsg Home.Msg
     | ObjectSimulatorMsg ObjectSimulator.Msg
     | ProcessAdminMsg ProcessAdmin.Msg
+    | RawDataReceivedDefinitions (WebData String)
+    | RawDataReceivedProcesses (WebData String)
     | StatsMsg Stats.Msg
     | StoreChanged String
     | TextileSimulatorMsg TextileSimulator.Msg
@@ -120,7 +123,8 @@ init flags requestedUrl navKey =
                     )
          of
             Err err ->
-                ( { mobileNavigationOpened = False
+                ( { dbLoadingState = RequestDb.emptyLoadingState
+                  , mobileNavigationOpened = False
                   , navKey = navKey
                   , state = Errored err
                   , tray = Toast.tray
@@ -134,7 +138,8 @@ init flags requestedUrl navKey =
                     session =
                         setupSession navKey flags db componentConfig
                 in
-                ( { mobileNavigationOpened = False
+                ( { dbLoadingState = RequestDb.emptyLoadingState
+                  , mobileNavigationOpened = False
                   , navKey = navKey
                   , state = Loaded session LoadingPage
                   , tray = Toast.tray
@@ -150,15 +155,26 @@ init flags requestedUrl navKey =
                         ComponentConfig.decode db
                             |> Http.get "/data/components/config.json" (ComponentConfigReceived requestedUrl)
                     , Plausible.send session <| Plausible.PageViewed requestedUrl
-                    , loadData (DataReceived flags requestedUrl navKey)
+                    , loadData
                     ]
                 )
         )
 
 
-loadData : (WebData Db -> Msg) -> Cmd Msg
-loadData msg =
-    Cmd.none
+{-| The plan is to trigger many http requests in parallel, using Cmd.batch, each one fetching a raw json
+file (as unparsed content string), store them in a data structure holding all the WebData states, then
+when all the requests are resolved, create the Db reusing `StaticDb.db`
+
+Note: the initial load time might be important so we may want to render a loader/progress bar, with each
+pending webdata being a part of the total events (eg. "step 3/7" when 3 webdatas are already loaded)
+
+-}
+loadData : Cmd Msg
+loadData =
+    Cmd.batch
+        [ RequestDb.getRawJsonString "/data/impacts.json" RawDataReceivedDefinitions
+        , RequestDb.getRawJsonString "/data/processes.json" RawDataReceivedProcesses
+        ]
 
 
 setupSession : Nav.Key -> Flags -> Db -> Component.Config -> Session
@@ -413,46 +429,6 @@ update rawMsg ({ state } as model) =
                 ( ComponentConfigReceived _ _, _ ) ->
                     ( model, Cmd.none )
 
-                -- Data over HTTP
-                ( DataReceived flags requestedUrl navKey (RemoteData.Success db), _ ) ->
-                    case Component.defaultConfig db of
-                        Err err ->
-                            ( { mobileNavigationOpened = False
-                              , navKey = session.navKey
-                              , state = Errored err
-                              , tray = Toast.tray
-                              , url = requestedUrl
-                              }
-                            , Cmd.none
-                            )
-
-                        Ok componentConfig ->
-                            let
-                                newSession =
-                                    setupSession navKey flags db componentConfig
-                            in
-                            ( { mobileNavigationOpened = False
-                              , navKey = navKey
-                              , state = Loaded session LoadingPage
-                              , tray = Toast.tray
-                              , url = requestedUrl
-                              }
-                            , Cmd.batch
-                                [ Ports.appStarted ()
-                                , Request.Version.loadVersion VersionReceived
-                                , if Session.isAuthenticated newSession then
-                                    Request.Auth.processes newSession (DetailedProcessesReceived requestedUrl)
-
-                                  else
-                                    ComponentConfig.decode db
-                                        |> Http.get "/data/components/config.json" (ComponentConfigReceived requestedUrl)
-                                , Plausible.send newSession <| Plausible.PageViewed requestedUrl
-                                ]
-                            )
-
-                ( DataReceived _ _ _ _, _ ) ->
-                    ( model, Cmd.none )
-
                 -- Detailed processes
                 ( DetailedProcessesReceived requestedUrl (RemoteData.Success rawDetailedProcessesJson), currentPage ) ->
                     -- When detailed processes are received, rebuild the entire static db using them
@@ -515,6 +491,19 @@ update rawMsg ({ state } as model) =
                 ( ProcessAdminMsg adminMsg, ProcessAdminPage adminModel ) ->
                     ProcessAdmin.update session adminMsg adminModel
                         |> toPage session model Cmd.none ProcessAdminPage ProcessAdminMsg
+
+                -- Raw Json Db data received over HTTP
+                ( RawDataReceivedDefinitions data, _ ) ->
+                    ( { model
+                        | dbLoadingState =
+                            model.dbLoadingState
+                                |> RequestDb.updateRawJson (\raw -> { raw | definitions = data })
+                      }
+                    , Cmd.none
+                    )
+
+                ( RawDataReceivedProcesses data, _ ) ->
+                    ( model, Cmd.none )
 
                 -- Stats
                 ( StatsMsg statsMsg, StatsPage statsModel ) ->
