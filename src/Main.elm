@@ -429,46 +429,6 @@ update rawMsg ({ state } as model) =
                 ( ComponentConfigReceived _ _, _ ) ->
                     ( model, Cmd.none )
 
-                -- Data over HTTP
-                ( DataReceived flags requestedUrl navKey (RemoteData.Success db), _ ) ->
-                    case Component.defaultConfig db of
-                        Err err ->
-                            ( { mobileNavigationOpened = False
-                              , navKey = session.navKey
-                              , state = Errored err
-                              , tray = Toast.tray
-                              , url = requestedUrl
-                              }
-                            , Cmd.none
-                            )
-
-                        Ok componentConfig ->
-                            let
-                                newSession =
-                                    setupSession navKey flags db componentConfig
-                            in
-                            ( { mobileNavigationOpened = False
-                              , navKey = navKey
-                              , state = Loaded session LoadingPage
-                              , tray = Toast.tray
-                              , url = requestedUrl
-                              }
-                            , Cmd.batch
-                                [ Ports.appStarted ()
-                                , Request.Version.loadVersion VersionReceived
-                                , if Session.isAuthenticated newSession then
-                                    Request.Auth.processes newSession (DetailedProcessesReceived requestedUrl)
-
-                                  else
-                                    ComponentConfig.decode db
-                                        |> Http.get "/data/components/config.json" (ComponentConfigReceived requestedUrl)
-                                , Plausible.send newSession <| Plausible.PageViewed requestedUrl
-                                ]
-                            )
-
-                ( DataReceived _ _ _ _, _ ) ->
-                    ( model, Cmd.none )
-
                 -- Detailed processes
                 ( DetailedProcessesReceived requestedUrl (RemoteData.Success rawDetailedProcessesJson), currentPage ) ->
                     -- When detailed processes are received, rebuild the entire static db using them
@@ -542,7 +502,7 @@ update rawMsg ({ state } as model) =
                     , Cmd.none
                     )
 
-                ( RawDataReceivedProcesses _, _ ) ->
+                ( RawDataReceivedProcesses data, _ ) ->
                     ( model, Cmd.none )
 
                 -- Stats
