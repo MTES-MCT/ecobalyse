@@ -1,0 +1,24 @@
+{
+  "activityName": "Vegetables cooked chilled, 600g | Packaging System, N0, All, Tray with lid {FR} U",
+  "categories": [
+    "material",
+    "packaging",
+    "packaging_type:tray"
+  ],
+  "displayName": "Barquette en plastique (PP/PA) pour légume cuit, réfrigéré - 600g",
+  "id": "7f11546a-7d68-482c-91dd-320496a0a171",
+  "metadata": [
+    {
+      "id": "c1a3d6db-e950-4b76-bf39-7de8406b888c",
+      "scopes": [
+        "food2"
+      ]
+    }
+  ],
+  "scopes": [
+    "food",
+    "food2"
+  ],
+  "source": "Agribalyse 3.2",
+  "unit": "item"
+}

@@ -1,0 +1,78 @@
+{
+  "activityName": "_22 Vegetable and animal oils and fats, EU27",
+  "categories": [
+    "ingredient"
+  ],
+  "displayName": "Lait FR",
+  "id": "af42fc20-e3ec-5b99-9b9c-83ba6735e597",
+  "location": "GLO",
+  "metadata": [
+    {
+      "alias": "milk",
+      "animalGroup1": "cattle",
+      "animalGroup2": "cow",
+      "animalProduct": "milk",
+      "defaultOrigin": "France",
+      "displayName": "Lait FR",
+      "id": "8f3863e7-f981-4367-90a2-e1aaa096a6e0",
+      "inediblePart": 0,
+      "ingredientCategories": [
+        "dairy_product"
+      ],
+      "ingredientDensity": 1.0,
+      "landOccupation": 1.39111,
+      "rawToCookedRatio": 1.0,
+      "scenario": "reference",
+      "scopes": [
+        "food"
+      ],
+      "transportCooling": "always",
+      "visible": true
+    },
+    {
+      "alias": "grazed-grass-permanent-2025",
+      "cropGroup": "PRAIRIES PERMANENTES",
+      "defaultOrigin": "France",
+      "displayName": "Herbe de prairie permanente FR",
+      "explain": "Hypothèse : 1 kg = 1 m2a pour simplifier les calculs",
+      "id": "c88d387e-8435-4741-b742-0094dbdcee45",
+      "inediblePart": 0,
+      "ingredientCategories": [],
+      "ingredientDensity": 1.0,
+      "landOccupation": 1.0,
+      "rawToCookedRatio": 1.0,
+      "scenario": "reference",
+      "scopes": [
+        "food"
+      ],
+      "transportCooling": "none",
+      "visible": false
+    },
+    {
+      "alias": "bean-fr",
+      "cropGroup": "AUTRES CEREALES",
+      "defaultOrigin": "France",
+      "displayName": "Pois FR",
+      "id": "bfdf1505-8426-499e-8286-a1e4b4920c7e",
+      "inediblePart": 0,
+      "ingredientCategories": [
+        "grain_raw"
+      ],
+      "ingredientDensity": 1.0,
+      "landOccupation": 1.0,
+      "rawToCookedRatio": 2.259,
+      "scenario": "reference",
+      "scopes": [
+        "food",
+        "food2"
+      ],
+      "transportCooling": "none",
+      "visible": true
+    }
+  ],
+  "scopes": [
+    "food",
+    "food2"
+  ],
+  "source": "forwast"
+}

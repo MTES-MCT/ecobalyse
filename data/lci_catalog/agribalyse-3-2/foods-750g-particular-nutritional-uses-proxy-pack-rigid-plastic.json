@@ -1,0 +1,24 @@
+{
+  "activityName": "Foods for particular nutritional uses, 750g | Packaging System, Proxy Pack, Rigid plastic, other than bottles {FR} U",
+  "categories": [
+    "material",
+    "packaging",
+    "packaging_type:tray"
+  ],
+  "displayName": "Pot en plastique (PE) pour compléments alimentaires en poudre - 750g - Proxy",
+  "id": "f11086f4-b220-443b-967d-c5544bf46822",
+  "metadata": [
+    {
+      "id": "31976e86-ff95-4ca7-aff9-a0d78d8006c2",
+      "scopes": [
+        "food2"
+      ]
+    }
+  ],
+  "scopes": [
+    "food",
+    "food2"
+  ],
+  "source": "Agribalyse 3.2",
+  "unit": "item"
+}

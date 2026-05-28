@@ -1,0 +1,24 @@
+{
+  "activityName": "Asian pasta, 60g | Packaging System, N0, All, OPP bag {FR} U",
+  "categories": [
+    "material",
+    "packaging",
+    "packaging_type:bag"
+  ],
+  "displayName": "Sachet en plastique (OPP métallisé) pour pâtes asiatiques - 60g",
+  "id": "16719643-8b07-41ef-82e0-d6e537a982c7",
+  "metadata": [
+    {
+      "id": "30a08180-b7ea-46cc-93ea-08b3a33383bb",
+      "scopes": [
+        "food2"
+      ]
+    }
+  ],
+  "scopes": [
+    "food",
+    "food2"
+  ],
+  "source": "Agribalyse 3.2",
+  "unit": "item"
+}

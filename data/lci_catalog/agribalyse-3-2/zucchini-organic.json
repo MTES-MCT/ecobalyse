@@ -1,0 +1,61 @@
+{
+  "activityName": "Zucchini, springtime, under tunnel, organic, at farm gate {FR} U",
+  "categories": [
+    "ingredient",
+    "material",
+    "material_type:fruits_and_vegetables"
+  ],
+  "displayName": "Courgette Bio",
+  "id": "d399abe1-42a8-5292-af8c-5dda32a20d21",
+  "metadata": [
+    {
+      "alias": "zucchini-organic-2025",
+      "cropGroup": "LEGUMES-FLEURS",
+      "defaultOrigin": "France",
+      "displayName": "Courgette Bio (2025)",
+      "id": "59092383-9bfb-419e-ab63-825c8e6e6ed0",
+      "inediblePart": 0.1,
+      "ingredientCategories": [
+        "vegetable_fresh",
+        "organic"
+      ],
+      "ingredientDensity": 0.447,
+      "landOccupation": 0.125,
+      "rawToCookedRatio": 0.856,
+      "scenario": "organic",
+      "scopes": [
+        "food",
+        "food2"
+      ],
+      "transportCooling": "always",
+      "visible": true
+    },
+    {
+      "alias": "squash-organic-2025",
+      "cropGroup": "LEGUMES-FLEURS",
+      "defaultOrigin": "France",
+      "displayName": "Courge Bio (2025)",
+      "id": "bbee841c-6675-49ae-92da-2064877f6d14",
+      "inediblePart": 0.2,
+      "ingredientCategories": [
+        "vegetable_fresh",
+        "organic"
+      ],
+      "ingredientDensity": 0.362,
+      "landOccupation": 0.125,
+      "rawToCookedRatio": 0.856,
+      "scenario": "organic",
+      "scopes": [
+        "food",
+        "food2"
+      ],
+      "transportCooling": "none",
+      "visible": true
+    }
+  ],
+  "scopes": [
+    "food",
+    "food2"
+  ],
+  "source": "Agribalyse 3.2"
+}

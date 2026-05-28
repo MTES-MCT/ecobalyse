@@ -1,0 +1,37 @@
+{
+  "activityName": "Mozzarella cheese, from cow's milk, at plant {FR} U",
+  "categories": [
+    "ingredient",
+    "material",
+    "material_type:other_food_items"
+  ],
+  "displayName": "Mozzarella FR",
+  "id": "da05b6a9-f02b-518c-8ab1-d7da28ed51f5",
+  "metadata": [
+    {
+      "alias": "mozzarella-2025",
+      "defaultOrigin": "France",
+      "displayName": "Mozzarella FR (2025)",
+      "explain": "A voir si transport bien réfrigéré ?\nBonus à modifier en fonction des données du cahier des charges. ",
+      "id": "faa513ae-9c32-4e6c-874e-58c13309339e",
+      "inediblePart": 0,
+      "ingredientCategories": [
+        "dairy_product"
+      ],
+      "ingredientDensity": 1.0,
+      "rawToCookedRatio": 1.0,
+      "scenario": "reference",
+      "scopes": [
+        "food",
+        "food2"
+      ],
+      "transportCooling": "always",
+      "visible": true
+    }
+  ],
+  "scopes": [
+    "food",
+    "food2"
+  ],
+  "source": "Agribalyse 3.2"
+}

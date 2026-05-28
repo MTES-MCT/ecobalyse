@@ -1,0 +1,60 @@
+{
+  "activityName": "Orange, processing grade, at farm, organic 2025 {BR}",
+  "categories": [
+    "ingredient",
+    "material",
+    "material_type:fruits_and_vegetables"
+  ],
+  "displayName": "Oranges Bio",
+  "id": "079d1538-6ca3-5dc7-9587-457d5ecc7b12",
+  "location": "BR",
+  "metadata": [
+    {
+      "alias": "orange-organic",
+      "cropGroup": "VERGERS",
+      "cropGroupMatch": {
+        "confidence": 0.95,
+        "rule": "matched 'orange' in cropgroup.csv"
+      },
+      "defaultOrigin": "France",
+      "displayName": "Oranges Bio",
+      "id": "f508da0b-9c73-503d-9a1f-d87f77ee63c3",
+      "inediblePart": 0.2,
+      "inediblePartMatch": {
+        "confidence": 0.95,
+        "rule": "Matched with Orange in agb_inedible.csv"
+      },
+      "ingredientCategories": [
+        "vegetable_fresh",
+        "organic"
+      ],
+      "ingredientDensity": 0.95,
+      "ingredientDensityMatch": {
+        "confidence": 0.95,
+        "rule": "Matched with orange in density.csv"
+      },
+      "rawToCookedRatio": 0.856,
+      "rawToCookedRatioMatch": {
+        "confidence": 1.0,
+        "rule": "fruit default from food_type_cooked_to_raw.csv"
+      },
+      "scenario": "organic",
+      "scopes": [
+        "food",
+        "food2"
+      ],
+      "transportCooling": "always",
+      "transportCoolingMatch": {
+        "confidence": 1.0,
+        "rule": "fruit NOVA 1 → always (perishable)"
+      },
+      "visible": true
+    }
+  ],
+  "scopes": [
+    "food",
+    "food2"
+  ],
+  "source": "Ginko 2025",
+  "unit": "kg"
+}

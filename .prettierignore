@@ -34,3 +34,6 @@ public/data/veli/examples.json
 
 # JSON edited manually, more readable with manual formatting
 public/data/transports.json
+
+# The data folder is not formatted via prettier for the moment
+/data/

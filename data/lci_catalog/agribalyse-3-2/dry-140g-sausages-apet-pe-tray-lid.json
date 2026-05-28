@@ -1,0 +1,24 @@
+{
+  "activityName": "Dry sausages, 140g | Packaging System, N0, All, APET/PE tray with lid {FR} U",
+  "categories": [
+    "material",
+    "packaging",
+    "packaging_type:tray"
+  ],
+  "displayName": "Barquette en plastique (APET/PE) pour mini stick de saucisson sec - 140g à 160g",
+  "id": "1f0bbd3a-d91a-490e-8ff3-ecc91948ad85",
+  "metadata": [
+    {
+      "id": "a88563b6-a1e8-4e96-a23f-e762069b5f6c",
+      "scopes": [
+        "food2"
+      ]
+    }
+  ],
+  "scopes": [
+    "food",
+    "food2"
+  ],
+  "source": "Agribalyse 3.2",
+  "unit": "item"
+}

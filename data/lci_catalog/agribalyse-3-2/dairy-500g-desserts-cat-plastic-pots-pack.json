@@ -1,0 +1,24 @@
+{
+  "activityName": "Dairy desserts - cat A, 500g | Packaging System, N0, All, Plastic pots pack {FR} U",
+  "categories": [
+    "material",
+    "packaging",
+    "packaging_type:pack"
+  ],
+  "displayName": "Lot de 4 pots en plastique (PS) pour produits laitiers - 500g",
+  "id": "95b46d26-7bd8-4961-9e84-517e9a75e821",
+  "metadata": [
+    {
+      "id": "c2023faf-d57b-492a-a758-e8efcedaca85",
+      "scopes": [
+        "food2"
+      ]
+    }
+  ],
+  "scopes": [
+    "food",
+    "food2"
+  ],
+  "source": "Agribalyse 3.2",
+  "unit": "item"
+}

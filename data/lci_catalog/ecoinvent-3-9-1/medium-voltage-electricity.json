@@ -1,0 +1,25 @@
+{
+  "activityName": "electricity, medium voltage//[FR] market for electricity, medium voltage",
+  "categories": [
+    "energy"
+  ],
+  "displayName": "Electricité moyenne tension, France",
+  "id": "c94d8ad5-9d44-5f1b-80b9-53ff0a4e2406",
+  "metadata": [
+    {
+      "id": "badeae32-72db-4bfc-8706-74fb572e5571",
+      "scopes": [
+        "object",
+        "food2"
+      ]
+    }
+  ],
+  "scopes": [
+    "food",
+    "textile",
+    "object",
+    "veli",
+    "food2"
+  ],
+  "source": "Ecoinvent 3.9.1"
+}

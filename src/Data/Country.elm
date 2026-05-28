@@ -76,7 +76,7 @@ decode processes =
         |> Pipe.required "aquaticPollutionScenario" decodeAquaticPollutionScenario
         |> Pipe.required "code" decodeCode
         |> DU.strictOptional "comment" Decode.string
-        |> DU.strictOptionalWithDefault "distanceToHub" (Decode.map Length.kilometers Decode.float) (Length.kilometers 0)
+        |> Pipe.required "distanceToHub" (Decode.map Length.kilometers Decode.float)
         |> Pipe.required "electricityProcessId" (Process.decodeFromId processes)
         |> Pipe.required "heatProcessId" (Process.decodeFromId processes)
         |> Pipe.required "name" Decode.string

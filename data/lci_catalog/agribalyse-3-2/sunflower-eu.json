@@ -1,0 +1,59 @@
+{
+  "activityName": "Sunflower, at farm {HU} - Adapted from WFLDB U",
+  "categories": [
+    "ingredient",
+    "material",
+    "material_type:other_food_items"
+  ],
+  "displayName": "Tournesol UE",
+  "id": "eb15bb83-38f3-54be-9cc6-d0c59687cf40",
+  "metadata": [
+    {
+      "alias": "sunflower-eu",
+      "cropGroup": "TOURNESOL",
+      "defaultOrigin": "EuropeAndMaghreb",
+      "displayName": "Tournesol UE",
+      "explain": "part non comestible des noix\nicv ue = icv HU",
+      "id": "23cd53c5-4b66-4b7c-892f-fe74054f66e5",
+      "inediblePart": 0.5,
+      "ingredientCategories": [
+        "nut_oilseed_raw"
+      ],
+      "ingredientDensity": 0.72,
+      "rawToCookedRatio": 1.0,
+      "scenario": "import",
+      "scopes": [
+        "food",
+        "food2"
+      ],
+      "transportCooling": "none",
+      "visible": true
+    },
+    {
+      "alias": "unknown-cereals-and-grain-products-2025",
+      "cropGroup": "TOURNESOL",
+      "defaultOrigin": "EuropeAndMaghreb",
+      "displayName": "Autres céréales et produits céréaliers (non encore répertoriés) (2025)",
+      "explain": "part non comestible des noix\nicv ue = icv HU",
+      "id": "c723eb89-a64f-405d-bb6b-6dced54c46ba",
+      "inediblePart": 0.5,
+      "ingredientCategories": [
+        "nut_oilseed_raw"
+      ],
+      "ingredientDensity": 0.72,
+      "rawToCookedRatio": 1.0,
+      "scenario": "import",
+      "scopes": [
+        "food",
+        "food2"
+      ],
+      "transportCooling": "none",
+      "visible": true
+    }
+  ],
+  "scopes": [
+    "food",
+    "food2"
+  ],
+  "source": "Agribalyse 3.2"
+}

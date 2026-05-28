@@ -1,0 +1,77 @@
+{
+  "activityName": "Cow milk, conventional, national average, at farm gate {FR} U",
+  "categories": [
+    "ingredient",
+    "material",
+    "material_type:other_food_items"
+  ],
+  "displayName": "Lait FR",
+  "id": "af882009-fd6a-5f8f-a1fc-74a5f4c6d543",
+  "metadata": [
+    {
+      "alias": "cow-milk-fr",
+      "animalGroup1": "cattle",
+      "animalGroup2": "cow",
+      "animalProduct": "milk",
+      "defaultOrigin": "France",
+      "displayName": "Lait de vache FR",
+      "id": "b757094f-7cb1-58ea-9d3d-b6d7e0e0d471",
+      "inediblePart": 0.0,
+      "inediblePartMatch": {
+        "confidence": 1.0,
+        "rule": "dairy NOVA 1 default from food_type_inedible_part.csv"
+      },
+      "ingredientCategories": [
+        "dairy_product"
+      ],
+      "ingredientDensity": 1.05,
+      "ingredientDensityMatch": {
+        "confidence": 0.95,
+        "rule": "Matched with cow in density.csv"
+      },
+      "rawToCookedRatio": 1.0,
+      "rawToCookedRatioMatch": {
+        "confidence": 1.0,
+        "rule": "dairy default from food_type_cooked_to_raw.csv"
+      },
+      "scenario": "reference",
+      "scopes": [
+        "food",
+        "food2"
+      ],
+      "transportCooling": "always",
+      "transportCoolingMatch": {
+        "confidence": 1.0,
+        "rule": "dairy NOVA 1 → always (perishable)"
+      },
+      "visible": true
+    },
+    {
+      "alias": "milk-2025",
+      "animalGroup1": "cattle",
+      "animalGroup2": "cow",
+      "animalProduct": "milk",
+      "defaultOrigin": "France",
+      "displayName": "Lait FR (2025)",
+      "id": "8f3863e7-f981-4367-90a2-e1aaa096a6e0",
+      "inediblePart": 0,
+      "ingredientCategories": [
+        "dairy_product"
+      ],
+      "ingredientDensity": 1.0,
+      "rawToCookedRatio": 1.0,
+      "scenario": "reference",
+      "scopes": [
+        "food",
+        "food2"
+      ],
+      "transportCooling": "always",
+      "visible": true
+    }
+  ],
+  "scopes": [
+    "food",
+    "food2"
+  ],
+  "source": "Agribalyse 3.2"
+}

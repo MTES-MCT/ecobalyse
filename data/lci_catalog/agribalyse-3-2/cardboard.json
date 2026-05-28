@@ -1,0 +1,22 @@
+{
+  "activityName": "Corrugated board box {RER}| production | Cut-off, S - Copied from Ecoinvent U",
+  "categories": [
+    "material",
+    "packaging"
+  ],
+  "displayName": "Carton",
+  "id": "edefa2be-abe4-5bb6-b0fc-0f666050dcc1",
+  "metadata": [
+    {
+      "id": "470931ab-bfac-4017-8db1-c1b24e7a3bbf",
+      "scopes": [
+        "food2"
+      ]
+    }
+  ],
+  "scopes": [
+    "food",
+    "food2"
+  ],
+  "source": "Agribalyse 3.2"
+}

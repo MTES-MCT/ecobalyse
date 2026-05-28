@@ -1,0 +1,59 @@
+{
+  "activityName": "Fava bean, feed, Swiss integrated production {RoW}| fava bean, feed production, Swiss integrated production | Cut-off, U",
+  "categories": [
+    "ingredient",
+    "material",
+    "material_type:fruits_and_vegetables"
+  ],
+  "displayName": "Haricots de Lima Origine Inconnue",
+  "id": "1a20c9ec-c513-5135-97c4-c25c73748257",
+  "location": "RoW",
+  "metadata": [
+    {
+      "alias": "lima-bean-default",
+      "cropGroup": "LEGUMINEUSES A GRAIN",
+      "cropGroupMatch": {
+        "confidence": 1.0,
+        "rule": "legume default"
+      },
+      "defaultOrigin": "OutOfEuropeAndMaghreb",
+      "displayName": "Haricots de Lima Origine Inconnue",
+      "id": "23f3aa29-6b9e-5046-9c78-cafc25f8d7d4",
+      "inediblePart": 0.2,
+      "inediblePartMatch": {
+        "confidence": 1.0,
+        "rule": "legume NOVA 1 default from food_type_inedible_part.csv"
+      },
+      "ingredientCategories": [
+        "vegetable_fresh"
+      ],
+      "ingredientDensity": 0.8,
+      "ingredientDensityMatch": {
+        "confidence": 1.0,
+        "rule": "legume default from food_type_density.csv"
+      },
+      "rawToCookedRatio": 0.856,
+      "rawToCookedRatioMatch": {
+        "confidence": 1.0,
+        "rule": "legume default from food_type_cooked_to_raw.csv"
+      },
+      "scenario": "import",
+      "scopes": [
+        "food",
+        "food2"
+      ],
+      "transportCooling": "always",
+      "transportCoolingMatch": {
+        "confidence": 1.0,
+        "rule": "legume NOVA 1 → always (perishable)"
+      },
+      "visible": true
+    }
+  ],
+  "scopes": [
+    "food",
+    "food2"
+  ],
+  "source": "Ecoinvent 3.11",
+  "unit": "kg"
+}

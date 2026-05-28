@@ -1,0 +1,60 @@
+{
+  "activityName": "Tomato, fresh grade, organic 2025 {ES}| tomato production, fresh grade, in unheated greenhouse | Cut-off, U",
+  "categories": [
+    "ingredient",
+    "material",
+    "material_type:fruits_and_vegetables"
+  ],
+  "displayName": "Tomate Bio",
+  "id": "d3b61da5-dbdb-5aa0-8808-de0268c451fd",
+  "location": "ES",
+  "metadata": [
+    {
+      "alias": "tomato-organic",
+      "cropGroup": "LEGUMES-FLEURS",
+      "cropGroupMatch": {
+        "confidence": 1.0,
+        "rule": "matched 'tomato' in cropgroup.csv"
+      },
+      "defaultOrigin": "France",
+      "displayName": "Tomate Bio",
+      "id": "b43ae38e-a9f6-4272-b258-14faea6ec795",
+      "inediblePart": 0.03,
+      "inediblePartMatch": {
+        "confidence": 0.95,
+        "rule": "Matched with Tomatoes in agb_inedible.csv"
+      },
+      "ingredientCategories": [
+        "vegetable_fresh",
+        "organic"
+      ],
+      "ingredientDensity": 1.0,
+      "ingredientDensityMatch": {
+        "confidence": 1.0,
+        "rule": "tomato found in density.csv"
+      },
+      "rawToCookedRatio": 0.856,
+      "rawToCookedRatioMatch": {
+        "confidence": 1.0,
+        "rule": "vegetable default from food_type_cooked_to_raw.csv"
+      },
+      "scenario": "organic",
+      "scopes": [
+        "food",
+        "food2"
+      ],
+      "transportCooling": "always",
+      "transportCoolingMatch": {
+        "confidence": 1.0,
+        "rule": "vegetable NOVA 1 → always (perishable)"
+      },
+      "visible": true
+    }
+  ],
+  "scopes": [
+    "food",
+    "food2"
+  ],
+  "source": "Ginko 2025",
+  "unit": "kg"
+}

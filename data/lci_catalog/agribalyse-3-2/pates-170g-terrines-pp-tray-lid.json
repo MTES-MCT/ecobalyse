@@ -1,0 +1,24 @@
+{
+  "activityName": "Pates and terrines, 170g | Packaging System, N0, All, PP tray with lid {FR} U",
+  "categories": [
+    "material",
+    "packaging",
+    "packaging_type:tray"
+  ],
+  "displayName": "Barquette en plastique (PP) pour pâté et terrine - 170g",
+  "id": "fffffc68-aaec-40dd-848f-0ae28203a87d",
+  "metadata": [
+    {
+      "id": "4c7d17e8-1b65-4d3d-833f-4a6955665204",
+      "scopes": [
+        "food2"
+      ]
+    }
+  ],
+  "scopes": [
+    "food",
+    "food2"
+  ],
+  "source": "Agribalyse 3.2",
+  "unit": "item"
+}

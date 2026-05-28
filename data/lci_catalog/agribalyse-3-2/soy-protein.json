@@ -1,0 +1,37 @@
+{
+  "activityName": "Soy protein, textured, dehydrated, from soy flour, at plant {FR} U",
+  "categories": [
+    "ingredient",
+    "material",
+    "material_type:other_food_items"
+  ],
+  "displayName": "Protéines de soja par défaut",
+  "id": "a17484e2-a2fe-5733-b135-1445fc3bc8f7",
+  "metadata": [
+    {
+      "alias": "soy-protein-2025",
+      "cropGroup": "PROTEAGINEUX",
+      "defaultOrigin": "OutOfEuropeAndMaghreb",
+      "displayName": "Protéines de soja par défaut (2025)",
+      "id": "f8fb04c1-c207-4a3c-993f-e5a1b0204dfa",
+      "inediblePart": 0,
+      "ingredientCategories": [
+        "grain_processed"
+      ],
+      "ingredientDensity": 0.24,
+      "rawToCookedRatio": 1.0,
+      "scenario": "import",
+      "scopes": [
+        "food",
+        "food2"
+      ],
+      "transportCooling": "none",
+      "visible": true
+    }
+  ],
+  "scopes": [
+    "food",
+    "food2"
+  ],
+  "source": "Agribalyse 3.2"
+}

@@ -1,0 +1,60 @@
+{
+  "activityName": "Sweet sorghum grain, organic 2025 {RoW}| sweet sorghum production | Cut-off, U",
+  "categories": [
+    "ingredient",
+    "material",
+    "material_type:other_food_items"
+  ],
+  "displayName": "Sorgho Bio",
+  "id": "bcbd66c2-0b23-5113-85e6-48d398eda9dd",
+  "location": "RoW",
+  "metadata": [
+    {
+      "alias": "sorghum-organic",
+      "cropGroup": "AUTRES CEREALES",
+      "cropGroupMatch": {
+        "confidence": 1.0,
+        "rule": "matched 'sorgho' in cropgroup.csv"
+      },
+      "defaultOrigin": "France",
+      "displayName": "Sorgho Bio",
+      "id": "76e8f117-d613-5c47-b389-376eb83972ec",
+      "inediblePart": 0.0,
+      "inediblePartMatch": {
+        "confidence": 1.0,
+        "rule": "grain NOVA 1 default from food_type_inedible_part.csv"
+      },
+      "ingredientCategories": [
+        "grain_raw",
+        "organic"
+      ],
+      "ingredientDensity": 0.535,
+      "ingredientDensityMatch": {
+        "confidence": 0.95,
+        "rule": "Matched with Sorghum, seed in fao_density.csv"
+      },
+      "rawToCookedRatio": 2.259,
+      "rawToCookedRatioMatch": {
+        "confidence": 1.0,
+        "rule": "grain default from food_type_cooked_to_raw.csv"
+      },
+      "scenario": "organic",
+      "scopes": [
+        "food",
+        "food2"
+      ],
+      "transportCooling": "none",
+      "transportCoolingMatch": {
+        "confidence": 1.0,
+        "rule": "grain → none (non-perishable)"
+      },
+      "visible": true
+    }
+  ],
+  "scopes": [
+    "food",
+    "food2"
+  ],
+  "source": "Ginko 2025",
+  "unit": "kg"
+}

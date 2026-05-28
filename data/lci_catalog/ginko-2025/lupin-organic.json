@@ -1,0 +1,60 @@
+{
+  "activityName": "Lupin, organic 2025, national average, at farm gate, production {FR} U",
+  "categories": [
+    "ingredient",
+    "material",
+    "material_type:fruits_and_vegetables"
+  ],
+  "displayName": "Lupin Bio",
+  "id": "7168f9e9-9bf0-5690-9340-46a89c461b4d",
+  "location": "FR",
+  "metadata": [
+    {
+      "alias": "lupin-organic",
+      "cropGroup": "PROTEAGINEUX",
+      "cropGroupMatch": {
+        "confidence": 1.0,
+        "rule": "matched 'lupin' in cropgroup.csv"
+      },
+      "defaultOrigin": "France",
+      "displayName": "Lupin Bio",
+      "id": "2c48a538-0bc0-5bdd-bf8b-af41a2afb8dd",
+      "inediblePart": 0.2,
+      "inediblePartMatch": {
+        "confidence": 1.0,
+        "rule": "legume NOVA 1 default from food_type_inedible_part.csv"
+      },
+      "ingredientCategories": [
+        "vegetable_fresh",
+        "organic"
+      ],
+      "ingredientDensity": 0.8,
+      "ingredientDensityMatch": {
+        "confidence": 1.0,
+        "rule": "legume default from food_type_density.csv"
+      },
+      "rawToCookedRatio": 0.856,
+      "rawToCookedRatioMatch": {
+        "confidence": 1.0,
+        "rule": "legume default from food_type_cooked_to_raw.csv"
+      },
+      "scenario": "organic",
+      "scopes": [
+        "food",
+        "food2"
+      ],
+      "transportCooling": "always",
+      "transportCoolingMatch": {
+        "confidence": 1.0,
+        "rule": "legume NOVA 1 → always (perishable)"
+      },
+      "visible": true
+    }
+  ],
+  "scopes": [
+    "food",
+    "food2"
+  ],
+  "source": "Ginko 2025",
+  "unit": "kg"
+}

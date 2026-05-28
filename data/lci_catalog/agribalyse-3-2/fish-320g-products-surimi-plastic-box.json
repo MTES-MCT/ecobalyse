@@ -1,0 +1,24 @@
+{
+  "activityName": "Fish products, surimi, 320g | Packaging System, N0, All, Plastic box {FR} U",
+  "categories": [
+    "material",
+    "packaging",
+    "packaging_type:box"
+  ],
+  "displayName": "Boîte en plastique (PP) et sachets plastiques pour surimi - 320g",
+  "id": "b8834b6a-306b-41fa-bc92-091e422b00b5",
+  "metadata": [
+    {
+      "id": "97bf8ea0-4e4d-490e-a4bc-860eb3b01b64",
+      "scopes": [
+        "food2"
+      ]
+    }
+  ],
+  "scopes": [
+    "food",
+    "food2"
+  ],
+  "source": "Agribalyse 3.2",
+  "unit": "item"
+}

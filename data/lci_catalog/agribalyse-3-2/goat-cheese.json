@@ -1,0 +1,39 @@
+{
+  "activityName": "Cheese, from goat's milk, consumption mix {FR} U",
+  "categories": [
+    "ingredient",
+    "material",
+    "material_type:other_food_items"
+  ],
+  "displayName": "Fromage de chèvre FR",
+  "id": "482bea72-b3e2-5a57-ab70-324254899d7a",
+  "metadata": [
+    {
+      "alias": "goat-cheese-2025",
+      "animalGroup1": "cattle",
+      "animalGroup2": "sheep",
+      "animalProduct": "milk",
+      "defaultOrigin": "France",
+      "displayName": "Fromage de chèvre FR (2025)",
+      "id": "d93c2c58-8073-47ef-99da-999ad7cba846",
+      "inediblePart": 0,
+      "ingredientCategories": [
+        "dairy_product"
+      ],
+      "ingredientDensity": 1.0,
+      "rawToCookedRatio": 1.0,
+      "scenario": "reference",
+      "scopes": [
+        "food",
+        "food2"
+      ],
+      "transportCooling": "always",
+      "visible": true
+    }
+  ],
+  "scopes": [
+    "food",
+    "food2"
+  ],
+  "source": "Agribalyse 3.2"
+}

@@ -1,0 +1,142 @@
+{
+  "activityName": "Walnut, dried inshell, organic 2025, national average, at farm gate {FR} U",
+  "categories": [
+    "ingredient",
+    "material",
+    "material_type:other_food_items"
+  ],
+  "displayName": "Châtaigne Bio",
+  "id": "6a93bbc3-875b-5cd2-ae7d-fc2cecf0efb2",
+  "location": "FR",
+  "metadata": [
+    {
+      "alias": "chestnut-organic",
+      "cropGroup": "FRUITS A COQUES",
+      "cropGroupMatch": {
+        "confidence": 1.0,
+        "rule": "nut default"
+      },
+      "defaultOrigin": "France",
+      "displayName": "Châtaigne Bio",
+      "id": "b5e4abc9-d921-5064-849a-d0df7160a2d8",
+      "inediblePart": 0.5,
+      "inediblePartMatch": {
+        "confidence": 1.0,
+        "rule": "nut_oilseed NOVA 1 default from food_type_inedible_part.csv"
+      },
+      "ingredientCategories": [
+        "nut_oilseed_raw",
+        "organic"
+      ],
+      "ingredientDensity": 0.6,
+      "ingredientDensityMatch": {
+        "confidence": 1.0,
+        "rule": "nut_oilseed default from food_type_density.csv"
+      },
+      "rawToCookedRatio": 1.0,
+      "rawToCookedRatioMatch": {
+        "confidence": 1.0,
+        "rule": "Matched with chestnut in cooked_to_raw.csv"
+      },
+      "scenario": "organic",
+      "scopes": [
+        "food",
+        "food2"
+      ],
+      "transportCooling": "none",
+      "transportCoolingMatch": {
+        "confidence": 1.0,
+        "rule": "nut_oilseed → none (non-perishable)"
+      },
+      "visible": true
+    },
+    {
+      "alias": "macadamia-nut-organic",
+      "cropGroup": "FRUITS A COQUES",
+      "cropGroupMatch": {
+        "confidence": 1.0,
+        "rule": "nut default"
+      },
+      "defaultOrigin": "France",
+      "displayName": "Noix de macadamia Bio",
+      "id": "6963d6d9-c94b-5b65-b4f9-1d88f2a76f0e",
+      "inediblePart": 0.5,
+      "inediblePartMatch": {
+        "confidence": 1.0,
+        "rule": "nut_oilseed NOVA 1 default from food_type_inedible_part.csv"
+      },
+      "ingredientCategories": [
+        "nut_oilseed_raw",
+        "organic"
+      ],
+      "ingredientDensity": 0.6,
+      "ingredientDensityMatch": {
+        "confidence": 1.0,
+        "rule": "nut_oilseed default from food_type_density.csv"
+      },
+      "rawToCookedRatio": 1.0,
+      "rawToCookedRatioMatch": {
+        "confidence": 1.0,
+        "rule": "nut_oilseed default from food_type_cooked_to_raw.csv"
+      },
+      "scenario": "organic",
+      "scopes": [
+        "food",
+        "food2"
+      ],
+      "transportCooling": "none",
+      "transportCoolingMatch": {
+        "confidence": 1.0,
+        "rule": "nut_oilseed → none (non-perishable)"
+      },
+      "visible": true
+    },
+    {
+      "alias": "walnut-organic",
+      "cropGroup": "FRUITS A COQUES",
+      "cropGroupMatch": {
+        "confidence": 0.95,
+        "rule": "matched 'walnut' in cropgroup.csv"
+      },
+      "defaultOrigin": "France",
+      "displayName": "Noix Bio",
+      "id": "ceab9a64-25af-5a23-9a8b-5d925c5f6ba7",
+      "inediblePart": 0.5,
+      "inediblePartMatch": {
+        "confidence": 1.0,
+        "rule": "Matched with Walnuts in agb_inedible.csv"
+      },
+      "ingredientCategories": [
+        "nut_oilseed_raw",
+        "organic"
+      ],
+      "ingredientDensity": 0.5,
+      "ingredientDensityMatch": {
+        "confidence": 0.95,
+        "rule": "Matched with walnut in density.csv"
+      },
+      "rawToCookedRatio": 1.0,
+      "rawToCookedRatioMatch": {
+        "confidence": 1.0,
+        "rule": "nut_oilseed default from food_type_cooked_to_raw.csv"
+      },
+      "scenario": "organic",
+      "scopes": [
+        "food",
+        "food2"
+      ],
+      "transportCooling": "none",
+      "transportCoolingMatch": {
+        "confidence": 1.0,
+        "rule": "nut_oilseed → none (non-perishable)"
+      },
+      "visible": true
+    }
+  ],
+  "scopes": [
+    "food",
+    "food2"
+  ],
+  "source": "Ginko 2025",
+  "unit": "kg"
+}

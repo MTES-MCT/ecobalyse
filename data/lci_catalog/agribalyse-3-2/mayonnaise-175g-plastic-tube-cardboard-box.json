@@ -1,0 +1,24 @@
+{
+  "activityName": "Mayonnaise, 175g | Packaging System, N0, All, Plastic tube and cardboard box {FR} U",
+  "categories": [
+    "material",
+    "packaging",
+    "packaging_type:other"
+  ],
+  "displayName": "Tube et étui carton pour mayonnaise - 175g",
+  "id": "9169e051-818d-4f7a-9b1c-705efe7bc3ca",
+  "metadata": [
+    {
+      "id": "2194f87a-89ff-446b-9e1d-99af04a64b82",
+      "scopes": [
+        "food2"
+      ]
+    }
+  ],
+  "scopes": [
+    "food",
+    "food2"
+  ],
+  "source": "Agribalyse 3.2",
+  "unit": "item"
+}

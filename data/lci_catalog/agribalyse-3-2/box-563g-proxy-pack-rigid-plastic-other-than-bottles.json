@@ -1,0 +1,24 @@
+{
+  "activityName": "Box, 563g | Packaging System, Proxy Pack, Rigid plastic, other than bottles {FR} U",
+  "categories": [
+    "material",
+    "packaging",
+    "packaging_type:jar"
+  ],
+  "displayName": "Pot en plastique (PP) pour sorbet - 563g - Proxy",
+  "id": "d67fe220-c2e5-47b2-ad69-bb682bbab2b5",
+  "metadata": [
+    {
+      "id": "6969c9f9-a74e-410f-b37f-a1d29dd744e9",
+      "scopes": [
+        "food2"
+      ]
+    }
+  ],
+  "scopes": [
+    "food",
+    "food2"
+  ],
+  "source": "Agribalyse 3.2",
+  "unit": "item"
+}

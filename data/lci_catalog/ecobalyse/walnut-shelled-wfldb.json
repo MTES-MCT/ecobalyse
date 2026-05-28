@@ -1,0 +1,36 @@
+{
+  "activityName": "Walnut, shelled, import WFLDB, CMAPS {GLO} U",
+  "categories": [
+    "ingredient",
+    "material"
+  ],
+  "displayName": "Noix, décortiquée, fraîche ou sèche Origine Inconnue",
+  "id": "9fb7c03a-98cb-47a4-90f1-43b79f002fd6",
+  "metadata": [
+    {
+      "alias": "walnut-shelled-default",
+      "cropGroup": "FRUITS A COQUES",
+      "defaultOrigin": "OutOfEuropeAndMaghreb",
+      "displayName": "Noix, décortiquée, fraîche ou sèche Origine Inconnue",
+      "id": "01d47b32-cffd-47d5-a6fa-11bdf56035ad",
+      "inediblePart": 0,
+      "ingredientCategories": [
+        "nut_oilseed_raw"
+      ],
+      "ingredientDensity": 1,
+      "rawToCookedRatio": 1,
+      "scenario": "import",
+      "scopes": [
+        "food",
+        "food2"
+      ],
+      "transportCooling": "none",
+      "visible": true
+    }
+  ],
+  "scopes": [
+    "food",
+    "food2"
+  ],
+  "source": "Ecobalyse"
+}

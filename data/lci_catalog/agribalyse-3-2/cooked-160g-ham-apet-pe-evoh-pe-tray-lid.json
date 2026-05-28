@@ -1,0 +1,24 @@
+{
+  "activityName": "Cooked ham, 160g | Packaging System, N0, All, APET/PE/EVOH/PE Tray with Lid {FR} U",
+  "categories": [
+    "material",
+    "packaging",
+    "packaging_type:tray"
+  ],
+  "displayName": "Barquette en plastique (APET/PE) pour jambon cuit - 160g",
+  "id": "72b572af-58bb-4ff4-8d05-1f0fa0129322",
+  "metadata": [
+    {
+      "id": "7fe8878a-cc06-4ef3-b588-3b1469c4ce48",
+      "scopes": [
+        "food2"
+      ]
+    }
+  ],
+  "scopes": [
+    "food",
+    "food2"
+  ],
+  "source": "Agribalyse 3.2",
+  "unit": "item"
+}

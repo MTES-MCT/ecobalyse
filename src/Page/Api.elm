@@ -668,7 +668,7 @@ apiDocumentationNotice session =
     else
         """Les requêtes non authentifiées à l'API ne sont pas autorisées et nécessitent l’utilisation d’un jeton.
                **Pour accéder à l’API, il est nécessaire de fournir un jeton d'API**,
-               accessible dans votre [compte utilisateur]({route}) une fois connecté. **Pour accéder au détail 
+               accessible dans votre [compte utilisateur]({route}) une fois connecté. **Pour accéder au détail
                des impact, vous devez également [accepter les conditions d’utilisation ecoinvent]({route})**."""
             |> String.replace "{route}" (Route.toString Route.Auth)
             |> alert Alert.Info

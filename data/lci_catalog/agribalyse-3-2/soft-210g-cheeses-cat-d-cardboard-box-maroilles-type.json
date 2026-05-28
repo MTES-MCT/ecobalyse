@@ -1,0 +1,24 @@
+{
+  "activityName": "Soft cheeses - cat D, 210g | Packaging System, N0, All, Cardboard box Maroilles-type {FR} U",
+  "categories": [
+    "material",
+    "packaging",
+    "packaging_type:box"
+  ],
+  "displayName": "Boîte en carton pour fromage à pâte molle - 210g",
+  "id": "4c1c2652-73bb-4caa-ab86-5657b5363099",
+  "metadata": [
+    {
+      "id": "d4af2606-2f80-4eed-b732-42b739246ba6",
+      "scopes": [
+        "food2"
+      ]
+    }
+  ],
+  "scopes": [
+    "food",
+    "food2"
+  ],
+  "source": "Agribalyse 3.2",
+  "unit": "item"
+}

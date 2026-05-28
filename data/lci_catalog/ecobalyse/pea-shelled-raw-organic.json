@@ -1,0 +1,37 @@
+{
+  "activityName": "Pea, shelled raw, organic, CMAPS {GLO} U",
+  "categories": [
+    "ingredient",
+    "material"
+  ],
+  "displayName": "Petits pois, écossés, crus BIO",
+  "id": "f9c3e550-a202-42c8-9876-de914bd13d11",
+  "metadata": [
+    {
+      "alias": "pea-shelled-raw-fr-organic",
+      "cropGroup": "PROTEAGINEUX",
+      "defaultOrigin": "France",
+      "displayName": "Petits pois, écossés, crus BIO",
+      "id": "fc6a3ecf-e661-4c38-a982-a3d053b77d0e",
+      "inediblePart": 0,
+      "ingredientCategories": [
+        "vegetable_fresh",
+        "organic"
+      ],
+      "ingredientDensity": 1,
+      "rawToCookedRatio": 1,
+      "scenario": "organic",
+      "scopes": [
+        "food",
+        "food2"
+      ],
+      "transportCooling": "always",
+      "visible": true
+    }
+  ],
+  "scopes": [
+    "food",
+    "food2"
+  ],
+  "source": "Ecobalyse"
+}

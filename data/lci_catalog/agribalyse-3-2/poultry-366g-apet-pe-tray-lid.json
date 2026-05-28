@@ -1,0 +1,24 @@
+{
+  "activityName": "Poultry, 366g | Packaging System, N0, All, APET/PE tray with lid {FR} U",
+  "categories": [
+    "material",
+    "packaging",
+    "packaging_type:tray"
+  ],
+  "displayName": "Barquette en plastique (APET/PE) pour volaille - 366g",
+  "id": "f45fd621-f0ce-4f86-8618-8e4f6084c66e",
+  "metadata": [
+    {
+      "id": "fd569276-f8b5-41aa-8005-e533ac16b9bc",
+      "scopes": [
+        "food2"
+      ]
+    }
+  ],
+  "scopes": [
+    "food",
+    "food2"
+  ],
+  "source": "Agribalyse 3.2",
+  "unit": "item"
+}

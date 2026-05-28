@@ -1,0 +1,24 @@
+{
+  "activityName": "Uncured cheeses and similar - cat C, 125g | Packaging System, N0, All, Plastic bag {FR} U",
+  "categories": [
+    "material",
+    "packaging",
+    "packaging_type:bag"
+  ],
+  "displayName": "Sachet en plastique (multimatériaux) pour fromage type mozarella - 125g",
+  "id": "d76d9c44-8728-4fc4-b2f8-12530e3c7158",
+  "metadata": [
+    {
+      "id": "1bebe6d7-b27f-464b-9d59-c69a8353c55c",
+      "scopes": [
+        "food2"
+      ]
+    }
+  ],
+  "scopes": [
+    "food",
+    "food2"
+  ],
+  "source": "Agribalyse 3.2",
+  "unit": "item"
+}

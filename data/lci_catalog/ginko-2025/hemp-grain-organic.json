@@ -1,0 +1,60 @@
+{
+  "activityName": "Hemp, grain, Champagne, at farm gate, organic 2025 {FR} U",
+  "categories": [
+    "ingredient",
+    "material",
+    "material_type:other_food_items"
+  ],
+  "displayName": "Chanvre Bio",
+  "id": "0200d628-d58b-55e6-ae11-5683a2e08ddc",
+  "location": "FR",
+  "metadata": [
+    {
+      "alias": "hemp-grain-organic",
+      "cropGroup": "PLANTES A FIBRES",
+      "cropGroupMatch": {
+        "confidence": 0.95,
+        "rule": "matched 'chanvre' in cropgroup.csv"
+      },
+      "defaultOrigin": "France",
+      "displayName": "Chanvre Bio",
+      "id": "77b46044-1970-5b56-b2a0-15ddca5f8687",
+      "inediblePart": 0.0,
+      "inediblePartMatch": {
+        "confidence": 1.0,
+        "rule": "grain NOVA 1 default from food_type_inedible_part.csv"
+      },
+      "ingredientCategories": [
+        "grain_raw",
+        "organic"
+      ],
+      "ingredientDensity": 0.75,
+      "ingredientDensityMatch": {
+        "confidence": 1.0,
+        "rule": "grain default from food_type_density.csv"
+      },
+      "rawToCookedRatio": 2.259,
+      "rawToCookedRatioMatch": {
+        "confidence": 1.0,
+        "rule": "grain default from food_type_cooked_to_raw.csv"
+      },
+      "scenario": "organic",
+      "scopes": [
+        "food",
+        "food2"
+      ],
+      "transportCooling": "none",
+      "transportCoolingMatch": {
+        "confidence": 1.0,
+        "rule": "grain → none (non-perishable)"
+      },
+      "visible": true
+    }
+  ],
+  "scopes": [
+    "food",
+    "food2"
+  ],
+  "source": "Ginko 2025",
+  "unit": "kg"
+}

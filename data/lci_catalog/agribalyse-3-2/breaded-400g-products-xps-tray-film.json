@@ -1,0 +1,24 @@
+{
+  "activityName": "Breaded products, 400g | Packaging System, N0, All, XPS Tray with film {FR} U",
+  "categories": [
+    "material",
+    "packaging",
+    "packaging_type:tray"
+  ],
+  "displayName": "Barquette en plastique (PSX) pour produit pané - 400g",
+  "id": "260fca5a-36fb-4605-9dc1-e5644712fadf",
+  "metadata": [
+    {
+      "id": "9a097e8a-001d-4c02-ad1c-a2e9e00023ff",
+      "scopes": [
+        "food2"
+      ]
+    }
+  ],
+  "scopes": [
+    "food",
+    "food2"
+  ],
+  "source": "Agribalyse 3.2",
+  "unit": "item"
+}

@@ -1,0 +1,24 @@
+{
+  "activityName": "Cider, 750g | Packaging System, Proxy Pack, Glass {FR} U",
+  "categories": [
+    "material",
+    "packaging",
+    "packaging_type:bottle"
+  ],
+  "displayName": "Bouteille en verre pour cidre - 750g - Proxy",
+  "id": "51808a26-ba18-4443-8cf3-c19dd5b90d47",
+  "metadata": [
+    {
+      "id": "00e6169b-b446-4e30-85b3-7e7d3e54a72c",
+      "scopes": [
+        "food2"
+      ]
+    }
+  ],
+  "scopes": [
+    "food",
+    "food2"
+  ],
+  "source": "Agribalyse 3.2",
+  "unit": "item"
+}

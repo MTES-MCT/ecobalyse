@@ -1,0 +1,138 @@
+{
+  "activityName": "Live broiler, for direct consumption, consumption mix {FR} U {{chicken-breast-organic-2025}} {{chicken-breast-fr-organic-2025}}",
+  "categories": [
+    "ingredient"
+  ],
+  "displayName": "Poulet Bio",
+  "id": "e409257e-dc33-528c-9c44-c70b7811a67b",
+  "metadata": [
+    {
+      "alias": "broiler-organic-2025",
+      "animalGroup1": "poultry",
+      "animalGroup2": "chicken",
+      "animalProduct": "meat",
+      "cropGroup": "PRAIRIES PERMANENTES",
+      "cropGroupMatch": {
+        "confidence": 1.0,
+        "rule": "matched 'prairies naturelles' in cropgroup.csv"
+      },
+      "defaultOrigin": "France",
+      "displayName": "Poulet Bio (2025)",
+      "id": "e0a1afb5-7eee-5fd4-ac40-30da85bbea87",
+      "inediblePart": 0.05,
+      "inediblePartMatch": {
+        "confidence": 1.0,
+        "rule": "meat NOVA 1 default from food_type_inedible_part.csv"
+      },
+      "ingredientCategories": [
+        "animal_product",
+        "organic"
+      ],
+      "ingredientDensity": 1.05,
+      "ingredientDensityMatch": {
+        "confidence": 1.0,
+        "rule": "meat default from food_type_density.csv"
+      },
+      "rawToCookedRatio": 0.755,
+      "rawToCookedRatioMatch": {
+        "confidence": 1.0,
+        "rule": "poultry keyword found in Broiler"
+      },
+      "scenario": "organic",
+      "scopes": [
+        "food",
+        "food2"
+      ],
+      "transportCooling": "always",
+      "transportCoolingMatch": {
+        "confidence": 1.0,
+        "rule": "meat NOVA 1 → always (perishable)"
+      },
+      "visible": false
+    },
+    {
+      "alias": "poultry-organic-2025",
+      "animalGroup1": "poultry",
+      "animalGroup2": "chicken",
+      "animalProduct": "meat",
+      "defaultOrigin": "France",
+      "displayName": "Volaille Bio (2025)",
+      "id": "cc32ba6c-8d45-515e-9f8d-734903d383b7",
+      "inediblePart": 0.05,
+      "inediblePartMatch": {
+        "confidence": 1.0,
+        "rule": "meat NOVA 1 default from food_type_inedible_part.csv"
+      },
+      "ingredientCategories": [
+        "animal_product",
+        "organic"
+      ],
+      "ingredientDensity": 1.05,
+      "ingredientDensityMatch": {
+        "confidence": 1.0,
+        "rule": "meat default from food_type_density.csv"
+      },
+      "rawToCookedRatio": 0.755,
+      "rawToCookedRatioMatch": {
+        "confidence": 1.0,
+        "rule": "poultry keyword found in Poultry"
+      },
+      "scenario": "organic",
+      "scopes": [
+        "food",
+        "food2"
+      ],
+      "transportCooling": "always",
+      "transportCoolingMatch": {
+        "confidence": 1.0,
+        "rule": "meat NOVA 1 → always (perishable)"
+      },
+      "visible": false
+    },
+    {
+      "alias": "rabbit-organic-2025",
+      "animalGroup1": "poultry",
+      "animalGroup2": "chicken",
+      "animalProduct": "meat",
+      "defaultOrigin": "France",
+      "displayName": "Lapin Bio (2025)",
+      "id": "4fb928be-7f49-59e1-af0b-2092143be6c1",
+      "inediblePart": 0.05,
+      "inediblePartMatch": {
+        "confidence": 1.0,
+        "rule": "meat NOVA 1 default from food_type_inedible_part.csv"
+      },
+      "ingredientCategories": [
+        "animal_product",
+        "organic"
+      ],
+      "ingredientDensity": 1.0,
+      "ingredientDensityMatch": {
+        "confidence": 1.0,
+        "rule": "rabbit found in density.csv"
+      },
+      "rawToCookedRatio": 0.755,
+      "rawToCookedRatioMatch": {
+        "confidence": 1.0,
+        "rule": "poultry keyword found in Rabbit"
+      },
+      "scenario": "organic",
+      "scopes": [
+        "food",
+        "food2"
+      ],
+      "transportCooling": "always",
+      "transportCoolingMatch": {
+        "confidence": 1.0,
+        "rule": "meat NOVA 1 → always (perishable)"
+      },
+      "visible": false
+    }
+  ],
+  "scopes": [
+    "food",
+    "food2"
+  ],
+  "source": "Ecobalyse",
+  "unit": "kg"
+}

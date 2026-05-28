@@ -1,0 +1,36 @@
+{
+  "activityName": "Carrot, cut raw, import WFLDB, CMAPS {GLO} U",
+  "categories": [
+    "ingredient",
+    "material"
+  ],
+  "displayName": "Carotte, découpée, crue Origine Inconnue",
+  "id": "a6c41774-da38-4e02-840d-0ce0fe1a5795",
+  "metadata": [
+    {
+      "alias": "carrot-cut-raw-default",
+      "cropGroup": "LEGUMES-FLEURS",
+      "defaultOrigin": "OutOfEuropeAndMaghreb",
+      "displayName": "Carotte, découpée, crue Origine Inconnue",
+      "id": "f084ba40-39ed-4e42-95d6-2ed30666e7b3",
+      "inediblePart": 0,
+      "ingredientCategories": [
+        "vegetable_fresh"
+      ],
+      "ingredientDensity": 1,
+      "rawToCookedRatio": 1,
+      "scenario": "import",
+      "scopes": [
+        "food",
+        "food2"
+      ],
+      "transportCooling": "always",
+      "visible": true
+    }
+  ],
+  "scopes": [
+    "food",
+    "food2"
+  ],
+  "source": "Ecobalyse"
+}

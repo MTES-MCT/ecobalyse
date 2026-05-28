@@ -1,0 +1,24 @@
+{
+  "activityName": "Margarines, 500g | Packaging System, N0, All, Plastic tub (thermoformed) {FR} U",
+  "categories": [
+    "material",
+    "packaging",
+    "packaging_type:tray"
+  ],
+  "displayName": "Barquette en plastique (PP thermoformé) pour margarines - 500g",
+  "id": "ac4f6350-c3f7-402c-839d-36fa6b1e0990",
+  "metadata": [
+    {
+      "id": "ce08dc5f-467a-4e35-8433-a7fe83f4e518",
+      "scopes": [
+        "food2"
+      ]
+    }
+  ],
+  "scopes": [
+    "food",
+    "food2"
+  ],
+  "source": "Agribalyse 3.2",
+  "unit": "item"
+}

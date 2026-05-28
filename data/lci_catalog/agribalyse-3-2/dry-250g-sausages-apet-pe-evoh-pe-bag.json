@@ -1,0 +1,24 @@
+{
+  "activityName": "Dry sausages, 250g | Packaging System, N0, All, APET/PE/EVOH/PE bag {FR} U",
+  "categories": [
+    "material",
+    "packaging",
+    "packaging_type:bag"
+  ],
+  "displayName": "Sachet en plastique (APET/PE/EVOH/PE) pour saucisson sec entier - 250g",
+  "id": "e91664fe-0f58-4637-be08-93ed8eec0e50",
+  "metadata": [
+    {
+      "id": "a68875d7-1d7a-4913-8716-8b3386128659",
+      "scopes": [
+        "food2"
+      ]
+    }
+  ],
+  "scopes": [
+    "food",
+    "food2"
+  ],
+  "source": "Agribalyse 3.2",
+  "unit": "item"
+}

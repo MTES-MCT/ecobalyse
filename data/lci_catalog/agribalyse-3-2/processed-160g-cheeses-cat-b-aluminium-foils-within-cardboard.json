@@ -1,0 +1,24 @@
+{
+  "activityName": "Processed cheeses - cat B, 160g | Packaging System, N0, All, Aluminium foils within cardboard case {FR} U",
+  "categories": [
+    "material",
+    "packaging",
+    "packaging_type:sheet"
+  ],
+  "displayName": "Feuilles aluminium et boîte carton pour fromage fondu - 160g",
+  "id": "cd50ef1a-dc27-4f20-9fe5-b60c908c77f0",
+  "metadata": [
+    {
+      "id": "aa045b01-b462-4370-8e19-1e73932d11ad",
+      "scopes": [
+        "food2"
+      ]
+    }
+  ],
+  "scopes": [
+    "food",
+    "food2"
+  ],
+  "source": "Agribalyse 3.2",
+  "unit": "item"
+}

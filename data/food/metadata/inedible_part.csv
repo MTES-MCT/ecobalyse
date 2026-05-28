@@ -1,0 +1,53 @@
+name;inedible_part
+meat with bone;0.2
+boneless meat;0
+fresh vegetable;0.2
+canned vegetable;0
+frozen vegetable;0
+dried vegetable;0
+jarred vegetable;0
+fresh fruit;0.2
+canned fruit;0
+frozen fruit;0
+dried fruit;0
+jam;0
+compote;0
+fresh meat;0.1
+frozen meat;0.1
+dried meat;0
+deli meat;0
+canned meat;0
+fresh fish;0.4
+frozen fish;0
+canned fish;0
+smoked fish;0
+dried fish;0
+seafood;0.5
+crustacean;0.5
+fresh milk;0
+UHT milk;0
+cheese;0
+yogurt;0
+butter;0
+fresh cream;0
+milk powder;0
+cereal;0
+flour;0
+bread;0
+pasta;0
+rice;0
+semolina;0
+nut;0.5
+seed;0
+oil;0
+peanut butter;0
+spice;0
+aromatic herb;0.1
+sauce;0
+vinegar;0
+mustard;0
+salt;0
+sugar;0
+egg powder;0
+poppy seed;0
+sunflower seed;0

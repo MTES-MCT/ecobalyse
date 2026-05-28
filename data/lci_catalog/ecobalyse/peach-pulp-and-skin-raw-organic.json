@@ -1,0 +1,37 @@
+{
+  "activityName": "Peach, pulp and skin raw, organic, CMAPS {GLO} U",
+  "categories": [
+    "ingredient",
+    "material"
+  ],
+  "displayName": "Pêche, pulpe et peau, crue Origine Inconnue BIO",
+  "id": "21f067b1-32eb-4fd9-8ef1-f2f8099938af",
+  "metadata": [
+    {
+      "alias": "peach-pulp-and-skin-raw-default-organic",
+      "cropGroup": "VERGERS",
+      "defaultOrigin": "OutOfEuropeAndMaghreb",
+      "displayName": "Pêche, pulpe et peau, crue Origine Inconnue BIO",
+      "id": "b35b9a8b-9ce4-4da2-a1f8-a40e67d75784",
+      "inediblePart": 0,
+      "ingredientCategories": [
+        "vegetable_fresh",
+        "organic"
+      ],
+      "ingredientDensity": 1,
+      "rawToCookedRatio": 1,
+      "scenario": "organic",
+      "scopes": [
+        "food",
+        "food2"
+      ],
+      "transportCooling": "always",
+      "visible": false
+    }
+  ],
+  "scopes": [
+    "food",
+    "food2"
+  ],
+  "source": "Ecobalyse"
+}

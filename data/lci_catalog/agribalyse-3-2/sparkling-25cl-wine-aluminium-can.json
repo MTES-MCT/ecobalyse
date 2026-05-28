@@ -1,0 +1,24 @@
+{
+  "activityName": "Sparkling wine, 25cl | Packaging System, N0, All, Aluminium can 25cl {FR} U",
+  "categories": [
+    "material",
+    "packaging",
+    "packaging_type:other"
+  ],
+  "displayName": "Canette en aluminium pour vin - 25cl",
+  "id": "ae6fa1d9-04ec-4d26-9445-34b276e61c42",
+  "metadata": [
+    {
+      "id": "495fc387-825b-4e91-b5a6-97a23e0fb8b8",
+      "scopes": [
+        "food2"
+      ]
+    }
+  ],
+  "scopes": [
+    "food",
+    "food2"
+  ],
+  "source": "Agribalyse 3.2",
+  "unit": "item"
+}

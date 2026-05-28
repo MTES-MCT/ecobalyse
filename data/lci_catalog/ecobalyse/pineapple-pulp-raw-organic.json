@@ -1,0 +1,37 @@
+{
+  "activityName": "Pineapple, pulp raw, organic, CMAPS {GLO} U",
+  "categories": [
+    "ingredient",
+    "material"
+  ],
+  "displayName": "Ananas, pulpe, cru Origine Inconnue BIO",
+  "id": "efb4d81d-fcc3-4aed-92d1-1da5c4e4adaa",
+  "metadata": [
+    {
+      "alias": "pineapple-pulp-raw-default-organic",
+      "cropGroup": "VERGERS",
+      "defaultOrigin": "OutOfEuropeAndMaghreb",
+      "displayName": "Ananas, pulpe, cru Origine Inconnue BIO",
+      "id": "68f905ed-2116-468a-ba47-ae983f0f839f",
+      "inediblePart": 0,
+      "ingredientCategories": [
+        "vegetable_fresh",
+        "organic"
+      ],
+      "ingredientDensity": 1,
+      "rawToCookedRatio": 1,
+      "scenario": "organic",
+      "scopes": [
+        "food",
+        "food2"
+      ],
+      "transportCooling": "always",
+      "visible": false
+    }
+  ],
+  "scopes": [
+    "food",
+    "food2"
+  ],
+  "source": "Ecobalyse"
+}

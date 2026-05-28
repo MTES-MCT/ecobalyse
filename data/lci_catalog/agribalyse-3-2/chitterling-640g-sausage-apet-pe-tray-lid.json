@@ -1,0 +1,24 @@
+{
+  "activityName": "Chitterling sausage, 640g | Packaging System, N0, All, APET/PE tray with lid {FR} U",
+  "categories": [
+    "material",
+    "packaging",
+    "packaging_type:tray"
+  ],
+  "displayName": "Barquette en plastique (APET/PE) pour andouille/andouillette - 640g",
+  "id": "7cdacec2-59e3-4bb8-8951-e659014f9b03",
+  "metadata": [
+    {
+      "id": "67bdcbcf-8def-4c77-9ac4-42a4679d45b0",
+      "scopes": [
+        "food2"
+      ]
+    }
+  ],
+  "scopes": [
+    "food",
+    "food2"
+  ],
+  "source": "Agribalyse 3.2",
+  "unit": "item"
+}

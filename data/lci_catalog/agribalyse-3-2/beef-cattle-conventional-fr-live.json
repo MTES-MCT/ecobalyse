@@ -1,0 +1,77 @@
+{
+  "activityName": "Beef cattle, conventional, national average, at farm gate {FR} U",
+  "categories": [
+    "ingredient",
+    "material",
+    "material_type:other_food_items"
+  ],
+  "displayName": "Bovin viande conventionnel vivant FR",
+  "id": "32421967-5aaa-55fe-9918-fbddb857c443",
+  "metadata": [
+    {
+      "alias": "beef-cattle-conventional-fr-live",
+      "animalGroup1": "cattle",
+      "animalGroup2": "cow",
+      "animalProduct": "meat",
+      "defaultOrigin": "France",
+      "displayName": "Bovin viande conventionnel vivant FR",
+      "id": "1724c00a-1e59-5675-b1e2-f8a549b2ade3",
+      "inediblePart": 0,
+      "ingredientCategories": [
+        "animal_product"
+      ],
+      "ingredientDensity": 1.0,
+      "rawToCookedRatio": 1.0,
+      "scenario": "reference",
+      "scopes": [
+        "food",
+        "food2"
+      ],
+      "transportCooling": "always",
+      "visible": false
+    },
+    {
+      "alias": "beef-fr",
+      "animalGroup1": "cattle",
+      "animalGroup2": "cow",
+      "animalProduct": "meat",
+      "defaultOrigin": "France",
+      "displayName": "Boeuf FR",
+      "id": "83dd3304-48b4-524a-ac85-de5402385fa3",
+      "inediblePart": 0.05,
+      "inediblePartMatch": {
+        "confidence": 1.0,
+        "rule": "meat NOVA 1 default from food_type_inedible_part.csv"
+      },
+      "ingredientCategories": [
+        "animal_product"
+      ],
+      "ingredientDensity": 1.05,
+      "ingredientDensityMatch": {
+        "confidence": 1.0,
+        "rule": "beef found in density.csv"
+      },
+      "rawToCookedRatio": 0.792,
+      "rawToCookedRatioMatch": {
+        "confidence": 0.95,
+        "rule": "Matched with ground beef in cooked_to_raw.csv"
+      },
+      "scenario": "reference",
+      "scopes": [
+        "food",
+        "food2"
+      ],
+      "transportCooling": "always",
+      "transportCoolingMatch": {
+        "confidence": 1.0,
+        "rule": "meat NOVA 1 → always (perishable)"
+      },
+      "visible": false
+    }
+  ],
+  "scopes": [
+    "food",
+    "food2"
+  ],
+  "source": "Agribalyse 3.2"
+}

@@ -1,0 +1,24 @@
+{
+  "activityName": "Tart, chilled, 260g | Packaging System, N0, All, Tray with lid and aluminum mold {FR} U",
+  "categories": [
+    "material",
+    "packaging",
+    "packaging_type:tray"
+  ],
+  "displayName": "Barquette en plastique (PET/PEBD) et moule aluminium pour tarte, réfrigérée - 260g",
+  "id": "d1453cfd-3146-4cf3-ae8c-36dd0a255ab5",
+  "metadata": [
+    {
+      "id": "fea59245-d9b0-4dd1-bd1f-c7148dde1f4c",
+      "scopes": [
+        "food2"
+      ]
+    }
+  ],
+  "scopes": [
+    "food",
+    "food2"
+  ],
+  "source": "Agribalyse 3.2",
+  "unit": "item"
+}

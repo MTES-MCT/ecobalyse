@@ -9,20 +9,20 @@ dependencies = [
     "aiosqlite>=0.21.0",
     "advanced-alchemy>=1.4.4",
     "msgspec>=0.19.0",
-    "check-jsonschema>=0.32.1",
-    "pytest-databases[postgres]>=0.17.0",
-    "psycopg[binary,pool]>=3.3.3",
+    "check-jsonschema>=0.37.2",
+    "pytest-databases[postgres]>=0.18.0",
+    "psycopg[binary,pool]>=3.3.4",
     "asyncpg>=0.30.0",
     "structlog>=25.2.0",
-    "orjson>=3.10.16",
+    "orjson>=3.11.9",
     "aiosmtplib>=4.0.0",
     "emails>=0.6",
     "python-stdnum>=2.1",
     "pygithub>=2.6.1",
-    "typer>=0.16.0",
+    "typer>=0.25.1",
     "pytest-mock>=3.14.1",
     "asyncstdlib>=3.13.1",
-    "sentry-sdk[litestar]>=2.58.0",
+    "sentry-sdk[litestar]>=2.59.0",
     "pwdlib[argon2]>=0.3.0",
 ]
 
@@ -54,14 +54,51 @@ backend = "app.__main__:run_cli"
 dev = [
     "pre-commit>=4.6.0",
     "pytest>=8.3.4",
-    "ruff>=0.8.1",
+    "ruff>=0.15.12",
 ]
 
-[lint]
-extend-select = ["I"]
+data = [
+     "boto3 ~= 1.40",
+     "dynaconf ~= 3.2",
+     "frozendict ~= 2.4",
+     "orjson ~= 3.10",
+     "platformdirs ~= 4.5",
+     "rich ~= 14.2",
+     "typer ~= 0.15",
+
+     # Brightway
+     "bw2analyzer == 0.11.7",
+     "bw2calc == 2.0.1",
+     "bw2data == 4.4.3",
+     "bw2io[multifunctional] == 0.9.5",
+     "bw2parameters == 1.1.0",
+     'pypardiso ~= 0.4; platform_machine!="arm64" and platform_machine!="aarch64"',
+ ]
+
+dev-data = [
+    "check-jsonschema ~= 0.35",
+    "deadcode ~= 2.4",
+    "pre-commit ~= 4.0",
+    "pytest ~= 8.3",
+    "pytest-mock ~= 3.14",
+    "ruff ~= 0.8",
+    "vulture ~= 2.14",
+]
+jupyter = [
+    "ipywidgets>=8.1.5",
+    "jupyter-collaboration>=3.0.1",
+    "jupyterlab>=4.3.2",
+    "notebook>=7.3.0",
+]
+# SimaPro (API + plotting)
+simapro = ["fastapi[all] ~= 0.115", "matplotlib ~= 3.10.7"]
 
 [tool.pytest.ini_options]
 pythonpath = ["."]
+testpaths = ["tests"]
 
 [tool.ruff]
 target-version = "py312"
+
+[tool.ruff.lint]
+extend-select = ["I"]

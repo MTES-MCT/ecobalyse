@@ -111,6 +111,7 @@ module Data.Component exposing
     , updateElementTransformCountry
     , updateItem
     , updateItemCustomName
+    , updateRecyclable
     , validateItem
     , validateQuery
     )
@@ -131,7 +132,7 @@ import Data.Scoring as Scoring exposing (Scoring)
 import Data.Split as Split exposing (Split)
 import Data.Stages exposing (Stages)
 import Data.Transport as Transport exposing (Transport)
-import Data.Unit as Unit
+import Data.Unit as Unit exposing (QuantityVariationRatio)
 import Data.Uuid as Uuid exposing (Uuid)
 import Dict.Any as AnyDict
 import Energy
@@ -185,6 +186,7 @@ type alias Query =
     -- though it's still an ongoing discussion and we need to move forward and iterate.
     , durability : Maybe Unit.Ratio
     , items : List Item
+    , recyclable : Bool
     , transportCooling : TransportCooling
     }
 
@@ -487,12 +489,10 @@ applyTransform transform { elec, heat } (Results { amount, label, impacts, items
                 |> Impact.multiplyBy (Amount.toFloat amount)
 
         outputAmount =
-            amount |> applyWaste transform.waste
+            amount |> applyQtyVariationRatio transform.qtyVariationRatio
 
         outputMass =
-            mass
-                |> Quantity.minus
-                    (mass |> Quantity.multiplyBy (Split.toFloat transform.waste))
+            mass |> Unit.applyQtyVariationRatioToMass transform.qtyVariationRatio
     in
     Results
         { amount = outputAmount
@@ -575,9 +575,9 @@ applyTransportedMassImpacts requirements transportCooling mass maybeFrom maybeTo
             )
 
 
-applyWaste : Split -> Amount -> Amount
-applyWaste waste =
-    Amount.map (\amount -> amount - (amount * Split.toFloat waste))
+applyQtyVariationRatio : QuantityVariationRatio -> Amount -> Amount
+applyQtyVariationRatio qtyVariationRatio =
+    Amount.map (\amount -> amount * Unit.qtyVariationRatioToFloat qtyVariationRatio)
 
 
 checkTransformsUnit : Process.Unit -> List ExpandedLocalizedProcess -> Result String (List ExpandedLocalizedProcess)
@@ -627,7 +627,7 @@ compute requirements query =
         |> Result.map (List.foldr addResults emptyResults)
         |> Result.map (\(Results results) -> { emptyLifeCycle | production = Results { results | label = Just "Production" } })
         |> Result.andThen (computeDistributionImpacts requirements query)
-        |> Result.map (computeEndOfLifeResults requirements)
+        |> Result.map (computeEndOfLifeResults requirements query)
         |> Result.andThen (computeTransports requirements query)
         |> Result.andThen (computeUseImpacts requirements query)
 
@@ -675,7 +675,7 @@ computeElementResults requirements transportCooling =
         >> Result.andThen
             (\{ amount, material, transforms } ->
                 amount
-                    |> computeInitialAmount (List.map (.process >> .waste) transforms)
+                    |> computeInitialAmount (List.map (.process >> .qtyVariationRatio) transforms)
                     |> Result.andThen
                         (\initialAmount ->
                             material.process
@@ -685,27 +685,27 @@ computeElementResults requirements transportCooling =
             )
 
 
-computeEndOfLifeResults : Requirements db -> LifeCycle -> LifeCycle
-computeEndOfLifeResults requirements lifeCycle =
+computeEndOfLifeResults : Requirements db -> Query -> LifeCycle -> LifeCycle
+computeEndOfLifeResults requirements query lifeCycle =
     { lifeCycle
         | endOfLife =
             lifeCycle.production
-                |> getEndOfLifeImpacts requirements
+                |> getEndOfLifeImpacts requirements query.recyclable
     }
 
 
 {-| Compute an initially required amount from sequentially applied waste ratios
 -}
-computeInitialAmount : List Split -> Amount -> Result String Amount
-computeInitialAmount wastes amount =
-    if List.member Split.full wastes then
-        Err "Un taux de perte ne peut pas être de 100%"
+computeInitialAmount : List QuantityVariationRatio -> Amount -> Result String Amount
+computeInitialAmount qtyVariationRatios amount =
+    if List.member 0 (qtyVariationRatios |> List.map Unit.qtyVariationRatioToFloat) then
+        Err "Un ratio de variation de quantité ne peut pas être de 0"
 
     else
-        wastes
+        qtyVariationRatios
             |> List.foldr
-                (\waste ->
-                    Amount.map (\float -> float / (1 - Split.toFloat waste))
+                (\qtyVariationRatio ->
+                    Amount.map (\float -> float / Unit.qtyVariationRatioToFloat qtyVariationRatio)
                 )
                 amount
             |> Ok
@@ -871,20 +871,23 @@ Notes:
   - the distance to hub computation logic should eventually be backported to non-generic scopes
 
 -}
-computeTransportDistance : Requirements db -> Maybe Country -> Maybe Country -> Result String Transport
-computeTransportDistance { config, db } maybeFrom maybeTo =
+computeTransportDistance : Requirements db -> Maybe Country -> Maybe Country -> Result String (Maybe Transport)
+computeTransportDistance { db } maybeFrom maybeTo =
     case ( maybeFrom, maybeTo ) of
+        -- both countries are know: compute the distance
         ( Just from, Just to ) ->
             db.distances
                 |> Transport.getTransportBetween from to
+                -- Always reset air transport, which is unhandled by design for now
+                -- see https://github.com/MTES-MCT/ecobalyse/issues/2282#issuecomment-4505548371
+                |> Result.map (Transport.applyTransportRatios Split.zero)
                 |> Result.map
                     (\transport ->
                         { transport
                             | road =
                                 if from == to then
-                                    -- same country, add transport to hub once
-                                    transport.road
-                                        |> Quantity.plus from.distanceToHub
+                                    -- same country, add transport to hub once, ignore distance from transports.json
+                                    from.distanceToHub
 
                                 else
                                     -- different countries, add distances to hub at both ends
@@ -895,9 +898,11 @@ computeTransportDistance { config, db } maybeFrom maybeTo =
                                         ]
                         }
                     )
+                |> Result.map Just
 
         _ ->
-            Ok config.transports.defaultDistance
+            -- at least one country is unknown; no distances returned
+            Ok Nothing
 
 
 {-| Computes the transport distances and impacts from a transported mass.
@@ -905,16 +910,21 @@ computeTransportDistance { config, db } maybeFrom maybeTo =
 computeTransportedMassImpacts : Requirements db -> TransportCooling -> Maybe Country -> Maybe Country -> Mass -> Result String Transport
 computeTransportedMassImpacts ({ config } as requirements) (TransportCooling cooled) maybeFrom maybeTo mass =
     computeTransportDistance requirements maybeFrom maybeTo
-        -- Note: air transport is not handled for now
         |> Result.map
-            (Transport.applyTransportRatios Split.zero
-                >> (if cooled then
-                        Transport.makeCooled
-
-                    else
-                        identity
-                   )
+            (Maybe.withDefault config.transports.defaultDistance
+                -- Reset default air transport distance
+                -- see https://github.com/MTES-MCT/ecobalyse/issues/2282#issuecomment-4505548371
+                >> (\transport -> { transport | air = Quantity.zero })
             )
+        -- remap cooled transportation modes if needed
+        |> Result.map
+            (if cooled then
+                Transport.makeCooled
+
+             else
+                identity
+            )
+        -- compute resulting impacts
         |> Result.map (Transport.computeImpacts config.transports.modeProcesses mass)
 
 
@@ -1168,6 +1178,7 @@ decodeQuery =
         |> DU.strictOptional "distribution" Process.decodeId
         |> DU.strictOptional "durability" Unit.decodeRatio
         |> Decode.required "components" (Decode.list decodeItem)
+        |> Decode.optional "recyclable" Decode.bool True
         |> Decode.optional "transportCooling" (Decode.map TransportCooling Decode.bool) defaultTransportCooling
 
 
@@ -1249,6 +1260,7 @@ emptyQuery =
     , distribution = Nothing
     , durability = Nothing
     , items = []
+    , recyclable = True
     , transportCooling = defaultTransportCooling
     }
 
@@ -1403,6 +1415,7 @@ encodeQuery query =
           )
         , ( "distribution", query.distribution |> Maybe.map Process.encodeId )
         , ( "durability", query.durability |> Maybe.map Unit.encodeRatio )
+        , ( "recyclable", query.recyclable |> Encode.bool |> Just )
         , ( "transportCooling", query.transportCooling |> isTransportCooled |> Encode.bool |> Just )
         ]
 
@@ -1639,11 +1652,11 @@ getElementResult ( itemIndex, elementIndex ) productionResults =
         |> Result.andThen (extractItems >> LE.getAt elementIndex >> Result.fromMaybe errors.elementNotFound)
 
 
-getEndOfLifeDetailedImpacts : Requirements db -> Results -> DetailedEndOfLifeImpacts
-getEndOfLifeDetailedImpacts { config, scope } =
+getEndOfLifeDetailedImpacts : Requirements db -> Bool -> Results -> DetailedEndOfLifeImpacts
+getEndOfLifeDetailedImpacts { config, scope } recyclable =
     let
         collectionRatio =
-            getEndOfLifeScopeCollectionRate config scope
+            scope |> getEndOfLifeScopeCollectionRate config recyclable
 
         nonCollectionRatio =
             Split.complement collectionRatio
@@ -1676,11 +1689,11 @@ getEndOfLifeDetailedImpacts { config, scope } =
         >> AnyDict.fromList Category.materialTypeToString
 
 
-getEndOfLifeImpacts : Requirements db -> Results -> Impacts
-getEndOfLifeImpacts ({ config, scope } as requirements) (Results results) =
+getEndOfLifeImpacts : Requirements db -> Bool -> Results -> Impacts
+getEndOfLifeImpacts ({ config, scope } as requirements) recyclable (Results results) =
     if config.endOfLife |> Config.scopeEnabled scope then
         Results results
-            |> getEndOfLifeDetailedImpacts requirements
+            |> getEndOfLifeDetailedImpacts requirements recyclable
             |> AnyDict.map
                 (\_ { collected, nonCollected } ->
                     let
@@ -1704,12 +1717,16 @@ getEndOfLifeImpacts ({ config, scope } as requirements) (Results results) =
         Impact.empty
 
 
-getEndOfLifeScopeCollectionRate : Config -> Scope -> Split
-getEndOfLifeScopeCollectionRate { endOfLife } scope =
-    endOfLife.scopeCollectionRates
-        |> AnyDict.get scope
-        -- Assume every material is fully collected by default
-        |> Maybe.withDefault Split.full
+getEndOfLifeScopeCollectionRate : Config -> Bool -> Scope -> Split
+getEndOfLifeScopeCollectionRate { endOfLife } recyclable scope =
+    if recyclable then
+        endOfLife.scopeCollectionRates
+            |> AnyDict.get scope
+            -- Assume every material is fully collected by default
+            |> Maybe.withDefault Split.full
+
+    else
+        Split.zero
 
 
 {-| Get an element's country last transform if any, or the country of its material otherwise.
@@ -2274,6 +2291,11 @@ updateItem itemIndex =
     LE.updateAt itemIndex
 
 
+updateRecyclable : Bool -> Query -> Query
+updateRecyclable recyclable query =
+    { query | recyclable = recyclable }
+
+
 validateConsumption : Requirements db -> Consumption -> Result String Consumption
 validateConsumption requirements consumption =
     Ok Consumption
@@ -2372,5 +2394,6 @@ validateQuery ({ db } as requirements) query =
         |> RE.andMap (validateDistribution requirements query.distribution)
         |> RE.andMap (validateDurability requirements query.durability)
         |> RE.andMap (query.items |> RE.combineMap (validateItem db.components))
+        |> RE.andMap (Ok query.recyclable)
         |> RE.andMap (Ok query.transportCooling)
-        |> Result.mapError (\s -> "Requête invalide: " ++ s)
+        |> Result.mapError (\s -> "Requête invalide\u{202F}: " ++ s)

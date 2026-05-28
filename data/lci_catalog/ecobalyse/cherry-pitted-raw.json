@@ -1,0 +1,36 @@
+{
+  "activityName": "Cherry, pitted raw, CMAPS {GLO} U",
+  "categories": [
+    "ingredient",
+    "material"
+  ],
+  "displayName": "Cerise, dénoyautée, crue FR",
+  "id": "584ce977-ef1d-4990-a4c9-798d97ed17db",
+  "metadata": [
+    {
+      "alias": "cherry-pitted-raw-fr",
+      "cropGroup": "VERGERS",
+      "defaultOrigin": "France",
+      "displayName": "Cerise, dénoyautée, crue FR",
+      "id": "e4f1384b-becc-4fce-ac39-33054ccf0d36",
+      "inediblePart": 0,
+      "ingredientCategories": [
+        "vegetable_fresh"
+      ],
+      "ingredientDensity": 1,
+      "rawToCookedRatio": 1,
+      "scenario": "reference",
+      "scopes": [
+        "food",
+        "food2"
+      ],
+      "transportCooling": "always",
+      "visible": true
+    }
+  ],
+  "scopes": [
+    "food",
+    "food2"
+  ],
+  "source": "Ecobalyse"
+}

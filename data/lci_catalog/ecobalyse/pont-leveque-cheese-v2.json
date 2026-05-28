@@ -1,0 +1,35 @@
+{
+  "activityName": "Pont l'Eveque cheese, variant 2, CMAPS {GLO} U",
+  "categories": [
+    "ingredient",
+    "material"
+  ],
+  "displayName": "Pont l'Évêque Origine Inconnue",
+  "id": "a68553f9-d844-484e-a935-72256a2882f2",
+  "metadata": [
+    {
+      "alias": "pont-leveque-cheese-default",
+      "defaultOrigin": "OutOfEuropeAndMaghreb",
+      "displayName": "Pont l'Évêque Origine Inconnue",
+      "id": "f3304ed8-8176-4090-995d-6fba45c362f4",
+      "inediblePart": 0,
+      "ingredientCategories": [
+        "dairy_product"
+      ],
+      "ingredientDensity": 1,
+      "rawToCookedRatio": 1,
+      "scenario": "import",
+      "scopes": [
+        "food",
+        "food2"
+      ],
+      "transportCooling": "always",
+      "visible": false
+    }
+  ],
+  "scopes": [
+    "food",
+    "food2"
+  ],
+  "source": "Ecobalyse"
+}

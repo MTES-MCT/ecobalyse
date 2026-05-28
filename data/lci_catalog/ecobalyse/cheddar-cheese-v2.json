@@ -1,0 +1,35 @@
+{
+  "activityName": "Cheddar cheese, variant 2, CMAPS {GLO} U",
+  "categories": [
+    "ingredient",
+    "material"
+  ],
+  "displayName": "Cheddar Origine Inconnue",
+  "id": "8626a204-5341-4430-878f-0838a982cd86",
+  "metadata": [
+    {
+      "alias": "cheddar-cheese-default",
+      "defaultOrigin": "OutOfEuropeAndMaghreb",
+      "displayName": "Cheddar Origine Inconnue",
+      "id": "4d8d21a9-45f4-40ec-ab85-78d60c423ae1",
+      "inediblePart": 0,
+      "ingredientCategories": [
+        "dairy_product"
+      ],
+      "ingredientDensity": 1,
+      "rawToCookedRatio": 1,
+      "scenario": "import",
+      "scopes": [
+        "food",
+        "food2"
+      ],
+      "transportCooling": "always",
+      "visible": true
+    }
+  ],
+  "scopes": [
+    "food",
+    "food2"
+  ],
+  "source": "Ecobalyse"
+}

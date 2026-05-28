@@ -1,0 +1,24 @@
+{
+  "activityName": "Dried fruits, 250g | Packaging System, N0, All, Tray with plastic film {FR} U",
+  "categories": [
+    "material",
+    "packaging",
+    "packaging_type:tray"
+  ],
+  "displayName": "Barquette en plastique filmée (XPS) pour fruit séché - 250g",
+  "id": "9cb80fea-98f2-4243-a85c-e328c0e84661",
+  "metadata": [
+    {
+      "id": "2e2c0cc4-5232-4112-bd5a-9804bf61c7d5",
+      "scopes": [
+        "food2"
+      ]
+    }
+  ],
+  "scopes": [
+    "food",
+    "food2"
+  ],
+  "source": "Agribalyse 3.2",
+  "unit": "item"
+}

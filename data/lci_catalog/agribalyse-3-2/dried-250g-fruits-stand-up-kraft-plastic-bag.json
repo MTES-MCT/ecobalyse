@@ -1,0 +1,24 @@
+{
+  "activityName": "Dried fruits, 250g | Packaging System, N0, All, Stand up kraft and plastic bag {FR} U",
+  "categories": [
+    "material",
+    "packaging",
+    "packaging_type:bag"
+  ],
+  "displayName": "Sachet stand up en papier kraft/plastique (PEBD) pour fruits séchés - 250g",
+  "id": "b063c3f2-7ef9-4825-a987-239b1afd77e6",
+  "metadata": [
+    {
+      "id": "01c94bdd-2335-4bec-9390-a7ec9adc3b1d",
+      "scopes": [
+        "food2"
+      ]
+    }
+  ],
+  "scopes": [
+    "food",
+    "food2"
+  ],
+  "source": "Agribalyse 3.2",
+  "unit": "item"
+}

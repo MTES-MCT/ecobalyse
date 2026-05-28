@@ -1,0 +1,37 @@
+{
+  "activityName": "Salt {FR} U",
+  "categories": [
+    "ingredient",
+    "material",
+    "material_type:other_food_items"
+  ],
+  "displayName": "Sel",
+  "id": "f56af26e-a6f5-5261-8a8a-2d8f531b88bf",
+  "metadata": [
+    {
+      "alias": "salt-2025",
+      "cropGroup": "DIVERS",
+      "defaultOrigin": "France",
+      "displayName": "Sel (2025)",
+      "id": "77defb24-cec3-4de9-8388-63229d1052fb",
+      "inediblePart": 0,
+      "ingredientCategories": [
+        "spice_condiment_additive"
+      ],
+      "ingredientDensity": 1.0,
+      "rawToCookedRatio": 1.0,
+      "scenario": "reference",
+      "scopes": [
+        "food",
+        "food2"
+      ],
+      "transportCooling": "none",
+      "visible": true
+    }
+  ],
+  "scopes": [
+    "food",
+    "food2"
+  ],
+  "source": "Agribalyse 3.2"
+}

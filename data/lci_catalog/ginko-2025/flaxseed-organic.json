@@ -1,0 +1,60 @@
+{
+  "activityName": "Flaxseed, national average, animal feed, at farm gate, organic 2025 {FR} U",
+  "categories": [
+    "ingredient",
+    "material",
+    "material_type:fruits_and_vegetables"
+  ],
+  "displayName": "Graines de lin Bio",
+  "id": "5956dedb-9c30-5955-a6fd-980b9108f23f",
+  "location": "FR",
+  "metadata": [
+    {
+      "alias": "flaxseed-organic",
+      "cropGroup": "AUTRES OLEAGINEUX",
+      "cropGroupMatch": {
+        "confidence": 1.0,
+        "rule": "matched 'flaxseed' in cropgroup.csv"
+      },
+      "defaultOrigin": "France",
+      "displayName": "Graines de lin Bio",
+      "id": "041e7eb9-639d-5610-987a-f54c94cca640",
+      "inediblePart": 0.2,
+      "inediblePartMatch": {
+        "confidence": 1.0,
+        "rule": "vegetable NOVA 1 default from food_type_inedible_part.csv"
+      },
+      "ingredientCategories": [
+        "vegetable_fresh",
+        "organic"
+      ],
+      "ingredientDensity": 0.7,
+      "ingredientDensityMatch": {
+        "confidence": 1.0,
+        "rule": "Flaxseed found in fao_density.csv"
+      },
+      "rawToCookedRatio": 0.856,
+      "rawToCookedRatioMatch": {
+        "confidence": 1.0,
+        "rule": "vegetable default from food_type_cooked_to_raw.csv"
+      },
+      "scenario": "organic",
+      "scopes": [
+        "food",
+        "food2"
+      ],
+      "transportCooling": "always",
+      "transportCoolingMatch": {
+        "confidence": 1.0,
+        "rule": "vegetable NOVA 1 → always (perishable)"
+      },
+      "visible": true
+    }
+  ],
+  "scopes": [
+    "food",
+    "food2"
+  ],
+  "source": "Ginko 2025",
+  "unit": "kg"
+}

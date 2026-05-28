@@ -1,0 +1,36 @@
+{
+  "activityName": "Fig puree, CMAPS {GLO} U",
+  "categories": [
+    "ingredient",
+    "material"
+  ],
+  "displayName": "Purée de figue FR",
+  "id": "da942b84-4bbd-4901-8d0c-c56ec2b59d55",
+  "metadata": [
+    {
+      "alias": "fig-puree-fr",
+      "cropGroup": "VERGERS",
+      "defaultOrigin": "France",
+      "displayName": "Purée de figue FR",
+      "id": "2619bf4c-c75b-4a8b-bc35-dfb77687fcb6",
+      "inediblePart": 0,
+      "ingredientCategories": [
+        "vegetable_processed"
+      ],
+      "ingredientDensity": 1,
+      "rawToCookedRatio": 1,
+      "scenario": "reference",
+      "scopes": [
+        "food",
+        "food2"
+      ],
+      "transportCooling": "always",
+      "visible": true
+    }
+  ],
+  "scopes": [
+    "food",
+    "food2"
+  ],
+  "source": "Ecobalyse"
+}

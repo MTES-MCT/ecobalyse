@@ -1,0 +1,40 @@
+{
+  "activityName": "Broiler, organic, at farm gate {FR} U",
+  "categories": [
+    "ingredient",
+    "material",
+    "material_type:other_food_items"
+  ],
+  "displayName": "Poulet bio vivant FR",
+  "id": "b0fe0012-b892-52c7-9904-e5b2aa5f31d6",
+  "metadata": [
+    {
+      "alias": "broiler-organic-fr-live",
+      "animalGroup1": "poultry",
+      "animalGroup2": "chicken",
+      "animalProduct": "meat",
+      "defaultOrigin": "France",
+      "displayName": "Poulet bio vivant FR",
+      "id": "753daf84-d104-5829-a4a2-0cd67b770083",
+      "inediblePart": 0,
+      "ingredientCategories": [
+        "animal_product",
+        "organic"
+      ],
+      "ingredientDensity": 1.0,
+      "rawToCookedRatio": 1.0,
+      "scenario": "organic",
+      "scopes": [
+        "food",
+        "food2"
+      ],
+      "transportCooling": "always",
+      "visible": false
+    }
+  ],
+  "scopes": [
+    "food",
+    "food2"
+  ],
+  "source": "Agribalyse 3.2"
+}

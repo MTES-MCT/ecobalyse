@@ -1,0 +1,35 @@
+{
+  "activityName": "Mozzarella, cow milk, variant 1, CMAPS {GLO} U",
+  "categories": [
+    "ingredient",
+    "material"
+  ],
+  "displayName": "Mozzarella au lait de vache FR",
+  "id": "04525e74-d4bd-4e04-8eca-dd55e217d376",
+  "metadata": [
+    {
+      "alias": "mozzarella-cow-milk-fr",
+      "defaultOrigin": "France",
+      "displayName": "Mozzarella au lait de vache FR",
+      "id": "09bf7ccc-baeb-4907-87ec-dc3a1b3cf9e1",
+      "inediblePart": 0,
+      "ingredientCategories": [
+        "dairy_product"
+      ],
+      "ingredientDensity": 1,
+      "rawToCookedRatio": 1,
+      "scenario": "reference",
+      "scopes": [
+        "food",
+        "food2"
+      ],
+      "transportCooling": "always",
+      "visible": true
+    }
+  ],
+  "scopes": [
+    "food",
+    "food2"
+  ],
+  "source": "Ecobalyse"
+}

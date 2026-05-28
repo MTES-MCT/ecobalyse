@@ -1,0 +1,24 @@
+{
+  "activityName": "Grapeseed oil, 1L | Packaging System, N0, All, Glass bottle {FR} U",
+  "categories": [
+    "material",
+    "packaging",
+    "packaging_type:bottle"
+  ],
+  "displayName": "Bouteille en verre pour huile de pépins de raisin - 1L",
+  "id": "c3a1d58d-24c5-47f1-8bb0-e8539837f996",
+  "metadata": [
+    {
+      "id": "c3d1f6af-7ea2-4158-ba9b-e8e53ab892ba",
+      "scopes": [
+        "food2"
+      ]
+    }
+  ],
+  "scopes": [
+    "food",
+    "food2"
+  ],
+  "source": "Agribalyse 3.2",
+  "unit": "item"
+}

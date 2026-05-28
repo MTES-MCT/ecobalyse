@@ -1,0 +1,38 @@
+{
+  "activityName": "Sunflower oil, at oil mill {GLO} - Adapted from WFLDB U {{sunflower-oil-organic-2025}}",
+  "categories": [
+    "ingredient",
+    "material",
+    "material_type:other_food_items"
+  ],
+  "displayName": "Huile de tournesol Bio (2025)",
+  "id": "74316df8-a65f-5999-af15-448b841aab30",
+  "metadata": [
+    {
+      "alias": "sunflower-oil-organic-2025",
+      "cropGroup": "TOURNESOL",
+      "defaultOrigin": "EuropeAndMaghreb",
+      "displayName": "Huile de tournesol Bio (2025)",
+      "id": "64fb23f2-0cac-403c-bbfa-1973c9a0ea40",
+      "inediblePart": 0,
+      "ingredientCategories": [
+        "nut_oilseed_processed",
+        "organic"
+      ],
+      "ingredientDensity": 1.0,
+      "rawToCookedRatio": 1.0,
+      "scenario": "organic",
+      "scopes": [
+        "food",
+        "food2"
+      ],
+      "transportCooling": "once_transformed",
+      "visible": true
+    }
+  ],
+  "scopes": [
+    "food",
+    "food2"
+  ],
+  "source": "Ecobalyse"
+}

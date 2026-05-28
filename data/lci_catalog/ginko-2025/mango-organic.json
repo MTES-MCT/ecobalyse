@@ -1,0 +1,60 @@
+{
+  "activityName": "Mango, organic 2025 {BR}| mango production | Cut-off, U",
+  "categories": [
+    "ingredient",
+    "material",
+    "material_type:fruits_and_vegetables"
+  ],
+  "displayName": "Mangue Bio",
+  "id": "5895eae6-a9f2-545f-9290-e942e8b8ea06",
+  "location": "BR",
+  "metadata": [
+    {
+      "alias": "mango-organic",
+      "cropGroup": "VERGERS",
+      "cropGroupMatch": {
+        "confidence": 1.0,
+        "rule": "matched 'mango' in cropgroup.csv"
+      },
+      "defaultOrigin": "France",
+      "displayName": "Mangue Bio",
+      "id": "c15d6695-452c-5401-b820-b3fe8c0f843b",
+      "inediblePart": 0.2,
+      "inediblePartMatch": {
+        "confidence": 1.0,
+        "rule": "Matched with Mango in agb_inedible.csv"
+      },
+      "ingredientCategories": [
+        "vegetable_fresh",
+        "organic"
+      ],
+      "ingredientDensity": 0.95,
+      "ingredientDensityMatch": {
+        "confidence": 1.0,
+        "rule": "mango found in density.csv"
+      },
+      "rawToCookedRatio": 0.856,
+      "rawToCookedRatioMatch": {
+        "confidence": 1.0,
+        "rule": "fruit default from food_type_cooked_to_raw.csv"
+      },
+      "scenario": "organic",
+      "scopes": [
+        "food",
+        "food2"
+      ],
+      "transportCooling": "always",
+      "transportCoolingMatch": {
+        "confidence": 1.0,
+        "rule": "fruit NOVA 1 → always (perishable)"
+      },
+      "visible": true
+    }
+  ],
+  "scopes": [
+    "food",
+    "food2"
+  ],
+  "source": "Ginko 2025",
+  "unit": "kg"
+}

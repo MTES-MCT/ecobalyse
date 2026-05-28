@@ -1,0 +1,56 @@
+{
+  "activityName": "White bean, canned drained, CMAPS {GLO} U",
+  "categories": [
+    "ingredient",
+    "material"
+  ],
+  "displayName": "Haricot blanc, appertisé, égoutté FR",
+  "id": "f8697681-949f-42db-95cb-e09bb0155594",
+  "metadata": [
+    {
+      "alias": "white-bean-canned-drained-default",
+      "cropGroup": "LEGUMES-FLEURS",
+      "defaultOrigin": "OutOfEuropeAndMaghreb",
+      "displayName": "Haricot blanc, appertisé, égoutté Origine Inconnue",
+      "id": "882c0d42-7f99-4ff5-ae5f-85277082e5f7",
+      "inediblePart": 0,
+      "ingredientCategories": [
+        "vegetable_processed"
+      ],
+      "ingredientDensity": 1,
+      "rawToCookedRatio": 1,
+      "scenario": "import",
+      "scopes": [
+        "food",
+        "food2"
+      ],
+      "transportCooling": "none",
+      "visible": true
+    },
+    {
+      "alias": "white-bean-canned-drained-fr",
+      "cropGroup": "LEGUMES-FLEURS",
+      "defaultOrigin": "France",
+      "displayName": "Haricot blanc, appertisé, égoutté FR",
+      "id": "2fd1d4d5-e704-48eb-bb02-89779300bc03",
+      "inediblePart": 0,
+      "ingredientCategories": [
+        "vegetable_processed"
+      ],
+      "ingredientDensity": 1,
+      "rawToCookedRatio": 1,
+      "scenario": "reference",
+      "scopes": [
+        "food",
+        "food2"
+      ],
+      "transportCooling": "none",
+      "visible": false
+    }
+  ],
+  "scopes": [
+    "food",
+    "food2"
+  ],
+  "source": "Ecobalyse"
+}

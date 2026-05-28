@@ -1,0 +1,39 @@
+{
+  "activityName": "Pig, conventionnal, Bleu Blanc Coeur, at farm gate {FR} U",
+  "categories": [
+    "ingredient",
+    "material",
+    "material_type:other_food_items"
+  ],
+  "displayName": "Porc BBC vivant FR",
+  "id": "9cd2c3b6-bf9b-559f-aec0-670a1190caba",
+  "metadata": [
+    {
+      "alias": "pig-bbc-fr-live",
+      "animalGroup1": "pig",
+      "animalGroup2": "pig",
+      "animalProduct": "meat",
+      "defaultOrigin": "France",
+      "displayName": "Porc BBC vivant FR",
+      "id": "c392e85c-2316-5f44-9ceb-e6b0c9a0f5d3",
+      "inediblePart": 0,
+      "ingredientCategories": [
+        "animal_product"
+      ],
+      "ingredientDensity": 1.0,
+      "rawToCookedRatio": 1.0,
+      "scenario": "reference",
+      "scopes": [
+        "food",
+        "food2"
+      ],
+      "transportCooling": "always",
+      "visible": false
+    }
+  ],
+  "scopes": [
+    "food",
+    "food2"
+  ],
+  "source": "Agribalyse 3.2"
+}

@@ -1,0 +1,24 @@
+{
+  "activityName": "Rapeseed oil, 0,5L | Packaging System, N0, All, Glass bottle {FR} U",
+  "categories": [
+    "material",
+    "packaging",
+    "packaging_type:bottle"
+  ],
+  "displayName": "Bouteille en verre pour huile végétale (sauf huile d'olive) - 0,5L à 0,75L",
+  "id": "1843135c-3fb4-49e9-a691-1e1a6029c1df",
+  "metadata": [
+    {
+      "id": "71581583-19ee-4660-8d66-673a7303965d",
+      "scopes": [
+        "food2"
+      ]
+    }
+  ],
+  "scopes": [
+    "food",
+    "food2"
+  ],
+  "source": "Agribalyse 3.2",
+  "unit": "item"
+}

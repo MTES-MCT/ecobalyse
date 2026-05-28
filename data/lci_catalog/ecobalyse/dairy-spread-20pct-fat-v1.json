@@ -1,0 +1,35 @@
+{
+  "activityName": "Dairy spread, 20pct fat, variant 1, CMAPS {GLO} U",
+  "categories": [
+    "ingredient",
+    "material"
+  ],
+  "displayName": "Matière grasse laitière à 20% MG, légère, \"à tartiner\", doux FR",
+  "id": "cdc91aab-7241-45d6-a51c-4906e82d4ae6",
+  "metadata": [
+    {
+      "alias": "dairy-spread-20pct-fat-fr",
+      "defaultOrigin": "France",
+      "displayName": "Matière grasse laitière à 20% MG, légère, \"à tartiner\", doux FR",
+      "id": "71d472f8-4dfe-4e71-9240-f66e1eeea4a5",
+      "inediblePart": 0,
+      "ingredientCategories": [
+        "dairy_product"
+      ],
+      "ingredientDensity": 1,
+      "rawToCookedRatio": 1,
+      "scenario": "reference",
+      "scopes": [
+        "food",
+        "food2"
+      ],
+      "transportCooling": "always",
+      "visible": true
+    }
+  ],
+  "scopes": [
+    "food",
+    "food2"
+  ],
+  "source": "Ecobalyse"
+}

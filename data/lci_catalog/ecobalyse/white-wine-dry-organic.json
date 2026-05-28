@@ -1,0 +1,37 @@
+{
+  "activityName": "White wine, dry, organic, CMAPS {GLO} U",
+  "categories": [
+    "ingredient",
+    "material"
+  ],
+  "displayName": "Vin blanc (sec) Origine Inconnue BIO",
+  "id": "f360633e-028c-4229-a0c3-c327e0f84fec",
+  "metadata": [
+    {
+      "alias": "white-wine-dry-default-organic",
+      "cropGroup": "VIGNES",
+      "defaultOrigin": "OutOfEuropeAndMaghreb",
+      "displayName": "Vin blanc (sec) Origine Inconnue BIO",
+      "id": "5db08ff7-eeeb-43c1-8525-63222faa7685",
+      "inediblePart": 0,
+      "ingredientCategories": [
+        "misc",
+        "organic"
+      ],
+      "ingredientDensity": 1,
+      "rawToCookedRatio": 1,
+      "scenario": "organic",
+      "scopes": [
+        "food",
+        "food2"
+      ],
+      "transportCooling": "none",
+      "visible": false
+    }
+  ],
+  "scopes": [
+    "food",
+    "food2"
+  ],
+  "source": "Ecobalyse"
+}

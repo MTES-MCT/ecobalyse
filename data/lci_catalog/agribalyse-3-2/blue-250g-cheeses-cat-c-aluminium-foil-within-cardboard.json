@@ -1,0 +1,24 @@
+{
+  "activityName": "Blue cheeses - cat C, 250g | Packaging System, N0, All, Aluminium foil within cardboard case {FR} U",
+  "categories": [
+    "material",
+    "packaging",
+    "packaging_type:box"
+  ],
+  "displayName": "Boîte en carton et feuille aluminium pour fromage bleu - 250g",
+  "id": "7f5c29ca-7ec7-4537-9b92-89f6a3743723",
+  "metadata": [
+    {
+      "id": "f35f3b8e-4266-4b52-a9d1-d2e854dbd6e4",
+      "scopes": [
+        "food2"
+      ]
+    }
+  ],
+  "scopes": [
+    "food",
+    "food2"
+  ],
+  "source": "Agribalyse 3.2",
+  "unit": "item"
+}

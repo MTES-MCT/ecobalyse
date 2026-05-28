@@ -1,0 +1,24 @@
+{
+  "activityName": "Quenelles, 240g | Packaging System, N0, All, Vacuum bag {FR} U",
+  "categories": [
+    "material",
+    "packaging",
+    "packaging_type:bag"
+  ],
+  "displayName": "Sachet sous-vide en plastique (PA/PE) pour quenelle - 210g à 378g",
+  "id": "5e015d1c-520e-4ffd-9058-8a352712f4fa",
+  "metadata": [
+    {
+      "id": "2eb8dee4-bf79-4b28-992d-138b096deb64",
+      "scopes": [
+        "food2"
+      ]
+    }
+  ],
+  "scopes": [
+    "food",
+    "food2"
+  ],
+  "source": "Agribalyse 3.2",
+  "unit": "item"
+}

@@ -1,0 +1,37 @@
+{
+  "activityName": "Red Wine, from grape, in a cooperative cellar, packaged, French production mix, at plant, 1 L of red wine (PGi) {FR} U",
+  "categories": [
+    "ingredient",
+    "material",
+    "material_type:other_food_items"
+  ],
+  "displayName": "Vin rouge FR",
+  "id": "e7a1682b-e2a2-5167-aa90-ed507c4e0e90",
+  "metadata": [
+    {
+      "alias": "red-wine-2025",
+      "cropGroup": "VIGNES",
+      "defaultOrigin": "France",
+      "displayName": "Vin rouge FR (2025)",
+      "id": "6621c18e-85de-4683-82be-7b236e68bc48",
+      "inediblePart": 0,
+      "ingredientCategories": [
+        "misc"
+      ],
+      "ingredientDensity": 1.0,
+      "rawToCookedRatio": 1.0,
+      "scenario": "reference",
+      "scopes": [
+        "food",
+        "food2"
+      ],
+      "transportCooling": "none",
+      "visible": true
+    }
+  ],
+  "scopes": [
+    "food",
+    "food2"
+  ],
+  "source": "Agribalyse 3.2"
+}

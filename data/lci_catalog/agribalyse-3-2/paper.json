@@ -1,0 +1,22 @@
+{
+  "activityName": "Kraft paper {RER}| kraft paper production | Cut-off, S - Copied from Ecoinvent U",
+  "categories": [
+    "material",
+    "packaging"
+  ],
+  "displayName": "Papier",
+  "id": "0835ba67-1168-5dab-a2a5-b6508ed48ade",
+  "metadata": [
+    {
+      "id": "fea5c996-43ed-4066-8fad-e7e34cbd9a33",
+      "scopes": [
+        "food2"
+      ]
+    }
+  ],
+  "scopes": [
+    "food",
+    "food2"
+  ],
+  "source": "Agribalyse 3.2"
+}

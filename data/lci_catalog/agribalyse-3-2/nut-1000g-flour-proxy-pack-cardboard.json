@@ -1,0 +1,24 @@
+{
+  "activityName": "Nut flour, 1000g | Packaging System, Proxy Pack, Cardboard {FR} U",
+  "categories": [
+    "material",
+    "packaging",
+    "packaging_type:bag"
+  ],
+  "displayName": "Sachet en papier pour farine de noix - 1000g - Proxy",
+  "id": "80ea0522-54c7-45b9-b298-14f5f522acaf",
+  "metadata": [
+    {
+      "id": "57e8c0e6-df04-479d-a4f3-bcf5c043a687",
+      "scopes": [
+        "food2"
+      ]
+    }
+  ],
+  "scopes": [
+    "food",
+    "food2"
+  ],
+  "source": "Agribalyse 3.2",
+  "unit": "item"
+}

@@ -1,0 +1,56 @@
+{
+  "activityName": "Egg, conventionnal, national average, at farm gate {FR} U",
+  "categories": [
+    "ingredient",
+    "material",
+    "material_type:eggs"
+  ],
+  "displayName": "Œuf FR",
+  "id": "40a540cb-7e26-5ab4-9c90-6ea98c37f1a4",
+  "metadata": [
+    {
+      "alias": "egg-fr",
+      "animalGroup1": "poultry",
+      "animalGroup2": "chicken",
+      "animalProduct": "egg",
+      "defaultOrigin": "France",
+      "displayName": "Œuf FR",
+      "id": "c8059352-939c-5f66-8648-ff1234cd1052",
+      "inediblePart": 0.1,
+      "inediblePartMatch": {
+        "confidence": 1.0,
+        "rule": "Matched with Egg in agb_inedible.csv"
+      },
+      "ingredientCategories": [
+        "animal_product"
+      ],
+      "ingredientDensity": 1.0,
+      "ingredientDensityMatch": {
+        "confidence": 1.0,
+        "rule": "egg found in density.csv"
+      },
+      "rawToCookedRatio": 0.974,
+      "rawToCookedRatioMatch": {
+        "confidence": 1.0,
+        "rule": "Matched with egg in cooked_to_raw.csv"
+      },
+      "scenario": "reference",
+      "scopes": [
+        "food",
+        "food2"
+      ],
+      "transportCooling": "always",
+      "transportCoolingMatch": {
+        "confidence": 1.0,
+        "rule": "meat NOVA 1 → always (perishable)"
+      },
+      "visible": true
+    }
+  ],
+  "scopes": [
+    "food",
+    "food2"
+  ],
+  "source": "Agribalyse 3.2",
+  "unit": "kg"
+}

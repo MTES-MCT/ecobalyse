@@ -1,0 +1,40 @@
+{
+  "activityName": "Lamb, organic, national average, at farm gate FR U",
+  "categories": [
+    "ingredient",
+    "material",
+    "material_type:other_food_items"
+  ],
+  "displayName": "Agneau bio vivant FR",
+  "id": "0bcdedda-b2db-565a-8ee3-5b4eccc4266d",
+  "metadata": [
+    {
+      "alias": "lamb-organic-national-average-farm-gate-fr-u-live",
+      "animalGroup1": "sheep",
+      "animalGroup2": "sheep",
+      "animalProduct": "meat",
+      "defaultOrigin": "France",
+      "displayName": "Agneau bio vivant FR",
+      "id": "72d5929f-a03b-59ff-9ae9-f5fdf1d065f9",
+      "inediblePart": 0,
+      "ingredientCategories": [
+        "animal_product",
+        "organic"
+      ],
+      "ingredientDensity": 1.0,
+      "rawToCookedRatio": 1.0,
+      "scenario": "organic",
+      "scopes": [
+        "food",
+        "food2"
+      ],
+      "transportCooling": "always",
+      "visible": false
+    }
+  ],
+  "scopes": [
+    "food",
+    "food2"
+  ],
+  "source": "Ecobalyse"
+}

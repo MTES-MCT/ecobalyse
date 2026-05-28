@@ -1,0 +1,38 @@
+{
+  "activityName": "Grape, integrated, variety mix, Languedoc-Roussillon, at vineyard, organic 2025 {FR} U",
+  "categories": [
+    "ingredient",
+    "material",
+    "material_type:fruits_and_vegetables"
+  ],
+  "displayName": "Raisin de cuve Bio",
+  "id": "2b015eff-b903-543a-ae51-190977252af1",
+  "metadata": [
+    {
+      "alias": "wine-grape-organic-2025",
+      "cropGroup": "VIGNES",
+      "defaultOrigin": "France",
+      "displayName": "Raisin de cuve Bio (2025)",
+      "id": "e05934df-fd40-4110-a610-0bd686911f2e",
+      "inediblePart": 0.1,
+      "ingredientCategories": [
+        "vegetable_fresh",
+        "organic"
+      ],
+      "ingredientDensity": 0.447,
+      "rawToCookedRatio": 0.856,
+      "scenario": "organic",
+      "scopes": [
+        "food",
+        "food2"
+      ],
+      "transportCooling": "always",
+      "visible": false
+    }
+  ],
+  "scopes": [
+    "food",
+    "food2"
+  ],
+  "source": "Ginko 2025"
+}

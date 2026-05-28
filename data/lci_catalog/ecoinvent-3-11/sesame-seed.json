@@ -1,0 +1,56 @@
+{
+  "activityName": "Sesame seed {IN}| sesame seed production | Cut-off, U",
+  "categories": [
+    "ingredient"
+  ],
+  "displayName": "Sesame seed (IN)",
+  "id": "a412238d-cf70-5bd6-a297-af2bff8f3ee2",
+  "metadata": [
+    {
+      "alias": "sesame-seed-non-eu",
+      "cropGroup": "SEMENCES",
+      "cropGroupMatch": {
+        "confidence": 0.95,
+        "rule": "matched 'semences epeautre' in cropgroup.csv"
+      },
+      "defaultOrigin": "OutOfEuropeAndMaghreb",
+      "displayName": "Graines de sésame HORS UE",
+      "id": "81f92a28-a862-530c-a352-7e18f937c62c",
+      "inediblePart": 0.0,
+      "inediblePartMatch": {
+        "confidence": 1.0,
+        "rule": "grain NOVA 1 default from food_type_inedible_part.csv"
+      },
+      "ingredientCategories": [
+        "grain_raw"
+      ],
+      "ingredientDensity": 0.75,
+      "ingredientDensityMatch": {
+        "confidence": 1.0,
+        "rule": "grain default from food_type_density.csv"
+      },
+      "rawToCookedRatio": 2.259,
+      "rawToCookedRatioMatch": {
+        "confidence": 1.0,
+        "rule": "grain default from food_type_cooked_to_raw.csv"
+      },
+      "scenario": "import",
+      "scopes": [
+        "food",
+        "food2"
+      ],
+      "transportCooling": "none",
+      "transportCoolingMatch": {
+        "confidence": 1.0,
+        "rule": "grain → none (non-perishable)"
+      },
+      "visible": true
+    }
+  ],
+  "scopes": [
+    "food",
+    "food2"
+  ],
+  "source": "Ecoinvent 3.11",
+  "unit": "kg"
+}

@@ -1,0 +1,178 @@
+{
+  "activityName": "Pineapple, at farm {CR} - Adapted from WFLDB U",
+  "categories": [
+    "ingredient",
+    "material",
+    "material_type:fruits_and_vegetables"
+  ],
+  "displayName": "Ananas FR Outre-Mer",
+  "id": "049e074f-f883-5aa9-a303-83fb4baf0df7",
+  "metadata": [
+    {
+      "alias": "pineapple-fr-overseas",
+      "cropGroup": "ARBORICULTURE",
+      "cropGroupMatch": {
+        "confidence": 1.0,
+        "rule": "matched 'pineapple' in cropgroup.csv"
+      },
+      "defaultOrigin": "FranceOutreMer",
+      "displayName": "Ananas FR Outre-Mer",
+      "id": "d3c1b683-ba25-5bbb-a249-c4cb6b3331bb",
+      "inediblePart": 0.5,
+      "inediblePartMatch": {
+        "confidence": 1.0,
+        "rule": "Matched with Pineapple in agb_inedible.csv"
+      },
+      "ingredientCategories": [
+        "vegetable_fresh"
+      ],
+      "ingredientDensity": 0.95,
+      "ingredientDensityMatch": {
+        "confidence": 1.0,
+        "rule": "pineapple found in density.csv"
+      },
+      "rawToCookedRatio": 0.856,
+      "rawToCookedRatioMatch": {
+        "confidence": 1.0,
+        "rule": "Matched with pineapple in cooked_to_raw.csv"
+      },
+      "scenario": "reference",
+      "scopes": [
+        "food",
+        "food2"
+      ],
+      "transportCooling": "always",
+      "transportCoolingMatch": {
+        "confidence": 1.0,
+        "rule": "fruit NOVA 1 → always (perishable)"
+      },
+      "visible": true
+    },
+    {
+      "alias": "pineapple-fr",
+      "cropGroup": "ARBORICULTURE",
+      "cropGroupMatch": {
+        "confidence": 1.0,
+        "rule": "matched 'pineapple' in cropgroup.csv"
+      },
+      "defaultOrigin": "France",
+      "displayName": "Ananas FR",
+      "id": "1c2dee99-0171-5f46-8da9-e5928fbfb009",
+      "inediblePart": 0.5,
+      "inediblePartMatch": {
+        "confidence": 1.0,
+        "rule": "Matched with Pineapple in agb_inedible.csv"
+      },
+      "ingredientCategories": [
+        "vegetable_fresh"
+      ],
+      "ingredientDensity": 0.95,
+      "ingredientDensityMatch": {
+        "confidence": 1.0,
+        "rule": "pineapple found in density.csv"
+      },
+      "rawToCookedRatio": 0.856,
+      "rawToCookedRatioMatch": {
+        "confidence": 1.0,
+        "rule": "Matched with pineapple in cooked_to_raw.csv"
+      },
+      "scenario": "reference",
+      "scopes": [
+        "food",
+        "food2"
+      ],
+      "transportCooling": "always",
+      "transportCoolingMatch": {
+        "confidence": 1.0,
+        "rule": "fruit NOVA 1 → always (perishable)"
+      },
+      "visible": true
+    },
+    {
+      "alias": "pineapple-eu-antilles",
+      "cropGroup": "ARBORICULTURE",
+      "cropGroupMatch": {
+        "confidence": 1.0,
+        "rule": "matched 'pineapple' in cropgroup.csv"
+      },
+      "defaultOrigin": "EuropeAndMaghreb",
+      "displayName": "Ananas UE Antilles",
+      "id": "ca64d40e-3ab7-5479-9b38-3ab8dcc56431",
+      "inediblePart": 0.5,
+      "inediblePartMatch": {
+        "confidence": 1.0,
+        "rule": "Matched with Pineapple in agb_inedible.csv"
+      },
+      "ingredientCategories": [
+        "vegetable_fresh"
+      ],
+      "ingredientDensity": 0.95,
+      "ingredientDensityMatch": {
+        "confidence": 1.0,
+        "rule": "pineapple found in density.csv"
+      },
+      "rawToCookedRatio": 0.856,
+      "rawToCookedRatioMatch": {
+        "confidence": 1.0,
+        "rule": "Matched with pineapple in cooked_to_raw.csv"
+      },
+      "scenario": "import",
+      "scopes": [
+        "food",
+        "food2"
+      ],
+      "transportCooling": "always",
+      "transportCoolingMatch": {
+        "confidence": 1.0,
+        "rule": "fruit NOVA 1 → always (perishable)"
+      },
+      "visible": true
+    },
+    {
+      "alias": "pineapple-non-eu",
+      "cropGroup": "ARBORICULTURE",
+      "cropGroupMatch": {
+        "confidence": 1.0,
+        "rule": "matched 'pineapple' in cropgroup.csv"
+      },
+      "defaultOrigin": "OutOfEuropeAndMaghreb",
+      "displayName": "Ananas HORS UE",
+      "id": "413952d8-12d3-5999-8db7-d5126b710332",
+      "inediblePart": 0.5,
+      "inediblePartMatch": {
+        "confidence": 1.0,
+        "rule": "Matched with Pineapple in agb_inedible.csv"
+      },
+      "ingredientCategories": [
+        "vegetable_fresh"
+      ],
+      "ingredientDensity": 0.95,
+      "ingredientDensityMatch": {
+        "confidence": 1.0,
+        "rule": "pineapple found in density.csv"
+      },
+      "rawToCookedRatio": 0.856,
+      "rawToCookedRatioMatch": {
+        "confidence": 1.0,
+        "rule": "Matched with pineapple in cooked_to_raw.csv"
+      },
+      "scenario": "import",
+      "scopes": [
+        "food",
+        "food2"
+      ],
+      "transportCooling": "always",
+      "transportCoolingMatch": {
+        "confidence": 1.0,
+        "rule": "fruit NOVA 1 → always (perishable)"
+      },
+      "visible": true
+    }
+  ],
+  "scopes": [
+    "food",
+    "food2"
+  ],
+  "source": "Agribalyse 3.2",
+  "unit": "kg"
+}

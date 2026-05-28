@@ -1,0 +1,36 @@
+{
+  "activityName": "Cucumber, pulp raw, CMAPS {GLO} U",
+  "categories": [
+    "ingredient",
+    "material"
+  ],
+  "displayName": "Concombre, pulpe, cru FR",
+  "id": "b9d26ea0-03be-4715-a7c2-5908b08fff95",
+  "metadata": [
+    {
+      "alias": "cucumber-pulp-raw-fr",
+      "cropGroup": "LEGUMES-FLEURS",
+      "defaultOrigin": "France",
+      "displayName": "Concombre, pulpe, cru FR",
+      "id": "a8c27465-6176-4c49-a222-3df0ee8082b4",
+      "inediblePart": 0,
+      "ingredientCategories": [
+        "vegetable_fresh"
+      ],
+      "ingredientDensity": 1,
+      "rawToCookedRatio": 1,
+      "scenario": "reference",
+      "scopes": [
+        "food",
+        "food2"
+      ],
+      "transportCooling": "always",
+      "visible": false
+    }
+  ],
+  "scopes": [
+    "food",
+    "food2"
+  ],
+  "source": "Ecobalyse"
+}

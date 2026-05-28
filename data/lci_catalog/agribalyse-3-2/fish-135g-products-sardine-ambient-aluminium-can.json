@@ -1,0 +1,24 @@
+{
+  "activityName": "Fish products sardine, ambient, 135g | Packaging System, N0, All, Aluminium can {FR} U",
+  "categories": [
+    "material",
+    "packaging",
+    "packaging_type:box"
+  ],
+  "displayName": "Boîter en aluminium imprimée pour sardine, ambiant - 135g",
+  "id": "7b544d2f-55ad-4724-bd10-33ea8313e7f5",
+  "metadata": [
+    {
+      "id": "06b14f3c-af2f-4aa7-9ca4-9c225363c256",
+      "scopes": [
+        "food2"
+      ]
+    }
+  ],
+  "scopes": [
+    "food",
+    "food2"
+  ],
+  "source": "Agribalyse 3.2",
+  "unit": "item"
+}

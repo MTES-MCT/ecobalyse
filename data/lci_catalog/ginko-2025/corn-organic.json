@@ -1,0 +1,60 @@
+{
+  "activityName": "Maize grain, organic 2025, 28% moisture, national average, animal feed, at farm gate {FR} U",
+  "categories": [
+    "ingredient",
+    "material",
+    "material_type:other_food_items"
+  ],
+  "displayName": "Maïs Bio",
+  "id": "6d73f88c-df32-5699-8d43-bfd5151f1e2e",
+  "location": "FR",
+  "metadata": [
+    {
+      "alias": "corn-organic",
+      "cropGroup": "MAIS GRAIN ET ENSILAGE",
+      "cropGroupMatch": {
+        "confidence": 1.0,
+        "rule": "matched 'corn' in cropgroup.csv"
+      },
+      "defaultOrigin": "France",
+      "displayName": "Maïs Bio",
+      "id": "9cc8d676-2e49-532d-93fa-c68cf04eb294",
+      "inediblePart": 0.0,
+      "inediblePartMatch": {
+        "confidence": 1.0,
+        "rule": "grain NOVA 1 default from food_type_inedible_part.csv"
+      },
+      "ingredientCategories": [
+        "grain_raw",
+        "organic"
+      ],
+      "ingredientDensity": 0.72,
+      "ingredientDensityMatch": {
+        "confidence": 1.0,
+        "rule": "corn found in density.csv"
+      },
+      "rawToCookedRatio": 2.259,
+      "rawToCookedRatioMatch": {
+        "confidence": 1.0,
+        "rule": "grain default from food_type_cooked_to_raw.csv"
+      },
+      "scenario": "organic",
+      "scopes": [
+        "food",
+        "food2"
+      ],
+      "transportCooling": "none",
+      "transportCoolingMatch": {
+        "confidence": 1.0,
+        "rule": "grain → none (non-perishable)"
+      },
+      "visible": true
+    }
+  ],
+  "scopes": [
+    "food",
+    "food2"
+  ],
+  "source": "Ginko 2025",
+  "unit": "kg"
+}

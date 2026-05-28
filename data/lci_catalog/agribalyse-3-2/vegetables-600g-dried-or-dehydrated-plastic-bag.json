@@ -1,0 +1,24 @@
+{
+  "activityName": "Vegetables dried or dehydrated, 600g | Packaging System, N0, All, Plastic bag {FR} U",
+  "categories": [
+    "material",
+    "packaging",
+    "packaging_type:bag"
+  ],
+  "displayName": "Sachet en plastique (PET/PEBD) pour condiments secs - 600g",
+  "id": "6bbb3fe7-9ca4-4214-8096-494bd63b28e1",
+  "metadata": [
+    {
+      "id": "af23f7a1-2b28-4d3a-b0d7-be004e230139",
+      "scopes": [
+        "food2"
+      ]
+    }
+  ],
+  "scopes": [
+    "food",
+    "food2"
+  ],
+  "source": "Agribalyse 3.2",
+  "unit": "item"
+}

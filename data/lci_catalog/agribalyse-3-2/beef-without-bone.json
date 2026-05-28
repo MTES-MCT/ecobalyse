@@ -1,0 +1,61 @@
+{
+  "activityName": "Meat without bone, beef, for direct consumption {FR} U",
+  "categories": [
+    "ingredient",
+    "material",
+    "material_type:red_meats"
+  ],
+  "displayName": "Viande de boeuf sans os (crue) FR",
+  "id": "de11b2d4-2820-5c1c-8a55-bbc6d58b8c27",
+  "metadata": [
+    {
+      "alias": "beef-without-bone",
+      "animalGroup1": "cattle",
+      "animalGroup2": "cow",
+      "animalProduct": "meat",
+      "defaultOrigin": "France",
+      "displayName": "Viande de boeuf sans os (crue) FR",
+      "id": "22179caa-eb41-49c0-ae04-49eda23da4da",
+      "inediblePart": 0,
+      "ingredientCategories": [
+        "animal_product"
+      ],
+      "ingredientDensity": 1.0,
+      "rawToCookedRatio": 0.792,
+      "scenario": "reference",
+      "scopes": [
+        "food",
+        "food2"
+      ],
+      "transportCooling": "always",
+      "visible": true
+    },
+    {
+      "alias": "unknown-red-meat-2025",
+      "animalGroup1": "cattle",
+      "animalGroup2": "cow",
+      "animalProduct": "meat",
+      "defaultOrigin": "France",
+      "displayName": "Autres viandes, oeufs, poissons (non encore répertoriés) (2025)",
+      "id": "7f6bd70c-1385-4855-9c25-e9a34e91df74",
+      "inediblePart": 0,
+      "ingredientCategories": [
+        "animal_product"
+      ],
+      "ingredientDensity": 1.0,
+      "rawToCookedRatio": 0.792,
+      "scenario": "reference",
+      "scopes": [
+        "food",
+        "food2"
+      ],
+      "transportCooling": "always",
+      "visible": true
+    }
+  ],
+  "scopes": [
+    "food",
+    "food2"
+  ],
+  "source": "Agribalyse 3.2"
+}

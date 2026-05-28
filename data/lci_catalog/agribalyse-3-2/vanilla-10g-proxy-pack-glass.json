@@ -1,0 +1,24 @@
+{
+  "activityName": "Vanilla, 10g | Packaging System, Proxy Pack, Glass {FR} U",
+  "categories": [
+    "material",
+    "packaging",
+    "packaging_type:other"
+  ],
+  "displayName": "Tube en verre pour vanille - 10g - Proxy",
+  "id": "68ecf073-0d5a-41f4-9815-9fed8f484b42",
+  "metadata": [
+    {
+      "id": "46e1f616-d5b9-47db-93ef-4cc219f07acb",
+      "scopes": [
+        "food2"
+      ]
+    }
+  ],
+  "scopes": [
+    "food",
+    "food2"
+  ],
+  "source": "Agribalyse 3.2",
+  "unit": "item"
+}

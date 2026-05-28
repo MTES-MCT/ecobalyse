@@ -1,0 +1,60 @@
+{
+  "activityName": "Bell pepper, organic 2025 {FR}| bell pepper production, in unheated greenhouse | Cut-off, U",
+  "categories": [
+    "ingredient",
+    "material",
+    "material_type:fruits_and_vegetables"
+  ],
+  "displayName": "Poivron, vert, jaune ou rouge Bio",
+  "id": "95782367-6860-59af-bbb5-c0a17541aeaa",
+  "location": "FR",
+  "metadata": [
+    {
+      "alias": "bell-pepper-organic",
+      "cropGroup": "LEGUMES-FLEURS",
+      "cropGroupMatch": {
+        "confidence": 0.95,
+        "rule": "matched 'bell pepper' in cropgroup.csv"
+      },
+      "defaultOrigin": "France",
+      "displayName": "Poivron, vert, jaune ou rouge Bio",
+      "id": "b775f784-db90-528b-bc3d-60cd7e8729f2",
+      "inediblePart": 0.2,
+      "inediblePartMatch": {
+        "confidence": 1.0,
+        "rule": "vegetable NOVA 1 default from food_type_inedible_part.csv"
+      },
+      "ingredientCategories": [
+        "vegetable_fresh",
+        "organic"
+      ],
+      "ingredientDensity": 0.9,
+      "ingredientDensityMatch": {
+        "confidence": 0.95,
+        "rule": "Matched with bell pepper in density.csv"
+      },
+      "rawToCookedRatio": 0.856,
+      "rawToCookedRatioMatch": {
+        "confidence": 1.0,
+        "rule": "vegetable default from food_type_cooked_to_raw.csv"
+      },
+      "scenario": "organic",
+      "scopes": [
+        "food",
+        "food2"
+      ],
+      "transportCooling": "always",
+      "transportCoolingMatch": {
+        "confidence": 1.0,
+        "rule": "vegetable NOVA 1 → always (perishable)"
+      },
+      "visible": true
+    }
+  ],
+  "scopes": [
+    "food",
+    "food2"
+  ],
+  "source": "Ginko 2025",
+  "unit": "kg"
+}

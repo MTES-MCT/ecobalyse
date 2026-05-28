@@ -1,0 +1,60 @@
+{
+  "activityName": "_18 Meat products, Poultry and meat n.e.c., DK",
+  "categories": [
+    "ingredient"
+  ],
+  "displayName": "Lait Bio",
+  "id": "0682defd-c8f5-5ca4-8840-88d034e79fd8",
+  "metadata": [
+    {
+      "alias": "milk-organic",
+      "animalGroup1": "cattle",
+      "animalGroup2": "cow",
+      "animalProduct": "milk",
+      "defaultOrigin": "France",
+      "displayName": "Lait Bio",
+      "id": "2bf307e8-8cb0-400b-a4f1-cf615d9e96f4",
+      "inediblePart": 0,
+      "ingredientCategories": [
+        "dairy_product",
+        "organic"
+      ],
+      "ingredientDensity": 1.0,
+      "landOccupation": 1.75061,
+      "rawToCookedRatio": 1.0,
+      "scenario": "organic",
+      "scopes": [
+        "food"
+      ],
+      "transportCooling": "always",
+      "visible": true
+    },
+    {
+      "alias": "ground-beef-grass-fed",
+      "animalGroup1": "cattle",
+      "animalGroup2": "cow",
+      "animalProduct": "meat",
+      "defaultOrigin": "France",
+      "displayName": "Boeuf haché cru - v. de réforme 100% herbe FR",
+      "id": "3fd1b6d5-58d9-40eb-b215-d2e8c2876a5f",
+      "inediblePart": 0,
+      "ingredientCategories": [
+        "animal_product",
+        "organic"
+      ],
+      "ingredientDensity": 1.0,
+      "landOccupation": 0.0222858,
+      "rawToCookedRatio": 0.792,
+      "scenario": "organic",
+      "scopes": [
+        "food"
+      ],
+      "transportCooling": "always",
+      "visible": true
+    }
+  ],
+  "scopes": [
+    "food"
+  ],
+  "source": "forwast"
+}

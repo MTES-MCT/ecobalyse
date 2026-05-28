@@ -1,0 +1,129 @@
+name,foodType
+fresh fruit,fruit
+canned fruit,fruit
+frozen fruit,fruit
+dried fruit,fruit
+compote,fruit
+fresh fish,fish_seafood
+frozen fish,fish_seafood
+canned fish,fish_seafood
+smoked fish,fish_seafood
+dried fish,fish_seafood
+seafood,fish_seafood
+crustacean,fish_seafood
+fresh milk,dairy
+UHT milk,dairy
+cheese,dairy
+yogurt,dairy
+butter,dairy
+fresh cream,dairy
+milk powder,dairy
+flour,grain
+bread,grain
+pasta,grain
+nut,nut_oilseed
+seed,nut_oilseed
+oil,nut_oilseed
+peanut butter,nut_oilseed
+spice,spice_condiment
+aromatic herb,spice_condiment
+sauce,spice_condiment
+vinegar,spice_condiment
+mustard,spice_condiment
+salt,spice_condiment
+sugar,spice_condiment
+tomato,vegetable
+root,vegetable
+bogue fish,fish_seafood
+bell pepper,vegetable
+pumpkin,vegetable
+zucchini,vegetable
+squash,vegetable
+herring,fish_seafood
+sardine,fish_seafood
+mackerel,fish_seafood
+tuna,fish_seafood
+salmon,fish_seafood
+cod,fish_seafood
+trout,fish_seafood
+sea bass,fish_seafood
+sole,fish_seafood
+shrimp,fish_seafood
+lobster,fish_seafood
+crab,fish_seafood
+mussel,fish_seafood
+oyster,fish_seafood
+squid,fish_seafood
+octopus,fish_seafood
+anchovy,fish_seafood
+soybean,nut_oilseed
+sunflower,nut_oilseed
+rapeseed,nut_oilseed
+peanut,nut_oilseed
+hazelnut,nut_oilseed
+almond,nut_oilseed
+pistachio,nut_oilseed
+cashew,nut_oilseed
+coconut,nut_oilseed
+smelt,fish_seafood
+sand smelt,fish_seafood
+gadidae,fish_seafood
+salicornia,vegetable
+spirits,beverage
+brandy,beverage
+pastis,beverage
+water,beverage
+spring water,beverage
+oats,grain
+seaweed,vegetable
+tarragon,spice_condiment
+maple syrup,spice_condiment
+cocoa butter,nut_oilseed
+elderberries,fruit
+dried herbs,spice_condiment
+red endive,vegetable
+anchovies,fish_seafood
+sardines,fish_seafood
+mussels,fish_seafood
+tapioca,grain
+bogue,fish_seafood
+hake,fish_seafood
+amaranth,grain
+teff,grain
+kamut,grain
+walnuts,nut_oilseed
+hazelnuts,nut_oilseed
+almonds,nut_oilseed
+pistachios,nut_oilseed
+brazil nuts,nut_oilseed
+pine nuts,nut_oilseed
+okra,vegetable
+rhubarb,vegetable
+peaches,fruit
+salad,vegetable
+bay leaves,spice_condiment
+poppy seeds,nut_oilseed
+starch,grain
+yeast,misc
+chili pepper,vegetable
+cucumber,vegetable
+fennel,vegetable
+eggplant,vegetable
+coriander,spice_condiment
+lentil,legume
+lentils,legume
+chickpea,legume
+chickpeas,legume
+red bean,legume
+kidney bean,legume
+white bean,legume
+lima bean,legume
+mung bean,legume
+flageolet bean,legume
+fava bean,legume
+broad bean,legume
+dried bean,legume
+dried beans,legume
+green bean,legume
+green pea,legume
+split pea,legume

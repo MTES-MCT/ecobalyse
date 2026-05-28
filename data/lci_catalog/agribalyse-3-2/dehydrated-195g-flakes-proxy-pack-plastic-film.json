@@ -1,0 +1,24 @@
+{
+  "activityName": "Dehydrated (flakes), 195g | Packaging System, Proxy Pack, Plastic film {FR} U",
+  "categories": [
+    "material",
+    "packaging",
+    "packaging_type:bag"
+  ],
+  "displayName": "Sachet en plastique (PP) pour flocons déshydratés - 195g - Proxy",
+  "id": "57e09827-5dd5-4cfb-a52d-ede09b0606c0",
+  "metadata": [
+    {
+      "id": "b4ce73d7-5404-45c4-bbd1-92c7c18e195f",
+      "scopes": [
+        "food2"
+      ]
+    }
+  ],
+  "scopes": [
+    "food",
+    "food2"
+  ],
+  "source": "Agribalyse 3.2",
+  "unit": "item"
+}

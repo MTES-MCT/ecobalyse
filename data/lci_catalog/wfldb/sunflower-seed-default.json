@@ -1,0 +1,99 @@
+{
+  "activityName": "Sunflower, at farm (WFLDB)",
+  "categories": [
+    "ingredient",
+    "material",
+    "material_type:other_food_items"
+  ],
+  "displayName": "Tournesol, graine Origine Inconnue",
+  "id": "0d738436-1c8f-5bcb-97ee-1ec7959e6b80",
+  "location": "HU",
+  "metadata": [
+    {
+      "alias": "sunflower-seed-default",
+      "cropGroup": "TOURNESOL",
+      "cropGroupMatch": {
+        "confidence": 0.95,
+        "rule": "matched 'sunflower' in cropgroup.csv"
+      },
+      "defaultOrigin": "OutOfEuropeAndMaghreb",
+      "displayName": "Tournesol, graine Origine Inconnue",
+      "id": "30dd2403-628a-5475-b78f-2248e00d351d",
+      "inediblePart": 0.0,
+      "inediblePartMatch": {
+        "confidence": 0.96,
+        "rule": "Matched with sunflower seed in inedible_part.csv"
+      },
+      "ingredientCategories": [
+        "nut_oilseed_raw"
+      ],
+      "ingredientDensity": 0.62,
+      "ingredientDensityMatch": {
+        "confidence": 1.0,
+        "rule": "Sunflower, seed found in fao_density.csv"
+      },
+      "rawToCookedRatio": 1.0,
+      "rawToCookedRatioMatch": {
+        "confidence": 1.0,
+        "rule": "nut_oilseed default from food_type_cooked_to_raw.csv"
+      },
+      "scenario": "import",
+      "scopes": [
+        "food",
+        "food2"
+      ],
+      "transportCooling": "none",
+      "transportCoolingMatch": {
+        "confidence": 1.0,
+        "rule": "nut_oilseed → none (non-perishable)"
+      },
+      "visible": true
+    },
+    {
+      "alias": "sunflower-seed-eu",
+      "cropGroup": "TOURNESOL",
+      "cropGroupMatch": {
+        "confidence": 0.95,
+        "rule": "matched 'sunflower' in cropgroup.csv"
+      },
+      "defaultOrigin": "EuropeAndMaghreb",
+      "displayName": "Tournesol, graine UE",
+      "id": "fdfc249d-a6ca-5825-a65c-123a5b554043",
+      "inediblePart": 0.0,
+      "inediblePartMatch": {
+        "confidence": 0.96,
+        "rule": "Matched with sunflower seed in inedible_part.csv"
+      },
+      "ingredientCategories": [
+        "nut_oilseed_raw"
+      ],
+      "ingredientDensity": 0.62,
+      "ingredientDensityMatch": {
+        "confidence": 1.0,
+        "rule": "Sunflower, seed found in fao_density.csv"
+      },
+      "rawToCookedRatio": 1.0,
+      "rawToCookedRatioMatch": {
+        "confidence": 1.0,
+        "rule": "nut_oilseed default from food_type_cooked_to_raw.csv"
+      },
+      "scenario": "import",
+      "scopes": [
+        "food",
+        "food2"
+      ],
+      "transportCooling": "none",
+      "transportCoolingMatch": {
+        "confidence": 1.0,
+        "rule": "nut_oilseed → none (non-perishable)"
+      },
+      "visible": true
+    }
+  ],
+  "scopes": [
+    "food",
+    "food2"
+  ],
+  "source": "WFLDB",
+  "unit": "kg"
+}

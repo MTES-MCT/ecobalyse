@@ -1,0 +1,178 @@
+{
+  "activityName": "Almonds, in shell, at farm {CN} - Adapted from WFLDB U",
+  "categories": [
+    "ingredient",
+    "material",
+    "material_type:other_food_items"
+  ],
+  "displayName": "Amandes en coquille FR",
+  "id": "5f29f62d-78b1-50cd-a109-6c3ed1804a85",
+  "metadata": [
+    {
+      "alias": "almond-in-shell-fr",
+      "cropGroup": "FRUITS A COQUES",
+      "cropGroupMatch": {
+        "confidence": 0.95,
+        "rule": "matched 'almond' in cropgroup.csv"
+      },
+      "defaultOrigin": "France",
+      "displayName": "Amandes en coquille FR",
+      "id": "732d5150-b572-5ba4-aeb3-c715e2babb57",
+      "inediblePart": 0.5,
+      "inediblePartMatch": {
+        "confidence": 1.0,
+        "rule": "with shell keyword found in Almonds, in shell"
+      },
+      "ingredientCategories": [
+        "nut_oilseed_raw"
+      ],
+      "ingredientDensity": 0.46,
+      "ingredientDensityMatch": {
+        "confidence": 0.95,
+        "rule": "Matched with Almonds in fao_density.csv"
+      },
+      "rawToCookedRatio": 1.0,
+      "rawToCookedRatioMatch": {
+        "confidence": 1.0,
+        "rule": "nut_oilseed default from food_type_cooked_to_raw.csv"
+      },
+      "scenario": "reference",
+      "scopes": [
+        "food",
+        "food2"
+      ],
+      "transportCooling": "none",
+      "transportCoolingMatch": {
+        "confidence": 1.0,
+        "rule": "nut_oilseed → none (non-perishable)"
+      },
+      "visible": true
+    },
+    {
+      "alias": "almond-in-shell-default",
+      "cropGroup": "FRUITS A COQUES",
+      "cropGroupMatch": {
+        "confidence": 0.95,
+        "rule": "matched 'almond' in cropgroup.csv"
+      },
+      "defaultOrigin": "OutOfEuropeAndMaghreb",
+      "displayName": "Amandes en coquille Origine Inconnue",
+      "id": "d6eb53ea-273e-57c0-8989-bf12e7650c72",
+      "inediblePart": 0.5,
+      "inediblePartMatch": {
+        "confidence": 1.0,
+        "rule": "with shell keyword found in Almonds, in shell"
+      },
+      "ingredientCategories": [
+        "nut_oilseed_raw"
+      ],
+      "ingredientDensity": 0.46,
+      "ingredientDensityMatch": {
+        "confidence": 0.95,
+        "rule": "Matched with Almonds in fao_density.csv"
+      },
+      "rawToCookedRatio": 1.0,
+      "rawToCookedRatioMatch": {
+        "confidence": 1.0,
+        "rule": "nut_oilseed default from food_type_cooked_to_raw.csv"
+      },
+      "scenario": "import",
+      "scopes": [
+        "food",
+        "food2"
+      ],
+      "transportCooling": "none",
+      "transportCoolingMatch": {
+        "confidence": 1.0,
+        "rule": "nut_oilseed → none (non-perishable)"
+      },
+      "visible": true
+    },
+    {
+      "alias": "almond-in-shell-eu",
+      "cropGroup": "FRUITS A COQUES",
+      "cropGroupMatch": {
+        "confidence": 0.95,
+        "rule": "matched 'almond' in cropgroup.csv"
+      },
+      "defaultOrigin": "EuropeAndMaghreb",
+      "displayName": "Amandes en coquille UE",
+      "id": "dc980d45-ce1b-5dfe-ae4c-e352a84b3924",
+      "inediblePart": 0.5,
+      "inediblePartMatch": {
+        "confidence": 1.0,
+        "rule": "with shell keyword found in Almonds, in shell"
+      },
+      "ingredientCategories": [
+        "nut_oilseed_raw"
+      ],
+      "ingredientDensity": 0.46,
+      "ingredientDensityMatch": {
+        "confidence": 0.95,
+        "rule": "Matched with Almonds in fao_density.csv"
+      },
+      "rawToCookedRatio": 1.0,
+      "rawToCookedRatioMatch": {
+        "confidence": 1.0,
+        "rule": "nut_oilseed default from food_type_cooked_to_raw.csv"
+      },
+      "scenario": "import",
+      "scopes": [
+        "food",
+        "food2"
+      ],
+      "transportCooling": "none",
+      "transportCoolingMatch": {
+        "confidence": 1.0,
+        "rule": "nut_oilseed → none (non-perishable)"
+      },
+      "visible": true
+    },
+    {
+      "alias": "almond-in-shell-non-eu",
+      "cropGroup": "FRUITS A COQUES",
+      "cropGroupMatch": {
+        "confidence": 0.95,
+        "rule": "matched 'almond' in cropgroup.csv"
+      },
+      "defaultOrigin": "OutOfEuropeAndMaghreb",
+      "displayName": "Amandes en coquille HORS UE",
+      "id": "b1ec904f-aa81-572b-8687-513b54be1224",
+      "inediblePart": 0.5,
+      "inediblePartMatch": {
+        "confidence": 1.0,
+        "rule": "with shell keyword found in Almonds, in shell"
+      },
+      "ingredientCategories": [
+        "nut_oilseed_raw"
+      ],
+      "ingredientDensity": 0.46,
+      "ingredientDensityMatch": {
+        "confidence": 0.95,
+        "rule": "Matched with Almonds in fao_density.csv"
+      },
+      "rawToCookedRatio": 1.0,
+      "rawToCookedRatioMatch": {
+        "confidence": 1.0,
+        "rule": "nut_oilseed default from food_type_cooked_to_raw.csv"
+      },
+      "scenario": "import",
+      "scopes": [
+        "food",
+        "food2"
+      ],
+      "transportCooling": "none",
+      "transportCoolingMatch": {
+        "confidence": 1.0,
+        "rule": "nut_oilseed → none (non-perishable)"
+      },
+      "visible": true
+    }
+  ],
+  "scopes": [
+    "food",
+    "food2"
+  ],
+  "source": "Agribalyse 3.2",
+  "unit": "kg"
+}

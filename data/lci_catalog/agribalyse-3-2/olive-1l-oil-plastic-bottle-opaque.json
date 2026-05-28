@@ -1,0 +1,24 @@
+{
+  "activityName": "Olive oil, 1L | Packaging System, N0, All, Plastic bottle (opaque) {FR} U",
+  "categories": [
+    "material",
+    "packaging",
+    "packaging_type:bottle"
+  ],
+  "displayName": "Bouteille en plastique (PET) pour huile d'olive - 1L",
+  "id": "fd3d43c3-01b9-47a8-acd5-219e4ef2dafc",
+  "metadata": [
+    {
+      "id": "204d97f0-e8c5-40ae-981a-52e9877deebb",
+      "scopes": [
+        "food2"
+      ]
+    }
+  ],
+  "scopes": [
+    "food",
+    "food2"
+  ],
+  "source": "Agribalyse 3.2",
+  "unit": "item"
+}

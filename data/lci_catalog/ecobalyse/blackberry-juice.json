@@ -1,0 +1,36 @@
+{
+  "activityName": "Blackberry juice, CMAPS {GLO} U",
+  "categories": [
+    "ingredient",
+    "material"
+  ],
+  "displayName": "Jus de mûre Origine Inconnue",
+  "id": "6424b162-b135-475d-a1e5-dc6957ed5c4c",
+  "metadata": [
+    {
+      "alias": "blackberry-juice-default",
+      "cropGroup": "VERGERS",
+      "defaultOrigin": "OutOfEuropeAndMaghreb",
+      "displayName": "Jus de mûre Origine Inconnue",
+      "id": "b534c1e0-4b2b-481a-82d1-c15561bc02f8",
+      "inediblePart": 0,
+      "ingredientCategories": [
+        "vegetable_processed"
+      ],
+      "ingredientDensity": 1,
+      "rawToCookedRatio": 1,
+      "scenario": "import",
+      "scopes": [
+        "food",
+        "food2"
+      ],
+      "transportCooling": "always",
+      "visible": true
+    }
+  ],
+  "scopes": [
+    "food",
+    "food2"
+  ],
+  "source": "Ecobalyse"
+}

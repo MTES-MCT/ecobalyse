@@ -1,0 +1,36 @@
+{
+  "activityName": "Fig puree, import WFLDB, CMAPS {FR} U",
+  "categories": [
+    "ingredient",
+    "material"
+  ],
+  "displayName": "Purée de figue Origine Inconnue",
+  "id": "82c97409-bc40-4c24-bd7f-1b8acfa0121d",
+  "metadata": [
+    {
+      "alias": "fig-puree-default",
+      "cropGroup": "VERGERS",
+      "defaultOrigin": "OutOfEuropeAndMaghreb",
+      "displayName": "Purée de figue Origine Inconnue",
+      "id": "4564a3e0-691e-42c3-8917-3d484eaa3c2d",
+      "inediblePart": 0,
+      "ingredientCategories": [
+        "vegetable_processed"
+      ],
+      "ingredientDensity": 1,
+      "rawToCookedRatio": 1,
+      "scenario": "import",
+      "scopes": [
+        "food",
+        "food2"
+      ],
+      "transportCooling": "always",
+      "visible": true
+    }
+  ],
+  "scopes": [
+    "food",
+    "food2"
+  ],
+  "source": "Ecobalyse"
+}

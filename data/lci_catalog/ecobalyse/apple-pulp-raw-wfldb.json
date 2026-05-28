@@ -1,0 +1,36 @@
+{
+  "activityName": "Apple, pulp raw, import WFLDB, CMAPS {GLO} U",
+  "categories": [
+    "ingredient",
+    "material"
+  ],
+  "displayName": "Pomme, pulpe, crue Origine Inconnue",
+  "id": "3c4f63f9-86e8-48ae-bb29-eca125e85681",
+  "metadata": [
+    {
+      "alias": "apple-pulp-raw-default",
+      "cropGroup": "VERGERS",
+      "defaultOrigin": "OutOfEuropeAndMaghreb",
+      "displayName": "Pomme, pulpe, crue Origine Inconnue",
+      "id": "f489c1d2-d770-4614-9878-f6445a8a937f",
+      "inediblePart": 0,
+      "ingredientCategories": [
+        "vegetable_fresh"
+      ],
+      "ingredientDensity": 1,
+      "rawToCookedRatio": 1,
+      "scenario": "import",
+      "scopes": [
+        "food",
+        "food2"
+      ],
+      "transportCooling": "always",
+      "visible": true
+    }
+  ],
+  "scopes": [
+    "food",
+    "food2"
+  ],
+  "source": "Ecobalyse"
+}

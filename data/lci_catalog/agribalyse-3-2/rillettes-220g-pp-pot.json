@@ -1,0 +1,24 @@
+{
+  "activityName": "Rillettes, 220g | Packaging System, N0, All, PP pot {FR} U",
+  "categories": [
+    "material",
+    "packaging",
+    "packaging_type:jar"
+  ],
+  "displayName": "Pot en plastique (PP) pour rillettes - 220g",
+  "id": "50482a6c-aa6a-42cb-9b3d-16cdc06065b6",
+  "metadata": [
+    {
+      "id": "ab759005-73bc-4518-8185-d0927271ee77",
+      "scopes": [
+        "food2"
+      ]
+    }
+  ],
+  "scopes": [
+    "food",
+    "food2"
+  ],
+  "source": "Agribalyse 3.2",
+  "unit": "item"
+}

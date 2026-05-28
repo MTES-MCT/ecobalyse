@@ -1,0 +1,24 @@
+{
+  "activityName": "Dried fruits, 500g | Packaging System, N0, All, Cardboard case {FR} U",
+  "categories": [
+    "material",
+    "packaging",
+    "packaging_type:case"
+  ],
+  "displayName": "Etui en carton avec fenêtre plastique pour fruits séchés - 500g",
+  "id": "a009e0c7-a2c1-4ca7-9c15-cf716982cbbe",
+  "metadata": [
+    {
+      "id": "0db662ca-31e6-49cf-b08c-46316512f81e",
+      "scopes": [
+        "food2"
+      ]
+    }
+  ],
+  "scopes": [
+    "food",
+    "food2"
+  ],
+  "source": "Agribalyse 3.2",
+  "unit": "item"
+}

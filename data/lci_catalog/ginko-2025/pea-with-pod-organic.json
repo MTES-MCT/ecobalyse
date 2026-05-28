@@ -1,0 +1,182 @@
+{
+  "activityName": "Winter pea, organic 2025, 15% moisture, at farm gate {FR} U",
+  "categories": [
+    "ingredient",
+    "material"
+  ],
+  "displayName": "Pois, avec leurs cosses Bio",
+  "id": "5995ad4c-3e6a-53c8-9880-e2af46852b9b",
+  "location": "FR",
+  "metadata": [
+    {
+      "alias": "pea-with-pod-organic",
+      "cropGroup": "LEGUMINEUSES A GRAIN",
+      "cropGroupMatch": {
+        "confidence": 0.95,
+        "rule": "matched 'pea' in cropgroup.csv"
+      },
+      "defaultOrigin": "France",
+      "displayName": "Pois, avec leurs cosses Bio",
+      "id": "cfb3dbef-722f-523f-b90d-49c631b79e76",
+      "inediblePart": 0.2,
+      "inediblePartMatch": {
+        "confidence": 1.0,
+        "rule": "vegetable NOVA 1 default from food_type_inedible_part.csv"
+      },
+      "ingredientCategories": [
+        "vegetable_fresh",
+        "organic"
+      ],
+      "ingredientDensity": 0.9,
+      "ingredientDensityMatch": {
+        "confidence": 1.0,
+        "rule": "vegetable default from food_type_density.csv"
+      },
+      "rawToCookedRatio": 0.856,
+      "rawToCookedRatioMatch": {
+        "confidence": 1.0,
+        "rule": "vegetable default from food_type_cooked_to_raw.csv"
+      },
+      "scenario": "organic",
+      "scopes": [
+        "food",
+        "food2"
+      ],
+      "transportCooling": "always",
+      "transportCoolingMatch": {
+        "confidence": 1.0,
+        "rule": "vegetable NOVA 1 → always (perishable)"
+      },
+      "visible": true
+    },
+    {
+      "alias": "snow-pea-organic",
+      "cropGroup": "LEGUMINEUSES A GRAIN",
+      "cropGroupMatch": {
+        "confidence": 0.95,
+        "rule": "matched 'pea' in cropgroup.csv"
+      },
+      "defaultOrigin": "France",
+      "displayName": "Pois mange-tout Bio",
+      "id": "0f579c31-e932-5a8a-bf17-5e539b367d64",
+      "inediblePart": 0.4,
+      "inediblePartMatch": {
+        "confidence": 1.0,
+        "rule": "fish_seafood NOVA 1 default from food_type_inedible_part.csv"
+      },
+      "ingredientCategories": [
+        "animal_product",
+        "organic"
+      ],
+      "ingredientDensity": 0.8,
+      "ingredientDensityMatch": {
+        "confidence": 0.95,
+        "rule": "Matched with pea in density.csv"
+      },
+      "rawToCookedRatio": 1.0,
+      "rawToCookedRatioMatch": {
+        "confidence": 0.95,
+        "rule": "Matched with pea in cooked_to_raw.csv"
+      },
+      "scenario": "organic",
+      "scopes": [
+        "food",
+        "food2"
+      ],
+      "transportCooling": "always",
+      "transportCoolingMatch": {
+        "confidence": 1.0,
+        "rule": "fish_seafood NOVA 1 → always (perishable)"
+      },
+      "visible": true
+    },
+    {
+      "alias": "split-pea-organic",
+      "cropGroup": "LEGUMINEUSES A GRAIN",
+      "cropGroupMatch": {
+        "confidence": 0.95,
+        "rule": "matched 'pea' in cropgroup.csv"
+      },
+      "defaultOrigin": "France",
+      "displayName": "Pois cassés Bio",
+      "id": "04358436-709a-5e75-8cf4-d114dd8f0e9f",
+      "inediblePart": 0.2,
+      "inediblePartMatch": {
+        "confidence": 1.0,
+        "rule": "legume NOVA 1 default from food_type_inedible_part.csv"
+      },
+      "ingredientCategories": [
+        "vegetable_fresh",
+        "organic"
+      ],
+      "ingredientDensity": 0.8,
+      "ingredientDensityMatch": {
+        "confidence": 0.95,
+        "rule": "Matched with pea in density.csv"
+      },
+      "rawToCookedRatio": 1.0,
+      "rawToCookedRatioMatch": {
+        "confidence": 0.95,
+        "rule": "Matched with pea in cooked_to_raw.csv"
+      },
+      "scenario": "organic",
+      "scopes": [
+        "food",
+        "food2"
+      ],
+      "transportCooling": "always",
+      "transportCoolingMatch": {
+        "confidence": 1.0,
+        "rule": "legume NOVA 1 → always (perishable)"
+      },
+      "visible": true
+    },
+    {
+      "alias": "winter-pea-organic",
+      "cropGroup": "PROTEAGINEUX",
+      "cropGroupMatch": {
+        "confidence": 0.95,
+        "rule": "matched 'pois d'hiver' in cropgroup.csv"
+      },
+      "defaultOrigin": "France",
+      "displayName": "Pois d'hiver Bio",
+      "id": "15c6156f-b02e-5738-ae6d-59c8c7d956cc",
+      "inediblePart": 0.2,
+      "inediblePartMatch": {
+        "confidence": 1.0,
+        "rule": "legume NOVA 1 default from food_type_inedible_part.csv"
+      },
+      "ingredientCategories": [
+        "vegetable_fresh",
+        "organic"
+      ],
+      "ingredientDensity": 0.8,
+      "ingredientDensityMatch": {
+        "confidence": 0.95,
+        "rule": "Matched with pea in density.csv"
+      },
+      "rawToCookedRatio": 1.0,
+      "rawToCookedRatioMatch": {
+        "confidence": 0.95,
+        "rule": "Matched with pea in cooked_to_raw.csv"
+      },
+      "scenario": "organic",
+      "scopes": [
+        "food",
+        "food2"
+      ],
+      "transportCooling": "always",
+      "transportCoolingMatch": {
+        "confidence": 1.0,
+        "rule": "legume NOVA 1 → always (perishable)"
+      },
+      "visible": true
+    }
+  ],
+  "scopes": [
+    "food",
+    "food2"
+  ],
+  "source": "Ginko 2025",
+  "unit": "kg"
+}

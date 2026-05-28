@@ -1,0 +1,138 @@
+{
+  "activityName": "Coconut, dehusked {ID}| coconut production, dehusked | Cut-off, U - Adapted from Ecoinvent U",
+  "categories": [
+    "ingredient",
+    "material",
+    "material_type:other_food_items"
+  ],
+  "displayName": "Noix de coco décortiquée FR Outre-Mer",
+  "id": "165ee2e7-f4a7-556b-a965-32c7ae320c53",
+  "metadata": [
+    {
+      "alias": "coconut-dehusked-fr-overseas",
+      "cropGroup": "FRUITS A COQUES",
+      "cropGroupMatch": {
+        "confidence": 1.0,
+        "rule": "nut default"
+      },
+      "defaultOrigin": "FranceOutreMer",
+      "displayName": "Noix de coco décortiquée FR Outre-Mer",
+      "id": "79109cbe-e78f-5c83-8140-169b550bf068",
+      "inediblePart": 0.5,
+      "inediblePartMatch": {
+        "confidence": 1.0,
+        "rule": "nut_oilseed NOVA 1 default from food_type_inedible_part.csv"
+      },
+      "ingredientCategories": [
+        "nut_oilseed_raw"
+      ],
+      "ingredientDensity": 0.5,
+      "ingredientDensityMatch": {
+        "confidence": 0.95,
+        "rule": "Matched with coconut in density.csv"
+      },
+      "rawToCookedRatio": 1.0,
+      "rawToCookedRatioMatch": {
+        "confidence": 1.0,
+        "rule": "nut_oilseed default from food_type_cooked_to_raw.csv"
+      },
+      "scenario": "reference",
+      "scopes": [
+        "food",
+        "food2"
+      ],
+      "transportCooling": "none",
+      "transportCoolingMatch": {
+        "confidence": 1.0,
+        "rule": "nut_oilseed → none (non-perishable)"
+      },
+      "visible": true
+    },
+    {
+      "alias": "coconut-dehusked-fr",
+      "cropGroup": "FRUITS A COQUES",
+      "cropGroupMatch": {
+        "confidence": 1.0,
+        "rule": "nut default"
+      },
+      "defaultOrigin": "France",
+      "displayName": "Noix de coco décortiquée FR",
+      "id": "f822a925-7754-5933-84a9-82eee0440f9a",
+      "inediblePart": 0.5,
+      "inediblePartMatch": {
+        "confidence": 1.0,
+        "rule": "nut_oilseed NOVA 1 default from food_type_inedible_part.csv"
+      },
+      "ingredientCategories": [
+        "nut_oilseed_raw"
+      ],
+      "ingredientDensity": 0.5,
+      "ingredientDensityMatch": {
+        "confidence": 0.95,
+        "rule": "Matched with coconut in density.csv"
+      },
+      "rawToCookedRatio": 1.0,
+      "rawToCookedRatioMatch": {
+        "confidence": 1.0,
+        "rule": "nut_oilseed default from food_type_cooked_to_raw.csv"
+      },
+      "scenario": "reference",
+      "scopes": [
+        "food",
+        "food2"
+      ],
+      "transportCooling": "none",
+      "transportCoolingMatch": {
+        "confidence": 1.0,
+        "rule": "nut_oilseed → none (non-perishable)"
+      },
+      "visible": true
+    },
+    {
+      "alias": "coconut-dehusked-non-eu",
+      "cropGroup": "FRUITS A COQUES",
+      "cropGroupMatch": {
+        "confidence": 1.0,
+        "rule": "nut default"
+      },
+      "defaultOrigin": "OutOfEuropeAndMaghreb",
+      "displayName": "Noix de coco décortiquée HORS UE",
+      "id": "927231a5-c0c4-560f-8e89-ca4b01795fe6",
+      "inediblePart": 0.5,
+      "inediblePartMatch": {
+        "confidence": 1.0,
+        "rule": "nut_oilseed NOVA 1 default from food_type_inedible_part.csv"
+      },
+      "ingredientCategories": [
+        "nut_oilseed_raw"
+      ],
+      "ingredientDensity": 0.5,
+      "ingredientDensityMatch": {
+        "confidence": 0.95,
+        "rule": "Matched with coconut in density.csv"
+      },
+      "rawToCookedRatio": 1.0,
+      "rawToCookedRatioMatch": {
+        "confidence": 1.0,
+        "rule": "nut_oilseed default from food_type_cooked_to_raw.csv"
+      },
+      "scenario": "import",
+      "scopes": [
+        "food",
+        "food2"
+      ],
+      "transportCooling": "none",
+      "transportCoolingMatch": {
+        "confidence": 1.0,
+        "rule": "nut_oilseed → none (non-perishable)"
+      },
+      "visible": true
+    }
+  ],
+  "scopes": [
+    "food",
+    "food2"
+  ],
+  "source": "Agribalyse 3.2",
+  "unit": "kg"
+}

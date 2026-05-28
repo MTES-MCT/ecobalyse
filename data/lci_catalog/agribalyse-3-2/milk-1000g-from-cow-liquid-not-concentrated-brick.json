@@ -1,0 +1,24 @@
+{
+  "activityName": "Milk from cow, liquid (not concentrated), 1000g | Packaging System, N0, All, Brick {FR} U",
+  "categories": [
+    "material",
+    "packaging",
+    "packaging_type:other"
+  ],
+  "displayName": "Brique multimatériaux pour lait - 1L",
+  "id": "5595e13b-991b-4268-b81a-e426ab6ca828",
+  "metadata": [
+    {
+      "id": "0bdd4a5c-78ae-4e24-8158-f6b708391afa",
+      "scopes": [
+        "food2"
+      ]
+    }
+  ],
+  "scopes": [
+    "food",
+    "food2"
+  ],
+  "source": "Agribalyse 3.2",
+  "unit": "item"
+}

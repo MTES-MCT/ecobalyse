@@ -1,0 +1,37 @@
+{
+  "activityName": "Pear, pulp raw, organic, CMAPS {GLO} U",
+  "categories": [
+    "ingredient",
+    "material"
+  ],
+  "displayName": "Poire, pulpe, crue Origine Inconnue BIO",
+  "id": "c196e9ef-0f92-40ac-af7b-65072d856f2b",
+  "metadata": [
+    {
+      "alias": "pear-pulp-raw-default-organic",
+      "cropGroup": "VERGERS",
+      "defaultOrigin": "OutOfEuropeAndMaghreb",
+      "displayName": "Poire, pulpe, crue Origine Inconnue BIO",
+      "id": "6ef29e13-8619-4b36-bb86-c6acda52207b",
+      "inediblePart": 0,
+      "ingredientCategories": [
+        "vegetable_fresh",
+        "organic"
+      ],
+      "ingredientDensity": 1,
+      "rawToCookedRatio": 1,
+      "scenario": "organic",
+      "scopes": [
+        "food",
+        "food2"
+      ],
+      "transportCooling": "always",
+      "visible": false
+    }
+  ],
+  "scopes": [
+    "food",
+    "food2"
+  ],
+  "source": "Ecobalyse"
+}

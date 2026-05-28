@@ -1,0 +1,37 @@
+{
+  "activityName": "Soup, mixed vegetables, prepacked, to be reheated, recipe, at plant {FR} U",
+  "categories": [
+    "ingredient",
+    "material",
+    "material_type:other_food_items"
+  ],
+  "displayName": "Soupe FR",
+  "id": "b186621a-0953-565d-a908-21ea8fa3da2e",
+  "metadata": [
+    {
+      "alias": "soup-fr",
+      "cropGroup": "LEGUMES-FLEURS",
+      "defaultOrigin": "France",
+      "displayName": "Soupe FR",
+      "id": "6f5ad776-ae83-4c01-9940-c4bc0a85ba50",
+      "inediblePart": 0,
+      "ingredientCategories": [
+        "vegetable_processed"
+      ],
+      "ingredientDensity": 1.0,
+      "rawToCookedRatio": 1.0,
+      "scenario": "reference",
+      "scopes": [
+        "food",
+        "food2"
+      ],
+      "transportCooling": "none",
+      "visible": true
+    }
+  ],
+  "scopes": [
+    "food",
+    "food2"
+  ],
+  "source": "Agribalyse 3.2"
+}

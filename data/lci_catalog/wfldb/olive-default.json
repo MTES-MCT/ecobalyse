@@ -1,0 +1,59 @@
+{
+  "activityName": "Olive, at farm (WFLDB)",
+  "categories": [
+    "ingredient",
+    "material",
+    "material_type:fruits_and_vegetables"
+  ],
+  "displayName": "Olives Origine Inconnue",
+  "id": "d6035ce6-53d8-5b88-8237-c3cf91bd925c",
+  "location": "IT",
+  "metadata": [
+    {
+      "alias": "olive-default",
+      "cropGroup": "OLIVIERS",
+      "cropGroupMatch": {
+        "confidence": 0.95,
+        "rule": "matched 'olive' in cropgroup.csv"
+      },
+      "defaultOrigin": "OutOfEuropeAndMaghreb",
+      "displayName": "Olives Origine Inconnue",
+      "id": "34e35753-f5ae-58d4-8f4e-5d15a3821a8e",
+      "inediblePart": 0.5,
+      "inediblePartMatch": {
+        "confidence": 1.0,
+        "rule": "Matched with Olives in agb_inedible.csv"
+      },
+      "ingredientCategories": [
+        "vegetable_fresh"
+      ],
+      "ingredientDensity": 0.65,
+      "ingredientDensityMatch": {
+        "confidence": 0.95,
+        "rule": "Matched with Olives, green, with stone in fao_density.csv"
+      },
+      "rawToCookedRatio": 0.856,
+      "rawToCookedRatioMatch": {
+        "confidence": 1.0,
+        "rule": "fruit default from food_type_cooked_to_raw.csv"
+      },
+      "scenario": "import",
+      "scopes": [
+        "food",
+        "food2"
+      ],
+      "transportCooling": "always",
+      "transportCoolingMatch": {
+        "confidence": 1.0,
+        "rule": "fruit NOVA 1 → always (perishable)"
+      },
+      "visible": true
+    }
+  ],
+  "scopes": [
+    "food",
+    "food2"
+  ],
+  "source": "WFLDB",
+  "unit": "kg"
+}

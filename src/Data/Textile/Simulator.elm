@@ -623,6 +623,7 @@ computeMakingStageWaste ({ inputs } as simulator) =
                 |> Formula.genericWaste
                     (fabricProcess
                         |> Fabric.getMakingWaste product.making.pcrWaste makingWaste
+                        |> Unit.wasteToQtyVariation
                     )
     in
     simulator
@@ -653,7 +654,7 @@ computeFabricStageWaste { textile } ({ inputs, lifeCycle } as simulator) =
                     (inputs.fabricProcess
                         |> Maybe.withDefault inputs.product.fabric
                         |> Fabric.getProcess textile.wellKnown
-                        |> .waste
+                        |> .qtyVariationRatio
                     )
     in
     simulator
@@ -673,7 +674,7 @@ computeMaterialStageWaste ({ inputs, lifeCycle } as simulator) =
                                 (\{ material, share } ->
                                     inputMass
                                         |> Quantity.multiplyBy (Split.toFloat share)
-                                        |> Formula.genericWaste material.process.waste
+                                        |> Formula.genericWaste material.process.qtyVariationRatio
                                 )
                             |> List.foldl
                                 (\curr acc ->

@@ -1,0 +1,24 @@
+{
+  "activityName": "Soft cheeses - cat H and cat I, 120g | Packaging System, N0, All, PS tray with plastic film {FR} U",
+  "categories": [
+    "material",
+    "packaging",
+    "packaging_type:tray"
+  ],
+  "displayName": "Barquette en plastique (PS) avec film pour fromage à pâte molle - 120g",
+  "id": "f83076e5-4216-4a10-9b10-c4436dae39ae",
+  "metadata": [
+    {
+      "id": "0340555a-c12e-482b-a676-23939bf9ee85",
+      "scopes": [
+        "food2"
+      ]
+    }
+  ],
+  "scopes": [
+    "food",
+    "food2"
+  ],
+  "source": "Agribalyse 3.2",
+  "unit": "item"
+}

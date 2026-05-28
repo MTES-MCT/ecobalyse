@@ -1,0 +1,37 @@
+{
+  "activityName": "Pear {BE}| pear production | Cut-off, U - Adapted from Ecoinvent U",
+  "categories": [
+    "ingredient",
+    "material",
+    "material_type:fruits_and_vegetables"
+  ],
+  "displayName": "Poire UE",
+  "id": "de7a45ad-3947-5110-8a68-893f3afb6f04",
+  "metadata": [
+    {
+      "alias": "pear-eu-2025",
+      "cropGroup": "VERGERS",
+      "defaultOrigin": "EuropeAndMaghreb",
+      "displayName": "Poire UE (2025)",
+      "id": "bb00f430-ffda-46a3-ba45-267b0064a43e",
+      "inediblePart": 0.1,
+      "ingredientCategories": [
+        "vegetable_fresh"
+      ],
+      "ingredientDensity": 0.447,
+      "rawToCookedRatio": 0.856,
+      "scenario": "import",
+      "scopes": [
+        "food",
+        "food2"
+      ],
+      "transportCooling": "none",
+      "visible": true
+    }
+  ],
+  "scopes": [
+    "food",
+    "food2"
+  ],
+  "source": "Agribalyse 3.2"
+}

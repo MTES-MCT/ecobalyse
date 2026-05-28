@@ -1,0 +1,24 @@
+{
+  "activityName": "Pates and terrines, 180g | Packaging System, N0, All, Glass jar {FR} U",
+  "categories": [
+    "material",
+    "packaging",
+    "packaging_type:jar"
+  ],
+  "displayName": "Pot en verre avec couvercle pour pâtés et terrines - 180g",
+  "id": "7e5c1dda-607c-476e-9a44-12b09ce163b2",
+  "metadata": [
+    {
+      "id": "ca711518-7ecb-4be7-a62b-3b99dcc469f5",
+      "scopes": [
+        "food2"
+      ]
+    }
+  ],
+  "scopes": [
+    "food",
+    "food2"
+  ],
+  "source": "Agribalyse 3.2",
+  "unit": "item"
+}

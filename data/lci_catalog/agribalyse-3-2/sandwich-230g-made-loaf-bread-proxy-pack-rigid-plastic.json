@@ -1,0 +1,24 @@
+{
+  "activityName": "Sandwich made with loaf bread, 230g | Packaging System, Proxy Pack, Rigid plastic, other than bottles {FR} U",
+  "categories": [
+    "material",
+    "packaging",
+    "packaging_type:tray"
+  ],
+  "displayName": "Barquette en plastique (PET) pour sandwich au pain de mie - 230g - Proxy",
+  "id": "d9204398-2752-4159-b75a-8378fd781594",
+  "metadata": [
+    {
+      "id": "dab53acc-93d4-429c-8076-0c67601fec74",
+      "scopes": [
+        "food2"
+      ]
+    }
+  ],
+  "scopes": [
+    "food",
+    "food2"
+  ],
+  "source": "Agribalyse 3.2",
+  "unit": "item"
+}

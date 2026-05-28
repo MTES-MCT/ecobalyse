@@ -1,0 +1,24 @@
+{
+  "activityName": "Pasta raw, 500g | Packaging System, N0, All, Cardboard case {FR} U",
+  "categories": [
+    "material",
+    "packaging",
+    "packaging_type:case"
+  ],
+  "displayName": "Etui en carton pour pâtes sèches - 500g",
+  "id": "511565d3-d0df-491a-ad9b-50b7ed126325",
+  "metadata": [
+    {
+      "id": "52522e3a-4bb4-4962-af11-afa7f04b4714",
+      "scopes": [
+        "food2"
+      ]
+    }
+  ],
+  "scopes": [
+    "food",
+    "food2"
+  ],
+  "source": "Agribalyse 3.2",
+  "unit": "item"
+}

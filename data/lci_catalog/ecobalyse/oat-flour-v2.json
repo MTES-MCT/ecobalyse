@@ -1,0 +1,36 @@
+{
+  "activityName": "Oat flour, variant 2, CMAPS {GLO} U",
+  "categories": [
+    "ingredient",
+    "material"
+  ],
+  "displayName": "Farine d'avoine Origine Inconnue",
+  "id": "a86106f6-335a-4edb-9964-2e9328c5325f",
+  "metadata": [
+    {
+      "alias": "oat-flour-default",
+      "cropGroup": "AUTRES CEREALES",
+      "defaultOrigin": "OutOfEuropeAndMaghreb",
+      "displayName": "Farine d'avoine Origine Inconnue",
+      "id": "06c2b6e8-495f-4200-9ec9-8680c48d819b",
+      "inediblePart": 0,
+      "ingredientCategories": [
+        "grain_processed"
+      ],
+      "ingredientDensity": 1,
+      "rawToCookedRatio": 1,
+      "scenario": "import",
+      "scopes": [
+        "food",
+        "food2"
+      ],
+      "transportCooling": "always",
+      "visible": true
+    }
+  ],
+  "scopes": [
+    "food",
+    "food2"
+  ],
+  "source": "Ecobalyse"
+}

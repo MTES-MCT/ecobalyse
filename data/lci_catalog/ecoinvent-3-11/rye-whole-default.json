@@ -1,0 +1,59 @@
+{
+  "activityName": "Rye grain {GLO}| market for rye grain | Cut-off, U",
+  "categories": [
+    "ingredient",
+    "material",
+    "material_type:other_food_items"
+  ],
+  "displayName": "Seigle entier Origine Inconnue",
+  "id": "aa12b33f-9ea1-5b04-941c-d9d41f0cdc52",
+  "location": "GLO",
+  "metadata": [
+    {
+      "alias": "rye-whole-default",
+      "cropGroup": "AUTRES CEREALES",
+      "cropGroupMatch": {
+        "confidence": 0.95,
+        "rule": "matched 'seigle' in cropgroup.csv"
+      },
+      "defaultOrigin": "OutOfEuropeAndMaghreb",
+      "displayName": "Seigle entier Origine Inconnue",
+      "id": "3ae8076d-51ce-52b0-a7ca-09c127f1c00d",
+      "inediblePart": 0.0,
+      "inediblePartMatch": {
+        "confidence": 1.0,
+        "rule": "grain NOVA 1 default from food_type_inedible_part.csv"
+      },
+      "ingredientCategories": [
+        "grain_raw"
+      ],
+      "ingredientDensity": 0.705,
+      "ingredientDensityMatch": {
+        "confidence": 0.961,
+        "rule": "Matched with Rye, whole in fao_density.csv"
+      },
+      "rawToCookedRatio": 2.259,
+      "rawToCookedRatioMatch": {
+        "confidence": 1.0,
+        "rule": "grain default from food_type_cooked_to_raw.csv"
+      },
+      "scenario": "import",
+      "scopes": [
+        "food",
+        "food2"
+      ],
+      "transportCooling": "none",
+      "transportCoolingMatch": {
+        "confidence": 1.0,
+        "rule": "grain → none (non-perishable)"
+      },
+      "visible": true
+    }
+  ],
+  "scopes": [
+    "food",
+    "food2"
+  ],
+  "source": "Ecoinvent 3.11",
+  "unit": "kg"
+}

@@ -1,0 +1,36 @@
+{
+  "activityName": "Sweet corn, frozen raw, variant 2, CMAPS {GLO} U",
+  "categories": [
+    "ingredient",
+    "material"
+  ],
+  "displayName": "Maïs doux, surgelé, cru Origine Inconnue",
+  "id": "36ee8250-6999-4e95-8c8e-9972187d9e0a",
+  "metadata": [
+    {
+      "alias": "sweet-corn-frozen-raw-default",
+      "cropGroup": "MAIS GRAIN ET ENSILAGE",
+      "defaultOrigin": "OutOfEuropeAndMaghreb",
+      "displayName": "Maïs doux, surgelé, cru Origine Inconnue",
+      "id": "c82a71d9-671c-4f25-8205-a3d36e0bc29d",
+      "inediblePart": 0,
+      "ingredientCategories": [
+        "vegetable_processed"
+      ],
+      "ingredientDensity": 1,
+      "rawToCookedRatio": 1,
+      "scenario": "import",
+      "scopes": [
+        "food",
+        "food2"
+      ],
+      "transportCooling": "always",
+      "visible": false
+    }
+  ],
+  "scopes": [
+    "food",
+    "food2"
+  ],
+  "source": "Ecobalyse"
+}

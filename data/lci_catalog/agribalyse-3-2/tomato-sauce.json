@@ -1,0 +1,37 @@
+{
+  "activityName": "Tomato sauce, w vegetables, prepacked, recipe, at plant {FR} U",
+  "categories": [
+    "ingredient",
+    "material",
+    "material_type:fruits_and_vegetables"
+  ],
+  "displayName": "Sauce tomate FR",
+  "id": "e0cda604-6fad-5e65-9034-a8222058fcd7",
+  "metadata": [
+    {
+      "alias": "tomato-sauce-2025",
+      "cropGroup": "LEGUMES-FLEURS",
+      "defaultOrigin": "France",
+      "displayName": "Sauce tomate FR (2025)",
+      "id": "bdae67c5-ac20-417b-9094-8755ae1ab42b",
+      "inediblePart": 0,
+      "ingredientCategories": [
+        "vegetable_processed"
+      ],
+      "ingredientDensity": 1.0,
+      "rawToCookedRatio": 0.856,
+      "scenario": "reference",
+      "scopes": [
+        "food",
+        "food2"
+      ],
+      "transportCooling": "none",
+      "visible": true
+    }
+  ],
+  "scopes": [
+    "food",
+    "food2"
+  ],
+  "source": "Agribalyse 3.2"
+}

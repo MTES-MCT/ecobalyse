@@ -1,0 +1,40 @@
+{
+  "activityName": "Egg white, powder, at plant {FR} U",
+  "categories": [
+    "ingredient",
+    "material",
+    "material_type:other_food_items"
+  ],
+  "displayName": "poudre de blanc d'oeuf FR",
+  "id": "e327d611-5762-5bf8-a574-aa248d0252b2",
+  "metadata": [
+    {
+      "alias": "egg-white-powder-fr-2025",
+      "animalGroup1": "poultry",
+      "animalGroup2": "chicken",
+      "animalProduct": "egg",
+      "defaultOrigin": "France",
+      "displayName": "poudre de blanc d'oeuf FR (2025)",
+      "explain": "From chicken egg, raw, consumption mix",
+      "id": "7fe451fd-77c8-46f3-b7ae-c050a08b7be8",
+      "inediblePart": 0,
+      "ingredientCategories": [
+        "animal_product"
+      ],
+      "ingredientDensity": 0.24,
+      "rawToCookedRatio": 1.0,
+      "scenario": "reference",
+      "scopes": [
+        "food",
+        "food2"
+      ],
+      "transportCooling": "once_transformed",
+      "visible": true
+    }
+  ],
+  "scopes": [
+    "food",
+    "food2"
+  ],
+  "source": "Agribalyse 3.2"
+}

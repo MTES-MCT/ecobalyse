@@ -1,0 +1,36 @@
+{
+  "activityName": "Egg, shelled raw, variant 2, CMAPS {GLO} U",
+  "categories": [
+    "ingredient",
+    "material"
+  ],
+  "displayName": "Oeuf, décoquillé, de poule, de cane ou d'oie, cru BIO",
+  "id": "f6de2c03-34c1-416c-923b-79e644e8540f",
+  "metadata": [
+    {
+      "alias": "egg-shelled-raw-fr-organic",
+      "defaultOrigin": "France",
+      "displayName": "Oeuf, décoquillé, de poule, de cane ou d'oie, cru BIO",
+      "id": "169a7125-0365-419a-8f91-f0da65ff6f57",
+      "inediblePart": 0,
+      "ingredientCategories": [
+        "animal_product",
+        "organic"
+      ],
+      "ingredientDensity": 1,
+      "rawToCookedRatio": 1,
+      "scenario": "organic",
+      "scopes": [
+        "food",
+        "food2"
+      ],
+      "transportCooling": "always",
+      "visible": false
+    }
+  ],
+  "scopes": [
+    "food",
+    "food2"
+  ],
+  "source": "Ecobalyse"
+}

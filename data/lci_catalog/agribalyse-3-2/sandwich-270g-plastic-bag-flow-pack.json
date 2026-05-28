@@ -1,0 +1,24 @@
+{
+  "activityName": "Sandwich, 270g | Packaging System, N0, All, Plastic bag (flow pack) {FR} U",
+  "categories": [
+    "material",
+    "packaging",
+    "packaging_type:bag"
+  ],
+  "displayName": "Sachet en plastique (multimatériaux) flow pack pour sandwich - 270g",
+  "id": "f0fd08da-23f5-4e2e-a05a-cd7f91c6c5f3",
+  "metadata": [
+    {
+      "id": "ec73329c-1b0a-4c81-b9ff-558b3e62a08a",
+      "scopes": [
+        "food2"
+      ]
+    }
+  ],
+  "scopes": [
+    "food",
+    "food2"
+  ],
+  "source": "Agribalyse 3.2",
+  "unit": "item"
+}

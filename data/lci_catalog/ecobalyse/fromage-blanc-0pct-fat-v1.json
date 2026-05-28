@@ -1,0 +1,35 @@
+{
+  "activityName": "Fromage blanc, 0pct fat, variant 1, CMAPS {GLO} U",
+  "categories": [
+    "ingredient",
+    "material"
+  ],
+  "displayName": "Fromage blanc ou frais type petit suisse, nature, 0% MG FR",
+  "id": "954ad48d-1847-495d-a86f-f0bff96dc2f0",
+  "metadata": [
+    {
+      "alias": "fromage-blanc-0pct-fat-fr",
+      "defaultOrigin": "France",
+      "displayName": "Fromage blanc ou frais type petit suisse, nature, 0% MG FR",
+      "id": "e857ced3-7aab-477e-98b3-c0fb42fea590",
+      "inediblePart": 0,
+      "ingredientCategories": [
+        "dairy_product"
+      ],
+      "ingredientDensity": 1,
+      "rawToCookedRatio": 1,
+      "scenario": "reference",
+      "scopes": [
+        "food",
+        "food2"
+      ],
+      "transportCooling": "always",
+      "visible": true
+    }
+  ],
+  "scopes": [
+    "food",
+    "food2"
+  ],
+  "source": "Ecobalyse"
+}

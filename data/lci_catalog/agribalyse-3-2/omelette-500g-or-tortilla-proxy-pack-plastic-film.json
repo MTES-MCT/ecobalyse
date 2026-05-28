@@ -1,0 +1,24 @@
+{
+  "activityName": "Omelette or tortilla, 500g | Packaging System, Proxy Pack, Plastic film {FR} U",
+  "categories": [
+    "material",
+    "packaging",
+    "packaging_type:other"
+  ],
+  "displayName": "Film en plastique (PP) pour omelette ou tortilla - 500g - Proxy",
+  "id": "56530884-0875-4451-8283-c06bed235d4b",
+  "metadata": [
+    {
+      "id": "3086c79d-1e2f-4962-a20c-5ae830407c99",
+      "scopes": [
+        "food2"
+      ]
+    }
+  ],
+  "scopes": [
+    "food",
+    "food2"
+  ],
+  "source": "Agribalyse 3.2",
+  "unit": "item"
+}

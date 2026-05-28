@@ -1,0 +1,39 @@
+{
+  "activityName": "Cull cow, conventional, highland milk system, pastoral farming system, at farm gate {FR} U",
+  "categories": [
+    "ingredient",
+    "material",
+    "material_type:other_food_items"
+  ],
+  "displayName": "Vache de réforme herbagère vivante FR",
+  "id": "ab63e665-4844-52a9-b2ed-a3fffea628e7",
+  "metadata": [
+    {
+      "alias": "cull-cow-grass-fed-fr-live",
+      "animalGroup1": "cattle",
+      "animalGroup2": "cow",
+      "animalProduct": "meat",
+      "defaultOrigin": "France",
+      "displayName": "Vache de réforme herbagère vivante FR",
+      "id": "cb385a08-0441-5377-b5f2-a76592ea1165",
+      "inediblePart": 0,
+      "ingredientCategories": [
+        "animal_product"
+      ],
+      "ingredientDensity": 1.0,
+      "rawToCookedRatio": 1.0,
+      "scenario": "reference",
+      "scopes": [
+        "food",
+        "food2"
+      ],
+      "transportCooling": "always",
+      "visible": false
+    }
+  ],
+  "scopes": [
+    "food",
+    "food2"
+  ],
+  "source": "PastoEco"
+}

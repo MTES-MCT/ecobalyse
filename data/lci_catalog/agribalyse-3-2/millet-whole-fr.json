@@ -1,0 +1,58 @@
+{
+  "activityName": "Wheat grain {FR}| wheat production | Cut-off, U - Adapted from Ecoinvent U",
+  "categories": [
+    "ingredient",
+    "material",
+    "material_type:other_food_items"
+  ],
+  "displayName": "Millet entier FR",
+  "id": "ef78c003-0bcf-5358-8fc0-0b30b338e4d2",
+  "metadata": [
+    {
+      "alias": "millet-whole-fr",
+      "cropGroup": "AUTRES CEREALES",
+      "cropGroupMatch": {
+        "confidence": 0.95,
+        "rule": "matched 'millet' in cropgroup.csv"
+      },
+      "defaultOrigin": "France",
+      "displayName": "Millet entier FR",
+      "id": "de28a618-cac8-539e-8f08-0548c88f56f6",
+      "inediblePart": 0.0,
+      "inediblePartMatch": {
+        "confidence": 1.0,
+        "rule": "grain NOVA 1 default from food_type_inedible_part.csv"
+      },
+      "ingredientCategories": [
+        "grain_raw"
+      ],
+      "ingredientDensity": 0.64,
+      "ingredientDensityMatch": {
+        "confidence": 0.95,
+        "rule": "Matched with Millet in fao_density.csv"
+      },
+      "rawToCookedRatio": 2.259,
+      "rawToCookedRatioMatch": {
+        "confidence": 1.0,
+        "rule": "grain default from food_type_cooked_to_raw.csv"
+      },
+      "scenario": "reference",
+      "scopes": [
+        "food",
+        "food2"
+      ],
+      "transportCooling": "none",
+      "transportCoolingMatch": {
+        "confidence": 1.0,
+        "rule": "grain → none (non-perishable)"
+      },
+      "visible": true
+    }
+  ],
+  "scopes": [
+    "food",
+    "food2"
+  ],
+  "source": "Agribalyse 3.2",
+  "unit": "kg"
+}

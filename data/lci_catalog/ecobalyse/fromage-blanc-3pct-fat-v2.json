@@ -1,0 +1,35 @@
+{
+  "activityName": "Fromage blanc, 3pct fat, variant 2, CMAPS {GLO} U",
+  "categories": [
+    "ingredient",
+    "material"
+  ],
+  "displayName": "Fromage blanc nature, 3% MG environ Origine Inconnue",
+  "id": "4f39b297-807b-4fd6-8154-d4fdc0ae2a0a",
+  "metadata": [
+    {
+      "alias": "fromage-blanc-3pct-fat-default",
+      "defaultOrigin": "OutOfEuropeAndMaghreb",
+      "displayName": "Fromage blanc nature, 3% MG environ Origine Inconnue",
+      "id": "6442166d-ed6f-4ea8-a9f0-b45f427f7ad8",
+      "inediblePart": 0,
+      "ingredientCategories": [
+        "dairy_product"
+      ],
+      "ingredientDensity": 1,
+      "rawToCookedRatio": 1,
+      "scenario": "import",
+      "scopes": [
+        "food",
+        "food2"
+      ],
+      "transportCooling": "always",
+      "visible": true
+    }
+  ],
+  "scopes": [
+    "food",
+    "food2"
+  ],
+  "source": "Ecobalyse"
+}

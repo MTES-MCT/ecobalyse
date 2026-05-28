@@ -1,0 +1,24 @@
+{
+  "activityName": "Fresh sausages, 384g | Packaging System, N0, All, EPS Tray with film {FR} U",
+  "categories": [
+    "material",
+    "packaging",
+    "packaging_type:tray"
+  ],
+  "displayName": "Barquette en plastique (PSE) pour saucisse fraîche - 384g",
+  "id": "c2948b3c-d8a3-44dd-ba7d-6f8172418f95",
+  "metadata": [
+    {
+      "id": "ae68051f-a288-4ea8-81a0-333621a1b0dd",
+      "scopes": [
+        "food2"
+      ]
+    }
+  ],
+  "scopes": [
+    "food",
+    "food2"
+  ],
+  "source": "Agribalyse 3.2",
+  "unit": "item"
+}

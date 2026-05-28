@@ -1,0 +1,24 @@
+{
+  "activityName": "Dairy desserts - cat A, 500g | Packaging System, N0, All, Cardboard pots pack {FR} U",
+  "categories": [
+    "material",
+    "packaging",
+    "packaging_type:pack"
+  ],
+  "displayName": "Lot de 4 pots (complexes avec carton) pour produits laitiers - 500g",
+  "id": "caec5ace-97cc-4b5d-855b-4161ee93c28f",
+  "metadata": [
+    {
+      "id": "62d46e02-34d8-4b43-8437-2688d98c2102",
+      "scopes": [
+        "food2"
+      ]
+    }
+  ],
+  "scopes": [
+    "food",
+    "food2"
+  ],
+  "source": "Agribalyse 3.2",
+  "unit": "item"
+}

@@ -1,0 +1,58 @@
+{
+  "activityName": "Sunflower grain, conventional, 9% moisture, national average, animal feed, at farm gate, production {FR} U",
+  "categories": [
+    "ingredient",
+    "material",
+    "material_type:other_food_items"
+  ],
+  "displayName": "Tournesol, graine FR",
+  "id": "9e357717-0a62-567b-93e1-ae01ca0d5b05",
+  "metadata": [
+    {
+      "alias": "sunflower-seed-fr",
+      "cropGroup": "TOURNESOL",
+      "cropGroupMatch": {
+        "confidence": 0.95,
+        "rule": "matched 'sunflower' in cropgroup.csv"
+      },
+      "defaultOrigin": "France",
+      "displayName": "Tournesol, graine FR",
+      "id": "1929b7c8-7e92-5ddd-b5ef-9b4321b72940",
+      "inediblePart": 0.0,
+      "inediblePartMatch": {
+        "confidence": 0.96,
+        "rule": "Matched with sunflower seed in inedible_part.csv"
+      },
+      "ingredientCategories": [
+        "nut_oilseed_raw"
+      ],
+      "ingredientDensity": 0.62,
+      "ingredientDensityMatch": {
+        "confidence": 1.0,
+        "rule": "Sunflower, seed found in fao_density.csv"
+      },
+      "rawToCookedRatio": 1.0,
+      "rawToCookedRatioMatch": {
+        "confidence": 1.0,
+        "rule": "nut_oilseed default from food_type_cooked_to_raw.csv"
+      },
+      "scenario": "reference",
+      "scopes": [
+        "food",
+        "food2"
+      ],
+      "transportCooling": "none",
+      "transportCoolingMatch": {
+        "confidence": 1.0,
+        "rule": "nut_oilseed → none (non-perishable)"
+      },
+      "visible": true
+    }
+  ],
+  "scopes": [
+    "food",
+    "food2"
+  ],
+  "source": "Agribalyse 3.2",
+  "unit": "kg"
+}

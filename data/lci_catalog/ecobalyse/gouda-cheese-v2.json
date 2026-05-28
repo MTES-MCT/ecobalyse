@@ -1,0 +1,35 @@
+{
+  "activityName": "Gouda cheese, variant 2, CMAPS {GLO} U",
+  "categories": [
+    "ingredient",
+    "material"
+  ],
+  "displayName": "Fromage à pâte dure Origine inconnue",
+  "id": "0ed716c2-640d-43a0-95ad-c61fce669635",
+  "metadata": [
+    {
+      "alias": "gouda-cheese-default",
+      "defaultOrigin": "OutOfEuropeAndMaghreb",
+      "displayName": "Fromage à pâte dure Origine inconnue",
+      "id": "3f58df47-c0b2-4cf0-be16-da9d64934665",
+      "inediblePart": 0,
+      "ingredientCategories": [
+        "dairy_product"
+      ],
+      "ingredientDensity": 1,
+      "rawToCookedRatio": 1,
+      "scenario": "import",
+      "scopes": [
+        "food",
+        "food2"
+      ],
+      "transportCooling": "always",
+      "visible": true
+    }
+  ],
+  "scopes": [
+    "food",
+    "food2"
+  ],
+  "source": "Ecobalyse"
+}

@@ -1,0 +1,39 @@
+{
+  "activityName": "Brie cheese, from cow's milk, consumption mix {FR} U",
+  "categories": [
+    "ingredient",
+    "material",
+    "material_type:other_food_items"
+  ],
+  "displayName": "Brie FR",
+  "id": "21ae29d3-8860-5e24-8997-106fffe0eb85",
+  "metadata": [
+    {
+      "alias": "brie-cheese-2025",
+      "animalGroup1": "cattle",
+      "animalGroup2": "cow",
+      "animalProduct": "milk",
+      "defaultOrigin": "France",
+      "displayName": "Brie FR (2025)",
+      "id": "d56d21c0-0705-45e3-830d-504d63d581e0",
+      "inediblePart": 0,
+      "ingredientCategories": [
+        "dairy_product"
+      ],
+      "ingredientDensity": 1.0,
+      "rawToCookedRatio": 1.0,
+      "scenario": "reference",
+      "scopes": [
+        "food",
+        "food2"
+      ],
+      "transportCooling": "always",
+      "visible": true
+    }
+  ],
+  "scopes": [
+    "food",
+    "food2"
+  ],
+  "source": "Agribalyse 3.2"
+}

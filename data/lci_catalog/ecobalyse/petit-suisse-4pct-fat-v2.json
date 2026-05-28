@@ -1,0 +1,35 @@
+{
+  "activityName": "Petit suisse, 4pct fat, variant 2, CMAPS {GLO} U",
+  "categories": [
+    "ingredient",
+    "material"
+  ],
+  "displayName": "Fromage frais type petit suisse, nature, 4% MG environ Origine Inconnue",
+  "id": "64dc6887-ba32-44e7-8a24-e03ca42b6f96",
+  "metadata": [
+    {
+      "alias": "petit-suisse-4pct-fat-default",
+      "defaultOrigin": "OutOfEuropeAndMaghreb",
+      "displayName": "Fromage frais type petit suisse, nature, 4% MG environ Origine Inconnue",
+      "id": "d35902aa-cf09-432f-beb1-e8df1fa0d69c",
+      "inediblePart": 0,
+      "ingredientCategories": [
+        "dairy_product"
+      ],
+      "ingredientDensity": 1,
+      "rawToCookedRatio": 1,
+      "scenario": "import",
+      "scopes": [
+        "food",
+        "food2"
+      ],
+      "transportCooling": "always",
+      "visible": true
+    }
+  ],
+  "scopes": [
+    "food",
+    "food2"
+  ],
+  "source": "Ecobalyse"
+}

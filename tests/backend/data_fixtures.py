@@ -63,10 +63,10 @@ def fx_raw_processes() -> list[dict[str, Any]]:
                 "wtu": 5,
             },
             "location": "GLO",
+            "qtyVariationRatio": 1,
             "scopes": ["textile"],
             "source": "Custom",
             "unit": "kg",
-            "waste": 0,
         },
         {
             "activityName": "_22 Vegetable and animal oils and fats, EU27",
@@ -100,10 +100,10 @@ def fx_raw_processes() -> list[dict[str, Any]]:
                 "wtu": 0.0,
             },
             "location": "EU27",
+            "qtyVariationRatio": 1,
             "scopes": [],
             "source": "forwast",
             "unit": "kg",
-            "waste": 0.0,
         },
         {
             "activityName": "test",
@@ -137,10 +137,10 @@ def fx_raw_processes() -> list[dict[str, Any]]:
                 "wtu": 0.0,
             },
             "location": None,
+            "qtyVariationRatio": 1,
             "scopes": [],
             "source": "forwast",
             "unit": "kg",
-            "waste": 0.0,
         },
     ]
 

@@ -1,0 +1,37 @@
+{
+  "activityName": "Green olive, pitted, organic, CMAPS {GLO} U",
+  "categories": [
+    "ingredient",
+    "material"
+  ],
+  "displayName": "Olive verte, dénoyautée Origine Inconnue BIO",
+  "id": "9ba5fda3-6bae-4afc-84f5-b95e81aa9746",
+  "metadata": [
+    {
+      "alias": "green-olive-pitted-default-organic",
+      "cropGroup": "OLIVIERS",
+      "defaultOrigin": "OutOfEuropeAndMaghreb",
+      "displayName": "Olive verte, dénoyautée Origine Inconnue BIO",
+      "id": "d70cb4d5-5d95-406b-bd0e-1cd4ee3ec68b",
+      "inediblePart": 0,
+      "ingredientCategories": [
+        "vegetable_fresh",
+        "organic"
+      ],
+      "ingredientDensity": 1,
+      "rawToCookedRatio": 1,
+      "scenario": "organic",
+      "scopes": [
+        "food",
+        "food2"
+      ],
+      "transportCooling": "always",
+      "visible": false
+    }
+  ],
+  "scopes": [
+    "food",
+    "food2"
+  ],
+  "source": "Ecobalyse"
+}

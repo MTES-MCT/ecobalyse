@@ -1,0 +1,35 @@
+{
+  "activityName": "Feta type cheese, cow milk, variant 1, CMAPS {GLO} U",
+  "categories": [
+    "ingredient",
+    "material"
+  ],
+  "displayName": "Fromage type feta, au lait de vache FR",
+  "id": "60ee6493-a0d2-4350-9e6e-6aa088786ab1",
+  "metadata": [
+    {
+      "alias": "feta-type-cheese-cow-milk-fr",
+      "defaultOrigin": "France",
+      "displayName": "Fromage type feta, au lait de vache FR",
+      "id": "35d48d4e-33ee-44e8-8e57-2d385ef90563",
+      "inediblePart": 0,
+      "ingredientCategories": [
+        "dairy_product"
+      ],
+      "ingredientDensity": 1,
+      "rawToCookedRatio": 1,
+      "scenario": "reference",
+      "scopes": [
+        "food",
+        "food2"
+      ],
+      "transportCooling": "always",
+      "visible": false
+    }
+  ],
+  "scopes": [
+    "food",
+    "food2"
+  ],
+  "source": "Ecobalyse"
+}

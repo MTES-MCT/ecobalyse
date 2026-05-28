@@ -1,0 +1,21 @@
+{
+  "activityName": "Heat, central or small-scale, natural gas {Europe without Switzerland}| market for heat, central or small-scale, natural gas | Cut-off, S - Copied from Ecoinvent U",
+  "categories": [
+    "energy"
+  ],
+  "displayName": "Gaz de ville",
+  "id": "6cbd45fb-83ff-5852-97a7-87fffecc20f5",
+  "metadata": [
+    {
+      "id": "e22f6eba-bf01-401a-b146-19bcc77f5f3b",
+      "scopes": [
+        "food2"
+      ]
+    }
+  ],
+  "scopes": [
+    "food",
+    "food2"
+  ],
+  "source": "Agribalyse 3.2"
+}

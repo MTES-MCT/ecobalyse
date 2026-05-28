@@ -1,0 +1,24 @@
+{
+  "activityName": "Ice cream cup, 266,4g | Packaging System, Proxy Pack, Cardboard {FR} U",
+  "categories": [
+    "material",
+    "packaging",
+    "packaging_type:jar"
+  ],
+  "displayName": "Pot en carton pour coupe de glace - 266,4g - Proxy",
+  "id": "5c7689b3-b88d-40f0-85ed-e39574e5e51c",
+  "metadata": [
+    {
+      "id": "d7ef7738-2a04-49c6-9aa7-0fda15ba4ed5",
+      "scopes": [
+        "food2"
+      ]
+    }
+  ],
+  "scopes": [
+    "food",
+    "food2"
+  ],
+  "source": "Agribalyse 3.2",
+  "unit": "item"
+}

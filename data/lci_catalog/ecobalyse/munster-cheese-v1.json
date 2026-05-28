@@ -1,0 +1,35 @@
+{
+  "activityName": "Munster cheese, variant 1, CMAPS {GLO} U",
+  "categories": [
+    "ingredient",
+    "material"
+  ],
+  "displayName": "Munster FR",
+  "id": "f35956cc-a5ac-4be9-8dec-bc9c7006631c",
+  "metadata": [
+    {
+      "alias": "munster-cheese-fr",
+      "defaultOrigin": "France",
+      "displayName": "Munster FR",
+      "id": "7251209a-43b4-45c2-9925-129919e3c7a3",
+      "inediblePart": 0,
+      "ingredientCategories": [
+        "dairy_product"
+      ],
+      "ingredientDensity": 1,
+      "rawToCookedRatio": 1,
+      "scenario": "reference",
+      "scopes": [
+        "food",
+        "food2"
+      ],
+      "transportCooling": "always",
+      "visible": true
+    }
+  ],
+  "scopes": [
+    "food",
+    "food2"
+  ],
+  "source": "Ecobalyse"
+}

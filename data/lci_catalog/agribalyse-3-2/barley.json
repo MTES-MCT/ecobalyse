@@ -1,0 +1,38 @@
+{
+  "activityName": "Barley, feed grain, conventional, national average, animal feed, at farm gate {FR} U",
+  "categories": [
+    "ingredient",
+    "material",
+    "material_type:other_food_items"
+  ],
+  "displayName": "Orge FR",
+  "id": "1dafb792-e215-58fa-a64d-1f9b2d9a2cde",
+  "metadata": [
+    {
+      "alias": "barley-2025",
+      "cropGroup": "ORGE",
+      "defaultOrigin": "France",
+      "displayName": "Orge FR (2025)",
+      "explain": "",
+      "id": "ab087863-f311-4066-8e93-4d7f6e0db2b2",
+      "inediblePart": 0,
+      "ingredientCategories": [
+        "grain_raw"
+      ],
+      "ingredientDensity": 0.72,
+      "rawToCookedRatio": 2.259,
+      "scenario": "reference",
+      "scopes": [
+        "food",
+        "food2"
+      ],
+      "transportCooling": "none",
+      "visible": false
+    }
+  ],
+  "scopes": [
+    "food",
+    "food2"
+  ],
+  "source": "Agribalyse 3.2"
+}

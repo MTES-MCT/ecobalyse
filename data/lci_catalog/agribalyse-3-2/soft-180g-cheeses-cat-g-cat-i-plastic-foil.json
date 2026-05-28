@@ -1,0 +1,24 @@
+{
+  "activityName": "Soft cheeses - cat G and cat I, 180g | Packaging System, N0, All, Plastic foil buche-type {FR} U",
+  "categories": [
+    "material",
+    "packaging",
+    "packaging_type:sheet"
+  ],
+  "displayName": "Feuilles en plastique et papier pour fromage à pâte molle (type bûche) - 180g",
+  "id": "8ef710ac-ef25-466b-a89b-283658bb8e1a",
+  "metadata": [
+    {
+      "id": "3bce5e42-c259-492a-ac21-52c94d6236eb",
+      "scopes": [
+        "food2"
+      ]
+    }
+  ],
+  "scopes": [
+    "food",
+    "food2"
+  ],
+  "source": "Agribalyse 3.2",
+  "unit": "item"
+}

@@ -1,0 +1,24 @@
+{
+  "activityName": "Soft cheeses - cat F, 500g | Packaging System, N0, All, Wooden splint Mont dOr-type {FR} U",
+  "categories": [
+    "material",
+    "packaging",
+    "packaging_type:other"
+  ],
+  "displayName": "Eclisse en bois pour fromage à pâte molle - 500g",
+  "id": "b1822915-723c-46b7-a43b-f7556fb9da8b",
+  "metadata": [
+    {
+      "id": "be22e092-39e8-460a-80be-26d618e52ff7",
+      "scopes": [
+        "food2"
+      ]
+    }
+  ],
+  "scopes": [
+    "food",
+    "food2"
+  ],
+  "source": "Agribalyse 3.2",
+  "unit": "item"
+}

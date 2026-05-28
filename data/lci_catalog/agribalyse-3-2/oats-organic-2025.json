@@ -1,0 +1,39 @@
+{
+  "activityName": "Spring oats, organic, national average, at feed plant {FR} U",
+  "categories": [
+    "ingredient",
+    "material",
+    "material_type:other_food_items"
+  ],
+  "displayName": "Avoine Bio (2025)",
+  "id": "66b57474-7f48-5016-b79c-87bc090fd016",
+  "metadata": [
+    {
+      "alias": "oats-organic-2025",
+      "cropGroup": "AUTRES CEREALES",
+      "defaultOrigin": "EuropeAndMaghreb",
+      "displayName": "Avoine Bio (2025)",
+      "explain": "",
+      "id": "1af0933a-0139-480c-832d-053513d0ccba",
+      "inediblePart": 0,
+      "ingredientCategories": [
+        "grain_raw",
+        "organic"
+      ],
+      "ingredientDensity": 0.72,
+      "rawToCookedRatio": 2.259,
+      "scenario": "organic",
+      "scopes": [
+        "food",
+        "food2"
+      ],
+      "transportCooling": "none",
+      "visible": false
+    }
+  ],
+  "scopes": [
+    "food",
+    "food2"
+  ],
+  "source": "Agribalyse 3.2"
+}

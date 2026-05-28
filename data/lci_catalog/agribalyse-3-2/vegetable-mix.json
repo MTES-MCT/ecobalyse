@@ -1,0 +1,37 @@
+{
+  "activityName": "Diced mixed vegetables, canned, recipe, at plant {FR} U",
+  "categories": [
+    "ingredient",
+    "material",
+    "material_type:fruits_and_vegetables"
+  ],
+  "displayName": "Mélange de légumes",
+  "id": "7dffda5e-1e8e-5e97-9005-07fb20bef5a6",
+  "metadata": [
+    {
+      "alias": "vegetable-mix-2025",
+      "cropGroup": "LEGUMES-FLEURS",
+      "defaultOrigin": "France",
+      "displayName": "Mélange de légumes (2025)",
+      "id": "5ecb6c61-0a0f-4c00-a8e0-713c97929c7c",
+      "inediblePart": 0,
+      "ingredientCategories": [
+        "vegetable_processed"
+      ],
+      "ingredientDensity": 0.24,
+      "rawToCookedRatio": 0.856,
+      "scenario": "reference",
+      "scopes": [
+        "food",
+        "food2"
+      ],
+      "transportCooling": "always",
+      "visible": true
+    }
+  ],
+  "scopes": [
+    "food",
+    "food2"
+  ],
+  "source": "Agribalyse 3.2"
+}

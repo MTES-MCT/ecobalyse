@@ -1,0 +1,24 @@
+{
+  "activityName": "Eggs, powder, 800g | Packaging System, Proxy Pack, Steel {FR} U",
+  "categories": [
+    "material",
+    "packaging",
+    "packaging_type:jar"
+  ],
+  "displayName": "Pot en acier pour œufs en poudre - 800g - Proxy",
+  "id": "a560affc-90ca-4219-b4a3-6520906e834c",
+  "metadata": [
+    {
+      "id": "3cb2843c-8f56-4a03-bcd9-aefebb519dcb",
+      "scopes": [
+        "food2"
+      ]
+    }
+  ],
+  "scopes": [
+    "food",
+    "food2"
+  ],
+  "source": "Agribalyse 3.2",
+  "unit": "item"
+}

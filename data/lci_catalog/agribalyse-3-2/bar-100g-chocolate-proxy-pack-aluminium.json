@@ -1,0 +1,24 @@
+{
+  "activityName": "Bar chocolate, 100g | Packaging System, Proxy Pack, Aluminium {FR} U",
+  "categories": [
+    "material",
+    "packaging",
+    "packaging_type:sheet"
+  ],
+  "displayName": "Feuille en aluminium pour chocolat en tablette - 100g - Proxy",
+  "id": "e33b98d3-3c62-4f7f-b166-34384a2a228e",
+  "metadata": [
+    {
+      "id": "6337be91-a1cb-485e-9782-91ab0e5b974d",
+      "scopes": [
+        "food2"
+      ]
+    }
+  ],
+  "scopes": [
+    "food",
+    "food2"
+  ],
+  "source": "Agribalyse 3.2",
+  "unit": "item"
+}

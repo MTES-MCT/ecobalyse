@@ -1,0 +1,24 @@
+{
+  "activityName": "Cervelat, 400g | Packaging System, N0, All, Vacuum bag {FR} U",
+  "categories": [
+    "material",
+    "packaging",
+    "packaging_type:bag"
+  ],
+  "displayName": "Sachet sous-vide en plastique (PA/PE) pour cervelat - 400g",
+  "id": "31264073-1158-45eb-b245-c246fe9b8925",
+  "metadata": [
+    {
+      "id": "876604b8-a80c-46ec-be93-22cd965f0a39",
+      "scopes": [
+        "food2"
+      ]
+    }
+  ],
+  "scopes": [
+    "food",
+    "food2"
+  ],
+  "source": "Agribalyse 3.2",
+  "unit": "item"
+}

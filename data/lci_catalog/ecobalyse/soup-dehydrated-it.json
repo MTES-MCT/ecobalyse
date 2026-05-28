@@ -1,0 +1,37 @@
+{
+  "activityName": "Soup, mixed vegetables, dehydrated, at plant {IT} U",
+  "categories": [
+    "ingredient",
+    "material",
+    "material_type:other_food_items"
+  ],
+  "displayName": "Soupe déshydratée IT",
+  "id": "f76d41a1-259f-5e47-99f2-ef490aeab78f",
+  "metadata": [
+    {
+      "alias": "soup-dehydrated-it",
+      "cropGroup": "LEGUMES-FLEURS",
+      "defaultOrigin": "EuropeAndMaghreb",
+      "displayName": "Soupe déshydratée IT",
+      "id": "ee72a4aa-f864-49a5-a46b-2c0511cd50c1",
+      "inediblePart": 0,
+      "ingredientCategories": [
+        "vegetable_processed"
+      ],
+      "ingredientDensity": 0.6195,
+      "rawToCookedRatio": 12,
+      "scenario": "import",
+      "scopes": [
+        "food",
+        "food2"
+      ],
+      "transportCooling": "none",
+      "visible": true
+    }
+  ],
+  "scopes": [
+    "food",
+    "food2"
+  ],
+  "source": "Ecobalyse"
+}

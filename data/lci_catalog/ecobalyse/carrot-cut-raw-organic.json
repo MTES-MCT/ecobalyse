@@ -1,0 +1,37 @@
+{
+  "activityName": "Carrot, cut raw, organic, CMAPS {GLO} U",
+  "categories": [
+    "ingredient",
+    "material"
+  ],
+  "displayName": "Carotte, découpée, crue BIO",
+  "id": "dd347e93-84ca-43c7-8426-8cf03230c78f",
+  "metadata": [
+    {
+      "alias": "carrot-cut-raw-fr-organic",
+      "cropGroup": "LEGUMES-FLEURS",
+      "defaultOrigin": "France",
+      "displayName": "Carotte, découpée, crue BIO",
+      "id": "2064ed90-863f-45da-a44c-2223cb60a285",
+      "inediblePart": 0,
+      "ingredientCategories": [
+        "vegetable_fresh",
+        "organic"
+      ],
+      "ingredientDensity": 1,
+      "rawToCookedRatio": 1,
+      "scenario": "organic",
+      "scopes": [
+        "food",
+        "food2"
+      ],
+      "transportCooling": "always",
+      "visible": false
+    }
+  ],
+  "scopes": [
+    "food",
+    "food2"
+  ],
+  "source": "Ecobalyse"
+}

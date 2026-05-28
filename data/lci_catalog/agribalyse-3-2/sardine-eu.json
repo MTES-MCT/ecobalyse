@@ -1,0 +1,55 @@
+{
+  "activityName": "European pilchard or sardine, consumption mix {FR} U",
+  "categories": [
+    "ingredient",
+    "material",
+    "material_type:other_food_items"
+  ],
+  "displayName": "Sardine UE",
+  "id": "41b15ace-9a9c-5bd0-a561-944fc883d342",
+  "metadata": [
+    {
+      "alias": "sardine-eu-2025",
+      "defaultOrigin": "EuropeAndMaghreb",
+      "displayName": "Sardine UE (2025)",
+      "id": "f7c74916-6951-4074-acd9-42dbe97dbb32",
+      "inediblePart": 0.2,
+      "ingredientCategories": [
+        "animal_product"
+      ],
+      "ingredientDensity": 1.0,
+      "rawToCookedRatio": 1.0,
+      "scenario": "import",
+      "scopes": [
+        "food",
+        "food2"
+      ],
+      "transportCooling": "always",
+      "visible": true
+    },
+    {
+      "alias": "sardine-non-eu-2025",
+      "defaultOrigin": "OutOfEuropeAndMaghreb",
+      "displayName": "Sardine par défaut (2025)",
+      "id": "79ce12b6-db5c-43c8-be48-44deb8f704e1",
+      "inediblePart": 0.2,
+      "ingredientCategories": [
+        "animal_product"
+      ],
+      "ingredientDensity": 1.0,
+      "rawToCookedRatio": 1.0,
+      "scenario": "import",
+      "scopes": [
+        "food",
+        "food2"
+      ],
+      "transportCooling": "always",
+      "visible": true
+    }
+  ],
+  "scopes": [
+    "food",
+    "food2"
+  ],
+  "source": "Agribalyse 3.2"
+}

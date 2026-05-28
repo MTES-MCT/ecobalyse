@@ -1,0 +1,36 @@
+{
+  "activityName": "Plum puree, import WFLDB, CMAPS {FR} U",
+  "categories": [
+    "ingredient",
+    "material"
+  ],
+  "displayName": "Purée de prune Origine Inconnue",
+  "id": "7cdb00fc-10d6-4ad5-8759-93e879267192",
+  "metadata": [
+    {
+      "alias": "plum-puree-default",
+      "cropGroup": "VERGERS",
+      "defaultOrigin": "OutOfEuropeAndMaghreb",
+      "displayName": "Purée de prune Origine Inconnue",
+      "id": "6eca6941-e937-4364-a5b5-6ba056ea136a",
+      "inediblePart": 0,
+      "ingredientCategories": [
+        "vegetable_processed"
+      ],
+      "ingredientDensity": 1,
+      "rawToCookedRatio": 1,
+      "scenario": "import",
+      "scopes": [
+        "food",
+        "food2"
+      ],
+      "transportCooling": "always",
+      "visible": true
+    }
+  ],
+  "scopes": [
+    "food",
+    "food2"
+  ],
+  "source": "Ecobalyse"
+}

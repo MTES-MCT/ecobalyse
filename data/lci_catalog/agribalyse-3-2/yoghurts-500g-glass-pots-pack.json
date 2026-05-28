@@ -1,0 +1,24 @@
+{
+  "activityName": "Yoghurts, 500g | Packaging System, N0, All, Glass pots pack {FR} U",
+  "categories": [
+    "material",
+    "packaging",
+    "packaging_type:pack"
+  ],
+  "displayName": "Lot de 4 pots en verre pour produits laitiers - 500g",
+  "id": "4de94a07-f5af-4870-8d47-b9f4af50bba6",
+  "metadata": [
+    {
+      "id": "480a87a3-9f6b-475b-b137-19f95b85b193",
+      "scopes": [
+        "food2"
+      ]
+    }
+  ],
+  "scopes": [
+    "food",
+    "food2"
+  ],
+  "source": "Agribalyse 3.2",
+  "unit": "item"
+}

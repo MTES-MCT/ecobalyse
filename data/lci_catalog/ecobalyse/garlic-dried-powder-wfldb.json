@@ -1,0 +1,36 @@
+{
+  "activityName": "Garlic, dried powder, import WFLDB, CMAPS {GLO} U",
+  "categories": [
+    "ingredient",
+    "material"
+  ],
+  "displayName": "Ail séché, poudre Origine Inconnue",
+  "id": "5e862922-6159-4581-a820-ea30224c6ee0",
+  "metadata": [
+    {
+      "alias": "garlic-dried-powder-default",
+      "cropGroup": "LEGUMES-FLEURS",
+      "defaultOrigin": "OutOfEuropeAndMaghreb",
+      "displayName": "Ail séché, poudre Origine Inconnue",
+      "id": "9fb7605a-0142-4f43-817b-18652335a7c8",
+      "inediblePart": 0,
+      "ingredientCategories": [
+        "spice_condiment_additive"
+      ],
+      "ingredientDensity": 1,
+      "rawToCookedRatio": 1,
+      "scenario": "import",
+      "scopes": [
+        "food",
+        "food2"
+      ],
+      "transportCooling": "none",
+      "visible": false
+    }
+  ],
+  "scopes": [
+    "food",
+    "food2"
+  ],
+  "source": "Ecobalyse"
+}

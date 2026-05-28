@@ -1,0 +1,24 @@
+{
+  "activityName": "Meat on skewer, 320g | Packaging System, N0, All, PP tray with lid {FR} U",
+  "categories": [
+    "material",
+    "packaging",
+    "packaging_type:tray"
+  ],
+  "displayName": "Barquette en plastique (PP) pour brochette de viande - 320g",
+  "id": "eaa9eb89-46cf-421d-b4f6-530beebe9b4e",
+  "metadata": [
+    {
+      "id": "576789b0-1ee2-49d2-8c5f-b9dfdf1c5ddb",
+      "scopes": [
+        "food2"
+      ]
+    }
+  ],
+  "scopes": [
+    "food",
+    "food2"
+  ],
+  "source": "Agribalyse 3.2",
+  "unit": "item"
+}

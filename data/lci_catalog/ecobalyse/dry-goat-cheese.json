@@ -1,0 +1,54 @@
+{
+  "activityName": "Dry goat cheese, CMAPS {GLO} U",
+  "categories": [
+    "ingredient",
+    "material"
+  ],
+  "displayName": "Fromage de chèvre sec FR",
+  "id": "ccb43b89-eaff-4eaa-9f26-557c2d73be2f",
+  "metadata": [
+    {
+      "alias": "dry-goat-cheese-default",
+      "defaultOrigin": "OutOfEuropeAndMaghreb",
+      "displayName": "Fromage de chèvre sec Origine Inconnue",
+      "id": "db832847-5ba5-4117-9faf-bbc336cb69c0",
+      "inediblePart": 0,
+      "ingredientCategories": [
+        "dairy_product"
+      ],
+      "ingredientDensity": 1,
+      "rawToCookedRatio": 1,
+      "scenario": "import",
+      "scopes": [
+        "food",
+        "food2"
+      ],
+      "transportCooling": "always",
+      "visible": false
+    },
+    {
+      "alias": "dry-goat-cheese-fr",
+      "defaultOrigin": "France",
+      "displayName": "Fromage de chèvre sec FR",
+      "id": "39f09f5f-e4f4-4422-9fdf-3dea83a3584a",
+      "inediblePart": 0,
+      "ingredientCategories": [
+        "dairy_product"
+      ],
+      "ingredientDensity": 1,
+      "rawToCookedRatio": 1,
+      "scenario": "reference",
+      "scopes": [
+        "food",
+        "food2"
+      ],
+      "transportCooling": "always",
+      "visible": false
+    }
+  ],
+  "scopes": [
+    "food",
+    "food2"
+  ],
+  "source": "Ecobalyse"
+}

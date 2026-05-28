@@ -1,0 +1,60 @@
+{
+  "activityName": "Sugar beet, at farm, organic 2025 {DE}",
+  "categories": [
+    "ingredient",
+    "material",
+    "material_type:other_food_items"
+  ],
+  "displayName": "Betterave à sucre Bio",
+  "id": "c37026ee-3767-531e-a4c5-b33726d520d4",
+  "location": "DE",
+  "metadata": [
+    {
+      "alias": "sugar-beet-organic",
+      "cropGroup": "AUTRES CULTURES INDUSTRIELLES",
+      "cropGroupMatch": {
+        "confidence": 1.0,
+        "rule": "matched 'betteraves sucrières' in cropgroup.csv"
+      },
+      "defaultOrigin": "France",
+      "displayName": "Betterave à sucre Bio",
+      "id": "3298c069-7e9d-536b-b098-d0d17afb3eae",
+      "inediblePart": 0.0,
+      "inediblePartMatch": {
+        "confidence": 0.95,
+        "rule": "Matched with sugar in inedible_part.csv"
+      },
+      "ingredientCategories": [
+        "spice_condiment_additive",
+        "organic"
+      ],
+      "ingredientDensity": 0.95,
+      "ingredientDensityMatch": {
+        "confidence": 0.95,
+        "rule": "Matched with Sugar in fao_density.csv"
+      },
+      "rawToCookedRatio": 1.0,
+      "rawToCookedRatioMatch": {
+        "confidence": 0.95,
+        "rule": "Matched with sugar in cooked_to_raw.csv"
+      },
+      "scenario": "organic",
+      "scopes": [
+        "food",
+        "food2"
+      ],
+      "transportCooling": "none",
+      "transportCoolingMatch": {
+        "confidence": 1.0,
+        "rule": "spice_condiment → none (non-perishable)"
+      },
+      "visible": true
+    }
+  ],
+  "scopes": [
+    "food",
+    "food2"
+  ],
+  "source": "Ginko 2025",
+  "unit": "kg"
+}

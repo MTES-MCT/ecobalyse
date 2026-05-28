@@ -1,0 +1,24 @@
+{
+  "activityName": "Crepe or fajitas or burritos, 300g | Packaging System, Proxy Pack, Rigid plastic, other than bottles {FR} U",
+  "categories": [
+    "material",
+    "packaging",
+    "packaging_type:tray"
+  ],
+  "displayName": "Barquette en plastique (PP) pour crêpe, fajitas ou burrito - 300g - Proxy",
+  "id": "0ca1fa9c-e7bf-4284-9280-ee36435c1bd3",
+  "metadata": [
+    {
+      "id": "9b2f5abf-8120-4d9e-b6cd-6bab0e96cbd7",
+      "scopes": [
+        "food2"
+      ]
+    }
+  ],
+  "scopes": [
+    "food",
+    "food2"
+  ],
+  "source": "Agribalyse 3.2",
+  "unit": "item"
+}

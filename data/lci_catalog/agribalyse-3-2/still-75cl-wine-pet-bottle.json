@@ -1,0 +1,24 @@
+{
+  "activityName": "Still wine, 75cl | Packaging System, N0, All, PET bottle {FR} U",
+  "categories": [
+    "material",
+    "packaging",
+    "packaging_type:bottle"
+  ],
+  "displayName": "Bouteille en plastique (PET) pour vin tranquille - 0,75L",
+  "id": "b8c34a41-7f72-4b94-a4e1-54e5a5dfaebb",
+  "metadata": [
+    {
+      "id": "ecd61484-0230-43ae-a5cf-bbea5823b57c",
+      "scopes": [
+        "food2"
+      ]
+    }
+  ],
+  "scopes": [
+    "food",
+    "food2"
+  ],
+  "source": "Agribalyse 3.2",
+  "unit": "item"
+}

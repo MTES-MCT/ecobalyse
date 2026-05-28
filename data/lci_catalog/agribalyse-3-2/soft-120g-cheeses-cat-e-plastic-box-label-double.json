@@ -1,0 +1,24 @@
+{
+  "activityName": "Soft cheeses - cat E, 120g | Packaging System, N0, All, Plastic box with label (double) {FR} U",
+  "categories": [
+    "material",
+    "packaging",
+    "packaging_type:box"
+  ],
+  "displayName": "Boîte en plastique (PET) pour fromage à pâte molle - 120g",
+  "id": "3fe0e81a-1f6d-40af-9ee2-b31302d7ca9b",
+  "metadata": [
+    {
+      "id": "b134e9ef-7784-4f94-b7b7-e8c9de4eb4c0",
+      "scopes": [
+        "food2"
+      ]
+    }
+  ],
+  "scopes": [
+    "food",
+    "food2"
+  ],
+  "source": "Agribalyse 3.2",
+  "unit": "item"
+}

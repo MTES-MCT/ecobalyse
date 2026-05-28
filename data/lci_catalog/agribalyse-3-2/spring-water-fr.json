@@ -1,0 +1,58 @@
+{
+  "activityName": "Mineral water, still, PET one-way, 1.5 L, at water factory {FR} - Adapted from WFLDB U",
+  "categories": [
+    "ingredient",
+    "material",
+    "material_type:other_food_items"
+  ],
+  "displayName": "Eau de source FR",
+  "id": "86c135b5-3be1-539b-8abc-1a4ecb83f793",
+  "metadata": [
+    {
+      "alias": "spring-water-fr",
+      "cropGroup": "DIVERS",
+      "cropGroupMatch": {
+        "confidence": 1.0,
+        "rule": "beverage default"
+      },
+      "defaultOrigin": "France",
+      "displayName": "Eau de source FR",
+      "id": "2fac59fd-a81c-5a10-9401-93a4abaace0c",
+      "inediblePart": 0.0,
+      "inediblePartMatch": {
+        "confidence": 1.0,
+        "rule": "beverage NOVA 1 default from food_type_inedible_part.csv"
+      },
+      "ingredientCategories": [
+        "misc"
+      ],
+      "ingredientDensity": 1.0,
+      "ingredientDensityMatch": {
+        "confidence": 0.95,
+        "rule": "Matched with Water in fao_density.csv"
+      },
+      "rawToCookedRatio": 1.0,
+      "rawToCookedRatioMatch": {
+        "confidence": 1.0,
+        "rule": "beverage default from food_type_cooked_to_raw.csv"
+      },
+      "scenario": "reference",
+      "scopes": [
+        "food",
+        "food2"
+      ],
+      "transportCooling": "none",
+      "transportCoolingMatch": {
+        "confidence": 0.642,
+        "rule": "Matched with bread in transport_cooling.csv"
+      },
+      "visible": true
+    }
+  ],
+  "scopes": [
+    "food",
+    "food2"
+  ],
+  "source": "Agribalyse 3.2",
+  "unit": "L"
+}

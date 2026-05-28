@@ -1,0 +1,24 @@
+{
+  "activityName": "Vegetable dishes, frozen, 950g | Packaging System, N0, All, Plastic bag with small sachets {FR} U",
+  "categories": [
+    "material",
+    "packaging",
+    "packaging_type:bag"
+  ],
+  "displayName": "Sachet en plastique (PP/PEBD) avec sachets assaisonements pour plat de légumes, surgelé - 950g",
+  "id": "4218cc6c-2342-4928-94d9-922a2cd58759",
+  "metadata": [
+    {
+      "id": "8e680e7a-23b4-4c35-be6e-3fdc6982e9b3",
+      "scopes": [
+        "food2"
+      ]
+    }
+  ],
+  "scopes": [
+    "food",
+    "food2"
+  ],
+  "source": "Agribalyse 3.2",
+  "unit": "item"
+}

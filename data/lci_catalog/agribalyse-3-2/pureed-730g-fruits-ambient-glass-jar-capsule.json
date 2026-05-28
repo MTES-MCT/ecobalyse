@@ -1,0 +1,24 @@
+{
+  "activityName": "Pureed fruits, ambient, 730g | Packaging System, N0, All, Glass jar with capsule {FR} U",
+  "categories": [
+    "material",
+    "packaging",
+    "packaging_type:jar"
+  ],
+  "displayName": "Bocal en verre pour purée de fruits, ambiant - 400g",
+  "id": "52a0059e-0164-44c8-a429-198b2b7f2d62",
+  "metadata": [
+    {
+      "id": "0c52a1c8-8928-4363-b712-1aaf5294ac5d",
+      "scopes": [
+        "food2"
+      ]
+    }
+  ],
+  "scopes": [
+    "food",
+    "food2"
+  ],
+  "source": "Agribalyse 3.2",
+  "unit": "item"
+}

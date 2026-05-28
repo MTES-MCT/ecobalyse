@@ -1,0 +1,35 @@
+{
+  "activityName": "Blue cheese Auvergne, variant 2, CMAPS {GLO} U",
+  "categories": [
+    "ingredient",
+    "material"
+  ],
+  "displayName": "Fromage bleu d'Auvergne Origine Inconnue",
+  "id": "1fbee8e5-b188-40d2-bb39-cdb5343dde59",
+  "metadata": [
+    {
+      "alias": "blue-cheese-auvergne-default",
+      "defaultOrigin": "OutOfEuropeAndMaghreb",
+      "displayName": "Fromage bleu d'Auvergne Origine Inconnue",
+      "id": "b0352180-f056-43b4-9ae7-6e2db6e25380",
+      "inediblePart": 0,
+      "ingredientCategories": [
+        "dairy_product"
+      ],
+      "ingredientDensity": 1,
+      "rawToCookedRatio": 1,
+      "scenario": "import",
+      "scopes": [
+        "food",
+        "food2"
+      ],
+      "transportCooling": "always",
+      "visible": false
+    }
+  ],
+  "scopes": [
+    "food",
+    "food2"
+  ],
+  "source": "Ecobalyse"
+}

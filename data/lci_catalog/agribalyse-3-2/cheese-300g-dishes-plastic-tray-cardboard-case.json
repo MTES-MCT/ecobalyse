@@ -1,0 +1,24 @@
+{
+  "activityName": "Cheese dishes, 300g | Packaging System, N0, All, Plastic tray with cardboard case {FR} U",
+  "categories": [
+    "material",
+    "packaging",
+    "packaging_type:tray"
+  ],
+  "displayName": "Barquette en plastique (PET) et étui carton pour plat au fromage - 300g",
+  "id": "8adb5b5c-6080-44a2-8634-efecfb70bfb1",
+  "metadata": [
+    {
+      "id": "d00ac9f1-59a3-436f-b91e-24dceace830c",
+      "scopes": [
+        "food2"
+      ]
+    }
+  ],
+  "scopes": [
+    "food",
+    "food2"
+  ],
+  "source": "Agribalyse 3.2",
+  "unit": "item"
+}

@@ -1,0 +1,24 @@
+{
+  "activityName": "Poultry, 238g | Packaging System, N0, All, XPS Tray with film {FR} U",
+  "categories": [
+    "material",
+    "packaging",
+    "packaging_type:tray"
+  ],
+  "displayName": "Barquette en plastique (PSX) pour volaille - 238g",
+  "id": "fb2f79f3-61e7-4736-a97f-3f71630d3d29",
+  "metadata": [
+    {
+      "id": "9dab5385-3f92-4099-9e17-5139f2313fba",
+      "scopes": [
+        "food2"
+      ]
+    }
+  ],
+  "scopes": [
+    "food",
+    "food2"
+  ],
+  "source": "Agribalyse 3.2",
+  "unit": "item"
+}

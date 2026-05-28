@@ -1,0 +1,40 @@
+{
+  "activityName": "Pig, organic, system number 2, at farm gate {FR} U",
+  "categories": [
+    "ingredient",
+    "material",
+    "material_type:other_food_items"
+  ],
+  "displayName": "Porc bio vivant FR",
+  "id": "da0a3d32-2199-5af2-abca-745a224944f3",
+  "metadata": [
+    {
+      "alias": "pig-organic-fr-live",
+      "animalGroup1": "pig",
+      "animalGroup2": "pig",
+      "animalProduct": "meat",
+      "defaultOrigin": "France",
+      "displayName": "Porc bio vivant FR",
+      "id": "4dcd0514-ad5f-5853-be2c-c0a8a09025c5",
+      "inediblePart": 0,
+      "ingredientCategories": [
+        "animal_product",
+        "organic"
+      ],
+      "ingredientDensity": 1.0,
+      "rawToCookedRatio": 1.0,
+      "scenario": "organic",
+      "scopes": [
+        "food",
+        "food2"
+      ],
+      "transportCooling": "always",
+      "visible": false
+    }
+  ],
+  "scopes": [
+    "food",
+    "food2"
+  ],
+  "source": "Agribalyse 3.2"
+}

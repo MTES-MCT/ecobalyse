@@ -1,0 +1,24 @@
+{
+  "activityName": "Oat flakes, 500g | Packaging System, Proxy Pack, Plastic film {FR} U",
+  "categories": [
+    "material",
+    "packaging",
+    "packaging_type:bag"
+  ],
+  "displayName": "Sachet en plastique (PE) pour flocons d'avoine - 500g - Proxy",
+  "id": "6f3d3cc3-0e8c-465a-a0aa-62362b34d3dc",
+  "metadata": [
+    {
+      "id": "1be2ec9b-47a2-4ab1-a84c-dc6335308e6c",
+      "scopes": [
+        "food2"
+      ]
+    }
+  ],
+  "scopes": [
+    "food",
+    "food2"
+  ],
+  "source": "Agribalyse 3.2",
+  "unit": "item"
+}

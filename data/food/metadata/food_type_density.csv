@@ -1,0 +1,10 @@
+food_type;density;source
+vegetable;0.90;FAO average
+fruit;0.85;FAO average
+grain;0.75;FAO average
+meat;1.05;FAO average
+fish_seafood;1.05;FAO average
+dairy;1.03;FAO average
+nut_oilseed;0.60;FAO average
+spice_condiment;0.50;FAO average
+legume;0.80;FAO average

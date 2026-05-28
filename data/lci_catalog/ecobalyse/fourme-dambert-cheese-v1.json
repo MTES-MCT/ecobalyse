@@ -1,0 +1,35 @@
+{
+  "activityName": "Fourme d'Ambert cheese, variant 1, CMAPS {GLO} U",
+  "categories": [
+    "ingredient",
+    "material"
+  ],
+  "displayName": "Fourme d'Ambert FR",
+  "id": "79d06d8a-2912-4bf4-b649-dd9b4bf2f5d1",
+  "metadata": [
+    {
+      "alias": "fourme-dambert-cheese-fr",
+      "defaultOrigin": "France",
+      "displayName": "Fourme d'Ambert FR",
+      "id": "20ae3e77-c899-4a3e-84c2-ca8be004f9dc",
+      "inediblePart": 0,
+      "ingredientCategories": [
+        "dairy_product"
+      ],
+      "ingredientDensity": 1,
+      "rawToCookedRatio": 1,
+      "scenario": "reference",
+      "scopes": [
+        "food",
+        "food2"
+      ],
+      "transportCooling": "always",
+      "visible": true
+    }
+  ],
+  "scopes": [
+    "food",
+    "food2"
+  ],
+  "source": "Ecobalyse"
+}

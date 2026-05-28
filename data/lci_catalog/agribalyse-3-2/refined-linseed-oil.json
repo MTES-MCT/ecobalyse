@@ -1,0 +1,38 @@
+{
+  "activityName": "Linseed oil, refined, at oil mill {FR} U",
+  "categories": [
+    "ingredient",
+    "material",
+    "material_type:other_food_items"
+  ],
+  "displayName": "Huile de lin (raffinée) FR",
+  "id": "b3e35472-6ed9-5404-9a13-fdce55e3e506",
+  "metadata": [
+    {
+      "alias": "refined-linseed-oil-2025",
+      "cropGroup": "PLANTES A FIBRES",
+      "defaultOrigin": "France",
+      "displayName": "Huile de lin (raffinée) FR (2025)",
+      "explain": "Cet ICV correspond à la production de l'huile de lin, de la culture jusqu'aux portes de l'usine. Un mix d'importation des graines de lin est considéré (origines France, Belgique et Royamme-Uni et transport inclus). La trituration et le raffinage sont représentatifs de la production en France. Le transport aval de l'huile de lin n'est pas inclus dans cet ICV.\nSelon le mix de consommation français de l'huile de lin, l'origine par défaut devrait être Europe. \nLa densité de l'huile de lin est de 0,930. \nComme le précise la méthodologie AGRIBALYSE, il n'y a pas de transport frigorifique pour les huiles végétales.",
+      "id": "61ede109-0eed-4aa3-93bb-aacf132b6bdd",
+      "inediblePart": 0,
+      "ingredientCategories": [
+        "nut_oilseed_processed"
+      ],
+      "ingredientDensity": 1,
+      "rawToCookedRatio": 1.0,
+      "scenario": "reference",
+      "scopes": [
+        "food",
+        "food2"
+      ],
+      "transportCooling": "none",
+      "visible": true
+    }
+  ],
+  "scopes": [
+    "food",
+    "food2"
+  ],
+  "source": "Agribalyse 3.2"
+}

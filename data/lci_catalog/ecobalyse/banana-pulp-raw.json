@@ -1,0 +1,36 @@
+{
+  "activityName": "Banana, pulp raw, CMAPS {GLO} U",
+  "categories": [
+    "ingredient",
+    "material"
+  ],
+  "displayName": "Banane, pulpe, crue FR",
+  "id": "baf25f2c-98ab-420d-9082-4ed7b483cc44",
+  "metadata": [
+    {
+      "alias": "banana-pulp-raw-fr",
+      "cropGroup": "VERGERS",
+      "defaultOrigin": "France",
+      "displayName": "Banane, pulpe, crue FR",
+      "id": "5a0941e5-77e1-4f0b-a9b1-4593f517e365",
+      "inediblePart": 0,
+      "ingredientCategories": [
+        "vegetable_fresh"
+      ],
+      "ingredientDensity": 1,
+      "rawToCookedRatio": 1,
+      "scenario": "reference",
+      "scopes": [
+        "food",
+        "food2"
+      ],
+      "transportCooling": "always",
+      "visible": false
+    }
+  ],
+  "scopes": [
+    "food",
+    "food2"
+  ],
+  "source": "Ecobalyse"
+}

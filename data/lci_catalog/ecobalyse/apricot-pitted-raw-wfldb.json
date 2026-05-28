@@ -1,0 +1,36 @@
+{
+  "activityName": "Apricot, pitted raw, import WFLDB, CMAPS {GLO} U",
+  "categories": [
+    "ingredient",
+    "material"
+  ],
+  "displayName": "Abricot, dénoyauté, cru Origine Inconnue",
+  "id": "aebab2d5-6fe4-47fa-8a7a-0754b86f8ff0",
+  "metadata": [
+    {
+      "alias": "apricot-pitted-raw-default",
+      "cropGroup": "VERGERS",
+      "defaultOrigin": "OutOfEuropeAndMaghreb",
+      "displayName": "Abricot, dénoyauté, cru Origine Inconnue",
+      "id": "3643f86f-16d5-4a0e-8388-d4e52dda125b",
+      "inediblePart": 0,
+      "ingredientCategories": [
+        "vegetable_fresh"
+      ],
+      "ingredientDensity": 1,
+      "rawToCookedRatio": 1,
+      "scenario": "import",
+      "scopes": [
+        "food",
+        "food2"
+      ],
+      "transportCooling": "always",
+      "visible": true
+    }
+  ],
+  "scopes": [
+    "food",
+    "food2"
+  ],
+  "source": "Ecobalyse"
+}

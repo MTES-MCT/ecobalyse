@@ -1,0 +1,24 @@
+{
+  "activityName": "Pureed fruits, ambient or chilled, 400g | Packaging System, N0, All, Plastic pot {FR} U",
+  "categories": [
+    "material",
+    "packaging",
+    "packaging_type:pack"
+  ],
+  "displayName": "Lot de 4 pots en plastique (multimatériaux) avec fourreau carton pour compote de fruit, ambiante ou réfrigérée - 400g",
+  "id": "6763a972-57c7-41c8-97aa-936e59d664fa",
+  "metadata": [
+    {
+      "id": "d64edb92-6adc-4a06-a0d0-250cf57c54bd",
+      "scopes": [
+        "food2"
+      ]
+    }
+  ],
+  "scopes": [
+    "food",
+    "food2"
+  ],
+  "source": "Agribalyse 3.2",
+  "unit": "item"
+}

@@ -1,0 +1,96 @@
+{
+  "activityName": "Pear {RoW}| pear production | Cut-off, U",
+  "categories": [
+    "ingredient"
+  ],
+  "displayName": "Pear (ROW)",
+  "id": "f71ab1a4-eee6-5aca-9ddf-18943d0f025b",
+  "metadata": [
+    {
+      "alias": "pear-non-eu",
+      "cropGroup": "VERGERS",
+      "cropGroupMatch": {
+        "confidence": 0.95,
+        "rule": "matched 'poires pour transformation' in cropgroup.csv"
+      },
+      "defaultOrigin": "OutOfEuropeAndMaghreb",
+      "displayName": "Poires HORS UE",
+      "id": "e1331e3a-f23b-535b-a2f1-10434946c90e",
+      "inediblePart": 0.1,
+      "inediblePartMatch": {
+        "confidence": 0.95,
+        "rule": "Matched with Pear in agb_inedible.csv"
+      },
+      "ingredientCategories": [
+        "vegetable_fresh"
+      ],
+      "ingredientDensity": 0.95,
+      "ingredientDensityMatch": {
+        "confidence": 0.95,
+        "rule": "Matched with pear in density.csv"
+      },
+      "rawToCookedRatio": 0.856,
+      "rawToCookedRatioMatch": {
+        "confidence": 1.0,
+        "rule": "fruit default from food_type_cooked_to_raw.csv"
+      },
+      "scenario": "import",
+      "scopes": [
+        "food",
+        "food2"
+      ],
+      "transportCooling": "always",
+      "transportCoolingMatch": {
+        "confidence": 1.0,
+        "rule": "fruit NOVA 1 → always (perishable)"
+      },
+      "visible": true
+    },
+    {
+      "alias": "prickly-pear-non-eu",
+      "cropGroup": "VERGERS",
+      "cropGroupMatch": {
+        "confidence": 1.0,
+        "rule": "prickly pear pattern"
+      },
+      "defaultOrigin": "OutOfEuropeAndMaghreb",
+      "displayName": "Figue de barbarie HORS UE",
+      "id": "11112cea-ce8a-50a5-82ac-6a900270272c",
+      "inediblePart": 0.1,
+      "inediblePartMatch": {
+        "confidence": 0.95,
+        "rule": "Matched with Pear in agb_inedible.csv"
+      },
+      "ingredientCategories": [
+        "grain_raw"
+      ],
+      "ingredientDensity": 0.95,
+      "ingredientDensityMatch": {
+        "confidence": 0.95,
+        "rule": "Matched with pear in density.csv"
+      },
+      "rawToCookedRatio": 2.259,
+      "rawToCookedRatioMatch": {
+        "confidence": 1.0,
+        "rule": "grain default from food_type_cooked_to_raw.csv"
+      },
+      "scenario": "import",
+      "scopes": [
+        "food",
+        "food2"
+      ],
+      "transportCooling": "none",
+      "transportCoolingMatch": {
+        "confidence": 1.0,
+        "rule": "grain → none (non-perishable)"
+      },
+      "visible": true
+    }
+  ],
+  "scopes": [
+    "food",
+    "food2"
+  ],
+  "source": "Ecoinvent 3.11",
+  "unit": "kg"
+}

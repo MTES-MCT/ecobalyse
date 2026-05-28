@@ -1,0 +1,36 @@
+{
+  "activityName": "Tomato, peeled canned drained, import WFLDB, CMAPS {GLO} U",
+  "categories": [
+    "ingredient",
+    "material"
+  ],
+  "displayName": "Tomate, pelée, appertisée, égouttée Origine Inconnue",
+  "id": "e9877ac2-fb7e-4baa-9900-e097e94a2ed8",
+  "metadata": [
+    {
+      "alias": "tomato-peeled-canned-drained-default",
+      "cropGroup": "LEGUMES-FLEURS",
+      "defaultOrigin": "OutOfEuropeAndMaghreb",
+      "displayName": "Tomate, pelée, appertisée, égouttée Origine Inconnue",
+      "id": "74e3b03b-ad13-4e0c-bc5d-54b6049aa4a8",
+      "inediblePart": 0,
+      "ingredientCategories": [
+        "vegetable_processed"
+      ],
+      "ingredientDensity": 1,
+      "rawToCookedRatio": 1,
+      "scenario": "import",
+      "scopes": [
+        "food",
+        "food2"
+      ],
+      "transportCooling": "none",
+      "visible": true
+    }
+  ],
+  "scopes": [
+    "food",
+    "food2"
+  ],
+  "source": "Ecobalyse"
+}

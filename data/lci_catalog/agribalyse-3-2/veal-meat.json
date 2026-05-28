@@ -1,0 +1,39 @@
+{
+  "activityName": "Meat without bone, veal {FR} U",
+  "categories": [
+    "ingredient",
+    "material",
+    "material_type:red_meats"
+  ],
+  "displayName": "Viande de veau FR",
+  "id": "549c1346-26e6-5a06-ad41-037d65b9a57d",
+  "metadata": [
+    {
+      "alias": "veal-meat-2025",
+      "animalGroup1": "cattle",
+      "animalGroup2": "cow",
+      "animalProduct": "meat",
+      "defaultOrigin": "France",
+      "displayName": "Viande de veau FR (2025)",
+      "id": "221cd239-f1ae-4a2f-9fdc-dc73df5f95ab",
+      "inediblePart": 0,
+      "ingredientCategories": [
+        "animal_product"
+      ],
+      "ingredientDensity": 1.0,
+      "rawToCookedRatio": 0.792,
+      "scenario": "reference",
+      "scopes": [
+        "food",
+        "food2"
+      ],
+      "transportCooling": "always",
+      "visible": true
+    }
+  ],
+  "scopes": [
+    "food",
+    "food2"
+  ],
+  "source": "Agribalyse 3.2"
+}

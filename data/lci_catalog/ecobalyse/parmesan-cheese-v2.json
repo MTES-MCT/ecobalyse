@@ -1,0 +1,35 @@
+{
+  "activityName": "Parmesan cheese, variant 2, CMAPS {GLO} U",
+  "categories": [
+    "ingredient",
+    "material"
+  ],
+  "displayName": "Parmesan Origine Inconnue",
+  "id": "fffd6e96-71eb-45dc-a4e0-d3b79449251c",
+  "metadata": [
+    {
+      "alias": "parmesan-cheese-default",
+      "defaultOrigin": "OutOfEuropeAndMaghreb",
+      "displayName": "Parmesan Origine Inconnue",
+      "id": "265733a8-ec7a-4f44-ba8c-a020dd908642",
+      "inediblePart": 0,
+      "ingredientCategories": [
+        "dairy_product"
+      ],
+      "ingredientDensity": 1,
+      "rawToCookedRatio": 1,
+      "scenario": "import",
+      "scopes": [
+        "food",
+        "food2"
+      ],
+      "transportCooling": "always",
+      "visible": false
+    }
+  ],
+  "scopes": [
+    "food",
+    "food2"
+  ],
+  "source": "Ecobalyse"
+}

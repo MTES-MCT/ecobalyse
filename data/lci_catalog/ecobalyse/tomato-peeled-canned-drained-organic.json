@@ -1,0 +1,37 @@
+{
+  "activityName": "Tomato, peeled canned drained, organic, CMAPS {GLO} U",
+  "categories": [
+    "ingredient",
+    "material"
+  ],
+  "displayName": "Tomate, pelée, appertisée, égouttée Origine Inconnue BIO",
+  "id": "3ffdb33a-d8e0-4006-abdc-9dfa68c38583",
+  "metadata": [
+    {
+      "alias": "tomato-peeled-canned-drained-default-organic",
+      "cropGroup": "LEGUMES-FLEURS",
+      "defaultOrigin": "OutOfEuropeAndMaghreb",
+      "displayName": "Tomate, pelée, appertisée, égouttée Origine Inconnue BIO",
+      "id": "2095f522-6cc1-4512-97b8-4c73b6b173ef",
+      "inediblePart": 0,
+      "ingredientCategories": [
+        "vegetable_processed",
+        "organic"
+      ],
+      "ingredientDensity": 1,
+      "rawToCookedRatio": 1,
+      "scenario": "organic",
+      "scopes": [
+        "food",
+        "food2"
+      ],
+      "transportCooling": "none",
+      "visible": false
+    }
+  ],
+  "scopes": [
+    "food",
+    "food2"
+  ],
+  "source": "Ecobalyse"
+}

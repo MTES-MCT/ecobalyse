@@ -1,0 +1,35 @@
+{
+  "activityName": "Fromage blanc, 8pct fat, variant 1, CMAPS {GLO} U",
+  "categories": [
+    "ingredient",
+    "material"
+  ],
+  "displayName": "Fromage blanc nature, gourmand, 8% MG environ FR",
+  "id": "32df9dcf-0eed-4203-8460-e24b2cb39177",
+  "metadata": [
+    {
+      "alias": "fromage-blanc-8pct-fat-fr",
+      "defaultOrigin": "France",
+      "displayName": "Fromage blanc nature, gourmand, 8% MG environ FR",
+      "id": "916bbf16-8e30-441b-a97d-645f5957d227",
+      "inediblePart": 0,
+      "ingredientCategories": [
+        "dairy_product"
+      ],
+      "ingredientDensity": 1,
+      "rawToCookedRatio": 1,
+      "scenario": "reference",
+      "scopes": [
+        "food",
+        "food2"
+      ],
+      "transportCooling": "always",
+      "visible": true
+    }
+  ],
+  "scopes": [
+    "food",
+    "food2"
+  ],
+  "source": "Ecobalyse"
+}

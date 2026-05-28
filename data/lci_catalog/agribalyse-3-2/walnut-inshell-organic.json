@@ -1,0 +1,61 @@
+{
+  "activityName": "Walnut, dried inshell, traditional varieties, organic, at farm gate {FR} U",
+  "categories": [
+    "ingredient",
+    "material",
+    "material_type:other_food_items"
+  ],
+  "displayName": "Noix avec coque Bio",
+  "id": "d1f276bb-d2a3-5259-9517-b5c1545de12e",
+  "metadata": [
+    {
+      "alias": "walnut-inshell-organic-2025",
+      "cropGroup": "FRUITS A COQUES",
+      "defaultOrigin": "France",
+      "displayName": "Noix avec coque Bio (2025)",
+      "id": "e3a3bd70-1c8e-4b8b-b22f-b1f9958574c8",
+      "inediblePart": 0.5,
+      "ingredientCategories": [
+        "nut_oilseed_raw",
+        "organic"
+      ],
+      "ingredientDensity": 0.72,
+      "landOccupation": 9.37,
+      "rawToCookedRatio": 1.0,
+      "scenario": "organic",
+      "scopes": [
+        "food",
+        "food2"
+      ],
+      "transportCooling": "none",
+      "visible": true
+    },
+    {
+      "alias": "chesnut-inshell-organic-2025",
+      "cropGroup": "FRUITS A COQUES",
+      "defaultOrigin": "France",
+      "displayName": "Châtaigne avec coque Bio (2025)",
+      "id": "17b171b8-1e5e-472f-a6c5-8053b5ae4c9a",
+      "inediblePart": 0.5,
+      "ingredientCategories": [
+        "nut_oilseed_raw",
+        "organic"
+      ],
+      "ingredientDensity": 0.72,
+      "landOccupation": 9.37,
+      "rawToCookedRatio": 1.0,
+      "scenario": "organic",
+      "scopes": [
+        "food",
+        "food2"
+      ],
+      "transportCooling": "none",
+      "visible": true
+    }
+  ],
+  "scopes": [
+    "food",
+    "food2"
+  ],
+  "source": "Agribalyse 3.2"
+}

@@ -1,0 +1,24 @@
+{
+  "activityName": "Semihard cheeses - cat A and cat B, 250g | Packaging System, N0, All, Paper foil for cut sale cheeses {FR} U",
+  "categories": [
+    "material",
+    "packaging",
+    "packaging_type:sheet"
+  ],
+  "displayName": "Feuille papier paraffiné pour fromage à pâte dure - 250g",
+  "id": "6465e22f-6648-4ad7-900f-809f9daed3c2",
+  "metadata": [
+    {
+      "id": "9334fd59-29c4-4c71-8cdc-2caae557cffb",
+      "scopes": [
+        "food2"
+      ]
+    }
+  ],
+  "scopes": [
+    "food",
+    "food2"
+  ],
+  "source": "Agribalyse 3.2",
+  "unit": "item"
+}

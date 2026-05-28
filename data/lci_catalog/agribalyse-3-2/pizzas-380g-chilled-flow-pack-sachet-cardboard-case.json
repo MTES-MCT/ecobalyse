@@ -1,0 +1,24 @@
+{
+  "activityName": "Pizzas, chilled, 380g | Packaging System, N0, All, Flow pack sachet with cardboard case {FR} U",
+  "categories": [
+    "material",
+    "packaging",
+    "packaging_type:bag"
+  ],
+  "displayName": "Sachet en plastique (PE) flow pack et étui carton pour pizza, réfrigérée - 380g",
+  "id": "09bf8c91-b95e-4bd3-aaf3-4c5450f74ae7",
+  "metadata": [
+    {
+      "id": "fa775270-4bc7-4f6d-a9d3-c80ed05ed90c",
+      "scopes": [
+        "food2"
+      ]
+    }
+  ],
+  "scopes": [
+    "food",
+    "food2"
+  ],
+  "source": "Agribalyse 3.2",
+  "unit": "item"
+}

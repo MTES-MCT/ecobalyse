@@ -1,0 +1,24 @@
+{
+  "activityName": "Pasta and grains chilled, 350g | Packaging System, N0, All, Tray with lid {FR} U",
+  "categories": [
+    "material",
+    "packaging",
+    "packaging_type:tray"
+  ],
+  "displayName": "Barquette en plastique (PET/PE) pour pâtes fraiches - 350g",
+  "id": "bfda68f5-00a9-4e88-849a-5268a49f603d",
+  "metadata": [
+    {
+      "id": "9c104243-2af5-4e04-ae79-d952dd526b7f",
+      "scopes": [
+        "food2"
+      ]
+    }
+  ],
+  "scopes": [
+    "food",
+    "food2"
+  ],
+  "source": "Agribalyse 3.2",
+  "unit": "item"
+}

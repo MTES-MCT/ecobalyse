@@ -1,0 +1,24 @@
+{
+  "activityName": "Yoghurts, 500g | Packaging System, N0, All, Plastic pot {FR} U",
+  "categories": [
+    "material",
+    "packaging",
+    "packaging_type:jar"
+  ],
+  "displayName": "Pot en plastique (PP) pour yaourt - 500g",
+  "id": "2554e4cd-075a-442a-b569-d77f05879561",
+  "metadata": [
+    {
+      "id": "db5bc298-2c7b-47f2-a09e-9ed1682fe992",
+      "scopes": [
+        "food2"
+      ]
+    }
+  ],
+  "scopes": [
+    "food",
+    "food2"
+  ],
+  "source": "Agribalyse 3.2",
+  "unit": "item"
+}

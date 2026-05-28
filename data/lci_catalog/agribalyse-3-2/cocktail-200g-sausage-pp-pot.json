@@ -1,0 +1,24 @@
+{
+  "activityName": "Cocktail sausage, 200g | Packaging System, N0, All, PP pot {FR} U",
+  "categories": [
+    "material",
+    "packaging",
+    "packaging_type:jar"
+  ],
+  "displayName": "Pot en plastique (PP) pour saucisse cocktail - 200g à 220g",
+  "id": "d9ec18ed-39c6-4aff-a6aa-82db0fb8cfe8",
+  "metadata": [
+    {
+      "id": "3c7e6488-1876-4c21-bfd1-c431c8a2e28a",
+      "scopes": [
+        "food2"
+      ]
+    }
+  ],
+  "scopes": [
+    "food",
+    "food2"
+  ],
+  "source": "Agribalyse 3.2",
+  "unit": "item"
+}

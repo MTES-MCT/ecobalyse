@@ -1,0 +1,37 @@
+{
+  "activityName": "Vinegar, balsamic, processed in FR | Ambient (long) | Pack proxy | at packaging {FR} U",
+  "categories": [
+    "ingredient",
+    "material",
+    "material_type:other_food_items"
+  ],
+  "displayName": "Vinaigre balsamique FR",
+  "id": "1ada0a0e-4dc5-57d9-bf34-60f617c63d9b",
+  "metadata": [
+    {
+      "alias": "balsamic-vinegar-2025",
+      "cropGroup": "DIVERS",
+      "defaultOrigin": "France",
+      "displayName": "Vinaigre balsamique FR (2025)",
+      "id": "c2e4259b-962f-49ea-b7f1-606f81b59207",
+      "inediblePart": 0,
+      "ingredientCategories": [
+        "vegetable_processed"
+      ],
+      "ingredientDensity": 1.0,
+      "rawToCookedRatio": 1.0,
+      "scenario": "reference",
+      "scopes": [
+        "food",
+        "food2"
+      ],
+      "transportCooling": "always",
+      "visible": true
+    }
+  ],
+  "scopes": [
+    "food",
+    "food2"
+  ],
+  "source": "Agribalyse 3.2"
+}

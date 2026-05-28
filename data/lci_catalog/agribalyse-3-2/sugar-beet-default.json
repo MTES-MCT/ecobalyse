@@ -1,0 +1,59 @@
+{
+  "activityName": "Sugar beet, at farm {CA} - Adapted from WFLDB U",
+  "categories": [
+    "ingredient",
+    "material",
+    "material_type:other_food_items"
+  ],
+  "displayName": "Betterave à sucre Origine Inconnue",
+  "id": "40b64f1f-f1d9-5f71-8315-43eedc458bbb",
+  "location": "CA",
+  "metadata": [
+    {
+      "alias": "sugar-beet-default",
+      "cropGroup": "AUTRES CULTURES INDUSTRIELLES",
+      "cropGroupMatch": {
+        "confidence": 1.0,
+        "rule": "matched 'betteraves sucrières' in cropgroup.csv"
+      },
+      "defaultOrigin": "OutOfEuropeAndMaghreb",
+      "displayName": "Betterave à sucre Origine Inconnue",
+      "id": "b6214661-a43d-53a3-b51e-f8cf2304d508",
+      "inediblePart": 0.0,
+      "inediblePartMatch": {
+        "confidence": 0.95,
+        "rule": "Matched with sugar in inedible_part.csv"
+      },
+      "ingredientCategories": [
+        "spice_condiment_additive"
+      ],
+      "ingredientDensity": 0.95,
+      "ingredientDensityMatch": {
+        "confidence": 0.95,
+        "rule": "Matched with Sugar in fao_density.csv"
+      },
+      "rawToCookedRatio": 1.0,
+      "rawToCookedRatioMatch": {
+        "confidence": 0.95,
+        "rule": "Matched with sugar in cooked_to_raw.csv"
+      },
+      "scenario": "import",
+      "scopes": [
+        "food",
+        "food2"
+      ],
+      "transportCooling": "none",
+      "transportCoolingMatch": {
+        "confidence": 1.0,
+        "rule": "spice_condiment → none (non-perishable)"
+      },
+      "visible": true
+    }
+  ],
+  "scopes": [
+    "food",
+    "food2"
+  ],
+  "source": "Agribalyse 3.2",
+  "unit": "kg"
+}

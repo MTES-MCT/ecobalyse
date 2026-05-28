@@ -1,0 +1,24 @@
+{
+  "activityName": "Olive oil, 0,75L | Packaging System, N0, All, Glass bottle {FR} U",
+  "categories": [
+    "material",
+    "packaging",
+    "packaging_type:bottle"
+  ],
+  "displayName": "Bouteille en verre et bouchon plastique pour huile d'olive - 0,5L à 1L",
+  "id": "8d66bdcf-ee30-43ab-af80-f5565bab0e58",
+  "metadata": [
+    {
+      "id": "a10668c6-4d0a-4484-b8e2-4577fe0a2173",
+      "scopes": [
+        "food2"
+      ]
+    }
+  ],
+  "scopes": [
+    "food",
+    "food2"
+  ],
+  "source": "Agribalyse 3.2",
+  "unit": "item"
+}

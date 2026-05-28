@@ -1,0 +1,60 @@
+{
+  "activityName": "Onion, organic 2025 {CN}| onion production | Cut-off, U",
+  "categories": [
+    "ingredient",
+    "material",
+    "material_type:other_food_items"
+  ],
+  "displayName": "Gingembre Bio",
+  "id": "a514edc1-d743-5dc0-94b0-7226ea3d3f5d",
+  "location": "CN",
+  "metadata": [
+    {
+      "alias": "ginger-organic",
+      "cropGroup": "AUTRES CULTURES INDUSTRIELLES",
+      "cropGroupMatch": {
+        "confidence": 1.0,
+        "rule": "matched 'ginger' in cropgroup.csv"
+      },
+      "defaultOrigin": "France",
+      "displayName": "Gingembre Bio",
+      "id": "74b9a138-eefa-5d1e-b7a2-b5332e17d402",
+      "inediblePart": 0.0,
+      "inediblePartMatch": {
+        "confidence": 1.0,
+        "rule": "spice_condiment NOVA 1 default from food_type_inedible_part.csv"
+      },
+      "ingredientCategories": [
+        "spice_condiment_additive",
+        "organic"
+      ],
+      "ingredientDensity": 0.5,
+      "ingredientDensityMatch": {
+        "confidence": 1.0,
+        "rule": "spice_condiment default from food_type_density.csv"
+      },
+      "rawToCookedRatio": 1.0,
+      "rawToCookedRatioMatch": {
+        "confidence": 1.0,
+        "rule": "spice_condiment default from food_type_cooked_to_raw.csv"
+      },
+      "scenario": "organic",
+      "scopes": [
+        "food",
+        "food2"
+      ],
+      "transportCooling": "none",
+      "transportCoolingMatch": {
+        "confidence": 1.0,
+        "rule": "spice_condiment → none (non-perishable)"
+      },
+      "visible": true
+    }
+  ],
+  "scopes": [
+    "food",
+    "food2"
+  ],
+  "source": "Ginko 2025",
+  "unit": "kg"
+}

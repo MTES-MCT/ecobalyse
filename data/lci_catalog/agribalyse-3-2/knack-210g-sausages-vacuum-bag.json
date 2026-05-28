@@ -1,0 +1,24 @@
+{
+  "activityName": "Knack sausages, 210g | Packaging System, N0, All, Vacuum bag {FR} U",
+  "categories": [
+    "material",
+    "packaging",
+    "packaging_type:bag"
+  ],
+  "displayName": "Sachet sous-vide en plastique (PA/PE) pour saucisse knack - 210g",
+  "id": "36cd75c0-d93d-4f0a-9375-cecd1fd3cdfe",
+  "metadata": [
+    {
+      "id": "529f0936-e0a0-4362-bc61-a36b550c498f",
+      "scopes": [
+        "food2"
+      ]
+    }
+  ],
+  "scopes": [
+    "food",
+    "food2"
+  ],
+  "source": "Agribalyse 3.2",
+  "unit": "item"
+}

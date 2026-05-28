@@ -1,0 +1,24 @@
+{
+  "activityName": "Legumes cooked ambient, 350g | Packaging System, N0, All, Glass jar with capsule {FR} U",
+  "categories": [
+    "material",
+    "packaging",
+    "packaging_type:jar"
+  ],
+  "displayName": "Bocal en verre pour légume cuit, ambiant - 350g",
+  "id": "bfa7e2f0-c442-4d24-97d3-78259a80114a",
+  "metadata": [
+    {
+      "id": "b0021146-0fe8-4ffd-9d32-2e568c090a0d",
+      "scopes": [
+        "food2"
+      ]
+    }
+  ],
+  "scopes": [
+    "food",
+    "food2"
+  ],
+  "source": "Agribalyse 3.2",
+  "unit": "item"
+}

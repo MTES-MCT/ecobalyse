@@ -1,0 +1,59 @@
+{
+  "activityName": "Barley grain, non-irrigated, at farm (WFLDB)",
+  "categories": [
+    "ingredient",
+    "material",
+    "material_type:other_food_items"
+  ],
+  "displayName": "Orge entière Origine Inconnue",
+  "id": "3bb4591b-3223-5994-a85e-ef739de6ac61",
+  "location": "UA",
+  "metadata": [
+    {
+      "alias": "barley-whole-default",
+      "cropGroup": "ORGE",
+      "cropGroupMatch": {
+        "confidence": 0.95,
+        "rule": "matched 'barley' in cropgroup.csv"
+      },
+      "defaultOrigin": "OutOfEuropeAndMaghreb",
+      "displayName": "Orge entière Origine Inconnue",
+      "id": "8b4a4423-594c-59fc-a544-5899efea8b16",
+      "inediblePart": 0.0,
+      "inediblePartMatch": {
+        "confidence": 1.0,
+        "rule": "grain NOVA 1 default from food_type_inedible_part.csv"
+      },
+      "ingredientCategories": [
+        "grain_raw"
+      ],
+      "ingredientDensity": 0.65,
+      "ingredientDensityMatch": {
+        "confidence": 0.952,
+        "rule": "Matched with Barley, whole in fao_density.csv"
+      },
+      "rawToCookedRatio": 2.259,
+      "rawToCookedRatioMatch": {
+        "confidence": 0.95,
+        "rule": "Matched with barley in cooked_to_raw.csv"
+      },
+      "scenario": "import",
+      "scopes": [
+        "food",
+        "food2"
+      ],
+      "transportCooling": "none",
+      "transportCoolingMatch": {
+        "confidence": 1.0,
+        "rule": "grain → none (non-perishable)"
+      },
+      "visible": true
+    }
+  ],
+  "scopes": [
+    "food",
+    "food2"
+  ],
+  "source": "WFLDB",
+  "unit": "kg"
+}

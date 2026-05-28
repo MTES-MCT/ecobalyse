@@ -1,0 +1,37 @@
+{
+  "activityName": "Plum puree, organic, CMAPS {GLO} U",
+  "categories": [
+    "ingredient",
+    "material"
+  ],
+  "displayName": "Purée de prune Bio",
+  "id": "50b5c539-824e-4a44-97d9-d0626aa44700",
+  "metadata": [
+    {
+      "alias": "plum-puree-fr-organic",
+      "cropGroup": "VERGERS",
+      "defaultOrigin": "France",
+      "displayName": "Purée de prune Bio",
+      "id": "ec44b335-3d57-4677-bbf4-136f43e56d89",
+      "inediblePart": 0,
+      "ingredientCategories": [
+        "vegetable_processed",
+        "organic"
+      ],
+      "ingredientDensity": 1,
+      "rawToCookedRatio": 1,
+      "scenario": "organic",
+      "scopes": [
+        "food",
+        "food2"
+      ],
+      "transportCooling": "always",
+      "visible": true
+    }
+  ],
+  "scopes": [
+    "food",
+    "food2"
+  ],
+  "source": "Ecobalyse"
+}

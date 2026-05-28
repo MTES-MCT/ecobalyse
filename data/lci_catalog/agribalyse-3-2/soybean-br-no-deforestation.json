@@ -1,0 +1,37 @@
+{
+  "activityName": "Soybean, not associated to deforestation {BR}| market for soybean, without transport | Cut-off, U - Adapted from Ecoinvent",
+  "categories": [
+    "ingredient",
+    "material",
+    "material_type:other_food_items"
+  ],
+  "displayName": "Soja (non déforestant) par défaut",
+  "id": "4394f635-f067-54b5-b881-c1be56920d90",
+  "metadata": [
+    {
+      "alias": "soybean-br-no-deforestation",
+      "cropGroup": "AUTRES OLEAGINEUX",
+      "defaultOrigin": "OutOfEuropeAndMaghreb",
+      "displayName": "Soja (non déforestant) par défaut",
+      "id": "0cd5d7be-c2a9-4a3d-a3f9-86e351733438",
+      "inediblePart": 0,
+      "ingredientCategories": [
+        "nut_oilseed_raw"
+      ],
+      "ingredientDensity": 0.72,
+      "rawToCookedRatio": 2.33,
+      "scenario": "import",
+      "scopes": [
+        "food",
+        "food2"
+      ],
+      "transportCooling": "none",
+      "visible": true
+    }
+  ],
+  "scopes": [
+    "food",
+    "food2"
+  ],
+  "source": "Agribalyse 3.2"
+}

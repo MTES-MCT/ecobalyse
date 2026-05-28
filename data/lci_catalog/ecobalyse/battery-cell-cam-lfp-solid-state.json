@@ -1,0 +1,26 @@
+{
+  "activityName": "CAM of Battery cell, LFP Solid State, CN",
+  "categories": [
+    "material",
+    "material_type:battery_cell"
+  ],
+  "comment": "For 1kg Cathode Active Material. Based on GREET model (average of available battery size)",
+  "displayName": "CAM de cellule de batterie, LFP Solid State, CN",
+  "elecMJ": 0,
+  "heatMJ": 0,
+  "id": "0e6996d5-9384-45bf-9b05-a1f9f55b596d",
+  "metadata": [
+    {
+      "id": "3981f080-1a6d-4613-82d1-0a3ec67d5467",
+      "scopes": [
+        "veli"
+      ]
+    }
+  ],
+  "qtyVariationRatio": 1,
+  "scopes": [
+    "veli"
+  ],
+  "source": "Ecobalyse",
+  "unit": "kg"
+}

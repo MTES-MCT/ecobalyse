@@ -1,0 +1,38 @@
+{
+  "activityName": "Pasta, dried, from durum wheat, at plant, from GLO wheat and FR elec",
+  "categories": [
+    "ingredient",
+    "material",
+    "material_type:other_food_items"
+  ],
+  "displayName": "Pâtes FR (blé GLO + élec FR)",
+  "id": "85e316a2-7f09-50d5-b0bb-3b8735faeac5",
+  "metadata": [
+    {
+      "alias": "pasta-glo-fr",
+      "cropGroup": "BLE TENDRE",
+      "defaultOrigin": "France",
+      "displayName": "Pâtes FR (blé GLO + élec FR)",
+      "explain": "Pâtes avec blé GLO et transformation élec FR",
+      "id": "5cba3ac2-bd63-43eb-9b6f-70b9de218c9a",
+      "inediblePart": 0.2,
+      "ingredientCategories": [
+        "grain_processed"
+      ],
+      "ingredientDensity": 0.72,
+      "rawToCookedRatio": 2.259,
+      "scenario": "reference",
+      "scopes": [
+        "food",
+        "food2"
+      ],
+      "transportCooling": "none",
+      "visible": true
+    }
+  ],
+  "scopes": [
+    "food",
+    "food2"
+  ],
+  "source": "Ecobalyse"
+}

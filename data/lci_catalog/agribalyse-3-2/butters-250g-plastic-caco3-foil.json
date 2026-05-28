@@ -1,0 +1,24 @@
+{
+  "activityName": "Butters, 250g | Packaging System, N0, All, Plastic with CaCO3 foil {FR} U",
+  "categories": [
+    "material",
+    "packaging",
+    "packaging_type:sheet"
+  ],
+  "displayName": "Feuille complexe (PP/CaCO3) pour beurre - 250g",
+  "id": "37ffc2ff-0553-4550-9510-45db181e2f41",
+  "metadata": [
+    {
+      "id": "3ddc655d-f2f9-49e8-bd79-ce68f9ddbd39",
+      "scopes": [
+        "food2"
+      ]
+    }
+  ],
+  "scopes": [
+    "food",
+    "food2"
+  ],
+  "source": "Agribalyse 3.2",
+  "unit": "item"
+}

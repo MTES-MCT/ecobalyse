@@ -1,0 +1,36 @@
+{
+  "activityName": "Soft wheat flour, CMAPS {GLO} U",
+  "categories": [
+    "ingredient",
+    "material"
+  ],
+  "displayName": "Farine de blé tendre, froment ou millet FR",
+  "id": "0fe695a0-c88e-46e2-8e12-f5cf680f1de4",
+  "metadata": [
+    {
+      "alias": "soft-wheat-flour-fr",
+      "cropGroup": "BLE TENDRE",
+      "defaultOrigin": "France",
+      "displayName": "Farine de blé tendre, froment ou millet FR",
+      "id": "d57e50ef-b40e-4abf-ab50-1edf4916a3e4",
+      "inediblePart": 0,
+      "ingredientCategories": [
+        "grain_processed"
+      ],
+      "ingredientDensity": 1,
+      "rawToCookedRatio": 1,
+      "scenario": "reference",
+      "scopes": [
+        "food",
+        "food2"
+      ],
+      "transportCooling": "always",
+      "visible": true
+    }
+  ],
+  "scopes": [
+    "food",
+    "food2"
+  ],
+  "source": "Ecobalyse"
+}

@@ -1,0 +1,115 @@
+{
+  "activityName": "Lamb, conventional, indoor production system, at farm gate {FR} U",
+  "categories": [
+    "ingredient",
+    "material",
+    "material_type:other_food_items"
+  ],
+  "displayName": "Agneau conventionnel vivant FR",
+  "id": "fb2ca05e-b366-573d-82ed-dbbb2c2b7e60",
+  "metadata": [
+    {
+      "alias": "lamb-conventional-fr-live",
+      "animalGroup1": "sheep",
+      "animalGroup2": "sheep",
+      "animalProduct": "meat",
+      "defaultOrigin": "France",
+      "displayName": "Agneau conventionnel vivant FR",
+      "id": "a7285486-2ab8-536e-8402-308c45966e16",
+      "inediblePart": 0,
+      "ingredientCategories": [
+        "animal_product"
+      ],
+      "ingredientDensity": 1.0,
+      "rawToCookedRatio": 1.0,
+      "scenario": "reference",
+      "scopes": [
+        "food",
+        "food2"
+      ],
+      "transportCooling": "always",
+      "visible": false
+    },
+    {
+      "alias": "lamb-fr",
+      "animalGroup1": "sheep",
+      "animalGroup2": "sheep",
+      "animalProduct": "meat",
+      "defaultOrigin": "France",
+      "displayName": "Agneau FR",
+      "id": "d769a057-a17c-557f-849a-94cebdeabfa3",
+      "inediblePart": 0.05,
+      "inediblePartMatch": {
+        "confidence": 1.0,
+        "rule": "meat NOVA 1 default from food_type_inedible_part.csv"
+      },
+      "ingredientCategories": [
+        "animal_product"
+      ],
+      "ingredientDensity": 1.05,
+      "ingredientDensityMatch": {
+        "confidence": 1.0,
+        "rule": "lamb found in density.csv"
+      },
+      "rawToCookedRatio": 0.792,
+      "rawToCookedRatioMatch": {
+        "confidence": 1.0,
+        "rule": "meat default from food_type_cooked_to_raw.csv"
+      },
+      "scenario": "reference",
+      "scopes": [
+        "food",
+        "food2"
+      ],
+      "transportCooling": "always",
+      "transportCoolingMatch": {
+        "confidence": 1.0,
+        "rule": "meat NOVA 1 → always (perishable)"
+      },
+      "visible": false
+    },
+    {
+      "alias": "lamb-default",
+      "animalGroup1": "sheep",
+      "animalGroup2": "sheep",
+      "animalProduct": "meat",
+      "defaultOrigin": "OutOfEuropeAndMaghreb",
+      "displayName": "Agneau Origine Inconnue",
+      "id": "03ff2f01-3931-55a9-81f7-509909908486",
+      "inediblePart": 0.05,
+      "inediblePartMatch": {
+        "confidence": 1.0,
+        "rule": "meat NOVA 1 default from food_type_inedible_part.csv"
+      },
+      "ingredientCategories": [
+        "animal_product"
+      ],
+      "ingredientDensity": 1.05,
+      "ingredientDensityMatch": {
+        "confidence": 1.0,
+        "rule": "lamb found in density.csv"
+      },
+      "rawToCookedRatio": 0.792,
+      "rawToCookedRatioMatch": {
+        "confidence": 1.0,
+        "rule": "meat default from food_type_cooked_to_raw.csv"
+      },
+      "scenario": "import",
+      "scopes": [
+        "food",
+        "food2"
+      ],
+      "transportCooling": "always",
+      "transportCoolingMatch": {
+        "confidence": 1.0,
+        "rule": "meat NOVA 1 → always (perishable)"
+      },
+      "visible": false
+    }
+  ],
+  "scopes": [
+    "food",
+    "food2"
+  ],
+  "source": "Agribalyse 3.2"
+}

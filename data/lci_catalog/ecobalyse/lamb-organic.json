@@ -1,0 +1,55 @@
+{
+  "activityName": "Live lamb, consumption mix {FR} U {{lamb-meat-without-bone-organic-2025}}",
+  "categories": [
+    "ingredient"
+  ],
+  "displayName": "Agneau Bio",
+  "id": "5cd7bf39-6699-59f1-9838-655df48d27da",
+  "metadata": [
+    {
+      "alias": "lamb-organic-2025",
+      "animalGroup1": "sheep",
+      "animalGroup2": "sheep",
+      "animalProduct": "meat",
+      "defaultOrigin": "France",
+      "displayName": "Agneau Bio (2025)",
+      "id": "40a0b555-9861-5fc0-9403-a1270da13963",
+      "inediblePart": 0.05,
+      "inediblePartMatch": {
+        "confidence": 1.0,
+        "rule": "meat NOVA 1 default from food_type_inedible_part.csv"
+      },
+      "ingredientCategories": [
+        "animal_product",
+        "organic"
+      ],
+      "ingredientDensity": 1.05,
+      "ingredientDensityMatch": {
+        "confidence": 1.0,
+        "rule": "lamb found in density.csv"
+      },
+      "rawToCookedRatio": 0.792,
+      "rawToCookedRatioMatch": {
+        "confidence": 1.0,
+        "rule": "meat default from food_type_cooked_to_raw.csv"
+      },
+      "scenario": "organic",
+      "scopes": [
+        "food",
+        "food2"
+      ],
+      "transportCooling": "always",
+      "transportCoolingMatch": {
+        "confidence": 1.0,
+        "rule": "meat NOVA 1 → always (perishable)"
+      },
+      "visible": false
+    }
+  ],
+  "scopes": [
+    "food",
+    "food2"
+  ],
+  "source": "Ecobalyse",
+  "unit": "kg"
+}

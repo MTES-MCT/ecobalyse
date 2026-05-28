@@ -1,0 +1,37 @@
+{
+  "activityName": "Green bean, cut raw, organic, CMAPS {GLO} U",
+  "categories": [
+    "ingredient",
+    "material"
+  ],
+  "displayName": "Haricot vert, découpé, cru BIO",
+  "id": "ab6a1764-3851-43df-82be-3bd24507068d",
+  "metadata": [
+    {
+      "alias": "green-bean-cut-raw-fr-organic",
+      "cropGroup": "LEGUMES-FLEURS",
+      "defaultOrigin": "France",
+      "displayName": "Haricot vert, découpé, cru BIO",
+      "id": "43f5317d-b068-46b2-8e02-d17ee2d6ab8b",
+      "inediblePart": 0,
+      "ingredientCategories": [
+        "vegetable_fresh",
+        "organic"
+      ],
+      "ingredientDensity": 1,
+      "rawToCookedRatio": 1,
+      "scenario": "organic",
+      "scopes": [
+        "food",
+        "food2"
+      ],
+      "transportCooling": "always",
+      "visible": false
+    }
+  ],
+  "scopes": [
+    "food",
+    "food2"
+  ],
+  "source": "Ecobalyse"
+}

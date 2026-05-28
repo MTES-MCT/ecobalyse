@@ -1,0 +1,37 @@
+{
+  "activityName": "__4 Grain crops, DK",
+  "categories": [
+    "ingredient"
+  ],
+  "displayName": "Oeuf Bleu-Blanc-Cœur FR",
+  "id": "16efc095-4a24-5a4f-a111-c4608da3773b",
+  "metadata": [
+    {
+      "alias": "egg-bleublanccoeur",
+      "animalGroup1": "poultry",
+      "animalGroup2": "chicken",
+      "animalProduct": "egg",
+      "defaultOrigin": "France",
+      "displayName": "Oeuf Bleu-Blanc-Cœur FR",
+      "id": "7ef7399a-1d56-4947-b773-9f6438a50fda",
+      "inediblePart": 0.2,
+      "ingredientCategories": [
+        "animal_product",
+        "bleublanccoeur"
+      ],
+      "ingredientDensity": 1.0,
+      "landOccupation": 4.46758,
+      "rawToCookedRatio": 0.974,
+      "scenario": "reference",
+      "scopes": [
+        "food"
+      ],
+      "transportCooling": "none",
+      "visible": true
+    }
+  ],
+  "scopes": [
+    "food"
+  ],
+  "source": "forwast"
+}

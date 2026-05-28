@@ -1,0 +1,35 @@
+{
+  "activityName": "Brie cheese, variant 2, CMAPS {GLO} U",
+  "categories": [
+    "ingredient",
+    "material"
+  ],
+  "displayName": "Fromage à pâte molle à croûte fleurie Origine inconnue",
+  "id": "68ee04e1-5112-4c87-8fc4-6aa1f7ac04c2",
+  "metadata": [
+    {
+      "alias": "brie-cheese-default",
+      "defaultOrigin": "OutOfEuropeAndMaghreb",
+      "displayName": "Fromage à pâte molle à croûte fleurie Origine inconnue",
+      "id": "25848353-52a8-41da-8204-716ce31b40e1",
+      "inediblePart": 0,
+      "ingredientCategories": [
+        "dairy_product"
+      ],
+      "ingredientDensity": 1,
+      "rawToCookedRatio": 1,
+      "scenario": "import",
+      "scopes": [
+        "food",
+        "food2"
+      ],
+      "transportCooling": "always",
+      "visible": true
+    }
+  ],
+  "scopes": [
+    "food",
+    "food2"
+  ],
+  "source": "Ecobalyse"
+}

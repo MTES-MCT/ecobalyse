@@ -1,0 +1,35 @@
+{
+  "activityName": "Mont d'Or cheese, variant 1, CMAPS {GLO} U",
+  "categories": [
+    "ingredient",
+    "material"
+  ],
+  "displayName": "Mont d'or ou Vacherin du Haut-Doubs (produit en France) ou Vacherin-Mont d'Or (produit en Suisse) FR",
+  "id": "50410281-5cdb-4788-90b5-4436aeb620dc",
+  "metadata": [
+    {
+      "alias": "mont-dor-cheese-fr",
+      "defaultOrigin": "France",
+      "displayName": "Mont d'or ou Vacherin du Haut-Doubs (produit en France) ou Vacherin-Mont d'Or (produit en Suisse) FR",
+      "id": "bdedc41e-ef10-4c49-a40b-d1c9273467de",
+      "inediblePart": 0,
+      "ingredientCategories": [
+        "dairy_product"
+      ],
+      "ingredientDensity": 1,
+      "rawToCookedRatio": 1,
+      "scenario": "reference",
+      "scopes": [
+        "food",
+        "food2"
+      ],
+      "transportCooling": "always",
+      "visible": true
+    }
+  ],
+  "scopes": [
+    "food",
+    "food2"
+  ],
+  "source": "Ecobalyse"
+}

@@ -1,0 +1,24 @@
+{
+  "activityName": "Dry sausages, 205g | Packaging System, N0, All, Bag with cardboard case {FR} U",
+  "categories": [
+    "material",
+    "packaging",
+    "packaging_type:bag"
+  ],
+  "displayName": "Sachet en plastique (PP/PA) dans un étui en carton pour saucisson sec entier - 250g",
+  "id": "1d2d117c-084e-4387-9661-86094ed88e04",
+  "metadata": [
+    {
+      "id": "a0906e35-649c-4555-a055-0fab20c8d9f3",
+      "scopes": [
+        "food2"
+      ]
+    }
+  ],
+  "scopes": [
+    "food",
+    "food2"
+  ],
+  "source": "Agribalyse 3.2",
+  "unit": "item"
+}

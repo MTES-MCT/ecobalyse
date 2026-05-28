@@ -1,0 +1,58 @@
+{
+  "activityName": "Barley grain {FR}| barley production | Cut-off, U - Adapted from Ecoinvent U",
+  "categories": [
+    "ingredient",
+    "material",
+    "material_type:other_food_items"
+  ],
+  "displayName": "Orge entière FR",
+  "id": "a3ea35c9-a1c7-56d4-a745-35f09d44d44b",
+  "metadata": [
+    {
+      "alias": "barley-whole-fr",
+      "cropGroup": "ORGE",
+      "cropGroupMatch": {
+        "confidence": 0.95,
+        "rule": "matched 'barley' in cropgroup.csv"
+      },
+      "defaultOrigin": "France",
+      "displayName": "Orge entière FR",
+      "id": "00150a93-dea5-55d1-ba56-990d4fa43592",
+      "inediblePart": 0.0,
+      "inediblePartMatch": {
+        "confidence": 1.0,
+        "rule": "grain NOVA 1 default from food_type_inedible_part.csv"
+      },
+      "ingredientCategories": [
+        "grain_raw"
+      ],
+      "ingredientDensity": 0.65,
+      "ingredientDensityMatch": {
+        "confidence": 0.952,
+        "rule": "Matched with Barley, whole in fao_density.csv"
+      },
+      "rawToCookedRatio": 2.259,
+      "rawToCookedRatioMatch": {
+        "confidence": 0.95,
+        "rule": "Matched with barley in cooked_to_raw.csv"
+      },
+      "scenario": "reference",
+      "scopes": [
+        "food",
+        "food2"
+      ],
+      "transportCooling": "none",
+      "transportCoolingMatch": {
+        "confidence": 1.0,
+        "rule": "grain → none (non-perishable)"
+      },
+      "visible": true
+    }
+  ],
+  "scopes": [
+    "food",
+    "food2"
+  ],
+  "source": "Agribalyse 3.2",
+  "unit": "kg"
+}

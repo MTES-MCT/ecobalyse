@@ -1,0 +1,37 @@
+{
+  "activityName": "Cherry, pitted raw, organic, CMAPS {GLO} U",
+  "categories": [
+    "ingredient",
+    "material"
+  ],
+  "displayName": "Cerise, dénoyautée, crue Bio",
+  "id": "147d6940-871c-4a1b-b67e-7113be5215a0",
+  "metadata": [
+    {
+      "alias": "cherry-pitted-raw-fr-organic",
+      "cropGroup": "VERGERS",
+      "defaultOrigin": "France",
+      "displayName": "Cerise, dénoyautée, crue Bio",
+      "id": "19ef7744-364e-422c-8c68-0ed87fad5e81",
+      "inediblePart": 0,
+      "ingredientCategories": [
+        "vegetable_fresh",
+        "organic"
+      ],
+      "ingredientDensity": 1,
+      "rawToCookedRatio": 1,
+      "scenario": "organic",
+      "scopes": [
+        "food",
+        "food2"
+      ],
+      "transportCooling": "always",
+      "visible": true
+    }
+  ],
+  "scopes": [
+    "food",
+    "food2"
+  ],
+  "source": "Ecobalyse"
+}

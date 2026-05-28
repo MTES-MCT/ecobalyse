@@ -1,0 +1,54 @@
+{
+  "activityName": "Snail, wild {HU} U",
+  "categories": [
+    "ingredient",
+    "material",
+    "material_type:fish_and_shellfish"
+  ],
+  "displayName": "Escargot Origine Inconnue",
+  "id": "0d8d138b-9a55-530a-ba1a-9f9c06c4381b",
+  "location": "HU",
+  "metadata": [
+    {
+      "alias": "snail-default",
+      "defaultOrigin": "OutOfEuropeAndMaghreb",
+      "displayName": "Escargot Origine Inconnue",
+      "id": "3bd5db8a-ef5a-5d51-ba4c-9f71c7875405",
+      "inediblePart": 0.4,
+      "inediblePartMatch": {
+        "confidence": 1.0,
+        "rule": "fish_seafood NOVA 1 default from food_type_inedible_part.csv"
+      },
+      "ingredientCategories": [
+        "animal_product"
+      ],
+      "ingredientDensity": 1.05,
+      "ingredientDensityMatch": {
+        "confidence": 1.0,
+        "rule": "fish_seafood default from food_type_density.csv"
+      },
+      "rawToCookedRatio": 0.819,
+      "rawToCookedRatioMatch": {
+        "confidence": 1.0,
+        "rule": "fish_seafood default from food_type_cooked_to_raw.csv"
+      },
+      "scenario": "import",
+      "scopes": [
+        "food",
+        "food2"
+      ],
+      "transportCooling": "always",
+      "transportCoolingMatch": {
+        "confidence": 1.0,
+        "rule": "fish_seafood NOVA 1 → always (perishable)"
+      },
+      "visible": true
+    }
+  ],
+  "scopes": [
+    "food",
+    "food2"
+  ],
+  "source": "Agribalyse 3.2",
+  "unit": "kg"
+}

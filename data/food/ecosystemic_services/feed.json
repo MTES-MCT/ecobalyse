@@ -1,0 +1,146 @@
+{
+  "beef-cattle-conventional-fr-live": {
+    "grazed-grass-permanent-2025": 16.23,
+    "grazed-grass-temporary-2025": 2.19,
+    "silage-maize-fr-2025": 1.48,
+    "soft-wheat-fr": 0.55,
+    "soybean-br-deforestation": 0.23
+  },
+  "beef-cattle-feedlot-gb-live": {
+    "barley-eu-2025": 2.74,
+    "oats-glo-2025": 5.49,
+    "oilseed-feed-2025": 2.64
+  },
+  "broiler-br-max-live": {
+    "barley-2025": 0.45,
+    "soft-wheat-fr": 0.64,
+    "soybean-feed-2025": 0.45,
+    "sweet-corn-br-2025": 0.98
+  },
+  "broiler-conventional-fr-live": {
+    "barley-2025": 0.45,
+    "soft-wheat-fr": 0.64,
+    "soybean-br-deforestation": 0.45,
+    "sweet-corn-fr-2025": 0.98
+  },
+  "broiler-fr-feed-live": {
+    "barley-2025": 0.45,
+    "soft-wheat-fr": 0.64,
+    "soybean-feed-2025": 0.45,
+    "sweet-corn-fr-2025": 0.98
+  },
+  "broiler-fr-organic-live": {
+    "barley-2025": 0.45,
+    "soft-wheat-organic": 0.33,
+    "soybean-organic-2025": 0.45,
+    "sweet-corn-organic-fr-2025": 1.51
+  },
+  "broiler-organic-fr-live": {
+    "barley-2025": 0.45,
+    "soft-wheat-organic": 0.33,
+    "soybean-organic-2025": 0.45,
+    "sweet-corn-organic-fr-2025": 1.51
+  },
+  "cow-milk-fr": {
+    "grazed-grass-permanent-2025": 0.17,
+    "grazed-grass-temporary-2025": 0.44,
+    "silage-maize-fr-2025": 0.35,
+    "soft-wheat-fr": 0.09,
+    "soybean-br-deforestation": 0.06
+  },
+  "cull-cow-grass-fed-fr-live": {
+    "grazed-grass-permanent-2025": 22.03
+  },
+  "cull-cow-organic-national-average-live": {
+    "alfalfa-organic-2025": 0.59,
+    "grazed-grass-permanent-2025": 15.01,
+    "grazed-grass-temporary-2025": 4.48,
+    "oats-organic-2025": 0.14,
+    "silage-maize-organic-2025": 0.34,
+    "soft-wheat-organic": 0.19,
+    "triticale-organic-2025": 0.69
+  },
+  "egg-bleublanccoeur-2025": {
+    "bean-fr-2025": 0.27,
+    "soft-wheat-organic": 1.09,
+    "soybean-organic-2025": 0.2,
+    "sweet-corn-fr-2025": 0.48
+  },
+  "egg-indoor-code2-2025": {
+    "soft-wheat-fr": 0.68,
+    "soybean-br-deforestation": 0.47,
+    "sweet-corn-fr-2025": 1.18
+  },
+  "egg-indoor-code3-2025": {
+    "soft-wheat-fr": 0.57,
+    "soybean-br-deforestation": 0.35,
+    "sweet-corn-fr-2025": 0.98
+  },
+  "egg-organic": {
+    "soft-wheat-organic": 0.45,
+    "soybean-organic-2025": 0.34,
+    "sunflower-organic": 0.13,
+    "sweet-corn-organic-fr-2025": 0.8
+  },
+  "egg-organic-code0-2025": {
+    "soft-wheat-organic": 0.45,
+    "soybean-organic-2025": 0.34,
+    "sunflower-organic": 0.13,
+    "sweet-corn-organic-fr-2025": 0.8
+  },
+  "egg-outdoor-code1-2025": {
+    "soft-wheat-fr": 0.64,
+    "soybean-br-deforestation": 0.45,
+    "sweet-corn-fr-2025": 1.14
+  },
+  "lamb-conventional-fr-live": {
+    "grazed-grass-permanent-2025": 10.46,
+    "grazed-grass-temporary-2025": 5.02,
+    "soft-wheat-fr": 1.23,
+    "soybean-br-deforestation": 0.38
+  },
+  "lamb-organic-national-average-farm-gate-fr-u-live": {
+    "barley-organic-2025": 0.63,
+    "grazed-grass-permanent-2025": 28.03,
+    "grazed-grass-temporary-2025": 5.86,
+    "soft-wheat-organic": 1.23
+  },
+  "milk-2025": {
+    "grazed-grass-permanent-2025": 0.17,
+    "grazed-grass-temporary-2025": 0.44,
+    "silage-maize-fr-2025": 0.35,
+    "soft-wheat-fr": 0.09,
+    "soybean-br-deforestation": 0.06
+  },
+  "milk-organic-2025": {
+    "grazed-grass-permanent-2025": 0.81,
+    "grazed-grass-temporary-2025": 0.58,
+    "silage-maize-organic-2025": 0.07,
+    "soft-wheat-organic": 0.05,
+    "triticale-organic-2025": 0.04
+  },
+  "pig-bbc-fr-live": {
+    "barley-2025": 0.29,
+    "soft-wheat-fr": 1.18,
+    "sweet-corn-fr-2025": 0.39
+  },
+  "pig-conventional-fr-live": {
+    "barley-2025": 0.28,
+    "soft-wheat-fr": 1.29,
+    "soybean-br-deforestation": 0.14,
+    "sweet-corn-fr-2025": 0.37
+  },
+  "pig-organic-fr-live": {
+    "barley-organic-2025": 0.53,
+    "bean-organic-2025": 0.72,
+    "soft-wheat-organic": 0.36,
+    "soybean-organic-2025": 0.29,
+    "triticale-organic-2025": 0.77
+  },
+  "swine-industrial-ca-live": {
+    "barley-eu-2025": 0.14,
+    "soft-wheat-eu-2025": 0.09,
+    "soybean-br-deforestation": 0.1,
+    "sweet-corn-br-2025": 0.52
+  }
+}
