@@ -137,10 +137,7 @@ class CustomAuthMiddleware(AbstractAuthenticationMiddleware):
         auth_header = connection.headers.get(self.auth_header)
 
         if not auth_header:
-            if connection.scope["route_handler"].opt.get("allow_none_user"):
-                return AuthenticationResult(user=None, auth=None)
-            else:
-                raise NotAuthorizedException("No JWT token found in request header")
+            raise NotAuthorizedException("No JWT token found in request header")
 
         encoded_token = auth_header.partition(" ")[-1]
         return await self.authenticate_token(

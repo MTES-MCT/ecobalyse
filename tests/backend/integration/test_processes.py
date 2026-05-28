@@ -107,12 +107,6 @@ async def test_detailed_process_access(
     user_token_headers: dict[str, str],
     toc_not_accepted_user_token_headers: dict[str, str],
 ) -> None:
-    # Non authenticated access
-    response = await client.get(
-        "/api/processes/97c209ec-7782-5a29-8c47-af7f17c82d11",
-    )
-    assert response.status_code == 200
-    json_response = response.json()
 
     no_detailed_impacts = {
         "acd": 0.0,
@@ -136,9 +130,11 @@ async def test_detailed_process_access(
         "tre": 0.0,
         "wtu": 0.0,
     }
-
-    # Unauthenticated user should have zero detailed impacts
-    assert json_response["impacts"] == no_detailed_impacts
+    # Non authenticated access
+    response = await client.get(
+        "/api/processes/97c209ec-7782-5a29-8c47-af7f17c82d11",
+    )
+    assert response.status_code == 401
 
     detailed_process = {
         "activityName": "This process is not linked to a Brightway activity",
@@ -205,12 +201,7 @@ async def test_processes_access(
     user_token_headers: dict[str, str],
     toc_not_accepted_user_token_headers: dict[str, str],
 ) -> None:
-    # Non authenticated access
-    response = await client.get(
-        "/api/processes",
-    )
-    assert response.status_code == 200
-    json_response = response.json()
+
     no_detailed_impacts = {
         "acd": 0,
         "cch": 0,
@@ -234,12 +225,14 @@ async def test_processes_access(
         "wtu": 0,
     }
 
-    # Unauthenticated user should have zero detailed impacts
-    assert json.dumps(json_response[1]["impacts"], sort_keys=True) == json.dumps(
-        no_detailed_impacts, sort_keys=True
+    # Non authenticated access
+    response = await client.get(
+        "/api/processes",
     )
+    # Unauthenticated user should not have access
+    assert response.status_code == 401
 
-    # Authenticated user with toc not accepted
+    # Authenticated user with toc not accepted should have zero detailed impacts
     response = await client.get(
         "/api/processes",
         headers=toc_not_accepted_user_token_headers,
@@ -247,7 +240,6 @@ async def test_processes_access(
     assert response.status_code == 200
     json_response = response.json()
 
-    # Unauthenticated user should have zero detailed impacts
     assert json.dumps(json_response[1]["impacts"], sort_keys=True) == json.dumps(
         no_detailed_impacts, sort_keys=True
     )
