@@ -80,9 +80,9 @@
     "metadata": {
       "complements": {
         "cropDiversity": 0,
-        "hedges": -0.443,
+        "hedges": -2.81,
         "permanentPasture": null,
-        "plotSize": -0.625
+        "plotSize": -4.45
       },
       "ingredient": {
         "baseIngredient": "bean",
@@ -143,9 +143,9 @@
     "metadata": {
       "complements": {
         "cropDiversity": 0,
-        "hedges": -0.764,
+        "hedges": -4.85,
         "permanentPasture": null,
-        "plotSize": -0.625
+        "plotSize": -4.45
       },
       "ingredient": {
         "baseIngredient": "grazed-grass-permanent",
@@ -204,9 +204,9 @@
     "metadata": {
       "complements": {
         "cropDiversity": 0,
-        "hedges": -0.443,
+        "hedges": -2.81,
         "permanentPasture": 0,
-        "plotSize": -0.625
+        "plotSize": -4.45
       },
       "ingredient": {
         "baseIngredient": "milk",
