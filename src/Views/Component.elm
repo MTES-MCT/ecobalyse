@@ -517,26 +517,10 @@ lifeCycleView ({ db, docsUrl, explorerRoute, impact, query, scope, title } as co
 
 
 genericContextStagesView : Config db msg -> LifeCycle -> Html msg
-genericContextStagesView ({ impact, query } as config) lifeCycle =
+genericContextStagesView config lifeCycle =
     div []
         [ lifeCycle.transports.toDistribution
-            |> transportView impact (Component.extractMass lifeCycle.production)
-        , div [ class "d-flex justify-content-end mb-2" ]
-            [ div [ class "form-check form-switch" ]
-                [ label [ class "form-check-label", for "transportByAirSwitch" ]
-                    [ text "Transport par avion" ]
-                , input
-                    [ type_ "checkbox"
-                    , class "form-check-input"
-                    , id "transportByAirSwitch"
-                    , attribute "role" "switch"
-                    , attribute "switch" ""
-                    , onCheck config.toggleTransportByAir
-                    , checked query.transportOptions.byAir
-                    ]
-                    []
-                ]
-            ]
+            |> transportView config (Component.extractMass lifeCycle.production)
         , distributionView config
         , noTransportView
         , useStageView config
@@ -545,16 +529,26 @@ genericContextStagesView ({ impact, query } as config) lifeCycle =
         ]
 
 
-transportView : Definition -> Mass -> Transport -> Html msg
-transportView selectedImpact mass transport =
+transportView : Config db msg -> Mass -> Transport -> Html msg
+transportView ({ impact, query } as config) mass transport =
     DownArrow.view
-        [ div [ class "d-flex justify-content-end align-items-center gap-1" ]
+        [ div [ class "d-flex justify-content-end align-items-center gap-2" ]
             [ text "Transport"
             , Icon.package
             , Format.kg mass
+            , input
+                [ type_ "checkbox"
+                , class "form-check-input"
+                , id "transportByAirSwitch"
+                , onCheck config.toggleTransportByAir
+                , checked query.transportOptions.byAir
+                ]
+                []
+            , label [ class "form-check-label", for "transportByAirSwitch" ]
+                [ text "par avion" ]
             ]
         ]
-        [ div [ class "d-flex gap-2" ]
+        [ div [ class "d-flex align-items-center gap-2" ]
             [ transport
                 |> TransportView.viewDetails
                     { airTransportLabel = Nothing
@@ -566,7 +560,7 @@ transportView selectedImpact mass transport =
                     }
                 |> div [ class "d-flex gap-2" ]
             , transport.impacts
-                |> Format.formatImpact selectedImpact
+                |> Format.formatImpact impact
             ]
         ]
 
