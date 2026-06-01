@@ -10,34 +10,31 @@ La batterie représente 10% à 50% du coût environnemental d'un véhicule élec
 
 L'impact environnemental de la batterie dépend également de sa technologie : NMC811, LFP sont les deux principales technologies utilisées aujourd'hui.
 
-Les sites et méthodes de fabrication des modules et cellules de batterie, ainsi que les sites et méthode d'extraction et de raffinage des matières premières ont également une réelle influence sur le coût environnemental. \
-Cependant, par souci de simplification et compte-tenu de la difficulté à détailler la chaine de valeur de fabrication, ils ne sont pas utilisés comme paramètres dans Ecobalyse.
+Enfin, les sites et méthodes à chaque étape de fabrication ont également une réelle influence sur le coût environnemental.
+
+L'ADEME a construit un modèle de calcul basé sur les Données GREET permettant de réaliser un inventaire détaillé du cycle de vie de la batterie, en fonction de la chimie et des lieux de production à chaque étape. Ce travail est utilisé dans Ecobalyse pour modéliser des batteries.
 
 ## Méthodes de calcul
 
-Le coût environnement de la batterie est évalué d'après sa chimie et son poids (en kg), avec plusieurs origines possibles.
+La batterie est modélisée comme un composant (voir [page générique](https://fabrique-numerique.gitbook.io/ecobalyse/methodes-transverses-specifiques/composants)), constitué de cellules et d'autres éléments d'assemblage.
 
-$$
-I_{batterie} = m*I_{batterie}
-$$
+* Plusieurs procédés permettent de modéliser une variété de cellules de batteries représentatives du marché, en fonction de leur poids (voir section Procédés)
+* Un procédé de transformation "Assemblage batterie" doit être ajouté aux cellules pour prendre en compte les opérations d'assemblage. Ce procédé est appliqué aux cellules uniquement pour permettre une facilité d'utilisation tout en s'intégrant dans la méthode de calcul générique d'Ecobalyse
+* Divers procédés permettent de modéliser les différents matériaux utilisés dans la fabrication de batterie
 
-Avec :
-
-* `I_batterie` : l'impact environnemental de la batterie, dans l'unité de la catégorie d'impact analysée
-* `m` la masse de batterie, exprimée en kg.
-* `I_batterie` : l'impact environnemental d'un kg de batterie pour la technologie retenue, dans l'unité de la catégorie d'impact analysée
-
-Les chimies de batterie suivantes sont différenciées : NMC811, LFP.
-
-## Paramètres retenus pour le coût environnemental
-
-L'utilisateur renseigne les informations suivantes :&#x20;
-
-* Poids de la batterie, en kg
-* Chimie de la batterie : NMC811, LFP ou autre
-
-### Procédés utilisés pour la modélisation
+L'outil XLS suivant permet de construire les composants batteries&#x20;
 
 ## Procédés utilisés pour le coût environnemental
+
+Les cellules suivantes sont modélisées :&#x20;
+
+* LFP hydrothermal, CN
+* LFP Solid State, CN
+* NMC811, CN
+* NMC811, FR<br>
+
+<figure><img src="../../../.gitbook/assets/image (392).png" alt=""><figcaption></figcaption></figure>
+
+
 
 Les procédés utilisés sont identifiés dans l'[Explorateur de procédé](https://ecobalyse.beta.gouv.fr/#/explore/textile/textile-processes).
