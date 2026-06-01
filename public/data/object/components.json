@@ -1723,7 +1723,12 @@
           "country": "CN",
           "id": "402dc798-bcd8-47be-803a-2a93c5db1040"
         },
-        "transforms": []
+        "transforms": [
+          {
+            "country": "CN",
+            "id": "7f217ecc-5de8-4ce1-b2c2-b5d192c6cdb9"
+          }
+        ]
       },
       {
         "amount": 5,
