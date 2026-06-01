@@ -1,7 +1,3 @@
----
-hidden: true
----
-
 # Matériaux d'emballage
 
 ## Contexte
