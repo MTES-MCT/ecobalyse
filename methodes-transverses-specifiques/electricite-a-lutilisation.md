@@ -9,14 +9,13 @@ Pour la plupart des produits modélisés dans Ecobalyse, il s'agit d'une consomm
 ## Méthodes de calcul
 
 $$
-I_{utilisation, électricité} = m*E_{utilisation}*I_{elec}
+I_{utilisation, électricité} = C_{utilisation}*I_{elec}
 $$
 
 Avec :
 
 * `I_utilisation, électricité` : l'impact environnemental à l'utilisation d'un produit, dans l'unité de la catégorie d'impact analysée
-* `m` la masse du produit, exprimée en kg.
-* `E_utilisation` : la consommation d'électricité à l'utilisation par kg, en kWh/kg
+* `C_utilisation,elec` : la consommation d'électricité à l'utilisation par kg, en kWh/kg
 * `I_elec` : l'impact environnemental de l'électricité pour le pays défini pour l'ennoblissement, dans l'unité de la catégorie d'impact analysée
 
 NB : un produit peut avoir plusieurs étapes d'utilisation. La formule est alors à dupliquer et sommer autant de fois que nécessaire.
@@ -33,6 +32,6 @@ Ce procédé est rappelé dans l'[Explorateur de procédé](https://ecobalyse.be
 
 ## Exemple d'application
 
-Utilisation des textiles : le lavage des textiles comprend de la consommation d'électricité. Dans cet exemple, `C_utilisation,elec,lavage`  est le produit du nombre de cycles d'entretien et de la consommation d'électricité par cycle.
+Utilisation des textiles : le lavage des textiles comprend de la consommation d'électricité. Dans cet exemple, `C_utilisation,elec,lavage`  est le produit du nombre de cycles d'entretien, de la consommation d'électricité par cycle et du poids du vêtement.
 
 Pour le secteur textile, certains produits nécessitent un repassage, correspondant également à de la consommation d'électricité.

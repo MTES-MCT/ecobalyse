@@ -46,7 +46,7 @@ Exemples :&#x20;
 
 Le flux externe d'énergie est modélisé avec un procédé correspondant à la zone géographique sélectionnée par l'utilisateur.
 
-<figure><img src="../.gitbook/assets/image (290).png" alt=""><figcaption><p>Illustration de la zone géographique à préciser par l'utilisateur</p></figcaption></figure>
+<figure><img src="../../.gitbook/assets/image (290).png" alt=""><figcaption><p>Illustration de la zone géographique à préciser par l'utilisateur</p></figcaption></figure>
 
 Trois cas sont possibles :&#x20;
 
@@ -85,9 +85,9 @@ Ce choix présente deux limites :&#x20;
 * Ce choix n'est pas forcément représentatif de tous les industriels (qui peuvent aussi être raccordés en basse tension voire haute tension).
 {% endhint %}
 
-<figure><img src="../.gitbook/assets/image (364).png" alt=""><figcaption></figcaption></figure>
+<figure><img src="../../.gitbook/assets/image (364).png" alt=""><figcaption></figcaption></figure>
 
-<figure><img src="../.gitbook/assets/image (363).png" alt=""><figcaption></figcaption></figure>
+<figure><img src="../../.gitbook/assets/image (363).png" alt=""><figcaption></figcaption></figure>
 
 ### Procédés de modélisation de la chaleur
 

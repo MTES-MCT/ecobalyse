@@ -16,7 +16,7 @@ Les cas d'usages sont nombreux; voici quelques exemples :&#x20;
 
 {% tabs %}
 {% tab title="Composants d'un produit" %}
-<figure><img src="../.gitbook/assets/image (382).png" alt=""><figcaption></figcaption></figure>
+<figure><img src="../../.gitbook/assets/image (382).png" alt=""><figcaption></figcaption></figure>
 
 Un ou plusieurs composants peuvent être modélisés (3 dans l'exemple ci-dessus).&#x20;
 
@@ -26,7 +26,7 @@ Chaque composant est constitué d'au moins une matière transformée (cf. "_Focu
 {% endtab %}
 
 {% tab title="Détail d'un composant" %}
-<figure><img src="../.gitbook/assets/image (383).png" alt=""><figcaption></figcaption></figure>
+<figure><img src="../../.gitbook/assets/image (383).png" alt=""><figcaption></figcaption></figure>
 
 Chaque composant est constitué d'au moins un élément. Un élément correspond à une matière qui peut être transformée.&#x20;
 
@@ -57,7 +57,7 @@ Pour remonter la chaîne de production, on calcule la quantité de matière _ava
 $$m_{entrante} = \frac{m_{sortante}}{1- p}$$&#x20;
 {% endhint %}
 
-<figure><img src="../.gitbook/assets/image (1) (1) (1) (1) (1) (1) (1).png" alt=""><figcaption></figcaption></figure>
+<figure><img src="../../.gitbook/assets/image (1) (1) (1) (1) (1) (1) (1).png" alt=""><figcaption></figcaption></figure>
 
 {% hint style="info" %}
 ### Prise en compte du taux de perte <a href="#calcul-des-masses" id="calcul-des-masses"></a>
@@ -80,11 +80,11 @@ $$m_{entrante} = \frac{m_{sortante}}{1- p}$$&#x20;
 
 L'impact environnemental d'un composant est la somme des impacts de ses éléments. L'impact d'un élément est l'impact du matériau correspondant plus la somme des impacts éventuels des transformations de ce matériau. L'impact est la multiplication de la quantité (en général, masse en kg) par l'impact unitaire (en général, en Pt par kg)
 
-<figure><img src="../.gitbook/assets/image (5) (1).png" alt="" width="375"><figcaption></figcaption></figure>
+<figure><img src="../../.gitbook/assets/image (5) (1).png" alt="" width="375"><figcaption></figcaption></figure>
 
 La masse de matériaux nécessaire à la fabrication d'un élément est calculée en remontant le calcul suivant :&#x20;
 
-<figure><img src="../.gitbook/assets/image (3) (1).png" alt="" width="318"><figcaption></figcaption></figure>
+<figure><img src="../../.gitbook/assets/image (3) (1).png" alt="" width="318"><figcaption></figcaption></figure>
 
 Avec `p_i,j` le taux de perte lié à l'étape de transformation `j` de l'élément `i`, en pourcentage&#x20;
 

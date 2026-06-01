@@ -50,7 +50,7 @@ Pour Ecobalyse, les procédés suivants ont été créés :
 
 Les procédés construits sont identifiés dans l'[Explorateur de procédé](https://ecobalyse.beta.gouv.fr/#/explore/textile/textile-processes).
 
-<figure><img src="../.gitbook/assets/image (385).png" alt=""><figcaption></figcaption></figure>
+<figure><img src="../../.gitbook/assets/image (385).png" alt=""><figcaption></figcaption></figure>
 
 ### Acier :&#x20;
 
