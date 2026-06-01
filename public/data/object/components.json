@@ -1715,7 +1715,7 @@
     "scopes": ["veli"]
   },
   {
-    "comment": "Batterie standard pour un veli de 400kg, 90km/h max, autonomie de 100km, ou pour une voiture hybride non rechargeable avec autonomie de 30km.",
+    "comment": "Batterie standard pour un veli de 400kg, 90km/h max, autonomie de 100km, ou pour une voiture hybride non rechargeable avec autonomie de 30km. Modélisation : voir https://fabrique-numerique.gitbook.io/ecobalyse/vehicules/cycle-de-vie/fabrication-des-composants/batterie",
     "elements": [
       {
         "amount": 21.3,
@@ -1821,7 +1821,7 @@
     "scopes": ["veli"]
   },
   {
-    "comment": "Batterie standard pour un veli de 400kg, 90km/h max, autonomie de 100km, ou pour une voiture hybride non rechargeable avec autonomie de 30km.",
+    "comment": "Batterie standard pour un veli de 400kg, 90km/h max, autonomie de 100km, ou pour une voiture hybride non rechargeable avec autonomie de 30km. Modélisation : voir https://fabrique-numerique.gitbook.io/ecobalyse/vehicules/cycle-de-vie/fabrication-des-composants/batterie",
     "elements": [
       {
         "amount": 21.3,
@@ -1927,7 +1927,7 @@
     "scopes": ["veli"]
   },
   {
-    "comment": "Batterie standard pour un veli de 400kg, 90km/h max, autonomie de 100km, ou pour une voiture hybride non rechargeable avec autonomie de 30km.",
+    "comment": "Batterie standard pour un veli de 400kg, 90km/h max, autonomie de 100km, ou pour une voiture hybride non rechargeable avec autonomie de 30km. Modélisation : voir https://fabrique-numerique.gitbook.io/ecobalyse/vehicules/cycle-de-vie/fabrication-des-composants/batterie",
     "elements": [
       {
         "amount": 29.9,
