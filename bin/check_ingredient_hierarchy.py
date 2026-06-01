@@ -1,4 +1,4 @@
-#!/usr/bin/env python3
+#!/usr/bin/env -S uv run --script
 # /// script
 # requires-python = ">=3.10"
 # dependencies = [
@@ -14,30 +14,25 @@ among its ingredients (organic < fr < eu < non-ue < default), and produces:
 - Stacked bar charts per base product (output/ingredient_plots/)
 - Importable bookmark files for the Ecobalyse comparator (output/bookmarks/)
 - A CSV report of hierarchy violations (output/ingredient_hierarchy_report.csv)
-
-Usage:
-    python bin/check_ingredient_hierarchy.py <API_URL>
-
-Example:
-    python bin/check_ingredient_hierarchy.py http://localhost:8001
 """
 
 import json
 import logging
 import pathlib
-import sys
 import time
 from collections import defaultdict
 from itertools import combinations
+from typing import Any, TypedDict
 
 import matplotlib.pyplot as plt
 import pandas as pd
-import requests
 
 # Constants
 
 PROJECT_ROOT = pathlib.Path(__file__).parent.parent.resolve()
-INGREDIENTS_PATH = PROJECT_ROOT / "public" / "data" / "food" / "ingredients.json"
+PROCESSES_GENERIC_PATH = (
+    PROJECT_ROOT / "public" / "data" / "processes_generic_impacts.json"
+)
 IMPACTS_PATH = PROJECT_ROOT / "public" / "data" / "impacts.json"
 OUTPUT_DIR = PROJECT_ROOT / "output"
 PLOTS_DIR = OUTPUT_DIR / "ingredient_plots"
@@ -73,6 +68,38 @@ EXCLUDED_IMPACTS = {
     "outOfEuropeEOL",
 }
 
+# --- Types ---
+
+
+class Metadata(TypedDict):
+    complements: dict[str, float]
+    ingredient: dict[str, Any]
+
+
+class Ingredient(TypedDict, total=False):
+    """subset of processes_generic.json
+    `total=False` because the raw JSON has many other fields we don't read here.
+    `variant_type` is added by `group_ingredients`.
+    """
+
+    id: str
+    alias: str
+    metadata: Metadata
+    impacts: dict[str, float]
+
+
+class Violation(TypedDict):
+    base_ingredient: str
+    reason: str
+    lower_variant: str
+    lower_type: str
+    lower_ecs: float
+    higher_variant: str
+    higher_type: str
+    higher_ecs: float
+    delta: float
+
+
 logging.basicConfig(level=logging.INFO, format="%(levelname)s: %(message)s")
 logger = logging.getLogger(__name__)
 
@@ -85,7 +112,7 @@ def load_json(path):
         return json.load(f)
 
 
-def parse_variant_type(alias, base_ingredient):
+def parse_variant_type(alias: str, base_ingredient: str) -> str:
     """Extract variant type from an alias given its base product."""
     suffix = alias[len(base_ingredient) :]  # e.g. "-fr-2025", "-organic", "-default"
     # Strip -2025 suffix if present
@@ -98,36 +125,30 @@ def parse_variant_type(alias, base_ingredient):
     return variant_type
 
 
-def group_ingredients(ingredients):
+def group_ingredients(ingredients: list[Ingredient]) -> dict[str, list[Ingredient]]:
     """Group visible ingredients by base_ingredient.
 
     Returns:
         by_base: dict mapping base_ingredient -> list of ingredient dicts (with added fields)
     """
-    by_base = defaultdict(list)
+    ingredients_by_base = defaultdict(list)
 
-    for ingr in ingredients:
-        if not ingr.get("visible", False):
-            continue
-        base = ingr.get("baseIngredient")
-        if not base:
-            continue
-        alias = ingr["alias"]
+    for ingredient in ingredients:
+        ingredient_metadata = ingredient["metadata"]["ingredient"]
+        base = ingredient_metadata["baseIngredient"]
+        alias = ingredient["alias"]
         variant_type = parse_variant_type(alias, base)
         enriched = {
-            **ingr,
+            **ingredient,
             "variant_type": variant_type,
         }
-        by_base[base].append(enriched)
+        ingredients_by_base[base].append(enriched)
 
-    return by_base
-
-
-# --- Step 2 & 3: Fetch impacts from API and compute ECS ---
+    return ingredients_by_base
 
 
-def compute_normalization_factors(impacts_data):
-    factors = {}
+def compute_normalization_factors(impacts_data: dict[str, Any]) -> dict[str, float]:
+    factors: dict[str, float] = {}
     for key, val in impacts_data.items():
         if val.get("ecoscore"):
             factors[key] = (
@@ -138,96 +159,46 @@ def compute_normalization_factors(impacts_data):
     return factors
 
 
-def fetch_ingredient_impacts(ingredient_id, api_url):
-    """Call the food API for a single ingredient at 1kg."""
-    url = f"{api_url}/api/food/"
-    payload = {"ingredients": [{"id": ingredient_id, "mass": 1000}]}
-    headers = {"Authorization": "Bearer dummy"}
-    resp = requests.post(url, json=payload, headers=headers, timeout=30)
-    resp.raise_for_status()
-    return resp.json()
+def compute_impacts_norm(
+    impacts_raw: dict[str, float], norm_factors: dict[str, float]
+) -> dict[str, float]:
 
-
-def extract_impacts(api_response, norm_factors):
-    """Extract per-impact normalized values and total ECS from an API response.
-
-    Returns:
-        impacts_norm: dict of impact_key -> normalized value (µPt)
-        complements_norm: dict of complement_key -> normalized value (µPt)
-        ecs_total: total ECS score (µPt)
-    """
-    results = api_response["results"]
-    ingredients_total = results["recipe"]["ingredientsTotal"]
-    bonus_impacts = results["recipe"]["totalBonusImpact"]
-
-    impacts_norm = {}
-    for key, value in ingredients_total.items():
+    impacts_norm: dict[str, float] = {}
+    for key, value in impacts_raw.items():
         factor = norm_factors.get(key, 0)
         impacts_norm[key] = 1e6 * value * factor
-
-    complements_norm = {}
-    for key, value in bonus_impacts.items():
-        complements_norm[key] = value  # already in µPt
-
-    ecs_total = sum(impacts_norm.values()) + sum(complements_norm.values())
-    return impacts_norm, complements_norm, ecs_total
+    return impacts_norm
 
 
-def fetch_all_impacts(by_base, api_url, norm_factors):
-    """Fetch impacts for all ingredients. Returns a dict: alias -> result dict."""
-    all_ingredients = []
-    for variants in by_base.values():
-        all_ingredients.extend(variants)
+def compute_ecs_with_complements(ingredient: Ingredient) -> float:
+    ecs_with_complements = 0
+    for key, value in ingredient["impacts_norm"].items():
+        ecs_with_complements += value
+    if "complements" in ingredient["metadata"]:
+        for key, value in ingredient["metadata"]["complements"].items():
+            if value:
+                ecs_with_complements += value
 
-    total = len(all_ingredients)
-    logger.info(f"Fetching impacts for {total} ingredients from {api_url}...")
-
-    results = {}
-    errors = []
-    for i, ingr in enumerate(all_ingredients):
-        alias = ingr["alias"]
-        if (i + 1) % 50 == 0 or i == 0:
-            logger.info(f"  [{i + 1}/{total}] {alias}")
-        try:
-            response = fetch_ingredient_impacts(ingr["id"], api_url)
-            impacts_norm, complements_norm, ecs_total = extract_impacts(
-                response, norm_factors
-            )
-            results[alias] = {
-                "impacts_norm": impacts_norm,
-                "complements_norm": complements_norm,
-                "ecs_total": ecs_total,
-                "ingredient": ingr,
-            }
-        except Exception as e:
-            errors.append((alias, str(e)))
-            logger.warning(f"  Failed to fetch {alias}: {e}")
-
-    if errors:
-        logger.warning(f"{len(errors)} ingredients failed to fetch.")
-    return results
+    return ecs_with_complements
 
 
 # --- Step 4: Check hierarchy ---
 
 
-def check_explicit_pair_sanity_checks(impact_results, ingredients_by_alias):
+def check_explicit_pair_sanity_checks(
+    ingredients_by_alias: dict[str, Ingredient],
+) -> list[Violation]:
     """Run EXPLICIT_PAIR_SANITY_CHECKS. Returns list of violation dicts."""
     violations = []
     for lower_alias, higher_alias in EXPLICIT_PAIR_SANITY_CHECKS:
-        r_lower = impact_results.get(lower_alias)
-        r_higher = impact_results.get(higher_alias)
-        if not r_lower or not r_higher:
-            logger.warning(
-                f"Explicit sanity check skipped — missing impact data for "
-                f"{lower_alias if not r_lower else higher_alias}"
-            )
-            continue
-        ecs_lower, ecs_higher = r_lower["ecs_total"], r_higher["ecs_total"]
+        lower_ingr = ingredients_by_alias[lower_alias]
+        higher_ingr = ingredients_by_alias[higher_alias]
+        ecs_lower, ecs_higher = (
+            compute_ecs_with_complements(lower_ingr),
+            compute_ecs_with_complements(higher_ingr),
+        )
         if ecs_lower > ecs_higher:
-            base_lower = ingredients_by_alias.get(lower_alias, {}).get(
-                "baseIngredient", "explicit"
-            )
+            base_lower = lower_ingr["metadata"]["ingredient"]["baseIngredient"]
             violations.append(
                 {
                     "base_ingredient": base_lower,
@@ -244,13 +215,13 @@ def check_explicit_pair_sanity_checks(impact_results, ingredients_by_alias):
     return violations
 
 
-def check_hierarchy(by_base, impact_results):
+def check_hierarchy(ingredient_by_base: dict[str, list[Ingredient]]) -> list[Violation]:
     """Check that the expected variant ordering is respected.
 
     Returns list of violation dicts.
     """
     violations = []
-    for base, variants in by_base.items():
+    for base, variants in ingredient_by_base.items():
         # Only check groups with 2+ known-order variants
         known = [v for v in variants if v["variant_type"] in INGREDIENT_ORDER]
         if len(known) < 2:
@@ -266,13 +237,15 @@ def check_hierarchy(by_base, impact_results):
                 v1, v2 = v2, v1
                 t1, t2 = t2, t1
 
-            a1, a2 = v1["alias"], v2["alias"]
-            r1 = impact_results.get(a1)
-            r2 = impact_results.get(a2)
-            if not r1 or not r2:
-                continue
+            a1, a2 = (
+                v1["alias"],
+                v2["alias"],
+            )
 
-            ecs1, ecs2 = r1["ecs_total"], r2["ecs_total"]
+            ecs1, ecs2 = (
+                compute_ecs_with_complements(v1),
+                compute_ecs_with_complements(v2),
+            )
             if ecs1 > ecs2:
                 violations.append(
                     {
@@ -294,30 +267,33 @@ def check_hierarchy(by_base, impact_results):
 # --- Step 5: Generate graphs ---
 
 
-def build_df(aliases, impact_results):
+def build_df(aliases, ingredients: list[Ingredient]):
     """Build a plotting DataFrame: one row per (alias, impact) for the given aliases."""
     rows = []
     for alias in aliases:
-        result = impact_results.get(alias)
-        if not result:
-            continue
-        for impact_key, val in result["impacts_norm"].items():
+        ingr = [
+            ingredient for ingredient in ingredients if ingredient["alias"] == alias
+        ][0]
+        for impact_key, val in ingr["impacts_norm"].items():
             if impact_key in EXCLUDED_IMPACTS:
                 continue
-            rows.append(
-                {"product_name": alias, "impact": impact_key, "cout_enviro": val}
-            )
+            rows.append({"product_name": alias, "impact": impact_key, "value": val})
         # Complements (ecosystemic services): leading space sorts them first in the legend.
-        for comp_key, val in result["complements_norm"].items():
-            rows.append(
-                {"product_name": alias, "impact": f" {comp_key}", "cout_enviro": val}
-            )
+        if ingr["metadata"].get("complements"):
+            for comp_key, val in ingr["metadata"]["complements"].items():
+                rows.append(
+                    {
+                        "product_name": alias,
+                        "impact": f"_{comp_key}",
+                        "value": val,
+                    }
+                )
     return pd.DataFrame(rows)
 
 
 def _render_stacked_bar(df, ax, title):
     """Render a stacked bar chart with totals + numeric labels onto `ax`."""
-    pivot = df.pivot(index="product_name", columns="impact", values="cout_enviro")
+    pivot = df.pivot(index="product_name", columns="impact", values="value")
     totals = pivot.sum(axis=1).sort_values()
     pivot = pivot.loc[totals.index]
 
@@ -388,11 +364,11 @@ def save_stacked_bar_plot(df, title, output_path, figsize=(10, 7)):
     return True
 
 
-def generate_all_plots(by_base, impact_results, bases_with_violations):
+def generate_all_plots(ingredients_by_base, bases_with_violations):
     """Generate stacked bar charts for all base products with 2+ variants."""
     count = 0
-    for base, variants in sorted(by_base.items()):
-        df = build_df([v["alias"] for v in variants], impact_results)
+    for base, variants in sorted(ingredients_by_base.items()):
+        df = build_df([v["alias"] for v in variants], ingredients_by_base[base])
         suffix = "_violation" if base in bases_with_violations else ""
         path = PLOTS_DIR / f"{base}_barchart{suffix}.png"
         if save_stacked_bar_plot(df, f"{base}, comparaison des variantes", path):
@@ -400,38 +376,37 @@ def generate_all_plots(by_base, impact_results, bases_with_violations):
     logger.info(f"Generated {count} plots in {PLOTS_DIR}")
 
 
-def plot_all_meats(by_base, impact_results):
-    """Generate a single stacked bar chart with all animal_product variants."""
+MEAT_CATEGORIES = {"material_type:red_meats", "material_type:poultry"}
+
+
+def plot_all_meats(ingredients):
+    """Generate a single stacked bar chart with all meat variants."""
     aliases = [
         ingr["alias"]
-        for variants in by_base.values()
-        for ingr in variants
-        if "animal_product" in ingr.get("categories", [])
+        for ingr in ingredients
+        if MEAT_CATEGORIES & set(ingr.get("categories", []))
     ]
-    df = build_df(aliases, impact_results)
+    df = build_df(aliases, ingredients)
     n = df["product_name"].nunique() if not df.empty else 0
     path = PLOTS_DIR / "_all_meats_barchart.png"
-    if save_stacked_bar_plot(
+    save_stacked_bar_plot(
         df, "Viandes, comparaison des variantes", path, figsize=(max(12, n * 0.4), 8)
-    ):
-        logger.info(f"Generated all-meats plot ({n} variants) at {path}")
-    else:
-        logger.info("No animal_product variants to plot.")
+    )
+    logger.info(f"Generated all-meats plot ({n} variants) at {path}")
 
 
-def plot_explicit_pair_sanity_checks(impact_results, violation_pairs):
+def plot_explicit_pair_sanity_checks(ingredients_by_alias, violation_pairs):
     """Generate one stacked bar chart per EXPLICIT_PAIR_SANITY_CHECKS entry."""
     count = 0
     for lower, higher in EXPLICIT_PAIR_SANITY_CHECKS:
-        df = build_df([lower, higher], impact_results)
+        pair_ingredients = [ingredients_by_alias[lower], ingredients_by_alias[higher]]
+        df = build_df([lower, higher], pair_ingredients)
         suffix = "_violation" if (lower, higher) in violation_pairs else ""
         path = PLOTS_DIR / f"_pair_{lower}_vs_{higher}{suffix}.png"
         if save_stacked_bar_plot(
             df, f"Sanity check: {lower} ≤ {higher}", path, figsize=(8, 7)
         ):
             count += 1
-        else:
-            logger.warning(f"Skipping pair plot {lower} vs {higher} — missing data.")
     if count:
         logger.info(
             f"Generated {count} explicit-pair sanity-check plots in {PLOTS_DIR}"
@@ -450,24 +425,22 @@ def make_bookmark(alias, ingredient_id, timestamp_ms):
     }
 
 
-def generate_bookmarks(by_base, impact_results):
+def generate_bookmarks(ingredients_by_base):
     """Generate per-base-product and combined bookmark files."""
     BOOKMARKS_DIR.mkdir(parents=True, exist_ok=True)
     base_ts = int(time.time() * 1000)
     all_bookmarks = []
     count = 0
 
-    for base, variants in sorted(by_base.items()):
-        # Only generate for groups with 2+ successful results
-        valid = [v for v in variants if v["alias"] in impact_results]
-        if len(valid) < 2:
+    for base, variants in sorted(ingredients_by_base.items()):
+        if len(variants) < 2:
             continue
 
         # Sort by ECS for consistent ordering
-        valid.sort(key=lambda v: impact_results[v["alias"]]["ecs_total"])
+        variants = sorted(variants, key=compute_ecs_with_complements)
 
         bookmarks = []
-        for i, ingr in enumerate(valid):
+        for i, ingr in enumerate(variants):
             bm = make_bookmark(ingr["alias"], ingr["id"], base_ts + count * 100 + i)
             bookmarks.append(json.dumps(bm))
 
@@ -509,17 +482,19 @@ def write_violation_report(violations):
     logger.info(f"Wrote FR-format CSV to {report_path_fr}")
 
 
-def print_summary(by_base, violations, impact_results):
-    total_bases = len(by_base)
-    bases_with_variants = sum(1 for variants in by_base.values() if len(variants) >= 2)
-    total_fetched = len(impact_results)
+def print_summary(ingredients_by_base, violations):
+    total_bases = len(ingredients_by_base)
+    bases_with_variants = sum(
+        1 for variants in ingredients_by_base.values() if len(variants) >= 2
+    )
+    total_ingredients = sum(len(v) for v in ingredients_by_base.values())
 
     print("\n" + "=" * 60)
     print("INGREDIENT HIERARCHY CHECK — SUMMARY")
     print("=" * 60)
     print(f"Total base products:              {total_bases}")
     print(f"Base products with 2+ variants:   {bases_with_variants}")
-    print(f"Ingredients fetched successfully:  {total_fetched}")
+    print(f"Total ingredients:                {total_ingredients}")
     print(f"Hierarchy violations:             {len(violations)}")
 
     if violations:
@@ -545,32 +520,32 @@ def print_summary(by_base, violations, impact_results):
 
 
 def main():
-    if len(sys.argv) < 2:
-        print(__doc__)
-        sys.exit(1)
+    logger.info("Loading ingredients from processes_generic_impacts.json...")
+    processes_generic = load_json(PROCESSES_GENERIC_PATH)
+    ingredients = [
+        proc
+        for proc in processes_generic
+        if (proc.get("metadata") and proc["metadata"].get("ingredient"))
+    ]
 
-    api_url = sys.argv[1].rstrip("/")
-
-    logger.info("Loading ingredients and impacts data...")
-    ingredients = load_json(INGREDIENTS_PATH)
     impacts_data = load_json(IMPACTS_PATH)
     norm_factors = compute_normalization_factors(impacts_data)
+    for ingredient in ingredients:
+        ingredient["impacts_norm"] = compute_impacts_norm(
+            ingredient["impacts"], norm_factors
+        )
 
     logger.info("Grouping ingredients by base product...")
-    by_base = group_ingredients(ingredients)
+    ingredients_by_base = group_ingredients(ingredients)
     logger.info(
-        f"Found {len(by_base)} base products, "
-        f"{sum(len(v) for v in by_base.values())} visible variant ingredients"
+        f"Found {len(ingredients_by_base)} base products, "
+        f"{sum(len(v) for v in ingredients_by_base.values())} visible variant ingredients"
     )
-
-    impact_results = fetch_all_impacts(by_base, api_url, norm_factors)
 
     logger.info("Checking hierarchy...")
-    violations = check_hierarchy(by_base, impact_results)
+    violations = check_hierarchy(ingredients_by_base)
     ingredients_by_alias = {ingr["alias"]: ingr for ingr in ingredients}
-    explicit_violations = check_explicit_pair_sanity_checks(
-        impact_results, ingredients_by_alias
-    )
+    explicit_violations = check_explicit_pair_sanity_checks(ingredients_by_alias)
     violations.extend(explicit_violations)
     bases_with_violations = {v["base_ingredient"] for v in violations}
     explicit_violation_pairs = {
@@ -578,15 +553,15 @@ def main():
     }
 
     logger.info("Generating plots...")
-    generate_all_plots(by_base, impact_results, bases_with_violations)
-    plot_all_meats(by_base, impact_results)
-    plot_explicit_pair_sanity_checks(impact_results, explicit_violation_pairs)
+    generate_all_plots(ingredients_by_base, bases_with_violations)
+    plot_all_meats(ingredients)
+    plot_explicit_pair_sanity_checks(ingredients_by_alias, explicit_violation_pairs)
 
     logger.info("Generating bookmarks...")
-    generate_bookmarks(by_base, impact_results)
+    generate_bookmarks(ingredients_by_base)
 
     write_violation_report(violations)
-    print_summary(by_base, violations, impact_results)
+    print_summary(ingredients_by_base, violations)
 
 
 if __name__ == "__main__":
