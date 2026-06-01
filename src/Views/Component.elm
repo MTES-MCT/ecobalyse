@@ -393,16 +393,16 @@ lifeCycleView ({ db, docsUrl, explorerRoute, impact, query, scope, title } as co
     div [ class "d-flex flex-column" ]
         [ div [ class "d-flex justify-content-end mb-2" ]
             [ div [ class "form-check form-switch" ]
-                [ label [ class "form-check-label", for "transportOptionsSwitch" ]
+                [ label [ class "form-check-label", for "transportCoolingSwitch" ]
                     [ text "Transport réfrigéré" ]
                 , input
                     [ type_ "checkbox"
                     , class "form-check-input"
-                    , id "transportOptionsSwitch"
+                    , id "transportCoolingSwitch"
                     , attribute "role" "switch"
                     , attribute "switch" ""
                     , onCheck config.toggleTransportCooling
-                    , checked (Component.isTransportCooled query.transportOptions)
+                    , checked query.transportOptions.cooling
                     ]
                     []
                 ]
@@ -517,10 +517,26 @@ lifeCycleView ({ db, docsUrl, explorerRoute, impact, query, scope, title } as co
 
 
 genericContextStagesView : Config db msg -> LifeCycle -> Html msg
-genericContextStagesView ({ impact } as config) lifeCycle =
+genericContextStagesView ({ impact, query } as config) lifeCycle =
     div []
         [ lifeCycle.transports.toDistribution
             |> transportView impact (Component.extractMass lifeCycle.production)
+        , div [ class "d-flex justify-content-end mb-2" ]
+            [ div [ class "form-check form-switch" ]
+                [ label [ class "form-check-label", for "transportByAirSwitch" ]
+                    [ text "Transport par avion" ]
+                , input
+                    [ type_ "checkbox"
+                    , class "form-check-input"
+                    , id "transportByAirSwitch"
+                    , attribute "role" "switch"
+                    , attribute "switch" ""
+                    , onCheck config.toggleTransportByAir
+                    , checked query.transportOptions.byAir
+                    ]
+                    []
+                ]
+            ]
         , distributionView config
         , noTransportView
         , useStageView config
@@ -929,13 +945,13 @@ elementTransportView ({ query } as config) attributes transportedMass maybeFrom 
                 , td []
                     [ text <| "Transport " ++ renderCountry maybeFrom ++ " → " ++ renderCountry maybeTo ]
                 , td [ class "text-end align-middle d-flex justify-content-end align-items-center gap-2 text-nowrap" ] <|
-                    (if Component.isTransportCooled query.transportOptions then
+                    (if query.transportOptions.cooling then
                         [ Icon.boatCooled, Format.km transport.seaCooled ]
 
                      else
                         [ Icon.boat, Format.km transport.sea ]
                     )
-                        ++ (if Component.isTransportCooled query.transportOptions then
+                        ++ (if query.transportOptions.cooling then
                                 [ Icon.busCooled, Format.km transport.roadCooled ]
 
                             else

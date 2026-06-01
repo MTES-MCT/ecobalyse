@@ -78,7 +78,6 @@ module Data.Component exposing
     , idFromString
     , idToString
     , isEmpty
-    , isTransportCooled
     , itemToComponent
     , itemToString
     , itemsToString
@@ -1455,7 +1454,21 @@ encodeQuery query =
         , ( "distribution", query.distribution |> Maybe.map Process.encodeId )
         , ( "durability", query.durability |> Maybe.map Unit.encodeRatio )
         , ( "recyclable", query.recyclable |> Encode.bool |> Just )
-        , ( "transportOptions", query.transportOptions |> isTransportCooled |> Encode.bool |> Just )
+        , ( "transportOptions"
+          , if query.transportOptions == defaultTransportOptions then
+                Nothing
+
+            else
+                Just <| encodeTransportOptions query.transportOptions
+          )
+        ]
+
+
+encodeTransportOptions : TransportOptions -> Encode.Value
+encodeTransportOptions { byAir, cooling } =
+    Encode.object
+        [ ( "byAir", Encode.bool byAir )
+        , ( "cooling", Encode.bool cooling )
         ]
 
 
@@ -1890,11 +1903,6 @@ isCustomized component custom =
 isEmpty : Component -> Bool
 isEmpty component =
     List.isEmpty component.elements
-
-
-isTransportCooled : TransportOptions -> Bool
-isTransportCooled { cooling } =
-    cooling
 
 
 itemElements : TargetItem -> List Item -> List Element
