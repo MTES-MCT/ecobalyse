@@ -1,6 +1,5 @@
 [default]
 ENV_NAME = "default" # Do not override this value, it’s used by the unit tests
-
 LOG_LEVEL = "INFO"
 LOCAL_EXPORT = true
 PLOT_EXPORT = false
@@ -10,6 +9,9 @@ PROCESSES_IMPACTS_FULL_FILE = "processes_impacts_full.json"
 PROCESSES_AGGREGATED_FILE = "processes.json"
 COMPARED_IMPACTS_FILE = "compared_impacts.csv"
 IMPACTS_FILE = "impacts.json"
+# number of significant digits kept during json serialization
+NUMBER_PRECISION = 4 # Set to 4 because at 5 some diff exist between MacOS and Linux machines
+
 
 [default.dbfiles]
 # Method

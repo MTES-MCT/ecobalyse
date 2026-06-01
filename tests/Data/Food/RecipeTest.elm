@@ -166,10 +166,10 @@ suite =
 
                                     Ok scoring ->
                                         [ Unit.impactToFloat scoring.all
-                                            |> Expect.within (Expect.Absolute 0.01) 457.3
+                                            |> Expect.within (Expect.Absolute 0.01) 457.26
                                             |> asTest "should properly score total impact"
                                         , Unit.impactToFloat scoring.allWithoutComplements
-                                            |> Expect.within (Expect.Absolute 0.01) 456.16
+                                            |> Expect.within (Expect.Absolute 0.01) 456.13
                                             |> asTest "should properly score total impact without complements"
                                         , Unit.impactToFloat scoring.complements
                                             |> Expect.within (Expect.Absolute 0.01) -1.136

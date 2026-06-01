@@ -37,7 +37,7 @@ class ProcessController(Controller):
 
     tags = ["Processes"]
 
-    @get(operation_id="ListProcesses", path=urls.PROCESS_LIST, allow_none_user=True)
+    @get(operation_id="ListProcesses", path=urls.PROCESS_LIST)
     async def list_processes(
         self,
         current_user: m.User | None,
@@ -59,7 +59,7 @@ class ProcessController(Controller):
 
         return processed_results
 
-    @get(operation_id="GetProcess", path=urls.PROCESS_DETAIL, allow_none_user=True)
+    @get(operation_id="GetProcess", path=urls.PROCESS_DETAIL)
     async def get_process(
         self,
         current_user: m.User | None,
