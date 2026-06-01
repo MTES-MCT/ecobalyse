@@ -33,8 +33,6 @@ Les cellules suivantes sont modélisées :&#x20;
 * NMC811, CN
 * NMC811, FR<br>
 
-<figure><img src="../../../.gitbook/assets/image (392).png" alt=""><figcaption></figcaption></figure>
-
-
+<figure><img src="../../../.gitbook/assets/image (393).png" alt=""><figcaption></figcaption></figure>
 
 Les procédés utilisés sont identifiés dans l'[Explorateur de procédé](https://ecobalyse.beta.gouv.fr/#/explore/textile/textile-processes).
