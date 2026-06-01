@@ -519,8 +519,7 @@ def insert_new_score(df, engine, table_name):
 
 
 def compute_product_scores(product_params, api_url, token):
-    headers = {"Authorization": f"Bearer {token}"}
-    r = requests.post(api_url, json=product_params["query"], headers=headers)
+    r = requests.post(api_url, json=product_params["query"])
     return r.json()
 
 

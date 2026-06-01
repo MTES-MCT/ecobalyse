@@ -212,7 +212,7 @@ suite =
                                         |> resetProcessElecAndHeat
                                         |> setProcessEcsImpact (Unit.impact 10)
                                     ]
-                                    |> Expect.within (Expect.Absolute 1) 33
+                                    |> Expect.within (Expect.Absolute 1) 95
                                 )
                             , it "should add impacts when one transform is passed (including elec and heat)"
                                 (getTestEcsImpact
@@ -222,7 +222,7 @@ suite =
                                                 |> Impact.insertWithoutAggregateComputation Definition.Ecs (Unit.impact 10)
                                       }
                                     ]
-                                    |> Expect.within (Expect.Absolute 1) 443
+                                    |> Expect.within (Expect.Absolute 1) 504
                                 )
                             , itFromResult "should compute apply custom mix impacts when a transform step country is set"
                                 -- fetch first country with mixes different from defaults
@@ -271,14 +271,14 @@ suite =
                                     [ fading |> resetProcessElecAndHeat |> setProcessEcsImpact (Unit.impact 10)
                                     , fading |> resetProcessElecAndHeat |> setProcessEcsImpact (Unit.impact 20)
                                     ]
-                                    |> Expect.within (Expect.Absolute 1) 76
+                                    |> Expect.within (Expect.Absolute 1) 200
                                 )
                             , it "should add impacts when multiple transforms are passed (including elec and heat)"
                                 (getTestEcsImpact
                                     [ fading |> setProcessEcsImpact (Unit.impact 10)
                                     , fading |> setProcessEcsImpact (Unit.impact 20)
                                     ]
-                                    |> Expect.within (Expect.Absolute 1) 896
+                                    |> Expect.within (Expect.Absolute 1) 1019
                                 )
                             ]
                         , suiteFromResult "unit mismatch"
@@ -345,7 +345,7 @@ suite =
                                   it "should handle impacts+qtyVariationRatio when applying transforms: impacts"
                                     (noElecAndNoHeat
                                         |> extractEcsImpact
-                                        |> Expect.within (Expect.Absolute 1) 155.13510000000002
+                                        |> Expect.within (Expect.Absolute 1) 247
                                     )
 
                                 -- (1kg * 0.5) * 0.5 == 0.25
@@ -371,7 +371,7 @@ suite =
                                 [ it "should handle impacts+qtyVariationRatio when applying transforms: impacts"
                                     (withElecAndHeat
                                         |> extractEcsImpact
-                                        |> Expect.within (Expect.Absolute 1) 769.7222644999999
+                                        |> Expect.within (Expect.Absolute 1) 862
                                     )
                                 , it "should handle impacts+qtyVariationRatio when applying transforms: mass"
                                     (withElecAndHeat
@@ -605,7 +605,7 @@ suite =
                                 [ it "should compute element impacts"
                                     (elementResults
                                         |> extractEcsImpact
-                                        |> Expect.within (Expect.Absolute 1) 2261
+                                        |> Expect.within (Expect.Absolute 1) 2389
                                     )
                                 , it "should compute element mass"
                                     (elementResults
@@ -631,7 +631,7 @@ suite =
                                     (results
                                         |> Result.map extractEcsImpact
                                         |> Result.withDefault 0
-                                        |> Expect.within (Expect.Absolute 1) 69254
+                                        |> Expect.within (Expect.Absolute 1) 150882
                                     )
                                 , it "should compute mass according on material unit"
                                     (results
@@ -977,18 +977,34 @@ suite =
                                     |> Result.withDefault 0
                                     |> Expect.greaterThan 30000
                                 )
-                            , it "should handle unknown country of departure"
-                                (Component.computeTransportDistance requirements Nothing (Just france)
-                                    |> Expect.equal (Ok Nothing)
-                                )
-                            , it "should handle unknown country of destination"
-                                (Component.computeTransportDistance requirements (Just portugal) Nothing
-                                    |> Expect.equal (Ok Nothing)
-                                )
                             , it "should handle both countries unknown"
                                 (Component.computeTransportDistance requirements Nothing Nothing
                                     |> Expect.equal (Ok Nothing)
                                 )
+                            , let
+                                getRoad from to =
+                                    Component.computeTransportDistance requirements from to
+                                        |> Result.map (Maybe.map (.road >> Length.inKilometers) >> Maybe.withDefault -99)
+                                        |> Result.withDefault -99
+                              in
+                              describe "single unknown country"
+                                [ it "should handle unknown country of departure"
+                                    (getRoad Nothing (Just france)
+                                        |> Expect.within (Expect.Absolute 1)
+                                            ([ france.distanceToHub, requirements.config.transports.defaultDistance.road ]
+                                                |> Quantity.sum
+                                                |> Length.inKilometers
+                                            )
+                                    )
+                                , it "should handle unknown country of destination"
+                                    (getRoad (Just portugal) Nothing
+                                        |> Expect.within (Expect.Absolute 1)
+                                            ([ portugal.distanceToHub, requirements.config.transports.defaultDistance.road ]
+                                                |> Quantity.sum
+                                                |> Length.inKilometers
+                                            )
+                                    )
+                                ]
                             ]
                         )
                     , suiteFromResult2 "computeTransportedMassImpacts"
@@ -1671,7 +1687,7 @@ testComponentConfig db =
             "transports": {
                 "defaultDistance": {
                     "air": 10000,
-                    "road": null,
+                    "road": 2000,
                     "sea": 18000
                 },
                 "modeProcesses": {

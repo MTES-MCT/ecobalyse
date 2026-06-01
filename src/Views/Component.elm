@@ -779,7 +779,7 @@ elementEditModalView ({ query } as config) (( _, elementIndex ) as targetElement
 {-| Render transports from last transform step to assembly or distribution stage
 -}
 finalElementTransportView : Config db msg -> Maybe Country -> Mass -> Html msg
-finalElementTransportView ({ componentConfig, db, query } as config) elementCountry mass =
+finalElementTransportView ({ componentConfig, db, query, scope } as config) elementCountry mass =
     let
         maybeDestinationCountryCode =
             case ( List.length query.items > 1, query.assemblyCountry ) of
@@ -796,6 +796,7 @@ finalElementTransportView ({ componentConfig, db, query } as config) elementCoun
                     Nothing
     in
     db.countries
+        |> Scope.anyOf [ scope ]
         |> Country.resolveMaybe maybeDestinationCountryCode
         |> Result.map (elementTransportView config [ class "subdued" ] mass elementCountry)
         |> Result.withDefault (text "")
@@ -873,14 +874,7 @@ elementMaterialView config targetElement materialResults material amount =
             [ Component.getTotalImpacts materialResults
                 |> Format.formatImpact config.impact
             ]
-        , td [ class "pe-3 text-nowrap" ]
-            [ button
-                [ type_ "button"
-                , class "btn btn-sm btn-outline-secondary"
-                , onClick (config.removeElement targetElement)
-                ]
-                [ Icon.trash ]
-            ]
+        , td [ class "pe-3 text-nowrap" ] []
         ]
     , if complementsImpacts /= Complement.emptyComplementsResultsImpacts then
         tr [ class "fs-7" ]
@@ -1072,12 +1066,12 @@ type alias RegionSelector msg =
 regionSelector : RegionSelector msg -> Html msg
 regionSelector config =
     let
-        countries =
+        scopedCountries =
             config.countries
                 |> Scope.anyOf [ config.scope ]
                 |> List.sortBy .name
     in
-    countries
+    scopedCountries
         |> List.map (\{ code, name } -> ( name, Just code ))
         |> (::) ( "Par défaut", Nothing )
         |> List.map
@@ -1105,7 +1099,8 @@ regionSelector config =
             , config.selected
                 |> Maybe.andThen
                     (\code ->
-                        Country.findByCode code countries
+                        scopedCountries
+                            |> Country.findByCode code
                             |> Result.map .name
                             |> Result.toMaybe
                     )
@@ -1115,7 +1110,7 @@ regionSelector config =
             , onInput <|
                 \str ->
                     config.select <|
-                        if String.isEmpty str then
+                        if String.isEmpty str || str == "---" then
                             Nothing
 
                         else
