@@ -79,6 +79,7 @@ type alias Config db msg =
     , scope : Scope
     , setDetailed : List Index -> msg
     , title : String
+    , toggleTransportByAir : Bool -> msg
     , toggleTransportCooling : Bool -> msg
     , updateAssemblyCountry : Maybe Country.Code -> msg
     , updateConsumptionAmount : Index -> Maybe Amount -> msg
@@ -392,16 +393,16 @@ lifeCycleView ({ db, docsUrl, explorerRoute, impact, query, scope, title } as co
     div [ class "d-flex flex-column" ]
         [ div [ class "d-flex justify-content-end mb-2" ]
             [ div [ class "form-check form-switch" ]
-                [ label [ class "form-check-label", for "transportCoolingSwitch" ]
+                [ label [ class "form-check-label", for "transportOptionsSwitch" ]
                     [ text "Transport réfrigéré" ]
                 , input
                     [ type_ "checkbox"
                     , class "form-check-input"
-                    , id "transportCoolingSwitch"
+                    , id "transportOptionsSwitch"
                     , attribute "role" "switch"
                     , attribute "switch" ""
                     , onCheck config.toggleTransportCooling
-                    , checked (Component.isTransportCooled query.transportCooling)
+                    , checked (Component.isTransportCooled query.transportOptions)
                     ]
                     []
                 ]
@@ -907,7 +908,7 @@ elementTransportView ({ query } as config) attributes transportedMass maybeFrom 
     case
         transportedMass
             |> Component.computeTransportedMassImpacts (requirementsFromConfig config)
-                query.transportCooling
+                query.transportOptions
                 maybeFrom
                 maybeTo
     of
@@ -928,13 +929,13 @@ elementTransportView ({ query } as config) attributes transportedMass maybeFrom 
                 , td []
                     [ text <| "Transport " ++ renderCountry maybeFrom ++ " → " ++ renderCountry maybeTo ]
                 , td [ class "text-end align-middle d-flex justify-content-end align-items-center gap-2 text-nowrap" ] <|
-                    (if Component.isTransportCooled query.transportCooling then
+                    (if Component.isTransportCooled query.transportOptions then
                         [ Icon.boatCooled, Format.km transport.seaCooled ]
 
                      else
                         [ Icon.boat, Format.km transport.sea ]
                     )
-                        ++ (if Component.isTransportCooled query.transportCooling then
+                        ++ (if Component.isTransportCooled query.transportOptions then
                                 [ Icon.busCooled, Format.km transport.roadCooled ]
 
                             else

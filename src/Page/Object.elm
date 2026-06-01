@@ -126,6 +126,7 @@ type Msg
     | SwitchImpact (Result String Definition.Trigram)
     | SwitchImpactsTab ImpactTabs.Tab
     | ToggleComparedSimulation Bookmark Bool
+    | ToggleTransportByAir Bool
     | ToggleTransportCooling Bool
     | UpdateAssemblyCountry (Maybe Country.Code)
     | UpdateBookmarkName String
@@ -590,9 +591,13 @@ update ({ navKey } as session) msg model =
             model
                 |> createPageUpdate (session |> Session.toggleComparedSimulation bookmark checked)
 
-        ( ToggleTransportCooling transportCooling, _ ) ->
+        ( ToggleTransportByAir byAir, _ ) ->
             createPageUpdate session model
-                |> updateQuery { query | transportCooling = Component.toTransportCooling transportCooling }
+                |> updateQuery (query |> Component.setTransportByAir byAir)
+
+        ( ToggleTransportCooling cooling, _ ) ->
+            createPageUpdate session model
+                |> updateQuery (query |> Component.setTransportCooling cooling)
 
         ( UpdateAssemblyCountry maybeCountry, _ ) ->
             createPageUpdate session model
@@ -892,6 +897,7 @@ simulatorView ({ componentConfig } as session) ({ scope } as model) =
                 , scope = scope
                 , setDetailed = SetDetailedComponents
                 , title = "Production des composants"
+                , toggleTransportByAir = ToggleTransportByAir
                 , toggleTransportCooling = ToggleTransportCooling
                 , updateAssemblyCountry = UpdateAssemblyCountry
                 , updateConsumptionAmount = UpdateConsumptionAmount
@@ -1125,6 +1131,7 @@ modalView session ({ modals } as model) modal =
                         , scope = model.scope
                         , setDetailed = SetDetailedComponents
                         , title = "Production des composants"
+                        , toggleTransportByAir = ToggleTransportByAir
                         , toggleTransportCooling = ToggleTransportCooling
                         , updateAssemblyCountry = UpdateAssemblyCountry
                         , updateConsumptionAmount = UpdateConsumptionAmount

@@ -7,7 +7,7 @@ import Data.Component as Component
         , Item
         , LifeCycle
         , Requirements
-        , defaultTransportCooling
+        , defaultTransportOptions
         )
 import Data.Component.Amount as Amount
 import Data.Country as Country
@@ -151,7 +151,7 @@ suite =
                                     , stage = Nothing
                                     }
                                     |> Component.applyTransforms requirements
-                                        defaultTransportCooling
+                                        defaultTransportOptions
                                         Nothing
                                         Process.Kilogram
                                         (List.map Component.nonLocalizedExpandedProcess transforms)
@@ -194,7 +194,7 @@ suite =
                                     , stage = Nothing
                                     }
                                     |> Component.applyTransforms requirements
-                                        defaultTransportCooling
+                                        defaultTransportOptions
                                         Nothing
                                         Process.Kilogram
                                         (List.map Component.nonLocalizedExpandedProcess transforms)
@@ -251,7 +251,7 @@ suite =
                                                 , stage = Nothing
                                                 }
                                                 |> Component.applyTransforms requirements
-                                                    defaultTransportCooling
+                                                    defaultTransportOptions
                                                     Nothing
                                                     Process.Kilogram
                                                     steps
@@ -297,7 +297,7 @@ suite =
                                         , stage = Nothing
                                         }
                                         |> Component.applyTransforms requirements
-                                            defaultTransportCooling
+                                            defaultTransportOptions
                                             Nothing
                                             Process.CubicMeter
                                             [ Component.nonLocalizedExpandedProcess transformInKg ]
@@ -319,7 +319,7 @@ suite =
                                     , stage = Nothing
                                     }
                                     |> Component.applyTransforms requirements
-                                        defaultTransportCooling
+                                        defaultTransportOptions
                                         Nothing
                                         Process.Kilogram
                                         (List.map Component.nonLocalizedExpandedProcess transforms)
@@ -414,7 +414,7 @@ suite =
                                         |> Result.withDefault Component.emptyResults
                             in
                             [ it "should add one transport stage per transform step"
-                                (getResults defaultTransportCooling
+                                (getResults defaultTransportOptions
                                     [ Component.nonLocalizedExpandedProcess fading
                                     , Component.nonLocalizedExpandedProcess fading
                                     ]
@@ -422,12 +422,12 @@ suite =
                                     |> Expect.equal 2
                                 )
                             , it "should add no transport stage when no transform is applied"
-                                (getResults defaultTransportCooling []
+                                (getResults defaultTransportOptions []
                                     |> extractTransportStagesCount Component.TransportStage
                                     |> Expect.equal 0
                                 )
                             , it "should insert transport before each transform stage"
-                                (getResults defaultTransportCooling
+                                (getResults defaultTransportOptions
                                     [ Component.nonLocalizedExpandedProcess fading
                                     , Component.nonLocalizedExpandedProcess fading
                                     ]
@@ -588,7 +588,7 @@ suite =
                                 |> Result.andThen
                                     (\cottonId ->
                                         Component.computeElementResults requirements
-                                            defaultTransportCooling
+                                            defaultTransportOptions
                                             { amount = Amount.fromFloat 1
                                             , material = { country = Nothing, id = cottonId }
 
@@ -625,7 +625,7 @@ suite =
                                         , material = { country = Nothing, id = materialInCubicMeters.id }
                                         , transforms = [ Component.nonLocalizedProcess transformInCubicMeters.id ]
                                         }
-                                            |> Component.computeElementResults requirements defaultTransportCooling
+                                            |> Component.computeElementResults requirements defaultTransportOptions
                                 in
                                 [ it "should compute impacts according on material unit"
                                     (results
@@ -651,7 +651,7 @@ suite =
                                         , material = { country = Nothing, id = materialInCubicMeters.id }
                                         , transforms = [ Component.nonLocalizedProcess transformInCubicMeters.id ]
                                         }
-                                            |> Component.computeElementResults requirements defaultTransportCooling
+                                            |> Component.computeElementResults requirements defaultTransportOptions
                                 in
                                 [ it "should compute complements impacts according on material unit"
                                     (results
@@ -684,7 +684,7 @@ suite =
                         (let
                             toComputedResults =
                                 decodeJsonThen Component.decodeItem
-                                    (Component.computeItemResults requirements defaultTransportCooling)
+                                    (Component.computeItemResults requirements defaultTransportOptions)
 
                             combineMapBoth_ fn =
                                 -- RE.combineMapBoth with fn applied to the two tuple members
@@ -925,7 +925,7 @@ suite =
                                       }
                                     ]
                                 }
-                                    |> Component.computeElementResults requirements defaultTransportCooling
+                                    |> Component.computeElementResults requirements defaultTransportOptions
                                     |> Result.map Component.extractItems
                                     |> Result.map (List.any (Component.extractStage >> (==) (Just Component.TransportStage)))
                                     |> Expect.equal (Ok True)
@@ -1012,7 +1012,7 @@ suite =
                         (db.countries |> Country.findByCode (Country.Code "FR"))
                         (\portugal france ->
                             Mass.kilogram
-                                |> Component.computeTransportedMassImpacts requirements defaultTransportCooling (Just portugal) (Just france)
+                                |> Component.computeTransportedMassImpacts requirements defaultTransportOptions (Just portugal) (Just france)
                                 |> (\transport ->
                                         [ it "should compute transported mass impacts"
                                             (transport

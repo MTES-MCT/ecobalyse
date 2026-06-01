@@ -1018,6 +1018,7 @@ simulatorFormView session model ({ inputs } as simulator) =
         , scope = Scope.Textile
         , setDetailed = \_ -> NoOp
         , title = "Accessoires"
+        , toggleTransportByAir = \_ -> NoOp
         , toggleTransportCooling = \_ -> NoOp
         , updateAssemblyCountry = \_ -> NoOp
         , updateConsumptionAmount = \_ _ -> NoOp
