@@ -3,15 +3,12 @@ import json
 from enum import StrEnum
 from typing import List, Optional
 
-import matplotlib.pyplot as plt
-
-import config
 from common.base_ingredient import infer_base_ingredient
 from common.export import (
     export_json,
 )
-from config import settings
 from ecobalyse_data.bw.search import cached_search_one
+from ecobalyse_data.export import complements
 from ecobalyse_data.export.land_occupation import compute_land_occupation_batch
 from ecobalyse_data.export.utils import get_metadata_for_scope
 from ecobalyse_data.logging import logger
@@ -29,41 +26,6 @@ class DefaultOrigin(StrEnum):
     EUROPE_AND_MAGHREB = "EuropeAndMaghreb"
     OUT_OF_EUROPE_AND_MAGHREB = "OutOfEuropeAndMaghreb"
     OUT_OF_EUROPE_AND_MAGHREB_BY_PLANE = "OutOfEuropeAndMaghrebByPlane"
-
-
-THRESHOLD_HEDGES = 140  # ml/ha
-THRESHOLD_PLOTSIZE = 8  # ha
-THRESHOLD_CROPDIVERSITY = 7.5  # simpson number
-
-
-# For each eco_service, we associate a transformation function
-# to get a visual idea of the function, look at es_transformations.png
-TRANSFORM = {
-    "hedges": (THRESHOLD_HEDGES, lambda x: x / THRESHOLD_HEDGES, lambda x: 1),
-    "plotSize": (THRESHOLD_PLOTSIZE, lambda x: 1 - x / THRESHOLD_PLOTSIZE, lambda x: 0),
-    "cropDiversity": (
-        THRESHOLD_CROPDIVERSITY,
-        lambda x: 0,
-        lambda x: x - THRESHOLD_CROPDIVERSITY,
-    ),
-}
-
-
-def es_transform(eco_service, value):
-    if value is None:
-        raise ValueError(f"No input value defined for complement {eco_service}")
-
-    if value < 0:
-        raise ValueError(f"complement {eco_service} input value can't be lower than 0")
-
-    if eco_service not in TRANSFORM:
-        raise ValueError(f"Unknown complement: {eco_service}")
-
-    threshold, func_below, func_above = TRANSFORM[eco_service]
-    if value < threshold:
-        return func_below(value)
-    else:
-        return func_above(value)
 
 
 def float_or_none(value) -> Optional[float]:
@@ -149,7 +111,7 @@ def compute_es_for_ingredients(
                 food_metadata.get(key)
                 for key in ["landOccupation", "cropGroup", "scenario"]
             ):
-                services = compute_vegetal_ecosystemic_services(
+                services = complements.compute_vegetal_ecosystemic_services(
                     food_metadata, ecosystemic_factors
                 )
                 es_for_ingredients[alias] = services
@@ -173,74 +135,22 @@ def compute_es_for_ingredients(
                             raise ValueError(
                                 f"-> animal feed: {feed_activity_alias} not in activities list, can’t compute ES"
                             )
-                        feed_services = compute_vegetal_ecosystemic_services(
-                            metadata_by_alias[feed_activity_alias],
-                            ecosystemic_factors,
+                        feed_services = (
+                            complements.compute_vegetal_ecosystemic_services(
+                                metadata_by_alias[feed_activity_alias],
+                                ecosystemic_factors,
+                            )
                         )
                         es_for_ingredients[feed_activity_alias] = feed_services
 
                 # Now compute animal services with all dependencies available
-                services = compute_animal_ecosystemic_services(
-                    food_metadata,
+                services = complements.compute_animal_ecosystemic_services(
                     es_for_ingredients,
-                    ecosystemic_factors,
                     feed_quantities,
                 )
                 es_for_ingredients[alias] = services
 
     return es_for_ingredients
-
-
-def compute_vegetal_ecosystemic_services(food_metadata, ecosystemic_factors) -> dict:
-    services = {}
-    for eco_service in config.ecosystemic_services_list:
-        factor_raw = ecosystemic_factors[food_metadata["cropGroup"]][eco_service][
-            food_metadata["scenario"]
-        ]
-        factor_transformed = es_transform(eco_service, factor_raw)
-        if food_metadata["alias"] in (
-            settings.scopes.food.grazed_grass_permanent_key,
-            settings.scopes.food.grazed_grass_temporary_key,
-        ):
-            # don't multiply by landOccupation for grazed grass as unit is already in m2.year
-            factor_final = -1 * factor_transformed
-        else:
-            factor_final = -1 * factor_transformed * food_metadata["landOccupation"]
-        services[eco_service] = number_format_ecosystemic_service(factor_final)
-
-    return services
-
-
-def number_format_ecosystemic_service(value):
-    return float("{:.3g}".format(value))
-
-
-def compute_animal_ecosystemic_services(
-    food_metadata,
-    es_for_activities,
-    ecosystemic_factors,
-    feed_quantities,
-) -> dict:
-    services = {}
-
-    hedges = 0
-    plotSize = 0
-    cropDiversity = 0
-
-    for feed_activity_alias, quantity in feed_quantities.items():
-        feed_services = es_for_activities[feed_activity_alias]
-        hedges += quantity * feed_services["hedges"]
-        plotSize += quantity * feed_services["plotSize"]
-        cropDiversity += quantity * feed_services["cropDiversity"]
-
-    services["hedges"] = number_format_ecosystemic_service(hedges)
-    services["plotSize"] = number_format_ecosystemic_service(plotSize)
-    services["cropDiversity"] = number_format_ecosystemic_service(cropDiversity)
-
-    services["permanentPasture"] = number_format_ecosystemic_service(
-        -1 * feed_quantities.get(settings.scopes.food.grazed_grass_permanent_key, 0)
-    )
-    return services
 
 
 def activities_to_ingredients_json(
@@ -392,46 +302,6 @@ def activity_to_ingredients(eco_activity: dict, es_by_alias: dict) -> List[Ingre
             )
         )
     return ingredients
-
-
-def plot_es_transformations(save_path=None):
-    # Create a range of values for x-axis (input values for es_transform)
-    plot_characteristic_dic = {
-        "hedges": {"range": range(0, 200), "unit": "Mètre linéaire de haie/ha"},
-        "plotSize": {"range": range(0, 25), "unit": "Taille de parcelle (ha)"},
-        "cropDiversity": {"range": range(0, 30), "unit": "Simpson number"},
-    }  # Adjust the range based on expected values
-
-    num_plots = len(config.ecosystemic_services_list)
-
-    # Create subplots
-    fig, axes = plt.subplots(num_plots, 1, figsize=(10, 6 * num_plots))
-
-    # Check if axes is a single axis object or an array of axes
-    if num_plots == 1:
-        axes = [axes]
-
-    # Add the title text at the top of the plot
-    fig.suptitle(
-        "The greater the transformed value, the higher the ecosystemic service value, the lower the overall environmental impact",
-        fontsize=14,
-    )
-    # Plotting the transformations for each ecosystemic service in a separate subplot
-    for index, eco_service in enumerate(config.ecosystemic_services_list):
-        value_range = plot_characteristic_dic[eco_service]["range"]
-        transformed_values = [es_transform(eco_service, value) for value in value_range]
-        ax = axes[index]
-        ax.plot(value_range, transformed_values, label=eco_service)
-        ax.set_title(f"{eco_service}")
-        ax.set_xlabel(plot_characteristic_dic[eco_service]["unit"])
-        ax.set_ylabel("Transformed Value")
-        ax.legend()
-        ax.grid(True)
-
-    if save_path:
-        plt.savefig(save_path, bbox_inches="tight")
-
-    plt.tight_layout()
 
 
 def scenario(activity):

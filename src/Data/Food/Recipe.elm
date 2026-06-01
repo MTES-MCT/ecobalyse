@@ -26,7 +26,7 @@ module Data.Food.Recipe exposing
 
 import Data.Complement as Complement
 import Data.Country as Country exposing (Country)
-import Data.Food.EcosystemicServices as EcosystemicServices exposing (EcosystemicServices)
+import Data.Food.EcosystemicServices exposing (EcosystemicServices)
 import Data.Food.Ingredient as Ingredient exposing (Ingredient)
 import Data.Food.Origin as Origin
 import Data.Food.Preparation as Preparation exposing (Preparation)
@@ -300,17 +300,16 @@ convertWellKnownToTransportModes wellKnown =
 computeIngredientComplementsImpacts : EcosystemicServices -> Mass -> Complement.ComplementsImpacts
 computeIngredientComplementsImpacts { cropDiversity, hedges, permanentPasture, plotSize } ingredientMass =
     let
-        apply coeff =
+        apply =
             Quantity.multiplyBy (Mass.inKilograms ingredientMass)
-                >> Quantity.multiplyBy (Unit.ratioToFloat coeff)
     in
-    { cropDiversity = Just <| apply EcosystemicServices.coefficients.cropDiversity cropDiversity
+    { cropDiversity = Just <| apply cropDiversity
     , forest = Nothing
-    , hedges = Just <| apply EcosystemicServices.coefficients.hedges hedges
+    , hedges = Just <| apply hedges
     , microfibers = Nothing
     , outOfEuropeEOL = Nothing
-    , permanentPasture = Just <| apply EcosystemicServices.coefficients.permanentPasture permanentPasture
-    , plotSize = Just <| apply EcosystemicServices.coefficients.plotSize plotSize
+    , permanentPasture = Just <| apply permanentPasture
+    , plotSize = Just <| apply plotSize
     }
 
 
