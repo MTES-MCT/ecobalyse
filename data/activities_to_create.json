@@ -9959,12 +9959,12 @@
         "name": "electricity, medium voltage//[FR] market for electricity, medium voltage"
       },
       {
-        "amount": 0.13,
+        "amount": -0.13,
         "database": "Ecoinvent 3.9.1",
         "name": "waste plastic, mixture//[CH] treatment of waste plastic, mixture, sanitary landfill"
       },
       {
-        "amount": 0.31,
+        "amount": -0.31,
         "database": "Ecoinvent 3.9.1",
         "name": "waste plastic, mixture//[CH] treatment of waste plastic, mixture, municipal incineration"
       },
