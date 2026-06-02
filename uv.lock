@@ -546,7 +546,7 @@ requires-dist = [
     { name = "passlib", extras = ["argon2"], specifier = ">=1.7.4" },
     { name = "psycopg", extras = ["binary", "pool"], specifier = ">=3.3.4" },
     { name = "pygithub", specifier = ">=2.6.1" },
-    { name = "pytest-databases", extras = ["postgres"], specifier = ">=0.12.0" },
+    { name = "pytest-databases", extras = ["postgres"], specifier = ">=0.19.0" },
     { name = "pytest-mock", specifier = ">=3.14.1" },
     { name = "python-stdnum", specifier = ">=2.1" },
     { name = "structlog", specifier = ">=25.2.0" },
@@ -1499,16 +1499,16 @@ wheels = [
 
 [[package]]
 name = "pytest-databases"
-version = "0.18.0"
+version = "0.19.0"
 source = { registry = "https://pypi.org/simple" }
 dependencies = [
     { name = "docker" },
     { name = "filelock" },
     { name = "pytest" },
 ]
-sdist = { url = "https://files.pythonhosted.org/packages/f7/ce/e0458cdb8d84b14156392b4bbc5575b6145b4ae6c3962a500e3d66002da3/pytest_databases-0.18.0.tar.gz", hash = "sha256:d49fa4e85494ec33dd6224affada1ddfdb83736b28f5ae40377220ad5dbbb658", size = 324907, upload-time = "2026-05-12T13:43:52.438Z" }
+sdist = { url = "https://files.pythonhosted.org/packages/ab/4e/e899556b3876eec2db9bd630ad3054ced94a9541c26319bec5c4cd00579d/pytest_databases-0.19.0.tar.gz", hash = "sha256:ba7b8e51b551455daf3bd144384f6d4fba23d747b001f071795b02e6be2a3cbf", size = 350034, upload-time = "2026-05-23T18:33:49.262Z" }
 wheels = [
-    { url = "https://files.pythonhosted.org/packages/d2/ae/129e2529248eceb422e9051f408f752a78c80628700ffde94cc9edbf2d9d/pytest_databases-0.18.0-py3-none-any.whl", hash = "sha256:e2114c9e36ec7f4ff118453e9511e5cffb85294214838a70a8dee36c40340bd1", size = 40309, upload-time = "2026-05-12T13:43:51.033Z" },
+    { url = "https://files.pythonhosted.org/packages/de/f4/d6e2edae47a0421a8531a9805fb787b993380222f00dc25cee1634f55f3c/pytest_databases-0.19.0-py3-none-any.whl", hash = "sha256:d14651e23a716ed6f2317bf9ac317c9e7891db701253abf78e9cef1049e8f26b", size = 41525, upload-time = "2026-05-23T18:33:47.983Z" },
 ]
 
 [package.optional-dependencies]
