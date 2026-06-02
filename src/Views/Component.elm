@@ -520,7 +520,7 @@ genericContextStagesView : Config db msg -> LifeCycle -> Html msg
 genericContextStagesView config lifeCycle =
     div []
         [ lifeCycle.transports.toDistribution
-            |> transportView config (Component.extractMass lifeCycle.production)
+            |> transportToDistributionView config (Component.extractMass lifeCycle.production)
         , distributionView config
         , noTransportView
         , useStageView config
@@ -529,8 +529,8 @@ genericContextStagesView config lifeCycle =
         ]
 
 
-transportView : Config db msg -> Mass -> Transport -> Html msg
-transportView ({ impact, query } as config) mass transport =
+transportToDistributionView : Config db msg -> Mass -> Transport -> Html msg
+transportToDistributionView ({ impact, query } as config) mass transport =
     DownArrow.view
         [ div [ class "d-flex justify-content-end align-items-center gap-2" ]
             [ text "Transport"
@@ -926,13 +926,28 @@ elementMaterialView config targetElement materialResults material amount =
 
 elementTransportView : Config db msg -> List (Attribute msg) -> Mass -> Maybe Country -> Maybe Country -> Html msg
 elementTransportView ({ query } as config) attributes transportedMass maybeFrom maybeTo =
-    case
-        transportedMass
-            |> Component.computeTransportedMassImpacts (requirementsFromConfig config)
-                query.transportOptions
-                maybeFrom
-                maybeTo
-    of
+    let
+        { transportOptions } =
+            query
+
+        -- ALtered transport options for local rendering purpose only
+        displayTransportOptions =
+            if List.length query.items > 1 then
+                -- multiple components: remove all air transports (they're removed in Component.computeTransports)
+                { transportOptions | byAir = Split.zero }
+
+            else
+                -- single component: preserve air transport
+                transportOptions
+
+        displayElementTransport =
+            transportedMass
+                |> Component.computeTransportedMassImpacts (requirementsFromConfig config)
+                    displayTransportOptions
+                    maybeFrom
+                    maybeTo
+    in
+    case displayElementTransport of
         Err error ->
             tr []
                 [ td [ class "p-2", colspan 7 ]

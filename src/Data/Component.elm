@@ -1057,7 +1057,9 @@ computeTransports ({ config, db } as requirements) ({ transportOptions } as quer
                         (transportElements
                             (\( expandedElement, elementResults ) ->
                                 extractMass elementResults
-                                    |> transportImpacts transportOptions (getFinalElementCountry expandedElement) distributionCountry
+                                    |> transportImpacts transportOptions
+                                        (getFinalElementCountry expandedElement)
+                                        distributionCountry
                             )
                         )
 
