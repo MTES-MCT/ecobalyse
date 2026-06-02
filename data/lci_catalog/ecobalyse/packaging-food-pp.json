@@ -1,0 +1,24 @@
+{
+  "activityName": "PP packaging",
+  "categories": [
+    "material",
+    "packaging"
+  ],
+  "comment": "Includes all life cycle stages, including transport and end-of-life treatment, based on Agribalyse Pack_AGB project, 2024, simplified.",
+  "displayName": "Plastique PP (Polypropylène)",
+  "id": "5ffe0a0b-37ca-4693-ba82-38cec28a04ad",
+  "metadata": [
+    {
+      "id": "8538fb72-0b94-474a-b93e-d455ccd991fe",
+      "scopes": [
+        "food2"
+      ]
+    }
+  ],
+  "scopes": [
+    "food",
+    "food2"
+  ],
+  "source": "Ecobalyse",
+  "unit": "kg"
+}
