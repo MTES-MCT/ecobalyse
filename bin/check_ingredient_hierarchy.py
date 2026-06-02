@@ -449,7 +449,6 @@ def generate_bookmarks(ingredients_by_base):
     """Generate per-base-product and combined bookmark files."""
     BOOKMARKS_DIR.mkdir(parents=True, exist_ok=True)
     base_ts = int(time.time() * 1000)
-    all_bookmarks = []
     count = 0
 
     for base, variants in sorted(ingredients_by_base.items()):
@@ -470,18 +469,7 @@ def generate_bookmarks(ingredients_by_base):
         path = BOOKMARKS_DIR / f"{base}.json"
         with open(path, "w") as f:
             json.dump(export, f, indent=2)
-
-        all_bookmarks.extend(bookmarks)
         count += 1
-
-    # Write combined file
-    if all_bookmarks:
-        all_path = BOOKMARKS_DIR / "_all.json"
-        with open(all_path, "w") as f:
-            json.dump({"ecobalyse": all_bookmarks}, f)
-        logger.info(
-            f"Generated {count} bookmark files ({len(all_bookmarks)} total bookmarks) in {BOOKMARKS_DIR}"
-        )
 
 
 # --- Step 7: Report ---
