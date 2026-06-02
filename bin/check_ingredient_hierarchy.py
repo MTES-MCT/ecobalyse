@@ -4,7 +4,6 @@
 # dependencies = [
 #     "matplotlib",
 #     "pandas",
-#     "requests",
 # ]
 # ///
 """Check ingredient impact hierarchy and generate comparison graphs + bookmarks for the method and product team to investigate the violations.
@@ -41,7 +40,7 @@ BOOKMARKS_DIR = OUTPUT_DIR / "bookmarks"
 # --- Sanity checks ---
 #
 # All expected impact-ordering sanity checks live here.
-# For each sanity check, add a comment to explain the reasons behind the check
+# each sanity check should have a comment to explain the reasons behind the check
 
 # Variant hierarchy within a single baseIngredient (lower index = lower expected ecs).
 INGREDIENT_HIERARCHY = {"organic": 0, "fr": 1, "eu": 2, "non-ue": 3, "default": 4}
@@ -78,7 +77,6 @@ class Metadata(TypedDict):
 
 class Ingredient(TypedDict, total=False):
     """subset of processes_generic.json
-    `total=False` because the raw JSON has many other fields we don't read here.
     `variant_type` is added by `group_ingredients`.
     """
 
@@ -86,6 +84,7 @@ class Ingredient(TypedDict, total=False):
     alias: str
     metadata: Metadata
     impacts: dict[str, float]
+    variant_type: str
 
 
 class Violation(TypedDict):
@@ -126,11 +125,7 @@ def parse_variant_type(alias: str, base_ingredient: str) -> str:
 
 
 def group_ingredients(ingredients: list[Ingredient]) -> dict[str, list[Ingredient]]:
-    """Group visible ingredients by base_ingredient.
-
-    Returns:
-        by_base: dict mapping base_ingredient -> list of ingredient dicts (with added fields)
-    """
+    """Group visible ingredients by base_ingredient"""
     ingredients_by_base = defaultdict(list)
 
     for ingredient in ingredients:
@@ -166,7 +161,7 @@ def compute_impacts_norm(
     impacts_norm: dict[str, float] = {}
     for key, value in impacts_raw.items():
         factor = norm_factors.get(key, 0)
-        # we need to multiply by 1 000 000 to get UI pnts https://github.com/MTES-MCT/ecobalyse/issues/2262
+        # we need to multiply by 1 000 000 to get UI points https://github.com/MTES-MCT/ecobalyse/issues/2262
         impacts_norm[key] = 1e6 * value * factor
     return impacts_norm
 
@@ -279,7 +274,7 @@ def build_df(aliases, ingredients: list[Ingredient]):
             if impact_key in EXCLUDED_IMPACTS:
                 continue
             rows.append({"product_name": alias, "impact": impact_key, "ecs": val})
-        # Complements (ecosystemic services): leading * sorts them first in the legend.
+        # Complements (ecosystemic services): leading `* ` sorts them first in the legend.
         if ingr["metadata"].get("complements"):
             for comp_key, val in ingr["metadata"]["complements"].items():
                 rows.append(
@@ -397,7 +392,7 @@ def plot_all_meats(ingredients):
 
 
 def plot_explicit_pair_sanity_checks(ingredients_by_alias, violation_pairs):
-    """Generate one stacked bar chart per EXPLICIT_PAIR_SANITY_CHECKS entry."""
+    """Generate one chart per EXPLICIT_PAIR_SANITY_CHECKS entry."""
     count = 0
     for lower, higher in EXPLICIT_PAIR_SANITY_CHECKS:
         pair_ingredients = [ingredients_by_alias[lower], ingredients_by_alias[higher]]
@@ -446,7 +441,7 @@ def make_bookmark(alias, ingredient_id, timestamp_ms):
 
 
 def generate_bookmarks(ingredients_by_base):
-    """Generate per-base-product and combined bookmark files."""
+    """Generate 1 bookmark per base_product"""
     BOOKMARKS_DIR.mkdir(parents=True, exist_ok=True)
     base_ts = int(time.time() * 1000)
     count = 0
