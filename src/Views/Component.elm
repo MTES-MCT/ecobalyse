@@ -530,33 +530,21 @@ genericContextStagesView config lifeCycle =
 
 
 transportToDistributionView : Config db msg -> Mass -> Transport -> Html msg
-transportToDistributionView ({ impact, query } as config) mass transport =
+transportToDistributionView ({ componentConfig, impact, scope } as config) mass transport =
+    let
+        airTransportAvailable =
+            List.member scope componentConfig.transports.modeProcesses.plane.scopes
+    in
     DownArrow.view
         [ div [ class "d-flex justify-content-end align-items-center gap-2" ]
             [ text "Transport"
             , Icon.package
             , Format.kg mass
-            , input
-                [ type_ "checkbox"
-                , class "form-check-input"
-                , id "transportByAirSwitch"
+            , if airTransportAvailable then
+                airTransportToggler config
 
-                -- Note: for now, the toggler only switches between full and zero air transport, though
-                --       we'll probably want to introduce a rangeslider for textile scope compliance next
-                , checked (query.transportOptions.byAir == Split.full)
-                , onCheck
-                    (\enabled ->
-                        config.toggleTransportByAir <|
-                            if enabled then
-                                Split.full
-
-                            else
-                                Split.zero
-                    )
-                ]
-                []
-            , label [ class "form-check-label", for "transportByAirSwitch" ]
-                [ text "par avion" ]
+              else
+                text ""
             ]
         ]
         [ div [ class "d-flex align-items-center gap-2" ]
@@ -573,6 +561,33 @@ transportToDistributionView ({ impact, query } as config) mass transport =
             , transport.impacts
                 |> Format.formatImpact impact
             ]
+        ]
+
+
+airTransportToggler : Config db msg -> Html msg
+airTransportToggler ({ query } as config) =
+    div [ class "d-flex justify-content-end align-items-center gap-2" ]
+        [ input
+            [ type_ "checkbox"
+            , class "form-check-input"
+            , id "transportByAirSwitch"
+
+            -- Note: for now, the toggler only switches between full and zero air transport, though
+            --       we'll probably want to introduce a rangeslider for textile scope compliance next
+            , checked (query.transportOptions.byAir == Split.full)
+            , onCheck
+                (\enabled ->
+                    config.toggleTransportByAir <|
+                        if enabled then
+                            Split.full
+
+                        else
+                            Split.zero
+                )
+            ]
+            []
+        , label [ class "form-check-label", for "transportByAirSwitch" ]
+            [ text "par avion" ]
         ]
 
 
