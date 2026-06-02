@@ -1465,21 +1465,7 @@ encodeQuery query =
         , ( "distribution", query.distribution |> Maybe.map Process.encodeId )
         , ( "durability", query.durability |> Maybe.map Unit.encodeRatio )
         , ( "recyclable", query.recyclable |> Encode.bool |> Just )
-        , ( "transportOptions"
-          , if query.transportOptions == defaultTransportOptions then
-                Nothing
-
-            else
-                Just <| encodeTransportOptions query.transportOptions
-          )
-        ]
-
-
-encodeTransportOptions : TransportOptions -> Encode.Value
-encodeTransportOptions { byAir, cooling } =
-    Encode.object
-        [ ( "byAir", Split.encodePercent byAir )
-        , ( "cooling", Encode.bool cooling )
+        , ( "transportOptions", encodeTransportOptions query.transportOptions )
         ]
 
 
@@ -1531,6 +1517,27 @@ encodeResults maybeTrigram (Results results) =
           )
         , ( "items", results.items |> Encode.list (encodeResults maybeTrigram) |> Just )
         ]
+
+
+encodeTransportOptions : TransportOptions -> Maybe Encode.Value
+encodeTransportOptions { byAir, cooling } =
+    -- Encode only JSON keys that are different from defaults
+    case ( byAir == defaultTransportOptions.byAir, cooling == defaultTransportOptions.cooling ) of
+        ( True, True ) ->
+            Nothing
+
+        ( False, True ) ->
+            Just <| Encode.object [ ( "byAir", Split.encodePercent byAir ) ]
+
+        ( True, False ) ->
+            Just <| Encode.object [ ( "cooling", Encode.bool cooling ) ]
+
+        ( False, False ) ->
+            [ ( "byAir", Split.encodePercent byAir )
+            , ( "cooling", Encode.bool cooling )
+            ]
+                |> Encode.object
+                |> Just
 
 
 {-| Common reusable error strings
