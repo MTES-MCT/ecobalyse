@@ -4,8 +4,8 @@
   ],
   "comment": "Consommation d’électricité telle que définie par la méthode Agribalyse 3.0 dans les tableaux 41, 42, 43 sur les techniques de préparation.",
   "displayName": "Réchauffage à la poêle",
-  "elecMJ": 0.288,
-  "heatMJ": 0,
+  "elecMJ": 0.1152,
+  "heatMJ": 0.1728,
   "id": "2e834afa-ddb4-4c6c-9af6-88dd01c376b5",
   "impacts": {
     "acd": 0,
