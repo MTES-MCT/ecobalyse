@@ -285,7 +285,7 @@ def build_df(aliases, ingredients: list[Ingredient]):
                 rows.append(
                     {
                         "product_name": alias,
-                        "impact": f"_{comp_key}",
+                        "impact": f" {comp_key}",
                         "ecs": val,
                     }
                 )
