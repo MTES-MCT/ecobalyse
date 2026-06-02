@@ -57,10 +57,10 @@ async def test_load_processes(
         },
         "location": "GLO",
         "massPerUnit": None,
+        "qtyVariationRatio": 1,
         "scopes": ["textile"],
         "source": "Custom",
         "unit": "kg",
-        "waste": 0,
     }
 
     # We add a new process

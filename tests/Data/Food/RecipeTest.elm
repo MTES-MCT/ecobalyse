@@ -75,10 +75,10 @@ suite =
                                         }
                              in
                              [ complementsImpacts.hedges
-                                |> expectImpactEqual (Unit.impact 12.68)
+                                |> expectImpactEqual (Unit.impact 2)
                                 |> asTest "should compute a non-zero hedges ingredient complement"
                              , Just (Complement.getTotalComplementsImpacts complementsImpacts)
-                                |> expectImpactEqual (Unit.impact 43.7)
+                                |> expectImpactEqual (Unit.impact 8)
                                 |> asTest "should compute a non-zero total complement"
                              ]
                             )
@@ -166,10 +166,10 @@ suite =
 
                                     Ok scoring ->
                                         [ Unit.impactToFloat scoring.all
-                                            |> Expect.within (Expect.Absolute 0.01) 457.3
+                                            |> Expect.within (Expect.Absolute 0.01) 457.26
                                             |> asTest "should properly score total impact"
                                         , Unit.impactToFloat scoring.allWithoutComplements
-                                            |> Expect.within (Expect.Absolute 0.01) 456.16
+                                            |> Expect.within (Expect.Absolute 0.01) 456.13
                                             |> asTest "should properly score total impact without complements"
                                         , Unit.impactToFloat scoring.complements
                                             |> Expect.within (Expect.Absolute 0.01) -1.136

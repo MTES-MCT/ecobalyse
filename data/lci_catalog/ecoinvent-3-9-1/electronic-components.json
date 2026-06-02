@@ -1,5 +1,5 @@
 {
-  "activityName": "electronic component, passive, unspecified//[GLO] market for electronic component, passive, unspecified",
+  "activityName": "electronics, for control units//[RoW] electronics production, for control units",
   "categories": [
     "material",
     "material_type:pwb"
@@ -17,10 +17,10 @@
       ]
     }
   ],
+  "qtyVariationRatio": 1,
   "scopes": [
     "veli"
   ],
   "source": "Ecoinvent 3.9.1",
-  "unit": "kg",
-  "waste": 0
+  "unit": "kg"
 }

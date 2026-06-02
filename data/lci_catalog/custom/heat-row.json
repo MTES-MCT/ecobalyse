@@ -37,6 +37,7 @@
       ]
     }
   ],
+  "qtyVariationRatio": 1,
   "scopes": [
     "textile",
     "object",
@@ -44,6 +45,5 @@
     "food2"
   ],
   "source": "Custom",
-  "unit": "MJ",
-  "waste": 0
+  "unit": "MJ"
 }

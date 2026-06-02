@@ -2,7 +2,7 @@
   "activityName": "PET fiber EoL recycling, GLO, CFF",
   "categories": [
     "end-of-life",
-    "material_type:pet"
+    "material_type:synthetic_fibers"
   ],
   "comment": "According to CFF: A=0.8, Q=0.3",
   "displayName": "Recyclage de fibre synthétique, CFF",
@@ -18,11 +18,11 @@
       ]
     }
   ],
+  "qtyVariationRatio": 1,
   "scopes": [
     "object",
     "veli"
   ],
   "source": "Ecobalyse",
-  "unit": "kg",
-  "waste": 0
+  "unit": "kg"
 }

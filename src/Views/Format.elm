@@ -21,6 +21,7 @@ module Views.Format exposing
     , minutes
     , percent
     , priceInEUR
+    , qtyVariationRatio
     , splitAsFloat
     , splitAsPercentage
     , squareMeters
@@ -343,3 +344,8 @@ diff =
                     [ text line ]
             )
         >> pre [ class "mb-0" ]
+
+
+qtyVariationRatio : Unit.QuantityVariationRatio -> Html msg
+qtyVariationRatio ratio =
+    ratio |> Unit.qtyVariationRatioToFloat |> String.fromFloat |> text

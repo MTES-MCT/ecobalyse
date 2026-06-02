@@ -8,6 +8,7 @@ from common import activities_processes_sort_key, remove_detailed_impacts
 from common.base_ingredient import infer_base_ingredient
 from common.export import export_json
 from ecobalyse_data.bw.search import cached_search_one
+from ecobalyse_data.export.complements import compute_forest_complement
 from ecobalyse_data.export.land_occupation import compute_land_occupation_batch
 from ecobalyse_data.export.utils import get_metadata_for_scope
 from ecobalyse_data.logging import logger
@@ -202,7 +203,7 @@ def compute_processes_generic(
                 ],
                 source=process["source"],
                 unit=process.get("unit"),
-                waste=process.get("waste", 0),
+                qty_variation_ratio=process.get("qtyVariationRatio", 1),
             )
             entry_dict = entry.model_dump(by_alias=True)
             entry_dict["metadata"] = metadata_out
@@ -259,46 +260,3 @@ def add_land_occupations(activities: List[dict]) -> List[dict]:
     for activity in todo:
         activity["landOccupation"] = scores[bw_by_eco_id[activity["id"]].id]
     return activities
-
-
-# Forest Management Coefficients
-# ==============================
-# Formula: forestComplement = landOccupation × coefficient[forestManagement]
-#
-# Reference values (from pine-softwood-intensive-plantation on ecobalyse.beta.gouv.fr), forestManagement = intensivePlantation:
-#   - ldu impact = 4.316 Pts/kg (displayed as 4316 mPts)
-#   - landOccupation = 1563 m².year
-#
-# coefficient calculation:
-#   coefficient = (percentage × ldu) / landOccupation
-#   For intensivePlantation, percentage = 25%: coefficient[intensivePlantation] = 0.25 × 4.316 / 1563 ≈ 0.00069
-#
-# Positive = malus (adds impact), Negative = bonus (reduces impact)
-
-LDU_IMPACT_BY_LAND_OCCUPATION = 4.316 / 1563
-
-FOREST_MANAGEMENT_COEFFICIENTS = {
-    "diversifiedForest": -1 * LDU_IMPACT_BY_LAND_OCCUPATION * 0.25,  # bonus 25% ldu
-    "certifiedDiversifiedForest": -1
-    * LDU_IMPACT_BY_LAND_OCCUPATION
-    * 0.35,  # bonus 35% ldu
-    "intensivePlantation": LDU_IMPACT_BY_LAND_OCCUPATION * 0.25,  # malus 25% ldu
-    "sustainableManagement": 0,
-    "certifiedSustainableManagement": -1
-    * LDU_IMPACT_BY_LAND_OCCUPATION
-    * 0.1,  # bonus 10% ldu
-}
-
-
-def compute_forest_complement(
-    forest_management: str | None, land_occupation: float | None
-) -> float:
-    """Compute forest complement from forestManagement type and land occupation.
-
-    Returns landOccupation * coefficient(forestManagement), or null if either is None.
-    """
-    if forest_management is None or land_occupation is None:
-        return None
-
-    coefficient = FOREST_MANAGEMENT_COEFFICIENTS[forest_management]
-    return land_occupation * coefficient

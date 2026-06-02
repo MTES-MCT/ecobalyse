@@ -8,10 +8,10 @@
   "elecMJ": 0,
   "heatMJ": 0,
   "id": "dce12233-0280-568c-afb3-9171e72ad389",
+  "qtyVariationRatio": 1,
   "scopes": [
     "textile"
   ],
   "source": "forwast",
-  "unit": "t⋅km",
-  "waste": 0
+  "unit": "t⋅km"
 }

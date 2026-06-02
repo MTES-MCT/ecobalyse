@@ -112,7 +112,7 @@ class Process(CamelizedBaseStruct):
     heat_mj: float = msgspec.field(name="heatMJ", default=0)
     location: Optional[str] = None
     scopes: list[Scope] = []
-    waste: float = 0
+    qty_variation_ratio: float = 1
 
 
 class Unit(StrEnum):

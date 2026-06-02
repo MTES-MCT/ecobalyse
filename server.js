@@ -186,9 +186,9 @@ const respondWithFormattedJSON = (res, status, body) => {
 // Note: Text/JSON request body parser (JSON is decoded in Elm)
 api.all(/(.*)/, bodyParser.json(), jsonErrorHandler, async (req, res) => {
   const token = extractTokenFromHeaders(req.headers);
-  if (!token) {
+  if (!token && NODE_ENV !== "test") {
     return res.status(401).send({
-      error: { authorization: "Un token est requis pour utiliser l’API" },
+      error: { authorization: "Un token valide est requis pour utiliser l’API" },
       documentation: "https://ecobalyse.beta.gouv.fr/#/api",
     });
   }

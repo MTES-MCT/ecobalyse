@@ -491,5 +491,7 @@ def activity_to_process_with_impacts(
         scopes=eco_activity.get("scopes", []),
         source=eco_activity.get("source"),
         unit=eco_activity.get("unit", bw_activity.get("unit")),
-        waste=eco_activity.get("waste", bw_activity.get("waste", 0)),
+        qty_variation_ratio=eco_activity.get(
+            "qtyVariationRatio", bw_activity.get("qtyVariationRatio", 1)
+        ),
     )

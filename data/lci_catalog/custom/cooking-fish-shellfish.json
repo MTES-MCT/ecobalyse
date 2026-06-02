@@ -37,10 +37,10 @@
       ]
     }
   ],
+  "qtyVariationRatio": 0.819,
   "scopes": [
     "food2"
   ],
   "source": "Custom",
-  "unit": "kg",
-  "waste": 0.181
+  "unit": "kg"
 }

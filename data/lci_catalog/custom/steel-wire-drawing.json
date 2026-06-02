@@ -39,11 +39,11 @@
       ]
     }
   ],
+  "qtyVariationRatio": 0.96,
   "scopes": [
     "object",
     "veli"
   ],
   "source": "Custom",
-  "unit": "kg",
-  "waste": 0.04
+  "unit": "kg"
 }
