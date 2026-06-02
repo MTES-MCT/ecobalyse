@@ -279,13 +279,13 @@ def build_df(aliases, ingredients: list[Ingredient]):
             if impact_key in EXCLUDED_IMPACTS:
                 continue
             rows.append({"product_name": alias, "impact": impact_key, "ecs": val})
-        # Complements (ecosystemic services): leading space sorts them first in the legend.
+        # Complements (ecosystemic services): leading * sorts them first in the legend.
         if ingr["metadata"].get("complements"):
             for comp_key, val in ingr["metadata"]["complements"].items():
                 rows.append(
                     {
                         "product_name": alias,
-                        "impact": f" {comp_key}",
+                        "impact": f"* {comp_key}",
                         "ecs": val,
                     }
                 )
