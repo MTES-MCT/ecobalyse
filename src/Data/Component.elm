@@ -864,6 +864,32 @@ computeShareImpacts mass { process, split } =
         |> Maybe.withDefault Impact.empty
 
 
+{-| This function is used to configure default distances according to desired options, most notably
+cooling and air transport ratio.
+-}
+computeTransportDefaultDistance : TransportOptions -> Transport -> Transport
+computeTransportDefaultDistance { byAir } defaultDistance =
+    let
+        -- default road transport to hub must be doubled when no distance could be determined
+        -- @see https://github.com/MTES-MCT/ecobalyse/issues/2345
+        road =
+            defaultDistance.road |> Quantity.multiplyBy 2
+
+        -- Full air transport, or full boat, no in-between for now
+        ( air, sea ) =
+            if byAir == Split.full then
+                ( defaultDistance.air, Quantity.zero )
+
+            else
+                ( Quantity.zero, defaultDistance.sea )
+    in
+    { defaultDistance
+        | air = air
+        , road = road
+        , sea = sea
+    }
+
+
 {-| Computes the transport distance between two countries, including the road distance to hub for each country.
 Fallbacks to default config distances in case a country is not defined.
 
@@ -892,8 +918,8 @@ computeTransportDistance { config, db } airTransportRatio maybeFrom maybeTo =
                             { transport | air = Quantity.zero }
 
                         else
-                            -- otherwise, remove sea transport as we can't accumulmaite air+boat
-                            { transport | sea = Quantity.zero }
+                            -- otherwise, remove sea transport entirely as we can't accumulate plane+boat on a trip
+                            { transport | sea = Quantity.zero, seaCooled = Quantity.zero }
                    )
                 |> Just
     in
@@ -938,19 +964,13 @@ computeTransportDistance { config, db } airTransportRatio maybeFrom maybeTo =
 {-| Computes the transport distances and impacts from a transported mass.
 -}
 computeTransportedMassImpacts : Requirements db -> TransportOptions -> Maybe Country -> Maybe Country -> Mass -> Result String Transport
-computeTransportedMassImpacts ({ config } as requirements) { byAir, cooling } maybeFrom maybeTo mass =
-    let
-        { defaultDistance } =
-            config.transports
-    in
+computeTransportedMassImpacts ({ config } as requirements) ({ byAir, cooling } as transportOptions) maybeFrom maybeTo mass =
     computeTransportDistance requirements byAir maybeFrom maybeTo
+        -- Unknow distance: fallback to using default distances, adapted to desired options
         |> Result.map
-            -- default road transport to hub must be doubled when no distance could be determined
-            -- @see https://github.com/MTES-MCT/ecobalyse/issues/2345
-            (Maybe.withDefault
-                { defaultDistance
-                    | road = defaultDistance.road |> Quantity.multiplyBy 2
-                }
+            (config.transports.defaultDistance
+                |> computeTransportDefaultDistance transportOptions
+                |> Maybe.withDefault
             )
         -- remap cooled transportation modes if needed
         |> Result.map

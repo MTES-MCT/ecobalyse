@@ -950,12 +950,14 @@ elementTransportView ({ query } as config) attributes transportedMass maybeFrom 
                 , td []
                     [ text <| "Transport " ++ renderCountry maybeFrom ++ " → " ++ renderCountry maybeTo ]
                 , td [ class "text-end align-middle d-flex justify-content-end align-items-center gap-2 text-nowrap" ] <|
-                    (if query.transportOptions.cooling then
-                        [ Icon.boatCooled, Format.km transport.seaCooled ]
+                    -- Note: it's supposed for now that a plane can transport either cooled or non-cooled stuff
+                    [ Icon.plane, Format.km transport.air ]
+                        ++ (if query.transportOptions.cooling then
+                                [ Icon.boatCooled, Format.km transport.seaCooled ]
 
-                     else
-                        [ Icon.boat, Format.km transport.sea ]
-                    )
+                            else
+                                [ Icon.boat, Format.km transport.sea ]
+                           )
                         ++ (if query.transportOptions.cooling then
                                 [ Icon.busCooled, Format.km transport.roadCooled ]
 
