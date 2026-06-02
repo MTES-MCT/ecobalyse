@@ -28,6 +28,7 @@ import Data.Process as Process exposing (Process)
 import Data.Process.Category as Category exposing (Category)
 import Data.Scope exposing (Scope)
 import Data.Session as Session exposing (Session)
+import Data.Split exposing (Split)
 import Data.Unit as Unit
 import Data.Uuid exposing (Uuid)
 import Html exposing (..)
@@ -126,7 +127,7 @@ type Msg
     | SwitchImpact (Result String Definition.Trigram)
     | SwitchImpactsTab ImpactTabs.Tab
     | ToggleComparedSimulation Bookmark Bool
-    | ToggleTransportByAir Bool
+    | ToggleTransportByAir Split
     | ToggleTransportCooling Bool
     | UpdateAssemblyCountry (Maybe Country.Code)
     | UpdateBookmarkName String

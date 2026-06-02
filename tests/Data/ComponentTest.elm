@@ -16,6 +16,7 @@ import Data.Impact.Definition as Definition
 import Data.Process as Process exposing (Process)
 import Data.Process.Category as Category
 import Data.Scope as Scope
+import Data.Split as Split
 import Data.Transport as Transport
 import Data.Unit as Unit
 import Dict.Any as AnyDict
@@ -956,7 +957,7 @@ suite =
                         (db.countries |> Country.findByCode (Country.Code "FR"))
                         (\france portugal ->
                             [ it "should compute distance between two countries"
-                                (Component.computeTransportDistance requirements (Just portugal) (Just france)
+                                (Component.computeTransportDistance requirements Split.zero (Just portugal) (Just france)
                                     |> Result.map (Maybe.withDefault Transport.noTransport)
                                     |> Result.map
                                         (\{ air, road, sea } ->
@@ -969,6 +970,7 @@ suite =
                                 )
                             , it "should compute distance between two countries accounting transport to hubs"
                                 (Component.computeTransportDistance requirements
+                                    Split.zero
                                     -- Note: exagerating distances to hub, to make this test resilient to future data updates
                                     (Just { portugal | distanceToHub = Length.kilometers 20000 })
                                     (Just { france | distanceToHub = Length.kilometers 10000 })
@@ -978,12 +980,12 @@ suite =
                                     |> Expect.greaterThan 30000
                                 )
                             , it "should handle both countries unknown"
-                                (Component.computeTransportDistance requirements Nothing Nothing
+                                (Component.computeTransportDistance requirements Split.zero Nothing Nothing
                                     |> Expect.equal (Ok Nothing)
                                 )
                             , let
                                 getRoad from to =
-                                    Component.computeTransportDistance requirements from to
+                                    Component.computeTransportDistance requirements Split.zero from to
                                         |> Result.map (Maybe.map (.road >> Length.inKilometers) >> Maybe.withDefault -99)
                                         |> Result.withDefault -99
                               in

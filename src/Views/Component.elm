@@ -33,7 +33,7 @@ import Data.Impact.Definition as Definition exposing (Definition)
 import Data.Process as Process exposing (Process)
 import Data.Process.Category as Category exposing (Category)
 import Data.Scope as Scope exposing (Scope)
-import Data.Split as Split
+import Data.Split as Split exposing (Split)
 import Data.Transport exposing (Transport)
 import Data.Unit as Unit
 import Dict.Any as AnyDict
@@ -79,7 +79,7 @@ type alias Config db msg =
     , scope : Scope
     , setDetailed : List Index -> msg
     , title : String
-    , toggleTransportByAir : Bool -> msg
+    , toggleTransportByAir : Split -> msg
     , toggleTransportCooling : Bool -> msg
     , updateAssemblyCountry : Maybe Country.Code -> msg
     , updateConsumptionAmount : Index -> Maybe Amount -> msg
@@ -540,8 +540,19 @@ transportView ({ impact, query } as config) mass transport =
                 [ type_ "checkbox"
                 , class "form-check-input"
                 , id "transportByAirSwitch"
-                , onCheck config.toggleTransportByAir
-                , checked query.transportOptions.byAir
+
+                -- Note: for now, the toggler only switches between full and zero air transport, though
+                --       we'll probably want to introduce a rangeslider for textile scope compliance next
+                , checked (query.transportOptions.byAir == Split.full)
+                , onCheck
+                    (\enabled ->
+                        config.toggleTransportByAir <|
+                            if enabled then
+                                Split.full
+
+                            else
+                                Split.zero
+                    )
                 ]
                 []
             , label [ class "form-check-label", for "transportByAirSwitch" ]
@@ -551,7 +562,7 @@ transportView ({ impact, query } as config) mass transport =
         [ div [ class "d-flex align-items-center gap-2" ]
             [ transport
                 |> TransportView.viewDetails
-                    { airTransportLabel = Nothing
+                    { airTransportLabel = Just "avion"
                     , fullWidth = True
                     , hideNoLength = True
                     , onlyIcons = False

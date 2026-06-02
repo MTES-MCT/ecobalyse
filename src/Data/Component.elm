@@ -307,7 +307,7 @@ type Quantity
 
 
 type alias TransportOptions =
-    { byAir : Bool
+    { byAir : Split
     , cooling : Bool
     }
 
@@ -873,8 +873,8 @@ Notes:
   - the distance to hub computation logic should eventually be backported to non-generic scopes
 
 -}
-computeTransportDistance : Requirements db -> Maybe Country -> Maybe Country -> Result String (Maybe Transport)
-computeTransportDistance { config, db } maybeFrom maybeTo =
+computeTransportDistance : Requirements db -> Split -> Maybe Country -> Maybe Country -> Result String (Maybe Transport)
+computeTransportDistance { config, db } airTransportRatio maybeFrom maybeTo =
     let
         { defaultDistance } =
             config.transports
@@ -882,13 +882,20 @@ computeTransportDistance { config, db } maybeFrom maybeTo =
         -- When a single country is known (departure or destination), sum its distance to hub and default
         -- road transport
         handleSingleKnownCountry country =
-            Just
-                { defaultDistance
-                  -- Always reset air transport, which is unhandled by design for now
-                  -- see https://github.com/MTES-MCT/ecobalyse/issues/2282#issuecomment-4505548371
-                    | air = Quantity.zero
-                    , road = Quantity.sum [ defaultDistance.road, country.distanceToHub ]
-                }
+            { defaultDistance
+                | road = Quantity.sum [ defaultDistance.road, country.distanceToHub ]
+            }
+                -- then handle air vs. sea transport
+                |> (\transport ->
+                        -- When no air transport ratio specified, reset the default air distance entirely
+                        if airTransportRatio == Split.zero then
+                            { transport | air = Quantity.zero }
+
+                        else
+                            -- otherwise, remove sea transport as we can't accumulmaite air+boat
+                            { transport | sea = Quantity.zero }
+                   )
+                |> Just
     in
     case ( maybeFrom, maybeTo ) of
         -- only departure country is known
@@ -903,9 +910,7 @@ computeTransportDistance { config, db } maybeFrom maybeTo =
         ( Just from, Just to ) ->
             db.distances
                 |> Transport.getTransportBetween from to
-                -- Always reset air transport, which is unhandled by design for now
-                -- see https://github.com/MTES-MCT/ecobalyse/issues/2282#issuecomment-4505548371
-                |> Result.map (Transport.applyTransportRatios Split.zero)
+                |> Result.map (Transport.applyTransportRatios airTransportRatio)
                 |> Result.map
                     (\transport ->
                         { transport
@@ -933,19 +938,19 @@ computeTransportDistance { config, db } maybeFrom maybeTo =
 {-| Computes the transport distances and impacts from a transported mass.
 -}
 computeTransportedMassImpacts : Requirements db -> TransportOptions -> Maybe Country -> Maybe Country -> Mass -> Result String Transport
-computeTransportedMassImpacts ({ config } as requirements) { cooling } maybeFrom maybeTo mass =
+computeTransportedMassImpacts ({ config } as requirements) { byAir, cooling } maybeFrom maybeTo mass =
     let
         { defaultDistance } =
             config.transports
     in
-    computeTransportDistance requirements maybeFrom maybeTo
+    computeTransportDistance requirements byAir maybeFrom maybeTo
         |> Result.map
             -- default road transport to hub must be doubled when no distance could be determined
             -- @see https://github.com/MTES-MCT/ecobalyse/issues/2345
-            (Maybe.withDefault { defaultDistance | road = defaultDistance.road |> Quantity.multiplyBy 2 }
-                -- Always reset air transport, which is unhandled by design for now
-                -- see https://github.com/MTES-MCT/ecobalyse/issues/2282#issuecomment-4505548371
-                >> (\transport -> { transport | air = Quantity.zero })
+            (Maybe.withDefault
+                { defaultDistance
+                    | road = defaultDistance.road |> Quantity.multiplyBy 2
+                }
             )
         -- remap cooled transportation modes if needed
         |> Result.map
@@ -970,7 +975,7 @@ computeTransportedMassImpacts ({ config } as requirements) { cooling } maybeFrom
 
 -}
 computeTransports : Requirements db -> Query -> LifeCycle -> Result String LifeCycle
-computeTransports ({ config, db } as requirements) query lifeCycle =
+computeTransports ({ config, db } as requirements) ({ transportOptions } as query) lifeCycle =
     Result.map2
         (\resultedElements maybeAssemblyCountry ->
             let
@@ -987,7 +992,7 @@ computeTransports ({ config, db } as requirements) query lifeCycle =
                         |> Result.map Transport.sum
 
                 transportImpacts =
-                    computeTransportedMassImpacts requirements query.transportOptions
+                    computeTransportedMassImpacts requirements
 
                 setLifeCycleTransports toAssembly toDistribution =
                     { lifeCycle | transports = LifeCycleTransport toAssembly toDistribution }
@@ -1007,12 +1012,15 @@ computeTransports ({ config, db } as requirements) query lifeCycle =
                         (transportElements
                             (\( expandedElement, elementResults ) ->
                                 extractMass elementResults
-                                    |> transportImpacts (getFinalElementCountry expandedElement) (Just assemblyCountry)
+                                    -- note: air transport is always disabled before assembly
+                                    |> transportImpacts { transportOptions | byAir = Split.zero }
+                                        (getFinalElementCountry expandedElement)
+                                        (Just assemblyCountry)
                             )
                         )
                         -- toDistribution
                         (totalProductMass
-                            |> transportImpacts maybeAssemblyCountry distributionCountry
+                            |> transportImpacts transportOptions maybeAssemblyCountry distributionCountry
                         )
 
                 -- Default state, empty transports
@@ -1029,7 +1037,7 @@ computeTransports ({ config, db } as requirements) query lifeCycle =
                         (transportElements
                             (\( expandedElement, elementResults ) ->
                                 extractMass elementResults
-                                    |> transportImpacts (getFinalElementCountry expandedElement) distributionCountry
+                                    |> transportImpacts transportOptions (getFinalElementCountry expandedElement) distributionCountry
                             )
                         )
 
@@ -1043,12 +1051,13 @@ computeTransports ({ config, db } as requirements) query lifeCycle =
                             (\( _, elementResults ) ->
                                 -- all item elements are individually shipped to the assembly stage using default unknown transport distances
                                 extractMass elementResults
-                                    |> transportImpacts Nothing Nothing
+                                    -- note: air transport is always disabled before assembly
+                                    |> transportImpacts { transportOptions | byAir = Split.zero } Nothing Nothing
                             )
                         )
                         -- toDistribution
                         (totalProductMass
-                            |> transportImpacts Nothing distributionCountry
+                            |> transportImpacts transportOptions Nothing distributionCountry
                         )
         )
         (query.items |> expandItems db |> Result.andThen (getResultedElementList lifeCycle.production))
@@ -1216,8 +1225,8 @@ decodeQuery =
 decodeTransportOptions : Decoder TransportOptions
 decodeTransportOptions =
     Decode.succeed TransportOptions
+        |> Decode.optional "byAir" Split.decodePercent Split.zero
         |> Decode.optional "cooling" Decode.bool False
-        |> Decode.optional "plane" Decode.bool False
 
 
 {-| Proxified for convenience
@@ -1234,7 +1243,9 @@ defaultDurability =
 
 defaultTransportOptions : TransportOptions
 defaultTransportOptions =
-    { byAir = False, cooling = False }
+    { byAir = Split.zero
+    , cooling = False
+    }
 
 
 elementToString : List Process -> Element -> Result String String
@@ -1467,7 +1478,7 @@ encodeQuery query =
 encodeTransportOptions : TransportOptions -> Encode.Value
 encodeTransportOptions { byAir, cooling } =
     Encode.object
-        [ ( "byAir", Encode.bool byAir )
+        [ ( "byAir", Split.encodePercent byAir )
         , ( "cooling", Encode.bool cooling )
         ]
 
@@ -2121,7 +2132,7 @@ setQueryItems items query =
     }
 
 
-setTransportByAir : Bool -> Query -> Query
+setTransportByAir : Split -> Query -> Query
 setTransportByAir byAir ({ transportOptions } as query) =
     { query | transportOptions = { transportOptions | byAir = byAir } }
 
