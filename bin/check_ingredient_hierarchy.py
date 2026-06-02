@@ -7,11 +7,11 @@
 #     "requests",
 # ]
 # ///
-"""Check ingredient impact hierarchy and generate comparison graphs + bookmarks.
+"""Check ingredient impact hierarchy and generate comparison graphs + bookmarks for the method and product team to investigate the violations.
 
 For each base food product, verifies that a hierarchy of impacts is respected
 among its ingredients (organic < fr < eu < non-ue < default), and produces:
-- Stacked bar charts per base product (output/ingredient_plots/)
+- bar charts per base product (output/ingredient_plots/)
 - Importable bookmark files for the Ecobalyse comparator (output/bookmarks/)
 - A CSV report of hierarchy violations (output/ingredient_hierarchy_report.csv) and a french format version (; and ,) (output/ingredient_hierarchy_report_fr.csv)
 """
