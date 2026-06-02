@@ -13,7 +13,7 @@ For each base food product, verifies that a hierarchy of impacts is respected
 among its ingredients (organic < fr < eu < non-ue < default), and produces:
 - Stacked bar charts per base product (output/ingredient_plots/)
 - Importable bookmark files for the Ecobalyse comparator (output/bookmarks/)
-- A CSV report of hierarchy violations (output/ingredient_hierarchy_report.csv)
+- A CSV report of hierarchy violations (output/ingredient_hierarchy_report.csv) and a french format version (; and ,) (output/ingredient_hierarchy_report_fr.csv)
 """
 
 import json
@@ -43,10 +43,10 @@ BOOKMARKS_DIR = OUTPUT_DIR / "bookmarks"
 # All expected impact-ordering sanity checks live here.
 # For each sanity check, add a comment to explain the reasons behind the check
 
-# Variant order within a single baseIngredient (lower index = lower expected ecs).
-INGREDIENT_ORDER = {"organic": 0, "fr": 1, "eu": 2, "non-ue": 3, "default": 4}
+# Variant hierarchy within a single baseIngredient (lower index = lower expected ecs).
+INGREDIENT_HIERARCHY = {"organic": 0, "fr": 1, "eu": 2, "non-ue": 3, "default": 4}
 
-# Explicit cross-baseIngredient sanity checks: (lower_alias, higher_alias)
+# Sanity checks between different base_ingredient : (lower_alias, higher_alias)
 EXPLICIT_PAIR_SANITY_CHECKS = [
     # The most impactful chicken should have lower impact than conventional beef
     ("chicken-breast-br-max", "beef-without-bone"),
@@ -166,6 +166,7 @@ def compute_impacts_norm(
     impacts_norm: dict[str, float] = {}
     for key, value in impacts_raw.items():
         factor = norm_factors.get(key, 0)
+        # we need to multiply by 1 000 000 to get UI pnts https://github.com/MTES-MCT/ecobalyse/issues/2262
         impacts_norm[key] = 1e6 * value * factor
     return impacts_norm
 
@@ -216,20 +217,20 @@ def check_explicit_pair_sanity_checks(
 
 
 def check_hierarchy(ingredient_by_base: dict[str, list[Ingredient]]) -> list[Violation]:
-    """Check that the expected variant ordering is respected.
+    """Check that the expected variant hierarchy is respected.
 
     Returns list of violation dicts.
     """
     violations = []
     for base, variants in ingredient_by_base.items():
         # Only check groups with 2+ known-order variants
-        known = [v for v in variants if v["variant_type"] in INGREDIENT_ORDER]
+        known = [v for v in variants if v["variant_type"] in INGREDIENT_HIERARCHY]
         if len(known) < 2:
             continue
 
         for v1, v2 in combinations(known, 2):
             t1, t2 = v1["variant_type"], v2["variant_type"]
-            order1, order2 = INGREDIENT_ORDER[t1], INGREDIENT_ORDER[t2]
+            order1, order2 = INGREDIENT_HIERARCHY[t1], INGREDIENT_HIERARCHY[t2]
             if order1 == order2:
                 continue
             # Ensure v1 is the one expected to have lower impact
@@ -277,7 +278,7 @@ def build_df(aliases, ingredients: list[Ingredient]):
         for impact_key, val in ingr["impacts_norm"].items():
             if impact_key in EXCLUDED_IMPACTS:
                 continue
-            rows.append({"product_name": alias, "impact": impact_key, "value": val})
+            rows.append({"product_name": alias, "impact": impact_key, "ecs": val})
         # Complements (ecosystemic services): leading space sorts them first in the legend.
         if ingr["metadata"].get("complements"):
             for comp_key, val in ingr["metadata"]["complements"].items():
@@ -285,7 +286,7 @@ def build_df(aliases, ingredients: list[Ingredient]):
                     {
                         "product_name": alias,
                         "impact": f"_{comp_key}",
-                        "value": val,
+                        "ecs": val,
                     }
                 )
     return pd.DataFrame(rows)
@@ -293,7 +294,7 @@ def build_df(aliases, ingredients: list[Ingredient]):
 
 def _render_stacked_bar(df, ax, title):
     """Render a stacked bar chart with totals + numeric labels onto `ax`."""
-    pivot = df.pivot(index="product_name", columns="impact", values="value")
+    pivot = df.pivot(index="product_name", columns="impact", values="ecs")
     totals = pivot.sum(axis=1).sort_values()
     pivot = pivot.loc[totals.index]
 
@@ -329,7 +330,7 @@ def _render_stacked_bar(df, ax, title):
             fontweight="bold",
         )
 
-    ax.set_ylabel("Cout Environnemental (uPt)")
+    ax.set_ylabel("Cout Environnemental")
     ax.set_title(title)
 
     max_label_len = max(len(str(x)) for x in pivot.index)
@@ -417,11 +418,30 @@ def plot_explicit_pair_sanity_checks(ingredients_by_alias, violation_pairs):
 
 
 def make_bookmark(alias, ingredient_id, timestamp_ms):
-    """Create a single bookmark dict matching the Elm Bookmark format."""
+    """Create a food2 bookmark for a single ingredient at 1kg."""
     return {
         "created": timestamp_ms,
         "name": f"{alias} (1kg)",
-        "query": {"ingredients": [{"id": ingredient_id, "mass": 1000}]},
+        "query": {
+            "components": [
+                {
+                    "quantity": 1,
+                    "custom": {
+                        "name": "Nouveau composant",
+                        "elements": [
+                            {
+                                "amount": 1,
+                                "material": {"id": ingredient_id},
+                                "transforms": [],
+                            }
+                        ],
+                    },
+                }
+            ],
+            "recyclable": True,
+            "transportCooling": False,
+        },
+        "subScope": "food2",
     }
 
 
@@ -441,6 +461,7 @@ def generate_bookmarks(ingredients_by_base):
 
         bookmarks = []
         for i, ingr in enumerate(variants):
+            # add increasing timestamp to keep the order
             bm = make_bookmark(ingr["alias"], ingr["id"], base_ts + count * 100 + i)
             bookmarks.append(json.dumps(bm))
 
