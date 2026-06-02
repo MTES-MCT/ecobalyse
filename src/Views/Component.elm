@@ -872,7 +872,7 @@ elementMaterialView config targetElement materialResults material amount =
                 amountInput (config.updateElementAmount targetElement) material.process.unit amount
             ]
         , td
-            [ class "align-middle text-truncate w-100"
+            [ class "align-middle text-truncate"
             , title <| Process.getDisplayName material.process
             ]
             [ selectMaterialButton config targetElement material.process
