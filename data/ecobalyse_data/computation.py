@@ -16,7 +16,6 @@ from common import (
     correct_process_impacts,
     fix_unit,
     spproject,
-    with_subimpacts,
 )
 from config import settings
 from ecobalyse_data.bw.search import cached_search_one
@@ -294,7 +293,7 @@ def compute_processes_for_activities(
                 # Fallback to per-activity if batch lost it for any reason.
                 processes.append(compute_process_for_activity(*parameters))
                 continue
-            impacts = with_subimpacts(dict(raw))
+            impacts = dict(raw)
             correct_process_impacts(impacts, corrections)
             impacts["ecs"] = calculate_aggregate("ecs", impacts, factors)
             process = activity_to_process_with_impacts(
@@ -350,8 +349,6 @@ def compute_impacts(
             )
 
             computed_by = ComputedBy.brightway
-
-        impacts = with_subimpacts(impacts)
 
         corrections = {
             k: v["correction"] for (k, v) in impacts_json.items() if "correction" in v

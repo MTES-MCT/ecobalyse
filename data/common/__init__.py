@@ -75,21 +75,6 @@ def remove_detailed_impacts(processes):
     ]
 
 
-def with_subimpacts(impacts):
-    """compute subimpacts"""
-    if not impacts:
-        return impacts
-    # etf-o = etf-o1 + etf-o2
-    impacts["etf-o"] = impacts["etf-o1"] + impacts["etf-o2"]
-    del impacts["etf-o1"]
-    del impacts["etf-o2"]
-    # etf = etf1 + etf2
-    impacts["etf"] = impacts["etf1"] + impacts["etf2"]
-    del impacts["etf1"]
-    del impacts["etf2"]
-    return impacts
-
-
 def correct_process_impacts(impacts, corrections):
     """
     Compute corrected impacts (`_c`) defined in the corrections map
