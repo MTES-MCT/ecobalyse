@@ -931,28 +931,26 @@ suite =
                                     |> Result.map (List.any (Component.extractStage >> (==) (Just Component.TransportStage)))
                                     |> Expect.equal (Ok True)
                             )
-
-                        -- FIXME: commented because unwanted failure
-                        -- , let
-                        --     getTransportStageEcs =
-                        --         Component.stagesImpacts >> .transports >> Maybe.map getEcsImpact >> Maybe.withDefault 0
-                        --   in
-                        --   itFromResult2 "should handle transport cooling"
-                        --     ("""{"components": [{ "id": "64fa65b3-c2df-4fd0-958b-83965bd6aa08", "quantity": 1 }]}"""
-                        --         |> decodeJsonThen Component.decodeQuery (Component.compute requirements)
-                        --         |> Result.map getTransportStageEcs
-                        --     )
-                        --     ("""{
-                        --           "components": [{ "id": "64fa65b3-c2df-4fd0-958b-83965bd6aa08", "quantity": 1 }],
-                        --           "transportCooling": true
-                        --         }"""
-                        --         |> decodeJsonThen Component.decodeQuery (Component.compute requirements)
-                        --         |> Result.map getTransportStageEcs
-                        --     )
-                        --     (\noTransportCooling withTransportCooling ->
-                        --         withTransportCooling
-                        --             |> Expect.greaterThan noTransportCooling
-                        --     )
+                        , let
+                            getTransportStageEcs =
+                                Component.stagesImpacts >> .transports >> Maybe.map getEcsImpact >> Maybe.withDefault 0
+                          in
+                          itFromResult2 "should handle transport cooling"
+                            ("""{"components": [{ "id": "64fa65b3-c2df-4fd0-958b-83965bd6aa08", "quantity": 1, "country": "FR" }]}"""
+                                |> decodeJsonThen Component.decodeQuery (Component.compute requirements)
+                                |> Result.map getTransportStageEcs
+                            )
+                            ("""{
+                                  "components": [{ "id": "64fa65b3-c2df-4fd0-958b-83965bd6aa08", "quantity": 1, "country": "FR" }],
+                                  "transportOptions": { "cooling": true }
+                                }"""
+                                |> decodeJsonThen Component.decodeQuery (Component.compute requirements)
+                                |> Result.map getTransportStageEcs
+                            )
+                            (\noTransportCooling withTransportCooling ->
+                                withTransportCooling
+                                    |> Expect.greaterThan noTransportCooling
+                            )
                         ]
                     , suiteFromResult2 "computeTransportDistance"
                         (db.countries |> Country.findByCode (Country.Code "PT"))
