@@ -340,7 +340,7 @@ saveComponent model session =
                     createPageUpdate session { model | modals = [] }
                         |> App.withCmds
                             [ { component | comment = comment, published = published }
-                                |> ComponentApi.patchComponent session ComponentUpdated
+                                |> ComponentApi.putComponent session ComponentUpdated
                             ]
                         |> App.notifySuccess "Composant sauvegardé"
 

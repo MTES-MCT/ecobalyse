@@ -38,11 +38,8 @@ class Component(CamelizedBaseStruct):
     """Component properties to use for a response."""
 
     id: UUID
-    name: str
-    elements: list[ComponentElement] | None
-    comment: str | None
     published: bool
-    scopes: list[Scope] = []
+    value: dict
 
 
 class ComponentCreate(CamelizedBaseStruct):

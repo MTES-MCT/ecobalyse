@@ -13,7 +13,6 @@ from sqlalchemy.orm import Mapped, mapped_column, relationship
 from .process_process_category import process_process_category
 
 if TYPE_CHECKING:
-    from .element import Element, ProcessElementTransform
     from .process_category import ProcessCategory
 
 
@@ -52,18 +51,6 @@ class Process(UUIDAuditBase):
         secondary=lambda: process_process_category,
         back_populates="processes",
         lazy="selectin",
-    )
-
-    elements_transforms: Mapped[list[ProcessElementTransform]] = relationship(
-        back_populates="transform",
-        cascade="all",
-        lazy="selectin",
-    )
-
-    elements_materials: Mapped[list[Element]] = relationship(
-        back_populates="material_process",
-        lazy="selectin",
-        cascade="all, delete-orphan",
     )
 
     # Impacts
