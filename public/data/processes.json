@@ -39688,8 +39688,7 @@
     "qtyVariationRatio": 1.0,
     "scopes": [
       "textile",
-      "food",
-      "food2"
+      "food"
     ],
     "source": "Ecobalyse",
     "unit": "t⋅km"
