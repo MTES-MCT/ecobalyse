@@ -43,6 +43,7 @@ import Html.Events exposing (..)
 import Json.Encode as Encode
 import List.Extra as LE
 import Mass exposing (Mass)
+import Quantity
 import Result.Extra as RE
 import Route exposing (Route)
 import Views.Alert as Alert
@@ -532,8 +533,10 @@ genericContextStagesView config lifeCycle =
 transportToDistributionView : Config db msg -> Mass -> Transport -> Html msg
 transportToDistributionView ({ componentConfig, impact, scope } as config) mass transport =
     let
+        -- if no plane transport process is available in current scope, disable
         airTransportAvailable =
-            List.member scope componentConfig.transports.modeProcesses.plane.scopes
+            componentConfig.transports.modeProcesses.plane.scopes
+                |> List.member scope
     in
     DownArrow.view
         [ div [ class "d-flex justify-content-end align-items-center gap-2" ]
@@ -974,6 +977,13 @@ elementTransportView ({ query } as config) attributes transportedMass maybeFrom 
             let
                 renderCountry =
                     Maybe.map .name >> Maybe.withDefault "Région inconnue"
+
+                renderModeIfAny icon distance =
+                    if distance |> Quantity.greaterThan Quantity.zero then
+                        [ icon, Format.km distance ]
+
+                    else
+                        []
             in
             tr (class "fs-7 text-muted" :: attributes)
                 [ td [ colspan 2 ] []
@@ -981,18 +991,18 @@ elementTransportView ({ query } as config) attributes transportedMass maybeFrom 
                     [ text <| "Transport " ++ renderCountry maybeFrom ++ " → " ++ renderCountry maybeTo ]
                 , td [ class "text-end align-middle d-flex justify-content-end align-items-center gap-2 text-nowrap" ] <|
                     -- Note: it's supposed for now that a plane can transport either cooled or non-cooled stuff
-                    [ Icon.plane, Format.km transport.air ]
+                    renderModeIfAny Icon.plane transport.air
                         ++ (if query.transportOptions.cooling then
-                                [ Icon.boatCooled, Format.km transport.seaCooled ]
+                                renderModeIfAny Icon.boatCooled transport.seaCooled
 
                             else
-                                [ Icon.boat, Format.km transport.sea ]
+                                renderModeIfAny Icon.boat transport.sea
                            )
                         ++ (if query.transportOptions.cooling then
-                                [ Icon.busCooled, Format.km transport.roadCooled ]
+                                renderModeIfAny Icon.busCooled transport.roadCooled
 
                             else
-                                [ Icon.bus, Format.km transport.road ]
+                                renderModeIfAny Icon.bus transport.road
                            )
                         ++ [ Icon.package
                            , Format.kg transportedMass
