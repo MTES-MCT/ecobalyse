@@ -838,7 +838,7 @@ finalElementTransportView ({ componentConfig, db, query, scope } as config) elem
     db.countries
         |> Scope.anyOf [ scope ]
         |> Country.resolveMaybe maybeDestinationCountryCode
-        |> Result.map (elementTransportView config [ class "subdued" ] mass elementCountry)
+        |> Result.map (elementTransportView config [ class "subdued" ] False mass elementCountry)
         |> Result.withDefault (text "")
 
 
@@ -942,15 +942,15 @@ elementMaterialView config targetElement materialResults material amount =
     ]
 
 
-elementTransportView : Config db msg -> List (Attribute msg) -> Mass -> Maybe Country -> Maybe Country -> Html msg
-elementTransportView ({ query } as config) attributes transportedMass maybeFrom maybeTo =
+elementTransportView : Config db msg -> List (Attribute msg) -> Bool -> Mass -> Maybe Country -> Maybe Country -> Html msg
+elementTransportView ({ query } as config) attributes noAirTransport transportedMass maybeFrom maybeTo =
     let
         { transportOptions } =
             query
 
         -- ALtered transport options for local rendering purpose only
         displayTransportOptions =
-            if List.length query.items > 1 then
+            if List.length query.items > 1 || noAirTransport then
                 -- multiple components: remove all air transports (they're removed in Component.computeTransports)
                 { transportOptions | byAir = Split.zero }
 
@@ -1067,7 +1067,7 @@ elementTransformsView config targetElement materialResults materialCountry trans
                                )
                 in
                 [ transform.country
-                    |> elementTransportView config [] previousMass previousCountry
+                    |> elementTransportView config [] True previousMass previousCountry
                 , tr [ class "fs-7 border-top" ]
                     [ td [] []
                     , td [ class "text-end align-middle text-nowrap" ] []
@@ -1093,7 +1093,10 @@ elementTransformsView config targetElement materialResults materialCountry trans
                             }
                         ]
                     , td [ class "align-middle text-end text-nowrap" ]
-                        [ transform.process.qtyVariationRatio |> Unit.qtyVariationRatioToFloat |> String.fromFloat |> text ]
+                        [ Unit.qtyVariationRatioToFloat transform.process.qtyVariationRatio
+                            |> String.fromFloat
+                            |> text
+                        ]
                     , td [ class "text-end align-middle text-nowrap" ]
                         [ Component.extractAmount transformResult
                             |> Format.amount transform.process
