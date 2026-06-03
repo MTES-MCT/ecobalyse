@@ -8,6 +8,7 @@ module Data.Split exposing
     , decodePercent
     , divideBy
     , encodeFloat
+    , encodePercent
     , fifteen
     , fourty
     , fromBoundedFloat
@@ -212,3 +213,8 @@ decodePercent =
 encodeFloat : Split -> Encode.Value
 encodeFloat =
     toFloat >> Encode.float
+
+
+encodePercent : Split -> Encode.Value
+encodePercent =
+    toPercent >> Encode.float

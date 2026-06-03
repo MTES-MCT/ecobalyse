@@ -7,7 +7,7 @@ import Data.Component as Component
         , Item
         , LifeCycle
         , Requirements
-        , defaultTransportCooling
+        , defaultTransportOptions
         )
 import Data.Component.Amount as Amount
 import Data.Country as Country
@@ -16,6 +16,7 @@ import Data.Impact.Definition as Definition
 import Data.Process as Process exposing (Process)
 import Data.Process.Category as Category
 import Data.Scope as Scope
+import Data.Split as Split
 import Data.Transport as Transport
 import Data.Unit as Unit
 import Dict.Any as AnyDict
@@ -151,7 +152,7 @@ suite =
                                     , stage = Nothing
                                     }
                                     |> Component.applyTransforms requirements
-                                        defaultTransportCooling
+                                        defaultTransportOptions
                                         Nothing
                                         Process.Kilogram
                                         (List.map Component.nonLocalizedExpandedProcess transforms)
@@ -194,7 +195,7 @@ suite =
                                     , stage = Nothing
                                     }
                                     |> Component.applyTransforms requirements
-                                        defaultTransportCooling
+                                        defaultTransportOptions
                                         Nothing
                                         Process.Kilogram
                                         (List.map Component.nonLocalizedExpandedProcess transforms)
@@ -251,7 +252,7 @@ suite =
                                                 , stage = Nothing
                                                 }
                                                 |> Component.applyTransforms requirements
-                                                    defaultTransportCooling
+                                                    defaultTransportOptions
                                                     Nothing
                                                     Process.Kilogram
                                                     steps
@@ -297,7 +298,7 @@ suite =
                                         , stage = Nothing
                                         }
                                         |> Component.applyTransforms requirements
-                                            defaultTransportCooling
+                                            defaultTransportOptions
                                             Nothing
                                             Process.CubicMeter
                                             [ Component.nonLocalizedExpandedProcess transformInKg ]
@@ -319,7 +320,7 @@ suite =
                                     , stage = Nothing
                                     }
                                     |> Component.applyTransforms requirements
-                                        defaultTransportCooling
+                                        defaultTransportOptions
                                         Nothing
                                         Process.Kilogram
                                         (List.map Component.nonLocalizedExpandedProcess transforms)
@@ -414,7 +415,7 @@ suite =
                                         |> Result.withDefault Component.emptyResults
                             in
                             [ it "should add one transport stage per transform step"
-                                (getResults defaultTransportCooling
+                                (getResults defaultTransportOptions
                                     [ Component.nonLocalizedExpandedProcess fading
                                     , Component.nonLocalizedExpandedProcess fading
                                     ]
@@ -422,12 +423,12 @@ suite =
                                     |> Expect.equal 2
                                 )
                             , it "should add no transport stage when no transform is applied"
-                                (getResults defaultTransportCooling []
+                                (getResults defaultTransportOptions []
                                     |> extractTransportStagesCount Component.TransportStage
                                     |> Expect.equal 0
                                 )
                             , it "should insert transport before each transform stage"
-                                (getResults defaultTransportCooling
+                                (getResults defaultTransportOptions
                                     [ Component.nonLocalizedExpandedProcess fading
                                     , Component.nonLocalizedExpandedProcess fading
                                     ]
@@ -588,7 +589,7 @@ suite =
                                 |> Result.andThen
                                     (\cottonId ->
                                         Component.computeElementResults requirements
-                                            defaultTransportCooling
+                                            defaultTransportOptions
                                             { amount = Amount.fromFloat 1
                                             , material = { country = Nothing, id = cottonId }
 
@@ -625,7 +626,7 @@ suite =
                                         , material = { country = Nothing, id = materialInCubicMeters.id }
                                         , transforms = [ Component.nonLocalizedProcess transformInCubicMeters.id ]
                                         }
-                                            |> Component.computeElementResults requirements defaultTransportCooling
+                                            |> Component.computeElementResults requirements defaultTransportOptions
                                 in
                                 [ it "should compute impacts according on material unit"
                                     (results
@@ -651,7 +652,7 @@ suite =
                                         , material = { country = Nothing, id = materialInCubicMeters.id }
                                         , transforms = [ Component.nonLocalizedProcess transformInCubicMeters.id ]
                                         }
-                                            |> Component.computeElementResults requirements defaultTransportCooling
+                                            |> Component.computeElementResults requirements defaultTransportOptions
                                 in
                                 [ it "should compute complements impacts according on material unit"
                                     (results
@@ -684,7 +685,7 @@ suite =
                         (let
                             toComputedResults =
                                 decodeJsonThen Component.decodeItem
-                                    (Component.computeItemResults requirements defaultTransportCooling)
+                                    (Component.computeItemResults requirements defaultTransportOptions)
 
                             combineMapBoth_ fn =
                                 -- RE.combineMapBoth with fn applied to the two tuple members
@@ -843,6 +844,66 @@ suite =
                                     )
                                 ]
                             )
+                        , suiteFromResult "single item air transport to distribution"
+                            -- setup
+                            ("""{
+                                  "components": [{ "id": "64fa65b3-c2df-4fd0-958b-83965bd6aa08", "quantity": 1 }],
+                                  "transportOptions": { "byAir": 100 }
+                                }"""
+                                |> decodeJsonThen Component.decodeQuery (Component.compute requirements)
+                            )
+                            -- tests
+                            (\singleItemProduct ->
+                                [ it "should never add air transport to assembly"
+                                    (singleItemProduct
+                                        |> .transports
+                                        |> .toAssembly
+                                        |> .impacts
+                                        |> getEcsImpact
+                                        |> Expect.equal 0
+                                    )
+                                , it "should add air transport to distribution"
+                                    (singleItemProduct
+                                        |> .transports
+                                        |> .toDistribution
+                                        |> .air
+                                        |> Length.inKilometers
+                                        |> Expect.greaterThan 0
+                                    )
+                                ]
+                            )
+                        , suiteFromResult "multiple items air transport to assembly"
+                            -- setup
+                            ("""{
+                                  "components": [
+                                    { "id": "ad9d7f23-076b-49c5-93a4-ee1cd7b53973", "quantity": 1 },
+                                    { "id": "eda5dd7e-52e4-450f-8658-1876efc62bd6", "quantity": 1 }
+                                  ],
+                                  "assemblyCountry": "PT",
+                                  "transportOptions": { "byAir": 100 }
+                                }"""
+                                |> decodeJsonThen Component.decodeQuery (Component.compute requirements)
+                            )
+                            -- tests
+                            (\multipleItemsProducs ->
+                                [ it "should never add air transport to assembly"
+                                    (multipleItemsProducs
+                                        |> .transports
+                                        |> .toAssembly
+                                        |> .air
+                                        |> Length.inKilometers
+                                        |> Expect.equal 0
+                                    )
+                                , it "should add air transport to distribution"
+                                    (multipleItemsProducs
+                                        |> .transports
+                                        |> .toDistribution
+                                        |> .air
+                                        |> Length.inKilometers
+                                        |> Expect.greaterThan 0
+                                    )
+                                ]
+                            )
                         , suiteFromResult2 "multiple items without assembly country"
                             -- setup
                             ("""{
@@ -925,7 +986,7 @@ suite =
                                       }
                                     ]
                                 }
-                                    |> Component.computeElementResults requirements defaultTransportCooling
+                                    |> Component.computeElementResults requirements defaultTransportOptions
                                     |> Result.map Component.extractItems
                                     |> Result.map (List.any (Component.extractStage >> (==) (Just Component.TransportStage)))
                                     |> Expect.equal (Ok True)
@@ -934,29 +995,47 @@ suite =
                             getTransportStageEcs =
                                 Component.stagesImpacts >> .transports >> Maybe.map getEcsImpact >> Maybe.withDefault 0
                           in
-                          itFromResult2 "should handle transport cooling"
-                            ("""{"components": [{ "id": "64fa65b3-c2df-4fd0-958b-83965bd6aa08", "quantity": 1 }]}"""
-                                |> decodeJsonThen Component.decodeQuery (Component.compute requirements)
-                                |> Result.map getTransportStageEcs
-                            )
-                            ("""{
+                          describe "transport options"
+                            [ itFromResult2 "should handle transport cooling"
+                                ("""{"components": [{ "id": "64fa65b3-c2df-4fd0-958b-83965bd6aa08", "quantity": 1 }]}"""
+                                    |> decodeJsonThen Component.decodeQuery (Component.compute requirements)
+                                    |> Result.map getTransportStageEcs
+                                )
+                                ("""{
                                   "components": [{ "id": "64fa65b3-c2df-4fd0-958b-83965bd6aa08", "quantity": 1 }],
-                                  "transportCooling": true
+                                  "transportOptions": { "cooling": true }
                                 }"""
-                                |> decodeJsonThen Component.decodeQuery (Component.compute requirements)
-                                |> Result.map getTransportStageEcs
-                            )
-                            (\noTransportCooling withTransportCooling ->
-                                withTransportCooling
-                                    |> Expect.greaterThan noTransportCooling
-                            )
+                                    |> decodeJsonThen Component.decodeQuery (Component.compute requirements)
+                                    |> Result.map getTransportStageEcs
+                                )
+                                (\noTransportCooling withTransportCooling ->
+                                    withTransportCooling
+                                        |> Expect.greaterThan noTransportCooling
+                                )
+                            , itFromResult2 "should handle air transport"
+                                ("""{"components": [{ "id": "64fa65b3-c2df-4fd0-958b-83965bd6aa08", "quantity": 1 }]}"""
+                                    |> decodeJsonThen Component.decodeQuery (Component.compute requirements)
+                                    |> Result.map getTransportStageEcs
+                                )
+                                ("""{
+                                  "components": [{ "id": "64fa65b3-c2df-4fd0-958b-83965bd6aa08", "quantity": 1 }],
+                                  "transportOptions": { "byAir": 100 }
+                                }"""
+                                    |> decodeJsonThen Component.decodeQuery (Component.compute requirements)
+                                    |> Result.map getTransportStageEcs
+                                )
+                                (\noAirTransport withAirTransport ->
+                                    withAirTransport
+                                        |> Expect.greaterThan noAirTransport
+                                )
+                            ]
                         ]
                     , suiteFromResult2 "computeTransportDistance"
                         (db.countries |> Country.findByCode (Country.Code "PT"))
                         (db.countries |> Country.findByCode (Country.Code "FR"))
                         (\france portugal ->
                             [ it "should compute distance between two countries"
-                                (Component.computeTransportDistance requirements (Just portugal) (Just france)
+                                (Component.computeTransportDistance requirements Split.zero (Just portugal) (Just france)
                                     |> Result.map (Maybe.withDefault Transport.noTransport)
                                     |> Result.map
                                         (\{ air, road, sea } ->
@@ -969,6 +1048,7 @@ suite =
                                 )
                             , it "should compute distance between two countries accounting transport to hubs"
                                 (Component.computeTransportDistance requirements
+                                    Split.zero
                                     -- Note: exagerating distances to hub, to make this test resilient to future data updates
                                     (Just { portugal | distanceToHub = Length.kilometers 20000 })
                                     (Just { france | distanceToHub = Length.kilometers 10000 })
@@ -978,12 +1058,12 @@ suite =
                                     |> Expect.greaterThan 30000
                                 )
                             , it "should handle both countries unknown"
-                                (Component.computeTransportDistance requirements Nothing Nothing
+                                (Component.computeTransportDistance requirements Split.zero Nothing Nothing
                                     |> Expect.equal (Ok Nothing)
                                 )
                             , let
                                 getRoad from to =
-                                    Component.computeTransportDistance requirements from to
+                                    Component.computeTransportDistance requirements Split.zero from to
                                         |> Result.map (Maybe.map (.road >> Length.inKilometers) >> Maybe.withDefault -99)
                                         |> Result.withDefault -99
                               in
@@ -1011,23 +1091,47 @@ suite =
                         (db.countries |> Country.findByCode (Country.Code "PT"))
                         (db.countries |> Country.findByCode (Country.Code "FR"))
                         (\portugal france ->
-                            Mass.kilogram
-                                |> Component.computeTransportedMassImpacts requirements defaultTransportCooling (Just portugal) (Just france)
-                                |> (\transport ->
-                                        [ it "should compute transported mass impacts"
-                                            (transport
-                                                |> Result.map (.impacts >> getEcsImpact)
-                                                |> Result.withDefault 0
-                                                |> Expect.greaterThan 0
-                                            )
-                                        , it "should never include air transport"
-                                            (transport
-                                                |> Result.map (.air >> Length.inKilometers)
-                                                |> Result.withDefault 1
-                                                |> Expect.equal 0
-                                            )
-                                        ]
-                                   )
+                            [ it "should compute transported mass impacts"
+                                (Mass.kilogram
+                                    |> Component.computeTransportedMassImpacts requirements
+                                        defaultTransportOptions
+                                        (Just portugal)
+                                        (Just france)
+                                    |> Result.map (.impacts >> getEcsImpact)
+                                    |> Result.withDefault 0
+                                    |> Expect.greaterThan 0
+                                )
+                            , it "should never include air transport with default transport options"
+                                (Mass.kilogram
+                                    |> Component.computeTransportedMassImpacts requirements
+                                        defaultTransportOptions
+                                        (Just portugal)
+                                        (Just france)
+                                    |> Result.map (.air >> Length.inKilometers)
+                                    |> Result.withDefault 1
+                                    |> Expect.equal 0
+                                )
+                            , it "should include air transport when the option is set"
+                                (Mass.kilogram
+                                    |> Component.computeTransportedMassImpacts requirements
+                                        { defaultTransportOptions | byAir = Split.full }
+                                        (Just portugal)
+                                        (Just france)
+                                    |> Result.map (.air >> Length.inKilometers)
+                                    |> Result.withDefault -99
+                                    |> Expect.greaterThan 0
+                                )
+                            , it "should include cooled transport when the option is set"
+                                (Mass.kilogram
+                                    |> Component.computeTransportedMassImpacts requirements
+                                        { defaultTransportOptions | cooling = True }
+                                        (Just portugal)
+                                        (Just france)
+                                    |> Result.map (.roadCooled >> Length.inKilometers)
+                                    |> Result.withDefault -99
+                                    |> Expect.greaterThan 0
+                                )
+                            ]
                         )
                     , describe "computeVolumeFromMass"
                         [ it "should compute a volume from a mass"
