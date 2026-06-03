@@ -479,6 +479,7 @@ async def test_components_preserve_transformations_order_on_update(
                     "transforms": [
                         "d25636af-ab36-4857-a6d0-c66d1e7a281b",
                         "97c209ec-7782-5a29-8c47-af7f17c82d11",
+                        {"country": "CN", "id": "7f217ecc-5de8-4ce1-b2c2-b5d192c6cdb9"},
                     ],
                 }
             ],
@@ -490,6 +491,7 @@ async def test_components_preserve_transformations_order_on_update(
     assert json["elements"][0]["transforms"] == [
         "d25636af-ab36-4857-a6d0-c66d1e7a281b",
         "97c209ec-7782-5a29-8c47-af7f17c82d11",
+        {"country": "CN", "id": "7f217ecc-5de8-4ce1-b2c2-b5d192c6cdb9"},
     ]
 
     # Updates the component again, passing it the two transforms in an inverted order
