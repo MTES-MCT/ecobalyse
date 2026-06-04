@@ -539,7 +539,12 @@ applyTransforms requirements transportOptions initialCountry unit transforms mat
                         |> Result.andThen
                             (\mixes ->
                                 results
-                                    |> applyTransportedMassImpacts requirements transportOptions (extractMass results) previousCountry country
+                                    |> applyTransportedMassImpacts requirements
+                                        -- no intermediary transport to transformation can ever feature air transport
+                                        { transportOptions | byAir = Split.zero }
+                                        (extractMass results)
+                                        previousCountry
+                                        country
                                     |> Result.map (\results_ -> ( country, applyTransform process mixes results_ ))
                             )
                 )
