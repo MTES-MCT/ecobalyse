@@ -2,7 +2,8 @@
   "activityName": "Pineapple, pulp raw, variant 1, CMAPS {GLO} U",
   "categories": [
     "ingredient",
-    "material"
+    "material",
+    "material_type:other_food_items"
   ],
   "displayName": "Ananas, pulpe, cru FR",
   "id": "ecda3c1d-8453-492e-a299-22f51aa5993b",

@@ -2,7 +2,8 @@
   "activityName": "Plum puree, CMAPS {GLO} U",
   "categories": [
     "ingredient",
-    "material"
+    "material",
+    "material_type:other_food_items"
   ],
   "displayName": "Purée de prune FR",
   "id": "c050c8c5-262a-4851-a8f0-b31da30c32f8",

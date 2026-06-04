@@ -2,7 +2,8 @@
   "activityName": "Tomme cheese, cow milk, variant 2, CMAPS {GLO} U",
   "categories": [
     "ingredient",
-    "material"
+    "material",
+    "material_type:other_food_items"
   ],
   "displayName": "Tomme ou tome de vache Origine Inconnue",
   "id": "a4a43764-e81c-4a26-bef0-c4e5d6e4fd24",

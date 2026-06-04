@@ -2,7 +2,8 @@
   "activityName": "Linseed, at farm {CA} - Adapted from WFLDB U",
   "categories": [
     "ingredient",
-    "material"
+    "material",
+    "material_type:other_food_items"
   ],
   "displayName": "Graines de chia Origine Inconnue",
   "id": "549f031d-3836-5eae-90a5-45c757eb8bcb",

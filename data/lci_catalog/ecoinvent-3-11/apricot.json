@@ -1,7 +1,9 @@
 {
   "activityName": "Apricot {RoW}| apricot production | Cut-off, U",
   "categories": [
-    "ingredient"
+    "ingredient",
+    "material",
+    "material_type:fruits_and_vegetables"
   ],
   "displayName": "Apricot (ROW)",
   "id": "31e6e9bc-3d11-535c-a5a5-435eaba01e3a",

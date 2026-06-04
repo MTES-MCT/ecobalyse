@@ -2,7 +2,8 @@
   "activityName": "Butter, 39-41pct fat light, variant 1, CMAPS {GLO} U",
   "categories": [
     "ingredient",
-    "material"
+    "material",
+    "material_type:other_food_items"
   ],
   "displayName": "Beurre à 39-41% MG, léger, doux FR",
   "id": "b50c26d2-5694-43af-a31d-827e9c5be9cc",

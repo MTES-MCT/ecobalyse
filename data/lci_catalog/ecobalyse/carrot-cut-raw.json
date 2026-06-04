@@ -2,7 +2,8 @@
   "activityName": "Carrot, cut raw, CMAPS {GLO} U",
   "categories": [
     "ingredient",
-    "material"
+    "material",
+    "material_type:other_food_items"
   ],
   "displayName": "Carotte, découpée, crue FR",
   "id": "ecabe37f-5f0e-4eb1-86a6-31a22e8111b8",

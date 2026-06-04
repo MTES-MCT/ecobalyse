@@ -2,7 +2,8 @@
   "activityName": "White bean, canned drained, CMAPS {GLO} U",
   "categories": [
     "ingredient",
-    "material"
+    "material",
+    "material_type:other_food_items"
   ],
   "displayName": "Haricot blanc, appertisé, égoutté FR",
   "id": "f8697681-949f-42db-95cb-e09bb0155594",

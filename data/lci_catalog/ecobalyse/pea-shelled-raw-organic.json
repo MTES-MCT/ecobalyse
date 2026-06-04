@@ -2,7 +2,8 @@
   "activityName": "Pea, shelled raw, organic, CMAPS {GLO} U",
   "categories": [
     "ingredient",
-    "material"
+    "material",
+    "material_type:other_food_items"
   ],
   "displayName": "Petits pois, écossés, crus BIO",
   "id": "f9c3e550-a202-42c8-9876-de914bd13d11",

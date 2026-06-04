@@ -2,7 +2,8 @@
   "activityName": "Apple, pulp raw, CMAPS {GLO} U",
   "categories": [
     "ingredient",
-    "material"
+    "material",
+    "material_type:other_food_items"
   ],
   "displayName": "Pomme, pulpe, crue FR",
   "id": "b67707e7-827b-4ef3-aa4c-c2d764d8c526",

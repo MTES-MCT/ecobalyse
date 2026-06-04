@@ -2,7 +2,8 @@
   "activityName": "Strawberry, frozen raw, CMAPS {GLO} U",
   "categories": [
     "ingredient",
-    "material"
+    "material",
+    "material_type:other_food_items"
   ],
   "displayName": "Fraise, crue, surgelé FR",
   "id": "6e03a10f-e645-4eae-9f42-994cc25ac07d",

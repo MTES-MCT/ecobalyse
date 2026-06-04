@@ -2,7 +2,8 @@
   "activityName": "Mango, pulp raw, organic, CMAPS {GLO} U",
   "categories": [
     "ingredient",
-    "material"
+    "material",
+    "material_type:other_food_items"
   ],
   "displayName": "Mangue, pulpe, crue Origine Inconnue BIO",
   "id": "74e4df22-6b26-404d-884c-49974e9ee480",

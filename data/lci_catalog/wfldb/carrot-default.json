@@ -2,7 +2,8 @@
   "activityName": "Carrot, at farm (WFLDB)",
   "categories": [
     "ingredient",
-    "material"
+    "material",
+    "material_type:other_food_items"
   ],
   "displayName": "Carottes Origine Inconnue",
   "id": "76947d75-2670-5bf3-9e73-36e0aa224c15",

@@ -2,7 +2,8 @@
   "activityName": "Soft wheat flour, CMAPS {FR} U",
   "categories": [
     "ingredient",
-    "material"
+    "material",
+    "material_type:other_food_items"
   ],
   "displayName": "Farine de blé tendre, froment ou millet Origine Inconnue",
   "id": "c78acecf-3809-4a36-9ed9-713a3e237401",

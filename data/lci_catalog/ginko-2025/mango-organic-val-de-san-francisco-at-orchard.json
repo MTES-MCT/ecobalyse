@@ -1,7 +1,9 @@
 {
   "activityName": "Mango, organic 2025, Val de San Francisco, at orchard {BR} U",
   "categories": [
-    "ingredient"
+    "ingredient",
+    "material",
+    "material_type:fruits_and_vegetables"
   ],
   "displayName": "Mango, organic 2025, Val de San Francisco, at orchard (BR)",
   "id": "44c35c92-61e7-5701-b29f-1fe61b374c0e",

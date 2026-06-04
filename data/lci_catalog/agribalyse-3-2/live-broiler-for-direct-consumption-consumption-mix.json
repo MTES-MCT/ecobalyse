@@ -1,7 +1,9 @@
 {
   "activityName": "Live broiler, for direct consumption, consumption mix {FR} U",
   "categories": [
-    "ingredient"
+    "ingredient",
+    "material",
+    "material_type:poultry"
   ],
   "displayName": "Live broiler, for direct consumption, consumption mix (FR)",
   "id": "bc5a154d-e89e-5ea1-a2ac-926d7cfa9945",

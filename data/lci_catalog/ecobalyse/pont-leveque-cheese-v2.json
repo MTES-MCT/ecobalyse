@@ -2,7 +2,8 @@
   "activityName": "Pont l'Eveque cheese, variant 2, CMAPS {GLO} U",
   "categories": [
     "ingredient",
-    "material"
+    "material",
+    "material_type:other_food_items"
   ],
   "displayName": "Pont l'Évêque Origine Inconnue",
   "id": "a68553f9-d844-484e-a935-72256a2882f2",

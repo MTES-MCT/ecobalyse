@@ -2,7 +2,8 @@
   "activityName": "Beef, boneless raw, variant 1, CMAPS {GLO} U",
   "categories": [
     "ingredient",
-    "material"
+    "material",
+    "material_type:other_food_items"
   ],
   "displayName": "Pièces de boeuf, désossée, crue (côte, épaule, gite, joue, jarret, rosbif, onglet, bavette...) FR",
   "id": "692d6745-4b5a-4576-9869-15cabc16bb0c",

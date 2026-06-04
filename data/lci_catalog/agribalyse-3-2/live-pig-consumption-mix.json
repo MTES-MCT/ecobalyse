@@ -1,7 +1,9 @@
 {
   "activityName": "Live pig, consumption mix {FR} U",
   "categories": [
-    "ingredient"
+    "ingredient",
+    "material",
+    "material_type:red_meats"
   ],
   "displayName": "Live pig, consumption mix (FR)",
   "id": "ec694943-f9c8-5a8e-8959-1380d32738c9",

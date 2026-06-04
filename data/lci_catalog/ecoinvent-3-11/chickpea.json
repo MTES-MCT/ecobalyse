@@ -1,7 +1,9 @@
 {
   "activityName": "Chickpea {IN}| chickpea production | Cut-off, U",
   "categories": [
-    "ingredient"
+    "ingredient",
+    "material",
+    "material_type:fruits_and_vegetables"
   ],
   "displayName": "Chickpea (IN)",
   "id": "914f4a85-2ca6-58fe-ad60-6e9d00e7372e",

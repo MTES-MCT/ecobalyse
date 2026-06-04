@@ -2,7 +2,8 @@
   "activityName": "Rice flour, organic, CMAPS {FR} U",
   "categories": [
     "ingredient",
-    "material"
+    "material",
+    "material_type:other_food_items"
   ],
   "displayName": "Farine de riz Origine Inconnue BIO",
   "id": "f7f402bd-05a8-435e-8165-1090616be307",

@@ -2,7 +2,8 @@
   "activityName": "Butter, 82pct fat, variant 1, CMAPS {GLO} U",
   "categories": [
     "ingredient",
-    "material"
+    "material",
+    "material_type:other_food_items"
   ],
   "displayName": "Beurre à 82% MG ou huile de beurre FR",
   "id": "dd1160bc-8ea5-407e-abc7-e317e8f8b126",

@@ -2,7 +2,8 @@
   "activityName": "Camembert cheese, variant 2, CMAPS {GLO} U",
   "categories": [
     "ingredient",
-    "material"
+    "material",
+    "material_type:other_food_items"
   ],
   "displayName": "Camembert Origine Inconnue",
   "id": "814519db-c292-40f6-bda4-9fa627a35def",

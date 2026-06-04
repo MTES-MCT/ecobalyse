@@ -2,7 +2,8 @@
   "activityName": "Fig puree, import WFLDB, CMAPS {FR} U",
   "categories": [
     "ingredient",
-    "material"
+    "material",
+    "material_type:other_food_items"
   ],
   "displayName": "Purée de figue Origine Inconnue",
   "id": "82c97409-bc40-4c24-bd7f-1b8acfa0121d",

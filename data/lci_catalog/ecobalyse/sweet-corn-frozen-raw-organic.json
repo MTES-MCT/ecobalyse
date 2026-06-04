@@ -2,7 +2,8 @@
   "activityName": "Sweet corn, frozen raw, organic, CMAPS {GLO} U",
   "categories": [
     "ingredient",
-    "material"
+    "material",
+    "material_type:other_food_items"
   ],
   "displayName": "Maïs doux, surgelé, cru BIO",
   "id": "e230e270-9008-447f-9a89-6431d8fc4e5a",

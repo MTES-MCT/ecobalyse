@@ -1,7 +1,9 @@
 {
   "activityName": "Rye grain {RoW}| rye production | Cut-off, U - Adapted from Ecoinvent U",
   "categories": [
-    "ingredient"
+    "ingredient",
+    "material",
+    "material_type:cereals"
   ],
   "displayName": "Rye grain (ROW)",
   "id": "52992c30-4b58-5aaa-9383-8d76966683f2",

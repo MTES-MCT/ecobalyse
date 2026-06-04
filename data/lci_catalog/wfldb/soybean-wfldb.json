@@ -1,7 +1,9 @@
 {
   "activityName": "Soybean, at farm (WFLDB)",
   "categories": [
-    "ingredient"
+    "ingredient",
+    "material",
+    "material_type:cereals"
   ],
   "displayName": "Soybean, at farm",
   "id": "b3074ca2-8ce8-57cc-9e5d-18d79716122f",

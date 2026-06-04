@@ -2,7 +2,8 @@
   "activityName": "Rapeseed, at farm {GLO} - Adapted from WFLDB U",
   "categories": [
     "ingredient",
-    "material"
+    "material",
+    "material_type:other_food_items"
   ],
   "displayName": "Colza UE",
   "id": "37bf23d8-2c84-5aee-8715-8b38424ce44f",

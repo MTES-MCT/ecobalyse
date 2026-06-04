@@ -1,7 +1,9 @@
 {
   "activityName": "Seed-cotton {IN-GJ}| seed-cotton production, conventional | Cut-off, U - Adapted from Ecoinvent U",
   "categories": [
-    "ingredient"
+    "ingredient",
+    "material",
+    "material_type:fruits_and_vegetables"
   ],
   "displayName": "Seed-cotton (IN-GJ)",
   "id": "02e2688c-c135-57ee-a85f-d44c3301582a",

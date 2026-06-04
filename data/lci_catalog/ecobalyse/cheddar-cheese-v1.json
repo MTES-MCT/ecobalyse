@@ -2,7 +2,8 @@
   "activityName": "Cheddar cheese, variant 1, CMAPS {GLO} U",
   "categories": [
     "ingredient",
-    "material"
+    "material",
+    "material_type:other_food_items"
   ],
   "displayName": "Cheddar FR",
   "id": "459b34b2-441f-4e9c-8cd5-e948deab2694",

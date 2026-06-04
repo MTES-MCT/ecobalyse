@@ -2,7 +2,8 @@
   "activityName": "Mango, pulp raw, CMAPS {GLO} U",
   "categories": [
     "ingredient",
-    "material"
+    "material",
+    "material_type:other_food_items"
   ],
   "displayName": "Mangue, pulpe, crue FR",
   "id": "a7a99a08-feca-4500-993c-ce5d7ea0b25c",

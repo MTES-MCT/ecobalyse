@@ -2,7 +2,8 @@
   "activityName": "Carrot, cut raw, organic, CMAPS {GLO} U",
   "categories": [
     "ingredient",
-    "material"
+    "material",
+    "material_type:other_food_items"
   ],
   "displayName": "Carotte, découpée, crue BIO",
   "id": "dd347e93-84ca-43c7-8426-8cf03230c78f",

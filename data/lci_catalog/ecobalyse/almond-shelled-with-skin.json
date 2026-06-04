@@ -2,7 +2,8 @@
   "activityName": "Almond, shelled with skin, CMAPS {GLO} U",
   "categories": [
     "ingredient",
-    "material"
+    "material",
+    "material_type:other_food_items"
   ],
   "displayName": "Amande, décortiquée, avec peau FR",
   "id": "942ce7b6-96e7-4716-a56a-58043e5fe48e",

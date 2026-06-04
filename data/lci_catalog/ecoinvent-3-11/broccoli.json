@@ -1,7 +1,9 @@
 {
   "activityName": "Broccoli {CH}| broccoli production, conventional, plain region | Cut-off, U",
   "categories": [
-    "ingredient"
+    "ingredient",
+    "material",
+    "material_type:fruits_and_vegetables"
   ],
   "displayName": "Broccoli (CH)",
   "id": "5238d98f-4095-59ab-ba43-16734fc0a6c3",

@@ -2,7 +2,8 @@
   "activityName": "Pineapple, pulp raw, variant 2, CMAPS {GLO} U",
   "categories": [
     "ingredient",
-    "material"
+    "material",
+    "material_type:other_food_items"
   ],
   "displayName": "Ananas, pulpe, cru Origine Inconnue",
   "id": "f5d7d4e4-1b33-4c8b-bdd3-6b1c05bb2eed",

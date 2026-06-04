@@ -2,7 +2,8 @@
   "activityName": "White wine, dry, organic, CMAPS {GLO} U",
   "categories": [
     "ingredient",
-    "material"
+    "material",
+    "material_type:other_food_items"
   ],
   "displayName": "Vin blanc (sec) Origine Inconnue BIO",
   "id": "f360633e-028c-4229-a0c3-c327e0f84fec",

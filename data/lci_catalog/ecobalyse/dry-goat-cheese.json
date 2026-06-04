@@ -2,7 +2,8 @@
   "activityName": "Dry goat cheese, CMAPS {GLO} U",
   "categories": [
     "ingredient",
-    "material"
+    "material",
+    "material_type:other_food_items"
   ],
   "displayName": "Fromage de chèvre sec FR",
   "id": "ccb43b89-eaff-4eaa-9f26-557c2d73be2f",

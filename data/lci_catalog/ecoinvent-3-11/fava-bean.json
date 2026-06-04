@@ -1,7 +1,9 @@
 {
   "activityName": "Fava bean {CA-SK}| fava bean production | Cut-off, U",
   "categories": [
-    "ingredient"
+    "ingredient",
+    "material",
+    "material_type:fruits_and_vegetables"
   ],
   "displayName": "Fava bean (CA-SK)",
   "id": "bb8ea198-7de7-55cc-bee5-a7779c0a98f9",

@@ -2,7 +2,8 @@
   "activityName": "Rice flour, CMAPS {FR} U",
   "categories": [
     "ingredient",
-    "material"
+    "material",
+    "material_type:other_food_items"
   ],
   "displayName": "Farine de riz Origine Inconnue",
   "id": "9ce352b8-1e6c-45bb-b820-d3f9e159a63a",

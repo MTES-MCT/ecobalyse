@@ -2,7 +2,8 @@
   "activityName": "Blackberry juice, organic, CMAPS {GLO} U",
   "categories": [
     "ingredient",
-    "material"
+    "material",
+    "material_type:other_food_items"
   ],
   "displayName": "Jus de mûre BIO",
   "id": "88cee097-8a2b-4500-96d8-540952d7acd3",

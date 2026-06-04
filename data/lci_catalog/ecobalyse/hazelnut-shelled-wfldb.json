@@ -2,7 +2,8 @@
   "activityName": "Hazelnut, shelled, import WFLDB, CMAPS {GLO} U",
   "categories": [
     "ingredient",
-    "material"
+    "material",
+    "material_type:other_food_items"
   ],
   "displayName": "Noisette, décortiquée Origine Inconnue",
   "id": "e600fee0-90ea-4601-8456-3a235c9753f5",

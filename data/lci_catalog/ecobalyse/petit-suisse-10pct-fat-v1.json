@@ -2,7 +2,8 @@
   "activityName": "Petit suisse, 10pct fat, variant 1, CMAPS {GLO} U",
   "categories": [
     "ingredient",
-    "material"
+    "material",
+    "material_type:other_food_items"
   ],
   "displayName": "Fromage frais type petit suisse, nature, 10% MG environ FR",
   "id": "2548a428-3112-44ea-aa78-dc6458178fc5",

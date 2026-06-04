@@ -1,7 +1,9 @@
 {
   "activityName": "Strawberry {US}| strawberry production, open field, macro tunnel | Cut-off, U",
   "categories": [
-    "ingredient"
+    "ingredient",
+    "material",
+    "material_type:fruits_and_vegetables"
   ],
   "displayName": "Strawberry (US)",
   "id": "3872d30b-9b01-5f82-9e05-9a422f81a6e9",
