@@ -440,6 +440,22 @@ suite =
                                         , Component.TransformStage
                                         ]
                                 )
+                            , itFromResult "should never feature air transport for intermediary transport, even when byAir is set"
+                                (db.countries |> Country.findByCode (Country.Code "FR"))
+                                (\france ->
+                                    let
+                                        getEcsForByAir byAir =
+                                            getResults { defaultTransportOptions | byAir = byAir }
+                                                [ { country = Just france, process = fading }
+                                                , { country = Just france, process = fading }
+                                                ]
+                                                |> extractEcsImpact
+                                    in
+                                    -- forcing air transport ratio to full must not change the result, as it's always
+                                    -- reset to zero at the transform step level
+                                    getEcsForByAir Split.full
+                                        |> Expect.within (Expect.Absolute 0.00001) (getEcsForByAir Split.zero)
+                                )
                             ]
                         ]
                     , describe "compute"
