@@ -105,7 +105,7 @@ Dans ce cas, les distances suivantes sont fixées par défaut, en cohérence ave
 
 * D\_mer = 18 000 km
 * D\_air, air = 10 000 km
-*   D\_intrazone,départ + D\_intrazone,arrivée = 2000km
+*   D\_intrazone = 2 000km
 
     &#x20;
 
