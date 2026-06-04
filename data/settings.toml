@@ -81,7 +81,7 @@ ENV_NAME = "testing" # Do not override this value, it's used by the unit tests
 PLOT_EXPORT = false
 
 [testing.bw]
-METHOD = "Environmental Footprint 3.1 (adapted) patch wtu"
+METHOD = "Environmental Footprint 3.1 (adapted)"
 BIOSPHERE = "ecoinvent-3.9.1-biosphere"
 PROJECT = "forwast"
 
