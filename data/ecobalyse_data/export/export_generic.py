@@ -32,7 +32,7 @@ def _build_variant_metadata(
     - Food variants get `ingredient` plus ECS keys in `complements`. Vegetal
       variants keep `permanentPasture` as null (within-domain
       structural nulls, mirroring ingredients.json).
-    - Entries with no applicable metadata return None.
+    - Microfibers are added as complement for organic and synthetic fibers
     """
     metadata: dict = {}
 
@@ -44,6 +44,14 @@ def _build_variant_metadata(
             forest_management,
             activity.get("landOccupation"),
         )
+    categories = activity["categories"]
+    is_material = "material" in categories
+
+    if is_material:
+        if "material_type:organic_fibers" in categories:
+            complements["microfibers"] = 250
+        elif "material_type:synthetic_fibers" in categories:
+            complements["microfibers"] = 820
 
     if food_variant is not None:
         metadata["ingredient"] = IngredientMetadata(
