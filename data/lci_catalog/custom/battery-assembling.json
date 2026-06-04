@@ -4,7 +4,7 @@
     "material_type:battery_cell"
   ],
   "comment": "Battery assembling, based on ADEME Benchmark: around 1kWh/kWh of battery capacity. Converted in consumption per kg of cell.",
-  "displayName": "Battery assembling",
+  "displayName": "Assemblage en batterie",
   "elecMJ": 1,
   "heatMJ": 0,
   "id": "4c132763-13af-43fa-91ea-e1e968c03e11",

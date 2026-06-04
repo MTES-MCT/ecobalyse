@@ -4,8 +4,8 @@
   ],
   "comment": "Consommation d’électricité telle que définie par la méthode Agribalyse 3.0 dans les tableaux 41, 42, 43 sur les techniques de préparation.",
   "displayName": "Cuisson à la poêle",
-  "elecMJ": 1.584,
-  "heatMJ": 0,
+  "elecMJ": 0.6336,
+  "heatMJ": 0.9504,
   "id": "23f64752-4337-4ab2-bf11-7fe4a2f51b95",
   "impacts": {
     "acd": 0,
