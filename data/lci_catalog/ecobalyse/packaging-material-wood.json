@@ -1,15 +1,15 @@
 {
-  "activityName": "Cardboard packaging",
+  "activityName": "Wood packaging",
   "categories": [
     "material",
     "packaging"
   ],
   "comment": "Includes all life cycle stages, including transport and end-of-life treatment, based on Agribalyse Pack_AGB project, 2024, simplified.",
-  "displayName": "Carton",
-  "id": "de1f15d0-93be-4bbb-b341-2c3b7f76d6b4",
+  "displayName": "Bois",
+  "id": "50b1273f-a05b-4c81-83ec-a54c9a79e4f7",
   "metadata": [
     {
-      "id": "1421dfdc-0168-4e6c-bbb4-c724785d61d6",
+      "id": "fc6ffb83-9ad5-443c-864c-bfb32c5acd02",
       "scopes": [
         "food2"
       ]

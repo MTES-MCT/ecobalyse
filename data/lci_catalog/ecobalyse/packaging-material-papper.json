@@ -1,0 +1,25 @@
+{
+  "activityName": "Paper packaging",
+  "categories": [
+    "material",
+    "packaging"
+  ],
+  "comment": "Includes all life cycle stages, including transport and end-of-life treatment, based on Agribalyse Pack_AGB project, 2024, simplified.",
+  "displayName": "Papier",
+  "id": "4aba4df3-5923-4715-ba14-5b9af52e3baf",
+  "metadata": [
+    {
+      "id": "de82faa9-0d87-48fe-8ddc-b0a5254be3d8",
+      "scopes": [
+        "food2",
+        "object"
+      ]
+    }
+  ],
+  "scopes": [
+    "food",
+    "food2"
+  ],
+  "source": "Ecobalyse",
+  "unit": "kg"
+}
