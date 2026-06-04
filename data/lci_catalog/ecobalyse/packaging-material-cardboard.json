@@ -18,7 +18,8 @@
   ],
   "scopes": [
     "food",
-    "food2"
+    "food2",
+    "object"
   ],
   "source": "Ecobalyse",
   "unit": "kg"

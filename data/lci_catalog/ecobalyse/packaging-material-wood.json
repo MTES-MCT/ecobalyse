@@ -11,13 +11,15 @@
     {
       "id": "fc6ffb83-9ad5-443c-864c-bfb32c5acd02",
       "scopes": [
-        "food2"
+        "food2",
+        "object"
       ]
     }
   ],
   "scopes": [
     "food",
-    "food2"
+    "food2",
+    "object"
   ],
   "source": "Ecobalyse",
   "unit": "kg"
