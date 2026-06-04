@@ -38,13 +38,17 @@ def main():
                 metadata = activity.get("metadata")
 
                 if metadata and "ingredient" in categories:
-                    # On rajoute le tag `material` s’il est absent, tous les ingrédients
-                    # doivent l’avoir
+                    # The `material` tag is added if needed. All ingredients have
+                    # to have it.
                     categories |= set(["material"])
 
-                    # On supprime l’éventuel tag `material_type` avant de rajouter le bon.
+                    # Any `material_type:*` tag is removed, so that we can just
+                    # add the proper one afterwards, without having to worry about
+                    # duplicates
                     categories -= INGREDIENT_CATEGORIES
 
+                    # Arbitrarly take the first rawToCookedRatio, and emit a warning
+                    # in case they are not all identical
                     rawToCookedRatio = metadata[0]["rawToCookedRatio"]
                     if any(
                         [m["rawToCookedRatio"] != rawToCookedRatio for m in metadata]
@@ -54,9 +58,11 @@ def main():
                             f"{activity['displayName']}: several rawToCookedRatio found, using the first one ",
                         )
                     else:
+                        # Add the tag corresponding to the rawToCookedRatio
                         if RATIO_TO_CAT.get(rawToCookedRatio):
                             categories.add(RATIO_TO_CAT[rawToCookedRatio])
                         else:
+                            # Emit a warning for unknown rawToCookedRatio
                             if rawToCookedRatio != 1:
                                 logger.warning(
                                     f"{activity['displayName']}: no category found for ratio {rawToCookedRatio}"
