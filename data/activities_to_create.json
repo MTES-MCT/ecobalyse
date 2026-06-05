@@ -10246,5 +10246,24 @@
     ],
     "location": "RER",
     "newName": "PELD packaging"
+  },
+  {
+    "activityCreationType": "from_scratch",
+    "alias": "glass-laminated",
+    "comment": "Laminated glass with 2x2.1mm glass layer and 0.76mm PVB interlayer, modelled as PVC (no PVB in ecoinvent, low sensibility).",
+    "database": "Ecoinvent 3.9.1",
+    "exchanges": [
+      {
+        "amount": 0.98,
+        "name": "flat glass, uncoated//[RER] flat glass production, uncoated"
+      },
+      {
+        "amount": 0.02,
+        "database": "Ecoinvent 3.9.1",
+        "name": "polyvinylchloride, suspension polymerised//[GLO] market for polyvinylchloride, suspension polymerised"
+      }
+    ],
+    "location": "RER",
+    "newName": "Laminated glass"
   }
 ]
