@@ -38,3 +38,5 @@ db.sqlite3
 
 # Scalingo logs
 /archives_logs/
+
+/output/
