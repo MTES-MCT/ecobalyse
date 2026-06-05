@@ -10478,5 +10478,127 @@
     ],
     "location": "CN",
     "newName": "Battery cell production, NMC622, CN"
+  },
+  {
+    "activityCreationType": "from_scratch",
+    "alias": "battery-AAA",
+    "comment": "For one 11g battery. Based on https://www.epbaeurope.net/assets/resources/NEMA_alkalinelca2011.pdf",
+    "database": "Ecoinvent 3.9.1",
+    "exchanges": [
+      {
+        "amount": 0.00447,
+        "name": "manganese dioxide//[GLO] manganese dioxide production"
+      },
+      {
+        "amount": 0.00043,
+        "name": "potassium hydroxide//[GLO] market for potassium hydroxide"
+      },
+      {
+        "amount": 0.0004,
+        "database": "Ecobalyse",
+        "name": "Graphite production for battery cell, CN"
+      },
+      {
+        "amount": 0.0023,
+        "database": "Ecobalyse",
+        "name": "steel, low-alloyed, market, CN"
+      },
+      {
+        "amount": 5e-05,
+        "name": "nickel sulfate//[GLO] nickel sulfate production"
+      },
+      {
+        "amount": 0.00193,
+        "name": "zinc//[RoW] primary zinc production from concentrate"
+      },
+      {
+        "amount": 0.00034,
+        "name": "brass//[RoW] market for brass"
+      },
+      {
+        "amount": 0.00019,
+        "name": "steel, chromium steel 18/8//[GLO] market for steel, chromium steel 18/8"
+      },
+      {
+        "amount": 0.00018,
+        "name": "polyvinylchloride, suspension polymerised//[GLO] market for polyvinylchloride, suspension polymerised"
+      },
+      {
+        "amount": 0.00018,
+        "name": "potassium hydroxide//[GLO] market for potassium hydroxide  "
+      },
+      {
+        "amount": 0.007,
+        "name": "electricity, medium voltage//[RER] market group for electricity, medium voltage"
+      },
+      {
+        "amount": 0.011,
+        "database": "Ecobalyse",
+        "name": "heat, industrial, market, RER"
+      }
+    ],
+    "location": "CN",
+    "newName": "AAA battery production, RER"
+  },
+  {
+    "activityCreationType": "from_scratch",
+    "alias": "battery-AA",
+    "comment": "For one 23g battery. Based on https://www.epbaeurope.net/assets/resources/NEMA_alkalinelca2011.pdf",
+    "database": "Ecoinvent 3.9.1",
+    "exchanges": [
+      {
+        "amount": 0.00934,
+        "name": "manganese dioxide//[GLO] manganese dioxide production"
+      },
+      {
+        "amount": 0.0009,
+        "name": "potassium hydroxide//[GLO] market for potassium hydroxide"
+      },
+      {
+        "amount": 0.00084,
+        "database": "Ecobalyse",
+        "name": "Graphite production for battery cell, CN"
+      },
+      {
+        "amount": 0.0048,
+        "database": "Ecobalyse",
+        "name": "steel, low-alloyed, market, CN"
+      },
+      {
+        "amount": 0.0001,
+        "name": "nickel sulfate//[GLO] nickel sulfate production"
+      },
+      {
+        "amount": 0.00404,
+        "name": "zinc//[RoW] primary zinc production from concentrate"
+      },
+      {
+        "amount": 0.00072,
+        "name": "brass//[RoW] market for brass"
+      },
+      {
+        "amount": 0.00039,
+        "name": "steel, chromium steel 18/8//[GLO] market for steel, chromium steel 18/8"
+      },
+      {
+        "amount": 0.00038,
+        "name": "polyvinylchloride, suspension polymerised//[GLO] market for polyvinylchloride, suspension polymerised"
+      },
+      {
+        "amount": 0.00038,
+        "name": "potassium hydroxide//[GLO] market for potassium hydroxide  "
+      },
+      {
+        "amount": 0.014,
+        "name": "electricity, medium voltage//[RER] market group for electricity, medium voltage"
+      },
+      {
+        "amount": 0.024,
+        "database": "Ecobalyse",
+        "name": "heat, industrial, market, RER"
+      }
+    ],
+    "location": "CN",
+    "newName": "AA battery production, RER"
   }
 ]
