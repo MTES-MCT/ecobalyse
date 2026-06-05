@@ -54,7 +54,7 @@ EXPLICIT_PAIR_SANITY_CHECKS = [
 ]
 
 
-# These impacts are = 0 so we exclude them to remove noise from the graph
+# These impacts are = 0 or irrelevant (ie we ignore etf because we use etf-c) so we exclude them to remove noise from the graph
 EXCLUDED_IMPACTS = {
     "etf",
     "htn",
@@ -149,8 +149,6 @@ def compute_normalization_factors(impacts_data: dict[str, Any]) -> dict[str, flo
             factors[key] = (
                 val["ecoscore"]["weighting"] / val["ecoscore"]["normalization"]
             )
-        else:
-            factors[key] = 0
     return factors
 
 
@@ -178,7 +176,7 @@ def compute_ecs_with_complements(ingredient: Ingredient) -> float:
     return ecs_with_complements
 
 
-# --- Step 4: Check hierarchy ---
+# --- Step 2: Check hierarchy ---
 
 
 def check_explicit_pair_sanity_checks(
@@ -260,7 +258,7 @@ def check_hierarchy(ingredient_by_base: dict[str, list[Ingredient]]) -> list[Vio
     return violations
 
 
-# --- Step 5: Generate graphs ---
+# --- Step 3: Generate graphs ---
 
 
 def build_df(aliases, ingredients: list[Ingredient]):
@@ -409,7 +407,7 @@ def plot_explicit_pair_sanity_checks(ingredients_by_alias, violation_pairs):
         )
 
 
-# --- Step 6: Generate bookmarks ---
+# --- Step 4: Generate bookmarks ---
 
 
 def make_bookmark(alias, ingredient_id, timestamp_ms):
@@ -467,7 +465,7 @@ def generate_bookmarks(ingredients_by_base):
         count += 1
 
 
-# --- Step 7: Report ---
+# --- Step 5: Report ---
 
 
 def write_violation_report(violations):
