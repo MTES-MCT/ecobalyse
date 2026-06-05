@@ -10481,7 +10481,7 @@
   },
   {
     "activityCreationType": "from_scratch",
-    "alias": "battery-AAA",
+    "alias": "battery-aaa",
     "comment": "For one 11g battery. Based on https://www.epbaeurope.net/assets/resources/NEMA_alkalinelca2011.pdf",
     "database": "Ecoinvent 3.9.1",
     "exchanges": [
@@ -10542,7 +10542,7 @@
   },
   {
     "activityCreationType": "from_scratch",
-    "alias": "battery-AA",
+    "alias": "battery-aa",
     "comment": "For one 23g battery. Based on https://www.epbaeurope.net/assets/resources/NEMA_alkalinelca2011.pdf",
     "database": "Ecoinvent 3.9.1",
     "exchanges": [

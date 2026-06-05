@@ -1,0 +1,29 @@
+{
+  "activityName": "AAA battery production, RER",
+  "categories": [
+    "material",
+    "material_type:battery_cell"
+  ],
+  "comment": "For one 11g battery. Based on https://www.epbaeurope.net/assets/resources/NEMA_alkalinelca2011.pdf",
+  "displayName": "Pile AAA",
+  "elecMJ": 0,
+  "heatMJ": 0,
+  "id": "0ede7dbe-882d-4179-a3b0-6ce0a5ff8c02",
+  "massPerUnit": 0.011,
+  "metadata": [
+    {
+      "id": "5d007d71-50e9-4636-bceb-2d99133ecbf8",
+      "scopes": [
+        "object",
+        "veli"
+      ]
+    }
+  ],
+  "qtyVariationRatio": 1,
+  "scopes": [
+    "object",
+    "veli"
+  ],
+  "source": "Ecobalyse",
+  "unit": "item"
+}
