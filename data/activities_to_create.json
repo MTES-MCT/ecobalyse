@@ -10286,12 +10286,12 @@
       {
         "amount": -0.45,
         "database": "Ecoinvent 3.9.1",
-        "name": "waste wood, mixture//[CH] treatment of waste wood, mixture, sanitary landfill"
+        "name": "waste wood, untreated//[CH] treatment of waste wood, untreated, sanitary landfill"
       },
       {
         "amount": -0.5,
         "database": "Ecoinvent 3.9.1",
-        "name": "waste wood, mixture//[CH] treatment of waste wood, mixture, municipal incineration"
+        "name": "waste wood, untreated//[CH] treatment of waste wood, untreated, municipal incineration"
       },
       {
         "amount": 0.05,
