@@ -1,0 +1,26 @@
+{
+  "activityName": "Cardboard packaging",
+  "categories": [
+    "material",
+    "packaging"
+  ],
+  "comment": "Includes all life cycle stages, including transport and end-of-life treatment, based on Agribalyse Pack_AGB project, 2024, simplified.",
+  "displayName": "Carton",
+  "id": "de1f15d0-93be-4bbb-b341-2c3b7f76d6b4",
+  "metadata": [
+    {
+      "id": "1421dfdc-0168-4e6c-bbb4-c724785d61d6",
+      "scopes": [
+        "food2",
+        "object"
+      ]
+    }
+  ],
+  "scopes": [
+    "food",
+    "food2",
+    "object"
+  ],
+  "source": "Ecobalyse",
+  "unit": "kg"
+}

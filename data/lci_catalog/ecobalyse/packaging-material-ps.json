@@ -1,0 +1,24 @@
+{
+  "activityName": "PS packaging",
+  "categories": [
+    "material",
+    "packaging"
+  ],
+  "comment": "Includes all life cycle stages, including transport and end-of-life treatment, based on Agribalyse Pack_AGB project, 2024, simplified.",
+  "displayName": "Plastique PS (Polystyrène)",
+  "id": "940a3896-d209-49cc-804d-e526dc772033",
+  "metadata": [
+    {
+      "id": "889409d5-bae3-4a65-9a4c-ec5d9d0ed7e8",
+      "scopes": [
+        "food2"
+      ]
+    }
+  ],
+  "scopes": [
+    "food",
+    "food2"
+  ],
+  "source": "Ecobalyse",
+  "unit": "kg"
+}
