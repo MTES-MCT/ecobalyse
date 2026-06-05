@@ -33,7 +33,7 @@ import Data.Impact.Definition as Definition exposing (Definition)
 import Data.Process as Process exposing (Process)
 import Data.Process.Category as Category exposing (Category)
 import Data.Scope as Scope exposing (Scope)
-import Data.Split as Split
+import Data.Split as Split exposing (Split)
 import Data.Transport exposing (Transport)
 import Data.Unit as Unit
 import Dict.Any as AnyDict
@@ -43,6 +43,7 @@ import Html.Events exposing (..)
 import Json.Encode as Encode
 import List.Extra as LE
 import Mass exposing (Mass)
+import Quantity
 import Result.Extra as RE
 import Route exposing (Route)
 import Views.Alert as Alert
@@ -79,6 +80,7 @@ type alias Config db msg =
     , scope : Scope
     , setDetailed : List Index -> msg
     , title : String
+    , toggleTransportByAir : Split -> msg
     , toggleTransportCooling : Bool -> msg
     , updateAssemblyCountry : Maybe Country.Code -> msg
     , updateConsumptionAmount : Index -> Maybe Amount -> msg
@@ -401,7 +403,7 @@ lifeCycleView ({ db, docsUrl, explorerRoute, impact, query, scope, title } as co
                     , attribute "role" "switch"
                     , attribute "switch" ""
                     , onCheck config.toggleTransportCooling
-                    , checked (Component.isTransportCooled query.transportCooling)
+                    , checked query.transportOptions.cooling
                     ]
                     []
                 ]
@@ -516,10 +518,10 @@ lifeCycleView ({ db, docsUrl, explorerRoute, impact, query, scope, title } as co
 
 
 genericContextStagesView : Config db msg -> LifeCycle -> Html msg
-genericContextStagesView ({ impact } as config) lifeCycle =
+genericContextStagesView config lifeCycle =
     div []
         [ lifeCycle.transports.toDistribution
-            |> transportView impact (Component.extractMass lifeCycle.production)
+            |> transportToDistributionView config (Component.extractMass lifeCycle.production)
         , distributionView config
         , noTransportView
         , useStageView config
@@ -528,19 +530,30 @@ genericContextStagesView ({ impact } as config) lifeCycle =
         ]
 
 
-transportView : Definition -> Mass -> Transport -> Html msg
-transportView selectedImpact mass transport =
+transportToDistributionView : Config db msg -> Mass -> Transport -> Html msg
+transportToDistributionView ({ componentConfig, impact, scope } as config) mass transport =
+    let
+        -- if no plane transport process is available in current scope, disable
+        airTransportAvailable =
+            componentConfig.transports.modeProcesses.plane.scopes
+                |> List.member scope
+    in
     DownArrow.view
-        [ div [ class "d-flex justify-content-end align-items-center gap-1" ]
+        [ div [ class "d-flex justify-content-end align-items-center gap-2" ]
             [ text "Transport"
             , Icon.package
             , Format.kg mass
+            , if airTransportAvailable then
+                airTransportToggler config
+
+              else
+                text ""
             ]
         ]
-        [ div [ class "d-flex gap-2" ]
+        [ div [ class "d-flex align-items-center gap-2" ]
             [ transport
                 |> TransportView.viewDetails
-                    { airTransportLabel = Nothing
+                    { airTransportLabel = Just "avion"
                     , fullWidth = True
                     , hideNoLength = True
                     , onlyIcons = False
@@ -549,8 +562,35 @@ transportView selectedImpact mass transport =
                     }
                 |> div [ class "d-flex gap-2" ]
             , transport.impacts
-                |> Format.formatImpact selectedImpact
+                |> Format.formatImpact impact
             ]
+        ]
+
+
+airTransportToggler : Config db msg -> Html msg
+airTransportToggler ({ query } as config) =
+    div [ class "d-flex justify-content-end align-items-center gap-2" ]
+        [ input
+            [ type_ "checkbox"
+            , class "form-check-input"
+            , id "transportByAirSwitch"
+
+            -- Note: for now, the toggler only switches between full and zero air transport, though
+            --       we'll probably want to introduce a rangeslider for textile scope compliance next
+            , checked (query.transportOptions.byAir == Split.full)
+            , onCheck
+                (\enabled ->
+                    config.toggleTransportByAir <|
+                        if enabled then
+                            Split.full
+
+                        else
+                            Split.zero
+                )
+            ]
+            []
+        , label [ class "form-check-label", for "transportByAirSwitch" ]
+            [ text "par avion" ]
         ]
 
 
@@ -798,7 +838,7 @@ finalElementTransportView ({ componentConfig, db, query, scope } as config) elem
     db.countries
         |> Scope.anyOf [ scope ]
         |> Country.resolveMaybe maybeDestinationCountryCode
-        |> Result.map (elementTransportView config [ class "subdued" ] mass elementCountry)
+        |> Result.map (elementTransportView config [ class "subdued" ] False mass elementCountry)
         |> Result.withDefault (text "")
 
 
@@ -850,7 +890,7 @@ elementMaterialView config targetElement materialResults material amount =
                 amountInput (config.updateElementAmount targetElement) material.process.unit amount
             ]
         , td
-            [ class "align-middle text-truncate w-100"
+            [ class "align-middle text-truncate"
             , title <| Process.getDisplayName material.process
             ]
             [ selectMaterialButton config targetElement material.process
@@ -902,15 +942,30 @@ elementMaterialView config targetElement materialResults material amount =
     ]
 
 
-elementTransportView : Config db msg -> List (Attribute msg) -> Mass -> Maybe Country -> Maybe Country -> Html msg
-elementTransportView ({ query } as config) attributes transportedMass maybeFrom maybeTo =
-    case
-        transportedMass
-            |> Component.computeTransportedMassImpacts (requirementsFromConfig config)
-                query.transportCooling
-                maybeFrom
-                maybeTo
-    of
+elementTransportView : Config db msg -> List (Attribute msg) -> Bool -> Mass -> Maybe Country -> Maybe Country -> Html msg
+elementTransportView ({ query } as config) attributes noAirTransport transportedMass maybeFrom maybeTo =
+    let
+        { transportOptions } =
+            query
+
+        -- ALtered transport options for local rendering purpose only
+        displayTransportOptions =
+            if List.length query.items > 1 || noAirTransport then
+                -- multiple components: remove all air transports (they're removed in Component.computeTransports)
+                { transportOptions | byAir = Split.zero }
+
+            else
+                -- single component: preserve air transport
+                transportOptions
+
+        displayElementTransport =
+            transportedMass
+                |> Component.computeTransportedMassImpacts (requirementsFromConfig config)
+                    displayTransportOptions
+                    maybeFrom
+                    maybeTo
+    in
+    case displayElementTransport of
         Err error ->
             tr []
                 [ td [ class "p-2", colspan 7 ]
@@ -922,23 +977,32 @@ elementTransportView ({ query } as config) attributes transportedMass maybeFrom 
             let
                 renderCountry =
                     Maybe.map .name >> Maybe.withDefault "Région inconnue"
+
+                renderModeIfAny icon distance =
+                    if distance |> Quantity.greaterThan Quantity.zero then
+                        [ icon, Format.km distance ]
+
+                    else
+                        []
             in
             tr (class "fs-7 text-muted" :: attributes)
                 [ td [ colspan 2 ] []
                 , td []
                     [ text <| "Transport " ++ renderCountry maybeFrom ++ " → " ++ renderCountry maybeTo ]
                 , td [ class "text-end align-middle d-flex justify-content-end align-items-center gap-2 text-nowrap" ] <|
-                    (if Component.isTransportCooled query.transportCooling then
-                        [ Icon.boatCooled, Format.km transport.seaCooled ]
-
-                     else
-                        [ Icon.boat, Format.km transport.sea ]
-                    )
-                        ++ (if Component.isTransportCooled query.transportCooling then
-                                [ Icon.busCooled, Format.km transport.roadCooled ]
+                    -- Note: it's supposed for now that a plane can transport either cooled or non-cooled stuff
+                    renderModeIfAny Icon.plane transport.air
+                        ++ (if query.transportOptions.cooling then
+                                renderModeIfAny Icon.boatCooled transport.seaCooled
 
                             else
-                                [ Icon.bus, Format.km transport.road ]
+                                renderModeIfAny Icon.boat transport.sea
+                           )
+                        ++ (if query.transportOptions.cooling then
+                                renderModeIfAny Icon.busCooled transport.roadCooled
+
+                            else
+                                renderModeIfAny Icon.bus transport.road
                            )
                         ++ [ Icon.package
                            , Format.kg transportedMass
@@ -1003,7 +1067,7 @@ elementTransformsView config targetElement materialResults materialCountry trans
                                )
                 in
                 [ transform.country
-                    |> elementTransportView config [] previousMass previousCountry
+                    |> elementTransportView config [] True previousMass previousCountry
                 , tr [ class "fs-7 border-top" ]
                     [ td [] []
                     , td [ class "text-end align-middle text-nowrap" ] []
@@ -1029,7 +1093,10 @@ elementTransformsView config targetElement materialResults materialCountry trans
                             }
                         ]
                     , td [ class "align-middle text-end text-nowrap" ]
-                        [ transform.process.qtyVariationRatio |> Unit.qtyVariationRatioToFloat |> String.fromFloat |> text ]
+                        [ Unit.qtyVariationRatioToFloat transform.process.qtyVariationRatio
+                            |> String.fromFloat
+                            |> text
+                        ]
                     , td [ class "text-end align-middle text-nowrap" ]
                         [ Component.extractAmount transformResult
                             |> Format.amount transform.process
