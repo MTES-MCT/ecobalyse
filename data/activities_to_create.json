@@ -10258,7 +10258,7 @@
         "name": "flat glass, uncoated//[RER] flat glass production, uncoated"
       },
       {
-        "amount": -0.02,
+        "amount": 0.02,
         "database": "Ecoinvent 3.9.1",
         "name": "polyvinylchloride, suspension polymerised//[GLO] market for polyvinylchloride, suspension polymerised"
       }
