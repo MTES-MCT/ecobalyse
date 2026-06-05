@@ -1,0 +1,26 @@
+{
+  "activityName": "Battery cell production, NMC622, CN",
+  "categories": [
+    "material",
+    "material_type:battery_cell"
+  ],
+  "comment": "For 1kg cell. Based on GREET model (average of available battery size)",
+  "displayName": "Cellule de batterie, NMC622, CN",
+  "elecMJ": 0,
+  "heatMJ": 0,
+  "id": "705a4747-4248-40ce-ac20-171c2837dd3f",
+  "metadata": [
+    {
+      "id": "6a1d18fa-f0fd-483a-ac7f-546b15476627",
+      "scopes": [
+        "veli"
+      ]
+    }
+  ],
+  "qtyVariationRatio": 1,
+  "scopes": [
+    "veli"
+  ],
+  "source": "Ecobalyse",
+  "unit": "kg"
+}
