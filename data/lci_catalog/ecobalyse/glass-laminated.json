@@ -2,7 +2,7 @@
   "activityName": "Laminated glass",
   "categories": [
     "material",
-    "material_type:Other"
+    "material_type:other"
   ],
   "comment": "Laminated glass with 2x2.1mm glass layer and 0.76mm PVB interlayer, modelled as PVC (no PVB in ecoinvent, low sensibility).",
   "displayName": "Verre feuilleté",
