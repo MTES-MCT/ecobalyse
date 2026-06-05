@@ -30478,7 +30478,7 @@
     "impacts": {
       "acd": 0,
       "cch": 0,
-      "ecs": 119.2,
+      "ecs": 122.5,
       "etf": 0,
       "etf-c": 0,
       "fru": 0,
@@ -32834,7 +32834,7 @@
     "impacts": {
       "acd": 0,
       "cch": 0,
-      "ecs": 115.9,
+      "ecs": 124.5,
       "etf": 0,
       "etf-c": 0,
       "fru": 0,
@@ -35448,6 +35448,48 @@
       "acd": 0,
       "cch": 0,
       "ecs": 866.9,
+      "etf": 0,
+      "etf-c": 0,
+      "fru": 0,
+      "fwe": 0,
+      "htc": 0,
+      "htc-c": 0,
+      "htn": 0,
+      "htn-c": 0,
+      "ior": 0,
+      "ldu": 0,
+      "mru": 0,
+      "ozd": 0,
+      "pco": 0,
+      "pma": 0,
+      "swe": 0,
+      "tre": 0,
+      "wtu": 0
+    },
+    "location": "RER",
+    "massPerUnit": null,
+    "qtyVariationRatio": 1.0,
+    "scopes": [
+      "food"
+    ],
+    "source": "Ecobalyse",
+    "unit": "kg"
+  },
+  {
+    "activityName": "Paper packaging",
+    "categories": [
+      "material",
+      "packaging"
+    ],
+    "comment": "Includes all life cycle stages, including transport and end-of-life treatment, based on Agribalyse Pack_AGB project, 2024, simplified.",
+    "displayName": "Papier",
+    "elecMJ": 0,
+    "heatMJ": 0,
+    "id": "4aba4df3-5923-4715-ba14-5b9af52e3baf",
+    "impacts": {
+      "acd": 0,
+      "cch": 0,
+      "ecs": 178.3,
       "etf": 0,
       "etf-c": 0,
       "fru": 0,
@@ -39557,6 +39599,48 @@
       "wtu": 0
     },
     "location": "GLO",
+    "massPerUnit": null,
+    "qtyVariationRatio": 1.0,
+    "scopes": [
+      "food"
+    ],
+    "source": "Ecobalyse",
+    "unit": "kg"
+  },
+  {
+    "activityName": "Wood packaging",
+    "categories": [
+      "material",
+      "packaging"
+    ],
+    "comment": "Includes all life cycle stages, including transport and end-of-life treatment, based on Agribalyse Pack_AGB project, 2024, simplified.",
+    "displayName": "Bois",
+    "elecMJ": 0,
+    "heatMJ": 0,
+    "id": "50b1273f-a05b-4c81-83ec-a54c9a79e4f7",
+    "impacts": {
+      "acd": 0,
+      "cch": 0,
+      "ecs": 194.1,
+      "etf": 0,
+      "etf-c": 0,
+      "fru": 0,
+      "fwe": 0,
+      "htc": 0,
+      "htc-c": 0,
+      "htn": 0,
+      "htn-c": 0,
+      "ior": 0,
+      "ldu": 0,
+      "mru": 0,
+      "ozd": 0,
+      "pco": 0,
+      "pma": 0,
+      "swe": 0,
+      "tre": 0,
+      "wtu": 0
+    },
+    "location": "RER",
     "massPerUnit": null,
     "qtyVariationRatio": 1.0,
     "scopes": [
