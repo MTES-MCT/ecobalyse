@@ -75,7 +75,8 @@ type State
 
 
 type alias Model =
-    { dbLoadingState : RawJsonData
+    { db : Maybe (Result String StaticDb.Db)
+    , dbLoadingState : RawJsonData
     , mobileNavigationOpened : Bool
 
     -- Duplicate the nav key in the model so Parcel's hot module reloading finds it always in the same place.
@@ -123,7 +124,8 @@ init flags requestedUrl navKey =
                     )
          of
             Err err ->
-                ( { dbLoadingState = RequestDb.emptyLoadingState
+                ( { db = Nothing
+                  , dbLoadingState = RequestDb.emptyLoadingState
                   , mobileNavigationOpened = False
                   , navKey = navKey
                   , state = Errored err
@@ -138,7 +140,8 @@ init flags requestedUrl navKey =
                     session =
                         setupSession navKey flags db componentConfig
                 in
-                ( { dbLoadingState = RequestDb.emptyLoadingState
+                ( { db = Nothing
+                  , dbLoadingState = RequestDb.emptyLoadingState
                   , mobileNavigationOpened = False
                   , navKey = navKey
                   , state = Loaded session LoadingPage
@@ -503,7 +506,13 @@ update rawMsg ({ state } as model) =
                     )
 
                 ( RawDataReceivedProcesses data, _ ) ->
-                    ( model, Cmd.none )
+                    ( { model
+                        | dbLoadingState =
+                            model.dbLoadingState
+                                |> RequestDb.updateRawJson (\raw -> { raw | processes = data })
+                      }
+                    , Cmd.none
+                    )
 
                 -- Stats
                 ( StatsMsg statsMsg, StatsPage statsModel ) ->

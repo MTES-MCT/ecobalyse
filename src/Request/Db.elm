@@ -11,23 +11,26 @@ import Static.Db as StaticDb
 
 
 type alias RawJsonData =
-    { definitions : WebData String
+    { components : WebData String
+    , definitions : WebData String
     , processes : WebData String
     }
 
 
 emptyLoadingState : RawJsonData
 emptyLoadingState =
-    { definitions = RemoteData.NotAsked
+    { components = RemoteData.NotAsked
+    , definitions = RemoteData.NotAsked
     , processes = RemoteData.NotAsked
     }
 
 
-load : WebData RawJsonData
-load =
-    RemoteData.succeed RawJsonData
-        |> RemoteData.andMap (RemoteData.succeed "")
-        |> RemoteData.andMap (RemoteData.succeed "")
+buildDb : RawJsonData -> Result String StaticDb.Db
+buildDb data =
+    data.processes
+        |> RemoteData.map (\processes definitions -> StaticDb.db processes)
+        |> RemoteData.andMap data.definitions
+        |> RemoteData.withDefault (Err "Error getting the remote data")
 
 
 getRawJsonString : String -> (WebData String -> msg) -> Cmd msg
@@ -38,7 +41,21 @@ getRawJsonString path event =
         }
 
 
-updateRawJson : (RawJsonData -> RawJsonData) -> RawJsonData -> ( RawJsonData, Maybe StaticDb.Db )
+isFullyLoaded : RawJsonData -> Bool
+isFullyLoaded data =
+    let
+        isLoaded remoteData =
+            case remoteData of
+                RemoteData.Success _ ->
+                    True
+
+                _ ->
+                    False
+    in
+    isLoaded data.definitions && isLoaded data.processes
+
+
+updateRawJson : (RawJsonData -> RawJsonData) -> RawJsonData -> RawJsonData
 updateRawJson update rawJsonData =
     let
         updated =
@@ -47,8 +64,12 @@ updateRawJson update rawJsonData =
     -- TODO: check fully loaded state
     if isFullyLoaded updated then
         -- TODO: construct and return Just the constructed Db
-        ( updated, Nothing )
+        let
+            _ =
+                Debug.log "DB built" <| buildDb updated
+        in
+        updated
 
     else
         -- return raw data
-        ( updated, Nothing )
+        updated
