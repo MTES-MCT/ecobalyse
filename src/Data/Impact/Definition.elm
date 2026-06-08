@@ -5,7 +5,6 @@ module Data.Impact.Definition exposing
     , Trigram(..)
     , Trigrams
     , decode
-    , decodeBase
     , encodeBase
     , filter
     , foldl
