@@ -9714,12 +9714,12 @@
   },
   {
     "activityCreationType": "from_scratch",
-    "alias": "packaging-food-glass",
+    "alias": "packaging-material-glass",
     "comment": "Includes all life cycle stages, including transport and end-of-life treatment, based on Agribalyse Pack_AGB project, 2024, simplified.",
     "database": "Ecobalyse",
     "exchanges": [
       {
-        "amount": 1,
+        "amount": 1.1,
         "database": "Ecoinvent 3.9.1",
         "name": "packaging glass, white//[RER w/o CH+DE] packaging glass production, white"
       },
@@ -9764,7 +9764,7 @@
   },
   {
     "activityCreationType": "from_scratch",
-    "alias": "packaging-food-steel",
+    "alias": "packaging-material-steel",
     "comment": "Includes all life cycle stages, including transport and end-of-life treatment, based on Agribalyse Pack_AGB project, 2024, simplified.",
     "database": "Ecobalyse",
     "exchanges": [
@@ -9819,7 +9819,7 @@
   },
   {
     "activityCreationType": "from_scratch",
-    "alias": "packaging-food-aluminium",
+    "alias": "packaging-material-aluminium",
     "comment": "Includes all life cycle stages, including transport and end-of-life treatment, based on Agribalyse Pack_AGB project, 2024, simplified.",
     "database": "Ecobalyse",
     "exchanges": [
@@ -9874,12 +9874,12 @@
   },
   {
     "activityCreationType": "from_scratch",
-    "alias": "packaging-food-cardboard",
+    "alias": "packaging-material-cardboard",
     "comment": "Includes all life cycle stages, including transport and end-of-life treatment, based on Agribalyse Pack_AGB project, 2024, simplified.",
     "database": "Ecobalyse",
     "exchanges": [
       {
-        "amount": 1,
+        "amount": 1.05,
         "database": "Ecoinvent 3.9.1",
         "name": "containerboard, linerboard//[RER] containerboard production, linerboard, kraftliner"
       },
@@ -9924,7 +9924,7 @@
   },
   {
     "activityCreationType": "from_scratch",
-    "alias": "packaging-food-pet",
+    "alias": "packaging-material-pet",
     "comment": "Includes all life cycle stages, including transport and end-of-life treatment, based on Agribalyse Pack_AGB project, 2024, simplified.",
     "database": "Ecobalyse",
     "exchanges": [
@@ -9979,7 +9979,7 @@
   },
   {
     "activityCreationType": "from_scratch",
-    "alias": "packaging-food-pvc",
+    "alias": "packaging-material-pvc",
     "comment": "Includes all life cycle stages, including transport and end-of-life treatment, based on Agribalyse Pack_AGB project, 2024, simplified.",
     "database": "Ecobalyse",
     "exchanges": [
@@ -10034,7 +10034,7 @@
   },
   {
     "activityCreationType": "from_scratch",
-    "alias": "packaging-food-pp",
+    "alias": "packaging-material-pp",
     "comment": "Includes all life cycle stages, including transport and end-of-life treatment, based on Agribalyse Pack_AGB project, 2024, simplified.",
     "database": "Ecobalyse",
     "exchanges": [
@@ -10089,7 +10089,7 @@
   },
   {
     "activityCreationType": "from_scratch",
-    "alias": "packaging-food-ps",
+    "alias": "packaging-material-ps",
     "comment": "Includes all life cycle stages, including transport and end-of-life treatment, based on Agribalyse Pack_AGB project, 2024, simplified.",
     "database": "Ecobalyse",
     "exchanges": [
@@ -10139,7 +10139,7 @@
   },
   {
     "activityCreationType": "from_scratch",
-    "alias": "packaging-food-pehd",
+    "alias": "packaging-material-pehd",
     "comment": "Includes all life cycle stages, including transport and end-of-life treatment, based on Agribalyse Pack_AGB project, 2024, simplified.",
     "database": "Ecobalyse",
     "exchanges": [
@@ -10194,7 +10194,7 @@
   },
   {
     "activityCreationType": "from_scratch",
-    "alias": "packaging-food-peld",
+    "alias": "packaging-material-peld",
     "comment": "Includes all life cycle stages, including transport and end-of-life treatment, based on Agribalyse Pack_AGB project, 2024, simplified.",
     "database": "Ecobalyse",
     "exchanges": [
@@ -10246,5 +10246,359 @@
     ],
     "location": "RER",
     "newName": "PELD packaging"
+  },
+  {
+    "activityCreationType": "from_scratch",
+    "alias": "glass-laminated",
+    "comment": "Laminated glass with 2x2.1mm glass layer and 0.76mm PVB interlayer, modelled as PVC (no PVB in ecoinvent, low sensibility).",
+    "database": "Ecoinvent 3.9.1",
+    "exchanges": [
+      {
+        "amount": 0.98,
+        "name": "flat glass, uncoated//[RER] flat glass production, uncoated"
+      },
+      {
+        "amount": 0.02,
+        "database": "Ecoinvent 3.9.1",
+        "name": "polyvinylchloride, suspension polymerised//[GLO] market for polyvinylchloride, suspension polymerised"
+      }
+    ],
+    "location": "RER",
+    "newName": "Laminated glass"
+  },
+  {
+    "activityCreationType": "from_scratch",
+    "alias": "packaging-material-wood",
+    "comment": "Includes all life cycle stages, including transport and end-of-life treatment, based on Agribalyse Pack_AGB project, 2024, simplified.",
+    "database": "Ecobalyse",
+    "exchanges": [
+      {
+        "amount": 1.15,
+        "database": "Ecoinvent 3.9.1",
+        "name": "cleft timber, measured as dry mass//[DE] hardwood forestry, beech, sustainable forest management"
+      },
+      {
+        "amount": 0.001515,
+        "database": "Ecoinvent 3.9.1",
+        "name": "sawnwood, board, softwood, raw, dried (u=20%)//[Europe without Switzerland] board, softwood, raw, air drying to u=20%"
+      },
+      {
+        "amount": 0.84,
+        "database": "Agribalyse 3.2",
+        "name": "Transport, for wood packaging only, raw material and packaging production in FR, freight, lorry >32 metric ton, EURO6 {RER}"
+      },
+      {
+        "amount": 0.48,
+        "database": "Agribalyse 3.2",
+        "name": "Transport, for all type of packaging, packaging production in EU, freight, lorry >32 metric ton, EURO6 {RER}"
+      },
+      {
+        "amount": 0.02,
+        "database": "Agribalyse 3.2",
+        "name": "Transport, freight, lorry >32 metric ton, EURO6, per liter of diesel {RER}"
+      },
+      {
+        "amount": 0.07,
+        "database": "Ecoinvent 3.9.1",
+        "name": "electricity, medium voltage//[FR] market for electricity, medium voltage"
+      },
+      {
+        "amount": -0.45,
+        "database": "Ecoinvent 3.9.1",
+        "name": "waste wood, untreated//[CH] treatment of waste wood, untreated, sanitary landfill"
+      },
+      {
+        "amount": -0.5,
+        "database": "Ecoinvent 3.9.1",
+        "name": "waste wood, untreated//[CH] treatment of waste wood, untreated, municipal incineration"
+      },
+      {
+        "amount": 0.05,
+        "database": "Ecobalyse",
+        "name": "wood EoL recycling, RER, CFF"
+      }
+    ],
+    "location": "RER",
+    "newName": "Wood packaging"
+  },
+  {
+    "activityCreationType": "from_scratch",
+    "alias": "packaging-material-paper",
+    "comment": "Includes all life cycle stages, including transport and end-of-life treatment, based on Agribalyse Pack_AGB project, 2024, simplified.",
+    "database": "Ecobalyse",
+    "exchanges": [
+      {
+        "amount": 1.05,
+        "database": "Ecoinvent 3.9.1",
+        "name": "paper, woodfree, uncoated//[RER] paper production, woodfree, uncoated, at integrated mill"
+      },
+      {
+        "amount": 1.5,
+        "database": "Agribalyse 3.2",
+        "name": "Transport, for all type of packaging, packaging production in FR, freight, lorry >32 metric ton, EURO6 {RER}"
+      },
+      {
+        "amount": 0.75,
+        "database": "Agribalyse 3.2",
+        "name": "Transport, for all type of packaging, packaging production in EU, freight, lorry >32 metric ton, EURO6 {RER}"
+      },
+      {
+        "amount": 0.02,
+        "database": "Agribalyse 3.2",
+        "name": "Transport, freight, lorry >32 metric ton, EURO6, per liter of diesel {RER}"
+      },
+      {
+        "amount": 0.07,
+        "database": "Ecoinvent 3.9.1",
+        "name": "electricity, medium voltage//[FR] market for electricity, medium voltage"
+      },
+      {
+        "amount": -0.08,
+        "database": "Ecoinvent 3.9.1",
+        "name": "waste paperboard//[CH] treatment of waste paperboard, sanitary landfill"
+      },
+      {
+        "amount": -0.22,
+        "database": "Ecoinvent 3.9.1",
+        "name": "waste paperboard//[CH] treatment of waste paperboard, municipal incineration"
+      },
+      {
+        "amount": 0.7,
+        "database": "Ecobalyse",
+        "name": "cardboard EoL recycling, RER, CFF"
+      }
+    ],
+    "location": "RER",
+    "newName": "Paper packaging"
+  },
+  {
+    "activityCreationType": "from_scratch",
+    "alias": "battery-cell-cam-nmc622",
+    "comment": "For 1kg Cathode Active Material. Based on GREET model (average of available battery size)",
+    "database": "Ecoinvent 3.9.1",
+    "exchanges": [
+      {
+        "amount": 1.009,
+        "name": "nickel sulfate//[GLO] nickel sulfate production"
+      },
+      {
+        "amount": 0.337,
+        "name": "cobalt sulfate//[CN] cobalt sulfate production"
+      },
+      {
+        "amount": 0.328,
+        "name": "manganese sulfate//[GLO] manganese sulfate production"
+      },
+      {
+        "amount": 0.89,
+        "name": "sodium hydroxide, without water, in 50% solution state//[GLO] market for sodium hydroxide, without water, in 50% solution state"
+      },
+      {
+        "amount": 0.124,
+        "name": "ammonia, anhydrous, liquid//[CN] ammonia production, steam reforming, liquid"
+      },
+      {
+        "amount": 0.381,
+        "name": "lithium carbonate//[GLO] market for lithium carbonate"
+      },
+      {
+        "amount": 0.007,
+        "name": "N-methyl-2-pyrrolidone//[RoW] N-methyl-2-pyrrolidone production"
+      },
+      {
+        "amount": 7.48,
+        "name": "electricity, medium voltage//[CN] market group for electricity, medium voltage"
+      },
+      {
+        "amount": 40.392,
+        "database": "Ecobalyse",
+        "name": "heat, industrial, market, RoW"
+      }
+    ],
+    "location": "CN",
+    "newName": "CAM of Battery cell, NMC622, CN"
+  },
+  {
+    "activityCreationType": "from_scratch",
+    "alias": "battery-cell-nmc622-cn",
+    "comment": "For 1kg cell. Based on GREET model (average of available battery size)",
+    "database": "Ecobalyse",
+    "exchanges": [
+      {
+        "amount": 0.443,
+        "name": "CAM of Battery cell, NMC622, CN"
+      },
+      {
+        "amount": 0.278,
+        "name": "Graphite production for battery cell, CN"
+      },
+      {
+        "amount": 0.015,
+        "database": "Ecoinvent 3.9.1",
+        "name": "polyvinylfluoride//[RoW] polyvinylfluoride production"
+      },
+      {
+        "amount": 0.12,
+        "database": "Ecoinvent 3.9.1",
+        "name": "copper collector foil, for Li-ion battery//[GLO] copper collector foil production, for Li-ion battery"
+      },
+      {
+        "amount": 0.022,
+        "name": "aluminium ingot, market, CN"
+      },
+      {
+        "amount": 0.018,
+        "database": "Ecoinvent 3.9.1",
+        "name": "lithium hexafluorophosphate//[CN] lithium hexafluorophosphate production"
+      },
+      {
+        "amount": 0.051,
+        "database": "Ecoinvent 3.9.1",
+        "name": "ethylene carbonate//[CN] ethylene carbonate production"
+      },
+      {
+        "amount": 0.051,
+        "database": "Ecoinvent 3.9.1",
+        "name": "dimethyl carbonate//[RoW] dimethyl carbonate production"
+      },
+      {
+        "amount": 0.002,
+        "database": "Ecoinvent 3.9.1",
+        "name": "polypropylene, granulate//[GLO] market for polypropylene, granulate"
+      },
+      {
+        "amount": 19,
+        "database": "Ecoinvent 3.9.1",
+        "name": "electricity, medium voltage//[CN] market group for electricity, medium voltage"
+      },
+      {
+        "amount": 102,
+        "name": "heat, industrial, market, RoW"
+      }
+    ],
+    "location": "CN",
+    "newName": "Battery cell production, NMC622, CN"
+  },
+  {
+    "activityCreationType": "from_scratch",
+    "alias": "battery-aaa",
+    "comment": "For one 11g battery. Based on https://www.epbaeurope.net/assets/resources/NEMA_alkalinelca2011.pdf",
+    "database": "Ecoinvent 3.9.1",
+    "exchanges": [
+      {
+        "amount": 0.00447,
+        "name": "manganese dioxide//[GLO] manganese dioxide production"
+      },
+      {
+        "amount": 0.00043,
+        "name": "potassium hydroxide//[GLO] market for potassium hydroxide"
+      },
+      {
+        "amount": 0.0004,
+        "database": "Ecobalyse",
+        "name": "Graphite production for battery cell, CN"
+      },
+      {
+        "amount": 0.0023,
+        "database": "Ecobalyse",
+        "name": "steel, low-alloyed, market, CN"
+      },
+      {
+        "amount": 5e-05,
+        "name": "nickel sulfate//[GLO] nickel sulfate production"
+      },
+      {
+        "amount": 0.00193,
+        "name": "zinc//[RoW] primary zinc production from concentrate"
+      },
+      {
+        "amount": 0.00034,
+        "name": "brass//[RoW] market for brass"
+      },
+      {
+        "amount": 0.00019,
+        "name": "steel, chromium steel 18/8//[GLO] market for steel, chromium steel 18/8"
+      },
+      {
+        "amount": 0.00018,
+        "name": "polyvinylchloride, suspension polymerised//[GLO] market for polyvinylchloride, suspension polymerised"
+      },
+      {
+        "amount": 0.00018,
+        "name": "potassium hydroxide//[GLO] market for potassium hydroxide"
+      },
+      {
+        "amount": 0.007,
+        "name": "electricity, medium voltage//[RER] market group for electricity, medium voltage"
+      },
+      {
+        "amount": 0.011,
+        "database": "Ecobalyse",
+        "name": "heat, industrial, market, RER"
+      }
+    ],
+    "location": "CN",
+    "newName": "AAA battery production, RER"
+  },
+  {
+    "activityCreationType": "from_scratch",
+    "alias": "battery-aa",
+    "comment": "For one 23g battery. Based on https://www.epbaeurope.net/assets/resources/NEMA_alkalinelca2011.pdf",
+    "database": "Ecoinvent 3.9.1",
+    "exchanges": [
+      {
+        "amount": 0.00934,
+        "name": "manganese dioxide//[GLO] manganese dioxide production"
+      },
+      {
+        "amount": 0.0009,
+        "name": "potassium hydroxide//[GLO] market for potassium hydroxide"
+      },
+      {
+        "amount": 0.00084,
+        "database": "Ecobalyse",
+        "name": "Graphite production for battery cell, CN"
+      },
+      {
+        "amount": 0.0048,
+        "database": "Ecobalyse",
+        "name": "steel, low-alloyed, market, CN"
+      },
+      {
+        "amount": 0.0001,
+        "name": "nickel sulfate//[GLO] nickel sulfate production"
+      },
+      {
+        "amount": 0.00404,
+        "name": "zinc//[RoW] primary zinc production from concentrate"
+      },
+      {
+        "amount": 0.00072,
+        "name": "brass//[RoW] market for brass"
+      },
+      {
+        "amount": 0.00039,
+        "name": "steel, chromium steel 18/8//[GLO] market for steel, chromium steel 18/8"
+      },
+      {
+        "amount": 0.00038,
+        "name": "polyvinylchloride, suspension polymerised//[GLO] market for polyvinylchloride, suspension polymerised"
+      },
+      {
+        "amount": 0.00038,
+        "name": "potassium hydroxide//[GLO] market for potassium hydroxide"
+      },
+      {
+        "amount": 0.014,
+        "name": "electricity, medium voltage//[RER] market group for electricity, medium voltage"
+      },
+      {
+        "amount": 0.024,
+        "database": "Ecobalyse",
+        "name": "heat, industrial, market, RER"
+      }
+    ],
+    "location": "CN",
+    "newName": "AA battery production, RER"
   }
 ]

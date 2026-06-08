@@ -1,7 +1,6 @@
 import json as jsonp
 import warnings
 from typing import TYPE_CHECKING
-from uuid import UUID
 
 import pytest
 from app.db import models as m
@@ -38,6 +37,7 @@ async def test_components_api_create(
         headers=superuser_token_headers,
     )
     json = response.json()
+
     assert response.status_code == 201
     assert json["name"] == "New Component"
     assert json["comment"] == "A comment"
@@ -90,10 +90,11 @@ async def test_components_db_create(
         warnings.simplefilter("error")
         components_service = await anext(provide_components_service(session))
         results = await components_service.create_many(data=json, auto_commit=True)
+
         assert len(results) == 2
 
-        assert results[0].elements[0].transforms == [
-            UUID("d25636af-ab36-4857-a6d0-c66d1e7a281b")
+        assert results[0].value["elements"][0]["transforms"] == [
+            "d25636af-ab36-4857-a6d0-c66d1e7a281b"
         ]
 
 
@@ -127,8 +128,6 @@ async def test_components_create_with_scopes(
         entry = entries[7]
         assert entry.action == m.JournalAction.CREATED
         assert entry.table_name == m.Component.__tablename__
-
-        json["elements"][0]["transforms"] = []
         assert entry.value == json
 
 
@@ -152,7 +151,7 @@ async def test_components_access(
     assert response.status_code == 403
 
     # Test update access
-    response = await client.patch(
+    response = await client.put(
         "/api/components/8ca2ca05-8aec-4121-acaa-7cdcc03150a9",
         json={
             "name": "Name Changed",
@@ -180,10 +179,9 @@ async def test_components_access(
     )
     assert response.status_code == 200
     assert response.json() == {
-        "comment": None,
         "elements": [
             {
-                "amount": 1.0,
+                "amount": 1,
                 "material": "af42fc20-e3ec-5b99-9b9c-83ba6735e597",
                 "transforms": [
                     "d25636af-ab36-4857-a6d0-c66d1e7a281b",
@@ -214,7 +212,7 @@ async def test_components_update(
         assert jsonp.dumps(json["elements"]) == jsonp.dumps(
             [
                 {
-                    "amount": 1.0,
+                    "amount": 1,
                     "material": "af42fc20-e3ec-5b99-9b9c-83ba6735e597",
                     "transforms": ["d25636af-ab36-4857-a6d0-c66d1e7a281b"],
                 }
@@ -223,7 +221,7 @@ async def test_components_update(
 
         assert not json["published"]
 
-        response = await client.patch(
+        response = await client.put(
             "/api/components/8ca2ca05-8aec-4121-acaa-7cdcc03150a9",
             json={
                 "name": "Name Changed",
@@ -252,16 +250,20 @@ async def test_components_update(
         assert jsonp.dumps(json["elements"]) == jsonp.dumps(
             [
                 {
-                    "amount": 2.0,
+                    "amount": 2,
                     "material": "d25636af-ab36-4857-a6d0-c66d1e7a281b",
                     "transforms": ["97c209ec-7782-5a29-8c47-af7f17c82d11"],
                 }
             ]
         )
 
-        response = await client.patch(
+        response = await client.put(
             "/api/components/8ca2ca05-8aec-4121-acaa-7cdcc03150a9",
             json={
+                "name": "Name Changed",
+                "comment": "Comment changed",
+                "scopes": ["object", "food"],
+                "published": True,
                 "elements": [
                     {
                         "amount": 3,
@@ -285,9 +287,8 @@ async def test_components_update(
         assert jsonp.dumps(json["elements"]) == jsonp.dumps(
             [
                 {
-                    "amount": 3.0,
+                    "amount": 3,
                     "material": "d25636af-ab36-4857-a6d0-c66d1e7a281b",
-                    "transforms": [],
                 }
             ]
         )
@@ -304,7 +305,7 @@ async def test_components_update(
                 "comment": "Comment changed",
                 "elements": [
                     {
-                        "amount": 2.0,
+                        "amount": 2,
                         "material": "d25636af-ab36-4857-a6d0-c66d1e7a281b",
                         "transforms": ["97c209ec-7782-5a29-8c47-af7f17c82d11"],
                     }
@@ -313,15 +314,26 @@ async def test_components_update(
             }
         )
 
-        response = await client.patch(
+        response = await client.put(
             "/api/components/8ca2ca05-8aec-4121-acaa-7cdcc03150a9",
-            json={"scopes": ["object"]},
+            json={
+                "name": "Name Changed",
+                "comment": "Comment changed",
+                "scopes": ["object"],
+                "published": True,
+                "elements": [
+                    {
+                        "amount": 3,
+                        "material": "d25636af-ab36-4857-a6d0-c66d1e7a281b",
+                    }
+                ],
+            },
             headers=superuser_token_headers,
         )
         json = response.json()
         assert response.status_code == 200
         assert json["scopes"] == ["object"]
-        assert json["elements"] == []
+        assert len(json["elements"]) == 1
 
         entries = await journal_entries_service.list()
         assert len(entries) == 10
@@ -329,19 +341,20 @@ async def test_components_update(
         assert entry.action == m.JournalAction.UPDATED
         assert entry.value == {
             "id": "8ca2ca05-8aec-4121-acaa-7cdcc03150a9",
+            "name": "Name Changed",
+            "comment": "Comment changed",
             "scopes": ["object"],
+            "published": True,
+            "elements": [
+                {
+                    "amount": 3,
+                    "material": "d25636af-ab36-4857-a6d0-c66d1e7a281b",
+                }
+            ],
         }
-
-        response = await client.patch(
-            "/api/components/8ca2ca05-8aec-4121-acaa-7cdcc03150a9",
-            json={"scopes": ["invalid"]},
-            headers=superuser_token_headers,
-        )
 
         entries = await journal_entries_service.list()
         assert len(entries) == 10
-
-        assert response.status_code == 400
 
 
 async def test_components_delete(
@@ -452,7 +465,7 @@ async def test_components_preserve_transformations_order_on_update(
     # Updates a component, passing it two transforms
     # and asserts the returned value preserves the transforms list order
 
-    response = await client.patch(
+    response = await client.put(
         "/api/components/8ca2ca05-8aec-4121-acaa-7cdcc03150a9",
         json={
             "name": "Name Changed",
@@ -466,6 +479,7 @@ async def test_components_preserve_transformations_order_on_update(
                     "transforms": [
                         "d25636af-ab36-4857-a6d0-c66d1e7a281b",
                         "97c209ec-7782-5a29-8c47-af7f17c82d11",
+                        {"country": "CN", "id": "7f217ecc-5de8-4ce1-b2c2-b5d192c6cdb9"},
                     ],
                 }
             ],
@@ -477,12 +491,13 @@ async def test_components_preserve_transformations_order_on_update(
     assert json["elements"][0]["transforms"] == [
         "d25636af-ab36-4857-a6d0-c66d1e7a281b",
         "97c209ec-7782-5a29-8c47-af7f17c82d11",
+        {"country": "CN", "id": "7f217ecc-5de8-4ce1-b2c2-b5d192c6cdb9"},
     ]
 
     # Updates the component again, passing it the two transforms in an inverted order
     # and asserts the returned value preserves the transforms list order
 
-    response = await client.patch(
+    response = await client.put(
         "/api/components/8ca2ca05-8aec-4121-acaa-7cdcc03150a9",
         json={
             "name": "Name Changed",

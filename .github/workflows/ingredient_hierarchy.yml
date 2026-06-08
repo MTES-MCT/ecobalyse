@@ -1,0 +1,49 @@
+# Check that ingredients' score respect a specific hierarchy
+# Generate a report to facilitate inconsistencies investigation
+name: Ingredient Hierarchy Check
+
+on:
+  push:
+    branches:
+      - master
+  pull_request:
+    paths:
+        - 'public/data/processes_generic_impacts.json'
+        - 'public/data/impacts.json'
+        - 'bin/check_ingredient_hierarchy.py'
+        - '.github/workflows/ingredient_hierarchy.yml'
+  workflow_dispatch:
+
+
+env:
+  TRANSCRYPT_KEY: ${{ secrets.TRANSCRYPT_KEY }}
+
+jobs:
+  ingredient_hierarchy:
+    runs-on: ubuntu-latest
+
+    steps:
+      - uses: actions/checkout@v4
+
+      - name: Install Transcrypt
+        uses: ./.github/actions/transcrypt-cli
+
+      - name: Decrypt impact files
+        run: ./bin/run-transcrypt.sh
+
+      - name: Install the latest version of uv
+        uses: astral-sh/setup-uv@v4
+        with:
+          version: "latest"
+          python-version: "3.12"
+
+      - name: Run ingredient hierarchy check
+        run: uv run bin/check_ingredient_hierarchy.py
+
+      - name: Upload report and plots
+        uses: actions/upload-artifact@v4
+        if: always()
+        with:
+          name: ingredient-hierarchy-report
+          path: output/
+          retention-days: 90

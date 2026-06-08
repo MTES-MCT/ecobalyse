@@ -1,0 +1,26 @@
+{
+  "activityName": "Wood packaging",
+  "categories": [
+    "material",
+    "packaging"
+  ],
+  "comment": "Includes all life cycle stages, including transport and end-of-life treatment, based on Agribalyse Pack_AGB project, 2024, simplified.",
+  "displayName": "Bois",
+  "id": "50b1273f-a05b-4c81-83ec-a54c9a79e4f7",
+  "metadata": [
+    {
+      "id": "fc6ffb83-9ad5-443c-864c-bfb32c5acd02",
+      "scopes": [
+        "food2",
+        "object"
+      ]
+    }
+  ],
+  "scopes": [
+    "food",
+    "food2",
+    "object"
+  ],
+  "source": "Ecobalyse",
+  "unit": "kg"
+}
