@@ -57,6 +57,8 @@ def spproject(activity):
             return ("Ecoinvent 3.9.1", "Ecoinvent 3.9.1 - unit")
         case "Woolmark":
             return ("Woolmark", "")
+        case "Lyocell":
+            return ("Lyocell", "")
         case "PastoEco":
             return ("Agribalyse 3.1.1", "")
         case "WFLDB":
