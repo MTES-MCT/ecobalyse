@@ -63,6 +63,18 @@
     "recycledFrom": null
   },
   {
+    "alias": "lyocell",
+    "cff": null,
+    "defaultCountry": "CN",
+    "geographicOrigin": "Asie - Pacifique",
+    "id": "72841ddf-3e96-5008-a28f-9a2a8e7ecf0c",
+    "name": "Lyocell",
+    "origin": "ArtificialFromOrganic",
+    "primary": true,
+    "processId": "4b1db688-faa0-5be9-9554-136edc3345ad",
+    "recycledFrom": null
+  },
+  {
     "alias": "ei-laine-nouvelle-filiere",
     "cff": null,
     "defaultCountry": "CN",

@@ -29,11 +29,12 @@ from bw2io.strategies.simapro import set_lognormal_loc_value_uncertainty_safe
 
 from common import brightway_patch as brightway_patch
 from common.import_ import (
+    import_ecospold2,
     import_simapro_csv,
     setup_project,
 )
 from config import settings
-from ecobalyse_data.bw.migration import WOOLMARK_MIGRATIONS
+from ecobalyse_data.bw.migration import LYOCELL_MIGRATIONS, WOOLMARK_MIGRATIONS
 from ecobalyse_data.bw.strategy import (
     extract_ciqual,
     extract_name_location_product,
@@ -114,6 +115,17 @@ def main():
             migrations=WOOLMARK_MIGRATIONS,
             strategies=[lower_formula_parameters] + STRATEGIES + WOOLMARK_STRATEGIES,
             external_db="Ecoinvent 3.9.1",
+        )
+    else:
+        logger.info(f"{db} already imported")
+
+    if (db := "Lyocell") not in bw2data.databases:
+        import_ecospold2(
+            settings.dbfiles.LYOCELL,
+            settings.dbfiles.LYOCELL_MD5,
+            db,
+            external_db="Ecoinvent 3.11",
+            migrations=LYOCELL_MIGRATIONS,
         )
     else:
         logger.info(f"{db} already imported")

@@ -31,6 +31,8 @@ EI311 = "Ecoinvent3.11.CSV.zip"
 EI311_MD5 = "98e7681cc57a729c952f48af7be9b164"
 WOOL = "wool.2.CSV.zip"
 WOOL_MD5 = "246b8ec57389086829bce58a689e7904"
+LYOCELL = "e92a3038-c18d-5aca-8560-cfa25890fbf7_76f972ef-9c31-5311-b5a1-3754158d05b0.spold"
+LYOCELL_MD5 = "3c2b7a03297a371934f43ab1959d2846"
 
 # Food
 AGRIBALYSE = "AGB32_final.CSV.zip"                           # Agribalyse 3.2

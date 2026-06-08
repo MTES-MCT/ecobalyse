@@ -1,12 +1,15 @@
 import functools
 import json
 import sys
+import tempfile
 from enum import StrEnum
 from pathlib import Path, PurePosixPath
 from typing import List, Optional
 
 import bw2data
 import bw2io
+from bw2io.importers.ecospold2 import SingleOutputEcospold2Importer
+from bw2io.strategies import delete_ghost_exchanges
 from bw2io.strategies.generic import link_iterable_by_fields
 from bw2io.utils import activity_hash
 
@@ -554,6 +557,92 @@ def import_simapro_csv(
     database.write_database()
 
     logger.info(f"🟢 Finished importing {database_s3_key}")
+
+
+def import_ecospold2(
+    spold_s3_key: str,
+    spold_md5: str,
+    dbname: str,
+    external_db: str,
+    biosphere: str = "biosphere3",
+    migrations: List[dict] = [],
+):
+    """Import a single ecospold2 `.spold` file into a database named `dbname`.
+
+    The ecobalyse Ecoinvent base is imported from SimaPro, so the technosphere
+    exchanges of an ecospold2 file don't link automatically: their `activityLinkId`
+    point to an Ecoinvent we don't have in its original format. We therefore link them
+    *by product name*, using the provided bw2io `migrations` to rewrite each product
+    name to the full SimaPro activity name, then link against `external_db`.
+
+    Elementary (biosphere) exchanges link automatically by flow UUID against the
+    ecospold2-built `biosphere` database.
+    """
+    logger.info(f"🟢 Importing {spold_s3_key} into {dbname}")
+    assert PurePosixPath(spold_s3_key).suffix == ".spold", (
+        "⛔ import_ecospold2 expects a single `.spold` file"
+    )
+
+    local_path = s3.get_file(spold_s3_key, spold_md5)
+
+    # SingleOutputEcospold2Importer reads every `.spold` of a directory, so we isolate
+    # our file in a dedicated temporary directory.
+    with tempfile.TemporaryDirectory() as tmpdir:
+        (Path(tmpdir) / local_path.name).symlink_to(local_path)
+        database = SingleOutputEcospold2Importer(tmpdir, dbname)
+
+    # The default strategy `delete_ghost_exchanges` purges *every* unlinked technosphere
+    # exchange — which would drop all our external inputs before we can relink them. We
+    # remove it and instead fail loudly below if anything stays unlinked.
+    database.strategies = [
+        strategy
+        for strategy in database.strategies
+        if strategy is not delete_ghost_exchanges
+    ]
+    database.apply_strategies()
+    database.statistics()
+
+    logger.debug("Applying migrations")
+    for migration in migrations:
+        logger.debug(f"-> Applying custom migration: {migration['description']}")
+        bw2io.Migration(migration["name"]).write(
+            migration["data"],
+            description=migration["description"],
+        )
+        database.migrate(migration["name"])
+
+    # Link the (renamed) technosphere exchanges against the external SimaPro Ecoinvent.
+    for fields in (("name", "unit", "location"), ("name", "unit")):
+        database.apply_strategy(
+            functools.partial(
+                link_technosphere_by_activity_hash_ref_product,
+                external_db_name=external_db,
+                fields=fields,
+            )
+        )
+    # Biosphere fallback (most flows are already linked by UUID by the importer).
+    database.apply_strategy(
+        functools.partial(
+            link_iterable_by_fields,
+            other=bw2data.Database(biosphere),
+            kind="biosphere",
+        ),
+    )
+    database.statistics()
+
+    # Stop loudly if anything remains unlinked: a lyocell input that silently vanished
+    # would undercount the fibre's impact.
+    if len(list(database.unlinked)):
+        database.write_excel(only_unlinked=True)
+        logger.error(
+            "Look at the above excel file, there are still unlinked exchanges. "
+            "Consider improving the migrations."
+        )
+        sys.exit(1)
+
+    bw2data.Database(biosphere).register()
+    database.write_database()
+    logger.info(f"🟢 Finished importing {spold_s3_key}")
 
 
 def add_missing_substances(project, biosphere):

@@ -1,0 +1,34 @@
+{
+  "activityName": "lyocell fibre",
+  "categories": [
+    "material",
+    "textile_material"
+  ],
+  "comment": "",
+  "displayName": "Fibre de lyocell",
+  "elecMJ": 0,
+  "heatMJ": 0,
+  "id": "4b1db688-faa0-5be9-9554-136edc3345ad",
+  "location": "GLO",
+  "metadata": [
+    {
+      "alias": "lyocell",
+      "defaultCountry": "CN",
+      "displayName": "Fibre de lyocell",
+      "geographicOrigin": "Asie - Pacifique",
+      "id": "72841ddf-3e96-5008-a28f-9a2a8e7ecf0c",
+      "name": "Lyocell",
+      "origin": "ArtificialFromOrganic",
+      "primary": true,
+      "scopes": [
+        "textile"
+      ]
+    }
+  ],
+  "qtyVariationRatio": 1,
+  "scopes": [
+    "textile"
+  ],
+  "source": "Lyocell",
+  "unit": "kg"
+}

@@ -271,6 +271,75 @@ PASTOECO_MIGRATIONS = [
         },
     }
 ]
+# The lyocell ecospold2 file was generated from SimaPro data: its `activityLinkId`s are
+# synthetic UUIDs absent from Ecoinvent, useless for linking. So we link each technosphere
+# input by *product name*, rewriting it to the full SimaPro "Ecoinvent 3.11" name
+# (`Product {LOC}| activity | Cut-off, U`). Geography rule (original ones are
+# unrecoverable): GLO market if present, else RoW market. Duplicate inputs (same product,
+# several geographies) all point to the same market — amounts add up naturally.
+LYOCELL_MIGRATIONS = [
+    {
+        "name": "lyocell-technosphere",
+        "description": "Map lyocell ecospold2 product names to Ecoinvent 3.11 activities",
+        "data": {
+            "fields": ("name",),
+            "data": [
+                (
+                    ("chemical, inorganic",),
+                    {
+                        "name": "Chemical, inorganic {GLO}| market for chemical, inorganic | Cut-off, U"
+                    },
+                ),
+                (
+                    ("chemical, organic",),
+                    {
+                        "name": "Chemical, organic {GLO}| market for chemical, organic | Cut-off, U"
+                    },
+                ),
+                (
+                    ("morpholine",),
+                    {"name": "Morpholine {GLO}| market for morpholine | Cut-off, U"},
+                ),
+                (
+                    ("sulfite pulp, bleached",),
+                    {
+                        "name": "Sulfite pulp, bleached {GLO}| market for sulfite pulp, bleached | Cut-off, U"
+                    },
+                ),
+                (
+                    ("hazardous waste, for incineration",),
+                    {
+                        "name": "Hazardous waste, for incineration {RoW}| market for hazardous waste, for incineration | Cut-off, U"
+                    },
+                ),
+                (
+                    ("inert waste, for final disposal",),
+                    {
+                        "name": "Inert waste, for final disposal {RoW}| market for inert waste, for final disposal | Cut-off, U"
+                    },
+                ),
+                (
+                    ("lubricating oil",),
+                    {
+                        "name": "Lubricating oil {RoW}| market for lubricating oil | Cut-off, U"
+                    },
+                ),
+                (
+                    ("wastewater, average",),
+                    {
+                        "name": "Wastewater, average {RoW}| market for wastewater, average | Cut-off, U"
+                    },
+                ),
+                (
+                    ("water, completely softened",),
+                    {
+                        "name": "Water, completely softened {RoW}| market for water, completely softened | Cut-off, U"
+                    },
+                ),
+            ],
+        },
+    }
+]
 WOOLMARK_MIGRATIONS = [
     {
         "name": "woolmark-units-fixes",
