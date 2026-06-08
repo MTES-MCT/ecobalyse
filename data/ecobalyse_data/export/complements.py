@@ -8,13 +8,13 @@ import config
 #
 # Reference values (from pine-softwood-intensive-plantation on ecobalyse.beta.gouv.fr),
 # forestManagement = intensivePlantation:
-#   - ldu impact     = 4.316 Pts/kg (displayed as 4316 mPts)
+#   - ldu impact     = 4316 Pts/kg (56 110 ldu Pt displayed in the UI, with ldu weight 6.29% and ldu norm_factor = 819498)
 #   - landOccupation = 1563 m².year
 #
 # For intensivePlantation, percentage = 25%:
-#   coefficient = 0.25 * 4.316 / 1563 ~ 0.00069
+#   coefficient = 0.25 * 4316 / 1563 ~ 0.69
 
-LDU_IMPACT_BY_LAND_OCCUPATION = 4.316 / 1563
+LDU_IMPACT_BY_LAND_OCCUPATION = 4316 / 1563
 
 FOREST_MANAGEMENT_COEFFICIENTS = {
     "diversifiedForest": -1 * LDU_IMPACT_BY_LAND_OCCUPATION * 0.25,  # bonus 25% ldu

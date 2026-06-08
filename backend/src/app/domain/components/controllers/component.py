@@ -1,25 +1,17 @@
 from __future__ import annotations
 
-from typing import TYPE_CHECKING
+from typing import TYPE_CHECKING, Any, Dict
 from uuid import UUID
 
 from advanced_alchemy.filters import OrderBy
-from advanced_alchemy.service.typing import (
-    convert,
-)
 from app.db import models as m
 from app.domain.accounts.guards import requires_superuser
 from app.domain.components import urls
 from app.domain.components.deps import (
     provide_components_service,
 )
-from app.domain.components.schemas import (
-    Component,
-    ComponentCreate,
-    ComponentUpdate,
-)
 from app.lib.deps import create_filter_dependencies
-from litestar import delete, get, patch, post
+from litestar import delete, get, post, put
 from litestar.controller import Controller
 from litestar.di import Provide
 from litestar.params import Parameter
@@ -52,17 +44,17 @@ class ComponentController(Controller):
     async def list_components(
         self,
         components_service: ComponentService,
-    ) -> list[Component]:
+    ) -> list[Dict[str, Any]]:
         """List components."""
         results = await components_service.list(
-            OrderBy(field_name="name", sort_order="asc"), uniquify=True
+            OrderBy(field_name="id", sort_order="asc"), uniquify=True
         )
 
-        return convert(
-            obj=results,
-            type=list[Component],  # type: ignore[valid-type]
-            from_attributes=True,
-        )
+        components = []
+        for result in results:
+            components.append(result.value)
+
+        return components
 
     @post(
         operation_id="CreateComponent",
@@ -71,45 +63,40 @@ class ComponentController(Controller):
     )
     async def create_component(
         self,
-        data: ComponentCreate,
+        data: Dict[str, Any],
         current_user: m.User,
         components_service: ComponentService,
-    ) -> Component:
+    ) -> Dict[str, Any]:
         """Create a component."""
 
-        data = data.to_dict()
         data["owner"] = current_user
 
         component = await components_service.create(data=data)
 
-        # @FIXME: Reload component from DB or tranforms will be missing
-        component = await components_service.get(component.id)
+        return component.value
 
-        return components_service.to_schema(component, schema_type=Component)
-
-    @patch(
+    @put(
         operation_id="UpdateComponent",
         path=urls.COMPONENT_UPDATE,
         guards=[requires_superuser],
     )
     async def update_component(
         self,
-        data: ComponentUpdate,
+        data: Dict[str, Any],
         components_service: ComponentService,
         current_user: m.User,
         component_id: UUID = Parameter(
             title="Component ID", description="The component to update."
         ),
-    ) -> Component:
+    ) -> Dict[str, Any]:
         """Update a component."""
 
-        data = data.to_dict()
         data["owner"] = current_user
         data["id"] = component_id
 
         component = await components_service.update(item_id=component_id, data=data)
 
-        return components_service.to_schema(component, schema_type=Component)
+        return component.value
 
     @delete(
         operation_id="DeleteComponent",
@@ -137,8 +124,8 @@ class ComponentController(Controller):
         component_id: UUID = Parameter(
             title="Component ID", description="The component to retrieve."
         ),
-    ) -> Component:
+    ) -> Dict[str, Any]:
         """Get a component."""
 
         component = await components_service.get(component_id)
-        return components_service.to_schema(component, schema_type=Component)
+        return component.value

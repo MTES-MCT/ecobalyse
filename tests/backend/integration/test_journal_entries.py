@@ -82,7 +82,7 @@ async def test_components_journal(
 
         assert response.status_code == 204
 
-        response = await client.patch(
+        response = await client.put(
             "/api/components/64fa65b3-c2df-4fd0-958b-83965bd6aa08",
             json={
                 "elements": [
@@ -98,7 +98,7 @@ async def test_components_journal(
 
         assert response.status_code == 200
 
-        response = await client.patch(
+        response = await client.put(
             "/api/components/ad9d7f23-076b-49c5-93a4-ee1cd7b53973",
             json={
                 "elements": [
@@ -114,7 +114,7 @@ async def test_components_journal(
 
         assert response.status_code == 200
 
-        response = await client.patch(
+        response = await client.put(
             "/api/components/eda5dd7e-52e4-450f-8658-1876efc62bd6",
             json={
                 "elements": [
@@ -143,7 +143,7 @@ async def test_components_journal(
 
         assert response.status_code == 201
 
-        response = await client.patch(
+        response = await client.put(
             "/api/components/8ca2ca05-8aec-4121-acaa-7cdcc03150a9",
             json={
                 "elements": [
@@ -241,7 +241,7 @@ async def test_components_journal(
                 "scopes": ["food"],
                 "elements": [
                     {
-                        "amount": 1.0,
+                        "amount": 1,
                         "material": "97c209ec-7782-5a29-8c47-af7f17c82d11",
                         "transforms": [
                             "af42fc20-e3ec-5b99-9b9c-83ba6735e597",
@@ -249,7 +249,7 @@ async def test_components_journal(
                         ],
                     },
                     {
-                        "amount": 1.0,
+                        "amount": 1,
                         "material": "d25636af-ab36-4857-a6d0-c66d1e7a281b",
                         "transforms": [
                             "97c209ec-7782-5a29-8c47-af7f17c82d11",
