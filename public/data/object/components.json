@@ -2031,5 +2031,111 @@
     "id": "9e5e0226-844a-47bb-8688-3cd50c24f52f",
     "name": "Batterie Li-ion 7kWh LFP, Chine",
     "scopes": ["veli"]
+  },
+  {
+    "comment": "Batterie standard pour un veli actif de 100kg, 45km/h max, autonomie de 50km (type \"speedbike\")",
+    "elements": [
+      {
+        "amount": 3.57,
+        "material": {
+          "country": "CN",
+          "id": "402dc798-bcd8-47be-803a-2a93c5db1040"
+        },
+        "transforms": [
+          {
+            "country": "CN",
+            "id": "7f217ecc-5de8-4ce1-b2c2-b5d192c6cdb9"
+          }
+        ]
+      },
+      {
+        "amount": 1.4,
+        "material": {
+          "country": "CN",
+          "id": "63e8a99a-d6e5-4aa5-8fe4-71c3d0ca2107"
+        },
+        "transforms": [
+          {
+            "country": "CN",
+            "id": "971df5fa-c32e-4a7e-b1aa-14ce9f240b5c"
+          },
+          {
+            "country": "CN",
+            "id": "7319ac9c-5796-412f-a1eb-58e01afa7708"
+          }
+        ]
+      },
+      {
+        "amount": 0.3,
+        "material": {
+          "country": "CN",
+          "id": "a363f079-bc3f-424a-a2e1-06b9c76b4fc3"
+        },
+        "transforms": [
+          {
+            "country": "CN",
+            "id": "d077f06e-4ae9-48b7-8019-64523e577b95"
+          }
+        ]
+      },
+      {
+        "amount": 8.4,
+        "material": {
+          "country": "CN",
+          "id": "3e514eac-185c-449e-bdc2-e1082ca0576d"
+        },
+        "transforms": [
+          {
+            "country": "CN",
+            "id": "ea284007-49a8-4be1-95fc-452ea180285a"
+          },
+          {
+            "country": "CN",
+            "id": "7319ac9c-5796-412f-a1eb-58e01afa7708"
+          }
+        ]
+      },
+      {
+        "amount": 2.9,
+        "material": {
+          "country": "CN",
+          "id": "30212fbf-5912-40eb-b2ab-87837361c462"
+        },
+        "transforms": [
+          {
+            "country": "CN",
+            "id": "981e74ea-ef7d-40d1-b25e-c5534446474e"
+          },
+          {
+            "country": "CN",
+            "id": "7319ac9c-5796-412f-a1eb-58e01afa7708"
+          }
+        ]
+      },
+      {
+        "amount": 0.8,
+        "material": {
+          "country": "CN",
+          "id": "c5295f47-0307-48a6-8552-3705063af767"
+        },
+        "transforms": [
+          {
+            "country": "CN",
+            "id": "85b74ce2-2cbc-4d73-a5a2-5c5ffde16319"
+          }
+        ]
+      },
+      {
+        "amount": 2.2,
+        "material": {
+          "country": "CN",
+          "id": "51956fb2-304d-4e63-a3ef-b3eed44fde38"
+        },
+        "transforms": []
+      }
+    ],
+    "id": "87f30696-7cd9-4620-b526-8473ecf447ab",
+    "name": "Batterie Li-ion 1.2kWh NMC811, Chine",
+    "scopes": ["veli"]
   }
 ]
