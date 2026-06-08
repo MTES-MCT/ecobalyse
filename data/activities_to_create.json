@@ -10600,5 +10600,39 @@
     ],
     "location": "CN",
     "newName": "AA battery production, RER"
+  },
+  {
+    "activityCreationType": "from_scratch",
+    "alias": "tire",
+    "comment": "Tire made of 50% rubber (80% synthetic, 20% natural), 30% carbon black, 12% PET plastic, 7% stainless steel and 1% brass.",
+    "database": "Ecoinvent 3.9.1",
+    "exchanges": [
+      {
+        "amount": 0.4,
+        "name": "synthetic rubber//[RER] synthetic rubber production"
+      },
+      {
+        "amount": 0.3,
+        "name": "carbon black//[GLO] carbon black production"
+      },
+      {
+        "amount": 0.07,
+        "name": "steel, chromium steel 18/8//[GLO] market for steel, chromium steel 18/8"
+      },
+      {
+        "amount": 0.1,
+        "name": "chemical, organic//[GLO] market for chemical, organic"
+      },
+      {
+        "amount": 0.12,
+        "name": "polyethylene terephthalate, granulate, amorphous//[GLO] market for polyethylene terephthalate, granulate, amorphous"
+      },
+      {
+        "amount": 0.01,
+        "name": "brass//[RoW] market for brass"
+      }
+    ],
+    "location": "GLO",
+    "newName": "Tire"
   }
 ]
