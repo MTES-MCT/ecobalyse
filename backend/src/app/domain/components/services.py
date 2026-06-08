@@ -1,6 +1,5 @@
 from __future__ import annotations
 
-import copy
 from collections.abc import Sequence
 from typing import TYPE_CHECKING, Any, Optional, Union, cast
 from uuid import uuid4
@@ -19,7 +18,7 @@ from advanced_alchemy.service import (
 )
 from advanced_alchemy.utils.dataclass import Empty, EmptyType
 from app.db import models as m
-from app.domain.components.schemas import Component, ComponentElement
+from app.domain.components.schemas import ComponentElement
 from app.domain.processes.deps import (
     provide_processes_service,
 )
@@ -206,54 +205,38 @@ class ComponentService(SQLAlchemyAsyncRepositoryService[m.Component]):
     async def _create_component(
         self, data: ModelDictT[m.Component], processes_service, owner_id: UUID
     ):
-        data["id"] = data.get("id", uuid4())
-        elements: list[ModelDictT[ComponentElement]] = data.pop("elements", [])
         if "published" not in data:
             data["published"] = False
 
+        data["id"] = data.get("id", uuid4())
+        data["value"] = data.copy()
+
         model = await super().to_model(data)
 
-        for element in elements:
-            elt = await self._create_element(element, data["id"], processes_service)
-            model.elements.append(elt)
-
-        assert owner_id
-
-        value = self.to_schema(model, schema_type=Component)
         self.repository.session.add(
             m.JournalEntry(
                 table_name=m.Component.__tablename__,
                 record_id=model.id,
                 action=m.JournalAction.CREATED,
                 user_id=owner_id,
-                value=value,
+                value=data["value"],
             )
         )
 
         return model
 
     async def _update_component(
-        self, model: ModelDictT[m.Component], processes_service, owner_id: UUID
+        self, data: ModelDictT[m.Component], processes_service, owner_id: UUID
     ):
-        # Used for journaling as it is the only moment where we have the full object in json
-        # In the following code, the model is either without the name/scopes changes
-        input_data = copy.deepcopy(model)
 
-        elements: list[ComponentElement] = model.pop("elements", [])
+        data["id"] = data.get("id", uuid4())
+        data["value"] = data.copy()
 
-        model = await super().to_model(model)
+        model = await super().to_model(data)
 
         # Avoid SAWarning: Object of type <Process> not in session, add operation along 'ProcessCategory.processes' won't proceed
         # By merging the process we are creating into the existing session
         model = await self.repository.session.merge(model)
-
-        model.elements = []
-
-        for element in elements:
-            # As elements are not comparable (they don’t have ids) we prefer to remove all the existing elements and re-create theme
-            model.elements.append(
-                await self._create_element(element, model.id, processes_service)
-            )
 
         assert owner_id
 
@@ -262,7 +245,7 @@ class ComponentService(SQLAlchemyAsyncRepositoryService[m.Component]):
             record_id=model.id,
             action=m.JournalAction.UPDATED,
             user_id=owner_id,
-            value=input_data,
+            value=data["value"],
         )
         self.repository.session.add(entry)
 
