@@ -60,3 +60,6 @@ class JournalEntry(
         if self.value is not None:
             # Used for json/msgspec serialization
             return json.dumps(self.value, ensure_ascii=False, indent=2, sort_keys=True)
+
+    def __repr__(self) -> str:
+        return f"JournalEntry(id={self.id!r}, action={self.action}, table_name={self.table_name}, record_id={self.record_id}, user={self.user}, value={self.value!r})"

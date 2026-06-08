@@ -4,7 +4,7 @@ module Request.Component exposing
     , getComponent
     , getComponents
     , getJournal
-    , patchComponent
+    , putComponent
     )
 
 import Data.Component as Component exposing (Component)
@@ -52,11 +52,11 @@ getJournal =
     JournalHttp.getForComponent
 
 
-patchComponent : Session -> (WebData Component -> msg) -> Component -> Cmd msg
-patchComponent session event component =
+putComponent : Session -> (WebData Component -> msg) -> Component -> Cmd msg
+putComponent session event component =
     case component.id of
         Just id ->
-            BackendHttp.patch session
+            BackendHttp.put session
                 ("components/" ++ Component.idToString id)
                 event
                 Component.decode
