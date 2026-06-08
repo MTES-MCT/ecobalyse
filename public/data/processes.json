@@ -47605,6 +47605,48 @@
     "unit": "kg"
   },
   {
+    "activityName": "lyocell fibre",
+    "categories": [
+      "material",
+      "textile_material"
+    ],
+    "comment": "",
+    "displayName": "Fibre de lyocell",
+    "elecMJ": 0,
+    "heatMJ": 0,
+    "id": "4b1db688-faa0-5be9-9554-136edc3345ad",
+    "impacts": {
+      "acd": 0,
+      "cch": 0,
+      "ecs": 249.5,
+      "etf": 0,
+      "etf-c": 0,
+      "fru": 0,
+      "fwe": 0,
+      "htc": 0,
+      "htc-c": 0,
+      "htn": 0,
+      "htn-c": 0,
+      "ior": 0,
+      "ldu": 0,
+      "mru": 0,
+      "ozd": 0,
+      "pco": 0,
+      "pma": 0,
+      "swe": 0,
+      "tre": 0,
+      "wtu": 0
+    },
+    "location": "GLO",
+    "massPerUnit": null,
+    "qtyVariationRatio": 1.0,
+    "scopes": [
+      "textile"
+    ],
+    "source": "Lyocell",
+    "unit": "kg"
+  },
+  {
     "activityName": "Cull cow, conventional, highland milk system, pastoral farming system, at farm gate {FR} U",
     "categories": [
       "ingredient",
