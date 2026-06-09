@@ -1734,7 +1734,7 @@
       }
     ],
     "id": "9178fe2e-6944-41d5-ad1b-7abbe8905c48",
-    "name": "Batterie Li-ion 400Wh NMC622, casing aluminium, Chine",
+    "name": "Batterie Li-ion 400Wh, NMC622, casing aluminium, Chine",
     "scopes": ["veli"]
   },
   {
@@ -1829,7 +1829,7 @@
       }
     ],
     "id": "990f4263-3b6c-48ce-92e8-566584edf5b2",
-    "name": "Batterie Li-ion 400Wh NMC622, casing plastique, Chine",
+    "name": "Batterie Li-ion 400Wh, NMC622, casing plastique, Chine",
     "scopes": ["veli"]
   },
   {
@@ -1924,7 +1924,7 @@
       }
     ],
     "id": "c374ab14-9e12-49d0-91c3-cfc0b6b70f1b",
-    "name": "Batterie Li-ion 650Wh NMC622, casing plastique, Chine",
+    "name": "Batterie Li-ion 650Wh, NMC622, casing plastique, Chine",
     "scopes": ["veli"]
   },
   {
@@ -2018,7 +2018,7 @@
       }
     ],
     "id": "7cfe659e-3764-4a8c-a25b-201396cbc09f",
-    "name": "Batterie Li-ion 1.2kWh NMC811, Chine",
+    "name": "Batterie Li-ion 1.2kWh, NMC811, Chine",
     "scopes": ["veli"]
   },
   {
@@ -2112,7 +2112,7 @@
       }
     ],
     "id": "57df64a3-278e-4e93-b836-9ba44b880fb5",
-    "name": "Batterie Li-ion 7kWh NMC811, Chine",
+    "name": "Batterie Li-ion 7kWh, NMC811, Chine",
     "scopes": ["veli"]
   },
   {
@@ -2206,7 +2206,7 @@
       }
     ],
     "id": "3b15918f-d21c-4251-96a8-548ac8444a04",
-    "name": "Batterie Li-ion 7kWh NMC811, Cellules France",
+    "name": "Batterie Li-ion 7kWh, NMC811, cellules France",
     "scopes": ["veli"]
   },
   {
@@ -2394,7 +2394,7 @@
       }
     ],
     "id": "7fd8dd70-2807-420f-8637-a1f2b669d0d7",
-    "name": "Batterie Li-ion 52kWh NMC811, Chine",
+    "name": "Batterie Li-ion 52kWh, NMC811, Chine",
     "scopes": ["veli"]
   },
   {
@@ -2488,7 +2488,7 @@
       }
     ],
     "id": "52e25580-d83a-4de6-9632-da4303d5211d",
-    "name": "Batterie Li-ion 52kWh NMC811, France",
+    "name": "Batterie Li-ion 52kWh, NMC811, France",
     "scopes": ["veli"]
   }
 ]
