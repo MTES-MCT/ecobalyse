@@ -1,7 +1,6 @@
 # Please only pure functions here
 import functools
 import json
-from copy import deepcopy
 from subprocess import call
 from uuid import UUID
 
@@ -70,14 +69,10 @@ def spproject(activity):
 
 
 def remove_detailed_impacts(processes):
-    result = list()
-    for process in processes:
-        new_process = deepcopy(process)
-        for k in new_process["impacts"].keys():
-            if k != "ecs":
-                new_process["impacts"][k] = 0
-        result.append(new_process)
-    return result
+    return [
+        {**process, "impacts": {"ecs": process["impacts"]["ecs"]}}
+        for process in processes
+    ]
 
 
 def with_subimpacts(impacts):
