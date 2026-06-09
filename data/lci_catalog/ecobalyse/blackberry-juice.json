@@ -2,7 +2,8 @@
   "activityName": "Blackberry juice, CMAPS {GLO} U",
   "categories": [
     "ingredient",
-    "material"
+    "material",
+    "material_type:other_food_items"
   ],
   "displayName": "Jus de mûre Origine Inconnue",
   "id": "6424b162-b135-475d-a1e5-dc6957ed5c4c",

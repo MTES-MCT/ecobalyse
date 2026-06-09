@@ -1,7 +1,9 @@
 {
   "activityName": "White asparagus {PE}| white asparagus production | Cut-off, U",
   "categories": [
-    "ingredient"
+    "ingredient",
+    "material",
+    "material_type:fruits_and_vegetables"
   ],
   "displayName": "White asparagus (PE)",
   "id": "1735a482-85cd-50e4-9feb-1e41a34a1eec",

@@ -2,7 +2,8 @@
   "activityName": "Butter, 60-62pct fat reduced, variant 2, CMAPS {GLO} U",
   "categories": [
     "ingredient",
-    "material"
+    "material",
+    "material_type:other_food_items"
   ],
   "displayName": "Beurre à 60-62% MG, à teneur réduite en matière grasse, doux Origine Inconnue",
   "id": "c310abe5-d207-46c8-a21e-501c43559f5c",

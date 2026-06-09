@@ -1,7 +1,9 @@
 {
   "activityName": "Durum wheat grain, organic 2025, national average, at farm gate {FR} U",
   "categories": [
-    "ingredient"
+    "ingredient",
+    "material",
+    "material_type:cereals"
   ],
   "displayName": "Durum wheat grain, organic 2025, national average, at farm gate (FR)",
   "id": "d23d6953-6bf7-5acc-a512-e073e2547f3a",

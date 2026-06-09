@@ -1,7 +1,9 @@
 {
   "activityName": "Mint {IN}| mint production | Cut-off, U",
   "categories": [
-    "ingredient"
+    "ingredient",
+    "material",
+    "material_type:other_food_items"
   ],
   "displayName": "Mint (IN)",
   "id": "e589703f-8c56-5adb-9b23-b5aff1fcd0a5",

@@ -1,7 +1,9 @@
 {
   "activityName": "Peach, at farm {ES} - Adapted from WFLDB U",
   "categories": [
-    "ingredient"
+    "ingredient",
+    "material",
+    "material_type:fruits_and_vegetables"
   ],
   "displayName": "Peach, at farm (ES)",
   "id": "1b4ce511-0fde-5120-b7bb-9342ef5185bd",

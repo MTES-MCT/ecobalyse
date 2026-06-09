@@ -2,7 +2,8 @@
   "activityName": "Fig puree, organic, CMAPS {GLO} U",
   "categories": [
     "ingredient",
-    "material"
+    "material",
+    "material_type:other_food_items"
   ],
   "displayName": "Purée de figue Bio",
   "id": "0c48e3d9-8b23-4eca-9ded-00589eabcc03",

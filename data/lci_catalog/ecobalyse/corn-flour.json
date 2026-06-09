@@ -2,7 +2,8 @@
   "activityName": "Corn flour, CMAPS {GLO} U",
   "categories": [
     "ingredient",
-    "material"
+    "material",
+    "material_type:other_food_items"
   ],
   "displayName": "Farine de maïs FR",
   "id": "6ef925f1-e91c-4ef8-9d6a-f24c599a4282",

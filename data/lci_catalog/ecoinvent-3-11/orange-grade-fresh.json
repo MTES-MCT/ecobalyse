@@ -1,7 +1,9 @@
 {
   "activityName": "Orange, fresh grade {US}| orange production, fresh grade | Cut-off, U",
   "categories": [
-    "ingredient"
+    "ingredient",
+    "material",
+    "material_type:fruits_and_vegetables"
   ],
   "displayName": "Orange, fresh grade (US)",
   "id": "1f1c98ce-4c93-5f21-9fb1-a02de68229da",

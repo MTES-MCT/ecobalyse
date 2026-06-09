@@ -2,7 +2,8 @@
   "activityName": "Winter pea, organic 2025, 15% moisture, at farm gate {FR} U",
   "categories": [
     "ingredient",
-    "material"
+    "material",
+    "material_type:other_food_items"
   ],
   "displayName": "Pois, avec leurs cosses Bio",
   "id": "5995ad4c-3e6a-53c8-9880-e2af46852b9b",

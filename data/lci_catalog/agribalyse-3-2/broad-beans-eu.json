@@ -2,7 +2,8 @@
   "activityName": "Fava bean, Swiss integrated production {CH}| fava bean production, Swiss integrated production, at farm | Cut-off, U - Adapted from Ecoinvent U",
   "categories": [
     "ingredient",
-    "material"
+    "material",
+    "material_type:other_food_items"
   ],
   "displayName": "Fève UE",
   "id": "18d33ded-b853-5f0a-a0dc-2337cc4d9553",

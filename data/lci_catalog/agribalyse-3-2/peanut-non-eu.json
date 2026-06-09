@@ -2,7 +2,8 @@
   "activityName": "Peanut {IN}| peanut production | Cut-off, U - Adapted from Ecoinvent U",
   "categories": [
     "ingredient",
-    "material"
+    "material",
+    "material_type:other_food_items"
   ],
   "displayName": "Arachide avec coque par défaut",
   "id": "1296d699-8b98-5d93-b1b5-508323b1302a",

@@ -2,7 +2,8 @@
   "activityName": "Pear, conventional, national average, at orchard {FR} U",
   "categories": [
     "ingredient",
-    "material"
+    "material",
+    "material_type:other_food_items"
   ],
   "displayName": "Poire FR",
   "id": "00b230d5-f589-5352-add1-18d24e58799f",

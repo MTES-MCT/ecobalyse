@@ -1,7 +1,9 @@
 {
   "activityName": "Tomato, fresh grade {RoW}| tomato production, fresh grade, in unheated greenhouse | Cut-off, U",
   "categories": [
-    "ingredient"
+    "ingredient",
+    "material",
+    "material_type:fruits_and_vegetables"
   ],
   "displayName": "Tomato, fresh grade (ROW)",
   "id": "558f24e2-abfd-5071-a9a1-178863a5367f",

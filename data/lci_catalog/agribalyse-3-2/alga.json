@@ -1,7 +1,9 @@
 {
   "activityName": "Algae (Laminaria), fresh, at farm {FR} U",
   "categories": [
-    "ingredient"
+    "ingredient",
+    "material",
+    "material_type:fruits_and_vegetables"
   ],
   "displayName": "Algae (FR)",
   "id": "1c17b523-c05e-59a4-b72f-142a0e9fd9fd",

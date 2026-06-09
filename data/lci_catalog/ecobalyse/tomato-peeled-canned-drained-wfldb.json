@@ -2,7 +2,8 @@
   "activityName": "Tomato, peeled canned drained, import WFLDB, CMAPS {GLO} U",
   "categories": [
     "ingredient",
-    "material"
+    "material",
+    "material_type:other_food_items"
   ],
   "displayName": "Tomate, pelée, appertisée, égouttée Origine Inconnue",
   "id": "e9877ac2-fb7e-4baa-9900-e097e94a2ed8",

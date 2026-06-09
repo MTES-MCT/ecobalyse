@@ -1,7 +1,9 @@
 {
   "activityName": "Grape, integrated, french mix {FR} U",
   "categories": [
-    "ingredient"
+    "ingredient",
+    "material",
+    "material_type:fruits_and_vegetables"
   ],
   "displayName": "Raisins (noirs ou blancs) FR",
   "id": "5f9b2c9d-9fd2-55d5-8731-6e375302d146",

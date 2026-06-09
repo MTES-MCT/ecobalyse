@@ -2,7 +2,8 @@
   "activityName": "Faisselle, 6pct fat, variant 1, CMAPS {GLO} U",
   "categories": [
     "ingredient",
-    "material"
+    "material",
+    "material_type:other_food_items"
   ],
   "displayName": "Faisselle, 6% MG environ FR",
   "id": "118517cd-2059-4d2d-8a07-10f75721f92e",

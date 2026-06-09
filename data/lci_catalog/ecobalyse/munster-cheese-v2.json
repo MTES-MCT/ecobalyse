@@ -2,7 +2,8 @@
   "activityName": "Munster cheese, variant 2, CMAPS {GLO} U",
   "categories": [
     "ingredient",
-    "material"
+    "material",
+    "material_type:other_food_items"
   ],
   "displayName": "Munster Origine Inconnue",
   "id": "9d89f2cd-17c9-4488-a56d-e724dc57e58d",

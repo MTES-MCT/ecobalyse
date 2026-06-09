@@ -2,7 +2,8 @@
   "activityName": "Oat flour, organic, CMAPS {GLO} U",
   "categories": [
     "ingredient",
-    "material"
+    "material",
+    "material_type:other_food_items"
   ],
   "displayName": "Farine d'avoine Origine Inconnue BIO",
   "id": "9cb40ed1-169b-4cfb-9f8d-9ab55397f8c7",

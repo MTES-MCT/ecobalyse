@@ -2,7 +2,8 @@
   "activityName": "Red berries, frozen raw, organic, CMAPS {GLO} U",
   "categories": [
     "ingredient",
-    "material"
+    "material",
+    "material_type:other_food_items"
   ],
   "displayName": "Fruits rouges, crus (framboises, fraises, groseilles, cassis), surgelé Origine Inconnue BIO",
   "id": "f85dddc0-fae5-4b75-aa63-622677278c08",

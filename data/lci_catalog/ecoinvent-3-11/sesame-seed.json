@@ -1,7 +1,9 @@
 {
   "activityName": "Sesame seed {IN}| sesame seed production | Cut-off, U",
   "categories": [
-    "ingredient"
+    "ingredient",
+    "material",
+    "material_type:cereals"
   ],
   "displayName": "Sesame seed (IN)",
   "id": "a412238d-cf70-5bd6-a297-af2bff8f3ee2",

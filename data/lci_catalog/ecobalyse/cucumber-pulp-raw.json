@@ -2,7 +2,8 @@
   "activityName": "Cucumber, pulp raw, CMAPS {GLO} U",
   "categories": [
     "ingredient",
-    "material"
+    "material",
+    "material_type:other_food_items"
   ],
   "displayName": "Concombre, pulpe, cru FR",
   "id": "b9d26ea0-03be-4715-a7c2-5908b08fff95",

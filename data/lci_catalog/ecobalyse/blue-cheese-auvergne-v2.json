@@ -2,7 +2,8 @@
   "activityName": "Blue cheese Auvergne, variant 2, CMAPS {GLO} U",
   "categories": [
     "ingredient",
-    "material"
+    "material",
+    "material_type:other_food_items"
   ],
   "displayName": "Fromage bleu d'Auvergne Origine Inconnue",
   "id": "1fbee8e5-b188-40d2-bb39-cdb5343dde59",

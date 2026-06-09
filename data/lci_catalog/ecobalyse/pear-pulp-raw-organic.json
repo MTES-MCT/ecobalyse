@@ -2,7 +2,8 @@
   "activityName": "Pear, pulp raw, organic, CMAPS {GLO} U",
   "categories": [
     "ingredient",
-    "material"
+    "material",
+    "material_type:other_food_items"
   ],
   "displayName": "Poire, pulpe, crue Origine Inconnue BIO",
   "id": "c196e9ef-0f92-40ac-af7b-65072d856f2b",

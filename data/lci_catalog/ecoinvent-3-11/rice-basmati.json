@@ -1,7 +1,9 @@
 {
   "activityName": "Rice, basmati {GLO}| market for rice, basmati | Cut-off, U",
   "categories": [
-    "ingredient"
+    "ingredient",
+    "material",
+    "material_type:cereals"
   ],
   "displayName": "Rice, basmati (GLO)",
   "id": "2c27e0ff-d5c7-5ee8-988f-e9f34ca961dd",

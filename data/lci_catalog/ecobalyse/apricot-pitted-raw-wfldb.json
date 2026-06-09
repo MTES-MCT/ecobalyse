@@ -2,7 +2,8 @@
   "activityName": "Apricot, pitted raw, import WFLDB, CMAPS {GLO} U",
   "categories": [
     "ingredient",
-    "material"
+    "material",
+    "material_type:other_food_items"
   ],
   "displayName": "Abricot, dénoyauté, cru Origine Inconnue",
   "id": "aebab2d5-6fe4-47fa-8a7a-0754b86f8ff0",

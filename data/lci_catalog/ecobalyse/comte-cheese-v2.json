@@ -2,7 +2,8 @@
   "activityName": "Comte cheese, variant 2, CMAPS {GLO} U",
   "categories": [
     "ingredient",
-    "material"
+    "material",
+    "material_type:other_food_items"
   ],
   "displayName": "Comté Origine Inconnue",
   "id": "02ed0b35-44eb-4257-8497-4c4d09bad9bf",

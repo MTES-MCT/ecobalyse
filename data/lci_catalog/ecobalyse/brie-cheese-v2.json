@@ -2,7 +2,8 @@
   "activityName": "Brie cheese, variant 2, CMAPS {GLO} U",
   "categories": [
     "ingredient",
-    "material"
+    "material",
+    "material_type:other_food_items"
   ],
   "displayName": "Fromage à pâte molle à croûte fleurie Origine inconnue",
   "id": "68ee04e1-5112-4c87-8fc4-6aa1f7ac04c2",

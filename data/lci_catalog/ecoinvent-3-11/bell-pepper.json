@@ -1,7 +1,9 @@
 {
   "activityName": "Bell pepper {RoW}| bell pepper production, open field | Cut-off, U",
   "categories": [
-    "ingredient"
+    "ingredient",
+    "material",
+    "material_type:fruits_and_vegetables"
   ],
   "displayName": "Bell pepper (ROW)",
   "id": "b3a82bf4-8ebd-51db-aa88-e0460ee22acb",

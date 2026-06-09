@@ -2,7 +2,8 @@
   "activityName": "Radish {FR}| radish production, in unheated greenhouse | Cut-off, U - Adapted from Ecoinvent U",
   "categories": [
     "ingredient",
-    "material"
+    "material",
+    "material_type:other_food_items"
   ],
   "displayName": "Radis FR",
   "id": "c736c068-df13-5972-9f89-18fda9f7e050",

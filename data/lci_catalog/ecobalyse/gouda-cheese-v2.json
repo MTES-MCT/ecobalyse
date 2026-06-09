@@ -2,7 +2,8 @@
   "activityName": "Gouda cheese, variant 2, CMAPS {GLO} U",
   "categories": [
     "ingredient",
-    "material"
+    "material",
+    "material_type:other_food_items"
   ],
   "displayName": "Fromage à pâte dure Origine inconnue",
   "id": "0ed716c2-640d-43a0-95ad-c61fce669635",

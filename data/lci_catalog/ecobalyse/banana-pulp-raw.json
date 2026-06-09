@@ -2,7 +2,8 @@
   "activityName": "Banana, pulp raw, CMAPS {GLO} U",
   "categories": [
     "ingredient",
-    "material"
+    "material",
+    "material_type:other_food_items"
   ],
   "displayName": "Banane, pulpe, crue FR",
   "id": "baf25f2c-98ab-420d-9082-4ed7b483cc44",

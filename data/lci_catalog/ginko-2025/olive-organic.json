@@ -2,7 +2,8 @@
   "activityName": "Olive, organic 2025 {ES}| olive production | Cut-off, U",
   "categories": [
     "ingredient",
-    "material"
+    "material",
+    "material_type:other_food_items"
   ],
   "displayName": "Olive Bio",
   "id": "0e30cb0a-22bc-5b74-8e00-359101390284",

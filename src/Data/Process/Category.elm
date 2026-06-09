@@ -35,6 +35,7 @@ type Category
 type Material
     = Aluminium
     | BatteryCell
+    | Cereals
     | Composites
     | Containerboard
     | Copper
@@ -45,6 +46,7 @@ type Material
     | Glass
     | HDPE
     | LDPE
+    | Legumes
     | Offal
     | OrganicFibers
     | OtherFoodItems
@@ -210,6 +212,9 @@ materialTypeFromString string =
         "wood" ->
             Ok Wood
 
+        "cereals" ->
+            Ok Cereals
+
         "eggs" ->
             Ok Eggs
 
@@ -218,6 +223,9 @@ materialTypeFromString string =
 
         "fruits_and_vegetables" ->
             Ok FruitsAndVegetables
+
+        "legumes" ->
+            Ok Legumes
 
         "offal" ->
             Ok Offal
@@ -243,6 +251,9 @@ materialTypeToLabel material =
 
         BatteryCell ->
             "Cellule de batteries"
+
+        Cereals ->
+            "Cereals"
 
         Composites ->
             "Composites"
@@ -273,6 +284,9 @@ materialTypeToLabel material =
 
         LDPE ->
             "PEBD"
+
+        Legumes ->
+            "Legumes"
 
         Offal ->
             "Abats"
@@ -326,6 +340,9 @@ materialTypeToString material =
         BatteryCell ->
             "battery_cell"
 
+        Cereals ->
+            "cereals"
+
         Composites ->
             "composites"
 
@@ -355,6 +372,9 @@ materialTypeToString material =
 
         LDPE ->
             "ldpe"
+
+        Legumes ->
+            "legumes"
 
         Offal ->
             "offal"

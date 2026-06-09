@@ -2,7 +2,8 @@
   "activityName": "Cantal cheese, variant 2, CMAPS {GLO} U",
   "categories": [
     "ingredient",
-    "material"
+    "material",
+    "material_type:other_food_items"
   ],
   "displayName": "Cantal, Salers ou Laguiole Origine Inconnue",
   "id": "4f49607f-4b55-446e-bcb2-9275e4958b5e",

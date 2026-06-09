@@ -1,7 +1,9 @@
 {
   "activityName": "Tea, dried {KE}| tea production, dried | Cut-off, U - Adapted from Ecoinvent U",
   "categories": [
-    "ingredient"
+    "ingredient",
+    "material",
+    "material_type:other_food_items"
   ],
   "displayName": "Tea, dried (KE)",
   "id": "f6ab53ef-3a7b-5780-a3f2-3e8aefffc6cf",

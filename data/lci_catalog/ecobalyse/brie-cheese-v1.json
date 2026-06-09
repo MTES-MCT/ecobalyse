@@ -2,7 +2,8 @@
   "activityName": "Brie cheese, variant 1, CMAPS {GLO} U",
   "categories": [
     "ingredient",
-    "material"
+    "material",
+    "material_type:other_food_items"
   ],
   "displayName": "Fromage à pâte molle à croûte fleurie FR",
   "id": "de6b9233-0ce8-41c2-bc93-ccb87f4f15fe",

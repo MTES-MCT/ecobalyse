@@ -2,7 +2,8 @@
   "activityName": "Banana, pulp raw, organic, CMAPS {GLO} U",
   "categories": [
     "ingredient",
-    "material"
+    "material",
+    "material_type:other_food_items"
   ],
   "displayName": "Banane, pulpe, crue Origine Inconnue BIO",
   "id": "5f5ce91a-2bdf-45ee-95c0-083dc1545b43",

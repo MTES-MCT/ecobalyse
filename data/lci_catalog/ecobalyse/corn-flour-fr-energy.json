@@ -2,7 +2,8 @@
   "activityName": "Corn flour, CMAPS {FR} U",
   "categories": [
     "ingredient",
-    "material"
+    "material",
+    "material_type:other_food_items"
   ],
   "displayName": "Farine de maïs Origine Inconnue",
   "id": "20244ef9-5b5a-4eb1-a0fa-251cc0f4a828",

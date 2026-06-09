@@ -2,7 +2,8 @@
   "activityName": "Peach, pulp and skin raw, organic, CMAPS {GLO} U",
   "categories": [
     "ingredient",
-    "material"
+    "material",
+    "material_type:other_food_items"
   ],
   "displayName": "Pêche, pulpe et peau, crue Origine Inconnue BIO",
   "id": "21f067b1-32eb-4fd9-8ef1-f2f8099938af",

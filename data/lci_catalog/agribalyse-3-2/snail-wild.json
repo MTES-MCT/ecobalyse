@@ -1,7 +1,9 @@
 {
   "activityName": "Snail, wild {TR} U",
   "categories": [
-    "ingredient"
+    "ingredient",
+    "material",
+    "material_type:fish_and_shellfish"
   ],
   "displayName": "Snail, wild (TR)",
   "id": "61c35797-d5b2-5cb5-8c85-76998aa6c6ca",

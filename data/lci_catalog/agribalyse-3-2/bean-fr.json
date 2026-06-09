@@ -2,7 +2,8 @@
   "activityName": "Spring pea, conventional, 15% moisture, animal feed, at farm gate, production {FR} U",
   "categories": [
     "ingredient",
-    "material"
+    "material",
+    "material_type:other_food_items"
   ],
   "displayName": "Pois FR",
   "id": "08b72843-ca81-57ab-8eed-520f20b07fff",

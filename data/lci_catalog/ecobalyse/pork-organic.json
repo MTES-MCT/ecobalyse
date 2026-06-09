@@ -1,7 +1,9 @@
 {
   "activityName": "Live pig, consumption mix {FR} U {{pork-organic-2025}}",
   "categories": [
-    "ingredient"
+    "ingredient",
+    "material",
+    "material_type:red_meats"
   ],
   "displayName": "Porc Bio",
   "id": "97794c50-6932-5707-a453-29b8af52b242",

@@ -2,7 +2,8 @@
   "activityName": "Apricot, pitted raw, CMAPS {GLO} U",
   "categories": [
     "ingredient",
-    "material"
+    "material",
+    "material_type:other_food_items"
   ],
   "displayName": "Abricot, dénoyauté, cru FR",
   "id": "1362d041-110c-491f-b874-a6d1752e004f",

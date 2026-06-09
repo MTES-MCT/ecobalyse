@@ -2,7 +2,8 @@
   "activityName": "Oat flour, variant 2, CMAPS {GLO} U",
   "categories": [
     "ingredient",
-    "material"
+    "material",
+    "material_type:other_food_items"
   ],
   "displayName": "Farine d'avoine Origine Inconnue",
   "id": "a86106f6-335a-4edb-9964-2e9328c5325f",

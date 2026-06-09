@@ -1,7 +1,9 @@
 {
   "activityName": "Cranberry, at farm (WFLDB)",
   "categories": [
-    "ingredient"
+    "ingredient",
+    "material",
+    "material_type:fruits_and_vegetables"
   ],
   "displayName": "Cranberry, at farm",
   "id": "27673177-963f-53be-9471-7fc99acc75c8",

@@ -1,0 +1,46 @@
+{
+  "categories": [
+    "transformation",
+    "material_type:cereals"
+  ],
+  "comment": "Raw to cooked ratio defined in Agribalyse 3 methodology",
+  "displayName": "Cuisson des céréales et féculents",
+  "elecMJ": 2.58,
+  "heatMJ": 0.754,
+  "id": "881b60c2-8af9-4a4b-876f-fbf9b2ac717c",
+  "impacts": {
+    "acd": 0,
+    "cch": 0,
+    "etf": 0,
+    "etf-c": 0,
+    "fru": 0,
+    "fwe": 0,
+    "htc": 0,
+    "htc-c": 0,
+    "htn": 0,
+    "htn-c": 0,
+    "ior": 0,
+    "ldu": 0,
+    "mru": 0,
+    "ozd": 0,
+    "pco": 0,
+    "pma": 0,
+    "swe": 0,
+    "tre": 0,
+    "wtu": 0
+  },
+  "metadata": [
+    {
+      "id": "0be5e941-1c4e-4de0-90f1-a2d9d7c1b307",
+      "scopes": [
+        "food2"
+      ]
+    }
+  ],
+  "qtyVariationRatio": 2.259,
+  "scopes": [
+    "food2"
+  ],
+  "source": "Custom",
+  "unit": "kg"
+}

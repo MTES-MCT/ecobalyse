@@ -2,7 +2,8 @@
   "activityName": "Fennel, organic 2025 {GLO}| production | Cut-off, U",
   "categories": [
     "ingredient",
-    "material"
+    "material",
+    "material_type:other_food_items"
   ],
   "displayName": "Coriandre Bio",
   "id": "10651027-5ca6-5990-9d81-7ac4bda2abc9",

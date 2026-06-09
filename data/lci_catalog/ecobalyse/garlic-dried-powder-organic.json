@@ -2,7 +2,8 @@
   "activityName": "Garlic, dried powder, organic, CMAPS {GLO} U",
   "categories": [
     "ingredient",
-    "material"
+    "material",
+    "material_type:other_food_items"
   ],
   "displayName": "Ail séché, poudre FR BIO",
   "id": "cc5fc515-4692-4e9c-b7e4-0fc21055d0ed",

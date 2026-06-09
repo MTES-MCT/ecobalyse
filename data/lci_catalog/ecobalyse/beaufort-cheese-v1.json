@@ -2,7 +2,8 @@
   "activityName": "Beaufort cheese, variant 1, CMAPS {GLO} U",
   "categories": [
     "ingredient",
-    "material"
+    "material",
+    "material_type:other_food_items"
   ],
   "displayName": "Beaufort FR",
   "id": "7245e4f7-c2d1-47d5-9018-30fc56d9995a",

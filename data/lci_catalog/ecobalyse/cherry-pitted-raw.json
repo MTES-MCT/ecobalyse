@@ -2,7 +2,8 @@
   "activityName": "Cherry, pitted raw, CMAPS {GLO} U",
   "categories": [
     "ingredient",
-    "material"
+    "material",
+    "material_type:other_food_items"
   ],
   "displayName": "Cerise, dénoyautée, crue FR",
   "id": "584ce977-ef1d-4990-a4c9-798d97ed17db",

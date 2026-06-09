@@ -2,7 +2,8 @@
   "activityName": "Pear, pulp raw, CMAPS {GLO} U",
   "categories": [
     "ingredient",
-    "material"
+    "material",
+    "material_type:other_food_items"
   ],
   "displayName": "Poire, pulpe, crue FR",
   "id": "563f6419-dbb2-4639-82a0-4bb7ae3a5f6c",

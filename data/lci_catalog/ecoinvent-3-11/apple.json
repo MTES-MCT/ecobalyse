@@ -1,7 +1,9 @@
 {
   "activityName": "Apple {CN}| apple production | Cut-off, U",
   "categories": [
-    "ingredient"
+    "ingredient",
+    "material",
+    "material_type:fruits_and_vegetables"
   ],
   "displayName": "Apple (CN)",
   "id": "abfdfebc-3426-5585-b8da-d3031bb927e3",

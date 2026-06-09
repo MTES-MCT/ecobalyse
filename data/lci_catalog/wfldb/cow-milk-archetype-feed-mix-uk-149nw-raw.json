@@ -1,7 +1,9 @@
 {
   "activityName": "Raw cow milk archetype, feed mix UK-149NW, at farm (WFLDB)",
   "categories": [
-    "ingredient"
+    "ingredient",
+    "material",
+    "material_type:other_food_items"
   ],
   "displayName": "Raw cow milk archetype, feed mix UK-149NW, at farm",
   "id": "919beed2-5a89-5f03-8090-e05dc54dfa35",

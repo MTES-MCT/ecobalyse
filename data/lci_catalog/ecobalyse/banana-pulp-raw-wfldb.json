@@ -2,7 +2,8 @@
   "activityName": "Banana, pulp raw, import WFLDB, CMAPS {GLO} U",
   "categories": [
     "ingredient",
-    "material"
+    "material",
+    "material_type:other_food_items"
   ],
   "displayName": "Banane, pulpe, crue Origine Inconnue",
   "id": "8aa6385d-defe-411c-bb3e-81ded789ddd1",

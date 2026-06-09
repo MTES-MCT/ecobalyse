@@ -2,7 +2,8 @@
   "activityName": "Dry goat cheese, chabichou type, CMAPS {GLO} U",
   "categories": [
     "ingredient",
-    "material"
+    "material",
+    "material_type:other_food_items"
   ],
   "displayName": "Fromage de chèvre sec (chabichou, picodon, crottin de Chavignol) FR",
   "id": "42b35681-8889-4757-ab87-3e331688f924",

@@ -2,7 +2,8 @@
   "activityName": "Almond, shelled with skin, organic, CMAPS {GLO} U",
   "categories": [
     "ingredient",
-    "material"
+    "material",
+    "material_type:other_food_items"
   ],
   "displayName": "Amande, décortiquée, avec peau BIO",
   "id": "9b516955-9c3a-47f0-9815-bb05131fe8ac",
