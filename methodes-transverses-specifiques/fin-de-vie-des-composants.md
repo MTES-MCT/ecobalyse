@@ -1,8 +1,4 @@
----
-icon: bin-recycle
----
-
-# Fin de vie des composants
+# 🗑️ Fin de vie des composants
 
 {% hint style="warning" %}
 Cette section concerne les secteurs objets et véhicules.&#x20;

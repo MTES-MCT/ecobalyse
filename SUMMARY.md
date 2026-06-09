@@ -35,12 +35,13 @@
 * [🧩 Composants](methodes-transverses-specifiques/composants/README.md)
   * [◻️ Procédés Acier et Aluminium](methodes-transverses-specifiques/composants/procedes-acier-et-aluminium.md)
   * [⚡ Energies des étapes de transformation](methodes-transverses-specifiques/composants/energies-des-etapes-de-transformation.md)
+* [📦 Matériaux d'emballage](methodes-transverses-specifiques/materiaux-demballage.md)
 * [🚚 Transport](methodes-transverses-specifiques/transport/README.md)
   * [Coût environnemental par voie de transport](methodes-transverses-specifiques/transport/cout-environnemental-par-voie-de-transport.md)
   * [Choix des voies de transport](methodes-transverses-specifiques/transport/choix-des-voies-de-transport.md)
   * [✈️ Transport par avion - prise en compte des trainées](methodes-transverses-specifiques/transport/modelisation-fret-aerien.md)
 * [💡 Electricité à l'utilisation](methodes-transverses-specifiques/electricite-a-lutilisation.md)
-* [Fin de vie des composants](methodes-transverses-specifiques/fin-de-vie-des-composants.md)
+* [🗑️ Fin de vie des composants](methodes-transverses-specifiques/fin-de-vie-des-composants.md)
 
 ## 🍕 Alimentaire
 
@@ -53,8 +54,7 @@
     * [🐄 Ingrédients - cas des ingrédients transformés construits par Ecobalyse](alimentaire/impacts-consideres/etape-1-ingredients/boeuf-hache.md)
     * [🛠️ Modifications ciblées des ICV ingrédients](alimentaire/impacts-consideres/etape-1-ingredients/modifications-ciblees-des-icv-ingredients.md)
   * [🥧 Etape 2 : transformation](alimentaire/impacts-consideres/transformation.md)
-  * [📦 Etape 3 : emballages](alimentaire/impacts-consideres/etape-3-emballages/README.md)
-    * [Matériaux d'emballage](alimentaire/impacts-consideres/etape-3-emballages/materiaux-demballage.md)
+  * [📦 Etape 3 : emballages](alimentaire/impacts-consideres/etape-3-emballages.md)
   * [👷‍♀️ Etape 4 : distribution](alimentaire/impacts-consideres/distribution.md)
   * [🍽️ Etape 5 : consommation](alimentaire/impacts-consideres/etape-5-consommation.md)
   * [🚛 Transport](alimentaire/impacts-consideres/transport.md)
