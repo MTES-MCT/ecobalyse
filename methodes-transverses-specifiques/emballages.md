@@ -1,4 +1,4 @@
-# 📦 Matériaux d'emballage
+# 📦 Emballages
 
 ## Contexte
 
@@ -80,6 +80,10 @@ Sauf mention explicite contraire, les procédés retenus et leur quantités sont
   * Le recyclage est modélisé avec les [procédés de recyclage utilisés par ailleurs dans Ecobalyse](https://fabrique-numerique.gitbook.io/ecobalyse/methodes-transverses-specifiques/fin-de-vie-des-composants)
 
 Ces procédés sont mis à disposition dans l'explorateur de chaque secteur.
+
+**Cout environnemental des matériaux d'emballage (en Pts/kg) :**
+
+<figure><img src="../.gitbook/assets/image (395).png" alt=""><figcaption></figcaption></figure>
 
 ## Exemple d'application
 
