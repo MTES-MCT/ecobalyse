@@ -732,5 +732,27 @@
       ]
     },
     "scope": "veli"
+  },
+  {
+    "category": "",
+    "id": "e438bde6-53c6-4e46-a5cf-75a3fceb3d6b",
+    "name": "Veli actif, 25km/h max, fabriqué en France",
+    "query": {
+      "components": [
+        {
+          "custom": {
+            "elements": [],
+            "name": "Nouveau composant"
+          },
+          "quantity": 1
+        },
+        {
+          "id": "8e38b6a5-1c95-43f6-987f-2e368fc74edc",
+          "quantity": 1
+        }
+      ],
+      "recyclable": true
+    },
+    "scope": "veli"
   }
 ]
