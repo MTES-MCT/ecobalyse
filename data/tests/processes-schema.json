@@ -60,25 +60,6 @@
           "ecs": { "type": "number" }
         },
         "required": [
-          "acd",
-          "cch",
-          "etf",
-          "etf-c",
-          "fru",
-          "fwe",
-          "htc",
-          "htc-c",
-          "htn",
-          "htn-c",
-          "ior",
-          "ldu",
-          "mru",
-          "ozd",
-          "pco",
-          "pma",
-          "swe",
-          "tre",
-          "wtu",
           "ecs"
         ]
       },

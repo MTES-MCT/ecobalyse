@@ -5,7 +5,6 @@ module Data.Impact.Definition exposing
     , Trigram(..)
     , Trigrams
     , decode
-    , decodeBase
     , encodeBase
     , filter
     , foldl
@@ -25,7 +24,7 @@ import Data.Split as Split exposing (Split)
 import Data.Unit as Unit
 import Json.Decode as Decode exposing (Decoder)
 import Json.Decode.Extra as DE
-import Json.Decode.Pipeline as Pipe
+import Json.Decode.Pipeline as JDP
 import Json.Encode as Encode
 
 
@@ -506,39 +505,33 @@ toSearchableString definition =
 ---- Decoders
 
 
-decodeWithoutAggregated : (String -> Decoder a) -> Decoder (a -> Trigrams a)
-decodeWithoutAggregated decoder =
-    Decode.succeed Trigrams
-        |> Pipe.required "acd" (decoder "acd")
-        |> Pipe.required "cch" (decoder "cch")
-        |> Pipe.required "etf" (decoder "etf")
-        |> Pipe.required "etf-c" (decoder "etf-c")
-        |> Pipe.required "fru" (decoder "fru")
-        |> Pipe.required "fwe" (decoder "fwe")
-        |> Pipe.required "htc" (decoder "htc")
-        |> Pipe.required "htc-c" (decoder "htc-c")
-        |> Pipe.required "htn" (decoder "htn")
-        |> Pipe.required "htn-c" (decoder "htn-c")
-        |> Pipe.required "ior" (decoder "ior")
-        |> Pipe.required "ldu" (decoder "ldu")
-        |> Pipe.required "mru" (decoder "mru")
-        |> Pipe.required "ozd" (decoder "ozd")
-        |> Pipe.required "pco" (decoder "pco")
-        |> Pipe.required "pma" (decoder "pma")
-        |> Pipe.required "swe" (decoder "swe")
-        |> Pipe.required "tre" (decoder "tre")
-        |> Pipe.required "wtu" (decoder "wtu")
-
-
-decodeBase : (String -> Decoder a) -> Decoder (Trigrams a)
-decodeBase decoder =
-    decodeWithoutAggregated decoder
-        |> Pipe.required "ecs" (decoder "ecs")
-
-
 decode : Decoder Definitions
 decode =
-    decodeBase decodeDefinition
+    let
+        required trigram =
+            JDP.required trigram (decodeDefinition trigram)
+    in
+    Decode.succeed Trigrams
+        |> required "acd"
+        |> required "cch"
+        |> required "etf"
+        |> required "etf-c"
+        |> required "fru"
+        |> required "fwe"
+        |> required "htc"
+        |> required "htc-c"
+        |> required "htn"
+        |> required "htn-c"
+        |> required "ior"
+        |> required "ldu"
+        |> required "mru"
+        |> required "ozd"
+        |> required "pco"
+        |> required "pma"
+        |> required "swe"
+        |> required "tre"
+        |> required "wtu"
+        |> required "ecs"
 
 
 decodeAggregatedScoreData : Decoder AggregatedScoreData
@@ -552,12 +545,12 @@ decodeAggregatedScoreData =
 decodeDefinition : String -> Decoder Definition
 decodeDefinition trigram =
     Decode.succeed Definition
-        |> Pipe.custom (toTrigram trigram |> DE.fromResult)
-        |> Pipe.required "label_fr" Decode.string
-        |> Pipe.required "description_fr" Decode.string
-        |> Pipe.required "short_unit" Decode.string
-        |> Pipe.required "decimals" Decode.int
-        |> Pipe.required "ecoscore" (Decode.maybe decodeAggregatedScoreData)
+        |> JDP.custom (toTrigram trigram |> DE.fromResult)
+        |> JDP.required "label_fr" Decode.string
+        |> JDP.required "description_fr" Decode.string
+        |> JDP.required "short_unit" Decode.string
+        |> JDP.required "decimals" Decode.int
+        |> JDP.required "ecoscore" (Decode.maybe decodeAggregatedScoreData)
 
 
 

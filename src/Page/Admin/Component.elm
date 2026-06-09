@@ -340,7 +340,7 @@ saveComponent model session =
                     createPageUpdate session { model | modals = [] }
                         |> App.withCmds
                             [ { component | comment = comment, published = published }
-                                |> ComponentApi.patchComponent session ComponentUpdated
+                                |> ComponentApi.putComponent session ComponentUpdated
                             ]
                         |> App.notifySuccess "Composant sauvegardé"
 
@@ -545,7 +545,7 @@ componentRowView session selected component =
                     , db = session.db
                     , scope = Scope.Generic Scope.Object
                     }
-                    Component.defaultTransportCooling
+                    Component.defaultTransportOptions
                 |> Result.map
                     (Component.extractImpacts
                         >> Format.formatImpact (Definition.get Definition.Ecs session.db.definitions)
@@ -675,6 +675,7 @@ modalView { componentConfig, db } modals index modal =
                             , scope = component.scope
                             , setDetailed = \_ -> NoOp
                             , title = ""
+                            , toggleTransportByAir = \_ -> NoOp
                             , toggleTransportCooling = \_ -> NoOp
                             , updateAssemblyCountry = \_ -> NoOp
                             , updateConsumptionAmount = \_ _ -> NoOp

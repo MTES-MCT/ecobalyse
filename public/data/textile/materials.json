@@ -24,6 +24,18 @@
     "recycledFrom": null
   },
   {
+    "alias": "nonwoven-polyester",
+    "cff": null,
+    "defaultCountry": "CN",
+    "geographicOrigin": "Asie - Pacifique",
+    "id": "3403257d-a13b-4dc0-b72b-e85c24617ed9",
+    "name": "Polyester non-tissé",
+    "origin": "Synthetic",
+    "primary": false,
+    "processId": "f57e98d9-524c-4bf8-beaf-7422abcae5f2",
+    "recycledFrom": null
+  },
+  {
     "alias": "coton-rdpc",
     "cff": {
       "manufacturerAllocation": 0.8,

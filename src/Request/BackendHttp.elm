@@ -6,6 +6,7 @@ module Request.BackendHttp exposing
     , getWithConfig
     , patch
     , post
+    , put
     )
 
 import Data.Session exposing (Session)
@@ -147,6 +148,19 @@ patch session path event decoder body =
         , expect = expectJson (RemoteData.fromResult >> event) decoder
         , headers = authHeaders session
         , method = "PATCH"
+        , timeout = Nothing
+        , tracker = Nothing
+        , url = getApiUrl session path
+        }
+
+
+put : Session -> String -> (WebData data -> msg) -> Decoder data -> Encode.Value -> Cmd msg
+put session path event decoder body =
+    Http.request
+        { body = Http.jsonBody body
+        , expect = expectJson (RemoteData.fromResult >> event) decoder
+        , headers = authHeaders session
+        , method = "PUT"
         , timeout = Nothing
         , tracker = Nothing
         , url = getApiUrl session path
