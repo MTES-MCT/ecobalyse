@@ -2,7 +2,8 @@
   "activityName": "Camembert cheese, variant 1, CMAPS {GLO} U",
   "categories": [
     "ingredient",
-    "material"
+    "material",
+    "material_type:other_food_items"
   ],
   "displayName": "Camembert FR",
   "id": "eac36eb0-3316-41b3-878d-0db3be556fce",

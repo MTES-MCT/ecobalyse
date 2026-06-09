@@ -1,7 +1,9 @@
 {
   "activityName": "Live lamb, consumption mix {FR} U",
   "categories": [
-    "ingredient"
+    "ingredient",
+    "material",
+    "material_type:red_meats"
   ],
   "displayName": "Live lamb, consumption mix (FR)",
   "id": "9888b073-a101-5bd8-a5e9-94bb9c052c3f",

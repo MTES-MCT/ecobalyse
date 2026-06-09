@@ -2,7 +2,8 @@
   "activityName": "Spread cheese, 20-40pct fat, variant 1, CMAPS {GLO} U",
   "categories": [
     "ingredient",
-    "material"
+    "material",
+    "material_type:other_food_items"
   ],
   "displayName": "Spécialité fromagère non affinée à tartiner 20 à 40 % MG nature ou aromatisée (ex: ail et fines herbes) FR",
   "id": "89b5803c-9286-451c-abed-551e1aae99c3",

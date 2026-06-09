@@ -2,7 +2,8 @@
   "activityName": "Cantal cheese, variant 1, CMAPS {GLO} U",
   "categories": [
     "ingredient",
-    "material"
+    "material",
+    "material_type:other_food_items"
   ],
   "displayName": "Cantal, Salers ou Laguiole FR",
   "id": "9cf7c19e-9e67-4f62-8047-cd79ca8bfd07",

@@ -2,7 +2,8 @@
   "activityName": "Gruyere cheese, variant 1, CMAPS {GLO} U",
   "categories": [
     "ingredient",
-    "material"
+    "material",
+    "material_type:other_food_items"
   ],
   "displayName": "Gruyère FR",
   "id": "2294405d-4505-4417-b805-934895a85b37",

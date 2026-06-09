@@ -1,7 +1,9 @@
 {
   "activityName": "Soybean {CH}| soybean production | Cut-off, U - Adapted from Ecoinvent U",
   "categories": [
-    "ingredient"
+    "ingredient",
+    "material",
+    "material_type:cereals"
   ],
   "displayName": "Soybean (CH)",
   "id": "bc395cd5-f5cd-577a-929f-699f5d70186c",

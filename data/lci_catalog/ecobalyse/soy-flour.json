@@ -2,7 +2,8 @@
   "activityName": "Soy flour, CMAPS {GLO} U",
   "categories": [
     "ingredient",
-    "material"
+    "material",
+    "material_type:other_food_items"
   ],
   "displayName": "Farine de soja FR",
   "id": "cec61f25-5d74-4692-a738-0bedbecd6877",

@@ -2,7 +2,8 @@
   "activityName": "Strawberry, frozen raw, import WFLDB, CMAPS {GLO} U",
   "categories": [
     "ingredient",
-    "material"
+    "material",
+    "material_type:other_food_items"
   ],
   "displayName": "Fraise, crue, surgelé Origine Inconnue",
   "id": "96dbb623-98f9-44fd-9d5d-b5059dc40104",

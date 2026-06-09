@@ -2,7 +2,8 @@
   "activityName": "Parmesan cheese, variant 2, CMAPS {GLO} U",
   "categories": [
     "ingredient",
-    "material"
+    "material",
+    "material_type:other_food_items"
   ],
   "displayName": "Parmesan Origine Inconnue",
   "id": "fffd6e96-71eb-45dc-a4e0-d3b79449251c",

@@ -1,7 +1,9 @@
 {
   "activityName": "Durum wheat grain, at farm {GLO} - Adapted from WFLDB U",
   "categories": [
-    "ingredient"
+    "ingredient",
+    "material",
+    "material_type:cereals"
   ],
   "displayName": "Durum wheat grain, at farm (GLO)",
   "id": "cfdd1afe-f9ff-516e-ab27-2a9cfbede91c",

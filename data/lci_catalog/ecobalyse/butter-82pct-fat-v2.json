@@ -2,7 +2,8 @@
   "activityName": "Butter, 82pct fat, variant 2, CMAPS {GLO} U",
   "categories": [
     "ingredient",
-    "material"
+    "material",
+    "material_type:other_food_items"
   ],
   "displayName": "Beurre à 82% MG ou huile de beurre Origine Inconnue",
   "id": "66c53478-f219-4c5a-984f-7bf6c663ffde",

@@ -2,7 +2,8 @@
   "activityName": "Peach, pulp and skin raw, import WFLDB, CMAPS {GLO} U",
   "categories": [
     "ingredient",
-    "material"
+    "material",
+    "material_type:other_food_items"
   ],
   "displayName": "Pêche, pulpe et peau, crue Origine Inconnue",
   "id": "7a7797d1-b656-408f-97c3-b31237ca3b76",

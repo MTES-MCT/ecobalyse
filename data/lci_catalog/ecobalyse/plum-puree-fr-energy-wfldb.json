@@ -2,7 +2,8 @@
   "activityName": "Plum puree, import WFLDB, CMAPS {FR} U",
   "categories": [
     "ingredient",
-    "material"
+    "material",
+    "material_type:other_food_items"
   ],
   "displayName": "Purée de prune Origine Inconnue",
   "id": "7cdb00fc-10d6-4ad5-8759-93e879267192",

@@ -2,7 +2,8 @@
   "activityName": "Peanut, shelled, organic, CMAPS {GLO} U",
   "categories": [
     "ingredient",
-    "material"
+    "material",
+    "material_type:other_food_items"
   ],
   "displayName": "Cacahuète ou Arachide décortiquée (cuites, grillées, salées, bouilles) Origine Inconnue BIO",
   "id": "51952acd-1193-4ddf-af9d-87a03918b7d4",

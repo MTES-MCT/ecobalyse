@@ -1,7 +1,9 @@
 {
   "activityName": "Rice, non-basmati {RoW}| rice production, non-basmati | Cut-off, U - Adapted from Ecoinvent U",
   "categories": [
-    "ingredient"
+    "ingredient",
+    "material",
+    "material_type:cereals"
   ],
   "displayName": "Rice, non-basmati (ROW)",
   "id": "4e94a467-d4bd-5f38-a7ff-374f465ee789",

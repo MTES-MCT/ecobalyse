@@ -1,7 +1,9 @@
 {
   "activityName": "Grape, wine grape, at farm {IT} - Adapted from WFLDB U",
   "categories": [
-    "ingredient"
+    "ingredient",
+    "material",
+    "material_type:fruits_and_vegetables"
   ],
   "displayName": "Raisins (noirs ou blancs) Origine Inconnue",
   "id": "d0448664-37cd-5b7a-b0e8-e182a6e6c269",

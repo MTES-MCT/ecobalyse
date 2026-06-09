@@ -1,7 +1,9 @@
 {
   "activityName": "Zucchini {GLO}| zucchini production | Cut-off, U",
   "categories": [
-    "ingredient"
+    "ingredient",
+    "material",
+    "material_type:fruits_and_vegetables"
   ],
   "displayName": "Zucchini (GLO)",
   "id": "7be320b4-ce5e-5115-8b41-e3edccb3e363",

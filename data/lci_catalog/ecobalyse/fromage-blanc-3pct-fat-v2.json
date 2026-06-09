@@ -2,7 +2,8 @@
   "activityName": "Fromage blanc, 3pct fat, variant 2, CMAPS {GLO} U",
   "categories": [
     "ingredient",
-    "material"
+    "material",
+    "material_type:other_food_items"
   ],
   "displayName": "Fromage blanc nature, 3% MG environ Origine Inconnue",
   "id": "4f39b297-807b-4fd6-8154-d4fdc0ae2a0a",

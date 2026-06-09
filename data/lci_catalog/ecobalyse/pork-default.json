@@ -1,7 +1,9 @@
 {
   "activityName": "Mixt pig, conventional, national average, at farm gate {FR} U {{pork-default-2025}}",
   "categories": [
-    "ingredient"
+    "ingredient",
+    "material",
+    "material_type:red_meats"
   ],
   "displayName": "Porc Origine Inconnue",
   "id": "b28af936-efee-5c90-a792-e5113364a9fe",

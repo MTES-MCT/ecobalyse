@@ -2,7 +2,8 @@
   "activityName": "Pear, pulp raw, import WFLDB, CMAPS {GLO} U",
   "categories": [
     "ingredient",
-    "material"
+    "material",
+    "material_type:other_food_items"
   ],
   "displayName": "Poire, pulpe, crue Origine Inconnue",
   "id": "a6286f75-91ee-4651-9e2b-fba62ac41ad6",

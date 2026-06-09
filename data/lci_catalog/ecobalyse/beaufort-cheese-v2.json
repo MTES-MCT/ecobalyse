@@ -2,7 +2,8 @@
   "activityName": "Beaufort cheese, variant 2, CMAPS {GLO} U",
   "categories": [
     "ingredient",
-    "material"
+    "material",
+    "material_type:other_food_items"
   ],
   "displayName": "Beaufort Origine Inconnue",
   "id": "94ce21be-6cc0-4964-a199-71c49ef1de7b",

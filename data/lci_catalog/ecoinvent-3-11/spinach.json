@@ -1,7 +1,9 @@
 {
   "activityName": "Spinach {CH}| spinach production, conventional, plain region | Cut-off, U",
   "categories": [
-    "ingredient"
+    "ingredient",
+    "material",
+    "material_type:fruits_and_vegetables"
   ],
   "displayName": "Spinach (CH)",
   "id": "e1a847b5-ed54-5cdf-b4b0-c8c8e118017e",

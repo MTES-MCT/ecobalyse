@@ -1,7 +1,9 @@
 {
   "activityName": "Melon {GLO}| melon production | Cut-off, U",
   "categories": [
-    "ingredient"
+    "ingredient",
+    "material",
+    "material_type:fruits_and_vegetables"
   ],
   "displayName": "Melon (GLO)",
   "id": "4c7fbd51-7e6b-5051-8cf9-967faf911763",

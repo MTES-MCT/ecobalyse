@@ -1,7 +1,9 @@
 {
   "activityName": "Palm fruit bunch, at farm (WFLDB)",
   "categories": [
-    "ingredient"
+    "ingredient",
+    "material",
+    "material_type:fruits_and_vegetables"
   ],
   "displayName": "Palm fruit bunch, at farm",
   "id": "8af5f359-2f32-505c-a2ad-4c384757eb88",

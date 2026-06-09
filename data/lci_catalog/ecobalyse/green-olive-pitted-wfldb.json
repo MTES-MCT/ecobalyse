@@ -2,7 +2,8 @@
   "activityName": "Green olive, pitted, import WFLDB, CMAPS {GLO} U",
   "categories": [
     "ingredient",
-    "material"
+    "material",
+    "material_type:other_food_items"
   ],
   "displayName": "Olive verte, dénoyautée Origine Inconnue",
   "id": "619d398c-9916-408e-9670-1e732a565857",

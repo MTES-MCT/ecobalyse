@@ -42,71 +42,6 @@
     "scopes": ["object"]
   },
   {
-    "comment": "Batterie standard pour VAE ou trottinette électrique",
-    "elements": [
-      {
-        "amount": 2.5,
-        "material": "c69b94af-c09c-480e-bc89-a81546ff87d3",
-        "transforms": []
-      }
-    ],
-    "id": "990f4263-3b6c-48ce-92e8-566584edf5b2",
-    "name": "Batterie 400Wh",
-    "scopes": ["veli"]
-  },
-  {
-    "comment": "Batterie standard pour VAE grande autonomie, vélos cargo ou trottinette puissante",
-    "elements": [
-      {
-        "amount": 3.9,
-        "material": "c69b94af-c09c-480e-bc89-a81546ff87d3",
-        "transforms": []
-      }
-    ],
-    "id": "c374ab14-9e12-49d0-91c3-cfc0b6b70f1b",
-    "name": "Batterie 625Wh",
-    "scopes": ["veli"]
-  },
-  {
-    "comment": "Batterie standard pour un veli de 400kg, 90km/h max, autonomie de 100km",
-    "elements": [
-      {
-        "amount": 50.0,
-        "material": "4b8c24f4-7236-4467-a436-97015550fe63",
-        "transforms": []
-      }
-    ],
-    "id": "cdc7add7-06ac-4861-9f28-efc005598e4c",
-    "name": "Batterie Li-Ion LFP 7kWh",
-    "scopes": ["veli"]
-  },
-  {
-    "comment": "Batterie standard pour un veli actif de 100kg, 45km/h max, autonomie de 50km, ou pour une voiture hybride non rechargeable.",
-    "elements": [
-      {
-        "amount": 7.5,
-        "material": "c69b94af-c09c-480e-bc89-a81546ff87d3",
-        "transforms": []
-      }
-    ],
-    "id": "7cfe659e-3764-4a8c-a25b-201396cbc09f",
-    "name": "Batterie Li-Ion NMC 1.2kWh",
-    "scopes": ["veli"]
-  },
-  {
-    "comment": "Batterie standard pour un veli de 400kg, 90km/h max, autonomie de 100km",
-    "elements": [
-      {
-        "amount": 40.0,
-        "material": "c69b94af-c09c-480e-bc89-a81546ff87d3",
-        "transforms": []
-      }
-    ],
-    "id": "57df64a3-278e-4e93-b836-9ba44b880fb5",
-    "name": "Batterie Li-Ion NMC 7kWh ",
-    "scopes": ["veli"]
-  },
-  {
     "comment": "Béquille pouvant supporter jusqu'à 60kg (vélos-cargos)",
     "elements": [
       {
@@ -1712,6 +1647,848 @@
     ],
     "id": "d3ef64c0-3deb-4ef2-838d-015d8ece019e",
     "name": "Vitrage veli (verre)",
+    "scopes": ["veli"]
+  },
+  {
+    "comment": "Exemple de batterie pour vélo à assistance électrique ou trottinette.",
+    "elements": [
+      {
+        "amount": 1.27,
+        "material": {
+          "country": "CN",
+          "id": "6a1d18fa-f0fd-483a-ac7f-546b15476627"
+        },
+        "transforms": [
+          {
+            "country": "CN",
+            "id": "7f217ecc-5de8-4ce1-b2c2-b5d192c6cdb9"
+          }
+        ]
+      },
+      {
+        "amount": 0.53,
+        "material": {
+          "country": "CN",
+          "id": "cc8e1090-e90a-4dcb-89a2-4b45daac88af"
+        },
+        "transforms": [
+          {
+            "country": "CN",
+            "id": "971df5fa-c32e-4a7e-b1aa-14ce9f240b5c"
+          }
+        ]
+      },
+      {
+        "amount": 0.013,
+        "material": {
+          "country": "CN",
+          "id": "a363f079-bc3f-424a-a2e1-06b9c76b4fc3"
+        },
+        "transforms": [
+          {
+            "country": "CN",
+            "id": "d077f06e-4ae9-48b7-8019-64523e577b95"
+          }
+        ]
+      },
+      {
+        "amount": 0.02,
+        "material": {
+          "country": "CN",
+          "id": "30212fbf-5912-40eb-b2ab-87837361c462"
+        },
+        "transforms": [
+          {
+            "country": "CN",
+            "id": "981e74ea-ef7d-40d1-b25e-c5534446474e"
+          }
+        ]
+      },
+      {
+        "amount": 0.1,
+        "material": {
+          "country": "CN",
+          "id": "90844e0a-42b3-4748-8cf0-4abf3fd62977"
+        },
+        "transforms": [
+          {
+            "country": "CN",
+            "id": "85b74ce2-2cbc-4d73-a5a2-5c5ffde16319"
+          }
+        ]
+      },
+      {
+        "amount": 0.22,
+        "material": {
+          "country": "CN",
+          "id": "6445c1fa-13a6-4058-8978-bcf2be63cd56"
+        }
+      },
+      {
+        "amount": 0.05,
+        "material": {
+          "country": "CN",
+          "id": "51956fb2-304d-4e63-a3ef-b3eed44fde38"
+        },
+        "transforms": []
+      }
+    ],
+    "id": "9178fe2e-6944-41d5-ad1b-7abbe8905c48",
+    "name": "Batterie Li-ion 400Wh, NMC622, casing aluminium, Chine",
+    "scopes": ["veli"]
+  },
+  {
+    "comment": "Exemple de batterie pour vélo à assistance électrique ou trottinette.",
+    "elements": [
+      {
+        "amount": 1.27,
+        "material": {
+          "country": "CN",
+          "id": "6a1d18fa-f0fd-483a-ac7f-546b15476627"
+        },
+        "transforms": [
+          {
+            "country": "CN",
+            "id": "7f217ecc-5de8-4ce1-b2c2-b5d192c6cdb9"
+          }
+        ]
+      },
+      {
+        "amount": 0.11,
+        "material": {
+          "country": "CN",
+          "id": "cc8e1090-e90a-4dcb-89a2-4b45daac88af"
+        },
+        "transforms": [
+          {
+            "country": "CN",
+            "id": "971df5fa-c32e-4a7e-b1aa-14ce9f240b5c"
+          }
+        ]
+      },
+      {
+        "amount": 0.02,
+        "material": {
+          "country": "CN",
+          "id": "a363f079-bc3f-424a-a2e1-06b9c76b4fc3"
+        },
+        "transforms": [
+          {
+            "country": "CN",
+            "id": "d077f06e-4ae9-48b7-8019-64523e577b95"
+          }
+        ]
+      },
+      {
+        "amount": 0.05,
+        "material": {
+          "country": "CN",
+          "id": "30212fbf-5912-40eb-b2ab-87837361c462"
+        },
+        "transforms": [
+          {
+            "country": "CN",
+            "id": "981e74ea-ef7d-40d1-b25e-c5534446474e"
+          }
+        ]
+      },
+      {
+        "amount": 0.1,
+        "material": {
+          "country": "CN",
+          "id": "90844e0a-42b3-4748-8cf0-4abf3fd62977"
+        },
+        "transforms": [
+          {
+            "country": "CN",
+            "id": "85b74ce2-2cbc-4d73-a5a2-5c5ffde16319"
+          }
+        ]
+      },
+      {
+        "amount": 0.33,
+        "material": {
+          "country": "CN",
+          "id": "6445c1fa-13a6-4058-8978-bcf2be63cd56"
+        }
+      },
+      {
+        "amount": 0.11,
+        "material": {
+          "country": "CN",
+          "id": "096588a4-036b-4d66-a5d0-f5073b363a44"
+        }
+      },
+      {
+        "amount": 0.05,
+        "material": {
+          "country": "CN",
+          "id": "51956fb2-304d-4e63-a3ef-b3eed44fde38"
+        },
+        "transforms": []
+      }
+    ],
+    "id": "990f4263-3b6c-48ce-92e8-566584edf5b2",
+    "name": "Batterie Li-ion 400Wh, NMC622, casing plastique, Chine",
+    "scopes": ["veli"]
+  },
+  {
+    "comment": "Exemple de batterie pour VAE grande autonomie, vélos cargo ou trottinette puissante.",
+    "elements": [
+      {
+        "amount": 2.1,
+        "material": {
+          "country": "CN",
+          "id": "6a1d18fa-f0fd-483a-ac7f-546b15476627"
+        },
+        "transforms": [
+          {
+            "country": "CN",
+            "id": "7f217ecc-5de8-4ce1-b2c2-b5d192c6cdb9"
+          }
+        ]
+      },
+      {
+        "amount": 0.18,
+        "material": {
+          "country": "CN",
+          "id": "cc8e1090-e90a-4dcb-89a2-4b45daac88af"
+        },
+        "transforms": [
+          {
+            "country": "CN",
+            "id": "971df5fa-c32e-4a7e-b1aa-14ce9f240b5c"
+          }
+        ]
+      },
+      {
+        "amount": 0.035,
+        "material": {
+          "country": "CN",
+          "id": "a363f079-bc3f-424a-a2e1-06b9c76b4fc3"
+        },
+        "transforms": [
+          {
+            "country": "CN",
+            "id": "d077f06e-4ae9-48b7-8019-64523e577b95"
+          }
+        ]
+      },
+      {
+        "amount": 0.08,
+        "material": {
+          "country": "CN",
+          "id": "30212fbf-5912-40eb-b2ab-87837361c462"
+        },
+        "transforms": [
+          {
+            "country": "CN",
+            "id": "981e74ea-ef7d-40d1-b25e-c5534446474e"
+          }
+        ]
+      },
+      {
+        "amount": 0.15,
+        "material": {
+          "country": "CN",
+          "id": "90844e0a-42b3-4748-8cf0-4abf3fd62977"
+        },
+        "transforms": [
+          {
+            "country": "CN",
+            "id": "85b74ce2-2cbc-4d73-a5a2-5c5ffde16319"
+          }
+        ]
+      },
+      {
+        "amount": 0.53,
+        "material": {
+          "country": "CN",
+          "id": "6445c1fa-13a6-4058-8978-bcf2be63cd56"
+        }
+      },
+      {
+        "amount": 0.18,
+        "material": {
+          "country": "CN",
+          "id": "096588a4-036b-4d66-a5d0-f5073b363a44"
+        }
+      },
+      {
+        "amount": 0.05,
+        "material": {
+          "country": "CN",
+          "id": "51956fb2-304d-4e63-a3ef-b3eed44fde38"
+        },
+        "transforms": []
+      }
+    ],
+    "id": "c374ab14-9e12-49d0-91c3-cfc0b6b70f1b",
+    "name": "Batterie Li-ion 650Wh, NMC622, casing plastique, Chine",
+    "scopes": ["veli"]
+  },
+  {
+    "comment": "Exemple de batterie pour véhicule actif de 100kg, 45km/h max, autonomie de 50km (type \"speedbike\" ou VAE caréné), ou voiture hybride non rechargable.",
+    "elements": [
+      {
+        "amount": 3.57,
+        "material": {
+          "country": "CN",
+          "id": "402dc798-bcd8-47be-803a-2a93c5db1040"
+        },
+        "transforms": [
+          {
+            "country": "CN",
+            "id": "7f217ecc-5de8-4ce1-b2c2-b5d192c6cdb9"
+          }
+        ]
+      },
+      {
+        "amount": 1.5,
+        "material": {
+          "country": "CN",
+          "id": "cc8e1090-e90a-4dcb-89a2-4b45daac88af"
+        },
+        "transforms": [
+          {
+            "country": "CN",
+            "id": "971df5fa-c32e-4a7e-b1aa-14ce9f240b5c"
+          }
+        ]
+      },
+      {
+        "amount": 0.3,
+        "material": {
+          "country": "CN",
+          "id": "a363f079-bc3f-424a-a2e1-06b9c76b4fc3"
+        },
+        "transforms": [
+          {
+            "country": "CN",
+            "id": "d077f06e-4ae9-48b7-8019-64523e577b95"
+          }
+        ]
+      },
+      {
+        "amount": 1.9,
+        "material": {
+          "country": "CN",
+          "id": "3e514eac-185c-449e-bdc2-e1082ca0576d"
+        },
+        "transforms": [
+          {
+            "country": "CN",
+            "id": "ea284007-49a8-4be1-95fc-452ea180285a"
+          }
+        ]
+      },
+      {
+        "amount": 0.8,
+        "material": {
+          "country": "CN",
+          "id": "30212fbf-5912-40eb-b2ab-87837361c462"
+        },
+        "transforms": [
+          {
+            "country": "CN",
+            "id": "981e74ea-ef7d-40d1-b25e-c5534446474e"
+          }
+        ]
+      },
+      {
+        "amount": 0.9,
+        "material": {
+          "country": "CN",
+          "id": "c5295f47-0307-48a6-8552-3705063af767"
+        },
+        "transforms": [
+          {
+            "country": "CN",
+            "id": "85b74ce2-2cbc-4d73-a5a2-5c5ffde16319"
+          }
+        ]
+      },
+      {
+        "amount": 0.6,
+        "material": {
+          "country": "CN",
+          "id": "51956fb2-304d-4e63-a3ef-b3eed44fde38"
+        },
+        "transforms": []
+      }
+    ],
+    "id": "7cfe659e-3764-4a8c-a25b-201396cbc09f",
+    "name": "Batterie Li-ion 1.2kWh, NMC811, Chine",
+    "scopes": ["veli"]
+  },
+  {
+    "comment": "Exemple de batterie pour un veli de 400kg, 90km/h max, autonomie de 100km, ou pour une voiture hybride non rechargeable avec autonomie de 30km. Modélisation : voir https://fabrique-numerique.gitbook.io/ecobalyse/vehicules/cycle-de-vie/fabrication-des-composants/batterie",
+    "elements": [
+      {
+        "amount": 21.3,
+        "material": {
+          "country": "CN",
+          "id": "402dc798-bcd8-47be-803a-2a93c5db1040"
+        },
+        "transforms": [
+          {
+            "country": "CN",
+            "id": "7f217ecc-5de8-4ce1-b2c2-b5d192c6cdb9"
+          }
+        ]
+      },
+      {
+        "amount": 5,
+        "material": {
+          "country": "CN",
+          "id": "cc8e1090-e90a-4dcb-89a2-4b45daac88af"
+        },
+        "transforms": [
+          {
+            "country": "CN",
+            "id": "971df5fa-c32e-4a7e-b1aa-14ce9f240b5c"
+          }
+        ]
+      },
+      {
+        "amount": 0.6,
+        "material": {
+          "country": "CN",
+          "id": "a363f079-bc3f-424a-a2e1-06b9c76b4fc3"
+        },
+        "transforms": [
+          {
+            "country": "CN",
+            "id": "d077f06e-4ae9-48b7-8019-64523e577b95"
+          }
+        ]
+      },
+      {
+        "amount": 8.4,
+        "material": {
+          "country": "CN",
+          "id": "3e514eac-185c-449e-bdc2-e1082ca0576d"
+        },
+        "transforms": [
+          {
+            "country": "CN",
+            "id": "ea284007-49a8-4be1-95fc-452ea180285a"
+          }
+        ]
+      },
+      {
+        "amount": 2.9,
+        "material": {
+          "country": "CN",
+          "id": "30212fbf-5912-40eb-b2ab-87837361c462"
+        },
+        "transforms": [
+          {
+            "country": "CN",
+            "id": "981e74ea-ef7d-40d1-b25e-c5534446474e"
+          }
+        ]
+      },
+      {
+        "amount": 0.8,
+        "material": {
+          "country": "CN",
+          "id": "c5295f47-0307-48a6-8552-3705063af767"
+        },
+        "transforms": [
+          {
+            "country": "CN",
+            "id": "85b74ce2-2cbc-4d73-a5a2-5c5ffde16319"
+          }
+        ]
+      },
+      {
+        "amount": 2.2,
+        "material": {
+          "country": "CN",
+          "id": "51956fb2-304d-4e63-a3ef-b3eed44fde38"
+        },
+        "transforms": []
+      }
+    ],
+    "id": "57df64a3-278e-4e93-b836-9ba44b880fb5",
+    "name": "Batterie Li-ion 7kWh, NMC811, Chine",
+    "scopes": ["veli"]
+  },
+  {
+    "comment": "Exemple de batterie pour un veli de 400kg, 90km/h max, autonomie de 100km, ou pour une voiture hybride non rechargeable avec autonomie de 30km. Modélisation : voir https://fabrique-numerique.gitbook.io/ecobalyse/vehicules/cycle-de-vie/fabrication-des-composants/batterie",
+    "elements": [
+      {
+        "amount": 21.3,
+        "material": {
+          "country": "FR",
+          "id": "a1f6f8a2-5398-4b32-a3d6-fc0d88ca7a28"
+        },
+        "transforms": [
+          {
+            "country": "FR",
+            "id": "7f217ecc-5de8-4ce1-b2c2-b5d192c6cdb9"
+          }
+        ]
+      },
+      {
+        "amount": 5,
+        "material": {
+          "country": "FR",
+          "id": "baae8572-db4a-4cb8-8f74-e72ba5ef0116"
+        },
+        "transforms": [
+          {
+            "country": "FR",
+            "id": "971df5fa-c32e-4a7e-b1aa-14ce9f240b5c"
+          }
+        ]
+      },
+      {
+        "amount": 0.6,
+        "material": {
+          "country": "FR",
+          "id": "a363f079-bc3f-424a-a2e1-06b9c76b4fc3"
+        },
+        "transforms": [
+          {
+            "country": "FR",
+            "id": "d077f06e-4ae9-48b7-8019-64523e577b95"
+          }
+        ]
+      },
+      {
+        "amount": 8.4,
+        "material": {
+          "country": "FR",
+          "id": "21a0d5b0-861e-4bed-98a9-46c61d2a0618"
+        },
+        "transforms": [
+          {
+            "country": "FR",
+            "id": "ea284007-49a8-4be1-95fc-452ea180285a"
+          }
+        ]
+      },
+      {
+        "amount": 2.9,
+        "material": {
+          "country": "FR",
+          "id": "30212fbf-5912-40eb-b2ab-87837361c462"
+        },
+        "transforms": [
+          {
+            "country": "FR",
+            "id": "981e74ea-ef7d-40d1-b25e-c5534446474e"
+          }
+        ]
+      },
+      {
+        "amount": 0.8,
+        "material": {
+          "country": "FR",
+          "id": "c5295f47-0307-48a6-8552-3705063af767"
+        },
+        "transforms": [
+          {
+            "country": "FR",
+            "id": "85b74ce2-2cbc-4d73-a5a2-5c5ffde16319"
+          }
+        ]
+      },
+      {
+        "amount": 2.2,
+        "material": {
+          "country": "FR",
+          "id": "51956fb2-304d-4e63-a3ef-b3eed44fde38"
+        },
+        "transforms": []
+      }
+    ],
+    "id": "3b15918f-d21c-4251-96a8-548ac8444a04",
+    "name": "Batterie Li-ion 7kWh, NMC811, cellules France",
+    "scopes": ["veli"]
+  },
+  {
+    "comment": "Exemple de batterie pour un veli de 400kg, 90km/h max, autonomie de 100km, ou pour une voiture hybride non rechargeable avec autonomie de 30km. Modélisation : voir https://fabrique-numerique.gitbook.io/ecobalyse/vehicules/cycle-de-vie/fabrication-des-composants/batterie",
+    "elements": [
+      {
+        "amount": 29.9,
+        "material": {
+          "country": "CN",
+          "id": "058ff43a-75a2-4219-9192-03f9039e805b"
+        },
+        "transforms": [
+          {
+            "country": "CN",
+            "id": "7f217ecc-5de8-4ce1-b2c2-b5d192c6cdb9"
+          }
+        ]
+      },
+      {
+        "amount": 6.5,
+        "material": {
+          "country": "CN",
+          "id": "cc8e1090-e90a-4dcb-89a2-4b45daac88af"
+        },
+        "transforms": [
+          {
+            "country": "CN",
+            "id": "971df5fa-c32e-4a7e-b1aa-14ce9f240b5c"
+          }
+        ]
+      },
+      {
+        "amount": 0.82,
+        "material": {
+          "country": "CN",
+          "id": "a363f079-bc3f-424a-a2e1-06b9c76b4fc3"
+        },
+        "transforms": [
+          {
+            "country": "CN",
+            "id": "d077f06e-4ae9-48b7-8019-64523e577b95"
+          }
+        ]
+      },
+      {
+        "amount": 9.8,
+        "material": {
+          "country": "CN",
+          "id": "3e514eac-185c-449e-bdc2-e1082ca0576d"
+        },
+        "transforms": [
+          {
+            "country": "CN",
+            "id": "ea284007-49a8-4be1-95fc-452ea180285a"
+          }
+        ]
+      },
+      {
+        "amount": 3.5,
+        "material": {
+          "country": "CN",
+          "id": "30212fbf-5912-40eb-b2ab-87837361c462"
+        },
+        "transforms": [
+          {
+            "country": "CN",
+            "id": "981e74ea-ef7d-40d1-b25e-c5534446474e"
+          }
+        ]
+      },
+      {
+        "amount": 1.1,
+        "material": {
+          "country": "CN",
+          "id": "c5295f47-0307-48a6-8552-3705063af767"
+        },
+        "transforms": [
+          {
+            "country": "CN",
+            "id": "85b74ce2-2cbc-4d73-a5a2-5c5ffde16319"
+          }
+        ]
+      },
+      {
+        "amount": 2.2,
+        "material": {
+          "country": "CN",
+          "id": "51956fb2-304d-4e63-a3ef-b3eed44fde38"
+        },
+        "transforms": []
+      }
+    ],
+    "id": "cdc7add7-06ac-4861-9f28-efc005598e4c",
+    "name": "Batterie Li-ion 7kWh, LFP, Chine",
+    "scopes": ["veli"]
+  },
+  {
+    "comment": "Exemple de batterie pour voiture électrique catégorie B, autonomie de 400km.",
+    "elements": [
+      {
+        "amount": 154,
+        "material": {
+          "country": "CN",
+          "id": "402dc798-bcd8-47be-803a-2a93c5db1040"
+        },
+        "transforms": [
+          {
+            "country": "CN",
+            "id": "7f217ecc-5de8-4ce1-b2c2-b5d192c6cdb9"
+          }
+        ]
+      },
+      {
+        "amount": 32,
+        "material": {
+          "country": "CN",
+          "id": "cc8e1090-e90a-4dcb-89a2-4b45daac88af"
+        },
+        "transforms": [
+          {
+            "country": "CN",
+            "id": "971df5fa-c32e-4a7e-b1aa-14ce9f240b5c"
+          }
+        ]
+      },
+      {
+        "amount": 3.6,
+        "material": {
+          "country": "CN",
+          "id": "a363f079-bc3f-424a-a2e1-06b9c76b4fc3"
+        },
+        "transforms": [
+          {
+            "country": "CN",
+            "id": "d077f06e-4ae9-48b7-8019-64523e577b95"
+          }
+        ]
+      },
+      {
+        "amount": 53,
+        "material": {
+          "country": "CN",
+          "id": "3e514eac-185c-449e-bdc2-e1082ca0576d"
+        },
+        "transforms": [
+          {
+            "country": "CN",
+            "id": "ea284007-49a8-4be1-95fc-452ea180285a"
+          }
+        ]
+      },
+      {
+        "amount": 20,
+        "material": {
+          "country": "CN",
+          "id": "30212fbf-5912-40eb-b2ab-87837361c462"
+        },
+        "transforms": [
+          {
+            "country": "CN",
+            "id": "981e74ea-ef7d-40d1-b25e-c5534446474e"
+          }
+        ]
+      },
+      {
+        "amount": 20,
+        "material": {
+          "country": "CN",
+          "id": "c5295f47-0307-48a6-8552-3705063af767"
+        },
+        "transforms": [
+          {
+            "country": "CN",
+            "id": "85b74ce2-2cbc-4d73-a5a2-5c5ffde16319"
+          }
+        ]
+      },
+      {
+        "amount": 4.7,
+        "material": {
+          "country": "CN",
+          "id": "51956fb2-304d-4e63-a3ef-b3eed44fde38"
+        },
+        "transforms": []
+      }
+    ],
+    "id": "7fd8dd70-2807-420f-8637-a1f2b669d0d7",
+    "name": "Batterie Li-ion 52kWh, NMC811, Chine",
+    "scopes": ["veli"]
+  },
+  {
+    "comment": "Exemple de batterie pour voiture électrique catégorie B, autonomie de 400km.",
+    "elements": [
+      {
+        "amount": 154,
+        "material": {
+          "country": "FR",
+          "id": "a1f6f8a2-5398-4b32-a3d6-fc0d88ca7a28"
+        },
+        "transforms": [
+          {
+            "country": "FR",
+            "id": "7f217ecc-5de8-4ce1-b2c2-b5d192c6cdb9"
+          }
+        ]
+      },
+      {
+        "amount": 32,
+        "material": {
+          "country": "FR",
+          "id": "baae8572-db4a-4cb8-8f74-e72ba5ef0116"
+        },
+        "transforms": [
+          {
+            "country": "FR",
+            "id": "971df5fa-c32e-4a7e-b1aa-14ce9f240b5c"
+          }
+        ]
+      },
+      {
+        "amount": 3.6,
+        "material": {
+          "country": "FR",
+          "id": "a363f079-bc3f-424a-a2e1-06b9c76b4fc3"
+        },
+        "transforms": [
+          {
+            "country": "FR",
+            "id": "d077f06e-4ae9-48b7-8019-64523e577b95"
+          }
+        ]
+      },
+      {
+        "amount": 53,
+        "material": {
+          "country": "FR",
+          "id": "21a0d5b0-861e-4bed-98a9-46c61d2a0618"
+        },
+        "transforms": [
+          {
+            "country": "FR",
+            "id": "ea284007-49a8-4be1-95fc-452ea180285a"
+          }
+        ]
+      },
+      {
+        "amount": 20,
+        "material": {
+          "country": "FR",
+          "id": "30212fbf-5912-40eb-b2ab-87837361c462"
+        },
+        "transforms": [
+          {
+            "country": "FR",
+            "id": "981e74ea-ef7d-40d1-b25e-c5534446474e"
+          }
+        ]
+      },
+      {
+        "amount": 20,
+        "material": {
+          "country": "FR",
+          "id": "c5295f47-0307-48a6-8552-3705063af767"
+        },
+        "transforms": [
+          {
+            "country": "FR",
+            "id": "85b74ce2-2cbc-4d73-a5a2-5c5ffde16319"
+          }
+        ]
+      },
+      {
+        "amount": 4.7,
+        "material": {
+          "country": "FR",
+          "id": "51956fb2-304d-4e63-a3ef-b3eed44fde38"
+        },
+        "transforms": []
+      }
+    ],
+    "id": "52e25580-d83a-4de6-9632-da4303d5211d",
+    "name": "Batterie Li-ion 52kWh, NMC811, France",
     "scopes": ["veli"]
   }
 ]

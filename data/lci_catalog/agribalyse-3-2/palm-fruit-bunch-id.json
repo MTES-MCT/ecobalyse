@@ -1,7 +1,9 @@
 {
   "activityName": "Palm fruit bunch {ID}| palm fruit bunch production | Cut-off, U - Adapted from Ecoinvent U",
   "categories": [
-    "ingredient"
+    "ingredient",
+    "material",
+    "material_type:fruits_and_vegetables"
   ],
   "displayName": "Palm fruit bunch (ID)",
   "id": "da5ce983-5b24-5d14-bf7e-453baadf5a23",

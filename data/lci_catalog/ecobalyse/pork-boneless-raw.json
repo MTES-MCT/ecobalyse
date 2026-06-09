@@ -2,7 +2,8 @@
   "activityName": "Pork, boneless raw, CMAPS {GLO} U",
   "categories": [
     "ingredient",
-    "material"
+    "material",
+    "material_type:other_food_items"
   ],
   "displayName": "Pièces de porc, désossée, crue (poitrine, longe, jarret, cote, rouelle, carre, filet, roti, palette, jambonneau, escalope, travers, échine) FR",
   "id": "9c6d8e85-7368-452f-bf95-685f084992bc",

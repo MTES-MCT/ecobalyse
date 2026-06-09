@@ -2,7 +2,8 @@
   "activityName": "Apple, pulp raw, organic, CMAPS {GLO} U",
   "categories": [
     "ingredient",
-    "material"
+    "material",
+    "material_type:other_food_items"
   ],
   "displayName": "Pomme, pulpe, crue BIO",
   "id": "68edbd1b-222a-4e84-95ad-90718d6c6ad4",

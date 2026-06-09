@@ -2,7 +2,8 @@
   "activityName": "White wine, dry, variant 2, CMAPS {GLO} U",
   "categories": [
     "ingredient",
-    "material"
+    "material",
+    "material_type:other_food_items"
   ],
   "displayName": "Vin blanc (sec) Origine Inconnue",
   "id": "29aded8c-4bd4-4a17-942a-a2628cdcd895",

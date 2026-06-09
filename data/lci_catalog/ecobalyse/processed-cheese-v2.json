@@ -2,7 +2,8 @@
   "activityName": "Processed cheese, variant 2, CMAPS {GLO} U",
   "categories": [
     "ingredient",
-    "material"
+    "material",
+    "material_type:other_food_items"
   ],
   "displayName": "Fromage fondu Origine Inconnue",
   "id": "4466448d-6385-4089-9bc1-0118cea6050b",

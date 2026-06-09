@@ -2,7 +2,8 @@
   "activityName": "Green bean, cut raw, organic, CMAPS {GLO} U",
   "categories": [
     "ingredient",
-    "material"
+    "material",
+    "material_type:other_food_items"
   ],
   "displayName": "Haricot vert, découpé, cru BIO",
   "id": "ab6a1764-3851-43df-82be-3bd24507068d",

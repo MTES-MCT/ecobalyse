@@ -1,7 +1,9 @@
 {
   "activityName": "Olive {RoW}| olive production | Cut-off, U",
   "categories": [
-    "ingredient"
+    "ingredient",
+    "material",
+    "material_type:fruits_and_vegetables"
   ],
   "displayName": "Olive (ROW)",
   "id": "4061221a-682f-5f3e-974c-2933493298a7",

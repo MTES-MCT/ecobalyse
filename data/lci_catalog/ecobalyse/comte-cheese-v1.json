@@ -2,7 +2,8 @@
   "activityName": "Comte cheese, variant 1, CMAPS {GLO} U",
   "categories": [
     "ingredient",
-    "material"
+    "material",
+    "material_type:other_food_items"
   ],
   "displayName": "Comté FR",
   "id": "a30ad6b3-c2cb-44e6-99b4-d6128c5b4447",

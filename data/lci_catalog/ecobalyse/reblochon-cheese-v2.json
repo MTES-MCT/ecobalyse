@@ -2,7 +2,8 @@
   "activityName": "Reblochon cheese, variant 2, CMAPS {GLO} U",
   "categories": [
     "ingredient",
-    "material"
+    "material",
+    "material_type:other_food_items"
   ],
   "displayName": "Reblochon Origine Inconnue",
   "id": "fb0296c9-cc69-4834-b54b-b38985bbb51f",

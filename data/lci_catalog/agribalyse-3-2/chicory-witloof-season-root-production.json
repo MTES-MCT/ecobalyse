@@ -1,7 +1,9 @@
 {
   "activityName": "Chicory witloof, season, conventional, root production, at farm gate {FR} U",
   "categories": [
-    "ingredient"
+    "ingredient",
+    "material",
+    "material_type:fruits_and_vegetables"
   ],
   "displayName": "Chicory witloof, season, conventional, root production, at farm gate (FR)",
   "id": "aece7ffb-2881-5513-8663-7b4513a74178",

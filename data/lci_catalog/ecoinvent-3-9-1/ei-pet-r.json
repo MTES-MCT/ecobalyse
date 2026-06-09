@@ -5,7 +5,7 @@
     "textile_material"
   ],
   "comment": "Ancien identifiant (12/2024): 087896096b5bede914ef3ec1062b1c02.",
-  "displayName": "Plastique PET, granulés, amorphe, recyclé",
+  "displayName": "PET, pour fibre synthétique, recyclé, granulé, amorphe",
   "elecMJ": 0,
   "heatMJ": 0,
   "id": "994efc14-cc89-526c-b9d0-0d6a99adbd4f",
@@ -17,7 +17,7 @@
         "recycledQualityRatio": 1
       },
       "defaultCountry": "CN",
-      "displayName": "Plastique PET, granulés, amorphe, recyclé",
+      "displayName": "PET, pour fibre synthétique, recyclé, granulé, amorphe",
       "geographicOrigin": "Asie - Pacifique",
       "id": "8f44c680-1263-4588-b79b-a9e4dc3d8de4",
       "name": "Polyester recyclé",

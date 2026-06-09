@@ -1,7 +1,9 @@
 {
   "activityName": "Sunflower seed {UA}| sunflower production | Cut-off, U - Adapted from Ecoinvent U",
   "categories": [
-    "ingredient"
+    "ingredient",
+    "material",
+    "material_type:other_food_items"
   ],
   "displayName": "Sunflower seed (UA)",
   "id": "03a7ade0-81b5-5acb-acee-0665d51dc699",

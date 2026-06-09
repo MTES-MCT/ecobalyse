@@ -2,7 +2,8 @@
   "activityName": "Feta type cheese, sheep milk, CMAPS {GLO} U",
   "categories": [
     "ingredient",
-    "material"
+    "material",
+    "material_type:other_food_items"
   ],
   "displayName": "Fromage 100% brebis type Feta FR",
   "id": "96832c94-3420-466e-9fbc-e99178754462",

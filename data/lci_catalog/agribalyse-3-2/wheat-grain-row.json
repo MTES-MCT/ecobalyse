@@ -1,7 +1,9 @@
 {
   "activityName": "Wheat grain {RoW}| wheat production | Cut-off, U - Adapted from Ecoinvent U",
   "categories": [
-    "ingredient"
+    "ingredient",
+    "material",
+    "material_type:cereals"
   ],
   "displayName": "Wheat grain (ROW)",
   "id": "ceb88fa5-9d41-5268-b7f8-73b34374de14",

@@ -1,17 +1,20 @@
 import { test, expect } from "@playwright/test";
 import {
+  actAndWaitForNewEmail,
   deleteAllEmails,
   expectNotification,
   extractUrlsFromText,
   loginUser,
   registerAndLoginUser,
-  waitForNewEmail,
 } from "./lib";
 
 import impacts from "../public/data/impacts.json";
 
 test.describe("auth", () => {
-  test.describe.configure({ mode: "serial" });
+  // One stateful journey: Alice registers once. A retry would replay it against a
+  // DB that still has her (state isn't reset between attempts) and hang — so we keep
+  // this run deterministic and disable retries instead of masking flakiness.
+  test.describe.configure({ mode: "serial", retries: 0 });
 
   test.beforeEach(async () => {
     await deleteAllEmails();
@@ -58,9 +61,9 @@ test.describe("auth", () => {
       await page.getByPlaceholder("nom@example.com").fill("alice@cooper.com");
       await expect(page.getByTestId("auth-magic-link-submit")).not.toBeDisabled();
 
-      await page.getByTestId("auth-magic-link-submit").click();
-
-      const lastEmail = await waitForNewEmail();
+      const lastEmail = await actAndWaitForNewEmail(() =>
+        page.getByTestId("auth-magic-link-submit").click(),
+      );
 
       await expect(page.getByText("Email de connexion envoyé")).toBeVisible();
 

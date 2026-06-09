@@ -2,7 +2,8 @@
   "activityName": "Cucumber, pulp raw, organic, CMAPS {GLO} U",
   "categories": [
     "ingredient",
-    "material"
+    "material",
+    "material_type:other_food_items"
   ],
   "displayName": "Concombre, pulpe, cru BIO",
   "id": "5d6cd3c4-a2c4-4d72-9d78-ea3db29915fb",

@@ -1,7 +1,9 @@
 {
   "activityName": "Pear, at farm {BE} - Adapted from WFLDB U",
   "categories": [
-    "ingredient"
+    "ingredient",
+    "material",
+    "material_type:other_food_items"
   ],
   "displayName": "Pear, at farm (BE)",
   "id": "245654a9-a6df-5c8b-9a29-19149f94d469",

@@ -2,7 +2,8 @@
   "activityName": "Winter pea, conventional, 15% moisture, at farm gate {FR} U",
   "categories": [
     "ingredient",
-    "material"
+    "material",
+    "material_type:other_food_items"
   ],
   "displayName": "Pois chiche FR",
   "id": "36c495e5-0aca-5c53-bfaf-b9a3ba061964",

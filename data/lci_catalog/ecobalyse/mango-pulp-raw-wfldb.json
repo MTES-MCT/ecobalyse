@@ -2,7 +2,8 @@
   "activityName": "Mango, pulp raw, import WFLDB, CMAPS {GLO} U",
   "categories": [
     "ingredient",
-    "material"
+    "material",
+    "material_type:other_food_items"
   ],
   "displayName": "Mangue, pulpe, crue Origine Inconnue",
   "id": "8a663670-3cc8-47a3-b144-0f74c0928a63",

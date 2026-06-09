@@ -2,7 +2,8 @@
   "activityName": "Mint {RoW}| mint production | Cut-off, U - Adapted from Ecoinvent U",
   "categories": [
     "ingredient",
-    "material"
+    "material",
+    "material_type:other_food_items"
   ],
   "displayName": "Feuilles de laurier FR",
   "id": "32e87acc-19ec-5c76-98c6-68a37ff0183e",

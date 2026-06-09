@@ -1,7 +1,9 @@
 {
   "activityName": "Live lamb, consumption mix {FR} U {{lamb-meat-without-bone-organic-2025}}",
   "categories": [
-    "ingredient"
+    "ingredient",
+    "material",
+    "material_type:red_meats"
   ],
   "displayName": "Agneau Bio",
   "id": "5cd7bf39-6699-59f1-9838-655df48d27da",

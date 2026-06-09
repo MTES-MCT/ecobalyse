@@ -1,7 +1,9 @@
 {
   "activityName": "Live beef, for direct consumption, consumption mix {FR} U {{beef-with-bone-organic-2025}}",
   "categories": [
-    "ingredient"
+    "ingredient",
+    "material",
+    "material_type:red_meats"
   ],
   "displayName": "Boeuf Bio",
   "id": "b89c1ad9-ab9a-5c2d-a258-5a53c15be4cd",

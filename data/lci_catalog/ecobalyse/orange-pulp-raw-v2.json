@@ -2,7 +2,8 @@
   "activityName": "Orange, pulp raw, variant 2, CMAPS {GLO} U",
   "categories": [
     "ingredient",
-    "material"
+    "material",
+    "material_type:other_food_items"
   ],
   "displayName": "Orange, pulpe, crue Origine Inconnue",
   "id": "94f8edca-09b9-48b4-9e75-2d1ed870ce57",
