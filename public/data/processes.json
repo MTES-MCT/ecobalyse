@@ -22892,26 +22892,7 @@
     "heatMJ": 0,
     "id": "f57e98d9-524c-4bf8-beaf-7422abcae5f2",
     "impacts": {
-      "acd": 0,
-      "cch": 0,
-      "ecs": 449.3,
-      "etf": 0,
-      "etf-c": 0,
-      "fru": 0,
-      "fwe": 0,
-      "htc": 0,
-      "htc-c": 0,
-      "htn": 0,
-      "htn-c": 0,
-      "ior": 0,
-      "ldu": 0,
-      "mru": 0,
-      "ozd": 0,
-      "pco": 0,
-      "pma": 0,
-      "swe": 0,
-      "tre": 0,
-      "wtu": 0
+      "ecs": 449.3
     },
     "location": "GLO",
     "massPerUnit": null,
@@ -23865,7 +23846,6 @@
     "categories": [
       "material",
       "textile_material",
-      "material",
       "material_type:rigid_plastics"
     ],
     "comment": "Ancien identifiant (12/2024): 88a1395a1c61be31b0bc692e977dd10b.",

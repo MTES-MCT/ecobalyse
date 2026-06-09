@@ -16,13 +16,27 @@ from ecobalyse_data.export.food import Scenario, scenario
 from ecobalyse_data.export.utils import get_metadata_for_scope
 
 
-def duplicate(filename, content, key):
-    "Duplicate check"
+def duplicate_across_file(filename, content, key):
+    """Duplicate check across all lci_catalog for `key`"
+    ie check if alias `pineapple-default` is unique"""
     values = [act[key] for act in content if key in act]
     counter = Counter(values)
     duplicates = [name for name, count in counter.items() if count > 1 and name]
     if duplicates:
         raise AssertionError(f"Duplicate {key} in {filename}: " + ", ".join(duplicates))
+
+
+def duplicate_in_list(filename, content, key):
+    """Duplicate check for each lci_catalog inside a `key`
+    ie check if  "categories": ["material","ingredient", "material"] has duplicates"""
+    for act in content:
+        counter = Counter(act[key])
+        duplicates = [name for name, count in counter.items() if count > 1 and name]
+        if duplicates:
+            raise AssertionError(
+                f"Duplicate {key} in {filename} in {act['alias']}: "
+                + ", ".join(duplicates)
+            )
 
 
 def duplicate_alias_in_metadata(filename, content):
@@ -304,37 +318,38 @@ def test():
             # Key-specific checks: validate specific fields
             CHECKS = {
                 "activities_to_create.json": {
-                    "alias": (duplicate, missing, alias_syntax),
-                    "newName": (duplicate, missing),
+                    "alias": (duplicate_across_file, missing, alias_syntax),
+                    "newName": (duplicate_across_file, missing),
                 },
                 activities_temp.name: {
-                    "id": (duplicate, invalid_uuid, missing),
-                    "displayName": (duplicate,),
-                    "alias": (duplicate, alias_syntax),  # TODO
+                    "id": (duplicate_across_file, invalid_uuid, missing),
+                    "displayName": (duplicate_across_file,),
+                    "alias": (duplicate_across_file, alias_syntax),  # TODO
                     "scenario": (check_scenario,),
                     "ingredientDensity": (check_ingredient_densities,),
+                    "categories": (duplicate_in_list,),
                 },
                 "tests/activities_to_create.json": {
-                    "alias": (duplicate, alias_syntax),
-                    "newName": (duplicate, missing),
+                    "alias": (duplicate_across_file, alias_syntax),
+                    "newName": (duplicate_across_file, missing),
                 },
                 test_activities_temp.name: {
                     # "displayName": (duplicate,),
-                    "alias": (duplicate, alias_syntax),  # TODO
+                    "alias": (duplicate_across_file, alias_syntax),  # TODO
                 },
                 "public/data/food/ingredients.json": {
-                    "id": (duplicate, invalid_uuid, missing),
-                    "alias": (missing, duplicate, alias_syntax),
-                    "name": (missing, duplicate),
+                    "id": (duplicate_across_file, invalid_uuid, missing),
+                    "alias": (missing, duplicate_across_file, alias_syntax),
+                    "name": (missing, duplicate_across_file),
                 },
                 "public/data/processes.json": {
-                    "id": (duplicate, invalid_uuid, missing),
-                    "displayName": (duplicate,),
+                    "id": (duplicate_across_file, invalid_uuid, missing),
+                    "displayName": (duplicate_across_file,),
                 },
                 "public/data/textile/materials.json": {
-                    "id": (duplicate, missing),
+                    "id": (duplicate_across_file, missing),
                     "name": (missing,),
-                    "processId": (missing, duplicate, invalid_uuid),
+                    "processId": (missing, duplicate_across_file, invalid_uuid),
                 },
             }
 
