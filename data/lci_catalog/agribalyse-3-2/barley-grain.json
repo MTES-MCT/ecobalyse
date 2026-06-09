@@ -1,7 +1,9 @@
 {
   "activityName": "Barley grain {RoW}| barley production | Cut-off, U - Adapted from Ecoinvent U",
   "categories": [
-    "ingredient"
+    "ingredient",
+    "material",
+    "material_type:cereals"
   ],
   "displayName": "Barley grain (ROW)",
   "id": "bfd9f7a5-5920-574f-84e4-69450e278567",

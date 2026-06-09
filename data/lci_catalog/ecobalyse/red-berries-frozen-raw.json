@@ -2,7 +2,8 @@
   "activityName": "Red berries, frozen raw, CMAPS {GLO} U",
   "categories": [
     "ingredient",
-    "material"
+    "material",
+    "material_type:other_food_items"
   ],
   "displayName": "Fruits rouges, crus (framboises, fraises, groseilles, cassis), surgelé FR",
   "id": "cd11a1a0-b7bd-4fe3-9f66-67284d8345a0",

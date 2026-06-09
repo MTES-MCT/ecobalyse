@@ -2,7 +2,8 @@
   "activityName": "Hazelnut, shelled, organic, CMAPS {GLO} U",
   "categories": [
     "ingredient",
-    "material"
+    "material",
+    "material_type:other_food_items"
   ],
   "displayName": "Noisette, décortiquée Origine Inconnue BIO",
   "id": "ad50625e-07e1-437d-98b5-feff77606e95",

@@ -2,7 +2,8 @@
   "activityName": "Mint, at farm (WFLDB)",
   "categories": [
     "ingredient",
-    "material"
+    "material",
+    "material_type:other_food_items"
   ],
   "displayName": "Feuilles de laurier Origine Inconnue",
   "id": "688b130e-595e-5b4c-86aa-47b5a7007b24",

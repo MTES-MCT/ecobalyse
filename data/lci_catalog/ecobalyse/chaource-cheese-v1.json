@@ -2,7 +2,8 @@
   "activityName": "Chaource cheese, variant 1, CMAPS {GLO} U",
   "categories": [
     "ingredient",
-    "material"
+    "material",
+    "material_type:other_food_items"
   ],
   "displayName": "Chaource FR",
   "id": "4c911617-4dcc-4617-932f-60d61e817411",

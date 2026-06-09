@@ -2,7 +2,8 @@
   "activityName": "Radish, organic 2025 {FR}| radish production, in unheated greenhouse | Cut-off, U",
   "categories": [
     "ingredient",
-    "material"
+    "material",
+    "material_type:other_food_items"
   ],
   "displayName": "Radis Bio",
   "id": "d0192856-fcd0-5f56-90d6-f8707cf835fc",

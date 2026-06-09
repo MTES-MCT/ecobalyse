@@ -1,7 +1,9 @@
 {
   "activityName": "Pea {CH}| pea production, conventional, hill region | Cut-off, U",
   "categories": [
-    "ingredient"
+    "ingredient",
+    "material",
+    "material_type:fruits_and_vegetables"
   ],
   "displayName": "Pea (CH)",
   "id": "8e4c2c9a-f13d-550a-8bbc-18c95f008ed1",

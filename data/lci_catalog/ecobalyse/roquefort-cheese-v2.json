@@ -2,7 +2,8 @@
   "activityName": "Roquefort cheese, variant 2, CMAPS {GLO} U",
   "categories": [
     "ingredient",
-    "material"
+    "material",
+    "material_type:other_food_items"
   ],
   "displayName": "Roquefort Origine Inconnue",
   "id": "a2080269-93b6-486a-85a2-90d886f3ea92",

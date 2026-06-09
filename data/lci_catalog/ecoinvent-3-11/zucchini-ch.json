@@ -1,7 +1,9 @@
 {
   "activityName": "Zucchini {CH}| zucchini production, conventional, plain region | Cut-off, U",
   "categories": [
-    "ingredient"
+    "ingredient",
+    "material",
+    "material_type:fruits_and_vegetables"
   ],
   "displayName": "Zucchini (CH)",
   "id": "da56b693-061c-54f7-a15d-fc1f7bc93b84",

@@ -2,7 +2,8 @@
   "activityName": "Blue cheese Auvergne, variant 1, CMAPS {GLO} U",
   "categories": [
     "ingredient",
-    "material"
+    "material",
+    "material_type:other_food_items"
   ],
   "displayName": "Fromage bleu d'Auvergne FR",
   "id": "ff0ff47b-c8d2-4562-bbe7-ffdd87cc434e",

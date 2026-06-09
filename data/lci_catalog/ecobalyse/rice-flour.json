@@ -2,7 +2,8 @@
   "activityName": "Rice flour, CMAPS {GLO} U",
   "categories": [
     "ingredient",
-    "material"
+    "material",
+    "material_type:other_food_items"
   ],
   "displayName": "Farine de riz FR",
   "id": "d7e5123d-d9c4-4eb2-8627-44fd182518bd",

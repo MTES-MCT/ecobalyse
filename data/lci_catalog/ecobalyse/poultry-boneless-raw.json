@@ -2,7 +2,8 @@
   "activityName": "Poultry, boneless raw, CMAPS {GLO} U",
   "categories": [
     "ingredient",
-    "material"
+    "material",
+    "material_type:other_food_items"
   ],
   "displayName": "Pièce de volaille et lapin, désossée, crue (poulet, dinde, chapon, canard, oie, lapin) FR",
   "id": "d1f87498-f53e-4d93-b2bb-93fd695d0920",

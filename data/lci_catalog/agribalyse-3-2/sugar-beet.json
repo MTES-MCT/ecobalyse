@@ -1,7 +1,9 @@
 {
   "activityName": "Sugar beet, at farm {US} - Adapted from WFLDB U",
   "categories": [
-    "ingredient"
+    "ingredient",
+    "material",
+    "material_type:other_food_items"
   ],
   "displayName": "Sugar beet, at farm (US)",
   "id": "dd868e13-a71e-53a3-955c-9d5312e1afe7",

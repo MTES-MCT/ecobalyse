@@ -2,7 +2,8 @@
   "activityName": "Dairy spread, 20pct fat, variant 1, CMAPS {GLO} U",
   "categories": [
     "ingredient",
-    "material"
+    "material",
+    "material_type:other_food_items"
   ],
   "displayName": "Matière grasse laitière à 20% MG, légère, \"à tartiner\", doux FR",
   "id": "cdc91aab-7241-45d6-a51c-4906e82d4ae6",

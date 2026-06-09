@@ -1,7 +1,9 @@
 {
   "activityName": "Mixt pig, conventional, national average, at farm gate {FR} U",
   "categories": [
-    "ingredient"
+    "ingredient",
+    "material",
+    "material_type:red_meats"
   ],
   "displayName": "Porc FR",
   "id": "df49b412-2d28-53ff-8a1d-b359e8d00e63",

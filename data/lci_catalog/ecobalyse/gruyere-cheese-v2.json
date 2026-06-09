@@ -2,7 +2,8 @@
   "activityName": "Gruyere cheese, variant 2, CMAPS {GLO} U",
   "categories": [
     "ingredient",
-    "material"
+    "material",
+    "material_type:other_food_items"
   ],
   "displayName": "Gruyère Origine Inconnue",
   "id": "03a4a1e4-1d10-4805-8a6a-ac485cb24d7c",

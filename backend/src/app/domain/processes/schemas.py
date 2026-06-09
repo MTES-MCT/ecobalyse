@@ -44,9 +44,11 @@ class Category(StrEnum):
     MATERIAL_TYPE_OTHER = "material_type:other"
 
     # Food types
+    MATERIAL_TYPE_CEREALS = "material_type:cereals"
     MATERIAL_TYPE_EGGS = "material_type:eggs"
     MATERIAL_TYPE_FISH_AND_SHELLFISH = "material_type:fish_and_shellfish"
     MATERIAL_TYPE_FRUITS_AND_VEGETABLES = "material_type:fruits_and_vegetables"
+    MATERIAL_TYPE_LEGUMES = "material_type:legumes"
     MATERIAL_TYPE_OFFAL = "material_type:offal"
     MATERIAL_TYPE_OTHER_FOOD_ITEMS = "material_type:other_food_items"
     MATERIAL_TYPE_POULTRY = "material_type:poultry"

@@ -2,7 +2,8 @@
   "activityName": "Lettuce, cut washed raw, variant 2, CMAPS {GLO} U",
   "categories": [
     "ingredient",
-    "material"
+    "material",
+    "material_type:other_food_items"
   ],
   "displayName": "Salade crue, découpée, nettoyée (laitue, mache, mesclun, jeunes pousses, scarole, pissenlit, roquette, cresson) Origine Inconnue",
   "id": "f805b5de-d820-4340-9ae9-9d101ed5c07a",

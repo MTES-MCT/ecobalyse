@@ -2,7 +2,8 @@
   "activityName": "Tomato, peeled canned drained, organic, CMAPS {GLO} U",
   "categories": [
     "ingredient",
-    "material"
+    "material",
+    "material_type:other_food_items"
   ],
   "displayName": "Tomate, pelée, appertisée, égouttée Origine Inconnue BIO",
   "id": "3ffdb33a-d8e0-4006-abdc-9dfa68c38583",

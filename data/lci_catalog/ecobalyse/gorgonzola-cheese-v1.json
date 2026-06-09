@@ -2,7 +2,8 @@
   "activityName": "Gorgonzola cheese, variant 1, CMAPS {GLO} U",
   "categories": [
     "ingredient",
-    "material"
+    "material",
+    "material_type:other_food_items"
   ],
   "displayName": "Gorgonzola FR",
   "id": "135d30c3-6b73-416a-98e0-051d5ee3eb44",

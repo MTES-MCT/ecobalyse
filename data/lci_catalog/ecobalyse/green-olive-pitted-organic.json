@@ -2,7 +2,8 @@
   "activityName": "Green olive, pitted, organic, CMAPS {GLO} U",
   "categories": [
     "ingredient",
-    "material"
+    "material",
+    "material_type:other_food_items"
   ],
   "displayName": "Olive verte, dénoyautée Origine Inconnue BIO",
   "id": "9ba5fda3-6bae-4afc-84f5-b95e81aa9746",

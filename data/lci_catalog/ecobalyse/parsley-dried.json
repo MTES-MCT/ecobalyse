@@ -2,7 +2,8 @@
   "activityName": "Parsley, dried, CMAPS {GLO} U",
   "categories": [
     "ingredient",
-    "material"
+    "material",
+    "material_type:other_food_items"
   ],
   "displayName": "Persil, séché FR",
   "id": "07dac20e-4a8f-46de-8046-89d67a1d80de",

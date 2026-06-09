@@ -2,7 +2,8 @@
   "activityName": "Egg, shelled raw, import WFLDB, CMAPS {GLO} U",
   "categories": [
     "ingredient",
-    "material"
+    "material",
+    "material_type:other_food_items"
   ],
   "displayName": "Oeuf, décoquillé, de poule, de cane ou d'oie, cru Origine Inconnue",
   "id": "06d00072-ee52-4474-83ba-9fb74adb89b5",

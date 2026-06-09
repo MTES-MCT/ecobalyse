@@ -2,7 +2,8 @@
   "activityName": "Sweet corn, canned drained, variant 1, CMAPS {GLO} U",
   "categories": [
     "ingredient",
-    "material"
+    "material",
+    "material_type:other_food_items"
   ],
   "displayName": "Maïs doux, appertisé, égoutté FR",
   "id": "274d39f1-dc2e-4885-a542-3a45b99dc615",

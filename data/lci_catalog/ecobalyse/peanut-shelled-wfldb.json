@@ -2,7 +2,8 @@
   "activityName": "Peanut, shelled, import WFLDB, CMAPS {GLO} U",
   "categories": [
     "ingredient",
-    "material"
+    "material",
+    "material_type:other_food_items"
   ],
   "displayName": "Cacahuète ou Arachide décortiquée (cuites, grillées, salées, bouilles) Origine Inconnue",
   "id": "00856128-a71b-4bdf-9bdf-bbd80907be02",

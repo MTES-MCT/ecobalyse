@@ -1,7 +1,9 @@
 {
   "activityName": "Olive {IT}| olive production | Cut-off, U - Copied from Ecoinvent U",
   "categories": [
-    "ingredient"
+    "ingredient",
+    "material",
+    "material_type:fruits_and_vegetables"
   ],
   "displayName": "Olive (IT)",
   "id": "1d78be36-89e7-5178-9bae-011b6e1ecf01",

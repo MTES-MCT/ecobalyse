@@ -2,7 +2,8 @@
   "activityName": "Lemon, pulp raw, import WFLDB, CMAPS {GLO} U",
   "categories": [
     "ingredient",
-    "material"
+    "material",
+    "material_type:other_food_items"
   ],
   "displayName": "Citron, pulpe, cru Origine Inconnue",
   "id": "872c1bda-8eae-4e34-bda4-abb094f2b7de",

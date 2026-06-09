@@ -2,7 +2,8 @@
   "activityName": "Avocado, pulp raw, CMAPS {GLO} U",
   "categories": [
     "ingredient",
-    "material"
+    "material",
+    "material_type:other_food_items"
   ],
   "displayName": "Avocat, pulpe, cru Origine Inconnue",
   "id": "7c2a23b4-9a3a-4a36-a4b5-3b0df2d21180",

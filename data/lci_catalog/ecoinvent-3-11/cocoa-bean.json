@@ -1,7 +1,9 @@
 {
   "activityName": "Cocoa bean {GH}| cocoa bean production, sun-dried | Cut-off, U",
   "categories": [
-    "ingredient"
+    "ingredient",
+    "material",
+    "material_type:fruits_and_vegetables"
   ],
   "displayName": "Cocoa bean (GH)",
   "id": "ecbafca4-1d44-52e8-a979-d79b24345d76",

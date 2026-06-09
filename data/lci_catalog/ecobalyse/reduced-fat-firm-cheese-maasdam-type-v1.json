@@ -2,7 +2,8 @@
   "activityName": "Reduced fat firm cheese, Maasdam type, variant 1, CMAPS {GLO} U",
   "categories": [
     "ingredient",
-    "material"
+    "material",
+    "material_type:other_food_items"
   ],
   "displayName": "Fromage à pâte ferme environ 14% MG type Masdaam à teneur réduite en MG FR",
   "id": "52859367-ae00-4815-8ffe-8732db9db666",

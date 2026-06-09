@@ -2,7 +2,8 @@
   "activityName": "Tomato, peeled canned drained, CMAPS {GLO} U",
   "categories": [
     "ingredient",
-    "material"
+    "material",
+    "material_type:other_food_items"
   ],
   "displayName": "Tomate, pelée, appertisée, égouttée FR",
   "id": "860a477c-26ed-4a13-ba2b-2a1fd65c5638",

@@ -2,7 +2,8 @@
   "activityName": "Fromage blanc, 8pct fat, variant 2, CMAPS {GLO} U",
   "categories": [
     "ingredient",
-    "material"
+    "material",
+    "material_type:other_food_items"
   ],
   "displayName": "Fromage blanc nature, gourmand, 8% MG environ Origine Inconnue",
   "id": "e852a743-e703-4879-ac01-5a85bb2add12",

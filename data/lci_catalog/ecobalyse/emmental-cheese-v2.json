@@ -2,7 +2,8 @@
   "activityName": "Emmental cheese, variant 2, CMAPS {GLO} U",
   "categories": [
     "ingredient",
-    "material"
+    "material",
+    "material_type:other_food_items"
   ],
   "displayName": "Emmental ou emmenthal Origine Inconnue",
   "id": "d0b23683-9c77-44e6-bde8-a42854010497",

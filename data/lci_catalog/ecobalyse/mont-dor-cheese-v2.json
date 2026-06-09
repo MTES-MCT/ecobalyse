@@ -2,7 +2,8 @@
   "activityName": "Mont d'Or cheese, variant 2, CMAPS {GLO} U",
   "categories": [
     "ingredient",
-    "material"
+    "material",
+    "material_type:other_food_items"
   ],
   "displayName": "Mont d'or ou Vacherin du Haut-Doubs (produit en France) ou Vacherin-Mont d'Or (produit en Suisse) Origine Inconnue",
   "id": "b2da6b74-a79d-4f5f-94be-213e3f53583d",

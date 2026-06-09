@@ -2,7 +2,8 @@
   "activityName": "Walnut, shelled, CMAPS {GLO} U",
   "categories": [
     "ingredient",
-    "material"
+    "material",
+    "material_type:other_food_items"
   ],
   "displayName": "Noix, décortiquée, fraîche ou sèche FR",
   "id": "7b87e244-7534-4282-ad8a-7e73e7c70e7f",

@@ -1,7 +1,9 @@
 {
   "activityName": "Live beef, for direct consumption, consumption mix {FR} U",
   "categories": [
-    "ingredient"
+    "ingredient",
+    "material",
+    "material_type:red_meats"
   ],
   "displayName": "Live beef, for direct consumption, consumption mix (FR)",
   "id": "12fb7c01-cd0b-59ec-872f-06f5ba982b5d",

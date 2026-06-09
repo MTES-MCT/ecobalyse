@@ -2,7 +2,8 @@
   "activityName": "Feta type cheese, cow milk, variant 1, CMAPS {GLO} U",
   "categories": [
     "ingredient",
-    "material"
+    "material",
+    "material_type:other_food_items"
   ],
   "displayName": "Fromage type feta, au lait de vache FR",
   "id": "60ee6493-a0d2-4350-9e6e-6aa088786ab1",

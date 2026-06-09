@@ -2,7 +2,8 @@
   "activityName": "Corn flour, organic, CMAPS {GLO} U",
   "categories": [
     "ingredient",
-    "material"
+    "material",
+    "material_type:other_food_items"
   ],
   "displayName": "Farine de maïs FR BIO",
   "id": "a6eab5b2-7c8b-40ff-a24c-31a23b934958",

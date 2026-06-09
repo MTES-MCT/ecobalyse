@@ -2,7 +2,8 @@
   "activityName": "Avocado, pulp raw, organic, CMAPS {GLO} U",
   "categories": [
     "ingredient",
-    "material"
+    "material",
+    "material_type:other_food_items"
   ],
   "displayName": "Avocat, pulpe, cru BIO",
   "id": "53463c0d-f757-4de2-a8d1-a3a7d69167fd",

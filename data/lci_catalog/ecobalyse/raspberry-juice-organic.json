@@ -2,7 +2,8 @@
   "activityName": "Raspberry juice, organic, CMAPS {GLO} U",
   "categories": [
     "ingredient",
-    "material"
+    "material",
+    "material_type:other_food_items"
   ],
   "displayName": "Jus Framboise Origine Inconnue BIO",
   "id": "26e83cf0-279b-4698-a19c-fbbbeed8df30",

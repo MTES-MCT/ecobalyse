@@ -2,7 +2,8 @@
   "activityName": "Fourme d'Ambert cheese, variant 2, CMAPS {GLO} U",
   "categories": [
     "ingredient",
-    "material"
+    "material",
+    "material_type:other_food_items"
   ],
   "displayName": "Fourme d'Ambert Origine Inconnue",
   "id": "000a47b8-7563-4c12-832a-ed3c964ad5a3",
