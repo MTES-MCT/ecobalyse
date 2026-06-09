@@ -2,7 +2,8 @@
   "activityName": "Textile, nonwoven polyester {GLO}| market for textile, nonwoven polyester | Cut-off, U",
   "categories": [
     "material",
-    "textile_material"
+    "textile_material",
+    "material_type:synthetic_fibers"
   ],
   "comment": "",
   "displayName": "Polyester non-tissé",
@@ -20,12 +21,14 @@
       "origin": "Synthetic",
       "primary": false,
       "scopes": [
+        "object",
         "textile"
       ]
     }
   ],
   "qtyVariationRatio": 1,
   "scopes": [
+    "object",
     "textile"
   ],
   "source": "Ecoinvent 3.11",
