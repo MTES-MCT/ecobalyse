@@ -35,7 +35,7 @@
 * [🧩 Composants](methodes-transverses-specifiques/composants/README.md)
   * [◻️ Procédés Acier et Aluminium](methodes-transverses-specifiques/composants/procedes-acier-et-aluminium.md)
   * [⚡ Energies des étapes de transformation](methodes-transverses-specifiques/composants/energies-des-etapes-de-transformation.md)
-* [📦 Matériaux d'emballage](methodes-transverses-specifiques/materiaux-demballage.md)
+* [📦 Emballages](methodes-transverses-specifiques/emballages.md)
 * [🚚 Transport](methodes-transverses-specifiques/transport/README.md)
   * [Coût environnemental par voie de transport](methodes-transverses-specifiques/transport/cout-environnemental-par-voie-de-transport.md)
   * [Choix des voies de transport](methodes-transverses-specifiques/transport/choix-des-voies-de-transport.md)
