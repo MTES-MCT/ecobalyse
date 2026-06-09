@@ -30,6 +30,7 @@ import Data.Impact.Definition as Definition exposing (Definition, Definitions, T
 import Data.Stages as Stages exposing (Stages)
 import Data.Unit as Unit
 import Json.Decode as Decode exposing (Decoder)
+import Json.Decode.Pipeline as Pipe
 import Json.Encode as Encode
 import Mass exposing (Mass)
 import Quantity
@@ -232,7 +233,53 @@ updateImpact definitions trigram value =
 
 decodeImpacts : Decoder Impacts
 decodeImpacts =
-    Definition.decodeBase (always Unit.decodeImpact)
+    [ -- Fully detailed process impacts
+      Decode.succeed Trigrams
+        |> Pipe.required "acd" Unit.decodeImpact
+        |> Pipe.required "cch" Unit.decodeImpact
+        |> Pipe.required "etf" Unit.decodeImpact
+        |> Pipe.required "etf-c" Unit.decodeImpact
+        |> Pipe.required "fru" Unit.decodeImpact
+        |> Pipe.required "fwe" Unit.decodeImpact
+        |> Pipe.required "htc" Unit.decodeImpact
+        |> Pipe.required "htc-c" Unit.decodeImpact
+        |> Pipe.required "htn" Unit.decodeImpact
+        |> Pipe.required "htn-c" Unit.decodeImpact
+        |> Pipe.required "ior" Unit.decodeImpact
+        |> Pipe.required "ldu" Unit.decodeImpact
+        |> Pipe.required "mru" Unit.decodeImpact
+        |> Pipe.required "ozd" Unit.decodeImpact
+        |> Pipe.required "pco" Unit.decodeImpact
+        |> Pipe.required "pma" Unit.decodeImpact
+        |> Pipe.required "swe" Unit.decodeImpact
+        |> Pipe.required "tre" Unit.decodeImpact
+        |> Pipe.required "wtu" Unit.decodeImpact
+        |> Pipe.required "ecs" Unit.decodeImpact
+
+    -- Non-detailed process impacts (featuring only ecs)
+    , Decode.succeed Trigrams
+        |> Pipe.hardcoded (Unit.impact 0)
+        |> Pipe.hardcoded (Unit.impact 0)
+        |> Pipe.hardcoded (Unit.impact 0)
+        |> Pipe.hardcoded (Unit.impact 0)
+        |> Pipe.hardcoded (Unit.impact 0)
+        |> Pipe.hardcoded (Unit.impact 0)
+        |> Pipe.hardcoded (Unit.impact 0)
+        |> Pipe.hardcoded (Unit.impact 0)
+        |> Pipe.hardcoded (Unit.impact 0)
+        |> Pipe.hardcoded (Unit.impact 0)
+        |> Pipe.hardcoded (Unit.impact 0)
+        |> Pipe.hardcoded (Unit.impact 0)
+        |> Pipe.hardcoded (Unit.impact 0)
+        |> Pipe.hardcoded (Unit.impact 0)
+        |> Pipe.hardcoded (Unit.impact 0)
+        |> Pipe.hardcoded (Unit.impact 0)
+        |> Pipe.hardcoded (Unit.impact 0)
+        |> Pipe.hardcoded (Unit.impact 0)
+        |> Pipe.hardcoded (Unit.impact 0)
+        |> Pipe.required "ecs" Unit.decodeImpact
+    ]
+        |> Decode.oneOf
         |> Decode.map Impacts
 
 
