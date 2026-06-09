@@ -24182,10 +24182,11 @@
     "activityName": "nylon 6-6//[RoW] nylon 6-6 production",
     "categories": [
       "material",
-      "textile_material"
+      "textile_material",
+      "material_type:rigid_plastics"
     ],
     "comment": "Ancien identifiant (12/2024): 88a1395a1c61be31b0bc692e977dd10b.",
-    "displayName": "Plastique PA (nylon 6-6)",
+    "displayName": "PA (nylon 6-6), pour fibre synthétique",
     "elecMJ": 0,
     "heatMJ": 0,
     "id": "b2318c3f-6d7b-5d95-b201-6b95470db3b7",
@@ -24208,7 +24209,7 @@
       "textile_material"
     ],
     "comment": "Ancien identifiant (12/2024): 087896096b5bede914ef3ec1062b1c02.",
-    "displayName": "Plastique PET, granulés, amorphe, recyclé",
+    "displayName": "PET, pour fibre synthétique, recyclé, granulé, amorphe",
     "elecMJ": 0,
     "heatMJ": 0,
     "id": "994efc14-cc89-526c-b9d0-0d6a99adbd4f",
