@@ -1,0 +1,33 @@
+{
+  "activityName": "Textile, nonwoven polyester {GLO}| market for textile, nonwoven polyester | Cut-off, U",
+  "categories": [
+    "material",
+    "textile_material"
+  ],
+  "comment": "",
+  "displayName": "Polyester non-tissé",
+  "elecMJ": 0,
+  "heatMJ": 0,
+  "id": "f57e98d9-524c-4bf8-beaf-7422abcae5f2",
+  "metadata": [
+    {
+      "alias": "nonwoven-polyester",
+      "defaultCountry": "CN",
+      "displayName": "Polyester non-tissé",
+      "geographicOrigin": "Asie - Pacifique",
+      "id": "3403257d-a13b-4dc0-b72b-e85c24617ed9",
+      "name": "Polyester non-tissé",
+      "origin": "Synthetic",
+      "primary": false,
+      "scopes": [
+        "textile"
+      ]
+    }
+  ],
+  "qtyVariationRatio": 1,
+  "scopes": [
+    "textile"
+  ],
+  "source": "Ecoinvent 3.11",
+  "unit": "kg"
+}

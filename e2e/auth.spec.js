@@ -199,12 +199,12 @@ test.describe("auth", () => {
       await expect(page.getByTestId("impact-selector")).toBeVisible();
 
       // Check that impact option list matches available impact definitions
-      const impactOptions = await page
-        .getByTestId("impact-selector")
-        .locator("option")
-        .allInnerTexts();
+      const impactSelectorOptions = page.getByTestId("impact-selector").locator("option");
 
-      expect(impactOptions).toHaveLength(Object.keys(impacts).length);
+      // Wait for the options to be populated (auto-retries) before reading them
+      await expect(impactSelectorOptions).toHaveCount(Object.keys(impacts).length);
+
+      const impactOptions = await impactSelectorOptions.allInnerTexts();
       for (const [_, { label_fr }] of Object.entries(impacts)) {
         expect(impactOptions).toContain(label_fr);
       }
