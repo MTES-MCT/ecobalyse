@@ -35,9 +35,9 @@ export async function loginUser(page, email) {
   await page.getByPlaceholder("nom@example.com").fill(email);
   await expect(page.getByTestId("auth-magic-link-submit")).not.toBeDisabled();
 
-  await page.getByTestId("auth-magic-link-submit").click();
-
-  const lastEmail = await waitForNewEmail();
+  const lastEmail = await actAndWaitForNewEmail(() =>
+    page.getByTestId("auth-magic-link-submit").click(),
+  );
 
   await expect(page.getByText("Email de connexion envoyé")).toBeVisible();
 
@@ -75,9 +75,9 @@ export async function registerAndLoginUser(
   await page.getByRole("checkbox", { name: /^Je m’engage à respecter/ }).check();
   await page.getByRole("checkbox", { name: /^Pour accéder aux impacts détaillés/ }).check();
 
-  await page.getByTestId("auth-signup-submit").click();
-
-  const lastEmail = await waitForNewEmail();
+  const lastEmail = await actAndWaitForNewEmail(() =>
+    page.getByTestId("auth-signup-submit").click(),
+  );
 
   await expect(page.getByText("Email de connexion envoyé")).toBeVisible();
 
@@ -108,15 +108,16 @@ export async function waitFor(conditionFn, pollInterval = 50, timeoutAfter) {
   }
 }
 
-export async function waitForNewEmail() {
-  const initial = await checkEmails();
+// Run an action that triggers a transactional email and return that email.
+// The inbox baseline is captured BEFORE the action: snapshotting it afterwards
+// (as the previous helper did) races with email delivery — a fast email can land
+// before we start watching, leaving the watcher waiting forever for a "next"
+// email that never comes.
+export async function actAndWaitForNewEmail(action) {
+  const initialCount = (await checkEmails()).length;
+  await action();
   return waitFor(async () => {
     const inbox = await checkEmails();
-
-    if (inbox.length > initial.length) {
-      return inbox[0];
-    } else {
-      return null;
-    }
+    return inbox.length > initialCount ? inbox[0] : null;
   });
 }
