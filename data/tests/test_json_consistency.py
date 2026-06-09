@@ -16,7 +16,7 @@ from ecobalyse_data.export.food import Scenario, scenario
 from ecobalyse_data.export.utils import get_metadata_for_scope
 
 
-def duplicate_across_file(filename, content, key):
+def duplicate_across_records(filename, content, key):
     """Duplicate check across all lci_catalog for `key`"
     ie check if alias `pineapple-default` is unique"""
     values = [act[key] for act in content if key in act]
@@ -26,7 +26,7 @@ def duplicate_across_file(filename, content, key):
         raise AssertionError(f"Duplicate {key} in {filename}: " + ", ".join(duplicates))
 
 
-def duplicate_in_list(filename, content, key):
+def duplicate_within_value(filename, content, key):
     """Duplicate check for each lci_catalog inside a `key`
     ie check if  "categories": ["material","ingredient", "material"] has duplicates"""
     for act in content:
@@ -318,38 +318,44 @@ def test():
             # Key-specific checks: validate specific fields
             CHECKS = {
                 "activities_to_create.json": {
-                    "alias": (duplicate_across_file, missing, alias_syntax),
-                    "newName": (duplicate_across_file, missing),
+                    "alias": (duplicate_across_records, missing, alias_syntax),
+                    "newName": (duplicate_across_records, missing),
                 },
                 activities_temp.name: {
-                    "id": (duplicate_across_file, invalid_uuid, missing),
-                    "displayName": (duplicate_across_file,),
-                    "alias": (duplicate_across_file, alias_syntax),  # TODO
+                    "id": (duplicate_across_records, invalid_uuid, missing),
+                    "displayName": (duplicate_across_records,),
+                    "alias": (duplicate_across_records, alias_syntax),  # TODO
                     "scenario": (check_scenario,),
                     "ingredientDensity": (check_ingredient_densities,),
-                    "categories": (duplicate_in_list,),
+                    "categories": (duplicate_within_value,),
                 },
                 "tests/activities_to_create.json": {
-                    "alias": (duplicate_across_file, alias_syntax),
-                    "newName": (duplicate_across_file, missing),
+                    "alias": (duplicate_across_records, alias_syntax),
+                    "newName": (duplicate_across_records, missing),
                 },
                 test_activities_temp.name: {
                     # "displayName": (duplicate,),
-                    "alias": (duplicate_across_file, alias_syntax),  # TODO
+                    "alias": (duplicate_across_records, alias_syntax),  # TODO
                 },
                 "public/data/food/ingredients.json": {
-                    "id": (duplicate_across_file, invalid_uuid, missing),
-                    "alias": (missing, duplicate_across_file, alias_syntax),
-                    "name": (missing, duplicate_across_file),
+                    "id": (duplicate_across_records, invalid_uuid, missing),
+                    "alias": (missing, duplicate_across_records, alias_syntax),
+                    "name": (missing, duplicate_across_records),
                 },
                 "public/data/processes.json": {
-                    "id": (duplicate_across_file, invalid_uuid, missing),
-                    "displayName": (duplicate_across_file,),
+                    "id": (duplicate_across_records, invalid_uuid, missing),
+                    "displayName": (duplicate_across_records,),
+                    "categories": (duplicate_within_value,),
+                },
+                "public/data/processes_generic.json": {
+                    "id": (duplicate_across_records, invalid_uuid, missing),
+                    "displayName": (duplicate_across_records,),
+                    "categories": (duplicate_within_value,),
                 },
                 "public/data/textile/materials.json": {
-                    "id": (duplicate_across_file, missing),
+                    "id": (duplicate_across_records, missing),
                     "name": (missing,),
-                    "processId": (missing, duplicate_across_file, invalid_uuid),
+                    "processId": (missing, duplicate_across_records, invalid_uuid),
                 },
             }
 
