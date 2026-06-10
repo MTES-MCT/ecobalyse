@@ -125,7 +125,7 @@ Sans `docker` :
 
 ```bash
 uv run backend database upgrade --no-prompt
-uv run backend fixtures load-processes public/data/processes_impacts.json
+uv run backend fixtures load-processes public/data/processes_merged_impacts.json
 uv run backend fixtures load-components public/data/object/components.json
 ```
 

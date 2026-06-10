@@ -200,6 +200,27 @@ def processes(
     )
 
 
+@app.command()
+def merge_processes(
+    root_dir: Path = PROJECT_ROOT_DIR,
+):
+    from common import remove_detailed_impacts
+    from common.export import export_json, load_json
+
+    output_dir = settings.output_dir
+    impacts = load_json(root_dir / output_dir / settings.processes_impacts_file)
+    generic_impacts = load_json(
+        root_dir / output_dir / settings.processes_generic_impacts_file
+    )
+    merged = impacts + generic_impacts
+
+    export_json(merged, root_dir / output_dir / settings.processes_merged_impacts_file)
+    export_json(
+        remove_detailed_impacts(merged),
+        root_dir / output_dir / settings.processes_merged_aggregated_file,
+    )
+
+
 def _get_lcias(root_dir):
     lci_catalog = root_dir / "lci_catalog"
     logger.debug(f"-> Loading lci_catalog {lci_catalog}")

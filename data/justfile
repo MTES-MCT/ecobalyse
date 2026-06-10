@@ -39,21 +39,29 @@ sync-datapackages:
 export-all:
   {{uv}} run python {{export}} processes
   {{uv}} run python {{export}} metadata
+  {{uv}} run python {{export}} merge-processes
+
+merge-processes:
+  {{uv}} run python {{export}} merge-processes
 
 export-food:
   {{uv}} run python {{export}} processes --scopes food --merge
   {{uv}} run python {{export}} metadata --scopes food
+  {{uv}} run python {{export}} merge-processes
 
 export-generic:
   {{uv}} run python {{export}} processes --scopes object --merge
   {{uv}} run python {{export}} metadata --scopes generic
+  {{uv}} run python {{export}} merge-processes
 
 export-textile:
   {{uv}} run python {{export}} processes --scopes textile --merge
   {{uv}} run python {{export}} metadata --scopes textile
+  {{uv}} run python {{export}} merge-processes
 
 export-veli:
   {{uv}} run python {{export}} processes --scopes veli --merge
+  {{uv}} run python {{export}} merge-processes
 
 export-transports:
     {{ uv }} run python -m common.distances.transports
