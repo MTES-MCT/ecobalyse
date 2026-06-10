@@ -75,6 +75,7 @@ module Data.Component exposing
     , getEndOfLifeImpacts
     , getEndOfLifeScopeCollectionRate
     , getFinalElementCountry
+    , getPackagingProcessId
     , getResultedElement
     , getTotalImpacts
     , idFromString
@@ -1935,6 +1936,11 @@ getFinalElementCountry { material, transforms } =
     LE.last transforms
         |> Maybe.map .country
         |> Maybe.withDefault material.country
+
+
+getPackagingProcessId : Packaging -> Process.Id
+getPackagingProcessId (Packaging { processId }) =
+    processId
 
 
 {-| Compute mass distribution by material types

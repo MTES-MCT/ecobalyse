@@ -172,10 +172,17 @@ addElementButton config targetItem =
 
 
 addPackagingButton : Config db msg -> Html msg
-addPackagingButton config =
+addPackagingButton ({ query } as config) =
     let
         availableTransformProcesses =
             listAvailableProcesses config Category.Packaging
+                |> List.filter
+                    (\{ id } ->
+                        query.packagings
+                            |> List.map Component.getPackagingProcessId
+                            |> List.member id
+                            |> not
+                    )
 
         autocompleteState =
             availableTransformProcesses
