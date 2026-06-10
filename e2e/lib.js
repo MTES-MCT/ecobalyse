@@ -12,7 +12,9 @@ export async function deleteAllEmails() {
 }
 
 export async function expectNotification(page, message) {
-  await expect(page.locator(".ToastTray").getByText(message)).toBeVisible();
+  // Some notifications conclude a slow chain (e.g. the detailed processes
+  // download after login), so allow more than the default expect timeout.
+  await expect(page.locator(".ToastTray").getByText(message)).toBeVisible({ timeout: 15_000 });
   // immediately close the notification to avoid unwanted accumulation
   await page.locator(".ToastTray").locator("button", { name: "Fermer" }).nth(0).click();
 }

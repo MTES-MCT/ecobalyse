@@ -15,7 +15,9 @@ test.describe("auth", () => {
   // One stateful journey: Alice registers once. A retry would replay it against a
   // DB that still has her (state isn't reset between attempts) and hang — so we keep
   // this run deterministic and disable retries instead of masking flakiness.
-  test.describe.configure({ mode: "serial", retries: 0 });
+  // The journey spans a dozen steps and waits for the app boot chain several
+  // times, so it needs more than the default local test timeout.
+  test.describe.configure({ mode: "serial", retries: 0, timeout: 120_000 });
 
   test.beforeEach(async () => {
     await deleteAllEmails();
@@ -77,7 +79,11 @@ test.describe("auth", () => {
 
       await page.getByTestId("auth-login-confirm").click();
 
-      await expect(page.getByRole("heading", { name: "Mon compte" })).toBeVisible();
+      // Logging in triggers the detailed processes download, so allow more than
+      // the default expect timeout before the account page shows up.
+      await expect(page.getByRole("heading", { name: "Mon compte" })).toBeVisible({
+        timeout: 15_000,
+      });
     });
 
     await test.step("browser reload and auto-login", async () => {
