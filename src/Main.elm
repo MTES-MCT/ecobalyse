@@ -101,8 +101,7 @@ type Msg
     | HomeMsg Home.Msg
     | ObjectSimulatorMsg ObjectSimulator.Msg
     | ProcessAdminMsg ProcessAdmin.Msg
-    | RawDataReceivedDefinitions (WebData String)
-    | RawDataReceivedProcesses (WebData String)
+    | RawDataReceived (WebData String -> RawJsonData -> RawJsonData) (WebData String)
     | StatsMsg Stats.Msg
     | StoreChanged String
     | TextileSimulatorMsg TextileSimulator.Msg
@@ -175,8 +174,21 @@ pending webdata being a part of the total events (eg. "step 3/7" when 3 webdatas
 loadData : Cmd Msg
 loadData =
     Cmd.batch
-        [ RequestDb.getRawJsonString "/data/impacts.json" RawDataReceivedDefinitions
-        , RequestDb.getRawJsonString "/data/processes.json" RawDataReceivedProcesses
+        [ RequestDb.getRawJsonString "/data/countries.json" <| RawDataReceived (\data raw -> { raw | countries = data })
+        , RequestDb.getRawJsonString "/data/impacts.json" <| RawDataReceived (\data raw -> { raw | definitions = data })
+        , RequestDb.getRawJsonString "/data/food2/examples.json" <| RawDataReceived (\data raw -> { raw | food2Examples = data })
+        , RequestDb.getRawJsonString "/data/food/ingredients.json" <| RawDataReceived (\data raw -> { raw | foodIngredients = data })
+        , RequestDb.getRawJsonString "/data/food/examples.json" <| RawDataReceived (\data raw -> { raw | foodProductExamples = data })
+        , RequestDb.getRawJsonString "/data/object/components.json" <| RawDataReceived (\data raw -> { raw | objectComponents = data })
+        , RequestDb.getRawJsonString "/data/object/examples.json" <| RawDataReceived (\data raw -> { raw | objectExamples = data })
+        , RequestDb.getRawJsonString "/data/processes.json" <| RawDataReceived (\data raw -> { raw | processes = data })
+        , RequestDb.getRawJsonString "/data/textile/components.json" <| RawDataReceived (\data raw -> { raw | textileComponents = data })
+        , RequestDb.getRawJsonString "/data/textile/examples.json" <| RawDataReceived (\data raw -> { raw | textileProductExamples = data })
+        , RequestDb.getRawJsonString "/data/textile/materials.json" <| RawDataReceived (\data raw -> { raw | textileMaterials = data })
+        , RequestDb.getRawJsonString "/data/textile/products.json" <| RawDataReceived (\data raw -> { raw | textileProducts = data })
+        , RequestDb.getRawJsonString "/data/transports.json" <| RawDataReceived (\data raw -> { raw | transports = data })
+        , RequestDb.getRawJsonString "/data/veli/components.json" <| RawDataReceived (\data raw -> { raw | veliComponents = data })
+        , RequestDb.getRawJsonString "/data/veli/examples.json" <| RawDataReceived (\data raw -> { raw | veliExamples = data })
         ]
 
 
@@ -496,20 +508,11 @@ update rawMsg ({ state } as model) =
                         |> toPage session model Cmd.none ProcessAdminPage ProcessAdminMsg
 
                 -- Raw Json Db data received over HTTP
-                ( RawDataReceivedDefinitions data, _ ) ->
+                ( RawDataReceived updateRaw data, _ ) ->
                     ( { model
                         | dbLoadingState =
                             model.dbLoadingState
-                                |> RequestDb.updateRawJson (\raw -> { raw | definitions = data })
-                      }
-                    , Cmd.none
-                    )
-
-                ( RawDataReceivedProcesses data, _ ) ->
-                    ( { model
-                        | dbLoadingState =
-                            model.dbLoadingState
-                                |> RequestDb.updateRawJson (\raw -> { raw | processes = data })
+                                |> RequestDb.updateRawJson (updateRaw data)
                       }
                     , Cmd.none
                     )

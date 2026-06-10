@@ -5,32 +5,114 @@ module Request.Db exposing
     , updateRawJson
     )
 
+import Data.Common.Db as Common
+import Data.Food.Db as FoodDb
+import Data.Impact as Impact
+import Data.Object.Db as ObjectDb
+import Data.Process as Process
+import Data.Textile.Db as TextileDb
 import Http
+import Json.Decode as Decode
 import RemoteData exposing (WebData)
+import Result.Extra as RE
 import Static.Db as StaticDb
+import Static.Json as StaticJson
 
 
 type alias RawJsonData =
-    { components : WebData String
+    { countries : WebData String
     , definitions : WebData String
+    , food2Examples : WebData String
+    , foodIngredients : WebData String
+    , foodProductExamples : WebData String
+    , objectComponents : WebData String
+    , objectExamples : WebData String
     , processes : WebData String
+    , textileComponents : WebData String
+    , textileMaterials : WebData String
+    , textileProductExamples : WebData String
+    , textileProducts : WebData String
+    , transports : WebData String
+    , veliComponents : WebData String
+    , veliExamples : WebData String
     }
 
 
 emptyLoadingState : RawJsonData
 emptyLoadingState =
-    { components = RemoteData.NotAsked
+    { countries = RemoteData.NotAsked
     , definitions = RemoteData.NotAsked
+    , food2Examples = RemoteData.NotAsked
+    , foodIngredients = RemoteData.NotAsked
+    , foodProductExamples = RemoteData.NotAsked
+    , objectComponents = RemoteData.NotAsked
+    , objectExamples = RemoteData.NotAsked
     , processes = RemoteData.NotAsked
+    , textileComponents = RemoteData.NotAsked
+    , textileMaterials = RemoteData.NotAsked
+    , textileProductExamples = RemoteData.NotAsked
+    , textileProducts = RemoteData.NotAsked
+    , transports = RemoteData.NotAsked
+    , veliComponents = RemoteData.NotAsked
+    , veliExamples = RemoteData.NotAsked
     }
 
 
 buildDb : RawJsonData -> Result String StaticDb.Db
 buildDb data =
     data.processes
-        |> RemoteData.map (\processes definitions -> StaticDb.db processes)
+        |> RemoteData.map dbFromHttp
+        |> RemoteData.andMap data.countries
         |> RemoteData.andMap data.definitions
+        |> RemoteData.andMap data.foodIngredients
+        |> RemoteData.andMap data.foodProductExamples
+        |> RemoteData.andMap data.objectComponents
+        |> RemoteData.andMap data.textileComponents
+        |> RemoteData.andMap data.transports
+        |> RemoteData.andMap data.veliComponents
         |> RemoteData.withDefault (Err "Error getting the remote data")
+
+
+dbFromHttp : String -> String -> String -> String -> String -> String -> String -> String -> String -> Result String StaticDb.Db
+dbFromHttp processesJson countriesJson definitionsJson foodIngredientsJson foodProductExamplesJson objectComponentsJson textileComponentsJson transportsJson veliComponentsJson =
+    processesJson
+        |> Decode.decodeString (Process.decodeList Impact.decodeImpacts)
+        |> Result.mapError Decode.errorToString
+        |> Result.andThen
+            (\processes ->
+                Ok StaticDb.Db
+                    |> RE.andMap
+                        (StaticDb.decodeRawComponents
+                            { food2Components = """[]"""
+                            , objectComponents = objectComponentsJson
+                            , textileComponents = textileComponentsJson
+                            , veliComponents = veliComponentsJson
+                            }
+                        )
+                    |> RE.andMap (Common.countriesFromJson processes countriesJson)
+                    |> RE.andMap (Common.impactsFromJson definitionsJson)
+                    |> RE.andMap (Common.transportsFromJson transportsJson)
+                    |> RE.andMap
+                        (processes
+                            |> FoodDb.buildFromJson
+                                foodProductExamplesJson
+                                foodIngredientsJson
+                        )
+                    |> RE.andMap
+                        (ObjectDb.buildFromJson
+                            StaticJson.food2ExamplesJson
+                            StaticJson.objectExamplesJson
+                            StaticJson.veliExamplesJson
+                        )
+                    |> RE.andMap (Ok processes)
+                    |> RE.andMap
+                        (processes
+                            |> TextileDb.buildFromJson
+                                StaticJson.textileProductExamplesJson
+                                StaticJson.textileMaterialsJson
+                                StaticJson.textileProductsJson
+                        )
+            )
 
 
 getRawJsonString : String -> (WebData String -> msg) -> Cmd msg
@@ -52,7 +134,12 @@ isFullyLoaded data =
                 _ ->
                     False
     in
-    isLoaded data.definitions && isLoaded data.processes
+    isLoaded data.countries
+        && isLoaded data.definitions
+        && isLoaded data.objectComponents
+        && isLoaded data.processes
+        && isLoaded data.textileComponents
+        && isLoaded data.veliComponents
 
 
 updateRawJson : (RawJsonData -> RawJsonData) -> RawJsonData -> RawJsonData
@@ -64,10 +151,10 @@ updateRawJson update rawJsonData =
     -- TODO: check fully loaded state
     if isFullyLoaded updated then
         -- TODO: construct and return Just the constructed Db
-        let
-            _ =
-                Debug.log "DB built" <| buildDb updated
-        in
+        -- let
+        --     _ =
+        --         Debug.log "DB built" <| buildDb updated
+        -- in
         updated
 
     else
