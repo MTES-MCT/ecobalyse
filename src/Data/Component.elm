@@ -336,6 +336,7 @@ type alias EndOfLifeMaterialImpacts =
 type alias LifeCycle =
     { distribution : DistributionResults
     , endOfLife : Impacts
+    , packaging : Impacts
     , production : Results
     , transports : LifeCycleTransport
     , use : List Impacts
@@ -1316,6 +1317,7 @@ emptyLifeCycle : LifeCycle
 emptyLifeCycle =
     { distribution = emptyDistributionResults
     , endOfLife = Impact.empty
+    , packaging = Impact.empty
     , production = emptyResults
     , transports = emptyLifeCycleTransports
     , use = []
