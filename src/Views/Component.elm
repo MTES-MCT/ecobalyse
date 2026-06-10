@@ -1,5 +1,6 @@
 module Views.Component exposing
-    ( Context(..)
+    ( Config
+    , Context(..)
     , createMaterialProcessAutocomplete
     , editorView
     , elementEditModalView
