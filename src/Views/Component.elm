@@ -565,8 +565,8 @@ packagingView ({ query } as config) lifeCycle =
             ]
         , query.packagings
             |> quantifiedProcessList config
-                { deletionLabel = "Aucun emballage"
-                , emptyListLabel = "Supprimer cet emballage"
+                { deletionLabel = "Supprimer cet emballage"
+                , emptyListLabel = "Aucun emballage"
                 , expandFn = Component.expandPackagings
                 , impactsList = lifeCycle.packaging
                 , removeFn = config.removePackaging
@@ -1427,8 +1427,8 @@ useStageView ({ impact, query } as config) lifeCycle =
         , div [ class "d-flex flex-column p-0" ]
             [ query.consumptions
                 |> quantifiedProcessList config
-                    { deletionLabel = "Aucune consommation"
-                    , emptyListLabel = "Supprimer cette consommation"
+                    { deletionLabel = "Supprimer cette consommation"
+                    , emptyListLabel = "Aucune consommation"
                     , expandFn = Component.expandConsumptions
                     , impactsList = lifeCycle.use
                     , removeFn = config.removeConsumption
