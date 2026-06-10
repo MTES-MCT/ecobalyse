@@ -653,6 +653,7 @@ compute requirements query =
         |> RE.combine
         |> Result.map (List.foldr addResults emptyResults)
         |> Result.map (\(Results results) -> { emptyLifeCycle | production = Results { results | label = Just "Production" } })
+        |> Result.andThen (computePackagingImpacts requirements query)
         |> Result.andThen (computeDistributionImpacts requirements query)
         |> Result.map (computeEndOfLifeResults requirements query)
         |> Result.andThen (computeTransports requirements query)
@@ -855,6 +856,31 @@ computeMaterialResults amount process =
         , quantity = 1
         , stage = Nothing
         }
+
+
+{-| Compute packaging impacts.
+
+Note: packaging processes are fully aggregated and embed transports and energy impacts, hence why
+we don't apply energy mixes or compute transports from their output mass here.
+
+-}
+computePackagingImpacts : Requirements db -> Query -> LifeCycle -> Result String LifeCycle
+computePackagingImpacts { db } { packagings } lifeCycle =
+    packagings
+        |> expandPackagings db.processes
+        |> Result.map
+            (\expandedQuantifiedProcesses ->
+                { lifeCycle
+                    | packaging =
+                        expandedQuantifiedProcesses
+                            |> List.map
+                                (\{ amount, process } ->
+                                    process.impacts
+                                        |> Impact.multiplyBy (Amount.toFloat amount)
+                                )
+                            |> Impact.sumImpacts
+                }
+            )
 
 
 computeScoring : Definitions -> LifeCycle -> Scoring
@@ -1709,6 +1735,14 @@ expandNewItem db custom quantity =
 expandItems : DataContainer a -> List Item -> Result String (List ExpandedItem)
 expandItems db =
     List.map (expandItem db) >> RE.combine
+
+
+{-| Resolve full use consumption processes linked to their respective ids
+-}
+expandPackagings : List Process -> List Packaging -> Result String (List ExpandedQuantifiedProcess)
+expandPackagings processes =
+    List.map (\(Packaging quantifiedProcess) -> quantifiedProcess)
+        >> expandQuantifiedProcesses processes
 
 
 {-| Expands a QuantifiedProcess, resolving its Process.Id to an actuel Process
