@@ -8,6 +8,7 @@ import Data.Component as Component
         , LifeCycle
         , Requirements
         , defaultTransportOptions
+        , emptyQuery
         )
 import Data.Component.Amount as Amount
 import Data.Country as Country
@@ -556,7 +557,7 @@ suite =
                                     -- tests
                                     (\( testDistributionProcess, testRequirements ) ->
                                         [ suiteFromResult "distribution result tests"
-                                            (Component.emptyQuery
+                                            (emptyQuery
                                                 |> Component.setQueryItems chairItems
                                                 |> Component.updateDistribution (Just testDistributionProcess.id)
                                                 |> Component.compute testRequirements
@@ -587,7 +588,7 @@ suite =
                                     (Process.idFromString "5fad4e70-5736-552d-a686-97e4fb627c37"
                                         |> Result.map
                                             (\missingDistributionId ->
-                                                Component.emptyQuery
+                                                emptyQuery
                                                     |> Component.setQueryItems chairItems
                                                     |> Component.updateDistribution (Just missingDistributionId)
                                                     |> Component.compute requirements
@@ -753,6 +754,43 @@ suite =
                                             Err err ->
                                                 Expect.fail err
                                    )
+                            )
+                         ]
+                        )
+                    , describe "computePackagingImpacts"
+                        (let
+                            computePackagingEcsImpacts packagings =
+                                Component.emptyLifeCycle
+                                    |> Component.computePackagingImpacts requirements { emptyQuery | packagings = packagings }
+                                    |> Result.map (.packaging >> List.map getEcsImpact)
+                         in
+                         [ itFromResult "should compute no packaging impacts for a query without packagings"
+                            (computePackagingEcsImpacts [])
+                            (Expect.equal [])
+                         , itFromResult2 "should compute packaging impacts from their amount"
+                            (chipsBag
+                                |> Result.map (.impacts >> Impact.getImpact Definition.Ecs >> Unit.impactToFloat)
+                            )
+                            (chipsBag
+                                |> Result.andThen
+                                    (\chipsBagProcess ->
+                                        computePackagingEcsImpacts
+                                            [ Component.packaging (Amount.fromFloat 2) chipsBagProcess.id ]
+                                    )
+                                |> Result.map (List.head >> Maybe.withDefault -99)
+                            )
+                            (\chipsBagEcsImpactFloat packagingImpacts ->
+                                -- As we added 2 bags, check that the packaging impacts is strictly twice one bag ecs impact
+                                Expect.within (Expect.Absolute 0.0001) (2 * chipsBagEcsImpactFloat) packagingImpacts
+                            )
+                         , it "should propagate the error for an unknown packaging process"
+                            -- unknown process id
+                            (Process.idFromString "5fad4e70-5736-552d-a686-97e4fb627c37"
+                                |> Result.andThen
+                                    (\missingPackagingId ->
+                                        computePackagingEcsImpacts [ Component.packaging (Amount.fromFloat 1) missingPackagingId ]
+                                    )
+                                |> expectResultErrorContains "Procédé introuvable par id"
                             )
                          ]
                         )
@@ -1628,7 +1666,7 @@ suite =
                         (\nonExistingProcessId steelProcess sawingProcess dryDistributionProcess ->
                             [ describe "amount validation"
                                 [ it "should reject a non-positive amount" <|
-                                    (Component.emptyQuery
+                                    (emptyQuery
                                         |> (\query ->
                                                 { query
                                                     | consumptions =
@@ -1642,25 +1680,25 @@ suite =
                                 ]
                             , describe "distribution validation"
                                 [ it "should accept a distribution process" <|
-                                    (Component.emptyQuery
+                                    (emptyQuery
                                         |> Component.updateDistribution (Just dryDistributionProcess.id)
                                         |> Component.validateQuery requirements
                                         |> Expect.ok
                                     )
                                 , it "should reject a distribution referencing a missing process" <|
-                                    (Component.emptyQuery
+                                    (emptyQuery
                                         |> Component.updateDistribution (Just nonExistingProcessId)
                                         |> Component.validateQuery requirements
                                         |> expectResultErrorContains "Procédé introuvable par id"
                                     )
                                 , it "should reject a distribution referencing a process that is not a distribution" <|
-                                    (Component.emptyQuery
+                                    (emptyQuery
                                         |> Component.updateDistribution (Just sawingProcess.id)
                                         |> Component.validateQuery requirements
                                         |> expectResultErrorContains "Le procédé n'est pas une distribution"
                                     )
                                 , it "should reject a distribution referencing a process that does not accept a volume" <|
-                                    (Component.emptyQuery
+                                    (emptyQuery
                                         |> Component.updateDistribution (Just dryDistributionProcess.id)
                                         |> Component.validateQuery
                                             (requirements
@@ -1670,7 +1708,7 @@ suite =
                                         |> expectResultErrorContains "Le procédé de distribution doit accepter un volume"
                                     )
                                 , it "should reject a distribution referencing a process with the wrong scope" <|
-                                    (Component.emptyQuery
+                                    (emptyQuery
                                         |> Component.updateDistribution (Just dryDistributionProcess.id)
                                         |> Component.validateQuery
                                             (requirements
@@ -1687,13 +1725,13 @@ suite =
                                 ]
                             , describe "durability validation"
                                 [ it "should accept a durability param when it's enabled by config" <|
-                                    (Component.emptyQuery
+                                    (emptyQuery
                                         |> Component.updateDurability (Unit.ratio 1.42)
                                         |> Component.validateQuery { requirements | scope = Scope.Generic Scope.Object }
                                         |> Expect.ok
                                     )
                                 , it "should reject a durability param when it's disabled by config" <|
-                                    (Component.emptyQuery
+                                    (emptyQuery
                                         |> Component.updateDurability (Unit.ratio 1.42)
                                         |> Component.validateQuery { requirements | scope = Scope.Generic Scope.Food2 }
                                         |> expectResultErrorContains ("La durabilité n'est pas activée pour le périmètre " ++ Scope.toLabel (Scope.Generic Scope.Food2))
@@ -1701,7 +1739,7 @@ suite =
                                 ]
                             , describe "process validation"
                                 [ it "should reject a consumption referencing a missing process" <|
-                                    (Component.emptyQuery
+                                    (emptyQuery
                                         |> (\query ->
                                                 { query
                                                     | consumptions =
@@ -1713,7 +1751,7 @@ suite =
                                         |> expectResultErrorContains ("Aucun procédé scopé Objets avec cet id: " ++ Process.idToString nonExistingProcessId)
                                     )
                                 , it "should reject a consumption referencing a process with the wrong scope" <|
-                                    (Component.emptyQuery
+                                    (emptyQuery
                                         |> (\query ->
                                                 { query
                                                     | consumptions =
@@ -1726,7 +1764,7 @@ suite =
                                         |> expectResultErrorContains ("Aucun procédé scopé Alimentaire² avec cet id: " ++ Process.idToString sawingProcess.id)
                                     )
                                 , it "should reject a packaging referencing a missing process" <|
-                                    (Component.emptyQuery
+                                    (emptyQuery
                                         |> (\query ->
                                                 { query
                                                     | packagings =
@@ -1738,7 +1776,7 @@ suite =
                                         |> expectResultErrorContains ("Aucun procédé scopé Objets avec cet id: " ++ Process.idToString nonExistingProcessId)
                                     )
                                 , it "should reject a packaging referencing a process with the wrong scope" <|
-                                    (Component.emptyQuery
+                                    (emptyQuery
                                         |> (\query ->
                                                 { query
                                                     | packagings =
@@ -1854,7 +1892,7 @@ testComponentConfig db =
 
 computeItemsWithRequirements : Requirements db -> List Item -> Result String LifeCycle
 computeItemsWithRequirements requirements items =
-    Component.emptyQuery
+    emptyQuery
         |> Component.setQueryItems items
         |> Component.compute requirements
 

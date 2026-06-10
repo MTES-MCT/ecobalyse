@@ -35,6 +35,7 @@ module Data.Component exposing
     , computeImpacts
     , computeInitialAmount
     , computeItemResults
+    , computePackagingImpacts
     , computeScoring
     , computeTransportDistance
     , computeTransportedMassImpacts
