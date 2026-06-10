@@ -64,17 +64,23 @@ buildDb data =
         |> RemoteData.map dbFromHttp
         |> RemoteData.andMap data.countries
         |> RemoteData.andMap data.definitions
+        |> RemoteData.andMap data.food2Examples
         |> RemoteData.andMap data.foodIngredients
         |> RemoteData.andMap data.foodProductExamples
         |> RemoteData.andMap data.objectComponents
+        |> RemoteData.andMap data.objectExamples
         |> RemoteData.andMap data.textileComponents
+        |> RemoteData.andMap data.textileMaterials
+        |> RemoteData.andMap data.textileProductExamples
+        |> RemoteData.andMap data.textileProducts
         |> RemoteData.andMap data.transports
         |> RemoteData.andMap data.veliComponents
+        |> RemoteData.andMap data.veliExamples
         |> RemoteData.withDefault (Err "Error getting the remote data")
 
 
-dbFromHttp : String -> String -> String -> String -> String -> String -> String -> String -> String -> Result String StaticDb.Db
-dbFromHttp processesJson countriesJson definitionsJson foodIngredientsJson foodProductExamplesJson objectComponentsJson textileComponentsJson transportsJson veliComponentsJson =
+dbFromHttp : String -> String -> String -> String -> String -> String -> String -> String -> String -> String -> String -> String -> String -> String -> String -> Result String StaticDb.Db
+dbFromHttp processesJson countriesJson definitionsJson food2ExamplesJson foodIngredientsJson foodProductExamplesJson objectComponentsJson objectExamplesJson textileComponentsJson textileMaterialsJson textileProductExamplesJson textileProductsJson transportsJson veliComponentsJson veliExamplesJson =
     processesJson
         |> Decode.decodeString (Process.decodeList Impact.decodeImpacts)
         |> Result.mapError Decode.errorToString
@@ -100,17 +106,17 @@ dbFromHttp processesJson countriesJson definitionsJson foodIngredientsJson foodP
                         )
                     |> RE.andMap
                         (ObjectDb.buildFromJson
-                            StaticJson.food2ExamplesJson
-                            StaticJson.objectExamplesJson
-                            StaticJson.veliExamplesJson
+                            food2ExamplesJson
+                            objectExamplesJson
+                            veliExamplesJson
                         )
                     |> RE.andMap (Ok processes)
                     |> RE.andMap
                         (processes
                             |> TextileDb.buildFromJson
-                                StaticJson.textileProductExamplesJson
-                                StaticJson.textileMaterialsJson
-                                StaticJson.textileProductsJson
+                                textileProductExamplesJson
+                                textileMaterialsJson
+                                textileProductsJson
                         )
             )
 
