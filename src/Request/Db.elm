@@ -142,10 +142,19 @@ isFullyLoaded data =
     in
     isLoaded data.countries
         && isLoaded data.definitions
+        && isLoaded data.food2Examples
+        && isLoaded data.foodIngredients
+        && isLoaded data.foodProductExamples
         && isLoaded data.objectComponents
+        && isLoaded data.objectExamples
         && isLoaded data.processes
         && isLoaded data.textileComponents
+        && isLoaded data.textileMaterials
+        && isLoaded data.textileProductExamples
+        && isLoaded data.textileProducts
+        && isLoaded data.transports
         && isLoaded data.veliComponents
+        && isLoaded data.veliExamples
 
 
 updateRawJson : (RawJsonData -> RawJsonData) -> RawJsonData -> RawJsonData
