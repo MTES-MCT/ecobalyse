@@ -352,7 +352,7 @@ def test():
                     "displayName": (duplicate_across_records,),
                     "categories": (duplicate_within_value,),
                 },
-                "public/data/processes_merged.json": {
+                "../public/data/processes_merged.json": {
                     "id": (duplicate_across_records, invalid_uuid, missing),
                     "categories": (duplicate_within_value,),
                 },
