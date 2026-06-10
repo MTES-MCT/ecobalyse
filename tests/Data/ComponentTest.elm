@@ -1449,6 +1449,9 @@ suite =
                               "consumptions": [
                                 { "amount": 1, "processId": "931c9bb0-619a-5f75-b41b-ab8061e2ad92" }
                               ],
+                              "packagings": [
+                                { "amount": 1, "processId": "4a80c078-9f86-4a7d-b402-73db3381e33b" }
+                              ],
                               "recyclable": true
                             }"""
                             |> decodeJsonThen Component.decodeQuery (Component.compute requirements)
@@ -1467,13 +1470,19 @@ suite =
                                     |> Maybe.withDefault 0
                                     |> Expect.greaterThan 0
                                 )
+                            , it "should compute packaging impacts"
+                                (stagesImpacts.endOfLife
+                                    |> Maybe.map getEcsImpact
+                                    |> Maybe.withDefault 0
+                                    |> Expect.greaterThan 0
+                                )
                             , it "should compute end of life stage impacts"
                                 (stagesImpacts.endOfLife
                                     |> Maybe.map getEcsImpact
                                     |> Maybe.withDefault 0
                                     |> Expect.greaterThan 0
                                 )
-                            , it "should compute use stage impacts"
+                            , it "should compute use stage consumption impacts"
                                 (stagesImpacts.usage
                                     |> Maybe.map getEcsImpact
                                     |> Maybe.withDefault 0
@@ -1499,9 +1508,6 @@ suite =
                         ("""{
                               "components": [
                                 { "id": "8ca2ca05-8aec-4121-acaa-7cdcc03150a9", "quantity": 1 }
-                              ],
-                              "consumptions": [
-                                { "amount": 1, "processId": "931c9bb0-619a-5f75-b41b-ab8061e2ad92" }
                               ],
                               "recyclable": false
                             }"""
@@ -1921,6 +1927,7 @@ setupTestDb db =
                 , wood
                 , plastic
                 , sawing
+                , chipsBag
                 ]
 
         replace : List { a | id : id } -> List { a | id : id } -> List { a | id : id }
@@ -2034,6 +2041,39 @@ sofaFabric =
 
 
 -- 2. Processes
+
+
+chipsBag : Result String Process
+chipsBag =
+    decodeJson (Process.decode Impact.decodeImpacts) <|
+        """ {
+              "activityName": "Chips, 150g | Packaging System, Proxy Pack, Plastic film {FR} U",
+              "alias": null,
+              "categories": [
+                "material",
+                "packaging",
+                "packaging_type:bag"
+              ],
+              "comment": "blah",
+              "displayName": "Sachet en plastique (PP) pour chips - 150g - Proxy",
+              "elecMJ": 0,
+              "heatMJ": 0,
+              "id": "4a80c078-9f86-4a7d-b402-73db3381e33b",
+              "impacts": {
+                "ecs": 1.358
+              },
+              "landOccupation": null,
+              "location": "FR",
+              "massPerUnit": 0.00538,
+              "metadata": null,
+              "qtyVariationRatio": 1.0,
+              "scopes": [
+                "food2"
+              ],
+              "source": "Agribalyse 3.2",
+              "unit": "item"
+            }
+            """
 
 
 dryDistribution : Result String Process
