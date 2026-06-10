@@ -1,7 +1,7 @@
 module Data.Component exposing
     ( Component
     , Config
-    , Consumption(..)
+    , Consumption
     , Custom
     , DataContainer
     , Element
@@ -14,7 +14,7 @@ module Data.Component exposing
     , Index
     , Item
     , LifeCycle
-    , Packaging(..)
+    , Packaging
     , Quantity
     , Query
     , Requirements
@@ -39,6 +39,7 @@ module Data.Component exposing
     , computeTransportDistance
     , computeTransportedMassImpacts
     , computeVolumeFromMass
+    , consumption
     , createItem
     , decode
     , decodeItem
@@ -90,6 +91,7 @@ module Data.Component exposing
     , mapItems
     , nonLocalizedExpandedProcess
     , nonLocalizedProcess
+    , packaging
     , parseBase64Query
     , parseConfig
     , quantityFromInt
@@ -678,6 +680,11 @@ computeVolumeFromMass =
     Quantity.divideBy 1000
         >> Mass.inKilograms
         >> Volume.cubicMeters
+
+
+consumption : Amount -> Process.Id -> Consumption
+consumption amount =
+    QuantifiedProcess amount >> Consumption
 
 
 computeDistributionImpacts : Requirements db -> Query -> LifeCycle -> Result String LifeCycle
@@ -2157,6 +2164,11 @@ nonLocalizedExpandedProcess process =
 nonLocalizedProcess : Process.Id -> LocalizedProcess
 nonLocalizedProcess id =
     { country = Nothing, id = id }
+
+
+packaging : Amount -> Process.Id -> Packaging
+packaging amount =
+    QuantifiedProcess amount >> Packaging
 
 
 parseBase64Query : Parser (Maybe Query -> a) a

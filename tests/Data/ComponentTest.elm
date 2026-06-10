@@ -1632,10 +1632,7 @@ suite =
                                         |> (\query ->
                                                 { query
                                                     | consumptions =
-                                                        [ Component.Consumption
-                                                            { amount = Amount.fromFloat -1
-                                                            , processId = steelProcess.id
-                                                            }
+                                                        [ Component.consumption (Amount.fromFloat -1) steelProcess.id
                                                         ]
                                                 }
                                            )
@@ -1708,10 +1705,7 @@ suite =
                                         |> (\query ->
                                                 { query
                                                     | consumptions =
-                                                        [ Component.Consumption
-                                                            { amount = Amount.fromFloat 1
-                                                            , processId = nonExistingProcessId
-                                                            }
+                                                        [ Component.consumption (Amount.fromFloat 1) nonExistingProcessId
                                                         ]
                                                 }
                                            )
@@ -1723,12 +1717,33 @@ suite =
                                         |> (\query ->
                                                 { query
                                                     | consumptions =
-                                                        [ Component.Consumption
-                                                            { amount = Amount.fromFloat 1
-
-                                                            -- Note: the sawing process isn't scoped for Food2
-                                                            , processId = sawingProcess.id
-                                                            }
+                                                        -- Note: the sawing process isn't scoped for Food2
+                                                        [ Component.consumption (Amount.fromFloat 1) sawingProcess.id
+                                                        ]
+                                                }
+                                           )
+                                        |> Component.validateQuery { requirements | scope = Scope.Generic Scope.Food2 }
+                                        |> expectResultErrorContains ("Aucun procédé scopé Alimentaire² avec cet id: " ++ Process.idToString sawingProcess.id)
+                                    )
+                                , it "should reject a packaging referencing a missing process" <|
+                                    (Component.emptyQuery
+                                        |> (\query ->
+                                                { query
+                                                    | packagings =
+                                                        [ Component.packaging (Amount.fromFloat 1) nonExistingProcessId
+                                                        ]
+                                                }
+                                           )
+                                        |> Component.validateQuery requirements
+                                        |> expectResultErrorContains ("Aucun procédé scopé Objets avec cet id: " ++ Process.idToString nonExistingProcessId)
+                                    )
+                                , it "should reject a packaging referencing a process with the wrong scope" <|
+                                    (Component.emptyQuery
+                                        |> (\query ->
+                                                { query
+                                                    | packagings =
+                                                        -- Note: the sawing process isn't scoped for Food2
+                                                        [ Component.packaging (Amount.fromFloat 1) sawingProcess.id
                                                         ]
                                                 }
                                            )
