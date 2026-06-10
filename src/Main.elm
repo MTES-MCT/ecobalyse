@@ -90,8 +90,8 @@ type Msg
     | AppMsg App.Msg
     | AuthMsg Auth.Msg
     | ComponentAdminMsg ComponentAdmin.Msg
-    | ComponentConfigReceived Url (WebData Component.Config)
-    | DetailedProcessesReceived Url (BackendHttp.WebData String)
+    | ComponentConfigReceived (WebData Component.Config)
+    | DetailedProcessesReceived (BackendHttp.WebData String)
     | EditorialMsg Editorial.Msg
     | ExploreMsg Explore.Msg
     | FoodBuilderMsg FoodBuilder.Msg
@@ -143,11 +143,11 @@ init flags requestedUrl navKey =
                     [ Ports.appStarted ()
                     , Request.Version.loadVersion VersionReceived
                     , if Session.isAuthenticated session then
-                        Request.Auth.processes session (DetailedProcessesReceived requestedUrl)
+                        Request.Auth.processes session DetailedProcessesReceived
 
                       else
                         ComponentConfig.decode db
-                            |> Http.get "/data/components/config.json" (ComponentConfigReceived requestedUrl)
+                            |> Http.get "/data/components/config.json" ComponentConfigReceived
                     , Plausible.send session <| Plausible.PageViewed requestedUrl
                     ]
                 )
@@ -391,23 +391,26 @@ update rawMsg ({ state } as model) =
                     ( { model | tray = newTray }, Cmd.map (AppMsg << App.ToastMsg) newToastMsg )
 
                 -- Components
-                ( ComponentConfigReceived requestedUrl (RemoteData.Success componentConfig), currentPage ) ->
-                    setRoute requestedUrl
+                ( ComponentConfigReceived (RemoteData.Success componentConfig), currentPage ) ->
+                    -- Re-route to the *current* url, not the one requested at boot time: the user
+                    -- may have navigated elsewhere while the data was loading, and must not be
+                    -- redirected back to where they started.
+                    setRoute model.url
                         ( { model | state = currentPage |> Loaded { session | componentConfig = componentConfig } }
                         , Cmd.none
                         )
 
-                ( ComponentConfigReceived _ (RemoteData.Failure _), _ ) ->
+                ( ComponentConfigReceived (RemoteData.Failure _), _ ) ->
                     -- FIXME: log the error to the console, or as details of the error in the UI
                     notifyError model "Erreur" <|
                         "Impossible de charger la configuration des composants. Une configuration par défaut sera"
                             ++ " utilisée, les résultats fournis sont probablement invalides ou incomplets."
 
-                ( ComponentConfigReceived _ _, _ ) ->
+                ( ComponentConfigReceived _, _ ) ->
                     ( model, Cmd.none )
 
                 -- Detailed processes
-                ( DetailedProcessesReceived requestedUrl (RemoteData.Success rawDetailedProcessesJson), currentPage ) ->
+                ( DetailedProcessesReceived (RemoteData.Success rawDetailedProcessesJson), currentPage ) ->
                     -- When detailed processes are received, rebuild the entire static db using them
                     case StaticDb.db rawDetailedProcessesJson of
                         Err _ ->
@@ -417,10 +420,10 @@ update rawMsg ({ state } as model) =
                         Ok detailedDb ->
                             ( { model | state = currentPage |> Loaded { session | db = detailedDb } }
                             , ComponentConfig.decode detailedDb
-                                |> Http.get "/data/components/config.json" (ComponentConfigReceived requestedUrl)
+                                |> Http.get "/data/components/config.json" ComponentConfigReceived
                             )
 
-                ( DetailedProcessesReceived _ (RemoteData.Failure _), _ ) ->
+                ( DetailedProcessesReceived (RemoteData.Failure _), _ ) ->
                     notifyError model "Erreur" <|
                         "Impossible de charger les impacts détaillés; les impacts agrégés seront utilisés."
 
