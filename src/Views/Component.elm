@@ -611,7 +611,8 @@ quantifiedProcessList { db, impact } listConfig quantifiedProcesses =
                                         [ td [ class "ps-3 align-middle text-nowrap", style "min-width" "160px" ]
                                             [ amountInput (listConfig.updateAmount index) process.unit amount ]
                                         , td
-                                            [ class "align-middle w-66 text-truncate cursor-help"
+                                            [ class "align-middle text-truncate w-66 cursor-help "
+                                            , style "max-width" "0"
                                             , [ Process.getDisplayName process
                                               , Process.getTechnicalName process
                                               ]
@@ -619,13 +620,13 @@ quantifiedProcessList { db, impact } listConfig quantifiedProcesses =
                                                 |> title
                                             ]
                                             [ text <| Process.getDisplayName process ]
-                                        , td [ class "text-end text-nowrap" ]
+                                        , td [ class "align-middle text-end text-nowrap" ]
                                             [ listConfig.impactsList
                                                 |> LE.getAt index
                                                 |> Maybe.withDefault Impact.empty
                                                 |> Format.formatImpact impact
                                             ]
-                                        , td [ class "pe-3 pt-2 align-middle" ]
+                                        , td [ class "align-middle pe-3 pt-2" ]
                                             [ button
                                                 [ type_ "button"
                                                 , class "btn btn-sm btn-outline-secondary"
