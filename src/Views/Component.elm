@@ -517,10 +517,29 @@ lifeCycleView ({ db, docsUrl, explorerRoute, impact, query, scope, title } as co
         ]
 
 
+packagingView : Config db msg -> LifeCycle -> Html msg
+packagingView { db, impact, query, scope } lifeCycle =
+    div [ class "card shadow-sm" ]
+        [ div [ class "card-header d-flex align-items-center justify-content-between" ]
+            [ h2 [ class "h5 mb-0" ]
+                [ text "Emballage" ]
+            , div [ class "d-flex align-items-center gap-2" ]
+                [-- TODO impacts
+                 -- lifeCycle
+                 -- |> Result.map (.packaging >> .impacts >> Format.formatImpact impact)
+                 -- |> Result.withDefault (text "")
+                ]
+            ]
+        , div [ class "card-body d-flex justify-content-between align-items-center gap-2" ]
+            [ text "TODO" ]
+        ]
+
+
 genericContextStagesView : Config db msg -> LifeCycle -> Html msg
 genericContextStagesView config lifeCycle =
     div []
-        [ lifeCycle.transports.toDistribution
+        [ packagingView config lifeCycle
+        , lifeCycle.transports.toDistribution
             |> transportToDistributionView config (Component.extractMass lifeCycle.production)
         , distributionView config
         , noTransportView
