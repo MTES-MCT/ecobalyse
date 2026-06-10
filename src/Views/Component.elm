@@ -567,7 +567,7 @@ packagingView ({ db, query } as config) lifeCycle =
                 div [ class "card-body" ] [ text "Aucun emballage" ]
 
               else
-                div [ class "table-responsive table-scroll position-relative" ]
+                div [ class "QuantifiedProcessList table-responsive table-scroll position-relative" ]
                     [ table [ class "table table-hover mb-0" ]
                         [ query.packagings
                             |> Component.expandPackagings db.processes
@@ -715,7 +715,7 @@ amountInput toMsg unit amount =
                 _ ->
                     "0.01"
     in
-    div [ class "input-group" ]
+    div [ class "AmountInput input-group" ]
         [ input
             [ type_ "number"
             , class "form-control form-control-sm text-end incdec-arrows-left"
