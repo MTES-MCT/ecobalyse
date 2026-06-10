@@ -539,9 +539,9 @@ genericContextStagesView config lifeCycle =
         [ packagingView config lifeCycle
         , lifeCycle.transports.toDistribution
             |> transportToDistributionView config (Component.extractMass lifeCycle.production)
-        , distributionView config
+        , distributionView config lifeCycle
         , noTransportView
-        , useStageView config
+        , useStageView config lifeCycle
         , noTransportView
         , endOfLifeView config lifeCycle
         ]
@@ -1256,25 +1256,26 @@ assemblyView config =
         ]
 
 
-distributionView : Config db msg -> Html msg
-distributionView { componentConfig, db, impact, lifeCycle, query, scope, updateDistribution } =
+distributionView : Config db msg -> LifeCycle -> Html msg
+distributionView { componentConfig, db, impact, query, scope, updateDistribution } lifeCycle =
     div [ class "card shadow-sm" ]
         [ div [ class "card-header d-flex align-items-center justify-content-between" ]
             [ h2 [ class "h5 mb-0" ]
                 [ text "Distribution" ]
             , div [ class "d-flex align-items-center gap-2" ]
-                [ lifeCycle
-                    |> Result.map (.distribution >> .impacts >> Format.formatImpact impact)
-                    |> Result.withDefault (text "")
+                [ lifeCycle.distribution.impacts
+                    |> Format.formatImpact impact
                 ]
             ]
         , [ div [ class "d-flex align-items-center gap-1" ]
                 [ Icon.lock, text "France" ]
                 |> Just
-          , lifeCycle
-                |> Result.map (.distribution >> .volume >> Format.cubicMeters)
-                |> Result.toMaybe
-                |> Maybe.map (\html -> div [ class "d-flex align-items-center w-33 justify-content-end gap-1" ] [ Icon.package, html ])
+          , div [ class "d-flex align-items-center w-33 justify-content-end gap-1" ]
+                [ Icon.package
+                , lifeCycle.distribution.volume
+                    |> Format.cubicMeters
+                ]
+                |> Just
           , -- only render distribution process selector if any is available
             case Component.getAvailableDistributionProcesses db scope of
                 [] ->
@@ -1305,20 +1306,14 @@ distributionView { componentConfig, db, impact, lifeCycle, query, scope, updateD
         ]
 
 
-useStageView : Config db msg -> Html msg
-useStageView ({ db, impact, lifeCycle, query, removeConsumption, updateConsumptionAmount } as config) =
-    let
-        consumptionImpacts =
-            lifeCycle
-                |> Result.map .use
-                |> Result.withDefault []
-    in
+useStageView : Config db msg -> LifeCycle -> Html msg
+useStageView ({ db, impact, query, removeConsumption, updateConsumptionAmount } as config) lifeCycle =
     div [ class "card shadow-sm" ]
         [ div [ class "card-header d-flex align-items-center justify-content-between" ]
             [ h2 [ class "h5 mb-0" ]
                 [ text "Utilisation" ]
             , div [ class "d-flex align-items-center gap-2" ]
-                [ consumptionImpacts
+                [ lifeCycle.use
                     |> Impact.sumImpacts
                     |> Format.formatImpact impact
                 ]
@@ -1348,7 +1343,7 @@ useStageView ({ db, impact, lifeCycle, query, removeConsumption, updateConsumpti
                                             ]
                                             [ text <| Process.getDisplayName process ]
                                         , td [ class "text-end text-nowrap" ]
-                                            [ consumptionImpacts
+                                            [ lifeCycle.use
                                                 |> LE.getAt index
                                                 |> Maybe.withDefault Impact.empty
                                                 |> Format.formatImpact impact
