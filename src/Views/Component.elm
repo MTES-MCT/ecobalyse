@@ -549,7 +549,7 @@ lifeCycleView ({ db, docsUrl, explorerRoute, impact, query, scope, title } as co
 
 
 packagingView : Config db msg -> LifeCycle -> Html msg
-packagingView config lifeCycle =
+packagingView ({ db, query } as config) lifeCycle =
     div [ class "card shadow-sm" ]
         [ div [ class "card-header d-flex align-items-center justify-content-between" ]
             [ h2 [ class "h5 mb-0" ]
@@ -559,8 +559,24 @@ packagingView config lifeCycle =
                     |> Format.formatImpact config.impact
                 ]
             ]
-        , div [ class "card-body d-flex justify-content-between align-items-center gap-2" ]
-            [ text "TODO" ]
+        , if List.isEmpty query.packagings then
+            text "Aucun emballage"
+
+          else
+            div [ class "card-body d-flex justify-content-between align-items-center gap-2" ]
+                [ case query.packagings |> Component.expandPackagings db.processes of
+                    Err error ->
+                        Alert.simple
+                            { attributes = []
+                            , close = Nothing
+                            , content = [ text error ]
+                            , level = Alert.Danger
+                            , title = Nothing
+                            }
+
+                    Ok expandedPackagings ->
+                        text "Ok"
+                ]
         , addPackagingButton config
         ]
 

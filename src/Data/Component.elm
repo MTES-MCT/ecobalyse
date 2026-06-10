@@ -62,6 +62,7 @@ module Data.Component exposing
     , expandConsumptions
     , expandElements
     , expandItems
+    , expandPackagings
     , extractAmount
     , extractComplementsImpacts
     , extractImpacts
