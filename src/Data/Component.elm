@@ -1438,8 +1438,8 @@ encodeBase64Query =
 
 
 encodeConsumption : Consumption -> Encode.Value
-encodeConsumption (Consumption v) =
-    encodeQuantifiedProcess v
+encodeConsumption (Consumption quantifiedProcess) =
+    encodeQuantifiedProcess quantifiedProcess
 
 
 encodeCustom : Custom -> Encode.Value
@@ -1483,8 +1483,8 @@ encodeLocalizedProcess localizedProcess =
 
 
 encodePackaging : Packaging -> Encode.Value
-encodePackaging (Packaging v) =
-    encodeQuantifiedProcess v
+encodePackaging (Packaging quantifiedProcess) =
+    encodeQuantifiedProcess quantifiedProcess
 
 
 encodeQuantifiedProcess : QuantifiedProcess -> Encode.Value
@@ -1737,7 +1737,7 @@ expandItems db =
     List.map (expandItem db) >> RE.combine
 
 
-{-| Resolve full use consumption processes linked to their respective ids
+{-| Resolve packaging Amount and fully qualified Process
 -}
 expandPackagings : List Process -> List Packaging -> Result String (List ExpandedQuantifiedProcess)
 expandPackagings processes =
