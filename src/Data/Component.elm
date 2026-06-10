@@ -294,12 +294,18 @@ type Packaging
     = Packaging QuantifiedProcess
 
 
+{-| A generic compact representation of a process and an amount of it.
+This is used by `Consumption` and `Packaging`
+-}
 type alias QuantifiedProcess =
     { amount : Amount
     , processId : Process.Id
     }
 
 
+{-| An expanded representation of a process and an amount of it.
+This is used by `Consumption` and `Packaging`
+-}
 type alias ExpandedQuantifiedProcess =
     { amount : Amount
     , process : Process

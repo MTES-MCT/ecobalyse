@@ -576,6 +576,9 @@ packagingView ({ query } as config) lifeCycle =
         ]
 
 
+{-| A generic view config to render a list of QuantifiedProcess, with update
+and removal inputs, as well as detailed impacts.
+-}
 type alias QuantifiedProcessListConfig quantified msg =
     { deletionLabel : String
     , emptyListLabel : String
@@ -587,14 +590,15 @@ type alias QuantifiedProcessListConfig quantified msg =
 
 
 quantifiedProcessList : Config db msg -> QuantifiedProcessListConfig quantified msg -> List quantified -> Html msg
-quantifiedProcessList { db, impact } { deletionLabel, emptyListLabel, expandFn, impactsList, removeFn, updateAmount } quantifiedProcesses =
+quantifiedProcessList { db, impact } listConfig quantifiedProcesses =
     if List.isEmpty quantifiedProcesses then
-        div [ class "card-body" ] [ text emptyListLabel ]
+        div [ class "card-body" ]
+            [ text listConfig.emptyListLabel ]
 
     else
         div [ class "QuantifiedProcessList table-responsive table-scroll position-relative" ]
             [ table [ class "table table-hover mb-0" ]
-                [ case quantifiedProcesses |> expandFn db.processes of
+                [ case quantifiedProcesses |> listConfig.expandFn db.processes of
                     Err error ->
                         simpleError Nothing error
 
@@ -604,7 +608,7 @@ quantifiedProcessList { db, impact } { deletionLabel, emptyListLabel, expandFn, 
                                 (\index { amount, process } ->
                                     tr []
                                         [ td [ class "ps-3 align-middle text-nowrap", style "min-width" "160px" ]
-                                            [ amountInput (updateAmount index) process.unit amount ]
+                                            [ amountInput (listConfig.updateAmount index) process.unit amount ]
                                         , td
                                             [ class "align-middle w-66 text-truncate cursor-help"
                                             , [ Process.getDisplayName process
@@ -615,7 +619,7 @@ quantifiedProcessList { db, impact } { deletionLabel, emptyListLabel, expandFn, 
                                             ]
                                             [ text <| Process.getDisplayName process ]
                                         , td [ class "text-end text-nowrap" ]
-                                            [ impactsList
+                                            [ listConfig.impactsList
                                                 |> LE.getAt index
                                                 |> Maybe.withDefault Impact.empty
                                                 |> Format.formatImpact impact
@@ -624,8 +628,8 @@ quantifiedProcessList { db, impact } { deletionLabel, emptyListLabel, expandFn, 
                                             [ button
                                                 [ type_ "button"
                                                 , class "btn btn-sm btn-outline-secondary"
-                                                , title deletionLabel
-                                                , onClick (removeFn index)
+                                                , title listConfig.deletionLabel
+                                                , onClick (listConfig.removeFn index)
                                                 ]
                                                 [ Icon.trash ]
                                             ]

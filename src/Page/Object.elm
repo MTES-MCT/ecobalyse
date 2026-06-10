@@ -860,7 +860,6 @@ addPackaging query autocompleteState pageUpdate =
                     }
                 |> App.apply update (SetModals [])
 
-        --|> App.withCmds [ Plausible.send pageUpdate.session <| Plausible.ConsumptionAdded model.scope ]
         Nothing ->
             pageUpdate |> App.notifyWarning "Aucun composant sélectionné"
 
