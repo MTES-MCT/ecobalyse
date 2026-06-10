@@ -15,6 +15,7 @@ import Data.Component as Component
         , ExpandedElement
         , ExpandedItem
         , ExpandedLocalizedProcess
+        , ExpandedQuantifiedProcess
         , Index
         , LifeCycle
         , Quantity
@@ -28,7 +29,7 @@ import Data.Component as Component
 import Data.Component.Amount as Amount exposing (Amount)
 import Data.Component.Config as Config
 import Data.Country as Country exposing (Country)
-import Data.Impact as Impact
+import Data.Impact as Impact exposing (Impacts)
 import Data.Impact.Definition as Definition exposing (Definition)
 import Data.Process as Process exposing (Process)
 import Data.Process.Category as Category exposing (Category)
@@ -551,7 +552,7 @@ lifeCycleView ({ db, docsUrl, explorerRoute, impact, query, scope, title } as co
 
 
 packagingView : Config db msg -> LifeCycle -> Html msg
-packagingView ({ db, query } as config) lifeCycle =
+packagingView ({ query } as config) lifeCycle =
     div [ class "card shadow-sm" ]
         [ div [ class "card-header d-flex align-items-center justify-content-between" ]
             [ h2 [ class "h5 mb-0" ]
@@ -562,52 +563,78 @@ packagingView ({ db, query } as config) lifeCycle =
                     |> Format.formatImpact config.impact
                 ]
             ]
-        , div [ class "d-flex flex-column p-0" ]
-            [ if List.isEmpty query.packagings then
-                div [ class "card-body" ] [ text "Aucun emballage" ]
-
-              else
-                div [ class "QuantifiedProcessList table-responsive table-scroll position-relative" ]
-                    [ table [ class "table table-hover mb-0" ]
-                        [ query.packagings
-                            |> Component.expandPackagings db.processes
-                            |> Result.withDefault []
-                            |> List.indexedMap
-                                (\index { amount, process } ->
-                                    tr []
-                                        [ td [ class "ps-3 align-middle text-nowrap", style "min-width" "160px" ]
-                                            [ amountInput (config.updatePackagingAmount index) process.unit amount ]
-                                        , td
-                                            [ class "align-middle w-66 text-truncate cursor-help"
-                                            , [ Process.getDisplayName process
-                                              , Process.getTechnicalName process
-                                              ]
-                                                |> String.join "\n"
-                                                |> title
-                                            ]
-                                            [ text <| Process.getDisplayName process ]
-                                        , td [ class "text-end text-nowrap" ]
-                                            [ lifeCycle.packaging
-                                                |> LE.getAt index
-                                                |> Maybe.withDefault Impact.empty
-                                                |> Format.formatImpact config.impact
-                                            ]
-                                        , td [ class "pe-3 pt-2 align-middle" ]
-                                            [ button
-                                                [ type_ "button"
-                                                , class "btn btn-sm btn-outline-secondary"
-                                                , title "Supprimer cet emballage"
-                                                , onClick (config.removePackaging index)
-                                                ]
-                                                [ Icon.trash ]
-                                            ]
-                                        ]
-                                )
-                            |> tbody []
-                        ]
-                    ]
-            ]
+        , query.packagings
+            |> quantifiedProcessList config
+                { deletionLabel = "Aucun emballage"
+                , emptyListLabel = "Supprimer cet emballage"
+                , expandFn = Component.expandPackagings
+                , impactsList = lifeCycle.packaging
+                , removeFn = config.removePackaging
+                , updateAmount = config.updatePackagingAmount
+                }
         , addPackagingButton config
+        ]
+
+
+type alias QuantifiedProcessListConfig quantified msg =
+    { deletionLabel : String
+    , emptyListLabel : String
+    , expandFn : List Process -> List quantified -> Result String (List ExpandedQuantifiedProcess)
+    , impactsList : List Impacts
+    , removeFn : Index -> msg
+    , updateAmount : Index -> Maybe Amount -> msg
+    }
+
+
+quantifiedProcessList : Config db msg -> QuantifiedProcessListConfig quantified msg -> List quantified -> Html msg
+quantifiedProcessList { db, impact } { deletionLabel, emptyListLabel, expandFn, impactsList, removeFn, updateAmount } quantifiedProcesses =
+    div [ class "d-flex flex-column p-0" ]
+        [ if List.isEmpty quantifiedProcesses then
+            div [ class "card-body" ] [ text emptyListLabel ]
+
+          else
+            div [ class "QuantifiedProcessList table-responsive table-scroll position-relative" ]
+                [ table [ class "table table-hover mb-0" ]
+                    [ case quantifiedProcesses |> expandFn db.processes of
+                        Err error ->
+                            simpleError Nothing error
+
+                        Ok expanded ->
+                            expanded
+                                |> List.indexedMap
+                                    (\index { amount, process } ->
+                                        tr []
+                                            [ td [ class "ps-3 align-middle text-nowrap", style "min-width" "160px" ]
+                                                [ amountInput (updateAmount index) process.unit amount ]
+                                            , td
+                                                [ class "align-middle w-66 text-truncate cursor-help"
+                                                , [ Process.getDisplayName process
+                                                  , Process.getTechnicalName process
+                                                  ]
+                                                    |> String.join "\n"
+                                                    |> title
+                                                ]
+                                                [ text <| Process.getDisplayName process ]
+                                            , td [ class "text-end text-nowrap" ]
+                                                [ impactsList
+                                                    |> LE.getAt index
+                                                    |> Maybe.withDefault Impact.empty
+                                                    |> Format.formatImpact impact
+                                                ]
+                                            , td [ class "pe-3 pt-2 align-middle" ]
+                                                [ button
+                                                    [ type_ "button"
+                                                    , class "btn btn-sm btn-outline-secondary"
+                                                    , title deletionLabel
+                                                    , onClick (removeFn index)
+                                                    ]
+                                                    [ Icon.trash ]
+                                                ]
+                                            ]
+                                    )
+                                |> tbody []
+                    ]
+                ]
         ]
 
 
@@ -1386,7 +1413,7 @@ distributionView { componentConfig, db, impact, query, scope, updateDistribution
 
 
 useStageView : Config db msg -> LifeCycle -> Html msg
-useStageView ({ db, impact, query, removeConsumption, updateConsumptionAmount } as config) lifeCycle =
+useStageView ({ impact, query } as config) lifeCycle =
     div [ class "card shadow-sm" ]
         [ div [ class "card-header d-flex align-items-center justify-content-between" ]
             [ h2 [ class "h5 mb-0" ]
@@ -1398,49 +1425,15 @@ useStageView ({ db, impact, query, removeConsumption, updateConsumptionAmount } 
                 ]
             ]
         , div [ class "d-flex flex-column p-0" ]
-            [ if List.isEmpty query.consumptions then
-                div [ class "card-body" ] [ text "Aucune consommation" ]
-
-              else
-                div [ class "table-responsive table-scroll position-relative" ]
-                    [ table [ class "table table-hover mb-0" ]
-                        [ query.consumptions
-                            |> Component.expandConsumptions db.processes
-                            |> Result.withDefault []
-                            |> List.indexedMap
-                                (\index { amount, process } ->
-                                    tr []
-                                        [ td [ class "ps-3 align-middle text-nowrap", style "min-width" "160px" ]
-                                            [ amountInput (updateConsumptionAmount index) process.unit amount ]
-                                        , td
-                                            [ class "align-middle w-66 text-truncate cursor-help"
-                                            , [ Process.getDisplayName process
-                                              , Process.getTechnicalName process
-                                              ]
-                                                |> String.join "\n"
-                                                |> title
-                                            ]
-                                            [ text <| Process.getDisplayName process ]
-                                        , td [ class "text-end text-nowrap" ]
-                                            [ lifeCycle.use
-                                                |> LE.getAt index
-                                                |> Maybe.withDefault Impact.empty
-                                                |> Format.formatImpact impact
-                                            ]
-                                        , td [ class "pe-3 pt-2 align-middle" ]
-                                            [ button
-                                                [ type_ "button"
-                                                , class "btn btn-sm btn-outline-secondary"
-                                                , title "Supprimer cette consommation"
-                                                , onClick (removeConsumption index)
-                                                ]
-                                                [ Icon.trash ]
-                                            ]
-                                        ]
-                                )
-                            |> tbody []
-                        ]
-                    ]
+            [ query.consumptions
+                |> quantifiedProcessList config
+                    { deletionLabel = "Aucune consommation"
+                    , emptyListLabel = "Supprimer cette consommation"
+                    , expandFn = Component.expandConsumptions
+                    , impactsList = lifeCycle.use
+                    , removeFn = config.removeConsumption
+                    , updateAmount = config.updateConsumptionAmount
+                    }
             , addConsumptionButton config
             ]
         ]

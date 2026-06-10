@@ -9,6 +9,7 @@ module Data.Component exposing
     , ExpandedElement
     , ExpandedItem
     , ExpandedLocalizedProcess
+    , ExpandedQuantifiedProcess
     , Id
     , Index
     , Item
