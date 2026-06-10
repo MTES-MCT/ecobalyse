@@ -536,7 +536,8 @@ packagingView { impact } lifeCycle =
 genericContextStagesView : Config db msg -> LifeCycle -> Html msg
 genericContextStagesView config lifeCycle =
     div []
-        [ packagingView config lifeCycle
+        [ noTransportView
+        , packagingView config lifeCycle
         , lifeCycle.transports.toDistribution
             |> transportToDistributionView config (Component.extractMass lifeCycle.production)
         , distributionView config lifeCycle
