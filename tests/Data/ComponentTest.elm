@@ -1626,9 +1626,10 @@ suite =
                                         |> (\query ->
                                                 { query
                                                     | consumptions =
-                                                        [ { amount = Amount.fromFloat -1
-                                                          , processId = steelProcess.id
-                                                          }
+                                                        [ Component.Consumption
+                                                            { amount = Amount.fromFloat -1
+                                                            , processId = steelProcess.id
+                                                            }
                                                         ]
                                                 }
                                            )
@@ -1701,9 +1702,10 @@ suite =
                                         |> (\query ->
                                                 { query
                                                     | consumptions =
-                                                        [ { amount = Amount.fromFloat 1
-                                                          , processId = nonExistingProcessId
-                                                          }
+                                                        [ Component.Consumption
+                                                            { amount = Amount.fromFloat 1
+                                                            , processId = nonExistingProcessId
+                                                            }
                                                         ]
                                                 }
                                            )
@@ -1715,11 +1717,12 @@ suite =
                                         |> (\query ->
                                                 { query
                                                     | consumptions =
-                                                        [ { amount = Amount.fromFloat 1
+                                                        [ Component.Consumption
+                                                            { amount = Amount.fromFloat 1
 
-                                                          -- Note: the sawing process isn't scoped for Food2
-                                                          , processId = sawingProcess.id
-                                                          }
+                                                            -- Note: the sawing process isn't scoped for Food2
+                                                            , processId = sawingProcess.id
+                                                            }
                                                         ]
                                                 }
                                            )

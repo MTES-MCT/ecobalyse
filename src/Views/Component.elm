@@ -1355,7 +1355,7 @@ useStageView ({ db, impact, query, removeConsumption, updateConsumptionAmount } 
                             |> Component.expandConsumptions db.processes
                             |> Result.withDefault []
                             |> List.indexedMap
-                                (\index ( amount, process ) ->
+                                (\index { amount, process } ->
                                     tr []
                                         [ td [ class "ps-3 align-middle text-nowrap", style "min-width" "160px" ]
                                             [ amountInput (updateConsumptionAmount index) process.unit amount ]
@@ -1401,7 +1401,7 @@ addConsumptionButton ({ openSelectConsumptionModal, query } as config) =
                 |> List.filter
                     (\{ id } ->
                         query.consumptions
-                            |> List.map .processId
+                            |> List.map Component.getConsumptionProcessId
                             |> List.member id
                             |> not
                     )

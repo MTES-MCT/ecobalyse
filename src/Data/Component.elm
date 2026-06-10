@@ -1,7 +1,7 @@
 module Data.Component exposing
     ( Component
     , Config
-    , Consumption
+    , Consumption(..)
     , Custom
     , DataContainer
     , Element
@@ -70,6 +70,7 @@ module Data.Component exposing
     , extractStage
     , findById
     , getAvailableDistributionProcesses
+    , getConsumptionProcessId
     , getEndOfLifeDetailedImpacts
     , getEndOfLifeImpacts
     , getEndOfLifeScopeCollectionRate
@@ -195,10 +196,8 @@ type alias Query =
 
 {-| Use stage consumption, a process and a quantity of its unit
 -}
-type alias Consumption =
-    { amount : Amount
-    , processId : Process.Id
-    }
+type Consumption
+    = Consumption QuantifiedProcess
 
 
 {-| Errors related to distribution process handling and availability
@@ -290,10 +289,6 @@ type Packaging
     = Packaging QuantifiedProcess
 
 
-type ExpandedPackaging
-    = ExpandedPackaging ExpandedQuantifiedProcess
-
-
 type alias QuantifiedProcess =
     { amount : Amount
     , processId : Process.Id
@@ -302,7 +297,7 @@ type alias QuantifiedProcess =
 
 type alias ExpandedQuantifiedProcess =
     { amount : Amount
-    , processId : Process
+    , process : Process
     }
 
 
@@ -1122,14 +1117,17 @@ computeUseImpacts { config, db } { consumptions } lifeCycle =
     consumptions
         |> expandConsumptions db.processes
         |> Result.map
-            (\expandedConsumptions ->
+            (\expandedQuantifiedProcesses ->
                 { lifeCycle
                     | use =
-                        expandedConsumptions
+                        expandedQuantifiedProcesses
                             |> List.map
-                                (\( amount, process ) ->
+                                (\{ amount, process } ->
                                     process
-                                        |> Process.computeImpacts { elec = config.use.defaultElecProcess, heat = config.use.defaultHeatProcess }
+                                        |> Process.computeImpacts
+                                            { elec = config.use.defaultElecProcess
+                                            , heat = config.use.defaultHeatProcess
+                                            }
                                         |> Impact.multiplyBy (Amount.toFloat amount)
                                 )
                 }
@@ -1179,9 +1177,8 @@ decodeBase64Query =
 
 decodeConsumption : Decoder Consumption
 decodeConsumption =
-    Decode.succeed Consumption
-        |> Decode.required "amount" Amount.decode
-        |> Decode.required "processId" Process.decodeId
+    decodeQuantifiedProcess
+        |> Decode.map Consumption
 
 
 decodeCustom : Decoder Custom
@@ -1415,11 +1412,8 @@ encodeBase64Query =
 
 
 encodeConsumption : Consumption -> Encode.Value
-encodeConsumption v =
-    Encode.object
-        [ ( "amount", v.amount |> Amount.toFloat |> Encode.float )
-        , ( "processId", v.processId |> Process.encodeId )
-        ]
+encodeConsumption (Consumption v) =
+    encodeQuantifiedProcess v
 
 
 encodeCustom : Custom -> Encode.Value
@@ -1642,15 +1636,10 @@ errors =
 
 {-| Resolve full use consumption processes linked to their respective ids
 -}
-expandConsumptions : List Process -> List Consumption -> Result String (List ( Amount, Process ))
+expandConsumptions : List Process -> List Consumption -> Result String (List ExpandedQuantifiedProcess)
 expandConsumptions processes =
-    List.map
-        (\{ amount, processId } ->
-            processes
-                |> Process.findById processId
-                |> Result.map (\process -> ( amount, process ))
-        )
-        >> RE.combine
+    List.map (\(Consumption quantifiedProcess) -> quantifiedProcess)
+        >> expandQuantifiedProcesses processes
 
 
 {-| Turn an Element to an ExpandedElement
@@ -1722,6 +1711,19 @@ expandItems db =
     List.map (expandItem db) >> RE.combine
 
 
+{-| Expands a QuantifiedProcess, resolving its Process.Id to an actuel Process
+-}
+expandQuantifiedProcesses : List Process -> List QuantifiedProcess -> Result String (List ExpandedQuantifiedProcess)
+expandQuantifiedProcesses processes =
+    List.map
+        (\{ amount, processId } ->
+            processes
+                |> Process.findById processId
+                |> Result.map (ExpandedQuantifiedProcess amount)
+        )
+        >> RE.combine
+
+
 {-| Turn a list of localized processes into expanded localized processes
 -}
 expandTransforms : DataContainer db -> List LocalizedProcess -> Result String (List ExpandedLocalizedProcess)
@@ -1780,6 +1782,11 @@ getAvailableDistributionProcesses db scope =
         |> Scope.anyOf [ scope ]
         |> Process.listByCategory Category.Distribution
         |> List.filter (.unit >> (==) Process.CubicMeter)
+
+
+getConsumptionProcessId : Consumption -> Process.Id
+getConsumptionProcessId (Consumption { processId }) =
+    processId
 
 
 {-| Retrieves a distribution process for a given scope from a provided distribution id, or a default
@@ -2342,7 +2349,7 @@ updateConsumptionAmount index amount query =
     { query
         | consumptions =
             query.consumptions
-                |> LE.updateAt index (\uc -> { uc | amount = amount })
+                |> LE.updateAt index (\(Consumption uc) -> Consumption { uc | amount = amount })
     }
 
 
@@ -2456,10 +2463,10 @@ updateRecyclable recyclable query =
 
 
 validateConsumption : Requirements db -> Consumption -> Result String Consumption
-validateConsumption requirements consumption =
-    Ok Consumption
-        |> RE.andMap (Amount.validate consumption.amount)
-        |> RE.andMap (validateProcessId requirements consumption.processId)
+validateConsumption requirements (Consumption quantifiedProcess) =
+    quantifiedProcess
+        |> validateQuantifiedProcess requirements
+        |> Result.map Consumption
 
 
 validateCountry : Requirements db -> Maybe Country.Code -> Result String (Maybe Country.Code)

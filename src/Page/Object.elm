@@ -825,7 +825,7 @@ selectConsumption query autocompleteState ({ model } as pageUpdate) =
                     { query
                         | consumptions =
                             query.consumptions
-                                ++ [ { amount = Amount.fromFloat 1, processId = process.id } ]
+                                ++ [ Component.Consumption { amount = Amount.fromFloat 1, processId = process.id } ]
                     }
                 |> App.apply update (SetModals [])
                 |> App.withCmds [ Plausible.send pageUpdate.session <| Plausible.ConsumptionAdded model.scope ]
