@@ -588,54 +588,52 @@ type alias QuantifiedProcessListConfig quantified msg =
 
 quantifiedProcessList : Config db msg -> QuantifiedProcessListConfig quantified msg -> List quantified -> Html msg
 quantifiedProcessList { db, impact } { deletionLabel, emptyListLabel, expandFn, impactsList, removeFn, updateAmount } quantifiedProcesses =
-    div [ class "d-flex flex-column p-0" ]
-        [ if List.isEmpty quantifiedProcesses then
-            div [ class "card-body" ] [ text emptyListLabel ]
+    if List.isEmpty quantifiedProcesses then
+        div [ class "card-body" ] [ text emptyListLabel ]
 
-          else
-            div [ class "QuantifiedProcessList table-responsive table-scroll position-relative" ]
-                [ table [ class "table table-hover mb-0" ]
-                    [ case quantifiedProcesses |> expandFn db.processes of
-                        Err error ->
-                            simpleError Nothing error
+    else
+        div [ class "QuantifiedProcessList table-responsive table-scroll position-relative" ]
+            [ table [ class "table table-hover mb-0" ]
+                [ case quantifiedProcesses |> expandFn db.processes of
+                    Err error ->
+                        simpleError Nothing error
 
-                        Ok expanded ->
-                            expanded
-                                |> List.indexedMap
-                                    (\index { amount, process } ->
-                                        tr []
-                                            [ td [ class "ps-3 align-middle text-nowrap", style "min-width" "160px" ]
-                                                [ amountInput (updateAmount index) process.unit amount ]
-                                            , td
-                                                [ class "align-middle w-66 text-truncate cursor-help"
-                                                , [ Process.getDisplayName process
-                                                  , Process.getTechnicalName process
-                                                  ]
-                                                    |> String.join "\n"
-                                                    |> title
-                                                ]
-                                                [ text <| Process.getDisplayName process ]
-                                            , td [ class "text-end text-nowrap" ]
-                                                [ impactsList
-                                                    |> LE.getAt index
-                                                    |> Maybe.withDefault Impact.empty
-                                                    |> Format.formatImpact impact
-                                                ]
-                                            , td [ class "pe-3 pt-2 align-middle" ]
-                                                [ button
-                                                    [ type_ "button"
-                                                    , class "btn btn-sm btn-outline-secondary"
-                                                    , title deletionLabel
-                                                    , onClick (removeFn index)
-                                                    ]
-                                                    [ Icon.trash ]
-                                                ]
+                    Ok expanded ->
+                        expanded
+                            |> List.indexedMap
+                                (\index { amount, process } ->
+                                    tr []
+                                        [ td [ class "ps-3 align-middle text-nowrap", style "min-width" "160px" ]
+                                            [ amountInput (updateAmount index) process.unit amount ]
+                                        , td
+                                            [ class "align-middle w-66 text-truncate cursor-help"
+                                            , [ Process.getDisplayName process
+                                              , Process.getTechnicalName process
+                                              ]
+                                                |> String.join "\n"
+                                                |> title
                                             ]
-                                    )
-                                |> tbody []
-                    ]
+                                            [ text <| Process.getDisplayName process ]
+                                        , td [ class "text-end text-nowrap" ]
+                                            [ impactsList
+                                                |> LE.getAt index
+                                                |> Maybe.withDefault Impact.empty
+                                                |> Format.formatImpact impact
+                                            ]
+                                        , td [ class "pe-3 pt-2 align-middle" ]
+                                            [ button
+                                                [ type_ "button"
+                                                , class "btn btn-sm btn-outline-secondary"
+                                                , title deletionLabel
+                                                , onClick (removeFn index)
+                                                ]
+                                                [ Icon.trash ]
+                                            ]
+                                        ]
+                                )
+                            |> tbody []
                 ]
-        ]
+            ]
 
 
 genericContextStagesView : Config db msg -> LifeCycle -> Html msg
