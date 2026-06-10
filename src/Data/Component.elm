@@ -13,6 +13,7 @@ module Data.Component exposing
     , Index
     , Item
     , LifeCycle
+    , Packaging(..)
     , Quantity
     , Query
     , Requirements
@@ -285,9 +286,23 @@ type alias ExpandedLocalizedProcess =
 
 {-| Packaging process id and a quantity of its unit
 -}
-type alias Packaging =
+type Packaging
+    = Packaging QuantifiedProcess
+
+
+type ExpandedPackaging
+    = ExpandedPackaging ExpandedQuantifiedProcess
+
+
+type alias QuantifiedProcess =
     { amount : Amount
     , processId : Process.Id
+    }
+
+
+type alias ExpandedQuantifiedProcess =
+    { amount : Amount
+    , processId : Process
     }
 
 
@@ -1206,7 +1221,13 @@ decodeMaterial =
 
 decodePackaging : Decoder Packaging
 decodePackaging =
-    Decode.succeed Packaging
+    decodeQuantifiedProcess
+        |> Decode.map Packaging
+
+
+decodeQuantifiedProcess : Decoder QuantifiedProcess
+decodeQuantifiedProcess =
+    Decode.succeed QuantifiedProcess
         |> Decode.required "amount" Amount.decode
         |> Decode.required "processId" Process.decodeId
 
@@ -1442,7 +1463,12 @@ encodeLocalizedProcess localizedProcess =
 
 
 encodePackaging : Packaging -> Encode.Value
-encodePackaging v =
+encodePackaging (Packaging v) =
+    encodeQuantifiedProcess v
+
+
+encodeQuantifiedProcess : QuantifiedProcess -> Encode.Value
+encodeQuantifiedProcess v =
     Encode.object
         [ ( "amount", v.amount |> Amount.toFloat |> Encode.float )
         , ( "processId", v.processId |> Process.encodeId )
@@ -2505,11 +2531,10 @@ validateItem components item =
 
 
 validatePackaging : Requirements db -> Packaging -> Result String Packaging
-validatePackaging requirements consumption =
-    -- TODO: validate category
-    Ok Packaging
-        |> RE.andMap (Amount.validate consumption.amount)
-        |> RE.andMap (validateProcessId requirements consumption.processId)
+validatePackaging requirements (Packaging quantifiedProcess) =
+    quantifiedProcess
+        |> validateQuantifiedProcess requirements
+        |> Result.map Packaging
 
 
 validateProcessId : Requirements db -> Process.Id -> Result String Process.Id
@@ -2527,6 +2552,13 @@ validateProcessId { db, scope } processId =
             )
 
 
+validateQuantifiedProcess : Requirements db -> QuantifiedProcess -> Result String QuantifiedProcess
+validateQuantifiedProcess requirements quantifiedProcess =
+    Ok QuantifiedProcess
+        |> RE.andMap (Amount.validate quantifiedProcess.amount)
+        |> RE.andMap (validateProcessId requirements quantifiedProcess.processId)
+
+
 validateQuery : Requirements db -> Query -> Result String Query
 validateQuery ({ db } as requirements) query =
     Ok Query
@@ -2535,7 +2567,7 @@ validateQuery ({ db } as requirements) query =
         |> RE.andMap (validateDistribution requirements query.distribution)
         |> RE.andMap (validateDurability requirements query.durability)
         |> RE.andMap (query.items |> RE.combineMap (validateItem db.components))
-        |> RE.andMap (query.consumptions |> RE.combineMap (validatePackaging requirements))
+        |> RE.andMap (query.packagings |> RE.combineMap (validatePackaging requirements))
         |> RE.andMap (Ok query.recyclable)
         |> RE.andMap (Ok query.transportOptions)
         |> Result.mapError (\s -> "Requête invalide\u{202F}: " ++ s)

@@ -843,7 +843,7 @@ addPackaging query autocompleteState pageUpdate =
                     { query
                         | packagings =
                             query.packagings
-                                ++ [ { amount = Amount.fromFloat 1, processId = process.id } ]
+                                ++ [ Component.Packaging { amount = Amount.fromFloat 1, processId = process.id } ]
                     }
                 |> App.apply update (SetModals [])
 
