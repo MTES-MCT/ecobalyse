@@ -1007,6 +1007,7 @@ simulatorFormView session model ({ inputs } as simulator) =
         , noOp = NoOp
         , openCreateComponentModal = NoOp
         , openSelectComponentModal = AddTrimModal >> SetModal
+        , openSelectPackagingModal = \_ -> NoOp
         , openEditElementModal = \_ _ -> NoOp
         , openSelectProcessModal = \_ _ _ _ -> SetModal NoModal
         , openSelectConsumptionModal = \_ -> NoOp

@@ -887,6 +887,7 @@ simulatorView ({ componentConfig } as session) ({ scope } as model) =
                 , openCreateComponentModal = CreateComponent
                 , openSelectComponentModal = AddComponentModal >> List.singleton >> SetModals
                 , openEditElementModal = \c ti -> AppendModal (EditElementModal c ti)
+                , openSelectPackagingModal = \_ -> NoOp
                 , openSelectProcessModal = \c ti mi ac -> AppendModal (SelectProcessModal c ti mi ac)
                 , openSelectConsumptionModal = SelectConsumptionModal >> List.singleton >> SetModals
                 , query = currentQuery
@@ -1119,6 +1120,7 @@ modalView session ({ modals } as model) modal =
                         , openCreateComponentModal = CreateComponent
                         , openSelectComponentModal = AddComponentModal >> List.singleton >> SetModals
                         , openEditElementModal = \_ _ -> NoOp
+                        , openSelectPackagingModal = \_ -> NoOp
                         , openSelectProcessModal =
                             \p ti ei s ->
                                 SetModals (SelectProcessModal p ti ei s :: modals)

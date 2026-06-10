@@ -71,6 +71,7 @@ type alias Config db msg =
     , openEditElementModal : Component -> TargetElement -> msg
     , openSelectComponentModal : Autocomplete Component -> msg
     , openSelectConsumptionModal : Autocomplete Process -> msg
+    , openSelectPackagingModal : Autocomplete Process -> msg
     , openSelectProcessModal : Category -> TargetItem -> Maybe Index -> Autocomplete Process -> msg
     , query : Query
     , removeConsumption : Index -> msg
@@ -167,6 +168,29 @@ addElementButton config targetItem =
         ]
         [ Icon.puzzle
         , text "Ajouter un élément"
+        ]
+
+
+addPackagingButton : Config db msg -> Html msg
+addPackagingButton config =
+    let
+        availableTransformProcesses =
+            listAvailableProcesses config Category.Packaging
+
+        autocompleteState =
+            availableTransformProcesses
+                |> AutocompleteSelector.init Process.getDisplayName
+    in
+    button
+        [ type_ "button"
+        , class "btn btn-outline-primary w-100"
+        , class "d-flex justify-content-center align-items-center"
+        , class "gap-1 w-100"
+        , onClick <| config.openSelectPackagingModal autocompleteState
+        , disabled <| List.isEmpty availableTransformProcesses
+        ]
+        [ Icon.plus
+        , text "Ajouter un emballage"
         ]
 
 
@@ -518,18 +542,19 @@ lifeCycleView ({ db, docsUrl, explorerRoute, impact, query, scope, title } as co
 
 
 packagingView : Config db msg -> LifeCycle -> Html msg
-packagingView { impact } lifeCycle =
+packagingView config lifeCycle =
     div [ class "card shadow-sm" ]
         [ div [ class "card-header d-flex align-items-center justify-content-between" ]
             [ h2 [ class "h5 mb-0" ]
                 [ text "Emballage" ]
             , div [ class "d-flex align-items-center gap-2" ]
                 [ lifeCycle.packaging
-                    |> Format.formatImpact impact
+                    |> Format.formatImpact config.impact
                 ]
             ]
         , div [ class "card-body d-flex justify-content-between align-items-center gap-2" ]
             [ text "TODO" ]
+        , addPackagingButton config
         ]
 
 

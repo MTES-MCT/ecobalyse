@@ -2204,7 +2204,7 @@ stagesImpacts lifeCycle =
             { distribution = lifeCycle.distribution.impacts |> Just
             , endOfLife = lifeCycle.endOfLife |> Just
             , materials = Just Impact.empty
-            , packaging = Nothing
+            , packaging = Just lifeCycle.packaging
             , transform = Just Impact.empty
             , transports = getTotalTransportImpacts lifeCycle.transports |> Just
             , trims = Nothing
@@ -2232,6 +2232,7 @@ sumLifeCycleImpacts lifeCycle =
         , extractComplementsImpacts lifeCycle.production |> Complement.mergeComplementsResultsImpacts
         , lifeCycle.distribution.impacts
         , lifeCycle.endOfLife
+        , lifeCycle.packaging
         , lifeCycle.transports.toAssembly.impacts
         , lifeCycle.transports.toDistribution.impacts
         , lifeCycle.use |> Impact.sumImpacts
