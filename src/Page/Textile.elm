@@ -1013,6 +1013,7 @@ simulatorFormView session model ({ inputs } as simulator) =
         , openSelectConsumptionModal = \_ -> NoOp
         , query = Component.emptyQuery |> Component.setQueryItems inputs.trims
         , removeConsumption = \_ -> NoOp
+        , removePackaging = \_ -> NoOp
         , removeElement = \_ -> NoOp
         , removeElementTransform = \_ _ -> NoOp
         , removeItem = RemoveTrim
@@ -1029,6 +1030,7 @@ simulatorFormView session model ({ inputs } as simulator) =
         , updateElementTransformCountry = \_ _ _ -> NoOp
         , updateItemName = \_ _ -> NoOp
         , updateItemQuantity = UpdateTrimQuantity
+        , updatePackagingAmount = \_ _ -> NoOp
         , updateRecyclable = \_ -> NoOp
         }
     , div [ class "card shadow-sm pb-2" ]

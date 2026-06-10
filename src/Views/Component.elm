@@ -78,6 +78,7 @@ type alias Config db msg =
     , removeElement : TargetElement -> msg
     , removeElementTransform : TargetElement -> Index -> msg
     , removeItem : Index -> msg
+    , removePackaging : Index -> msg
     , scope : Scope
     , setDetailed : List Index -> msg
     , title : String
@@ -91,6 +92,7 @@ type alias Config db msg =
     , updateElementTransformCountry : TargetElement -> Index -> Maybe Country.Code -> msg
     , updateItemName : TargetItem -> String -> msg
     , updateItemQuantity : Index -> Quantity -> msg
+    , updatePackagingAmount : Index -> Maybe Amount -> msg
     , updateRecyclable : Bool -> msg
     }
 
@@ -556,27 +558,55 @@ packagingView ({ db, query } as config) lifeCycle =
                 [ text "Emballage" ]
             , div [ class "d-flex align-items-center gap-2" ]
                 [ lifeCycle.packaging
+                    |> Impact.sumImpacts
                     |> Format.formatImpact config.impact
                 ]
             ]
-        , if List.isEmpty query.packagings then
-            text "Aucun emballage"
+        , div [ class "d-flex flex-column p-0" ]
+            [ if List.isEmpty query.packagings then
+                div [ class "card-body" ] [ text "Aucun emballage" ]
 
-          else
-            div [ class "card-body d-flex justify-content-between align-items-center gap-2" ]
-                [ case query.packagings |> Component.expandPackagings db.processes of
-                    Err error ->
-                        Alert.simple
-                            { attributes = []
-                            , close = Nothing
-                            , content = [ text error ]
-                            , level = Alert.Danger
-                            , title = Nothing
-                            }
-
-                    Ok expandedPackagings ->
-                        text "Ok"
-                ]
+              else
+                div [ class "table-responsive table-scroll position-relative" ]
+                    [ table [ class "table table-hover mb-0" ]
+                        [ query.packagings
+                            |> Component.expandPackagings db.processes
+                            |> Result.withDefault []
+                            |> List.indexedMap
+                                (\index { amount, process } ->
+                                    tr []
+                                        [ td [ class "ps-3 align-middle text-nowrap", style "min-width" "160px" ]
+                                            [ amountInput (config.updatePackagingAmount index) process.unit amount ]
+                                        , td
+                                            [ class "align-middle w-66 text-truncate cursor-help"
+                                            , [ Process.getDisplayName process
+                                              , Process.getTechnicalName process
+                                              ]
+                                                |> String.join "\n"
+                                                |> title
+                                            ]
+                                            [ text <| Process.getDisplayName process ]
+                                        , td [ class "text-end text-nowrap" ]
+                                            [ lifeCycle.packaging
+                                                |> LE.getAt index
+                                                |> Maybe.withDefault Impact.empty
+                                                |> Format.formatImpact config.impact
+                                            ]
+                                        , td [ class "pe-3 pt-2 align-middle" ]
+                                            [ button
+                                                [ type_ "button"
+                                                , class "btn btn-sm btn-outline-secondary"
+                                                , title "Supprimer cet emballage"
+                                                , onClick (config.removePackaging index)
+                                                ]
+                                                [ Icon.trash ]
+                                            ]
+                                        ]
+                                )
+                            |> tbody []
+                        ]
+                    ]
+            ]
         , addPackagingButton config
         ]
 

@@ -96,6 +96,7 @@ module Data.Component exposing
     , removeConsumption
     , removeElement
     , removeElementTransform
+    , removePackaging
     , setCustomScope
     , setElementMaterial
     , setQueryItems
@@ -115,6 +116,7 @@ module Data.Component exposing
     , updateElementTransformCountry
     , updateItem
     , updateItemCustomName
+    , updatePackagingAmount
     , updateRecyclable
     , validateItem
     , validateQuery
@@ -357,7 +359,7 @@ type alias EndOfLifeMaterialImpacts =
 type alias LifeCycle =
     { distribution : DistributionResults
     , endOfLife : Impacts
-    , packaging : Impacts
+    , packaging : List Impacts
     , production : Results
     , transports : LifeCycleTransport
     , use : List Impacts
@@ -880,7 +882,6 @@ computePackagingImpacts { db } { packagings } lifeCycle =
                                     process.impacts
                                         |> Impact.multiplyBy (Amount.toFloat amount)
                                 )
-                            |> Impact.sumImpacts
                 }
             )
 
@@ -1380,7 +1381,7 @@ emptyLifeCycle : LifeCycle
 emptyLifeCycle =
     { distribution = emptyDistributionResults
     , endOfLife = Impact.empty
-    , packaging = Impact.empty
+    , packaging = []
     , production = emptyResults
     , transports = emptyLifeCycleTransports
     , use = []
@@ -2200,6 +2201,11 @@ removeElementTransform targetElement transformIndex =
         \el -> { el | transforms = el.transforms |> LE.removeAt transformIndex }
 
 
+removePackaging : Index -> Query -> Query
+removePackaging index query =
+    { query | packagings = query.packagings |> LE.removeAt index }
+
+
 setCustomScope : Component -> Scope -> Item -> Item
 setCustomScope component scope item =
     { item
@@ -2311,7 +2317,7 @@ stagesImpacts lifeCycle =
             { distribution = lifeCycle.distribution.impacts |> Just
             , endOfLife = lifeCycle.endOfLife |> Just
             , materials = Just Impact.empty
-            , packaging = Just lifeCycle.packaging
+            , packaging = lifeCycle.packaging |> Impact.sumImpacts |> Just
             , transform = Just Impact.empty
             , transports = getTotalTransportImpacts lifeCycle.transports |> Just
             , trims = Nothing
@@ -2339,7 +2345,7 @@ sumLifeCycleImpacts lifeCycle =
         , extractComplementsImpacts lifeCycle.production |> Complement.mergeComplementsResultsImpacts
         , lifeCycle.distribution.impacts
         , lifeCycle.endOfLife
-        , lifeCycle.packaging
+        , lifeCycle.packaging |> Impact.sumImpacts
         , lifeCycle.transports.toAssembly.impacts
         , lifeCycle.transports.toDistribution.impacts
         , lifeCycle.use |> Impact.sumImpacts
@@ -2496,6 +2502,15 @@ updateItemCustomName targetItem name =
 updateItem : Index -> (Item -> Item) -> List Item -> List Item
 updateItem itemIndex =
     LE.updateAt itemIndex
+
+
+updatePackagingAmount : Index -> Amount -> Query -> Query
+updatePackagingAmount index amount query =
+    { query
+        | packagings =
+            query.packagings
+                |> LE.updateAt index (\(Packaging uc) -> Packaging { uc | amount = amount })
+    }
 
 
 updateRecyclable : Bool -> Query -> Query

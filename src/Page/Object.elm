@@ -118,6 +118,7 @@ type Msg
     | RemoveConsumption Index
     | RemoveElement TargetElement
     | RemoveElementTransform TargetElement Index
+    | RemovePackaging Index
     | RenameBookmark
     | SaveBookmark
     | SaveBookmarkWithTime String Bookmark.Query Posix
@@ -144,6 +145,7 @@ type Msg
     | UpdateElementAmount TargetElement (Maybe Amount)
     | UpdateElementMaterialCountry TargetElement (Maybe Country.Code)
     | UpdateElementTransformCountry TargetElement Index (Maybe Country.Code)
+    | UpdatePackagingAmount Index (Maybe Amount)
     | UpdateRecyclability Bool
     | UpdateRenamedBookmarkName Bookmark String
 
@@ -518,6 +520,10 @@ update ({ navKey } as session) msg model =
                     )
                 |> App.withCmds [ Plausible.send session <| Plausible.ComponentUpdated model.scope ]
 
+        ( RemovePackaging index, _ ) ->
+            createPageUpdate session model
+                |> updateQuery (query |> Component.removePackaging index)
+
         ( RenameBookmark, _ ) ->
             case model.bookmarkBeingRenamed of
                 Just bookmark ->
@@ -700,6 +706,13 @@ update ({ navKey } as session) msg model =
                             (Component.updateElementTransformCountry targetElement transformIndex maybeCountryCode)
                     )
                 |> App.withCmds [ Plausible.send session <| Plausible.ComponentUpdated model.scope ]
+
+        ( UpdatePackagingAmount index (Just amount), _ ) ->
+            createPageUpdate session model
+                |> updateQuery (query |> Component.updatePackagingAmount index amount)
+
+        ( UpdatePackagingAmount _ Nothing, _ ) ->
+            createPageUpdate session model
 
         ( UpdateRecyclability recyclable, _ ) ->
             createPageUpdate session model
@@ -935,6 +948,7 @@ simulatorView ({ componentConfig } as session) ({ scope } as model) =
                 , removeElement = RemoveElement
                 , removeElementTransform = RemoveElementTransform
                 , removeItem = RemoveComponentItem
+                , removePackaging = RemovePackaging
                 , lifeCycle = model.lifeCycle
                 , scope = scope
                 , setDetailed = SetDetailedComponents
@@ -949,6 +963,7 @@ simulatorView ({ componentConfig } as session) ({ scope } as model) =
                 , updateElementTransformCountry = UpdateElementTransformCountry
                 , updateItemName = UpdateComponentItemName
                 , updateItemQuantity = UpdateComponentItemQuantity
+                , updatePackagingAmount = UpdatePackagingAmount
                 , updateRecyclable = UpdateRecyclability
                 }
             ]
@@ -1170,6 +1185,7 @@ modalView session ({ modals } as model) modal =
                         , removeElement = RemoveElement
                         , removeElementTransform = RemoveElementTransform
                         , removeItem = RemoveComponentItem
+                        , removePackaging = RemovePackaging
                         , lifeCycle = model.lifeCycle
                         , scope = model.scope
                         , setDetailed = SetDetailedComponents
@@ -1184,6 +1200,7 @@ modalView session ({ modals } as model) modal =
                         , updateElementTransformCountry = UpdateElementTransformCountry
                         , updateItemName = UpdateComponentItemName
                         , updateItemQuantity = UpdateComponentItemQuantity
+                        , updatePackagingAmount = UpdatePackagingAmount
                         , updateRecyclable = UpdateRecyclability
                         }
                         targetElement
