@@ -186,6 +186,7 @@ type alias Query =
     -- though it's still an ongoing discussion and we need to move forward and iterate.
     , durability : Maybe Unit.Ratio
     , items : List Item
+    , packagings : List Packaging
     , recyclable : Bool
     , transportOptions : TransportOptions
     }
@@ -279,6 +280,14 @@ type alias LocalizedProcess =
 type alias ExpandedLocalizedProcess =
     { country : Maybe Country
     , process : Process
+    }
+
+
+{-| Packaging process id and a quantity of its unit
+-}
+type alias Packaging =
+    { amount : Amount
+    , processId : Process.Id
     }
 
 
@@ -1195,6 +1204,13 @@ decodeMaterial =
         ]
 
 
+decodePackaging : Decoder Packaging
+decodePackaging =
+    Decode.succeed Packaging
+        |> Decode.required "amount" Amount.decode
+        |> Decode.required "processId" Process.decodeId
+
+
 decodeTransforms : Decoder (List LocalizedProcess)
 decodeTransforms =
     Decode.oneOf
@@ -1246,6 +1262,7 @@ decodeQuery =
         |> DU.strictOptional "distribution" Process.decodeId
         |> DU.strictOptional "durability" Unit.decodeRatio
         |> Decode.required "components" (Decode.list decodeItem)
+        |> Decode.optional "packagings" (Decode.list decodePackaging) []
         |> Decode.optional "recyclable" Decode.bool True
         |> Decode.optional "transportOptions" decodeTransportOptions defaultTransportOptions
 
@@ -1338,6 +1355,7 @@ emptyQuery =
     , distribution = Nothing
     , durability = Nothing
     , items = []
+    , packagings = []
     , recyclable = True
     , transportOptions = defaultTransportOptions
     }
@@ -1423,6 +1441,14 @@ encodeLocalizedProcess localizedProcess =
         ]
 
 
+encodePackaging : Packaging -> Encode.Value
+encodePackaging v =
+    Encode.object
+        [ ( "amount", v.amount |> Amount.toFloat |> Encode.float )
+        , ( "processId", v.processId |> Process.encodeId )
+        ]
+
+
 encodeTransform : LocalizedProcess -> Encode.Value
 encodeTransform transform =
     encodeLocalizedProcess transform
@@ -1493,6 +1519,13 @@ encodeQuery query =
           )
         , ( "distribution", query.distribution |> Maybe.map Process.encodeId )
         , ( "durability", query.durability |> Maybe.map Unit.encodeRatio )
+        , ( "packagings"
+          , if List.isEmpty query.packagings then
+                Nothing
+
+            else
+                query.packagings |> Encode.list encodePackaging |> Just
+          )
         , ( "recyclable", query.recyclable |> Encode.bool |> Just )
         , ( "transportOptions", encodeTransportOptions query.transportOptions )
         ]
@@ -2471,6 +2504,14 @@ validateItem components item =
                 Ok item
 
 
+validatePackaging : Requirements db -> Packaging -> Result String Packaging
+validatePackaging requirements consumption =
+    -- TODO: validate category
+    Ok Packaging
+        |> RE.andMap (Amount.validate consumption.amount)
+        |> RE.andMap (validateProcessId requirements consumption.processId)
+
+
 validateProcessId : Requirements db -> Process.Id -> Result String Process.Id
 validateProcessId { db, scope } processId =
     db.processes
@@ -2494,6 +2535,7 @@ validateQuery ({ db } as requirements) query =
         |> RE.andMap (validateDistribution requirements query.distribution)
         |> RE.andMap (validateDurability requirements query.durability)
         |> RE.andMap (query.items |> RE.combineMap (validateItem db.components))
+        |> RE.andMap (query.consumptions |> RE.combineMap (validatePackaging requirements))
         |> RE.andMap (Ok query.recyclable)
         |> RE.andMap (Ok query.transportOptions)
         |> Result.mapError (\s -> "Requête invalide\u{202F}: " ++ s)

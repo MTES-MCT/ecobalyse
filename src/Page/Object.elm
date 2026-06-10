@@ -85,6 +85,7 @@ type Modal
     | EditElementModal Component TargetElement
     | SelectConsumptionModal (Autocomplete Process)
     | SelectExampleModal (Autocomplete Component.Query)
+    | SelectPackagingModal (Autocomplete Process)
     | SelectProcessModal Category TargetItem (Maybe Index) (Autocomplete Process)
 
 
@@ -102,9 +103,11 @@ type Msg
     | OnAutocompleteAddConsumption (Autocomplete.Msg Process)
     | OnAutocompleteAddProcess Category TargetItem (Maybe Index) (Autocomplete.Msg Process)
     | OnAutocompleteExample (Autocomplete.Msg Component.Query)
+    | OnAutocompletePackaging (Autocomplete.Msg Process)
     | OnAutocompleteSelectComponent
     | OnAutocompleteSelectConsumption
     | OnAutocompleteSelectExample
+    | OnAutocompleteSelectPackaging
     | OnAutocompleteSelectProcess Category TargetItem (Maybe Index)
     | OnDragLeaveBookmark
     | OnDragOverBookmark Bookmark
@@ -410,6 +413,18 @@ update ({ navKey } as session) msg model =
         ( OnAutocompleteExample _, _ ) ->
             createPageUpdate session model
 
+        ( OnAutocompletePackaging autocompleteMsg, (SelectPackagingModal autocompleteState) :: otherModals ) ->
+            let
+                ( newAutocompleteState, autoCompleteCmd ) =
+                    Autocomplete.update autocompleteMsg autocompleteState
+            in
+            { model | modals = SelectPackagingModal newAutocompleteState :: otherModals }
+                |> createPageUpdate session
+                |> App.withCmds [ Cmd.map OnAutocompletePackaging autoCompleteCmd ]
+
+        ( OnAutocompletePackaging _, _ ) ->
+            createPageUpdate session model
+
         ( OnAutocompleteSelectComponent, (AddComponentModal autocompleteState) :: _ ) ->
             createPageUpdate session model
                 |> selectComponent query autocompleteState
@@ -429,6 +444,13 @@ update ({ navKey } as session) msg model =
                 |> selectExample autocompleteState
 
         ( OnAutocompleteSelectExample, _ ) ->
+            createPageUpdate session model
+
+        ( OnAutocompleteSelectPackaging, (SelectPackagingModal autocompleteState) :: _ ) ->
+            createPageUpdate session model
+                |> addPackaging query autocompleteState
+
+        ( OnAutocompleteSelectPackaging, _ ) ->
             createPageUpdate session model
 
         ( OnAutocompleteSelectProcess category targetItem elementIndex, (SelectProcessModal _ _ _ autocompleteState) :: _ ) ->
@@ -812,6 +834,24 @@ selectConsumption query autocompleteState ({ model } as pageUpdate) =
             pageUpdate |> App.notifyWarning "Aucun composant sélectionné"
 
 
+addPackaging : Component.Query -> Autocomplete Process -> PageUpdate Model Msg -> PageUpdate Model Msg
+addPackaging query autocompleteState pageUpdate =
+    case Autocomplete.selectedValue autocompleteState of
+        Just process ->
+            pageUpdate
+                |> updateQuery
+                    { query
+                        | packagings =
+                            query.packagings
+                                ++ [ { amount = Amount.fromFloat 1, processId = process.id } ]
+                    }
+                |> App.apply update (SetModals [])
+
+        --|> App.withCmds [ Plausible.send pageUpdate.session <| Plausible.ConsumptionAdded model.scope ]
+        Nothing ->
+            pageUpdate |> App.notifyWarning "Aucun composant sélectionné"
+
+
 selectProcess :
     Category
     -> TargetItem
@@ -1120,7 +1160,7 @@ modalView session ({ modals } as model) modal =
                         , openCreateComponentModal = CreateComponent
                         , openSelectComponentModal = AddComponentModal >> List.singleton >> SetModals
                         , openEditElementModal = \_ _ -> NoOp
-                        , openSelectPackagingModal = \_ -> NoOp
+                        , openSelectPackagingModal = SelectPackagingModal >> List.singleton >> SetModals
                         , openSelectProcessModal =
                             \p ti ei s ->
                                 SetModals (SelectProcessModal p ti ei s :: modals)
@@ -1177,6 +1217,20 @@ modalView session ({ modals } as model) modal =
                 , title = "Sélectionnez un produit"
                 , toLabel = Example.toName model.examples
                 , toCategory = Example.toCategory model.examples
+                }
+
+        SelectPackagingModal autocompleteState ->
+            AutocompleteSelectorView.view
+                { autocompleteState = autocompleteState
+                , closeModal = SetModals (List.drop 1 modals)
+                , footer = []
+                , noOp = NoOp
+                , onAutocomplete = OnAutocompletePackaging
+                , onAutocompleteSelect = OnAutocompleteSelectPackaging
+                , placeholderText = "tapez ici le nom d'un emballage pour le rechercher"
+                , title = "Sélectionnez un emballage"
+                , toLabel = Process.getDisplayName
+                , toCategory = .unit >> Process.unitToString
                 }
 
         SelectProcessModal category targetItem maybeElementIndex autocompleteState ->
