@@ -6,6 +6,7 @@ import {
   extractUrlsFromText,
   loginUser,
   registerAndLoginUser,
+  reloadAndSettle,
 } from "./lib";
 
 import impacts from "../public/data/impacts.json";
@@ -80,14 +81,15 @@ test.describe("auth", () => {
     });
 
     await test.step("browser reload and auto-login", async () => {
-      await page.reload();
+      await reloadAndSettle(page);
 
       await expect(page.getByRole("heading", { name: "Mon compte" })).toBeVisible();
     });
 
     await test.step("api tokens", async () => {
-      await page.getByRole("link", { name: "Mon compte" }).click();
-
+      // We're already on the account page: re-clicking the "Mon compte" link would
+      // re-route to the same page, and the async page re-init would race the tab
+      // selection below and reset it.
       await page.getByRole("button", { name: "Jetons d’API" }).click();
 
       await expect(page.getByText("Aucun jeton d’API actif")).toBeVisible();
@@ -123,7 +125,7 @@ test.describe("auth", () => {
       const apiResponseJson = await apiResponse.json();
       expect(apiResponseJson.impacts.cch).toBeGreaterThan(0);
 
-      await page.reload();
+      await reloadAndSettle(page);
       await page.getByRole("button", { name: "Jetons d’API" }).click();
 
       await expect(apiTokensTable.locator("tbody tr td:nth-child(2)")).not.toHaveText(

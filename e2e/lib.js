@@ -21,6 +21,17 @@ export function extractUrlsFromText(text) {
   return text.match(/\bhttps?:\/\/\S+/gi);
 }
 
+// On every full page load the app runs an async boot chain (detailed processes
+// for a logged-in user, then the component config) and re-initializes the
+// current page once the config lands, discarding any in-page state (selected
+// tab, etc.) touched in the meantime. Interacting before that re-init is a race:
+// wait for the network to go idle, which covers the whole chain including the
+// fetches issued by the re-initialized page itself.
+export async function reloadAndSettle(page) {
+  await page.reload();
+  await page.waitForLoadState("networkidle");
+}
+
 export async function loginUser(page, email) {
   await page.goto("/#/auth");
 
