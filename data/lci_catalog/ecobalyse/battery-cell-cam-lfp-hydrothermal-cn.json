@@ -1,17 +1,17 @@
 {
-  "activityName": "CAM of Battery cell, LFP Solid State, CN",
+  "activityName": "CAM of Battery cell, LFP Hydrothermal, CN",
   "categories": [
     "material",
     "material_type:battery_cell"
   ],
   "comment": "For 1kg Cathode Active Material. Based on GREET model (average of available battery size)",
-  "displayName": "CAM de cellule de batterie, LFP Solid State, CN",
+  "displayName": "CAM de cellule de batterie, LFP Hydrothermal, Chine",
   "elecMJ": 0,
   "heatMJ": 0,
-  "id": "0e6996d5-9384-45bf-9b05-a1f9f55b596d",
+  "id": "0a27c007-1bbe-4059-bfa8-04578d8096d4",
   "metadata": [
     {
-      "id": "3981f080-1a6d-4613-82d1-0a3ec67d5467",
+      "id": "429b5c66-44a8-4114-bd58-f19df1fd70b9",
       "scopes": [
         "veli"
       ]

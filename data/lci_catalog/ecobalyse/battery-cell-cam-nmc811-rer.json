@@ -1,17 +1,17 @@
 {
-  "activityName": "CAM of Battery cell, LFP Hydrothermal, CN",
+  "activityName": "CAM of Battery cell, NMC811, RER",
   "categories": [
     "material",
     "material_type:battery_cell"
   ],
   "comment": "For 1kg Cathode Active Material. Based on GREET model (average of available battery size)",
-  "displayName": "CAM de cellule de batterie, LFP Hydrothermal, CN",
+  "displayName": "CAM de cellule de batterie, NMC811, Europe",
   "elecMJ": 0,
   "heatMJ": 0,
-  "id": "0a27c007-1bbe-4059-bfa8-04578d8096d4",
+  "id": "bae75c66-4b8d-4cbb-b375-d25fe66a9c99",
   "metadata": [
     {
-      "id": "429b5c66-44a8-4114-bd58-f19df1fd70b9",
+      "id": "59275688-b31e-4e1b-80c7-b1f2a18b1176",
       "scopes": [
         "veli"
       ]
