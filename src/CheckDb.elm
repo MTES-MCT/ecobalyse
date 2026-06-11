@@ -170,7 +170,8 @@ checkExampleConsumption : Dict String Process -> Example query -> Component.Cons
 checkExampleConsumption processes example consumption =
     let
         processIdString =
-            Process.idToString consumption.processId
+            Component.getConsumptionProcessId consumption
+                |> Process.idToString
     in
     case processes |> Dict.get processIdString of
         Just process ->

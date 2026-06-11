@@ -9,10 +9,12 @@ module Data.Component exposing
     , ExpandedElement
     , ExpandedItem
     , ExpandedLocalizedProcess
+    , ExpandedQuantifiedProcess
     , Id
     , Index
     , Item
     , LifeCycle
+    , Packaging
     , Quantity
     , Query
     , Requirements
@@ -33,10 +35,12 @@ module Data.Component exposing
     , computeImpacts
     , computeInitialAmount
     , computeItemResults
+    , computePackagingImpacts
     , computeScoring
     , computeTransportDistance
     , computeTransportedMassImpacts
     , computeVolumeFromMass
+    , consumption
     , createItem
     , decode
     , decodeItem
@@ -61,6 +65,7 @@ module Data.Component exposing
     , expandConsumptions
     , expandElements
     , expandItems
+    , expandPackagings
     , extractAmount
     , extractComplementsImpacts
     , extractImpacts
@@ -69,10 +74,12 @@ module Data.Component exposing
     , extractStage
     , findById
     , getAvailableDistributionProcesses
+    , getConsumptionProcessId
     , getEndOfLifeDetailedImpacts
     , getEndOfLifeImpacts
     , getEndOfLifeScopeCollectionRate
     , getFinalElementCountry
+    , getPackagingProcessId
     , getResultedElement
     , getTotalImpacts
     , idFromString
@@ -85,6 +92,7 @@ module Data.Component exposing
     , mapItems
     , nonLocalizedExpandedProcess
     , nonLocalizedProcess
+    , packaging
     , parseBase64Query
     , parseConfig
     , quantityFromInt
@@ -92,6 +100,7 @@ module Data.Component exposing
     , removeConsumption
     , removeElement
     , removeElementTransform
+    , removePackaging
     , setCustomScope
     , setElementMaterial
     , setQueryItems
@@ -111,6 +120,7 @@ module Data.Component exposing
     , updateElementTransformCountry
     , updateItem
     , updateItemCustomName
+    , updatePackagingAmount
     , updateRecyclable
     , validateItem
     , validateQuery
@@ -186,6 +196,7 @@ type alias Query =
     -- though it's still an ongoing discussion and we need to move forward and iterate.
     , durability : Maybe Unit.Ratio
     , items : List Item
+    , packagings : List Packaging
     , recyclable : Bool
     , transportOptions : TransportOptions
     }
@@ -193,10 +204,8 @@ type alias Query =
 
 {-| Use stage consumption, a process and a quantity of its unit
 -}
-type alias Consumption =
-    { amount : Amount
-    , processId : Process.Id
-    }
+type Consumption
+    = Consumption QuantifiedProcess
 
 
 {-| Errors related to distribution process handling and availability
@@ -282,6 +291,30 @@ type alias ExpandedLocalizedProcess =
     }
 
 
+{-| Packaging process id and a quantity of its unit
+-}
+type Packaging
+    = Packaging QuantifiedProcess
+
+
+{-| A generic compact representation of a process and an amount of it.
+This is used by `Consumption` and `Packaging`
+-}
+type alias QuantifiedProcess =
+    { amount : Amount
+    , processId : Process.Id
+    }
+
+
+{-| An expanded representation of a process and an amount of it.
+This is used by `Consumption` and `Packaging`
+-}
+type alias ExpandedQuantifiedProcess =
+    { amount : Amount
+    , process : Process
+    }
+
+
 {-| An expanded element and its results
 -}
 type alias ResultedElement =
@@ -336,6 +369,7 @@ type alias EndOfLifeMaterialImpacts =
 type alias LifeCycle =
     { distribution : DistributionResults
     , endOfLife : Impacts
+    , packaging : List Impacts
     , production : Results
     , transports : LifeCycleTransport
     , use : List Impacts
@@ -633,6 +667,7 @@ compute requirements query =
         |> RE.combine
         |> Result.map (List.foldr addResults emptyResults)
         |> Result.map (\(Results results) -> { emptyLifeCycle | production = Results { results | label = Just "Production" } })
+        |> Result.andThen (computePackagingImpacts requirements query)
         |> Result.andThen (computeDistributionImpacts requirements query)
         |> Result.map (computeEndOfLifeResults requirements query)
         |> Result.andThen (computeTransports requirements query)
@@ -646,6 +681,11 @@ computeVolumeFromMass =
     Quantity.divideBy 1000
         >> Mass.inKilograms
         >> Volume.cubicMeters
+
+
+consumption : Amount -> Process.Id -> Consumption
+consumption amount =
+    QuantifiedProcess amount >> Consumption
 
 
 computeDistributionImpacts : Requirements db -> Query -> LifeCycle -> Result String LifeCycle
@@ -835,6 +875,30 @@ computeMaterialResults amount process =
         , quantity = 1
         , stage = Nothing
         }
+
+
+{-| Compute packaging impacts.
+
+Note: packaging processes are fully aggregated and embed transports and energy impacts, hence why
+we don't apply energy mixes or compute transports from their output mass here.
+
+-}
+computePackagingImpacts : Requirements db -> Query -> LifeCycle -> Result String LifeCycle
+computePackagingImpacts { db } { packagings } lifeCycle =
+    packagings
+        |> expandPackagings db.processes
+        |> Result.map
+            (\expandedQuantifiedProcesses ->
+                { lifeCycle
+                    | packaging =
+                        expandedQuantifiedProcesses
+                            |> List.map
+                                (\{ amount, process } ->
+                                    process.impacts
+                                        |> Impact.multiplyBy (Amount.toFloat amount)
+                                )
+                }
+            )
 
 
 computeScoring : Definitions -> LifeCycle -> Scoring
@@ -1097,14 +1161,17 @@ computeUseImpacts { config, db } { consumptions } lifeCycle =
     consumptions
         |> expandConsumptions db.processes
         |> Result.map
-            (\expandedConsumptions ->
+            (\expandedQuantifiedProcesses ->
                 { lifeCycle
                     | use =
-                        expandedConsumptions
+                        expandedQuantifiedProcesses
                             |> List.map
-                                (\( amount, process ) ->
+                                (\{ amount, process } ->
                                     process
-                                        |> Process.computeImpacts { elec = config.use.defaultElecProcess, heat = config.use.defaultHeatProcess }
+                                        |> Process.computeImpacts
+                                            { elec = config.use.defaultElecProcess
+                                            , heat = config.use.defaultHeatProcess
+                                            }
                                         |> Impact.multiplyBy (Amount.toFloat amount)
                                 )
                 }
@@ -1154,9 +1221,8 @@ decodeBase64Query =
 
 decodeConsumption : Decoder Consumption
 decodeConsumption =
-    Decode.succeed Consumption
-        |> Decode.required "amount" Amount.decode
-        |> Decode.required "processId" Process.decodeId
+    decodeQuantifiedProcess
+        |> Decode.map Consumption
 
 
 decodeCustom : Decoder Custom
@@ -1192,6 +1258,19 @@ decodeMaterial =
         -- Backward-compatible decoder for materials when they were just process ids
         , Process.decodeId |> Decode.map nonLocalizedProcess
         ]
+
+
+decodePackaging : Decoder Packaging
+decodePackaging =
+    decodeQuantifiedProcess
+        |> Decode.map Packaging
+
+
+decodeQuantifiedProcess : Decoder QuantifiedProcess
+decodeQuantifiedProcess =
+    Decode.succeed QuantifiedProcess
+        |> Decode.required "amount" Amount.decode
+        |> Decode.required "processId" Process.decodeId
 
 
 decodeTransforms : Decoder (List LocalizedProcess)
@@ -1245,6 +1324,7 @@ decodeQuery =
         |> DU.strictOptional "distribution" Process.decodeId
         |> DU.strictOptional "durability" Unit.decodeRatio
         |> Decode.required "components" (Decode.list decodeItem)
+        |> Decode.optional "packagings" (Decode.list decodePackaging) []
         |> Decode.optional "recyclable" Decode.bool True
         |> Decode.optional "transportOptions" decodeTransportOptions defaultTransportOptions
 
@@ -1316,6 +1396,7 @@ emptyLifeCycle : LifeCycle
 emptyLifeCycle =
     { distribution = emptyDistributionResults
     , endOfLife = Impact.empty
+    , packaging = []
     , production = emptyResults
     , transports = emptyLifeCycleTransports
     , use = []
@@ -1336,6 +1417,7 @@ emptyQuery =
     , distribution = Nothing
     , durability = Nothing
     , items = []
+    , packagings = []
     , recyclable = True
     , transportOptions = defaultTransportOptions
     }
@@ -1374,11 +1456,8 @@ encodeBase64Query =
 
 
 encodeConsumption : Consumption -> Encode.Value
-encodeConsumption v =
-    Encode.object
-        [ ( "amount", v.amount |> Amount.toFloat |> Encode.float )
-        , ( "processId", v.processId |> Process.encodeId )
-        ]
+encodeConsumption (Consumption quantifiedProcess) =
+    encodeQuantifiedProcess quantifiedProcess
 
 
 encodeCustom : Custom -> Encode.Value
@@ -1418,6 +1497,19 @@ encodeLocalizedProcess localizedProcess =
     EU.optionalPropertiesObject
         [ ( "country", localizedProcess.country |> Maybe.map Country.encodeCode )
         , ( "id", localizedProcess.id |> Process.encodeId |> Just )
+        ]
+
+
+encodePackaging : Packaging -> Encode.Value
+encodePackaging (Packaging quantifiedProcess) =
+    encodeQuantifiedProcess quantifiedProcess
+
+
+encodeQuantifiedProcess : QuantifiedProcess -> Encode.Value
+encodeQuantifiedProcess v =
+    Encode.object
+        [ ( "amount", v.amount |> Amount.toFloat |> Encode.float )
+        , ( "processId", v.processId |> Process.encodeId )
         ]
 
 
@@ -1491,6 +1583,13 @@ encodeQuery query =
           )
         , ( "distribution", query.distribution |> Maybe.map Process.encodeId )
         , ( "durability", query.durability |> Maybe.map Unit.encodeRatio )
+        , ( "packagings"
+          , if List.isEmpty query.packagings then
+                Nothing
+
+            else
+                query.packagings |> Encode.list encodePackaging |> Just
+          )
         , ( "recyclable", query.recyclable |> Encode.bool |> Just )
         , ( "transportOptions", encodeTransportOptions query.transportOptions )
         ]
@@ -1581,15 +1680,10 @@ errors =
 
 {-| Resolve full use consumption processes linked to their respective ids
 -}
-expandConsumptions : List Process -> List Consumption -> Result String (List ( Amount, Process ))
+expandConsumptions : List Process -> List Consumption -> Result String (List ExpandedQuantifiedProcess)
 expandConsumptions processes =
-    List.map
-        (\{ amount, processId } ->
-            processes
-                |> Process.findById processId
-                |> Result.map (\process -> ( amount, process ))
-        )
-        >> RE.combine
+    List.map (\(Consumption quantifiedProcess) -> quantifiedProcess)
+        >> expandQuantifiedProcesses processes
 
 
 {-| Turn an Element to an ExpandedElement
@@ -1661,6 +1755,27 @@ expandItems db =
     List.map (expandItem db) >> RE.combine
 
 
+{-| Resolve packaging Amount and fully qualified Process
+-}
+expandPackagings : List Process -> List Packaging -> Result String (List ExpandedQuantifiedProcess)
+expandPackagings processes =
+    List.map (\(Packaging quantifiedProcess) -> quantifiedProcess)
+        >> expandQuantifiedProcesses processes
+
+
+{-| Expands a QuantifiedProcess, resolving its Process.Id to an actuel Process
+-}
+expandQuantifiedProcesses : List Process -> List QuantifiedProcess -> Result String (List ExpandedQuantifiedProcess)
+expandQuantifiedProcesses processes =
+    List.map
+        (\{ amount, processId } ->
+            processes
+                |> Process.findById processId
+                |> Result.map (ExpandedQuantifiedProcess amount)
+        )
+        >> RE.combine
+
+
 {-| Turn a list of localized processes into expanded localized processes
 -}
 expandTransforms : DataContainer db -> List LocalizedProcess -> Result String (List ExpandedLocalizedProcess)
@@ -1719,6 +1834,11 @@ getAvailableDistributionProcesses db scope =
         |> Scope.anyOf [ scope ]
         |> Process.listByCategory Category.Distribution
         |> List.filter (.unit >> (==) Process.CubicMeter)
+
+
+getConsumptionProcessId : Consumption -> Process.Id
+getConsumptionProcessId (Consumption { processId }) =
+    processId
 
 
 {-| Retrieves a distribution process for a given scope from a provided distribution id, or a default
@@ -1833,6 +1953,11 @@ getFinalElementCountry { material, transforms } =
     LE.last transforms
         |> Maybe.map .country
         |> Maybe.withDefault material.country
+
+
+getPackagingProcessId : Packaging -> Process.Id
+getPackagingProcessId (Packaging { processId }) =
+    processId
 
 
 {-| Compute mass distribution by material types
@@ -2042,6 +2167,11 @@ nonLocalizedProcess id =
     { country = Nothing, id = id }
 
 
+packaging : Amount -> Process.Id -> Packaging
+packaging amount =
+    QuantifiedProcess amount >> Packaging
+
+
 parseBase64Query : Parser (Maybe Query -> a) a
 parseBase64Query =
     Parser.custom "QUERY" <|
@@ -2089,6 +2219,11 @@ removeElementTransform : TargetElement -> Index -> List Item -> List Item
 removeElementTransform targetElement transformIndex =
     updateElement targetElement <|
         \el -> { el | transforms = el.transforms |> LE.removeAt transformIndex }
+
+
+removePackaging : Index -> Query -> Query
+removePackaging index query =
+    { query | packagings = query.packagings |> LE.removeAt index }
 
 
 setCustomScope : Component -> Scope -> Item -> Item
@@ -2202,7 +2337,7 @@ stagesImpacts lifeCycle =
             { distribution = lifeCycle.distribution.impacts |> Just
             , endOfLife = lifeCycle.endOfLife |> Just
             , materials = Just Impact.empty
-            , packaging = Nothing
+            , packaging = lifeCycle.packaging |> Impact.sumImpacts |> Just
             , transform = Just Impact.empty
             , transports = getTotalTransportImpacts lifeCycle.transports |> Just
             , trims = Nothing
@@ -2230,6 +2365,7 @@ sumLifeCycleImpacts lifeCycle =
         , extractComplementsImpacts lifeCycle.production |> Complement.mergeComplementsResultsImpacts
         , lifeCycle.distribution.impacts
         , lifeCycle.endOfLife
+        , lifeCycle.packaging |> Impact.sumImpacts
         , lifeCycle.transports.toAssembly.impacts
         , lifeCycle.transports.toDistribution.impacts
         , lifeCycle.use |> Impact.sumImpacts
@@ -2280,7 +2416,7 @@ updateConsumptionAmount index amount query =
     { query
         | consumptions =
             query.consumptions
-                |> LE.updateAt index (\uc -> { uc | amount = amount })
+                |> LE.updateAt index (\(Consumption c) -> Consumption { c | amount = amount })
     }
 
 
@@ -2388,16 +2524,25 @@ updateItem itemIndex =
     LE.updateAt itemIndex
 
 
+updatePackagingAmount : Index -> Amount -> Query -> Query
+updatePackagingAmount index amount query =
+    { query
+        | packagings =
+            query.packagings
+                |> LE.updateAt index (\(Packaging p) -> Packaging { p | amount = amount })
+    }
+
+
 updateRecyclable : Bool -> Query -> Query
 updateRecyclable recyclable query =
     { query | recyclable = recyclable }
 
 
 validateConsumption : Requirements db -> Consumption -> Result String Consumption
-validateConsumption requirements consumption =
-    Ok Consumption
-        |> RE.andMap (Amount.validate consumption.amount)
-        |> RE.andMap (validateProcessId requirements consumption.processId)
+validateConsumption requirements (Consumption quantifiedProcess) =
+    quantifiedProcess
+        |> validateQuantifiedProcess requirements
+        |> Result.map Consumption
 
 
 validateCountry : Requirements db -> Maybe Country.Code -> Result String (Maybe Country.Code)
@@ -2468,6 +2613,13 @@ validateItem components item =
                 Ok item
 
 
+validatePackaging : Requirements db -> Packaging -> Result String Packaging
+validatePackaging requirements (Packaging quantifiedProcess) =
+    quantifiedProcess
+        |> validateQuantifiedProcess requirements
+        |> Result.map Packaging
+
+
 validateProcessId : Requirements db -> Process.Id -> Result String Process.Id
 validateProcessId { db, scope } processId =
     db.processes
@@ -2483,6 +2635,13 @@ validateProcessId { db, scope } processId =
             )
 
 
+validateQuantifiedProcess : Requirements db -> QuantifiedProcess -> Result String QuantifiedProcess
+validateQuantifiedProcess requirements quantifiedProcess =
+    Ok QuantifiedProcess
+        |> RE.andMap (Amount.validate quantifiedProcess.amount)
+        |> RE.andMap (validateProcessId requirements quantifiedProcess.processId)
+
+
 validateQuery : Requirements db -> Query -> Result String Query
 validateQuery ({ db } as requirements) query =
     Ok Query
@@ -2491,6 +2650,7 @@ validateQuery ({ db } as requirements) query =
         |> RE.andMap (validateDistribution requirements query.distribution)
         |> RE.andMap (validateDurability requirements query.durability)
         |> RE.andMap (query.items |> RE.combineMap (validateItem db.components))
+        |> RE.andMap (query.packagings |> RE.combineMap (validatePackaging requirements))
         |> RE.andMap (Ok query.recyclable)
         |> RE.andMap (Ok query.transportOptions)
         |> Result.mapError (\s -> "Requête invalide\u{202F}: " ++ s)
