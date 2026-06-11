@@ -1,7 +1,7 @@
 module Views.Component exposing
     ( Config
     , Context(..)
-    , createMaterialProcessAutocomplete
+    , createElementMaterialAutocomplete
     , editorView
     , elementEditModalView
     )
@@ -166,7 +166,7 @@ addElementButton config targetItem =
         , class "btn btn-link text-decoration-none"
         , class "d-flex justify-content-end align-items-center"
         , class "gap-2 w-100 p-0 pb-1 text-end fs-7"
-        , createMaterialProcessAutocomplete config.db config.scope
+        , createElementMaterialAutocomplete config.db config.scope
             |> config.openSelectProcessModal Category.Material targetItem Nothing
             |> onClick
         ]
@@ -205,9 +205,14 @@ addPackagingButton ({ query } as config) =
         ]
 
 
-createMaterialProcessAutocomplete : Component.DataContainer db -> Scope -> Autocomplete Process
-createMaterialProcessAutocomplete db scope =
-    listAvailableProcesses { db = db, scope = scope } Category.Material
+{-| Creates an Autocomplete listing available, scoped, non-packaging materials
+-}
+createElementMaterialAutocomplete : Component.DataContainer db -> Scope -> Autocomplete Process
+createElementMaterialAutocomplete db scope =
+    Category.Material
+        |> listAvailableProcesses { db = db, scope = scope }
+        -- Exclude packaging materials as they're available in a dedicated section
+        |> List.filter (\{ categories } -> not <| List.member Category.Packaging categories)
         |> AutocompleteSelector.init Process.getDisplayName
 
 

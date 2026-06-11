@@ -753,7 +753,7 @@ createComponent query ({ model, session } as pageUpdate) =
         |> updateQuery { query | items = query.items ++ [ newItem ] }
         -- open material process selection modal
         |> App.apply update
-            (ComponentView.createMaterialProcessAutocomplete session.db model.scope
+            (ComponentView.createElementMaterialAutocomplete session.db model.scope
                 |> SelectProcessModal Category.Material ( Component.emptyComponent, List.length query.items ) Nothing
                 |> List.singleton
                 |> SetModals
