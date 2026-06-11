@@ -30,7 +30,7 @@ import pandas as pd
 
 PROJECT_ROOT = pathlib.Path(__file__).parent.parent.resolve()
 PROCESSES_GENERIC_PATH = (
-    PROJECT_ROOT / "public" / "data" / "processes_generic_impacts.json"
+    PROJECT_ROOT / "data" / "public" / "data" / "processes_generic_impacts.json"
 )
 IMPACTS_PATH = PROJECT_ROOT / "public" / "data" / "impacts.json"
 OUTPUT_DIR = PROJECT_ROOT / "output"

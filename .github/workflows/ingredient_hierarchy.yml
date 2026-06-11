@@ -8,7 +8,7 @@ on:
       - master
   pull_request:
     paths:
-        - 'public/data/processes_generic_impacts.json'
+        - 'data/public/data/processes_generic_impacts.json'
         - 'public/data/impacts.json'
         - 'bin/check_ingredient_hierarchy.py'
         - '.github/workflows/ingredient_hierarchy.yml'
