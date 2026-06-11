@@ -657,6 +657,7 @@ modalView { componentConfig, db } modals index modal =
                             , openCreateComponentModal = NoOp
                             , openSelectComponentModal = \_ -> NoOp
                             , openSelectConsumptionModal = \_ -> NoOp
+                            , openSelectPackagingModal = \_ -> NoOp
                             , openEditElementModal = \_ _ -> NoOp
                             , openSelectProcessModal =
                                 \p ti ei s ->
@@ -665,6 +666,7 @@ modalView { componentConfig, db } modals index modal =
                             -- Note: we don't handle assembly country in the admin
                             , query = Component.emptyQuery |> Component.setQueryItems [ item ]
                             , removeConsumption = \_ -> NoOp
+                            , removePackaging = \_ -> NoOp
                             , removeElement =
                                 \targetElement ->
                                     item |> updateSingleItem (Component.removeElement targetElement)
@@ -695,6 +697,7 @@ modalView { componentConfig, db } modals index modal =
                                 \targetItem name ->
                                     item |> updateSingleItem (Component.updateItemCustomName targetItem name)
                             , updateItemQuantity = \_ _ -> NoOp
+                            , updatePackagingAmount = \_ _ -> NoOp
                             , updateRecyclable = \_ -> NoOp
                             }
                         , div [ class "p-3 pt-2" ]

@@ -1,6 +1,7 @@
 module Views.Component exposing
-    ( Context(..)
-    , createMaterialProcessAutocomplete
+    ( Config
+    , Context(..)
+    , createElementMaterialAutocomplete
     , editorView
     , elementEditModalView
     )
@@ -15,6 +16,7 @@ import Data.Component as Component
         , ExpandedElement
         , ExpandedItem
         , ExpandedLocalizedProcess
+        , ExpandedQuantifiedProcess
         , Index
         , LifeCycle
         , Quantity
@@ -28,7 +30,7 @@ import Data.Component as Component
 import Data.Component.Amount as Amount exposing (Amount)
 import Data.Component.Config as Config
 import Data.Country as Country exposing (Country)
-import Data.Impact as Impact
+import Data.Impact as Impact exposing (Impacts)
 import Data.Impact.Definition as Definition exposing (Definition)
 import Data.Process as Process exposing (Process)
 import Data.Process.Category as Category exposing (Category)
@@ -71,12 +73,14 @@ type alias Config db msg =
     , openEditElementModal : Component -> TargetElement -> msg
     , openSelectComponentModal : Autocomplete Component -> msg
     , openSelectConsumptionModal : Autocomplete Process -> msg
+    , openSelectPackagingModal : Autocomplete Process -> msg
     , openSelectProcessModal : Category -> TargetItem -> Maybe Index -> Autocomplete Process -> msg
     , query : Query
     , removeConsumption : Index -> msg
     , removeElement : TargetElement -> msg
     , removeElementTransform : TargetElement -> Index -> msg
     , removeItem : Index -> msg
+    , removePackaging : Index -> msg
     , scope : Scope
     , setDetailed : List Index -> msg
     , title : String
@@ -90,6 +94,7 @@ type alias Config db msg =
     , updateElementTransformCountry : TargetElement -> Index -> Maybe Country.Code -> msg
     , updateItemName : TargetItem -> String -> msg
     , updateItemQuantity : Index -> Quantity -> msg
+    , updatePackagingAmount : Index -> Maybe Amount -> msg
     , updateRecyclable : Bool -> msg
     }
 
@@ -161,7 +166,7 @@ addElementButton config targetItem =
         , class "btn btn-link text-decoration-none"
         , class "d-flex justify-content-end align-items-center"
         , class "gap-2 w-100 p-0 pb-1 text-end fs-7"
-        , createMaterialProcessAutocomplete config.db config.scope
+        , createElementMaterialAutocomplete config.db config.scope
             |> config.openSelectProcessModal Category.Material targetItem Nothing
             |> onClick
         ]
@@ -170,9 +175,44 @@ addElementButton config targetItem =
         ]
 
 
-createMaterialProcessAutocomplete : Component.DataContainer db -> Scope -> Autocomplete Process
-createMaterialProcessAutocomplete db scope =
-    listAvailableProcesses { db = db, scope = scope } Category.Material
+addPackagingButton : Config db msg -> Html msg
+addPackagingButton ({ query } as config) =
+    let
+        availablePackagingProcesses =
+            listAvailableProcesses config Category.Packaging
+                |> List.filter
+                    (\{ id } ->
+                        query.packagings
+                            |> List.map Component.getPackagingProcessId
+                            |> List.member id
+                            |> not
+                    )
+
+        autocompleteState =
+            availablePackagingProcesses
+                |> AutocompleteSelector.init Process.getDisplayName
+    in
+    button
+        [ type_ "button"
+        , class "btn btn-outline-primary w-100"
+        , class "d-flex justify-content-center align-items-center"
+        , class "gap-1 w-100"
+        , onClick <| config.openSelectPackagingModal autocompleteState
+        , disabled <| List.isEmpty availablePackagingProcesses
+        ]
+        [ Icon.plus
+        , text "Ajouter un emballage"
+        ]
+
+
+{-| Creates an Autocomplete listing available, scoped, non-packaging materials
+-}
+createElementMaterialAutocomplete : Component.DataContainer db -> Scope -> Autocomplete Process
+createElementMaterialAutocomplete db scope =
+    Category.Material
+        |> listAvailableProcesses { db = db, scope = scope }
+        -- Exclude packaging materials as they're available in a dedicated section
+        |> List.filter (\{ categories } -> not <| List.member Category.Packaging categories)
         |> AutocompleteSelector.init Process.getDisplayName
 
 
@@ -517,14 +557,106 @@ lifeCycleView ({ db, docsUrl, explorerRoute, impact, query, scope, title } as co
         ]
 
 
+packagingView : Config db msg -> LifeCycle -> Html msg
+packagingView ({ query } as config) lifeCycle =
+    div [ class "card shadow-sm" ]
+        [ div [ class "card-header d-flex align-items-center justify-content-between" ]
+            [ h2 [ class "h5 mb-0" ]
+                [ text "Emballage" ]
+            , div [ class "d-flex align-items-center gap-2" ]
+                [ lifeCycle.packaging
+                    |> Impact.sumImpacts
+                    |> Format.formatImpact config.impact
+                ]
+            ]
+        , query.packagings
+            |> quantifiedProcessList config
+                { deletionLabel = "Supprimer cet emballage"
+                , emptyListLabel = "Aucun emballage"
+                , expandFn = Component.expandPackagings
+                , impactsList = lifeCycle.packaging
+                , removeFn = config.removePackaging
+                , updateAmount = config.updatePackagingAmount
+                }
+        , addPackagingButton config
+        ]
+
+
+{-| A generic view config to render a list of QuantifiedProcess, with update
+and removal inputs, as well as detailed impacts.
+-}
+type alias QuantifiedProcessListConfig quantified msg =
+    { deletionLabel : String
+    , emptyListLabel : String
+    , expandFn : List Process -> List quantified -> Result String (List ExpandedQuantifiedProcess)
+    , impactsList : List Impacts
+    , removeFn : Index -> msg
+    , updateAmount : Index -> Maybe Amount -> msg
+    }
+
+
+quantifiedProcessList : Config db msg -> QuantifiedProcessListConfig quantified msg -> List quantified -> Html msg
+quantifiedProcessList { db, impact } listConfig quantifiedProcesses =
+    if List.isEmpty quantifiedProcesses then
+        div [ class "card-body" ]
+            [ text listConfig.emptyListLabel ]
+
+    else
+        div [ class "QuantifiedProcessList table-responsive table-scroll position-relative" ]
+            [ table [ class "table table-hover mb-0" ]
+                [ case quantifiedProcesses |> listConfig.expandFn db.processes of
+                    Err error ->
+                        simpleError Nothing error
+
+                    Ok expanded ->
+                        expanded
+                            |> List.indexedMap
+                                (\index { amount, process } ->
+                                    tr []
+                                        [ td [ class "ps-3 align-middle text-nowrap", style "min-width" "160px" ]
+                                            [ amountInput (listConfig.updateAmount index) process.unit amount ]
+                                        , td
+                                            [ class "align-middle text-truncate w-66 cursor-help "
+                                            , style "max-width" "0"
+                                            , [ Process.getDisplayName process
+                                              , Process.getTechnicalName process
+                                              ]
+                                                |> String.join "\n"
+                                                |> title
+                                            ]
+                                            [ text <| Process.getDisplayName process ]
+                                        , td [ class "align-middle text-end text-nowrap" ]
+                                            [ listConfig.impactsList
+                                                |> LE.getAt index
+                                                |> Maybe.withDefault Impact.empty
+                                                |> Format.formatImpact impact
+                                            ]
+                                        , td [ class "align-middle pe-3 pt-2" ]
+                                            [ button
+                                                [ type_ "button"
+                                                , class "btn btn-sm btn-outline-secondary"
+                                                , title listConfig.deletionLabel
+                                                , onClick (listConfig.removeFn index)
+                                                ]
+                                                [ Icon.trash ]
+                                            ]
+                                        ]
+                                )
+                            |> tbody []
+                ]
+            ]
+
+
 genericContextStagesView : Config db msg -> LifeCycle -> Html msg
 genericContextStagesView config lifeCycle =
     div []
-        [ lifeCycle.transports.toDistribution
+        [ noTransportView
+        , packagingView config lifeCycle
+        , lifeCycle.transports.toDistribution
             |> transportToDistributionView config (Component.extractMass lifeCycle.production)
-        , distributionView config
+        , distributionView config lifeCycle
         , noTransportView
-        , useStageView config
+        , useStageView config lifeCycle
         , noTransportView
         , endOfLifeView config lifeCycle
         ]
@@ -619,7 +751,7 @@ amountInput toMsg unit amount =
                 _ ->
                     "0.01"
     in
-    div [ class "input-group" ]
+    div [ class "AmountInput input-group" ]
         [ input
             [ type_ "number"
             , class "form-control form-control-sm text-end incdec-arrows-left"
@@ -1239,25 +1371,26 @@ assemblyView config =
         ]
 
 
-distributionView : Config db msg -> Html msg
-distributionView { componentConfig, db, impact, lifeCycle, query, scope, updateDistribution } =
+distributionView : Config db msg -> LifeCycle -> Html msg
+distributionView { componentConfig, db, impact, query, scope, updateDistribution } lifeCycle =
     div [ class "card shadow-sm" ]
         [ div [ class "card-header d-flex align-items-center justify-content-between" ]
             [ h2 [ class "h5 mb-0" ]
                 [ text "Distribution" ]
             , div [ class "d-flex align-items-center gap-2" ]
-                [ lifeCycle
-                    |> Result.map (.distribution >> .impacts >> Format.formatImpact impact)
-                    |> Result.withDefault (text "")
+                [ lifeCycle.distribution.impacts
+                    |> Format.formatImpact impact
                 ]
             ]
         , [ div [ class "d-flex align-items-center gap-1" ]
                 [ Icon.lock, text "France" ]
                 |> Just
-          , lifeCycle
-                |> Result.map (.distribution >> .volume >> Format.cubicMeters)
-                |> Result.toMaybe
-                |> Maybe.map (\html -> div [ class "d-flex align-items-center w-33 justify-content-end gap-1" ] [ Icon.package, html ])
+          , div [ class "d-flex align-items-center w-33 justify-content-end gap-1" ]
+                [ Icon.package
+                , lifeCycle.distribution.volume
+                    |> Format.cubicMeters
+                ]
+                |> Just
           , -- only render distribution process selector if any is available
             case Component.getAvailableDistributionProcesses db scope of
                 [] ->
@@ -1288,68 +1421,28 @@ distributionView { componentConfig, db, impact, lifeCycle, query, scope, updateD
         ]
 
 
-useStageView : Config db msg -> Html msg
-useStageView ({ db, impact, lifeCycle, query, removeConsumption, updateConsumptionAmount } as config) =
-    let
-        consumptionImpacts =
-            lifeCycle
-                |> Result.map .use
-                |> Result.withDefault []
-    in
+useStageView : Config db msg -> LifeCycle -> Html msg
+useStageView ({ impact, query } as config) lifeCycle =
     div [ class "card shadow-sm" ]
         [ div [ class "card-header d-flex align-items-center justify-content-between" ]
             [ h2 [ class "h5 mb-0" ]
                 [ text "Utilisation" ]
             , div [ class "d-flex align-items-center gap-2" ]
-                [ consumptionImpacts
+                [ lifeCycle.use
                     |> Impact.sumImpacts
                     |> Format.formatImpact impact
                 ]
             ]
         , div [ class "d-flex flex-column p-0" ]
-            [ if List.isEmpty query.consumptions then
-                div [ class "card-body" ] [ text "Aucune consommation" ]
-
-              else
-                div [ class "table-responsive table-scroll position-relative" ]
-                    [ table [ class "table table-hover mb-0" ]
-                        [ query.consumptions
-                            |> Component.expandConsumptions db.processes
-                            |> Result.withDefault []
-                            |> List.indexedMap
-                                (\index ( amount, process ) ->
-                                    tr []
-                                        [ td [ class "ps-3 align-middle text-nowrap", style "min-width" "160px" ]
-                                            [ amountInput (updateConsumptionAmount index) process.unit amount ]
-                                        , td
-                                            [ class "align-middle w-66 text-truncate cursor-help"
-                                            , [ Process.getDisplayName process
-                                              , Process.getTechnicalName process
-                                              ]
-                                                |> String.join "\n"
-                                                |> title
-                                            ]
-                                            [ text <| Process.getDisplayName process ]
-                                        , td [ class "text-end text-nowrap" ]
-                                            [ consumptionImpacts
-                                                |> LE.getAt index
-                                                |> Maybe.withDefault Impact.empty
-                                                |> Format.formatImpact impact
-                                            ]
-                                        , td [ class "pe-3 pt-2 align-middle" ]
-                                            [ button
-                                                [ type_ "button"
-                                                , class "btn btn-sm btn-outline-secondary"
-                                                , title "Supprimer cette consommation"
-                                                , onClick (removeConsumption index)
-                                                ]
-                                                [ Icon.trash ]
-                                            ]
-                                        ]
-                                )
-                            |> tbody []
-                        ]
-                    ]
+            [ query.consumptions
+                |> quantifiedProcessList config
+                    { deletionLabel = "Supprimer cette consommation"
+                    , emptyListLabel = "Aucune consommation"
+                    , expandFn = Component.expandConsumptions
+                    , impactsList = lifeCycle.use
+                    , removeFn = config.removeConsumption
+                    , updateAmount = config.updateConsumptionAmount
+                    }
             , addConsumptionButton config
             ]
         ]
@@ -1363,7 +1456,7 @@ addConsumptionButton ({ openSelectConsumptionModal, query } as config) =
                 |> List.filter
                     (\{ id } ->
                         query.consumptions
-                            |> List.map .processId
+                            |> List.map Component.getConsumptionProcessId
                             |> List.member id
                             |> not
                     )
