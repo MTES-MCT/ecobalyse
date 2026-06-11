@@ -178,7 +178,7 @@ addElementButton config targetItem =
 addPackagingButton : Config db msg -> Html msg
 addPackagingButton ({ query } as config) =
     let
-        availableTransformProcesses =
+        availablePackagingProcesses =
             listAvailableProcesses config Category.Packaging
                 |> List.filter
                     (\{ id } ->
@@ -189,7 +189,7 @@ addPackagingButton ({ query } as config) =
                     )
 
         autocompleteState =
-            availableTransformProcesses
+            availablePackagingProcesses
                 |> AutocompleteSelector.init Process.getDisplayName
     in
     button
@@ -198,7 +198,7 @@ addPackagingButton ({ query } as config) =
         , class "d-flex justify-content-center align-items-center"
         , class "gap-1 w-100"
         , onClick <| config.openSelectPackagingModal autocompleteState
-        , disabled <| List.isEmpty availableTransformProcesses
+        , disabled <| List.isEmpty availablePackagingProcesses
         ]
         [ Icon.plus
         , text "Ajouter un emballage"

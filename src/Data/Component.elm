@@ -2416,7 +2416,7 @@ updateConsumptionAmount index amount query =
     { query
         | consumptions =
             query.consumptions
-                |> LE.updateAt index (\(Consumption uc) -> Consumption { uc | amount = amount })
+                |> LE.updateAt index (\(Consumption c) -> Consumption { c | amount = amount })
     }
 
 
@@ -2529,7 +2529,7 @@ updatePackagingAmount index amount query =
     { query
         | packagings =
             query.packagings
-                |> LE.updateAt index (\(Packaging uc) -> Packaging { uc | amount = amount })
+                |> LE.updateAt index (\(Packaging p) -> Packaging { p | amount = amount })
     }
 
 
