@@ -16,7 +16,7 @@ import Http
 import Json.Decode as Decode
 import RemoteData exposing (WebData)
 import Result.Extra as RE
-import Static.Db as StaticDb
+import Static.Db as StaticDb exposing (Db)
 
 
 type alias RawJsonData =
@@ -157,21 +157,32 @@ isFullyLoaded data =
         && isLoaded data.veliExamples
 
 
-updateRawJson : (RawJsonData -> RawJsonData) -> RawJsonData -> RawJsonData
+
+-- Ideally, we would want to return a more granular type of error in case decoding or http request fails
+-- type CustomError
+--     = HttpError Http.Error
+--     | DecodeError Decode.Error
+
+
+updateRawJson : (RawJsonData -> RawJsonData) -> RawJsonData -> ( RawJsonData, Maybe (Result String Db) )
 updateRawJson update rawJsonData =
     let
         updated =
             update rawJsonData
     in
     -- TODO: check fully loaded state
+    -- case fetchRawJsonData of
+    --     RemoteData.Success rawJsonData ->
+    --     RemoteData.Failure httpError ->
+    --         (_, Just (Err <| ))
     if isFullyLoaded updated then
         -- TODO: construct and return Just the constructed Db
         let
             _ =
                 Debug.log "DB built" <| buildDb updated
         in
-        updated
+        ( updated, Just <| buildDb updated )
 
     else
         -- return raw data
-        updated
+        ( updated, Nothing )

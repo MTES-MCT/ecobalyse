@@ -71,6 +71,8 @@ type Page
 
 type State
     = Errored String
+      -- TODO: handle a new state for when neither the db and the config are loaded
+      -- | Initializing
     | Loaded Session Page
 
 
@@ -101,7 +103,7 @@ type Msg
     | HomeMsg Home.Msg
     | ObjectSimulatorMsg ObjectSimulator.Msg
     | ProcessAdminMsg ProcessAdmin.Msg
-    | RawDataReceived (WebData String -> RawJsonData -> RawJsonData) (WebData String)
+    | RawDataReceived Url (WebData String -> RawJsonData -> RawJsonData) (WebData String)
     | StatsMsg Stats.Msg
     | StoreChanged String
     | TextileSimulatorMsg TextileSimulator.Msg
@@ -157,7 +159,7 @@ init flags requestedUrl navKey =
                         ComponentConfig.decode db
                             |> Http.get "/data/components/config.json" (ComponentConfigReceived requestedUrl)
                     , Plausible.send session <| Plausible.PageViewed requestedUrl
-                    , loadData
+                    , loadData requestedUrl
                     ]
                 )
         )
@@ -171,24 +173,24 @@ Note: the initial load time might be important so we may want to render a loader
 pending webdata being a part of the total events (eg. "step 3/7" when 3 webdatas are already loaded)
 
 -}
-loadData : Cmd Msg
-loadData =
+loadData : Url -> Cmd Msg
+loadData requestedUrl =
     Cmd.batch
-        [ RequestDb.getRawJsonString "/data/countries.json" <| RawDataReceived (\data raw -> { raw | countries = data })
-        , RequestDb.getRawJsonString "/data/impacts.json" <| RawDataReceived (\data raw -> { raw | definitions = data })
-        , RequestDb.getRawJsonString "/data/food2/examples.json" <| RawDataReceived (\data raw -> { raw | food2Examples = data })
-        , RequestDb.getRawJsonString "/data/food/ingredients.json" <| RawDataReceived (\data raw -> { raw | foodIngredients = data })
-        , RequestDb.getRawJsonString "/data/food/examples.json" <| RawDataReceived (\data raw -> { raw | foodProductExamples = data })
-        , RequestDb.getRawJsonString "/data/object/components.json" <| RawDataReceived (\data raw -> { raw | objectComponents = data })
-        , RequestDb.getRawJsonString "/data/object/examples.json" <| RawDataReceived (\data raw -> { raw | objectExamples = data })
-        , RequestDb.getRawJsonString "/data/processes_merged.json" <| RawDataReceived (\data raw -> { raw | processes = data })
-        , RequestDb.getRawJsonString "/data/textile/components.json" <| RawDataReceived (\data raw -> { raw | textileComponents = data })
-        , RequestDb.getRawJsonString "/data/textile/examples.json" <| RawDataReceived (\data raw -> { raw | textileProductExamples = data })
-        , RequestDb.getRawJsonString "/data/textile/materials.json" <| RawDataReceived (\data raw -> { raw | textileMaterials = data })
-        , RequestDb.getRawJsonString "/data/textile/products.json" <| RawDataReceived (\data raw -> { raw | textileProducts = data })
-        , RequestDb.getRawJsonString "/data/transports.json" <| RawDataReceived (\data raw -> { raw | transports = data })
-        , RequestDb.getRawJsonString "/data/veli/components.json" <| RawDataReceived (\data raw -> { raw | veliComponents = data })
-        , RequestDb.getRawJsonString "/data/veli/examples.json" <| RawDataReceived (\data raw -> { raw | veliExamples = data })
+        [ RequestDb.getRawJsonString "/data/countries.json" <| RawDataReceived requestedUrl (\data raw -> { raw | countries = data })
+        , RequestDb.getRawJsonString "/data/impacts.json" <| RawDataReceived requestedUrl (\data raw -> { raw | definitions = data })
+        , RequestDb.getRawJsonString "/data/food2/examples.json" <| RawDataReceived requestedUrl (\data raw -> { raw | food2Examples = data })
+        , RequestDb.getRawJsonString "/data/food/ingredients.json" <| RawDataReceived requestedUrl (\data raw -> { raw | foodIngredients = data })
+        , RequestDb.getRawJsonString "/data/food/examples.json" <| RawDataReceived requestedUrl (\data raw -> { raw | foodProductExamples = data })
+        , RequestDb.getRawJsonString "/data/object/components.json" <| RawDataReceived requestedUrl (\data raw -> { raw | objectComponents = data })
+        , RequestDb.getRawJsonString "/data/object/examples.json" <| RawDataReceived requestedUrl (\data raw -> { raw | objectExamples = data })
+        , RequestDb.getRawJsonString "/data/processes_merged.json" <| RawDataReceived requestedUrl (\data raw -> { raw | processes = data })
+        , RequestDb.getRawJsonString "/data/textile/components.json" <| RawDataReceived requestedUrl (\data raw -> { raw | textileComponents = data })
+        , RequestDb.getRawJsonString "/data/textile/examples.json" <| RawDataReceived requestedUrl (\data raw -> { raw | textileProductExamples = data })
+        , RequestDb.getRawJsonString "/data/textile/materials.json" <| RawDataReceived requestedUrl (\data raw -> { raw | textileMaterials = data })
+        , RequestDb.getRawJsonString "/data/textile/products.json" <| RawDataReceived requestedUrl (\data raw -> { raw | textileProducts = data })
+        , RequestDb.getRawJsonString "/data/transports.json" <| RawDataReceived requestedUrl (\data raw -> { raw | transports = data })
+        , RequestDb.getRawJsonString "/data/veli/components.json" <| RawDataReceived requestedUrl (\data raw -> { raw | veliComponents = data })
+        , RequestDb.getRawJsonString "/data/veli/examples.json" <| RawDataReceived requestedUrl (\data raw -> { raw | veliExamples = data })
         ]
 
 
@@ -436,6 +438,9 @@ update rawMsg ({ state } as model) =
 
                 -- Components
                 ( ComponentConfigReceived requestedUrl (RemoteData.Success componentConfig), currentPage ) ->
+                    -- TODO: we now must build the session here, because that's gonna be where we have the fully
+                    --       consructed db and the config as well, which are requirements to build the session
+                    --       setupSession navKey flags db componentConfig
                     setRoute requestedUrl
                         ( { model | state = currentPage |> Loaded { session | componentConfig = componentConfig } }
                         , Cmd.none
@@ -514,14 +519,25 @@ update rawMsg ({ state } as model) =
                         |> toPage session model Cmd.none ProcessAdminPage ProcessAdminMsg
 
                 -- Raw Json Db data received over HTTP
-                ( RawDataReceived updateRaw data, _ ) ->
-                    ( { model
-                        | dbLoadingState =
-                            model.dbLoadingState
-                                |> RequestDb.updateRawJson (updateRaw data)
-                      }
-                    , Cmd.none
-                    )
+                ( RawDataReceived requestedUrl updateRaw data, _ ) ->
+                    case model.dbLoadingState |> RequestDb.updateRawJson (updateRaw data) of
+                        ( _, Just (Ok db) ) ->
+                            ( model
+                              -- trigger loading the json config over http
+                            , ComponentConfig.decode db
+                                |> Http.get "/data/components/config.json" (ComponentConfigReceived requestedUrl)
+                            )
+
+                        ( _, Just (Err err) ) ->
+                            -- TODO: render error ti end user
+                            ( { model | state = Errored err }
+                            , Cmd.none
+                            )
+
+                        ( rawJsonData, Nothing ) ->
+                            ( { model | dbLoadingState = rawJsonData }
+                            , Cmd.none
+                            )
 
                 -- Stats
                 ( StatsMsg statsMsg, StatsPage statsModel ) ->
