@@ -2,6 +2,14 @@
 
 ## Contexte
 
+### Choix de prise en compte des emballages dans Ecobalyse
+
+Ecobalyse fait le choix de modéliser les emballage séparément des autres composants pour plusieurs raisons :&#x20;
+
+* Calculer un poids net du produit hors emballage
+* Dédier le [calcul de la fin de vie](https://fabrique-numerique.gitbook.io/ecobalyse/methodes-transverses-specifiques/fin-de-vie-des-composants) à la fin de vie du produit, la fin de vie des emballages ayant lieu dès le début de la vie du produit
+* Intégrer facilement les solutions d'emballages alimentaires construits dans le cadre du projet PACK\_AGB (Voir la [page de documentation dédiée](https://fabrique-numerique.gitbook.io/ecobalyse/alimentaire/impacts-consideres/etape-3-emballages).)
+
 ### Matériaux d'emballage proposés, hors alimentaire
 
 Ecobalyse met à disposition les matériaux d'emballage suivants :&#x20;
@@ -19,11 +27,7 @@ Ecobalyse met à disposition les matériaux d'emballage suivants :&#x20;
 * Plastique PVC
 * Verre
 
-{% hint style="info" %}
-Dans l'alimentaire, les emballages proposés sont des solutions d'emballage complètes et non des matériaux. Voir la [page de documentation dédiée](https://fabrique-numerique.gitbook.io/ecobalyse/alimentaire/impacts-consideres/etape-3-emballages).
-{% endhint %}
-
-### Périmètre à prendre en compte
+## Périmètre à prendre en compte
 
 L'Article L.543-43 du code de l'environnement décrit l'ensemble des emballages suivants :&#x20;
 
@@ -33,21 +37,23 @@ L'Article L.543-43 du code de l'environnement décrit l'ensemble des emballages 
   * Egalement appelé emballage de regroupement (terme retenu dans PACK\_AGB).
 * Emballage de transport ou emballage tertiaire, c'est-à-dire l'emballage conçu de manière à faciliter la manutention et le transport d'un certain nombre d'articles ou d'emballages groupés en vue d'éviter leur manipulation physique et les dommages liés au transport. L'emballage de transport ne comprend pas les conteneurs de transport routier, ferroviaire, fluvial, maritime ou aérien.
 
-A des fins de simplicité, seuls les emballages primaires doivent obligatoirement être pris en compte, excepté dans l'alimentaire (voir ci-dessous et documentation sectorielle).
+**A des fins de simplicité, seuls les emballages primaires doivent obligatoirement être pris en compte, excepté dans l'alimentaire (voir ci-dessous et documentation sectorielle).**
 
 ## Méthodes de calcul
 
 L'impact des emballages est calculé comme suit :&#x20;
 
 $$
-I_{emballage} = \sum_{i}(m_i * I_i)/1000
+I_{emballage} = Q_s*I_s+\sum_{i}(m_i * I_i)/1000
 $$
 
 Avec :
 
 * `I_emballage` : l'impact environnemental de l'emballage, dans l'unité de la catégorie d'impact analysée
+* `Q_s` : la quantité de la solution d’emballage `s`, exprimée en item
+* `I_s` : l'impact environnemental de la solution d'emballage `s`, dans l'unité de la catégorie d'impact analysée par item
 * `m_i` la masse du matériaux `i` utilisée pour l'emballage du produit évalué, exprimée en g
-* `I_i` : l'impact environnemental du matériau d'emballage `i`, dans l'unité de la catégorie d'impact analysée
+* `I_i` : l'impact environnemental du matériau d'emballage `i`, dans l'unité de la catégorie d'impact analysée, par kg
 
 ## Paramètres retenus pour le coût environnemental
 
@@ -90,6 +96,10 @@ Ces procédés sont mis à disposition dans l'explorateur de chaque secteur.
 Un produit a pour emballage une boite en carton de 100g et un papier bulle en polyéthylène basse de 50g.
 
 $$
-I_{emballage} = (m_{carton} * I_{carton} + m_{PEBD}*I_{PEBD})/1000=(100*123+50*348)/1000=29.7 Pts
+I_{emballage} = (m_{carton} * I_{carton} + m_{PEBD}*I_{PEBD})/1000
+$$
+
+$$
+I_{emballage} = (100*123+50*348)/1000=29.7 Pts
 $$
 
