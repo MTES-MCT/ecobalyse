@@ -1284,6 +1284,14 @@ q {
   }
 }
 
+.QuantifiedProcessList {
+  .AmountInput {
+    .input-group-text {
+      min-width: 70px;
+    }
+  }
+}
+
 .RegionSelector {
   width: 260px;
 }
