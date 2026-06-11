@@ -2,6 +2,7 @@ module Request.Db exposing
     ( RawJsonData
     , emptyLoadingState
     , getRawJsonString
+    , isFullyLoaded
     , updateRawJson
     )
 
@@ -16,7 +17,6 @@ import Json.Decode as Decode
 import RemoteData exposing (WebData)
 import Result.Extra as RE
 import Static.Db as StaticDb
-import Static.Json as StaticJson
 
 
 type alias RawJsonData =
@@ -86,6 +86,10 @@ dbFromHttp processesJson countriesJson definitionsJson food2ExamplesJson foodIng
         |> Result.mapError Decode.errorToString
         |> Result.andThen
             (\processes ->
+                let
+                    _ =
+                        Debug.log "PROCESSES" processes
+                in
                 Ok StaticDb.Db
                     |> RE.andMap
                         (StaticDb.decodeRawComponents
@@ -166,10 +170,10 @@ updateRawJson update rawJsonData =
     -- TODO: check fully loaded state
     if isFullyLoaded updated then
         -- TODO: construct and return Just the constructed Db
-        -- let
-        --     _ =
-        --         Debug.log "DB built" <| buildDb updated
-        -- in
+        let
+            _ =
+                Debug.log "DB built" <| buildDb updated
+        in
         updated
 
     else
