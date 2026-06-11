@@ -75,7 +75,7 @@ type State
 
 
 type alias Model =
-    { db : Maybe (Result String StaticDb.Db)
+    { db : Result String StaticDb.Db
     , dbLoadingState : RawJsonData
     , mobileNavigationOpened : Bool
 
@@ -123,7 +123,7 @@ init flags requestedUrl navKey =
                     )
          of
             Err err ->
-                ( { db = Nothing
+                ( { db = Err "Not loaded"
                   , dbLoadingState = RequestDb.emptyLoadingState
                   , mobileNavigationOpened = False
                   , navKey = navKey
@@ -139,7 +139,7 @@ init flags requestedUrl navKey =
                     session =
                         setupSession navKey flags db componentConfig
                 in
-                ( { db = Nothing
+                ( { db = Err "Not loaded"
                   , dbLoadingState = RequestDb.emptyLoadingState
                   , mobileNavigationOpened = False
                   , navKey = navKey
@@ -640,7 +640,7 @@ subscriptions { state } =
 
 
 view : Model -> Document Msg
-view { dbLoadingState, mobileNavigationOpened, state, tray } =
+view { mobileNavigationOpened, state, tray } =
     case state of
         Errored error ->
             -- FIXME: proper error page

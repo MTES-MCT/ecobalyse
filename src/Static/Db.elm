@@ -1,10 +1,7 @@
 module Static.Db exposing
     ( Db
-    , countries
     , db
     , decodeRawComponents
-    , distances
-    , impactDefinitions
     )
 
 import Data.Common.Db as Common

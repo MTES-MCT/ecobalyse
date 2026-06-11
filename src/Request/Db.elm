@@ -86,10 +86,6 @@ dbFromHttp processesJson countriesJson definitionsJson food2ExamplesJson foodIng
         |> Result.mapError Decode.errorToString
         |> Result.andThen
             (\processes ->
-                let
-                    _ =
-                        Debug.log "PROCESSES" processes
-                in
                 Ok StaticDb.Db
                     |> RE.andMap
                         (StaticDb.decodeRawComponents
