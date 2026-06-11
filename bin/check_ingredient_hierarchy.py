@@ -29,9 +29,7 @@ import pandas as pd
 # Constants
 
 PROJECT_ROOT = pathlib.Path(__file__).parent.parent.resolve()
-PROCESSES_GENERIC_PATH = (
-    PROJECT_ROOT / "data" / "public" / "data" / "processes_generic_impacts.json"
-)
+PROCESSES_PATH = PROJECT_ROOT / "public" / "data" / "processes_impacts.json"
 IMPACTS_PATH = PROJECT_ROOT / "public" / "data" / "impacts.json"
 OUTPUT_DIR = PROJECT_ROOT / "output"
 PLOTS_DIR = OUTPUT_DIR / "ingredient_plots"
@@ -76,7 +74,7 @@ class Metadata(TypedDict):
 
 
 class Ingredient(TypedDict, total=False):
-    """subset of processes_generic.json
+    """subset of a process entry in processes_impacts.json
     `variant_type` is added by `group_ingredients`.
     """
 
@@ -522,11 +520,11 @@ def print_summary(ingredients_by_base, violations):
 
 
 def main():
-    logger.info("Loading ingredients from processes_generic_impacts.json...")
-    processes_generic = load_json(PROCESSES_GENERIC_PATH)
+    logger.info("Loading ingredients from processes_impacts.json...")
+    processes = load_json(PROCESSES_PATH)
     ingredients = [
         proc
-        for proc in processes_generic
+        for proc in processes
         if (proc.get("metadata") and proc["metadata"].get("ingredient"))
     ]
 
