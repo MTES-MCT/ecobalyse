@@ -44,16 +44,18 @@ L'Article L.543-43 du code de l'environnement décrit l'ensemble des emballages 
 L'impact des emballages est calculé comme suit :&#x20;
 
 $$
-I_{emballage} = Q_s*I_s+\sum_{i}(m_i * I_i)/1000
+I_{emballage} = \sum_{i}(Q_{d,i}*r_{d,i} * I_i)
 $$
 
 Avec :
 
 * `I_emballage` : l'impact environnemental de l'emballage, dans l'unité de la catégorie d'impact analysée
-* `Q_s` : la quantité de la solution d’emballage `s`, exprimée en item
-* `I_s` : l'impact environnemental de la solution d'emballage `s`, dans l'unité de la catégorie d'impact analysée par item
-* `m_i` la masse du matériaux `i` utilisée pour l'emballage du produit évalué, exprimée en g
-* `I_i` : l'impact environnemental du matériau d'emballage `i`, dans l'unité de la catégorie d'impact analysée, par kg
+* `Q_d,i` la quantité de l'emballage `i` utilisée pour le produit évalué, exprimée en fonction de l'unité d'affichage de l'emballage `i`&#x20;
+  * _Pour les masses, l'unité est le gramme_
+* `r_d,i` le ratio de conversion entre l'unité d'affichage de l'emballage `i` et l'unité du procédé de l'emballage `i`&#x20;
+  * _Exemple : 0.001 si l'unité d'affichage est le gramme et l'unité du procédé est le kg_
+* `I_i` : l'impact environnemental du matériau d'emballage `i`, dans l'unité de la catégorie d'impact analysée, par unité du procédé de l'emballage i
+  * _Pour les emballages exprimés en masse, l'unité est le Pt/kg_
 
 ## Paramètres retenus pour le coût environnemental
 
