@@ -127,20 +127,6 @@ if [[ -f "$PUBLIC_GIT_CLONE_DIR/public/data/processes_impacts.json" ]]; then
   rm -f -- $PUBLIC_GIT_CLONE_DIR/dist/data/processes_impacts.json
 fi
 
-if [[ -f "$PUBLIC_GIT_CLONE_DIR/public/data/processes_generic_impacts.json" ]]; then
-  npm run encrypt $PUBLIC_GIT_CLONE_DIR/public/data/processes_generic_impacts.json $PUBLIC_GIT_CLONE_DIR/dist/processes_generic_impacts.json.enc
-
-  # Never ship detailed impacts
-  rm -f -- $PUBLIC_GIT_CLONE_DIR/dist/data/processes_generic_impacts.json
-fi
-
-if [[ -f "$PUBLIC_GIT_CLONE_DIR/public/data/processes_merged_impacts.json" ]]; then
-  npm run encrypt $PUBLIC_GIT_CLONE_DIR/public/data/processes_merged_impacts.json $PUBLIC_GIT_CLONE_DIR/dist/processes_merged_impacts.json.enc
-
-  # Never ship detailed impacts
-  rm -f -- $PUBLIC_GIT_CLONE_DIR/dist/data/processes_merged_impacts.json
-fi
-
 cp $PUBLIC_GIT_CLONE_DIR/server-app.js $PUBLIC_GIT_CLONE_DIR/dist
 cp $PUBLIC_GIT_CLONE_DIR/openapi.yaml $PUBLIC_GIT_CLONE_DIR/dist
 
