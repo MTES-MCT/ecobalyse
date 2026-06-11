@@ -36,6 +36,11 @@ IMPACTS_PATH = PROJECT_ROOT / "public" / "data" / "impacts.json"
 OUTPUT_DIR = PROJECT_ROOT / "output"
 PLOTS_DIR = OUTPUT_DIR / "ingredient_plots"
 BOOKMARKS_DIR = OUTPUT_DIR / "bookmarks"
+LCI_CATALOG_DIR = PROJECT_ROOT / "data" / "lci_catalog"
+GITHUB_LCI_CATALOG_URL = (
+    "https://github.com/MTES-MCT/ecobalyse/blob/master/data/lci_catalog"
+)
+EXPLORER_PROCESS_URL = "https://ecobalyse.beta.gouv.fr/#/explore/food2/food2-processes"
 
 # --- Sanity checks ---
 #
@@ -81,6 +86,8 @@ class Ingredient(TypedDict, total=False):
     """
 
     id: str
+    activityName: str
+    displayName: str
     alias: str
     metadata: Metadata
     impacts: dict[str, float]
@@ -90,13 +97,19 @@ class Ingredient(TypedDict, total=False):
 class Anomaly(TypedDict):
     base_ingredient: str
     reason: str
-    expected_lower_variant: str
-    expected_lower_type: str
-    expected_lower_ecs: float
-    expected_higher_variant: str
-    expected_higher_type: str
-    expected_higher_ecs: float
     delta: float
+    expected_lower_variant: str
+    expected_lower_ecs: float
+    expected_lower_activity_name: str
+    expected_lower_display_name: str
+    expected_lower_explorer: str
+    expected_lower_lci_catalog: str | None
+    expected_higher_variant: str
+    expected_higher_ecs: float
+    expected_higher_activity_name: str
+    expected_higher_display_name: str
+    expected_higher_explorer: str
+    expected_higher_lci_catalog: str | None
 
 
 logging.basicConfig(level=logging.INFO, format="%(levelname)s: %(message)s")
@@ -176,42 +189,97 @@ def compute_ecs_with_complements(ingredient: Ingredient) -> float:
     return ecs_with_complements
 
 
+def build_lci_catalog_index() -> dict[str, str]:
+    """Map each process id to its lci_catalog file path (relative to LCI_CATALOG_DIR)."""
+    index: dict[str, str] = {}
+    for path in LCI_CATALOG_DIR.rglob("*.json"):
+        data = load_json(path)
+        for activity in data if isinstance(data, list) else [data]:
+            for variant in activity.get("metadata", []):
+                if "id" in variant:
+                    index[variant["id"]] = path.relative_to(LCI_CATALOG_DIR).as_posix()
+    return index
+
+
+def process_fields(
+    prefix: str,
+    ingredient: Ingredient,
+    lci_index: dict[str, str],
+) -> dict[str, Any]:
+    """Build the report columns describing one process, keys prefixed with `prefix`.
+
+    Adds links to the Ecobalyse explorer and to the source lci_catalog file on
+    GitHub so the method/product team can jump straight to each process.
+    """
+    process_id = ingredient["id"]
+    catalog_path = lci_index.get(process_id)
+    return {
+        f"{prefix}_variant": ingredient["alias"],
+        f"{prefix}_activity_name": ingredient.get("activityName"),
+        f"{prefix}_display_name": ingredient.get("displayName"),
+        f"{prefix}_explorer": f"{EXPLORER_PROCESS_URL}/{process_id}",
+        f"{prefix}_lci_catalog": (
+            f"{GITHUB_LCI_CATALOG_URL}/{catalog_path}" if catalog_path else None
+        ),
+    }
+
+
 # --- Step 2: Check hierarchy ---
+
+
+def build_anomaly(
+    expected_lower: Ingredient,
+    expected_higher: Ingredient,
+    expected_lower_ecs: float,
+    expected_higher_ecs: float,
+    lci_index: dict[str, str],
+) -> Anomaly:
+    """Build one anomaly record from the two compared processes.
+
+    `base_ingredient` and `reason` are derived from the processes, so this works
+    both for same-base variant checks and cross-base explicit checks.
+    """
+    return {
+        "base_ingredient": expected_lower["metadata"]["ingredient"]["baseIngredient"],
+        "reason": f"{expected_higher['alias']} < {expected_lower['alias']}",
+        "expected_lower_ecs": round(expected_lower_ecs, 2),
+        "expected_higher_ecs": round(expected_higher_ecs, 2),
+        "delta": round(expected_lower_ecs - expected_higher_ecs, 2),
+        **process_fields("expected_higher", expected_higher, lci_index),
+        **process_fields("expected_lower", expected_lower, lci_index),
+    }
 
 
 def check_explicit_pair_sanity_checks(
     ingredients_by_alias: dict[str, Ingredient],
+    lci_index: dict[str, str],
 ) -> list[Anomaly]:
     """Run EXPLICIT_PAIR_SANITY_CHECKS. Returns list of anomaly dicts."""
     anomalies = []
     for expected_lower_alias, expected_higher_alias in EXPLICIT_PAIR_SANITY_CHECKS:
-        expected_lower_ingr = ingredients_by_alias[expected_lower_alias]
-        expected_higher_ingr = ingredients_by_alias[expected_higher_alias]
-        ecs_expected_lower, ecs_expected_higher = (
-            compute_ecs_with_complements(expected_lower_ingr),
-            compute_ecs_with_complements(expected_higher_ingr),
+        expected_lower = ingredients_by_alias[expected_lower_alias]
+        expected_higher = ingredients_by_alias[expected_higher_alias]
+        expected_lower_ecs, expected_higher_ecs = (
+            compute_ecs_with_complements(expected_lower),
+            compute_ecs_with_complements(expected_higher),
         )
-        if ecs_expected_lower > ecs_expected_higher:
-            base_expected_lower = expected_lower_ingr["metadata"]["ingredient"][
-                "baseIngredient"
-            ]
+        if expected_lower_ecs > expected_higher_ecs:
             anomalies.append(
-                {
-                    "base_ingredient": base_expected_lower,
-                    "reason": f"{expected_higher_alias} < {expected_lower_alias}",
-                    "expected_lower_variant": expected_lower_alias,
-                    "expected_lower_type": "explicit_sanity_check",
-                    "expected_lower_ecs": round(ecs_expected_lower, 2),
-                    "expected_higher_variant": expected_higher_alias,
-                    "expected_higher_type": "explicit_sanity_check",
-                    "expected_higher_ecs": round(ecs_expected_higher, 2),
-                    "delta": round(ecs_expected_lower - ecs_expected_higher, 2),
-                }
+                build_anomaly(
+                    expected_lower,
+                    expected_higher,
+                    expected_lower_ecs,
+                    expected_higher_ecs,
+                    lci_index,
+                )
             )
     return anomalies
 
 
-def check_hierarchy(ingredient_by_base: dict[str, list[Ingredient]]) -> list[Anomaly]:
+def check_hierarchy(
+    ingredient_by_base: dict[str, list[Ingredient]],
+    lci_index: dict[str, str],
+) -> list[Anomaly]:
     """Check that the expected variant hierarchy is respected.
 
     Returns list of anomaly dicts.
@@ -242,28 +310,19 @@ def check_hierarchy(ingredient_by_base: dict[str, list[Ingredient]]) -> list[Ano
                     expected_lower_type,
                 )
 
-            expected_lower_alias, expected_higher_alias = (
-                expected_lower["alias"],
-                expected_higher["alias"],
-            )
-
-            ecs_expected_lower, ecs_expected_higher = (
+            expected_lower_ecs, expected_higher_ecs = (
                 compute_ecs_with_complements(expected_lower),
                 compute_ecs_with_complements(expected_higher),
             )
-            if ecs_expected_lower > ecs_expected_higher:
+            if expected_lower_ecs > expected_higher_ecs:
                 anomalies.append(
-                    {
-                        "base_ingredient": base,
-                        "reason": f"{expected_lower_alias} > {expected_higher_alias}",
-                        "expected_lower_variant": expected_lower_alias,
-                        "expected_lower_type": expected_lower_type,
-                        "expected_lower_ecs": round(ecs_expected_lower, 2),
-                        "expected_higher_variant": expected_higher_alias,
-                        "expected_higher_type": expected_higher_type,
-                        "expected_higher_ecs": round(ecs_expected_higher, 2),
-                        "delta": round(ecs_expected_lower - ecs_expected_higher, 2),
-                    }
+                    build_anomaly(
+                        expected_lower,
+                        expected_higher,
+                        expected_lower_ecs,
+                        expected_higher_ecs,
+                        lci_index,
+                    )
                 )
 
     return anomalies
@@ -486,8 +545,8 @@ def write_anomaly_report(anomalies):
         return
 
     OUTPUT_DIR.mkdir(parents=True, exist_ok=True)
-    report_path = OUTPUT_DIR / "ingredient_hierarchy_report.csv"
-    report_path_fr = OUTPUT_DIR / "ingredient_hierarchy_report_fr.csv"
+    report_path = OUTPUT_DIR / "anomalies.csv"
+    report_path_fr = OUTPUT_DIR / "anomalies_fr.csv"
     df = pd.DataFrame(anomalies)
     df.to_csv(report_path, index=False)
     df.to_csv(report_path_fr, index=False, sep=";", decimal=",", encoding="utf-8-sig")
@@ -556,9 +615,12 @@ def main():
     )
 
     logger.info("Checking hierarchy...")
-    anomalies = check_hierarchy(ingredients_by_base)
+    lci_index = build_lci_catalog_index()
+    anomalies = check_hierarchy(ingredients_by_base, lci_index)
     ingredients_by_alias = {ingr["alias"]: ingr for ingr in ingredients}
-    explicit_anomalies = check_explicit_pair_sanity_checks(ingredients_by_alias)
+    explicit_anomalies = check_explicit_pair_sanity_checks(
+        ingredients_by_alias, lci_index
+    )
     anomalies.extend(explicit_anomalies)
     bases_with_anomalies = {v["base_ingredient"] for v in anomalies}
     explicit_anomaly_pairs = {
