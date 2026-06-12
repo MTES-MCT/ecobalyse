@@ -1,0 +1,37 @@
+{
+  "activityName": "Pineapple, canned {FR} U [pineapple-organic] {{pineapple-canned-organic}}",
+  "categories": [
+    "ingredient",
+    "material"
+  ],
+  "displayName": "Ananas, en conserve Bio",
+  "id": "a13575ba-fe59-47c4-a413-c7af7eb6cac5",
+  "metadata": [
+    {
+      "alias": "pineapple-canned-organic",
+      "cropGroup": "ARBORICULTURE",
+      "defaultOrigin": "France",
+      "displayName": "Ananas, en conserve Bio",
+      "id": "e9992ba1-1a1b-4d72-a81b-8a4f28d2c0d8",
+      "inediblePart": 0,
+      "ingredientCategories": [
+        "vegetable_processed",
+        "organic"
+      ],
+      "ingredientDensity": 0.95,
+      "rawToCookedRatio": 1.0,
+      "scenario": "organic",
+      "scopes": [
+        "food",
+        "food2"
+      ],
+      "transportCooling": "none",
+      "visible": true
+    }
+  ],
+  "scopes": [
+    "food",
+    "food2"
+  ],
+  "source": "Ecobalyse"
+}

@@ -1,0 +1,36 @@
+{
+  "activityName": "Ground beef, fresh, for processing {FR} U [beef-default] {{beef-ground-fresh-default}}",
+  "categories": [
+    "ingredient",
+    "material"
+  ],
+  "displayName": "Boeuf haché, frais Origine Inconnue",
+  "id": "86c4ac20-f89c-4523-891d-6a40a3846a80",
+  "metadata": [
+    {
+      "alias": "beef-ground-fresh-default",
+      "cropGroup": null,
+      "defaultOrigin": "OutOfEuropeAndMaghreb",
+      "displayName": "Boeuf haché, frais Origine Inconnue",
+      "id": "17881bbc-d7bc-4359-bbc0-cde3ccaec6ad",
+      "inediblePart": 0,
+      "ingredientCategories": [
+        "animal_product"
+      ],
+      "ingredientDensity": 1.05,
+      "rawToCookedRatio": 1.0,
+      "scenario": "import",
+      "scopes": [
+        "food",
+        "food2"
+      ],
+      "transportCooling": "always",
+      "visible": true
+    }
+  ],
+  "scopes": [
+    "food",
+    "food2"
+  ],
+  "source": "Ecobalyse"
+}

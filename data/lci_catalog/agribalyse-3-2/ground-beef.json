@@ -29,6 +29,47 @@
       ],
       "transportCooling": "always",
       "visible": false
+    },
+    {
+      "alias": "beef-ground-fresh-case-ready-fr",
+      "cropGroup": null,
+      "defaultOrigin": "France",
+      "displayName": "Boeuf haché, frais, prêt à l'emploi FR",
+      "id": "1fd8e68d-87cf-4d67-a55c-9b1d073f4983",
+      "inediblePart": 0,
+      "ingredientCategories": [
+        "animal_product"
+      ],
+      "ingredientDensity": 1.05,
+      "rawToCookedRatio": 1.0,
+      "scenario": "reference",
+      "scopes": [
+        "food",
+        "food2"
+      ],
+      "transportCooling": "always",
+      "visible": true
+    },
+    {
+      "alias": "beef-ground-fresh-case-ready-organic",
+      "cropGroup": null,
+      "defaultOrigin": "France",
+      "displayName": "Boeuf haché, frais, prêt à l'emploi Bio",
+      "id": "153b52d5-33be-4a88-8f1a-924d6d1ef1ed",
+      "inediblePart": 0,
+      "ingredientCategories": [
+        "animal_product",
+        "organic"
+      ],
+      "ingredientDensity": 1.05,
+      "rawToCookedRatio": 1.0,
+      "scenario": "organic",
+      "scopes": [
+        "food",
+        "food2"
+      ],
+      "transportCooling": "always",
+      "visible": true
     }
   ],
   "scopes": [

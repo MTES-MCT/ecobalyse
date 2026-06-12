@@ -1,0 +1,37 @@
+{
+  "activityName": "Lemon, for grated carrots {FR} U [lemon-organic] {{lemon-for-grated-carrots-organic}}",
+  "categories": [
+    "ingredient",
+    "material"
+  ],
+  "displayName": "Citron, pour carottes râpées Bio",
+  "id": "d70b52be-1fc7-47ac-8434-bf80bb9d8936",
+  "metadata": [
+    {
+      "alias": "lemon-for-grated-carrots-organic",
+      "cropGroup": "VERGERS",
+      "defaultOrigin": "France",
+      "displayName": "Citron, pour carottes râpées Bio",
+      "id": "01253b8b-3d1d-4bf0-941d-b0fc4a32b622",
+      "inediblePart": 0,
+      "ingredientCategories": [
+        "vegetable_processed",
+        "organic"
+      ],
+      "ingredientDensity": 1.0,
+      "rawToCookedRatio": 1.0,
+      "scenario": "organic",
+      "scopes": [
+        "food",
+        "food2"
+      ],
+      "transportCooling": "always",
+      "visible": true
+    }
+  ],
+  "scopes": [
+    "food",
+    "food2"
+  ],
+  "source": "Ecobalyse"
+}

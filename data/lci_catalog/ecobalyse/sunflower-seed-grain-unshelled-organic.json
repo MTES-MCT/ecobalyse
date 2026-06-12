@@ -1,0 +1,37 @@
+{
+  "activityName": "Sunflower grain, unshelled, at processing {FR} U [sunflower-seed-organic] {{sunflower-seed-grain-unshelled-organic}}",
+  "categories": [
+    "ingredient",
+    "material"
+  ],
+  "displayName": "Graines de tournesol, non décortiquées Bio",
+  "id": "2f58a32a-0014-478c-8e52-7746d382a7f0",
+  "metadata": [
+    {
+      "alias": "sunflower-seed-grain-unshelled-organic",
+      "cropGroup": "TOURNESOL",
+      "defaultOrigin": "France",
+      "displayName": "Graines de tournesol, non décortiquées Bio",
+      "id": "f042776b-8a60-4600-b874-00d90a0dd46f",
+      "inediblePart": 0,
+      "ingredientCategories": [
+        "vegetable_processed",
+        "organic"
+      ],
+      "ingredientDensity": 0.9,
+      "rawToCookedRatio": 1.0,
+      "scenario": "organic",
+      "scopes": [
+        "food",
+        "food2"
+      ],
+      "transportCooling": "always",
+      "visible": true
+    }
+  ],
+  "scopes": [
+    "food",
+    "food2"
+  ],
+  "source": "Ecobalyse"
+}

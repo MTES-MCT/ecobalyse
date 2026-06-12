@@ -1,0 +1,36 @@
+{
+  "activityName": "Potato, canned {FR} U",
+  "categories": [
+    "ingredient",
+    "material"
+  ],
+  "displayName": "Pommes de terre, en conserve FR",
+  "id": "358d880a-8c25-47e1-81b4-ba1a5da71606",
+  "metadata": [
+    {
+      "alias": "potato-canned-fr",
+      "cropGroup": "LEGUMES-FLEURS",
+      "defaultOrigin": "France",
+      "displayName": "Pommes de terre, en conserve FR",
+      "id": "d12c0ed1-7092-4306-95b3-4f5e50aa5d0c",
+      "inediblePart": 0,
+      "ingredientCategories": [
+        "vegetable_processed"
+      ],
+      "ingredientDensity": 1.1,
+      "rawToCookedRatio": 1.0,
+      "scenario": "reference",
+      "scopes": [
+        "food",
+        "food2"
+      ],
+      "transportCooling": "none",
+      "visible": true
+    }
+  ],
+  "scopes": [
+    "food",
+    "food2"
+  ],
+  "source": "Agribalyse 3.2"
+}

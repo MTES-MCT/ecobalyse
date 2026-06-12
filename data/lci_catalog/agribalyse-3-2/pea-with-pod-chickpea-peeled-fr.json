@@ -1,0 +1,76 @@
+{
+  "activityName": "Chick peas, peeled, at processing {FR} U",
+  "categories": [
+    "ingredient",
+    "material"
+  ],
+  "displayName": "Pois chiches, pelés FR",
+  "id": "d52e2d36-e22f-48f8-a239-389e52ebd278",
+  "metadata": [
+    {
+      "alias": "pea-with-pod-chickpea-peeled-fr",
+      "cropGroup": "LEGUMINEUSES A GRAIN",
+      "defaultOrigin": "France",
+      "displayName": "Pois chiches, pelés FR",
+      "id": "c17b6736-aed4-4ba5-abca-f7c427c45494",
+      "inediblePart": 0,
+      "ingredientCategories": [
+        "animal_product"
+      ],
+      "ingredientDensity": 1.05,
+      "rawToCookedRatio": 1.0,
+      "scenario": "reference",
+      "scopes": [
+        "food",
+        "food2"
+      ],
+      "transportCooling": "always",
+      "visible": true
+    },
+    {
+      "alias": "pea-with-pod-chickpea-peeled-eu",
+      "cropGroup": "LEGUMINEUSES A GRAIN",
+      "defaultOrigin": "EuropeAndMaghreb",
+      "displayName": "Pois chiches, pelés UE",
+      "id": "c5515ff8-0f1a-483f-b877-928b318c37b8",
+      "inediblePart": 0,
+      "ingredientCategories": [
+        "animal_product"
+      ],
+      "ingredientDensity": 1.05,
+      "rawToCookedRatio": 1.0,
+      "scenario": "import",
+      "scopes": [
+        "food",
+        "food2"
+      ],
+      "transportCooling": "always",
+      "visible": true
+    },
+    {
+      "alias": "pea-with-pod-chickpea-peeled-default",
+      "cropGroup": "LEGUMINEUSES A GRAIN",
+      "defaultOrigin": "OutOfEuropeAndMaghreb",
+      "displayName": "Pois chiches, pelés Origine Inconnue",
+      "id": "2d640eb8-192a-422e-80f5-84a4ae98b63a",
+      "inediblePart": 0,
+      "ingredientCategories": [
+        "animal_product"
+      ],
+      "ingredientDensity": 1.05,
+      "rawToCookedRatio": 1.0,
+      "scenario": "import",
+      "scopes": [
+        "food",
+        "food2"
+      ],
+      "transportCooling": "always",
+      "visible": true
+    }
+  ],
+  "scopes": [
+    "food",
+    "food2"
+  ],
+  "source": "Agribalyse 3.2"
+}

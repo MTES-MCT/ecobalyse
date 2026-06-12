@@ -1,0 +1,37 @@
+{
+  "activityName": "Chive or spring onion, peeled, at processing {FR} U [onion-organic] {{onion-chive-or-spring-peeled-organic}}",
+  "categories": [
+    "ingredient",
+    "material"
+  ],
+  "displayName": "Ciboulette ou oignon nouveau, pelé Bio",
+  "id": "4180dd92-b98a-482a-ace1-459da85a943d",
+  "metadata": [
+    {
+      "alias": "onion-chive-or-spring-peeled-organic",
+      "cropGroup": "LEGUMES-FLEURS",
+      "defaultOrigin": "France",
+      "displayName": "Ciboulette ou oignon nouveau, pelé Bio",
+      "id": "5b0aba3d-8b62-4dc9-8a8c-93e5d8cbbe98",
+      "inediblePart": 0,
+      "ingredientCategories": [
+        "vegetable_processed",
+        "organic"
+      ],
+      "ingredientDensity": 0.9,
+      "rawToCookedRatio": 1.0,
+      "scenario": "organic",
+      "scopes": [
+        "food",
+        "food2"
+      ],
+      "transportCooling": "always",
+      "visible": true
+    }
+  ],
+  "scopes": [
+    "food",
+    "food2"
+  ],
+  "source": "Ecobalyse"
+}

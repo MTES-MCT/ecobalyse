@@ -1,0 +1,36 @@
+{
+  "activityName": "Lemon, peeled, at processing {FR} U [lemon-default] {{lemon-peeled-default}}",
+  "categories": [
+    "ingredient",
+    "material"
+  ],
+  "displayName": "Citron, pelé Origine Inconnue",
+  "id": "030c01a0-e077-4b34-ac64-3905d8e1027c",
+  "metadata": [
+    {
+      "alias": "lemon-peeled-default",
+      "cropGroup": "VERGERS",
+      "defaultOrigin": "OutOfEuropeAndMaghreb",
+      "displayName": "Citron, pelé Origine Inconnue",
+      "id": "291c2529-d327-4b5f-9c45-5c934731fcd2",
+      "inediblePart": 0,
+      "ingredientCategories": [
+        "vegetable_processed"
+      ],
+      "ingredientDensity": 1.0,
+      "rawToCookedRatio": 1.0,
+      "scenario": "import",
+      "scopes": [
+        "food",
+        "food2"
+      ],
+      "transportCooling": "always",
+      "visible": true
+    }
+  ],
+  "scopes": [
+    "food",
+    "food2"
+  ],
+  "source": "Ecobalyse"
+}

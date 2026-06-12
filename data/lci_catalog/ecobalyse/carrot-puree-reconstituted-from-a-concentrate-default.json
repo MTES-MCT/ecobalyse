@@ -1,0 +1,36 @@
+{
+  "activityName": "Carrot puree, reconstituted from a concentrate, at plant {FR} U [carrot-default] {{carrot-puree-reconstituted-from-a-concentrate-default}}",
+  "categories": [
+    "ingredient",
+    "material"
+  ],
+  "displayName": "purée de carotte reconstituée à partir d'un concentré Origine Inconnue",
+  "id": "d191a507-ba70-4f89-9510-4f87b0cffb1a",
+  "metadata": [
+    {
+      "alias": "carrot-puree-reconstituted-from-a-concentrate-default",
+      "cropGroup": "LEGUMES-FLEURS",
+      "defaultOrigin": "OutOfEuropeAndMaghreb",
+      "displayName": "purée de carotte reconstituée à partir d'un concentré Origine Inconnue",
+      "id": "6c06d64f-31e7-456c-a1eb-adba9afaaf43",
+      "inediblePart": 0,
+      "ingredientCategories": [
+        "vegetable_processed"
+      ],
+      "ingredientDensity": 0.9,
+      "rawToCookedRatio": 1.0,
+      "scenario": "import",
+      "scopes": [
+        "food",
+        "food2"
+      ],
+      "transportCooling": "always",
+      "visible": true
+    }
+  ],
+  "scopes": [
+    "food",
+    "food2"
+  ],
+  "source": "Ecobalyse"
+}

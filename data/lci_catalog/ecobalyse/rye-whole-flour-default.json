@@ -1,0 +1,36 @@
+{
+  "activityName": "Rye flour, at plant {FR} U [rye-whole-default] {{rye-whole-flour-default}}",
+  "categories": [
+    "ingredient",
+    "material"
+  ],
+  "displayName": "Farine de seigle Origine Inconnue",
+  "id": "203e5672-a12d-45ca-a2ea-36b5f6a4f063",
+  "metadata": [
+    {
+      "alias": "rye-whole-flour-default",
+      "cropGroup": "AUTRES CEREALES",
+      "defaultOrigin": "OutOfEuropeAndMaghreb",
+      "displayName": "Farine de seigle Origine Inconnue",
+      "id": "25e48578-5a3d-468a-84a6-6c0d9e0d55cc",
+      "inediblePart": 0,
+      "ingredientCategories": [
+        "grain_processed"
+      ],
+      "ingredientDensity": 0.67,
+      "rawToCookedRatio": 1.0,
+      "scenario": "import",
+      "scopes": [
+        "food",
+        "food2"
+      ],
+      "transportCooling": "none",
+      "visible": true
+    }
+  ],
+  "scopes": [
+    "food",
+    "food2"
+  ],
+  "source": "Ecobalyse"
+}

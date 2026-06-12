@@ -1,0 +1,36 @@
+{
+  "activityName": "Mint, peeled, at processing {FR} U [mint-non-eu] {{mint-peeled-non-eu}}",
+  "categories": [
+    "ingredient",
+    "material"
+  ],
+  "displayName": "Menthe pelée HORS UE",
+  "id": "ef0ff443-2e15-44af-a37f-3e78fa53e0a6",
+  "metadata": [
+    {
+      "alias": "mint-peeled-non-eu",
+      "cropGroup": "AUTRES CULTURES INDUSTRIELLES",
+      "defaultOrigin": "OutOfEuropeAndMaghreb",
+      "displayName": "Menthe pelée HORS UE",
+      "id": "062d0c81-bd06-4b03-9a74-b9b64752bdaf",
+      "inediblePart": 0,
+      "ingredientCategories": [
+        "vegetable_processed"
+      ],
+      "ingredientDensity": 0.9,
+      "rawToCookedRatio": 1.0,
+      "scenario": "import",
+      "scopes": [
+        "food",
+        "food2"
+      ],
+      "transportCooling": "always",
+      "visible": true
+    }
+  ],
+  "scopes": [
+    "food",
+    "food2"
+  ],
+  "source": "Ecobalyse"
+}

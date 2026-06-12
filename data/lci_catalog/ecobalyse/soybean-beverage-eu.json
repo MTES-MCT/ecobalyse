@@ -1,0 +1,36 @@
+{
+  "activityName": "Soybean beverage, at plant {FR} U [soybean-eu] {{soybean-beverage-eu}}",
+  "categories": [
+    "ingredient",
+    "material"
+  ],
+  "displayName": "Boissons de soja UE",
+  "id": "65c94199-bddc-40fa-b0cf-c6675f278d33",
+  "metadata": [
+    {
+      "alias": "soybean-beverage-eu",
+      "cropGroup": "AUTRES OLEAGINEUX",
+      "defaultOrigin": "EuropeAndMaghreb",
+      "displayName": "Boissons de soja UE",
+      "id": "d42e2930-fea6-45c7-b6c1-24a7b8b801ee",
+      "inediblePart": 0,
+      "ingredientCategories": [
+        "nut_oilseed_processed"
+      ],
+      "ingredientDensity": 0.74,
+      "rawToCookedRatio": 1.0,
+      "scenario": "import",
+      "scopes": [
+        "food",
+        "food2"
+      ],
+      "transportCooling": "none",
+      "visible": true
+    }
+  ],
+  "scopes": [
+    "food",
+    "food2"
+  ],
+  "source": "Ecobalyse"
+}

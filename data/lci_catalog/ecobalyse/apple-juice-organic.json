@@ -1,0 +1,37 @@
+{
+  "activityName": "Apple juice, industrial production, at plant, NFC, 1L {FR} U [apple-organic] {{apple-juice-organic}}",
+  "categories": [
+    "ingredient",
+    "material"
+  ],
+  "displayName": "Jus de pomme Bio",
+  "id": "edfd2e0d-dc9f-4cc2-9b3f-318f97e4a36f",
+  "metadata": [
+    {
+      "alias": "apple-juice-organic",
+      "cropGroup": "VERGERS",
+      "defaultOrigin": "France",
+      "displayName": "Jus de pomme Bio",
+      "id": "0882f4b1-c61c-47db-8c4b-e8c9a53ab11a",
+      "inediblePart": 0,
+      "ingredientCategories": [
+        "vegetable_processed",
+        "organic"
+      ],
+      "ingredientDensity": 0.85,
+      "rawToCookedRatio": 1.0,
+      "scenario": "organic",
+      "scopes": [
+        "food",
+        "food2"
+      ],
+      "transportCooling": "always",
+      "visible": true
+    }
+  ],
+  "scopes": [
+    "food",
+    "food2"
+  ],
+  "source": "Ecobalyse"
+}

@@ -1,0 +1,37 @@
+{
+  "activityName": "Apricot, pitted, at processing {FR} U [apricot-organic] {{apricot-pitted-organic}}",
+  "categories": [
+    "ingredient",
+    "material"
+  ],
+  "displayName": "Abricot, dénoyauté Bio",
+  "id": "af97274e-673f-442f-b6f7-e54f1bb9e9e2",
+  "metadata": [
+    {
+      "alias": "apricot-pitted-organic",
+      "cropGroup": "VERGERS",
+      "defaultOrigin": "France",
+      "displayName": "Abricot, dénoyauté Bio",
+      "id": "3826a493-bf8f-4a2f-a540-f13813de24a9",
+      "inediblePart": 0,
+      "ingredientCategories": [
+        "vegetable_processed",
+        "organic"
+      ],
+      "ingredientDensity": 0.9,
+      "rawToCookedRatio": 1.0,
+      "scenario": "organic",
+      "scopes": [
+        "food",
+        "food2"
+      ],
+      "transportCooling": "always",
+      "visible": true
+    }
+  ],
+  "scopes": [
+    "food",
+    "food2"
+  ],
+  "source": "Ecobalyse"
+}

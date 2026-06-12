@@ -1,0 +1,37 @@
+{
+  "activityName": "Broccoli, frozen, at processing {FR} U [broccoli-organic] {{broccoli-frozen-organic}}",
+  "categories": [
+    "ingredient",
+    "material"
+  ],
+  "displayName": "Brocolis, congelés Bio",
+  "id": "071e33e1-3e32-411f-8333-b1050f81f33e",
+  "metadata": [
+    {
+      "alias": "broccoli-frozen-organic",
+      "cropGroup": "LEGUMES-FLEURS",
+      "defaultOrigin": "France",
+      "displayName": "Brocolis, congelés Bio",
+      "id": "96a3628f-15de-4526-b466-f0b5562e2376",
+      "inediblePart": 0,
+      "ingredientCategories": [
+        "vegetable_processed",
+        "organic"
+      ],
+      "ingredientDensity": 0.9,
+      "rawToCookedRatio": 1.0,
+      "scenario": "organic",
+      "scopes": [
+        "food",
+        "food2"
+      ],
+      "transportCooling": "always",
+      "visible": true
+    }
+  ],
+  "scopes": [
+    "food",
+    "food2"
+  ],
+  "source": "Ecobalyse"
+}

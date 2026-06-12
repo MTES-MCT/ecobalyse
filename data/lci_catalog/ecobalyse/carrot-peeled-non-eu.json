@@ -1,0 +1,36 @@
+{
+  "activityName": "Carrot, peeled, at processing {FR} U [carrot-non-eu] {{carrot-peeled-non-eu}}",
+  "categories": [
+    "ingredient",
+    "material"
+  ],
+  "displayName": "Carotte pelée HORS UE",
+  "id": "82bfeaa8-c1d3-4156-9572-a7efba474c7c",
+  "metadata": [
+    {
+      "alias": "carrot-peeled-non-eu",
+      "cropGroup": "LEGUMES-FLEURS",
+      "defaultOrigin": "OutOfEuropeAndMaghreb",
+      "displayName": "Carotte pelée HORS UE",
+      "id": "1f3dfe60-820b-441c-8ed4-03f5a72f2dc5",
+      "inediblePart": 0,
+      "ingredientCategories": [
+        "vegetable_processed"
+      ],
+      "ingredientDensity": 1.0,
+      "rawToCookedRatio": 1.0,
+      "scenario": "import",
+      "scopes": [
+        "food",
+        "food2"
+      ],
+      "transportCooling": "always",
+      "visible": true
+    }
+  ],
+  "scopes": [
+    "food",
+    "food2"
+  ],
+  "source": "Ecobalyse"
+}

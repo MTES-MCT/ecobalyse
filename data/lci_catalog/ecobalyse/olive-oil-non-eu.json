@@ -1,0 +1,36 @@
+{
+  "activityName": "Olive oil, at plant {FR} U [olive-non-eu] {{olive-oil-non-eu}}",
+  "categories": [
+    "ingredient",
+    "material"
+  ],
+  "displayName": "Huile d'olive HORS UE",
+  "id": "ea1fde6c-4fe4-4fc5-9e88-df62ad28625a",
+  "metadata": [
+    {
+      "alias": "olive-oil-non-eu",
+      "cropGroup": "VERGERS",
+      "defaultOrigin": "OutOfEuropeAndMaghreb",
+      "displayName": "Huile d'olive HORS UE",
+      "id": "82a12948-1d8d-4105-a082-4329089d7391",
+      "inediblePart": 0,
+      "ingredientCategories": [
+        "vegetable_processed"
+      ],
+      "ingredientDensity": 0.85,
+      "rawToCookedRatio": 1.0,
+      "scenario": "import",
+      "scopes": [
+        "food",
+        "food2"
+      ],
+      "transportCooling": "none",
+      "visible": true
+    }
+  ],
+  "scopes": [
+    "food",
+    "food2"
+  ],
+  "source": "Ecobalyse"
+}

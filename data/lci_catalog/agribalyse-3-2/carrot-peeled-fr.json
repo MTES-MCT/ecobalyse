@@ -1,0 +1,36 @@
+{
+  "activityName": "Carrot, peeled, at processing {FR} U",
+  "categories": [
+    "ingredient",
+    "material"
+  ],
+  "displayName": "Carotte pelée FR",
+  "id": "b17d2a34-7c71-40db-8f38-d4ecd4a41002",
+  "metadata": [
+    {
+      "alias": "carrot-peeled-fr",
+      "cropGroup": "LEGUMES-FLEURS",
+      "defaultOrigin": "France",
+      "displayName": "Carotte pelée FR",
+      "id": "00072d9a-de56-411e-a808-9294385fe068",
+      "inediblePart": 0,
+      "ingredientCategories": [
+        "vegetable_processed"
+      ],
+      "ingredientDensity": 1.0,
+      "rawToCookedRatio": 1.0,
+      "scenario": "reference",
+      "scopes": [
+        "food",
+        "food2"
+      ],
+      "transportCooling": "always",
+      "visible": true
+    }
+  ],
+  "scopes": [
+    "food",
+    "food2"
+  ],
+  "source": "Agribalyse 3.2"
+}

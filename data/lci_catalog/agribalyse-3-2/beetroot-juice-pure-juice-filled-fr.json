@@ -1,0 +1,96 @@
+{
+  "activityName": "Beetroot juice, pure juice, filled, at plant {FR} U",
+  "categories": [
+    "ingredient",
+    "material"
+  ],
+  "displayName": "Jus de betterave, jus pur, rempli FR",
+  "id": "31102534-b875-45ed-a233-06b959ab4e8b",
+  "metadata": [
+    {
+      "alias": "beetroot-juice-pure-juice-filled-fr",
+      "cropGroup": "AUTRES CULTURES INDUSTRIELLES",
+      "defaultOrigin": "France",
+      "displayName": "Jus de betterave, jus pur, rempli FR",
+      "id": "a80b245b-e4cc-48dd-870b-b500b0bd41ab",
+      "inediblePart": 0,
+      "ingredientCategories": [
+        "vegetable_processed"
+      ],
+      "ingredientDensity": 0.9,
+      "rawToCookedRatio": 1.0,
+      "scenario": "reference",
+      "scopes": [
+        "food",
+        "food2"
+      ],
+      "transportCooling": "none",
+      "visible": true
+    },
+    {
+      "alias": "beetroot-juice-pure-juice-filled-non-eu",
+      "cropGroup": "AUTRES CULTURES INDUSTRIELLES",
+      "defaultOrigin": "OutOfEuropeAndMaghreb",
+      "displayName": "Jus de betterave, jus pur, rempli HORS UE",
+      "id": "94e9be9b-d46e-440a-94e7-f07ae5253eb4",
+      "inediblePart": 0,
+      "ingredientCategories": [
+        "vegetable_processed"
+      ],
+      "ingredientDensity": 0.9,
+      "rawToCookedRatio": 1.0,
+      "scenario": "import",
+      "scopes": [
+        "food",
+        "food2"
+      ],
+      "transportCooling": "none",
+      "visible": true
+    },
+    {
+      "alias": "beetroot-juice-pure-juice-filled-default",
+      "cropGroup": "AUTRES CULTURES INDUSTRIELLES",
+      "defaultOrigin": "OutOfEuropeAndMaghreb",
+      "displayName": "Jus de betterave, jus pur, rempli Origine Inconnue",
+      "id": "d8b7d70b-940d-423e-bc43-2f4dd9e0e991",
+      "inediblePart": 0,
+      "ingredientCategories": [
+        "vegetable_processed"
+      ],
+      "ingredientDensity": 0.9,
+      "rawToCookedRatio": 1.0,
+      "scenario": "import",
+      "scopes": [
+        "food",
+        "food2"
+      ],
+      "transportCooling": "none",
+      "visible": true
+    },
+    {
+      "alias": "beetroot-juice-pure-juice-filled-eu",
+      "cropGroup": "AUTRES CULTURES INDUSTRIELLES",
+      "defaultOrigin": "EuropeAndMaghreb",
+      "displayName": "Jus de betterave, jus pur, rempli UE",
+      "id": "d83addd5-1ffb-4ffd-ab9b-25ae16815721",
+      "inediblePart": 0,
+      "ingredientCategories": [
+        "vegetable_processed"
+      ],
+      "ingredientDensity": 0.9,
+      "rawToCookedRatio": 1.0,
+      "scenario": "import",
+      "scopes": [
+        "food",
+        "food2"
+      ],
+      "transportCooling": "none",
+      "visible": true
+    }
+  ],
+  "scopes": [
+    "food",
+    "food2"
+  ],
+  "source": "Agribalyse 3.2"
+}

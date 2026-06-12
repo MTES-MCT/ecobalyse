@@ -1,0 +1,56 @@
+{
+  "activityName": "Grape juice, reconstituted from a concentrate, at plant {FR} U",
+  "categories": [
+    "ingredient",
+    "material"
+  ],
+  "displayName": "Jus de raisins reconstitué à partir d'un concentré UE",
+  "id": "dc032078-61d2-4159-b294-13573c2a7b12",
+  "metadata": [
+    {
+      "alias": "grape-juice-reconstituted-from-a-concentrate-eu",
+      "cropGroup": "VIGNES",
+      "defaultOrigin": "EuropeAndMaghreb",
+      "displayName": "Jus de raisins reconstitué à partir d'un concentré UE",
+      "id": "6a126791-443b-43a8-b4d6-ec2b6a575cdd",
+      "inediblePart": 0,
+      "ingredientCategories": [
+        "vegetable_processed"
+      ],
+      "ingredientDensity": 1.054,
+      "rawToCookedRatio": 1.0,
+      "scenario": "import",
+      "scopes": [
+        "food",
+        "food2"
+      ],
+      "transportCooling": "always",
+      "visible": true
+    },
+    {
+      "alias": "grape-juice-reconstituted-from-a-concentrate-default",
+      "cropGroup": "VIGNES",
+      "defaultOrigin": "OutOfEuropeAndMaghreb",
+      "displayName": "Jus de raisins reconstitué à partir d'un concentré Origine Inconnue",
+      "id": "adbe279e-e5e3-4811-8c48-5cd4a09901fb",
+      "inediblePart": 0,
+      "ingredientCategories": [
+        "vegetable_processed"
+      ],
+      "ingredientDensity": 1.054,
+      "rawToCookedRatio": 1.0,
+      "scenario": "import",
+      "scopes": [
+        "food",
+        "food2"
+      ],
+      "transportCooling": "always",
+      "visible": true
+    }
+  ],
+  "scopes": [
+    "food",
+    "food2"
+  ],
+  "source": "Agribalyse 3.2"
+}

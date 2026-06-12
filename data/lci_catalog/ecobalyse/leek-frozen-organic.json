@@ -1,0 +1,37 @@
+{
+  "activityName": "Leek, frozen, at processing {FR} U [leek-organic] {{leek-frozen-organic}}",
+  "categories": [
+    "ingredient",
+    "material"
+  ],
+  "displayName": "Légumes, congelés Bio",
+  "id": "b9ac05a0-3330-4b63-abe6-f8c6253339a2",
+  "metadata": [
+    {
+      "alias": "leek-frozen-organic",
+      "cropGroup": "LEGUMES-FLEURS",
+      "defaultOrigin": "France",
+      "displayName": "Légumes, congelés Bio",
+      "id": "b2163bd2-1142-41d6-8265-e8bd42206bd5",
+      "inediblePart": 0,
+      "ingredientCategories": [
+        "vegetable_processed",
+        "organic"
+      ],
+      "ingredientDensity": 0.9,
+      "rawToCookedRatio": 1.0,
+      "scenario": "organic",
+      "scopes": [
+        "food",
+        "food2"
+      ],
+      "transportCooling": "always",
+      "visible": true
+    }
+  ],
+  "scopes": [
+    "food",
+    "food2"
+  ],
+  "source": "Ecobalyse"
+}

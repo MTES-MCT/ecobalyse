@@ -1,0 +1,56 @@
+{
+  "activityName": "Grape juice, pure juice, filled, at plant {FR} U",
+  "categories": [
+    "ingredient",
+    "material"
+  ],
+  "displayName": "Jus de raisin, jus pur, rempli UE",
+  "id": "8f31174e-6a69-4a7e-ab87-b0ea885b4321",
+  "metadata": [
+    {
+      "alias": "grape-juice-pure-juice-filled-eu",
+      "cropGroup": "VIGNES",
+      "defaultOrigin": "EuropeAndMaghreb",
+      "displayName": "Jus de raisin, jus pur, rempli UE",
+      "id": "2d03a1f4-312e-4ed1-b668-3394e86df646",
+      "inediblePart": 0,
+      "ingredientCategories": [
+        "vegetable_processed"
+      ],
+      "ingredientDensity": 1.054,
+      "rawToCookedRatio": 1.0,
+      "scenario": "import",
+      "scopes": [
+        "food",
+        "food2"
+      ],
+      "transportCooling": "always",
+      "visible": true
+    },
+    {
+      "alias": "grape-juice-pure-juice-filled-default",
+      "cropGroup": "VIGNES",
+      "defaultOrigin": "OutOfEuropeAndMaghreb",
+      "displayName": "Jus de raisin, jus pur, rempli Origine Inconnue",
+      "id": "73a40656-c66d-418d-997d-befbe433710e",
+      "inediblePart": 0,
+      "ingredientCategories": [
+        "vegetable_processed"
+      ],
+      "ingredientDensity": 1.054,
+      "rawToCookedRatio": 1.0,
+      "scenario": "import",
+      "scopes": [
+        "food",
+        "food2"
+      ],
+      "transportCooling": "always",
+      "visible": true
+    }
+  ],
+  "scopes": [
+    "food",
+    "food2"
+  ],
+  "source": "Agribalyse 3.2"
+}

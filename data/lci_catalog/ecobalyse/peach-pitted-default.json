@@ -1,0 +1,36 @@
+{
+  "activityName": "Peach, pitted, at processing {FR} U [peach-default] {{peach-pitted-default}}",
+  "categories": [
+    "ingredient",
+    "material"
+  ],
+  "displayName": "Pêche, dénoyautée Origine Inconnue",
+  "id": "a760bc94-96b3-49c6-a43a-709725114691",
+  "metadata": [
+    {
+      "alias": "peach-pitted-default",
+      "cropGroup": "VERGERS",
+      "defaultOrigin": "OutOfEuropeAndMaghreb",
+      "displayName": "Pêche, dénoyautée Origine Inconnue",
+      "id": "8e01c0ea-888d-44a3-ac86-fa01b5ae4480",
+      "inediblePart": 0,
+      "ingredientCategories": [
+        "vegetable_processed"
+      ],
+      "ingredientDensity": 0.9,
+      "rawToCookedRatio": 1.0,
+      "scenario": "import",
+      "scopes": [
+        "food",
+        "food2"
+      ],
+      "transportCooling": "always",
+      "visible": true
+    }
+  ],
+  "scopes": [
+    "food",
+    "food2"
+  ],
+  "source": "Ecobalyse"
+}

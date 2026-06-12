@@ -1,0 +1,36 @@
+{
+  "activityName": "Rice bran, at plant {FR} U [rice-raw-eu] {{rice-raw-bran-eu}}",
+  "categories": [
+    "ingredient",
+    "material"
+  ],
+  "displayName": "Son de riz UE",
+  "id": "03fab3ee-a1ef-4e59-8a0d-1256462f9a34",
+  "metadata": [
+    {
+      "alias": "rice-raw-bran-eu",
+      "cropGroup": "RIZ",
+      "defaultOrigin": "EuropeAndMaghreb",
+      "displayName": "Son de riz UE",
+      "id": "2f4e38c0-17d0-4cc7-9fa5-f78651856f63",
+      "inediblePart": 0,
+      "ingredientCategories": [
+        "grain_processed"
+      ],
+      "ingredientDensity": 0.42,
+      "rawToCookedRatio": 1.0,
+      "scenario": "import",
+      "scopes": [
+        "food",
+        "food2"
+      ],
+      "transportCooling": "none",
+      "visible": true
+    }
+  ],
+  "scopes": [
+    "food",
+    "food2"
+  ],
+  "source": "Ecobalyse"
+}

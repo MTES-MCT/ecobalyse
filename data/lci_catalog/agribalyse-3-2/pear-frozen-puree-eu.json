@@ -1,0 +1,36 @@
+{
+  "activityName": "Frozen pear puree, at processing {BE} U",
+  "categories": [
+    "ingredient",
+    "material"
+  ],
+  "displayName": "purée de poire congelée UE",
+  "id": "b6a2bed5-639e-427f-a09d-a0548f4e9282",
+  "metadata": [
+    {
+      "alias": "pear-frozen-puree-eu",
+      "cropGroup": "VERGERS",
+      "defaultOrigin": "EuropeAndMaghreb",
+      "displayName": "purée de poire congelée UE",
+      "id": "f5721917-4612-4e7a-83e9-b6c52f7d6223",
+      "inediblePart": 0,
+      "ingredientCategories": [
+        "vegetable_processed"
+      ],
+      "ingredientDensity": 0.95,
+      "rawToCookedRatio": 1.0,
+      "scenario": "import",
+      "scopes": [
+        "food",
+        "food2"
+      ],
+      "transportCooling": "always",
+      "visible": true
+    }
+  ],
+  "scopes": [
+    "food",
+    "food2"
+  ],
+  "source": "Agribalyse 3.2"
+}

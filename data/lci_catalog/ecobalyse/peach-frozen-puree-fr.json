@@ -1,0 +1,36 @@
+{
+  "activityName": "Frozen peach puree, at plant {ES} U [peach-fr] {{peach-frozen-puree-fr}}",
+  "categories": [
+    "ingredient",
+    "material"
+  ],
+  "displayName": "Purée de pêche congelée FR",
+  "id": "8520c614-4d93-4318-be02-fccd42f73230",
+  "metadata": [
+    {
+      "alias": "peach-frozen-puree-fr",
+      "cropGroup": "VERGERS",
+      "defaultOrigin": "France",
+      "displayName": "Purée de pêche congelée FR",
+      "id": "864f6583-daa1-421e-b87b-56e5a64dcf03",
+      "inediblePart": 0,
+      "ingredientCategories": [
+        "vegetable_processed"
+      ],
+      "ingredientDensity": 0.85,
+      "rawToCookedRatio": 1.0,
+      "scenario": "reference",
+      "scopes": [
+        "food",
+        "food2"
+      ],
+      "transportCooling": "always",
+      "visible": true
+    }
+  ],
+  "scopes": [
+    "food",
+    "food2"
+  ],
+  "source": "Ecobalyse"
+}

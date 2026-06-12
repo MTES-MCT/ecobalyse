@@ -1,0 +1,36 @@
+{
+  "activityName": "Apricot, canned {FR} U",
+  "categories": [
+    "ingredient",
+    "material"
+  ],
+  "displayName": "Abricot, en conserve FR",
+  "id": "761c11bd-9501-4611-80d4-d2fe00cde36c",
+  "metadata": [
+    {
+      "alias": "apricot-canned-fr",
+      "cropGroup": "VERGERS",
+      "defaultOrigin": "France",
+      "displayName": "Abricot, en conserve FR",
+      "id": "cf650405-63dd-4894-9ba6-9b49c04764f0",
+      "inediblePart": 0,
+      "ingredientCategories": [
+        "vegetable_processed"
+      ],
+      "ingredientDensity": 0.9,
+      "rawToCookedRatio": 1.0,
+      "scenario": "reference",
+      "scopes": [
+        "food",
+        "food2"
+      ],
+      "transportCooling": "none",
+      "visible": true
+    }
+  ],
+  "scopes": [
+    "food",
+    "food2"
+  ],
+  "source": "Agribalyse 3.2"
+}

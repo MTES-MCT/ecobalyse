@@ -1,0 +1,37 @@
+{
+  "activityName": "Fennel, peeled, at processing {FR} U [fennel-organic] {{fennel-peeled-organic}}",
+  "categories": [
+    "ingredient",
+    "material"
+  ],
+  "displayName": "Fenouil, pelé Bio",
+  "id": "1714212f-0934-4d5b-a8cf-a2aaa72f3d3d",
+  "metadata": [
+    {
+      "alias": "fennel-peeled-organic",
+      "cropGroup": "LEGUMES-FLEURS",
+      "defaultOrigin": "France",
+      "displayName": "Fenouil, pelé Bio",
+      "id": "ca70a454-1ce0-4a40-8cb9-cf6de205b8fd",
+      "inediblePart": 0,
+      "ingredientCategories": [
+        "vegetable_processed",
+        "organic"
+      ],
+      "ingredientDensity": 0.9,
+      "rawToCookedRatio": 1.0,
+      "scenario": "organic",
+      "scopes": [
+        "food",
+        "food2"
+      ],
+      "transportCooling": "always",
+      "visible": true
+    }
+  ],
+  "scopes": [
+    "food",
+    "food2"
+  ],
+  "source": "Ecobalyse"
+}

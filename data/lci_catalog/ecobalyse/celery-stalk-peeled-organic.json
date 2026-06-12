@@ -1,0 +1,37 @@
+{
+  "activityName": "Celery stalk, peeled, at processing {FR} U [celery-organic] {{celery-stalk-peeled-organic}}",
+  "categories": [
+    "ingredient",
+    "material"
+  ],
+  "displayName": "Branche de céleri, pelée Bio",
+  "id": "d2da3aa1-ea73-4778-9d96-efaf235ecfe7",
+  "metadata": [
+    {
+      "alias": "celery-stalk-peeled-organic",
+      "cropGroup": "LEGUMES-FLEURS",
+      "defaultOrigin": "France",
+      "displayName": "Branche de céleri, pelée Bio",
+      "id": "5b0c466b-3c67-4032-9599-a35e91def189",
+      "inediblePart": 0,
+      "ingredientCategories": [
+        "vegetable_processed",
+        "organic"
+      ],
+      "ingredientDensity": 0.9,
+      "rawToCookedRatio": 1.0,
+      "scenario": "organic",
+      "scopes": [
+        "food",
+        "food2"
+      ],
+      "transportCooling": "always",
+      "visible": true
+    }
+  ],
+  "scopes": [
+    "food",
+    "food2"
+  ],
+  "source": "Ecobalyse"
+}

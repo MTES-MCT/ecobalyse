@@ -1,0 +1,36 @@
+{
+  "activityName": "Durum wheat, for canned ravioli filled with meat, in tomato sauce {FR} U [durum-wheat-default] {{durum-wheat-in-tomato-sauce-default}}",
+  "categories": [
+    "ingredient",
+    "material"
+  ],
+  "displayName": "Blé dur, en sauce tomate Origine Inconnue",
+  "id": "a13ef9b2-f146-4dd8-a9f9-94a6400d8bb7",
+  "metadata": [
+    {
+      "alias": "durum-wheat-in-tomato-sauce-default",
+      "cropGroup": "BLE TENDRE",
+      "defaultOrigin": "OutOfEuropeAndMaghreb",
+      "displayName": "Blé dur, en sauce tomate Origine Inconnue",
+      "id": "c51f8ad1-a8ea-495a-bbdc-ae21ef7fa269",
+      "inediblePart": 0,
+      "ingredientCategories": [
+        "grain_processed"
+      ],
+      "ingredientDensity": 0.75,
+      "rawToCookedRatio": 1.0,
+      "scenario": "import",
+      "scopes": [
+        "food",
+        "food2"
+      ],
+      "transportCooling": "none",
+      "visible": true
+    }
+  ],
+  "scopes": [
+    "food",
+    "food2"
+  ],
+  "source": "Ecobalyse"
+}

@@ -1,0 +1,36 @@
+{
+  "activityName": "Asparagus, canned {FR} U [asparagu-default] {{asparagu-asparagus-canned-default}}",
+  "categories": [
+    "ingredient",
+    "material"
+  ],
+  "displayName": "Asperges, en conserve Origine Inconnue",
+  "id": "b79d1d92-af12-4e46-9f78-916a9267fbd0",
+  "metadata": [
+    {
+      "alias": "asparagu-asparagus-canned-default",
+      "cropGroup": "LEGUMES-FLEURS",
+      "defaultOrigin": "OutOfEuropeAndMaghreb",
+      "displayName": "Asperges, en conserve Origine Inconnue",
+      "id": "7c59a518-0c06-439c-bb0e-8600ba823fd0",
+      "inediblePart": 0,
+      "ingredientCategories": [
+        "vegetable_processed"
+      ],
+      "ingredientDensity": 0.9,
+      "rawToCookedRatio": 1.0,
+      "scenario": "import",
+      "scopes": [
+        "food",
+        "food2"
+      ],
+      "transportCooling": "none",
+      "visible": true
+    }
+  ],
+  "scopes": [
+    "food",
+    "food2"
+  ],
+  "source": "Ecobalyse"
+}

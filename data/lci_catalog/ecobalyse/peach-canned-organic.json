@@ -1,0 +1,37 @@
+{
+  "activityName": "Peach, canned {FR} U [peach-organic] {{peach-canned-organic}}",
+  "categories": [
+    "ingredient",
+    "material"
+  ],
+  "displayName": "Pêche, en conserve Bio",
+  "id": "d33998cd-d6a4-42dd-9f6d-da0ba5bd1163",
+  "metadata": [
+    {
+      "alias": "peach-canned-organic",
+      "cropGroup": "VERGERS",
+      "defaultOrigin": "France",
+      "displayName": "Pêche, en conserve Bio",
+      "id": "203f877f-f180-4262-9d9c-5743a653a8d9",
+      "inediblePart": 0,
+      "ingredientCategories": [
+        "vegetable_processed",
+        "organic"
+      ],
+      "ingredientDensity": 0.9,
+      "rawToCookedRatio": 1.0,
+      "scenario": "organic",
+      "scopes": [
+        "food",
+        "food2"
+      ],
+      "transportCooling": "none",
+      "visible": true
+    }
+  ],
+  "scopes": [
+    "food",
+    "food2"
+  ],
+  "source": "Ecobalyse"
+}

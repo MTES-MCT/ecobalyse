@@ -5,14 +5,14 @@
     "material",
     "material_type:other_food_items"
   ],
-  "displayName": "Farine d'orge FR",
+  "displayName": "Farine d'orge FR (GLO)",
   "id": "7eed490b-ebb0-4329-ab6f-d360a7a6b222",
   "metadata": [
     {
-      "alias": "barley-flour-fr",
+      "alias": "barley-flour-fr-2025",
       "cropGroup": "ORGE",
       "defaultOrigin": "France",
-      "displayName": "Farine d'orge FR",
+      "displayName": "Farine d'orge FR (2025)",
       "id": "6665e6d0-38da-4010-87e7-7fb54f85643d",
       "inediblePart": 0,
       "ingredientCategories": [

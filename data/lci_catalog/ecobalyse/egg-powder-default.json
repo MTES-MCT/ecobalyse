@@ -1,0 +1,36 @@
+{
+  "activityName": "Egg, powder, at plant {FR} U [egg-default] {{egg-powder-default}}",
+  "categories": [
+    "ingredient",
+    "material"
+  ],
+  "displayName": "Œufs en poudre Origine Inconnue",
+  "id": "e8570fa7-9249-442b-b0d6-07305f30999c",
+  "metadata": [
+    {
+      "alias": "egg-powder-default",
+      "cropGroup": null,
+      "defaultOrigin": "OutOfEuropeAndMaghreb",
+      "displayName": "Œufs en poudre Origine Inconnue",
+      "id": "e745067f-b9f0-4738-b787-3d278122424c",
+      "inediblePart": 0,
+      "ingredientCategories": [
+        "animal_product"
+      ],
+      "ingredientDensity": 0.225,
+      "rawToCookedRatio": 1.0,
+      "scenario": "import",
+      "scopes": [
+        "food",
+        "food2"
+      ],
+      "transportCooling": "always",
+      "visible": true
+    }
+  ],
+  "scopes": [
+    "food",
+    "food2"
+  ],
+  "source": "Ecobalyse"
+}

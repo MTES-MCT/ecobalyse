@@ -1,0 +1,37 @@
+{
+  "activityName": "Hazelnut oil, at plant {FR} U [hazelnut-in-shell-organic] {{hazelnut-in-shell-oil-organic}}",
+  "categories": [
+    "ingredient",
+    "material"
+  ],
+  "displayName": "Huile de noisettes Bio",
+  "id": "daab666c-f044-4022-99f8-abe9e02e54ad",
+  "metadata": [
+    {
+      "alias": "hazelnut-in-shell-oil-organic",
+      "cropGroup": "FRUITS A COQUES",
+      "defaultOrigin": "France",
+      "displayName": "Huile de noisettes Bio",
+      "id": "7d5f57aa-9ae7-4b84-9406-eca4da0f690e",
+      "inediblePart": 0,
+      "ingredientCategories": [
+        "nut_oilseed_processed",
+        "organic"
+      ],
+      "ingredientDensity": 0.6,
+      "rawToCookedRatio": 1.0,
+      "scenario": "organic",
+      "scopes": [
+        "food",
+        "food2"
+      ],
+      "transportCooling": "none",
+      "visible": true
+    }
+  ],
+  "scopes": [
+    "food",
+    "food2"
+  ],
+  "source": "Ecobalyse"
+}

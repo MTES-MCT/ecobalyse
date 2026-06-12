@@ -1,0 +1,36 @@
+{
+  "activityName": "Cherry juice, pure juice, at plant {FR} U",
+  "categories": [
+    "ingredient",
+    "material"
+  ],
+  "displayName": "Jus de cerise, jus pur FR",
+  "id": "7447a4c6-bee1-42b3-b840-9c1baf641b6a",
+  "metadata": [
+    {
+      "alias": "cherry-juice-pure-juice-fr",
+      "cropGroup": "VERGERS",
+      "defaultOrigin": "France",
+      "displayName": "Jus de cerise, jus pur FR",
+      "id": "772de2f0-9255-4f3f-8951-463b9b6aa495",
+      "inediblePart": 0,
+      "ingredientCategories": [
+        "vegetable_processed"
+      ],
+      "ingredientDensity": 0.85,
+      "rawToCookedRatio": 1.0,
+      "scenario": "reference",
+      "scopes": [
+        "food",
+        "food2"
+      ],
+      "transportCooling": "always",
+      "visible": true
+    }
+  ],
+  "scopes": [
+    "food",
+    "food2"
+  ],
+  "source": "Agribalyse 3.2"
+}

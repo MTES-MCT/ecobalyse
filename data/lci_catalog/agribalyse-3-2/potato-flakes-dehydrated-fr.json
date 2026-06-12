@@ -1,0 +1,36 @@
+{
+  "activityName": "Potato flakes, dehydrated, at plant {FR} U",
+  "categories": [
+    "ingredient",
+    "material"
+  ],
+  "displayName": "Flacons de pommes de terre déshydratés FR",
+  "id": "2eaa9125-65b1-46f0-af28-5ec2172123ed",
+  "metadata": [
+    {
+      "alias": "potato-flakes-dehydrated-fr",
+      "cropGroup": "LEGUMES-FLEURS",
+      "defaultOrigin": "France",
+      "displayName": "Flacons de pommes de terre déshydratés FR",
+      "id": "1afd1a0d-c32c-4eaf-a7cf-20c5358a2f66",
+      "inediblePart": 0,
+      "ingredientCategories": [
+        "vegetable_processed"
+      ],
+      "ingredientDensity": 0.9,
+      "rawToCookedRatio": 1.0,
+      "scenario": "reference",
+      "scopes": [
+        "food",
+        "food2"
+      ],
+      "transportCooling": "none",
+      "visible": true
+    }
+  ],
+  "scopes": [
+    "food",
+    "food2"
+  ],
+  "source": "Agribalyse 3.2"
+}

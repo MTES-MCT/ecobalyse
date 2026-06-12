@@ -1,0 +1,36 @@
+{
+  "activityName": "Chick pea flour, at plant {FR} U [pea-with-pod-non-eu] {{pea-with-pod-chickpea-flour-non-eu}}",
+  "categories": [
+    "ingredient",
+    "material"
+  ],
+  "displayName": "Farine de pois chiches HORS UE",
+  "id": "7ebd05c9-9f21-4e84-913e-dfea07a681c1",
+  "metadata": [
+    {
+      "alias": "pea-with-pod-chickpea-flour-non-eu",
+      "cropGroup": "LEGUMINEUSES A GRAIN",
+      "defaultOrigin": "OutOfEuropeAndMaghreb",
+      "displayName": "Farine de pois chiches HORS UE",
+      "id": "9a24da4e-4ec9-4ca1-9b4c-27333be5d894",
+      "inediblePart": 0,
+      "ingredientCategories": [
+        "animal_product"
+      ],
+      "ingredientDensity": 1.05,
+      "rawToCookedRatio": 1.0,
+      "scenario": "import",
+      "scopes": [
+        "food",
+        "food2"
+      ],
+      "transportCooling": "none",
+      "visible": true
+    }
+  ],
+  "scopes": [
+    "food",
+    "food2"
+  ],
+  "source": "Ecobalyse"
+}

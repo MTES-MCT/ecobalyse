@@ -1,0 +1,36 @@
+{
+  "activityName": "Carrot pomace, fresh, from carrot juice production, at processing {FR} U [carrot-default] {{carrot-pomace-fresh-from-carrot-juice-production-default}}",
+  "categories": [
+    "ingredient",
+    "material"
+  ],
+  "displayName": "Pomace de carottes, fraîche, provenant de la production de jus de carottes Origine Inconnue",
+  "id": "cc56baf4-ae72-4b48-80e3-08207de5b228",
+  "metadata": [
+    {
+      "alias": "carrot-pomace-fresh-from-carrot-juice-production-default",
+      "cropGroup": "LEGUMES-FLEURS",
+      "defaultOrigin": "OutOfEuropeAndMaghreb",
+      "displayName": "Pomace de carottes, fraîche, provenant de la production de jus de carottes Origine Inconnue",
+      "id": "ea28f555-55b0-4a34-9965-aa7f4f230c51",
+      "inediblePart": 0,
+      "ingredientCategories": [
+        "vegetable_processed"
+      ],
+      "ingredientDensity": 0.9,
+      "rawToCookedRatio": 1.0,
+      "scenario": "import",
+      "scopes": [
+        "food",
+        "food2"
+      ],
+      "transportCooling": "always",
+      "visible": true
+    }
+  ],
+  "scopes": [
+    "food",
+    "food2"
+  ],
+  "source": "Ecobalyse"
+}

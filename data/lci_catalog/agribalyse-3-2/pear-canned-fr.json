@@ -1,0 +1,36 @@
+{
+  "activityName": "Pear, canned {FR} U",
+  "categories": [
+    "ingredient",
+    "material"
+  ],
+  "displayName": "Poire, en conserve FR",
+  "id": "35f466c0-c841-4f45-9c15-5902c6f10f76",
+  "metadata": [
+    {
+      "alias": "pear-canned-fr",
+      "cropGroup": "VERGERS",
+      "defaultOrigin": "France",
+      "displayName": "Poire, en conserve FR",
+      "id": "8d9b45aa-be0b-41dd-a354-989ef27651fb",
+      "inediblePart": 0,
+      "ingredientCategories": [
+        "vegetable_processed"
+      ],
+      "ingredientDensity": 0.95,
+      "rawToCookedRatio": 1.0,
+      "scenario": "reference",
+      "scopes": [
+        "food",
+        "food2"
+      ],
+      "transportCooling": "none",
+      "visible": true
+    }
+  ],
+  "scopes": [
+    "food",
+    "food2"
+  ],
+  "source": "Agribalyse 3.2"
+}

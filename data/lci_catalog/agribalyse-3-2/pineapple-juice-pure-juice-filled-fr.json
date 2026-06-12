@@ -1,0 +1,76 @@
+{
+  "activityName": "Pineapple juice, pure juice, filled, at plant {FR} U",
+  "categories": [
+    "ingredient",
+    "material"
+  ],
+  "displayName": "Jus d'ananas, pur jus, rempli FR",
+  "id": "b8dc9bbf-f4d8-4b2d-9b28-1ab149cb4a84",
+  "metadata": [
+    {
+      "alias": "pineapple-juice-pure-juice-filled-fr",
+      "cropGroup": "ARBORICULTURE",
+      "defaultOrigin": "France",
+      "displayName": "Jus d'ananas, pur jus, rempli FR",
+      "id": "1106337b-5381-48cf-ba4e-3e91d6c4e8d3",
+      "inediblePart": 0,
+      "ingredientCategories": [
+        "vegetable_processed"
+      ],
+      "ingredientDensity": 0.85,
+      "rawToCookedRatio": 1.0,
+      "scenario": "reference",
+      "scopes": [
+        "food",
+        "food2"
+      ],
+      "transportCooling": "always",
+      "visible": true
+    },
+    {
+      "alias": "pineapple-juice-pure-juice-filled-non-eu",
+      "cropGroup": "ARBORICULTURE",
+      "defaultOrigin": "OutOfEuropeAndMaghreb",
+      "displayName": "Jus d'ananas, pur jus, rempli HORS UE",
+      "id": "c543d3a5-2c5f-4d78-8a1c-f4c37c40e09b",
+      "inediblePart": 0,
+      "ingredientCategories": [
+        "vegetable_processed"
+      ],
+      "ingredientDensity": 0.85,
+      "rawToCookedRatio": 1.0,
+      "scenario": "import",
+      "scopes": [
+        "food",
+        "food2"
+      ],
+      "transportCooling": "always",
+      "visible": true
+    },
+    {
+      "alias": "pineapple-juice-pure-juice-filled-default",
+      "cropGroup": "ARBORICULTURE",
+      "defaultOrigin": "OutOfEuropeAndMaghreb",
+      "displayName": "Jus d'ananas, pur jus, rempli Origine Inconnue",
+      "id": "a4c98d57-6785-4e25-b535-7dec0afbc14b",
+      "inediblePart": 0,
+      "ingredientCategories": [
+        "vegetable_processed"
+      ],
+      "ingredientDensity": 0.85,
+      "rawToCookedRatio": 1.0,
+      "scenario": "import",
+      "scopes": [
+        "food",
+        "food2"
+      ],
+      "transportCooling": "always",
+      "visible": true
+    }
+  ],
+  "scopes": [
+    "food",
+    "food2"
+  ],
+  "source": "Agribalyse 3.2"
+}

@@ -1,0 +1,36 @@
+{
+  "activityName": "Lemon, peeled, at processing {FR} U [lemon-non-eu] {{lemon-peeled-non-eu}}",
+  "categories": [
+    "ingredient",
+    "material"
+  ],
+  "displayName": "Citron, pelé HORS UE",
+  "id": "27fc43ef-c320-48e7-88b2-b0dd602e2beb",
+  "metadata": [
+    {
+      "alias": "lemon-peeled-non-eu",
+      "cropGroup": "VERGERS",
+      "defaultOrigin": "OutOfEuropeAndMaghreb",
+      "displayName": "Citron, pelé HORS UE",
+      "id": "f02b37fc-05a9-4bfc-a623-c76c4699e7c2",
+      "inediblePart": 0,
+      "ingredientCategories": [
+        "vegetable_processed"
+      ],
+      "ingredientDensity": 1.0,
+      "rawToCookedRatio": 1.0,
+      "scenario": "import",
+      "scopes": [
+        "food",
+        "food2"
+      ],
+      "transportCooling": "always",
+      "visible": true
+    }
+  ],
+  "scopes": [
+    "food",
+    "food2"
+  ],
+  "source": "Ecobalyse"
+}

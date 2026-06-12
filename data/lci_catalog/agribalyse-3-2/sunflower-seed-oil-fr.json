@@ -1,0 +1,36 @@
+{
+  "activityName": "Sunflower oil, at plant {FR} U",
+  "categories": [
+    "ingredient",
+    "material"
+  ],
+  "displayName": "Huile de tournesol FR",
+  "id": "6c2bd90a-9642-4d76-882c-273596adfc7a",
+  "metadata": [
+    {
+      "alias": "sunflower-seed-oil-fr",
+      "cropGroup": "TOURNESOL",
+      "defaultOrigin": "France",
+      "displayName": "Huile de tournesol FR",
+      "id": "1be4d51e-7e37-463a-9138-697ec4911295",
+      "inediblePart": 0,
+      "ingredientCategories": [
+        "nut_oilseed_processed"
+      ],
+      "ingredientDensity": 0.6,
+      "rawToCookedRatio": 1.0,
+      "scenario": "reference",
+      "scopes": [
+        "food",
+        "food2"
+      ],
+      "transportCooling": "none",
+      "visible": true
+    }
+  ],
+  "scopes": [
+    "food",
+    "food2"
+  ],
+  "source": "Agribalyse 3.2"
+}
