@@ -1,0 +1,37 @@
+{
+  "activityName": "Cauliflower, peeled, at processing {FR} U [cauliflower-organic] {{cauliflower-peeled-organic}}",
+  "categories": [
+    "ingredient",
+    "material"
+  ],
+  "displayName": "Choux-fleurs, pelés Bio",
+  "id": "a2f3ae1e-83c4-482a-9f51-7bcc8991216c",
+  "metadata": [
+    {
+      "alias": "cauliflower-peeled-organic",
+      "cropGroup": "LEGUMES-FLEURS",
+      "defaultOrigin": "France",
+      "displayName": "Choux-fleurs, pelés Bio",
+      "id": "dbc2039d-ff23-42bd-88a2-09164301da73",
+      "inediblePart": 0,
+      "ingredientCategories": [
+        "vegetable_processed",
+        "organic"
+      ],
+      "ingredientDensity": 0.9,
+      "rawToCookedRatio": 1.0,
+      "scenario": "organic",
+      "scopes": [
+        "food",
+        "food2"
+      ],
+      "transportCooling": "always",
+      "visible": true
+    }
+  ],
+  "scopes": [
+    "food",
+    "food2"
+  ],
+  "source": "Ecobalyse"
+}

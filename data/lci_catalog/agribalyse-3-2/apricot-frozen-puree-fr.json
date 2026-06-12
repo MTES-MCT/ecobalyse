@@ -1,0 +1,36 @@
+{
+  "activityName": "Frozen apricot puree, at plant {FR} U",
+  "categories": [
+    "ingredient",
+    "material"
+  ],
+  "displayName": "Purée d'abricots congelés FR",
+  "id": "32ca6f90-a4e2-4c9c-b8fb-eebc0cc7d6b8",
+  "metadata": [
+    {
+      "alias": "apricot-frozen-puree-fr",
+      "cropGroup": "VERGERS",
+      "defaultOrigin": "France",
+      "displayName": "Purée d'abricots congelés FR",
+      "id": "48ddba8c-3a79-4500-a538-23d68a1784e4",
+      "inediblePart": 0,
+      "ingredientCategories": [
+        "vegetable_processed"
+      ],
+      "ingredientDensity": 0.9,
+      "rawToCookedRatio": 1.0,
+      "scenario": "reference",
+      "scopes": [
+        "food",
+        "food2"
+      ],
+      "transportCooling": "always",
+      "visible": true
+    }
+  ],
+  "scopes": [
+    "food",
+    "food2"
+  ],
+  "source": "Agribalyse 3.2"
+}

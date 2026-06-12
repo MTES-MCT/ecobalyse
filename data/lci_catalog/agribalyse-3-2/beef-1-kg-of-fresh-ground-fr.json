@@ -1,0 +1,36 @@
+{
+  "activityName": "Fresh ground beef production, industrial production, French production mix, at plant, 1 kg of fresh ground beef, for processing (PDi) {FR} U",
+  "categories": [
+    "ingredient",
+    "material"
+  ],
+  "displayName": "1 kg de viande bovine fraîchement hachée FR",
+  "id": "c2c2826d-2ca4-4d55-956e-87eb0ac83c6a",
+  "metadata": [
+    {
+      "alias": "beef-1-kg-of-fresh-ground-fr",
+      "cropGroup": null,
+      "defaultOrigin": "France",
+      "displayName": "1 kg de viande bovine fraîchement hachée FR",
+      "id": "d8368738-45c0-4d13-9e0c-94eb9cfb3abd",
+      "inediblePart": 0,
+      "ingredientCategories": [
+        "animal_product"
+      ],
+      "ingredientDensity": 1.05,
+      "rawToCookedRatio": 1.0,
+      "scenario": "reference",
+      "scopes": [
+        "food",
+        "food2"
+      ],
+      "transportCooling": "always",
+      "visible": true
+    }
+  ],
+  "scopes": [
+    "food",
+    "food2"
+  ],
+  "source": "Agribalyse 3.2"
+}

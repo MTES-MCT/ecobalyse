@@ -1,0 +1,36 @@
+{
+  "activityName": "Hazelnut oil, at plant {FR} U [hazelnut-in-shell-default] {{hazelnut-in-shell-oil-default}}",
+  "categories": [
+    "ingredient",
+    "material"
+  ],
+  "displayName": "Huile de noisettes Origine Inconnue",
+  "id": "71b953ae-b2c2-48bb-9079-0994684a6082",
+  "metadata": [
+    {
+      "alias": "hazelnut-in-shell-oil-default",
+      "cropGroup": "FRUITS A COQUES",
+      "defaultOrigin": "OutOfEuropeAndMaghreb",
+      "displayName": "Huile de noisettes Origine Inconnue",
+      "id": "49d018da-bf42-4e23-9259-0aef5b7be1bf",
+      "inediblePart": 0,
+      "ingredientCategories": [
+        "nut_oilseed_processed"
+      ],
+      "ingredientDensity": 0.6,
+      "rawToCookedRatio": 1.0,
+      "scenario": "import",
+      "scopes": [
+        "food",
+        "food2"
+      ],
+      "transportCooling": "none",
+      "visible": true
+    }
+  ],
+  "scopes": [
+    "food",
+    "food2"
+  ],
+  "source": "Ecobalyse"
+}

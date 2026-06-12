@@ -1,0 +1,36 @@
+{
+  "activityName": "Egg yolk, raw, at plant {FR} U",
+  "categories": [
+    "ingredient",
+    "material"
+  ],
+  "displayName": "Jaunes d'oeufs, crues FR",
+  "id": "4d2624d8-82d2-4514-9fab-ca8be19ce17b",
+  "metadata": [
+    {
+      "alias": "egg-yolk-raw-fr",
+      "cropGroup": null,
+      "defaultOrigin": "France",
+      "displayName": "Jaunes d'oeufs, crues FR",
+      "id": "b17d1ebc-da22-4b74-b6c5-96b27583c913",
+      "inediblePart": 0,
+      "ingredientCategories": [
+        "animal_product"
+      ],
+      "ingredientDensity": 1.05,
+      "rawToCookedRatio": 1.0,
+      "scenario": "reference",
+      "scopes": [
+        "food",
+        "food2"
+      ],
+      "transportCooling": "always",
+      "visible": true
+    }
+  ],
+  "scopes": [
+    "food",
+    "food2"
+  ],
+  "source": "Agribalyse 3.2"
+}

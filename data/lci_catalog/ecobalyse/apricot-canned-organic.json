@@ -1,0 +1,37 @@
+{
+  "activityName": "Apricot, canned {FR} U [apricot-organic] {{apricot-canned-organic}}",
+  "categories": [
+    "ingredient",
+    "material"
+  ],
+  "displayName": "Abricot, en conserve Bio",
+  "id": "83675c89-6d04-4d8a-947c-c3db009d374a",
+  "metadata": [
+    {
+      "alias": "apricot-canned-organic",
+      "cropGroup": "VERGERS",
+      "defaultOrigin": "France",
+      "displayName": "Abricot, en conserve Bio",
+      "id": "68a1ad6a-8f7e-4306-a716-b721b29bcfa2",
+      "inediblePart": 0,
+      "ingredientCategories": [
+        "vegetable_processed",
+        "organic"
+      ],
+      "ingredientDensity": 0.9,
+      "rawToCookedRatio": 1.0,
+      "scenario": "organic",
+      "scopes": [
+        "food",
+        "food2"
+      ],
+      "transportCooling": "none",
+      "visible": true
+    }
+  ],
+  "scopes": [
+    "food",
+    "food2"
+  ],
+  "source": "Ecobalyse"
+}

@@ -1,0 +1,36 @@
+{
+  "activityName": "Chive or spring onion, peeled, at processing {FR} U",
+  "categories": [
+    "ingredient",
+    "material"
+  ],
+  "displayName": "Ciboulette ou oignon nouveau, pelé FR",
+  "id": "f279545e-79b1-497d-8ae3-c5327f7a4af8",
+  "metadata": [
+    {
+      "alias": "onion-chive-or-spring-peeled-fr",
+      "cropGroup": "LEGUMES-FLEURS",
+      "defaultOrigin": "France",
+      "displayName": "Ciboulette ou oignon nouveau, pelé FR",
+      "id": "b7fe2206-9770-49eb-b312-565fbd816a6c",
+      "inediblePart": 0,
+      "ingredientCategories": [
+        "vegetable_processed"
+      ],
+      "ingredientDensity": 0.9,
+      "rawToCookedRatio": 1.0,
+      "scenario": "reference",
+      "scopes": [
+        "food",
+        "food2"
+      ],
+      "transportCooling": "always",
+      "visible": true
+    }
+  ],
+  "scopes": [
+    "food",
+    "food2"
+  ],
+  "source": "Agribalyse 3.2"
+}

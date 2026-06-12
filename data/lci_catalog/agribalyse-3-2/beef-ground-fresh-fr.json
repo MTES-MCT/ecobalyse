@@ -1,0 +1,36 @@
+{
+  "activityName": "Ground beef, fresh, for processing {FR} U",
+  "categories": [
+    "ingredient",
+    "material"
+  ],
+  "displayName": "Boeuf haché, frais FR",
+  "id": "fbbc9fb9-824d-408f-aee4-a635392af7bd",
+  "metadata": [
+    {
+      "alias": "beef-ground-fresh-fr",
+      "cropGroup": null,
+      "defaultOrigin": "France",
+      "displayName": "Boeuf haché, frais FR",
+      "id": "ffa4626f-6af3-49f2-a06b-6a4707f34cf4",
+      "inediblePart": 0,
+      "ingredientCategories": [
+        "animal_product"
+      ],
+      "ingredientDensity": 1.05,
+      "rawToCookedRatio": 1.0,
+      "scenario": "reference",
+      "scopes": [
+        "food",
+        "food2"
+      ],
+      "transportCooling": "always",
+      "visible": true
+    }
+  ],
+  "scopes": [
+    "food",
+    "food2"
+  ],
+  "source": "Agribalyse 3.2"
+}

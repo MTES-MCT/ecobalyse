@@ -1,0 +1,37 @@
+{
+  "activityName": "Beetroot juice, pure juice, filled, at plant {FR} U [beetroot-organic] {{beetroot-juice-pure-juice-filled-organic}}",
+  "categories": [
+    "ingredient",
+    "material"
+  ],
+  "displayName": "Jus de betterave, jus pur, rempli Bio",
+  "id": "38c703aa-f9ec-44df-a0db-9593c0bd0a0a",
+  "metadata": [
+    {
+      "alias": "beetroot-juice-pure-juice-filled-organic",
+      "cropGroup": "AUTRES CULTURES INDUSTRIELLES",
+      "defaultOrigin": "France",
+      "displayName": "Jus de betterave, jus pur, rempli Bio",
+      "id": "5c7c0db1-0647-4e3e-a23e-aade7bd8050b",
+      "inediblePart": 0,
+      "ingredientCategories": [
+        "vegetable_processed",
+        "organic"
+      ],
+      "ingredientDensity": 0.9,
+      "rawToCookedRatio": 1.0,
+      "scenario": "organic",
+      "scopes": [
+        "food",
+        "food2"
+      ],
+      "transportCooling": "none",
+      "visible": true
+    }
+  ],
+  "scopes": [
+    "food",
+    "food2"
+  ],
+  "source": "Ecobalyse"
+}

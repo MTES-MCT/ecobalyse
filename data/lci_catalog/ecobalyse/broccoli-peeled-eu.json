@@ -1,0 +1,36 @@
+{
+  "activityName": "Broccoli, peeled, at processing {FR} U [broccoli-eu] {{broccoli-peeled-eu}}",
+  "categories": [
+    "ingredient",
+    "material"
+  ],
+  "displayName": "Brocoli, pelé UE",
+  "id": "e30fad9c-46ad-463e-89e9-e0dd482502bf",
+  "metadata": [
+    {
+      "alias": "broccoli-peeled-eu",
+      "cropGroup": "LEGUMES-FLEURS",
+      "defaultOrigin": "EuropeAndMaghreb",
+      "displayName": "Brocoli, pelé UE",
+      "id": "28f94ea6-e5a4-4056-b1d6-fce3ae4179b2",
+      "inediblePart": 0,
+      "ingredientCategories": [
+        "vegetable_processed"
+      ],
+      "ingredientDensity": 0.9,
+      "rawToCookedRatio": 1.0,
+      "scenario": "import",
+      "scopes": [
+        "food",
+        "food2"
+      ],
+      "transportCooling": "always",
+      "visible": true
+    }
+  ],
+  "scopes": [
+    "food",
+    "food2"
+  ],
+  "source": "Ecobalyse"
+}

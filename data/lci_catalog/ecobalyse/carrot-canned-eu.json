@@ -1,0 +1,36 @@
+{
+  "activityName": "Carrot, canned {FR} U [carrot-eu] {{carrot-canned-eu}}",
+  "categories": [
+    "ingredient",
+    "material"
+  ],
+  "displayName": "Carotte en conserve UE",
+  "id": "1787b6f3-0be3-4988-b86e-0be01686e696",
+  "metadata": [
+    {
+      "alias": "carrot-canned-eu",
+      "cropGroup": "LEGUMES-FLEURS",
+      "defaultOrigin": "EuropeAndMaghreb",
+      "displayName": "Carotte en conserve UE",
+      "id": "b0609112-7b81-4f52-be65-01e26aa10211",
+      "inediblePart": 0,
+      "ingredientCategories": [
+        "vegetable_processed"
+      ],
+      "ingredientDensity": 1.0,
+      "rawToCookedRatio": 1.0,
+      "scenario": "import",
+      "scopes": [
+        "food",
+        "food2"
+      ],
+      "transportCooling": "none",
+      "visible": true
+    }
+  ],
+  "scopes": [
+    "food",
+    "food2"
+  ],
+  "source": "Ecobalyse"
+}

@@ -1,0 +1,36 @@
+{
+  "activityName": "Apple juice, industrial production, at plant, NFC, 1L {FR} U",
+  "categories": [
+    "ingredient",
+    "material"
+  ],
+  "displayName": "Jus de pomme FR",
+  "id": "07bee389-3fe5-4931-8c96-3d6593152feb",
+  "metadata": [
+    {
+      "alias": "apple-juice-fr",
+      "cropGroup": "VERGERS",
+      "defaultOrigin": "France",
+      "displayName": "Jus de pomme FR",
+      "id": "c8683e43-fbb4-4606-803d-9eab02ec82a3",
+      "inediblePart": 0,
+      "ingredientCategories": [
+        "vegetable_processed"
+      ],
+      "ingredientDensity": 0.85,
+      "rawToCookedRatio": 1.0,
+      "scenario": "reference",
+      "scopes": [
+        "food",
+        "food2"
+      ],
+      "transportCooling": "always",
+      "visible": true
+    }
+  ],
+  "scopes": [
+    "food",
+    "food2"
+  ],
+  "source": "Agribalyse 3.2"
+}

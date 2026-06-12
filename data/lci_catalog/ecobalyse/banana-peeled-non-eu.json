@@ -1,0 +1,36 @@
+{
+  "activityName": "Banana, peeled, at processing {FR} U [banana-non-eu] {{banana-peeled-non-eu}}",
+  "categories": [
+    "ingredient",
+    "material"
+  ],
+  "displayName": "Bananes pelées HORS UE",
+  "id": "b9ba5fd8-c11c-4663-816b-6afa82c2c4c0",
+  "metadata": [
+    {
+      "alias": "banana-peeled-non-eu",
+      "cropGroup": "ARBORICULTURE",
+      "defaultOrigin": "OutOfEuropeAndMaghreb",
+      "displayName": "Bananes pelées HORS UE",
+      "id": "9d2bac4f-dd15-4587-a898-351ab2c5d944",
+      "inediblePart": 0,
+      "ingredientCategories": [
+        "vegetable_processed"
+      ],
+      "ingredientDensity": 0.95,
+      "rawToCookedRatio": 1.0,
+      "scenario": "import",
+      "scopes": [
+        "food",
+        "food2"
+      ],
+      "transportCooling": "always",
+      "visible": true
+    }
+  ],
+  "scopes": [
+    "food",
+    "food2"
+  ],
+  "source": "Ecobalyse"
+}

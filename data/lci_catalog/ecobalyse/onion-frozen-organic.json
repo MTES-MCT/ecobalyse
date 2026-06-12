@@ -1,0 +1,37 @@
+{
+  "activityName": "Frozen onion, production, 1kg of frozen vegetable {FR} U [onion-organic] {{onion-frozen-organic}}",
+  "categories": [
+    "ingredient",
+    "material"
+  ],
+  "displayName": "Oignon congelé Bio",
+  "id": "c2f779e9-433e-4abe-8bb4-ac5ad4f101ef",
+  "metadata": [
+    {
+      "alias": "onion-frozen-organic",
+      "cropGroup": "LEGUMES-FLEURS",
+      "defaultOrigin": "France",
+      "displayName": "Oignon congelé Bio",
+      "id": "fa67badf-ace7-4318-98a8-63ded55f8855",
+      "inediblePart": 0,
+      "ingredientCategories": [
+        "vegetable_processed",
+        "organic"
+      ],
+      "ingredientDensity": 1.0,
+      "rawToCookedRatio": 1.0,
+      "scenario": "organic",
+      "scopes": [
+        "food",
+        "food2"
+      ],
+      "transportCooling": "always",
+      "visible": true
+    }
+  ],
+  "scopes": [
+    "food",
+    "food2"
+  ],
+  "source": "Ecobalyse"
+}

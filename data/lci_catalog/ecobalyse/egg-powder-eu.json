@@ -1,0 +1,36 @@
+{
+  "activityName": "Egg, powder, at plant {FR} U [egg-eu] {{egg-powder-eu}}",
+  "categories": [
+    "ingredient",
+    "material"
+  ],
+  "displayName": "Œufs en poudre UE",
+  "id": "e81f536d-d0a6-4798-a4d5-a9a3ccb8861c",
+  "metadata": [
+    {
+      "alias": "egg-powder-eu",
+      "cropGroup": null,
+      "defaultOrigin": "EuropeAndMaghreb",
+      "displayName": "Œufs en poudre UE",
+      "id": "26d9b179-260b-44d0-89fd-599e86389a3a",
+      "inediblePart": 0,
+      "ingredientCategories": [
+        "animal_product"
+      ],
+      "ingredientDensity": 0.225,
+      "rawToCookedRatio": 1.0,
+      "scenario": "import",
+      "scopes": [
+        "food",
+        "food2"
+      ],
+      "transportCooling": "always",
+      "visible": true
+    }
+  ],
+  "scopes": [
+    "food",
+    "food2"
+  ],
+  "source": "Ecobalyse"
+}

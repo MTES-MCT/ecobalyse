@@ -1,0 +1,36 @@
+{
+  "activityName": "Courgette or zucchini, pulp and peel, frozen, at processing {FR} U [zucchini-non-eu] {{zucchini-courgette-or-pulp-and-peel-frozen-non-eu}}",
+  "categories": [
+    "ingredient",
+    "material"
+  ],
+  "displayName": "Courgette ou courgettes, pulpe et pelure, congelées HORS UE",
+  "id": "f2685575-0919-4be5-b16d-e2d3dd19a19b",
+  "metadata": [
+    {
+      "alias": "zucchini-courgette-or-pulp-and-peel-frozen-non-eu",
+      "cropGroup": "LEGUMES-FLEURS",
+      "defaultOrigin": "OutOfEuropeAndMaghreb",
+      "displayName": "Courgette ou courgettes, pulpe et pelure, congelées HORS UE",
+      "id": "4265571d-b504-4e20-80aa-cf690156b9c9",
+      "inediblePart": 0,
+      "ingredientCategories": [
+        "vegetable_processed"
+      ],
+      "ingredientDensity": 0.85,
+      "rawToCookedRatio": 1.0,
+      "scenario": "import",
+      "scopes": [
+        "food",
+        "food2"
+      ],
+      "transportCooling": "always",
+      "visible": true
+    }
+  ],
+  "scopes": [
+    "food",
+    "food2"
+  ],
+  "source": "Ecobalyse"
+}

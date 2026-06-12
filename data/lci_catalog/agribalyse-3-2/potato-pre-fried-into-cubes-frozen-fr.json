@@ -1,0 +1,36 @@
+{
+  "activityName": "Potato, pre-fried into cubes, frozen, at processing {FR} U",
+  "categories": [
+    "ingredient",
+    "material"
+  ],
+  "displayName": "Pommes de terre, pré-friées en cubes, congelées FR",
+  "id": "7e00a918-d9ea-4b5b-b607-8ccd38145f67",
+  "metadata": [
+    {
+      "alias": "potato-pre-fried-into-cubes-frozen-fr",
+      "cropGroup": "LEGUMES-FLEURS",
+      "defaultOrigin": "France",
+      "displayName": "Pommes de terre, pré-friées en cubes, congelées FR",
+      "id": "cdd6a832-863f-4e6c-8263-27c5ad1779f8",
+      "inediblePart": 0,
+      "ingredientCategories": [
+        "vegetable_processed"
+      ],
+      "ingredientDensity": 0.9,
+      "rawToCookedRatio": 1.0,
+      "scenario": "reference",
+      "scopes": [
+        "food",
+        "food2"
+      ],
+      "transportCooling": "always",
+      "visible": true
+    }
+  ],
+  "scopes": [
+    "food",
+    "food2"
+  ],
+  "source": "Agribalyse 3.2"
+}

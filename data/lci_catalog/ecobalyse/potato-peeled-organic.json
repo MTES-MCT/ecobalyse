@@ -1,0 +1,37 @@
+{
+  "activityName": "Potato, peeled, at processing {FR} U [potato-organic] {{potato-peeled-organic}}",
+  "categories": [
+    "ingredient",
+    "material"
+  ],
+  "displayName": "Pommes de terre, pelées Bio",
+  "id": "8ef79c36-e0cd-491d-8c42-820aeebd6513",
+  "metadata": [
+    {
+      "alias": "potato-peeled-organic",
+      "cropGroup": "LEGUMES-FLEURS",
+      "defaultOrigin": "France",
+      "displayName": "Pommes de terre, pelées Bio",
+      "id": "b27fab03-3980-4016-9e88-697ab2c33a5b",
+      "inediblePart": 0,
+      "ingredientCategories": [
+        "vegetable_processed",
+        "organic"
+      ],
+      "ingredientDensity": 1.1,
+      "rawToCookedRatio": 1.0,
+      "scenario": "organic",
+      "scopes": [
+        "food",
+        "food2"
+      ],
+      "transportCooling": "always",
+      "visible": true
+    }
+  ],
+  "scopes": [
+    "food",
+    "food2"
+  ],
+  "source": "Ecobalyse"
+}

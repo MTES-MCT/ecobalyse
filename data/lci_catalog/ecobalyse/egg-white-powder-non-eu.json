@@ -1,0 +1,36 @@
+{
+  "activityName": "Egg white, powder, at plant {FR} U [egg-non-eu] {{egg-white-powder-non-eu}}",
+  "categories": [
+    "ingredient",
+    "material"
+  ],
+  "displayName": "Blanc d'œuf, poudre HORS UE",
+  "id": "4324bd35-d1f3-42ba-a481-21bc72406199",
+  "metadata": [
+    {
+      "alias": "egg-white-powder-non-eu",
+      "cropGroup": null,
+      "defaultOrigin": "OutOfEuropeAndMaghreb",
+      "displayName": "Blanc d'œuf, poudre HORS UE",
+      "id": "32cb0cd7-1d39-4b55-8121-7ec2f1f2d6d7",
+      "inediblePart": 0,
+      "ingredientCategories": [
+        "animal_product"
+      ],
+      "ingredientDensity": 1.05,
+      "rawToCookedRatio": 1.0,
+      "scenario": "import",
+      "scopes": [
+        "food",
+        "food2"
+      ],
+      "transportCooling": "always",
+      "visible": true
+    }
+  ],
+  "scopes": [
+    "food",
+    "food2"
+  ],
+  "source": "Ecobalyse"
+}

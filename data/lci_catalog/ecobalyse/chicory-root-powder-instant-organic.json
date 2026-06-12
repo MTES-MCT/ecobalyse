@@ -1,0 +1,37 @@
+{
+  "activityName": "Chicory, powder, instant, at plant {FR} U [chicory-root-organic] {{chicory-root-powder-instant-organic}}",
+  "categories": [
+    "ingredient",
+    "material"
+  ],
+  "displayName": "Chicorée, poudre, instantanée Bio",
+  "id": "f16683f9-0412-4271-bd6b-6a3daf664276",
+  "metadata": [
+    {
+      "alias": "chicory-root-powder-instant-organic",
+      "cropGroup": "AUTRES CULTURES INDUSTRIELLES",
+      "defaultOrigin": "France",
+      "displayName": "Chicorée, poudre, instantanée Bio",
+      "id": "c0e07358-5b47-49fd-b6ae-16b0ec1e1b1e",
+      "inediblePart": 0,
+      "ingredientCategories": [
+        "vegetable_processed",
+        "organic"
+      ],
+      "ingredientDensity": 0.9,
+      "rawToCookedRatio": 1.0,
+      "scenario": "organic",
+      "scopes": [
+        "food",
+        "food2"
+      ],
+      "transportCooling": "none",
+      "visible": true
+    }
+  ],
+  "scopes": [
+    "food",
+    "food2"
+  ],
+  "source": "Ecobalyse"
+}

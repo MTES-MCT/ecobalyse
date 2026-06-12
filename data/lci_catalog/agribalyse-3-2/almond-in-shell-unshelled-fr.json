@@ -1,0 +1,96 @@
+{
+  "activityName": "Almond, unshelled, at processing {FR} U",
+  "categories": [
+    "ingredient",
+    "material"
+  ],
+  "displayName": "Amandes décortiquées FR",
+  "id": "33119df9-576a-4324-b755-579e099cd5df",
+  "metadata": [
+    {
+      "alias": "almond-in-shell-unshelled-fr",
+      "cropGroup": "FRUITS A COQUES",
+      "defaultOrigin": "France",
+      "displayName": "Amandes décortiquées FR",
+      "id": "a0fba270-f6ef-4d9d-b0c6-bed9db752ccf",
+      "inediblePart": 0,
+      "ingredientCategories": [
+        "nut_oilseed_processed"
+      ],
+      "ingredientDensity": 0.46,
+      "rawToCookedRatio": 1.0,
+      "scenario": "reference",
+      "scopes": [
+        "food",
+        "food2"
+      ],
+      "transportCooling": "none",
+      "visible": true
+    },
+    {
+      "alias": "almond-in-shell-unshelled-default",
+      "cropGroup": "FRUITS A COQUES",
+      "defaultOrigin": "OutOfEuropeAndMaghreb",
+      "displayName": "Amandes décortiquées Origine Inconnue",
+      "id": "ef422ff4-f512-485c-9cd6-9d59af77d04e",
+      "inediblePart": 0,
+      "ingredientCategories": [
+        "nut_oilseed_processed"
+      ],
+      "ingredientDensity": 0.46,
+      "rawToCookedRatio": 1.0,
+      "scenario": "import",
+      "scopes": [
+        "food",
+        "food2"
+      ],
+      "transportCooling": "none",
+      "visible": true
+    },
+    {
+      "alias": "almond-in-shell-unshelled-non-eu",
+      "cropGroup": "FRUITS A COQUES",
+      "defaultOrigin": "OutOfEuropeAndMaghreb",
+      "displayName": "Amandes décortiquées HORS UE",
+      "id": "2a6242d3-84be-40b9-922c-ced7a43ae66d",
+      "inediblePart": 0,
+      "ingredientCategories": [
+        "nut_oilseed_processed"
+      ],
+      "ingredientDensity": 0.46,
+      "rawToCookedRatio": 1.0,
+      "scenario": "import",
+      "scopes": [
+        "food",
+        "food2"
+      ],
+      "transportCooling": "none",
+      "visible": true
+    },
+    {
+      "alias": "almond-in-shell-unshelled-eu",
+      "cropGroup": "FRUITS A COQUES",
+      "defaultOrigin": "EuropeAndMaghreb",
+      "displayName": "Amandes décortiquées UE",
+      "id": "ffdc3bed-893b-442d-80f2-487ccbfde170",
+      "inediblePart": 0,
+      "ingredientCategories": [
+        "nut_oilseed_processed"
+      ],
+      "ingredientDensity": 0.46,
+      "rawToCookedRatio": 1.0,
+      "scenario": "import",
+      "scopes": [
+        "food",
+        "food2"
+      ],
+      "transportCooling": "none",
+      "visible": true
+    }
+  ],
+  "scopes": [
+    "food",
+    "food2"
+  ],
+  "source": "Agribalyse 3.2"
+}

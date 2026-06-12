@@ -1,0 +1,36 @@
+{
+  "activityName": "Chicory cossettes, dehydrated at processing {FR} U [chicory-root-default] {{chicory-root-cossettes-dehydrated-default}}",
+  "categories": [
+    "ingredient",
+    "material"
+  ],
+  "displayName": "Cossettes de chicorée déshydratées Origine Inconnue",
+  "id": "d8b1ebb0-90ea-4e39-ba86-96013611afbe",
+  "metadata": [
+    {
+      "alias": "chicory-root-cossettes-dehydrated-default",
+      "cropGroup": "AUTRES CULTURES INDUSTRIELLES",
+      "defaultOrigin": "OutOfEuropeAndMaghreb",
+      "displayName": "Cossettes de chicorée déshydratées Origine Inconnue",
+      "id": "4e3a4e0a-a32a-4fe9-90e5-2ea01dbfd7f0",
+      "inediblePart": 0,
+      "ingredientCategories": [
+        "vegetable_processed"
+      ],
+      "ingredientDensity": 0.9,
+      "rawToCookedRatio": 1.0,
+      "scenario": "import",
+      "scopes": [
+        "food",
+        "food2"
+      ],
+      "transportCooling": "none",
+      "visible": true
+    }
+  ],
+  "scopes": [
+    "food",
+    "food2"
+  ],
+  "source": "Ecobalyse"
+}

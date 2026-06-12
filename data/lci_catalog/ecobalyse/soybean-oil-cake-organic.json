@@ -1,0 +1,37 @@
+{
+  "activityName": "Soybean oil cake, at plant {FR} U [soybean-organic] {{soybean-oil-cake-organic}}",
+  "categories": [
+    "ingredient",
+    "material"
+  ],
+  "displayName": "Gâteau à l'huile de soja Bio",
+  "id": "6b1dbbae-925a-4852-adcf-89c0771db19b",
+  "metadata": [
+    {
+      "alias": "soybean-oil-cake-organic",
+      "cropGroup": "AUTRES OLEAGINEUX",
+      "defaultOrigin": "France",
+      "displayName": "Gâteau à l'huile de soja Bio",
+      "id": "4501532d-1f9e-48c7-b825-c02b824a9710",
+      "inediblePart": 0,
+      "ingredientCategories": [
+        "vegetable_processed",
+        "organic"
+      ],
+      "ingredientDensity": 0.8,
+      "rawToCookedRatio": 1.0,
+      "scenario": "organic",
+      "scopes": [
+        "food",
+        "food2"
+      ],
+      "transportCooling": "none",
+      "visible": true
+    }
+  ],
+  "scopes": [
+    "food",
+    "food2"
+  ],
+  "source": "Ecobalyse"
+}

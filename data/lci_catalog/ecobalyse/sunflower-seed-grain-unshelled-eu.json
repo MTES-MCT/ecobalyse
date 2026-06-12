@@ -1,0 +1,36 @@
+{
+  "activityName": "Sunflower grain, unshelled, at processing {FR} U [sunflower-seed-eu] {{sunflower-seed-grain-unshelled-eu}}",
+  "categories": [
+    "ingredient",
+    "material"
+  ],
+  "displayName": "Graines de tournesol, non décortiquées UE",
+  "id": "38087d68-5468-4598-9ad0-549eb95514df",
+  "metadata": [
+    {
+      "alias": "sunflower-seed-grain-unshelled-eu",
+      "cropGroup": "TOURNESOL",
+      "defaultOrigin": "EuropeAndMaghreb",
+      "displayName": "Graines de tournesol, non décortiquées UE",
+      "id": "183c5b7d-e2df-4dad-b4c1-f91591c52454",
+      "inediblePart": 0,
+      "ingredientCategories": [
+        "vegetable_processed"
+      ],
+      "ingredientDensity": 0.9,
+      "rawToCookedRatio": 1.0,
+      "scenario": "import",
+      "scopes": [
+        "food",
+        "food2"
+      ],
+      "transportCooling": "always",
+      "visible": true
+    }
+  ],
+  "scopes": [
+    "food",
+    "food2"
+  ],
+  "source": "Ecobalyse"
+}

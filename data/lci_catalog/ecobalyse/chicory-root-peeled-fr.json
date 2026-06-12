@@ -1,0 +1,36 @@
+{
+  "activityName": "Chicory, peeled, at processing {FR} U [chicory-root-fr] {{chicory-root-peeled-fr}}",
+  "categories": [
+    "ingredient",
+    "material"
+  ],
+  "displayName": "Chicorée, pelée FR",
+  "id": "6b59bd31-5d82-4dbd-99bc-a624cd968f7b",
+  "metadata": [
+    {
+      "alias": "chicory-root-peeled-fr",
+      "cropGroup": "AUTRES CULTURES INDUSTRIELLES",
+      "defaultOrigin": "France",
+      "displayName": "Chicorée, pelée FR",
+      "id": "4c043d4e-2dbf-4c06-95b9-0baf347ae015",
+      "inediblePart": 0,
+      "ingredientCategories": [
+        "vegetable_processed"
+      ],
+      "ingredientDensity": 0.9,
+      "rawToCookedRatio": 1.0,
+      "scenario": "reference",
+      "scopes": [
+        "food",
+        "food2"
+      ],
+      "transportCooling": "always",
+      "visible": true
+    }
+  ],
+  "scopes": [
+    "food",
+    "food2"
+  ],
+  "source": "Ecobalyse"
+}

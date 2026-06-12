@@ -1,0 +1,36 @@
+{
+  "activityName": "Egg white, raw, at plant {FR} U",
+  "categories": [
+    "ingredient",
+    "material"
+  ],
+  "displayName": "Blanc d'oeufs, cru FR",
+  "id": "721e946e-76be-4219-a01c-ef270d8b8fab",
+  "metadata": [
+    {
+      "alias": "egg-white-raw-fr",
+      "cropGroup": null,
+      "defaultOrigin": "France",
+      "displayName": "Blanc d'oeufs, cru FR",
+      "id": "8bdf4dba-8268-4c12-8758-fac05cca65fb",
+      "inediblePart": 0,
+      "ingredientCategories": [
+        "animal_product"
+      ],
+      "ingredientDensity": 1.05,
+      "rawToCookedRatio": 1.0,
+      "scenario": "reference",
+      "scopes": [
+        "food",
+        "food2"
+      ],
+      "transportCooling": "always",
+      "visible": true
+    }
+  ],
+  "scopes": [
+    "food",
+    "food2"
+  ],
+  "source": "Agribalyse 3.2"
+}

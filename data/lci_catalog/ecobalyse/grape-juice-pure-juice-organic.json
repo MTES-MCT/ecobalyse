@@ -1,0 +1,37 @@
+{
+  "activityName": "Grape juice, pure juice, at processing {IT} U [grape-organic] {{grape-juice-pure-juice-organic}}",
+  "categories": [
+    "ingredient",
+    "material"
+  ],
+  "displayName": "Jus de raisin, jus pur Bio",
+  "id": "1d5c7194-c3e3-4532-830a-d2c090ae61e5",
+  "metadata": [
+    {
+      "alias": "grape-juice-pure-juice-organic",
+      "cropGroup": "VIGNES",
+      "defaultOrigin": "France",
+      "displayName": "Jus de raisin, jus pur Bio",
+      "id": "2b7dca8a-4808-4763-b273-2e46cb7e613f",
+      "inediblePart": 0,
+      "ingredientCategories": [
+        "vegetable_processed",
+        "organic"
+      ],
+      "ingredientDensity": 1.054,
+      "rawToCookedRatio": 1.0,
+      "scenario": "organic",
+      "scopes": [
+        "food",
+        "food2"
+      ],
+      "transportCooling": "always",
+      "visible": true
+    }
+  ],
+  "scopes": [
+    "food",
+    "food2"
+  ],
+  "source": "Ecobalyse"
+}

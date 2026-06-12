@@ -5,14 +5,14 @@
     "material",
     "material_type:other_food_items"
   ],
-  "displayName": "Farine d'orge Origine Inconnue",
+  "displayName": "Farine d'orge Origine Inconnue (FR)",
   "id": "12712421-5454-400e-82b5-9e4dcb66d650",
   "metadata": [
     {
-      "alias": "barley-flour-default",
+      "alias": "barley-flour-default-2025",
       "cropGroup": "ORGE",
       "defaultOrigin": "OutOfEuropeAndMaghreb",
-      "displayName": "Farine d'orge Origine Inconnue",
+      "displayName": "Farine d'orge Origine Inconnue (2025)",
       "id": "ad8c9420-d051-4151-8eef-bdbb02604809",
       "inediblePart": 0,
       "ingredientCategories": [

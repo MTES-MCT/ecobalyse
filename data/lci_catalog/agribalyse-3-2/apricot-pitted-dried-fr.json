@@ -1,0 +1,36 @@
+{
+  "activityName": "Apricot, pitted, dried, at processing {FR} U",
+  "categories": [
+    "ingredient",
+    "material"
+  ],
+  "displayName": "Abricot, piqué, séché FR",
+  "id": "c2bd04d4-c062-4012-8512-5f42d2ee0a9e",
+  "metadata": [
+    {
+      "alias": "apricot-pitted-dried-fr",
+      "cropGroup": "VERGERS",
+      "defaultOrigin": "France",
+      "displayName": "Abricot, piqué, séché FR",
+      "id": "6070f1c1-a7a0-43cb-8b74-e9c0634c7bdd",
+      "inediblePart": 0,
+      "ingredientCategories": [
+        "vegetable_processed"
+      ],
+      "ingredientDensity": 0.9,
+      "rawToCookedRatio": 1.0,
+      "scenario": "reference",
+      "scopes": [
+        "food",
+        "food2"
+      ],
+      "transportCooling": "none",
+      "visible": true
+    }
+  ],
+  "scopes": [
+    "food",
+    "food2"
+  ],
+  "source": "Agribalyse 3.2"
+}

@@ -1,0 +1,36 @@
+{
+  "activityName": "Carrot puree, reconstituted from a concentrate, at plant {FR} U",
+  "categories": [
+    "ingredient",
+    "material"
+  ],
+  "displayName": "purée de carotte reconstituée à partir d'un concentré FR",
+  "id": "a0c3c01b-0b0d-417a-bf32-4bcf5bdcc398",
+  "metadata": [
+    {
+      "alias": "carrot-puree-reconstituted-from-a-concentrate-fr",
+      "cropGroup": "LEGUMES-FLEURS",
+      "defaultOrigin": "France",
+      "displayName": "purée de carotte reconstituée à partir d'un concentré FR",
+      "id": "289d13ea-07ba-4ae9-a3d1-7da236b51eb9",
+      "inediblePart": 0,
+      "ingredientCategories": [
+        "vegetable_processed"
+      ],
+      "ingredientDensity": 0.9,
+      "rawToCookedRatio": 1.0,
+      "scenario": "reference",
+      "scopes": [
+        "food",
+        "food2"
+      ],
+      "transportCooling": "always",
+      "visible": true
+    }
+  ],
+  "scopes": [
+    "food",
+    "food2"
+  ],
+  "source": "Agribalyse 3.2"
+}

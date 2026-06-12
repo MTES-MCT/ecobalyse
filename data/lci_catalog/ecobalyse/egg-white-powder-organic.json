@@ -1,0 +1,37 @@
+{
+  "activityName": "Egg white, powder, at plant {FR} U [egg-organic] {{egg-white-powder-organic}}",
+  "categories": [
+    "ingredient",
+    "material"
+  ],
+  "displayName": "Blanc d'œuf, poudre Bio",
+  "id": "a4bb7f1f-c869-484e-9484-d9ab5a47d51c",
+  "metadata": [
+    {
+      "alias": "egg-white-powder-organic",
+      "cropGroup": null,
+      "defaultOrigin": "France",
+      "displayName": "Blanc d'œuf, poudre Bio",
+      "id": "5a538a49-113b-4fe1-8e5a-d167cc50135a",
+      "inediblePart": 0,
+      "ingredientCategories": [
+        "animal_product",
+        "organic"
+      ],
+      "ingredientDensity": 1.05,
+      "rawToCookedRatio": 1.0,
+      "scenario": "organic",
+      "scopes": [
+        "food",
+        "food2"
+      ],
+      "transportCooling": "always",
+      "visible": true
+    }
+  ],
+  "scopes": [
+    "food",
+    "food2"
+  ],
+  "source": "Ecobalyse"
+}

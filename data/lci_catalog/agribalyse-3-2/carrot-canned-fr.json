@@ -1,0 +1,36 @@
+{
+  "activityName": "Carrot, canned {FR} U",
+  "categories": [
+    "ingredient",
+    "material"
+  ],
+  "displayName": "Carotte en conserve FR",
+  "id": "0cddddd8-d56d-43c7-aa7b-1462336c7b66",
+  "metadata": [
+    {
+      "alias": "carrot-canned-fr",
+      "cropGroup": "LEGUMES-FLEURS",
+      "defaultOrigin": "France",
+      "displayName": "Carotte en conserve FR",
+      "id": "1e181403-d301-483e-b330-30db9980d21f",
+      "inediblePart": 0,
+      "ingredientCategories": [
+        "vegetable_processed"
+      ],
+      "ingredientDensity": 1.0,
+      "rawToCookedRatio": 1.0,
+      "scenario": "reference",
+      "scopes": [
+        "food",
+        "food2"
+      ],
+      "transportCooling": "none",
+      "visible": true
+    }
+  ],
+  "scopes": [
+    "food",
+    "food2"
+  ],
+  "source": "Agribalyse 3.2"
+}

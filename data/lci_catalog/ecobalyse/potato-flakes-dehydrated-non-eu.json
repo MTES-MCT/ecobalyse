@@ -1,0 +1,36 @@
+{
+  "activityName": "Potato flakes, dehydrated, at plant {FR} U [potato-non-eu] {{potato-flakes-dehydrated-non-eu}}",
+  "categories": [
+    "ingredient",
+    "material"
+  ],
+  "displayName": "Flacons de pommes de terre déshydratés HORS UE",
+  "id": "ea38fcc8-915f-454f-96d9-6c9cf6a87b3a",
+  "metadata": [
+    {
+      "alias": "potato-flakes-dehydrated-non-eu",
+      "cropGroup": "LEGUMES-FLEURS",
+      "defaultOrigin": "OutOfEuropeAndMaghreb",
+      "displayName": "Flacons de pommes de terre déshydratés HORS UE",
+      "id": "dd244927-e9d4-4d22-bfb5-c62fe0ac30ee",
+      "inediblePart": 0,
+      "ingredientCategories": [
+        "vegetable_processed"
+      ],
+      "ingredientDensity": 0.9,
+      "rawToCookedRatio": 1.0,
+      "scenario": "import",
+      "scopes": [
+        "food",
+        "food2"
+      ],
+      "transportCooling": "none",
+      "visible": true
+    }
+  ],
+  "scopes": [
+    "food",
+    "food2"
+  ],
+  "source": "Ecobalyse"
+}

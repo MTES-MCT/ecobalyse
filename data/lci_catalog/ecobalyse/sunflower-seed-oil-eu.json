@@ -1,0 +1,36 @@
+{
+  "activityName": "Sunflower oil, at plant {FR} U [sunflower-seed-eu] {{sunflower-seed-oil-eu}}",
+  "categories": [
+    "ingredient",
+    "material"
+  ],
+  "displayName": "Huile de tournesol UE",
+  "id": "ccf41f80-6b56-4ede-b0d2-bdd482f72cbe",
+  "metadata": [
+    {
+      "alias": "sunflower-seed-oil-eu",
+      "cropGroup": "TOURNESOL",
+      "defaultOrigin": "EuropeAndMaghreb",
+      "displayName": "Huile de tournesol UE",
+      "id": "a16426ab-79e9-431c-b181-47db75de8e1f",
+      "inediblePart": 0,
+      "ingredientCategories": [
+        "nut_oilseed_processed"
+      ],
+      "ingredientDensity": 0.6,
+      "rawToCookedRatio": 1.0,
+      "scenario": "import",
+      "scopes": [
+        "food",
+        "food2"
+      ],
+      "transportCooling": "none",
+      "visible": true
+    }
+  ],
+  "scopes": [
+    "food",
+    "food2"
+  ],
+  "source": "Ecobalyse"
+}

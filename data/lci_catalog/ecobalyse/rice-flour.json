@@ -5,14 +5,14 @@
     "material",
     "material_type:other_food_items"
   ],
-  "displayName": "Farine de riz FR",
+  "displayName": "Farine de riz FR (GLO)",
   "id": "d7e5123d-d9c4-4eb2-8627-44fd182518bd",
   "metadata": [
     {
-      "alias": "rice-flour-fr",
+      "alias": "rice-flour-fr-2025",
       "cropGroup": "RIZ",
       "defaultOrigin": "France",
-      "displayName": "Farine de riz FR",
+      "displayName": "Farine de riz FR (2025)",
       "id": "08c1c93d-67dd-41ed-b01b-45c8fb79b709",
       "inediblePart": 0,
       "ingredientCategories": [

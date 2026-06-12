@@ -1,0 +1,37 @@
+{
+  "activityName": "Spinach, canned {FR} U [spinach-organic] {{spinach-canned-organic}}",
+  "categories": [
+    "ingredient",
+    "material"
+  ],
+  "displayName": "Épinards, en conserve Bio",
+  "id": "f051be10-42c2-4333-92b1-a517bd17c603",
+  "metadata": [
+    {
+      "alias": "spinach-canned-organic",
+      "cropGroup": "LEGUMES-FLEURS",
+      "defaultOrigin": "France",
+      "displayName": "Épinards, en conserve Bio",
+      "id": "4da84575-2c3b-40a4-91ae-d05dd90d6d8c",
+      "inediblePart": 0,
+      "ingredientCategories": [
+        "vegetable_processed",
+        "organic"
+      ],
+      "ingredientDensity": 0.9,
+      "rawToCookedRatio": 1.0,
+      "scenario": "organic",
+      "scopes": [
+        "food",
+        "food2"
+      ],
+      "transportCooling": "none",
+      "visible": true
+    }
+  ],
+  "scopes": [
+    "food",
+    "food2"
+  ],
+  "source": "Ecobalyse"
+}

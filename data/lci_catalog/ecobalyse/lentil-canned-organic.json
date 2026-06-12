@@ -1,0 +1,37 @@
+{
+  "activityName": "Lentils, canned {FR} U [lentil-organic] {{lentil-canned-organic}}",
+  "categories": [
+    "ingredient",
+    "material"
+  ],
+  "displayName": "Lentilles, en conserve Bio",
+  "id": "2a114dfc-e56a-4bd4-9b21-438ceea00121",
+  "metadata": [
+    {
+      "alias": "lentil-canned-organic",
+      "cropGroup": "LEGUMINEUSES A GRAIN",
+      "defaultOrigin": "France",
+      "displayName": "Lentilles, en conserve Bio",
+      "id": "229ed831-05ed-4cda-93ea-5ecebbf8088c",
+      "inediblePart": 0,
+      "ingredientCategories": [
+        "vegetable_processed",
+        "organic"
+      ],
+      "ingredientDensity": 0.8,
+      "rawToCookedRatio": 1.0,
+      "scenario": "organic",
+      "scopes": [
+        "food",
+        "food2"
+      ],
+      "transportCooling": "none",
+      "visible": true
+    }
+  ],
+  "scopes": [
+    "food",
+    "food2"
+  ],
+  "source": "Ecobalyse"
+}

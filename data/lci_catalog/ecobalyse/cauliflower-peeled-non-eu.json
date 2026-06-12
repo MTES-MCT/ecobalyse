@@ -1,0 +1,36 @@
+{
+  "activityName": "Cauliflower, peeled, at processing {FR} U [cauliflower-non-eu] {{cauliflower-peeled-non-eu}}",
+  "categories": [
+    "ingredient",
+    "material"
+  ],
+  "displayName": "Choux-fleurs, pelés HORS UE",
+  "id": "7e22ead3-3123-4dee-86c6-96d5ced23e1d",
+  "metadata": [
+    {
+      "alias": "cauliflower-peeled-non-eu",
+      "cropGroup": "LEGUMES-FLEURS",
+      "defaultOrigin": "OutOfEuropeAndMaghreb",
+      "displayName": "Choux-fleurs, pelés HORS UE",
+      "id": "c9558fb1-1fea-4b24-9d9c-3f9a773564c9",
+      "inediblePart": 0,
+      "ingredientCategories": [
+        "vegetable_processed"
+      ],
+      "ingredientDensity": 0.9,
+      "rawToCookedRatio": 1.0,
+      "scenario": "import",
+      "scopes": [
+        "food",
+        "food2"
+      ],
+      "transportCooling": "always",
+      "visible": true
+    }
+  ],
+  "scopes": [
+    "food",
+    "food2"
+  ],
+  "source": "Ecobalyse"
+}

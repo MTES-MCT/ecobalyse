@@ -1,0 +1,36 @@
+{
+  "activityName": "Lemon, for grated carrots {FR} U [lemon-default] {{lemon-for-grated-carrots-default}}",
+  "categories": [
+    "ingredient",
+    "material"
+  ],
+  "displayName": "Citron, pour carottes râpées Origine Inconnue",
+  "id": "67fb25f0-8500-4631-9f45-60d402f8e931",
+  "metadata": [
+    {
+      "alias": "lemon-for-grated-carrots-default",
+      "cropGroup": "VERGERS",
+      "defaultOrigin": "OutOfEuropeAndMaghreb",
+      "displayName": "Citron, pour carottes râpées Origine Inconnue",
+      "id": "bd5b5137-85d7-4058-abea-fd81b882e9af",
+      "inediblePart": 0,
+      "ingredientCategories": [
+        "vegetable_processed"
+      ],
+      "ingredientDensity": 1.0,
+      "rawToCookedRatio": 1.0,
+      "scenario": "import",
+      "scopes": [
+        "food",
+        "food2"
+      ],
+      "transportCooling": "always",
+      "visible": true
+    }
+  ],
+  "scopes": [
+    "food",
+    "food2"
+  ],
+  "source": "Ecobalyse"
+}

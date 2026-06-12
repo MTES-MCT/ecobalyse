@@ -1,0 +1,36 @@
+{
+  "activityName": "Olive oil, at plant {FR} U [olive-fr] {{olive-oil-fr}}",
+  "categories": [
+    "ingredient",
+    "material"
+  ],
+  "displayName": "Huile d'olive FR",
+  "id": "6837c0fa-a467-4137-86f4-ea2b9a4146c6",
+  "metadata": [
+    {
+      "alias": "olive-oil-fr",
+      "cropGroup": "VERGERS",
+      "defaultOrigin": "France",
+      "displayName": "Huile d'olive FR",
+      "id": "4f342756-db35-492a-870e-7eeb848adc05",
+      "inediblePart": 0,
+      "ingredientCategories": [
+        "vegetable_processed"
+      ],
+      "ingredientDensity": 0.85,
+      "rawToCookedRatio": 1.0,
+      "scenario": "reference",
+      "scopes": [
+        "food",
+        "food2"
+      ],
+      "transportCooling": "none",
+      "visible": true
+    }
+  ],
+  "scopes": [
+    "food",
+    "food2"
+  ],
+  "source": "Ecobalyse"
+}

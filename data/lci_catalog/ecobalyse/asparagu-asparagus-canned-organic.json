@@ -1,0 +1,37 @@
+{
+  "activityName": "Asparagus, canned {FR} U [asparagu-organic] {{asparagu-asparagus-canned-organic}}",
+  "categories": [
+    "ingredient",
+    "material"
+  ],
+  "displayName": "Asperges, en conserve Bio",
+  "id": "61336fb1-cf08-45c4-8bb7-48801ffc3c35",
+  "metadata": [
+    {
+      "alias": "asparagu-asparagus-canned-organic",
+      "cropGroup": "LEGUMES-FLEURS",
+      "defaultOrigin": "France",
+      "displayName": "Asperges, en conserve Bio",
+      "id": "62a52c3a-33a8-47f9-bd92-a6a46d3499d0",
+      "inediblePart": 0,
+      "ingredientCategories": [
+        "vegetable_processed",
+        "organic"
+      ],
+      "ingredientDensity": 0.9,
+      "rawToCookedRatio": 1.0,
+      "scenario": "organic",
+      "scopes": [
+        "food",
+        "food2"
+      ],
+      "transportCooling": "none",
+      "visible": true
+    }
+  ],
+  "scopes": [
+    "food",
+    "food2"
+  ],
+  "source": "Ecobalyse"
+}

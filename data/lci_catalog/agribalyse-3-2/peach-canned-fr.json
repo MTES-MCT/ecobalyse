@@ -1,0 +1,36 @@
+{
+  "activityName": "Peach, canned {FR} U",
+  "categories": [
+    "ingredient",
+    "material"
+  ],
+  "displayName": "Pêche, en conserve FR",
+  "id": "ce02a1db-e87a-4226-8be3-0c73628d3722",
+  "metadata": [
+    {
+      "alias": "peach-canned-fr",
+      "cropGroup": "VERGERS",
+      "defaultOrigin": "France",
+      "displayName": "Pêche, en conserve FR",
+      "id": "446fe642-4af0-45e9-80b6-a52cbee0bf83",
+      "inediblePart": 0,
+      "ingredientCategories": [
+        "vegetable_processed"
+      ],
+      "ingredientDensity": 0.9,
+      "rawToCookedRatio": 1.0,
+      "scenario": "reference",
+      "scopes": [
+        "food",
+        "food2"
+      ],
+      "transportCooling": "none",
+      "visible": true
+    }
+  ],
+  "scopes": [
+    "food",
+    "food2"
+  ],
+  "source": "Agribalyse 3.2"
+}

@@ -30,6 +30,26 @@
       ],
       "transportCooling": "once_transformed",
       "visible": true
+    },
+    {
+      "alias": "egg-chicken-raw-without-shell-fr",
+      "cropGroup": null,
+      "defaultOrigin": "France",
+      "displayName": "Oeufs de poulet crus, sans coquille FR",
+      "id": "c453bee5-79c7-4c08-b22b-a70190c397df",
+      "inediblePart": 0,
+      "ingredientCategories": [
+        "animal_product"
+      ],
+      "ingredientDensity": 1.05,
+      "rawToCookedRatio": 1.0,
+      "scenario": "reference",
+      "scopes": [
+        "food",
+        "food2"
+      ],
+      "transportCooling": "always",
+      "visible": true
     }
   ],
   "scopes": [

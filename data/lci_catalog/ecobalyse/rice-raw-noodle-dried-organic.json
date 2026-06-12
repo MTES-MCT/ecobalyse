@@ -1,0 +1,37 @@
+{
+  "activityName": "Rice noodle, dried, at plant {FR} U [rice-raw-organic] {{rice-raw-noodle-dried-organic}}",
+  "categories": [
+    "ingredient",
+    "material"
+  ],
+  "displayName": "Nouilles de riz, séchées Bio",
+  "id": "03771025-c2d0-4d8c-9e92-a12ca6742f3a",
+  "metadata": [
+    {
+      "alias": "rice-raw-noodle-dried-organic",
+      "cropGroup": "RIZ",
+      "defaultOrigin": "France",
+      "displayName": "Nouilles de riz, séchées Bio",
+      "id": "1dfcb21f-582b-4235-b686-27d8266f5402",
+      "inediblePart": 0,
+      "ingredientCategories": [
+        "grain_processed",
+        "organic"
+      ],
+      "ingredientDensity": 0.75,
+      "rawToCookedRatio": 1.0,
+      "scenario": "organic",
+      "scopes": [
+        "food",
+        "food2"
+      ],
+      "transportCooling": "none",
+      "visible": true
+    }
+  ],
+  "scopes": [
+    "food",
+    "food2"
+  ],
+  "source": "Ecobalyse"
+}

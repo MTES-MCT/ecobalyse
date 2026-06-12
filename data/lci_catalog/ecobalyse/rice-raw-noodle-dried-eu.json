@@ -1,0 +1,36 @@
+{
+  "activityName": "Rice noodle, dried, at plant {FR} U [rice-raw-eu] {{rice-raw-noodle-dried-eu}}",
+  "categories": [
+    "ingredient",
+    "material"
+  ],
+  "displayName": "Nouilles de riz, séchées UE",
+  "id": "c65d71af-a81d-4d41-95f1-2eb417d9fe98",
+  "metadata": [
+    {
+      "alias": "rice-raw-noodle-dried-eu",
+      "cropGroup": "RIZ",
+      "defaultOrigin": "EuropeAndMaghreb",
+      "displayName": "Nouilles de riz, séchées UE",
+      "id": "9f31033d-6d98-4638-83a5-46a193ffede1",
+      "inediblePart": 0,
+      "ingredientCategories": [
+        "grain_processed"
+      ],
+      "ingredientDensity": 0.75,
+      "rawToCookedRatio": 1.0,
+      "scenario": "import",
+      "scopes": [
+        "food",
+        "food2"
+      ],
+      "transportCooling": "none",
+      "visible": true
+    }
+  ],
+  "scopes": [
+    "food",
+    "food2"
+  ],
+  "source": "Ecobalyse"
+}

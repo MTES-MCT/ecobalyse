@@ -1,0 +1,37 @@
+{
+  "activityName": "White cabbage, peeled, at processing {FR} U [white-cabbage-organic] {{white-cabbage-peeled-organic}}",
+  "categories": [
+    "ingredient",
+    "material"
+  ],
+  "displayName": "Choux blancs, pelés Bio",
+  "id": "552678b8-f8d3-4bed-8eea-529e48c3c587",
+  "metadata": [
+    {
+      "alias": "white-cabbage-peeled-organic",
+      "cropGroup": "LEGUMES-FLEURS",
+      "defaultOrigin": "France",
+      "displayName": "Choux blancs, pelés Bio",
+      "id": "9699841e-04ef-4a71-8401-404cab4bc982",
+      "inediblePart": 0,
+      "ingredientCategories": [
+        "vegetable_processed",
+        "organic"
+      ],
+      "ingredientDensity": 0.9,
+      "rawToCookedRatio": 1.0,
+      "scenario": "organic",
+      "scopes": [
+        "food",
+        "food2"
+      ],
+      "transportCooling": "always",
+      "visible": true
+    }
+  ],
+  "scopes": [
+    "food",
+    "food2"
+  ],
+  "source": "Ecobalyse"
+}

@@ -1,0 +1,36 @@
+{
+  "activityName": "Apricot, pitted, at processing {FR} U [apricot-non-eu] {{apricot-pitted-non-eu}}",
+  "categories": [
+    "ingredient",
+    "material"
+  ],
+  "displayName": "Abricot, dénoyauté HORS UE",
+  "id": "470c8e83-b38b-40ed-9e78-4c7def9cbbf6",
+  "metadata": [
+    {
+      "alias": "apricot-pitted-non-eu",
+      "cropGroup": "VERGERS",
+      "defaultOrigin": "OutOfEuropeAndMaghreb",
+      "displayName": "Abricot, dénoyauté HORS UE",
+      "id": "8d5acfa1-7e17-408f-bd86-6cf0b83bca6d",
+      "inediblePart": 0,
+      "ingredientCategories": [
+        "vegetable_processed"
+      ],
+      "ingredientDensity": 0.9,
+      "rawToCookedRatio": 1.0,
+      "scenario": "import",
+      "scopes": [
+        "food",
+        "food2"
+      ],
+      "transportCooling": "always",
+      "visible": true
+    }
+  ],
+  "scopes": [
+    "food",
+    "food2"
+  ],
+  "source": "Ecobalyse"
+}

@@ -1,0 +1,36 @@
+{
+  "activityName": "Spinach, frozen, at processing {FR} U [spinach-eu] {{spinach-frozen-eu}}",
+  "categories": [
+    "ingredient",
+    "material"
+  ],
+  "displayName": "Épinards congelés UE",
+  "id": "d4f14650-e479-4cb9-ba88-d061c7b2f925",
+  "metadata": [
+    {
+      "alias": "spinach-frozen-eu",
+      "cropGroup": "LEGUMES-FLEURS",
+      "defaultOrigin": "EuropeAndMaghreb",
+      "displayName": "Épinards congelés UE",
+      "id": "df58642d-c94a-4b31-8d9f-7bd839537a70",
+      "inediblePart": 0,
+      "ingredientCategories": [
+        "vegetable_processed"
+      ],
+      "ingredientDensity": 1.046,
+      "rawToCookedRatio": 1.0,
+      "scenario": "import",
+      "scopes": [
+        "food",
+        "food2"
+      ],
+      "transportCooling": "always",
+      "visible": true
+    }
+  ],
+  "scopes": [
+    "food",
+    "food2"
+  ],
+  "source": "Ecobalyse"
+}
