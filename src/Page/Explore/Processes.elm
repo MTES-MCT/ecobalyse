@@ -63,7 +63,13 @@ baseColumns detailed scope =
       }
     , { label = "Nom"
       , toValue = Table.StringValue Process.getDisplayName
-      , toCell = Process.getDisplayName >> tooltipedCell
+      , toCell =
+            \process ->
+                [ Just <| text <| Process.getDisplayName process
+                , process.alias |> Maybe.map (\alias_ -> code [ class "fs-9" ] [ text alias_ ])
+                ]
+                    |> List.filterMap identity
+                    |> div [ class "d-flex flex-column", title <| Process.getDisplayName process ]
       }
     , { label = "Nom technique"
       , toValue = Table.StringValue Process.getTechnicalName
