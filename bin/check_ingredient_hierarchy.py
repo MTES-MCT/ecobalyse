@@ -190,7 +190,7 @@ def compute_ecs_with_complements(ingredient: Ingredient) -> float:
 
 
 def build_lci_catalog_index() -> dict[str, str]:
-    """Map each process id to its lci_catalog file path (relative to LCI_CATALOG_DIR)."""
+    """Map each process id to its lci_catalog file path"""
     index: dict[str, str] = {}
     for path in LCI_CATALOG_DIR.rglob("*.json"):
         data = load_json(path)
@@ -206,11 +206,6 @@ def process_fields(
     ingredient: Ingredient,
     lci_index: dict[str, str],
 ) -> dict[str, Any]:
-    """Build the report columns describing one process, keys prefixed with `prefix`.
-
-    Adds links to the Ecobalyse explorer and to the source lci_catalog file on
-    GitHub so the method/product team can jump straight to each process.
-    """
     process_id = ingredient["id"]
     catalog_path = lci_index.get(process_id)
     return {
@@ -234,11 +229,6 @@ def build_anomaly(
     expected_higher_ecs: float,
     lci_index: dict[str, str],
 ) -> Anomaly:
-    """Build one anomaly record from the two compared processes.
-
-    `base_ingredient` and `reason` are derived from the processes, so this works
-    both for same-base variant checks and cross-base explicit checks.
-    """
     return {
         "base_ingredient": expected_lower["metadata"]["ingredient"]["baseIngredient"],
         "reason": f"{expected_higher['alias']} < {expected_lower['alias']}",
