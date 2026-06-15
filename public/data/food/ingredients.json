@@ -34685,7 +34685,7 @@
     "visible": true
   },
   {
-    "activityName": "Banana {RoW}| banana production | Cut-off, U - Adapted from Ecoinvent U",
+    "activityName": "Banana, mixed production, West Indies, at farm gate {WI} U",
     "alias": "plantain-fr",
     "baseIngredient": "plantain",
     "categories": [
@@ -34695,17 +34695,17 @@
     "defaultOrigin": "France",
     "density": 0.85,
     "ecosystemicServices": {
-      "cropDiversity": 0.293,
-      "hedges": 0.79,
+      "cropDiversity": 0.0058,
+      "hedges": 0.0156,
       "permanentPasture": null,
-      "plotSize": 1.78
+      "plotSize": 0.0352
     },
     "id": "e69b0ddf-f912-5bd7-9f29-bc5e018d730e",
     "inediblePart": 0.2,
-    "landOccupation": 0.2858,
-    "location": "RoW",
+    "landOccupation": 0.005657,
+    "location": "WI",
     "name": "Plantain FR",
-    "processId": "1600286c-6efd-558e-b54e-04769a3738e4",
+    "processId": "a3d13f74-6d65-58dc-8323-34bf259e7c92",
     "rawToCookedRatio": 0.856,
     "scenario": "reference",
     "transportCooling": "always",

@@ -148,7 +148,7 @@
         "rule": "fruit NOVA 1 → always (perishable)"
       },
       "visible": true
-    },
+    }
   ],
   "scopes": [
     "food",
