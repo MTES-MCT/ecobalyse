@@ -1928,7 +1928,7 @@
     "scopes": ["veli"]
   },
   {
-    "comment": "Exemple de batterie pour véhicule actif de 100kg, 45km/h max, autonomie de 50km (type \"speedbike\" ou VAE caréné), ou voiture hybride non rechargable.",
+    "comment": "Exemple de batterie pour véhicule actif de 100kg, 45km/h max, autonomie de 50km (type \"speedbike\" ou VAE caréné), ou voiture hybride non rechargeable. Modélisation : voir https://fabrique-numerique.gitbook.io/ecobalyse/vehicules/cycle-de-vie/fabrication-des-composants/batterie. Le Glycol n'est pour l'instant pas inclut (environ +2%, peu sensible à la chimie).",
     "elements": [
       {
         "amount": 3.57,
@@ -2116,7 +2116,7 @@
     "scopes": ["veli"]
   },
   {
-    "comment": "Exemple de batterie pour un veli de 400kg, 90km/h max, autonomie de 100km, ou pour une voiture hybride non rechargeable avec autonomie de 30km. Modélisation : voir https://fabrique-numerique.gitbook.io/ecobalyse/vehicules/cycle-de-vie/fabrication-des-composants/batterie",
+    "comment": "Exemple de batterie pour un veli de 400kg, 90km/h max, autonomie de 100km, ou pour une voiture hybride non rechargeable avec autonomie de 30km. Modélisation : voir https://fabrique-numerique.gitbook.io/ecobalyse/vehicules/cycle-de-vie/fabrication-des-composants/batterie. Le Glycol n'est pour l'instant pas inclut (environ +2%, peu sensible à la chimie).",
     "elements": [
       {
         "amount": 21.3,
@@ -2210,7 +2210,7 @@
     "scopes": ["veli"]
   },
   {
-    "comment": "Exemple de batterie pour un veli de 400kg, 90km/h max, autonomie de 100km, ou pour une voiture hybride non rechargeable avec autonomie de 30km. Modélisation : voir https://fabrique-numerique.gitbook.io/ecobalyse/vehicules/cycle-de-vie/fabrication-des-composants/batterie",
+    "comment": "Exemple de batterie pour un veli de 400kg, 90km/h max, autonomie de 100km, ou pour une voiture hybride non rechargeable avec autonomie de 30km. Modélisation : voir https://fabrique-numerique.gitbook.io/ecobalyse/vehicules/cycle-de-vie/fabrication-des-composants/batterie. Le Glycol n'est pour l'instant pas inclut (environ +2%, peu sensible à la chimie).",
     "elements": [
       {
         "amount": 29.9,
@@ -2304,7 +2304,7 @@
     "scopes": ["veli"]
   },
   {
-    "comment": "Exemple de batterie pour voiture électrique catégorie B, autonomie de 400km.",
+    "comment": "Exemple de batterie pour voiture électrique catégorie B, autonomie de 400km. Modélisation : voir https://fabrique-numerique.gitbook.io/ecobalyse/vehicules/cycle-de-vie/fabrication-des-composants/batterie. Le Glycol n'est pour l'instant pas inclut (environ +2%, peu sensible à la chimie).",
     "elements": [
       {
         "amount": 154,
@@ -2398,7 +2398,7 @@
     "scopes": ["veli"]
   },
   {
-    "comment": "Exemple de batterie pour voiture électrique catégorie B, autonomie de 400km.",
+    "comment": "Exemple de batterie pour voiture électrique catégorie B, autonomie de 400km. Modélisation : voir https://fabrique-numerique.gitbook.io/ecobalyse/vehicules/cycle-de-vie/fabrication-des-composants/batterie. Le Glycol n'est pour l'instant pas inclut (environ +2%, peu sensible à la chimie).",
     "elements": [
       {
         "amount": 154,
