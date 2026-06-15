@@ -41,6 +41,7 @@ import Request.BackendHttp exposing (WebData)
 import Request.BackendHttp.Error as BackendHttpError
 import Request.Contrib as Contrib
 import Route
+import Static.Db exposing (Db)
 import Task
 import Time exposing (Posix)
 import Views.AutocompleteSelector as AutocompleteSelectorView
@@ -85,6 +86,7 @@ type Modal
     | EditElementModal Component TargetElement
     | SelectConsumptionModal (Autocomplete Process)
     | SelectExampleModal (Autocomplete Component.Query)
+    | SelectPackagingModal (Autocomplete Process)
     | SelectProcessModal Category TargetItem (Maybe Index) (Autocomplete Process)
 
 
@@ -102,9 +104,11 @@ type Msg
     | OnAutocompleteAddConsumption (Autocomplete.Msg Process)
     | OnAutocompleteAddProcess Category TargetItem (Maybe Index) (Autocomplete.Msg Process)
     | OnAutocompleteExample (Autocomplete.Msg Component.Query)
+    | OnAutocompletePackaging (Autocomplete.Msg Process)
     | OnAutocompleteSelectComponent
     | OnAutocompleteSelectConsumption
     | OnAutocompleteSelectExample
+    | OnAutocompleteSelectPackaging
     | OnAutocompleteSelectProcess Category TargetItem (Maybe Index)
     | OnDragLeaveBookmark
     | OnDragOverBookmark Bookmark
@@ -115,6 +119,7 @@ type Msg
     | RemoveConsumption Index
     | RemoveElement TargetElement
     | RemoveElementTransform TargetElement Index
+    | RemovePackaging Index
     | RenameBookmark
     | SaveBookmark
     | SaveBookmarkWithTime String Bookmark.Query Posix
@@ -141,6 +146,7 @@ type Msg
     | UpdateElementAmount TargetElement (Maybe Amount)
     | UpdateElementMaterialCountry TargetElement (Maybe Country.Code)
     | UpdateElementTransformCountry TargetElement Index (Maybe Country.Code)
+    | UpdatePackagingAmount Index (Maybe Amount)
     | UpdateRecyclability Bool
     | UpdateRenamedBookmarkName Bookmark String
 
@@ -410,6 +416,18 @@ update ({ navKey } as session) msg model =
         ( OnAutocompleteExample _, _ ) ->
             createPageUpdate session model
 
+        ( OnAutocompletePackaging autocompleteMsg, (SelectPackagingModal autocompleteState) :: otherModals ) ->
+            let
+                ( newAutocompleteState, autoCompleteCmd ) =
+                    Autocomplete.update autocompleteMsg autocompleteState
+            in
+            { model | modals = SelectPackagingModal newAutocompleteState :: otherModals }
+                |> createPageUpdate session
+                |> App.withCmds [ Cmd.map OnAutocompletePackaging autoCompleteCmd ]
+
+        ( OnAutocompletePackaging _, _ ) ->
+            createPageUpdate session model
+
         ( OnAutocompleteSelectComponent, (AddComponentModal autocompleteState) :: _ ) ->
             createPageUpdate session model
                 |> selectComponent query autocompleteState
@@ -429,6 +447,13 @@ update ({ navKey } as session) msg model =
                 |> selectExample autocompleteState
 
         ( OnAutocompleteSelectExample, _ ) ->
+            createPageUpdate session model
+
+        ( OnAutocompleteSelectPackaging, (SelectPackagingModal autocompleteState) :: _ ) ->
+            createPageUpdate session model
+                |> addPackaging query autocompleteState
+
+        ( OnAutocompleteSelectPackaging, _ ) ->
             createPageUpdate session model
 
         ( OnAutocompleteSelectProcess category targetItem elementIndex, (SelectProcessModal _ _ _ autocompleteState) :: _ ) ->
@@ -495,6 +520,10 @@ update ({ navKey } as session) msg model =
                             (Component.removeElementTransform targetElement transformIndex)
                     )
                 |> App.withCmds [ Plausible.send session <| Plausible.ComponentUpdated model.scope ]
+
+        ( RemovePackaging index, _ ) ->
+            createPageUpdate session model
+                |> updateQuery (query |> Component.removePackaging index)
 
         ( RenameBookmark, _ ) ->
             case model.bookmarkBeingRenamed of
@@ -679,6 +708,13 @@ update ({ navKey } as session) msg model =
                     )
                 |> App.withCmds [ Plausible.send session <| Plausible.ComponentUpdated model.scope ]
 
+        ( UpdatePackagingAmount index (Just amount), _ ) ->
+            createPageUpdate session model
+                |> updateQuery (query |> Component.updatePackagingAmount index amount)
+
+        ( UpdatePackagingAmount _ Nothing, _ ) ->
+            createPageUpdate session model
+
         ( UpdateRecyclability recyclable, _ ) ->
             createPageUpdate session model
                 |> updateQuery (query |> Component.updateRecyclable recyclable)
@@ -717,7 +753,7 @@ createComponent query ({ model, session } as pageUpdate) =
         |> updateQuery { query | items = query.items ++ [ newItem ] }
         -- open material process selection modal
         |> App.apply update
-            (ComponentView.createMaterialProcessAutocomplete session.db model.scope
+            (ComponentView.createElementMaterialAutocomplete session.db model.scope
                 |> SelectProcessModal Category.Material ( Component.emptyComponent, List.length query.items ) Nothing
                 |> List.singleton
                 |> SetModals
@@ -803,10 +839,27 @@ selectConsumption query autocompleteState ({ model } as pageUpdate) =
                     { query
                         | consumptions =
                             query.consumptions
-                                ++ [ { amount = Amount.fromFloat 1, processId = process.id } ]
+                                ++ [ Component.consumption (Amount.fromFloat 1) process.id ]
                     }
                 |> App.apply update (SetModals [])
                 |> App.withCmds [ Plausible.send pageUpdate.session <| Plausible.ConsumptionAdded model.scope ]
+
+        Nothing ->
+            pageUpdate |> App.notifyWarning "Aucun composant sélectionné"
+
+
+addPackaging : Component.Query -> Autocomplete Process -> PageUpdate Model Msg -> PageUpdate Model Msg
+addPackaging query autocompleteState pageUpdate =
+    case Autocomplete.selectedValue autocompleteState of
+        Just process ->
+            pageUpdate
+                |> updateQuery
+                    { query
+                        | packagings =
+                            query.packagings
+                                ++ [ Component.packaging (Amount.fromFloat 1) process.id ]
+                    }
+                |> App.apply update (SetModals [])
 
         Nothing ->
             pageUpdate |> App.notifyWarning "Aucun composant sélectionné"
@@ -841,6 +894,49 @@ selectProcess category targetItem maybeElementIndex autocompleteState query ({ m
             pageUpdate |> App.notifyWarning "Aucun composant sélectionné"
 
 
+editorConfig : Session -> Model -> ComponentView.Config Db Msg
+editorConfig session ({ scope } as model) =
+    { addLabel = "Ajouter un composant existant"
+    , componentConfig = session.componentConfig
+    , context = ComponentView.GenericContext
+    , db = session.db
+    , debug = True
+    , detailed = model.detailedComponents
+    , docsUrl = Nothing
+    , explorerRoute = Just (Route.Explore scope (Dataset.Components scope Nothing))
+    , impact = model.impact
+    , noOp = NoOp
+    , openCreateComponentModal = CreateComponent
+    , openSelectComponentModal = AddComponentModal >> List.singleton >> SetModals
+    , openEditElementModal = \c ti -> AppendModal (EditElementModal c ti)
+    , openSelectPackagingModal = SelectPackagingModal >> List.singleton >> SetModals
+    , openSelectProcessModal = \c ti mi ac -> AppendModal (SelectProcessModal c ti mi ac)
+    , openSelectConsumptionModal = SelectConsumptionModal >> List.singleton >> SetModals
+    , query = session |> Session.objectQueryFromScope model.scope
+    , removeConsumption = RemoveConsumption
+    , removeElement = RemoveElement
+    , removeElementTransform = RemoveElementTransform
+    , removeItem = RemoveComponentItem
+    , removePackaging = RemovePackaging
+    , lifeCycle = model.lifeCycle
+    , scope = scope
+    , setDetailed = SetDetailedComponents
+    , title = "Production des composants"
+    , toggleTransportByAir = ToggleTransportByAir
+    , toggleTransportCooling = ToggleTransportCooling
+    , updateAssemblyCountry = UpdateAssemblyCountry
+    , updateConsumptionAmount = UpdateConsumptionAmount
+    , updateDistribution = UpdateDistribution
+    , updateElementAmount = UpdateElementAmount
+    , updateElementMaterialCountry = UpdateElementMaterialCountry
+    , updateElementTransformCountry = UpdateElementTransformCountry
+    , updateItemName = UpdateComponentItemName
+    , updateItemQuantity = UpdateComponentItemQuantity
+    , updatePackagingAmount = UpdatePackagingAmount
+    , updateRecyclable = UpdateRecyclability
+    }
+
+
 simulatorView : Session -> Model -> Html Msg
 simulatorView ({ componentConfig } as session) ({ scope } as model) =
     let
@@ -873,43 +969,8 @@ simulatorView ({ componentConfig } as session) ({ scope } as model) =
 
               else
                 text ""
-            , ComponentView.editorView
-                { addLabel = "Ajouter un composant existant"
-                , componentConfig = session.componentConfig
-                , context = ComponentView.GenericContext
-                , db = session.db
-                , debug = True
-                , detailed = model.detailedComponents
-                , docsUrl = Nothing
-                , explorerRoute = Just (Route.Explore scope (Dataset.Components scope Nothing))
-                , impact = model.impact
-                , noOp = NoOp
-                , openCreateComponentModal = CreateComponent
-                , openSelectComponentModal = AddComponentModal >> List.singleton >> SetModals
-                , openEditElementModal = \c ti -> AppendModal (EditElementModal c ti)
-                , openSelectProcessModal = \c ti mi ac -> AppendModal (SelectProcessModal c ti mi ac)
-                , openSelectConsumptionModal = SelectConsumptionModal >> List.singleton >> SetModals
-                , query = currentQuery
-                , removeConsumption = RemoveConsumption
-                , removeElement = RemoveElement
-                , removeElementTransform = RemoveElementTransform
-                , removeItem = RemoveComponentItem
-                , lifeCycle = model.lifeCycle
-                , scope = scope
-                , setDetailed = SetDetailedComponents
-                , title = "Production des composants"
-                , toggleTransportByAir = ToggleTransportByAir
-                , toggleTransportCooling = ToggleTransportCooling
-                , updateAssemblyCountry = UpdateAssemblyCountry
-                , updateConsumptionAmount = UpdateConsumptionAmount
-                , updateDistribution = UpdateDistribution
-                , updateElementAmount = UpdateElementAmount
-                , updateElementMaterialCountry = UpdateElementMaterialCountry
-                , updateElementTransformCountry = UpdateElementTransformCountry
-                , updateItemName = UpdateComponentItemName
-                , updateItemQuantity = UpdateComponentItemQuantity
-                , updateRecyclable = UpdateRecyclability
-                }
+            , editorConfig session model
+                |> ComponentView.editorView
             ]
         , div [ class "col-lg-4 bg-white" ]
             [ let
@@ -1105,46 +1166,8 @@ modalView session ({ modals } as model) modal =
                 , subTitle = Just <| "du composant “" ++ name ++ "”"
                 , formAction = Nothing
                 , content =
-                    [ ComponentView.elementEditModalView
-                        { addLabel = "Ajouter un composant existant"
-                        , componentConfig = session.componentConfig
-                        , context = ComponentView.GenericContext
-                        , db = session.db
-                        , debug = False
-                        , detailed = model.detailedComponents
-                        , docsUrl = Nothing
-                        , explorerRoute = Just (Route.Explore model.scope (Dataset.Components model.scope Nothing))
-                        , impact = model.impact
-                        , noOp = NoOp
-                        , openCreateComponentModal = CreateComponent
-                        , openSelectComponentModal = AddComponentModal >> List.singleton >> SetModals
-                        , openEditElementModal = \_ _ -> NoOp
-                        , openSelectProcessModal =
-                            \p ti ei s ->
-                                SetModals (SelectProcessModal p ti ei s :: modals)
-                        , openSelectConsumptionModal = SelectConsumptionModal >> List.singleton >> SetModals
-                        , query = session |> Session.objectQueryFromScope model.scope
-                        , removeConsumption = RemoveConsumption
-                        , removeElement = RemoveElement
-                        , removeElementTransform = RemoveElementTransform
-                        , removeItem = RemoveComponentItem
-                        , lifeCycle = model.lifeCycle
-                        , scope = model.scope
-                        , setDetailed = SetDetailedComponents
-                        , title = "Production des composants"
-                        , toggleTransportByAir = ToggleTransportByAir
-                        , toggleTransportCooling = ToggleTransportCooling
-                        , updateAssemblyCountry = UpdateAssemblyCountry
-                        , updateConsumptionAmount = UpdateConsumptionAmount
-                        , updateDistribution = UpdateDistribution
-                        , updateElementAmount = UpdateElementAmount
-                        , updateElementMaterialCountry = UpdateElementMaterialCountry
-                        , updateElementTransformCountry = UpdateElementTransformCountry
-                        , updateItemName = UpdateComponentItemName
-                        , updateItemQuantity = UpdateComponentItemQuantity
-                        , updateRecyclable = UpdateRecyclability
-                        }
-                        targetElement
+                    [ targetElement
+                        |> ComponentView.elementEditModalView (editorConfig session model)
                     ]
                 , footer = []
                 }
@@ -1175,6 +1198,20 @@ modalView session ({ modals } as model) modal =
                 , title = "Sélectionnez un produit"
                 , toLabel = Example.toName model.examples
                 , toCategory = Example.toCategory model.examples
+                }
+
+        SelectPackagingModal autocompleteState ->
+            AutocompleteSelectorView.view
+                { autocompleteState = autocompleteState
+                , closeModal = SetModals (List.drop 1 modals)
+                , footer = []
+                , noOp = NoOp
+                , onAutocomplete = OnAutocompletePackaging
+                , onAutocompleteSelect = OnAutocompleteSelectPackaging
+                , placeholderText = "tapez ici le nom d'un emballage pour le rechercher"
+                , title = "Sélectionnez un emballage"
+                , toLabel = Process.getDisplayName
+                , toCategory = .unit >> Process.unitToString
                 }
 
         SelectProcessModal category targetItem maybeElementIndex autocompleteState ->

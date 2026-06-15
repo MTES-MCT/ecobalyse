@@ -49,6 +49,7 @@ type Id
 -}
 type alias Process =
     { activityName : ActivityName
+    , alias : Maybe String
     , categories : List Category
     , comment : String
     , displayName : Maybe String
@@ -132,6 +133,7 @@ decode : Decoder Impact.Impacts -> Decoder Process
 decode impactsDecoder =
     Decode.succeed Process
         |> Pipe.required "activityName" (DU.decodeNonEmptyString |> Decode.map activityNameFromString)
+        |> DU.strictOptional "alias" DU.decodeNonEmptyString
         |> Pipe.required "categories" Category.decodeList
         |> Pipe.required "comment" Decode.string
         |> DU.strictOptional "displayName" DU.decodeNonEmptyString
@@ -155,6 +157,7 @@ encode : Process -> Encode.Value
 encode process =
     Encode.object
         [ ( "activityName", encodeActivityName process.activityName )
+        , ( "alias", EncodeExtra.maybe Encode.string process.alias )
         , ( "categories", Encode.list Category.encode process.categories )
         , ( "comment", Encode.string process.comment )
         , ( "displayName", EncodeExtra.maybe Encode.string process.displayName )
