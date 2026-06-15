@@ -68,7 +68,7 @@
     "js-yaml": "^4.2.0",
     "piwik": "^1.0.10",
     "posthog-js": "^1.379.0",
-    "posthog-node": "^5.35.12"
+    "posthog-node": "^5.36.4"
   },
   "devDependencies": {
     "@apidevtools/swagger-cli": "^4.0.4",
