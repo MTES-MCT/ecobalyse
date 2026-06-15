@@ -2490,5 +2490,39 @@
     "id": "52e25580-d83a-4de6-9632-da4303d5211d",
     "name": "Batterie Li-ion 52kWh, NMC811, France",
     "scopes": ["veli"]
+  },
+  {
+    "comment": "Cable 3G 1.5mm², isolant PVC",
+    "elements": [
+      {
+        "amount": 0.05,
+        "material": {
+          "country": "FR",
+          "id": "a363f079-bc3f-424a-a2e1-06b9c76b4fc3"
+        },
+        "transforms": [
+          {
+            "country": "FR",
+            "id": "d077f06e-4ae9-48b7-8019-64523e577b95"
+          }
+        ]
+      },
+      {
+        "amount": 0.06,
+        "material": {
+          "country": "FR",
+          "id": "169294d5-93d5-4856-b3f0-13ccb5e261b6"
+        },
+        "transforms": [
+          {
+            "country": "FR",
+            "id": "85b74ce2-2cbc-4d73-a5a2-5c5ffde16319"
+          }
+        ]
+      }
+    ],
+    "id": "10779a79-f0fc-4f05-9f4d-6a7f2b8d9cc4",
+    "name": "Cable 3G 1.5mm², 2.5kW pour 20m max",
+    "scopes": ["veli"]
   }
 ]
