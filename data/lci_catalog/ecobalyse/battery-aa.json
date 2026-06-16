@@ -14,15 +14,11 @@
     {
       "id": "8a842d6e-fe90-49d2-9042-312a45d7b40a",
       "scopes": [
-        "object",
-        "veli"
       ]
     }
   ],
   "qtyVariationRatio": 1,
   "scopes": [
-    "object",
-    "veli"
   ],
   "source": "Ecobalyse",
   "unit": "item"
