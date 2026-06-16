@@ -2492,12 +2492,11 @@
     "scopes": ["veli"]
   },
   {
-    "comment": "Cable 3G 1.5mm², isolant PVC",
+    "comment": "Cable électrique de type H05VVF 3G1.5mm², 110g/m (isolant PVC). Adapté pour une puissance jusqu'à 2.5kW pour 20m max",
     "elements": [
       {
-        "amount": 0.05,
+        "amount": 0.04,
         "material": {
-          "country": "FR",
           "id": "a363f079-bc3f-424a-a2e1-06b9c76b4fc3"
         },
         "transforms": [
@@ -2508,7 +2507,7 @@
         ]
       },
       {
-        "amount": 0.06,
+        "amount": 0.07,
         "material": {
           "country": "FR",
           "id": "169294d5-93d5-4856-b3f0-13ccb5e261b6"
@@ -2516,13 +2515,13 @@
         "transforms": [
           {
             "country": "FR",
-            "id": "85b74ce2-2cbc-4d73-a5a2-5c5ffde16319"
+            "id": "4a08bcab-5c25-4dec-961a-0f7208f40084"
           }
         ]
       }
     ],
     "id": "10779a79-f0fc-4f05-9f4d-6a7f2b8d9cc4",
-    "name": "Cable 3G 1.5mm², 2.5kW pour 20m max",
+    "name": "Cable électrique 2phases + terre, 1.5mm², section 7.4mm",
     "scopes": ["veli"]
   }
 ]
