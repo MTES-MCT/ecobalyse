@@ -297,8 +297,8 @@ checkStaticDatabases : Flags -> Result (List Error) ()
 checkStaticDatabases { componentConfigJson, detailedProcessesJson, nonDetailedProcessesJson } =
     case
         List.concatMap (\( dbName, dbResult ) -> checkStaticDatabase componentConfigJson dbName dbResult)
-            [ ( "Detailed Db", StaticDb.db detailedProcessesJson )
-            , ( "Non-detailed Db", StaticDb.db nonDetailedProcessesJson )
+            [ ( "Detailed Db", StaticDb.dbFromStaticFiles detailedProcessesJson )
+            , ( "Non-detailed Db", StaticDb.dbFromStaticFiles nonDetailedProcessesJson )
             ]
     of
         [] ->

@@ -1,7 +1,8 @@
 module Static.Db exposing
     ( Db
-    , db
+    , dbFromStaticFiles
     , decodeRawComponents
+    , updateDbProcesses
     )
 
 import Data.Common.Db as Common
@@ -31,8 +32,8 @@ type alias Db =
     }
 
 
-db : String -> Result String Db
-db =
+dbFromStaticFiles : String -> Result String Db
+dbFromStaticFiles =
     Decode.decodeString (Process.decodeList Impact.decodeImpacts)
         >> Result.mapError Decode.errorToString
         >> Result.andThen
@@ -91,3 +92,12 @@ countries processes =
 distances : Result String Distances
 distances =
     Common.transportsFromJson StaticJson.transportsJson
+
+
+updateDbProcesses : String -> Db -> Result String Db
+updateDbProcesses processesJson db =
+    processesJson
+        |> Decode.decodeString (Process.decodeList Impact.decodeImpacts)
+        |> Result.mapError Decode.errorToString
+        |> Result.map
+            (\processes -> { db | processes = processes })

@@ -95,7 +95,7 @@ suiteFromResult4 testName res1 res2 res3 res4 fn =
 
 suiteWithDb : String -> (Db -> List Test) -> Test
 suiteWithDb name suite =
-    case StaticDb.db StaticJson.processesJson of
+    case StaticDb.dbFromStaticFiles StaticJson.processesJson of
         Ok db ->
             describe name (suite db)
 

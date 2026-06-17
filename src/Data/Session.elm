@@ -362,13 +362,13 @@ isSuperuser =
 
 
 logout : Session -> Session
-logout session =
-    (case StaticDb.db StaticJson.processesJson of
+logout ({ db } as session) =
+    (case db |> StaticDb.updateDbProcesses StaticJson.processesJson of
         Err err ->
             session |> notifyError "Impossible de recharger les procédés par défaut" err
 
-        Ok db ->
-            { session | db = db }
+        Ok newDb ->
+            { session | db = newDb }
     )
         |> updateStore (\store -> { store | auth = Nothing })
 
@@ -434,13 +434,13 @@ serializeStore =
 
 
 updateDbProcesses : String -> Session -> Session
-updateDbProcesses rawDetailedProcessesJson session =
-    case StaticDb.db rawDetailedProcessesJson of
+updateDbProcesses rawDetailedProcessesJson ({ db } as session) =
+    case db |> StaticDb.updateDbProcesses rawDetailedProcessesJson of
         Err err ->
             session |> notifyError "Impossible de recharger la db avec les nouveaux procédés" err
 
-        Ok db ->
-            { session | db = db }
+        Ok newDb ->
+            { session | db = newDb }
 
 
 updateStore : (Store -> Store) -> Session -> Session

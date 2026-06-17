@@ -177,10 +177,6 @@ updateRawJson update rawJsonData =
     --         (_, Just (Err <| ))
     if isFullyLoaded updated then
         -- TODO: construct and return Just the constructed Db
-        let
-            _ =
-                Debug.log "DB built" <| buildDb updated
-        in
         ( updated, Just <| buildDb updated )
 
     else

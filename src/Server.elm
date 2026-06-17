@@ -28,7 +28,7 @@ import Json.Encode as Encode
 import Route as WebRoute
 import Server.Request exposing (Request)
 import Server.Route as Route
-import Static.Db exposing (Db, db)
+import Static.Db exposing (Db, dbFromStaticFiles)
 
 
 type Msg
@@ -340,7 +340,7 @@ update : Msg -> Cmd Msg
 update msg =
     case msg of
         Received request ->
-            case db request.processes of
+            case dbFromStaticFiles request.processes of
                 Err error ->
                     error
                         |> Validation.fromErrorString
