@@ -362,7 +362,7 @@ async def load_processes_fixtures(
         process["owner"] = user
         processes_fixtures_ids.append(process["id"])
 
-    existing_processes = await processes_service.list()
+    existing_processes = await processes_service.get_many()
     existing_processes_ids = [process.id for process in existing_processes]
 
     processes_to_add = []
@@ -441,7 +441,7 @@ async def dump_components(db_session, components_service) -> None:
     """Dump components JSON"""
 
     # Disable ruff check for True equality as this syntax in required by SQLAlchemy
-    results = await components_service.list(
+    results = await components_service.get_many(
         m.Component.published == True,  # noqa: E712
         OrderBy(field_name="name", sort_order="asc"),
         uniquify=True,
