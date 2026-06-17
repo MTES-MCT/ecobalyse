@@ -9,47 +9,7 @@
   "id": "922e9baa-ecdd-5212-bf41-59a33d914e1f",
   "location": "BR",
   "metadata": [
-    {
-      "alias": "soybean-organic",
-      "cropGroup": "AUTRES OLEAGINEUX",
-      "cropGroupMatch": {
-        "confidence": 1.0,
-        "rule": "matched 'soybean' in cropgroup.csv"
-      },
-      "defaultOrigin": "France",
-      "displayName": "Soja Bio",
-      "id": "4879c02e-05e5-5567-84e5-b7d6d9d3f22a",
-      "inediblePart": 0.5,
-      "inediblePartMatch": {
-        "confidence": 1.0,
-        "rule": "nut_oilseed NOVA 1 default from food_type_inedible_part.csv"
-      },
-      "ingredientCategories": [
-        "nut_oilseed_raw",
-        "organic"
-      ],
-      "ingredientDensity": 0.74,
-      "ingredientDensityMatch": {
-        "confidence": 1.0,
-        "rule": "Soybean found in fao_density.csv"
-      },
-      "rawToCookedRatio": 2.259,
-      "rawToCookedRatioMatch": {
-        "confidence": 1.0,
-        "rule": "Matched with soybean in cooked_to_raw.csv"
-      },
-      "scenario": "organic",
-      "scopes": [
-        "food",
-        "food2"
-      ],
-      "transportCooling": "none",
-      "transportCoolingMatch": {
-        "confidence": 1.0,
-        "rule": "nut_oilseed → none (non-perishable)"
-      },
-      "visible": false
-    }
+    
   ],
   "scopes": [
     "food",
