@@ -2490,5 +2490,38 @@
     "id": "52e25580-d83a-4de6-9632-da4303d5211d",
     "name": "Batterie Li-ion 52kWh, NMC811, France",
     "scopes": ["veli"]
+  },
+  {
+    "comment": "Cable électrique de type H05VVF 3G1.5mm², 110g/m (isolant PVC). Adapté pour une puissance jusqu'à 2.5kW pour 20m max",
+    "elements": [
+      {
+        "amount": 0.04,
+        "material": {
+          "id": "a363f079-bc3f-424a-a2e1-06b9c76b4fc3"
+        },
+        "transforms": [
+          {
+            "country": "FR",
+            "id": "d077f06e-4ae9-48b7-8019-64523e577b95"
+          }
+        ]
+      },
+      {
+        "amount": 0.07,
+        "material": {
+          "country": "FR",
+          "id": "169294d5-93d5-4856-b3f0-13ccb5e261b6"
+        },
+        "transforms": [
+          {
+            "country": "FR",
+            "id": "4a08bcab-5c25-4dec-961a-0f7208f40084"
+          }
+        ]
+      }
+    ],
+    "id": "10779a79-f0fc-4f05-9f4d-6a7f2b8d9cc4",
+    "name": "Cable électrique 2phases + terre, 1.5mm², section 7.4mm",
+    "scopes": ["veli"]
   }
 ]
