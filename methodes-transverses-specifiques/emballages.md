@@ -2,6 +2,10 @@
 
 ## Contexte
 
+{% hint style="warning" %}
+Pour la modélisation du coût environnemental des vêtements, il n'est pas considéré d'emballage. Cette orientation, prise lors de la stabilisation d'une première méthode réglementaire en 2025, est requestionnée dans le cadre de la concertation ouverte en juin 2026 en vue de future évolutions.
+{% endhint %}
+
 ### Choix de prise en compte des emballages dans Ecobalyse
 
 Ecobalyse fait le choix de modéliser les emballage séparément des autres composants pour plusieurs raisons :&#x20;
@@ -10,7 +14,7 @@ Ecobalyse fait le choix de modéliser les emballage séparément des autres comp
 * Dédier le [calcul de la fin de vie](https://fabrique-numerique.gitbook.io/ecobalyse/methodes-transverses-specifiques/fin-de-vie-des-composants) à la fin de vie du produit, la fin de vie des emballages ayant lieu dès le début de la vie du produit
 * Intégrer facilement les solutions d'emballages alimentaires construits dans le cadre du projet PACK\_AGB (Voir la [page de documentation dédiée](https://fabrique-numerique.gitbook.io/ecobalyse/alimentaire/impacts-consideres/etape-3-emballages).)
 
-### Matériaux d'emballage proposés, hors alimentaire
+### Matériaux d'emballage proposés, hors alimentaire (et vêtements)
 
 Ecobalyse met à disposition les matériaux d'emballage suivants :&#x20;
 
