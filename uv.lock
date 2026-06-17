@@ -540,7 +540,7 @@ requires-dist = [
     { name = "asyncstdlib", specifier = ">=3.13.1" },
     { name = "check-jsonschema", specifier = ">=0.37.2" },
     { name = "emails", specifier = ">=0.6" },
-    { name = "litestar", extras = ["jwt", "sqlalchemy", "standard"], specifier = ">=2.16.0" },
+    { name = "litestar", extras = ["jwt", "sqlalchemy", "standard"], specifier = ">=2.23.0" },
     { name = "msgspec", specifier = ">=0.19.0" },
     { name = "orjson", specifier = ">=3.11.9" },
     { name = "passlib", extras = ["argon2"], specifier = ">=1.7.4" },
