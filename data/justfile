@@ -37,23 +37,31 @@ sync-datapackages:
 ### Exports
 
 export-all:
-  {{uv}} run python {{export}} processes
+  {{uv}} run python {{export}} processes-legacy
   {{uv}} run python {{export}} metadata
+  {{uv}} run python {{export}} merge-processes
+
+merge-processes:
+  {{uv}} run python {{export}} merge-processes
 
 export-food:
-  {{uv}} run python {{export}} processes --scopes food --merge
+  {{uv}} run python {{export}} processes-legacy --scopes food --merge
   {{uv}} run python {{export}} metadata --scopes food
+  {{uv}} run python {{export}} merge-processes
 
 export-generic:
-  {{uv}} run python {{export}} processes --scopes object --merge
+  {{uv}} run python {{export}} processes-legacy --scopes object --merge
   {{uv}} run python {{export}} metadata --scopes generic
+  {{uv}} run python {{export}} merge-processes
 
 export-textile:
-  {{uv}} run python {{export}} processes --scopes textile --merge
+  {{uv}} run python {{export}} processes-legacy --scopes textile --merge
   {{uv}} run python {{export}} metadata --scopes textile
+  {{uv}} run python {{export}} merge-processes
 
 export-veli:
-  {{uv}} run python {{export}} processes --scopes veli --merge
+  {{uv}} run python {{export}} processes-legacy --scopes veli --merge
+  {{uv}} run python {{export}} merge-processes
 
 export-transports:
     {{ uv }} run python -m common.distances.transports
@@ -75,7 +83,7 @@ check-activities:
   {{uv}} run check-jsonschema --schemafile schemas/lci-schema.json tests/fixtures/lci_catalog/*/* lci_catalog/*/*
 
 check-processes *target:
-  {{uv}} run check-jsonschema --schemafile tests/processes-schema.json public/data/processes*.json tests/fixtures/processes_impacts_output.json tests/snapshots/processes_impacts.json
+  {{uv}} run check-jsonschema --schemafile tests/processes-schema.json public/data/processes*.json tests/fixtures/processes_legacy_impacts_output.json tests/snapshots/processes_legacy_impacts.json
 
 check-json +target=".":
   {{uv}} run python ./bin/json_formatter.py {{target}}

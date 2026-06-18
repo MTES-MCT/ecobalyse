@@ -45,7 +45,7 @@ class ProcessController(Controller):
     ) -> list[Process]:
         """List processes."""
 
-        results = await processes_service.list(
+        results = await processes_service.get_many(
             OrderBy(field_name="display_name", sort_order="asc"), uniquify=True
         )
 

@@ -19,8 +19,9 @@ from models.process import ComputedBy, Process, Scope
 
 def activities_to_processes(
     activities: list[dict],
-    aggregated_relative_file_path: str,
+    ecs_relative_file_path: str,
     impacts_relative_file_path: str,
+    full_impacts_relative_file_path: str,
     dirs_to_export_to: List[str],
     graph_folder: str,
     plot: bool = False,
@@ -112,10 +113,11 @@ def activities_to_processes(
         )
 
     export_processes_to_dirs(
-        aggregated_relative_file_path,
+        ecs_relative_file_path,
         impacts_relative_file_path,
         dumped_processes,
         dirs_to_export_to,
+        full_impacts_relative_file_path,
         merge=merge,
         scopes=scopes,
     )

@@ -1,5 +1,5 @@
 from common.export import load_json
-from config import PROJECT_ROOT_DIR
+from config import PROJECT_ROOT_DIR, settings
 
 
 def check_process_relationships(items, processes, item_type):
@@ -25,7 +25,9 @@ def check_process_relationships(items, processes, item_type):
 
 
 def test_process_relationships():
-    processes_path = PROJECT_ROOT_DIR / "public" / "data" / "processes.json"
+    processes_path = (
+        PROJECT_ROOT_DIR / "public" / "data" / settings.processes_legacy_ecs_file
+    )
     processes_data = load_json(processes_path)
     processes = {p["id"]: p for p in processes_data}
 
