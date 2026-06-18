@@ -24173,7 +24173,7 @@
     "visible": false
   },
   {
-    "activityName": "Broccoli {CH}| broccoli production, conventional, plain region | Cut-off, U",
+    "activityName": "Broccoli {GLO}| production | Cut-off, U - Adapted from Ecoinvent U",
     "alias": "broccoli-eu",
     "baseIngredient": "broccoli",
     "categories": [
@@ -24190,10 +24190,10 @@
     },
     "id": "a528f97c-b83b-57bd-af7f-5b7e52116e6b",
     "inediblePart": 0.2,
-    "landOccupation": 1.181,
-    "location": "CH",
+    "landOccupation": 0.1171,
+    "location": "GLO",
     "name": "Brocoli UE",
-    "processId": "5238d98f-4095-59ab-ba43-16734fc0a6c3",
+    "processId": "9cab280c-527f-56b6-a620-5f12170108f3",
     "rawToCookedRatio": 0.856,
     "scenario": "import",
     "transportCooling": "always",
