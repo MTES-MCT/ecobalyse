@@ -244,7 +244,7 @@ class AccessController(Controller):
     async def get_tokens(
         self, current_user: m.User, tokens_service: TokenService
     ) -> list[ApiTokenFromDb]:
-        results = await tokens_service.list(
+        results = await tokens_service.get_many(
             m.Token.user == current_user,
             OrderBy(field_name="created_at", sort_order="desc"),
         )
@@ -290,7 +290,7 @@ class AccessController(Controller):
     ) -> list[User]:
         """List all accounts."""
 
-        results = await users_service.list(
+        results = await users_service.get_many(
             OrderBy(field_name="created_at", sort_order="desc"),
         )
 
