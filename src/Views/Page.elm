@@ -55,7 +55,7 @@ type MenuLink
 type alias Config msg =
     { activePage : ActivePage
     , mobileNavigationOpened : Bool
-    , session : Session
+    , session : Maybe Session
     , toMsg : App.Msg -> msg
     , tray : Toast.Tray Notification
     }
@@ -95,19 +95,24 @@ frame ({ activePage, session } as config) ( title, content ) =
     }
 
 
-termsNotice : Session -> Html msg
+termsNotice : Maybe Session -> Html msg
 termsNotice session =
-    if Session.isAuthenticated session && not (Session.hasAccessToDetailedImpacts session) then
-        Notice.warn
-            [ """Attention, vous êtes connecté mais n’avez pas accepté les conditions d’utilisation ecoinvent, vous privant ainsi
+    session
+        |> Maybe.map
+            (\s ->
+                if Session.isAuthenticated s && not (Session.hasAccessToDetailedImpacts s) then
+                    Notice.warn
+                        [ """Attention, vous êtes connecté mais n’avez pas accepté les conditions d’utilisation ecoinvent, vous privant ainsi
                  de **l’accès aux impacts détaillés** (changement climatique, consommation d'eau, etc). **Vous pouvez
                  les lire et les accepter depuis [votre espace personnel]({url}).**"""
-                |> String.replace "{url}" (Route.toString Route.Auth)
-                |> Markdown.simple []
-            ]
+                            |> String.replace "{url}" (Route.toString Route.Auth)
+                            |> Markdown.simple []
+                        ]
 
-    else
-        text ""
+                else
+                    text ""
+            )
+        |> Maybe.withDefault (text "")
 
 
 commonNotices : (App.Msg -> msg) -> ActivePage -> Html msg
@@ -189,42 +194,52 @@ isStaging { clientUrl } =
 
 stagingAlert : Config msg -> Html msg
 stagingAlert { session, toMsg } =
-    if isStaging session then
-        div [ class "StagingAlert d-block d-sm-flex justify-content-center align-items-center mt-3" ]
-            [ text "Vous êtes sur un environnement de recette. "
-            , button
-                [ type_ "button"
-                , class "btn btn-link"
-                , onClick (toMsg <| App.LoadUrl "https://ecobalyse.beta.gouv.fr/")
-                ]
-                [ text "Retourner vers l'environnement de production" ]
-            ]
+    session
+        |> Maybe.map
+            (\s ->
+                if isStaging s then
+                    div [ class "StagingAlert d-block d-sm-flex justify-content-center align-items-center mt-3" ]
+                        [ text "Vous êtes sur un environnement de recette. "
+                        , button
+                            [ type_ "button"
+                            , class "btn btn-link"
+                            , onClick (toMsg <| App.LoadUrl "https://ecobalyse.beta.gouv.fr/")
+                            ]
+                            [ text "Retourner vers l'environnement de production" ]
+                        ]
 
-    else
-        text ""
+                else
+                    text ""
+            )
+        |> Maybe.withDefault (text "")
 
 
 newVersionAlert : Config msg -> Html msg
 newVersionAlert { session, toMsg } =
-    case session.currentVersion of
-        Version.NewerVersion _ { tag } ->
-            div [ class "NewVersionAlert d-block align-items-center" ]
-                [ case tag of
-                    Just version ->
-                        text <| "La nouvelle version " ++ version ++ " de l'application est disponible."
+    session
+        |> Maybe.map
+            (\s ->
+                case s.currentVersion of
+                    Version.NewerVersion _ { tag } ->
+                        div [ class "NewVersionAlert d-block align-items-center" ]
+                            [ case tag of
+                                Just version ->
+                                    text <| "La nouvelle version " ++ version ++ " de l'application est disponible."
 
-                    Nothing ->
-                        text "Une nouvelle version de l'application est disponible."
-                , button
-                    [ type_ "button"
-                    , class "btn btn-outline-primary"
-                    , onClick (toMsg App.ReloadPage)
-                    ]
-                    [ text "Mettre à jour" ]
-                ]
+                                Nothing ->
+                                    text "Une nouvelle version de l'application est disponible."
+                            , button
+                                [ type_ "button"
+                                , class "btn btn-outline-primary"
+                                , onClick (toMsg App.ReloadPage)
+                                ]
+                                [ text "Mettre à jour" ]
+                            ]
 
-        _ ->
-            text ""
+                    _ ->
+                        text ""
+            )
+        |> Maybe.withDefault (text "")
 
 
 addRouteIf : Bool -> MenuLink -> Maybe MenuLink
@@ -236,26 +251,37 @@ addRouteIf flag route =
         Nothing
 
 
-mainMenuLinks : Session -> List MenuLink
-mainMenuLinks { enabledSections } =
+mainMenuLinks : Maybe Session -> List MenuLink
+mainMenuLinks session =
+    let
+        sessionLinks =
+            session
+                |> Maybe.map
+                    (\s ->
+                        [ addRouteIf s.enabledSections.textile <|
+                            Internal "Textile" Route.TextileSimulatorHome TextileSimulator
+                        , addRouteIf s.enabledSections.food <|
+                            Internal "Alimentaire" Route.FoodBuilderHome Food
+                        , addRouteIf s.enabledSections.objects <|
+                            Internal "Objets" (Route.ObjectSimulatorHome (Scope.Generic Scope.Object)) (Object (Scope.Generic Scope.Object))
+                        , addRouteIf s.enabledSections.veli <|
+                            Internal "Véhicules" (Route.ObjectSimulatorHome (Scope.Generic Scope.Veli)) (Object (Scope.Generic Scope.Veli))
+                        ]
+                    )
+                |> Maybe.withDefault []
+    in
     List.filterMap identity
-        [ Just <| Internal "Accueil" Route.Home Home
-        , addRouteIf enabledSections.textile <|
-            Internal "Textile" Route.TextileSimulatorHome TextileSimulator
-        , addRouteIf enabledSections.food <|
-            Internal "Alimentaire" Route.FoodBuilderHome Food
-        , addRouteIf enabledSections.objects <|
-            Internal "Objets" (Route.ObjectSimulatorHome (Scope.Generic Scope.Object)) (Object (Scope.Generic Scope.Object))
-        , addRouteIf enabledSections.veli <|
-            Internal "Véhicules" (Route.ObjectSimulatorHome (Scope.Generic Scope.Veli)) (Object (Scope.Generic Scope.Veli))
-        , Just <| Internal "Explorateur" (Route.Explore Scope.Textile (Dataset.TextileExamples Nothing)) Explore
-        , Just <| Internal "API" Route.Api Api
-        , Just <| MailTo "Contact" Env.contactEmail
-        ]
+        ((Just <| Internal "Accueil" Route.Home Home)
+            :: sessionLinks
+            ++ [ Just <| Internal "Explorateur" (Route.Explore Scope.Textile (Dataset.TextileExamples Nothing)) Explore
+               , Just <| Internal "API" Route.Api Api
+               , Just <| MailTo "Contact" Env.contactEmail
+               ]
+        )
 
 
-secondaryMenuLinks : Session -> List MenuLink
-secondaryMenuLinks { enabledSections } =
+secondaryMenuLinks : Maybe Session -> List MenuLink
+secondaryMenuLinks session =
     List.filterMap identity
         [ Just <| Internal "Dernières mises à jour" (Route.Editorial "maj") (Editorial "maj")
         , Just <| Internal "Statistiques" Route.Stats Stats
@@ -264,41 +290,52 @@ secondaryMenuLinks { enabledSections } =
         , Just <| External "Code source" Env.githubUrl
         , Just <| External "CGU" Env.cguUrl
         , Just <| Internal "Admin" (Route.Admin AdminSection.ComponentSection) Admin
-        , addRouteIf enabledSections.food2 <|
-            Internal "Alimentaire²" (Route.ObjectSimulatorHome (Scope.Generic Scope.Food2)) (Object (Scope.Generic Scope.Food2))
+        , session |> Maybe.map (\s -> addRouteIf s.enabledSections.food2 <| Internal "Alimentaire²" (Route.ObjectSimulatorHome (Scope.Generic Scope.Food2)) (Object (Scope.Generic Scope.Food2))) |> Maybe.withDefault Nothing
         ]
 
 
-headerMenuLinks : Session -> List MenuLink
+headerMenuLinks : Maybe Session -> List MenuLink
 headerMenuLinks session =
     mainMenuLinks session
         ++ List.filterMap identity
             [ Just <| External "Communauté" Env.communityUrl
             , Just <| External "Documentation" Env.gitbookUrl
-            , if Session.isSuperuser session then
-                Just <| Internal "Admin" (Route.Admin AdminSection.ComponentSection) Admin
+            , session
+                |> Maybe.map
+                    (\s ->
+                        if Session.isSuperuser s then
+                            Just <| Internal "Admin" (Route.Admin AdminSection.ComponentSection) Admin
 
-              else
-                Nothing
+                        else
+                            Nothing
+                    )
+                |> Maybe.withDefault Nothing
             ]
 
 
-mobileMenuLinks : Session -> List MenuLink
+mobileMenuLinks : Maybe Session -> List MenuLink
 mobileMenuLinks session =
     mainMenuLinks session
         ++ [ External "Documentation" Env.gitbookUrl
            , External "Communauté" Env.communityUrl
            , MailTo "Contact" Env.contactEmail
-           , Internal
-                (if Session.isAuthenticated session then
-                    "Mon compte"
-
-                 else
-                    "Connexion ou inscription"
-                )
-                Route.Auth
-                Auth
            ]
+        ++ (session
+                |> Maybe.map
+                    (\s ->
+                        [ Internal
+                            (if Session.isAuthenticated s then
+                                "Mon compte"
+
+                             else
+                                "Connexion ou inscription"
+                            )
+                            Route.Auth
+                            Auth
+                        ]
+                    )
+                |> Maybe.withDefault []
+           )
 
 
 legalMenuLinks : List MenuLink
@@ -310,7 +347,7 @@ legalMenuLinks =
     ]
 
 
-pageFooter : Session -> Html msg
+pageFooter : Maybe Session -> Html msg
 pageFooter session =
     let
         makeLink link =
@@ -330,11 +367,16 @@ pageFooter session =
     footer
         (class "Footer"
             :: -- Add bottom padding to avoid StagingAlert to hide the version details
-               (if isStaging session then
-                    [ class "pb-5" ]
+               (session
+                    |> Maybe.map
+                        (\s ->
+                            if isStaging s then
+                                [ class "pb-5" ]
 
-                else
-                    []
+                            else
+                                []
+                        )
+                    |> Maybe.withDefault []
                )
         )
         [ div [ class "FooterNavigation" ]
@@ -397,7 +439,7 @@ pageFooter session =
                 |> List.intersperse (li [ attribute "aria-hidden" "true", class "text-muted" ] [ text "|" ])
                 |> ul [ class "FooterLegal d-flex justify-content-start flex-wrap gap-2 list-unstyled mt-3 pt-2 border-top" ]
             , div [ class "d-flex align-items-center gap-1 fs-9 mb-2" ]
-                [ versionLink session.currentVersion
+                [ session |> Maybe.map (\s -> versionLink s.currentVersion) |> Maybe.withDefault (text "")
                 , text "\u{00A0}|\u{00A0}"
                 , Link.external [ href Env.githubUrl ] [ text "technical changelog" ]
                 ]
@@ -469,11 +511,16 @@ pageHeader { activePage, session, toMsg } =
                     , Route.href Route.Auth
                     , attribute "data-testid" "auth-link"
                     ]
-                    [ if Session.isAuthenticated session then
-                        text "Mon compte"
+                    [ session
+                        |> Maybe.map
+                            (\s ->
+                                if Session.isAuthenticated s then
+                                    text "Mon compte"
 
-                      else
-                        text "Connexion ou inscription"
+                                else
+                                    text "Connexion ou inscription"
+                            )
+                        |> Maybe.withDefault (text "")
                     ]
                 ]
             ]
@@ -520,14 +567,19 @@ viewNavigationLink activePage link =
 
 notificationListView : Config msg -> Html msg
 notificationListView ({ session } as config) =
-    case session.notifications of
-        [] ->
-            text ""
+    session
+        |> Maybe.map
+            (\s ->
+                case s.notifications of
+                    [] ->
+                        text ""
 
-        notifications ->
-            notifications
-                |> List.map (notificationView config)
-                |> Container.centered [ class "bg-white pt-3" ]
+                    notifications ->
+                        notifications
+                            |> List.map (notificationView config)
+                            |> Container.centered [ class "bg-white pt-3" ]
+            )
+        |> Maybe.withDefault (text "")
 
 
 notificationView : Config msg -> Session.Notification -> Html msg
@@ -665,7 +717,7 @@ mobileNavigation { activePage, session, toMsg } =
                     |> List.map (viewNavigationLink activePage)
                     |> div [ class "nav nav-pills flex-column" ]
                 , h4 [ class "h6 mt-3" ] [ text "Versions" ]
-                , versionLink session.currentVersion
+                , session |> Maybe.map (\s -> versionLink s.currentVersion) |> Maybe.withDefault (text "")
                 , a
                     [ class "nav-link"
                     , href <| Env.stableTextileVersionPath

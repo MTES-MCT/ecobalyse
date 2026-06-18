@@ -708,12 +708,18 @@ view { mobileNavigationOpened, state, tray } =
             }
 
         Initializing ->
-            { body =
-                [ Html.h1 [] [ Html.text <| "Initialisation de l’application" ]
-                , Html.pre [] [ Html.text "Chargement des fichiers JSON…" ]
-                ]
-            , title = "Initialisation"
-            }
+            let
+                frame activePage =
+                    Page.frame
+                        { activePage = activePage
+                        , mobileNavigationOpened = mobileNavigationOpened
+                        , session = Nothing
+                        , toMsg = AppMsg
+                        , tray = tray
+                        }
+            in
+            ( "Chargement des données Ecobalyse", [ Page.loading ] )
+                |> frame Page.Other
 
         Loaded session page ->
             let
@@ -721,7 +727,7 @@ view { mobileNavigationOpened, state, tray } =
                     Page.frame
                         { activePage = activePage
                         , mobileNavigationOpened = mobileNavigationOpened
-                        , session = session
+                        , session = Just session
                         , toMsg = AppMsg
                         , tray = tray
                         }
