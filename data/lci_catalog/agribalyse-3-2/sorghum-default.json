@@ -1,5 +1,5 @@
 {
-  "activityName": "Silage sorghum, national average, animal feed, at farm gate {FR} U",
+  "activityName": "Sweet sorghum grain {CN}| sweet sorghum production | Cut-off, U",
   "categories": [
     "ingredient",
     "material",
@@ -7,7 +7,7 @@
   ],
   "displayName": "Sorgho Origine Inconnue",
   "id": "a3148dad-d8cb-56f5-b1a0-84ca9ce94485",
-  "location": "FR",
+  "location": "CN",
   "metadata": [
     {
       "alias": "sorghum-default",
