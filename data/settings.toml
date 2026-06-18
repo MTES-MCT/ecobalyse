@@ -1,12 +1,17 @@
 [default]
 ENV_NAME = "default" # Do not override this value, it’s used by the unit tests
 LOG_LEVEL = "INFO"
-LOCAL_EXPORT = true
 PLOT_EXPORT = false
+# local data dir for intermediate data files
+LOCAL_DIR = "public/data"
 
-PROCESSES_IMPACTS_FILE = "processes_impacts.json"
-PROCESSES_IMPACTS_FULL_FILE = "processes_impacts_full.json"
-PROCESSES_AGGREGATED_FILE = "processes.json"
+PROCESSES_LEGACY_IMPACTS_FILE = "processes_legacy_impacts.json"
+PROCESSES_LEGACY_IMPACTS_FULL_FILE = "processes_legacy_impacts_full.json"
+PROCESSES_LEGACY_ECS_FILE = "processes_legacy.json"
+PROCESSES_GENERIC_IMPACTS_FILE = "processes_generic_impacts.json"
+PROCESSES_GENERIC_ECS_FILE = "processes_generic.json"
+PROCESSES_MERGED_IMPACTS_FILE = "processes_impacts.json"
+PROCESSES_MERGED_ECS_FILE = "processes.json"
 COMPARED_IMPACTS_FILE = "compared_impacts.csv"
 IMPACTS_FILE = "impacts.json"
 # number of significant digits kept during json serialization
@@ -73,7 +78,6 @@ DIRNAME = "veli"
 [testing]
 ENV_NAME = "testing" # Do not override this value, it's used by the unit tests
 
-LOCAL_EXPORT = false
 PLOT_EXPORT = false
 
 [testing.bw]
@@ -84,6 +88,7 @@ PROJECT = "forwast"
 
 [testing.scopes.food]
 DIRNAME = "food"
+INGREDIENTS_FILE = "ingredients.json"
 FEED_FILE = "feed.json"
 RAW_TO_TRANSFORMED_RATIOS_FILE = "raw_to_transformed_ratios.json"
 ECOSYSTEMIC_FACTORS_FILE = "ecosystemic_factors.csv"
@@ -93,6 +98,7 @@ GRAZED_GRASS_TEMPORARY_KEY = "grazed-grass-temporary-2025"
 
 [testing.scopes.textile]
 DIRNAME = "textile"
+MATERIALS_FILE = "materials.json"
 
 [testing.scopes.generic]
 DIRNAME = "food"

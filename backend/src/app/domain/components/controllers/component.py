@@ -46,7 +46,7 @@ class ComponentController(Controller):
         components_service: ComponentService,
     ) -> list[Dict[str, Any]]:
         """List components."""
-        results = await components_service.list(
+        results = await components_service.get_many(
             OrderBy(field_name="id", sort_order="asc"), uniquify=True
         )
 
