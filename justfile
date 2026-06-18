@@ -22,7 +22,7 @@ check-activities:
   {{uv}} run --group data check-jsonschema --schemafile data/schemas/lci-schema.json data/tests/fixtures/lci_catalog/*/* data/lci_catalog/*/*
 
 check-processes *target:
-  {{uv}} run --group data check-jsonschema --schemafile data/tests/processes-schema.json data/public/data/processes*.json data/tests/fixtures/processes_impacts_output.json data/tests/snapshots/processes_impacts.json
+  {{uv}} run --group data check-jsonschema --schemafile data/tests/processes-schema.json data/public/data/processes*.json data/tests/fixtures/processes_legacy_impacts_output.json data/tests/snapshots/processes_legacy_impacts.json
 
 check-json +target="data":
   {{uv}} run --group data python ./data/bin/json_formatter.py {{target}}
