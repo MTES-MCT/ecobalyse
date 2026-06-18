@@ -86,7 +86,7 @@
     "elm-json": "^0.2.13",
     "elm-review": "^2.13.5",
     "elm-test": "0.19.1-revision17",
-    "highcharts": "^12.6.0",
+    "highcharts": "^13.0.0",
     "jest": "^30.4.2",
     "maildev": "^2.2.1",
     "nodemon": "^3.1.14",
