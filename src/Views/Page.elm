@@ -290,7 +290,7 @@ secondaryMenuLinks session =
         , Just <| External "Code source" Env.githubUrl
         , Just <| External "CGU" Env.cguUrl
         , Just <| Internal "Admin" (Route.Admin AdminSection.ComponentSection) Admin
-        , session |> Maybe.map (\s -> addRouteIf s.enabledSections.food2 <| Internal "Alimentaire²" (Route.ObjectSimulatorHome (Scope.Generic Scope.Food2)) (Object (Scope.Generic Scope.Food2))) |> Maybe.withDefault Nothing
+        , session |> Maybe.andThen (\s -> addRouteIf s.enabledSections.food2 <| Internal "Alimentaire²" (Route.ObjectSimulatorHome (Scope.Generic Scope.Food2)) (Object (Scope.Generic Scope.Food2)))
         ]
 
 
@@ -301,7 +301,7 @@ headerMenuLinks session =
             [ Just <| External "Communauté" Env.communityUrl
             , Just <| External "Documentation" Env.gitbookUrl
             , session
-                |> Maybe.map
+                |> Maybe.andThen
                     (\s ->
                         if Session.isSuperuser s then
                             Just <| Internal "Admin" (Route.Admin AdminSection.ComponentSection) Admin
@@ -309,7 +309,6 @@ headerMenuLinks session =
                         else
                             Nothing
                     )
-                |> Maybe.withDefault Nothing
             ]
 
 
