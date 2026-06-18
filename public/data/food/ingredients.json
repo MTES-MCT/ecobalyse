@@ -9391,7 +9391,7 @@
     "processId": "0065536b-4fd4-592d-a4dd-d82a0a2bd8e2",
     "rawToCookedRatio": 1.0,
     "scenario": "import",
-    "transportCooling": "once_transformed",
+    "transportCooling": "none",
     "visible": true
   },
   {
@@ -14985,7 +14985,7 @@
     "processId": "74316df8-a65f-5999-af15-448b841aab30",
     "rawToCookedRatio": 1.0,
     "scenario": "organic",
-    "transportCooling": "once_transformed",
+    "transportCooling": "none",
     "visible": true
   },
   {
@@ -15474,7 +15474,7 @@
     "processId": "0065536b-4fd4-592d-a4dd-d82a0a2bd8e2",
     "rawToCookedRatio": 1.0,
     "scenario": "import",
-    "transportCooling": "once_transformed",
+    "transportCooling": "none",
     "visible": true
   },
   {
@@ -35249,7 +35249,7 @@
     "rawToCookedRatio": 1.0,
     "scenario": "import",
     "transportCooling": "once_transformed",
-    "visible": true
+    "visible": false
   },
   {
     "activityName": "Cherry, at farm (WFLDB)",
