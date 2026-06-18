@@ -39,7 +39,7 @@ class JournalEntryController(Controller):
         journal_entries_service: JournalEntryService,
     ) -> list[JournalEntry]:
         """List all journal entries."""
-        results = await journal_entries_service.list(
+        results = await journal_entries_service.get_many(
             OrderBy(field_name="created_at", sort_order="desc"),
         )
 
@@ -62,7 +62,7 @@ class JournalEntryController(Controller):
         ),
     ) -> list[JournalEntry]:
         """List all journal entries per table."""
-        results = await journal_entries_service.list(
+        results = await journal_entries_service.get_many(
             OrderBy(field_name="created_at", sort_order="desc"), table_name=table_name
         )
 
@@ -88,7 +88,7 @@ class JournalEntryController(Controller):
         ),
     ) -> list[JournalEntry]:
         """List all journal entries per table."""
-        results = await journal_entries_service.list(
+        results = await journal_entries_service.get_many(
             OrderBy(field_name="created_at", sort_order="desc"),
             table_name=table_name,
             record_id=record_id,
