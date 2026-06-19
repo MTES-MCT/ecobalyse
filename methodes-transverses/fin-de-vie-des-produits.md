@@ -1,4 +1,4 @@
-# 🗑️ Fin de vie des composants
+# 🗑️ Fin de vie des produits
 
 {% hint style="warning" %}
 Cette section concerne les secteurs objets et véhicules, et dans un futur proche le textile.
@@ -88,11 +88,11 @@ $$
 Impact des scénarios en fin de vie (FS = Filière spécifique / HF = Hors filière)
 
 $$
-I_{EoL,FS,i}=m_i*TC*r_p*\Big(R_{FS,rec,i}*I_{EoL,rec,i}+R_{FS,inc,i}*I_{EoL,inc,i}+R_{FS,exp,i}*I_{EoL,exp,i}+(1-R_{FS,rec,i}-R_{S,inc,i})*I_{EoL,lan,i}\Big)
+I_{EoL,FS,i}=m_i*TC*r_p*\Big(R_{FS,rec,i}*I_{EoL,rec,i}+R_{FS,inc,i}*I_{EoL,inc,i}+R_{FS,lan,i}*I_{EoL,lan,i}+R_{FS,exp,i}*I_{EoL,exp,i}\Big)
 $$
 
 $$
-I_{EoL,HF,i}=m_i*(1-TC*r_p)*\Big(R_{HF,rec,i}*I_{EoL,rec,i}+R_{HF,inc,i}*I_{EoL,inc,i}+R_{HF,exp,i}*I_{EoL,exp,i}+(1-R_{HF,rec,i}-R_{HF,inc,i}-R_{HF,exp,i})*I_{EoL,lan,i}\Big)
+I_{EoL,HF,i}=m_i*(1-TC*r_p)*\Big(R_{HF,rec,i}*I_{EoL,rec,i}+R_{HF,inc,i}*I_{EoL,inc,i}+R_{HF,lan,i}*I_{EoL,lan,i}+R_{HF,exp,i}*I_{EoL,exp,i}\Big)
 $$
 {% endtab %}
 {% endtabs %}
@@ -113,36 +113,41 @@ Niveau 0 :
 
 Niveau 1 :
 
-* `m_i` : la masse relative au type de matériaux `i` dans le produit, en kg
+* <mark style="color:$warning;">`m_i`</mark> : la masse relative au type de matériaux `i` dans le produit, en kg
   * Calculée à partir des matériaux utilisés en phase "_Production_"
-* `TC` : le taux de collecte des produits, en %
-* `r_p` : la recyclabilité produit, égale à 1 (produit recyclable, avec filière dédiée) ou 0 (pas de filière dédiée)
-* `R_FS,rec,i` : la part de recyclage du matériau (i) lorsque le produit est collecté et recyclable
-* `R_FS,inc,i` : la part d'incinération du matériau (i) lorsque le produit est collecté et recyclable
+* <mark style="color:$primary;">`TC`</mark> : le taux de collecte des produits, en %
+* <mark style="color:$warning;">`r_p`</mark> : la recyclabilité produit, égale à 1 (produit recyclable, avec filière dédiée) ou 0 (pas de filière dédiée)
+  * Information fournie par l'utilisateur, sur la base critère définis secteur par secteur
+* <mark style="color:$primary;">`R_FS,rec,i`</mark> : la part de recyclage du matériau (i) lorsque le produit est collecté et recyclable
+* <mark style="color:$primary;">`R_FS,inc,i`</mark> : la part d'incinération du matériau (i) lorsque le produit est collecté et recyclable
+* <mark style="color:$primary;">`R_FS,lan,i`</mark> : la part d'enfouissement du matériau (i) lorsque le produit est collecté et recyclable
 * <mark style="color:$info;">`R_FS,exp,i`</mark> <mark style="color:$info;"></mark><mark style="color:$info;">: la part d'export et traitement hors Europe du matériau (i) lorsque le produit est collecté et recyclable</mark>
-* `R_HF,rec,i` : la part de recyclage du matériau (i) lorsque le produit n'est pas collecté ou pas recyclable (fin de vie déchets divers)
-* `R_HF,inc,i` : la part d'incinération du matériau (i) lorsque le produit n'est pas collecté ou pas recyclable (fin de vie déchets divers)
-* <mark style="color:$info;">`R_HF,exp,i`</mark> <mark style="color:$info;"></mark><mark style="color:$info;">: la part d'export et traitement hors Europe du matériau (i) lorsque le produit n'est pas collecté ou pas recyclable (fin de vie déchets divers)</mark>
+* <mark style="color:$primary;">`R_HF,rec,i`</mark> : la part de recyclage du matériau (i) lorsque le produit n'est pas collecté ou pas recyclable (fin de vie hors filière)
+* <mark style="color:$primary;">`R_HF,inc,i`</mark> : la part d'incinération du matériau (i) lorsque le produit n'est pas collecté ou pas recyclable (fin de vie hors filière)
+* <mark style="color:$primary;">`R_HF,lan,i`</mark> : la part d'enfouissement du matériau (i) lorsque le produit n'est pas collecté ou pas recyclable (fin de vie hors filière)
+* <mark style="color:$info;">`R_HF,exp,i`</mark> <mark style="color:$info;"></mark><mark style="color:$info;">: la part d'export et traitement hors Europe du matériau (i) lorsque le produit n'est pas collecté ou pas recyclable (fin de vie hors filière)</mark>
 * `I_Eol,rec,i` : l'impact environnemental du recyclage d'un kg d'un matériau de la famille de matériaux `i`, dans l'unité de la catégorie d'impact analysée
 * `I_EoL,inc,i` : l'impact environnemental de l'incinération d'un kg d'un matériau de la famille de matériaux `i`, dans l'unité de la catégorie d'impact analysée
 * <mark style="color:$info;">`I_EoL,exp,i`</mark> <mark style="color:$info;"></mark><mark style="color:$info;">: l'impact environnemental du traitement en fin de vie hors Europe d'un kg d'un matériau de la famille de matériaux</mark> <mark style="color:$info;"></mark><mark style="color:$info;">`i`</mark><mark style="color:$info;">, dans l'unité de la catégorie d'impact analysée</mark>
 * `I_EoL,lan,i` : l'impact environnemental de l'enfouissement d'un kg d'un matériau de la famille de matériaux `i` , dans l'unité de la catégorie d'impact analysée
 
-## Paramètres retenus pour le coût environnemental&#x20;
+## Paramètres utilisateurs
 
-### Taux de collecte `TC`
+### Masse de matériau <mark style="color:$warning;">`m_i`</mark>&#x20;
 
-Un taux de collecte de 70% est appliqué par défaut, sauf mention explicite contraire dans les pages sectorielles.&#x20;
+Ma masse de matériau pour un type de matériau `i` donné <mark style="color:$warning;">`m_i`</mark> est la sommes des matériaux constitutif du produit, dont le type de matériau est `i`. Pour chaque matériau, le type de matériau correspondant est indiqué dans l'Explorateur de procédé de chaque secteur.&#x20;
 
-### Recyclabilité produit `r_p`&#x20;
+### Recyclabilité produit <mark style="color:$warning;">`r_p`</mark>&#x20;
 
 La recyclabilité de chaque produit est définie selon des règles spécifiques à chaque secteur. Se référer aux pages sectorielles.&#x20;
 
-### Taux de collecte pour export `TE`
+## Paramètres retenus pour le coût environnemental&#x20;
 
-Un taux de collecte pour export de 0% est appliqué par défaut pour l'ensemble des produits, sauf mention explicite contraire dans les pages sectorielles.
+### Taux de collecte <mark style="color:$primary;">`TC`</mark>
 
-### Taux de recyclage, d'incinération et de mise en décharge `R_FS,rec`, `R_FS,inc,i`, `R_HF,rec,i`, `R_HF,inc,i`
+Un taux de collecte de 70% est appliqué par défaut, sauf mention explicite contraire dans les pages sectorielles.&#x20;
+
+### Taux de recyclage, d'incinération et de traitement hors Europe <mark style="color:$primary;">`R_FS,xxx,i`</mark> et  <mark style="color:$primary;">`R_HF,xxx,i`</mark>
 
 {% tabs %}
 {% tab title="Scénario "Filière Spécifique"" %}
@@ -150,7 +155,7 @@ Ces paramètres sont appliqués pour les produits collectés et traité dans une
 
 Voir [page sectorielle Fin de vie Ameublement](https://fabrique-numerique.gitbook.io/ecobalyse/ameublement/cycle-de-vie/etape-4-fin-de-vie-ameublement), avec à ce jour les même données.
 
-<table><thead><tr><th width="175.4000244140625">Type de matériau i</th><th width="117.10003662109375">Recyclage R_FS,rec,i</th><th width="125.199951171875">Incinération R_FS,inc,i</th><th width="126.199951171875">Traitement hors Europe R_FS,exp,i</th><th width="147.7000732421875">Enfouissement</th></tr></thead><tbody><tr><td>Métaux ferreux</td><td>100%</td><td>0%</td><td>0%</td><td>0%</td></tr><tr><td>Aluminium</td><td>100%</td><td>0%</td><td>0%</td><td>0%</td></tr><tr><td>Cuivre</td><td>100%</td><td>0%</td><td>0%</td><td>0%</td></tr><tr><td>Bois</td><td>69%</td><td>31%</td><td>0%</td><td>0%</td></tr><tr><td>Emballage carton</td><td>85%</td><td>11%</td><td>0%</td><td>4%</td></tr><tr><td>Verre</td><td>80%</td><td>20%</td><td>0%</td><td>0%</td></tr><tr><td>Caoutchouc</td><td>4%</td><td>94%</td><td>0%</td><td>2%</td></tr><tr><td>Composites</td><td>0%</td><td>82%</td><td>0%</td><td>18%</td></tr><tr><td>PET</td><td>92%</td><td>8%</td><td>0%</td><td>0%</td></tr><tr><td>PP</td><td>92%</td><td>8%</td><td>0%</td><td>0%</td></tr><tr><td>PEHD</td><td>92%</td><td>8%</td><td>0%</td><td>0%</td></tr><tr><td>PEBD</td><td>7%</td><td>68%</td><td>0%</td><td>25%</td></tr><tr><td>Plastiques rigides</td><td>41%</td><td>35%</td><td>0%</td><td>24%</td></tr><tr><td>PUR</td><td>4%</td><td>94%</td><td>0%</td><td>2%</td></tr><tr><td>Fibres synthétiques</td><td>27%</td><td>52%</td><td>0%</td><td>21%</td></tr><tr><td>Fibres organiques</td><td>27%</td><td>52%</td><td>0%</td><td>21%</td></tr><tr><td>Carte de circuit imprimé</td><td>100%</td><td>0%</td><td>0%</td><td>0%</td></tr><tr><td>Cellule de batteries</td><td>100%</td><td>0%</td><td>0%</td><td>0%</td></tr></tbody></table>
+<table><thead><tr><th width="175.4000244140625">Type de matériau i</th><th width="117.10003662109375">Recyclage R_FS,rec,i</th><th width="125.199951171875">Incinération R_FS,inc,i</th><th width="147.7000732421875">Enfouissement R_FS,lan,i</th><th width="126.199951171875">Traitement hors Europe R_FS,exp,i</th></tr></thead><tbody><tr><td>Métaux ferreux</td><td>100%</td><td>0%</td><td>0%</td><td>0%</td></tr><tr><td>Aluminium</td><td>100%</td><td>0%</td><td>0%</td><td>0%</td></tr><tr><td>Cuivre</td><td>100%</td><td>0%</td><td>0%</td><td>0%</td></tr><tr><td>Bois</td><td>69%</td><td>31%</td><td>0%</td><td>0%</td></tr><tr><td>Emballage carton</td><td>85%</td><td>11%</td><td>4%</td><td>0%</td></tr><tr><td>Verre</td><td>80%</td><td>20%</td><td>0%</td><td>0%</td></tr><tr><td>Caoutchouc</td><td>4%</td><td>94%</td><td>2%</td><td>0%</td></tr><tr><td>Composites</td><td>0%</td><td>82%</td><td>18%</td><td>0%</td></tr><tr><td>PET</td><td>92%</td><td>8%</td><td>0%</td><td>0%</td></tr><tr><td>PP</td><td>92%</td><td>8%</td><td>0%</td><td>0%</td></tr><tr><td>PEHD</td><td>92%</td><td>8%</td><td>0%</td><td>0%</td></tr><tr><td>PEBD</td><td>7%</td><td>68%</td><td>25%</td><td>0%</td></tr><tr><td>Plastiques rigides</td><td>41%</td><td>35%</td><td>24%</td><td>0%</td></tr><tr><td>PUR</td><td>4%</td><td>94%</td><td>2%</td><td>0%</td></tr><tr><td>Fibres synthétiques</td><td>27%</td><td>52%</td><td>21%</td><td>0%</td></tr><tr><td>Fibres organiques</td><td>27%</td><td>52%</td><td>21%</td><td>0%</td></tr><tr><td>Carte de circuit imprimé</td><td>100%</td><td>0%</td><td>0%</td><td>0%</td></tr><tr><td>Cellule de batteries</td><td>100%</td><td>0%</td><td>0%</td><td>0%</td></tr></tbody></table>
 
 NB : le taux de recyclage de 100% pour les batteries et composants électroniques ne signifie pas que 100% de la matière est recyclée, mais que, s'ils sont bien collectés, ces composants subissent tous un traitement permettant de récupérer une partie des matériaux.
 {% endtab %}
@@ -158,7 +163,7 @@ NB : le taux de recyclage de 100% pour les batteries et composants électronique
 {% tab title="Scénario "Hors filière"" %}
 Ce scénario est applicable par défaut pour les produits non collectés ou non recyclables :&#x20;
 
-<table><thead><tr><th width="195.20001220703125">Type de matériau</th><th width="115.30010986328125">Recyclage R_HF,rec,i</th><th width="126.0999755859375">Incinération R_HF,inc,i</th><th width="128">Traitement Hors Europe R_HF,exp,i</th><th width="154.89990234375">Enfouissement (R_HF,Enf,i)</th></tr></thead><tbody><tr><td>Métaux ferreux</td><td>95%</td><td>5%</td><td>0%</td><td>0%</td></tr><tr><td>Aluminium</td><td>50%</td><td>41%</td><td>0%</td><td>9%</td></tr><tr><td>Cuivre</td><td>50%</td><td>41%</td><td>0%</td><td>9%</td></tr><tr><td>Autres matériaux</td><td>0%</td><td>82%</td><td>0%</td><td>18%</td></tr></tbody></table>
+<table><thead><tr><th width="195.20001220703125">Type de matériau</th><th width="115.30010986328125">Recyclage R_HF,rec,i</th><th width="126.0999755859375">Incinération R_HF,inc,i</th><th width="154.89990234375">Enfouissement (R_HF,lan,i)</th><th width="128">Traitement Hors Europe R_HF,exp,i</th></tr></thead><tbody><tr><td>Métaux ferreux</td><td>95%</td><td>5%</td><td>0%</td><td>0%</td></tr><tr><td>Aluminium</td><td>50%</td><td>41%</td><td>9%</td><td>0%</td></tr><tr><td>Cuivre</td><td>50%</td><td>41%</td><td>9%</td><td>0%</td></tr><tr><td>Autres matériaux</td><td>0%</td><td>82%</td><td>18%</td><td>0%</td></tr></tbody></table>
 
 {% hint style="info" %}
 Sources :&#x20;
