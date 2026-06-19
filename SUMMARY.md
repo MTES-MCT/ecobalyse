@@ -30,18 +30,18 @@
 * [📝 Le coût environnemental : approche méthodologique globale (old)](impacts-consideres.md)
 * [Compléments hors ACV - old](complements-hors-acv.md)
 
-## ⚙️ Méthodes transverses spécifiques
+## ⚙️ Méthodes transverses
 
-* [🧩 Composants](methodes-transverses-specifiques/composants/README.md)
-  * [◻️ Procédés Acier et Aluminium](methodes-transverses-specifiques/composants/procedes-acier-et-aluminium.md)
-  * [⚡ Energies des étapes de transformation](methodes-transverses-specifiques/composants/energies-des-etapes-de-transformation.md)
-* [📦 Emballages](methodes-transverses-specifiques/emballages.md)
-* [🚚 Transport](methodes-transverses-specifiques/transport/README.md)
-  * [Coût environnemental par voie de transport](methodes-transverses-specifiques/transport/cout-environnemental-par-voie-de-transport.md)
-  * [Choix des voies de transport](methodes-transverses-specifiques/transport/choix-des-voies-de-transport.md)
-  * [✈️ Transport par avion - prise en compte des trainées](methodes-transverses-specifiques/transport/modelisation-fret-aerien.md)
-* [💡 Electricité à l'utilisation](methodes-transverses-specifiques/electricite-a-lutilisation.md)
-* [🗑️ Fin de vie des composants](methodes-transverses-specifiques/fin-de-vie-des-composants.md)
+* [🧩 Composants](methodes-transverses/composants/README.md)
+  * [◻️ Procédés Acier et Aluminium](methodes-transverses/composants/procedes-acier-et-aluminium.md)
+  * [⚡ Energies des étapes de transformation](methodes-transverses/composants/energies-des-etapes-de-transformation.md)
+* [📦 Emballages](methodes-transverses/emballages.md)
+* [🚚 Transport](methodes-transverses/transport/README.md)
+  * [Coût environnemental par voie de transport](methodes-transverses/transport/cout-environnemental-par-voie-de-transport.md)
+  * [Choix des voies de transport](methodes-transverses/transport/choix-des-voies-de-transport.md)
+  * [✈️ Transport par avion - prise en compte des trainées](methodes-transverses/transport/modelisation-fret-aerien.md)
+* [💡 Electricité à l'utilisation](methodes-transverses/electricite-a-lutilisation.md)
+* [🗑️ Fin de vie des produits](methodes-transverses/fin-de-vie-des-produits.md)
 
 ## 🍕 Alimentaire
 
