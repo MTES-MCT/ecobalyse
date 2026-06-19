@@ -39,6 +39,8 @@ Ce traitement est intégré dans Ecobalyse avec l'hypothèse d'une incinération
 
 Les produit exportés puis réutilisés (cas de la seconde main textile) voient leur durée de vie augmenter.
 
+La nature du traitement en fin de vie hors Europe dépend du type de matériau.
+
 {% hint style="info" %}
 Le cas du textile est documenté en détail dans la documentation sectorielle
 {% endhint %}
@@ -51,6 +53,10 @@ Si le produit est collecté et recyclable, les matériaux sont recyclés, incin�
 
 ## Méthode de calcul
 
+{% hint style="info" %}
+\* Les parties non implémentées à ce jour sont <mark style="color:$info;">indiqué en gris</mark>
+{% endhint %}
+
 ### Grands principes
 
 Ecobalyse utilise la méthode CFF (Circulat Footprint Formula) pour évaluer l'impact de la fin de vie des produits.
@@ -59,15 +65,15 @@ Les matériaux constitutifs d'un produit (définis dans la section "_Production_
 
 A chaque type de matériaux sont attachés des ratios de recyclage et incinération, les paramètres CFF (A et Q) et des procédés d'inventaire de cycle de vie de recyclage, incinération et enfouissement.
 
+**Schéma de principe de la modélisation Ecobalyse de la fin de vie :**
+
+<figure><img src="../.gitbook/assets/image (401).png" alt=""><figcaption></figcaption></figure>
+
 {% hint style="info" %}
 Le détail des calculs avec paramètres et procédés appliqués est disponible en téléchargeant le fichier mis à disposition dans la section "Exemples"
 {% endhint %}
 
 ### Formules de calcul
-
-{% hint style="info" %}
-La partie Export hors Europe n'est pas encore implémentée à ce jour (<mark style="color:$info;">paramètre en gris</mark>)
-{% endhint %}
 
 {% tabs %}
 {% tab title="Niveau 0" %}
@@ -123,10 +129,6 @@ Niveau 1 :
 * `I_EoL,lan,i` : l'impact environnemental de l'enfouissement d'un kg d'un matériau de la famille de matériaux `i` , dans l'unité de la catégorie d'impact analysée
 
 ## Paramètres retenus pour le coût environnemental&#x20;
-
-{% hint style="info" %}
-Dans la version actuellement implémentée, il est considéré que le taux de collecte est fixé à 70% pour tous les secteurs.
-{% endhint %}
 
 ### Taux de collecte `TC`
 
