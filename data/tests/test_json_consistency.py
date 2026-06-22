@@ -342,7 +342,7 @@ def test():
                     "alias": (missing, duplicate_across_records, alias_syntax),
                     "name": (missing, duplicate_across_records),
                 },
-                "public/data/processes.json": {
+                "public/data/processes_legacy.json": {
                     "id": (duplicate_across_records, invalid_uuid, missing),
                     "displayName": (duplicate_across_records,),
                     "categories": (duplicate_within_value,),
@@ -350,6 +350,10 @@ def test():
                 "public/data/processes_generic.json": {
                     "id": (duplicate_across_records, invalid_uuid, missing),
                     "displayName": (duplicate_across_records,),
+                    "categories": (duplicate_within_value,),
+                },
+                "../public/data/processes.json": {
+                    "id": (duplicate_across_records, invalid_uuid, missing),
                     "categories": (duplicate_within_value,),
                 },
                 "public/data/textile/materials.json": {
