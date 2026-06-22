@@ -25,8 +25,6 @@ services:
       - BRIGHTWAY2_DIR=/cache/brightway
       - EB_OUTPUT_DIR=/cache/output
       - EB_DB_CACHE_DIR=/cache/db-cache
-      # TODO: not sure yet if we want the local export or not
-      - EB_LOCAL_EXPORT=false
       # Get these variables values from the .env file or the environment
       - EB_S3_ENDPOINT
       - EB_S3_REGION
