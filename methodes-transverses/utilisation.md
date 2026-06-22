@@ -16,22 +16,44 @@ Exemples :&#x20;
 
 * Consommation d'électricité pour la cuisson d'un aliment (dépend du poids)
 * Consommation d'eau, de lessive et d'électricité pour le lavage d'un vêtement (dépend du poids)
+  * Cette consommation s'exprime par cycle d'entretien, ce qui correspond à un ou plusieurs jours portés, selon le vêtement
 * Consommation d'électricité pour le repassage d'un vêtement (dépend du type de vêtement, pas du poids)
+  * Cette consommation s'exprime par cycle d'entretien
 * Consommation de carburant d'un véhicule (fournit par le fabricant selon un référentiel normé)
+  * Cette consommation s'exprime pour 100km
 
 ## Méthodes de calcul
 
+### Grands principes
+
+Pour chaque secteur, plusieurs consommables sont proposés, correspondant chacune à un procédé (visible dans l'explorateur)
+
+Les attributs suivants sont attachés à chaque consommable pour définir son utilisation :&#x20;
+
+* `productmassdependent` : définit si la consommation dépend de la masse du produit (cas des cuisson alimentaire par exemple)
+* `unit` : définit l'unité du procédé&#x20;
+* `productdependant` : définit si la quantité est définie par l'utilisateur ou fixée par Ecobalyse
+*
+
+### Formule de calcul
+
 $$
-I_{utilisation} = \sum_iC_{use,i}*m_i*T_{life}*r_{use}*I_{consumable}
+I_{utilisation} = \sum_i{\big(C_{use,i}*m_i*r_{i}*I_{i}\big)}*T_{life}
 $$
 
 Avec :
 
 * `I_utilisation` : l'impact environnemental à l'utilisation d'un produit, dans l'unité de la catégorie d'impact analysée
-* `C_use` : la consommation du consommable `i`, par unité d'utilisation.
-* `I_consumable` : l'impact environnemental du consommable `i` , dans l'unité de la catégorie d'impact analysée
-
-NB : un produit peut avoir plusieurs étapes d'utilisation. La formule est alors à dupliquer et sommer autant de fois que nécessaire.
+* `C_use,i` : la consommation du consommable `i`, par unité d'utilisation. Celle-ci dépend des attribut attachés au consommable
+  * `eleckWh` : définit une quantité d'électricité
+  * `heatMJ` : définit une quantité de chaleur
+  * `productdependant` : valeur fixée l'utilisateur
+  * absence d'attribut : `C_use,i` = 1
+* `m_i` : la masse du produit OU `1` si la consommation ne dépend pas de la masse
+* `r_use,i` : un ratio de conversion entre l'unité de la durée de vie et l'unité d'utilisation du consommable
+  * Ce ratio dépend de la catégorie de produit
+* `I_i` : l'impact environnemental du consommable `i` , dans l'unité de la catégorie d'impact analysée
+* `T_life` : la durée de vie du produit, fixée par catégorie de produit
 
 ## Paramètres retenus pour le coût environnemental
 
