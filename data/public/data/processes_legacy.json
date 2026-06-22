@@ -22440,30 +22440,6 @@
     "unit": "kg"
   },
   {
-    "activityName": "Broccoli {CH}| broccoli production, conventional, plain region | Cut-off, U",
-    "categories": [
-      "ingredient",
-      "material",
-      "material_type:fruits_and_vegetables"
-    ],
-    "comment": "This dataset represents the production of 1 kg of broccoli calculated on a sectoral average of the production of 1 ha with a yield of 8805 kg at a moisture content of 92.0%. The yield is based on average yield from 2017-2021 in Agristat corrected by region and production system differences in AGRIDEA (2021). Modelled crop duration is 3.1 months, preceeded by 8.6 months of non-hibernating green manure crop. The data are representative for conventional broccoli production under tillage in the Swiss plain region. Mineral fertiliser input is 122 kg N, 24 kg P2O5, 83 kg K2O, 1.0 kg Mg. No farm manure has been applied. No organic market fertiliser has been applied.  This dataset was modelled under the aim of a sectoral view on the Swiss Agriculture. The active ingredients applied for plant protection resemble a weighted average mix per crop and not an actual practice on a single farm. Pesticide data from 2018-2020 has been used, originating from the Swiss Agri-Environmental Data Network (SAEDN) (Gilgen et al. 2023). Similarly, farm manure application has been estimated by applying a basic distribution per crop and production system (0% of P2O5 requirement covered with farm manure, based on AGRIDEA 2021) and correcting for the available amount of farm manure in Switzerland that needs to be spread on the cultivated area. The remaining nutrient requirement of the crop is then covered by mineral fertiliser. Machinery operations used for the SALCA emission modelling are taken from LabourScope (Groher et al. 2020), an application for calculating the working-time requirement of labour and production processes (www.labourscope.ch). For the respective inventory modelling, ecoinvent field work processes are used.\n\nProduction volume: 4760901.0 kg\nIncluded activities start: This activity starts after the harvest of the previous crop. A non-hibernating green manure crop is modelled between harvest of the previous crop and soil cultivation of the current crop. Included inputs are seeds (crop and green manure), mineral fertilizer and plant protection products. Activities of soil cultivation, sowing, fertilizer application, farm manure spreading, pest and pathogen control, weed control and harvest are included. Irrigation is included as well.\nIncluded activities end: This activity ends with harvest and transport to the farm gate (2km). Storage and drying of harvest goods/grains not included.\nGeography: The inventory is modelled for Switzerland\nTechnology level: Current\nTechnology: Conventional production\nStart date: 01/01/2017\nEnd date: 31/12/2024\nIs data valid for entire period: True\nTime period: 2017-2023: Yield data have been collected for the years 2017-2021. For Fertilisation, data sources are taken from the years 2017-2022, Pesticide data are used from the years 2018-2020, and Machinery and workprocess data from 2018.\nMacro-economic scenario name: Business-as-Usual\n\nVersion: 3.3.0.0\nCreated: 9/4/24 12:39:33\nLast edited: 10/29/24 4:12:32\nSource: 6ebf1910-2d50-533d-a37e-fc92cd28c31c_d2ad7fe5-59ef-47c9-adff-d7c5ab93ee70.spold\nUUID: 6ebf1910-2d50-533d-a37e-fc92cd28c31c",
-    "displayName": "Broccoli (CH)",
-    "elecMJ": 0,
-    "heatMJ": 0,
-    "id": "5238d98f-4095-59ab-ba43-16734fc0a6c3",
-    "impacts": {
-      "ecs": 77.01
-    },
-    "location": "CH",
-    "massPerUnit": null,
-    "qtyVariationRatio": 1.0,
-    "scopes": [
-      "food"
-    ],
-    "source": "Ecoinvent 3.11",
-    "unit": "kg"
-  },
-  {
     "activityName": "Cauliflower {GLO}| cauliflower production | Cut-off, U",
     "categories": [
       "ingredient",
