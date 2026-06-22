@@ -26,8 +26,7 @@
   ],
   "qtyVariationRatio": 1,
   "scopes": [
-    "textile",
-    "veli"
+    "textile"
   ],
   "source": "Ecoinvent 3.9.1",
   "unit": "kg"
