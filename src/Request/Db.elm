@@ -12,7 +12,7 @@ import Data.Impact as Impact
 import Data.Object.Db as ObjectDb
 import Data.Process as Process
 import Data.Textile.Db as TextileDb
-import Http
+import Http exposing (Error(..))
 import Json.Decode as Decode
 import RemoteData exposing (WebData)
 import Result.Extra as RE
@@ -58,7 +58,7 @@ emptyLoadingState =
     }
 
 
-buildDb : RawJsonData -> Result String StaticDb.Db
+buildDb : RawJsonData -> Result Http.Error (Result String StaticDb.Db)
 buildDb data =
     data.processes
         |> RemoteData.map dbFromHttp
@@ -76,7 +76,7 @@ buildDb data =
         |> RemoteData.andMap data.transports
         |> RemoteData.andMap data.veliComponents
         |> RemoteData.andMap data.veliExamples
-        |> RemoteData.withDefault (Err "Error getting the remote data")
+        |> RemoteData.toResult NetworkError
 
 
 dbFromHttp : String -> String -> String -> String -> String -> String -> String -> String -> String -> String -> String -> String -> String -> String -> String -> Result String StaticDb.Db
@@ -164,19 +164,13 @@ isFullyLoaded data =
 --     | DecodeError Decode.Error
 
 
-updateRawJson : (RawJsonData -> RawJsonData) -> RawJsonData -> ( RawJsonData, Maybe (Result String Db) )
+updateRawJson : (RawJsonData -> RawJsonData) -> RawJsonData -> ( RawJsonData, Maybe (Result Error (Result String Db)) )
 updateRawJson update rawJsonData =
     let
         updated =
             update rawJsonData
     in
-    -- TODO: check fully loaded state
-    -- case fetchRawJsonData of
-    --     RemoteData.Success rawJsonData ->
-    --     RemoteData.Failure httpError ->
-    --         (_, Just (Err <| ))
     if isFullyLoaded updated then
-        -- TODO: construct and return Just the constructed Db
         ( updated, Just <| buildDb updated )
 
     else
