@@ -1,5 +1,7 @@
 module Request.Db exposing
-    ( RawJsonData
+    ( DbError
+    , RawJsonData
+    , dbErrorToString
     , emptyLoadingState
     , getRawJsonString
     , isFullyLoaded
@@ -15,6 +17,7 @@ import Data.Textile.Db as TextileDb
 import Http exposing (Error(..))
 import Json.Decode as Decode
 import RemoteData exposing (WebData)
+import Request.Common as RequestCommon
 import Result.Extra as RE
 import Static.Db as StaticDb exposing (Db)
 
@@ -38,6 +41,11 @@ type alias RawJsonData =
     }
 
 
+type DbError
+    = DecodeError String
+    | FetchError Http.Error
+
+
 emptyLoadingState : RawJsonData
 emptyLoadingState =
     { countries = RemoteData.NotAsked
@@ -58,10 +66,10 @@ emptyLoadingState =
     }
 
 
-buildDb : RawJsonData -> Result Http.Error (Result String StaticDb.Db)
+buildDb : RawJsonData -> Result DbError StaticDb.Db
 buildDb data =
-    data.processes
-        |> RemoteData.map dbFromHttp
+    RemoteData.succeed dbFromHttp
+        |> RemoteData.andMap data.processes
         |> RemoteData.andMap data.countries
         |> RemoteData.andMap data.definitions
         |> RemoteData.andMap data.food2Examples
@@ -77,6 +85,18 @@ buildDb data =
         |> RemoteData.andMap data.veliComponents
         |> RemoteData.andMap data.veliExamples
         |> RemoteData.toResult NetworkError
+        |> Result.mapError FetchError
+        |> Result.andThen (Result.mapError DecodeError)
+
+
+dbErrorToString : DbError -> String
+dbErrorToString error =
+    case error of
+        DecodeError message ->
+            message
+
+        FetchError httpError ->
+            "Erreur de chargement des données distantes\u{202F}: " ++ RequestCommon.errorToString httpError
 
 
 dbFromHttp : String -> String -> String -> String -> String -> String -> String -> String -> String -> String -> String -> String -> String -> String -> String -> Result String StaticDb.Db
@@ -157,14 +177,7 @@ isFullyLoaded data =
         && isLoaded data.veliExamples
 
 
-
--- Ideally, we would want to return a more granular type of error in case decoding or http request fails
--- type CustomError
---     = HttpError Http.Error
---     | DecodeError Decode.Error
-
-
-updateRawJson : (RawJsonData -> RawJsonData) -> RawJsonData -> ( RawJsonData, Maybe (Result Error (Result String Db)) )
+updateRawJson : (RawJsonData -> RawJsonData) -> RawJsonData -> ( RawJsonData, Maybe (Result DbError Db) )
 updateRawJson update rawJsonData =
     let
         updated =

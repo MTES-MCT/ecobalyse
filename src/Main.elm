@@ -31,7 +31,6 @@ import RemoteData exposing (WebData)
 import RemoteData.Http as Http
 import Request.Auth
 import Request.BackendHttp as BackendHttp
-import Request.Common as RequestCommon
 import Request.Db as RequestDb exposing (RawJsonData)
 import Request.Version exposing (VersionData)
 import Route
@@ -420,20 +419,15 @@ updateInitializing initMsg model =
         -- Raw Json Db data received over HTTP
         RawDataReceived sessionConfig updateRaw data ->
             case model.dbLoadingState |> RequestDb.updateRawJson (updateRaw data) of
-                ( rawJsonData, Just (Ok (Ok db)) ) ->
+                ( rawJsonData, Just (Ok db) ) ->
                     ( { model | dbLoadingState = rawJsonData }
                       -- trigger loading the json config over http
                     , ComponentConfig.decode db
                         |> Http.get "/data/components/config.json" (ComponentConfigReceived db sessionConfig)
                     )
 
-                ( rawJsonData, Just (Ok (Err err)) ) ->
-                    ( { model | dbLoadingState = rawJsonData, state = Errored err }
-                    , Cmd.none
-                    )
-
                 ( rawJsonData, Just (Err err) ) ->
-                    ( { model | dbLoadingState = rawJsonData, state = Errored ("Erreur de chargement des données distantes\u{202F}: " ++ RequestCommon.errorToString err) }
+                    ( { model | dbLoadingState = rawJsonData, state = Errored (RequestDb.dbErrorToString err) }
                     , Cmd.none
                     )
 
