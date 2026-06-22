@@ -75,7 +75,7 @@
     "@parcel/transformer-elm": "^2.16.4",
     "@parcel/transformer-image": "^2.16.4",
     "@parcel/transformer-sass": "^2.16.4",
-    "@playwright/test": "^1.60.0",
+    "@playwright/test": "^1.61.0",
     "@types/node": "^25.9.3",
     "ajv-cli": "^5.0.0",
     "ajv-formats": "^3.0.1",
