@@ -55,9 +55,7 @@ const elmWithFixtures = elmTemplate
   .replace("%impactsJson%", parseAndValidate("public/data/impacts.json"))
   .replace(
     "%processesJson%",
-    parseAndValidate(NODE_ENV === "test" ? dataFiles.detailed : dataFiles.noDetails, "id", [
-      NODE_ENV === "test" ? dataFiles.genericDetailed : dataFiles.genericNoDetails,
-    ]),
+    parseAndValidate(NODE_ENV === "test" ? dataFiles.detailed : dataFiles.noDetails, "id"),
   )
   .replace("%transportsJson%", parseAndValidate("public/data/transports.json"))
   // Food JSON data
