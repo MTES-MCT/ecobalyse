@@ -1508,7 +1508,7 @@
     ],
     "id": "b99b2141-12c8-4a33-bd16-4f9fa10eb3ae",
     "name": "Tissu 1kg (50%coton 50%polyester)",
-    "scopes": ["object"]
+    "scopes": ["object", "veli"]
   },
   {
     "comment": null,

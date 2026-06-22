@@ -20,8 +20,7 @@
   ],
   "qtyVariationRatio": 1,
   "scopes": [
-    "object",
-    "veli"
+    "object"
   ],
   "source": "Ecoinvent 3.9.1",
   "unit": "kg"
