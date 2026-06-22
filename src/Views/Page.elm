@@ -116,7 +116,7 @@ commonNotices msg activePage =
         Food ->
             Notice.info
                 [ Icon.info
-                , Markdown.simple [] "**Méthodologie validée.** Calculette en cours de développement"
+                , Markdown.simple [] "**Méthodologie stabilisée.** Calculette en cours de développement"
                 ]
 
         Object (Scope.Generic Scope.Food2) ->
