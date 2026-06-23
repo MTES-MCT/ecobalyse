@@ -1,6 +1,7 @@
 module Views.Page exposing
     ( ActivePage(..)
     , Config
+    , errored
     , frame
     , loading
     , notFound
@@ -611,6 +612,21 @@ notificationView { clientUrl, toMsg } notification =
                 , level = Alert.Info
                 , title = Just "Problème de récupération de la session"
                 }
+
+
+errored : String -> Html msg
+errored error =
+    Container.centered [ class "pb-5" ]
+        [ h1 [ class "mb-3" ] [ text "Erreur" ]
+        , Alert.simple
+            { attributes = []
+            , close = Nothing
+            , content = [ text error ]
+            , level = Alert.Danger
+            , title = Nothing
+            }
+        , a [ Route.href Route.Home ] [ text "Retour à l'accueil" ]
+        ]
 
 
 notFound : Html msg

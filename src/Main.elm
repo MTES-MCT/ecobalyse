@@ -637,30 +637,30 @@ subscriptions { state } =
 
 view : Model -> Document Msg
 view { dbLoadingState, flags, mobileNavigationOpened, state, tray } =
+    let
+        defaultPageConfig =
+            { activePage = Page.Other
+            , clientUrl = flags.clientUrl
+            , currentVersion = Version.Unknown
+            , enabledSections = flags.enabledSections
+            , hasAccessToDetailedImpacts = False
+            , isAuthenticated = False
+            , isSuperuser = False
+            , mobileNavigationOpened = mobileNavigationOpened
+            , notifications = []
+            , toMsg = AppMsg
+            , tray = tray
+            }
+    in
     case state of
         Errored error ->
-            -- FIXME: proper error page
-            { body =
-                [ Html.h1 [] [ Html.text <| "Erreur" ]
-                , Html.pre [] [ Html.text error ]
-                ]
-            , title = "Erreur"
-            }
+            Page.frame defaultPageConfig
+                ( "Erreur"
+                , [ Page.errored error ]
+                )
 
         Initializing ->
-            Page.frame
-                { activePage = Page.Other
-                , clientUrl = flags.clientUrl
-                , currentVersion = Version.Unknown
-                , enabledSections = flags.enabledSections
-                , hasAccessToDetailedImpacts = False
-                , isAuthenticated = False
-                , isSuperuser = False
-                , mobileNavigationOpened = mobileNavigationOpened
-                , notifications = []
-                , toMsg = AppMsg
-                , tray = tray
-                }
+            Page.frame defaultPageConfig
                 ( "Chargement des données Ecobalyse"
                 , [ Page.loading <| Just (RequestDb.getProgress dbLoadingState)
                   ]
@@ -670,17 +670,14 @@ view { dbLoadingState, flags, mobileNavigationOpened, state, tray } =
             let
                 frame activePage =
                     Page.frame
-                        { activePage = activePage
-                        , clientUrl = session.clientUrl
-                        , currentVersion = session.currentVersion
-                        , enabledSections = session.enabledSections
-                        , hasAccessToDetailedImpacts = Session.hasAccessToDetailedImpacts session
-                        , isAuthenticated = Session.isAuthenticated session
-                        , isSuperuser = Session.isSuperuser session
-                        , mobileNavigationOpened = mobileNavigationOpened
-                        , notifications = session.notifications
-                        , toMsg = AppMsg
-                        , tray = tray
+                        { defaultPageConfig
+                            | activePage = activePage
+                            , currentVersion = session.currentVersion
+                            , hasAccessToDetailedImpacts = Session.hasAccessToDetailedImpacts session
+                            , isAuthenticated = Session.isAuthenticated session
+                            , isSuperuser = Session.isSuperuser session
+                            , notifications = session.notifications
+                            , tray = tray
                         }
 
                 mapMsg msg ( title, content ) =
