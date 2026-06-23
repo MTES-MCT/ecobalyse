@@ -45,33 +45,34 @@ $$
 Avec :
 
 * `I_utilisation` : l'impact environnemental à l'utilisation d'un produit, dans l'unité de la catégorie d'impact analysée
-* `C_use,i,current` : la consommation du consommable `i`, par unité d'utilisation. Celle-ci dépend des attribut attachés au consommable
-* `E_use,i` = `eleckWh`  et/ou `heatMJ` : quantité d'électricité consommée&#x20;
-  * `heatMJ` : définit une quantité de chaleur
+* `C_use,i,current` : la consommation du consommable `i`, par unité d'utilisation. Celle-ci dépend des attributs attachés au consommable :
   * `productdependant` : valeur fixée l'utilisateur
   * absence d'attribut : `C_use,i` = 1
+* `E_use,i` = `eleckWh`  et/ou `heatMJ` : quantité d'électricité consommée&#x20;
 * `m_i` : la masse du produit OU `1` si la consommation ne dépend pas de la masse&#x20;
 * `I_i` : l'impact environnemental du consommable `i` , dans l'unité de la catégorie d'impact analysée (hors énergie)
+  * Dans de nombreux cas où seuls de l'électricité et de la chaleur sont appelé, `I_i` = 0
 * `I_Energy` : l'impact environnemental de l'électricité ou de la chaleur, dans l'unité de la catégorie d'impact analysée
 
 ### Formule de calcul projetée
 
 $$
-I_{utilisation} = \sum_i{m_i*\big(C_{use,i,futur}*r_{i}*I_{i}+E_{use,i}*I_{Energy}\big)}*T_{life}
+I_{utilisation} = \sum_i{m_i*r_{i}*\big(C_{use,i,futur}*I_{i}+E_{use,i}*I_{Energy}\big)}*T_{life}
 $$
 
 Avec :
 
 * `I_utilisation` : l'impact environnemental à l'utilisation d'un produit, dans l'unité de la catégorie d'impact analysée
-* `C_use,i,future` : la consommation du consommable `i`, par unité d'utilisation. Celle-ci dépend des attribut attachés au consommable
-  * `eleckWh` : définit une quantité d'électricité
-  * `heatMJ` : définit une quantité de chaleur
+* `C_use,i,future` : la consommation du consommable `i`, par unité d'utilisation. Celle-ci dépend des attributs attachés au consommable :&#x20;
   * `productdependant` : valeur fixée l'utilisateur
   * absence d'attribut : `C_use,i` = 1
+* `E_use,i` = `eleckWh`  et/ou `heatMJ` : quantité d'électricité consommée&#x20;
 * `m_i` : la masse du produit OU `1` si la consommation ne dépend pas de la masse
 * `r_use,i` : un ratio de conversion entre l'unité de la durée de vie et l'unité d'utilisation du consommable
   * Ce ratio dépend de la catégorie de produit
 * `I_i` : l'impact environnemental du consommable `i` , dans l'unité de la catégorie d'impact analysée
+  * Dans de nombreux cas où seuls de l'électricité et de la chaleur sont appelé, `I_i` = 0
+* `I_Energy` : l'impact environnemental de l'électricité ou de la chaleur, dans l'unité de la catégorie d'impact analysée
 * `T_life` : la durée de vie du produit, fixée par catégorie de produit
 
 ## Paramètres retenus pour le coût environnemental
