@@ -24229,10 +24229,11 @@
     "activityName": "polymethyl methacrylate, beads//[RoW] polymethyl methacrylate production, beads",
     "categories": [
       "material",
-      "textile_material"
+      "textile_material",
+      "material_type:composites"
     ],
     "comment": "Ancien identifiant (12/2024): 75b27555d86fe1c66686cdf4339efc89.",
-    "displayName": "Polyméthacrylate de méthyle (Plexiglas®)",
+    "displayName": "Acrylique",
     "elecMJ": 0,
     "heatMJ": 0,
     "id": "89bd29cf-9ae0-5cf0-825d-8a6d4a73a34f",

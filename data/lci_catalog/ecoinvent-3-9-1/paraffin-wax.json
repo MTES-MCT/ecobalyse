@@ -13,15 +13,13 @@
     {
       "id": "e476467c-2bae-43a6-8fab-450a888543b8",
       "scopes": [
-        "object",
-        "veli"
+        "object"
       ]
     }
   ],
   "qtyVariationRatio": 1,
   "scopes": [
-    "object",
-    "veli"
+    "object"
   ],
   "source": "Ecoinvent 3.9.1",
   "unit": "kg"
