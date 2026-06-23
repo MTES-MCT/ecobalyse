@@ -122,7 +122,7 @@ init : Flags -> Url -> Nav.Key -> ( Model, Cmd Msg )
 init flags requestedUrl navKey =
     setRoute requestedUrl
         ( { db = Err "Not loaded"
-          , dbLoadingState = RequestDb.emptyLoadingState
+          , dbLoadingState = RequestDb.initLoadingState
           , mobileNavigationOpened = False
           , navKey = navKey
           , state = Initializing
