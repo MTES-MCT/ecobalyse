@@ -30,8 +30,8 @@ type Level
     | Warning
 
 
-backendError : Maybe Session -> Maybe msg -> BackendError.Error -> Html msg
-backendError maybeSession close error =
+backendError : Session -> Maybe msg -> BackendError.Error -> Html msg
+backendError session close error =
     let
         { detail, headers, statusCode, title, url } =
             BackendError.mapErrorResponse error
@@ -94,9 +94,7 @@ backendError maybeSession close error =
                 , reportErrorLink <| detail ++ " " ++ plainTextError
                 ]
             , div [ class "fs-8 text-muted" ]
-                [ maybeSession
-                    |> Maybe.map (\session -> em [] [ text <| "Backend url: " ++ session.clientUrl ++ "/backend/api" ])
-                    |> Maybe.withDefault (text "Chargement des informations…")
+                [ em [] [ text <| "Backend url: " ++ session.clientUrl ++ "/backend/api" ]
                 ]
             ]
         , level = Danger
