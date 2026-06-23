@@ -684,13 +684,7 @@ restricted =
 loading : Maybe ( Int, Int ) -> Html msg
 loading progress =
     Container.centered [ class "pb-5" ]
-        [ Spinner.view
-        , case progress of
-            Just ( loaded, total ) ->
-                Html.div [] [ Html.text <| String.fromInt loaded ++ "/" ++ String.fromInt total ]
-
-            Nothing ->
-                text ""
+        [ Spinner.view progress
         ]
 
 
