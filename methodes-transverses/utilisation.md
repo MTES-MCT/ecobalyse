@@ -83,9 +83,10 @@ Avec :
 
 Les procédés sont indiqués dans l'[Explorateur de procédé](https://ecobalyse.beta.gouv.fr/#/explore/textile/textile-processes) de chaque secteur.
 
-Lorsqu'une consommation d'électricité est appelée, Ecobalyse utilise les procédés Ecoinvent basse tension du pays considérés, en l’occurrence la France : _market for electricity, low voltage, FR_
+Précision sur les procédés `I_Energy` :&#x20;
 
-Lorsqu'une consommation de chaleur est appelée, Ecobalyse utilise un procédé construit "Chaleur Europe", décrit dans la [page relative à l'énergie consommée au étape de transformation](https://fabrique-numerique.gitbook.io/ecobalyse/~/revisions/lSaq6DJynGgBREOg7dWI/methodes-transverses/composants/energies-des-etapes-de-transformation).
+* Lorsqu'une consommation d'électricité est appelée, Ecobalyse utilise les procédés Ecoinvent basse tension du pays considérés, en l’occurrence la France : _market for electricity, low voltage, FR_
+* Lorsqu'une consommation de chaleur est appelée, Ecobalyse utilise un procédé construit "Chaleur Europe", décrit dans la [page relative à l'énergie consommée au étape de transformation](https://fabrique-numerique.gitbook.io/ecobalyse/~/revisions/lSaq6DJynGgBREOg7dWI/methodes-transverses/composants/energies-des-etapes-de-transformation).
 
 ## Exemple d'application
 
