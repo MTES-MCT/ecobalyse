@@ -42,7 +42,7 @@
   * [✈️ Transport par avion - prise en compte des trainées](methodes-transverses/transport/modelisation-fret-aerien.md)
 * [💡 Electricité à l'utilisation](methodes-transverses/electricite-a-lutilisation.md)
 * [⌛ Utilisation](methodes-transverses/utilisation.md)
-* [🗑️ Fin de vie des produits](methodes-transverses/fin-de-vie-des-produits.md)
+* [🗑️ Fin de vie des produits](methodes-transverses/fin-de-vie.md)
 
 ## 🍕 Alimentaire
 
