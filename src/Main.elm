@@ -230,7 +230,7 @@ requireSuperuser session ( model, cmds ) =
 
 
 setRoute : Url -> ( Model, Cmd Msg ) -> ( Model, Cmd Msg )
-setRoute url ( { dbLoadingState, state } as model, cmds ) =
+setRoute url ( { state } as model, cmds ) =
     case state of
         Errored _ ->
             -- FIXME: Static database decoding error, highly unlikely to ever happen
@@ -240,100 +240,94 @@ setRoute url ( { dbLoadingState, state } as model, cmds ) =
             ( model, cmds )
 
         Loaded session _ ->
-            if RequestDb.isFullyLoaded dbLoadingState then
-                case Route.fromUrl url of
-                    Just (Route.Admin AdminSection.AccountSection) ->
-                        AccountAdmin.init session AdminSection.AccountSection
-                            |> toPage session model cmds AccountAdminPage AccountAdminMsg
-                            |> requireSuperuser session
+            case Route.fromUrl url of
+                Just (Route.Admin AdminSection.AccountSection) ->
+                    AccountAdmin.init session AdminSection.AccountSection
+                        |> toPage session model cmds AccountAdminPage AccountAdminMsg
+                        |> requireSuperuser session
 
-                    Just (Route.Admin AdminSection.ComponentSection) ->
-                        ComponentAdmin.init session AdminSection.ComponentSection
-                            |> toPage session model cmds ComponentAdminPage ComponentAdminMsg
-                            |> requireSuperuser session
+                Just (Route.Admin AdminSection.ComponentSection) ->
+                    ComponentAdmin.init session AdminSection.ComponentSection
+                        |> toPage session model cmds ComponentAdminPage ComponentAdminMsg
+                        |> requireSuperuser session
 
-                    Just (Route.Admin AdminSection.ProcessSection) ->
-                        ProcessAdmin.init session AdminSection.ProcessSection
-                            |> toPage session model cmds ProcessAdminPage ProcessAdminMsg
-                            |> requireSuperuser session
+                Just (Route.Admin AdminSection.ProcessSection) ->
+                    ProcessAdmin.init session AdminSection.ProcessSection
+                        |> toPage session model cmds ProcessAdminPage ProcessAdminMsg
+                        |> requireSuperuser session
 
-                    Just Route.Api ->
-                        Api.init session
-                            |> toPage session model cmds ApiPage ApiMsg
+                Just Route.Api ->
+                    Api.init session
+                        |> toPage session model cmds ApiPage ApiMsg
 
-                    Just Route.Auth ->
-                        Auth.init session
-                            |> toPage session model cmds AuthPage AuthMsg
+                Just Route.Auth ->
+                    Auth.init session
+                        |> toPage session model cmds AuthPage AuthMsg
 
-                    Just (Route.AuthLogin email token) ->
-                        Auth.initLogin session email token
-                            |> toPage session model cmds AuthPage AuthMsg
+                Just (Route.AuthLogin email token) ->
+                    Auth.initLogin session email token
+                        |> toPage session model cmds AuthPage AuthMsg
 
-                    Just Route.AuthSignup ->
-                        Auth.initSignup session
-                            |> toPage session model cmds AuthPage AuthMsg
+                Just Route.AuthSignup ->
+                    Auth.initSignup session
+                        |> toPage session model cmds AuthPage AuthMsg
 
-                    Just (Route.Editorial slug) ->
-                        Editorial.init slug session
-                            |> toPage session model cmds EditorialPage EditorialMsg
+                Just (Route.Editorial slug) ->
+                    Editorial.init slug session
+                        |> toPage session model cmds EditorialPage EditorialMsg
 
-                    Just (Route.Explore scope dataset) ->
-                        Explore.init scope dataset session
-                            |> toPage session model cmds ExplorePage ExploreMsg
+                Just (Route.Explore scope dataset) ->
+                    Explore.init scope dataset session
+                        |> toPage session model cmds ExplorePage ExploreMsg
 
-                    Just (Route.FoodBuilder trigram maybeQuery) ->
-                        FoodBuilder.init session trigram maybeQuery
-                            |> toPage session model cmds FoodBuilderPage FoodBuilderMsg
+                Just (Route.FoodBuilder trigram maybeQuery) ->
+                    FoodBuilder.init session trigram maybeQuery
+                        |> toPage session model cmds FoodBuilderPage FoodBuilderMsg
 
-                    Just (Route.FoodBuilderExample uuid) ->
-                        FoodBuilder.initFromExample session uuid
-                            |> toPage session model cmds FoodBuilderPage FoodBuilderMsg
+                Just (Route.FoodBuilderExample uuid) ->
+                    FoodBuilder.initFromExample session uuid
+                        |> toPage session model cmds FoodBuilderPage FoodBuilderMsg
 
-                    Just Route.FoodBuilderHome ->
-                        FoodBuilder.init session Impact.default Nothing
-                            |> toPage session model cmds FoodBuilderPage FoodBuilderMsg
+                Just Route.FoodBuilderHome ->
+                    FoodBuilder.init session Impact.default Nothing
+                        |> toPage session model cmds FoodBuilderPage FoodBuilderMsg
 
-                    Just Route.Home ->
-                        Home.init session
-                            |> toPage session model cmds HomePage HomeMsg
+                Just Route.Home ->
+                    Home.init session
+                        |> toPage session model cmds HomePage HomeMsg
 
-                    Just (Route.ObjectSimulator scope trigram maybeQuery) ->
-                        ObjectSimulator.init scope trigram maybeQuery session
-                            |> toPage session model cmds ObjectSimulatorPage ObjectSimulatorMsg
+                Just (Route.ObjectSimulator scope trigram maybeQuery) ->
+                    ObjectSimulator.init scope trigram maybeQuery session
+                        |> toPage session model cmds ObjectSimulatorPage ObjectSimulatorMsg
 
-                    Just (Route.ObjectSimulatorExample scope uuid) ->
-                        ObjectSimulator.initFromExample session scope uuid
-                            |> toPage session model cmds ObjectSimulatorPage ObjectSimulatorMsg
+                Just (Route.ObjectSimulatorExample scope uuid) ->
+                    ObjectSimulator.initFromExample session scope uuid
+                        |> toPage session model cmds ObjectSimulatorPage ObjectSimulatorMsg
 
-                    Just (Route.ObjectSimulatorHome scope) ->
-                        ObjectSimulator.init scope Impact.default Nothing session
-                            |> toPage session model cmds ObjectSimulatorPage ObjectSimulatorMsg
+                Just (Route.ObjectSimulatorHome scope) ->
+                    ObjectSimulator.init scope Impact.default Nothing session
+                        |> toPage session model cmds ObjectSimulatorPage ObjectSimulatorMsg
 
-                    Just Route.Stats ->
-                        Stats.init session
-                            |> toPage session model cmds StatsPage StatsMsg
+                Just Route.Stats ->
+                    Stats.init session
+                        |> toPage session model cmds StatsPage StatsMsg
 
-                    Just (Route.TextileSimulator trigram maybeQuery) ->
-                        TextileSimulator.init trigram maybeQuery session
-                            |> toPage session model cmds TextileSimulatorPage TextileSimulatorMsg
+                Just (Route.TextileSimulator trigram maybeQuery) ->
+                    TextileSimulator.init trigram maybeQuery session
+                        |> toPage session model cmds TextileSimulatorPage TextileSimulatorMsg
 
-                    Just (Route.TextileSimulatorExample uuid) ->
-                        TextileSimulator.initFromExample session uuid
-                            |> toPage session model cmds TextileSimulatorPage TextileSimulatorMsg
+                Just (Route.TextileSimulatorExample uuid) ->
+                    TextileSimulator.initFromExample session uuid
+                        |> toPage session model cmds TextileSimulatorPage TextileSimulatorMsg
 
-                    Just Route.TextileSimulatorHome ->
-                        TextileSimulator.init Impact.default Nothing session
-                            |> toPage session model cmds TextileSimulatorPage TextileSimulatorMsg
+                Just Route.TextileSimulatorHome ->
+                    TextileSimulator.init Impact.default Nothing session
+                        |> toPage session model cmds TextileSimulatorPage TextileSimulatorMsg
 
-                    Nothing ->
-                        ( { model | state = Loaded session NotFoundPage }
-                        , Cmd.none
-                        )
-
-            else
-                ( { model | state = Loaded session LoadingPage }
-                , cmds
-                )
+                Nothing ->
+                    ( { model | state = Loaded session NotFoundPage }
+                    , Cmd.none
+                    )
 
 
 updateInitializing : Msg -> Model -> ( Model, Cmd Msg )

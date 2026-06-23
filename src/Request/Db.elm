@@ -6,7 +6,6 @@ module Request.Db exposing
     , fetchJson
     , getProgress
     , initLoadingState
-    , isFullyLoaded
     , updateRawJson
     )
 
@@ -137,11 +136,6 @@ getProgress state =
         |> List.length
     , List.length propGetters
     )
-
-
-isFullyLoaded : LoadingState -> Bool
-isFullyLoaded =
-    resolve >> RemoteData.isSuccess
 
 
 initLoadingState : LoadingState
