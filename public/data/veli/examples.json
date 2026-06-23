@@ -3192,7 +3192,7 @@
       ],
       "consumptions": [
         {
-          "amount": 5000,
+          "amount": 12000,
           "processId": "eec31f13-d00a-4741-a84f-85d887026f8c"
         }
       ],
@@ -3360,7 +3360,7 @@
       ],
       "consumptions": [
         {
-          "amount": 5000,
+          "amount": 12000,
           "processId": "eec31f13-d00a-4741-a84f-85d887026f8c"
         }
       ],
