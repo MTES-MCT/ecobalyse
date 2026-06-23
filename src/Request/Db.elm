@@ -22,23 +22,35 @@ import Result.Extra as RE
 import Static.Db as StaticDb exposing (Db)
 
 
-type alias LoadingState =
-    { countries : WebData String
-    , definitions : WebData String
-    , food2Examples : WebData String
-    , foodIngredients : WebData String
-    , foodProductExamples : WebData String
-    , objectComponents : WebData String
-    , objectExamples : WebData String
-    , processes : WebData String
-    , textileComponents : WebData String
-    , textileMaterials : WebData String
-    , textileProductExamples : WebData String
-    , textileProducts : WebData String
-    , transports : WebData String
-    , veliComponents : WebData String
-    , veliExamples : WebData String
+type alias Properties a =
+    { countries : a
+    , definitions : a
+    , food2Examples : a
+    , foodIngredients : a
+    , foodProductExamples : a
+    , objectComponents : a
+    , objectExamples : a
+    , processes : a
+    , textileComponents : a
+    , textileMaterials : a
+    , textileProductExamples : a
+    , textileProducts : a
+    , transports : a
+    , veliComponents : a
+    , veliExamples : a
     }
+
+
+type alias LoadingState =
+    Properties (WebData RawJsonString)
+
+
+type alias RawJsonString =
+    String
+
+
+type alias RawJsonStrings =
+    Properties String
 
 
 type DbError
@@ -64,6 +76,28 @@ emptyLoadingState =
     , veliComponents = RemoteData.NotAsked
     , veliExamples = RemoteData.NotAsked
     }
+
+
+{-| Build a RawJsonStrings record from a LoadingState.
+-}
+resolve : LoadingState -> RemoteData.WebData RawJsonStrings
+resolve data =
+    RemoteData.succeed Properties
+        |> RemoteData.andMap data.processes
+        |> RemoteData.andMap data.countries
+        |> RemoteData.andMap data.definitions
+        |> RemoteData.andMap data.food2Examples
+        |> RemoteData.andMap data.foodIngredients
+        |> RemoteData.andMap data.foodProductExamples
+        |> RemoteData.andMap data.objectComponents
+        |> RemoteData.andMap data.objectExamples
+        |> RemoteData.andMap data.textileComponents
+        |> RemoteData.andMap data.textileMaterials
+        |> RemoteData.andMap data.textileProductExamples
+        |> RemoteData.andMap data.textileProducts
+        |> RemoteData.andMap data.transports
+        |> RemoteData.andMap data.veliComponents
+        |> RemoteData.andMap data.veliExamples
 
 
 buildDb : LoadingState -> Result DbError StaticDb.Db
@@ -137,6 +171,48 @@ dbFromJsonStrings processesJson countriesJson definitionsJson food2ExamplesJson 
                                 textileProductExamplesJson
                                 textileMaterialsJson
                                 textileProductsJson
+                        )
+            )
+
+
+dbFromRawJsonStrings : RawJsonStrings -> Result String StaticDb.Db
+dbFromRawJsonStrings json =
+    json.processes
+        |> Decode.decodeString (Process.decodeList Impact.decodeImpacts)
+        |> Result.mapError Decode.errorToString
+        |> Result.andThen
+            (\processes ->
+                Ok StaticDb.Db
+                    |> RE.andMap
+                        (StaticDb.decodeRawComponents
+                            { food2Components = """[]"""
+                            , objectComponents = json.objectComponents
+                            , textileComponents = json.textileComponents
+                            , veliComponents = json.veliComponents
+                            }
+                        )
+                    |> RE.andMap (Common.countriesFromJson processes json.countries)
+                    |> RE.andMap (Common.impactsFromJson json.definitions)
+                    |> RE.andMap (Common.transportsFromJson json.transports)
+                    |> RE.andMap
+                        (processes
+                            |> FoodDb.buildFromJson
+                                json.foodProductExamples
+                                json.foodIngredients
+                        )
+                    |> RE.andMap
+                        (ObjectDb.buildFromJson
+                            json.food2Examples
+                            json.objectExamples
+                            json.veliExamples
+                        )
+                    |> RE.andMap (Ok processes)
+                    |> RE.andMap
+                        (processes
+                            |> TextileDb.buildFromJson
+                                json.textileProductExamples
+                                json.textileMaterials
+                                json.textileProducts
                         )
             )
 
