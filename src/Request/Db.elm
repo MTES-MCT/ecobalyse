@@ -3,8 +3,8 @@ module Request.Db exposing
     , LoadingState
     , RawJsonString
     , dbErrorToString
+    , fetchJson
     , getProgress
-    , getRawJsonString
     , initLoadingState
     , isFullyLoaded
     , updateRawJson
@@ -117,17 +117,8 @@ extractJsonString (RawJsonString string) =
     string
 
 
-getProgress : LoadingState -> ( Int, Int )
-getProgress state =
-    ( propGetters
-        |> List.filter (\getter -> getter state |> RemoteData.isSuccess |> not)
-        |> List.length
-    , List.length propGetters
-    )
-
-
-getRawJsonString : String -> (WebData RawJsonString -> msg) -> Cmd msg
-getRawJsonString path event =
+fetchJson : String -> (WebData RawJsonString -> msg) -> Cmd msg
+fetchJson path event =
     Http.get
         { expect =
             Http.expectString
@@ -137,6 +128,15 @@ getRawJsonString path event =
                 )
         , url = path
         }
+
+
+getProgress : LoadingState -> ( Int, Int )
+getProgress state =
+    ( propGetters
+        |> List.filter (\getter -> getter state |> RemoteData.isSuccess)
+        |> List.length
+    , List.length propGetters
+    )
 
 
 isFullyLoaded : LoadingState -> Bool

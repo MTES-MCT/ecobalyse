@@ -38,7 +38,6 @@ import Static.Db as StaticDb exposing (Db)
 import Toast
 import Url exposing (Url)
 import Views.Page as Page
-import Views.Spinner as Spinner
 
 
 type alias Flags =
@@ -138,82 +137,26 @@ init flags requestedUrl navKey =
         )
 
 
-
--- (case
---     StaticDb.db StaticJson.processesJson
---         |> Result.andThen
---             (\db ->
---                 Component.defaultConfig db
---                     |> Result.map (Tuple.pair db)
---             )
---  of
---     Err err ->
---         ( { db = Err "Not loaded"
---           , dbLoadingState = RequestDb.emptyLoadingState
---           , mobileNavigationOpened = False
---           , navKey = navKey
---           , state = Errored err
---           , tray = Toast.tray
---           , url = requestedUrl
---           }
---         , Cmd.none
---         )
---
---     Ok ( db, componentConfig ) ->
---         let
---             session =
---                 setupSession navKey flags db componentConfig
---         in
---         ( { db = Err "Not loaded"
---           , dbLoadingState = RequestDb.emptyLoadingState
---           , mobileNavigationOpened = False
---           , navKey = navKey
---           , state = Loaded session LoadingPage
---           , tray = Toast.tray
---           , url = requestedUrl
---           }
---         , Cmd.batch
---             [ Ports.appStarted ()
---             , Request.Version.loadVersion VersionReceived
---             , if Session.isAuthenticated session then
---                 Request.Auth.processes session (DetailedProcessesReceived requestedUrl)
---
---               else
---                 ComponentConfig.decode db
---                     |> Http.get "/data/components/config.json" (ComponentConfigReceived requestedUrl)
---             , Plausible.send session <| Plausible.PageViewed requestedUrl
---             , loadData requestedUrl
---             ]
---         )
--- )
-
-
-{-| The plan is to trigger many http requests in parallel, using Cmd.batch, each one fetching a raw json
-file (as unparsed content string), store them in a data structure holding all the WebData states, then
-when all the requests are resolved, create the Db reusing `StaticDb.db`
-
-Note: the initial load time might be important so we may want to render a loader/progress bar, with each
-pending webdata being a part of the total events (eg. "step 3/7" when 3 webdatas are already loaded)
-
+{-| Loads Db raw json files in parallel.
 -}
 loadData : SessionConfig -> Cmd Msg
 loadData sessionConfig =
     Cmd.batch
-        [ RequestDb.getRawJsonString "/data/countries.json" <| RawDataReceived sessionConfig (\data raw -> { raw | countries = data })
-        , RequestDb.getRawJsonString "/data/impacts.json" <| RawDataReceived sessionConfig (\data raw -> { raw | definitions = data })
-        , RequestDb.getRawJsonString "/data/food2/examples.json" <| RawDataReceived sessionConfig (\data raw -> { raw | food2Examples = data })
-        , RequestDb.getRawJsonString "/data/food/ingredients.json" <| RawDataReceived sessionConfig (\data raw -> { raw | foodIngredients = data })
-        , RequestDb.getRawJsonString "/data/food/examples.json" <| RawDataReceived sessionConfig (\data raw -> { raw | foodProductExamples = data })
-        , RequestDb.getRawJsonString "/data/object/components.json" <| RawDataReceived sessionConfig (\data raw -> { raw | objectComponents = data })
-        , RequestDb.getRawJsonString "/data/object/examples.json" <| RawDataReceived sessionConfig (\data raw -> { raw | objectExamples = data })
-        , RequestDb.getRawJsonString "/data/processes.json" <| RawDataReceived sessionConfig (\data raw -> { raw | processes = data })
-        , RequestDb.getRawJsonString "/data/textile/components.json" <| RawDataReceived sessionConfig (\data raw -> { raw | textileComponents = data })
-        , RequestDb.getRawJsonString "/data/textile/examples.json" <| RawDataReceived sessionConfig (\data raw -> { raw | textileProductExamples = data })
-        , RequestDb.getRawJsonString "/data/textile/materials.json" <| RawDataReceived sessionConfig (\data raw -> { raw | textileMaterials = data })
-        , RequestDb.getRawJsonString "/data/textile/products.json" <| RawDataReceived sessionConfig (\data raw -> { raw | textileProducts = data })
-        , RequestDb.getRawJsonString "/data/transports.json" <| RawDataReceived sessionConfig (\data raw -> { raw | transports = data })
-        , RequestDb.getRawJsonString "/data/veli/components.json" <| RawDataReceived sessionConfig (\data raw -> { raw | veliComponents = data })
-        , RequestDb.getRawJsonString "/data/veli/examples.json" <| RawDataReceived sessionConfig (\data raw -> { raw | veliExamples = data })
+        [ RequestDb.fetchJson "/data/countries.json" <| RawDataReceived sessionConfig (\data raw -> { raw | countries = data })
+        , RequestDb.fetchJson "/data/impacts.json" <| RawDataReceived sessionConfig (\data raw -> { raw | definitions = data })
+        , RequestDb.fetchJson "/data/food2/examples.json" <| RawDataReceived sessionConfig (\data raw -> { raw | food2Examples = data })
+        , RequestDb.fetchJson "/data/food/ingredients.json" <| RawDataReceived sessionConfig (\data raw -> { raw | foodIngredients = data })
+        , RequestDb.fetchJson "/data/food/examples.json" <| RawDataReceived sessionConfig (\data raw -> { raw | foodProductExamples = data })
+        , RequestDb.fetchJson "/data/object/components.json" <| RawDataReceived sessionConfig (\data raw -> { raw | objectComponents = data })
+        , RequestDb.fetchJson "/data/object/examples.json" <| RawDataReceived sessionConfig (\data raw -> { raw | objectExamples = data })
+        , RequestDb.fetchJson "/data/processes.json" <| RawDataReceived sessionConfig (\data raw -> { raw | processes = data })
+        , RequestDb.fetchJson "/data/textile/components.json" <| RawDataReceived sessionConfig (\data raw -> { raw | textileComponents = data })
+        , RequestDb.fetchJson "/data/textile/examples.json" <| RawDataReceived sessionConfig (\data raw -> { raw | textileProductExamples = data })
+        , RequestDb.fetchJson "/data/textile/materials.json" <| RawDataReceived sessionConfig (\data raw -> { raw | textileMaterials = data })
+        , RequestDb.fetchJson "/data/textile/products.json" <| RawDataReceived sessionConfig (\data raw -> { raw | textileProducts = data })
+        , RequestDb.fetchJson "/data/transports.json" <| RawDataReceived sessionConfig (\data raw -> { raw | transports = data })
+        , RequestDb.fetchJson "/data/veli/components.json" <| RawDataReceived sessionConfig (\data raw -> { raw | veliComponents = data })
+        , RequestDb.fetchJson "/data/veli/examples.json" <| RawDataReceived sessionConfig (\data raw -> { raw | veliExamples = data })
         ]
 
 
@@ -717,16 +660,10 @@ view { dbLoadingState, mobileNavigationOpened, state, tray } =
                         , toMsg = AppMsg
                         , tray = tray
                         }
-
-                ( loaded, total ) =
-                    RequestDb.getProgress dbLoadingState
             in
             frame Page.Other
                 ( "Chargement des données Ecobalyse"
-                , [ Spinner.view
-
-                  -- TODO: style this
-                  , Html.div [] [ Html.text <| String.fromInt loaded ++ "/" ++ String.fromInt total ]
+                , [ Page.loading (Just <| RequestDb.getProgress dbLoadingState)
                   ]
                 )
 
@@ -786,7 +723,7 @@ view { dbLoadingState, mobileNavigationOpened, state, tray } =
                         |> frame Page.Home
 
                 LoadingPage ->
-                    ( "Chargement…", [ Page.loading ] )
+                    ( "Chargement…", [ Page.loading Nothing ] )
                         |> frame Page.Other
 
                 NotFoundPage ->
