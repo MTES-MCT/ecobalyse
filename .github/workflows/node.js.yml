@@ -7,7 +7,6 @@ env:
   NODE_ENV: test
   TRANSCRYPT_KEY: ${{ secrets.TRANSCRYPT_KEY }}
   ENCRYPTION_KEY: ${{ secrets.ENCRYPTION_KEY }}
-  BACKEND_API_URL: http://localhost:1234/backend
   ENABLE_FOOD_SECTION: "True"
   ENABLE_OBJECTS_SECTION: "True"
   EMAIL_SERVER_HOST: localhost
@@ -111,7 +110,7 @@ jobs:
       run: npm run test:jslib
 
     - name: Run server tests
-      run: npm run test:server && npm run test:backend
+      run: npm run test:server
 
     # e2e tests
     - name: Install Playwright Browsers
