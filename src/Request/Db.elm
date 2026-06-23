@@ -8,7 +8,7 @@ module Request.Db exposing
     , updateRawJson
     )
 
-import Data.Db as Db exposing (Db, Properties, RawJsonString, RawJsonStrings)
+import Data.Db as Db exposing (Db)
 import Http
 import RemoteData exposing (WebData)
 import Request.Common as RequestCommon
@@ -20,7 +20,7 @@ type DbError
 
 
 type alias LoadingState =
-    Properties (WebData RawJsonString)
+    Db.Properties (WebData Db.RawJsonString)
 
 
 dbErrorToString : DbError -> String
@@ -33,7 +33,7 @@ dbErrorToString error =
             "Erreur de décodage des données\u{00A0}: " ++ message
 
 
-fetchJson : String -> (WebData RawJsonString -> msg) -> Cmd msg
+fetchJson : String -> (WebData Db.RawJsonString -> msg) -> Cmd msg
 fetchJson path event =
     Http.get
         { expect =
@@ -75,9 +75,9 @@ initLoadingState =
     }
 
 
-resolve : LoadingState -> RemoteData.WebData RawJsonStrings
+resolve : LoadingState -> WebData Db.RawJsonStrings
 resolve data =
-    RemoteData.succeed Properties
+    RemoteData.succeed Db.Properties
         |> RemoteData.andMap data.countries
         |> RemoteData.andMap data.definitions
         |> RemoteData.andMap data.food2Examples

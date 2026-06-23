@@ -38,7 +38,7 @@ import Browser.Navigation as Nav
 import Data.Bookmark as Bookmark exposing (Bookmark)
 import Data.Common.DecodeUtils as DU
 import Data.Component as Component
-import Data.Db as StaticDb exposing (Db)
+import Data.Db as Db exposing (Db)
 import Data.Food.Query as FoodQuery
 import Data.Scope as Scope exposing (Scope)
 import Data.Textile.Query as TextileQuery
@@ -427,7 +427,7 @@ serializeStore =
 
 updateDbProcesses : String -> Session -> Session
 updateDbProcesses rawDetailedProcessesJson ({ db } as session) =
-    case db |> StaticDb.updateDbProcesses rawDetailedProcessesJson of
+    case db |> Db.updateDbProcesses rawDetailedProcessesJson of
         Err err ->
             session |> notifyError "Impossible de recharger la db avec les nouveaux procédés" err
 
