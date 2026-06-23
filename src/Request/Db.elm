@@ -146,7 +146,6 @@ initLoadingState =
 resolve : LoadingState -> RemoteData.WebData RawJsonStrings
 resolve data =
     RemoteData.succeed Properties
-        |> RemoteData.andMap data.processes
         |> RemoteData.andMap data.countries
         |> RemoteData.andMap data.definitions
         |> RemoteData.andMap data.food2Examples
@@ -154,6 +153,7 @@ resolve data =
         |> RemoteData.andMap data.foodProductExamples
         |> RemoteData.andMap data.objectComponents
         |> RemoteData.andMap data.objectExamples
+        |> RemoteData.andMap data.processes
         |> RemoteData.andMap data.textileComponents
         |> RemoteData.andMap data.textileMaterials
         |> RemoteData.andMap data.textileProductExamples
