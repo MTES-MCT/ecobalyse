@@ -31,7 +31,7 @@ import RemoteData exposing (WebData)
 import RemoteData.Http as Http
 import Request.Auth
 import Request.BackendHttp as BackendHttp
-import Request.Db as RequestDb exposing (LoadingState)
+import Request.Db as RequestDb exposing (LoadingState, RawJsonString)
 import Request.Version exposing (VersionData)
 import Route
 import Static.Db as StaticDb exposing (Db)
@@ -108,7 +108,7 @@ type Msg
     | HomeMsg Home.Msg
     | ObjectSimulatorMsg ObjectSimulator.Msg
     | ProcessAdminMsg ProcessAdmin.Msg
-    | RawDataReceived SessionConfig (WebData String -> LoadingState -> LoadingState) (WebData String)
+    | RawDataReceived SessionConfig (WebData RawJsonString -> LoadingState -> LoadingState) (WebData RawJsonString)
     | StatsMsg Stats.Msg
     | StoreChanged String
     | TextileSimulatorMsg TextileSimulator.Msg

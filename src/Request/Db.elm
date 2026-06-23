@@ -1,6 +1,7 @@
 module Request.Db exposing
     ( DbError
     , LoadingState
+    , RawJsonString(..)
     , dbErrorToString
     , getRawJsonString
     , initLoadingState
@@ -50,17 +51,17 @@ type alias LoadingState =
     Properties (WebData RawJsonString)
 
 
-type alias RawJsonString =
-    String
+type RawJsonString
+    = RawJsonString String
 
 
 type alias RawJsonStrings =
-    Properties String
+    Properties RawJsonString
 
 
 buildDb : RawJsonStrings -> Result String StaticDb.Db
 buildDb json =
-    json.processes
+    extractJsonString json.processes
         |> Decode.decodeString (Process.decodeList Impact.decodeImpacts)
         |> Result.mapError Decode.errorToString
         |> Result.andThen
@@ -69,33 +70,33 @@ buildDb json =
                     |> RE.andMap
                         (StaticDb.decodeRawComponents
                             { food2Components = """[]"""
-                            , objectComponents = json.objectComponents
-                            , textileComponents = json.textileComponents
-                            , veliComponents = json.veliComponents
+                            , objectComponents = extractJsonString json.objectComponents
+                            , textileComponents = extractJsonString json.textileComponents
+                            , veliComponents = extractJsonString json.veliComponents
                             }
                         )
-                    |> RE.andMap (Common.countriesFromJson processes json.countries)
-                    |> RE.andMap (Common.impactsFromJson json.definitions)
-                    |> RE.andMap (Common.transportsFromJson json.transports)
+                    |> RE.andMap (Common.countriesFromJson processes <| extractJsonString json.countries)
+                    |> RE.andMap (Common.impactsFromJson <| extractJsonString json.definitions)
+                    |> RE.andMap (Common.transportsFromJson <| extractJsonString json.transports)
                     |> RE.andMap
                         (processes
                             |> FoodDb.buildFromJson
-                                json.foodProductExamples
-                                json.foodIngredients
+                                (extractJsonString json.foodProductExamples)
+                                (extractJsonString json.foodIngredients)
                         )
                     |> RE.andMap
                         (ObjectDb.buildFromJson
-                            json.food2Examples
-                            json.objectExamples
-                            json.veliExamples
+                            (extractJsonString json.food2Examples)
+                            (extractJsonString json.objectExamples)
+                            (extractJsonString json.veliExamples)
                         )
                     |> RE.andMap (Ok processes)
                     |> RE.andMap
                         (processes
                             |> TextileDb.buildFromJson
-                                json.textileProductExamples
-                                json.textileMaterials
-                                json.textileProducts
+                                (extractJsonString json.textileProductExamples)
+                                (extractJsonString json.textileMaterials)
+                                (extractJsonString json.textileProducts)
                         )
             )
 
@@ -110,10 +111,20 @@ dbErrorToString error =
             "Erreur de décodage des données\u{00A0}: " ++ message
 
 
-getRawJsonString : String -> (WebData String -> msg) -> Cmd msg
+extractJsonString : RawJsonString -> String
+extractJsonString (RawJsonString string) =
+    string
+
+
+getRawJsonString : String -> (WebData RawJsonString -> msg) -> Cmd msg
 getRawJsonString path event =
     Http.get
-        { expect = Http.expectString (RemoteData.fromResult >> event)
+        { expect =
+            Http.expectString
+                (RemoteData.fromResult
+                    >> RemoteData.map RawJsonString
+                    >> event
+                )
         , url = path
         }
 
