@@ -1,7 +1,3 @@
----
-hidden: true
----
-
 # ⌛ Utilisation
 
 ## Contexte
@@ -108,3 +104,4 @@ $$
 I_{cuisson,poele} = I_{cuisson,poele} = 0.1*\big(1*0+0.18*19.33+0.95*4.08\big)=0.73 Pts
 $$
 
+### Exemple 2 : Véhicule consommant&#x20;

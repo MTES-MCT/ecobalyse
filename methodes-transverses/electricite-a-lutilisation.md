@@ -1,3 +1,7 @@
+---
+hidden: true
+---
+
 # 💡 Electricité à l'utilisation
 
 ## Contexte
