@@ -20,7 +20,7 @@ Exemples :&#x20;
 * Consommation d'électricité pour le repassage d'un vêtement (dépend du type de vêtement, pas du poids)
   * Cette consommation s'exprime par cycle d'entretien
 * Consommation de carburant d'un véhicule (fournit par le fabricant selon un référentiel normé)
-  * Cette consommation s'exprime pour 100km
+  * Cette consommation s'exprime usuellement pour 100km, puis multipliée pour obtenir la consommation sur la durée de vie du véhicule.
 
 ## Méthodes de calcul
 
@@ -33,28 +33,31 @@ Les attributs suivants sont attachés à chaque consommable pour définir son ut
 * `productmassdependent` : définit si la consommation dépend de la masse du produit (cas des cuisson alimentaire par exemple)
 * `unit` : définit l'unité du procédé&#x20;
 * `productdependant` : définit si la quantité est définie par l'utilisateur ou fixée par Ecobalyse
+* `eleckWh` : définit une quantité d'électricité
+* `heatMJ` : définit une quantité de chaleur
 
 ### Formule de calcul en cours de développement
 
 $$
-I_{utilisation} = \sum_i{\big(C_{use,i,current}*m_i*I_{i}\big)}
+I_{utilisation} = \sum_i{m_i*\big(C_{use,i,current}*I_{i}+E_{use,i}*I_{Energy}\big)}
 $$
 
 Avec :
 
 * `I_utilisation` : l'impact environnemental à l'utilisation d'un produit, dans l'unité de la catégorie d'impact analysée
 * `C_use,i,current` : la consommation du consommable `i`, par unité d'utilisation. Celle-ci dépend des attribut attachés au consommable
-  * `eleckWh` : définit une quantité d'électricité
+* `E_use,i` = `eleckWh`  et/ou `heatMJ` : quantité d'électricité consommée&#x20;
   * `heatMJ` : définit une quantité de chaleur
   * `productdependant` : valeur fixée l'utilisateur
   * absence d'attribut : `C_use,i` = 1
 * `m_i` : la masse du produit OU `1` si la consommation ne dépend pas de la masse&#x20;
-* `I_i` : l'impact environnemental du consommable `i` , dans l'unité de la catégorie d'impact analysée
+* `I_i` : l'impact environnemental du consommable `i` , dans l'unité de la catégorie d'impact analysée (hors énergie)
+* `I_Energy` : l'impact environnemental de l'électricité ou de la chaleur, dans l'unité de la catégorie d'impact analysée
 
 ### Formule de calcul projetée
 
 $$
-I_{utilisation} = \sum_i{\big(C_{use,i,futur}*m_i*r_{i}*I_{i}\big)}*T_{life}
+I_{utilisation} = \sum_i{m_i*\big(C_{use,i,futur}*r_{i}*I_{i}+E_{use,i}*I_{Energy}\big)}*T_{life}
 $$
 
 Avec :
