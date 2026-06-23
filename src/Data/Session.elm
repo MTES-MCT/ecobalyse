@@ -50,7 +50,6 @@ import Request.BackendHttp.Error as BackendError
 import Request.Version exposing (Version)
 import Set exposing (Set)
 import Static.Db as StaticDb exposing (Db)
-import Static.Json as StaticJson
 
 
 type alias Queries =
@@ -362,15 +361,8 @@ isSuperuser =
 
 
 logout : Session -> Session
-logout ({ db } as session) =
-    (case db |> StaticDb.updateDbProcesses StaticJson.processesJson of
-        Err err ->
-            session |> notifyError "Impossible de recharger les procédés par défaut" err
-
-        Ok newDb ->
-            { session | db = newDb }
-    )
-        |> updateStore (\store -> { store | auth = Nothing })
+logout =
+    setAuth Nothing
 
 
 setAuth : Maybe Auth -> Session -> Session
