@@ -339,9 +339,6 @@ updateInitializing initMsg model =
     case initMsg of
         -- Components
         ComponentConfigReceived db sessionConfig (RemoteData.Success componentConfig) ->
-            -- TODO: we now must build the session here, because that's gonna be where we have the fully
-            --       consructed db and the config as well, which are requirements to build the session
-            --       setupSession navKey flags db componentConfig
             let
                 session =
                     setupSession sessionConfig.navKey sessionConfig.flags db componentConfig
