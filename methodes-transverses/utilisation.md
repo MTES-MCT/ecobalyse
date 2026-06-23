@@ -49,7 +49,7 @@ Avec :
   * `productdependant` : valeur fixée l'utilisateur
   * absence d'attribut : `C_use,i` = 1
 * `E_use,i` = `eleckWh`  et/ou `heatMJ` : quantité d'électricité consommée&#x20;
-* `m_i` : la masse du produit OU `1` si la consommation ne dépend pas de la masse&#x20;
+* `m_i` : la masse du produit, exprimée en kg OU `1` si la consommation ne dépend pas de la masse&#x20;
 * `I_i` : l'impact environnemental du consommable `i` , dans l'unité de la catégorie d'impact analysée (hors énergie)
   * Dans de nombreux cas où seuls de l'électricité et de la chaleur sont appelé, `I_i` = 0
 * `I_Energy` : l'impact environnemental de l'électricité ou de la chaleur, dans l'unité de la catégorie d'impact analysée
@@ -86,7 +86,25 @@ Les procédés sont indiqués dans l'[Explorateur de procédé](https://ecobalys
 Précision sur les procédés `I_Energy` :&#x20;
 
 * Lorsqu'une consommation d'électricité est appelée, Ecobalyse utilise les procédés Ecoinvent basse tension du pays considérés, en l’occurrence la France : _market for electricity, low voltage, FR_
-* Lorsqu'une consommation de chaleur est appelée, Ecobalyse utilise un procédé construit "Chaleur Europe", décrit dans la [page relative à l'énergie consommée au étape de transformation](https://fabrique-numerique.gitbook.io/ecobalyse/~/revisions/lSaq6DJynGgBREOg7dWI/methodes-transverses/composants/energies-des-etapes-de-transformation).
+* Lorsqu'une consommation de chaleur est appelée, Ecobalyse utilise un procédé construit "Mix Chaleur (Europe)", décrit dans la [page relative à l'énergie consommée au étape de transformation](https://fabrique-numerique.gitbook.io/ecobalyse/~/revisions/lSaq6DJynGgBREOg7dWI/methodes-transverses/composants/energies-des-etapes-de-transformation).
 
 ## Exemple d'application
+
+### Exemple 1 : cuisson à la poële de 100 g d'aliments
+
+* Le procédé "Cuisson à la poële" a un impact environnemental nul ( `I_i`=0). Il a les attributs suivants :&#x20;
+  * `productmassdependent`&#x20;
+  * `unit` : kg
+  * `eleckWh` : 0.18 (kWh/kg)
+  * `heatMJ` : 0.95 (MJ/kg)
+* La masse de produit est de 100g : `m_i`=0.1
+* `I_Energy` = 19.33 Pts/kWh pour l'électricité et 4.08 Pts/kWh pour la chaleur
+
+$$
+I_{utilisation} = \sum_i{m_i*\big(C_{use,i,current}*I_{i}+E_{use,i}*I_{Energy}\big)}
+$$
+
+$$
+I_{cuisson,poele} = I_{cuisson,poele} = 0.1*\big(1*0+0.18*19.33+0.95*4.08\big)=0.73 Pts
+$$
 
