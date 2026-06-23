@@ -13,7 +13,6 @@ import Data.Plausible as Plausible
 import Data.Session as Session exposing (Session)
 import Data.Textile.Query as TextileQuery
 import Html
-import Html.Attributes exposing (class)
 import Page.Admin.Account as AccountAdmin
 import Page.Admin.Component as ComponentAdmin
 import Page.Admin.Process as ProcessAdmin
@@ -38,9 +37,7 @@ import Route
 import Static.Db as StaticDb exposing (Db)
 import Toast
 import Url exposing (Url)
-import Views.Container as Container
 import Views.Page as Page
-import Views.Spinner as Spinner
 
 
 type alias Flags =
@@ -665,9 +662,7 @@ view { dbLoadingState, flags, mobileNavigationOpened, state, tray } =
                 , tray = tray
                 }
                 ( "Chargement des données Ecobalyse"
-                , [ Container.centered [ class "pb-5" ]
-                        [ Spinner.view <| Just (RequestDb.getProgress dbLoadingState)
-                        ]
+                , [ Page.loading <| Just (RequestDb.getProgress dbLoadingState)
                   ]
                 )
 
