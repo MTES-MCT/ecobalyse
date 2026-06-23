@@ -38,6 +38,7 @@ import Static.Db as StaticDb exposing (Db)
 import Toast
 import Url exposing (Url)
 import Views.Page as Page
+import Views.Spinner as Spinner
 
 
 type alias Flags =
@@ -695,7 +696,7 @@ subscriptions { state } =
 
 
 view : Model -> Document Msg
-view { mobileNavigationOpened, state, tray } =
+view { dbLoadingState, mobileNavigationOpened, state, tray } =
     case state of
         Errored error ->
             -- FIXME: proper error page
@@ -716,9 +717,18 @@ view { mobileNavigationOpened, state, tray } =
                         , toMsg = AppMsg
                         , tray = tray
                         }
+
+                ( loaded, total ) =
+                    RequestDb.getProgress dbLoadingState
             in
-            ( "Chargement des données Ecobalyse", [ Page.loading ] )
-                |> frame Page.Other
+            frame Page.Other
+                ( "Chargement des données Ecobalyse"
+                , [ Spinner.view
+
+                  -- TODO: style this
+                  , Html.div [] [ Html.text <| String.fromInt loaded ++ "/" ++ String.fromInt total ]
+                  ]
+                )
 
         Loaded session page ->
             let

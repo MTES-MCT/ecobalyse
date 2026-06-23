@@ -3,6 +3,7 @@ module Request.Db exposing
     , LoadingState
     , RawJsonString
     , dbErrorToString
+    , getProgress
     , getRawJsonString
     , initLoadingState
     , isFullyLoaded
@@ -116,6 +117,15 @@ extractJsonString (RawJsonString string) =
     string
 
 
+getProgress : LoadingState -> ( Int, Int )
+getProgress state =
+    ( propGetters
+        |> List.filter (\getter -> getter state |> RemoteData.isSuccess |> not)
+        |> List.length
+    , List.length propGetters
+    )
+
+
 getRawJsonString : String -> (WebData RawJsonString -> msg) -> Cmd msg
 getRawJsonString path event =
     Http.get
@@ -152,6 +162,26 @@ initLoadingState =
     , veliComponents = RemoteData.NotAsked
     , veliExamples = RemoteData.NotAsked
     }
+
+
+propGetters : List (Properties a -> a)
+propGetters =
+    [ .countries
+    , .definitions
+    , .food2Examples
+    , .foodIngredients
+    , .foodProductExamples
+    , .objectComponents
+    , .objectExamples
+    , .processes
+    , .textileComponents
+    , .textileMaterials
+    , .textileProductExamples
+    , .textileProducts
+    , .transports
+    , .veliComponents
+    , .veliExamples
+    ]
 
 
 resolve : LoadingState -> RemoteData.WebData RawJsonStrings
