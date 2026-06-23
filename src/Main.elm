@@ -144,23 +144,27 @@ init flags requestedUrl navKey =
 -}
 loadData : SessionConfig -> Cmd Msg
 loadData sessionConfig =
-    Cmd.batch
-        [ RequestDb.fetchJson "/data/countries.json" <| RawDataReceived sessionConfig (\data raw -> { raw | countries = data })
-        , RequestDb.fetchJson "/data/impacts.json" <| RawDataReceived sessionConfig (\data raw -> { raw | definitions = data })
-        , RequestDb.fetchJson "/data/food2/examples.json" <| RawDataReceived sessionConfig (\data raw -> { raw | food2Examples = data })
-        , RequestDb.fetchJson "/data/food/ingredients.json" <| RawDataReceived sessionConfig (\data raw -> { raw | foodIngredients = data })
-        , RequestDb.fetchJson "/data/food/examples.json" <| RawDataReceived sessionConfig (\data raw -> { raw | foodProductExamples = data })
-        , RequestDb.fetchJson "/data/object/components.json" <| RawDataReceived sessionConfig (\data raw -> { raw | objectComponents = data })
-        , RequestDb.fetchJson "/data/object/examples.json" <| RawDataReceived sessionConfig (\data raw -> { raw | objectExamples = data })
-        , RequestDb.fetchJson "/data/processes.json" <| RawDataReceived sessionConfig (\data raw -> { raw | processes = data })
-        , RequestDb.fetchJson "/data/textile/components.json" <| RawDataReceived sessionConfig (\data raw -> { raw | textileComponents = data })
-        , RequestDb.fetchJson "/data/textile/examples.json" <| RawDataReceived sessionConfig (\data raw -> { raw | textileProductExamples = data })
-        , RequestDb.fetchJson "/data/textile/materials.json" <| RawDataReceived sessionConfig (\data raw -> { raw | textileMaterials = data })
-        , RequestDb.fetchJson "/data/textile/products.json" <| RawDataReceived sessionConfig (\data raw -> { raw | textileProducts = data })
-        , RequestDb.fetchJson "/data/transports.json" <| RawDataReceived sessionConfig (\data raw -> { raw | transports = data })
-        , RequestDb.fetchJson "/data/veli/components.json" <| RawDataReceived sessionConfig (\data raw -> { raw | veliComponents = data })
-        , RequestDb.fetchJson "/data/veli/examples.json" <| RawDataReceived sessionConfig (\data raw -> { raw | veliExamples = data })
-        ]
+    [ ( "/data/countries.json", \data raw -> { raw | countries = data } )
+    , ( "/data/impacts.json", \data raw -> { raw | definitions = data } )
+    , ( "/data/food2/examples.json", \data raw -> { raw | food2Examples = data } )
+    , ( "/data/food/ingredients.json", \data raw -> { raw | foodIngredients = data } )
+    , ( "/data/food/examples.json", \data raw -> { raw | foodProductExamples = data } )
+    , ( "/data/object/components.json", \data raw -> { raw | objectComponents = data } )
+    , ( "/data/object/examples.json", \data raw -> { raw | objectExamples = data } )
+    , ( "/data/processes.json", \data raw -> { raw | processes = data } )
+    , ( "/data/textile/components.json", \data raw -> { raw | textileComponents = data } )
+    , ( "/data/textile/examples.json", \data raw -> { raw | textileProductExamples = data } )
+    , ( "/data/textile/materials.json", \data raw -> { raw | textileMaterials = data } )
+    , ( "/data/textile/products.json", \data raw -> { raw | textileProducts = data } )
+    , ( "/data/transports.json", \data raw -> { raw | transports = data } )
+    , ( "/data/veli/components.json", \data raw -> { raw | veliComponents = data } )
+    , ( "/data/veli/examples.json", \data raw -> { raw | veliExamples = data } )
+    ]
+        |> List.map
+            (\( path, onLoaded ) ->
+                RequestDb.fetchJson path <| RawDataReceived sessionConfig onLoaded
+            )
+        |> Cmd.batch
 
 
 setupSession : Nav.Key -> Flags -> Db -> Component.Config -> Session
