@@ -33,18 +33,34 @@ Les attributs suivants sont attachés à chaque consommable pour définir son ut
 * `productmassdependent` : définit si la consommation dépend de la masse du produit (cas des cuisson alimentaire par exemple)
 * `unit` : définit l'unité du procédé&#x20;
 * `productdependant` : définit si la quantité est définie par l'utilisateur ou fixée par Ecobalyse
-*
 
-### Formule de calcul
+### Formule de calcul en cours de développement
 
 $$
-I_{utilisation} = \sum_i{\big(C_{use,i}*m_i*r_{i}*I_{i}\big)}*T_{life}
+I_{utilisation} = \sum_i{\big(C_{use,i,current}*m_i*I_{i}\big)}
 $$
 
 Avec :
 
 * `I_utilisation` : l'impact environnemental à l'utilisation d'un produit, dans l'unité de la catégorie d'impact analysée
-* `C_use,i` : la consommation du consommable `i`, par unité d'utilisation. Celle-ci dépend des attribut attachés au consommable
+* `C_use,i,current` : la consommation du consommable `i`, par unité d'utilisation. Celle-ci dépend des attribut attachés au consommable
+  * `eleckWh` : définit une quantité d'électricité
+  * `heatMJ` : définit une quantité de chaleur
+  * `productdependant` : valeur fixée l'utilisateur
+  * absence d'attribut : `C_use,i` = 1
+* `m_i` : la masse du produit OU `1` si la consommation ne dépend pas de la masse&#x20;
+* `I_i` : l'impact environnemental du consommable `i` , dans l'unité de la catégorie d'impact analysée
+
+### Formule de calcul projetée
+
+$$
+I_{utilisation} = \sum_i{\big(C_{use,i,futur}*m_i*r_{i}*I_{i}\big)}*T_{life}
+$$
+
+Avec :
+
+* `I_utilisation` : l'impact environnemental à l'utilisation d'un produit, dans l'unité de la catégorie d'impact analysée
+* `C_use,i,future` : la consommation du consommable `i`, par unité d'utilisation. Celle-ci dépend des attribut attachés au consommable
   * `eleckWh` : définit une quantité d'électricité
   * `heatMJ` : définit une quantité de chaleur
   * `productdependant` : valeur fixée l'utilisateur
@@ -57,16 +73,15 @@ Avec :
 
 ## Paramètres retenus pour le coût environnemental
 
-Le paramètre `C_utilisation,elec` est spécifique à chaque secteur. L'impact de l'utilisation des produits fait l'objet d'une page sectorielle dédiée.
+
 
 ## Procédés utilisés pour le coût environnemental
 
-Ecobalyse utilise les procédés Ecoinvent basse tension du pays considérés, en l’occurrence la France : _market for electricity, low voltage, FR_
+Les procédés sont indiqués dans l'[Explorateur de procédé](https://ecobalyse.beta.gouv.fr/#/explore/textile/textile-processes) de chaque secteur.
 
-Ce procédé est rappelé dans l'[Explorateur de procédé](https://ecobalyse.beta.gouv.fr/#/explore/textile/textile-processes) de chaque secteur.
+Lorsqu'une consommation d'électricité est appelée, Ecobalyse utilise les procédés Ecoinvent basse tension du pays considérés, en l’occurrence la France : _market for electricity, low voltage, FR_
+
+Lorsqu'une consommation de chaleur est appelée, Ecobalyse utilise un procédé construit "Chaleur Europe", décrit dans la [page relative à l'énergie consommée au étape de transformation](https://fabrique-numerique.gitbook.io/ecobalyse/~/revisions/lSaq6DJynGgBREOg7dWI/methodes-transverses/composants/energies-des-etapes-de-transformation).
 
 ## Exemple d'application
 
-Utilisation des textiles : le lavage des textiles comprend de la consommation d'électricité. Dans cet exemple, `C_utilisation,elec,lavage`  est le produit du nombre de cycles d'entretien, de la consommation d'électricité par cycle et du poids du vêtement.
-
-Pour le secteur textile, certains produits nécessitent un repassage, correspondant également à de la consommation d'électricité.
