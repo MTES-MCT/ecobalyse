@@ -23,8 +23,8 @@ import Static.Db as StaticDb exposing (Db)
 
 
 type DbError
-    = DecodeError String
-    | FetchError Http.Error
+    = FetchError Http.Error
+    | ParseError String
 
 
 type alias Properties a =
@@ -103,11 +103,11 @@ buildDb json =
 dbErrorToString : DbError -> String
 dbErrorToString error =
     case error of
-        DecodeError message ->
-            message
-
         FetchError httpError ->
-            "Erreur de chargement des données distantes\u{202F}: " ++ RequestCommon.errorToString httpError
+            "Erreur de téléchargement des données\u{00A0}: " ++ RequestCommon.errorToString httpError
+
+        ParseError message ->
+            "Erreur de décodage des données\u{00A0}: " ++ message
 
 
 getRawJsonString : String -> (WebData String -> msg) -> Cmd msg
@@ -182,6 +182,6 @@ updateRawJson update loadingState =
         RemoteData.Success json ->
             ( updated
             , buildDb json
-                |> Result.mapError DecodeError
+                |> Result.mapError ParseError
                 |> Just
             )
