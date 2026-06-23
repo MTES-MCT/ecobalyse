@@ -1,6 +1,6 @@
 module Request.Db exposing
     ( DbError
-    , RawJsonData
+    , LoadingState
     , dbErrorToString
     , emptyLoadingState
     , getRawJsonString
@@ -22,7 +22,7 @@ import Result.Extra as RE
 import Static.Db as StaticDb exposing (Db)
 
 
-type alias RawJsonData =
+type alias LoadingState =
     { countries : WebData String
     , definitions : WebData String
     , food2Examples : WebData String
@@ -46,7 +46,7 @@ type DbError
     | FetchError Http.Error
 
 
-emptyLoadingState : RawJsonData
+emptyLoadingState : LoadingState
 emptyLoadingState =
     { countries = RemoteData.NotAsked
     , definitions = RemoteData.NotAsked
@@ -66,9 +66,9 @@ emptyLoadingState =
     }
 
 
-buildDb : RawJsonData -> Result DbError StaticDb.Db
+buildDb : LoadingState -> Result DbError StaticDb.Db
 buildDb data =
-    RemoteData.succeed dbFromHttp
+    RemoteData.succeed dbFromJsonStrings
         |> RemoteData.andMap data.processes
         |> RemoteData.andMap data.countries
         |> RemoteData.andMap data.definitions
@@ -99,8 +99,8 @@ dbErrorToString error =
             "Erreur de chargement des données distantes\u{202F}: " ++ RequestCommon.errorToString httpError
 
 
-dbFromHttp : String -> String -> String -> String -> String -> String -> String -> String -> String -> String -> String -> String -> String -> String -> String -> Result String StaticDb.Db
-dbFromHttp processesJson countriesJson definitionsJson food2ExamplesJson foodIngredientsJson foodProductExamplesJson objectComponentsJson objectExamplesJson textileComponentsJson textileMaterialsJson textileProductExamplesJson textileProductsJson transportsJson veliComponentsJson veliExamplesJson =
+dbFromJsonStrings : String -> String -> String -> String -> String -> String -> String -> String -> String -> String -> String -> String -> String -> String -> String -> Result String StaticDb.Db
+dbFromJsonStrings processesJson countriesJson definitionsJson food2ExamplesJson foodIngredientsJson foodProductExamplesJson objectComponentsJson objectExamplesJson textileComponentsJson textileMaterialsJson textileProductExamplesJson textileProductsJson transportsJson veliComponentsJson veliExamplesJson =
     processesJson
         |> Decode.decodeString (Process.decodeList Impact.decodeImpacts)
         |> Result.mapError Decode.errorToString
@@ -149,7 +149,7 @@ getRawJsonString path event =
         }
 
 
-isFullyLoaded : RawJsonData -> Bool
+isFullyLoaded : LoadingState -> Bool
 isFullyLoaded data =
     let
         isLoaded remoteData =
@@ -177,11 +177,11 @@ isFullyLoaded data =
         && isLoaded data.veliExamples
 
 
-updateRawJson : (RawJsonData -> RawJsonData) -> RawJsonData -> ( RawJsonData, Maybe (Result DbError Db) )
-updateRawJson update rawJsonData =
+updateRawJson : (LoadingState -> LoadingState) -> LoadingState -> ( LoadingState, Maybe (Result DbError Db) )
+updateRawJson update loadingState =
     let
         updated =
-            update rawJsonData
+            update loadingState
     in
     if isFullyLoaded updated then
         ( updated, Just <| buildDb updated )

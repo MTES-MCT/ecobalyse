@@ -31,7 +31,7 @@ import RemoteData exposing (WebData)
 import RemoteData.Http as Http
 import Request.Auth
 import Request.BackendHttp as BackendHttp
-import Request.Db as RequestDb exposing (RawJsonData)
+import Request.Db as RequestDb exposing (LoadingState)
 import Request.Version exposing (VersionData)
 import Route
 import Static.Db as StaticDb exposing (Db)
@@ -83,7 +83,7 @@ type State
 
 type alias Model =
     { db : Result String StaticDb.Db
-    , dbLoadingState : RawJsonData
+    , dbLoadingState : LoadingState
     , mobileNavigationOpened : Bool
 
     -- Duplicate the nav key in the model so Parcel's hot module reloading finds it always in the same place.
@@ -108,7 +108,7 @@ type Msg
     | HomeMsg Home.Msg
     | ObjectSimulatorMsg ObjectSimulator.Msg
     | ProcessAdminMsg ProcessAdmin.Msg
-    | RawDataReceived SessionConfig (WebData String -> RawJsonData -> RawJsonData) (WebData String)
+    | RawDataReceived SessionConfig (WebData String -> LoadingState -> LoadingState) (WebData String)
     | StatsMsg Stats.Msg
     | StoreChanged String
     | TextileSimulatorMsg TextileSimulator.Msg
