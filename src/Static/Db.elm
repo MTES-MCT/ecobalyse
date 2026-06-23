@@ -1,103 +1,25 @@
-module Static.Db exposing
-    ( Db
-    , dbFromStaticFiles
-    , decodeRawComponents
-    , updateDbProcesses
-    )
+module Static.Db exposing (dbFromStaticFiles)
 
-import Data.Common.Db as Common
-import Data.Component as Component exposing (Component)
-import Data.Country exposing (Country)
-import Data.Food.Db as FoodDb
-import Data.Impact as Impact
-import Data.Impact.Definition exposing (Definitions)
-import Data.Object.Db as ObjectDb
-import Data.Process as Process exposing (Process)
-import Data.Textile.Db as TextileDb
-import Data.Transport exposing (Distances)
-import Json.Decode as Decode
-import Result.Extra as RE
+import Data.Db as Db exposing (Db)
 import Static.Json as StaticJson
 
 
-type alias Db =
-    { components : List Component
-    , countries : List Country
-    , definitions : Definitions
-    , distances : Distances
-    , food : FoodDb.Db
-    , object : ObjectDb.Db
-    , processes : List Process
-    , textile : TextileDb.Db
-    }
-
-
 dbFromStaticFiles : String -> Result String Db
-dbFromStaticFiles =
-    Decode.decodeString (Process.decodeList Impact.decodeImpacts)
-        >> Result.mapError Decode.errorToString
-        >> Result.andThen
-            (\processes ->
-                Ok Db
-                    |> RE.andMap (decodeRawComponents StaticJson.rawJsonComponents)
-                    |> RE.andMap (countries processes)
-                    |> RE.andMap impactDefinitions
-                    |> RE.andMap distances
-                    |> RE.andMap
-                        (processes
-                            |> FoodDb.buildFromJson
-                                StaticJson.foodProductExamplesJson
-                                StaticJson.foodIngredientsJson
-                        )
-                    |> RE.andMap
-                        (ObjectDb.buildFromJson
-                            StaticJson.food2ExamplesJson
-                            StaticJson.objectExamplesJson
-                            StaticJson.veliExamplesJson
-                        )
-                    |> RE.andMap (Ok processes)
-                    |> RE.andMap
-                        (processes
-                            |> TextileDb.buildFromJson
-                                StaticJson.textileProductExamplesJson
-                                StaticJson.textileMaterialsJson
-                                StaticJson.textileProductsJson
-                        )
-            )
-
-
-decodeRawComponents : StaticJson.RawJsonComponents -> Result String (List Component)
-decodeRawComponents { objectComponents, textileComponents, veliComponents } =
-    [ objectComponents, textileComponents, veliComponents ]
-        |> List.map decodeScopedComponents
-        |> RE.combine
-        |> Result.map List.concat
-
-
-decodeScopedComponents : String -> Result String (List Component)
-decodeScopedComponents =
-    Component.decodeListFromJsonString
-
-
-impactDefinitions : Result String Definitions
-impactDefinitions =
-    Common.impactsFromJson StaticJson.impactsJson
-
-
-countries : List Process -> Result String (List Country)
-countries processes =
-    Common.countriesFromJson processes StaticJson.countriesJson
-
-
-distances : Result String Distances
-distances =
-    Common.transportsFromJson StaticJson.transportsJson
-
-
-updateDbProcesses : String -> Db -> Result String Db
-updateDbProcesses processesJson db =
-    processesJson
-        |> Decode.decodeString (Process.decodeList Impact.decodeImpacts)
-        |> Result.mapError Decode.errorToString
-        |> Result.map
-            (\processes -> { db | processes = processes })
+dbFromStaticFiles processesJson =
+    Db.buildDb
+        { countries = Db.rawJsonString StaticJson.countriesJson
+        , definitions = Db.rawJsonString StaticJson.impactsJson
+        , food2Examples = Db.rawJsonString StaticJson.food2ExamplesJson
+        , foodIngredients = Db.rawJsonString StaticJson.foodIngredientsJson
+        , foodProductExamples = Db.rawJsonString StaticJson.foodProductExamplesJson
+        , objectComponents = Db.rawJsonString StaticJson.rawJsonComponents.objectComponents
+        , objectExamples = Db.rawJsonString StaticJson.objectExamplesJson
+        , processes = Db.rawJsonString processesJson
+        , textileComponents = Db.rawJsonString StaticJson.rawJsonComponents.textileComponents
+        , textileMaterials = Db.rawJsonString StaticJson.textileMaterialsJson
+        , textileProductExamples = Db.rawJsonString StaticJson.textileProductExamplesJson
+        , textileProducts = Db.rawJsonString StaticJson.textileProductsJson
+        , transports = Db.rawJsonString StaticJson.transportsJson
+        , veliComponents = Db.rawJsonString StaticJson.rawJsonComponents.veliComponents
+        , veliExamples = Db.rawJsonString StaticJson.veliExamplesJson
+        }

@@ -1,12 +1,12 @@
 module Data.Textile.LifeCycleTest exposing (..)
 
 import Data.Country as Country
+import Data.Db exposing (Db)
 import Data.Textile.Inputs as Inputs
 import Data.Textile.LifeCycle as LifeCycle exposing (LifeCycle)
 import Data.Textile.Query exposing (Query)
 import Expect
 import Length
-import Static.Db exposing (Db)
 import Test exposing (..)
 import TestUtils exposing (asTest, suiteWithDb, tShirtCotonFrance)
 

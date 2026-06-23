@@ -5,6 +5,7 @@ import Browser exposing (Document)
 import Browser.Navigation as Nav
 import Data.Component as Component
 import Data.Component.Config as ComponentConfig
+import Data.Db as Db exposing (Db, RawJsonString)
 import Data.Example as Example
 import Data.Food.Query as FoodQuery
 import Data.Impact as Impact
@@ -31,10 +32,9 @@ import RemoteData exposing (WebData)
 import RemoteData.Http as Http
 import Request.Auth
 import Request.BackendHttp as BackendHttp
-import Request.Db as RequestDb exposing (LoadingState, RawJsonString)
+import Request.Db as RequestDb exposing (LoadingState)
 import Request.Version as Version exposing (VersionData)
 import Route
-import Static.Db as StaticDb exposing (Db)
 import Toast
 import Url exposing (Url)
 import Views.Page as Page
@@ -82,7 +82,7 @@ type State
 
 
 type alias Model =
-    { db : Result String StaticDb.Db
+    { db : Result String Db
     , dbLoadingState : LoadingState
     , flags : Flags
     , mobileNavigationOpened : Bool
@@ -462,7 +462,7 @@ update rawMsg ({ state } as model) =
                 -- Detailed processes
                 ( DetailedProcessesReceived sessionConfig (RemoteData.Success rawDetailedProcessesJson), currentPage ) ->
                     -- When detailed processes are received, rebuild the entire static db using them
-                    case session.db |> StaticDb.updateDbProcesses rawDetailedProcessesJson of
+                    case session.db |> Db.updateDbProcesses rawDetailedProcessesJson of
                         Err _ ->
                             notifyError model "Erreur" <|
                                 "Impossible de décoder les impacts détaillés; les impacts agrégés seront utilisés."

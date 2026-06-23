@@ -17,6 +17,7 @@ module TestUtils exposing
     )
 
 import Data.Country as Country
+import Data.Db exposing (Db)
 import Data.Impact as Impact exposing (Impacts)
 import Data.Impact.Definition as Definition exposing (Trigrams)
 import Data.Process as Process
@@ -30,7 +31,7 @@ import Expect exposing (Expectation, FloatingPointTolerance)
 import Json.Encode as Encode
 import Mass
 import Server.Request exposing (Request)
-import Static.Db as StaticDb exposing (Db)
+import Static.Db as StaticDb
 import Static.Json as StaticJson
 import Test exposing (..)
 
@@ -143,7 +144,7 @@ expectResultWithin precision target result =
 
 
 createServerRequest :
-    StaticDb.Db
+    Db
     -> { method : String, protocol : String, host : String, url : String, version : Maybe String }
     -> Encode.Value
     -> Request

@@ -8,6 +8,7 @@ port module Server exposing
 import Data.Common.EncodeUtils as EU
 import Data.Component as Component exposing (Component)
 import Data.Country as Country exposing (Country)
+import Data.Db exposing (Db)
 import Data.Food.Ingredient as Ingredient
 import Data.Food.Origin as Origin
 import Data.Food.Query as FoodQuery
@@ -28,7 +29,7 @@ import Json.Encode as Encode
 import Route as WebRoute
 import Server.Request exposing (Request)
 import Server.Route as Route
-import Static.Db exposing (Db, dbFromStaticFiles)
+import Static.Db as StaticDb
 
 
 type Msg
@@ -340,7 +341,7 @@ update : Msg -> Cmd Msg
 update msg =
     case msg of
         Received request ->
-            case dbFromStaticFiles request.processes of
+            case StaticDb.dbFromStaticFiles request.processes of
                 Err error ->
                     error
                         |> Validation.fromErrorString

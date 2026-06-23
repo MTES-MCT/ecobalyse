@@ -2,6 +2,7 @@ port module CheckDb exposing (main)
 
 import Data.Component as Component exposing (Component)
 import Data.Component.Config as ComponentConfig
+import Data.Db exposing (Db)
 import Data.Example exposing (Example)
 import Data.Process as Process exposing (Process)
 import Data.Scope as Scope
@@ -9,7 +10,7 @@ import Data.Uuid as Uuid
 import Dict exposing (Dict)
 import List.Extra as LE
 import Set exposing (Set)
-import Static.Db as StaticDb exposing (Db)
+import Static.Db as StaticDb
 
 
 type alias Flags =

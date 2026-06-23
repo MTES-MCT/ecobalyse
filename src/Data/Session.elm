@@ -38,6 +38,7 @@ import Browser.Navigation as Nav
 import Data.Bookmark as Bookmark exposing (Bookmark)
 import Data.Common.DecodeUtils as DU
 import Data.Component as Component
+import Data.Db as StaticDb exposing (Db)
 import Data.Food.Query as FoodQuery
 import Data.Scope as Scope exposing (Scope)
 import Data.Textile.Query as TextileQuery
@@ -49,7 +50,6 @@ import List.Extra as LE
 import Request.BackendHttp.Error as BackendError
 import Request.Version exposing (Version)
 import Set exposing (Set)
-import Static.Db as StaticDb exposing (Db)
 
 
 type alias Queries =

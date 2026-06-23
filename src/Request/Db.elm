@@ -1,7 +1,6 @@
 module Request.Db exposing
     ( DbError
     , LoadingState
-    , RawJsonString
     , dbErrorToString
     , fetchJson
     , getProgress
@@ -9,18 +8,10 @@ module Request.Db exposing
     , updateRawJson
     )
 
-import Data.Common.Db as Common
-import Data.Food.Db as FoodDb
-import Data.Impact as Impact
-import Data.Object.Db as ObjectDb
-import Data.Process as Process
-import Data.Textile.Db as TextileDb
+import Data.Db as Db exposing (Db, Properties, RawJsonString, RawJsonStrings)
 import Http
-import Json.Decode as Decode
 import RemoteData exposing (WebData)
 import Request.Common as RequestCommon
-import Result.Extra as RE
-import Static.Db as StaticDb exposing (Db)
 
 
 type DbError
@@ -28,77 +19,8 @@ type DbError
     | ParseError String
 
 
-type alias Properties a =
-    { countries : a
-    , definitions : a
-    , food2Examples : a
-    , foodIngredients : a
-    , foodProductExamples : a
-    , objectComponents : a
-    , objectExamples : a
-    , processes : a
-    , textileComponents : a
-    , textileMaterials : a
-    , textileProductExamples : a
-    , textileProducts : a
-    , transports : a
-    , veliComponents : a
-    , veliExamples : a
-    }
-
-
 type alias LoadingState =
     Properties (WebData RawJsonString)
-
-
-type RawJsonString
-    = RawJsonString String
-
-
-type alias RawJsonStrings =
-    Properties RawJsonString
-
-
-buildDb : RawJsonStrings -> Result String StaticDb.Db
-buildDb json =
-    extractJsonString json.processes
-        |> Decode.decodeString (Process.decodeList Impact.decodeImpacts)
-        |> Result.mapError Decode.errorToString
-        |> Result.andThen
-            (\processes ->
-                Ok StaticDb.Db
-                    |> RE.andMap
-                        (StaticDb.decodeRawComponents
-                            { food2Components = """[]"""
-                            , objectComponents = extractJsonString json.objectComponents
-                            , textileComponents = extractJsonString json.textileComponents
-                            , veliComponents = extractJsonString json.veliComponents
-                            }
-                        )
-                    |> RE.andMap (Common.countriesFromJson processes <| extractJsonString json.countries)
-                    |> RE.andMap (Common.impactsFromJson <| extractJsonString json.definitions)
-                    |> RE.andMap (Common.transportsFromJson <| extractJsonString json.transports)
-                    |> RE.andMap
-                        (processes
-                            |> FoodDb.buildFromJson
-                                (extractJsonString json.foodProductExamples)
-                                (extractJsonString json.foodIngredients)
-                        )
-                    |> RE.andMap
-                        (ObjectDb.buildFromJson
-                            (extractJsonString json.food2Examples)
-                            (extractJsonString json.objectExamples)
-                            (extractJsonString json.veliExamples)
-                        )
-                    |> RE.andMap (Ok processes)
-                    |> RE.andMap
-                        (processes
-                            |> TextileDb.buildFromJson
-                                (extractJsonString json.textileProductExamples)
-                                (extractJsonString json.textileMaterials)
-                                (extractJsonString json.textileProducts)
-                        )
-            )
 
 
 dbErrorToString : DbError -> String
@@ -111,18 +33,13 @@ dbErrorToString error =
             "Erreur de décodage des données\u{00A0}: " ++ message
 
 
-extractJsonString : RawJsonString -> String
-extractJsonString (RawJsonString string) =
-    string
-
-
 fetchJson : String -> (WebData RawJsonString -> msg) -> Cmd msg
 fetchJson path event =
     Http.get
         { expect =
             Http.expectString
                 (RemoteData.fromResult
-                    >> RemoteData.map RawJsonString
+                    >> RemoteData.map Db.rawJsonString
                     >> event
                 )
         , url = path
@@ -131,10 +48,10 @@ fetchJson path event =
 
 getProgress : LoadingState -> ( Int, Int )
 getProgress state =
-    ( propGetters
+    ( Db.propGetters
         |> List.filter (\getter -> getter state |> RemoteData.isSuccess)
         |> List.length
-    , List.length propGetters
+    , List.length Db.propGetters
     )
 
 
@@ -156,26 +73,6 @@ initLoadingState =
     , veliComponents = RemoteData.NotAsked
     , veliExamples = RemoteData.NotAsked
     }
-
-
-propGetters : List (Properties a -> a)
-propGetters =
-    [ .countries
-    , .definitions
-    , .food2Examples
-    , .foodIngredients
-    , .foodProductExamples
-    , .objectComponents
-    , .objectExamples
-    , .processes
-    , .textileComponents
-    , .textileMaterials
-    , .textileProductExamples
-    , .textileProducts
-    , .transports
-    , .veliComponents
-    , .veliExamples
-    ]
 
 
 resolve : LoadingState -> RemoteData.WebData RawJsonStrings
@@ -216,7 +113,7 @@ updateRawJson update loadingState =
 
         RemoteData.Success json ->
             ( updated
-            , buildDb json
+            , Db.buildDb json
                 |> Result.mapError ParseError
                 |> Just
             )

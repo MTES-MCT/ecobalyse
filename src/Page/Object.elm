@@ -18,6 +18,7 @@ import Data.Component.Amount as Amount exposing (Amount)
 import Data.Component.Config as Config
 import Data.Country as Country
 import Data.Dataset as Dataset
+import Data.Db exposing (Db)
 import Data.Env as Env
 import Data.Example as Example exposing (Example)
 import Data.Impact.Definition as Definition exposing (Definition)
@@ -41,7 +42,6 @@ import Request.BackendHttp exposing (WebData)
 import Request.BackendHttp.Error as BackendHttpError
 import Request.Contrib as Contrib
 import Route
-import Static.Db exposing (Db)
 import Task
 import Time exposing (Posix)
 import Views.AutocompleteSelector as AutocompleteSelectorView
