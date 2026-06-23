@@ -510,7 +510,7 @@
   {
     "category": "Veli",
     "id": "1fd65352-4574-4800-853c-5623dd9eb40c",
-    "name": "Veli actif, 25km/h max, fabriqué en France",
+    "name": "Veli actif, 25km/h max, 2.5kWh/100km, fabriqué en France",
     "query": {
       "assemblyCountry": "FR",
       "components": [
@@ -747,7 +747,7 @@
       ],
       "consumptions": [
         {
-          "amount": 2000,
+          "amount": 850,
           "processId": "eec31f13-d00a-4741-a84f-85d887026f8c"
         }
       ],
@@ -758,7 +758,7 @@
   {
     "category": "Veli",
     "id": "1d70182c-53aa-4358-bc2c-9cd754be1ec4",
-    "name": "Veli actif, 25km/h max, assemblé en France",
+    "name": "Veli actif, 25km/h max, 2.5kWh/100km, assemblé en France",
     "query": {
       "assemblyCountry": "FR",
       "components": [
@@ -1000,7 +1000,7 @@
       ],
       "consumptions": [
         {
-          "amount": 2000,
+          "amount": 850,
           "processId": "eec31f13-d00a-4741-a84f-85d887026f8c"
         }
       ],
@@ -1011,7 +1011,7 @@
   {
     "category": "Veli",
     "id": "4da7b5bc-ec65-4b58-99b4-48d87cf8fcb0",
-    "name": "Veli actif, 25km/h max, Asie",
+    "name": "Veli actif, 25km/h max, 2.5kWh/100km, Asie",
     "query": {
       "assemblyCountry": "RAS",
       "components": [
@@ -1256,7 +1256,7 @@
       ],
       "consumptions": [
         {
-          "amount": 2000,
+          "amount": 850,
           "processId": "eec31f13-d00a-4741-a84f-85d887026f8c"
         }
       ],
@@ -1267,7 +1267,7 @@
   {
     "category": "Veli",
     "id": "d60f8f78-fdd0-49b2-ba61-9dfbd7297b96",
-    "name": "Veli actif, 45km/h max, fabrication France",
+    "name": "Veli actif, 45km/h max, 4kWh/100km, fabrication France",
     "query": {
       "assemblyCountry": "FR",
       "components": [
@@ -1523,7 +1523,7 @@
       ],
       "consumptions": [
         {
-          "amount": 6800,
+          "amount": 3800,
           "processId": "eec31f13-d00a-4741-a84f-85d887026f8c"
         }
       ],
@@ -1534,7 +1534,7 @@
   {
     "category": "Véli",
     "id": "cbbcf0f6-6855-4655-a164-102672d1ef89",
-    "name": "Veli actif, 45km/h max, assemblage France",
+    "name": "Veli actif, 45km/h max, 4kWh/100km, assemblage France",
     "query": {
       "assemblyCountry": "FR",
       "components": [
@@ -1797,7 +1797,7 @@
       ],
       "consumptions": [
         {
-          "amount": 6800,
+          "amount": 3800,
           "processId": "eec31f13-d00a-4741-a84f-85d887026f8c"
         }
       ],
@@ -1808,7 +1808,7 @@
   {
     "category": "Veli",
     "id": "8d5768cb-dd06-4dbf-a6d8-62c1429beaf7",
-    "name": "Veli actif, 45km/h max, Asie",
+    "name": "Veli actif, 45km/h max, 4kWh/100km, Asie",
     "query": {
       "assemblyCountry": "RAS",
       "components": [
@@ -2071,7 +2071,7 @@
       ],
       "consumptions": [
         {
-          "amount": 2000,
+          "amount": 3800,
           "processId": "eec31f13-d00a-4741-a84f-85d887026f8c"
         }
       ],
@@ -2082,7 +2082,7 @@
   {
     "category": "Veli",
     "id": "cf636ce9-e95b-4e25-9a22-625986f85ef0",
-    "name": "Minibus quadricycle à assistance électrique",
+    "name": "Minibus quadricycle à assistance électrique, 4kWh/100km, France",
     "query": {
       "assemblyCountry": "FR",
       "components": [
@@ -2184,7 +2184,7 @@
       ],
       "consumptions": [
         {
-          "amount": 1000,
+          "amount": 1100,
           "processId": "eec31f13-d00a-4741-a84f-85d887026f8c"
         }
       ]
@@ -2194,7 +2194,7 @@
   {
     "category": "Veli",
     "id": "78517d8b-65cb-4205-accc-3bbab581176d",
-    "name": "Veli, 45km/h max, fabriqué en France",
+    "name": "Veli, 45km/h max, 5kWh/100km, fabriqué en France",
     "query": {
       "assemblyCountry": "FR",
       "components": [
@@ -2234,75 +2234,6 @@
             ]
           },
           "id": "189674e0-737e-4d6d-aab0-3fdfc19839ed",
-          "quantity": 1
-        },
-        {
-          "custom": {
-            "elements": [
-              {
-                "amount": 20,
-                "material": {
-                  "country": "REO",
-                  "id": "97a70d45-d7d5-4ee5-86b4-ee506300cdaa"
-                },
-                "transforms": []
-              }
-            ]
-          },
-          "id": "edca4c52-b34a-4906-b2e0-4f726bfcc8f7",
-          "quantity": 1
-        },
-        {
-          "custom": {
-            "elements": [
-              {
-                "amount": 8,
-                "material": {
-                  "country": "REO",
-                  "id": "21a0d5b0-861e-4bed-98a9-46c61d2a0618"
-                },
-                "transforms": [
-                  {
-                    "country": "REO",
-                    "id": "ea284007-49a8-4be1-95fc-452ea180285a"
-                  },
-                  {
-                    "country": "REO",
-                    "id": "7319ac9c-5796-412f-a1eb-58e01afa7708"
-                  }
-                ]
-              }
-            ]
-          },
-          "id": "d4583813-5f80-47e0-b028-df438f59cfe2",
-          "quantity": 4
-        },
-        {
-          "id": "6b3d7f30-e87b-426c-93ed-3a1179238583",
-          "quantity": 4
-        },
-        {
-          "custom": {
-            "elements": [
-              {
-                "amount": 20,
-                "material": {
-                  "country": "FR",
-                  "id": "42748244-0939-4da2-ad5f-206ce541d7ee"
-                },
-                "transforms": []
-              }
-            ]
-          },
-          "id": "d3ef64c0-3deb-4ef2-838d-015d8ece019e",
-          "quantity": 1
-        },
-        {
-          "id": "1d2de15a-53d9-465d-a2cf-fa2c5f68f5e9",
-          "quantity": 2
-        },
-        {
-          "id": "71086438-51a9-4980-ac3b-f24d5baa4cd5",
           "quantity": 1
         },
         {
@@ -2399,6 +2330,75 @@
           },
           "id": "7cfe659e-3764-4a8c-a25b-201396cbc09f",
           "quantity": 2
+        },
+        {
+          "custom": {
+            "elements": [
+              {
+                "amount": 20,
+                "material": {
+                  "country": "REO",
+                  "id": "97a70d45-d7d5-4ee5-86b4-ee506300cdaa"
+                },
+                "transforms": []
+              }
+            ]
+          },
+          "id": "edca4c52-b34a-4906-b2e0-4f726bfcc8f7",
+          "quantity": 1
+        },
+        {
+          "custom": {
+            "elements": [
+              {
+                "amount": 8,
+                "material": {
+                  "country": "REO",
+                  "id": "21a0d5b0-861e-4bed-98a9-46c61d2a0618"
+                },
+                "transforms": [
+                  {
+                    "country": "REO",
+                    "id": "ea284007-49a8-4be1-95fc-452ea180285a"
+                  },
+                  {
+                    "country": "REO",
+                    "id": "7319ac9c-5796-412f-a1eb-58e01afa7708"
+                  }
+                ]
+              }
+            ]
+          },
+          "id": "d4583813-5f80-47e0-b028-df438f59cfe2",
+          "quantity": 4
+        },
+        {
+          "id": "6b3d7f30-e87b-426c-93ed-3a1179238583",
+          "quantity": 4
+        },
+        {
+          "custom": {
+            "elements": [
+              {
+                "amount": 20,
+                "material": {
+                  "country": "FR",
+                  "id": "42748244-0939-4da2-ad5f-206ce541d7ee"
+                },
+                "transforms": []
+              }
+            ]
+          },
+          "id": "d3ef64c0-3deb-4ef2-838d-015d8ece019e",
+          "quantity": 1
+        },
+        {
+          "id": "1d2de15a-53d9-465d-a2cf-fa2c5f68f5e9",
+          "quantity": 2
+        },
+        {
+          "id": "71086438-51a9-4980-ac3b-f24d5baa4cd5",
+          "quantity": 1
         }
       ],
       "consumptions": [
@@ -2414,7 +2414,7 @@
   {
     "category": "Veli",
     "id": "48545a07-026b-46ca-8440-4bfaa036cce6",
-    "name": "Veli, 90km/h max, fabriqué en France",
+    "name": "Veli, 90km/h max, 6kWh/100km, fabriqué en France",
     "query": {
       "assemblyCountry": "FR",
       "components": [
@@ -2454,6 +2454,26 @@
             ]
           },
           "id": "189674e0-737e-4d6d-aab0-3fdfc19839ed",
+          "quantity": 1
+        },
+        {
+          "id": "3b15918f-d21c-4251-96a8-548ac8444a04",
+          "quantity": 1
+        },
+        {
+          "custom": {
+            "elements": [
+              {
+                "amount": 50,
+                "material": {
+                  "country": "REO",
+                  "id": "97a70d45-d7d5-4ee5-86b4-ee506300cdaa"
+                },
+                "transforms": []
+              }
+            ]
+          },
+          "id": "da06c70f-5b61-4de7-bb51-5761818aa0dd",
           "quantity": 1
         },
         {
@@ -2570,26 +2590,6 @@
             ]
           },
           "id": "71086438-51a9-4980-ac3b-f24d5baa4cd5",
-          "quantity": 1
-        },
-        {
-          "id": "3b15918f-d21c-4251-96a8-548ac8444a04",
-          "quantity": 1
-        },
-        {
-          "custom": {
-            "elements": [
-              {
-                "amount": 50,
-                "material": {
-                  "country": "REO",
-                  "id": "97a70d45-d7d5-4ee5-86b4-ee506300cdaa"
-                },
-                "transforms": []
-              }
-            ]
-          },
-          "id": "da06c70f-5b61-4de7-bb51-5761818aa0dd",
           "quantity": 1
         }
       ],
