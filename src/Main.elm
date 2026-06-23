@@ -33,7 +33,7 @@ import RemoteData.Http as Http
 import Request.Auth
 import Request.BackendHttp as BackendHttp
 import Request.Db as RequestDb exposing (LoadingState, RawJsonString)
-import Request.Version exposing (VersionData)
+import Request.Version as Version exposing (VersionData)
 import Route
 import Static.Db as StaticDb exposing (Db)
 import Toast
@@ -87,6 +87,7 @@ type State
 type alias Model =
     { db : Result String StaticDb.Db
     , dbLoadingState : LoadingState
+    , flags : Flags
     , mobileNavigationOpened : Bool
 
     -- Duplicate the nav key in the model so Parcel's hot module reloading finds it always in the same place.
@@ -126,6 +127,7 @@ init flags requestedUrl navKey =
     setRoute requestedUrl
         ( { db = Err "Not loaded"
           , dbLoadingState = RequestDb.initLoadingState
+          , flags = flags
           , mobileNavigationOpened = False
           , navKey = navKey
           , state = Initializing
@@ -134,7 +136,7 @@ init flags requestedUrl navKey =
           }
         , Cmd.batch
             [ Ports.appStarted ()
-            , Request.Version.loadVersion VersionReceived
+            , Version.loadVersion VersionReceived
             , loadData { flags = flags, navKey = navKey, url = requestedUrl }
             ]
         )
@@ -172,7 +174,7 @@ setupSession navKey flags db componentConfig =
     Session.decodeRawStore flags.rawStore
         { clientUrl = flags.clientUrl
         , componentConfig = componentConfig
-        , currentVersion = Request.Version.Unknown
+        , currentVersion = Version.Unknown
         , db = db
         , enabledSections = flags.enabledSections
         , matomo = flags.matomo
@@ -560,13 +562,13 @@ update rawMsg ({ state } as model) =
                     ( { model
                         | state =
                             currentPage
-                                |> Loaded { session | currentVersion = Request.Version.update session.currentVersion webData }
+                                |> Loaded { session | currentVersion = Version.update session.currentVersion webData }
                       }
                     , Cmd.none
                     )
 
                 ( VersionPoll, _ ) ->
-                    ( model, Request.Version.loadVersion VersionReceived )
+                    ( model, Version.loadVersion VersionReceived )
 
                 -- Catch-all
                 ( _, RestrictedAccessPage ) ->
@@ -598,7 +600,7 @@ subscriptions { state } =
         [ Ports.storeChanged StoreChanged
         , case state of
             Loaded { versionPollSeconds } _ ->
-                Request.Version.pollVersion versionPollSeconds VersionPoll
+                Version.pollVersion versionPollSeconds VersionPoll
 
             _ ->
                 Sub.none
@@ -637,7 +639,7 @@ subscriptions { state } =
 
 
 view : Model -> Document Msg
-view { dbLoadingState, mobileNavigationOpened, state, tray } =
+view { dbLoadingState, flags, mobileNavigationOpened, state, tray } =
     case state of
         Errored error ->
             -- FIXME: proper error page
@@ -649,21 +651,39 @@ view { dbLoadingState, mobileNavigationOpened, state, tray } =
             }
 
         Initializing ->
-            { body =
-                [ Container.centered [ class "pb-5" ]
-                    [ Spinner.view <| Just (RequestDb.getProgress dbLoadingState)
-                    ]
-                ]
-            , title = "Chargement des données Ecobalyse"
-            }
+            Page.frame
+                { activePage = Page.Other
+                , clientUrl = flags.clientUrl
+                , currentVersion = Version.Unknown
+                , enabledSections = flags.enabledSections
+                , hasAccessToDetailedImpacts = False
+                , isAuthenticated = False
+                , isSuperuser = False
+                , mobileNavigationOpened = mobileNavigationOpened
+                , notifications = []
+                , toMsg = AppMsg
+                , tray = tray
+                }
+                ( "Chargement des données Ecobalyse"
+                , [ Container.centered [ class "pb-5" ]
+                        [ Spinner.view <| Just (RequestDb.getProgress dbLoadingState)
+                        ]
+                  ]
+                )
 
         Loaded session page ->
             let
                 frame activePage =
                     Page.frame
                         { activePage = activePage
+                        , clientUrl = session.clientUrl
+                        , currentVersion = session.currentVersion
+                        , enabledSections = session.enabledSections
+                        , hasAccessToDetailedImpacts = Session.hasAccessToDetailedImpacts session
+                        , isAuthenticated = Session.isAuthenticated session
+                        , isSuperuser = Session.isSuperuser session
                         , mobileNavigationOpened = mobileNavigationOpened
-                        , session = session
+                        , notifications = session.notifications
                         , toMsg = AppMsg
                         , tray = tray
                         }
