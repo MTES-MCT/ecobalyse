@@ -1,7 +1,7 @@
 module Request.Db exposing
     ( DbError
     , LoadingState
-    , RawJsonString(..)
+    , RawJsonString
     , dbErrorToString
     , getRawJsonString
     , initLoadingState
