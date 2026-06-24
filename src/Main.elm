@@ -344,11 +344,14 @@ updateInitializing initMsg model =
             in
             setRoute sessionConfig.url
                 ( { model | state = Loaded session LoadingPage }
-                , if Session.isAuthenticated session then
-                    Request.Auth.processes session (DetailedProcessesReceived sessionConfig)
+                , Cmd.batch
+                    [ if Session.isAuthenticated session then
+                        Request.Auth.processes session (DetailedProcessesReceived sessionConfig)
 
-                  else
-                    Cmd.none
+                      else
+                        Cmd.none
+                    , Plausible.send session <| Plausible.PageViewed sessionConfig.url
+                    ]
                 )
 
         ComponentConfigReceived _ _ (RemoteData.Failure _) ->
