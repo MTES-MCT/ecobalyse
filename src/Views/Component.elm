@@ -221,6 +221,7 @@ addElementTransformButton { db, openSelectProcessModal, query, scope } material 
     let
         availableTransformProcesses =
             db.processes
+                |> List.filter .visible
                 |> Scope.anyOf [ scope ]
                 |> Process.listAvailableMaterialTransforms material
                 |> List.sortBy Process.getDisplayName
@@ -980,6 +981,7 @@ listAvailableProcesses :
     -> List Process
 listAvailableProcesses { db, scope } category =
     db.processes
+        |> List.filter .visible
         |> Scope.anyOf [ scope ]
         |> Process.listByCategory category
         |> List.sortBy Process.getDisplayName
