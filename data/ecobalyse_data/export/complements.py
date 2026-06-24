@@ -60,7 +60,9 @@ FOOD_COMPLEMENTS_COEFFICIENTS = {
 }
 
 
-def compute_vegetal_ecosystemic_services(food_metadata, ecosystemic_factors) -> dict:
+def compute_vegetal_ecosystemic_services(
+    food_metadata, ecosystemic_factors, process_with_impacts
+) -> dict:
     services = {}
     for eco_service in config.ecosystemic_services_list:
         factor_raw = ecosystemic_factors[food_metadata["cropGroup"]][eco_service][
@@ -78,7 +80,11 @@ def compute_vegetal_ecosystemic_services(food_metadata, ecosystemic_factors) -> 
         # To get the complement final value, we need to multiply it by its FOOD_COMPLEMENTS_COEFFICIENTS
         factor_final = factor_landocc * FOOD_COMPLEMENTS_COEFFICIENTS[eco_service]
 
-        services[eco_service] = number_format_ecosystemic_service(factor_final)
+        # vegetal ecosystemic services are capped at 30% of the ecoscore impact
+        max_value = -0.3 * abs(process_with_impacts["impacts"]["ecs"])
+        final_value = max(factor_final, max_value)
+
+        services[eco_service] = number_format_ecosystemic_service(final_value)
 
     return services
 
