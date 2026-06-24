@@ -4,6 +4,13 @@ import Data.Db as Db exposing (Db)
 import Static.Json as StaticJson
 
 
+{-| Build a Db from static file strings.
+
+IMPORTANT NOTE: this module should _never_ be imported by the Main module (the Web app), as it imports
+all the db JSON strings statically, which bloats the js build for no added value. The intended use of
+this function is for Server and Tests.
+
+-}
 dbFromStaticFiles : String -> Result String Db
 dbFromStaticFiles processesJson =
     Db.build
