@@ -32,6 +32,7 @@ import RemoteData exposing (WebData)
 import RemoteData.Http as Http
 import Request.Auth
 import Request.BackendHttp as BackendHttp
+import Request.Common as RequestCommon
 import Request.Db as RequestDb exposing (LoadingState)
 import Request.Version as Version exposing (VersionData)
 import Route
@@ -355,11 +356,15 @@ updateInitializing initMsg model =
                     ]
                 )
 
-        ComponentConfigReceived _ _ (RemoteData.Failure _) ->
-            -- FIXME: log the error to the console, or as details of the error in the UI
-            notifyError model "Erreur" <|
-                "Impossible de charger la configuration des composants. Une configuration par défaut sera"
-                    ++ " utilisée, les résultats fournis sont probablement invalides ou incomplets."
+        ComponentConfigReceived _ _ (RemoteData.Failure error) ->
+            ( { model
+                | state =
+                    Errored <|
+                        "Impossible de charger la configuration des composants: "
+                            ++ RequestCommon.errorToString error
+              }
+            , Cmd.none
+            )
 
         -- Raw Json Db data received over HTTP
         RawDataReceived sessionConfig updateRaw data ->
