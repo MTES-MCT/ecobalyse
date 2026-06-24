@@ -9,16 +9,15 @@ module Data.Db exposing
     , updateDbProcesses
     )
 
-import Data.Common.Db as Common
 import Data.Component as Component exposing (Component)
-import Data.Country exposing (Country)
+import Data.Country as Country exposing (Country)
 import Data.Food.Db as FoodDb
 import Data.Impact as Impact
-import Data.Impact.Definition exposing (Definitions)
+import Data.Impact.Definition as Definition exposing (Definitions)
 import Data.Object.Db as ObjectDb
 import Data.Process as Process exposing (Process)
 import Data.Textile.Db as TextileDb
-import Data.Transport exposing (Distances)
+import Data.Transport as Transport exposing (Distances)
 import Json.Decode as Decode
 import Result.Extra as RE
 
@@ -78,9 +77,21 @@ buildDb json =
                             , veliComponents = extractJsonString json.veliComponents
                             }
                         )
-                    |> RE.andMap (Common.countriesFromJson processes <| extractJsonString json.countries)
-                    |> RE.andMap (Common.impactsFromJson <| extractJsonString json.definitions)
-                    |> RE.andMap (Common.transportsFromJson <| extractJsonString json.transports)
+                    |> RE.andMap
+                        (extractJsonString json.countries
+                            |> Decode.decodeString (Country.decodeList processes)
+                            |> Result.mapError Decode.errorToString
+                        )
+                    |> RE.andMap
+                        (extractJsonString json.definitions
+                            |> Decode.decodeString Definition.decode
+                            |> Result.mapError Decode.errorToString
+                        )
+                    |> RE.andMap
+                        (extractJsonString json.transports
+                            |> Decode.decodeString Transport.decodeDistances
+                            |> Result.mapError Decode.errorToString
+                        )
                     |> RE.andMap
                         (processes
                             |> FoodDb.buildFromJson
