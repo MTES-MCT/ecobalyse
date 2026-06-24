@@ -166,8 +166,8 @@ loadData sessionConfig =
         |> Cmd.batch
 
 
-setupSession : Nav.Key -> Flags -> Db -> Component.Config -> Session
-setupSession navKey flags db componentConfig =
+setupSession : SessionConfig -> Db -> Component.Config -> Session
+setupSession { flags, navKey } db componentConfig =
     Session.decodeRawStore flags.rawStore
         { clientUrl = flags.clientUrl
         , componentConfig = componentConfig
@@ -340,7 +340,7 @@ updateInitializing initMsg model =
         ComponentConfigReceived db sessionConfig (RemoteData.Success componentConfig) ->
             let
                 session =
-                    setupSession sessionConfig.navKey sessionConfig.flags db componentConfig
+                    setupSession sessionConfig db componentConfig
             in
             setRoute sessionConfig.url
                 ( { model | state = Loaded session LoadingPage }
