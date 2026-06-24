@@ -83,8 +83,7 @@ type State
 
 
 type alias Model =
-    { db : Result String Db
-    , dbLoadingState : LoadingState
+    { dbLoadingState : LoadingState
     , flags : Flags
     , mobileNavigationOpened : Bool
 
@@ -123,8 +122,7 @@ type Msg
 init : Flags -> Url -> Nav.Key -> ( Model, Cmd Msg )
 init flags requestedUrl navKey =
     setRoute requestedUrl
-        ( { db = Err "Not loaded"
-          , dbLoadingState = RequestDb.initLoadingState
+        ( { dbLoadingState = RequestDb.initLoadingState
           , flags = flags
           , mobileNavigationOpened = False
           , navKey = navKey
