@@ -5,6 +5,7 @@ module Request.Db exposing
     , fetchJson
     , getProgress
     , initLoadingState
+    , toRawJsonStrings
     , updateRawJson
     )
 
@@ -94,6 +95,16 @@ resolve data =
         |> RemoteData.andMap data.transports
         |> RemoteData.andMap data.veliComponents
         |> RemoteData.andMap data.veliExamples
+
+
+toRawJsonStrings : LoadingState -> Maybe Db.RawJsonStrings
+toRawJsonStrings state =
+    case resolve state of
+        RemoteData.Success jsonStrings ->
+            Just jsonStrings
+
+        _ ->
+            Nothing
 
 
 updateRawJson : (LoadingState -> LoadingState) -> LoadingState -> ( LoadingState, Maybe (Result DbError Db) )

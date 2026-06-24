@@ -6,7 +6,6 @@ module Data.Db exposing
     , build
     , propGetters
     , rawJsonString
-    , updateProcesses
     )
 
 import Data.Component as Component exposing (Component)
@@ -145,11 +144,3 @@ propGetters =
 rawJsonString : String -> RawJsonString
 rawJsonString =
     RawJsonString
-
-
-updateProcesses : RawJsonString -> Db -> Result String Db
-updateProcesses (RawJsonString processesJson) db =
-    processesJson
-        |> Decode.decodeString (Process.decodeList Impact.decodeImpacts)
-        |> Result.mapError Decode.errorToString
-        |> Result.map (\processes -> { db | processes = processes })

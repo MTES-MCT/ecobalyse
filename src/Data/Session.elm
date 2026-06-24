@@ -66,6 +66,7 @@ type alias Session =
     , componentConfig : Component.Config
     , currentVersion : Version
     , db : Db
+    , dbRawJson : Maybe Db.RawJsonStrings
     , enabledSections : EnabledSections
     , matomo : { host : String, siteId : String }
     , navKey : Nav.Key
@@ -426,8 +427,12 @@ serializeStore =
 
 
 updateDbProcesses : String -> Session -> Session
-updateDbProcesses rawDetailedProcessesJson ({ db } as session) =
-    case db |> Db.updateProcesses (Db.rawJsonString rawDetailedProcessesJson) of
+updateDbProcesses rawDetailedProcessesJson session =
+    case
+        session.dbRawJson
+            |> Result.fromMaybe "Aucune donnée brute disponible en session pour reconstruire la base de données"
+            |> Result.andThen (\dbRawJson -> Db.build { dbRawJson | processes = Db.rawJsonString rawDetailedProcessesJson })
+    of
         Err err ->
             session |> notifyError "Impossible de recharger la db avec les nouveaux procédés" err
 

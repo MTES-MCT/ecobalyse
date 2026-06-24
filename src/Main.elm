@@ -5,7 +5,7 @@ import Browser exposing (Document)
 import Browser.Navigation as Nav
 import Data.Component as Component
 import Data.Component.Config as ComponentConfig
-import Data.Db as Db exposing (Db, RawJsonString)
+import Data.Db exposing (Db, RawJsonString)
 import Data.Example as Example
 import Data.Food.Query as FoodQuery
 import Data.Impact as Impact
@@ -166,13 +166,14 @@ loadData sessionConfig =
         |> Cmd.batch
 
 
-setupSession : SessionConfig -> Db -> Component.Config -> Session
-setupSession { flags, navKey } db componentConfig =
+setupSession : SessionConfig -> LoadingState -> Db -> Component.Config -> Session
+setupSession { flags, navKey } dbLoadingState db componentConfig =
     Session.decodeRawStore flags.rawStore
         { clientUrl = flags.clientUrl
         , componentConfig = componentConfig
         , currentVersion = Version.Unknown
         , db = db
+        , dbRawJson = RequestDb.toRawJsonStrings dbLoadingState
         , enabledSections = flags.enabledSections
         , matomo = flags.matomo
         , navKey = navKey
@@ -340,7 +341,7 @@ updateInitializing initMsg model =
         ComponentConfigReceived db sessionConfig (RemoteData.Success componentConfig) ->
             let
                 session =
-                    setupSession sessionConfig db componentConfig
+                    setupSession sessionConfig model.dbLoadingState db componentConfig
             in
             setRoute sessionConfig.url
                 ( { model | state = Loaded session LoadingPage }
@@ -464,17 +465,16 @@ update rawMsg ({ state } as model) =
 
                 -- Detailed processes
                 ( DetailedProcessesReceived sessionConfig (RemoteData.Success rawDetailedProcessesJson), currentPage ) ->
-                    -- When detailed processes are received, rebuild the entire static db using them
-                    case session.db |> Db.updateProcesses (Db.rawJsonString rawDetailedProcessesJson) of
-                        Err _ ->
-                            notifyError model "Erreur" <|
-                                "Impossible de décoder les impacts détaillés; les impacts agrégés seront utilisés."
-
-                        Ok detailedDb ->
-                            ( { model | state = currentPage |> Loaded { session | db = detailedDb } }
-                            , ComponentConfig.decode detailedDb
-                                |> Http.get "/data/components/config.json" (ComponentConfigReceived detailedDb sessionConfig)
-                            )
+                    let
+                        newSession =
+                            -- When detailed processes are received, rebuild the entire Db using them
+                            session
+                                |> Session.updateDbProcesses rawDetailedProcessesJson
+                    in
+                    ( { model | state = Loaded newSession currentPage }
+                    , ComponentConfig.decode newSession.db
+                        |> Http.get "/data/components/config.json" (ComponentConfigReceived newSession.db sessionConfig)
+                    )
 
                 ( DetailedProcessesReceived _ (RemoteData.Failure _), _ ) ->
                     notifyError model "Erreur" <|
