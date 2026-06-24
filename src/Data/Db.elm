@@ -3,10 +3,10 @@ module Data.Db exposing
     , Properties
     , RawJsonString
     , RawJsonStrings
-    , buildDb
+    , build
     , propGetters
     , rawJsonString
-    , updateDbProcesses
+    , updateProcesses
     )
 
 import Data.Component as Component exposing (Component)
@@ -61,8 +61,8 @@ type alias RawJsonStrings =
     Properties RawJsonString
 
 
-buildDb : RawJsonStrings -> Result String Db
-buildDb json =
+build : RawJsonStrings -> Result String Db
+build json =
     extractJsonString json.processes
         |> Decode.decodeString (Process.decodeList Impact.decodeImpacts)
         |> Result.mapError Decode.errorToString
@@ -70,12 +70,14 @@ buildDb json =
             (\processes ->
                 Ok Db
                     |> RE.andMap
-                        (decodeRawComponents
-                            { food2Components = """[]"""
-                            , objectComponents = extractJsonString json.objectComponents
-                            , textileComponents = extractJsonString json.textileComponents
-                            , veliComponents = extractJsonString json.veliComponents
-                            }
+                        -- Note: no food2 components just yet
+                        ([ json.objectComponents
+                         , json.textileComponents
+                         , json.veliComponents
+                         ]
+                            |> List.map (extractJsonString >> Component.decodeListFromJsonString)
+                            |> RE.combine
+                            |> Result.map List.concat
                         )
                     |> RE.andMap
                         (extractJsonString json.countries
@@ -115,20 +117,6 @@ buildDb json =
             )
 
 
-decodeRawComponents :
-    { food2Components : String
-    , objectComponents : String
-    , textileComponents : String
-    , veliComponents : String
-    }
-    -> Result String (List Component)
-decodeRawComponents { objectComponents, textileComponents, veliComponents } =
-    [ objectComponents, textileComponents, veliComponents ]
-        |> List.map Component.decodeListFromJsonString
-        |> RE.combine
-        |> Result.map List.concat
-
-
 extractJsonString : RawJsonString -> String
 extractJsonString (RawJsonString string) =
     string
@@ -159,8 +147,8 @@ rawJsonString =
     RawJsonString
 
 
-updateDbProcesses : String -> Db -> Result String Db
-updateDbProcesses processesJson db =
+updateProcesses : String -> Db -> Result String Db
+updateProcesses processesJson db =
     processesJson
         |> Decode.decodeString (Process.decodeList Impact.decodeImpacts)
         |> Result.mapError Decode.errorToString

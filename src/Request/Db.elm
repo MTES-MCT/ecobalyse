@@ -113,7 +113,7 @@ updateRawJson update loadingState =
 
         RemoteData.Success json ->
             ( updated
-            , Db.buildDb json
+            , Db.build json
                 |> Result.mapError ParseError
                 |> Just
             )

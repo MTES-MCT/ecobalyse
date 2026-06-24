@@ -462,7 +462,7 @@ update rawMsg ({ state } as model) =
                 -- Detailed processes
                 ( DetailedProcessesReceived sessionConfig (RemoteData.Success rawDetailedProcessesJson), currentPage ) ->
                     -- When detailed processes are received, rebuild the entire static db using them
-                    case session.db |> Db.updateDbProcesses rawDetailedProcessesJson of
+                    case session.db |> Db.updateProcesses rawDetailedProcessesJson of
                         Err _ ->
                             notifyError model "Erreur" <|
                                 "Impossible de décoder les impacts détaillés; les impacts agrégés seront utilisés."

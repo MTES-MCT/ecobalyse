@@ -6,7 +6,7 @@ import Static.Json as StaticJson
 
 dbFromStaticFiles : String -> Result String Db
 dbFromStaticFiles processesJson =
-    Db.buildDb
+    Db.build
         { countries = Db.rawJsonString StaticJson.countriesJson
         , definitions = Db.rawJsonString StaticJson.impactsJson
         , food2Examples = Db.rawJsonString StaticJson.food2ExamplesJson
