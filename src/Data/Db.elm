@@ -147,8 +147,8 @@ rawJsonString =
     RawJsonString
 
 
-updateProcesses : String -> Db -> Result String Db
-updateProcesses processesJson db =
+updateProcesses : RawJsonString -> Db -> Result String Db
+updateProcesses (RawJsonString processesJson) db =
     processesJson
         |> Decode.decodeString (Process.decodeList Impact.decodeImpacts)
         |> Result.mapError Decode.errorToString
