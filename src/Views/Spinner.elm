@@ -15,7 +15,7 @@ view progress =
             [ case ( progress, progress |> Maybe.map (Tuple.second >> (\t -> t > 0)) |> Maybe.withDefault False ) of
                 ( Just ( loaded, total ), True ) ->
                     div [ class "d-flex flex-column gap-1" ]
-                        [ text <| "Chargement\u{00A0}: " ++ String.fromInt loaded ++ "/" ++ String.fromInt total
+                        [ text <| "Récupération des données\u{00A0}: " ++ String.fromInt loaded ++ "/" ++ String.fromInt total
                         , div
                             [ class "progress w-100"
                             , attribute "role" "progressbar"
