@@ -362,8 +362,15 @@ isSuperuser =
 
 
 logout : Session -> Session
-logout =
-    setAuth Nothing
+logout session =
+    setAuth Nothing <|
+        -- reinit Db in its pristine, non-detailed state
+        case session.dbRawJson |> Maybe.map Db.build of
+            Just (Ok db) ->
+                { session | db = db }
+
+            _ ->
+                session
 
 
 setAuth : Maybe Auth -> Session -> Session
