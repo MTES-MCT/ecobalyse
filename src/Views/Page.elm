@@ -651,7 +651,7 @@ restricted =
         ]
 
 
-loading : Maybe ( Int, Int ) -> Html msg
+loading : Maybe { loaded : Int, total : Int } -> Html msg
 loading progress =
     Container.centered [ class "pb-5" ]
         [ Spinner.view progress

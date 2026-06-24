@@ -4,7 +4,7 @@ import Html exposing (..)
 import Html.Attributes exposing (..)
 
 
-view : Maybe ( Int, Int ) -> Html msg
+view : Maybe { loaded : Int, total : Int } -> Html msg
 view progress =
     div
         [ class "d-flex flex-column gap-3 justify-content-center align-items-center"
@@ -12,8 +12,8 @@ view progress =
         ]
         [ div [ class "spinner-border text-primary", attribute "role" "status" ] []
         , div [ class "text-muted" ]
-            [ case ( progress, progress |> Maybe.map (Tuple.second >> (\t -> t > 0)) |> Maybe.withDefault False ) of
-                ( Just ( loaded, total ), True ) ->
+            [ case ( progress, progress |> Maybe.map (.total >> (\t -> t > 0)) |> Maybe.withDefault False ) of
+                ( Just { loaded, total }, True ) ->
                     div [ class "d-flex flex-column gap-1" ]
                         [ text <| "Récupération des données\u{00A0}: " ++ String.fromInt loaded ++ "/" ++ String.fromInt total
                         , div

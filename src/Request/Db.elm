@@ -46,13 +46,14 @@ fetchJson path event =
         }
 
 
-getProgress : LoadingState -> ( Int, Int )
+getProgress : LoadingState -> { loaded : Int, total : Int }
 getProgress state =
-    ( Db.propGetters
-        |> List.filter (\getter -> getter state |> RemoteData.isSuccess)
-        |> List.length
-    , List.length Db.propGetters
-    )
+    { loaded =
+        Db.propGetters
+            |> List.filter (\getter -> getter state |> RemoteData.isSuccess)
+            |> List.length
+    , total = List.length Db.propGetters
+    }
 
 
 initLoadingState : LoadingState
