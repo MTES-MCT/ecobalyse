@@ -1090,9 +1090,6 @@ computeTransports ({ config, db } as requirements) ({ transportOptions } as quer
                 ( 0, Just _ ) ->
                     Err "Une liste de composants vide ne peut être assemblée"
 
-                ( 1, Just _ ) ->
-                    Err "Un composant unique ne peut pas être assemblé"
-
                 -- Many components assembled; for all components, each elements are individually shipped to assembly,
                 -- then the assembled product mass is transported to distribution
                 ( _, Just assemblyCountry ) ->
@@ -1115,22 +1112,6 @@ computeTransports ({ config, db } as requirements) ({ transportOptions } as quer
                 -- Default state, empty transports
                 ( 0, Nothing ) ->
                     Ok { lifeCycle | transports = emptyLifeCycleTransports }
-
-                -- Single unique component; its elements are directly shipped to distribution individually,
-                -- with no transport to assembly stage
-                ( 1, Nothing ) ->
-                    Result.map2 setLifeCycleTransports
-                        -- toAssembly
-                        (Ok Transport.noTransport)
-                        -- toDistribution
-                        (transportElements
-                            (\( expandedElement, elementResults ) ->
-                                extractMass elementResults
-                                    |> transportImpacts transportOptions
-                                        (getFinalElementCountry expandedElement)
-                                        distributionCountry
-                            )
-                        )
 
                 -- Many items with no assembly country specified; all item elements are individually shipped to
                 -- the assembly stage unique default unknown transport distances,

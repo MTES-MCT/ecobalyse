@@ -528,7 +528,7 @@ lifeCycleView ({ db, docsUrl, explorerRoute, impact, query, scope, title } as co
                 TextileTrimsContext ->
                     addComponentButton config
             ]
-        , if Scope.isGeneric scope && List.length query.items > 1 then
+        , if Scope.isGeneric scope && List.length query.items > 0 then
             div []
                 [ DownArrow.view
                     [ div [ class "d-flex justify-content-end align-items-center gap-1" ]
