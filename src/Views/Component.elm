@@ -952,25 +952,10 @@ elementEditModalView ({ query } as config) (( _, elementIndex ) as targetElement
 {-| Render transports from last transform step to assembly or distribution stage
 -}
 finalElementTransportView : Config db msg -> Maybe Country -> Mass -> Html msg
-finalElementTransportView ({ componentConfig, db, query, scope } as config) elementCountry mass =
-    let
-        maybeDestinationCountryCode =
-            case ( List.length query.items > 1, query.assemblyCountry ) of
-                -- multiple items and an assembly country: transport to assembly country
-                ( True, Just assemblyCountryCode ) ->
-                    Just assemblyCountryCode
-
-                -- single item and no assembly country: transport to default distribution country
-                ( False, Nothing ) ->
-                    Just componentConfig.distribution.country.code
-
-                -- fallback to unknown destination
-                _ ->
-                    Nothing
-    in
+finalElementTransportView ({ db, query, scope } as config) elementCountry mass =
     db.countries
         |> Scope.anyOf [ scope ]
-        |> Country.resolveMaybe maybeDestinationCountryCode
+        |> Country.resolveMaybe query.assemblyCountry
         |> Result.map (elementTransportView config [ class "subdued" ] False mass elementCountry)
         |> Result.withDefault (text "")
 
