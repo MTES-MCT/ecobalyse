@@ -1761,7 +1761,7 @@ suite =
                                                 }
                                            )
                                         |> Component.validateQuery { requirements | scope = Scope.Generic Scope.Food2 }
-                                        |> expectResultErrorContains ("Aucun procédé scopé Alimentaire² avec cet id: " ++ Process.idToString sawingProcess.id)
+                                        |> expectResultErrorContains ("Aucun procédé scopé Alimentaire BÉTA avec cet id: " ++ Process.idToString sawingProcess.id)
                                     )
                                 , it "should reject a packaging referencing a missing process" <|
                                     (emptyQuery
@@ -1786,7 +1786,7 @@ suite =
                                                 }
                                            )
                                         |> Component.validateQuery { requirements | scope = Scope.Generic Scope.Food2 }
-                                        |> expectResultErrorContains ("Aucun procédé scopé Alimentaire² avec cet id: " ++ Process.idToString sawingProcess.id)
+                                        |> expectResultErrorContains ("Aucun procédé scopé Alimentaire BÉTA avec cet id: " ++ Process.idToString sawingProcess.id)
                                     )
                                 ]
                             ]
