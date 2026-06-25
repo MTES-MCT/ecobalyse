@@ -1055,12 +1055,10 @@ computeTransportedMassImpacts ({ config } as requirements) ({ byAir, cooling } a
 
 {-| Computes transports impacts:
 
-  - for a single component product, the summed impacts of transporting its individual elements directly to distribution
-  - for a multiple components product:
-      - if we know the country of assembly, the summed impacts of transporting each component's elements to assembly,
-        then the summed impacts of transporting the assembled product mass to distribution
-      - if we don't know the country of assembly, the summed impacts of each component's elements transported using
-        default unknown transport distances, then the assembled product mass to distribution
+  - if we know the country of assembly, the summed impacts of transporting each component's elements to assembly,
+    then the summed impacts of transporting the assembled product mass to distribution
+  - if we don't know the country of assembly, the summed impacts of each component's elements transported using
+    default unknown transport distances, then the assembled product mass to distribution
 
 -}
 computeTransports : Requirements db -> Query -> LifeCycle -> Result String LifeCycle
@@ -1090,7 +1088,7 @@ computeTransports ({ config, db } as requirements) ({ transportOptions } as quer
                 ( 0, Just _ ) ->
                     Err "Une liste de composants vide ne peut être assemblée"
 
-                -- Many components assembled; for all components, each elements are individually shipped to assembly,
+                -- One or more components assembled; for all components, each elements are individually shipped to assembly,
                 -- then the assembled product mass is transported to distribution
                 ( _, Just assemblyCountry ) ->
                     Result.map2 setLifeCycleTransports
@@ -1113,8 +1111,8 @@ computeTransports ({ config, db } as requirements) ({ transportOptions } as quer
                 ( 0, Nothing ) ->
                     Ok { lifeCycle | transports = emptyLifeCycleTransports }
 
-                -- Many items with no assembly country specified; all item elements are individually shipped to
-                -- the assembly stage unique default unknown transport distances,
+                -- One or more items with no assembly country specified; all item elements are individually shipped to
+                -- the assembly stage using default unknown transport distances,
                 -- then the total mass of the assembled end product is transported to distribution country
                 ( _, Nothing ) ->
                     Result.map2 setLifeCycleTransports
