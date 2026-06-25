@@ -1,1 +1,116 @@
-[]
+[
+  {
+    "category": "",
+    "id": "faff660e-2785-438e-ba1b-b04ab806b0cc",
+    "name": "Pizza végétal (350g)",
+    "query": {
+      "components": [
+        {
+          "custom": {
+            "elements": [
+              {
+                "amount": 0.113,
+                "material": {
+                  "country": "FR",
+                  "id": "d57e50ef-b40e-4abf-ab50-1edf4916a3e4"
+                },
+                "transforms": []
+              },
+              {
+                "amount": 0.076,
+                "material": {
+                  "country": "FR",
+                  "id": "b94d40bd-3394-59d3-9397-fe097a5f7138"
+                },
+                "transforms": [
+                  {
+                    "country": "FR",
+                    "id": "de307fb4-99d3-4a01-962b-242ace7b2739"
+                  }
+                ]
+              },
+              {
+                "amount": 0.012,
+                "material": {
+                  "country": "FR",
+                  "id": "9a990c37-72b3-40c5-a700-aee1f686a029"
+                },
+                "transforms": []
+              },
+              {
+                "amount": 0.036,
+                "material": {
+                  "country": "FR",
+                  "id": "09bf7ccc-baeb-4907-87ec-dc3a1b3cf9e1"
+                },
+                "transforms": []
+              },
+              {
+                "amount": 0.036,
+                "material": {
+                  "country": "FR",
+                  "id": "b94d40bd-3394-59d3-9397-fe097a5f7138"
+                },
+                "transforms": []
+              },
+              {
+                "amount": 0.012,
+                "material": {
+                  "country": "FR",
+                  "id": "97cde31b-e46e-472d-836d-9b217c3845df"
+                },
+                "transforms": []
+              },
+              {
+                "amount": 0.002,
+                "material": {
+                  "id": "217df27a-7ab5-5d1d-97a4-8b20db8f4952"
+                },
+                "transforms": []
+              },
+              {
+                "amount": 0.021,
+                "material": {
+                  "id": "96b301d9-d21b-4cea-8903-bd7917e95a30"
+                },
+                "transforms": []
+              },
+              {
+                "amount": 0.036,
+                "material": {
+                  "country": "FR",
+                  "id": "835930b4-a388-588f-aff2-bc7cbe2a17eb"
+                },
+                "transforms": []
+              }
+            ],
+            "name": "Pizza végétale"
+          },
+          "quantity": 1
+        }
+      ],
+      "consumptions": [
+        {
+          "amount": 0.35,
+          "processId": "0048f6f5-5f8f-4a34-acde-4e0d909883d4"
+        },
+        {
+          "amount": 0.35,
+          "processId": "a49670fc-0642-43f6-a673-fe15dc7d88da"
+        }
+      ],
+      "distribution": "a7b3d399-4c7b-4556-9826-a79f952feb7f",
+      "packagings": [
+        {
+          "amount": 1,
+          "processId": "fa775270-4bc7-4f6d-a9d3-c80ed05ed90c"
+        }
+      ],
+      "recyclable": true,
+      "transportOptions": {
+        "cooling": true
+      }
+    },
+    "scope": "food2"
+  }
+]
