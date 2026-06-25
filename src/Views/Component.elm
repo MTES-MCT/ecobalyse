@@ -955,7 +955,7 @@ finalElementTransportView ({ db, query, scope } as config) elementCountry mass =
     db.countries
         |> Scope.anyOf [ scope ]
         |> Country.resolveMaybe query.assemblyCountry
-        |> Result.map (elementTransportView config [ class "subdued" ] False mass elementCountry)
+        |> Result.map (elementTransportView config [ class "subdued" ] mass elementCountry)
         |> Result.withDefault (text "")
 
 
@@ -1060,26 +1060,17 @@ elementMaterialView config targetElement materialResults material amount =
     ]
 
 
-elementTransportView : Config db msg -> List (Attribute msg) -> Bool -> Mass -> Maybe Country -> Maybe Country -> Html msg
-elementTransportView ({ query } as config) attributes noAirTransport transportedMass maybeFrom maybeTo =
+elementTransportView : Config db msg -> List (Attribute msg) -> Mass -> Maybe Country -> Maybe Country -> Html msg
+elementTransportView ({ query } as config) attributes transportedMass maybeFrom maybeTo =
     let
         { transportOptions } =
             query
 
-        -- ALtered transport options for local rendering purpose only
-        displayTransportOptions =
-            if List.length query.items > 1 || noAirTransport then
-                -- multiple components: remove all air transports (they're removed in Component.computeTransports)
-                { transportOptions | byAir = Split.zero }
-
-            else
-                -- single component: preserve air transport
-                transportOptions
-
         displayElementTransport =
             transportedMass
                 |> Component.computeTransportedMassImpacts (requirementsFromConfig config)
-                    displayTransportOptions
+                    -- Note: air transport is always disabled before assembly (see Component.computeTransports)
+                    { transportOptions | byAir = Split.zero }
                     maybeFrom
                     maybeTo
     in
@@ -1185,7 +1176,7 @@ elementTransformsView config targetElement materialResults materialCountry trans
                                )
                 in
                 [ transform.country
-                    |> elementTransportView config [] True previousMass previousCountry
+                    |> elementTransportView config [] previousMass previousCountry
                 , tr [ class "fs-7 border-top" ]
                     [ td [] []
                     , td [ class "text-end align-middle text-nowrap" ] []

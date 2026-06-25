@@ -2237,18 +2237,16 @@ setElementMaterial db targetElement material items =
             |> Ok
 
 
-{-| Sets query items, adapting the country of assembly if needed
--}
 setQueryItems : List Item -> Query -> Query
 setQueryItems items query =
     { query
         | assemblyCountry =
-            if List.length items > 1 then
-                query.assemblyCountry
+            -- reset assembly country if no items
+            if List.isEmpty items then
+                Nothing
 
             else
-                -- reset assembly country if no or single item
-                Nothing
+                query.assemblyCountry
         , items = items
     }
 
