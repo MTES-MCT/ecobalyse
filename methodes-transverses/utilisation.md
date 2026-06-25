@@ -20,17 +20,22 @@ Exemples :&#x20;
 
 ## Méthodes de calcul
 
+{% hint style="warning" %}
+Les modalités de calcul sont en cours d'élaboration. Les principes et calculs identifiés ci-dessous sont présentés à titre exploratoire uniquement.
+{% endhint %}
+
 ### Grands principes
 
-Pour chaque secteur, plusieurs consommables sont proposés, correspondant chacune à un procédé (visible dans l'explorateur)
+Pour chaque secteur, plusieurs consommables sont proposés, correspondant chacun à un procédé (visible dans l'explorateur)
 
 Les attributs suivants sont attachés à chaque consommable pour définir son utilisation :&#x20;
 
-* `productmassdependent` : définit si la consommation dépend de la masse du produit (cas des cuisson alimentaire par exemple)
+* `productmassdependent` : définit si la consommation dépend de la masse du produit (cas des cuisson alimentaire par exemple) ou pas (cas du repassage, de la consommation de carburant ou des émissions de particules d'un véhicule par exemple)
 * `unit` : définit l'unité du procédé&#x20;
-* `productdependant` : définit si la quantité est définie par l'utilisateur ou fixée par Ecobalyse
-* `eleckWh` : définit une quantité d'électricité
-* `heatMJ` : définit une quantité de chaleur
+* `eleckWh` : définit une quantité d'électricité associée à la consommation d'une unité du procédé
+* `heatMJ` : définit une quantité de chaleur associée à la consommation d'une unité du procédé
+
+Par ailleurs, dans certain cas la quantité du consommable doit être fournie par l'utilisateur, dans d'autres elle est fixée par Ecobalyse (modalités de calcul en cours d'élaboration).
 
 ### Formule de calcul en cours de développement
 
@@ -41,9 +46,7 @@ $$
 Avec :
 
 * `I_utilisation` : l'impact environnemental à l'utilisation d'un produit, dans l'unité de la catégorie d'impact analysée
-* `C_use,i,current` : la consommation du consommable `i`, par unité d'utilisation. Celle-ci dépend des attributs attachés au consommable :
-  * `productdependant` : valeur fixée l'utilisateur
-  * absence d'attribut : `C_use,i` = 1
+* `C_use,i,current` : la consommation du consommable `i`, par unité d'utilisation. Celle-ci dépend des attributs attachés au consommable (en cours de structuration)
 * `E_use,i` = `eleckWh`  et/ou `heatMJ` : quantité d'électricité consommée&#x20;
 * `m_i` : la masse du produit, exprimée en kg OU `1` si la consommation ne dépend pas de la masse&#x20;
 * `I_i` : l'impact environnemental du consommable `i` , dans l'unité de la catégorie d'impact analysée (hors énergie)
@@ -59,9 +62,7 @@ $$
 Avec :
 
 * `I_utilisation` : l'impact environnemental à l'utilisation d'un produit, dans l'unité de la catégorie d'impact analysée
-* `C_use,i,future` : la consommation du consommable `i`, par unité d'utilisation. Celle-ci dépend des attributs attachés au consommable :&#x20;
-  * `productdependant` : valeur fixée l'utilisateur
-  * absence d'attribut : `C_use,i` = 1
+* `C_use,i,future` : la consommation du consommable `i`, par unité d'utilisation. Celle-ci dépend des attributs attachés au consommable (en cours de structuration)
 * `E_use,i` = `eleckWh`  et/ou `heatMJ` : quantité d'électricité consommée&#x20;
 * `m_i` : la masse du produit OU `1` si la consommation ne dépend pas de la masse
 * `r_use,i` : un ratio de conversion entre l'unité de la durée de vie et l'unité d'utilisation du consommable
