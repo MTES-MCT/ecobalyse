@@ -854,7 +854,7 @@ requires-dist = [
     { name = "psycopg", extras = ["binary", "pool"], specifier = ">=3.3.4" },
     { name = "pwdlib", extras = ["argon2"], specifier = ">=0.3.0" },
     { name = "pygithub", specifier = ">=2.6.1" },
-    { name = "pytest-databases", extras = ["postgres"], specifier = ">=0.18.0" },
+    { name = "pytest-databases", extras = ["postgres"], specifier = ">=0.19.0" },
     { name = "pytest-mock", specifier = ">=3.14.1" },
     { name = "python-stdnum", specifier = ">=2.1" },
     { name = "sentry-sdk", extras = ["litestar"], specifier = ">=2.62.0" },
