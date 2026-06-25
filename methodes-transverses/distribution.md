@@ -11,3 +11,4 @@ Dans ces étapes, l'impact environnemental correspond à la consommation de flui
 
 A ce jour, un impact environnemental n'est associé à cette étape que pour le secteur Alimentaire ([lien vers la page dédiée](https://fabrique-numerique.gitbook.io/ecobalyse/alimentaire/impacts-consideres/distribution)).
 
+Cette étape est impérativement située en France dans Ecobalyse.
