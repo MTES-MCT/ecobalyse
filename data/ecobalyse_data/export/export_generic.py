@@ -55,7 +55,6 @@ def _build_variant_metadata(
             raw_to_cooked_ratio=food_variant["rawToCookedRatio"],
             scenario=food_variant.get("scenario"),
             transport_cooling=food_variant["transportCooling"],
-            visible=food_variant["visible"],
             process_id=activity["id"],
         ).model_dump(by_alias=True)
 
@@ -204,6 +203,7 @@ def compute_processes_generic(
                 source=process["source"],
                 unit=process.get("unit"),
                 qty_variation_ratio=process.get("qtyVariationRatio", 1),
+                visible=variant.get("visible", True),
             )
             entry_dict = entry.model_dump(by_alias=True)
             entry_dict["metadata"] = metadata_out
