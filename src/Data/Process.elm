@@ -66,6 +66,7 @@ type alias Process =
     , searchableWords : List String
     , source : String
     , unit : Unit
+    , visible : Bool
     }
 
 
@@ -150,6 +151,7 @@ decode impactsDecoder =
         |> Pipe.hardcoded []
         |> Pipe.required "source" Decode.string
         |> Pipe.required "unit" (Decode.string |> Decode.andThen (DE.fromResult << unitFromString))
+        |> Pipe.optional "visible" Decode.bool True
         |> Decode.map computeSearchableWords
 
 
