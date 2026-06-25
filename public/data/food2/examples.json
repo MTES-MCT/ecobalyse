@@ -1,1 +1,49 @@
-[]
+[
+  {
+    "category": "",
+    "id": "cb3576d3-703f-47f4-ae0c-de4f87c4c429",
+    "name": "Filet de poulet FR (250g)",
+    "query": {
+      "components": [
+        {
+          "custom": {
+            "elements": [
+              {
+                "amount": 0.25,
+                "material": {
+                  "country": "FR",
+                  "id": "a360871c-fc35-4cb3-af2c-5eeb8bd6f984"
+                },
+                "transforms": []
+              }
+            ],
+            "name": "Blanc de poulet"
+          },
+          "quantity": 1
+        }
+      ],
+      "consumptions": [
+        {
+          "amount": 0.25,
+          "processId": "0048f6f5-5f8f-4a34-acde-4e0d909883d4"
+        },
+        {
+          "amount": 0.25,
+          "processId": "a49670fc-0642-43f6-a673-fe15dc7d88da"
+        }
+      ],
+      "distribution": "be66b80b-1500-4e3b-bfd2-87a89ff54031",
+      "packagings": [
+        {
+          "amount": 1,
+          "processId": "fd569276-f8b5-41aa-8005-e533ac16b9bc"
+        }
+      ],
+      "recyclable": true,
+      "transportOptions": {
+        "cooling": true
+      }
+    },
+    "scope": "food2"
+  }
+]
