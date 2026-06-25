@@ -16,7 +16,7 @@ Ecobalyse fait le choix de modéliser les emballages séparément des autres com
 
 ### Matériaux d'emballage proposés
 
-Ecobalyse met à disposition les matériaux d'emballage suivants :&#x20;
+Ecobalyse met à disposition tout ou partie des matériaux d'emballage suivants pour les secteurs concernés :&#x20;
 
 * Aluminium
 * Acier
@@ -75,12 +75,12 @@ Voir la [page de documentation dédiée](https://fabrique-numerique.gitbook.io/e
 
 ### Autres secteurs
 
-Les procédés sont construits par Ecobalyse en sommant toutes les étapes du cycle de vie des emballages.
+Pour les emballages non alimentaires, les procédés ont été construits par l'équipe Ecobalyse en incluant toutes les étapes du cycle de vie des emballages (fabrication, transport, fin de vie).
 
-Sauf mention explicite contraire, les procédés retenus et leur quantités sont ceux identifiés dans la [documentation PACK\_AGB](https://doi.org/10.57745/ZTZUQR).
+L'approche est cohérente avec celle implémentée dans l'alimentaire. Les procédés utilisés en arrière-plan et les règles de modélisation sont autant que possible les mêmes pour tous les secteurs :
 
 * Procédés de fabrication
-  * Aucun procédé avec intégration de matière recyclée n'est retenue ici
+  * Aucun procédé avec intégration de matière recyclée n'est pour l'instant utilisé. Ceci pour être amené à évoluer, notamment au regard des retours des parties prenantes.
 * Procédés de transformation
   * "Injection moulding" pour les Plastiques (hors PVC)
 * Transport du lien de fabrication au lien de vente
