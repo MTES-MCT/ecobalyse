@@ -15,7 +15,7 @@ dependencies = [
     "asyncpg>=0.30.0",
     "structlog>=25.2.0",
     "orjson>=3.11.9",
-    "aiosmtplib>=4.0.0",
+    "aiosmtplib>=5.1.2",
     "emails>=0.6",
     "python-stdnum>=2.1",
     "pygithub>=2.6.1",
@@ -54,12 +54,12 @@ backend = "app.__main__:run_cli"
 dev = [
     "pre-commit>=4.6.0",
     "pytest>=8.3.4",
-    "ruff>=0.15.12",
+    "ruff~=0.15",
 ]
 
 data = [
-     "boto3 ~= 1.40",
-     "dynaconf ~= 3.2",
+     "boto3~=1.43",
+     "dynaconf~=3.3",
      "frozendict ~= 2.4",
      "orjson ~= 3.10",
      "platformdirs ~= 4.5",
@@ -87,11 +87,11 @@ dev-data = [
 jupyter = [
     "ipywidgets>=8.1.5",
     "jupyter-collaboration>=3.0.1",
-    "jupyterlab>=4.3.2",
+    "jupyterlab>=4.6.0",
     "notebook>=7.3.0",
 ]
 # SimaPro (API + plotting)
-simapro = ["fastapi[all] ~= 0.115", "matplotlib ~= 3.10.7"]
+simapro = ["fastapi[all] ~= 0.115", "matplotlib~=3.11.0"]
 
 [tool.pytest.ini_options]
 pythonpath = ["."]
