@@ -10,11 +10,11 @@ Pour le calcul du coût environnemental des vêtements, il n'est pas considéré
 
 Ecobalyse fait le choix de modéliser les emballages séparément des autres composants pour plusieurs raisons :&#x20;
 
-* Calculer un poids net du produit hors emballage
+* Calculer un poids net du produit hors emballage.
 * Dédier le [calcul de la fin de vie](https://fabrique-numerique.gitbook.io/ecobalyse/methodes-transverses-specifiques/fin-de-vie-des-composants) à la fin de vie du produit, la fin de vie des emballages ayant lieu dès le début de la vie du produit
 * Intégrer facilement les solutions d'emballages alimentaires construits dans le cadre du projet PACK\_AGB (Voir la [page de documentation dédiée](https://fabrique-numerique.gitbook.io/ecobalyse/alimentaire/impacts-consideres/etape-3-emballages).)
 
-### Matériaux d'emballage proposés, hors alimentaire (et vêtements)
+### Matériaux d'emballage proposés
 
 Ecobalyse met à disposition les matériaux d'emballage suivants :&#x20;
 
