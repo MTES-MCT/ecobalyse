@@ -68,12 +68,7 @@ table db { detailed, scope } =
           , toValue = Table.StringValue <| .id >> Material.idToString
           , toCell =
                 \material ->
-                    if detailed then
-                        code [] [ text (Material.idToString material.id) ]
-
-                    else
-                        a [ Route.href (Route.Explore scope (Dataset.TextileMaterials (Just material.id))) ]
-                            [ code [] [ text (Material.idToString material.id) ] ]
+                    code [] [ text (Material.idToString material.id) ]
           }
         , { label = "Nom"
           , toValue = Table.StringValue <| .name
