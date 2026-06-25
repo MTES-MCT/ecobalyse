@@ -537,7 +537,6 @@ lifeCycleView ({ db, docsUrl, explorerRoute, impact, query, scope, title } as co
                     [ div [ class "d-flex gap-2" ]
                         [ lifeCycle.transports.toAssembly.impacts
                             |> Format.formatImpact impact
-                        , text "(détails en dépliant les composants ci-dessus)"
                         ]
                     ]
                 , assemblyView config
