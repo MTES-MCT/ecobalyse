@@ -1,1 +1,38 @@
-[]
+[
+  {
+    "category": "",
+    "id": "230897cd-a061-47e9-a945-5acec568de8e",
+    "name": "Farine de blé FR (1kg)",
+    "query": {
+      "components": [
+        {
+          "custom": {
+            "elements": [
+              {
+                "amount": 1,
+                "material": {
+                  "country": "FR",
+                  "id": "d57e50ef-b40e-4abf-ab50-1edf4916a3e4"
+                },
+                "transforms": []
+              }
+            ],
+            "name": "Farine de blé FR"
+          },
+          "quantity": 1
+        }
+      ],
+      "packagings": [
+        {
+          "amount": 1,
+          "processId": "4f441c18-5f86-4a6b-945d-d559ac0780d3"
+        }
+      ],
+      "recyclable": true,
+      "transportOptions": {
+        "cooling": true
+      }
+    },
+    "scope": "food2"
+  }
+]
