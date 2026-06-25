@@ -29,12 +29,7 @@ table { detailed, scope } =
           , toValue = Table.StringValue <| .trigram >> Definition.toString
           , toCell =
                 \def ->
-                    if detailed then
-                        code [] [ text (Definition.toString def.trigram) ]
-
-                    else
-                        a [ Route.href (Route.Explore scope (Dataset.Impacts (Just def.trigram))) ]
-                            [ code [] [ text (Definition.toString def.trigram) ] ]
+                    code [] [ text (Definition.toString def.trigram) ]
           }
         , { label = "Nom"
           , toValue = Table.StringValue <| .label
