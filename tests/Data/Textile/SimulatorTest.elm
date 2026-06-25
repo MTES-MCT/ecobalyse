@@ -2,6 +2,7 @@ module Data.Textile.SimulatorTest exposing (..)
 
 import Data.Component as Component
 import Data.Country as Country
+import Data.Db exposing (Db)
 import Data.Impact as Impact
 import Data.Impact.Definition as Definition
 import Data.Split as Split
@@ -13,7 +14,6 @@ import Data.Textile.Stage.Label as Label
 import Data.Unit as Unit
 import Expect exposing (Expectation)
 import Json.Decode as Decode
-import Static.Db exposing (Db)
 import Test exposing (..)
 import TestUtils exposing (asTest, suiteFromResult, suiteWithDb, tShirtCotonFrance)
 

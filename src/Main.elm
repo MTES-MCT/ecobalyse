@@ -5,6 +5,7 @@ import Browser exposing (Document)
 import Browser.Navigation as Nav
 import Data.Component as Component
 import Data.Component.Config as ComponentConfig
+import Data.Db exposing (Db, RawJsonString)
 import Data.Example as Example
 import Data.Food.Query as FoodQuery
 import Data.Impact as Impact
@@ -31,10 +32,10 @@ import RemoteData exposing (WebData)
 import RemoteData.Http as Http
 import Request.Auth
 import Request.BackendHttp as BackendHttp
-import Request.Version exposing (VersionData)
+import Request.Common as RequestCommon
+import Request.Db as RequestDb exposing (LoadingState)
+import Request.Version as Version exposing (VersionData)
 import Route
-import Static.Db as StaticDb exposing (Db)
-import Static.Json as StaticJson
 import Toast
 import Url exposing (Url)
 import Views.Page as Page
@@ -47,6 +48,13 @@ type alias Flags =
     , rawStore : String
     , scalingoAppName : Maybe String
     , versionPollSeconds : Int
+    }
+
+
+type alias SessionConfig =
+    { flags : Flags
+    , navKey : Nav.Key
+    , url : Url
     }
 
 
@@ -70,11 +78,14 @@ type Page
 
 type State
     = Errored String
+    | Initializing
     | Loaded Session Page
 
 
 type alias Model =
-    { mobileNavigationOpened : Bool
+    { dbLoadingState : LoadingState
+    , flags : Flags
+    , mobileNavigationOpened : Bool
 
     -- Duplicate the nav key in the model so Parcel's hot module reloading finds it always in the same place.
     , navKey : Nav.Key
@@ -90,14 +101,15 @@ type Msg
     | AppMsg App.Msg
     | AuthMsg Auth.Msg
     | ComponentAdminMsg ComponentAdmin.Msg
-    | ComponentConfigReceived Url (WebData Component.Config)
-    | DetailedProcessesReceived Url (BackendHttp.WebData String)
+    | ComponentConfigReceived Db SessionConfig (WebData Component.Config)
+    | DetailedProcessesReceived SessionConfig (BackendHttp.WebData String)
     | EditorialMsg Editorial.Msg
     | ExploreMsg Explore.Msg
     | FoodBuilderMsg FoodBuilder.Msg
     | HomeMsg Home.Msg
     | ObjectSimulatorMsg ObjectSimulator.Msg
     | ProcessAdminMsg ProcessAdmin.Msg
+    | RawDataReceived SessionConfig (WebData RawJsonString -> LoadingState -> LoadingState) (WebData RawJsonString)
     | StatsMsg Stats.Msg
     | StoreChanged String
     | TextileSimulatorMsg TextileSimulator.Msg
@@ -110,57 +122,57 @@ type Msg
 init : Flags -> Url -> Nav.Key -> ( Model, Cmd Msg )
 init flags requestedUrl navKey =
     setRoute requestedUrl
-        (case
-            StaticDb.db StaticJson.processesJson
-                |> Result.andThen
-                    (\db ->
-                        Component.defaultConfig db
-                            |> Result.map (Tuple.pair db)
-                    )
-         of
-            Err err ->
-                ( { mobileNavigationOpened = False
-                  , navKey = navKey
-                  , state = Errored err
-                  , tray = Toast.tray
-                  , url = requestedUrl
-                  }
-                , Cmd.none
-                )
-
-            Ok ( db, componentConfig ) ->
-                let
-                    session =
-                        setupSession navKey flags db componentConfig
-                in
-                ( { mobileNavigationOpened = False
-                  , navKey = navKey
-                  , state = Loaded session LoadingPage
-                  , tray = Toast.tray
-                  , url = requestedUrl
-                  }
-                , Cmd.batch
-                    [ Ports.appStarted ()
-                    , Request.Version.loadVersion VersionReceived
-                    , if Session.isAuthenticated session then
-                        Request.Auth.processes session (DetailedProcessesReceived requestedUrl)
-
-                      else
-                        ComponentConfig.decode db
-                            |> Http.get "/data/components/config.json" (ComponentConfigReceived requestedUrl)
-                    , Plausible.send session <| Plausible.PageViewed requestedUrl
-                    ]
-                )
+        ( { dbLoadingState = RequestDb.initLoadingState
+          , flags = flags
+          , mobileNavigationOpened = False
+          , navKey = navKey
+          , state = Initializing
+          , tray = Toast.tray
+          , url = requestedUrl
+          }
+        , Cmd.batch
+            [ Ports.appStarted ()
+            , Version.loadVersion VersionReceived
+            , loadData { flags = flags, navKey = navKey, url = requestedUrl }
+            ]
         )
 
 
-setupSession : Nav.Key -> Flags -> Db -> Component.Config -> Session
-setupSession navKey flags db componentConfig =
+{-| Loads Db raw json files in parallel.
+-}
+loadData : SessionConfig -> Cmd Msg
+loadData sessionConfig =
+    [ ( "/data/countries.json", \data raw -> { raw | countries = data } )
+    , ( "/data/impacts.json", \data raw -> { raw | definitions = data } )
+    , ( "/data/food2/examples.json", \data raw -> { raw | food2Examples = data } )
+    , ( "/data/food/ingredients.json", \data raw -> { raw | foodIngredients = data } )
+    , ( "/data/food/examples.json", \data raw -> { raw | foodProductExamples = data } )
+    , ( "/data/object/components.json", \data raw -> { raw | objectComponents = data } )
+    , ( "/data/object/examples.json", \data raw -> { raw | objectExamples = data } )
+    , ( "/data/processes.json", \data raw -> { raw | processes = data } )
+    , ( "/data/textile/components.json", \data raw -> { raw | textileComponents = data } )
+    , ( "/data/textile/examples.json", \data raw -> { raw | textileProductExamples = data } )
+    , ( "/data/textile/materials.json", \data raw -> { raw | textileMaterials = data } )
+    , ( "/data/textile/products.json", \data raw -> { raw | textileProducts = data } )
+    , ( "/data/transports.json", \data raw -> { raw | transports = data } )
+    , ( "/data/veli/components.json", \data raw -> { raw | veliComponents = data } )
+    , ( "/data/veli/examples.json", \data raw -> { raw | veliExamples = data } )
+    ]
+        |> List.map
+            (\( path, onLoaded ) ->
+                RequestDb.fetchJson path <| RawDataReceived sessionConfig onLoaded
+            )
+        |> Cmd.batch
+
+
+setupSession : SessionConfig -> LoadingState -> Db -> Component.Config -> Session
+setupSession { flags, navKey } dbLoadingState db componentConfig =
     Session.decodeRawStore flags.rawStore
         { clientUrl = flags.clientUrl
         , componentConfig = componentConfig
-        , currentVersion = Request.Version.Unknown
+        , currentVersion = Version.Unknown
         , db = db
+        , dbRawJson = RequestDb.toRawJsonStrings dbLoadingState
         , enabledSections = flags.enabledSections
         , matomo = flags.matomo
         , navKey = navKey
@@ -225,6 +237,9 @@ setRoute url ( { state } as model, cmds ) =
     case state of
         Errored _ ->
             -- FIXME: Static database decoding error, highly unlikely to ever happen
+            ( model, cmds )
+
+        Initializing ->
             ( model, cmds )
 
         Loaded session _ ->
@@ -318,9 +333,70 @@ setRoute url ( { state } as model, cmds ) =
                     )
 
 
+updateInitializing : Msg -> Model -> ( Model, Cmd Msg )
+updateInitializing initMsg model =
+    case initMsg of
+        -- Components
+        ComponentConfigReceived db sessionConfig (RemoteData.Success componentConfig) ->
+            let
+                session =
+                    setupSession sessionConfig model.dbLoadingState db componentConfig
+            in
+            setRoute sessionConfig.url
+                ( { model | state = Loaded session LoadingPage }
+                , Cmd.batch
+                    [ if Session.isAuthenticated session then
+                        Request.Auth.processes session (DetailedProcessesReceived sessionConfig)
+
+                      else
+                        Cmd.none
+                    , Plausible.send session <| Plausible.PageViewed sessionConfig.url
+                    ]
+                )
+
+        ComponentConfigReceived _ _ (RemoteData.Failure error) ->
+            ( { model
+                | state =
+                    Errored <|
+                        "Impossible de charger la configuration des composants: "
+                            ++ RequestCommon.errorToString error
+              }
+            , Cmd.none
+            )
+
+        -- Raw Json Db data received over HTTP
+        RawDataReceived sessionConfig updateRaw data ->
+            case model.dbLoadingState |> RequestDb.updateRawJson (updateRaw data) of
+                ( rawJsonData, Just (Ok db) ) ->
+                    ( { model | dbLoadingState = rawJsonData }
+                      -- trigger loading the json config over http
+                    , ComponentConfig.decode db
+                        |> Http.get "/data/components/config.json" (ComponentConfigReceived db sessionConfig)
+                    )
+
+                ( rawJsonData, Just (Err err) ) ->
+                    ( { model | dbLoadingState = rawJsonData, state = Errored (RequestDb.dbErrorToString err) }
+                    , Cmd.none
+                    )
+
+                ( rawJsonData, Nothing ) ->
+                    ( { model | dbLoadingState = rawJsonData }
+                    , Cmd.none
+                    )
+
+        _ ->
+            ( model, Cmd.none )
+
+
 update : Msg -> Model -> ( Model, Cmd Msg )
 update rawMsg ({ state } as model) =
     case ( state, rawMsg ) of
+        ( Errored _, _ ) ->
+            ( model, Cmd.none )
+
+        ( Initializing, initMsg ) ->
+            updateInitializing initMsg model
+
         ( Loaded session page, msg ) ->
             case ( msg, page ) of
                 -- Global app messages
@@ -390,35 +466,18 @@ update rawMsg ({ state } as model) =
                     in
                     ( { model | tray = newTray }, Cmd.map (AppMsg << App.ToastMsg) newToastMsg )
 
-                -- Components
-                ( ComponentConfigReceived requestedUrl (RemoteData.Success componentConfig), currentPage ) ->
-                    setRoute requestedUrl
-                        ( { model | state = currentPage |> Loaded { session | componentConfig = componentConfig } }
-                        , Cmd.none
-                        )
-
-                ( ComponentConfigReceived _ (RemoteData.Failure _), _ ) ->
-                    -- FIXME: log the error to the console, or as details of the error in the UI
-                    notifyError model "Erreur" <|
-                        "Impossible de charger la configuration des composants. Une configuration par défaut sera"
-                            ++ " utilisée, les résultats fournis sont probablement invalides ou incomplets."
-
-                ( ComponentConfigReceived _ _, _ ) ->
-                    ( model, Cmd.none )
-
                 -- Detailed processes
-                ( DetailedProcessesReceived requestedUrl (RemoteData.Success rawDetailedProcessesJson), currentPage ) ->
-                    -- When detailed processes are received, rebuild the entire static db using them
-                    case StaticDb.db rawDetailedProcessesJson of
-                        Err _ ->
-                            notifyError model "Erreur" <|
-                                "Impossible de décoder les impacts détaillés; les impacts agrégés seront utilisés."
-
-                        Ok detailedDb ->
-                            ( { model | state = currentPage |> Loaded { session | db = detailedDb } }
-                            , ComponentConfig.decode detailedDb
-                                |> Http.get "/data/components/config.json" (ComponentConfigReceived requestedUrl)
-                            )
+                ( DetailedProcessesReceived sessionConfig (RemoteData.Success rawDetailedProcessesJson), currentPage ) ->
+                    let
+                        newSession =
+                            -- When detailed processes are received, rebuild the entire Db using them
+                            session
+                                |> Session.updateDbProcesses rawDetailedProcessesJson
+                    in
+                    ( { model | state = Loaded newSession currentPage }
+                    , ComponentConfig.decode newSession.db
+                        |> Http.get "/data/components/config.json" (ComponentConfigReceived newSession.db sessionConfig)
+                    )
 
                 ( DetailedProcessesReceived _ (RemoteData.Failure _), _ ) ->
                     notifyError model "Erreur" <|
@@ -506,13 +565,13 @@ update rawMsg ({ state } as model) =
                     ( { model
                         | state =
                             currentPage
-                                |> Loaded { session | currentVersion = Request.Version.update session.currentVersion webData }
+                                |> Loaded { session | currentVersion = Version.update session.currentVersion webData }
                       }
                     , Cmd.none
                     )
 
                 ( VersionPoll, _ ) ->
-                    ( model, Request.Version.loadVersion VersionReceived )
+                    ( model, Version.loadVersion VersionReceived )
 
                 -- Catch-all
                 ( _, RestrictedAccessPage ) ->
@@ -527,9 +586,6 @@ update rawMsg ({ state } as model) =
 
                 _ ->
                     ( model, Cmd.none )
-
-        ( Errored _, _ ) ->
-            ( model, Cmd.none )
 
 
 notifyError : Model -> String -> String -> ( Model, Cmd Msg )
@@ -547,7 +603,7 @@ subscriptions { state } =
         [ Ports.storeChanged StoreChanged
         , case state of
             Loaded { versionPollSeconds } _ ->
-                Request.Version.pollVersion versionPollSeconds VersionPoll
+                Version.pollVersion versionPollSeconds VersionPoll
 
             _ ->
                 Sub.none
@@ -586,26 +642,48 @@ subscriptions { state } =
 
 
 view : Model -> Document Msg
-view { mobileNavigationOpened, state, tray } =
+view { dbLoadingState, flags, mobileNavigationOpened, state, tray } =
+    let
+        defaultPageConfig =
+            { activePage = Page.Other
+            , clientUrl = flags.clientUrl
+            , currentVersion = Version.Unknown
+            , enabledSections = flags.enabledSections
+            , hasAccessToDetailedImpacts = False
+            , isAuthenticated = False
+            , isSuperuser = False
+            , mobileNavigationOpened = mobileNavigationOpened
+            , notifications = []
+            , toMsg = AppMsg
+            , tray = tray
+            }
+    in
     case state of
         Errored error ->
-            -- FIXME: proper error page
-            { body =
-                [ Html.h1 [] [ Html.text <| "Erreur" ]
-                , Html.pre [] [ Html.text error ]
-                ]
-            , title = "Erreur"
-            }
+            Page.frame defaultPageConfig
+                ( "Erreur"
+                , [ Page.errored error ]
+                )
+
+        Initializing ->
+            Page.frame defaultPageConfig
+                ( "Chargement des données Ecobalyse"
+                , [ Page.loading <| Just (RequestDb.getProgress dbLoadingState)
+                  ]
+                )
 
         Loaded session page ->
             let
                 frame activePage =
                     Page.frame
-                        { activePage = activePage
-                        , mobileNavigationOpened = mobileNavigationOpened
-                        , session = session
-                        , toMsg = AppMsg
-                        , tray = tray
+                        { defaultPageConfig
+                            | activePage = activePage
+                            , currentVersion = session.currentVersion
+                            , hasAccessToDetailedImpacts = Session.hasAccessToDetailedImpacts session
+                            , isAuthenticated = Session.isAuthenticated session
+                            , isSuperuser = Session.isSuperuser session
+                            , notifications = session.notifications
+                            , tray = tray
                         }
 
                 mapMsg msg ( title, content ) =
@@ -653,7 +731,7 @@ view { mobileNavigationOpened, state, tray } =
                         |> frame Page.Home
 
                 LoadingPage ->
-                    ( "Chargement…", [ Page.loading ] )
+                    ( "Chargement…", [ Page.loading Nothing ] )
                         |> frame Page.Other
 
                 NotFoundPage ->
