@@ -41,6 +41,7 @@
   * [Coût environnemental par voie de transport](methodes-transverses/transport/cout-environnemental-par-voie-de-transport.md)
   * [Choix des voies de transport](methodes-transverses/transport/choix-des-voies-de-transport.md)
   * [✈️ Transport par avion - prise en compte des trainées](methodes-transverses/transport/modelisation-fret-aerien.md)
+* [🏪 Distribution](methodes-transverses/distribution.md)
 * [💡 Electricité à l'utilisation](methodes-transverses/electricite-a-lutilisation.md)
 * [⌛ Utilisation](methodes-transverses/utilisation.md)
 * [🗑️ Fin de vie des produits](methodes-transverses/fin-de-vie.md)
