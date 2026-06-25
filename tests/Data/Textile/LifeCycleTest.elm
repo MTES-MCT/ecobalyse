@@ -35,7 +35,7 @@ suite =
                                 |> Result.map LifeCycle.computeTotalTransportImpacts
                                 |> Result.map (\{ road, sea } -> ( Length.inKilometers road, Length.inKilometers sea ))
                         )
-                    |> Expect.equal (Ok ( 2500, 21549 ))
+                    |> Expect.equal (Ok ( 2500, 19930 ))
                     |> asTest "should compute default distances"
                 , let
                     tShirtCotonEnnoblementIndia =
@@ -58,7 +58,7 @@ suite =
                                 |> Result.map LifeCycle.computeTotalTransportImpacts
                                 |> Result.map (\{ road, sea } -> ( Length.inKilometers road, Length.inKilometers sea ))
                         )
-                    |> Expect.equal (Ok ( 1500, 45471 ))
+                    |> Expect.equal (Ok ( 1500, 42138 ))
                     |> asTest "should compute custom distances"
                 ]
             ]

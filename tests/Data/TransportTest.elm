@@ -24,11 +24,11 @@ km =
 
 chinaToFrance : Transport
 chinaToFrance =
-    { road = km 9005
+    { road = km 9909
     , roadCooled = km 0
-    , sea = km 21549
+    , sea = km 19930
     , seaCooled = km 0
-    , air = km 8189
+    , air = km 8598
     , impacts = Impact.empty
     }
 
