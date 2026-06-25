@@ -26,6 +26,38 @@ from ecobalyse_data import s3
 from ecobalyse_data.bw.strategy import noLT, uraniumFRU
 from ecobalyse_data.logging import logger
 
+# Ecoinvent 3.11 uses the modern IUPAC flow names, while Agribalyse 3.2, Ginko,
+# WFLDB and Ecoinvent 3.9.1 still use the legacy names. EF 3.1 1.03 renamed these
+# substances to the modern names, so it stopped characterizing the legacy-named
+# biosphere flows -> the impact (ozone depletion, toxicity) would be silently
+# undercounted for the legacy databases. We re-characterize each legacy flow with
+# the same factor as its modern synonym, so the substance is counted whatever
+# naming vintage a source database uses.
+# modern name -> legacy name, for every substance EF 3.1 1.03 renamed AND that
+# biosphere3 still carries under both names (so legacy databases keep matching).
+# Water region flows (e.g. "Water, SERC" -> "Water, US-SERC") are also renamed but
+# are intentionally omitted: they are US-grid return flows (negative CF) and cause
+# no measurable change on the legacy (food) databases.
+METHOD_FLOW_SYNONYMS = {
+    "Bromomethane": "Methane, bromo-, Halon 1001",
+    "Bromotrifluoromethane": "Methane, bromotrifluoro-, Halon 1301",
+    "Bromochlorodifluoromethane": "Methane, bromochlorodifluoro-, Halon 1211",
+    "1,1,1-Trichloroethane": "Ethane, 1,1,1-trichloro-, HCFC-140",
+    "Quizalofop-ethyl": "Quizalofop ethyl ester",
+    "Pyrethrins": "Pyrethrum",
+}
+
+
+def add_legacy_flow_synonyms(db):
+    """Duplicate each renamed substance's factors onto its legacy-named flow."""
+    for method in db:
+        method["exchanges"].extend(
+            {**cf, "name": METHOD_FLOW_SYNONYMS[cf["name"]]}
+            for cf in list(method["exchanges"])
+            if cf.get("name") in METHOD_FLOW_SYNONYMS
+        )
+    return db
+
 
 def import_method():
     """
@@ -58,6 +90,7 @@ def import_method():
                 functools.partial(normalize_biosphere_names, lcia=True),
                 normalize_simapro_biosphere_categories,
                 normalize_simapro_biosphere_names,
+                add_legacy_flow_synonyms,
                 functools.partial(
                     link_iterable_by_fields,
                     other=(
