@@ -16,6 +16,7 @@ import Csv.Encode as EncodeCsv exposing (Csv)
 import Data.Component as Component exposing (Component)
 import Data.Country as Country exposing (Country)
 import Data.Dataset as Dataset exposing (Dataset)
+import Data.Db exposing (Db)
 import Data.Example as Example exposing (Example)
 import Data.Food.Ingredient as Ingredient exposing (Ingredient)
 import Data.Food.Query as FoodQuery
@@ -51,7 +52,6 @@ import Page.Explore.TextileMaterials as TextileMaterials
 import Page.Explore.TextileProducts as TextileProducts
 import Ports
 import Route exposing (Route)
-import Static.Db exposing (Db)
 import Table as SortableTable exposing (defaultCustomizations)
 import Views.Alert as Alert
 import Views.Container as Container

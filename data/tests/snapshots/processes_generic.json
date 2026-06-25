@@ -39,7 +39,8 @@
       "object"
     ],
     "source": "Ecobalyse",
-    "unit": "kg"
+    "unit": "kg",
+    "visible": true
   },
   {
     "activityName": "_22 Vegetable and animal oils and fats, EU27",
@@ -93,8 +94,7 @@
         "processId": "af42fc20-e3ec-5b99-9b9c-83ba6735e597",
         "rawToCookedRatio": 2.259,
         "scenario": "reference",
-        "transportCooling": "none",
-        "visible": true
+        "transportCooling": "none"
       }
     },
     "qtyVariationRatio": 1.0,
@@ -102,7 +102,8 @@
       "food2"
     ],
     "source": "forwast",
-    "unit": "kg"
+    "unit": "kg",
+    "visible": true
   },
   {
     "activityName": "_22 Vegetable and animal oils and fats, EU27",
@@ -156,14 +157,14 @@
         "processId": "af42fc20-e3ec-5b99-9b9c-83ba6735e597",
         "rawToCookedRatio": 1.0,
         "scenario": "reference",
-        "transportCooling": "none",
-        "visible": false
+        "transportCooling": "none"
       }
     },
     "qtyVariationRatio": 1.0,
     "scopes": [],
     "source": "forwast",
-    "unit": "kg"
+    "unit": "kg",
+    "visible": false
   },
   {
     "activityName": "_22 Vegetable and animal oils and fats, EU27",
@@ -216,14 +217,14 @@
         "processId": "af42fc20-e3ec-5b99-9b9c-83ba6735e597",
         "rawToCookedRatio": 1.0,
         "scenario": "reference",
-        "transportCooling": "always",
-        "visible": true
+        "transportCooling": "always"
       }
     },
     "qtyVariationRatio": 1.0,
     "scopes": [],
     "source": "forwast",
-    "unit": "kg"
+    "unit": "kg",
+    "visible": true
   },
   {
     "activityName": "_32 Wood products, except furniture, EU27",
@@ -265,7 +266,8 @@
       "object"
     ],
     "source": "forwast",
-    "unit": "kg"
+    "unit": "kg",
+    "visible": true
   },
   {
     "activityName": "_32 Wood products, except furniture, EU27",
@@ -312,6 +314,7 @@
       "object"
     ],
     "source": "forwast",
-    "unit": "kg"
+    "unit": "kg",
+    "visible": true
   }
 ]

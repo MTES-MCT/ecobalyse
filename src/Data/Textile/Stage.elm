@@ -25,6 +25,7 @@ module Data.Textile.Stage exposing
 import Area exposing (Area)
 import Data.Complement as Complement
 import Data.Country as Country exposing (Country)
+import Data.Db exposing (Db)
 import Data.Impact as Impact exposing (Impacts)
 import Data.Process as Process exposing (Process)
 import Data.Split as Split exposing (Split)
@@ -44,7 +45,6 @@ import Length
 import List.Extra as LE
 import Mass exposing (Mass)
 import Quantity
-import Static.Db exposing (Db)
 import Views.Format as Format
 
 

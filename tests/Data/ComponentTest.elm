@@ -12,6 +12,7 @@ import Data.Component as Component
         )
 import Data.Component.Amount as Amount
 import Data.Country as Country
+import Data.Db exposing (Db)
 import Data.Impact as Impact exposing (Impacts)
 import Data.Impact.Definition as Definition
 import Data.Process as Process exposing (Process)
@@ -29,7 +30,6 @@ import List.Extra as LE
 import Mass
 import Quantity
 import Result.Extra as RE
-import Static.Db exposing (Db)
 import Test exposing (..)
 import TestUtils
     exposing
