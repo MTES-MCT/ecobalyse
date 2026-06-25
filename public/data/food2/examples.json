@@ -1,1 +1,38 @@
-[]
+[
+  {
+    "category": "",
+    "id": "766efdbc-5102-4c60-bf3d-6ab32482ec28",
+    "name": "Farine de blé bio FR (1kg)",
+    "query": {
+      "components": [
+        {
+          "custom": {
+            "elements": [
+              {
+                "amount": 1,
+                "material": {
+                  "country": "FR",
+                  "id": "3436324c-7835-4e9b-86c6-e9ca68a5e2af"
+                },
+                "transforms": []
+              }
+            ],
+            "name": "Farine de blé biologique FR"
+          },
+          "quantity": 1
+        }
+      ],
+      "packagings": [
+        {
+          "amount": 1,
+          "processId": "4f441c18-5f86-4a6b-945d-d559ac0780d3"
+        }
+      ],
+      "recyclable": true,
+      "transportOptions": {
+        "cooling": true
+      }
+    },
+    "scope": "food2"
+  }
+]
