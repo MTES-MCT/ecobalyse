@@ -43,12 +43,7 @@ table distances countries { detailed, scope } =
                 , toValue = Table.StringValue <| .code >> Country.codeToString
                 , toCell =
                     \country ->
-                        if detailed then
-                            code [] [ text (Country.codeToString country.code) ]
-
-                        else
-                            a [ Route.href (Route.Explore scope (Dataset.Countries (Just country.code))) ]
-                                [ code [] [ text (Country.codeToString country.code) ] ]
+                        code [] [ text (Country.codeToString country.code) ]
                 }
             , Just
                 { label = "Nom"
