@@ -33,16 +33,14 @@
     {
       "id": "5502669e-d936-46c8-8caa-61bb3fa7e470",
       "scopes": [
-        "object",
-        "veli"
+        "object"
       ]
     }
   ],
   "qtyVariationRatio": 0.88,
   "scopes": [
     "textile",
-    "object",
-    "veli"
+    "object"
   ],
   "source": "Custom",
   "unit": "kg"

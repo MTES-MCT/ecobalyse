@@ -5,6 +5,7 @@ import Data.AutocompleteSelector as AutocompleteSelector
 import Data.Complement as Complement exposing (noComplementsImpacts)
 import Data.Country as Country
 import Data.Dataset as Dataset
+import Data.Db exposing (Db)
 import Data.Env as Env
 import Data.Gitbook as Gitbook
 import Data.Impact as Impact
@@ -36,7 +37,6 @@ import Html.Events exposing (..)
 import Mass exposing (Mass)
 import Quantity
 import Route
-import Static.Db exposing (Db)
 import Views.BaseElement as BaseElement
 import Views.Button as Button
 import Views.ComplementsDetails as ComplementsDetails
