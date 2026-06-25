@@ -6835,8 +6835,8 @@
   },
   {
     "activityName": "Cow milk, organic, national average, at farm gate FR U",
-    "alias": "milk-organic-2025",
-    "baseIngredient": "milk",
+    "alias": "cow-milk-organic",
+    "baseIngredient": "cow-milk",
     "categories": [
       "dairy_product",
       "organic"
@@ -6854,7 +6854,7 @@
     "inediblePart": 0,
     "landOccupation": 1.831,
     "location": "FR",
-    "name": "Lait Bio (2025)",
+    "name": "Lait Bio",
     "processId": "1782b099-df28-5c5f-b2e4-17ac2e60583e",
     "rawToCookedRatio": 1.0,
     "scenario": "organic",
@@ -36207,7 +36207,7 @@
     "visible": true
   },
   {
-    "activityName": "Raw cow milk archetype, feed mix UK-149NW, at farm (WFLDB)",
+    "activityName": "Cow milk, conventional, national average, at farm gate {FR} U",
     "alias": "cow-milk-eu",
     "baseIngredient": "cow-milk",
     "categories": [
@@ -36219,10 +36219,10 @@
     "ecosystemicServices": null,
     "id": "f092e399-eb0c-5f4d-abc3-8df379b20dfc",
     "inediblePart": 0,
-    "landOccupation": 0.5207,
-    "location": "RER",
+    "landOccupation": 1.216,
+    "location": "FR",
     "name": "Lait de vache UE",
-    "processId": "919beed2-5a89-5f03-8090-e05dc54dfa35",
+    "processId": "af882009-fd6a-5f8f-a1fc-74a5f4c6d543",
     "rawToCookedRatio": 1.0,
     "scenario": "import",
     "transportCooling": "always",
