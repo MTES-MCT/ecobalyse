@@ -21,13 +21,13 @@ Un groupe de travail constitué de constructeurs de véhicules intermédiaire a 
 
 ## Méthode de calcul <a href="#methodologie-de-calcul" id="methodologie-de-calcul"></a>
 
-Ces composants sont modélisés avec trois `modules composants Ecobalyse` :&#x20;
+Ces composants sont modélisés avec un composant constitué de trois éléments :&#x20;
 
-* Autres composants - métaux, de masse `m_autres,métaux`
-* Autres composants - plastiques, de masse `m_autres,plastiques`
-* Autres composants - électronique et matériaux complexes, de masse `m_autres,électronique`
+* `Acier inoxydable` + `Lamination` + `Usinage, emboutissage`, de masse `m_autres,métaux`
+* `Plastiques divers, granulé` + `moulage par injection`, de masse `m_autres,plastiques`
+* `Composants électronique`, de masse `m_autres,électronique`
 
-dont la somme des masses `m_autre` est définie comme la différence entre le poids du véhicule et la somme des poids de l'ensemble des composants quantifiés.
+dont la somme des masses `m_autre` est définie comme la différence entre le poids réel du véhicule et la somme des poids de l'ensemble des composants quantifiés.
 
 $$
 m_{autres,métaux} =R_{metaux}*m_{autres}
@@ -57,4 +57,5 @@ L'origine des composants non quantifiés directement est définie comme `inconnu
 
 ## Procédés utilisés pour le coût environnemental
 
-Les procédés utilisés sont identifiés dans l'<mark style="color:red;">Explorateur de composants et l'Explorateur de procédés</mark>.
+Les procédés utilisés sont identifiés dans l'[Explorateur de composants et l'Explorateur de procédés](https://ecobalyse.beta.gouv.fr/#/explore/veli/veli-components).
+

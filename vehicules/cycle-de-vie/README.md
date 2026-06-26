@@ -28,16 +28,16 @@ Ecobalyse intègre les étapes suivantes de la vie du véhicule :&#x20;
 
 * La fabrication des composants du véhicule
   * y compris les composants à remplacer si besoin (en les incluant à la phase fabrication)
-* Le transport des composants
-* L'assemblage du véhicule
+* Le transport des composants vers un site d'assemblage puis vers un site de distribution en France
 * La consommation d'énergie du véhicule
-* La fin de vie des véhicules, avec la méthode cut-off (pas de bénéfice environnemental associé au recyclage en fin de vie)
+* La fin de vie des véhicules
 
 ### Etapes en cours d'étude
 
+* L'assemblage du véhicule
 * Le transport du véhicule assemblé
 * Le remplacement des pneumatiques et d'autres composants (en phase utilisation)
-* La fin de vie des véhicules avec la méthode CFF (en intégrant le bénéfice environnemental associé au recyclage en fin de vie, en fonction de la facilité de revente des matériaux recyclés)
+* La fin de vie des véhicules avec la méthode CFF (en intégrant le bénéfice environnemental&#x20;
 
 ### Etapes exclues à ce stade
 
@@ -49,10 +49,6 @@ Les étapes et analyses suivantes ne sont à ce stade pas prises en compte :
 
 {% content-ref url="fabrication-des-composants/" %}
 [fabrication-des-composants](fabrication-des-composants/)
-{% endcontent-ref %}
-
-{% content-ref url="transport-vehicules.md" %}
-[transport-vehicules.md](transport-vehicules.md)
 {% endcontent-ref %}
 
 {% content-ref url="assemblage.md" %}

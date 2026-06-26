@@ -279,7 +279,7 @@
 
 ## 🛺 Véhicules
 
-* [Séminaire Veli 06/05/2026](vehicules/seminaire-veli-06-05-2026.md)
+* [🔴 Durabilité des véhicules](vehicules/durabilite-des-vehicules.md)
 * [Cycle de vie des véhicules](vehicules/cycle-de-vie/README.md)
   * [🔧 Fabrication des composants](vehicules/cycle-de-vie/fabrication-des-composants/README.md)
     * [🔋 Batterie](vehicules/cycle-de-vie/fabrication-des-composants/batterie.md)
@@ -302,10 +302,10 @@
   * [🛞 Usures des pneus et freins](vehicules/cycle-de-vie/usures-des-pneus-et-freins.md)
   * [🔧 Maintenance et remplacement de pièces](vehicules/cycle-de-vie/maintenance-et-remplacement-de-pieces.md)
   * [🛺 Transport Véhicules](vehicules/cycle-de-vie/transport-vehicules.md)
-* [🔴 Durabilité des véhicules](vehicules/durabilite-des-vehicules.md)
 * [🏙️ Complément : santé humaine en zone très dense](vehicules/complement-sante-humaine-en-zone-tres-dense.md)
 * [Draft - Paramétrage](vehicules/parametrage/README.md)
   * [Caractéristiques du véhicule](vehicules/parametrage/caracteristiques-du-vehicule.md)
+* [Séminaire Veli 06/05/2026](vehicules/seminaire-veli-06-05-2026.md)
 * [Exemples](vehicules/exemples.md)
 
 ## Pages en cours de revue
