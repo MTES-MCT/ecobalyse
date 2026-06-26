@@ -10,11 +10,27 @@ Les énergies utilisées par les véhicules sont aujourd'hui très variées : es
 
 Les émissions au roulage du véhicule dépendent directement de l'énergie utilisée.
 
-### Consommations de référence
+### Consommations de carburant&#x20;
+
+La consommation de carburant est indiquée par l'utilisateur. Pour assurer une égalité de traitement, les consommations sont évaluée selon un cycle de référence.
 
 #### Voitures particulières et véhicules utilitaires légers : le WLTP comme référence
 
 La procédure d'essai mondiale harmonisée pour les véhicules légers (Worldwide Harmonised Light Vehicles Test Procedure, WLTP) est une norme permettant de mesurer la consommation de carburant ou d'électricité d'un véhicule de catégorie M1 et N1.
+
+<details>
+
+<summary>Différence entre consommation sur le cycle de référence et consommation réelle</summary>
+
+La télémétrie mise en place dans les voitures particulières récentes permet de mesurer la consommation réelle de ces véhicules. Ces consommations et leurs différences à la consommation théorique [ont fait l'objet d'une communication par la commission européenne](https://climate.ec.europa.eu/news-your-voice/news/first-commission-report-real-world-co2-emissions-cars-and-vans-using-data-board-fuel-consumption-2024-03-18_en) (voir graphique ci-dessous).&#x20;
+
+<figure><img src="../../../.gitbook/assets/image (1) (1) (1) (1) (1) (1) (1) (1) (1) (1) (2) (1) (1) (1).png" alt=""><figcaption><p>Real-world and WLTP consumption of cars</p></figcaption></figure>
+
+Ces données présentent un écart de l'ordre de 20% pour l'essence, un peu moins pour le diesel, et une multiplication par 3 à 4.5 pour les véhicules hybrides rechargeables.
+
+Pour les véhicules essence et diesel, la consommation WLTP peut être vue comme une consommation en ecoconduite.
+
+</details>
 
 #### Vehicules intermédiaires : le WMTC comme référence
 
@@ -34,16 +50,6 @@ Le cycle comporte 3 phases, applicable ou non selon la vitesse maximale du véhi
 
 </details>
 
-#### Différence entre consommation sur le cycle de référence et consommation réelle
-
-La télémétrie mise en place dans les voitures particulières récentes permet de mesurer la consommation réelle de ces véhicules. Ces consommations et leurs différences à la consommation théorique [ont fait l'objet d'une communication par la commission européenne](https://climate.ec.europa.eu/news-your-voice/news/first-commission-report-real-world-co2-emissions-cars-and-vans-using-data-board-fuel-consumption-2024-03-18_en) (voir graphique ci-dessous).&#x20;
-
-<figure><img src="../../../.gitbook/assets/image (1) (1) (1) (1) (1) (1) (1) (1) (1) (1) (2) (1) (1) (1).png" alt=""><figcaption><p>Real-world and WLTP consumption of cars</p></figcaption></figure>
-
-Ces données présentent un écart de l'ordre de 20% pour l'essence, un peu moins pour le diesel, et une multiplication par 3 à 4.5 pour les véhicules hybrides rechargeables.
-
-Pour les véhicules essence et diesel, la consommation WLTP peut être vue comme une consommation en ecoconduite.
-
 ### Émissions locales de particules des véhicules thermiques
 
 Les véhicules thermiques émettent des pollutions locales, dont les principales sont : Oxydes d'azote (NOx), Monoxyde de carbone (CO), Hydrocarbures (HC), particules fines.
@@ -55,10 +61,6 @@ Ces normes incluent les émissions liées à la combustion des carburants, mais 
 Les impacts de ces émissions en termes de santé humaine dans les métropoles denses sont plutôt faiblement pris en compte dans les données d'Inventaire d'Analyse de Cycle de vie, qui prennent en compte l'impact à l'échelle globale.
 
 ## Méthodes de calcul
-
-{% hint style="info" %}
-La première version d'Ecobalyse ne comprend que des exemples de véhicules électriques.
-{% endhint %}
 
 {% hint style="info" %}
 L'impact des émissions locales en terme de santé humaine dans les zones très dense apparait faiblement pris en compte à ce jour. Il pourrait faire l'objet d'un complément dans le futur (travaux en cours)

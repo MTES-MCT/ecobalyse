@@ -1,3 +1,7 @@
+---
+hidden: true
+---
+
 # 📝 Construction des procédés carburant
 
 Il n'existe pas de procédés directement utilisables dans Ecoinvent pour modéliser les carburants.

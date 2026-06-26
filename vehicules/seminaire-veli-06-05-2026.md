@@ -2,6 +2,7 @@
 description: >-
   Cette page est dédiée à l'organisation des ateliers de construction d'exemples
   de véhicules en séminaire veli du 06/05/2026
+hidden: true
 ---
 
 # Séminaire Veli 06/05/2026
