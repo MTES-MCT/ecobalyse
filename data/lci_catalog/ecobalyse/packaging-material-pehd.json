@@ -11,15 +11,12 @@
     {
       "id": "48ed7242-d4d0-4f44-b7e1-9aee9afd3255",
       "scopes": [
-        "food2",
         "object",
         "veli"
       ]
     }
   ],
   "scopes": [
-    "food",
-    "food2",
     "object",
     "veli"
   ],
