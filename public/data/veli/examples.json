@@ -3688,7 +3688,7 @@
   {
     "category": "Voiture",
     "id": "a6fb87c9-13fa-44d9-a679-d808a70e5546",
-    "name": "Voiture Essence CatB, 5.5L/100km, fabrication Europe de l'Ouest",
+    "name": "Voiture essence CatB, 5.5L/100km, fabrication Europe de l'Ouest",
     "query": {
       "assemblyCountry": "REO",
       "components": [
