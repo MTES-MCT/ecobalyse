@@ -2906,10 +2906,44 @@
           "quantity": 1
         },
         {
+          "custom": {
+            "elements": [
+              {
+                "amount": 8,
+                "material": {
+                  "country": "FR",
+                  "id": "21a0d5b0-861e-4bed-98a9-46c61d2a0618"
+                },
+                "transforms": [
+                  {
+                    "country": "FR",
+                    "id": "ea284007-49a8-4be1-95fc-452ea180285a"
+                  },
+                  {
+                    "country": "FR",
+                    "id": "7319ac9c-5796-412f-a1eb-58e01afa7708"
+                  }
+                ]
+              }
+            ]
+          },
           "id": "d4583813-5f80-47e0-b028-df438f59cfe2",
           "quantity": 4
         },
         {
+          
+          "custom": {
+            "elements": [
+              {
+                "amount": 6,
+                "material": {
+                  "country": "FR",
+                  "id": "5f837a69-839d-4a49-9a30-19e1501ad51e"
+                },
+                "transforms": []
+              }
+            ]
+          },
           "id": "6b3d7f30-e87b-426c-93ed-3a1179238583",
           "quantity": 4
         },
