@@ -888,6 +888,37 @@ suite =
                                     )
                                 ]
                             )
+                        , it "should reject an empty component list with an assembly country"
+                            ("""{
+                                  "assemblyCountry": "FR",
+                                  "components": []
+                                }"""
+                                |> decodeJsonThen Component.decodeQuery (Component.compute requirements)
+                                |> expectResultErrorContains "Une liste de composants vide ne peut être assemblée"
+                            )
+                        , suiteFromResult "empty component list without assembly country"
+                            ("""{ "components": [] }"""
+                                |> decodeJsonThen Component.decodeQuery (Component.compute requirements)
+                            )
+                            (\emptyProduct ->
+                                [ it "should not add transport to assembly"
+                                    (emptyProduct
+                                        |> .transports
+                                        |> .toAssembly
+                                        |> .impacts
+                                        |> getEcsImpact
+                                        |> Expect.equal 0
+                                    )
+                                , it "should not add transport to distribution"
+                                    (emptyProduct
+                                        |> .transports
+                                        |> .toDistribution
+                                        |> .impacts
+                                        |> getEcsImpact
+                                        |> Expect.equal 0
+                                    )
+                                ]
+                            )
                         , suiteFromResult "single item air transport to distribution"
                             -- setup
                             ("""{
@@ -1390,6 +1421,27 @@ suite =
                                 )
                             ]
                         )
+                    , let
+                        query =
+                            { emptyQuery
+                                | items = [ Component.createItem Nothing ]
+                                , assemblyCountry = Just (Country.Code "FR")
+                            }
+                      in
+                      describe "mapItems"
+                        [ it "should reset the assembly country when mapItems empties the list"
+                            (query
+                                |> Component.mapItems (always [])
+                                |> .assemblyCountry
+                                |> Expect.equal Nothing
+                            )
+                        , it "should preserve the assembly country when mapItems keeps the list"
+                            (query
+                                |> Component.mapItems (always [ Component.createItem Nothing ])
+                                |> .assemblyCountry
+                                |> Expect.equal (Just (Country.Code "FR"))
+                            )
+                        ]
                     , suiteFromResult2 "removeElement"
                         -- setup
                         sofaFabric
@@ -1469,6 +1521,30 @@ suite =
                                 )
                             ]
                         )
+                    , let
+                        query =
+                            { emptyQuery | assemblyCountry = Just (Country.Code "FR") }
+                      in
+                      describe "setQueryItems"
+                        [ it "should preserve the assembly country for a single item"
+                            (query
+                                |> Component.setQueryItems [ Component.createItem Nothing ]
+                                |> .assemblyCountry
+                                |> Expect.equal (Just (Country.Code "FR"))
+                            )
+                        , it "should preserve the assembly country for multiple items"
+                            (query
+                                |> Component.setQueryItems [ Component.createItem Nothing, Component.createItem Nothing ]
+                                |> .assemblyCountry
+                                |> Expect.equal (Just (Country.Code "FR"))
+                            )
+                        , it "should reset the assembly country when the list becomes empty"
+                            (query
+                                |> Component.setQueryItems []
+                                |> .assemblyCountry
+                                |> Expect.equal Nothing
+                            )
+                        ]
                     , suiteFromResult "stagesImpacts"
                         ("""{
                               "components": [
