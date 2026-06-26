@@ -3,7 +3,7 @@
 {% hint style="info" %}
 A ce jour la phase d'assemblage n'est prise en compte que dans le calcul du transport.
 
-La consommation d'énergie à cette étape sera prise développée prochainement.
+La consommation d'énergie à cette étape sera prise en compte prochainement.
 {% endhint %}
 
 ## Contexte
