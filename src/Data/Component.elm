@@ -1172,7 +1172,14 @@ computeUseImpacts { config, db } { consumptions } lifeCycle =
                                             { elec = config.use.defaultElecProcess
                                             , heat = config.use.defaultHeatProcess
                                             }
-                                        |> Impact.multiplyBy (Amount.toFloat amount)
+                                        |> Impact.multiplyBy
+                                            (if List.member Category.ProductMassDependent process.categories then
+                                                extractMass lifeCycle.production
+                                                    |> Mass.inKilograms
+
+                                             else
+                                                Amount.toFloat amount
+                                            )
                                 )
                 }
             )

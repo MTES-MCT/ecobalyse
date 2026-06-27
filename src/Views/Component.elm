@@ -572,11 +572,13 @@ packagingView ({ query } as config) lifeCycle =
             ]
         , query.packagings
             |> quantifiedProcessList config
+                lifeCycle
                 { deletionLabel = "Supprimer cet emballage"
                 , emptyListLabel = "Aucun emballage"
                 , expandFn = Component.expandPackagings
                 , impactsList = lifeCycle.packaging
                 , removeFn = config.removePackaging
+                , supportMassDependentProcesses = False
                 , updateAmount = config.updatePackagingAmount
                 }
         , addPackagingButton config
@@ -592,12 +594,13 @@ type alias QuantifiedProcessListConfig quantified msg =
     , expandFn : List Process -> List quantified -> Result String (List ExpandedQuantifiedProcess)
     , impactsList : List Impacts
     , removeFn : Index -> msg
+    , supportMassDependentProcesses : Bool
     , updateAmount : Index -> Maybe Amount -> msg
     }
 
 
-quantifiedProcessList : Config db msg -> QuantifiedProcessListConfig quantified msg -> List quantified -> Html msg
-quantifiedProcessList { db, impact } listConfig quantifiedProcesses =
+quantifiedProcessList : Config db msg -> LifeCycle -> QuantifiedProcessListConfig quantified msg -> List quantified -> Html msg
+quantifiedProcessList { db, impact } lifeCycle listConfig quantifiedProcesses =
     if List.isEmpty quantifiedProcesses then
         div [ class "card-body" ]
             [ text listConfig.emptyListLabel ]
@@ -615,7 +618,15 @@ quantifiedProcessList { db, impact } listConfig quantifiedProcesses =
                                 (\index { amount, process } ->
                                     tr []
                                         [ td [ class "ps-3 align-middle text-nowrap", style "min-width" "160px" ]
-                                            [ amountInput (listConfig.updateAmount index) process.unit amount ]
+                                            [ amountInput (listConfig.updateAmount index) process.unit <|
+                                                if listConfig.supportMassDependentProcesses && List.member Category.ProductMassDependent process.categories then
+                                                    Component.extractMass lifeCycle.production
+                                                        |> Mass.inKilograms
+                                                        |> Amount.fromFloat
+
+                                                else
+                                                    amount
+                                            ]
                                         , td
                                             [ class "align-middle text-truncate w-66 cursor-help "
                                             , style "max-width" "0"
@@ -1438,11 +1449,13 @@ useStageView ({ impact, query } as config) lifeCycle =
         , div [ class "d-flex flex-column p-0" ]
             [ query.consumptions
                 |> quantifiedProcessList config
+                    lifeCycle
                     { deletionLabel = "Supprimer cette consommation"
                     , emptyListLabel = "Aucune consommation"
                     , expandFn = Component.expandConsumptions
                     , impactsList = lifeCycle.use
                     , removeFn = config.removeConsumption
+                    , supportMassDependentProcesses = True
                     , updateAmount = config.updateConsumptionAmount
                     }
             , addConsumptionButton config
