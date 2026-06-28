@@ -1639,6 +1639,32 @@ suite =
                                 (Expect.equal (Just "My custom component"))
                             ]
                         )
+                    , suiteFromResult2 "useProcessAmount"
+                        (chair |> Result.andThen (computeItemsWithRequirements requirements))
+                        lowVoltageElec
+                        (\lifeCycle lowVoltageElecProcess ->
+                            let
+                                productMass =
+                                    Component.extractMass lifeCycle.production |> Mass.inKilograms
+
+                                massDependentProcess =
+                                    { lowVoltageElecProcess
+                                        | categories = Category.ProductMassDependent :: lowVoltageElecProcess.categories
+                                        , unit = Process.Kilogram
+                                    }
+                            in
+                            [ it "should ignore provided amount and use product mass when using a mass-dependent process"
+                                (Component.useProcessAmount lifeCycle massDependentProcess (Amount.fromFloat 999)
+                                    |> Amount.toFloat
+                                    |> Expect.within (Expect.Absolute 0.00001) productMass
+                                )
+                            , it "should return the given amount for a regular, non-mass-dependent process"
+                                (Component.useProcessAmount lifeCycle lowVoltageElecProcess (Amount.fromFloat 3)
+                                    |> Amount.toFloat
+                                    |> Expect.within (Expect.Absolute 0.00001) 3
+                                )
+                            ]
+                        )
                     , describe "validateItem"
                         [ it "should reject a non-positive quantity" <|
                             (Component.createItem Nothing
