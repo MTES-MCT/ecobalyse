@@ -5,7 +5,7 @@
   ],
   "comment": "corr3 (cf doc): valeurs issues du rapport BAT2023 avec majoration de 50%",
   "displayName": "Dégraissage",
-  "elecMJ": 1.08,
+  "elecKwh": 0.3,
   "heatMJ": 13.5,
   "id": "1746b5e1-1d0d-5858-a968-2ade8d778623",
   "impacts": {

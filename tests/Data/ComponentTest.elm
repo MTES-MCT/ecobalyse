@@ -2109,7 +2109,7 @@ chipsBag =
               ],
               "comment": "blah",
               "displayName": "Sachet en plastique (PP) pour chips - 150g - Proxy",
-              "elecMJ": 0,
+              "elecKwh": 0,
               "heatMJ": 0,
               "id": "4a80c078-9f86-4a7d-b402-73db3381e33b",
               "impacts": {
@@ -2139,7 +2139,7 @@ dryDistribution =
             ],
             "comment": "Blah",
             "displayName": "Vente au détail\u{202F}: produit sec",
-            "elecMJ": 443.09,
+            "elecKwh": 123.0805556,
             "heatMJ": 0,
             "id": "29118025-efa0-47bb-94e2-f5ccba31a903",
             "impacts": {
@@ -2187,7 +2187,7 @@ injectionMoulding =
                 "categories": ["transformation", "material_type:rigid_plastics"],
                 "comment": "",
                 "displayName": "Moulage par injection",
-                "elecMJ": 0,
+                "elecKwh": 0,
                 "heatMJ": 0,
                 "id": "111539de-deea-588a-9581-6f6ceaa2dfa9",
                 "impacts": {
@@ -2230,7 +2230,7 @@ lowVoltageElec =
                 "categories": ["energy", "use"],
                 "comment": "",
                 "displayName": "Electricité basse tension, France",
-                "elecMJ": 0,
+                "elecKwh": 0,
                 "heatMJ": 0,
                 "id": "931c9bb0-619a-5f75-b41b-ab8061e2ad92",
                 "impacts": {
@@ -2277,7 +2277,7 @@ plastic =
                 "categories": ["material", "material_type:rigid_plastics"],
                 "comment": "",
                 "displayName": "Plastique granulé (PP)",
-                "elecMJ": 0,
+                "elecKwh": 0,
                 "heatMJ": 0,
                 "id": "59b42284-3e45-5343-8a20-1d7d66137461",
                 "impacts": {
@@ -2320,7 +2320,7 @@ sawing =
                 "categories": ["transformation", "material_type:wood"],
                 "comment": "",
                 "displayName": "Sciage + séchage au four en Europe (bois)",
-                "elecMJ": 0,
+                "elecKwh": 0,
                 "heatMJ": 0,
                 "id": "c172d131-b5d1-5d9b-822b-5762afb91c66",
                 "impacts": {
@@ -2363,7 +2363,7 @@ steel =
                 "categories": ["material", "material_type:ferrous_metals"],
                 "comment": "",
                 "displayName": "Acier (faiblement allié)",
-                "elecMJ": 0,
+                "elecKwh": 0,
                 "heatMJ": 0,
                 "id": "6527710e-2434-5347-9bef-2205e0aa4f66",
                 "impacts": {
@@ -2406,7 +2406,7 @@ wood =
                 "categories": ["material", "material_type:wood"],
                 "comment": "",
                 "displayName": "Bois d'oeuvre (Feuillus / Hêtre)",
-                "elecMJ": 0,
+                "elecKwh": 0,
                 "heatMJ": 0,
                 "id": "17431e06-2973-516e-b043-be9ad405e4fb",
                 "impacts": {

@@ -138,7 +138,7 @@ decode impactsDecoder =
         |> Pipe.required "categories" Category.decodeList
         |> Pipe.required "comment" Decode.string
         |> DU.strictOptional "displayName" DU.decodeNonEmptyString
-        |> Pipe.required "elecMJ" (Decode.map Energy.megajoules Decode.float)
+        |> Pipe.required "elecKwh" (Decode.map Energy.kilowattHours Decode.float)
         |> Pipe.required "heatMJ" (Decode.map Energy.megajoules Decode.float)
         |> Pipe.required "id" decodeId
         |> Pipe.required "impacts" impactsDecoder
@@ -163,7 +163,7 @@ encode process =
         , ( "categories", Encode.list Category.encode process.categories )
         , ( "comment", Encode.string process.comment )
         , ( "displayName", EncodeExtra.maybe Encode.string process.displayName )
-        , ( "elecMJ", Encode.float (Energy.inMegajoules process.elec) )
+        , ( "elecKwh", Encode.float (Energy.inKilowattHours process.elec) )
         , ( "heatMJ", Encode.float (Energy.inMegajoules process.heat) )
         , ( "id", encodeId process.id )
         , ( "impacts", Impact.encode process.impacts )

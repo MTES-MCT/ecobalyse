@@ -5,7 +5,7 @@
   ],
   "comment": "Même commentaire que `bleaching` sauf qu'en plus les impacts sont multipliés par 19% (scénario de pollution aquatique moyen). corr3 et corr2 (cf doc). Corr3 : valeurs d'élec et de chaleur issues du rapport BAT2023 avec majoration de 50%. corr2 : valeur d'écotox issue d'inventaires enrichis.",
   "displayName": "Blanchiment (scénario de pollution aquatique moyen)",
-  "elecMJ": 0.72,
+  "elecKwh": 0.2,
   "heatMJ": 5.4,
   "id": "0b86f5c1-9354-53c1-a8e8-2e73c382479f",
   "impacts": {

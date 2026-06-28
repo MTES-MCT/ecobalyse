@@ -4,7 +4,7 @@
   ],
   "comment": "Bien que `elecMJ` = 0, ce procédé consomme de l'électricité mais dans une autre unité (kWh/pick.m). Voir weavingElecPPPM. Ancien identifiant (12/2024): f9686809-f55e-4b96-b1f0-3298959de7d0.",
   "displayName": "Tissage (habillement)",
-  "elecMJ": 0,
+  "elecKwh": 0.0,
   "heatMJ": 0,
   "id": "235b3488-6157-50ed-b74a-45e5d447dd85",
   "impacts": {

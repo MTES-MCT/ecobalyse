@@ -187,7 +187,7 @@ def compute_processes_generic(
                 display_name=variant.get(
                     "displayName", activity.get("displayName", "")
                 ),
-                elec_mj=process.get("elecMJ", 0),
+                elec_kwh=process.get("elecKwh", 0),
                 heat_mj=process.get("heatMJ", 0),
                 id=variant["id"],
                 impacts=process["impacts"],

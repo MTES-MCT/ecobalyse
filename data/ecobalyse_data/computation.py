@@ -336,7 +336,7 @@ def compute_impacts(
 
             unit = fix_unit(bw_activity.get("unit"))
 
-            # WARNING assume remote is in m3 or MJ (couldn't find unit from COM intf)
+            # WARNING assume remote is in m3 or kWh (couldn't find unit from COM intf)
             if unit == "kWh":
                 impacts = {k: v * 3.6 for k, v in impacts.items()}
             elif unit == "L":
@@ -482,7 +482,7 @@ def activity_to_process_with_impacts(
         computed_by=computed_by,
         # Default to bw_activity name if no display name is given
         display_name=eco_activity.get("displayName", bw_activity.get("name")),
-        elec_mj=eco_activity.get("elecMJ", 0),
+        elec_kwh=eco_activity.get("elecKwh", 0),
         heat_mj=eco_activity.get("heatMJ", 0),
         id=eco_activity["id"],
         impacts=impacts,

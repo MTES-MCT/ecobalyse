@@ -136,7 +136,7 @@ class ProcessGeneric(EcoModel):
     categories: List[str]
     comment: str
     display_name: str
-    elec_mj: Annotated[float, Field(serialization_alias="elecMJ")]
+    elec_kwh: Annotated[float, Field(serialization_alias="elecKwh")]
     heat_mj: Annotated[float, Field(serialization_alias="heatMJ")]
     id: uuid.UUID
     impacts: Impacts
@@ -186,7 +186,7 @@ class Process(EcoModel):
     computed_by: Optional[ComputedBy]
     mass_per_unit: Optional[float]
     display_name: str
-    elec_mj: Annotated[float, Field(serialization_alias="elecMJ")]
+    elec_kwh: Annotated[float, Field(serialization_alias="elecKwh")]
     heat_mj: Annotated[float, Field(serialization_alias="heatMJ")]
     id: Optional[uuid.UUID]
     impacts: Optional[Impacts] = None
