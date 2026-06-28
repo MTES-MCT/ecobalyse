@@ -578,7 +578,6 @@ packagingView ({ query } as config) lifeCycle =
                 , expandFn = Component.expandPackagings
                 , impactsList = lifeCycle.packaging
                 , removeFn = config.removePackaging
-                , supportMassDependentProcesses = False
                 , updateAmount = config.updatePackagingAmount
                 }
         , addPackagingButton config
@@ -594,7 +593,6 @@ type alias QuantifiedProcessListConfig quantified msg =
     , expandFn : List Process -> List quantified -> Result String (List ExpandedQuantifiedProcess)
     , impactsList : List Impacts
     , removeFn : Index -> msg
-    , supportMassDependentProcesses : Bool
     , updateAmount : Index -> Maybe Amount -> msg
     }
 
@@ -620,17 +618,10 @@ quantifiedProcessList { db, impact } lifeCycle listConfig quantifiedProcesses =
                                         [ td [ class "ps-3 align-middle text-nowrap", style "min-width" "160px" ]
                                             [ amountInput
                                                 { event = listConfig.updateAmount index
-                                                , readonly = listConfig.supportMassDependentProcesses
+                                                , readonly = List.member Category.ProductMassDependent process.categories
                                                 , unit = process.unit
                                                 }
-                                              <|
-                                                if listConfig.supportMassDependentProcesses && List.member Category.ProductMassDependent process.categories then
-                                                    Component.extractMass lifeCycle.production
-                                                        |> Mass.inKilograms
-                                                        |> Amount.fromFloat
-
-                                                else
-                                                    amount
+                                                (Component.useProcessAmount lifeCycle process amount)
                                             ]
                                         , td
                                             [ class "align-middle text-truncate w-66 cursor-help "
@@ -1482,7 +1473,6 @@ useStageView ({ impact, query } as config) lifeCycle =
                     , expandFn = Component.expandConsumptions
                     , impactsList = lifeCycle.use
                     , removeFn = config.removeConsumption
-                    , supportMassDependentProcesses = True
                     , updateAmount = config.updateConsumptionAmount
                     }
             , addConsumptionButton config
