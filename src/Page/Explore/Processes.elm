@@ -2,6 +2,7 @@ module Page.Explore.Processes exposing (table)
 
 import Data.Complement as Complement
 import Data.Country as Country
+import Data.Country.Code as CountryCode
 import Data.Dataset as Dataset
 import Data.Impact as Impact
 import Data.Impact.Definition as Definition exposing (Definitions)
@@ -32,7 +33,7 @@ table session { scope } =
                 >> Maybe.map
                     (\location ->
                         -- attempt decoding the region string as a an existing country code in the shared db
-                        case session.db.countries |> Country.findByCode (Country.codeFromString location) of
+                        case session.db.countries |> Country.findByCode (CountryCode.fromString location) of
                             Err _ ->
                                 location
 

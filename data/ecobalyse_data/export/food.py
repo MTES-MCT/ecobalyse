@@ -3,10 +3,10 @@ import json
 from enum import StrEnum
 from typing import List, Optional
 
-from common.base_ingredient import infer_base_ingredient
 from common.export import (
     export_json,
 )
+from common.infer_metadata import infer_base_ingredient
 from ecobalyse_data.bw.search import cached_search_one
 from ecobalyse_data.export import complements
 from ecobalyse_data.export.land_occupation import compute_land_occupation_batch

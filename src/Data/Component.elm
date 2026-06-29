@@ -134,6 +134,7 @@ import Data.Complement as Complement exposing (ComplementsImpacts, ComplementsRe
 import Data.Component.Amount as Amount exposing (Amount)
 import Data.Component.Config as Config exposing (EndOfLifeStrategies, EndOfLifeStrategy)
 import Data.Country as Country exposing (Country)
+import Data.Country.Code as CountryCode
 import Data.Impact as Impact exposing (Impacts)
 import Data.Impact.Definition as Definition exposing (Definitions, Trigram)
 import Data.Process as Process exposing (Process)
@@ -188,7 +189,7 @@ type alias EnergyMixes =
 
 
 type alias Query =
-    { assemblyCountry : Maybe Country.Code
+    { assemblyCountry : Maybe CountryCode.Code
     , consumptions : List Consumption
     , distribution : Maybe Process.Id
 
@@ -279,7 +280,7 @@ type alias Index =
 {-| A process id with an optional country
 -}
 type alias LocalizedProcess =
-    { country : Maybe Country.Code
+    { country : Maybe CountryCode.Code
     , id : Process.Id
     }
 
@@ -430,7 +431,7 @@ addElement targetItem material items =
                         | elements =
                             custom.elements
                                 ++ [ { amount = Amount.fromFloat 1
-                                     , material = nonLocalizedProcess material.id
+                                     , material = { country = Process.getDefaultOrigin material, id = material.id }
                                      , transforms = []
                                      }
                                    ]
@@ -1203,7 +1204,7 @@ decodeElement =
 decodeLocalizedProcess : Decoder LocalizedProcess
 decodeLocalizedProcess =
     Decode.succeed (\country id -> { country = country, id = id })
-        |> DU.strictOptional "country" Country.decodeCode
+        |> DU.strictOptional "country" CountryCode.decode
         |> Decode.required "id" Process.decodeId
 
 
@@ -1276,7 +1277,7 @@ decodeQuantity =
 decodeQuery : Decoder Query
 decodeQuery =
     Decode.succeed Query
-        |> DU.strictOptional "assemblyCountry" Country.decodeCode
+        |> DU.strictOptional "assemblyCountry" CountryCode.decode
         |> Decode.optional "consumptions" (Decode.list decodeConsumption) []
         |> DU.strictOptional "distribution" Process.decodeId
         |> DU.strictOptional "durability" Unit.decodeRatio
@@ -1452,7 +1453,7 @@ encodeElement element =
 encodeLocalizedProcess : LocalizedProcess -> Encode.Value
 encodeLocalizedProcess localizedProcess =
     EU.optionalPropertiesObject
-        [ ( "country", localizedProcess.country |> Maybe.map Country.encodeCode )
+        [ ( "country", localizedProcess.country |> Maybe.map CountryCode.encode )
         , ( "id", localizedProcess.id |> Process.encodeId |> Just )
         ]
 
@@ -1529,7 +1530,7 @@ encodeLifeCycleTransport v =
 encodeQuery : Query -> Encode.Value
 encodeQuery query =
     EU.optionalPropertiesObject
-        [ ( "assemblyCountry", query.assemblyCountry |> Maybe.map Country.encodeCode )
+        [ ( "assemblyCountry", query.assemblyCountry |> Maybe.map CountryCode.encode )
         , ( "components", query.items |> Encode.list encodeItem |> Just )
         , ( "consumptions"
           , if List.isEmpty query.consumptions then
@@ -2440,13 +2441,13 @@ updateElementAmount targetElement amount =
         \el -> { el | amount = amount }
 
 
-updateElementMaterialCountry : TargetElement -> Maybe Country.Code -> List Item -> List Item
+updateElementMaterialCountry : TargetElement -> Maybe CountryCode.Code -> List Item -> List Item
 updateElementMaterialCountry targetElement maybeCountryCode =
     updateElement targetElement <|
         \({ material } as el) -> { el | material = { material | country = maybeCountryCode } }
 
 
-updateElementTransformCountry : TargetElement -> Index -> Maybe Country.Code -> List Item -> List Item
+updateElementTransformCountry : TargetElement -> Index -> Maybe CountryCode.Code -> List Item -> List Item
 updateElementTransformCountry targetElement transformIndex maybeCountryCode =
     updateElement targetElement <|
         \el ->
@@ -2514,7 +2515,7 @@ validateConsumption requirements (Consumption quantifiedProcess) =
         |> Result.map Consumption
 
 
-validateCountry : Requirements db -> Maybe Country.Code -> Result String (Maybe Country.Code)
+validateCountry : Requirements db -> Maybe CountryCode.Code -> Result String (Maybe CountryCode.Code)
 validateCountry { db, scope } maybeCountryCode =
     case maybeCountryCode of
         Just countryCode ->
