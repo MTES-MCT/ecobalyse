@@ -4,6 +4,7 @@
     "id": "66b02aae-9c0c-48c4-aba4-e0ee191b5aca",
     "name": "Pizza bolognese Bio (350g)",
     "query": {
+      "assemblyCountry": "FR",
       "components": [
         {
           "custom": {
@@ -111,6 +112,7 @@
     "id": "7d14ebac-8ac8-4466-b334-0e9a4ba0deb5",
     "name": "Pizza bolognese FR (350g)",
     "query": {
+      "assemblyCountry": "FR",
       "components": [
         {
           "custom": {
@@ -217,6 +219,7 @@
     "id": "faff660e-2785-438e-ba1b-b04ab806b0cc",
     "name": "Pizza végétal (350g)",
     "query": {
+      "assemblyCountry": "FR",
       "components": [
         {
           "custom": {
@@ -331,6 +334,7 @@
     "id": "cb3576d3-703f-47f4-ae0c-de4f87c4c429",
     "name": "Filet de poulet FR (250g)",
     "query": {
+      "assemblyCountry": "FR",
       "components": [
         {
           "custom": {
@@ -378,6 +382,7 @@
     "id": "766efdbc-5102-4c60-bf3d-6ab32482ec28",
     "name": "Farine de blé bio FR (1kg)",
     "query": {
+      "assemblyCountry": "FR",
       "components": [
         {
           "custom": {
@@ -414,6 +419,7 @@
     "id": "230897cd-a061-47e9-a945-5acec568de8e",
     "name": "Farine de blé FR (1kg)",
     "query": {
+      "assemblyCountry": "FR",
       "components": [
         {
           "custom": {
