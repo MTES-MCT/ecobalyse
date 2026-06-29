@@ -106,4 +106,343 @@
     },
     "scope": "food2"
   }
+  {
+    "category": "",
+    "id": "7d14ebac-8ac8-4466-b334-0e9a4ba0deb5",
+    "name": "Pizza bolognese FR (350g)",
+    "query": {
+      "components": [
+        {
+          "custom": {
+            "elements": [
+              {
+                "amount": 0.148,
+                "material": {
+                  "country": "FR",
+                  "id": "d57e50ef-b40e-4abf-ab50-1edf4916a3e4"
+                },
+                "transforms": []
+              },
+              {
+                "amount": 0.1,
+                "material": {
+                  "country": "FR",
+                  "id": "b94d40bd-3394-59d3-9397-fe097a5f7138"
+                },
+                "transforms": [
+                  {
+                    "country": "FR",
+                    "id": "de307fb4-99d3-4a01-962b-242ace7b2739"
+                  }
+                ]
+              },
+              {
+                "amount": 0.012,
+                "material": {
+                  "country": "FR",
+                  "id": "9a990c37-72b3-40c5-a700-aee1f686a029"
+                },
+                "transforms": []
+              },
+              {
+                "amount": 0.036,
+                "material": {
+                  "country": "FR",
+                  "id": "09bf7ccc-baeb-4907-87ec-dc3a1b3cf9e1"
+                },
+                "transforms": []
+              },
+              {
+                "amount": 0.012,
+                "material": {
+                  "country": "FR",
+                  "id": "97cde31b-e46e-472d-836d-9b217c3845df"
+                },
+                "transforms": []
+              },
+              {
+                "amount": 0.002,
+                "material": {
+                  "id": "217df27a-7ab5-5d1d-97a4-8b20db8f4952"
+                },
+                "transforms": []
+              },
+              {
+                "amount": 0.021,
+                "material": {
+                  "id": "96b301d9-d21b-4cea-8903-bd7917e95a30"
+                },
+                "transforms": []
+              },
+              {
+                "amount": 0.043,
+                "material": {
+                  "country": "FR",
+                  "id": "22179caa-eb41-49c0-ae04-49eda23da4da"
+                },
+                "transforms": []
+              }
+            ],
+            "name": "Pizza bolognese FR"
+          },
+          "quantity": 1
+        }
+      ],
+      "consumptions": [
+        {
+          "amount": 0.35,
+          "processId": "0048f6f5-5f8f-4a34-acde-4e0d909883d4"
+        },
+        {
+          "amount": 0.35,
+          "processId": "a49670fc-0642-43f6-a673-fe15dc7d88da"
+        }
+      ],
+      "distribution": "a7b3d399-4c7b-4556-9826-a79f952feb7f",
+      "packagings": [
+        {
+          "amount": 1,
+          "processId": "fa775270-4bc7-4f6d-a9d3-c80ed05ed90c"
+        }
+      ],
+      "recyclable": true,
+      "transportOptions": {
+        "cooling": true
+      }
+    },
+    "scope": "food2"
+  }
+  {
+    "category": "",
+    "id": "faff660e-2785-438e-ba1b-b04ab806b0cc",
+    "name": "Pizza végétal (350g)",
+    "query": {
+      "components": [
+        {
+          "custom": {
+            "elements": [
+              {
+                "amount": 0.113,
+                "material": {
+                  "country": "FR",
+                  "id": "d57e50ef-b40e-4abf-ab50-1edf4916a3e4"
+                },
+                "transforms": []
+              },
+              {
+                "amount": 0.076,
+                "material": {
+                  "country": "FR",
+                  "id": "b94d40bd-3394-59d3-9397-fe097a5f7138"
+                },
+                "transforms": [
+                  {
+                    "country": "FR",
+                    "id": "de307fb4-99d3-4a01-962b-242ace7b2739"
+                  }
+                ]
+              },
+              {
+                "amount": 0.012,
+                "material": {
+                  "country": "FR",
+                  "id": "9a990c37-72b3-40c5-a700-aee1f686a029"
+                },
+                "transforms": []
+              },
+              {
+                "amount": 0.036,
+                "material": {
+                  "country": "FR",
+                  "id": "09bf7ccc-baeb-4907-87ec-dc3a1b3cf9e1"
+                },
+                "transforms": []
+              },
+              {
+                "amount": 0.036,
+                "material": {
+                  "country": "FR",
+                  "id": "b94d40bd-3394-59d3-9397-fe097a5f7138"
+                },
+                "transforms": []
+              },
+              {
+                "amount": 0.012,
+                "material": {
+                  "country": "FR",
+                  "id": "97cde31b-e46e-472d-836d-9b217c3845df"
+                },
+                "transforms": []
+              },
+              {
+                "amount": 0.002,
+                "material": {
+                  "id": "217df27a-7ab5-5d1d-97a4-8b20db8f4952"
+                },
+                "transforms": []
+              },
+              {
+                "amount": 0.021,
+                "material": {
+                  "id": "96b301d9-d21b-4cea-8903-bd7917e95a30"
+                },
+                "transforms": []
+              },
+              {
+                "amount": 0.036,
+                "material": {
+                  "country": "FR",
+                  "id": "835930b4-a388-588f-aff2-bc7cbe2a17eb"
+                },
+                "transforms": []
+              }
+            ],
+            "name": "Pizza végétale"
+          },
+          "quantity": 1
+        }
+      ],
+      "consumptions": [
+        {
+          "amount": 0.35,
+          "processId": "0048f6f5-5f8f-4a34-acde-4e0d909883d4"
+        },
+        {
+          "amount": 0.35,
+          "processId": "a49670fc-0642-43f6-a673-fe15dc7d88da"
+        }
+      ],
+      "distribution": "a7b3d399-4c7b-4556-9826-a79f952feb7f",
+      "packagings": [
+        {
+          "amount": 1,
+          "processId": "fa775270-4bc7-4f6d-a9d3-c80ed05ed90c"
+        }
+      ],
+      "recyclable": true,
+      "transportOptions": {
+        "cooling": true
+      }
+    },
+    "scope": "food2"
+  }
+  {
+    "category": "",
+    "id": "cb3576d3-703f-47f4-ae0c-de4f87c4c429",
+    "name": "Filet de poulet FR (250g)",
+    "query": {
+      "components": [
+        {
+          "custom": {
+            "elements": [
+              {
+                "amount": 0.25,
+                "material": {
+                  "country": "FR",
+                  "id": "a360871c-fc35-4cb3-af2c-5eeb8bd6f984"
+                },
+                "transforms": []
+              }
+            ],
+            "name": "Blanc de poulet"
+          },
+          "quantity": 1
+        }
+      ],
+      "consumptions": [
+        {
+          "amount": 0.25,
+          "processId": "0048f6f5-5f8f-4a34-acde-4e0d909883d4"
+        },
+        {
+          "amount": 0.25,
+          "processId": "a49670fc-0642-43f6-a673-fe15dc7d88da"
+        }
+      ],
+      "distribution": "be66b80b-1500-4e3b-bfd2-87a89ff54031",
+      "packagings": [
+        {
+          "amount": 1,
+          "processId": "fd569276-f8b5-41aa-8005-e533ac16b9bc"
+        }
+      ],
+      "recyclable": true,
+      "transportOptions": {
+        "cooling": true
+      }
+    },
+    "scope": "food2"
+  }
+   {
+    "category": "",
+    "id": "766efdbc-5102-4c60-bf3d-6ab32482ec28",
+    "name": "Farine de blé bio FR (1kg)",
+    "query": {
+      "components": [
+        {
+          "custom": {
+            "elements": [
+              {
+                "amount": 1,
+                "material": {
+                  "country": "FR",
+                  "id": "3436324c-7835-4e9b-86c6-e9ca68a5e2af"
+                },
+                "transforms": []
+              }
+            ],
+            "name": "Farine de blé biologique FR"
+          },
+          "quantity": 1
+        }
+      ],
+      "packagings": [
+        {
+          "amount": 1,
+          "processId": "4f441c18-5f86-4a6b-945d-d559ac0780d3"
+        }
+      ],
+      "recyclable": true,
+      "transportOptions": {
+        "cooling": true
+      }
+    },
+    "scope": "food2"
+  }
+  {
+    "category": "",
+    "id": "230897cd-a061-47e9-a945-5acec568de8e",
+    "name": "Farine de blé FR (1kg)",
+    "query": {
+      "components": [
+        {
+          "custom": {
+            "elements": [
+              {
+                "amount": 1,
+                "material": {
+                  "country": "FR",
+                  "id": "d57e50ef-b40e-4abf-ab50-1edf4916a3e4"
+                },
+                "transforms": []
+              }
+            ],
+            "name": "Farine de blé FR"
+          },
+          "quantity": 1
+        }
+      ],
+      "packagings": [
+        {
+          "amount": 1,
+          "processId": "4f441c18-5f86-4a6b-945d-d559ac0780d3"
+        }
+      ],
+      "recyclable": true,
+      "transportOptions": {
+        "cooling": true
+      }
+    },
+    "scope": "food2"
+  }
 ]
