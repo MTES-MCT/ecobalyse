@@ -65,6 +65,9 @@ class Category(StrEnum):
     PACKAGING_TYPE_PACK = "packaging_type:pack"
     PACKAGING_TYPE_SHEET = "packaging_type:sheet"
     PACKAGING_TYPE_TRAY = "packaging_type:tray"
+
+    PRODUCT_MASS_DEPENDENT = "productmassdependent"
+
     TEXTILE_MATERIAL = "textile_material"
     TRANSFORMATION = "transformation"
     TRANSPORT = "transport"
