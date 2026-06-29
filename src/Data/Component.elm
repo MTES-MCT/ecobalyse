@@ -122,6 +122,7 @@ module Data.Component exposing
     , updateItemCustomName
     , updatePackagingAmount
     , updateRecyclable
+    , useProcessAmount
     , validateItem
     , validateQuery
     )
@@ -1055,12 +1056,10 @@ computeTransportedMassImpacts ({ config } as requirements) ({ byAir, cooling } a
 
 {-| Computes transports impacts:
 
-  - for a single component product, the summed impacts of transporting its individual elements directly to distribution
-  - for a multiple components product:
-      - if we know the country of assembly, the summed impacts of transporting each component's elements to assembly,
-        then the summed impacts of transporting the assembled product mass to distribution
-      - if we don't know the country of assembly, the summed impacts of each component's elements transported using
-        default unknown transport distances, then the assembled product mass to distribution
+  - if we know the country of assembly, the summed impacts of transporting each component's elements to assembly,
+    then the summed impacts of transporting the assembled product mass to distribution
+  - if we don't know the country of assembly, the summed impacts of each component's elements transported using
+    default unknown transport distances, then the assembled product mass to distribution
 
 -}
 computeTransports : Requirements db -> Query -> LifeCycle -> Result String LifeCycle
@@ -1068,88 +1067,42 @@ computeTransports ({ config, db } as requirements) ({ transportOptions } as quer
     Result.map2
         (\resultedElements maybeAssemblyCountry ->
             let
-                distributionCountry =
-                    Just config.distribution.country
-
-                totalProductMass =
-                    extractMass lifeCycle.production
-
                 transportElements fn =
                     resultedElements
                         |> List.map fn
                         |> RE.combine
                         |> Result.map Transport.sum
-
-                transportImpacts =
-                    computeTransportedMassImpacts requirements
-
-                setLifeCycleTransports toAssembly toDistribution =
-                    { lifeCycle | transports = LifeCycleTransport toAssembly toDistribution }
             in
-            case ( List.length query.items, maybeAssemblyCountry ) of
-                ( 0, Just _ ) ->
-                    Err "Une liste de composants vide ne peut être assemblée"
+            if List.isEmpty query.items then
+                case maybeAssemblyCountry of
+                    Just _ ->
+                        Err "Une liste de composants vide ne peut être assemblée"
 
-                ( 1, Just _ ) ->
-                    Err "Un composant unique ne peut pas être assemblé"
+                    Nothing ->
+                        Ok { lifeCycle | transports = emptyLifeCycleTransports }
 
-                -- Many components assembled; for all components, each elements are individually shipped to assembly,
-                -- then the assembled product mass is transported to distribution
-                ( _, Just assemblyCountry ) ->
-                    Result.map2 setLifeCycleTransports
-                        -- toAssembly
-                        (transportElements
-                            (\( expandedElement, elementResults ) ->
-                                extractMass elementResults
+            else
+                Result.map2
+                    (\toAssembly toDistribution ->
+                        { lifeCycle | transports = LifeCycleTransport toAssembly toDistribution }
+                    )
+                    -- toAssembly
+                    (transportElements <|
+                        \( expandedElement, elementResults ) ->
+                            extractMass elementResults
+                                |> computeTransportedMassImpacts requirements
                                     -- note: air transport is always disabled before assembly
-                                    |> transportImpacts { transportOptions | byAir = Split.zero }
-                                        (getFinalElementCountry expandedElement)
-                                        (Just assemblyCountry)
-                            )
-                        )
-                        -- toDistribution
-                        (totalProductMass
-                            |> transportImpacts transportOptions maybeAssemblyCountry distributionCountry
-                        )
-
-                -- Default state, empty transports
-                ( 0, Nothing ) ->
-                    Ok { lifeCycle | transports = emptyLifeCycleTransports }
-
-                -- Single unique component; its elements are directly shipped to distribution individually,
-                -- with no transport to assembly stage
-                ( 1, Nothing ) ->
-                    Result.map2 setLifeCycleTransports
-                        -- toAssembly
-                        (Ok Transport.noTransport)
-                        -- toDistribution
-                        (transportElements
-                            (\( expandedElement, elementResults ) ->
-                                extractMass elementResults
-                                    |> transportImpacts transportOptions
-                                        (getFinalElementCountry expandedElement)
-                                        distributionCountry
-                            )
-                        )
-
-                -- Many items with no assembly country specified; all item elements are individually shipped to
-                -- the assembly stage unique default unknown transport distances,
-                -- then the total mass of the assembled end product is transported to distribution country
-                ( _, Nothing ) ->
-                    Result.map2 setLifeCycleTransports
-                        -- toAssembly
-                        (transportElements
-                            (\( _, elementResults ) ->
-                                -- all item elements are individually shipped to the assembly stage using default unknown transport distances
-                                extractMass elementResults
-                                    -- note: air transport is always disabled before assembly
-                                    |> transportImpacts { transportOptions | byAir = Split.zero } Nothing Nothing
-                            )
-                        )
-                        -- toDistribution
-                        (totalProductMass
-                            |> transportImpacts transportOptions Nothing distributionCountry
-                        )
+                                    { transportOptions | byAir = Split.zero }
+                                    (getFinalElementCountry expandedElement)
+                                    maybeAssemblyCountry
+                    )
+                    -- toDistribution
+                    (extractMass lifeCycle.production
+                        |> computeTransportedMassImpacts requirements
+                            transportOptions
+                            maybeAssemblyCountry
+                            (Just config.distribution.country)
+                    )
         )
         (query.items |> expandItems db |> Result.andThen (getResultedElementList lifeCycle.production))
         (Country.resolveMaybe query.assemblyCountry db.countries)
@@ -1172,7 +1125,11 @@ computeUseImpacts { config, db } { consumptions } lifeCycle =
                                             { elec = config.use.defaultElecProcess
                                             , heat = config.use.defaultHeatProcess
                                             }
-                                        |> Impact.multiplyBy (Amount.toFloat amount)
+                                        |> Impact.multiplyBy
+                                            (amount
+                                                |> useProcessAmount lifeCycle process
+                                                |> Amount.toFloat
+                                            )
                                 )
                 }
             )
@@ -2285,18 +2242,16 @@ setElementMaterial db targetElement material items =
             |> Ok
 
 
-{-| Sets query items, adapting the country of assembly if needed
--}
 setQueryItems : List Item -> Query -> Query
 setQueryItems items query =
     { query
         | assemblyCountry =
-            if List.length items > 1 then
-                query.assemblyCountry
+            -- reset assembly country if no items
+            if List.isEmpty items then
+                Nothing
 
             else
-                -- reset assembly country if no or single item
-                Nothing
+                query.assemblyCountry
         , items = items
     }
 
@@ -2536,6 +2491,20 @@ updatePackagingAmount index amount query =
 updateRecyclable : Bool -> Query -> Query
 updateRecyclable recyclable query =
     { query | recyclable = recyclable }
+
+
+{-| Return an Amount depending on the process category. If the process is mass dependent, return
+the product mass in kilograms. Otherwise, return the amount.
+-}
+useProcessAmount : LifeCycle -> Process -> Amount -> Amount
+useProcessAmount lifeCycle process amount =
+    if List.member Category.ProductMassDependent process.categories then
+        extractMass lifeCycle.production
+            |> Mass.inKilograms
+            |> Amount.fromFloat
+
+    else
+        amount
 
 
 validateConsumption : Requirements db -> Consumption -> Result String Consumption
