@@ -807,14 +807,14 @@ suite =
                             )
                             -- tests
                             (\singleItem multipleItems ->
-                                [ it "should not add transports to assembly when a single item is shipped"
+                                [ it "should add transports to assembly when a single item is shipped"
                                     (singleItem
                                         |> .transports
                                         |> .toAssembly
                                         |> .impacts
                                         |> Impact.getImpact Definition.Ecs
                                         |> Unit.impactToFloat
-                                        |> Expect.equal 0
+                                        |> Expect.greaterThan 0
                                     )
                                 , it "should add transports to assembly when multiple items are shipped"
                                     (multipleItems
@@ -826,16 +826,6 @@ suite =
                                         |> Expect.greaterThan 0
                                     )
                                 ]
-                            )
-                        , it "should reject single item assembly"
-                            ("""{
-                                  "assemblyCountry": "FR",
-                                  "components": [
-                                    { "id": "ad9d7f23-076b-49c5-93a4-ee1cd7b53973", "quantity": 1 }
-                                  ]
-                                }"""
-                                |> decodeJsonThen Component.decodeQuery (Component.compute requirements)
-                                |> expectResultErrorContains "Un composant unique ne peut pas être assemblé"
                             )
                         , suiteFromResult "assembly country handling"
                             -- setup
@@ -880,13 +870,13 @@ suite =
                             )
                             -- tests
                             (\singleItemProduct ->
-                                [ it "should not add transport to assembly when shipping a single item"
+                                [ it "should add transport to assembly when shipping a single item"
                                     (singleItemProduct
                                         |> .transports
                                         |> .toAssembly
                                         |> .impacts
                                         |> getEcsImpact
-                                        |> Expect.equal 0
+                                        |> Expect.greaterThan 0
                                     )
                                 , it "should add transport impacts to distribution when shipping a single item"
                                     (singleItemProduct
@@ -895,6 +885,37 @@ suite =
                                         |> .impacts
                                         |> getEcsImpact
                                         |> Expect.greaterThan 0
+                                    )
+                                ]
+                            )
+                        , it "should reject an empty component list with an assembly country"
+                            ("""{
+                                  "assemblyCountry": "FR",
+                                  "components": []
+                                }"""
+                                |> decodeJsonThen Component.decodeQuery (Component.compute requirements)
+                                |> expectResultErrorContains "Une liste de composants vide ne peut être assemblée"
+                            )
+                        , suiteFromResult "empty component list without assembly country"
+                            ("""{ "components": [] }"""
+                                |> decodeJsonThen Component.decodeQuery (Component.compute requirements)
+                            )
+                            (\emptyProduct ->
+                                [ it "should not add transport to assembly"
+                                    (emptyProduct
+                                        |> .transports
+                                        |> .toAssembly
+                                        |> .impacts
+                                        |> getEcsImpact
+                                        |> Expect.equal 0
+                                    )
+                                , it "should not add transport to distribution"
+                                    (emptyProduct
+                                        |> .transports
+                                        |> .toDistribution
+                                        |> .impacts
+                                        |> getEcsImpact
+                                        |> Expect.equal 0
                                     )
                                 ]
                             )
@@ -912,8 +933,8 @@ suite =
                                     (singleItemProduct
                                         |> .transports
                                         |> .toAssembly
-                                        |> .impacts
-                                        |> getEcsImpact
+                                        |> .air
+                                        |> Length.inKilometers
                                         |> Expect.equal 0
                                     )
                                 , it "should add air transport to distribution"
@@ -1400,6 +1421,27 @@ suite =
                                 )
                             ]
                         )
+                    , let
+                        query =
+                            { emptyQuery
+                                | items = [ Component.createItem Nothing ]
+                                , assemblyCountry = Just (Country.Code "FR")
+                            }
+                      in
+                      describe "mapItems"
+                        [ it "should reset the assembly country when mapItems empties the list"
+                            (query
+                                |> Component.mapItems (always [])
+                                |> .assemblyCountry
+                                |> Expect.equal Nothing
+                            )
+                        , it "should preserve the assembly country when mapItems keeps the list"
+                            (query
+                                |> Component.mapItems (always [ Component.createItem Nothing ])
+                                |> .assemblyCountry
+                                |> Expect.equal (Just (Country.Code "FR"))
+                            )
+                        ]
                     , suiteFromResult2 "removeElement"
                         -- setup
                         sofaFabric
@@ -1479,6 +1521,30 @@ suite =
                                 )
                             ]
                         )
+                    , let
+                        query =
+                            { emptyQuery | assemblyCountry = Just (Country.Code "FR") }
+                      in
+                      describe "setQueryItems"
+                        [ it "should preserve the assembly country for a single item"
+                            (query
+                                |> Component.setQueryItems [ Component.createItem Nothing ]
+                                |> .assemblyCountry
+                                |> Expect.equal (Just (Country.Code "FR"))
+                            )
+                        , it "should preserve the assembly country for multiple items"
+                            (query
+                                |> Component.setQueryItems [ Component.createItem Nothing, Component.createItem Nothing ]
+                                |> .assemblyCountry
+                                |> Expect.equal (Just (Country.Code "FR"))
+                            )
+                        , it "should reset the assembly country when the list becomes empty"
+                            (query
+                                |> Component.setQueryItems []
+                                |> .assemblyCountry
+                                |> Expect.equal Nothing
+                            )
+                        ]
                     , suiteFromResult "stagesImpacts"
                         ("""{
                               "components": [

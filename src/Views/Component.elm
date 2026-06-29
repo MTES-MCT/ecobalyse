@@ -528,7 +528,7 @@ lifeCycleView ({ db, docsUrl, explorerRoute, impact, query, scope, title } as co
                 TextileTrimsContext ->
                     addComponentButton config
             ]
-        , if Scope.isGeneric scope && List.length query.items > 1 then
+        , if Scope.isGeneric scope && List.length query.items > 0 then
             div []
                 [ DownArrow.view
                     [ div [ class "d-flex justify-content-end align-items-center gap-1" ]
@@ -537,7 +537,6 @@ lifeCycleView ({ db, docsUrl, explorerRoute, impact, query, scope, title } as co
                     [ div [ class "d-flex gap-2" ]
                         [ lifeCycle.transports.toAssembly.impacts
                             |> Format.formatImpact impact
-                        , text "(détails en dépliant les composants ci-dessus)"
                         ]
                     ]
                 , assemblyView config
@@ -952,26 +951,11 @@ elementEditModalView ({ query } as config) (( _, elementIndex ) as targetElement
 {-| Render transports from last transform step to assembly or distribution stage
 -}
 finalElementTransportView : Config db msg -> Maybe Country -> Mass -> Html msg
-finalElementTransportView ({ componentConfig, db, query, scope } as config) elementCountry mass =
-    let
-        maybeDestinationCountryCode =
-            case ( List.length query.items > 1, query.assemblyCountry ) of
-                -- multiple items and an assembly country: transport to assembly country
-                ( True, Just assemblyCountryCode ) ->
-                    Just assemblyCountryCode
-
-                -- single item and no assembly country: transport to default distribution country
-                ( False, Nothing ) ->
-                    Just componentConfig.distribution.country.code
-
-                -- fallback to unknown destination
-                _ ->
-                    Nothing
-    in
+finalElementTransportView ({ db, query, scope } as config) elementCountry mass =
     db.countries
         |> Scope.anyOf [ scope ]
-        |> Country.resolveMaybe maybeDestinationCountryCode
-        |> Result.map (elementTransportView config [ class "subdued" ] False mass elementCountry)
+        |> Country.resolveMaybe query.assemblyCountry
+        |> Result.map (elementTransportView config [ class "subdued" ] mass elementCountry)
         |> Result.withDefault (text "")
 
 
@@ -1076,26 +1060,17 @@ elementMaterialView config targetElement materialResults material amount =
     ]
 
 
-elementTransportView : Config db msg -> List (Attribute msg) -> Bool -> Mass -> Maybe Country -> Maybe Country -> Html msg
-elementTransportView ({ query } as config) attributes noAirTransport transportedMass maybeFrom maybeTo =
+elementTransportView : Config db msg -> List (Attribute msg) -> Mass -> Maybe Country -> Maybe Country -> Html msg
+elementTransportView ({ query } as config) attributes transportedMass maybeFrom maybeTo =
     let
         { transportOptions } =
             query
 
-        -- ALtered transport options for local rendering purpose only
-        displayTransportOptions =
-            if List.length query.items > 1 || noAirTransport then
-                -- multiple components: remove all air transports (they're removed in Component.computeTransports)
-                { transportOptions | byAir = Split.zero }
-
-            else
-                -- single component: preserve air transport
-                transportOptions
-
         displayElementTransport =
             transportedMass
                 |> Component.computeTransportedMassImpacts (requirementsFromConfig config)
-                    displayTransportOptions
+                    -- Note: air transport is always disabled before assembly (see Component.computeTransports)
+                    { transportOptions | byAir = Split.zero }
                     maybeFrom
                     maybeTo
     in
@@ -1201,7 +1176,7 @@ elementTransformsView config targetElement materialResults materialCountry trans
                                )
                 in
                 [ transform.country
-                    |> elementTransportView config [] True previousMass previousCountry
+                    |> elementTransportView config [] previousMass previousCountry
                 , tr [ class "fs-7 border-top" ]
                     [ td [] []
                     , td [ class "text-end align-middle text-nowrap" ] []
