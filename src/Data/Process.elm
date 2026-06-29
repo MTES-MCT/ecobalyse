@@ -66,6 +66,7 @@ type alias Process =
     , searchableWords : List String
     , source : String
     , unit : Unit
+    , visible : Bool
     }
 
 
@@ -150,6 +151,8 @@ decode impactsDecoder =
         |> Pipe.hardcoded []
         |> Pipe.required "source" Decode.string
         |> Pipe.required "unit" (Decode.string |> Decode.andThen (DE.fromResult << unitFromString))
+        |> Pipe.optional "visible" Decode.bool True
+        |> Decode.andThen (validate >> DE.fromResult)
         |> Decode.map computeSearchableWords
 
 
@@ -392,3 +395,12 @@ unitFromString string =
 
         _ ->
             Err ("Invalid or non-supported process unit: " ++ string)
+
+
+validate : Process -> Result String Process
+validate process =
+    if List.member Category.ProductMassDependent process.categories && process.unit /= Kilogram then
+        Err "A ProductMassDependent process with a non-mass unit makes no sense"
+
+    else
+        Ok process

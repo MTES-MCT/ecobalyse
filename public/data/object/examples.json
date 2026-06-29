@@ -22,6 +22,7 @@
     "id": "ce3c8c63-aef7-4090-bbab-479e826fe4b9",
     "name": "Boite plastique 45L (Chine)",
     "query": {
+      "assemblyCountry": "CN",
       "components": [
         {
           "id": "10e199b6-7e5f-47d9-bc85-9959c4e9ee62",
@@ -53,6 +54,7 @@
     "id": "6ab8769d-24d9-4990-8f00-ae1b5823946e",
     "name": "Boite plastique 45L (France)",
     "query": {
+      "assemblyCountry": "FR",
       "components": [
         {
           "id": "10e199b6-7e5f-47d9-bc85-9959c4e9ee62",

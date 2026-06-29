@@ -1,6 +1,7 @@
 module Views.Page exposing
     ( ActivePage(..)
     , Config
+    , errored
     , frame
     , loading
     , notFound
@@ -13,7 +14,7 @@ import Data.Dataset as Dataset
 import Data.Env as Env
 import Data.Notification as Notification exposing (Notification)
 import Data.Scope as Scope exposing (Scope)
-import Data.Session as Session exposing (Session)
+import Data.Session as Session
 import Html exposing (..)
 import Html.Attributes exposing (..)
 import Html.Events exposing (..)
@@ -46,29 +47,35 @@ type ActivePage
     | TextileSimulator
 
 
-type MenuLink
+type MenuLink msg
     = External String String
-    | Internal String Route.Route ActivePage
+    | Internal (List (Html msg)) Route.Route ActivePage
     | MailTo String String
 
 
 type alias Config msg =
     { activePage : ActivePage
+    , clientUrl : String
+    , currentVersion : Version
+    , enabledSections : Session.EnabledSections
+    , hasAccessToDetailedImpacts : Bool
+    , isAuthenticated : Bool
+    , isSuperuser : Bool
     , mobileNavigationOpened : Bool
-    , session : Session
+    , notifications : List Session.Notification
     , toMsg : App.Msg -> msg
     , tray : Toast.Tray Notification
     }
 
 
 frame : Config msg -> ( String, List (Html msg) ) -> Document msg
-frame ({ activePage, session } as config) ( title, content ) =
+frame ({ activePage } as config) ( title, content ) =
     { body =
         [ stagingAlert config
         , newVersionAlert config
         , pageHeader config
         , commonNotices config.toMsg activePage
-        , termsNotice session
+        , termsNotice config
         , if config.mobileNavigationOpened then
             mobileNavigation config
 
@@ -89,15 +96,15 @@ frame ({ activePage, session } as config) ( title, content ) =
                 ]
                 content
             ]
-        , pageFooter config.session
+        , pageFooter config
         ]
     , title = title ++ " | Ecobalyse"
     }
 
 
-termsNotice : Session -> Html msg
-termsNotice session =
-    if Session.isAuthenticated session && not (Session.hasAccessToDetailedImpacts session) then
+termsNotice : Config msg -> Html msg
+termsNotice { hasAccessToDetailedImpacts, isAuthenticated } =
+    if isAuthenticated && not hasAccessToDetailedImpacts then
         Notice.warn
             [ """Attention, vous êtes connecté mais n’avez pas accepté les conditions d’utilisation ecoinvent, vous privant ainsi
                  de **l’accès aux impacts détaillés** (changement climatique, consommation d'eau, etc). **Vous pouvez
@@ -122,7 +129,8 @@ commonNotices msg activePage =
         Object (Scope.Generic Scope.Food2) ->
             Notice.info
                 [ Icon.info
-                , Markdown.simple [] "**Cette version est en cours de développement.**"
+                , Markdown.simple [] "**Méthodologie stabilisée. Cette version de la calculette remplacera à terme la version initiale.**"
+                , """Contribuez via notre [forum utilisateur](https://chat.ecobalyse.fr/ecobalyse/channels/02_alimentaire_general).""" |> Markdown.simple []
                 ]
 
         Object (Scope.Generic Scope.Object) ->
@@ -182,14 +190,14 @@ viewToast { toMsg } attributes { content, id } =
         }
 
 
-isStaging : Session -> Bool
-isStaging { clientUrl } =
+isStaging : String -> Bool
+isStaging clientUrl =
     String.contains "ecobalyse-pr" clientUrl || String.contains "staging-ecobalyse" clientUrl
 
 
 stagingAlert : Config msg -> Html msg
-stagingAlert { session, toMsg } =
-    if isStaging session then
+stagingAlert { clientUrl, toMsg } =
+    if isStaging clientUrl then
         div [ class "StagingAlert d-block d-sm-flex justify-content-center align-items-center mt-3" ]
             [ text "Vous êtes sur un environnement de recette. "
             , button
@@ -205,8 +213,8 @@ stagingAlert { session, toMsg } =
 
 
 newVersionAlert : Config msg -> Html msg
-newVersionAlert { session, toMsg } =
-    case session.currentVersion of
+newVersionAlert { currentVersion, toMsg } =
+    case currentVersion of
         Version.NewerVersion _ { tag } ->
             div [ class "NewVersionAlert d-block align-items-center" ]
                 [ case tag of
@@ -227,7 +235,7 @@ newVersionAlert { session, toMsg } =
             text ""
 
 
-addRouteIf : Bool -> MenuLink -> Maybe MenuLink
+addRouteIf : Bool -> MenuLink msg -> Maybe (MenuLink msg)
 addRouteIf flag route =
     if flag then
         Just route
@@ -236,82 +244,84 @@ addRouteIf flag route =
         Nothing
 
 
-mainMenuLinks : Session -> List MenuLink
-mainMenuLinks { enabledSections } =
+mainMenuLinks : Session.EnabledSections -> List (MenuLink msg)
+mainMenuLinks enabledSections =
     List.filterMap identity
-        [ Just <| Internal "Accueil" Route.Home Home
+        [ Just <| Internal [ text "Accueil" ] Route.Home Home
         , addRouteIf enabledSections.textile <|
-            Internal "Textile" Route.TextileSimulatorHome TextileSimulator
+            Internal [ text "Textile" ] Route.TextileSimulatorHome TextileSimulator
         , addRouteIf enabledSections.food <|
-            Internal "Alimentaire" Route.FoodBuilderHome Food
+            Internal [ text "Alimentaire" ] Route.FoodBuilderHome Food
         , addRouteIf enabledSections.objects <|
-            Internal "Objets" (Route.ObjectSimulatorHome (Scope.Generic Scope.Object)) (Object (Scope.Generic Scope.Object))
+            Internal [ text "Alimentaire", sup [] [ text "BÉTA" ] ] (Route.ObjectSimulatorHome (Scope.Generic Scope.Food2)) (Object (Scope.Generic Scope.Food2))
+        , addRouteIf enabledSections.objects <|
+            Internal [ text "Objets" ] (Route.ObjectSimulatorHome (Scope.Generic Scope.Object)) (Object (Scope.Generic Scope.Object))
         , addRouteIf enabledSections.veli <|
-            Internal "Véhicules" (Route.ObjectSimulatorHome (Scope.Generic Scope.Veli)) (Object (Scope.Generic Scope.Veli))
-        , Just <| Internal "Explorateur" (Route.Explore Scope.Textile (Dataset.TextileExamples Nothing)) Explore
-        , Just <| Internal "API" Route.Api Api
+            Internal [ text "Véhicules" ] (Route.ObjectSimulatorHome (Scope.Generic Scope.Veli)) (Object (Scope.Generic Scope.Veli))
+        , Just <| Internal [ text "Explorateur" ] (Route.Explore Scope.Textile (Dataset.TextileExamples Nothing)) Explore
+        , Just <| Internal [ text "API" ] Route.Api Api
         , Just <| MailTo "Contact" Env.contactEmail
         ]
 
 
-secondaryMenuLinks : Session -> List MenuLink
-secondaryMenuLinks { enabledSections } =
+secondaryMenuLinks : Session.EnabledSections -> List (MenuLink msg)
+secondaryMenuLinks enabledSections =
     List.filterMap identity
-        [ Just <| Internal "Dernières mises à jour" (Route.Editorial "maj") (Editorial "maj")
-        , Just <| Internal "Statistiques" Route.Stats Stats
+        [ Just <| Internal [ text "Dernières mises à jour" ] (Route.Editorial "maj") (Editorial "maj")
+        , Just <| Internal [ text "Statistiques" ] Route.Stats Stats
         , Just <| External "Documentation" Env.gitbookUrl
         , Just <| External "Communauté" Env.communityUrl
         , Just <| External "Code source" Env.githubUrl
         , Just <| External "CGU" Env.cguUrl
-        , Just <| Internal "Admin" (Route.Admin AdminSection.ComponentSection) Admin
+        , Just <| Internal [ text "Admin" ] (Route.Admin AdminSection.ComponentSection) Admin
         , addRouteIf enabledSections.food2 <|
-            Internal "Alimentaire²" (Route.ObjectSimulatorHome (Scope.Generic Scope.Food2)) (Object (Scope.Generic Scope.Food2))
+            Internal [ text "Alimentaire²" ] (Route.ObjectSimulatorHome (Scope.Generic Scope.Food2)) (Object (Scope.Generic Scope.Food2))
         ]
 
 
-headerMenuLinks : Session -> List MenuLink
-headerMenuLinks session =
-    mainMenuLinks session
+headerMenuLinks : Config msg -> List (MenuLink msg)
+headerMenuLinks { enabledSections, isSuperuser } =
+    mainMenuLinks enabledSections
         ++ List.filterMap identity
             [ Just <| External "Communauté" Env.communityUrl
             , Just <| External "Documentation" Env.gitbookUrl
-            , if Session.isSuperuser session then
-                Just <| Internal "Admin" (Route.Admin AdminSection.ComponentSection) Admin
+            , if isSuperuser then
+                Just <| Internal [ text "Admin" ] (Route.Admin AdminSection.ComponentSection) Admin
 
               else
                 Nothing
             ]
 
 
-mobileMenuLinks : Session -> List MenuLink
-mobileMenuLinks session =
-    mainMenuLinks session
+mobileMenuLinks : Config msg -> List (MenuLink msg)
+mobileMenuLinks { enabledSections, isAuthenticated } =
+    mainMenuLinks enabledSections
         ++ [ External "Documentation" Env.gitbookUrl
            , External "Communauté" Env.communityUrl
            , MailTo "Contact" Env.contactEmail
            , Internal
-                (if Session.isAuthenticated session then
-                    "Mon compte"
+                (if isAuthenticated then
+                    [ text "Mon compte" ]
 
                  else
-                    "Connexion ou inscription"
+                    [ text "Connexion ou inscription" ]
                 )
                 Route.Auth
                 Auth
            ]
 
 
-legalMenuLinks : List MenuLink
+legalMenuLinks : List (MenuLink msg)
 legalMenuLinks =
-    [ Internal "Accessibilité\u{00A0}: non conforme" (Route.Editorial "accessibilité") (Editorial "accessibilité")
-    , Internal "Mentions légales" (Route.Editorial "mentions-légales") (Editorial "mentions-légales")
-    , Internal "Politique de confidentialité" (Route.Editorial "politique-de-confidentialite") (Editorial "politique-de-confidentialite")
+    [ Internal [ text "Accessibilité\u{00A0}: non conforme" ] (Route.Editorial "accessibilité") (Editorial "accessibilité")
+    , Internal [ text "Mentions légales" ] (Route.Editorial "mentions-légales") (Editorial "mentions-légales")
+    , Internal [ text "Politique de confidentialité" ] (Route.Editorial "politique-de-confidentialite") (Editorial "politique-de-confidentialite")
     , MailTo "Contact" Env.contactEmail
     ]
 
 
-pageFooter : Session -> Html msg
-pageFooter session =
+pageFooter : Config msg -> Html msg
+pageFooter ({ clientUrl, enabledSections } as config) =
     let
         makeLink link =
             case link of
@@ -321,7 +331,7 @@ pageFooter session =
 
                 Internal label route _ ->
                     Link.internal [ class "text-decoration-none", Route.href route ]
-                        [ text label ]
+                        label
 
                 MailTo label email ->
                     a [ class "text-decoration-none", href <| "mailto:" ++ email ]
@@ -330,7 +340,7 @@ pageFooter session =
     footer
         (class "Footer"
             :: -- Add bottom padding to avoid StagingAlert to hide the version details
-               (if isStaging session then
+               (if isStaging clientUrl then
                     [ class "pb-5" ]
 
                 else
@@ -341,13 +351,13 @@ pageFooter session =
             [ Container.centered []
                 [ div [ class "row" ]
                     [ div [ class "col-6 col-sm-4 col-md-3 col-lg-2" ]
-                        [ mainMenuLinks session
+                        [ mainMenuLinks enabledSections
                             |> List.map makeLink
                             |> List.map (List.singleton >> li [])
                             |> ul [ class "list-unstyled" ]
                         ]
                     , div [ class "col-6 col-sm-4 col-md-3 col-lg-2" ]
-                        [ secondaryMenuLinks session
+                        [ secondaryMenuLinks enabledSections
                             |> List.map makeLink
                             |> List.map (List.singleton >> li [])
                             |> ul [ class "list-unstyled" ]
@@ -397,7 +407,7 @@ pageFooter session =
                 |> List.intersperse (li [ attribute "aria-hidden" "true", class "text-muted" ] [ text "|" ])
                 |> ul [ class "FooterLegal d-flex justify-content-start flex-wrap gap-2 list-unstyled mt-3 pt-2 border-top" ]
             , div [ class "d-flex align-items-center gap-1 fs-9 mb-2" ]
-                [ versionLink session.currentVersion
+                [ versionLink config.currentVersion
                 , text "\u{00A0}|\u{00A0}"
                 , Link.external [ href Env.githubUrl ] [ text "technical changelog" ]
                 ]
@@ -424,7 +434,7 @@ versionLink version =
 
 
 pageHeader : Config msg -> Html msg
-pageHeader { activePage, session, toMsg } =
+pageHeader ({ activePage, toMsg } as config) =
     header
         [ class "Header shadow-sm"
         , classList [ ( "mb-2", activePage /= Home ) ]
@@ -448,8 +458,7 @@ pageHeader { activePage, session, toMsg } =
                 -- Note: this class makes Dashlord understand DSFR guidelines are implemented
                 -- https://dashlord.mte.incubateur.net/dashlord/url/ecobalyse-beta-gouv-fr/best-practices/#dsfr
                 , class "fr-header__brand"
-                , href "/"
-                , onClick (toMsg <| App.LoadUrl "/")
+                , Route.href Route.Home
                 ]
                 [ img [ class "HeaderLogo", alt "République Française", src "img/republique-francaise.svg" ] []
                 , h1 [ class "HeaderTitle" ]
@@ -469,7 +478,7 @@ pageHeader { activePage, session, toMsg } =
                     , Route.href Route.Auth
                     , attribute "data-testid" "auth-link"
                     ]
-                    [ if Session.isAuthenticated session then
+                    [ if config.isAuthenticated then
                         text "Mon compte"
 
                       else
@@ -484,7 +493,7 @@ pageHeader { activePage, session, toMsg } =
                     , attribute "role" "navigation"
                     , attribute "aria-label" "Menu principal"
                     ]
-                    [ headerMenuLinks session
+                    [ headerMenuLinks config
                         |> List.map (viewNavigationLink activePage)
                         |> div [ class "HeaderNavigation d-none d-sm-flex navbar-nav flex-row overflow-auto" ]
                     ]
@@ -493,7 +502,7 @@ pageHeader { activePage, session, toMsg } =
         ]
 
 
-viewNavigationLink : ActivePage -> MenuLink -> Html msg
+viewNavigationLink : ActivePage -> MenuLink msg -> Html msg
 viewNavigationLink activePage link =
     case link of
         External label url ->
@@ -512,26 +521,26 @@ viewNavigationLink activePage link =
                             []
                        )
                 )
-                [ text label ]
+                label
 
         MailTo label email ->
             a [ class "nav-link", href <| "mailto:" ++ email ] [ text label ]
 
 
 notificationListView : Config msg -> Html msg
-notificationListView ({ session } as config) =
-    case session.notifications of
+notificationListView ({ notifications } as config) =
+    case notifications of
         [] ->
             text ""
 
-        notifications ->
-            notifications
+        notifs ->
+            notifs
                 |> List.map (notificationView config)
                 |> Container.centered [ class "bg-white pt-3" ]
 
 
 notificationView : Config msg -> Session.Notification -> Html msg
-notificationView { session, toMsg } notification =
+notificationView { clientUrl, toMsg } notification =
     let
         closeNotification =
             toMsg <| App.CloseNotification notification
@@ -540,7 +549,7 @@ notificationView { session, toMsg } notification =
         Session.BackendError backendError ->
             let
                 default =
-                    backendError |> Alert.backendError session (Just closeNotification)
+                    backendError |> Alert.backendError clientUrl (Just closeNotification)
             in
             case backendError of
                 BackendError.BadStatus { detail, statusCode, title } ->
@@ -608,6 +617,21 @@ notificationView { session, toMsg } notification =
                 }
 
 
+errored : String -> Html msg
+errored error =
+    Container.centered [ class "pb-5" ]
+        [ h1 [ class "mb-3" ] [ text "Erreur" ]
+        , Alert.simple
+            { attributes = []
+            , close = Nothing
+            , content = [ text error ]
+            , level = Alert.Danger
+            , title = Nothing
+            }
+        , a [ Route.href Route.Home ] [ text "Retour à l'accueil" ]
+        ]
+
+
 notFound : Html msg
 notFound =
     Container.centered [ class "pb-5" ]
@@ -630,15 +654,15 @@ restricted =
         ]
 
 
-loading : Html msg
-loading =
+loading : Maybe { loaded : Int, total : Int } -> Html msg
+loading progress =
     Container.centered [ class "pb-5" ]
-        [ Spinner.view
+        [ Spinner.view progress
         ]
 
 
 mobileNavigation : Config msg -> Html msg
-mobileNavigation { activePage, session, toMsg } =
+mobileNavigation ({ activePage, toMsg } as config) =
     div []
         [ div
             [ class "offcanvas offcanvas-start show"
@@ -661,11 +685,11 @@ mobileNavigation { activePage, session, toMsg } =
                     []
                 ]
             , div [ class "offcanvas-body" ]
-                [ mobileMenuLinks session
+                [ mobileMenuLinks config
                     |> List.map (viewNavigationLink activePage)
                     |> div [ class "nav nav-pills flex-column" ]
                 , h4 [ class "h6 mt-3" ] [ text "Versions" ]
-                , versionLink session.currentVersion
+                , versionLink config.currentVersion
                 , a
                     [ class "nav-link"
                     , href <| Env.stableTextileVersionPath

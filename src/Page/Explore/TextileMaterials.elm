@@ -2,6 +2,7 @@ module Page.Explore.TextileMaterials exposing (table)
 
 import Data.Country as Country
 import Data.Dataset as Dataset
+import Data.Db exposing (Db)
 import Data.Gitbook as Gitbook
 import Data.Process as Process
 import Data.Scope exposing (Scope)
@@ -15,7 +16,6 @@ import Html.Attributes exposing (..)
 import Maybe.Extra as Maybe
 import Page.Explore.Table as Table exposing (Table)
 import Route
-import Static.Db exposing (Db)
 import Views.Alert as Alert
 import Views.Format as Format
 import Views.Icon as Icon
@@ -68,12 +68,7 @@ table db { detailed, scope } =
           , toValue = Table.StringValue <| .id >> Material.idToString
           , toCell =
                 \material ->
-                    if detailed then
-                        code [] [ text (Material.idToString material.id) ]
-
-                    else
-                        a [ Route.href (Route.Explore scope (Dataset.TextileMaterials (Just material.id))) ]
-                            [ code [] [ text (Material.idToString material.id) ] ]
+                    code [] [ text (Material.idToString material.id) ]
           }
         , { label = "Nom"
           , toValue = Table.StringValue <| .name
