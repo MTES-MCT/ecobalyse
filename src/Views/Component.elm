@@ -571,6 +571,7 @@ packagingView ({ query } as config) lifeCycle =
             ]
         , query.packagings
             |> quantifiedProcessList config
+                lifeCycle
                 { deletionLabel = "Supprimer cet emballage"
                 , emptyListLabel = "Aucun emballage"
                 , expandFn = Component.expandPackagings
@@ -595,8 +596,8 @@ type alias QuantifiedProcessListConfig quantified msg =
     }
 
 
-quantifiedProcessList : Config db msg -> QuantifiedProcessListConfig quantified msg -> List quantified -> Html msg
-quantifiedProcessList { db, impact } listConfig quantifiedProcesses =
+quantifiedProcessList : Config db msg -> LifeCycle -> QuantifiedProcessListConfig quantified msg -> List quantified -> Html msg
+quantifiedProcessList { db, impact } lifeCycle listConfig quantifiedProcesses =
     if List.isEmpty quantifiedProcesses then
         div [ class "card-body" ]
             [ text listConfig.emptyListLabel ]
@@ -614,7 +615,13 @@ quantifiedProcessList { db, impact } listConfig quantifiedProcesses =
                                 (\index { amount, process } ->
                                     tr []
                                         [ td [ class "ps-3 align-middle text-nowrap", style "min-width" "160px" ]
-                                            [ amountInput (listConfig.updateAmount index) process.unit amount ]
+                                            [ amountInput
+                                                { event = listConfig.updateAmount index
+                                                , readonly = List.member Category.ProductMassDependent process.categories
+                                                , unit = process.unit
+                                                }
+                                                (Component.useProcessAmount lifeCycle process amount)
+                                            ]
                                         , td
                                             [ class "align-middle text-truncate w-66 cursor-help "
                                             , style "max-width" "0"
@@ -731,8 +738,15 @@ noTransportView =
     DownArrow.view [] []
 
 
-amountInput : (Maybe Amount -> msg) -> Process.Unit -> Amount -> Html msg
-amountInput toMsg unit amount =
+type alias AmountInputConfig msg =
+    { event : Maybe Amount -> msg
+    , readonly : Bool
+    , unit : Process.Unit
+    }
+
+
+amountInput : AmountInputConfig msg -> Amount -> Html msg
+amountInput { event, readonly, unit } amount =
     let
         stringAmount =
             Amount.toString amount
@@ -753,13 +767,23 @@ amountInput toMsg unit amount =
     in
     div [ class "AmountInput input-group" ]
         [ input
-            [ type_ "number"
-            , class "form-control form-control-sm text-end incdec-arrows-left"
-            , value stringAmount
-            , Attr.min "0"
-            , step stepValue
-            , onInput <| Amount.fromString >> toMsg
-            ]
+            ([ type_ "number"
+             , class "form-control form-control-sm text-end incdec-arrows-left"
+             , value stringAmount
+             , Attr.min "0"
+             , step stepValue
+             , onInput <| Amount.fromString >> event
+             ]
+                ++ (if readonly then
+                        [ Attr.readonly readonly
+                        , title "Cette quantité n'est pas modifiable"
+                        , class "cursor-not-allowed"
+                        ]
+
+                    else
+                        []
+                   )
+            )
             []
         , small [ class "input-group-text fs-8" ]
             [ text <| Process.unitToString unit ]
@@ -1005,7 +1029,12 @@ elementMaterialView config targetElement materialResults material amount =
                 Format.amount material.process amount
 
               else
-                amountInput (config.updateElementAmount targetElement) material.process.unit amount
+                amountInput
+                    { event = config.updateElementAmount targetElement
+                    , readonly = False
+                    , unit = material.process.unit
+                    }
+                    amount
             ]
         , td
             [ class "align-middle text-truncate"
@@ -1413,6 +1442,7 @@ useStageView ({ impact, query } as config) lifeCycle =
         , div [ class "d-flex flex-column p-0" ]
             [ query.consumptions
                 |> quantifiedProcessList config
+                    lifeCycle
                     { deletionLabel = "Supprimer cette consommation"
                     , emptyListLabel = "Aucune consommation"
                     , expandFn = Component.expandConsumptions

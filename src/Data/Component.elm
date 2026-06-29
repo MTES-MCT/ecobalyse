@@ -122,6 +122,7 @@ module Data.Component exposing
     , updateItemCustomName
     , updatePackagingAmount
     , updateRecyclable
+    , useProcessAmount
     , validateItem
     , validateQuery
     )
@@ -1124,7 +1125,11 @@ computeUseImpacts { config, db } { consumptions } lifeCycle =
                                             { elec = config.use.defaultElecProcess
                                             , heat = config.use.defaultHeatProcess
                                             }
-                                        |> Impact.multiplyBy (Amount.toFloat amount)
+                                        |> Impact.multiplyBy
+                                            (amount
+                                                |> useProcessAmount lifeCycle process
+                                                |> Amount.toFloat
+                                            )
                                 )
                 }
             )
@@ -2486,6 +2491,20 @@ updatePackagingAmount index amount query =
 updateRecyclable : Bool -> Query -> Query
 updateRecyclable recyclable query =
     { query | recyclable = recyclable }
+
+
+{-| Return an Amount depending on the process category. If the process is mass dependent, return
+the product mass in kilograms. Otherwise, return the amount.
+-}
+useProcessAmount : LifeCycle -> Process -> Amount -> Amount
+useProcessAmount lifeCycle process amount =
+    if List.member Category.ProductMassDependent process.categories then
+        extractMass lifeCycle.production
+            |> Mass.inKilograms
+            |> Amount.fromFloat
+
+    else
+        amount
 
 
 validateConsumption : Requirements db -> Consumption -> Result String Consumption
