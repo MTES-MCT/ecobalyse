@@ -6,13 +6,13 @@
 #     "pandas",
 # ]
 # ///
-"""Check ingredient impact hierarchy and generate comparison graphs + bookmarks for the method and product team to investigate the violations.
+"""Check ingredient impact hierarchy and generate comparison graphs + bookmarks for the method and product team to investigate the anomalies.
 
 For each base food product, verifies that a hierarchy of impacts is respected
 among its ingredients (organic < fr < eu < non-ue < default), and produces:
 - bar charts per base product (output/ingredient_plots/)
 - Importable bookmark files for the Ecobalyse comparator (output/bookmarks/)
-- A CSV report of hierarchy violations (output/ingredient_hierarchy_report.csv) and a french format version (; and ,) (output/ingredient_hierarchy_report_fr.csv)
+- A CSV report of hierarchy anomalies (output/ingredient_hierarchy_report.csv) and a french format version (; and ,) (output/ingredient_hierarchy_report_fr.csv)
 """
 
 import json
@@ -34,6 +34,11 @@ IMPACTS_PATH = PROJECT_ROOT / "public" / "data" / "impacts.json"
 OUTPUT_DIR = PROJECT_ROOT / "output"
 PLOTS_DIR = OUTPUT_DIR / "ingredient_plots"
 BOOKMARKS_DIR = OUTPUT_DIR / "bookmarks"
+LCI_CATALOG_DIR = PROJECT_ROOT / "data" / "lci_catalog"
+GITHUB_LCI_CATALOG_URL = (
+    "https://github.com/MTES-MCT/ecobalyse/blob/master/data/lci_catalog"
+)
+EXPLORER_PROCESS_URL = "https://ecobalyse.beta.gouv.fr/#/explore/food2/food2-processes"
 
 # --- Sanity checks ---
 #
@@ -43,7 +48,7 @@ BOOKMARKS_DIR = OUTPUT_DIR / "bookmarks"
 # Variant hierarchy within a single baseIngredient (lower index = lower expected ecs).
 INGREDIENT_HIERARCHY = {"organic": 0, "fr": 1, "eu": 2, "non-ue": 3, "default": 4}
 
-# Sanity checks between different base_ingredient : (lower_alias, higher_alias)
+# Sanity checks between different base_ingredient : (expected_lower_alias, expected_higher_alias)
 EXPLICIT_PAIR_SANITY_CHECKS = [
     # The most impactful chicken should have lower impact than conventional beef
     ("chicken-breast-br-max", "beef-without-bone"),
@@ -79,22 +84,30 @@ class Ingredient(TypedDict, total=False):
     """
 
     id: str
+    activityName: str
+    displayName: str
     alias: str
     metadata: Metadata
     impacts: dict[str, float]
     variant_type: str
 
 
-class Violation(TypedDict):
+class Anomaly(TypedDict):
     base_ingredient: str
     reason: str
-    lower_variant: str
-    lower_type: str
-    lower_ecs: float
-    higher_variant: str
-    higher_type: str
-    higher_ecs: float
     delta: float
+    expected_lower_variant: str
+    expected_lower_ecs: float
+    expected_lower_activity_name: str
+    expected_lower_display_name: str
+    expected_lower_explorer: str
+    expected_lower_lci_catalog: str | None
+    expected_higher_variant: str
+    expected_higher_ecs: float
+    expected_higher_activity_name: str
+    expected_higher_display_name: str
+    expected_higher_explorer: str
+    expected_higher_lci_catalog: str | None
 
 
 logging.basicConfig(level=logging.INFO, format="%(levelname)s: %(message)s")
@@ -174,86 +187,133 @@ def compute_ecs_with_complements(ingredient: Ingredient) -> float:
     return ecs_with_complements
 
 
+def build_lci_catalog_index() -> dict[str, str]:
+    """Map each process id to its lci_catalog file path"""
+    index: dict[str, str] = {}
+    for path in LCI_CATALOG_DIR.rglob("*.json"):
+        data = load_json(path)
+        for activity in data if isinstance(data, list) else [data]:
+            for variant in activity.get("metadata", []):
+                if "id" in variant:
+                    index[variant["id"]] = path.relative_to(LCI_CATALOG_DIR).as_posix()
+    return index
+
+
+def process_fields(
+    prefix: str,
+    ingredient: Ingredient,
+    lci_index: dict[str, str],
+) -> dict[str, Any]:
+    process_id = ingredient["id"]
+    catalog_path = lci_index.get(process_id)
+    return {
+        f"{prefix}_variant": ingredient["alias"],
+        f"{prefix}_activity_name": ingredient.get("activityName"),
+        f"{prefix}_display_name": ingredient.get("displayName"),
+        f"{prefix}_explorer": f"{EXPLORER_PROCESS_URL}/{process_id}",
+        f"{prefix}_lci_catalog": (
+            f"{GITHUB_LCI_CATALOG_URL}/{catalog_path}" if catalog_path else None
+        ),
+    }
+
+
 # --- Step 2: Check hierarchy ---
+
+
+def build_anomaly(
+    expected_lower: Ingredient,
+    expected_higher: Ingredient,
+    expected_lower_ecs: float,
+    expected_higher_ecs: float,
+    lci_index: dict[str, str],
+) -> Anomaly:
+    return {
+        "base_ingredient": expected_lower["metadata"]["ingredient"]["baseIngredient"],
+        "reason": f"{expected_higher['alias']} < {expected_lower['alias']}",
+        "expected_lower_ecs": round(expected_lower_ecs, 2),
+        "expected_higher_ecs": round(expected_higher_ecs, 2),
+        "delta": round(expected_lower_ecs - expected_higher_ecs, 2),
+        **process_fields("expected_higher", expected_higher, lci_index),
+        **process_fields("expected_lower", expected_lower, lci_index),
+    }
 
 
 def check_explicit_pair_sanity_checks(
     ingredients_by_alias: dict[str, Ingredient],
-) -> list[Violation]:
-    """Run EXPLICIT_PAIR_SANITY_CHECKS. Returns list of violation dicts."""
-    violations = []
-    for lower_alias, higher_alias in EXPLICIT_PAIR_SANITY_CHECKS:
-        lower_ingr = ingredients_by_alias[lower_alias]
-        higher_ingr = ingredients_by_alias[higher_alias]
-        ecs_lower, ecs_higher = (
-            compute_ecs_with_complements(lower_ingr),
-            compute_ecs_with_complements(higher_ingr),
+    lci_index: dict[str, str],
+) -> list[Anomaly]:
+    """Run EXPLICIT_PAIR_SANITY_CHECKS. Returns list of anomaly dicts."""
+    anomalies = []
+    for expected_lower_alias, expected_higher_alias in EXPLICIT_PAIR_SANITY_CHECKS:
+        expected_lower = ingredients_by_alias[expected_lower_alias]
+        expected_higher = ingredients_by_alias[expected_higher_alias]
+        expected_lower_ecs, expected_higher_ecs = (
+            compute_ecs_with_complements(expected_lower),
+            compute_ecs_with_complements(expected_higher),
         )
-        if ecs_lower > ecs_higher:
-            base_lower = lower_ingr["metadata"]["ingredient"]["baseIngredient"]
-            violations.append(
-                {
-                    "base_ingredient": base_lower,
-                    "reason": f"{lower_alias} > {higher_alias}",
-                    "lower_variant": lower_alias,
-                    "lower_type": "explicit_sanity_check",
-                    "lower_ecs": round(ecs_lower, 2),
-                    "higher_variant": higher_alias,
-                    "higher_type": "explicit_sanity_check",
-                    "higher_ecs": round(ecs_higher, 2),
-                    "delta": round(ecs_lower - ecs_higher, 2),
-                }
+        if expected_lower_ecs > expected_higher_ecs:
+            anomalies.append(
+                build_anomaly(
+                    expected_lower,
+                    expected_higher,
+                    expected_lower_ecs,
+                    expected_higher_ecs,
+                    lci_index,
+                )
             )
-    return violations
+    return anomalies
 
 
-def check_hierarchy(ingredient_by_base: dict[str, list[Ingredient]]) -> list[Violation]:
+def check_hierarchy(
+    ingredient_by_base: dict[str, list[Ingredient]],
+    lci_index: dict[str, str],
+) -> list[Anomaly]:
     """Check that the expected variant hierarchy is respected.
 
-    Returns list of violation dicts.
+    Returns list of anomaly dicts.
     """
-    violations = []
+    anomalies = []
     for base, variants in ingredient_by_base.items():
         # Only check groups with 2+ known-order variants
         known = [v for v in variants if v["variant_type"] in INGREDIENT_HIERARCHY]
         if len(known) < 2:
             continue
 
-        for v1, v2 in combinations(known, 2):
-            t1, t2 = v1["variant_type"], v2["variant_type"]
-            order1, order2 = INGREDIENT_HIERARCHY[t1], INGREDIENT_HIERARCHY[t2]
+        for expected_lower, expected_higher in combinations(known, 2):
+            expected_lower_type, expected_higher_type = (
+                expected_lower["variant_type"],
+                expected_higher["variant_type"],
+            )
+            order1, order2 = (
+                INGREDIENT_HIERARCHY[expected_lower_type],
+                INGREDIENT_HIERARCHY[expected_higher_type],
+            )
             if order1 == order2:
                 continue
-            # Ensure v1 is the one expected to have lower impact
+            # Ensure `expected_lower` is the one expected to have lower impact
             if order1 > order2:
-                v1, v2 = v2, v1
-                t1, t2 = t2, t1
-
-            a1, a2 = (
-                v1["alias"],
-                v2["alias"],
-            )
-
-            ecs1, ecs2 = (
-                compute_ecs_with_complements(v1),
-                compute_ecs_with_complements(v2),
-            )
-            if ecs1 > ecs2:
-                violations.append(
-                    {
-                        "base_ingredient": base,
-                        "reason": f"{a1} > {a2}",
-                        "lower_variant": a1,
-                        "lower_type": t1,
-                        "lower_ecs": round(ecs1, 2),
-                        "higher_variant": a2,
-                        "higher_type": t2,
-                        "higher_ecs": round(ecs2, 2),
-                        "delta": round(ecs1 - ecs2, 2),
-                    }
+                expected_lower, expected_higher = expected_higher, expected_lower
+                expected_lower_type, expected_higher_type = (
+                    expected_higher_type,
+                    expected_lower_type,
                 )
 
-    return violations
+            expected_lower_ecs, expected_higher_ecs = (
+                compute_ecs_with_complements(expected_lower),
+                compute_ecs_with_complements(expected_higher),
+            )
+            if expected_lower_ecs > expected_higher_ecs:
+                anomalies.append(
+                    build_anomaly(
+                        expected_lower,
+                        expected_higher,
+                        expected_lower_ecs,
+                        expected_higher_ecs,
+                        lci_index,
+                    )
+                )
+
+    return anomalies
 
 
 # --- Step 3: Generate graphs ---
@@ -356,12 +416,12 @@ def save_stacked_bar_plot(df, title, output_path, figsize=(10, 7)):
     return True
 
 
-def generate_all_plots(ingredients_by_base, bases_with_violations):
+def generate_all_plots(ingredients_by_base, bases_with_anomalies):
     """Generate stacked bar charts for all base products with 2+ variants."""
     count = 0
     for base, variants in sorted(ingredients_by_base.items()):
         df = build_df([v["alias"] for v in variants], ingredients_by_base[base])
-        suffix = "_violation" if base in bases_with_violations else ""
+        suffix = "_anomaly" if base in bases_with_anomalies else ""
         path = PLOTS_DIR / f"{base}_barchart{suffix}.png"
         if save_stacked_bar_plot(df, f"{base}, comparaison des variantes", path):
             count += 1
@@ -387,13 +447,13 @@ def plot_all_meats(ingredients):
     logger.info(f"Generated all-meats plot ({n} variants) at {path}")
 
 
-def plot_explicit_pair_sanity_checks(ingredients_by_alias, violation_pairs):
+def plot_explicit_pair_sanity_checks(ingredients_by_alias, anomaly_pairs):
     """Generate one chart per EXPLICIT_PAIR_SANITY_CHECKS entry."""
     count = 0
     for lower, higher in EXPLICIT_PAIR_SANITY_CHECKS:
         pair_ingredients = [ingredients_by_alias[lower], ingredients_by_alias[higher]]
         df = build_df([lower, higher], pair_ingredients)
-        suffix = "_violation" if (lower, higher) in violation_pairs else ""
+        suffix = "_anomaly" if (lower, higher) in anomaly_pairs else ""
         path = PLOTS_DIR / f"_pair_{lower}_vs_{higher}{suffix}.png"
         if save_stacked_bar_plot(
             df, f"Sanity check: {lower} ≤ {higher}", path, figsize=(8, 7)
@@ -466,23 +526,23 @@ def generate_bookmarks(ingredients_by_base):
 # --- Step 5: Report ---
 
 
-def write_violation_report(violations):
-    """Write violations to CSV."""
-    if not violations:
-        logger.info("No hierarchy violations found.")
+def write_anomaly_report(anomalies):
+    """Write anomalies to CSV."""
+    if not anomalies:
+        logger.info("No hierarchy anomalies found.")
         return
 
     OUTPUT_DIR.mkdir(parents=True, exist_ok=True)
-    report_path = OUTPUT_DIR / "ingredient_hierarchy_report.csv"
-    report_path_fr = OUTPUT_DIR / "ingredient_hierarchy_report_fr.csv"
-    df = pd.DataFrame(violations)
+    report_path = OUTPUT_DIR / "anomalies.csv"
+    report_path_fr = OUTPUT_DIR / "anomalies_fr.csv"
+    df = pd.DataFrame(anomalies)
     df.to_csv(report_path, index=False)
     df.to_csv(report_path_fr, index=False, sep=";", decimal=",", encoding="utf-8-sig")
-    logger.info(f"Wrote {len(violations)} violations to {report_path}")
+    logger.info(f"Wrote {len(anomalies)} anomalies to {report_path}")
     logger.info(f"Wrote FR-format CSV to {report_path_fr}")
 
 
-def print_summary(ingredients_by_base, violations):
+def print_summary(ingredients_by_base, anomalies):
     total_bases = len(ingredients_by_base)
     bases_with_variants = sum(
         1 for variants in ingredients_by_base.values() if len(variants) >= 2
@@ -495,16 +555,16 @@ def print_summary(ingredients_by_base, violations):
     print(f"Total base products:              {total_bases}")
     print(f"Base products with 2+ variants:   {bases_with_variants}")
     print(f"Total ingredients:                {total_ingredients}")
-    print(f"Hierarchy violations:             {len(violations)}")
+    print(f"Hierarchy anomalies:             {len(anomalies)}")
 
-    if violations:
-        print("\nVIOLATIONS:")
+    if anomalies:
+        print("\nANOMALIES:")
         print("-" * 60)
-        for v in violations:
+        for v in anomalies:
             print(
                 f"  {v['base_ingredient']}: "
-                f"{v['lower_variant']} ({v['lower_ecs']}) > "
-                f"{v['higher_variant']} ({v['higher_ecs']}) "
+                f"{v['expected_lower_variant']} ({v['expected_lower_ecs']}) > "
+                f"{v['expected_higher_variant']} ({v['expected_higher_ecs']}) "
                 f"[delta: {v['delta']}]"
             )
 
@@ -543,25 +603,29 @@ def main():
     )
 
     logger.info("Checking hierarchy...")
-    violations = check_hierarchy(ingredients_by_base)
+    lci_index = build_lci_catalog_index()
+    anomalies = check_hierarchy(ingredients_by_base, lci_index)
     ingredients_by_alias = {ingr["alias"]: ingr for ingr in ingredients}
-    explicit_violations = check_explicit_pair_sanity_checks(ingredients_by_alias)
-    violations.extend(explicit_violations)
-    bases_with_violations = {v["base_ingredient"] for v in violations}
-    explicit_violation_pairs = {
-        (v["lower_variant"], v["higher_variant"]) for v in explicit_violations
+    explicit_anomalies = check_explicit_pair_sanity_checks(
+        ingredients_by_alias, lci_index
+    )
+    anomalies.extend(explicit_anomalies)
+    bases_with_anomalies = {v["base_ingredient"] for v in anomalies}
+    explicit_anomaly_pairs = {
+        (v["expected_lower_variant"], v["expected_higher_variant"])
+        for v in explicit_anomalies
     }
 
     logger.info("Generating plots...")
-    generate_all_plots(ingredients_by_base, bases_with_violations)
+    generate_all_plots(ingredients_by_base, bases_with_anomalies)
     plot_all_meats(ingredients)
-    plot_explicit_pair_sanity_checks(ingredients_by_alias, explicit_violation_pairs)
+    plot_explicit_pair_sanity_checks(ingredients_by_alias, explicit_anomaly_pairs)
 
     logger.info("Generating bookmarks...")
     generate_bookmarks(ingredients_by_base)
 
-    write_violation_report(violations)
-    print_summary(ingredients_by_base, violations)
+    write_anomaly_report(anomalies)
+    print_summary(ingredients_by_base, anomalies)
 
 
 if __name__ == "__main__":
