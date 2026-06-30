@@ -12,6 +12,7 @@ import Data.Component as Component
         )
 import Data.Component.Amount as Amount
 import Data.Country as Country
+import Data.Country.Code as CountryCode
 import Data.Db exposing (Db)
 import Data.Impact as Impact exposing (Impacts)
 import Data.Impact.Definition as Definition
@@ -442,7 +443,7 @@ suite =
                                         ]
                                 )
                             , itFromResult "should never feature air transport for intermediary transport, even when byAir is set"
-                                (db.countries |> Country.findByCode (Country.Code "FR"))
+                                (db.countries |> Country.findByCode CountryCode.france)
                                 (\france ->
                                     let
                                         getEcsForByAir byAir =
@@ -1106,8 +1107,8 @@ suite =
                             ]
                         ]
                     , suiteFromResult2 "computeTransportDistance"
-                        (db.countries |> Country.findByCode (Country.Code "PT"))
-                        (db.countries |> Country.findByCode (Country.Code "FR"))
+                        (db.countries |> Country.findByCode (CountryCode.fromString "PT"))
+                        (db.countries |> Country.findByCode CountryCode.france)
                         (\france portugal ->
                             [ it "should compute distance between two countries"
                                 (Component.computeTransportDistance requirements Split.zero (Just portugal) (Just france)
@@ -1163,8 +1164,8 @@ suite =
                             ]
                         )
                     , suiteFromResult2 "computeTransportedMassImpacts"
-                        (db.countries |> Country.findByCode (Country.Code "PT"))
-                        (db.countries |> Country.findByCode (Country.Code "FR"))
+                        (db.countries |> Country.findByCode (CountryCode.fromString "PT"))
+                        (db.countries |> Country.findByCode CountryCode.france)
                         (\portugal france ->
                             [ it "should compute transported mass impacts"
                                 (Mass.kilogram
@@ -1243,7 +1244,7 @@ suite =
                                         >> Result.fromMaybe "Missing custom element material country"
                                     )
                             )
-                            (Expect.equal (Just (Country.codeFromString "CN")))
+                            (Expect.equal (Just CountryCode.china))
                         , itFromResult "should decode an item with a custom transform country override"
                             ("""{
                                   "quantity": 1,
@@ -1270,7 +1271,7 @@ suite =
                                         >> Result.fromMaybe "Missing custom element transform country"
                                     )
                             )
-                            (Expect.equal (Just (Country.codeFromString "CN")))
+                            (Expect.equal (Just CountryCode.china))
                         ]
                     , suiteFromResult "itemToComponent"
                         ("""{ "id": "64fa65b3-c2df-4fd0-958b-83965bd6aa08",
@@ -1425,7 +1426,7 @@ suite =
                         query =
                             { emptyQuery
                                 | items = [ Component.createItem Nothing ]
-                                , assemblyCountry = Just (Country.Code "FR")
+                                , assemblyCountry = Just (CountryCode.fromString "FR")
                             }
                       in
                       describe "mapItems"
@@ -1439,7 +1440,7 @@ suite =
                             (query
                                 |> Component.mapItems (always [ Component.createItem Nothing ])
                                 |> .assemblyCountry
-                                |> Expect.equal (Just (Country.Code "FR"))
+                                |> Expect.equal (Just (CountryCode.fromString "FR"))
                             )
                         ]
                     , suiteFromResult2 "removeElement"
@@ -1523,20 +1524,20 @@ suite =
                         )
                     , let
                         query =
-                            { emptyQuery | assemblyCountry = Just (Country.Code "FR") }
+                            { emptyQuery | assemblyCountry = Just (CountryCode.fromString "FR") }
                       in
                       describe "setQueryItems"
                         [ it "should preserve the assembly country for a single item"
                             (query
                                 |> Component.setQueryItems [ Component.createItem Nothing ]
                                 |> .assemblyCountry
-                                |> Expect.equal (Just (Country.Code "FR"))
+                                |> Expect.equal (Just (CountryCode.fromString "FR"))
                             )
                         , it "should preserve the assembly country for multiple items"
                             (query
                                 |> Component.setQueryItems [ Component.createItem Nothing, Component.createItem Nothing ]
                                 |> .assemblyCountry
-                                |> Expect.equal (Just (Country.Code "FR"))
+                                |> Expect.equal (Just (CountryCode.fromString "FR"))
                             )
                         , it "should reset the assembly country when the list becomes empty"
                             (query

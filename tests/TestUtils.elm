@@ -16,7 +16,7 @@ module TestUtils exposing
     , tShirtCotonFrance
     )
 
-import Data.Country as Country
+import Data.Country.Code as CountryCode
 import Data.Db exposing (Db)
 import Data.Impact as Impact exposing (Impacts)
 import Data.Impact.Definition as Definition exposing (Trigrams)
@@ -204,9 +204,9 @@ tShirtCotonFrance =
         |> Result.map
             (\query ->
                 { query
-                    | countryDyeing = Just (Country.Code "FR")
-                    , countryFabric = Just (Country.Code "FR")
-                    , countryMaking = Just (Country.Code "FR")
-                    , countrySpinning = Just (Country.Code "FR")
+                    | countryDyeing = Just CountryCode.france
+                    , countryFabric = Just CountryCode.france
+                    , countryMaking = Just CountryCode.france
+                    , countrySpinning = Just CountryCode.france
                 }
             )

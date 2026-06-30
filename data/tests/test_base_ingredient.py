@@ -2,7 +2,7 @@ import json
 from collections import Counter
 
 from bin.export import _get_lcias
-from common.base_ingredient import infer_base_ingredient
+from common.infer_metadata import infer_base_ingredient
 from config import PROJECT_ROOT_DIR
 
 

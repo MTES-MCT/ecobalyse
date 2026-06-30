@@ -1,6 +1,7 @@
 module Page.Explore.TextileMaterials exposing (table)
 
 import Data.Country as Country
+import Data.Country.Code as CountryCode
 import Data.Dataset as Dataset
 import Data.Db exposing (Db)
 import Data.Gitbook as Gitbook
@@ -57,7 +58,7 @@ table db { detailed, scope } =
         , Table.Facet "Pays de production et de filature par défaut"
             (.defaultCountry
                 >> (\code -> Country.findByCode code db.countries)
-                >> Result.map (\{ code, name } -> name ++ " (" ++ Country.codeToString code ++ ")")
+                >> Result.map (\{ code, name } -> name ++ " (" ++ CountryCode.toString code ++ ")")
                 >> Result.withDefault "N/A"
                 >> List.singleton
             )

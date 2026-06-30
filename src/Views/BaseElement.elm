@@ -3,6 +3,7 @@ module Views.BaseElement exposing (Config, deleteItemButton, view)
 import Autocomplete exposing (Autocomplete)
 import Data.AutocompleteSelector as AutocompleteSelector
 import Data.Country as Country exposing (Country)
+import Data.Country.Code as CountryCode
 import Data.Impact exposing (Impacts)
 import Data.Impact.Definition exposing (Definition, Definitions)
 import Html exposing (..)
@@ -82,7 +83,7 @@ view ({ baseElement, db, impact } as config) =
             (\{ code, name } ->
                 option
                     [ selected (Maybe.map .code baseElement.country == Just code)
-                    , value <| Country.codeToString code
+                    , value <| CountryCode.toString code
                     ]
                     [ text name ]
             )
@@ -101,7 +102,7 @@ view ({ baseElement, db, impact } as config) =
                         { baseElement
                             | country =
                                 if val /= "" then
-                                    Country.codeFromString val
+                                    CountryCode.fromString val
                                         |> (\countryCode -> Country.findByCode countryCode db.countries)
                                         |> Result.toMaybe
 

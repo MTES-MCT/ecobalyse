@@ -1,7 +1,7 @@
 module Data.Food.RecipeTest exposing (..)
 
 import Data.Complement as Complement
-import Data.Country as Country
+import Data.Country.Code as CountryCode
 import Data.Example
 import Data.Food.Ingredient as Ingredient
 import Data.Food.Preparation as Preparation
@@ -346,7 +346,7 @@ suite =
                         , { ingredients =
                                 [ { id = eggId
                                   , mass = Mass.grams 120
-                                  , country = Just (Country.codeFromString "RAS")
+                                  , country = Just (CountryCode.fromString "RAS")
                                   , planeTransport = Ingredient.PlaneNotApplicable
                                   }
                                 ]
@@ -363,7 +363,7 @@ suite =
                         , { ingredients =
                                 [ { id = eggId
                                   , mass = Mass.grams 120
-                                  , country = Just (Country.codeFromString "ROF")
+                                  , country = Just (CountryCode.fromString "ROF")
                                   , planeTransport = Ingredient.PlaneNotApplicable
                                   }
                                 ]
@@ -379,7 +379,7 @@ suite =
                         , { ingredients =
                                 [ { id = eggId
                                   , mass = Mass.grams 120
-                                  , country = Just (Country.codeFromString "ROF")
+                                  , country = Just (CountryCode.fromString "ROF")
                                   , planeTransport = Ingredient.PlaneNotApplicable
                                   }
                                 ]
@@ -395,7 +395,7 @@ suite =
                         , { ingredients =
                                 [ { id = eggId
                                   , mass = Mass.grams 120
-                                  , country = Just (Country.codeFromString "---")
+                                  , country = Just CountryCode.unknown
                                   , planeTransport = Ingredient.PlaneNotApplicable
                                   }
                                 ]
@@ -409,7 +409,7 @@ suite =
                             |> Expect.equal (Ok (Just <| FoodTransport.defaultKilometersRoadDistance + 660))
                             -- See https://github.com/MTES-MCT/ecobalyse/issues/1986
                             |> asTest "should have 160 road transport + 500 not from FR + 2000 km for ingredients coming from unknown country"
-                        , { ingredients = [ { mango | country = Just (Country.codeFromString "RAS"), planeTransport = Ingredient.ByPlane } ]
+                        , { ingredients = [ { mango | country = Just (CountryCode.fromString "RAS"), planeTransport = Ingredient.ByPlane } ]
                           , transform = Nothing
                           , packaging = []
                           , distribution = Just Retail.ambient
@@ -430,7 +430,7 @@ suite =
                             |> Result.map (firstIngredientDistance .air)
                             |> Expect.equal (Ok (Just 18000))
                             |> asTest "should have air transport for mango from its default origin"
-                        , { ingredients = [ { mango | country = Just (Country.codeFromString "CN"), planeTransport = Ingredient.ByPlane } ]
+                        , { ingredients = [ { mango | country = Just CountryCode.china, planeTransport = Ingredient.ByPlane } ]
                           , transform = Nothing
                           , packaging = []
                           , distribution = Just Retail.ambient
@@ -440,7 +440,7 @@ suite =
                             |> Result.map (firstIngredientDistance .air)
                             |> Expect.equal (Ok (Just 8598))
                             |> asTest "should always have air transport for mango even from other countries if 'planeTransport' is 'byPlane'"
-                        , { ingredients = [ { mango | country = Just (Country.codeFromString "CN"), planeTransport = Ingredient.NoPlane } ]
+                        , { ingredients = [ { mango | country = Just CountryCode.china, planeTransport = Ingredient.NoPlane } ]
                           , transform = Nothing
                           , packaging = []
                           , distribution = Just Retail.ambient
@@ -450,7 +450,7 @@ suite =
                             |> Result.map (firstIngredientDistance .air)
                             |> Expect.equal (Ok (Just 0))
                             |> asTest "should not have air transport for mango from other countries if 'planeTransport' is 'noPlane'"
-                        , { ingredients = [ { mango | country = Just (Country.codeFromString "REM"), planeTransport = Ingredient.NoPlane } ]
+                        , { ingredients = [ { mango | country = Just (CountryCode.fromString "REM"), planeTransport = Ingredient.NoPlane } ]
                           , transform = Nothing
                           , packaging = []
                           , distribution = Just Retail.ambient

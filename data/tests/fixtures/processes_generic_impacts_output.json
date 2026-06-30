@@ -33,7 +33,9 @@
     "landOccupation": null,
     "location": null,
     "massPerUnit": null,
-    "metadata": null,
+    "metadata": {
+      "defaultOrigin": null
+    },
     "qtyVariationRatio": 1.0,
     "scopes": [
       "object"
@@ -85,10 +87,10 @@
         "permanentPasture": null,
         "plotSize": -4.45
       },
+      "defaultOrigin": "FR",
       "ingredient": {
         "baseIngredient": "bean",
         "cropGroup": "AUTRES CEREALES",
-        "defaultOrigin": "France",
         "density": 1.0,
         "inediblePart": 0,
         "processId": "af42fc20-e3ec-5b99-9b9c-83ba6735e597",
@@ -148,10 +150,10 @@
         "permanentPasture": null,
         "plotSize": -4.45
       },
+      "defaultOrigin": "FR",
       "ingredient": {
         "baseIngredient": "grazed-grass-permanent",
         "cropGroup": "PRAIRIES PERMANENTES",
-        "defaultOrigin": "France",
         "density": 1.0,
         "inediblePart": 0,
         "processId": "af42fc20-e3ec-5b99-9b9c-83ba6735e597",
@@ -209,10 +211,10 @@
         "permanentPasture": 0,
         "plotSize": -4.45
       },
+      "defaultOrigin": "FR",
       "ingredient": {
         "baseIngredient": "milk",
         "cropGroup": null,
-        "defaultOrigin": "France",
         "density": 1.0,
         "inediblePart": 0,
         "processId": "af42fc20-e3ec-5b99-9b9c-83ba6735e597",
@@ -261,7 +263,9 @@
     "landOccupation": 1500.0,
     "location": "GLO",
     "massPerUnit": null,
-    "metadata": null,
+    "metadata": {
+      "defaultOrigin": null
+    },
     "qtyVariationRatio": 1.0,
     "scopes": [
       "object"
@@ -308,6 +312,7 @@
       "complements": {
         "forest": -414.2
       },
+      "defaultOrigin": null,
       "forestManagement": "certifiedSustainableManagement"
     },
     "qtyVariationRatio": 1.0,
