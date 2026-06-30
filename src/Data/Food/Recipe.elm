@@ -26,6 +26,7 @@ module Data.Food.Recipe exposing
 
 import Data.Complement as Complement
 import Data.Country as Country exposing (Country)
+import Data.Db exposing (Db)
 import Data.Food.EcosystemicServices exposing (EcosystemicServices)
 import Data.Food.Ingredient as Ingredient exposing (Ingredient)
 import Data.Food.Origin as Origin
@@ -48,7 +49,6 @@ import Length
 import Mass exposing (Mass)
 import Quantity
 import Result.Extra as RE
-import Static.Db exposing (Db)
 import String.Extra as SE
 import Volume exposing (Volume)
 
