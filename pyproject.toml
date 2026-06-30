@@ -22,7 +22,7 @@ dependencies = [
     "typer>=0.25.1",
     "pytest-mock>=3.14.1",
     "asyncstdlib>=3.13.1",
-    "sentry-sdk[litestar]>=2.59.0",
+    "sentry-sdk[litestar]>=2.62.0",
     "pwdlib[argon2]>=0.3.0",
 ]
 
@@ -91,7 +91,7 @@ jupyter = [
     "notebook>=7.3.0",
 ]
 # SimaPro (API + plotting)
-simapro = ["fastapi[all] ~= 0.115", "matplotlib ~= 3.10.7"]
+simapro = ["fastapi[all]~=0.138", "matplotlib ~= 3.10.7"]
 
 [tool.pytest.ini_options]
 pythonpath = ["."]

@@ -15,7 +15,7 @@ map fn webData =
             Alert.serverError <| BackendError.errorToString err
 
         RemoteData.Loading ->
-            Spinner.view
+            Spinner.view Nothing
 
         RemoteData.NotAsked ->
             text ""

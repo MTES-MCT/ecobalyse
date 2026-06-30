@@ -121,7 +121,6 @@ class IngredientMetadata(EcoModel):
     raw_to_cooked_ratio: float
     scenario: Optional[str] = None
     transport_cooling: str
-    visible: bool
     process_id: uuid.UUID
 
 
@@ -149,6 +148,7 @@ class ProcessGeneric(EcoModel):
     source: str
     unit: Optional[UnitEnum]
     qty_variation_ratio: float
+    visible: bool = True
 
 
 class EcosystemicServices(EcoModel):
