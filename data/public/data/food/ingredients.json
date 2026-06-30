@@ -36566,7 +36566,7 @@
     "visible": true
   },
   {
-    "activityName": "Grapefruit for juice, organic 2025, at farm gate {US} U",
+    "activityName": "Orange, fresh grade, at farm, organic 2025 {ES}",
     "alias": "grapefruit-organic",
     "baseIngredient": "grapefruit",
     "categories": [
@@ -36578,16 +36578,16 @@
     "density": 0.85,
     "ecosystemicServices": {
       "cropDiversity": 0,
-      "hedges": 0.0254,
+      "hedges": 0.697,
       "permanentPasture": null,
-      "plotSize": 0.0873
+      "plotSize": 2.4
     },
     "id": "f3051192-4b06-5b56-8cba-b34800bb90ab",
     "inediblePart": 0.3,
-    "landOccupation": 0.01401,
-    "location": "US",
+    "landOccupation": 0.3845,
+    "location": "ES",
     "name": "Pamplemousse Bio",
-    "processId": "bb01ed48-da3e-52a9-89f7-c24a0e62260e",
+    "processId": "079d1538-6ca3-5dc7-9587-457d5ecc7b12",
     "rawToCookedRatio": 0.856,
     "scenario": "organic",
     "transportCooling": "always",
@@ -37018,7 +37018,7 @@
     "visible": true
   },
   {
-    "activityName": "Orange, processing grade, at farm, organic 2025 {BR}",
+    "activityName": "Orange, fresh grade, at farm, organic 2025 {ES}",
     "alias": "orange-organic",
     "baseIngredient": "orange",
     "categories": [
@@ -37029,15 +37029,15 @@
     "defaultOrigin": "France",
     "density": 0.95,
     "ecosystemicServices": {
-      "cropDiversity": 0.287,
-      "hedges": 1.86,
+      "cropDiversity": 0.268,
+      "hedges": 1.74,
       "permanentPasture": null,
-      "plotSize": 2.57
+      "plotSize": 2.4
     },
     "id": "f508da0b-9c73-503d-9a1f-d87f77ee63c3",
     "inediblePart": 0.2,
-    "landOccupation": 0.4117,
-    "location": "BR",
+    "landOccupation": 0.3845,
+    "location": "ES",
     "name": "Oranges Bio",
     "processId": "079d1538-6ca3-5dc7-9587-457d5ecc7b12",
     "rawToCookedRatio": 0.856,

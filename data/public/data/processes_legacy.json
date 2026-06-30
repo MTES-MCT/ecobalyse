@@ -25203,30 +25203,6 @@
     "unit": "kg"
   },
   {
-    "activityName": "Grapefruit for juice, organic 2025, at farm gate {US} U",
-    "categories": [
-      "ingredient",
-      "material",
-      "material_type:fruits_and_vegetables"
-    ],
-    "comment": "This dataset has been extrapolated from the dataset Grapefruit for juice, conventional, at farm gate {US} U.\nFor further information, please consult the ADEME report \"Construction of LCIs for organic agricultural products based on extrapolations of conventional LCIs for the French food market and environmental labelling\"",
-    "displayName": "Pamplemousse Bio",
-    "elecMJ": 0,
-    "heatMJ": 0,
-    "id": "bb01ed48-da3e-52a9-89f7-c24a0e62260e",
-    "impacts": {
-      "ecs": 299.1
-    },
-    "location": "US",
-    "massPerUnit": null,
-    "qtyVariationRatio": 1.0,
-    "scopes": [
-      "food"
-    ],
-    "source": "Ginko 2025",
-    "unit": "kg"
-  },
-  {
     "activityName": "Hazelnut, in shell, at farm, organic 2025 {IT}",
     "categories": [
       "ingredient",
@@ -25683,6 +25659,30 @@
     "unit": "kg"
   },
   {
+    "activityName": "Orange, fresh grade, at farm, organic 2025 {ES}",
+    "categories": [
+      "ingredient",
+      "material",
+      "material_type:fruits_and_vegetables"
+    ],
+    "comment": "This dataset has been extrapolated from the dataset Orange, fresh grade, at farm {ES} - Adapted from WFLDB U from the database WFLDB and version 3.5.\nFor further information, please consult the ADEME report \"Construction of LCIs for organic agricultural products based on extrapolations of conventional LCIs for the French food market and environmental labelling\"",
+    "displayName": "Oranges Bio",
+    "elecMJ": 0,
+    "heatMJ": 0,
+    "id": "079d1538-6ca3-5dc7-9587-457d5ecc7b12",
+    "impacts": {
+      "ecs": 79.87
+    },
+    "location": "ES",
+    "massPerUnit": null,
+    "qtyVariationRatio": 1.0,
+    "scopes": [
+      "food"
+    ],
+    "source": "Ginko 2025",
+    "unit": "kg"
+  },
+  {
     "activityName": "Orange, fresh grade, organic 2025 {ES}| orange production, fresh grade | Cut-off, U",
     "categories": [
       "ingredient",
@@ -25698,30 +25698,6 @@
       "ecs": 79.55
     },
     "location": "ES",
-    "massPerUnit": null,
-    "qtyVariationRatio": 1.0,
-    "scopes": [
-      "food"
-    ],
-    "source": "Ginko 2025",
-    "unit": "kg"
-  },
-  {
-    "activityName": "Orange, processing grade, at farm, organic 2025 {BR}",
-    "categories": [
-      "ingredient",
-      "material",
-      "material_type:fruits_and_vegetables"
-    ],
-    "comment": "This dataset has been extrapolated from the dataset Orange, processing grade, at farm {BR} - Adapted from WFLDB U from the database WFLDB and version 3.5.\nFor further information, please consult the ADEME report \"Construction of LCIs for organic agricultural products based on extrapolations of conventional LCIs for the French food market and environmental labelling\"",
-    "displayName": "Oranges Bio",
-    "elecMJ": 0,
-    "heatMJ": 0,
-    "id": "079d1538-6ca3-5dc7-9587-457d5ecc7b12",
-    "impacts": {
-      "ecs": 19.09
-    },
-    "location": "BR",
     "massPerUnit": null,
     "qtyVariationRatio": 1.0,
     "scopes": [
