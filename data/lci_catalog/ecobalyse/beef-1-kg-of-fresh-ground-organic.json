@@ -1,0 +1,37 @@
+{
+  "activityName": "Fresh ground beef production, industrial production, French production mix, at plant, 1 kg of fresh ground beef, for processing (PDi) {FR} U [beef-organic] {{beef-1-kg-of-fresh-ground-organic}}",
+  "categories": [
+    "ingredient",
+    "material"
+  ],
+  "displayName": "1 kg de viande bovine fraîchement hachée Bio",
+  "id": "c294cb36-6546-4c07-b4ec-0efca1bcb7d9",
+  "metadata": [
+    {
+      "alias": "beef-1-kg-of-fresh-ground-organic",
+      "cropGroup": null,
+      "defaultOrigin": "France",
+      "displayName": "1 kg de viande bovine fraîchement hachée Bio",
+      "id": "94177db9-fef5-4c81-bbf4-c53a3e10c67d",
+      "inediblePart": 0,
+      "ingredientCategories": [
+        "animal_product",
+        "organic"
+      ],
+      "ingredientDensity": 1.05,
+      "rawToCookedRatio": 1.0,
+      "scenario": "organic",
+      "scopes": [
+        "food",
+        "food2"
+      ],
+      "transportCooling": "always",
+      "visible": true
+    }
+  ],
+  "scopes": [
+    "food",
+    "food2"
+  ],
+  "source": "Ecobalyse"
+}

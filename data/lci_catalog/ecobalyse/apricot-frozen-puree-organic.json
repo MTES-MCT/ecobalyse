@@ -1,0 +1,37 @@
+{
+  "activityName": "Frozen apricot puree, at plant {FR} U [apricot-organic] {{apricot-frozen-puree-organic}}",
+  "categories": [
+    "ingredient",
+    "material"
+  ],
+  "displayName": "Purée d'abricots congelés Bio",
+  "id": "613ca0fe-f154-466d-97d9-11d11a1f3a9c",
+  "metadata": [
+    {
+      "alias": "apricot-frozen-puree-organic",
+      "cropGroup": "VERGERS",
+      "defaultOrigin": "France",
+      "displayName": "Purée d'abricots congelés Bio",
+      "id": "198faa77-5ef7-419a-9045-2eed31f77e57",
+      "inediblePart": 0,
+      "ingredientCategories": [
+        "vegetable_processed",
+        "organic"
+      ],
+      "ingredientDensity": 0.9,
+      "rawToCookedRatio": 1.0,
+      "scenario": "organic",
+      "scopes": [
+        "food",
+        "food2"
+      ],
+      "transportCooling": "always",
+      "visible": true
+    }
+  ],
+  "scopes": [
+    "food",
+    "food2"
+  ],
+  "source": "Ecobalyse"
+}

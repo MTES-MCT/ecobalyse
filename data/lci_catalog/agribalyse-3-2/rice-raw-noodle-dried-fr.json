@@ -1,0 +1,56 @@
+{
+  "activityName": "Rice noodle, dried, at plant {FR} U",
+  "categories": [
+    "ingredient",
+    "material"
+  ],
+  "displayName": "Nouilles de riz, séchées FR",
+  "id": "f794c1d5-6d38-4b36-9356-5abb12d082ca",
+  "metadata": [
+    {
+      "alias": "rice-raw-noodle-dried-fr",
+      "cropGroup": "RIZ",
+      "defaultOrigin": "France",
+      "displayName": "Nouilles de riz, séchées FR",
+      "id": "96a02bfd-21ff-4d21-9373-42fa80264c0b",
+      "inediblePart": 0,
+      "ingredientCategories": [
+        "grain_processed"
+      ],
+      "ingredientDensity": 0.75,
+      "rawToCookedRatio": 1.0,
+      "scenario": "reference",
+      "scopes": [
+        "food",
+        "food2"
+      ],
+      "transportCooling": "none",
+      "visible": true
+    },
+    {
+      "alias": "rice-raw-noodle-dried-default",
+      "cropGroup": "RIZ",
+      "defaultOrigin": "OutOfEuropeAndMaghreb",
+      "displayName": "Nouilles de riz, séchées Origine Inconnue",
+      "id": "08ab806a-b073-4930-aed3-25b482e9823c",
+      "inediblePart": 0,
+      "ingredientCategories": [
+        "grain_processed"
+      ],
+      "ingredientDensity": 0.75,
+      "rawToCookedRatio": 1.0,
+      "scenario": "import",
+      "scopes": [
+        "food",
+        "food2"
+      ],
+      "transportCooling": "none",
+      "visible": true
+    }
+  ],
+  "scopes": [
+    "food",
+    "food2"
+  ],
+  "source": "Agribalyse 3.2"
+}

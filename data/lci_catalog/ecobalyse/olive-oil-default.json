@@ -1,0 +1,36 @@
+{
+  "activityName": "Olive oil, at plant {FR} U [olive-default] {{olive-oil-default}}",
+  "categories": [
+    "ingredient",
+    "material"
+  ],
+  "displayName": "Huile d'olive Origine Inconnue",
+  "id": "dc7a0791-7511-4f70-af6c-e6bbf86381f1",
+  "metadata": [
+    {
+      "alias": "olive-oil-default",
+      "cropGroup": "VERGERS",
+      "defaultOrigin": "OutOfEuropeAndMaghreb",
+      "displayName": "Huile d'olive Origine Inconnue",
+      "id": "3b5e988c-a1cf-4cf4-af47-0b9f827de6a3",
+      "inediblePart": 0,
+      "ingredientCategories": [
+        "vegetable_processed"
+      ],
+      "ingredientDensity": 0.85,
+      "rawToCookedRatio": 1.0,
+      "scenario": "import",
+      "scopes": [
+        "food",
+        "food2"
+      ],
+      "transportCooling": "none",
+      "visible": true
+    }
+  ],
+  "scopes": [
+    "food",
+    "food2"
+  ],
+  "source": "Ecobalyse"
+}

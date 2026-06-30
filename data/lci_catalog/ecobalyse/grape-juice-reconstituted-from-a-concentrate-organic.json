@@ -1,0 +1,37 @@
+{
+  "activityName": "Grape juice, reconstituted from a concentrate, at plant {FR} U [grape-organic] {{grape-juice-reconstituted-from-a-concentrate-organic}}",
+  "categories": [
+    "ingredient",
+    "material"
+  ],
+  "displayName": "Jus de raisins reconstitué à partir d'un concentré Bio",
+  "id": "160f9fcb-9f04-4016-93c0-bc736dfc2224",
+  "metadata": [
+    {
+      "alias": "grape-juice-reconstituted-from-a-concentrate-organic",
+      "cropGroup": "VIGNES",
+      "defaultOrigin": "France",
+      "displayName": "Jus de raisins reconstitué à partir d'un concentré Bio",
+      "id": "ddd1f73b-b502-4759-a6ce-096e5f2ec189",
+      "inediblePart": 0,
+      "ingredientCategories": [
+        "vegetable_processed",
+        "organic"
+      ],
+      "ingredientDensity": 1.054,
+      "rawToCookedRatio": 1.0,
+      "scenario": "organic",
+      "scopes": [
+        "food",
+        "food2"
+      ],
+      "transportCooling": "always",
+      "visible": true
+    }
+  ],
+  "scopes": [
+    "food",
+    "food2"
+  ],
+  "source": "Ecobalyse"
+}

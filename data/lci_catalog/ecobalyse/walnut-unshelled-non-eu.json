@@ -1,0 +1,36 @@
+{
+  "activityName": "Walnuts, unshelled, at processing {FR} U [walnut-non-eu] {{walnut-unshelled-non-eu}}",
+  "categories": [
+    "ingredient",
+    "material"
+  ],
+  "displayName": "Noix décortiquées HORS UE",
+  "id": "64f83c64-a819-46e5-90fd-5a3c69cbbc75",
+  "metadata": [
+    {
+      "alias": "walnut-unshelled-non-eu",
+      "cropGroup": "FRUITS A COQUES",
+      "defaultOrigin": "OutOfEuropeAndMaghreb",
+      "displayName": "Noix décortiquées HORS UE",
+      "id": "7dd4a1c9-36cf-4016-8eeb-2193d392fc38",
+      "inediblePart": 0,
+      "ingredientCategories": [
+        "nut_oilseed_processed"
+      ],
+      "ingredientDensity": 0.5,
+      "rawToCookedRatio": 1.0,
+      "scenario": "import",
+      "scopes": [
+        "food",
+        "food2"
+      ],
+      "transportCooling": "none",
+      "visible": true
+    }
+  ],
+  "scopes": [
+    "food",
+    "food2"
+  ],
+  "source": "Ecobalyse"
+}

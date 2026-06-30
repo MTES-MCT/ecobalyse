@@ -1,0 +1,56 @@
+{
+  "activityName": "Soybean oil cake, at plant {FR} U",
+  "categories": [
+    "ingredient",
+    "material"
+  ],
+  "displayName": "Gâteau à l'huile de soja FR",
+  "id": "65125a4e-3fea-4c0d-b1ab-70d2cd330b41",
+  "metadata": [
+    {
+      "alias": "soybean-oil-cake-fr",
+      "cropGroup": "AUTRES OLEAGINEUX",
+      "defaultOrigin": "France",
+      "displayName": "Gâteau à l'huile de soja FR",
+      "id": "9094804d-8ab8-455e-a314-514945238709",
+      "inediblePart": 0,
+      "ingredientCategories": [
+        "vegetable_processed"
+      ],
+      "ingredientDensity": 0.8,
+      "rawToCookedRatio": 1.0,
+      "scenario": "reference",
+      "scopes": [
+        "food",
+        "food2"
+      ],
+      "transportCooling": "none",
+      "visible": true
+    },
+    {
+      "alias": "soybean-oil-cake-default",
+      "cropGroup": "AUTRES OLEAGINEUX",
+      "defaultOrigin": "OutOfEuropeAndMaghreb",
+      "displayName": "Gâteau à l'huile de soja Origine Inconnue",
+      "id": "d942bfa4-a5db-4445-ac64-086182615660",
+      "inediblePart": 0,
+      "ingredientCategories": [
+        "vegetable_processed"
+      ],
+      "ingredientDensity": 0.8,
+      "rawToCookedRatio": 1.0,
+      "scenario": "import",
+      "scopes": [
+        "food",
+        "food2"
+      ],
+      "transportCooling": "none",
+      "visible": true
+    }
+  ],
+  "scopes": [
+    "food",
+    "food2"
+  ],
+  "source": "Agribalyse 3.2"
+}

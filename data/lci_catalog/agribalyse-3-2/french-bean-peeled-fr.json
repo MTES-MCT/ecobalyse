@@ -1,0 +1,96 @@
+{
+  "activityName": "French bean, peeled, at processing {FR} U",
+  "categories": [
+    "ingredient",
+    "material"
+  ],
+  "displayName": "Haricot français, pelé FR",
+  "id": "f22ea010-d727-4244-8684-bca1bddf8860",
+  "metadata": [
+    {
+      "alias": "french-bean-peeled-fr",
+      "cropGroup": "LEGUMINEUSES A GRAIN",
+      "defaultOrigin": "France",
+      "displayName": "Haricot français, pelé FR",
+      "id": "4bdd3fc9-0288-4767-884a-45b616a31413",
+      "inediblePart": 0,
+      "ingredientCategories": [
+        "vegetable_processed"
+      ],
+      "ingredientDensity": 0.8,
+      "rawToCookedRatio": 1.0,
+      "scenario": "reference",
+      "scopes": [
+        "food",
+        "food2"
+      ],
+      "transportCooling": "always",
+      "visible": true
+    },
+    {
+      "alias": "french-bean-peeled-non-eu",
+      "cropGroup": "LEGUMINEUSES A GRAIN",
+      "defaultOrigin": "OutOfEuropeAndMaghreb",
+      "displayName": "Haricot français, pelé HORS UE",
+      "id": "c946dcff-2852-4fc2-bc3a-d21f4ae9fca5",
+      "inediblePart": 0,
+      "ingredientCategories": [
+        "vegetable_processed"
+      ],
+      "ingredientDensity": 0.8,
+      "rawToCookedRatio": 1.0,
+      "scenario": "import",
+      "scopes": [
+        "food",
+        "food2"
+      ],
+      "transportCooling": "always",
+      "visible": true
+    },
+    {
+      "alias": "french-bean-peeled-eu",
+      "cropGroup": "LEGUMINEUSES A GRAIN",
+      "defaultOrigin": "EuropeAndMaghreb",
+      "displayName": "Haricot français, pelé UE",
+      "id": "cab365da-2b49-4b90-8962-efa9980fb55f",
+      "inediblePart": 0,
+      "ingredientCategories": [
+        "vegetable_processed"
+      ],
+      "ingredientDensity": 0.8,
+      "rawToCookedRatio": 1.0,
+      "scenario": "import",
+      "scopes": [
+        "food",
+        "food2"
+      ],
+      "transportCooling": "always",
+      "visible": true
+    },
+    {
+      "alias": "french-bean-peeled-default",
+      "cropGroup": "LEGUMINEUSES A GRAIN",
+      "defaultOrigin": "OutOfEuropeAndMaghreb",
+      "displayName": "Haricot français, pelé Origine Inconnue",
+      "id": "2a16f9e5-c68d-4b81-8ad2-5d7357e86a39",
+      "inediblePart": 0,
+      "ingredientCategories": [
+        "vegetable_processed"
+      ],
+      "ingredientDensity": 0.8,
+      "rawToCookedRatio": 1.0,
+      "scenario": "import",
+      "scopes": [
+        "food",
+        "food2"
+      ],
+      "transportCooling": "always",
+      "visible": true
+    }
+  ],
+  "scopes": [
+    "food",
+    "food2"
+  ],
+  "source": "Agribalyse 3.2"
+}

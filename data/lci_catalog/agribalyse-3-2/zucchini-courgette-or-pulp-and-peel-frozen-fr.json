@@ -1,0 +1,76 @@
+{
+  "activityName": "Courgette or zucchini, pulp and peel, frozen, at processing {FR} U",
+  "categories": [
+    "ingredient",
+    "material"
+  ],
+  "displayName": "Courgette ou courgettes, pulpe et pelure, congelées FR",
+  "id": "48ac0db6-3bf6-4d37-8b3e-df704a383767",
+  "metadata": [
+    {
+      "alias": "zucchini-courgette-or-pulp-and-peel-frozen-fr",
+      "cropGroup": "LEGUMES-FLEURS",
+      "defaultOrigin": "France",
+      "displayName": "Courgette ou courgettes, pulpe et pelure, congelées FR",
+      "id": "7f75aa3b-5e9e-42de-bc69-34e92c434236",
+      "inediblePart": 0,
+      "ingredientCategories": [
+        "vegetable_processed"
+      ],
+      "ingredientDensity": 0.85,
+      "rawToCookedRatio": 1.0,
+      "scenario": "reference",
+      "scopes": [
+        "food",
+        "food2"
+      ],
+      "transportCooling": "always",
+      "visible": true
+    },
+    {
+      "alias": "zucchini-courgette-or-pulp-and-peel-frozen-eu",
+      "cropGroup": "LEGUMES-FLEURS",
+      "defaultOrigin": "EuropeAndMaghreb",
+      "displayName": "Courgette ou courgettes, pulpe et pelure, congelées UE",
+      "id": "21a6c27e-dd0f-4222-913c-31197ac627a6",
+      "inediblePart": 0,
+      "ingredientCategories": [
+        "vegetable_processed"
+      ],
+      "ingredientDensity": 0.85,
+      "rawToCookedRatio": 1.0,
+      "scenario": "import",
+      "scopes": [
+        "food",
+        "food2"
+      ],
+      "transportCooling": "always",
+      "visible": true
+    },
+    {
+      "alias": "zucchini-courgette-or-pulp-and-peel-frozen-default",
+      "cropGroup": "LEGUMES-FLEURS",
+      "defaultOrigin": "OutOfEuropeAndMaghreb",
+      "displayName": "Courgette ou courgettes, pulpe et pelure, congelées Origine Inconnue",
+      "id": "a602b143-5c41-40e9-b486-072b51e31e8f",
+      "inediblePart": 0,
+      "ingredientCategories": [
+        "vegetable_processed"
+      ],
+      "ingredientDensity": 0.85,
+      "rawToCookedRatio": 1.0,
+      "scenario": "import",
+      "scopes": [
+        "food",
+        "food2"
+      ],
+      "transportCooling": "always",
+      "visible": true
+    }
+  ],
+  "scopes": [
+    "food",
+    "food2"
+  ],
+  "source": "Agribalyse 3.2"
+}

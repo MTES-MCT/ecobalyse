@@ -1,0 +1,36 @@
+{
+  "activityName": "Juice of chicory, at processing {FR} U",
+  "categories": [
+    "ingredient",
+    "material"
+  ],
+  "displayName": "Jus de chicorée FR",
+  "id": "f64d2313-3caa-40bc-aff7-8999224b5600",
+  "metadata": [
+    {
+      "alias": "chicory-root-juice-of-fr",
+      "cropGroup": "AUTRES CULTURES INDUSTRIELLES",
+      "defaultOrigin": "France",
+      "displayName": "Jus de chicorée FR",
+      "id": "299ccbcd-cf1e-48cd-a59b-6d18e58f8779",
+      "inediblePart": 0,
+      "ingredientCategories": [
+        "vegetable_processed"
+      ],
+      "ingredientDensity": 0.9,
+      "rawToCookedRatio": 1.0,
+      "scenario": "reference",
+      "scopes": [
+        "food",
+        "food2"
+      ],
+      "transportCooling": "always",
+      "visible": true
+    }
+  ],
+  "scopes": [
+    "food",
+    "food2"
+  ],
+  "source": "Agribalyse 3.2"
+}

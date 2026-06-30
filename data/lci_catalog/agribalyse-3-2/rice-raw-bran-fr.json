@@ -1,0 +1,56 @@
+{
+  "activityName": "Rice bran, at plant {FR} U",
+  "categories": [
+    "ingredient",
+    "material"
+  ],
+  "displayName": "Son de riz FR",
+  "id": "59296b30-a528-4c89-993d-d352880187f5",
+  "metadata": [
+    {
+      "alias": "rice-raw-bran-fr",
+      "cropGroup": "RIZ",
+      "defaultOrigin": "France",
+      "displayName": "Son de riz FR",
+      "id": "240b16cd-65c5-43eb-a6ef-a7d8446fd695",
+      "inediblePart": 0,
+      "ingredientCategories": [
+        "grain_processed"
+      ],
+      "ingredientDensity": 0.42,
+      "rawToCookedRatio": 1.0,
+      "scenario": "reference",
+      "scopes": [
+        "food",
+        "food2"
+      ],
+      "transportCooling": "none",
+      "visible": true
+    },
+    {
+      "alias": "rice-raw-bran-default",
+      "cropGroup": "RIZ",
+      "defaultOrigin": "OutOfEuropeAndMaghreb",
+      "displayName": "Son de riz Origine Inconnue",
+      "id": "c5841902-6ac2-42cb-b897-41ed69cad107",
+      "inediblePart": 0,
+      "ingredientCategories": [
+        "grain_processed"
+      ],
+      "ingredientDensity": 0.42,
+      "rawToCookedRatio": 1.0,
+      "scenario": "import",
+      "scopes": [
+        "food",
+        "food2"
+      ],
+      "transportCooling": "none",
+      "visible": true
+    }
+  ],
+  "scopes": [
+    "food",
+    "food2"
+  ],
+  "source": "Agribalyse 3.2"
+}

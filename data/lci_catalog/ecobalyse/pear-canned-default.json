@@ -1,0 +1,36 @@
+{
+  "activityName": "Pear, canned {FR} U [pear-default] {{pear-canned-default}}",
+  "categories": [
+    "ingredient",
+    "material"
+  ],
+  "displayName": "Poire, en conserve Origine Inconnue",
+  "id": "e9d3b701-64e8-4a0d-8a10-3357bd44fc78",
+  "metadata": [
+    {
+      "alias": "pear-canned-default",
+      "cropGroup": "VERGERS",
+      "defaultOrigin": "OutOfEuropeAndMaghreb",
+      "displayName": "Poire, en conserve Origine Inconnue",
+      "id": "f4ed58df-9c80-476c-91d0-43803dd09352",
+      "inediblePart": 0,
+      "ingredientCategories": [
+        "vegetable_processed"
+      ],
+      "ingredientDensity": 0.95,
+      "rawToCookedRatio": 1.0,
+      "scenario": "import",
+      "scopes": [
+        "food",
+        "food2"
+      ],
+      "transportCooling": "none",
+      "visible": true
+    }
+  ],
+  "scopes": [
+    "food",
+    "food2"
+  ],
+  "source": "Ecobalyse"
+}

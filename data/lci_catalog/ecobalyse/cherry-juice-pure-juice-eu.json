@@ -1,0 +1,36 @@
+{
+  "activityName": "Cherry juice, pure juice, at plant {FR} U [cherry-eu] {{cherry-juice-pure-juice-eu}}",
+  "categories": [
+    "ingredient",
+    "material"
+  ],
+  "displayName": "Jus de cerise, jus pur UE",
+  "id": "1b7d0317-7d93-4763-a6cb-caadd800c481",
+  "metadata": [
+    {
+      "alias": "cherry-juice-pure-juice-eu",
+      "cropGroup": "VERGERS",
+      "defaultOrigin": "EuropeAndMaghreb",
+      "displayName": "Jus de cerise, jus pur UE",
+      "id": "da566bcc-b444-4943-bbe9-a89b61f15832",
+      "inediblePart": 0,
+      "ingredientCategories": [
+        "vegetable_processed"
+      ],
+      "ingredientDensity": 0.85,
+      "rawToCookedRatio": 1.0,
+      "scenario": "import",
+      "scopes": [
+        "food",
+        "food2"
+      ],
+      "transportCooling": "always",
+      "visible": true
+    }
+  ],
+  "scopes": [
+    "food",
+    "food2"
+  ],
+  "source": "Ecobalyse"
+}

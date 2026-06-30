@@ -1,0 +1,37 @@
+{
+  "activityName": "Walnuts, unshelled, at processing {FR} U [walnut-organic] {{walnut-unshelled-organic}}",
+  "categories": [
+    "ingredient",
+    "material"
+  ],
+  "displayName": "Noix décortiquées Bio",
+  "id": "0405e96d-c64a-4081-9a79-bac139c0e0d7",
+  "metadata": [
+    {
+      "alias": "walnut-unshelled-organic",
+      "cropGroup": "FRUITS A COQUES",
+      "defaultOrigin": "France",
+      "displayName": "Noix décortiquées Bio",
+      "id": "896a0229-f325-4bac-9bc8-9ade1ca0715e",
+      "inediblePart": 0,
+      "ingredientCategories": [
+        "nut_oilseed_processed",
+        "organic"
+      ],
+      "ingredientDensity": 0.5,
+      "rawToCookedRatio": 1.0,
+      "scenario": "organic",
+      "scopes": [
+        "food",
+        "food2"
+      ],
+      "transportCooling": "none",
+      "visible": true
+    }
+  ],
+  "scopes": [
+    "food",
+    "food2"
+  ],
+  "source": "Ecobalyse"
+}

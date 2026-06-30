@@ -1,0 +1,36 @@
+{
+  "activityName": "Apple juice, industrial production, at plant, NFC, 1L {FR} U [apple-default] {{apple-juice-default}}",
+  "categories": [
+    "ingredient",
+    "material"
+  ],
+  "displayName": "Jus de pomme Origine Inconnue",
+  "id": "a3938cfd-cfa8-469a-8df5-f2ceffe94986",
+  "metadata": [
+    {
+      "alias": "apple-juice-default",
+      "cropGroup": "VERGERS",
+      "defaultOrigin": "OutOfEuropeAndMaghreb",
+      "displayName": "Jus de pomme Origine Inconnue",
+      "id": "59162a2c-5c5f-4e09-a9bf-f7aed79b8b24",
+      "inediblePart": 0,
+      "ingredientCategories": [
+        "vegetable_processed"
+      ],
+      "ingredientDensity": 0.85,
+      "rawToCookedRatio": 1.0,
+      "scenario": "import",
+      "scopes": [
+        "food",
+        "food2"
+      ],
+      "transportCooling": "always",
+      "visible": true
+    }
+  ],
+  "scopes": [
+    "food",
+    "food2"
+  ],
+  "source": "Ecobalyse"
+}

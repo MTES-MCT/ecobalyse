@@ -1,0 +1,37 @@
+{
+  "activityName": "Celery stalk, canned {FR} U [celery-organic] {{celery-stalk-canned-organic}}",
+  "categories": [
+    "ingredient",
+    "material"
+  ],
+  "displayName": "Pâte de céleri, en conserve Bio",
+  "id": "ee04de22-b165-4643-800f-a22249afde0b",
+  "metadata": [
+    {
+      "alias": "celery-stalk-canned-organic",
+      "cropGroup": "LEGUMES-FLEURS",
+      "defaultOrigin": "France",
+      "displayName": "Pâte de céleri, en conserve Bio",
+      "id": "f67fe1c2-82fb-4689-a1e0-4ec6bba1b389",
+      "inediblePart": 0,
+      "ingredientCategories": [
+        "vegetable_processed",
+        "organic"
+      ],
+      "ingredientDensity": 0.9,
+      "rawToCookedRatio": 1.0,
+      "scenario": "organic",
+      "scopes": [
+        "food",
+        "food2"
+      ],
+      "transportCooling": "none",
+      "visible": true
+    }
+  ],
+  "scopes": [
+    "food",
+    "food2"
+  ],
+  "source": "Ecobalyse"
+}

@@ -1,0 +1,37 @@
+{
+  "activityName": "Carrot pomace, fresh, from carrot juice production, at processing {FR} U [carrot-organic] {{carrot-pomace-fresh-from-carrot-juice-production-organic}}",
+  "categories": [
+    "ingredient",
+    "material"
+  ],
+  "displayName": "Pomace de carottes, fraîche, provenant de la production de jus de carottes Bio",
+  "id": "badffa7d-55f3-4e20-b1bd-725c1aa60fa9",
+  "metadata": [
+    {
+      "alias": "carrot-pomace-fresh-from-carrot-juice-production-organic",
+      "cropGroup": "LEGUMES-FLEURS",
+      "defaultOrigin": "France",
+      "displayName": "Pomace de carottes, fraîche, provenant de la production de jus de carottes Bio",
+      "id": "8379b701-464a-4046-9762-5fe7a771d894",
+      "inediblePart": 0,
+      "ingredientCategories": [
+        "vegetable_processed",
+        "organic"
+      ],
+      "ingredientDensity": 0.9,
+      "rawToCookedRatio": 1.0,
+      "scenario": "organic",
+      "scopes": [
+        "food",
+        "food2"
+      ],
+      "transportCooling": "always",
+      "visible": true
+    }
+  ],
+  "scopes": [
+    "food",
+    "food2"
+  ],
+  "source": "Ecobalyse"
+}

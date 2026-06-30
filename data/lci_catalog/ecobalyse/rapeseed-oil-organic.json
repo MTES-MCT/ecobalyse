@@ -1,0 +1,37 @@
+{
+  "activityName": "Rapeseed oil, at plant {FR} U [rapeseed-organic] {{rapeseed-oil-organic}}",
+  "categories": [
+    "ingredient",
+    "material"
+  ],
+  "displayName": "Huile de colza Bio",
+  "id": "178ed6b7-a6aa-4952-9f5a-286683fa7e05",
+  "metadata": [
+    {
+      "alias": "rapeseed-oil-organic",
+      "cropGroup": "COLZA",
+      "defaultOrigin": "France",
+      "displayName": "Huile de colza Bio",
+      "id": "b3f92d3a-e6e3-4842-9346-1307cad0cf81",
+      "inediblePart": 0,
+      "ingredientCategories": [
+        "nut_oilseed_processed",
+        "organic"
+      ],
+      "ingredientDensity": 0.6,
+      "rawToCookedRatio": 1.0,
+      "scenario": "organic",
+      "scopes": [
+        "food",
+        "food2"
+      ],
+      "transportCooling": "none",
+      "visible": true
+    }
+  ],
+  "scopes": [
+    "food",
+    "food2"
+  ],
+  "source": "Ecobalyse"
+}

@@ -1,0 +1,36 @@
+{
+  "activityName": "Quinoa FR, conventional, at plant {FR} U [quinoa-non-eu] {{quinoa-fr-non-eu}}",
+  "categories": [
+    "ingredient",
+    "material"
+  ],
+  "displayName": "Quinoa FR HORS UE",
+  "id": "a1feaf32-ed6d-4152-a1fa-784ae612752e",
+  "metadata": [
+    {
+      "alias": "quinoa-fr-non-eu",
+      "cropGroup": "AUTRES CEREALES",
+      "defaultOrigin": "OutOfEuropeAndMaghreb",
+      "displayName": "Quinoa FR HORS UE",
+      "id": "f048c041-582a-48cb-95e8-045778b7a283",
+      "inediblePart": 0,
+      "ingredientCategories": [
+        "grain_processed"
+      ],
+      "ingredientDensity": 0.75,
+      "rawToCookedRatio": 1.0,
+      "scenario": "import",
+      "scopes": [
+        "food",
+        "food2"
+      ],
+      "transportCooling": "none",
+      "visible": true
+    }
+  ],
+  "scopes": [
+    "food",
+    "food2"
+  ],
+  "source": "Ecobalyse"
+}

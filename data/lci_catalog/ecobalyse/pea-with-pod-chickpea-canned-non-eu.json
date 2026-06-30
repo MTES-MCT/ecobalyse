@@ -1,0 +1,36 @@
+{
+  "activityName": "Chick peas, canned {FR} U [pea-with-pod-non-eu] {{pea-with-pod-chickpea-canned-non-eu}}",
+  "categories": [
+    "ingredient",
+    "material"
+  ],
+  "displayName": "Pois chiches, en conserve HORS UE",
+  "id": "d88a9293-db90-464f-b871-c866c1bdbcb1",
+  "metadata": [
+    {
+      "alias": "pea-with-pod-chickpea-canned-non-eu",
+      "cropGroup": "LEGUMINEUSES A GRAIN",
+      "defaultOrigin": "OutOfEuropeAndMaghreb",
+      "displayName": "Pois chiches, en conserve HORS UE",
+      "id": "69c69e3d-2abe-48ac-9e94-229ca238b956",
+      "inediblePart": 0,
+      "ingredientCategories": [
+        "animal_product"
+      ],
+      "ingredientDensity": 1.05,
+      "rawToCookedRatio": 1.0,
+      "scenario": "import",
+      "scopes": [
+        "food",
+        "food2"
+      ],
+      "transportCooling": "none",
+      "visible": true
+    }
+  ],
+  "scopes": [
+    "food",
+    "food2"
+  ],
+  "source": "Ecobalyse"
+}

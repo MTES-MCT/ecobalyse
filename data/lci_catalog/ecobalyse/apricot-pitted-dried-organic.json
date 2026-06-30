@@ -1,0 +1,37 @@
+{
+  "activityName": "Apricot, pitted, dried, at processing {FR} U [apricot-organic] {{apricot-pitted-dried-organic}}",
+  "categories": [
+    "ingredient",
+    "material"
+  ],
+  "displayName": "Abricot, piqué, séché Bio",
+  "id": "4d97266f-9127-49b0-989e-5fbf9017d7ea",
+  "metadata": [
+    {
+      "alias": "apricot-pitted-dried-organic",
+      "cropGroup": "VERGERS",
+      "defaultOrigin": "France",
+      "displayName": "Abricot, piqué, séché Bio",
+      "id": "c601ea6d-5020-4ae3-9b34-d4019c9a87d0",
+      "inediblePart": 0,
+      "ingredientCategories": [
+        "vegetable_processed",
+        "organic"
+      ],
+      "ingredientDensity": 0.9,
+      "rawToCookedRatio": 1.0,
+      "scenario": "organic",
+      "scopes": [
+        "food",
+        "food2"
+      ],
+      "transportCooling": "none",
+      "visible": true
+    }
+  ],
+  "scopes": [
+    "food",
+    "food2"
+  ],
+  "source": "Ecobalyse"
+}

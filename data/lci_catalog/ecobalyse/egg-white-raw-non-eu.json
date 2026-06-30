@@ -1,0 +1,36 @@
+{
+  "activityName": "Egg white, raw, at plant {FR} U [egg-non-eu] {{egg-white-raw-non-eu}}",
+  "categories": [
+    "ingredient",
+    "material"
+  ],
+  "displayName": "Blanc d'oeufs, cru HORS UE",
+  "id": "0731f372-f92a-454a-b1d8-27166020d707",
+  "metadata": [
+    {
+      "alias": "egg-white-raw-non-eu",
+      "cropGroup": null,
+      "defaultOrigin": "OutOfEuropeAndMaghreb",
+      "displayName": "Blanc d'oeufs, cru HORS UE",
+      "id": "b885d69f-bbe5-48ac-a45d-9c6b035d3678",
+      "inediblePart": 0,
+      "ingredientCategories": [
+        "animal_product"
+      ],
+      "ingredientDensity": 1.05,
+      "rawToCookedRatio": 1.0,
+      "scenario": "import",
+      "scopes": [
+        "food",
+        "food2"
+      ],
+      "transportCooling": "always",
+      "visible": true
+    }
+  ],
+  "scopes": [
+    "food",
+    "food2"
+  ],
+  "source": "Ecobalyse"
+}

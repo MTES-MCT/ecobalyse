@@ -1,0 +1,36 @@
+{
+  "activityName": "Mint, peeled, at processing {FR} U [mint-default] {{mint-peeled-default}}",
+  "categories": [
+    "ingredient",
+    "material"
+  ],
+  "displayName": "Menthe pelée Origine Inconnue",
+  "id": "5f151586-c302-4b57-a154-e2564068e67e",
+  "metadata": [
+    {
+      "alias": "mint-peeled-default",
+      "cropGroup": "AUTRES CULTURES INDUSTRIELLES",
+      "defaultOrigin": "OutOfEuropeAndMaghreb",
+      "displayName": "Menthe pelée Origine Inconnue",
+      "id": "63077669-7625-4dc4-9205-1b197c8dd1c3",
+      "inediblePart": 0,
+      "ingredientCategories": [
+        "vegetable_processed"
+      ],
+      "ingredientDensity": 0.9,
+      "rawToCookedRatio": 1.0,
+      "scenario": "import",
+      "scopes": [
+        "food",
+        "food2"
+      ],
+      "transportCooling": "always",
+      "visible": true
+    }
+  ],
+  "scopes": [
+    "food",
+    "food2"
+  ],
+  "source": "Ecobalyse"
+}

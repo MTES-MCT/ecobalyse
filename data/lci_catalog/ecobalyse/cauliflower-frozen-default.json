@@ -1,0 +1,36 @@
+{
+  "activityName": "Cauliflower, frozen, at processing {FR} U [cauliflower-default] {{cauliflower-frozen-default}}",
+  "categories": [
+    "ingredient",
+    "material"
+  ],
+  "displayName": "Choux-fleurs, congelés Origine Inconnue",
+  "id": "03eddced-b2d8-4d42-a56a-9374dc4b971a",
+  "metadata": [
+    {
+      "alias": "cauliflower-frozen-default",
+      "cropGroup": "LEGUMES-FLEURS",
+      "defaultOrigin": "OutOfEuropeAndMaghreb",
+      "displayName": "Choux-fleurs, congelés Origine Inconnue",
+      "id": "98b9a436-46fd-4efa-9458-46ae2058cab9",
+      "inediblePart": 0,
+      "ingredientCategories": [
+        "vegetable_processed"
+      ],
+      "ingredientDensity": 0.9,
+      "rawToCookedRatio": 1.0,
+      "scenario": "import",
+      "scopes": [
+        "food",
+        "food2"
+      ],
+      "transportCooling": "always",
+      "visible": true
+    }
+  ],
+  "scopes": [
+    "food",
+    "food2"
+  ],
+  "source": "Ecobalyse"
+}

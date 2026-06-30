@@ -1,0 +1,37 @@
+{
+  "activityName": "Courgette or zucchini, pulp and peel, frozen, at processing {FR} U [zucchini-organic] {{zucchini-courgette-or-pulp-and-peel-frozen-organic}}",
+  "categories": [
+    "ingredient",
+    "material"
+  ],
+  "displayName": "Courgette ou courgettes, pulpe et pelure, congelées Bio",
+  "id": "2aadd0d9-5185-455d-ab0d-0704d303cd29",
+  "metadata": [
+    {
+      "alias": "zucchini-courgette-or-pulp-and-peel-frozen-organic",
+      "cropGroup": "LEGUMES-FLEURS",
+      "defaultOrigin": "France",
+      "displayName": "Courgette ou courgettes, pulpe et pelure, congelées Bio",
+      "id": "a0893919-ef9a-45b2-b960-5fff945a0b40",
+      "inediblePart": 0,
+      "ingredientCategories": [
+        "vegetable_processed",
+        "organic"
+      ],
+      "ingredientDensity": 0.85,
+      "rawToCookedRatio": 1.0,
+      "scenario": "organic",
+      "scopes": [
+        "food",
+        "food2"
+      ],
+      "transportCooling": "always",
+      "visible": true
+    }
+  ],
+  "scopes": [
+    "food",
+    "food2"
+  ],
+  "source": "Ecobalyse"
+}

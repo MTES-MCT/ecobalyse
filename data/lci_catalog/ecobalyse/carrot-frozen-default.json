@@ -1,0 +1,36 @@
+{
+  "activityName": "Frozen carrot, production, 1kg of frozen vegetable {FR} U [carrot-default] {{carrot-frozen-default}}",
+  "categories": [
+    "ingredient",
+    "material"
+  ],
+  "displayName": "Carotte congelée Origine Inconnue",
+  "id": "5bf53883-e93e-4b88-83cd-624536a30aec",
+  "metadata": [
+    {
+      "alias": "carrot-frozen-default",
+      "cropGroup": "LEGUMES-FLEURS",
+      "defaultOrigin": "OutOfEuropeAndMaghreb",
+      "displayName": "Carotte congelée Origine Inconnue",
+      "id": "fdf5146d-3c80-4ec6-abcd-9ff057a5f663",
+      "inediblePart": 0,
+      "ingredientCategories": [
+        "vegetable_processed"
+      ],
+      "ingredientDensity": 1.0,
+      "rawToCookedRatio": 1.0,
+      "scenario": "import",
+      "scopes": [
+        "food",
+        "food2"
+      ],
+      "transportCooling": "always",
+      "visible": true
+    }
+  ],
+  "scopes": [
+    "food",
+    "food2"
+  ],
+  "source": "Ecobalyse"
+}

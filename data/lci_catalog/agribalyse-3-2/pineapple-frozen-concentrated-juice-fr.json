@@ -1,0 +1,56 @@
+{
+  "activityName": "Frozen concentrated pineapple juice, at plant {CR} U",
+  "categories": [
+    "ingredient",
+    "material"
+  ],
+  "displayName": "Jus d'ananas concentré congelé FR",
+  "id": "df7acb2c-37a0-4b3f-8ef7-c534da6eb4a4",
+  "metadata": [
+    {
+      "alias": "pineapple-frozen-concentrated-juice-fr",
+      "cropGroup": "ARBORICULTURE",
+      "defaultOrigin": "France",
+      "displayName": "Jus d'ananas concentré congelé FR",
+      "id": "af12cc30-bb42-45ed-bd9b-477ef46bf0fc",
+      "inediblePart": 0,
+      "ingredientCategories": [
+        "vegetable_processed"
+      ],
+      "ingredientDensity": 0.85,
+      "rawToCookedRatio": 1.0,
+      "scenario": "reference",
+      "scopes": [
+        "food",
+        "food2"
+      ],
+      "transportCooling": "always",
+      "visible": true
+    },
+    {
+      "alias": "pineapple-frozen-concentrated-juice-non-eu",
+      "cropGroup": "ARBORICULTURE",
+      "defaultOrigin": "OutOfEuropeAndMaghreb",
+      "displayName": "Jus d'ananas concentré congelé HORS UE",
+      "id": "369a5e12-edb1-48f3-b416-c00a9fee11dd",
+      "inediblePart": 0,
+      "ingredientCategories": [
+        "vegetable_processed"
+      ],
+      "ingredientDensity": 0.85,
+      "rawToCookedRatio": 1.0,
+      "scenario": "import",
+      "scopes": [
+        "food",
+        "food2"
+      ],
+      "transportCooling": "always",
+      "visible": true
+    }
+  ],
+  "scopes": [
+    "food",
+    "food2"
+  ],
+  "source": "Agribalyse 3.2"
+}

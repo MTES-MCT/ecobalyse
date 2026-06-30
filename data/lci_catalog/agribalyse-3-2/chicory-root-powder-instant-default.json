@@ -1,0 +1,76 @@
+{
+  "activityName": "Chicory, powder, instant, at plant {FR} U",
+  "categories": [
+    "ingredient",
+    "material"
+  ],
+  "displayName": "Chicorée, poudre, instantanée Origine Inconnue",
+  "id": "086fd644-3271-4238-895a-df438ef52276",
+  "metadata": [
+    {
+      "alias": "chicory-root-powder-instant-default",
+      "cropGroup": "AUTRES CULTURES INDUSTRIELLES",
+      "defaultOrigin": "OutOfEuropeAndMaghreb",
+      "displayName": "Chicorée, poudre, instantanée Origine Inconnue",
+      "id": "76a22203-e6cb-44fe-9698-6ce3e7f1059e",
+      "inediblePart": 0,
+      "ingredientCategories": [
+        "vegetable_processed"
+      ],
+      "ingredientDensity": 0.9,
+      "rawToCookedRatio": 1.0,
+      "scenario": "import",
+      "scopes": [
+        "food",
+        "food2"
+      ],
+      "transportCooling": "none",
+      "visible": true
+    },
+    {
+      "alias": "chicory-root-powder-instant-non-eu",
+      "cropGroup": "AUTRES CULTURES INDUSTRIELLES",
+      "defaultOrigin": "OutOfEuropeAndMaghreb",
+      "displayName": "Chicorée, poudre, instantanée HORS UE",
+      "id": "65430706-7940-4ea3-bfee-e4cf1a41c121",
+      "inediblePart": 0,
+      "ingredientCategories": [
+        "vegetable_processed"
+      ],
+      "ingredientDensity": 0.9,
+      "rawToCookedRatio": 1.0,
+      "scenario": "import",
+      "scopes": [
+        "food",
+        "food2"
+      ],
+      "transportCooling": "none",
+      "visible": true
+    },
+    {
+      "alias": "chicory-root-powder-instant-eu",
+      "cropGroup": "AUTRES CULTURES INDUSTRIELLES",
+      "defaultOrigin": "EuropeAndMaghreb",
+      "displayName": "Chicorée, poudre, instantanée UE",
+      "id": "a2734d9e-1928-4197-a32e-b96fe298c87d",
+      "inediblePart": 0,
+      "ingredientCategories": [
+        "vegetable_processed"
+      ],
+      "ingredientDensity": 0.9,
+      "rawToCookedRatio": 1.0,
+      "scenario": "import",
+      "scopes": [
+        "food",
+        "food2"
+      ],
+      "transportCooling": "none",
+      "visible": true
+    }
+  ],
+  "scopes": [
+    "food",
+    "food2"
+  ],
+  "source": "Agribalyse 3.2"
+}

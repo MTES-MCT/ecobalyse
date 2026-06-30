@@ -1,0 +1,36 @@
+{
+  "activityName": "Table apple, peeled, at processing {FR} U",
+  "categories": [
+    "ingredient",
+    "material"
+  ],
+  "displayName": "Pommes de table, pelées FR",
+  "id": "7a752246-e71f-4d4b-bbac-c20daeb12516",
+  "metadata": [
+    {
+      "alias": "apple-table-peeled-fr",
+      "cropGroup": "VERGERS",
+      "defaultOrigin": "France",
+      "displayName": "Pommes de table, pelées FR",
+      "id": "f467329e-efaf-4d20-ba8b-08161faeb5b4",
+      "inediblePart": 0,
+      "ingredientCategories": [
+        "vegetable_processed"
+      ],
+      "ingredientDensity": 0.9,
+      "rawToCookedRatio": 1.0,
+      "scenario": "reference",
+      "scopes": [
+        "food",
+        "food2"
+      ],
+      "transportCooling": "always",
+      "visible": true
+    }
+  ],
+  "scopes": [
+    "food",
+    "food2"
+  ],
+  "source": "Agribalyse 3.2"
+}

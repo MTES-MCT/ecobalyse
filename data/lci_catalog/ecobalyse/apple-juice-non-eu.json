@@ -1,0 +1,36 @@
+{
+  "activityName": "Apple juice, industrial production, at plant, NFC, 1L {FR} U [apple-non-eu] {{apple-juice-non-eu}}",
+  "categories": [
+    "ingredient",
+    "material"
+  ],
+  "displayName": "Jus de pomme HORS UE",
+  "id": "573b194a-a565-4bfc-89c4-736a8844f63a",
+  "metadata": [
+    {
+      "alias": "apple-juice-non-eu",
+      "cropGroup": "VERGERS",
+      "defaultOrigin": "OutOfEuropeAndMaghreb",
+      "displayName": "Jus de pomme HORS UE",
+      "id": "1b33d2f5-a39f-4ad0-91bb-af1ab42301ba",
+      "inediblePart": 0,
+      "ingredientCategories": [
+        "vegetable_processed"
+      ],
+      "ingredientDensity": 0.85,
+      "rawToCookedRatio": 1.0,
+      "scenario": "import",
+      "scopes": [
+        "food",
+        "food2"
+      ],
+      "transportCooling": "always",
+      "visible": true
+    }
+  ],
+  "scopes": [
+    "food",
+    "food2"
+  ],
+  "source": "Ecobalyse"
+}

@@ -1,0 +1,36 @@
+{
+  "activityName": "Rice flour, at plant {FR} U [rice-raw-non-eu] {{rice-raw-flour-non-eu}}",
+  "categories": [
+    "ingredient",
+    "material"
+  ],
+  "displayName": "Farine de riz HORS UE",
+  "id": "f741ee70-81e9-4f88-8267-bfb2823f4637",
+  "metadata": [
+    {
+      "alias": "rice-raw-flour-non-eu",
+      "cropGroup": "BLE TENDRE",
+      "defaultOrigin": "OutOfEuropeAndMaghreb",
+      "displayName": "Farine de riz HORS UE",
+      "id": "59e4569c-3030-4771-8201-b456d9ded30d",
+      "inediblePart": 0,
+      "ingredientCategories": [
+        "grain_processed"
+      ],
+      "ingredientDensity": 0.75,
+      "rawToCookedRatio": 1.0,
+      "scenario": "import",
+      "scopes": [
+        "food",
+        "food2"
+      ],
+      "transportCooling": "none",
+      "visible": true
+    }
+  ],
+  "scopes": [
+    "food",
+    "food2"
+  ],
+  "source": "Ecobalyse"
+}

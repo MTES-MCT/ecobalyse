@@ -1,0 +1,36 @@
+{
+  "activityName": "Carrot, peeled, at processing {FR} U [carrot-default] {{carrot-peeled-default}}",
+  "categories": [
+    "ingredient",
+    "material"
+  ],
+  "displayName": "Carotte pelée Origine Inconnue",
+  "id": "b7dca901-e43c-43ee-bf9d-9d0b90b4dc54",
+  "metadata": [
+    {
+      "alias": "carrot-peeled-default",
+      "cropGroup": "LEGUMES-FLEURS",
+      "defaultOrigin": "OutOfEuropeAndMaghreb",
+      "displayName": "Carotte pelée Origine Inconnue",
+      "id": "fa345de0-47aa-4684-bbea-231b601556d2",
+      "inediblePart": 0,
+      "ingredientCategories": [
+        "vegetable_processed"
+      ],
+      "ingredientDensity": 1.0,
+      "rawToCookedRatio": 1.0,
+      "scenario": "import",
+      "scopes": [
+        "food",
+        "food2"
+      ],
+      "transportCooling": "always",
+      "visible": true
+    }
+  ],
+  "scopes": [
+    "food",
+    "food2"
+  ],
+  "source": "Ecobalyse"
+}

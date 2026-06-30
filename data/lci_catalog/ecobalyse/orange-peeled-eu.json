@@ -1,0 +1,36 @@
+{
+  "activityName": "Orange, peeled, at processing {FR} U [orange-eu] {{orange-peeled-eu}}",
+  "categories": [
+    "ingredient",
+    "material"
+  ],
+  "displayName": "Orange, pelé UE",
+  "id": "b21c6f59-cb4e-4428-9fe2-48b677af09e4",
+  "metadata": [
+    {
+      "alias": "orange-peeled-eu",
+      "cropGroup": "VERGERS",
+      "defaultOrigin": "EuropeAndMaghreb",
+      "displayName": "Orange, pelé UE",
+      "id": "ef2e1052-4978-4498-add5-556201a2b24a",
+      "inediblePart": 0,
+      "ingredientCategories": [
+        "vegetable_processed"
+      ],
+      "ingredientDensity": 0.95,
+      "rawToCookedRatio": 1.0,
+      "scenario": "import",
+      "scopes": [
+        "food",
+        "food2"
+      ],
+      "transportCooling": "always",
+      "visible": true
+    }
+  ],
+  "scopes": [
+    "food",
+    "food2"
+  ],
+  "source": "Ecobalyse"
+}

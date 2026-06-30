@@ -1,0 +1,37 @@
+{
+  "activityName": "Pineapple, peeled, at processing {FR} U [pineapple-organic] {{pineapple-peeled-organic}}",
+  "categories": [
+    "ingredient",
+    "material"
+  ],
+  "displayName": "Ananas pelés Bio",
+  "id": "5f0b638c-7bfe-43d0-b81b-26e7605974fb",
+  "metadata": [
+    {
+      "alias": "pineapple-peeled-organic",
+      "cropGroup": "ARBORICULTURE",
+      "defaultOrigin": "France",
+      "displayName": "Ananas pelés Bio",
+      "id": "744e216b-75d6-400b-aac6-fe5fc8257f12",
+      "inediblePart": 0,
+      "ingredientCategories": [
+        "vegetable_processed",
+        "organic"
+      ],
+      "ingredientDensity": 0.95,
+      "rawToCookedRatio": 1.0,
+      "scenario": "organic",
+      "scopes": [
+        "food",
+        "food2"
+      ],
+      "transportCooling": "always",
+      "visible": true
+    }
+  ],
+  "scopes": [
+    "food",
+    "food2"
+  ],
+  "source": "Ecobalyse"
+}

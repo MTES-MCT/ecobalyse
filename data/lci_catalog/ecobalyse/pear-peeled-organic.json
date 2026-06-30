@@ -1,0 +1,37 @@
+{
+  "activityName": "Pear, peeled, at processing {FR} U [pear-organic] {{pear-peeled-organic}}",
+  "categories": [
+    "ingredient",
+    "material"
+  ],
+  "displayName": "Poire, pelée Bio",
+  "id": "89717cfd-78d3-4ff3-8adf-692b67b7283d",
+  "metadata": [
+    {
+      "alias": "pear-peeled-organic",
+      "cropGroup": "VERGERS",
+      "defaultOrigin": "France",
+      "displayName": "Poire, pelée Bio",
+      "id": "353619aa-83e7-45ec-ae80-665daabb0ca2",
+      "inediblePart": 0,
+      "ingredientCategories": [
+        "vegetable_processed",
+        "organic"
+      ],
+      "ingredientDensity": 0.95,
+      "rawToCookedRatio": 1.0,
+      "scenario": "organic",
+      "scopes": [
+        "food",
+        "food2"
+      ],
+      "transportCooling": "always",
+      "visible": true
+    }
+  ],
+  "scopes": [
+    "food",
+    "food2"
+  ],
+  "source": "Ecobalyse"
+}

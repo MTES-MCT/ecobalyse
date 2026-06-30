@@ -1,0 +1,56 @@
+{
+  "activityName": "Quinoa FR, conventional, at plant {FR} U",
+  "categories": [
+    "ingredient",
+    "material"
+  ],
+  "displayName": "Quinoa FR FR",
+  "id": "5340e279-7507-4cbd-b0c5-18831bd4123d",
+  "metadata": [
+    {
+      "alias": "quinoa-fr-fr",
+      "cropGroup": "AUTRES CEREALES",
+      "defaultOrigin": "France",
+      "displayName": "Quinoa FR FR",
+      "id": "4d294e00-1bf0-41e8-b8d8-44ce161c52ff",
+      "inediblePart": 0,
+      "ingredientCategories": [
+        "grain_processed"
+      ],
+      "ingredientDensity": 0.75,
+      "rawToCookedRatio": 1.0,
+      "scenario": "reference",
+      "scopes": [
+        "food",
+        "food2"
+      ],
+      "transportCooling": "none",
+      "visible": true
+    },
+    {
+      "alias": "quinoa-fr-eu",
+      "cropGroup": "AUTRES CEREALES",
+      "defaultOrigin": "EuropeAndMaghreb",
+      "displayName": "Quinoa FR UE",
+      "id": "d05cdb7d-e733-4585-94fc-7af92654d2da",
+      "inediblePart": 0,
+      "ingredientCategories": [
+        "grain_processed"
+      ],
+      "ingredientDensity": 0.75,
+      "rawToCookedRatio": 1.0,
+      "scenario": "import",
+      "scopes": [
+        "food",
+        "food2"
+      ],
+      "transportCooling": "none",
+      "visible": true
+    }
+  ],
+  "scopes": [
+    "food",
+    "food2"
+  ],
+  "source": "Agribalyse 3.2"
+}

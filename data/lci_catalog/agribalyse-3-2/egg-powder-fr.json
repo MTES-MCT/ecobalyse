@@ -1,0 +1,36 @@
+{
+  "activityName": "Egg, powder, at plant {FR} U",
+  "categories": [
+    "ingredient",
+    "material"
+  ],
+  "displayName": "Œufs en poudre FR",
+  "id": "8ac23dbd-bc8c-4f18-b0cb-5079aa6ed506",
+  "metadata": [
+    {
+      "alias": "egg-powder-fr",
+      "cropGroup": null,
+      "defaultOrigin": "France",
+      "displayName": "Œufs en poudre FR",
+      "id": "ad10f728-55be-4e3f-b022-aad5cba354e0",
+      "inediblePart": 0,
+      "ingredientCategories": [
+        "animal_product"
+      ],
+      "ingredientDensity": 0.225,
+      "rawToCookedRatio": 1.0,
+      "scenario": "reference",
+      "scopes": [
+        "food",
+        "food2"
+      ],
+      "transportCooling": "always",
+      "visible": true
+    }
+  ],
+  "scopes": [
+    "food",
+    "food2"
+  ],
+  "source": "Agribalyse 3.2"
+}

@@ -1,0 +1,36 @@
+{
+  "activityName": "Pineapple, peeled, at processing {FR} U [pineapple-default] {{pineapple-peeled-default}}",
+  "categories": [
+    "ingredient",
+    "material"
+  ],
+  "displayName": "Ananas pelés Origine Inconnue",
+  "id": "9b7ccc92-a061-4644-8605-5aacdaae35f7",
+  "metadata": [
+    {
+      "alias": "pineapple-peeled-default",
+      "cropGroup": "ARBORICULTURE",
+      "defaultOrigin": "OutOfEuropeAndMaghreb",
+      "displayName": "Ananas pelés Origine Inconnue",
+      "id": "bce52a5a-7787-49e0-966a-926e8118c166",
+      "inediblePart": 0,
+      "ingredientCategories": [
+        "vegetable_processed"
+      ],
+      "ingredientDensity": 0.95,
+      "rawToCookedRatio": 1.0,
+      "scenario": "import",
+      "scopes": [
+        "food",
+        "food2"
+      ],
+      "transportCooling": "always",
+      "visible": true
+    }
+  ],
+  "scopes": [
+    "food",
+    "food2"
+  ],
+  "source": "Ecobalyse"
+}

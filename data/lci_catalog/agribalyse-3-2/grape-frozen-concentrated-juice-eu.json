@@ -1,0 +1,56 @@
+{
+  "activityName": "Frozen concentrated grape juice, at processing {IT} U",
+  "categories": [
+    "ingredient",
+    "material"
+  ],
+  "displayName": "Jus de raisin concentré congelé UE",
+  "id": "0f608bc1-f956-41d6-b34d-47ceddb28d04",
+  "metadata": [
+    {
+      "alias": "grape-frozen-concentrated-juice-eu",
+      "cropGroup": "VIGNES",
+      "defaultOrigin": "EuropeAndMaghreb",
+      "displayName": "Jus de raisin concentré congelé UE",
+      "id": "8a51e4e6-5e72-4076-be39-4b5d6ee1a07c",
+      "inediblePart": 0,
+      "ingredientCategories": [
+        "vegetable_processed"
+      ],
+      "ingredientDensity": 1.054,
+      "rawToCookedRatio": 1.0,
+      "scenario": "import",
+      "scopes": [
+        "food",
+        "food2"
+      ],
+      "transportCooling": "always",
+      "visible": true
+    },
+    {
+      "alias": "grape-frozen-concentrated-juice-default",
+      "cropGroup": "VIGNES",
+      "defaultOrigin": "OutOfEuropeAndMaghreb",
+      "displayName": "Jus de raisin concentré congelé Origine Inconnue",
+      "id": "3e4ecdd6-6c6b-424b-a745-f097d731233a",
+      "inediblePart": 0,
+      "ingredientCategories": [
+        "vegetable_processed"
+      ],
+      "ingredientDensity": 1.054,
+      "rawToCookedRatio": 1.0,
+      "scenario": "import",
+      "scopes": [
+        "food",
+        "food2"
+      ],
+      "transportCooling": "always",
+      "visible": true
+    }
+  ],
+  "scopes": [
+    "food",
+    "food2"
+  ],
+  "source": "Agribalyse 3.2"
+}

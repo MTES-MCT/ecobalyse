@@ -1,0 +1,37 @@
+{
+  "activityName": "Chick peas, canned {FR} U [pea-with-pod-organic] {{pea-with-pod-chickpea-canned-organic}}",
+  "categories": [
+    "ingredient",
+    "material"
+  ],
+  "displayName": "Pois chiches, en conserve Bio",
+  "id": "3a8dd23e-3cc6-4fb3-a228-b9019a6d455a",
+  "metadata": [
+    {
+      "alias": "pea-with-pod-chickpea-canned-organic",
+      "cropGroup": "LEGUMINEUSES A GRAIN",
+      "defaultOrigin": "France",
+      "displayName": "Pois chiches, en conserve Bio",
+      "id": "c4a5aca4-318a-4bef-a852-36011f240ec9",
+      "inediblePart": 0,
+      "ingredientCategories": [
+        "animal_product",
+        "organic"
+      ],
+      "ingredientDensity": 1.05,
+      "rawToCookedRatio": 1.0,
+      "scenario": "organic",
+      "scopes": [
+        "food",
+        "food2"
+      ],
+      "transportCooling": "none",
+      "visible": true
+    }
+  ],
+  "scopes": [
+    "food",
+    "food2"
+  ],
+  "source": "Ecobalyse"
+}

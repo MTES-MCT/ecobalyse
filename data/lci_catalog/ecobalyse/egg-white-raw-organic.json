@@ -1,0 +1,37 @@
+{
+  "activityName": "Egg white, raw, at plant {FR} U [egg-organic] {{egg-white-raw-organic}}",
+  "categories": [
+    "ingredient",
+    "material"
+  ],
+  "displayName": "Blanc d'oeufs, cru Bio",
+  "id": "3dc46cc0-0616-4e89-a113-91697e1d76de",
+  "metadata": [
+    {
+      "alias": "egg-white-raw-organic",
+      "cropGroup": null,
+      "defaultOrigin": "France",
+      "displayName": "Blanc d'oeufs, cru Bio",
+      "id": "5d387ad3-bd4b-4c44-a2be-feee6831d614",
+      "inediblePart": 0,
+      "ingredientCategories": [
+        "animal_product",
+        "organic"
+      ],
+      "ingredientDensity": 1.05,
+      "rawToCookedRatio": 1.0,
+      "scenario": "organic",
+      "scopes": [
+        "food",
+        "food2"
+      ],
+      "transportCooling": "always",
+      "visible": true
+    }
+  ],
+  "scopes": [
+    "food",
+    "food2"
+  ],
+  "source": "Ecobalyse"
+}

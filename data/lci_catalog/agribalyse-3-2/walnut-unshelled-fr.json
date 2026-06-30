@@ -1,0 +1,56 @@
+{
+  "activityName": "Walnuts, unshelled, at processing {FR} U",
+  "categories": [
+    "ingredient",
+    "material"
+  ],
+  "displayName": "Noix décortiquées FR",
+  "id": "43576102-055f-4d94-8647-9f7a15e0c461",
+  "metadata": [
+    {
+      "alias": "walnut-unshelled-fr",
+      "cropGroup": "FRUITS A COQUES",
+      "defaultOrigin": "France",
+      "displayName": "Noix décortiquées FR",
+      "id": "3be14d38-3dc6-4c2f-97e3-748f62b03aad",
+      "inediblePart": 0,
+      "ingredientCategories": [
+        "nut_oilseed_processed"
+      ],
+      "ingredientDensity": 0.5,
+      "rawToCookedRatio": 1.0,
+      "scenario": "reference",
+      "scopes": [
+        "food",
+        "food2"
+      ],
+      "transportCooling": "none",
+      "visible": true
+    },
+    {
+      "alias": "walnut-unshelled-eu",
+      "cropGroup": "FRUITS A COQUES",
+      "defaultOrigin": "EuropeAndMaghreb",
+      "displayName": "Noix décortiquées UE",
+      "id": "4aed5ff9-bb23-4c72-a30b-9e180e77fd06",
+      "inediblePart": 0,
+      "ingredientCategories": [
+        "nut_oilseed_processed"
+      ],
+      "ingredientDensity": 0.5,
+      "rawToCookedRatio": 1.0,
+      "scenario": "import",
+      "scopes": [
+        "food",
+        "food2"
+      ],
+      "transportCooling": "none",
+      "visible": true
+    }
+  ],
+  "scopes": [
+    "food",
+    "food2"
+  ],
+  "source": "Agribalyse 3.2"
+}

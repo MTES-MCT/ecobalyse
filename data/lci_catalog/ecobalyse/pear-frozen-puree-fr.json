@@ -1,0 +1,36 @@
+{
+  "activityName": "Frozen pear puree, at processing {BE} U [pear-fr] {{pear-frozen-puree-fr}}",
+  "categories": [
+    "ingredient",
+    "material"
+  ],
+  "displayName": "purée de poire congelée FR",
+  "id": "b3c84a95-b460-4b6f-b61f-de6b3561f609",
+  "metadata": [
+    {
+      "alias": "pear-frozen-puree-fr",
+      "cropGroup": "VERGERS",
+      "defaultOrigin": "France",
+      "displayName": "purée de poire congelée FR",
+      "id": "f405cebf-9998-47b4-9c3b-b92b4fe76cf5",
+      "inediblePart": 0,
+      "ingredientCategories": [
+        "vegetable_processed"
+      ],
+      "ingredientDensity": 0.95,
+      "rawToCookedRatio": 1.0,
+      "scenario": "reference",
+      "scopes": [
+        "food",
+        "food2"
+      ],
+      "transportCooling": "always",
+      "visible": true
+    }
+  ],
+  "scopes": [
+    "food",
+    "food2"
+  ],
+  "source": "Ecobalyse"
+}

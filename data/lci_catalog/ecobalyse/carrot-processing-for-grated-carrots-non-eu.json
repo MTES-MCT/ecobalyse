@@ -1,0 +1,36 @@
+{
+  "activityName": "Carrot, processing for grated carrots at plant {FR} U [carrot-non-eu] {{carrot-processing-for-grated-carrots-non-eu}}",
+  "categories": [
+    "ingredient",
+    "material"
+  ],
+  "displayName": "Carotte, transformation pour carottes râpées HORS UE",
+  "id": "de2038cf-9eae-46a1-a5ed-7ba3e56226bc",
+  "metadata": [
+    {
+      "alias": "carrot-processing-for-grated-carrots-non-eu",
+      "cropGroup": "LEGUMES-FLEURS",
+      "defaultOrigin": "OutOfEuropeAndMaghreb",
+      "displayName": "Carotte, transformation pour carottes râpées HORS UE",
+      "id": "1b235ed6-4fc6-4c8e-97c0-1d7b1fb761e4",
+      "inediblePart": 0,
+      "ingredientCategories": [
+        "vegetable_processed"
+      ],
+      "ingredientDensity": 0.9,
+      "rawToCookedRatio": 1.0,
+      "scenario": "import",
+      "scopes": [
+        "food",
+        "food2"
+      ],
+      "transportCooling": "always",
+      "visible": true
+    }
+  ],
+  "scopes": [
+    "food",
+    "food2"
+  ],
+  "source": "Ecobalyse"
+}

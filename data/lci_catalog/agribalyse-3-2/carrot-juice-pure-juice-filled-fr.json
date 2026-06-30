@@ -1,0 +1,36 @@
+{
+  "activityName": "Carrot juice, pure juice, filled, at plant {FR} U",
+  "categories": [
+    "ingredient",
+    "material"
+  ],
+  "displayName": "Jus de carottes, jus pur, rempli FR",
+  "id": "31bd49c8-72f0-443c-ba7e-8276f2fef193",
+  "metadata": [
+    {
+      "alias": "carrot-juice-pure-juice-filled-fr",
+      "cropGroup": "LEGUMES-FLEURS",
+      "defaultOrigin": "France",
+      "displayName": "Jus de carottes, jus pur, rempli FR",
+      "id": "8c21d57a-8ed1-4921-bdae-07e6c9e6154c",
+      "inediblePart": 0,
+      "ingredientCategories": [
+        "vegetable_processed"
+      ],
+      "ingredientDensity": 0.9,
+      "rawToCookedRatio": 1.0,
+      "scenario": "reference",
+      "scopes": [
+        "food",
+        "food2"
+      ],
+      "transportCooling": "always",
+      "visible": true
+    }
+  ],
+  "scopes": [
+    "food",
+    "food2"
+  ],
+  "source": "Agribalyse 3.2"
+}

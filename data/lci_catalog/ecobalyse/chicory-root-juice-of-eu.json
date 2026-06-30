@@ -1,0 +1,36 @@
+{
+  "activityName": "Juice of chicory, at processing {FR} U [chicory-root-eu] {{chicory-root-juice-of-eu}}",
+  "categories": [
+    "ingredient",
+    "material"
+  ],
+  "displayName": "Jus de chicorée UE",
+  "id": "12b70e57-b618-4d48-a2f4-266354e49b56",
+  "metadata": [
+    {
+      "alias": "chicory-root-juice-of-eu",
+      "cropGroup": "AUTRES CULTURES INDUSTRIELLES",
+      "defaultOrigin": "EuropeAndMaghreb",
+      "displayName": "Jus de chicorée UE",
+      "id": "6073b6b8-61bc-459b-ace7-d7c1aafed28b",
+      "inediblePart": 0,
+      "ingredientCategories": [
+        "vegetable_processed"
+      ],
+      "ingredientDensity": 0.9,
+      "rawToCookedRatio": 1.0,
+      "scenario": "import",
+      "scopes": [
+        "food",
+        "food2"
+      ],
+      "transportCooling": "always",
+      "visible": true
+    }
+  ],
+  "scopes": [
+    "food",
+    "food2"
+  ],
+  "source": "Ecobalyse"
+}

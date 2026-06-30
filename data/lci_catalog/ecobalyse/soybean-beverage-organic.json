@@ -1,0 +1,37 @@
+{
+  "activityName": "Soybean beverage, at plant {FR} U [soybean-organic] {{soybean-beverage-organic}}",
+  "categories": [
+    "ingredient",
+    "material"
+  ],
+  "displayName": "Boissons de soja Bio",
+  "id": "330fc05e-c2ee-491f-8138-8d1f45514bcf",
+  "metadata": [
+    {
+      "alias": "soybean-beverage-organic",
+      "cropGroup": "AUTRES OLEAGINEUX",
+      "defaultOrigin": "France",
+      "displayName": "Boissons de soja Bio",
+      "id": "afaca316-2e9a-4194-9d0f-67055f0d3655",
+      "inediblePart": 0,
+      "ingredientCategories": [
+        "nut_oilseed_processed",
+        "organic"
+      ],
+      "ingredientDensity": 0.74,
+      "rawToCookedRatio": 1.0,
+      "scenario": "organic",
+      "scopes": [
+        "food",
+        "food2"
+      ],
+      "transportCooling": "none",
+      "visible": true
+    }
+  ],
+  "scopes": [
+    "food",
+    "food2"
+  ],
+  "source": "Ecobalyse"
+}

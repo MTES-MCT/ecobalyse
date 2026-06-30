@@ -1,0 +1,36 @@
+{
+  "activityName": "Egg yolk, powder, at plant {FR} U [egg-default] {{egg-yolk-powder-default}}",
+  "categories": [
+    "ingredient",
+    "material"
+  ],
+  "displayName": "Jaune d'œuf, poudre Origine Inconnue",
+  "id": "775d4aa6-8ca9-4dce-9692-367734f1b6ad",
+  "metadata": [
+    {
+      "alias": "egg-yolk-powder-default",
+      "cropGroup": null,
+      "defaultOrigin": "OutOfEuropeAndMaghreb",
+      "displayName": "Jaune d'œuf, poudre Origine Inconnue",
+      "id": "13e54c03-2b61-498a-a729-8577d3401b11",
+      "inediblePart": 0,
+      "ingredientCategories": [
+        "animal_product"
+      ],
+      "ingredientDensity": 1.05,
+      "rawToCookedRatio": 1.0,
+      "scenario": "import",
+      "scopes": [
+        "food",
+        "food2"
+      ],
+      "transportCooling": "always",
+      "visible": true
+    }
+  ],
+  "scopes": [
+    "food",
+    "food2"
+  ],
+  "source": "Ecobalyse"
+}

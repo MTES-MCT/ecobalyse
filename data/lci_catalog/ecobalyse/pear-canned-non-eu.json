@@ -1,0 +1,36 @@
+{
+  "activityName": "Pear, canned {FR} U [pear-non-eu] {{pear-canned-non-eu}}",
+  "categories": [
+    "ingredient",
+    "material"
+  ],
+  "displayName": "Poire, en conserve HORS UE",
+  "id": "b527fcdf-29c9-47c7-9cdb-1d2440378205",
+  "metadata": [
+    {
+      "alias": "pear-canned-non-eu",
+      "cropGroup": "VERGERS",
+      "defaultOrigin": "OutOfEuropeAndMaghreb",
+      "displayName": "Poire, en conserve HORS UE",
+      "id": "1d31a642-1321-4b70-a912-b49b9d5ce91d",
+      "inediblePart": 0,
+      "ingredientCategories": [
+        "vegetable_processed"
+      ],
+      "ingredientDensity": 0.95,
+      "rawToCookedRatio": 1.0,
+      "scenario": "import",
+      "scopes": [
+        "food",
+        "food2"
+      ],
+      "transportCooling": "none",
+      "visible": true
+    }
+  ],
+  "scopes": [
+    "food",
+    "food2"
+  ],
+  "source": "Ecobalyse"
+}

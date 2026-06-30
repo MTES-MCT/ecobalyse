@@ -1,0 +1,36 @@
+{
+  "activityName": "Apricot, pitted, dried, at processing {FR} U [apricot-default] {{apricot-pitted-dried-default}}",
+  "categories": [
+    "ingredient",
+    "material"
+  ],
+  "displayName": "Abricot, piqué, séché Origine Inconnue",
+  "id": "1e9cd59e-0f06-4e98-9c4a-6a06082ddedb",
+  "metadata": [
+    {
+      "alias": "apricot-pitted-dried-default",
+      "cropGroup": "VERGERS",
+      "defaultOrigin": "OutOfEuropeAndMaghreb",
+      "displayName": "Abricot, piqué, séché Origine Inconnue",
+      "id": "4b64738d-1593-4d0e-90c2-a8bab8347e1b",
+      "inediblePart": 0,
+      "ingredientCategories": [
+        "vegetable_processed"
+      ],
+      "ingredientDensity": 0.9,
+      "rawToCookedRatio": 1.0,
+      "scenario": "import",
+      "scopes": [
+        "food",
+        "food2"
+      ],
+      "transportCooling": "none",
+      "visible": true
+    }
+  ],
+  "scopes": [
+    "food",
+    "food2"
+  ],
+  "source": "Ecobalyse"
+}

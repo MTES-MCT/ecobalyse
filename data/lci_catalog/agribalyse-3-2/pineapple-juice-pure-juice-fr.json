@@ -1,0 +1,56 @@
+{
+  "activityName": "Pineapple juice, pure juice, at plant {CR} U",
+  "categories": [
+    "ingredient",
+    "material"
+  ],
+  "displayName": "Jus d'ananas, jus pur FR",
+  "id": "25d2ade1-88d2-4979-890e-b0aa80291c36",
+  "metadata": [
+    {
+      "alias": "pineapple-juice-pure-juice-fr",
+      "cropGroup": "ARBORICULTURE",
+      "defaultOrigin": "France",
+      "displayName": "Jus d'ananas, jus pur FR",
+      "id": "5d6b05dc-a40f-41a9-a87f-8bb85d628df5",
+      "inediblePart": 0,
+      "ingredientCategories": [
+        "vegetable_processed"
+      ],
+      "ingredientDensity": 0.95,
+      "rawToCookedRatio": 1.0,
+      "scenario": "reference",
+      "scopes": [
+        "food",
+        "food2"
+      ],
+      "transportCooling": "always",
+      "visible": true
+    },
+    {
+      "alias": "pineapple-juice-pure-juice-non-eu",
+      "cropGroup": "ARBORICULTURE",
+      "defaultOrigin": "OutOfEuropeAndMaghreb",
+      "displayName": "Jus d'ananas, jus pur HORS UE",
+      "id": "150cf45e-479b-44db-bfc5-a2b28de017d6",
+      "inediblePart": 0,
+      "ingredientCategories": [
+        "vegetable_processed"
+      ],
+      "ingredientDensity": 0.95,
+      "rawToCookedRatio": 1.0,
+      "scenario": "import",
+      "scopes": [
+        "food",
+        "food2"
+      ],
+      "transportCooling": "always",
+      "visible": true
+    }
+  ],
+  "scopes": [
+    "food",
+    "food2"
+  ],
+  "source": "Agribalyse 3.2"
+}

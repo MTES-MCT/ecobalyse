@@ -1,0 +1,36 @@
+{
+  "activityName": "Onion, frozen, raw, at processing {FR} U [onion-default] {{onion-frozen-raw-default}}",
+  "categories": [
+    "ingredient",
+    "material"
+  ],
+  "displayName": "Oignon, congelé, cru Origine Inconnue",
+  "id": "770ccdf3-6c08-4024-8617-868d57ec3513",
+  "metadata": [
+    {
+      "alias": "onion-frozen-raw-default",
+      "cropGroup": "LEGUMES-FLEURS",
+      "defaultOrigin": "OutOfEuropeAndMaghreb",
+      "displayName": "Oignon, congelé, cru Origine Inconnue",
+      "id": "180e6434-f3fb-4f7c-85da-ced3820b9e3d",
+      "inediblePart": 0,
+      "ingredientCategories": [
+        "vegetable_processed"
+      ],
+      "ingredientDensity": 1.0,
+      "rawToCookedRatio": 1.0,
+      "scenario": "import",
+      "scopes": [
+        "food",
+        "food2"
+      ],
+      "transportCooling": "always",
+      "visible": true
+    }
+  ],
+  "scopes": [
+    "food",
+    "food2"
+  ],
+  "source": "Ecobalyse"
+}
