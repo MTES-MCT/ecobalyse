@@ -6570,30 +6570,6 @@
     "unit": "kg"
   },
   {
-    "activityName": "Linseed seed, at farm {CH}| linseed seed production, at farm | Cut-off, U - Adapted from Ecoinvent U",
-    "categories": [
-      "ingredient",
-      "material",
-      "material_type:other_food_items"
-    ],
-    "comment": "AGRIBALYSE v3.2 dataset, 2024.\noriginal ecoinvent name: Linseed seed, at farm {CH}| linseed seed production, at farm | Cut-off, U\n\nThis dataset represents the production of 1 kg of linseed seed (fresh matter) at farm. The Yield_ is 3113 kg/ha at a moisture content at storage of 6%. \n\nThis process is identical to the ecoinvent process 'rape seed production, Swiss integrated production, intensive' which is used as a proxy for linseed seed production at farm. This dataset refers to an average situation; for specific situations exchanges might differ substantially due to site specific parameters\n\nProduction volume: 16470.7578125 kg\nIncluded activities start: This activity starts after the harvest of the previous crop. The inputs of seeds, mineral fertilisers and pesticides are considered. Farm manure as an organic fertiliser is only accounted for in terms of direct field emissions; all pre-processes are included in the animal production systems.\nIncluded activities end: The dataset includes all machine operations and corresponding machine infrastructure and sheds. Machine operations are: soil cultivation, sowing, fertilisation, weed control, pest and pathogen control, combine-harvest, transport from field to regional processing centre (10 km) and drying of seeds. Further, direct field emissions are included. This activity ends after drying of seeds at the regional processing centre.\nEnergy values: Undefined\nGeography: The inventory is modelled for Switzerland\nTechnology level: Current\nTechnology: Integrated production\nStart date: 01/01/1996\nEnd date: 31/12/2022\nIs data valid for entire period: True\nTime period: Time period referring to the data source: 1996-2003. Based on expert opinion data is considered to be valid at least up to 2012.\nMacro-economic scenario name: Business-as-Usual\n\nVersion: 5.3.0.0\nCreated: 5/30/2016 11:12:22 AM\nLast edited: 12/20/2022 4:10:33 PM\nSource: 46754e4b-6306-5d04-b5ae-504b41601d94_8f9224c9-e27d-4426-aaea-6ecbe5d91059.spold\nUUID: 46754e4b-6306-5d04-b5ae-504b41601d94",
-    "displayName": "Linseed seed, at farm (CH)",
-    "elecMJ": 0,
-    "heatMJ": 0,
-    "id": "c57af799-f9ad-55ea-a010-7c35f1997f6c",
-    "impacts": {
-      "ecs": 115.5
-    },
-    "location": "CH",
-    "massPerUnit": null,
-    "qtyVariationRatio": 1.0,
-    "scopes": [
-      "food"
-    ],
-    "source": "Agribalyse 3.2",
-    "unit": "kg"
-  },
-  {
     "activityName": "Linseed {RoW}| linseed production | Cut-off, U - Adapted from Ecoinvent U",
     "categories": [
       "ingredient",
