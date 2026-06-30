@@ -115,7 +115,6 @@ class Complements(EcoModel):
 class IngredientMetadata(EcoModel):
     base_ingredient: str
     crop_group: Optional[str] = None
-    default_origin: str
     density: float
     inedible_part: float
     raw_to_cooked_ratio: float
@@ -128,6 +127,7 @@ class ProcessGenericMetadata(EcoModel):
     forest_management: Optional[ForestManagement] = None
     complements: Optional[Complements] = None
     ingredient: Optional[IngredientMetadata] = None
+    default_origin: Optional[str] = None
 
 
 class ProcessGeneric(EcoModel):

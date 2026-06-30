@@ -11,7 +11,7 @@
     "impacts": {
       "acd": 0,
       "cch": 0,
-      "ecs": 103.08,
+      "ecs": 103.1,
       "etf": 0,
       "etf-c": 0,
       "fru": 0,
@@ -56,7 +56,7 @@
     "impacts": {
       "acd": 0,
       "cch": 0,
-      "ecs": 102.58,
+      "ecs": 102.6,
       "etf": 0,
       "etf-c": 0,
       "fru": 0,
@@ -86,9 +86,9 @@
         "permanentPasture": null,
         "plotSize": -0.625
       },
+      "defaultOrigin": "FR",
       "ingredient": {
         "cropGroup": "AUTRES CEREALES",
-        "defaultOrigin": "France",
         "density": 1.0,
         "inediblePart": 0,
         "processId": "af42fc20-e3ec-5b99-9b9c-83ba6735e597",
@@ -119,7 +119,7 @@
     "impacts": {
       "acd": 0,
       "cch": 0,
-      "ecs": 102.58,
+      "ecs": 102.6,
       "etf": 0,
       "etf-c": 0,
       "fru": 0,
@@ -149,9 +149,9 @@
         "permanentPasture": null,
         "plotSize": -0.625
       },
+      "defaultOrigin": "FR",
       "ingredient": {
         "cropGroup": "PRAIRIES PERMANENTES",
-        "defaultOrigin": "France",
         "density": 1.0,
         "inediblePart": 0,
         "processId": "af42fc20-e3ec-5b99-9b9c-83ba6735e597",
@@ -180,7 +180,7 @@
     "impacts": {
       "acd": 0,
       "cch": 0,
-      "ecs": 102.58,
+      "ecs": 102.6,
       "etf": 0,
       "etf-c": 0,
       "fru": 0,
@@ -199,7 +199,7 @@
       "tre": 0,
       "wtu": 0
     },
-    "landOccupation": 1.3911,
+    "landOccupation": 1.391,
     "location": "GLO",
     "massPerUnit": null,
     "metadata": {
@@ -210,9 +210,9 @@
         "permanentPasture": 0,
         "plotSize": -0.625
       },
+      "defaultOrigin": "FR",
       "ingredient": {
         "cropGroup": null,
-        "defaultOrigin": "France",
         "density": 1.0,
         "inediblePart": 0,
         "processId": "af42fc20-e3ec-5b99-9b9c-83ba6735e597",
@@ -239,7 +239,7 @@
     "impacts": {
       "acd": 0,
       "cch": 0,
-      "ecs": 31.765,
+      "ecs": 31.77,
       "etf": 0,
       "etf-c": 0,
       "fru": 0,
@@ -282,7 +282,7 @@
     "impacts": {
       "acd": 0,
       "cch": 0,
-      "ecs": 31.765,
+      "ecs": 31.77,
       "etf": 0,
       "etf-c": 0,
       "fru": 0,

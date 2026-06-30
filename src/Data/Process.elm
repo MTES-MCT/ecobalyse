@@ -11,6 +11,7 @@ module Data.Process exposing
     , encode
     , encodeId
     , findById
+    , getDefaultOrigin
     , getDisplayName
     , getImpact
     , getMaterialTypes
@@ -25,6 +26,7 @@ module Data.Process exposing
     )
 
 import Data.Common.DecodeUtils as DU
+import Data.Country.Code as CountryCode
 import Data.Impact as Impact exposing (Impacts)
 import Data.Impact.Definition as Definition
 import Data.Process.Category as Category exposing (Category)
@@ -97,6 +99,11 @@ decodeFromId : List Process -> Decoder Process
 decodeFromId processes =
     Uuid.decoder
         |> Decode.andThen (Id >> (\id -> findById id processes) >> DE.fromResult)
+
+
+getDefaultOrigin : Process -> Maybe CountryCode.Code
+getDefaultOrigin =
+    .metadata >> Maybe.andThen .defaultOrigin
 
 
 getImpact : Definition.Trigram -> Process -> Unit.Impact

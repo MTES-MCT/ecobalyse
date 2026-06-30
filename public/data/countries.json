@@ -37,7 +37,7 @@
     "electricityProcessId": "5ee392cf-954e-56c8-b555-427d55023548",
     "heatProcessId": "f6ea2983-e024-5de2-b323-273f2436deba",
     "name": "Région - Europe et Maghreb",
-    "scopes": ["food"],
+    "scopes": ["food", "food2"],
     "zone": "Europe"
   },
   {

@@ -1,7 +1,7 @@
 module Data.Textile.SimulatorTest exposing (..)
 
 import Data.Component as Component
-import Data.Country as Country
+import Data.Country.Code as CountryCode
 import Data.Db exposing (Db)
 import Data.Impact as Impact
 import Data.Impact.Definition as Definition
@@ -173,7 +173,7 @@ suite =
                 , suiteFromResult "should be full for products not coming from Europe or Turkey"
                     tShirtCotonFrance
                     (\query ->
-                        [ { query | countryMaking = Just (Country.Code "CN") }
+                        [ { query | countryMaking = Just CountryCode.china }
                             |> computeWithDefaultComponentConfig db
                             |> Result.map (.lifeCycle >> LifeCycle.getStageProp Label.Making .airTransportRatio Split.half)
                             |> Expect.equal (Ok Split.full)
@@ -189,7 +189,7 @@ suite =
                                     | numberOfReferences = Just 10
                                     , price = Just <| Economics.priceFromFloat 100
                                     , physicalDurability = Just <| Unit.physicalDurability 1.1
-                                    , countryMaking = Just (Country.Code "CN")
+                                    , countryMaking = Just CountryCode.china
                                 }
                         in
                         [ tShirtCotonWithSmallerPhysicalDurabilityCn
@@ -203,7 +203,7 @@ suite =
                     tShirtCotonFrance
                     (\query ->
                         [ { query
-                            | countryMaking = Just (Country.Code "CN")
+                            | countryMaking = Just CountryCode.china
                             , airTransportRatio = Just Split.two
                           }
                             |> computeWithDefaultComponentConfig db

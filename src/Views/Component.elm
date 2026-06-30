@@ -30,6 +30,7 @@ import Data.Component as Component
 import Data.Component.Amount as Amount exposing (Amount)
 import Data.Component.Config as Config
 import Data.Country as Country exposing (Country)
+import Data.Country.Code as CountryCode
 import Data.Impact as Impact exposing (Impacts)
 import Data.Impact.Definition as Definition exposing (Definition)
 import Data.Process as Process exposing (Process)
@@ -86,12 +87,12 @@ type alias Config db msg =
     , title : String
     , toggleTransportByAir : Split -> msg
     , toggleTransportCooling : Bool -> msg
-    , updateAssemblyCountry : Maybe Country.Code -> msg
+    , updateAssemblyCountry : Maybe CountryCode.Code -> msg
     , updateConsumptionAmount : Index -> Maybe Amount -> msg
     , updateDistribution : Result String Process.Id -> msg
     , updateElementAmount : TargetElement -> Maybe Amount -> msg
-    , updateElementMaterialCountry : TargetElement -> Maybe Country.Code -> msg
-    , updateElementTransformCountry : TargetElement -> Index -> Maybe Country.Code -> msg
+    , updateElementMaterialCountry : TargetElement -> Maybe CountryCode.Code -> msg
+    , updateElementTransformCountry : TargetElement -> Index -> Maybe CountryCode.Code -> msg
     , updateItemName : TargetItem -> String -> msg
     , updateItemQuantity : Index -> Quantity -> msg
     , updatePackagingAmount : Index -> Maybe Amount -> msg
@@ -794,8 +795,8 @@ type alias CountrySelector msg =
     { countries : List Country
     , domId : String
     , scope : Scope
-    , select : Maybe Country.Code -> msg
-    , selected : Maybe Country.Code
+    , select : Maybe CountryCode.Code -> msg
+    , selected : Maybe CountryCode.Code
     }
 
 
@@ -810,7 +811,7 @@ countrySelector config =
             (\( name, maybeCode ) ->
                 option
                     [ maybeCode
-                        |> Maybe.map Country.codeToString
+                        |> Maybe.map CountryCode.toString
                         |> Maybe.withDefault ""
                         |> value
                     , selected <| config.selected == maybeCode
@@ -828,7 +829,7 @@ countrySelector config =
                             Nothing
 
                         else
-                            Just <| Country.codeFromString str
+                            Just <| CountryCode.fromString str
             ]
 
 
@@ -1263,8 +1264,8 @@ type alias RegionSelector msg =
     { countries : List Country
     , domId : String
     , scope : Scope
-    , select : Maybe Country.Code -> msg
-    , selected : Maybe Country.Code
+    , select : Maybe CountryCode.Code -> msg
+    , selected : Maybe CountryCode.Code
     }
 
 
@@ -1283,7 +1284,7 @@ regionSelector config =
             (\( name, maybeCode ) ->
                 option
                     [ maybeCode
-                        |> Maybe.map Country.codeToString
+                        |> Maybe.map CountryCode.toString
                         |> Maybe.withDefault ""
                         |> value
                     , selected <| config.selected == maybeCode
@@ -1291,7 +1292,7 @@ regionSelector config =
                     [ text <|
                         case maybeCode of
                             Just code ->
-                                name ++ " (" ++ Country.codeToString code ++ ")"
+                                name ++ " (" ++ CountryCode.toString code ++ ")"
 
                             Nothing ->
                                 "---"
@@ -1319,7 +1320,7 @@ regionSelector config =
                             Nothing
 
                         else
-                            Just <| Country.codeFromString str
+                            Just <| CountryCode.fromString str
             ]
 
 
