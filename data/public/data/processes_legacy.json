@@ -24939,21 +24939,21 @@
     "unit": "kg"
   },
   {
-    "activityName": "Coffee, green beans (Arabica), at farm, organic 2025 {IN}",
+    "activityName": "Coffee, green bean, organic 2025 {RoW}| coffee green bean production, robusta | Cut-off, U",
     "categories": [
       "ingredient",
       "material",
       "material_type:other_food_items"
     ],
-    "comment": "This dataset has been extrapolated from the dataset Coffee, green beans (Arabica), at farm {IN} - Adapted from WFLDB U from the database WFLDB and version 3.5.\nFor further information, please consult the ADEME report \"Construction of LCIs for organic agricultural products based on extrapolations of conventional LCIs for the French food market and environmental labelling\"",
+    "comment": "This dataset has been extrapolated from the dataset Coffee, green bean {RoW}| coffee green bean production, robusta | Cut-off, U - Copied from Ecoinvent U from the database Ecoinvent and version 3.9.1.\nFor further information, please consult the ADEME report \"Construction of LCIs for organic agricultural products based on extrapolations of conventional LCIs for the French food market and environmental labelling\"",
     "displayName": "Café en grains Bio",
     "elecKwh": 0,
     "heatMJ": 0,
     "id": "b65f4908-1bee-5174-96e5-552d478f91f9",
     "impacts": {
-      "ecs": 2913.0
+      "ecs": 956.5
     },
-    "location": "IN",
+    "location": "RoW",
     "massPerUnit": null,
     "qtyVariationRatio": 1.0,
     "scopes": [
@@ -25194,30 +25194,6 @@
       "ecs": 131.2
     },
     "location": "IT",
-    "massPerUnit": null,
-    "qtyVariationRatio": 1.0,
-    "scopes": [
-      "food"
-    ],
-    "source": "Ginko 2025",
-    "unit": "kg"
-  },
-  {
-    "activityName": "Grapefruit for juice, organic 2025, at farm gate {US} U",
-    "categories": [
-      "ingredient",
-      "material",
-      "material_type:fruits_and_vegetables"
-    ],
-    "comment": "This dataset has been extrapolated from the dataset Grapefruit for juice, conventional, at farm gate {US} U.\nFor further information, please consult the ADEME report \"Construction of LCIs for organic agricultural products based on extrapolations of conventional LCIs for the French food market and environmental labelling\"",
-    "displayName": "Pamplemousse Bio",
-    "elecKwh": 0,
-    "heatMJ": 0,
-    "id": "bb01ed48-da3e-52a9-89f7-c24a0e62260e",
-    "impacts": {
-      "ecs": 299.1
-    },
-    "location": "US",
     "massPerUnit": null,
     "qtyVariationRatio": 1.0,
     "scopes": [
@@ -25683,6 +25659,30 @@
     "unit": "kg"
   },
   {
+    "activityName": "Orange, fresh grade, at farm, organic 2025 {ES}",
+    "categories": [
+      "ingredient",
+      "material",
+      "material_type:fruits_and_vegetables"
+    ],
+    "comment": "This dataset has been extrapolated from the dataset Orange, fresh grade, at farm {ES} - Adapted from WFLDB U from the database WFLDB and version 3.5.\nFor further information, please consult the ADEME report \"Construction of LCIs for organic agricultural products based on extrapolations of conventional LCIs for the French food market and environmental labelling\"",
+    "displayName": "Oranges Bio",
+    "elecKwh": 0,
+    "heatMJ": 0,
+    "id": "079d1538-6ca3-5dc7-9587-457d5ecc7b12",
+    "impacts": {
+      "ecs": 79.87
+    },
+    "location": "ES",
+    "massPerUnit": null,
+    "qtyVariationRatio": 1.0,
+    "scopes": [
+      "food"
+    ],
+    "source": "Ginko 2025",
+    "unit": "kg"
+  },
+  {
     "activityName": "Orange, fresh grade, organic 2025 {ES}| orange production, fresh grade | Cut-off, U",
     "categories": [
       "ingredient",
@@ -25698,30 +25698,6 @@
       "ecs": 79.55
     },
     "location": "ES",
-    "massPerUnit": null,
-    "qtyVariationRatio": 1.0,
-    "scopes": [
-      "food"
-    ],
-    "source": "Ginko 2025",
-    "unit": "kg"
-  },
-  {
-    "activityName": "Orange, processing grade, at farm, organic 2025 {BR}",
-    "categories": [
-      "ingredient",
-      "material",
-      "material_type:fruits_and_vegetables"
-    ],
-    "comment": "This dataset has been extrapolated from the dataset Orange, processing grade, at farm {BR} - Adapted from WFLDB U from the database WFLDB and version 3.5.\nFor further information, please consult the ADEME report \"Construction of LCIs for organic agricultural products based on extrapolations of conventional LCIs for the French food market and environmental labelling\"",
-    "displayName": "Oranges Bio",
-    "elecKwh": 0,
-    "heatMJ": 0,
-    "id": "079d1538-6ca3-5dc7-9587-457d5ecc7b12",
-    "impacts": {
-      "ecs": 19.09
-    },
-    "location": "BR",
     "massPerUnit": null,
     "qtyVariationRatio": 1.0,
     "scopes": [
@@ -26451,54 +26427,6 @@
     "unit": "kg"
   },
   {
-    "activityName": "Tomato, cherry, consumption mix, organic 2025 {FR} U",
-    "categories": [
-      "ingredient",
-      "material",
-      "material_type:fruits_and_vegetables"
-    ],
-    "comment": "This dataset has been extrapolated from the dataset Tomato, cherry, consumption mix {FR} U.\nFor further information, please consult the ADEME report \"Construction of LCIs for organic agricultural products based on extrapolations of conventional LCIs for the French food market and environmental labelling\"",
-    "displayName": "Tomates cerises Bio",
-    "elecKwh": 0,
-    "heatMJ": 0,
-    "id": "1c06d328-cbf8-5c9c-8063-612d7cf6e79e",
-    "impacts": {
-      "ecs": 20.99
-    },
-    "location": "FR",
-    "massPerUnit": null,
-    "qtyVariationRatio": 1.0,
-    "scopes": [
-      "food"
-    ],
-    "source": "Ginko 2025",
-    "unit": "kg"
-  },
-  {
-    "activityName": "Tomato, fresh grade, organic 2025 {ES}| tomato production, fresh grade, in unheated greenhouse | Cut-off, U",
-    "categories": [
-      "ingredient",
-      "material",
-      "material_type:fruits_and_vegetables"
-    ],
-    "comment": "This dataset has been extrapolated from the dataset Tomato, fresh grade {ES}| tomato production, fresh grade, in unheated greenhouse | Cut-off, U - Copied from Ecoinvent U from the database Ecoinvent and version 3.9.1.\nFor further information, please consult the ADEME report \"Construction of LCIs for organic agricultural products based on extrapolations of conventional LCIs for the French food market and environmental labelling\"",
-    "displayName": "Tomate Bio",
-    "elecKwh": 0,
-    "heatMJ": 0,
-    "id": "d3b61da5-dbdb-5aa0-8808-de0268c451fd",
-    "impacts": {
-      "ecs": 62.11
-    },
-    "location": "ES",
-    "massPerUnit": null,
-    "qtyVariationRatio": 1.0,
-    "scopes": [
-      "food"
-    ],
-    "source": "Ginko 2025",
-    "unit": "kg"
-  },
-  {
     "activityName": "Tomato, medium size, organic 2025, soil based, non-heated greenhouse, at greenhouse {FR} U",
     "categories": [
       "ingredient",
@@ -26506,10 +26434,10 @@
       "material_type:fruits_and_vegetables"
     ],
     "comment": "This dataset has been extrapolated from the dataset Tomato, medium size, conventional, soil based, non-heated greenhouse, at greenhouse {FR} U from the database Ecoinvent and version 3.9.1.\nFor further information, please consult the ADEME report \"Construction of LCIs for organic agricultural products based on extrapolations of conventional LCIs for the French food market and environmental labelling\"",
-    "displayName": "Concombre Bio",
+    "displayName": "Tomate Bio",
     "elecKwh": 0,
     "heatMJ": 0,
-    "id": "e380bbca-fd05-596d-bf05-41c2ea008984",
+    "id": "d3b61da5-dbdb-5aa0-8808-de0268c451fd",
     "impacts": {
       "ecs": 18.57
     },

@@ -1,5 +1,5 @@
 {
-  "activityName": "Coffee, green beans (Arabica), at farm, organic 2025 {IN}",
+  "activityName": "Coffee, green bean, organic 2025 {RoW}| coffee green bean production, robusta | Cut-off, U",
   "categories": [
     "ingredient",
     "material",
@@ -7,7 +7,7 @@
   ],
   "displayName": "Café en grains Bio",
   "id": "b65f4908-1bee-5174-96e5-552d478f91f9",
-  "location": "IN",
+  "location": "RoW",
   "metadata": [
     {
       "alias": "coffee-bean-organic",
