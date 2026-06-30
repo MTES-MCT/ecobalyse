@@ -1,120 +1,6 @@
 [
   {
     "category": "",
-    "id": "78dfebcb-9eab-4f83-a260-5c5dd24d4fac",
-    "name": "Table 4p chêne et acier (250 x 100)",
-    "query": {
-      "components": [
-        {
-          "id": "ad9d7f23-076b-49c5-93a4-ee1cd7b53973",
-          "quantity": 4
-        },
-        {
-          "id": "260bdfe2-1bef-4fd6-bf68-6e6174686d0d",
-          "quantity": 1
-        }
-      ]
-    },
-    "scope": "object"
-  },
-  {
-    "category": "",
-    "id": "ce3c8c63-aef7-4090-bbab-479e826fe4b9",
-    "name": "Boite plastique 45L (Chine)",
-    "query": {
-      "assemblyCountry": "CN",
-      "components": [
-        {
-          "id": "10e199b6-7e5f-47d9-bc85-9959c4e9ee62",
-          "quantity": 1,
-          "custom": {
-            "elements": [
-              {
-                "amount": 1.26,
-                "material": {
-                  "country": "CN",
-                  "id": "01d21ed5-9fc6-4d36-a0ea-cfea8035385b"
-                },
-                "transforms": [
-                  {
-                    "country": "CN",
-                    "id": "85b74ce2-2cbc-4d73-a5a2-5c5ffde16319"
-                  }
-                ]
-              }
-            ]
-          }
-        }
-      ]
-    },
-    "scope": "object"
-  },
-  {
-    "category": "",
-    "id": "6ab8769d-24d9-4990-8f00-ae1b5823946e",
-    "name": "Boite plastique 45L (France)",
-    "query": {
-      "assemblyCountry": "FR",
-      "components": [
-        {
-          "id": "10e199b6-7e5f-47d9-bc85-9959c4e9ee62",
-          "quantity": 1,
-          "custom": {
-            "elements": [
-              {
-                "amount": 1.26,
-                "material": {
-                  "country": "FR",
-                  "id": "01d21ed5-9fc6-4d36-a0ea-cfea8035385b"
-                },
-                "transforms": [
-                  {
-                    "country": "FR",
-                    "id": "85b74ce2-2cbc-4d73-a5a2-5c5ffde16319"
-                  }
-                ]
-              }
-            ]
-          }
-        }
-      ]
-    },
-    "scope": "object"
-  },
-  {
-    "category": "",
-    "id": "ebbff4dc-e52d-42e7-916b-ac191605b474",
-    "name": "Lot de 3 boîtes plastiques PP 45L",
-    "query": {
-      "components": [
-        {
-          "id": "10e199b6-7e5f-47d9-bc85-9959c4e9ee62",
-          "quantity": 3
-        }
-      ]
-    },
-    "scope": "object"
-  },
-  {
-    "category": "",
-    "id": "ffea421b-03b4-42f1-bf39-f17362d23cb0",
-    "name": "Jardinière d'extérieur en bois (séchage bois au four)",
-    "query": {
-      "components": [
-        {
-          "id": "6ff284b4-976d-4cf4-a4be-164f1c46ede2",
-          "quantity": 1
-        },
-        {
-          "id": "c5d86519-e56a-4ad7-aada-d4f7fffd5628",
-          "quantity": 1
-        }
-      ]
-    },
-    "scope": "object"
-  },
-  {
-    "category": "",
     "id": "141eea6d-5ebb-434b-9b02-da99db1d0a28",
     "name": "Jardinière d'extérieur en bois (séchage bois en extérieur)",
     "query": {
@@ -140,6 +26,56 @@
         {
           "id": "f27f7f37-5165-49b8-9f41-36d4f15a9170",
           "quantity": 2
+        }
+      ]
+    },
+    "scope": "object"
+  },
+  {
+    "category": "",
+    "id": "6ab8769d-24d9-4990-8f00-ae1b5823946e",
+    "name": "Boite plastique 45L (France)",
+    "query": {
+      "assemblyCountry": "FR",
+      "components": [
+        {
+          "custom": {
+            "elements": [
+              {
+                "amount": 1.26,
+                "material": {
+                  "country": "FR",
+                  "id": "01d21ed5-9fc6-4d36-a0ea-cfea8035385b"
+                },
+                "transforms": [
+                  {
+                    "country": "FR",
+                    "id": "85b74ce2-2cbc-4d73-a5a2-5c5ffde16319"
+                  }
+                ]
+              }
+            ]
+          },
+          "id": "10e199b6-7e5f-47d9-bc85-9959c4e9ee62",
+          "quantity": 1
+        }
+      ]
+    },
+    "scope": "object"
+  },
+  {
+    "category": "",
+    "id": "78dfebcb-9eab-4f83-a260-5c5dd24d4fac",
+    "name": "Table 4p chêne et acier (250 x 100)",
+    "query": {
+      "components": [
+        {
+          "id": "ad9d7f23-076b-49c5-93a4-ee1cd7b53973",
+          "quantity": 4
+        },
+        {
+          "id": "260bdfe2-1bef-4fd6-bf68-6e6174686d0d",
+          "quantity": 1
         }
       ]
     },
@@ -202,8 +138,9 @@
                 "amount": 0.2,
                 "material": "ac028973-5dfa-47bc-868c-e49be116f53e",
                 "transforms": [
-                "ea284007-49a8-4be1-95fc-452ea180285a",
-                "7319ac9c-5796-412f-a1eb-58e01afa7708"]
+                  "ea284007-49a8-4be1-95fc-452ea180285a",
+                  "7319ac9c-5796-412f-a1eb-58e01afa7708"
+                ]
               }
             ],
             "name": "Charnières en acier"
@@ -230,6 +167,70 @@
         {
           "id": "53dc3966-c0c5-4ce2-86da-74583fda95ae",
           "quantity": 15
+        }
+      ]
+    },
+    "scope": "object"
+  },
+  {
+    "category": "",
+    "id": "ce3c8c63-aef7-4090-bbab-479e826fe4b9",
+    "name": "Boite plastique 45L (Chine)",
+    "query": {
+      "assemblyCountry": "CN",
+      "components": [
+        {
+          "custom": {
+            "elements": [
+              {
+                "amount": 1.26,
+                "material": {
+                  "country": "CN",
+                  "id": "01d21ed5-9fc6-4d36-a0ea-cfea8035385b"
+                },
+                "transforms": [
+                  {
+                    "country": "CN",
+                    "id": "85b74ce2-2cbc-4d73-a5a2-5c5ffde16319"
+                  }
+                ]
+              }
+            ]
+          },
+          "id": "10e199b6-7e5f-47d9-bc85-9959c4e9ee62",
+          "quantity": 1
+        }
+      ]
+    },
+    "scope": "object"
+  },
+  {
+    "category": "",
+    "id": "ebbff4dc-e52d-42e7-916b-ac191605b474",
+    "name": "Lot de 3 boîtes plastiques PP 45L",
+    "query": {
+      "components": [
+        {
+          "id": "10e199b6-7e5f-47d9-bc85-9959c4e9ee62",
+          "quantity": 3
+        }
+      ]
+    },
+    "scope": "object"
+  },
+  {
+    "category": "",
+    "id": "ffea421b-03b4-42f1-bf39-f17362d23cb0",
+    "name": "Jardinière d'extérieur en bois (séchage bois au four)",
+    "query": {
+      "components": [
+        {
+          "id": "6ff284b4-976d-4cf4-a4be-164f1c46ede2",
+          "quantity": 1
+        },
+        {
+          "id": "c5d86519-e56a-4ad7-aada-d4f7fffd5628",
+          "quantity": 1
         }
       ]
     },
