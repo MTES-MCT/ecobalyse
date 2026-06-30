@@ -5,7 +5,7 @@
   ],
   "comment": "Energy consumptions based on Ecobalyse litterature review with an average scenario hypothesis. Wastes are based on French technical institue FCBA.",
   "displayName": "Panneaux, HDF (transformation)",
-  "elecMJ": 1764,
+  "elecKwh": 490.0,
   "heatMJ": 3600,
   "id": "72440595-10c6-5f79-83d8-f0204613c46c",
   "impacts": {

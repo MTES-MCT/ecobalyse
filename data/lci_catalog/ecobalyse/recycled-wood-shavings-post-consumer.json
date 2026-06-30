@@ -6,7 +6,7 @@
   ],
   "comment": "Average density from softwood (490kg/m3)and hardwood (640kg/m3) species",
   "displayName": "Bois recyclé (copeaux), post-consommation",
-  "elecMJ": 0,
+  "elecKwh": 0.0,
   "heatMJ": 0,
   "id": "16d436ab-7a90-4b91-b268-85befecb7d6d",
   "massPerUnit": 565,

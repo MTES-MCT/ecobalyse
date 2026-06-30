@@ -5,7 +5,7 @@
   ],
   "comment": "",
   "displayName": "Electricité moyenne tension, Allemagne",
-  "elecMJ": 0,
+  "elecKwh": 0.0,
   "heatMJ": 0,
   "id": "c16e7089-e58e-5721-a9b3-aae889103ab6",
   "metadata": [

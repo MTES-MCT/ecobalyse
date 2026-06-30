@@ -550,7 +550,7 @@ encode v =
         , ( "deadstock", Encode.float (Mass.inKilograms v.deadstock) )
         , ( "durability", Unit.encodeNonPhysicalDurability v.durability )
         , ( "editable", Encode.bool v.editable )
-        , ( "elecKWh", Encode.float (Energy.inKilowattHours v.kwh) )
+        , ( "elecKwh", Encode.float (Energy.inKilowattHours v.kwh) )
         , ( "enabled", Encode.bool v.enabled )
         , ( "heatMJ", Encode.float (Energy.inMegajoules v.heat) )
         , ( "impacts", v.impacts |> Complement.applyComplementsToImpacts (Complement.getTotalComplementsImpacts v.complementsImpacts) |> Impact.encode )
@@ -573,7 +573,7 @@ encode v =
 encodePreTreatments : PreTreatments -> Encode.Value
 encodePreTreatments v =
     Encode.object
-        [ ( "elecKWh", Encode.float (Energy.inKilowattHours v.kwh) )
+        [ ( "elecKwh", Encode.float (Energy.inKilowattHours v.kwh) )
         , ( "heatMJ", Encode.float (Energy.inMegajoules v.heat) )
         , ( "energy", Impact.encode v.energy )
         , ( "impacts", Impact.sumImpacts [ v.energy, v.toxicity ] |> Impact.encode )
