@@ -390,8 +390,8 @@ suite =
                           }
                             |> Recipe.compute db
                             |> Result.map (firstIngredientDistance .sea)
-                            |> Expect.equal (Ok (Just <| 8315))
-                            |> asTest "should have 8315 boat transport for overseas France ('ROF')"
+                            |> Expect.equal (Ok (Just <| 6970))
+                            |> asTest "should have 6970 boat transport for overseas France ('ROF')"
                         , { ingredients =
                                 [ { id = eggId
                                   , mass = Mass.grams 120
@@ -438,7 +438,7 @@ suite =
                           }
                             |> Recipe.compute db
                             |> Result.map (firstIngredientDistance .air)
-                            |> Expect.equal (Ok (Just 8189))
+                            |> Expect.equal (Ok (Just 8598))
                             |> asTest "should always have air transport for mango even from other countries if 'planeTransport' is 'byPlane'"
                         , { ingredients = [ { mango | country = Just (Country.codeFromString "CN"), planeTransport = Ingredient.NoPlane } ]
                           , transform = Nothing
@@ -458,8 +458,8 @@ suite =
                           }
                             |> Recipe.compute db
                             |> Result.map (firstIngredientDistance .roadCooled)
-                            |> Expect.equal (Ok (Just (160 + 500 + 2000)))
-                            |> asTest "should always have the full 2000 km of road transport for Europe and Maghreb"
+                            |> Expect.equal (Ok (Just 1320))
+                            |> asTest "should have the computed road transport for Europe and Maghreb ('REM')"
                         ]
                     ]
 
