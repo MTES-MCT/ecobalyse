@@ -484,7 +484,7 @@
     "visible": true
   },
   {
-    "activityName": "Coffee, green beans (Arabica), at farm, organic 2025 {IN}",
+    "activityName": "Coffee, green bean, organic 2025 {RoW}| coffee green bean production, robusta | Cut-off, U",
     "alias": "coffee-bean-organic",
     "baseIngredient": "coffee-bean",
     "categories": [
@@ -495,15 +495,15 @@
     "defaultOrigin": "France",
     "density": 0.8,
     "ecosystemicServices": {
-      "cropDiversity": 9.17,
-      "hedges": 71.5,
+      "cropDiversity": 6.19,
+      "hedges": 48.3,
       "permanentPasture": null,
-      "plotSize": 58.5
+      "plotSize": 39.5
     },
     "id": "02b7f1bd-56ea-5243-8c22-baa8c6d6052e",
     "inediblePart": 0.2,
-    "landOccupation": 13.15,
-    "location": "IN",
+    "landOccupation": 8.883,
+    "location": "RoW",
     "name": "Café en grains Bio",
     "processId": "b65f4908-1bee-5174-96e5-552d478f91f9",
     "rawToCookedRatio": 1.0,
