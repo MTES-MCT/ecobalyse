@@ -17,6 +17,7 @@ module Data.Textile.Inputs exposing
 import Data.Common.EncodeUtils as EU
 import Data.Component as Component exposing (Item)
 import Data.Country as Country exposing (Country)
+import Data.Db exposing (Db)
 import Data.Impact as Impact
 import Data.Process as Process
 import Data.Split as Split exposing (Split)
@@ -38,7 +39,6 @@ import Json.Encode as Encode
 import Mass exposing (Mass)
 import Quantity
 import Result.Extra as RE
-import Static.Db exposing (Db)
 import Views.Format as Format
 
 

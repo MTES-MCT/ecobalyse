@@ -13,16 +13,14 @@
     {
       "id": "b87b7c27-6d51-4890-bc41-604586feda5e",
       "scopes": [
-        "object",
-        "veli"
+        "object"
       ]
     }
   ],
   "qtyVariationRatio": 1,
   "scopes": [
     "textile",
-    "object",
-    "veli"
+    "object"
   ],
   "source": "Ecoinvent 3.9.1",
   "unit": "kg"
