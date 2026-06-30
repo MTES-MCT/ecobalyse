@@ -24939,21 +24939,21 @@
     "unit": "kg"
   },
   {
-    "activityName": "Coffee, green beans (Arabica), at farm, organic 2025 {IN}",
+    "activityName": "Coffee, green bean, organic 2025 {RoW}| coffee green bean production, robusta | Cut-off, U",
     "categories": [
       "ingredient",
       "material",
       "material_type:other_food_items"
     ],
-    "comment": "This dataset has been extrapolated from the dataset Coffee, green beans (Arabica), at farm {IN} - Adapted from WFLDB U from the database WFLDB and version 3.5.\nFor further information, please consult the ADEME report \"Construction of LCIs for organic agricultural products based on extrapolations of conventional LCIs for the French food market and environmental labelling\"",
+    "comment": "This dataset has been extrapolated from the dataset Coffee, green bean {RoW}| coffee green bean production, robusta | Cut-off, U - Copied from Ecoinvent U from the database Ecoinvent and version 3.9.1.\nFor further information, please consult the ADEME report \"Construction of LCIs for organic agricultural products based on extrapolations of conventional LCIs for the French food market and environmental labelling\"",
     "displayName": "Café en grains Bio",
     "elecMJ": 0,
     "heatMJ": 0,
     "id": "b65f4908-1bee-5174-96e5-552d478f91f9",
     "impacts": {
-      "ecs": 2913.0
+      "ecs": 956.5
     },
-    "location": "IN",
+    "location": "RoW",
     "massPerUnit": null,
     "qtyVariationRatio": 1.0,
     "scopes": [
