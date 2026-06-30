@@ -6570,30 +6570,6 @@
     "unit": "kg"
   },
   {
-    "activityName": "Linseed seed, at farm {CH}| linseed seed production, at farm | Cut-off, U - Adapted from Ecoinvent U",
-    "categories": [
-      "ingredient",
-      "material",
-      "material_type:other_food_items"
-    ],
-    "comment": "AGRIBALYSE v3.2 dataset, 2024.\noriginal ecoinvent name: Linseed seed, at farm {CH}| linseed seed production, at farm | Cut-off, U\n\nThis dataset represents the production of 1 kg of linseed seed (fresh matter) at farm. The Yield_ is 3113 kg/ha at a moisture content at storage of 6%. \n\nThis process is identical to the ecoinvent process 'rape seed production, Swiss integrated production, intensive' which is used as a proxy for linseed seed production at farm. This dataset refers to an average situation; for specific situations exchanges might differ substantially due to site specific parameters\n\nProduction volume: 16470.7578125 kg\nIncluded activities start: This activity starts after the harvest of the previous crop. The inputs of seeds, mineral fertilisers and pesticides are considered. Farm manure as an organic fertiliser is only accounted for in terms of direct field emissions; all pre-processes are included in the animal production systems.\nIncluded activities end: The dataset includes all machine operations and corresponding machine infrastructure and sheds. Machine operations are: soil cultivation, sowing, fertilisation, weed control, pest and pathogen control, combine-harvest, transport from field to regional processing centre (10 km) and drying of seeds. Further, direct field emissions are included. This activity ends after drying of seeds at the regional processing centre.\nEnergy values: Undefined\nGeography: The inventory is modelled for Switzerland\nTechnology level: Current\nTechnology: Integrated production\nStart date: 01/01/1996\nEnd date: 31/12/2022\nIs data valid for entire period: True\nTime period: Time period referring to the data source: 1996-2003. Based on expert opinion data is considered to be valid at least up to 2012.\nMacro-economic scenario name: Business-as-Usual\n\nVersion: 5.3.0.0\nCreated: 5/30/2016 11:12:22 AM\nLast edited: 12/20/2022 4:10:33 PM\nSource: 46754e4b-6306-5d04-b5ae-504b41601d94_8f9224c9-e27d-4426-aaea-6ecbe5d91059.spold\nUUID: 46754e4b-6306-5d04-b5ae-504b41601d94",
-    "displayName": "Linseed seed, at farm (CH)",
-    "elecMJ": 0,
-    "heatMJ": 0,
-    "id": "c57af799-f9ad-55ea-a010-7c35f1997f6c",
-    "impacts": {
-      "ecs": 115.5
-    },
-    "location": "CH",
-    "massPerUnit": null,
-    "qtyVariationRatio": 1.0,
-    "scopes": [
-      "food"
-    ],
-    "source": "Agribalyse 3.2",
-    "unit": "kg"
-  },
-  {
     "activityName": "Linseed {RoW}| linseed production | Cut-off, U - Adapted from Ecoinvent U",
     "categories": [
       "ingredient",
@@ -24939,21 +24915,21 @@
     "unit": "kg"
   },
   {
-    "activityName": "Coffee, green beans (Arabica), at farm, organic 2025 {IN}",
+    "activityName": "Coffee, green bean, organic 2025 {RoW}| coffee green bean production, robusta | Cut-off, U",
     "categories": [
       "ingredient",
       "material",
       "material_type:other_food_items"
     ],
-    "comment": "This dataset has been extrapolated from the dataset Coffee, green beans (Arabica), at farm {IN} - Adapted from WFLDB U from the database WFLDB and version 3.5.\nFor further information, please consult the ADEME report \"Construction of LCIs for organic agricultural products based on extrapolations of conventional LCIs for the French food market and environmental labelling\"",
+    "comment": "This dataset has been extrapolated from the dataset Coffee, green bean {RoW}| coffee green bean production, robusta | Cut-off, U - Copied from Ecoinvent U from the database Ecoinvent and version 3.9.1.\nFor further information, please consult the ADEME report \"Construction of LCIs for organic agricultural products based on extrapolations of conventional LCIs for the French food market and environmental labelling\"",
     "displayName": "Café en grains Bio",
     "elecMJ": 0,
     "heatMJ": 0,
     "id": "b65f4908-1bee-5174-96e5-552d478f91f9",
     "impacts": {
-      "ecs": 2913.0
+      "ecs": 956.5
     },
-    "location": "IN",
+    "location": "RoW",
     "massPerUnit": null,
     "qtyVariationRatio": 1.0,
     "scopes": [
@@ -25194,30 +25170,6 @@
       "ecs": 131.2
     },
     "location": "IT",
-    "massPerUnit": null,
-    "qtyVariationRatio": 1.0,
-    "scopes": [
-      "food"
-    ],
-    "source": "Ginko 2025",
-    "unit": "kg"
-  },
-  {
-    "activityName": "Grapefruit for juice, organic 2025, at farm gate {US} U",
-    "categories": [
-      "ingredient",
-      "material",
-      "material_type:fruits_and_vegetables"
-    ],
-    "comment": "This dataset has been extrapolated from the dataset Grapefruit for juice, conventional, at farm gate {US} U.\nFor further information, please consult the ADEME report \"Construction of LCIs for organic agricultural products based on extrapolations of conventional LCIs for the French food market and environmental labelling\"",
-    "displayName": "Pamplemousse Bio",
-    "elecMJ": 0,
-    "heatMJ": 0,
-    "id": "bb01ed48-da3e-52a9-89f7-c24a0e62260e",
-    "impacts": {
-      "ecs": 299.1
-    },
-    "location": "US",
     "massPerUnit": null,
     "qtyVariationRatio": 1.0,
     "scopes": [
@@ -25683,6 +25635,30 @@
     "unit": "kg"
   },
   {
+    "activityName": "Orange, fresh grade, at farm, organic 2025 {ES}",
+    "categories": [
+      "ingredient",
+      "material",
+      "material_type:fruits_and_vegetables"
+    ],
+    "comment": "This dataset has been extrapolated from the dataset Orange, fresh grade, at farm {ES} - Adapted from WFLDB U from the database WFLDB and version 3.5.\nFor further information, please consult the ADEME report \"Construction of LCIs for organic agricultural products based on extrapolations of conventional LCIs for the French food market and environmental labelling\"",
+    "displayName": "Oranges Bio",
+    "elecMJ": 0,
+    "heatMJ": 0,
+    "id": "079d1538-6ca3-5dc7-9587-457d5ecc7b12",
+    "impacts": {
+      "ecs": 79.87
+    },
+    "location": "ES",
+    "massPerUnit": null,
+    "qtyVariationRatio": 1.0,
+    "scopes": [
+      "food"
+    ],
+    "source": "Ginko 2025",
+    "unit": "kg"
+  },
+  {
     "activityName": "Orange, fresh grade, organic 2025 {ES}| orange production, fresh grade | Cut-off, U",
     "categories": [
       "ingredient",
@@ -25698,30 +25674,6 @@
       "ecs": 79.55
     },
     "location": "ES",
-    "massPerUnit": null,
-    "qtyVariationRatio": 1.0,
-    "scopes": [
-      "food"
-    ],
-    "source": "Ginko 2025",
-    "unit": "kg"
-  },
-  {
-    "activityName": "Orange, processing grade, at farm, organic 2025 {BR}",
-    "categories": [
-      "ingredient",
-      "material",
-      "material_type:fruits_and_vegetables"
-    ],
-    "comment": "This dataset has been extrapolated from the dataset Orange, processing grade, at farm {BR} - Adapted from WFLDB U from the database WFLDB and version 3.5.\nFor further information, please consult the ADEME report \"Construction of LCIs for organic agricultural products based on extrapolations of conventional LCIs for the French food market and environmental labelling\"",
-    "displayName": "Oranges Bio",
-    "elecMJ": 0,
-    "heatMJ": 0,
-    "id": "079d1538-6ca3-5dc7-9587-457d5ecc7b12",
-    "impacts": {
-      "ecs": 19.09
-    },
-    "location": "BR",
     "massPerUnit": null,
     "qtyVariationRatio": 1.0,
     "scopes": [
