@@ -90,16 +90,20 @@ def compute_es_for_ingredients(
     ecosystemic_factors,
     feed_file_content,
     raw_to_transformed,
+    processes_by_id,
 ) -> dict[str, dict]:
     es_for_ingredients = {}
     transformed_to_raw = build_transformed_to_raw(raw_to_transformed)
 
     metadata_by_alias = {}
+    process_by_alias = {}
     for activity in activities:
         for food_metadata in get_metadata_for_scope(activity, "food"):
             metadata_by_alias[food_metadata["alias"]] = food_metadata
+            process_by_alias[food_metadata["alias"]] = processes_by_id[activity["id"]]
 
     for activity in activities:
+        process_with_impact = processes_by_id[activity["id"]]
         for food_metadata in get_metadata_for_scope(activity, "food"):
             alias = food_metadata["alias"]
             if alias in es_for_ingredients:
@@ -112,7 +116,7 @@ def compute_es_for_ingredients(
                 for key in ["landOccupation", "cropGroup", "scenario"]
             ):
                 services = complements.compute_vegetal_ecosystemic_services(
-                    food_metadata, ecosystemic_factors
+                    food_metadata, ecosystemic_factors, process_with_impact
                 )
                 es_for_ingredients[alias] = services
 
@@ -139,6 +143,7 @@ def compute_es_for_ingredients(
                             complements.compute_vegetal_ecosystemic_services(
                                 metadata_by_alias[feed_activity_alias],
                                 ecosystemic_factors,
+                                process_by_alias[feed_activity_alias],
                             )
                         )
                         es_for_ingredients[feed_activity_alias] = feed_services
@@ -155,6 +160,7 @@ def compute_es_for_ingredients(
 
 def activities_to_ingredients_json(
     activities: List[dict],
+    processes_impacts_path,
     ingredients_paths: List[str],
     ecosystemic_factors_path: str,
     feed_file_path: str,
@@ -162,6 +168,10 @@ def activities_to_ingredients_json(
     cpu_count: int,
 ) -> List[dict]:
     ecosystemic_factors = load_ecosystemic_dic(ecosystemic_factors_path)
+
+    with open(processes_impacts_path, "r") as file:
+        processes_list = json.load(file)
+    processes_by_id = {p["id"]: p for p in processes_list}
 
     with open(feed_file_path, "r") as file:
         feed_file_content = json.load(file)
@@ -173,6 +183,7 @@ def activities_to_ingredients_json(
 
     ingredients = activities_to_ingredients(
         activities_with_land_occupation,
+        processes_by_id,
         ecosystemic_factors,
         feed_file_content,
         raw_to_transformed,
@@ -232,6 +243,7 @@ def add_land_occupations(activities: List[dict]) -> List[dict]:
 
 def activities_to_ingredients(
     activities: List[dict],
+    processes_by_id,
     ecosystemic_factors,
     feed_file_content,
     raw_to_transformed,
@@ -241,6 +253,7 @@ def activities_to_ingredients(
         ecosystemic_factors,
         feed_file_content,
         raw_to_transformed,
+        processes_by_id,
     )
 
     ingredients = []
