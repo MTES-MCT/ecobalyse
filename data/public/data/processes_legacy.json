@@ -22584,30 +22584,6 @@
     "unit": "kg"
   },
   {
-    "activityName": "Fava bean, feed, Swiss integrated production {RoW}| fava bean, feed production, Swiss integrated production | Cut-off, U",
-    "categories": [
-      "ingredient",
-      "material",
-      "material_type:fruits_and_vegetables"
-    ],
-    "comment": "This process is no longer part of the ecoinvent 3 database and will not be updated. Please, choose another process.\n\nThe inventory refers to 1 kg processed feedstuff (fresh weight).\n[This dataset was already contained in the ecoinvent database version 2. It was not individually updated during the transfer to ecoinvent version 3. Life Cycle Impact Assessment results may still have changed, as they are affected by changes in the supply chain, i.e. in other datasets. This dataset was generated following the ecoinvent quality guidelines for version 2. It may have been subject to central changes described in the ecoinvent version 3 change report (http://www.ecoinvent.org/database/ecoinvent-version-3/reports-of-changes/), and the results of the central updates were reviewed extensively. The changes added e.g. consistent water flows and other information throughout the database. The documentation of this dataset can be found in the ecoinvent reports of version 2, which are still available via the ecoinvent website. The change report linked above covers all central changes that were made during the conversion process.]\n\nProduction volume: 3.96633245776129 kg\nIncluded activities start: \nIncluded activities end: The inventory includes the transport of the raw materials to the feed processing centre, processing feedstuff (crushing or milling, heat treatment, dosing, mixing squeezing and pelleting) and the storage of the feed mixes. It also includes water use and wastewater treatment, the transformation and use of land related to the storage buildings. No process emissions were included except heat waste from the use of electricity. Packaging is not included.\nEnergy values: 0\nGeography: The inventory is modelled for Rest-of-World\nTechnology level: 3\nTechnology: Refers to feedstuff that is not expanded.\nStart date: 01/01/1996\nEnd date: 31/12/2018\nIs data valid for entire period: True\nTime period: Years of the publications of the main sources\nMacro-economic scenario name: Business-as-Usual\n\nVersion: 3.0.147.1\nCreated: 7/28/2010 6:04:29 PM\nLast edited: 2/25/2011 10:24:59 AM\nSource: 28456_f8e457fc-404b-49d9-97a8-b2baa2a1ba3f_7d2df8fd-e2c2-4b3a-9ecd-184b9276962f.spold\nUUID: f8e457fc-404b-49d9-97a8-b2baa2a1ba3f",
-    "displayName": "Haricots de Lima Origine Inconnue",
-    "elecKwh": 0,
-    "heatMJ": 0,
-    "id": "1a20c9ec-c513-5135-97c4-c25c73748257",
-    "impacts": {
-      "ecs": 52.27
-    },
-    "location": "RoW",
-    "massPerUnit": null,
-    "qtyVariationRatio": 1.0,
-    "scopes": [
-      "food"
-    ],
-    "source": "Ecoinvent 3.11",
-    "unit": "kg"
-  },
-  {
     "activityName": "Fibre, flax, long, scutched {RER}| fibre production, flax, scutching | Cut-off, U",
     "categories": [
       "material",
