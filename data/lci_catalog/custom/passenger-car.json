@@ -5,7 +5,7 @@
   ],
   "comment": "Données provenant de Base Impacts 2.01. Ancien identifiant (12/2024): 1ead35dd-fc71-4b0c-9410-7e39da95c7dc.",
   "displayName": "Transport en voiture jusqu'au point de collecte précalculé pour la fin de vie",
-  "elecMJ": 0,
+  "elecKwh": 0.0,
   "heatMJ": 0,
   "id": "2fd6b74f-600a-577c-ba37-b84d8f0482c2",
   "impacts": {

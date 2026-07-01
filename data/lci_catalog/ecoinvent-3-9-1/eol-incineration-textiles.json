@@ -7,7 +7,7 @@
   ],
   "comment": "",
   "displayName": "Incinération des textiles",
-  "elecMJ": 0,
+  "elecKwh": 0.0,
   "heatMJ": 0,
   "id": "ef781102-e9b6-4097-999c-7c988d80ba50",
   "metadata": [

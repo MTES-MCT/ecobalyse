@@ -26,7 +26,7 @@ class Process(UUIDAuditBase):
     comment: Mapped[str]
     mass_per_unit: Mapped[float] = mapped_column(Float, nullable=True, default=None)
     display_name: Mapped[Optional[str]]
-    elec_mj: Mapped[float] = mapped_column(Float, nullable=False, default=0)
+    elec_kwh: Mapped[float] = mapped_column(Float, nullable=False, default=0)
     heat_mj: Mapped[float] = mapped_column(Float, nullable=False, default=0)
 
     scopes: Mapped[list[Scope]] = mapped_column(

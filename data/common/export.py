@@ -36,7 +36,7 @@ def show_change(old: str, new: str) -> str:
 def get_changes(old, new, name, only_impacts=[], min_change=0.1, with_names=False):
     changes = []
     for trigram in new["impacts"]:
-        if trigram not in only_impacts:
+        if only_impacts and trigram not in only_impacts:
             continue
 
         if old["impacts"].get(trigram, {}):
@@ -205,10 +205,11 @@ def display_changes_from_json(
 
 
 def export_processes_to_dirs(
-    processes_aggregated_path,
+    processes_ecs_path,
     processes_impacts_path,
-    processes_aggregated_impacts,
+    processes_ecs_impacts,
     dirs,
+    full_impacts_relative_file_path,
     extra_data=None,
     extra_path=None,
     merge=False,
@@ -220,9 +221,7 @@ def export_processes_to_dirs(
         logger.info("")
         logger.info(f"-> Exporting to {dir}")
         processes_impacts_absolute_path = os.path.join(dir, processes_impacts_path)
-        processes_aggregated_absolute_path = os.path.join(
-            dir, processes_aggregated_path
-        )
+        processes_ecs_absolute_path = os.path.join(dir, processes_ecs_path)
 
         if extra_data is not None and extra_path is not None:
             extra_file = os.path.join(dir, extra_path)
@@ -230,10 +229,10 @@ def export_processes_to_dirs(
             exported_files.append(extra_file)
 
         # Export results
-        if type(processes_aggregated_impacts) is not list:
-            to_export = list(processes_aggregated_impacts.values())
+        if type(processes_ecs_impacts) is not list:
+            to_export = list(processes_ecs_impacts.values())
         else:
-            to_export = processes_aggregated_impacts
+            to_export = processes_ecs_impacts
 
         # If merge is true, we don't overwrite the existing file but merge the new processes with the existing ones
         if merge and scopes:
@@ -278,13 +277,11 @@ def export_processes_to_dirs(
         exported_files.append(processes_impacts_absolute_path)
 
         # Also update the aggregated file
-        export_json(
-            remove_detailed_impacts(filtered), processes_aggregated_absolute_path
-        )
-        exported_files.append(processes_aggregated_absolute_path)
+        export_json(remove_detailed_impacts(filtered), processes_ecs_absolute_path)
+        exported_files.append(processes_ecs_absolute_path)
 
     # Write unfiltered data to last dir (local) for generic export to read later
-    full_impacts_path = os.path.join(dirs[-1], "processes_impacts_full.json")
+    full_impacts_path = os.path.join(dirs[-1], full_impacts_relative_file_path)
     export_json(to_export, full_impacts_path)
 
     return exported_files

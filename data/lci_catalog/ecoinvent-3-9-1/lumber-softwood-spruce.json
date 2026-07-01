@@ -6,7 +6,7 @@
   ],
   "comment": "",
   "displayName": "Bois d'oeuvre (Résineux / Epicea)",
-  "elecMJ": 0,
+  "elecKwh": 0.0,
   "heatMJ": 0,
   "id": "857bd47a-62f2-5662-81b2-df286aa7973f",
   "massPerUnit": 430,

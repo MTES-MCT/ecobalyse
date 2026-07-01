@@ -25,6 +25,7 @@ type Category
     | MaterialType Material
     | Packaging
     | PackagingType PackagingType
+    | ProductMassDependent
     | TextileMaterial
     | Transform
     | Transport
@@ -119,6 +120,9 @@ fromString string =
 
         "packaging" ->
             Ok Packaging
+
+        "productmassdependent" ->
+            Ok ProductMassDependent
 
         "textile_material" ->
             Ok TextileMaterial
@@ -551,6 +555,9 @@ toString category =
         PackagingType packagingType ->
             "packaging_type:" ++ packagingTypeToString packagingType
 
+        ProductMassDependent ->
+            "productmassdependent"
+
         TextileMaterial ->
             "textile_material"
 
@@ -593,6 +600,9 @@ toLabel category =
 
         PackagingType packagingType ->
             "Type d’emballage:" ++ packagingTypeToLabel packagingType
+
+        ProductMassDependent ->
+            "Dépendant de la masse produit"
 
         TextileMaterial ->
             "Matériau textile"

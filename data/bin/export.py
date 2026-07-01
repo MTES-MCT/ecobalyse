@@ -49,12 +49,13 @@ def metadata(
     if verbose:
         logger.setLevel(logging.DEBUG)
 
-    dirs_to_export_to = [settings.output_dir]
-
-    if settings.LOCAL_EXPORT:
-        dirs_to_export_to.append(root_dir / "public" / "data")
-
+    # Metadata (materials/ingredients) is written both to the published dir and the local data dir
+    dirs_to_export_to = [settings.output_dir, root_dir / settings.local_dir]
     activities = _get_lcias(root_dir)
+
+    processes_impacts_path = (
+        root_dir / settings.local_dir / settings.processes_legacy_impacts_full_file
+    )
 
     for s in scopes:
         scope_dirname = settings.scopes.get(s.value).dirname
@@ -68,7 +69,6 @@ def metadata(
         raw_to_transformed_file_path = (
             es_files_path / settings.scopes.food.raw_to_transformed_ratios_file
         )
-
         if s == MetadataScope.textile:
             # Export textile materials
             activities_textile_materials = [
@@ -81,7 +81,10 @@ def metadata(
             export_textile.activities_to_materials_json(
                 activities_textile_materials,
                 materials_paths=[
-                    root_dir / dir / scope_dirname / "materials.json"
+                    root_dir
+                    / dir
+                    / scope_dirname
+                    / settings.scopes.textile.materials_file
                     for dir in dirs_to_export_to
                 ],
             )
@@ -95,12 +98,13 @@ def metadata(
                 and "ingredient" in a.get("categories", [])
             ]
             ingredients_paths = [
-                root_dir / dir / scope_dirname / "ingredients.json"
+                root_dir / dir / scope_dirname / settings.scopes.food.ingredients_file
                 for dir in dirs_to_export_to
             ]
 
             export_food.activities_to_ingredients_json(
                 activities_food_ingredients,
+                processes_impacts_path=processes_impacts_path,
                 ingredients_paths=ingredients_paths,
                 ecosystemic_factors_path=ecosystemic_factors_path,
                 feed_file_path=feed_file_path,
@@ -116,18 +120,14 @@ def metadata(
                 if GENERIC_SCOPES & set(activity["scopes"])
             ]
 
+            local_dir = root_dir / settings.local_dir
+
             export_generic.activities_to_processes_generic_json(
                 generic_activities,
-                processes_impacts_path=root_dir
-                / dirs_to_export_to[-1]  # last dir is local dir
-                / settings.processes_impacts_full_file,
-                aggregated_output_paths=[
-                    root_dir / dir / "processes_generic.json"
-                    for dir in dirs_to_export_to
-                ],
+                processes_impacts_path=processes_impacts_path,
+                ecs_output_paths=[local_dir / settings.processes_generic_ecs_file],
                 impacts_output_paths=[
-                    root_dir / dir / "processes_generic_impacts.json"
-                    for dir in dirs_to_export_to
+                    local_dir / settings.processes_generic_impacts_file
                 ],
                 cpu_count=cpu_count,
                 ecosystemic_factors_path=ecosystemic_factors_path,
@@ -137,7 +137,7 @@ def metadata(
 
 
 @app.command()
-def processes(
+def processes_legacy(
     scopes: Annotated[
         Optional[List[Scope]],
         typer.Option(help="The scope to export. If not specified, exports all scopes."),
@@ -165,15 +165,13 @@ def processes(
     if verbose:
         logger.setLevel(logging.DEBUG)
 
-    dirs_to_export_to = [settings.output_dir]
+    # export only to local data dir as its an intermediate file
+    dirs_to_export_to = [root_dir / settings.local_dir]
     should_plot = settings.plot_export
 
     # Override config if cli parameter is present
     if plot:
         should_plot = True
-
-    if settings.local_export:
-        dirs_to_export_to.append(root_dir / "public" / "data")
 
     activities = _get_lcias(root_dir)
 
@@ -188,8 +186,9 @@ def processes(
 
     export_process.activities_to_processes(
         activities=activities,
-        aggregated_relative_file_path=settings.processes_aggregated_file,
-        impacts_relative_file_path=settings.processes_impacts_file,
+        ecs_relative_file_path=settings.processes_legacy_ecs_file,
+        impacts_relative_file_path=settings.processes_legacy_impacts_file,
+        full_impacts_relative_file_path=settings.processes_legacy_impacts_full_file,
         dirs_to_export_to=dirs_to_export_to,
         plot=should_plot,
         graph_folder=graph_folder,
@@ -198,6 +197,26 @@ def processes(
         merge=merge,
         scopes=scopes,
     )
+
+
+@app.command()
+def merge_processes(
+    root_dir: Path = PROJECT_ROOT_DIR,
+):
+    """take legacy and generic processes from local_dir and merge them, put the merged file in public_dir"""
+    from common import remove_detailed_impacts
+    from common.export import export_json, load_json
+
+    local_dir = root_dir / settings.local_dir
+    impacts = load_json(local_dir / settings.processes_legacy_impacts_file)
+    generic_impacts = load_json(local_dir / settings.processes_generic_impacts_file)
+    merged = impacts + generic_impacts
+    merged_ecs = remove_detailed_impacts(merged)
+
+    public_dir = root_dir / settings.output_dir
+
+    export_json(merged, public_dir / settings.processes_merged_impacts_file)
+    export_json(merged_ecs, public_dir / settings.processes_merged_ecs_file)
 
 
 def _get_lcias(root_dir):

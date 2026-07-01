@@ -20,7 +20,8 @@ module Data.Transport exposing
     , totalKm
     )
 
-import Data.Country as Country exposing (Country)
+import Data.Country exposing (Country)
+import Data.Country.Code as CountryCode
 import Data.Impact as Impact exposing (Impacts)
 import Data.Process as Process exposing (Process)
 import Data.Split as Split exposing (Split)
@@ -35,11 +36,11 @@ import Quantity
 
 
 type alias Distance =
-    AnyDict String Country.Code Transport
+    AnyDict String CountryCode.Code Transport
 
 
 type alias Distances =
-    AnyDict String Country.Code Distance
+    AnyDict String CountryCode.Code Distance
 
 
 type alias ModeProcesses =
@@ -233,7 +234,7 @@ roadSeaTransportRatio { road, sea } =
 
 {-| Deprecated, usage should be gradually replaced with getTransportBetween
 -}
-getTransportBetweenLegacy : Impacts -> Country.Code -> Country.Code -> Distances -> Transport
+getTransportBetweenLegacy : Impacts -> CountryCode.Code -> CountryCode.Code -> Distances -> Transport
 getTransportBetweenLegacy impacts cA cB distances =
     case
         ( distances |> Dict.get cA |> Maybe.andThen (Dict.get cB)
@@ -270,9 +271,9 @@ getTransportBetween cA cB distances =
         ( Nothing, Nothing ) ->
             Err <|
                 "Distances not found between "
-                    ++ Country.codeToString cA.code
+                    ++ CountryCode.toString cA.code
                     ++ " to "
-                    ++ Country.codeToString cB.code
+                    ++ CountryCode.toString cB.code
 
 
 decodeKm : Decoder Length
@@ -315,8 +316,8 @@ decodeDistance : Decoder Distance
 decodeDistance =
     -- FIXME: Ideally we want to check for available country codes
     Dict.decode
-        (\str _ -> Country.codeFromString str)
-        Country.codeToString
+        (\str _ -> CountryCode.fromString str)
+        CountryCode.toString
         decode
 
 
@@ -324,8 +325,8 @@ decodeDistances : Decoder Distances
 decodeDistances =
     -- FIXME: Ideally we want to check for available country codes
     Dict.decode
-        (\str _ -> Country.codeFromString str)
-        Country.codeToString
+        (\str _ -> CountryCode.fromString str)
+        CountryCode.toString
         decodeDistance
 
 

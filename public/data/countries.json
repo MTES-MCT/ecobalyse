@@ -37,7 +37,7 @@
     "electricityProcessId": "5ee392cf-954e-56c8-b555-427d55023548",
     "heatProcessId": "f6ea2983-e024-5de2-b323-273f2436deba",
     "name": "Région - Europe et Maghreb",
-    "scopes": ["food"],
+    "scopes": ["food", "food2"],
     "zone": "Europe"
   },
   {
@@ -58,6 +58,16 @@
     "heatProcessId": "3561ace1-f710-50ce-a69c-9cf842e729e4",
     "name": "Région - Afrique",
     "scopes": ["textile", "object", "veli", "food", "food2"],
+    "zone": "Africa"
+  },
+  {
+    "aquaticPollutionScenario": "Average",
+    "code": "RMA",
+    "distanceToHub": 500,
+    "electricityProcessId": "a3197e15-9193-5212-8be9-77a3a9961d96",
+    "heatProcessId": "3561ace1-f710-50ce-a69c-9cf842e729e4",
+    "name": "Région - Maghreb",
+    "scopes": ["food2"],
     "zone": "Africa"
   },
   {
