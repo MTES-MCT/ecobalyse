@@ -81,8 +81,8 @@ def compute_vegetal_ecosystemic_services(
         factor_final = factor_landocc * FOOD_COMPLEMENTS_COEFFICIENTS[eco_service]
 
         # vegetal ecosystemic services are capped at 30% of the ecoscore impact
-        max_value = -0.3 * abs(process_with_impacts["impacts"]["ecs"])
-        final_value = max(factor_final, max_value)
+        min_value = -0.3 * abs(process_with_impacts["impacts"]["ecs"])
+        final_value = max(factor_final, min_value)
 
         services[eco_service] = number_format_ecosystemic_service(final_value)
 
