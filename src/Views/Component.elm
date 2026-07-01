@@ -539,6 +539,7 @@ lifeCycleView ({ db, docsUrl, explorerRoute, impact, query, scope, title } as co
                     [ div [ class "d-flex gap-2" ]
                         [ lifeCycle.transports.toAssembly.impacts
                             |> Format.formatImpact impact
+                        , smallDocumentationLink config "transport"
                         ]
                     ]
                 , assemblyView config
@@ -566,6 +567,22 @@ documentationLink { componentConfig, scope } section =
             Button.docsPillLink
                 [ class "bg-secondary"
                 , style "height" "24px"
+                , href docUrl
+                , Attr.title "Documentation"
+                , target "_blank"
+                ]
+                [ Icon.question ]
+
+        Nothing ->
+            text ""
+
+
+smallDocumentationLink : Config db msg -> String -> Html msg
+smallDocumentationLink { componentConfig, scope } section =
+    case Component.getDocLink componentConfig scope section of
+        Just docUrl ->
+            Button.smallPillLink
+                [ class "text-muted"
                 , href docUrl
                 , Attr.title "Documentation"
                 , target "_blank"
@@ -722,6 +739,7 @@ transportToDistributionView ({ componentConfig, impact, scope } as config) mass 
                 |> div [ class "d-flex gap-2" ]
             , transport.impacts
                 |> Format.formatImpact impact
+            , smallDocumentationLink config "transport"
             ]
         ]
 
