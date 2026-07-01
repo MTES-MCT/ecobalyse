@@ -1273,6 +1273,23 @@ suite =
                             )
                             (Expect.equal (Just CountryCode.china))
                         ]
+                    , describe "getDocLink"
+                        [ it "should retrieve a scoped documentation link"
+                            ("assembly"
+                                |> Component.getDocLink requirements.config (Scope.Generic Scope.Veli)
+                                |> Expect.equal (Just "http://docs.tld/veli/assembly")
+                            )
+                        , it "should fallback to a default documentation link when no scoped link exists"
+                            ("assembly"
+                                |> Component.getDocLink requirements.config (Scope.Generic Scope.Object)
+                                |> Expect.equal (Just "http://docs.tld/default/assembly")
+                            )
+                        , it "should retrieve Nothing when no doc link exists"
+                            ("invalid"
+                                |> Component.getDocLink requirements.config (Scope.Generic Scope.Object)
+                                |> Expect.equal Nothing
+                            )
+                        ]
                     , suiteFromResult "itemToComponent"
                         ("""{ "id": "64fa65b3-c2df-4fd0-958b-83965bd6aa08",
                               "quantity": 1,
@@ -1901,8 +1918,14 @@ testComponentConfig db =
                 }
             },
             "docLinks": {
-                "default": {},
-                "scoped": {}
+                "default": {
+                    "assembly": "http://docs.tld/default/assembly"
+                },
+                "scoped": {
+                    "veli": {
+                        "assembly": "http://docs.tld/veli/assembly"
+                    }
+                }
             },
             "durability": {
                 "enabled": {
