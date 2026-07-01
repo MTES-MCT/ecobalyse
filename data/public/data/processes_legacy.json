@@ -24531,30 +24531,6 @@
     "unit": "kg"
   },
   {
-    "activityName": "Banana, organic 2025 {RoW}| banana production | Cut-off, U",
-    "categories": [
-      "ingredient",
-      "material",
-      "material_type:fruits_and_vegetables"
-    ],
-    "comment": "This dataset has been extrapolated from the dataset Banana {RoW}| banana production | Cut-off, U - Adapted from Ecoinvent U from the database Ecoinvent and version 3.9.1.\nFor further information, please consult the ADEME report \"Construction of LCIs for organic agricultural products based on extrapolations of conventional LCIs for the French food market and environmental labelling\"",
-    "displayName": "Plantain Bio",
-    "elecKwh": 0,
-    "heatMJ": 0,
-    "id": "5ea7711a-26ed-5a0b-b64a-a204a0e59880",
-    "impacts": {
-      "ecs": 77.36
-    },
-    "location": "RoW",
-    "massPerUnit": null,
-    "qtyVariationRatio": 1.0,
-    "scopes": [
-      "food"
-    ],
-    "source": "Ginko 2025",
-    "unit": "kg"
-  },
-  {
     "activityName": "Beetroot for juice, organic 2025, at farm gate {FR} U",
     "categories": [
       "ingredient",
