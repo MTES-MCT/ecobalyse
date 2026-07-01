@@ -51,8 +51,11 @@ def metadata(
 
     # Metadata (materials/ingredients) is written both to the published dir and the local data dir
     dirs_to_export_to = [settings.output_dir, root_dir / settings.local_dir]
-
     activities = _get_lcias(root_dir)
+
+    processes_impacts_path = (
+        root_dir / settings.local_dir / settings.processes_legacy_impacts_full_file
+    )
 
     for s in scopes:
         scope_dirname = settings.scopes.get(s.value).dirname
@@ -66,7 +69,6 @@ def metadata(
         raw_to_transformed_file_path = (
             es_files_path / settings.scopes.food.raw_to_transformed_ratios_file
         )
-
         if s == MetadataScope.textile:
             # Export textile materials
             activities_textile_materials = [
@@ -102,6 +104,7 @@ def metadata(
 
             export_food.activities_to_ingredients_json(
                 activities_food_ingredients,
+                processes_impacts_path=processes_impacts_path,
                 ingredients_paths=ingredients_paths,
                 ecosystemic_factors_path=ecosystemic_factors_path,
                 feed_file_path=feed_file_path,
@@ -121,8 +124,7 @@ def metadata(
 
             export_generic.activities_to_processes_generic_json(
                 generic_activities,
-                processes_impacts_path=local_dir
-                / settings.processes_legacy_impacts_full_file,
+                processes_impacts_path=processes_impacts_path,
                 ecs_output_paths=[local_dir / settings.processes_generic_ecs_file],
                 impacts_output_paths=[
                     local_dir / settings.processes_generic_impacts_file
