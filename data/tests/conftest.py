@@ -31,9 +31,7 @@ TESTS_SNAPSHOTS_DIR = PROJECT_ROOT_DIR / "tests" / "snapshots"
 
 @pytest.fixture
 def forwast(temp_bw_dir):
-    restore_archived_project(
-        TESTS_FIXTURE_DIR / "bw-project-forwast-with-patched-ef31.tar.gz"
-    )
+    restore_archived_project(TESTS_FIXTURE_DIR / "bw-project-forwast-with-ef31.tar.gz")
 
     bw2data.projects.set_current(settings.bw.project)
 

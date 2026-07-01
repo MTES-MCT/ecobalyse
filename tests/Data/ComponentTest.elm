@@ -12,6 +12,7 @@ import Data.Component as Component
         )
 import Data.Component.Amount as Amount
 import Data.Country as Country
+import Data.Country.Code as CountryCode
 import Data.Db exposing (Db)
 import Data.Impact as Impact exposing (Impacts)
 import Data.Impact.Definition as Definition
@@ -224,7 +225,7 @@ suite =
                                                 |> Impact.insertWithoutAggregateComputation Definition.Ecs (Unit.impact 10)
                                       }
                                     ]
-                                    |> Expect.within (Expect.Absolute 1) 504
+                                    |> Expect.within (Expect.Absolute 1) 505
                                 )
                             , itFromResult "should compute apply custom mix impacts when a transform step country is set"
                                 -- fetch first country with mixes different from defaults
@@ -280,7 +281,7 @@ suite =
                                     [ fading |> setProcessEcsImpact (Unit.impact 10)
                                     , fading |> setProcessEcsImpact (Unit.impact 20)
                                     ]
-                                    |> Expect.within (Expect.Absolute 1) 1019
+                                    |> Expect.within (Expect.Absolute 1) 1020
                                 )
                             ]
                         , suiteFromResult "unit mismatch"
@@ -442,7 +443,7 @@ suite =
                                         ]
                                 )
                             , itFromResult "should never feature air transport for intermediary transport, even when byAir is set"
-                                (db.countries |> Country.findByCode (Country.Code "FR"))
+                                (db.countries |> Country.findByCode CountryCode.france)
                                 (\france ->
                                     let
                                         getEcsForByAir byAir =
@@ -1106,8 +1107,8 @@ suite =
                             ]
                         ]
                     , suiteFromResult2 "computeTransportDistance"
-                        (db.countries |> Country.findByCode (Country.Code "PT"))
-                        (db.countries |> Country.findByCode (Country.Code "FR"))
+                        (db.countries |> Country.findByCode (CountryCode.fromString "PT"))
+                        (db.countries |> Country.findByCode CountryCode.france)
                         (\france portugal ->
                             [ it "should compute distance between two countries"
                                 (Component.computeTransportDistance requirements Split.zero (Just portugal) (Just france)
@@ -1163,8 +1164,8 @@ suite =
                             ]
                         )
                     , suiteFromResult2 "computeTransportedMassImpacts"
-                        (db.countries |> Country.findByCode (Country.Code "PT"))
-                        (db.countries |> Country.findByCode (Country.Code "FR"))
+                        (db.countries |> Country.findByCode (CountryCode.fromString "PT"))
+                        (db.countries |> Country.findByCode CountryCode.france)
                         (\portugal france ->
                             [ it "should compute transported mass impacts"
                                 (Mass.kilogram
@@ -1243,7 +1244,7 @@ suite =
                                         >> Result.fromMaybe "Missing custom element material country"
                                     )
                             )
-                            (Expect.equal (Just (Country.codeFromString "CN")))
+                            (Expect.equal (Just CountryCode.china))
                         , itFromResult "should decode an item with a custom transform country override"
                             ("""{
                                   "quantity": 1,
@@ -1270,7 +1271,7 @@ suite =
                                         >> Result.fromMaybe "Missing custom element transform country"
                                     )
                             )
-                            (Expect.equal (Just (Country.codeFromString "CN")))
+                            (Expect.equal (Just CountryCode.china))
                         ]
                     , suiteFromResult "itemToComponent"
                         ("""{ "id": "64fa65b3-c2df-4fd0-958b-83965bd6aa08",
@@ -1425,7 +1426,7 @@ suite =
                         query =
                             { emptyQuery
                                 | items = [ Component.createItem Nothing ]
-                                , assemblyCountry = Just (Country.Code "FR")
+                                , assemblyCountry = Just (CountryCode.fromString "FR")
                             }
                       in
                       describe "mapItems"
@@ -1439,7 +1440,7 @@ suite =
                             (query
                                 |> Component.mapItems (always [ Component.createItem Nothing ])
                                 |> .assemblyCountry
-                                |> Expect.equal (Just (Country.Code "FR"))
+                                |> Expect.equal (Just (CountryCode.fromString "FR"))
                             )
                         ]
                     , suiteFromResult2 "removeElement"
@@ -1523,20 +1524,20 @@ suite =
                         )
                     , let
                         query =
-                            { emptyQuery | assemblyCountry = Just (Country.Code "FR") }
+                            { emptyQuery | assemblyCountry = Just (CountryCode.fromString "FR") }
                       in
                       describe "setQueryItems"
                         [ it "should preserve the assembly country for a single item"
                             (query
                                 |> Component.setQueryItems [ Component.createItem Nothing ]
                                 |> .assemblyCountry
-                                |> Expect.equal (Just (Country.Code "FR"))
+                                |> Expect.equal (Just (CountryCode.fromString "FR"))
                             )
                         , it "should preserve the assembly country for multiple items"
                             (query
                                 |> Component.setQueryItems [ Component.createItem Nothing, Component.createItem Nothing ]
                                 |> .assemblyCountry
-                                |> Expect.equal (Just (Country.Code "FR"))
+                                |> Expect.equal (Just (CountryCode.fromString "FR"))
                             )
                         , it "should reset the assembly country when the list becomes empty"
                             (query
@@ -2201,7 +2202,7 @@ chipsBag =
               ],
               "comment": "blah",
               "displayName": "Sachet en plastique (PP) pour chips - 150g - Proxy",
-              "elecMJ": 0,
+              "elecKwh": 0,
               "heatMJ": 0,
               "id": "4a80c078-9f86-4a7d-b402-73db3381e33b",
               "impacts": {
@@ -2231,7 +2232,7 @@ dryDistribution =
             ],
             "comment": "Blah",
             "displayName": "Vente au détail\u{202F}: produit sec",
-            "elecMJ": 443.09,
+            "elecKwh": 123.0805556,
             "heatMJ": 0,
             "id": "29118025-efa0-47bb-94e2-f5ccba31a903",
             "impacts": {
@@ -2279,7 +2280,7 @@ injectionMoulding =
                 "categories": ["transformation", "material_type:rigid_plastics"],
                 "comment": "",
                 "displayName": "Moulage par injection",
-                "elecMJ": 0,
+                "elecKwh": 0,
                 "heatMJ": 0,
                 "id": "111539de-deea-588a-9581-6f6ceaa2dfa9",
                 "impacts": {
@@ -2322,7 +2323,7 @@ lowVoltageElec =
                 "categories": ["energy", "use"],
                 "comment": "",
                 "displayName": "Electricité basse tension, France",
-                "elecMJ": 0,
+                "elecKwh": 0,
                 "heatMJ": 0,
                 "id": "931c9bb0-619a-5f75-b41b-ab8061e2ad92",
                 "impacts": {
@@ -2369,7 +2370,7 @@ plastic =
                 "categories": ["material", "material_type:rigid_plastics"],
                 "comment": "",
                 "displayName": "Plastique granulé (PP)",
-                "elecMJ": 0,
+                "elecKwh": 0,
                 "heatMJ": 0,
                 "id": "59b42284-3e45-5343-8a20-1d7d66137461",
                 "impacts": {
@@ -2412,7 +2413,7 @@ sawing =
                 "categories": ["transformation", "material_type:wood"],
                 "comment": "",
                 "displayName": "Sciage + séchage au four en Europe (bois)",
-                "elecMJ": 0,
+                "elecKwh": 0,
                 "heatMJ": 0,
                 "id": "c172d131-b5d1-5d9b-822b-5762afb91c66",
                 "impacts": {
@@ -2455,7 +2456,7 @@ steel =
                 "categories": ["material", "material_type:ferrous_metals"],
                 "comment": "",
                 "displayName": "Acier (faiblement allié)",
-                "elecMJ": 0,
+                "elecKwh": 0,
                 "heatMJ": 0,
                 "id": "6527710e-2434-5347-9bef-2205e0aa4f66",
                 "impacts": {
@@ -2498,7 +2499,7 @@ wood =
                 "categories": ["material", "material_type:wood"],
                 "comment": "",
                 "displayName": "Bois d'oeuvre (Feuillus / Hêtre)",
-                "elecMJ": 0,
+                "elecKwh": 0,
                 "heatMJ": 0,
                 "id": "17431e06-2973-516e-b043-be9ad405e4fb",
                 "impacts": {

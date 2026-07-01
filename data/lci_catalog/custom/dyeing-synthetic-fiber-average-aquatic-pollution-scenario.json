@@ -5,7 +5,7 @@
   ],
   "comment": "Même commentaire que `dyeing-synthetic-fiber` sauf qu'en plus les impacts sont multipliés par 19% (scénario de pollution aquatique moyen). corr2 : inventaires enrichis (substances chimiques)\nAncien identifiant (12/2024): ecobalyse-teinture-fibres-synthetiques.",
   "displayName": "Teinture moyenne pour fibres synthétiques (scénario de pollution aquatique moyen)",
-  "elecMJ": 3.6,
+  "elecKwh": 1.0,
   "heatMJ": 24.3,
   "id": "904fec21-c2e8-504c-8142-93096aae9042",
   "impacts": {

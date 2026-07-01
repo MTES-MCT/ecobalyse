@@ -15,6 +15,7 @@ import Browser.Navigation as Nav
 import Csv.Encode as EncodeCsv exposing (Csv)
 import Data.Component as Component exposing (Component)
 import Data.Country as Country exposing (Country)
+import Data.Country.Code as CountryCode
 import Data.Dataset as Dataset exposing (Dataset)
 import Data.Db exposing (Db)
 import Data.Example as Example exposing (Example)
@@ -293,12 +294,12 @@ countriesExplorer :
     -> Table.Config Country Msg
     -> SortableTable.State
     -> Scope
-    -> Maybe Country.Code
+    -> Maybe CountryCode.Code
     -> List (Html Msg)
 countriesExplorer { distances, countries } tableConfig tableState scope maybeCode =
     [ countries
         |> List.filter (.scopes >> List.member scope)
-        |> Table.viewList (.code >> Country.codeToString >> OpenDetail) tableConfig tableState scope (ExploreCountries.table distances countries)
+        |> Table.viewList (.code >> CountryCode.toString >> OpenDetail) tableConfig tableState scope (ExploreCountries.table distances countries)
     , case maybeCode of
         Just code ->
             detailsModal

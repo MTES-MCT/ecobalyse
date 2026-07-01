@@ -17,7 +17,7 @@
     "displayName": {
       "type": "string"
     },
-    "elecMJ": {
+    "elecKwh": {
       "minimum": 0,
       "type": "number"
     },

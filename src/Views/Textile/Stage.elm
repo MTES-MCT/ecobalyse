@@ -3,7 +3,7 @@ module Views.Textile.Stage exposing (view)
 import Autocomplete exposing (Autocomplete)
 import Data.AutocompleteSelector as AutocompleteSelector
 import Data.Complement as Complement exposing (noComplementsImpacts)
-import Data.Country as Country
+import Data.Country.Code as CountryCode
 import Data.Dataset as Dataset
 import Data.Db exposing (Db)
 import Data.Env as Env
@@ -66,7 +66,7 @@ type alias Config msg modal =
     , toggleFading : Bool -> msg
     , toggleStage : Label -> msg
     , updateAirTransportRatio : Maybe Split -> msg
-    , updateCountry : Label -> Country.Code -> msg
+    , updateCountry : Label -> CountryCode.Code -> msg
     , updateDyeingProcessType : ProcessType -> msg
     , updateFabricProcess : Fabric -> msg
     , updateMakingComplexity : MakingComplexity -> msg
@@ -95,7 +95,7 @@ countryField { current, db, updateCountry } =
                 { attributes =
                     [ class "form-select"
                     , disabled (not current.enabled)
-                    , onInput (Country.codeFromString >> updateCountry current.label)
+                    , onInput (CountryCode.fromString >> updateCountry current.label)
                     ]
                 , countries = db.countries
                 , onSelect = updateCountry current.label

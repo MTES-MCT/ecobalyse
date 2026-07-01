@@ -14,6 +14,7 @@ REGION_PROXIES = {
     "REE": "CZ",  # Eastern Europe
     "RAS": "CN",  # Asia
     "RAF": "ET",  # Africa
+    "RMA": "MA",  # Maghreb
     "RME": "TR",  # Middle East
     "RLA": "BR",  # Latin America
     "RNA": "US",  # North America

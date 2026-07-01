@@ -5,8 +5,8 @@ from typing import List, Optional
 import orjson
 
 from common import activities_processes_sort_key, remove_detailed_impacts
-from common.base_ingredient import infer_base_ingredient
 from common.export import export_json
+from common.infer_metadata import infer_base_ingredient, infer_default_origin
 from ecobalyse_data.bw.search import cached_search_one
 from ecobalyse_data.export.complements import compute_forest_complement
 from ecobalyse_data.export.land_occupation import compute_land_occupation_batch
@@ -24,7 +24,7 @@ def _build_variant_metadata(
     variant: dict,
     activity: dict,
     food_variant: Optional[dict],
-    ecs_by_alias: dict,
+    es_by_alias: dict,
 ) -> Optional[dict]:
     """Build the metadata block for a variant, omitting cross-domain nulls.
 
@@ -45,11 +45,15 @@ def _build_variant_metadata(
             activity.get("landOccupation"),
         )
 
+    metadata["defaultOrigin"] = infer_default_origin(
+        food_variant.get("defaultOrigin") if food_variant is not None else None,
+        activity.get("categories", []),
+    )
+
     if food_variant is not None:
         metadata["ingredient"] = IngredientMetadata(
             base_ingredient=infer_base_ingredient(food_variant["alias"]),
             crop_group=food_variant.get("cropGroup"),
-            default_origin=food_variant["defaultOrigin"],
             density=food_variant["ingredientDensity"],
             inedible_part=food_variant["inediblePart"],
             raw_to_cooked_ratio=food_variant["rawToCookedRatio"],
@@ -58,7 +62,7 @@ def _build_variant_metadata(
             process_id=activity["id"],
         ).model_dump(by_alias=True)
 
-        ecs = ecs_by_alias.get(food_variant["alias"])
+        ecs = es_by_alias.get(food_variant["alias"])
         if ecs:
             for key in (
                 "cropDiversity",
@@ -110,7 +114,7 @@ def compute_processes_generic(
         )
     )
 
-    ecs_by_alias: dict = {}
+    es_by_alias: dict = {}
     if has_food:
         # Lazy import to avoid pulling matplotlib unless we actually need food logic
         from ecobalyse_data.export.food import (
@@ -131,11 +135,12 @@ def compute_processes_generic(
                 feed_file_content = json.load(f)
             with open(raw_to_transformed_file_path, "r") as f:
                 raw_to_transformed = json.load(f)
-            ecs_by_alias = compute_es_for_ingredients(
+            es_by_alias = compute_es_for_ingredients(
                 food_activities,
                 ecosystemic_factors,
                 feed_file_content,
                 raw_to_transformed,
+                processes_by_id,
             )
 
     activities_needing_land = []
@@ -168,7 +173,7 @@ def compute_processes_generic(
                 variant=variant,
                 activity=activity,
                 food_variant=food_variants_by_id.get(variant["id"]),
-                ecs_by_alias=ecs_by_alias,
+                es_by_alias=es_by_alias,
             )
 
             food_variant = food_variants_by_id.get(variant["id"])
@@ -187,7 +192,7 @@ def compute_processes_generic(
                 display_name=variant.get(
                     "displayName", activity.get("displayName", "")
                 ),
-                elec_mj=process.get("elecMJ", 0),
+                elec_kwh=process.get("elecKwh", 0),
                 heat_mj=process.get("heatMJ", 0),
                 id=variant["id"],
                 impacts=process["impacts"],

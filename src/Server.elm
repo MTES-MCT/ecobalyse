@@ -7,7 +7,8 @@ port module Server exposing
 
 import Data.Common.EncodeUtils as EU
 import Data.Component as Component exposing (Component)
-import Data.Country as Country exposing (Country)
+import Data.Country exposing (Country)
+import Data.Country.Code as CountryCode
 import Data.Db exposing (Db)
 import Data.Food.Ingredient as Ingredient
 import Data.Food.Origin as Origin
@@ -171,7 +172,7 @@ executeTextileQuery request db encoder query =
 encodeCountry : Country -> Encode.Value
 encodeCountry { code, name } =
     Encode.object
-        [ ( "code", Country.encodeCode code )
+        [ ( "code", CountryCode.encode code )
         , ( "name", Encode.string name )
         ]
 
