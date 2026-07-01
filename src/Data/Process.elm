@@ -11,6 +11,7 @@ module Data.Process exposing
     , encode
     , encodeId
     , findById
+    , getDefaultOrigin
     , getDisplayName
     , getImpact
     , getMaterialTypes
@@ -25,6 +26,7 @@ module Data.Process exposing
     )
 
 import Data.Common.DecodeUtils as DU
+import Data.Country.Code as CountryCode
 import Data.Impact as Impact exposing (Impacts)
 import Data.Impact.Definition as Definition
 import Data.Process.Category as Category exposing (Category)
@@ -99,6 +101,11 @@ decodeFromId processes =
         |> Decode.andThen (Id >> (\id -> findById id processes) >> DE.fromResult)
 
 
+getDefaultOrigin : Process -> Maybe CountryCode.Code
+getDefaultOrigin =
+    .metadata >> Maybe.andThen .defaultOrigin
+
+
 getImpact : Definition.Trigram -> Process -> Unit.Impact
 getImpact trigram =
     .impacts >> Impact.getImpact trigram
@@ -138,7 +145,7 @@ decode impactsDecoder =
         |> Pipe.required "categories" Category.decodeList
         |> Pipe.required "comment" Decode.string
         |> DU.strictOptional "displayName" DU.decodeNonEmptyString
-        |> Pipe.required "elecMJ" (Decode.map Energy.megajoules Decode.float)
+        |> Pipe.required "elecKwh" (Decode.map Energy.kilowattHours Decode.float)
         |> Pipe.required "heatMJ" (Decode.map Energy.megajoules Decode.float)
         |> Pipe.required "id" decodeId
         |> Pipe.required "impacts" impactsDecoder
@@ -164,7 +171,7 @@ encode process =
         , ( "categories", Encode.list Category.encode process.categories )
         , ( "comment", Encode.string process.comment )
         , ( "displayName", EncodeExtra.maybe Encode.string process.displayName )
-        , ( "elecMJ", Encode.float (Energy.inMegajoules process.elec) )
+        , ( "elecKwh", Encode.float (Energy.inKilowattHours process.elec) )
         , ( "heatMJ", Encode.float (Energy.inMegajoules process.heat) )
         , ( "id", encodeId process.id )
         , ( "impacts", Impact.encode process.impacts )
