@@ -96,7 +96,7 @@ jobs:
           SCALINGO_API_TOKEN: ${{ secrets.SCALINGO_API_TOKEN }}
         run: |
           npm run server:build
-          scalingo -a ecobalyse-data db-tunnel DATABASE_URL &
+          scalingo -a ecobalyse-data --region osc-fr1 db-tunnel DATABASE_URL &
           npm run server:start &
 
           for attempt in {1..20}; do if curl -s http://localhost:8001/ > /dev/null; then echo "-> Node server is up and ready on port 8001"; break; fi; echo "-> Waiting for the Node server to boot..."; sleep 1; done
