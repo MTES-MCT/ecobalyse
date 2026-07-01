@@ -451,7 +451,7 @@ lifeCycleView ({ db, docsUrl, explorerRoute, impact, query, scope, title } as co
                 ]
             ]
         , div [ class "card shadow-sm" ]
-            [ div [ class "card-header d-flex align-items-center justify-content-between" ]
+            [ div [ class "card-header d-flex align-items-center justify-content-between gap-2" ]
                 [ h2 [ class "h5 mb-0" ]
                     [ text title
                     , case explorerRoute of
@@ -466,7 +466,7 @@ lifeCycleView ({ db, docsUrl, explorerRoute, impact, query, scope, title } as co
                         Nothing ->
                             text ""
                     ]
-                , div [ class "d-flex align-items-center gap-2" ]
+                , div [ class "d-flex flex-fill justify-content-end align-items-center gap-2" ]
                     [ span [ class "cursor-help", Attr.title "Hors transports" ]
                         [ lifeCycle.production
                             |> Component.getTotalImpacts
@@ -481,6 +481,7 @@ lifeCycleView ({ db, docsUrl, explorerRoute, impact, query, scope, title } as co
                         Nothing ->
                             text ""
                     ]
+                , documentationLink config "production"
                 ]
             , if List.isEmpty query.items then
                 div [ class "card-body" ] [ text "Aucun élément." ]
@@ -558,17 +559,35 @@ lifeCycleView ({ db, docsUrl, explorerRoute, impact, query, scope, title } as co
         ]
 
 
+documentationLink : Config db msg -> String -> Html msg
+documentationLink { componentConfig, scope } section =
+    case Component.getDocLink componentConfig scope section of
+        Just docUrl ->
+            Button.docsPillLink
+                [ class "bg-secondary"
+                , style "height" "24px"
+                , href docUrl
+                , Attr.title "Documentation"
+                , target "_blank"
+                ]
+                [ Icon.question ]
+
+        Nothing ->
+            text ""
+
+
 packagingView : Config db msg -> LifeCycle -> Html msg
 packagingView ({ query } as config) lifeCycle =
     div [ class "card shadow-sm" ]
-        [ div [ class "card-header d-flex align-items-center justify-content-between" ]
+        [ div [ class "card-header d-flex align-items-center justify-content-between gap-2" ]
             [ h2 [ class "h5 mb-0" ]
                 [ text "Emballage" ]
-            , div [ class "d-flex align-items-center gap-2" ]
+            , div [ class "d-flex flex-fill justify-content-end align-items-center gap-2" ]
                 [ lifeCycle.packaging
                     |> Impact.sumImpacts
                     |> Format.formatImpact config.impact
                 ]
+            , documentationLink config "packaging"
             ]
         , query.packagings
             |> quantifiedProcessList config
@@ -1355,13 +1374,14 @@ quantityInput config itemIndex quantity =
 assemblyView : Config db msg -> Html msg
 assemblyView config =
     div [ class "card shadow-sm" ]
-        [ div [ class "card-header d-flex align-items-center justify-content-between" ]
+        [ div [ class "card-header d-flex align-items-center justify-content-between gap-2" ]
             [ h2 [ class "h5 mb-0" ]
                 [ text "Assemblage" ]
-            , div [ class "d-flex align-items-center gap-2" ]
+            , div [ class "d-flex flex-fill justify-content-end align-items-center gap-2" ]
                 [ Impact.empty
                     |> Format.formatImpact config.impact
                 ]
+            , documentationLink config "assembly"
             ]
         , div [ class "card-body" ]
             [ div [ class "d-flex align-items-center gap-2" ]
@@ -1379,15 +1399,16 @@ assemblyView config =
 
 
 distributionView : Config db msg -> LifeCycle -> Html msg
-distributionView { componentConfig, db, impact, query, scope, updateDistribution } lifeCycle =
+distributionView ({ componentConfig, db, impact, query, scope, updateDistribution } as config) lifeCycle =
     div [ class "card shadow-sm" ]
-        [ div [ class "card-header d-flex align-items-center justify-content-between" ]
+        [ div [ class "card-header d-flex align-items-center justify-content-between gap-2" ]
             [ h2 [ class "h5 mb-0" ]
                 [ text "Distribution" ]
-            , div [ class "d-flex align-items-center gap-2" ]
+            , div [ class "d-flex flex-fill justify-content-end align-items-center gap-2" ]
                 [ lifeCycle.distribution.impacts
                     |> Format.formatImpact impact
                 ]
+            , documentationLink config "distribution"
             ]
         , [ div [ class "d-flex align-items-center gap-1" ]
                 [ Icon.lock, text "France" ]
@@ -1431,14 +1452,15 @@ distributionView { componentConfig, db, impact, query, scope, updateDistribution
 useStageView : Config db msg -> LifeCycle -> Html msg
 useStageView ({ impact, query } as config) lifeCycle =
     div [ class "card shadow-sm" ]
-        [ div [ class "card-header d-flex align-items-center justify-content-between" ]
+        [ div [ class "card-header d-flex align-items-center justify-content-between gap-2" ]
             [ h2 [ class "h5 mb-0" ]
                 [ text "Utilisation" ]
-            , div [ class "d-flex align-items-center gap-2" ]
+            , div [ class "d-flex flex-fill justify-content-end align-items-center gap-2" ]
                 [ lifeCycle.use
                     |> Impact.sumImpacts
                     |> Format.formatImpact impact
                 ]
+            , documentationLink config "use"
             ]
         , div [ class "d-flex flex-column p-0" ]
             [ query.consumptions
@@ -1489,13 +1511,13 @@ addConsumptionButton ({ openSelectConsumptionModal, query } as config) =
 endOfLifeView : Config db msg -> LifeCycle -> Html msg
 endOfLifeView ({ componentConfig, query, scope, updateRecyclable } as config) lifeCycle =
     div [ class "card shadow-sm" ]
-        [ div [ class "card-header d-flex align-items-center justify-content-between" ]
+        [ div [ class "card-header d-flex align-items-center justify-content-between gap-2" ]
             [ div [ class "IngredientPlaneOrBoatSelector" ]
                 [ div [ class "mb-0 d-flex" ]
                     [ div [ class "h5" ] [ text "Fin de vie" ]
                     ]
                 ]
-            , div [ class "d-flex align-items-center justify-content-between" ]
+            , div [ class "d-flex flex-fill align-items-center justify-content-center" ]
                 [ span [ class "pe-3" ] [ text "Ce produit est-il recyclable\u{00A0}?" ]
                 , div [ class "form-check form-check-inline" ]
                     [ input
@@ -1524,16 +1546,15 @@ endOfLifeView ({ componentConfig, query, scope, updateRecyclable } as config) li
                         [ text "Non" ]
                     ]
                 ]
-            , div [ class "d-flex align-items-center justify-content-end gap-2 ps-2", style "min-width" "80px" ]
-                [ lifeCycle.production
-                    |> Component.getEndOfLifeImpacts
-                        { config = componentConfig
-                        , db = config.db
-                        , scope = config.scope
-                        }
-                        query.recyclable
-                    |> Format.formatImpact config.impact
-                ]
+            , lifeCycle.production
+                |> Component.getEndOfLifeImpacts
+                    { config = componentConfig
+                    , db = config.db
+                    , scope = config.scope
+                    }
+                    query.recyclable
+                |> Format.formatImpact config.impact
+            , documentationLink config "eol"
             ]
         , div [ class "card-body table-responsive p-0" ]
             [ if config.componentConfig.endOfLife |> Config.scopeEnabled scope then

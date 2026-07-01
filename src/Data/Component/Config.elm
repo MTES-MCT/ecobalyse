@@ -52,6 +52,7 @@ type alias DistributionConfig =
 
 type alias DocLinks =
     { default : Dict String String
+    , rootUrl : String
     , scoped : Scope.Dict (Dict String String)
     }
 
@@ -129,6 +130,7 @@ decodeDocLinks : Decoder DocLinks
 decodeDocLinks =
     Decode.succeed DocLinks
         |> Decode.required "default" (Decode.dict Decode.string)
+        |> Decode.required "rootUrl" Decode.string
         |> Decode.required "scoped" (Scope.decodeDict (Decode.dict Decode.string))
 
 
@@ -284,10 +286,10 @@ getDocLink : Config -> Scope -> String -> Maybe String
 getDocLink { docLinks } scope key =
     case docLinks.scoped |> Scope.dictGet scope |> Maybe.andThen (Dict.get key) of
         Just link ->
-            Just link
+            Just <| docLinks.rootUrl ++ link
 
         Nothing ->
-            docLinks.default |> Dict.get key
+            docLinks.default |> Dict.get key |> Maybe.map ((++) docLinks.rootUrl)
 
 
 parse : DataContainer db -> String -> Result String Config
