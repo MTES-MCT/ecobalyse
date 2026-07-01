@@ -189,7 +189,9 @@ class ComponentService(SQLAlchemyAsyncRepositoryService[m.Component]):
         transforms: list[m.ProcessElementTransform] = []
 
         if len(transforms_ids):
-            processes = await processes_service.list(m.Process.id.in_(transforms_ids))
+            processes = await processes_service.get_many(
+                m.Process.id.in_(transforms_ids)
+            )
             for idx, tid in enumerate(transforms_ids):
                 # See https://docs.sqlalchemy.org/en/20/orm/basic_relationships.html#association-object
                 elementTransform = m.ProcessElementTransform(position=idx)

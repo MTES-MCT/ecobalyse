@@ -6,7 +6,7 @@
   ],
   "comment": "",
   "displayName": "Enfouissement de l'acier",
-  "elecMJ": 0,
+  "elecKwh": 0.0,
   "heatMJ": 0,
   "id": "3ee1d594-6cfc-4db8-bb0b-e236a95e7c13",
   "metadata": [

@@ -1,6 +1,7 @@
 import json
 from pathlib import Path
 
+from common.distances.country_set import REGION_PROXIES
 from common.distances.CountryDistances import CountryDistances
 from common.export import load_json
 from config import PROJECT_ROOT_DIR, settings
@@ -11,21 +12,12 @@ COUNTRIES_OFFICIAL = Path(settings.output_dir) / "countries.json"
 OUTPUT = Path(settings.output_dir) / "transports.json"
 
 
-# dictionary of regions to add with the corresponding country
-regions = {
-    "---": "IN",
-    "REO": "ES",
-    "REE": "CZ",
-    "RAS": "CN",
-    "RAF": "ET",
-    "RME": "TR",
-    "RLA": "BR",
-    "RNA": "US",
-    "ROC": "AU",
-}
+# dictionary of regions to add with the corresponding country (single source)
+regions = REGION_PROXIES
 
-# These countries are used to represent regions eg. East Europe -> Czech Republic but are not official countries in the app
-placeholder_countries = ["CZ", "ET", "AU"]
+# Proxy countries that aren't official and must be removed after building regions
+# (e.g. East Europe -> Czechia, ROF -> Martinique).
+placeholder_countries = ["CZ", "ET", "AU", "MQ"]
 
 if __name__ == "__main__":
     distances = load_json(INPUT_DISTANCES)

@@ -5,7 +5,7 @@
   ],
   "comment": "Ancien identifiant (12/2024): 32644303e316aebb9ffa31e9856c8f6b.",
   "displayName": "Électricité moyenne tension, Turquie",
-  "elecMJ": 0,
+  "elecKwh": 0.0,
   "heatMJ": 0,
   "id": "930c987b-9fcc-5bfb-a5fd-f3cb2d7e420a",
   "metadata": [

@@ -6,7 +6,7 @@
   ],
   "comment": "Matériau 100% issu du recyclage, calculé selon la méthode CFF (A=0.8, Q=1)",
   "displayName": "Plastique PET, granulés, recyclé",
-  "elecMJ": 0,
+  "elecKwh": 0.0,
   "heatMJ": 0,
   "id": "4b66e694-2eeb-42de-be52-d1c2990e5160",
   "metadata": [

@@ -23,7 +23,7 @@
       "displayName": {
         "type": ["string", "null"]
       },
-      "elecMJ": {
+      "elecKwh": {
         "type": "number",
         "minimum": 0
       },
@@ -95,7 +95,7 @@
       "categories",
       "comment",
       "massPerUnit",
-      "elecMJ",
+      "elecKwh",
       "heatMJ",
       "id",
       "impacts",

@@ -6,7 +6,7 @@
   ],
   "comment": "",
   "displayName": "Bois d'oeuvre (Résineux / Pin)",
-  "elecMJ": 0,
+  "elecKwh": 0.0,
   "heatMJ": 0,
   "id": "cd7b462e-17ab-5c15-b7e2-ad4273c1e322",
   "massPerUnit": 490,

@@ -12,7 +12,7 @@
   ],
   "comment": "",
   "displayName": "Incinération du plastique",
-  "elecMJ": 0,
+  "elecKwh": 0.0,
   "heatMJ": 0,
   "id": "17986210-aeb8-5f4f-99fd-cbecb5439fde",
   "metadata": [

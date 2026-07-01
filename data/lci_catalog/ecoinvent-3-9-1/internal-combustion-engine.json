@@ -6,7 +6,7 @@
   ],
   "comment": "",
   "displayName": "Moteur thermique (MCI)",
-  "elecMJ": 0,
+  "elecKwh": 0.0,
   "heatMJ": 0,
   "id": "d4b65f58-3862-4229-bf2e-8ed7c21379c4",
   "metadata": [
