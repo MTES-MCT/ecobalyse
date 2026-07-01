@@ -2,6 +2,7 @@ module Page.Explore.Processes exposing (table)
 
 import Data.Complement as Complement
 import Data.Country as Country
+import Data.Country.Code as CountryCode
 import Data.Dataset as Dataset
 import Data.Impact as Impact
 import Data.Impact.Definition as Definition exposing (Definitions)
@@ -19,7 +20,7 @@ import Views.Format as Format
 
 
 table : Session -> { detailed : Bool, scope : Scope } -> Table Process String msg
-table session { detailed, scope } =
+table session { scope } =
     { filename = "processes"
     , toId = .id >> Process.idToString
     , toRoute = .id >> Just >> Dataset.Processes scope >> Route.Explore scope
@@ -32,7 +33,7 @@ table session { detailed, scope } =
                 >> Maybe.map
                     (\location ->
                         -- attempt decoding the region string as a an existing country code in the shared db
-                        case session.db.countries |> Country.findByCode (Country.codeFromString location) of
+                        case session.db.countries |> Country.findByCode (CountryCode.fromString location) of
                             Err _ ->
                                 location
 
@@ -44,22 +45,17 @@ table session { detailed, scope } =
             )
         ]
     , legend = []
-    , columns = baseColumns detailed scope ++ impactsColumns session ++ complementsColumns session
+    , columns = baseColumns ++ impactsColumns session ++ complementsColumns session
     }
 
 
-baseColumns : Bool -> Scope -> List (Column Process String msg)
-baseColumns detailed scope =
+baseColumns : List (Column Process String msg)
+baseColumns =
     [ { label = "Identifiant"
       , toValue = Table.StringValue <| .id >> Process.idToString
       , toCell =
             \process ->
-                if detailed then
-                    code [] [ text (Process.idToString process.id) ]
-
-                else
-                    a [ Route.href (Route.Explore scope (Dataset.Processes scope (Just process.id))) ]
-                        [ code [] [ text (Process.idToString process.id) ] ]
+                code [] [ text (Process.idToString process.id) ]
       }
     , { label = "Nom"
       , toValue = Table.StringValue Process.getDisplayName

@@ -5,7 +5,7 @@
   ],
   "comment": "",
   "displayName": "Teinture en continu",
-  "elecMJ": 2.88,
+  "elecKwh": 0.8,
   "heatMJ": 16.2,
   "id": "c8be445c-ae33-5240-9007-e7973e97fc24",
   "impacts": {

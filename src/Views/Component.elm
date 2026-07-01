@@ -30,6 +30,7 @@ import Data.Component as Component
 import Data.Component.Amount as Amount exposing (Amount)
 import Data.Component.Config as Config
 import Data.Country as Country exposing (Country)
+import Data.Country.Code as CountryCode
 import Data.Impact as Impact exposing (Impacts)
 import Data.Impact.Definition as Definition exposing (Definition)
 import Data.Process as Process exposing (Process)
@@ -86,12 +87,12 @@ type alias Config db msg =
     , title : String
     , toggleTransportByAir : Split -> msg
     , toggleTransportCooling : Bool -> msg
-    , updateAssemblyCountry : Maybe Country.Code -> msg
+    , updateAssemblyCountry : Maybe CountryCode.Code -> msg
     , updateConsumptionAmount : Index -> Maybe Amount -> msg
     , updateDistribution : Result String Process.Id -> msg
     , updateElementAmount : TargetElement -> Maybe Amount -> msg
-    , updateElementMaterialCountry : TargetElement -> Maybe Country.Code -> msg
-    , updateElementTransformCountry : TargetElement -> Index -> Maybe Country.Code -> msg
+    , updateElementMaterialCountry : TargetElement -> Maybe CountryCode.Code -> msg
+    , updateElementTransformCountry : TargetElement -> Index -> Maybe CountryCode.Code -> msg
     , updateItemName : TargetItem -> String -> msg
     , updateItemQuantity : Index -> Quantity -> msg
     , updatePackagingAmount : Index -> Maybe Amount -> msg
@@ -221,6 +222,7 @@ addElementTransformButton { db, openSelectProcessModal, query, scope } material 
     let
         availableTransformProcesses =
             db.processes
+                |> List.filter .visible
                 |> Scope.anyOf [ scope ]
                 |> Process.listAvailableMaterialTransforms material
                 |> List.sortBy Process.getDisplayName
@@ -527,7 +529,7 @@ lifeCycleView ({ db, docsUrl, explorerRoute, impact, query, scope, title } as co
                 TextileTrimsContext ->
                     addComponentButton config
             ]
-        , if Scope.isGeneric scope && List.length query.items > 1 then
+        , if Scope.isGeneric scope && List.length query.items > 0 then
             div []
                 [ DownArrow.view
                     [ div [ class "d-flex justify-content-end align-items-center gap-1" ]
@@ -536,7 +538,6 @@ lifeCycleView ({ db, docsUrl, explorerRoute, impact, query, scope, title } as co
                     [ div [ class "d-flex gap-2" ]
                         [ lifeCycle.transports.toAssembly.impacts
                             |> Format.formatImpact impact
-                        , text "(détails en dépliant les composants ci-dessus)"
                         ]
                     ]
                 , assemblyView config
@@ -571,6 +572,7 @@ packagingView ({ query } as config) lifeCycle =
             ]
         , query.packagings
             |> quantifiedProcessList config
+                lifeCycle
                 { deletionLabel = "Supprimer cet emballage"
                 , emptyListLabel = "Aucun emballage"
                 , expandFn = Component.expandPackagings
@@ -595,8 +597,8 @@ type alias QuantifiedProcessListConfig quantified msg =
     }
 
 
-quantifiedProcessList : Config db msg -> QuantifiedProcessListConfig quantified msg -> List quantified -> Html msg
-quantifiedProcessList { db, impact } listConfig quantifiedProcesses =
+quantifiedProcessList : Config db msg -> LifeCycle -> QuantifiedProcessListConfig quantified msg -> List quantified -> Html msg
+quantifiedProcessList { db, impact } lifeCycle listConfig quantifiedProcesses =
     if List.isEmpty quantifiedProcesses then
         div [ class "card-body" ]
             [ text listConfig.emptyListLabel ]
@@ -614,7 +616,13 @@ quantifiedProcessList { db, impact } listConfig quantifiedProcesses =
                                 (\index { amount, process } ->
                                     tr []
                                         [ td [ class "ps-3 align-middle text-nowrap", style "min-width" "160px" ]
-                                            [ amountInput (listConfig.updateAmount index) process.unit amount ]
+                                            [ amountInput
+                                                { event = listConfig.updateAmount index
+                                                , readonly = List.member Category.ProductMassDependent process.categories
+                                                , unit = process.unit
+                                                }
+                                                (Component.useProcessAmount lifeCycle process amount)
+                                            ]
                                         , td
                                             [ class "align-middle text-truncate w-66 cursor-help "
                                             , style "max-width" "0"
@@ -731,8 +739,15 @@ noTransportView =
     DownArrow.view [] []
 
 
-amountInput : (Maybe Amount -> msg) -> Process.Unit -> Amount -> Html msg
-amountInput toMsg unit amount =
+type alias AmountInputConfig msg =
+    { event : Maybe Amount -> msg
+    , readonly : Bool
+    , unit : Process.Unit
+    }
+
+
+amountInput : AmountInputConfig msg -> Amount -> Html msg
+amountInput { event, readonly, unit } amount =
     let
         stringAmount =
             Amount.toString amount
@@ -753,13 +768,23 @@ amountInput toMsg unit amount =
     in
     div [ class "AmountInput input-group" ]
         [ input
-            [ type_ "number"
-            , class "form-control form-control-sm text-end incdec-arrows-left"
-            , value stringAmount
-            , Attr.min "0"
-            , step stepValue
-            , onInput <| Amount.fromString >> toMsg
-            ]
+            ([ type_ "number"
+             , class "form-control form-control-sm text-end incdec-arrows-left"
+             , value stringAmount
+             , Attr.min "0"
+             , step stepValue
+             , onInput <| Amount.fromString >> event
+             ]
+                ++ (if readonly then
+                        [ Attr.readonly readonly
+                        , title "Cette quantité n'est pas modifiable"
+                        , class "cursor-not-allowed"
+                        ]
+
+                    else
+                        []
+                   )
+            )
             []
         , small [ class "input-group-text fs-8" ]
             [ text <| Process.unitToString unit ]
@@ -770,8 +795,8 @@ type alias CountrySelector msg =
     { countries : List Country
     , domId : String
     , scope : Scope
-    , select : Maybe Country.Code -> msg
-    , selected : Maybe Country.Code
+    , select : Maybe CountryCode.Code -> msg
+    , selected : Maybe CountryCode.Code
     }
 
 
@@ -786,7 +811,7 @@ countrySelector config =
             (\( name, maybeCode ) ->
                 option
                     [ maybeCode
-                        |> Maybe.map Country.codeToString
+                        |> Maybe.map CountryCode.toString
                         |> Maybe.withDefault ""
                         |> value
                     , selected <| config.selected == maybeCode
@@ -804,7 +829,7 @@ countrySelector config =
                             Nothing
 
                         else
-                            Just <| Country.codeFromString str
+                            Just <| CountryCode.fromString str
             ]
 
 
@@ -951,26 +976,11 @@ elementEditModalView ({ query } as config) (( _, elementIndex ) as targetElement
 {-| Render transports from last transform step to assembly or distribution stage
 -}
 finalElementTransportView : Config db msg -> Maybe Country -> Mass -> Html msg
-finalElementTransportView ({ componentConfig, db, query, scope } as config) elementCountry mass =
-    let
-        maybeDestinationCountryCode =
-            case ( List.length query.items > 1, query.assemblyCountry ) of
-                -- multiple items and an assembly country: transport to assembly country
-                ( True, Just assemblyCountryCode ) ->
-                    Just assemblyCountryCode
-
-                -- single item and no assembly country: transport to default distribution country
-                ( False, Nothing ) ->
-                    Just componentConfig.distribution.country.code
-
-                -- fallback to unknown destination
-                _ ->
-                    Nothing
-    in
+finalElementTransportView ({ db, query, scope } as config) elementCountry mass =
     db.countries
         |> Scope.anyOf [ scope ]
-        |> Country.resolveMaybe maybeDestinationCountryCode
-        |> Result.map (elementTransportView config [ class "subdued" ] False mass elementCountry)
+        |> Country.resolveMaybe query.assemblyCountry
+        |> Result.map (elementTransportView config [ class "subdued" ] mass elementCountry)
         |> Result.withDefault (text "")
 
 
@@ -980,6 +990,7 @@ listAvailableProcesses :
     -> List Process
 listAvailableProcesses { db, scope } category =
     db.processes
+        |> List.filter .visible
         |> Scope.anyOf [ scope ]
         |> Process.listByCategory category
         |> List.sortBy Process.getDisplayName
@@ -1019,7 +1030,12 @@ elementMaterialView config targetElement materialResults material amount =
                 Format.amount material.process amount
 
               else
-                amountInput (config.updateElementAmount targetElement) material.process.unit amount
+                amountInput
+                    { event = config.updateElementAmount targetElement
+                    , readonly = False
+                    , unit = material.process.unit
+                    }
+                    amount
             ]
         , td
             [ class "align-middle text-truncate"
@@ -1074,26 +1090,17 @@ elementMaterialView config targetElement materialResults material amount =
     ]
 
 
-elementTransportView : Config db msg -> List (Attribute msg) -> Bool -> Mass -> Maybe Country -> Maybe Country -> Html msg
-elementTransportView ({ query } as config) attributes noAirTransport transportedMass maybeFrom maybeTo =
+elementTransportView : Config db msg -> List (Attribute msg) -> Mass -> Maybe Country -> Maybe Country -> Html msg
+elementTransportView ({ query } as config) attributes transportedMass maybeFrom maybeTo =
     let
         { transportOptions } =
             query
 
-        -- ALtered transport options for local rendering purpose only
-        displayTransportOptions =
-            if List.length query.items > 1 || noAirTransport then
-                -- multiple components: remove all air transports (they're removed in Component.computeTransports)
-                { transportOptions | byAir = Split.zero }
-
-            else
-                -- single component: preserve air transport
-                transportOptions
-
         displayElementTransport =
             transportedMass
                 |> Component.computeTransportedMassImpacts (requirementsFromConfig config)
-                    displayTransportOptions
+                    -- Note: air transport is always disabled before assembly (see Component.computeTransports)
+                    { transportOptions | byAir = Split.zero }
                     maybeFrom
                     maybeTo
     in
@@ -1199,7 +1206,7 @@ elementTransformsView config targetElement materialResults materialCountry trans
                                )
                 in
                 [ transform.country
-                    |> elementTransportView config [] True previousMass previousCountry
+                    |> elementTransportView config [] previousMass previousCountry
                 , tr [ class "fs-7 border-top" ]
                     [ td [] []
                     , td [ class "text-end align-middle text-nowrap" ] []
@@ -1257,8 +1264,8 @@ type alias RegionSelector msg =
     { countries : List Country
     , domId : String
     , scope : Scope
-    , select : Maybe Country.Code -> msg
-    , selected : Maybe Country.Code
+    , select : Maybe CountryCode.Code -> msg
+    , selected : Maybe CountryCode.Code
     }
 
 
@@ -1277,7 +1284,7 @@ regionSelector config =
             (\( name, maybeCode ) ->
                 option
                     [ maybeCode
-                        |> Maybe.map Country.codeToString
+                        |> Maybe.map CountryCode.toString
                         |> Maybe.withDefault ""
                         |> value
                     , selected <| config.selected == maybeCode
@@ -1285,7 +1292,7 @@ regionSelector config =
                     [ text <|
                         case maybeCode of
                             Just code ->
-                                name ++ " (" ++ Country.codeToString code ++ ")"
+                                name ++ " (" ++ CountryCode.toString code ++ ")"
 
                             Nothing ->
                                 "---"
@@ -1313,7 +1320,7 @@ regionSelector config =
                             Nothing
 
                         else
-                            Just <| Country.codeFromString str
+                            Just <| CountryCode.fromString str
             ]
 
 
@@ -1436,6 +1443,7 @@ useStageView ({ impact, query } as config) lifeCycle =
         , div [ class "d-flex flex-column p-0" ]
             [ query.consumptions
                 |> quantifiedProcessList config
+                    lifeCycle
                     { deletionLabel = "Supprimer cette consommation"
                     , emptyListLabel = "Aucune consommation"
                     , expandFn = Component.expandConsumptions

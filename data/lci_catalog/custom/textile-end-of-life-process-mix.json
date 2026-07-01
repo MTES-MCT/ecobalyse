@@ -4,7 +4,7 @@
   ],
   "comment": "Précalcul Ecobalyse à partir de Base Impacts",
   "displayName": "Fin de vie hors voiture (transport en camion, incinération, mise en décharge)",
-  "elecMJ": 0,
+  "elecKwh": 0.0,
   "heatMJ": 0,
   "id": "ab96b73f-8534-59ad-9f34-a579abe3b023",
   "impacts": {

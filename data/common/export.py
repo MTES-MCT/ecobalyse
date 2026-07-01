@@ -36,7 +36,7 @@ def show_change(old: str, new: str) -> str:
 def get_changes(old, new, name, only_impacts=[], min_change=0.1, with_names=False):
     changes = []
     for trigram in new["impacts"]:
-        if trigram not in only_impacts:
+        if only_impacts and trigram not in only_impacts:
             continue
 
         if old["impacts"].get(trigram, {}):

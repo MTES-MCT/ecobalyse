@@ -6,7 +6,6 @@ module Views.Alert exposing
     )
 
 import Data.Env as Env
-import Data.Session exposing (Session)
 import Dict
 import Html exposing (..)
 import Html.Attributes exposing (..)
@@ -30,8 +29,8 @@ type Level
     | Warning
 
 
-backendError : Session -> Maybe msg -> BackendError.Error -> Html msg
-backendError session close error =
+backendError : String -> Maybe msg -> BackendError.Error -> Html msg
+backendError clientUrl close error =
     let
         { detail, headers, statusCode, title, url } =
             BackendError.mapErrorResponse error
@@ -94,7 +93,8 @@ backendError session close error =
                 , reportErrorLink <| detail ++ " " ++ plainTextError
                 ]
             , div [ class "fs-8 text-muted" ]
-                [ em [] [ text <| "Backend url: " ++ session.clientUrl ++ "/backend/api" ] ]
+                [ em [] [ text <| "Backend url: " ++ clientUrl ++ "/backend/api" ]
+                ]
             ]
         , level = Danger
         , title = Just "Une erreur serveur a été rencontrée"

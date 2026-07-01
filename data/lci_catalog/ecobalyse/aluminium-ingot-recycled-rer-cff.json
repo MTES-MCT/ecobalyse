@@ -6,7 +6,7 @@
   ],
   "comment": "Matériau 100% issu du recyclage, calculé selon la méthode CFF (A=0.8, Q=1)",
   "displayName": "Aluminium recyclé, Europe",
-  "elecMJ": 0,
+  "elecKwh": 0.0,
   "heatMJ": 0,
   "id": "a23b7b63-dd7c-49cf-9cf0-00196dd207c0",
   "metadata": [

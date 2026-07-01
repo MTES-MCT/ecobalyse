@@ -7,7 +7,7 @@
   ],
   "comment": "Source: BAT Reference Document for the Ferrous Metals Processing Industry, JRC, 2022, average for annealing",
   "displayName": "Traitement thermique",
-  "elecMJ": 0,
+  "elecKwh": 0.0,
   "heatMJ": 1.5,
   "id": "88f4f125-db8a-5560-b757-a7d4b3d883de",
   "impacts": {

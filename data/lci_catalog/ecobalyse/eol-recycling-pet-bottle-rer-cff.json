@@ -6,7 +6,7 @@
   ],
   "comment": "According to CFF: A=0.5, Q=0.95",
   "displayName": "Recyclage de PET rigide, CFF",
-  "elecMJ": 0,
+  "elecKwh": 0.0,
   "heatMJ": 0,
   "id": "2a42fa9d-4454-4976-b6ce-f218e82d6c65",
   "metadata": [

@@ -6,7 +6,7 @@
   ],
   "comment": "",
   "displayName": "Incinération du bois",
-  "elecMJ": 0,
+  "elecKwh": 0.0,
   "heatMJ": 0,
   "id": "316be695-bf3e-5562-9f09-77f213c3ec67",
   "metadata": [

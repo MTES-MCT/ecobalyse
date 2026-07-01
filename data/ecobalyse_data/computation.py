@@ -16,7 +16,6 @@ from common import (
     correct_process_impacts,
     fix_unit,
     spproject,
-    with_subimpacts,
 )
 from config import settings
 from ecobalyse_data.bw.search import cached_search_one
@@ -294,7 +293,7 @@ def compute_processes_for_activities(
                 # Fallback to per-activity if batch lost it for any reason.
                 processes.append(compute_process_for_activity(*parameters))
                 continue
-            impacts = with_subimpacts(dict(raw))
+            impacts = dict(raw)
             correct_process_impacts(impacts, corrections)
             impacts["ecs"] = calculate_aggregate("ecs", impacts, factors)
             process = activity_to_process_with_impacts(
@@ -336,7 +335,7 @@ def compute_impacts(
 
             unit = fix_unit(bw_activity.get("unit"))
 
-            # WARNING assume remote is in m3 or MJ (couldn't find unit from COM intf)
+            # WARNING assume remote is in m3 or kWh (couldn't find unit from COM intf)
             if unit == "kWh":
                 impacts = {k: v * 3.6 for k, v in impacts.items()}
             elif unit == "L":
@@ -350,8 +349,6 @@ def compute_impacts(
             )
 
             computed_by = ComputedBy.brightway
-
-        impacts = with_subimpacts(impacts)
 
         corrections = {
             k: v["correction"] for (k, v) in impacts_json.items() if "correction" in v
@@ -482,7 +479,7 @@ def activity_to_process_with_impacts(
         computed_by=computed_by,
         # Default to bw_activity name if no display name is given
         display_name=eco_activity.get("displayName", bw_activity.get("name")),
-        elec_mj=eco_activity.get("elecMJ", 0),
+        elec_kwh=eco_activity.get("elecKwh", 0),
         heat_mj=eco_activity.get("heatMJ", 0),
         id=eco_activity["id"],
         impacts=impacts,

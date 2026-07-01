@@ -6,7 +6,7 @@
   ],
   "comment": "50µm Zn, 2mm Fe (62.5m²/t Fe). Adapted from 'zinc coating, pieces, RER', Ecoinvent (65µm Zn).",
   "displayName": "Galvanization de l'acier",
-  "elecMJ": 0.06,
+  "elecKwh": 0.0167,
   "heatMJ": 1.22,
   "id": "9b7a0e1d-1b06-4cb7-abd4-1f987e1936bd",
   "metadata": [

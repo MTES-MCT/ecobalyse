@@ -16,8 +16,9 @@ import Browser.Navigation as Navigation
 import Data.AutocompleteSelector as AutocompleteSelector
 import Data.Bookmark as Bookmark exposing (Bookmark)
 import Data.Component as Component exposing (Component, Index)
-import Data.Country as Country
+import Data.Country.Code as CountryCode
 import Data.Dataset as Dataset
+import Data.Db exposing (Db)
 import Data.Example as Example
 import Data.Gitbook as Gitbook
 import Data.Impact as Impact
@@ -52,7 +53,6 @@ import Mass
 import Page.Explore as Explore
 import Ports
 import Route
-import Static.Db exposing (Db)
 import Task
 import Time exposing (Posix)
 import Views.Alert as Alert
@@ -158,7 +158,7 @@ type Msg
     | UpdatePrice (Maybe Economics.Price)
     | UpdatePrinting (Maybe Printing)
     | UpdateRenamedBookmarkName Bookmark String
-    | UpdateStageCountry Label Country.Code
+    | UpdateStageCountry Label CountryCode.Code
     | UpdateSurfaceMass (Maybe Unit.SurfaceMass)
     | UpdateTrimQuantity Index Component.Quantity
     | UpdateUpcycled Bool

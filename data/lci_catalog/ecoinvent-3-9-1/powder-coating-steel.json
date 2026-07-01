@@ -6,7 +6,7 @@
   ],
   "comment": "",
   "displayName": "Thermolaquage acier",
-  "elecMJ": 0,
+  "elecKwh": 0.0,
   "heatMJ": 0,
   "id": "bef7a8c2-24f1-596c-b0c8-2759eef42e05",
   "metadata": [

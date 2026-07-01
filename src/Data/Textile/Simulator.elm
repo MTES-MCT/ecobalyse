@@ -13,6 +13,7 @@ import Data.Common.EncodeUtils as EU
 import Data.Complement as Complement
 import Data.Component as Component
 import Data.Country as Country
+import Data.Db exposing (Db)
 import Data.Env as Env
 import Data.Impact as Impact exposing (Impacts)
 import Data.Impact.Definition as Definition
@@ -39,7 +40,6 @@ import Energy exposing (Energy)
 import Json.Encode as Encode
 import Mass
 import Quantity
-import Static.Db exposing (Db)
 
 
 type alias Simulator =

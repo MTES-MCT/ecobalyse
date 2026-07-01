@@ -1,6 +1,6 @@
 module Data.Textile.QueryTest exposing (..)
 
-import Data.Country as Country
+import Data.Country.Code as CountryCode
 import Data.Split as Split
 import Data.Textile.Inputs as Inputs
 import Data.Textile.MakingComplexity as MakingComplexity
@@ -21,7 +21,7 @@ sampleQuery =
                     [ { id = polyesterId
                       , share = Split.full
                       , spinning = Nothing
-                      , country = Just (Country.Code "CN")
+                      , country = Just CountryCode.china
                       }
                     ]
             }

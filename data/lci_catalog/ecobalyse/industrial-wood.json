@@ -6,7 +6,7 @@
   ],
   "comment": "",
   "displayName": "Bois d'industrie",
-  "elecMJ": 0,
+  "elecKwh": 0.0,
   "heatMJ": 0,
   "id": "994c7524-1d73-430b-9daa-800904613370",
   "massPerUnit": 565,

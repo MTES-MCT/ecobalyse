@@ -6,7 +6,7 @@
   ],
   "comment": "According to CFF: A=0.5, Q=0.75",
   "displayName": "Recyclage du caoutchouc, CFF",
-  "elecMJ": 0,
+  "elecKwh": 0.0,
   "heatMJ": 0,
   "id": "78267ce8-c598-4d08-adee-a8626211bb1a",
   "metadata": [

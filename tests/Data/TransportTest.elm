@@ -1,7 +1,7 @@
 module Data.TransportTest exposing (..)
 
 import Data.Component.Config as ComponentConfig
-import Data.Country as Country
+import Data.Country.Code as CountryCode
 import Data.Impact as Impact
 import Data.Impact.Definition as Definition
 import Data.Split as Split exposing (Split)
@@ -24,11 +24,11 @@ km =
 
 chinaToFrance : Transport
 chinaToFrance =
-    { road = km 9005
+    { road = km 9909
     , roadCooled = km 0
-    , sea = km 21549
+    , sea = km 19930
     , seaCooled = km 0
-    , air = km 8189
+    , air = km 8598
     , impacts = Impact.empty
     }
 
@@ -43,7 +43,7 @@ suite =
                         AnyDict.keys db.distances
                             |> List.member code
                             |> Expect.equal True
-                            |> asTest ("Country " ++ Country.codeToString code ++ " should have transports data available")
+                            |> asTest ("Country " ++ CountryCode.toString code ++ " should have transports data available")
                     )
                 |> describe "transports data availability checks"
             , describe "applyTransportRatios"
@@ -110,11 +110,11 @@ suite =
                 )
             , describe "getTransportBetween"
                 [ db.distances
-                    |> Transport.getTransportBetweenLegacy Impact.empty (Country.Code "FR") (Country.Code "CN")
+                    |> Transport.getTransportBetweenLegacy Impact.empty CountryCode.france CountryCode.china
                     |> Expect.equal chinaToFrance
                     |> asTest "should retrieve distance between two countries"
                 , db.distances
-                    |> Transport.getTransportBetweenLegacy Impact.empty (Country.Code "CN") (Country.Code "FR")
+                    |> Transport.getTransportBetweenLegacy Impact.empty CountryCode.china CountryCode.france
                     |> Expect.equal chinaToFrance
                     |> asTest "should retrieve distance between two swapped countries"
                 , db.countries

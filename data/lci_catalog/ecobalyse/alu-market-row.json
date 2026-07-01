@@ -6,7 +6,7 @@
   ],
   "comment": "https://fabrique-numerique.gitbook.io/ecobalyse/methodes-transverses-specifiques/procedes-acier-et-aluminium",
   "displayName": "Aluminium, mix marché, hors Europe et Chine",
-  "elecMJ": 0,
+  "elecKwh": 0.0,
   "heatMJ": 0,
   "id": "ce5e5069-485a-52c2-9458-3dc45470ffac",
   "metadata": [

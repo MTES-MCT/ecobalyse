@@ -30,7 +30,7 @@ module Data.Food.Query exposing
 import Base64
 import Data.Common.DecodeUtils as DU
 import Data.Common.EncodeUtils as EU
-import Data.Country as Country
+import Data.Country.Code as CountryCode
 import Data.Food.Ingredient as Ingredient
 import Data.Food.Preparation as Preparation
 import Data.Food.Retail as Retail
@@ -44,7 +44,7 @@ import Url.Parser as Parser exposing (Parser)
 
 
 type alias IngredientQuery =
-    { country : Maybe Country.Code
+    { country : Maybe CountryCode.Code
     , id : Ingredient.Id
     , mass : Mass
     , planeTransport : Ingredient.PlaneTransport
@@ -190,7 +190,7 @@ decodeProcess =
 decodeIngredient : Decoder IngredientQuery
 decodeIngredient =
     Decode.succeed IngredientQuery
-        |> DU.strictOptional "country" Country.decodeCode
+        |> DU.strictOptional "country" CountryCode.decode
         |> Pipe.required "id" Ingredient.decodeId
         |> Pipe.required "mass" decodeMassInGrams
         |> DU.strictOptionalWithDefault "byPlane" decodePlaneTransport Ingredient.PlaneNotApplicable
@@ -258,7 +258,7 @@ encodeIngredient v =
     EU.optionalPropertiesObject
         [ ( "id", Ingredient.encodeId v.id |> Just )
         , ( "mass", encodeMassAsGrams v.mass |> Just )
-        , ( "country", v.country |> Maybe.map Country.encodeCode )
+        , ( "country", v.country |> Maybe.map CountryCode.encode )
         , ( "byPlane", v.planeTransport |> Ingredient.encodePlaneTransport )
         ]
 

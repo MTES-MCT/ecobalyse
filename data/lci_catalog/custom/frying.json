@@ -4,7 +4,7 @@
   ],
   "comment": "Consommation d’électricité telle que définie par la méthode Agribalyse 3.0 dans les tableaux 41, 42, 43 sur les techniques de préparation.",
   "displayName": "Friture",
-  "elecMJ": 2.4012,
+  "elecKwh": 0.667,
   "heatMJ": 0,
   "id": "52c9f8b9-4a22-4d13-9a92-b54e944c8b05",
   "impacts": {

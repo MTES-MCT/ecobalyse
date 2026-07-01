@@ -19,6 +19,7 @@ EXCLUDED_PATHS: List[str] = [
     "/package.json",
     "/tests/activities-schema.json",
     "/tests/processes-schema.json",
+    "/data/common/distances/distances_raw.json",
 ]
 
 SORT_PATHS = [

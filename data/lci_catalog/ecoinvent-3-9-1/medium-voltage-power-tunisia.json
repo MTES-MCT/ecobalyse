@@ -5,7 +5,7 @@
   ],
   "comment": "Ancien identifiant (12/2024): b42506cbed4b459815c78d741b453e8e.",
   "displayName": "Électricité moyenne tension, Tunisie",
-  "elecMJ": 0,
+  "elecKwh": 0.0,
   "heatMJ": 0,
   "id": "f32261a1-a93e-5b57-b5a5-0f79d4a0244b",
   "metadata": [

@@ -5,7 +5,7 @@
   ],
   "comment": "Source: Ecoinvent 3.9.1, wire drawing, copper, RER. Only energy and losses are modeled",
   "displayName": "Tréfillage du cuivre",
-  "elecMJ": 1.6,
+  "elecKwh": 0.4444,
   "heatMJ": 1.48,
   "id": "60a8b985-d0b4-4606-a1c6-fc7fdf28494c",
   "impacts": {

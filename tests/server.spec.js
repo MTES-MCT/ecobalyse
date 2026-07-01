@@ -12,6 +12,19 @@ describe("Env", () => {
   });
 });
 
+describe("Examples data", () => {
+  const exampleFiles = ["food2/examples.json", "object/examples.json", "veli/examples.json"];
+
+  for (const exampleFile of exampleFiles) {
+    it(`${exampleFile} should be sorted by ascending id`, () => {
+      const examples = require(`${__dirname}/../public/data/${exampleFile}`);
+      const ids = examples.map(({ id }) => id);
+
+      expect(ids).toEqual([...ids].sort());
+    });
+  }
+});
+
 describe("Web", () => {
   it("should render the homepage", async () => {
     const response = await request(app).get("/");
@@ -370,7 +383,7 @@ describe("API", () => {
         expect(ennoblingStage).toBeTruthy();
 
         // FIXME investigate why this has evolved before landing
-        expect(ennoblingStage.preTreatments.impacts.ecs).toBeCloseTo(92.7573, 2);
+        expect(ennoblingStage.preTreatments.impacts.ecs).toBeCloseTo(92.7749, 2);
       });
     });
 

@@ -142,7 +142,7 @@ async def test_detailed_process_access(
         "categories": ["transformation"],
         "comment": "corr2 : inventaires enrichis (substances chimiques)\nAncien identifiant (12/2024): ecobalyse-impression-pigmentaire.",
         "displayName": "Impression (pigmentaire)",
-        "elecMJ": 1.61,
+        "elecKwh": 0.4472,
         "heatMJ": 10.74,
         "id": "97c209ec-7782-5a29-8c47-af7f17c82d11",
         "impacts": {
@@ -258,7 +258,7 @@ async def test_processes_access(
         "categories": ["transformation"],
         "comment": "corr2 : inventaires enrichis (substances chimiques)\nAncien identifiant (12/2024): ecobalyse-impression-pigmentaire.",
         "displayName": "Impression (pigmentaire)",
-        "elecMJ": 1.61,
+        "elecKwh": 0.4472,
         "heatMJ": 10.74,
         "id": "97c209ec-7782-5a29-8c47-af7f17c82d11",
         "impacts": {

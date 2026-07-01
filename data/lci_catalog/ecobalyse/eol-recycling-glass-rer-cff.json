@@ -6,7 +6,7 @@
   ],
   "comment": "According to CFF: A=0.2, Q=1",
   "displayName": "Recyclage du verre, CFF",
-  "elecMJ": 0,
+  "elecKwh": 0.0,
   "heatMJ": 0,
   "id": "550fa7a3-8cb6-4b6f-a47a-ad4d023b1b45",
   "metadata": [

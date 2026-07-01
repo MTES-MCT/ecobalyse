@@ -15,6 +15,7 @@ import Browser.Navigation as Navigation
 import Data.AutocompleteSelector as AutocompleteSelector
 import Data.Bookmark as Bookmark exposing (Bookmark)
 import Data.Dataset as Dataset
+import Data.Db exposing (Db)
 import Data.Example as Example
 import Data.Food.EcosystemicServices as EcosystemicServices
 import Data.Food.Ingredient as Ingredient exposing (Ingredient)
@@ -48,7 +49,6 @@ import Page.Explore.Table as Table
 import Ports
 import Quantity
 import Route
-import Static.Db exposing (Db)
 import Task
 import Time exposing (Posix)
 import Views.Alert as Alert

@@ -6,7 +6,7 @@
   ],
   "comment": "",
   "displayName": "Incinération de métaux ferreux",
-  "elecMJ": 0,
+  "elecKwh": 0.0,
   "heatMJ": 0,
   "id": "5719f399-c2a3-5268-84e2-894aba588f1b",
   "metadata": [

@@ -6,7 +6,7 @@
   ],
   "comment": "corr4: Impacts de la laine par défaut multiplié par le coefficient 4%/37%=0.108. Cela vient d'une différence de taux d'allocation : 4% pour cette laine et 37% pour la laine par défaut.",
   "displayName": "Laine nouvelle filière",
-  "elecMJ": 0,
+  "elecKwh": 0.0,
   "heatMJ": 0,
   "id": "40ec17ee-6b44-5ee2-8fbc-559aed52764f",
   "impacts": {

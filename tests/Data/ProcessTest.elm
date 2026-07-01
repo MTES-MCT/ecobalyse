@@ -1,6 +1,7 @@
 module Data.ProcessTest exposing (..)
 
 import Data.Country as Country
+import Data.Country.Code as CountryCode
 import Data.Impact as Impact
 import Data.Impact.Definition as Definition
 import Data.Process as Process
@@ -18,7 +19,7 @@ suite =
             [ TestUtils.suiteFromResult2 "impactsPerUnit"
                 -- setup
                 (db.processes |> List.head |> Result.fromMaybe "Empty processes db")
-                (Country.findByCode (Country.Code "FR") db.countries)
+                (Country.findByCode CountryCode.france db.countries)
                 -- test
                 (\process france ->
                     [ it "should compute impacts per unit"

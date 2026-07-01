@@ -5,7 +5,7 @@
   ],
   "comment": "Energy consumptions based on Ecobalyse litterature review with an average scenario hypothesis. Wastes are based on French technical institue FCBA.",
   "displayName": "Panneaux, MDF (transformation)",
-  "elecMJ": 1080,
+  "elecKwh": 300.0,
   "heatMJ": 3200,
   "id": "3af71917-482a-57a6-80d2-ef556b377ba6",
   "impacts": {

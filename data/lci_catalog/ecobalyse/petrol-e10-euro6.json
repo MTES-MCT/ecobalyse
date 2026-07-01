@@ -6,7 +6,7 @@
   ],
   "comment": "see https://fabrique-numerique.gitbook.io/ecobalyse/vehicules/cycle-de-vie/utilisation-du-vehicule/construction-des-procedes-carburant",
   "displayName": "Essence (E10), norme Euro6",
-  "elecMJ": 0,
+  "elecKwh": 0.0,
   "heatMJ": 0,
   "id": "8fe4ef38-1c18-5cb0-a4e6-107e3998f5ff",
   "metadata": [

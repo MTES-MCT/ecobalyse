@@ -25,6 +25,8 @@ module Data.Textile.Stage exposing
 import Area exposing (Area)
 import Data.Complement as Complement
 import Data.Country as Country exposing (Country)
+import Data.Country.Code as CountryCode
+import Data.Db exposing (Db)
 import Data.Impact as Impact exposing (Impacts)
 import Data.Process as Process exposing (Process)
 import Data.Split as Split exposing (Split)
@@ -44,7 +46,6 @@ import Length
 import List.Extra as LE
 import Mass exposing (Mass)
 import Quantity
-import Static.Db exposing (Db)
 import Views.Format as Format
 
 
@@ -494,7 +495,7 @@ airTransportDisabled : Stage -> Bool
 airTransportDisabled { country, enabled, label } =
     not enabled
         || -- Note: disallow air transport from France to France at the Making stage
-           (label == Label.Making && country.code == Country.codeFromString "FR")
+           (label == Label.Making && country.code == CountryCode.france)
 
 
 airTransportRatioToString : Split -> String
@@ -549,7 +550,7 @@ encode v =
         , ( "deadstock", Encode.float (Mass.inKilograms v.deadstock) )
         , ( "durability", Unit.encodeNonPhysicalDurability v.durability )
         , ( "editable", Encode.bool v.editable )
-        , ( "elecKWh", Encode.float (Energy.inKilowattHours v.kwh) )
+        , ( "elecKwh", Encode.float (Energy.inKilowattHours v.kwh) )
         , ( "enabled", Encode.bool v.enabled )
         , ( "heatMJ", Encode.float (Energy.inMegajoules v.heat) )
         , ( "impacts", v.impacts |> Complement.applyComplementsToImpacts (Complement.getTotalComplementsImpacts v.complementsImpacts) |> Impact.encode )
@@ -572,7 +573,7 @@ encode v =
 encodePreTreatments : PreTreatments -> Encode.Value
 encodePreTreatments v =
     Encode.object
-        [ ( "elecKWh", Encode.float (Energy.inKilowattHours v.kwh) )
+        [ ( "elecKwh", Encode.float (Energy.inKilowattHours v.kwh) )
         , ( "heatMJ", Encode.float (Energy.inMegajoules v.heat) )
         , ( "energy", Impact.encode v.energy )
         , ( "impacts", Impact.sumImpacts [ v.energy, v.toxicity ] |> Impact.encode )

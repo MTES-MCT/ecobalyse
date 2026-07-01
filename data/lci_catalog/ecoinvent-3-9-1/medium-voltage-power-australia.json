@@ -5,7 +5,7 @@
   ],
   "comment": "Ancien identifiant (12/2024): 53c7378e585cf74cea4837819be6e631.",
   "displayName": "Électricité moyenne tension, Australie",
-  "elecMJ": 0,
+  "elecKwh": 0.0,
   "heatMJ": 0,
   "id": "05bcd5b4-09eb-5f9c-8a02-fd9d91412ccf",
   "metadata": [

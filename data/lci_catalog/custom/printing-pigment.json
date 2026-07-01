@@ -5,7 +5,7 @@
   ],
   "comment": "Données provenant de Base Impacts 2.01. Ancien identifiant (12/2024): 710987ca-f483-4f1c-9122-38b620f4062b.",
   "displayName": "Impression pigmentaire, procédé représentatif, traitement moyen des eaux usées",
-  "elecMJ": 4.56,
+  "elecKwh": 1.2667,
   "heatMJ": 7.25,
   "id": "9418bfb4-34e5-5bba-920f-b50e2feff1bd",
   "impacts": {

@@ -6,7 +6,7 @@
   ],
   "comment": "",
   "displayName": "Incinération du cuivre",
-  "elecMJ": 0,
+  "elecKwh": 0.0,
   "heatMJ": 0,
   "id": "508c69bd-4864-4a2f-9078-f0fb73765d7a",
   "metadata": [

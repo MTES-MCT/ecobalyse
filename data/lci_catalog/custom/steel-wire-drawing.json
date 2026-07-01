@@ -6,7 +6,7 @@
   ],
   "comment": "Source: BAT Reference Document for the Ferrous Metals Processing Industry, JRC, 2022, steel wire drawing. Energy is assumed as being 50% electricity and 50% heat",
   "displayName": "Tréfillage de l'acier",
-  "elecMJ": 0.4,
+  "elecKwh": 0.1111,
   "heatMJ": 0.4,
   "id": "dd5f189b-da36-4c39-a211-ba782ee993fb",
   "impacts": {

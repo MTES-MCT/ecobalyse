@@ -5,7 +5,7 @@
   ],
   "comment": "Ancien identifiant (12/2024): elec-medium-region-africa.",
   "displayName": "Électricité moyenne tension, Afrique",
-  "elecMJ": 0,
+  "elecKwh": 0.0,
   "heatMJ": 0,
   "id": "15958106-68d0-5130-8ed8-d8557cdcc1fa",
   "metadata": [

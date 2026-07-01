@@ -5,7 +5,7 @@
   ],
   "comment": "Ancien identifiant (12/2024): 8bbc2475141687462993329f9b7c2ddf.",
   "displayName": "Électricité moyenne tension, Chine",
-  "elecMJ": 0,
+  "elecKwh": 0.0,
   "heatMJ": 0,
   "id": "251fa8f5-3e07-5f37-8bed-fa42a367f262",
   "metadata": [

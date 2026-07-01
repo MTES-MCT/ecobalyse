@@ -6,7 +6,7 @@
   ],
   "comment": "",
   "displayName": "Incineration du carton",
-  "elecMJ": 0,
+  "elecKwh": 0.0,
   "heatMJ": 0,
   "id": "69b06815-105c-4333-a6fc-fdd0055428c4",
   "metadata": [

@@ -2,18 +2,19 @@
   "activityName": "polymethyl methacrylate, beads//[RoW] polymethyl methacrylate production, beads",
   "categories": [
     "material",
-    "textile_material"
+    "textile_material",
+    "material_type:composites"
   ],
   "comment": "Ancien identifiant (12/2024): 75b27555d86fe1c66686cdf4339efc89.",
-  "displayName": "Polyméthacrylate de méthyle (Plexiglas®)",
-  "elecMJ": 0,
+  "displayName": "Acrylique",
+  "elecKwh": 0.0,
   "heatMJ": 0,
   "id": "89bd29cf-9ae0-5cf0-825d-8a6d4a73a34f",
   "metadata": [
     {
       "alias": "ei-acrylique",
       "defaultCountry": "CN",
-      "displayName": "Polyméthacrylate de méthyle (Plexiglas®)",
+      "displayName": "Acrylique",
       "geographicOrigin": "Asie - Pacifique",
       "id": "49a0bec0-f9f3-42db-a514-a9dcf06a8969",
       "name": "Acrylique",
@@ -22,11 +23,19 @@
       "scopes": [
         "textile"
       ]
+    },
+    {
+      "displayName": "Polyacrylonitrile (PAN)",
+      "id": "9e71da1a-8e74-462f-becc-cd6f0bbfcccc",
+      "scopes": [
+        "veli"
+      ]
     }
   ],
   "qtyVariationRatio": 1,
   "scopes": [
-    "textile"
+    "textile",
+    "veli"
   ],
   "source": "Ecoinvent 3.9.1",
   "unit": "kg"

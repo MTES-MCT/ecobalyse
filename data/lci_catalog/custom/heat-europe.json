@@ -4,7 +4,7 @@
   ],
   "comment": "Reconstitution du mix depuis Ecoinvent 3.9.1\nAncien identifiant (12/2024): heat-europe.",
   "displayName": "Mix chaleur (Europe)",
-  "elecMJ": 0,
+  "elecKwh": 0.0,
   "heatMJ": 0,
   "id": "f6ea2983-e024-5de2-b323-273f2436deba",
   "impacts": {

@@ -439,18 +439,6 @@ def display_main_data(method, impact_category, activity):
         )
     ecs = None
     if scores and method == EF31:
-        scores["Ecotoxicity, freshwater - organics"] = {
-            "Indicateur": "Ecotoxicity, freshwater - organics",
-            "Score": scores["Ecotoxicity, freshwater - organics - p.1"]["Score"]
-            + scores["Ecotoxicity, freshwater - organics - p.2"]["Score"],
-            "Unité": scores["Ecotoxicity, freshwater - organics - p.1"]["Unité"],
-        }
-        scores["Ecotoxicity, freshwater"] = {
-            "Indicateur": "Ecotoxicity, freshwater",
-            "Score": scores["Ecotoxicity, freshwater - part 1"]["Score"]
-            + scores["Ecotoxicity, freshwater - part 2"]["Score"],
-            "Unité": scores["Ecotoxicity, freshwater - part 1"]["Unité"],
-        }
         for trigram in [
             t for t in IMPACTS.keys() if t not in ("ecs", "htn-c", "etf-c", "htc-c")
         ]:
@@ -519,12 +507,8 @@ def display_main_data(method, impact_category, activity):
             )
         # cleanup to keep 16 subimpacts
         for subscore in [
-            "Ecotoxicity, freshwater - part 1",
-            "Ecotoxicity, freshwater - part 2",
             "Ecotoxicity, freshwater - inorganics",
             "Ecotoxicity, freshwater - organics",
-            "Ecotoxicity, freshwater - organics - p.1",
-            "Ecotoxicity, freshwater - organics - p.2",
             "Climate change - Biogenic",
             "Climate change - Fossil",
             "Climate change - Land use and LU change",

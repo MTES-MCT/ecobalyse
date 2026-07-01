@@ -1,24 +1,19 @@
 module Data.Country exposing
     ( AquaticPollutionScenario
-    , Code(..)
     , Country
-    , codeFromString
-    , codeToString
-    , decodeCode
     , decodeFromCode
     , decodeList
     , encode
-    , encodeCode
     , findByCode
     , getAquaticPollutionRatio
     , isEuropeOrTurkey
     , resolveMaybe
     , toSearchableString
-    , unknownCountryCode
     , validateForScope
     )
 
 import Data.Common.DecodeUtils as DU
+import Data.Country.Code as CountryCode exposing (Code)
 import Data.Process as Process exposing (Process)
 import Data.Scope as Scope exposing (Scope)
 import Data.Split as Split exposing (Split)
@@ -28,10 +23,6 @@ import Json.Decode.Extra as DE
 import Json.Decode.Pipeline as Pipe
 import Json.Encode as Encode
 import Length exposing (Length)
-
-
-type Code
-    = Code String
 
 
 type AquaticPollutionScenario
@@ -53,28 +44,18 @@ type alias Country =
     }
 
 
-codeFromString : String -> Code
-codeFromString =
-    Code
-
-
-codeToString : Code -> String
-codeToString (Code string) =
-    string
-
-
 findByCode : Code -> List Country -> Result String Country
 findByCode code =
     List.filter (.code >> (==) code)
         >> List.head
-        >> Result.fromMaybe ("Code pays invalide: " ++ codeToString code ++ ".")
+        >> Result.fromMaybe ("Code pays invalide: " ++ CountryCode.toString code ++ ".")
 
 
 decode : List Process -> Decoder Country
 decode processes =
     Decode.succeed Country
         |> Pipe.required "aquaticPollutionScenario" decodeAquaticPollutionScenario
-        |> Pipe.required "code" decodeCode
+        |> Pipe.required "code" CountryCode.decode
         |> DU.strictOptional "comment" Decode.string
         |> Pipe.required "distanceToHub" (Decode.map Length.kilometers Decode.float)
         |> Pipe.required "electricityProcessId" (Process.decodeFromId processes)
@@ -84,14 +65,9 @@ decode processes =
         |> Pipe.required "zone" Zone.decode
 
 
-decodeCode : Decoder Code
-decodeCode =
-    Decode.map Code Decode.string
-
-
 decodeFromCode : List Country -> Decoder Country
 decodeFromCode countries =
-    decodeCode
+    CountryCode.decode
         |> Decode.andThen
             (\code ->
                 countries
@@ -109,17 +85,12 @@ encode : Country -> Encode.Value
 encode v =
     Encode.object
         [ ( "aquaticPollutionScenario", v.aquaticPollutionScenario |> aquaticPollutionScenarioToString |> Encode.string )
-        , ( "code", encodeCode v.code )
+        , ( "code", CountryCode.encode v.code )
         , ( "electricityProcessId", v.electricityProcess.id |> Process.idToString |> Encode.string )
         , ( "heatProcessId", v.heatProcess.id |> Process.idToString |> Encode.string )
         , ( "name", Encode.string v.name )
         , ( "scopes", v.scopes |> Encode.list Scope.encode )
         ]
-
-
-encodeCode : Code -> Encode.Value
-encodeCode =
-    codeToString >> Encode.string
 
 
 decodeAquaticPollutionScenario : Decoder AquaticPollutionScenario
@@ -174,7 +145,7 @@ getAquaticPollutionRatio scenario =
 
 isEuropeOrTurkey : Country -> Bool
 isEuropeOrTurkey country =
-    country.zone == Zone.Europe || country.code == codeFromString "TR"
+    country.zone == Zone.Europe || country.code == CountryCode.fromString "TR"
 
 
 resolveMaybe : Maybe Code -> List Country -> Result String (Maybe Country)
@@ -190,18 +161,13 @@ resolveMaybe maybeCode countries =
 toSearchableString : Country -> String
 toSearchableString country =
     String.join " "
-        [ country.code |> codeToString
+        [ country.code |> CountryCode.toString
         , country.name
         , country.electricityProcess |> Process.getDisplayName
         , country.heatProcess |> Process.getDisplayName
         , country.scopes |> List.map Scope.toLabel |> String.join " "
         , country.zone |> Zone.toLabel
         ]
-
-
-unknownCountryCode : Code
-unknownCountryCode =
-    Code "---"
 
 
 validateForScope : Scope -> List Country -> Code -> Result String Code
@@ -215,7 +181,7 @@ validateForScope scope countries countryCode =
 
                 else
                     "Le code pays "
-                        ++ codeToString countryCode
+                        ++ CountryCode.toString countryCode
                         ++ " n'est pas utilisable dans un contexte "
                         ++ Scope.toLabel scope
                         ++ "."

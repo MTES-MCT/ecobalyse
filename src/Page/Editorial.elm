@@ -61,7 +61,7 @@ view model =
             ( "Erreur de chargement", [ Alert.serverError <| RequestCommon.errorToString httpError ] )
 
         RemoteData.Loading ->
-            ( "Chargement…", [ Spinner.view ] )
+            ( "Chargement…", [ Spinner.view Nothing ] )
 
         RemoteData.NotAsked ->
             ( "", [] )

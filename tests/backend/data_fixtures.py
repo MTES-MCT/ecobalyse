@@ -37,7 +37,7 @@ def fx_raw_processes() -> list[dict[str, Any]]:
             "comment": "corr2 : inventaires enrichis (substances chimiques)\nAncien identifiant (12/2024): ecobalyse-impression-pigmentaire.",
             "massPerUnit": None,
             "displayName": "Impression (pigmentaire)",
-            "elecMJ": 1.61,
+            "elecKwh": 0.4472,
             "heatMJ": 10.74,
             "id": "97c209ec-7782-5a29-8c47-af7f17c82d11",
             "impacts": {
@@ -74,7 +74,7 @@ def fx_raw_processes() -> list[dict[str, Any]]:
             "comment": "Location:  Unspecified\nTechnology:  Unspecified\nTime period:  Unspecified",
             "massPerUnit": None,
             "displayName": "_22 Vegetable and animal oils and fats, EU27",
-            "elecMJ": 0.0,
+            "elecKwh": 0.0,
             "heatMJ": 0.0,
             "id": "af42fc20-e3ec-5b99-9b9c-83ba6735e597",
             "impacts": {
@@ -111,7 +111,7 @@ def fx_raw_processes() -> list[dict[str, Any]]:
             "comment": "Location:  Unspecified\nTechnology:  Unspecified\nTime period:  Unspecified",
             "massPerUnit": None,
             "displayName": "Test process",
-            "elecMJ": 0.0,
+            "elecKwh": 0.0,
             "heatMJ": 0.0,
             "id": "d25636af-ab36-4857-a6d0-c66d1e7a281b",
             "impacts": {

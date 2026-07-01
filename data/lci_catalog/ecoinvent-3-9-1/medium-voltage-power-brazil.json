@@ -5,7 +5,7 @@
   ],
   "comment": "Ancien identifiant (12/2024): 825dae104f028cb558dac151f7c45f03.",
   "displayName": "Électricité moyenne tension, Brésil",
-  "elecMJ": 0,
+  "elecKwh": 0.0,
   "heatMJ": 0,
   "id": "2fac57eb-e7e7-5008-94fa-a943010112df",
   "metadata": [

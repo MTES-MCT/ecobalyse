@@ -4,7 +4,7 @@
   ],
   "comment": "corr2 : inventaires enrichis (substances chimiques)\nAncien identifiant (12/2024): ecobalyse-teinture-fibres-cellulosiques.",
   "displayName": "Teinture fibres cellulosiques",
-  "elecMJ": 0,
+  "elecKwh": 0.0,
   "heatMJ": 0,
   "id": "c49a5379-95c4-599a-84da-b5faaa345b97",
   "impacts": {

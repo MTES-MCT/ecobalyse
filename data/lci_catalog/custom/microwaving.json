@@ -4,7 +4,7 @@
   ],
   "comment": "Consommation d’électricité telle que définie par la méthode Agribalyse 3.0 dans les tableaux 41, 42, 43 sur les techniques de préparation.",
   "displayName": "Cuisson au four à micro-ondes",
-  "elecMJ": 0.4608,
+  "elecKwh": 0.128,
   "heatMJ": 0,
   "id": "83a0aa59-a50d-4733-b7f9-54cf2cb735db",
   "impacts": {

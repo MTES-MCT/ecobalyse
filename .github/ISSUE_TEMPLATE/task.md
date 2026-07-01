@@ -22,8 +22,9 @@ assignees: ''
 ## :desert_island: Comment tester
 
 <!-- Que devrait faire quelqu'un pour valider que la solution proposée et l'implémentation fonctionnent comme attendu et répondent correctement aux besoins. N'hésitez pas à être très verbeux et à expliquer en détail, en utilisant des puces par exemple, les étapes à suivre pour tester le comportement attendu. -->
-[ ] Exemple d'attente
-[ ] Autre exemple d'attente
+
+- [ ] Exemple d'attente
+- [ ] Autre exemple d'attente
 
 ## :pencil: Description de l’évolution
 

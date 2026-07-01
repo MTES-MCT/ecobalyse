@@ -5,7 +5,7 @@
   ],
   "comment": "Ancien identifiant (12/2024): elec-medium-region-asia.",
   "displayName": "Électricité moyenne tension, Asie",
-  "elecMJ": 0,
+  "elecKwh": 0.0,
   "heatMJ": 0,
   "id": "a2129ece-5dd9-5e66-969c-2603b3c97244",
   "metadata": [

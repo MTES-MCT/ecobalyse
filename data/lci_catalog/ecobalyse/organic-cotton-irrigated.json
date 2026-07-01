@@ -7,7 +7,7 @@
   ],
   "comment": "Ancien identifiant (12/2024): coton-bio.",
   "displayName": "Production de fibres de coton bio",
-  "elecMJ": 0,
+  "elecKwh": 0.0,
   "heatMJ": 0,
   "id": "ae34a9bc-36c5-5ffa-8520-150e219569fe",
   "metadata": [

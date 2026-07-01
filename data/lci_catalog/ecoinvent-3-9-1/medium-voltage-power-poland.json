@@ -5,7 +5,7 @@
   ],
   "comment": "",
   "displayName": "Electricité moyenne tension, Pologne",
-  "elecMJ": 0,
+  "elecKwh": 0.0,
   "heatMJ": 0,
   "id": "97aec3c3-4ed3-5e3a-99ca-d96cfac629df",
   "metadata": [

@@ -5,7 +5,7 @@
   ],
   "comment": "Ancien identifiant (12/2024): 609797e4710a81c9903bc72c141ff191.",
   "displayName": "Électricité moyenne tension, Nouvelle-Zélande",
-  "elecMJ": 0,
+  "elecKwh": 0.0,
   "heatMJ": 0,
   "id": "2d7bf521-6ab0-5e08-9175-75ae8835a4fa",
   "metadata": [

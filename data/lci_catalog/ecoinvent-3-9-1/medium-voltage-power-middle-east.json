@@ -5,7 +5,7 @@
   ],
   "comment": "Ancien identifiant (12/2024): elec-medium-region-middle-east.",
   "displayName": "Électricité moyenne tension, Moyen-Orient",
-  "elecMJ": 0,
+  "elecKwh": 0.0,
   "heatMJ": 0,
   "id": "fe6437fa-5d9a-5a7f-a2a8-430066232e5c",
   "metadata": [

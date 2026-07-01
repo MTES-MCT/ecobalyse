@@ -6,7 +6,7 @@
   ],
   "comment": "Energy consumption based on average data from wood-based panels processes displayed in Ecobalyse (OSB, particleboard, HDF, MDF, plywood). No waste is considered as this process is used for inputs other than virgin wood (ex : recycled wood, glue, resins, etc.).",
   "displayName": "Panneaux (transformation, post-déchiquetage)",
-  "elecMJ": 0,
+  "elecKwh": 0.0,
   "heatMJ": 2248,
   "id": "57f5f968-82cc-5efc-aa76-1d0ac79b5d66",
   "impacts": {

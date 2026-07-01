@@ -6,7 +6,7 @@
   ],
   "comment": "corr1: Données Base Impacts 2.01 uuid_bi=2b24abb0-c1ec-4298-9b58-350904a26104 auquel a été retranché l'impact de la filature\nAncien identifiant (12/2024): 9c6ab710-4a08-c720-cede-24428a013fda.",
   "displayName": "Production de coton recyclé (déchets de production)",
-  "elecMJ": 0,
+  "elecKwh": 0.0,
   "heatMJ": 0,
   "id": "7c1986fd-fb5c-53b9-8a7a-aea3650145eb",
   "impacts": {

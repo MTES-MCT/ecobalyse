@@ -750,7 +750,7 @@ viewApiTokens apiTokens =
                 [ text <| "Erreur lors de la récupération des jetons d’API : " ++ BackendError.errorToString error ]
 
         RemoteData.Loading ->
-            Spinner.view
+            Spinner.view Nothing
 
         RemoteData.NotAsked ->
             text ""

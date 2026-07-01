@@ -3,6 +3,7 @@ module Server.Route exposing
     , endpoint
     )
 
+import Data.Db exposing (Db)
 import Data.Food.Query as FoodQuery
 import Data.Food.Validation as FoodValidation
 import Data.Impact as Impact
@@ -13,7 +14,6 @@ import Data.Validation as Validation
 import Json.Decode as Decode
 import Json.Encode as Encode
 import Server.Request exposing (Request)
-import Static.Db exposing (Db)
 import Url
 import Url.Parser as Parser exposing ((</>), Parser, s)
 

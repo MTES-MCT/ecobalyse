@@ -6,7 +6,7 @@
   ],
   "comment": "According to CFF: A=0.2, Q=1",
   "displayName": "Recyclage de l'acier, CFF",
-  "elecMJ": 0,
+  "elecKwh": 0.0,
   "heatMJ": 0,
   "id": "e2afffb3-ce82-4446-97cf-35c98c3a153f",
   "metadata": [

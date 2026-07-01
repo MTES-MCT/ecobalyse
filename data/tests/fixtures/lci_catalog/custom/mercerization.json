@@ -4,7 +4,7 @@
   ],
   "comment": "corr3 (cf doc): valeurs issues du rapport BAT2023 avec majoration de 50%",
   "displayName": "Mercerisage",
-  "elecMJ": 0.36,
+  "elecKwh": 0.1,
   "heatMJ": 2.7,
   "id": "ed1fd873-2e50-5b3c-865d-7eeed8025258",
   "impacts": {

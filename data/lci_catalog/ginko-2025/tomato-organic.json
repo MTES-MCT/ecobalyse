@@ -1,5 +1,5 @@
 {
-  "activityName": "Tomato, fresh grade, organic 2025 {ES}| tomato production, fresh grade, in unheated greenhouse | Cut-off, U",
+  "activityName": "Tomato, medium size, organic 2025, soil based, non-heated greenhouse, at greenhouse {FR} U",
   "categories": [
     "ingredient",
     "material",
@@ -7,7 +7,7 @@
   ],
   "displayName": "Tomate Bio",
   "id": "d3b61da5-dbdb-5aa0-8808-de0268c451fd",
-  "location": "ES",
+  "location": "FR",
   "metadata": [
     {
       "alias": "tomato-organic",
@@ -32,6 +32,88 @@
       "ingredientDensityMatch": {
         "confidence": 1.0,
         "rule": "tomato found in density.csv"
+      },
+      "rawToCookedRatio": 0.856,
+      "rawToCookedRatioMatch": {
+        "confidence": 1.0,
+        "rule": "vegetable default from food_type_cooked_to_raw.csv"
+      },
+      "scenario": "organic",
+      "scopes": [
+        "food",
+        "food2"
+      ],
+      "transportCooling": "always",
+      "transportCoolingMatch": {
+        "confidence": 1.0,
+        "rule": "vegetable NOVA 1 → always (perishable)"
+      },
+      "visible": true
+    },
+    {
+      "alias": "cherry-tomato-organic",
+      "cropGroup": "LEGUMES-FLEURS",
+      "cropGroupMatch": {
+        "confidence": 0.95,
+        "rule": "matched 'tomato' in cropgroup.csv"
+      },
+      "defaultOrigin": "France",
+      "displayName": "Tomates cerises Bio",
+      "id": "1ffee0b5-720d-53b0-b594-19e08a1860a3",
+      "inediblePart": 0.03,
+      "inediblePartMatch": {
+        "confidence": 0.95,
+        "rule": "Matched with Tomatoes in agb_inedible.csv"
+      },
+      "ingredientCategories": [
+        "vegetable_fresh",
+        "organic"
+      ],
+      "ingredientDensity": 1.0,
+      "ingredientDensityMatch": {
+        "confidence": 0.95,
+        "rule": "Matched with tomato in density.csv"
+      },
+      "rawToCookedRatio": 0.856,
+      "rawToCookedRatioMatch": {
+        "confidence": 1.0,
+        "rule": "vegetable default from food_type_cooked_to_raw.csv"
+      },
+      "scenario": "organic",
+      "scopes": [
+        "food",
+        "food2"
+      ],
+      "transportCooling": "always",
+      "transportCoolingMatch": {
+        "confidence": 1.0,
+        "rule": "vegetable NOVA 1 → always (perishable)"
+      },
+      "visible": true
+    },
+    {
+      "alias": "cucumber-organic",
+      "cropGroup": "LEGUMES-FLEURS",
+      "cropGroupMatch": {
+        "confidence": 1.0,
+        "rule": "matched 'cucumber' in cropgroup.csv"
+      },
+      "defaultOrigin": "France",
+      "displayName": "Concombre Bio",
+      "id": "6497feb5-6f7d-5ee2-aa99-c11948b4a64d",
+      "inediblePart": 0.1,
+      "inediblePartMatch": {
+        "confidence": 0.95,
+        "rule": "Matched with Cucumbers in agb_inedible.csv"
+      },
+      "ingredientCategories": [
+        "vegetable_fresh",
+        "organic"
+      ],
+      "ingredientDensity": 1.0,
+      "ingredientDensityMatch": {
+        "confidence": 1.0,
+        "rule": "cucumber found in density.csv"
       },
       "rawToCookedRatio": 0.856,
       "rawToCookedRatioMatch": {

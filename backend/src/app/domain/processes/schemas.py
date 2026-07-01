@@ -65,6 +65,9 @@ class Category(StrEnum):
     PACKAGING_TYPE_PACK = "packaging_type:pack"
     PACKAGING_TYPE_SHEET = "packaging_type:sheet"
     PACKAGING_TYPE_TRAY = "packaging_type:tray"
+
+    PRODUCT_MASS_DEPENDENT = "productmassdependent"
+
     TEXTILE_MATERIAL = "textile_material"
     TRANSFORMATION = "transformation"
     TRANSPORT = "transport"
@@ -110,7 +113,7 @@ class Process(CamelizedBaseStruct):
     alias: Optional[str] = None
     mass_per_unit: Optional[float] = msgspec.field(name="massPerUnit", default=None)
     display_name: Optional[str] = None
-    elec_mj: float = msgspec.field(name="elecMJ", default=0)
+    elec_kwh: float = msgspec.field(name="elecKwh", default=0)
     heat_mj: float = msgspec.field(name="heatMJ", default=0)
     location: Optional[str] = None
     scopes: list[Scope] = []

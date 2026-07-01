@@ -100,16 +100,16 @@ viewDetails scope createTable item =
 
 
 viewList :
-    (Route -> msg)
+    (data -> msg)
     -> Config data msg
     -> SortableTable.State
     -> Scope
     -> ({ detailed : Bool, scope : Scope } -> Table data comparable msg)
     -> List data
     -> Html msg
-viewList routeToMsg defaultConfig tableState scope createTable items =
+viewList dataToMsg defaultConfig tableState scope createTable items =
     let
-        ({ filename, toId, toRoute, toSearchableWords, facets, columns, legend } as table) =
+        ({ filename, toId, toSearchableWords, facets, columns, legend } as table) =
             createTable { detailed = False, scope = scope }
 
         { customizations } =
@@ -118,7 +118,7 @@ viewList routeToMsg defaultConfig tableState scope createTable items =
         listCustomizations =
             TableView.freezeSortableHeaders
                 { customizations
-                    | rowAttrs = toRoute >> routeToMsg >> onClick >> List.singleton
+                    | rowAttrs = dataToMsg >> onClick >> List.singleton
                 }
 
         config =

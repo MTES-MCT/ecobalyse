@@ -6,7 +6,7 @@
   ],
   "comment": "For 1kg cell. Based on GREET model (average of available battery size)",
   "displayName": "Cellule de batterie, NMC811, Chine",
-  "elecMJ": 0,
+  "elecKwh": 0.0,
   "heatMJ": 0,
   "id": "332bd861-e1a9-419b-ab0d-41350dd9e46e",
   "metadata": [

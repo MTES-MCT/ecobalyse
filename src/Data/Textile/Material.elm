@@ -14,6 +14,7 @@ module Data.Textile.Material exposing
     )
 
 import Data.Country as Country exposing (Country)
+import Data.Country.Code as CountryCode
 import Data.Process as Process exposing (Process)
 import Data.Split as Split exposing (Split)
 import Data.Textile.Material.Origin as Origin exposing (Origin)
@@ -26,7 +27,7 @@ import Json.Encode as Encode
 type alias Material =
     { alias : String
     , cffData : Maybe CFFData
-    , defaultCountry : Country.Code -- Default country for Material and Spinning stages
+    , defaultCountry : CountryCode.Code -- Default country for Material and Spinning stages
     , geographicOrigin : String -- A textual information about the geographic origin of the material
     , id : Id
     , name : String
@@ -94,7 +95,7 @@ toSearchableString countries material =
         , material.origin |> Origin.toString
         , material.process |> Process.getDisplayName
         , material.process.source
-        , material.defaultCountry |> Country.codeToString
+        , material.defaultCountry |> CountryCode.toString
         , countries
             |> Country.findByCode material.defaultCountry
             |> Result.map .name
@@ -118,7 +119,7 @@ decode processes =
     Decode.succeed Material
         |> JDP.required "alias" Decode.string
         |> JDP.required "cff" (Decode.maybe decodeCFFData)
-        |> JDP.required "defaultCountry" (Decode.string |> Decode.map Country.codeFromString)
+        |> JDP.required "defaultCountry" (Decode.string |> Decode.map CountryCode.fromString)
         |> JDP.required "geographicOrigin" Decode.string
         |> JDP.required "id" decodeId
         |> JDP.required "name" Decode.string
@@ -143,7 +144,7 @@ encode : Material -> Encode.Value
 encode v =
     Encode.object
         [ ( "alias", Encode.string v.alias )
-        , ( "defaultCountry", v.defaultCountry |> Country.codeToString |> Encode.string )
+        , ( "defaultCountry", v.defaultCountry |> CountryCode.toString |> Encode.string )
         , ( "id", encodeId v.id )
         , ( "geographicOrigin", Encode.string v.geographicOrigin )
         , ( "name", v.name |> Encode.string )
