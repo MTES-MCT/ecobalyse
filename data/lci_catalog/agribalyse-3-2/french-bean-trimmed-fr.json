@@ -8,26 +8,6 @@
   "id": "d01e037b-bc6c-412c-a3e5-05458ef1af42",
   "metadata": [
     {
-      "alias": "french-bean-trimmed-fr",
-      "cropGroup": "FRUITS A COQUES",
-      "defaultOrigin": "France",
-      "displayName": "Haricots français, coupés FR",
-      "id": "009d16ff-05c6-4e80-be05-c41456e92447",
-      "inediblePart": 0,
-      "ingredientCategories": [
-        "nut_oilseed_processed"
-      ],
-      "ingredientDensity": 0.6,
-      "rawToCookedRatio": 1.0,
-      "scenario": "reference",
-      "scopes": [
-        "food",
-        "food2"
-      ],
-      "transportCooling": "always",
-      "visible": true
-    },
-    {
       "alias": "french-bean-trimmed-non-eu",
       "cropGroup": "FRUITS A COQUES",
       "defaultOrigin": "OutOfEuropeAndMaghreb",
@@ -53,26 +33,6 @@
       "defaultOrigin": "EuropeAndMaghreb",
       "displayName": "Haricots français, coupés UE",
       "id": "dc84b025-05d1-4e47-aea4-69a743240e78",
-      "inediblePart": 0,
-      "ingredientCategories": [
-        "nut_oilseed_processed"
-      ],
-      "ingredientDensity": 0.6,
-      "rawToCookedRatio": 1.0,
-      "scenario": "import",
-      "scopes": [
-        "food",
-        "food2"
-      ],
-      "transportCooling": "always",
-      "visible": true
-    },
-    {
-      "alias": "french-bean-trimmed-default",
-      "cropGroup": "FRUITS A COQUES",
-      "defaultOrigin": "OutOfEuropeAndMaghreb",
-      "displayName": "Haricots français, coupés Origine Inconnue",
-      "id": "bea80172-d205-40b8-92f6-cdc8c7025f03",
       "inediblePart": 0,
       "ingredientCategories": [
         "nut_oilseed_processed"

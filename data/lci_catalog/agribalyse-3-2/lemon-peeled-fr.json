@@ -8,26 +8,6 @@
   "id": "2440b714-b8a1-4803-95bd-ee51d3b66abb",
   "metadata": [
     {
-      "alias": "lemon-peeled-fr",
-      "cropGroup": "VERGERS",
-      "defaultOrigin": "France",
-      "displayName": "Citron, pelé FR",
-      "id": "68a0e299-ecde-45d9-a3fc-af29586e6901",
-      "inediblePart": 0,
-      "ingredientCategories": [
-        "vegetable_processed"
-      ],
-      "ingredientDensity": 1.0,
-      "rawToCookedRatio": 1.0,
-      "scenario": "reference",
-      "scopes": [
-        "food",
-        "food2"
-      ],
-      "transportCooling": "always",
-      "visible": true
-    },
-    {
       "alias": "lemon-peeled-eu",
       "cropGroup": "VERGERS",
       "defaultOrigin": "EuropeAndMaghreb",

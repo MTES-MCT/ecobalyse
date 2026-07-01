@@ -26,26 +26,6 @@
       ],
       "transportCooling": "none",
       "visible": true
-    },
-    {
-      "alias": "rice-raw-flour-fr",
-      "cropGroup": "BLE TENDRE",
-      "defaultOrigin": "France",
-      "displayName": "Farine de riz FR",
-      "id": "71075ac1-8161-40f6-bddb-b9b8319907e1",
-      "inediblePart": 0,
-      "ingredientCategories": [
-        "grain_processed"
-      ],
-      "ingredientDensity": 0.75,
-      "rawToCookedRatio": 1.0,
-      "scenario": "reference",
-      "scopes": [
-        "food",
-        "food2"
-      ],
-      "transportCooling": "none",
-      "visible": true
     }
   ],
   "scopes": [

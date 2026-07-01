@@ -8,26 +8,6 @@
   "id": "837a5ef2-cc9c-4256-a65a-7888bd881556",
   "metadata": [
     {
-      "alias": "pineapple-peeled-fr",
-      "cropGroup": "ARBORICULTURE",
-      "defaultOrigin": "France",
-      "displayName": "Ananas pelés FR",
-      "id": "0d758354-2918-4c23-b06e-3b1297c22dac",
-      "inediblePart": 0,
-      "ingredientCategories": [
-        "vegetable_processed"
-      ],
-      "ingredientDensity": 0.95,
-      "rawToCookedRatio": 1.0,
-      "scenario": "reference",
-      "scopes": [
-        "food",
-        "food2"
-      ],
-      "transportCooling": "always",
-      "visible": true
-    },
-    {
       "alias": "pineapple-peeled-non-eu",
       "cropGroup": "ARBORICULTURE",
       "defaultOrigin": "OutOfEuropeAndMaghreb",

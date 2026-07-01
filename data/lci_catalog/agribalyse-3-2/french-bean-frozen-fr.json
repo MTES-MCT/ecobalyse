@@ -8,26 +8,6 @@
   "id": "7f4536be-a481-4c9e-bcd9-950ca6a73e20",
   "metadata": [
     {
-      "alias": "french-bean-frozen-fr",
-      "cropGroup": "LEGUMINEUSES A GRAIN",
-      "defaultOrigin": "France",
-      "displayName": "Haricots, congelés FR",
-      "id": "033cbe99-6032-4e84-b213-02b55ab6f793",
-      "inediblePart": 0,
-      "ingredientCategories": [
-        "vegetable_processed"
-      ],
-      "ingredientDensity": 0.8,
-      "rawToCookedRatio": 1.0,
-      "scenario": "reference",
-      "scopes": [
-        "food",
-        "food2"
-      ],
-      "transportCooling": "always",
-      "visible": true
-    },
-    {
       "alias": "french-bean-frozen-non-eu",
       "cropGroup": "LEGUMINEUSES A GRAIN",
       "defaultOrigin": "OutOfEuropeAndMaghreb",

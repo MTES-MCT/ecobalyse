@@ -8,26 +8,6 @@
   "id": "43576102-055f-4d94-8647-9f7a15e0c461",
   "metadata": [
     {
-      "alias": "walnut-unshelled-fr",
-      "cropGroup": "FRUITS A COQUES",
-      "defaultOrigin": "France",
-      "displayName": "Noix décortiquées FR",
-      "id": "3be14d38-3dc6-4c2f-97e3-748f62b03aad",
-      "inediblePart": 0,
-      "ingredientCategories": [
-        "nut_oilseed_processed"
-      ],
-      "ingredientDensity": 0.5,
-      "rawToCookedRatio": 1.0,
-      "scenario": "reference",
-      "scopes": [
-        "food",
-        "food2"
-      ],
-      "transportCooling": "none",
-      "visible": true
-    },
-    {
       "alias": "walnut-unshelled-eu",
       "cropGroup": "FRUITS A COQUES",
       "defaultOrigin": "EuropeAndMaghreb",

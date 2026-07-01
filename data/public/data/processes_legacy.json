@@ -357,29 +357,6 @@
     "unit": "kg"
   },
   {
-    "activityName": "Apricot, pitted, at processing {FR} U",
-    "categories": [
-      "ingredient",
-      "material"
-    ],
-    "comment": "AGRIBALYSE v3.2 dataset, 2024. See the complete description of AGRIBALYSE database.",
-    "displayName": "Abricot, dénoyauté FR",
-    "elecMJ": 0,
-    "heatMJ": 0,
-    "id": "abc4ed84-3122-4e80-b4ec-84aa8ebe2689",
-    "impacts": {
-      "ecs": 148.9
-    },
-    "location": "FR",
-    "massPerUnit": null,
-    "qtyVariationRatio": 1.0,
-    "scopes": [
-      "food"
-    ],
-    "source": "Agribalyse 3.2",
-    "unit": "kg"
-  },
-  {
     "activityName": "Apricot, pitted, dried, at processing {FR} U",
     "categories": [
       "ingredient",
@@ -734,29 +711,6 @@
     ],
     "source": "Agribalyse 3.2",
     "unit": "item"
-  },
-  {
-    "activityName": "Barley flour, at plant {FR} U",
-    "categories": [
-      "ingredient",
-      "material"
-    ],
-    "comment": "AGRIBALYSE v3.2 dataset, 2024. See the complete description of AGRIBALYSE database.",
-    "displayName": "Farine d'orge FR",
-    "elecMJ": 0,
-    "heatMJ": 0,
-    "id": "e3efbd97-7391-4729-8562-56ad87dbd545",
-    "impacts": {
-      "ecs": 122.0
-    },
-    "location": "FR",
-    "massPerUnit": null,
-    "qtyVariationRatio": 1.0,
-    "scopes": [
-      "food"
-    ],
-    "source": "Agribalyse 3.2",
-    "unit": "kg"
   },
   {
     "activityName": "Barley grain {FR}| barley production | Cut-off, U - Adapted from Ecoinvent U",
@@ -2273,29 +2227,6 @@
     "id": "38f77126-c723-5c63-b922-b13650ad9031",
     "impacts": {
       "ecs": 9.987
-    },
-    "location": "FR",
-    "massPerUnit": null,
-    "qtyVariationRatio": 1.0,
-    "scopes": [
-      "food"
-    ],
-    "source": "Agribalyse 3.2",
-    "unit": "kg"
-  },
-  {
-    "activityName": "Carrot, peeled, at processing {FR} U",
-    "categories": [
-      "ingredient",
-      "material"
-    ],
-    "comment": "AGRIBALYSE v3.2 dataset, 2024. See the complete description of AGRIBALYSE database.",
-    "displayName": "Carotte pelée FR",
-    "elecMJ": 0,
-    "heatMJ": 0,
-    "id": "b17d2a34-7c71-40db-8f38-d4ecd4a41002",
-    "impacts": {
-      "ecs": 75.1
     },
     "location": "FR",
     "massPerUnit": null,
@@ -10891,29 +10822,6 @@
     "unit": "kg"
   },
   {
-    "activityName": "Peach, pitted, at processing {FR} U",
-    "categories": [
-      "ingredient",
-      "material"
-    ],
-    "comment": "AGRIBALYSE v3.2 dataset, 2024. See the complete description of AGRIBALYSE database.",
-    "displayName": "Pêche, dénoyautée FR",
-    "elecMJ": 0,
-    "heatMJ": 0,
-    "id": "adfba4ae-5279-40ac-9925-3be8787365e9",
-    "impacts": {
-      "ecs": 163.6
-    },
-    "location": "FR",
-    "massPerUnit": null,
-    "qtyVariationRatio": 1.0,
-    "scopes": [
-      "food"
-    ],
-    "source": "Agribalyse 3.2",
-    "unit": "kg"
-  },
-  {
     "activityName": "Peach, production mix, national average, at orchard {FR} U",
     "categories": [
       "ingredient",
@@ -11142,29 +11050,6 @@
     "id": "00b230d5-f589-5352-add1-18d24e58799f",
     "impacts": {
       "ecs": 21.3
-    },
-    "location": "FR",
-    "massPerUnit": null,
-    "qtyVariationRatio": 1.0,
-    "scopes": [
-      "food"
-    ],
-    "source": "Agribalyse 3.2",
-    "unit": "kg"
-  },
-  {
-    "activityName": "Pear, peeled, at processing {FR} U",
-    "categories": [
-      "ingredient",
-      "material"
-    ],
-    "comment": "AGRIBALYSE v3.2 dataset, 2024. See the complete description of AGRIBALYSE database.",
-    "displayName": "Poire, pelée FR",
-    "elecMJ": 0,
-    "heatMJ": 0,
-    "id": "78bdd878-4e4a-49d1-be9d-b4c25c8193e9",
-    "impacts": {
-      "ecs": 28.56
     },
     "location": "FR",
     "massPerUnit": null,
@@ -15426,29 +15311,6 @@
     "unit": "item"
   },
   {
-    "activityName": "Table apple, peeled, at processing {FR} U",
-    "categories": [
-      "ingredient",
-      "material"
-    ],
-    "comment": "AGRIBALYSE v3.2 dataset, 2024. See the complete description of AGRIBALYSE database.",
-    "displayName": "Pommes de table, pelées FR",
-    "elecMJ": 0,
-    "heatMJ": 0,
-    "id": "7a752246-e71f-4d4b-bbac-c20daeb12516",
-    "impacts": {
-      "ecs": 46.64
-    },
-    "location": "FR",
-    "massPerUnit": null,
-    "qtyVariationRatio": 1.0,
-    "scopes": [
-      "food"
-    ],
-    "source": "Agribalyse 3.2",
-    "unit": "kg"
-  },
-  {
     "activityName": "Tap water {Europe without Switzerland}| market for | Cut-off, S - Copied from Ecoinvent U",
     "categories": [
       "ingredient",
@@ -18345,29 +18207,6 @@
     "unit": "kg"
   },
   {
-    "activityName": "Almond, unshelled, at processing {FR} U [almond-in-shell-organic] {{almond-in-shell-unshelled-organic}}",
-    "categories": [
-      "ingredient",
-      "material"
-    ],
-    "comment": "AGRIBALYSE v3.2 dataset, 2024. See the complete description of AGRIBALYSE database.",
-    "displayName": "Amandes décortiquées Bio",
-    "elecMJ": 0,
-    "heatMJ": 0,
-    "id": "6cd58395-9ac7-429a-83a2-9cb8d304294b",
-    "impacts": {
-      "ecs": 675.9
-    },
-    "location": "FR",
-    "massPerUnit": null,
-    "qtyVariationRatio": 1.0,
-    "scopes": [
-      "food"
-    ],
-    "source": "Ecobalyse",
-    "unit": "kg"
-  },
-  {
     "activityName": "Aluminium packaging",
     "categories": [
       "material",
@@ -18710,29 +18549,6 @@
       "ecs": 34.71
     },
     "location": "GLO",
-    "massPerUnit": null,
-    "qtyVariationRatio": 1.0,
-    "scopes": [
-      "food"
-    ],
-    "source": "Ecobalyse",
-    "unit": "kg"
-  },
-  {
-    "activityName": "Apricot, pitted, at processing {FR} U [apricot-default] {{apricot-pitted-default}}",
-    "categories": [
-      "ingredient",
-      "material"
-    ],
-    "comment": "AGRIBALYSE v3.2 dataset, 2024. See the complete description of AGRIBALYSE database.",
-    "displayName": "Abricot, dénoyauté Origine Inconnue",
-    "elecMJ": 0,
-    "heatMJ": 0,
-    "id": "d90c3a99-2e15-431a-b93c-642455ba37e4",
-    "impacts": {
-      "ecs": 368.9
-    },
-    "location": "FR",
     "massPerUnit": null,
     "qtyVariationRatio": 1.0,
     "scopes": [
@@ -19102,29 +18918,6 @@
     "id": "79dc0633-2115-513c-a011-98982292e461",
     "impacts": {
       "ecs": 1298.0
-    },
-    "location": "FR",
-    "massPerUnit": null,
-    "qtyVariationRatio": 1.0,
-    "scopes": [
-      "food"
-    ],
-    "source": "Ecobalyse",
-    "unit": "kg"
-  },
-  {
-    "activityName": "Banana, peeled, at processing {FR} U [banana-default] {{banana-peeled-default}}",
-    "categories": [
-      "ingredient",
-      "material"
-    ],
-    "comment": "AGRIBALYSE v3.2 dataset, 2024. See the complete description of AGRIBALYSE database.",
-    "displayName": "Bananes pelées Origine Inconnue",
-    "elecMJ": 0,
-    "heatMJ": 0,
-    "id": "f2ee63be-cac8-4f36-ba1c-201e8e17088e",
-    "impacts": {
-      "ecs": 278.1
     },
     "location": "FR",
     "massPerUnit": null,
@@ -20688,29 +20481,6 @@
     "unit": "kg"
   },
   {
-    "activityName": "Carrot, peeled, at processing {FR} U [carrot-default] {{carrot-peeled-default}}",
-    "categories": [
-      "ingredient",
-      "material"
-    ],
-    "comment": "AGRIBALYSE v3.2 dataset, 2024. See the complete description of AGRIBALYSE database.",
-    "displayName": "Carotte pelée Origine Inconnue",
-    "elecMJ": 0,
-    "heatMJ": 0,
-    "id": "b7dca901-e43c-43ee-bf9d-9d0b90b4dc54",
-    "impacts": {
-      "ecs": 80.04
-    },
-    "location": "FR",
-    "massPerUnit": null,
-    "qtyVariationRatio": 1.0,
-    "scopes": [
-      "food"
-    ],
-    "source": "Ecobalyse",
-    "unit": "kg"
-  },
-  {
     "activityName": "Carrot, peeled, at processing {FR} U [carrot-eu] {{carrot-peeled-eu}}",
     "categories": [
       "ingredient",
@@ -21443,29 +21213,6 @@
     "id": "3b533311-535a-4817-a9bc-c259da1416ec",
     "impacts": {
       "ecs": 127.8
-    },
-    "location": "FR",
-    "massPerUnit": null,
-    "qtyVariationRatio": 1.0,
-    "scopes": [
-      "food"
-    ],
-    "source": "Ecobalyse",
-    "unit": "kg"
-  },
-  {
-    "activityName": "Chicken egg, raw, without shell, at plant {FR} U [egg-default] {{egg-chicken-raw-without-shell-default}}",
-    "categories": [
-      "ingredient",
-      "material"
-    ],
-    "comment": "AGRIBALYSE v3.2 dataset, 2024. See the complete description of AGRIBALYSE database.",
-    "displayName": "Oeufs de poulet crus, sans coquille Origine Inconnue",
-    "elecMJ": 0,
-    "heatMJ": 0,
-    "id": "67db6cf7-719f-418f-ad16-905523199524",
-    "impacts": {
-      "ecs": 974.5
     },
     "location": "FR",
     "massPerUnit": null,
@@ -23491,29 +23238,6 @@
     "unit": "kg"
   },
   {
-    "activityName": "French bean, frozen, at processing {FR} U [french-bean-organic] {{french-bean-frozen-organic}}",
-    "categories": [
-      "ingredient",
-      "material"
-    ],
-    "comment": "AGRIBALYSE v3.2 dataset, 2024. See the complete description of AGRIBALYSE database. \nInformation on the data available in the report apport méthodologique pour les produits élaborés - CTCPA pour Agribalyse V3.1 :  INVENTAIRES PRODUITS, PROCEDES ET DONNEES SUR LES PERTES ET LE STOCKAGE\"\"\nGénérateurs : CTCPA\nVérificateurs : CTCPA\n\"",
-    "displayName": "Haricots, congelés Bio",
-    "elecMJ": 0,
-    "heatMJ": 0,
-    "id": "80633b0b-1d73-4d0c-bad8-b51690444279",
-    "impacts": {
-      "ecs": 51.0
-    },
-    "location": "FR",
-    "massPerUnit": null,
-    "qtyVariationRatio": 1.0,
-    "scopes": [
-      "food"
-    ],
-    "source": "Ecobalyse",
-    "unit": "kg"
-  },
-  {
     "activityName": "French bean, peeled, at processing {FR} U [french-bean-organic] {{french-bean-peeled-organic}}",
     "categories": [
       "ingredient",
@@ -25106,29 +24830,6 @@
     "unit": "kg"
   },
   {
-    "activityName": "Hazelnut, unshelled, at plant {IT} U [hazelnut-in-shell-default] {{hazelnut-in-shell-unshelled-default}}",
-    "categories": [
-      "ingredient",
-      "material"
-    ],
-    "comment": "AGRIBALYSE v3.2 dataset, 2024. See the complete description of AGRIBALYSE database.  \nModification : ITERG\nDataset of the shelling of hazelnut in shell in IT. The dataset includes the production of hazelnut in shell in Italy and unshelling process.  Energy consumption are not considered. 2kg of hazelnut in shell are needed to produce 1kg of hazelnut unshelled and 1kg of hazelnut hulls. \nSource : Hazelnuts, unshelled, at processing/FR U, from AGB 3.0. All impact are allocated to Hazelnut, unshelled. Générateur : ITERG",
-    "displayName": "Noisettes décortiquées Origine Inconnue",
-    "elecMJ": 0,
-    "heatMJ": 0,
-    "id": "1c176413-36b8-4f52-8a81-4e1e401aabdd",
-    "impacts": {
-      "ecs": 3415.0
-    },
-    "location": "IT",
-    "massPerUnit": null,
-    "qtyVariationRatio": 1.0,
-    "scopes": [
-      "food"
-    ],
-    "source": "Ecobalyse",
-    "unit": "kg"
-  },
-  {
     "activityName": "Hazelnut, unshelled, at plant {IT} U [hazelnut-in-shell-non-eu] {{hazelnut-in-shell-unshelled-non-eu}}",
     "categories": [
       "ingredient",
@@ -25141,29 +24842,6 @@
     "id": "cea4f6c2-dc31-4d54-8a62-790e81cd41c0",
     "impacts": {
       "ecs": 978.3
-    },
-    "location": "IT",
-    "massPerUnit": null,
-    "qtyVariationRatio": 1.0,
-    "scopes": [
-      "food"
-    ],
-    "source": "Ecobalyse",
-    "unit": "kg"
-  },
-  {
-    "activityName": "Hazelnut, unshelled, at plant {IT} U [hazelnut-in-shell-organic] {{hazelnut-in-shell-unshelled-organic}}",
-    "categories": [
-      "ingredient",
-      "material"
-    ],
-    "comment": "AGRIBALYSE v3.2 dataset, 2024. See the complete description of AGRIBALYSE database.  \nModification : ITERG\nDataset of the shelling of hazelnut in shell in IT. The dataset includes the production of hazelnut in shell in Italy and unshelling process.  Energy consumption are not considered. 2kg of hazelnut in shell are needed to produce 1kg of hazelnut unshelled and 1kg of hazelnut hulls. \nSource : Hazelnuts, unshelled, at processing/FR U, from AGB 3.0. All impact are allocated to Hazelnut, unshelled. Générateur : ITERG",
-    "displayName": "Noisettes décortiquées Bio",
-    "elecMJ": 0,
-    "heatMJ": 0,
-    "id": "881fd70b-1d85-46a5-9a02-6da73cb8e1f3",
-    "impacts": {
-      "ecs": 1333.0
     },
     "location": "IT",
     "massPerUnit": null,
@@ -25441,29 +25119,6 @@
     "id": "d70b52be-1fc7-47ac-8434-bf80bb9d8936",
     "impacts": {
       "ecs": 32.94
-    },
-    "location": "FR",
-    "massPerUnit": null,
-    "qtyVariationRatio": 1.0,
-    "scopes": [
-      "food"
-    ],
-    "source": "Ecobalyse",
-    "unit": "kg"
-  },
-  {
-    "activityName": "Lemon, peeled, at processing {FR} U [lemon-default] {{lemon-peeled-default}}",
-    "categories": [
-      "ingredient",
-      "material"
-    ],
-    "comment": "AGRIBALYSE v3.2 dataset, 2024. See the complete description of AGRIBALYSE database.",
-    "displayName": "Citron, pelé Origine Inconnue",
-    "elecMJ": 0,
-    "heatMJ": 0,
-    "id": "030c01a0-e077-4b34-ac64-3905d8e1027c",
-    "impacts": {
-      "ecs": 366.6
     },
     "location": "FR",
     "massPerUnit": null,
@@ -26635,29 +26290,6 @@
     "unit": "kg"
   },
   {
-    "activityName": "Orange, peeled, at processing {FR} U [orange-default] {{orange-peeled-default}}",
-    "categories": [
-      "ingredient",
-      "material"
-    ],
-    "comment": "AGRIBALYSE v3.2 dataset, 2024. See the complete description of AGRIBALYSE database.",
-    "displayName": "Orange, pelé Origine Inconnue",
-    "elecMJ": 0,
-    "heatMJ": 0,
-    "id": "ac1e81ab-9051-4e8f-a737-867c41a4678f",
-    "impacts": {
-      "ecs": 124.4
-    },
-    "location": "FR",
-    "massPerUnit": null,
-    "qtyVariationRatio": 1.0,
-    "scopes": [
-      "food"
-    ],
-    "source": "Ecobalyse",
-    "unit": "kg"
-  },
-  {
     "activityName": "Orange, peeled, at processing {FR} U [orange-eu] {{orange-peeled-eu}}",
     "categories": [
       "ingredient",
@@ -27585,29 +27217,6 @@
     "id": "29c6d724-b130-4a92-9578-5c272465dd39",
     "impacts": {
       "ecs": 32.49
-    },
-    "location": "FR",
-    "massPerUnit": null,
-    "qtyVariationRatio": 1.0,
-    "scopes": [
-      "food"
-    ],
-    "source": "Ecobalyse",
-    "unit": "kg"
-  },
-  {
-    "activityName": "Pear, peeled, at processing {FR} U [pear-default] {{pear-peeled-default}}",
-    "categories": [
-      "ingredient",
-      "material"
-    ],
-    "comment": "AGRIBALYSE v3.2 dataset, 2024. See the complete description of AGRIBALYSE database.",
-    "displayName": "Poire, pelée Origine Inconnue",
-    "elecMJ": 0,
-    "heatMJ": 0,
-    "id": "492552e4-5e34-45c1-b02c-a8c69aac6b18",
-    "impacts": {
-      "ecs": 246.0
     },
     "location": "FR",
     "massPerUnit": null,
@@ -30722,29 +30331,6 @@
     "unit": "kg"
   },
   {
-    "activityName": "Table apple, peeled, at processing {FR} U [apple-default] {{apple-table-peeled-default}}",
-    "categories": [
-      "ingredient",
-      "material"
-    ],
-    "comment": "AGRIBALYSE v3.2 dataset, 2024. See the complete description of AGRIBALYSE database.",
-    "displayName": "Pommes de table, pelées Origine Inconnue",
-    "elecMJ": 0,
-    "heatMJ": 0,
-    "id": "d760638b-0b1f-4143-a07f-beb704f3b025",
-    "impacts": {
-      "ecs": 193.3
-    },
-    "location": "FR",
-    "massPerUnit": null,
-    "qtyVariationRatio": 1.0,
-    "scopes": [
-      "food"
-    ],
-    "source": "Ecobalyse",
-    "unit": "kg"
-  },
-  {
     "activityName": "Table apple, peeled, at processing {FR} U [apple-eu] {{apple-table-peeled-eu}}",
     "categories": [
       "ingredient",
@@ -31006,29 +30592,6 @@
     "unit": "kg"
   },
   {
-    "activityName": "Walnuts, unshelled, at processing {FR} U [walnut-default] {{walnut-unshelled-default}}",
-    "categories": [
-      "ingredient",
-      "material"
-    ],
-    "comment": "AGRIBALYSE v3.2 dataset, 2024. See the complete description of AGRIBALYSE database.",
-    "displayName": "Noix décortiquées Origine Inconnue",
-    "elecMJ": 0,
-    "heatMJ": 0,
-    "id": "f52eaea2-a9d1-44c4-a132-b83485a9650c",
-    "impacts": {
-      "ecs": 1429.0
-    },
-    "location": "FR",
-    "massPerUnit": null,
-    "qtyVariationRatio": 1.0,
-    "scopes": [
-      "food"
-    ],
-    "source": "Ecobalyse",
-    "unit": "kg"
-  },
-  {
     "activityName": "Walnuts, unshelled, at processing {FR} U [walnut-non-eu] {{walnut-unshelled-non-eu}}",
     "categories": [
       "ingredient",
@@ -31041,29 +30604,6 @@
     "id": "64f83c64-a819-46e5-90fd-5a3c69cbbc75",
     "impacts": {
       "ecs": 1429.0
-    },
-    "location": "FR",
-    "massPerUnit": null,
-    "qtyVariationRatio": 1.0,
-    "scopes": [
-      "food"
-    ],
-    "source": "Ecobalyse",
-    "unit": "kg"
-  },
-  {
-    "activityName": "Walnuts, unshelled, at processing {FR} U [walnut-organic] {{walnut-unshelled-organic}}",
-    "categories": [
-      "ingredient",
-      "material"
-    ],
-    "comment": "AGRIBALYSE v3.2 dataset, 2024. See the complete description of AGRIBALYSE database.",
-    "displayName": "Noix décortiquées Bio",
-    "elecMJ": 0,
-    "heatMJ": 0,
-    "id": "0405e96d-c64a-4081-9a79-bac139c0e0d7",
-    "impacts": {
-      "ecs": 700.5
     },
     "location": "FR",
     "massPerUnit": null,

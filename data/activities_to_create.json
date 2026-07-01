@@ -10684,31 +10684,6 @@
   },
   {
     "activityCreationType": "from_existing",
-    "alias": "almond-in-shell-unshelled-organic",
-    "comment": "auto-generated",
-    "database": "Agribalyse 3.2",
-    "existingActivity": {
-      "name": "Almond, unshelled, at processing {FR} U"
-    },
-    "newName": "Almond, unshelled, at processing {FR} U [almond-in-shell-organic] {{almond-in-shell-unshelled-organic}}",
-    "replacementPlan": {
-      "replace": [
-        {
-          "from": {
-            "name": "Almond, consumption mix {FR} U"
-          },
-          "to": {
-            "database": "Ginko 2025",
-            "location": "CN",
-            "name": "Almonds, in shell, at farm, organic 2025 {CN}"
-          }
-        }
-      ],
-      "upstreamPath": []
-    }
-  },
-  {
-    "activityCreationType": "from_existing",
     "alias": "apple-table-peeled-eu",
     "comment": "auto-generated",
     "database": "Agribalyse 3.2",
@@ -10774,31 +10749,6 @@
             "database": "Ginko 2025",
             "location": "FR",
             "name": "Apple, organic 2025, national average, at orchard {FR} U"
-          }
-        }
-      ],
-      "upstreamPath": []
-    }
-  },
-  {
-    "activityCreationType": "from_existing",
-    "alias": "apple-table-peeled-default",
-    "comment": "auto-generated",
-    "database": "Agribalyse 3.2",
-    "existingActivity": {
-      "name": "Table apple, peeled, at processing {FR} U"
-    },
-    "newName": "Table apple, peeled, at processing {FR} U [apple-default] {{apple-table-peeled-default}}",
-    "replacementPlan": {
-      "replace": [
-        {
-          "from": {
-            "name": "Table apple, consumption mix {FR} U"
-          },
-          "to": {
-            "database": "WFLDB",
-            "location": "CN",
-            "name": "Apple, at farm (WFLDB)"
           }
         }
       ],
@@ -11084,31 +11034,6 @@
             "database": "Ginko 2025",
             "location": "FR",
             "name": "Apricot, organic 2025 {FR}| apricot production | Cut-off, U"
-          }
-        }
-      ],
-      "upstreamPath": []
-    }
-  },
-  {
-    "activityCreationType": "from_existing",
-    "alias": "apricot-pitted-default",
-    "comment": "auto-generated",
-    "database": "Agribalyse 3.2",
-    "existingActivity": {
-      "name": "Apricot, pitted, at processing {FR} U"
-    },
-    "newName": "Apricot, pitted, at processing {FR} U [apricot-default] {{apricot-pitted-default}}",
-    "replacementPlan": {
-      "replace": [
-        {
-          "from": {
-            "name": "Apricot, consumption mix {FR} U"
-          },
-          "to": {
-            "database": "WFLDB",
-            "location": "ES",
-            "name": "Apricot, at farm (WFLDB)"
           }
         }
       ],
@@ -11709,31 +11634,6 @@
             "database": "Ginko 2025",
             "location": "GLO",
             "name": "Banana, at farm, organic 2025 {GLO}"
-          }
-        }
-      ],
-      "upstreamPath": []
-    }
-  },
-  {
-    "activityCreationType": "from_existing",
-    "alias": "banana-peeled-default",
-    "comment": "auto-generated",
-    "database": "Agribalyse 3.2",
-    "existingActivity": {
-      "name": "Banana, peeled, at processing {FR} U"
-    },
-    "newName": "Banana, peeled, at processing {FR} U [banana-default] {{banana-peeled-default}}",
-    "replacementPlan": {
-      "replace": [
-        {
-          "from": {
-            "name": "Banana, consumption mix {FR} U"
-          },
-          "to": {
-            "database": "WFLDB",
-            "location": "CR",
-            "name": "Banana, at farm (WFLDB)"
           }
         }
       ],
@@ -12556,31 +12456,6 @@
             "database": "Ginko 2025",
             "location": "FR",
             "name": "Carrot, organic 2025, national average, at farm gate {FR} U"
-          }
-        }
-      ],
-      "upstreamPath": []
-    }
-  },
-  {
-    "activityCreationType": "from_existing",
-    "alias": "carrot-peeled-default",
-    "comment": "auto-generated",
-    "database": "Agribalyse 3.2",
-    "existingActivity": {
-      "name": "Carrot, peeled, at processing {FR} U"
-    },
-    "newName": "Carrot, peeled, at processing {FR} U [carrot-default] {{carrot-peeled-default}}",
-    "replacementPlan": {
-      "replace": [
-        {
-          "from": {
-            "name": "Carrot, consumption mix {FR} U"
-          },
-          "to": {
-            "database": "WFLDB",
-            "location": "IL",
-            "name": "Carrot, at farm (WFLDB)"
           }
         }
       ],
@@ -14059,31 +13934,6 @@
   },
   {
     "activityCreationType": "from_existing",
-    "alias": "egg-chicken-raw-without-shell-default",
-    "comment": "auto-generated",
-    "database": "Agribalyse 3.2",
-    "existingActivity": {
-      "name": "Chicken egg, raw, without shell, at plant {FR} U"
-    },
-    "newName": "Chicken egg, raw, without shell, at plant {FR} U [egg-default] {{egg-chicken-raw-without-shell-default}}",
-    "replacementPlan": {
-      "replace": [
-        {
-          "from": {
-            "name": "Chicken egg, raw, consumption mix {FR} U"
-          },
-          "to": {
-            "database": "WFLDB",
-            "location": "CA",
-            "name": "Chicken egg, poultry industrial laying systems, at farm (WFLDB)"
-          }
-        }
-      ],
-      "upstreamPath": []
-    }
-  },
-  {
-    "activityCreationType": "from_existing",
     "alias": "egg-chicken-raw-without-shell-eu",
     "comment": "auto-generated",
     "database": "Agribalyse 3.2",
@@ -15125,35 +14975,6 @@
   },
   {
     "activityCreationType": "from_existing",
-    "alias": "french-bean-frozen-organic",
-    "comment": "auto-generated",
-    "database": "Agribalyse 3.2",
-    "existingActivity": {
-      "name": "French bean, frozen, at processing {FR} U"
-    },
-    "newName": "French bean, frozen, at processing {FR} U [french-bean-organic] {{french-bean-frozen-organic}}",
-    "replacementPlan": {
-      "replace": [
-        {
-          "from": {
-            "name": "French bean, for canned and frozen products, consumption mix {FR} U"
-          },
-          "to": {
-            "database": "Ginko 2025",
-            "location": "FR",
-            "name": "French bean, organic 2025, national average, at farm gate {FR} U"
-          }
-        }
-      ],
-      "upstreamPath": [
-        {
-          "name": "French bean, for canned and frozen products, trimmed, at processing {FR} U"
-        }
-      ]
-    }
-  },
-  {
-    "activityCreationType": "from_existing",
     "alias": "french-bean-canned-organic",
     "comment": "auto-generated",
     "database": "Agribalyse 3.2",
@@ -15398,56 +15219,6 @@
   },
   {
     "activityCreationType": "from_existing",
-    "alias": "hazelnut-in-shell-unshelled-organic",
-    "comment": "auto-generated",
-    "database": "Agribalyse 3.2",
-    "existingActivity": {
-      "name": "Hazelnut, unshelled, at plant {IT} U"
-    },
-    "newName": "Hazelnut, unshelled, at plant {IT} U [hazelnut-in-shell-organic] {{hazelnut-in-shell-unshelled-organic}}",
-    "replacementPlan": {
-      "replace": [
-        {
-          "from": {
-            "name": "Hazelnut, in shell, at farm {IT} - Adapted from WFLDB U"
-          },
-          "to": {
-            "database": "Ginko 2025",
-            "location": "IT",
-            "name": "Hazelnut, in shell, at farm, organic 2025 {IT}"
-          }
-        }
-      ],
-      "upstreamPath": []
-    }
-  },
-  {
-    "activityCreationType": "from_existing",
-    "alias": "hazelnut-in-shell-unshelled-default",
-    "comment": "auto-generated",
-    "database": "Agribalyse 3.2",
-    "existingActivity": {
-      "name": "Hazelnut, unshelled, at plant {IT} U"
-    },
-    "newName": "Hazelnut, unshelled, at plant {IT} U [hazelnut-in-shell-default] {{hazelnut-in-shell-unshelled-default}}",
-    "replacementPlan": {
-      "replace": [
-        {
-          "from": {
-            "name": "Hazelnut, in shell, at farm {IT} - Adapted from WFLDB U"
-          },
-          "to": {
-            "database": "WFLDB",
-            "location": "US",
-            "name": "Hazelnut, in shell, at farm (WFLDB)"
-          }
-        }
-      ],
-      "upstreamPath": []
-    }
-  },
-  {
-    "activityCreationType": "from_existing",
     "alias": "hazelnut-in-shell-oil-organic",
     "comment": "auto-generated",
     "database": "Agribalyse 3.2",
@@ -15546,29 +15317,6 @@
             "database": "Ginko 2025",
             "location": "GLO",
             "name": "Kiwi, organic 2025 {GLO}| production | Cut-off, U"
-          }
-        }
-      ],
-      "upstreamPath": []
-    }
-  },
-  {
-    "activityCreationType": "from_existing",
-    "alias": "orange-peeled-default",
-    "comment": "auto-generated",
-    "database": "Agribalyse 3.2",
-    "existingActivity": {
-      "name": "Orange, peeled, at processing {FR} U"
-    },
-    "newName": "Orange, peeled, at processing {FR} U [orange-default] {{orange-peeled-default}}",
-    "replacementPlan": {
-      "replace": [
-        {
-          "from": {
-            "name": "Orange, consumption mix {FR} U"
-          },
-          "to": {
-            "name": "Orange, fresh grade {ES}| orange production, fresh grade | Cut-off, U - Adapted from Ecoinvent U"
           }
         }
       ],
@@ -15795,31 +15543,6 @@
             "database": "Ginko 2025",
             "location": "IT",
             "name": "Lemon, at farm, organic 2025 {IT} U"
-          }
-        }
-      ],
-      "upstreamPath": []
-    }
-  },
-  {
-    "activityCreationType": "from_existing",
-    "alias": "lemon-peeled-default",
-    "comment": "auto-generated",
-    "database": "Agribalyse 3.2",
-    "existingActivity": {
-      "name": "Lemon, peeled, at processing {FR} U"
-    },
-    "newName": "Lemon, peeled, at processing {FR} U [lemon-default] {{lemon-peeled-default}}",
-    "replacementPlan": {
-      "replace": [
-        {
-          "from": {
-            "name": "Lemon, consumption mix {FR} U"
-          },
-          "to": {
-            "database": "WFLDB",
-            "location": "GLO",
-            "name": "Lemon, at farm (WFLDB)"
           }
         }
       ],
@@ -16487,31 +16210,6 @@
             "database": "Ginko 2025",
             "location": "NL",
             "name": "Pear, at farm, organic 2025 {NL} U"
-          }
-        }
-      ],
-      "upstreamPath": []
-    }
-  },
-  {
-    "activityCreationType": "from_existing",
-    "alias": "pear-peeled-default",
-    "comment": "auto-generated",
-    "database": "Agribalyse 3.2",
-    "existingActivity": {
-      "name": "Pear, peeled, at processing {FR} U"
-    },
-    "newName": "Pear, peeled, at processing {FR} U [pear-default] {{pear-peeled-default}}",
-    "replacementPlan": {
-      "replace": [
-        {
-          "from": {
-            "name": "Pear, consumption mix {FR} U"
-          },
-          "to": {
-            "database": "WFLDB",
-            "location": "CN",
-            "name": "Pear, at farm (WFLDB)"
           }
         }
       ],
@@ -18368,56 +18066,6 @@
             "database": "WFLDB",
             "location": "HU",
             "name": "Sunflower, at farm (WFLDB)"
-          }
-        }
-      ],
-      "upstreamPath": []
-    }
-  },
-  {
-    "activityCreationType": "from_existing",
-    "alias": "walnut-unshelled-organic",
-    "comment": "auto-generated",
-    "database": "Agribalyse 3.2",
-    "existingActivity": {
-      "name": "Walnuts, unshelled, at processing {FR} U"
-    },
-    "newName": "Walnuts, unshelled, at processing {FR} U [walnut-organic] {{walnut-unshelled-organic}}",
-    "replacementPlan": {
-      "replace": [
-        {
-          "from": {
-            "name": "Walnuts, with shell, consumption mix {FR} U"
-          },
-          "to": {
-            "database": "Ginko 2025",
-            "location": "FR",
-            "name": "Walnut, dried inshell, organic 2025, national average, at farm gate {FR} U"
-          }
-        }
-      ],
-      "upstreamPath": []
-    }
-  },
-  {
-    "activityCreationType": "from_existing",
-    "alias": "walnut-unshelled-default",
-    "comment": "auto-generated",
-    "database": "Agribalyse 3.2",
-    "existingActivity": {
-      "name": "Walnuts, unshelled, at processing {FR} U"
-    },
-    "newName": "Walnuts, unshelled, at processing {FR} U [walnut-default] {{walnut-unshelled-default}}",
-    "replacementPlan": {
-      "replace": [
-        {
-          "from": {
-            "name": "Walnuts, with shell, consumption mix {FR} U"
-          },
-          "to": {
-            "database": "WFLDB",
-            "location": "US",
-            "name": "Walnut, in shell, dried, at farm (WFLDB)"
           }
         }
       ],
