@@ -1,4 +1,10 @@
 {
+  "distribution": {
+    "country": "FR",
+    "defaultProcess": {
+      "food2": "29118025-efa0-47bb-94e2-f5ccba31a903"
+    }
+  },
   "docLinks": {
     "default": {
       "assembly": "methodes-transverses/assemblage",
@@ -6,7 +12,7 @@
       "durability": "def-cout-environnemental/durabilite",
       "eol": "methodes-transverses/fin-de-vie",
       "packaging": "methodes-transverses/emballages",
-      "production" : "methodes-transverses/production",
+      "production": "methodes-transverses/production",
       "transport": "methodes-transverses/transport",
       "use": "methodes-transverses/utilisation"
     },
@@ -22,12 +28,6 @@
         "durability": "vehicules/durabilite-des-vehicules",
         "use": "vehicules/cycle-de-vie/utilisation-du-vehicule"
       }
-    }
-  },
-  "distribution": {
-    "country": "FR",
-    "defaultProcess": {
-      "food2": "29118025-efa0-47bb-94e2-f5ccba31a903"
     }
   },
   "durability": {
