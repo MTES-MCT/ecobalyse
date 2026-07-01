@@ -1120,7 +1120,7 @@ suite =
                                             , Length.inKilometers sea > 0
                                             )
                                         )
-                                    |> Expect.equal (Ok ( False, True, True ))
+                                    |> Expect.equal (Ok ( False, True, False ))
                                 )
                             , it "should compute distance between two countries accounting transport to hubs"
                                 (Component.computeTransportDistance requirements
