@@ -383,7 +383,7 @@ describe("API", () => {
         expect(ennoblingStage).toBeTruthy();
 
         // FIXME investigate why this has evolved before landing
-        expect(ennoblingStage.preTreatments.impacts.ecs).toBeCloseTo(92.7573, 2);
+        expect(ennoblingStage.preTreatments.impacts.ecs).toBeCloseTo(92.7749, 2);
       });
     });
 

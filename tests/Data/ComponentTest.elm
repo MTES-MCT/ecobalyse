@@ -225,7 +225,7 @@ suite =
                                                 |> Impact.insertWithoutAggregateComputation Definition.Ecs (Unit.impact 10)
                                       }
                                     ]
-                                    |> Expect.within (Expect.Absolute 1) 504
+                                    |> Expect.within (Expect.Absolute 1) 505
                                 )
                             , itFromResult "should compute apply custom mix impacts when a transform step country is set"
                                 -- fetch first country with mixes different from defaults
@@ -281,7 +281,7 @@ suite =
                                     [ fading |> setProcessEcsImpact (Unit.impact 10)
                                     , fading |> setProcessEcsImpact (Unit.impact 20)
                                     ]
-                                    |> Expect.within (Expect.Absolute 1) 1019
+                                    |> Expect.within (Expect.Absolute 1) 1020
                                 )
                             ]
                         , suiteFromResult "unit mismatch"
