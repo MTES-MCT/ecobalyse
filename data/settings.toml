@@ -20,8 +20,8 @@ NUMBER_PRECISION = 4 # Set to 4 because at 5 some diff exist between MacOS and L
 
 [default.dbfiles]
 # Method
-METHOD = "Environmental Footprint 3.1 (adapted).1.0.CSV.zip"
-METHOD_MD5 = "4459dc1b55bb080529f32d814d9fbb02"
+METHOD = "Environmental Footprint 3.1 (adapted).1.03.CSV.zip"
+METHOD_MD5 = "0f28f09b20bb5898fd5bca3b61674a12"
 
 # Biosphere
 BIOSPHERE_FLOWS = "ecoinvent_elementary_flows_3.9.xml"
@@ -81,7 +81,7 @@ ENV_NAME = "testing" # Do not override this value, it's used by the unit tests
 PLOT_EXPORT = false
 
 [testing.bw]
-METHOD = "Environmental Footprint 3.1 (adapted) patch wtu"
+METHOD = "Environmental Footprint 3.1 (adapted)"
 BIOSPHERE = "ecoinvent-3.9.1-biosphere"
 PROJECT = "forwast"
 

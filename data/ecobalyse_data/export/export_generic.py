@@ -5,8 +5,8 @@ from typing import List, Optional
 import orjson
 
 from common import activities_processes_sort_key, remove_detailed_impacts
-from common.base_ingredient import infer_base_ingredient
 from common.export import export_json
+from common.infer_metadata import infer_base_ingredient, infer_default_origin
 from ecobalyse_data.bw.search import cached_search_one
 from ecobalyse_data.export.complements import compute_forest_complement
 from ecobalyse_data.export.land_occupation import compute_land_occupation_batch
@@ -45,17 +45,20 @@ def _build_variant_metadata(
             activity.get("landOccupation"),
         )
 
+    metadata["defaultOrigin"] = infer_default_origin(
+        food_variant.get("defaultOrigin") if food_variant is not None else None,
+        activity.get("categories", []),
+    )
+
     if food_variant is not None:
         metadata["ingredient"] = IngredientMetadata(
             base_ingredient=infer_base_ingredient(food_variant["alias"]),
             crop_group=food_variant.get("cropGroup"),
-            default_origin=food_variant["defaultOrigin"],
             density=food_variant["ingredientDensity"],
             inedible_part=food_variant["inediblePart"],
             raw_to_cooked_ratio=food_variant["rawToCookedRatio"],
             scenario=food_variant.get("scenario"),
             transport_cooling=food_variant["transportCooling"],
-            visible=food_variant["visible"],
             process_id=activity["id"],
         ).model_dump(by_alias=True)
 
@@ -188,7 +191,7 @@ def compute_processes_generic(
                 display_name=variant.get(
                     "displayName", activity.get("displayName", "")
                 ),
-                elec_mj=process.get("elecMJ", 0),
+                elec_kwh=process.get("elecKwh", 0),
                 heat_mj=process.get("heatMJ", 0),
                 id=variant["id"],
                 impacts=process["impacts"],
@@ -204,6 +207,7 @@ def compute_processes_generic(
                 source=process["source"],
                 unit=process.get("unit"),
                 qty_variation_ratio=process.get("qtyVariationRatio", 1),
+                visible=variant.get("visible", True),
             )
             entry_dict = entry.model_dump(by_alias=True)
             entry_dict["metadata"] = metadata_out

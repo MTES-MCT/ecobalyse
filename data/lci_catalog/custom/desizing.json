@@ -4,7 +4,7 @@
   ],
   "comment": "corr3 (cf doc): valeurs issues du rapport BAT2023 avec majoration de 50%",
   "displayName": "Désencollage",
-  "elecMJ": 0.36,
+  "elecKwh": 0.1,
   "heatMJ": 3.2,
   "id": "4570d859-cf03-535c-bd4e-870a65a9a9d9",
   "impacts": {

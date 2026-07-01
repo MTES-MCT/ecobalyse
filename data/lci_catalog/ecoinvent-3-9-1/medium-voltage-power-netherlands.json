@@ -5,7 +5,7 @@
   ],
   "comment": "",
   "displayName": "Electricité moyenne tension, Pays-bas",
-  "elecMJ": 0,
+  "elecKwh": 0.0,
   "heatMJ": 0,
   "id": "e6e29828-3dc7-5239-9e6b-918cce78aff6",
   "metadata": [

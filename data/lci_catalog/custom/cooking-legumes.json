@@ -5,7 +5,7 @@
   ],
   "comment": "Raw to cooked ratio defined in Agribalyse 3 methodology",
   "displayName": "Cuisson des légumineuses",
-  "elecMJ": 2.58,
+  "elecKwh": 0.7167,
   "heatMJ": 0.754,
   "id": "5f17eb44-f62c-4f47-b849-d6e17845940c",
   "impacts": {
