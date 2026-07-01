@@ -5036,30 +5036,6 @@
     "unit": "kg"
   },
   {
-    "activityName": "Flaxseed, straw, ret, Normandie, at farm gate {FR} U",
-    "categories": [
-      "ingredient",
-      "material",
-      "material_type:fruits_and_vegetables"
-    ],
-    "comment": "Translated name : Paille de lin, roui, Normandie, France, à la sortie de l'exploitation\nFiber flaxseed production\nFrom the study : Bio-based and petrol-based door panel comparative LCA (Analyse de cycle de vie comparative de panneaux de porte biosourcé (PP/fibres de lin et chanvre) et pétrosourcé (ABS))\nThe AGRIBALYSE methodology is used. For the detailed methodology, see : https://www.ademe.fr/analyse-cycle-vie-comparative-panneaux-porte-biosource-ppfibres-lin-chanvre-petrosource-abs",
-    "displayName": "Graines de lin FR",
-    "elecKwh": 0,
-    "heatMJ": 0,
-    "id": "cfdfa6e8-fd0c-51f9-89e4-2beccb0b66bc",
-    "impacts": {
-      "ecs": 51.72
-    },
-    "location": "FR",
-    "massPerUnit": null,
-    "qtyVariationRatio": 1.0,
-    "scopes": [
-      "food"
-    ],
-    "source": "Agribalyse 3.2",
-    "unit": "kg"
-  },
-  {
     "activityName": "Flours, 1000g | Packaging System, Proxy Pack, Cardboard {FR} U",
     "categories": [
       "material",
