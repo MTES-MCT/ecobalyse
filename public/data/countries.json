@@ -62,6 +62,16 @@
   },
   {
     "aquaticPollutionScenario": "Average",
+    "code": "RMA",
+    "distanceToHub": 500,
+    "electricityProcessId": "a3197e15-9193-5212-8be9-77a3a9961d96",
+    "heatProcessId": "3561ace1-f710-50ce-a69c-9cf842e729e4",
+    "name": "Région - Maghreb",
+    "scopes": ["food2"],
+    "zone": "Africa"
+  },
+  {
+    "aquaticPollutionScenario": "Average",
     "code": "RME",
     "distanceToHub": 2000,
     "electricityProcessId": "fe6437fa-5d9a-5a7f-a2a8-430066232e5c",
