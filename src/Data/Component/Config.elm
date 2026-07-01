@@ -6,6 +6,7 @@ module Data.Component.Config exposing
     , EndOfLifeStrategy
     , decode
     , default
+    , getDocLink
     , parse
     , scopeEnabled
     )
@@ -18,12 +19,14 @@ import Data.Process.Category as Category exposing (MaterialDict)
 import Data.Scope as Scope exposing (Scope)
 import Data.Split as Split exposing (Split)
 import Data.Transport as Transport exposing (Transport)
+import Dict exposing (Dict)
 import Json.Decode as Decode exposing (Decoder)
 import Json.Decode.Pipeline as Decode
 
 
 type alias Config =
     { distribution : DistributionConfig
+    , docLinks : DocLinks
     , durability : DurabilityConfig
     , endOfLife : EndOfLifeConfig
     , production : ProductionConfig
@@ -44,6 +47,12 @@ type alias DataContainer db =
 type alias DistributionConfig =
     { country : Country
     , defaultProcess : Scope.Dict (Maybe Process)
+    }
+
+
+type alias DocLinks =
+    { default : Dict String String
+    , scoped : Scope.Dict (Dict String String)
     }
 
 
@@ -101,6 +110,7 @@ decode : { db | countries : List Country, processes : List Process } -> Decoder 
 decode { countries, processes } =
     Decode.succeed Config
         |> Decode.required "distribution" (decodeDistributionConfig processes countries)
+        |> Decode.required "docLinks" decodeDocLinks
         |> Decode.required "durability" decodeDurabilityConfig
         |> Decode.required "endOfLife" (decodeEndOfLifeConfig processes)
         |> Decode.required "production" (decodeProductionConfig processes)
@@ -113,6 +123,13 @@ decodeDistributionConfig processes countries =
     Decode.succeed DistributionConfig
         |> Decode.required "country" (Country.decodeFromCode countries)
         |> Decode.required "defaultProcess" (decodeScopedMaybeProcess processes)
+
+
+decodeDocLinks : Decoder DocLinks
+decodeDocLinks =
+    Decode.succeed DocLinks
+        |> Decode.required "default" (Decode.dict Decode.string)
+        |> Decode.required "scoped" (Scope.decodeDict (Decode.dict Decode.string))
 
 
 decodeScopedMaybeProcess : List Process -> Decoder (Scope.Dict (Maybe Process))
@@ -261,6 +278,16 @@ default db =
             }
         }
         """
+
+
+getDocLink : Config -> Scope -> String -> Maybe String
+getDocLink { docLinks } scope key =
+    case docLinks.scoped |> Scope.dictGet scope |> Maybe.andThen (Dict.get key) of
+        Just link ->
+            Just link
+
+        Nothing ->
+            docLinks.default |> Dict.get key
 
 
 parse : DataContainer db -> String -> Result String Config
