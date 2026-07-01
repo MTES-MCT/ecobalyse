@@ -132,7 +132,7 @@
     "heatMJ": 0,
     "id": "5f29f62d-78b1-50cd-a109-6c3ed1804a85",
     "impacts": {
-      "ecs": 759.7
+      "ecs": 759.6
     },
     "location": "CN",
     "massPerUnit": null,
@@ -204,7 +204,7 @@
     "heatMJ": 0,
     "id": "4c9bbe9d-9502-5810-a006-bdb2c82923e4",
     "impacts": {
-      "ecs": 67.55
+      "ecs": 67.99
     },
     "location": "FR",
     "massPerUnit": null,
@@ -252,7 +252,7 @@
     "heatMJ": 0,
     "id": "89897143-e8e9-569c-93cb-f41e1fa51f9d",
     "impacts": {
-      "ecs": 38.33
+      "ecs": 38.73
     },
     "location": "FR",
     "massPerUnit": null,
@@ -300,7 +300,7 @@
     "heatMJ": 0,
     "id": "549ebbd7-43ef-4a5a-8b4a-2c3c31b71976",
     "impacts": {
-      "ecs": 3.941
+      "ecs": 3.942
     },
     "location": "FR",
     "massPerUnit": 0.01985,
@@ -324,7 +324,7 @@
     "heatMJ": 0,
     "id": "16719643-8b07-41ef-82e0-d6e537a982c7",
     "impacts": {
-      "ecs": 2.167
+      "ecs": 2.169
     },
     "location": "FR",
     "massPerUnit": 0.01723,
@@ -396,7 +396,7 @@
     "heatMJ": 0,
     "id": "cb910040-9736-4c83-9feb-552b9de13a77",
     "impacts": {
-      "ecs": 6.748
+      "ecs": 6.749
     },
     "location": "FR",
     "massPerUnit": 0.02424,
@@ -444,7 +444,7 @@
     "heatMJ": 0,
     "id": "d979fd5e-219b-4b60-8c88-ce6f134a89ff",
     "impacts": {
-      "ecs": 1.088
+      "ecs": 1.089
     },
     "location": "FR",
     "massPerUnit": 0.006,
@@ -492,7 +492,7 @@
     "heatMJ": 0,
     "id": "b63c1ef7-1434-5148-9eb3-020feff64caf",
     "impacts": {
-      "ecs": 81.4
+      "ecs": 81.39
     },
     "location": "GLO",
     "massPerUnit": null,
@@ -540,7 +540,7 @@
     "heatMJ": 0,
     "id": "e33b98d3-3c62-4f7f-b166-34384a2a228e",
     "impacts": {
-      "ecs": 5.548
+      "ecs": 5.555
     },
     "location": "FR",
     "massPerUnit": 0.01183,
@@ -564,7 +564,7 @@
     "heatMJ": 0,
     "id": "a3ea35c9-a1c7-56d4-a745-35f09d44d44b",
     "impacts": {
-      "ecs": 92.3
+      "ecs": 92.33
     },
     "location": "FR",
     "massPerUnit": null,
@@ -612,7 +612,7 @@
     "heatMJ": 0,
     "id": "c097a91b-0cb8-5e4e-8242-4053f54d9d2b",
     "impacts": {
-      "ecs": 80.52
+      "ecs": 80.49
     },
     "location": "DE",
     "massPerUnit": null,
@@ -804,7 +804,7 @@
     "heatMJ": 0,
     "id": "a84f815c-11e8-43d2-ac5a-ddcfe918766b",
     "impacts": {
-      "ecs": 79.91
+      "ecs": 79.89
     },
     "location": "FR",
     "massPerUnit": 0.9959,
@@ -852,7 +852,7 @@
     "heatMJ": 0,
     "id": "cac779d9-52e2-5978-9551-71e107141598",
     "impacts": {
-      "ecs": 24.56
+      "ecs": 24.55
     },
     "location": "FR",
     "massPerUnit": null,
@@ -876,7 +876,7 @@
     "heatMJ": 0,
     "id": "6fe50d4e-b32a-4b72-bc93-8a9fce071ece",
     "impacts": {
-      "ecs": 2.94
+      "ecs": 2.941
     },
     "location": "FR",
     "massPerUnit": 0.01165,
@@ -924,7 +924,7 @@
     "heatMJ": 0,
     "id": "f638cfa9-03c1-4702-8811-7d9d7bcb39f2",
     "impacts": {
-      "ecs": 5.86
+      "ecs": 5.861
     },
     "location": "FR",
     "massPerUnit": 0.02322,
@@ -948,7 +948,7 @@
     "heatMJ": 0,
     "id": "f2980556-9478-53d5-af64-447c76fa94bb",
     "impacts": {
-      "ecs": 264.8
+      "ecs": 264.9
     },
     "location": "VN",
     "massPerUnit": null,
@@ -996,7 +996,7 @@
     "heatMJ": 0,
     "id": "7a9c6980-07aa-5776-ba8f-ac0c1e193cb9",
     "impacts": {
-      "ecs": 385.8
+      "ecs": 385.7
     },
     "location": "RS",
     "massPerUnit": null,
@@ -1068,7 +1068,7 @@
     "heatMJ": 0,
     "id": "860c7b27-d20e-40a4-a252-4726b12a49c8",
     "impacts": {
-      "ecs": 8.83
+      "ecs": 8.831
     },
     "location": "FR",
     "massPerUnit": 0.04085,
@@ -1092,7 +1092,7 @@
     "heatMJ": 0,
     "id": "7f5c29ca-7ec7-4537-9b92-89f6a3743723",
     "impacts": {
-      "ecs": 4.083
+      "ecs": 4.086
     },
     "location": "FR",
     "massPerUnit": 0.03359,
@@ -1140,7 +1140,7 @@
     "heatMJ": 0,
     "id": "53e26bf1-a8ec-4f7f-bcba-f88989039ddb",
     "impacts": {
-      "ecs": 11.91
+      "ecs": 11.92
     },
     "location": "FR",
     "massPerUnit": 0.0428,
@@ -1212,7 +1212,7 @@
     "heatMJ": 0,
     "id": "1f3427dc-8867-44eb-9982-2a57a42dda53",
     "impacts": {
-      "ecs": 7.727
+      "ecs": 7.731
     },
     "location": "FR",
     "massPerUnit": 0.04003,
@@ -1260,7 +1260,7 @@
     "heatMJ": 0,
     "id": "6723a379-33f1-5571-ad41-5fb83ed6fd41",
     "impacts": {
-      "ecs": 374.6
+      "ecs": 374.8
     },
     "location": "FR",
     "massPerUnit": null,
@@ -1308,7 +1308,7 @@
     "heatMJ": 0,
     "id": "9cab280c-527f-56b6-a620-5f12170108f3",
     "impacts": {
-      "ecs": 46.53
+      "ecs": 46.52
     },
     "location": "GLO",
     "massPerUnit": null,
@@ -1332,7 +1332,7 @@
     "heatMJ": 0,
     "id": "b98f0823-abe6-57fd-b49f-e1f9638e0256",
     "impacts": {
-      "ecs": 595.0
+      "ecs": 596.3
     },
     "location": "FR",
     "massPerUnit": null,
@@ -1380,7 +1380,7 @@
     "heatMJ": 0,
     "id": "ab3f47fd-f0db-42da-a6d0-775e51af253a",
     "impacts": {
-      "ecs": 4.19
+      "ecs": 4.195
     },
     "location": "FR",
     "massPerUnit": 0.008933,
@@ -1428,7 +1428,7 @@
     "heatMJ": 0,
     "id": "7a6c37cc-8701-5591-ba2d-83654f89d8f3",
     "impacts": {
-      "ecs": 747.4
+      "ecs": 747.3
     },
     "location": "GB",
     "massPerUnit": null,
@@ -1452,7 +1452,7 @@
     "heatMJ": 0,
     "id": "3d04fdb9-a591-4940-be32-1c6182f8fe49",
     "impacts": {
-      "ecs": 27.84
+      "ecs": 27.85
     },
     "location": "FR",
     "massPerUnit": 0.1103,
@@ -1500,7 +1500,7 @@
     "heatMJ": 0,
     "id": "fc5abb74-2b90-43ab-939d-9ed1b3041c84",
     "impacts": {
-      "ecs": 2.532
+      "ecs": 2.534
     },
     "location": "FR",
     "massPerUnit": 0.01962,
@@ -1524,7 +1524,7 @@
     "heatMJ": 0,
     "id": "3d3147ce-6038-42e4-a3cf-5ea86c908ef7",
     "impacts": {
-      "ecs": 1.788
+      "ecs": 1.79
     },
     "location": "FR",
     "massPerUnit": 0.01904,
@@ -1548,7 +1548,7 @@
     "heatMJ": 0,
     "id": "52108799-57fd-447a-957c-98c3f1c21030",
     "impacts": {
-      "ecs": 7.267
+      "ecs": 7.27
     },
     "location": "FR",
     "massPerUnit": 0.03696,
@@ -1572,7 +1572,7 @@
     "heatMJ": 0,
     "id": "37ffc2ff-0553-4550-9510-45db181e2f41",
     "impacts": {
-      "ecs": 1.973
+      "ecs": 1.974
     },
     "location": "FR",
     "massPerUnit": 0.0198,
@@ -1620,7 +1620,7 @@
     "heatMJ": 0,
     "id": "fdca416b-3599-5a17-8c86-c7243403514b",
     "impacts": {
-      "ecs": 39.05
+      "ecs": 39.04
     },
     "location": "RoW",
     "massPerUnit": null,
@@ -1644,7 +1644,7 @@
     "heatMJ": 0,
     "id": "573d926d-4331-4599-9f08-de425dbd0362",
     "impacts": {
-      "ecs": 12.11
+      "ecs": 12.12
     },
     "location": "FR",
     "massPerUnit": 0.048,
@@ -1668,7 +1668,7 @@
     "heatMJ": 0,
     "id": "98e02da4-68bd-5330-92a8-0a3015ca8658",
     "impacts": {
-      "ecs": 86.39
+      "ecs": 86.94
     },
     "location": "FR",
     "massPerUnit": null,
@@ -1692,7 +1692,7 @@
     "heatMJ": 0,
     "id": "e8cb6119-10b6-4e31-beac-2d66986c7145",
     "impacts": {
-      "ecs": 8.731
+      "ecs": 8.733
     },
     "location": "FR",
     "massPerUnit": 0.07903,
@@ -1762,7 +1762,7 @@
     "heatMJ": 0,
     "id": "6ea84ae6-fa9b-4020-abea-59261438e064",
     "impacts": {
-      "ecs": 3.13
+      "ecs": 3.131
     },
     "location": "FR",
     "massPerUnit": 0.0113,
@@ -1930,7 +1930,7 @@
     "heatMJ": 0,
     "id": "c55887bb-7316-5689-b010-5cf3ac5054bf",
     "impacts": {
-      "ecs": 35.37
+      "ecs": 35.36
     },
     "location": "FR",
     "massPerUnit": null,
@@ -1978,7 +1978,7 @@
     "heatMJ": 0,
     "id": "63207afc-d352-407c-940d-908a7e66e939",
     "impacts": {
-      "ecs": 7.14
+      "ecs": 7.141
     },
     "location": "FR",
     "massPerUnit": 0.02829,
@@ -2050,7 +2050,7 @@
     "heatMJ": 0,
     "id": "31264073-1158-45eb-b245-c246fe9b8925",
     "impacts": {
-      "ecs": 2.73
+      "ecs": 2.731
     },
     "location": "FR",
     "massPerUnit": 0.01345,
@@ -2098,7 +2098,7 @@
     "heatMJ": 0,
     "id": "8adb5b5c-6080-44a2-8634-efecfb70bfb1",
     "impacts": {
-      "ecs": 29.32
+      "ecs": 29.33
     },
     "location": "FR",
     "massPerUnit": 0.1238,
@@ -2122,7 +2122,7 @@
     "heatMJ": 0,
     "id": "724e8f6c-88be-4943-9291-9f2157363332",
     "impacts": {
-      "ecs": 5.593
+      "ecs": 5.595
     },
     "location": "FR",
     "massPerUnit": 0.05409,
@@ -2146,7 +2146,7 @@
     "heatMJ": 0,
     "id": "fa5c597c-47fd-46e4-83e6-2dd3001ffc66",
     "impacts": {
-      "ecs": 6.905
+      "ecs": 6.908
     },
     "location": "FR",
     "massPerUnit": 0.0388,
@@ -2218,7 +2218,7 @@
     "heatMJ": 0,
     "id": "1686b240-6292-4eae-ad10-0525404cbb10",
     "impacts": {
-      "ecs": 17.24
+      "ecs": 17.23
     },
     "location": "FR",
     "massPerUnit": 0.2148,
@@ -2242,7 +2242,7 @@
     "heatMJ": 0,
     "id": "9cf1ea38-7315-5a26-9747-c26e4440a357",
     "impacts": {
-      "ecs": 357.1
+      "ecs": 357.8
     },
     "location": "FR",
     "massPerUnit": null,
@@ -2386,7 +2386,7 @@
     "heatMJ": 0,
     "id": "032ac0f3-ff62-42ad-b25d-3762aaf3c067",
     "impacts": {
-      "ecs": 5.775
+      "ecs": 5.777
     },
     "location": "FR",
     "massPerUnit": 0.03465,
@@ -2410,7 +2410,7 @@
     "heatMJ": 0,
     "id": "45dac57e-27bb-4b72-8c60-bd7f5fa622af",
     "impacts": {
-      "ecs": 9.035
+      "ecs": 9.037
     },
     "location": "FR",
     "massPerUnit": 0.02066,
@@ -2434,7 +2434,7 @@
     "heatMJ": 0,
     "id": "536f88c6-1269-4b69-b1e0-e5beaafe2aa3",
     "impacts": {
-      "ecs": 3.714
+      "ecs": 3.715
     },
     "location": "FR",
     "massPerUnit": 0.0174,
@@ -2482,7 +2482,7 @@
     "heatMJ": 0,
     "id": "4446a824-39a2-46c0-9944-a64bb851ab27",
     "impacts": {
-      "ecs": 7.618
+      "ecs": 7.62
     },
     "location": "FR",
     "massPerUnit": 0.04546,
@@ -2578,7 +2578,7 @@
     "heatMJ": 0,
     "id": "d9ec18ed-39c6-4aff-a6aa-82db0fb8cfe8",
     "impacts": {
-      "ecs": 8.807
+      "ecs": 8.81
     },
     "location": "FR",
     "massPerUnit": 0.04654,
@@ -2602,7 +2602,7 @@
     "heatMJ": 0,
     "id": "f873d528-850d-4f9d-95e1-5d6d944ed24c",
     "impacts": {
-      "ecs": 37.98
+      "ecs": 37.97
     },
     "location": "FR",
     "massPerUnit": 0.4733,
@@ -2722,7 +2722,7 @@
     "heatMJ": 0,
     "id": "b227b85d-b77c-4a34-8a81-a1e17fcefbdf",
     "impacts": {
-      "ecs": 2.432
+      "ecs": 2.433
     },
     "location": "FR",
     "massPerUnit": 0.00878,
@@ -2818,7 +2818,7 @@
     "heatMJ": 0,
     "id": "78862770-8dbe-4004-a543-09b9acf34586",
     "impacts": {
-      "ecs": 37.84
+      "ecs": 37.83
     },
     "location": "FR",
     "massPerUnit": 0.4716,
@@ -2842,7 +2842,7 @@
     "heatMJ": 0,
     "id": "cdd96db2-8cf8-4511-883e-7e50b17189e0",
     "impacts": {
-      "ecs": 10.87
+      "ecs": 10.88
     },
     "location": "FR",
     "massPerUnit": 0.05382,
@@ -2938,7 +2938,7 @@
     "heatMJ": 0,
     "id": "72b572af-58bb-4ff4-8d05-1f0fa0129322",
     "impacts": {
-      "ecs": 12.25
+      "ecs": 12.26
     },
     "location": "FR",
     "massPerUnit": 0.04124,
@@ -2962,7 +2962,7 @@
     "heatMJ": 0,
     "id": "6bc3e083-e989-4bb0-bf49-99a8e68694a4",
     "impacts": {
-      "ecs": 7.515
+      "ecs": 7.517
     },
     "location": "FR",
     "massPerUnit": 0.04211,
@@ -2986,7 +2986,7 @@
     "heatMJ": 0,
     "id": "4b796abf-97ec-5578-9d70-e781627bc90c",
     "impacts": {
-      "ecs": 1348.0
+      "ecs": 1349.0
     },
     "location": "FR",
     "massPerUnit": null,
@@ -3010,7 +3010,7 @@
     "heatMJ": 0,
     "id": "90d8d8d8-96e3-4cd3-8b59-007abfbadcc6",
     "impacts": {
-      "ecs": 2.216
+      "ecs": 2.217
     },
     "location": "FR",
     "massPerUnit": 0.008,
@@ -3034,7 +3034,7 @@
     "heatMJ": 0,
     "id": "99353d1b-77a3-4fcd-8c99-25ef7dd404c5",
     "impacts": {
-      "ecs": 9.289
+      "ecs": 9.29
     },
     "location": "FR",
     "massPerUnit": 0.03841,
@@ -3058,7 +3058,7 @@
     "heatMJ": 0,
     "id": "9e87c6ec-4d8f-46c2-9d05-e2458e99409b",
     "impacts": {
-      "ecs": 4.843
+      "ecs": 4.846
     },
     "location": "FR",
     "massPerUnit": 0.0267,
@@ -3082,7 +3082,7 @@
     "heatMJ": 0,
     "id": "015ab9c4-9ecb-4dc1-bbfd-7ed7d72e75e6",
     "impacts": {
-      "ecs": 1.254
+      "ecs": 1.255
     },
     "location": "FR",
     "massPerUnit": 0.006915,
@@ -3224,7 +3224,7 @@
     "heatMJ": 0,
     "id": "7357a8aa-d791-4caf-967a-cc741bd52a71",
     "impacts": {
-      "ecs": 0.949
+      "ecs": 0.9491
     },
     "location": "FR",
     "massPerUnit": 0.00376,
@@ -3272,7 +3272,7 @@
     "heatMJ": 0,
     "id": "3d22ea24-cebf-4b2b-9cb5-e99b66ab4ac4",
     "impacts": {
-      "ecs": 6.671
+      "ecs": 6.673
     },
     "location": "FR",
     "massPerUnit": 0.02629,
@@ -3296,7 +3296,7 @@
     "heatMJ": 0,
     "id": "c556470b-9c40-4866-9829-9fa2f887884b",
     "impacts": {
-      "ecs": 14.43
+      "ecs": 14.44
     },
     "location": "FR",
     "massPerUnit": 0.06924,
@@ -3320,7 +3320,7 @@
     "heatMJ": 0,
     "id": "deda3422-acc1-4e2e-b155-b8846bfbc17f",
     "impacts": {
-      "ecs": 11.26
+      "ecs": 11.27
     },
     "location": "FR",
     "massPerUnit": 0.06152,
@@ -3344,7 +3344,7 @@
     "heatMJ": 0,
     "id": "0ca1fa9c-e7bf-4284-9280-ee36435c1bd3",
     "impacts": {
-      "ecs": 6.128
+      "ecs": 6.129
     },
     "location": "FR",
     "massPerUnit": 0.02534,
@@ -3392,7 +3392,7 @@
     "heatMJ": 0,
     "id": "4f45e929-fe0d-4d40-83ba-9f445defdabe",
     "impacts": {
-      "ecs": 0.4795
+      "ecs": 0.4796
     },
     "location": "FR",
     "massPerUnit": 0.0019,
@@ -3416,7 +3416,7 @@
     "heatMJ": 0,
     "id": "5de89b65-5a7b-5ae7-9009-9d2776bd5457",
     "impacts": {
-      "ecs": 192.7
+      "ecs": 192.6
     },
     "location": "GLO",
     "massPerUnit": null,
@@ -3488,7 +3488,7 @@
     "heatMJ": 0,
     "id": "0039ba49-3c34-4432-95c4-0d74aec1d192",
     "impacts": {
-      "ecs": 7.362
+      "ecs": 7.365
     },
     "location": "FR",
     "massPerUnit": 0.0427,
@@ -3512,7 +3512,7 @@
     "heatMJ": 0,
     "id": "14619ea7-3513-4e35-b8db-c221ed6bb18b",
     "impacts": {
-      "ecs": 13.91
+      "ecs": 13.92
     },
     "location": "FR",
     "massPerUnit": 0.0766,
@@ -3536,7 +3536,7 @@
     "heatMJ": 0,
     "id": "caec5ace-97cc-4b5d-855b-4161ee93c28f",
     "impacts": {
-      "ecs": 27.33
+      "ecs": 27.34
     },
     "location": "FR",
     "massPerUnit": 0.1303,
@@ -3560,7 +3560,7 @@
     "heatMJ": 0,
     "id": "95b46d26-7bd8-4961-9e84-517e9a75e821",
     "impacts": {
-      "ecs": 15.08
+      "ecs": 15.09
     },
     "location": "FR",
     "massPerUnit": 0.1044,
@@ -3584,7 +3584,7 @@
     "heatMJ": 0,
     "id": "5ac6b4c8-60a2-4d31-8d38-4c62b20fd026",
     "impacts": {
-      "ecs": 5.744
+      "ecs": 5.747
     },
     "location": "FR",
     "massPerUnit": 0.03768,
@@ -3608,7 +3608,7 @@
     "heatMJ": 0,
     "id": "0d235a67-c74d-57aa-92eb-aa4fe79d619b",
     "impacts": {
-      "ecs": 818.0
+      "ecs": 818.1
     },
     "location": "RER",
     "massPerUnit": null,
@@ -3680,7 +3680,7 @@
     "heatMJ": 0,
     "id": "7c50d9cc-6203-45ba-85de-1eef9e01b2c0",
     "impacts": {
-      "ecs": 5.911
+      "ecs": 5.915
     },
     "location": "FR",
     "massPerUnit": 0.04695,
@@ -3704,7 +3704,7 @@
     "heatMJ": 0,
     "id": "5c40329b-4b0a-46ae-a493-c510fcab51b4",
     "impacts": {
-      "ecs": 5.494
+      "ecs": 5.497
     },
     "location": "FR",
     "massPerUnit": 0.03727,
@@ -3728,7 +3728,7 @@
     "heatMJ": 0,
     "id": "b063c3f2-7ef9-4825-a987-239b1afd77e6",
     "impacts": {
-      "ecs": 4.484
+      "ecs": 4.487
     },
     "location": "FR",
     "massPerUnit": 0.03652,
@@ -3752,7 +3752,7 @@
     "heatMJ": 0,
     "id": "9cb80fea-98f2-4243-a85c-e328c0e84661",
     "impacts": {
-      "ecs": 5.007
+      "ecs": 5.008
     },
     "location": "FR",
     "massPerUnit": 0.01682,
@@ -3776,7 +3776,7 @@
     "heatMJ": 0,
     "id": "a009e0c7-a2c1-4ca7-9c15-cf716982cbbe",
     "impacts": {
-      "ecs": 10.97
+      "ecs": 10.98
     },
     "location": "FR",
     "massPerUnit": 0.07518,
@@ -3800,7 +3800,7 @@
     "heatMJ": 0,
     "id": "08e8d6de-0819-4475-8210-eca523cacf52",
     "impacts": {
-      "ecs": 3.783
+      "ecs": 3.784
     },
     "location": "FR",
     "massPerUnit": 0.01448,
@@ -3824,7 +3824,7 @@
     "heatMJ": 0,
     "id": "1f0bbd3a-d91a-490e-8ff3-ecc91948ad85",
     "impacts": {
-      "ecs": 7.709
+      "ecs": 7.712
     },
     "location": "FR",
     "massPerUnit": 0.03404,
@@ -3848,7 +3848,7 @@
     "heatMJ": 0,
     "id": "1d2d117c-084e-4387-9661-86094ed88e04",
     "impacts": {
-      "ecs": 5.249
+      "ecs": 5.252
     },
     "location": "FR",
     "massPerUnit": 0.0298,
@@ -3872,7 +3872,7 @@
     "heatMJ": 0,
     "id": "e91664fe-0f58-4637-be08-93ed8eec0e50",
     "impacts": {
-      "ecs": 2.891
+      "ecs": 2.892
     },
     "location": "FR",
     "massPerUnit": 0.0131,
@@ -3896,7 +3896,7 @@
     "heatMJ": 0,
     "id": "c72e12c0-23bf-4a9d-97aa-31a36de33925",
     "impacts": {
-      "ecs": 1.827
+      "ecs": 1.828
     },
     "location": "FR",
     "massPerUnit": 0.01282,
@@ -3920,7 +3920,7 @@
     "heatMJ": 0,
     "id": "e84924b5-9371-4836-a02e-10ace2280b37",
     "impacts": {
-      "ecs": 2.379
+      "ecs": 2.38
     },
     "location": "FR",
     "massPerUnit": 0.01568,
@@ -4016,7 +4016,7 @@
     "heatMJ": 0,
     "id": "cfdd1afe-f9ff-516e-ab27-2a9cfbede91c",
     "impacts": {
-      "ecs": 112.7
+      "ecs": 112.6
     },
     "location": "GLO",
     "massPerUnit": null,
@@ -4040,7 +4040,7 @@
     "heatMJ": 0,
     "id": "463139b8-7c36-5c9c-84e6-f1fdb73f3455",
     "impacts": {
-      "ecs": 118.2
+      "ecs": 118.1
     },
     "location": "GR",
     "massPerUnit": null,
@@ -4064,7 +4064,7 @@
     "heatMJ": 0,
     "id": "3102b143-60d6-539c-b7c5-6df221985b78",
     "impacts": {
-      "ecs": 90.59
+      "ecs": 90.73
     },
     "location": "FR",
     "massPerUnit": null,
@@ -4112,7 +4112,7 @@
     "heatMJ": 0,
     "id": "e327d611-5762-5bf8-a574-aa248d0252b2",
     "impacts": {
-      "ecs": 2913.0
+      "ecs": 2918.0
     },
     "location": "FR",
     "massPerUnit": null,
@@ -4136,7 +4136,7 @@
     "heatMJ": 0,
     "id": "59c5e707-db3b-5ed7-b6c1-a97a1e2a369e",
     "impacts": {
-      "ecs": 806.1
+      "ecs": 807.6
     },
     "location": "FR",
     "massPerUnit": null,
@@ -4184,7 +4184,7 @@
     "heatMJ": 0,
     "id": "5bad1f5e-34de-57aa-827b-afeda19f8fe5",
     "impacts": {
-      "ecs": 298.7
+      "ecs": 299.3
     },
     "location": "FR",
     "massPerUnit": null,
@@ -4208,7 +4208,7 @@
     "heatMJ": 0,
     "id": "9a38e883-4ad0-5740-b63d-a4eab07aa491",
     "impacts": {
-      "ecs": 412.7
+      "ecs": 413.4
     },
     "location": "FR",
     "massPerUnit": null,
@@ -4232,7 +4232,7 @@
     "heatMJ": 0,
     "id": "ad59238f-a580-5942-b0f8-5b4547008744",
     "impacts": {
-      "ecs": 433.4
+      "ecs": 434.4
     },
     "location": "FR",
     "massPerUnit": null,
@@ -4256,7 +4256,7 @@
     "heatMJ": 0,
     "id": "40a540cb-7e26-5ab4-9c90-6ea98c37f1a4",
     "impacts": {
-      "ecs": 317.1
+      "ecs": 317.8
     },
     "location": "FR",
     "massPerUnit": null,
@@ -4328,7 +4328,7 @@
     "heatMJ": 0,
     "id": "9985b97f-1a8a-40ab-8024-1e31d8ab2bd4",
     "impacts": {
-      "ecs": 2.824
+      "ecs": 2.826
     },
     "location": "FR",
     "massPerUnit": 0.02812,
@@ -4520,7 +4520,7 @@
     "heatMJ": 0,
     "id": "18d33ded-b853-5f0a-a0dc-2337cc4d9553",
     "impacts": {
-      "ecs": 61.74
+      "ecs": 61.73
     },
     "location": "CH",
     "massPerUnit": null,
@@ -4592,7 +4592,7 @@
     "heatMJ": 0,
     "id": "ce25816c-7f85-49f4-a86c-aa188b332519",
     "impacts": {
-      "ecs": 12.06
+      "ecs": 12.07
     },
     "location": "FR",
     "massPerUnit": 0.0478,
@@ -4616,7 +4616,7 @@
     "heatMJ": 0,
     "id": "490de5c6-c7f8-40f2-a830-848f6112ad86",
     "impacts": {
-      "ecs": 9.075
+      "ecs": 9.076
     },
     "location": "FR",
     "massPerUnit": 0.03753,
@@ -4640,7 +4640,7 @@
     "heatMJ": 0,
     "id": "7d73a15c-be04-4cbc-9e5d-c43ad1fcf35d",
     "impacts": {
-      "ecs": 9.53
+      "ecs": 9.541
     },
     "location": "FR",
     "massPerUnit": 0.04013,
@@ -4664,7 +4664,7 @@
     "heatMJ": 0,
     "id": "0d634750-0a5e-4ab5-ba98-ca1ed5ac6667",
     "impacts": {
-      "ecs": 4.269
+      "ecs": 4.271
     },
     "location": "FR",
     "massPerUnit": 0.04252,
@@ -4712,7 +4712,7 @@
     "heatMJ": 0,
     "id": "42ef6cc8-0331-4273-90c1-ce01f3f179e6",
     "impacts": {
-      "ecs": 5.671
+      "ecs": 5.672
     },
     "location": "FR",
     "massPerUnit": 0.02409,
@@ -4736,7 +4736,7 @@
     "heatMJ": 0,
     "id": "7e34718b-5600-4b51-91f5-545247061594",
     "impacts": {
-      "ecs": 11.86
+      "ecs": 11.87
     },
     "location": "FR",
     "massPerUnit": 0.04528,
@@ -4760,7 +4760,7 @@
     "heatMJ": 0,
     "id": "4acc353a-e791-4bf1-8cd3-459149ec2d96",
     "impacts": {
-      "ecs": 6.258
+      "ecs": 6.261
     },
     "location": "FR",
     "massPerUnit": 0.0356,
@@ -4808,7 +4808,7 @@
     "heatMJ": 0,
     "id": "7b544d2f-55ad-4724-bd10-33ea8313e7f5",
     "impacts": {
-      "ecs": 9.989
+      "ecs": 10.0
     },
     "location": "FR",
     "massPerUnit": 0.0413,
@@ -4832,7 +4832,7 @@
     "heatMJ": 0,
     "id": "37d11b2d-0002-4ae5-a06b-75dc8586b24d",
     "impacts": {
-      "ecs": 4.269
+      "ecs": 4.271
     },
     "location": "FR",
     "massPerUnit": 0.04252,
@@ -4856,7 +4856,7 @@
     "heatMJ": 0,
     "id": "4266b611-3a1a-4775-bd58-0c198d97e3fa",
     "impacts": {
-      "ecs": 7.169
+      "ecs": 7.171
     },
     "location": "FR",
     "massPerUnit": 0.06573,
@@ -4880,7 +4880,7 @@
     "heatMJ": 0,
     "id": "bf11fa4b-4c07-4166-8312-4b5550a3be1d",
     "impacts": {
-      "ecs": 6.394
+      "ecs": 6.396
     },
     "location": "FR",
     "massPerUnit": 0.06012,
@@ -4928,7 +4928,7 @@
     "heatMJ": 0,
     "id": "b8834b6a-306b-41fa-bc92-091e422b00b5",
     "impacts": {
-      "ecs": 18.1
+      "ecs": 18.11
     },
     "location": "FR",
     "massPerUnit": 0.1111,
@@ -4952,7 +4952,7 @@
     "heatMJ": 0,
     "id": "42122c28-7acb-41da-bc41-3657833fabec",
     "impacts": {
-      "ecs": 13.88
+      "ecs": 13.89
     },
     "location": "FR",
     "massPerUnit": 0.05793,
@@ -5072,7 +5072,7 @@
     "heatMJ": 0,
     "id": "fafcfa38-7ede-4acb-8ff8-54dd7183dda1",
     "impacts": {
-      "ecs": 1.816
+      "ecs": 1.817
     },
     "location": "FR",
     "massPerUnit": 0.01001,
@@ -5096,7 +5096,7 @@
     "heatMJ": 0,
     "id": "f11086f4-b220-443b-967d-c5544bf46822",
     "impacts": {
-      "ecs": 46.07
+      "ecs": 46.08
     },
     "location": "FR",
     "massPerUnit": 0.1574,
@@ -5192,7 +5192,7 @@
     "heatMJ": 0,
     "id": "0f167133-a51f-4f2b-8b89-376478df25b9",
     "impacts": {
-      "ecs": 6.425
+      "ecs": 6.429
     },
     "location": "FR",
     "massPerUnit": 0.0491,
@@ -5240,7 +5240,7 @@
     "heatMJ": 0,
     "id": "4ef1fde7-1227-4b64-aae3-99d4e4ee2d33",
     "impacts": {
-      "ecs": 1.323
+      "ecs": 1.324
     },
     "location": "FR",
     "massPerUnit": 0.004777,
@@ -5288,7 +5288,7 @@
     "heatMJ": 0,
     "id": "f7ac3460-f207-483a-b854-2562715a45c0",
     "impacts": {
-      "ecs": 6.91
+      "ecs": 6.913
     },
     "location": "FR",
     "massPerUnit": 0.04299,
@@ -5312,7 +5312,7 @@
     "heatMJ": 0,
     "id": "c2948b3c-d8a3-44dd-ba7d-6f8172418f95",
     "impacts": {
-      "ecs": 7.652
+      "ecs": 7.654
     },
     "location": "FR",
     "massPerUnit": 0.04096,
@@ -5384,7 +5384,7 @@
     "heatMJ": 0,
     "id": "f0465338-b7be-4b81-8220-34faa7208311",
     "impacts": {
-      "ecs": 2.557
+      "ecs": 2.558
     },
     "location": "FR",
     "massPerUnit": 0.02546,
@@ -5408,7 +5408,7 @@
     "heatMJ": 0,
     "id": "9394aedc-0c7f-5691-8340-725176c45732",
     "impacts": {
-      "ecs": 54.89
+      "ecs": 55.11
     },
     "location": "FR",
     "massPerUnit": null,
@@ -5432,7 +5432,7 @@
     "heatMJ": 0,
     "id": "39e6eb6b-7812-4e05-9a7b-6886bcd70f3a",
     "impacts": {
-      "ecs": 21.22
+      "ecs": 21.23
     },
     "location": "FR",
     "massPerUnit": 0.0837,
@@ -5504,7 +5504,7 @@
     "heatMJ": 0,
     "id": "6782d9ba-d838-5e68-baaf-e2b71f01e6c0",
     "impacts": {
-      "ecs": 37.37
+      "ecs": 39.3
     },
     "location": "FR",
     "massPerUnit": null,
@@ -5528,7 +5528,7 @@
     "heatMJ": 0,
     "id": "5f9b2c9d-9fd2-55d5-8731-6e375302d146",
     "impacts": {
-      "ecs": 94.91
+      "ecs": 96.92
     },
     "location": "FR",
     "massPerUnit": null,
@@ -5934,7 +5934,7 @@
     "heatMJ": 0,
     "id": "3599f500-2911-5f5f-9d21-184948f38272",
     "impacts": {
-      "ecs": 190.1
+      "ecs": 190.5
     },
     "location": "US",
     "massPerUnit": null,
@@ -5958,7 +5958,7 @@
     "heatMJ": 0,
     "id": "f76d7bbd-3bb5-5258-9b9c-f9653613627b",
     "impacts": {
-      "ecs": 130.3
+      "ecs": 130.5
     },
     "location": "CH",
     "massPerUnit": null,
@@ -5982,7 +5982,7 @@
     "heatMJ": 0,
     "id": "2d794334-71f6-4da8-9fb8-58e3a486e62d",
     "impacts": {
-      "ecs": 13.13
+      "ecs": 13.14
     },
     "location": "FR",
     "massPerUnit": 0.07238,
@@ -6006,7 +6006,7 @@
     "heatMJ": 0,
     "id": "5c7689b3-b88d-40f0-85ed-e39574e5e51c",
     "impacts": {
-      "ecs": 8.773
+      "ecs": 8.778
     },
     "location": "FR",
     "massPerUnit": 0.08736,
@@ -6054,7 +6054,7 @@
     "heatMJ": 0,
     "id": "e872798c-b575-4cd6-9249-41ea027788cb",
     "impacts": {
-      "ecs": 6.77
+      "ecs": 6.771
     },
     "location": "FR",
     "massPerUnit": 0.02444,
@@ -6102,7 +6102,7 @@
     "heatMJ": 0,
     "id": "0fd37188-1f5c-52cf-97c9-76347567f38d",
     "impacts": {
-      "ecs": 22.9
+      "ecs": 22.89
     },
     "location": "GLO",
     "massPerUnit": null,
@@ -6246,7 +6246,7 @@
     "heatMJ": 0,
     "id": "36cd75c0-d93d-4f0a-9375-cecd1fd3cdfe",
     "impacts": {
-      "ecs": 2.497
+      "ecs": 2.498
     },
     "location": "FR",
     "massPerUnit": 0.01285,
@@ -6438,7 +6438,7 @@
     "heatMJ": 0,
     "id": "bdda4824-2340-46de-a53e-8dd309dc0e7a",
     "impacts": {
-      "ecs": 5.948
+      "ecs": 5.951
     },
     "location": "FR",
     "massPerUnit": 0.0476,
@@ -6534,7 +6534,7 @@
     "heatMJ": 0,
     "id": "41590079-3f24-54f3-912d-c0a149f40d30",
     "impacts": {
-      "ecs": 20.31
+      "ecs": 20.3
     },
     "location": "FR",
     "massPerUnit": null,
@@ -6654,7 +6654,7 @@
     "heatMJ": 0,
     "id": "bc5a154d-e89e-5ea1-a2ac-926d7cfa9945",
     "impacts": {
-      "ecs": 597.4
+      "ecs": 598.7
     },
     "location": "FR",
     "massPerUnit": null,
@@ -6702,7 +6702,7 @@
     "heatMJ": 0,
     "id": "ec694943-f9c8-5a8e-8959-1380d32738c9",
     "impacts": {
-      "ecs": 675.2
+      "ecs": 675.7
     },
     "location": "FR",
     "massPerUnit": null,
@@ -6846,7 +6846,7 @@
     "heatMJ": 0,
     "id": "5d1d28a6-1b39-4c18-8cba-1ea051155889",
     "impacts": {
-      "ecs": 2.922
+      "ecs": 2.923
     },
     "location": "FR",
     "massPerUnit": 0.01055,
@@ -6918,7 +6918,7 @@
     "heatMJ": 0,
     "id": "f00aa5c3-0608-4654-9b93-563f5e86e5f2",
     "impacts": {
-      "ecs": 29.71
+      "ecs": 29.72
     },
     "location": "FR",
     "massPerUnit": 0.1072,
@@ -6990,7 +6990,7 @@
     "heatMJ": 0,
     "id": "05759c2d-f189-445f-bcfb-1b5d42bb7f36",
     "impacts": {
-      "ecs": 8.165
+      "ecs": 8.168
     },
     "location": "FR",
     "massPerUnit": 0.0363,
@@ -7014,7 +7014,7 @@
     "heatMJ": 0,
     "id": "d5d33825-a0ff-402a-b5ab-019274c9a13a",
     "impacts": {
-      "ecs": 5.845
+      "ecs": 5.848
     },
     "location": "FR",
     "massPerUnit": 0.0298,
@@ -7038,7 +7038,7 @@
     "heatMJ": 0,
     "id": "7f3ef50c-b508-46b8-82b9-339dbff9a26d",
     "impacts": {
-      "ecs": 2.759
+      "ecs": 2.761
     },
     "location": "FR",
     "massPerUnit": 0.01915,
@@ -7062,7 +7062,7 @@
     "heatMJ": 0,
     "id": "d1572c65-c8c9-41c3-9def-77a1200fa09d",
     "impacts": {
-      "ecs": 9.527
+      "ecs": 9.531
     },
     "location": "FR",
     "massPerUnit": 0.0406,
@@ -7086,7 +7086,7 @@
     "heatMJ": 0,
     "id": "ac4f6350-c3f7-402c-839d-36fa6b1e0990",
     "impacts": {
-      "ecs": 7.657
+      "ecs": 7.66
     },
     "location": "FR",
     "massPerUnit": 0.0359,
@@ -7110,7 +7110,7 @@
     "heatMJ": 0,
     "id": "9169e051-818d-4f7a-9b1c-705efe7bc3ca",
     "impacts": {
-      "ecs": 10.7
+      "ecs": 10.71
     },
     "location": "FR",
     "massPerUnit": 0.04133,
@@ -7134,7 +7134,7 @@
     "heatMJ": 0,
     "id": "6bfbd705-f185-4989-8096-23d7a4d1d4a0",
     "impacts": {
-      "ecs": 19.49
+      "ecs": 19.5
     },
     "location": "FR",
     "massPerUnit": 0.0546,
@@ -7182,7 +7182,7 @@
     "heatMJ": 0,
     "id": "54982e11-1f16-4f27-9c64-1726aef14cea",
     "impacts": {
-      "ecs": 11.48
+      "ecs": 11.49
     },
     "location": "FR",
     "massPerUnit": 0.06365,
@@ -7206,7 +7206,7 @@
     "heatMJ": 0,
     "id": "1bd10c7a-55c2-462b-8da7-b185220941f0",
     "impacts": {
-      "ecs": 22.16
+      "ecs": 22.17
     },
     "location": "FR",
     "massPerUnit": 0.0552,
@@ -7326,7 +7326,7 @@
     "heatMJ": 0,
     "id": "72e94715-bb24-59c1-8917-c4d00489c1fe",
     "impacts": {
-      "ecs": 1245.0
+      "ecs": 1247.0
     },
     "location": "FR",
     "massPerUnit": null,
@@ -7398,7 +7398,7 @@
     "heatMJ": 0,
     "id": "4111a9a4-48a1-5dd7-9467-c677f36526f7",
     "impacts": {
-      "ecs": 29.23
+      "ecs": 29.28
     },
     "location": "FR",
     "massPerUnit": null,
@@ -7470,7 +7470,7 @@
     "heatMJ": 0,
     "id": "56f941c4-cdf6-4a14-a95b-c1ced03b47c0",
     "impacts": {
-      "ecs": 7.975
+      "ecs": 7.979
     },
     "location": "FR",
     "massPerUnit": 0.04338,
@@ -7494,7 +7494,7 @@
     "heatMJ": 0,
     "id": "5595e13b-991b-4268-b81a-e426ab6ca828",
     "impacts": {
-      "ecs": 7.357
+      "ecs": 7.362
     },
     "location": "FR",
     "massPerUnit": 0.04172,
@@ -7590,7 +7590,7 @@
     "heatMJ": 0,
     "id": "761eb291-702c-4625-ad6d-2d1c0e50f1ea",
     "impacts": {
-      "ecs": 6.66
+      "ecs": 6.663
     },
     "location": "FR",
     "massPerUnit": 0.04197,
@@ -7686,7 +7686,7 @@
     "heatMJ": 0,
     "id": "e1c8c622-7ba8-4587-8c2c-2372ac571b06",
     "impacts": {
-      "ecs": 9.489
+      "ecs": 9.494
     },
     "location": "FR",
     "massPerUnit": 0.08724,
@@ -7710,7 +7710,7 @@
     "heatMJ": 0,
     "id": "95cb1700-375d-44cd-acba-fcad23412943",
     "impacts": {
-      "ecs": 32.91
+      "ecs": 32.92
     },
     "location": "FR",
     "massPerUnit": 0.1372,
@@ -7758,7 +7758,7 @@
     "heatMJ": 0,
     "id": "72d5fa3c-995c-466a-a5ba-122977a17a2f",
     "impacts": {
-      "ecs": 15.34
+      "ecs": 15.35
     },
     "location": "FR",
     "massPerUnit": 0.07758,
@@ -7782,7 +7782,7 @@
     "heatMJ": 0,
     "id": "df49b412-2d28-53ff-8a1d-b359e8d00e63",
     "impacts": {
-      "ecs": 673.4
+      "ecs": 673.9
     },
     "location": "FR",
     "massPerUnit": null,
@@ -7926,7 +7926,7 @@
     "heatMJ": 0,
     "id": "2fb5bed2-2a08-41cd-8b7d-e3e0e200fa6d",
     "impacts": {
-      "ecs": 23.95
+      "ecs": 23.96
     },
     "location": "FR",
     "massPerUnit": 0.03519,
@@ -7950,7 +7950,7 @@
     "heatMJ": 0,
     "id": "9f01b9ca-7d5a-412f-a3c3-404a90fb31e5",
     "impacts": {
-      "ecs": 7.219
+      "ecs": 7.22
     },
     "location": "FR",
     "massPerUnit": 0.01099,
@@ -7974,7 +7974,7 @@
     "heatMJ": 0,
     "id": "80ea0522-54c7-45b9-b298-14f5f522acaf",
     "impacts": {
-      "ecs": 1.816
+      "ecs": 1.817
     },
     "location": "FR",
     "massPerUnit": 0.01001,
@@ -7998,7 +7998,7 @@
     "heatMJ": 0,
     "id": "6f3d3cc3-0e8c-465a-a0aa-62362b34d3dc",
     "impacts": {
-      "ecs": 2.767
+      "ecs": 2.768
     },
     "location": "FR",
     "massPerUnit": 0.00999,
@@ -8070,7 +8070,7 @@
     "heatMJ": 0,
     "id": "786a7e5d-e48c-5989-8c31-bd49aabab932",
     "impacts": {
-      "ecs": 118.8
+      "ecs": 118.7
     },
     "location": "GLO",
     "massPerUnit": null,
@@ -8094,7 +8094,7 @@
     "heatMJ": 0,
     "id": "f72ffc99-b01f-4a0c-a217-5ac6e5864766",
     "impacts": {
-      "ecs": 2.661
+      "ecs": 2.662
     },
     "location": "FR",
     "massPerUnit": 0.07156,
@@ -8166,7 +8166,7 @@
     "heatMJ": 0,
     "id": "fd3d43c3-01b9-47a8-acd5-219e4ef2dafc",
     "impacts": {
-      "ecs": 22.73
+      "ecs": 22.74
     },
     "location": "FR",
     "massPerUnit": 0.0762,
@@ -8406,7 +8406,7 @@
     "heatMJ": 0,
     "id": "d2b3821c-d838-5a0d-9e46-eb40c55fcea6",
     "impacts": {
-      "ecs": 72.04
+      "ecs": 72.03
     },
     "location": "ZA",
     "massPerUnit": null,
@@ -8478,7 +8478,7 @@
     "heatMJ": 0,
     "id": "5b57c612-666a-43a4-9e36-eb476b450fc4",
     "impacts": {
-      "ecs": 5.599
+      "ecs": 5.603
     },
     "location": "FR",
     "massPerUnit": 0.0297,
@@ -8526,7 +8526,7 @@
     "heatMJ": 0,
     "id": "4a0a84b0-2b40-4c3e-b537-58ad65fd1c81",
     "impacts": {
-      "ecs": 9.492
+      "ecs": 9.493
     },
     "location": "FR",
     "massPerUnit": 0.03761,
@@ -8742,7 +8742,7 @@
     "heatMJ": 0,
     "id": "bca09a49-d448-437b-b681-bad54abce187",
     "impacts": {
-      "ecs": 7.095
+      "ecs": 7.098
     },
     "location": "FR",
     "massPerUnit": 0.04464,
@@ -8766,7 +8766,7 @@
     "heatMJ": 0,
     "id": "6095ebd4-78dc-41ba-b16f-cbeccba11b4d",
     "impacts": {
-      "ecs": 4.196
+      "ecs": 4.198
     },
     "location": "FR",
     "massPerUnit": 0.0349,
@@ -8814,7 +8814,7 @@
     "heatMJ": 0,
     "id": "bdc8d394-91ae-4a77-93d0-b3f753d15471",
     "impacts": {
-      "ecs": 14.45
+      "ecs": 14.46
     },
     "location": "FR",
     "massPerUnit": 0.09494,
@@ -8838,7 +8838,7 @@
     "heatMJ": 0,
     "id": "0e2c0b7c-d544-4e5f-9e41-34397b6476da",
     "impacts": {
-      "ecs": 6.135
+      "ecs": 6.139
     },
     "location": "FR",
     "massPerUnit": 0.04743,
@@ -8862,7 +8862,7 @@
     "heatMJ": 0,
     "id": "4b9d0749-f737-4cfd-af09-8075e10aefe3",
     "impacts": {
-      "ecs": 3.461
+      "ecs": 3.462
     },
     "location": "FR",
     "massPerUnit": 0.0216,
@@ -8886,7 +8886,7 @@
     "heatMJ": 0,
     "id": "511565d3-d0df-491a-ad9b-50b7ed126325",
     "impacts": {
-      "ecs": 5.432
+      "ecs": 5.436
     },
     "location": "FR",
     "massPerUnit": 0.04334,
@@ -8910,7 +8910,7 @@
     "heatMJ": 0,
     "id": "e7846488-231a-4c73-9a89-4ec28ab926c7",
     "impacts": {
-      "ecs": 2.353
+      "ecs": 2.354
     },
     "location": "FR",
     "massPerUnit": 0.01786,
@@ -8958,7 +8958,7 @@
     "heatMJ": 0,
     "id": "f6b91149-62a8-409a-8b16-1062fca18a43",
     "impacts": {
-      "ecs": 5.994
+      "ecs": 5.996
     },
     "location": "FR",
     "massPerUnit": 0.03676,
@@ -9030,7 +9030,7 @@
     "heatMJ": 0,
     "id": "fffffc68-aaec-40dd-848f-0ae28203a87d",
     "impacts": {
-      "ecs": 5.901
+      "ecs": 5.903
     },
     "location": "FR",
     "massPerUnit": 0.03845,
@@ -9054,7 +9054,7 @@
     "heatMJ": 0,
     "id": "732664f0-9bee-4f29-8aa8-a4d469e392b3",
     "impacts": {
-      "ecs": 6.485
+      "ecs": 6.487
     },
     "location": "FR",
     "massPerUnit": 0.03645,
@@ -9126,7 +9126,7 @@
     "heatMJ": 0,
     "id": "558cc748-b9bb-40cc-844c-ea77e377e576",
     "impacts": {
-      "ecs": 7.123
+      "ecs": 7.125
     },
     "location": "FR",
     "massPerUnit": 0.057,
@@ -9462,7 +9462,7 @@
     "heatMJ": 0,
     "id": "82220618-7490-4e5d-953f-1fafec1b8d07",
     "impacts": {
-      "ecs": 5.983
+      "ecs": 5.985
     },
     "location": "FR",
     "massPerUnit": 0.0216,
@@ -9486,7 +9486,7 @@
     "heatMJ": 0,
     "id": "02ea0433-a76b-5019-a740-b4e02165d987",
     "impacts": {
-      "ecs": 619.0
+      "ecs": 619.4
     },
     "location": "FR",
     "massPerUnit": null,
@@ -9510,7 +9510,7 @@
     "heatMJ": 0,
     "id": "9cd2c3b6-bf9b-559f-aec0-670a1190caba",
     "impacts": {
-      "ecs": 554.8
+      "ecs": 555.2
     },
     "location": "FR",
     "massPerUnit": null,
@@ -9534,7 +9534,7 @@
     "heatMJ": 0,
     "id": "da0a3d32-2199-5af2-abca-745a224944f3",
     "impacts": {
-      "ecs": 562.1
+      "ecs": 562.2
     },
     "location": "FR",
     "massPerUnit": null,
@@ -9654,7 +9654,7 @@
     "heatMJ": 0,
     "id": "09bf8c91-b95e-4bd3-aaf3-4c5450f74ae7",
     "impacts": {
-      "ecs": 16.54
+      "ecs": 16.55
     },
     "location": "FR",
     "massPerUnit": 0.1049,
@@ -9678,7 +9678,7 @@
     "heatMJ": 0,
     "id": "02886d50-9d19-43bf-b9ed-4d49b360b296",
     "impacts": {
-      "ecs": 21.67
+      "ecs": 21.66
     },
     "location": "FR",
     "massPerUnit": 0.27,
@@ -9702,7 +9702,7 @@
     "heatMJ": 0,
     "id": "5355540e-ad0b-4afa-898d-44b32ef95c09",
     "impacts": {
-      "ecs": 5.96
+      "ecs": 5.961
     },
     "location": "FR",
     "massPerUnit": 0.02141,
@@ -9726,7 +9726,7 @@
     "heatMJ": 0,
     "id": "9c31da32-7c5e-5da7-aa6e-9a116ea32897",
     "impacts": {
-      "ecs": 101.9
+      "ecs": 102.6
     },
     "location": "FR",
     "massPerUnit": null,
@@ -9774,7 +9774,7 @@
     "heatMJ": 0,
     "id": "ed7cc779-7cd4-4f84-b6d8-80270f2288b0",
     "impacts": {
-      "ecs": 2.661
+      "ecs": 2.662
     },
     "location": "FR",
     "massPerUnit": 0.07156,
@@ -9798,7 +9798,7 @@
     "heatMJ": 0,
     "id": "61bed329-a97b-4e49-816c-59c608d7bc17",
     "impacts": {
-      "ecs": 8.085
+      "ecs": 8.086
     },
     "location": "FR",
     "massPerUnit": 0.0821,
@@ -9846,7 +9846,7 @@
     "heatMJ": 0,
     "id": "fb2f79f3-61e7-4736-a97f-3f71630d3d29",
     "impacts": {
-      "ecs": 5.436
+      "ecs": 5.437
     },
     "location": "FR",
     "massPerUnit": 0.07415,
@@ -9894,7 +9894,7 @@
     "heatMJ": 0,
     "id": "bd49fbe2-8caf-4c04-9c20-116eed7a8255",
     "impacts": {
-      "ecs": 5.512
+      "ecs": 5.514
     },
     "location": "FR",
     "massPerUnit": 0.0199,
@@ -9918,7 +9918,7 @@
     "heatMJ": 0,
     "id": "5e424818-b422-4df2-8371-fcf552f22cdb",
     "impacts": {
-      "ecs": 14.79
+      "ecs": 14.8
     },
     "location": "FR",
     "massPerUnit": 0.05467,
@@ -9942,7 +9942,7 @@
     "heatMJ": 0,
     "id": "cd50ef1a-dc27-4f20-9fe5-b60c908c77f0",
     "impacts": {
-      "ecs": 8.608
+      "ecs": 8.614
     },
     "location": "FR",
     "massPerUnit": 0.05209,
@@ -9966,7 +9966,7 @@
     "heatMJ": 0,
     "id": "4fe72cdc-5e61-48b0-b351-ce2c71bfb662",
     "impacts": {
-      "ecs": 22.74
+      "ecs": 22.75
     },
     "location": "FR",
     "massPerUnit": 0.06935,
@@ -9990,7 +9990,7 @@
     "heatMJ": 0,
     "id": "fd430dcb-8903-4ce0-9751-21442407180e",
     "impacts": {
-      "ecs": 4.902
+      "ecs": 4.904
     },
     "location": "FR",
     "massPerUnit": 0.02931,
@@ -10110,7 +10110,7 @@
     "heatMJ": 0,
     "id": "5e015d1c-520e-4ffd-9058-8a352712f4fa",
     "impacts": {
-      "ecs": 2.597
+      "ecs": 2.598
     },
     "location": "FR",
     "massPerUnit": 0.0131,
@@ -10446,7 +10446,7 @@
     "heatMJ": 0,
     "id": "e7a1682b-e2a2-5167-aa90-ed507c4e0e90",
     "impacts": {
-      "ecs": 140.5
+      "ecs": 143.4
     },
     "location": "FR",
     "massPerUnit": null,
@@ -10470,7 +10470,7 @@
     "heatMJ": 0,
     "id": "cef4cef2-bba5-4071-9181-bb98405e759e",
     "impacts": {
-      "ecs": 8.411
+      "ecs": 8.415
     },
     "location": "FR",
     "massPerUnit": 0.05843,
@@ -10566,7 +10566,7 @@
     "heatMJ": 0,
     "id": "50482a6c-aa6a-42cb-9b3d-16cdc06065b6",
     "impacts": {
-      "ecs": 8.203
+      "ecs": 8.206
     },
     "location": "FR",
     "massPerUnit": 0.04443,
@@ -10590,7 +10590,7 @@
     "heatMJ": 0,
     "id": "d7c61e7b-6fd9-417d-b8e7-bdc133916da6",
     "impacts": {
-      "ecs": 2.51
+      "ecs": 2.511
     },
     "location": "FR",
     "massPerUnit": 0.01364,
@@ -10614,7 +10614,7 @@
     "heatMJ": 0,
     "id": "52992c30-4b58-5aaa-9383-8d76966683f2",
     "impacts": {
-      "ecs": 168.0
+      "ecs": 168.7
     },
     "location": "RoW",
     "massPerUnit": null,
@@ -10662,7 +10662,7 @@
     "heatMJ": 0,
     "id": "444b968f-99e6-497b-ac40-13efe9bd693b",
     "impacts": {
-      "ecs": 10.35
+      "ecs": 10.36
     },
     "location": "FR",
     "massPerUnit": 0.03905,
@@ -10686,7 +10686,7 @@
     "heatMJ": 0,
     "id": "f3d3d9e1-1783-4ab8-bcbc-3c3a23aee060",
     "impacts": {
-      "ecs": 13.33
+      "ecs": 13.34
     },
     "location": "FR",
     "massPerUnit": 0.0473,
@@ -10710,7 +10710,7 @@
     "heatMJ": 0,
     "id": "ae0dde52-1503-4409-ab97-d3914857dc8e",
     "impacts": {
-      "ecs": 16.64
+      "ecs": 16.65
     },
     "location": "FR",
     "massPerUnit": 0.05645,
@@ -10734,7 +10734,7 @@
     "heatMJ": 0,
     "id": "b11a9236-ae0e-5426-a68a-822f771a3335",
     "impacts": {
-      "ecs": 813.7
+      "ecs": 813.9
     },
     "location": "FR",
     "massPerUnit": null,
@@ -10782,7 +10782,7 @@
     "heatMJ": 0,
     "id": "b3ef973e-0b8b-4bcf-b5aa-213da974596d",
     "impacts": {
-      "ecs": 1.707
+      "ecs": 1.708
     },
     "location": "FR",
     "massPerUnit": 0.017,
@@ -10806,7 +10806,7 @@
     "heatMJ": 0,
     "id": "d9204398-2752-4159-b75a-8378fd781594",
     "impacts": {
-      "ecs": 9.767
+      "ecs": 9.768
     },
     "location": "FR",
     "massPerUnit": 0.01509,
@@ -10830,7 +10830,7 @@
     "heatMJ": 0,
     "id": "2382212a-043b-4a2f-8bcc-894ee77c5bd3",
     "impacts": {
-      "ecs": 12.99
+      "ecs": 13.0
     },
     "location": "FR",
     "massPerUnit": 0.08575,
@@ -10854,7 +10854,7 @@
     "heatMJ": 0,
     "id": "451bb115-c242-40e9-89f7-4884db859c69",
     "impacts": {
-      "ecs": 2.723
+      "ecs": 2.724
     },
     "location": "FR",
     "massPerUnit": 0.00983,
@@ -10878,7 +10878,7 @@
     "heatMJ": 0,
     "id": "f0fd08da-23f5-4e2e-a05a-cd7f91c6c5f3",
     "impacts": {
-      "ecs": 7.419
+      "ecs": 7.423
     },
     "location": "FR",
     "massPerUnit": 0.0484,
@@ -10902,7 +10902,7 @@
     "heatMJ": 0,
     "id": "4a4935c8-f31f-4810-8fef-717adde4018e",
     "impacts": {
-      "ecs": 7.845
+      "ecs": 7.846
     },
     "location": "FR",
     "massPerUnit": 0.0268,
@@ -10926,7 +10926,7 @@
     "heatMJ": 0,
     "id": "09a19a0e-c516-5091-a5a2-3e79dca3d049",
     "impacts": {
-      "ecs": 1164.0
+      "ecs": 1165.0
     },
     "location": "FR",
     "massPerUnit": null,
@@ -11022,7 +11022,7 @@
     "heatMJ": 0,
     "id": "bb57f10a-3dfe-581b-a984-8d8fe0603d3b",
     "impacts": {
-      "ecs": 9.758
+      "ecs": 9.757
     },
     "location": "FR",
     "massPerUnit": null,
@@ -11118,7 +11118,7 @@
     "heatMJ": 0,
     "id": "6465e22f-6648-4ad7-900f-809f9daed3c2",
     "impacts": {
-      "ecs": 2.008
+      "ecs": 2.009
     },
     "location": "FR",
     "massPerUnit": 0.02084,
@@ -11142,7 +11142,7 @@
     "heatMJ": 0,
     "id": "7794c22c-f28e-4040-af27-18fd85208dc8",
     "impacts": {
-      "ecs": 4.556
+      "ecs": 4.558
     },
     "location": "FR",
     "massPerUnit": 0.02119,
@@ -11166,7 +11166,7 @@
     "heatMJ": 0,
     "id": "88cadf9f-1806-4d0c-acc7-ca3cbe0346e7",
     "impacts": {
-      "ecs": 4.445
+      "ecs": 4.447
     },
     "location": "FR",
     "massPerUnit": 0.02794,
@@ -11190,7 +11190,7 @@
     "heatMJ": 0,
     "id": "3ed15a42-a01e-443c-8b51-60c456739151",
     "impacts": {
-      "ecs": 2.762
+      "ecs": 2.764
     },
     "location": "FR",
     "massPerUnit": 0.02635,
@@ -11214,7 +11214,7 @@
     "heatMJ": 0,
     "id": "4a242067-c13d-4cdb-8b69-c113ffd365ec",
     "impacts": {
-      "ecs": 15.25
+      "ecs": 15.26
     },
     "location": "FR",
     "massPerUnit": 0.04744,
@@ -11334,7 +11334,7 @@
     "heatMJ": 0,
     "id": "a358ef07-0591-489f-808d-2b94a7396eb2",
     "impacts": {
-      "ecs": 44.05
+      "ecs": 44.06
     },
     "location": "FR",
     "massPerUnit": 0.06442,
@@ -11358,7 +11358,7 @@
     "heatMJ": 0,
     "id": "74564e30-b832-4a6f-b3d9-eac2fe62c461",
     "impacts": {
-      "ecs": 10.61
+      "ecs": 10.62
     },
     "location": "FR",
     "massPerUnit": 0.03826,
@@ -11478,7 +11478,7 @@
     "heatMJ": 0,
     "id": "bf2ed341-2676-4e52-acc3-3ed55cc1c95d",
     "impacts": {
-      "ecs": 6.572
+      "ecs": 6.576
     },
     "location": "FR",
     "massPerUnit": 0.04977,
@@ -11502,7 +11502,7 @@
     "heatMJ": 0,
     "id": "604c4bbf-c35a-4717-bc27-6b80940440c9",
     "impacts": {
-      "ecs": 4.381
+      "ecs": 4.383
     },
     "location": "FR",
     "massPerUnit": 0.0454,
@@ -11526,7 +11526,7 @@
     "heatMJ": 0,
     "id": "4c1c2652-73bb-4caa-ab86-5657b5363099",
     "impacts": {
-      "ecs": 4.091
+      "ecs": 4.094
     },
     "location": "FR",
     "massPerUnit": 0.03024,
@@ -11550,7 +11550,7 @@
     "heatMJ": 0,
     "id": "73a50851-72ef-4467-b66c-3a5beb5fdb46",
     "impacts": {
-      "ecs": 8.177
+      "ecs": 8.179
     },
     "location": "FR",
     "massPerUnit": 0.03191,
@@ -11574,7 +11574,7 @@
     "heatMJ": 0,
     "id": "3fe0e81a-1f6d-40af-9ee2-b31302d7ca9b",
     "impacts": {
-      "ecs": 7.375
+      "ecs": 7.377
     },
     "location": "FR",
     "massPerUnit": 0.0271,
@@ -11598,7 +11598,7 @@
     "heatMJ": 0,
     "id": "1478461d-1069-46f6-8edb-13a331749675",
     "impacts": {
-      "ecs": 7.716
+      "ecs": 7.719
     },
     "location": "FR",
     "massPerUnit": 0.04322,
@@ -11622,7 +11622,7 @@
     "heatMJ": 0,
     "id": "44babadf-a66f-49d5-af59-d369275569d5",
     "impacts": {
-      "ecs": 6.846
+      "ecs": 6.848
     },
     "location": "FR",
     "massPerUnit": 0.03801,
@@ -11646,7 +11646,7 @@
     "heatMJ": 0,
     "id": "b1822915-723c-46b7-a43b-f7556fb9da8b",
     "impacts": {
-      "ecs": 7.476
+      "ecs": 7.478
     },
     "location": "FR",
     "massPerUnit": 0.196,
@@ -11670,7 +11670,7 @@
     "heatMJ": 0,
     "id": "8ef710ac-ef25-466b-a89b-283658bb8e1a",
     "impacts": {
-      "ecs": 1.772
+      "ecs": 1.773
     },
     "location": "FR",
     "massPerUnit": 0.01646,
@@ -11694,7 +11694,7 @@
     "heatMJ": 0,
     "id": "4e74b0f4-eb7d-4bdc-b08d-18aec3695a5d",
     "impacts": {
-      "ecs": 3.664
+      "ecs": 3.667
     },
     "location": "FR",
     "massPerUnit": 0.03571,
@@ -11718,7 +11718,7 @@
     "heatMJ": 0,
     "id": "f83076e5-4216-4a10-9b10-c4436dae39ae",
     "impacts": {
-      "ecs": 6.832
+      "ecs": 6.834
     },
     "location": "FR",
     "massPerUnit": 0.03536,
@@ -11742,7 +11742,7 @@
     "heatMJ": 0,
     "id": "251efe3f-8d67-4b4a-9c0b-d0f57c2ac745",
     "impacts": {
-      "ecs": 3.853
+      "ecs": 3.855
     },
     "location": "FR",
     "massPerUnit": 0.04106,
@@ -11814,7 +11814,7 @@
     "heatMJ": 0,
     "id": "a82e9953-3f59-461c-bc13-76e5c3e933bf",
     "impacts": {
-      "ecs": 37.84
+      "ecs": 37.83
     },
     "location": "FR",
     "massPerUnit": 0.4716,
@@ -12126,7 +12126,7 @@
     "heatMJ": 0,
     "id": "ae6fa1d9-04ec-4d26-9445-34b276e61c42",
     "impacts": {
-      "ecs": 7.655
+      "ecs": 7.664
     },
     "location": "FR",
     "massPerUnit": 0.0408,
@@ -12174,7 +12174,7 @@
     "heatMJ": 0,
     "id": "fdea4b3c-b4c0-476f-bb67-3811061ea010",
     "impacts": {
-      "ecs": 78.01
+      "ecs": 78.0
     },
     "location": "FR",
     "massPerUnit": 0.8637,
@@ -12414,7 +12414,7 @@
     "heatMJ": 0,
     "id": "b1c873fa-8ed8-465b-bb56-7db49327b950",
     "impacts": {
-      "ecs": 33.01
+      "ecs": 33.02
     },
     "location": "FR",
     "massPerUnit": 0.1802,
@@ -12438,7 +12438,7 @@
     "heatMJ": 0,
     "id": "303acdf3-23b0-44a3-9815-9c84a498521d",
     "impacts": {
-      "ecs": 33.74
+      "ecs": 33.75
     },
     "location": "FR",
     "massPerUnit": 0.1802,
@@ -12462,7 +12462,7 @@
     "heatMJ": 0,
     "id": "acf10bc2-11ae-47b3-85a6-267c9c491286",
     "impacts": {
-      "ecs": 40.88
+      "ecs": 40.9
     },
     "location": "FR",
     "massPerUnit": 0.2272,
@@ -12486,7 +12486,7 @@
     "heatMJ": 0,
     "id": "5dbbfe8a-3cbc-4848-b279-0461ed9aaa62",
     "impacts": {
-      "ecs": 41.65
+      "ecs": 41.67
     },
     "location": "FR",
     "massPerUnit": 0.2272,
@@ -12558,7 +12558,7 @@
     "heatMJ": 0,
     "id": "7d3a53ec-dfd0-43b6-a257-1ee8520976a3",
     "impacts": {
-      "ecs": 64.66
+      "ecs": 64.65
     },
     "location": "FR",
     "massPerUnit": 0.7372,
@@ -12606,7 +12606,7 @@
     "heatMJ": 0,
     "id": "ff896f19-557a-4e74-b56e-434f9b71dc8e",
     "impacts": {
-      "ecs": 47.1
+      "ecs": 47.09
     },
     "location": "FR",
     "massPerUnit": 0.4972,
@@ -12630,7 +12630,7 @@
     "heatMJ": 0,
     "id": "3ee92686-19c5-4b64-9373-f4c3417d7f72",
     "impacts": {
-      "ecs": 69.91
+      "ecs": 69.9
     },
     "location": "FR",
     "massPerUnit": 0.7372,
@@ -12654,7 +12654,7 @@
     "heatMJ": 0,
     "id": "b8c34a41-7f72-4b94-a4e1-54e5a5dfaebb",
     "impacts": {
-      "ecs": 32.12
+      "ecs": 32.13
     },
     "location": "FR",
     "massPerUnit": 0.0924,
@@ -12894,7 +12894,7 @@
     "heatMJ": 0,
     "id": "ada440c9-f18f-4df5-bac6-4145040320e0",
     "impacts": {
-      "ecs": 1.495
+      "ecs": 1.496
     },
     "location": "FR",
     "massPerUnit": 0.00824,
@@ -12918,7 +12918,7 @@
     "heatMJ": 0,
     "id": "63e87a59-6c93-5359-919f-629740cdc970",
     "impacts": {
-      "ecs": 148.4
+      "ecs": 148.8
     },
     "location": "GLO",
     "massPerUnit": null,
@@ -12966,7 +12966,7 @@
     "heatMJ": 0,
     "id": "9e357717-0a62-567b-93e1-ae01ca0d5b05",
     "impacts": {
-      "ecs": 148.1
+      "ecs": 153.2
     },
     "location": "FR",
     "massPerUnit": null,
@@ -13014,7 +13014,7 @@
     "heatMJ": 0,
     "id": "2e292d5a-893f-5c8d-970f-34e8d16da1e0",
     "impacts": {
-      "ecs": 245.9
+      "ecs": 249.8
     },
     "location": "IT",
     "massPerUnit": null,
@@ -13038,7 +13038,7 @@
     "heatMJ": 0,
     "id": "8e0beff3-1532-50ab-bbec-9a61933ba66f",
     "impacts": {
-      "ecs": 460.0
+      "ecs": 468.1
     },
     "location": "FR",
     "massPerUnit": null,
@@ -13206,7 +13206,7 @@
     "heatMJ": 0,
     "id": "7e1fb122-1320-519c-8751-2d926eb435da",
     "impacts": {
-      "ecs": 0.2721
+      "ecs": 0.2722
     },
     "location": "Europe without Switzerland",
     "massPerUnit": null,
@@ -13230,7 +13230,7 @@
     "heatMJ": 0,
     "id": "47e8165a-1e55-5f8f-a1d3-5ace4fa34ec2",
     "impacts": {
-      "ecs": 0.2955
+      "ecs": 0.2954
     },
     "location": "ZA",
     "massPerUnit": null,
@@ -13278,7 +13278,7 @@
     "heatMJ": 0,
     "id": "610bf942-0f40-40ee-9dee-64db0fb3bced",
     "impacts": {
-      "ecs": 5.47
+      "ecs": 5.471
     },
     "location": "FR",
     "massPerUnit": 0.008,
@@ -13302,7 +13302,7 @@
     "heatMJ": 0,
     "id": "bc97bf3a-d74f-498a-bdf5-bdb83f6cea27",
     "impacts": {
-      "ecs": 1.722
+      "ecs": 1.723
     },
     "location": "FR",
     "massPerUnit": 0.01715,
@@ -13350,7 +13350,7 @@
     "heatMJ": 0,
     "id": "9772abf2-4da1-4984-8358-1a227ce3400a",
     "impacts": {
-      "ecs": 8.134
+      "ecs": 8.136
     },
     "location": "FR",
     "massPerUnit": 0.02922,
@@ -13614,7 +13614,7 @@
     "heatMJ": 0,
     "id": "b19dd010-16ff-5064-9ec9-06ac0eea9597",
     "impacts": {
-      "ecs": 1800.0
+      "ecs": 1801.0
     },
     "location": "FR",
     "massPerUnit": null,
@@ -13638,7 +13638,7 @@
     "heatMJ": 0,
     "id": "5f6559d9-1fa7-56ea-b655-bbd471c11a43",
     "impacts": {
-      "ecs": 1783.0
+      "ecs": 1784.0
     },
     "location": "FR",
     "massPerUnit": null,
@@ -13706,7 +13706,7 @@
     "heatMJ": 0,
     "id": "af46369a-ac48-5f19-8278-ce85106e50e7",
     "impacts": {
-      "ecs": 66.01
+      "ecs": 66.02
     },
     "location": "FR",
     "massPerUnit": null,
@@ -13826,7 +13826,7 @@
     "heatMJ": 0,
     "id": "45187e72-6665-47c8-9b54-adacd186a622",
     "impacts": {
-      "ecs": 6.252
+      "ecs": 6.254
     },
     "location": "FR",
     "massPerUnit": 0.0286,
@@ -13850,7 +13850,7 @@
     "heatMJ": 0,
     "id": "d76d9c44-8728-4fc4-b2f8-12530e3c7158",
     "impacts": {
-      "ecs": 3.13
+      "ecs": 3.131
     },
     "location": "FR",
     "massPerUnit": 0.0207,
@@ -13874,7 +13874,7 @@
     "heatMJ": 0,
     "id": "def2bf00-f371-43d9-b641-598967b918de",
     "impacts": {
-      "ecs": 1.995
+      "ecs": 1.997
     },
     "location": "FR",
     "massPerUnit": 0.011,
@@ -13922,7 +13922,7 @@
     "heatMJ": 0,
     "id": "68ecf073-0d5a-41f4-9815-9fed8f484b42",
     "impacts": {
-      "ecs": 2.568
+      "ecs": 2.567
     },
     "location": "FR",
     "massPerUnit": 0.032,
@@ -13970,7 +13970,7 @@
     "heatMJ": 0,
     "id": "28460f5e-7cf3-495a-80b2-23b097eb567a",
     "impacts": {
-      "ecs": 10.57
+      "ecs": 10.58
     },
     "location": "FR",
     "massPerUnit": 0.0809,
@@ -14066,7 +14066,7 @@
     "heatMJ": 0,
     "id": "7ebd45dc-00de-437a-9cbe-d9155160a2b9",
     "impacts": {
-      "ecs": 8.264
+      "ecs": 8.268
     },
     "location": "FR",
     "massPerUnit": 0.05488,
@@ -14114,7 +14114,7 @@
     "heatMJ": 0,
     "id": "6bbb3fe7-9ca4-4214-8096-494bd63b28e1",
     "impacts": {
-      "ecs": 7.253
+      "ecs": 7.257
     },
     "location": "FR",
     "massPerUnit": 0.04943,
@@ -14162,7 +14162,7 @@
     "heatMJ": 0,
     "id": "9aa797a6-7eba-5b2f-af18-79df36032ebb",
     "impacts": {
-      "ecs": 22.33
+      "ecs": 22.45
     },
     "location": "FR",
     "massPerUnit": null,
@@ -14186,7 +14186,7 @@
     "heatMJ": 0,
     "id": "dfd0eb16-07d4-4348-9a1e-1dba75af598f",
     "impacts": {
-      "ecs": 25.89
+      "ecs": 25.88
     },
     "location": "FR",
     "massPerUnit": 0.3226,
@@ -14210,7 +14210,7 @@
     "heatMJ": 0,
     "id": "1ada0a0e-4dc5-57d9-bf34-60f617c63d9b",
     "impacts": {
-      "ecs": 115.8
+      "ecs": 119.4
     },
     "location": "FR",
     "massPerUnit": null,
@@ -14402,7 +14402,7 @@
     "heatMJ": 0,
     "id": "1a0274d3-e6e9-487c-ae59-998b87dca6f4",
     "impacts": {
-      "ecs": 6.215
+      "ecs": 6.217
     },
     "location": "FR",
     "massPerUnit": 0.03691,
@@ -14450,7 +14450,7 @@
     "heatMJ": 0,
     "id": "a7ed6fb9-e9cc-4c16-914c-a2906b753ad0",
     "impacts": {
-      "ecs": 75.51
+      "ecs": 75.53
     },
     "location": "FR",
     "massPerUnit": 0.1109,
@@ -14522,7 +14522,7 @@
     "heatMJ": 0,
     "id": "ef78c003-0bcf-5358-8fc0-0b30b338e4d2",
     "impacts": {
-      "ecs": 91.41
+      "ecs": 91.74
     },
     "location": "FR",
     "massPerUnit": null,
@@ -14618,7 +14618,7 @@
     "heatMJ": 0,
     "id": "522c5380-a9b5-5f13-9b51-8ac5059be56c",
     "impacts": {
-      "ecs": 86.11
+      "ecs": 86.1
     },
     "location": "GLO",
     "massPerUnit": null,
@@ -14666,7 +14666,7 @@
     "heatMJ": 0,
     "id": "567a0395-a56b-4a76-9b0c-fee9619dafd9",
     "impacts": {
-      "ecs": 7.116
+      "ecs": 7.12
     },
     "location": "FR",
     "massPerUnit": 0.04632,
@@ -14786,7 +14786,7 @@
     "heatMJ": 0,
     "id": "97e356a1-a0ec-4e48-a07e-3d3595565baf",
     "impacts": {
-      "ecs": 20.72
+      "ecs": 20.73
     },
     "location": "FR",
     "massPerUnit": 0.12,
@@ -14810,7 +14810,7 @@
     "heatMJ": 0,
     "id": "4de94a07-f5af-4870-8d47-b9f4af50bba6",
     "impacts": {
-      "ecs": 38.2
+      "ecs": 38.21
     },
     "location": "FR",
     "massPerUnit": 0.3891,
@@ -14834,7 +14834,7 @@
     "heatMJ": 0,
     "id": "2554e4cd-075a-442a-b569-d77f05879561",
     "impacts": {
-      "ecs": 12.46
+      "ecs": 12.47
     },
     "location": "FR",
     "massPerUnit": 0.06785,
@@ -14858,7 +14858,7 @@
     "heatMJ": 0,
     "id": "734e65ec-56c5-4a59-bc6b-ecf19b7d5abe",
     "impacts": {
-      "ecs": 17.65
+      "ecs": 17.66
     },
     "location": "FR",
     "massPerUnit": 0.1226,
@@ -14882,7 +14882,7 @@
     "heatMJ": 0,
     "id": "bf655bc6-7f4a-5890-ac61-80b2ade4ee05",
     "impacts": {
-      "ecs": 546.5
+      "ecs": 546.9
     },
     "location": "FR",
     "massPerUnit": null,
@@ -14906,7 +14906,7 @@
     "heatMJ": 0,
     "id": "bc54db54-14e0-554f-9e5d-160a14dc2879",
     "impacts": {
-      "ecs": 36.21
+      "ecs": 36.2
     },
     "location": "FR",
     "massPerUnit": null,
@@ -16032,7 +16032,7 @@
     "heatMJ": 0,
     "id": "e4ef3991-edc8-40f1-b7a6-56486f78d4d2",
     "impacts": {
-      "ecs": 533.0
+      "ecs": 533.6
     },
     "location": "RER",
     "massPerUnit": null,
@@ -16056,7 +16056,7 @@
     "heatMJ": 0,
     "id": "b67707e7-827b-4ef3-aa4c-c2d764d8c526",
     "impacts": {
-      "ecs": 41.72
+      "ecs": 42.16
     },
     "location": "GLO",
     "massPerUnit": null,
@@ -16248,7 +16248,7 @@
     "heatMJ": 0,
     "id": "79dc0633-2115-513c-a011-98982292e461",
     "impacts": {
-      "ecs": 1298.0
+      "ecs": 1299.0
     },
     "location": "FR",
     "massPerUnit": null,
@@ -16368,7 +16368,7 @@
     "heatMJ": 0,
     "id": "12712421-5454-400e-82b5-9e4dcb66d650",
     "impacts": {
-      "ecs": 296.5
+      "ecs": 296.2
     },
     "location": "FR",
     "massPerUnit": null,
@@ -16416,7 +16416,7 @@
     "heatMJ": 0,
     "id": "94ce21be-6cc0-4964-a199-71c49ef1de7b",
     "impacts": {
-      "ecs": 1206.0
+      "ecs": 1226.0
     },
     "location": "GLO",
     "massPerUnit": null,
@@ -16584,7 +16584,7 @@
     "heatMJ": 0,
     "id": "1fbee8e5-b188-40d2-bb39-cdb5343dde59",
     "impacts": {
-      "ecs": 1030.0
+      "ecs": 1047.0
     },
     "location": "GLO",
     "massPerUnit": null,
@@ -16632,7 +16632,7 @@
     "heatMJ": 0,
     "id": "68ee04e1-5112-4c87-8fc4-6aa1f7ac04c2",
     "impacts": {
-      "ecs": 864.5
+      "ecs": 879.0
     },
     "location": "GLO",
     "massPerUnit": null,
@@ -16656,7 +16656,7 @@
     "heatMJ": 0,
     "id": "ece05143-86e2-53d2-b9f8-84a3fdd7d823",
     "impacts": {
-      "ecs": 769.1
+      "ecs": 770.4
     },
     "location": "FR",
     "massPerUnit": null,
@@ -16680,7 +16680,7 @@
     "heatMJ": 0,
     "id": "cb140c68-7b90-5156-b232-9f6d093a15da",
     "impacts": {
-      "ecs": 480.1
+      "ecs": 481.4
     },
     "location": "FR",
     "massPerUnit": null,
@@ -16704,7 +16704,7 @@
     "heatMJ": 0,
     "id": "877499d7-7a29-58f6-8a0d-e1eef40b2ec4",
     "impacts": {
-      "ecs": 810.2
+      "ecs": 811.5
     },
     "location": "FR",
     "massPerUnit": null,
@@ -16776,7 +16776,7 @@
     "heatMJ": 0,
     "id": "4d0e2d52-adf7-4e88-8685-b202f9836eca",
     "impacts": {
-      "ecs": 836.9
+      "ecs": 850.9
     },
     "location": "GLO",
     "massPerUnit": null,
@@ -16824,7 +16824,7 @@
     "heatMJ": 0,
     "id": "c310abe5-d207-46c8-a21e-501c43559f5c",
     "impacts": {
-      "ecs": 1128.0
+      "ecs": 1147.0
     },
     "location": "GLO",
     "massPerUnit": null,
@@ -16896,7 +16896,7 @@
     "heatMJ": 0,
     "id": "66c53478-f219-4c5a-984f-7bf6c663ffde",
     "impacts": {
-      "ecs": 1526.0
+      "ecs": 1552.0
     },
     "location": "GLO",
     "massPerUnit": null,
@@ -16944,7 +16944,7 @@
     "heatMJ": 0,
     "id": "814519db-c292-40f6-bda4-9fa627a35def",
     "impacts": {
-      "ecs": 824.5
+      "ecs": 838.3
     },
     "location": "GLO",
     "massPerUnit": null,
@@ -16992,7 +16992,7 @@
     "heatMJ": 0,
     "id": "4f49607f-4b55-446e-bcb2-9275e4958b5e",
     "impacts": {
-      "ecs": 1110.0
+      "ecs": 1129.0
     },
     "location": "GLO",
     "massPerUnit": null,
@@ -17135,7 +17135,7 @@
     "heatMJ": 0,
     "id": "2dca84f9-d108-4f76-9c15-1af362136813",
     "impacts": {
-      "ecs": 802.3
+      "ecs": 815.7
     },
     "location": "GLO",
     "massPerUnit": null,
@@ -17183,7 +17183,7 @@
     "heatMJ": 0,
     "id": "8626a204-5341-4430-878f-0838a982cd86",
     "impacts": {
-      "ecs": 1155.0
+      "ecs": 1174.0
     },
     "location": "GLO",
     "massPerUnit": null,
@@ -17303,7 +17303,7 @@
     "heatMJ": 0,
     "id": "02ed0b35-44eb-4257-8497-4c4d09bad9bf",
     "impacts": {
-      "ecs": 1224.0
+      "ecs": 1244.0
     },
     "location": "GLO",
     "massPerUnit": null,
@@ -17591,7 +17591,7 @@
     "heatMJ": 0,
     "id": "5fc01e16-acab-491f-8d29-30060ae58d3d",
     "impacts": {
-      "ecs": 490.1
+      "ecs": 498.2
     },
     "location": "GLO",
     "massPerUnit": null,
@@ -17639,7 +17639,7 @@
     "heatMJ": 0,
     "id": "de184828-68e7-485d-9414-e9613b03bf73",
     "impacts": {
-      "ecs": 576.8
+      "ecs": 586.4
     },
     "location": "GLO",
     "massPerUnit": null,
@@ -17735,7 +17735,7 @@
     "heatMJ": 0,
     "id": "1268b17e-0e32-477f-90f4-3ac32fbbc05e",
     "impacts": {
-      "ecs": 351.2
+      "ecs": 351.9
     },
     "location": "GLO",
     "massPerUnit": null,
@@ -17807,7 +17807,7 @@
     "heatMJ": 0,
     "id": "d0b23683-9c77-44e6-bde8-a42854010497",
     "impacts": {
-      "ecs": 1119.0
+      "ecs": 1138.0
     },
     "location": "GLO",
     "massPerUnit": null,
@@ -17855,7 +17855,7 @@
     "heatMJ": 0,
     "id": "a5ac65c6-8fd1-4f23-a2e2-c04abf8a2187",
     "impacts": {
-      "ecs": 286.5
+      "ecs": 291.2
     },
     "location": "GLO",
     "massPerUnit": null,
@@ -17903,7 +17903,7 @@
     "heatMJ": 0,
     "id": "972a9793-b74b-4f4a-b9c2-98d4b84a5b03",
     "impacts": {
-      "ecs": 837.8
+      "ecs": 851.9
     },
     "location": "GLO",
     "massPerUnit": null,
@@ -18119,7 +18119,7 @@
     "heatMJ": 0,
     "id": "000a47b8-7563-4c12-832a-ed3c964ad5a3",
     "impacts": {
-      "ecs": 909.0
+      "ecs": 924.2
     },
     "location": "GLO",
     "massPerUnit": null,
@@ -18167,7 +18167,7 @@
     "heatMJ": 0,
     "id": "c1cf73ac-a181-45b4-bf7a-f47ad05c3e5b",
     "impacts": {
-      "ecs": 255.4
+      "ecs": 259.6
     },
     "location": "GLO",
     "massPerUnit": null,
@@ -18215,7 +18215,7 @@
     "heatMJ": 0,
     "id": "4f39b297-807b-4fd6-8154-d4fdc0ae2a0a",
     "impacts": {
-      "ecs": 304.3
+      "ecs": 309.3
     },
     "location": "GLO",
     "massPerUnit": null,
@@ -18263,7 +18263,7 @@
     "heatMJ": 0,
     "id": "e852a743-e703-4879-ac01-5a85bb2add12",
     "impacts": {
-      "ecs": 379.9
+      "ecs": 386.2
     },
     "location": "GLO",
     "massPerUnit": null,
@@ -18287,7 +18287,7 @@
     "heatMJ": 0,
     "id": "23090481-9007-4d22-8d8e-08920c1aaa1e",
     "impacts": {
-      "ecs": 342.6
+      "ecs": 342.7
     },
     "location": "GLO",
     "massPerUnit": null,
@@ -18335,7 +18335,7 @@
     "heatMJ": 0,
     "id": "cc5fc515-4692-4e9c-b7e4-0fc21055d0ed",
     "impacts": {
-      "ecs": 320.8
+      "ecs": 320.9
     },
     "location": "GLO",
     "massPerUnit": null,
@@ -18430,7 +18430,7 @@
     "heatMJ": 0,
     "id": "b7bbb132-dadf-4405-923a-2c51b5fd312f",
     "impacts": {
-      "ecs": 889.0
+      "ecs": 903.9
     },
     "location": "GLO",
     "massPerUnit": null,
@@ -18478,7 +18478,7 @@
     "heatMJ": 0,
     "id": "0ed716c2-640d-43a0-95ad-c61fce669635",
     "impacts": {
-      "ecs": 1133.0
+      "ecs": 1151.0
     },
     "location": "GLO",
     "massPerUnit": null,
@@ -18646,7 +18646,7 @@
     "heatMJ": 0,
     "id": "62cce1fb-5980-52ff-bb1f-63fa756ca169",
     "impacts": {
-      "ecs": 5373.0
+      "ecs": 5372.0
     },
     "location": "GLO",
     "massPerUnit": null,
@@ -18742,7 +18742,7 @@
     "heatMJ": 0,
     "id": "03a4a1e4-1d10-4805-8a6a-ac485cb24d7c",
     "impacts": {
-      "ecs": 1237.0
+      "ecs": 1258.0
     },
     "location": "GLO",
     "massPerUnit": null,
@@ -18934,7 +18934,7 @@
     "heatMJ": 0,
     "id": "296b9587-82e6-4bb2-a6df-2587a7cc20ee",
     "impacts": {
-      "ecs": 13.66
+      "ecs": 13.64
     },
     "location": "GLO",
     "massPerUnit": null,
@@ -18958,7 +18958,7 @@
     "heatMJ": 0,
     "id": "3d8ad82d-2709-4789-8226-162133ea2ba8",
     "impacts": {
-      "ecs": 23.65
+      "ecs": 23.64
     },
     "location": "GLO",
     "massPerUnit": null,
@@ -18982,7 +18982,7 @@
     "heatMJ": 0,
     "id": "f805b5de-d820-4340-9ae9-9d101ed5c07a",
     "impacts": {
-      "ecs": 765.5
+      "ecs": 765.0
     },
     "location": "GLO",
     "massPerUnit": null,
@@ -19078,7 +19078,7 @@
     "heatMJ": 0,
     "id": "97794c50-6932-5707-a453-29b8af52b242",
     "impacts": {
-      "ecs": 620.0
+      "ecs": 620.2
     },
     "location": "FR",
     "massPerUnit": null,
@@ -19126,7 +19126,7 @@
     "heatMJ": 0,
     "id": "8a663670-3cc8-47a3-b144-0f74c0928a63",
     "impacts": {
-      "ecs": 396.7
+      "ecs": 396.6
     },
     "location": "GLO",
     "massPerUnit": null,
@@ -19222,7 +19222,7 @@
     "heatMJ": 0,
     "id": "1d8ee50f-211e-57a2-96a6-130a9b72fb00",
     "impacts": {
-      "ecs": 3491.0
+      "ecs": 3490.0
     },
     "location": "GLO",
     "massPerUnit": null,
@@ -19246,7 +19246,7 @@
     "heatMJ": 0,
     "id": "d1d25df6-b039-52ae-b67f-32da12d75e8f",
     "impacts": {
-      "ecs": 1582.0
+      "ecs": 1584.0
     },
     "location": "GLO",
     "massPerUnit": null,
@@ -19270,7 +19270,7 @@
     "heatMJ": 0,
     "id": "53f3f0e1-45e3-5676-a4ec-b78b5d2dfffc",
     "impacts": {
-      "ecs": 1023.0
+      "ecs": 1025.0
     },
     "location": "FR",
     "massPerUnit": null,
@@ -19342,7 +19342,7 @@
     "heatMJ": 0,
     "id": "ca2328f4-90ee-500a-a377-6d7fddd89aaa",
     "impacts": {
-      "ecs": 4368.0
+      "ecs": 4367.0
     },
     "location": "GLO",
     "massPerUnit": null,
@@ -19462,7 +19462,7 @@
     "heatMJ": 0,
     "id": "b2da6b74-a79d-4f5f-94be-213e3f53583d",
     "impacts": {
-      "ecs": 857.8
+      "ecs": 872.2
     },
     "location": "GLO",
     "massPerUnit": null,
@@ -19510,7 +19510,7 @@
     "heatMJ": 0,
     "id": "cd275278-5182-4380-ae4b-c973f4401d13",
     "impacts": {
-      "ecs": 682.3
+      "ecs": 693.6
     },
     "location": "GLO",
     "massPerUnit": null,
@@ -19558,7 +19558,7 @@
     "heatMJ": 0,
     "id": "9d89f2cd-17c9-4488-a56d-e724dc57e58d",
     "impacts": {
-      "ecs": 920.1
+      "ecs": 935.5
     },
     "location": "GLO",
     "massPerUnit": null,
@@ -19725,7 +19725,7 @@
     "heatMJ": 0,
     "id": "229a853c-9a70-42ca-87ad-a7f6e985a407",
     "impacts": {
-      "ecs": 342.3
+      "ecs": 342.5
     },
     "location": "RER",
     "massPerUnit": null,
@@ -19748,7 +19748,7 @@
     "heatMJ": 0,
     "id": "16372b36-e3a6-4eed-9aae-540a966773c3",
     "impacts": {
-      "ecs": 347.9
+      "ecs": 348.1
     },
     "location": "RER",
     "massPerUnit": null,
@@ -19771,7 +19771,7 @@
     "heatMJ": 0,
     "id": "1415f996-e305-4fad-bef1-fffea6aa6865",
     "impacts": {
-      "ecs": 628.0
+      "ecs": 628.1
     },
     "location": "RER",
     "massPerUnit": null,
@@ -19794,7 +19794,7 @@
     "heatMJ": 0,
     "id": "5ffe0a0b-37ca-4693-ba82-38cec28a04ad",
     "impacts": {
-      "ecs": 340.6
+      "ecs": 340.7
     },
     "location": "RER",
     "massPerUnit": null,
@@ -19911,7 +19911,7 @@
     "heatMJ": 0,
     "id": "fffd6e96-71eb-45dc-a4e0-d3b79449251c",
     "impacts": {
-      "ecs": 1275.0
+      "ecs": 1296.0
     },
     "location": "GLO",
     "massPerUnit": null,
@@ -19983,7 +19983,7 @@
     "heatMJ": 0,
     "id": "01aaf607-7a6c-56d9-8f92-901d93e7bf30",
     "impacts": {
-      "ecs": 179.9
+      "ecs": 180.0
     },
     "location": "GLO",
     "massPerUnit": null,
@@ -20007,7 +20007,7 @@
     "heatMJ": 0,
     "id": "2d0ef86b-3865-57f9-a896-e45c8f680b2c",
     "impacts": {
-      "ecs": 175.5
+      "ecs": 175.4
     },
     "location": "GLO",
     "massPerUnit": null,
@@ -20343,7 +20343,7 @@
     "heatMJ": 0,
     "id": "6047806e-ff99-410e-96f6-77cb99f0c0a4",
     "impacts": {
-      "ecs": 442.1
+      "ecs": 449.5
     },
     "location": "GLO",
     "massPerUnit": null,
@@ -20391,7 +20391,7 @@
     "heatMJ": 0,
     "id": "64dc6887-ba32-44e7-8a24-e03ca42b6f96",
     "impacts": {
-      "ecs": 342.1
+      "ecs": 347.7
     },
     "location": "GLO",
     "massPerUnit": null,
@@ -20583,7 +20583,7 @@
     "heatMJ": 0,
     "id": "a68553f9-d844-484e-a935-72256a2882f2",
     "impacts": {
-      "ecs": 963.6
+      "ecs": 979.6
     },
     "location": "GLO",
     "massPerUnit": null,
@@ -20607,7 +20607,7 @@
     "heatMJ": 0,
     "id": "9c6d8e85-7368-452f-bf95-685f084992bc",
     "impacts": {
-      "ecs": 1267.0
+      "ecs": 1268.0
     },
     "location": "GLO",
     "massPerUnit": null,
@@ -20679,7 +20679,7 @@
     "heatMJ": 0,
     "id": "d1f87498-f53e-4d93-b2bb-93fd695d0920",
     "impacts": {
-      "ecs": 1277.0
+      "ecs": 1280.0
     },
     "location": "GLO",
     "massPerUnit": null,
@@ -20727,7 +20727,7 @@
     "heatMJ": 0,
     "id": "4f1edf79-457b-492a-b2ea-173bde2f2365",
     "impacts": {
-      "ecs": 1710.0
+      "ecs": 1712.0
     },
     "location": "GLO",
     "massPerUnit": null,
@@ -20775,7 +20775,7 @@
     "heatMJ": 0,
     "id": "4466448d-6385-4089-9bc1-0118cea6050b",
     "impacts": {
-      "ecs": 800.0
+      "ecs": 813.5
     },
     "location": "GLO",
     "massPerUnit": null,
@@ -20823,7 +20823,7 @@
     "heatMJ": 0,
     "id": "9043851c-e60a-48db-8d53-d4580832abba",
     "impacts": {
-      "ecs": 1019.0
+      "ecs": 1036.0
     },
     "location": "GLO",
     "massPerUnit": null,
@@ -20943,7 +20943,7 @@
     "heatMJ": 0,
     "id": "fb0296c9-cc69-4834-b54b-b38985bbb51f",
     "impacts": {
-      "ecs": 941.4
+      "ecs": 957.0
     },
     "location": "GLO",
     "massPerUnit": null,
@@ -21039,7 +21039,7 @@
     "heatMJ": 0,
     "id": "e22b310e-a7ac-4040-8e6c-19d3aa4b44c7",
     "impacts": {
-      "ecs": 868.9
+      "ecs": 883.5
     },
     "location": "GLO",
     "massPerUnit": null,
@@ -21063,7 +21063,7 @@
     "heatMJ": 0,
     "id": "9ce352b8-1e6c-45bb-b820-d3f9e159a63a",
     "impacts": {
-      "ecs": 791.8
+      "ecs": 791.9
     },
     "location": "FR",
     "massPerUnit": null,
@@ -21087,7 +21087,7 @@
     "heatMJ": 0,
     "id": "d7e5123d-d9c4-4eb2-8627-44fd182518bd",
     "impacts": {
-      "ecs": 210.1
+      "ecs": 210.0
     },
     "location": "GLO",
     "massPerUnit": null,
@@ -21159,7 +21159,7 @@
     "heatMJ": 0,
     "id": "a2080269-93b6-486a-85a2-90d886f3ea92",
     "impacts": {
-      "ecs": 1070.0
+      "ecs": 1088.0
     },
     "location": "GLO",
     "massPerUnit": null,
@@ -21207,7 +21207,7 @@
     "heatMJ": 0,
     "id": "2a5ec6cd-a863-450b-83ab-4d975f85d8d0",
     "impacts": {
-      "ecs": 762.3
+      "ecs": 775.0
     },
     "location": "GLO",
     "massPerUnit": null,
@@ -21327,7 +21327,7 @@
     "heatMJ": 0,
     "id": "f74a1f56-55cb-54d3-aa93-aae041c5f37c",
     "impacts": {
-      "ecs": 2042.0
+      "ecs": 2050.0
     },
     "location": "DE",
     "massPerUnit": null,
@@ -21375,7 +21375,7 @@
     "heatMJ": 0,
     "id": "f76d41a1-259f-5e47-99f2-ef490aeab78f",
     "impacts": {
-      "ecs": 1930.0
+      "ecs": 1929.0
     },
     "location": "IT",
     "massPerUnit": null,
@@ -21423,7 +21423,7 @@
     "heatMJ": 0,
     "id": "1c27e968-92e7-548a-948a-0aa9336cf8a9",
     "impacts": {
-      "ecs": 54.89
+      "ecs": 55.01
     },
     "location": "DE",
     "massPerUnit": null,
@@ -21591,7 +21591,7 @@
     "heatMJ": 0,
     "id": "d0b9d369-3222-4ffc-a114-6778d1920eda",
     "impacts": {
-      "ecs": 895.6
+      "ecs": 910.7
     },
     "location": "GLO",
     "massPerUnit": null,
@@ -21614,7 +21614,7 @@
     "heatMJ": 0,
     "id": "aed85523-5d2e-43bd-b14e-6393b8ac678c",
     "impacts": {
-      "ecs": 153.6
+      "ecs": 153.5
     },
     "location": "RER",
     "massPerUnit": null,
@@ -21734,7 +21734,7 @@
     "heatMJ": 0,
     "id": "09012757-8802-496b-a30f-b3a3d944c9ed",
     "impacts": {
-      "ecs": 153.0
+      "ecs": 153.1
     },
     "location": "GLO",
     "massPerUnit": null,
@@ -21782,7 +21782,7 @@
     "heatMJ": 0,
     "id": "d7b91a64-f305-4ede-8dfe-5649b6caf4dd",
     "impacts": {
-      "ecs": 168.7
+      "ecs": 168.8
     },
     "location": "GLO",
     "massPerUnit": null,
@@ -21878,7 +21878,7 @@
     "heatMJ": 0,
     "id": "860a477c-26ed-4a13-ba2b-2a1fd65c5638",
     "impacts": {
-      "ecs": 116.9
+      "ecs": 117.0
     },
     "location": "GLO",
     "massPerUnit": null,
@@ -21974,7 +21974,7 @@
     "heatMJ": 0,
     "id": "a4a43764-e81c-4a26-bef0-c4e5d6e4fd24",
     "impacts": {
-      "ecs": 1064.0
+      "ecs": 1081.0
     },
     "location": "GLO",
     "massPerUnit": null,
@@ -22094,7 +22094,7 @@
     "heatMJ": 0,
     "id": "f8697681-949f-42db-95cb-e09bb0155594",
     "impacts": {
-      "ecs": 165.7
+      "ecs": 165.8
     },
     "location": "GLO",
     "massPerUnit": null,
@@ -22166,7 +22166,7 @@
     "heatMJ": 0,
     "id": "76527443-1bad-4d7a-867f-b62957e34f62",
     "impacts": {
-      "ecs": 215.3
+      "ecs": 219.6
     },
     "location": "GLO",
     "massPerUnit": null,
@@ -22308,7 +22308,7 @@
     "heatMJ": 0,
     "id": "abfdfebc-3426-5585-b8da-d3031bb927e3",
     "impacts": {
-      "ecs": 67.33
+      "ecs": 68.29
     },
     "location": "CN",
     "massPerUnit": null,
@@ -22332,7 +22332,7 @@
     "heatMJ": 0,
     "id": "31e6e9bc-3d11-535c-a5a5-435eaba01e3a",
     "impacts": {
-      "ecs": 173.4
+      "ecs": 174.3
     },
     "location": "RoW",
     "massPerUnit": null,
@@ -22356,7 +22356,7 @@
     "heatMJ": 0,
     "id": "e98a7545-d87c-5d0a-9567-75ec761b5aed",
     "impacts": {
-      "ecs": 136.7
+      "ecs": 139.2
     },
     "location": "GLO",
     "massPerUnit": null,
@@ -22380,7 +22380,7 @@
     "heatMJ": 0,
     "id": "0463a1f6-18c3-54d3-94f6-3e07ba547a52",
     "impacts": {
-      "ecs": 644.1
+      "ecs": 650.0
     },
     "location": "IN-UP",
     "massPerUnit": null,
@@ -22404,7 +22404,7 @@
     "heatMJ": 0,
     "id": "b3a82bf4-8ebd-51db-aa88-e0460ee22acb",
     "impacts": {
-      "ecs": 522.0
+      "ecs": 526.1
     },
     "location": "RoW",
     "massPerUnit": null,
@@ -22428,7 +22428,7 @@
     "heatMJ": 0,
     "id": "0d6454a0-4726-5aac-a67a-7982b0292717",
     "impacts": {
-      "ecs": 34.31
+      "ecs": 35.99
     },
     "location": "GLO",
     "massPerUnit": null,
@@ -22452,7 +22452,7 @@
     "heatMJ": 0,
     "id": "914f4a85-2ca6-58fe-ad60-6e9d00e7372e",
     "impacts": {
-      "ecs": 224.8
+      "ecs": 228.6
     },
     "location": "IN",
     "massPerUnit": null,
@@ -22476,7 +22476,7 @@
     "heatMJ": 0,
     "id": "98475699-637a-50d3-9260-595a36698121",
     "impacts": {
-      "ecs": 238.9
+      "ecs": 242.7
     },
     "location": "RoW",
     "massPerUnit": null,
@@ -22500,7 +22500,7 @@
     "heatMJ": 0,
     "id": "ecbafca4-1d44-52e8-a979-d79b24345d76",
     "impacts": {
-      "ecs": 1825.0
+      "ecs": 1835.0
     },
     "location": "GH",
     "massPerUnit": null,
@@ -22524,7 +22524,7 @@
     "heatMJ": 0,
     "id": "60c5c68d-74ad-5499-9cd8-40f9f70d9569",
     "impacts": {
-      "ecs": 2430.0
+      "ecs": 2447.0
     },
     "location": "ID",
     "massPerUnit": null,
@@ -22548,7 +22548,7 @@
     "heatMJ": 0,
     "id": "a93d427a-31e7-5c56-a363-cffae671d90f",
     "impacts": {
-      "ecs": 222.3
+      "ecs": 226.1
     },
     "location": "RoW",
     "massPerUnit": null,
@@ -22572,7 +22572,7 @@
     "heatMJ": 0,
     "id": "027d4c09-56b5-52d6-9b70-27c3835aeb0f",
     "impacts": {
-      "ecs": 377.2
+      "ecs": 378.2
     },
     "location": "CA-AB",
     "massPerUnit": null,
@@ -22596,7 +22596,7 @@
     "heatMJ": 0,
     "id": "bb8ea198-7de7-55cc-bee5-a7779c0a98f9",
     "impacts": {
-      "ecs": 245.8
+      "ecs": 247.4
     },
     "location": "CA-SK",
     "massPerUnit": null,
@@ -22620,7 +22620,7 @@
     "heatMJ": 0,
     "id": "1a20c9ec-c513-5135-97c4-c25c73748257",
     "impacts": {
-      "ecs": 49.18
+      "ecs": 52.27
     },
     "location": "RoW",
     "massPerUnit": null,
@@ -22643,7 +22643,7 @@
     "heatMJ": 0,
     "id": "b4e7353b-7963-5d88-b4bc-84bd925f5a86",
     "impacts": {
-      "ecs": 223.8
+      "ecs": 231.1
     },
     "location": "RER",
     "massPerUnit": null,
@@ -22667,7 +22667,7 @@
     "heatMJ": 0,
     "id": "6e0a7055-7866-57da-a006-f6158740ba38",
     "impacts": {
-      "ecs": 369.6
+      "ecs": 380.4
     },
     "location": "GLO",
     "massPerUnit": null,
@@ -22691,7 +22691,7 @@
     "heatMJ": 0,
     "id": "4c7fbd51-7e6b-5051-8cf9-967faf911763",
     "impacts": {
-      "ecs": 18.34
+      "ecs": 19.15
     },
     "location": "GLO",
     "massPerUnit": null,
@@ -22715,7 +22715,7 @@
     "heatMJ": 0,
     "id": "e589703f-8c56-5adb-9b23-b5aff1fcd0a5",
     "impacts": {
-      "ecs": 53.9
+      "ecs": 55.03
     },
     "location": "IN",
     "massPerUnit": null,
@@ -22739,7 +22739,7 @@
     "heatMJ": 0,
     "id": "c80b7dbb-26fb-5bb1-b8a6-6ddc6dc3afc1",
     "impacts": {
-      "ecs": 70.88
+      "ecs": 72.91
     },
     "location": "ES",
     "massPerUnit": null,
@@ -22763,7 +22763,7 @@
     "heatMJ": 0,
     "id": "4061221a-682f-5f3e-974c-2933493298a7",
     "impacts": {
-      "ecs": 76.97
+      "ecs": 78.83
     },
     "location": "RoW",
     "massPerUnit": null,
@@ -22787,7 +22787,7 @@
     "heatMJ": 0,
     "id": "1f1c98ce-4c93-5f21-9fb1-a02de68229da",
     "impacts": {
-      "ecs": 41.93
+      "ecs": 42.41
     },
     "location": "US",
     "massPerUnit": null,
@@ -22811,7 +22811,7 @@
     "heatMJ": 0,
     "id": "8e4c2c9a-f13d-550a-8bbc-18c95f008ed1",
     "impacts": {
-      "ecs": 73.17
+      "ecs": 76.73
     },
     "location": "CH",
     "massPerUnit": null,
@@ -22835,7 +22835,7 @@
     "heatMJ": 0,
     "id": "f427ffaa-0462-509d-840f-5e975d42f83e",
     "impacts": {
-      "ecs": 312.7
+      "ecs": 314.1
     },
     "location": "BR-SP",
     "massPerUnit": null,
@@ -22859,7 +22859,7 @@
     "heatMJ": 0,
     "id": "f71ab1a4-eee6-5aca-9ddf-18943d0f025b",
     "impacts": {
-      "ecs": 77.18
+      "ecs": 78.81
     },
     "location": "RoW",
     "massPerUnit": null,
@@ -22883,7 +22883,7 @@
     "heatMJ": 0,
     "id": "f7592bec-ae07-5381-b6fd-8fd2880088e7",
     "impacts": {
-      "ecs": 103.9
+      "ecs": 105.0
     },
     "location": "RoW",
     "massPerUnit": null,
@@ -22907,7 +22907,7 @@
     "heatMJ": 0,
     "id": "658fe53f-3c86-5f0f-82a6-5169f5f44a43",
     "impacts": {
-      "ecs": 118.5
+      "ecs": 119.6
     },
     "location": "US",
     "massPerUnit": null,
@@ -22931,7 +22931,7 @@
     "heatMJ": 0,
     "id": "16f248b7-5c7f-59b9-94d0-bcf93a1decdb",
     "impacts": {
-      "ecs": 421.9
+      "ecs": 434.1
     },
     "location": "GLO",
     "massPerUnit": null,
@@ -22955,7 +22955,7 @@
     "heatMJ": 0,
     "id": "93d42f7f-1454-5571-8cad-1200f0b43e76",
     "impacts": {
-      "ecs": 553.3
+      "ecs": 557.7
     },
     "location": "CA-ON",
     "massPerUnit": null,
@@ -22979,7 +22979,7 @@
     "heatMJ": 0,
     "id": "2c27e0ff-d5c7-5ee8-988f-e9f34ca961dd",
     "impacts": {
-      "ecs": 640.6
+      "ecs": 644.6
     },
     "location": "GLO",
     "massPerUnit": null,
@@ -23003,7 +23003,7 @@
     "heatMJ": 0,
     "id": "aa12b33f-9ea1-5b04-941c-d9d41f0cdc52",
     "impacts": {
-      "ecs": 158.6
+      "ecs": 164.7
     },
     "location": "GLO",
     "massPerUnit": null,
@@ -23027,7 +23027,7 @@
     "heatMJ": 0,
     "id": "a412238d-cf70-5bd6-a297-af2bff8f3ee2",
     "impacts": {
-      "ecs": 287.4
+      "ecs": 315.1
     },
     "location": "IN",
     "massPerUnit": null,
@@ -23051,7 +23051,7 @@
     "heatMJ": 0,
     "id": "e1a847b5-ed54-5cdf-b4b0-c8c8e118017e",
     "impacts": {
-      "ecs": 47.89
+      "ecs": 50.19
     },
     "location": "CH",
     "massPerUnit": null,
@@ -23075,7 +23075,7 @@
     "heatMJ": 0,
     "id": "3872d30b-9b01-5f82-9e05-9a422f81a6e9",
     "impacts": {
-      "ecs": 1573.0
+      "ecs": 1577.0
     },
     "location": "US",
     "massPerUnit": null,
@@ -23099,7 +23099,7 @@
     "heatMJ": 0,
     "id": "cc0589fc-823d-59dc-9d0c-67929fc01e90",
     "impacts": {
-      "ecs": 597.0
+      "ecs": 608.2
     },
     "location": "US-MN",
     "massPerUnit": null,
@@ -23123,7 +23123,7 @@
     "heatMJ": 0,
     "id": "7d255c03-7e40-5495-9bf0-d9718d9b4fc2",
     "impacts": {
-      "ecs": 60.32
+      "ecs": 61.58
     },
     "location": "US",
     "massPerUnit": null,
@@ -23147,7 +23147,7 @@
     "heatMJ": 0,
     "id": "d97f0811-5279-53fc-961a-4992626e8077",
     "impacts": {
-      "ecs": 2387.0
+      "ecs": 2393.0
     },
     "location": "CN",
     "massPerUnit": null,
@@ -23171,7 +23171,7 @@
     "heatMJ": 0,
     "id": "f57e98d9-524c-4bf8-beaf-7422abcae5f2",
     "impacts": {
-      "ecs": 449.3
+      "ecs": 548.3
     },
     "location": "GLO",
     "massPerUnit": null,
@@ -23195,7 +23195,7 @@
     "heatMJ": 0,
     "id": "558f24e2-abfd-5071-a9a1-178863a5367f",
     "impacts": {
-      "ecs": 82.3
+      "ecs": 85.34
     },
     "location": "RoW",
     "massPerUnit": null,
@@ -23219,7 +23219,7 @@
     "heatMJ": 0,
     "id": "a56b9f19-8a66-57fc-bfc4-ad38c3ff228b",
     "impacts": {
-      "ecs": 199.6
+      "ecs": 204.5
     },
     "location": "US",
     "massPerUnit": null,
@@ -23243,7 +23243,7 @@
     "heatMJ": 0,
     "id": "190cdbe0-8273-51f9-a35e-b5fa9fe34753",
     "impacts": {
-      "ecs": 175.0
+      "ecs": 176.8
     },
     "location": "CN",
     "massPerUnit": null,
@@ -23267,7 +23267,7 @@
     "heatMJ": 0,
     "id": "1735a482-85cd-50e4-9feb-1e41a34a1eec",
     "impacts": {
-      "ecs": 123.1
+      "ecs": 124.2
     },
     "location": "PE",
     "massPerUnit": null,
@@ -23291,7 +23291,7 @@
     "heatMJ": 0,
     "id": "5ae60d6f-609c-5a7c-a15b-f662367370c0",
     "impacts": {
-      "ecs": 27.3
+      "ecs": 28.41
     },
     "location": "CH",
     "massPerUnit": null,
@@ -23315,7 +23315,7 @@
     "heatMJ": 0,
     "id": "da56b693-061c-54f7-a15d-fc1f7bc93b84",
     "impacts": {
-      "ecs": 21.92
+      "ecs": 22.78
     },
     "location": "CH",
     "massPerUnit": null,
@@ -23339,7 +23339,7 @@
     "heatMJ": 0,
     "id": "7be320b4-ce5e-5115-8b41-e3edccb3e363",
     "impacts": {
-      "ecs": 18.89
+      "ecs": 20.29
     },
     "location": "GLO",
     "massPerUnit": null,
@@ -23432,7 +23432,7 @@
     "heatMJ": 0,
     "id": "ac850be0-f09e-58eb-b334-3eb9fcd599d8",
     "impacts": {
-      "ecs": 7.476
+      "ecs": 7.532
     },
     "location": "AL",
     "massPerUnit": null,
@@ -23454,7 +23454,7 @@
     "heatMJ": 0,
     "id": "05bcd5b4-09eb-5f9c-8a02-fd9d91412ccf",
     "impacts": {
-      "ecs": 55.54
+      "ecs": 55.8
     },
     "location": "AU",
     "massPerUnit": null,
@@ -23476,7 +23476,7 @@
     "heatMJ": 0,
     "id": "26055a0a-ec6d-5985-a220-84841949077d",
     "impacts": {
-      "ecs": 49.54
+      "ecs": 49.55
     },
     "location": "BD",
     "massPerUnit": null,
@@ -23520,7 +23520,7 @@
     "heatMJ": 0,
     "id": "251fa8f5-3e07-5f37-8bed-fa42a367f262",
     "impacts": {
-      "ecs": 61.8
+      "ecs": 61.72
     },
     "location": "CN",
     "massPerUnit": null,
@@ -23542,7 +23542,7 @@
     "heatMJ": 0,
     "id": "5ee392cf-954e-56c8-b555-427d55023548",
     "impacts": {
-      "ecs": 42.17
+      "ecs": 42.45
     },
     "location": "CZ",
     "massPerUnit": null,
@@ -23564,7 +23564,7 @@
     "heatMJ": 0,
     "id": "5d7e3f90-7c23-560d-bc71-8e726fb4549e",
     "impacts": {
-      "ecs": 20.68
+      "ecs": 20.67
     },
     "location": "ES",
     "massPerUnit": null,
@@ -23631,7 +23631,7 @@
     "heatMJ": 0,
     "id": "ed6d177e-44bb-5ba4-beec-d683dc21be9f",
     "impacts": {
-      "ecs": 78.24
+      "ecs": 78.4
     },
     "location": "IN",
     "massPerUnit": null,
@@ -23653,7 +23653,7 @@
     "heatMJ": 0,
     "id": "56055c38-1483-56c0-97d7-d66e66665a0c",
     "impacts": {
-      "ecs": 25.49
+      "ecs": 25.48
     },
     "location": "IT",
     "massPerUnit": null,
@@ -23697,7 +23697,7 @@
     "heatMJ": 0,
     "id": "e274d3fd-eee9-54dc-ba1a-ca14a8717e93",
     "impacts": {
-      "ecs": 44.13
+      "ecs": 44.39
     },
     "location": "KH",
     "massPerUnit": null,
@@ -23719,7 +23719,7 @@
     "heatMJ": 0,
     "id": "a3197e15-9193-5212-8be9-77a3a9961d96",
     "impacts": {
-      "ecs": 57.61
+      "ecs": 57.54
     },
     "location": "MA",
     "massPerUnit": null,
@@ -23741,7 +23741,7 @@
     "heatMJ": 0,
     "id": "3b57b822-5e54-5116-b07d-55bcedcd6abf",
     "impacts": {
-      "ecs": 21.94
+      "ecs": 21.93
     },
     "location": "MM",
     "massPerUnit": null,
@@ -23763,7 +23763,7 @@
     "heatMJ": 0,
     "id": "2d7bf521-6ab0-5e08-9175-75ae8835a4fa",
     "impacts": {
-      "ecs": 7.869
+      "ecs": 7.899
     },
     "location": "NZ",
     "massPerUnit": null,
@@ -23807,7 +23807,7 @@
     "heatMJ": 0,
     "id": "1f73a42e-c744-5842-9358-27b35ee3295b",
     "impacts": {
-      "ecs": 34.19
+      "ecs": 34.18
     },
     "location": "PK",
     "massPerUnit": null,
@@ -23829,7 +23829,7 @@
     "heatMJ": 0,
     "id": "15958106-68d0-5130-8ed8-d8557cdcc1fa",
     "impacts": {
-      "ecs": 47.56
+      "ecs": 47.51
     },
     "location": "RAF",
     "massPerUnit": null,
@@ -23851,7 +23851,7 @@
     "heatMJ": 0,
     "id": "a2129ece-5dd9-5e66-969c-2603b3c97244",
     "impacts": {
-      "ecs": 58.22
+      "ecs": 58.2
     },
     "location": "RAS",
     "massPerUnit": null,
@@ -23873,7 +23873,7 @@
     "heatMJ": 0,
     "id": "ee114bf1-8c51-5c1e-8065-d762400447e2",
     "impacts": {
-      "ecs": 25.72
+      "ecs": 25.79
     },
     "location": "RER",
     "massPerUnit": null,
@@ -23917,7 +23917,7 @@
     "heatMJ": 0,
     "id": "fe6437fa-5d9a-5a7f-a2a8-430066232e5c",
     "impacts": {
-      "ecs": 51.74
+      "ecs": 51.73
     },
     "location": "RME",
     "massPerUnit": null,
@@ -23939,7 +23939,7 @@
     "heatMJ": 0,
     "id": "6911c87b-6cf9-5b33-be9a-e50a9e132575",
     "impacts": {
-      "ecs": 27.72
+      "ecs": 27.76
     },
     "location": "RNA",
     "massPerUnit": null,
@@ -23961,7 +23961,7 @@
     "heatMJ": 0,
     "id": "59d67f99-8f91-5464-af4c-0b569f97b74e",
     "impacts": {
-      "ecs": 31.67
+      "ecs": 31.79
     },
     "location": "SK",
     "massPerUnit": null,
@@ -24005,7 +24005,7 @@
     "heatMJ": 0,
     "id": "930c987b-9fcc-5bfb-a5fd-f3cb2d7e420a",
     "impacts": {
-      "ecs": 38.47
+      "ecs": 38.6
     },
     "location": "TR",
     "massPerUnit": null,
@@ -24027,7 +24027,7 @@
     "heatMJ": 0,
     "id": "5756830a-a96c-5303-b6aa-a15cc727daaa",
     "impacts": {
-      "ecs": 28.88
+      "ecs": 28.93
     },
     "location": "US",
     "massPerUnit": null,
@@ -24049,7 +24049,7 @@
     "heatMJ": 0,
     "id": "f3ad3ac5-731a-5ef5-b9e1-13ce71780444",
     "impacts": {
-      "ecs": 41.67
+      "ecs": 41.62
     },
     "location": "VN",
     "massPerUnit": null,
@@ -24119,7 +24119,7 @@
     "heatMJ": 0,
     "id": "d60beb93-af80-56f5-84bf-71f5c76fd4a8",
     "impacts": {
-      "ecs": 349.0
+      "ecs": 348.9
     },
     "location": "GLO",
     "massPerUnit": null,
@@ -24143,7 +24143,7 @@
     "heatMJ": 0,
     "id": "b2318c3f-6d7b-5d95-b201-6b95470db3b7",
     "impacts": {
-      "ecs": 557.8
+      "ecs": 557.6
     },
     "location": "RoW",
     "massPerUnit": null,
@@ -24214,7 +24214,7 @@
     "heatMJ": 0,
     "id": "89bd29cf-9ae0-5cf0-825d-8a6d4a73a34f",
     "impacts": {
-      "ecs": 495.1
+      "ecs": 495.0
     },
     "location": "RoW",
     "massPerUnit": null,
@@ -24308,7 +24308,7 @@
     "heatMJ": 0,
     "id": "6527710e-2434-5347-9bef-2205e0aa4f66",
     "impacts": {
-      "ecs": 160.0
+      "ecs": 159.9
     },
     "location": "GLO",
     "massPerUnit": null,
@@ -24663,7 +24663,7 @@
     "heatMJ": 0,
     "id": "ea6fef5f-64ac-5124-8f83-d33a18fca3d6",
     "impacts": {
-      "ecs": 76.33
+      "ecs": 76.32
     },
     "location": "GLO",
     "massPerUnit": null,
@@ -25143,7 +25143,7 @@
     "heatMJ": 0,
     "id": "2b015eff-b903-543a-ae51-190977252af1",
     "impacts": {
-      "ecs": 66.37
+      "ecs": 66.38
     },
     "location": "FR",
     "massPerUnit": null,
@@ -25359,7 +25359,7 @@
     "heatMJ": 0,
     "id": "e4b46739-6483-5f69-9549-ddab528d9835",
     "impacts": {
-      "ecs": 43.69
+      "ecs": 43.68
     },
     "location": "CA-SK",
     "massPerUnit": null,
@@ -25383,7 +25383,7 @@
     "heatMJ": 0,
     "id": "9888f9f1-f608-56b0-b1bf-f6b1767114c1",
     "impacts": {
-      "ecs": 15.31
+      "ecs": 15.3
     },
     "location": "FR",
     "massPerUnit": null,
@@ -25695,7 +25695,7 @@
     "heatMJ": 0,
     "id": "d8ea457d-453b-5532-afbe-ec494c326441",
     "impacts": {
-      "ecs": -51.94
+      "ecs": -51.93
     },
     "location": "GLO",
     "massPerUnit": null,
@@ -25935,7 +25935,7 @@
     "heatMJ": 0,
     "id": "fd06efc0-0279-5cc2-99c9-ea094499d3f4",
     "impacts": {
-      "ecs": 17.17
+      "ecs": 17.16
     },
     "location": "NL",
     "massPerUnit": null,
@@ -26271,7 +26271,7 @@
     "heatMJ": 0,
     "id": "b302f2ef-dfe3-5407-83fc-b73ca89d32d4",
     "impacts": {
-      "ecs": 86.84
+      "ecs": 86.83
     },
     "location": "FR",
     "massPerUnit": null,
@@ -26343,7 +26343,7 @@
     "heatMJ": 0,
     "id": "122b9612-09cb-5d1d-ba18-3d4e3809e509",
     "impacts": {
-      "ecs": 153.0
+      "ecs": 157.1
     },
     "location": "FR",
     "massPerUnit": null,
@@ -26367,7 +26367,7 @@
     "heatMJ": 0,
     "id": "fbbf0564-060f-5696-92f8-fc9f86a2049b",
     "impacts": {
-      "ecs": 106.9
+      "ecs": 106.8
     },
     "location": "FR",
     "massPerUnit": null,
@@ -26679,7 +26679,7 @@
     "heatMJ": 0,
     "id": "b70e4edd-da60-5cca-8bc7-8c44886d887b",
     "impacts": {
-      "ecs": 273.4
+      "ecs": 273.3
     },
     "location": "CN",
     "massPerUnit": null,
@@ -26727,7 +26727,7 @@
     "heatMJ": 0,
     "id": "3bb4591b-3223-5994-a85e-ef739de6ac61",
     "impacts": {
-      "ecs": 248.1
+      "ecs": 247.9
     },
     "location": "UA",
     "massPerUnit": null,
@@ -27063,7 +27063,7 @@
     "heatMJ": 0,
     "id": "205fbb70-754d-5160-98aa-736cf6231c22",
     "impacts": {
-      "ecs": 566.2
+      "ecs": 566.1
     },
     "location": "CN",
     "massPerUnit": null,
@@ -27375,7 +27375,7 @@
     "heatMJ": 0,
     "id": "7b99aee5-972f-5259-9706-3f3f4836eac7",
     "impacts": {
-      "ecs": 4363.0
+      "ecs": 4364.0
     },
     "location": "MA",
     "massPerUnit": null,
@@ -27519,7 +27519,7 @@
     "heatMJ": 0,
     "id": "fe057abe-8daa-525f-b1f5-b0f4cd0fad07",
     "impacts": {
-      "ecs": 705.3
+      "ecs": 705.4
     },
     "location": "US",
     "massPerUnit": null,
@@ -27543,7 +27543,7 @@
     "heatMJ": 0,
     "id": "3b45f504-83ac-5d0d-ab96-388850f3ef6f",
     "impacts": {
-      "ecs": 2849.0
+      "ecs": 2850.0
     },
     "location": null,
     "massPerUnit": null,
