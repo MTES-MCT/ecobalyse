@@ -31988,7 +31988,7 @@
     "visible": true
   },
   {
-    "activityName": "Silage sorghum, national average, animal feed, at farm gate {FR} U",
+    "activityName": "Sweet sorghum grain {CN}| sweet sorghum production | Cut-off, U",
     "alias": "sorghum-default",
     "baseIngredient": "sorghum",
     "categories": [
@@ -32005,8 +32005,8 @@
     },
     "id": "d8583020-bcc9-5525-9baf-457c46f286d1",
     "inediblePart": 0,
-    "landOccupation": 1.179,
-    "location": "FR",
+    "landOccupation": 0.6603,
+    "location": "CN",
     "name": "Sorgho Origine Inconnue",
     "processId": "a3148dad-d8cb-56f5-b1a0-84ca9ce94485",
     "rawToCookedRatio": 2.259,
