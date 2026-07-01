@@ -1900,6 +1900,11 @@ testComponentConfig db =
                     "food2": "29118025-efa0-47bb-94e2-f5ccba31a903"
                 }
             },
+            "docLinks": {
+                "default": {},
+                "rootUrl": "https://fabrique-numerique.gitbook.io/ecobalyse/",
+                "scoped": {}
+            },
             "durability": {
                 "enabled": {
                     "food2": false,
