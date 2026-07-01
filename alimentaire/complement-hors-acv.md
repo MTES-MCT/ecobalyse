@@ -42,11 +42,18 @@ A partir du détail des formules de calcul (cf. [tableur complet](https://docs.g
 | Prairies            | 7,2 points / m2.an              | Prairie permanente                       |
 
 {% hint style="info" %}
-Comment ont été calibrées ces quatre composantes ?
+**Comment ont été calibrées ces quatre composantes ?**
 
-Si le conseil scientifique reconnait dans son second rapport, que l'introduction de compléments visant à valoriser la biodiversité territoriale est légitime, ses membres ont régulièrement souligné que ces compléments ne devraient généralement pas représenter plus de 30% de l'ensemble des impacts attachés à un produit. Ainsi, ces 4 composantes ont été calibrées pour que, ajoutées, elles représent de l'ordre de 30% des impacts générés dans le cas de deux ingrédients emblématiques générant beaucoup de services écosystémiques : le blé bio et le boeuf bio.
+Si le conseil scientifique reconnait dans son second rapport, que l'introduction de compléments visant à valoriser la biodiversité territoriale est légitime, ses membres ont régulièrement souligné que ces compléments ne devraient généralement pas représenter plus de 30% de l'ensemble des impacts attachés à un produit. Ainsi, ces 4 composantes ont été calibrées pour que, ajoutées, elles représentent de l'ordre de 30% des impacts générés dans le cas de deux ingrédients emblématiques générant beaucoup de services écosystémiques : le blé bio et le boeuf bio.
 
 ![](<../.gitbook/assets/image (390).png>)
+{% endhint %}
+
+{% hint style="info" %}
+**Bornage de la valorisation de chaque services écosystémiques**\
+\
+Dans son second rapport, le Conseil scientifique appelle à une limitation de l'effet des compléments valorisant les services écosystémiques : "_Il faudrait aussi s’assurer, sur la base de la proposition finale, que l’importance donnée aux compléments, au titre de la biodiversité locale, ne risque pas d’induire une dégradation sur d’autres impacts comme, par exemple, le climat ou d’autres drivers d’érosion de la biodiversité_".\
+La calibration proposée à partir du blé bio et du boeuf bio permet d'assurer que, pour la très grande majorité des produits agricoles, l'ensemble des services écosystémiques ne représentera pas plus de 30% de l'ensemble des impacts. Toutefois, pour certaines productions (lentilles bio, flageolets bio), un poids relatif plus important peut être observé. Afin d'assurer que la valorisation des services écosystémiques ne réduira jamais le coût environnemental de plus d'un ordre de grandeur, un bornage est introduit. **Chacun des 3 services écosystémiques végétaux ne peut pas représenter plus de 30% de l'ensemble des impacts**.
 {% endhint %}
 
 ### Rations animales
