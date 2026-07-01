@@ -5,7 +5,7 @@
   ],
   "comment": "Ancien identifiant (12/2024): 2c27aa8ba10e717c63b8508b487909bd.",
   "displayName": "Électricité moyenne tension, Éthiopie",
-  "elecMJ": 0,
+  "elecKwh": 0.0,
   "heatMJ": 0,
   "id": "381ea140-2e13-5ec3-99b9-f398e80ea730",
   "qtyVariationRatio": 1,

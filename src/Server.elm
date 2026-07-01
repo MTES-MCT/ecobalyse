@@ -7,7 +7,9 @@ port module Server exposing
 
 import Data.Common.EncodeUtils as EU
 import Data.Component as Component exposing (Component)
-import Data.Country as Country exposing (Country)
+import Data.Country exposing (Country)
+import Data.Country.Code as CountryCode
+import Data.Db exposing (Db)
 import Data.Food.Ingredient as Ingredient
 import Data.Food.Origin as Origin
 import Data.Food.Query as FoodQuery
@@ -28,7 +30,7 @@ import Json.Encode as Encode
 import Route as WebRoute
 import Server.Request exposing (Request)
 import Server.Route as Route
-import Static.Db exposing (Db, db)
+import Static.Db as StaticDb
 
 
 type Msg
@@ -170,7 +172,7 @@ executeTextileQuery request db encoder query =
 encodeCountry : Country -> Encode.Value
 encodeCountry { code, name } =
     Encode.object
-        [ ( "code", Country.encodeCode code )
+        [ ( "code", CountryCode.encode code )
         , ( "name", Encode.string name )
         ]
 
@@ -340,7 +342,7 @@ update : Msg -> Cmd Msg
 update msg =
     case msg of
         Received request ->
-            case db request.processes of
+            case StaticDb.dbFromStaticFiles request.processes of
                 Err error ->
                     error
                         |> Validation.fromErrorString

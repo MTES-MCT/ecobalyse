@@ -3471,7 +3471,7 @@
   },
   {
     "activityCreationType": "from_scratch",
-    "alias": "battery-cell-cam-lfp-solid",
+    "alias": "battery-cell-cam-lfp-cn",
     "comment": "For 1kg Cathode Active Material. Based on GREET model (average of available battery size)",
     "database": "Ecoinvent 3.9.1",
     "exchanges": [
@@ -3497,11 +3497,11 @@
       }
     ],
     "location": "CN",
-    "newName": "CAM of Battery cell, LFP Solid State, CN"
+    "newName": "CAM of Battery cell, LFP, CN"
   },
   {
     "activityCreationType": "from_scratch",
-    "alias": "battery-cell-cam-nmc811",
+    "alias": "battery-cell-cam-nmc811-cn",
     "comment": "For 1kg Cathode Active Material. Based on GREET model (average of available battery size)",
     "database": "Ecoinvent 3.9.1",
     "exchanges": [
@@ -3548,7 +3548,54 @@
   },
   {
     "activityCreationType": "from_scratch",
-    "alias": "battery-cell-cam-lfp-hydrothermal",
+    "alias": "battery-cell-cam-nmc811-rer",
+    "comment": "For 1kg Cathode Active Material. Based on GREET model (average of available battery size)",
+    "database": "Ecoinvent 3.9.1",
+    "exchanges": [
+      {
+        "amount": 1.34,
+        "name": "nickel sulfate//[GLO] nickel sulfate production"
+      },
+      {
+        "amount": 0.168,
+        "name": "cobalt sulfate//[CN] cobalt sulfate production"
+      },
+      {
+        "amount": 0.163,
+        "name": "manganese sulfate//[GLO] manganese sulfate production"
+      },
+      {
+        "amount": 0.89,
+        "name": "sodium hydroxide, without water, in 50% solution state//[GLO] market for sodium hydroxide, without water, in 50% solution state"
+      },
+      {
+        "amount": 0.124,
+        "name": "ammonia, anhydrous, liquid//[CN] ammonia production, steam reforming, liquid"
+      },
+      {
+        "amount": 0.246,
+        "name": "lithium hydroxide//[GLO] lithium hydroxide production"
+      },
+      {
+        "amount": 0.007,
+        "name": "N-methyl-2-pyrrolidone//[RoW] N-methyl-2-pyrrolidone production"
+      },
+      {
+        "amount": 7.48,
+        "name": "electricity, medium voltage//[RER] market group for electricity, medium voltage"
+      },
+      {
+        "amount": 40.392,
+        "database": "Ecobalyse",
+        "name": "heat, industrial, market, RER"
+      }
+    ],
+    "location": "CN",
+    "newName": "CAM of Battery cell, NMC811, RER"
+  },
+  {
+    "activityCreationType": "from_scratch",
+    "alias": "battery-cell-cam-lfp-hydrothermal-cn",
     "comment": "For 1kg Cathode Active Material. Based on GREET model (average of available battery size)",
     "database": "Ecoinvent 3.9.1",
     "exchanges": [
@@ -3656,12 +3703,12 @@
         "name": "polypropylene, granulate//[GLO] market for polypropylene, granulate"
       },
       {
-        "amount": 19,
+        "amount": 4.4,
         "database": "Ecoinvent 3.9.1",
         "name": "electricity, medium voltage//[CN] market group for electricity, medium voltage"
       },
       {
-        "amount": 102,
+        "amount": 24,
         "name": "heat, industrial, market, RoW"
       }
     ],
@@ -3670,13 +3717,13 @@
   },
   {
     "activityCreationType": "from_scratch",
-    "alias": "battery-cell-lfp-solid-state-cn",
+    "alias": "battery-cell-lfp-cn",
     "comment": "For 1kg cell. Based on GREET model (average of available battery size)",
     "database": "Ecobalyse",
     "exchanges": [
       {
         "amount": 0.455,
-        "name": "CAM of Battery cell, LFP Solid State, CN"
+        "name": "CAM of Battery cell, LFP, CN"
       },
       {
         "amount": 0.234,
@@ -3717,17 +3764,17 @@
         "name": "polypropylene, granulate//[GLO] market for polypropylene, granulate"
       },
       {
-        "amount": 19,
+        "amount": 4.4,
         "database": "Ecoinvent 3.9.1",
         "name": "electricity, medium voltage//[CN] market group for electricity, medium voltage"
       },
       {
-        "amount": 102,
+        "amount": 24,
         "name": "heat, industrial, market, RoW"
       }
     ],
     "location": "CN",
-    "newName": "Battery cell production, LFP Solid State, CN"
+    "newName": "Battery cell production, LFP, CN"
   },
   {
     "activityCreationType": "from_scratch",
@@ -3778,12 +3825,12 @@
         "name": "polypropylene, granulate//[GLO] market for polypropylene, granulate"
       },
       {
-        "amount": 19,
+        "amount": 6.4,
         "database": "Ecoinvent 3.9.1",
         "name": "electricity, medium voltage//[CN] market group for electricity, medium voltage"
       },
       {
-        "amount": 102,
+        "amount": 34.3,
         "name": "heat, industrial, market, RoW"
       }
     ],
@@ -3798,7 +3845,7 @@
     "exchanges": [
       {
         "amount": 0.423,
-        "name": "CAM of Battery cell, NMC811, CN"
+        "name": "CAM of Battery cell, NMC811, RER"
       },
       {
         "amount": 0.296,
@@ -3839,12 +3886,12 @@
         "name": "polypropylene, granulate//[GLO] market for polypropylene, granulate"
       },
       {
-        "amount": 19,
+        "amount": 6.4,
         "database": "Ecoinvent 3.9.1",
         "name": "electricity, medium voltage//[FR] market for electricity, medium voltage"
       },
       {
-        "amount": 102,
+        "amount": 34.3,
         "name": "heat, industrial, market, RER"
       }
     ],
@@ -10373,7 +10420,7 @@
   },
   {
     "activityCreationType": "from_scratch",
-    "alias": "battery-cell-cam-nmc622",
+    "alias": "battery-cell-cam-nmc622-cn",
     "comment": "For 1kg Cathode Active Material. Based on GREET model (average of available battery size)",
     "database": "Ecoinvent 3.9.1",
     "exchanges": [
@@ -10467,12 +10514,12 @@
         "name": "polypropylene, granulate//[GLO] market for polypropylene, granulate"
       },
       {
-        "amount": 19,
+        "amount": 6,
         "database": "Ecoinvent 3.9.1",
         "name": "electricity, medium voltage//[CN] market group for electricity, medium voltage"
       },
       {
-        "amount": 102,
+        "amount": 32.3,
         "name": "heat, industrial, market, RoW"
       }
     ],

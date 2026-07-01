@@ -1203,29 +1203,14 @@
     "comment": "Pour roue 28' de vélo de ville ou pneus cargo 20'-24' (vélos cargo, velis actifs)",
     "elements": [
       {
-        "amount": 0.15,
-        "material": "fa3e3c43-1093-427a-a897-433e51e8ab62",
-        "transforms": ["85b74ce2-2cbc-4d73-a5a2-5c5ffde16319"]
-      },
-      {
-        "amount": 0.45,
-        "material": "9c5a7a8e-6483-4da8-9cc2-0a90a30cb93a",
-        "transforms": ["85b74ce2-2cbc-4d73-a5a2-5c5ffde16319"]
-      },
-      {
-        "amount": 0.15,
-        "material": "30212fbf-5912-40eb-b2ab-87837361c462",
-        "transforms": ["7319ac9c-5796-412f-a1eb-58e01afa7708"]
-      },
-      {
-        "amount": 0.25,
-        "material": "9e71da1a-8e74-462f-becc-cd6f0bbfcccc",
-        "transforms": ["85b74ce2-2cbc-4d73-a5a2-5c5ffde16319"]
-      },
-      {
-        "amount": 0.008,
-        "material": "b87b7c27-6d51-4890-bc41-604586feda5e",
+        "amount": 0.8,
+        "material": "5f837a69-839d-4a49-9a30-19e1501ad51e",
         "transforms": []
+      },
+      {
+        "amount": 0.2,
+        "material": "9c5a7a8e-6483-4da8-9cc2-0a90a30cb93a",
+        "transforms": ["4a08bcab-5c25-4dec-961a-0f7208f40084"]
       }
     ],
     "id": "8e38b6a5-1c95-43f6-987f-2e368fc74edc",
@@ -1236,29 +1221,9 @@
     "comment": null,
     "elements": [
       {
-        "amount": 1.8,
-        "material": "fa3e3c43-1093-427a-a897-433e51e8ab62",
-        "transforms": ["85b74ce2-2cbc-4d73-a5a2-5c5ffde16319"]
-      },
-      {
-        "amount": 0.6,
-        "material": "9e71da1a-8e74-462f-becc-cd6f0bbfcccc",
-        "transforms": ["85b74ce2-2cbc-4d73-a5a2-5c5ffde16319"]
-      },
-      {
-        "amount": 0.4,
-        "material": "30212fbf-5912-40eb-b2ab-87837361c462",
-        "transforms": ["7319ac9c-5796-412f-a1eb-58e01afa7708"]
-      },
-      {
-        "amount": 2.4,
-        "material": "9c5a7a8e-6483-4da8-9cc2-0a90a30cb93a",
-        "transforms": ["85b74ce2-2cbc-4d73-a5a2-5c5ffde16319"]
-      },
-      {
-        "amount": 0.8,
-        "material": "0e4122f6-f1ce-4d80-afbb-5e366402d8e6",
-        "transforms": ["85b74ce2-2cbc-4d73-a5a2-5c5ffde16319"]
+        "amount": 6,
+        "material": "5f837a69-839d-4a49-9a30-19e1501ad51e",
+        "transforms": []
       }
     ],
     "id": "6b3d7f30-e87b-426c-93ed-3a1179238583",
@@ -1636,12 +1601,7 @@
     "elements": [
       {
         "amount": 20.0,
-        "material": "29b1a0f9-4887-49f7-910f-e50ad9e1b572",
-        "transforms": []
-      },
-      {
-        "amount": 1.0,
-        "material": "f92ed520-3845-4a5a-8745-e87fd6863f03",
+        "material": "42748244-0939-4da2-ad5f-206ce541d7ee",
         "transforms": []
       }
     ],
@@ -1928,7 +1888,7 @@
     "scopes": ["veli"]
   },
   {
-    "comment": "Exemple de batterie pour véhicule actif de 100kg, 45km/h max, autonomie de 50km (type \"speedbike\" ou VAE caréné), ou voiture hybride non rechargable.",
+    "comment": "Exemple de batterie pour véhicule actif de 100kg, 45km/h max, autonomie de 50km (type \"speedbike\" ou VAE caréné), ou voiture hybride non rechargeable. Modélisation : voir https://fabrique-numerique.gitbook.io/ecobalyse/vehicules/cycle-de-vie/fabrication-des-composants/batterie. Le Glycol n'est pour l'instant pas inclut (environ +2%, peu sensible à la chimie).",
     "elements": [
       {
         "amount": 3.57,
@@ -2116,7 +2076,7 @@
     "scopes": ["veli"]
   },
   {
-    "comment": "Exemple de batterie pour un veli de 400kg, 90km/h max, autonomie de 100km, ou pour une voiture hybride non rechargeable avec autonomie de 30km. Modélisation : voir https://fabrique-numerique.gitbook.io/ecobalyse/vehicules/cycle-de-vie/fabrication-des-composants/batterie",
+    "comment": "Exemple de batterie pour un veli de 400kg, 90km/h max, autonomie de 100km, ou pour une voiture hybride non rechargeable avec autonomie de 30km. Modélisation : voir https://fabrique-numerique.gitbook.io/ecobalyse/vehicules/cycle-de-vie/fabrication-des-composants/batterie. Le Glycol n'est pour l'instant pas inclut (environ +2%, peu sensible à la chimie).",
     "elements": [
       {
         "amount": 21.3,
@@ -2210,7 +2170,7 @@
     "scopes": ["veli"]
   },
   {
-    "comment": "Exemple de batterie pour un veli de 400kg, 90km/h max, autonomie de 100km, ou pour une voiture hybride non rechargeable avec autonomie de 30km. Modélisation : voir https://fabrique-numerique.gitbook.io/ecobalyse/vehicules/cycle-de-vie/fabrication-des-composants/batterie",
+    "comment": "Exemple de batterie pour un veli de 400kg, 90km/h max, autonomie de 100km, ou pour une voiture hybride non rechargeable avec autonomie de 30km. Modélisation : voir https://fabrique-numerique.gitbook.io/ecobalyse/vehicules/cycle-de-vie/fabrication-des-composants/batterie. Le Glycol n'est pour l'instant pas inclut (environ +2%, peu sensible à la chimie).",
     "elements": [
       {
         "amount": 29.9,
@@ -2304,7 +2264,7 @@
     "scopes": ["veli"]
   },
   {
-    "comment": "Exemple de batterie pour voiture électrique catégorie B, autonomie de 400km.",
+    "comment": "Exemple de batterie pour voiture électrique catégorie B, autonomie de 400km. Modélisation : voir https://fabrique-numerique.gitbook.io/ecobalyse/vehicules/cycle-de-vie/fabrication-des-composants/batterie. Le Glycol n'est pour l'instant pas inclut (environ +2%, peu sensible à la chimie).",
     "elements": [
       {
         "amount": 154,
@@ -2398,7 +2358,7 @@
     "scopes": ["veli"]
   },
   {
-    "comment": "Exemple de batterie pour voiture électrique catégorie B, autonomie de 400km.",
+    "comment": "Exemple de batterie pour voiture électrique catégorie B, autonomie de 400km. Modélisation : voir https://fabrique-numerique.gitbook.io/ecobalyse/vehicules/cycle-de-vie/fabrication-des-composants/batterie. Le Glycol n'est pour l'instant pas inclut (environ +2%, peu sensible à la chimie).",
     "elements": [
       {
         "amount": 154,
@@ -2489,6 +2449,39 @@
     ],
     "id": "52e25580-d83a-4de6-9632-da4303d5211d",
     "name": "Batterie Li-ion 52kWh, NMC811, France",
+    "scopes": ["veli"]
+  },
+  {
+    "comment": "Cable électrique de type H05VVF 3G1.5mm², 110g/m (isolant PVC). Adapté pour une puissance jusqu'à 2.5kW pour 20m max",
+    "elements": [
+      {
+        "amount": 0.04,
+        "material": {
+          "id": "a363f079-bc3f-424a-a2e1-06b9c76b4fc3"
+        },
+        "transforms": [
+          {
+            "country": "FR",
+            "id": "d077f06e-4ae9-48b7-8019-64523e577b95"
+          }
+        ]
+      },
+      {
+        "amount": 0.07,
+        "material": {
+          "country": "FR",
+          "id": "169294d5-93d5-4856-b3f0-13ccb5e261b6"
+        },
+        "transforms": [
+          {
+            "country": "FR",
+            "id": "4a08bcab-5c25-4dec-961a-0f7208f40084"
+          }
+        ]
+      }
+    ],
+    "id": "10779a79-f0fc-4f05-9f4d-6a7f2b8d9cc4",
+    "name": "Cable électrique 2phases + terre, 1.5mm², section 7.4mm",
     "scopes": ["veli"]
   }
 ]

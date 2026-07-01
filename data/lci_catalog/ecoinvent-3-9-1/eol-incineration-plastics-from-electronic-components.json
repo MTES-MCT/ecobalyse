@@ -7,7 +7,7 @@
   ],
   "comment": "",
   "displayName": "Incinération des plastiques de composants électroniques",
-  "elecMJ": 0,
+  "elecKwh": 0.0,
   "heatMJ": 0,
   "id": "4d1fff47-ed71-4a79-8d54-3f401b703cb4",
   "metadata": [

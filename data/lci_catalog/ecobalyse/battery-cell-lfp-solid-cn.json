@@ -1,12 +1,12 @@
 {
-  "activityName": "Battery cell production, LFP Solid State, CN",
+  "activityName": "Battery cell production, LFP, CN",
   "categories": [
     "material",
     "material_type:battery_cell"
   ],
   "comment": "For 1kg cell. Based on GREET model (average of available battery size)",
-  "displayName": "Cellule de batterie, LFP Solid State, CN",
-  "elecMJ": 0,
+  "displayName": "Cellule de batterie, LFP, Chine",
+  "elecKwh": 0.0,
   "heatMJ": 0,
   "id": "7ba5614a-c2bf-4136-b91c-aaecd0780640",
   "metadata": [

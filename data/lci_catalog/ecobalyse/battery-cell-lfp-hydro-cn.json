@@ -5,8 +5,8 @@
     "material_type:battery_cell"
   ],
   "comment": "For 1kg cell. Based on GREET model (average of available battery size)",
-  "displayName": "Cellule de batterie, LFP hydrothermal, CN",
-  "elecMJ": 0,
+  "displayName": "Cellule de batterie, LFP hydrothermal, Chine",
+  "elecKwh": 0.0,
   "heatMJ": 0,
   "id": "c01f616d-d544-4e9c-898d-df99312c710f",
   "metadata": [

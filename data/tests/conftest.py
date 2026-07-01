@@ -31,9 +31,7 @@ TESTS_SNAPSHOTS_DIR = PROJECT_ROOT_DIR / "tests" / "snapshots"
 
 @pytest.fixture
 def forwast(temp_bw_dir):
-    restore_archived_project(
-        TESTS_FIXTURE_DIR / "bw-project-forwast-with-patched-ef31.tar.gz"
-    )
+    restore_archived_project(TESTS_FIXTURE_DIR / "bw-project-forwast-with-ef31.tar.gz")
 
     bw2data.projects.set_current(settings.bw.project)
 
@@ -61,7 +59,7 @@ def forwast_json_icv():
 
 @pytest.fixture
 def processes_impacts_json():
-    with open(TESTS_SNAPSHOTS_DIR / "processes_impacts.json", "rb") as f:
+    with open(TESTS_SNAPSHOTS_DIR / "processes_legacy_impacts.json", "rb") as f:
         return orjson.loads(f.read())
 
 
@@ -79,7 +77,7 @@ def materials_textile_json():
 
 @pytest.fixture
 def processes_impacts_full_json():
-    with open(TESTS_SNAPSHOTS_DIR / "processes_impacts_full.json", "rb") as f:
+    with open(TESTS_SNAPSHOTS_DIR / "processes_legacy_impacts_full.json", "rb") as f:
         return orjson.loads(f.read())
 
 

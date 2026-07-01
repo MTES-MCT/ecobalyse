@@ -16,6 +16,7 @@ module Data.Textile.LifeCycle exposing
 
 import Array exposing (Array)
 import Data.Complement as Complement
+import Data.Db exposing (Db)
 import Data.Impact as Impact exposing (Impacts)
 import Data.Textile.Inputs as Inputs exposing (Inputs)
 import Data.Textile.Query exposing (Query)
@@ -25,7 +26,6 @@ import Data.Transport as Transport exposing (Transport)
 import Json.Encode as Encode
 import List.Extra as LE
 import Quantity
-import Static.Db exposing (Db)
 
 
 type alias LifeCycle =

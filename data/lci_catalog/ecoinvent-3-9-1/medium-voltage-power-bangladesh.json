@@ -5,7 +5,7 @@
   ],
   "comment": "Ancien identifiant (12/2024): 0b69950358f3e8f0d3fb049d71481186.",
   "displayName": "Électricité moyenne tension, Bangladesh",
-  "elecMJ": 0,
+  "elecKwh": 0.0,
   "heatMJ": 0,
   "id": "26055a0a-ec6d-5985-a220-84841949077d",
   "metadata": [

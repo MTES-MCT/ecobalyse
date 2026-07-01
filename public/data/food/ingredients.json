@@ -484,7 +484,7 @@
     "visible": true
   },
   {
-    "activityName": "Coffee, green beans (Arabica), at farm, organic 2025 {IN}",
+    "activityName": "Coffee, green bean, organic 2025 {RoW}| coffee green bean production, robusta | Cut-off, U",
     "alias": "coffee-bean-organic",
     "baseIngredient": "coffee-bean",
     "categories": [
@@ -495,15 +495,15 @@
     "defaultOrigin": "France",
     "density": 0.8,
     "ecosystemicServices": {
-      "cropDiversity": 9.17,
-      "hedges": 71.5,
+      "cropDiversity": 6.19,
+      "hedges": 48.3,
       "permanentPasture": null,
-      "plotSize": 58.5
+      "plotSize": 39.5
     },
     "id": "02b7f1bd-56ea-5243-8c22-baa8c6d6052e",
     "inediblePart": 0.2,
-    "landOccupation": 13.15,
-    "location": "IN",
+    "landOccupation": 8.883,
+    "location": "RoW",
     "name": "Café en grains Bio",
     "processId": "b65f4908-1bee-5174-96e5-552d478f91f9",
     "rawToCookedRatio": 1.0,
@@ -5141,7 +5141,7 @@
     "visible": true
   },
   {
-    "activityName": "Tomato, cherry, consumption mix, organic 2025 {FR} U",
+    "activityName": "Tomato, medium size, organic 2025, soil based, non-heated greenhouse, at greenhouse {FR} U",
     "alias": "cherry-tomato-organic",
     "baseIngredient": "cherry-tomato",
     "categories": [
@@ -5152,17 +5152,17 @@
     "defaultOrigin": "France",
     "density": 1.0,
     "ecosystemicServices": {
-      "cropDiversity": 0.246,
-      "hedges": 0.29,
+      "cropDiversity": 0.24,
+      "hedges": 0.283,
       "permanentPasture": null,
-      "plotSize": 0.492
+      "plotSize": 0.481
     },
     "id": "1ffee0b5-720d-53b0-b594-19e08a1860a3",
     "inediblePart": 0.03,
-    "landOccupation": 0.07903,
+    "landOccupation": 0.07716,
     "location": "FR",
     "name": "Tomates cerises Bio",
-    "processId": "1c06d328-cbf8-5c9c-8063-612d7cf6e79e",
+    "processId": "d3b61da5-dbdb-5aa0-8808-de0268c451fd",
     "rawToCookedRatio": 0.856,
     "scenario": "organic",
     "transportCooling": "always",
@@ -9391,7 +9391,7 @@
     "processId": "0065536b-4fd4-592d-a4dd-d82a0a2bd8e2",
     "rawToCookedRatio": 1.0,
     "scenario": "import",
-    "transportCooling": "once_transformed",
+    "transportCooling": "none",
     "visible": true
   },
   {
@@ -14877,7 +14877,7 @@
     "landOccupation": 0.07716,
     "location": "FR",
     "name": "Concombre Bio",
-    "processId": "e380bbca-fd05-596d-bf05-41c2ea008984",
+    "processId": "d3b61da5-dbdb-5aa0-8808-de0268c451fd",
     "rawToCookedRatio": 0.856,
     "scenario": "organic",
     "transportCooling": "always",
@@ -14985,7 +14985,7 @@
     "processId": "74316df8-a65f-5999-af15-448b841aab30",
     "rawToCookedRatio": 1.0,
     "scenario": "organic",
-    "transportCooling": "once_transformed",
+    "transportCooling": "none",
     "visible": true
   },
   {
@@ -15474,7 +15474,7 @@
     "processId": "0065536b-4fd4-592d-a4dd-d82a0a2bd8e2",
     "rawToCookedRatio": 1.0,
     "scenario": "import",
-    "transportCooling": "once_transformed",
+    "transportCooling": "none",
     "visible": true
   },
   {
@@ -16884,7 +16884,7 @@
     "visible": true
   },
   {
-    "activityName": "Linseed seed, at farm {CH}| linseed seed production, at farm | Cut-off, U - Adapted from Ecoinvent U",
+    "activityName": "Flaxseed, national average, animal feed, at farm gate {FR} U",
     "alias": "poppy-seed-eu",
     "baseIngredient": "poppy-seed",
     "categories": [
@@ -16901,10 +16901,10 @@
     },
     "id": "72925a8b-cd45-5967-a561-f9c977549930",
     "inediblePart": 0,
-    "landOccupation": 2.995,
-    "location": "CH",
+    "landOccupation": 5.524,
+    "location": "FR",
     "name": "Graines de pavot UE",
-    "processId": "c57af799-f9ad-55ea-a010-7c35f1997f6c",
+    "processId": "3f7d5194-32eb-5b18-a009-b7a97389ac2f",
     "rawToCookedRatio": 1.0,
     "scenario": "import",
     "transportCooling": "none",
@@ -24173,7 +24173,7 @@
     "visible": false
   },
   {
-    "activityName": "Broccoli {CH}| broccoli production, conventional, plain region | Cut-off, U",
+    "activityName": "Broccoli {GLO}| production | Cut-off, U - Adapted from Ecoinvent U",
     "alias": "broccoli-eu",
     "baseIngredient": "broccoli",
     "categories": [
@@ -24190,10 +24190,10 @@
     },
     "id": "a528f97c-b83b-57bd-af7f-5b7e52116e6b",
     "inediblePart": 0.2,
-    "landOccupation": 1.181,
-    "location": "CH",
+    "landOccupation": 0.1171,
+    "location": "GLO",
     "name": "Brocoli UE",
-    "processId": "5238d98f-4095-59ab-ba43-16734fc0a6c3",
+    "processId": "9cab280c-527f-56b6-a620-5f12170108f3",
     "rawToCookedRatio": 0.856,
     "scenario": "import",
     "transportCooling": "always",
@@ -26446,7 +26446,7 @@
     "visible": true
   },
   {
-    "activityName": "Tomato, fresh grade, organic 2025 {ES}| tomato production, fresh grade, in unheated greenhouse | Cut-off, U",
+    "activityName": "Tomato, medium size, organic 2025, soil based, non-heated greenhouse, at greenhouse {FR} U",
     "alias": "tomato-organic",
     "baseIngredient": "tomato",
     "categories": [
@@ -26457,15 +26457,15 @@
     "defaultOrigin": "France",
     "density": 1.0,
     "ecosystemicServices": {
-      "cropDiversity": 0.343,
-      "hedges": 0.405,
+      "cropDiversity": 0.24,
+      "hedges": 0.283,
       "permanentPasture": null,
-      "plotSize": 0.687
+      "plotSize": 0.481
     },
     "id": "b43ae38e-a9f6-4272-b258-14faea6ec795",
     "inediblePart": 0.03,
-    "landOccupation": 0.1103,
-    "location": "ES",
+    "landOccupation": 0.07716,
+    "location": "FR",
     "name": "Tomate Bio",
     "processId": "d3b61da5-dbdb-5aa0-8808-de0268c451fd",
     "rawToCookedRatio": 0.856,
@@ -35249,7 +35249,7 @@
     "rawToCookedRatio": 1.0,
     "scenario": "import",
     "transportCooling": "once_transformed",
-    "visible": true
+    "visible": false
   },
   {
     "activityName": "Cherry, at farm (WFLDB)",
@@ -36566,7 +36566,7 @@
     "visible": true
   },
   {
-    "activityName": "Grapefruit for juice, organic 2025, at farm gate {US} U",
+    "activityName": "Orange, fresh grade, at farm, organic 2025 {ES}",
     "alias": "grapefruit-organic",
     "baseIngredient": "grapefruit",
     "categories": [
@@ -36578,16 +36578,16 @@
     "density": 0.85,
     "ecosystemicServices": {
       "cropDiversity": 0,
-      "hedges": 0.0254,
+      "hedges": 0.697,
       "permanentPasture": null,
-      "plotSize": 0.0873
+      "plotSize": 2.4
     },
     "id": "f3051192-4b06-5b56-8cba-b34800bb90ab",
     "inediblePart": 0.3,
-    "landOccupation": 0.01401,
-    "location": "US",
+    "landOccupation": 0.3845,
+    "location": "ES",
     "name": "Pamplemousse Bio",
-    "processId": "bb01ed48-da3e-52a9-89f7-c24a0e62260e",
+    "processId": "079d1538-6ca3-5dc7-9587-457d5ecc7b12",
     "rawToCookedRatio": 0.856,
     "scenario": "organic",
     "transportCooling": "always",
@@ -37018,7 +37018,7 @@
     "visible": true
   },
   {
-    "activityName": "Orange, processing grade, at farm, organic 2025 {BR}",
+    "activityName": "Orange, fresh grade, at farm, organic 2025 {ES}",
     "alias": "orange-organic",
     "baseIngredient": "orange",
     "categories": [
@@ -37029,15 +37029,15 @@
     "defaultOrigin": "France",
     "density": 0.95,
     "ecosystemicServices": {
-      "cropDiversity": 0.287,
-      "hedges": 1.86,
+      "cropDiversity": 0.268,
+      "hedges": 1.74,
       "permanentPasture": null,
-      "plotSize": 2.57
+      "plotSize": 2.4
     },
     "id": "f508da0b-9c73-503d-9a1f-d87f77ee63c3",
     "inediblePart": 0.2,
-    "landOccupation": 0.4117,
-    "location": "BR",
+    "landOccupation": 0.3845,
+    "location": "ES",
     "name": "Oranges Bio",
     "processId": "079d1538-6ca3-5dc7-9587-457d5ecc7b12",
     "rawToCookedRatio": 0.856,
@@ -38425,7 +38425,7 @@
     "visible": true
   },
   {
-    "activityName": "Linseed seed, at farm {CH}| linseed seed production, at farm | Cut-off, U - Adapted from Ecoinvent U",
+    "activityName": "Flaxseed, national average, animal feed, at farm gate {FR} U",
     "alias": "cucurbitacea-seed-eu",
     "baseIngredient": "cucurbitacea-seed",
     "categories": [
@@ -38442,10 +38442,10 @@
     },
     "id": "fdb67e87-f481-5710-bb6e-89f30891c5c4",
     "inediblePart": 0.2,
-    "landOccupation": 2.995,
-    "location": "CH",
+    "landOccupation": 5.524,
+    "location": "FR",
     "name": "Graines de Cucurbitacées UE",
-    "processId": "c57af799-f9ad-55ea-a010-7c35f1997f6c",
+    "processId": "3f7d5194-32eb-5b18-a009-b7a97389ac2f",
     "rawToCookedRatio": 0.856,
     "scenario": "import",
     "transportCooling": "always",

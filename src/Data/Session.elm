@@ -38,6 +38,7 @@ import Browser.Navigation as Nav
 import Data.Bookmark as Bookmark exposing (Bookmark)
 import Data.Common.DecodeUtils as DU
 import Data.Component as Component
+import Data.Db as Db exposing (Db)
 import Data.Food.Query as FoodQuery
 import Data.Scope as Scope exposing (Scope)
 import Data.Textile.Query as TextileQuery
@@ -49,8 +50,6 @@ import List.Extra as LE
 import Request.BackendHttp.Error as BackendError
 import Request.Version exposing (Version)
 import Set exposing (Set)
-import Static.Db as StaticDb exposing (Db)
-import Static.Json as StaticJson
 
 
 type alias Queries =
@@ -67,6 +66,7 @@ type alias Session =
     , componentConfig : Component.Config
     , currentVersion : Version
     , db : Db
+    , dbRawJson : Maybe Db.RawJsonStrings
     , enabledSections : EnabledSections
     , matomo : { host : String, siteId : String }
     , navKey : Nav.Key
@@ -363,14 +363,14 @@ isSuperuser =
 
 logout : Session -> Session
 logout session =
-    (case StaticDb.db StaticJson.processesJson of
-        Err err ->
-            session |> notifyError "Impossible de recharger les procédés par défaut" err
+    setAuth Nothing <|
+        -- reinit Db in its pristine, non-detailed state
+        case session.dbRawJson |> Maybe.map Db.build of
+            Just (Ok db) ->
+                { session | db = db }
 
-        Ok db ->
-            { session | db = db }
-    )
-        |> updateStore (\store -> { store | auth = Nothing })
+            _ ->
+                session
 
 
 setAuth : Maybe Auth -> Session -> Session
@@ -435,12 +435,16 @@ serializeStore =
 
 updateDbProcesses : String -> Session -> Session
 updateDbProcesses rawDetailedProcessesJson session =
-    case StaticDb.db rawDetailedProcessesJson of
+    case
+        session.dbRawJson
+            |> Result.fromMaybe "Aucune donnée brute disponible en session pour reconstruire la base de données"
+            |> Result.andThen (\dbRawJson -> Db.build { dbRawJson | processes = Db.rawJsonString rawDetailedProcessesJson })
+    of
         Err err ->
             session |> notifyError "Impossible de recharger la db avec les nouveaux procédés" err
 
-        Ok db ->
-            { session | db = db }
+        Ok newDb ->
+            { session | db = newDb }
 
 
 updateStore : (Store -> Store) -> Session -> Session

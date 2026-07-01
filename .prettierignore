@@ -26,14 +26,9 @@ public/data/object/examples.json
 public/data/textile/materials.json
 public/data/processes.json
 public/data/processes_impacts.json
-public/data/processes_generic.json
-public/data/processes_generic_impacts.json
 public/data/impacts.json
 public/data/metadata.json
 public/data/veli/examples.json
 
-# JSON edited manually, more readable with manual formatting
-public/data/transports.json
-
-# The data folder is not formatted via prettier for the moment
-/data/
+/data/**/*.json
+!/data/common/distances/distances_raw.json
