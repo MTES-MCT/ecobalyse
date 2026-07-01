@@ -1902,7 +1902,6 @@ testComponentConfig db =
             },
             "docLinks": {
                 "default": {},
-                "rootUrl": "https://fabrique-numerique.gitbook.io/ecobalyse/",
                 "scoped": {}
             },
             "durability": {

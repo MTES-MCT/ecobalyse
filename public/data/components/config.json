@@ -7,26 +7,25 @@
   },
   "docLinks": {
     "default": {
-      "assembly": "methodes-transverses/assemblage",
-      "distribution": "methodes-transverses/distribution",
-      "durability": "def-cout-environnemental/durabilite",
-      "eol": "methodes-transverses/fin-de-vie",
-      "packaging": "methodes-transverses/emballages",
-      "production": "methodes-transverses/production",
-      "transport": "methodes-transverses/transport",
-      "use": "methodes-transverses/utilisation"
+      "assembly": "https://fabrique-numerique.gitbook.io/ecobalyse/methodes-transverses/assemblage",
+      "distribution": "https://fabrique-numerique.gitbook.io/ecobalyse/methodes-transverses/distribution",
+      "durability": "https://fabrique-numerique.gitbook.io/ecobalyse/def-cout-environnemental/durabilite",
+      "eol": "https://fabrique-numerique.gitbook.io/ecobalyse/methodes-transverses/fin-de-vie",
+      "packaging": "https://fabrique-numerique.gitbook.io/ecobalyse/methodes-transverses/emballages",
+      "production": "https://fabrique-numerique.gitbook.io/ecobalyse/methodes-transverses/production",
+      "transport": "https://fabrique-numerique.gitbook.io/ecobalyse/methodes-transverses/transport",
+      "use": "https://fabrique-numerique.gitbook.io/ecobalyse/methodes-transverses/utilisation"
     },
-    "rootUrl": "https://fabrique-numerique.gitbook.io/ecobalyse/",
     "scoped": {
       "food2": {
-        "distribution": "alimentaire/impacts-consideres/distribution",
-        "durability": "alimentaire/impacts-consideres/etape-3-emballages",
-        "use": "alimentaire/impacts-consideres/etape-5-consommation"
+        "distribution": "https://fabrique-numerique.gitbook.io/ecobalyse/alimentaire/impacts-consideres/distribution",
+        "durability": "https://fabrique-numerique.gitbook.io/ecobalyse/alimentaire/impacts-consideres/etape-3-emballages",
+        "use": "https://fabrique-numerique.gitbook.io/ecobalyse/alimentaire/impacts-consideres/etape-5-consommation"
       },
       "veli": {
-        "assembly": "vehicules/cycle-de-vie/assemblage",
-        "durability": "vehicules/durabilite-des-vehicules",
-        "use": "vehicules/cycle-de-vie/utilisation-du-vehicule"
+        "assembly": "https://fabrique-numerique.gitbook.io/ecobalyse/vehicules/cycle-de-vie/assemblage",
+        "durability": "https://fabrique-numerique.gitbook.io/ecobalyse/vehicules/durabilite-des-vehicules",
+        "use": "https://fabrique-numerique.gitbook.io/ecobalyse/vehicules/cycle-de-vie/utilisation-du-vehicule"
       }
     }
   },

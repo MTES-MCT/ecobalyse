@@ -26,7 +26,7 @@ import Json.Decode.Pipeline as Decode
 
 type alias Config =
     { distribution : DistributionConfig
-    , docLinks : DocLinks
+    , docLinks : DocLinksConfig
     , durability : DurabilityConfig
     , endOfLife : EndOfLifeConfig
     , production : ProductionConfig
@@ -50,9 +50,8 @@ type alias DistributionConfig =
     }
 
 
-type alias DocLinks =
+type alias DocLinksConfig =
     { default : Dict String String
-    , rootUrl : String
     , scoped : Scope.Dict (Dict String String)
     }
 
@@ -111,7 +110,7 @@ decode : { db | countries : List Country, processes : List Process } -> Decoder 
 decode { countries, processes } =
     Decode.succeed Config
         |> Decode.required "distribution" (decodeDistributionConfig processes countries)
-        |> Decode.required "docLinks" decodeDocLinks
+        |> Decode.required "docLinks" decodeDocLinksConfig
         |> Decode.required "durability" decodeDurabilityConfig
         |> Decode.required "endOfLife" (decodeEndOfLifeConfig processes)
         |> Decode.required "production" (decodeProductionConfig processes)
@@ -126,11 +125,10 @@ decodeDistributionConfig processes countries =
         |> Decode.required "defaultProcess" (decodeScopedMaybeProcess processes)
 
 
-decodeDocLinks : Decoder DocLinks
-decodeDocLinks =
-    Decode.succeed DocLinks
+decodeDocLinksConfig : Decoder DocLinksConfig
+decodeDocLinksConfig =
+    Decode.succeed DocLinksConfig
         |> Decode.required "default" (Decode.dict Decode.string)
-        |> Decode.required "rootUrl" Decode.string
         |> Decode.required "scoped" (Scope.decodeDict (Decode.dict Decode.string))
 
 
@@ -236,7 +234,6 @@ default db =
             },
             "docLinks": {
                 "default": {},
-                "rootUrl": "https://fabrique-numerique.gitbook.io/ecobalyse/",
                 "scoped": {}
             },
             "durability": {
@@ -291,10 +288,10 @@ getDocLink : Config -> Scope -> String -> Maybe String
 getDocLink { docLinks } scope key =
     case docLinks.scoped |> Scope.dictGet scope |> Maybe.andThen (Dict.get key) of
         Just link ->
-            Just <| docLinks.rootUrl ++ link
+            Just link
 
         Nothing ->
-            docLinks.default |> Dict.get key |> Maybe.map ((++) docLinks.rootUrl)
+            docLinks.default |> Dict.get key
 
 
 parse : DataContainer db -> String -> Result String Config
