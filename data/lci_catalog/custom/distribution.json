@@ -5,7 +5,7 @@
   ],
   "comment": "Données provenant de Base Impacts 2.01. Ancien identifiant (12/2024): f49b27fa-f22e-c6e1-ab4b-e9f873e2e648.",
   "displayName": "Transport en camion non spécifié France",
-  "elecMJ": 0,
+  "elecKwh": 0.0,
   "heatMJ": 0,
   "id": "3db67ae7-c169-5837-8e0a-3c3c31ffda67",
   "impacts": {

@@ -42,25 +42,17 @@ impacts = {
         main_method,
         "Water use",
     ),
-    "etf-o1": (
+    "etf-o": (
         main_method,
-        "Ecotoxicity, freshwater - organics - p.1",
-    ),
-    "etf-o2": (
-        main_method,
-        "Ecotoxicity, freshwater - organics - p.2",
+        "Ecotoxicity, freshwater - organics",
     ),
     "etf-i": (
         main_method,
         "Ecotoxicity, freshwater - inorganics",
     ),
-    "etf1": (
+    "etf": (
         main_method,
-        "Ecotoxicity, freshwater - part 1",
-    ),
-    "etf2": (
-        main_method,
-        "Ecotoxicity, freshwater - part 2",
+        "Ecotoxicity, freshwater",
     ),
     "htc": (
         main_method,

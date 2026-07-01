@@ -2,6 +2,7 @@ from __future__ import annotations
 
 import base64
 import json
+from operator import itemgetter
 from uuid import uuid4
 
 import structlog
@@ -36,6 +37,11 @@ def format_example_contrib_pr(data: ExampleContribCreate, user: m.User) -> str:
 {format_json(data.query)}
 ```
 """
+
+
+def insert_example_sorted(examples: list[dict], example: dict) -> list[dict]:
+    """Insert an example and return the list ordered by id."""
+    return sorted([*examples, example], key=itemgetter("id"))
 
 
 async def github_request(
@@ -123,17 +129,19 @@ async def create_example_contrib_pr(
 
         file_sha = file_content["sha"]
         decoded_content = base64.b64decode(file_content["content"]).decode("utf-8")
-        examples = json.loads(decoded_content)
 
-        # append the new example to the examples list
-        examples.append(
+        # Note: we keep examples sorted by id to ensure each contribution is
+        #       inserted at a stable position and prevent constant merge conflicts
+        #       between concurrent contributions (see #2564)
+        examples = insert_example_sorted(
+            json.loads(decoded_content),
             {
                 "category": "",  # Note: example categories are currently unused
                 "id": example_id,
                 "name": name,
                 "query": data.query,
                 "scope": data.scope.value,
-            }
+            },
         )
         updated_examples_json = format_json(examples)
         updated_examples_base64 = base64.b64encode(

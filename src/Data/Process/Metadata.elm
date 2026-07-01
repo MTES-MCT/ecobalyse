@@ -3,6 +3,7 @@ module Data.Process.Metadata exposing (Metadata, decode, encode)
 import Data.Common.DecodeUtils as DU
 import Data.Common.EncodeUtils as EU
 import Data.Complement as Complement
+import Data.Country.Code as CountryCode
 import Json.Decode as Decode exposing (Decoder)
 import Json.Decode.Extra as DE
 import Json.Encode as Encode
@@ -10,6 +11,7 @@ import Json.Encode as Encode
 
 type alias Metadata =
     { complements : Maybe Complement.ComplementsImpacts
+    , defaultOrigin : Maybe CountryCode.Code
     , forestManagement : Maybe ForestManagement
     }
 
@@ -72,6 +74,7 @@ decode : Decoder Metadata
 decode =
     Decode.succeed Metadata
         |> DU.strictOptional "complements" Complement.decodeComplementsImpacts
+        |> DU.strictOptional "defaultOrigin" CountryCode.decode
         |> DU.strictOptional "forestManagement" decodeForestManagement
 
 

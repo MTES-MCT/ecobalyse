@@ -12,6 +12,7 @@ import Data.Component as Component
         )
 import Data.Component.Amount as Amount
 import Data.Country as Country
+import Data.Country.Code as CountryCode
 import Data.Db exposing (Db)
 import Data.Impact as Impact exposing (Impacts)
 import Data.Impact.Definition as Definition
@@ -224,7 +225,7 @@ suite =
                                                 |> Impact.insertWithoutAggregateComputation Definition.Ecs (Unit.impact 10)
                                       }
                                     ]
-                                    |> Expect.within (Expect.Absolute 1) 504
+                                    |> Expect.within (Expect.Absolute 1) 505
                                 )
                             , itFromResult "should compute apply custom mix impacts when a transform step country is set"
                                 -- fetch first country with mixes different from defaults
@@ -280,7 +281,7 @@ suite =
                                     [ fading |> setProcessEcsImpact (Unit.impact 10)
                                     , fading |> setProcessEcsImpact (Unit.impact 20)
                                     ]
-                                    |> Expect.within (Expect.Absolute 1) 1019
+                                    |> Expect.within (Expect.Absolute 1) 1020
                                 )
                             ]
                         , suiteFromResult "unit mismatch"
@@ -442,7 +443,7 @@ suite =
                                         ]
                                 )
                             , itFromResult "should never feature air transport for intermediary transport, even when byAir is set"
-                                (db.countries |> Country.findByCode (Country.Code "FR"))
+                                (db.countries |> Country.findByCode CountryCode.france)
                                 (\france ->
                                     let
                                         getEcsForByAir byAir =
@@ -807,14 +808,14 @@ suite =
                             )
                             -- tests
                             (\singleItem multipleItems ->
-                                [ it "should not add transports to assembly when a single item is shipped"
+                                [ it "should add transports to assembly when a single item is shipped"
                                     (singleItem
                                         |> .transports
                                         |> .toAssembly
                                         |> .impacts
                                         |> Impact.getImpact Definition.Ecs
                                         |> Unit.impactToFloat
-                                        |> Expect.equal 0
+                                        |> Expect.greaterThan 0
                                     )
                                 , it "should add transports to assembly when multiple items are shipped"
                                     (multipleItems
@@ -826,16 +827,6 @@ suite =
                                         |> Expect.greaterThan 0
                                     )
                                 ]
-                            )
-                        , it "should reject single item assembly"
-                            ("""{
-                                  "assemblyCountry": "FR",
-                                  "components": [
-                                    { "id": "ad9d7f23-076b-49c5-93a4-ee1cd7b53973", "quantity": 1 }
-                                  ]
-                                }"""
-                                |> decodeJsonThen Component.decodeQuery (Component.compute requirements)
-                                |> expectResultErrorContains "Un composant unique ne peut pas être assemblé"
                             )
                         , suiteFromResult "assembly country handling"
                             -- setup
@@ -880,13 +871,13 @@ suite =
                             )
                             -- tests
                             (\singleItemProduct ->
-                                [ it "should not add transport to assembly when shipping a single item"
+                                [ it "should add transport to assembly when shipping a single item"
                                     (singleItemProduct
                                         |> .transports
                                         |> .toAssembly
                                         |> .impacts
                                         |> getEcsImpact
-                                        |> Expect.equal 0
+                                        |> Expect.greaterThan 0
                                     )
                                 , it "should add transport impacts to distribution when shipping a single item"
                                     (singleItemProduct
@@ -895,6 +886,37 @@ suite =
                                         |> .impacts
                                         |> getEcsImpact
                                         |> Expect.greaterThan 0
+                                    )
+                                ]
+                            )
+                        , it "should reject an empty component list with an assembly country"
+                            ("""{
+                                  "assemblyCountry": "FR",
+                                  "components": []
+                                }"""
+                                |> decodeJsonThen Component.decodeQuery (Component.compute requirements)
+                                |> expectResultErrorContains "Une liste de composants vide ne peut être assemblée"
+                            )
+                        , suiteFromResult "empty component list without assembly country"
+                            ("""{ "components": [] }"""
+                                |> decodeJsonThen Component.decodeQuery (Component.compute requirements)
+                            )
+                            (\emptyProduct ->
+                                [ it "should not add transport to assembly"
+                                    (emptyProduct
+                                        |> .transports
+                                        |> .toAssembly
+                                        |> .impacts
+                                        |> getEcsImpact
+                                        |> Expect.equal 0
+                                    )
+                                , it "should not add transport to distribution"
+                                    (emptyProduct
+                                        |> .transports
+                                        |> .toDistribution
+                                        |> .impacts
+                                        |> getEcsImpact
+                                        |> Expect.equal 0
                                     )
                                 ]
                             )
@@ -912,8 +934,8 @@ suite =
                                     (singleItemProduct
                                         |> .transports
                                         |> .toAssembly
-                                        |> .impacts
-                                        |> getEcsImpact
+                                        |> .air
+                                        |> Length.inKilometers
                                         |> Expect.equal 0
                                     )
                                 , it "should add air transport to distribution"
@@ -1085,8 +1107,8 @@ suite =
                             ]
                         ]
                     , suiteFromResult2 "computeTransportDistance"
-                        (db.countries |> Country.findByCode (Country.Code "PT"))
-                        (db.countries |> Country.findByCode (Country.Code "FR"))
+                        (db.countries |> Country.findByCode (CountryCode.fromString "PT"))
+                        (db.countries |> Country.findByCode CountryCode.france)
                         (\france portugal ->
                             [ it "should compute distance between two countries"
                                 (Component.computeTransportDistance requirements Split.zero (Just portugal) (Just france)
@@ -1142,8 +1164,8 @@ suite =
                             ]
                         )
                     , suiteFromResult2 "computeTransportedMassImpacts"
-                        (db.countries |> Country.findByCode (Country.Code "PT"))
-                        (db.countries |> Country.findByCode (Country.Code "FR"))
+                        (db.countries |> Country.findByCode (CountryCode.fromString "PT"))
+                        (db.countries |> Country.findByCode CountryCode.france)
                         (\portugal france ->
                             [ it "should compute transported mass impacts"
                                 (Mass.kilogram
@@ -1222,7 +1244,7 @@ suite =
                                         >> Result.fromMaybe "Missing custom element material country"
                                     )
                             )
-                            (Expect.equal (Just (Country.codeFromString "CN")))
+                            (Expect.equal (Just CountryCode.china))
                         , itFromResult "should decode an item with a custom transform country override"
                             ("""{
                                   "quantity": 1,
@@ -1249,7 +1271,7 @@ suite =
                                         >> Result.fromMaybe "Missing custom element transform country"
                                     )
                             )
-                            (Expect.equal (Just (Country.codeFromString "CN")))
+                            (Expect.equal (Just CountryCode.china))
                         ]
                     , suiteFromResult "itemToComponent"
                         ("""{ "id": "64fa65b3-c2df-4fd0-958b-83965bd6aa08",
@@ -1400,6 +1422,27 @@ suite =
                                 )
                             ]
                         )
+                    , let
+                        query =
+                            { emptyQuery
+                                | items = [ Component.createItem Nothing ]
+                                , assemblyCountry = Just (CountryCode.fromString "FR")
+                            }
+                      in
+                      describe "mapItems"
+                        [ it "should reset the assembly country when mapItems empties the list"
+                            (query
+                                |> Component.mapItems (always [])
+                                |> .assemblyCountry
+                                |> Expect.equal Nothing
+                            )
+                        , it "should preserve the assembly country when mapItems keeps the list"
+                            (query
+                                |> Component.mapItems (always [ Component.createItem Nothing ])
+                                |> .assemblyCountry
+                                |> Expect.equal (Just (CountryCode.fromString "FR"))
+                            )
+                        ]
                     , suiteFromResult2 "removeElement"
                         -- setup
                         sofaFabric
@@ -1479,6 +1522,30 @@ suite =
                                 )
                             ]
                         )
+                    , let
+                        query =
+                            { emptyQuery | assemblyCountry = Just (CountryCode.fromString "FR") }
+                      in
+                      describe "setQueryItems"
+                        [ it "should preserve the assembly country for a single item"
+                            (query
+                                |> Component.setQueryItems [ Component.createItem Nothing ]
+                                |> .assemblyCountry
+                                |> Expect.equal (Just (CountryCode.fromString "FR"))
+                            )
+                        , it "should preserve the assembly country for multiple items"
+                            (query
+                                |> Component.setQueryItems [ Component.createItem Nothing, Component.createItem Nothing ]
+                                |> .assemblyCountry
+                                |> Expect.equal (Just (CountryCode.fromString "FR"))
+                            )
+                        , it "should reset the assembly country when the list becomes empty"
+                            (query
+                                |> Component.setQueryItems []
+                                |> .assemblyCountry
+                                |> Expect.equal Nothing
+                            )
+                        ]
                     , suiteFromResult "stagesImpacts"
                         ("""{
                               "components": [
@@ -1639,6 +1706,32 @@ suite =
                                 (Expect.equal (Just "My custom component"))
                             ]
                         )
+                    , suiteFromResult2 "useProcessAmount"
+                        (chair |> Result.andThen (computeItemsWithRequirements requirements))
+                        lowVoltageElec
+                        (\lifeCycle lowVoltageElecProcess ->
+                            let
+                                productMass =
+                                    Component.extractMass lifeCycle.production |> Mass.inKilograms
+
+                                massDependentProcess =
+                                    { lowVoltageElecProcess
+                                        | categories = Category.ProductMassDependent :: lowVoltageElecProcess.categories
+                                        , unit = Process.Kilogram
+                                    }
+                            in
+                            [ it "should ignore provided amount and use product mass when using a mass-dependent process"
+                                (Component.useProcessAmount lifeCycle massDependentProcess (Amount.fromFloat 999)
+                                    |> Amount.toFloat
+                                    |> Expect.within (Expect.Absolute 0.00001) productMass
+                                )
+                            , it "should return the given amount for a regular, non-mass-dependent process"
+                                (Component.useProcessAmount lifeCycle lowVoltageElecProcess (Amount.fromFloat 3)
+                                    |> Amount.toFloat
+                                    |> Expect.within (Expect.Absolute 0.00001) 3
+                                )
+                            ]
+                        )
                     , describe "validateItem"
                         [ it "should reject a non-positive quantity" <|
                             (Component.createItem Nothing
@@ -1761,7 +1854,7 @@ suite =
                                                 }
                                            )
                                         |> Component.validateQuery { requirements | scope = Scope.Generic Scope.Food2 }
-                                        |> expectResultErrorContains ("Aucun procédé scopé Alimentaire² avec cet id: " ++ Process.idToString sawingProcess.id)
+                                        |> expectResultErrorContains ("Aucun procédé scopé Alimentaire BÉTA avec cet id: " ++ Process.idToString sawingProcess.id)
                                     )
                                 , it "should reject a packaging referencing a missing process" <|
                                     (emptyQuery
@@ -1786,7 +1879,7 @@ suite =
                                                 }
                                            )
                                         |> Component.validateQuery { requirements | scope = Scope.Generic Scope.Food2 }
-                                        |> expectResultErrorContains ("Aucun procédé scopé Alimentaire² avec cet id: " ++ Process.idToString sawingProcess.id)
+                                        |> expectResultErrorContains ("Aucun procédé scopé Alimentaire BÉTA avec cet id: " ++ Process.idToString sawingProcess.id)
                                     )
                                 ]
                             ]
@@ -2109,7 +2202,7 @@ chipsBag =
               ],
               "comment": "blah",
               "displayName": "Sachet en plastique (PP) pour chips - 150g - Proxy",
-              "elecMJ": 0,
+              "elecKwh": 0,
               "heatMJ": 0,
               "id": "4a80c078-9f86-4a7d-b402-73db3381e33b",
               "impacts": {
@@ -2139,7 +2232,7 @@ dryDistribution =
             ],
             "comment": "Blah",
             "displayName": "Vente au détail\u{202F}: produit sec",
-            "elecMJ": 443.09,
+            "elecKwh": 123.0805556,
             "heatMJ": 0,
             "id": "29118025-efa0-47bb-94e2-f5ccba31a903",
             "impacts": {
@@ -2187,7 +2280,7 @@ injectionMoulding =
                 "categories": ["transformation", "material_type:rigid_plastics"],
                 "comment": "",
                 "displayName": "Moulage par injection",
-                "elecMJ": 0,
+                "elecKwh": 0,
                 "heatMJ": 0,
                 "id": "111539de-deea-588a-9581-6f6ceaa2dfa9",
                 "impacts": {
@@ -2230,7 +2323,7 @@ lowVoltageElec =
                 "categories": ["energy", "use"],
                 "comment": "",
                 "displayName": "Electricité basse tension, France",
-                "elecMJ": 0,
+                "elecKwh": 0,
                 "heatMJ": 0,
                 "id": "931c9bb0-619a-5f75-b41b-ab8061e2ad92",
                 "impacts": {
@@ -2277,7 +2370,7 @@ plastic =
                 "categories": ["material", "material_type:rigid_plastics"],
                 "comment": "",
                 "displayName": "Plastique granulé (PP)",
-                "elecMJ": 0,
+                "elecKwh": 0,
                 "heatMJ": 0,
                 "id": "59b42284-3e45-5343-8a20-1d7d66137461",
                 "impacts": {
@@ -2320,7 +2413,7 @@ sawing =
                 "categories": ["transformation", "material_type:wood"],
                 "comment": "",
                 "displayName": "Sciage + séchage au four en Europe (bois)",
-                "elecMJ": 0,
+                "elecKwh": 0,
                 "heatMJ": 0,
                 "id": "c172d131-b5d1-5d9b-822b-5762afb91c66",
                 "impacts": {
@@ -2363,7 +2456,7 @@ steel =
                 "categories": ["material", "material_type:ferrous_metals"],
                 "comment": "",
                 "displayName": "Acier (faiblement allié)",
-                "elecMJ": 0,
+                "elecKwh": 0,
                 "heatMJ": 0,
                 "id": "6527710e-2434-5347-9bef-2205e0aa4f66",
                 "impacts": {
@@ -2406,7 +2499,7 @@ wood =
                 "categories": ["material", "material_type:wood"],
                 "comment": "",
                 "displayName": "Bois d'oeuvre (Feuillus / Hêtre)",
-                "elecMJ": 0,
+                "elecKwh": 0,
                 "heatMJ": 0,
                 "id": "17431e06-2973-516e-b043-be9ad405e4fb",
                 "impacts": {

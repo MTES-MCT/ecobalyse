@@ -47,9 +47,9 @@ type ActivePage
     | TextileSimulator
 
 
-type MenuLink
+type MenuLink msg
     = External String String
-    | Internal String Route.Route ActivePage
+    | Internal (List (Html msg)) Route.Route ActivePage
     | MailTo String String
 
 
@@ -129,7 +129,8 @@ commonNotices msg activePage =
         Object (Scope.Generic Scope.Food2) ->
             Notice.info
                 [ Icon.info
-                , Markdown.simple [] "**Cette version est en cours de développement.**"
+                , Markdown.simple [] "**Méthodologie stabilisée. Cette version de la calculette remplacera à terme la version initiale.**"
+                , """Contribuez via notre [forum utilisateur](https://chat.ecobalyse.fr/ecobalyse/channels/02_alimentaire_general).""" |> Markdown.simple []
                 ]
 
         Object (Scope.Generic Scope.Object) ->
@@ -234,7 +235,7 @@ newVersionAlert { currentVersion, toMsg } =
             text ""
 
 
-addRouteIf : Bool -> MenuLink -> Maybe MenuLink
+addRouteIf : Bool -> MenuLink msg -> Maybe (MenuLink msg)
 addRouteIf flag route =
     if flag then
         Just route
@@ -243,54 +244,56 @@ addRouteIf flag route =
         Nothing
 
 
-mainMenuLinks : Session.EnabledSections -> List MenuLink
+mainMenuLinks : Session.EnabledSections -> List (MenuLink msg)
 mainMenuLinks enabledSections =
     List.filterMap identity
-        [ Just <| Internal "Accueil" Route.Home Home
+        [ Just <| Internal [ text "Accueil" ] Route.Home Home
         , addRouteIf enabledSections.textile <|
-            Internal "Textile" Route.TextileSimulatorHome TextileSimulator
+            Internal [ text "Textile" ] Route.TextileSimulatorHome TextileSimulator
         , addRouteIf enabledSections.food <|
-            Internal "Alimentaire" Route.FoodBuilderHome Food
+            Internal [ text "Alimentaire" ] Route.FoodBuilderHome Food
         , addRouteIf enabledSections.objects <|
-            Internal "Objets" (Route.ObjectSimulatorHome (Scope.Generic Scope.Object)) (Object (Scope.Generic Scope.Object))
+            Internal [ text "Alimentaire", sup [] [ text "BÉTA" ] ] (Route.ObjectSimulatorHome (Scope.Generic Scope.Food2)) (Object (Scope.Generic Scope.Food2))
+        , addRouteIf enabledSections.objects <|
+            Internal [ text "Objets" ] (Route.ObjectSimulatorHome (Scope.Generic Scope.Object)) (Object (Scope.Generic Scope.Object))
         , addRouteIf enabledSections.veli <|
-            Internal "Véhicules" (Route.ObjectSimulatorHome (Scope.Generic Scope.Veli)) (Object (Scope.Generic Scope.Veli))
-        , Just <| Internal "Explorateur" (Route.Explore Scope.Textile (Dataset.TextileExamples Nothing)) Explore
-        , Just <| Internal "API" Route.Api Api
+            Internal [ text "Véhicules" ] (Route.ObjectSimulatorHome (Scope.Generic Scope.Veli)) (Object (Scope.Generic Scope.Veli))
+        , Just <| Internal [ text "Explorateur" ] (Route.Explore Scope.Textile (Dataset.TextileExamples Nothing)) Explore
+        , Just <| Internal [ text "API" ] Route.Api Api
         , Just <| MailTo "Contact" Env.contactEmail
         ]
 
 
-secondaryMenuLinks : Session.EnabledSections -> List MenuLink
+secondaryMenuLinks : Session.EnabledSections -> List (MenuLink msg)
 secondaryMenuLinks enabledSections =
     List.filterMap identity
-        [ Just <| Internal "Dernières mises à jour" (Route.Editorial "maj") (Editorial "maj")
-        , Just <| Internal "Statistiques" Route.Stats Stats
+        [ Just <| Internal [ text "Dernières mises à jour" ] (Route.Editorial "maj") (Editorial "maj")
+        , Just <| Internal [ text "Statistiques" ] Route.Stats Stats
         , Just <| External "Documentation" Env.gitbookUrl
         , Just <| External "Communauté" Env.communityUrl
         , Just <| External "Code source" Env.githubUrl
         , Just <| External "CGU" Env.cguUrl
-        , Just <| Internal "Admin" (Route.Admin AdminSection.ComponentSection) Admin
+        , Just <| Internal [ text "Admin" ] (Route.Admin AdminSection.ComponentSection) Admin
         , addRouteIf enabledSections.food2 <|
-            Internal "Alimentaire²" (Route.ObjectSimulatorHome (Scope.Generic Scope.Food2)) (Object (Scope.Generic Scope.Food2))
+            Internal [ text "Alimentaire²" ] (Route.ObjectSimulatorHome (Scope.Generic Scope.Food2)) (Object (Scope.Generic Scope.Food2))
         ]
 
 
-headerMenuLinks : Config msg -> List MenuLink
+headerMenuLinks : Config msg -> List (MenuLink msg)
 headerMenuLinks { enabledSections, isSuperuser } =
     mainMenuLinks enabledSections
         ++ List.filterMap identity
             [ Just <| External "Communauté" Env.communityUrl
             , Just <| External "Documentation" Env.gitbookUrl
             , if isSuperuser then
-                Just <| Internal "Admin" (Route.Admin AdminSection.ComponentSection) Admin
+                Just <| Internal [ text "Admin" ] (Route.Admin AdminSection.ComponentSection) Admin
 
               else
                 Nothing
             ]
 
 
-mobileMenuLinks : Config msg -> List MenuLink
+mobileMenuLinks : Config msg -> List (MenuLink msg)
 mobileMenuLinks { enabledSections, isAuthenticated } =
     mainMenuLinks enabledSections
         ++ [ External "Documentation" Env.gitbookUrl
@@ -298,21 +301,21 @@ mobileMenuLinks { enabledSections, isAuthenticated } =
            , MailTo "Contact" Env.contactEmail
            , Internal
                 (if isAuthenticated then
-                    "Mon compte"
+                    [ text "Mon compte" ]
 
                  else
-                    "Connexion ou inscription"
+                    [ text "Connexion ou inscription" ]
                 )
                 Route.Auth
                 Auth
            ]
 
 
-legalMenuLinks : List MenuLink
+legalMenuLinks : List (MenuLink msg)
 legalMenuLinks =
-    [ Internal "Accessibilité\u{00A0}: non conforme" (Route.Editorial "accessibilité") (Editorial "accessibilité")
-    , Internal "Mentions légales" (Route.Editorial "mentions-légales") (Editorial "mentions-légales")
-    , Internal "Politique de confidentialité" (Route.Editorial "politique-de-confidentialite") (Editorial "politique-de-confidentialite")
+    [ Internal [ text "Accessibilité\u{00A0}: non conforme" ] (Route.Editorial "accessibilité") (Editorial "accessibilité")
+    , Internal [ text "Mentions légales" ] (Route.Editorial "mentions-légales") (Editorial "mentions-légales")
+    , Internal [ text "Politique de confidentialité" ] (Route.Editorial "politique-de-confidentialite") (Editorial "politique-de-confidentialite")
     , MailTo "Contact" Env.contactEmail
     ]
 
@@ -328,7 +331,7 @@ pageFooter ({ clientUrl, enabledSections } as config) =
 
                 Internal label route _ ->
                     Link.internal [ class "text-decoration-none", Route.href route ]
-                        [ text label ]
+                        label
 
                 MailTo label email ->
                     a [ class "text-decoration-none", href <| "mailto:" ++ email ]
@@ -499,7 +502,7 @@ pageHeader ({ activePage, toMsg } as config) =
         ]
 
 
-viewNavigationLink : ActivePage -> MenuLink -> Html msg
+viewNavigationLink : ActivePage -> MenuLink msg -> Html msg
 viewNavigationLink activePage link =
     case link of
         External label url ->
@@ -518,7 +521,7 @@ viewNavigationLink activePage link =
                             []
                        )
                 )
-                [ text label ]
+                label
 
         MailTo label email ->
             a [ class "nav-link", href <| "mailto:" ++ email ] [ text label ]
