@@ -4,10 +4,10 @@ module Data.Object.Simulator exposing
     )
 
 import Data.Component as Component exposing (LifeCycle)
+import Data.Db exposing (Db)
 import Data.Impact as Impact
 import Data.Impact.Definition as Definition
 import Data.Stages as Stages
-import Static.Db exposing (Db)
 
 
 compute : Component.Requirements Db -> Component.Query -> Result String LifeCycle

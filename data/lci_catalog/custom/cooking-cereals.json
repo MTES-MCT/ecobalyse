@@ -5,7 +5,7 @@
   ],
   "comment": "Raw to cooked ratio defined in Agribalyse 3 methodology",
   "displayName": "Cuisson des céréales et féculents",
-  "elecMJ": 2.58,
+  "elecKwh": 0.7167,
   "heatMJ": 0.754,
   "id": "881b60c2-8af9-4a4b-876f-fbf9b2ac717c",
   "impacts": {

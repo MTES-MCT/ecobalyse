@@ -5,7 +5,7 @@
   ],
   "comment": "Ancien identifiant (12/2024): de2cd7848f853b1c9b8a5d7b0f255144.",
   "displayName": "Électricité moyenne tension, Cambodge",
-  "elecMJ": 0,
+  "elecKwh": 0.0,
   "heatMJ": 0,
   "id": "e274d3fd-eee9-54dc-ba1a-ca14a8717e93",
   "metadata": [

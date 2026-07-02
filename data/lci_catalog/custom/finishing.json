@@ -4,7 +4,7 @@
   ],
   "comment": "corr3 : valeurs d'élec et de chaleur issues du rapport BAT2023 avec majoration de 50%",
   "displayName": "Apprêts chimiques",
-  "elecMJ": 2.16,
+  "elecKwh": 0.6,
   "heatMJ": 13.5,
   "id": "3c66588d-fffb-55cb-b9d5-c197b7e2e591",
   "impacts": {

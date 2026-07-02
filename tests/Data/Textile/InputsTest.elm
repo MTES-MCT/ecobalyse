@@ -1,6 +1,6 @@
 module Data.Textile.InputsTest exposing (..)
 
-import Data.Country as Country
+import Data.Country.Code as CountryCode
 import Data.Split as Split
 import Data.Textile.Inputs as Inputs
 import Data.Textile.Material as Material
@@ -21,21 +21,21 @@ suite =
                     tShirtCotonFrance
                     (\query ->
                         [ { query
-                            | countryFabric = Just (Country.Code "CN")
-                            , countryDyeing = Just (Country.Code "CN")
-                            , countryMaking = Just (Country.Code "CN")
+                            | countryFabric = Just CountryCode.china
+                            , countryDyeing = Just CountryCode.china
+                            , countryMaking = Just CountryCode.china
                           }
                             |> Inputs.fromQuery db
                             |> Result.map Inputs.countryList
                             |> Result.andThen (LE.getAt 0 >> Maybe.map .code >> Result.fromMaybe "")
-                            |> Expect.equal (Ok (Country.codeFromString "CN"))
+                            |> Expect.equal (Ok CountryCode.china)
                             |> asTest "replace the first country with the material's default country"
                         ]
                     )
                 , { default
-                    | countryFabric = Just (Country.Code "XX")
-                    , countryDyeing = Just (Country.Code "CN")
-                    , countryMaking = Just (Country.Code "CN")
+                    | countryFabric = Just (CountryCode.fromString "XX")
+                    , countryDyeing = Just CountryCode.china
+                    , countryMaking = Just CountryCode.china
                   }
                     |> Inputs.fromQuery db
                     |> Expect.equal (Err "Code pays invalide: XX.")

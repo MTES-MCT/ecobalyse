@@ -5,7 +5,7 @@
   ],
   "comment": "Ancien identifiant (12/2024): elasthane-lycra.",
   "displayName": "Elasthane",
-  "elecMJ": 0,
+  "elecKwh": 0.0,
   "heatMJ": 0,
   "id": "b2340802-bde9-56e4-984f-37110706225e",
   "impacts": {

@@ -6,7 +6,7 @@
   ],
   "comment": "",
   "displayName": "Incinération du verre",
-  "elecMJ": 0,
+  "elecKwh": 0.0,
   "heatMJ": 0,
   "id": "ce0aa4e1-4c3a-460d-845c-d12a8ecf4dd8",
   "metadata": [

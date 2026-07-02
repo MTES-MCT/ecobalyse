@@ -4,7 +4,7 @@
   ],
   "comment": "corr2 : inventaires enrichis (substances chimiques)\nAncien identifiant (12/2024): ecobalyse-impression-fixe-lave-colorants.",
   "displayName": "Impression fixé-lavé (colorants)",
-  "elecMJ": 0,
+  "elecKwh": 0.0,
   "heatMJ": 0,
   "id": "cfdc5e31-25fc-56ff-9a54-04670ecad301",
   "impacts": {

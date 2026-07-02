@@ -6,7 +6,7 @@
   ],
   "comment": "",
   "displayName": "Incinération de l'aluminium",
-  "elecMJ": 0,
+  "elecKwh": 0.0,
   "heatMJ": 0,
   "id": "2e4a7955-5ecc-4e2c-aebd-2e0259750021",
   "metadata": [

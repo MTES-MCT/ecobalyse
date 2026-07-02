@@ -21,6 +21,7 @@ module Data.Bookmark exposing
 import Data.Common.DecodeUtils as DU
 import Data.Common.EncodeUtils as EU
 import Data.Component as Component
+import Data.Db exposing (Db)
 import Data.Food.Query as FoodQuery
 import Data.Food.Recipe as Recipe
 import Data.Scope as Scope exposing (GenericScope, Scope)
@@ -30,7 +31,6 @@ import Json.Decode as Decode exposing (Decoder)
 import Json.Decode.Pipeline as JDP
 import Json.Encode as Encode
 import List.Extra as LE
-import Static.Db exposing (Db)
 import Time exposing (Posix)
 
 

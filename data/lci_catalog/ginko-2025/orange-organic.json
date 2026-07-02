@@ -1,5 +1,5 @@
 {
-  "activityName": "Orange, processing grade, at farm, organic 2025 {BR}",
+  "activityName": "Orange, fresh grade, at farm, organic 2025 {ES}",
   "categories": [
     "ingredient",
     "material",
@@ -7,7 +7,7 @@
   ],
   "displayName": "Oranges Bio",
   "id": "079d1538-6ca3-5dc7-9587-457d5ecc7b12",
-  "location": "BR",
+  "location": "ES",
   "metadata": [
     {
       "alias": "orange-organic",
@@ -32,6 +32,47 @@
       "ingredientDensityMatch": {
         "confidence": 0.95,
         "rule": "Matched with orange in density.csv"
+      },
+      "rawToCookedRatio": 0.856,
+      "rawToCookedRatioMatch": {
+        "confidence": 1.0,
+        "rule": "fruit default from food_type_cooked_to_raw.csv"
+      },
+      "scenario": "organic",
+      "scopes": [
+        "food",
+        "food2"
+      ],
+      "transportCooling": "always",
+      "transportCoolingMatch": {
+        "confidence": 1.0,
+        "rule": "fruit NOVA 1 → always (perishable)"
+      },
+      "visible": true
+    },
+    {
+      "alias": "grapefruit-organic",
+      "cropGroup": "VIGNES",
+      "cropGroupMatch": {
+        "confidence": 1.0,
+        "rule": "grape/wine pattern"
+      },
+      "defaultOrigin": "France",
+      "displayName": "Pamplemousse Bio",
+      "id": "f3051192-4b06-5b56-8cba-b34800bb90ab",
+      "inediblePart": 0.3,
+      "inediblePartMatch": {
+        "confidence": 1.0,
+        "rule": "Matched with Grapefruit in agb_inedible.csv"
+      },
+      "ingredientCategories": [
+        "vegetable_fresh",
+        "organic"
+      ],
+      "ingredientDensity": 0.85,
+      "ingredientDensityMatch": {
+        "confidence": 1.0,
+        "rule": "fruit default from food_type_density.csv"
       },
       "rawToCookedRatio": 0.856,
       "rawToCookedRatioMatch": {

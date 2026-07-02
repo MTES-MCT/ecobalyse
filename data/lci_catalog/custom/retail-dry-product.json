@@ -4,7 +4,7 @@
   ],
   "comment": "Somme des consommations électriques pour la phase de vente au détail tel que définit dans la méthode Agribalyse 3.0, rapport vf2, tableau 35. L’impact de l’utilisation de l’eau et des émissions de R404a n’est pas intégré. Voir https://fabrique-numerique.gitbook.io/ecobalyse/alimentaire/etapes-du-cycles-de-vie/vente-au-detail",
   "displayName": "Vente au détail : produit sec",
-  "elecMJ": 443.09,
+  "elecKwh": 123.0806,
   "heatMJ": 0,
   "id": "f0911b6e-69b6-441a-b42c-bd498cf78b34",
   "impacts": {

@@ -16,8 +16,9 @@ import Data.Bookmark as Bookmark exposing (Bookmark)
 import Data.Component as Component exposing (Component, Index, TargetElement, TargetItem)
 import Data.Component.Amount as Amount exposing (Amount)
 import Data.Component.Config as Config
-import Data.Country as Country
+import Data.Country.Code as CountryCode
 import Data.Dataset as Dataset
+import Data.Db exposing (Db)
 import Data.Env as Env
 import Data.Example as Example exposing (Example)
 import Data.Impact.Definition as Definition exposing (Definition)
@@ -41,7 +42,6 @@ import Request.BackendHttp exposing (WebData)
 import Request.BackendHttp.Error as BackendHttpError
 import Request.Contrib as Contrib
 import Route
-import Static.Db exposing (Db)
 import Task
 import Time exposing (Posix)
 import Views.AutocompleteSelector as AutocompleteSelectorView
@@ -134,7 +134,7 @@ type Msg
     | ToggleComparedSimulation Bookmark Bool
     | ToggleTransportByAir Split
     | ToggleTransportCooling Bool
-    | UpdateAssemblyCountry (Maybe Country.Code)
+    | UpdateAssemblyCountry (Maybe CountryCode.Code)
     | UpdateBookmarkName String
     | UpdateComponentItemName TargetItem String
     | UpdateComponentItemQuantity Index Component.Quantity
@@ -144,8 +144,8 @@ type Msg
     | UpdateDistribution (Result String Process.Id)
     | UpdateDurability (Result String Unit.Ratio)
     | UpdateElementAmount TargetElement (Maybe Amount)
-    | UpdateElementMaterialCountry TargetElement (Maybe Country.Code)
-    | UpdateElementTransformCountry TargetElement Index (Maybe Country.Code)
+    | UpdateElementMaterialCountry TargetElement (Maybe CountryCode.Code)
+    | UpdateElementTransformCountry TargetElement Index (Maybe CountryCode.Code)
     | UpdatePackagingAmount Index (Maybe Amount)
     | UpdateRecyclability Bool
     | UpdateRenamedBookmarkName Bookmark String

@@ -5,7 +5,7 @@
   ],
   "comment": "Source: BAT Reference Document for the Ferrous Metals Processing Industry, JRC, 2022, average for hot rolling, inclunding reheating and post-heating. Including scrap remelting in EAF (0% waste).",
   "displayName": "Lamination inox",
-  "elecMJ": 0.5,
+  "elecKwh": 0.1389,
   "heatMJ": 4.5,
   "id": "c101c49e-ae54-55c9-a022-902622097418",
   "impacts": {

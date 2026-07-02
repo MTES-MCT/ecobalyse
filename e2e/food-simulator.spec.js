@@ -2,7 +2,10 @@ import { test, expect } from "@playwright/test";
 
 test("Food simulator", async ({ page }) => {
   await page.goto("/");
-  await page.getByLabel("Menu principal").getByRole("link", { name: "Alimentaire" }).click();
+  await page
+    .getByLabel("Menu principal")
+    .getByRole("link", { name: "Alimentaire", exact: true })
+    .click();
 
   await page.getByRole("button", { name: "Exemples" }).click();
   await page.getByRole("option", { name: "Pizza bolognese (375g) - 21" }).click();

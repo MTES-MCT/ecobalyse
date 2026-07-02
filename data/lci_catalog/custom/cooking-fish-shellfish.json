@@ -5,7 +5,7 @@
   ],
   "comment": "Raw to cooked ratio defined in Agribalyse 3 methodology",
   "displayName": "Cuisson des poissons et crustacées",
-  "elecMJ": 2.58,
+  "elecKwh": 0.7167,
   "heatMJ": 0.754,
   "id": "a0a31b32-829c-4ed9-81e1-eb7f6a525ba6",
   "impacts": {

@@ -6,7 +6,7 @@
   ],
   "comment": "2.9kg/m² panel ; 2*0.3mm (1.62kg/m²) Aluminium + 1.29kg/m² LDPE. Source: 3A Composites GmbH)",
   "displayName": "Panneau Aluminium+PEBD 2mm",
-  "elecMJ": 0,
+  "elecKwh": 0.0,
   "heatMJ": 0,
   "id": "5864bb6f-ea66-4e46-8e15-c563fb42a1bd",
   "metadata": [

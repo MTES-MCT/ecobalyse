@@ -165,7 +165,7 @@ toLabel scope =
             "Alimentaire"
 
         Generic Food2 ->
-            "Alimentaire²"
+            "Alimentaire BÉTA"
 
         Generic Object ->
             "Objets"

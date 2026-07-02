@@ -5,7 +5,7 @@
   ],
   "comment": "Données provenant de Base Impacts 2.01. Ancien identifiant (12/2024): 0810b8e5-a3d9-4607-bccc-83d112573260.",
   "displayName": "Impression fixé-lavé, procédé représentatif, traitement moyen des eaux usées",
-  "elecMJ": 5.22,
+  "elecKwh": 1.45,
   "heatMJ": 8.72,
   "id": "5c21e378-b941-57f7-98c9-67345847dbda",
   "impacts": {

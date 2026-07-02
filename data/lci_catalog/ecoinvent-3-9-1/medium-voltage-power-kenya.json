@@ -5,7 +5,7 @@
   ],
   "comment": "Ancien identifiant (12/2024): e5f92d33532b4e649da2541b264fa363.",
   "displayName": "Électricité moyenne tension, Kenya",
-  "elecMJ": 0,
+  "elecKwh": 0.0,
   "heatMJ": 0,
   "id": "73bfddbc-a57d-51f4-80dc-3c3fc9477dcb",
   "metadata": [

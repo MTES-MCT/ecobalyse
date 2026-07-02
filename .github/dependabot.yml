@@ -4,31 +4,37 @@ updates:
   # master (current version)
   - package-ecosystem: "npm"
     directory: "/"
-    schedule:
-      interval: "daily"
-    cooldown:
-      default-days: 7
     target-branch: "master"
+    schedule:
+      interval: "monthly"
+    cooldown:
+      semver-major-days: 90 # it’s the maximum allowed by dependabot, 3 months
+    groups: # Group updates by patch type in the same PR
+      minor-patch:
+        patterns: ["*"]
+        update-types: ["minor", "patch"]
+
   - package-ecosystem: "uv"
     directory: "/"
-    schedule:
-      interval: "daily"
-    cooldown:
-      default-days: 7
     target-branch: "master"
+    schedule:
+      interval: "monthly"
+    cooldown:
+      semver-major-days: 90 # it’s the maximum allowed by dependabot, 3 months
+    groups:
+      minor-patch:
+        patterns: ["*"]
+        update-types: ["minor", "patch"]
 
   # stable/textile (regulatory version)
   - package-ecosystem: "npm"
     directory: "/"
-    schedule:
-      interval: "daily"
-    cooldown:
-      default-days: 7
     target-branch: "stable/textile"
-  - package-ecosystem: "uv"
-    directory: "/"
     schedule:
-      interval: "daily"
+      interval: "monthly"
     cooldown:
-      default-days: 7
-    target-branch: "stable/textile"
+      semver-major-days: 90 # it’s the maximum allowed by dependabot, 3 months
+    groups:
+      minor-patch:
+        patterns: ["*"]
+        update-types: ["minor", "patch"]

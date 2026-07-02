@@ -5,7 +5,7 @@
   ],
   "comment": "Ancien identifiant (12/2024): debdaaba938a58ac1ab0131e47186092.",
   "displayName": "Électricité moyenne tension, Pérou",
-  "elecMJ": 0,
+  "elecKwh": 0.0,
   "heatMJ": 0,
   "id": "239bfc03-92d6-5a23-bba9-877ffb6d1757",
   "metadata": [

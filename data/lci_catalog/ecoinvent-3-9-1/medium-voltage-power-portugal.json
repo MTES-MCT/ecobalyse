@@ -5,7 +5,7 @@
   ],
   "comment": "",
   "displayName": "Electricité moyenne tension, Portugal",
-  "elecMJ": 0,
+  "elecKwh": 0.0,
   "heatMJ": 0,
   "id": "c16db557-907d-5146-a65c-0ef4a2098f99",
   "metadata": [

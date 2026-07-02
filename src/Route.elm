@@ -62,8 +62,6 @@ parser =
             |> Parser.map (\scope -> Explore scope (Dataset.defaultDatasetFor scope))
         , Parser.map Explore
             (Parser.s "explore" </> Scope.parse </> Dataset.parseSlug)
-        , Parser.map toExploreWithId
-            (Parser.s "explore" </> Scope.parse </> Dataset.parseSlug </> Parser.string)
 
         --
         -- Food specific routes
@@ -160,17 +158,6 @@ deprecatedTextileRouteParser =
             -- This is the unused "viewmode" parameter
             </> Parser.string
             </> TextileQuery.parseBase64Query
-
-
-toExploreWithId : Scope -> Dataset -> String -> Route
-toExploreWithId scope dataset idString =
-    dataset
-        |> Dataset.setIdFromString
-            (idString
-                |> Url.percentDecode
-                |> Maybe.withDefault idString
-            )
-        |> Explore scope
 
 
 {-| Note: as the app relies on URL fragment based routing, the source URL is

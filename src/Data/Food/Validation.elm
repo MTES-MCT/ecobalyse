@@ -1,6 +1,7 @@
 module Data.Food.Validation exposing (validate)
 
 import Data.Country as Country
+import Data.Db exposing (Db)
 import Data.Food.Ingredient as Ingredient
 import Data.Food.Preparation as Preparation
 import Data.Food.Query exposing (IngredientQuery, PackagingAmount, PackagingQuery, ProcessQuery, Query, packagingAmountToFloat)
@@ -9,7 +10,6 @@ import Data.Scope as Scope
 import Data.Validation as Validation
 import Mass exposing (Mass)
 import Result.Extra as RE
-import Static.Db exposing (Db)
 
 
 {-| Validate values not fully qualified by their type or applied JSON decoders.

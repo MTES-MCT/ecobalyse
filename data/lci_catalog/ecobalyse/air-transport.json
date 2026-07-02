@@ -5,7 +5,7 @@
   ],
   "comment": "Ancien identifiant : d3130e7ed9686fcc4bbe980e0375ad88 (12/2024) ; puis ajout des trainées (12/2025)",
   "displayName": "transport aérien long-courrier",
-  "elecMJ": 0,
+  "elecKwh": 0.0,
   "heatMJ": 0,
   "id": "326369d9-792a-5ab5-8276-c54108c80cb1",
   "metadata": [

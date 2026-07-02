@@ -5,7 +5,7 @@
   ],
   "comment": "corr3 (cf doc): valeurs issues du rapport BAT2023 avec majoration de 50%",
   "displayName": "Lavage (fibres synthétiques)",
-  "elecMJ": 0.72,
+  "elecKwh": 0.2,
   "heatMJ": 10.8,
   "id": "7cdc9616-7fb4-5a69-9436-78e5b84ebf31",
   "impacts": {

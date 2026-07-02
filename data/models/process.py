@@ -115,13 +115,11 @@ class Complements(EcoModel):
 class IngredientMetadata(EcoModel):
     base_ingredient: str
     crop_group: Optional[str] = None
-    default_origin: str
     density: float
     inedible_part: float
     raw_to_cooked_ratio: float
     scenario: Optional[str] = None
     transport_cooling: str
-    visible: bool
     process_id: uuid.UUID
 
 
@@ -129,6 +127,7 @@ class ProcessGenericMetadata(EcoModel):
     forest_management: Optional[ForestManagement] = None
     complements: Optional[Complements] = None
     ingredient: Optional[IngredientMetadata] = None
+    default_origin: Optional[str] = None
 
 
 class ProcessGeneric(EcoModel):
@@ -137,7 +136,7 @@ class ProcessGeneric(EcoModel):
     categories: List[str]
     comment: str
     display_name: str
-    elec_mj: Annotated[float, Field(serialization_alias="elecMJ")]
+    elec_kwh: Annotated[float, Field(serialization_alias="elecKwh")]
     heat_mj: Annotated[float, Field(serialization_alias="heatMJ")]
     id: uuid.UUID
     impacts: Impacts
@@ -149,6 +148,7 @@ class ProcessGeneric(EcoModel):
     source: str
     unit: Optional[UnitEnum]
     qty_variation_ratio: float
+    visible: bool = True
 
 
 class EcosystemicServices(EcoModel):
@@ -186,7 +186,7 @@ class Process(EcoModel):
     computed_by: Optional[ComputedBy]
     mass_per_unit: Optional[float]
     display_name: str
-    elec_mj: Annotated[float, Field(serialization_alias="elecMJ")]
+    elec_kwh: Annotated[float, Field(serialization_alias="elecKwh")]
     heat_mj: Annotated[float, Field(serialization_alias="heatMJ")]
     id: Optional[uuid.UUID]
     impacts: Optional[Impacts] = None

@@ -12,7 +12,7 @@
   ],
   "comment": "",
   "displayName": "Enfouissement d'ordures ménagères",
-  "elecMJ": 0,
+  "elecKwh": 0.0,
   "heatMJ": 0,
   "id": "d4954f69-e647-531d-aa32-c34be5556736",
   "metadata": [

@@ -30,7 +30,7 @@ async def test_load_processes(
         "categories": ["transformation"],
         "comment": "",
         "displayName": "Process de test",
-        "elecMJ": 1.61,
+        "elecKwh": 0.4472,
         "heatMJ": 10.74,
         "id": "216e33b3-f607-41e0-b047-cd42db763c5b",
         "impacts": {

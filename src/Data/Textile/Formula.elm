@@ -149,8 +149,8 @@ dyeingImpacts impacts dyeingProcess heatProcess elecProcess baseMass =
 
         kwh =
             Mass.inKilograms baseMass
-                * Energy.inMegajoules dyeingProcess.elec
-                |> Energy.megajoules
+                * Energy.inKilowattHours dyeingProcess.elec
+                |> Energy.kilowattHours
     in
     { heat = heatMJ
     , impacts =

@@ -1,7 +1,8 @@
 module Server.RouteTest exposing (..)
 
 import Data.Component as Component
-import Data.Country as Country
+import Data.Country.Code as CountryCode
+import Data.Db exposing (Db)
 import Data.Example as Example
 import Data.Food.Preparation as Preparation
 import Data.Food.Query as FoodQuery exposing (PackagingAmount(..))
@@ -15,7 +16,6 @@ import Expect
 import Json.Encode as Encode
 import Mass
 import Server.Route as Route
-import Static.Db as StaticDb
 import Test exposing (..)
 import TestUtils exposing (asTest, createServerRequest, suiteFromResult, suiteWithDb, tShirtCotonFrance)
 
@@ -32,7 +32,7 @@ suite =
         )
 
 
-foodEndpoints : StaticDb.Db -> List Test
+foodEndpoints : Db -> List Test
 foodEndpoints db =
     case
         db.food.examples
@@ -71,7 +71,7 @@ foodEndpoints db =
                 , FoodQuery.encode
                     { royalPizza
                         | ingredients =
-                            royalPizza.ingredients |> List.map (\i -> { i | country = Just <| Country.Code "XX" })
+                            royalPizza.ingredients |> List.map (\i -> { i | country = Just <| CountryCode.fromString "XX" })
                     }
                     |> testFoodEndpoint db
                     |> expectFoodValidationError "ingredients" "Code pays invalide: XX."
@@ -79,7 +79,7 @@ foodEndpoints db =
                 , FoodQuery.encode
                     { royalPizza
                         | ingredients =
-                            royalPizza.ingredients |> List.map (\i -> { i | country = Just <| Country.Code "BD" })
+                            royalPizza.ingredients |> List.map (\i -> { i | country = Just <| CountryCode.fromString "BD" })
                     }
                     |> testFoodEndpoint db
                     |> expectFoodValidationError "ingredients" "Le code pays BD n'est pas utilisable dans un contexte Alimentaire."
@@ -109,7 +109,7 @@ foodEndpoints db =
             ]
 
 
-textileEndpoints : StaticDb.Db -> List Test
+textileEndpoints : Db -> List Test
 textileEndpoints db =
     [ describe "POST endpoints"
         [ suiteFromResult "should map the POST /textile/simulator endpoint with the body parsed as a valid query"
@@ -168,7 +168,7 @@ textileEndpoints db =
             (\query ->
                 [ TextileQuery.encode
                     { query
-                        | countrySpinning = Just (Country.Code "invalid")
+                        | countrySpinning = Just (CountryCode.fromString "invalid")
                     }
                     |> testTextileEndpoint db
                     |> expectTextileValidationError "countrySpinning" "Code pays invalide: invalid."
@@ -186,7 +186,7 @@ textileEndpoints db =
                             [ { id = decodedId
                               , share = Split.full
                               , spinning = Nothing
-                              , country = Just (Country.Code "invalid")
+                              , country = Just (CountryCode.fromString "invalid")
                               }
                             ]
                     }
@@ -240,7 +240,7 @@ textileEndpoints db =
                             [ { id = decodedId
                               , share = Split.full
                               , spinning = Nothing
-                              , country = Just (Country.Code "NotACountryCode")
+                              , country = Just (CountryCode.fromString "NotACountryCode")
                               }
                             ]
                     }
@@ -254,7 +254,7 @@ textileEndpoints db =
             (\query ->
                 [ TextileQuery.encode
                     { query
-                        | countryDyeing = Just <| Country.Code "US"
+                        | countryDyeing = Just <| CountryCode.fromString "US"
                     }
                     |> testTextileEndpoint db
                     |> expectTextileValidationError "countryDyeing" "Le code pays US n'est pas utilisable dans un contexte Textile."
@@ -313,7 +313,7 @@ textileEndpoints db =
 
 
 testEndpoint :
-    StaticDb.Db
+    Db
     ->
         { method : String
         , protocol : String
@@ -328,7 +328,7 @@ testEndpoint dbs params =
         >> Route.endpoint dbs
 
 
-testFoodEndpoint : StaticDb.Db -> Encode.Value -> Maybe Route.Route
+testFoodEndpoint : Db -> Encode.Value -> Maybe Route.Route
 testFoodEndpoint dbs =
     testEndpoint dbs
         { method = "POST"
@@ -339,7 +339,7 @@ testFoodEndpoint dbs =
         }
 
 
-testTextileEndpoint : StaticDb.Db -> Encode.Value -> Maybe Route.Route
+testTextileEndpoint : Db -> Encode.Value -> Maybe Route.Route
 testTextileEndpoint dbs =
     testEndpoint dbs
         { method = "POST"

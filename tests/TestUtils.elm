@@ -16,7 +16,8 @@ module TestUtils exposing
     , tShirtCotonFrance
     )
 
-import Data.Country as Country
+import Data.Country.Code as CountryCode
+import Data.Db exposing (Db)
 import Data.Impact as Impact exposing (Impacts)
 import Data.Impact.Definition as Definition exposing (Trigrams)
 import Data.Process as Process
@@ -30,7 +31,7 @@ import Expect exposing (Expectation, FloatingPointTolerance)
 import Json.Encode as Encode
 import Mass
 import Server.Request exposing (Request)
-import Static.Db as StaticDb exposing (Db)
+import Static.Db as StaticDb
 import Static.Json as StaticJson
 import Test exposing (..)
 
@@ -95,7 +96,7 @@ suiteFromResult4 testName res1 res2 res3 res4 fn =
 
 suiteWithDb : String -> (Db -> List Test) -> Test
 suiteWithDb name suite =
-    case StaticDb.db StaticJson.processesJson of
+    case StaticDb.dbFromStaticFiles StaticJson.processesJson of
         Ok db ->
             describe name (suite db)
 
@@ -143,7 +144,7 @@ expectResultWithin precision target result =
 
 
 createServerRequest :
-    StaticDb.Db
+    Db
     -> { method : String, protocol : String, host : String, url : String, version : Maybe String }
     -> Encode.Value
     -> Request
@@ -203,9 +204,9 @@ tShirtCotonFrance =
         |> Result.map
             (\query ->
                 { query
-                    | countryDyeing = Just (Country.Code "FR")
-                    , countryFabric = Just (Country.Code "FR")
-                    , countryMaking = Just (Country.Code "FR")
-                    , countrySpinning = Just (Country.Code "FR")
+                    | countryDyeing = Just CountryCode.france
+                    , countryFabric = Just CountryCode.france
+                    , countryMaking = Just CountryCode.france
+                    , countrySpinning = Just CountryCode.france
                 }
             )

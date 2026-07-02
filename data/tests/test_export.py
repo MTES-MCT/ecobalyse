@@ -28,12 +28,19 @@ def test_export_processes(forwast, tmp_path, processes_impacts_json):
         assert json_data == processes_impacts_json
 
 
-def test_export_ingredients(forwast, tmp_path, ingredients_food_json):
+def test_export_ingredients(
+    forwast, tmp_path, ingredients_food_json, processes_impacts_full_json
+):
     settings.set("OUTPUT_DIR", str(tmp_path))
     settings.set("LOCAL_DIR", str(tmp_path))
 
     output_path = tmp_path / "food"
     output_path.mkdir()
+
+    export_json(
+        processes_impacts_full_json,
+        tmp_path / settings.processes_legacy_impacts_full_file,
+    )
 
     export.metadata(
         scopes=[export.MetadataScope.food],

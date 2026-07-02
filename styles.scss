@@ -351,6 +351,10 @@ q {
   &-pointer {
     cursor: pointer;
   }
+
+  &-not-allowed {
+    cursor: not-allowed;
+  }
 }
 
 .icon {

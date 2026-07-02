@@ -5,7 +5,7 @@
   ],
   "comment": "Ancien identifiant (12/2024): 7037ea59d8d644fd35f80fd1982f9fe9.",
   "displayName": "transport ferroviaire",
-  "elecMJ": 0,
+  "elecKwh": 0.0,
   "heatMJ": 0,
   "id": "cdc841c2-493f-56d6-8fc2-ae5fad2a4917",
   "metadata": [

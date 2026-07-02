@@ -5,7 +5,7 @@
   ],
   "comment": "",
   "displayName": "Teinture moyenne",
-  "elecMJ": 3.6,
+  "elecKwh": 1.0,
   "heatMJ": 24.3,
   "id": "b7fa51fc-0421-57b0-bb0a-e0573e293c7a",
   "impacts": {

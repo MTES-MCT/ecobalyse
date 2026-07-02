@@ -6,7 +6,7 @@
   ],
   "comment": "",
   "displayName": "Pneu",
-  "elecMJ": 0,
+  "elecKwh": 0.0,
   "heatMJ": 0,
   "id": "24f2929c-6c70-492b-871c-ccc5d57d90ff",
   "metadata": [

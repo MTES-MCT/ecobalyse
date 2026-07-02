@@ -35,7 +35,7 @@ def rearrange_keys(process: dict) -> dict:
         "categories": process["categories"],
         "unit": process["unit"],
         "massPerUnit": process["massPerUnit"],
-        "elecMJ": process["elecMJ"],
+        "elecKwh": process["elecKwh"],
         "heatMJ": process["heatMJ"],
         "qtyVariationRatio": process["qtyVariationRatio"],
         "source": process["source"],

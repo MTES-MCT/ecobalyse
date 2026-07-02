@@ -1,11 +1,15 @@
-module Data.Food.Transport exposing (countriesWithDefaultRoadTransport, defaultKilometersRoadDistance)
+module Data.Food.Transport exposing
+    ( countriesWithDefaultRoadTransport
+    , defaultKilometersRoadDistance
+    )
 
-import Data.Country as Country
+import Data.Country.Code as CountryCode
 
 
-countriesWithDefaultRoadTransport : List Country.Code
+countriesWithDefaultRoadTransport : List CountryCode.Code
 countriesWithDefaultRoadTransport =
-    [ "RAF", "RAS", "RLA", "RME", "RNA", "ROC" ] |> List.map Country.codeFromString
+    [ "RAF", "RAS", "RLA", "RME", "RNA", "ROC" ]
+        |> List.map CountryCode.fromString
 
 
 defaultKilometersRoadDistance : Float

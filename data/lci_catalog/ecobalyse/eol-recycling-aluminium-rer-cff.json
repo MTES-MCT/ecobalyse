@@ -6,7 +6,7 @@
   ],
   "comment": "According to CFF: A=0.2, Q=1",
   "displayName": "Recyclage de l'aluminium, CFF",
-  "elecMJ": 0,
+  "elecKwh": 0.0,
   "heatMJ": 0,
   "id": "7f0621d1-c8ba-416a-af03-450fc2639c97",
   "metadata": [

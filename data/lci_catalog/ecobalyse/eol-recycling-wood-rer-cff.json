@@ -6,7 +6,7 @@
   ],
   "comment": "According to CFF: A=0.71, Q=0.85",
   "displayName": "Recyclage du bois, CFF",
-  "elecMJ": 0,
+  "elecKwh": 0.0,
   "heatMJ": 0,
   "id": "15277b3c-e9d6-423d-9e96-04d77d59888e",
   "metadata": [

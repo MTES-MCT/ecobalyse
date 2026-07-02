@@ -5,7 +5,7 @@
   ],
   "comment": "Même commentaire que `dyeing-cellulosic-fiber` sauf qu'en plus les impacts sont multipliés par 19% (scénario de pollution aquatique moyen). corr2 : inventaires enrichis (substances chimiques)\nAncien identifiant (12/2024): ecobalyse-teinture-fibres-cellulosiques.",
   "displayName": "Teinture moyenne (scénario de pollution aquatique moyen)",
-  "elecMJ": 3.6,
+  "elecKwh": 1.0,
   "heatMJ": 24.3,
   "id": "af135ae5-5a2c-5940-9bfb-55c7805e8fb9",
   "impacts": {
@@ -33,8 +33,7 @@
     {
       "id": "422bc131-d7fd-41e8-a8e9-6ecf4f97f36c",
       "scopes": [
-        "object",
-        "veli"
+        "object"
       ]
     }
   ],

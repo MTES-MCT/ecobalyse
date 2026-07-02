@@ -12,14 +12,16 @@
       "id": "de82faa9-0d87-48fe-8ddc-b0a5254be3d8",
       "scopes": [
         "food2",
-        "object"
+        "object",
+        "veli"
       ]
     }
   ],
   "scopes": [
     "food",
     "food2",
-    "object"
+    "object",
+    "veli"
   ],
   "source": "Ecobalyse",
   "unit": "kg"

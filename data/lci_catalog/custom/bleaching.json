@@ -5,7 +5,7 @@
   ],
   "comment": "corr3 et corr2 (cf doc). Corr3 : valeurs d'élec et de chaleur issues du rapport BAT2023 avec majoration de 50%. corr2 : valeur d'écotox issue d'inventaires enrichis.",
   "displayName": "Blanchiment",
-  "elecMJ": 0.72,
+  "elecKwh": 0.2,
   "heatMJ": 5.4,
   "id": "b4251621-1747-526a-a54f-e4be7500efff",
   "impacts": {

@@ -5,7 +5,7 @@
   ],
   "comment": "Ancien identifiant (12/2024): d33cefdc558e3fe890174e6f1e205015.",
   "displayName": "Électricité moyenne tension, Albanie",
-  "elecMJ": 0,
+  "elecKwh": 0.0,
   "heatMJ": 0,
   "id": "ac850be0-f09e-58eb-b334-3eb9fcd599d8",
   "qtyVariationRatio": 1,

@@ -4,7 +4,7 @@
   ],
   "comment": "Ancien identifiant (12/2024): 406d1f98-1052-458d-8f50-1901853d896d.",
   "displayName": "Utilisation : Impact hors repassage (Chemisier)",
-  "elecMJ": 0.80952,
+  "elecKwh": 0.2249,
   "heatMJ": 0,
   "id": "163e6de6-9f3f-588c-af3a-7b375438180f",
   "impacts": {

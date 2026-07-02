@@ -26,7 +26,7 @@
         "food2"
       ],
       "transportCooling": "once_transformed",
-      "visible": true
+      "visible": false
     }
   ],
   "scopes": [

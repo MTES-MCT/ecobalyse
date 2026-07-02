@@ -2,6 +2,7 @@ module Data.Textile.Validation exposing (validate)
 
 import Data.Component as Component
 import Data.Country as Country
+import Data.Db exposing (Db)
 import Data.Env as Env
 import Data.Scope as Scope
 import Data.Split as Split exposing (Split)
@@ -13,7 +14,6 @@ import Data.Unit as Unit
 import Data.Validation as Validation
 import Mass exposing (Mass)
 import Result.Extra as RE
-import Static.Db exposing (Db)
 
 
 {-| Validate values not fully qualified by their type or applied JSON decoders.

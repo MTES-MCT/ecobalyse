@@ -26,6 +26,8 @@ module Data.Food.Recipe exposing
 
 import Data.Complement as Complement
 import Data.Country as Country exposing (Country)
+import Data.Country.Code as CountryCode
+import Data.Db exposing (Db)
 import Data.Food.EcosystemicServices exposing (EcosystemicServices)
 import Data.Food.Ingredient as Ingredient exposing (Ingredient)
 import Data.Food.Origin as Origin
@@ -48,19 +50,8 @@ import Length
 import Mass exposing (Mass)
 import Quantity
 import Result.Extra as RE
-import Static.Db exposing (Db)
 import String.Extra as SE
 import Volume exposing (Volume)
-
-
-france : Country.Code
-france =
-    Country.codeFromString "FR"
-
-
-overseaFrance : Country.Code
-overseaFrance =
-    Country.codeFromString "ROF"
 
 
 type alias Packaging =
@@ -367,13 +358,13 @@ computeIngredientTransportForCountry db planeTransport { code } =
             else
                 Split.zero
     in
-    if code == Country.unknownCountryCode then
+    if code == CountryCode.unknown then
         -- See https://github.com/MTES-MCT/ecobalyse/issues/1986
         { default | road = Length.kilometers FoodTransport.defaultKilometersRoadDistance, sea = Length.kilometers 18000 }
 
     else
         db.distances
-            |> Transport.getTransportBetweenLegacy emptyImpacts code france
+            |> Transport.getTransportBetweenLegacy emptyImpacts code CountryCode.france
             |> Transport.applyTransportRatios planeRatio
             -- For some regions we should always add 2000kms of road
             -- See https://github.com/MTES-MCT/ecobalyse/issues/1982
@@ -421,7 +412,7 @@ computeIngredientTransport db { country, ingredient, mass, planeTransport } =
             -- [transport documentation](https://fabrique-numerique.gitbook.io/ecobalyse/alimentaire/transport#circuits-consideres)
             case country of
                 Just { code } ->
-                    if code /= france && code /= overseaFrance then
+                    if code /= CountryCode.france && code /= CountryCode.overseaFrance then
                         Transport.addRoadWithCooling (Length.kilometers 500) (ingredient.transportCooling == Ingredient.AlwaysCool) t
 
                     else

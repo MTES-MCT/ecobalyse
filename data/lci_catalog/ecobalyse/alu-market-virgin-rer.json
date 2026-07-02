@@ -6,7 +6,7 @@
   ],
   "comment": "https://fabrique-numerique.gitbook.io/ecobalyse/methodes-transverses-specifiques/procedes-acier-et-aluminium",
   "displayName": "Aluminium vierge, mix marché, Europe",
-  "elecMJ": 0,
+  "elecKwh": 0.0,
   "heatMJ": 0,
   "id": "26635537-8b40-51d3-bbc9-a3987a0f4835",
   "metadata": [

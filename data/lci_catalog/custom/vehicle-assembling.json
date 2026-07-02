@@ -4,7 +4,7 @@
   ],
   "comment": "https://fabrique-numerique.gitbook.io/ecobalyse/vehicules/cycle-de-vie/assemblage",
   "displayName": "Assemblage véhicule",
-  "elecMJ": 3.6,
+  "elecKwh": 1.0,
   "heatMJ": 3,
   "id": "f7c7e44a-c11e-4c8e-afc1-8a96fac85e3b",
   "impacts": {

@@ -5,7 +5,7 @@
   ],
   "comment": "Ancien identifiant (12/2024): 2764d908c1a6fe88976d6eabf16295da.",
   "displayName": "Électricité moyenne tension, République Tchèque",
-  "elecMJ": 0,
+  "elecKwh": 0.0,
   "heatMJ": 0,
   "id": "5ee392cf-954e-56c8-b555-427d55023548",
   "metadata": [

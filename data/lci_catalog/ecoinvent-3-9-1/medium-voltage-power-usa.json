@@ -5,7 +5,7 @@
   ],
   "comment": "Ancien identifiant (12/2024): 99b549d4ba7a0f5f4ab6050d6a6689ad.",
   "displayName": "Électricité moyenne tension, USA",
-  "elecMJ": 0,
+  "elecKwh": 0.0,
   "heatMJ": 0,
   "id": "5756830a-a96c-5303-b6aa-a15cc727daaa",
   "metadata": [

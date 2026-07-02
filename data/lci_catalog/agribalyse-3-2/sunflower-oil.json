@@ -25,7 +25,7 @@
         "food",
         "food2"
       ],
-      "transportCooling": "once_transformed",
+      "transportCooling": "none",
       "visible": true
     },
     {
@@ -45,7 +45,7 @@
         "food",
         "food2"
       ],
-      "transportCooling": "once_transformed",
+      "transportCooling": "none",
       "visible": true
     }
   ],

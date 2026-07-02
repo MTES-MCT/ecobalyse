@@ -5,7 +5,7 @@
   ],
   "comment": "Données provenant de Base Impacts 2.01. Ancien identifiant (12/2024): 49adf2a8-c74f-46af-b4c7-e1a8e1f5a6cb.",
   "displayName": "Délavage chimique, procédé majorant, traitement inefficace des eaux usées",
-  "elecMJ": 6.53,
+  "elecKwh": 1.8139,
   "heatMJ": 37.81,
   "id": "24edc372-b238-5426-8ac9-059218936641",
   "impacts": {

@@ -5,7 +5,7 @@
   ],
   "comment": "Ancien identifiant (12/2024): e0f11b283ad36b3da097649bee199149.",
   "displayName": "Électricité moyenne tension, Sri Lanka",
-  "elecMJ": 0,
+  "elecKwh": 0.0,
   "heatMJ": 0,
   "id": "59d67f99-8f91-5464-af4c-0b569f97b74e",
   "qtyVariationRatio": 1,

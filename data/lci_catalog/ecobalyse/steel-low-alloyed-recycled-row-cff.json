@@ -6,7 +6,7 @@
   ],
   "comment": "Matériau 100% issu du recyclage, calculé selon la méthode CFF (A=0.8, Q=1)",
   "displayName": "Acier recyclé, hors Europe",
-  "elecMJ": 0,
+  "elecKwh": 0.0,
   "heatMJ": 0,
   "id": "f781acd8-40bd-417c-8b09-02218b3c1d38",
   "metadata": [

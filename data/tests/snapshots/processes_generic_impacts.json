@@ -5,7 +5,7 @@
     "categories": [],
     "comment": "",
     "displayName": "Example activity from scratch",
-    "elecMJ": 0,
+    "elecKwh": 0,
     "heatMJ": 0,
     "id": "a1b2c3d4-e5f6-7890-abcd-ef1234567890",
     "impacts": {
@@ -33,13 +33,16 @@
     "landOccupation": null,
     "location": null,
     "massPerUnit": null,
-    "metadata": null,
+    "metadata": {
+      "defaultOrigin": null
+    },
     "qtyVariationRatio": 1.0,
     "scopes": [
       "object"
     ],
     "source": "Ecobalyse",
-    "unit": "kg"
+    "unit": "kg",
+    "visible": true
   },
   {
     "activityName": "_22 Vegetable and animal oils and fats, EU27",
@@ -49,7 +52,7 @@
     ],
     "comment": "",
     "displayName": "Pois FR",
-    "elecMJ": 0,
+    "elecKwh": 0,
     "heatMJ": 0,
     "id": "bfdf1505-8426-499e-8286-a1e4b4920c7e",
     "impacts": {
@@ -84,17 +87,16 @@
         "permanentPasture": null,
         "plotSize": -4.45
       },
+      "defaultOrigin": "FR",
       "ingredient": {
         "baseIngredient": "bean",
         "cropGroup": "AUTRES CEREALES",
-        "defaultOrigin": "France",
         "density": 1.0,
         "inediblePart": 0,
         "processId": "af42fc20-e3ec-5b99-9b9c-83ba6735e597",
         "rawToCookedRatio": 2.259,
         "scenario": "reference",
-        "transportCooling": "none",
-        "visible": true
+        "transportCooling": "none"
       }
     },
     "qtyVariationRatio": 1.0,
@@ -102,7 +104,8 @@
       "food2"
     ],
     "source": "forwast",
-    "unit": "kg"
+    "unit": "kg",
+    "visible": true
   },
   {
     "activityName": "_22 Vegetable and animal oils and fats, EU27",
@@ -112,7 +115,7 @@
     ],
     "comment": "",
     "displayName": "Herbe de prairie permanente FR",
-    "elecMJ": 0,
+    "elecKwh": 0,
     "heatMJ": 0,
     "id": "c88d387e-8435-4741-b742-0094dbdcee45",
     "impacts": {
@@ -147,23 +150,23 @@
         "permanentPasture": null,
         "plotSize": -4.45
       },
+      "defaultOrigin": "FR",
       "ingredient": {
         "baseIngredient": "grazed-grass-permanent",
         "cropGroup": "PRAIRIES PERMANENTES",
-        "defaultOrigin": "France",
         "density": 1.0,
         "inediblePart": 0,
         "processId": "af42fc20-e3ec-5b99-9b9c-83ba6735e597",
         "rawToCookedRatio": 1.0,
         "scenario": "reference",
-        "transportCooling": "none",
-        "visible": false
+        "transportCooling": "none"
       }
     },
     "qtyVariationRatio": 1.0,
     "scopes": [],
     "source": "forwast",
-    "unit": "kg"
+    "unit": "kg",
+    "visible": false
   },
   {
     "activityName": "_22 Vegetable and animal oils and fats, EU27",
@@ -173,7 +176,7 @@
     ],
     "comment": "",
     "displayName": "Lait FR",
-    "elecMJ": 0,
+    "elecKwh": 0,
     "heatMJ": 0,
     "id": "8f3863e7-f981-4367-90a2-e1aaa096a6e0",
     "impacts": {
@@ -208,23 +211,23 @@
         "permanentPasture": 0,
         "plotSize": -4.45
       },
+      "defaultOrigin": "FR",
       "ingredient": {
         "baseIngredient": "milk",
         "cropGroup": null,
-        "defaultOrigin": "France",
         "density": 1.0,
         "inediblePart": 0,
         "processId": "af42fc20-e3ec-5b99-9b9c-83ba6735e597",
         "rawToCookedRatio": 1.0,
         "scenario": "reference",
-        "transportCooling": "always",
-        "visible": true
+        "transportCooling": "always"
       }
     },
     "qtyVariationRatio": 1.0,
     "scopes": [],
     "source": "forwast",
-    "unit": "kg"
+    "unit": "kg",
+    "visible": true
   },
   {
     "activityName": "_32 Wood products, except furniture, EU27",
@@ -232,7 +235,7 @@
     "categories": [],
     "comment": "",
     "displayName": "Example object 1",
-    "elecMJ": 0,
+    "elecKwh": 0,
     "heatMJ": 0,
     "id": "0e9c64fe-8a5c-40ba-b60c-ff2b47b56627",
     "impacts": {
@@ -260,13 +263,16 @@
     "landOccupation": 1500.0,
     "location": "GLO",
     "massPerUnit": null,
-    "metadata": null,
+    "metadata": {
+      "defaultOrigin": null
+    },
     "qtyVariationRatio": 1.0,
     "scopes": [
       "object"
     ],
     "source": "forwast",
-    "unit": "kg"
+    "unit": "kg",
+    "visible": true
   },
   {
     "activityName": "_32 Wood products, except furniture, EU27",
@@ -274,7 +280,7 @@
     "categories": [],
     "comment": "",
     "displayName": "Example object 1 (gestion durable)",
-    "elecMJ": 0,
+    "elecKwh": 0,
     "heatMJ": 0,
     "id": "b2c3d4e5-f6a7-8901-bcde-f12345678901",
     "impacts": {
@@ -306,6 +312,7 @@
       "complements": {
         "forest": -414.2
       },
+      "defaultOrigin": null,
       "forestManagement": "certifiedSustainableManagement"
     },
     "qtyVariationRatio": 1.0,
@@ -313,6 +320,7 @@
       "object"
     ],
     "source": "forwast",
-    "unit": "kg"
+    "unit": "kg",
+    "visible": true
   }
 ]

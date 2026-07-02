@@ -4,7 +4,7 @@
   ],
   "comment": "Ancien identifiant (12/2024): d3bff7b7-efc1-459b-856d-ea0801d6912f.",
   "displayName": "Utilisation : Impact hors repassage (Robe)",
-  "elecMJ": 0.80952,
+  "elecKwh": 0.2249,
   "heatMJ": 0,
   "id": "91dad606-b36f-5241-bcf0-c80774647a64",
   "impacts": {

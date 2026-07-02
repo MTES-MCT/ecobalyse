@@ -35,12 +35,7 @@ table { detailed, scope } =
           , toValue = Table.StringValue <| .id >> Ingredient.idToString
           , toCell =
                 \ingredient ->
-                    if detailed then
-                        code [] [ text (Ingredient.idToString ingredient.id) ]
-
-                    else
-                        a [ Route.href (Route.Explore scope (Dataset.FoodIngredients (Just ingredient.id))) ]
-                            [ code [] [ text (Ingredient.idToString ingredient.id) ] ]
+                    code [] [ text (Ingredient.idToString ingredient.id) ]
           }
         , { label = "Nom"
           , toValue = Table.StringValue .name

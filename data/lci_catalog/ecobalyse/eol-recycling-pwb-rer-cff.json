@@ -6,7 +6,7 @@
   ],
   "comment": "For 1kg PWB. Based on Delegated Act to Regulation (EU) 2023/1542, methodology for the calculation and verification of the carbon footprint of electric vehicle batteries.",
   "displayName": "Recyclage de carte de circuit imprimé, CFF",
-  "elecMJ": 0,
+  "elecKwh": 0.0,
   "heatMJ": 0,
   "id": "2e9b3cbc-22c7-4557-820f-81d090edd3cc",
   "metadata": [

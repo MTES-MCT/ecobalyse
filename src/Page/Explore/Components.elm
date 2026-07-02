@@ -19,7 +19,7 @@ import Views.Format as Format
 
 
 table : Session -> { detailed : Bool, scope : Scope } -> Table Component.Component String msg
-table ({ db } as session) { detailed, scope } =
+table ({ db } as session) { scope } =
     { filename = "components"
     , toId = .id >> Maybe.map Component.idToString >> Maybe.withDefault ""
     , toRoute = .id >> Dataset.Components scope >> Route.Explore scope
@@ -33,12 +33,7 @@ table ({ db } as session) { detailed, scope } =
                 \component ->
                     case component.id of
                         Just id ->
-                            if detailed then
-                                code [] [ text (Component.idToString id) ]
-
-                            else
-                                a [ Route.href (Route.Explore scope (Dataset.Components scope (Just id))) ]
-                                    [ code [] [ text (Component.idToString id) ] ]
+                            code [] [ text (Component.idToString id) ]
 
                         Nothing ->
                             text "N/A"

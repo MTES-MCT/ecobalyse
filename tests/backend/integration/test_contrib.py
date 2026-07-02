@@ -7,7 +7,10 @@ from app.domain.contrib.schemas import (
     ExampleContribResponse,
     GenericScope,
 )
-from app.domain.contrib.services import format_example_contrib_pr
+from app.domain.contrib.services import (
+    format_example_contrib_pr,
+    insert_example_sorted,
+)
 from sqlalchemy import select
 from sqlalchemy.ext.asyncio import AsyncSession
 from sqlalchemy.orm import joinedload
@@ -64,6 +67,12 @@ async def test_example_contrib_create_pull_request(
         "branchName": "contrib/veli/test-contrib",
         "pullRequestUrl": "https://github.com/MTES-MCT/ecobalyse/pull/123",
     }
+
+
+async def test_insert_example_sorted_orders_by_id() -> None:
+    result = insert_example_sorted([{"id": "b"}, {"id": "d"}], {"id": "c"})
+
+    assert [example["id"] for example in result] == ["b", "c", "d"]
 
 
 async def test_example_contrib_service_helpers_include_user_identity(

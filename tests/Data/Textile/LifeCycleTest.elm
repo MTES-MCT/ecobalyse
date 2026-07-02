@@ -1,12 +1,12 @@
 module Data.Textile.LifeCycleTest exposing (..)
 
-import Data.Country as Country
+import Data.Country.Code as CountryCode
+import Data.Db exposing (Db)
 import Data.Textile.Inputs as Inputs
 import Data.Textile.LifeCycle as LifeCycle exposing (LifeCycle)
 import Data.Textile.Query exposing (Query)
 import Expect
 import Length
-import Static.Db exposing (Db)
 import Test exposing (..)
 import TestUtils exposing (asTest, suiteWithDb, tShirtCotonFrance)
 
@@ -35,7 +35,7 @@ suite =
                                 |> Result.map LifeCycle.computeTotalTransportImpacts
                                 |> Result.map (\{ road, sea } -> ( Length.inKilometers road, Length.inKilometers sea ))
                         )
-                    |> Expect.equal (Ok ( 2500, 21549 ))
+                    |> Expect.equal (Ok ( 2500, 19930 ))
                     |> asTest "should compute default distances"
                 , let
                     tShirtCotonEnnoblementIndia =
@@ -43,9 +43,9 @@ suite =
                             |> Result.map
                                 (\query ->
                                     { query
-                                        | countryFabric = Just (Country.Code "FR")
-                                        , countryDyeing = Just (Country.Code "IN") -- Ennoblement in India
-                                        , countryMaking = Just (Country.Code "FR")
+                                        | countryFabric = Just CountryCode.france
+                                        , countryDyeing = Just (CountryCode.fromString "IN") -- Ennoblement in India
+                                        , countryMaking = Just CountryCode.france
                                     }
                                 )
                   in
@@ -58,7 +58,7 @@ suite =
                                 |> Result.map LifeCycle.computeTotalTransportImpacts
                                 |> Result.map (\{ road, sea } -> ( Length.inKilometers road, Length.inKilometers sea ))
                         )
-                    |> Expect.equal (Ok ( 1500, 45471 ))
+                    |> Expect.equal (Ok ( 1500, 42138 ))
                     |> asTest "should compute custom distances"
                 ]
             ]

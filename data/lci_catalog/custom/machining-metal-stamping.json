@@ -7,7 +7,7 @@
   ],
   "comment": "GREET 2025, Stamping, rounded",
   "displayName": "Usinage, Emboutissage métaux",
-  "elecMJ": 1,
+  "elecKwh": 0.2778,
   "heatMJ": 0,
   "id": "e0c1da6e-cf66-587c-8c9b-b9d0ca0ee885",
   "impacts": {

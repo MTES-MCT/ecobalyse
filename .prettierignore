@@ -30,8 +30,5 @@ public/data/impacts.json
 public/data/metadata.json
 public/data/veli/examples.json
 
-# JSON edited manually, more readable with manual formatting
-public/data/transports.json
-
-# The data folder is not formatted via prettier for the moment
-/data/
+/data/**/*.json
+!/data/common/distances/distances_raw.json

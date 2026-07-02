@@ -5,7 +5,7 @@
   ],
   "comment": "Energy consumptions based on Ecobalyse litterature review with an average scenario hypothesis. Wastes are based on French technical institue FCBA.",
   "displayName": "Panneaux, OSB (transformation)",
-  "elecMJ": 720,
+  "elecKwh": 200.0,
   "heatMJ": 1900,
   "id": "91036be4-6bd8-51aa-ae0e-646dc92c9666",
   "impacts": {

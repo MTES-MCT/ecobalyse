@@ -6,7 +6,7 @@
   ],
   "comment": "",
   "displayName": "Moteur électrique",
-  "elecMJ": 0,
+  "elecKwh": 0.0,
   "heatMJ": 0,
   "id": "9262bd60-d77b-52f9-a1c8-b9c3bb76248a",
   "metadata": [

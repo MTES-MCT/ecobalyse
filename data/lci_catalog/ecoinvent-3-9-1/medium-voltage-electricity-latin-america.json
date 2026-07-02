@@ -5,7 +5,7 @@
   ],
   "comment": "Ancien identifiant (12/2024): elec-medium-region-latin-america.",
   "displayName": "Électricité moyenne tension, Amérique latine",
-  "elecMJ": 0,
+  "elecKwh": 0.0,
   "heatMJ": 0,
   "id": "aa315629-988f-5886-bafe-247821f356fc",
   "metadata": [
