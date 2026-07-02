@@ -198,35 +198,21 @@ totalKm { air, road, sea } =
         |> Length.inKilometers
 
 
-{-| Determine road/sea transport ratio, so road transport is priviledged
-for shorter distances. A few notes:
+{-| Determine road/sea transport ratio: below a 3000km road-distance threshold,
+transport is fully done by road; otherwise it's fully done by sea.
 
-  - When road distance is 0, we fully take sea distance
-  - When sea distance is 0, we fully take road distance
-  - Otherwise we can apply specific ratios
+  - When road distance is greater than 0 and lower than 3000km, we fully take road distance
+  - When sea distance is 0, fall back to using full road distance
+  - Otherwise we fully take sea distance
 
 -}
 roadSeaTransportRatio : Transport -> Split
 roadSeaTransportRatio { road, sea } =
-    if Length.inKilometers road == 0 then
-        Split.zero
+    if Length.inKilometers road > 0 && Length.inKilometers road < 3000 then
+        Split.full
 
     else if Length.inKilometers sea == 0 then
         Split.full
-
-    else if Length.inKilometers road <= 500 then
-        Split.full
-
-    else if Length.inKilometers road < 1000 then
-        -- 0.9
-        Split.tenth
-            |> Split.complement
-
-    else if Length.inKilometers road < 2000 then
-        Split.half
-
-    else if Length.inKilometers road < 3000 then
-        Split.quarter
 
     else
         Split.zero

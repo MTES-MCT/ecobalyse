@@ -16,7 +16,6 @@ module Data.Split exposing
     , fromPercent
     , full
     , half
-    , quarter
     , sixty
     , tenth
     , third
@@ -71,11 +70,6 @@ fifteen =
 twenty : Split
 twenty =
     Split 0.2
-
-
-quarter : Split
-quarter =
-    Split 0.25
 
 
 thirty : Split

@@ -53,35 +53,25 @@ suite =
                             |> testTransportRatio Split.zero
                             |> Expect.equal ( 0, 0, 0 )
                         )
-                    , it "should handle ratio for road < 500km"
-                        ({ road = 400, sea = 200, air = 0 }
-                            |> testTransportRatio Split.zero
-                            |> Expect.equal ( 400, 0, 0 )
-                        )
-                    , it "should handle ratio for road < 1000km"
-                        ({ road = 900, sea = 1000, air = 0 }
-                            |> testTransportRatio Split.zero
-                            |> Expect.equal ( 810, 100, 0 )
-                        )
-                    , it "should handle ratio for road < 2000km"
-                        ({ road = 1800, sea = 1000, air = 0 }
-                            |> testTransportRatio Split.zero
-                            |> Expect.equal ( 900, 500, 0 )
-                        )
-                    , it "should handle ratio for road < 3000km"
+                    , it "should take 100% road distance below the 3000km threshold"
                         ({ road = 2800, sea = 4000, air = 0 }
                             |> testTransportRatio Split.zero
-                            |> Expect.equal ( 700, 3000, 0 )
+                            |> Expect.equal ( 2800, 0, 0 )
                         )
-                    , it "should handle ratio for road > 3000km"
+                    , it "should take 100% sea distance at or above the 3000km threshold"
                         ({ road = 5000, sea = 10000, air = 0 }
                             |> testTransportRatio Split.zero
                             |> Expect.equal ( 0, 10000, 0 )
                         )
-                    , it "should handle case where road=0km"
+                    , it "should take 100% sea distance when no road distance"
                         ({ road = 0, sea = 11310, air = 7300 }
                             |> testTransportRatio Split.zero
                             |> Expect.equal ( 0, 11310, 0 )
+                        )
+                    , it "should fall back to road past the threshold and no sea transport"
+                        ({ road = 5000, sea = 0, air = 0 }
+                            |> testTransportRatio Split.zero
+                            |> Expect.equal ( 5000, 0, 0 )
                         )
                     ]
                 , describe "with air transport"
@@ -91,7 +81,7 @@ suite =
                       in
                       Split.fromFloat 0.5
                         |> Result.map (\split -> testTransportRatio split transport)
-                        |> Expect.equal (Ok ( 250, 1250, 2500 ))
+                        |> Expect.equal (Ok ( 500, 0, 2500 ))
                         |> asTest "should handle air transport ratio"
                     ]
                 ]
