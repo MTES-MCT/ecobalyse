@@ -10836,7 +10836,7 @@
     "visible": true
   },
   {
-    "activityName": "Soybean, organic 2025 {BR}| market for soybean | Cut-off, U",
+    "activityName": "Soybean, organic, animal feed, at farm gate {FR} U",
     "alias": "soybean-organic",
     "baseIngredient": "soybean",
     "categories": [
@@ -10847,17 +10847,17 @@
     "defaultOrigin": "France",
     "density": 0.74,
     "ecosystemicServices": {
-      "cropDiversity": 0.259,
-      "hedges": 0.16,
+      "cropDiversity": 20.9,
+      "hedges": 12.9,
       "permanentPasture": null,
-      "plotSize": 0.193
+      "plotSize": 15.6
     },
     "id": "4879c02e-05e5-5567-84e5-b7d6d9d3f22a",
     "inediblePart": 0.5,
-    "landOccupation": 0.07221,
-    "location": "BR",
+    "landOccupation": 5.827,
+    "location": "FR",
     "name": "Soja Bio",
-    "processId": "922e9baa-ecdd-5212-bf41-59a33d914e1f",
+    "processId": "47f90f36-8629-5d8d-ae17-c64305c68ddb",
     "rawToCookedRatio": 2.259,
     "scenario": "organic",
     "transportCooling": "none",

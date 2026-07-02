@@ -35379,6 +35379,52 @@
   },
   {
     "activityName": "Soybean, organic, animal feed, at farm gate {FR} U",
+    "alias": "soybean-organic",
+    "categories": [
+      "ingredient",
+      "material",
+      "material_type:legumes"
+    ],
+    "comment": "AGRIBALYSE v3.2 dataset, 2024. \nThis LCI represents organic soybean for animal feeding at farm gate. It was created as an average of all organic soybean LCI created in the ACV Bio project. These data are based on typical cases and are not representative of a national or regional average.\nIncluded processes: The inventory includes the processes of crop production.",
+    "displayName": "Soja Bio",
+    "elecKwh": 0,
+    "heatMJ": 0,
+    "id": "4879c02e-05e5-5567-84e5-b7d6d9d3f22a",
+    "impacts": {
+      "ecs": 143.3
+    },
+    "landOccupation": 5.827,
+    "location": "FR",
+    "massPerUnit": null,
+    "metadata": {
+      "complements": {
+        "cropDiversity": -20.9,
+        "hedges": -12.9,
+        "permanentPasture": null,
+        "plotSize": -15.6
+      },
+      "defaultOrigin": "FR",
+      "ingredient": {
+        "baseIngredient": "soybean",
+        "cropGroup": "AUTRES OLEAGINEUX",
+        "density": 0.74,
+        "inediblePart": 0.5,
+        "processId": "47f90f36-8629-5d8d-ae17-c64305c68ddb",
+        "rawToCookedRatio": 2.259,
+        "scenario": "organic",
+        "transportCooling": "none"
+      }
+    },
+    "qtyVariationRatio": 1.0,
+    "scopes": [
+      "food2"
+    ],
+    "source": "Agribalyse 3.2",
+    "unit": "kg",
+    "visible": false
+  },
+  {
+    "activityName": "Soybean, organic, animal feed, at farm gate {FR} U",
     "alias": "soybean-organic-2025",
     "categories": [
       "ingredient",
@@ -74377,52 +74423,6 @@
     "source": "Ginko 2025",
     "unit": "kg",
     "visible": true
-  },
-  {
-    "activityName": "Soybean, organic 2025 {BR}| market for soybean | Cut-off, U",
-    "alias": "soybean-organic",
-    "categories": [
-      "ingredient",
-      "material",
-      "material_type:cereals"
-    ],
-    "comment": "This dataset has been extrapolated from the dataset Soybean {BR}| market for soybean | Cut-off, U - Copied from Ecoinvent U.\nFor further information, please consult the ADEME report \"Construction of LCIs for organic agricultural products based on extrapolations of conventional LCIs for the French food market and environmental labelling\"",
-    "displayName": "Soja Bio",
-    "elecKwh": 0,
-    "heatMJ": 0,
-    "id": "4879c02e-05e5-5567-84e5-b7d6d9d3f22a",
-    "impacts": {
-      "ecs": 862.2
-    },
-    "landOccupation": 0.07221,
-    "location": "BR",
-    "massPerUnit": null,
-    "metadata": {
-      "complements": {
-        "cropDiversity": -0.259,
-        "hedges": -0.16,
-        "permanentPasture": null,
-        "plotSize": -0.193
-      },
-      "defaultOrigin": "FR",
-      "ingredient": {
-        "baseIngredient": "soybean",
-        "cropGroup": "AUTRES OLEAGINEUX",
-        "density": 0.74,
-        "inediblePart": 0.5,
-        "processId": "922e9baa-ecdd-5212-bf41-59a33d914e1f",
-        "rawToCookedRatio": 2.259,
-        "scenario": "organic",
-        "transportCooling": "none"
-      }
-    },
-    "qtyVariationRatio": 1.0,
-    "scopes": [
-      "food2"
-    ],
-    "source": "Ginko 2025",
-    "unit": "kg",
-    "visible": false
   },
   {
     "activityName": "Spinach, organic 2025 {GLO}| production | Cut-off, U",
