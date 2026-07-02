@@ -13098,7 +13098,7 @@
     "visible": true
   },
   {
-    "activityName": "Wheat grain {IN}| wheat production | Cut-off, U - Adapted from Ecoinvent U",
+    "activityName": "Durum wheat grain, at farm {GLO} - Adapted from WFLDB U",
     "alias": "amaranth-non-eu",
     "baseIngredient": "amaranth",
     "categories": [
@@ -13115,10 +13115,10 @@
     },
     "id": "585c4a98-a772-54a2-9c6e-9741cd912f1e",
     "inediblePart": 0,
-    "landOccupation": 0.9009,
-    "location": "IN",
+    "landOccupation": 3.203,
+    "location": "GLO",
     "name": "Amarante HORS UE",
-    "processId": "3a619d37-5424-5fc3-b7fd-50814adab318",
+    "processId": "cfdd1afe-f9ff-516e-ab27-2a9cfbede91c",
     "rawToCookedRatio": 2.259,
     "scenario": "import",
     "transportCooling": "none",
