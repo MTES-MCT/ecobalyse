@@ -86,17 +86,6 @@ jobs:
           known_hosts: ${{ env.KNOWN_HOSTS }}
           config: ${{ secrets.CONFIG }} # ssh_config; optional
           if_key_exists: fail # replace / ignore / fail; optional (defaults to fail)
-      - name: Setup upterm session
-        env:
-          GITHUB_REF_NAME: ${{ github.ref_name }}
-          SCALINGO_DATA_POSTGRESQL_URL: ${{ secrets.SCALINGO_DATA_POSTGRESQL_TUNNEL_URL }}
-          SCALINGO_REGION: ${{ secrets.SCALINGO_REGION }}
-          SCALINGO_APP: ecobalyse
-          SCALINGO_API_TOKEN: ${{ secrets.SCALINGO_API_TOKEN }}
-        uses: owenthereal/action-upterm@v1
-        with:
-          limit-access-to-actor: true
-          limit-access-to-users: vjousse
 
       - name: Score History
         env:
