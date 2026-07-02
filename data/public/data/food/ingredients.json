@@ -467,10 +467,10 @@
     "defaultOrigin": "France",
     "density": 0.72,
     "ecosystemicServices": {
-      "cropDiversity": 33.5,
-      "hedges": 15.8,
+      "cropDiversity": 13.1,
+      "hedges": 13.1,
       "permanentPasture": null,
-      "plotSize": 27.0
+      "plotSize": 13.1
     },
     "id": "02b2ed63-6246-446c-8cf3-224dbe698821",
     "inediblePart": 0,
@@ -678,10 +678,10 @@
     "defaultOrigin": "France",
     "density": 0.8,
     "ecosystemicServices": {
-      "cropDiversity": 22.0,
+      "cropDiversity": 16.5,
       "hedges": 10.4,
       "permanentPasture": null,
-      "plotSize": 17.7
+      "plotSize": 16.5
     },
     "id": "04358436-709a-5e75-8cf4-d114dd8f0e9f",
     "inediblePart": 0.2,
@@ -2546,10 +2546,10 @@
     "defaultOrigin": "France",
     "density": 0.8,
     "ecosystemicServices": {
-      "cropDiversity": 22.0,
+      "cropDiversity": 16.5,
       "hedges": 10.4,
       "permanentPasture": null,
-      "plotSize": 17.7
+      "plotSize": 16.5
     },
     "id": "0f579c31-e932-5a8a-bf17-5e539b367d64",
     "inediblePart": 0.4,
@@ -3630,7 +3630,7 @@
       "cropDiversity": 16.2,
       "hedges": 14.0,
       "permanentPasture": null,
-      "plotSize": 17.7
+      "plotSize": 16.5
     },
     "id": "15c6156f-b02e-5738-ae6d-59c8c7d956cc",
     "inediblePart": 0.2,
@@ -3996,7 +3996,7 @@
       "cropDiversity": 0,
       "hedges": 17.8,
       "permanentPasture": null,
-      "plotSize": 58.4
+      "plotSize": 56.5
     },
     "id": "17b171b8-1e5e-472f-a6c5-8053b5ae4c9a",
     "inediblePart": 0.5,
@@ -7008,10 +7008,10 @@
     "defaultOrigin": "France",
     "density": 0.8,
     "ecosystemicServices": {
-      "cropDiversity": 33.9,
-      "hedges": 29.4,
+      "cropDiversity": 29.0,
+      "hedges": 29.0,
       "permanentPasture": null,
-      "plotSize": 37.2
+      "plotSize": 29.0
     },
     "id": "2c48a538-0bc0-5bdd-bf8b-af41a2afb8dd",
     "inediblePart": 0.2,
@@ -10372,7 +10372,7 @@
       "cropDiversity": 6.33,
       "hedges": 7.47,
       "permanentPasture": null,
-      "plotSize": 12.7
+      "plotSize": 10.0
     },
     "id": "43f5317d-b068-46b2-8e02-d17ee2d6ab8b",
     "inediblePart": 0,
@@ -13550,10 +13550,10 @@
     "defaultOrigin": "France",
     "density": 0.8,
     "ecosystemicServices": {
-      "cropDiversity": 10.2,
+      "cropDiversity": 8.8,
       "hedges": 8.79,
       "permanentPasture": null,
-      "plotSize": 11.1
+      "plotSize": 8.8
     },
     "id": "5b8140c0-a398-5d7e-b8f7-f22e5d5c5710",
     "inediblePart": 0.2,
@@ -17217,9 +17217,9 @@
     "density": 0.72,
     "ecosystemicServices": {
       "cropDiversity": 15.5,
-      "hedges": 18.3,
+      "hedges": 17.2,
       "permanentPasture": null,
-      "plotSize": 31.0
+      "plotSize": 17.2
     },
     "id": "74a016ae-d486-4766-adfd-e44697b7be2f",
     "inediblePart": 0.2,
@@ -17623,10 +17623,10 @@
     "defaultOrigin": "France",
     "density": 0.8,
     "ecosystemicServices": {
-      "cropDiversity": 33.5,
-      "hedges": 15.8,
+      "cropDiversity": 13.1,
+      "hedges": 13.1,
       "permanentPasture": null,
-      "plotSize": 27.0
+      "plotSize": 13.1
     },
     "id": "7715786d-8371-57ad-9834-14ef625a0d24",
     "inediblePart": 0.2,
@@ -19216,10 +19216,10 @@
     "defaultOrigin": "France",
     "density": 0.8,
     "ecosystemicServices": {
-      "cropDiversity": 8.84,
+      "cropDiversity": 5.7,
       "hedges": 4.16,
       "permanentPasture": null,
-      "plotSize": 7.12
+      "plotSize": 5.7
     },
     "id": "81402397-f98a-5fbe-8ce0-93ee600a1bf5",
     "inediblePart": 0.2,
@@ -25061,10 +25061,10 @@
     "defaultOrigin": "France",
     "density": 0.8,
     "ecosystemicServices": {
-      "cropDiversity": 8.84,
+      "cropDiversity": 5.7,
       "hedges": 4.16,
       "permanentPasture": null,
-      "plotSize": 7.12
+      "plotSize": 5.7
     },
     "id": "ac918e69-cf8d-590e-bbe0-69e9cd9abc39",
     "inediblePart": 0.2,
@@ -29223,10 +29223,10 @@
     "defaultOrigin": "France",
     "density": 0.8,
     "ecosystemicServices": {
-      "cropDiversity": 8.84,
+      "cropDiversity": 5.7,
       "hedges": 4.16,
       "permanentPasture": null,
-      "plotSize": 7.12
+      "plotSize": 5.7
     },
     "id": "c68a008e-7c0a-54c1-bc0f-42cdd132a643",
     "inediblePart": 0.2,
@@ -29509,10 +29509,10 @@
     "defaultOrigin": "France",
     "density": 0.8,
     "ecosystemicServices": {
-      "cropDiversity": 6.48,
+      "cropDiversity": 5.7,
       "hedges": 5.61,
       "permanentPasture": null,
-      "plotSize": 7.12
+      "plotSize": 5.7
     },
     "id": "c8bf67df-29af-571f-850a-2f31fff43c75",
     "inediblePart": 0.2,
@@ -30633,10 +30633,10 @@
     "defaultOrigin": "France",
     "density": 0.9,
     "ecosystemicServices": {
-      "cropDiversity": 22.0,
+      "cropDiversity": 16.5,
       "hedges": 10.4,
       "permanentPasture": null,
-      "plotSize": 17.7
+      "plotSize": 16.5
     },
     "id": "cfb3dbef-722f-523f-b90d-49c631b79e76",
     "inediblePart": 0.2,
@@ -34248,7 +34248,7 @@
       "cropDiversity": 0,
       "hedges": 17.8,
       "permanentPasture": null,
-      "plotSize": 58.4
+      "plotSize": 56.5
     },
     "id": "e3a3bd70-1c8e-4b8b-b22f-b1f9958574c8",
     "inediblePart": 0.5,
@@ -35820,10 +35820,10 @@
     "defaultOrigin": "France",
     "density": 0.8,
     "ecosystemicServices": {
-      "cropDiversity": 8.84,
+      "cropDiversity": 5.7,
       "hedges": 4.16,
       "permanentPasture": null,
-      "plotSize": 7.12
+      "plotSize": 5.7
     },
     "id": "ed1ccbba-0745-5cec-889c-26e8d9d845d6",
     "inediblePart": 0.2,
@@ -38201,10 +38201,10 @@
     "defaultOrigin": "France",
     "density": 1.0,
     "ecosystemicServices": {
-      "cropDiversity": 20.2,
+      "cropDiversity": 19.6,
       "hedges": 17.5,
       "permanentPasture": null,
-      "plotSize": 22.2
+      "plotSize": 19.6
     },
     "id": "fc6a3ecf-e661-4c38-a982-a3d053b77d0e",
     "inediblePart": 0,

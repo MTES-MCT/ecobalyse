@@ -40833,7 +40833,7 @@
         "cropDiversity": 0,
         "hedges": -17.8,
         "permanentPasture": null,
-        "plotSize": -58.4
+        "plotSize": -56.5
       },
       "defaultOrigin": "FR",
       "ingredient": {
@@ -40879,7 +40879,7 @@
         "cropDiversity": 0,
         "hedges": -17.8,
         "permanentPasture": null,
-        "plotSize": -58.4
+        "plotSize": -56.5
       },
       "defaultOrigin": "FR",
       "ingredient": {
@@ -44008,6 +44008,7 @@
     "activityName": "This process is not linked to a Brightway activity",
     "alias": null,
     "categories": [
+      "productmassdependent",
       "use"
     ],
     "comment": "Consommation d’électricité telle que définie par la méthode Agribalyse 3.0 dans les tableaux 41, 42, 43 sur les techniques de préparation.",
@@ -44036,6 +44037,7 @@
     "activityName": "This process is not linked to a Brightway activity",
     "alias": null,
     "categories": [
+      "productmassdependent",
       "use"
     ],
     "comment": "Consommation d’électricité telle que définie par la méthode Agribalyse 3.0 dans les tableaux 41, 42, 43 sur les techniques de préparation.",
@@ -44064,6 +44066,7 @@
     "activityName": "This process is not linked to a Brightway activity",
     "alias": null,
     "categories": [
+      "productmassdependent",
       "use"
     ],
     "comment": "Consommation d’électricité telle que définie par la méthode Agribalyse 3.0 dans les tableaux 41, 42, 43 sur les techniques de préparation.",
@@ -44353,6 +44356,7 @@
     "activityName": "This process is not linked to a Brightway activity",
     "alias": null,
     "categories": [
+      "productmassdependent",
       "use"
     ],
     "comment": "Consommation d’électricité telle que définie par la méthode Agribalyse 3.0 dans les tableaux 41, 42, 43 sur les techniques de préparation.",
@@ -44559,6 +44563,7 @@
     "activityName": "This process is not linked to a Brightway activity",
     "alias": null,
     "categories": [
+      "productmassdependent",
       "use"
     ],
     "comment": "Consommation d’électricité telle que définie par la méthode Agribalyse 3.0 dans les tableaux 41, 42, 43 sur les techniques de préparation.",
@@ -44976,6 +44981,7 @@
     "activityName": "This process is not linked to a Brightway activity",
     "alias": null,
     "categories": [
+      "productmassdependent",
       "use"
     ],
     "comment": "Consommation d’électricité telle que définie par la méthode Agribalyse 3.0 dans les tableaux 41, 42, 43 sur les techniques de préparation.",
@@ -45004,6 +45010,7 @@
     "activityName": "This process is not linked to a Brightway activity",
     "alias": null,
     "categories": [
+      "productmassdependent",
       "use"
     ],
     "comment": "Consommation d’électricité telle que définie par la méthode Agribalyse 3.0 dans les tableaux 41, 42, 43 sur les techniques de préparation.",
@@ -50922,7 +50929,7 @@
         "cropDiversity": -6.33,
         "hedges": -7.47,
         "permanentPasture": null,
-        "plotSize": -12.7
+        "plotSize": -10.0
       },
       "defaultOrigin": "FR",
       "ingredient": {
@@ -54060,10 +54067,10 @@
     "massPerUnit": null,
     "metadata": {
       "complements": {
-        "cropDiversity": -20.2,
+        "cropDiversity": -19.6,
         "hedges": -17.5,
         "permanentPasture": null,
-        "plotSize": -22.2
+        "plotSize": -19.6
       },
       "defaultOrigin": "FR",
       "ingredient": {
@@ -70298,10 +70305,10 @@
     "massPerUnit": null,
     "metadata": {
       "complements": {
-        "cropDiversity": -6.48,
+        "cropDiversity": -5.7,
         "hedges": -5.61,
         "permanentPasture": null,
-        "plotSize": -7.12
+        "plotSize": -5.7
       },
       "defaultOrigin": "FR",
       "ingredient": {
@@ -70344,10 +70351,10 @@
     "massPerUnit": null,
     "metadata": {
       "complements": {
-        "cropDiversity": -8.84,
+        "cropDiversity": -5.7,
         "hedges": -4.16,
         "permanentPasture": null,
-        "plotSize": -7.12
+        "plotSize": -5.7
       },
       "defaultOrigin": "FR",
       "ingredient": {
@@ -70390,10 +70397,10 @@
     "massPerUnit": null,
     "metadata": {
       "complements": {
-        "cropDiversity": -8.84,
+        "cropDiversity": -5.7,
         "hedges": -4.16,
         "permanentPasture": null,
-        "plotSize": -7.12
+        "plotSize": -5.7
       },
       "defaultOrigin": "FR",
       "ingredient": {
@@ -70436,10 +70443,10 @@
     "massPerUnit": null,
     "metadata": {
       "complements": {
-        "cropDiversity": -8.84,
+        "cropDiversity": -5.7,
         "hedges": -4.16,
         "permanentPasture": null,
-        "plotSize": -7.12
+        "plotSize": -5.7
       },
       "defaultOrigin": "FR",
       "ingredient": {
@@ -70482,10 +70489,10 @@
     "massPerUnit": null,
     "metadata": {
       "complements": {
-        "cropDiversity": -8.84,
+        "cropDiversity": -5.7,
         "hedges": -4.16,
         "permanentPasture": null,
-        "plotSize": -7.12
+        "plotSize": -5.7
       },
       "defaultOrigin": "FR",
       "ingredient": {
@@ -70943,9 +70950,9 @@
     "metadata": {
       "complements": {
         "cropDiversity": -15.5,
-        "hedges": -18.3,
+        "hedges": -17.2,
         "permanentPasture": null,
-        "plotSize": -31.0
+        "plotSize": -17.2
       },
       "defaultOrigin": "FR",
       "ingredient": {
@@ -71586,10 +71593,10 @@
     "massPerUnit": null,
     "metadata": {
       "complements": {
-        "cropDiversity": -33.5,
-        "hedges": -15.8,
+        "cropDiversity": -13.1,
+        "hedges": -13.1,
         "permanentPasture": null,
-        "plotSize": -27.0
+        "plotSize": -13.1
       },
       "defaultOrigin": "FR",
       "ingredient": {
@@ -71632,10 +71639,10 @@
     "massPerUnit": null,
     "metadata": {
       "complements": {
-        "cropDiversity": -33.5,
-        "hedges": -15.8,
+        "cropDiversity": -13.1,
+        "hedges": -13.1,
         "permanentPasture": null,
-        "plotSize": -27.0
+        "plotSize": -13.1
       },
       "defaultOrigin": "FR",
       "ingredient": {
@@ -72138,10 +72145,10 @@
     "massPerUnit": null,
     "metadata": {
       "complements": {
-        "cropDiversity": -33.9,
-        "hedges": -29.4,
+        "cropDiversity": -29.0,
+        "hedges": -29.0,
         "permanentPasture": null,
-        "plotSize": -37.2
+        "plotSize": -29.0
       },
       "defaultOrigin": "FR",
       "ingredient": {
@@ -74668,10 +74675,10 @@
     "massPerUnit": null,
     "metadata": {
       "complements": {
-        "cropDiversity": -10.2,
+        "cropDiversity": -8.8,
         "hedges": -8.79,
         "permanentPasture": null,
-        "plotSize": -11.1
+        "plotSize": -8.8
       },
       "defaultOrigin": "FR",
       "ingredient": {
@@ -75772,10 +75779,10 @@
     "massPerUnit": null,
     "metadata": {
       "complements": {
-        "cropDiversity": -22.0,
+        "cropDiversity": -16.5,
         "hedges": -10.4,
         "permanentPasture": null,
-        "plotSize": -17.7
+        "plotSize": -16.5
       },
       "defaultOrigin": "FR",
       "ingredient": {
@@ -75818,10 +75825,10 @@
     "massPerUnit": null,
     "metadata": {
       "complements": {
-        "cropDiversity": -22.0,
+        "cropDiversity": -16.5,
         "hedges": -10.4,
         "permanentPasture": null,
-        "plotSize": -17.7
+        "plotSize": -16.5
       },
       "defaultOrigin": "FR",
       "ingredient": {
@@ -75864,10 +75871,10 @@
     "massPerUnit": null,
     "metadata": {
       "complements": {
-        "cropDiversity": -22.0,
+        "cropDiversity": -16.5,
         "hedges": -10.4,
         "permanentPasture": null,
-        "plotSize": -17.7
+        "plotSize": -16.5
       },
       "defaultOrigin": "FR",
       "ingredient": {
@@ -75913,7 +75920,7 @@
         "cropDiversity": -16.2,
         "hedges": -14.0,
         "permanentPasture": null,
-        "plotSize": -17.7
+        "plotSize": -16.5
       },
       "defaultOrigin": "FR",
       "ingredient": {
