@@ -9079,7 +9079,7 @@
     "visible": true
   },
   {
-    "activityName": "Rye grain {GLO}| market for rye grain | Cut-off, U",
+    "activityName": "Rye grain {RoW}| rye production | Cut-off, U - Adapted from Ecoinvent U",
     "alias": "rye-whole-default",
     "baseIngredient": "rye-whole",
     "categories": [
@@ -9096,10 +9096,10 @@
     },
     "id": "3ae8076d-51ce-52b0-a7ca-09c127f1c00d",
     "inediblePart": 0,
-    "landOccupation": 2.713,
-    "location": "GLO",
+    "landOccupation": 2.596,
+    "location": "RoW",
     "name": "Seigle entier Origine Inconnue",
-    "processId": "aa12b33f-9ea1-5b04-941c-d9d41f0cdc52",
+    "processId": "52992c30-4b58-5aaa-9383-8d76966683f2",
     "rawToCookedRatio": 2.259,
     "scenario": "import",
     "transportCooling": "none",

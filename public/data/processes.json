@@ -22895,30 +22895,6 @@
     "unit": "kg"
   },
   {
-    "activityName": "Rye grain {GLO}| market for rye grain | Cut-off, U",
-    "categories": [
-      "ingredient",
-      "material",
-      "material_type:cereals"
-    ],
-    "comment": "This process is no longer part of the ecoinvent 3 database and will not be updated. Please, choose another process.\n\nThis is a market activity. Each market represents the consumption mix of a product in a given geography, connecting suppliers with consumers of the same product in the same geographical area. Markets group the producers and also the imports of the product (if relevant) within the same geographical area. They also account for transport to the consumer and for the losses during that process, when relevant.\n\nThis is the market for  'rye grain', in the Global geography.\n\nIn this market, expert judgement was used to develop product specific transport distance estimations.\n\nThe product 'rye grain' is a grain. It is an annual crop. The ecoinvent database also contains this product from organic and Swiss integrated production.\n\nProduction volume: 15152620544 kg\nIncluded activities start: This activity starts at the gate of the activities that produce 'rye grain',  within the geography of Global.\nIncluded activities end: This activity ends with the supply of 'rye grain',  to the consumers of this product. Transport is included. Product losses during transportation are assumed negligible and are therefore not included.\nEnergy values: Undefined\nGeography: The inventory is modelled for Global\nTechnology level: Current\nTechnology: \nStart date: 01/01/2011\nEnd date: 31/12/2023\nIs data valid for entire period: True\nTime period: \nMacro-economic scenario name: Business-as-Usual\n\nVersion: 5.3.0.0\nCreated: 8/2/2011 9:57:06 AM\nLast edited: 12/13/2023 9:08:20 AM\nSource: 2eef9e6f-a73b-5a3f-98ca-11055ac1ea7f_edb81938-8dd6-48fc-9f24-b567992f3ecb.spold\nUUID: 2eef9e6f-a73b-5a3f-98ca-11055ac1ea7f",
-    "displayName": "Seigle entier Origine Inconnue",
-    "elecKwh": 0,
-    "heatMJ": 0,
-    "id": "aa12b33f-9ea1-5b04-941c-d9d41f0cdc52",
-    "impacts": {
-      "ecs": 164.7
-    },
-    "location": "GLO",
-    "massPerUnit": null,
-    "qtyVariationRatio": 1.0,
-    "scopes": [
-      "food"
-    ],
-    "source": "Ecoinvent 3.11",
-    "unit": "kg"
-  },
-  {
     "activityName": "Sesame seed {IN}| sesame seed production | Cut-off, U",
     "categories": [
       "ingredient",
@@ -60000,6 +59976,52 @@
   },
   {
     "activityName": "Rye grain {RoW}| rye production | Cut-off, U - Adapted from Ecoinvent U",
+    "alias": "rye-whole-default",
+    "categories": [
+      "ingredient",
+      "material",
+      "material_type:cereals"
+    ],
+    "comment": "AGRIBALYSE v3.2 dataset, 2024.\noriginal ecoinvent name: Rye grain {RoW}| rye production | Cut-off, U\n\nThis dataset represents the cultivation of rye on an area of 1 ha producing the co-products rye grain and straw. The Yield_ of rye grain is 3172 kg/ha at a moisture content at storage of 15%, the Yield_ of straw is 2163 kg/ha at a moisture content of 15%.\n\nNone\n\n[This dataset was already contained in the ecoinvent database version 2. It was not individually updated during the transfer to ecoinvent version 3. Life Cycle Impact Assessment results may still have changed, as they are affected by changes in the supply chain, i.e. in other datasets. This dataset was generated following the ecoinvent quality guidelines for version 2. It may have been subject to central changes described in the ecoinvent version 3 change report (http://www.ecoinvent.org/database/ecoinvent-version-3/reports-of-changes/), and the results of the central updates were reviewed extensively. The changes added e.g. consistent water flows and other information throughout the database. The documentation of this dataset can be found in the ecoinvent reports of version 2, which are still available via the ecoinvent website. The change report linked above covers all central changes that were made during the conversion process.]\n\nProduction volume: 1539213056 kg\nIncluded activities start: This activity starts after the harvest of the previous crop. The inputs of seeds, mineral fertilisers and pesticides are considered. It is assumed that no farm manure is applied.\nIncluded activities end: The dataset includes all machine operations and corresponding machine infrastructure and sheds. Machine operations are: soil cultivation, sowing, fertilisation, weed control, pest and pathogen control, combine-harvest, transport from field to regional processing centre (15 km) and drying of grains. Further, direct field emissions are included. This activity ends after drying of grains at the regional processing centre.\nEnergy values: Undefined\nGeography: The inventory is modelled for Rest-of-World\nTechnology level: Current\nTechnology: Conventional rye cultivation\nStart date: 01/01/2002\nEnd date: 31/12/2022\nIs data valid for entire period: True\nTime period: Time of publications.\nMacro-economic scenario name: Business-as-Usual\n\nVersion: 59.3.0.0\nCreated: 7/28/2010 6:06:32 PM\nLast edited: 12/20/2022 4:10:33 PM\nSource: 30d61b50-5ac6-5e9b-a768-c2795193a8ec_edb81938-8dd6-48fc-9f24-b567992f3ecb.spold\nUUID: 30d61b50-5ac6-5e9b-a768-c2795193a8ec",
+    "displayName": "Seigle entier Origine Inconnue",
+    "elecKwh": 0,
+    "heatMJ": 0,
+    "id": "3ae8076d-51ce-52b0-a7ca-09c127f1c00d",
+    "impacts": {
+      "ecs": 168.7
+    },
+    "landOccupation": 2.596,
+    "location": "RoW",
+    "massPerUnit": null,
+    "metadata": {
+      "complements": {
+        "cropDiversity": 0,
+        "hedges": 0,
+        "permanentPasture": null,
+        "plotSize": 0
+      },
+      "defaultOrigin": null,
+      "ingredient": {
+        "baseIngredient": "rye-whole",
+        "cropGroup": "AUTRES CEREALES",
+        "density": 0.705,
+        "inediblePart": 0,
+        "processId": "52992c30-4b58-5aaa-9383-8d76966683f2",
+        "rawToCookedRatio": 2.259,
+        "scenario": "import",
+        "transportCooling": "none"
+      }
+    },
+    "qtyVariationRatio": 1.0,
+    "scopes": [
+      "food2"
+    ],
+    "source": "Agribalyse 3.2",
+    "unit": "kg",
+    "visible": true
+  },
+  {
+    "activityName": "Rye grain {RoW}| rye production | Cut-off, U - Adapted from Ecoinvent U",
     "alias": "rye-whole-eu",
     "categories": [
       "ingredient",
@@ -90618,52 +90640,6 @@
         "density": 0.72,
         "inediblePart": 0,
         "processId": "2c27e0ff-d5c7-5ee8-988f-e9f34ca961dd",
-        "rawToCookedRatio": 2.259,
-        "scenario": "import",
-        "transportCooling": "none"
-      }
-    },
-    "qtyVariationRatio": 1.0,
-    "scopes": [
-      "food2"
-    ],
-    "source": "Ecoinvent 3.11",
-    "unit": "kg",
-    "visible": true
-  },
-  {
-    "activityName": "Rye grain {GLO}| market for rye grain | Cut-off, U",
-    "alias": "rye-whole-default",
-    "categories": [
-      "ingredient",
-      "material",
-      "material_type:cereals"
-    ],
-    "comment": "This process is no longer part of the ecoinvent 3 database and will not be updated. Please, choose another process.\n\nThis is a market activity. Each market represents the consumption mix of a product in a given geography, connecting suppliers with consumers of the same product in the same geographical area. Markets group the producers and also the imports of the product (if relevant) within the same geographical area. They also account for transport to the consumer and for the losses during that process, when relevant.\n\nThis is the market for  'rye grain', in the Global geography.\n\nIn this market, expert judgement was used to develop product specific transport distance estimations.\n\nThe product 'rye grain' is a grain. It is an annual crop. The ecoinvent database also contains this product from organic and Swiss integrated production.\n\nProduction volume: 15152620544 kg\nIncluded activities start: This activity starts at the gate of the activities that produce 'rye grain',  within the geography of Global.\nIncluded activities end: This activity ends with the supply of 'rye grain',  to the consumers of this product. Transport is included. Product losses during transportation are assumed negligible and are therefore not included.\nEnergy values: Undefined\nGeography: The inventory is modelled for Global\nTechnology level: Current\nTechnology: \nStart date: 01/01/2011\nEnd date: 31/12/2023\nIs data valid for entire period: True\nTime period: \nMacro-economic scenario name: Business-as-Usual\n\nVersion: 5.3.0.0\nCreated: 8/2/2011 9:57:06 AM\nLast edited: 12/13/2023 9:08:20 AM\nSource: 2eef9e6f-a73b-5a3f-98ca-11055ac1ea7f_edb81938-8dd6-48fc-9f24-b567992f3ecb.spold\nUUID: 2eef9e6f-a73b-5a3f-98ca-11055ac1ea7f",
-    "displayName": "Seigle entier Origine Inconnue",
-    "elecKwh": 0,
-    "heatMJ": 0,
-    "id": "3ae8076d-51ce-52b0-a7ca-09c127f1c00d",
-    "impacts": {
-      "ecs": 164.7
-    },
-    "landOccupation": 2.713,
-    "location": "GLO",
-    "massPerUnit": null,
-    "metadata": {
-      "complements": {
-        "cropDiversity": 0,
-        "hedges": 0,
-        "permanentPasture": null,
-        "plotSize": 0
-      },
-      "defaultOrigin": null,
-      "ingredient": {
-        "baseIngredient": "rye-whole",
-        "cropGroup": "AUTRES CEREALES",
-        "density": 0.705,
-        "inediblePart": 0,
-        "processId": "aa12b33f-9ea1-5b04-941c-d9d41f0cdc52",
         "rawToCookedRatio": 2.259,
         "scenario": "import",
         "transportCooling": "none"
