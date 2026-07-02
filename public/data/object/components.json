@@ -941,7 +941,7 @@
     "scopes": ["object"]
   },
   {
-    "comment": "Cable électrique de type H05VVF 3G1.5mm², section 7.4mm, 110g/m (isolant PVC). Adapté pour une puissance jusqu'à 2.5kW pour 20m max",
+    "comment": "Câble électrique de type H05VVF 3G1.5mm², section 7.4mm, 110g/m (isolant PVC). Adapté pour une puissance jusqu'à 2.5kW pour 20m max",
     "elements": [
       {
         "amount": 0.04,
@@ -970,7 +970,7 @@
       }
     ],
     "id": "10779a79-f0fc-4f05-9f4d-6a7f2b8d9cc4",
-    "name": "Cable électrique, 2phases+terre, 1.5mm², 1 mètre",
+    "name": "Câble électrique, 2phases+terre, 1.5mm², 1 mètre",
     "scopes": ["veli"]
   },
   {
