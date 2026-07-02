@@ -4,14 +4,14 @@
 
 L'acier et l'aluminium sont des matériaux largement utilisés dans tous types de produits.
 
-Leur impact environnemental dépend essentiellement de deux paramètres :
+Leur impact environnemental dépend fortement de deux paramètres :
 
 * Le taux d'intégration de matière recyclée
 * Les méthodes de fabrication de la matière première
 
 Ces deux éléments dépendent du lieu de fabrication, et en conséquence du lieu de vente de ces matériaux.
 
-Identifier le lieu de fabrication, le taux de recyclage et les méthodes de fabrication des matières est très difficile, voire impossible pour une grande partie des composants.
+Cependant, identifier le lieu de fabrication, le taux de recyclage et les méthodes de fabrication des matières est très difficile, voire impossible pour une grande partie des composants.
 
 Pour les cas d'usage d'Ecobalyse, il est plus pertinent de travailler à partir du mix moyen se trouvant sur une zone géographique donnée.
 
@@ -54,9 +54,9 @@ Les procédés construits sont identifiés dans l'[Explorateur de procédé](htt
 
 ### Acier :&#x20;
 
-* Volumes de production en 2022, fourni par des sources publics et/ou gouvernementales, telles que le [British Geological Survey](https://www2.bgs.ac.uk/mineralsuk/statistics/wms.cfc?method=searchWMS), [USGS](https://www.usgs.gov/) ou [Eurostat](https://ec.europa.eu/eurostat/fr/).
-* Ratio entre les procédés de fabrication BF-BOF et EAF en 2022, fourni par la [World Steel Association](https://worldsteel.org/steel-topics/statistics/world-steel-in-figures-2023/)
-* Volumes d'import/export en 2022 (lingots et pièces semi-finies), fourni par des sources publics et/ou gouvernementales, telles que le Union Trade Center.
+Voir détail de la construction des mix marchés dans ce fichier :&#x20;
+
+{% file src="../../.gitbook/assets/Mix marchés Acier - ADEME 20260702 avec ECS.xlsx" %}
 
 Les procédés sont créés à partir des 4 procédés suivants :
 
@@ -67,8 +67,9 @@ Les procédés sont créés à partir des 4 procédés suivants :
 
 ### Aluminium :&#x20;
 
-* Volumes de production d'aluminium primaire en 2022, fourni par des sources publics et/ou gouvernementales, telles que le [British Geological Survey](https://www2.bgs.ac.uk/mineralsuk/statistics/wms.cfc?method=searchWMS), [USGS](https://www.usgs.gov/) ou [Eurostat](https://ec.europa.eu/eurostat/fr/).
-* Volumes d'import/export en 2022, fourni par des sources publics et/ou gouvernementales, telles que le Union Trade Center.
+Voir détail de la construction des mix marchés dans ce fichier :&#x20;
+
+{% file src="../../.gitbook/assets/Mix marchés Alu - ADEME 20260626 sans FE.xlsx" %}
 
 Les procédés sont créés à partir des procédés suivants :
 

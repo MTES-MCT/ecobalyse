@@ -34,8 +34,8 @@
 
 * [⚠️ Précisions sur les méthodes transverses](methodes-transverses/precisions-sur-les-methodes-transverses.md)
 * [🧩 Production des composants](methodes-transverses/production/README.md)
-  * [◻️ Procédés Acier et Aluminium](methodes-transverses/production/procedes-acier-et-aluminium.md)
   * [⚡ Energies des étapes de transformation](methodes-transverses/production/energies-des-etapes-de-transformation.md)
+  * [◻️ Procédés Acier et Aluminium](methodes-transverses/production/procedes-acier-et-aluminium.md)
 * [🪛 Assemblage](methodes-transverses/assemblage.md)
 * [📦 Emballages](methodes-transverses/emballages.md)
 * [🚚 Transport](methodes-transverses/transport/README.md)
