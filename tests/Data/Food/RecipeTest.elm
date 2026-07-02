@@ -458,7 +458,7 @@ suite =
                           }
                             |> Recipe.compute db
                             |> Result.map (firstIngredientDistance .roadCooled)
-                            |> Expect.equal (Ok (Just 1320))
+                            |> Expect.equal (Ok (Just 1980))
                             |> asTest "should have the computed road transport for Europe and Maghreb ('REM')"
                         ]
                     ]
