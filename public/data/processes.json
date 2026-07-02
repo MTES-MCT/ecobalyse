@@ -5036,30 +5036,6 @@
     "unit": "kg"
   },
   {
-    "activityName": "Flaxseed, straw, ret, Normandie, at farm gate {FR} U",
-    "categories": [
-      "ingredient",
-      "material",
-      "material_type:fruits_and_vegetables"
-    ],
-    "comment": "Translated name : Paille de lin, roui, Normandie, France, à la sortie de l'exploitation\nFiber flaxseed production\nFrom the study : Bio-based and petrol-based door panel comparative LCA (Analyse de cycle de vie comparative de panneaux de porte biosourcé (PP/fibres de lin et chanvre) et pétrosourcé (ABS))\nThe AGRIBALYSE methodology is used. For the detailed methodology, see : https://www.ademe.fr/analyse-cycle-vie-comparative-panneaux-porte-biosource-ppfibres-lin-chanvre-petrosource-abs",
-    "displayName": "Graines de lin FR",
-    "elecKwh": 0,
-    "heatMJ": 0,
-    "id": "cfdfa6e8-fd0c-51f9-89e4-2beccb0b66bc",
-    "impacts": {
-      "ecs": 51.72
-    },
-    "location": "FR",
-    "massPerUnit": null,
-    "qtyVariationRatio": 1.0,
-    "scopes": [
-      "food"
-    ],
-    "source": "Agribalyse 3.2",
-    "unit": "kg"
-  },
-  {
     "activityName": "Flours, 1000g | Packaging System, Proxy Pack, Cardboard {FR} U",
     "categories": [
       "material",
@@ -14510,30 +14486,6 @@
     "unit": "kg"
   },
   {
-    "activityName": "Wheat grain {IN}| wheat production | Cut-off, U - Adapted from Ecoinvent U",
-    "categories": [
-      "ingredient",
-      "material",
-      "material_type:cereals"
-    ],
-    "comment": "AGRIBALYSE v3.2 dataset, 2024.\noriginal ecoinvent name: Wheat grain {IN}| wheat production | Cut-off, U\n\nNone\n\nThis dataset represents the production of 1 kg of Wheat during November, 2015- April, 2016 at a farm located Village-Gadhera, District- Fatehgarh Sahib of Punjab. In this area, fields are irrigated with ground water using electric pump for surface irrigation. The farm has a Yield_ of 5625 kg fresh matter per ha for this crop cycle. Sowing date for the crop is 14-November, 2015 and harvesting date is 13-April, 2016. Mineral NPK fertilizer input is 177.5-86.25kg/ha. Herbicide used has active ingredient as Piroxofop-Propanyl 60g/ha (Clodinafop-propargyl used as proxy), Sulfosulfuran 9.375g/ha, Metsulfuron 9.375g/ha (Metsulfuron-methyl used as proxy). Fungicide used has active ingredient as Azoxystrobin 54g/ha, Propiconazole 46.8g/ha, Butachlor 625g/ha (Alachlor used as proxy). Insecticides used has active ingredient as Imidachloropid 218.75g/ha, Thiamethoxam 187.5g/ha, and Buprofezin 156.25g/ha. Machinery is used only for soil cultivation with fuel consumption of 31.20 kg/ha using plough and other work. For seed sowing machines usage has led to fuel consumption of 7.8 kg/ha. Machinery is used for harvesting with fuel consumption of 67.6 kg/ha using Threshing with combine harvester, hay reaping.\n\nNone\n\nNone\n\nProduction volume: 86519996416 kg\nIncluded activities start: This activity starts about two weeks after the harvest of the previous crop. The soil is prepared for cultivation in first week of November and sowing of seeds started about two weeks after soil preparation. Thereafter the crop is mature for harvesting in about 5 months.\nIncluded activities end: The activity ends with the harvesting of the mature Wheat\nEnergy values: Undefined\nGeography: The inventory is modelled for India\nTechnology level: Current\nTechnology: Cultivation of Wheat follows conventional production standards\nStart date: 01/01/2015\nEnd date: 31/12/2022\nIs data valid for entire period: True\nTime period: : Soil cultivating date for the main crop: 07-November, 2015; Harvesting date main crop: 13-April, 2016. The soil cultivation, sowing and harvesting dates are taken as the middle date of the week or fortnight told to the data collector by the farmer. Total time from date of sowing to date of harvesting comes to 180 days.  The data is collected for one crop cycle. The cycle of one year is considered for entry in ecoeditor.\nMacro-economic scenario name: Business-as-Usual\n\nVersion: 6.3.0.0\nCreated: 12/20/2022 4:10:33 PM\nLast edited: 4/19/2018 10:56:01 AM\nSource: 7425e3c0-6aea-5626-b48a-e0f211a1cb32_0201ee86-f71b-4457-8fe8-79f3ed720b07.spold\nUUID: 7425e3c0-6aea-5626-b48a-e0f211a1cb32",
-    "displayName": "Wheat grain (IN)",
-    "elecKwh": 0,
-    "heatMJ": 0,
-    "id": "3a619d37-5424-5fc3-b7fd-50814adab318",
-    "impacts": {
-      "ecs": 135.8
-    },
-    "location": "IN",
-    "massPerUnit": null,
-    "qtyVariationRatio": 1.0,
-    "scopes": [
-      "food"
-    ],
-    "source": "Agribalyse 3.2",
-    "unit": "kg"
-  },
-  {
     "activityName": "Wheat grain {RoW}| wheat production | Cut-off, U - Adapted from Ecoinvent U",
     "categories": [
       "ingredient",
@@ -22575,30 +22527,6 @@
       "ecs": 247.4
     },
     "location": "CA-SK",
-    "massPerUnit": null,
-    "qtyVariationRatio": 1.0,
-    "scopes": [
-      "food"
-    ],
-    "source": "Ecoinvent 3.11",
-    "unit": "kg"
-  },
-  {
-    "activityName": "Fava bean, feed, Swiss integrated production {RoW}| fava bean, feed production, Swiss integrated production | Cut-off, U",
-    "categories": [
-      "ingredient",
-      "material",
-      "material_type:fruits_and_vegetables"
-    ],
-    "comment": "This process is no longer part of the ecoinvent 3 database and will not be updated. Please, choose another process.\n\nThe inventory refers to 1 kg processed feedstuff (fresh weight).\n[This dataset was already contained in the ecoinvent database version 2. It was not individually updated during the transfer to ecoinvent version 3. Life Cycle Impact Assessment results may still have changed, as they are affected by changes in the supply chain, i.e. in other datasets. This dataset was generated following the ecoinvent quality guidelines for version 2. It may have been subject to central changes described in the ecoinvent version 3 change report (http://www.ecoinvent.org/database/ecoinvent-version-3/reports-of-changes/), and the results of the central updates were reviewed extensively. The changes added e.g. consistent water flows and other information throughout the database. The documentation of this dataset can be found in the ecoinvent reports of version 2, which are still available via the ecoinvent website. The change report linked above covers all central changes that were made during the conversion process.]\n\nProduction volume: 3.96633245776129 kg\nIncluded activities start: \nIncluded activities end: The inventory includes the transport of the raw materials to the feed processing centre, processing feedstuff (crushing or milling, heat treatment, dosing, mixing squeezing and pelleting) and the storage of the feed mixes. It also includes water use and wastewater treatment, the transformation and use of land related to the storage buildings. No process emissions were included except heat waste from the use of electricity. Packaging is not included.\nEnergy values: 0\nGeography: The inventory is modelled for Rest-of-World\nTechnology level: 3\nTechnology: Refers to feedstuff that is not expanded.\nStart date: 01/01/1996\nEnd date: 31/12/2018\nIs data valid for entire period: True\nTime period: Years of the publications of the main sources\nMacro-economic scenario name: Business-as-Usual\n\nVersion: 3.0.147.1\nCreated: 7/28/2010 6:04:29 PM\nLast edited: 2/25/2011 10:24:59 AM\nSource: 28456_f8e457fc-404b-49d9-97a8-b2baa2a1ba3f_7d2df8fd-e2c2-4b3a-9ecd-184b9276962f.spold\nUUID: f8e457fc-404b-49d9-97a8-b2baa2a1ba3f",
-    "displayName": "Haricots de Lima Origine Inconnue",
-    "elecKwh": 0,
-    "heatMJ": 0,
-    "id": "1a20c9ec-c513-5135-97c4-c25c73748257",
-    "impacts": {
-      "ecs": 52.27
-    },
-    "location": "RoW",
     "massPerUnit": null,
     "qtyVariationRatio": 1.0,
     "scopes": [
@@ -40732,6 +40660,52 @@
   },
   {
     "activityName": "Durum wheat grain, at farm {GLO} - Adapted from WFLDB U",
+    "alias": "amaranth-non-eu",
+    "categories": [
+      "ingredient",
+      "material",
+      "material_type:cereals"
+    ],
+    "comment": "AGRIBALYSE v3.2 dataset, 2024. \nThis dataset has been adapted for Agribalyse 3.2.\n- Background Ecoinvent data have been updated to Ecoinvent 3.9.1\n_________________________________\nThis dataset represents the global average for durum wheat production for export, at farm. It is calculated as weighted average of the following countries, based on their respective export shares according to France AgriMer 2011 report, for average data over 5 years from 2006/2007 to 2010/2011:\n- Australia: 2.5%\n- Canada: 49.8%\n- Spain: 6.1%\n- Greece: 4.1%\n- Italy: 2.3%\n- USA: 14.5%\n \nThese countries together represent 79% of global export.\nAll farming activities documented in the respective national datasets are included. No transportation to the marketplace is considered.\nThe functional unit is the production of 1 kg of durum wheat, at farm.\n\nData quality rating (DQR) = 2.8, Good quality\n\nData source: \nFrance AgriMer 2011: France AgriMer, 2011. The durum wheat market, worldwide, European Union, France. Issue January 2011. Downloaded on https://www.franceagrimer.fr/fam/content/download/8901/document/BD%202011_ENTIER_EN.pdf, August 2019.",
+    "displayName": "Amarante HORS UE",
+    "elecKwh": 0,
+    "heatMJ": 0,
+    "id": "585c4a98-a772-54a2-9c6e-9741cd912f1e",
+    "impacts": {
+      "ecs": 112.6
+    },
+    "landOccupation": 3.203,
+    "location": "GLO",
+    "massPerUnit": null,
+    "metadata": {
+      "complements": {
+        "cropDiversity": 0,
+        "hedges": 0,
+        "permanentPasture": null,
+        "plotSize": 0
+      },
+      "defaultOrigin": null,
+      "ingredient": {
+        "baseIngredient": "amaranth",
+        "cropGroup": "BLE TENDRE",
+        "density": 0.75,
+        "inediblePart": 0,
+        "processId": "cfdd1afe-f9ff-516e-ab27-2a9cfbede91c",
+        "rawToCookedRatio": 2.259,
+        "scenario": "import",
+        "transportCooling": "none"
+      }
+    },
+    "qtyVariationRatio": 1.0,
+    "scopes": [
+      "food2"
+    ],
+    "source": "Agribalyse 3.2",
+    "unit": "kg",
+    "visible": true
+  },
+  {
+    "activityName": "Durum wheat grain, at farm {GLO} - Adapted from WFLDB U",
     "alias": "durum-wheat-non-eu",
     "categories": [
       "ingredient",
@@ -44120,6 +44094,52 @@
   },
   {
     "activityName": "Flaxseed, national average, animal feed, at farm gate {FR} U",
+    "alias": "flaxseed-fr",
+    "categories": [
+      "ingredient",
+      "material",
+      "material_type:fruits_and_vegetables"
+    ],
+    "comment": "[This dataset was already contained in the AGRIBALYSE 1.3 database. It was not individually updated during the transfer to AGRIBALYSE 2.0. Therefore, the method and models used can differ from other AGRIBALYSE 2.0 productions. Life Cycle Impact Assessment results may still have changed, as they are affected by changes in the supply chain, i.e. in other datasets. This dataset was generated following the AGRIBALYSE 1.3 quality guidelines. It may have been subject to central changes described in the AGRIBALYSE change report.]\n\n - supporting LCI (based on the project ECOALIM).\nFlaxseed, 90% DM,\nTranslation : Lin oleagineux, 90% MS\nFunctional unit: Yield_ of 1ha.\nIncluded processes: The inventory includes soil cultivation, sowing, weed control, fertilization, pest and pathogen control, irrigation, harvest and transport to farm. Boundaries: from harvest to harvest.\nExcluded processes : soil enrichment products and post-harvest operations.\nRepresentativeness : statistical data in France, based on surveys and reliable expertise\nDirect emissions: NH3 (EMEP 2009 tier 2 for organic fertilisation + 2013 tier 2 for mineral fertilisation), NO (EMEP 2009), N2O (IPCC 2006 tier1), NO3- (Tailleurs et al.), erosion (RUSLE adapted for Agribalyse), P (SALCA-P adapted for Agribalyse), ETM (SALCA-ETM adapted for Agribalyse), Occupation and transformation of the soil (Ecoinvent v2 2007), pesticides (Ecoinvent v2 2007), biogenic CO2 and CO2 from Urea (IPCC 2006). The methodology of calculation is available in Ecoalim methodological guide.\nAllocation between crops: N and P from organic fertilizers, P and K mineral, nitrate.\nTechnology: efficient farming practices.\nTime period: 2008-2012.",
+    "displayName": "Graines de lin FR",
+    "elecKwh": 0,
+    "heatMJ": 0,
+    "id": "07fe355e-70c5-5294-8f27-46d8d01e7047",
+    "impacts": {
+      "ecs": 178.6
+    },
+    "landOccupation": 5.524,
+    "location": "FR",
+    "massPerUnit": null,
+    "metadata": {
+      "complements": {
+        "cropDiversity": 0,
+        "hedges": -9.26,
+        "permanentPasture": null,
+        "plotSize": -19.7
+      },
+      "defaultOrigin": "FR",
+      "ingredient": {
+        "baseIngredient": "flaxseed",
+        "cropGroup": "AUTRES OLEAGINEUX",
+        "density": 0.7,
+        "inediblePart": 0.2,
+        "processId": "3f7d5194-32eb-5b18-a009-b7a97389ac2f",
+        "rawToCookedRatio": 0.856,
+        "scenario": "reference",
+        "transportCooling": "always"
+      }
+    },
+    "qtyVariationRatio": 1.0,
+    "scopes": [
+      "food2"
+    ],
+    "source": "Agribalyse 3.2",
+    "unit": "kg",
+    "visible": true
+  },
+  {
+    "activityName": "Flaxseed, national average, animal feed, at farm gate {FR} U",
     "alias": "flaxseed-non-eu",
     "categories": [
       "ingredient",
@@ -44200,52 +44220,6 @@
         "rawToCookedRatio": 1.0,
         "scenario": "import",
         "transportCooling": "none"
-      }
-    },
-    "qtyVariationRatio": 1.0,
-    "scopes": [
-      "food2"
-    ],
-    "source": "Agribalyse 3.2",
-    "unit": "kg",
-    "visible": true
-  },
-  {
-    "activityName": "Flaxseed, straw, ret, Normandie, at farm gate {FR} U",
-    "alias": "flaxseed-fr",
-    "categories": [
-      "ingredient",
-      "material",
-      "material_type:fruits_and_vegetables"
-    ],
-    "comment": "Translated name : Paille de lin, roui, Normandie, France, à la sortie de l'exploitation\nFiber flaxseed production\nFrom the study : Bio-based and petrol-based door panel comparative LCA (Analyse de cycle de vie comparative de panneaux de porte biosourcé (PP/fibres de lin et chanvre) et pétrosourcé (ABS))\nThe AGRIBALYSE methodology is used. For the detailed methodology, see : https://www.ademe.fr/analyse-cycle-vie-comparative-panneaux-porte-biosource-ppfibres-lin-chanvre-petrosource-abs",
-    "displayName": "Graines de lin FR",
-    "elecKwh": 0,
-    "heatMJ": 0,
-    "id": "07fe355e-70c5-5294-8f27-46d8d01e7047",
-    "impacts": {
-      "ecs": 51.72
-    },
-    "landOccupation": 1.279,
-    "location": "FR",
-    "massPerUnit": null,
-    "metadata": {
-      "complements": {
-        "cropDiversity": 0,
-        "hedges": -2.14,
-        "permanentPasture": null,
-        "plotSize": -4.55
-      },
-      "defaultOrigin": "FR",
-      "ingredient": {
-        "baseIngredient": "flaxseed",
-        "cropGroup": "AUTRES OLEAGINEUX",
-        "density": 0.7,
-        "inediblePart": 0.2,
-        "processId": "cfdfa6e8-fd0c-51f9-89e4-2beccb0b66bc",
-        "rawToCookedRatio": 0.856,
-        "scenario": "reference",
-        "transportCooling": "always"
       }
     },
     "qtyVariationRatio": 1.0,
@@ -69113,52 +69087,6 @@
     "visible": true
   },
   {
-    "activityName": "Wheat grain {IN}| wheat production | Cut-off, U - Adapted from Ecoinvent U",
-    "alias": "amaranth-non-eu",
-    "categories": [
-      "ingredient",
-      "material",
-      "material_type:cereals"
-    ],
-    "comment": "AGRIBALYSE v3.2 dataset, 2024.\noriginal ecoinvent name: Wheat grain {IN}| wheat production | Cut-off, U\n\nNone\n\nThis dataset represents the production of 1 kg of Wheat during November, 2015- April, 2016 at a farm located Village-Gadhera, District- Fatehgarh Sahib of Punjab. In this area, fields are irrigated with ground water using electric pump for surface irrigation. The farm has a Yield_ of 5625 kg fresh matter per ha for this crop cycle. Sowing date for the crop is 14-November, 2015 and harvesting date is 13-April, 2016. Mineral NPK fertilizer input is 177.5-86.25kg/ha. Herbicide used has active ingredient as Piroxofop-Propanyl 60g/ha (Clodinafop-propargyl used as proxy), Sulfosulfuran 9.375g/ha, Metsulfuron 9.375g/ha (Metsulfuron-methyl used as proxy). Fungicide used has active ingredient as Azoxystrobin 54g/ha, Propiconazole 46.8g/ha, Butachlor 625g/ha (Alachlor used as proxy). Insecticides used has active ingredient as Imidachloropid 218.75g/ha, Thiamethoxam 187.5g/ha, and Buprofezin 156.25g/ha. Machinery is used only for soil cultivation with fuel consumption of 31.20 kg/ha using plough and other work. For seed sowing machines usage has led to fuel consumption of 7.8 kg/ha. Machinery is used for harvesting with fuel consumption of 67.6 kg/ha using Threshing with combine harvester, hay reaping.\n\nNone\n\nNone\n\nProduction volume: 86519996416 kg\nIncluded activities start: This activity starts about two weeks after the harvest of the previous crop. The soil is prepared for cultivation in first week of November and sowing of seeds started about two weeks after soil preparation. Thereafter the crop is mature for harvesting in about 5 months.\nIncluded activities end: The activity ends with the harvesting of the mature Wheat\nEnergy values: Undefined\nGeography: The inventory is modelled for India\nTechnology level: Current\nTechnology: Cultivation of Wheat follows conventional production standards\nStart date: 01/01/2015\nEnd date: 31/12/2022\nIs data valid for entire period: True\nTime period: : Soil cultivating date for the main crop: 07-November, 2015; Harvesting date main crop: 13-April, 2016. The soil cultivation, sowing and harvesting dates are taken as the middle date of the week or fortnight told to the data collector by the farmer. Total time from date of sowing to date of harvesting comes to 180 days.  The data is collected for one crop cycle. The cycle of one year is considered for entry in ecoeditor.\nMacro-economic scenario name: Business-as-Usual\n\nVersion: 6.3.0.0\nCreated: 12/20/2022 4:10:33 PM\nLast edited: 4/19/2018 10:56:01 AM\nSource: 7425e3c0-6aea-5626-b48a-e0f211a1cb32_0201ee86-f71b-4457-8fe8-79f3ed720b07.spold\nUUID: 7425e3c0-6aea-5626-b48a-e0f211a1cb32",
-    "displayName": "Amarante HORS UE",
-    "elecKwh": 0,
-    "heatMJ": 0,
-    "id": "585c4a98-a772-54a2-9c6e-9741cd912f1e",
-    "impacts": {
-      "ecs": 135.8
-    },
-    "landOccupation": 0.9009,
-    "location": "IN",
-    "massPerUnit": null,
-    "metadata": {
-      "complements": {
-        "cropDiversity": 0,
-        "hedges": 0,
-        "permanentPasture": null,
-        "plotSize": 0
-      },
-      "defaultOrigin": null,
-      "ingredient": {
-        "baseIngredient": "amaranth",
-        "cropGroup": "BLE TENDRE",
-        "density": 0.75,
-        "inediblePart": 0,
-        "processId": "3a619d37-5424-5fc3-b7fd-50814adab318",
-        "rawToCookedRatio": 2.259,
-        "scenario": "import",
-        "transportCooling": "none"
-      }
-    },
-    "qtyVariationRatio": 1.0,
-    "scopes": [
-      "food2"
-    ],
-    "source": "Agribalyse 3.2",
-    "unit": "kg",
-    "visible": true
-  },
-  {
     "activityName": "Wheat grain {RoW}| wheat production | Cut-off, U - Adapted from Ecoinvent U",
     "alias": "millet-whole-non-eu",
     "categories": [
@@ -71561,6 +71489,7 @@
     "activityName": "This process is not linked to a Brightway activity",
     "alias": null,
     "categories": [
+      "productmassdependent",
       "use"
     ],
     "comment": "Consommation d’électricité telle que définie par la méthode Agribalyse 3.0 dans les tableaux 41, 42, 43 sur les techniques de préparation.",
@@ -71589,6 +71518,7 @@
     "activityName": "This process is not linked to a Brightway activity",
     "alias": null,
     "categories": [
+      "productmassdependent",
       "use"
     ],
     "comment": "Consommation d’électricité telle que définie par la méthode Agribalyse 3.0 dans les tableaux 41, 42, 43 sur les techniques de préparation.",
@@ -71617,6 +71547,7 @@
     "activityName": "This process is not linked to a Brightway activity",
     "alias": null,
     "categories": [
+      "productmassdependent",
       "use"
     ],
     "comment": "Consommation d’électricité telle que définie par la méthode Agribalyse 3.0 dans les tableaux 41, 42, 43 sur les techniques de préparation.",
@@ -71906,6 +71837,7 @@
     "activityName": "This process is not linked to a Brightway activity",
     "alias": null,
     "categories": [
+      "productmassdependent",
       "use"
     ],
     "comment": "Consommation d’électricité telle que définie par la méthode Agribalyse 3.0 dans les tableaux 41, 42, 43 sur les techniques de préparation.",
@@ -72112,6 +72044,7 @@
     "activityName": "This process is not linked to a Brightway activity",
     "alias": null,
     "categories": [
+      "productmassdependent",
       "use"
     ],
     "comment": "Consommation d’électricité telle que définie par la méthode Agribalyse 3.0 dans les tableaux 41, 42, 43 sur les techniques de préparation.",
@@ -72529,6 +72462,7 @@
     "activityName": "This process is not linked to a Brightway activity",
     "alias": null,
     "categories": [
+      "productmassdependent",
       "use"
     ],
     "comment": "Consommation d’électricité telle que définie par la méthode Agribalyse 3.0 dans les tableaux 41, 42, 43 sur les techniques de préparation.",
@@ -72557,6 +72491,7 @@
     "activityName": "This process is not linked to a Brightway activity",
     "alias": null,
     "categories": [
+      "productmassdependent",
       "use"
     ],
     "comment": "Consommation d’électricité telle que définie par la méthode Agribalyse 3.0 dans les tableaux 41, 42, 43 sur les techniques de préparation.",
@@ -88604,6 +88539,52 @@
   },
   {
     "activityName": "Fava bean {CA-AB}| fava bean production | Cut-off, U",
+    "alias": "lima-bean-default",
+    "categories": [
+      "ingredient",
+      "material",
+      "material_type:fruits_and_vegetables"
+    ],
+    "comment": "This dataset represents the production of 1 tonne of dried fava bean (<16% moisture) during May-August, 2020, at 2089.05 ha faba bean farms located in the Province of Alberta, Canada. Yield values were averaged over 2018-2020, and farms have an average yield of 4598.52 kg grain (<16% moisture) per ha for these crop cycles. The system boundaries include the production of all crop inputs (e.g. seeds, fertilizers, crop protection products, and fuel) and consider nitrogen credits derived from biological N fixation associated with dried faba bean production. Irrigation is included. The sowing date for the crop is May 2020 and the harvesting date is August 2020. The seeding rate is 55.35 kg/tonne of faba bean production. Fertilizer applied contain nitrogen (as N) 1.40 kg/tonne, phosphate (as P2O5) 2.46 kg/tonne, potash (as K2O) 0.90 kg/tonne, and sulfur (as S) 0.31 kg/tonne. Predominant crop protection applied contain active ingredients of glyphosate 0.066 kg/tonne, bentazon 0.064 kg/tonne, and diquat dibromide 0.048 g/tonne. Machinery is used for tillage, seeding, fertilizer application, rolling, herbicide application, fungicide application, harvest aid application, harvesting, and other with total fuel consumption of 7.12 kg/tonne.\n\nProduction volume: 9606569.08304765 kg\nIncluded activities start: Starting inputs for this activity include seed, fertilizer, crop protection products and fuel on the farm. This activity begins with soil preparation about 37 weeks after the harvest of the previous crop. The soil is prepared for cultivation in 1st week of May and the sowing of seeds started about 5 days after soil preparation.\nIncluded activities end: This activity ends with faba bean drying to <16% moisture at farm gate. This takes place in August, 19 weeks after the activity start. The activity includes the infrastructures and use of agricultural machinery.\nGeography: The inventory is modelled for Alberta\nTechnology level: Current\nTechnology: Production of faba bean includes farm practices from tillage, seeding, fertilizer application, rolling, herbicide application, fungicide application, harvest aid application, harvesting, and other field operations, to aeration and drying.\nStart date: 01/01/2020\nEnd date: 31/12/2024\nIs data valid for entire period: True\nTime period: Soil cultivating date for the main crop: May 2020; Harvesting date for the main crop: August 2020. Total time from the date of sowing to the date of harvesting comes to 19 weeks. Yield data were collected and averaged for three crop cycles (2018-2020). All other data were collected for 2020 only.\nMacro-economic scenario name: Business-as-Usual\n\nVersion: 6.3.0.0\nCreated: 8/11/22 2:05:52\nLast edited: 8/28/24 4:46:49\nSource: e3eecb40-3331-59b7-a2f8-e81611aea489_1f097a0f-753b-501f-b9d5-df766bc97660.spold\nUUID: e3eecb40-3331-59b7-a2f8-e81611aea489",
+    "displayName": "Haricots de Lima Origine Inconnue",
+    "elecKwh": 0,
+    "heatMJ": 0,
+    "id": "23f3aa29-6b9e-5046-9c78-cafc25f8d7d4",
+    "impacts": {
+      "ecs": 378.2
+    },
+    "landOccupation": 2.345,
+    "location": "CA-AB",
+    "massPerUnit": null,
+    "metadata": {
+      "complements": {
+        "cropDiversity": 0,
+        "hedges": 0,
+        "permanentPasture": null,
+        "plotSize": 0
+      },
+      "defaultOrigin": null,
+      "ingredient": {
+        "baseIngredient": "lima-bean",
+        "cropGroup": "LEGUMINEUSES A GRAIN",
+        "density": 0.8,
+        "inediblePart": 0.2,
+        "processId": "027d4c09-56b5-52d6-9b70-27c3835aeb0f",
+        "rawToCookedRatio": 0.856,
+        "scenario": "import",
+        "transportCooling": "always"
+      }
+    },
+    "qtyVariationRatio": 1.0,
+    "scopes": [
+      "food2"
+    ],
+    "source": "Ecoinvent 3.11",
+    "unit": "kg",
+    "visible": true
+  },
+  {
+    "activityName": "Fava bean {CA-AB}| fava bean production | Cut-off, U",
     "alias": "mung-bean-sprouted-default",
     "categories": [
       "ingredient",
@@ -88868,52 +88849,6 @@
         "rawToCookedRatio": 0.856,
         "scenario": "import",
         "transportCooling": "none"
-      }
-    },
-    "qtyVariationRatio": 1.0,
-    "scopes": [
-      "food2"
-    ],
-    "source": "Ecoinvent 3.11",
-    "unit": "kg",
-    "visible": true
-  },
-  {
-    "activityName": "Fava bean, feed, Swiss integrated production {RoW}| fava bean, feed production, Swiss integrated production | Cut-off, U",
-    "alias": "lima-bean-default",
-    "categories": [
-      "ingredient",
-      "material",
-      "material_type:fruits_and_vegetables"
-    ],
-    "comment": "This process is no longer part of the ecoinvent 3 database and will not be updated. Please, choose another process.\n\nThe inventory refers to 1 kg processed feedstuff (fresh weight).\n[This dataset was already contained in the ecoinvent database version 2. It was not individually updated during the transfer to ecoinvent version 3. Life Cycle Impact Assessment results may still have changed, as they are affected by changes in the supply chain, i.e. in other datasets. This dataset was generated following the ecoinvent quality guidelines for version 2. It may have been subject to central changes described in the ecoinvent version 3 change report (http://www.ecoinvent.org/database/ecoinvent-version-3/reports-of-changes/), and the results of the central updates were reviewed extensively. The changes added e.g. consistent water flows and other information throughout the database. The documentation of this dataset can be found in the ecoinvent reports of version 2, which are still available via the ecoinvent website. The change report linked above covers all central changes that were made during the conversion process.]\n\nProduction volume: 3.96633245776129 kg\nIncluded activities start: \nIncluded activities end: The inventory includes the transport of the raw materials to the feed processing centre, processing feedstuff (crushing or milling, heat treatment, dosing, mixing squeezing and pelleting) and the storage of the feed mixes. It also includes water use and wastewater treatment, the transformation and use of land related to the storage buildings. No process emissions were included except heat waste from the use of electricity. Packaging is not included.\nEnergy values: 0\nGeography: The inventory is modelled for Rest-of-World\nTechnology level: 3\nTechnology: Refers to feedstuff that is not expanded.\nStart date: 01/01/1996\nEnd date: 31/12/2018\nIs data valid for entire period: True\nTime period: Years of the publications of the main sources\nMacro-economic scenario name: Business-as-Usual\n\nVersion: 3.0.147.1\nCreated: 7/28/2010 6:04:29 PM\nLast edited: 2/25/2011 10:24:59 AM\nSource: 28456_f8e457fc-404b-49d9-97a8-b2baa2a1ba3f_7d2df8fd-e2c2-4b3a-9ecd-184b9276962f.spold\nUUID: f8e457fc-404b-49d9-97a8-b2baa2a1ba3f",
-    "displayName": "Haricots de Lima Origine Inconnue",
-    "elecKwh": 0,
-    "heatMJ": 0,
-    "id": "23f3aa29-6b9e-5046-9c78-cafc25f8d7d4",
-    "impacts": {
-      "ecs": 52.27
-    },
-    "landOccupation": 2.801,
-    "location": "RoW",
-    "massPerUnit": null,
-    "metadata": {
-      "complements": {
-        "cropDiversity": 0,
-        "hedges": 0,
-        "permanentPasture": null,
-        "plotSize": 0
-      },
-      "defaultOrigin": null,
-      "ingredient": {
-        "baseIngredient": "lima-bean",
-        "cropGroup": "LEGUMINEUSES A GRAIN",
-        "density": 0.8,
-        "inediblePart": 0.2,
-        "processId": "1a20c9ec-c513-5135-97c4-c25c73748257",
-        "rawToCookedRatio": 0.856,
-        "scenario": "import",
-        "transportCooling": "always"
       }
     },
     "qtyVariationRatio": 1.0,
