@@ -75,6 +75,7 @@ module Data.Component exposing
     , findById
     , getAvailableDistributionProcesses
     , getConsumptionProcessId
+    , getDocLink
     , getEndOfLifeDetailedImpacts
     , getEndOfLifeImpacts
     , getEndOfLifeScopeCollectionRate
@@ -1797,6 +1798,14 @@ getAvailableDistributionProcesses db scope =
 getConsumptionProcessId : Consumption -> Process.Id
 getConsumptionProcessId (Consumption { processId }) =
     processId
+
+
+{-| Retrieve a documentation link from config, if defined
+Note: proxified from Config for convenience
+-}
+getDocLink : Config.Config -> Scope -> String -> Maybe String
+getDocLink =
+    Config.getDocLink
 
 
 {-| Retrieves a distribution process for a given scope from a provided distribution id, or a default
