@@ -36226,7 +36226,7 @@
     "rawToCookedRatio": 1.0,
     "scenario": "import",
     "transportCooling": "always",
-    "visible": false
+    "visible": true
   },
   {
     "activityName": "Sunflower, at farm {FR} - Adapted from WFLDB U",

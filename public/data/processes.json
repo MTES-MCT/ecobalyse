@@ -38984,7 +38984,7 @@
     ],
     "source": "Agribalyse 3.2",
     "unit": "kg",
-    "visible": false
+    "visible": true
   },
   {
     "activityName": "Cow milk, conventional, national average, at farm gate {FR} U",

@@ -82,7 +82,7 @@
         "confidence": 1.0,
         "rule": "dairy NOVA 1 → always (perishable)"
       },
-      "visible": false
+      "visible": true
     },
     {
       "alias": "milk-2025",
