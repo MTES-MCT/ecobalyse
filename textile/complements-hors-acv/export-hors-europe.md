@@ -111,7 +111,9 @@ Ce constat est notamment appuyé par :&#x20;
 
 On considère donc les probabilités suivantes (&#x50;_&#x72;obaDéchet_) pour la réutilisation des vêtements exportés hors Europe :&#x20;
 
-<table><thead><tr><th width="233">Scénario</th><th width="199">Export hors Europe</th><th>Déchets</th><th>ProbaDéchet</th></tr></thead><tbody><tr><td>Moyenne</td><td>19% <br>(= 38% * 49%)</td><td>50%</td><td>9%</td></tr><tr><td>Vêtements synthétiques</td><td>cf. ci-dessus</td><td>65%</td><td>12%</td></tr><tr><td>Autres vêtements</td><td>cf. ci-dessus</td><td>27%</td><td>5%</td></tr></tbody></table>
+<table><thead><tr><th width="233">Scénario</th><th width="218.33331298828125">Export hors Europe</th><th width="156.6666259765625">Déchets</th><th>ProbaDéchet</th></tr></thead><tbody><tr><td>Moyenne</td><td>19%<br>(= 38% * 49%)</td><td>50%</td><td>8,3%</td></tr><tr><td>Vêtements synthétiques</td><td>cf. ci-dessus</td><td>5%</td><td>12%</td></tr><tr><td>Autres vêtements</td><td>cf. ci-dessus</td><td>27%</td><td>5%</td></tr></tbody></table>
+
+
 
 {% hint style="info" %}
 Les valeurs ProbaDéchet par type de fibre sont calculés sur la base de 3 hypothèses :&#x20;
@@ -166,4 +168,4 @@ Il est intégré au sous-score "Compléments" et à l'étape du cycle de vie "Fi
 [^3]: Recyclage (31%) +Réutilisation France = (10%) +  Déchets (2%) + Réutilisation Europe (8%)= 51% => le dernier débouché étant l'Export Hors Europe (1-51%=49%)                                  \
     &#x20;&#x20;
 
-[^4]: Textile Exchange \_ The global fiber market 2021&#x20;
+[^4]: Textile Exchange \_ The global fiber market 2021
