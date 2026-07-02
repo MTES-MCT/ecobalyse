@@ -5785,7 +5785,7 @@
     "visible": true
   },
   {
-    "activityName": "Fava bean, feed, Swiss integrated production {RoW}| fava bean, feed production, Swiss integrated production | Cut-off, U",
+    "activityName": "Fava bean {CA-AB}| fava bean production | Cut-off, U",
     "alias": "lima-bean-default",
     "baseIngredient": "lima-bean",
     "categories": [
@@ -5802,10 +5802,10 @@
     },
     "id": "23f3aa29-6b9e-5046-9c78-cafc25f8d7d4",
     "inediblePart": 0.2,
-    "landOccupation": 2.801,
-    "location": "RoW",
+    "landOccupation": 2.345,
+    "location": "CA-AB",
     "name": "Haricots de Lima Origine Inconnue",
-    "processId": "1a20c9ec-c513-5135-97c4-c25c73748257",
+    "processId": "027d4c09-56b5-52d6-9b70-27c3835aeb0f",
     "rawToCookedRatio": 0.856,
     "scenario": "import",
     "transportCooling": "always",
