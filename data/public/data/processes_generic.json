@@ -16659,6 +16659,52 @@
   },
   {
     "activityName": "Flaxseed, national average, animal feed, at farm gate {FR} U",
+    "alias": "flaxseed-fr",
+    "categories": [
+      "ingredient",
+      "material",
+      "material_type:fruits_and_vegetables"
+    ],
+    "comment": "[This dataset was already contained in the AGRIBALYSE 1.3 database. It was not individually updated during the transfer to AGRIBALYSE 2.0. Therefore, the method and models used can differ from other AGRIBALYSE 2.0 productions. Life Cycle Impact Assessment results may still have changed, as they are affected by changes in the supply chain, i.e. in other datasets. This dataset was generated following the AGRIBALYSE 1.3 quality guidelines. It may have been subject to central changes described in the AGRIBALYSE change report.]\n\n - supporting LCI (based on the project ECOALIM).\nFlaxseed, 90% DM,\nTranslation : Lin oleagineux, 90% MS\nFunctional unit: Yield_ of 1ha.\nIncluded processes: The inventory includes soil cultivation, sowing, weed control, fertilization, pest and pathogen control, irrigation, harvest and transport to farm. Boundaries: from harvest to harvest.\nExcluded processes : soil enrichment products and post-harvest operations.\nRepresentativeness : statistical data in France, based on surveys and reliable expertise\nDirect emissions: NH3 (EMEP 2009 tier 2 for organic fertilisation + 2013 tier 2 for mineral fertilisation), NO (EMEP 2009), N2O (IPCC 2006 tier1), NO3- (Tailleurs et al.), erosion (RUSLE adapted for Agribalyse), P (SALCA-P adapted for Agribalyse), ETM (SALCA-ETM adapted for Agribalyse), Occupation and transformation of the soil (Ecoinvent v2 2007), pesticides (Ecoinvent v2 2007), biogenic CO2 and CO2 from Urea (IPCC 2006). The methodology of calculation is available in Ecoalim methodological guide.\nAllocation between crops: N and P from organic fertilizers, P and K mineral, nitrate.\nTechnology: efficient farming practices.\nTime period: 2008-2012.",
+    "displayName": "Graines de lin FR",
+    "elecKwh": 0,
+    "heatMJ": 0,
+    "id": "07fe355e-70c5-5294-8f27-46d8d01e7047",
+    "impacts": {
+      "ecs": 178.6
+    },
+    "landOccupation": 5.524,
+    "location": "FR",
+    "massPerUnit": null,
+    "metadata": {
+      "complements": {
+        "cropDiversity": 0,
+        "hedges": -9.26,
+        "permanentPasture": null,
+        "plotSize": -19.7
+      },
+      "defaultOrigin": "FR",
+      "ingredient": {
+        "baseIngredient": "flaxseed",
+        "cropGroup": "AUTRES OLEAGINEUX",
+        "density": 0.7,
+        "inediblePart": 0.2,
+        "processId": "3f7d5194-32eb-5b18-a009-b7a97389ac2f",
+        "rawToCookedRatio": 0.856,
+        "scenario": "reference",
+        "transportCooling": "always"
+      }
+    },
+    "qtyVariationRatio": 1.0,
+    "scopes": [
+      "food2"
+    ],
+    "source": "Agribalyse 3.2",
+    "unit": "kg",
+    "visible": true
+  },
+  {
+    "activityName": "Flaxseed, national average, animal feed, at farm gate {FR} U",
     "alias": "flaxseed-non-eu",
     "categories": [
       "ingredient",
@@ -16739,52 +16785,6 @@
         "rawToCookedRatio": 1.0,
         "scenario": "import",
         "transportCooling": "none"
-      }
-    },
-    "qtyVariationRatio": 1.0,
-    "scopes": [
-      "food2"
-    ],
-    "source": "Agribalyse 3.2",
-    "unit": "kg",
-    "visible": true
-  },
-  {
-    "activityName": "Flaxseed, straw, ret, Normandie, at farm gate {FR} U",
-    "alias": "flaxseed-fr",
-    "categories": [
-      "ingredient",
-      "material",
-      "material_type:fruits_and_vegetables"
-    ],
-    "comment": "Translated name : Paille de lin, roui, Normandie, France, à la sortie de l'exploitation\nFiber flaxseed production\nFrom the study : Bio-based and petrol-based door panel comparative LCA (Analyse de cycle de vie comparative de panneaux de porte biosourcé (PP/fibres de lin et chanvre) et pétrosourcé (ABS))\nThe AGRIBALYSE methodology is used. For the detailed methodology, see : https://www.ademe.fr/analyse-cycle-vie-comparative-panneaux-porte-biosource-ppfibres-lin-chanvre-petrosource-abs",
-    "displayName": "Graines de lin FR",
-    "elecKwh": 0,
-    "heatMJ": 0,
-    "id": "07fe355e-70c5-5294-8f27-46d8d01e7047",
-    "impacts": {
-      "ecs": 51.72
-    },
-    "landOccupation": 1.279,
-    "location": "FR",
-    "massPerUnit": null,
-    "metadata": {
-      "complements": {
-        "cropDiversity": 0,
-        "hedges": -2.14,
-        "permanentPasture": null,
-        "plotSize": -4.55
-      },
-      "defaultOrigin": "FR",
-      "ingredient": {
-        "baseIngredient": "flaxseed",
-        "cropGroup": "AUTRES OLEAGINEUX",
-        "density": 0.7,
-        "inediblePart": 0.2,
-        "processId": "cfdfa6e8-fd0c-51f9-89e4-2beccb0b66bc",
-        "rawToCookedRatio": 0.856,
-        "scenario": "reference",
-        "transportCooling": "always"
       }
     },
     "qtyVariationRatio": 1.0,

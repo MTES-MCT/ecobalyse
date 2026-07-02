@@ -1369,7 +1369,7 @@
     "visible": true
   },
   {
-    "activityName": "Flaxseed, straw, ret, Normandie, at farm gate {FR} U",
+    "activityName": "Flaxseed, national average, animal feed, at farm gate {FR} U",
     "alias": "flaxseed-fr",
     "baseIngredient": "flaxseed",
     "categories": [
@@ -1380,16 +1380,16 @@
     "density": 0.7,
     "ecosystemicServices": {
       "cropDiversity": 0,
-      "hedges": 2.14,
+      "hedges": 9.26,
       "permanentPasture": null,
-      "plotSize": 4.55
+      "plotSize": 19.7
     },
     "id": "07fe355e-70c5-5294-8f27-46d8d01e7047",
     "inediblePart": 0.2,
-    "landOccupation": 1.279,
+    "landOccupation": 5.524,
     "location": "FR",
     "name": "Graines de lin FR",
-    "processId": "cfdfa6e8-fd0c-51f9-89e4-2beccb0b66bc",
+    "processId": "3f7d5194-32eb-5b18-a009-b7a97389ac2f",
     "rawToCookedRatio": 0.856,
     "scenario": "reference",
     "transportCooling": "always",
