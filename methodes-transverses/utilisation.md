@@ -56,18 +56,23 @@ Les procédés sont indiqués dans l'[Explorateur de procédé](https://ecobalys
 
 ### Exemple 1 : cuisson à la poële de 100 g d'aliments
 
-* Le procédé "Cuisson à la poële" a un impact environnemental nul ( `I_i`=0) et de l'énergie associée comme Flux externe. Il a les attributs suivants :&#x20;
+* Le procédé "Cuisson à la poële" a de l'énergie associée comme Flux externe et un impact environnemental nul par ailleurs (`I_ICV` = 0). Il a les attributs suivants :&#x20;
   * `productmassdependent`&#x20;
   * `unit` : kg
   * `eleckWh` : 0.18 (kWh/kg)
   * `heatMJ` : 0.95 (MJ/kg)
-* La masse de produit est de 100g : `m_i`=0.1
-* `I_Energy` = 19.33 Pts/kWh pour l'électricité et 4.08 Pts/kWh pour la chaleur
+* La masse de produit est de 100g : `Q_i`=0.1
+* L'impact unitaire de l'électricité est de `I_elec` = 19.33 Pts/kWh
+* L'impact unitaire de la chaleur est de `I_chaleur` = 4.08 Pts/MJ
+
+$$
+I_{utilisation} = \sum_i{Q_i*(I_{ICV}+ eleckWh*I_{elec}+heatMJ*I_{chaleur}\big)}
+$$
 
 $$
 I_{utilisation} = \sum_i{m_i*\big(C_{use,i,current}*I_{i}+E_{use,i}*I_{Energy}\big)}
 $$
 
 $$
-I_{cuisson,poele} = I_{cuisson,poele} = 0.1*\big(1*0+0.18*19.33+0.95*4.08\big)=0.73 Pts
+I_{cuisson,poele} = 0.1*\big(0+0.18*19.33+0.95*4.08\big)=0.73 Pts
 $$

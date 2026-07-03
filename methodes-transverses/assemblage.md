@@ -48,12 +48,13 @@ Les procédés sont indiqués dans l'[Explorateur de procédé](https://ecobalys
 
 ### Exemple 1 : Assemblage d'un véhicule de 2 tonnes
 
-* Le procédé "Assemblage véhicule" a un impact environnemental nul ( `I_i`=0) et de l'énergie associée comme Flux externe :&#x20;
+* Le procédé "Assemblage véhicule" aa de l'énergie associée comme Flux externe et un impact environnemental nul par ailleurs (`I_ICV` = 0) :&#x20;
   * `unit` : kg
   * `eleckWh` : 1.5 (kWh/kg)
   * `heatMJ` : 3 (MJ/kg)
 * La masse de produit est de 2 tonnes : `Q_i`=2000
-* `I_Energy` = 14,06 Pts/kWh pour l'électricité et 4.08 Pts/kWh pour la chaleur
+* L'impact unitaire de l'électricité est de `I_elec` = 14,06 Pts/kWh
+* L'impact unitaire de la chaleur est de `I_chaleur` = 4.08 Pts/MJ
 
 $$
 I_{assemblage,vehicule} = \sum_i{Q_i*(eleckWh*I_{elec}+heatMJ*I_{chaleur}\big)}
