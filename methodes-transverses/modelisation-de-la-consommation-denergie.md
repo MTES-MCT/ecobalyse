@@ -1,8 +1,12 @@
-# ⚡ Energies des étapes de transformation
+# ⚡ Modélisation de la consommation d'énergie
+
+{% hint style="info" %}
+**Le principe de modélisation décrit dans cette page peut s'appliquer aux processus des étapes de transformation des matériaux, d'assemblage, de distribution et à l'utilisation des produits.**
+{% endhint %}
 
 ## Contexte
 
-Deux scénarios existent pour modéliser la consommation d'énergie des procédés de transformation mobilisés :&#x20;
+Deux scénarios existent pour modéliser la consommation d'énergie des processus :&#x20;
 
 **Scénario 1** : l'énergie est intégrée dans le procédé mobilisé (voir source et nom technique dans l'explorateur de procédés) en tant que Flux Interne,
 
@@ -18,11 +22,16 @@ Dans ce scénario 2, le coût environnemental de l'étape de transformation est 
 
 Cette page détaille le calcul dans le scénario 2.
 
+### Cas d'usages
+
+* **Etapes de transformation** : la transformation d'un matériau nécessite 10MJ de chaleur par kg de matériau transformé. Ces 10MJ/kg sont modélisés comme flux externe, de façon à y appliquer le mix énergétique du pays ou de la région où a lieu de processus
+* **Assemblage** : l'assemblage d'un produit nécessite 2kWh d'électricité par kg de produit. Ces 10MJ/kg sont modélisés comme flux externe, de façon à y appliquer le mix énergétique du pays ou de la région d'assemblage
+* **Distribution** : la transformation d'un matériau nécessite 200kWh d'électricité par m3 de produit. Ces 200kWh/m3 sont modélisés comme flux externe, de façon à y appliquer le mix énergétique retenu pour la distribution
+* **Utilisation** : l'utilisation d'un produit nécessite 3MJ de chaleur. Ces 3MJ/kg sont modélisés comme flux externe, de façon à y appliquer le mix énergétique du pays d'utilisation.
+
 ### Unités
 
 Dans Ecobalyse, la consommation d'électricité s'exprime en kilowatt.heures (kWh) et la chaleur en megajoules (MJ).
-
-Lorsque c'est nécessaire, une conversion entre MJ et kWh est alors appliquée (1 kWh = 3,6 MJ).&#x20;
 
 ## Méthodes de calcul (Scénario 2 : Flux Externe)
 
@@ -33,8 +42,9 @@ $$
 Avec :
 
 * `I_EnergieTransformation` : le cout environnemental relatif à la consommation d'énergie en tant que Flux externe pour l'étape de transformation considérée, exprimée en Pts d'impact
-* `M_Sortante` : la masse de produit après transformation, exprimée en kg
-* `E_Transformation` : l'énergie pour transformer la matière première en 1 kg de produit transformé, exprimé en kWh/kg pour l'électricité ou en MJ/kg pour la chaleur
+* `Q` : la quantité appelée du processus (exemple : masse de produit transformé), exprimée en unité du processus
+  * Pour les procédés des étapes de transformation, `Q` est la masse sortante de l'étape de transformation, exprimée en kg
+* `E_Transformation` : l'énergie pour transformer la matière première en 1 kg de produit transformé, exprimé en kWh/unité pour l'électricité et en MJ/unité pour la chaleur
 * `I_Energie` : le coût environnemental d'1 kWh d'électricité ou d'1 MJ de chaleur, exprimé en Pts/kWh ou Pts/MJ, et fonction du procédé retenu pour modéliser cette énergie.
 
 Exemples :&#x20;
@@ -46,7 +56,7 @@ Exemples :&#x20;
 
 Le flux externe d'énergie est modélisé avec un procédé correspondant à la zone géographique sélectionnée par l'utilisateur.
 
-<figure><img src="../../.gitbook/assets/image (290).png" alt=""><figcaption><p>Illustration de la zone géographique à préciser par l'utilisateur</p></figcaption></figure>
+<figure><img src="../.gitbook/assets/image (290).png" alt=""><figcaption><p>Illustration de la zone géographique à préciser par l'utilisateur</p></figcaption></figure>
 
 Trois cas sont possibles :&#x20;
 
@@ -74,7 +84,7 @@ Ecobalyse retient le choix d'un "majorant raisonnable" pour le cas où une infor
 * Pour la chaleur, le procédé "Monde" est retenu, puisqu'il n'y a pas de distinction pays par pays ici.
 {% endhint %}
 
-### Procédés de modélisation de l'Electricité
+### Procédés de modélisation de l'Electricité, hors étape d'Utilisation
 
 De manière générale, Ecobalyse utilise les procédés Ecoinvent moyenne tension des pays considérés (exemple pour la France : _market for electricity, medium voltage, FR_).
 
@@ -85,11 +95,11 @@ Ce choix présente deux limites :&#x20;
 * Ce choix n'est pas forcément représentatif de tous les industriels (qui peuvent aussi être raccordés en basse tension voire haute tension).
 {% endhint %}
 
-<figure><img src="../../.gitbook/assets/image (364).png" alt=""><figcaption></figcaption></figure>
+<figure><img src="../.gitbook/assets/image (364).png" alt=""><figcaption></figcaption></figure>
 
-<figure><img src="../../.gitbook/assets/image (363).png" alt=""><figcaption></figcaption></figure>
+<figure><img src="../.gitbook/assets/image (363).png" alt=""><figcaption></figcaption></figure>
 
-### Procédés de modélisation de la chaleur
+### Procédés de modélisation de la chaleur, hors étape d'Utilisation
 
 La base de données Ecoinvent ne propose pas de mix chaleur industrielle par zone géographique (ex : France, Europe, Asie, etc.).&#x20;
 
@@ -105,6 +115,13 @@ En l'absence de tels mix régionaux, Ecobalyse a construit deux procédés chale
 <table><thead><tr><th width="138">Zone</th><th width="204">Procédé chaleur Ecobalyse</th><th width="170">Sources de chaleur</th><th>Géographie utilisée (Ecoinvent)</th></tr></thead><tbody><tr><td>Europe</td><td>Heat mix (Europe)<br>Mix chaleur (Europe)</td><td><a data-footnote-ref href="#user-content-fn-1">44% gaz naturel / <br>56% autres</a></td><td>RER (Europe)</td></tr><tr><td>Rest of the world</td><td><p>Heat mix (World)</p><p>Mix chaleur (Monde) </p></td><td><a data-footnote-ref href="#user-content-fn-2">23% gaz naturel / <br>77% autres</a></td><td>GLO (Monde)</td></tr></tbody></table>
 
 Il en ressort que l'impact environnemental de la consommation de chaleur industrielle hors Europe est significativement plus élevée que celle en Europe (+73% en points d'impact).
+
+### Procédés de modélisation pour l'étape d'Utilisation
+
+* Ecobalyse utilise les procédés Ecoinvent basse tension du pays considérés, en l’occurrence la France : _market for electricity, low voltage, FR_
+* Ecobalyse utilise un procédé construit "Mix Chaleur (Europe)", décrit ci-dessus
+
+
 
 [^1]: Source : Etude Reuters : [https://www.reuters.com/markets/commodities/industrial-heat-set-major-energy-source-overhaul-by-2050-2023-04-11/](https://www.reuters.com/markets/commodities/industrial-heat-set-major-energy-source-overhaul-by-2050-2023-04-11/)
 

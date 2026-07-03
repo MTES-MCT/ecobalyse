@@ -34,7 +34,6 @@
 
 * [⚠️ Précisions sur les méthodes transverses](methodes-transverses/precisions-sur-les-methodes-transverses.md)
 * [🧩 Production des composants](methodes-transverses/production/README.md)
-  * [⚡ Energies des étapes de transformation](methodes-transverses/production/energies-des-etapes-de-transformation.md)
   * [◻️ Procédés Acier et Aluminium](methodes-transverses/production/procedes-acier-et-aluminium.md)
 * [🪛 Assemblage](methodes-transverses/assemblage.md)
 * [📦 Emballages](methodes-transverses/emballages.md)
@@ -46,6 +45,7 @@
 * [💡 Electricité à l'utilisation](methodes-transverses/electricite-a-lutilisation.md)
 * [⌛ Utilisation](methodes-transverses/utilisation.md)
 * [🗑️ Fin de vie des produits](methodes-transverses/fin-de-vie.md)
+* [⚡ Modélisation de la consommation d'énergie](methodes-transverses/modelisation-de-la-consommation-denergie.md)
 
 ## 🍕 Alimentaire
 
