@@ -349,18 +349,28 @@ pageFooter ({ clientUrl, enabledSections } as config) =
         )
         [ div [ class "FooterNavigation" ]
             [ Container.centered []
-                [ div [ class "row" ]
-                    [ div [ class "col-6 col-sm-4 col-md-3 col-lg-2" ]
+                [ div [ class "row gap-3" ]
+                    [ div [ class "col-md-3 col-lg-2" ]
                         [ mainMenuLinks enabledSections
                             |> List.map makeLink
                             |> List.map (List.singleton >> li [])
                             |> ul [ class "list-unstyled" ]
                         ]
-                    , div [ class "col-6 col-sm-4 col-md-3 col-lg-2" ]
+                    , div [ class "col-md-3 col-lg-2" ]
                         [ secondaryMenuLinks enabledSections
                             |> List.map makeLink
                             |> List.map (List.singleton >> li [])
                             |> ul [ class "list-unstyled" ]
+                        ]
+                    , div [ class "col-md-3 col-lg-2 d-flex justify-content-center" ]
+                        [ a
+                            [ href "https://jedonnemonavis.numerique.gouv.fr/Demarches/4223?button=4815"
+                            , target "_blank"
+                            , rel "noopener noreferrer"
+                            , title "Je donne mon avis - nouvelle fenêtre"
+                            ]
+                            [ img [ alt "Je donne mon avis", src "/img/jdma.svg" ] []
+                            ]
                         ]
                     ]
                 ]
