@@ -9,12 +9,12 @@
   "id": "1782b099-df28-5c5f-b2e4-17ac2e60583e",
   "metadata": [
     {
-      "alias": "milk-organic-2025",
+      "alias": "cow-milk-organic",
       "animalGroup1": "cattle",
       "animalGroup2": "cow",
       "animalProduct": "milk",
       "defaultOrigin": "France",
-      "displayName": "Lait Bio (2025)",
+      "displayName": "Lait Bio",
       "id": "2bf307e8-8cb0-400b-a4f1-cf615d9e96f4",
       "inediblePart": 0,
       "ingredientCategories": [

@@ -48,6 +48,13 @@
     "soft-wheat-fr": 0.09,
     "soybean-br-deforestation": 0.06
   },
+  "cow-milk-organic": {
+    "grazed-grass-permanent-2025": 0.81,
+    "grazed-grass-temporary-2025": 0.58,
+    "silage-maize-organic-2025": 0.07,
+    "soft-wheat-organic": 0.05,
+    "triticale-organic-2025": 0.04
+  },
   "cull-cow-grass-fed-fr-live": {
     "grazed-grass-permanent-2025": 22.03
   },
@@ -111,13 +118,6 @@
     "silage-maize-fr-2025": 0.35,
     "soft-wheat-fr": 0.09,
     "soybean-br-deforestation": 0.06
-  },
-  "milk-organic-2025": {
-    "grazed-grass-permanent-2025": 0.81,
-    "grazed-grass-temporary-2025": 0.58,
-    "silage-maize-organic-2025": 0.07,
-    "soft-wheat-organic": 0.05,
-    "triticale-organic-2025": 0.04
   },
   "pig-bbc-fr-live": {
     "barley-2025": 0.29,

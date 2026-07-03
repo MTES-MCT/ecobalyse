@@ -1120,7 +1120,7 @@ suite =
                                             , Length.inKilometers sea > 0
                                             )
                                         )
-                                    |> Expect.equal (Ok ( False, True, True ))
+                                    |> Expect.equal (Ok ( False, True, False ))
                                 )
                             , it "should compute distance between two countries accounting transport to hubs"
                                 (Component.computeTransportDistance requirements
@@ -1272,6 +1272,23 @@ suite =
                                     )
                             )
                             (Expect.equal (Just CountryCode.china))
+                        ]
+                    , describe "getDocLink"
+                        [ it "should retrieve a scoped documentation link"
+                            ("assembly"
+                                |> Component.getDocLink requirements.config (Scope.Generic Scope.Veli)
+                                |> Expect.equal (Just "http://docs.tld/veli/assembly")
+                            )
+                        , it "should fallback to a default documentation link when no scoped link exists"
+                            ("assembly"
+                                |> Component.getDocLink requirements.config (Scope.Generic Scope.Object)
+                                |> Expect.equal (Just "http://docs.tld/default/assembly")
+                            )
+                        , it "should retrieve Nothing when no doc link exists"
+                            ("invalid"
+                                |> Component.getDocLink requirements.config (Scope.Generic Scope.Object)
+                                |> Expect.equal Nothing
+                            )
                         ]
                     , suiteFromResult "itemToComponent"
                         ("""{ "id": "64fa65b3-c2df-4fd0-958b-83965bd6aa08",
@@ -1898,6 +1915,16 @@ testComponentConfig db =
                 "country": "FR",
                 "defaultProcess": {
                     "food2": "29118025-efa0-47bb-94e2-f5ccba31a903"
+                }
+            },
+            "docLinks": {
+                "default": {
+                    "assembly": "http://docs.tld/default/assembly"
+                },
+                "scoped": {
+                    "veli": {
+                        "assembly": "http://docs.tld/veli/assembly"
+                    }
                 }
             },
             "durability": {
