@@ -60,27 +60,43 @@ Ces normes incluent les émissions liées à la combustion des carburants, mais 
 
 Les impacts de ces émissions en termes de santé humaine dans les métropoles denses sont plutôt faiblement pris en compte dans les données d'Inventaire d'Analyse de Cycle de vie, qui prennent en compte l'impact à l'échelle globale.
 
+### Durée de vie des véhicules
+
+Les durées de vie retenues pour chaque catégorie de véhicule sont celles indiquées dans les recommandations du projet TransSensus : [TranSensus LCA Consolidated Guidelines](https://lca4transport.eu/wp-content/uploads/2025/07/TranSensus-LCA_Consolidated-Guidelines_public-1.pdf). Elles sont adaptées pour les véhicules intermédiaires.
+
+<table><thead><tr><th width="261.49993896484375">Catégorie de véhicule</th><th width="281.60009765625">Durée de vie (km)</th></tr></thead><tbody><tr><td>VAE, &#x3C;25km/h</td><td>30 000</td></tr><tr><td>Cyclomoteur &#x3C;45km/h</td><td>45 000</td></tr><tr><td>Motos</td><td>75 000</td></tr><tr><td>L6 &#x3C;45km/h)</td><td>75 000</td></tr><tr><td>L7</td><td>150 000</td></tr><tr><td>Voiture</td><td>200 000</td></tr></tbody></table>
+
 ## Méthodes de calcul
 
 {% hint style="info" %}
-L'impact des émissions locales en terme de santé humaine dans les zones très dense apparait faiblement pris en compte à ce jour. Il pourrait faire l'objet d'un complément dans le futur (travaux en cours)
+La méthode décrite ci-dessous est en cours d'implémentation. D'ici-là, il est nécessaire de compléter la consommation sur la durée de vie du véhicule.
 {% endhint %}
+
+### Consommation d'énergie
 
 Le coût environnemental associé à la consommation d'énergie se calcule comme suit :
 
 $$
-I_{energie} = 100*D_{an}*T_{vie}*\sum_{0<i<n}C_i*I_i
+I_{energie} = \sum_{0<i<n}C_i*I_{i,vie}
 $$
 
 Avec&#x20;
 
 * `I_energie` : l'impact environnemental de la consommation d'énergie en phase utilisation, y compris émissions directes , dans l'unité de la catégorie d'impact analysée
-* `D_an` : le kilométrage annuel, en km\
-  Cette donnée est modifiable par l'utilisateur dans Ecobalyse.
-* `T_vie` : la durée de vie par défaut du véhicule, en années\
-  Cette donnée est  modifiable par l'utilisateur dans Ecobalyse.
 * `C_i` : la consommation de l'énergie i, en unité de l'énergie pour 100km
-* `I_i` :  l'impact environnemental associé à la consommation d'une unité de l'énergie `i`, y compris l'impact des émissions directes, en unité de la catégorie d'impact analysée par unité de l'énergie (Pts/L par exemple)
+* `I_i` :  l'impact environnemental sur la durée de vie du véhicule de la consommation d'une unité de l'énergie `i` pour 100km, en unité de la catégorie d'impact analysée par unité de l'énergie (Pts/L par exemple)
+
+{% hint style="info" %}
+Le pédalage est modélisé sur le même principe, avec des valeurs de consommation prédéfinies par Ecobalyse ([voir page dédiée](https://fabrique-numerique.gitbook.io/ecobalyse/vehicules/cycle-de-vie/utilisation-du-vehicule/vehicules-legers-actifs-ou-equipes-de-panneaux-photovoltaiques/energie-apportee-par-pedalage))&#x20;
+{% endhint %}
+
+### Émissions de particules
+
+Ces procédés sont créer pour modéliser directement les émissions selon les normes EURO pour la durée de vie du véhicule.
+
+{% hint style="info" %}
+L'impact des émissions locales en terme de santé humaine dans les zones très dense apparait faiblement pris en compte à ce jour. Il pourrait faire l'objet d'un complément dans le futur (travaux en cours)
+{% endhint %}
 
 ## Paramètres retenus pour le coût environnemental
 
@@ -105,3 +121,27 @@ Une correction devrait être prise en compte pour les véhicules hybrides rechar
 ## Procédés utilisés pour le coût environnemental
 
 Les procédés sont décrits dans l'Explorateur Ecobalyse.
+
+### Carburants
+
+Des procédés sont construits par Ecobalyse pour chaque catégorie de véhicules
+
+$$
+I_{i,vie} = 100*D_{vie}*I_{i,unitaire}
+$$
+
+Avec&#x20;
+
+* `I_i,vie` : l'impact environnemental sur la durée de vie du véhicule de la consommation d'une unité de l'énergie `i` pour 100km, en unité de la catégorie d'impact analysée par unité de l'énergie (Pts/L par exemple)
+* `D_vie` : la durée de vie du véhicule en kilomètre (voir [contexte](./#duree-de-vie-des-vehicules))&#x20;
+* `I_i` : l'impact environnemental associé à la consommation d'une unité de l'énergie `i`, en unité de la catégorie d'impact analysée par unité de l'énergie (Pts/L par exemple)
+  * Cela comprends les impacts liés à la fabrication du carburant ainsi que les impacts liés aux émissions à la consommation
+
+{% hint style="info" %}
+L'électricité est modélisée comme Flux externe (voir [Modélisation de la consommation d'énergie](https://fabrique-numerique.gitbook.io/ecobalyse/methodes-transverses/production/energies-des-etapes-de-transformation)).
+{% endhint %}
+
+### Emissions
+
+Des procédés sont construits par Ecobalyse pour quelques normes, en modélisant les principaux polluants (CO, HCNM/NMVOC, NOx, Particules) comme flux élémentaires dans la biosphère.
+
