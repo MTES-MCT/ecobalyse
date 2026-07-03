@@ -131,7 +131,8 @@ Il en ressort que l'impact environnemental de la consommation de chaleur industr
 ### Procédés de modélisation pour l'étape d'Utilisation
 
 * Ecobalyse utilise les procédés Ecoinvent basse tension du pays considérés, en l’occurrence la France : _market for electricity, low voltage, FR_
-* Ecobalyse utilise un procédé construit "Mix Chaleur (Europe)", décrit ci-dessus
+* Ecobalyse utilise un procédé Agribalyse 3.2 "Heat, central or small-scale, natural gas {Europe without Switzerland}| market for heat, central or small-scale, natural gas)"
+  * Appliqué uniquement à l'alimentaire à ce jour
 
 
 
