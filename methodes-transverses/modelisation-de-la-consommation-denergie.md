@@ -6,21 +6,17 @@
 
 ## Contexte
 
+### Principe
+
 Deux scénarios existent pour modéliser la consommation d'énergie des processus :&#x20;
 
 **Scénario 1** : l'énergie est intégrée dans le procédé mobilisé (voir source et nom technique dans l'explorateur de procédés) en tant que Flux Interne,
 
 **Scénario 2** : l'énergie est modélisée spécifiquement, avec des quantités et des mix géographiques dédiés. La quantité d'énergie est alors une information associée au procédé Ecobalyse en tant que Flux Externe. Une quantité d'électricité et/ou de chaleur par kg est alors indiquée dans les colonnes "Electricité" et "Chaleur" de l'Explorateur du secteur concerné, correspondant à ce Flux externe.
 
-Dans ce scénario 2, le coût environnemental de l'étape de transformation est la somme de plusieurs composantes :&#x20;
+**Cette seconde approche permet de calculer l'impact environnement de la consommation d'énergie en fonction de la zone géographique où a lieu le processus. Elle est donc retenue autant que possible.**
 
-* le cout environnemental de l'électricité, calculé à partir de la quantité d'électricité associée au procédé, et d'un procédé électricité sélectionné en fonction de la zone géographique concernée
-* le coût environnemental de la chaleur, calculée selon le même principe
-* le coût environnement du procédé hors électricité et chaleur. Celui peut être nul (pas de procédé source associé).
-  * exemples de cas où ce coût environnemental est à zero : procédés textile dégraissage, désencollage, mercerisage, teinture, tricotage
-  * exemples de cas où ce coût environnemental est non nul : blanchiment, délavage chimique)
-
-Cette page détaille le calcul dans le scénario 2.
+**Cette page détaille le calcul dans le scénario 2.**
 
 ### Cas d'usages
 
@@ -28,6 +24,22 @@ Cette page détaille le calcul dans le scénario 2.
 * **Assemblage** : l'assemblage d'un produit nécessite 2kWh d'électricité par kg de produit. Ces 10MJ/kg sont modélisés comme flux externe, de façon à y appliquer le mix énergétique du pays ou de la région d'assemblage
 * **Distribution** : la transformation d'un matériau nécessite 200kWh d'électricité par m3 de produit. Ces 200kWh/m3 sont modélisés comme flux externe, de façon à y appliquer le mix énergétique retenu pour la distribution
 * **Utilisation** : l'utilisation d'un produit nécessite 3MJ de chaleur. Ces 3MJ/kg sont modélisés comme flux externe, de façon à y appliquer le mix énergétique du pays d'utilisation.
+
+### Calcul de l'impact du processus
+
+Le coût environnemental du processus est la somme de plusieurs composantes :&#x20;
+
+* le cout environnemental de l'électricité, calculé à partir de la quantité d'électricité associée au procédé, et d'un procédé électricité sélectionné en fonction de la zone géographique concernée
+* le coût environnemental de la chaleur, calculée selon le même principe
+* le coût environnement du procédé hors électricité et chaleur. Celui-ci peut être nul (pas de procédé source associé).&#x20;
+  * Exemples de cas où ce coût environnemental est à zéro :&#x20;
+    * Procédés textile dégraissage, désencollage, mercerisage, teinture, tricotage
+    * La plupart des transformation de métaux
+    * Vente au détail (étape de distribution)
+    * Cuisson d'aliment, repassage de vêtement
+  * Exemples de cas où ce coût environnemental est non nul :&#x20;
+    * Blanchiment, délavage chimique
+    * Lavage des vêtements
 
 ### Unités
 
