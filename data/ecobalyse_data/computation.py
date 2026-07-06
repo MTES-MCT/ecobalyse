@@ -34,7 +34,7 @@ def check_duplicate_activities(activities: List[dict]) -> None:
     """
     keys = []
     for activity in activities:
-        # Skip activities with hardcoded impacts (source = "Custom") as they don't reference a BW activity
+        # Skip activities with hardcoded impacts (source = "Ecobalyse_manual_lcia") as they don't reference a BW activity
         if activity.get("impacts"):
             continue
         key = (
@@ -248,7 +248,7 @@ def compute_processes_for_activities(
                 impacts_py,
                 impacts_json,
                 factors,
-                False if eco_activity["source"] == "Ecobalyse" else simapro,
+                False if eco_activity["source"] == "Ecobalyse_custom_lci" else simapro,
             )
         )
 
@@ -461,7 +461,7 @@ def activity_to_process_with_impacts(
 
     bw_activity["unit"] = unit
 
-    # Some hardcoded activities (when source = Custom) don't have a bw_activity, in that case take the ecobalyse displayName
+    # Some hardcoded activities (when source = Ecobalyse_manual_lcia) don't have a bw_activity, in that case take the ecobalyse displayName
 
     # Get comment with consistent fallback logic:
     # 1. First try eco_activity

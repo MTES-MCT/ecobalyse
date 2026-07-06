@@ -137,8 +137,8 @@ def create_activity(
         if "id" in data:
             del data["id"]
         data["name"] = new_activity_name
-        data["System description"] = "Ecobalyse"
-        data["database"] = "Ecobalyse"
+        data["System description"] = "Ecobalyse_custom_lci"
+        data["database"] = "Ecobalyse_custom_lci"
         # see https://github.com/brightway-lca/brightway2-data/blob/main/CHANGES.md#40dev57-2024-10-03
         data["type"] = "processwithreferenceproduct"
         if location is not None:
@@ -153,7 +153,7 @@ def create_activity(
             "type": "processwithreferenceproduct",
             "comment": "",
             "name": new_activity_name,
-            "System description": "Ecobalyse",
+            "System description": "Ecobalyse_custom_lci",
             "location": location,
         }
         code = activity_hash(data)
@@ -165,11 +165,11 @@ def create_activity(
     return new_activity
 
 
-def add_created_activities(created_activities_db, activities_to_create):
+def add_created_activities(created_activities_db, custom_lci_file):
     """
-    Once the agribalyse database has been imported, add to the database the new activities defined in `ACTIVITIES_TO_CREATE.json`.
+    Once the agribalyse database has been imported, add to the database the new activities defined in `custom_lci.json`.
     """
-    with open(activities_to_create, "r") as f:
+    with open(custom_lci_file, "r") as f:
         activities_data = json.load(f)
 
     bw2data.Database(created_activities_db).register()
@@ -190,7 +190,7 @@ def add_activity_from_scratch(activity_data, dbname):
     """Add to the database dbname a new activity created from scratch
 
     Example : the "diesel, B7" activity is created from scratch with the following exchanges
-    defined in activities_to_create.json
+    defined in custom_lci.json
 
     "exchanges": [
       {

@@ -171,7 +171,7 @@ async def test_detailed_process_access(
         "qtyVariationRatio": 1.0,
         "massPerUnit": None,
         "scopes": ["textile"],
-        "source": "Custom",
+        "source": "Ecobalyse_manual_lcia",
         "unit": "kg",
     }
 
@@ -287,6 +287,6 @@ async def test_processes_access(
         "massPerUnit": None,
         "qtyVariationRatio": 1,
         "scopes": ["textile"],
-        "source": "Custom",
+        "source": "Ecobalyse_manual_lcia",
         "unit": "kg",
     }

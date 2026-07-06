@@ -19,7 +19,7 @@ def raw_to_transformed():
 
 @pytest.fixture(scope="module")
 def from_scratch_by_alias():
-    path = PROJECT_ROOT_DIR / "activities_to_create.json"
+    path = PROJECT_ROOT_DIR / "custom_lci.json"
     with open(path) as f:
         activities = json.load(f)
     return {
@@ -34,7 +34,7 @@ def test_entry_shape(raw_to_transformed):
     allowed_sources = {
         "brightway_manual",
         "brightway",
-        "cmaps_activities_to_create",
+        "cmaps_custom_lci",
         "cmaps",
         "manual",
     }
@@ -56,9 +56,7 @@ def test_entry_shape(raw_to_transformed):
             )
 
 
-def test_cmaps_rows_match_activities_to_create(
-    raw_to_transformed, from_scratch_by_alias
-):
+def test_cmaps_rows_match_custom_lci(raw_to_transformed, from_scratch_by_alias):
     """For every source=cmaps row: source_ref must be a from_scratch alias, and
     the ratio must equal that activity's first exchange amount."""
     for raw_alias, products in raw_to_transformed.items():
@@ -70,12 +68,12 @@ def test_cmaps_rows_match_activities_to_create(
             assert ref, f"{location}: cmaps row must have a non-empty source_ref"
             assert ref in from_scratch_by_alias, (
                 f"{location}: source_ref '{ref}' not found as a from_scratch alias "
-                f"in activities_to_create.json"
+                f"in custom_lci.json"
             )
             exchanges = from_scratch_by_alias[ref].get("exchanges", [])
             assert exchanges, f"{location}: from_scratch '{ref}' has no exchanges"
             first_amount = exchanges[0].get("amount")
             assert first_amount == entry["ratio"], (
                 f"{location}: ratio {entry['ratio']} does not match first exchange "
-                f"amount {first_amount} of '{ref}' in activities_to_create.json"
+                f"amount {first_amount} of '{ref}' in custom_lci.json"
             )

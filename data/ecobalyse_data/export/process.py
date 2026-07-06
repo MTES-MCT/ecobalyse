@@ -55,7 +55,7 @@ def activities_to_processes(
                     f"-> The process '{process.activity_name}' has harcoded impacts, it can’t be plot, skipping."
                 )
                 continue
-            elif process.source == "Ecobalyse":
+            elif process.source == "Ecobalyse_custom_lci":
                 logger.warning(
                     f"-> The process '{process.activity_name}' has been constructed by 'Ecobalyse' and is not present in simapro, skipping."
                 )

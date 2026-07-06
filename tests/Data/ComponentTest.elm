@@ -2293,7 +2293,7 @@ dryDistribution =
                 "food2",
                 "object"
             ],
-            "source": "Custom",
+            "source": "Ecobalyse_manual_lcia",
             "unit": "m3"
         }
         """
@@ -2469,7 +2469,7 @@ sawing =
                 "massPerUnit": null,
                 "qtyVariationRatio": 0.5,
                 "scopes": ["object"],
-                "source": "Ecobalyse",
+                "source": "Ecobalyse_custom_lci",
                 "unit": "m3"
             }
         """

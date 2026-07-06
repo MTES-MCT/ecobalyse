@@ -64,13 +64,13 @@ To produce 1 kg of `beef-with-bone` you need 1.5 kg of `beef-cattle-conventional
 - `ratio` — kg of raw per kg of transformed.
 - `source` — one of:
   - `brightway_manual` — hand copy-pasted from a Brightway/Simapro activity exchange.
-  - `cmaps_activities_to_create` — taken from the first exchange of a `from_scratch` entry in `activities_to_create.json`
+  - `cmaps_custom_lci` — taken from the first exchange of a `from_scratch` entry in `custom_lci.json`
   - `manual` — neither of the above.
 - `source_ref` — free-text anchor a reviewer can use to find the ratio in the source system:
   - For `brightway`: the Brightway activity name (e.g. `Meat with bone, beef, for direct consumption {FR}`).
-  - For `cmaps`: the `alias` in `activities_to_create.json` (e.g. `blue-cheese-auvergne-v1`).
+  - For `cmaps`: the `alias` in `custom_lci.json` (e.g. `blue-cheese-auvergne-v1`).
 
 ### How to update
 
 - **Brightway rows.** Open Brightway, navigate to the activity, and copy the `amount` on the relevant exchange. Update `ratio` here and fill in `source_ref` with the activity name.
-- **CMAPS rows.** Ensure a `from_scratch` entry exists in `activities_to_create.json`. Set `ratio` equal to the first exchange's `amount`, `source` to `"cmaps"`, and `source_ref` to that entry's `alias`. The test `tests/test_raw_to_transformed_ratios.py::test_cmaps_rows_match_activities_to_create` enforces this consistency.
+- **CMAPS rows.** Ensure a `from_scratch` entry exists in `custom_lci.json`. Set `ratio` equal to the first exchange's `amount`, `source` to `"cmaps"`, and `source_ref` to that entry's `alias`. The test `tests/test_raw_to_transformed_ratios.py::test_cmaps_rows_match_custom_lci` enforces this consistency.
