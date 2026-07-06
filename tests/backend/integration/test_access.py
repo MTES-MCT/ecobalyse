@@ -1,4 +1,6 @@
+import base64
 import datetime
+import json
 import time
 import urllib
 from typing import Any
@@ -426,6 +428,33 @@ async def test_token_generation(
     )
 
     assert response.status_code == 403
+
+
+async def test_token_forged_email_rejected(
+    client: "AsyncClient",
+    user_token_headers: dict[str, str],
+) -> None:
+    response = await client.post("/api/tokens", headers=user_token_headers)
+    assert response.status_code == 201
+    token = response.json()["token"]
+
+    response = await client.get("/api/me", headers={"Authorization": f"Bearer {token}"})
+    assert response.status_code == 200
+    assert response.json()["email"] == "user@example.com"
+
+    # rewrite the email to a superuser's one
+    payload = await TokenService.extract_payload(token)
+    payload["email"] = "superuser@example.com"
+    hacked_token = "eco_api_" + base64.urlsafe_b64encode(
+        json.dumps(payload).encode("utf-8")
+    ).decode("utf-8")
+    hacked_headers = {"Authorization": f"Bearer {hacked_token}"}
+
+    response = await client.get("/api/me", headers=hacked_headers)
+    assert response.status_code == 401
+
+    response = await client.get("/api/accounts", headers=hacked_headers)
+    assert response.status_code == 401
 
 
 async def test_generate_token_endpoint(

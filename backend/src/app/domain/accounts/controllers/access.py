@@ -179,8 +179,6 @@ class AccessController(Controller):
     ) -> None:
         """Validate a token"""
 
-        user_email = None
-
         cache_duration = settings.app.DEFAULT_TOKEN_VALIDATION_CACHE_SECONDS
 
         if cache_duration:
@@ -194,10 +192,20 @@ class AccessController(Controller):
         if data.token.startswith("eco_api_"):
             payload = await tokens_service.extract_payload(data.token)
 
-            await tokens_service.authenticate(
+            db_token = await tokens_service.authenticate(
                 secret=payload["secret"], token_id=payload["id"]
             )
-            user_email: str = payload["email"]
+            user: m.User | None = await users_service.get_one_or_none(
+                email=payload["email"]
+            )
+
+            # user not found
+            if user is None:
+                raise PermissionDeniedException(detail="Invalid token")
+
+            # user id doesn't match!
+            if db_token.user_id != user.id:
+                raise PermissionDeniedException(detail="Invalid token")
         else:
             try:
                 payload = Token.decode_payload(
@@ -207,9 +215,9 @@ class AccessController(Controller):
             except Exception:
                 raise PermissionDeniedException(detail="Error decoding Token")
 
-        user: m.User | None = await users_service.get_one_or_none(email=user_email)
+            user: m.User | None = await users_service.get_one_or_none(email=user_email)
 
-        if not user.profile.terms_accepted:
+        if not user or not user.profile.terms_accepted:
             raise PermissionDeniedException(
                 detail="You must accept the terms to have access to detailed impacts"
             )
