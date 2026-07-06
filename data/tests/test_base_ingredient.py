@@ -2,7 +2,7 @@ import json
 from collections import Counter
 
 from bin.export import _get_lcias
-from common.infer_metadata import infer_base_ingredient
+from common.infer_metadata import infer_base_ingredient, load_base_ingredients
 from config import PROJECT_ROOT_DIR
 
 
@@ -29,6 +29,19 @@ def test_infer_base_ingredient_covers_every_ingredient_alias():
     assert not alias_no_matching_bi, (
         f"{len(alias_no_matching_bi)} aliases with no matching baseIngredient: "
         f"{sorted(set(alias_no_matching_bi))}"
+    )
+
+
+def test_no_useless_base_ingredient():
+    """Every baseIngredient must refer to at least 1 ingredient alias"""
+    used = set()
+    for alias in _ingredient_aliases():
+        used.add(infer_base_ingredient(alias))
+
+    unused = sorted(set(load_base_ingredients()) - used)
+    assert not unused, (
+        f"{len(unused)} baseIngredients is useless as it refers to 0 ingredient alias "
+        f" remove them from base_ingredients.json: {unused}"
     )
 
 
