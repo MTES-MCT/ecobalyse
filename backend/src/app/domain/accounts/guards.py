@@ -131,8 +131,14 @@ async def current_user_from_token(
 
         db_token = await token_service.get_one_or_none(id=token_id)
 
-        if db_token and await crypt.verify_password(
-            token.extras.get("secret"), db_token.hashed_token
+        # ensure the token belongs to the user and the secret is valid
+        if (
+            db_token
+            and user
+            and db_token.user_id == user.id
+            and await crypt.verify_password(
+                token.extras.get("secret"), db_token.hashed_token
+            )
         ):
             db_token.last_accessed_at = now
             await token_service.repository.update(db_token)
