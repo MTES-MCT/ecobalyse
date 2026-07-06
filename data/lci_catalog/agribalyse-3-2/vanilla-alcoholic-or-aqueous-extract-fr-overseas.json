@@ -49,7 +49,7 @@
       "visible": true
     },
     {
-      "alias": "vanilla-alcoholic-or-aqueou-extract-fr",
+      "alias": "vanilla-alcoholic-or-aqueous-extract-fr",
       "cropGroup": "AUTRES CULTURES INDUSTRIELLES",
       "cropGroupMatch": {
         "confidence": 1.0,

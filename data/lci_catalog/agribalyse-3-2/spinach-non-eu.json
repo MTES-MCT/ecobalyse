@@ -49,7 +49,7 @@
       "visible": true
     },
     {
-      "alias": "swis-chard-fr",
+      "alias": "swiss-chard-fr",
       "cropGroup": "LEGUMES-FLEURS",
       "cropGroupMatch": {
         "confidence": 1.0,
@@ -232,7 +232,7 @@
       "visible": true
     },
     {
-      "alias": "swis-chard-default",
+      "alias": "swiss-chard-default",
       "cropGroup": "LEGUMES-FLEURS",
       "cropGroupMatch": {
         "confidence": 1.0,
@@ -352,7 +352,7 @@
       "visible": true
     },
     {
-      "alias": "swis-chard-non-eu",
+      "alias": "swiss-chard-non-eu",
       "cropGroup": "LEGUMES-FLEURS",
       "cropGroupMatch": {
         "confidence": 1.0,

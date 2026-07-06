@@ -1,30 +1,32 @@
 {
-  "activityName": "White asparagus {FR}| white asparagus production | Cut-off, U - Copied from Ecoinvent U",
+  "activityName": "White asparagus, organic 2025 {FR}| white asparagus production | Cut-off, U",
   "categories": [
     "ingredient",
     "material",
     "material_type:fruits_and_vegetables"
   ],
-  "displayName": "Asperge FR",
-  "id": "292e6a05-0265-53c1-87a0-fe1ba0469d34",
+  "displayName": "Asperge Bio",
+  "id": "0489fd64-fd09-520b-9cf1-1c9e2e063747",
+  "location": "FR",
   "metadata": [
     {
-      "alias": "asparagu-fr",
+      "alias": "asparagus-organic",
       "cropGroup": "LEGUMES-FLEURS",
       "cropGroupMatch": {
         "confidence": 1.0,
         "rule": "vegetable default"
       },
       "defaultOrigin": "France",
-      "displayName": "Asperge FR",
-      "id": "99549acf-9987-59a9-b5de-98b5b1dd830a",
+      "displayName": "Asperge Bio",
+      "id": "13cce78b-d1f8-5dba-a633-aa0d0d1c86a1",
       "inediblePart": 0.4,
       "inediblePartMatch": {
         "confidence": 1.0,
         "rule": "Matched with Asparagus in agb_inedible.csv"
       },
       "ingredientCategories": [
-        "vegetable_fresh"
+        "vegetable_fresh",
+        "organic"
       ],
       "ingredientDensity": 0.9,
       "ingredientDensityMatch": {
@@ -36,7 +38,7 @@
         "confidence": 1.0,
         "rule": "vegetable default from food_type_cooked_to_raw.csv"
       },
-      "scenario": "reference",
+      "scenario": "organic",
       "scopes": [
         "food",
         "food2"
@@ -49,22 +51,23 @@
       "visible": true
     },
     {
-      "alias": "bamboo-shoot-fr",
+      "alias": "bamboo-shoot-organic",
       "cropGroup": "LEGUMES-FLEURS",
       "cropGroupMatch": {
         "confidence": 1.0,
         "rule": "vegetable default"
       },
       "defaultOrigin": "France",
-      "displayName": "Pousses de bambou FR",
-      "id": "dd25d91e-cec8-548c-9041-147b79ff7970",
+      "displayName": "Pousses de bambou Bio",
+      "id": "8393b6b9-7d87-56e4-b95c-0f68927438dd",
       "inediblePart": 0.2,
       "inediblePartMatch": {
         "confidence": 1.0,
         "rule": "vegetable NOVA 1 default from food_type_inedible_part.csv"
       },
       "ingredientCategories": [
-        "vegetable_fresh"
+        "vegetable_fresh",
+        "organic"
       ],
       "ingredientDensity": 0.9,
       "ingredientDensityMatch": {
@@ -76,47 +79,7 @@
         "confidence": 1.0,
         "rule": "vegetable default from food_type_cooked_to_raw.csv"
       },
-      "scenario": "reference",
-      "scopes": [
-        "food",
-        "food2"
-      ],
-      "transportCooling": "always",
-      "transportCoolingMatch": {
-        "confidence": 1.0,
-        "rule": "vegetable NOVA 1 → always (perishable)"
-      },
-      "visible": true
-    },
-    {
-      "alias": "asparagu-eu",
-      "cropGroup": "LEGUMES-FLEURS",
-      "cropGroupMatch": {
-        "confidence": 1.0,
-        "rule": "vegetable default"
-      },
-      "defaultOrigin": "EuropeAndMaghreb",
-      "displayName": "Asperge UE",
-      "id": "17db9fc3-6b58-540d-8c03-5664a6a3cda4",
-      "inediblePart": 0.4,
-      "inediblePartMatch": {
-        "confidence": 1.0,
-        "rule": "Matched with Asparagus in agb_inedible.csv"
-      },
-      "ingredientCategories": [
-        "vegetable_fresh"
-      ],
-      "ingredientDensity": 0.9,
-      "ingredientDensityMatch": {
-        "confidence": 1.0,
-        "rule": "asparagus found in density.csv"
-      },
-      "rawToCookedRatio": 0.856,
-      "rawToCookedRatioMatch": {
-        "confidence": 1.0,
-        "rule": "vegetable default from food_type_cooked_to_raw.csv"
-      },
-      "scenario": "import",
+      "scenario": "organic",
       "scopes": [
         "food",
         "food2"
@@ -133,6 +96,6 @@
     "food",
     "food2"
   ],
-  "source": "Agribalyse 3.2",
+  "source": "Ginko 2025",
   "unit": "kg"
 }

@@ -72,7 +72,7 @@
       "visible": true
     },
     {
-      "alias": "brussel-sprout-organic",
+      "alias": "brussels-sprout-organic",
       "cropGroup": "LEGUMES-FLEURS",
       "cropGroupMatch": {
         "confidence": 1.0,

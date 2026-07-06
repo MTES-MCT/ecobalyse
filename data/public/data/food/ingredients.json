@@ -1609,8 +1609,8 @@
   },
   {
     "activityName": "White asparagus {CN}| white asparagus production | Cut-off, U",
-    "alias": "asparagu-non-eu",
-    "baseIngredient": "asparagu",
+    "alias": "asparagus-non-eu",
+    "baseIngredient": "asparagus",
     "categories": [
       "vegetable_fresh"
     ],
@@ -2276,8 +2276,8 @@
   },
   {
     "activityName": "Almond, consumption mix {FR} U",
-    "alias": "almond-inshell-ue-2025",
-    "baseIngredient": "almond-inshell",
+    "alias": "almond-in-shell-ue-2025",
+    "baseIngredient": "almond-in-shell",
     "categories": [
       "nut_oilseed_raw"
     ],
@@ -2915,8 +2915,8 @@
   },
   {
     "activityName": "Spinach, organic 2025 {GLO}| production | Cut-off, U",
-    "alias": "swis-chard-organic",
-    "baseIngredient": "swis-chard",
+    "alias": "swiss-chard-organic",
+    "baseIngredient": "swiss-chard",
     "categories": [
       "vegetable_fresh",
       "organic"
@@ -3074,8 +3074,8 @@
   },
   {
     "activityName": "Bell pepper {FR}| bell pepper production, in unheated greenhouse | Cut-off, U - Adapted from Ecoinvent U",
-    "alias": "bellpepper-unheated-greenhouse-eu-2025",
-    "baseIngredient": "bellpepper",
+    "alias": "bell-pepper-unheated-greenhouse-eu-2025",
+    "baseIngredient": "bell-pepper",
     "categories": [
       "vegetable_fresh"
     ],
@@ -3237,8 +3237,8 @@
   },
   {
     "activityName": "Spinach {CH}| spinach production, conventional, plain region | Cut-off, U",
-    "alias": "swis-chard-eu",
-    "baseIngredient": "swis-chard",
+    "alias": "swiss-chard-eu",
+    "baseIngredient": "swiss-chard",
     "categories": [
       "vegetable_fresh"
     ],
@@ -3291,8 +3291,8 @@
   },
   {
     "activityName": "White asparagus, organic 2025 {FR}| white asparagus production | Cut-off, U",
-    "alias": "asparagu-organic",
-    "baseIngredient": "asparagu",
+    "alias": "asparagus-organic",
+    "baseIngredient": "asparagus",
     "categories": [
       "vegetable_fresh",
       "organic"
@@ -3748,8 +3748,8 @@
   },
   {
     "activityName": "Fresh shrimps, China production {FR} U",
-    "alias": "unknwon-fishery-products-2025",
-    "baseIngredient": "unknwon-fishery-products",
+    "alias": "unknown-fishery-products-2025",
+    "baseIngredient": "unknown-fishery-products",
     "categories": [
       "animal_product"
     ],
@@ -3983,8 +3983,8 @@
   },
   {
     "activityName": "Walnut, dried inshell, traditional varieties, organic, at farm gate {FR} U",
-    "alias": "chesnut-inshell-organic-2025",
-    "baseIngredient": "chesnut-inshell",
+    "alias": "chestnut-inshell-organic-2025",
+    "baseIngredient": "chestnut-inshell",
     "categories": [
       "nut_oilseed_raw",
       "organic"
@@ -4087,8 +4087,8 @@
   },
   {
     "activityName": "White asparagus {FR}| white asparagus production | Cut-off, U - Copied from Ecoinvent U",
-    "alias": "asparagu-eu",
-    "baseIngredient": "asparagu",
+    "alias": "asparagus-eu",
+    "baseIngredient": "asparagus",
     "categories": [
       "vegetable_fresh"
     ],
@@ -4141,8 +4141,8 @@
   },
   {
     "activityName": "Cauliflower {GLO}| cauliflower production | Cut-off, U",
-    "alias": "brussel-sprout-default",
-    "baseIngredient": "brussel-sprout",
+    "alias": "brussels-sprout-default",
+    "baseIngredient": "brussels-sprout",
     "categories": [
       "vegetable_fresh"
     ],
@@ -6429,8 +6429,8 @@
   },
   {
     "activityName": "Spinach {GLO}| production | Cut-off, U - Adapted from Ecoinvent U",
-    "alias": "swis-chard-fr",
-    "baseIngredient": "swis-chard",
+    "alias": "swiss-chard-fr",
+    "baseIngredient": "swiss-chard",
     "categories": [
       "vegetable_fresh"
     ],
@@ -7076,8 +7076,8 @@
   },
   {
     "activityName": "Cauliflower, conventional, national average, at farm gate {FR} U",
-    "alias": "brussel-sprout-eu",
-    "baseIngredient": "brussel-sprout",
+    "alias": "brussels-sprout-eu",
+    "baseIngredient": "brussels-sprout",
     "categories": [
       "vegetable_fresh"
     ],
@@ -8313,8 +8313,8 @@
   },
   {
     "activityName": "Bell pepper {FR}| bell pepper production, in unheated greenhouse | Cut-off, U - Adapted from Ecoinvent U",
-    "alias": "bellpepper-unheated-greenhouse-fr-2025",
-    "baseIngredient": "bellpepper",
+    "alias": "bell-pepper-unheated-greenhouse-fr-2025",
+    "baseIngredient": "bell-pepper",
     "categories": [
       "vegetable_fresh"
     ],
@@ -8449,8 +8449,8 @@
   },
   {
     "activityName": "Cauliflower {GLO}| cauliflower production | Cut-off, U",
-    "alias": "brussel-sprout-non-eu",
-    "baseIngredient": "brussel-sprout",
+    "alias": "brussels-sprout-non-eu",
+    "baseIngredient": "brussels-sprout",
     "categories": [
       "vegetable_fresh"
     ],
@@ -8523,8 +8523,8 @@
   },
   {
     "activityName": "Asparagus, at farm (WFLDB)",
-    "alias": "asparagu-default",
-    "baseIngredient": "asparagu",
+    "alias": "asparagus-default",
+    "baseIngredient": "asparagus",
     "categories": [
       "vegetable_fresh"
     ],
@@ -8900,8 +8900,8 @@
   },
   {
     "activityName": "Almond, consumption mix {FR} U",
-    "alias": "almond-inshell-fr-2025",
-    "baseIngredient": "almond-inshell",
+    "alias": "almond-in-shell-fr-2025",
+    "baseIngredient": "almond-in-shell",
     "categories": [
       "nut_oilseed_raw"
     ],
@@ -9134,8 +9134,8 @@
   },
   {
     "activityName": "Spinach {GLO}| production | Cut-off, U - Adapted from Ecoinvent U",
-    "alias": "swis-chard-default",
-    "baseIngredient": "swis-chard",
+    "alias": "swiss-chard-default",
+    "baseIngredient": "swiss-chard",
     "categories": [
       "vegetable_fresh"
     ],
@@ -19315,8 +19315,8 @@
   },
   {
     "activityName": "Cauliflower, organic 2025, national average, at farm gate {FR} U",
-    "alias": "brussel-sprout-organic",
-    "baseIngredient": "brussel-sprout",
+    "alias": "brussels-sprout-organic",
+    "baseIngredient": "brussels-sprout",
     "categories": [
       "vegetable_fresh",
       "organic"
@@ -19933,8 +19933,8 @@
   },
   {
     "activityName": "Spinach {GLO}| production | Cut-off, U - Adapted from Ecoinvent U",
-    "alias": "swis-chard-non-eu",
-    "baseIngredient": "swis-chard",
+    "alias": "swiss-chard-non-eu",
+    "baseIngredient": "swiss-chard",
     "categories": [
       "vegetable_fresh"
     ],
@@ -22664,8 +22664,8 @@
   },
   {
     "activityName": "White asparagus {FR}| white asparagus production | Cut-off, U - Copied from Ecoinvent U",
-    "alias": "asparagu-fr",
-    "baseIngredient": "asparagu",
+    "alias": "asparagus-fr",
+    "baseIngredient": "asparagus",
     "categories": [
       "vegetable_fresh"
     ],
@@ -22772,8 +22772,8 @@
   },
   {
     "activityName": "Almond, consumption mix {FR} U",
-    "alias": "almond-inshell-non-ue-2025",
-    "baseIngredient": "almond-inshell",
+    "alias": "almond-in-shell-non-ue-2025",
+    "baseIngredient": "almond-in-shell",
     "categories": [
       "nut_oilseed_raw"
     ],
@@ -27197,8 +27197,8 @@
   },
   {
     "activityName": "Almonds, in shell, at farm, organic 2025 {CN}",
-    "alias": "almond-inshell-organic-2025",
-    "baseIngredient": "almond-inshell",
+    "alias": "almond-in-shell-organic-2025",
+    "baseIngredient": "almond-in-shell",
     "categories": [
       "nut_oilseed_raw",
       "organic"
@@ -28508,8 +28508,8 @@
   },
   {
     "activityName": "Vanilla {MG}| vanilla production | Cut-off, U - Adapted from Ecoinvent U",
-    "alias": "vanilla-alcoholic-or-aqueou-extract-fr",
-    "baseIngredient": "vanilla-alcoholic-or-aqueou-extract",
+    "alias": "vanilla-alcoholic-or-aqueous-extract-fr",
+    "baseIngredient": "vanilla-alcoholic-or-aqueous-extract",
     "categories": [
       "spice_condiment_additive"
     ],
@@ -30787,8 +30787,8 @@
   },
   {
     "activityName": "Bell pepper {FR}| bell pepper production, in unheated greenhouse | Cut-off, U - Adapted from Ecoinvent U",
-    "alias": "bellpepper-unheated-greenhouse-non-eu-2025",
-    "baseIngredient": "bellpepper",
+    "alias": "bell-pepper-unheated-greenhouse-non-eu-2025",
+    "baseIngredient": "bell-pepper",
     "categories": [
       "vegetable_fresh"
     ],
@@ -35761,8 +35761,8 @@
   },
   {
     "activityName": "Fava bean, Swiss integrated production {CH}| fava bean production, Swiss integrated production, at farm | Cut-off, U - Adapted from Ecoinvent U",
-    "alias": "broad-beans-eu-2025",
-    "baseIngredient": "broad-beans",
+    "alias": "broad-bean-eu-2025",
+    "baseIngredient": "broad-bean",
     "categories": [
       "vegetable_fresh"
     ],
@@ -37707,8 +37707,8 @@
   },
   {
     "activityName": "Cauliflower, conventional, national average, at farm gate {FR} U",
-    "alias": "brussel-sprout-fr",
-    "baseIngredient": "brussel-sprout",
+    "alias": "brussels-sprout-fr",
+    "baseIngredient": "brussels-sprout",
     "categories": [
       "vegetable_fresh"
     ],

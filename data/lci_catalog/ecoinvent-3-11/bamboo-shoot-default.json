@@ -50,7 +50,7 @@
       "visible": true
     },
     {
-      "alias": "asparagu-non-eu",
+      "alias": "asparagus-non-eu",
       "cropGroup": "LEGUMES-FLEURS",
       "cropGroupMatch": {
         "confidence": 1.0,
