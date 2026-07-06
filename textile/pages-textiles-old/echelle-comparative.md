@@ -6,7 +6,7 @@ L'échelle permet de comparer des simulations dont les paramètres suivants sont
 
 * Type de produit / vêtement
 * Masse de produit fini
-* Matière première (en associant une matière première recyclée lorsque celle-ci est définie dans la page [Matière et filature](../../../textile/broken-reference/))
+* Matière première (en associant une matière première recyclée lorsque celle-ci est définie dans la page [Matière et filature](https://github.com/MTES-MCT/ecobalyse/blob/docs/textile/broken-reference/README.md))
 
 Dès lors, c'est bien le paramétrage des autres aspects (Tricotage / Tissage, Teinture, Confection, Transport aérien...) qui est à l'origine de la distribution illustrée par l'échelle comparative.
 
@@ -17,11 +17,11 @@ Dès lors, c'est bien le paramétrage des autres aspects (Tricotage / Tissage, T
 * Un repère "moyen" : Circuit Portugal moyen
 * Un repère "haut" : Circuit Inde majorant
 
-| Paramètre                                                                                                                 | Circuit France | Circuit Portugal moyen | Circuit Inde majorant |
-| ------------------------------------------------------------------------------------------------------------------------- | -------------- | ---------------------- | --------------------- |
-| <p>Tricotage / Tissage</p><p>Pays</p>                                                                                     | France         | Portugal               | Inde                  |
-| <p>Teinture</p><p>Pays</p>                                                                                                | France         | Portugal               | Inde                  |
-| <p>Teinture</p><p>Caractère majorant du procédé</p>                                                                       | 0%             | 50%                    | 100%                  |
-| <p>Confection</p><p>Pays</p>                                                                                              | France         | Portugal               | Inde                  |
-| [Qualité Intrinsèque](../../../textile/cycle-de-vie-des-produits-textiles/etape-6-utilisation.md#qualite-intrinseque) (Q) | 1              | 1                      | 1                     |
-| <p>Confection / Transport</p><p>Part de transport en avion</p>                                                            | 0%             | 33%                    | 100%                  |
+| Paramètre                                                                                                   | Circuit France | Circuit Portugal moyen | Circuit Inde majorant |
+| ----------------------------------------------------------------------------------------------------------- | -------------- | ---------------------- | --------------------- |
+| <p>Tricotage / Tissage</p><p>Pays</p>                                                                       | France         | Portugal               | Inde                  |
+| <p>Teinture</p><p>Pays</p>                                                                                  | France         | Portugal               | Inde                  |
+| <p>Teinture</p><p>Caractère majorant du procédé</p>                                                         | 0%             | 50%                    | 100%                  |
+| <p>Confection</p><p>Pays</p>                                                                                | France         | Portugal               | Inde                  |
+| [Qualité Intrinsèque](../cycle-de-vie-des-produits-textiles/etape-6-utilisation.md#qualite-intrinseque) (Q) | 1              | 1                      | 1                     |
+| <p>Confection / Transport</p><p>Part de transport en avion</p>                                              | 0%             | 33%                    | 100%                  |

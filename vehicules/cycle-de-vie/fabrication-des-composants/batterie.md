@@ -22,7 +22,9 @@ La batterie est modélisée comme un composant (voir [page générique](https://
 * Un procédé de transformation "Assemblage batterie" doit être ajouté aux cellules pour prendre en compte les opérations d'assemblage. Ce procédé est appliqué aux cellules uniquement pour permettre une facilité d'utilisation tout en s'intégrant dans la méthode de calcul générique d'Ecobalyse
 * Divers procédés permettent de modéliser les différents matériaux utilisés dans la fabrication de batterie
 
-L'outil XLS suivant permet de construire les composants batteries&#x20;
+L'outil XLS suivant permet de construire les composants batteries :&#x20;
+
+{% file src="../../../.gitbook/assets/Battery inventory Ecobalyse 20260706 - public version.xlsx" %}
 
 ## Procédés utilisés pour le coût environnemental
 
