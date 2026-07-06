@@ -4,6 +4,7 @@ port module Ports exposing
     , copyToClipboard
     , exportBookmarks
     , importBookmarks
+    , loadJeDonneMonAvis
     , loadRapidoc
     , removeBodyClass
     , saveStore
@@ -33,6 +34,9 @@ port exportBookmarks : () -> Cmd msg
 
 
 port importBookmarks : () -> Cmd msg
+
+
+port loadJeDonneMonAvis : () -> Cmd msg
 
 
 port loadRapidoc : String -> Cmd msg

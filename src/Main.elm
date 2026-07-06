@@ -134,6 +134,7 @@ init flags requestedUrl navKey =
             [ Ports.appStarted ()
             , Version.loadVersion VersionReceived
             , loadData { flags = flags, navKey = navKey, url = requestedUrl }
+            , Ports.loadJeDonneMonAvis ()
             ]
         )
 
