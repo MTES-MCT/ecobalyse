@@ -51,12 +51,14 @@ def get_changes(old, new, name, only_impacts=[], min_change=0.1, with_names=Fals
             else:
                 percent_change = 100 * (new_value - old_value) / old_value
 
+            percent_change = round(percent_change, 1)
+
             if abs(percent_change) > min_change:
                 changes.append(
                     {
                         "trg": trigram,
                         "name": name,
-                        "%diff": round(percent_change, 1),
+                        "%diff": percent_change,
                         "from": old_value,
                         "to": new_value,
                         "DB change": show_change(old["source"], new["source"]),
@@ -100,7 +102,7 @@ def display_changes(
     oldprocesses,
     processes,
     only_impacts=[],
-    min_change=0,
+    min_change=0.1,
     with_names=False,
 ):
     """Display a nice sorted table of impact changes to review
