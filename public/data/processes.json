@@ -27964,7 +27964,7 @@
   },
   {
     "activityName": "Almond, consumption mix {FR} U",
-    "alias": "almond-inshell-fr-2025",
+    "alias": "almond-in-shell-fr-2025",
     "categories": [
       "ingredient",
       "material",
@@ -27990,7 +27990,7 @@
       },
       "defaultOrigin": "FR",
       "ingredient": {
-        "baseIngredient": "almond-inshell",
+        "baseIngredient": "almond-in-shell",
         "cropGroup": "FRUITS A COQUES",
         "density": 0.72,
         "inediblePart": 0.5,
@@ -28010,7 +28010,7 @@
   },
   {
     "activityName": "Almond, consumption mix {FR} U",
-    "alias": "almond-inshell-non-ue-2025",
+    "alias": "almond-in-shell-non-ue-2025",
     "categories": [
       "ingredient",
       "material",
@@ -28036,7 +28036,7 @@
       },
       "defaultOrigin": null,
       "ingredient": {
-        "baseIngredient": "almond-inshell",
+        "baseIngredient": "almond-in-shell",
         "cropGroup": "FRUITS A COQUES",
         "density": 0.72,
         "inediblePart": 0.5,
@@ -28056,7 +28056,7 @@
   },
   {
     "activityName": "Almond, consumption mix {FR} U",
-    "alias": "almond-inshell-ue-2025",
+    "alias": "almond-in-shell-ue-2025",
     "categories": [
       "ingredient",
       "material",
@@ -28082,7 +28082,7 @@
       },
       "defaultOrigin": "REM",
       "ingredient": {
-        "baseIngredient": "almond-inshell",
+        "baseIngredient": "almond-in-shell",
         "cropGroup": "FRUITS A COQUES",
         "density": 0.72,
         "inediblePart": 0.5,
@@ -30396,7 +30396,7 @@
   },
   {
     "activityName": "Bell pepper {FR}| bell pepper production, in unheated greenhouse | Cut-off, U - Adapted from Ecoinvent U",
-    "alias": "bellpepper-unheated-greenhouse-eu-2025",
+    "alias": "bell-pepper-unheated-greenhouse-eu-2025",
     "categories": [
       "ingredient",
       "material",
@@ -30422,7 +30422,7 @@
       },
       "defaultOrigin": "REM",
       "ingredient": {
-        "baseIngredient": "bellpepper",
+        "baseIngredient": "bell-pepper",
         "cropGroup": "LEGUMES-FLEURS",
         "density": 0.295,
         "inediblePart": 0.03,
@@ -30442,7 +30442,7 @@
   },
   {
     "activityName": "Bell pepper {FR}| bell pepper production, in unheated greenhouse | Cut-off, U - Adapted from Ecoinvent U",
-    "alias": "bellpepper-unheated-greenhouse-fr-2025",
+    "alias": "bell-pepper-unheated-greenhouse-fr-2025",
     "categories": [
       "ingredient",
       "material",
@@ -30468,7 +30468,7 @@
       },
       "defaultOrigin": "FR",
       "ingredient": {
-        "baseIngredient": "bellpepper",
+        "baseIngredient": "bell-pepper",
         "cropGroup": "LEGUMES-FLEURS",
         "density": 0.295,
         "inediblePart": 0.03,
@@ -30488,7 +30488,7 @@
   },
   {
     "activityName": "Bell pepper {FR}| bell pepper production, in unheated greenhouse | Cut-off, U - Adapted from Ecoinvent U",
-    "alias": "bellpepper-unheated-greenhouse-non-eu-2025",
+    "alias": "bell-pepper-unheated-greenhouse-non-eu-2025",
     "categories": [
       "ingredient",
       "material",
@@ -30514,7 +30514,7 @@
       },
       "defaultOrigin": null,
       "ingredient": {
-        "baseIngredient": "bellpepper",
+        "baseIngredient": "bell-pepper",
         "cropGroup": "LEGUMES-FLEURS",
         "density": 0.295,
         "inediblePart": 0.03,
@@ -35066,7 +35066,7 @@
   },
   {
     "activityName": "Cauliflower, conventional, national average, at farm gate {FR} U",
-    "alias": "brussel-sprout-eu",
+    "alias": "brussels-sprout-eu",
     "categories": [
       "ingredient",
       "material",
@@ -35092,7 +35092,7 @@
       },
       "defaultOrigin": "REM",
       "ingredient": {
-        "baseIngredient": "brussel-sprout",
+        "baseIngredient": "brussels-sprout",
         "cropGroup": "LEGUMES-FLEURS",
         "density": 0.9,
         "inediblePart": 0.1,
@@ -35112,7 +35112,7 @@
   },
   {
     "activityName": "Cauliflower, conventional, national average, at farm gate {FR} U",
-    "alias": "brussel-sprout-fr",
+    "alias": "brussels-sprout-fr",
     "categories": [
       "ingredient",
       "material",
@@ -35138,7 +35138,7 @@
       },
       "defaultOrigin": "FR",
       "ingredient": {
-        "baseIngredient": "brussel-sprout",
+        "baseIngredient": "brussels-sprout",
         "cropGroup": "LEGUMES-FLEURS",
         "density": 0.9,
         "inediblePart": 0.1,
@@ -42160,6 +42160,52 @@
   },
   {
     "activityName": "Fava bean, Swiss integrated production {CH}| fava bean production, Swiss integrated production, at farm | Cut-off, U - Adapted from Ecoinvent U",
+    "alias": "broad-bean-eu-2025",
+    "categories": [
+      "ingredient",
+      "material",
+      "material_type:other_food_items"
+    ],
+    "comment": "AGRIBALYSE v3.2 dataset, 2024.\noriginal ecoinvent name: Fava bean, Swiss integrated production {CH}| fava bean production, Swiss integrated production, at farm | Cut-off, U\n\nThis dataset represents the production of 1 kg of fava beans (fresh matter). The Yield_ is 3782 kg/ha at a moisture content at storage of 13%.\n\nNone\n\n[This dataset was already contained in the ecoinvent database version 2. It was not individually updated during the transfer to ecoinvent version 3. Life Cycle Impact Assessment results may still have changed, as they are affected by changes in the supply chain, i.e. in other datasets. This dataset was generated following the ecoinvent quality guidelines for version 2. It may have been subject to central changes described in the ecoinvent version 3 change report (http://www.ecoinvent.org/database/ecoinvent-version-3/reports-of-changes/), and the results of the central updates were reviewed extensively. The changes added e.g. consistent water flows and other information throughout the database. The documentation of this dataset can be found in the ecoinvent reports of version 2, which are still available via the ecoinvent website. The change report linked above covers all central changes that were made during the conversion process.]\n\nProduction volume: 4 kg\nIncluded activities start: This activity starts after the harvest of the previous crop. The inputs of seeds, mineral fertilisers and pesticides are considered. Farm manure as an organic fertiliser is only accounted for in terms of direct field emissions; all pre-processes are included in the animal production systems.\nIncluded activities end: The dataset includes all machine operations and corresponding machine infrastructure and sheds. Machine operations are: soil cultivation, sowing, fertilisation, weed control, pest and pathogen control, combine-harvest, transport from field to regional processing centre (10 km) and drying of grains. Further, direct field emissions are included. The cultivation of green manure during winter before sowing beans is also included. This activity ends after drying of grains at the regional processing centre.\nEnergy values: Undefined\nGeography: The inventory is modelled for Switzerland\nTechnology level: Current\nTechnology: Integrated production\nStart date: 01/01/1996\nEnd date: 31/12/2022\nIs data valid for entire period: True\nTime period: The Yield_ data have been collected for the years 1996-2003.\nMacro-economic scenario name: Business-as-Usual\n\nVersion: 27.3.0.0\nCreated: 7/28/2010 6:07:08 PM\nLast edited: 5/6/2019 2:11:57 PM\nSource: 391a9cb3-f5a7-555f-bcd3-08f634cb357a_6eacd019-d0e5-42eb-8a50-060f17d5fee2.spold\nUUID: 391a9cb3-f5a7-555f-bcd3-08f634cb357a",
+    "displayName": "Fève UE (2025)",
+    "elecKwh": 0,
+    "heatMJ": 0,
+    "id": "ec58c11c-c5fd-4884-8d66-3d434aa1da1d",
+    "impacts": {
+      "ecs": 61.73
+    },
+    "landOccupation": 2.802,
+    "location": "CH",
+    "massPerUnit": null,
+    "metadata": {
+      "complements": {
+        "cropDiversity": 0,
+        "hedges": 0,
+        "permanentPasture": null,
+        "plotSize": 0
+      },
+      "defaultOrigin": "REM",
+      "ingredient": {
+        "baseIngredient": "broad-bean",
+        "cropGroup": "PROTEAGINEUX",
+        "density": 0.72,
+        "inediblePart": 0.2,
+        "processId": "18d33ded-b853-5f0a-a0dc-2337cc4d9553",
+        "rawToCookedRatio": 2.33,
+        "scenario": "import",
+        "transportCooling": "none"
+      }
+    },
+    "qtyVariationRatio": 1.0,
+    "scopes": [
+      "food2"
+    ],
+    "source": "Agribalyse 3.2",
+    "unit": "kg",
+    "visible": true
+  },
+  {
+    "activityName": "Fava bean, Swiss integrated production {CH}| fava bean production, Swiss integrated production, at farm | Cut-off, U - Adapted from Ecoinvent U",
     "alias": "broad-bean-fr",
     "categories": [
       "ingredient",
@@ -42194,52 +42240,6 @@
         "rawToCookedRatio": 0.856,
         "scenario": "reference",
         "transportCooling": "always"
-      }
-    },
-    "qtyVariationRatio": 1.0,
-    "scopes": [
-      "food2"
-    ],
-    "source": "Agribalyse 3.2",
-    "unit": "kg",
-    "visible": true
-  },
-  {
-    "activityName": "Fava bean, Swiss integrated production {CH}| fava bean production, Swiss integrated production, at farm | Cut-off, U - Adapted from Ecoinvent U",
-    "alias": "broad-beans-eu-2025",
-    "categories": [
-      "ingredient",
-      "material",
-      "material_type:other_food_items"
-    ],
-    "comment": "AGRIBALYSE v3.2 dataset, 2024.\noriginal ecoinvent name: Fava bean, Swiss integrated production {CH}| fava bean production, Swiss integrated production, at farm | Cut-off, U\n\nThis dataset represents the production of 1 kg of fava beans (fresh matter). The Yield_ is 3782 kg/ha at a moisture content at storage of 13%.\n\nNone\n\n[This dataset was already contained in the ecoinvent database version 2. It was not individually updated during the transfer to ecoinvent version 3. Life Cycle Impact Assessment results may still have changed, as they are affected by changes in the supply chain, i.e. in other datasets. This dataset was generated following the ecoinvent quality guidelines for version 2. It may have been subject to central changes described in the ecoinvent version 3 change report (http://www.ecoinvent.org/database/ecoinvent-version-3/reports-of-changes/), and the results of the central updates were reviewed extensively. The changes added e.g. consistent water flows and other information throughout the database. The documentation of this dataset can be found in the ecoinvent reports of version 2, which are still available via the ecoinvent website. The change report linked above covers all central changes that were made during the conversion process.]\n\nProduction volume: 4 kg\nIncluded activities start: This activity starts after the harvest of the previous crop. The inputs of seeds, mineral fertilisers and pesticides are considered. Farm manure as an organic fertiliser is only accounted for in terms of direct field emissions; all pre-processes are included in the animal production systems.\nIncluded activities end: The dataset includes all machine operations and corresponding machine infrastructure and sheds. Machine operations are: soil cultivation, sowing, fertilisation, weed control, pest and pathogen control, combine-harvest, transport from field to regional processing centre (10 km) and drying of grains. Further, direct field emissions are included. The cultivation of green manure during winter before sowing beans is also included. This activity ends after drying of grains at the regional processing centre.\nEnergy values: Undefined\nGeography: The inventory is modelled for Switzerland\nTechnology level: Current\nTechnology: Integrated production\nStart date: 01/01/1996\nEnd date: 31/12/2022\nIs data valid for entire period: True\nTime period: The Yield_ data have been collected for the years 1996-2003.\nMacro-economic scenario name: Business-as-Usual\n\nVersion: 27.3.0.0\nCreated: 7/28/2010 6:07:08 PM\nLast edited: 5/6/2019 2:11:57 PM\nSource: 391a9cb3-f5a7-555f-bcd3-08f634cb357a_6eacd019-d0e5-42eb-8a50-060f17d5fee2.spold\nUUID: 391a9cb3-f5a7-555f-bcd3-08f634cb357a",
-    "displayName": "Fève UE (2025)",
-    "elecKwh": 0,
-    "heatMJ": 0,
-    "id": "ec58c11c-c5fd-4884-8d66-3d434aa1da1d",
-    "impacts": {
-      "ecs": 61.73
-    },
-    "landOccupation": 2.802,
-    "location": "CH",
-    "massPerUnit": null,
-    "metadata": {
-      "complements": {
-        "cropDiversity": 0,
-        "hedges": 0,
-        "permanentPasture": null,
-        "plotSize": 0
-      },
-      "defaultOrigin": "REM",
-      "ingredient": {
-        "baseIngredient": "broad-beans",
-        "cropGroup": "PROTEAGINEUX",
-        "density": 0.72,
-        "inediblePart": 0.2,
-        "processId": "18d33ded-b853-5f0a-a0dc-2337cc4d9553",
-        "rawToCookedRatio": 2.33,
-        "scenario": "import",
-        "transportCooling": "none"
       }
     },
     "qtyVariationRatio": 1.0,
@@ -45212,7 +45212,7 @@
   },
   {
     "activityName": "Fresh shrimps, China production {FR} U",
-    "alias": "unknwon-fishery-products-2025",
+    "alias": "unknown-fishery-products-2025",
     "categories": [
       "ingredient",
       "material",
@@ -45232,7 +45232,7 @@
     "metadata": {
       "defaultOrigin": null,
       "ingredient": {
-        "baseIngredient": "unknwon-fishery-products",
+        "baseIngredient": "unknown-fishery-products",
         "cropGroup": null,
         "density": 1.0,
         "inediblePart": 0.2,
@@ -63318,7 +63318,7 @@
   },
   {
     "activityName": "Spinach {GLO}| production | Cut-off, U - Adapted from Ecoinvent U",
-    "alias": "swis-chard-default",
+    "alias": "swiss-chard-default",
     "categories": [
       "ingredient",
       "material",
@@ -63344,99 +63344,7 @@
       },
       "defaultOrigin": null,
       "ingredient": {
-        "baseIngredient": "swis-chard",
-        "cropGroup": "LEGUMES-FLEURS",
-        "density": 0.9,
-        "inediblePart": 0.2,
-        "processId": "543622a6-3e36-58cd-b77c-66c678eb7959",
-        "rawToCookedRatio": 0.856,
-        "scenario": "import",
-        "transportCooling": "always"
-      }
-    },
-    "qtyVariationRatio": 1.0,
-    "scopes": [
-      "food2"
-    ],
-    "source": "Agribalyse 3.2",
-    "unit": "kg",
-    "visible": true
-  },
-  {
-    "activityName": "Spinach {GLO}| production | Cut-off, U - Adapted from Ecoinvent U",
-    "alias": "swis-chard-fr",
-    "categories": [
-      "ingredient",
-      "material",
-      "material_type:fruits_and_vegetables"
-    ],
-    "comment": "AGRIBALYSE v3.2 dataset, 2024.\noriginal ecoinvent name: Spinach {GLO}| spinach production | Cut-off, U\n\nThis dataset represents spinach production according to the Integrated Production standard in CH.\n\nYield: 25 t / ha.\n\nDuration of one cropping cycle: 1.25 months.\n\nField production.\n\nThe LCA study, from which this LCI has been derived, contains detailed descriptions of the system boundaries and the data sources used (Stoessel et al. 2012). The publication is published and freely available with comprehensive supporting information:\n\nhttp://pubs.acs.org/doi/pdf/10.1021/es2030577\n\nFranziska Stoessel, Ronnie Juraske, Stephan Pfister, Stefanie Hellweg. (2012) Life Cycle Inventory and Carbon and Water FoodPrint of Fruits and Vegetables: Application to a Swiss Retailer. Environmental Science & Technology 6(46) 3253-3262.\n\nNone\n\nThis activity was adapted to include the global average land use change (LUC) emissions according 2nd edition of the Quantis-modified tool developed by Blonk Consultants 'WFLDB-adapted-Blonk 2014 direct-land-use-change-assessment-tool_2015-05-18a.xlsx', tab. 'Country & land use unknown'. The size of the emission depends on (i) the relative crop expansion in all countries of the crop during the last 20 years and (ii) the corresponding, country specific land transformations. The current results are based on the average FAOSTAT data (harvested area) of 2009-2011 and 1989-1991. The weighted average is used which takes into account relative difference in crop expansion into primary forest, secondary forest, grassland, perennial and annual land.\n\nProduction volume: 18088361984 kg\nIncluded activities start: From sowing.\nIncluded activities end: This activity ends with harvest and storage. \nThe dataset includes a storage period of 0.15 month and it's use of electricity.  The pesticide inputs are classified according to their chemical classes and the emmssions are assigned to the soil (100%). \nMercury emissions are neglected due to a lack of data while other heavy metal emissions are included. The dataset doesn't include infrastructure for production and storage facilities. No transports for agricultural means of production from the regional storage to the farm are included.\nEnergy values: Undefined\nGeography: The inventory is modelled for Global\nTechnology level: Current\nTechnology: Integrated production\nStart date: 01/01/2010\nEnd date: 31/12/2022\nIs data valid for entire period: True\nTime period: \nMacro-economic scenario name: Business-as-Usual\n\nVersion: 9.3.0.0\nCreated: 5/14/2011 3:58:48 PM\nLast edited: 7/22/2016 11:03:50 AM\nSource: e4a00562-8b82-5559-af5a-fc02eb23f5e7_a47ddfcf-af07-4c1a-9914-1e30c941cd19.spold\nUUID: e4a00562-8b82-5559-af5a-fc02eb23f5e7",
-    "displayName": "Blette FR",
-    "elecKwh": 0,
-    "heatMJ": 0,
-    "id": "2920acc6-000a-4f43-9525-7d619d19f62e",
-    "impacts": {
-      "ecs": 44.26
-    },
-    "landOccupation": 0.04615,
-    "location": "GLO",
-    "massPerUnit": null,
-    "metadata": {
-      "complements": {
-        "cropDiversity": 0,
-        "hedges": -0.0732,
-        "permanentPasture": null,
-        "plotSize": -0.205
-      },
-      "defaultOrigin": "FR",
-      "ingredient": {
-        "baseIngredient": "swis-chard",
-        "cropGroup": "LEGUMES-FLEURS",
-        "density": 0.9,
-        "inediblePart": 0.2,
-        "processId": "543622a6-3e36-58cd-b77c-66c678eb7959",
-        "rawToCookedRatio": 0.856,
-        "scenario": "reference",
-        "transportCooling": "always"
-      }
-    },
-    "qtyVariationRatio": 1.0,
-    "scopes": [
-      "food2"
-    ],
-    "source": "Agribalyse 3.2",
-    "unit": "kg",
-    "visible": true
-  },
-  {
-    "activityName": "Spinach {GLO}| production | Cut-off, U - Adapted from Ecoinvent U",
-    "alias": "swis-chard-non-eu",
-    "categories": [
-      "ingredient",
-      "material",
-      "material_type:fruits_and_vegetables"
-    ],
-    "comment": "AGRIBALYSE v3.2 dataset, 2024.\noriginal ecoinvent name: Spinach {GLO}| spinach production | Cut-off, U\n\nThis dataset represents spinach production according to the Integrated Production standard in CH.\n\nYield: 25 t / ha.\n\nDuration of one cropping cycle: 1.25 months.\n\nField production.\n\nThe LCA study, from which this LCI has been derived, contains detailed descriptions of the system boundaries and the data sources used (Stoessel et al. 2012). The publication is published and freely available with comprehensive supporting information:\n\nhttp://pubs.acs.org/doi/pdf/10.1021/es2030577\n\nFranziska Stoessel, Ronnie Juraske, Stephan Pfister, Stefanie Hellweg. (2012) Life Cycle Inventory and Carbon and Water FoodPrint of Fruits and Vegetables: Application to a Swiss Retailer. Environmental Science & Technology 6(46) 3253-3262.\n\nNone\n\nThis activity was adapted to include the global average land use change (LUC) emissions according 2nd edition of the Quantis-modified tool developed by Blonk Consultants 'WFLDB-adapted-Blonk 2014 direct-land-use-change-assessment-tool_2015-05-18a.xlsx', tab. 'Country & land use unknown'. The size of the emission depends on (i) the relative crop expansion in all countries of the crop during the last 20 years and (ii) the corresponding, country specific land transformations. The current results are based on the average FAOSTAT data (harvested area) of 2009-2011 and 1989-1991. The weighted average is used which takes into account relative difference in crop expansion into primary forest, secondary forest, grassland, perennial and annual land.\n\nProduction volume: 18088361984 kg\nIncluded activities start: From sowing.\nIncluded activities end: This activity ends with harvest and storage. \nThe dataset includes a storage period of 0.15 month and it's use of electricity.  The pesticide inputs are classified according to their chemical classes and the emmssions are assigned to the soil (100%). \nMercury emissions are neglected due to a lack of data while other heavy metal emissions are included. The dataset doesn't include infrastructure for production and storage facilities. No transports for agricultural means of production from the regional storage to the farm are included.\nEnergy values: Undefined\nGeography: The inventory is modelled for Global\nTechnology level: Current\nTechnology: Integrated production\nStart date: 01/01/2010\nEnd date: 31/12/2022\nIs data valid for entire period: True\nTime period: \nMacro-economic scenario name: Business-as-Usual\n\nVersion: 9.3.0.0\nCreated: 5/14/2011 3:58:48 PM\nLast edited: 7/22/2016 11:03:50 AM\nSource: e4a00562-8b82-5559-af5a-fc02eb23f5e7_a47ddfcf-af07-4c1a-9914-1e30c941cd19.spold\nUUID: e4a00562-8b82-5559-af5a-fc02eb23f5e7",
-    "displayName": "Blette HORS UE",
-    "elecKwh": 0,
-    "heatMJ": 0,
-    "id": "8691479c-e41d-5850-89b0-b565245298ee",
-    "impacts": {
-      "ecs": 44.26
-    },
-    "landOccupation": 0.04615,
-    "location": "GLO",
-    "massPerUnit": null,
-    "metadata": {
-      "complements": {
-        "cropDiversity": 0,
-        "hedges": 0,
-        "permanentPasture": null,
-        "plotSize": 0
-      },
-      "defaultOrigin": null,
-      "ingredient": {
-        "baseIngredient": "swis-chard",
+        "baseIngredient": "swiss-chard",
         "cropGroup": "LEGUMES-FLEURS",
         "density": 0.9,
         "inediblePart": 0.2,
@@ -63486,6 +63394,98 @@
         "cropGroup": "AUTRES CULTURES INDUSTRIELLES",
         "density": 0.118,
         "inediblePart": 0.03,
+        "processId": "543622a6-3e36-58cd-b77c-66c678eb7959",
+        "rawToCookedRatio": 0.856,
+        "scenario": "import",
+        "transportCooling": "always"
+      }
+    },
+    "qtyVariationRatio": 1.0,
+    "scopes": [
+      "food2"
+    ],
+    "source": "Agribalyse 3.2",
+    "unit": "kg",
+    "visible": true
+  },
+  {
+    "activityName": "Spinach {GLO}| production | Cut-off, U - Adapted from Ecoinvent U",
+    "alias": "swiss-chard-fr",
+    "categories": [
+      "ingredient",
+      "material",
+      "material_type:fruits_and_vegetables"
+    ],
+    "comment": "AGRIBALYSE v3.2 dataset, 2024.\noriginal ecoinvent name: Spinach {GLO}| spinach production | Cut-off, U\n\nThis dataset represents spinach production according to the Integrated Production standard in CH.\n\nYield: 25 t / ha.\n\nDuration of one cropping cycle: 1.25 months.\n\nField production.\n\nThe LCA study, from which this LCI has been derived, contains detailed descriptions of the system boundaries and the data sources used (Stoessel et al. 2012). The publication is published and freely available with comprehensive supporting information:\n\nhttp://pubs.acs.org/doi/pdf/10.1021/es2030577\n\nFranziska Stoessel, Ronnie Juraske, Stephan Pfister, Stefanie Hellweg. (2012) Life Cycle Inventory and Carbon and Water FoodPrint of Fruits and Vegetables: Application to a Swiss Retailer. Environmental Science & Technology 6(46) 3253-3262.\n\nNone\n\nThis activity was adapted to include the global average land use change (LUC) emissions according 2nd edition of the Quantis-modified tool developed by Blonk Consultants 'WFLDB-adapted-Blonk 2014 direct-land-use-change-assessment-tool_2015-05-18a.xlsx', tab. 'Country & land use unknown'. The size of the emission depends on (i) the relative crop expansion in all countries of the crop during the last 20 years and (ii) the corresponding, country specific land transformations. The current results are based on the average FAOSTAT data (harvested area) of 2009-2011 and 1989-1991. The weighted average is used which takes into account relative difference in crop expansion into primary forest, secondary forest, grassland, perennial and annual land.\n\nProduction volume: 18088361984 kg\nIncluded activities start: From sowing.\nIncluded activities end: This activity ends with harvest and storage. \nThe dataset includes a storage period of 0.15 month and it's use of electricity.  The pesticide inputs are classified according to their chemical classes and the emmssions are assigned to the soil (100%). \nMercury emissions are neglected due to a lack of data while other heavy metal emissions are included. The dataset doesn't include infrastructure for production and storage facilities. No transports for agricultural means of production from the regional storage to the farm are included.\nEnergy values: Undefined\nGeography: The inventory is modelled for Global\nTechnology level: Current\nTechnology: Integrated production\nStart date: 01/01/2010\nEnd date: 31/12/2022\nIs data valid for entire period: True\nTime period: \nMacro-economic scenario name: Business-as-Usual\n\nVersion: 9.3.0.0\nCreated: 5/14/2011 3:58:48 PM\nLast edited: 7/22/2016 11:03:50 AM\nSource: e4a00562-8b82-5559-af5a-fc02eb23f5e7_a47ddfcf-af07-4c1a-9914-1e30c941cd19.spold\nUUID: e4a00562-8b82-5559-af5a-fc02eb23f5e7",
+    "displayName": "Blette FR",
+    "elecKwh": 0,
+    "heatMJ": 0,
+    "id": "2920acc6-000a-4f43-9525-7d619d19f62e",
+    "impacts": {
+      "ecs": 44.26
+    },
+    "landOccupation": 0.04615,
+    "location": "GLO",
+    "massPerUnit": null,
+    "metadata": {
+      "complements": {
+        "cropDiversity": 0,
+        "hedges": -0.0732,
+        "permanentPasture": null,
+        "plotSize": -0.205
+      },
+      "defaultOrigin": "FR",
+      "ingredient": {
+        "baseIngredient": "swiss-chard",
+        "cropGroup": "LEGUMES-FLEURS",
+        "density": 0.9,
+        "inediblePart": 0.2,
+        "processId": "543622a6-3e36-58cd-b77c-66c678eb7959",
+        "rawToCookedRatio": 0.856,
+        "scenario": "reference",
+        "transportCooling": "always"
+      }
+    },
+    "qtyVariationRatio": 1.0,
+    "scopes": [
+      "food2"
+    ],
+    "source": "Agribalyse 3.2",
+    "unit": "kg",
+    "visible": true
+  },
+  {
+    "activityName": "Spinach {GLO}| production | Cut-off, U - Adapted from Ecoinvent U",
+    "alias": "swiss-chard-non-eu",
+    "categories": [
+      "ingredient",
+      "material",
+      "material_type:fruits_and_vegetables"
+    ],
+    "comment": "AGRIBALYSE v3.2 dataset, 2024.\noriginal ecoinvent name: Spinach {GLO}| spinach production | Cut-off, U\n\nThis dataset represents spinach production according to the Integrated Production standard in CH.\n\nYield: 25 t / ha.\n\nDuration of one cropping cycle: 1.25 months.\n\nField production.\n\nThe LCA study, from which this LCI has been derived, contains detailed descriptions of the system boundaries and the data sources used (Stoessel et al. 2012). The publication is published and freely available with comprehensive supporting information:\n\nhttp://pubs.acs.org/doi/pdf/10.1021/es2030577\n\nFranziska Stoessel, Ronnie Juraske, Stephan Pfister, Stefanie Hellweg. (2012) Life Cycle Inventory and Carbon and Water FoodPrint of Fruits and Vegetables: Application to a Swiss Retailer. Environmental Science & Technology 6(46) 3253-3262.\n\nNone\n\nThis activity was adapted to include the global average land use change (LUC) emissions according 2nd edition of the Quantis-modified tool developed by Blonk Consultants 'WFLDB-adapted-Blonk 2014 direct-land-use-change-assessment-tool_2015-05-18a.xlsx', tab. 'Country & land use unknown'. The size of the emission depends on (i) the relative crop expansion in all countries of the crop during the last 20 years and (ii) the corresponding, country specific land transformations. The current results are based on the average FAOSTAT data (harvested area) of 2009-2011 and 1989-1991. The weighted average is used which takes into account relative difference in crop expansion into primary forest, secondary forest, grassland, perennial and annual land.\n\nProduction volume: 18088361984 kg\nIncluded activities start: From sowing.\nIncluded activities end: This activity ends with harvest and storage. \nThe dataset includes a storage period of 0.15 month and it's use of electricity.  The pesticide inputs are classified according to their chemical classes and the emmssions are assigned to the soil (100%). \nMercury emissions are neglected due to a lack of data while other heavy metal emissions are included. The dataset doesn't include infrastructure for production and storage facilities. No transports for agricultural means of production from the regional storage to the farm are included.\nEnergy values: Undefined\nGeography: The inventory is modelled for Global\nTechnology level: Current\nTechnology: Integrated production\nStart date: 01/01/2010\nEnd date: 31/12/2022\nIs data valid for entire period: True\nTime period: \nMacro-economic scenario name: Business-as-Usual\n\nVersion: 9.3.0.0\nCreated: 5/14/2011 3:58:48 PM\nLast edited: 7/22/2016 11:03:50 AM\nSource: e4a00562-8b82-5559-af5a-fc02eb23f5e7_a47ddfcf-af07-4c1a-9914-1e30c941cd19.spold\nUUID: e4a00562-8b82-5559-af5a-fc02eb23f5e7",
+    "displayName": "Blette HORS UE",
+    "elecKwh": 0,
+    "heatMJ": 0,
+    "id": "8691479c-e41d-5850-89b0-b565245298ee",
+    "impacts": {
+      "ecs": 44.26
+    },
+    "landOccupation": 0.04615,
+    "location": "GLO",
+    "massPerUnit": null,
+    "metadata": {
+      "complements": {
+        "cropDiversity": 0,
+        "hedges": 0,
+        "permanentPasture": null,
+        "plotSize": 0
+      },
+      "defaultOrigin": null,
+      "ingredient": {
+        "baseIngredient": "swiss-chard",
+        "cropGroup": "LEGUMES-FLEURS",
+        "density": 0.9,
+        "inediblePart": 0.2,
         "processId": "543622a6-3e36-58cd-b77c-66c678eb7959",
         "rawToCookedRatio": 0.856,
         "scenario": "import",
@@ -67334,7 +67334,7 @@
   },
   {
     "activityName": "Vanilla {MG}| vanilla production | Cut-off, U - Adapted from Ecoinvent U",
-    "alias": "vanilla-alcoholic-or-aqueou-extract-fr",
+    "alias": "vanilla-alcoholic-or-aqueous-extract-fr",
     "categories": [
       "ingredient",
       "material",
@@ -67360,7 +67360,7 @@
       },
       "defaultOrigin": "FR",
       "ingredient": {
-        "baseIngredient": "vanilla-alcoholic-or-aqueou-extract",
+        "baseIngredient": "vanilla-alcoholic-or-aqueous-extract",
         "cropGroup": "AUTRES CULTURES INDUSTRIELLES",
         "density": 0.5,
         "inediblePart": 0,
@@ -68354,7 +68354,7 @@
   },
   {
     "activityName": "Walnut, dried inshell, traditional varieties, organic, at farm gate {FR} U",
-    "alias": "chesnut-inshell-organic-2025",
+    "alias": "chestnut-inshell-organic-2025",
     "categories": [
       "ingredient",
       "material",
@@ -68380,7 +68380,7 @@
       },
       "defaultOrigin": "FR",
       "ingredient": {
-        "baseIngredient": "chesnut-inshell",
+        "baseIngredient": "chestnut-inshell",
         "cropGroup": "FRUITS A COQUES",
         "density": 0.72,
         "inediblePart": 0.5,
@@ -69496,7 +69496,7 @@
   },
   {
     "activityName": "White asparagus {FR}| white asparagus production | Cut-off, U - Copied from Ecoinvent U",
-    "alias": "asparagu-eu",
+    "alias": "asparagus-eu",
     "categories": [
       "ingredient",
       "material",
@@ -69522,7 +69522,7 @@
       },
       "defaultOrigin": "REM",
       "ingredient": {
-        "baseIngredient": "asparagu",
+        "baseIngredient": "asparagus",
         "cropGroup": "LEGUMES-FLEURS",
         "density": 0.9,
         "inediblePart": 0.4,
@@ -69542,7 +69542,7 @@
   },
   {
     "activityName": "White asparagus {FR}| white asparagus production | Cut-off, U - Copied from Ecoinvent U",
-    "alias": "asparagu-fr",
+    "alias": "asparagus-fr",
     "categories": [
       "ingredient",
       "material",
@@ -69568,7 +69568,7 @@
       },
       "defaultOrigin": "FR",
       "ingredient": {
-        "baseIngredient": "asparagu",
+        "baseIngredient": "asparagus",
         "cropGroup": "LEGUMES-FLEURS",
         "density": 0.9,
         "inediblePart": 0.4,
@@ -87503,7 +87503,7 @@
   },
   {
     "activityName": "Cauliflower {GLO}| cauliflower production | Cut-off, U",
-    "alias": "brussel-sprout-default",
+    "alias": "brussels-sprout-default",
     "categories": [
       "ingredient",
       "material",
@@ -87529,7 +87529,7 @@
       },
       "defaultOrigin": null,
       "ingredient": {
-        "baseIngredient": "brussel-sprout",
+        "baseIngredient": "brussels-sprout",
         "cropGroup": "LEGUMES-FLEURS",
         "density": 0.9,
         "inediblePart": 0.1,
@@ -87549,7 +87549,7 @@
   },
   {
     "activityName": "Cauliflower {GLO}| cauliflower production | Cut-off, U",
-    "alias": "brussel-sprout-non-eu",
+    "alias": "brussels-sprout-non-eu",
     "categories": [
       "ingredient",
       "material",
@@ -87575,7 +87575,7 @@
       },
       "defaultOrigin": null,
       "ingredient": {
-        "baseIngredient": "brussel-sprout",
+        "baseIngredient": "brussels-sprout",
         "cropGroup": "LEGUMES-FLEURS",
         "density": 0.9,
         "inediblePart": 0.1,
@@ -90809,7 +90809,7 @@
   },
   {
     "activityName": "Spinach {CH}| spinach production, conventional, plain region | Cut-off, U",
-    "alias": "swis-chard-eu",
+    "alias": "swiss-chard-eu",
     "categories": [
       "ingredient",
       "material",
@@ -90835,7 +90835,7 @@
       },
       "defaultOrigin": "REM",
       "ingredient": {
-        "baseIngredient": "swis-chard",
+        "baseIngredient": "swiss-chard",
         "cropGroup": "LEGUMES-FLEURS",
         "density": 0.9,
         "inediblePart": 0.2,
@@ -91713,7 +91713,7 @@
   },
   {
     "activityName": "White asparagus {CN}| white asparagus production | Cut-off, U",
-    "alias": "asparagu-non-eu",
+    "alias": "asparagus-non-eu",
     "categories": [
       "ingredient",
       "material",
@@ -91739,7 +91739,7 @@
       },
       "defaultOrigin": null,
       "ingredient": {
-        "baseIngredient": "asparagu",
+        "baseIngredient": "asparagus",
         "cropGroup": "LEGUMES-FLEURS",
         "density": 0.9,
         "inediblePart": 0.4,
@@ -95299,7 +95299,7 @@
   },
   {
     "activityName": "Almonds, in shell, at farm, organic 2025 {CN}",
-    "alias": "almond-inshell-organic-2025",
+    "alias": "almond-in-shell-organic-2025",
     "categories": [
       "ingredient",
       "material",
@@ -95325,7 +95325,7 @@
       },
       "defaultOrigin": "FR",
       "ingredient": {
-        "baseIngredient": "almond-inshell",
+        "baseIngredient": "almond-in-shell",
         "cropGroup": "FRUITS A COQUES",
         "density": 0.72,
         "inediblePart": 0.5,
@@ -96725,7 +96725,7 @@
   },
   {
     "activityName": "Cauliflower, organic 2025, national average, at farm gate {FR} U",
-    "alias": "brussel-sprout-organic",
+    "alias": "brussels-sprout-organic",
     "categories": [
       "ingredient",
       "material",
@@ -96751,7 +96751,7 @@
       },
       "defaultOrigin": "FR",
       "ingredient": {
-        "baseIngredient": "brussel-sprout",
+        "baseIngredient": "brussels-sprout",
         "cropGroup": "LEGUMES-FLEURS",
         "density": 0.9,
         "inediblePart": 0.1,
@@ -102061,7 +102061,7 @@
   },
   {
     "activityName": "Spinach, organic 2025 {GLO}| production | Cut-off, U",
-    "alias": "swis-chard-organic",
+    "alias": "swiss-chard-organic",
     "categories": [
       "ingredient",
       "material",
@@ -102087,7 +102087,7 @@
       },
       "defaultOrigin": "FR",
       "ingredient": {
-        "baseIngredient": "swis-chard",
+        "baseIngredient": "swiss-chard",
         "cropGroup": "LEGUMES-FLEURS",
         "density": 0.9,
         "inediblePart": 0.2,
@@ -103119,7 +103119,7 @@
   },
   {
     "activityName": "White asparagus, organic 2025 {FR}| white asparagus production | Cut-off, U",
-    "alias": "asparagu-organic",
+    "alias": "asparagus-organic",
     "categories": [
       "ingredient",
       "material",
@@ -103145,7 +103145,7 @@
       },
       "defaultOrigin": "FR",
       "ingredient": {
-        "baseIngredient": "asparagu",
+        "baseIngredient": "asparagus",
         "cropGroup": "LEGUMES-FLEURS",
         "density": 0.9,
         "inediblePart": 0.4,
@@ -103855,7 +103855,7 @@
   },
   {
     "activityName": "Asparagus, at farm (WFLDB)",
-    "alias": "asparagu-default",
+    "alias": "asparagus-default",
     "categories": [
       "ingredient",
       "material",
@@ -103881,7 +103881,7 @@
       },
       "defaultOrigin": null,
       "ingredient": {
-        "baseIngredient": "asparagu",
+        "baseIngredient": "asparagus",
         "cropGroup": "LEGUMES-FLEURS",
         "density": 0.9,
         "inediblePart": 0.4,

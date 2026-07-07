@@ -89,7 +89,7 @@
       "visible": true
     },
     {
-      "alias": "bellpepper-unheated-greenhouse-fr-2025",
+      "alias": "bell-pepper-unheated-greenhouse-fr-2025",
       "cropGroup": "LEGUMES-FLEURS",
       "defaultOrigin": "France",
       "displayName": "Poivron sous serre non chauffée FR (2025)",
@@ -109,7 +109,7 @@
       "visible": true
     },
     {
-      "alias": "bellpepper-unheated-greenhouse-eu-2025",
+      "alias": "bell-pepper-unheated-greenhouse-eu-2025",
       "cropGroup": "LEGUMES-FLEURS",
       "defaultOrigin": "EuropeAndMaghreb",
       "displayName": "Poivron sous serre non chauffée UE (2025)",
@@ -129,7 +129,7 @@
       "visible": true
     },
     {
-      "alias": "bellpepper-unheated-greenhouse-non-eu-2025",
+      "alias": "bell-pepper-unheated-greenhouse-non-eu-2025",
       "cropGroup": "LEGUMES-FLEURS",
       "defaultOrigin": "OutOfEuropeAndMaghreb",
       "displayName": "Poivron sous serre non chauffée par défaut (2025)",

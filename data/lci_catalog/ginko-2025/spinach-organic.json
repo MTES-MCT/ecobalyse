@@ -135,7 +135,7 @@
       "visible": true
     },
     {
-      "alias": "swis-chard-organic",
+      "alias": "swiss-chard-organic",
       "cropGroup": "LEGUMES-FLEURS",
       "cropGroupMatch": {
         "confidence": 1.0,

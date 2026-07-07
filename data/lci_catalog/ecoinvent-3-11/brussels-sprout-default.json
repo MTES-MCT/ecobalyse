@@ -10,7 +10,7 @@
   "location": "GLO",
   "metadata": [
     {
-      "alias": "brussel-sprout-default",
+      "alias": "brussels-sprout-default",
       "cropGroup": "LEGUMES-FLEURS",
       "cropGroupMatch": {
         "confidence": 1.0,
@@ -370,7 +370,7 @@
       "visible": true
     },
     {
-      "alias": "brussel-sprout-non-eu",
+      "alias": "brussels-sprout-non-eu",
       "cropGroup": "LEGUMES-FLEURS",
       "cropGroupMatch": {
         "confidence": 1.0,

@@ -49,7 +49,7 @@
       "visible": true
     },
     {
-      "alias": "swis-chard-eu",
+      "alias": "swiss-chard-eu",
       "cropGroup": "LEGUMES-FLEURS",
       "cropGroupMatch": {
         "confidence": 1.0,

@@ -189,7 +189,7 @@
       "visible": true
     },
     {
-      "alias": "brussel-sprout-fr",
+      "alias": "brussels-sprout-fr",
       "cropGroup": "LEGUMES-FLEURS",
       "cropGroupMatch": {
         "confidence": 1.0,
@@ -389,7 +389,7 @@
       "visible": true
     },
     {
-      "alias": "brussel-sprout-eu",
+      "alias": "brussels-sprout-eu",
       "cropGroup": "LEGUMES-FLEURS",
       "cropGroupMatch": {
         "confidence": 1.0,

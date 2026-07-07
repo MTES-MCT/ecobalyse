@@ -10,7 +10,7 @@
   "location": "CN",
   "metadata": [
     {
-      "alias": "asparagu-default",
+      "alias": "asparagus-default",
       "cropGroup": "LEGUMES-FLEURS",
       "cropGroupMatch": {
         "confidence": 1.0,

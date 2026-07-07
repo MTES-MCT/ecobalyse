@@ -9,7 +9,7 @@
   "id": "7b78962a-2d8e-5aff-b6e6-f65c76e9f799",
   "metadata": [
     {
-      "alias": "almond-inshell-fr-2025",
+      "alias": "almond-in-shell-fr-2025",
       "cropGroup": "FRUITS A COQUES",
       "defaultOrigin": "France",
       "displayName": "Amandes en coque FR (2025)",
@@ -30,7 +30,7 @@
       "visible": false
     },
     {
-      "alias": "almond-inshell-ue-2025",
+      "alias": "almond-in-shell-ue-2025",
       "cropGroup": "FRUITS A COQUES",
       "defaultOrigin": "EuropeAndMaghreb",
       "displayName": "Amandes en coque UE (2025)",
@@ -51,7 +51,7 @@
       "visible": true
     },
     {
-      "alias": "almond-inshell-non-ue-2025",
+      "alias": "almond-in-shell-non-ue-2025",
       "cropGroup": "FRUITS A COQUES",
       "defaultOrigin": "OutOfEuropeAndMaghreb",
       "displayName": "Amandes en coque par défaut (2025)",
