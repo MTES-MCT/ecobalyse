@@ -12,11 +12,11 @@ Ce champs peut faire référence a des bases de données reconnues telles que :&
 
 Outre les bases de données standards, certaines sources particulières peuvent apparaître :
 
-### `Ecobalyse`
+### `Ecobalyse_custom_lci`
 
-Lorsque la source indique "Ecobalyse", cela signifie que le procédé a été construit par l'équipe Ecobalyse. Cette création intervient lorsqu'il n'existe pas d'ICV existante satisfaisante dans les bases de données standard.
+Lorsque la source indique `Ecobalyse_custom_lci`, cela signifie que le procédé a été construit par l'équipe Ecobalyse. Cette création intervient lorsqu'il n'existe pas d'ICV existante satisfaisante dans les bases de données standard.
 
-Ces procédés construits sont spécifiés dans le fichier `activities_to_create.json` visible dans le repo [ecobalyse-data](https://github.com/MTES-MCT/ecobalyse-data/tree/main), [activities\_to\_create.json](https://github.com/MTES-MCT/ecobalyse-data/blob/main/activities_to_create.json).
+Ces procédés construits sont spécifiés dans le fichier `custom_lci.json` visible dans le repo ecobalyse [custom\_lci.json](https://github.com/MTES-MCT/ecobalyse/blob/master/data/custom_lci.json).
 
 \
 Plusieurs cas de figure conduisent à construire un procédé :&#x20;
@@ -39,7 +39,7 @@ Exemple : plusieurs variantes de farines sont créées à partir :
 
 * Nécessité de créer un **procédé manuellement** à partir d'un travail réalisé par un responsable méthode.&#x20;
 
-### `Custom`
+### `Ecobalyse_manual_lcia`
 
 Pour ces procédés :&#x20;
 
