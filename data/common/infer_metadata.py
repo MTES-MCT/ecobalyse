@@ -57,3 +57,37 @@ def infer_base_ingredient(alias: str) -> str:
         f"Cannot infer baseIngredient for alias {alias!r}. "
         f"Add the canonical baseIngredient to food/base_ingredients.json."
     )
+
+
+# Material types  require refrigerated transport from the production site
+TRANSPORT_PRODUCTION_COOLING_MATERIAL_TYPES = set(
+    {
+        "fruits_and_vegetables",
+        "fish_and_shellfish",
+        "legumes",
+        "red_meats",
+        "poultry",
+        "offal",
+    }
+)
+
+MATERIAL_TYPE_CATEGORY_PREFIX = "material_type:"
+
+TRANSPORT_PRODUCTION_COOLING_CATEGORY = "transport_production_cooling:true"
+
+
+def infer_transport_production_cooling(categories: List[str]) -> List[str]:
+    """Append the `transport_production_cooling:true` category tag when the process
+    material type is a perishable foodstuff
+    """
+    material_types = set()
+    for category in categories:
+        if category.startswith(MATERIAL_TYPE_CATEGORY_PREFIX):
+            material_types.add(category[len(MATERIAL_TYPE_CATEGORY_PREFIX) :])
+
+    needs_cooling = bool(material_types & TRANSPORT_PRODUCTION_COOLING_MATERIAL_TYPES)
+
+    if needs_cooling and TRANSPORT_PRODUCTION_COOLING_CATEGORY not in categories:
+        return list(categories) + [TRANSPORT_PRODUCTION_COOLING_CATEGORY]
+
+    return list(categories)
