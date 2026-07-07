@@ -59,7 +59,7 @@ def infer_base_ingredient(alias: str) -> str:
     )
 
 
-# Material types  require refrigerated transport from the production site
+# Material types requiring refrigerated transport from the production site
 TRANSPORT_PRODUCTION_COOLING_MATERIAL_TYPES = set(
     {
         "fruits_and_vegetables",
