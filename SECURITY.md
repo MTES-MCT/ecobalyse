@@ -34,7 +34,7 @@ Pour aider l'équipe à traiter le signalement le plus efficacement possible, me
 
 Nous nous engageons à :
 
-- **accuser réception** de votre signalement sous **72 heures**
+- **accuser réception** de votre signalement sous **72 heures** par le même canal ou à défaut par email
 - vous fournir un **premier retour qualifié** (évaluation, gravité, suite envisagée) sous **7 jours ouvrés**
 - vous tenir informé de l’avancement de la correction jusqu’à sa résolution
 
