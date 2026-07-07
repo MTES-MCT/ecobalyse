@@ -180,5 +180,5 @@ if __name__ == "__main__":
         logger.info(f"{db} already imported")
 
     if args.recreate_activities:
-        if "Ecobalyse" in bw2data.databases:
-            del bw2data.databases["Ecobalyse"]
+        if "Ecobalyse_custom_lci" in bw2data.databases:
+            del bw2data.databases["Ecobalyse_custom_lci"]

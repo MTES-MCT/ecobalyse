@@ -65,7 +65,7 @@ def fx_raw_processes() -> list[dict[str, Any]]:
             "location": "GLO",
             "qtyVariationRatio": 1,
             "scopes": ["textile"],
-            "source": "Custom",
+            "source": "Ecobalyse_manual_lcia",
             "unit": "kg",
         },
         {

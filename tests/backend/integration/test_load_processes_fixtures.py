@@ -59,7 +59,7 @@ async def test_load_processes(
         "massPerUnit": None,
         "qtyVariationRatio": 1,
         "scopes": ["textile"],
-        "source": "Custom",
+        "source": "Ecobalyse_manual_lcia",
         "unit": "kg",
     }
 

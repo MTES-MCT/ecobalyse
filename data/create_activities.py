@@ -11,10 +11,10 @@ from ecobalyse_data.logging import logger
 def create_activities(file):
     """Add additional processes"""
 
-    if "Ecobalyse" in bw2data.databases:
-        del bw2data.databases["Ecobalyse"]
+    if "Ecobalyse_custom_lci" in bw2data.databases:
+        del bw2data.databases["Ecobalyse_custom_lci"]
 
-    if (dbname := "Ecobalyse") not in bw2data.databases:
+    if (dbname := "Ecobalyse_custom_lci") not in bw2data.databases:
         if os.path.exists(file):
             logger.info(f"Adding activities from {file} to {dbname}")  # Add this line
             add_created_activities(dbname, file)
@@ -26,4 +26,4 @@ def create_activities(file):
 
 if __name__ == "__main__":
     setup_project()
-    create_activities("activities_to_create.json")
+    create_activities("custom_lci.json")

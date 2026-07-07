@@ -49,7 +49,7 @@ def spproject(activity):
             return ("Ginko w/o azadirachtin", "")
         case "Ginko 2025":
             return ("Ginko 2025", "")
-        case "Ecobalyse":
+        case "Ecobalyse_custom_lci":
             # return a non existing project to force looking at brightway
             return ("EcobalyseIsNotASimaProProject", "")
         case "Ecoinvent 3.9.1":

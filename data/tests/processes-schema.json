@@ -66,8 +66,8 @@
       "source": {
         "enum": [
           "Agribalyse 3.2",
-          "Custom",
-          "Ecobalyse",
+          "Ecobalyse_manual_lcia",
+          "Ecobalyse_custom_lci",
           "Ecoinvent 3.9.1",
           "Ecoinvent 3.11",
           "Ginko 2025",

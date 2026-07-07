@@ -9,7 +9,7 @@ from create_activities import create_activities
 def test_export_processes(forwast, tmp_path, processes_impacts_json):
     settings.set("OUTPUT_DIR", str(tmp_path))
     settings.set("LOCAL_DIR", str(tmp_path))
-    create_activities("tests/activities_to_create.json")
+    create_activities("tests/custom_lci.json")
 
     export.processes_legacy(
         scopes=None,

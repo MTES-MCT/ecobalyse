@@ -30,7 +30,7 @@ def main(
             callback=bw_database_validation,
             help=f"Brightway databases you want to computate impacts for. Default to all. You can specify multiple `--db`.\n\nAvailable databases are: {available_bw_databases}.",
         ),
-    ] = "Ecobalyse",
+    ] = "Ecobalyse_custom_lci",
 ):
     logger.info(f"Exporting from db '{db_name}'")
 

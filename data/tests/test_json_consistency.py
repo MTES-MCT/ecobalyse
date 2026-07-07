@@ -100,18 +100,18 @@ def metadata_consistency(filename, activities):
 
 def custom_source_consistency(filename, activities):
     """
-    Check that source = "Custom" if and only if impacts are present
+    Check that source = "Ecobalyse_manual_lcia" if and only if impacts are present
     """
     for activity in activities:
         source = activity["source"]
         display_name = activity["displayName"]
-        if "impacts" in activity and source != "Custom":
+        if "impacts" in activity and source != "Ecobalyse_manual_lcia":
             raise AssertionError(
-                f"Custom source inconsistency : activity {display_name} has hardcoded impacts but source is not 'Custom' (source = {source})"
+                f"Manual LCIA source inconsistency : activity {display_name} has hardcoded impacts but source is not 'Ecobalyse_manual_lcia' (source = {source})"
             )
-        elif "impacts" not in activity and source == "Custom":
+        elif "impacts" not in activity and source == "Ecobalyse_manual_lcia":
             raise AssertionError(
-                f"Custom source inconsistency : activity {display_name} has source = 'Custom' but no hardcoded impacts"
+                f"Manual LCIA source inconsistency : activity {display_name} has source = 'Ecobalyse_manual_lcia' but no hardcoded impacts"
             )
 
 
@@ -231,13 +231,13 @@ def check_all(checks_by_file, content_checks_by_file=None):
 
 
 def creation_alias_matches_export_alias(activities_fp):
-    """Check that creation aliases in activities_to_create.json match export aliases in lci_catalog/__alias__.json.
+    """Check that creation aliases in custom_lci.json match export aliases in lci_catalog/__alias__.json.
 
     For each activity in lci_catalog/* whose activityName contains {{alias}},
     the alias inside {{...}} must match the activity.alias,
-    and must correspond to an entry in activities_to_create.json.
+    and must correspond to an entry in custom_lci.json.
     """
-    with open("activities_to_create.json") as f:
+    with open("custom_lci.json") as f:
         atc = json.load(f)
     activities = json.load(activities_fp)
 
@@ -279,7 +279,7 @@ def creation_alias_matches_export_alias(activities_fp):
         if creation_alias not in atc_aliases:
             errors.append(
                 f"Creation alias '{creation_alias}' in activityName of "
-                f"'{activity.get('displayName', 'unknown')}' not found in activities_to_create.json"
+                f"'{activity.get('displayName', 'unknown')}' not found in custom_lci.json"
             )
 
     if errors:
@@ -317,7 +317,7 @@ def test():
 
             # Key-specific checks: validate specific fields
             CHECKS = {
-                "activities_to_create.json": {
+                "custom_lci.json": {
                     "alias": (duplicate_across_records, missing, alias_syntax),
                     "newName": (duplicate_across_records, missing),
                 },
@@ -329,7 +329,7 @@ def test():
                     "ingredientDensity": (check_ingredient_densities,),
                     "categories": (duplicate_within_value,),
                 },
-                "tests/activities_to_create.json": {
+                "tests/custom_lci.json": {
                     "alias": (duplicate_across_records, alias_syntax),
                     "newName": (duplicate_across_records, missing),
                 },
