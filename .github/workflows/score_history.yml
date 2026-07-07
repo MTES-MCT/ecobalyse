@@ -6,6 +6,11 @@ on:
     - cron: "0 * * * *"
   workflow_dispatch:
 
+# prevent overlapping runs
+# see https://docs.github.com/en/actions/how-tos/write-workflows/choose-when-workflows-run/control-workflow-concurrency
+concurrency:
+  group: ${{ github.workflow }}
+  cancel-in-progress: false
 
 env:
   NODE_ENV: test
