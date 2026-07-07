@@ -38,7 +38,7 @@
     "scopes": [
       "textile"
     ],
-    "source": "Custom",
+    "source": "Ecobalyse_manual_lcia",
     "unit": "kg"
   },
   {
@@ -79,7 +79,7 @@
     "scopes": [
       "textile"
     ],
-    "source": "Custom",
+    "source": "Ecobalyse_manual_lcia",
     "unit": "kg"
   },
   {
@@ -118,7 +118,7 @@
     "scopes": [
       "object"
     ],
-    "source": "Ecobalyse",
+    "source": "Ecobalyse_custom_lci",
     "unit": "kg"
   },
   {

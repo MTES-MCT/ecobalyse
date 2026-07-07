@@ -40,7 +40,7 @@
     "scopes": [
       "object"
     ],
-    "source": "Ecobalyse",
+    "source": "Ecobalyse_custom_lci",
     "unit": "kg",
     "visible": true
   },

@@ -62,10 +62,10 @@ And `EF 3.1` lands besides other methods of Brightway as:
 ### Adding custom processes
 
 Additional LCA processes can be added by defining what you want in a specific
-JSON file called `activities_to_create.json` at the root of the repository.
+JSON file called `custom_lci.json` at the root of the repository.
 This file currently supports two ways of creating a process: either
 `from_scratch` or `from_existing`. All the new processes end-up in another
-database called `Ecobalyse`.
+database called `Ecobalyse_custom_lci`.
 
 The process creation takes place at the end of the import process and is
 replayed each time. This mean you can modify the file and relaunch the import
@@ -173,7 +173,7 @@ want in Ecobalyse:
 - the list of processes to be exported from Brightway
 - the list of ingredients (for the food sector)
 - the list of materials (for the textile sector)
-- the list of `custom` processes, with hardcoded impacts (in long-term deprecation)
+- the list of `ecobalyse_manual_lcia` processes, with hardcoded impacts (in long-term deprecation)
 
 Note that the identifiers of the ingredients (`id`) and materials
 (`material_id`) are expected to be persistent. As a summary they should only
@@ -197,10 +197,10 @@ Example :
   LCI change from
   ```
   "activityName": "Sawing + kiln drying in Europe",
-  "source": "Ecobalyse"
+  "source": "Ecobalyse_custom_lci"
   ```
   to
-  `"source": "Custom"`
+  `"source": "Ecobalyse_manual_lcia"`
   The id should stay the same
 
 #### When IDs should change

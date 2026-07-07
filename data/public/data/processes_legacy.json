@@ -14940,967 +14940,6 @@
     "unit": "kg"
   },
   {
-    "activityName": "This process is not linked to a Brightway activity",
-    "categories": [
-      "transformation"
-    ],
-    "comment": "corr3 : valeurs d'élec et de chaleur issues du rapport BAT2023 avec majoration de 50%",
-    "displayName": "Apprêts chimiques",
-    "elecKwh": 0.6,
-    "heatMJ": 13.5,
-    "id": "3c66588d-fffb-55cb-b9d5-c197b7e2e591",
-    "impacts": {
-      "ecs": 0
-    },
-    "location": null,
-    "massPerUnit": null,
-    "qtyVariationRatio": 1.0,
-    "scopes": [
-      "textile"
-    ],
-    "source": "Custom",
-    "unit": "kg"
-  },
-  {
-    "activityName": "This process is not linked to a Brightway activity",
-    "categories": [
-      "transformation",
-      "material_type:organic_fibers"
-    ],
-    "comment": "corr3 et corr2 (cf doc). Corr3 : valeurs d'élec et de chaleur issues du rapport BAT2023 avec majoration de 50%. corr2 : valeur d'écotox issue d'inventaires enrichis.",
-    "displayName": "Blanchiment",
-    "elecKwh": 0.2,
-    "heatMJ": 5.4,
-    "id": "b4251621-1747-526a-a54f-e4be7500efff",
-    "impacts": {
-      "ecs": 757.7
-    },
-    "location": null,
-    "massPerUnit": null,
-    "qtyVariationRatio": 1.0,
-    "scopes": [
-      "textile"
-    ],
-    "source": "Custom",
-    "unit": "kg"
-  },
-  {
-    "activityName": "This process is not linked to a Brightway activity",
-    "categories": [
-      "transformation",
-      "material_type:organic_fibers"
-    ],
-    "comment": "corr3 (cf doc): valeurs issues du rapport BAT2023 avec majoration de 50%",
-    "displayName": "Dégraissage",
-    "elecKwh": 0.3,
-    "heatMJ": 13.5,
-    "id": "1746b5e1-1d0d-5858-a968-2ade8d778623",
-    "impacts": {
-      "ecs": 0
-    },
-    "location": null,
-    "massPerUnit": null,
-    "qtyVariationRatio": 1.0,
-    "scopes": [
-      "textile"
-    ],
-    "source": "Custom",
-    "unit": "kg"
-  },
-  {
-    "activityName": "This process is not linked to a Brightway activity",
-    "categories": [
-      "transformation"
-    ],
-    "comment": "Données provenant de Base Impacts 2.01. Ancien identifiant (12/2024): 49adf2a8-c74f-46af-b4c7-e1a8e1f5a6cb.",
-    "displayName": "Délavage chimique, procédé majorant, traitement inefficace des eaux usées",
-    "elecKwh": 1.814,
-    "heatMJ": 37.81,
-    "id": "24edc372-b238-5426-8ac9-059218936641",
-    "impacts": {
-      "ecs": 19.03
-    },
-    "location": null,
-    "massPerUnit": null,
-    "qtyVariationRatio": 1.0,
-    "scopes": [
-      "textile"
-    ],
-    "source": "Custom",
-    "unit": "kg"
-  },
-  {
-    "activityName": "This process is not linked to a Brightway activity",
-    "categories": [
-      "transformation"
-    ],
-    "comment": "corr3 (cf doc): valeurs issues du rapport BAT2023 avec majoration de 50%",
-    "displayName": "Désencollage",
-    "elecKwh": 0.1,
-    "heatMJ": 3.2,
-    "id": "4570d859-cf03-535c-bd4e-870a65a9a9d9",
-    "impacts": {
-      "ecs": 0
-    },
-    "location": null,
-    "massPerUnit": null,
-    "qtyVariationRatio": 1.0,
-    "scopes": [
-      "textile"
-    ],
-    "source": "Custom",
-    "unit": "kg"
-  },
-  {
-    "activityName": "This process is not linked to a Brightway activity",
-    "categories": [
-      "material",
-      "textile_material"
-    ],
-    "comment": "Ancien identifiant (12/2024): elasthane-lycra.",
-    "displayName": "Elasthane",
-    "elecKwh": 0,
-    "heatMJ": 0,
-    "id": "b2340802-bde9-56e4-984f-37110706225e",
-    "impacts": {
-      "ecs": 1043.0
-    },
-    "location": null,
-    "massPerUnit": null,
-    "qtyVariationRatio": 1.0,
-    "scopes": [
-      "textile"
-    ],
-    "source": "Custom",
-    "unit": "kg"
-  },
-  {
-    "activityName": "This process is not linked to a Brightway activity",
-    "categories": [
-      "transformation",
-      "material_type:synthetic_fibers"
-    ],
-    "comment": "",
-    "displayName": "Filage (40 Nm)",
-    "elecKwh": 1.36,
-    "heatMJ": 0,
-    "id": "aeb21302-d7b6-5c6c-b5dc-fbaf475b7ffc",
-    "impacts": {
-      "ecs": 0
-    },
-    "location": null,
-    "massPerUnit": null,
-    "qtyVariationRatio": 0.97,
-    "scopes": [
-      "textile"
-    ],
-    "source": "Custom",
-    "unit": "kg"
-  },
-  {
-    "activityName": "This process is not linked to a Brightway activity",
-    "categories": [
-      "transformation",
-      "material_type:organic_fibers"
-    ],
-    "comment": "",
-    "displayName": "Filature conventionnelle (40 Nm)",
-    "elecKwh": 3.64,
-    "heatMJ": 0,
-    "id": "ace9db61-adc8-5287-a13b-dcd79a83fc28",
-    "impacts": {
-      "ecs": 0
-    },
-    "location": null,
-    "massPerUnit": null,
-    "qtyVariationRatio": 0.88,
-    "scopes": [
-      "textile"
-    ],
-    "source": "Custom",
-    "unit": "kg"
-  },
-  {
-    "activityName": "This process is not linked to a Brightway activity",
-    "categories": [
-      "transformation",
-      "material_type:organic_fibers"
-    ],
-    "comment": "",
-    "displayName": "Filature non conventionnelle (40 Nm)",
-    "elecKwh": 1.82,
-    "heatMJ": 0,
-    "id": "6fbc1c36-dd19-5113-8cda-3479e8587281",
-    "impacts": {
-      "ecs": 0
-    },
-    "location": null,
-    "massPerUnit": null,
-    "qtyVariationRatio": 0.88,
-    "scopes": [
-      "textile"
-    ],
-    "source": "Custom",
-    "unit": "kg"
-  },
-  {
-    "activityName": "This process is not linked to a Brightway activity",
-    "categories": [
-      "end-of-life"
-    ],
-    "comment": "Précalcul Ecobalyse à partir de Base Impacts",
-    "displayName": "Fin de vie hors voiture (transport en camion, incinération, mise en décharge)",
-    "elecKwh": 0,
-    "heatMJ": 0,
-    "id": "ab96b73f-8534-59ad-9f34-a579abe3b023",
-    "impacts": {
-      "ecs": 33.11
-    },
-    "location": null,
-    "massPerUnit": null,
-    "qtyVariationRatio": 1.0,
-    "scopes": [
-      "textile"
-    ],
-    "source": "Custom",
-    "unit": "kg"
-  },
-  {
-    "activityName": "This process is not linked to a Brightway activity",
-    "categories": [
-      "transformation"
-    ],
-    "comment": "corr2 : inventaires enrichis (substances chimiques)\nAncien identifiant (12/2024): ecobalyse-impression-pigmentaire.",
-    "displayName": "Impression (pigmentaire)",
-    "elecKwh": 0,
-    "heatMJ": 0,
-    "id": "97c209ec-7782-5a29-8c47-af7f17c82d11",
-    "impacts": {
-      "ecs": 2026.0
-    },
-    "location": null,
-    "massPerUnit": null,
-    "qtyVariationRatio": 1.0,
-    "scopes": [
-      "textile"
-    ],
-    "source": "Custom",
-    "unit": "m2"
-  },
-  {
-    "activityName": "This process is not linked to a Brightway activity",
-    "categories": [
-      "transformation"
-    ],
-    "comment": "corr2 : inventaires enrichis (substances chimiques)\nAncien identifiant (12/2024): ecobalyse-impression-fixe-lave-colorants.",
-    "displayName": "Impression fixé-lavé (colorants)",
-    "elecKwh": 0,
-    "heatMJ": 0,
-    "id": "cfdc5e31-25fc-56ff-9a54-04670ecad301",
-    "impacts": {
-      "ecs": 787.7
-    },
-    "location": null,
-    "massPerUnit": null,
-    "qtyVariationRatio": 1.0,
-    "scopes": [
-      "textile"
-    ],
-    "source": "Custom",
-    "unit": "m2"
-  },
-  {
-    "activityName": "This process is not linked to a Brightway activity",
-    "categories": [
-      "transformation"
-    ],
-    "comment": "Données provenant de Base Impacts 2.01. Ancien identifiant (12/2024): 0810b8e5-a3d9-4607-bccc-83d112573260.",
-    "displayName": "Impression fixé-lavé, procédé représentatif, traitement moyen des eaux usées",
-    "elecKwh": 1.45,
-    "heatMJ": 8.72,
-    "id": "5c21e378-b941-57f7-98c9-67345847dbda",
-    "impacts": {
-      "ecs": 6.704
-    },
-    "location": null,
-    "massPerUnit": null,
-    "qtyVariationRatio": 1.0,
-    "scopes": [
-      "textile"
-    ],
-    "source": "Custom",
-    "unit": "m2"
-  },
-  {
-    "activityName": "This process is not linked to a Brightway activity",
-    "categories": [
-      "transformation"
-    ],
-    "comment": "Données provenant de Base Impacts 2.01. Ancien identifiant (12/2024): 710987ca-f483-4f1c-9122-38b620f4062b.",
-    "displayName": "Impression pigmentaire, procédé représentatif, traitement moyen des eaux usées",
-    "elecKwh": 1.267,
-    "heatMJ": 7.25,
-    "id": "9418bfb4-34e5-5bba-920f-b50e2feff1bd",
-    "impacts": {
-      "ecs": 6.982
-    },
-    "location": null,
-    "massPerUnit": null,
-    "qtyVariationRatio": 1.0,
-    "scopes": [
-      "textile"
-    ],
-    "source": "Custom",
-    "unit": "m2"
-  },
-  {
-    "activityName": "This process is not linked to a Brightway activity",
-    "categories": [
-      "material",
-      "textile_material",
-      "material_type:organic_fibers"
-    ],
-    "comment": "corr4: Impacts de la laine par défaut multiplié par le coefficient 4%/37%=0.108. Cela vient d'une différence de taux d'allocation : 4% pour cette laine et 37% pour la laine par défaut.",
-    "displayName": "Laine nouvelle filière",
-    "elecKwh": 0,
-    "heatMJ": 0,
-    "id": "40ec17ee-6b44-5ee2-8fbc-559aed52764f",
-    "impacts": {
-      "ecs": 300.5
-    },
-    "location": null,
-    "massPerUnit": null,
-    "qtyVariationRatio": 1.0,
-    "scopes": [
-      "textile"
-    ],
-    "source": "Custom",
-    "unit": "kg"
-  },
-  {
-    "activityName": "This process is not linked to a Brightway activity",
-    "categories": [
-      "transformation",
-      "material_type:synthetic_fibers"
-    ],
-    "comment": "corr3 (cf doc): valeurs issues du rapport BAT2023 avec majoration de 50%",
-    "displayName": "Lavage (fibres synthétiques)",
-    "elecKwh": 0.2,
-    "heatMJ": 10.8,
-    "id": "7cdc9616-7fb4-5a69-9436-78e5b84ebf31",
-    "impacts": {
-      "ecs": 0
-    },
-    "location": null,
-    "massPerUnit": null,
-    "qtyVariationRatio": 1.0,
-    "scopes": [
-      "textile"
-    ],
-    "source": "Custom",
-    "unit": "kg"
-  },
-  {
-    "activityName": "This process is not linked to a Brightway activity",
-    "categories": [
-      "transformation"
-    ],
-    "comment": "corr3 (cf doc): valeurs issues du rapport BAT2023 avec majoration de 50%",
-    "displayName": "Mercerisage",
-    "elecKwh": 0.1,
-    "heatMJ": 2.7,
-    "id": "ed1fd873-2e50-5b3c-865d-7eeed8025258",
-    "impacts": {
-      "ecs": 0
-    },
-    "location": null,
-    "massPerUnit": null,
-    "qtyVariationRatio": 1.0,
-    "scopes": [
-      "textile"
-    ],
-    "source": "Custom",
-    "unit": "kg"
-  },
-  {
-    "activityName": "This process is not linked to a Brightway activity",
-    "categories": [
-      "energy"
-    ],
-    "comment": "Reconstitution du mix depuis Ecoinvent 3.9.1\nAncien identifiant (12/2024): heat-europe.",
-    "displayName": "Mix chaleur (Europe)",
-    "elecKwh": 0,
-    "heatMJ": 0,
-    "id": "f6ea2983-e024-5de2-b323-273f2436deba",
-    "impacts": {
-      "ecs": 4.084
-    },
-    "location": null,
-    "massPerUnit": null,
-    "qtyVariationRatio": 1.0,
-    "scopes": [
-      "textile"
-    ],
-    "source": "Custom",
-    "unit": "MJ"
-  },
-  {
-    "activityName": "This process is not linked to a Brightway activity",
-    "categories": [
-      "energy"
-    ],
-    "comment": "Reconstitution du mix depuis Ecoinvent 3.9.1\nAncien identifiant (12/2024): heat-row.",
-    "displayName": "Mix chaleur (Monde)",
-    "elecKwh": 0,
-    "heatMJ": 0,
-    "id": "3561ace1-f710-50ce-a69c-9cf842e729e4",
-    "impacts": {
-      "ecs": 7.083
-    },
-    "location": null,
-    "massPerUnit": null,
-    "qtyVariationRatio": 1.0,
-    "scopes": [
-      "textile"
-    ],
-    "source": "Custom",
-    "unit": "MJ"
-  },
-  {
-    "activityName": "This process is not linked to a Brightway activity",
-    "categories": [
-      "material",
-      "textile_material",
-      "material_type:organic_fibers"
-    ],
-    "comment": "corr1: Données Base Impacts 2.01 uuid_bi=2b24abb0-c1ec-4298-9b58-350904a26104 auquel a été retranché l'impact de la filature\nAncien identifiant (12/2024): 9c6ab710-4a08-c720-cede-24428a013fda.",
-    "displayName": "Production de coton recyclé (déchets de production)",
-    "elecKwh": 0,
-    "heatMJ": 0,
-    "id": "7c1986fd-fb5c-53b9-8a7a-aea3650145eb",
-    "impacts": {
-      "ecs": 147.1
-    },
-    "location": null,
-    "massPerUnit": null,
-    "qtyVariationRatio": 1.0,
-    "scopes": [
-      "textile"
-    ],
-    "source": "Custom",
-    "unit": "kg"
-  },
-  {
-    "activityName": "This process is not linked to a Brightway activity",
-    "categories": [
-      "material",
-      "textile_material",
-      "material_type:organic_fibers"
-    ],
-    "comment": "corr1: Données Base Impacts 2.01 uuid_bi=d23093d-1346-4018-8c0f-7aae33c67bcd auquel a été retranché l'impact de la filature\nAncien identifiant (12/2024): 993955be-5888-6f39-137c-56af8c5187c1.",
-    "displayName": "Production de coton recyclé (déchets post-consommation)",
-    "elecKwh": 0,
-    "heatMJ": 0,
-    "id": "698746cf-6528-582e-a5e8-df4367bdb9e2",
-    "impacts": {
-      "ecs": 179.5
-    },
-    "location": null,
-    "massPerUnit": null,
-    "qtyVariationRatio": 1.0,
-    "scopes": [
-      "textile"
-    ],
-    "source": "Custom",
-    "unit": "kg"
-  },
-  {
-    "activityName": "This process is not linked to a Brightway activity",
-    "categories": [
-      "transformation"
-    ],
-    "comment": "",
-    "displayName": "Teinture en continu",
-    "elecKwh": 0.8,
-    "heatMJ": 16.2,
-    "id": "c8be445c-ae33-5240-9007-e7973e97fc24",
-    "impacts": {
-      "ecs": 0
-    },
-    "location": null,
-    "massPerUnit": null,
-    "qtyVariationRatio": 1.0,
-    "scopes": [
-      "textile"
-    ],
-    "source": "Custom",
-    "unit": "kg"
-  },
-  {
-    "activityName": "This process is not linked to a Brightway activity",
-    "categories": [
-      "transformation"
-    ],
-    "comment": "",
-    "displayName": "Teinture en discontinu",
-    "elecKwh": 1.2,
-    "heatMJ": 32.4,
-    "id": "7e17b44d-108a-504f-9e0d-0cfe5b5db054",
-    "impacts": {
-      "ecs": 0
-    },
-    "location": null,
-    "massPerUnit": null,
-    "qtyVariationRatio": 1.0,
-    "scopes": [
-      "textile"
-    ],
-    "source": "Custom",
-    "unit": "kg"
-  },
-  {
-    "activityName": "This process is not linked to a Brightway activity",
-    "categories": [
-      "transformation"
-    ],
-    "comment": "corr2 : inventaires enrichis (substances chimiques)\nAncien identifiant (12/2024): ecobalyse-teinture-fibres-cellulosiques.",
-    "displayName": "Teinture fibres cellulosiques",
-    "elecKwh": 0,
-    "heatMJ": 0,
-    "id": "c49a5379-95c4-599a-84da-b5faaa345b97",
-    "impacts": {
-      "ecs": 1627.0
-    },
-    "location": null,
-    "massPerUnit": null,
-    "qtyVariationRatio": 1.0,
-    "scopes": [
-      "textile"
-    ],
-    "source": "Custom",
-    "unit": "kg"
-  },
-  {
-    "activityName": "This process is not linked to a Brightway activity",
-    "categories": [
-      "transformation"
-    ],
-    "comment": "corr2 : inventaires enrichis (substances chimiques)\nAncien identifiant (12/2024): ecobalyse-teinture-fibres-synthetiques.",
-    "displayName": "Teinture fibres synthétiques",
-    "elecKwh": 0,
-    "heatMJ": 0,
-    "id": "e5e43c57-bd12-5ab7-8a22-7d12cdcece58",
-    "impacts": {
-      "ecs": 620.3
-    },
-    "location": null,
-    "massPerUnit": null,
-    "qtyVariationRatio": 1.0,
-    "scopes": [
-      "textile"
-    ],
-    "source": "Custom",
-    "unit": "kg"
-  },
-  {
-    "activityName": "This process is not linked to a Brightway activity",
-    "categories": [
-      "transformation"
-    ],
-    "comment": "",
-    "displayName": "Teinture moyenne",
-    "elecKwh": 1.0,
-    "heatMJ": 24.3,
-    "id": "b7fa51fc-0421-57b0-bb0a-e0573e293c7a",
-    "impacts": {
-      "ecs": 0
-    },
-    "location": null,
-    "massPerUnit": null,
-    "qtyVariationRatio": 1.0,
-    "scopes": [
-      "textile"
-    ],
-    "source": "Custom",
-    "unit": "kg"
-  },
-  {
-    "activityName": "This process is not linked to a Brightway activity",
-    "categories": [
-      "transformation",
-      "material_type:synthetic_fibers",
-      "material_type:organic_fibers"
-    ],
-    "comment": "",
-    "displayName": "Tissage (40Nm et 250 g/m2)",
-    "elecKwh": 5.82,
-    "heatMJ": 0,
-    "id": "852452b3-430f-5d07-8ef5-f701dad19c52",
-    "impacts": {
-      "ecs": 0
-    },
-    "location": null,
-    "massPerUnit": null,
-    "qtyVariationRatio": 0.9375,
-    "scopes": [
-      "textile"
-    ],
-    "source": "Custom",
-    "unit": "kg"
-  },
-  {
-    "activityName": "This process is not linked to a Brightway activity",
-    "categories": [
-      "transformation"
-    ],
-    "comment": "Bien que `elecKwh` = 0, ce procédé consomme de l'électricité mais dans une autre unité (kWh/pick.m). Voir weavingElecPPPM. Ancien identifiant (12/2024): f9686809-f55e-4b96-b1f0-3298959de7d0.",
-    "displayName": "Tissage (habillement)",
-    "elecKwh": 0,
-    "heatMJ": 0,
-    "id": "235b3488-6157-50ed-b74a-45e5d447dd85",
-    "impacts": {
-      "ecs": 0
-    },
-    "location": null,
-    "massPerUnit": null,
-    "qtyVariationRatio": 0.9375,
-    "scopes": [
-      "textile"
-    ],
-    "source": "Custom",
-    "unit": "kg"
-  },
-  {
-    "activityName": "This process is not linked to a Brightway activity",
-    "categories": [
-      "transport"
-    ],
-    "comment": "Données provenant de Base Impacts 2.01. Ancien identifiant (12/2024): f49b27fa-f22e-c6e1-ab4b-e9f873e2e648.",
-    "displayName": "Transport en camion non spécifié France",
-    "elecKwh": 0,
-    "heatMJ": 0,
-    "id": "3db67ae7-c169-5837-8e0a-3c3c31ffda67",
-    "impacts": {
-      "ecs": 20.6
-    },
-    "location": null,
-    "massPerUnit": null,
-    "qtyVariationRatio": 1.0,
-    "scopes": [
-      "textile"
-    ],
-    "source": "Custom",
-    "unit": "t⋅km"
-  },
-  {
-    "activityName": "This process is not linked to a Brightway activity",
-    "categories": [
-      "transport"
-    ],
-    "comment": "Données provenant de Base Impacts 2.01. Ancien identifiant (12/2024): 1ead35dd-fc71-4b0c-9410-7e39da95c7dc.",
-    "displayName": "Transport en voiture jusqu'au point de collecte précalculé pour la fin de vie",
-    "elecKwh": 0,
-    "heatMJ": 0,
-    "id": "2fd6b74f-600a-577c-ba37-b84d8f0482c2",
-    "impacts": {
-      "ecs": 1.942
-    },
-    "location": null,
-    "massPerUnit": null,
-    "qtyVariationRatio": 1.0,
-    "scopes": [
-      "textile"
-    ],
-    "source": "Custom",
-    "unit": "item"
-  },
-  {
-    "activityName": "This process is not linked to a Brightway activity",
-    "categories": [
-      "transformation"
-    ],
-    "comment": "Ancien identifiant (12/2024): 2e16787c-7a89-4883-acdf-37d3d362bdab.",
-    "displayName": "Tricotage circulaire",
-    "elecKwh": 1.181,
-    "heatMJ": 0,
-    "id": "ddcf4b23-1283-57d3-854b-be3121452d50",
-    "impacts": {
-      "ecs": 0
-    },
-    "location": null,
-    "massPerUnit": null,
-    "qtyVariationRatio": 0.966,
-    "scopes": [
-      "textile"
-    ],
-    "source": "Custom",
-    "unit": "kg"
-  },
-  {
-    "activityName": "This process is not linked to a Brightway activity",
-    "categories": [
-      "transformation"
-    ],
-    "comment": "Ancien identifiant (12/2024): 6524ac1e-cc95-4b5a-b462-2fccad7a0bce.",
-    "displayName": "Tricotage fully-fashioned",
-    "elecKwh": 1.685,
-    "heatMJ": 0,
-    "id": "66ef36be-7691-5adc-a684-e83d45e53452",
-    "impacts": {
-      "ecs": 0
-    },
-    "location": null,
-    "massPerUnit": null,
-    "qtyVariationRatio": 0.995,
-    "scopes": [
-      "textile"
-    ],
-    "source": "Custom",
-    "unit": "kg"
-  },
-  {
-    "activityName": "This process is not linked to a Brightway activity",
-    "categories": [
-      "transformation"
-    ],
-    "comment": "Ancien identifiant (12/2024): 9c478d79-ff6b-45e1-9396-c3bd897faa1d.",
-    "displayName": "Tricotage moyen (mix de métiers circulaire & rectiligne)",
-    "elecKwh": 2.4,
-    "heatMJ": 0,
-    "id": "29dc6c73-8d82-5056-8ac0-faf212bc0367",
-    "impacts": {
-      "ecs": 0
-    },
-    "location": null,
-    "massPerUnit": null,
-    "qtyVariationRatio": 0.9455,
-    "scopes": [
-      "textile"
-    ],
-    "source": "Custom",
-    "unit": "kg"
-  },
-  {
-    "activityName": "This process is not linked to a Brightway activity",
-    "categories": [
-      "transformation"
-    ],
-    "comment": "Ancien identifiant (12/2024): 364298ad-2058-4ec4-b2d0-47f5214abffb.",
-    "displayName": "Tricotage rectiligne",
-    "elecKwh": 1.165,
-    "heatMJ": 0,
-    "id": "8343adad-0350-5895-a701-4db41a235ba9",
-    "impacts": {
-      "ecs": 0
-    },
-    "location": null,
-    "massPerUnit": null,
-    "qtyVariationRatio": 0.96,
-    "scopes": [
-      "textile"
-    ],
-    "source": "Custom",
-    "unit": "kg"
-  },
-  {
-    "activityName": "This process is not linked to a Brightway activity",
-    "categories": [
-      "transformation"
-    ],
-    "comment": "Ancien identifiant (12/2024): 11648b33-f117-4eca-bb09-233c0ad0757f.",
-    "displayName": "Tricotage seamless",
-    "elecKwh": 3.67,
-    "heatMJ": 0,
-    "id": "b2dba726-83d2-55b2-8107-91c9e47bdca7",
-    "impacts": {
-      "ecs": 0
-    },
-    "location": null,
-    "massPerUnit": null,
-    "qtyVariationRatio": 0.995,
-    "scopes": [
-      "textile"
-    ],
-    "source": "Custom",
-    "unit": "kg"
-  },
-  {
-    "activityName": "This process is not linked to a Brightway activity",
-    "categories": [
-      "use"
-    ],
-    "comment": "Ancien identifiant (12/2024): 406d1f98-1052-458d-8f50-1901853d896d.",
-    "displayName": "Utilisation : Impact hors repassage (Chemisier)",
-    "elecKwh": 0.2249,
-    "heatMJ": 0,
-    "id": "163e6de6-9f3f-588c-af3a-7b375438180f",
-    "impacts": {
-      "ecs": 15.13
-    },
-    "location": null,
-    "massPerUnit": null,
-    "qtyVariationRatio": 1.0,
-    "scopes": [
-      "textile"
-    ],
-    "source": "Custom",
-    "unit": "kg"
-  },
-  {
-    "activityName": "This process is not linked to a Brightway activity",
-    "categories": [
-      "use"
-    ],
-    "comment": "Ancien identifiant (12/2024): 4964273a-cdbd-43cf-8cf8-4b017aee4f03.",
-    "displayName": "Utilisation : Impact hors repassage (Jean)",
-    "elecKwh": 0.2852,
-    "heatMJ": 0,
-    "id": "cefc9a3c-1bb2-50a4-a3ce-f56b891f764a",
-    "impacts": {
-      "ecs": 15.13
-    },
-    "location": null,
-    "massPerUnit": null,
-    "qtyVariationRatio": 1.0,
-    "scopes": [
-      "textile"
-    ],
-    "source": "Custom",
-    "unit": "kg"
-  },
-  {
-    "activityName": "This process is not linked to a Brightway activity",
-    "categories": [
-      "use"
-    ],
-    "comment": "Ancien identifiant (12/2024): 2572015b-7320-4ce1-bc99-cc6de371a654.",
-    "displayName": "Utilisation : Impact hors repassage (Jupe)",
-    "elecKwh": 0.2249,
-    "heatMJ": 0,
-    "id": "5ca66e62-356c-57ea-81e9-82951cb7f473",
-    "impacts": {
-      "ecs": 15.13
-    },
-    "location": null,
-    "massPerUnit": null,
-    "qtyVariationRatio": 1.0,
-    "scopes": [
-      "textile"
-    ],
-    "source": "Custom",
-    "unit": "kg"
-  },
-  {
-    "activityName": "This process is not linked to a Brightway activity",
-    "categories": [
-      "use"
-    ],
-    "comment": "Ancien identifiant (12/2024): 8c040f35-e137-424b-a67f-2e50b628c1bf.",
-    "displayName": "Utilisation : Impact hors repassage (Manteau)",
-    "elecKwh": 0.2684,
-    "heatMJ": 0,
-    "id": "8f3de83a-4545-528e-83d6-e6a065696394",
-    "impacts": {
-      "ecs": 15.13
-    },
-    "location": null,
-    "massPerUnit": null,
-    "qtyVariationRatio": 1.0,
-    "scopes": [
-      "textile"
-    ],
-    "source": "Custom",
-    "unit": "kg"
-  },
-  {
-    "activityName": "This process is not linked to a Brightway activity",
-    "categories": [
-      "use"
-    ],
-    "comment": "Ancien identifiant (12/2024): ea7afeed-c058-4dbb-be01-66704a9afb1f.",
-    "displayName": "Utilisation : Impact hors repassage (Pantalon)",
-    "elecKwh": 0.2852,
-    "heatMJ": 0,
-    "id": "f38c0b5f-873c-5d98-b216-4bf66c5bc520",
-    "impacts": {
-      "ecs": 15.13
-    },
-    "location": null,
-    "massPerUnit": null,
-    "qtyVariationRatio": 1.0,
-    "scopes": [
-      "textile"
-    ],
-    "source": "Custom",
-    "unit": "kg"
-  },
-  {
-    "activityName": "This process is not linked to a Brightway activity",
-    "categories": [
-      "use"
-    ],
-    "comment": "Ancien identifiant (12/2024): 2b39a7ac-38bd-435f-85a4-783023d845bf.",
-    "displayName": "Utilisation : Impact hors repassage (Pull)",
-    "elecKwh": 0.2852,
-    "heatMJ": 0,
-    "id": "a9ed30ef-4849-586f-98be-0c356054947e",
-    "impacts": {
-      "ecs": 15.13
-    },
-    "location": null,
-    "massPerUnit": null,
-    "qtyVariationRatio": 1.0,
-    "scopes": [
-      "textile"
-    ],
-    "source": "Custom",
-    "unit": "kg"
-  },
-  {
-    "activityName": "This process is not linked to a Brightway activity",
-    "categories": [
-      "use"
-    ],
-    "comment": "Ancien identifiant (12/2024): d3bff7b7-efc1-459b-856d-ea0801d6912f.",
-    "displayName": "Utilisation : Impact hors repassage (Robe)",
-    "elecKwh": 0.2249,
-    "heatMJ": 0,
-    "id": "91dad606-b36f-5241-bcf0-c80774647a64",
-    "impacts": {
-      "ecs": 15.13
-    },
-    "location": null,
-    "massPerUnit": null,
-    "qtyVariationRatio": 1.0,
-    "scopes": [
-      "textile"
-    ],
-    "source": "Custom",
-    "unit": "kg"
-  },
-  {
-    "activityName": "This process is not linked to a Brightway activity",
-    "categories": [
-      "use"
-    ],
-    "comment": "Ancien identifiant (12/2024): 7f76529e-521d-4795-bb36-ff896c4692da.",
-    "displayName": "Utilisation : Impact hors repassage (T-shirt)",
-    "elecKwh": 0.2852,
-    "heatMJ": 0,
-    "id": "56a3b3e0-df9f-570b-b656-dab6724ab70c",
-    "impacts": {
-      "ecs": 15.13
-    },
-    "location": null,
-    "massPerUnit": null,
-    "qtyVariationRatio": 1.0,
-    "scopes": [
-      "textile"
-    ],
-    "source": "Custom",
-    "unit": "kg"
-  },
-  {
     "activityName": "Almond, shelled with skin, CMAPS {GLO} U",
     "categories": [
       "ingredient",
@@ -15921,7 +14960,7 @@
     "scopes": [
       "food"
     ],
-    "source": "Ecobalyse",
+    "source": "Ecobalyse_custom_lci",
     "unit": "kg"
   },
   {
@@ -15945,7 +14984,7 @@
     "scopes": [
       "food"
     ],
-    "source": "Ecobalyse",
+    "source": "Ecobalyse_custom_lci",
     "unit": "kg"
   },
   {
@@ -15968,7 +15007,7 @@
     "scopes": [
       "food"
     ],
-    "source": "Ecobalyse",
+    "source": "Ecobalyse_custom_lci",
     "unit": "kg"
   },
   {
@@ -15992,7 +15031,7 @@
     "scopes": [
       "food"
     ],
-    "source": "Ecobalyse",
+    "source": "Ecobalyse_custom_lci",
     "unit": "kg"
   },
   {
@@ -16016,7 +15055,7 @@
     "scopes": [
       "food"
     ],
-    "source": "Ecobalyse",
+    "source": "Ecobalyse_custom_lci",
     "unit": "kg"
   },
   {
@@ -16040,7 +15079,7 @@
     "scopes": [
       "food"
     ],
-    "source": "Ecobalyse",
+    "source": "Ecobalyse_custom_lci",
     "unit": "kg"
   },
   {
@@ -16064,7 +15103,7 @@
     "scopes": [
       "food"
     ],
-    "source": "Ecobalyse",
+    "source": "Ecobalyse_custom_lci",
     "unit": "kg"
   },
   {
@@ -16088,7 +15127,7 @@
     "scopes": [
       "food"
     ],
-    "source": "Ecobalyse",
+    "source": "Ecobalyse_custom_lci",
     "unit": "kg"
   },
   {
@@ -16112,7 +15151,7 @@
     "scopes": [
       "food"
     ],
-    "source": "Ecobalyse",
+    "source": "Ecobalyse_custom_lci",
     "unit": "kg"
   },
   {
@@ -16136,7 +15175,7 @@
     "scopes": [
       "food"
     ],
-    "source": "Ecobalyse",
+    "source": "Ecobalyse_custom_lci",
     "unit": "kg"
   },
   {
@@ -16160,7 +15199,7 @@
     "scopes": [
       "food"
     ],
-    "source": "Ecobalyse",
+    "source": "Ecobalyse_custom_lci",
     "unit": "kg"
   },
   {
@@ -16184,7 +15223,7 @@
     "scopes": [
       "food"
     ],
-    "source": "Ecobalyse",
+    "source": "Ecobalyse_custom_lci",
     "unit": "kg"
   },
   {
@@ -16208,7 +15247,7 @@
     "scopes": [
       "food"
     ],
-    "source": "Ecobalyse",
+    "source": "Ecobalyse_custom_lci",
     "unit": "kg"
   },
   {
@@ -16232,7 +15271,7 @@
     "scopes": [
       "food"
     ],
-    "source": "Ecobalyse",
+    "source": "Ecobalyse_custom_lci",
     "unit": "kg"
   },
   {
@@ -16256,7 +15295,7 @@
     "scopes": [
       "food"
     ],
-    "source": "Ecobalyse",
+    "source": "Ecobalyse_custom_lci",
     "unit": "kg"
   },
   {
@@ -16280,7 +15319,7 @@
     "scopes": [
       "food"
     ],
-    "source": "Ecobalyse",
+    "source": "Ecobalyse_custom_lci",
     "unit": "kg"
   },
   {
@@ -16304,7 +15343,7 @@
     "scopes": [
       "food"
     ],
-    "source": "Ecobalyse",
+    "source": "Ecobalyse_custom_lci",
     "unit": "kg"
   },
   {
@@ -16328,7 +15367,7 @@
     "scopes": [
       "food"
     ],
-    "source": "Ecobalyse",
+    "source": "Ecobalyse_custom_lci",
     "unit": "kg"
   },
   {
@@ -16352,7 +15391,7 @@
     "scopes": [
       "food"
     ],
-    "source": "Ecobalyse",
+    "source": "Ecobalyse_custom_lci",
     "unit": "kg"
   },
   {
@@ -16376,7 +15415,7 @@
     "scopes": [
       "food"
     ],
-    "source": "Ecobalyse",
+    "source": "Ecobalyse_custom_lci",
     "unit": "kg"
   },
   {
@@ -16400,7 +15439,7 @@
     "scopes": [
       "food"
     ],
-    "source": "Ecobalyse",
+    "source": "Ecobalyse_custom_lci",
     "unit": "kg"
   },
   {
@@ -16424,7 +15463,7 @@
     "scopes": [
       "food"
     ],
-    "source": "Ecobalyse",
+    "source": "Ecobalyse_custom_lci",
     "unit": "kg"
   },
   {
@@ -16448,7 +15487,7 @@
     "scopes": [
       "food"
     ],
-    "source": "Ecobalyse",
+    "source": "Ecobalyse_custom_lci",
     "unit": "kg"
   },
   {
@@ -16472,7 +15511,7 @@
     "scopes": [
       "food"
     ],
-    "source": "Ecobalyse",
+    "source": "Ecobalyse_custom_lci",
     "unit": "kg"
   },
   {
@@ -16496,7 +15535,7 @@
     "scopes": [
       "food"
     ],
-    "source": "Ecobalyse",
+    "source": "Ecobalyse_custom_lci",
     "unit": "kg"
   },
   {
@@ -16520,7 +15559,7 @@
     "scopes": [
       "food"
     ],
-    "source": "Ecobalyse",
+    "source": "Ecobalyse_custom_lci",
     "unit": "kg"
   },
   {
@@ -16544,7 +15583,7 @@
     "scopes": [
       "food"
     ],
-    "source": "Ecobalyse",
+    "source": "Ecobalyse_custom_lci",
     "unit": "kg"
   },
   {
@@ -16568,7 +15607,7 @@
     "scopes": [
       "food"
     ],
-    "source": "Ecobalyse",
+    "source": "Ecobalyse_custom_lci",
     "unit": "kg"
   },
   {
@@ -16592,7 +15631,7 @@
     "scopes": [
       "food"
     ],
-    "source": "Ecobalyse",
+    "source": "Ecobalyse_custom_lci",
     "unit": "kg"
   },
   {
@@ -16616,7 +15655,7 @@
     "scopes": [
       "food"
     ],
-    "source": "Ecobalyse",
+    "source": "Ecobalyse_custom_lci",
     "unit": "kg"
   },
   {
@@ -16640,7 +15679,7 @@
     "scopes": [
       "food"
     ],
-    "source": "Ecobalyse",
+    "source": "Ecobalyse_custom_lci",
     "unit": "kg"
   },
   {
@@ -16664,7 +15703,7 @@
     "scopes": [
       "food"
     ],
-    "source": "Ecobalyse",
+    "source": "Ecobalyse_custom_lci",
     "unit": "kg"
   },
   {
@@ -16688,7 +15727,7 @@
     "scopes": [
       "food"
     ],
-    "source": "Ecobalyse",
+    "source": "Ecobalyse_custom_lci",
     "unit": "kg"
   },
   {
@@ -16712,7 +15751,7 @@
     "scopes": [
       "food"
     ],
-    "source": "Ecobalyse",
+    "source": "Ecobalyse_custom_lci",
     "unit": "kg"
   },
   {
@@ -16736,7 +15775,7 @@
     "scopes": [
       "food"
     ],
-    "source": "Ecobalyse",
+    "source": "Ecobalyse_custom_lci",
     "unit": "kg"
   },
   {
@@ -16760,7 +15799,7 @@
     "scopes": [
       "food"
     ],
-    "source": "Ecobalyse",
+    "source": "Ecobalyse_custom_lci",
     "unit": "kg"
   },
   {
@@ -16784,7 +15823,7 @@
     "scopes": [
       "food"
     ],
-    "source": "Ecobalyse",
+    "source": "Ecobalyse_custom_lci",
     "unit": "kg"
   },
   {
@@ -16808,7 +15847,7 @@
     "scopes": [
       "food"
     ],
-    "source": "Ecobalyse",
+    "source": "Ecobalyse_custom_lci",
     "unit": "kg"
   },
   {
@@ -16832,7 +15871,7 @@
     "scopes": [
       "food"
     ],
-    "source": "Ecobalyse",
+    "source": "Ecobalyse_custom_lci",
     "unit": "kg"
   },
   {
@@ -16856,7 +15895,7 @@
     "scopes": [
       "food"
     ],
-    "source": "Ecobalyse",
+    "source": "Ecobalyse_custom_lci",
     "unit": "kg"
   },
   {
@@ -16880,7 +15919,7 @@
     "scopes": [
       "food"
     ],
-    "source": "Ecobalyse",
+    "source": "Ecobalyse_custom_lci",
     "unit": "kg"
   },
   {
@@ -16904,7 +15943,7 @@
     "scopes": [
       "food"
     ],
-    "source": "Ecobalyse",
+    "source": "Ecobalyse_custom_lci",
     "unit": "kg"
   },
   {
@@ -16928,7 +15967,7 @@
     "scopes": [
       "food"
     ],
-    "source": "Ecobalyse",
+    "source": "Ecobalyse_custom_lci",
     "unit": "kg"
   },
   {
@@ -16951,7 +15990,7 @@
     "scopes": [
       "food"
     ],
-    "source": "Ecobalyse",
+    "source": "Ecobalyse_custom_lci",
     "unit": "kg"
   },
   {
@@ -16975,7 +16014,7 @@
     "scopes": [
       "food"
     ],
-    "source": "Ecobalyse",
+    "source": "Ecobalyse_custom_lci",
     "unit": "kg"
   },
   {
@@ -16999,7 +16038,7 @@
     "scopes": [
       "food"
     ],
-    "source": "Ecobalyse",
+    "source": "Ecobalyse_custom_lci",
     "unit": "kg"
   },
   {
@@ -17023,7 +16062,7 @@
     "scopes": [
       "food"
     ],
-    "source": "Ecobalyse",
+    "source": "Ecobalyse_custom_lci",
     "unit": "kg"
   },
   {
@@ -17047,7 +16086,7 @@
     "scopes": [
       "food"
     ],
-    "source": "Ecobalyse",
+    "source": "Ecobalyse_custom_lci",
     "unit": "kg"
   },
   {
@@ -17071,7 +16110,7 @@
     "scopes": [
       "food"
     ],
-    "source": "Ecobalyse",
+    "source": "Ecobalyse_custom_lci",
     "unit": "kg"
   },
   {
@@ -17095,7 +16134,7 @@
     "scopes": [
       "food"
     ],
-    "source": "Ecobalyse",
+    "source": "Ecobalyse_custom_lci",
     "unit": "kg"
   },
   {
@@ -17119,7 +16158,7 @@
     "scopes": [
       "food"
     ],
-    "source": "Ecobalyse",
+    "source": "Ecobalyse_custom_lci",
     "unit": "kg"
   },
   {
@@ -17143,7 +16182,7 @@
     "scopes": [
       "food"
     ],
-    "source": "Ecobalyse",
+    "source": "Ecobalyse_custom_lci",
     "unit": "kg"
   },
   {
@@ -17167,7 +16206,7 @@
     "scopes": [
       "food"
     ],
-    "source": "Ecobalyse",
+    "source": "Ecobalyse_custom_lci",
     "unit": "kg"
   },
   {
@@ -17191,7 +16230,7 @@
     "scopes": [
       "food"
     ],
-    "source": "Ecobalyse",
+    "source": "Ecobalyse_custom_lci",
     "unit": "kg"
   },
   {
@@ -17215,7 +16254,7 @@
     "scopes": [
       "food"
     ],
-    "source": "Ecobalyse",
+    "source": "Ecobalyse_custom_lci",
     "unit": "kg"
   },
   {
@@ -17239,7 +16278,7 @@
     "scopes": [
       "food"
     ],
-    "source": "Ecobalyse",
+    "source": "Ecobalyse_custom_lci",
     "unit": "kg"
   },
   {
@@ -17263,7 +16302,7 @@
     "scopes": [
       "food"
     ],
-    "source": "Ecobalyse",
+    "source": "Ecobalyse_custom_lci",
     "unit": "kg"
   },
   {
@@ -17287,7 +16326,7 @@
     "scopes": [
       "food"
     ],
-    "source": "Ecobalyse",
+    "source": "Ecobalyse_custom_lci",
     "unit": "kg"
   },
   {
@@ -17311,7 +16350,7 @@
     "scopes": [
       "food"
     ],
-    "source": "Ecobalyse",
+    "source": "Ecobalyse_custom_lci",
     "unit": "kg"
   },
   {
@@ -17335,7 +16374,7 @@
     "scopes": [
       "food"
     ],
-    "source": "Ecobalyse",
+    "source": "Ecobalyse_custom_lci",
     "unit": "kg"
   },
   {
@@ -17359,7 +16398,7 @@
     "scopes": [
       "food"
     ],
-    "source": "Ecobalyse",
+    "source": "Ecobalyse_custom_lci",
     "unit": "kg"
   },
   {
@@ -17383,7 +16422,7 @@
     "scopes": [
       "food"
     ],
-    "source": "Ecobalyse",
+    "source": "Ecobalyse_custom_lci",
     "unit": "kg"
   },
   {
@@ -17407,7 +16446,7 @@
     "scopes": [
       "food"
     ],
-    "source": "Ecobalyse",
+    "source": "Ecobalyse_custom_lci",
     "unit": "kg"
   },
   {
@@ -17431,7 +16470,7 @@
     "scopes": [
       "food"
     ],
-    "source": "Ecobalyse",
+    "source": "Ecobalyse_custom_lci",
     "unit": "kg"
   },
   {
@@ -17455,7 +16494,7 @@
     "scopes": [
       "food"
     ],
-    "source": "Ecobalyse",
+    "source": "Ecobalyse_custom_lci",
     "unit": "kg"
   },
   {
@@ -17479,7 +16518,7 @@
     "scopes": [
       "food"
     ],
-    "source": "Ecobalyse",
+    "source": "Ecobalyse_custom_lci",
     "unit": "kg"
   },
   {
@@ -17503,7 +16542,7 @@
     "scopes": [
       "food"
     ],
-    "source": "Ecobalyse",
+    "source": "Ecobalyse_custom_lci",
     "unit": "kg"
   },
   {
@@ -17527,7 +16566,7 @@
     "scopes": [
       "food"
     ],
-    "source": "Ecobalyse",
+    "source": "Ecobalyse_custom_lci",
     "unit": "kg"
   },
   {
@@ -17551,7 +16590,7 @@
     "scopes": [
       "food"
     ],
-    "source": "Ecobalyse",
+    "source": "Ecobalyse_custom_lci",
     "unit": "kg"
   },
   {
@@ -17575,7 +16614,7 @@
     "scopes": [
       "food"
     ],
-    "source": "Ecobalyse",
+    "source": "Ecobalyse_custom_lci",
     "unit": "kg"
   },
   {
@@ -17599,7 +16638,7 @@
     "scopes": [
       "food"
     ],
-    "source": "Ecobalyse",
+    "source": "Ecobalyse_custom_lci",
     "unit": "kg"
   },
   {
@@ -17623,7 +16662,7 @@
     "scopes": [
       "food"
     ],
-    "source": "Ecobalyse",
+    "source": "Ecobalyse_custom_lci",
     "unit": "kg"
   },
   {
@@ -17647,7 +16686,7 @@
     "scopes": [
       "food"
     ],
-    "source": "Ecobalyse",
+    "source": "Ecobalyse_custom_lci",
     "unit": "kg"
   },
   {
@@ -17671,7 +16710,7 @@
     "scopes": [
       "food"
     ],
-    "source": "Ecobalyse",
+    "source": "Ecobalyse_custom_lci",
     "unit": "kg"
   },
   {
@@ -17695,7 +16734,7 @@
     "scopes": [
       "food"
     ],
-    "source": "Ecobalyse",
+    "source": "Ecobalyse_custom_lci",
     "unit": "kg"
   },
   {
@@ -17719,7 +16758,7 @@
     "scopes": [
       "food"
     ],
-    "source": "Ecobalyse",
+    "source": "Ecobalyse_custom_lci",
     "unit": "kg"
   },
   {
@@ -17743,7 +16782,7 @@
     "scopes": [
       "food"
     ],
-    "source": "Ecobalyse",
+    "source": "Ecobalyse_custom_lci",
     "unit": "kg"
   },
   {
@@ -17767,7 +16806,7 @@
     "scopes": [
       "food"
     ],
-    "source": "Ecobalyse",
+    "source": "Ecobalyse_custom_lci",
     "unit": "kg"
   },
   {
@@ -17791,7 +16830,7 @@
     "scopes": [
       "food"
     ],
-    "source": "Ecobalyse",
+    "source": "Ecobalyse_custom_lci",
     "unit": "kg"
   },
   {
@@ -17815,7 +16854,7 @@
     "scopes": [
       "food"
     ],
-    "source": "Ecobalyse",
+    "source": "Ecobalyse_custom_lci",
     "unit": "kg"
   },
   {
@@ -17839,7 +16878,7 @@
     "scopes": [
       "food"
     ],
-    "source": "Ecobalyse",
+    "source": "Ecobalyse_custom_lci",
     "unit": "kg"
   },
   {
@@ -17863,7 +16902,7 @@
     "scopes": [
       "food"
     ],
-    "source": "Ecobalyse",
+    "source": "Ecobalyse_custom_lci",
     "unit": "kg"
   },
   {
@@ -17887,7 +16926,7 @@
     "scopes": [
       "food"
     ],
-    "source": "Ecobalyse",
+    "source": "Ecobalyse_custom_lci",
     "unit": "kg"
   },
   {
@@ -17911,7 +16950,7 @@
     "scopes": [
       "food"
     ],
-    "source": "Ecobalyse",
+    "source": "Ecobalyse_custom_lci",
     "unit": "kg"
   },
   {
@@ -17935,7 +16974,7 @@
     "scopes": [
       "food"
     ],
-    "source": "Ecobalyse",
+    "source": "Ecobalyse_custom_lci",
     "unit": "kg"
   },
   {
@@ -17959,7 +16998,7 @@
     "scopes": [
       "food"
     ],
-    "source": "Ecobalyse",
+    "source": "Ecobalyse_custom_lci",
     "unit": "kg"
   },
   {
@@ -17983,7 +17022,7 @@
     "scopes": [
       "food"
     ],
-    "source": "Ecobalyse",
+    "source": "Ecobalyse_custom_lci",
     "unit": "kg"
   },
   {
@@ -18007,7 +17046,7 @@
     "scopes": [
       "food"
     ],
-    "source": "Ecobalyse",
+    "source": "Ecobalyse_custom_lci",
     "unit": "kg"
   },
   {
@@ -18031,7 +17070,7 @@
     "scopes": [
       "food"
     ],
-    "source": "Ecobalyse",
+    "source": "Ecobalyse_custom_lci",
     "unit": "kg"
   },
   {
@@ -18055,7 +17094,7 @@
     "scopes": [
       "food"
     ],
-    "source": "Ecobalyse",
+    "source": "Ecobalyse_custom_lci",
     "unit": "kg"
   },
   {
@@ -18079,7 +17118,7 @@
     "scopes": [
       "food"
     ],
-    "source": "Ecobalyse",
+    "source": "Ecobalyse_custom_lci",
     "unit": "kg"
   },
   {
@@ -18103,7 +17142,7 @@
     "scopes": [
       "food"
     ],
-    "source": "Ecobalyse",
+    "source": "Ecobalyse_custom_lci",
     "unit": "kg"
   },
   {
@@ -18127,7 +17166,7 @@
     "scopes": [
       "food"
     ],
-    "source": "Ecobalyse",
+    "source": "Ecobalyse_custom_lci",
     "unit": "kg"
   },
   {
@@ -18151,7 +17190,7 @@
     "scopes": [
       "food"
     ],
-    "source": "Ecobalyse",
+    "source": "Ecobalyse_custom_lci",
     "unit": "kg"
   },
   {
@@ -18175,7 +17214,7 @@
     "scopes": [
       "food"
     ],
-    "source": "Ecobalyse",
+    "source": "Ecobalyse_custom_lci",
     "unit": "kg"
   },
   {
@@ -18199,7 +17238,7 @@
     "scopes": [
       "food"
     ],
-    "source": "Ecobalyse",
+    "source": "Ecobalyse_custom_lci",
     "unit": "kg"
   },
   {
@@ -18223,7 +17262,7 @@
     "scopes": [
       "food"
     ],
-    "source": "Ecobalyse",
+    "source": "Ecobalyse_custom_lci",
     "unit": "kg"
   },
   {
@@ -18247,7 +17286,7 @@
     "scopes": [
       "food"
     ],
-    "source": "Ecobalyse",
+    "source": "Ecobalyse_custom_lci",
     "unit": "kg"
   },
   {
@@ -18271,7 +17310,7 @@
     "scopes": [
       "food"
     ],
-    "source": "Ecobalyse",
+    "source": "Ecobalyse_custom_lci",
     "unit": "kg"
   },
   {
@@ -18294,7 +17333,7 @@
     "scopes": [
       "food"
     ],
-    "source": "Ecobalyse",
+    "source": "Ecobalyse_custom_lci",
     "unit": "kg"
   },
   {
@@ -18318,7 +17357,7 @@
     "scopes": [
       "food"
     ],
-    "source": "Ecobalyse",
+    "source": "Ecobalyse_custom_lci",
     "unit": "kg"
   },
   {
@@ -18342,7 +17381,7 @@
     "scopes": [
       "food"
     ],
-    "source": "Ecobalyse",
+    "source": "Ecobalyse_custom_lci",
     "unit": "kg"
   },
   {
@@ -18366,7 +17405,7 @@
     "scopes": [
       "food"
     ],
-    "source": "Ecobalyse",
+    "source": "Ecobalyse_custom_lci",
     "unit": "kg"
   },
   {
@@ -18390,7 +17429,7 @@
     "scopes": [
       "food"
     ],
-    "source": "Ecobalyse",
+    "source": "Ecobalyse_custom_lci",
     "unit": "kg"
   },
   {
@@ -18414,7 +17453,7 @@
     "scopes": [
       "food"
     ],
-    "source": "Ecobalyse",
+    "source": "Ecobalyse_custom_lci",
     "unit": "kg"
   },
   {
@@ -18438,7 +17477,7 @@
     "scopes": [
       "food"
     ],
-    "source": "Ecobalyse",
+    "source": "Ecobalyse_custom_lci",
     "unit": "kg"
   },
   {
@@ -18462,7 +17501,7 @@
     "scopes": [
       "food"
     ],
-    "source": "Ecobalyse",
+    "source": "Ecobalyse_custom_lci",
     "unit": "kg"
   },
   {
@@ -18486,7 +17525,7 @@
     "scopes": [
       "food"
     ],
-    "source": "Ecobalyse",
+    "source": "Ecobalyse_custom_lci",
     "unit": "kg"
   },
   {
@@ -18510,7 +17549,7 @@
     "scopes": [
       "food"
     ],
-    "source": "Ecobalyse",
+    "source": "Ecobalyse_custom_lci",
     "unit": "kg"
   },
   {
@@ -18534,7 +17573,7 @@
     "scopes": [
       "food"
     ],
-    "source": "Ecobalyse",
+    "source": "Ecobalyse_custom_lci",
     "unit": "kg"
   },
   {
@@ -18558,7 +17597,7 @@
     "scopes": [
       "food"
     ],
-    "source": "Ecobalyse",
+    "source": "Ecobalyse_custom_lci",
     "unit": "kg"
   },
   {
@@ -18582,7 +17621,7 @@
     "scopes": [
       "food"
     ],
-    "source": "Ecobalyse",
+    "source": "Ecobalyse_custom_lci",
     "unit": "kg"
   },
   {
@@ -18606,7 +17645,7 @@
     "scopes": [
       "food"
     ],
-    "source": "Ecobalyse",
+    "source": "Ecobalyse_custom_lci",
     "unit": "kg"
   },
   {
@@ -18630,7 +17669,7 @@
     "scopes": [
       "food"
     ],
-    "source": "Ecobalyse",
+    "source": "Ecobalyse_custom_lci",
     "unit": "kg"
   },
   {
@@ -18654,7 +17693,7 @@
     "scopes": [
       "food"
     ],
-    "source": "Ecobalyse",
+    "source": "Ecobalyse_custom_lci",
     "unit": "kg"
   },
   {
@@ -18678,7 +17717,7 @@
     "scopes": [
       "food"
     ],
-    "source": "Ecobalyse",
+    "source": "Ecobalyse_custom_lci",
     "unit": "kg"
   },
   {
@@ -18702,7 +17741,7 @@
     "scopes": [
       "food"
     ],
-    "source": "Ecobalyse",
+    "source": "Ecobalyse_custom_lci",
     "unit": "kg"
   },
   {
@@ -18726,7 +17765,7 @@
     "scopes": [
       "food"
     ],
-    "source": "Ecobalyse",
+    "source": "Ecobalyse_custom_lci",
     "unit": "kg"
   },
   {
@@ -18750,7 +17789,7 @@
     "scopes": [
       "food"
     ],
-    "source": "Ecobalyse",
+    "source": "Ecobalyse_custom_lci",
     "unit": "kg"
   },
   {
@@ -18774,7 +17813,7 @@
     "scopes": [
       "food"
     ],
-    "source": "Ecobalyse",
+    "source": "Ecobalyse_custom_lci",
     "unit": "kg"
   },
   {
@@ -18798,7 +17837,7 @@
     "scopes": [
       "food"
     ],
-    "source": "Ecobalyse",
+    "source": "Ecobalyse_custom_lci",
     "unit": "kg"
   },
   {
@@ -18822,7 +17861,7 @@
     "scopes": [
       "food"
     ],
-    "source": "Ecobalyse",
+    "source": "Ecobalyse_custom_lci",
     "unit": "kg"
   },
   {
@@ -18846,7 +17885,7 @@
     "scopes": [
       "food"
     ],
-    "source": "Ecobalyse",
+    "source": "Ecobalyse_custom_lci",
     "unit": "kg"
   },
   {
@@ -18870,7 +17909,7 @@
     "scopes": [
       "food"
     ],
-    "source": "Ecobalyse",
+    "source": "Ecobalyse_custom_lci",
     "unit": "kg"
   },
   {
@@ -18894,7 +17933,7 @@
     "scopes": [
       "food"
     ],
-    "source": "Ecobalyse",
+    "source": "Ecobalyse_custom_lci",
     "unit": "kg"
   },
   {
@@ -18918,7 +17957,7 @@
     "scopes": [
       "food"
     ],
-    "source": "Ecobalyse",
+    "source": "Ecobalyse_custom_lci",
     "unit": "kg"
   },
   {
@@ -18942,7 +17981,7 @@
     "scopes": [
       "food"
     ],
-    "source": "Ecobalyse",
+    "source": "Ecobalyse_custom_lci",
     "unit": "kg"
   },
   {
@@ -18966,7 +18005,7 @@
     "scopes": [
       "food"
     ],
-    "source": "Ecobalyse",
+    "source": "Ecobalyse_custom_lci",
     "unit": "kg"
   },
   {
@@ -18990,7 +18029,7 @@
     "scopes": [
       "food"
     ],
-    "source": "Ecobalyse",
+    "source": "Ecobalyse_custom_lci",
     "unit": "kg"
   },
   {
@@ -19014,7 +18053,7 @@
     "scopes": [
       "food"
     ],
-    "source": "Ecobalyse",
+    "source": "Ecobalyse_custom_lci",
     "unit": "kg"
   },
   {
@@ -19038,7 +18077,7 @@
     "scopes": [
       "food"
     ],
-    "source": "Ecobalyse",
+    "source": "Ecobalyse_custom_lci",
     "unit": "kg"
   },
   {
@@ -19062,7 +18101,7 @@
     "scopes": [
       "food"
     ],
-    "source": "Ecobalyse",
+    "source": "Ecobalyse_custom_lci",
     "unit": "kg"
   },
   {
@@ -19086,7 +18125,7 @@
     "scopes": [
       "food"
     ],
-    "source": "Ecobalyse",
+    "source": "Ecobalyse_custom_lci",
     "unit": "kg"
   },
   {
@@ -19110,7 +18149,7 @@
     "scopes": [
       "food"
     ],
-    "source": "Ecobalyse",
+    "source": "Ecobalyse_custom_lci",
     "unit": "kg"
   },
   {
@@ -19134,7 +18173,7 @@
     "scopes": [
       "food"
     ],
-    "source": "Ecobalyse",
+    "source": "Ecobalyse_custom_lci",
     "unit": "kg"
   },
   {
@@ -19158,7 +18197,7 @@
     "scopes": [
       "food"
     ],
-    "source": "Ecobalyse",
+    "source": "Ecobalyse_custom_lci",
     "unit": "kg"
   },
   {
@@ -19182,7 +18221,7 @@
     "scopes": [
       "food"
     ],
-    "source": "Ecobalyse",
+    "source": "Ecobalyse_custom_lci",
     "unit": "kg"
   },
   {
@@ -19206,7 +18245,7 @@
     "scopes": [
       "food"
     ],
-    "source": "Ecobalyse",
+    "source": "Ecobalyse_custom_lci",
     "unit": "kg"
   },
   {
@@ -19230,7 +18269,7 @@
     "scopes": [
       "food"
     ],
-    "source": "Ecobalyse",
+    "source": "Ecobalyse_custom_lci",
     "unit": "kg"
   },
   {
@@ -19254,7 +18293,7 @@
     "scopes": [
       "food"
     ],
-    "source": "Ecobalyse",
+    "source": "Ecobalyse_custom_lci",
     "unit": "kg"
   },
   {
@@ -19278,7 +18317,7 @@
     "scopes": [
       "food"
     ],
-    "source": "Ecobalyse",
+    "source": "Ecobalyse_custom_lci",
     "unit": "kg"
   },
   {
@@ -19302,7 +18341,7 @@
     "scopes": [
       "food"
     ],
-    "source": "Ecobalyse",
+    "source": "Ecobalyse_custom_lci",
     "unit": "kg"
   },
   {
@@ -19326,7 +18365,7 @@
     "scopes": [
       "food"
     ],
-    "source": "Ecobalyse",
+    "source": "Ecobalyse_custom_lci",
     "unit": "kg"
   },
   {
@@ -19350,7 +18389,7 @@
     "scopes": [
       "food"
     ],
-    "source": "Ecobalyse",
+    "source": "Ecobalyse_custom_lci",
     "unit": "kg"
   },
   {
@@ -19374,7 +18413,7 @@
     "scopes": [
       "food"
     ],
-    "source": "Ecobalyse",
+    "source": "Ecobalyse_custom_lci",
     "unit": "kg"
   },
   {
@@ -19398,7 +18437,7 @@
     "scopes": [
       "food"
     ],
-    "source": "Ecobalyse",
+    "source": "Ecobalyse_custom_lci",
     "unit": "kg"
   },
   {
@@ -19422,7 +18461,7 @@
     "scopes": [
       "food"
     ],
-    "source": "Ecobalyse",
+    "source": "Ecobalyse_custom_lci",
     "unit": "kg"
   },
   {
@@ -19446,7 +18485,7 @@
     "scopes": [
       "food"
     ],
-    "source": "Ecobalyse",
+    "source": "Ecobalyse_custom_lci",
     "unit": "kg"
   },
   {
@@ -19470,7 +18509,7 @@
     "scopes": [
       "food"
     ],
-    "source": "Ecobalyse",
+    "source": "Ecobalyse_custom_lci",
     "unit": "kg"
   },
   {
@@ -19494,7 +18533,7 @@
     "scopes": [
       "food"
     ],
-    "source": "Ecobalyse",
+    "source": "Ecobalyse_custom_lci",
     "unit": "kg"
   },
   {
@@ -19518,7 +18557,7 @@
     "scopes": [
       "food"
     ],
-    "source": "Ecobalyse",
+    "source": "Ecobalyse_custom_lci",
     "unit": "kg"
   },
   {
@@ -19542,7 +18581,7 @@
     "scopes": [
       "food"
     ],
-    "source": "Ecobalyse",
+    "source": "Ecobalyse_custom_lci",
     "unit": "kg"
   },
   {
@@ -19566,7 +18605,7 @@
     "scopes": [
       "food"
     ],
-    "source": "Ecobalyse",
+    "source": "Ecobalyse_custom_lci",
     "unit": "kg"
   },
   {
@@ -19590,7 +18629,7 @@
     "scopes": [
       "food"
     ],
-    "source": "Ecobalyse",
+    "source": "Ecobalyse_custom_lci",
     "unit": "kg"
   },
   {
@@ -19614,7 +18653,7 @@
     "scopes": [
       "food"
     ],
-    "source": "Ecobalyse",
+    "source": "Ecobalyse_custom_lci",
     "unit": "kg"
   },
   {
@@ -19638,7 +18677,7 @@
     "scopes": [
       "food"
     ],
-    "source": "Ecobalyse",
+    "source": "Ecobalyse_custom_lci",
     "unit": "kg"
   },
   {
@@ -19661,7 +18700,7 @@
     "scopes": [
       "food"
     ],
-    "source": "Ecobalyse",
+    "source": "Ecobalyse_custom_lci",
     "unit": "kg"
   },
   {
@@ -19684,7 +18723,7 @@
     "scopes": [
       "food"
     ],
-    "source": "Ecobalyse",
+    "source": "Ecobalyse_custom_lci",
     "unit": "kg"
   },
   {
@@ -19707,7 +18746,7 @@
     "scopes": [
       "food"
     ],
-    "source": "Ecobalyse",
+    "source": "Ecobalyse_custom_lci",
     "unit": "kg"
   },
   {
@@ -19730,7 +18769,7 @@
     "scopes": [
       "food"
     ],
-    "source": "Ecobalyse",
+    "source": "Ecobalyse_custom_lci",
     "unit": "kg"
   },
   {
@@ -19753,7 +18792,7 @@
     "scopes": [
       "food"
     ],
-    "source": "Ecobalyse",
+    "source": "Ecobalyse_custom_lci",
     "unit": "kg"
   },
   {
@@ -19776,7 +18815,7 @@
     "scopes": [
       "food"
     ],
-    "source": "Ecobalyse",
+    "source": "Ecobalyse_custom_lci",
     "unit": "kg"
   },
   {
@@ -19799,7 +18838,7 @@
     "scopes": [
       "food"
     ],
-    "source": "Ecobalyse",
+    "source": "Ecobalyse_custom_lci",
     "unit": "kg"
   },
   {
@@ -19823,7 +18862,7 @@
     "scopes": [
       "food"
     ],
-    "source": "Ecobalyse",
+    "source": "Ecobalyse_custom_lci",
     "unit": "kg"
   },
   {
@@ -19847,7 +18886,7 @@
     "scopes": [
       "food"
     ],
-    "source": "Ecobalyse",
+    "source": "Ecobalyse_custom_lci",
     "unit": "kg"
   },
   {
@@ -19871,7 +18910,7 @@
     "scopes": [
       "food"
     ],
-    "source": "Ecobalyse",
+    "source": "Ecobalyse_custom_lci",
     "unit": "kg"
   },
   {
@@ -19895,7 +18934,7 @@
     "scopes": [
       "food"
     ],
-    "source": "Ecobalyse",
+    "source": "Ecobalyse_custom_lci",
     "unit": "kg"
   },
   {
@@ -19919,7 +18958,7 @@
     "scopes": [
       "food"
     ],
-    "source": "Ecobalyse",
+    "source": "Ecobalyse_custom_lci",
     "unit": "kg"
   },
   {
@@ -19943,7 +18982,7 @@
     "scopes": [
       "food"
     ],
-    "source": "Ecobalyse",
+    "source": "Ecobalyse_custom_lci",
     "unit": "kg"
   },
   {
@@ -19967,7 +19006,7 @@
     "scopes": [
       "food"
     ],
-    "source": "Ecobalyse",
+    "source": "Ecobalyse_custom_lci",
     "unit": "kg"
   },
   {
@@ -19991,7 +19030,7 @@
     "scopes": [
       "food"
     ],
-    "source": "Ecobalyse",
+    "source": "Ecobalyse_custom_lci",
     "unit": "kg"
   },
   {
@@ -20015,7 +19054,7 @@
     "scopes": [
       "food"
     ],
-    "source": "Ecobalyse",
+    "source": "Ecobalyse_custom_lci",
     "unit": "kg"
   },
   {
@@ -20039,7 +19078,7 @@
     "scopes": [
       "food"
     ],
-    "source": "Ecobalyse",
+    "source": "Ecobalyse_custom_lci",
     "unit": "kg"
   },
   {
@@ -20063,7 +19102,7 @@
     "scopes": [
       "food"
     ],
-    "source": "Ecobalyse",
+    "source": "Ecobalyse_custom_lci",
     "unit": "kg"
   },
   {
@@ -20087,7 +19126,7 @@
     "scopes": [
       "food"
     ],
-    "source": "Ecobalyse",
+    "source": "Ecobalyse_custom_lci",
     "unit": "kg"
   },
   {
@@ -20111,7 +19150,7 @@
     "scopes": [
       "food"
     ],
-    "source": "Ecobalyse",
+    "source": "Ecobalyse_custom_lci",
     "unit": "kg"
   },
   {
@@ -20135,7 +19174,7 @@
     "scopes": [
       "food"
     ],
-    "source": "Ecobalyse",
+    "source": "Ecobalyse_custom_lci",
     "unit": "kg"
   },
   {
@@ -20159,7 +19198,7 @@
     "scopes": [
       "food"
     ],
-    "source": "Ecobalyse",
+    "source": "Ecobalyse_custom_lci",
     "unit": "kg"
   },
   {
@@ -20183,7 +19222,7 @@
     "scopes": [
       "food"
     ],
-    "source": "Ecobalyse",
+    "source": "Ecobalyse_custom_lci",
     "unit": "kg"
   },
   {
@@ -20207,7 +19246,7 @@
     "scopes": [
       "food"
     ],
-    "source": "Ecobalyse",
+    "source": "Ecobalyse_custom_lci",
     "unit": "kg"
   },
   {
@@ -20231,7 +19270,7 @@
     "scopes": [
       "food"
     ],
-    "source": "Ecobalyse",
+    "source": "Ecobalyse_custom_lci",
     "unit": "kg"
   },
   {
@@ -20255,7 +19294,7 @@
     "scopes": [
       "food"
     ],
-    "source": "Ecobalyse",
+    "source": "Ecobalyse_custom_lci",
     "unit": "kg"
   },
   {
@@ -20279,7 +19318,7 @@
     "scopes": [
       "food"
     ],
-    "source": "Ecobalyse",
+    "source": "Ecobalyse_custom_lci",
     "unit": "kg"
   },
   {
@@ -20303,7 +19342,7 @@
     "scopes": [
       "food"
     ],
-    "source": "Ecobalyse",
+    "source": "Ecobalyse_custom_lci",
     "unit": "kg"
   },
   {
@@ -20327,7 +19366,7 @@
     "scopes": [
       "food"
     ],
-    "source": "Ecobalyse",
+    "source": "Ecobalyse_custom_lci",
     "unit": "kg"
   },
   {
@@ -20351,7 +19390,7 @@
     "scopes": [
       "food"
     ],
-    "source": "Ecobalyse",
+    "source": "Ecobalyse_custom_lci",
     "unit": "kg"
   },
   {
@@ -20375,7 +19414,7 @@
     "scopes": [
       "food"
     ],
-    "source": "Ecobalyse",
+    "source": "Ecobalyse_custom_lci",
     "unit": "kg"
   },
   {
@@ -20399,7 +19438,7 @@
     "scopes": [
       "food"
     ],
-    "source": "Ecobalyse",
+    "source": "Ecobalyse_custom_lci",
     "unit": "kg"
   },
   {
@@ -20423,7 +19462,7 @@
     "scopes": [
       "food"
     ],
-    "source": "Ecobalyse",
+    "source": "Ecobalyse_custom_lci",
     "unit": "kg"
   },
   {
@@ -20447,7 +19486,7 @@
     "scopes": [
       "food"
     ],
-    "source": "Ecobalyse",
+    "source": "Ecobalyse_custom_lci",
     "unit": "kg"
   },
   {
@@ -20471,7 +19510,7 @@
     "scopes": [
       "food"
     ],
-    "source": "Ecobalyse",
+    "source": "Ecobalyse_custom_lci",
     "unit": "kg"
   },
   {
@@ -20495,7 +19534,7 @@
     "scopes": [
       "food"
     ],
-    "source": "Ecobalyse",
+    "source": "Ecobalyse_custom_lci",
     "unit": "kg"
   },
   {
@@ -20519,7 +19558,7 @@
     "scopes": [
       "food"
     ],
-    "source": "Ecobalyse",
+    "source": "Ecobalyse_custom_lci",
     "unit": "kg"
   },
   {
@@ -20543,7 +19582,7 @@
     "scopes": [
       "food"
     ],
-    "source": "Ecobalyse",
+    "source": "Ecobalyse_custom_lci",
     "unit": "kg"
   },
   {
@@ -20567,7 +19606,7 @@
     "scopes": [
       "food"
     ],
-    "source": "Ecobalyse",
+    "source": "Ecobalyse_custom_lci",
     "unit": "kg"
   },
   {
@@ -20591,7 +19630,7 @@
     "scopes": [
       "food"
     ],
-    "source": "Ecobalyse",
+    "source": "Ecobalyse_custom_lci",
     "unit": "kg"
   },
   {
@@ -20615,7 +19654,7 @@
     "scopes": [
       "food"
     ],
-    "source": "Ecobalyse",
+    "source": "Ecobalyse_custom_lci",
     "unit": "kg"
   },
   {
@@ -20639,7 +19678,7 @@
     "scopes": [
       "food"
     ],
-    "source": "Ecobalyse",
+    "source": "Ecobalyse_custom_lci",
     "unit": "kg"
   },
   {
@@ -20663,7 +19702,7 @@
     "scopes": [
       "food"
     ],
-    "source": "Ecobalyse",
+    "source": "Ecobalyse_custom_lci",
     "unit": "kg"
   },
   {
@@ -20687,7 +19726,7 @@
     "scopes": [
       "food"
     ],
-    "source": "Ecobalyse",
+    "source": "Ecobalyse_custom_lci",
     "unit": "kg"
   },
   {
@@ -20711,7 +19750,7 @@
     "scopes": [
       "food"
     ],
-    "source": "Ecobalyse",
+    "source": "Ecobalyse_custom_lci",
     "unit": "kg"
   },
   {
@@ -20735,7 +19774,7 @@
     "scopes": [
       "food"
     ],
-    "source": "Ecobalyse",
+    "source": "Ecobalyse_custom_lci",
     "unit": "kg"
   },
   {
@@ -20759,7 +19798,7 @@
     "scopes": [
       "food"
     ],
-    "source": "Ecobalyse",
+    "source": "Ecobalyse_custom_lci",
     "unit": "kg"
   },
   {
@@ -20783,7 +19822,7 @@
     "scopes": [
       "food"
     ],
-    "source": "Ecobalyse",
+    "source": "Ecobalyse_custom_lci",
     "unit": "kg"
   },
   {
@@ -20807,7 +19846,7 @@
     "scopes": [
       "food"
     ],
-    "source": "Ecobalyse",
+    "source": "Ecobalyse_custom_lci",
     "unit": "kg"
   },
   {
@@ -20831,7 +19870,7 @@
     "scopes": [
       "food"
     ],
-    "source": "Ecobalyse",
+    "source": "Ecobalyse_custom_lci",
     "unit": "kg"
   },
   {
@@ -20855,7 +19894,7 @@
     "scopes": [
       "food"
     ],
-    "source": "Ecobalyse",
+    "source": "Ecobalyse_custom_lci",
     "unit": "kg"
   },
   {
@@ -20879,7 +19918,7 @@
     "scopes": [
       "food"
     ],
-    "source": "Ecobalyse",
+    "source": "Ecobalyse_custom_lci",
     "unit": "kg"
   },
   {
@@ -20903,7 +19942,7 @@
     "scopes": [
       "food"
     ],
-    "source": "Ecobalyse",
+    "source": "Ecobalyse_custom_lci",
     "unit": "kg"
   },
   {
@@ -20927,7 +19966,7 @@
     "scopes": [
       "food"
     ],
-    "source": "Ecobalyse",
+    "source": "Ecobalyse_custom_lci",
     "unit": "kg"
   },
   {
@@ -20951,7 +19990,7 @@
     "scopes": [
       "food"
     ],
-    "source": "Ecobalyse",
+    "source": "Ecobalyse_custom_lci",
     "unit": "kg"
   },
   {
@@ -20975,7 +20014,7 @@
     "scopes": [
       "food"
     ],
-    "source": "Ecobalyse",
+    "source": "Ecobalyse_custom_lci",
     "unit": "kg"
   },
   {
@@ -20999,7 +20038,7 @@
     "scopes": [
       "food"
     ],
-    "source": "Ecobalyse",
+    "source": "Ecobalyse_custom_lci",
     "unit": "kg"
   },
   {
@@ -21023,7 +20062,7 @@
     "scopes": [
       "food"
     ],
-    "source": "Ecobalyse",
+    "source": "Ecobalyse_custom_lci",
     "unit": "kg"
   },
   {
@@ -21047,7 +20086,7 @@
     "scopes": [
       "food"
     ],
-    "source": "Ecobalyse",
+    "source": "Ecobalyse_custom_lci",
     "unit": "kg"
   },
   {
@@ -21071,7 +20110,7 @@
     "scopes": [
       "food"
     ],
-    "source": "Ecobalyse",
+    "source": "Ecobalyse_custom_lci",
     "unit": "kg"
   },
   {
@@ -21095,7 +20134,7 @@
     "scopes": [
       "food"
     ],
-    "source": "Ecobalyse",
+    "source": "Ecobalyse_custom_lci",
     "unit": "kg"
   },
   {
@@ -21119,7 +20158,7 @@
     "scopes": [
       "food"
     ],
-    "source": "Ecobalyse",
+    "source": "Ecobalyse_custom_lci",
     "unit": "kg"
   },
   {
@@ -21143,7 +20182,7 @@
     "scopes": [
       "food"
     ],
-    "source": "Ecobalyse",
+    "source": "Ecobalyse_custom_lci",
     "unit": "kg"
   },
   {
@@ -21167,7 +20206,7 @@
     "scopes": [
       "food"
     ],
-    "source": "Ecobalyse",
+    "source": "Ecobalyse_custom_lci",
     "unit": "kg"
   },
   {
@@ -21191,7 +20230,7 @@
     "scopes": [
       "food"
     ],
-    "source": "Ecobalyse",
+    "source": "Ecobalyse_custom_lci",
     "unit": "kg"
   },
   {
@@ -21215,7 +20254,7 @@
     "scopes": [
       "food"
     ],
-    "source": "Ecobalyse",
+    "source": "Ecobalyse_custom_lci",
     "unit": "kg"
   },
   {
@@ -21239,7 +20278,7 @@
     "scopes": [
       "food"
     ],
-    "source": "Ecobalyse",
+    "source": "Ecobalyse_custom_lci",
     "unit": "kg"
   },
   {
@@ -21263,7 +20302,7 @@
     "scopes": [
       "food"
     ],
-    "source": "Ecobalyse",
+    "source": "Ecobalyse_custom_lci",
     "unit": "kg"
   },
   {
@@ -21287,7 +20326,7 @@
     "scopes": [
       "food"
     ],
-    "source": "Ecobalyse",
+    "source": "Ecobalyse_custom_lci",
     "unit": "kg"
   },
   {
@@ -21311,7 +20350,7 @@
     "scopes": [
       "food"
     ],
-    "source": "Ecobalyse",
+    "source": "Ecobalyse_custom_lci",
     "unit": "kg"
   },
   {
@@ -21335,7 +20374,7 @@
     "scopes": [
       "food"
     ],
-    "source": "Ecobalyse",
+    "source": "Ecobalyse_custom_lci",
     "unit": "kg"
   },
   {
@@ -21359,7 +20398,7 @@
     "scopes": [
       "food"
     ],
-    "source": "Ecobalyse",
+    "source": "Ecobalyse_custom_lci",
     "unit": "kg"
   },
   {
@@ -21383,7 +20422,7 @@
     "scopes": [
       "food"
     ],
-    "source": "Ecobalyse",
+    "source": "Ecobalyse_custom_lci",
     "unit": "kg"
   },
   {
@@ -21407,7 +20446,7 @@
     "scopes": [
       "food"
     ],
-    "source": "Ecobalyse",
+    "source": "Ecobalyse_custom_lci",
     "unit": "kg"
   },
   {
@@ -21431,7 +20470,7 @@
     "scopes": [
       "food"
     ],
-    "source": "Ecobalyse",
+    "source": "Ecobalyse_custom_lci",
     "unit": "kg"
   },
   {
@@ -21455,7 +20494,7 @@
     "scopes": [
       "food"
     ],
-    "source": "Ecobalyse",
+    "source": "Ecobalyse_custom_lci",
     "unit": "kg"
   },
   {
@@ -21479,7 +20518,7 @@
     "scopes": [
       "food"
     ],
-    "source": "Ecobalyse",
+    "source": "Ecobalyse_custom_lci",
     "unit": "kg"
   },
   {
@@ -21503,7 +20542,7 @@
     "scopes": [
       "food"
     ],
-    "source": "Ecobalyse",
+    "source": "Ecobalyse_custom_lci",
     "unit": "kg"
   },
   {
@@ -21527,7 +20566,7 @@
     "scopes": [
       "food"
     ],
-    "source": "Ecobalyse",
+    "source": "Ecobalyse_custom_lci",
     "unit": "kg"
   },
   {
@@ -21550,7 +20589,7 @@
     "scopes": [
       "food"
     ],
-    "source": "Ecobalyse",
+    "source": "Ecobalyse_custom_lci",
     "unit": "kg"
   },
   {
@@ -21574,7 +20613,7 @@
     "scopes": [
       "food"
     ],
-    "source": "Ecobalyse",
+    "source": "Ecobalyse_custom_lci",
     "unit": "kg"
   },
   {
@@ -21598,7 +20637,7 @@
     "scopes": [
       "food"
     ],
-    "source": "Ecobalyse",
+    "source": "Ecobalyse_custom_lci",
     "unit": "kg"
   },
   {
@@ -21622,7 +20661,7 @@
     "scopes": [
       "food"
     ],
-    "source": "Ecobalyse",
+    "source": "Ecobalyse_custom_lci",
     "unit": "kg"
   },
   {
@@ -21646,7 +20685,7 @@
     "scopes": [
       "food"
     ],
-    "source": "Ecobalyse",
+    "source": "Ecobalyse_custom_lci",
     "unit": "kg"
   },
   {
@@ -21670,7 +20709,7 @@
     "scopes": [
       "food"
     ],
-    "source": "Ecobalyse",
+    "source": "Ecobalyse_custom_lci",
     "unit": "kg"
   },
   {
@@ -21694,7 +20733,7 @@
     "scopes": [
       "food"
     ],
-    "source": "Ecobalyse",
+    "source": "Ecobalyse_custom_lci",
     "unit": "kg"
   },
   {
@@ -21718,7 +20757,7 @@
     "scopes": [
       "food"
     ],
-    "source": "Ecobalyse",
+    "source": "Ecobalyse_custom_lci",
     "unit": "kg"
   },
   {
@@ -21742,7 +20781,7 @@
     "scopes": [
       "food"
     ],
-    "source": "Ecobalyse",
+    "source": "Ecobalyse_custom_lci",
     "unit": "kg"
   },
   {
@@ -21766,7 +20805,7 @@
     "scopes": [
       "food"
     ],
-    "source": "Ecobalyse",
+    "source": "Ecobalyse_custom_lci",
     "unit": "kg"
   },
   {
@@ -21790,7 +20829,7 @@
     "scopes": [
       "food"
     ],
-    "source": "Ecobalyse",
+    "source": "Ecobalyse_custom_lci",
     "unit": "kg"
   },
   {
@@ -21814,7 +20853,7 @@
     "scopes": [
       "food"
     ],
-    "source": "Ecobalyse",
+    "source": "Ecobalyse_custom_lci",
     "unit": "kg"
   },
   {
@@ -21838,7 +20877,7 @@
     "scopes": [
       "food"
     ],
-    "source": "Ecobalyse",
+    "source": "Ecobalyse_custom_lci",
     "unit": "kg"
   },
   {
@@ -21862,7 +20901,7 @@
     "scopes": [
       "food"
     ],
-    "source": "Ecobalyse",
+    "source": "Ecobalyse_custom_lci",
     "unit": "kg"
   },
   {
@@ -21886,7 +20925,7 @@
     "scopes": [
       "food"
     ],
-    "source": "Ecobalyse",
+    "source": "Ecobalyse_custom_lci",
     "unit": "kg"
   },
   {
@@ -21910,7 +20949,7 @@
     "scopes": [
       "food"
     ],
-    "source": "Ecobalyse",
+    "source": "Ecobalyse_custom_lci",
     "unit": "kg"
   },
   {
@@ -21934,7 +20973,7 @@
     "scopes": [
       "food"
     ],
-    "source": "Ecobalyse",
+    "source": "Ecobalyse_custom_lci",
     "unit": "kg"
   },
   {
@@ -21958,7 +20997,7 @@
     "scopes": [
       "food"
     ],
-    "source": "Ecobalyse",
+    "source": "Ecobalyse_custom_lci",
     "unit": "kg"
   },
   {
@@ -21982,7 +21021,7 @@
     "scopes": [
       "food"
     ],
-    "source": "Ecobalyse",
+    "source": "Ecobalyse_custom_lci",
     "unit": "kg"
   },
   {
@@ -22006,7 +21045,7 @@
     "scopes": [
       "food"
     ],
-    "source": "Ecobalyse",
+    "source": "Ecobalyse_custom_lci",
     "unit": "kg"
   },
   {
@@ -22030,7 +21069,7 @@
     "scopes": [
       "food"
     ],
-    "source": "Ecobalyse",
+    "source": "Ecobalyse_custom_lci",
     "unit": "kg"
   },
   {
@@ -22054,7 +21093,7 @@
     "scopes": [
       "food"
     ],
-    "source": "Ecobalyse",
+    "source": "Ecobalyse_custom_lci",
     "unit": "kg"
   },
   {
@@ -22078,7 +21117,7 @@
     "scopes": [
       "food"
     ],
-    "source": "Ecobalyse",
+    "source": "Ecobalyse_custom_lci",
     "unit": "kg"
   },
   {
@@ -22102,7 +21141,7 @@
     "scopes": [
       "food"
     ],
-    "source": "Ecobalyse",
+    "source": "Ecobalyse_custom_lci",
     "unit": "kg"
   },
   {
@@ -22126,7 +21165,7 @@
     "scopes": [
       "food"
     ],
-    "source": "Ecobalyse",
+    "source": "Ecobalyse_custom_lci",
     "unit": "kg"
   },
   {
@@ -22149,7 +21188,7 @@
     "scopes": [
       "food"
     ],
-    "source": "Ecobalyse",
+    "source": "Ecobalyse_custom_lci",
     "unit": "kg"
   },
   {
@@ -22173,7 +21212,7 @@
     "scopes": [
       "textile"
     ],
-    "source": "Ecobalyse",
+    "source": "Ecobalyse_custom_lci",
     "unit": "kg"
   },
   {
@@ -22197,7 +21236,7 @@
     "scopes": [
       "food"
     ],
-    "source": "Ecobalyse",
+    "source": "Ecobalyse_custom_lci",
     "unit": "kg"
   },
   {
@@ -22220,8 +21259,969 @@
       "textile",
       "food"
     ],
-    "source": "Ecobalyse",
+    "source": "Ecobalyse_custom_lci",
     "unit": "t⋅km"
+  },
+  {
+    "activityName": "This process is not linked to a Brightway activity",
+    "categories": [
+      "transformation"
+    ],
+    "comment": "corr3 : valeurs d'élec et de chaleur issues du rapport BAT2023 avec majoration de 50%",
+    "displayName": "Apprêts chimiques",
+    "elecKwh": 0.6,
+    "heatMJ": 13.5,
+    "id": "3c66588d-fffb-55cb-b9d5-c197b7e2e591",
+    "impacts": {
+      "ecs": 0
+    },
+    "location": null,
+    "massPerUnit": null,
+    "qtyVariationRatio": 1.0,
+    "scopes": [
+      "textile"
+    ],
+    "source": "Ecobalyse_manual_lcia",
+    "unit": "kg"
+  },
+  {
+    "activityName": "This process is not linked to a Brightway activity",
+    "categories": [
+      "transformation",
+      "material_type:organic_fibers"
+    ],
+    "comment": "corr3 et corr2 (cf doc). Corr3 : valeurs d'élec et de chaleur issues du rapport BAT2023 avec majoration de 50%. corr2 : valeur d'écotox issue d'inventaires enrichis.",
+    "displayName": "Blanchiment",
+    "elecKwh": 0.2,
+    "heatMJ": 5.4,
+    "id": "b4251621-1747-526a-a54f-e4be7500efff",
+    "impacts": {
+      "ecs": 757.7
+    },
+    "location": null,
+    "massPerUnit": null,
+    "qtyVariationRatio": 1.0,
+    "scopes": [
+      "textile"
+    ],
+    "source": "Ecobalyse_manual_lcia",
+    "unit": "kg"
+  },
+  {
+    "activityName": "This process is not linked to a Brightway activity",
+    "categories": [
+      "transformation",
+      "material_type:organic_fibers"
+    ],
+    "comment": "corr3 (cf doc): valeurs issues du rapport BAT2023 avec majoration de 50%",
+    "displayName": "Dégraissage",
+    "elecKwh": 0.3,
+    "heatMJ": 13.5,
+    "id": "1746b5e1-1d0d-5858-a968-2ade8d778623",
+    "impacts": {
+      "ecs": 0
+    },
+    "location": null,
+    "massPerUnit": null,
+    "qtyVariationRatio": 1.0,
+    "scopes": [
+      "textile"
+    ],
+    "source": "Ecobalyse_manual_lcia",
+    "unit": "kg"
+  },
+  {
+    "activityName": "This process is not linked to a Brightway activity",
+    "categories": [
+      "transformation"
+    ],
+    "comment": "Données provenant de Base Impacts 2.01. Ancien identifiant (12/2024): 49adf2a8-c74f-46af-b4c7-e1a8e1f5a6cb.",
+    "displayName": "Délavage chimique, procédé majorant, traitement inefficace des eaux usées",
+    "elecKwh": 1.814,
+    "heatMJ": 37.81,
+    "id": "24edc372-b238-5426-8ac9-059218936641",
+    "impacts": {
+      "ecs": 19.03
+    },
+    "location": null,
+    "massPerUnit": null,
+    "qtyVariationRatio": 1.0,
+    "scopes": [
+      "textile"
+    ],
+    "source": "Ecobalyse_manual_lcia",
+    "unit": "kg"
+  },
+  {
+    "activityName": "This process is not linked to a Brightway activity",
+    "categories": [
+      "transformation"
+    ],
+    "comment": "corr3 (cf doc): valeurs issues du rapport BAT2023 avec majoration de 50%",
+    "displayName": "Désencollage",
+    "elecKwh": 0.1,
+    "heatMJ": 3.2,
+    "id": "4570d859-cf03-535c-bd4e-870a65a9a9d9",
+    "impacts": {
+      "ecs": 0
+    },
+    "location": null,
+    "massPerUnit": null,
+    "qtyVariationRatio": 1.0,
+    "scopes": [
+      "textile"
+    ],
+    "source": "Ecobalyse_manual_lcia",
+    "unit": "kg"
+  },
+  {
+    "activityName": "This process is not linked to a Brightway activity",
+    "categories": [
+      "material",
+      "textile_material"
+    ],
+    "comment": "Ancien identifiant (12/2024): elasthane-lycra.",
+    "displayName": "Elasthane",
+    "elecKwh": 0,
+    "heatMJ": 0,
+    "id": "b2340802-bde9-56e4-984f-37110706225e",
+    "impacts": {
+      "ecs": 1043.0
+    },
+    "location": null,
+    "massPerUnit": null,
+    "qtyVariationRatio": 1.0,
+    "scopes": [
+      "textile"
+    ],
+    "source": "Ecobalyse_manual_lcia",
+    "unit": "kg"
+  },
+  {
+    "activityName": "This process is not linked to a Brightway activity",
+    "categories": [
+      "transformation",
+      "material_type:synthetic_fibers"
+    ],
+    "comment": "",
+    "displayName": "Filage (40 Nm)",
+    "elecKwh": 1.36,
+    "heatMJ": 0,
+    "id": "aeb21302-d7b6-5c6c-b5dc-fbaf475b7ffc",
+    "impacts": {
+      "ecs": 0
+    },
+    "location": null,
+    "massPerUnit": null,
+    "qtyVariationRatio": 0.97,
+    "scopes": [
+      "textile"
+    ],
+    "source": "Ecobalyse_manual_lcia",
+    "unit": "kg"
+  },
+  {
+    "activityName": "This process is not linked to a Brightway activity",
+    "categories": [
+      "transformation",
+      "material_type:organic_fibers"
+    ],
+    "comment": "",
+    "displayName": "Filature conventionnelle (40 Nm)",
+    "elecKwh": 3.64,
+    "heatMJ": 0,
+    "id": "ace9db61-adc8-5287-a13b-dcd79a83fc28",
+    "impacts": {
+      "ecs": 0
+    },
+    "location": null,
+    "massPerUnit": null,
+    "qtyVariationRatio": 0.88,
+    "scopes": [
+      "textile"
+    ],
+    "source": "Ecobalyse_manual_lcia",
+    "unit": "kg"
+  },
+  {
+    "activityName": "This process is not linked to a Brightway activity",
+    "categories": [
+      "transformation",
+      "material_type:organic_fibers"
+    ],
+    "comment": "",
+    "displayName": "Filature non conventionnelle (40 Nm)",
+    "elecKwh": 1.82,
+    "heatMJ": 0,
+    "id": "6fbc1c36-dd19-5113-8cda-3479e8587281",
+    "impacts": {
+      "ecs": 0
+    },
+    "location": null,
+    "massPerUnit": null,
+    "qtyVariationRatio": 0.88,
+    "scopes": [
+      "textile"
+    ],
+    "source": "Ecobalyse_manual_lcia",
+    "unit": "kg"
+  },
+  {
+    "activityName": "This process is not linked to a Brightway activity",
+    "categories": [
+      "end-of-life"
+    ],
+    "comment": "Précalcul Ecobalyse à partir de Base Impacts",
+    "displayName": "Fin de vie hors voiture (transport en camion, incinération, mise en décharge)",
+    "elecKwh": 0,
+    "heatMJ": 0,
+    "id": "ab96b73f-8534-59ad-9f34-a579abe3b023",
+    "impacts": {
+      "ecs": 33.11
+    },
+    "location": null,
+    "massPerUnit": null,
+    "qtyVariationRatio": 1.0,
+    "scopes": [
+      "textile"
+    ],
+    "source": "Ecobalyse_manual_lcia",
+    "unit": "kg"
+  },
+  {
+    "activityName": "This process is not linked to a Brightway activity",
+    "categories": [
+      "transformation"
+    ],
+    "comment": "corr2 : inventaires enrichis (substances chimiques)\nAncien identifiant (12/2024): ecobalyse-impression-pigmentaire.",
+    "displayName": "Impression (pigmentaire)",
+    "elecKwh": 0,
+    "heatMJ": 0,
+    "id": "97c209ec-7782-5a29-8c47-af7f17c82d11",
+    "impacts": {
+      "ecs": 2026.0
+    },
+    "location": null,
+    "massPerUnit": null,
+    "qtyVariationRatio": 1.0,
+    "scopes": [
+      "textile"
+    ],
+    "source": "Ecobalyse_manual_lcia",
+    "unit": "m2"
+  },
+  {
+    "activityName": "This process is not linked to a Brightway activity",
+    "categories": [
+      "transformation"
+    ],
+    "comment": "corr2 : inventaires enrichis (substances chimiques)\nAncien identifiant (12/2024): ecobalyse-impression-fixe-lave-colorants.",
+    "displayName": "Impression fixé-lavé (colorants)",
+    "elecKwh": 0,
+    "heatMJ": 0,
+    "id": "cfdc5e31-25fc-56ff-9a54-04670ecad301",
+    "impacts": {
+      "ecs": 787.7
+    },
+    "location": null,
+    "massPerUnit": null,
+    "qtyVariationRatio": 1.0,
+    "scopes": [
+      "textile"
+    ],
+    "source": "Ecobalyse_manual_lcia",
+    "unit": "m2"
+  },
+  {
+    "activityName": "This process is not linked to a Brightway activity",
+    "categories": [
+      "transformation"
+    ],
+    "comment": "Données provenant de Base Impacts 2.01. Ancien identifiant (12/2024): 0810b8e5-a3d9-4607-bccc-83d112573260.",
+    "displayName": "Impression fixé-lavé, procédé représentatif, traitement moyen des eaux usées",
+    "elecKwh": 1.45,
+    "heatMJ": 8.72,
+    "id": "5c21e378-b941-57f7-98c9-67345847dbda",
+    "impacts": {
+      "ecs": 6.704
+    },
+    "location": null,
+    "massPerUnit": null,
+    "qtyVariationRatio": 1.0,
+    "scopes": [
+      "textile"
+    ],
+    "source": "Ecobalyse_manual_lcia",
+    "unit": "m2"
+  },
+  {
+    "activityName": "This process is not linked to a Brightway activity",
+    "categories": [
+      "transformation"
+    ],
+    "comment": "Données provenant de Base Impacts 2.01. Ancien identifiant (12/2024): 710987ca-f483-4f1c-9122-38b620f4062b.",
+    "displayName": "Impression pigmentaire, procédé représentatif, traitement moyen des eaux usées",
+    "elecKwh": 1.267,
+    "heatMJ": 7.25,
+    "id": "9418bfb4-34e5-5bba-920f-b50e2feff1bd",
+    "impacts": {
+      "ecs": 6.982
+    },
+    "location": null,
+    "massPerUnit": null,
+    "qtyVariationRatio": 1.0,
+    "scopes": [
+      "textile"
+    ],
+    "source": "Ecobalyse_manual_lcia",
+    "unit": "m2"
+  },
+  {
+    "activityName": "This process is not linked to a Brightway activity",
+    "categories": [
+      "material",
+      "textile_material",
+      "material_type:organic_fibers"
+    ],
+    "comment": "corr4: Impacts de la laine par défaut multiplié par le coefficient 4%/37%=0.108. Cela vient d'une différence de taux d'allocation : 4% pour cette laine et 37% pour la laine par défaut.",
+    "displayName": "Laine nouvelle filière",
+    "elecKwh": 0,
+    "heatMJ": 0,
+    "id": "40ec17ee-6b44-5ee2-8fbc-559aed52764f",
+    "impacts": {
+      "ecs": 300.5
+    },
+    "location": null,
+    "massPerUnit": null,
+    "qtyVariationRatio": 1.0,
+    "scopes": [
+      "textile"
+    ],
+    "source": "Ecobalyse_manual_lcia",
+    "unit": "kg"
+  },
+  {
+    "activityName": "This process is not linked to a Brightway activity",
+    "categories": [
+      "transformation",
+      "material_type:synthetic_fibers"
+    ],
+    "comment": "corr3 (cf doc): valeurs issues du rapport BAT2023 avec majoration de 50%",
+    "displayName": "Lavage (fibres synthétiques)",
+    "elecKwh": 0.2,
+    "heatMJ": 10.8,
+    "id": "7cdc9616-7fb4-5a69-9436-78e5b84ebf31",
+    "impacts": {
+      "ecs": 0
+    },
+    "location": null,
+    "massPerUnit": null,
+    "qtyVariationRatio": 1.0,
+    "scopes": [
+      "textile"
+    ],
+    "source": "Ecobalyse_manual_lcia",
+    "unit": "kg"
+  },
+  {
+    "activityName": "This process is not linked to a Brightway activity",
+    "categories": [
+      "transformation"
+    ],
+    "comment": "corr3 (cf doc): valeurs issues du rapport BAT2023 avec majoration de 50%",
+    "displayName": "Mercerisage",
+    "elecKwh": 0.1,
+    "heatMJ": 2.7,
+    "id": "ed1fd873-2e50-5b3c-865d-7eeed8025258",
+    "impacts": {
+      "ecs": 0
+    },
+    "location": null,
+    "massPerUnit": null,
+    "qtyVariationRatio": 1.0,
+    "scopes": [
+      "textile"
+    ],
+    "source": "Ecobalyse_manual_lcia",
+    "unit": "kg"
+  },
+  {
+    "activityName": "This process is not linked to a Brightway activity",
+    "categories": [
+      "energy"
+    ],
+    "comment": "Reconstitution du mix depuis Ecoinvent 3.9.1\nAncien identifiant (12/2024): heat-europe.",
+    "displayName": "Mix chaleur (Europe)",
+    "elecKwh": 0,
+    "heatMJ": 0,
+    "id": "f6ea2983-e024-5de2-b323-273f2436deba",
+    "impacts": {
+      "ecs": 4.084
+    },
+    "location": null,
+    "massPerUnit": null,
+    "qtyVariationRatio": 1.0,
+    "scopes": [
+      "textile"
+    ],
+    "source": "Ecobalyse_manual_lcia",
+    "unit": "MJ"
+  },
+  {
+    "activityName": "This process is not linked to a Brightway activity",
+    "categories": [
+      "energy"
+    ],
+    "comment": "Reconstitution du mix depuis Ecoinvent 3.9.1\nAncien identifiant (12/2024): heat-row.",
+    "displayName": "Mix chaleur (Monde)",
+    "elecKwh": 0,
+    "heatMJ": 0,
+    "id": "3561ace1-f710-50ce-a69c-9cf842e729e4",
+    "impacts": {
+      "ecs": 7.083
+    },
+    "location": null,
+    "massPerUnit": null,
+    "qtyVariationRatio": 1.0,
+    "scopes": [
+      "textile"
+    ],
+    "source": "Ecobalyse_manual_lcia",
+    "unit": "MJ"
+  },
+  {
+    "activityName": "This process is not linked to a Brightway activity",
+    "categories": [
+      "material",
+      "textile_material",
+      "material_type:organic_fibers"
+    ],
+    "comment": "corr1: Données Base Impacts 2.01 uuid_bi=2b24abb0-c1ec-4298-9b58-350904a26104 auquel a été retranché l'impact de la filature\nAncien identifiant (12/2024): 9c6ab710-4a08-c720-cede-24428a013fda.",
+    "displayName": "Production de coton recyclé (déchets de production)",
+    "elecKwh": 0,
+    "heatMJ": 0,
+    "id": "7c1986fd-fb5c-53b9-8a7a-aea3650145eb",
+    "impacts": {
+      "ecs": 147.1
+    },
+    "location": null,
+    "massPerUnit": null,
+    "qtyVariationRatio": 1.0,
+    "scopes": [
+      "textile"
+    ],
+    "source": "Ecobalyse_manual_lcia",
+    "unit": "kg"
+  },
+  {
+    "activityName": "This process is not linked to a Brightway activity",
+    "categories": [
+      "material",
+      "textile_material",
+      "material_type:organic_fibers"
+    ],
+    "comment": "corr1: Données Base Impacts 2.01 uuid_bi=d23093d-1346-4018-8c0f-7aae33c67bcd auquel a été retranché l'impact de la filature\nAncien identifiant (12/2024): 993955be-5888-6f39-137c-56af8c5187c1.",
+    "displayName": "Production de coton recyclé (déchets post-consommation)",
+    "elecKwh": 0,
+    "heatMJ": 0,
+    "id": "698746cf-6528-582e-a5e8-df4367bdb9e2",
+    "impacts": {
+      "ecs": 179.5
+    },
+    "location": null,
+    "massPerUnit": null,
+    "qtyVariationRatio": 1.0,
+    "scopes": [
+      "textile"
+    ],
+    "source": "Ecobalyse_manual_lcia",
+    "unit": "kg"
+  },
+  {
+    "activityName": "This process is not linked to a Brightway activity",
+    "categories": [
+      "transformation"
+    ],
+    "comment": "",
+    "displayName": "Teinture en continu",
+    "elecKwh": 0.8,
+    "heatMJ": 16.2,
+    "id": "c8be445c-ae33-5240-9007-e7973e97fc24",
+    "impacts": {
+      "ecs": 0
+    },
+    "location": null,
+    "massPerUnit": null,
+    "qtyVariationRatio": 1.0,
+    "scopes": [
+      "textile"
+    ],
+    "source": "Ecobalyse_manual_lcia",
+    "unit": "kg"
+  },
+  {
+    "activityName": "This process is not linked to a Brightway activity",
+    "categories": [
+      "transformation"
+    ],
+    "comment": "",
+    "displayName": "Teinture en discontinu",
+    "elecKwh": 1.2,
+    "heatMJ": 32.4,
+    "id": "7e17b44d-108a-504f-9e0d-0cfe5b5db054",
+    "impacts": {
+      "ecs": 0
+    },
+    "location": null,
+    "massPerUnit": null,
+    "qtyVariationRatio": 1.0,
+    "scopes": [
+      "textile"
+    ],
+    "source": "Ecobalyse_manual_lcia",
+    "unit": "kg"
+  },
+  {
+    "activityName": "This process is not linked to a Brightway activity",
+    "categories": [
+      "transformation"
+    ],
+    "comment": "corr2 : inventaires enrichis (substances chimiques)\nAncien identifiant (12/2024): ecobalyse-teinture-fibres-cellulosiques.",
+    "displayName": "Teinture fibres cellulosiques",
+    "elecKwh": 0,
+    "heatMJ": 0,
+    "id": "c49a5379-95c4-599a-84da-b5faaa345b97",
+    "impacts": {
+      "ecs": 1627.0
+    },
+    "location": null,
+    "massPerUnit": null,
+    "qtyVariationRatio": 1.0,
+    "scopes": [
+      "textile"
+    ],
+    "source": "Ecobalyse_manual_lcia",
+    "unit": "kg"
+  },
+  {
+    "activityName": "This process is not linked to a Brightway activity",
+    "categories": [
+      "transformation"
+    ],
+    "comment": "corr2 : inventaires enrichis (substances chimiques)\nAncien identifiant (12/2024): ecobalyse-teinture-fibres-synthetiques.",
+    "displayName": "Teinture fibres synthétiques",
+    "elecKwh": 0,
+    "heatMJ": 0,
+    "id": "e5e43c57-bd12-5ab7-8a22-7d12cdcece58",
+    "impacts": {
+      "ecs": 620.3
+    },
+    "location": null,
+    "massPerUnit": null,
+    "qtyVariationRatio": 1.0,
+    "scopes": [
+      "textile"
+    ],
+    "source": "Ecobalyse_manual_lcia",
+    "unit": "kg"
+  },
+  {
+    "activityName": "This process is not linked to a Brightway activity",
+    "categories": [
+      "transformation"
+    ],
+    "comment": "",
+    "displayName": "Teinture moyenne",
+    "elecKwh": 1.0,
+    "heatMJ": 24.3,
+    "id": "b7fa51fc-0421-57b0-bb0a-e0573e293c7a",
+    "impacts": {
+      "ecs": 0
+    },
+    "location": null,
+    "massPerUnit": null,
+    "qtyVariationRatio": 1.0,
+    "scopes": [
+      "textile"
+    ],
+    "source": "Ecobalyse_manual_lcia",
+    "unit": "kg"
+  },
+  {
+    "activityName": "This process is not linked to a Brightway activity",
+    "categories": [
+      "transformation",
+      "material_type:synthetic_fibers",
+      "material_type:organic_fibers"
+    ],
+    "comment": "",
+    "displayName": "Tissage (40Nm et 250 g/m2)",
+    "elecKwh": 5.82,
+    "heatMJ": 0,
+    "id": "852452b3-430f-5d07-8ef5-f701dad19c52",
+    "impacts": {
+      "ecs": 0
+    },
+    "location": null,
+    "massPerUnit": null,
+    "qtyVariationRatio": 0.9375,
+    "scopes": [
+      "textile"
+    ],
+    "source": "Ecobalyse_manual_lcia",
+    "unit": "kg"
+  },
+  {
+    "activityName": "This process is not linked to a Brightway activity",
+    "categories": [
+      "transformation"
+    ],
+    "comment": "Bien que `elecKwh` = 0, ce procédé consomme de l'électricité mais dans une autre unité (kWh/pick.m). Voir weavingElecPPPM. Ancien identifiant (12/2024): f9686809-f55e-4b96-b1f0-3298959de7d0.",
+    "displayName": "Tissage (habillement)",
+    "elecKwh": 0,
+    "heatMJ": 0,
+    "id": "235b3488-6157-50ed-b74a-45e5d447dd85",
+    "impacts": {
+      "ecs": 0
+    },
+    "location": null,
+    "massPerUnit": null,
+    "qtyVariationRatio": 0.9375,
+    "scopes": [
+      "textile"
+    ],
+    "source": "Ecobalyse_manual_lcia",
+    "unit": "kg"
+  },
+  {
+    "activityName": "This process is not linked to a Brightway activity",
+    "categories": [
+      "transport"
+    ],
+    "comment": "Données provenant de Base Impacts 2.01. Ancien identifiant (12/2024): f49b27fa-f22e-c6e1-ab4b-e9f873e2e648.",
+    "displayName": "Transport en camion non spécifié France",
+    "elecKwh": 0,
+    "heatMJ": 0,
+    "id": "3db67ae7-c169-5837-8e0a-3c3c31ffda67",
+    "impacts": {
+      "ecs": 20.6
+    },
+    "location": null,
+    "massPerUnit": null,
+    "qtyVariationRatio": 1.0,
+    "scopes": [
+      "textile"
+    ],
+    "source": "Ecobalyse_manual_lcia",
+    "unit": "t⋅km"
+  },
+  {
+    "activityName": "This process is not linked to a Brightway activity",
+    "categories": [
+      "transport"
+    ],
+    "comment": "Données provenant de Base Impacts 2.01. Ancien identifiant (12/2024): 1ead35dd-fc71-4b0c-9410-7e39da95c7dc.",
+    "displayName": "Transport en voiture jusqu'au point de collecte précalculé pour la fin de vie",
+    "elecKwh": 0,
+    "heatMJ": 0,
+    "id": "2fd6b74f-600a-577c-ba37-b84d8f0482c2",
+    "impacts": {
+      "ecs": 1.942
+    },
+    "location": null,
+    "massPerUnit": null,
+    "qtyVariationRatio": 1.0,
+    "scopes": [
+      "textile"
+    ],
+    "source": "Ecobalyse_manual_lcia",
+    "unit": "item"
+  },
+  {
+    "activityName": "This process is not linked to a Brightway activity",
+    "categories": [
+      "transformation"
+    ],
+    "comment": "Ancien identifiant (12/2024): 2e16787c-7a89-4883-acdf-37d3d362bdab.",
+    "displayName": "Tricotage circulaire",
+    "elecKwh": 1.181,
+    "heatMJ": 0,
+    "id": "ddcf4b23-1283-57d3-854b-be3121452d50",
+    "impacts": {
+      "ecs": 0
+    },
+    "location": null,
+    "massPerUnit": null,
+    "qtyVariationRatio": 0.966,
+    "scopes": [
+      "textile"
+    ],
+    "source": "Ecobalyse_manual_lcia",
+    "unit": "kg"
+  },
+  {
+    "activityName": "This process is not linked to a Brightway activity",
+    "categories": [
+      "transformation"
+    ],
+    "comment": "Ancien identifiant (12/2024): 6524ac1e-cc95-4b5a-b462-2fccad7a0bce.",
+    "displayName": "Tricotage fully-fashioned",
+    "elecKwh": 1.685,
+    "heatMJ": 0,
+    "id": "66ef36be-7691-5adc-a684-e83d45e53452",
+    "impacts": {
+      "ecs": 0
+    },
+    "location": null,
+    "massPerUnit": null,
+    "qtyVariationRatio": 0.995,
+    "scopes": [
+      "textile"
+    ],
+    "source": "Ecobalyse_manual_lcia",
+    "unit": "kg"
+  },
+  {
+    "activityName": "This process is not linked to a Brightway activity",
+    "categories": [
+      "transformation"
+    ],
+    "comment": "Ancien identifiant (12/2024): 9c478d79-ff6b-45e1-9396-c3bd897faa1d.",
+    "displayName": "Tricotage moyen (mix de métiers circulaire & rectiligne)",
+    "elecKwh": 2.4,
+    "heatMJ": 0,
+    "id": "29dc6c73-8d82-5056-8ac0-faf212bc0367",
+    "impacts": {
+      "ecs": 0
+    },
+    "location": null,
+    "massPerUnit": null,
+    "qtyVariationRatio": 0.9455,
+    "scopes": [
+      "textile"
+    ],
+    "source": "Ecobalyse_manual_lcia",
+    "unit": "kg"
+  },
+  {
+    "activityName": "This process is not linked to a Brightway activity",
+    "categories": [
+      "transformation"
+    ],
+    "comment": "Ancien identifiant (12/2024): 364298ad-2058-4ec4-b2d0-47f5214abffb.",
+    "displayName": "Tricotage rectiligne",
+    "elecKwh": 1.165,
+    "heatMJ": 0,
+    "id": "8343adad-0350-5895-a701-4db41a235ba9",
+    "impacts": {
+      "ecs": 0
+    },
+    "location": null,
+    "massPerUnit": null,
+    "qtyVariationRatio": 0.96,
+    "scopes": [
+      "textile"
+    ],
+    "source": "Ecobalyse_manual_lcia",
+    "unit": "kg"
+  },
+  {
+    "activityName": "This process is not linked to a Brightway activity",
+    "categories": [
+      "transformation"
+    ],
+    "comment": "Ancien identifiant (12/2024): 11648b33-f117-4eca-bb09-233c0ad0757f.",
+    "displayName": "Tricotage seamless",
+    "elecKwh": 3.67,
+    "heatMJ": 0,
+    "id": "b2dba726-83d2-55b2-8107-91c9e47bdca7",
+    "impacts": {
+      "ecs": 0
+    },
+    "location": null,
+    "massPerUnit": null,
+    "qtyVariationRatio": 0.995,
+    "scopes": [
+      "textile"
+    ],
+    "source": "Ecobalyse_manual_lcia",
+    "unit": "kg"
+  },
+  {
+    "activityName": "This process is not linked to a Brightway activity",
+    "categories": [
+      "use"
+    ],
+    "comment": "Ancien identifiant (12/2024): 406d1f98-1052-458d-8f50-1901853d896d.",
+    "displayName": "Utilisation : Impact hors repassage (Chemisier)",
+    "elecKwh": 0.2249,
+    "heatMJ": 0,
+    "id": "163e6de6-9f3f-588c-af3a-7b375438180f",
+    "impacts": {
+      "ecs": 15.13
+    },
+    "location": null,
+    "massPerUnit": null,
+    "qtyVariationRatio": 1.0,
+    "scopes": [
+      "textile"
+    ],
+    "source": "Ecobalyse_manual_lcia",
+    "unit": "kg"
+  },
+  {
+    "activityName": "This process is not linked to a Brightway activity",
+    "categories": [
+      "use"
+    ],
+    "comment": "Ancien identifiant (12/2024): 4964273a-cdbd-43cf-8cf8-4b017aee4f03.",
+    "displayName": "Utilisation : Impact hors repassage (Jean)",
+    "elecKwh": 0.2852,
+    "heatMJ": 0,
+    "id": "cefc9a3c-1bb2-50a4-a3ce-f56b891f764a",
+    "impacts": {
+      "ecs": 15.13
+    },
+    "location": null,
+    "massPerUnit": null,
+    "qtyVariationRatio": 1.0,
+    "scopes": [
+      "textile"
+    ],
+    "source": "Ecobalyse_manual_lcia",
+    "unit": "kg"
+  },
+  {
+    "activityName": "This process is not linked to a Brightway activity",
+    "categories": [
+      "use"
+    ],
+    "comment": "Ancien identifiant (12/2024): 2572015b-7320-4ce1-bc99-cc6de371a654.",
+    "displayName": "Utilisation : Impact hors repassage (Jupe)",
+    "elecKwh": 0.2249,
+    "heatMJ": 0,
+    "id": "5ca66e62-356c-57ea-81e9-82951cb7f473",
+    "impacts": {
+      "ecs": 15.13
+    },
+    "location": null,
+    "massPerUnit": null,
+    "qtyVariationRatio": 1.0,
+    "scopes": [
+      "textile"
+    ],
+    "source": "Ecobalyse_manual_lcia",
+    "unit": "kg"
+  },
+  {
+    "activityName": "This process is not linked to a Brightway activity",
+    "categories": [
+      "use"
+    ],
+    "comment": "Ancien identifiant (12/2024): 8c040f35-e137-424b-a67f-2e50b628c1bf.",
+    "displayName": "Utilisation : Impact hors repassage (Manteau)",
+    "elecKwh": 0.2684,
+    "heatMJ": 0,
+    "id": "8f3de83a-4545-528e-83d6-e6a065696394",
+    "impacts": {
+      "ecs": 15.13
+    },
+    "location": null,
+    "massPerUnit": null,
+    "qtyVariationRatio": 1.0,
+    "scopes": [
+      "textile"
+    ],
+    "source": "Ecobalyse_manual_lcia",
+    "unit": "kg"
+  },
+  {
+    "activityName": "This process is not linked to a Brightway activity",
+    "categories": [
+      "use"
+    ],
+    "comment": "Ancien identifiant (12/2024): ea7afeed-c058-4dbb-be01-66704a9afb1f.",
+    "displayName": "Utilisation : Impact hors repassage (Pantalon)",
+    "elecKwh": 0.2852,
+    "heatMJ": 0,
+    "id": "f38c0b5f-873c-5d98-b216-4bf66c5bc520",
+    "impacts": {
+      "ecs": 15.13
+    },
+    "location": null,
+    "massPerUnit": null,
+    "qtyVariationRatio": 1.0,
+    "scopes": [
+      "textile"
+    ],
+    "source": "Ecobalyse_manual_lcia",
+    "unit": "kg"
+  },
+  {
+    "activityName": "This process is not linked to a Brightway activity",
+    "categories": [
+      "use"
+    ],
+    "comment": "Ancien identifiant (12/2024): 2b39a7ac-38bd-435f-85a4-783023d845bf.",
+    "displayName": "Utilisation : Impact hors repassage (Pull)",
+    "elecKwh": 0.2852,
+    "heatMJ": 0,
+    "id": "a9ed30ef-4849-586f-98be-0c356054947e",
+    "impacts": {
+      "ecs": 15.13
+    },
+    "location": null,
+    "massPerUnit": null,
+    "qtyVariationRatio": 1.0,
+    "scopes": [
+      "textile"
+    ],
+    "source": "Ecobalyse_manual_lcia",
+    "unit": "kg"
+  },
+  {
+    "activityName": "This process is not linked to a Brightway activity",
+    "categories": [
+      "use"
+    ],
+    "comment": "Ancien identifiant (12/2024): d3bff7b7-efc1-459b-856d-ea0801d6912f.",
+    "displayName": "Utilisation : Impact hors repassage (Robe)",
+    "elecKwh": 0.2249,
+    "heatMJ": 0,
+    "id": "91dad606-b36f-5241-bcf0-c80774647a64",
+    "impacts": {
+      "ecs": 15.13
+    },
+    "location": null,
+    "massPerUnit": null,
+    "qtyVariationRatio": 1.0,
+    "scopes": [
+      "textile"
+    ],
+    "source": "Ecobalyse_manual_lcia",
+    "unit": "kg"
+  },
+  {
+    "activityName": "This process is not linked to a Brightway activity",
+    "categories": [
+      "use"
+    ],
+    "comment": "Ancien identifiant (12/2024): 7f76529e-521d-4795-bb36-ff896c4692da.",
+    "displayName": "Utilisation : Impact hors repassage (T-shirt)",
+    "elecKwh": 0.2852,
+    "heatMJ": 0,
+    "id": "56a3b3e0-df9f-570b-b656-dab6724ab70c",
+    "impacts": {
+      "ecs": 15.13
+    },
+    "location": null,
+    "massPerUnit": null,
+    "qtyVariationRatio": 1.0,
+    "scopes": [
+      "textile"
+    ],
+    "source": "Ecobalyse_manual_lcia",
+    "unit": "kg"
   },
   {
     "activityName": "Apple {CN}| apple production | Cut-off, U",

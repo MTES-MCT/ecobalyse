@@ -13,7 +13,7 @@ RUN --mount=type=cache,target=/root/.cache/uv uv sync --locked --compile-bytecod
 # TODO: we could copy everything, and then rely on a `.dockerignore` file to exclude the
 # uneeded files, but as long as the repository is not reorganized, it’s easier and clearer
 # to do it in this “opt-in” way.
-COPY justfile settings.toml *.py activities_to_create.json simapro-biosphere.json impacts.json /app
+COPY justfile settings.toml *.py custom_lci.json simapro-biosphere.json impacts.json /app
 COPY lci_catalog /app/lci_catalog
 COPY --exclude=**/__pycache__ bin /app/bin
 COPY --exclude=**/__pycache__ common /app/common
