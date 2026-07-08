@@ -135,6 +135,7 @@ init flags requestedUrl navKey =
                       else
                         Cmd.none
                     , Posthog.send <| Posthog.PageViewed requestedUrl
+                    , Ports.loadJeDonneMonAvis ()
                     ]
                 )
 
