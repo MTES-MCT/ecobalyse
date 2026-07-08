@@ -2,14 +2,14 @@ import orjson
 
 from bin import export
 from common.export import export_json
-from config import PROJECT_ROOT_DIR, TESTS_FIXTURE_DIR, settings
+from config import DATA_ROOT_DIR, TESTS_FIXTURE_DIR, settings
 from create_activities import create_activities
 
 
 def test_export_processes(forwast, tmp_path, processes_impacts_json):
-    settings.set("OUTPUT_DIR", str(tmp_path))
-    settings.set("LOCAL_DIR", str(tmp_path))
-    create_activities(PROJECT_ROOT_DIR / "tests" / "custom_lci.json")
+    settings.set("FRONTEND_DATA_DIR", str(tmp_path))
+    settings.set("EXPORT_DIR", str(tmp_path))
+    create_activities(DATA_ROOT_DIR / "tests" / "custom_lci.json")
 
     export.processes_legacy(
         scopes=None,
@@ -29,8 +29,8 @@ def test_export_processes(forwast, tmp_path, processes_impacts_json):
 def test_export_ingredients(
     forwast, tmp_path, ingredients_food_json, processes_impacts_full_json
 ):
-    settings.set("OUTPUT_DIR", str(tmp_path))
-    settings.set("LOCAL_DIR", str(tmp_path))
+    settings.set("FRONTEND_DATA_DIR", str(tmp_path))
+    settings.set("EXPORT_DIR", str(tmp_path))
 
     output_path = tmp_path / "food"
     output_path.mkdir()
@@ -51,8 +51,8 @@ def test_export_ingredients(
 
 
 def test_export_materials(forwast, tmp_path, materials_textile_json):
-    settings.set("OUTPUT_DIR", str(tmp_path))
-    settings.set("LOCAL_DIR", str(tmp_path))
+    settings.set("FRONTEND_DATA_DIR", str(tmp_path))
+    settings.set("EXPORT_DIR", str(tmp_path))
 
     output_path = tmp_path / "textile"
     output_path.mkdir()
@@ -70,8 +70,8 @@ def test_export_materials(forwast, tmp_path, materials_textile_json):
 def test_export_processes_generic(
     forwast, tmp_path, processes_impacts_full_json, processes_generic_impacts_json
 ):
-    settings.set("OUTPUT_DIR", str(tmp_path))
-    settings.set("LOCAL_DIR", str(tmp_path))
+    settings.set("FRONTEND_DATA_DIR", str(tmp_path))
+    settings.set("EXPORT_DIR", str(tmp_path))
 
     # Write the full (unfiltered) processes data that the generic export reads.
     export_json(

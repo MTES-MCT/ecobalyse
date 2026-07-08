@@ -4,9 +4,9 @@ import functools
 import json
 from typing import List, Optional, Tuple
 
-from config import PROJECT_ROOT_DIR
+from config import DATA_ROOT_DIR
 
-_BASE_INGREDIENTS_PATH = PROJECT_ROOT_DIR / "food" / "base_ingredients.json"
+_BASE_INGREDIENTS_PATH = DATA_ROOT_DIR / "food" / "base_ingredients.json"
 
 
 _LEGACY_ZONE_TO_COUNTRY = {

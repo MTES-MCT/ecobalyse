@@ -5,7 +5,7 @@ import bw2data
 
 from common import brightway_patch as brightway_patch
 from common.import_ import add_created_activities, setup_project
-from config import PROJECT_ROOT_DIR
+from config import DATA_ROOT_DIR
 from ecobalyse_data.logging import logger
 
 
@@ -27,4 +27,4 @@ def create_activities(file):
 
 if __name__ == "__main__":
     setup_project()
-    create_activities(PROJECT_ROOT_DIR / "custom_lci.json")
+    create_activities(DATA_ROOT_DIR / "custom_lci.json")

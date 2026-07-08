@@ -7,7 +7,7 @@ from frozendict import deepfreeze
 from rich.console import Console
 from rich.table import Table
 
-from config import PROJECT_ROOT_DIR, settings
+from config import DATA_ROOT_DIR, settings
 from ecobalyse_data.logging import logger
 
 from . import (
@@ -16,7 +16,7 @@ from . import (
     remove_detailed_impacts,
 )
 
-with open(PROJECT_ROOT_DIR / settings.impacts_file) as f:
+with open(DATA_ROOT_DIR / settings.impacts_file) as f:
     IMPACTS_JSON = deepfreeze(json.load(f))
 
 
@@ -245,7 +245,7 @@ def export_processes_to_dir(
     # Write unfiltered data to last dir (local) for generic export to read later
 
     full_impacts_path = (
-        PROJECT_ROOT_DIR / settings.local_dir / full_impacts_relative_file_path
+        DATA_ROOT_DIR / settings.export_dir / full_impacts_relative_file_path
     )
     export_json(to_export, full_impacts_path)
 

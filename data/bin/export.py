@@ -11,7 +11,7 @@ import typer
 from bw2data.project import projects
 from typing_extensions import Annotated
 
-from config import PROJECT_ROOT_DIR, settings
+from config import DATA_ROOT_DIR, settings
 from ecobalyse_data.export import export_generic
 from ecobalyse_data.export import food as export_food
 from ecobalyse_data.export import process as export_process
@@ -41,7 +41,7 @@ def metadata(
             help="The number of CPUs/cores to use for computation. Default to MAX/2."
         ),
     ] = max(multiprocessing.cpu_count() // 2, 1),
-    root_dir: Path = PROJECT_ROOT_DIR,
+    root_dir: Path = DATA_ROOT_DIR,
 ):
     """
     Export metadata files (materials.json, ingredients.json, …)
@@ -54,7 +54,7 @@ def metadata(
     activities = _get_lcias(root_dir)
 
     processes_impacts_path = (
-        root_dir / settings.local_dir / settings.processes_legacy_impacts_full_file
+        root_dir / settings.export_dir / settings.processes_legacy_impacts_full_file
     )
 
     for s in scopes:
@@ -81,7 +81,7 @@ def metadata(
             export_textile.activities_to_materials_json(
                 activities_textile_materials,
                 materials_path=root_dir
-                / settings.output_dir
+                / settings.frontend_data_dir
                 / scope_dirname
                 / settings.scopes.textile.materials_file,
             )
@@ -96,7 +96,7 @@ def metadata(
             ]
             ingredients_path = (
                 root_dir
-                / settings.output_dir
+                / settings.frontend_data_dir
                 / scope_dirname
                 / settings.scopes.food.ingredients_file
             )
@@ -119,14 +119,14 @@ def metadata(
                 if GENERIC_SCOPES & set(activity["scopes"])
             ]
 
-            local_dir = root_dir / settings.local_dir
+            export_dir = root_dir / settings.export_dir
 
             export_generic.activities_to_processes_generic_json(
                 generic_activities,
                 processes_impacts_path=processes_impacts_path,
-                ecs_output_paths=[local_dir / settings.processes_generic_ecs_file],
+                ecs_output_paths=[export_dir / settings.processes_generic_ecs_file],
                 impacts_output_paths=[
-                    local_dir / settings.processes_generic_impacts_file
+                    export_dir / settings.processes_generic_impacts_file
                 ],
                 cpu_count=cpu_count,
                 ecosystemic_factors_path=ecosystemic_factors_path,
@@ -147,7 +147,7 @@ def processes_legacy(
     ] = True,
     merge: bool = typer.Option(False, "--merge", "-m"),
     verbose: bool = typer.Option(False, "--verbose", "-v"),
-    root_dir: Path = PROJECT_ROOT_DIR,
+    root_dir: Path = DATA_ROOT_DIR,
 ):
     """
     Export processes. If scope is specified, only exports processes for that scope.
@@ -171,7 +171,7 @@ def processes_legacy(
         ecs_relative_file_path=settings.processes_legacy_ecs_file,
         impacts_relative_file_path=settings.processes_legacy_impacts_file,
         full_impacts_relative_file_path=settings.processes_legacy_impacts_full_file,
-        dir_to_export_to=root_dir / settings.local_dir,
+        dir_to_export_to=root_dir / settings.export_dir,
         display_changes=display_changes,
         merge=merge,
         scopes=scopes,
@@ -180,19 +180,19 @@ def processes_legacy(
 
 @app.command()
 def merge_processes(
-    root_dir: Path = PROJECT_ROOT_DIR,
+    root_dir: Path = DATA_ROOT_DIR,
 ):
-    """take legacy and generic processes from local_dir and merge them, put the merged file in public_dir"""
+    """take legacy and generic processes from export_dir and merge them, put the merged file in public_dir"""
     from common import remove_detailed_impacts
     from common.export import export_json, load_json
 
-    local_dir = root_dir / settings.local_dir
-    impacts = load_json(local_dir / settings.processes_legacy_impacts_file)
-    generic_impacts = load_json(local_dir / settings.processes_generic_impacts_file)
+    export_dir = root_dir / settings.export_dir
+    impacts = load_json(export_dir / settings.processes_legacy_impacts_file)
+    generic_impacts = load_json(export_dir / settings.processes_generic_impacts_file)
     merged = impacts + generic_impacts
     merged_ecs = remove_detailed_impacts(merged)
 
-    public_dir = root_dir / settings.output_dir
+    public_dir = root_dir / settings.frontend_data_dir
 
     export_json(merged, public_dir / settings.processes_merged_impacts_file)
     export_json(merged_ecs, public_dir / settings.processes_merged_ecs_file)

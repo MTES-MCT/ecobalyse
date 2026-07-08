@@ -5,12 +5,12 @@ from pathlib import Path
 from dynaconf import Dynaconf, Validator
 from platformdirs import user_cache_path
 
-PROJECT_ROOT_DIR = Path.resolve(Path(__file__).parent)
-TESTS_FIXTURE_DIR = PROJECT_ROOT_DIR / "tests" / "fixtures"
+DATA_ROOT_DIR = Path.resolve(Path(__file__).parent)
+TESTS_FIXTURE_DIR = DATA_ROOT_DIR / "tests" / "fixtures"
 IS_CI = os.environ.get("CI") == "true"
 
 settings = Dynaconf(
-    root_path=PROJECT_ROOT_DIR,
+    root_path=DATA_ROOT_DIR,
     envvar_prefix="EB",
     settings_files=["settings.toml"],
     environments=True,

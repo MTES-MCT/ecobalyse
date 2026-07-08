@@ -11,7 +11,7 @@ import uuid
 from collections import Counter
 from pathlib import Path
 
-from config import PROJECT_ROOT_DIR, TESTS_FIXTURE_DIR
+from config import DATA_ROOT_DIR, TESTS_FIXTURE_DIR
 from ecobalyse_data.export.food import Scenario, scenario
 from ecobalyse_data.export.utils import get_metadata_for_scope
 
@@ -213,7 +213,7 @@ def check_scenario(filename, content, key):
 def check_all(checks_by_file, content_checks_by_file=None):
     for filename, checks_by_key in checks_by_file.items():
         print(f"Checking {filename}")
-        with open(PROJECT_ROOT_DIR / filename) as f:
+        with open(DATA_ROOT_DIR / filename) as f:
             content = json.load(f)
 
             # Run content-level checks (no specific key)
@@ -237,7 +237,7 @@ def creation_alias_matches_export_alias(activities_fp):
     the alias inside {{...}} must match the activity.alias,
     and must correspond to an entry in custom_lci.json.
     """
-    with open(PROJECT_ROOT_DIR / "custom_lci.json") as f:
+    with open(DATA_ROOT_DIR / "custom_lci.json") as f:
         atc = json.load(f)
     activities = json.load(activities_fp)
 
@@ -304,7 +304,7 @@ def test():
     with tempfile.NamedTemporaryFile(
         mode="w+", prefix="activities-"
     ) as activities_temp:
-        json.dump(_concat_lci(PROJECT_ROOT_DIR / "lci_catalog"), activities_temp)
+        json.dump(_concat_lci(DATA_ROOT_DIR / "lci_catalog"), activities_temp)
         activities_temp.seek(0)
 
         with tempfile.NamedTemporaryFile(
