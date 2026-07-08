@@ -19,6 +19,7 @@ describe("lib.http", () => {
       ]);
       expect(directives["frame-src"]).toEqual([
         "'self'",
+        "https://jedonnemonavis.numerique.gouv.fr",
         "https://matomo.example.com",
         "https://plausible.example.com",
       ]);
@@ -40,7 +41,10 @@ describe("lib.http", () => {
         "https://api.github.com",
         "https://raw.githubusercontent.com",
       ]);
-      expect(directives["frame-src"]).toEqual(["'self'"]);
+      expect(directives["frame-src"]).toEqual([
+        "'self'",
+        "https://jedonnemonavis.numerique.gouv.fr",
+      ]);
       expect(directives["script-src"]).toEqual([
         "'self'",
         "'unsafe-inline'",
