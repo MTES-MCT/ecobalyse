@@ -68,12 +68,15 @@ if (NODE_ENV === "production" && SENTRY_DSN) {
   });
 }
 
-function loadScript(scriptUrl) {
+function loadScript(scriptUrl, attributes = {}) {
   var d = document,
     g = d.createElement("script"),
     s = d.getElementsByTagName("script")[0];
   g.async = true;
   g.src = scriptUrl;
+  for (const [key, value] of Object.entries(attributes)) {
+    g.setAttribute(key, value);
+  }
   s.parentNode.insertBefore(g, s);
 }
 
