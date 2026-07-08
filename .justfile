@@ -111,9 +111,3 @@ ci-data: check-all-data
 
 test-data:
     uv run --group data pytest data
-
-################################################################################
-### Jupyter lab
-
-jupyter:
-    cd data && uv run --group jupyter jupyter lab

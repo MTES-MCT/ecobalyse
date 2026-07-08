@@ -142,19 +142,10 @@ def processes_legacy(
         Optional[List[Scope]],
         typer.Option(help="The scope to export. If not specified, exports all scopes."),
     ] = None,
-    graph_folder: Annotated[
-        Optional[Path],
-        typer.Option(help="The graph output path."),
-    ] = PROJECT_ROOT_DIR / "graphs",
     display_changes: Annotated[
         bool,
         typer.Option(help="Display changes with old processes."),
     ] = True,
-    simapro: Annotated[
-        bool,
-        typer.Option(help="Use simapro"),
-    ] = False,
-    plot: bool = typer.Option(False, "--plot", "-p"),
     merge: bool = typer.Option(False, "--merge", "-m"),
     verbose: bool = typer.Option(False, "--verbose", "-v"),
     root_dir: Path = PROJECT_ROOT_DIR,
@@ -167,11 +158,6 @@ def processes_legacy(
 
     # export only to local data dir as its an intermediate file
     dirs_to_export_to = [root_dir / settings.local_dir]
-    should_plot = settings.plot_export
-
-    # Override config if cli parameter is present
-    if plot:
-        should_plot = True
 
     activities = _get_lcias(root_dir)
 
@@ -190,10 +176,7 @@ def processes_legacy(
         impacts_relative_file_path=settings.processes_legacy_impacts_file,
         full_impacts_relative_file_path=settings.processes_legacy_impacts_full_file,
         dirs_to_export_to=dirs_to_export_to,
-        plot=should_plot,
-        graph_folder=graph_folder,
         display_changes=display_changes,
-        simapro=simapro,
         merge=merge,
         scopes=scopes,
     )

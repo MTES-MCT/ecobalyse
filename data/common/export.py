@@ -2,8 +2,6 @@ import json
 import math
 import os
 
-import matplotlib.pyplot
-import numpy
 from frozendict import deepfreeze
 from rich.console import Console
 from rich.table import Table
@@ -14,7 +12,6 @@ from ecobalyse_data.logging import logger
 from . import (
     FormatNumberJsonEncoder,
     activities_processes_sort_key,
-    get_normalization_weighting_factors,
     remove_detailed_impacts,
 )
 
@@ -136,43 +133,6 @@ def display_changes(
 
     if review:
         display_changes_table(changes, with_names=with_names)
-
-
-def plot_impacts(process_name, impacts_smp, impacts_bw, folder, impacts_py):
-    trigrams = [
-        t
-        for t in impacts_py.keys()
-        if t in impacts_smp.keys() and t in impacts_bw.keys()
-    ]
-    factors = get_normalization_weighting_factors(impacts_py)
-
-    simapro_values = [
-        impacts_smp.get(t, 0) / factors["ecs_normalizations"][t] for t in trigrams
-    ]
-    brightway_values = [
-        impacts_bw.get(t, 0) / factors["ecs_normalizations"][t] for t in trigrams
-    ]
-
-    x = numpy.arange(len(trigrams))
-    width = 0.35
-
-    fig, ax = matplotlib.pyplot.subplots(figsize=(12, 8))
-
-    ax.bar(x - width / 2, simapro_values, width, label="SimaPro")
-    ax.bar(x + width / 2, brightway_values, width, label="Brightway")
-
-    ax.set_xlabel("Impact Categories")
-    ax.set_ylabel("Impact Values (normalized, non weighted)")
-    ax.set_title(f"Environmental Impacts for {process_name}")
-    ax.set_xticks(x)
-    ax.set_xticklabels(trigrams, rotation=90)
-    ax.legend()
-
-    matplotlib.pyplot.tight_layout()
-    filepath = f"{folder}/{process_name.replace('/', '_')}.png"
-    matplotlib.pyplot.savefig(filepath)
-    logger.info(f"Saved impact comparison plot to {filepath}")
-    matplotlib.pyplot.close()
 
 
 def export_json(json_data, filename):

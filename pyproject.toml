@@ -73,15 +73,6 @@ data = [
   'pypardiso ~= 0.4; platform_machine!="arm64" and platform_machine!="aarch64"',
 ]
 
-jupyter = [
-    "ipywidgets>=8.1.5",
-    "jupyter-collaboration>=3.0.1",
-    "jupyterlab>=4.6.1",
-    "notebook>=7.3.0",
-]
-# SimaPro (API + plotting)
-simapro = ["fastapi[all]~=0.138", "matplotlib~=3.11.0"]
-
 [tool.pytest.ini_options]
 pythonpath = ["."]
 testpaths = ["tests"]

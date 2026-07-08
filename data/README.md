@@ -242,19 +242,3 @@ This will create:
 All these files are loaded by the Ecobalyse frontend (see in
 https://github.com/MTES-MCT/ecobalyse/ ) and exported both in this repository
 and in a second configurable location (typically the Ecobalyse repository).
-
-## Jupyter
-
-You can start a `jupyter` server to explore the processes in Brightway or do other Python tasks:
-
-    uv run jupyter lab
-
-The password is empty by default.
-
-### Brightway explorer
-
-In a Jupyter notebook, enter `import notebooks.explore` and then validate with `shift-Enter`.
-
-### Ingredients editor (in deprecation)
-
-In a Jupyter notebook, enter `import notebooks.ingredients` and then validate with `shift-Enter`.

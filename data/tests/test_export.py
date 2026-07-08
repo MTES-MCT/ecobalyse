@@ -13,8 +13,6 @@ def test_export_processes(forwast, tmp_path, processes_impacts_json):
 
     export.processes_legacy(
         scopes=None,
-        simapro=False,
-        plot=False,
         verbose=False,
         root_dir=TESTS_FIXTURE_DIR,
     )
