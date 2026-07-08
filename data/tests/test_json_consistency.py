@@ -337,17 +337,17 @@ def test():
                     # "displayName": (duplicate,),
                     "alias": (duplicate_across_records, alias_syntax),  # TODO
                 },
-                "public/data/food/ingredients.json": {
+                "../public/data/food/ingredients.json": {
                     "id": (duplicate_across_records, invalid_uuid, missing),
                     "alias": (missing, duplicate_across_records, alias_syntax),
                     "name": (missing, duplicate_across_records),
                 },
-                "public/data/processes_legacy.json": {
+                "export/processes_legacy.json": {
                     "id": (duplicate_across_records, invalid_uuid, missing),
                     "displayName": (duplicate_across_records,),
                     "categories": (duplicate_within_value,),
                 },
-                "public/data/processes_generic.json": {
+                "export/processes_generic.json": {
                     "id": (duplicate_across_records, invalid_uuid, missing),
                     "displayName": (duplicate_across_records,),
                     "categories": (duplicate_within_value,),
@@ -356,7 +356,7 @@ def test():
                     "id": (duplicate_across_records, invalid_uuid, missing),
                     "categories": (duplicate_within_value,),
                 },
-                "public/data/textile/materials.json": {
+                "../public/data/textile/materials.json": {
                     "id": (duplicate_across_records, missing),
                     "name": (missing,),
                     "processId": (missing, duplicate_across_records, invalid_uuid),

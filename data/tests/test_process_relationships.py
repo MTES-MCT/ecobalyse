@@ -25,22 +25,22 @@ def check_process_relationships(items, processes, item_type):
 
 
 def test_process_relationships():
-    processes_path = (
-        PROJECT_ROOT_DIR / "public" / "data" / settings.processes_legacy_ecs_file
-    )
+    processes_path = PROJECT_ROOT_DIR / "export" / settings.processes_legacy_ecs_file
     processes_data = load_json(processes_path)
     processes = {p["id"]: p for p in processes_data}
 
     # Check ingredients against food processes
     ingredients_path = (
-        PROJECT_ROOT_DIR / "public" / "data" / "food" / "ingredients.json"
+        PROJECT_ROOT_DIR / ".." / "public" / "data" / "food" / "ingredients.json"
     )
 
     ingredients = load_json(ingredients_path)
     check_process_relationships(ingredients, processes, "ingredient")
 
     # Check materials against textile processes
-    materials_path = PROJECT_ROOT_DIR / "public" / "data" / "textile" / "materials.json"
+    materials_path = (
+        PROJECT_ROOT_DIR / ".." / "public" / "data" / "textile" / "materials.json"
+    )
 
     materials = load_json(materials_path)
     check_process_relationships(materials, processes, "material")

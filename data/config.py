@@ -23,17 +23,6 @@ settings = Dynaconf(
             "LOG_LEVEL",
             is_in=(logging.getLevelNamesMapping().keys()),
         ),
-        # Check that the output dir was set
-        Validator(
-            "OUTPUT_DIR",
-            must_exist=True,
-            messages={
-                "must_exist_true": "🚨 For the export to work properly, you need to specify "
-                "the EB_{name} env variable.\nIt needs to point to the 'public/data/' directory "
-                "of the https://github.com/MTES-MCT/ecobalyse/ repository. \nPlease, edit your .env file "
-                "accordingly."
-            },
-        ),
         # The S3 related variables are read from the environment
         Validator("S3_ENDPOINT", must_exist=not IS_CI),
         Validator("S3_REGION", must_exist=not IS_CI),

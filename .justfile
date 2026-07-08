@@ -84,7 +84,7 @@ check-lci-catalog:
     uv run --group data check-jsonschema --schemafile data/schemas/lci-schema.json data/tests/fixtures/lci_catalog/*/* data/lci_catalog/*/*
 
 check-processes *target:
-    uv run --group data check-jsonschema --schemafile data/tests/processes-schema.json data/public/data/processes*.json data/tests/fixtures/processes_legacy_impacts_output.json data/tests/snapshots/processes_legacy_impacts.json
+    uv run --group data check-jsonschema --schemafile data/tests/processes-schema.json data/export/processes*.json data/tests/fixtures/processes_legacy_impacts_output.json data/tests/snapshots/processes_legacy_impacts.json
 
 check-json-data +target="data":
     {{ python-cmd-data }} ./data/bin/json_formatter.py {{ target }}

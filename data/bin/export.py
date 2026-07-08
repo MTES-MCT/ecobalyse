@@ -31,12 +31,12 @@ class MetadataScope(str, Enum):
 @app.command()
 def metadata(
     scopes: Annotated[
-        Optional[List[MetadataScope]],
+        List[MetadataScope],
         typer.Option(help="The scope to export. If not specified, exports all scopes."),
     ] = [MetadataScope.textile, MetadataScope.food, MetadataScope.generic],
     verbose: bool = typer.Option(False, "--verbose", "-v"),
     cpu_count: Annotated[
-        Optional[int],
+        int,
         typer.Option(
             help="The number of CPUs/cores to use for computation. Default to MAX/2."
         ),
@@ -50,7 +50,7 @@ def metadata(
         logger.setLevel(logging.DEBUG)
 
     # Metadata (materials/ingredients) is written both to the published dir and the local data dir
-    dirs_to_export_to = [settings.output_dir, root_dir / settings.local_dir]
+
     activities = _get_lcias(root_dir)
 
     processes_impacts_path = (
@@ -80,13 +80,10 @@ def metadata(
 
             export_textile.activities_to_materials_json(
                 activities_textile_materials,
-                materials_paths=[
-                    root_dir
-                    / dir
-                    / scope_dirname
-                    / settings.scopes.textile.materials_file
-                    for dir in dirs_to_export_to
-                ],
+                materials_path=root_dir
+                / settings.output_dir
+                / scope_dirname
+                / settings.scopes.textile.materials_file,
             )
 
         elif s == MetadataScope.food:
@@ -97,15 +94,17 @@ def metadata(
                 if scope_dirname in a.get("scopes", [])
                 and "ingredient" in a.get("categories", [])
             ]
-            ingredients_paths = [
-                root_dir / dir / scope_dirname / settings.scopes.food.ingredients_file
-                for dir in dirs_to_export_to
-            ]
+            ingredients_path = (
+                root_dir
+                / settings.output_dir
+                / scope_dirname
+                / settings.scopes.food.ingredients_file
+            )
 
             export_food.activities_to_ingredients_json(
                 activities_food_ingredients,
                 processes_impacts_path=processes_impacts_path,
-                ingredients_paths=ingredients_paths,
+                ingredients_path=ingredients_path,
                 ecosystemic_factors_path=ecosystemic_factors_path,
                 feed_file_path=feed_file_path,
                 raw_to_transformed_file_path=raw_to_transformed_file_path,
@@ -156,9 +155,6 @@ def processes_legacy(
     if verbose:
         logger.setLevel(logging.DEBUG)
 
-    # export only to local data dir as its an intermediate file
-    dirs_to_export_to = [root_dir / settings.local_dir]
-
     activities = _get_lcias(root_dir)
 
     # Filter activities by scope if specified
@@ -175,7 +171,7 @@ def processes_legacy(
         ecs_relative_file_path=settings.processes_legacy_ecs_file,
         impacts_relative_file_path=settings.processes_legacy_impacts_file,
         full_impacts_relative_file_path=settings.processes_legacy_impacts_full_file,
-        dirs_to_export_to=dirs_to_export_to,
+        dir_to_export_to=root_dir / settings.local_dir,
         display_changes=display_changes,
         merge=merge,
         scopes=scopes,

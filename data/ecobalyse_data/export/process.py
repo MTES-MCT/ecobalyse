@@ -1,3 +1,4 @@
+from pathlib import Path
 from typing import List
 
 from common import (
@@ -6,7 +7,7 @@ from common import (
 from common.export import (
     IMPACTS_JSON,
     display_changes_from_json,
-    export_processes_to_dirs,
+    export_processes_to_dir,
 )
 from common.impacts import impacts as impacts_py
 from common.impacts import main_method
@@ -20,7 +21,7 @@ def activities_to_processes(
     ecs_relative_file_path: str,
     impacts_relative_file_path: str,
     full_impacts_relative_file_path: str,
-    dirs_to_export_to: List[str],
+    dir_to_export_to: Path,
     display_changes: bool = True,
     merge: bool = False,
     scopes: list[Scope] | None = None,
@@ -46,14 +47,14 @@ def activities_to_processes(
             processes_impacts_path=impacts_relative_file_path,
             processes_corrected_impacts=dumped_processes,
             # Compare by default with the first output dir
-            dir=dirs_to_export_to[0],
+            dir=dir_to_export_to,
         )
 
-    export_processes_to_dirs(
+    export_processes_to_dir(
         ecs_relative_file_path,
         impacts_relative_file_path,
         dumped_processes,
-        dirs_to_export_to,
+        dir_to_export_to,
         full_impacts_relative_file_path,
         merge=merge,
         scopes=scopes,

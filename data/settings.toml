@@ -2,8 +2,9 @@
 ENV_NAME = "default" # Do not override this value, it’s used by the unit tests
 LOG_LEVEL = "INFO"
 
-# local data dir for intermediate data files
-LOCAL_DIR = "public/data"
+OUTPUT_DIR = "../public/data"
+LOCAL_DIR = "./export"
+
 
 PROCESSES_LEGACY_IMPACTS_FILE = "processes_legacy_impacts.json"
 PROCESSES_LEGACY_IMPACTS_FULL_FILE = "processes_legacy_impacts_full.json"
