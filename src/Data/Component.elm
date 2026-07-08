@@ -730,7 +730,13 @@ computeElementResults requirements transportOptions =
                         (\initialAmount ->
                             material.process
                                 |> computeMaterialResults initialAmount
-                                |> applyTransforms requirements transportOptions material.country material.process.unit transforms
+                                |> applyTransforms requirements
+                                    -- pre-assembly transport cooling is always driven automatically by the material
+                                    -- process, and bypasses any user-provided transportOptions.cooling option
+                                    { transportOptions | cooling = Process.isTransportedCooled material.process }
+                                    material.country
+                                    material.process.unit
+                                    transforms
                         )
             )
 
@@ -1093,8 +1099,13 @@ computeTransports ({ config, db } as requirements) ({ transportOptions } as quer
                         \( expandedElement, elementResults ) ->
                             extractMass elementResults
                                 |> computeTransportedMassImpacts requirements
-                                    -- note: air transport is always disabled before assembly
-                                    { transportOptions | byAir = Split.zero }
+                                    -- Notes:
+                                    --   - air transport is always disabled before assembly
+                                    --   - cooling before assembly is automatic and driven by the material process
+                                    { transportOptions
+                                        | byAir = Split.zero
+                                        , cooling = Process.isTransportedCooled expandedElement.material.process
+                                    }
                                     (getFinalElementCountry expandedElement)
                                     maybeAssemblyCountry
                     )

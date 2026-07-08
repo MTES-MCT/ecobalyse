@@ -1104,6 +1104,47 @@ suite =
                                     withAirTransport
                                         |> Expect.greaterThan noAirTransport
                                 )
+                            , itFromResult "should cool pre-assembly transports for a `transported_cooled` material, even when cooling is disabled"
+                                -- note: using wood as an example, which is not tagged as transported_cooled
+                                wood
+                                (\woodProcess ->
+                                    let
+                                        testSpecificReqs =
+                                            requirements
+                                                |> updateRequirementsProcess woodProcess
+                                                    -- tag the process as transported_cooled
+                                                    (\process -> { process | categories = Category.TransportedCooled :: process.categories })
+                                    in
+                                    """{"components": [{ "id": "64fa65b3-c2df-4fd0-958b-83965bd6aa08", "quantity": 1 }]}"""
+                                        |> decodeJsonThen Component.decodeQuery (Component.compute testSpecificReqs)
+                                        |> Result.map (.transports >> .toAssembly >> .roadCooled >> Length.inKilometers)
+                                        |> Result.withDefault 0
+                                        |> Expect.greaterThan 0
+                                )
+                            , itFromResult "should not cool pre-assembly transport through the cooling option for a non-tagged material"
+                                ("""{
+                                      "components": [{ "id": "64fa65b3-c2df-4fd0-958b-83965bd6aa08", "quantity": 1 }],
+                                      "transportOptions": { "cooling": true }
+                                    }"""
+                                    |> decodeJsonThen Component.decodeQuery (Component.compute requirements)
+                                )
+                                (\product ->
+                                    product.transports.toAssembly.roadCooled
+                                        |> Length.inKilometers
+                                        |> Expect.equal 0
+                                )
+                            , itFromResult "should cool assembly to distribution transpoerts when the cooling option is enabled"
+                                ("""{
+                                      "components": [{ "id": "64fa65b3-c2df-4fd0-958b-83965bd6aa08", "quantity": 1 }],
+                                      "transportOptions": { "cooling": true }
+                                    }"""
+                                    |> decodeJsonThen Component.decodeQuery (Component.compute requirements)
+                                )
+                                (\product ->
+                                    product.transports.toDistribution.roadCooled
+                                        |> Length.inKilometers
+                                        |> Expect.greaterThan 0
+                                )
                             ]
                         ]
                     , suiteFromResult2 "computeTransportDistance"

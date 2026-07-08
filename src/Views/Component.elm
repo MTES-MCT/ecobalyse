@@ -434,23 +434,7 @@ simpleError title message =
 lifeCycleView : Config db msg -> LifeCycle -> Html msg
 lifeCycleView ({ db, docsUrl, explorerRoute, impact, query, scope, title } as config) lifeCycle =
     div [ class "d-flex flex-column" ]
-        [ div [ class "d-flex justify-content-end mb-2" ]
-            [ div [ class "form-check form-switch" ]
-                [ label [ class "form-check-label", for "transportCoolingSwitch" ]
-                    [ text "Transport réfrigéré" ]
-                , input
-                    [ type_ "checkbox"
-                    , class "form-check-input"
-                    , id "transportCoolingSwitch"
-                    , attribute "role" "switch"
-                    , attribute "switch" ""
-                    , onCheck config.toggleTransportCooling
-                    , checked query.transportOptions.cooling
-                    ]
-                    []
-                ]
-            ]
-        , div [ class "card shadow-sm" ]
+        [ div [ class "card shadow-sm" ]
             [ div [ class "card-header d-flex align-items-center justify-content-between gap-2" ]
                 [ h2 [ class "h5 mb-0" ]
                     [ text title
@@ -719,6 +703,7 @@ transportToDistributionView ({ componentConfig, impact, scope } as config) mass 
             [ text "Transport"
             , Icon.package
             , Format.kg mass
+            , cooledTransportToggler config
             , if airTransportAvailable then
                 airTransportToggler config
 
@@ -768,6 +753,22 @@ airTransportToggler ({ query } as config) =
             []
         , label [ class "form-check-label", for "transportByAirSwitch" ]
             [ text "par avion" ]
+        ]
+
+
+cooledTransportToggler : Config db msg -> Html msg
+cooledTransportToggler ({ query } as config) =
+    div [ class "d-flex justify-content-end align-items-center gap-2" ]
+        [ input
+            [ type_ "checkbox"
+            , class "form-check-input"
+            , id "transportCoolingSwitch"
+            , checked query.transportOptions.cooling
+            , onCheck config.toggleTransportCooling
+            ]
+            []
+        , label [ class "form-check-label", for "transportCoolingSwitch" ]
+            [ text "réfrigéré" ]
         ]
 
 
@@ -954,6 +955,9 @@ elementEditModalView ({ query } as config) (( _, elementIndex ) as targetElement
 
         Ok ( { amount, material, transforms } as expandedElement, elementResults ) ->
             let
+                elementCooling =
+                    Process.isTransportedCooled material.process
+
                 stageItems =
                     Component.extractItems elementResults
 
@@ -994,11 +998,11 @@ elementEditModalView ({ query } as config) (( _, elementIndex ) as targetElement
                             , th [] []
                             ]
                             :: elementMaterialView config targetElement materialResults material amount
-                            ++ elementTransformsView config targetElement materialResults material.country transformsResults transforms
+                            ++ elementTransformsView config elementCooling targetElement materialResults material.country transformsResults transforms
                             ++ [ LE.last transformsResults
                                     |> Maybe.map Component.extractMass
                                     |> Maybe.withDefault (Component.extractMass materialResults)
-                                    |> finalElementTransportView config (Component.getFinalElementCountry expandedElement)
+                                    |> finalElementTransportView config elementCooling (Component.getFinalElementCountry expandedElement)
                                , tr [ class "border-top" ]
                                     [ td [ colspan 2 ] []
                                     , td [ colspan 6 ]
@@ -1012,12 +1016,12 @@ elementEditModalView ({ query } as config) (( _, elementIndex ) as targetElement
 
 {-| Render transports from last transform step to assembly or distribution stage
 -}
-finalElementTransportView : Config db msg -> Maybe Country -> Mass -> Html msg
-finalElementTransportView ({ db, query, scope } as config) elementCountry mass =
+finalElementTransportView : Config db msg -> Bool -> Maybe Country -> Mass -> Html msg
+finalElementTransportView ({ db, query, scope } as config) cooling elementCountry mass =
     db.countries
         |> Scope.anyOf [ scope ]
         |> Country.resolveMaybe query.assemblyCountry
-        |> Result.map (elementTransportView config [ class "subdued" ] mass elementCountry)
+        |> Result.map (elementTransportView config cooling [ class "subdued" ] mass elementCountry)
         |> Result.withDefault (text "")
 
 
@@ -1127,8 +1131,8 @@ elementMaterialView config targetElement materialResults material amount =
     ]
 
 
-elementTransportView : Config db msg -> List (Attribute msg) -> Mass -> Maybe Country -> Maybe Country -> Html msg
-elementTransportView ({ query } as config) attributes transportedMass maybeFrom maybeTo =
+elementTransportView : Config db msg -> Bool -> List (Attribute msg) -> Mass -> Maybe Country -> Maybe Country -> Html msg
+elementTransportView ({ query } as config) cooling attributes transportedMass maybeFrom maybeTo =
     let
         { transportOptions } =
             query
@@ -1136,8 +1140,10 @@ elementTransportView ({ query } as config) attributes transportedMass maybeFrom 
         displayElementTransport =
             transportedMass
                 |> Component.computeTransportedMassImpacts (requirementsFromConfig config)
-                    -- Note: air transport is always disabled before assembly (see Component.computeTransports)
-                    { transportOptions | byAir = Split.zero }
+                    -- Notes:
+                    --   - air transport is always disabled before assembly (see Component.computeTransports)
+                    --   - cooling before assembly is driven by the material process, not the transport option
+                    { transportOptions | byAir = Split.zero, cooling = cooling }
                     maybeFrom
                     maybeTo
     in
@@ -1168,18 +1174,10 @@ elementTransportView ({ query } as config) attributes transportedMass maybeFrom 
                 , td [ class "text-end align-middle d-flex justify-content-end align-items-center gap-2 text-nowrap" ] <|
                     -- Note: it's supposed for now that a plane can transport either cooled or non-cooled stuff
                     renderModeIfAny Icon.plane transport.air
-                        ++ (if query.transportOptions.cooling then
-                                renderModeIfAny Icon.boatCooled transport.seaCooled
-
-                            else
-                                renderModeIfAny Icon.boat transport.sea
-                           )
-                        ++ (if query.transportOptions.cooling then
-                                renderModeIfAny Icon.busCooled transport.roadCooled
-
-                            else
-                                renderModeIfAny Icon.bus transport.road
-                           )
+                        ++ renderModeIfAny Icon.boat transport.sea
+                        ++ renderModeIfAny Icon.boatCooled transport.seaCooled
+                        ++ renderModeIfAny Icon.bus transport.road
+                        ++ renderModeIfAny Icon.busCooled transport.roadCooled
                         ++ [ Icon.package
                            , Format.kg transportedMass
                            ]
@@ -1194,13 +1192,14 @@ elementTransportView ({ query } as config) attributes transportedMass maybeFrom 
 
 elementTransformsView :
     Config db msg
+    -> Bool
     -> TargetElement
     -> Results
     -> Maybe Country
     -> List Results
     -> List ExpandedLocalizedProcess
     -> List (Html msg)
-elementTransformsView config targetElement materialResults materialCountry transformsResults transforms =
+elementTransformsView config cooling targetElement materialResults materialCountry transformsResults transforms =
     transforms
         |> List.indexedMap
             (\transformIndex transform ->
@@ -1243,7 +1242,7 @@ elementTransformsView config targetElement materialResults materialCountry trans
                                )
                 in
                 [ transform.country
-                    |> elementTransportView config [] previousMass previousCountry
+                    |> elementTransportView config cooling [] previousMass previousCountry
                 , tr [ class "fs-7 border-top" ]
                     [ td [] []
                     , td [ class "text-end align-middle text-nowrap" ] []
