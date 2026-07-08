@@ -68,12 +68,15 @@ if (NODE_ENV === "production" && SENTRY_DSN) {
   });
 }
 
-function loadScript(scriptUrl) {
+function loadScript(scriptUrl, attributes = {}) {
   var d = document,
     g = d.createElement("script"),
     s = d.getElementsByTagName("script")[0];
   g.async = true;
   g.src = scriptUrl;
+  for (const [key, value] of Object.entries(attributes)) {
+    g.setAttribute(key, value);
+  }
   s.parentNode.insertBefore(g, s);
 }
 
@@ -122,6 +125,18 @@ app.ports.loadRapidoc.subscribe((rapidocScriptUrl) => {
   if (!customElements.get("rapi-doc")) {
     loadScript(rapidocScriptUrl);
   }
+});
+
+app.ports.loadJeDonneMonAvis.subscribe(() => {
+  loadScript("https://jedonnemonavis.numerique.gouv.fr/static/jdma-modal-widget.js", {
+    "data-jdma-form-url":
+      "https://jedonnemonavis.numerique.gouv.fr/Demarches/avis/2361?button=4816",
+    "data-jdma-button-image":
+      "https://jedonnemonavis.numerique.gouv.fr/static/buttons/button-remark-solid-light.svg",
+    "data-jdma-button-label": "Une remarque ?",
+    "data-jdma-position": "bottom-right",
+    defer: "defer",
+  });
 });
 
 app.ports.saveStore.subscribe((rawStore) => {
