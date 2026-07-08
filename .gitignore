@@ -1,5 +1,28 @@
-/.env
-dist
+# Local environment files
+.envrc
+.env
+
+# IDE files
+.vscode/
+
+# Python-generated files
+__pycache__/
+.pytest_cache/
+.ruff_cache/
+*.py[oc]
+build/
+dist/
+wheels/
+*.egg-info
+
+# Python virtual environments
+venv
+.venv
+
+# OS cruft
+.DS_Store
+
+### Front-end ###
 elm-stuff
 /db_test.sqlite3
 /check-db-app.js
@@ -18,17 +41,8 @@ node_modules
 /xls
 /public/version.json
 /.parcel-cache/
-
-.vscode
-*.pyc
-.DS_Store
-processes-no-impacts.json
-venv
 db.sqlite3
-
-*.egg-info
 /versions
-/git_build
 
 # Playwright
 /test-results/
@@ -36,7 +50,26 @@ db.sqlite3
 /blob-report/
 /playwright/.cache/
 
+
+### Data ###
+
+# Never commit detailed impacts by error
+processes_legacy_impacts.json
+processes_generic_impacts.json
+processes_legacy_impacts_full.json
+!/data/tests/snapshots/processes_legacy_impacts.json
+!/data/tests/snapshots/processes_generic_impacts.json
+!/data/tests/snapshots/processes_generic_impacts.json
+!/data/tests/snapshots/processes_legacy_impacts_full.json
+
+
+# Misc – needs cleaning up
+.ipynb_checkpoints/
+*.ipynb
+graphs/
+/git_build
+/output/
+processes-no-impacts.json
+
 # Scalingo logs
 /archives_logs/
-
-/output/

@@ -53,37 +53,26 @@ backend = "app.__main__:run_cli"
 [dependency-groups]
 dev = [
     "pre-commit>=4.6.0",
-    "pytest>=8.3.4",
+    "pytest~=9.1",
     "ruff~=0.15",
 ]
 
 data = [
-     "boto3~=1.43",
-     "dynaconf~=3.3",
-     "frozendict ~= 2.4",
-     "orjson ~= 3.10",
-     "platformdirs ~= 4.5",
-     "rich ~= 14.2",
-     "typer ~= 0.15",
+  "boto3~=1.43",
+  "dynaconf~=3.3",
+  "frozendict ~= 2.4",
+  "platformdirs ~= 4.5",
+  "rich ~= 14.2",
 
-     # Brightway
-     "bw2analyzer == 0.11.7",
-     "bw2calc == 2.0.1",
-     "bw2data == 4.4.3",
-     "bw2io[multifunctional] == 0.9.5",
-     "bw2parameters == 1.1.0",
-     'pypardiso ~= 0.4; platform_machine!="arm64" and platform_machine!="aarch64"',
- ]
-
-dev-data = [
-    "check-jsonschema ~= 0.35",
-    "deadcode ~= 2.4",
-    "pre-commit ~= 4.0",
-    "pytest ~= 8.3",
-    "pytest-mock ~= 3.14",
-    "ruff ~= 0.8",
-    "vulture ~= 2.14",
+  # Brightway
+  "bw2analyzer == 0.11.8",
+  "bw2calc == 2.5.0",
+  "bw2data == 4.7",
+  "bw2io[multifunctional] == 0.9.17",
+  "bw2parameters == 1.1.0",
+  'pypardiso ~= 0.4; platform_machine!="arm64" and platform_machine!="aarch64"',
 ]
+
 jupyter = [
     "ipywidgets>=8.1.5",
     "jupyter-collaboration>=3.0.1",
@@ -99,6 +88,7 @@ testpaths = ["tests"]
 
 [tool.ruff]
 target-version = "py312"
+src = ["data"]
 
 [tool.ruff.lint]
 extend-select = ["I"]

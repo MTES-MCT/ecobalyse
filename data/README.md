@@ -14,15 +14,12 @@ Produce the input data required to make the [Ecobalyse](https://github.com/MTES-
 [Dynaconf](https://www.dynaconf.com/) is used to manage the configuration. Every
 variable in `settings.toml` can be overridden by setting an environment variable
 of the same name, prefixed with `EB_`.
-The simplest way to do that is to copy the `.env.sample` file as `.env`, and to
+The simplest way to do that is to copy the `../.env.sample` file as `../.env`, and to
 edit it as needed.
 
-The following two variables are not managed by Dynaconf, so it’s not enough to put
-them in your .env file; you’ll have to make sure that they are actually exported
+The following variable is not managed by Dynaconf, so it’s not enough to put
+it in your .env file; you’ll have to make sure that it is actually exported
 to your shell:
-
-- If you want to use the Python scripts directly without using `just` you’ll also
-have to add the current directory to your python PATH (`export PYTHONPATH=.`)
 
 - By default, Brightway stores data in `~/.local/share/Brightway3/`. It is highly
   recommended to setup the environment variable `BRIGHTWAY2_DIR` in order to chose

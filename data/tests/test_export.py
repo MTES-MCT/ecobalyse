@@ -2,14 +2,14 @@ import orjson
 
 from bin import export
 from common.export import export_json
-from config import TESTS_FIXTURE_DIR, settings
+from config import PROJECT_ROOT_DIR, TESTS_FIXTURE_DIR, settings
 from create_activities import create_activities
 
 
 def test_export_processes(forwast, tmp_path, processes_impacts_json):
     settings.set("OUTPUT_DIR", str(tmp_path))
     settings.set("LOCAL_DIR", str(tmp_path))
-    create_activities("tests/custom_lci.json")
+    create_activities(PROJECT_ROOT_DIR / "tests" / "custom_lci.json")
 
     export.processes_legacy(
         scopes=None,

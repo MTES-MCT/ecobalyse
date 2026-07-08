@@ -15,7 +15,6 @@ import os
 #
 os.environ["FORCE_ENV_FOR_DYNACONF"] = "testing"
 
-
 import bw2data
 import orjson
 import pytest
