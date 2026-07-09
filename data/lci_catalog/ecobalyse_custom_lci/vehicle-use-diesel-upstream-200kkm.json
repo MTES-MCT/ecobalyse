@@ -1,0 +1,25 @@
+{
+  "activityName": "Diesel B7, upstream, 200 000 km",
+  "categories": [
+    "use"
+  ],
+  "comment": "Impacts de la production de carburant sur la durée de vie, pour une consommation de 1L/100km et une durée de vie de 200 000 km.",
+  "displayName": "Diesel B7, pour 100km, partie amont - kilométrage de 200 000 km",
+  "elecKwh": 0.0,
+  "heatMJ": 0,
+  "id": "d1605200-8b40-4744-a9b4-f6b71dce177f",
+  "metadata": [
+    {
+      "id": "abdcf301-11db-4ced-8ab8-f6592ef60756",
+      "scopes": [
+        "veli"
+      ]
+    }
+  ],
+  "qtyVariationRatio": 1,
+  "scopes": [
+    "veli"
+  ],
+  "source": "Ecobalyse_custom_lci",
+  "unit": "L"
+}

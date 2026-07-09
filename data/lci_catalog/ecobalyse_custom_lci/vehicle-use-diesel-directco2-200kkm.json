@@ -1,0 +1,25 @@
+{
+  "activityName": "Diesel B7, direct CO2 emissions, 200 000 km",
+  "categories": [
+    "use"
+  ],
+  "comment": "Emissions directes de CO2 sur la durée de vie, pour une consommation de 1L/100km et une durée de vie de 200 000 km.",
+  "displayName": "Diesel B7, pour 100km, émissions directes de CO2 - kilométrage de 200 000 km",
+  "elecKwh": 0.0,
+  "heatMJ": 0,
+  "id": "692d7121-f1ea-450c-bae6-d7a17b5a8f4d",
+  "metadata": [
+    {
+      "id": "58e1c9d2-7b9f-405a-b54e-92c9e9586d45",
+      "scopes": [
+        "veli"
+      ]
+    }
+  ],
+  "qtyVariationRatio": 1,
+  "scopes": [
+    "veli"
+  ],
+  "source": "Ecobalyse_custom_lci",
+  "unit": "L"
+}

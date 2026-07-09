@@ -1,0 +1,44 @@
+{
+  "categories": [
+    "use"
+  ],
+  "comment": "Consommation sur la durée de vie pour une consommation de 1kWh/100km et une durée de vie de 75 000 km",
+  "displayName": "Electricité, pour 100km - kilométrage de 75 000 km",
+  "elecKwh": 750,
+  "heatMJ": 0,
+  "id": "cc137948-7c53-428e-af33-c4500d17cc5d",
+  "impacts": {
+    "acd": 0,
+    "cch": 0,
+    "etf": 0,
+    "etf-c": 0,
+    "fru": 0,
+    "fwe": 0,
+    "htc": 0,
+    "htc-c": 0,
+    "htn": 0,
+    "htn-c": 0,
+    "ior": 0,
+    "ldu": 0,
+    "mru": 0,
+    "ozd": 0,
+    "pco": 0,
+    "pma": 0,
+    "swe": 0,
+    "tre": 0,
+    "wtu": 0
+  },
+  "metadata": [
+    {
+      "id": "856c13fc-372b-4c21-a171-8b79e6225e8a",
+      "scopes": [
+        "veli"
+      ]
+    }
+  ],
+  "scopes": [
+    "veli"
+  ],
+  "source": "Ecobalyse_manual_lcia",
+  "unit": "kWh"
+}
