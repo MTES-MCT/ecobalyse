@@ -10706,6 +10706,7 @@
       },
       {
         "amount": 13.5,
+        "database": "Ecobalyse_custom_lci",
         "name": "heat, industrial, market, RER"
       }
     ],
@@ -10736,6 +10737,7 @@
       },
       {
         "amount": 13.5,
+        "database": "Ecobalyse_custom_lci",
         "name": "heat, industrial, market, RoW"
       }
     ],
