@@ -129,3 +129,5 @@ class Unit(StrEnum):
     M3 = "m3"
     MJ = "MJ"
     T_KM = "t⋅km"
+    KWH100 = "kWh/100km"
+    L100 = "L/100km"
