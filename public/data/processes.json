@@ -95487,8 +95487,7 @@
     "categories": [
       "ingredient",
       "material",
-      "material_type:fruits_and_vegetables",
-      "transported_cooled"
+      "material_type:fruits_and_vegetables"
     ],
     "comment": "This dataset has been extrapolated from the dataset Apricot {FR}| apricot production | Cut-off, U - Adapted from Ecoinvent U from the database Ecoinvent and version 3.9.1.\nFor further information, please consult the ADEME report \"Construction of LCIs for organic agricultural products based on extrapolations of conventional LCIs for the French food market and environmental labelling\"",
     "displayName": "Abricot Bio",
