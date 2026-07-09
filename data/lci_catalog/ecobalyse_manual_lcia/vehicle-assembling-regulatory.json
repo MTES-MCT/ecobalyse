@@ -4,10 +4,10 @@
     "use"
   ],
   "comment": "A titre provisoire ce procédé est intégré dans la phase d'usage, la phase d'assemblage n'intégrant pas de procédé à ce stade. https://fabrique-numerique.gitbook.io/ecobalyse/vehicules/cycle-de-vie/assemblage",
-  "displayName": "Assemblage véhicule",
-  "elecKwh": 1.5,
-  "heatMJ": 3,
-  "id": "f7c7e44a-c11e-4c8e-afc1-8a96fac85e3b",
+  "displayName": "Assemblage véhicule - calcul réglementaire Score Environnemental VE",
+  "elecKwh": 2.165,
+  "heatMJ": 4.581,
+  "id": "bd6b7bad-3056-4474-b58c-dc10f8cfb638",
   "impacts": {
     "acd": 0,
     "cch": 0,
@@ -31,7 +31,7 @@
   },
   "metadata": [
     {
-      "id": "c51ab87d-f368-4704-a5ec-7ea17ba87d46",
+      "id": "8b4fae1f-71bc-44d4-9e40-b2399ef04f34",
       "scopes": [
         "veli"
       ]
