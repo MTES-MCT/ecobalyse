@@ -75108,6 +75108,90 @@
     "visible": true
   },
   {
+    "activityName": "Diesel B7, direct CO2 emissions, 200 000 km",
+    "alias": null,
+    "categories": [
+      "use"
+    ],
+    "comment": "Emissions directes de CO2 sur la durée de vie, pour une consommation de 1L/100km et une durée de vie de 200 000 km.",
+    "displayName": "Diesel B7, pour 100km, émissions directes de CO2 - kilométrage de 200 000 km",
+    "elecKwh": 0,
+    "heatMJ": 0,
+    "id": "58e1c9d2-7b9f-405a-b54e-92c9e9586d45",
+    "impacts": {
+      "ecs": 138900.0
+    },
+    "landOccupation": null,
+    "location": null,
+    "massPerUnit": null,
+    "metadata": {
+      "defaultOrigin": null
+    },
+    "qtyVariationRatio": 1.0,
+    "scopes": [
+      "veli"
+    ],
+    "source": "Ecobalyse_custom_lci",
+    "unit": "L",
+    "visible": true
+  },
+  {
+    "activityName": "Diesel B7, upstream, 200 000 km",
+    "alias": null,
+    "categories": [
+      "use"
+    ],
+    "comment": "Impacts de la production de carburant sur la durée de vie, pour une consommation de 1L/100km et une durée de vie de 200 000 km.",
+    "displayName": "Diesel B7, pour 100km, partie amont - kilométrage de 200 000 km",
+    "elecKwh": 0,
+    "heatMJ": 0,
+    "id": "abdcf301-11db-4ced-8ab8-f6592ef60756",
+    "impacts": {
+      "ecs": 325600.0
+    },
+    "landOccupation": null,
+    "location": null,
+    "massPerUnit": null,
+    "metadata": {
+      "defaultOrigin": null
+    },
+    "qtyVariationRatio": 1.0,
+    "scopes": [
+      "veli"
+    ],
+    "source": "Ecobalyse_custom_lci",
+    "unit": "L",
+    "visible": true
+  },
+  {
+    "activityName": "Diesel euro4 emissions, 200 000 km",
+    "alias": null,
+    "categories": [
+      "use"
+    ],
+    "comment": "Emissions sur la durée de vie, selon les valeurs limites d'émissions fixée par la norme et pour une durée de vie de 200 000 km.",
+    "displayName": "Emissions EuroIV, Diesel - kilométrage de 200 000 km",
+    "elecKwh": 0,
+    "heatMJ": 0,
+    "id": "cb471c73-27fd-42db-9450-a52b2d479d68",
+    "impacts": {
+      "ecs": 313200.0
+    },
+    "landOccupation": null,
+    "location": null,
+    "massPerUnit": null,
+    "metadata": {
+      "defaultOrigin": null
+    },
+    "qtyVariationRatio": 1.0,
+    "scopes": [
+      "veli"
+    ],
+    "source": "Ecobalyse_custom_lci",
+    "unit": "item",
+    "visible": true
+  },
+  {
     "activityName": "Dry goat cheese, CMAPS {GLO} U",
     "alias": "dry-goat-cheese-default",
     "categories": [
@@ -80670,6 +80754,90 @@
     "visible": true
   },
   {
+    "activityName": "Petrol E10, direct CO2 emissions, 200 000 km",
+    "alias": null,
+    "categories": [
+      "use"
+    ],
+    "comment": "Emissions directes de CO2 sur la durée de vie, pour une consommation de 1L/100km et une durée de vie de 200 000 km.",
+    "displayName": "Essence E10, pour 100km, émissions directes de CO2 - kilométrage de 200 000 km",
+    "elecKwh": 0,
+    "heatMJ": 0,
+    "id": "28f048f7-9496-4f46-a536-fed45ee73f45",
+    "impacts": {
+      "ecs": 122100.0
+    },
+    "landOccupation": null,
+    "location": null,
+    "massPerUnit": null,
+    "metadata": {
+      "defaultOrigin": null
+    },
+    "qtyVariationRatio": 1.0,
+    "scopes": [
+      "veli"
+    ],
+    "source": "Ecobalyse_custom_lci",
+    "unit": "L",
+    "visible": true
+  },
+  {
+    "activityName": "Petrol E10, upstream, 200 000 km",
+    "alias": null,
+    "categories": [
+      "use"
+    ],
+    "comment": "Impacts de la production de carburant sur la durée de vie, pour une consommation de 1L/100km et une durée de vie de 200 000 km.",
+    "displayName": "Essence E10, pour 100km, partie amont - kilométrage de 200 000 km",
+    "elecKwh": 0,
+    "heatMJ": 0,
+    "id": "ca2c68db-c76c-4d8c-ab84-2c50036efef9",
+    "impacts": {
+      "ecs": 292200.0
+    },
+    "landOccupation": null,
+    "location": null,
+    "massPerUnit": null,
+    "metadata": {
+      "defaultOrigin": null
+    },
+    "qtyVariationRatio": 1.0,
+    "scopes": [
+      "veli"
+    ],
+    "source": "Ecobalyse_custom_lci",
+    "unit": "L",
+    "visible": true
+  },
+  {
+    "activityName": "Petrol euro6 emissions, 200 000 km",
+    "alias": null,
+    "categories": [
+      "use"
+    ],
+    "comment": "Emissions sur la durée de vie, selon les valeurs limites d'émissions fixée par la norme et pour une durée de vie de 200 000 km.",
+    "displayName": "Emissions EuroVI, Essence - kilométrage de 200 000 km",
+    "elecKwh": 0,
+    "heatMJ": 0,
+    "id": "8a981011-da2c-4120-bf9e-86cdeb560fbb",
+    "impacts": {
+      "ecs": 82620.0
+    },
+    "landOccupation": null,
+    "location": null,
+    "massPerUnit": null,
+    "metadata": {
+      "defaultOrigin": null
+    },
+    "qtyVariationRatio": 1.0,
+    "scopes": [
+      "veli"
+    ],
+    "source": "Ecobalyse_custom_lci",
+    "unit": "item",
+    "visible": true
+  },
+  {
     "activityName": "Pineapple, pulp raw, organic, CMAPS {GLO} U",
     "alias": "pineapple-pulp-raw-default-organic",
     "categories": [
@@ -85767,6 +85935,146 @@
     ],
     "source": "Ecobalyse_manual_lcia",
     "unit": "kg",
+    "visible": true
+  },
+  {
+    "activityName": "This process is not linked to a Brightway activity",
+    "alias": null,
+    "categories": [
+      "use"
+    ],
+    "comment": "Consommation sur la durée de vie pour une consommation de 1kWh/100km et une durée de vie de 150 000 km",
+    "displayName": "Electricité, pour 100km - kilométrage de 150 000 km",
+    "elecKwh": 1500.0,
+    "heatMJ": 0,
+    "id": "f90da3e9-3a58-46b3-93e5-af389217bfc8",
+    "impacts": {
+      "ecs": 0
+    },
+    "landOccupation": null,
+    "location": null,
+    "massPerUnit": null,
+    "metadata": {
+      "defaultOrigin": null
+    },
+    "qtyVariationRatio": 1.0,
+    "scopes": [
+      "veli"
+    ],
+    "source": "Ecobalyse_manual_lcia",
+    "unit": "kWh",
+    "visible": true
+  },
+  {
+    "activityName": "This process is not linked to a Brightway activity",
+    "alias": null,
+    "categories": [
+      "use"
+    ],
+    "comment": "Consommation sur la durée de vie pour une consommation de 1kWh/100km et une durée de vie de 200 000 km",
+    "displayName": "Electricité, pour 100km - kilométrage de 200 000 km",
+    "elecKwh": 2000.0,
+    "heatMJ": 0,
+    "id": "2fd57bd2-ac17-4deb-bf02-1f4ac620c00c",
+    "impacts": {
+      "ecs": 0
+    },
+    "landOccupation": null,
+    "location": null,
+    "massPerUnit": null,
+    "metadata": {
+      "defaultOrigin": null
+    },
+    "qtyVariationRatio": 1.0,
+    "scopes": [
+      "veli"
+    ],
+    "source": "Ecobalyse_manual_lcia",
+    "unit": "kWh",
+    "visible": true
+  },
+  {
+    "activityName": "This process is not linked to a Brightway activity",
+    "alias": null,
+    "categories": [
+      "use"
+    ],
+    "comment": "Consommation sur la durée de vie pour une consommation de 1kWh/100km et une durée de vie de 30 000 km",
+    "displayName": "Electricité, pour 100km - kilométrage de 30 000 km",
+    "elecKwh": 300.0,
+    "heatMJ": 0,
+    "id": "9357c6da-88b3-4a71-b1f9-1ffb13efee2e",
+    "impacts": {
+      "ecs": 0
+    },
+    "landOccupation": null,
+    "location": null,
+    "massPerUnit": null,
+    "metadata": {
+      "defaultOrigin": null
+    },
+    "qtyVariationRatio": 1.0,
+    "scopes": [
+      "veli"
+    ],
+    "source": "Ecobalyse_manual_lcia",
+    "unit": "kWh",
+    "visible": true
+  },
+  {
+    "activityName": "This process is not linked to a Brightway activity",
+    "alias": null,
+    "categories": [
+      "use"
+    ],
+    "comment": "Consommation sur la durée de vie pour une consommation de 1kWh/100km et une durée de vie de 45 000 km",
+    "displayName": "Electricité, pour 100km - kilométrage de 45 000 km",
+    "elecKwh": 450.0,
+    "heatMJ": 0,
+    "id": "92ba1245-5c8e-49ad-9336-fdd465c6f822",
+    "impacts": {
+      "ecs": 0
+    },
+    "landOccupation": null,
+    "location": null,
+    "massPerUnit": null,
+    "metadata": {
+      "defaultOrigin": null
+    },
+    "qtyVariationRatio": 1.0,
+    "scopes": [
+      "veli"
+    ],
+    "source": "Ecobalyse_manual_lcia",
+    "unit": "kWh",
+    "visible": true
+  },
+  {
+    "activityName": "This process is not linked to a Brightway activity",
+    "alias": null,
+    "categories": [
+      "use"
+    ],
+    "comment": "Consommation sur la durée de vie pour une consommation de 1kWh/100km et une durée de vie de 75 000 km",
+    "displayName": "Electricité, pour 100km - kilométrage de 75 000 km",
+    "elecKwh": 750.0,
+    "heatMJ": 0,
+    "id": "856c13fc-372b-4c21-a171-8b79e6225e8a",
+    "impacts": {
+      "ecs": 0
+    },
+    "landOccupation": null,
+    "location": null,
+    "massPerUnit": null,
+    "metadata": {
+      "defaultOrigin": null
+    },
+    "qtyVariationRatio": 1.0,
+    "scopes": [
+      "veli"
+    ],
+    "source": "Ecobalyse_manual_lcia",
+    "unit": "kWh",
     "visible": true
   },
   {
