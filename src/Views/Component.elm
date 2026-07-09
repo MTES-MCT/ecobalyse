@@ -42,7 +42,7 @@ import Data.Unit as Unit
 import Dict.Any as AnyDict
 import Html exposing (..)
 import Html.Attributes as Attr exposing (..)
-import Html.Events exposing (..)
+import Html.Events as Events exposing (..)
 import Json.Encode as Encode
 import List.Extra as LE
 import Mass exposing (Mass)
@@ -729,47 +729,40 @@ transportToDistributionView ({ componentConfig, impact, scope } as config) mass 
         ]
 
 
-airTransportToggler : Config db msg -> Html msg
-airTransportToggler ({ query } as config) =
+togglerView : { checked : Bool, id : String, label : String, onCheck : Bool -> msg } -> Html msg
+togglerView { checked, id, label, onCheck } =
     div [ class "d-flex justify-content-end align-items-center gap-2" ]
         [ input
             [ type_ "checkbox"
             , class "form-check-input"
-            , id "transportByAirSwitch"
-
-            -- Note: for now, the toggler only switches between full and zero air transport, though
-            --       we'll probably want to introduce a rangeslider for textile scope compliance next
-            , checked (query.transportOptions.byAir == Split.full)
-            , onCheck
-                (\enabled ->
-                    config.toggleTransportByAir <|
-                        if enabled then
-                            Split.full
-
-                        else
-                            Split.zero
-                )
+            , Attr.id id
+            , Attr.checked checked
+            , Events.onCheck onCheck
             ]
             []
-        , label [ class "form-check-label", for "transportByAirSwitch" ]
-            [ text "par avion" ]
+        , Html.label [ class "form-check-label", for id ]
+            [ text label ]
         ]
+
+
+airTransportToggler : Config db msg -> Html msg
+airTransportToggler ({ query } as config) =
+    togglerView
+        { checked = query.transportOptions.byAir == Split.full
+        , id = "transportByAirSwitch"
+        , label = "par avion"
+        , onCheck = Split.fromBool >> config.toggleTransportByAir
+        }
 
 
 cooledTransportToggler : Config db msg -> Html msg
 cooledTransportToggler ({ query } as config) =
-    div [ class "d-flex justify-content-end align-items-center gap-2" ]
-        [ input
-            [ type_ "checkbox"
-            , class "form-check-input"
-            , id "transportCoolingSwitch"
-            , checked query.transportOptions.cooling
-            , onCheck config.toggleTransportCooling
-            ]
-            []
-        , label [ class "form-check-label", for "transportCoolingSwitch" ]
-            [ text "réfrigéré" ]
-        ]
+    togglerView
+        { checked = query.transportOptions.cooling
+        , id = "transportCoolingSwitch"
+        , label = "réfrigéré"
+        , onCheck = config.toggleTransportCooling
+        }
 
 
 noTransportView : Html msg
