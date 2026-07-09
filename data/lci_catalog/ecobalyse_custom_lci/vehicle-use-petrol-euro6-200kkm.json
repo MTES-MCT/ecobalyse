@@ -1,0 +1,25 @@
+{
+  "activityName": "Petrol euro6 emissions, 200 000 km",
+  "categories": [
+    "use"
+  ],
+  "comment": "Emissions sur la durée de vie, selon les valeurs limites d'émissions fixée par la norme et pour une durée de vie de 200 000 km.",
+  "displayName": "Emissions EuroVI, Essence - kilométrage de 200 000 km",
+  "elecKwh": 0.0,
+  "heatMJ": 0,
+  "id": "50a57603-550e-4256-bec1-1d700f77d031",
+  "metadata": [
+    {
+      "id": "8a981011-da2c-4120-bf9e-86cdeb560fbb",
+      "scopes": [
+        "veli"
+      ]
+    }
+  ],
+  "qtyVariationRatio": 1,
+  "scopes": [
+    "veli"
+  ],
+  "source": "Ecobalyse_custom_lci",
+  "unit": "item"
+}

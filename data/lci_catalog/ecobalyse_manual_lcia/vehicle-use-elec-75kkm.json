@@ -2,11 +2,11 @@
   "categories": [
     "use"
   ],
-  "comment": "Consommation sur la durée de vie pour une consommation de 1kWh/100km et une durée de vie de 30 000 km",
-  "displayName": "Electricité, pour 100km - kilométrage de 30 000 km",
-  "elecKwh": 300,
+  "comment": "Consommation sur la durée de vie pour une consommation de 1kWh/100km et une durée de vie de 75 000 km",
+  "displayName": "Electricité, pour 100km - kilométrage de 75 000 km",
+  "elecKwh": 750,
   "heatMJ": 0,
-  "id": "12736971-ff05-423c-b946-aa338f943e90",
+  "id": "cc137948-7c53-428e-af33-c4500d17cc5d",
   "impacts": {
     "acd": 0,
     "cch": 0,
@@ -30,7 +30,7 @@
   },
   "metadata": [
     {
-      "id": "9357c6da-88b3-4a71-b1f9-1ffb13efee2e",
+      "id": "856c13fc-372b-4c21-a171-8b79e6225e8a",
       "scopes": [
         "veli"
       ]
