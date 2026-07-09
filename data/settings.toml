@@ -37,6 +37,10 @@ EI311_MD5 = "98e7681cc57a729c952f48af7be9b164"
 WOOL = "wool.2.CSV.zip"
 WOOL_MD5 = "246b8ec57389086829bce58a689e7904"
 
+# BAFU
+BAFU = "BAFU2026v1.CSV.zip"
+BAFU_MD5 = "cdcf7c5828407e61972ebcf3162996c4"
+
 # Food
 AGRIBALYSE = "AGB32_final.CSV.zip"                           # Agribalyse 3.2
 AGRIBALYSE_MD5 = "044fdeb632e6e38711ef05a0ae596c55"
@@ -52,6 +56,7 @@ WFLDB_MD5 = "f619341f47c971b0d53ad28bd985fade"
 [default.bw]
 METHOD = "Environmental Footprint 3.1 (adapted)"
 AGRIBALYSE = "Agribalyse 3.2"
+BAFU = "BAFU 2026v1"
 BIOSPHERE = "biosphere3"
 ECOINVENT = "Ecoinvent 3.9.1"
 PROJECT = "ecobalyse"
