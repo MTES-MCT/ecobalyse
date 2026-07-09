@@ -4,13 +4,13 @@
     "use"
   ],
   "comment": "Consommation sur la durée de vie pour une consommation de 1L/100km et une durée de vie de 30 000 km. voir https://fabrique-numerique.gitbook.io/ecobalyse/vehicules/cycle-de-vie/utilisation-du-vehicule/construction-des-procedes-carburant",
-  "displayName": "Diesel B7, pour 100km, partie amont - kilométrage de 30 000 km",
+  "displayName": "Diesel B7, pour 100km, émissions directes de CO2 - kilométrage de 30 000 km",
   "elecKwh": 0.0,
   "heatMJ": 0,
-  "id": "d1605200-8b40-4744-a9b4-f6b71dce177f",
+  "id": "692d7121-f1ea-450c-bae6-d7a17b5a8f4d",
   "metadata": [
     {
-      "id": "abdcf301-11db-4ced-8ab8-f6592ef60756",
+      "id": "58e1c9d2-7b9f-405a-b54e-92c9e9586d45",
       "scopes": [
         "veli"
       ]

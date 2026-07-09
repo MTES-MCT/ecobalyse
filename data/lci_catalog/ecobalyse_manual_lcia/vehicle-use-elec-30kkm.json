@@ -2,7 +2,7 @@
   "categories": [
     "use"
   ],
-  "comment": "Consommation d'électricité d'un véhicule électrique pour une consommation de 1kWh/100km, et une durée de vie de 30 000 km",
+  "comment": "Consommation sur la durée de vie pour une consommation de 1kWh/100km et une durée de vie de 30 000 km",
   "displayName": "Electricité, pour 100km - kilométrage de 30 000 km",
   "elecKwh": 300,
   "heatMJ": 0,
