@@ -1014,7 +1014,7 @@ finalElementTransportView ({ db, query, scope } as config) cooling elementCountr
     db.countries
         |> Scope.anyOf [ scope ]
         |> Country.resolveMaybe query.assemblyCountry
-        |> Result.map (elementTransportView config cooling [ class "subdued" ] mass elementCountry)
+        |> Result.map (elementTransportView config [ class "subdued" ] cooling mass elementCountry)
         |> Result.withDefault (text "")
 
 
@@ -1124,8 +1124,8 @@ elementMaterialView config targetElement materialResults material amount =
     ]
 
 
-elementTransportView : Config db msg -> Bool -> List (Attribute msg) -> Mass -> Maybe Country -> Maybe Country -> Html msg
-elementTransportView ({ query } as config) cooling attributes transportedMass maybeFrom maybeTo =
+elementTransportView : Config db msg -> List (Attribute msg) -> Bool -> Mass -> Maybe Country -> Maybe Country -> Html msg
+elementTransportView ({ query } as config) attributes cooling transportedMass maybeFrom maybeTo =
     let
         { transportOptions } =
             query
@@ -1235,7 +1235,7 @@ elementTransformsView config cooling targetElement materialResults materialCount
                                )
                 in
                 [ transform.country
-                    |> elementTransportView config cooling [] previousMass previousCountry
+                    |> elementTransportView config [] cooling previousMass previousCountry
                 , tr [ class "fs-7 border-top" ]
                     [ td [] []
                     , td [ class "text-end align-middle text-nowrap" ] []
