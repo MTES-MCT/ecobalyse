@@ -10684,6 +10684,68 @@
   },
   {
     "activityCreationType": "from_scratch",
+    "alias": "ev-other-materials-rer",
+    "comment": "built to model EV material other than batteries, steel and aluminium",
+    "database": "Ecoinvent 3.9.1",
+    "exchanges": [
+      {
+        "amount": 0.6,
+        "name": "polypropylene, granulate//[GLO] market for polypropylene, granulate"
+      },
+      {
+        "amount": 0.24,
+        "name": "copper, cathode//[GLO] market for copper, cathode"
+      },
+      {
+        "amount": 0.15,
+        "name": "synthetic rubber//[RER] synthetic rubber production"
+      },
+      {
+        "amount": 0.01,
+        "name": "electronics, for control units//[RoW] electronics production, for control units"
+      },
+      {
+        "amount": 13.5,
+        "database": "Ecobalyse_custom_lci",
+        "name": "heat, industrial, market, RER"
+      }
+    ],
+    "location": "RER",
+    "newName": "Other Materials, Europe - EV ecoscore regulation"
+  },
+  {
+    "activityCreationType": "from_scratch",
+    "alias": "ev-other-materials-row",
+    "comment": "built to model EV material other than batteries, steel and aluminium",
+    "database": "Ecoinvent 3.9.1",
+    "exchanges": [
+      {
+        "amount": 0.6,
+        "name": "polypropylene, granulate//[GLO] market for polypropylene, granulate"
+      },
+      {
+        "amount": 0.24,
+        "name": "copper, cathode//[GLO] market for copper, cathode"
+      },
+      {
+        "amount": 0.15,
+        "name": "synthetic rubber//[RER] synthetic rubber production"
+      },
+      {
+        "amount": 0.01,
+        "name": "electronics, for control units//[RoW] electronics production, for control units"
+      },
+      {
+        "amount": 13.5,
+        "database": "Ecobalyse_custom_lci",
+        "name": "heat, industrial, market, RoW"
+      }
+    ],
+    "location": "RoW",
+    "newName": "Other Materials, Out of Europe - EV ecoscore regulation"
+  },
+  {
+    "activityCreationType": "from_scratch",
     "alias": "vehicle-use-diesel-upstream-200kkm",
     "comment": "see https://fabrique-numerique.gitbook.io/ecobalyse/vehicules/cycle-de-vie/utilisation-du-vehicule/construction-des-procedes-carburant",
     "database": "Ecoinvent 3.9.1",

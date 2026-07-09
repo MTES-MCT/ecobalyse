@@ -51984,6 +51984,64 @@
     "visible": true
   },
   {
+    "activityName": "Other Materials, Europe - EV ecoscore regulation",
+    "alias": null,
+    "categories": [
+      "material",
+      "material_type:pp"
+    ],
+    "comment": "A utiliser uniquement pour une modélisation approchée du score environnemental voitures électriques (méthode réglementaire).",
+    "displayName": "Autres matériaux, Europe (Réglementaire - Score environnemental VE)",
+    "elecKwh": 0,
+    "heatMJ": 0,
+    "id": "773423e0-1784-4ff7-904b-146b8b3c64fd",
+    "impacts": {
+      "ecs": 2601.0
+    },
+    "landOccupation": null,
+    "location": "RER",
+    "massPerUnit": null,
+    "metadata": {
+      "defaultOrigin": null
+    },
+    "qtyVariationRatio": 1.0,
+    "scopes": [
+      "veli"
+    ],
+    "source": "Ecobalyse_custom_lci",
+    "unit": "kg",
+    "visible": true
+  },
+  {
+    "activityName": "Other Materials, Out of Europe - EV ecoscore regulation",
+    "alias": null,
+    "categories": [
+      "material",
+      "material_type:pp"
+    ],
+    "comment": "A utiliser uniquement pour une modélisation approchée du score environnemental voitures électriques (méthode réglementaire).",
+    "displayName": "Autres matériaux, hors Europe (Réglementaire - Score environnemental VE)",
+    "elecKwh": 0,
+    "heatMJ": 0,
+    "id": "94e78ae0-e1f9-4211-8f31-7ce8f1130f1b",
+    "impacts": {
+      "ecs": 2639.0
+    },
+    "landOccupation": null,
+    "location": "RoW",
+    "massPerUnit": null,
+    "metadata": {
+      "defaultOrigin": null
+    },
+    "qtyVariationRatio": 1.0,
+    "scopes": [
+      "veli"
+    ],
+    "source": "Ecobalyse_custom_lci",
+    "unit": "kg",
+    "visible": true
+  },
+  {
     "activityName": "PEHD packaging",
     "alias": null,
     "categories": [
@@ -58066,13 +58124,43 @@
     "activityName": "This process is not linked to a Brightway activity",
     "alias": null,
     "categories": [
-      "transformation"
+      "productmassdependent",
+      "use"
     ],
-    "comment": "https://fabrique-numerique.gitbook.io/ecobalyse/vehicules/cycle-de-vie/assemblage",
+    "comment": "A titre provisoire ce procédé est intégré dans la phase d'usage, la phase d'assemblage n'intégrant pas de procédé à ce stade. https://fabrique-numerique.gitbook.io/ecobalyse/vehicules/cycle-de-vie/assemblage",
     "displayName": "Assemblage véhicule",
-    "elecKwh": 1.0,
+    "elecKwh": 1.5,
     "heatMJ": 3.0,
     "id": "c51ab87d-f368-4704-a5ec-7ea17ba87d46",
+    "impacts": {
+      "ecs": 0
+    },
+    "landOccupation": null,
+    "location": null,
+    "massPerUnit": null,
+    "metadata": {
+      "defaultOrigin": null
+    },
+    "qtyVariationRatio": 1.0,
+    "scopes": [
+      "veli"
+    ],
+    "source": "Ecobalyse_manual_lcia",
+    "unit": "kg",
+    "visible": true
+  },
+  {
+    "activityName": "This process is not linked to a Brightway activity",
+    "alias": null,
+    "categories": [
+      "productmassdependent",
+      "use"
+    ],
+    "comment": "A titre provisoire ce procédé est intégré dans la phase d'usage, la phase d'assemblage n'intégrant pas de procédé à ce stade. https://fabrique-numerique.gitbook.io/ecobalyse/vehicules/cycle-de-vie/assemblage",
+    "displayName": "Assemblage véhicule - calcul réglementaire Score Environnemental VE",
+    "elecKwh": 2.165,
+    "heatMJ": 4.581,
+    "id": "8b4fae1f-71bc-44d4-9e40-b2399ef04f34",
     "impacts": {
       "ecs": 0
     },
@@ -59466,6 +59554,36 @@
     "qtyVariationRatio": 1.0,
     "scopes": [
       "object",
+      "veli"
+    ],
+    "source": "Ecobalyse_manual_lcia",
+    "unit": "kg",
+    "visible": true
+  },
+  {
+    "activityName": "This process is not linked to a Brightway activity",
+    "alias": null,
+    "categories": [
+      "transformation",
+      "material_type:ferrous_metals",
+      "material_type:aluminium"
+    ],
+    "comment": "A utiliser uniquement pour une modélisation approchée du score environnemental voitures électriques (méthode réglementaire).",
+    "displayName": "Transformation des métaux (Réglementaire - Score environnemental VE)",
+    "elecKwh": 0,
+    "heatMJ": 0,
+    "id": "e482a49b-1d31-4776-904d-5dd65009d4b4",
+    "impacts": {
+      "ecs": 0
+    },
+    "landOccupation": null,
+    "location": null,
+    "massPerUnit": null,
+    "metadata": {
+      "defaultOrigin": null
+    },
+    "qtyVariationRatio": 0.7,
+    "scopes": [
       "veli"
     ],
     "source": "Ecobalyse_manual_lcia",

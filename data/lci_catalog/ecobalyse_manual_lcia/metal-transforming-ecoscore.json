@@ -1,0 +1,47 @@
+{
+  "categories": [
+    "transformation",
+    "material_type:ferrous_metals",
+    "material_type:aluminium"
+  ],
+  "comment": "A utiliser uniquement pour une modélisation approchée du score environnemental voitures électriques (méthode réglementaire).",
+  "displayName": "Transformation des métaux (Réglementaire - Score environnemental VE)",
+  "elecKwh": 0,
+  "heatMJ": 0,
+  "id": "e7b2b39f-9f57-42c1-b355-2523afce6319",
+  "impacts": {
+    "acd": 0,
+    "cch": 0,
+    "etf": 0,
+    "etf-c": 0,
+    "fru": 0,
+    "fwe": 0,
+    "htc": 0,
+    "htc-c": 0,
+    "htn": 0,
+    "htn-c": 0,
+    "ior": 0,
+    "ldu": 0,
+    "mru": 0,
+    "ozd": 0,
+    "pco": 0,
+    "pma": 0,
+    "swe": 0,
+    "tre": 0,
+    "wtu": 0
+  },
+  "metadata": [
+    {
+      "id": "e482a49b-1d31-4776-904d-5dd65009d4b4",
+      "scopes": [
+        "veli"
+      ]
+    }
+  ],
+  "qtyVariationRatio": 0.7,
+  "scopes": [
+    "veli"
+  ],
+  "source": "Ecobalyse_manual_lcia",
+  "unit": "kg"
+}
