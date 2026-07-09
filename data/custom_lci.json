@@ -10799,7 +10799,7 @@
   },
   {
     "activityCreationType": "from_scratch",
-    "alias": "vehicle-use-diesel-direct-co2-emissions-200kkm",
+    "alias": "vehicle-use-petrol-direct-co2-emissions-200kkm",
     "comment": "see https://fabrique-numerique.gitbook.io/ecobalyse/vehicules/cycle-de-vie/utilisation-du-vehicule/construction-des-procedes-carburant",
     "database": "Ecoinvent 3.9.1",
     "exchanges": [
