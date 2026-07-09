@@ -2,8 +2,8 @@
   "categories": [
     "use"
   ],
-  "comment": "Consommation sur la durée de vie pour une consommation de 1kWh/100km et une durée de vie de 30 000 km",
-  "displayName": "Electricité, pour 100km - kilométrage de 30 000 km",
+  "comment": "Consommation sur la durée de vie pour une consommation de 1kWh/100km et une durée de vie de 200 000 km",
+  "displayName": "Electricité, pour 100km - kilométrage de 200 000 km",
   "elecKwh": 300,
   "heatMJ": 0,
   "id": "12736971-ff05-423c-b946-aa338f943e90",

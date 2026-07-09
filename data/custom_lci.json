@@ -10684,7 +10684,7 @@
   },
   {
     "activityCreationType": "from_scratch",
-    "alias": "vehicle-use-diesel-upstream-30kkm",
+    "alias": "vehicle-use-diesel-upstream-200kkm",
     "comment": "see https://fabrique-numerique.gitbook.io/ecobalyse/vehicules/cycle-de-vie/utilisation-du-vehicule/construction-des-procedes-carburant",
     "database": "Ecoinvent 3.9.1",
     "exchanges": [
@@ -10697,11 +10697,11 @@
         "name": "fatty acid methyl ester//[RoW] market for fatty acid methyl ester"
       }
     ],
-    "newName": "Diesel B7, upstream, 30 000 km"
+    "newName": "Diesel B7, upstream, 200 000 km"
   },
   {
     "activityCreationType": "from_scratch",
-    "alias": "vehicle-use-diesel-direct-co2-emissions-30kkm",
+    "alias": "vehicle-use-diesel-direct-co2-emissions-200kkm",
     "comment": "see https://fabrique-numerique.gitbook.io/ecobalyse/vehicules/cycle-de-vie/utilisation-du-vehicule/construction-des-procedes-carburant",
     "database": "Ecoinvent 3.9.1",
     "exchanges": [
@@ -10712,11 +10712,11 @@
         "name": "Carbon dioxide, fossil"
       }
     ],
-    "newName": "Diesel direct CO2 emissions, 30 000 km"
+    "newName": "Diesel direct CO2 emissions, 200 000 km"
   },
   {
     "activityCreationType": "from_scratch",
-    "alias": "vehicle-use-diesel-euro4-30kkm",
+    "alias": "vehicle-use-diesel-euro4-200kkm",
     "comment": "see https://fabrique-numerique.gitbook.io/ecobalyse/vehicules/cycle-de-vie/utilisation-du-vehicule/construction-des-procedes-carburant",
     "database": "Ecoinvent 3.9.1",
     "exchanges": [
@@ -10745,6 +10745,6 @@
         "name": "Particulate Matter, < 2.5 um"
       }
     ],
-    "newName": "Diesel euro4 emissions, 30 000 km"
+    "newName": "Diesel euro4 emissions, 200 000 km"
   }
 ]
