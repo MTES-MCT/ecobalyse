@@ -10681,5 +10681,70 @@
     ],
     "location": "GLO",
     "newName": "Tire"
+  },
+  {
+    "activityCreationType": "from_scratch",
+    "alias": "vehicle-use-diesel-upstream-30kkm",
+    "comment": "see https://fabrique-numerique.gitbook.io/ecobalyse/vehicules/cycle-de-vie/utilisation-du-vehicule/construction-des-procedes-carburant",
+    "database": "Ecoinvent 3.9.1",
+    "exchanges": [
+      {
+        "amount": 1562,
+        "name": "diesel, low-sulfur//[RER] market group for diesel, low-sulfur"
+      },
+      {
+        "amount": 118,
+        "name": "fatty acid methyl ester//[RoW] market for fatty acid methyl ester"
+      }
+    ],
+    "newName": "Diesel B7, upstream, 30 000 km"
+  },
+  {
+    "activityCreationType": "from_scratch",
+    "alias": "vehicle-use-diesel-direct-co2-emissions-30kkm",
+    "comment": "see https://fabrique-numerique.gitbook.io/ecobalyse/vehicules/cycle-de-vie/utilisation-du-vehicule/construction-des-procedes-carburant",
+    "database": "Ecoinvent 3.9.1",
+    "exchanges": [
+      {
+        "amount": 4980,
+        "code": "349b29d1-3e58-4c66-98b9-9d1a076efd2e",
+        "database": "biosphere3",
+        "name": "Carbon dioxide, fossil"
+      }
+    ],
+    "newName": "Diesel direct CO2 emissions, 30 000 km"
+  },
+  {
+    "activityCreationType": "from_scratch",
+    "alias": "vehicle-use-diesel-euro4-30kkm",
+    "comment": "see https://fabrique-numerique.gitbook.io/ecobalyse/vehicules/cycle-de-vie/utilisation-du-vehicule/construction-des-procedes-carburant",
+    "database": "Ecoinvent 3.9.1",
+    "exchanges": [
+      {
+        "amount": 100,
+        "code": "6edcc2df-88a3-48e1-83d8-ffc38d31c35b",
+        "database": "biosphere3",
+        "name": "Carbon monoxide, fossil"
+      },
+      {
+        "amount": 20,
+        "code": "175baa64-d985-4c5e-84ef-67cc3a1cf952",
+        "database": "biosphere3",
+        "name": "NMVOC, non-methane volatile organic compounds"
+      },
+      {
+        "amount": 50,
+        "code": "d068f3e2-b033-417b-a359-ca4f25da9731",
+        "database": "biosphere3",
+        "name": "Nitrogen oxides"
+      },
+      {
+        "amount": 5,
+        "code": "230d8a0a-517c-43fe-8357-1818dd12997a",
+        "database": "biosphere3",
+        "name": "Particulate Matter, < 2.5 um"
+      }
+    ],
+    "newName": "Diesel euro4 emissions, 30 000 km"
   }
 ]
