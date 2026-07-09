@@ -4,6 +4,7 @@ from datetime import datetime  # noqa: TC003
 from uuid import UUID  # noqa: TC003
 
 import msgspec
+
 from app.domain.accounts.schemas import User
 from app.lib.schema import CamelizedBaseStruct
 

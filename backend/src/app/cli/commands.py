@@ -14,6 +14,9 @@ from advanced_alchemy.service.typing import (
     convert,
 )
 from advanced_alchemy.utils.fixtures import open_fixture_async
+from rich import get_console
+from structlog import get_logger
+
 from app.config import get_settings
 from app.config.app import alchemy, default_json_serializer
 from app.db import models as m
@@ -29,8 +32,6 @@ from app.domain.components.schemas import (
     JsonComponent,
 )
 from app.domain.processes.deps import provide_processes_service
-from rich import get_console
-from structlog import get_logger
 
 
 @click.group(
