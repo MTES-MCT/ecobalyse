@@ -146,6 +146,16 @@ suite =
                 |> Expect.equal (Ok 246.9)
                 |> asTest "should return double the float when dividing by a 0.5 split"
             ]
+        , describe "fromBool"
+            [ True
+                |> Split.fromBool
+                |> Expect.equal Split.full
+                |> asTest "should return a full split when given true"
+            , False
+                |> Split.fromBool
+                |> Expect.equal Split.zero
+                |> asTest "should return a zero split when given false"
+            ]
         , describe "decoder"
             [ "0.12"
                 |> Decode.decodeString Split.decodeFloat

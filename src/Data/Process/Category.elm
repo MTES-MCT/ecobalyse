@@ -29,6 +29,7 @@ type Category
     | TextileMaterial
     | Transform
     | Transport
+    | TransportedCooled
     | Use
     | WasteTreatment
 
@@ -132,6 +133,9 @@ fromString string =
 
         "transport" ->
             Ok Transport
+
+        "transported_cooled" ->
+            Ok TransportedCooled
 
         "use" ->
             Ok Use
@@ -567,6 +571,9 @@ toString category =
         Transport ->
             "transport"
 
+        TransportedCooled ->
+            "transported_cooled"
+
         Use ->
             "use"
 
@@ -612,6 +619,9 @@ toLabel category =
 
         Transport ->
             "Transport"
+
+        TransportedCooled ->
+            "Transport réfrigéré"
 
         Use ->
             "Utilisation"
