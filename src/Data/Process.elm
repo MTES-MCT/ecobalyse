@@ -19,6 +19,7 @@ module Data.Process exposing
     , idFromString
     , idToString
     , impactsPerUnit
+    , isTransportedCooled
     , listAvailableMaterialTransforms
     , listByCategory
     , unitLabel
@@ -260,6 +261,11 @@ impactsPerUnit { electricityProcess, heatProcess } { elec, heat, impacts } =
         , electricityProcess.impacts |> Impact.multiplyBy (Energy.inKilowattHours elec)
         , heatProcess.impacts |> Impact.multiplyBy (Energy.inMegajoules heat)
         ]
+
+
+isTransportedCooled : Process -> Bool
+isTransportedCooled =
+    .categories >> List.member Category.TransportedCooled
 
 
 listAvailableMaterialTransforms : Process -> List Process -> List Process

@@ -71,6 +71,7 @@ class Category(StrEnum):
     TEXTILE_MATERIAL = "textile_material"
     TRANSFORMATION = "transformation"
     TRANSPORT = "transport"
+    TRANSPORTED_COOLED = "transported_cooled"
     USE = "use"
 
 

@@ -11,6 +11,7 @@ module Data.Split exposing
     , encodePercent
     , fifteen
     , fourty
+    , fromBool
     , fromBoundedFloat
     , fromFloat
     , fromPercent
@@ -100,6 +101,15 @@ sixty =
 full : Split
 full =
     Split 1
+
+
+fromBool : Bool -> Split
+fromBool bool =
+    if bool then
+        full
+
+    else
+        zero
 
 
 fromFloat : Float -> Result String Split
