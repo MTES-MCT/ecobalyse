@@ -116,6 +116,18 @@ app.ports.loadRapidoc.subscribe((rapidocScriptUrl) => {
   }
 });
 
+app.ports.loadJeDonneMonAvis.subscribe(() => {
+  loadScript("https://jedonnemonavis.numerique.gouv.fr/static/jdma-modal-widget.js", {
+    "data-jdma-form-url":
+      "https://jedonnemonavis.numerique.gouv.fr/Demarches/avis/2361?button=4816",
+    "data-jdma-button-image":
+      "https://jedonnemonavis.numerique.gouv.fr/static/buttons/button-remark-solid-light.svg",
+    "data-jdma-button-label": "Une remarque ?",
+    "data-jdma-position": "bottom-right",
+    defer: "defer",
+  });
+});
+
 app.ports.saveStore.subscribe((rawStore) => {
   localStorage[storeKey] = rawStore;
 });

@@ -19,12 +19,14 @@ describe("lib.http", () => {
       ]);
       expect(directives["frame-src"]).toEqual([
         "'self'",
+        "https://jedonnemonavis.numerique.gouv.fr",
         "https://matomo.example.com",
         "https://plausible.example.com",
       ]);
       expect(directives["script-src"]).toEqual([
         "'self'",
         "'unsafe-inline'",
+        "https://jedonnemonavis.numerique.gouv.fr",
         "https://matomo.example.com",
         "https://plausible.example.com",
       ]);
@@ -39,8 +41,15 @@ describe("lib.http", () => {
         "https://api.github.com",
         "https://raw.githubusercontent.com",
       ]);
-      expect(directives["frame-src"]).toEqual(["'self'"]);
-      expect(directives["script-src"]).toEqual(["'self'", "'unsafe-inline'"]);
+      expect(directives["frame-src"]).toEqual([
+        "'self'",
+        "https://jedonnemonavis.numerique.gouv.fr",
+      ]);
+      expect(directives["script-src"]).toEqual([
+        "'self'",
+        "'unsafe-inline'",
+        "https://jedonnemonavis.numerique.gouv.fr",
+      ]);
       expect(directives["worker-src"]).toEqual(["'self'"]);
     });
   });
