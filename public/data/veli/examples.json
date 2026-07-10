@@ -1029,83 +1029,6 @@
     "scope": "veli"
   },
   {
-    "category": "Voiture",
-    "id": "496facb9-e6d1-4136-8d41-a1a2afd2583b",
-    "name": "Voiture électrique CatB, proxi méthode score environnemental, fabrication France",
-    "query": {
-      "assemblyCountry": "FR",
-      "components": [
-        {
-          "quantity": 680,
-          "custom": {
-            "name": "Métaux ferreux",
-            "elements": [
-              {
-                "amount": 1,
-                "material": {
-                  "country": "FR",
-                  "id": "7cd80a58-6d07-4abc-ab41-624c0d1487c7"
-                },
-                "transforms": [
-                  {
-                    "country": "FR",
-                    "id": "e482a49b-1d31-4776-904d-5dd65009d4b4"
-                  }
-                ]
-              }
-            ]
-          }
-        },
-        {
-          "quantity": 160,
-          "custom": {
-            "name": "Aluminium",
-            "elements": [
-              {
-                "amount": 1,
-                "material": {
-                  "id": "baae8572-db4a-4cb8-8f74-e72ba5ef0116"
-                },
-                "transforms": [
-                  {
-                    "id": "e482a49b-1d31-4776-904d-5dd65009d4b4"
-                  }
-                ]
-              }
-            ]
-          }
-        },
-        {
-          "quantity": 310,
-          "custom": {
-            "name": "Autres Matériaux",
-            "elements": [
-              {
-                "amount": 1,
-                "material": {
-                  "id": "773423e0-1784-4ff7-904b-146b8b3c64fd"
-                },
-                "transforms": []
-              }
-            ]
-          }
-        },
-        {
-          "id": "52e25580-d83a-4de6-9632-da4303d5211d",
-          "quantity": 1
-        }
-      ],
-      "consumptions": [
-        {
-          "amount": 1,
-          "processId": "8b4fae1f-71bc-44d4-9e40-b2399ef04f34"
-        }
-      ],
-      "recyclable": true
-    },
-    "scope": "veli"
-  },
-  {
     "category": "Vélo",
     "id": "45c8f837-45ea-48d8-9de7-e9e58ea81acd",
     "name": "Vélo à assistance électrique, fabrication France",
@@ -1476,6 +1399,83 @@
         {
           "amount": 6,
           "processId": "f90da3e9-3a58-46b3-93e5-af389217bfc8"
+        }
+      ],
+      "recyclable": true
+    },
+    "scope": "veli"
+  },
+  {
+    "category": "Voiture",
+    "id": "49d12b6d-4c9f-4820-8d9e-18d94189d806",
+    "name": "Voiture électrique CatB, proxi méthode score environnemental, fabrication France",
+    "query": {
+      "assemblyCountry": "FR",
+      "components": [
+        {
+          "quantity": 680,
+          "custom": {
+            "name": "Métaux ferreux",
+            "elements": [
+              {
+                "amount": 1,
+                "material": {
+                  "country": "FR",
+                  "id": "7cd80a58-6d07-4abc-ab41-624c0d1487c7"
+                },
+                "transforms": [
+                  {
+                    "country": "FR",
+                    "id": "e482a49b-1d31-4776-904d-5dd65009d4b4"
+                  }
+                ]
+              }
+            ]
+          }
+        },
+        {
+          "quantity": 160,
+          "custom": {
+            "name": "Aluminium",
+            "elements": [
+              {
+                "amount": 1,
+                "material": {
+                  "id": "baae8572-db4a-4cb8-8f74-e72ba5ef0116"
+                },
+                "transforms": [
+                  {
+                    "id": "e482a49b-1d31-4776-904d-5dd65009d4b4"
+                  }
+                ]
+              }
+            ]
+          }
+        },
+        {
+          "quantity": 310,
+          "custom": {
+            "name": "Autres Matériaux",
+            "elements": [
+              {
+                "amount": 1,
+                "material": {
+                  "id": "773423e0-1784-4ff7-904b-146b8b3c64fd"
+                },
+                "transforms": []
+              }
+            ]
+          }
+        },
+        {
+          "id": "52e25580-d83a-4de6-9632-da4303d5211d",
+          "quantity": 1
+        }
+      ],
+      "consumptions": [
+        {
+          "amount": 1,
+          "processId": "8b4fae1f-71bc-44d4-9e40-b2399ef04f34"
         }
       ],
       "recyclable": true
