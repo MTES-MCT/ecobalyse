@@ -28,7 +28,7 @@ dev = [
     "check-jsonschema ~= 0.35",
     "deadcode ~= 2.4",
     "pre-commit ~= 4.0",
-    "pytest~=9.0",
+    "pytest~=9.1",
     "pytest-mock ~= 3.14",
     "ruff ~= 0.8",
     "vulture ~= 2.14",
@@ -37,7 +37,7 @@ dev = [
 jupyter = [
     "ipywidgets>=8.1.5",
     "jupyter-collaboration>=3.0.1",
-    "jupyterlab>=4.5.7",
+    "jupyterlab>=4.5.9",
     "notebook>=7.3.0",
 ]
 
