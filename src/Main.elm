@@ -467,6 +467,19 @@ update rawMsg ({ state } as model) =
                     in
                     ( { model | tray = newTray }, Cmd.map (AppMsg << App.ToastMsg) newToastMsg )
 
+                -- Component config (reloaded after detailed processes are received): refresh the session
+                -- config and re-init the current route so cached page results are recomputed with detailed impacts
+                ( ComponentConfigReceived _ _ (RemoteData.Success componentConfig), currentPage ) ->
+                    setRoute model.url
+                        ( { model | state = Loaded { session | componentConfig = componentConfig } currentPage }
+                        , Cmd.none
+                        )
+
+                ( ComponentConfigReceived _ _ (RemoteData.Failure error), _ ) ->
+                    notifyError model "Erreur" <|
+                        "Impossible de recharger la configuration des composants\u{00A0}: "
+                            ++ RequestCommon.errorToString error
+
                 -- Detailed processes
                 ( DetailedProcessesReceived sessionConfig (RemoteData.Success rawDetailedProcessesJson), currentPage ) ->
                     let
