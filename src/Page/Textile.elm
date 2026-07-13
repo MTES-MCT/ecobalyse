@@ -987,8 +987,7 @@ simulatorFormView session model ({ inputs } as simulator) =
             ]
         ]
     , ComponentView.editorView
-        { addLabel = "Ajouter un accessoire"
-        , componentConfig = session.componentConfig
+        { componentConfig = session.componentConfig
         , context = ComponentView.TextileTrimsContext
         , db = session.db
         , debug = False
@@ -1019,7 +1018,6 @@ simulatorFormView session model ({ inputs } as simulator) =
         , removeItem = RemoveTrim
         , scope = Scope.Textile
         , setDetailed = \_ -> NoOp
-        , title = "Accessoires"
         , toggleTransportByAir = \_ -> NoOp
         , toggleTransportCooling = \_ -> NoOp
         , updateAssemblyCountry = \_ -> NoOp
