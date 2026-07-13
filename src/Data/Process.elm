@@ -286,7 +286,7 @@ listAvailableMaterialTransforms material =
                         Nothing
 
                     transformMaterialTypes ->
-                        if List.length (intersect materialTypes transformMaterialTypes) > 0 then
+                        if not <| List.isEmpty (intersect materialTypes transformMaterialTypes) then
                             Just process
 
                         else
