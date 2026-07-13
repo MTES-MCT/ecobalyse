@@ -105,7 +105,7 @@ suite =
                         (\testComponent validTransformProcess invalidTransformProcess ->
                             [ itFromResult "should add a valid transformation process to a component element"
                                 (chair
-                                    |> Result.andThen (Component.addElementTransform ( ( testComponent, 1 ), 0 ) validTransformProcess)
+                                    |> Result.andThen (Component.addElementTransform ( ( testComponent, 1 ), 0 ) Nothing validTransformProcess)
                                     |> Result.map
                                         (\items ->
                                             items
@@ -122,7 +122,7 @@ suite =
                                 (Expect.equal (Just [ Component.nonLocalizedProcess validTransformProcess.id ]))
                             , it "should reject an invalid transformation process"
                                 (chair
-                                    |> Result.andThen (Component.addElementTransform ( ( testComponent, 1 ), 0 ) invalidTransformProcess)
+                                    |> Result.andThen (Component.addElementTransform ( ( testComponent, 1 ), 0 ) Nothing invalidTransformProcess)
                                     |> expectResultErrorContains "Seuls les procédés de catégorie `transformation` sont mobilisables comme procédés de transformation"
                                 )
                             ]
@@ -1534,7 +1534,7 @@ suite =
                         (\testComponent testProcess ->
                             [ itFromResult "should remove an element transform"
                                 (chair
-                                    |> Result.andThen (Component.addElementTransform ( ( testComponent, 1 ), 0 ) testProcess)
+                                    |> Result.andThen (Component.addElementTransform ( ( testComponent, 1 ), 0 ) Nothing testProcess)
                                     |> Result.map (Component.removeElementTransform ( ( testComponent, 1 ), 0 ) 0)
                                     |> Result.map (LE.getAt 1)
                                 )
