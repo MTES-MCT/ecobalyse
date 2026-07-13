@@ -4,11 +4,11 @@ test("object simulator", async ({ page }) => {
   await page.goto("/");
   await page.getByLabel("Menu principal").getByRole("link", { name: "Objets" }).click();
 
-  await page.getByRole("button", { name: "Ajouter un composant" }).click();
+  await page.getByRole("button", { name: "Ajouter un matériau" }).click();
   await page.getByRole("option", { name: "Pied chaise acier" }).click();
-  await page.getByRole("button", { name: "Ajouter un composant" }).click();
+  await page.getByRole("button", { name: "Ajouter un matériau" }).click();
   await page.getByRole("option", { name: "Structure acier (canapé 3p)" }).click();
-  await page.getByRole("button", { name: "Ajouter un composant" }).click();
+  await page.getByRole("button", { name: "Ajouter un matériau" }).click();
   await page.getByRole("option", { name: "Mousse polyurethane (canapé 3p)" }).click();
 
   await page.getByRole("row", { name: "▶ Pied chaise acier" }).getByRole("spinbutton").fill("2");
