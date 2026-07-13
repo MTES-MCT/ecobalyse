@@ -436,6 +436,7 @@ addElement targetItem material items =
                                      , transforms = []
                                      }
                                    ]
+                        , name = material.displayName
                     }
                 )
             |> Ok
