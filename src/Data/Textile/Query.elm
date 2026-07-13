@@ -270,7 +270,7 @@ isAdvancedQuery query =
         , query.physicalDurability /= Nothing
         , query.surfaceMass /= Nothing
         , query.trims /= Nothing
-        , not query.upcycled && List.length query.disabledStages > 0
+        , not query.upcycled && not (List.isEmpty query.disabledStages)
         , query.yarnSize /= Nothing
         ]
 
