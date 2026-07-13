@@ -38,7 +38,7 @@ WOOL = "wool.2.CSV.zip"
 WOOL_MD5 = "246b8ec57389086829bce58a689e7904"
 
 # BAFU
-BAFU = "BAFU2025v2.CSV.zip"
+BAFU = "bafu-2025-2.csv.zip"
 BAFU_MD5 = "4031fa2f2c0a6378038fc48ee4a6e9a7"
 
 # Food
