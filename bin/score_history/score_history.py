@@ -59,9 +59,13 @@ logger = logging.getLogger("logger")
 
 
 def get_arguments():
+    dry_run = "--dry-run" in sys.argv
+    if dry_run:
+        sys.argv.remove("--dry-run")
+
     if len(sys.argv) < 4:
         print(
-            "Usage: python compute_score_history.py <API_URL> <BRANCH_NAME> <LAST_COMMIT_HASH> <SCALINGO_POSTGRESQL_SCORE_URL>"
+            "Usage: python score_history.py <API_URL> <BRANCH_NAME> <LAST_COMMIT_HASH> <SCALINGO_POSTGRESQL_SCORE_URL> [--dry-run]"
         )
         sys.exit(1)
 
@@ -69,7 +73,13 @@ def get_arguments():
     branch_name = sys.argv[2]
     last_commit_hash = sys.argv[3][:7]
     scalingo_postgresql_score_url = sys.argv[4]
-    return api_url, branch_name, last_commit_hash, scalingo_postgresql_score_url
+    return (
+        api_url,
+        branch_name,
+        last_commit_hash,
+        scalingo_postgresql_score_url,
+        dry_run,
+    )
 
 
 def load_json(file):
@@ -606,7 +616,7 @@ def compute_products_scores_for_examples(examples, api_url, token):
 
 
 if __name__ == "__main__":
-    api_url, current_branch, last_commit, scalingo_postgresql_score_url = (
+    api_url, current_branch, last_commit, scalingo_postgresql_score_url, dry_run = (
         get_arguments()
     )
     engine = create_engine(
@@ -645,6 +655,11 @@ if __name__ == "__main__":
             if previous_score_df.empty or are_df_different(
                 new_score_df, previous_score_df
             ):
+                if dry_run:
+                    logger.info(
+                        f"[dry-run] Score is different for domain {domain}. Would have appended {new_score_df.shape[0]} rows to score_history. Nothing was inserted."
+                    )
+                    continue
                 logger.info(
                     f"Score is different for domain {domain}. Storing new score in the db. Number of rows in the score_history table before update: {get_row_count(engine)}"
                 )
