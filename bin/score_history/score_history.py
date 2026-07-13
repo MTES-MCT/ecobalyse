@@ -367,12 +367,12 @@ def create_df_food(
     return df
 
 
-def is_new_commit(score_history_df, last_commit):
-    """if the last commit is not in the score history, we add this to the"""
-    if not score_history_df["commit"].isin([last_commit]).any():
-        return True
-    else:
-        return False
+def is_new_commit(engine, last_commit):
+    """Check if the commit is already in score_history"""
+    query = text("SELECT 1 FROM score_history WHERE commit = :commit LIMIT 1")
+    with get_database_connection(engine) as conn:
+        existing_commit_row = conn.execute(query, {"commit": last_commit}).first()
+    return existing_commit_row is None
 
 
 def are_df_different(df1, df2, tolerance=0.0001):
@@ -445,37 +445,33 @@ def dataframe_to_dict(df, key_cols, value_cols):
     return result_dict
 
 
-def get_previous_score(domain, score_history_df, current_branch):
+def get_previous_score(engine, domain, current_branch):
     """
-    Retrieves the most recent score from the score history dataframe for a specific branch.
+    Retrieves the rows of the most recent score for a specific branch and domain.
 
     Args:
+    engine: SQLAlchemy engine
     domain (str) : textile or food
-    score_history_df (DataFrame): The DataFrame containing the score history with 'datetime' and 'branch' columns.
     current_branch (str): The branch for which to retrieve the most recent score.
 
     Returns:
-    tuple:
-        - bool indicating if there is no previous score on the branch.
-        - DataFrame with the most recent score details for the branch.
+    DataFrame with the most recent score details for the branch and domain,
+    empty if the branch and domain have no score yet.
     """
-    # Convert 'datetime' to datetime format only if it's not already converted
-    if not pd.api.types.is_datetime64_any_dtype(score_history_df["datetime"]):
-        score_history_df["datetime"] = pd.to_datetime(score_history_df["datetime"])
-
-    # Filter DataFrame for the current branch and current domain
-    previous_score_df = score_history_df[
-        (score_history_df["branch"] == current_branch)
-        & (score_history_df["domain"] == domain)
-    ]
-
-    # Get the most recent datetime and filter the DataFrame to this datetime
-    latest_datetime = previous_score_df["datetime"].max()
-    previous_score_df = previous_score_df[
-        previous_score_df["datetime"] == latest_datetime
-    ]
-
-    return previous_score_df
+    query = text(
+        """
+        SELECT * FROM score_history
+        WHERE branch = :branch
+          AND domain = :domain
+          AND datetime = (
+              SELECT MAX(datetime) FROM score_history
+              WHERE branch = :branch AND domain = :domain
+          )
+        """
+    )
+    query_params = {"branch": current_branch, "domain": str(domain)}
+    with get_database_connection(engine) as conn:
+        return pd.read_sql(query, conn, params=query_params)
 
 
 # Database Operations
@@ -497,13 +493,6 @@ def get_database_connection(engine):
         raise e
     finally:
         connection.close()  # Ensure the connection is closed
-
-
-def get_score_history(engine):
-    query = text("SELECT * FROM score_history")
-    with get_database_connection(engine) as conn:
-        df = pd.read_sql(query, conn)
-        return df
 
 
 def get_row_count(engine):
@@ -558,14 +547,10 @@ if __name__ == "__main__":
     api_url, current_branch, last_commit, scalingo_postgresql_score_url = (
         get_arguments()
     )
-
     engine = create_engine(
         scalingo_postgresql_score_url, connect_args={"connect_timeout": 10}
     )
-
-    score_history_df = get_score_history(engine)
-
-    commit_is_new = is_new_commit(score_history_df, last_commit)
+    commit_is_new = is_new_commit(engine, last_commit)
 
     if commit_is_new:
         logger.info(
@@ -586,9 +571,10 @@ if __name__ == "__main__":
             )
 
             new_score_df = get_new_score(domain, examples, current_branch, last_commit)
-            previous_score_df = get_previous_score(
-                domain, score_history_df, current_branch
+            logger.info(
+                f"Fetching previous score for branch {current_branch} and domain {domain}"
             )
+            previous_score_df = get_previous_score(engine, domain, current_branch)
             if previous_score_df.empty or are_df_different(
                 new_score_df, previous_score_df
             ):
