@@ -25,7 +25,7 @@ Lors d'un calcul d'impact environnemental sur une durée donnée (de plus de 100
 
 A ce jour, il n'existe pas de consensus sur la question de savoir si et comment les émissions à long terme doivent être prises en compte.&#x20;
 
-Le document suivant liste les arguments pour et contre les deux approches : [Implementation of Life Cycle Impact Assessment Methods](exclusion-des-emissions-a-long-terme.md#https-esu-services.ch-fileadmin-download-publiclci-03_lcia-implementation.pdf), 2007, ecoinvent, partie II.2.1.3, pages 5 à 10.
+Le document suivant liste les arguments pour et contre les deux approches : [Implementation of Life Cycle Impact Assessment Methods](https://www.researchgate.net/publication/263239305_Implementation_of_Life_Cycle_Impact_Assessment_Methods_ecoinvent_report_No_3_v22), 2010, ecoinvent, partie I.2.1.3, pages 5 à 10.
 
 Il y a un consensus sur le fait que les impacts court terme et long terme doivent être distingués, et que la pondération entre les deux horizons temporelles relève d'une décision "éthique et politique".&#x20;
 
