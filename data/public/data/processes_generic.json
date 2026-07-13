@@ -47753,18 +47753,46 @@
     "visible": true
   },
   {
-    "activityName": "Diesel euro4 emissions, 200 000 km",
+    "activityName": "Diesel Euro4 emissions, 200 000 km",
     "alias": null,
     "categories": [
       "use"
     ],
     "comment": "Emissions sur la durée de vie, selon les valeurs limites d'émissions fixée par la norme et pour une durée de vie de 200 000 km.",
-    "displayName": "Emissions EuroIV, Diesel - kilométrage de 200 000 km",
+    "displayName": "Diesel, Emissions EuroIV - kilométrage de 200 000 km",
     "elecKwh": 0,
     "heatMJ": 0,
     "id": "cb471c73-27fd-42db-9450-a52b2d479d68",
     "impacts": {
       "ecs": 313200.0
+    },
+    "landOccupation": null,
+    "location": null,
+    "massPerUnit": null,
+    "metadata": {
+      "defaultOrigin": null
+    },
+    "qtyVariationRatio": 1.0,
+    "scopes": [
+      "veli"
+    ],
+    "source": "Ecobalyse_custom_lci",
+    "unit": "item",
+    "visible": true
+  },
+  {
+    "activityName": "Diesel Euro6d emissions, 200 000 km",
+    "alias": null,
+    "categories": [
+      "use"
+    ],
+    "comment": "Emissions sur la durée de vie, selon les valeurs limites d'émissions fixée par la norme et pour une durée de vie de 200 000 km.",
+    "displayName": "Diesel, Emissions EuroVId - kilométrage de 200 000 km",
+    "elecKwh": 0,
+    "heatMJ": 0,
+    "id": "9c894465-b599-41cd-a39e-a69f1699c024",
+    "impacts": {
+      "ecs": 86690.0
     },
     "landOccupation": null,
     "location": null,
@@ -53457,13 +53485,13 @@
     "visible": true
   },
   {
-    "activityName": "Petrol euro6 emissions, 200 000 km",
+    "activityName": "Petrol Euro6d emissions, 200 000 km",
     "alias": null,
     "categories": [
       "use"
     ],
     "comment": "Emissions sur la durée de vie, selon les valeurs limites d'émissions fixée par la norme et pour une durée de vie de 200 000 km.",
-    "displayName": "Emissions EuroVI, Essence - kilométrage de 200 000 km",
+    "displayName": "Essence, Emissions EuroVId - kilométrage de 200 000 km",
     "elecKwh": 0,
     "heatMJ": 0,
     "id": "8a981011-da2c-4120-bf9e-86cdeb560fbb",
@@ -57422,64 +57450,6 @@
     "visible": true
   },
   {
-    "activityName": "diesel, B7, EURO4",
-    "alias": null,
-    "categories": [
-      "energy",
-      "use"
-    ],
-    "comment": "see https://fabrique-numerique.gitbook.io/ecobalyse/vehicules/cycle-de-vie/utilisation-du-vehicule/construction-des-procedes-carburant",
-    "displayName": "Diesel (B7), norme Euro4",
-    "elecKwh": 0,
-    "heatMJ": 0,
-    "id": "18480897-317f-4ebc-b504-988d3a477925",
-    "impacts": {
-      "ecs": 263.6
-    },
-    "landOccupation": null,
-    "location": null,
-    "massPerUnit": null,
-    "metadata": {
-      "defaultOrigin": null
-    },
-    "qtyVariationRatio": 1.0,
-    "scopes": [
-      "veli"
-    ],
-    "source": "Ecobalyse_custom_lci",
-    "unit": "L",
-    "visible": true
-  },
-  {
-    "activityName": "diesel, B7, EURO6",
-    "alias": null,
-    "categories": [
-      "energy",
-      "use"
-    ],
-    "comment": "see https://fabrique-numerique.gitbook.io/ecobalyse/vehicules/cycle-de-vie/utilisation-du-vehicule/construction-des-procedes-carburant",
-    "displayName": "Diesel (B7), norme Euro6",
-    "elecKwh": 0,
-    "heatMJ": 0,
-    "id": "d821e5bf-deb4-4ee6-af56-21a4ca9bc3f8",
-    "impacts": {
-      "ecs": 240.9
-    },
-    "landOccupation": null,
-    "location": null,
-    "massPerUnit": null,
-    "metadata": {
-      "defaultOrigin": null
-    },
-    "qtyVariationRatio": 1.0,
-    "scopes": [
-      "veli"
-    ],
-    "source": "Ecobalyse_custom_lci",
-    "unit": "L",
-    "visible": true
-  },
-  {
     "activityName": "fibre, cotton, organic//[RoW] fibre production, cotton, organic, irrigated, ginning",
     "alias": "ei-coton-organic",
     "categories": [
@@ -57697,35 +57667,6 @@
     ],
     "source": "Ecobalyse_custom_lci",
     "unit": "kg",
-    "visible": true
-  },
-  {
-    "activityName": "petrol, E10, EURO6",
-    "alias": null,
-    "categories": [
-      "energy",
-      "use"
-    ],
-    "comment": "see https://fabrique-numerique.gitbook.io/ecobalyse/vehicules/cycle-de-vie/utilisation-du-vehicule/construction-des-procedes-carburant",
-    "displayName": "Essence (E10), norme Euro6",
-    "elecKwh": 0,
-    "heatMJ": 0,
-    "id": "96da7da0-19f6-46fb-b7d7-2d888e7046e0",
-    "impacts": {
-      "ecs": 213.1
-    },
-    "landOccupation": null,
-    "location": null,
-    "massPerUnit": null,
-    "metadata": {
-      "defaultOrigin": null
-    },
-    "qtyVariationRatio": 1.0,
-    "scopes": [
-      "veli"
-    ],
-    "source": "Ecobalyse_custom_lci",
-    "unit": "L",
     "visible": true
   },
   {
@@ -58095,14 +58036,14 @@
     "activityName": "This process is not linked to a Brightway activity",
     "alias": null,
     "categories": [
-      "transformation",
-      "material_type:battery_cell"
+      "productmassdependent",
+      "use"
     ],
-    "comment": "Battery assembling, based on ADEME Benchmark: around 1kWh/kWh of battery capacity. Converted in consumption per kg of cell.",
-    "displayName": "Assemblage en batterie",
-    "elecKwh": 0.2778,
-    "heatMJ": 0,
-    "id": "7f217ecc-5de8-4ce1-b2c2-b5d192c6cdb9",
+    "comment": "A titre provisoire ce procédé est intégré dans la phase d'usage, la phase d'assemblage n'intégrant pas de procédé à ce stade. https://fabrique-numerique.gitbook.io/ecobalyse/vehicules/cycle-de-vie/assemblage",
+    "displayName": "Assemblage (France, temp.) - calcul réglementaire Score Environnemental VE",
+    "elecKwh": 2.165,
+    "heatMJ": 4.581,
+    "id": "8b4fae1f-71bc-44d4-9e40-b2399ef04f34",
     "impacts": {
       "ecs": 0
     },
@@ -58128,7 +58069,7 @@
       "use"
     ],
     "comment": "A titre provisoire ce procédé est intégré dans la phase d'usage, la phase d'assemblage n'intégrant pas de procédé à ce stade. https://fabrique-numerique.gitbook.io/ecobalyse/vehicules/cycle-de-vie/assemblage",
-    "displayName": "Assemblage véhicule",
+    "displayName": "Assemblage (France, temporaire)",
     "elecKwh": 1.5,
     "heatMJ": 3.0,
     "id": "c51ab87d-f368-4704-a5ec-7ea17ba87d46",
@@ -58153,14 +58094,14 @@
     "activityName": "This process is not linked to a Brightway activity",
     "alias": null,
     "categories": [
-      "productmassdependent",
-      "use"
+      "transformation",
+      "material_type:battery_cell"
     ],
-    "comment": "A titre provisoire ce procédé est intégré dans la phase d'usage, la phase d'assemblage n'intégrant pas de procédé à ce stade. https://fabrique-numerique.gitbook.io/ecobalyse/vehicules/cycle-de-vie/assemblage",
-    "displayName": "Assemblage véhicule - calcul réglementaire Score Environnemental VE",
-    "elecKwh": 2.165,
-    "heatMJ": 4.581,
-    "id": "8b4fae1f-71bc-44d4-9e40-b2399ef04f34",
+    "comment": "Battery assembling, based on ADEME Benchmark: around 1kWh/kWh of battery capacity. Converted in consumption per kg of cell.",
+    "displayName": "Assemblage en batterie",
+    "elecKwh": 0.2778,
+    "heatMJ": 0,
+    "id": "7f217ecc-5de8-4ce1-b2c2-b5d192c6cdb9",
     "impacts": {
       "ecs": 0
     },
