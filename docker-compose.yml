@@ -2,7 +2,7 @@ services:
   db:
     container_name: ecobalyse_dev_db
     # Use the same version than Scalingo in production
-    image: postgres:14
+    image: postgres:17.9
     environment:
       POSTGRES_DB: ecobalyse_dev
       POSTGRES_USER: ecobalyse
