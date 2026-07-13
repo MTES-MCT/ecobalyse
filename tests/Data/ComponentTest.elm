@@ -127,6 +127,43 @@ suite =
                                 )
                             ]
                         )
+                    , suiteFromResult3 "addOrSetProcess transform default country"
+                        chairBack
+                        injectionMoulding
+                        sawing
+                        (\testComponent firstTransform secondTransform ->
+                            let
+                                targetItem =
+                                    ( testComponent, 0 )
+
+                                itemsWithMaterialCountry =
+                                    decodeJson (Decode.list Component.decodeItem) <|
+                                        """ [ { "quantity": 1, "custom": { "name": "Test", "elements": [
+                                            { "amount": 1, "material": { "id": "6527710e-2434-5347-9bef-2205e0aa4f66", "country": "FR" }, "transforms": [] }
+                                        ] } } ] """
+
+                                itemsWithExistingTransform =
+                                    decodeJson (Decode.list Component.decodeItem) <|
+                                        """ [ { "quantity": 1, "custom": { "name": "Test", "elements": [
+                                            { "amount": 1, "material": { "id": "6527710e-2434-5347-9bef-2205e0aa4f66", "country": "FR" }, "transforms": [
+                                                { "id": "111539de-deea-588a-9581-6f6ceaa2dfa9", "country": "DE" }
+                                            ] }
+                                        ] } } ] """
+                            in
+                            [ itFromResult "should default a new transform country to the element material country"
+                                (itemsWithMaterialCountry
+                                    |> Result.andThen (Component.addOrSetProcess requirements.db Category.Transform targetItem (Just 0) firstTransform)
+                                    |> Result.map (elementTransformCountryAt 0 0 0)
+                                )
+                                (Expect.equal (Just (CountryCode.fromString "FR")))
+                            , itFromResult "should default a new transform country to the last transform country"
+                                (itemsWithExistingTransform
+                                    |> Result.andThen (Component.addOrSetProcess requirements.db Category.Transform targetItem (Just 0) secondTransform)
+                                    |> Result.map (elementTransformCountryAt 0 0 1)
+                                )
+                                (Expect.equal (Just (CountryCode.fromString "DE")))
+                            ]
+                        )
                     , suiteFromResult "addItem"
                         chairBack
                         (\testComponent ->
@@ -2095,6 +2132,16 @@ decodeJsonThen : Decoder a -> (a -> Result String b) -> String -> Result String 
 decodeJsonThen decoder fn =
     decodeJson decoder
         >> Result.andThen fn
+
+
+elementTransformCountryAt : Int -> Int -> Int -> List Item -> Maybe CountryCode.Code
+elementTransformCountryAt itemIndex elementIndex transformIndex items =
+    items
+        |> LE.getAt itemIndex
+        |> Maybe.andThen .custom
+        |> Maybe.andThen (.elements >> LE.getAt elementIndex)
+        |> Maybe.andThen (.transforms >> LE.getAt transformIndex)
+        |> Maybe.andThen .country
 
 
 resetProcessElecAndHeat : Process -> Process
