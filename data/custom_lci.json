@@ -1586,100 +1586,6 @@
   },
   {
     "activityCreationType": "from_scratch",
-    "alias": "diesel-b7",
-    "comment": "see https://fabrique-numerique.gitbook.io/ecobalyse/vehicules/cycle-de-vie/utilisation-du-vehicule/construction-des-procedes-carburant",
-    "database": "Ecoinvent 3.9.1",
-    "exchanges": [
-      {
-        "amount": 2.49,
-        "code": "349b29d1-3e58-4c66-98b9-9d1a076efd2e",
-        "database": "biosphere3",
-        "name": "Carbon dioxide, fossil"
-      },
-      {
-        "amount": 0.01,
-        "code": "6edcc2df-88a3-48e1-83d8-ffc38d31c35b",
-        "database": "biosphere3",
-        "name": "Carbon monoxide, fossil"
-      },
-      {
-        "amount": 0.002,
-        "code": "175baa64-d985-4c5e-84ef-67cc3a1cf952",
-        "database": "biosphere3",
-        "name": "NMVOC, non-methane volatile organic compounds"
-      },
-      {
-        "amount": 0.0016,
-        "code": "d068f3e2-b033-417b-a359-ca4f25da9731",
-        "database": "biosphere3",
-        "name": "Nitrogen oxides"
-      },
-      {
-        "amount": 9.2e-05,
-        "code": "230d8a0a-517c-43fe-8357-1818dd12997a",
-        "database": "biosphere3",
-        "name": "Particulate Matter, < 2.5 um"
-      },
-      {
-        "amount": 0.781,
-        "name": "diesel, low-sulfur//[RER] market group for diesel, low-sulfur"
-      },
-      {
-        "amount": 0.059,
-        "name": "fatty acid methyl ester//[RoW] market for fatty acid methyl ester"
-      }
-    ],
-    "newName": "diesel, B7"
-  },
-  {
-    "activityCreationType": "from_scratch",
-    "alias": "petrol-e10",
-    "comment": "see https://fabrique-numerique.gitbook.io/ecobalyse/vehicules/cycle-de-vie/utilisation-du-vehicule/construction-des-procedes-carburant",
-    "database": "Ecoinvent 3.9.1",
-    "exchanges": [
-      {
-        "amount": 2.19,
-        "code": "349b29d1-3e58-4c66-98b9-9d1a076efd2e",
-        "database": "biosphere3",
-        "name": "Carbon dioxide, fossil"
-      },
-      {
-        "amount": 0.014,
-        "code": "6edcc2df-88a3-48e1-83d8-ffc38d31c35b",
-        "database": "biosphere3",
-        "name": "Carbon monoxide, fossil"
-      },
-      {
-        "amount": 0.0014,
-        "code": "175baa64-d985-4c5e-84ef-67cc3a1cf952",
-        "database": "biosphere3",
-        "name": "NMVOC, non-methane volatile organic compounds"
-      },
-      {
-        "amount": 0.0009,
-        "code": "d068f3e2-b033-417b-a359-ca4f25da9731",
-        "database": "biosphere3",
-        "name": "Nitrogen oxides"
-      },
-      {
-        "amount": 6.5e-05,
-        "code": "230d8a0a-517c-43fe-8357-1818dd12997a",
-        "database": "biosphere3",
-        "name": "Particulate Matter, < 2.5 um"
-      },
-      {
-        "amount": 0.076,
-        "name": "ethyl tert-butyl ether//[RER] ethyl tert-butyl ether production, from bioethanol"
-      },
-      {
-        "amount": 0.68,
-        "name": "petrol, low-sulfur//[Europe without Switzerland] market for petrol, low-sulfur"
-      }
-    ],
-    "newName": "petrol, E10"
-  },
-  {
-    "activityCreationType": "from_scratch",
     "alias": "petrol-e85",
     "comment": "under construction - see https://fabrique-numerique.gitbook.io/ecobalyse/vehicules/cycle-de-vie/utilisation-du-vehicule/construction-des-procedes-carburant",
     "database": "Ecoinvent 3.9.1",
@@ -2821,194 +2727,6 @@
       ],
       "upstreamPath": []
     }
-  },
-  {
-    "activityCreationType": "from_scratch",
-    "alias": "diesel-b7-euro6",
-    "comment": "consumption used as reference : average France 2021-2023, carlabelling.ademe.fr. Particulate matters are modelled as Particulate matter <2.5um. HC emissions are not modelled.",
-    "database": "Ecoinvent 3.9.1",
-    "exchanges": [
-      {
-        "amount": 2.49,
-        "code": "349b29d1-3e58-4c66-98b9-9d1a076efd2e",
-        "database": "biosphere3",
-        "name": "Carbon dioxide, fossil"
-      },
-      {
-        "amount": 0.01,
-        "code": "6edcc2df-88a3-48e1-83d8-ffc38d31c35b",
-        "database": "biosphere3",
-        "name": "Carbon monoxide, fossil"
-      },
-      {
-        "amount": 0.001,
-        "code": "175baa64-d985-4c5e-84ef-67cc3a1cf952",
-        "database": "biosphere3",
-        "name": "NMVOC, non-methane volatile organic compounds"
-      },
-      {
-        "amount": 0.0016,
-        "code": "d068f3e2-b033-417b-a359-ca4f25da9731",
-        "database": "biosphere3",
-        "name": "Nitrogen oxides"
-      },
-      {
-        "amount": 9.1e-05,
-        "code": "230d8a0a-517c-43fe-8357-1818dd12997a",
-        "database": "biosphere3",
-        "name": "Particulate Matter, < 2.5 um"
-      },
-      {
-        "amount": 0.781,
-        "name": "diesel, low-sulfur//[RER] market group for diesel, low-sulfur"
-      },
-      {
-        "amount": 0.059,
-        "name": "fatty acid methyl ester//[RoW] market for fatty acid methyl ester"
-      }
-    ],
-    "newName": "diesel, B7, EURO6"
-  },
-  {
-    "activityCreationType": "from_scratch",
-    "alias": "diesel-b7-euro4",
-    "comment": "consumption used as reference : average France 2021-2023, carlabelling.ademe.fr. Particulate matters are modelled as Particulate matter <2.5um. HC emissions are not modelled.",
-    "database": "Ecoinvent 3.9.1",
-    "exchanges": [
-      {
-        "amount": 2.49,
-        "code": "349b29d1-3e58-4c66-98b9-9d1a076efd2e",
-        "database": "biosphere3",
-        "name": "Carbon dioxide, fossil"
-      },
-      {
-        "amount": 0.01,
-        "code": "6edcc2df-88a3-48e1-83d8-ffc38d31c35b",
-        "database": "biosphere3",
-        "name": "Carbon monoxide, fossil"
-      },
-      {
-        "amount": 0.002,
-        "code": "175baa64-d985-4c5e-84ef-67cc3a1cf952",
-        "database": "biosphere3",
-        "name": "NMVOC, non-methane volatile organic compounds"
-      },
-      {
-        "amount": 0.005,
-        "code": "d068f3e2-b033-417b-a359-ca4f25da9731",
-        "database": "biosphere3",
-        "name": "Nitrogen oxides"
-      },
-      {
-        "amount": 0.0005,
-        "code": "230d8a0a-517c-43fe-8357-1818dd12997a",
-        "database": "biosphere3",
-        "name": "Particulate Matter, < 2.5 um"
-      },
-      {
-        "amount": 0.781,
-        "name": "diesel, low-sulfur//[RER] market group for diesel, low-sulfur"
-      },
-      {
-        "amount": 0.059,
-        "name": "fatty acid methyl ester//[RoW] market for fatty acid methyl ester"
-      }
-    ],
-    "newName": "diesel, B7, EURO4"
-  },
-  {
-    "activityCreationType": "from_scratch",
-    "alias": "petrol-e10-euro6",
-    "comment": "consumption used as reference : average France 2021-2023, carlabelling.ademe.fr. Particulate matters are modelled as Particulate matter <2.5um. HC emissions are not modelled.",
-    "database": "Ecoinvent 3.9.1",
-    "exchanges": [
-      {
-        "amount": 2.19,
-        "code": "349b29d1-3e58-4c66-98b9-9d1a076efd2e",
-        "database": "biosphere3",
-        "name": "Carbon dioxide, fossil"
-      },
-      {
-        "amount": 0.014,
-        "code": "6edcc2df-88a3-48e1-83d8-ffc38d31c35b",
-        "database": "biosphere3",
-        "name": "Carbon monoxide, fossil"
-      },
-      {
-        "amount": 0.00092,
-        "code": "175baa64-d985-4c5e-84ef-67cc3a1cf952",
-        "database": "biosphere3",
-        "name": "NMVOC, non-methane volatile organic compounds"
-      },
-      {
-        "amount": 0.00081,
-        "code": "d068f3e2-b033-417b-a359-ca4f25da9731",
-        "database": "biosphere3",
-        "name": "Nitrogen oxides"
-      },
-      {
-        "amount": 6.1e-05,
-        "code": "230d8a0a-517c-43fe-8357-1818dd12997a",
-        "database": "biosphere3",
-        "name": "Particulate Matter, < 2.5 um"
-      },
-      {
-        "amount": 0.076,
-        "name": "ethyl tert-butyl ether//[RER] ethyl tert-butyl ether production, from bioethanol"
-      },
-      {
-        "amount": 0.68,
-        "name": "petrol, low-sulfur//[Europe without Switzerland] market for petrol, low-sulfur"
-      }
-    ],
-    "newName": "petrol, E10, EURO6"
-  },
-  {
-    "activityCreationType": "from_scratch",
-    "alias": "petrol-e85-euro6",
-    "comment": "consumption used as reference : average France 2021-2023, carlabelling.ademe.fr. Particulate matters are modelled as Particulate matter <2.5um. HC emissions are not modelled.",
-    "database": "Ecoinvent 3.9.1",
-    "exchanges": [
-      {
-        "amount": 0.366,
-        "code": "349b29d1-3e58-4c66-98b9-9d1a076efd2e",
-        "database": "biosphere3",
-        "name": "Carbon dioxide, fossil"
-      },
-      {
-        "amount": 0.014,
-        "code": "6edcc2df-88a3-48e1-83d8-ffc38d31c35b",
-        "database": "biosphere3",
-        "name": "Carbon monoxide, fossil"
-      },
-      {
-        "amount": 0.00092,
-        "code": "175baa64-d985-4c5e-84ef-67cc3a1cf952",
-        "database": "biosphere3",
-        "name": "NMVOC, non-methane volatile organic compounds"
-      },
-      {
-        "amount": 0.00081,
-        "code": "d068f3e2-b033-417b-a359-ca4f25da9731",
-        "database": "biosphere3",
-        "name": "Nitrogen oxides"
-      },
-      {
-        "amount": 6.1e-05,
-        "code": "230d8a0a-517c-43fe-8357-1818dd12997a",
-        "database": "biosphere3",
-        "name": "Particulate Matter, < 2.5 um"
-      },
-      {
-        "amount": 0.666,
-        "name": "ethyl tert-butyl ether//[RER] ethyl tert-butyl ether production, from bioethanol"
-      },
-      {
-        "amount": 0.118,
-        "name": "petrol, low-sulfur//[Europe without Switzerland] market for petrol, low-sulfur"
-      }
-    ],
-    "newName": "petrol, E85, EURO6"
   },
   {
     "activityCreationType": "from_scratch",
@@ -10807,7 +10525,7 @@
         "name": "Particulate Matter, < 2.5 um"
       }
     ],
-    "newName": "Diesel euro4 emissions, 200 000 km"
+    "newName": "Diesel Euro4 emissions, 200 000 km"
   },
   {
     "activityCreationType": "from_scratch",
@@ -10840,7 +10558,7 @@
         "name": "Particulate Matter, < 2.5 um"
       }
     ],
-    "newName": "Diesel euro6 emissions, 200 000 km"
+    "newName": "Diesel Euro6d emissions, 200 000 km"
   },
   {
     "activityCreationType": "from_scratch",
@@ -10905,6 +10623,6 @@
         "name": "Particulate Matter, < 2.5 um"
       }
     ],
-    "newName": "Petrol euro6 emissions, 200 000 km"
+    "newName": "Petrol Euro6d emissions, 200 000 km"
   }
 ]
