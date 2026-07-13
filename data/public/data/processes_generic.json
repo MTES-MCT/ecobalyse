@@ -57422,64 +57422,6 @@
     "visible": true
   },
   {
-    "activityName": "diesel, B7, EURO4",
-    "alias": null,
-    "categories": [
-      "energy",
-      "use"
-    ],
-    "comment": "see https://fabrique-numerique.gitbook.io/ecobalyse/vehicules/cycle-de-vie/utilisation-du-vehicule/construction-des-procedes-carburant",
-    "displayName": "Diesel (B7), norme Euro4",
-    "elecKwh": 0,
-    "heatMJ": 0,
-    "id": "18480897-317f-4ebc-b504-988d3a477925",
-    "impacts": {
-      "ecs": 263.6
-    },
-    "landOccupation": null,
-    "location": null,
-    "massPerUnit": null,
-    "metadata": {
-      "defaultOrigin": null
-    },
-    "qtyVariationRatio": 1.0,
-    "scopes": [
-      "veli"
-    ],
-    "source": "Ecobalyse_custom_lci",
-    "unit": "L",
-    "visible": true
-  },
-  {
-    "activityName": "diesel, B7, EURO6",
-    "alias": null,
-    "categories": [
-      "energy",
-      "use"
-    ],
-    "comment": "see https://fabrique-numerique.gitbook.io/ecobalyse/vehicules/cycle-de-vie/utilisation-du-vehicule/construction-des-procedes-carburant",
-    "displayName": "Diesel (B7), norme Euro6",
-    "elecKwh": 0,
-    "heatMJ": 0,
-    "id": "d821e5bf-deb4-4ee6-af56-21a4ca9bc3f8",
-    "impacts": {
-      "ecs": 240.9
-    },
-    "landOccupation": null,
-    "location": null,
-    "massPerUnit": null,
-    "metadata": {
-      "defaultOrigin": null
-    },
-    "qtyVariationRatio": 1.0,
-    "scopes": [
-      "veli"
-    ],
-    "source": "Ecobalyse_custom_lci",
-    "unit": "L",
-    "visible": true
-  },
-  {
     "activityName": "fibre, cotton, organic//[RoW] fibre production, cotton, organic, irrigated, ginning",
     "alias": "ei-coton-organic",
     "categories": [
@@ -57697,35 +57639,6 @@
     ],
     "source": "Ecobalyse_custom_lci",
     "unit": "kg",
-    "visible": true
-  },
-  {
-    "activityName": "petrol, E10, EURO6",
-    "alias": null,
-    "categories": [
-      "energy",
-      "use"
-    ],
-    "comment": "see https://fabrique-numerique.gitbook.io/ecobalyse/vehicules/cycle-de-vie/utilisation-du-vehicule/construction-des-procedes-carburant",
-    "displayName": "Essence (E10), norme Euro6",
-    "elecKwh": 0,
-    "heatMJ": 0,
-    "id": "96da7da0-19f6-46fb-b7d7-2d888e7046e0",
-    "impacts": {
-      "ecs": 213.1
-    },
-    "landOccupation": null,
-    "location": null,
-    "massPerUnit": null,
-    "metadata": {
-      "defaultOrigin": null
-    },
-    "qtyVariationRatio": 1.0,
-    "scopes": [
-      "veli"
-    ],
-    "source": "Ecobalyse_custom_lci",
-    "unit": "L",
     "visible": true
   },
   {
@@ -58128,7 +58041,7 @@
       "use"
     ],
     "comment": "A titre provisoire ce procédé est intégré dans la phase d'usage, la phase d'assemblage n'intégrant pas de procédé à ce stade. https://fabrique-numerique.gitbook.io/ecobalyse/vehicules/cycle-de-vie/assemblage",
-    "displayName": "Assemblage véhicule",
+    "displayName": "Assemblage véhicule (France)",
     "elecKwh": 1.5,
     "heatMJ": 3.0,
     "id": "c51ab87d-f368-4704-a5ec-7ea17ba87d46",
@@ -58157,7 +58070,7 @@
       "use"
     ],
     "comment": "A titre provisoire ce procédé est intégré dans la phase d'usage, la phase d'assemblage n'intégrant pas de procédé à ce stade. https://fabrique-numerique.gitbook.io/ecobalyse/vehicules/cycle-de-vie/assemblage",
-    "displayName": "Assemblage véhicule - calcul réglementaire Score Environnemental VE",
+    "displayName": "Assemblage véhicule (France) - calcul réglementaire Score Environnemental VE",
     "elecKwh": 2.165,
     "heatMJ": 4.581,
     "id": "8b4fae1f-71bc-44d4-9e40-b2399ef04f34",
