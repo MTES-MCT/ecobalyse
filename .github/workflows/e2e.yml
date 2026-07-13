@@ -3,7 +3,7 @@ name: End-to-end tests
 on:
   schedule:
     # Every hour
-    - cron: "0 * * * *"
+    - cron: "40 * * * *"
   workflow_dispatch:
 
 concurrency:
