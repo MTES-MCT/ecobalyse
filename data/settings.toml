@@ -39,7 +39,7 @@ WOOL_MD5 = "246b8ec57389086829bce58a689e7904"
 
 # BAFU
 BAFU = "bafu-2025-2.csv.zip"
-BAFU_MD5 = "4031fa2f2c0a6378038fc48ee4a6e9a7"
+BAFU_MD5 = "b5d178b8e063ee618606c934862cacd3"
 
 # Food
 AGRIBALYSE = "AGB32_final.CSV.zip"                           # Agribalyse 3.2
