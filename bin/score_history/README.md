@@ -15,7 +15,7 @@ table.
 2. Make a tunnel to the Scalingo score database
 
    ```bash
-   scalingo --app ecobalyse-data db-tunnel DATABASE_URL
+   scalingo --app ecobalyse db-tunnel DATABASE_URL
    ```
    you can find DATABASE_URL in the scalingo env var
 
@@ -55,6 +55,5 @@ product × lifecycle step × (impact or complement)
   - `norm_value_ecs` is after in UI points  (eg. 100 UI points for `cch`)
     .`norm_value_ecs = 1e6 * value * weighting / normalization`
   - `ecs` impacts have 0 in `norm_value_ecs`. Indeed `ecs` is already normalized so `value` is enough.
-- For ingredient rows, the `ecs` row's `value` includes the complements.
-  summing `norm_value_ecs` over an ingredient's other rows gives the
-  same total.
+- the `ecs` row's `value` includes the complements. Summing `norm_value_ecs` over an ingredient's other
+  rows gives the same total.
