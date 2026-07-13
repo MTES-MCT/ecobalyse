@@ -20,6 +20,9 @@ PROJECT_ROOT_DIR = pathlib.Path(__file__).parent.parent.parent.resolve()
 IMPACTS_ECOBALYSE_PATH = os.path.join(
     PROJECT_ROOT_DIR, "public", "data", "impacts.json"
 )
+PROCESSES_IMPACTS_PATH = os.path.join(
+    PROJECT_ROOT_DIR, "public", "data", "processes_impacts.json"
+)
 
 TODAY_DATETIME_STR = datetime.now().strftime("%Y-%m-%d %H:%M:%S")
 TOKEN = "dummy"
@@ -32,7 +35,6 @@ class Domain(StrEnum):
 
 EXAMPLES_KEY = "examples"
 API_ENDPOINT_KEY = "api_endpoint"
-INGREDIENTS_KEY = "ingredients"
 
 # @TODO: do the same for objects
 DOMAIN_DATA = {
@@ -47,9 +49,6 @@ DOMAIN_DATA = {
             PROJECT_ROOT_DIR, "public", "data", "food", "examples.json"
         ),
         API_ENDPOINT_KEY: "/api/food/",
-        INGREDIENTS_KEY: os.path.join(
-            PROJECT_ROOT_DIR, "public", "data", "food", "ingredients.json"
-        ),
     },
 }
 
@@ -367,6 +366,89 @@ def create_df_food(
     return df
 
 
+def get_ingredient_scores_from_file(current_branch, last_commit):
+    """
+    Get the ingredient scores not from the API but directly from the impacts file.
+    We won't have the transport/distribution impact but it's a lot faster
+    """
+    normalization_factors = compute_normalization_factors()
+    processes = load_json(PROCESSES_IMPACTS_PATH)
+    visible_ingredient_processes = [
+        process
+        for process in processes
+        if process.get("metadata")
+        and process["metadata"].get("ingredient")
+        and process["visible"]
+    ]
+
+    ingredient_dfs = [
+        create_df_ingredient(
+            current_branch, last_commit, process, normalization_factors
+        )
+        for process in visible_ingredient_processes
+    ]
+    return pd.concat(ingredient_dfs, axis=0, ignore_index=True)
+
+
+def create_df_ingredient(branch, commit_id, process, normalization_factors):
+    """
+    Create a DataFrame of score rows for a single raw ingredient from its
+    process entry in processes_impacts.json
+
+    """
+    ingredient_query = {"ingredients": [{"id": process["id"], "mass": 1000}]}
+    impacts_sr = pd.Series(process["impacts"], dtype="float64")
+
+    data = {
+        "datetime": TODAY_DATETIME_STR,
+        "branch": branch,
+        "commit": commit_id,
+        "domain": "food",
+        "product_name": process["alias"],
+        "id": process["id"],
+        "query": json.dumps(ingredient_query),
+        "mass": 1000,
+        "elements": json.dumps(ingredient_query["ingredients"]),
+        "lifecycle_step": "ingredients",
+        "lifecycle_step_country": "",
+        "impact": impacts_sr.index.tolist(),
+        "value": impacts_sr.values.tolist(),
+    }
+    df = pd.DataFrame(data)
+    df["norm_value_ecs"] = 1e6 * df["value"] * df["impact"].map(normalization_factors)
+
+    complements = {
+        key: value
+        for key, value in process["metadata"].get("complements", {}).items()
+        if value is not None
+    }
+
+    # Match the API-based rows: the ecs value includes the complements
+    df.loc[df["impact"] == "ecs", "value"] += sum(complements.values())
+
+    if complements:
+        data_complements = {
+            "datetime": TODAY_DATETIME_STR,
+            "branch": branch,
+            "commit": commit_id,
+            "domain": "food",
+            "product_name": process["alias"],
+            "id": process["id"],
+            "query": json.dumps(ingredient_query),
+            "mass": 1000,
+            "elements": json.dumps(ingredient_query["ingredients"]),
+            "lifecycle_step": "ingredients",
+            "lifecycle_step_country": "",
+            "impact": list(complements.keys()),
+            "value": 0,
+            "norm_value_ecs": list(complements.values()),
+        }
+        df_complements = pd.DataFrame(data_complements)
+        df = pd.concat([df, df_complements], axis=0, ignore_index=True)
+
+    return df
+
+
 def is_new_commit(engine, last_commit):
     """Check if the commit is already in score_history"""
     query = text("SELECT 1 FROM score_history WHERE commit = :commit LIMIT 1")
@@ -523,26 +605,6 @@ def compute_products_scores_for_examples(examples, api_url, token):
     return computed_scores
 
 
-def add_all_ingredients_as_examples(examples_input):
-    """
-    Add all ingredients to the list of examples. Thanks to this we can notice the evolution of impacts of all ingredients. We could add all these ingredients as food product examples but we don't as this would be overwhelming of the UI user.
-    """
-    new_examples_input = list(examples_input)
-    ingredients = load_json(DOMAIN_DATA[domain][INGREDIENTS_KEY])
-    visible_ingredients = [ingr for ingr in ingredients if ingr["visible"]]
-    for ingredient in visible_ingredients:
-        ingredient_id = ingredient["id"]
-        new_example = {
-            "id": ingredient_id,
-            "name": f"{ingredient['alias']}",
-            "category": "raw_ingredient",
-            "query": {"ingredients": [{"id": ingredient_id, "mass": 1000}]},
-        }
-        new_examples_input.append(new_example)
-
-    return new_examples_input
-
-
 if __name__ == "__main__":
     api_url, current_branch, last_commit, scalingo_postgresql_score_url = (
         get_arguments()
@@ -563,14 +625,19 @@ if __name__ == "__main__":
 
             examples_input = load_json(example_path)
 
-            if domain == Domain.FOOD:
-                examples_input = add_all_ingredients_as_examples(examples_input)
-
             examples = compute_products_scores_for_examples(
                 examples_input, f"{api_url}{api_endpoint}", TOKEN
             )
 
             new_score_df = get_new_score(domain, examples, current_branch, last_commit)
+
+            if domain == Domain.FOOD:
+                ingredient_scores_df = get_ingredient_scores_from_file(
+                    current_branch, last_commit
+                )
+                new_score_df = pd.concat(
+                    [new_score_df, ingredient_scores_df], axis=0, ignore_index=True
+                )
             logger.info(
                 f"Fetching previous score for branch {current_branch} and domain {domain}"
             )
