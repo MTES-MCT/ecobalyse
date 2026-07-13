@@ -745,7 +745,7 @@ createComponent query ({ model, session } as pageUpdate) =
             Component.createItem Nothing
 
         newItem =
-            { baseItem | custom = Just { name = Just "Nouveau composant", elements = [], scope = Nothing } }
+            { baseItem | custom = Just { name = Nothing, elements = [], scope = Nothing } }
     in
     pageUpdate
         -- add new item to query

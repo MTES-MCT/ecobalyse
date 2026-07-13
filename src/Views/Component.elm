@@ -147,6 +147,7 @@ type alias Labels =
     { add : String
     , create : String
     , heading : String
+    , name : String
     }
 
 
@@ -159,24 +160,28 @@ scopeLabels context scope =
             { add = "Ajouter un ingrédient"
             , create = "Créer un nouvel ingrédient"
             , heading = "Recette"
+            , name = "Nom de l'ingrédient"
             }
 
         ( GenericContext, _ ) ->
             { add = "Ajouter un matériau"
             , create = "Créer un nouveau matériau"
             , heading = "Production des matériaux"
+            , name = "Nom du matériau"
             }
 
         ( TextileTrimsContext, Scope.Textile ) ->
             { add = "Ajouter un accessoire"
             , create = "Créer un nouvel accessoire"
             , heading = "Accessoires"
+            , name = "Nom de l'accessoire"
             }
 
         _ ->
             { add = "Ajouter un composant"
             , create = "Créer un nouveau composant"
             , heading = "Production des composants"
+            , name = "Nom du composant"
             }
 
 
@@ -308,7 +313,12 @@ componentView config itemIndex ({ component, elements, quantity } as expandedIte
                         [ th [] []
                         , th [ class "pb-0 fs-8 fw-normal text-muted" ] [ text "Quantité" ]
                         , th [ class "pb-0 fs-8 fw-normal text-muted", colspan 2 ]
-                            [ span [] [ text "Nom du composant" ] ]
+                            [ span []
+                                [ scopeLabels config.context config.scope
+                                    |> .name
+                                    |> text
+                                ]
+                            ]
                         , th [ colspan 3 ] []
                         ]
 
@@ -349,7 +359,11 @@ componentView config itemIndex ({ component, elements, quantity } as expandedIte
                                         [ type_ "text"
                                         , class "form-control"
                                         , onInput (config.updateItemName ( component, itemIndex ))
-                                        , placeholder "Nom du composant"
+
+                                        -- TODO: use element material label if available, otherwide fallback to default
+                                        , scopeLabels config.context config.scope
+                                            |> .name
+                                            |> placeholder
                                         , value component.name
                                         ]
                                         []
