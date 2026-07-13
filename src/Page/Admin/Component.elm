@@ -636,8 +636,7 @@ modalView { componentConfig, db } modals index modal =
                     { title = "Modifier le composant"
                     , content =
                         [ ComponentView.editorView
-                            { addLabel = ""
-                            , componentConfig = componentConfig
+                            { componentConfig = componentConfig
                             , context = ComponentView.AdminContext
                             , db = db
                             , debug = False
@@ -676,7 +675,6 @@ modalView { componentConfig, db } modals index modal =
                             , removeItem = \_ -> NoOp
                             , scope = component.scope
                             , setDetailed = \_ -> NoOp
-                            , title = ""
                             , toggleTransportByAir = \_ -> NoOp
                             , toggleTransportCooling = \_ -> NoOp
                             , updateAssemblyCountry = \_ -> NoOp

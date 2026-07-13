@@ -59,8 +59,7 @@ import Views.Transport as TransportView
 
 
 type alias Config db msg =
-    { addLabel : String
-    , componentConfig : Component.Config
+    { componentConfig : Component.Config
     , context : Context
     , db : Component.DataContainer db
     , debug : Bool
@@ -84,7 +83,6 @@ type alias Config db msg =
     , removePackaging : Index -> msg
     , scope : Scope
     , setDetailed : List Index -> msg
-    , title : String
     , toggleTransportByAir : Split -> msg
     , toggleTransportCooling : Bool -> msg
     , updateAssemblyCountry : Maybe CountryCode.Code -> msg
@@ -120,7 +118,7 @@ requirementsFromConfig config =
 
 
 addComponentButton : Config db msg -> Html msg
-addComponentButton { addLabel, db, openSelectComponentModal, scope } =
+addComponentButton { context, db, openSelectComponentModal, scope } =
     let
         availableComponents =
             db.components
@@ -139,8 +137,47 @@ addComponentButton { addLabel, db, openSelectComponentModal, scope } =
         , onClick <| openSelectComponentModal autocompleteState
         ]
         [ Icon.plus
-        , text addLabel
+        , scopeLabels context scope
+            |> .add
+            |> text
         ]
+
+
+type alias Labels =
+    { add : String
+    , create : String
+    , heading : String
+    }
+
+
+{-| Scoped label. TODO: we might eventually want to make these configurable.
+-}
+scopeLabels : Context -> Scope -> Labels
+scopeLabels context scope =
+    case ( context, scope ) of
+        ( GenericContext, Scope.Generic Scope.Food2 ) ->
+            { add = "Ajouter un ingrédient"
+            , create = "Créer un nouvel ingrédient"
+            , heading = "Recette"
+            }
+
+        ( GenericContext, _ ) ->
+            { add = "Ajouter un matériau"
+            , create = "Créer un nouveau matériau"
+            , heading = "Production des matériaux"
+            }
+
+        ( TextileTrimsContext, Scope.Textile ) ->
+            { add = "Ajouter un accessoire"
+            , create = "Créer un nouvel accessoire"
+            , heading = "Accessoires"
+            }
+
+        _ ->
+            { add = "Ajouter un composant"
+            , create = "Créer un nouveau composant"
+            , heading = "Production des composants"
+            }
 
 
 createComponentButton : Config db msg -> Html msg
@@ -156,7 +193,9 @@ createComponentButton config =
             |> disabled
         ]
         [ Icon.plus
-        , text "Créer un nouveau composant"
+        , scopeLabels config.context config.scope
+            |> .create
+            |> text
         ]
 
 
@@ -432,12 +471,14 @@ simpleError title message =
 
 
 lifeCycleView : Config db msg -> LifeCycle -> Html msg
-lifeCycleView ({ db, docsUrl, explorerRoute, impact, query, scope, title } as config) lifeCycle =
+lifeCycleView ({ db, docsUrl, explorerRoute, impact, query, scope } as config) lifeCycle =
     div [ class "d-flex flex-column" ]
         [ div [ class "card shadow-sm" ]
             [ div [ class "card-header d-flex align-items-center justify-content-between gap-2" ]
                 [ h2 [ class "h5 mb-0" ]
-                    [ text title
+                    [ scopeLabels config.context scope
+                        |> .heading
+                        |> text
                     , case explorerRoute of
                         Just route ->
                             Link.smallPillExternal

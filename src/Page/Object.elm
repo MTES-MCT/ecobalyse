@@ -895,8 +895,7 @@ selectProcess category targetItem maybeElementIndex autocompleteState query ({ m
 
 editorConfig : Session -> Model -> ComponentView.Config Db Msg
 editorConfig session ({ scope } as model) =
-    { addLabel = "Ajouter un composant existant"
-    , componentConfig = session.componentConfig
+    { componentConfig = session.componentConfig
     , context = ComponentView.GenericContext
     , db = session.db
     , debug = True
@@ -920,7 +919,6 @@ editorConfig session ({ scope } as model) =
     , lifeCycle = model.lifeCycle
     , scope = scope
     , setDetailed = SetDetailedComponents
-    , title = "Production des composants"
     , toggleTransportByAir = ToggleTransportByAir
     , toggleTransportCooling = ToggleTransportCooling
     , updateAssemblyCountry = UpdateAssemblyCountry
