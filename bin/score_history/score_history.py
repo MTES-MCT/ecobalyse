@@ -428,9 +428,8 @@ def create_df_ingredient(branch, commit_id, process, normalization_factors):
     df["norm_value_ecs"] = 1e6 * df["value"] * df["impact"].map(normalization_factors)
 
     complements = {
-        key: value
+        key: value or 0
         for key, value in process["metadata"].get("complements", {}).items()
-        if value is not None
     }
 
     # Match the API-based rows: the ecs value includes the complements
