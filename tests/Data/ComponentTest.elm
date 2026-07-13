@@ -105,7 +105,7 @@ suite =
                         (\testComponent validTransformProcess invalidTransformProcess ->
                             [ itFromResult "should add a valid transformation process to a component element"
                                 (chair
-                                    |> Result.andThen (Component.addElementTransform ( ( testComponent, 1 ), 0 ) validTransformProcess)
+                                    |> Result.andThen (Component.addElementTransform ( ( testComponent, 1 ), 0 ) Nothing validTransformProcess)
                                     |> Result.map
                                         (\items ->
                                             items
@@ -122,9 +122,46 @@ suite =
                                 (Expect.equal (Just [ Component.nonLocalizedProcess validTransformProcess.id ]))
                             , it "should reject an invalid transformation process"
                                 (chair
-                                    |> Result.andThen (Component.addElementTransform ( ( testComponent, 1 ), 0 ) invalidTransformProcess)
+                                    |> Result.andThen (Component.addElementTransform ( ( testComponent, 1 ), 0 ) Nothing invalidTransformProcess)
                                     |> expectResultErrorContains "Seuls les procédés de catégorie `transformation` sont mobilisables comme procédés de transformation"
                                 )
+                            ]
+                        )
+                    , suiteFromResult3 "addOrSetProcess transform default country"
+                        chairBack
+                        injectionMoulding
+                        sawing
+                        (\testComponent firstTransform secondTransform ->
+                            let
+                                targetItem =
+                                    ( testComponent, 0 )
+
+                                itemsWithMaterialCountry =
+                                    decodeJson (Decode.list Component.decodeItem) <|
+                                        """ [ { "quantity": 1, "custom": { "name": "Test", "elements": [
+                                            { "amount": 1, "material": { "id": "6527710e-2434-5347-9bef-2205e0aa4f66", "country": "FR" }, "transforms": [] }
+                                        ] } } ] """
+
+                                itemsWithExistingTransform =
+                                    decodeJson (Decode.list Component.decodeItem) <|
+                                        """ [ { "quantity": 1, "custom": { "name": "Test", "elements": [
+                                            { "amount": 1, "material": { "id": "6527710e-2434-5347-9bef-2205e0aa4f66", "country": "FR" }, "transforms": [
+                                                { "id": "111539de-deea-588a-9581-6f6ceaa2dfa9", "country": "DE" }
+                                            ] }
+                                        ] } } ] """
+                            in
+                            [ itFromResult "should default a new transform country to the element material country"
+                                (itemsWithMaterialCountry
+                                    |> Result.andThen (Component.addOrSetProcess requirements.db Category.Transform targetItem (Just 0) firstTransform)
+                                    |> Result.map (elementTransformCountryAt 0 0 0)
+                                )
+                                (Expect.equal (Just (CountryCode.fromString "FR")))
+                            , itFromResult "should default a new transform country to the last transform country"
+                                (itemsWithExistingTransform
+                                    |> Result.andThen (Component.addOrSetProcess requirements.db Category.Transform targetItem (Just 0) secondTransform)
+                                    |> Result.map (elementTransformCountryAt 0 0 1)
+                                )
+                                (Expect.equal (Just (CountryCode.fromString "DE")))
                             ]
                         )
                     , suiteFromResult "addItem"
@@ -1534,7 +1571,7 @@ suite =
                         (\testComponent testProcess ->
                             [ itFromResult "should remove an element transform"
                                 (chair
-                                    |> Result.andThen (Component.addElementTransform ( ( testComponent, 1 ), 0 ) testProcess)
+                                    |> Result.andThen (Component.addElementTransform ( ( testComponent, 1 ), 0 ) Nothing testProcess)
                                     |> Result.map (Component.removeElementTransform ( ( testComponent, 1 ), 0 ) 0)
                                     |> Result.map (LE.getAt 1)
                                 )
@@ -2095,6 +2132,16 @@ decodeJsonThen : Decoder a -> (a -> Result String b) -> String -> Result String 
 decodeJsonThen decoder fn =
     decodeJson decoder
         >> Result.andThen fn
+
+
+elementTransformCountryAt : Int -> Int -> Int -> List Item -> Maybe CountryCode.Code
+elementTransformCountryAt itemIndex elementIndex transformIndex items =
+    items
+        |> LE.getAt itemIndex
+        |> Maybe.andThen .custom
+        |> Maybe.andThen (.elements >> LE.getAt elementIndex)
+        |> Maybe.andThen (.transforms >> LE.getAt transformIndex)
+        |> Maybe.andThen .country
 
 
 resetProcessElecAndHeat : Process -> Process
