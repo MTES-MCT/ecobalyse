@@ -15,13 +15,16 @@ default:
 ################################################################################
 ### Imports
 
-import-all: import-food import-ecoinvent import-method create-activities sync-datapackages
+import-all: import-food import-ecoinvent import-bafu import-method create-activities sync-datapackages
 
 import-food:
   {{uv}} run python import_food.py
 
 import-ecoinvent:
   {{uv}} run python import_ecoinvent.py
+
+import-bafu:
+  {{uv}} run python import_bafu.py
 
 import-method:
   {{uv}} run python import_method.py
