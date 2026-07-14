@@ -244,8 +244,8 @@
       ],
       "consumptions": [
         {
-          "amount": 750,
-          "processId": "eec31f13-d00a-4741-a84f-85d887026f8c"
+          "amount": 2.5,
+          "processId": "9357c6da-88b3-4a71-b1f9-1ffb13efee2e"
         }
       ],
       "recyclable": true
@@ -492,8 +492,8 @@
       ],
       "consumptions": [
         {
-          "amount": 750,
-          "processId": "eec31f13-d00a-4741-a84f-85d887026f8c"
+          "amount": 2.5,
+          "processId": "9357c6da-88b3-4a71-b1f9-1ffb13efee2e"
         }
       ],
       "recyclable": true
@@ -660,8 +660,8 @@
       ],
       "consumptions": [
         {
-          "amount": 9000,
-          "processId": "eec31f13-d00a-4741-a84f-85d887026f8c"
+          "amount": 6,
+          "processId": "f90da3e9-3a58-46b3-93e5-af389217bfc8"
         }
       ],
       "recyclable": true
@@ -1020,8 +1020,8 @@
       ],
       "consumptions": [
         {
-          "amount": 30000,
-          "processId": "eec31f13-d00a-4741-a84f-85d887026f8c"
+          "amount": 15,
+          "processId": "2fd57bd2-ac17-4deb-bf02-1f4ac620c00c"
         }
       ],
       "recyclable": true
@@ -1397,8 +1397,85 @@
       ],
       "consumptions": [
         {
-          "amount": 9000,
-          "processId": "eec31f13-d00a-4741-a84f-85d887026f8c"
+          "amount": 6,
+          "processId": "f90da3e9-3a58-46b3-93e5-af389217bfc8"
+        }
+      ],
+      "recyclable": true
+    },
+    "scope": "veli"
+  },
+  {
+    "category": "Voiture",
+    "id": "49d12b6d-4c9f-4820-8d9e-18d94189d806",
+    "name": "Voiture électrique CatB, proxi méthode score environnemental, fabrication France",
+    "query": {
+      "assemblyCountry": "FR",
+      "components": [
+        {
+          "quantity": 680,
+          "custom": {
+            "name": "Métaux ferreux",
+            "elements": [
+              {
+                "amount": 1,
+                "material": {
+                  "country": "FR",
+                  "id": "7cd80a58-6d07-4abc-ab41-624c0d1487c7"
+                },
+                "transforms": [
+                  {
+                    "country": "FR",
+                    "id": "e482a49b-1d31-4776-904d-5dd65009d4b4"
+                  }
+                ]
+              }
+            ]
+          }
+        },
+        {
+          "quantity": 160,
+          "custom": {
+            "name": "Aluminium",
+            "elements": [
+              {
+                "amount": 1,
+                "material": {
+                  "id": "baae8572-db4a-4cb8-8f74-e72ba5ef0116"
+                },
+                "transforms": [
+                  {
+                    "id": "e482a49b-1d31-4776-904d-5dd65009d4b4"
+                  }
+                ]
+              }
+            ]
+          }
+        },
+        {
+          "quantity": 310,
+          "custom": {
+            "name": "Autres Matériaux",
+            "elements": [
+              {
+                "amount": 1,
+                "material": {
+                  "id": "773423e0-1784-4ff7-904b-146b8b3c64fd"
+                },
+                "transforms": []
+              }
+            ]
+          }
+        },
+        {
+          "id": "52e25580-d83a-4de6-9632-da4303d5211d",
+          "quantity": 1
+        }
+      ],
+      "consumptions": [
+        {
+          "amount": 1,
+          "processId": "8b4fae1f-71bc-44d4-9e40-b2399ef04f34"
         }
       ],
       "recyclable": true
@@ -1653,8 +1730,8 @@
       ],
       "consumptions": [
         {
-          "amount": 750,
-          "processId": "eec31f13-d00a-4741-a84f-85d887026f8c"
+          "amount": 2.5,
+          "processId": "9357c6da-88b3-4a71-b1f9-1ffb13efee2e"
         }
       ],
       "recyclable": true
@@ -1920,8 +1997,8 @@
       ],
       "consumptions": [
         {
-          "amount": 3750,
-          "processId": "eec31f13-d00a-4741-a84f-85d887026f8c"
+          "amount": 5,
+          "processId": "856c13fc-372b-4c21-a171-8b79e6225e8a"
         }
       ],
       "recyclable": true
@@ -2194,8 +2271,8 @@
       ],
       "consumptions": [
         {
-          "amount": 1800,
-          "processId": "eec31f13-d00a-4741-a84f-85d887026f8c"
+          "amount": 4,
+          "processId": "92ba1245-5c8e-49ad-9336-fdd465c6f822"
         }
       ],
       "recyclable": true
@@ -2362,8 +2439,8 @@
       ],
       "consumptions": [
         {
-          "amount": 9000,
-          "processId": "eec31f13-d00a-4741-a84f-85d887026f8c"
+          "amount": 6,
+          "processId": "f90da3e9-3a58-46b3-93e5-af389217bfc8"
         }
       ],
       "recyclable": true
@@ -2686,8 +2763,349 @@
       ],
       "consumptions": [
         {
-          "amount": 11000,
-          "processId": "96da7da0-19f6-46fb-b7d7-2d888e7046e0"
+          "amount": 5.5,
+          "processId": "ca2c68db-c76c-4d8c-ab84-2c50036efef9"
+        },
+        {
+          "amount": 5.5,
+          "processId": "28f048f7-9496-4f46-a536-fed45ee73f45"
+        },
+        {
+          "amount": 1,
+          "processId": "8a981011-da2c-4120-bf9e-86cdeb560fbb"
+        }
+      ],
+      "recyclable": true
+    },
+    "scope": "veli"
+  },
+  {
+    "category": "Voiture",
+    "id": "b13801be-ca81-477c-9fc7-35f906bf7f2e",
+    "name": "Utilitaire léger diesel, 5.5L/100km, fabrication Europe de l'Ouest",
+    "query": {
+      "assemblyCountry": "REO",
+      "components": [
+        {
+          "quantity": 1,
+          "custom": {
+            "name": "Carosserie",
+            "elements": [
+              {
+                "amount": 535,
+                "material": {
+                  "country": "REO",
+                  "id": "7cd80a58-6d07-4abc-ab41-624c0d1487c7"
+                },
+                "transforms": [
+                  {
+                    "country": "REO",
+                    "id": "ea284007-49a8-4be1-95fc-452ea180285a"
+                  },
+                  {
+                    "country": "REO",
+                    "id": "7319ac9c-5796-412f-a1eb-58e01afa7708"
+                  }
+                ]
+              },
+              {
+                "amount": 7,
+                "material": {
+                  "country": "REO",
+                  "id": "baae8572-db4a-4cb8-8f74-e72ba5ef0116"
+                },
+                "transforms": [
+                  {
+                    "country": "REO",
+                    "id": "971df5fa-c32e-4a7e-b1aa-14ce9f240b5c"
+                  },
+                  {
+                    "country": "REO",
+                    "id": "7319ac9c-5796-412f-a1eb-58e01afa7708"
+                  }
+                ]
+              },
+              {
+                "amount": 8,
+                "material": {
+                  "country": "REO",
+                  "id": "baae8572-db4a-4cb8-8f74-e72ba5ef0116"
+                },
+                "transforms": [
+                  {
+                    "country": "REO",
+                    "id": "d693bd0d-88d4-4370-81ee-597956bb58f0"
+                  },
+                  {
+                    "country": "REO",
+                    "id": "7319ac9c-5796-412f-a1eb-58e01afa7708"
+                  }
+                ]
+              },
+              {
+                "amount": 7,
+                "material": {
+                  "country": "REO",
+                  "id": "a363f079-bc3f-424a-a2e1-06b9c76b4fc3"
+                },
+                "transforms": []
+              },
+              {
+                "amount": 20,
+                "material": {
+                  "country": "REO",
+                  "id": "42748244-0939-4da2-ad5f-206ce541d7ee"
+                },
+                "transforms": []
+              },
+              {
+                "amount": 13,
+                "material": {
+                  "country": "REO",
+                  "id": "29b1a0f9-4887-49f7-910f-e50ad9e1b572"
+                },
+                "transforms": []
+              },
+              {
+                "amount": 160,
+                "material": {
+                  "country": "REO",
+                  "id": "c5295f47-0307-48a6-8552-3705063af767"
+                },
+                "transforms": [
+                  {
+                    "country": "REO",
+                    "id": "4a08bcab-5c25-4dec-961a-0f7208f40084"
+                  }
+                ]
+              }
+            ]
+          }
+        },
+        {
+          "quantity": 1,
+          "custom": {
+            "name": "Groupe motopropulseur",
+            "elements": [
+              {
+                "amount": 210,
+                "material": {
+                  "country": "REO",
+                  "id": "8b28671a-83f2-46e6-8c1c-e973a47dde97"
+                },
+                "transforms": []
+              }
+            ]
+          }
+        },
+        {
+          "quantity": 1,
+          "custom": {
+            "name": "Système de transmission",
+            "elements": [
+              {
+                "amount": 50,
+                "material": {
+                  "country": "REO",
+                  "id": "7cd80a58-6d07-4abc-ab41-624c0d1487c7"
+                },
+                "transforms": [
+                  {
+                    "country": "REO",
+                    "id": "ea284007-49a8-4be1-95fc-452ea180285a"
+                  },
+                  {
+                    "country": "REO",
+                    "id": "7319ac9c-5796-412f-a1eb-58e01afa7708"
+                  }
+                ]
+              },
+              {
+                "amount": 15,
+                "material": {
+                  "country": "REO",
+                  "id": "30212fbf-5912-40eb-b2ab-87837361c462"
+                },
+                "transforms": [
+                  {
+                    "country": "REO",
+                    "id": "981e74ea-ef7d-40d1-b25e-c5534446474e"
+                  },
+                  {
+                    "country": "REO",
+                    "id": "7319ac9c-5796-412f-a1eb-58e01afa7708"
+                  }
+                ]
+              },
+              {
+                "amount": 30,
+                "material": {
+                  "country": "REO",
+                  "id": "4b4e1204-48ac-48ac-a0e2-ee2176202a5a"
+                },
+                "transforms": [
+                  {
+                    "country": "REO",
+                    "id": "7319ac9c-5796-412f-a1eb-58e01afa7708"
+                  }
+                ]
+              }
+            ]
+          }
+        },
+        {
+          "quantity": 1,
+          "custom": {
+            "name": "Chassis",
+            "elements": [
+              {
+                "amount": 250,
+                "material": {
+                  "country": "REO",
+                  "id": "7cd80a58-6d07-4abc-ab41-624c0d1487c7"
+                },
+                "transforms": [
+                  {
+                    "country": "REO",
+                    "id": "ea284007-49a8-4be1-95fc-452ea180285a"
+                  },
+                  {
+                    "country": "REO",
+                    "id": "7319ac9c-5796-412f-a1eb-58e01afa7708"
+                  }
+                ]
+              },
+              {
+                "amount": 15,
+                "material": {
+                  "country": "REO",
+                  "id": "30212fbf-5912-40eb-b2ab-87837361c462"
+                },
+                "transforms": [
+                  {
+                    "country": "REO",
+                    "id": "981e74ea-ef7d-40d1-b25e-c5534446474e"
+                  }
+                ]
+              },
+              {
+                "amount": 40,
+                "material": {
+                  "country": "REO",
+                  "id": "baae8572-db4a-4cb8-8f74-e72ba5ef0116"
+                },
+                "transforms": [
+                  {
+                    "country": "REO",
+                    "id": "7319ac9c-5796-412f-a1eb-58e01afa7708"
+                  }
+                ]
+              },
+              {
+                "amount": 10,
+                "material": {
+                  "country": "REO",
+                  "id": "baae8572-db4a-4cb8-8f74-e72ba5ef0116"
+                },
+                "transforms": [
+                  {
+                    "country": "REO",
+                    "id": "d693bd0d-88d4-4370-81ee-597956bb58f0"
+                  },
+                  {
+                    "country": "REO",
+                    "id": "7319ac9c-5796-412f-a1eb-58e01afa7708"
+                  }
+                ]
+              }
+            ]
+          }
+        },
+        {
+          "quantity": 1,
+          "custom": {
+            "name": "Batterie plomb",
+            "elements": [
+              {
+                "amount": 20,
+                "material": {
+                  "country": "REO",
+                  "id": "f92ed520-3845-4a5a-8745-e87fd6863f03"
+                },
+                "transforms": []
+              }
+            ]
+          }
+        },
+        {
+          "quantity": 4,
+          "custom": {
+            "name": "Pneus",
+            "elements": [
+              {
+                "amount": 10,
+                "material": {
+                  "country": "REO",
+                  "id": "5f837a69-839d-4a49-9a30-19e1501ad51e"
+                },
+                "transforms": []
+              }
+            ]
+          }
+        },
+        {
+          "quantity": 1,
+          "custom": {
+            "name": "Composants divers",
+            "elements": [
+              {
+                "amount": 2,
+                "material": {
+                  "id": "c5295f47-0307-48a6-8552-3705063af767"
+                },
+                "transforms": [
+                  {
+                    "id": "4a08bcab-5c25-4dec-961a-0f7208f40084"
+                  }
+                ]
+              },
+              {
+                "amount": 2,
+                "material": {
+                  "id": "51956fb2-304d-4e63-a3ef-b3eed44fde38"
+                },
+                "transforms": []
+              },
+              {
+                "amount": 1,
+                "material": {
+                  "id": "30212fbf-5912-40eb-b2ab-87837361c462"
+                },
+                "transforms": [
+                  {
+                    "id": "981e74ea-ef7d-40d1-b25e-c5534446474e"
+                  },
+                  {
+                    "id": "7319ac9c-5796-412f-a1eb-58e01afa7708"
+                  }
+                ]
+              }
+            ]
+          }
+        }
+      ],
+      "consumptions": [
+        {
+          "amount": 5.5,
+          "processId": "abdcf301-11db-4ced-8ab8-f6592ef60756"
+        },
+        {
+          "amount": 5.5,
+          "processId": "58e1c9d2-7b9f-405a-b54e-92c9e9586d45"
+        },
+        {
+          "amount": 1,
+          "processId": "9c894465-b599-41cd-a39e-a69f1699c024"
         }
       ],
       "recyclable": true
@@ -2910,8 +3328,8 @@
       ],
       "consumptions": [
         {
-          "amount": 3750,
-          "processId": "eec31f13-d00a-4741-a84f-85d887026f8c"
+          "amount": 5,
+          "processId": "856c13fc-372b-4c21-a171-8b79e6225e8a"
         }
       ],
       "recyclable": true
@@ -3184,8 +3602,8 @@
       ],
       "consumptions": [
         {
-          "amount": 1800,
-          "processId": "eec31f13-d00a-4741-a84f-85d887026f8c"
+          "amount": 4,
+          "processId": "92ba1245-5c8e-49ad-9336-fdd465c6f822"
         }
       ],
       "recyclable": true
@@ -3361,8 +3779,8 @@
       ],
       "consumptions": [
         {
-          "amount": 1200,
-          "processId": "eec31f13-d00a-4741-a84f-85d887026f8c"
+          "amount": 4,
+          "processId": "9357c6da-88b3-4a71-b1f9-1ffb13efee2e"
         }
       ]
     },
@@ -3718,8 +4136,8 @@
       ],
       "consumptions": [
         {
-          "amount": 1800,
-          "processId": "eec31f13-d00a-4741-a84f-85d887026f8c"
+          "amount": 4,
+          "processId": "92ba1245-5c8e-49ad-9336-fdd465c6f822"
         }
       ],
       "recyclable": true
@@ -3998,8 +4416,8 @@
       ],
       "consumptions": [
         {
-          "amount": 3750,
-          "processId": "eec31f13-d00a-4741-a84f-85d887026f8c"
+          "amount": 5,
+          "processId": "856c13fc-372b-4c21-a171-8b79e6225e8a"
         }
       ],
       "recyclable": true

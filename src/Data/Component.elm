@@ -436,20 +436,21 @@ addElement targetItem material items =
                                      , transforms = []
                                      }
                                    ]
+                        , name = material.displayName
                     }
                 )
             |> Ok
 
 
-addElementTransform : TargetElement -> Process -> List Item -> Result String (List Item)
-addElementTransform targetElement transform items =
+addElementTransform : TargetElement -> Maybe CountryCode.Code -> Process -> List Item -> Result String (List Item)
+addElementTransform targetElement maybeCountry transform items =
     if not <| List.member Category.Transform transform.categories then
         Err "Seuls les procédés de catégorie `transformation` sont mobilisables comme procédés de transformation"
 
     else
         items
             |> updateElement targetElement
-                (\el -> { el | transforms = el.transforms ++ [ nonLocalizedProcess transform.id ] })
+                (\el -> { el | transforms = el.transforms ++ [ { country = maybeCountry, id = transform.id } ] })
             |> Ok
 
 
@@ -468,7 +469,11 @@ addOrSetProcess db category targetItem maybeElementIndex process items =
             items |> addElement targetItem process
 
         ( Category.Transform, Just elementIndex ) ->
-            items |> addElementTransform ( targetItem, elementIndex ) process
+            let
+                maybeCountry =
+                    items |> getTransformDefaultCountry targetItem maybeElementIndex
+            in
+            items |> addElementTransform ( targetItem, elementIndex ) maybeCountry process
 
         ( Category.Transform, Nothing ) ->
             Err "Un procédé de transformation ne peut être ajouté qu'à un élément existant"
@@ -2021,6 +2026,32 @@ getTotalTransportImpacts transports =
         [ transports.toAssembly.impacts
         , transports.toDistribution.impacts
         ]
+
+
+{-| Find the country a new transform should default to either:
+
+  - the one of the step it will follow, that is the last existing transform of the target element
+  - or its material when no transforms are present yet
+
+-}
+getTransformDefaultCountry : TargetItem -> Maybe Index -> List Item -> Maybe CountryCode.Code
+getTransformDefaultCountry targetItem maybeElementIndex items =
+    maybeElementIndex
+        |> Maybe.andThen
+            (\elementIndex ->
+                items
+                    |> itemElements targetItem
+                    |> LE.getAt elementIndex
+            )
+        |> Maybe.andThen
+            (\{ material, transforms } ->
+                case LE.last transforms of
+                    Just lastTransform ->
+                        lastTransform.country
+
+                    Nothing ->
+                        material.country
+            )
 
 
 idFromString : String -> Result String Id
