@@ -18,13 +18,16 @@ default:
 ################################################################################
 ### Data imports
 
-import-all: import-food import-ecoinvent import-method create-activities sync-datapackages
+import-all: import-food import-ecoinvent import-bafu import-method create-activities sync-datapackages
 
 import-food:
     {{ python-cmd-data }} data/import_food.py
 
 import-ecoinvent:
     {{ python-cmd-data }} data/import_ecoinvent.py
+
+import-bafu:
+    {{ python-cmd-data }} data/import_bafu.py
 
 import-method:
     {{ python-cmd-data }} data/import_method.py
