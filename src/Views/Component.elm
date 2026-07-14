@@ -117,6 +117,48 @@ requirementsFromConfig config =
     }
 
 
+type alias Labels =
+    { addComponent : String
+    , addRawElement : String
+    , heading : String
+    , name : String
+    }
+
+
+{-| Scoped label. TODO: we might eventually want to make these configurable.
+-}
+scopeLabels : Context -> Scope -> Labels
+scopeLabels context scope =
+    case ( context, scope ) of
+        ( GenericContext, Scope.Generic Scope.Food2 ) ->
+            { addComponent = "Ajouter un ingrédient complexe"
+            , addRawElement = "Ajouter un ingrédient brut"
+            , heading = "Recette"
+            , name = "Nom de l'ingrédient"
+            }
+
+        ( GenericContext, _ ) ->
+            { addComponent = "Ajouter un matériau complexe"
+            , addRawElement = "Ajouter un matériau brut"
+            , heading = "Production des matériaux"
+            , name = "Nom du matériau"
+            }
+
+        ( TextileTrimsContext, Scope.Textile ) ->
+            { addComponent = "Ajouter un accessoire"
+            , addRawElement = "Ajouter un accessoire brut"
+            , heading = "Accessoires"
+            , name = "Nom de l'accessoire"
+            }
+
+        _ ->
+            { addComponent = "Ajouter un composant"
+            , addRawElement = "Ajouter un élément brut"
+            , heading = "Production des composants"
+            , name = "Nom du composant"
+            }
+
+
 addComponentButton : Config db msg -> Html msg
 addComponentButton { context, db, openSelectComponentModal, scope } =
     let
@@ -138,55 +180,13 @@ addComponentButton { context, db, openSelectComponentModal, scope } =
         ]
         [ Icon.plus
         , scopeLabels context scope
-            |> .add
+            |> .addComponent
             |> text
         ]
 
 
-type alias Labels =
-    { add : String
-    , create : String
-    , heading : String
-    , name : String
-    }
-
-
-{-| Scoped label. TODO: we might eventually want to make these configurable.
--}
-scopeLabels : Context -> Scope -> Labels
-scopeLabels context scope =
-    case ( context, scope ) of
-        ( GenericContext, Scope.Generic Scope.Food2 ) ->
-            { add = "Ajouter un ingrédient"
-            , create = "Créer un nouvel ingrédient"
-            , heading = "Recette"
-            , name = "Nom de l'ingrédient"
-            }
-
-        ( GenericContext, _ ) ->
-            { add = "Ajouter un matériau"
-            , create = "Créer un nouveau matériau"
-            , heading = "Production des matériaux"
-            , name = "Nom du matériau"
-            }
-
-        ( TextileTrimsContext, Scope.Textile ) ->
-            { add = "Ajouter un accessoire"
-            , create = "Créer un nouvel accessoire"
-            , heading = "Accessoires"
-            , name = "Nom de l'accessoire"
-            }
-
-        _ ->
-            { add = "Ajouter un composant"
-            , create = "Créer un nouveau composant"
-            , heading = "Production des composants"
-            , name = "Nom du composant"
-            }
-
-
-createComponentButton : Config db msg -> Html msg
-createComponentButton config =
+addRawElementButton : Config db msg -> Html msg
+addRawElementButton config =
     button
         [ type_ "button"
         , class "btn btn-outline-primary w-100"
@@ -199,7 +199,7 @@ createComponentButton config =
         ]
         [ Icon.plus
         , scopeLabels config.context config.scope
-            |> .create
+            |> .addRawElement
             |> text
         ]
 
@@ -556,18 +556,7 @@ lifeCycleView ({ db, docsUrl, explorerRoute, impact, query, scope } as config) l
                                         )
                                 )
                             ]
-            , case config.context of
-                AdminContext ->
-                    createComponentButton config
-
-                GenericContext ->
-                    div [ class "d-flex gap-1" ]
-                        [ addComponentButton config
-                        , createComponentButton config
-                        ]
-
-                TextileTrimsContext ->
-                    addComponentButton config
+            , productionButtonsView config
             ]
         , if Scope.isGeneric scope && not (List.isEmpty query.items) then
             div []
@@ -597,6 +586,27 @@ lifeCycleView ({ db, docsUrl, explorerRoute, impact, query, scope } as config) l
           else
             text ""
         ]
+
+
+productionButtonsView : Config db msg -> Html msg
+productionButtonsView ({ db, scope } as config) =
+    case config.context of
+        AdminContext ->
+            addRawElementButton config
+
+        GenericContext ->
+            div [ class "d-flex gap-1" ] <|
+                -- when no components are available for the current scope, only show the button to add raw elements
+                if db.components |> List.all (\component -> component.scope /= scope || Component.isEmpty component) then
+                    [ addRawElementButton config ]
+
+                else
+                    [ addComponentButton config
+                    , addRawElementButton config
+                    ]
+
+        TextileTrimsContext ->
+            addComponentButton config
 
 
 documentationLink : Config db msg -> String -> Html msg
