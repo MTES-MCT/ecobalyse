@@ -48,7 +48,7 @@
         "confidence": 1.0,
         "rule": "grain → none (non-perishable)"
       },
-      "visible": true
+      "visible": false
     }
   ],
   "scopes": [
