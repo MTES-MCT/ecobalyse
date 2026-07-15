@@ -119,14 +119,13 @@ requirementsFromConfig config =
 
 
 type alias Labels =
-    { addComponent : String
-    , addRawElement : String
+    { add : String
+    , addRaw : String
     , heading : String
     , name : String
-    , searchComponent : String
-    , searchRawElement : String
-    , selectComponent : String
-    , selectRawElement : String
+    , search : String
+    , select : String
+    , selectRaw : String
     }
 
 
@@ -136,48 +135,44 @@ scopeLabels : Context -> Scope -> Labels
 scopeLabels context scope =
     case ( context, scope ) of
         ( GenericContext, Scope.Generic Scope.Food2 ) ->
-            { addComponent = "Ajouter un ingrédient transformé"
-            , addRawElement = "Ajouter un ingrédient brut"
+            { add = "Ajouter un ingrédient transformé"
+            , addRaw = "Ajouter un ingrédient brut"
             , heading = "Recette"
             , name = "Nom de l'ingrédient"
-            , searchComponent = "tapez ici le nom de l’ingrédient pour le rechercher"
-            , searchRawElement = "tapez ici le nom de l’ingrédient brut pour le rechercher"
-            , selectComponent = "Sélectionnez un ingrédient transformé"
-            , selectRawElement = "Sélectionnez un ingrédient brut"
+            , search = "tapez ici le nom de l’ingrédient pour le rechercher"
+            , select = "Sélectionnez un ingrédient transformé"
+            , selectRaw = "Sélectionnez un ingrédient brut"
             }
 
         ( GenericContext, _ ) ->
-            { addComponent = "Ajouter un matériau transformé"
-            , addRawElement = "Ajouter un matériau brut"
+            { add = "Ajouter un matériau transformé"
+            , addRaw = "Ajouter un matériau brut"
             , heading = "Production des matériaux"
             , name = "Nom du matériau"
-            , searchComponent = "tapez ici le nom du matériau pour le rechercher"
-            , searchRawElement = "tapez ici le nom du matériau brut pour le rechercher"
-            , selectComponent = "Sélectionnez un matériau transformé"
-            , selectRawElement = "Sélectionnez un matériau brut"
+            , search = "tapez ici le nom du matériau pour le rechercher"
+            , select = "Sélectionnez un matériau transformé"
+            , selectRaw = "Sélectionnez un matériau brut"
             }
 
         ( TextileTrimsContext, Scope.Textile ) ->
             -- Note: in Textile context, raw element handling is not available
-            { addComponent = "Ajouter un accessoire"
-            , addRawElement = "Ajouter un accessoire"
+            { add = "Ajouter un accessoire"
+            , addRaw = "Ajouter un accessoire"
             , heading = "Accessoires"
             , name = "Nom de l'accessoire"
-            , searchComponent = "tapez ici le nom de l’accessoire pour le rechercher"
-            , searchRawElement = "tapez ici le nom de l’accessoire pour le rechercher"
-            , selectComponent = "Sélectionnez un accessoire"
-            , selectRawElement = "Sélectionnez un accessoire"
+            , search = "tapez ici le nom de l’accessoire pour le rechercher"
+            , select = "Sélectionnez un accessoire"
+            , selectRaw = "Sélectionnez un accessoire"
             }
 
         _ ->
-            { addComponent = "Ajouter un composant"
-            , addRawElement = "Créer un composant"
+            { add = "Ajouter un composant"
+            , addRaw = "Créer un composant"
             , heading = "Production des composants"
             , name = "Nom du composant"
-            , searchComponent = "tapez ici le nom du composant pour le rechercher"
-            , searchRawElement = "tapez ici le nom d'un procédé matière pour le rechercher"
-            , selectComponent = "Sélectionnez un composant"
-            , selectRawElement = "Sélectionnez un procédé matière"
+            , search = "tapez ici le nom du composant pour le rechercher"
+            , select = "Sélectionnez un composant"
+            , selectRaw = "Sélectionnez un procédé matière"
             }
 
 
@@ -202,7 +197,7 @@ addComponentButton { context, db, openSelectComponentModal, scope } =
         ]
         [ Icon.plus
         , scopeLabels context scope
-            |> .addComponent
+            |> .add
             |> text
         ]
 
@@ -221,7 +216,7 @@ addRawElementButton config =
         ]
         [ Icon.plus
         , scopeLabels config.context config.scope
-            |> .addRawElement
+            |> .addRaw
             |> text
         ]
 
