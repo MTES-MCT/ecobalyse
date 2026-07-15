@@ -1,6 +1,10 @@
 from __future__ import annotations
 
 import pytest
+from sqlalchemy import select
+from sqlalchemy.ext.asyncio import AsyncSession
+from sqlalchemy.orm import joinedload
+
 from app.db import models as m
 from app.domain.contrib.schemas import (
     ExampleContribCreate,
@@ -11,9 +15,6 @@ from app.domain.contrib.services import (
     format_example_contrib_pr,
     insert_example_sorted,
 )
-from sqlalchemy import select
-from sqlalchemy.ext.asyncio import AsyncSession
-from sqlalchemy.orm import joinedload
 
 pytestmark = pytest.mark.anyio
 

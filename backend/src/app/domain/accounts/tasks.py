@@ -6,10 +6,11 @@ from uuid import UUID
 
 import emails
 import structlog
+from emails.template import JinjaTemplate as T
+
 from app.config import get_settings
 from app.config.app import alchemy
 from app.domain.accounts.deps import provide_users_service
-from emails.template import JinjaTemplate as T
 
 logger = structlog.get_logger()
 

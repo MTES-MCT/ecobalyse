@@ -4,6 +4,11 @@ from typing import TYPE_CHECKING, Any, Dict
 from uuid import UUID
 
 from advanced_alchemy.filters import OrderBy
+from litestar import delete, get, post, put
+from litestar.controller import Controller
+from litestar.di import Provide
+from litestar.params import Parameter
+
 from app.db import models as m
 from app.domain.accounts.guards import requires_superuser
 from app.domain.components import urls
@@ -11,10 +16,6 @@ from app.domain.components.deps import (
     provide_components_service,
 )
 from app.lib.deps import create_filter_dependencies
-from litestar import delete, get, post, put
-from litestar.controller import Controller
-from litestar.di import Provide
-from litestar.params import Parameter
 
 if TYPE_CHECKING:
     from app.domain.components.services import ComponentService

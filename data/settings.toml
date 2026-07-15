@@ -1,9 +1,10 @@
 [default]
 ENV_NAME = "default" # Do not override this value, it’s used by the unit tests
 LOG_LEVEL = "INFO"
-PLOT_EXPORT = false
-# local data dir for intermediate data files
-LOCAL_DIR = "public/data"
+
+FRONTEND_DATA_DIR = "../public/data"
+EXPORT_DIR = "./export"
+
 
 PROCESSES_LEGACY_IMPACTS_FILE = "processes_legacy_impacts.json"
 PROCESSES_LEGACY_IMPACTS_FULL_FILE = "processes_legacy_impacts_full.json"
@@ -82,8 +83,6 @@ DIRNAME = "veli"
 
 [testing]
 ENV_NAME = "testing" # Do not override this value, it's used by the unit tests
-
-PLOT_EXPORT = false
 
 [testing.bw]
 METHOD = "Environmental Footprint 3.1 (adapted)"

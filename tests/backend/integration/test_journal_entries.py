@@ -3,14 +3,15 @@ from typing import TYPE_CHECKING, Any
 from uuid import uuid4
 
 import pytest
+from sqlalchemy.ext.asyncio import (
+    AsyncSession,
+)
+
 from app.db import models as m
 from app.db.models import Process
 from app.domain.accounts.services import UserService
 from app.domain.journal_entries.services import JournalEntryService
 from app.domain.processes.services import ProcessService
-from sqlalchemy.ext.asyncio import (
-    AsyncSession,
-)
 
 if TYPE_CHECKING:
     from httpx import AsyncClient

@@ -9,7 +9,7 @@ import typer
 from bw2data.project import projects
 from typing_extensions import Annotated
 
-from config import PROJECT_ROOT_DIR, settings
+from config import DATA_ROOT_DIR, settings
 from ecobalyse_data.bw import simapro_export
 from ecobalyse_data.logging import logger
 from ecobalyse_data.typer import bw_database_validation
@@ -37,7 +37,7 @@ def main(
     db = bw2data.Database(db_name)
 
     # Specify data paths
-    data_dir = PROJECT_ROOT_DIR / "ecobalyse_data" / "data"
+    data_dir = DATA_ROOT_DIR / "ecobalyse_data" / "data"
 
     filepath_simapro_units = os.path.join(data_dir, "simapro_units.yml")
     filepath_simapro_compartments = os.path.join(data_dir, "simapro_compartments.yml")
@@ -47,7 +47,7 @@ def main(
         "3.10": os.path.join(data_dir, "flows_biosphere_310.csv"),
     }
 
-    simapro_biosphere_path = PROJECT_ROOT_DIR / "simapro-biosphere.json"
+    simapro_biosphere_path = DATA_ROOT_DIR / "simapro-biosphere.json"
     simapro_categories_path = data_dir / "simapro_categories.csv"
     references_path = data_dir / "references.csv"
 

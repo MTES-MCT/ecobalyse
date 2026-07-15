@@ -3,10 +3,11 @@ from __future__ import annotations
 from typing import TYPE_CHECKING, Literal, TypeVar
 
 import structlog
-from app.domain.accounts.guards import requires_superuser
 from litestar import Controller, MediaType, Request, get
 from litestar.response import Response
 from sqlalchemy import text
+
+from app.domain.accounts.guards import requires_superuser
 
 from .schemas import SystemHealth
 from .urls import SENTRY_CHECK, SYSTEM_HEALTH

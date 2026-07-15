@@ -7,13 +7,6 @@ from typing import Any
 import pytest
 from advanced_alchemy.base import UUIDAuditBase
 from advanced_alchemy.utils.fixtures import open_fixture_async
-from app.config import app as config
-from app.config import get_settings
-from app.db.models import Component, Process, User
-from app.domain.accounts.guards import auth
-from app.domain.accounts.services import RoleService, UserService
-from app.domain.components.services import ComponentService
-from app.domain.processes.services import ProcessService
 from httpx import AsyncClient
 from litestar import Litestar
 from litestar.serialization import decode_json, encode_json
@@ -28,6 +21,14 @@ from sqlalchemy.ext.asyncio import (
     create_async_engine,
 )
 from sqlalchemy.pool import NullPool
+
+from app.config import app as config
+from app.config import get_settings
+from app.db.models import Component, Process, User
+from app.domain.accounts.guards import auth
+from app.domain.accounts.services import RoleService, UserService
+from app.domain.components.services import ComponentService
+from app.domain.processes.services import ProcessService
 
 here = Path(__file__).parent
 pytestmark = pytest.mark.anyio

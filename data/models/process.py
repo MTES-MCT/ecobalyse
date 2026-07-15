@@ -34,7 +34,6 @@ class EcoModel(BaseModel):
 class ComputedBy(str, Enum):
     brightway = "brightway"
     hardcoded = "hardcoded"
-    simapro = "simapro"
 
 
 class UnitEnum(str, Enum):

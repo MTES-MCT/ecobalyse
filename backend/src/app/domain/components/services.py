@@ -17,12 +17,13 @@ from advanced_alchemy.service import (
     schema_dump,
 )
 from advanced_alchemy.utils.dataclass import Empty, EmptyType
+from sqlalchemy.orm import InstrumentedAttribute
+
 from app.db import models as m
 from app.domain.components.schemas import ComponentElement
 from app.domain.processes.deps import (
     provide_processes_service,
 )
-from sqlalchemy.orm import InstrumentedAttribute
 
 if TYPE_CHECKING:
     from uuid import UUID

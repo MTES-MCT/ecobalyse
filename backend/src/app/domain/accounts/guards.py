@@ -3,6 +3,8 @@ from __future__ import annotations
 import datetime
 from typing import TYPE_CHECKING, Any
 
+from litestar.exceptions import PermissionDeniedException
+
 from app.config import constants
 from app.config.app import alchemy
 from app.config.base import get_settings
@@ -16,7 +18,6 @@ from app.lib.auth import CustomOAuth2PasswordBearerAuth
 # from litestar.security.jwt import OAuth2PasswordBearerAuth
 from app.lib.deps import create_service_provider
 from app.lib.middleware import CustomAuthMiddleware
-from litestar.exceptions import PermissionDeniedException
 
 if TYPE_CHECKING:
     from litestar.connection import ASGIConnection
