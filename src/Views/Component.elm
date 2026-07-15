@@ -4,6 +4,7 @@ module Views.Component exposing
     , createElementMaterialAutocomplete
     , editorView
     , elementEditModalView
+    , scopeLabels
     )
 
 import Autocomplete exposing (Autocomplete)
@@ -122,6 +123,10 @@ type alias Labels =
     , addRawElement : String
     , heading : String
     , name : String
+    , searchComponent : String
+    , searchRawElement : String
+    , selectComponent : String
+    , selectRawElement : String
     }
 
 
@@ -131,31 +136,48 @@ scopeLabels : Context -> Scope -> Labels
 scopeLabels context scope =
     case ( context, scope ) of
         ( GenericContext, Scope.Generic Scope.Food2 ) ->
-            { addComponent = "Ajouter un ingrédient complexe"
+            { addComponent = "Ajouter un ingrédient transformé"
             , addRawElement = "Ajouter un ingrédient brut"
             , heading = "Recette"
             , name = "Nom de l'ingrédient"
+            , searchComponent = "tapez ici le nom de l’ingrédient pour le rechercher"
+            , searchRawElement = "tapez ici le nom de l’ingrédient brut pour le rechercher"
+            , selectComponent = "Sélectionnez un ingrédient transformé"
+            , selectRawElement = "Sélectionnez un ingrédient brut"
             }
 
         ( GenericContext, _ ) ->
-            { addComponent = "Ajouter un matériau complexe"
+            { addComponent = "Ajouter un matériau transformé"
             , addRawElement = "Ajouter un matériau brut"
             , heading = "Production des matériaux"
             , name = "Nom du matériau"
+            , searchComponent = "tapez ici le nom du matériau pour le rechercher"
+            , searchRawElement = "tapez ici le nom du matériau brut pour le rechercher"
+            , selectComponent = "Sélectionnez un matériau transformé"
+            , selectRawElement = "Sélectionnez un matériau brut"
             }
 
         ( TextileTrimsContext, Scope.Textile ) ->
+            -- Note: in Textile context, raw element handling is not available
             { addComponent = "Ajouter un accessoire"
-            , addRawElement = "Ajouter un accessoire brut"
+            , addRawElement = "Ajouter un accessoire"
             , heading = "Accessoires"
             , name = "Nom de l'accessoire"
+            , searchComponent = "tapez ici le nom de l’accessoire pour le rechercher"
+            , searchRawElement = "tapez ici le nom de l’accessoire pour le rechercher"
+            , selectComponent = "Sélectionnez un accessoire"
+            , selectRawElement = "Sélectionnez un accessoire"
             }
 
         _ ->
             { addComponent = "Ajouter un composant"
-            , addRawElement = "Ajouter un élément brut"
+            , addRawElement = "Créer un composant"
             , heading = "Production des composants"
             , name = "Nom du composant"
+            , searchComponent = "tapez ici le nom du composant pour le rechercher"
+            , searchRawElement = "tapez ici le nom d'un procédé matière pour le rechercher"
+            , selectComponent = "Sélectionnez un composant"
+            , selectRawElement = "Sélectionnez un procédé matière"
             }
 
 
@@ -359,8 +381,6 @@ componentView config itemIndex ({ component, elements, quantity } as expandedIte
                                         [ type_ "text"
                                         , class "form-control"
                                         , onInput (config.updateItemName ( component, itemIndex ))
-
-                                        -- TODO: use element material label if available, otherwide fallback to default
                                         , scopeLabels config.context config.scope
                                             |> .name
                                             |> placeholder

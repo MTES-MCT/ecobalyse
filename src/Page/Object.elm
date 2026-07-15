@@ -1126,8 +1126,8 @@ modalView session ({ modals } as model) modal =
                 , noOp = NoOp
                 , onAutocomplete = OnAutocompleteAddComponent
                 , onAutocompleteSelect = OnAutocompleteSelectComponent
-                , placeholderText = "tapez ici le nom du composant pour le rechercher"
-                , title = "Sélectionnez un composant"
+                , placeholderText = ComponentView.scopeLabels ComponentView.GenericContext model.scope |> .searchComponent
+                , title = ComponentView.scopeLabels ComponentView.GenericContext model.scope |> .selectComponent
                 , toLabel = .name
                 , toCategory = \_ -> ""
                 }
@@ -1221,8 +1221,8 @@ modalView session ({ modals } as model) modal =
                 ( placeholderText, title ) =
                     case category of
                         Category.Material ->
-                            ( "tapez ici le nom d'une matière pour la rechercher"
-                            , "Sélectionnez une matière première"
+                            ( ComponentView.scopeLabels ComponentView.GenericContext model.scope |> .searchRawElement
+                            , ComponentView.scopeLabels ComponentView.GenericContext model.scope |> .selectRawElement
                             )
 
                         Category.Transform ->
