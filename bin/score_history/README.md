@@ -17,23 +17,26 @@ table.
    ```bash
    scalingo --app ecobalyse db-tunnel DATABASE_URL
    ```
-   you can find DATABASE_URL in the scalingo env var
 
 3. Build the SCORE_DB_URL from the Scalingo `DATABASE_URL`
 
    ```bash
-   export SCORE_DB_URL="postgresql+psycopg://<user>:<password>@localhost:10000/<dbname>?sslmode=prefer"
+   export SCORE_DB_URL="postgresql+psycopg2://<user>:<password>@localhost:10000/<dbname>?sslmode=prefer"
    ```
 
 ### Run
 
 ```bash
-uv run python bin/score_history/score_history.py \
+uv run --group score_history python bin/score_history/score_history.py \
     http://localhost:8001 \
     "$(git branch --show-current)" \
     "$(git rev-parse HEAD)" \
     "$SCORE_DB_URL"
 ```
+
+Running in local will insert to the production database.
+To test without writing to it, add the `--dry-run` flag
+
 
 | Argument | Meaning |
 |---|---|
@@ -42,8 +45,6 @@ uv run python bin/score_history/score_history.py \
 | `LAST_COMMIT_HASH` | Commit to score. Truncated to 7 characters |
 | `SCALING_POSTGRESQL_SCORE_URL` | SQLAlchemy database URL |
 
-Running in local will insert to the production database.
-To test without writing to it, add the `--dry-run` flag
 
 ## Table schema
 

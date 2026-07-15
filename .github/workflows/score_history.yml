@@ -77,7 +77,7 @@ jobs:
 
 
       - name: Install dependencies
-        run: uv add numpy pandas requests python-dotenv GitPython sqlalchemy psycopg2
+        run: uv sync --group score_history
 
 
       - name: Add scalingo to know hosts
