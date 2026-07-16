@@ -34,9 +34,8 @@ compute definitions totalComplementsImpactPerKg perKgWithoutComplements =
     in
     { all =
         -- Reminder: complements are stored using the same convention as impacts and therefore must be **added** not substracted
-        -- `value < 0` -> decreased environmental impact 
+        -- `value < 0` -> decreased environmental impact
         -- `value > 0` -> increased environmental impact
-        -- complement is a bonus and must be *added* to lower the score
         Quantity.plus ecsPerKgWithoutComplements totalComplementsImpactPerKg
     , allWithoutComplements = ecsPerKgWithoutComplements
     , biodiversity = subScores.biodiversity
