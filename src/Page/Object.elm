@@ -1117,6 +1117,12 @@ view session model =
 
 modalView : Session -> Model -> Modal -> Html Msg
 modalView session ({ modals } as model) modal =
+    let
+        labelsConfig =
+            { context = ComponentView.GenericContext
+            , scope = model.scope
+            }
+    in
     case modal of
         AddComponentModal autocompleteState ->
             AutocompleteSelectorView.view
@@ -1126,8 +1132,8 @@ modalView session ({ modals } as model) modal =
                 , noOp = NoOp
                 , onAutocomplete = OnAutocompleteAddComponent
                 , onAutocompleteSelect = OnAutocompleteSelectComponent
-                , placeholderText = ComponentView.scopeLabels ComponentView.GenericContext model.scope |> .search
-                , title = ComponentView.scopeLabels ComponentView.GenericContext model.scope |> .select
+                , placeholderText = ComponentView.scopeLabels labelsConfig |> .search
+                , title = ComponentView.scopeLabels labelsConfig |> .select
                 , toLabel = .name
                 , toCategory = \_ -> ""
                 }
@@ -1221,8 +1227,8 @@ modalView session ({ modals } as model) modal =
                 ( placeholderText, title ) =
                     case category of
                         Category.Material ->
-                            ( ComponentView.scopeLabels ComponentView.GenericContext model.scope |> .search
-                            , ComponentView.scopeLabels ComponentView.GenericContext model.scope |> .selectRaw
+                            ( ComponentView.scopeLabels labelsConfig |> .search
+                            , ComponentView.scopeLabels labelsConfig |> .selectRaw
                             )
 
                         Category.Transform ->
