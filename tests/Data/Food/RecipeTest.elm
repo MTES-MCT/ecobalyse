@@ -166,7 +166,7 @@ suite =
 
                                     Ok scoring ->
                                         [ Unit.impactToFloat scoring.all
-                                            |> Expect.within (Expect.Absolute 0.01) 457.32
+                                            |> Expect.within (Expect.Absolute 0.01) 455.04
                                             |> asTest "should properly score total impact"
                                         , Unit.impactToFloat scoring.allWithoutComplements
                                             |> Expect.within (Expect.Absolute 0.01) 456.18
@@ -174,7 +174,7 @@ suite =
                                         , Unit.impactToFloat scoring.complements
                                             |> Expect.within (Expect.Absolute 0.01) -1.136
                                             |> asTest "should properly score complement impact"
-                                        , (Unit.impactToFloat scoring.allWithoutComplements - Unit.impactToFloat scoring.complements)
+                                        , (Unit.impactToFloat scoring.allWithoutComplements + Unit.impactToFloat scoring.complements)
                                             |> Expect.within (Expect.Absolute 0.0001) (Unit.impactToFloat scoring.all)
                                             |> asTest "should expose coherent scoring"
                                         , Unit.impactToFloat scoring.biodiversity
@@ -191,6 +191,16 @@ suite =
                                             |> asTest "should properly score impact on resources protected area"
                                         ]
                                 )
+                             , asTest "should compute a total scoring value consistent with the per-kg ecs impact" <|
+                                case royalPizzaResults |> Result.map Tuple.second of
+                                    Err err ->
+                                        Expect.fail err
+
+                                    Ok results ->
+                                        results.perKg
+                                            |> Impact.getImpact Definition.Ecs
+                                            |> Unit.impactToFloat
+                                            |> Expect.within (Expect.Absolute 0.01) (Unit.impactToFloat results.scoring.all)
                              ]
                             )
                         , describe "raw-to-cooked checks"

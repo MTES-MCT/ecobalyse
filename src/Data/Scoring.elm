@@ -32,7 +32,10 @@ compute definitions totalComplementsImpactPerKg perKgWithoutComplements =
             perKgWithoutComplements
                 |> Impact.toProtectionAreas definitions
     in
-    { all = Quantity.difference ecsPerKgWithoutComplements totalComplementsImpactPerKg
+    { all =
+        -- Reminder: complements are stored as negative values, so a negative
+        -- complement is a bonus and must be *added* to lower the score
+        Quantity.plus ecsPerKgWithoutComplements totalComplementsImpactPerKg
     , allWithoutComplements = ecsPerKgWithoutComplements
     , biodiversity = subScores.biodiversity
     , climate = subScores.climate
