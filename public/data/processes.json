@@ -13618,8 +13618,7 @@
     "massPerUnit": null,
     "qtyVariationRatio": 1.0,
     "scopes": [
-      "food",
-      "food2"
+      "food"
     ],
     "source": "Agribalyse 3.2",
     "unit": "t⋅km"
@@ -13641,8 +13640,7 @@
     "massPerUnit": null,
     "qtyVariationRatio": 1.0,
     "scopes": [
-      "food",
-      "food2"
+      "food"
     ],
     "source": "Agribalyse 3.2",
     "unit": "t⋅km"
