@@ -2072,10 +2072,10 @@ testComponentConfig db =
                 },
                 "modeProcesses": {
                     "boat": "20a62b2c-a543-5076-83aa-c5b7d340206a",
-                    "boatCooling": "3cb99d44-24f6-5f6e-a8f8-f754fe44d641",
+                    "boatCooling": "9eefe92d-37af-4446-829e-2a75c8bf2690",
                     "lorry": "46e96f29-9ca5-5475-bb3c-6397f43b7a5b",
-                    "lorryCooling": "219b986c-9751-58cf-977e-7ba8f0b4ae2b",
-                    "plane": "326369d9-792a-5ab5-8276-c54108c80cb1"
+                    "lorryCooling": "7ce0e82a-0b26-48fd-b260-0d8f4ed25001",
+                    "plane": "6e9035eb-0632-43a9-92be-e77e6d3f1c1f"
                 }
             },
             "use": {
