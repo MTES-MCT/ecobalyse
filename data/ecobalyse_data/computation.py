@@ -17,6 +17,7 @@ from common import (
     fix_unit,
     spproject,
 )
+from common.infer_metadata import infer_transported_cooled
 from config import settings
 from ecobalyse_data.bw.search import cached_search_one
 from ecobalyse_data.logging import logger
@@ -438,7 +439,9 @@ def activity_to_process_with_impacts(
             "name", "This process is not linked to a Brightway activity"
         ),
         bw_activity=bw_activity,
-        categories=eco_activity.get("categories", bw_activity.get("categories", [])),
+        categories=infer_transported_cooled(
+            eco_activity.get("categories", bw_activity.get("categories", []))
+        ),
         comment=comment,
         computed_by=computed_by,
         # Default to bw_activity name if no display name is given
