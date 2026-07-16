@@ -123,6 +123,7 @@ type alias Labels =
     , addRaw : String
     , empty : String
     , heading : String
+    , label : String
     , name : String
     , search : String
     , select : String
@@ -140,7 +141,8 @@ scopeLabels context scope =
             , addRaw = "Ajouter un ingrédient brut"
             , empty = "Aucun ingrédient"
             , heading = "Recette"
-            , name = "Nom de l'ingrédient"
+            , label = "Nom de l'ingrédient"
+            , name = "Ingrédient"
             , search = "tapez ici le nom de l’ingrédient pour le rechercher"
             , select = "Sélectionnez un ingrédient transformé"
             , selectRaw = "Sélectionnez un ingrédient brut"
@@ -151,7 +153,8 @@ scopeLabels context scope =
             , addRaw = "Ajouter un matériau brut"
             , empty = "Aucun matériau"
             , heading = "Production des matériaux"
-            , name = "Nom du matériau"
+            , label = "Nom du matériau"
+            , name = "Matériau"
             , search = "tapez ici le nom du matériau pour le rechercher"
             , select = "Sélectionnez un matériau transformé"
             , selectRaw = "Sélectionnez un matériau brut"
@@ -163,7 +166,8 @@ scopeLabels context scope =
             , addRaw = "Ajouter un accessoire"
             , empty = "Aucun accessoire"
             , heading = "Accessoires"
-            , name = "Nom de l'accessoire"
+            , label = "Nom de l'accessoire"
+            , name = "Accessoire"
             , search = "tapez ici le nom de l’accessoire pour le rechercher"
             , select = "Sélectionnez un accessoire"
             , selectRaw = "Sélectionnez un accessoire"
@@ -174,7 +178,8 @@ scopeLabels context scope =
             , addRaw = "Créer un composant"
             , empty = "Aucun composant"
             , heading = "Production des composants"
-            , name = "Nom du composant"
+            , label = "Nom du composant"
+            , name = "Composant"
             , search = "tapez ici le nom du composant pour le rechercher"
             , select = "Sélectionnez un composant"
             , selectRaw = "Sélectionnez un procédé matière"
@@ -337,7 +342,7 @@ componentView config itemIndex ({ component, elements, quantity } as expandedIte
                         , th [ class "pb-0 fs-8 fw-normal text-muted", colspan 2 ]
                             [ span []
                                 [ scopeLabels config.context config.scope
-                                    |> .name
+                                    |> .label
                                     |> text
                                 ]
                             ]
@@ -382,7 +387,7 @@ componentView config itemIndex ({ component, elements, quantity } as expandedIte
                                         , class "form-control"
                                         , onInput (config.updateItemName ( component, itemIndex ))
                                         , scopeLabels config.context config.scope
-                                            |> .name
+                                            |> .label
                                             |> placeholder
                                         , value component.name
                                         ]
@@ -564,7 +569,11 @@ lifeCycleView ({ db, docsUrl, explorerRoute, impact, query, scope } as config) l
                                         [ tr [ class "fs-7 text-muted" ]
                                             [ th [] []
                                             , th [ class "ps-0", Attr.scope "col" ] [ text "Quantité" ]
-                                            , th [ Attr.scope "col", colspan 2 ] [ text "Composant" ]
+                                            , th [ Attr.scope "col", colspan 2 ]
+                                                [ scopeLabels config.context config.scope
+                                                    |> .name
+                                                    |> text
+                                                ]
                                             , th [ Attr.scope "col" ] [ text "Masse" ]
                                             , th [ Attr.scope "col" ] [ text "Impact" ]
                                             , th [ Attr.scope "col" ] []
