@@ -4,6 +4,7 @@ import datetime
 from typing import TYPE_CHECKING, Any
 
 import pytest
+
 from app.domain.accounts.schemas import OrganizationCreate, OrganizationType
 
 if TYPE_CHECKING:

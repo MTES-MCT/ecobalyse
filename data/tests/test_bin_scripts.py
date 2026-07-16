@@ -72,7 +72,6 @@ def test_lcia_info(forwast, forwast_json_icv):
     impacts = lcia_info.lcia_impacts(
         activity_name="_22 Vegetable and animal oils and fats, EU27",
         database_name="forwast",
-        simapro=False,
     )
 
     forwast_impacts = forwast_json_icv["forwast"][0]["impacts"]

@@ -1,6 +1,7 @@
 import csv
 import json
 from enum import StrEnum
+from pathlib import Path
 from typing import List, Optional
 
 from common.export import (
@@ -160,8 +161,8 @@ def compute_es_for_ingredients(
 
 def activities_to_ingredients_json(
     activities: List[dict],
-    processes_impacts_path,
-    ingredients_paths: List[str],
+    processes_impacts_path: Path,
+    ingredients_path: Path,
     ecosystemic_factors_path: str,
     feed_file_path: str,
     raw_to_transformed_file_path: str,
@@ -195,16 +196,11 @@ def activities_to_ingredients_json(
 
     ingredients_dicts.sort(key=lambda x: x["id"])
 
-    exported_files = []
-    for ingredients_path in ingredients_paths:
-        export_json(ingredients_dicts, ingredients_path)
+    export_json(ingredients_dicts, ingredients_path)
 
-        exported_files.append(ingredients_path)
-
-    for ingredients_path in exported_files:
-        logger.debug(
-            f"-> Exported {len(ingredients_dicts)} 'ingredients' to {ingredients_path}"
-        )
+    logger.debug(
+        f"-> Exported {len(ingredients_dicts)} 'ingredients' to {ingredients_path}"
+    )
 
     return ingredients_dicts
 

@@ -12,6 +12,7 @@ from advanced_alchemy.service import (
     is_dict,
     schema_dump,
 )
+
 from app.db import models as m
 from app.domain.processes.schemas import Impacts, Process
 

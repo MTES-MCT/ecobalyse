@@ -2,11 +2,12 @@ import copy
 from typing import TYPE_CHECKING, Any
 
 import pytest
-from app.cli.commands import load_processes_fixtures
-from app.domain.processes.deps import provide_processes_service
 from sqlalchemy.ext.asyncio import (
     AsyncSession,
 )
+
+from app.cli.commands import load_processes_fixtures
+from app.domain.processes.deps import provide_processes_service
 
 if TYPE_CHECKING:
     from httpx import AsyncClient

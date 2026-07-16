@@ -5,9 +5,10 @@ from enum import StrEnum
 from uuid import UUID  # noqa: TC003
 
 import msgspec
-from app.lib.schema import CamelizedBaseStruct
 from litestar.exceptions import ValidationException
 from stdnum.fr import siren
+
+from app.lib.schema import CamelizedBaseStruct
 
 __all__ = (
     "AccountLogin",

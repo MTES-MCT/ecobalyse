@@ -6,11 +6,12 @@ from uuid import UUID
 
 import orjson
 import pytest
+from sqlalchemy import select
+from sqlalchemy.ext.asyncio import AsyncSession
+
 from app.db import models as m
 from app.domain.processes.deps import provide_processes_service
 from app.domain.processes.schemas import Category, Unit
-from sqlalchemy import select
-from sqlalchemy.ext.asyncio import AsyncSession
 
 if TYPE_CHECKING:
     from httpx import AsyncClient

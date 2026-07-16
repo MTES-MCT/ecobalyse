@@ -3,12 +3,13 @@ from __future__ import annotations
 from typing import TYPE_CHECKING, Optional
 
 from advanced_alchemy.base import UUIDAuditBase
-from app.domain.components.schemas import Scope
-from app.domain.processes.schemas import Unit
 from sqlalchemy import Enum, Float, String
 from sqlalchemy.dialects import postgresql
 from sqlalchemy.ext.mutable import MutableList
 from sqlalchemy.orm import Mapped, mapped_column, relationship
+
+from app.domain.components.schemas import Scope
+from app.domain.processes.schemas import Unit
 
 from .process_process_category import process_process_category
 
