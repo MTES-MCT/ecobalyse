@@ -1,5 +1,6 @@
 module Data.Text exposing
-    ( search
+    ( buildCurlCommand
+    , search
     , sortI18nStrings
     , toWords
     , yesNo
@@ -14,6 +15,20 @@ type alias SearchConfig element =
     , query : String
     , toSearchableWords : element -> List String
     }
+
+
+buildCurlCommand : Maybe String -> String -> String -> String
+buildCurlCommand maybeToken json apiUrl =
+    [ Just "curl -sS -X POST %apiUrl%"
+    , Just "  -H \"accept: application/json\""
+    , Just "  -H \"content-type: application/json\""
+    , maybeToken |> Maybe.map (\token -> "  -H \"Authorization: Bearer " ++ token ++ "\"")
+    , Just "  -d '%json%'"
+    ]
+        |> List.filterMap identity
+        |> String.join " \\\n"
+        |> String.replace "%apiUrl%" apiUrl
+        |> String.replace "%json%" json
 
 
 {-| Filter a list of stringifyable items against provided search terms:
