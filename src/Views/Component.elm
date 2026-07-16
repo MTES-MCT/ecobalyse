@@ -121,6 +121,7 @@ requirementsFromConfig config =
 type alias Labels =
     { add : String
     , addRaw : String
+    , empty : String
     , heading : String
     , name : String
     , search : String
@@ -137,6 +138,7 @@ scopeLabels context scope =
         ( GenericContext, Scope.Generic Scope.Food2 ) ->
             { add = "Ajouter un ingrédient transformé"
             , addRaw = "Ajouter un ingrédient brut"
+            , empty = "Aucun ingrédient"
             , heading = "Recette"
             , name = "Nom de l'ingrédient"
             , search = "tapez ici le nom de l’ingrédient pour le rechercher"
@@ -147,6 +149,7 @@ scopeLabels context scope =
         ( GenericContext, _ ) ->
             { add = "Ajouter un matériau transformé"
             , addRaw = "Ajouter un matériau brut"
+            , empty = "Aucun matériau"
             , heading = "Production des matériaux"
             , name = "Nom du matériau"
             , search = "tapez ici le nom du matériau pour le rechercher"
@@ -158,6 +161,7 @@ scopeLabels context scope =
             -- Note: in Textile context, raw element handling is not available
             { add = "Ajouter un accessoire"
             , addRaw = "Ajouter un accessoire"
+            , empty = "Aucun accessoire"
             , heading = "Accessoires"
             , name = "Nom de l'accessoire"
             , search = "tapez ici le nom de l’accessoire pour le rechercher"
@@ -168,6 +172,7 @@ scopeLabels context scope =
         _ ->
             { add = "Ajouter un composant"
             , addRaw = "Créer un composant"
+            , empty = "Aucun composant"
             , heading = "Production des composants"
             , name = "Nom du composant"
             , search = "tapez ici le nom du composant pour le rechercher"
@@ -430,7 +435,9 @@ componentDetailedView config elements itemIndex expandedItem itemResults =
         , if List.isEmpty elements then
             [ tr []
                 [ th [] []
-                , td [] [ text "Aucun élément" ]
+                , td []
+                    [ text "Aucun élément"
+                    ]
                 ]
             ]
 
@@ -538,7 +545,11 @@ lifeCycleView ({ db, docsUrl, explorerRoute, impact, query, scope } as config) l
                 , documentationLink config "production"
                 ]
             , if List.isEmpty query.items then
-                div [ class "card-body" ] [ text "Aucun élément." ]
+                div [ class "card-body" ]
+                    [ scopeLabels config.context config.scope
+                        |> .empty
+                        |> text
+                    ]
 
               else
                 case Component.expandItems db query.items of
