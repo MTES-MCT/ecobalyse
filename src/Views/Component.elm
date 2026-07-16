@@ -133,8 +133,8 @@ type alias Labels =
 
 {-| Scoped label. TODO: we might eventually want to make these configurable.
 -}
-scopeLabels : Context -> Scope -> Labels
-scopeLabels context scope =
+scopeLabels : { config | context : Context, scope : Scope } -> Labels
+scopeLabels { context, scope } =
     case ( context, scope ) of
         ( GenericContext, Scope.Generic Scope.Food2 ) ->
             { add = "Ajouter un ingrédient transformé"
@@ -187,12 +187,12 @@ scopeLabels context scope =
 
 
 addComponentButton : Config db msg -> Html msg
-addComponentButton { context, db, openSelectComponentModal, scope } =
+addComponentButton ({ db, openSelectComponentModal } as config) =
     let
         availableComponents =
             db.components
                 |> List.filter (not << Component.isEmpty)
-                |> List.filter (.scope >> (==) scope)
+                |> List.filter (.scope >> (==) config.scope)
 
         autocompleteState =
             AutocompleteSelector.init .name availableComponents
@@ -206,9 +206,7 @@ addComponentButton { context, db, openSelectComponentModal, scope } =
         , onClick <| openSelectComponentModal autocompleteState
         ]
         [ Icon.plus
-        , scopeLabels context scope
-            |> .add
-            |> text
+        , scopeLabels config |> .add |> text
         ]
 
 
@@ -225,9 +223,7 @@ addRawElementButton config =
             |> disabled
         ]
         [ Icon.plus
-        , scopeLabels config.context config.scope
-            |> .addRaw
-            |> text
+        , scopeLabels config |> .addRaw |> text
         ]
 
 
@@ -340,12 +336,7 @@ componentView config itemIndex ({ component, elements, quantity } as expandedIte
                         [ th [] []
                         , th [ class "pb-0 fs-8 fw-normal text-muted" ] [ text "Quantité" ]
                         , th [ class "pb-0 fs-8 fw-normal text-muted", colspan 2 ]
-                            [ span []
-                                [ scopeLabels config.context config.scope
-                                    |> .label
-                                    |> text
-                                ]
-                            ]
+                            [ span [] [ scopeLabels config |> .label |> text ] ]
                         , th [ colspan 3 ] []
                         ]
 
@@ -386,9 +377,7 @@ componentView config itemIndex ({ component, elements, quantity } as expandedIte
                                         [ type_ "text"
                                         , class "form-control"
                                         , onInput (config.updateItemName ( component, itemIndex ))
-                                        , scopeLabels config.context config.scope
-                                            |> .label
-                                            |> placeholder
+                                        , scopeLabels config |> .label |> placeholder
                                         , value component.name
                                         ]
                                         []
@@ -517,9 +506,7 @@ lifeCycleView ({ db, docsUrl, explorerRoute, impact, query, scope } as config) l
         [ div [ class "card shadow-sm" ]
             [ div [ class "card-header d-flex align-items-center justify-content-between gap-2" ]
                 [ h2 [ class "h5 mb-0" ]
-                    [ scopeLabels config.context scope
-                        |> .heading
-                        |> text
+                    [ scopeLabels config |> .heading |> text
                     , case explorerRoute of
                         Just route ->
                             Link.smallPillExternal
@@ -551,9 +538,7 @@ lifeCycleView ({ db, docsUrl, explorerRoute, impact, query, scope } as config) l
                 ]
             , if List.isEmpty query.items then
                 div [ class "card-body" ]
-                    [ scopeLabels config.context config.scope
-                        |> .empty
-                        |> text
+                    [ scopeLabels config |> .empty |> text
                     ]
 
               else
@@ -570,9 +555,7 @@ lifeCycleView ({ db, docsUrl, explorerRoute, impact, query, scope } as config) l
                                             [ th [] []
                                             , th [ class "ps-0", Attr.scope "col" ] [ text "Quantité" ]
                                             , th [ Attr.scope "col", colspan 2 ]
-                                                [ scopeLabels config.context config.scope
-                                                    |> .name
-                                                    |> text
+                                                [ scopeLabels config |> .name |> text
                                                 ]
                                             , th [ Attr.scope "col" ] [ text "Masse" ]
                                             , th [ Attr.scope "col" ] [ text "Impact" ]
