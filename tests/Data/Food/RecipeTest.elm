@@ -15,7 +15,7 @@ import Expect
 import Length
 import Mass
 import Test exposing (..)
-import TestUtils exposing (asTest, suiteWithDb)
+import TestUtils exposing (asTest, itFromResult, suiteWithDb)
 
 
 expectImpactEqual : Unit.Impact -> Maybe Unit.Impact -> Expect.Expectation
@@ -191,16 +191,14 @@ suite =
                                             |> asTest "should properly score impact on resources protected area"
                                         ]
                                 )
-                             , asTest "should compute a total scoring value consistent with the per-kg ecs impact" <|
-                                case royalPizzaResults |> Result.map Tuple.second of
-                                    Err err ->
-                                        Expect.fail err
-
-                                    Ok results ->
-                                        results.perKg
-                                            |> Impact.getImpact Definition.Ecs
-                                            |> Unit.impactToFloat
-                                            |> Expect.within (Expect.Absolute 0.01) (Unit.impactToFloat results.scoring.all)
+                             , itFromResult "should compute a total scoring value consistent with the per-kg ecs impact"
+                                (royalPizzaResults |> Result.map Tuple.second)
+                                (\{ perKg, scoring } ->
+                                    perKg
+                                        |> Impact.getImpact Definition.Ecs
+                                        |> Unit.impactToFloat
+                                        |> Expect.within (Expect.Absolute 0.01) (Unit.impactToFloat scoring.all)
+                                )
                              ]
                             )
                         , describe "raw-to-cooked checks"
