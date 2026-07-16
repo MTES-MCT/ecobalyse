@@ -752,13 +752,25 @@ transportToDistributionView ({ componentConfig, impact, scope } as config) mass 
         airTransportAvailable =
             componentConfig.transports.modeProcesses.plane.scopes
                 |> List.member scope
+
+        -- transport cooling is only available when both boat and lorry cooled transport
+        -- processes are available in current scope
+        transportCoolingAvailable =
+            List.all (\{ scopes } -> List.member scope scopes)
+                [ componentConfig.transports.modeProcesses.boatCooling
+                , componentConfig.transports.modeProcesses.lorryCooling
+                ]
     in
     DownArrow.view
         [ div [ class "d-flex justify-content-end align-items-center gap-2" ]
             [ text "Transport"
             , Icon.package
             , Format.kg mass
-            , cooledTransportToggler config
+            , if transportCoolingAvailable then
+                cooledTransportToggler config
+
+              else
+                text ""
             , if airTransportAvailable then
                 airTransportToggler config
 
