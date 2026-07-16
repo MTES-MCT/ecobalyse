@@ -770,7 +770,6 @@ transportToDistributionView ({ componentConfig, impact, scope } as config) mass 
             [ text "Transport"
             , Icon.package
             , Format.kg mass
-            , cooledTransportToggler config
             , if transportCoolingAvailable then
                 cooledTransportToggler config
 
