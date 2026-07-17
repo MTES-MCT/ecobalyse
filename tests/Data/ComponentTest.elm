@@ -1355,12 +1355,12 @@ suite =
                         [ it "should retrieve a scoped documentation link"
                             ("assembly"
                                 |> Component.getDocLink requirements.config (Scope.Generic Scope.Veli)
-                                |> Expect.equal (Just "http://docs.tld/veli/assembly")
+                                |> Expect.equal (Just "https://fabrique-numerique.gitbook.io/ecobalyse/vehicules/cycle-de-vie/assemblage")
                             )
                         , it "should fallback to a default documentation link when no scoped link exists"
                             ("assembly"
                                 |> Component.getDocLink requirements.config (Scope.Generic Scope.Object)
-                                |> Expect.equal (Just "http://docs.tld/default/assembly")
+                                |> Expect.equal (Just "https://fabrique-numerique.gitbook.io/ecobalyse/methodes-transverses/assemblage")
                             )
                         , it "should retrieve Nothing when no doc link exists"
                             ("invalid"
@@ -1984,110 +1984,6 @@ suite =
             ]
 
 
-testComponentConfig : Db -> Result String Component.Config
-testComponentConfig db =
-    Component.parseConfig db <|
-        """
-        {
-            "distribution": {
-                "country": "FR",
-                "defaultProcess": {
-                    "food2": "29118025-efa0-47bb-94e2-f5ccba31a903"
-                }
-            },
-            "docLinks": {
-                "default": {
-                    "assembly": "http://docs.tld/default/assembly"
-                },
-                "scoped": {
-                    "veli": {
-                        "assembly": "http://docs.tld/veli/assembly"
-                    }
-                }
-            },
-            "durability": {
-                "enabled": {
-                    "food2": false,
-                    "object": true,
-                    "veli": true
-                }
-            },
-            "endOfLife": {
-                "enabled": {
-                    "food2": false,
-                    "object": true,
-                    "veli": true
-                },
-                "scopeCollectionRates": {
-                    "object": 70
-                },
-                "strategies": {
-                    "default": {
-                        "incinerating": { "processId": "6be70859-a817-424c-ad09-5b9b4012d401", "percent": 82 },
-                        "landfilling": { "processId": "63db8dee-78a5-4979-ae9b-fcc76d66ee4f", "percent": 18 },
-                        "recycling": null
-                    },
-                    "collected": {
-                        "ferrous_metals": {
-                            "incinerating": null,
-                            "landfilling": null,
-                            "recycling": { "percent": 100, "processId": "51801e91-d907-4297-9a4c-5691bbbb665b" }
-                        },
-                        "rigid_plastics": {
-                            "incinerating": { "percent": 35, "processId": "7f7af998-8313-47e7-b043-80fcf4d67042" },
-                            "landfilling": { "percent": 24, "processId": "f2c04faa-a41e-4ebd-ab44-d2dc4f4af629" },
-                            "recycling": { "percent": 41, "processId": "f404c75d-c211-4ea1-b392-702693a26b75" }
-                        },
-                        "pur_foam": {
-                            "incinerating": { "percent": 94, "processId": "04c1e26f-bc40-4dff-950a-51ca54d5ad16" },
-                            "landfilling": { "percent": 2, "processId": "6194fdb0-0b67-4101-8d6a-1e55924b7462" },
-                            "recycling": { "percent": 4, "processId": "dbfb60bb-045f-4e81-9f88-8b411fc4a665" }
-                        },
-                        "wood": {
-                            "incinerating": { "processId": "8c102569-dcef-4016-842b-6f662a082b66", "percent": 31 },
-                            "landfilling": null,
-                            "recycling": { "percent": 69 }
-                        }
-                    },
-                    "nonCollected": {
-                        "ferrous_metals": {
-                            "incinerating": null,
-                            "landfilling": { "percent": 5, "processId": "3f12bb2d-bac9-4b8d-bd72-69428c031f33" },
-                            "recycling": { "percent": 95, "processId": "51801e91-d907-4297-9a4c-5691bbbb665b" }
-                        }
-                    }
-                }
-            },
-            "production": {
-                "defaultProcesses": {
-                    "elec": "ed6d177e-44bb-5ba4-beec-d683dc21be9f",
-                    "heat": "3561ace1-f710-50ce-a69c-9cf842e729e4"
-                }
-            },
-            "transports": {
-                "defaultDistance": {
-                    "air": 10000,
-                    "road": 2000,
-                    "sea": 18000
-                },
-                "modeProcesses": {
-                    "boat": "20a62b2c-a543-5076-83aa-c5b7d340206a",
-                    "boatCooling": "9eefe92d-37af-4446-829e-2a75c8bf2690",
-                    "lorry": "46e96f29-9ca5-5475-bb3c-6397f43b7a5b",
-                    "lorryCooling": "7ce0e82a-0b26-48fd-b260-0d8f4ed25001",
-                    "plane": "6e9035eb-0632-43a9-92be-e77e6d3f1c1f"
-                }
-            },
-            "use": {
-              "defaultProcesses": {
-                "elec": "931c9bb0-619a-5f75-b41b-ab8061e2ad92",
-                "heat": "6cbd45fb-83ff-5852-97a7-87fffecc20f5"
-              }
-            }
-        }
-        """
-
-
 computeItemsWithRequirements : Requirements db -> List Item -> Result String LifeCycle
 computeItemsWithRequirements requirements items =
     emptyQuery
@@ -2097,7 +1993,7 @@ computeItemsWithRequirements requirements items =
 
 createTestRequirements : Db -> Result String (Requirements Db)
 createTestRequirements db =
-    testComponentConfig db
+    TestUtils.componentConfig db
         |> Result.map
             (\config ->
                 { config = config
