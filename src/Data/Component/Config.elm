@@ -5,7 +5,6 @@ module Data.Component.Config exposing
     , EndOfLifeStrategiesConfig
     , EndOfLifeStrategy
     , decode
-    , default
     , getDocLink
     , parse
     , scopeEnabled
@@ -213,75 +212,6 @@ decodeUseConfig processes =
     Decode.succeed UseConfig
         |> Decode.requiredAt [ "defaultProcesses", "elec" ] (Process.decodeFromId processes)
         |> Decode.requiredAt [ "defaultProcesses", "heat" ] (Process.decodeFromId processes)
-
-
-default : DataContainer db -> Result String Config
-default db =
-    parse db <|
-        """
-        {
-            "production": {
-                "defaultProcesses": {
-                    "elec": "ed6d177e-44bb-5ba4-beec-d683dc21be9f",
-                    "heat": "3561ace1-f710-50ce-a69c-9cf842e729e4"
-                }
-            },
-            "distribution": {
-                "country": "FR",
-                "defaultProcess": {
-                    "food2": "29118025-efa0-47bb-94e2-f5ccba31a903"
-                }
-            },
-            "docLinks": {
-                "default": {},
-                "scoped": {}
-            },
-            "durability": {
-                "enabled": {
-                    "food2": false,
-                    "object": true,
-                    "veli": true
-                }
-            },
-            "endOfLife": {
-                "enabled": {
-                    "food2": false,
-                    "object": true,
-                    "veli": true
-                },
-                "scopeCollectionRates": {},
-                "strategies": {
-                    "default": {
-                        "incinerating": null,
-                        "landfilling": null,
-                        "recycling": { "percent": 100 }
-                    },
-                    "collected": {},
-                    "nonCollected": {}
-                }
-            },
-            "transports": {
-                "defaultDistance": {
-                    "air": 0,
-                    "road": 0,
-                    "sea": 0
-                },
-                "modeProcesses": {
-                    "boat": "20a62b2c-a543-5076-83aa-c5b7d340206a",
-                    "boatCooling": "9eefe92d-37af-4446-829e-2a75c8bf2690",
-                    "lorry": "46e96f29-9ca5-5475-bb3c-6397f43b7a5b",
-                    "lorryCooling": "7ce0e82a-0b26-48fd-b260-0d8f4ed25001",
-                    "plane": "6e9035eb-0632-43a9-92be-e77e6d3f1c1f"
-                }
-            },
-            "use": {
-              "defaultProcesses": {
-                "elec": "931c9bb0-619a-5f75-b41b-ab8061e2ad92",
-                "heat": "6cbd45fb-83ff-5852-97a7-87fffecc20f5"
-              }
-            }
-        }
-        """
 
 
 getDocLink : Config -> Scope -> String -> Maybe String
