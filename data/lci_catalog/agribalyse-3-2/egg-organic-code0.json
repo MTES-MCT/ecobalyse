@@ -23,7 +23,6 @@
         "organic"
       ],
       "ingredientDensity": 1.0,
-      "rawToCookedRatio": 0.974,
       "scenario": "organic",
       "scopes": [
         "food",
@@ -53,11 +52,6 @@
       "ingredientDensityMatch": {
         "confidence": 1.0,
         "rule": "egg found in density.csv"
-      },
-      "rawToCookedRatio": 0.974,
-      "rawToCookedRatioMatch": {
-        "confidence": 1.0,
-        "rule": "Matched with egg in cooked_to_raw.csv"
       },
       "scenario": "organic",
       "scopes": [

@@ -30,11 +30,6 @@
         "confidence": 1.0,
         "rule": "beef found in density.csv"
       },
-      "rawToCookedRatio": 0.792,
-      "rawToCookedRatioMatch": {
-        "confidence": 0.95,
-        "rule": "Matched with ground beef in cooked_to_raw.csv"
-      },
       "scenario": "organic",
       "scopes": [
         "food",

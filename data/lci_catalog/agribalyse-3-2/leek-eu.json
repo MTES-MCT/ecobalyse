@@ -19,7 +19,6 @@
         "vegetable_fresh"
       ],
       "ingredientDensity": 0.6195,
-      "rawToCookedRatio": 0.856,
       "scenario": "import",
       "scopes": [
         "food",
@@ -39,7 +38,6 @@
         "vegetable_fresh"
       ],
       "ingredientDensity": 0.6195,
-      "rawToCookedRatio": 0.856,
       "scenario": "import",
       "scopes": [
         "food",

@@ -19,7 +19,6 @@
         "vegetable_fresh"
       ],
       "ingredientDensity": 0.447,
-      "rawToCookedRatio": 0.856,
       "scenario": "reference",
       "scopes": [
         "food",

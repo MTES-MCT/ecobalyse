@@ -7,7 +7,7 @@ from typing import List, Optional
 from common.export import (
     export_json,
 )
-from common.infer_metadata import infer_base_ingredient
+from common.infer_metadata import infer_base_ingredient, infer_raw_to_cooked_ratio
 from ecobalyse_data.bw.search import cached_search_one
 from ecobalyse_data.export import complements
 from ecobalyse_data.export.land_occupation import compute_land_occupation_batch
@@ -302,7 +302,10 @@ def activity_to_ingredients(eco_activity: dict, es_by_alias: dict) -> List[Ingre
                 land_occupation=land_occupation,
                 location=bw_activity.get("location"),
                 name=food_metadata["displayName"],
-                raw_to_cooked_ratio=food_metadata["rawToCookedRatio"],
+                raw_to_cooked_ratio=infer_raw_to_cooked_ratio(
+                    food_metadata.get("rawToCookedRatio"),
+                    eco_activity.get("categories", []),
+                ),
                 scenario=food_metadata.get("scenario"),
                 activity_name=eco_activity["activityName"],
                 transport_cooling=food_metadata["transportCooling"],
