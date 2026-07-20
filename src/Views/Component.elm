@@ -1,7 +1,6 @@
 module Views.Component exposing
     ( Config
     , Context(..)
-    , createElementMaterialAutocomplete
     , editorView
     , elementEditModalView
     , scopeLabels
@@ -20,6 +19,7 @@ import Data.Component as Component
         , ExpandedQuantifiedProcess
         , Index
         , LifeCycle
+        , ProductionItem(..)
         , Quantity
         , Query
         , Requirements
@@ -70,12 +70,11 @@ type alias Config db msg =
     , impact : Definition
     , lifeCycle : Result String LifeCycle
     , noOp : msg
-    , openCreateComponentModal : msg
     , openEditElementModal : Component -> TargetElement -> msg
-    , openSelectComponentModal : Autocomplete Component -> msg
     , openSelectConsumptionModal : Autocomplete Process -> msg
     , openSelectPackagingModal : Autocomplete Process -> msg
     , openSelectProcessModal : Category -> TargetItem -> Maybe Index -> Autocomplete Process -> msg
+    , openSelectProductionItem : Autocomplete ProductionItem -> msg
     , query : Query
     , removeConsumption : Index -> msg
     , removeElement : TargetElement -> msg
@@ -120,7 +119,6 @@ requirementsFromConfig config =
 
 type alias Labels =
     { add : String
-    , addRaw : String
     , empty : String
     , heading : String
     , label : String
@@ -137,33 +135,30 @@ scopeLabels : { config | context : Context, scope : Scope } -> Labels
 scopeLabels { context, scope } =
     case ( context, scope ) of
         ( GenericContext, Scope.Generic Scope.Food2 ) ->
-            { add = "Ajouter un ingrédient transformé"
-            , addRaw = "Ajouter un ingrédient brut"
+            { add = "Ajouter un ingrédient"
             , empty = "Aucun ingrédient"
             , heading = "Recette"
             , label = "Nom de l'ingrédient"
             , name = "Ingrédient"
             , search = "tapez ici le nom de l’ingrédient pour le rechercher"
-            , select = "Sélectionnez un ingrédient transformé"
+            , select = "Sélectionnez un ingrédient"
             , selectRaw = "Sélectionnez un ingrédient brut"
             }
 
         ( GenericContext, _ ) ->
-            { add = "Ajouter un matériau transformé"
-            , addRaw = "Ajouter un matériau brut"
+            { add = "Ajouter un matériau"
             , empty = "Aucun matériau"
             , heading = "Production des matériaux"
             , label = "Nom du matériau"
             , name = "Matériau"
             , search = "tapez ici le nom du matériau pour le rechercher"
-            , select = "Sélectionnez un matériau transformé"
+            , select = "Sélectionnez un matériau"
             , selectRaw = "Sélectionnez un matériau brut"
             }
 
         ( TextileTrimsContext, Scope.Textile ) ->
             -- Note: in Textile context, raw element handling is not available
             { add = "Ajouter un accessoire"
-            , addRaw = "Ajouter un accessoire"
             , empty = "Aucun accessoire"
             , heading = "Accessoires"
             , label = "Nom de l'accessoire"
@@ -175,7 +170,6 @@ scopeLabels { context, scope } =
 
         _ ->
             { add = "Ajouter un composant"
-            , addRaw = "Créer un composant"
             , empty = "Aucun composant"
             , heading = "Production des composants"
             , label = "Nom du composant"
@@ -186,91 +180,40 @@ scopeLabels { context, scope } =
             }
 
 
-addComponentButton : Config db msg -> Html msg
-addComponentButton ({ db, openSelectComponentModal } as config) =
+addProductionItemButton : Config db msg -> Html msg
+addProductionItemButton ({ db } as config) =
     let
         availableComponents =
             db.components
                 |> List.filter (not << Component.isEmpty)
                 |> List.filter (.scope >> (==) config.scope)
+                |> List.map ComponentItem
+
+        availableMaterials =
+            Category.Material
+                |> listAvailableProcesses config
+                -- Exclude packaging materials as they're available in a dedicated section
+                |> List.filter (\{ categories } -> not <| List.member Category.Packaging categories)
+                |> List.map MaterialItem
+
+        availableProductionItems =
+            availableComponents ++ availableMaterials
 
         autocompleteState =
-            AutocompleteSelector.init .name availableComponents
+            availableProductionItems
+                |> List.sortBy Component.productionItemToLabel
+                |> AutocompleteSelector.init Component.productionItemToLabel
     in
     button
         [ type_ "button"
         , class "btn btn-outline-primary w-100"
         , class "d-flex justify-content-center align-items-center"
         , class "gap-1 w-100"
-        , disabled <| List.isEmpty availableComponents
-        , onClick <| openSelectComponentModal autocompleteState
+        , disabled <| List.isEmpty availableProductionItems
+        , onClick <| config.openSelectProductionItem autocompleteState
         ]
         [ Icon.plus
         , scopeLabels config |> .add |> text
-        ]
-
-
-type MaterialOrComponent
-    = ComponentItem Component
-    | MaterialItem Process
-
-
-addComponentOrMaterialButton : Config db msg -> Html msg
-addComponentOrMaterialButton ({ db } as config) =
-    let
-        availableComponentsAndMaterials =
-            List.concat
-                [ db.components
-                    |> List.filter (not << Component.isEmpty)
-                    |> List.filter (.scope >> (==) config.scope)
-                    |> List.map ComponentItem
-                , db.processes
-                    |> Scope.anyOf [ config.scope ]
-                    |> List.filter (.visible >> (==) True)
-                    |> List.filter (.categories >> List.member Category.Material)
-                    |> List.map MaterialItem
-                ]
-
-        autocompleteState =
-            AutocompleteSelector.init
-                (\materialOrComponent ->
-                    case materialOrComponent of
-                        ComponentItem { name } ->
-                            name
-
-                        MaterialItem process ->
-                            Process.getDisplayName process
-                )
-                availableComponentsAndMaterials
-    in
-    button
-        [ type_ "button"
-        , class "btn btn-outline-primary w-100"
-        , class "d-flex justify-content-center align-items-center"
-        , class "gap-1 w-100"
-        , disabled <| List.isEmpty availableComponentsAndMaterials
-
-        -- , onClick <| openSelectComponentModal autocompleteState
-        ]
-        [ Icon.plus
-        , scopeLabels config |> .add |> text
-        ]
-
-
-addRawElementButton : Config db msg -> Html msg
-addRawElementButton config =
-    button
-        [ type_ "button"
-        , class "btn btn-outline-primary w-100"
-        , class "d-flex justify-content-center align-items-center"
-        , class "gap-1 w-100"
-        , onClick config.openCreateComponentModal
-        , listAvailableProcesses config Category.Material
-            |> List.isEmpty
-            |> disabled
-        ]
-        [ Icon.plus
-        , scopeLabels config |> .addRaw |> text
         ]
 
 
@@ -621,7 +564,7 @@ lifeCycleView ({ db, docsUrl, explorerRoute, impact, query, scope } as config) l
                                         )
                                 )
                             ]
-            , productionButtonsView config
+            , addProductionItemButton config
             ]
         , if Scope.isGeneric scope && not (List.isEmpty query.items) then
             div []
@@ -651,27 +594,6 @@ lifeCycleView ({ db, docsUrl, explorerRoute, impact, query, scope } as config) l
           else
             text ""
         ]
-
-
-productionButtonsView : Config db msg -> Html msg
-productionButtonsView ({ db, scope } as config) =
-    case config.context of
-        AdminContext ->
-            addRawElementButton config
-
-        GenericContext ->
-            div [ class "d-flex gap-1" ] <|
-                -- when no components are available for the current scope, only show the button to add raw elements
-                if db.components |> List.all (\component -> component.scope /= scope || Component.isEmpty component) then
-                    [ addRawElementButton config ]
-
-                else
-                    [ addComponentButton config
-                    , addRawElementButton config
-                    ]
-
-        TextileTrimsContext ->
-            addComponentButton config
 
 
 documentationLink : Config db msg -> String -> Html msg

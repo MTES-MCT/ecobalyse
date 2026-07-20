@@ -653,14 +653,13 @@ modalView { componentConfig, db } modals index modal =
                                         , scope = component.scope
                                         }
                             , noOp = NoOp
-                            , openCreateComponentModal = NoOp
-                            , openSelectComponentModal = \_ -> NoOp
+                            , openEditElementModal = \_ _ -> NoOp
                             , openSelectConsumptionModal = \_ -> NoOp
                             , openSelectPackagingModal = \_ -> NoOp
-                            , openEditElementModal = \_ _ -> NoOp
                             , openSelectProcessModal =
                                 \p ti ei s ->
                                     SetModals (SelectProcessModal p ti ei s :: modals)
+                            , openSelectProductionItem = \_ -> NoOp
 
                             -- Note: we don't handle assembly country in the admin
                             , query = Component.emptyQuery |> Component.setQueryItems [ item ]
