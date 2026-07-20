@@ -19,10 +19,10 @@
       "defaultOrigin": "France",
       "displayName": "Noix de cajou Bio",
       "id": "cd2c11dd-1804-539f-9e71-754325431c8a",
-      "inediblePart": 0.5,
+      "inediblePart": 0.21,
       "inediblePartMatch": {
         "confidence": 1.0,
-        "rule": "nut_oilseed NOVA 1 default from food_type_inedible_part.csv"
+        "rule": "cashew from inedible_part.csv"
       },
       "ingredientCategories": [
         "nut_oilseed_raw",
