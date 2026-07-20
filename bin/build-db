@@ -51,6 +51,7 @@ const targetDbFile = "src/Static/Json.elm";
 const elmTemplate = fs.readFileSync(`${targetDbFile}-template`).toString();
 const elmWithFixtures = elmTemplate
   // Transverse JSON data
+  .replace("%componentConfigJson%", parseAndValidate("public/data/components/config.json", null))
   .replace("%countriesJson%", parseAndValidate("public/data/countries.json", "code"))
   .replace("%impactsJson%", parseAndValidate("public/data/impacts.json"))
   .replace(

@@ -30,27 +30,18 @@ table session { scope } =
         , Table.Facet "Unités" (.unit >> Process.unitToString >> List.singleton)
         , Table.Facet "Région"
             (.location
-                >> Maybe.map
-                    (\location ->
-                        -- attempt decoding the region string as a an existing country code in the shared db
-                        case session.db.countries |> Country.findByCode (CountryCode.fromString location) of
-                            Err _ ->
-                                location
-
-                            Ok { name } ->
-                                name ++ " (" ++ location ++ ")"
-                    )
+                >> Maybe.map (resolveRegionName session)
                 >> Maybe.withDefault "N/A"
                 >> List.singleton
             )
         ]
     , legend = []
-    , columns = baseColumns ++ impactsColumns session ++ complementsColumns session
+    , columns = baseColumns session ++ impactsColumns session ++ complementsColumns session
     }
 
 
-baseColumns : List (Column Process String msg)
-baseColumns =
+baseColumns : Session -> List (Column Process String msg)
+baseColumns session =
     [ { label = "Identifiant"
       , toValue = Table.StringValue <| .id >> Process.idToString
       , toCell =
@@ -77,7 +68,7 @@ baseColumns =
       }
     , { label = "Région"
       , toValue = Table.StringValue <| .location >> Maybe.withDefault "N/A"
-      , toCell = .location >> Maybe.withDefault "N/A" >> text
+      , toCell = .location >> Maybe.map (resolveRegionName session) >> Maybe.withDefault "N/A" >> text
       }
     , { label = "Catégories"
       , toValue =
@@ -163,6 +154,16 @@ impactsColumns ({ db } as session) =
         Definition.Ecs
             |> impactCell db.definitions
             |> List.singleton
+
+
+resolveRegionName : Session -> String -> String
+resolveRegionName { db } location =
+    case db.countries |> Country.findByCode (CountryCode.fromString location) of
+        Err _ ->
+            location
+
+        Ok { name } ->
+            name ++ " (" ++ location ++ ")"
 
 
 tooltipedCell : String -> Html msg

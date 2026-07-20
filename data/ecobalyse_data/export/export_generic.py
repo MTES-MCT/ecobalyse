@@ -58,7 +58,6 @@ def _build_variant_metadata(
             inedible_part=food_variant["inediblePart"],
             raw_to_cooked_ratio=food_variant["rawToCookedRatio"],
             scenario=food_variant.get("scenario"),
-            transport_cooling=food_variant["transportCooling"],
             process_id=activity["id"],
         ).model_dump(by_alias=True)
 

@@ -47,7 +47,6 @@ module Data.Component exposing
     , decodeList
     , decodeListFromJsonString
     , decodeQuery
-    , defaultConfig
     , defaultDurability
     , defaultTransportOptions
     , elementTransforms
@@ -1309,13 +1308,6 @@ decodeTransportOptions =
     Decode.succeed TransportOptions
         |> Decode.optional "byAir" Split.decodePercent Split.zero
         |> Decode.optional "cooling" Decode.bool False
-
-
-{-| Proxified for convenience
--}
-defaultConfig : DataContainer db -> Result String Config
-defaultConfig =
-    Config.default
 
 
 defaultDurability : Unit.Ratio
