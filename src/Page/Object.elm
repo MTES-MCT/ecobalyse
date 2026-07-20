@@ -790,12 +790,16 @@ selectExample autocompleteState ({ model } as pageUpdate) =
 
 selectComponentOrMaterial : Component.Query -> Autocomplete Component.ProductionItem -> PageUpdate Model Msg -> PageUpdate Model Msg
 selectComponentOrMaterial query autocompleteState ({ model, session } as pageUpdate) =
+    let
+        plausibleCommand =
+            Plausible.send pageUpdate.session <| Plausible.ComponentAdded model.scope
+    in
     case Autocomplete.selectedValue autocompleteState of
         Just (Component.ComponentItem component) ->
             pageUpdate
                 |> updateQuery (query |> Component.mapItems (Component.addItem component.id))
                 |> App.apply update (SetModals [])
-                |> App.withCmds [ Plausible.send pageUpdate.session <| Plausible.ComponentAdded model.scope ]
+                |> App.withCmds [ plausibleCommand ]
 
         Just (Component.MaterialItem process) ->
             let
@@ -824,7 +828,7 @@ selectComponentOrMaterial query autocompleteState ({ model, session } as pageUpd
                         |> updateQuery validQuery
                         |> App.apply update (SetModals [])
                         |> App.apply update (SetDetailedComponents (LE.unique (newItemIndex :: model.detailedComponents)))
-                        |> App.withCmds [ Plausible.send pageUpdate.session <| Plausible.ComponentAdded model.scope ]
+                        |> App.withCmds [ plausibleCommand ]
 
         Nothing ->
             pageUpdate |> App.notifyWarning "Aucun composant sélectionné"
