@@ -42,7 +42,7 @@ def infer_transported_cooled(categories: List[str]) -> List[str]:
     }
     is_ingredient = "ingredient" in categories
     is_perishable = (
-        bool(material_types & TRANSPORTED_COOLED_MATERIAL_TYPES) & is_ingredient
+        bool(material_types & TRANSPORTED_COOLED_MATERIAL_TYPES) and is_ingredient
     )
     if is_perishable and TRANSPORTED_COOLED_CATEGORY not in categories:
         return categories + [TRANSPORTED_COOLED_CATEGORY]
