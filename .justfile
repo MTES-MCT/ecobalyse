@@ -73,7 +73,7 @@ export-transports:
 
 # Export a Brightway db: `just export-bw-db ecospold1 --activities` or `just export-bw-db simapro`
 export-bw-db *args:
-    {{ python-cmd-data }} run python ./bin/export_bw_db.py {{ args }}
+    {{ python-cmd-data }} ./data/bin/export_bw_db.py {{ args }}
 
 ################################################################################
 ### Data cleaning

@@ -94,7 +94,7 @@ def ecospold1(
 ):
     """Export one or more Brightway databases to EcoSpold 1 XML format."""
     if whole_lci_catalog:
-        lci_catalog = PROJECT_ROOT_DIR / "lci_catalog"
+        lci_catalog = DATA_ROOT_DIR / "lci_catalog"
         logger.info(f"Loading activities from {lci_catalog}")
         activities = []
         for lci_path in sorted(lci_catalog.glob("*/*.json")):
