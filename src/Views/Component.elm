@@ -210,6 +210,53 @@ addComponentButton ({ db, openSelectComponentModal } as config) =
         ]
 
 
+type MaterialOrComponent
+    = ComponentItem Component
+    | MaterialItem Process
+
+
+addComponentOrMaterialButton : Config db msg -> Html msg
+addComponentOrMaterialButton ({ db } as config) =
+    let
+        availableComponentsAndMaterials =
+            List.concat
+                [ db.components
+                    |> List.filter (not << Component.isEmpty)
+                    |> List.filter (.scope >> (==) config.scope)
+                    |> List.map ComponentItem
+                , db.processes
+                    |> Scope.anyOf [ config.scope ]
+                    |> List.filter (.visible >> (==) True)
+                    |> List.filter (.categories >> List.member Category.Material)
+                    |> List.map MaterialItem
+                ]
+
+        autocompleteState =
+            AutocompleteSelector.init
+                (\materialOrComponent ->
+                    case materialOrComponent of
+                        ComponentItem { name } ->
+                            name
+
+                        MaterialItem process ->
+                            Process.getDisplayName process
+                )
+                availableComponentsAndMaterials
+    in
+    button
+        [ type_ "button"
+        , class "btn btn-outline-primary w-100"
+        , class "d-flex justify-content-center align-items-center"
+        , class "gap-1 w-100"
+        , disabled <| List.isEmpty availableComponentsAndMaterials
+
+        -- , onClick <| openSelectComponentModal autocompleteState
+        ]
+        [ Icon.plus
+        , scopeLabels config |> .add |> text
+        ]
+
+
 addRawElementButton : Config db msg -> Html msg
 addRawElementButton config =
     button
