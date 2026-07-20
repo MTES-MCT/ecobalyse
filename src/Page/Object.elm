@@ -424,7 +424,7 @@ update ({ navKey } as session) msg model =
 
         ( OnAutocompleteSelectProductionItem, (AddProductionItemModal autocompleteState) :: _ ) ->
             createPageUpdate session model
-                |> selectComponentOrMaterial query autocompleteState
+                |> selectProductionItem query autocompleteState
 
         ( OnAutocompleteSelectProductionItem, _ ) ->
             createPageUpdate session model
@@ -788,8 +788,8 @@ selectExample autocompleteState ({ model } as pageUpdate) =
         |> App.withCmds [ Plausible.send pageUpdate.session <| Plausible.ExampleSelected model.scope ]
 
 
-selectComponentOrMaterial : Component.Query -> Autocomplete Component.ProductionItem -> PageUpdate Model Msg -> PageUpdate Model Msg
-selectComponentOrMaterial query autocompleteState ({ model, session } as pageUpdate) =
+selectProductionItem : Component.Query -> Autocomplete Component.ProductionItem -> PageUpdate Model Msg -> PageUpdate Model Msg
+selectProductionItem query autocompleteState ({ model, session } as pageUpdate) =
     let
         plausibleCommand =
             Plausible.send pageUpdate.session <| Plausible.ComponentAdded model.scope
@@ -806,11 +806,11 @@ selectComponentOrMaterial query autocompleteState ({ model, session } as pageUpd
                 newItemIndex =
                     List.length query.items
 
-                baseItem =
-                    Component.createItem Nothing
-
                 newItem =
-                    { baseItem | custom = Just { name = Nothing, elements = [], scope = Nothing } }
+                    { custom = Nothing
+                    , id = Nothing
+                    , quantity = Component.quantityFromInt 1
+                    }
 
                 targetItem =
                     ( Component.emptyComponent, newItemIndex )
