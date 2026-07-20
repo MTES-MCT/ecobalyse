@@ -125,7 +125,6 @@ type alias Labels =
     , name : String
     , search : String
     , select : String
-    , selectRaw : String
     }
 
 
@@ -142,7 +141,6 @@ scopeLabels { context, scope } =
             , name = "Ingrédient"
             , search = "tapez ici le nom de l’ingrédient pour le rechercher"
             , select = "Sélectionnez un ingrédient"
-            , selectRaw = "Sélectionnez un ingrédient brut"
             }
 
         ( GenericContext, _ ) ->
@@ -153,7 +151,6 @@ scopeLabels { context, scope } =
             , name = "Matériau"
             , search = "tapez ici le nom du matériau pour le rechercher"
             , select = "Sélectionnez un matériau"
-            , selectRaw = "Sélectionnez un matériau brut"
             }
 
         ( TextileTrimsContext, Scope.Textile ) ->
@@ -165,7 +162,6 @@ scopeLabels { context, scope } =
             , name = "Accessoire"
             , search = "tapez ici le nom de l’accessoire pour le rechercher"
             , select = "Sélectionnez un accessoire"
-            , selectRaw = "Sélectionnez un accessoire"
             }
 
         _ ->
@@ -176,7 +172,6 @@ scopeLabels { context, scope } =
             , name = "Composant"
             , search = "tapez ici le nom du composant pour le rechercher"
             , select = "Sélectionnez un composant"
-            , selectRaw = "Sélectionnez un procédé matière"
             }
 
 

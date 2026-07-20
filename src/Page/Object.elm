@@ -1116,9 +1116,9 @@ view session model =
 
 
 productionItemCategoryName : Component.ProductionItem -> String
-productionItemCategoryName materialOrComponent =
+productionItemCategoryName productionItem =
     -- TODO: ensure everybody is onboard with these "controversial" labels
-    case materialOrComponent of
+    case productionItem of
         Component.ComponentItem _ ->
             "Composant"
 
@@ -1239,7 +1239,7 @@ modalView session ({ modals } as model) modal =
                     case category of
                         Category.Material ->
                             ( ComponentView.scopeLabels labelsConfig |> .search
-                            , ComponentView.scopeLabels labelsConfig |> .selectRaw
+                            , ComponentView.scopeLabels labelsConfig |> .select
                             )
 
                         Category.Transform ->
