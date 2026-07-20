@@ -18,6 +18,37 @@ _LEGACY_ZONE_TO_COUNTRY = {
 }
 
 
+TRANSPORTED_COOLED_MATERIAL_TYPES = frozenset(
+    {
+        "fruits_and_vegetables",
+        "fish_and_shellfish",
+        "legumes",
+        "red_meats",
+        "poultry",
+        "offal",
+    }
+)
+
+TRANSPORTED_COOLED_CATEGORY = "transported_cooled"
+_MATERIAL_TYPE_PREFIX = "material_type:"
+
+
+def infer_transported_cooled(categories: List[str]) -> List[str]:
+    """add transported_cooled tag to materials with TRANSPORTED_COOLED_MATERIAL_TYPES"""
+    material_types = {
+        category[len(_MATERIAL_TYPE_PREFIX) :]
+        for category in categories
+        if category.startswith(_MATERIAL_TYPE_PREFIX)
+    }
+    is_ingredient = "ingredient" in categories
+    is_perishable = (
+        bool(material_types & TRANSPORTED_COOLED_MATERIAL_TYPES) and is_ingredient
+    )
+    if is_perishable and TRANSPORTED_COOLED_CATEGORY not in categories:
+        return categories + [TRANSPORTED_COOLED_CATEGORY]
+    return categories
+
+
 def infer_default_origin(
     origin_zone: Optional[str], categories: List[str]
 ) -> Optional[str]:
