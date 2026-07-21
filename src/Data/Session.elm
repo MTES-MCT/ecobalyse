@@ -29,7 +29,7 @@ module Data.Session exposing
     , toggleComparedSimulation
     , updateAuth
     , updateDb
-    , updateDbProcesses
+    , updateDbDetailedImpacts
     , updateFoodQuery
     , updateObjectQuery
     , updateTextileQuery
@@ -41,6 +41,8 @@ import Data.Common.DecodeUtils as DU
 import Data.Component as Component
 import Data.Db as Db exposing (Db)
 import Data.Food.Query as FoodQuery
+import Data.Impact as Impact
+import Data.Process as Process
 import Data.Scope as Scope exposing (Scope)
 import Data.Textile.Query as TextileQuery
 import Data.User as User
@@ -440,15 +442,21 @@ serializeStore =
     encodeStore >> Encode.encode 0
 
 
-updateDbProcesses : String -> Session -> Session
-updateDbProcesses rawDetailedProcessesJson session =
+updateDbDetailedImpacts : String -> Session -> Session
+updateDbDetailedImpacts rawDetailedImpactsJson session =
     case
-        session.dbRawJson
-            |> Result.fromMaybe "Aucune donnée brute disponible en session pour reconstruire la base de données"
-            |> Result.andThen (\dbRawJson -> Db.build { dbRawJson | processes = Db.rawJsonString rawDetailedProcessesJson })
+        rawDetailedImpactsJson
+            |> Decode.decodeString (Process.decodeImpactDetails Impact.decodeImpacts)
+            |> Result.mapError Decode.errorToString
+            |> Result.andThen
+                (\detailedImpacts ->
+                    session.dbRawJson
+                        |> Result.fromMaybe "Aucune donnée brute disponible en session pour reconstruire la base de données"
+                        |> Result.andThen (Db.buildWithDetailedImpacts detailedImpacts)
+                )
     of
         Err err ->
-            session |> notifyError "Impossible de recharger la db avec les nouveaux procédés" err
+            session |> notifyError "Impossible de recharger la db avec les impacts détaillés" err
 
         Ok newDb ->
             { session | db = newDb }

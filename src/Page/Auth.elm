@@ -58,7 +58,7 @@ type Msg
     | CreateTokenResponse (WebData Token)
     | DeleteApiToken CreatedToken
     | DeleteApiTokenResponse (WebData ())
-    | DetailedProcessesResponse (WebData String)
+    | DetailedImpactsResponse (WebData String)
     | LoginResponse (WebData AccessTokenData)
     | Logout
     | MagicLinkLoginConfirm
@@ -134,11 +134,11 @@ update session msg model =
                 |> App.withCmds [ Ports.copyToClipboard accessToken ]
                 |> App.notifyInfo "Le jeton d’API a été copié dans le presse-papiers"
 
-        -- Update db with detailed processes when we get them
-        DetailedProcessesResponse (RemoteData.Success rawDetailedProcessesJson) ->
+        -- Update session processes impacts with detailed ones when we get them
+        DetailedImpactsResponse (RemoteData.Success rawDetailedImpactsJson) ->
             let
                 newSession =
-                    session |> Session.updateDbProcesses rawDetailedProcessesJson
+                    session |> Session.updateDbDetailedImpacts rawDetailedImpactsJson
             in
             model
                 |> App.createUpdate newSession
@@ -156,7 +156,7 @@ update session msg model =
                     )
                 |> App.withCmds [ Plausible.send session Plausible.AuthLoginOK ]
 
-        DetailedProcessesResponse (RemoteData.Failure error) ->
+        DetailedImpactsResponse (RemoteData.Failure error) ->
             model
                 |> App.createUpdate (session |> Session.notifyBackendError error)
 
@@ -400,7 +400,7 @@ updateMagicLinkLoginTab session email token msg model =
                         Dict.empty
             }
                 |> App.createUpdate newSession
-                |> App.withCmds [ Auth.processes newSession DetailedProcessesResponse ]
+                |> App.withCmds [ Auth.detailedImpacts newSession DetailedImpactsResponse ]
 
         ProfileResponse _ _ (RemoteData.Failure error) ->
             model

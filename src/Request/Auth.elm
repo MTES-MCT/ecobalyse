@@ -1,8 +1,8 @@
 module Request.Auth exposing
     ( askMagicLink
+    , detailedImpacts
     , listAccounts
     , login
-    , processes
     , profile
     , profileFromAccessToken
     , signup
@@ -29,6 +29,26 @@ askMagicLink session event email =
         (Encode.object [ ( "email", email |> Encode.string ) ])
 
 
+{-| Retrieve detailed impacts as a JSON string
+-}
+detailedImpacts : Session -> (WebData String -> msg) -> Cmd msg
+detailedImpacts session event =
+    BackendHttp.getWithConfig session
+        { url = session.clientUrl ++ "/processes/processes.json" }
+        event
+        Decode.string
+
+
+{-| List user accounts
+-}
+listAccounts : Session -> (WebData (List User) -> msg) -> Cmd msg
+listAccounts session event =
+    BackendHttp.get session
+        "accounts"
+        event
+        (Decode.list User.decodeUser)
+
+
 {-| Logs the user in
 -}
 login : Session -> (WebData AccessTokenData -> msg) -> String -> String -> Cmd msg
@@ -37,16 +57,6 @@ login session event email token =
         ("access/login?email=" ++ email ++ "&token=" ++ token)
         event
         User.decodeAccessTokenData
-
-
-{-| Retrieve the detailed processes list
--}
-processes : Session -> (WebData String -> msg) -> Cmd msg
-processes session event =
-    BackendHttp.getWithConfig session
-        { url = session.clientUrl ++ "/processes/processes.json" }
-        event
-        Decode.string
 
 
 {-| Retrieve user profile using auth data from current session
@@ -92,13 +102,3 @@ signup session event signupForm =
         event
         User.decodeUser
         (User.encodeSignupForm signupForm)
-
-
-{-| List user accounts
--}
-listAccounts : Session -> (WebData (List User) -> msg) -> Cmd msg
-listAccounts session event =
-    BackendHttp.get session
-        "accounts"
-        event
-        (Decode.list User.decodeUser)

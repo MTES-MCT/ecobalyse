@@ -4,6 +4,7 @@ module Data.Db exposing
     , RawJsonString
     , RawJsonStrings
     , build
+    , buildWithDetailedImpacts
     , propGetters
     , rawJsonString
     )
@@ -17,6 +18,7 @@ import Data.Object.Db as ObjectDb
 import Data.Process as Process exposing (Process)
 import Data.Textile.Db as TextileDb
 import Data.Transport as Transport exposing (Distances)
+import Dict
 import Json.Decode as Decode
 import Result.Extra as RE
 
@@ -60,11 +62,25 @@ type alias RawJsonStrings =
     Properties RawJsonString
 
 
+{-| Build a Db using non-detailed process impacts.
+-}
 build : RawJsonStrings -> Result String Db
-build json =
+build =
+    buildWithDetailedImpacts Dict.empty
+
+
+{-| Build a Db, overriding base process impacts with the provided detailed impacts.
+
+Note: overrides are applied right after processes are decoded and before any downstream
+resolution, so they always carry detailed impacts
+
+-}
+buildWithDetailedImpacts : Process.ImpactDetails -> RawJsonStrings -> Result String Db
+buildWithDetailedImpacts detailedImpacts json =
     extractJsonString json.processes
         |> Decode.decodeString (Process.decodeList Impact.decodeImpacts)
         |> Result.mapError Decode.errorToString
+        |> Result.map (Process.applyDetailedImpacts detailedImpacts)
         |> Result.andThen
             (\processes ->
                 Ok Db

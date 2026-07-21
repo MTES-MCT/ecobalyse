@@ -6,6 +6,7 @@ import Data.Impact as Impact
 import Data.Impact.Definition as Definition
 import Data.Process as Process
 import Data.Unit as Unit
+import Dict
 import Energy
 import Expect
 import Test exposing (..)
@@ -35,5 +36,33 @@ suite =
                         )
                     ]
                 )
+            , describe "applyDetailedImpacts" <|
+                case db.processes of
+                    -- Take first process as a test case
+                    process :: _ ->
+                        let
+                            -- create detailed impacts for the test process
+                            sampleDetailedImpacts =
+                                Dict.fromList
+                                    [ ( Process.idToString process.id
+                                      , Impact.empty
+                                            |> Impact.updateImpact db.definitions Definition.Cch (Unit.impact 42)
+                                      )
+                                    ]
+
+                            -- apply detailed impacts to the processes
+                            updatedProcesses =
+                                db.processes |> Process.applyDetailedImpacts sampleDetailedImpacts
+                        in
+                        [ it "should override impacts of matching processes"
+                            (updatedProcesses
+                                |> List.head
+                                |> Maybe.map (Process.getImpact Definition.Cch >> Unit.impactToFloat)
+                                |> Expect.equal (Just 42)
+                            )
+                        ]
+
+                    [] ->
+                        [ it "should have processes to test" (Expect.fail "Empty processes db") ]
             ]
         )

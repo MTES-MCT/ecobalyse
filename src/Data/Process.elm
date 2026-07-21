@@ -1,12 +1,15 @@
 module Data.Process exposing
     ( Id
+    , ImpactDetails
     , Process
     , Unit(..)
+    , applyDetailedImpacts
     , available
     , computeImpacts
     , decode
     , decodeFromId
     , decodeId
+    , decodeImpactDetails
     , decodeList
     , encode
     , encodeId
@@ -36,6 +39,7 @@ import Data.Scope as Scope exposing (Scope)
 import Data.Text as Text
 import Data.Unit as Unit
 import Data.Uuid as Uuid exposing (Uuid)
+import Dict exposing (Dict)
 import Energy exposing (Energy)
 import Json.Decode as Decode exposing (Decoder)
 import Json.Decode.Extra as DE
@@ -77,6 +81,10 @@ type ActivityName
     = ActivityName String
 
 
+type alias ImpactDetails =
+    Dict String Impacts
+
+
 type Unit
     = CubicMeter
     | Items
@@ -86,6 +94,21 @@ type Unit
     | Megajoule
     | SquareMeter
     | TonKilometer
+
+
+{-| Override processes impacts from a dict of detailed impacts, keyed by process id.
+-}
+applyDetailedImpacts : ImpactDetails -> List Process -> List Process
+applyDetailedImpacts detailedImpacts =
+    List.map
+        (\process ->
+            case Dict.get (idToString process.id) detailedImpacts of
+                Just impacts ->
+                    { process | impacts = impacts }
+
+                Nothing ->
+                    process
+        )
 
 
 {-| List processes which ids are not part of the provided list of ids
@@ -190,6 +213,15 @@ encode process =
 decodeId : Decoder Id
 decodeId =
     Decode.map Id Uuid.decoder
+
+
+decodeImpactDetails : Decoder Impact.Impacts -> Decoder ImpactDetails
+decodeImpactDetails impactsDecoder =
+    Decode.succeed Tuple.pair
+        |> Pipe.required "id" Decode.string
+        |> Pipe.required "impacts" impactsDecoder
+        |> Decode.list
+        |> Decode.map Dict.fromList
 
 
 decodeList : Decoder Impact.Impacts -> Decoder (List Process)

@@ -102,7 +102,7 @@ type Msg
     | AuthMsg Auth.Msg
     | ComponentAdminMsg ComponentAdmin.Msg
     | ComponentConfigReceived Db SessionConfig (WebData Component.Config)
-    | DetailedProcessesReceived SessionConfig (BackendHttp.WebData String)
+    | DetailedImpactsReceived SessionConfig (BackendHttp.WebData String)
     | EditorialMsg Editorial.Msg
     | ExploreMsg Explore.Msg
     | FoodBuilderMsg FoodBuilder.Msg
@@ -347,7 +347,7 @@ updateInitializing initMsg model =
                 ( { model | state = Loaded session LoadingPage }
                 , Cmd.batch
                     [ if Session.isAuthenticated session then
-                        Request.Auth.processes session (DetailedProcessesReceived sessionConfig)
+                        Request.Auth.detailedImpacts session (DetailedImpactsReceived sessionConfig)
 
                       else
                         Cmd.none
@@ -480,20 +480,19 @@ update rawMsg ({ state } as model) =
                         "Impossible de recharger la configuration des composants\u{00A0}: "
                             ++ RequestCommon.errorToString error
 
-                -- Detailed processes
-                ( DetailedProcessesReceived sessionConfig (RemoteData.Success rawDetailedProcessesJson), currentPage ) ->
+                -- Detailed impacts
+                ( DetailedImpactsReceived sessionConfig (RemoteData.Success rawDetailedImpactsJson), currentPage ) ->
                     let
                         newSession =
-                            -- When detailed processes are received, rebuild the entire Db using them
-                            session
-                                |> Session.updateDbProcesses rawDetailedProcessesJson
+                            -- When detailed impacts are received, enrich session processes impacts with them
+                            session |> Session.updateDbDetailedImpacts rawDetailedImpactsJson
                     in
                     ( { model | state = Loaded newSession currentPage }
                     , ComponentConfig.decode newSession.db
                         |> Http.get "/data/components/config.json" (ComponentConfigReceived newSession.db sessionConfig)
                     )
 
-                ( DetailedProcessesReceived _ (RemoteData.Failure _), _ ) ->
+                ( DetailedImpactsReceived _ (RemoteData.Failure _), _ ) ->
                     notifyError model "Erreur" <|
                         "Impossible de charger les impacts détaillés; les impacts agrégés seront utilisés."
 

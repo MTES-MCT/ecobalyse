@@ -7,7 +7,7 @@
  */
 require("dotenv").config();
 const fs = require("fs");
-const { dataFiles } = require("../lib");
+const { dataFiles, getDetailedProcessesAsString } = require("../lib");
 
 // Env vars
 const { NODE_ENV } = process.env;
@@ -31,9 +31,15 @@ function parseAndValidate(path, idKeyName = "id", pathsToMerge = []) {
       process.exit(1);
     }
   }
-  // Adapts a standard JSON string to what is expected to be the format
-  // used in Elm's template strings (`"""{}"""`).
-  return JSON.stringify(raw).replaceAll("\\", "\\\\");
+  return escapeForElmTemplate(JSON.stringify(raw));
+}
+
+/**
+ * Adapts a standard JSON string to what is expected to be the format
+ * used in Elm's template strings (`"""{}"""`).
+ */
+function escapeForElmTemplate(jsonString) {
+  return jsonString.replaceAll("\\", "\\\\");
 }
 
 /**
@@ -56,7 +62,11 @@ const elmWithFixtures = elmTemplate
   .replace("%impactsJson%", parseAndValidate("public/data/impacts.json"))
   .replace(
     "%processesJson%",
-    parseAndValidate(NODE_ENV === "test" ? dataFiles.detailed : dataFiles.noDetails, "id"),
+    // In test mode, embed the full processes with detailed impacts merged in (the detailed
+    // file only holds a slim `{ id, impacts }` list); otherwise embed the base processes.
+    NODE_ENV === "test"
+      ? escapeForElmTemplate(getDetailedProcessesAsString())
+      : parseAndValidate(dataFiles.noDetails, "id"),
   )
   .replace("%transportsJson%", parseAndValidate("public/data/transports.json"))
   // Food JSON data

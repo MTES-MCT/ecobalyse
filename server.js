@@ -15,7 +15,12 @@ const { setupSentry } = require("./lib/sentry"); // MUST be required BEFORE expr
 const { createMatomoTracker } = require("./lib/matomo");
 const { createPlausibleTracker } = require("./lib/plausible");
 
-const { getProcessesAsString, filterLegacyFood1Paths } = require("./lib");
+const {
+  filterLegacyFood1Paths,
+  getDetailedImpactsAsString,
+  getDetailedProcessesAsString,
+  getProcessesAsString,
+} = require("./lib");
 const express = require("express");
 
 const expressHost = "0.0.0.0";
@@ -127,29 +132,42 @@ function processOpenApi(contents, versionNumber) {
 // concat the arrays and the stringify again the whole thing
 // Elm decoders should handle the differences between the two formats
 
-const processesImpacts = getProcessesAsString((detailed = true));
-
 const processes = getProcessesAsString((detailed = false));
+const detailedImpacts = getDetailedImpactsAsString();
+const detailedProcesses = getDetailedProcessesAsString();
 
-const getProcesses = async (headers) => {
-  let isValidToken = false;
+// Internal auth backend token validation
+const hasValidToken = async (headers) => {
   const token = extractTokenFromHeaders(headers);
-
-  if (NODE_ENV !== "test" && token) {
+  if (!token) {
+    return false;
+  } else {
     try {
       const tokenRes = await fetch(`${INTERNAL_BACKEND_URL}/api/tokens/validate`, {
         method: "POST",
         body: JSON.stringify({ token }),
       });
-      isValidToken = tokenRes.status == 201;
+      return tokenRes.status == 201;
     } catch (error) {
       console.error("Error validating token from the auth backend", error);
-      isValidToken = false;
+      return false;
     }
   }
+};
 
-  if (NODE_ENV === "test" || isValidToken) {
-    return processesImpacts;
+// Note: detailed impacts are always available in tests, otherwise only when authenticated
+const getDetailedImpacts = async (headers) => {
+  if (NODE_ENV === "test" || (await hasValidToken(headers))) {
+    return detailedImpacts;
+  } else {
+    return "[]";
+  }
+};
+
+// Full processes injected into the Elm API worker: detailed (merged) when entitled, base otherwise.
+const getProcesses = async (headers) => {
+  if (NODE_ENV === "test" || (await hasValidToken(headers))) {
+    return detailedProcesses;
   } else {
     return processes;
   }
@@ -160,7 +178,7 @@ app.get("/processes/processes.json", async (req, res) => {
   return res
     .status(200)
     .contentType("text/plain")
-    .send(JSON.stringify(await getProcesses(req.headers)));
+    .send(JSON.stringify(await getDetailedImpacts(req.headers)));
 });
 
 const elmApp = Elm.Server.init();
