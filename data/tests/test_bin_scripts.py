@@ -64,7 +64,7 @@ def test_export_bw_db(mocker):
         export_bw_db.simapro(fp, "")
         simapro_export.export_db_to_simapro.assert_called_once()
     with tempfile.NamedTemporaryFile(delete=False) as fp:
-        export_bw_db.ecospold1(["Ecobalyse"], fp.name)
+        export_bw_db.ecospold1(["Ecobalyse_custom_lci"], fp.name)
         ecospold_export.export_db_to_ecospold.assert_called_once()
 
 
