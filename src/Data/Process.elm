@@ -3,7 +3,7 @@ module Data.Process exposing
     , ImpactDetails
     , Process
     , Unit(..)
-    , applyDetailedImpacts
+    , applyImpactDetails
     , available
     , computeImpacts
     , decode
@@ -100,8 +100,8 @@ type Unit
 
 {-| Override processes impacts from a dict of detailed impacts, keyed by process id.
 -}
-applyDetailedImpacts : ImpactDetails -> List Process -> List Process
-applyDetailedImpacts detailedImpacts =
+applyImpactDetails : ImpactDetails -> List Process -> List Process
+applyImpactDetails detailedImpacts =
     List.map
         (\process ->
             case Dict.get (idToString process.id) detailedImpacts of
@@ -115,7 +115,7 @@ applyDetailedImpacts detailedImpacts =
 
 {-| Ensure detailed impacts ids exactly match the base processes ids.
 
-An empty detailed impacts dict skips validation, which is the case for a standard Db build.
+Note: an empty ImpactDetails skips validation, which is the case for a base, non-detailed Db build.
 
 -}
 validateImpactDetails : ImpactDetails -> List Process -> Result String (List Process)
@@ -125,17 +125,33 @@ validateImpactDetails detailedImpacts processes =
 
     else
         let
-            processIds =
-                processes |> List.map (idToString << .id) |> Set.fromList
-
-            impactDetailsIds =
-                detailedImpacts |> Dict.keys |> Set.fromList
+            ( processIds, impactDetailsIds ) =
+                ( processes |> List.map (idToString << .id) |> Set.fromList
+                , detailedImpacts |> Dict.keys |> Set.fromList
+                )
         in
         if processIds == impactDetailsIds then
             Ok processes
 
         else
-            Err <| mismatchedDetailedImpactsError processIds impactDetailsIds
+            [ if Set.isEmpty (Set.diff processIds impactDetailsIds) then
+                Nothing
+
+              else
+                Just <|
+                    "Impacts détaillés manquants pour les procédés suivants\u{00A0}:\n"
+                        ++ (Set.diff processIds impactDetailsIds |> Set.toList |> String.join ",\n  ")
+            , if Set.isEmpty (Set.diff impactDetailsIds processIds) then
+                Nothing
+
+              else
+                Just <|
+                    "Impacts détaillés inconnus pour les procédés suivants\u{00A0}:\n"
+                        ++ (Set.diff impactDetailsIds processIds |> Set.toList |> String.join ",\n  ")
+            ]
+                |> List.filterMap identity
+                |> String.join ". "
+                |> Err
 
 
 {-| List processes which ids are not part of the provided list of ids
@@ -274,27 +290,6 @@ idFromString =
 idToString : Id -> String
 idToString (Id uuid) =
     Uuid.toString uuid
-
-
-mismatchedDetailedImpactsError : Set String -> Set String -> String
-mismatchedDetailedImpactsError processIds detailedImpactsIds =
-    [ if Set.isEmpty (Set.diff processIds detailedImpactsIds) then
-        Nothing
-
-      else
-        Just <|
-            "Impacts détaillés manquants pour les procédés suivants\u{00A0}:\n"
-                ++ (Set.diff processIds detailedImpactsIds |> Set.toList |> String.join ",\n  ")
-    , if Set.isEmpty (Set.diff detailedImpactsIds processIds) then
-        Nothing
-
-      else
-        Just <|
-            "Impacts détaillés inconnus pour les procédés suivants\u{00A0}:\n"
-                ++ (Set.diff detailedImpactsIds processIds |> Set.toList |> String.join ",\n  ")
-    ]
-        |> List.filterMap identity
-        |> String.join ". "
 
 
 findById : Id -> List Process -> Result String Process

@@ -10,7 +10,7 @@ import Dict
 import Energy
 import Expect
 import Test exposing (..)
-import TestUtils exposing (expectResultErrorContains, it, suiteWithDb)
+import TestUtils exposing (expectResultErrorContains, it, suiteFromResult, suiteWithDb)
 
 
 suite : Test
@@ -36,69 +36,64 @@ suite =
                         )
                     ]
                 )
-            , describe "applyDetailedImpacts" <|
-                case db.processes of
-                    -- Take first process as a test case
-                    process :: _ ->
-                        let
-                            -- create detailed impacts for the test process
-                            sampleDetailedImpacts =
-                                Dict.fromList
-                                    [ ( Process.idToString process.id
-                                      , Impact.empty |> Impact.updateImpact db.definitions Definition.Cch (Unit.impact 42)
-                                      )
-                                    ]
+            , suiteFromResult "applyImpactDetails"
+                (db.processes |> List.head |> Result.fromMaybe "Empty processes db")
+                (\testProcess ->
+                    let
+                        -- create detailed impacts for the test process
+                        sampleDetailedImpacts =
+                            Dict.fromList
+                                [ ( Process.idToString testProcess.id
+                                  , Impact.empty |> Impact.updateImpact db.definitions Definition.Cch (Unit.impact 42)
+                                  )
+                                ]
 
-                            -- apply detailed impacts to the processes
-                            updatedProcesses =
-                                db.processes |> Process.applyDetailedImpacts sampleDetailedImpacts
-                        in
-                        [ it "should override impacts of matching processes"
-                            (updatedProcesses
-                                |> List.head
-                                |> Maybe.map (Process.getImpact Definition.Cch >> Unit.impactToFloat)
-                                |> Expect.equal (Just 42)
-                            )
-                        ]
+                        -- apply detailed impacts to the processes
+                        updatedProcesses =
+                            db.processes |> Process.applyImpactDetails sampleDetailedImpacts
+                    in
+                    [ it "should override impacts of matching processes"
+                        (updatedProcesses
+                            |> List.head
+                            |> Maybe.map (Process.getImpact Definition.Cch >> Unit.impactToFloat)
+                            |> Expect.equal (Just 42)
+                        )
+                    ]
+                )
+            , suiteFromResult "validateImpactDetails"
+                (db.processes |> List.head |> Result.fromMaybe "Empty processes db")
+                (\testProcess ->
+                    let
+                        processId =
+                            Process.idToString testProcess.id
 
-                    [] ->
-                        [ it "should have processes to test" (Expect.fail "Empty processes db") ]
-            , describe "validateImpactDetails" <|
-                case db.processes of
-                    process :: _ ->
-                        let
-                            processId =
-                                Process.idToString process.id
-
-                            matchingDetailedImpacts =
-                                Dict.fromList
+                        matchingDetailedImpacts =
+                            Dict.fromList
+                                [ ( processId
+                                  , Impact.empty |> Impact.updateImpact db.definitions Definition.Cch (Unit.impact 42)
+                                  )
+                                ]
+                    in
+                    [ it "should reject detailed impacts missing base process ids"
+                        (db.processes
+                            |> Process.validateImpactDetails matchingDetailedImpacts
+                            |> expectResultErrorContains "Impacts détaillés manquants pour les procédés suivants"
+                        )
+                    , it "should reject detailed impacts with unknown ids"
+                        (db.processes
+                            |> Process.validateImpactDetails
+                                (Dict.fromList
                                     [ ( processId
                                       , Impact.empty |> Impact.updateImpact db.definitions Definition.Cch (Unit.impact 42)
                                       )
+                                    , ( "00000000-0000-0000-0000-000000000099"
+                                      , Impact.empty |> Impact.updateImpact db.definitions Definition.Cch (Unit.impact 99)
+                                      )
                                     ]
-                        in
-                        [ it "should reject detailed impacts missing base process ids"
-                            (db.processes
-                                |> Process.validateImpactDetails matchingDetailedImpacts
-                                |> expectResultErrorContains "Impacts détaillés manquants pour les procédés suivants"
-                            )
-                        , it "should reject detailed impacts with unknown ids"
-                            (db.processes
-                                |> Process.validateImpactDetails
-                                    (Dict.fromList
-                                        [ ( processId
-                                          , Impact.empty |> Impact.updateImpact db.definitions Definition.Cch (Unit.impact 42)
-                                          )
-                                        , ( "00000000-0000-0000-0000-000000000099"
-                                          , Impact.empty |> Impact.updateImpact db.definitions Definition.Cch (Unit.impact 99)
-                                          )
-                                        ]
-                                    )
-                                |> expectResultErrorContains "Impacts détaillés inconnus pour les procédés suivants"
-                            )
-                        ]
-
-                    [] ->
-                        [ it "should have processes to test" (Expect.fail "Empty processes db") ]
+                                )
+                            |> expectResultErrorContains "Impacts détaillés inconnus pour les procédés suivants"
+                        )
+                    ]
+                )
             ]
         )

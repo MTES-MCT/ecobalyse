@@ -81,7 +81,7 @@ buildWithDetailedImpacts detailedImpacts json =
         |> Decode.decodeString (Process.decodeList Impact.decodeImpacts)
         |> Result.mapError Decode.errorToString
         |> Result.andThen (Process.validateImpactDetails detailedImpacts)
-        |> Result.map (Process.applyDetailedImpacts detailedImpacts)
+        |> Result.map (Process.applyImpactDetails detailedImpacts)
         |> Result.andThen
             (\processes ->
                 Ok Db
