@@ -8,6 +8,7 @@ on:
       - master
   pull_request:
     paths:
+        - 'public/data/processes.json'
         - 'public/data/processes_impacts.json'
         - 'public/data/impacts.json'
         - 'bin/check_ingredient_hierarchy.py'
@@ -37,9 +38,8 @@ jobs:
           version: "latest"
           python-version: "3.12"
 
-      # FIXME: temporary disabled until we have a way to generate impact details
-      # - name: Run ingredient hierarchy check
-      #   run: uv run bin/check_ingredient_hierarchy.py
+      - name: Run ingredient hierarchy check
+        run: uv run bin/check_ingredient_hierarchy.py
 
       - name: Upload report and plots
         uses: actions/upload-artifact@v4

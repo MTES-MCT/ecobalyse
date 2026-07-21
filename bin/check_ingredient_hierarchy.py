@@ -29,7 +29,8 @@ import pandas as pd
 # Constants
 
 PROJECT_ROOT = pathlib.Path(__file__).parent.parent.resolve()
-PROCESSES_PATH = PROJECT_ROOT / "public" / "data" / "processes_impacts.json"
+PROCESSES_PATH = PROJECT_ROOT / "public" / "data" / "processes.json"
+DETAILED_IMPACTS_PATH = PROJECT_ROOT / "public" / "data" / "processes_impacts.json"
 IMPACTS_PATH = PROJECT_ROOT / "public" / "data" / "impacts.json"
 OUTPUT_DIR = PROJECT_ROOT / "output"
 PLOTS_DIR = OUTPUT_DIR / "ingredient_plots"
@@ -107,6 +108,19 @@ logger = logging.getLogger(__name__)
 def load_json(path):
     with open(path) as f:
         return json.load(f)
+
+
+def merge_detailed_impacts(base_processes, detailed_impacts):
+    """Merge slim `{ id, impacts }` entries onto base process metadata."""
+    impacts_by_id = {entry["id"]: entry["impacts"] for entry in detailed_impacts}
+    merged_processes = []
+    for process in base_processes:
+        process_id = process["id"]
+        if process_id in impacts_by_id:
+            merged_processes.append({**process, "impacts": impacts_by_id[process_id]})
+        else:
+            merged_processes.append(process)
+    return merged_processes
 
 
 def parse_variant_type(alias: str, base_ingredient: str) -> str:
@@ -520,8 +534,10 @@ def print_summary(ingredients_by_base, violations):
 
 
 def main():
-    logger.info("Loading ingredients from processes_impacts.json...")
-    processes = load_json(PROCESSES_PATH)
+    logger.info("Loading processes and detailed impacts...")
+    base_processes = load_json(PROCESSES_PATH)
+    detailed_impacts = load_json(DETAILED_IMPACTS_PATH)
+    processes = merge_detailed_impacts(base_processes, detailed_impacts)
     ingredients = [
         proc
         for proc in processes
