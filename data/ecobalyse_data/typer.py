@@ -1,4 +1,4 @@
-from typing import List, Optional
+from typing import List
 
 import bw2data
 import typer
@@ -8,7 +8,7 @@ from common.impacts import impacts as impacts_py
 from common.impacts import main_method
 
 
-def bw_databases_validation(values: Optional[List[str]]):
+def bw_databases_validation(values: List[str] | None):
     if values:
         available_bw_databases = ", ".join(bw2data.databases)
 
@@ -21,14 +21,14 @@ def bw_databases_validation(values: Optional[List[str]]):
     return values
 
 
-def bw_database_validation(value: Optional[str]):
+def bw_database_validation(value: str | None):
     if value:
         return bw_databases_validation([value])[0]
 
     return value
 
 
-def ecobalyse_impact_validation(values: Optional[List[str]]):
+def ecobalyse_impact_validation(values: List[str] | None):
     if values:
         for value in values:
             if value not in IMPACTS_JSON:
@@ -40,7 +40,7 @@ def ecobalyse_impact_validation(values: Optional[List[str]]):
     return values
 
 
-def method_impact_validation(value: Optional[str]):
+def method_impact_validation(value: str | None):
     if value and value not in impacts_py:
         available_impacts = ", ".join(impacts_py.keys())
         raise typer.BadParameter(
