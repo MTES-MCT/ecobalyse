@@ -25,7 +25,7 @@ app = typer.Typer(no_args_is_help=True)
 
 @app.command()
 def simapro(
-    output_file: Annotated[
+    output_filename: Annotated[
         Optional[Path],
         typer.Argument(help="The output CSV file."),
     ] = Path("simapro_export.csv"),
@@ -58,7 +58,7 @@ def simapro(
 
     simapro_export.export_db_to_simapro(
         db,
-        output_file,
+        output_filename,
         simapro_units_path=filepath_simapro_units,
         simapro_compartments_path=filepath_simapro_compartments,
         simapro_biosphere_path=simapro_biosphere_path,
@@ -77,7 +77,7 @@ def ecospold1(
             help="Brightway database(s) to export (merged into one file).",
         ),
     ] = None,
-    output_file: Annotated[
+    output_filename: Annotated[
         Optional[Path],
         typer.Option(
             "--output", "-o", help="Output XML file (default: <db_names>.XML)."
@@ -115,23 +115,23 @@ def ecospold1(
             )
             bw_activities.append(bw_activity)
 
-        logger.info(f"Exporting {len(bw_activities)} activities to {output_file}")
+        logger.info(f"Exporting {len(bw_activities)} activities to {output_filename}")
 
-        if output_file is None:
-            output_file = Path("Ecoplus.XML")
+        if output_filename is None:
+            output_filename = Path("Ecoplus.XML")
 
-        ecospold_export.export_db_to_ecospold(bw_activities, output_file)
+        ecospold_export.export_db_to_ecospold(bw_activities, output_filename)
         return
 
     if not db_names:
         logger.error("Provide database name(s), or use --activities.")
         raise typer.Exit(code=1)
 
-    if output_file is None:
-        output_file = Path(f"{'_'.join(n.lower() for n in db_names)}.XML")
+    if output_filename is None:
+        output_filename = Path(f"{'_'.join(n.lower() for n in db_names)}.XML")
 
     activities = [act for name in db_names for act in bw2data.Database(name)]
-    ecospold_export.export_db_to_ecospold(activities, output_file)
+    ecospold_export.export_db_to_ecospold(activities, output_filename)
 
 
 if __name__ == "__main__":
