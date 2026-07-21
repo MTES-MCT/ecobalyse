@@ -33,11 +33,6 @@
         "confidence": 1.0,
         "rule": "tomato found in density.csv"
       },
-      "rawToCookedRatio": 0.856,
-      "rawToCookedRatioMatch": {
-        "confidence": 1.0,
-        "rule": "vegetable default from food_type_cooked_to_raw.csv"
-      },
       "scenario": "organic",
       "scopes": [
         "food",
@@ -74,11 +69,6 @@
         "confidence": 0.95,
         "rule": "Matched with tomato in density.csv"
       },
-      "rawToCookedRatio": 0.856,
-      "rawToCookedRatioMatch": {
-        "confidence": 1.0,
-        "rule": "vegetable default from food_type_cooked_to_raw.csv"
-      },
       "scenario": "organic",
       "scopes": [
         "food",
@@ -114,11 +104,6 @@
       "ingredientDensityMatch": {
         "confidence": 1.0,
         "rule": "cucumber found in density.csv"
-      },
-      "rawToCookedRatio": 0.856,
-      "rawToCookedRatioMatch": {
-        "confidence": 1.0,
-        "rule": "vegetable default from food_type_cooked_to_raw.csv"
       },
       "scenario": "organic",
       "scopes": [

@@ -30,11 +30,6 @@
         "confidence": 1.0,
         "rule": "egg found in density.csv"
       },
-      "rawToCookedRatio": 0.974,
-      "rawToCookedRatioMatch": {
-        "confidence": 1.0,
-        "rule": "Matched with egg in cooked_to_raw.csv"
-      },
       "scenario": "import",
       "scopes": [
         "food",
@@ -68,11 +63,6 @@
         "confidence": 1.0,
         "rule": "egg found in density.csv"
       },
-      "rawToCookedRatio": 0.974,
-      "rawToCookedRatioMatch": {
-        "confidence": 1.0,
-        "rule": "Matched with egg in cooked_to_raw.csv"
-      },
       "scenario": "import",
       "scopes": [
         "food",
@@ -105,11 +95,6 @@
       "ingredientDensityMatch": {
         "confidence": 1.0,
         "rule": "egg found in density.csv"
-      },
-      "rawToCookedRatio": 0.974,
-      "rawToCookedRatioMatch": {
-        "confidence": 1.0,
-        "rule": "Matched with egg in cooked_to_raw.csv"
       },
       "scenario": "import",
       "scopes": [

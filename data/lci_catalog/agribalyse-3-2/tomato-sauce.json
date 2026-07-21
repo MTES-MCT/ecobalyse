@@ -19,7 +19,6 @@
         "vegetable_processed"
       ],
       "ingredientDensity": 1.0,
-      "rawToCookedRatio": 0.856,
       "scenario": "reference",
       "scopes": [
         "food",

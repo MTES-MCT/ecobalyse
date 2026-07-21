@@ -20,7 +20,6 @@
         "grain_raw"
       ],
       "ingredientDensity": 0.24,
-      "rawToCookedRatio": 2.259,
       "scenario": "reference",
       "scopes": [
         "food",
@@ -42,7 +41,6 @@
         "organic"
       ],
       "ingredientDensity": 0.24,
-      "rawToCookedRatio": 2.259,
       "scenario": "organic",
       "scopes": [
         "food",

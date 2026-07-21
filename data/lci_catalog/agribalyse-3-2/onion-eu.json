@@ -20,7 +20,6 @@
         "vegetable_fresh"
       ],
       "ingredientDensity": 0.6195,
-      "rawToCookedRatio": 0.856,
       "scenario": "import",
       "scopes": [
         "food",
@@ -51,11 +50,6 @@
       "ingredientDensityMatch": {
         "confidence": 1.0,
         "rule": "vegetable default from food_type_density.csv"
-      },
-      "rawToCookedRatio": 0.856,
-      "rawToCookedRatioMatch": {
-        "confidence": 1.0,
-        "rule": "vegetable default from food_type_cooked_to_raw.csv"
       },
       "scenario": "import",
       "scopes": [
@@ -92,11 +86,6 @@
         "confidence": 0.95,
         "rule": "Matched with onion in density.csv"
       },
-      "rawToCookedRatio": 0.856,
-      "rawToCookedRatioMatch": {
-        "confidence": 0.95,
-        "rule": "Matched with onion in cooked_to_raw.csv"
-      },
       "scenario": "import",
       "scopes": [
         "food",
@@ -131,11 +120,6 @@
       "ingredientDensityMatch": {
         "confidence": 1.0,
         "rule": "vegetable default from food_type_density.csv"
-      },
-      "rawToCookedRatio": 0.856,
-      "rawToCookedRatioMatch": {
-        "confidence": 1.0,
-        "rule": "vegetable default from food_type_cooked_to_raw.csv"
       },
       "scenario": "import",
       "scopes": [

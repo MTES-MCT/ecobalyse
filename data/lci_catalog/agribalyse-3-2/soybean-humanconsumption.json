@@ -31,11 +31,6 @@
         "confidence": 1.0,
         "rule": "Soybean found in fao_density.csv"
       },
-      "rawToCookedRatio": 2.259,
-      "rawToCookedRatioMatch": {
-        "confidence": 1.0,
-        "rule": "Matched with soybean in cooked_to_raw.csv"
-      },
       "scenario": "reference",
       "scopes": [
         "food",
