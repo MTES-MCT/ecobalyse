@@ -1119,17 +1119,6 @@ view session model =
     )
 
 
-productionItemCategoryName : Component.ProductionItem -> String
-productionItemCategoryName productionItem =
-    -- TODO: ensure everybody is onboard with these "controversial" labels
-    case productionItem of
-        Component.ComponentItem _ ->
-            "Composant"
-
-        Component.MaterialItem _ ->
-            "Matière"
-
-
 modalView : Session -> Model -> Modal -> Html Msg
 modalView session ({ modals } as model) modal =
     let
@@ -1150,7 +1139,7 @@ modalView session ({ modals } as model) modal =
                 , placeholderText = ComponentView.scopeLabels labelsConfig |> .search
                 , title = ComponentView.scopeLabels labelsConfig |> .select
                 , toLabel = Component.productionItemToLabel
-                , toCategory = productionItemCategoryName
+                , toCategory = always ""
                 }
 
         ComparatorModal ->
