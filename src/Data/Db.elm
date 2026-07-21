@@ -80,6 +80,7 @@ buildWithDetailedImpacts detailedImpacts json =
     extractJsonString json.processes
         |> Decode.decodeString (Process.decodeList Impact.decodeImpacts)
         |> Result.mapError Decode.errorToString
+        |> Result.andThen (Process.validateImpactDetails detailedImpacts)
         |> Result.map (Process.applyDetailedImpacts detailedImpacts)
         |> Result.andThen
             (\processes ->

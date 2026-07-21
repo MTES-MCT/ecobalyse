@@ -27,6 +27,7 @@ module Data.Process exposing
     , listByCategory
     , unitLabel
     , unitToString
+    , validateImpactDetails
     )
 
 import Data.Common.DecodeUtils as DU
@@ -46,6 +47,7 @@ import Json.Decode.Extra as DE
 import Json.Decode.Pipeline as Pipe
 import Json.Encode as Encode
 import Json.Encode.Extra as EncodeExtra
+import Set exposing (Set)
 
 
 type Id
@@ -109,6 +111,31 @@ applyDetailedImpacts detailedImpacts =
                 Nothing ->
                     process
         )
+
+
+{-| Ensure detailed impacts ids exactly match the base processes ids.
+
+An empty detailed impacts dict skips validation, which is the case for a standard Db build.
+
+-}
+validateImpactDetails : ImpactDetails -> List Process -> Result String (List Process)
+validateImpactDetails detailedImpacts processes =
+    if Dict.isEmpty detailedImpacts then
+        Ok processes
+
+    else
+        let
+            processIds =
+                processes |> List.map (idToString << .id) |> Set.fromList
+
+            impactDetailsIds =
+                detailedImpacts |> Dict.keys |> Set.fromList
+        in
+        if processIds == impactDetailsIds then
+            Ok processes
+
+        else
+            Err <| mismatchedDetailedImpactsError processIds impactDetailsIds
 
 
 {-| List processes which ids are not part of the provided list of ids
@@ -247,6 +274,27 @@ idFromString =
 idToString : Id -> String
 idToString (Id uuid) =
     Uuid.toString uuid
+
+
+mismatchedDetailedImpactsError : Set String -> Set String -> String
+mismatchedDetailedImpactsError processIds detailedImpactsIds =
+    [ if Set.isEmpty (Set.diff processIds detailedImpactsIds) then
+        Nothing
+
+      else
+        Just <|
+            "Impacts détaillés manquants pour les procédés suivants\u{00A0}:\n"
+                ++ (Set.diff processIds detailedImpactsIds |> Set.toList |> String.join ",\n  ")
+    , if Set.isEmpty (Set.diff detailedImpactsIds processIds) then
+        Nothing
+
+      else
+        Just <|
+            "Impacts détaillés inconnus pour les procédés suivants\u{00A0}:\n"
+                ++ (Set.diff detailedImpactsIds processIds |> Set.toList |> String.join ",\n  ")
+    ]
+        |> List.filterMap identity
+        |> String.join ". "
 
 
 findById : Id -> List Process -> Result String Process
