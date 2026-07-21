@@ -103,7 +103,7 @@ def ecospold1(
 
         bw_activities = []
         for activity in activities:
-            if activity.get("impacts"):
+            if activity.get("source") == "Ecobalyse_manual_lcia":
                 logger.debug(
                     f"Skipping '{activity.get('displayName', activity.get('activityName'))}' (hardcoded impacts)"
                 )
