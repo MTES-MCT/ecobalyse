@@ -1000,6 +1000,7 @@ simulatorFormView session model ({ inputs } as simulator) =
         , docsUrl = Just <| Gitbook.publicUrlFromPath Gitbook.TextileTrims
         , explorerRoute = Just (Route.Explore Scope.Textile (Dataset.Components Scope.Textile Nothing))
         , impact = model.impact
+        , labels = ComponentView.scopeLabels { context = ComponentView.TextileTrimsContext, scope = Scope.Textile }
         , lifeCycle =
             Component.emptyQuery
                 |> Component.setQueryItems inputs.trims

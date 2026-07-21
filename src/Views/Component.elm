@@ -68,6 +68,7 @@ type alias Config db msg =
     , docsUrl : Maybe String
     , explorerRoute : Maybe Route
     , impact : Definition
+    , labels : Labels
     , lifeCycle : Result String LifeCycle
     , noOp : msg
     , openEditElementModal : Component -> TargetElement -> msg
@@ -130,7 +131,7 @@ type alias Labels =
 
 {-| Scoped label. TODO: we might eventually want to make these configurable.
 -}
-scopeLabels : { config | context : Context, scope : Scope } -> Labels
+scopeLabels : { context : Context, scope : Scope } -> Labels
 scopeLabels { context, scope } =
     case ( context, scope ) of
         ( GenericContext, Scope.Generic Scope.Food2 ) ->
@@ -208,7 +209,7 @@ addProductionItemButton ({ db } as config) =
         , onClick <| config.openSelectProductionItem autocompleteState
         ]
         [ Icon.plus
-        , scopeLabels config |> .add |> text
+        , text config.labels.add
         ]
 
 
@@ -321,7 +322,7 @@ componentView config itemIndex ({ component, elements, quantity } as expandedIte
                         [ th [] []
                         , th [ class "pb-0 fs-8 fw-normal text-muted" ] [ text "Quantité" ]
                         , th [ class "pb-0 fs-8 fw-normal text-muted", colspan 2 ]
-                            [ span [] [ scopeLabels config |> .label |> text ] ]
+                            [ span [] [ text config.labels.label ] ]
                         , th [ colspan 3 ] []
                         ]
 
@@ -362,7 +363,7 @@ componentView config itemIndex ({ component, elements, quantity } as expandedIte
                                         [ type_ "text"
                                         , class "form-control"
                                         , onInput (config.updateItemName ( component, itemIndex ))
-                                        , scopeLabels config |> .label |> placeholder
+                                        , placeholder config.labels.label
                                         , value component.name
                                         ]
                                         []
@@ -491,7 +492,7 @@ lifeCycleView ({ db, docsUrl, explorerRoute, impact, query, scope } as config) l
         [ div [ class "card shadow-sm" ]
             [ div [ class "card-header d-flex align-items-center justify-content-between gap-2" ]
                 [ h2 [ class "h5 mb-0" ]
-                    [ scopeLabels config |> .heading |> text
+                    [ text config.labels.heading
                     , case explorerRoute of
                         Just route ->
                             Link.smallPillExternal
@@ -523,7 +524,7 @@ lifeCycleView ({ db, docsUrl, explorerRoute, impact, query, scope } as config) l
                 ]
             , if List.isEmpty query.items then
                 div [ class "card-body" ]
-                    [ scopeLabels config |> .empty |> text
+                    [ text config.labels.empty
                     ]
 
               else
@@ -540,7 +541,7 @@ lifeCycleView ({ db, docsUrl, explorerRoute, impact, query, scope } as config) l
                                             [ th [] []
                                             , th [ class "ps-0", Attr.scope "col" ] [ text "Quantité" ]
                                             , th [ Attr.scope "col", colspan 2 ]
-                                                [ scopeLabels config |> .name |> text
+                                                [ text config.labels.name
                                                 ]
                                             , th [ Attr.scope "col" ] [ text "Masse" ]
                                             , th [ Attr.scope "col" ] [ text "Impact" ]

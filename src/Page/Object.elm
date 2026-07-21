@@ -908,6 +908,7 @@ editorConfig session ({ scope } as model) =
     , docsUrl = Nothing
     , explorerRoute = Just (Route.Explore scope (Dataset.Components scope Nothing))
     , impact = model.impact
+    , labels = ComponentView.scopeLabels { context = ComponentView.GenericContext, scope = scope }
     , noOp = NoOp
     , openEditElementModal = \c ti -> AppendModal (EditElementModal c ti)
     , openSelectConsumptionModal = SelectConsumptionModal >> List.singleton >> SetModals
@@ -1132,10 +1133,11 @@ productionItemCategoryName productionItem =
 modalView : Session -> Model -> Modal -> Html Msg
 modalView session ({ modals } as model) modal =
     let
-        labelsConfig =
-            { context = ComponentView.GenericContext
-            , scope = model.scope
-            }
+        scopeLabels =
+            ComponentView.scopeLabels
+                { context = ComponentView.GenericContext
+                , scope = model.scope
+                }
     in
     case modal of
         AddProductionItemModal autocompleteState ->
@@ -1146,8 +1148,8 @@ modalView session ({ modals } as model) modal =
                 , noOp = NoOp
                 , onAutocomplete = OnAutocompleteAddProductionItem
                 , onAutocompleteSelect = OnAutocompleteSelectProductionItem
-                , placeholderText = ComponentView.scopeLabels labelsConfig |> .search
-                , title = ComponentView.scopeLabels labelsConfig |> .select
+                , placeholderText = scopeLabels.search
+                , title = scopeLabels.select
                 , toLabel = Component.productionItemToLabel
                 , toCategory = productionItemCategoryName
                 }
@@ -1241,8 +1243,8 @@ modalView session ({ modals } as model) modal =
                 ( placeholderText, title ) =
                     case category of
                         Category.Material ->
-                            ( ComponentView.scopeLabels labelsConfig |> .search
-                            , ComponentView.scopeLabels labelsConfig |> .select
+                            ( scopeLabels.search
+                            , scopeLabels.select
                             )
 
                         Category.Transform ->
