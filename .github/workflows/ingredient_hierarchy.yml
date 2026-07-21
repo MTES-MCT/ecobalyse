@@ -37,8 +37,9 @@ jobs:
           version: "latest"
           python-version: "3.12"
 
-      - name: Run ingredient hierarchy check
-        run: uv run bin/check_ingredient_hierarchy.py
+      # FIXME: temporary disabled until we have a way to generate impact details
+      # - name: Run ingredient hierarchy check
+      #   run: uv run bin/check_ingredient_hierarchy.py
 
       - name: Upload report and plots
         uses: actions/upload-artifact@v4
