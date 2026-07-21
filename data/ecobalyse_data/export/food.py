@@ -288,31 +288,34 @@ def activity_to_ingredients(eco_activity: dict, es_by_alias: dict) -> List[Ingre
                 plot_size=_neg("plotSize"),
             )
 
-        ingredients.append(
-            Ingredient(
-                alias=food_metadata["alias"],
-                base_ingredient=infer_base_ingredient(food_metadata["alias"]),
-                categories=food_metadata.get("ingredientCategories", []),
-                crop_group=food_metadata.get("cropGroup"),
-                default_origin=food_metadata["defaultOrigin"],
-                density=food_metadata["ingredientDensity"],
-                ecosystemic_services=ecosystemic_services,
-                id=food_metadata["id"],
-                inedible_part=food_metadata["inediblePart"],
-                land_occupation=land_occupation,
-                location=bw_activity.get("location"),
-                name=food_metadata["displayName"],
-                raw_to_cooked_ratio=infer_raw_to_cooked_ratio(
-                    food_metadata.get("rawToCookedRatio"),
-                    eco_activity.get("categories", []),
-                ),
-                scenario=food_metadata.get("scenario"),
-                activity_name=eco_activity["activityName"],
-                transport_cooling=food_metadata["transportCooling"],
-                visible=food_metadata["visible"],
-                process_id=eco_activity["id"],
+        try:
+            ingredients.append(
+                Ingredient(
+                    alias=food_metadata["alias"],
+                    base_ingredient=infer_base_ingredient(food_metadata["alias"]),
+                    categories=food_metadata.get("ingredientCategories", []),
+                    crop_group=food_metadata.get("cropGroup"),
+                    default_origin=food_metadata["defaultOrigin"],
+                    density=food_metadata["ingredientDensity"],
+                    ecosystemic_services=ecosystemic_services,
+                    id=food_metadata["id"],
+                    inedible_part=food_metadata["inediblePart"],
+                    land_occupation=land_occupation,
+                    location=bw_activity.get("location"),
+                    name=food_metadata["displayName"],
+                    raw_to_cooked_ratio=infer_raw_to_cooked_ratio(
+                        food_metadata.get("rawToCookedRatio"),
+                        eco_activity.get("categories", []),
+                    ),
+                    scenario=food_metadata.get("scenario"),
+                    activity_name=eco_activity["activityName"],
+                    transport_cooling=food_metadata["transportCooling"],
+                    visible=food_metadata["visible"],
+                    process_id=eco_activity["id"],
+                )
             )
-        )
+        except ValueError as e:
+            raise ValueError(f"ingredient {food_metadata['alias']!r}: {e}") from e
     return ingredients
 
 
