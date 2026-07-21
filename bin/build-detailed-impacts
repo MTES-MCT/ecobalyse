@@ -1,0 +1,16 @@
+#!/usr/bin/env node
+
+/**
+ * One time script to slim down detailed processes file, preserving only id and detailed impacts.
+ */
+const fs = require("fs");
+const { dataFiles } = require("../lib");
+
+const detailedPath = dataFiles.detailed;
+const detailedProcesses = JSON.parse(fs.readFileSync(detailedPath).toString());
+
+const slimmed = detailedProcesses.map(({ id, impacts }) => ({ id, impacts }));
+
+fs.writeFileSync(detailedPath, JSON.stringify(slimmed, null, 2));
+
+console.log(`Slimmed ${slimmed.length} detailed impacts entries into ${detailedPath}`);
