@@ -19,7 +19,7 @@
     "encrypt": "./bin/encrypt",
     "db:build": "./bin/build-db && npm run db:check && npx elm-format --yes src/Static/Json.elm",
     "db:check": "elm make src/CheckDb.elm --optimize --output=check-db-app.js 1> /dev/null && node check-db.js",
-    "db:validate": "npx ajv validate --spec=draft2019 -c ajv-formats -s tests/processes-schema.json -d 'public/data/**/processes**.json'",
+    "db:validate": "npx ajv validate --spec=draft2019 -c ajv-formats -s tests/processes-schema.json -d 'public/data/**/processes.json'",
     "lint:openapi": "npx swagger-cli validate openapi.yaml",
     "lint:elm": "npx elm-format src review/src --validate",
     "lint:prettier": "prettier --config .prettierrc --check",
