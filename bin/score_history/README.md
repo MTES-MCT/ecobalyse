@@ -10,7 +10,12 @@ table.
 
 ### Prerequisites
 
-1. `npm start`
+1. Start the API server in test mode to use the API without an auth token
+
+   ```bash
+   npm run server:build
+   NODE_ENV=test node server.js
+   ```
 
 2. Make a tunnel to the Scalingo score database
 
