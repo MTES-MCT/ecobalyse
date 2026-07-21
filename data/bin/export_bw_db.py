@@ -115,7 +115,7 @@ def ecospold1(
             )
             bw_activities.append(bw_activity)
 
-        logger.info(f"Found {len(bw_activities)} activities to export")
+        logger.info(f"Exporting {len(bw_activities)} activities to {output_file}")
 
         if output_file is None:
             output_file = Path("Ecoplus.XML")
