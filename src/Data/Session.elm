@@ -29,7 +29,7 @@ module Data.Session exposing
     , toggleComparedSimulation
     , updateAuth
     , updateDb
-    , updateDbDetailedImpacts
+    , updateDbWithImpactDetails
     , updateFoodQuery
     , updateObjectQuery
     , updateTextileQuery
@@ -442,10 +442,10 @@ serializeStore =
     encodeStore >> Encode.encode 0
 
 
-updateDbDetailedImpacts : String -> Session -> Session
-updateDbDetailedImpacts rawDetailedImpactsJson session =
+updateDbWithImpactDetails : String -> Session -> Session
+updateDbWithImpactDetails rawImpactDetailsJson session =
     case
-        rawDetailedImpactsJson
+        rawImpactDetailsJson
             |> Decode.decodeString (Process.decodeImpactDetails Impact.decodeImpacts)
             |> Result.mapError Decode.errorToString
             |> Result.andThen

@@ -138,7 +138,7 @@ update session msg model =
         DetailedImpactsResponse (RemoteData.Success rawDetailedImpactsJson) ->
             let
                 newSession =
-                    session |> Session.updateDbDetailedImpacts rawDetailedImpactsJson
+                    session |> Session.updateDbWithImpactDetails rawDetailedImpactsJson
             in
             model
                 |> App.createUpdate newSession

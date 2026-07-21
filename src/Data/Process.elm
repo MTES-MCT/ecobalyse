@@ -47,7 +47,7 @@ import Json.Decode.Extra as DE
 import Json.Decode.Pipeline as Pipe
 import Json.Encode as Encode
 import Json.Encode.Extra as EncodeExtra
-import Set exposing (Set)
+import Set
 
 
 type Id

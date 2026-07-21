@@ -481,11 +481,11 @@ update rawMsg ({ state } as model) =
                             ++ RequestCommon.errorToString error
 
                 -- Detailed impacts
-                ( DetailedImpactsReceived sessionConfig (RemoteData.Success rawDetailedImpactsJson), currentPage ) ->
+                ( DetailedImpactsReceived sessionConfig (RemoteData.Success rawImpactDetails), currentPage ) ->
                     let
                         newSession =
                             -- When detailed impacts are received, enrich session processes impacts with them
-                            session |> Session.updateDbDetailedImpacts rawDetailedImpactsJson
+                            session |> Session.updateDbWithImpactDetails rawImpactDetails
                     in
                     ( { model | state = Loaded newSession currentPage }
                     , ComponentConfig.decode newSession.db
