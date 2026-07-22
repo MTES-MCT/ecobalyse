@@ -20,7 +20,6 @@
         "organic"
       ],
       "ingredientDensity": 0.2355,
-      "rawToCookedRatio": 0.856,
       "scenario": "organic",
       "scopes": [
         "food",
@@ -41,7 +40,6 @@
         "organic"
       ],
       "ingredientDensity": 0.362,
-      "rawToCookedRatio": 0.856,
       "scenario": "organic",
       "scopes": [
         "food",
@@ -62,7 +60,6 @@
         "organic"
       ],
       "ingredientDensity": 0.362,
-      "rawToCookedRatio": 0.856,
       "scenario": "organic",
       "scopes": [
         "food",
@@ -84,7 +81,6 @@
         "vegetable_fresh"
       ],
       "ingredientDensity": 0.362,
-      "rawToCookedRatio": 0.856,
       "scenario": "organic",
       "scopes": [
         "food",

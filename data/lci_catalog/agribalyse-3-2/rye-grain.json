@@ -31,11 +31,6 @@
         "confidence": 0.961,
         "rule": "Matched with Rye, whole in fao_density.csv"
       },
-      "rawToCookedRatio": 2.259,
-      "rawToCookedRatioMatch": {
-        "confidence": 1.0,
-        "rule": "grain default from food_type_cooked_to_raw.csv"
-      },
       "scenario": "import",
       "scopes": [
         "food",
@@ -71,11 +66,6 @@
         "confidence": 0.961,
         "rule": "Matched with Rye, whole in fao_density.csv"
       },
-      "rawToCookedRatio": 2.259,
-      "rawToCookedRatioMatch": {
-        "confidence": 1.0,
-        "rule": "grain default from food_type_cooked_to_raw.csv"
-      },
       "scenario": "import",
       "scopes": [
         "food",
@@ -110,11 +100,6 @@
       "ingredientDensityMatch": {
         "confidence": 0.961,
         "rule": "Matched with Rye, whole in fao_density.csv"
-      },
-      "rawToCookedRatio": 2.259,
-      "rawToCookedRatioMatch": {
-        "confidence": 1.0,
-        "rule": "grain default from food_type_cooked_to_raw.csv"
       },
       "scenario": "import",
       "scopes": [

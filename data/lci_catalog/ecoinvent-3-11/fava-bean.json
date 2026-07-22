@@ -31,11 +31,6 @@
         "confidence": 0.95,
         "rule": "Matched with bean in density.csv"
       },
-      "rawToCookedRatio": 0.856,
-      "rawToCookedRatioMatch": {
-        "confidence": 1.0,
-        "rule": "legume default from food_type_cooked_to_raw.csv"
-      },
       "scenario": "import",
       "scopes": [
         "food",
@@ -70,11 +65,6 @@
       "ingredientDensityMatch": {
         "confidence": 1.0,
         "rule": "legume default from food_type_density.csv"
-      },
-      "rawToCookedRatio": 0.856,
-      "rawToCookedRatioMatch": {
-        "confidence": 1.0,
-        "rule": "legume default from food_type_cooked_to_raw.csv"
       },
       "scenario": "import",
       "scopes": [
@@ -111,11 +101,6 @@
         "confidence": 1.0,
         "rule": "legume default from food_type_density.csv"
       },
-      "rawToCookedRatio": 0.856,
-      "rawToCookedRatioMatch": {
-        "confidence": 1.0,
-        "rule": "legume default from food_type_cooked_to_raw.csv"
-      },
       "scenario": "import",
       "scopes": [
         "food",
@@ -151,11 +136,6 @@
         "confidence": 1.0,
         "rule": "legume default from food_type_density.csv"
       },
-      "rawToCookedRatio": 0.856,
-      "rawToCookedRatioMatch": {
-        "confidence": 1.0,
-        "rule": "legume default from food_type_cooked_to_raw.csv"
-      },
       "scenario": "import",
       "scopes": [
         "food",
@@ -190,11 +170,6 @@
       "ingredientDensityMatch": {
         "confidence": 1.0,
         "rule": "legume default from food_type_density.csv"
-      },
-      "rawToCookedRatio": 0.856,
-      "rawToCookedRatioMatch": {
-        "confidence": 1.0,
-        "rule": "legume default from food_type_cooked_to_raw.csv"
       },
       "scenario": "import",
       "scopes": [

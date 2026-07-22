@@ -33,11 +33,6 @@
         "confidence": 1.0,
         "rule": "broccoli found in density.csv"
       },
-      "rawToCookedRatio": 0.856,
-      "rawToCookedRatioMatch": {
-        "confidence": 1.0,
-        "rule": "Matched with broccoli in cooked_to_raw.csv"
-      },
       "scenario": "organic",
       "scopes": [
         "food",

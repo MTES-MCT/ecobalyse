@@ -95,8 +95,7 @@
         "inediblePart": 0,
         "processId": "af42fc20-e3ec-5b99-9b9c-83ba6735e597",
         "rawToCookedRatio": 2.259,
-        "scenario": "reference",
-        "transportCooling": "none"
+        "scenario": "reference"
       }
     },
     "qtyVariationRatio": 1.0,
@@ -158,8 +157,7 @@
         "inediblePart": 0,
         "processId": "af42fc20-e3ec-5b99-9b9c-83ba6735e597",
         "rawToCookedRatio": 1.0,
-        "scenario": "reference",
-        "transportCooling": "none"
+        "scenario": "reference"
       }
     },
     "qtyVariationRatio": 1.0,
@@ -219,8 +217,7 @@
         "inediblePart": 0,
         "processId": "af42fc20-e3ec-5b99-9b9c-83ba6735e597",
         "rawToCookedRatio": 1.0,
-        "scenario": "reference",
-        "transportCooling": "always"
+        "scenario": "reference"
       }
     },
     "qtyVariationRatio": 1.0,

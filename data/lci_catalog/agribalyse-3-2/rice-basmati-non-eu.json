@@ -20,7 +20,6 @@
         "grain_raw"
       ],
       "ingredientDensity": 0.72,
-      "rawToCookedRatio": 2.259,
       "scenario": "import",
       "scopes": [
         "food",
@@ -51,11 +50,6 @@
       "ingredientDensityMatch": {
         "confidence": 0.95,
         "rule": "Matched with Rice in fao_density.csv"
-      },
-      "rawToCookedRatio": 2.259,
-      "rawToCookedRatioMatch": {
-        "confidence": 0.95,
-        "rule": "Matched with rice in cooked_to_raw.csv"
       },
       "scenario": "import",
       "scopes": [
@@ -91,11 +85,6 @@
       "ingredientDensityMatch": {
         "confidence": 0.95,
         "rule": "Matched with Rice, raw in fao_density.csv"
-      },
-      "rawToCookedRatio": 2.259,
-      "rawToCookedRatioMatch": {
-        "confidence": 1.0,
-        "rule": "grain default from food_type_cooked_to_raw.csv"
       },
       "scenario": "import",
       "scopes": [

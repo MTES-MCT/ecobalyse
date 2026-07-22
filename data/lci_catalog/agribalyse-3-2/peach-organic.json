@@ -1,5 +1,5 @@
 {
-  "activityName": "Peach, organic, national average, at orchard {FR} U",
+  "activityName": "Peach, at farm, organic 2025 {ES}",
   "categories": [
     "ingredient",
     "material",
@@ -7,7 +7,7 @@
   ],
   "displayName": "Pêches Bio",
   "id": "5e66fd3b-87ae-5113-b33a-36b1c8c36df6",
-  "location": "FR",
+  "location": "ES",
   "metadata": [
     {
       "alias": "peach-organic",
@@ -33,11 +33,6 @@
         "confidence": 0.95,
         "rule": "Matched with peach in density.csv"
       },
-      "rawToCookedRatio": 0.856,
-      "rawToCookedRatioMatch": {
-        "confidence": 0.95,
-        "rule": "Matched with peach in cooked_to_raw.csv"
-      },
       "scenario": "organic",
       "scopes": [
         "food",
@@ -55,6 +50,6 @@
     "food",
     "food2"
   ],
-  "source": "Agribalyse 3.2",
+  "source": "Ginko 2025",
   "unit": "kg"
 }

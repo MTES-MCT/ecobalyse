@@ -21,7 +21,6 @@
       ],
       "ingredientDensity": 0.447,
       "landOccupation": 1.27,
-      "rawToCookedRatio": 0.856,
       "scenario": "import",
       "scopes": [
         "food",

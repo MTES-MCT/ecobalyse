@@ -3263,6 +3263,33 @@
     "visible": true
   },
   {
+    "activityName": "Spinach {CH}| spinach production, conventional, plain region | Cut-off, U",
+    "alias": "swiss-chard-eu",
+    "baseIngredient": "swiss-chard",
+    "categories": [
+      "vegetable_fresh"
+    ],
+    "cropGroup": "LEGUMES-FLEURS",
+    "defaultOrigin": "EuropeAndMaghreb",
+    "density": 0.9,
+    "ecosystemicServices": {
+      "cropDiversity": 0,
+      "hedges": 0,
+      "permanentPasture": null,
+      "plotSize": 0
+    },
+    "id": "1326c16c-fb23-5397-ba04-1394b57e60c4",
+    "inediblePart": 0.2,
+    "landOccupation": 0.5332,
+    "location": "CH",
+    "name": "Blette UE",
+    "processId": "e1a847b5-ed54-5cdf-b4b0-c8c8e118017e",
+    "rawToCookedRatio": 0.856,
+    "scenario": "import",
+    "transportCooling": "always",
+    "visible": true
+  },
+  {
     "activityName": "protein pea//[GLO] market for protein pea",
     "alias": "bean-non-eu-2025",
     "baseIngredient": "bean",
@@ -14187,7 +14214,7 @@
     "visible": true
   },
   {
-    "activityName": "Peach, organic, national average, at orchard {FR} U",
+    "activityName": "Peach, at farm, organic 2025 {ES}",
     "alias": "peach-organic",
     "baseIngredient": "peach",
     "categories": [
@@ -14198,15 +14225,15 @@
     "defaultOrigin": "France",
     "density": 0.9,
     "ecosystemicServices": {
-      "cropDiversity": 0.0209,
-      "hedges": 0.136,
+      "cropDiversity": 0.427,
+      "hedges": 2.78,
       "permanentPasture": null,
-      "plotSize": 0.187
+      "plotSize": 3.82
     },
     "id": "5f8bd664-0922-5294-a8e1-63ab8c28d86c",
     "inediblePart": 0.2,
-    "landOccupation": 0.02999,
-    "location": "FR",
+    "landOccupation": 0.6128,
+    "location": "ES",
     "name": "Pêches Bio",
     "processId": "5e66fd3b-87ae-5113-b33a-36b1c8c36df6",
     "rawToCookedRatio": 0.856,
@@ -20655,6 +20682,33 @@
     "visible": true
   },
   {
+    "activityName": "Strawberry, open field, conventional, at farm gate {FR} U",
+    "alias": "strawberry-fr",
+    "baseIngredient": "strawberry",
+    "categories": [
+      "vegetable_fresh"
+    ],
+    "cropGroup": "LEGUMES-FLEURS",
+    "defaultOrigin": "France",
+    "density": 0.95,
+    "ecosystemicServices": {
+      "cropDiversity": 0,
+      "hedges": 1.04,
+      "permanentPasture": null,
+      "plotSize": 2.93
+    },
+    "id": "8ad09e31-6b20-56d1-b059-f871361a16d7",
+    "inediblePart": 0.03,
+    "landOccupation": 0.6573,
+    "location": "FR",
+    "name": "Fraise FR",
+    "processId": "de1d34f6-d229-5dbe-aaef-d1f1c18d05f8",
+    "rawToCookedRatio": 0.856,
+    "scenario": "reference",
+    "transportCooling": "always",
+    "visible": true
+  },
+  {
     "activityName": "Strawberry, conventional, national average, at farm gate {FR} U",
     "alias": "strawberry-fr",
     "baseIngredient": "strawberry",
@@ -20666,9 +20720,9 @@
     "density": 0.95,
     "ecosystemicServices": {
       "cropDiversity": 0,
-      "hedges": 0.767,
+      "hedges": 1.04,
       "permanentPasture": null,
-      "plotSize": 2.15
+      "plotSize": 2.93
     },
     "id": "8ad09e31-6b20-56d1-b059-f871361a16d7",
     "inediblePart": 0.03,
@@ -31018,6 +31072,33 @@
     "location": "GLO",
     "name": "Épinard UE",
     "processId": "543622a6-3e36-58cd-b77c-66c678eb7959",
+    "rawToCookedRatio": 0.856,
+    "scenario": "import",
+    "transportCooling": "always",
+    "visible": true
+  },
+  {
+    "activityName": "Spinach {CH}| spinach production, conventional, plain region | Cut-off, U",
+    "alias": "spinach-eu",
+    "baseIngredient": "spinach",
+    "categories": [
+      "vegetable_fresh"
+    ],
+    "cropGroup": "LEGUMES-FLEURS",
+    "defaultOrigin": "EuropeAndMaghreb",
+    "density": 0.9,
+    "ecosystemicServices": {
+      "cropDiversity": 0,
+      "hedges": 0,
+      "permanentPasture": null,
+      "plotSize": 0
+    },
+    "id": "d2cba2cd-ebb6-5a6c-83cc-b7fee34643a6",
+    "inediblePart": 0.03,
+    "landOccupation": 0.5332,
+    "location": "CH",
+    "name": "Épinard UE",
+    "processId": "e1a847b5-ed54-5cdf-b4b0-c8c8e118017e",
     "rawToCookedRatio": 0.856,
     "scenario": "import",
     "transportCooling": "always",

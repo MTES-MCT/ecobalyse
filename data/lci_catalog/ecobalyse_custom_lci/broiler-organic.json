@@ -35,11 +35,6 @@
         "confidence": 1.0,
         "rule": "meat default from food_type_density.csv"
       },
-      "rawToCookedRatio": 0.755,
-      "rawToCookedRatioMatch": {
-        "confidence": 1.0,
-        "rule": "poultry keyword found in Broiler"
-      },
       "scenario": "organic",
       "scopes": [
         "food",
@@ -74,11 +69,6 @@
         "confidence": 1.0,
         "rule": "meat default from food_type_density.csv"
       },
-      "rawToCookedRatio": 0.755,
-      "rawToCookedRatioMatch": {
-        "confidence": 1.0,
-        "rule": "poultry keyword found in Poultry"
-      },
       "scenario": "organic",
       "scopes": [
         "food",
@@ -112,11 +102,6 @@
       "ingredientDensityMatch": {
         "confidence": 1.0,
         "rule": "rabbit found in density.csv"
-      },
-      "rawToCookedRatio": 0.755,
-      "rawToCookedRatioMatch": {
-        "confidence": 1.0,
-        "rule": "poultry keyword found in Rabbit"
       },
       "scenario": "organic",
       "scopes": [

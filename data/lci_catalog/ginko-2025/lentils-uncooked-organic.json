@@ -22,7 +22,6 @@
         "organic"
       ],
       "ingredientDensity": 0.72,
-      "rawToCookedRatio": 2.33,
       "scenario": "organic",
       "scopes": [
         "food",
@@ -54,11 +53,6 @@
       "ingredientDensityMatch": {
         "confidence": 1.0,
         "rule": "lentil found in density.csv"
-      },
-      "rawToCookedRatio": 2.33,
-      "rawToCookedRatioMatch": {
-        "confidence": 1.0,
-        "rule": "Matched with lentil in cooked_to_raw.csv"
       },
       "scenario": "organic",
       "scopes": [
