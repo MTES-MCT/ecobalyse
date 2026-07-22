@@ -80,7 +80,7 @@ type alias Model =
 
 
 type Modal
-    = AddComponentModal (Autocomplete Component)
+    = AddProductionItemModal (Autocomplete Component.ProductionItem)
     | ComparatorModal
     | EditElementModal Component TargetElement
     | SelectConsumptionModal (Autocomplete Process)
@@ -92,23 +92,22 @@ type Modal
 type Msg
     = AppendModal Modal
     | CopyToClipBoard String
-    | CreateComponent
     | CreateExampleContrib
     | DeleteBookmark Bookmark
     | ExampleContribCreated (WebData Contrib.ExampleContribResponse)
     | ExportBookmarks
     | ImportBookmarks
     | NoOp
-    | OnAutocompleteAddComponent (Autocomplete.Msg Component)
     | OnAutocompleteAddConsumption (Autocomplete.Msg Process)
     | OnAutocompleteAddProcess Category TargetItem (Maybe Index) (Autocomplete.Msg Process)
+    | OnAutocompleteAddProductionItem (Autocomplete.Msg Component.ProductionItem)
     | OnAutocompleteExample (Autocomplete.Msg Component.Query)
     | OnAutocompletePackaging (Autocomplete.Msg Process)
-    | OnAutocompleteSelectComponent
     | OnAutocompleteSelectConsumption
     | OnAutocompleteSelectExample
     | OnAutocompleteSelectPackaging
     | OnAutocompleteSelectProcess Category TargetItem (Maybe Index)
+    | OnAutocompleteSelectProductionItem
     | OnDragLeaveBookmark
     | OnDragOverBookmark Bookmark
     | OnDragStartBookmark Bookmark
@@ -313,10 +312,6 @@ update ({ navKey } as session) msg model =
             createPageUpdate session model
                 |> App.withCmds [ Ports.copyToClipboard shareableLink ]
 
-        ( CreateComponent, _ ) ->
-            createPageUpdate session model
-                |> createComponent query
-
         ( CreateExampleContrib, _ ) ->
             case ( Session.isAuthenticated session, createExampleContribData model ) of
                 ( True, Ok contribData ) ->
@@ -367,16 +362,16 @@ update ({ navKey } as session) msg model =
         ( NoOp, _ ) ->
             createPageUpdate session model
 
-        ( OnAutocompleteAddComponent autocompleteMsg, (AddComponentModal autocompleteState) :: otherModals ) ->
+        ( OnAutocompleteAddProductionItem autocompleteMsg, (AddProductionItemModal autocompleteState) :: otherModals ) ->
             let
                 ( newAutocompleteState, autoCompleteCmd ) =
                     Autocomplete.update autocompleteMsg autocompleteState
             in
-            { model | modals = AddComponentModal newAutocompleteState :: otherModals }
+            { model | modals = AddProductionItemModal newAutocompleteState :: otherModals }
                 |> createPageUpdate session
-                |> App.withCmds [ Cmd.map OnAutocompleteAddComponent autoCompleteCmd ]
+                |> App.withCmds [ Cmd.map OnAutocompleteAddProductionItem autoCompleteCmd ]
 
-        ( OnAutocompleteAddComponent _, _ ) ->
+        ( OnAutocompleteAddProductionItem _, _ ) ->
             createPageUpdate session model
 
         ( OnAutocompleteAddConsumption autocompleteMsg, (SelectConsumptionModal autocompleteState) :: otherModals ) ->
@@ -427,11 +422,11 @@ update ({ navKey } as session) msg model =
         ( OnAutocompletePackaging _, _ ) ->
             createPageUpdate session model
 
-        ( OnAutocompleteSelectComponent, (AddComponentModal autocompleteState) :: _ ) ->
+        ( OnAutocompleteSelectProductionItem, (AddProductionItemModal autocompleteState) :: _ ) ->
             createPageUpdate session model
-                |> selectComponent query autocompleteState
+                |> selectProductionItem query autocompleteState
 
-        ( OnAutocompleteSelectComponent, _ ) ->
+        ( OnAutocompleteSelectProductionItem, _ ) ->
             createPageUpdate session model
 
         ( OnAutocompleteSelectConsumption, (SelectConsumptionModal autocompleteState) :: _ ) ->
@@ -738,29 +733,6 @@ createPageUpdate session model =
             ]
 
 
-createComponent : Component.Query -> PageUpdate Model Msg -> PageUpdate Model Msg
-createComponent query ({ model, session } as pageUpdate) =
-    let
-        baseItem =
-            Component.createItem Nothing
-
-        newItem =
-            { baseItem | custom = Just { name = Nothing, elements = [], scope = Nothing } }
-    in
-    pageUpdate
-        -- add new item to query
-        |> updateQuery { query | items = query.items ++ [ newItem ] }
-        -- open material process selection modal
-        |> App.apply update
-            (ComponentView.createElementMaterialAutocomplete session.db model.scope
-                |> SelectProcessModal Category.Material ( Component.emptyComponent, List.length query.items ) Nothing
-                |> List.singleton
-                |> SetModals
-            )
-        -- expand item row
-        |> App.apply update (SetDetailedComponents (LE.unique (List.length query.items :: model.detailedComponents)))
-
-
 createExampleContribData : Model -> Result (List String) Contrib.ExampleContribData
 createExampleContribData model =
     let
@@ -787,7 +759,7 @@ createExampleContribData model =
 isAutocompleteModal : Modal -> Bool
 isAutocompleteModal modal =
     case modal of
-        AddComponentModal _ ->
+        AddProductionItemModal _ ->
             True
 
         SelectConsumptionModal _ ->
@@ -816,14 +788,47 @@ selectExample autocompleteState ({ model } as pageUpdate) =
         |> App.withCmds [ Plausible.send pageUpdate.session <| Plausible.ExampleSelected model.scope ]
 
 
-selectComponent : Component.Query -> Autocomplete Component -> PageUpdate Model Msg -> PageUpdate Model Msg
-selectComponent query autocompleteState ({ model } as pageUpdate) =
+selectProductionItem : Component.Query -> Autocomplete Component.ProductionItem -> PageUpdate Model Msg -> PageUpdate Model Msg
+selectProductionItem query autocompleteState ({ model, session } as pageUpdate) =
+    let
+        plausibleCommand =
+            Plausible.send pageUpdate.session <| Plausible.ComponentAdded model.scope
+    in
     case Autocomplete.selectedValue autocompleteState of
-        Just component ->
+        Just (Component.ComponentItem component) ->
             pageUpdate
                 |> updateQuery (query |> Component.mapItems (Component.addItem component.id))
                 |> App.apply update (SetModals [])
-                |> App.withCmds [ Plausible.send pageUpdate.session <| Plausible.ComponentAdded model.scope ]
+                |> App.withCmds [ plausibleCommand ]
+
+        Just (Component.MaterialItem process) ->
+            let
+                newItemIndex =
+                    List.length query.items
+
+                newItem =
+                    { custom = Nothing
+                    , id = Nothing
+                    , quantity = Component.quantityFromInt 1
+                    }
+
+                targetItem =
+                    ( Component.emptyComponent, newItemIndex )
+            in
+            case
+                { query | items = query.items ++ [ newItem ] }
+                    |> Component.tryMapItems
+                        (Component.addOrSetProcess session.db Category.Material targetItem Nothing process)
+            of
+                Err error ->
+                    pageUpdate |> App.notifyError "Erreur" error
+
+                Ok validQuery ->
+                    pageUpdate
+                        |> updateQuery validQuery
+                        |> App.apply update (SetModals [])
+                        |> App.apply update (SetDetailedComponents (LE.unique (newItemIndex :: model.detailedComponents)))
+                        |> App.withCmds [ plausibleCommand ]
 
         Nothing ->
             pageUpdate |> App.notifyWarning "Aucun composant sélectionné"
@@ -903,13 +908,13 @@ editorConfig session ({ scope } as model) =
     , docsUrl = Nothing
     , explorerRoute = Just (Route.Explore scope (Dataset.Components scope Nothing))
     , impact = model.impact
+    , labels = ComponentView.scopeLabels ComponentView.GenericContext scope
     , noOp = NoOp
-    , openCreateComponentModal = CreateComponent
-    , openSelectComponentModal = AddComponentModal >> List.singleton >> SetModals
     , openEditElementModal = \c ti -> AppendModal (EditElementModal c ti)
+    , openSelectConsumptionModal = SelectConsumptionModal >> List.singleton >> SetModals
     , openSelectPackagingModal = SelectPackagingModal >> List.singleton >> SetModals
     , openSelectProcessModal = \c ti mi ac -> AppendModal (SelectProcessModal c ti mi ac)
-    , openSelectConsumptionModal = SelectConsumptionModal >> List.singleton >> SetModals
+    , openSelectProductionItem = AddProductionItemModal >> List.singleton >> SetModals
     , query = session |> Session.objectQueryFromScope model.scope
     , removeConsumption = RemoveConsumption
     , removeElement = RemoveElement
@@ -1117,19 +1122,23 @@ view session model =
 
 modalView : Session -> Model -> Modal -> Html Msg
 modalView session ({ modals } as model) modal =
+    let
+        scopeLabels =
+            ComponentView.scopeLabels ComponentView.GenericContext model.scope
+    in
     case modal of
-        AddComponentModal autocompleteState ->
+        AddProductionItemModal autocompleteState ->
             AutocompleteSelectorView.view
                 { autocompleteState = autocompleteState
                 , closeModal = SetModals (List.drop 1 modals)
                 , footer = []
                 , noOp = NoOp
-                , onAutocomplete = OnAutocompleteAddComponent
-                , onAutocompleteSelect = OnAutocompleteSelectComponent
-                , placeholderText = "tapez ici le nom du composant pour le rechercher"
-                , title = "Sélectionnez un composant"
-                , toLabel = .name
-                , toCategory = \_ -> ""
+                , onAutocomplete = OnAutocompleteAddProductionItem
+                , onAutocompleteSelect = OnAutocompleteSelectProductionItem
+                , placeholderText = scopeLabels.search
+                , title = scopeLabels.select
+                , toLabel = Component.productionItemToLabel
+                , toCategory = always ""
                 }
 
         ComparatorModal ->
@@ -1221,8 +1230,8 @@ modalView session ({ modals } as model) modal =
                 ( placeholderText, title ) =
                     case category of
                         Category.Material ->
-                            ( "tapez ici le nom d'une matière pour la rechercher"
-                            , "Sélectionnez une matière première"
+                            ( scopeLabels.search
+                            , scopeLabels.select
                             )
 
                         Category.Transform ->
