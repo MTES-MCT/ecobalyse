@@ -449,10 +449,10 @@ updateDbWithImpactDetails rawImpactDetailsJson session =
             |> Decode.decodeString (Process.decodeImpactDetails Impact.decodeImpacts)
             |> Result.mapError Decode.errorToString
             |> Result.andThen
-                (\detailedImpacts ->
+                (\impactDetails ->
                     session.dbRawJson
                         |> Result.fromMaybe "Aucune donnée brute disponible en session pour reconstruire la base de données"
-                        |> Result.andThen (Db.buildWithDetailedImpacts detailedImpacts)
+                        |> Result.andThen (Db.buildWithImpactDetails impactDetails)
                 )
     of
         Err err ->

@@ -4,7 +4,7 @@ module Data.Db exposing
     , RawJsonString
     , RawJsonStrings
     , build
-    , buildWithDetailedImpacts
+    , buildWithImpactDetails
     , propGetters
     , rawJsonString
     )
@@ -66,7 +66,7 @@ type alias RawJsonStrings =
 -}
 build : RawJsonStrings -> Result String Db
 build =
-    buildWithDetailedImpacts Dict.empty
+    buildWithImpactDetails Dict.empty
 
 
 {-| Build a Db, overriding base process impacts with the provided detailed impacts.
@@ -75,13 +75,13 @@ Note: overrides are applied right after processes are decoded and before any dow
 resolution, so they always carry detailed impacts
 
 -}
-buildWithDetailedImpacts : Process.ImpactDetails -> RawJsonStrings -> Result String Db
-buildWithDetailedImpacts detailedImpacts json =
+buildWithImpactDetails : Process.ImpactDetails -> RawJsonStrings -> Result String Db
+buildWithImpactDetails impactDetails json =
     extractJsonString json.processes
         |> Decode.decodeString (Process.decodeList Impact.decodeImpacts)
         |> Result.mapError Decode.errorToString
-        |> Result.andThen (Process.validateImpactDetails detailedImpacts)
-        |> Result.map (Process.applyImpactDetails detailedImpacts)
+        |> Result.andThen (Process.validateImpactDetails impactDetails)
+        |> Result.map (Process.applyImpactDetails impactDetails)
         |> Result.andThen
             (\processes ->
                 Ok Db
