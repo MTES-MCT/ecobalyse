@@ -84,6 +84,9 @@ app.use(
   }),
 );
 
+// Deny public access to detailed impacts as a static asset
+app.get("/data/processes_impacts.json", (_, res) => res.sendStatus(404));
+
 app.use(
   express.static("dist", {
     setHeaders: (res) => {
