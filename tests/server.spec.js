@@ -19,6 +19,12 @@ describe("Web", () => {
     expectStatus(response, 200, "text/html");
     expect(response.text).toContain("<title>Ecobalyse</title>");
   });
+
+  it("should deny public access to detailed impacts", async () => {
+    const response = await request(app).get("/data/processes_impacts.json");
+
+    expect(response.statusCode).toBe(404);
+  });
 });
 
 describe("API", () => {
