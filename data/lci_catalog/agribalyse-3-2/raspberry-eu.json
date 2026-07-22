@@ -31,11 +31,6 @@
         "confidence": 1.0,
         "rule": "raspberry found in density.csv"
       },
-      "rawToCookedRatio": 0.856,
-      "rawToCookedRatioMatch": {
-        "confidence": 1.0,
-        "rule": "Matched with raspberry in cooked_to_raw.csv"
-      },
       "scenario": "reference",
       "scopes": [
         "food",
@@ -60,7 +55,6 @@
         "vegetable_fresh"
       ],
       "ingredientDensity": 0.447,
-      "rawToCookedRatio": 0.856,
       "scenario": "import",
       "scopes": [
         "food",
@@ -91,11 +85,6 @@
       "ingredientDensityMatch": {
         "confidence": 1.0,
         "rule": "raspberry found in density.csv"
-      },
-      "rawToCookedRatio": 0.856,
-      "rawToCookedRatioMatch": {
-        "confidence": 1.0,
-        "rule": "Matched with raspberry in cooked_to_raw.csv"
       },
       "scenario": "import",
       "scopes": [
@@ -132,11 +121,6 @@
         "confidence": 1.0,
         "rule": "raspberry found in density.csv"
       },
-      "rawToCookedRatio": 0.856,
-      "rawToCookedRatioMatch": {
-        "confidence": 1.0,
-        "rule": "Matched with raspberry in cooked_to_raw.csv"
-      },
       "scenario": "import",
       "scopes": [
         "food",
@@ -171,11 +155,6 @@
       "ingredientDensityMatch": {
         "confidence": 1.0,
         "rule": "raspberry found in density.csv"
-      },
-      "rawToCookedRatio": 0.856,
-      "rawToCookedRatioMatch": {
-        "confidence": 1.0,
-        "rule": "Matched with raspberry in cooked_to_raw.csv"
       },
       "scenario": "import",
       "scopes": [

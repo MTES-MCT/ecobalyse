@@ -30,11 +30,6 @@
         "confidence": 1.0,
         "rule": "pork found in density.csv"
       },
-      "rawToCookedRatio": 0.792,
-      "rawToCookedRatioMatch": {
-        "confidence": 1.0,
-        "rule": "Matched with pork in cooked_to_raw.csv"
-      },
       "scenario": "organic",
       "scopes": [
         "food",
