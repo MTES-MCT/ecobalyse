@@ -1120,16 +1120,6 @@ view session model =
     )
 
 
-productionItemCategoryName : Component.ProductionItem -> String
-productionItemCategoryName productionItem =
-    case productionItem of
-        Component.ComponentItem _ ->
-            "multi-procédés"
-
-        Component.MaterialItem _ ->
-            "mono-procédé"
-
-
 modalView : Session -> Model -> Modal -> Html Msg
 modalView session ({ modals } as model) modal =
     let
@@ -1151,7 +1141,7 @@ modalView session ({ modals } as model) modal =
                 , placeholderText = scopeLabels.search
                 , title = scopeLabels.select
                 , toLabel = Component.productionItemToLabel
-                , toCategory = productionItemCategoryName
+                , toCategory = always ""
                 }
 
         ComparatorModal ->
