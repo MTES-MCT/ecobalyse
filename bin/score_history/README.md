@@ -37,10 +37,8 @@ uv run --group score_history python bin/score_history/score_history.py \
     "$(git branch --show-current)" \
     "$(git rev-parse HEAD)" \
     "$SCORE_DB_URL"
+    --dry-run
 ```
-
-Running in local will insert to the production database.
-To test without writing to it, add the `--dry-run` flag
 
 
 | Argument | Meaning |
