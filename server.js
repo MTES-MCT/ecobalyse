@@ -85,6 +85,8 @@ app.use(
 );
 
 // Deny public access to detailed impacts as a static asset
+// Note: counter intuitively, this must be registered *before* the static file serving
+//       middleware, otherwise it's ignored
 app.get("/data/processes_impacts.json", (_, res) => res.sendStatus(404));
 
 app.use(
