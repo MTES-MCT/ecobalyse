@@ -57,16 +57,16 @@ const targetDbFile = "src/Static/Json.elm";
 const elmTemplate = fs.readFileSync(`${targetDbFile}-template`).toString();
 const elmWithFixtures = elmTemplate
   // Transverse JSON data
-  .replace("%componentConfigJson%", parseAndValidate("public/data/components/config.json", null))
+  .replace("%componentConfigJson%", parseAndValidate("public/data/components/config.json"))
   .replace("%countriesJson%", parseAndValidate("public/data/countries.json", "code"))
   .replace("%impactsJson%", parseAndValidate("public/data/impacts.json"))
   .replace(
     "%processesJson%",
-    // In test mode, embed the full processes with detailed impacts merged in (the detailed
-    // file only holds a slim `{ id, impacts }` list); otherwise embed the base processes.
     NODE_ENV === "test"
-      ? escapeForElmTemplate(getDetailedProcessesAsString())
-      : parseAndValidate(dataFiles.noDetails, "id"),
+      ? // Test env must always access detailed processes
+        escapeForElmTemplate(getDetailedProcessesAsString())
+      : // Other envs embed non-detailed processes by default
+        parseAndValidate(dataFiles.noDetails, "id"),
   )
   .replace("%transportsJson%", parseAndValidate("public/data/transports.json"))
   // Food JSON data
