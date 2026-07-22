@@ -18,7 +18,8 @@ if [ "$IS_REVIEW_APP" == "true" ]; then
 fi
 
 # Always update the processes with the latest data, even on staging or production
-uv run backend fixtures load-processes public/data/processes_impacts.json
+# Merge base metadata with trimmed down detailed impacts before loading into the backend
+node bin/build-detailed-processes-fixtures | uv run backend fixtures load-processes -
 
 if [ "$IS_REVIEW_APP" == "true" ]; then
    # We want to keep the staging components as they are, so we only load the default ones on review apps

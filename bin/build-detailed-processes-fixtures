@@ -1,0 +1,7 @@
+#!/usr/bin/env node
+
+// Merge base process metadata with detailed impacts and outputs the resulting JSON to stdout
+// This is used to load the detailed processes into the backend fixtures
+const { getDetailedProcessesAsString } = require("../lib");
+
+process.stdout.write(getDetailedProcessesAsString());

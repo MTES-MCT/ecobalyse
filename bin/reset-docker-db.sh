@@ -7,5 +7,5 @@ $SCRIPT_DIR/check-db.sh
 docker compose exec -T db dropdb --if-exists -U ecobalyse ecobalyse_dev
 docker compose exec -T db createdb -U ecobalyse ecobalyse_dev
 uv run backend database upgrade --no-prompt
-uv run backend fixtures load-processes public/data/processes_impacts.json
+node bin/build-detailed-processes-fixtures | uv run backend fixtures load-processes -
 uv run backend fixtures load-components public/data/object/components.json
