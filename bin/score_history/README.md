@@ -6,7 +6,7 @@ If the score changes, the new rows are appended to the score_history PostgreSQL
 table.
 
 
-## How to run in local
+## How to run locally
 
 ### Prerequisites
 
