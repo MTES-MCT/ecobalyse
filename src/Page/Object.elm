@@ -908,7 +908,7 @@ editorConfig session ({ scope } as model) =
     , docsUrl = Nothing
     , explorerRoute = Just (Route.Explore scope (Dataset.Components scope Nothing))
     , impact = model.impact
-    , labels = ComponentView.scopeLabels { context = ComponentView.GenericContext, scope = scope }
+    , labels = ComponentView.scopeLabels ComponentView.GenericContext scope
     , noOp = NoOp
     , openEditElementModal = \c ti -> AppendModal (EditElementModal c ti)
     , openSelectConsumptionModal = SelectConsumptionModal >> List.singleton >> SetModals
@@ -1124,10 +1124,7 @@ modalView : Session -> Model -> Modal -> Html Msg
 modalView session ({ modals } as model) modal =
     let
         scopeLabels =
-            ComponentView.scopeLabels
-                { context = ComponentView.GenericContext
-                , scope = model.scope
-                }
+            ComponentView.scopeLabels ComponentView.GenericContext model.scope
     in
     case modal of
         AddProductionItemModal autocompleteState ->

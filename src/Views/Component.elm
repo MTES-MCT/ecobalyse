@@ -131,8 +131,8 @@ type alias Labels =
 
 {-| Scoped label. TODO: we might eventually want to make these configurable.
 -}
-scopeLabels : { context : Context, scope : Scope } -> Labels
-scopeLabels { context, scope } =
+scopeLabels : Context -> Scope -> Labels
+scopeLabels context scope =
     case ( context, scope ) of
         ( GenericContext, Scope.Generic Scope.Food2 ) ->
             { add = "Ajouter un ingrédient"

@@ -644,7 +644,7 @@ modalView { componentConfig, db } modals index modal =
                             , docsUrl = Nothing
                             , explorerRoute = Nothing
                             , impact = db.definitions |> Definition.get Definition.Ecs
-                            , labels = ComponentView.scopeLabels { context = ComponentView.AdminContext, scope = component.scope }
+                            , labels = ComponentView.scopeLabels ComponentView.AdminContext component.scope
                             , lifeCycle =
                                 Component.emptyQuery
                                     |> Component.setQueryItems [ item ]
