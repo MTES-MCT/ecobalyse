@@ -4,7 +4,8 @@
  * Slim down a generated detailed processes file, preserving only ids and detailed
  * impacts, to ease consumption by the frontend
  *
- * FIXME: Ideally, we should have the data pipeline directly producing this format
+ * FIXME: Ideally, we should eventually have the data pipeline directly producing
+ * this format and so this script should be removed
  */
 const fs = require("fs");
 const { dataFiles } = require("../lib");

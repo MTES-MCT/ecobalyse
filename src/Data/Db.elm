@@ -70,10 +70,6 @@ build =
 
 
 {-| Build a Db, overriding base process impacts with the provided detailed impacts.
-
-Note: overrides are applied right after processes are decoded and before any downstream
-resolution, so they always carry detailed impacts
-
 -}
 buildWithImpactDetails : Process.ImpactDetails -> RawJsonStrings -> Result String Db
 buildWithImpactDetails impactDetails json =

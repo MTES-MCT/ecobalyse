@@ -54,7 +54,7 @@ type Id
     = Id Uuid
 
 
-{-| A process is an entry from processes.json or processes\_impacts.json.
+{-| A process is an entry from processes.json, with optional detailed impacts from processes\_impacts.json.
 -}
 type alias Process =
     { activityName : ActivityName

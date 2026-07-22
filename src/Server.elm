@@ -339,7 +339,7 @@ update : Msg -> Cmd Msg
 update msg =
     case msg of
         Received request ->
-            case StaticDb.dbFromStaticFiles request.processes of
+            case StaticDb.fromStaticFiles request.processes of
                 Err error ->
                     error
                         |> Validation.fromErrorString

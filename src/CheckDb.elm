@@ -15,7 +15,7 @@ import Static.Db as StaticDb
 
 type alias Flags =
     { componentConfigJson : String
-    , detailedProcessesJson : String
+    , impactDetailsJson : String
     , nonDetailedProcessesJson : String
     }
 
@@ -295,11 +295,11 @@ checkStaticDatabase config dbName dbResult =
 {-| Decodes both static databases, executes checks, and returns grouped errors.
 -}
 checkStaticDatabases : Flags -> Result (List Error) ()
-checkStaticDatabases { componentConfigJson, detailedProcessesJson, nonDetailedProcessesJson } =
+checkStaticDatabases { componentConfigJson, impactDetailsJson, nonDetailedProcessesJson } =
     case
         List.concatMap (\( dbName, dbResult ) -> checkStaticDatabase componentConfigJson dbName dbResult)
-            [ ( "Detailed Db", StaticDb.dbFromStaticFiles detailedProcessesJson )
-            , ( "Non-detailed Db", StaticDb.dbFromStaticFiles nonDetailedProcessesJson )
+            [ ( "Detailed Db", StaticDb.fromStaticFilesWithImpactDetails nonDetailedProcessesJson impactDetailsJson )
+            , ( "Non-detailed Db", StaticDb.fromStaticFiles nonDetailedProcessesJson )
             ]
     of
         [] ->
