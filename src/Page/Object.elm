@@ -83,6 +83,7 @@ type Modal
     = AddProductionItemModal (Autocomplete Component.ProductionItem)
     | ComparatorModal
     | EditElementModal Component TargetElement
+    | SelectAssemblyProcessModal (Autocomplete Process)
     | SelectConsumptionModal (Autocomplete Process)
     | SelectExampleModal (Autocomplete Component.Query)
     | SelectPackagingModal (Autocomplete Process)
@@ -98,11 +99,13 @@ type Msg
     | ExportBookmarks
     | ImportBookmarks
     | NoOp
+    | OnAutocompleteAddAssembly (Autocomplete.Msg Process)
     | OnAutocompleteAddConsumption (Autocomplete.Msg Process)
     | OnAutocompleteAddProcess Category TargetItem (Maybe Index) (Autocomplete.Msg Process)
     | OnAutocompleteAddProductionItem (Autocomplete.Msg Component.ProductionItem)
     | OnAutocompleteExample (Autocomplete.Msg Component.Query)
     | OnAutocompletePackaging (Autocomplete.Msg Process)
+    | OnAutocompleteSelectAssembly
     | OnAutocompleteSelectConsumption
     | OnAutocompleteSelectExample
     | OnAutocompleteSelectPackaging
@@ -113,6 +116,7 @@ type Msg
     | OnDragStartBookmark Bookmark
     | OnDropBookmark Bookmark
     | OpenComparator
+    | RemoveAssemblyProcess Index
     | RemoveComponentItem Int
     | RemoveConsumption Index
     | RemoveElement TargetElement
@@ -133,6 +137,7 @@ type Msg
     | ToggleTransportByAir Split
     | ToggleTransportCooling Bool
     | UpdateAssemblyCountry (Maybe CountryCode.Code)
+    | UpdateAssemblyProcessCountry Index (Maybe CountryCode.Code)
     | UpdateBookmarkName String
     | UpdateComponentItemName TargetItem String
     | UpdateComponentItemQuantity Index Component.Quantity
@@ -374,6 +379,18 @@ update ({ navKey } as session) msg model =
         ( OnAutocompleteAddProductionItem _, _ ) ->
             createPageUpdate session model
 
+        ( OnAutocompleteAddAssembly autocompleteMsg, (SelectAssemblyProcessModal autocompleteState) :: otherModals ) ->
+            let
+                ( newAutocompleteState, autoCompleteCmd ) =
+                    Autocomplete.update autocompleteMsg autocompleteState
+            in
+            { model | modals = SelectAssemblyProcessModal newAutocompleteState :: otherModals }
+                |> createPageUpdate session
+                |> App.withCmds [ Cmd.map OnAutocompleteAddAssembly autoCompleteCmd ]
+
+        ( OnAutocompleteAddAssembly _, _ ) ->
+            createPageUpdate session model
+
         ( OnAutocompleteAddConsumption autocompleteMsg, (SelectConsumptionModal autocompleteState) :: otherModals ) ->
             let
                 ( newAutocompleteState, autoCompleteCmd ) =
@@ -427,6 +444,13 @@ update ({ navKey } as session) msg model =
                 |> selectProductionItem query autocompleteState
 
         ( OnAutocompleteSelectProductionItem, _ ) ->
+            createPageUpdate session model
+
+        ( OnAutocompleteSelectAssembly, (SelectAssemblyProcessModal autocompleteState) :: _ ) ->
+            createPageUpdate session model
+                |> selectAssemblyProcess query autocompleteState
+
+        ( OnAutocompleteSelectAssembly, _ ) ->
             createPageUpdate session model
 
         ( OnAutocompleteSelectConsumption, (SelectConsumptionModal autocompleteState) :: _ ) ->
@@ -496,6 +520,10 @@ update ({ navKey } as session) msg model =
                 |> createPageUpdate session
                 |> updateQuery (query |> Component.mapItems (LE.removeAt itemIndex))
                 |> App.withCmds [ Plausible.send session <| Plausible.ComponentUpdated model.scope ]
+
+        ( RemoveAssemblyProcess index, _ ) ->
+            createPageUpdate session model
+                |> updateQuery (query |> Component.removeAssemblyProcess index)
 
         ( RemoveConsumption index, _ ) ->
             createPageUpdate session model
@@ -625,7 +653,11 @@ update ({ navKey } as session) msg model =
 
         ( UpdateAssemblyCountry maybeCountry, _ ) ->
             createPageUpdate session model
-                |> updateQuery { query | assemblyCountry = maybeCountry }
+                |> updateQuery (query |> Component.updateAssemblyCountry maybeCountry)
+
+        ( UpdateAssemblyProcessCountry index maybeCountry, _ ) ->
+            createPageUpdate session model
+                |> updateQuery (query |> Component.updateAssemblyProcessCountry index maybeCountry)
 
         ( UpdateBookmarkName newName, _ ) ->
             { model | bookmarkName = newName }
@@ -762,6 +794,9 @@ isAutocompleteModal modal =
         AddProductionItemModal _ ->
             True
 
+        SelectAssemblyProcessModal _ ->
+            True
+
         SelectConsumptionModal _ ->
             True
 
@@ -832,6 +867,18 @@ selectProductionItem query autocompleteState ({ model, session } as pageUpdate) 
 
         Nothing ->
             pageUpdate |> App.notifyWarning "Aucun composant sélectionné"
+
+
+selectAssemblyProcess : Component.Query -> Autocomplete Process -> PageUpdate Model Msg -> PageUpdate Model Msg
+selectAssemblyProcess query autocompleteState pageUpdate =
+    case Autocomplete.selectedValue autocompleteState of
+        Just process ->
+            pageUpdate
+                |> updateQuery (query |> Component.addAssemblyProcess query.assembly.country process)
+                |> App.apply update (SetModals [])
+
+        Nothing ->
+            pageUpdate |> App.notifyWarning "Aucun procédé sélectionné"
 
 
 selectConsumption : Component.Query -> Autocomplete Process -> PageUpdate Model Msg -> PageUpdate Model Msg
@@ -911,11 +958,13 @@ editorConfig session ({ scope } as model) =
     , labels = ComponentView.scopeLabels ComponentView.GenericContext scope
     , noOp = NoOp
     , openEditElementModal = \c ti -> AppendModal (EditElementModal c ti)
+    , openSelectAssemblyProcessModal = SelectAssemblyProcessModal >> List.singleton >> SetModals
     , openSelectConsumptionModal = SelectConsumptionModal >> List.singleton >> SetModals
     , openSelectPackagingModal = SelectPackagingModal >> List.singleton >> SetModals
     , openSelectProcessModal = \c ti mi ac -> AppendModal (SelectProcessModal c ti mi ac)
     , openSelectProductionItem = AddProductionItemModal >> List.singleton >> SetModals
     , query = session |> Session.objectQueryFromScope model.scope
+    , removeAssemblyProcess = RemoveAssemblyProcess
     , removeConsumption = RemoveConsumption
     , removeElement = RemoveElement
     , removeElementTransform = RemoveElementTransform
@@ -927,6 +976,7 @@ editorConfig session ({ scope } as model) =
     , toggleTransportByAir = ToggleTransportByAir
     , toggleTransportCooling = ToggleTransportCooling
     , updateAssemblyCountry = UpdateAssemblyCountry
+    , updateAssemblyProcessCountry = UpdateAssemblyProcessCountry
     , updateConsumptionAmount = UpdateConsumptionAmount
     , updateDistribution = UpdateDistribution
     , updateElementAmount = UpdateElementAmount
@@ -987,7 +1037,7 @@ simulatorView ({ componentConfig } as session) ({ scope } as model) =
 
                 -- Score
                 , customScoreInfo = Nothing
-                , productMass = Component.extractMass lifeCycle.production
+                , productMass = Component.extractProductMass lifeCycle
                 , totalImpacts = lifeCycle |> Component.applyDurability currentDurability
                 , totalImpactsWithoutDurability = lifeCycle |> Component.sumLifeCycleImpacts |> Just
 
@@ -1181,6 +1231,20 @@ modalView session ({ modals } as model) modal =
                         |> ComponentView.elementEditModalView (editorConfig session model)
                     ]
                 , footer = []
+                }
+
+        SelectAssemblyProcessModal autocompleteState ->
+            AutocompleteSelectorView.view
+                { autocompleteState = autocompleteState
+                , closeModal = SetModals (List.drop 1 modals)
+                , footer = []
+                , noOp = NoOp
+                , onAutocomplete = OnAutocompleteAddAssembly
+                , onAutocompleteSelect = OnAutocompleteSelectAssembly
+                , placeholderText = "tapez ici le nom d'un procédé d'assemblage pour le rechercher"
+                , title = "Sélectionnez un procédé d'assemblage"
+                , toLabel = Process.getDisplayName
+                , toCategory = .unit >> Process.unitToString
                 }
 
         SelectConsumptionModal autocompleteState ->

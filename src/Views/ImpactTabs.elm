@@ -113,6 +113,13 @@ view definitions { activeImpactsTab, complementsImpact, impactDefinition, onStag
                       , value = stagesImpacts.transform
                       }
                     , { entryAttributes =
+                            [ StagesBorder.style Impact.stagesColors.assembly
+                            , onClick <| onStageClick "assembly-stage"
+                            ]
+                      , name = "Assemblage"
+                      , value = stagesImpacts.assembly
+                      }
+                    , { entryAttributes =
                             [ StagesBorder.style Impact.stagesColors.packaging
                             , onClick <| onStageClick "packaging-stage"
                             ]

@@ -832,6 +832,97 @@ suite =
                             )
                          ]
                         )
+                    , describe "computeAssemblyImpacts"
+                        [ it "should keep product mass unchanged when no assembly operations are defined"
+                            ("""{
+                                  "components": [{ "id": "64fa65b3-c2df-4fd0-958b-83965bd6aa08", "quantity": 1 }]
+                                }"""
+                                |> decodeJsonThen Component.decodeQuery (Component.compute requirements)
+                                |> Result.map
+                                    (\lifeCycle ->
+                                        ( Component.extractMass lifeCycle.production
+                                            |> Mass.inKilograms
+                                        , Component.extractProductMass lifeCycle
+                                            |> Mass.inKilograms
+                                        , lifeCycle.assembly |> Component.extractImpacts |> getEcsImpact
+                                        )
+                                    )
+                                |> (\result ->
+                                        case result of
+                                            Ok ( productionMass, productMass, assemblyImpact ) ->
+                                                Expect.all
+                                                    [ \_ -> Expect.within (Expect.Absolute 0.00001) productionMass productMass
+                                                    , \_ -> Expect.within (Expect.Absolute 0.00001) assemblyImpact 0
+                                                    ]
+                                                    ()
+
+                                            Err err ->
+                                                Expect.fail err
+                                   )
+                            )
+                        , it "should reject a non-assembly process in assembly operations"
+                            (requirements.db.processes
+                                |> Process.listByCategory Category.Material
+                                |> Scope.anyOf [ requirements.scope ]
+                                |> List.head
+                                |> Result.fromMaybe "No material process found in object scope"
+                                |> Result.andThen
+                                    (\process ->
+                                        Component.idFromString "64fa65b3-c2df-4fd0-958b-83965bd6aa08"
+                                            |> Result.andThen
+                                                (\itemId ->
+                                                    Component.validateQuery requirements
+                                                        { emptyQuery
+                                                            | items =
+                                                                [ { custom = Nothing
+                                                                  , id = Just itemId
+                                                                  , quantity = Component.quantityFromInt 1
+                                                                  }
+                                                                ]
+                                                            , assembly =
+                                                                { country = Nothing
+                                                                , operations = [ { country = Nothing, id = process.id } ]
+                                                                }
+                                                        }
+                                                )
+                                    )
+                                |> expectResultErrorContains "Le procédé n'est pas un assemblage"
+                            )
+                        ]
+                    , describe "decodeAssembly"
+                        [ it "should decode an assembly block with country and operations"
+                            ("""{
+                                  "components": [{ "id": "64fa65b3-c2df-4fd0-958b-83965bd6aa08", "quantity": 1 }],
+                                  "assembly": {
+                                    "country": "FR",
+                                    "operations": [
+                                      { "country": "DE", "id": "8b4fae1f-71bc-44d4-9e40-b2399ef04f34" }
+                                    ]
+                                  }
+                                }"""
+                                |> decodeJsonThen Component.decodeQuery Ok
+                                |> Result.map
+                                    (\query ->
+                                        ( query.assembly.country
+                                        , List.length query.assembly.operations
+                                        )
+                                    )
+                                |> (\result ->
+                                        case result of
+                                            Ok ( country, operationsCount ) ->
+                                                Expect.all
+                                                    [ \_ ->
+                                                        country
+                                                            |> Expect.equal (Just (CountryCode.fromString "FR"))
+                                                    , \_ -> Expect.equal 1 operationsCount
+                                                    ]
+                                                    ()
+
+                                            Err err ->
+                                                Expect.fail err
+                                   )
+                            )
+                        ]
                     , describe "computeTransports"
                         [ suiteFromResult2 "unknown locations"
                             -- setup
@@ -868,7 +959,7 @@ suite =
                         , suiteFromResult "assembly country handling"
                             -- setup
                             ("""{
-                                  "assemblyCountry": "FR",
+                                  "assembly": { "country": "FR" },
                                   "components": [
                                     { "id": "ad9d7f23-076b-49c5-93a4-ee1cd7b53973", "quantity": 1 },
                                     { "id": "eda5dd7e-52e4-450f-8658-1876efc62bd6", "quantity": 1 }
@@ -928,7 +1019,7 @@ suite =
                             )
                         , it "should reject an empty component list with an assembly country"
                             ("""{
-                                  "assemblyCountry": "FR",
+                                  "assembly": { "country": "FR" },
                                   "components": []
                                 }"""
                                 |> decodeJsonThen Component.decodeQuery (Component.compute requirements)
@@ -992,7 +1083,7 @@ suite =
                                     { "id": "ad9d7f23-076b-49c5-93a4-ee1cd7b53973", "quantity": 1 },
                                     { "id": "eda5dd7e-52e4-450f-8658-1876efc62bd6", "quantity": 1 }
                                   ],
-                                  "assemblyCountry": "PT",
+                                  "assembly": { "country": "PT" },
                                   "transportOptions": { "byAir": 100 }
                                 }"""
                                 |> decodeJsonThen Component.decodeQuery (Component.compute requirements)
@@ -1464,7 +1555,14 @@ suite =
                         -- setup
                         (chair
                             |> Result.andThen (computeItemsWithRequirements requirements)
-                            |> Result.map (.production >> Component.getEndOfLifeDetailedImpacts requirements True)
+                            |> Result.map
+                                (\lifeCycle ->
+                                    lifeCycle.production
+                                        |> Component.getEndOfLifeDetailedImpacts
+                                            requirements
+                                            True
+                                            (Component.endOfLifeMassScaleRatio lifeCycle)
+                                )
                         )
                         -- tests
                         (\chairMaterialGroups ->
@@ -1520,21 +1618,25 @@ suite =
                     , let
                         query =
                             { emptyQuery
-                                | items = [ Component.createItem Nothing ]
-                                , assemblyCountry = Just (CountryCode.fromString "FR")
+                                | assembly =
+                                    { country = Just (CountryCode.fromString "FR")
+                                    , operations = []
+                                    }
                             }
                       in
                       describe "mapItems"
                         [ it "should reset the assembly country when mapItems empties the list"
                             (query
                                 |> Component.mapItems (always [])
-                                |> .assemblyCountry
+                                |> .assembly
+                                |> .country
                                 |> Expect.equal Nothing
                             )
                         , it "should preserve the assembly country when mapItems keeps the list"
                             (query
                                 |> Component.mapItems (always [ Component.createItem Nothing ])
-                                |> .assemblyCountry
+                                |> .assembly
+                                |> .country
                                 |> Expect.equal (Just (CountryCode.fromString "FR"))
                             )
                         ]
@@ -1619,25 +1721,33 @@ suite =
                         )
                     , let
                         query =
-                            { emptyQuery | assemblyCountry = Just (CountryCode.fromString "FR") }
+                            { emptyQuery
+                                | assembly =
+                                    { country = Just (CountryCode.fromString "FR")
+                                    , operations = []
+                                    }
+                            }
                       in
                       describe "setQueryItems"
                         [ it "should preserve the assembly country for a single item"
                             (query
                                 |> Component.setQueryItems [ Component.createItem Nothing ]
-                                |> .assemblyCountry
+                                |> .assembly
+                                |> .country
                                 |> Expect.equal (Just (CountryCode.fromString "FR"))
                             )
                         , it "should preserve the assembly country for multiple items"
                             (query
                                 |> Component.setQueryItems [ Component.createItem Nothing, Component.createItem Nothing ]
-                                |> .assemblyCountry
+                                |> .assembly
+                                |> .country
                                 |> Expect.equal (Just (CountryCode.fromString "FR"))
                             )
                         , it "should reset the assembly country when the list becomes empty"
                             (query
                                 |> Component.setQueryItems []
-                                |> .assemblyCountry
+                                |> .assembly
+                                |> .country
                                 |> Expect.equal Nothing
                             )
                         ]
@@ -1807,7 +1917,7 @@ suite =
                         (\lifeCycle lowVoltageElecProcess ->
                             let
                                 productMass =
-                                    Component.extractMass lifeCycle.production |> Mass.inKilograms
+                                    Component.extractProductMass lifeCycle |> Mass.inKilograms
 
                                 massDependentProcess =
                                     { lowVoltageElecProcess
