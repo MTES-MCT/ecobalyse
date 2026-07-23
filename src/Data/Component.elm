@@ -15,6 +15,7 @@ module Data.Component exposing
     , Item
     , LifeCycle
     , Packaging
+    , ProductionItem(..)
     , Quantity
     , Query
     , Requirements
@@ -95,6 +96,7 @@ module Data.Component exposing
     , packaging
     , parseBase64Query
     , parseConfig
+    , productionItemToLabel
     , quantityFromInt
     , quantityToInt
     , removeConsumption
@@ -291,6 +293,14 @@ type alias ExpandedLocalizedProcess =
     { country : Maybe Country
     , process : Process
     }
+
+
+{-| The type of item to add at the production stage of the life cycle: either an existing Component
+or a raw material Process (which is turned into a custom component).
+-}
+type ProductionItem
+    = ComponentItem Component
+    | MaterialItem Process
 
 
 {-| Packaging process id and a quantity of its unit
@@ -2186,6 +2196,16 @@ parseBase64Query =
 parseConfig : DataContainer db -> String -> Result String Config
 parseConfig =
     Config.parse
+
+
+productionItemToLabel : ProductionItem -> String
+productionItemToLabel productionItem =
+    case productionItem of
+        ComponentItem { name } ->
+            name
+
+        MaterialItem process ->
+            Process.getDisplayName process
 
 
 quantityFromInt : Int -> Quantity
