@@ -22,7 +22,6 @@
         "organic"
       ],
       "ingredientDensity": 0.6375,
-      "rawToCookedRatio": 0.856,
       "scenario": "organic",
       "scopes": [
         "food",
@@ -54,11 +53,6 @@
       "ingredientDensityMatch": {
         "confidence": 1.0,
         "rule": "potato found in density.csv"
-      },
-      "rawToCookedRatio": 0.856,
-      "rawToCookedRatioMatch": {
-        "confidence": 1.0,
-        "rule": "Matched with potato in cooked_to_raw.csv"
       },
       "scenario": "organic",
       "scopes": [
@@ -95,11 +89,6 @@
       "ingredientDensityMatch": {
         "confidence": 0.95,
         "rule": "Matched with Sweet potato, raw in fao_density.csv"
-      },
-      "rawToCookedRatio": 0.856,
-      "rawToCookedRatioMatch": {
-        "confidence": 0.95,
-        "rule": "Matched with potato in cooked_to_raw.csv"
       },
       "scenario": "organic",
       "scopes": [

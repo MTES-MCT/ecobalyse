@@ -32,11 +32,6 @@
         "confidence": 1.0,
         "rule": "Oats found in fao_density.csv"
       },
-      "rawToCookedRatio": 2.259,
-      "rawToCookedRatioMatch": {
-        "confidence": 0.95,
-        "rule": "Matched with oat in cooked_to_raw.csv"
-      },
       "scenario": "import",
       "scopes": [
         "food",
@@ -71,11 +66,6 @@
       "ingredientDensityMatch": {
         "confidence": 1.0,
         "rule": "Oats found in fao_density.csv"
-      },
-      "rawToCookedRatio": 2.259,
-      "rawToCookedRatioMatch": {
-        "confidence": 0.95,
-        "rule": "Matched with oat in cooked_to_raw.csv"
       },
       "scenario": "import",
       "scopes": [

@@ -20,6 +20,9 @@ PROJECT_ROOT_DIR = pathlib.Path(__file__).parent.parent.parent.resolve()
 IMPACTS_ECOBALYSE_PATH = os.path.join(
     PROJECT_ROOT_DIR, "public", "data", "impacts.json"
 )
+PROCESSES_IMPACTS_PATH = os.path.join(
+    PROJECT_ROOT_DIR, "public", "data", "processes_impacts.json"
+)
 
 TODAY_DATETIME_STR = datetime.now().strftime("%Y-%m-%d %H:%M:%S")
 TOKEN = "dummy"
@@ -32,7 +35,6 @@ class Domain(StrEnum):
 
 EXAMPLES_KEY = "examples"
 API_ENDPOINT_KEY = "api_endpoint"
-INGREDIENTS_KEY = "ingredients"
 
 # @TODO: do the same for objects
 DOMAIN_DATA = {
@@ -47,9 +49,6 @@ DOMAIN_DATA = {
             PROJECT_ROOT_DIR, "public", "data", "food", "examples.json"
         ),
         API_ENDPOINT_KEY: "/api/food/",
-        INGREDIENTS_KEY: os.path.join(
-            PROJECT_ROOT_DIR, "public", "data", "food", "ingredients.json"
-        ),
     },
 }
 
@@ -60,9 +59,13 @@ logger = logging.getLogger("logger")
 
 
 def get_arguments():
+    dry_run = "--dry-run" in sys.argv
+    if dry_run:
+        sys.argv.remove("--dry-run")
+
     if len(sys.argv) < 4:
         print(
-            "Usage: python compute_score_history.py <API_URL> <BRANCH_NAME> <LAST_COMMIT_HASH> <SCALINGO_POSTGRESQL_SCORE_URL>"
+            "Usage: python score_history.py <API_URL> <BRANCH_NAME> <LAST_COMMIT_HASH> <SCALINGO_POSTGRESQL_SCORE_URL> [--dry-run]"
         )
         sys.exit(1)
 
@@ -70,7 +73,13 @@ def get_arguments():
     branch_name = sys.argv[2]
     last_commit_hash = sys.argv[3][:7]
     scalingo_postgresql_score_url = sys.argv[4]
-    return api_url, branch_name, last_commit_hash, scalingo_postgresql_score_url
+    return (
+        api_url,
+        branch_name,
+        last_commit_hash,
+        scalingo_postgresql_score_url,
+        dry_run,
+    )
 
 
 def load_json(file):
@@ -367,12 +376,94 @@ def create_df_food(
     return df
 
 
-def is_new_commit(score_history_df, last_commit):
-    """if the last commit is not in the score history, we add this to the"""
-    if not score_history_df["commit"].isin([last_commit]).any():
-        return True
-    else:
-        return False
+def get_ingredient_scores_from_file(current_branch, last_commit):
+    """
+    Get the ingredient scores not from the API but directly from the impacts file.
+    We won't have the transport/distribution impact but it's a lot faster
+    """
+    normalization_factors = compute_normalization_factors()
+    processes = load_json(PROCESSES_IMPACTS_PATH)
+    visible_ingredient_processes = [
+        process
+        for process in processes
+        if process.get("metadata")
+        and process["metadata"].get("ingredient")
+        and process["visible"]
+    ]
+
+    ingredient_dfs = [
+        create_df_ingredient(
+            current_branch, last_commit, process, normalization_factors
+        )
+        for process in visible_ingredient_processes
+    ]
+    return pd.concat(ingredient_dfs, axis=0, ignore_index=True)
+
+
+def create_df_ingredient(branch, commit_id, process, normalization_factors):
+    """
+    Create a DataFrame of score rows for a single raw ingredient from its
+    process entry in processes_impacts.json
+
+    """
+    ingredient_query = {"ingredients": [{"id": process["id"], "mass": 1000}]}
+    impacts_sr = pd.Series(process["impacts"], dtype="float64")
+
+    data = {
+        "datetime": TODAY_DATETIME_STR,
+        "branch": branch,
+        "commit": commit_id,
+        "domain": "food",
+        "product_name": process["alias"],
+        "id": process["id"],
+        "query": json.dumps(ingredient_query),
+        "mass": 1000,
+        "elements": json.dumps(ingredient_query["ingredients"]),
+        "lifecycle_step": "ingredients",
+        "lifecycle_step_country": "",
+        "impact": impacts_sr.index.tolist(),
+        "value": impacts_sr.values.tolist(),
+    }
+    df = pd.DataFrame(data)
+    df["norm_value_ecs"] = 1e6 * df["value"] * df["impact"].map(normalization_factors)
+
+    complements = {
+        key: value or 0
+        for key, value in process["metadata"].get("complements", {}).items()
+    }
+
+    # Match the API-based rows: the ecs value includes the complements
+    df.loc[df["impact"] == "ecs", "value"] += sum(complements.values())
+
+    if complements:
+        data_complements = {
+            "datetime": TODAY_DATETIME_STR,
+            "branch": branch,
+            "commit": commit_id,
+            "domain": "food",
+            "product_name": process["alias"],
+            "id": process["id"],
+            "query": json.dumps(ingredient_query),
+            "mass": 1000,
+            "elements": json.dumps(ingredient_query["ingredients"]),
+            "lifecycle_step": "ingredients",
+            "lifecycle_step_country": "",
+            "impact": list(complements.keys()),
+            "value": 0,
+            "norm_value_ecs": list(complements.values()),
+        }
+        df_complements = pd.DataFrame(data_complements)
+        df = pd.concat([df, df_complements], axis=0, ignore_index=True)
+
+    return df
+
+
+def is_new_commit(engine, last_commit):
+    """Check if the commit is already in score_history"""
+    query = text("SELECT 1 FROM score_history WHERE commit = :commit LIMIT 1")
+    with get_database_connection(engine) as conn:
+        existing_commit_row = conn.execute(query, {"commit": last_commit}).first()
+    return existing_commit_row is None
 
 
 def are_df_different(df1, df2, tolerance=0.0001):
@@ -445,37 +536,33 @@ def dataframe_to_dict(df, key_cols, value_cols):
     return result_dict
 
 
-def get_previous_score(domain, score_history_df, current_branch):
+def get_previous_score(engine, domain, current_branch):
     """
-    Retrieves the most recent score from the score history dataframe for a specific branch.
+    Retrieves the rows of the most recent score for a specific branch and domain.
 
     Args:
+    engine: SQLAlchemy engine
     domain (str) : textile or food
-    score_history_df (DataFrame): The DataFrame containing the score history with 'datetime' and 'branch' columns.
     current_branch (str): The branch for which to retrieve the most recent score.
 
     Returns:
-    tuple:
-        - bool indicating if there is no previous score on the branch.
-        - DataFrame with the most recent score details for the branch.
+    DataFrame with the most recent score details for the branch and domain,
+    empty if the branch and domain have no score yet.
     """
-    # Convert 'datetime' to datetime format only if it's not already converted
-    if not pd.api.types.is_datetime64_any_dtype(score_history_df["datetime"]):
-        score_history_df["datetime"] = pd.to_datetime(score_history_df["datetime"])
-
-    # Filter DataFrame for the current branch and current domain
-    previous_score_df = score_history_df[
-        (score_history_df["branch"] == current_branch)
-        & (score_history_df["domain"] == domain)
-    ]
-
-    # Get the most recent datetime and filter the DataFrame to this datetime
-    latest_datetime = previous_score_df["datetime"].max()
-    previous_score_df = previous_score_df[
-        previous_score_df["datetime"] == latest_datetime
-    ]
-
-    return previous_score_df
+    query = text(
+        """
+        SELECT * FROM score_history
+        WHERE branch = :branch
+          AND domain = :domain
+          AND datetime = (
+              SELECT MAX(datetime) FROM score_history
+              WHERE branch = :branch AND domain = :domain
+          )
+        """
+    )
+    query_params = {"branch": current_branch, "domain": str(domain)}
+    with get_database_connection(engine) as conn:
+        return pd.read_sql(query, conn, params=query_params)
 
 
 # Database Operations
@@ -497,13 +584,6 @@ def get_database_connection(engine):
         raise e
     finally:
         connection.close()  # Ensure the connection is closed
-
-
-def get_score_history(engine):
-    query = text("SELECT * FROM score_history")
-    with get_database_connection(engine) as conn:
-        df = pd.read_sql(query, conn)
-        return df
 
 
 def get_row_count(engine):
@@ -534,38 +614,14 @@ def compute_products_scores_for_examples(examples, api_url, token):
     return computed_scores
 
 
-def add_all_ingredients_as_examples(examples_input):
-    """
-    Add all ingredients to the list of examples. Thanks to this we can notice the evolution of impacts of all ingredients. We could add all these ingredients as food product examples but we don't as this would be overwhelming of the UI user.
-    """
-    new_examples_input = list(examples_input)
-    ingredients = load_json(DOMAIN_DATA[domain][INGREDIENTS_KEY])
-    visible_ingredients = [ingr for ingr in ingredients if ingr["visible"]]
-    for ingredient in visible_ingredients:
-        ingredient_id = ingredient["id"]
-        new_example = {
-            "id": ingredient_id,
-            "name": f"{ingredient['alias']}",
-            "category": "raw_ingredient",
-            "query": {"ingredients": [{"id": ingredient_id, "mass": 1000}]},
-        }
-        new_examples_input.append(new_example)
-
-    return new_examples_input
-
-
 if __name__ == "__main__":
-    api_url, current_branch, last_commit, scalingo_postgresql_score_url = (
+    api_url, current_branch, last_commit, scalingo_postgresql_score_url, dry_run = (
         get_arguments()
     )
-
     engine = create_engine(
         scalingo_postgresql_score_url, connect_args={"connect_timeout": 10}
     )
-
-    score_history_df = get_score_history(engine)
-
-    commit_is_new = is_new_commit(score_history_df, last_commit)
+    commit_is_new = is_new_commit(engine, last_commit)
 
     if commit_is_new:
         logger.info(
@@ -578,20 +634,31 @@ if __name__ == "__main__":
 
             examples_input = load_json(example_path)
 
-            if domain == Domain.FOOD:
-                examples_input = add_all_ingredients_as_examples(examples_input)
-
             examples = compute_products_scores_for_examples(
                 examples_input, f"{api_url}{api_endpoint}", TOKEN
             )
 
             new_score_df = get_new_score(domain, examples, current_branch, last_commit)
-            previous_score_df = get_previous_score(
-                domain, score_history_df, current_branch
+
+            if domain == Domain.FOOD:
+                ingredient_scores_df = get_ingredient_scores_from_file(
+                    current_branch, last_commit
+                )
+                new_score_df = pd.concat(
+                    [new_score_df, ingredient_scores_df], axis=0, ignore_index=True
+                )
+            logger.info(
+                f"Fetching previous score for branch {current_branch} and domain {domain}"
             )
+            previous_score_df = get_previous_score(engine, domain, current_branch)
             if previous_score_df.empty or are_df_different(
                 new_score_df, previous_score_df
             ):
+                if dry_run:
+                    logger.info(
+                        f"[dry-run] Score is different for domain {domain}. Would have appended {new_score_df.shape[0]} rows to score_history. Nothing was inserted."
+                    )
+                    continue
                 logger.info(
                     f"Score is different for domain {domain}. Storing new score in the db. Number of rows in the score_history table before update: {get_row_count(engine)}"
                 )

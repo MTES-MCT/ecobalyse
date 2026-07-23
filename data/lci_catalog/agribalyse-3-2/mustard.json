@@ -19,7 +19,6 @@
         "spice_condiment_additive"
       ],
       "ingredientDensity": 0.24,
-      "rawToCookedRatio": 0.856,
       "scenario": "reference",
       "scopes": [
         "food",

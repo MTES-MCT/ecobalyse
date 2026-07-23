@@ -72,10 +72,19 @@ data = [
   "bw2parameters == 1.1.0",
   'pypardiso ~= 0.4; platform_machine!="arm64" and platform_machine!="aarch64"',
 ]
+score-history = [
+    "pandas>=3.0.3",
+    "psycopg2-binary>=2.9.12",
+    "requests>=2.34.2",
+    "sqlalchemy>=2.0.51",
+]
 
 [tool.pytest.ini_options]
 pythonpath = ["."]
 testpaths = ["tests"]
+filterwarnings = [
+    "ignore:All values in characterization matrix:UserWarning:bw2calc",
+]
 
 [tool.ruff]
 target-version = "py312"

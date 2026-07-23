@@ -33,11 +33,6 @@
         "confidence": 1.0,
         "rule": "Rapeseed found in fao_density.csv"
       },
-      "rawToCookedRatio": 2.259,
-      "rawToCookedRatioMatch": {
-        "confidence": 1.0,
-        "rule": "Matched with rapeseed in cooked_to_raw.csv"
-      },
       "scenario": "organic",
       "scopes": [
         "food",

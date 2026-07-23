@@ -19,7 +19,6 @@
         "grain_processed"
       ],
       "ingredientDensity": 0.72,
-      "rawToCookedRatio": 2.259,
       "scenario": "reference",
       "scopes": [
         "food",
