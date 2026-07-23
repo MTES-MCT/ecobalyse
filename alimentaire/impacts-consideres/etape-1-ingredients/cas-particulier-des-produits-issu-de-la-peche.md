@@ -16,7 +16,7 @@ Ces dimensions doivent être intégrées dans le coût environnemental à terme.
 
 Au regard de cette situation, il est fortement déconseillé de scorer les produits de la mer "bruts" ainsi que les produits composés majoritairement d'ingrédients de la mer (ex. : brandade de morue).
 
-Il est par contre possible de scorer les produits pour lesquels les poissons représentent moins de 30 % en masse du produit final (ex. : pizza aux anchois), tout en ayant conscience de la non-prise en compte de la biodiversité marine à ce stade.
+Il est par contre possible de scorer les produits pour lesquels les poissons représentent moins de 20 % en masse du produit final (ex. : pizza aux anchois), tout en ayant conscience de la non-prise en compte de la biodiversité marine à ce stade.
 
 
 
