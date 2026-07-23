@@ -85228,7 +85228,7 @@
     "alias": null,
     "categories": [
       "productmassdependent",
-      "use"
+      "assembly"
     ],
     "comment": "A titre provisoire ce procédé est intégré dans la phase d'usage, la phase d'assemblage n'intégrant pas de procédé à ce stade. https://fabrique-numerique.gitbook.io/ecobalyse/vehicules/cycle-de-vie/assemblage",
     "displayName": "Assemblage (France, temp.) - calcul réglementaire Score Environnemental VE",
@@ -85257,7 +85257,7 @@
     "alias": null,
     "categories": [
       "productmassdependent",
-      "use"
+      "assembly"
     ],
     "comment": "A titre provisoire ce procédé est intégré dans la phase d'usage, la phase d'assemblage n'intégrant pas de procédé à ce stade. https://fabrique-numerique.gitbook.io/ecobalyse/vehicules/cycle-de-vie/assemblage",
     "displayName": "Assemblage (France, temporaire)",
