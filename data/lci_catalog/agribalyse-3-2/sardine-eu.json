@@ -25,7 +25,7 @@
         "food2"
       ],
       "transportCooling": "always",
-      "visible": true
+      "visible": false
     },
     {
       "alias": "sardine-non-eu-2025",
@@ -44,7 +44,7 @@
         "food2"
       ],
       "transportCooling": "always",
-      "visible": true
+      "visible": false
     }
   ],
   "scopes": [
