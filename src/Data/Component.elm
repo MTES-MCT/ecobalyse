@@ -64,7 +64,6 @@ module Data.Component exposing
     , encodeItem
     , encodeLifeCycle
     , encodeQuery
-    , endOfLifeMassScaleRatio
     , expandAssembly
     , expandConsumptions
     , expandElements
@@ -82,7 +81,6 @@ module Data.Component exposing
     , getConsumptionProcessId
     , getDocLink
     , getEndOfLifeDetailedImpacts
-    , getEndOfLifeImpacts
     , getEndOfLifeScopeCollectionRate
     , getFinalElementCountry
     , getPackagingProcessId
@@ -882,24 +880,9 @@ computeElementResults requirements transportOptions =
 
 computeEndOfLifeResults : Requirements db -> Query -> LifeCycle -> LifeCycle
 computeEndOfLifeResults requirements query lifeCycle =
-    let
-        productionMass =
-            extractMass lifeCycle.production
-
-        productMass =
-            extractProductMass lifeCycle
-
-        massScaleRatio =
-            if productionMass == Quantity.zero then
-                1
-
-            else
-                Mass.inKilograms productMass / Mass.inKilograms productionMass
-    in
     { lifeCycle
         | endOfLife =
-            lifeCycle.production
-                |> getEndOfLifeImpacts requirements query.recyclable massScaleRatio
+            getEndOfLifeImpacts requirements query.recyclable lifeCycle
     }
 
 
@@ -1818,25 +1801,6 @@ encodeTransportOptions { byAir, cooling } =
                 |> Just
 
 
-{-| Compute the mass scale ratio between before/after steps of the assembly stage,
-to use at the end-of-life stage which needs the final assembled product mass
--}
-endOfLifeMassScaleRatio : LifeCycle -> Float
-endOfLifeMassScaleRatio lifeCycle =
-    let
-        productionMass =
-            extractMass lifeCycle.production
-
-        productMass =
-            extractProductMass lifeCycle
-    in
-    if productionMass == Quantity.zero then
-        1
-
-    else
-        Mass.inKilograms productMass / Mass.inKilograms productionMass
-
-
 {-| Common reusable error strings
 -}
 errors :
@@ -2080,9 +2044,25 @@ getElementResult ( itemIndex, elementIndex ) productionResults =
         |> Result.andThen (extractItems >> LE.getAt elementIndex >> Result.fromMaybe errors.elementNotFound)
 
 
-getEndOfLifeDetailedImpacts : Requirements db -> Bool -> Float -> Results -> DetailedEndOfLifeImpacts
-getEndOfLifeDetailedImpacts { config, scope } recyclable massScaleRatio =
+getEndOfLifeDetailedImpacts : Requirements db -> Bool -> LifeCycle -> DetailedEndOfLifeImpacts
+getEndOfLifeDetailedImpacts { config, scope } recyclable lifeCycle =
     let
+        productionMass =
+            extractMass lifeCycle.production
+
+        productMass =
+            extractProductMass lifeCycle
+
+        -- Note: Assembly waste is modeled as a global mass reduction, without per-material losses,
+        -- while EoL impacts are computed per material category; so we need to scale each by the same
+        -- factor so their masses sum back to `productMass`
+        massScaleRatio =
+            if productionMass == Quantity.zero then
+                1
+
+            else
+                Mass.inKilograms productMass / Mass.inKilograms productionMass
+
         collectionRatio =
             scope |> getEndOfLifeScopeCollectionRate config recyclable
 
@@ -2098,10 +2078,12 @@ getEndOfLifeDetailedImpacts { config, scope } recyclable massScaleRatio =
               }
             )
     in
-    getMaterialDistribution
-        >> AnyDict.map
+    lifeCycle.production
+        |> getMaterialDistribution
+        |> AnyDict.map
             (\materialCategory mass ->
                 let
+                    -- Apply assembly mass loss ratio back to every material category
                     scaledMass =
                         mass |> Quantity.multiplyBy massScaleRatio
                 in
@@ -2117,15 +2099,15 @@ getEndOfLifeDetailedImpacts { config, scope } recyclable massScaleRatio =
                         |> applyStrategies (nonCollectionRatio |> Split.applyToQuantity scaledMass)
                 }
             )
-        >> AnyDict.toList
-        >> AnyDict.fromList Category.materialTypeToString
+        |> AnyDict.toList
+        |> AnyDict.fromList Category.materialTypeToString
 
 
-getEndOfLifeImpacts : Requirements db -> Bool -> Float -> Results -> Impacts
-getEndOfLifeImpacts ({ config, scope } as requirements) recyclable massScaleRatio (Results results) =
+getEndOfLifeImpacts : Requirements db -> Bool -> LifeCycle -> Impacts
+getEndOfLifeImpacts ({ config, scope } as requirements) recyclable lifeCycle =
     if config.endOfLife |> Config.scopeEnabled scope then
-        Results results
-            |> getEndOfLifeDetailedImpacts requirements recyclable massScaleRatio
+        lifeCycle
+            |> getEndOfLifeDetailedImpacts requirements recyclable
             |> AnyDict.map
                 (\_ { collected, nonCollected } ->
                     let

@@ -1727,14 +1727,7 @@ endOfLifeView ({ componentConfig, query, scope, updateRecyclable } as config) li
                         [ text "Non" ]
                     ]
                 ]
-            , lifeCycle.production
-                |> Component.getEndOfLifeImpacts
-                    { config = componentConfig
-                    , db = config.db
-                    , scope = config.scope
-                    }
-                    query.recyclable
-                    (Component.endOfLifeMassScaleRatio lifeCycle)
+            , lifeCycle.endOfLife
                 |> Format.formatImpact config.impact
             , documentationLink config "eol"
             ]
@@ -1758,8 +1751,7 @@ endOfLifeView ({ componentConfig, query, scope, updateRecyclable } as config) li
                             , scope = config.scope
                             }
                             query.recyclable
-                            (Component.endOfLifeMassScaleRatio lifeCycle)
-                            lifeCycle.production
+                            lifeCycle
                             |> AnyDict.toList
                             |> List.sortBy (Tuple.first >> Category.materialTypeToLabel)
                             |> List.concatMap (endOfLifeMaterialRow config)

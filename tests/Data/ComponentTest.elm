@@ -1560,11 +1560,8 @@ suite =
                             |> Result.andThen (computeItemsWithRequirements requirements)
                             |> Result.map
                                 (\lifeCycle ->
-                                    lifeCycle.production
-                                        |> Component.getEndOfLifeDetailedImpacts
-                                            requirements
-                                            True
-                                            (Component.endOfLifeMassScaleRatio lifeCycle)
+                                    lifeCycle
+                                        |> Component.getEndOfLifeDetailedImpacts requirements True
                                 )
                         )
                         -- tests
