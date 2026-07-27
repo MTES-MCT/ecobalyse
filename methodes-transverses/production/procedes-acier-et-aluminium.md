@@ -41,12 +41,12 @@ Pour Ecobalyse, les procédés suivants ont été créés :
 * 5 procédés pour l'Acier :&#x20;
   * Acier vierge, acier recyclé, mix vierge + recyclé
   * 1 procédé pour l'acier vierge
-  * 2 géographies pour l'acier recyclé et le mix : Europe et Reste du Monde
+  * 2 géographies pour l'acier recyclé et le mix : Europe (Pays de référence : France) et Reste du Monde (Pays de référence : Japon)
 * 7 procédés pour l'aluminium :&#x20;
   * Aluminium vierge, Aluminium recyclé, mix vierge + recyclé
-  * 3 géographies pour l'aluminium vierge : Europe, Inde, Reste du Monde
+  * 3 géographies pour l'aluminium vierge : Europe (Pays de référence : France), Inde, Reste du Monde (Pays de référence : Corée du Sud)
   * 1 procédé pour l'aluminium recyclé
-  * 3 géographies pour le mix : Europe, Chine, Reste du Monde.
+  * 3 géographies pour le mix : Europe (Pays de référence : France), Chine, Reste du Monde (Pays de référence : Corée du Sud).
 
 Les procédés construits sont identifiés dans l'[Explorateur de procédé](https://ecobalyse.beta.gouv.fr/#/explore/textile/textile-processes).
 
