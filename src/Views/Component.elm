@@ -1554,6 +1554,7 @@ addAssemblyOperationButton ({ openSelectAssemblyOperationModal, query } as confi
             listAvailableProcesses config Category.Assembly
                 |> List.filter
                     (\{ id } ->
+                        -- prevent adding the same operation twice
                         query.assembly.operations
                             |> List.map .id
                             |> List.member id
@@ -1861,6 +1862,9 @@ endOfLifeMaterialRow ({ componentConfig, query, scope } as config) ( materialTyp
     ]
 
 
+{-| Render the waste QuantityVariationRatio as a human readable percentage
+FIXME: move to Format module?
+-}
 wastePercent : Unit.QuantityVariationRatio -> Html msg
 wastePercent ratio =
     Format.percent <| (1 - Unit.qtyVariationRatioToFloat ratio) * 100

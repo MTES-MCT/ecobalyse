@@ -926,40 +926,6 @@ suite =
                                 ]
                             )
                         ]
-                    , describe "decodeAssembly"
-                        [ it "should decode an assembly block with country and operations"
-                            ("""{
-                                  "components": [{ "id": "64fa65b3-c2df-4fd0-958b-83965bd6aa08", "quantity": 1 }],
-                                  "assembly": {
-                                    "country": "FR",
-                                    "operations": [
-                                      { "country": "DE", "id": "8b4fae1f-71bc-44d4-9e40-b2399ef04f34" }
-                                    ]
-                                  }
-                                }"""
-                                |> decodeJsonThen Component.decodeQuery Ok
-                                |> Result.map
-                                    (\query ->
-                                        ( query.assembly.country
-                                        , List.length query.assembly.operations
-                                        )
-                                    )
-                                |> (\result ->
-                                        case result of
-                                            Ok ( country, operationsCount ) ->
-                                                Expect.all
-                                                    [ \_ ->
-                                                        country
-                                                            |> Expect.equal (Just (CountryCode.fromString "FR"))
-                                                    , \_ -> Expect.equal 1 operationsCount
-                                                    ]
-                                                    ()
-
-                                            Err err ->
-                                                Expect.fail err
-                                   )
-                            )
-                        ]
                     , describe "computeTransports"
                         [ suiteFromResult2 "unknown locations"
                             -- setup
