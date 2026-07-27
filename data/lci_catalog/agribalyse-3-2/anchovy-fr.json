@@ -42,7 +42,7 @@
         "food2"
       ],
       "transportCooling": "always",
-      "visible": true
+      "visible": false
     },
     {
       "alias": "anchovy-non-eu-2025",
@@ -60,7 +60,7 @@
         "food2"
       ],
       "transportCooling": "always",
-      "visible": true
+      "visible": false
     }
   ],
   "scopes": [

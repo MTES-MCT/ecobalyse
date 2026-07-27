@@ -25,6 +25,82 @@
         "food2"
       ],
       "transportCooling": "always",
+      "visible": false
+    },
+    {
+      "alias": "fish-secondary-ingredient-fr",
+      "defaultOrigin": "France",
+      "displayName": "Poissons ingrédients secondaires FR",
+      "id": "cacf491b-5529-4e0c-af3f-75ab1d007656",
+      "inediblePart": 0.2,
+      "ingredientCategories": [
+        "animal_product"
+      ],
+      "ingredientDensity": 1.0,
+      "rawToCookedRatio": 1.0,
+      "scenario": "import",
+      "scopes": [
+        "food",
+        "food2"
+      ],
+      "transportCooling": "always",
+      "visible": true
+    },
+    {
+      "alias": "fish-secondary-ingredient-eu",
+      "defaultOrigin": "EuropeAndMaghreb",
+      "displayName": "Poissons ingrédients secondaires UE",
+      "id": "cacf491b-5529-4e0c-af3f-75ab1d007657",
+      "inediblePart": 0.2,
+      "ingredientCategories": [
+        "animal_product"
+      ],
+      "ingredientDensity": 1.0,
+      "rawToCookedRatio": 1.0,
+      "scenario": "import",
+      "scopes": [
+        "food",
+        "food2"
+      ],
+      "transportCooling": "always",
+      "visible": true
+    },
+    {
+      "alias": "fish-secondary-ingredient-non-ue",
+      "defaultOrigin": "OutOfEuropeAndMaghreb",
+      "displayName": "Poissons ingrédients secondaires Hors UE",
+      "id": "cacf491b-5529-4e0c-af3f-75ab1d007658",
+      "inediblePart": 0.2,
+      "ingredientCategories": [
+        "animal_product"
+      ],
+      "ingredientDensity": 1.0,
+      "rawToCookedRatio": 1.0,
+      "scenario": "import",
+      "scopes": [
+        "food",
+        "food2"
+      ],
+      "transportCooling": "always",
+      "visible": true
+    },
+    {
+      "alias": "fish-secondary-ingredient-default",
+      "defaultOrigin": "OutOfEuropeAndMaghreb",
+      "displayName": "Poissons ingrédients secondaires Origine Inconnue",
+      "id": "cacf491b-5529-4e0c-af3f-75ab1d007659",
+      "inediblePart": 0.2,
+      "ingredientCategories": [
+        "animal_product"
+      ],
+      "ingredientDensity": 1.0,
+      "rawToCookedRatio": 1.0,
+      "scenario": "import",
+      "scopes": [
+        "food",
+        "food2"
+      ],
+      "transportCooling": "always",
       "visible": true
     }
   ],
