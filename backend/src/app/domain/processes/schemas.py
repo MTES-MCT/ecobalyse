@@ -18,6 +18,7 @@ from app.domain.components.schemas import Scope
 
 
 class Category(StrEnum):
+    ASSEMBLY = "assembly"
     DISTRIBUTION = "distribution"
     ENERGY = "energy"
     EOL = "end-of-life"
