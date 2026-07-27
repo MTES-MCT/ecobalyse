@@ -1324,9 +1324,7 @@ elementTransformsView config cooling targetElement materialResults materialCount
                             }
                         ]
                     , td [ class "align-middle text-end text-nowrap" ]
-                        [ Unit.qtyVariationRatioToFloat transform.process.qtyVariationRatio
-                            |> String.fromFloat
-                            |> text
+                        [ wastePercent transform.process.qtyVariationRatio
                         ]
                     , td [ class "text-end align-middle text-nowrap" ]
                         [ Component.extractAmount transformResult
@@ -1478,48 +1476,78 @@ assemblyView ({ db, impact, query, scope } as config) lifeCycle =
 
                     else
                         table [ class "table table-sm mb-0" ]
-                            [ tbody []
-                                (expandedOperations
-                                    |> List.indexedMap
-                                        (\index { process } ->
-                                            let
-                                                operationResult =
-                                                    lifeCycle.assembly
-                                                        |> Component.extractItems
-                                                        |> LE.getAt index
-                                                        |> Maybe.withDefault Component.emptyResults
-                                            in
-                                            tr []
-                                                [ td [ class "ps-3 align-middle" ]
-                                                    [ text <| Process.getDisplayName process ]
-                                                , td [ class "align-middle" ]
-                                                    [ countrySelector
-                                                        { countries = db.countries
-                                                        , domId = "assembly-operation-country-" ++ String.fromInt index
-                                                        , scope = scope
-                                                        , select = config.updateAssemblyProcessCountry index
-                                                        , selected =
-                                                            query.assembly.operations
+                            [ thead []
+                                [ tr [ class "fs-7 text-muted" ]
+                                    [ th [ class "ps-3 align-middle", Attr.scope "col" ] [ text "Procédé" ]
+                                    , th [ class "align-middle", Attr.scope "col" ] [ text "Pays/Région" ]
+                                    , th [ class "align-middle text-end", Attr.scope "col" ] [ text "Pertes" ]
+                                    , th [ class "align-middle text-end", Attr.scope "col" ] [ text "kg" ]
+                                    , th [ class "align-middle text-end", Attr.scope "col" ] [ text "Impact" ]
+                                    , th [ class "align-middle", Attr.scope "col" ] []
+                                    ]
+                                ]
+                            , tbody []
+                                (tr [ class "fs-7" ]
+                                    [ td [ class "ps-3 align-middle text-muted" ] [ text "Masse d'entrée" ]
+                                    , td [] []
+                                    , td [] []
+                                    , td [ class "align-middle text-end text-nowrap" ]
+                                        [ lifeCycle.production
+                                            |> Component.extractMass
+                                            |> Format.kg
+                                        ]
+                                    , td [] []
+                                    , td [] []
+                                    ]
+                                    :: (expandedOperations
+                                            |> List.indexedMap
+                                                (\index { process } ->
+                                                    let
+                                                        operationResult =
+                                                            lifeCycle.assembly
+                                                                |> Component.extractItems
                                                                 |> LE.getAt index
-                                                                |> Maybe.andThen .country
-                                                        }
-                                                    ]
-                                                , td [ class "align-middle text-end text-nowrap" ]
-                                                    [ operationResult
-                                                        |> Component.extractImpacts
-                                                        |> Format.formatImpact impact
-                                                    ]
-                                                , td [ class "align-middle pe-3" ]
-                                                    [ button
-                                                        [ type_ "button"
-                                                        , class "btn btn-sm btn-outline-secondary"
-                                                        , title "Supprimer ce procédé d’assemblage"
-                                                        , onClick (config.removeAssemblyProcess index)
+                                                                |> Maybe.withDefault Component.emptyResults
+                                                    in
+                                                    tr []
+                                                        [ td [ class "ps-3 align-middle" ]
+                                                            [ text <| Process.getDisplayName process ]
+                                                        , td [ class "align-middle" ]
+                                                            [ countrySelector
+                                                                { countries = db.countries
+                                                                , domId = "assembly-operation-country-" ++ String.fromInt index
+                                                                , scope = scope
+                                                                , select = config.updateAssemblyProcessCountry index
+                                                                , selected =
+                                                                    query.assembly.operations
+                                                                        |> LE.getAt index
+                                                                        |> Maybe.andThen .country
+                                                                }
+                                                            ]
+                                                        , td [ class "align-middle text-end text-nowrap" ]
+                                                            [ wastePercent process.qtyVariationRatio ]
+                                                        , td [ class "align-middle text-end text-nowrap" ]
+                                                            [ operationResult
+                                                                |> Component.extractMass
+                                                                |> Format.kg
+                                                            ]
+                                                        , td [ class "align-middle text-end text-nowrap" ]
+                                                            [ operationResult
+                                                                |> Component.extractImpacts
+                                                                |> Format.formatImpact impact
+                                                            ]
+                                                        , td [ class "align-middle pe-3" ]
+                                                            [ button
+                                                                [ type_ "button"
+                                                                , class "btn btn-sm btn-outline-secondary"
+                                                                , title "Supprimer ce procédé d’assemblage"
+                                                                , onClick (config.removeAssemblyProcess index)
+                                                                ]
+                                                                [ Icon.trash ]
+                                                            ]
                                                         ]
-                                                        [ Icon.trash ]
-                                                    ]
-                                                ]
-                                        )
+                                                )
+                                       )
                                 )
                             ]
             , addAssemblyOperationButton config
@@ -1839,3 +1867,8 @@ endOfLifeMaterialRow ({ componentConfig, query, scope } as config) ( materialTyp
             ]
         ]
     ]
+
+
+wastePercent : Unit.QuantityVariationRatio -> Html msg
+wastePercent ratio =
+    Format.percent <| (1 - Unit.qtyVariationRatioToFloat ratio) * 100
