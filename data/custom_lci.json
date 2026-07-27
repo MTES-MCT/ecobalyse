@@ -2959,7 +2959,7 @@
   {
     "activityCreationType": "from_scratch",
     "alias": "alu-market-virgin-cn",
-    "comment": "based on share of recycled material and net importations. Details in documentation",
+    "comment": "Based on share of production and net importations. Details in documentation",
     "database": "Ecoinvent 3.9.1",
     "exchanges": [
       {
@@ -3004,7 +3004,7 @@
   {
     "activityCreationType": "from_scratch",
     "alias": "alu-market-virgin-in",
-    "comment": "based on share of recycled material and net importations. Details in documentation",
+    "comment": "Based on share of production and net importations. Details in documentation",
     "database": "Ecoinvent 3.9.1",
     "exchanges": [
       {

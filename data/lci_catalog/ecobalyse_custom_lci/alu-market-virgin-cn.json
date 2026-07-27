@@ -4,7 +4,7 @@
     "material",
     "material_type:aluminium"
   ],
-  "comment": "https://fabrique-numerique.gitbook.io/ecobalyse/methodes-transverses-specifiques/procedes-acier-et-aluminium",
+  "comment": "https://fabrique-numerique.gitbook.io/ecobalyse/methodes-transverses/production/procedes-acier-et-aluminium",
   "displayName": "Aluminium, lingot, mix marché, Chine",
   "elecKwh": 0.0,
   "heatMJ": 0,
