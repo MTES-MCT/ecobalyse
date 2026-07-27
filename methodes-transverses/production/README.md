@@ -1,4 +1,10 @@
-# 🧩 Composants
+# 🧩 Production des matériaux
+
+{% hint style="warning" %}
+La section "Production des matériaux" est en cours de modification. Elle s'appelait auparavant "Production des composants". Afin de mieux répondre aux besoins des utilisateurs, cette section va désormais proposer un catalogue de matériaux.
+
+Les méthodes de calcul présentées ici restent applicables pour l'instant, mais le vocabulaire évolue. Cette page de documentation ne reflète pas encore le principe de production des matériaux.
+{% endhint %}
 
 ## Contexte
 
@@ -40,41 +46,7 @@ Dans l'exemple ci-dessus, la structure acier du canapé est constituée d'un seu
 
 Un composant est constitué d'un ou plusieurs éléments, chaque élément correspondant à un matériaux pouvant subir une ou des transformations.
 
-{% hint style="info" %}
-### Prise en compte du taux de perte <a href="#calcul-des-masses" id="calcul-des-masses"></a>
-
-Dans cette documentation le taux de perte `p` est définit comme suit :&#x20;
-
-$$p=\frac{m_{perte}}{m_{entrante}}$$
-
-Avec :&#x20;
-
-* `m_perte` la quantité de matière perdue lors du procédé de transformation, en kg ;
-* `m_entrante`​​​ la quantité de matière avant transformation, en kg.
-
-Pour remonter la chaîne de production, on calcule la quantité de matière _avant_ transformation `m_entrante` à partir de la quantité de matière _après_ transformation `m_sortante` et du taux de perte `p` de l'étape en utilisant cette formule :&#x20;
-
-$$m_{entrante} = \frac{m_{sortante}}{1- p}$$&#x20;
-{% endhint %}
-
 <figure><img src="../../.gitbook/assets/image (1) (1) (1) (1) (1) (1) (1).png" alt=""><figcaption></figcaption></figure>
-
-{% hint style="info" %}
-### Prise en compte du taux de perte <a href="#calcul-des-masses" id="calcul-des-masses"></a>
-
-Dans Ecobalyse le taux de perte `p` est définit comme suit :&#x20;
-
-$$p=\frac{m_{perte}}{m_{entrante}}$$
-
-Avec :&#x20;
-
-* `m_perte` la quantité de matière perdue lors du procédé de transformation, en kg ;
-* `m_entrante`​​​ la quantité de matière avant transformation, en kg.
-
-Pour remonter la chaîne de production, on calcule la quantité de matière _avant_ transformation `m_entrante` à partir de la quantité de matière _après_ transformation `m_sortante` et du taux de perte `p` de l'étape en utilisant cette formule :&#x20;
-
-$$m_{entrante} = \frac{m_{sortante}}{1- p}$$&#x20;
-{% endhint %}
 
 ### Calculs schématisés
 
@@ -160,23 +132,6 @@ Avec :&#x20;
 * `I_ti,j` : l'impact environnemental associé à l'étape de transformation `j` de l'élément `i`, dans l'unité de la catégorie d'impact analysée par kg ;
 {% endtab %}
 {% endtabs %}
-
-{% hint style="info" %}
-### Prise en compte du taux de perte <a href="#calcul-des-masses" id="calcul-des-masses"></a>
-
-Dans cette documentation le taux de perte `p` est définit comme suit :&#x20;
-
-$$p=\frac{m_{perte}}{m_{entrante}}$$
-
-Avec :&#x20;
-
-* `m_perte` la quantité de matière perdue lors du procédé de transformation, en kg ;
-* `m_entrante`​​​ la quantité de matière avant transformation, en kg.
-
-Pour remonter la chaîne de production, on calcule la quantité de matière _avant_ transformation `m_entrante` à partir de la quantité de matière _après_ transformation `m_sortante` et du taux de perte `p` de l'étape en utilisant cette formule :&#x20;
-
-$$m_{entrante} = \frac{m_{sortante}}{1- p}$$&#x20;
-{% endhint %}
 
 {% hint style="info" %}
 Pour le bois, l'unité de mesure de la quantité n'est pas la masse (en kg) mais le volume, exprimé en m3.
