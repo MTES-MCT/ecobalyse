@@ -238,8 +238,7 @@ L’application est alors servie sur le port 1234.
 
 # Ecobalyse data
 
-Le dépôt [ecobalyse-data](https://github.com/MTES-MCT/ecobalyse-data) contient les scripts (principalement Python) utilisés pour
-importer et exporter les données du projet Ecobalyse.
+Le répertoire [data](./data) contient les scripts (principalement Python) utilisés pour importer et exporter les données du projet Ecobalyse.
 
 # Version statique et autonome
 
