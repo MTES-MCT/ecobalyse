@@ -28,27 +28,6 @@
       ],
       "transportCooling": "always",
       "visible": true
-    },
-    {
-      "alias": "unknown-red-meat-2025",
-      "animalGroup1": "cattle",
-      "animalGroup2": "cow",
-      "animalProduct": "meat",
-      "defaultOrigin": "France",
-      "displayName": "Autres viandes, oeufs, poissons (non encore répertoriés) (2025)",
-      "id": "7f6bd70c-1385-4855-9c25-e9a34e91df74",
-      "inediblePart": 0,
-      "ingredientCategories": [
-        "animal_product"
-      ],
-      "ingredientDensity": 1.0,
-      "scenario": "reference",
-      "scopes": [
-        "food",
-        "food2"
-      ],
-      "transportCooling": "always",
-      "visible": true
     }
   ],
   "scopes": [

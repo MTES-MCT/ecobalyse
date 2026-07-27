@@ -24,7 +24,7 @@
         "food2"
       ],
       "transportCooling": "always",
-      "visible": true
+      "visible": false
     },
     {
       "alias": "unknown-fishery-products-2025",
@@ -42,7 +42,7 @@
         "food2"
       ],
       "transportCooling": "always",
-      "visible": true
+      "visible": false
     }
   ],
   "scopes": [
