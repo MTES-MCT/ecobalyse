@@ -70,7 +70,7 @@
         "confidence": 1.0,
         "rule": "fruit NOVA 1 → always (perishable)"
       },
-      "visible": true
+      "visible": false
     }
   ],
   "scopes": [

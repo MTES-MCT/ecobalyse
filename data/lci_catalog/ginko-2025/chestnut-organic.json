@@ -48,7 +48,7 @@
         "confidence": 1.0,
         "rule": "nut_oilseed → none (non-perishable)"
       },
-      "visible": true
+      "visible": false
     },
     {
       "alias": "macadamia-nut-organic",
@@ -89,7 +89,7 @@
         "confidence": 1.0,
         "rule": "nut_oilseed → none (non-perishable)"
       },
-      "visible": true
+      "visible": false
     },
     {
       "alias": "walnut-organic",
@@ -130,7 +130,7 @@
         "confidence": 1.0,
         "rule": "nut_oilseed → none (non-perishable)"
       },
-      "visible": true
+      "visible": false
     }
   ],
   "scopes": [
