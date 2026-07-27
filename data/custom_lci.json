@@ -1,6 +1,36 @@
 [
   {
     "activityCreationType": "from_scratch",
+    "alias": "alu-market-virgin-fr",
+    "comment": "based on share of recycled material and net importations. France is used as a reference for Europe. Details in documentation",
+    "database": "Ecoinvent 3.9.1",
+    "exchanges": [
+      {
+        "amount": 0.012,
+        "name": "aluminium, primary, ingot//[IAI Area, Asia, without China and GCC] aluminium production, primary, ingot"
+      },
+      {
+        "amount": 0.706,
+        "name": "aluminium, primary, ingot//[IAI Area, EU27 & EFTA] aluminium production, primary, ingot"
+      },
+      {
+        "amount": 0.093,
+        "name": "aluminium, primary, ingot//[IAI Area, Gulf Cooperation Council] aluminium production, primary, ingot"
+      },
+      {
+        "amount": 0.026,
+        "name": "aluminium, primary, ingot//[IAI Area, South America] aluminium production, primary, ingot"
+      },
+      {
+        "amount": 0.163,
+        "name": "aluminium, primary, ingot//[RoW] aluminium production, primary, ingot"
+      }
+    ],
+    "location": "FR",
+    "newName": "aluminium ingot, virgin, market, FR"
+  },
+  {
+    "activityCreationType": "from_scratch",
     "alias": "alu-market-fr",
     "comment": "based on share of recycled material (CFF parameters: A=0.2, Q=1) and net importations. France is used as a reference for Europe. Details in documentation",
     "database": "Ecobalyse_custom_lci",
@@ -2719,6 +2749,24 @@
   },
   {
     "activityCreationType": "from_scratch",
+    "alias": "steel-recycled-rer-cff",
+    "comment": "CFF parameters: A=0.2, Q=1",
+    "database": "Ecoinvent 3.9.1",
+    "exchanges": [
+      {
+        "amount": 0.8,
+        "name": "steel, unalloyed//[RER] steel production, converter, unalloyed"
+      },
+      {
+        "amount": 0.2,
+        "name": "steel, low-alloyed//[Europe without Switzerland and Austria] steel production, electric, low-alloyed"
+      }
+    ],
+    "location": "RER",
+    "newName": "steel, low-alloyed, recycled, RER, CFF"
+  },
+  {
+    "activityCreationType": "from_scratch",
     "alias": "steel-market-fr",
     "comment": "based on share of recycled material (CFF parameters: A=0.2, Q=1) and net importations. Details in documentation",
     "database": "Ecobalyse_custom_lci",
@@ -2815,6 +2863,24 @@
   },
   {
     "activityCreationType": "from_scratch",
+    "alias": "steel-recycled-row-cff",
+    "comment": "CFF parameters: A=0.2, Q=1",
+    "database": "Ecoinvent 3.9.1",
+    "exchanges": [
+      {
+        "amount": 0.8,
+        "name": "steel, unalloyed//[RoW] steel production, converter, unalloyed"
+      },
+      {
+        "amount": 0.2,
+        "name": "steel, low-alloyed//[RoW] steel production, electric, low-alloyed"
+      }
+    ],
+    "location": "RoW",
+    "newName": "steel, low-alloyed, recycled, RoW, CFF"
+  },
+  {
+    "activityCreationType": "from_scratch",
     "alias": "steel-market-jp",
     "comment": "based on share of recycled material (CFF parameters: A=0.2, Q=1) and net importations. Japan is used as a reference for Out of Europe. Details in documentation",
     "database": "Ecobalyse_custom_lci",
@@ -2836,82 +2902,6 @@
     ],
     "location": "RoW",
     "newName": "steel, low-alloyed, market, JP"
-  },
-  {
-    "activityCreationType": "from_scratch",
-    "alias": "alu-market-kr",
-    "comment": "based on share of recycled material (CFF parameters: A=0.2, Q=1) and net importations. South Korea is used as a reference for Out of Europe and China. Details in documentation",
-    "database": "Ecobalyse_custom_lci",
-    "exchanges": [
-      {
-        "amount": 0.529,
-        "name": "aluminium ingot, virgin, market, KR"
-      },
-      {
-        "amount": 0.377,
-        "database": "Ecoinvent 3.9.1",
-        "name": "aluminium, cast alloy//[RER] treatment of aluminium scrap, post-consumer, prepared for recycling, at refiner"
-      },
-      {
-        "amount": 0.094,
-        "name": "aluminium ingot, virgin, market, KR"
-      }
-    ],
-    "location": "KR",
-    "newName": "aluminium ingot, market, KR"
-  },
-  {
-    "activityCreationType": "from_scratch",
-    "alias": "alu-market-cn",
-    "comment": "based on share of recycled material (CFF parameters: A=0.2, Q=1) and net importations. Details in documentation",
-    "database": "Ecobalyse_custom_lci",
-    "exchanges": [
-      {
-        "amount": 0.806,
-        "name": "aluminium ingot, virgin, market, CN"
-      },
-      {
-        "amount": 0.155,
-        "database": "Ecoinvent 3.9.1",
-        "name": "aluminium, cast alloy//[RER] treatment of aluminium scrap, post-consumer, prepared for recycling, at refiner"
-      },
-      {
-        "amount": 0.039,
-        "name": "aluminium ingot, virgin, market, CN"
-      }
-    ],
-    "location": "CN",
-    "newName": "aluminium ingot, market, CN"
-  },
-  {
-    "activityCreationType": "from_scratch",
-    "alias": "alu-market-virgin-fr",
-    "comment": "based on share of recycled material and net importations. France is used as a reference for Europe. Details in documentation",
-    "database": "Ecoinvent 3.9.1",
-    "exchanges": [
-      {
-        "amount": 0.012,
-        "name": "aluminium, primary, ingot//[IAI Area, Asia, without China and GCC] aluminium production, primary, ingot"
-      },
-      {
-        "amount": 0.706,
-        "name": "aluminium, primary, ingot//[IAI Area, EU27 & EFTA] aluminium production, primary, ingot"
-      },
-      {
-        "amount": 0.093,
-        "name": "aluminium, primary, ingot//[IAI Area, Gulf Cooperation Council] aluminium production, primary, ingot"
-      },
-      {
-        "amount": 0.026,
-        "name": "aluminium, primary, ingot//[IAI Area, South America] aluminium production, primary, ingot"
-      },
-      {
-        "amount": 0.163,
-        "name": "aluminium, primary, ingot//[RoW] aluminium production, primary, ingot"
-      }
-    ],
-    "location": "FR",
-    "newName": "aluminium ingot, virgin, market, FR"
   },
   {
     "activityCreationType": "from_scratch",
@@ -2945,6 +2935,29 @@
   },
   {
     "activityCreationType": "from_scratch",
+    "alias": "alu-market-kr",
+    "comment": "based on share of recycled material (CFF parameters: A=0.2, Q=1) and net importations. South Korea is used as a reference for Out of Europe and China. Details in documentation",
+    "database": "Ecobalyse_custom_lci",
+    "exchanges": [
+      {
+        "amount": 0.529,
+        "name": "aluminium ingot, virgin, market, KR"
+      },
+      {
+        "amount": 0.377,
+        "database": "Ecoinvent 3.9.1",
+        "name": "aluminium, cast alloy//[RER] treatment of aluminium scrap, post-consumer, prepared for recycling, at refiner"
+      },
+      {
+        "amount": 0.094,
+        "name": "aluminium ingot, virgin, market, KR"
+      }
+    ],
+    "location": "KR",
+    "newName": "aluminium ingot, market, KR"
+  },
+  {
+    "activityCreationType": "from_scratch",
     "alias": "alu-market-virgin-cn",
     "comment": "based on share of recycled material and net importations. Details in documentation",
     "database": "Ecoinvent 3.9.1",
@@ -2964,6 +2977,29 @@
     ],
     "location": "CN",
     "newName": "aluminium ingot, virgin, market, CN"
+  },
+  {
+    "activityCreationType": "from_scratch",
+    "alias": "alu-market-cn",
+    "comment": "based on share of recycled material (CFF parameters: A=0.2, Q=1) and net importations. Details in documentation",
+    "database": "Ecobalyse_custom_lci",
+    "exchanges": [
+      {
+        "amount": 0.806,
+        "name": "aluminium ingot, virgin, market, CN"
+      },
+      {
+        "amount": 0.155,
+        "database": "Ecoinvent 3.9.1",
+        "name": "aluminium, cast alloy//[RER] treatment of aluminium scrap, post-consumer, prepared for recycling, at refiner"
+      },
+      {
+        "amount": 0.039,
+        "name": "aluminium ingot, virgin, market, CN"
+      }
+    ],
+    "location": "CN",
+    "newName": "aluminium ingot, market, CN"
   },
   {
     "activityCreationType": "from_scratch",
@@ -3040,42 +3076,6 @@
     ],
     "location": "GLO",
     "newName": "market for transport, freight, aircraft, long haul, with longtails, GLO"
-  },
-  {
-    "activityCreationType": "from_scratch",
-    "alias": "steel-recycled-rer-cff",
-    "comment": "CFF parameters: A=0.2, Q=1",
-    "database": "Ecoinvent 3.9.1",
-    "exchanges": [
-      {
-        "amount": 0.8,
-        "name": "steel, unalloyed//[RER] steel production, converter, unalloyed"
-      },
-      {
-        "amount": 0.2,
-        "name": "steel, low-alloyed//[Europe without Switzerland and Austria] steel production, electric, low-alloyed"
-      }
-    ],
-    "location": "RER",
-    "newName": "steel, low-alloyed, recycled, RER, CFF"
-  },
-  {
-    "activityCreationType": "from_scratch",
-    "alias": "steel-recycled-row-cff",
-    "comment": "CFF parameters: A=0.2, Q=1",
-    "database": "Ecoinvent 3.9.1",
-    "exchanges": [
-      {
-        "amount": 0.8,
-        "name": "steel, unalloyed//[RoW] steel production, converter, unalloyed"
-      },
-      {
-        "amount": 0.2,
-        "name": "steel, low-alloyed//[RoW] steel production, electric, low-alloyed"
-      }
-    ],
-    "location": "RoW",
-    "newName": "steel, low-alloyed, recycled, RoW, CFF"
   },
   {
     "activityCreationType": "from_scratch",
