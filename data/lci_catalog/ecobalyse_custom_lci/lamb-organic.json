@@ -30,11 +30,6 @@
         "confidence": 1.0,
         "rule": "lamb found in density.csv"
       },
-      "rawToCookedRatio": 0.792,
-      "rawToCookedRatioMatch": {
-        "confidence": 1.0,
-        "rule": "meat default from food_type_cooked_to_raw.csv"
-      },
       "scenario": "organic",
       "scopes": [
         "food",

@@ -1,9 +1,10 @@
 [default]
 ENV_NAME = "default" # Do not override this value, it’s used by the unit tests
 LOG_LEVEL = "INFO"
-PLOT_EXPORT = false
-# local data dir for intermediate data files
-LOCAL_DIR = "public/data"
+
+FRONTEND_DATA_DIR = "../public/data"
+EXPORT_DIR = "./export"
+
 
 PROCESSES_LEGACY_IMPACTS_FILE = "processes_legacy_impacts.json"
 PROCESSES_LEGACY_IMPACTS_FULL_FILE = "processes_legacy_impacts_full.json"
@@ -37,6 +38,10 @@ EI311_MD5 = "98e7681cc57a729c952f48af7be9b164"
 WOOL = "wool.2.CSV.zip"
 WOOL_MD5 = "246b8ec57389086829bce58a689e7904"
 
+# BAFU
+BAFU = "bafu-2025-2.csv.zip"
+BAFU_MD5 = "b5d178b8e063ee618606c934862cacd3"
+
 # Food
 AGRIBALYSE = "AGB32_final.CSV.zip"                           # Agribalyse 3.2
 AGRIBALYSE_MD5 = "044fdeb632e6e38711ef05a0ae596c55"
@@ -52,6 +57,7 @@ WFLDB_MD5 = "f619341f47c971b0d53ad28bd985fade"
 [default.bw]
 METHOD = "Environmental Footprint 3.1 (adapted)"
 AGRIBALYSE = "Agribalyse 3.2"
+BAFU = "BAFU 2025v2"
 BIOSPHERE = "biosphere3"
 ECOINVENT = "Ecoinvent 3.9.1"
 PROJECT = "ecobalyse"
@@ -77,8 +83,6 @@ DIRNAME = "veli"
 
 [testing]
 ENV_NAME = "testing" # Do not override this value, it's used by the unit tests
-
-PLOT_EXPORT = false
 
 [testing.bw]
 METHOD = "Environmental Footprint 3.1 (adapted)"

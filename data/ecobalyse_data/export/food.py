@@ -1,12 +1,13 @@
 import csv
 import json
 from enum import StrEnum
+from pathlib import Path
 from typing import List, Optional
 
 from common.export import (
     export_json,
 )
-from common.infer_metadata import infer_base_ingredient
+from common.infer_metadata import infer_base_ingredient, infer_raw_to_cooked_ratio
 from ecobalyse_data.bw.search import cached_search_one
 from ecobalyse_data.export import complements
 from ecobalyse_data.export.land_occupation import compute_land_occupation_batch
@@ -160,8 +161,8 @@ def compute_es_for_ingredients(
 
 def activities_to_ingredients_json(
     activities: List[dict],
-    processes_impacts_path,
-    ingredients_paths: List[str],
+    processes_impacts_path: Path,
+    ingredients_path: Path,
     ecosystemic_factors_path: str,
     feed_file_path: str,
     raw_to_transformed_file_path: str,
@@ -195,16 +196,11 @@ def activities_to_ingredients_json(
 
     ingredients_dicts.sort(key=lambda x: x["id"])
 
-    exported_files = []
-    for ingredients_path in ingredients_paths:
-        export_json(ingredients_dicts, ingredients_path)
+    export_json(ingredients_dicts, ingredients_path)
 
-        exported_files.append(ingredients_path)
-
-    for ingredients_path in exported_files:
-        logger.debug(
-            f"-> Exported {len(ingredients_dicts)} 'ingredients' to {ingredients_path}"
-        )
+    logger.debug(
+        f"-> Exported {len(ingredients_dicts)} 'ingredients' to {ingredients_path}"
+    )
 
     return ingredients_dicts
 
@@ -292,28 +288,34 @@ def activity_to_ingredients(eco_activity: dict, es_by_alias: dict) -> List[Ingre
                 plot_size=_neg("plotSize"),
             )
 
-        ingredients.append(
-            Ingredient(
-                alias=food_metadata["alias"],
-                base_ingredient=infer_base_ingredient(food_metadata["alias"]),
-                categories=food_metadata.get("ingredientCategories", []),
-                crop_group=food_metadata.get("cropGroup"),
-                default_origin=food_metadata["defaultOrigin"],
-                density=food_metadata["ingredientDensity"],
-                ecosystemic_services=ecosystemic_services,
-                id=food_metadata["id"],
-                inedible_part=food_metadata["inediblePart"],
-                land_occupation=land_occupation,
-                location=bw_activity.get("location"),
-                name=food_metadata["displayName"],
-                raw_to_cooked_ratio=food_metadata["rawToCookedRatio"],
-                scenario=food_metadata.get("scenario"),
-                activity_name=eco_activity["activityName"],
-                transport_cooling=food_metadata["transportCooling"],
-                visible=food_metadata["visible"],
-                process_id=eco_activity["id"],
+        try:
+            ingredients.append(
+                Ingredient(
+                    alias=food_metadata["alias"],
+                    base_ingredient=infer_base_ingredient(food_metadata["alias"]),
+                    categories=food_metadata.get("ingredientCategories", []),
+                    crop_group=food_metadata.get("cropGroup"),
+                    default_origin=food_metadata["defaultOrigin"],
+                    density=food_metadata["ingredientDensity"],
+                    ecosystemic_services=ecosystemic_services,
+                    id=food_metadata["id"],
+                    inedible_part=food_metadata["inediblePart"],
+                    land_occupation=land_occupation,
+                    location=bw_activity.get("location"),
+                    name=food_metadata["displayName"],
+                    raw_to_cooked_ratio=infer_raw_to_cooked_ratio(
+                        food_metadata.get("rawToCookedRatio"),
+                        eco_activity.get("categories", []),
+                    ),
+                    scenario=food_metadata.get("scenario"),
+                    activity_name=eco_activity["activityName"],
+                    transport_cooling=food_metadata["transportCooling"],
+                    visible=food_metadata["visible"],
+                    process_id=eco_activity["id"],
+                )
             )
-        )
+        except ValueError as e:
+            raise ValueError(f"ingredient {food_metadata['alias']!r}: {e}") from e
     return ingredients
 
 

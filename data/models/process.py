@@ -34,7 +34,6 @@ class EcoModel(BaseModel):
 class ComputedBy(str, Enum):
     brightway = "brightway"
     hardcoded = "hardcoded"
-    simapro = "simapro"
 
 
 class UnitEnum(str, Enum):
@@ -119,7 +118,6 @@ class IngredientMetadata(EcoModel):
     inedible_part: float
     raw_to_cooked_ratio: float
     scenario: Optional[str] = None
-    transport_cooling: str
     process_id: uuid.UUID
 
 

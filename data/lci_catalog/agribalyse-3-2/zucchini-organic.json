@@ -21,7 +21,6 @@
       ],
       "ingredientDensity": 0.447,
       "landOccupation": 0.125,
-      "rawToCookedRatio": 0.856,
       "scenario": "organic",
       "scopes": [
         "food",
@@ -43,7 +42,6 @@
       ],
       "ingredientDensity": 0.362,
       "landOccupation": 0.125,
-      "rawToCookedRatio": 0.856,
       "scenario": "organic",
       "scopes": [
         "food",

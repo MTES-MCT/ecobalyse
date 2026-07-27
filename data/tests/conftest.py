@@ -15,7 +15,6 @@ import os
 #
 os.environ["FORCE_ENV_FOR_DYNACONF"] = "testing"
 
-
 import bw2data
 import orjson
 import pytest
@@ -23,10 +22,10 @@ from bw2data import config as bwconfig
 from bw2data import projects
 
 from common import brightway_patch as brightway_patch
-from config import PROJECT_ROOT_DIR, TESTS_FIXTURE_DIR, settings
+from config import DATA_ROOT_DIR, TESTS_FIXTURE_DIR, settings
 from ecobalyse_data.tests import restore_archived_project
 
-TESTS_SNAPSHOTS_DIR = PROJECT_ROOT_DIR / "tests" / "snapshots"
+TESTS_SNAPSHOTS_DIR = DATA_ROOT_DIR / "tests" / "snapshots"
 
 
 @pytest.fixture

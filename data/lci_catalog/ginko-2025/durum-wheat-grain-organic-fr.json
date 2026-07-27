@@ -32,11 +32,6 @@
         "confidence": 1.0,
         "rule": "grain default from food_type_density.csv"
       },
-      "rawToCookedRatio": 2.259,
-      "rawToCookedRatioMatch": {
-        "confidence": 1.0,
-        "rule": "grain default from food_type_cooked_to_raw.csv"
-      },
       "scenario": "organic",
       "scopes": [
         "food",
@@ -72,11 +67,6 @@
       "ingredientDensityMatch": {
         "confidence": 1.0,
         "rule": "grain default from food_type_density.csv"
-      },
-      "rawToCookedRatio": 2.259,
-      "rawToCookedRatioMatch": {
-        "confidence": 1.0,
-        "rule": "grain default from food_type_cooked_to_raw.csv"
       },
       "scenario": "organic",
       "scopes": [

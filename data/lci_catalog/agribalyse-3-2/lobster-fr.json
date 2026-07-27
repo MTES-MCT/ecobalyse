@@ -19,7 +19,6 @@
       ],
       "ingredientDensity": 1.0,
       "landOccupation": 1.84,
-      "rawToCookedRatio": 0.819,
       "scenario": "reference",
       "scopes": [
         "food",

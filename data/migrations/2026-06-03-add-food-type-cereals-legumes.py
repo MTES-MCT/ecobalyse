@@ -5,7 +5,7 @@ Transform activities.json from flat structure to nested structure with metadata.
 
 import json
 
-from config import PROJECT_ROOT_DIR
+from config import DATA_ROOT_DIR
 from ecobalyse_data.logging import logger
 
 # Extracted from https://fabrique-numerique.gitbook.io/ecobalyse/alimentaire/impacts-consideres/rapport-cru-cuit
@@ -26,7 +26,7 @@ INGREDIENT_CATEGORIES = set(RATIO_TO_CAT.values()) | set([OTHER_ITEMS_TAG])
 
 
 def main():
-    lci_catalog = PROJECT_ROOT_DIR / "lci_catalog"
+    lci_catalog = DATA_ROOT_DIR / "lci_catalog"
     logger.debug(f"-> Loading lci_catalog {lci_catalog}")
 
     for lci_path in lci_catalog.glob("*/*.json"):

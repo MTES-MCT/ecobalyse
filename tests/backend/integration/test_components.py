@@ -3,12 +3,13 @@ import warnings
 from typing import TYPE_CHECKING
 
 import pytest
-from app.db import models as m
-from app.domain.components.deps import provide_components_service
-from app.domain.journal_entries.services import JournalEntryService
 from sqlalchemy.ext.asyncio import (
     AsyncSession,
 )
+
+from app.db import models as m
+from app.domain.components.deps import provide_components_service
+from app.domain.journal_entries.services import JournalEntryService
 
 if TYPE_CHECKING:
     from httpx import AsyncClient

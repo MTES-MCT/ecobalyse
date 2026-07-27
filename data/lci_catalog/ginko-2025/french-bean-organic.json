@@ -33,11 +33,6 @@
         "confidence": 1.0,
         "rule": "legume default from food_type_density.csv"
       },
-      "rawToCookedRatio": 0.856,
-      "rawToCookedRatioMatch": {
-        "confidence": 1.0,
-        "rule": "legume default from food_type_cooked_to_raw.csv"
-      },
       "scenario": "organic",
       "scopes": [
         "food",
@@ -74,11 +69,6 @@
         "confidence": 1.0,
         "rule": "tamarind found in density.csv"
       },
-      "rawToCookedRatio": 0.856,
-      "rawToCookedRatioMatch": {
-        "confidence": 1.0,
-        "rule": "fruit default from food_type_cooked_to_raw.csv"
-      },
       "scenario": "organic",
       "scopes": [
         "food",
@@ -114,11 +104,6 @@
       "ingredientDensityMatch": {
         "confidence": 1.0,
         "rule": "legume default from food_type_density.csv"
-      },
-      "rawToCookedRatio": 0.856,
-      "rawToCookedRatioMatch": {
-        "confidence": 1.0,
-        "rule": "legume default from food_type_cooked_to_raw.csv"
       },
       "scenario": "organic",
       "scopes": [

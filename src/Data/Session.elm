@@ -10,6 +10,7 @@ module Data.Session exposing
     , decodeRawStore
     , defaultStore
     , deleteBookmark
+    , getAccessToken
     , getAuth
     , hasAccessToDetailedImpacts
     , isAuthenticated
@@ -327,6 +328,12 @@ encodeAuth auth =
         [ ( "accessTokenData", User.encodeAccessTokenData auth.accessTokenData )
         , ( "user", User.encodeUser auth.user )
         ]
+
+
+getAccessToken : Session -> Maybe String
+getAccessToken { store } =
+    store.auth
+        |> Maybe.map (.accessTokenData >> .accessToken)
 
 
 getAuth : Session -> Maybe Auth

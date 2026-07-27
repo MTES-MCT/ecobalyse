@@ -1,9 +1,9 @@
 module Views.Component exposing
     ( Config
     , Context(..)
-    , createElementMaterialAutocomplete
     , editorView
     , elementEditModalView
+    , scopeLabels
     )
 
 import Autocomplete exposing (Autocomplete)
@@ -19,6 +19,7 @@ import Data.Component as Component
         , ExpandedQuantifiedProcess
         , Index
         , LifeCycle
+        , ProductionItem(..)
         , Quantity
         , Query
         , Requirements
@@ -67,14 +68,14 @@ type alias Config db msg =
     , docsUrl : Maybe String
     , explorerRoute : Maybe Route
     , impact : Definition
+    , labels : Labels
     , lifeCycle : Result String LifeCycle
     , noOp : msg
-    , openCreateComponentModal : msg
     , openEditElementModal : Component -> TargetElement -> msg
-    , openSelectComponentModal : Autocomplete Component -> msg
     , openSelectConsumptionModal : Autocomplete Process -> msg
     , openSelectPackagingModal : Autocomplete Process -> msg
     , openSelectProcessModal : Category -> TargetItem -> Maybe Index -> Autocomplete Process -> msg
+    , openSelectProductionItem : Autocomplete ProductionItem -> msg
     , query : Query
     , removeConsumption : Index -> msg
     , removeElement : TargetElement -> msg
@@ -117,37 +118,14 @@ requirementsFromConfig config =
     }
 
 
-addComponentButton : Config db msg -> Html msg
-addComponentButton { context, db, openSelectComponentModal, scope } =
-    let
-        availableComponents =
-            db.components
-                |> List.filter (not << Component.isEmpty)
-                |> List.filter (.scope >> (==) scope)
-
-        autocompleteState =
-            AutocompleteSelector.init .name availableComponents
-    in
-    button
-        [ type_ "button"
-        , class "btn btn-outline-primary w-100"
-        , class "d-flex justify-content-center align-items-center"
-        , class "gap-1 w-100"
-        , disabled <| List.isEmpty availableComponents
-        , onClick <| openSelectComponentModal autocompleteState
-        ]
-        [ Icon.plus
-        , scopeLabels context scope
-            |> .add
-            |> text
-        ]
-
-
 type alias Labels =
     { add : String
-    , create : String
+    , empty : String
     , heading : String
+    , label : String
     , name : String
+    , search : String
+    , select : String
     }
 
 
@@ -158,49 +136,80 @@ scopeLabels context scope =
     case ( context, scope ) of
         ( GenericContext, Scope.Generic Scope.Food2 ) ->
             { add = "Ajouter un ingrédient"
-            , create = "Créer un nouvel ingrédient"
+            , empty = "Aucun ingrédient"
             , heading = "Recette"
-            , name = "Nom de l'ingrédient"
+            , label = "Nom de l'ingrédient"
+            , name = "Ingrédient"
+            , search = "tapez ici le nom de l’ingrédient pour le rechercher"
+            , select = "Sélectionnez un ingrédient"
             }
 
         ( GenericContext, _ ) ->
             { add = "Ajouter un matériau"
-            , create = "Créer un nouveau matériau"
+            , empty = "Aucun matériau"
             , heading = "Production des matériaux"
-            , name = "Nom du matériau"
+            , label = "Nom du matériau"
+            , name = "Matériau"
+            , search = "tapez ici le nom du matériau pour le rechercher"
+            , select = "Sélectionnez un matériau"
             }
 
         ( TextileTrimsContext, Scope.Textile ) ->
+            -- Note: in Textile context, raw element handling is not available
             { add = "Ajouter un accessoire"
-            , create = "Créer un nouvel accessoire"
+            , empty = "Aucun accessoire"
             , heading = "Accessoires"
-            , name = "Nom de l'accessoire"
+            , label = "Nom de l'accessoire"
+            , name = "Accessoire"
+            , search = "tapez ici le nom de l’accessoire pour le rechercher"
+            , select = "Sélectionnez un accessoire"
             }
 
         _ ->
             { add = "Ajouter un composant"
-            , create = "Créer un nouveau composant"
+            , empty = "Aucun composant"
             , heading = "Production des composants"
-            , name = "Nom du composant"
+            , label = "Nom du composant"
+            , name = "Composant"
+            , search = "tapez ici le nom du composant pour le rechercher"
+            , select = "Sélectionnez un composant"
             }
 
 
-createComponentButton : Config db msg -> Html msg
-createComponentButton config =
+addProductionItemButton : Config db msg -> Html msg
+addProductionItemButton ({ db } as config) =
+    let
+        availableComponents =
+            db.components
+                |> List.filter (not << Component.isEmpty)
+                |> List.filter (.scope >> (==) config.scope)
+                |> List.map ComponentItem
+
+        availableMaterials =
+            Category.Material
+                |> listAvailableProcesses config
+                -- Exclude packaging materials as they're available in a dedicated section
+                |> List.filter (\{ categories } -> not <| List.member Category.Packaging categories)
+                |> List.map MaterialItem
+
+        availableProductionItems =
+            availableComponents ++ availableMaterials
+
+        autocompleteState =
+            availableProductionItems
+                |> List.sortBy Component.productionItemToLabel
+                |> AutocompleteSelector.init Component.productionItemToLabel
+    in
     button
         [ type_ "button"
         , class "btn btn-outline-primary w-100"
         , class "d-flex justify-content-center align-items-center"
         , class "gap-1 w-100"
-        , onClick config.openCreateComponentModal
-        , listAvailableProcesses config Category.Material
-            |> List.isEmpty
-            |> disabled
+        , disabled <| List.isEmpty availableProductionItems
+        , onClick <| config.openSelectProductionItem autocompleteState
         ]
         [ Icon.plus
-        , scopeLabels config.context config.scope
-            |> .create
-            |> text
+        , text config.labels.add
         ]
 
 
@@ -313,12 +322,7 @@ componentView config itemIndex ({ component, elements, quantity } as expandedIte
                         [ th [] []
                         , th [ class "pb-0 fs-8 fw-normal text-muted" ] [ text "Quantité" ]
                         , th [ class "pb-0 fs-8 fw-normal text-muted", colspan 2 ]
-                            [ span []
-                                [ scopeLabels config.context config.scope
-                                    |> .name
-                                    |> text
-                                ]
-                            ]
+                            [ span [] [ text config.labels.label ] ]
                         , th [ colspan 3 ] []
                         ]
 
@@ -359,11 +363,7 @@ componentView config itemIndex ({ component, elements, quantity } as expandedIte
                                         [ type_ "text"
                                         , class "form-control"
                                         , onInput (config.updateItemName ( component, itemIndex ))
-
-                                        -- TODO: use element material label if available, otherwide fallback to default
-                                        , scopeLabels config.context config.scope
-                                            |> .name
-                                            |> placeholder
+                                        , placeholder config.labels.label
                                         , value component.name
                                         ]
                                         []
@@ -415,7 +415,9 @@ componentDetailedView config elements itemIndex expandedItem itemResults =
         , if List.isEmpty elements then
             [ tr []
                 [ th [] []
-                , td [] [ text "Aucun élément" ]
+                , td []
+                    [ text "Aucun élément"
+                    ]
                 ]
             ]
 
@@ -490,9 +492,7 @@ lifeCycleView ({ db, docsUrl, explorerRoute, impact, query, scope } as config) l
         [ div [ class "card shadow-sm" ]
             [ div [ class "card-header d-flex align-items-center justify-content-between gap-2" ]
                 [ h2 [ class "h5 mb-0" ]
-                    [ scopeLabels config.context scope
-                        |> .heading
-                        |> text
+                    [ text config.labels.heading
                     , case explorerRoute of
                         Just route ->
                             Link.smallPillExternal
@@ -523,7 +523,9 @@ lifeCycleView ({ db, docsUrl, explorerRoute, impact, query, scope } as config) l
                 , documentationLink config "production"
                 ]
             , if List.isEmpty query.items then
-                div [ class "card-body" ] [ text "Aucun élément." ]
+                div [ class "card-body" ]
+                    [ text config.labels.empty
+                    ]
 
               else
                 case Component.expandItems db query.items of
@@ -538,7 +540,9 @@ lifeCycleView ({ db, docsUrl, explorerRoute, impact, query, scope } as config) l
                                         [ tr [ class "fs-7 text-muted" ]
                                             [ th [] []
                                             , th [ class "ps-0", Attr.scope "col" ] [ text "Quantité" ]
-                                            , th [ Attr.scope "col", colspan 2 ] [ text "Composant" ]
+                                            , th [ Attr.scope "col", colspan 2 ]
+                                                [ text config.labels.name
+                                                ]
                                             , th [ Attr.scope "col" ] [ text "Masse" ]
                                             , th [ Attr.scope "col" ] [ text "Impact" ]
                                             , th [ Attr.scope "col" ] []
@@ -556,20 +560,9 @@ lifeCycleView ({ db, docsUrl, explorerRoute, impact, query, scope } as config) l
                                         )
                                 )
                             ]
-            , case config.context of
-                AdminContext ->
-                    createComponentButton config
-
-                GenericContext ->
-                    div [ class "d-flex gap-1" ]
-                        [ addComponentButton config
-                        , createComponentButton config
-                        ]
-
-                TextileTrimsContext ->
-                    addComponentButton config
+            , addProductionItemButton config
             ]
-        , if Scope.isGeneric scope && List.length query.items > 0 then
+        , if Scope.isGeneric scope && not (List.isEmpty query.items) then
             div []
                 [ DownArrow.view
                     [ div [ class "d-flex justify-content-end align-items-center gap-1" ]
@@ -752,13 +745,25 @@ transportToDistributionView ({ componentConfig, impact, scope } as config) mass 
         airTransportAvailable =
             componentConfig.transports.modeProcesses.plane.scopes
                 |> List.member scope
+
+        -- transport cooling is only available when both boat and lorry cooled transport
+        -- processes are available in current scope
+        transportCoolingAvailable =
+            List.all (\{ scopes } -> List.member scope scopes)
+                [ componentConfig.transports.modeProcesses.boatCooling
+                , componentConfig.transports.modeProcesses.lorryCooling
+                ]
     in
     DownArrow.view
         [ div [ class "d-flex justify-content-end align-items-center gap-2" ]
             [ text "Transport"
             , Icon.package
             , Format.kg mass
-            , cooledTransportToggler config
+            , if transportCoolingAvailable then
+                cooledTransportToggler config
+
+              else
+                text ""
             , if airTransportAvailable then
                 airTransportToggler config
 

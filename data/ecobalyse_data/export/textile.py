@@ -1,3 +1,4 @@
+from pathlib import Path
 from typing import List
 
 from common.export import export_json
@@ -7,7 +8,7 @@ from models.process import Cff, Material
 
 
 def activities_to_materials_json(
-    activities: List[dict], materials_paths: List[str]
+    activities: List[dict], materials_path: Path
 ) -> List[Material]:
     materials = activities_to_materials_list(activities)
 
@@ -15,13 +16,9 @@ def activities_to_materials_json(
 
     materials_dicts.sort(key=lambda x: x["id"])
 
-    exported_files = []
-    for materials_path in materials_paths:
-        export_json(materials_dicts, materials_path)
-        exported_files.append(materials_path)
+    export_json(materials_dicts, materials_path)
 
-    for materials_path in exported_files:
-        logger.info(f"-> Exported {len(materials_dicts)} materials to {materials_path}")
+    logger.info(f"-> Exported {len(materials_dicts)} materials to {materials_path}")
 
     return materials_dicts
 

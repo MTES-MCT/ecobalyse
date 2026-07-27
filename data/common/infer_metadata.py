@@ -2,11 +2,11 @@
 
 import functools
 import json
-from typing import List, Optional, Tuple
+from typing import List, Optional, Set, Tuple
 
-from config import PROJECT_ROOT_DIR
+from config import DATA_ROOT_DIR
 
-_BASE_INGREDIENTS_PATH = PROJECT_ROOT_DIR / "food" / "base_ingredients.json"
+_BASE_INGREDIENTS_PATH = DATA_ROOT_DIR / "food" / "base_ingredients.json"
 
 
 _LEGACY_ZONE_TO_COUNTRY = {
@@ -16,6 +16,56 @@ _LEGACY_ZONE_TO_COUNTRY = {
     "OutOfEuropeAndMaghreb": None,
     "OutOfEuropeAndMaghrebByPlane": None,
 }
+
+# Reference values from
+# https://fabrique-numerique.gitbook.io/ecobalyse/alimentaire/impacts-consideres/rapport-cru-cuit
+# `material_type:other_food_items` is absent cause it
+# heterogenous rawToCookedRatio values
+_MATERIAL_TYPE_TO_RAW_TO_COOKED_RATIO = {
+    "cereals": 2.259,
+    "eggs": 0.974,
+    "fish_and_shellfish": 0.819,
+    "fruits_and_vegetables": 0.856,
+    "legumes": 2.33,
+    "offal": 0.730,
+    "poultry": 0.755,
+    "red_meats": 0.792,
+}
+
+
+TRANSPORTED_COOLED_MATERIAL_TYPES = frozenset(
+    {
+        "fruits_and_vegetables",
+        "fish_and_shellfish",
+        "legumes",
+        "red_meats",
+        "poultry",
+        "offal",
+    }
+)
+
+TRANSPORTED_COOLED_CATEGORY = "transported_cooled"
+_MATERIAL_TYPE_PREFIX = "material_type:"
+
+
+def get_material_types(categories: List[str]) -> Set[str]:
+    return {
+        category[len(_MATERIAL_TYPE_PREFIX) :]
+        for category in categories
+        if category.startswith(_MATERIAL_TYPE_PREFIX)
+    }
+
+
+def infer_transported_cooled(categories: List[str]) -> List[str]:
+    """add transported_cooled tag to materials with TRANSPORTED_COOLED_MATERIAL_TYPES"""
+    material_types = get_material_types(categories)
+    is_ingredient = "ingredient" in categories
+    is_perishable = (
+        bool(material_types & TRANSPORTED_COOLED_MATERIAL_TYPES) and is_ingredient
+    )
+    if is_perishable and TRANSPORTED_COOLED_CATEGORY not in categories:
+        return categories + [TRANSPORTED_COOLED_CATEGORY]
+    return categories
 
 
 def infer_default_origin(
@@ -34,6 +84,25 @@ def infer_default_origin(
         return "FR"
 
     return None
+
+
+def infer_raw_to_cooked_ratio(
+    explicit_ratio: Optional[float], categories: List[str]
+) -> float:
+    """If explicit_ratio is None, infer the raw_to_cooked_ratio from the material_type tag"""
+    if explicit_ratio is not None:
+        return explicit_ratio
+
+    material_types = get_material_types(categories)
+    if len(material_types) == 1:
+        ratio = _MATERIAL_TYPE_TO_RAW_TO_COOKED_RATIO.get(next(iter(material_types)))
+        if ratio is not None:
+            return ratio
+
+    raise ValueError(
+        f"Cannot infer rawToCookedRatio from material_type tags {material_types!r}. "
+        f"Set an explicit rawToCookedRatio on the metadata entry."
+    )
 
 
 @functools.cache

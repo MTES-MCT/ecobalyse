@@ -1,5 +1,6 @@
 module Static.Json exposing
     ( RawJsonComponents
+    , componentConfigJson
     , countriesJson
     , foodIngredientsJson
     , food2ExamplesJson
@@ -22,6 +23,11 @@ type alias RawJsonComponents =
     , textileComponents : String
     , veliComponents : String
     }
+
+
+componentConfigJson : String
+componentConfigJson =
+    """%componentConfigJson%"""
 
 
 countriesJson : String

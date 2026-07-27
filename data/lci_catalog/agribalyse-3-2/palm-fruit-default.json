@@ -32,11 +32,6 @@
         "confidence": 1.0,
         "rule": "vegetable default from food_type_density.csv"
       },
-      "rawToCookedRatio": 0.856,
-      "rawToCookedRatioMatch": {
-        "confidence": 0.95,
-        "rule": "Matched with fruit in cooked_to_raw.csv"
-      },
       "scenario": "import",
       "scopes": [
         "food",

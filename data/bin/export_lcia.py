@@ -117,7 +117,6 @@ def main(
                                 impacts_py,
                                 IMPACTS_JSON,
                                 factors,
-                                False,
                             )
                         )
                         nb_activity += 1

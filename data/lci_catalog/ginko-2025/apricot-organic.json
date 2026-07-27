@@ -33,11 +33,6 @@
         "confidence": 0.95,
         "rule": "Matched with apricot in density.csv"
       },
-      "rawToCookedRatio": 0.856,
-      "rawToCookedRatioMatch": {
-        "confidence": 0.95,
-        "rule": "Matched with apricot in cooked_to_raw.csv"
-      },
       "scenario": "organic",
       "scopes": [
         "food",

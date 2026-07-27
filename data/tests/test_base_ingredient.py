@@ -3,12 +3,12 @@ from collections import Counter
 
 from bin.export import _get_lcias
 from common.infer_metadata import infer_base_ingredient, load_base_ingredients
-from config import PROJECT_ROOT_DIR
+from config import DATA_ROOT_DIR
 
 
 def _ingredient_aliases():
     """Yield every alias on an ingredient-category activity in lci_catalog/."""
-    for activity in _get_lcias(PROJECT_ROOT_DIR):
+    for activity in _get_lcias(DATA_ROOT_DIR):
         if "ingredient" not in activity.get("categories", []):
             continue
         for variant in activity.get("metadata", []):
@@ -47,7 +47,7 @@ def test_no_useless_base_ingredient():
 
 def test_base_ingredients_unique():
     """Every baseIngredient must be unique"""
-    with open(PROJECT_ROOT_DIR / "food" / "base_ingredients.json") as f:
+    with open(DATA_ROOT_DIR / "food" / "base_ingredients.json") as f:
         entries = json.load(f)
 
     duplicates = []

@@ -31,11 +31,6 @@
         "confidence": 1.0,
         "rule": "fig found in density.csv"
       },
-      "rawToCookedRatio": 0.856,
-      "rawToCookedRatioMatch": {
-        "confidence": 1.0,
-        "rule": "fruit default from food_type_cooked_to_raw.csv"
-      },
       "scenario": "reference",
       "scopes": [
         "food",
@@ -71,11 +66,6 @@
         "confidence": 1.0,
         "rule": "fruit default from food_type_density.csv"
       },
-      "rawToCookedRatio": 0.856,
-      "rawToCookedRatioMatch": {
-        "confidence": 1.0,
-        "rule": "fruit default from food_type_cooked_to_raw.csv"
-      },
       "scenario": "reference",
       "scopes": [
         "food",
@@ -110,11 +100,6 @@
       "ingredientDensityMatch": {
         "confidence": 0.95,
         "rule": "Matched with peach in density.csv"
-      },
-      "rawToCookedRatio": 0.856,
-      "rawToCookedRatioMatch": {
-        "confidence": 0.95,
-        "rule": "Matched with peach in cooked_to_raw.csv"
       },
       "scenario": "reference",
       "scopes": [

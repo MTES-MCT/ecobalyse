@@ -3,13 +3,14 @@ from __future__ import annotations
 from datetime import datetime, timedelta, timezone
 from typing import TYPE_CHECKING, Awaitable, Callable, Sequence
 
-from app.domain.accounts.services import TokenService
 from litestar.exceptions import NotAuthorizedException
 from litestar.middleware.authentication import (
     AbstractAuthenticationMiddleware,
     AuthenticationResult,
 )
 from litestar.security.jwt.token import Token
+
+from app.domain.accounts.services import TokenService
 
 __all__ = "CustomAuthMiddleware"
 

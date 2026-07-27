@@ -61,7 +61,6 @@
         "organic"
       ],
       "ingredientDensity": 0.72,
-      "rawToCookedRatio": 2.33,
       "scenario": "organic",
       "scopes": [
         "food",

@@ -18,10 +18,11 @@ from advanced_alchemy.service import (
     is_dict_without_field,
     schema_dump,
 )
+from litestar.exceptions import PermissionDeniedException
+
 from app.config import constants
 from app.db import models as m
 from app.lib import crypt
-from litestar.exceptions import PermissionDeniedException
 
 
 class UserRepository(SQLAlchemyAsyncRepository[m.User]):

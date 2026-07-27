@@ -21,7 +21,6 @@
         "animal_product"
       ],
       "ingredientDensity": 1.0,
-      "rawToCookedRatio": 0.792,
       "scenario": "reference",
       "scopes": [
         "food",
@@ -43,7 +42,6 @@
         "animal_product"
       ],
       "ingredientDensity": 1.0,
-      "rawToCookedRatio": 0.792,
       "scenario": "reference",
       "scopes": [
         "food",

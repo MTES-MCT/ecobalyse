@@ -1,5 +1,6 @@
 module TestUtils exposing
     ( asTest
+    , componentConfig
     , createServerRequest
     , expectImpactsEqual
     , expectResultErrorContains
@@ -16,6 +17,7 @@ module TestUtils exposing
     , tShirtCotonFrance
     )
 
+import Data.Component as Component
 import Data.Country.Code as CountryCode
 import Data.Db exposing (Db)
 import Data.Impact as Impact exposing (Impacts)
@@ -39,6 +41,11 @@ import Test exposing (..)
 asTest : String -> Expectation -> Test
 asTest =
     it
+
+
+componentConfig : Db -> Result String Component.Config
+componentConfig db =
+    Component.parseConfig db StaticJson.componentConfigJson
 
 
 it : String -> Expectation -> Test
