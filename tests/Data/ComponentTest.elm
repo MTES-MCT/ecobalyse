@@ -886,7 +886,7 @@ suite =
                                                         }
                                                 )
                                     )
-                                |> expectResultErrorContains "Le procédé n'est pas un assemblage"
+                                |> expectResultErrorContains "Le procédé n’est pas un assemblage"
                             )
                         ]
                     , describe "decodeAssembly"

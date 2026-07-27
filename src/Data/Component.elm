@@ -446,7 +446,7 @@ type alias Requirements db =
     }
 
 
-{-| Add a new assembly process to a query, with an optional country.
+{-| Add a new assembly operation process to a query, optionally localized
 -}
 addAssemblyProcess : Maybe CountryCode.Code -> Process -> Query -> Query
 addAssemblyProcess maybeCountry process ({ assembly } as query) =
@@ -539,118 +539,11 @@ addResults (Results results) (Results acc) =
         }
 
 
-{-| Apply an assembly process to a results.
+{-| Apply an assembly operation process to an existing `Results`
 -}
 applyAssemblyProcess : Process -> EnergyMixes -> Results -> Results
-applyAssemblyProcess process { elec, heat } (Results { amount, label, impacts, items, mass, complementsImpacts }) =
-    let
-        processImpacts =
-            [ process.impacts
-            , elec.impacts |> Impact.multiplyBy (Energy.inKilowattHours process.elec)
-            , heat.impacts |> Impact.multiplyBy (Energy.inMegajoules process.heat)
-            ]
-                |> Impact.sumImpacts
-                |> Impact.multiplyBy (Amount.toFloat amount)
-
-        outputAmount =
-            amount |> applyQtyVariationRatio process.qtyVariationRatio
-
-        outputMass =
-            mass |> Unit.applyQtyVariationRatioToMass process.qtyVariationRatio
-    in
-    Results
-        { amount = outputAmount
-        , complementsImpacts = complementsImpacts
-        , impacts = Impact.sumImpacts [ processImpacts, impacts ]
-        , items =
-            items
-                ++ [ Results
-                        { amount = outputAmount
-                        , complementsImpacts = Complement.emptyComplementsResultsImpacts
-                        , impacts = processImpacts
-                        , items = []
-                        , label = Just <| Process.getDisplayName process
-                        , mass = outputMass
-                        , materialType = Nothing
-                        , quantity = 1
-                        , stage = Just AssemblyStage
-                        }
-                   ]
-        , label = label
-        , mass = outputMass
-        , materialType = Nothing
-        , quantity = 1
-        , stage = Nothing
-        }
-
-
-applyComplementsResultsImpacts : Amount -> Impacts -> ComplementsImpacts -> ComplementsResultsImpacts
-applyComplementsResultsImpacts amount impacts =
-    Complement.mapComplements
-        (Maybe.map
-            (\complement ->
-                impacts
-                    |> Complement.applyComplementsToImpacts complement
-                    |> Impact.multiplyBy (Amount.toFloat amount)
-            )
-        )
-
-
-applyDurability : Maybe Unit.Ratio -> LifeCycle -> Impacts
-applyDurability maybeDurability =
-    sumLifeCycleImpacts
-        >> (case maybeDurability of
-                Just durability ->
-                    Impact.divideBy (Unit.ratioToFloat durability)
-
-                Nothing ->
-                    identity
-           )
-
-
-applyTransform : Process -> EnergyMixes -> Results -> Results
-applyTransform transform { elec, heat } (Results { amount, label, impacts, items, mass, complementsImpacts }) =
-    let
-        transformImpacts =
-            [ transform.impacts
-            , elec.impacts |> Impact.multiplyBy (Energy.inKilowattHours transform.elec)
-            , heat.impacts |> Impact.multiplyBy (Energy.inMegajoules transform.heat)
-            ]
-                |> Impact.sumImpacts
-                -- Note: impacts are always computed from input amount
-                |> Impact.multiplyBy (Amount.toFloat amount)
-
-        outputAmount =
-            amount |> applyQtyVariationRatio transform.qtyVariationRatio
-
-        outputMass =
-            mass |> Unit.applyQtyVariationRatioToMass transform.qtyVariationRatio
-    in
-    Results
-        { amount = outputAmount
-        , complementsImpacts = complementsImpacts
-        , impacts = Impact.sumImpacts [ transformImpacts, impacts ]
-        , items =
-            items
-                ++ [ -- transform result
-                     Results
-                        { amount = outputAmount
-                        , complementsImpacts = Complement.emptyComplementsResultsImpacts
-                        , impacts = transformImpacts
-                        , items = []
-                        , label = Just <| Process.getDisplayName transform
-                        , mass = outputMass
-                        , materialType = Nothing
-                        , quantity = 1
-                        , stage = Just TransformStage
-                        }
-                   ]
-        , label = label
-        , mass = outputMass
-        , materialType = Nothing
-        , quantity = 1
-        , stage = Nothing
-        }
+applyAssemblyProcess =
+    applyProcessStep AssemblyStage
 
 
 {-| Sequencially apply assembly processes to existing Results initialized from product mass.
@@ -677,6 +570,81 @@ applyAssemblyProcesses requirements expandedProcesses initialResults =
                         )
                         (Ok initialResults)
             )
+
+
+applyComplementsResultsImpacts : Amount -> Impacts -> ComplementsImpacts -> ComplementsResultsImpacts
+applyComplementsResultsImpacts amount impacts =
+    Complement.mapComplements
+        (Maybe.map
+            (\complement ->
+                impacts
+                    |> Complement.applyComplementsToImpacts complement
+                    |> Impact.multiplyBy (Amount.toFloat amount)
+            )
+        )
+
+
+applyDurability : Maybe Unit.Ratio -> LifeCycle -> Impacts
+applyDurability maybeDurability =
+    sumLifeCycleImpacts
+        >> (case maybeDurability of
+                Just durability ->
+                    Impact.divideBy (Unit.ratioToFloat durability)
+
+                Nothing ->
+                    identity
+           )
+
+
+{-| Apply a process step to a results, computing its impacts and updating the results accordingly
+-}
+applyProcessStep : Stage -> Process -> EnergyMixes -> Results -> Results
+applyProcessStep stage process { elec, heat } (Results { amount, label, impacts, items, mass, complementsImpacts }) =
+    let
+        stepImpacts =
+            [ process.impacts
+            , elec.impacts |> Impact.multiplyBy (Energy.inKilowattHours process.elec)
+            , heat.impacts |> Impact.multiplyBy (Energy.inMegajoules process.heat)
+            ]
+                |> Impact.sumImpacts
+                -- Note: impacts are always computed from input amount
+                |> Impact.multiplyBy (Amount.toFloat amount)
+
+        outputAmount =
+            amount |> applyQtyVariationRatio process.qtyVariationRatio
+
+        outputMass =
+            mass |> Unit.applyQtyVariationRatioToMass process.qtyVariationRatio
+    in
+    Results
+        { amount = outputAmount
+        , complementsImpacts = complementsImpacts
+        , impacts = Impact.sumImpacts [ stepImpacts, impacts ]
+        , items =
+            items
+                ++ [ Results
+                        { amount = outputAmount
+                        , complementsImpacts = Complement.emptyComplementsResultsImpacts
+                        , impacts = stepImpacts
+                        , items = []
+                        , label = Just <| Process.getDisplayName process
+                        , mass = outputMass
+                        , materialType = Nothing
+                        , quantity = 1
+                        , stage = Just stage
+                        }
+                   ]
+        , label = label
+        , mass = outputMass
+        , materialType = Nothing
+        , quantity = 1
+        , stage = Nothing
+        }
+
+
+applyTransform : Process -> EnergyMixes -> Results -> Results
+applyTransform =
+    applyProcessStep TransformStage
 
 
 checkAssemblyProcessesUnit : List ExpandedLocalizedProcess -> Result String (List ExpandedLocalizedProcess)
