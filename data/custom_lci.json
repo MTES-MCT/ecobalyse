@@ -2,36 +2,25 @@
   {
     "activityCreationType": "from_scratch",
     "alias": "alu-market-rer",
-    "comment": "based on share of recycled material and net importations. details in documentation",
-    "database": "Ecoinvent 3.9.1",
+    "comment": "based on share of recycled material (CFF parameters: A=0.2, Q=1) and net importations. France is used as a reference for Europe. Details in documentation",
+    "database": "Ecobalyse_custom_lci",
     "exchanges": [
       {
-        "amount": 0.443,
+        "amount": 0.557,
+        "name": "aluminium ingot, virgin, market, FR"
+      },
+      {
+        "amount": 0.089,
+        "database": "Ecoinvent 3.9.1",
         "name": "aluminium, cast alloy//[RER] treatment of aluminium scrap, post-consumer, prepared for recycling, at refiner"
       },
       {
-        "amount": 0.007,
-        "name": "aluminium, primary, ingot//[IAI Area, Asia, without China and GCC] aluminium production, primary, ingot"
-      },
-      {
-        "amount": 0.393,
-        "name": "aluminium, primary, ingot//[IAI Area, EU27 & EFTA] aluminium production, primary, ingot"
-      },
-      {
-        "amount": 0.052,
-        "name": "aluminium, primary, ingot//[IAI Area, Gulf Cooperation Council] aluminium production, primary, ingot"
-      },
-      {
-        "amount": 0.015,
-        "name": "aluminium, primary, ingot//[IAI Area, South America] aluminium production, primary, ingot"
-      },
-      {
-        "amount": 0.091,
-        "name": "aluminium, primary, ingot//[RoW] aluminium production, primary, ingot"
+        "amount": 0.354,
+        "name": "aluminium ingot, virgin, market, FR"
       }
     ],
-    "location": "RER",
-    "newName": "aluminium ingot, market, RER"
+    "location": "FR",
+    "newName": "aluminium ingot, market, FR"
   },
   {
     "activityCreationType": "from_scratch",
@@ -1545,7 +1534,7 @@
       {
         "amount": 0.56,
         "database": "Ecobalyse_custom_lci",
-        "name": "aluminium ingot, market, RER"
+        "name": "aluminium ingot, market, FR"
       }
     ],
     "newName": "Aluminium+LDPE panel, RER"
@@ -2861,36 +2850,24 @@
   {
     "activityCreationType": "from_scratch",
     "alias": "alu-market-row",
-    "comment": "based on share of recycled material and net importations. details in documentation",
+    "comment": "based on share of recycled material (CFF parameters: A=0.2, Q=1) and net importations. South Korea is used as a reference for Out of Europe and China. Details in documentation",
     "database": "Ecoinvent 3.9.1",
     "exchanges": [
       {
-        "amount": 0.471,
-        "name": "aluminium, cast alloy//[RER] treatment of aluminium scrap, post-consumer, prepared for recycling, at refiner"
+        "amount": 0.529,
+        "name": "aluminium ingot, virgin, market, KR"
       },
       {
-        "amount": 0.19,
-        "name": "aluminium, primary, ingot//[IAI Area, Asia, without China and GCC] aluminium production, primary, ingot"
+        "amount": 0.377,
+        "name": "aluminium, cast alloy//[RoW] treatment of aluminium scrap, post-consumer, prepared for recycling, at refiner"
       },
       {
-        "amount": 0.003,
-        "name": "aluminium, primary, ingot//[IAI Area, EU27 & EFTA] aluminium production, primary, ingot"
-      },
-      {
-        "amount": 0.112,
-        "name": "aluminium, primary, ingot//[IAI Area, Gulf Cooperation Council] aluminium production, primary, ingot"
-      },
-      {
-        "amount": 0.001,
-        "name": "aluminium, primary, ingot//[IAI Area, South America] aluminium production, primary, ingot"
-      },
-      {
-        "amount": 0.223,
-        "name": "aluminium, primary, ingot//[RoW] aluminium production, primary, ingot"
+        "amount": 0.094,
+        "name": "aluminium ingot, virgin, market, KR"
       }
     ],
-    "location": "RoW",
-    "newName": "aluminium ingot, market, RoW"
+    "location": "KR",
+    "newName": "aluminium ingot, market, KR"
   },
   {
     "activityCreationType": "from_scratch",
@@ -2921,7 +2898,7 @@
   {
     "activityCreationType": "from_scratch",
     "alias": "alu-market-virgin-rer",
-    "comment": "based on share of recycled material and net importations. details in documentation",
+    "comment": "based on share of recycled material and net importations. France is used as a reference for Europe. Details in documentation",
     "database": "Ecoinvent 3.9.1",
     "exchanges": [
       {
@@ -2941,17 +2918,17 @@
         "name": "aluminium, primary, ingot//[IAI Area, South America] aluminium production, primary, ingot"
       },
       {
-        "amount": 0.133,
+        "amount": 0.163,
         "name": "aluminium, primary, ingot//[RoW] aluminium production, primary, ingot"
       }
     ],
-    "location": "RER",
-    "newName": "aluminium ingot, virgin, market, RER"
+    "location": "FR",
+    "newName": "aluminium ingot, virgin, market, FR"
   },
   {
     "activityCreationType": "from_scratch",
     "alias": "alu-market-virgin-row",
-    "comment": "based on share of recycled material and net importations. details in documentation",
+    "comment": "based on share of recycled material and net importations. South Korea is used as a reference for Out of Europe and India. Details in documentation",
     "database": "Ecoinvent 3.9.1",
     "exchanges": [
       {
@@ -2975,8 +2952,8 @@
         "name": "aluminium, primary, ingot//[RoW] aluminium production, primary, ingot"
       }
     ],
-    "location": "RoW",
-    "newName": "aluminium ingot, virgin, market, RoW"
+    "location": "KR",
+    "newName": "aluminium ingot, virgin, market, KR"
   },
   {
     "activityCreationType": "from_scratch",
@@ -3120,7 +3097,7 @@
     "exchanges": [
       {
         "amount": 0.8,
-        "name": "aluminium ingot, virgin, market, RER"
+        "name": "aluminium ingot, virgin, market, FR"
       },
       {
         "amount": 0.2,
@@ -3158,7 +3135,7 @@
     "exchanges": [
       {
         "amount": 0.8,
-        "name": "aluminium ingot, virgin, market, RoW"
+        "name": "aluminium ingot, virgin, market, KR"
       },
       {
         "amount": 0.2,
@@ -3581,7 +3558,7 @@
       },
       {
         "amount": 0.022,
-        "name": "aluminium ingot, market, RER"
+        "name": "aluminium ingot, market, FR"
       },
       {
         "amount": 0.019,
@@ -3868,7 +3845,7 @@
     "exchanges": [
       {
         "amount": -0.8,
-        "name": "aluminium ingot, virgin, market, RER"
+        "name": "aluminium ingot, virgin, market, FR"
       },
       {
         "amount": 0.8,
