@@ -76,8 +76,6 @@
     "@parcel/transformer-sass": "^2.16.4",
     "@playwright/test": "^1.61.1",
     "@types/node": "^25.9.4",
-    "ajv-cli": "^5.0.0",
-    "ajv-formats": "^3.0.1",
     "bootstrap": "^5.3.8",
     "concurrently": "^10.0.3",
     "elm": "^0.19.1-6",
