@@ -65,7 +65,7 @@ module Data.Component exposing
     , encodeLifeCycle
     , encodeQuery
     , endOfLifeMassScaleRatio
-    , expandAssemblyProcesses
+    , expandAssembly
     , expandConsumptions
     , expandElements
     , expandItems
@@ -801,7 +801,7 @@ computeAssemblyImpacts requirements { assembly } lifeCycle =
             }
 
     else
-        expandAssemblyProcesses requirements.db assembly
+        expandAssembly requirements.db assembly
             |> Result.andThen
                 (\expandedProcesses ->
                     assemblyResultsFromMass productionMass
@@ -1849,6 +1849,15 @@ errors =
     }
 
 
+{-| Expand an assembly query into a list of ExpandedLocalizedProcess, setting their default
+country to an optional assembly country
+-}
+expandAssembly : DataContainer db -> Assembly -> Result String (List ExpandedLocalizedProcess)
+expandAssembly db { country, operations } =
+    operations
+        |> RE.combineMap (expandAssemblyProcess db country)
+
+
 {-| Resolve an assembly process with country fallback to the assembly country
 -}
 expandAssemblyProcess : DataContainer db -> Maybe CountryCode.Code -> LocalizedProcess -> Result String ExpandedLocalizedProcess
@@ -1865,11 +1874,6 @@ expandAssemblyProcess { countries, processes } defaultAssemblyCountry { country,
     Ok ExpandedLocalizedProcess
         |> RE.andMap (Country.resolveMaybe resolvedCountryCode countries)
         |> RE.andMap (Process.findById id processes)
-
-
-expandAssemblyProcesses : DataContainer db -> Assembly -> Result String (List ExpandedLocalizedProcess)
-expandAssemblyProcesses db { country, operations } =
-    RE.combineMap (expandAssemblyProcess db country) operations
 
 
 {-| Resolve full use consumption processes linked to their respective ids
