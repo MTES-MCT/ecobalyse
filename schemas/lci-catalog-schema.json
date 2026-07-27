@@ -1,0 +1,37 @@
+{
+  "$id": "lci-catalog-schema.json",
+  "$schema": "https://json-schema.org/draft/2019-09/schema#",
+  "properties": {
+    "categories": {
+      "items": {
+        "type": "string"
+      },
+      "type": "array"
+    },
+    "displayName": {
+      "type": ["string", "null"]
+    },
+    "id": {
+      "format": "uuid",
+      "type": "string"
+    },
+
+    "source": {
+      "enum": [
+        "Agribalyse 3.2",
+        "Ecobalyse_manual_lcia",
+        "Ecobalyse_custom_lci",
+        "Ecoinvent 3.9.1",
+        "Ecoinvent 3.11",
+        "Ginko 2025",
+        "WFLDB",
+        "Woolmark",
+        "forwast",
+        "PastoEco"
+      ],
+      "type": "string"
+    }
+  },
+  "required": ["displayName", "categories", "id", "source"],
+  "type": "object"
+}
