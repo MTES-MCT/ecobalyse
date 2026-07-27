@@ -1474,7 +1474,7 @@ assemblyView ({ db, impact, query, scope } as config) lifeCycle =
 
                 Ok expandedOperations ->
                     if List.isEmpty expandedOperations then
-                        div [ class "px-3 pb-3 text-muted" ] [ text "Aucun procédé d'assemblage" ]
+                        div [ class "px-3 pb-3 text-muted" ] [ text "Aucun procédé d’assemblage" ]
 
                     else
                         table [ class "table table-sm mb-0" ]
@@ -1513,7 +1513,7 @@ assemblyView ({ db, impact, query, scope } as config) lifeCycle =
                                                     [ button
                                                         [ type_ "button"
                                                         , class "btn btn-sm btn-outline-secondary"
-                                                        , title "Supprimer ce procédé d'assemblage"
+                                                        , title "Supprimer ce procédé d’assemblage"
                                                         , onClick (config.removeAssemblyProcess index)
                                                         ]
                                                         [ Icon.trash ]
@@ -1522,13 +1522,13 @@ assemblyView ({ db, impact, query, scope } as config) lifeCycle =
                                         )
                                 )
                             ]
-            , addAssemblyProcessButton config
+            , addAssemblyOperationButton config
             ]
         ]
 
 
-addAssemblyProcessButton : Config db msg -> Html msg
-addAssemblyProcessButton ({ openSelectAssemblyProcessModal, query } as config) =
+addAssemblyOperationButton : Config db msg -> Html msg
+addAssemblyOperationButton ({ openSelectAssemblyProcessModal, query } as config) =
     let
         availableProcesses =
             listAvailableProcesses config Category.Assembly
@@ -1554,7 +1554,7 @@ addAssemblyProcessButton ({ openSelectAssemblyProcessModal, query } as config) =
         , onClick <| openSelectAssemblyProcessModal autocompleteState
         ]
         [ Icon.plus
-        , text "Ajouter un procédé d'assemblage"
+        , text "Ajouter un procédé d’assemblage"
         ]
 
 

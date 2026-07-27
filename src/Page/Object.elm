@@ -874,7 +874,7 @@ selectAssemblyProcess query autocompleteState pageUpdate =
     case Autocomplete.selectedValue autocompleteState of
         Just process ->
             pageUpdate
-                |> updateQuery (query |> Component.addAssemblyProcess query.assembly.country process)
+                |> updateQuery (query |> Component.addAssemblyOperation query.assembly.country process)
                 |> App.apply update (SetModals [])
 
         Nothing ->

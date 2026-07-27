@@ -26,7 +26,7 @@ module Data.Component exposing
     , TargetElement
     , TargetItem
     , TransportOptions
-    , addAssemblyProcess
+    , addAssemblyOperation
     , addElement
     , addElementTransform
     , addItem
@@ -448,8 +448,8 @@ type alias Requirements db =
 
 {-| Add a new assembly operation process to a query, optionally localized
 -}
-addAssemblyProcess : Maybe CountryCode.Code -> Process -> Query -> Query
-addAssemblyProcess maybeCountry process ({ assembly } as query) =
+addAssemblyOperation : Maybe CountryCode.Code -> Process -> Query -> Query
+addAssemblyOperation maybeCountry process ({ assembly } as query) =
     { query
         | assembly =
             { assembly
