@@ -19,7 +19,7 @@
     "encrypt": "./bin/encrypt",
     "db:build": "./bin/build-db && npm run db:check && npx elm-format --yes src/Static/Json.elm",
     "db:check": "elm make src/CheckDb.elm --optimize --output=check-db-app.js 1> /dev/null && node check-db.js",
-    "db:validate": "just check-processes",
+    "db:validate": "just check-front-data",
     "lint:openapi": "npx swagger-cli validate openapi.yaml",
     "lint:elm": "npx elm-format src review/src --validate",
     "lint:prettier": "prettier --config .prettierrc --check",
