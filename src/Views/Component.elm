@@ -72,13 +72,13 @@ type alias Config db msg =
     , lifeCycle : Result String LifeCycle
     , noOp : msg
     , openEditElementModal : Component -> TargetElement -> msg
-    , openSelectAssemblyProcessModal : Autocomplete Process -> msg
+    , openSelectAssemblyOperationModal : Autocomplete Process -> msg
     , openSelectConsumptionModal : Autocomplete Process -> msg
     , openSelectPackagingModal : Autocomplete Process -> msg
     , openSelectProcessModal : Category -> TargetItem -> Maybe Index -> Autocomplete Process -> msg
     , openSelectProductionItem : Autocomplete ProductionItem -> msg
     , query : Query
-    , removeAssemblyProcess : Index -> msg
+    , removeAssemblyOperation : Index -> msg
     , removeConsumption : Index -> msg
     , removeElement : TargetElement -> msg
     , removeElementTransform : TargetElement -> Index -> msg
@@ -89,7 +89,7 @@ type alias Config db msg =
     , toggleTransportByAir : Split -> msg
     , toggleTransportCooling : Bool -> msg
     , updateAssemblyCountry : Maybe CountryCode.Code -> msg
-    , updateAssemblyProcessCountry : Index -> Maybe CountryCode.Code -> msg
+    , updateAssemblyOperationCountry : Index -> Maybe CountryCode.Code -> msg
     , updateConsumptionAmount : Index -> Maybe Amount -> msg
     , updateDistribution : Result String Process.Id -> msg
     , updateElementAmount : TargetElement -> Maybe Amount -> msg
@@ -1510,7 +1510,7 @@ assemblyView ({ db, impact, query, scope } as config) lifeCycle =
                                                         , countries = db.countries
                                                         , domId = "assembly-operation-country-" ++ String.fromInt index
                                                         , scope = scope
-                                                        , select = config.updateAssemblyProcessCountry index
+                                                        , select = config.updateAssemblyOperationCountry index
                                                         , selected =
                                                             query.assembly.operations
                                                                 |> LE.getAt index
@@ -1534,7 +1534,7 @@ assemblyView ({ db, impact, query, scope } as config) lifeCycle =
                                                         [ type_ "button"
                                                         , class "btn btn-sm btn-outline-secondary"
                                                         , title "Supprimer ce procédé d’assemblage"
-                                                        , onClick (config.removeAssemblyProcess index)
+                                                        , onClick (config.removeAssemblyOperation index)
                                                         ]
                                                         [ Icon.trash ]
                                                     ]
@@ -1548,7 +1548,7 @@ assemblyView ({ db, impact, query, scope } as config) lifeCycle =
 
 
 addAssemblyOperationButton : Config db msg -> Html msg
-addAssemblyOperationButton ({ openSelectAssemblyProcessModal, query } as config) =
+addAssemblyOperationButton ({ openSelectAssemblyOperationModal, query } as config) =
     let
         availableProcesses =
             listAvailableProcesses config Category.Assembly
@@ -1571,7 +1571,7 @@ addAssemblyOperationButton ({ openSelectAssemblyProcessModal, query } as config)
         , class "gap-1"
         , class "rounded-0 border-start-0 border-end-0 border-bottom-0"
         , disabled <| List.isEmpty availableProcesses
-        , onClick <| openSelectAssemblyProcessModal autocompleteState
+        , onClick <| openSelectAssemblyOperationModal autocompleteState
         ]
         [ Icon.plus
         , text "Ajouter un procédé d’assemblage"

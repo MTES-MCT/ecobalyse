@@ -104,7 +104,7 @@ module Data.Component exposing
     , productionItemToLabel
     , quantityFromInt
     , quantityToInt
-    , removeAssemblyProcess
+    , removeAssemblyOperation
     , removeConsumption
     , removeElement
     , removeElementTransform
@@ -121,7 +121,7 @@ module Data.Component exposing
     , transformListToString
     , tryMapItems
     , updateAssemblyCountry
-    , updateAssemblyProcessCountry
+    , updateAssemblyOperationCountry
     , updateConsumptionAmount
     , updateDistribution
     , updateDurability
@@ -2448,8 +2448,8 @@ quantityToInt (Quantity int) =
     int
 
 
-removeAssemblyProcess : Index -> Query -> Query
-removeAssemblyProcess index ({ assembly } as query) =
+removeAssemblyOperation : Index -> Query -> Query
+removeAssemblyOperation index ({ assembly } as query) =
     { query
         | assembly =
             { assembly
@@ -2698,8 +2698,8 @@ updateAssemblyCountry country ({ assembly } as query) =
     { query | assembly = { assembly | country = country } }
 
 
-updateAssemblyProcessCountry : Index -> Maybe CountryCode.Code -> Query -> Query
-updateAssemblyProcessCountry index country ({ assembly } as query) =
+updateAssemblyOperationCountry : Index -> Maybe CountryCode.Code -> Query -> Query
+updateAssemblyOperationCountry index country ({ assembly } as query) =
     { query
         | assembly =
             { assembly
