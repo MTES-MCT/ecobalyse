@@ -886,7 +886,8 @@ amountInput { event, readonly, unit } amount =
 
 
 type alias CountrySelector msg =
-    { countries : List Country
+    { attrs : List (Attribute msg)
+    , countries : List Country
     , domId : String
     , scope : Scope
     , select : Maybe CountryCode.Code -> msg
@@ -913,18 +914,20 @@ countrySelector config =
                     [ text name ]
             )
         |> select
-            [ class "form-select w-33"
-            , id config.domId
-            , autocomplete False
-            , onInput <|
-                \str ->
-                    config.select <|
-                        if String.isEmpty str then
-                            Nothing
+            (config.attrs
+                ++ [ class "form-select w-33"
+                   , id config.domId
+                   , autocomplete False
+                   , onInput <|
+                        \str ->
+                            config.select <|
+                                if String.isEmpty str then
+                                    Nothing
 
-                        else
-                            Just <| CountryCode.fromString str
-            ]
+                                else
+                                    Just <| CountryCode.fromString str
+                   ]
+            )
 
 
 elementView : Config db msg -> TargetItem -> Index -> ExpandedElement -> Results -> Html msg
@@ -1457,9 +1460,10 @@ assemblyView ({ db, impact, query, scope } as config) lifeCycle =
             ]
         , div [ class "card-body d-flex flex-column gap-3 p-0" ]
             [ div [ class "d-flex align-items-center gap-2 px-3 pt-3" ]
-                [ label [ for "assembly-country" ] [ text "Pays d'assemblage" ]
+                [ label [ for "assembly-country" ] [ text "Pays d’assemblage" ]
                 , countrySelector
-                    { countries = db.countries
+                    { attrs = []
+                    , countries = db.countries
                     , domId = "assembly-country"
                     , scope = scope
                     , select = config.updateAssemblyCountry
@@ -1475,79 +1479,67 @@ assemblyView ({ db, impact, query, scope } as config) lifeCycle =
                         div [ class "px-3 pb-3 text-muted" ] [ text "Aucun procédé d’assemblage" ]
 
                     else
-                        table [ class "table table-sm mb-0" ]
+                        table [ class "table table-sm mb-0 border-top" ]
                             [ thead []
-                                [ tr [ class "fs-7 text-muted" ]
-                                    [ th [ class "ps-3 align-middle", Attr.scope "col" ] [ text "Procédé" ]
-                                    , th [ class "align-middle", Attr.scope "col" ] [ text "Pays/Région" ]
-                                    , th [ class "align-middle text-end", Attr.scope "col" ] [ text "Pertes" ]
-                                    , th [ class "align-middle text-end", Attr.scope "col" ] [ text "kg" ]
-                                    , th [ class "align-middle text-end", Attr.scope "col" ] [ text "Impact" ]
-                                    , th [ class "align-middle", Attr.scope "col" ] []
+                                [ tr [ class "fs-7 text-muted bg-light" ]
+                                    [ th [ class "bg-light ps-3 align-middle", Attr.scope "col" ] [ text "Opération" ]
+                                    , th [ class "bg-light align-middle", Attr.scope "col" ] [ text "Pays/Région" ]
+                                    , th [ class "bg-light align-middle text-end", Attr.scope "col" ] [ text "Pertes" ]
+                                    , th [ class "bg-light align-middle text-end", Attr.scope "col" ] [ text "Masse" ]
+                                    , th [ class "bg-light align-middle text-end", Attr.scope "col" ] [ text "Impact" ]
+                                    , th [ class "bg-light align-middle", Attr.scope "col" ] []
                                     ]
                                 ]
                             , tbody []
-                                (tr [ class "fs-7" ]
-                                    [ td [ class "ps-3 align-middle text-muted" ] [ text "Masse d'entrée" ]
-                                    , td [] []
-                                    , td [] []
-                                    , td [ class "align-middle text-end text-nowrap" ]
-                                        [ lifeCycle.production
-                                            |> Component.extractMass
-                                            |> Format.kg
-                                        ]
-                                    , td [] []
-                                    , td [] []
-                                    ]
-                                    :: (expandedOperations
-                                            |> List.indexedMap
-                                                (\index { process } ->
-                                                    let
-                                                        operationResult =
-                                                            lifeCycle.assembly
-                                                                |> Component.extractItems
+                                (expandedOperations
+                                    |> List.indexedMap
+                                        (\index { process } ->
+                                            let
+                                                operationResult =
+                                                    lifeCycle.assembly
+                                                        |> Component.extractItems
+                                                        |> LE.getAt index
+                                                        |> Maybe.withDefault Component.emptyResults
+                                            in
+                                            tr [ class "fs-7" ]
+                                                [ td [ class "ps-3 align-middle" ]
+                                                    [ text <| Process.getDisplayName process ]
+                                                , td [ class "align-middle" ]
+                                                    [ countrySelector
+                                                        { attrs = [ class "form-select-sm w-100" ]
+                                                        , countries = db.countries
+                                                        , domId = "assembly-operation-country-" ++ String.fromInt index
+                                                        , scope = scope
+                                                        , select = config.updateAssemblyProcessCountry index
+                                                        , selected =
+                                                            query.assembly.operations
                                                                 |> LE.getAt index
-                                                                |> Maybe.withDefault Component.emptyResults
-                                                    in
-                                                    tr []
-                                                        [ td [ class "ps-3 align-middle" ]
-                                                            [ text <| Process.getDisplayName process ]
-                                                        , td [ class "align-middle" ]
-                                                            [ countrySelector
-                                                                { countries = db.countries
-                                                                , domId = "assembly-operation-country-" ++ String.fromInt index
-                                                                , scope = scope
-                                                                , select = config.updateAssemblyProcessCountry index
-                                                                , selected =
-                                                                    query.assembly.operations
-                                                                        |> LE.getAt index
-                                                                        |> Maybe.andThen .country
-                                                                }
-                                                            ]
-                                                        , td [ class "align-middle text-end text-nowrap" ]
-                                                            [ wastePercent process.qtyVariationRatio ]
-                                                        , td [ class "align-middle text-end text-nowrap" ]
-                                                            [ operationResult
-                                                                |> Component.extractMass
-                                                                |> Format.kg
-                                                            ]
-                                                        , td [ class "align-middle text-end text-nowrap" ]
-                                                            [ operationResult
-                                                                |> Component.extractImpacts
-                                                                |> Format.formatImpact impact
-                                                            ]
-                                                        , td [ class "align-middle pe-3" ]
-                                                            [ button
-                                                                [ type_ "button"
-                                                                , class "btn btn-sm btn-outline-secondary"
-                                                                , title "Supprimer ce procédé d’assemblage"
-                                                                , onClick (config.removeAssemblyProcess index)
-                                                                ]
-                                                                [ Icon.trash ]
-                                                            ]
+                                                                |> Maybe.andThen .country
+                                                        }
+                                                    ]
+                                                , td [ class "align-middle text-end text-nowrap" ]
+                                                    [ wastePercent process.qtyVariationRatio ]
+                                                , td [ class "align-middle text-end text-nowrap" ]
+                                                    [ operationResult
+                                                        |> Component.extractMass
+                                                        |> Format.kg
+                                                    ]
+                                                , td [ class "align-middle text-end text-nowrap" ]
+                                                    [ operationResult
+                                                        |> Component.extractImpacts
+                                                        |> Format.formatImpact impact
+                                                    ]
+                                                , td [ class "align-middle pe-3" ]
+                                                    [ button
+                                                        [ type_ "button"
+                                                        , class "btn btn-sm btn-outline-secondary"
+                                                        , title "Supprimer ce procédé d’assemblage"
+                                                        , onClick (config.removeAssemblyProcess index)
                                                         ]
-                                                )
-                                       )
+                                                        [ Icon.trash ]
+                                                    ]
+                                                ]
+                                        )
                                 )
                             ]
             , addAssemblyOperationButton config
