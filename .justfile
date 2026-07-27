@@ -90,9 +90,6 @@ delete-lci-methods:
 check-lci-catalog:
     uv run --group data check-jsonschema --schemafile schemas/lci-catalog-schema.json data/tests/fixtures/lci_catalog/*/* data/lci_catalog/*/*
 
-check-front-data:
-    uv run --group data check-jsonschema --schemafile schemas/processes-schema.json public/data/processes*.json
-
 check-processes:
     uv run --group data check-jsonschema --schemafile schemas/processes-schema.json data/export/processes*.json data/tests/fixtures/processes_legacy_impacts_output.json data/tests/snapshots/processes_legacy_impacts.json
 

@@ -83,7 +83,7 @@ jobs:
     - name: Install Ubuntu dependencies
       run: |
         sudo apt-get update
-        sudo apt-get install -y gettext just
+        sudo apt-get install -y gettext
 
     - name: Install the latest version of uv
       uses: astral-sh/setup-uv@v4
