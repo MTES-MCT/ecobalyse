@@ -1,0 +1,80 @@
+{
+  "$id": "lci-catalog-schema.json",
+  "$schema": "https://json-schema.org/draft/2019-09/schema#",
+  "metadata": {
+    "items": {
+      "properties": {
+        "alias": {
+          "type": "string"
+        },
+        "displayName": {
+          "type": "string"
+        },
+        "forestManagement": {
+          "enum": [
+            "intensivePlantation",
+            "sustainableManagement",
+            "certifiedSustainableManagement",
+            "diversifiedForest",
+            "certifiedDiversifiedForest"
+          ],
+          "type": "string"
+        },
+        "id": {
+          "format": "uuid",
+          "type": "string"
+        },
+        "scopes": {
+          "items": {
+            "enum": ["food", "food2", "textile", "object", "veli"],
+            "type": "string"
+          },
+          "type": "array"
+        }
+      },
+      "required": ["scopes"],
+      "type": "object"
+    },
+    "type": ["array", "null"]
+  },
+  "properties": {
+    "categories": {
+      "items": {
+        "type": "string"
+      },
+      "type": "array"
+    },
+    "displayName": {
+      "type": ["string", "null"]
+    },
+    "id": {
+      "format": "uuid",
+      "type": "string"
+    },
+
+    "scopes": {
+      "items": {
+        "enum": ["food", "food2", "textile", "object", "veli"],
+        "type": "string"
+      },
+      "type": "array"
+    },
+    "source": {
+      "enum": [
+        "Agribalyse 3.2",
+        "Ecobalyse_manual_lcia",
+        "Ecobalyse_custom_lci",
+        "Ecoinvent 3.9.1",
+        "Ecoinvent 3.11",
+        "Ginko 2025",
+        "WFLDB",
+        "Woolmark",
+        "forwast",
+        "PastoEco"
+      ],
+      "type": "string"
+    }
+  },
+  "required": ["displayName", "categories", "id", "scopes", "source"],
+  "type": "object"
+}

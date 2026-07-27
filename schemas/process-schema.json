@@ -8,11 +8,11 @@
     "alias": {
       "type": ["string", "null"]
     },
-    "categories": { "$ref": "lci-catalog-schema.json/#/properties/categories" },
+    "categories": { "$ref": "lci-schema.json/#/properties/categories" },
     "comment": {
       "type": "string"
     },
-    "displayName": { "$ref": "lci-catalog-schema.json/#/properties/displayName" },
+    "displayName": { "$ref": "lci-schema.json/#/properties/displayName" },
     "elecKwh": {
       "minimum": 0,
       "type": "number"
@@ -21,7 +21,7 @@
       "minimum": 0,
       "type": "number"
     },
-    "id": { "$ref": "lci-catalog-schema.json/#/properties/id" },
+    "id": { "$ref": "lci-schema.json/#/properties/id" },
     "impacts": {
       "properties": {
         "acd": { "type": "number" },
@@ -56,7 +56,9 @@
       "exclusiveMinimum": 0,
       "type": "number"
     },
-    "source": { "$ref": "lci-catalog-schema.json/#/properties/source" },
+
+    "scopes": { "$ref": "lci-schema.json/#/properties/scopes" },
+    "source": { "$ref": "lci-schema.json/#/properties/source" },
     "unit": {
       "enum": ["kg", "t⋅km", "kWh", "MJ", "L", "item", "m2", "m3"],
       "type": "string"
@@ -72,6 +74,7 @@
     "impacts",
     "massPerUnit",
     "qtyVariationRatio",
+    "scopes",
     "source",
     "unit"
   ],
