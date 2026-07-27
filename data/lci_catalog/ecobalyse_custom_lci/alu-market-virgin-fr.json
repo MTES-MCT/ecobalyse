@@ -1,17 +1,17 @@
 {
-  "activityName": "aluminium ingot, virgin, market, RoW",
+  "activityName": "aluminium ingot, virgin, market, FR",
   "categories": [
     "material",
     "material_type:aluminium"
   ],
   "comment": "https://fabrique-numerique.gitbook.io/ecobalyse/methodes-transverses-specifiques/procedes-acier-et-aluminium",
-  "displayName": "Aluminium vierge, mix marché, hors Europe et Inde",
+  "displayName": "Aluminium vierge, lingot, mix marché, Europe",
   "elecKwh": 0.0,
   "heatMJ": 0,
-  "id": "159c4209-cb85-5784-ac76-a93a2458075b",
+  "id": "26635537-8b40-51d3-bbc9-a3987a0f4835",
   "metadata": [
     {
-      "id": "cc8e1090-e90a-4dcb-89a2-4b45daac88af",
+      "id": "baae8572-db4a-4cb8-8f74-e72ba5ef0116",
       "scopes": [
         "object",
         "veli"

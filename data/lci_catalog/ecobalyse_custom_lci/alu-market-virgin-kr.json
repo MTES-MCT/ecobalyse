@@ -1,17 +1,17 @@
 {
-  "activityName": "aluminium ingot, market, RER",
+  "activityName": "aluminium ingot, virgin, market, KR",
   "categories": [
     "material",
     "material_type:aluminium"
   ],
   "comment": "https://fabrique-numerique.gitbook.io/ecobalyse/methodes-transverses-specifiques/procedes-acier-et-aluminium",
-  "displayName": "Aluminium, mix marché, Europe",
+  "displayName": "Aluminium vierge, lingot, mix marché, hors Europe et Inde",
   "elecKwh": 0.0,
   "heatMJ": 0,
-  "id": "5d55d2e5-490c-5f02-ac5d-2f66e14f8ec7",
+  "id": "159c4209-cb85-5784-ac76-a93a2458075b",
   "metadata": [
     {
-      "id": "4b4e1204-48ac-48ac-a0e2-ee2176202a5a",
+      "id": "cc8e1090-e90a-4dcb-89a2-4b45daac88af",
       "scopes": [
         "object",
         "veli"

@@ -1,11 +1,11 @@
 {
-  "activityName": "aluminium ingot, virgin, market, CN",
+  "activityName": "aluminium ingot, market, CN",
   "categories": [
     "material",
     "material_type:aluminium"
   ],
   "comment": "https://fabrique-numerique.gitbook.io/ecobalyse/methodes-transverses-specifiques/procedes-acier-et-aluminium",
-  "displayName": "Aluminium, mix marché, Chine",
+  "displayName": "Aluminium, lingot, mix marché, Chine",
   "elecKwh": 0.0,
   "heatMJ": 0,
   "id": "9257bb08-bb65-5d58-8bee-fee9b93ff7c5",
