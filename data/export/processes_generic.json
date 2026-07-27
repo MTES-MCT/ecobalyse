@@ -903,7 +903,7 @@
     ],
     "source": "Agribalyse 3.2",
     "unit": "kg",
-    "visible": true
+    "visible": false
   },
   {
     "activityName": "Anchovy, consumption mix {FR} U",
@@ -983,7 +983,7 @@
     ],
     "source": "Agribalyse 3.2",
     "unit": "kg",
-    "visible": true
+    "visible": false
   },
   {
     "activityName": "Annual vining pea for industry, Conventional, National average, at farm gate {FR} U",
@@ -10758,7 +10758,7 @@
     ],
     "source": "Agribalyse 3.2",
     "unit": "kg",
-    "visible": true
+    "visible": false
   },
   {
     "activityName": "Coffee (grounded), 250g | Packaging System, Proxy Pack, Plastic film {FR} U",
@@ -14417,7 +14417,7 @@
     ],
     "source": "Agribalyse 3.2",
     "unit": "kg",
-    "visible": true
+    "visible": false
   },
   {
     "activityName": "European pilchard or sardine, consumption mix {FR} U",
@@ -14456,7 +14456,7 @@
     ],
     "source": "Agribalyse 3.2",
     "unit": "kg",
-    "visible": true
+    "visible": false
   },
   {
     "activityName": "European pilchard or sardine, consumption mix {FR} U",
@@ -14495,7 +14495,7 @@
     ],
     "source": "Agribalyse 3.2",
     "unit": "kg",
-    "visible": true
+    "visible": false
   },
   {
     "activityName": "Extra Virgin Olive Oil, at plant {ES} U",
@@ -17654,7 +17654,7 @@
     ],
     "source": "Agribalyse 3.2",
     "unit": "kg",
-    "visible": true
+    "visible": false
   },
   {
     "activityName": "Fresh shrimps, China production {FR} U",
@@ -17694,7 +17694,7 @@
     ],
     "source": "Agribalyse 3.2",
     "unit": "kg",
-    "visible": true
+    "visible": false
   },
   {
     "activityName": "Frozen desserts, 354g | Packaging System, Proxy Pack, Rigid plastic, other than bottles {FR} U",
@@ -18348,7 +18348,7 @@
     ],
     "source": "Agribalyse 3.2",
     "unit": "kg",
-    "visible": true
+    "visible": false
   },
   {
     "activityName": "Hazelnut oil, crude, at plant {FR} U",
@@ -20621,7 +20621,7 @@
     ],
     "source": "Agribalyse 3.2",
     "unit": "kg",
-    "visible": true
+    "visible": false
   },
   {
     "activityName": "Leek, consumption mix {FR} U",
@@ -23899,46 +23899,6 @@
       "defaultOrigin": "FR",
       "ingredient": {
         "baseIngredient": "beef-without-bone",
-        "cropGroup": null,
-        "density": 1.0,
-        "inediblePart": 0,
-        "processId": "de11b2d4-2820-5c1c-8a55-bbc6d58b8c27",
-        "rawToCookedRatio": 0.792,
-        "scenario": "reference"
-      }
-    },
-    "qtyVariationRatio": 1.0,
-    "scopes": [
-      "food2"
-    ],
-    "source": "Agribalyse 3.2",
-    "unit": "kg",
-    "visible": true
-  },
-  {
-    "activityName": "Meat without bone, beef, for direct consumption {FR} U",
-    "alias": "unknown-red-meat-2025",
-    "categories": [
-      "ingredient",
-      "material",
-      "material_type:red_meats",
-      "transported_cooled"
-    ],
-    "comment": "AGRIBALYSE v3.2 dataset, 2024. See the complete description of AGRIBALYSE database.",
-    "displayName": "Autres viandes, oeufs, poissons (non encore répertoriés) (2025)",
-    "elecKwh": 0,
-    "heatMJ": 0,
-    "id": "7f6bd70c-1385-4855-9c25-e9a34e91df74",
-    "impacts": {
-      "ecs": 2572.0
-    },
-    "landOccupation": 42.43,
-    "location": "FR",
-    "massPerUnit": null,
-    "metadata": {
-      "defaultOrigin": "FR",
-      "ingredient": {
-        "baseIngredient": "unknown-red-meat",
         "cropGroup": null,
         "density": 1.0,
         "inediblePart": 0,
@@ -32600,6 +32560,162 @@
   },
   {
     "activityName": "Salmon, fillet, raw, at processing {FR} U",
+    "alias": "fish-secondary-ingredient-default",
+    "categories": [
+      "ingredient",
+      "material",
+      "material_type:other_food_items"
+    ],
+    "comment": "AGRIBALYSE v3.2 dataset, 2024. See the complete description of AGRIBALYSE database.",
+    "displayName": "Poissons ingrédients secondaires Origine Inconnue",
+    "elecKwh": 0,
+    "heatMJ": 0,
+    "id": "cacf491b-5529-4e0c-af3f-75ab1d007659",
+    "impacts": {
+      "ecs": 813.9
+    },
+    "landOccupation": 4.022,
+    "location": "FR",
+    "massPerUnit": null,
+    "metadata": {
+      "defaultOrigin": "REM",
+      "ingredient": {
+        "baseIngredient": "fish-secondary-ingredient",
+        "cropGroup": null,
+        "density": 1.0,
+        "inediblePart": 0.2,
+        "processId": "b11a9236-ae0e-5426-a68a-822f771a3335",
+        "rawToCookedRatio": 1.0,
+        "scenario": "import"
+      }
+    },
+    "qtyVariationRatio": 1.0,
+    "scopes": [
+      "food2"
+    ],
+    "source": "Agribalyse 3.2",
+    "unit": "kg",
+    "visible": true
+  },
+  {
+    "activityName": "Salmon, fillet, raw, at processing {FR} U",
+    "alias": "fish-secondary-ingredient-eu",
+    "categories": [
+      "ingredient",
+      "material",
+      "material_type:other_food_items"
+    ],
+    "comment": "AGRIBALYSE v3.2 dataset, 2024. See the complete description of AGRIBALYSE database.",
+    "displayName": "Poissons ingrédients secondaires UE",
+    "elecKwh": 0,
+    "heatMJ": 0,
+    "id": "cacf491b-5529-4e0c-af3f-75ab1d007657",
+    "impacts": {
+      "ecs": 813.9
+    },
+    "landOccupation": 4.022,
+    "location": "FR",
+    "massPerUnit": null,
+    "metadata": {
+      "defaultOrigin": "REM",
+      "ingredient": {
+        "baseIngredient": "fish-secondary-ingredient",
+        "cropGroup": null,
+        "density": 1.0,
+        "inediblePart": 0.2,
+        "processId": "b11a9236-ae0e-5426-a68a-822f771a3335",
+        "rawToCookedRatio": 1.0,
+        "scenario": "import"
+      }
+    },
+    "qtyVariationRatio": 1.0,
+    "scopes": [
+      "food2"
+    ],
+    "source": "Agribalyse 3.2",
+    "unit": "kg",
+    "visible": true
+  },
+  {
+    "activityName": "Salmon, fillet, raw, at processing {FR} U",
+    "alias": "fish-secondary-ingredient-fr",
+    "categories": [
+      "ingredient",
+      "material",
+      "material_type:other_food_items"
+    ],
+    "comment": "AGRIBALYSE v3.2 dataset, 2024. See the complete description of AGRIBALYSE database.",
+    "displayName": "Poissons ingrédients secondaires FR",
+    "elecKwh": 0,
+    "heatMJ": 0,
+    "id": "cacf491b-5529-4e0c-af3f-75ab1d007656",
+    "impacts": {
+      "ecs": 813.9
+    },
+    "landOccupation": 4.022,
+    "location": "FR",
+    "massPerUnit": null,
+    "metadata": {
+      "defaultOrigin": "REM",
+      "ingredient": {
+        "baseIngredient": "fish-secondary-ingredient",
+        "cropGroup": null,
+        "density": 1.0,
+        "inediblePart": 0.2,
+        "processId": "b11a9236-ae0e-5426-a68a-822f771a3335",
+        "rawToCookedRatio": 1.0,
+        "scenario": "import"
+      }
+    },
+    "qtyVariationRatio": 1.0,
+    "scopes": [
+      "food2"
+    ],
+    "source": "Agribalyse 3.2",
+    "unit": "kg",
+    "visible": true
+  },
+  {
+    "activityName": "Salmon, fillet, raw, at processing {FR} U",
+    "alias": "fish-secondary-ingredient-non-u",
+    "categories": [
+      "ingredient",
+      "material",
+      "material_type:other_food_items"
+    ],
+    "comment": "AGRIBALYSE v3.2 dataset, 2024. See the complete description of AGRIBALYSE database.",
+    "displayName": "Poissons ingrédients secondaires Hors UE",
+    "elecKwh": 0,
+    "heatMJ": 0,
+    "id": "cacf491b-5529-4e0c-af3f-75ab1d007658",
+    "impacts": {
+      "ecs": 813.9
+    },
+    "landOccupation": 4.022,
+    "location": "FR",
+    "massPerUnit": null,
+    "metadata": {
+      "defaultOrigin": "REM",
+      "ingredient": {
+        "baseIngredient": "fish-secondary-ingredient",
+        "cropGroup": null,
+        "density": 1.0,
+        "inediblePart": 0.2,
+        "processId": "b11a9236-ae0e-5426-a68a-822f771a3335",
+        "rawToCookedRatio": 1.0,
+        "scenario": "import"
+      }
+    },
+    "qtyVariationRatio": 1.0,
+    "scopes": [
+      "food2"
+    ],
+    "source": "Agribalyse 3.2",
+    "unit": "kg",
+    "visible": true
+  },
+  {
+    "activityName": "Salmon, fillet, raw, at processing {FR} U",
     "alias": "salmon-raw-eu-2025",
     "categories": [
       "ingredient",
@@ -32635,7 +32751,7 @@
     ],
     "source": "Agribalyse 3.2",
     "unit": "kg",
-    "visible": true
+    "visible": false
   },
   {
     "activityName": "Salt {FR} U",
@@ -50634,7 +50750,7 @@
       "transported_cooled"
     ],
     "comment": "AGRIBALYSE v3.2 dataset, 2024. See the complete description of AGRIBALYSE database.",
-    "displayName": "Autres viandes blanches, oeufs et poisson (non encore répertoriés) (2025)",
+    "displayName": "Autres viandes blanches et oeufs (non encore répertoriés) (2025)",
     "elecKwh": 0,
     "heatMJ": 0,
     "id": "fda34c66-9093-458c-b7df-a091730b6b64",

@@ -3766,7 +3766,7 @@
     "rawToCookedRatio": 0.819,
     "scenario": "import",
     "transportCooling": "always",
-    "visible": true
+    "visible": false
   },
   {
     "activityName": "Egg, shelled raw, variant 2, CMAPS {GLO} U",
@@ -9048,7 +9048,7 @@
     "rawToCookedRatio": 1.0,
     "scenario": "reference",
     "transportCooling": "always",
-    "visible": true
+    "visible": false
   },
   {
     "activityName": "Almonds, in shell, at farm, organic 2025 {CN}",
@@ -14533,7 +14533,7 @@
     "rawToCookedRatio": 1.0,
     "scenario": "import",
     "transportCooling": "always",
-    "visible": true
+    "visible": false
   },
   {
     "activityName": "Lettuce, conventional, national average, at farm gate {FR} U",
@@ -17252,7 +17252,7 @@
     "rawToCookedRatio": 0.819,
     "scenario": "import",
     "transportCooling": "always",
-    "visible": true
+    "visible": false
   },
   {
     "activityName": "Peach, conventional, national average, at orchard {FR} U",
@@ -18227,7 +18227,7 @@
     "rawToCookedRatio": 1.0,
     "scenario": "import",
     "transportCooling": "always",
-    "visible": true
+    "visible": false
   },
   {
     "activityName": "Kiwi, consumption mix, organic 2025 {FR} U",
@@ -18949,28 +18949,6 @@
     "name": "Échalotes FR",
     "processId": "98da8cb9-325b-57c5-a984-ea78a7b11367",
     "rawToCookedRatio": 0.856,
-    "scenario": "reference",
-    "transportCooling": "always",
-    "visible": true
-  },
-  {
-    "activityName": "Meat without bone, beef, for direct consumption {FR} U",
-    "alias": "unknown-red-meat-2025",
-    "baseIngredient": "unknown-red-meat",
-    "categories": [
-      "animal_product"
-    ],
-    "cropGroup": null,
-    "defaultOrigin": "France",
-    "density": 1.0,
-    "ecosystemicServices": null,
-    "id": "7f6bd70c-1385-4855-9c25-e9a34e91df74",
-    "inediblePart": 0,
-    "landOccupation": 42.43,
-    "location": "FR",
-    "name": "Autres viandes, oeufs, poissons (non encore répertoriés) (2025)",
-    "processId": "de11b2d4-2820-5c1c-8a55-bbc6d58b8c27",
-    "rawToCookedRatio": 0.792,
     "scenario": "reference",
     "transportCooling": "always",
     "visible": true
@@ -21580,7 +21558,7 @@
     "rawToCookedRatio": 0.819,
     "scenario": "import",
     "transportCooling": "always",
-    "visible": true
+    "visible": false
   },
   {
     "activityName": "Spinach {GLO}| production | Cut-off, U - Adapted from Ecoinvent U",
@@ -29844,6 +29822,94 @@
     "rawToCookedRatio": 1.0,
     "scenario": "import",
     "transportCooling": "always",
+    "visible": false
+  },
+  {
+    "activityName": "Salmon, fillet, raw, at processing {FR} U",
+    "alias": "fish-secondary-ingredient-fr",
+    "baseIngredient": "fish-secondary-ingredient",
+    "categories": [
+      "animal_product"
+    ],
+    "cropGroup": null,
+    "defaultOrigin": "EuropeAndMaghreb",
+    "density": 1.0,
+    "ecosystemicServices": null,
+    "id": "cacf491b-5529-4e0c-af3f-75ab1d007656",
+    "inediblePart": 0.2,
+    "landOccupation": 4.022,
+    "location": "FR",
+    "name": "Poissons ingrédients secondaires FR",
+    "processId": "b11a9236-ae0e-5426-a68a-822f771a3335",
+    "rawToCookedRatio": 1.0,
+    "scenario": "import",
+    "transportCooling": "always",
+    "visible": true
+  },
+  {
+    "activityName": "Salmon, fillet, raw, at processing {FR} U",
+    "alias": "fish-secondary-ingredient-eu",
+    "baseIngredient": "fish-secondary-ingredient",
+    "categories": [
+      "animal_product"
+    ],
+    "cropGroup": null,
+    "defaultOrigin": "EuropeAndMaghreb",
+    "density": 1.0,
+    "ecosystemicServices": null,
+    "id": "cacf491b-5529-4e0c-af3f-75ab1d007657",
+    "inediblePart": 0.2,
+    "landOccupation": 4.022,
+    "location": "FR",
+    "name": "Poissons ingrédients secondaires UE",
+    "processId": "b11a9236-ae0e-5426-a68a-822f771a3335",
+    "rawToCookedRatio": 1.0,
+    "scenario": "import",
+    "transportCooling": "always",
+    "visible": true
+  },
+  {
+    "activityName": "Salmon, fillet, raw, at processing {FR} U",
+    "alias": "fish-secondary-ingredient-non-u",
+    "baseIngredient": "fish-secondary-ingredient",
+    "categories": [
+      "animal_product"
+    ],
+    "cropGroup": null,
+    "defaultOrigin": "EuropeAndMaghreb",
+    "density": 1.0,
+    "ecosystemicServices": null,
+    "id": "cacf491b-5529-4e0c-af3f-75ab1d007658",
+    "inediblePart": 0.2,
+    "landOccupation": 4.022,
+    "location": "FR",
+    "name": "Poissons ingrédients secondaires Hors UE",
+    "processId": "b11a9236-ae0e-5426-a68a-822f771a3335",
+    "rawToCookedRatio": 1.0,
+    "scenario": "import",
+    "transportCooling": "always",
+    "visible": true
+  },
+  {
+    "activityName": "Salmon, fillet, raw, at processing {FR} U",
+    "alias": "fish-secondary-ingredient-default",
+    "baseIngredient": "fish-secondary-ingredient",
+    "categories": [
+      "animal_product"
+    ],
+    "cropGroup": null,
+    "defaultOrigin": "EuropeAndMaghreb",
+    "density": 1.0,
+    "ecosystemicServices": null,
+    "id": "cacf491b-5529-4e0c-af3f-75ab1d007659",
+    "inediblePart": 0.2,
+    "landOccupation": 4.022,
+    "location": "FR",
+    "name": "Poissons ingrédients secondaires Origine Inconnue",
+    "processId": "b11a9236-ae0e-5426-a68a-822f771a3335",
+    "rawToCookedRatio": 1.0,
+    "scenario": "import",
+    "transportCooling": "always",
     "visible": true
   },
   {
@@ -29893,7 +29959,7 @@
     "rawToCookedRatio": 1.0,
     "scenario": "import",
     "transportCooling": "always",
-    "visible": true
+    "visible": false
   },
   {
     "activityName": "Cull cow, conventional, highland milk system, pastoral farming system, at farm gate {FR} U",
@@ -32744,7 +32810,7 @@
     "rawToCookedRatio": 0.819,
     "scenario": "reference",
     "transportCooling": "always",
-    "visible": true
+    "visible": false
   },
   {
     "activityName": "Melon, conventional, national average, at farm gate {FR} U",
@@ -37491,7 +37557,7 @@
     "rawToCookedRatio": 1.0,
     "scenario": "import",
     "transportCooling": "always",
-    "visible": true
+    "visible": false
   },
   {
     "activityName": "Comte cheese, from cow's milk, at plant {FR} U",
@@ -38237,7 +38303,7 @@
     "rawToCookedRatio": 0.819,
     "scenario": "import",
     "transportCooling": "always",
-    "visible": true
+    "visible": false
   },
   {
     "activityName": "Carrot {RoW}| carrot production | Cut-off, U - Copied from Ecoinvent U",
@@ -38417,7 +38483,7 @@
     "inediblePart": 0,
     "landOccupation": 7.5,
     "location": "GLO",
-    "name": "Autres viandes blanches, oeufs et poisson (non encore répertoriés) (2025)",
+    "name": "Autres viandes blanches et oeufs (non encore répertoriés) (2025)",
     "processId": "d1d25df6-b039-52ae-b67f-32da12d75e8f",
     "rawToCookedRatio": 0.755,
     "scenario": "import",
