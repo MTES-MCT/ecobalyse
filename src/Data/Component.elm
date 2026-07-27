@@ -539,21 +539,14 @@ addResults (Results results) (Results acc) =
         }
 
 
-{-| Apply an assembly operation process to an existing `Results`
--}
-applyAssemblyProcess : Process -> EnergyMixes -> Results -> Results
-applyAssemblyProcess =
-    applyProcessStep AssemblyStage
-
-
 {-| Sequencially apply assembly processes to existing Results initialized from product mass.
 
 Energy mixes are resolved per operation country, falling back to the assembly country, then config defaults.
 No transport is applied between operations.
 
 -}
-applyAssemblyProcesses : Requirements db -> List ExpandedLocalizedProcess -> Results -> Result String Results
-applyAssemblyProcesses requirements expandedProcesses initialResults =
+applyAssemblyOperations : Requirements db -> List ExpandedLocalizedProcess -> Results -> Result String Results
+applyAssemblyOperations requirements expandedProcesses initialResults =
     expandedProcesses
         |> checkAssemblyProcessesUnit
         |> Result.andThen
@@ -565,7 +558,7 @@ applyAssemblyProcesses requirements expandedProcesses initialResults =
                                 |> Result.andThen
                                     (\results_ ->
                                         loadEnergyMixes requirements.config country
-                                            |> Result.map (\mixes -> applyAssemblyProcess process mixes results_)
+                                            |> Result.map (\mixes -> applyProcessStep AssemblyStage process mixes results_)
                                     )
                         )
                         (Ok initialResults)
@@ -642,39 +635,9 @@ applyProcessStep stage process { elec, heat } (Results { amount, label, impacts,
         }
 
 
-applyTransform : Process -> EnergyMixes -> Results -> Results
-applyTransform =
-    applyProcessStep TransformStage
-
-
-checkAssemblyProcessesUnit : List ExpandedLocalizedProcess -> Result String (List ExpandedLocalizedProcess)
-checkAssemblyProcessesUnit processes =
-    if not <| List.all (.process >> .unit >> (==) Process.Kilogram) processes then
-        "Les procédés d'assemblage doivent être exprimés en kg\u{00A0}: "
-            ++ (processes
-                    |> List.filter (.process >> .unit >> (/=) Process.Kilogram)
-                    |> List.map (\{ process } -> Process.getDisplayName process ++ " (" ++ Process.unitToString process.unit ++ ")")
-                    |> String.join ", "
-               )
-            |> Err
-
-    else
-        Ok processes
-
-
-assemblyResultsFromMass : Mass -> Results
-assemblyResultsFromMass mass =
-    Results
-        { amount = mass |> Mass.inKilograms |> Amount.fromFloat
-        , complementsImpacts = Complement.emptyComplementsResultsImpacts
-        , impacts = Impact.empty
-        , items = []
-        , label = Just "Assembly"
-        , mass = mass
-        , materialType = Nothing
-        , quantity = 1
-        , stage = Nothing
-        }
+applyQtyVariationRatio : QuantityVariationRatio -> Amount -> Amount
+applyQtyVariationRatio qtyVariationRatio =
+    Amount.map (\amount -> amount * Unit.qtyVariationRatioToFloat qtyVariationRatio)
 
 
 {-| Sequencially apply transforms to existing Results (typically, from material ones).
@@ -699,7 +662,7 @@ applyTransforms requirements transportOptions initialCountry unit transforms mat
                                         (extractMass results)
                                         previousCountry
                                         country
-                                    |> Result.map (\results_ -> ( country, applyTransform process mixes results_ ))
+                                    |> Result.map (\results_ -> ( country, applyProcessStep TransformStage process mixes results_ ))
                             )
                 )
                 ( initialCountry, materialResults )
@@ -736,9 +699,34 @@ applyTransportedMassImpacts requirements transportOptions mass maybeFrom maybeTo
             )
 
 
-applyQtyVariationRatio : QuantityVariationRatio -> Amount -> Amount
-applyQtyVariationRatio qtyVariationRatio =
-    Amount.map (\amount -> amount * Unit.qtyVariationRatioToFloat qtyVariationRatio)
+assemblyResultsFromMass : Mass -> Results
+assemblyResultsFromMass mass =
+    Results
+        { amount = mass |> Mass.inKilograms |> Amount.fromFloat
+        , complementsImpacts = Complement.emptyComplementsResultsImpacts
+        , impacts = Impact.empty
+        , items = []
+        , label = Just "Assembly"
+        , mass = mass
+        , materialType = Nothing
+        , quantity = 1
+        , stage = Nothing
+        }
+
+
+checkAssemblyProcessesUnit : List ExpandedLocalizedProcess -> Result String (List ExpandedLocalizedProcess)
+checkAssemblyProcessesUnit processes =
+    if not <| List.all (.process >> .unit >> (==) Process.Kilogram) processes then
+        "Les procédés d’assemblage doivent être exprimés en kg\u{00A0}: "
+            ++ (processes
+                    |> List.filter (.process >> .unit >> (/=) Process.Kilogram)
+                    |> List.map (\{ process } -> Process.getDisplayName process ++ " (" ++ Process.unitToString process.unit ++ ")")
+                    |> String.join ", "
+               )
+            |> Err
+
+    else
+        Ok processes
 
 
 checkTransformsUnit : Process.Unit -> List ExpandedLocalizedProcess -> Result String (List ExpandedLocalizedProcess)
@@ -795,6 +783,8 @@ compute requirements query =
         |> Result.andThen (computeUseImpacts requirements query)
 
 
+{-| Compute assembly stage impacts
+-}
 computeAssemblyImpacts : Requirements db -> Query -> LifeCycle -> Result String LifeCycle
 computeAssemblyImpacts requirements { assembly } lifeCycle =
     let
@@ -814,7 +804,7 @@ computeAssemblyImpacts requirements { assembly } lifeCycle =
                 (\expandedProcesses ->
                     productionMass
                         |> assemblyResultsFromMass
-                        |> applyAssemblyProcesses requirements expandedProcesses
+                        |> applyAssemblyOperations requirements expandedProcesses
                         |> Result.map
                             (\assemblyResults ->
                                 { lifeCycle
