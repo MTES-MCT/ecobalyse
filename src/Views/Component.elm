@@ -1468,7 +1468,7 @@ assemblyView ({ db, impact, query, scope } as config) lifeCycle =
                     , selected = query.assembly.country
                     }
                 ]
-            , case Component.expandAssemblyProcesses db query.assembly.country query.assembly.operations of
+            , case Component.expandAssemblyProcesses db query.assembly of
                 Err error ->
                     div [ class "px-3 pb-3" ] [ error |> simpleError (Just "Erreur") ]
 

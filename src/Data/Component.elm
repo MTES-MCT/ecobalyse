@@ -795,15 +795,16 @@ computeAssemblyImpacts requirements { assembly } lifeCycle =
         Ok
             { lifeCycle
                 | assembly = emptyResults
+
+                -- No assembly, no waste: end product mass is the same as the production mass
                 , productMass = productionMass
             }
 
     else
-        expandAssemblyProcesses requirements.db assembly.country assembly.operations
+        expandAssemblyProcesses requirements.db assembly
             |> Result.andThen
                 (\expandedProcesses ->
-                    productionMass
-                        |> assemblyResultsFromMass
+                    assemblyResultsFromMass productionMass
                         |> applyAssemblyOperations requirements expandedProcesses
                         |> Result.map
                             (\assemblyResults ->
@@ -1866,9 +1867,9 @@ expandAssemblyProcess { countries, processes } defaultAssemblyCountry { country,
         |> RE.andMap (Process.findById id processes)
 
 
-expandAssemblyProcesses : DataContainer db -> Maybe CountryCode.Code -> List LocalizedProcess -> Result String (List ExpandedLocalizedProcess)
-expandAssemblyProcesses db defaultAssemblyCountry =
-    RE.combineMap (expandAssemblyProcess db defaultAssemblyCountry)
+expandAssemblyProcesses : DataContainer db -> Assembly -> Result String (List ExpandedLocalizedProcess)
+expandAssemblyProcesses db { country, operations } =
+    RE.combineMap (expandAssemblyProcess db country) operations
 
 
 {-| Resolve full use consumption processes linked to their respective ids
