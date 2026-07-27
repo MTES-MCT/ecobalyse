@@ -84201,7 +84201,7 @@
       "material",
       "material_type:aluminium"
     ],
-    "comment": "https://fabrique-numerique.gitbook.io/ecobalyse/methodes-transverses-specifiques/procedes-acier-et-aluminium",
+    "comment": "https://fabrique-numerique.gitbook.io/ecobalyse/methodes-transverses/production/procedes-acier-et-aluminium",
     "displayName": "Aluminium, lingot, mix marché, Chine",
     "elecKwh": 0,
     "heatMJ": 0,
@@ -84231,7 +84231,7 @@
       "material",
       "material_type:aluminium"
     ],
-    "comment": "https://fabrique-numerique.gitbook.io/ecobalyse/methodes-transverses-specifiques/procedes-acier-et-aluminium",
+    "comment": "https://fabrique-numerique.gitbook.io/ecobalyse/methodes-transverses/production/procedes-acier-et-aluminium",
     "displayName": "Aluminium, lingot, mix marché, Europe",
     "elecKwh": 0,
     "heatMJ": 0,
@@ -84261,7 +84261,7 @@
       "material",
       "material_type:aluminium"
     ],
-    "comment": "https://fabrique-numerique.gitbook.io/ecobalyse/methodes-transverses-specifiques/procedes-acier-et-aluminium",
+    "comment": "https://fabrique-numerique.gitbook.io/ecobalyse/methodes-transverses/production/procedes-acier-et-aluminium",
     "displayName": "Aluminium, lingot, mix marché, hors Europe et Chine",
     "elecKwh": 0,
     "heatMJ": 0,
@@ -84381,7 +84381,7 @@
       "material",
       "material_type:aluminium"
     ],
-    "comment": "https://fabrique-numerique.gitbook.io/ecobalyse/methodes-transverses-specifiques/procedes-acier-et-aluminium",
+    "comment": "https://fabrique-numerique.gitbook.io/ecobalyse/methodes-transverses/production/procedes-acier-et-aluminium",
     "displayName": "Aluminium vierge, lingot, mix marché, Europe",
     "elecKwh": 0,
     "heatMJ": 0,
@@ -84411,7 +84411,7 @@
       "material",
       "material_type:aluminium"
     ],
-    "comment": "",
+    "comment": "https://fabrique-numerique.gitbook.io/ecobalyse/methodes-transverses/production/procedes-acier-et-aluminium",
     "displayName": "Aluminium vierge, lingot, mix marché, Inde",
     "elecKwh": 0,
     "heatMJ": 0,
@@ -84441,7 +84441,7 @@
       "material",
       "material_type:aluminium"
     ],
-    "comment": "https://fabrique-numerique.gitbook.io/ecobalyse/methodes-transverses-specifiques/procedes-acier-et-aluminium",
+    "comment": "https://fabrique-numerique.gitbook.io/ecobalyse/methodes-transverses/production/procedes-acier-et-aluminium",
     "displayName": "Aluminium vierge, lingot, mix marché, hors Europe et Inde",
     "elecKwh": 0,
     "heatMJ": 0,
@@ -84874,8 +84874,8 @@
       "material",
       "material_type:ferrous_metals"
     ],
-    "comment": "",
-    "displayName": "Acier, mix marché, hors Europe",
+    "comment": "https://fabrique-numerique.gitbook.io/ecobalyse/methodes-transverses/production/procedes-acier-et-aluminium",
+    "displayName": "Acier, lingot, mix marché, hors Europe",
     "elecKwh": 0,
     "heatMJ": 0,
     "id": "3e514eac-185c-449e-bdc2-e1082ca0576d",
@@ -84904,8 +84904,8 @@
       "material",
       "material_type:ferrous_metals"
     ],
-    "comment": "",
-    "displayName": "Acier, mix marché, Europe",
+    "comment": "https://fabrique-numerique.gitbook.io/ecobalyse/methodes-transverses/production/procedes-acier-et-aluminium",
+    "displayName": "Acier, lingot, mix marché, Europe",
     "elecKwh": 0,
     "heatMJ": 0,
     "id": "21a0d5b0-861e-4bed-98a9-46c61d2a0618",
