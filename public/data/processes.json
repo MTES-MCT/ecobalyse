@@ -60257,7 +60257,7 @@
     "location": "FR",
     "massPerUnit": null,
     "metadata": {
-      "defaultOrigin": "REM",
+      "defaultOrigin": null,
       "ingredient": {
         "baseIngredient": "fish-secondary-ingredient",
         "cropGroup": null,
@@ -60335,7 +60335,7 @@
     "location": "FR",
     "massPerUnit": null,
     "metadata": {
-      "defaultOrigin": "REM",
+      "defaultOrigin": "FR",
       "ingredient": {
         "baseIngredient": "fish-secondary-ingredient",
         "cropGroup": null,
@@ -60356,7 +60356,7 @@
   },
   {
     "activityName": "Salmon, fillet, raw, at processing {FR} U",
-    "alias": "fish-secondary-ingredient-non-u",
+    "alias": "fish-secondary-ingredient-non-ue",
     "categories": [
       "ingredient",
       "material",
@@ -60374,7 +60374,7 @@
     "location": "FR",
     "massPerUnit": null,
     "metadata": {
-      "defaultOrigin": "REM",
+      "defaultOrigin": null,
       "ingredient": {
         "baseIngredient": "fish-secondary-ingredient",
         "cropGroup": null,

@@ -29832,7 +29832,7 @@
       "animal_product"
     ],
     "cropGroup": null,
-    "defaultOrigin": "EuropeAndMaghreb",
+    "defaultOrigin": "France",
     "density": 1.0,
     "ecosystemicServices": null,
     "id": "cacf491b-5529-4e0c-af3f-75ab1d007656",
@@ -29870,13 +29870,13 @@
   },
   {
     "activityName": "Salmon, fillet, raw, at processing {FR} U",
-    "alias": "fish-secondary-ingredient-non-u",
+    "alias": "fish-secondary-ingredient-non-ue",
     "baseIngredient": "fish-secondary-ingredient",
     "categories": [
       "animal_product"
     ],
     "cropGroup": null,
-    "defaultOrigin": "EuropeAndMaghreb",
+    "defaultOrigin": "OutOfEuropeAndMaghreb",
     "density": 1.0,
     "ecosystemicServices": null,
     "id": "cacf491b-5529-4e0c-af3f-75ab1d007658",
@@ -29898,7 +29898,7 @@
       "animal_product"
     ],
     "cropGroup": null,
-    "defaultOrigin": "EuropeAndMaghreb",
+    "defaultOrigin": "OutOfEuropeAndMaghreb",
     "density": 1.0,
     "ecosystemicServices": null,
     "id": "cacf491b-5529-4e0c-af3f-75ab1d007659",

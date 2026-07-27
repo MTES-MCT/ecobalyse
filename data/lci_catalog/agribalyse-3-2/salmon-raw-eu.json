@@ -29,7 +29,7 @@
     },
     {
       "alias": "fish-secondary-ingredient-fr",
-      "defaultOrigin": "EuropeAndMaghreb",
+      "defaultOrigin": "France",
       "displayName": "Poissons ingrédients secondaires FR",
       "id": "cacf491b-5529-4e0c-af3f-75ab1d007656",
       "inediblePart": 0.2,
@@ -67,7 +67,7 @@
     },
     {
       "alias": "fish-secondary-ingredient-non-ue",
-      "defaultOrigin": "EuropeAndMaghreb",
+      "defaultOrigin": "OutOfEuropeAndMaghreb",
       "displayName": "Poissons ingrédients secondaires Hors UE",
       "id": "cacf491b-5529-4e0c-af3f-75ab1d007658",
       "inediblePart": 0.2,
@@ -86,7 +86,7 @@
     },
     {
       "alias": "fish-secondary-ingredient-default",
-      "defaultOrigin": "EuropeAndMaghreb",
+      "defaultOrigin": "OutOfEuropeAndMaghreb",
       "displayName": "Poissons ingrédients secondaires Origine Inconnue",
       "id": "cacf491b-5529-4e0c-af3f-75ab1d007659",
       "inediblePart": 0.2,
