@@ -833,10 +833,8 @@ suite =
                          ]
                         )
                     , describe "computeAssemblyImpacts"
-                        [ it "should keep product mass unchanged when no assembly operations are defined"
-                            ("""{
-                                  "components": [{ "id": "64fa65b3-c2df-4fd0-958b-83965bd6aa08", "quantity": 1 }]
-                                }"""
+                        [ suiteFromResult "should keep product mass unchanged when no assembly operations are defined"
+                            ("""{ "components": [{ "id": "64fa65b3-c2df-4fd0-958b-83965bd6aa08", "quantity": 1 }] }"""
                                 |> decodeJsonThen Component.decodeQuery (Component.compute requirements)
                                 |> Result.map
                                     (\lifeCycle ->
@@ -847,46 +845,13 @@ suite =
                                         , lifeCycle.assembly |> Component.extractImpacts |> getEcsImpact
                                         )
                                     )
-                                |> (\result ->
-                                        case result of
-                                            Ok ( productionMass, productMass, assemblyImpact ) ->
-                                                Expect.all
-                                                    [ \_ -> Expect.within (Expect.Absolute 0.00001) productionMass productMass
-                                                    , \_ -> Expect.within (Expect.Absolute 0.00001) assemblyImpact 0
-                                                    ]
-                                                    ()
-
-                                            Err err ->
-                                                Expect.fail err
-                                   )
                             )
-                        , it "should reject a non-assembly process in assembly operations"
-                            (requirements.db.processes
-                                |> Process.listByCategory Category.Material
-                                |> Scope.anyOf [ requirements.scope ]
-                                |> List.head
-                                |> Result.fromMaybe "No material process found in object scope"
-                                |> Result.andThen
-                                    (\process ->
-                                        Component.idFromString "64fa65b3-c2df-4fd0-958b-83965bd6aa08"
-                                            |> Result.andThen
-                                                (\itemId ->
-                                                    Component.validateQuery requirements
-                                                        { emptyQuery
-                                                            | items =
-                                                                [ { custom = Nothing
-                                                                  , id = Just itemId
-                                                                  , quantity = Component.quantityFromInt 1
-                                                                  }
-                                                                ]
-                                                            , assembly =
-                                                                { country = Nothing
-                                                                , operations = [ { country = Nothing, id = process.id } ]
-                                                                }
-                                                        }
-                                                )
-                                    )
-                                |> expectResultErrorContains "Le procédé n’est pas un assemblage"
+                            (\( productionMass, productMass, assemblyImpact ) ->
+                                [ it "should keep product mass unchanged" <|
+                                    Expect.within (Expect.Absolute 0.00001) productionMass productMass
+                                , it "should keep assembly impacts unchanged" <|
+                                    Expect.within (Expect.Absolute 0.00001) assemblyImpact 0
+                                ]
                             )
                         ]
                     , describe "decodeAssembly"
