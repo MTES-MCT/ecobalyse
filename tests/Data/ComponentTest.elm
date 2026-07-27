@@ -853,6 +853,78 @@ suite =
                                     Expect.within (Expect.Absolute 0.00001) assemblyImpact 0
                                 ]
                             )
+                        , suiteFromResult "should apply waste ratios sequentially"
+                            (injectionMoulding
+                                |> Result.andThen
+                                    (\process ->
+                                        -- add the assembly category to the process, for testing purpose
+                                        -- FIXME: eventually add a dedicated assembly process in fixtures
+                                        let
+                                            testRequirements =
+                                                requirements
+                                                    |> updateRequirementsProcess process
+                                                        (\p -> { p | categories = [ Category.Assembly ] })
+                                        in
+                                        """{
+                                              "components": [{ "id": "64fa65b3-c2df-4fd0-958b-83965bd6aa08", "quantity": 1 }],
+                                              "assembly": {
+                                                "operations": [
+                                                  { "id": "111539de-deea-588a-9581-6f6ceaa2dfa9" },
+                                                  { "id": "111539de-deea-588a-9581-6f6ceaa2dfa9" }
+                                                ]
+                                              }
+                                            }"""
+                                            |> decodeJsonThen Component.decodeQuery (Component.compute testRequirements)
+                                            |> Result.map
+                                                (\lifeCycle ->
+                                                    ( lifeCycle
+                                                    , Unit.qtyVariationRatioToFloat process.qtyVariationRatio
+                                                    )
+                                                )
+                                    )
+                            )
+                            (\( lifeCycle, qtyVariationRatioFloat ) ->
+                                let
+                                    productionMass =
+                                        lifeCycle.production
+                                            |> Component.extractMass
+                                            |> Mass.inKilograms
+
+                                    productMass =
+                                        Component.extractProductMass lifeCycle
+                                            |> Mass.inKilograms
+
+                                    operationMasses =
+                                        lifeCycle.assembly
+                                            |> Component.extractItems
+                                            |> List.map (Component.extractMass >> Mass.inKilograms)
+
+                                    firstMass =
+                                        operationMasses
+                                            |> LE.getAt 0
+                                            |> Result.fromMaybe "No first operation mass"
+
+                                    secondMass =
+                                        operationMasses
+                                            |> LE.getAt 1
+                                            |> Result.fromMaybe "No second operation mass"
+                                in
+                                [ it "should reduce end product mass by successive waste ratios" <|
+                                    Expect.within (Expect.Absolute 0.00001)
+                                        (productionMass * qtyVariationRatioFloat * qtyVariationRatioFloat)
+                                        productMass
+                                , itFromResult "should apply the first waste ratio before the second operation"
+                                    firstMass
+                                    (Expect.within (Expect.Absolute 0.00001)
+                                        (productionMass * qtyVariationRatioFloat)
+                                    )
+                                , itFromResult "should apply the second waste ratio on the remaining mass"
+                                    secondMass
+                                    (Expect.within (Expect.Absolute 0.00001)
+                                        (productionMass * qtyVariationRatioFloat * qtyVariationRatioFloat)
+                                    )
+                                ]
+                            )
                         ]
                     , describe "decodeAssembly"
                         [ it "should decode an assembly block with country and operations"
