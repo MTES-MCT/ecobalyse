@@ -1567,10 +1567,8 @@ addAssemblyOperationButton ({ openSelectAssemblyOperationModal, query } as confi
     in
     button
         [ type_ "button"
-        , class "btn btn-outline-primary w-100"
+        , class "btn btn-outline-primary w-100 rounded-0 gap-1"
         , class "d-flex justify-content-center align-items-center"
-        , class "gap-1"
-        , class "rounded-0 border-start-0 border-end-0 border-bottom-0"
         , disabled <| List.isEmpty availableProcesses
         , onClick <| openSelectAssemblyOperationModal autocompleteState
         ]
