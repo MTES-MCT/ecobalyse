@@ -15139,7 +15139,7 @@
     "heatMJ": 0,
     "id": "e4ef3991-edc8-40f1-b7a6-56486f78d4d2",
     "impacts": {
-      "ecs": 533.6
+      "ecs": 520.3
     },
     "location": "RER",
     "massPerUnit": null,
@@ -71634,7 +71634,7 @@
     "heatMJ": 0,
     "id": "bd10ea5e-615b-4505-95d1-c74cfd84b599",
     "impacts": {
-      "ecs": 533.6
+      "ecs": 520.3
     },
     "landOccupation": null,
     "location": "RER",
@@ -71663,7 +71663,7 @@
     "heatMJ": 0,
     "id": "b801de8a-9987-4d09-9363-08b8e713c685",
     "impacts": {
-      "ecs": 378.1
+      "ecs": 500.1
     },
     "landOccupation": null,
     "location": null,
@@ -72405,7 +72405,7 @@
     "heatMJ": 0,
     "id": "058ff43a-75a2-4219-9192-03f9039e805b",
     "impacts": {
-      "ecs": 3045.0
+      "ecs": 3046.0
     },
     "landOccupation": null,
     "location": "CN",
@@ -72434,7 +72434,7 @@
     "heatMJ": 0,
     "id": "7fdb9ec7-b1bc-43b0-b7c1-6dcc3ec27812",
     "impacts": {
-      "ecs": 2756.0
+      "ecs": 2757.0
     },
     "landOccupation": null,
     "location": "CN",
@@ -72463,7 +72463,7 @@
     "heatMJ": 0,
     "id": "6a1d18fa-f0fd-483a-ac7f-546b15476627",
     "impacts": {
-      "ecs": 5694.0
+      "ecs": 5695.0
     },
     "landOccupation": null,
     "location": "CN",
@@ -72492,7 +72492,7 @@
     "heatMJ": 0,
     "id": "402dc798-bcd8-47be-803a-2a93c5db1040",
     "impacts": {
-      "ecs": 5421.0
+      "ecs": 5422.0
     },
     "landOccupation": null,
     "location": "CN",
@@ -72521,7 +72521,7 @@
     "heatMJ": 0,
     "id": "a1f6f8a2-5398-4b32-a3d6-fc0d88ca7a28",
     "impacts": {
-      "ecs": 4839.0
+      "ecs": 4844.0
     },
     "landOccupation": null,
     "location": "FR",
@@ -84293,7 +84293,7 @@
     "heatMJ": 0,
     "id": "8b60398a-d6b8-467f-89c1-0a0bcd85ba62",
     "impacts": {
-      "ecs": -459.7
+      "ecs": -495.7
     },
     "landOccupation": null,
     "location": "RER",
@@ -84311,22 +84311,52 @@
     "visible": true
   },
   {
-    "activityName": "aluminium ingot, market, RER",
+    "activityName": "aluminium ingot, market, CN",
     "alias": null,
     "categories": [
       "material",
       "material_type:aluminium"
     ],
-    "comment": "https://fabrique-numerique.gitbook.io/ecobalyse/methodes-transverses-specifiques/procedes-acier-et-aluminium",
-    "displayName": "Aluminium, mix marché, Europe",
+    "comment": "https://fabrique-numerique.gitbook.io/ecobalyse/methodes-transverses/production/procedes-acier-et-aluminium",
+    "displayName": "Aluminium, lingot, mix marché, Chine",
+    "elecKwh": 0,
+    "heatMJ": 0,
+    "id": "63e8a99a-d6e5-4aa5-8fe4-71c3d0ca2107",
+    "impacts": {
+      "ecs": 1300.0
+    },
+    "landOccupation": null,
+    "location": "CN",
+    "massPerUnit": null,
+    "metadata": {
+      "defaultOrigin": null
+    },
+    "qtyVariationRatio": 1.0,
+    "scopes": [
+      "object",
+      "veli"
+    ],
+    "source": "Ecobalyse_custom_lci",
+    "unit": "kg",
+    "visible": true
+  },
+  {
+    "activityName": "aluminium ingot, market, FR",
+    "alias": null,
+    "categories": [
+      "material",
+      "material_type:aluminium"
+    ],
+    "comment": "https://fabrique-numerique.gitbook.io/ecobalyse/methodes-transverses/production/procedes-acier-et-aluminium",
+    "displayName": "Aluminium, lingot, mix marché, Europe",
     "elecKwh": 0,
     "heatMJ": 0,
     "id": "4b4e1204-48ac-48ac-a0e2-ee2176202a5a",
     "impacts": {
-      "ecs": 539.9
+      "ecs": 757.8
     },
     "landOccupation": null,
-    "location": "RER",
+    "location": "FR",
     "massPerUnit": null,
     "metadata": {
       "defaultOrigin": null
@@ -84341,22 +84371,22 @@
     "visible": true
   },
   {
-    "activityName": "aluminium ingot, market, RoW",
+    "activityName": "aluminium ingot, market, KR",
     "alias": null,
     "categories": [
       "material",
       "material_type:aluminium"
     ],
-    "comment": "https://fabrique-numerique.gitbook.io/ecobalyse/methodes-transverses-specifiques/procedes-acier-et-aluminium",
-    "displayName": "Aluminium, mix marché, hors Europe et Chine",
+    "comment": "https://fabrique-numerique.gitbook.io/ecobalyse/methodes-transverses/production/procedes-acier-et-aluminium",
+    "displayName": "Aluminium, lingot, mix marché, hors Europe et Chine",
     "elecKwh": 0,
     "heatMJ": 0,
     "id": "2bd832fa-3376-4ebd-b699-2a7f0f32ce84",
     "impacts": {
-      "ecs": 893.6
+      "ecs": 1018.0
     },
     "landOccupation": null,
-    "location": "RoW",
+    "location": "KR",
     "massPerUnit": null,
     "metadata": {
       "defaultOrigin": null
@@ -84413,7 +84443,7 @@
     "heatMJ": 0,
     "id": "1c65a929-85bf-4e85-8a88-8aaa64ea17b8",
     "impacts": {
-      "ecs": 653.0
+      "ecs": 689.1
     },
     "landOccupation": null,
     "location": "RER",
@@ -84443,7 +84473,7 @@
     "heatMJ": 0,
     "id": "132a298f-7ee2-4813-a21a-9cf0f295f72e",
     "impacts": {
-      "ecs": 1252.0
+      "ecs": 1253.0
     },
     "landOccupation": null,
     "location": "RoW",
@@ -84461,22 +84491,22 @@
     "visible": true
   },
   {
-    "activityName": "aluminium ingot, virgin, market, CN",
+    "activityName": "aluminium ingot, virgin, market, FR",
     "alias": null,
     "categories": [
       "material",
       "material_type:aluminium"
     ],
-    "comment": "https://fabrique-numerique.gitbook.io/ecobalyse/methodes-transverses-specifiques/procedes-acier-et-aluminium",
-    "displayName": "Aluminium, mix marché, Chine",
+    "comment": "https://fabrique-numerique.gitbook.io/ecobalyse/methodes-transverses/production/procedes-acier-et-aluminium",
+    "displayName": "Aluminium vierge, lingot, mix marché, Europe",
     "elecKwh": 0,
     "heatMJ": 0,
-    "id": "63e8a99a-d6e5-4aa5-8fe4-71c3d0ca2107",
+    "id": "baae8572-db4a-4cb8-8f74-e72ba5ef0116",
     "impacts": {
-      "ecs": 1503.0
+      "ecs": 813.0
     },
     "landOccupation": null,
-    "location": "CN",
+    "location": "FR",
     "massPerUnit": null,
     "metadata": {
       "defaultOrigin": null
@@ -84497,8 +84527,8 @@
       "material",
       "material_type:aluminium"
     ],
-    "comment": "",
-    "displayName": "Aluminium vierge, mix marché, Inde",
+    "comment": "https://fabrique-numerique.gitbook.io/ecobalyse/methodes-transverses/production/procedes-acier-et-aluminium",
+    "displayName": "Aluminium vierge, lingot, mix marché, Inde",
     "elecKwh": 0,
     "heatMJ": 0,
     "id": "81103034-fa68-4329-b092-0e86c4c297e4",
@@ -84521,44 +84551,14 @@
     "visible": true
   },
   {
-    "activityName": "aluminium ingot, virgin, market, RER",
+    "activityName": "aluminium ingot, virgin, market, KR",
     "alias": null,
     "categories": [
       "material",
       "material_type:aluminium"
     ],
-    "comment": "https://fabrique-numerique.gitbook.io/ecobalyse/methodes-transverses-specifiques/procedes-acier-et-aluminium",
-    "displayName": "Aluminium vierge, mix marché, Europe",
-    "elecKwh": 0,
-    "heatMJ": 0,
-    "id": "baae8572-db4a-4cb8-8f74-e72ba5ef0116",
-    "impacts": {
-      "ecs": 767.9
-    },
-    "landOccupation": null,
-    "location": "RER",
-    "massPerUnit": null,
-    "metadata": {
-      "defaultOrigin": null
-    },
-    "qtyVariationRatio": 1.0,
-    "scopes": [
-      "object",
-      "veli"
-    ],
-    "source": "Ecobalyse_custom_lci",
-    "unit": "kg",
-    "visible": true
-  },
-  {
-    "activityName": "aluminium ingot, virgin, market, RoW",
-    "alias": null,
-    "categories": [
-      "material",
-      "material_type:aluminium"
-    ],
-    "comment": "https://fabrique-numerique.gitbook.io/ecobalyse/methodes-transverses-specifiques/procedes-acier-et-aluminium",
-    "displayName": "Aluminium vierge, mix marché, hors Europe et Inde",
+    "comment": "https://fabrique-numerique.gitbook.io/ecobalyse/methodes-transverses/production/procedes-acier-et-aluminium",
+    "displayName": "Aluminium vierge, lingot, mix marché, hors Europe et Inde",
     "elecKwh": 0,
     "heatMJ": 0,
     "id": "cc8e1090-e90a-4dcb-89a2-4b45daac88af",
@@ -84566,7 +84566,7 @@
       "ecs": 1517.0
     },
     "landOccupation": null,
-    "location": "RoW",
+    "location": "KR",
     "massPerUnit": null,
     "metadata": {
       "defaultOrigin": null
@@ -84990,13 +84990,13 @@
       "material",
       "material_type:ferrous_metals"
     ],
-    "comment": "",
-    "displayName": "Acier, mix marché, hors Europe",
+    "comment": "https://fabrique-numerique.gitbook.io/ecobalyse/methodes-transverses/production/procedes-acier-et-aluminium",
+    "displayName": "Acier, lingot, mix marché, hors Europe",
     "elecKwh": 0,
     "heatMJ": 0,
     "id": "3e514eac-185c-449e-bdc2-e1082ca0576d",
     "impacts": {
-      "ecs": 116.0
+      "ecs": 118.2
     },
     "landOccupation": null,
     "location": "CN",
@@ -85020,13 +85020,13 @@
       "material",
       "material_type:ferrous_metals"
     ],
-    "comment": "",
-    "displayName": "Acier, mix marché, Europe",
+    "comment": "https://fabrique-numerique.gitbook.io/ecobalyse/methodes-transverses/production/procedes-acier-et-aluminium",
+    "displayName": "Acier, lingot, mix marché, Europe",
     "elecKwh": 0,
     "heatMJ": 0,
     "id": "21a0d5b0-861e-4bed-98a9-46c61d2a0618",
     "impacts": {
-      "ecs": 90.24
+      "ecs": 106.9
     },
     "landOccupation": null,
     "location": "FR",
