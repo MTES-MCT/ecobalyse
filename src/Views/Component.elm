@@ -1503,7 +1503,7 @@ assemblyView ({ db, impact, query, scope } as config) lifeCycle =
                                                         |> Maybe.withDefault Component.emptyResults
                                             in
                                             tr [ class "fs-7" ]
-                                                [ td [ class "ps-3 align-middle" ]
+                                                [ td [ class "ps-3 align-middle w-100" ]
                                                     [ text <| Process.getDisplayName process ]
                                                 , td [ class "align-middle text-end text-nowrap" ]
                                                     [ wastePercent process.qtyVariationRatio ]
@@ -1517,7 +1517,7 @@ assemblyView ({ db, impact, query, scope } as config) lifeCycle =
                                                         |> Component.extractImpacts
                                                         |> Format.formatImpact impact
                                                     ]
-                                                , td [ class "align-middle pe-3" ]
+                                                , td [ class "align-middle pe-3 text-end" ]
                                                     [ button
                                                         [ type_ "button"
                                                         , class "btn btn-sm btn-outline-secondary"
