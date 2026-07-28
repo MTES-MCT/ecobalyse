@@ -2,6 +2,7 @@ module TestUtils exposing
     ( asTest
     , componentConfig
     , createServerRequest
+    , expectDifferentFloats
     , expectImpactsEqual
     , expectResultErrorContains
     , expectResultWithin
@@ -46,6 +47,12 @@ asTest =
 componentConfig : Db -> Result String Component.Config
 componentConfig db =
     Component.parseConfig db StaticJson.componentConfigJson
+
+
+expectDifferentFloats : Float -> Float -> Expectation
+expectDifferentFloats expected actual =
+    abs (expected - actual)
+        |> Expect.greaterThan 0.00000001
 
 
 it : String -> Expectation -> Test

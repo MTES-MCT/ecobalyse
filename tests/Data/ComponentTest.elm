@@ -303,8 +303,7 @@ suite =
                                             , getImpact [ { country = Just country, process = fading } ]
                                             )
                                     in
-                                    abs (defaultImpact - localizedImpact)
-                                        |> Expect.greaterThan 0.00001
+                                    TestUtils.expectDifferentFloats defaultImpact localizedImpact
                                 )
                             , it "should add impacts when multiple transforms are passed (no elec, no heat)"
                                 (getTestEcsImpact
@@ -853,38 +852,24 @@ suite =
                                     Expect.within (Expect.Absolute 0.00001) assemblyImpact 0
                                 ]
                             )
-                        , suiteFromResult "should apply waste ratios sequentially"
-                            (injectionMoulding
-                                |> Result.andThen
-                                    (\process ->
-                                        -- add the assembly category to the process, for testing purpose
-                                        -- FIXME: eventually add a dedicated assembly process in fixtures
-                                        let
-                                            testRequirements =
-                                                requirements
-                                                    |> updateRequirementsProcess process
-                                                        (\p -> { p | categories = [ Category.Assembly ] })
-                                        in
-                                        """{
-                                              "components": [{ "id": "64fa65b3-c2df-4fd0-958b-83965bd6aa08", "quantity": 1 }],
-                                              "assembly": {
-                                                "operations": [
-                                                  { "id": "111539de-deea-588a-9581-6f6ceaa2dfa9" },
-                                                  { "id": "111539de-deea-588a-9581-6f6ceaa2dfa9" }
-                                                ]
-                                              }
-                                            }"""
-                                            |> decodeJsonThen Component.decodeQuery (Component.compute testRequirements)
-                                            |> Result.map
-                                                (\lifeCycle ->
-                                                    ( lifeCycle
-                                                    , Unit.qtyVariationRatioToFloat process.qtyVariationRatio
-                                                    )
-                                                )
-                                    )
+                        , suiteFromResult "should apply 50% waste ratios sequentially"
+                            ("""{
+                                  "components": [{ "id": "64fa65b3-c2df-4fd0-958b-83965bd6aa08", "quantity": 1 }],
+                                  "assembly": {
+                                    "operations": [
+                                      { "id": "b8d0dc25-170d-4c6a-93e5-ee31347316cc" },
+                                      { "id": "b8d0dc25-170d-4c6a-93e5-ee31347316cc" }
+                                    ]
+                                  }
+                                }"""
+                                |> decodeJsonThen Component.decodeQuery (Component.compute requirements)
                             )
-                            (\( lifeCycle, qtyVariationRatioFloat ) ->
+                            (\lifeCycle ->
                                 let
+                                    -- fake assembly process qty variation ratio
+                                    qtyVariationRatioFloat =
+                                        0.5
+
                                     productionMass =
                                         lifeCycle.production
                                             |> Component.extractMass
@@ -909,120 +894,97 @@ suite =
                                             |> LE.getAt 1
                                             |> Result.fromMaybe "No second operation mass"
                                 in
-                                [ it "should reduce end product mass by successive waste ratios" <|
-                                    Expect.within (Expect.Absolute 0.00001)
-                                        (productionMass * qtyVariationRatioFloat * qtyVariationRatioFloat)
-                                        productMass
-                                , itFromResult "should apply the first waste ratio before the second operation"
+                                [ itFromResult "should halve mass after the first 50% waste operation"
                                     firstMass
                                     (Expect.within (Expect.Absolute 0.00001)
                                         (productionMass * qtyVariationRatioFloat)
                                     )
-                                , itFromResult "should apply the second waste ratio on the remaining mass"
+                                , it "should reduce end product mass to a quarter after two 50% waste operations" <|
+                                    Expect.within (Expect.Absolute 0.00001)
+                                        (productionMass * qtyVariationRatioFloat * qtyVariationRatioFloat)
+                                        productMass
+                                , itFromResult "should apply the second 50% waste ratio on the remaining mass"
                                     secondMass
                                     (Expect.within (Expect.Absolute 0.00001)
                                         (productionMass * qtyVariationRatioFloat * qtyVariationRatioFloat)
                                     )
                                 ]
                             )
-                        , suiteFromResult "assembly operation country resolution"
-                            (injectionMoulding
-                                |> Result.andThen
-                                    (\process ->
-                                        let
-                                            testRequirements =
-                                                requirements
-                                                    |> updateRequirementsProcess process
-                                                        (\p -> { p | categories = [ Category.Assembly ] })
-
-                                            computeAssemblyImpact json =
-                                                json
-                                                    |> decodeJsonThen Component.decodeQuery (Component.compute testRequirements)
-                                                    |> Result.map
-                                                        (\lifeCycle ->
-                                                            lifeCycle.assembly
-                                                                |> Component.extractImpacts
-                                                                |> getEcsImpact
-                                                        )
-                                        in
-                                        Result.map2 Tuple.pair
-                                            (computeAssemblyImpact """
-                                                {
-                                                  "assembly": {
-                                                    "country": "FR",
-                                                    "operations": [
-                                                      { "country": "DE", "id": "111539de-deea-588a-9581-6f6ceaa2dfa9" }
-                                                    ]
-                                                  },
-                                                  "components": [{ "id": "64fa65b3-c2df-4fd0-958b-83965bd6aa08", "quantity": 1 }]
-                                                }
-                                                """)
-                                            (computeAssemblyImpact """
-                                                {
-                                                  "assembly": {
-                                                    "country": "FR",
-                                                    "operations": [
-                                                      { "id": "111539de-deea-588a-9581-6f6ceaa2dfa9" }
-                                                    ]
-                                                  },
-                                                  "components": [{ "id": "64fa65b3-c2df-4fd0-958b-83965bd6aa08", "quantity": 1 }]
-                                                }
-                                                """)
-                                    )
+                        , itFromResult "should ignore a per-operation country when an assembly country is set"
+                            (compareAssemblyEcsImpacts requirements
+                                -- With global operation country and local operation country
+                                """{
+                                      "assembly": {
+                                        "country": "FR",
+                                        "operations": [
+                                          { "country": "DE", "id": "b8d0dc25-170d-4c6a-93e5-ee31347316cc" }
+                                        ]
+                                      },
+                                      "components": [{ "id": "64fa65b3-c2df-4fd0-958b-83965bd6aa08", "quantity": 1 }]
+                                    }"""
+                                -- Without global operation country but with local operation country
+                                """{
+                                      "assembly": {
+                                        "country": "FR",
+                                        "operations": [
+                                          { "id": "b8d0dc25-170d-4c6a-93e5-ee31347316cc" }
+                                        ]
+                                      },
+                                      "components": [{ "id": "64fa65b3-c2df-4fd0-958b-83965bd6aa08", "quantity": 1 }]
+                                    }"""
                             )
                             (\( localizedImpact, defaultOperationImpact ) ->
-                                [ it "should ignore a per-operation country when an assembly country is set"
-                                    (Expect.within (Expect.Absolute 0.00001) localizedImpact defaultOperationImpact)
-                                ]
+                                Expect.within (Expect.Absolute 0.00001) localizedImpact defaultOperationImpact
                             )
-                        , suiteFromResult "assembly operation country fallback"
-                            (injectionMoulding
-                                |> Result.andThen
-                                    (\process ->
-                                        let
-                                            testRequirements =
-                                                requirements
-                                                    |> updateRequirementsProcess process
-                                                        (\p -> { p | categories = [ Category.Assembly ] })
-
-                                            computeAssemblyImpact json =
-                                                json
-                                                    |> decodeJsonThen Component.decodeQuery (Component.compute testRequirements)
-                                                    |> Result.map
-                                                        (\lifeCycle ->
-                                                            lifeCycle.assembly
-                                                                |> Component.extractImpacts
-                                                                |> getEcsImpact
-                                                        )
-                                        in
-                                        Result.map2 Tuple.pair
-                                            (computeAssemblyImpact """
-                                                {
-                                                  "assembly": {
-                                                    "operations": [
-                                                      { "country": "DE", "id": "111539de-deea-588a-9581-6f6ceaa2dfa9" }
-                                                    ]
-                                                  },
-                                                  "components": [{ "id": "64fa65b3-c2df-4fd0-958b-83965bd6aa08", "quantity": 1 }]
-                                                }
-                                                """)
-                                            (computeAssemblyImpact """
-                                                {
-                                                  "assembly": {
-                                                    "country": "DE",
-                                                    "operations": [
-                                                      { "id": "111539de-deea-588a-9581-6f6ceaa2dfa9" }
-                                                    ]
-                                                  },
-                                                  "components": [{ "id": "64fa65b3-c2df-4fd0-958b-83965bd6aa08", "quantity": 1 }]
-                                                }
-                                                """)
-                                    )
+                        , itFromResult "should localize energy mixes to the assembly country when it is set"
+                            (compareAssemblyEcsImpacts requirements
+                                -- With both global operation country and local operation country
+                                """{
+                                      "assembly": {
+                                        "country": "FR",
+                                        "operations": [
+                                          { "country": "DE", "id": "b8d0dc25-170d-4c6a-93e5-ee31347316cc" }
+                                        ]
+                                      },
+                                      "components": [{ "id": "64fa65b3-c2df-4fd0-958b-83965bd6aa08", "quantity": 1 }]
+                                    }"""
+                                -- Without global operation country but with local operation country
+                                """{
+                                      "assembly": {
+                                        "operations": [
+                                          { "country": "DE", "id": "b8d0dc25-170d-4c6a-93e5-ee31347316cc" }
+                                        ]
+                                      },
+                                      "components": [{ "id": "64fa65b3-c2df-4fd0-958b-83965bd6aa08", "quantity": 1 }]
+                                    }"""
+                            )
+                            (\( frAssemblyImpact, deOperationImpact ) ->
+                                TestUtils.expectDifferentFloats frAssemblyImpact deOperationImpact
+                            )
+                        , itFromResult "should use the operation country when no assembly country is set"
+                            (compareAssemblyEcsImpacts requirements
+                                -- With global operation country and local operation country
+                                """{
+                                      "assembly": {
+                                        "operations": [
+                                          { "country": "DE", "id": "b8d0dc25-170d-4c6a-93e5-ee31347316cc" }
+                                        ]
+                                      },
+                                      "components": [{ "id": "64fa65b3-c2df-4fd0-958b-83965bd6aa08", "quantity": 1 }]
+                                    }"""
+                                -- Without global operation country but with local operation country
+                                """{
+                                      "assembly": {
+                                        "country": "DE",
+                                        "operations": [
+                                          { "id": "b8d0dc25-170d-4c6a-93e5-ee31347316cc" }
+                                        ]
+                                      },
+                                      "components": [{ "id": "64fa65b3-c2df-4fd0-958b-83965bd6aa08", "quantity": 1 }]
+                                    }"""
                             )
                             (\( operationCountryImpact, assemblyCountryImpact ) ->
-                                [ it "should use the operation country when no assembly country is set"
-                                    (Expect.within (Expect.Absolute 0.00001) operationCountryImpact assemblyCountryImpact)
-                                ]
+                                Expect.within (Expect.Absolute 0.00001) operationCountryImpact assemblyCountryImpact
                             )
                         ]
                     , describe "computeTransports"
@@ -2322,6 +2284,7 @@ setupTestDb db =
                 [ steel
                 , injectionMoulding
                 , dryDistribution
+                , fakeAssemblyProcess
                 , lowVoltageElec
                 , wood
                 , plastic
@@ -2351,6 +2314,19 @@ updateRequirementsProcess { id } fn ({ db } as requirements) =
     { requirements
         | db = { db | processes = db.processes |> LE.updateIf (.id >> (==) id) fn }
     }
+
+
+compareAssemblyEcsImpacts : Requirements db -> String -> String -> Result String ( Float, Float )
+compareAssemblyEcsImpacts requirements jsonQuery1 jsonQuery2 =
+    Result.map2 Tuple.pair
+        (computeAssemblyEcsImpact requirements jsonQuery1)
+        (computeAssemblyEcsImpact requirements jsonQuery2)
+
+
+computeAssemblyEcsImpact : Requirements db -> String -> Result String Float
+computeAssemblyEcsImpact requirements =
+    decodeJsonThen Component.decodeQuery (Component.compute requirements)
+        >> Result.map (.assembly >> Component.extractImpacts >> getEcsImpact)
 
 
 
@@ -2522,6 +2498,49 @@ dryDistribution =
             "source": "Ecobalyse_manual_lcia",
             "unit": "m3"
         }
+        """
+
+
+fakeAssemblyProcess : Result String Process
+fakeAssemblyProcess =
+    decodeJson (Process.decode Impact.decodeImpacts) <|
+        """ {
+                "activityName": "fake assembly process",
+                "categories": ["assembly"],
+                "comment": "Test fixture",
+                "displayName": "Fake assembly process",
+                "elecKwh": 1.5,
+                "heatMJ": 3,
+                "id": "b8d0dc25-170d-4c6a-93e5-ee31347316cc",
+                "impacts": {
+                    "acd": 0,
+                    "cch": 0,
+                    "ecs": 42,
+                    "etf": 0,
+                    "etf-c": 0,
+                    "fru": 0,
+                    "fwe": 0,
+                    "htc": 0,
+                    "htc-c": 0,
+                    "htn": 0,
+                    "htn-c": 0,
+                    "ior": 0,
+                    "ldu": 0,
+                    "mru": 0,
+                    "ozd": 0,
+                    "pco": 0,
+                    "pma": 0,
+                    "swe": 0,
+                    "tre": 0,
+                    "wtu": 0
+                },
+                "location": "RER",
+                "massPerUnit": null,
+                "qtyVariationRatio": 0.5,
+                "scopes": ["object", "veli"],
+                "source": "Ecobalyse",
+                "unit": "kg"
+            }
         """
 
 
