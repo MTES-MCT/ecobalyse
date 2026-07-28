@@ -919,21 +919,16 @@ countrySelector config =
                 ++ [ class "form-select w-33"
                    , id config.domId
                    , autocomplete False
+                   , disabled config.disabled
+                   , onInput <|
+                        \str ->
+                            config.select <|
+                                if String.isEmpty str then
+                                    Nothing
+
+                                else
+                                    Just <| CountryCode.fromString str
                    ]
-                ++ (if config.disabled then
-                        [ disabled True ]
-
-                    else
-                        [ onInput <|
-                            \str ->
-                                config.select <|
-                                    if String.isEmpty str then
-                                        Nothing
-
-                                    else
-                                        Just <| CountryCode.fromString str
-                        ]
-                   )
             )
 
 
