@@ -155,7 +155,7 @@ suite =
                                     |> Result.andThen (Component.addOrSetProcess requirements.db Category.Transform targetItem (Just 0) firstTransform)
                                     |> Result.map (elementTransformCountryAt 0 0 0)
                                 )
-                                (Expect.equal (Just (CountryCode.fromString "FR")))
+                                (Expect.equal (Just CountryCode.france))
                             , itFromResult "should default a new transform country to the last transform country"
                                 (itemsWithExistingTransform
                                     |> Result.andThen (Component.addOrSetProcess requirements.db Category.Transform targetItem (Just 0) secondTransform)
@@ -905,8 +905,8 @@ suite =
                                     )
                                 ]
                             )
-                        , itFromResult "should localize energy mixes to the assembly country when it is set"
-                            (compareAssemblyEcsImpacts requirements
+                        , itFromResult2 "should localize energy mixes to the assembly country when it is set"
+                            (computeAssemblyEcsImpact requirements
                                 """{
                                       "assembly": {
                                         "country": "FR",
@@ -916,6 +916,8 @@ suite =
                                       },
                                       "components": [{ "id": "64fa65b3-c2df-4fd0-958b-83965bd6aa08", "quantity": 1 }]
                                     }"""
+                            )
+                            (computeAssemblyEcsImpact requirements
                                 """{
                                       "assembly": {
                                         "operations": [
@@ -925,7 +927,7 @@ suite =
                                       "components": [{ "id": "64fa65b3-c2df-4fd0-958b-83965bd6aa08", "quantity": 1 }]
                                     }"""
                             )
-                            (\( frAssemblyImpact, defaultEnergyMixImpact ) ->
+                            (\frAssemblyImpact defaultEnergyMixImpact ->
                                 TestUtils.expectDifferentFloats frAssemblyImpact defaultEnergyMixImpact
                             )
                         , itFromResult "should decode a legacy assemblyCountry field"
@@ -936,7 +938,7 @@ suite =
                                 |> decodeJsonThen Component.decodeQuery Ok
                                 |> Result.map .assembly
                             )
-                            (.country >> Expect.equal (Just (CountryCode.fromString "FR")))
+                            (.country >> Expect.equal (Just CountryCode.france))
                         ]
                     , describe "computeTransports"
                         [ suiteFromResult2 "unknown locations"
@@ -1631,7 +1633,7 @@ suite =
                         query =
                             { emptyQuery
                                 | assembly =
-                                    { country = Just (CountryCode.fromString "FR")
+                                    { country = Just CountryCode.france
                                     , operations = []
                                     }
                             }
@@ -1649,31 +1651,7 @@ suite =
                                 |> Component.mapItems (always [ Component.createItem Nothing ])
                                 |> .assembly
                                 |> .country
-                                |> Expect.equal (Just (CountryCode.fromString "FR"))
-                            )
-                        ]
-                    , describe "updateAssemblyCountry"
-                        [ it "should update assembly country"
-                            (injectionMoulding
-                                |> Result.map
-                                    (\process ->
-                                        let
-                                            portugal =
-                                                Just (CountryCode.fromString "PT")
-
-                                            updated =
-                                                { emptyQuery
-                                                    | assembly =
-                                                        { country = Just (CountryCode.fromString "FR")
-                                                        , operations = [ process.id, process.id ]
-                                                        }
-                                                }
-                                                    |> Component.updateAssemblyCountry portugal
-                                        in
-                                        updated.assembly.country
-                                            |> Expect.equal portugal
-                                    )
-                                |> Result.withDefault (Expect.fail "injectionMoulding setup failure")
+                                |> Expect.equal (Just CountryCode.france)
                             )
                         ]
                     , suiteFromResult2 "removeElement"
@@ -1759,7 +1737,7 @@ suite =
                         query =
                             { emptyQuery
                                 | assembly =
-                                    { country = Just (CountryCode.fromString "FR")
+                                    { country = Just CountryCode.france
                                     , operations = []
                                     }
                             }
@@ -1770,14 +1748,14 @@ suite =
                                 |> Component.setQueryItems [ Component.createItem Nothing ]
                                 |> .assembly
                                 |> .country
-                                |> Expect.equal (Just (CountryCode.fromString "FR"))
+                                |> Expect.equal (Just CountryCode.france)
                             )
                         , it "should preserve the assembly country for multiple items"
                             (query
                                 |> Component.setQueryItems [ Component.createItem Nothing, Component.createItem Nothing ]
                                 |> .assembly
                                 |> .country
-                                |> Expect.equal (Just (CountryCode.fromString "FR"))
+                                |> Expect.equal (Just CountryCode.france)
                             )
                         , it "should reset the assembly country when the list becomes empty"
                             (query
@@ -2130,6 +2108,12 @@ suite =
             ]
 
 
+computeAssemblyEcsImpact : Requirements db -> String -> Result String Float
+computeAssemblyEcsImpact requirements =
+    decodeJsonThen Component.decodeQuery (Component.compute requirements)
+        >> Result.map (.assembly >> Component.extractImpacts >> getEcsImpact)
+
+
 computeItemsWithRequirements : Requirements db -> List Item -> Result String LifeCycle
 computeItemsWithRequirements requirements items =
     emptyQuery
@@ -2256,19 +2240,6 @@ updateRequirementsProcess { id } fn ({ db } as requirements) =
     { requirements
         | db = { db | processes = db.processes |> LE.updateIf (.id >> (==) id) fn }
     }
-
-
-compareAssemblyEcsImpacts : Requirements db -> String -> String -> Result String ( Float, Float )
-compareAssemblyEcsImpacts requirements jsonQuery1 jsonQuery2 =
-    Result.map2 Tuple.pair
-        (computeAssemblyEcsImpact requirements jsonQuery1)
-        (computeAssemblyEcsImpact requirements jsonQuery2)
-
-
-computeAssemblyEcsImpact : Requirements db -> String -> Result String Float
-computeAssemblyEcsImpact requirements =
-    decodeJsonThen Component.decodeQuery (Component.compute requirements)
-        >> Result.map (.assembly >> Component.extractImpacts >> getEcsImpact)
 
 
 
