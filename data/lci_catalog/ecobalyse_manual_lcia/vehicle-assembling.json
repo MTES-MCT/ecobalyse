@@ -3,8 +3,8 @@
     "productmassdependent",
     "assembly"
   ],
-  "comment": "A titre provisoire ce procédé est intégré dans la phase d'usage, la phase d'assemblage n'intégrant pas de procédé à ce stade. https://fabrique-numerique.gitbook.io/ecobalyse/vehicules/cycle-de-vie/assemblage",
-  "displayName": "Assemblage (France, temporaire)",
+  "comment": "https://fabrique-numerique.gitbook.io/ecobalyse/vehicules/cycle-de-vie/assemblage",
+  "displayName": "Assemblage",
   "elecKwh": 1.5,
   "heatMJ": 3,
   "id": "f7c7e44a-c11e-4c8e-afc1-8a96fac85e3b",
