@@ -57551,11 +57551,11 @@
       "productmassdependent",
       "assembly"
     ],
-    "comment": "A titre provisoire ce procédé est intégré dans la phase d'usage, la phase d'assemblage n'intégrant pas de procédé à ce stade. https://fabrique-numerique.gitbook.io/ecobalyse/vehicules/cycle-de-vie/assemblage",
-    "displayName": "Assemblage (France, temp.) - calcul réglementaire Score Environnemental VE",
-    "elecKwh": 2.165,
-    "heatMJ": 4.581,
-    "id": "8b4fae1f-71bc-44d4-9e40-b2399ef04f34",
+    "comment": "https://fabrique-numerique.gitbook.io/ecobalyse/vehicules/cycle-de-vie/assemblage",
+    "displayName": "Assemblage",
+    "elecKwh": 1.5,
+    "heatMJ": 3.0,
+    "id": "c51ab87d-f368-4704-a5ec-7ea17ba87d46",
     "impacts": {
       "ecs": 0
     },
@@ -57581,10 +57581,10 @@
       "assembly"
     ],
     "comment": "A titre provisoire ce procédé est intégré dans la phase d'usage, la phase d'assemblage n'intégrant pas de procédé à ce stade. https://fabrique-numerique.gitbook.io/ecobalyse/vehicules/cycle-de-vie/assemblage",
-    "displayName": "Assemblage (France, temporaire)",
-    "elecKwh": 1.5,
-    "heatMJ": 3.0,
-    "id": "c51ab87d-f368-4704-a5ec-7ea17ba87d46",
+    "displayName": "Assemblage (France, temp.) - calcul réglementaire Score Environnemental VE",
+    "elecKwh": 2.165,
+    "heatMJ": 4.581,
+    "id": "8b4fae1f-71bc-44d4-9e40-b2399ef04f34",
     "impacts": {
       "ecs": 0
     },
