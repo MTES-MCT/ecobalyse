@@ -3,7 +3,7 @@
     "productmassdependent",
     "use"
   ],
-  "comment": "Consommation d’électricité telle que définie par la méthode Agribalyse 3.0 dans les tableaux 41, 42, 43 sur les techniques de préparation.",
+  "comment": "Consommation d’électricité telle que définie par la méthode Agribalyse2 3.0 dans les tableaux 41, 42, 43 sur les techniques de préparation.",
   "displayName": "Cuisson au four",
   "elecKwh": 0.999,
   "heatMJ": 0,

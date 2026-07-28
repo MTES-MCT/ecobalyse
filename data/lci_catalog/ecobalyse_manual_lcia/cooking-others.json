@@ -3,7 +3,7 @@
     "transformation",
     "material_type:other_food_items"
   ],
-  "comment": "Raw to cooked ratio defined in Agribalyse 3 methodology",
+  "comment": "Raw to cooked ratio defined in Agribalyse2 3 methodology",
   "displayName": "Cuisson divers",
   "elecKwh": 0.7167,
   "heatMJ": 0.754,

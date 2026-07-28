@@ -4,7 +4,7 @@
     "material",
     "packaging"
   ],
-  "comment": "Includes all life cycle stages, including transport and end-of-life treatment, based on Agribalyse Pack_AGB project, 2024, simplified.",
+  "comment": "Includes all life cycle stages, including transport and end-of-life treatment, based on Agribalyse2 Pack_AGB project, 2024, simplified.",
   "displayName": "Acier",
   "id": "aed85523-5d2e-43bd-b14e-6393b8ac678c",
   "metadata": [
