@@ -17,8 +17,9 @@ def test_export_processes(forwast, tmp_path, processes_impacts_json):
         root_dir=TESTS_FIXTURE_DIR,
     )
 
-    with open(tmp_path / settings.processes_legacy_impacts_file, "rb") as f:
+    with open(tmp_path / settings.PROCESSES_LEGACY_IMPACTS_DIR, "rb") as f:
         json_data = orjson.loads(f.read())
+        # TODO
         export_json(
             json_data,
             TESTS_FIXTURE_DIR / "processes_legacy_impacts_output.json",
@@ -35,9 +36,10 @@ def test_export_ingredients(
     output_path = tmp_path / "food"
     output_path.mkdir()
 
+    # TODO
     export_json(
         processes_impacts_full_json,
-        tmp_path / settings.processes_legacy_impacts_full_file,
+        tmp_path / settings.PROCESSES_LEGACY_IMPACTS_FULL_DIR,
     )
 
     export.metadata(
@@ -74,9 +76,10 @@ def test_export_processes_generic(
     settings.set("EXPORT_DIR", str(tmp_path))
 
     # Write the full (unfiltered) processes data that the generic export reads.
+    # TODO
     export_json(
         processes_impacts_full_json,
-        tmp_path / settings.processes_legacy_impacts_full_file,
+        tmp_path / settings.PROCESSES_LEGACY_IMPACTS_FULL_DIR,
     )
 
     export.metadata(
@@ -84,8 +87,9 @@ def test_export_processes_generic(
         root_dir=TESTS_FIXTURE_DIR,
     )
 
-    with open(tmp_path / settings.processes_generic_impacts_file, "rb") as f:
+    with open(tmp_path / settings.PROCESSES_GENERIC_IMPACTS_DIR, "rb") as f:
         json_data = orjson.loads(f.read())
+        # TODO
         export_json(
             json_data,
             TESTS_FIXTURE_DIR / "processes_generic_impacts_output.json",

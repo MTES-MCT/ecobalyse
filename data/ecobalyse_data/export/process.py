@@ -26,6 +26,7 @@ def activities_to_processes(
     merge: bool = False,
     scopes: list[Scope] | None = None,
 ):
+
     factors = get_normalization_weighting_factors(IMPACTS_JSON)
 
     processes: List[Process] = compute_processes_for_activities(

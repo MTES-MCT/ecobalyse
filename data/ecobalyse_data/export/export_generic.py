@@ -247,8 +247,10 @@ def activities_to_processes_generic_json(
         feed_file_path=feed_file_path,
         raw_to_transformed_file_path=raw_to_transformed_file_path,
     )
+    assert False
 
     for path in impacts_output_paths:
+        # TODO
         export_json(generic_dicts, path)
         logger.info(f"Exported {len(generic_dicts)} generic processes to {path}")
 

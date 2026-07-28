@@ -25,7 +25,7 @@ def check_process_relationships(items, processes, item_type):
 
 
 def test_process_relationships():
-    processes_path = DATA_ROOT_DIR / "export" / settings.processes_legacy_ecs_file
+    processes_path = DATA_ROOT_DIR / "export" / settings.PROCESSES_LEGACY_ECS_DIR
     processes_data = load_json(processes_path)
     processes = {p["id"]: p for p in processes_data}
 

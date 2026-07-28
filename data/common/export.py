@@ -16,7 +16,7 @@ from . import (
     remove_detailed_impacts,
 )
 
-with open(DATA_ROOT_DIR / settings.impacts_file) as f:
+with open(DATA_ROOT_DIR / settings.IMPACTS_FILE) as f:
     IMPACTS_JSON = deepfreeze(json.load(f))
 
 
@@ -136,20 +136,24 @@ def display_changes(
         display_changes_table(changes, with_names=with_names)
 
 
-def export_json(json_data, filename):
-    logger.info(f"Exporting {filename}")
-    json_string = json.dumps(
-        json_data,
-        indent=2,
-        ensure_ascii=False,
-        cls=FormatNumberJsonEncoder,
-        sort_keys=True,
-    )
-    with open(filename, "w", encoding="utf-8") as file:
-        file.write(json_string)
-        file.write("\n")  # Add a newline at the end of the file
+def export_json(json_data, export_path: Path):
+    logger.info(f"Exporting to {export_path}")
+    # TODO: assert directory exist, or create it
+    for process in json_data:
+        filename = export_path / f"{process['id']}.json"
 
-    logger.info(f"Exported {len(json_data)} elements to {filename}")
+        json_string = json.dumps(
+            process,
+            indent=2,
+            ensure_ascii=False,
+            cls=FormatNumberJsonEncoder,
+            sort_keys=True,
+        )
+        with open(filename, "w", encoding="utf-8") as file:
+            file.write(json_string)
+            file.write("\n")  # Add a newline at the end of the file
+
+        logger.info(f"Exported {len(json_data)} elements to {filename}")
 
 
 def display_changes_from_json(
@@ -171,7 +175,7 @@ def export_processes_to_dir(
     processes_ecs_path,
     processes_impacts_path,
     processes_ecs_impacts,
-    dir_to_export_to: Path,
+    root_path: Path,
     full_impacts_relative_file_path,
     extra_data=None,
     extra_path=None,
@@ -179,14 +183,15 @@ def export_processes_to_dir(
     scopes=None,
 ):
     exported_files = []
-
+    root_path = Path(root_path)
     logger.info("")
     logger.info(f"-> Exporting to {dir}")
-    processes_impacts_absolute_path = dir_to_export_to / processes_impacts_path
-    processes_ecs_absolute_path = dir_to_export_to / processes_ecs_path
+    processes_impacts_absolute_path = root_path / processes_impacts_path
+    processes_ecs_absolute_path = root_path / processes_ecs_path
 
     if extra_data is not None and extra_path is not None:
-        extra_file = dir_to_export_to / extra_path
+        assert False
+        extra_file = root_path / extra_path
         export_json(extra_data, extra_file)
         exported_files.append(extra_file)
 
@@ -245,7 +250,9 @@ def export_processes_to_dir(
     # Write unfiltered data to last dir (local) for generic export to read later
 
     full_impacts_path = (
-        DATA_ROOT_DIR / settings.export_dir / full_impacts_relative_file_path
+        DATA_ROOT_DIR
+        / settings.PROCESSES_LEGACY_IMPACTS_FULL_DIR
+        / full_impacts_relative_file_path
     )
     export_json(to_export, full_impacts_path)
 

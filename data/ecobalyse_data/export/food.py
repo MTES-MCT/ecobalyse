@@ -196,6 +196,7 @@ def activities_to_ingredients_json(
 
     ingredients_dicts.sort(key=lambda x: x["id"])
 
+    # TODO
     export_json(ingredients_dicts, ingredients_path)
 
     logger.debug(

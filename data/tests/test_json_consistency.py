@@ -342,6 +342,7 @@ def test():
                     "alias": (missing, duplicate_across_records, alias_syntax),
                     "name": (missing, duplicate_across_records),
                 },
+                # TODO : these files don’t exist anymore
                 "export/processes_legacy.json": {
                     "id": (duplicate_across_records, invalid_uuid, missing),
                     "displayName": (duplicate_across_records,),

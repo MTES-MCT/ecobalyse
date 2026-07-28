@@ -1,5 +1,4 @@
 #!/usr/bin/env python3
-
 import json
 import logging
 import multiprocessing
@@ -53,9 +52,7 @@ def metadata(
 
     activities = _get_lcias(root_dir)
 
-    processes_impacts_path = (
-        root_dir / settings.export_dir / settings.processes_legacy_impacts_full_file
-    )
+    processes_impacts_path = root_dir / settings.PROCESSES_LEGACY_IMPACTS_FULL_DIR
 
     for s in scopes:
         scope_dirname = settings.scopes.get(s.value).dirname
@@ -119,14 +116,12 @@ def metadata(
                 if GENERIC_SCOPES & set(activity["scopes"])
             ]
 
-            export_dir = root_dir / settings.export_dir
-
             export_generic.activities_to_processes_generic_json(
                 generic_activities,
                 processes_impacts_path=processes_impacts_path,
-                ecs_output_paths=[export_dir / settings.processes_generic_ecs_file],
+                ecs_output_paths=[root_dir / settings.PROCESSES_GENERIC_ECS_DIR],
                 impacts_output_paths=[
-                    export_dir / settings.processes_generic_impacts_file
+                    root_dir / settings.PROCESSES_GENERIC_IMPACTS_DIR
                 ],
                 cpu_count=cpu_count,
                 ecosystemic_factors_path=ecosystemic_factors_path,
@@ -168,10 +163,10 @@ def processes_legacy(
 
     export_process.activities_to_processes(
         activities=activities,
-        ecs_relative_file_path=settings.processes_legacy_ecs_file,
-        impacts_relative_file_path=settings.processes_legacy_impacts_file,
-        full_impacts_relative_file_path=settings.processes_legacy_impacts_full_file,
-        dir_to_export_to=root_dir / settings.export_dir,
+        ecs_relative_file_path=settings.PROCESSES_LEGACY_ECS_DIR,
+        impacts_relative_file_path=settings.PROCESSES_LEGACY_IMPACTS_DIR,
+        full_impacts_relative_file_path=settings.PROCESSES_LEGACY_IMPACTS_FULL_DIR,
+        dir_to_export_to=DATA_ROOT_DIR,
         display_changes=display_changes,
         merge=merge,
         scopes=scopes,
@@ -186,16 +181,19 @@ def merge_processes(
     from common import remove_detailed_impacts
     from common.export import export_json, load_json
 
-    export_dir = root_dir / settings.export_dir
-    impacts = load_json(export_dir / settings.processes_legacy_impacts_file)
-    generic_impacts = load_json(export_dir / settings.processes_generic_impacts_file)
+    impacts = load_json(root_dir / settings.PROCESSES_LEGACY_IMPACTS_DIR)
+    generic_impacts = load_json(root_dir / settings.PROCESSES_GENERIC_IMPACTS_DIR)
     merged = impacts + generic_impacts
     merged_ecs = remove_detailed_impacts(merged)
 
     public_dir = root_dir / settings.frontend_data_dir
 
-    export_json(merged, public_dir / settings.processes_merged_impacts_file)
-    export_json(merged_ecs, public_dir / settings.processes_merged_ecs_file)
+    export_json(
+        merged, public_dir / "merged_impact"
+    )  # settings.PROCESSES_MERGED_IMPACTS_DIR)
+    export_json(
+        merged_ecs, public_dir / "merged_ecs"
+    )  # settings.PROCESSES_MERGED_ECS_DIR)
 
 
 def _get_lcias(root_dir):
