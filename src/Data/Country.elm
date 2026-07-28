@@ -189,7 +189,7 @@ validateForScope scope countries countryCode =
                 else
                     "Le code pays "
                         ++ CountryCode.toString countryCode
-                        ++ " n'est pas utilisable dans un contexte "
+                        ++ " n’est pas utilisable dans un contexte "
                         ++ Scope.toLabel scope
                         ++ "."
                         |> Err
