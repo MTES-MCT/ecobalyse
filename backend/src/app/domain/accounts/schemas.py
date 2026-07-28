@@ -4,19 +4,16 @@ from datetime import date, datetime  # noqa: TC003
 from enum import StrEnum
 from uuid import UUID  # noqa: TC003
 
-import msgspec
 from litestar.exceptions import ValidationException
 from stdnum.fr import siren
 
-from app.lib.schema import CamelizedBaseStruct
+from app.lib.schema import BaseSchema, CamelizedBaseStruct
 
 __all__ = (
     "AccountLogin",
     "User",
     "UserCreate",
     "UserRole",
-    "UserRoleAdd",
-    "UserRoleRevoke",
 )
 
 
@@ -31,7 +28,7 @@ class OrganizationType(StrEnum):
     STUDENT = "student"
 
 
-class OrganizationCreate(CamelizedBaseStruct):
+class OrganizationCreate(BaseSchema):
     type: OrganizationType
     name: str | None = None
     siren: str | None = None
@@ -53,13 +50,13 @@ class OrganizationCreate(CamelizedBaseStruct):
             self.siren = siren.compact(self.siren)
 
 
-class Organization(CamelizedBaseStruct):
+class Organization(BaseSchema):
     type: OrganizationType
-    name: str | None | msgspec.UnsetType = msgspec.UNSET
-    siren: str | None | msgspec.UnsetType = msgspec.UNSET
+    name: str | None
+    siren: str | None
 
 
-class UserRole(CamelizedBaseStruct):
+class UserRole(BaseSchema):
     """Holds role details for a user.
 
     This is nested in the User Model for 'roles'
@@ -71,7 +68,7 @@ class UserRole(CamelizedBaseStruct):
     assigned_at: datetime
 
 
-class UserProfile(CamelizedBaseStruct):
+class UserProfile(BaseSchema):
     """Holds profile details for a user.
 
     This is nested in the User Model for 'profile'
@@ -84,7 +81,7 @@ class UserProfile(CamelizedBaseStruct):
     last_name: str | None = None
 
 
-class User(CamelizedBaseStruct):
+class User(BaseSchema):
     """User properties to use for a response."""
 
     id: UUID
@@ -100,7 +97,7 @@ class User(CamelizedBaseStruct):
     has_active_token: bool = False
 
 
-class UserCreate(CamelizedBaseStruct):
+class UserCreate(BaseSchema):
     email: str
     first_name: str
     last_name: str
@@ -111,18 +108,18 @@ class UserCreate(CamelizedBaseStruct):
     is_verified: bool = False
 
 
-class UserProfileUpdate(CamelizedBaseStruct, omit_defaults=True):
-    email_optin: bool | None | msgspec.UnsetType = msgspec.UNSET
-    first_name: str | None | msgspec.UnsetType = msgspec.UNSET
-    last_name: str | None | msgspec.UnsetType = msgspec.UNSET
-    terms_accepted: bool | None | msgspec.UnsetType = msgspec.UNSET
+class UserProfileUpdate(BaseSchema):
+    email_optin: bool | None
+    first_name: str | None
+    last_name: str | None
+    terms_accepted: bool | None
 
 
-class AccountLogin(CamelizedBaseStruct):
+class AccountLogin(BaseSchema):
     email: str
 
 
-class AccountRegisterMagicLink(CamelizedBaseStruct):
+class AccountRegisterMagicLink(BaseSchema):
     email: str
     first_name: str
     last_name: str
@@ -130,18 +127,6 @@ class AccountRegisterMagicLink(CamelizedBaseStruct):
     terms_accepted: bool = False
     email_optin: bool = False
     is_active: bool = True
-
-
-class UserRoleAdd(CamelizedBaseStruct):
-    """User role add ."""
-
-    user_name: str
-
-
-class UserRoleRevoke(CamelizedBaseStruct):
-    """User role revoke ."""
-
-    user_name: str
 
 
 class ApiToken(CamelizedBaseStruct):
