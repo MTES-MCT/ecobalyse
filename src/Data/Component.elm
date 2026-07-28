@@ -1424,22 +1424,34 @@ decodeQuantity =
 
 decodeQuery : Decoder Query
 decodeQuery =
-    Decode.succeed Query
-        |> Decode.optional "assembly" decodeAssembly emptyAssembly
-        |> Decode.optional "consumptions" (Decode.list decodeConsumption) []
-        |> DU.strictOptional "distribution" Process.decodeId
-        |> DU.strictOptional "durability" Unit.decodeRatio
-        |> Decode.required "components" (Decode.list decodeItem)
-        |> Decode.optional "packagings" (Decode.list decodePackaging) []
-        |> Decode.optional "recyclable" Decode.bool True
-        |> Decode.optional "transportOptions" decodeTransportOptions defaultTransportOptions
+    decodeAssembly
+        |> Decode.andThen
+            (\assembly ->
+                Decode.succeed (Query assembly)
+                    |> Decode.optional "consumptions" (Decode.list decodeConsumption) []
+                    |> DU.strictOptional "distribution" Process.decodeId
+                    |> DU.strictOptional "durability" Unit.decodeRatio
+                    |> Decode.required "components" (Decode.list decodeItem)
+                    |> Decode.optional "packagings" (Decode.list decodePackaging) []
+                    |> Decode.optional "recyclable" Decode.bool True
+                    |> Decode.optional "transportOptions" decodeTransportOptions defaultTransportOptions
+            )
 
 
+{-| Backward-compatible assembly field decoder
+-}
 decodeAssembly : Decoder Assembly
 decodeAssembly =
-    Decode.succeed Assembly
-        |> DU.strictOptional "country" CountryCode.decode
-        |> Decode.optional "operations" (Decode.list decodeLocalizedProcess) []
+    Decode.oneOf
+        [ Decode.field "assembly"
+            (Decode.succeed Assembly
+                |> DU.strictOptional "country" CountryCode.decode
+                |> Decode.optional "operations" (Decode.list decodeLocalizedProcess) []
+            )
+        , Decode.field "assemblyCountry" CountryCode.decode
+            |> Decode.map (\country -> { emptyAssembly | country = Just country })
+        , Decode.succeed emptyAssembly
+        ]
 
 
 decodeTransportOptions : Decoder TransportOptions
