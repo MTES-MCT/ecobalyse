@@ -731,7 +731,7 @@ genericContextStagesView config lifeCycle =
         [ noTransportView
         , packagingView config lifeCycle
         , lifeCycle.transports.toDistribution
-            |> transportToDistributionView config (Component.extractProductMass lifeCycle)
+            |> transportToDistributionView config lifeCycle.productMass
         , distributionView config lifeCycle
         , noTransportView
         , useStageView config lifeCycle

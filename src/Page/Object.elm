@@ -1031,7 +1031,7 @@ simulatorView ({ componentConfig } as session) ({ scope } as model) =
 
                 -- Score
                 , customScoreInfo = Nothing
-                , productMass = Component.extractProductMass lifeCycle
+                , productMass = lifeCycle.productMass
                 , totalImpacts = lifeCycle |> Component.applyDurability currentDurability
                 , totalImpactsWithoutDurability = lifeCycle |> Component.sumLifeCycleImpacts |> Just
 

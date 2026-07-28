@@ -74,7 +74,6 @@ module Data.Component exposing
     , extractImpacts
     , extractItems
     , extractMass
-    , extractProductMass
     , extractStage
     , findById
     , getAvailableDistributionProcesses
@@ -551,18 +550,14 @@ applyAssemblyOperations requirements maybeAssemblyCountry expandedProcesses init
                 requirements.db.countries
                     |> Country.resolveMaybe maybeAssemblyCountry
                     |> Result.andThen
-                        (\resolvedCountry ->
-                            loadEnergyMixes requirements.config resolvedCountry
-                                |> Result.andThen
-                                    (\mixes ->
+                        (loadEnergyMixes requirements.config
+                            >> Result.andThen
+                                (\mixes ->
+                                    List.foldl
+                                        (\{ process } -> Result.map (applyProcessStep AssemblyStage process mixes))
+                                        (Ok initialResults)
                                         processes
-                                            |> List.foldl
-                                                (\{ process } results ->
-                                                    results
-                                                        |> Result.map (applyProcessStep AssemblyStage process mixes)
-                                                )
-                                                (Ok initialResults)
-                                    )
+                                )
                         )
             )
 
@@ -606,7 +601,7 @@ applyProcessStep stage process { elec, heat } (Results { amount, label, impacts,
                 |> Impact.multiplyBy (Amount.toFloat amount)
 
         outputAmount =
-            amount |> applyQtyVariationRatio process.qtyVariationRatio
+            amount |> Amount.map ((*) (Unit.qtyVariationRatioToFloat process.qtyVariationRatio))
 
         outputMass =
             mass |> Unit.applyQtyVariationRatioToMass process.qtyVariationRatio
@@ -635,11 +630,6 @@ applyProcessStep stage process { elec, heat } (Results { amount, label, impacts,
         , quantity = 1
         , stage = Nothing
         }
-
-
-applyQtyVariationRatio : QuantityVariationRatio -> Amount -> Amount
-applyQtyVariationRatio qtyVariationRatio =
-    Amount.map (\amount -> amount * Unit.qtyVariationRatioToFloat qtyVariationRatio)
 
 
 {-| Sequencially apply transforms to existing Results (typically, from material ones).
@@ -1055,7 +1045,7 @@ computeScoring definitions lifeCycle =
     let
         ( totalImpacts, totalMass, complementImpacts ) =
             ( extractImpacts lifeCycle.production
-            , extractProductMass lifeCycle
+            , lifeCycle.productMass
               -- New metadata complements should always be added and not substracted as before, that’s why we negate it
               -- here to stay compatible with the current implementations for Ecosystemic Services
             , extractComplementsImpacts lifeCycle.production
@@ -1250,7 +1240,7 @@ computeTransports ({ config, db } as requirements) ({ assembly, transportOptions
                                     maybeAssemblyCountry
                     )
                     -- toDistribution
-                    (extractProductMass lifeCycle
+                    (lifeCycle.productMass
                         |> computeTransportedMassImpacts requirements
                             transportOptions
                             maybeAssemblyCountry
@@ -1704,7 +1694,7 @@ encodeQuery : Query -> Encode.Value
 encodeQuery query =
     EU.optionalPropertiesObject
         [ ( "assembly"
-          , if query.assembly.country == Nothing && List.isEmpty query.assembly.operations then
+          , if query.assembly == emptyAssembly then
                 Nothing
 
             else
@@ -1734,16 +1724,14 @@ encodeQuery query =
 
 encodeAssembly : Assembly -> Encode.Value
 encodeAssembly assembly =
-    EU.optionalPropertiesObject
-        [ ( "country", assembly.country |> Maybe.map CountryCode.encode )
-        , ( "operations"
-          , if List.isEmpty assembly.operations then
-                Nothing
+    if assembly == emptyAssembly then
+        Encode.null
 
-            else
-                assembly.operations |> Encode.list Process.encodeId |> Just
-          )
-        ]
+    else
+        EU.optionalPropertiesObject
+            [ ( "country", assembly.country |> Maybe.map CountryCode.encode )
+            , ( "operations", assembly.operations |> Encode.list Process.encodeId |> Just )
+            ]
 
 
 encodeComplementsResultsImpacts : Maybe Trigram -> ComplementsResultsImpacts -> Encode.Value
@@ -1987,11 +1975,6 @@ extractMass (Results { mass }) =
     mass
 
 
-extractProductMass : LifeCycle -> Mass
-extractProductMass lifeCycle =
-    lifeCycle.productMass
-
-
 extractStage : Results -> Maybe Stage
 extractStage (Results { stage }) =
     stage
@@ -2061,18 +2044,15 @@ getEndOfLifeDetailedImpacts { config, scope } recyclable lifeCycle =
         productionMass =
             extractMass lifeCycle.production
 
-        productMass =
-            extractProductMass lifeCycle
-
         -- Note: Assembly waste is modeled as a global mass reduction, without per-material losses,
         -- while EoL impacts are computed per material category; so we need to scale each by the same
         -- factor so their masses sum back to `productMass`
         massScaleRatio =
-            if productionMass == Quantity.zero then
+            if lifeCycle.productMass == Quantity.zero then
                 1
 
             else
-                Mass.inKilograms productMass / Mass.inKilograms productionMass
+                Mass.inKilograms lifeCycle.productMass / Mass.inKilograms productionMass
 
         collectionRatio =
             scope |> getEndOfLifeScopeCollectionRate config recyclable
@@ -2824,9 +2804,7 @@ the product mass in kilograms. Otherwise, return the amount.
 useProcessAmount : LifeCycle -> Process -> Amount -> Amount
 useProcessAmount lifeCycle process amount =
     if List.member Category.ProductMassDependent process.categories then
-        extractProductMass lifeCycle
-            |> Mass.inKilograms
-            |> Amount.fromFloat
+        Amount.fromFloat <| Mass.inKilograms lifeCycle.productMass
 
     else
         amount

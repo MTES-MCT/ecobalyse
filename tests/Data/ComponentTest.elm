@@ -839,8 +839,7 @@ suite =
                                     (\lifeCycle ->
                                         ( Component.extractMass lifeCycle.production
                                             |> Mass.inKilograms
-                                        , Component.extractProductMass lifeCycle
-                                            |> Mass.inKilograms
+                                        , Mass.inKilograms lifeCycle.productMass
                                         , lifeCycle.assembly |> Component.extractImpacts |> getEcsImpact
                                         )
                                     )
@@ -875,10 +874,6 @@ suite =
                                             |> Component.extractMass
                                             |> Mass.inKilograms
 
-                                    productMass =
-                                        Component.extractProductMass lifeCycle
-                                            |> Mass.inKilograms
-
                                     operationMasses =
                                         lifeCycle.assembly
                                             |> Component.extractItems
@@ -902,7 +897,7 @@ suite =
                                 , it "should reduce end product mass to a quarter after two 50% waste operations" <|
                                     Expect.within (Expect.Absolute 0.00001)
                                         (productionMass * qtyVariationRatioFloat * qtyVariationRatioFloat)
-                                        productMass
+                                        (Mass.inKilograms lifeCycle.productMass)
                                 , itFromResult "should apply the second 50% waste ratio on the remaining mass"
                                     secondMass
                                     (Expect.within (Expect.Absolute 0.00001)
@@ -1957,8 +1952,8 @@ suite =
                         lowVoltageElec
                         (\lifeCycle lowVoltageElecProcess ->
                             let
-                                productMass =
-                                    Component.extractProductMass lifeCycle |> Mass.inKilograms
+                                productMassInKg =
+                                    Mass.inKilograms lifeCycle.productMass
 
                                 massDependentProcess =
                                     { lowVoltageElecProcess
@@ -1969,7 +1964,7 @@ suite =
                             [ it "should ignore provided amount and use product mass when using a mass-dependent process"
                                 (Component.useProcessAmount lifeCycle massDependentProcess (Amount.fromFloat 999)
                                     |> Amount.toFloat
-                                    |> Expect.within (Expect.Absolute 0.00001) productMass
+                                    |> Expect.within (Expect.Absolute 0.00001) productMassInKg
                                 )
                             , it "should return the given amount for a regular, non-mass-dependent process"
                                 (Component.useProcessAmount lifeCycle lowVoltageElecProcess (Amount.fromFloat 3)
