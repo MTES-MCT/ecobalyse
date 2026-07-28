@@ -8,7 +8,6 @@ module Data.Country exposing
     , getAquaticPollutionRatio
     , isEuropeOrTurkey
     , resolveMaybe
-    , resolveMaybeWithFallback
     , toSearchableString
     , validateForScope
     )
@@ -24,7 +23,6 @@ import Json.Decode.Extra as DE
 import Json.Decode.Pipeline as Pipe
 import Json.Encode as Encode
 import Length exposing (Length)
-import Maybe.Extra as ME
 
 
 type AquaticPollutionScenario
@@ -158,11 +156,6 @@ resolveMaybe maybeCode countries =
 
         Nothing ->
             Ok Nothing
-
-
-resolveMaybeWithFallback : Maybe Code -> Maybe Code -> List Country -> Result String (Maybe Country)
-resolveMaybeWithFallback primary fallback =
-    resolveMaybe (ME.or primary fallback)
 
 
 toSearchableString : Country -> String

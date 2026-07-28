@@ -30,30 +30,6 @@ suite =
                         |> expectResultErrorContains "Code pays invalide"
                     )
                 ]
-            , describe "resolveMaybeWithFallback"
-                [ it "should resolve with primary country code when both are known"
-                    (db.countries
-                        |> Country.resolveMaybeWithFallback (Just CountryCode.france) (Just CountryCode.china)
-                        |> Result.map (Maybe.map .code)
-                        |> Expect.equal (Ok (Just CountryCode.france))
-                    )
-                , it "should resolve with fallback when primary is missing"
-                    (db.countries
-                        |> Country.resolveMaybeWithFallback Nothing (Just CountryCode.china)
-                        |> Result.map (Maybe.map .code)
-                        |> Expect.equal (Ok (Just CountryCode.china))
-                    )
-                , it "should return nothing when both are missing"
-                    (db.countries
-                        |> Country.resolveMaybeWithFallback Nothing Nothing
-                        |> Expect.equal (Ok Nothing)
-                    )
-                , it "should fail on primary even when fallback is known"
-                    (db.countries
-                        |> Country.resolveMaybeWithFallback (Just (CountryCode.fromString "ZZ")) (Just CountryCode.china)
-                        |> expectResultErrorContains "Code pays invalide"
-                    )
-                ]
             , describe "validateForScope"
                 [ it "should accept a country available in the scope"
                     (Country.validateForScope Scope.Textile db.countries CountryCode.france
