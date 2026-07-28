@@ -1502,7 +1502,7 @@ assemblyView ({ db, impact, query, scope } as config) lifeCycle =
                                                         |> LE.getAt index
                                                         |> Maybe.withDefault Component.emptyResults
                                             in
-                                            tr [ class "fs-7" ]
+                                            tr []
                                                 [ td [ class "ps-3 align-middle w-100" ]
                                                     [ text <| Process.getDisplayName process ]
                                                 , td [ class "align-middle text-end text-nowrap" ]
