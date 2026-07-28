@@ -137,7 +137,6 @@ type Msg
     | ToggleTransportByAir Split
     | ToggleTransportCooling Bool
     | UpdateAssemblyCountry (Maybe CountryCode.Code)
-    | UpdateAssemblyOperationCountry Index (Maybe CountryCode.Code)
     | UpdateBookmarkName String
     | UpdateComponentItemName TargetItem String
     | UpdateComponentItemQuantity Index Component.Quantity
@@ -655,10 +654,6 @@ update ({ navKey } as session) msg model =
             createPageUpdate session model
                 |> updateQuery (query |> Component.updateAssemblyCountry maybeCountry)
 
-        ( UpdateAssemblyOperationCountry index maybeCountry, _ ) ->
-            createPageUpdate session model
-                |> updateQuery (query |> Component.updateAssemblyOperationCountry index maybeCountry)
-
         ( UpdateBookmarkName newName, _ ) ->
             { model | bookmarkName = newName }
                 |> createPageUpdate session
@@ -874,7 +869,7 @@ selectAssemblyOperation query autocompleteState pageUpdate =
     case Autocomplete.selectedValue autocompleteState of
         Just process ->
             pageUpdate
-                |> updateQuery (query |> Component.addAssemblyOperation query.assembly.country process)
+                |> updateQuery (query |> Component.addAssemblyOperation process)
                 |> App.apply update (SetModals [])
 
         Nothing ->
@@ -976,7 +971,6 @@ editorConfig session ({ scope } as model) =
     , toggleTransportByAir = ToggleTransportByAir
     , toggleTransportCooling = ToggleTransportCooling
     , updateAssemblyCountry = UpdateAssemblyCountry
-    , updateAssemblyOperationCountry = UpdateAssemblyOperationCountry
     , updateConsumptionAmount = UpdateConsumptionAmount
     , updateDistribution = UpdateDistribution
     , updateElementAmount = UpdateElementAmount

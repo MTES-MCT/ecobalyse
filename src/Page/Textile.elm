@@ -1028,7 +1028,6 @@ simulatorFormView session model ({ inputs } as simulator) =
         , toggleTransportByAir = \_ -> NoOp
         , toggleTransportCooling = \_ -> NoOp
         , updateAssemblyCountry = \_ -> NoOp
-        , updateAssemblyOperationCountry = \_ _ -> NoOp
         , updateConsumptionAmount = \_ _ -> NoOp
         , updateDistribution = \_ -> NoOp
         , updateElementAmount = \_ _ -> NoOp

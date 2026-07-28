@@ -119,7 +119,6 @@ module Data.Component exposing
     , transformListToString
     , tryMapItems
     , updateAssemblyCountry
-    , updateAssemblyOperationCountry
     , updateConsumptionAmount
     , updateDistribution
     , updateDurability
@@ -217,7 +216,7 @@ transformations operated on the output mass of the production stage.
 -}
 type alias Assembly =
     { country : Maybe CountryCode.Code
-    , operations : List LocalizedProcess
+    , operations : List Process.Id
     }
 
 
@@ -444,16 +443,14 @@ type alias Requirements db =
     }
 
 
-{-| Add a new assembly operation process to a query, optionally localized
+{-| Add a new assembly operation process to a query.
 -}
-addAssemblyOperation : Maybe CountryCode.Code -> Process -> Query -> Query
-addAssemblyOperation maybeCountry process ({ assembly } as query) =
+addAssemblyOperation : Process -> Query -> Query
+addAssemblyOperation process ({ assembly } as query) =
     { query
         | assembly =
             { assembly
-                | operations =
-                    assembly.operations
-                        ++ [ { country = maybeCountry, id = process.id } ]
+                | operations = assembly.operations ++ [ process.id ]
             }
     }
 
@@ -539,37 +536,34 @@ addResults (Results results) (Results acc) =
 
 {-| Sequencially apply assembly processes to existing Results initialized from product mass.
 
-Energy mixes are resolved:
+Notes:
 
-  - from the assembly country when set,
-  - otherwise from each operation country,
-  - else from config defaults when both are unknown.
-
-No transport is applied between operations.
+  - Energy mixes are resolved from the assembly country when set, else from config defaults.
+  - No transport is applied between operations.
 
 -}
 applyAssemblyOperations : Requirements db -> Maybe CountryCode.Code -> List ExpandedLocalizedProcess -> Results -> Result String Results
-applyAssemblyOperations { config, db } maybeAssemblyCountry expandedProcesses initialResults =
+applyAssemblyOperations requirements maybeAssemblyCountry expandedProcesses initialResults =
     expandedProcesses
         |> checkAssemblyProcessesUnit
         |> Result.andThen
             (\processes ->
-                processes
-                    |> List.foldl
-                        (\{ country, process } results ->
-                            results
+                requirements.db.countries
+                    |> Country.resolveMaybe maybeAssemblyCountry
+                    |> Result.andThen
+                        (\resolvedCountry ->
+                            loadEnergyMixes requirements.config resolvedCountry
                                 |> Result.andThen
-                                    (\results_ ->
-                                        db.countries
-                                            |> Country.resolveMaybeWithFallback maybeAssemblyCountry (Maybe.map .code country)
-                                            |> Result.andThen
-                                                (\resolvedCountry ->
-                                                    loadEnergyMixes config resolvedCountry
-                                                        |> Result.map (\mixes -> applyProcessStep AssemblyStage process mixes results_)
+                                    (\mixes ->
+                                        processes
+                                            |> List.foldl
+                                                (\{ process } results ->
+                                                    results
+                                                        |> Result.map (applyProcessStep AssemblyStage process mixes)
                                                 )
+                                                (Ok initialResults)
                                     )
                         )
-                        (Ok initialResults)
             )
 
 
@@ -1448,7 +1442,7 @@ decodeQuery =
             )
 
 
-{-| Backward-compatible assembly field decoder
+{-| Assembly field decoder
 -}
 decodeAssembly : Decoder Assembly
 decodeAssembly =
@@ -1456,7 +1450,7 @@ decodeAssembly =
         [ Decode.field "assembly"
             (Decode.succeed Assembly
                 |> DU.strictOptional "country" CountryCode.decode
-                |> Decode.optional "operations" (Decode.list decodeLocalizedProcess) []
+                |> Decode.optional "operations" (Decode.list Process.decodeId) []
             )
         , Decode.field "assemblyCountry" CountryCode.decode
             |> Decode.map (\country -> { emptyAssembly | country = Just country })
@@ -1747,7 +1741,7 @@ encodeAssembly assembly =
                 Nothing
 
             else
-                assembly.operations |> Encode.list encodeLocalizedProcess |> Just
+                assembly.operations |> Encode.list Process.encodeId |> Just
           )
         ]
 
@@ -1835,22 +1829,26 @@ errors =
     }
 
 
-{-| Expand an assembly query into a list of ExpandedLocalizedProcess, setting their default
-country to an optional assembly country
+{-| Expand an assembly query into a list of ExpandedLocalizedProcess localized to the assembly
+country when set
 -}
 expandAssembly : DataContainer db -> Assembly -> Result String (List ExpandedLocalizedProcess)
-expandAssembly db { country, operations } =
-    operations
-        |> RE.combineMap (expandAssemblyProcess db country)
-
-
-{-| Resolve an assembly process with country fallback to the assembly country
--}
-expandAssemblyProcess : DataContainer db -> Maybe CountryCode.Code -> LocalizedProcess -> Result String ExpandedLocalizedProcess
-expandAssemblyProcess { countries, processes } maybeAssemblyCountry { country, id } =
-    Ok ExpandedLocalizedProcess
-        |> RE.andMap (countries |> Country.resolveMaybeWithFallback maybeAssemblyCountry country)
-        |> RE.andMap (Process.findById id processes)
+expandAssembly { countries, processes } { country, operations } =
+    -- first retrieve the optional assembly country
+    countries
+        |> Country.resolveMaybe country
+        |> Result.andThen
+            -- then expand operations to use this optional country; so that each operation process
+            -- will use the same localized energy mix
+            (\resolvedCountry ->
+                operations
+                    |> RE.combineMap
+                        (\id ->
+                            processes
+                                |> Process.findById id
+                                |> Result.map (\process -> { country = resolvedCountry, process = process })
+                        )
+            )
 
 
 {-| Resolve full use consumption processes linked to their respective ids
@@ -2690,27 +2688,7 @@ tryMapItems fn query =
 
 updateAssemblyCountry : Maybe CountryCode.Code -> Query -> Query
 updateAssemblyCountry country ({ assembly } as query) =
-    { query
-        | assembly =
-            { assembly
-                | country = country
-                , operations =
-                    assembly.operations
-                        |> List.map (\operation -> { operation | country = country })
-            }
-    }
-
-
-updateAssemblyOperationCountry : Index -> Maybe CountryCode.Code -> Query -> Query
-updateAssemblyOperationCountry index country ({ assembly } as query) =
-    { query
-        | assembly =
-            { assembly
-                | operations =
-                    assembly.operations
-                        |> LE.updateAt index (\operation -> { operation | country = country })
-            }
-    }
+    { query | assembly = { assembly | country = country } }
 
 
 updateConsumptionAmount : Index -> Amount -> Query -> Query
@@ -2858,23 +2836,7 @@ validateAssembly : Requirements db -> Assembly -> Result String Assembly
 validateAssembly requirements assembly =
     Ok Assembly
         |> RE.andMap (validateCountry requirements assembly.country)
-        |> RE.andMap (assembly.operations |> RE.combineMap (validateAssemblyOperation requirements assembly.country))
-
-
-validateAssemblyOperation : Requirements db -> Maybe CountryCode.Code -> LocalizedProcess -> Result String LocalizedProcess
-validateAssemblyOperation requirements defaultAssemblyCountry localizedProcess =
-    let
-        resolvedCountryCode =
-            case localizedProcess.country of
-                Just countryCode ->
-                    Just countryCode
-
-                Nothing ->
-                    defaultAssemblyCountry
-    in
-    validateCountry requirements resolvedCountryCode
-        |> Result.andThen (always <| validateAssemblyProcessId requirements localizedProcess.id)
-        |> Result.map (always localizedProcess)
+        |> RE.andMap (assembly.operations |> RE.combineMap (validateAssemblyProcessId requirements))
 
 
 validateAssemblyProcessId : Requirements db -> Process.Id -> Result String Process.Id

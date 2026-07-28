@@ -857,8 +857,8 @@ suite =
                                   "components": [{ "id": "64fa65b3-c2df-4fd0-958b-83965bd6aa08", "quantity": 1 }],
                                   "assembly": {
                                     "operations": [
-                                      { "id": "b8d0dc25-170d-4c6a-93e5-ee31347316cc" },
-                                      { "id": "b8d0dc25-170d-4c6a-93e5-ee31347316cc" }
+                                      "b8d0dc25-170d-4c6a-93e5-ee31347316cc",
+                                      "b8d0dc25-170d-4c6a-93e5-ee31347316cc"
                                     ]
                                   }
                                 }"""
@@ -910,82 +910,38 @@ suite =
                                     )
                                 ]
                             )
-                        , itFromResult "should ignore a per-operation country when an assembly country is set"
-                            (compareAssemblyEcsImpacts requirements
-                                -- With global operation country and local operation country
-                                """{
-                                      "assembly": {
-                                        "country": "FR",
-                                        "operations": [
-                                          { "country": "DE", "id": "b8d0dc25-170d-4c6a-93e5-ee31347316cc" }
-                                        ]
-                                      },
-                                      "components": [{ "id": "64fa65b3-c2df-4fd0-958b-83965bd6aa08", "quantity": 1 }]
-                                    }"""
-                                -- Without global operation country but with local operation country
-                                """{
-                                      "assembly": {
-                                        "country": "FR",
-                                        "operations": [
-                                          { "id": "b8d0dc25-170d-4c6a-93e5-ee31347316cc" }
-                                        ]
-                                      },
-                                      "components": [{ "id": "64fa65b3-c2df-4fd0-958b-83965bd6aa08", "quantity": 1 }]
-                                    }"""
-                            )
-                            (\( localizedImpact, defaultOperationImpact ) ->
-                                Expect.within (Expect.Absolute 0.00001) localizedImpact defaultOperationImpact
-                            )
                         , itFromResult "should localize energy mixes to the assembly country when it is set"
                             (compareAssemblyEcsImpacts requirements
-                                -- With both global operation country and local operation country
                                 """{
                                       "assembly": {
                                         "country": "FR",
                                         "operations": [
-                                          { "country": "DE", "id": "b8d0dc25-170d-4c6a-93e5-ee31347316cc" }
+                                          "b8d0dc25-170d-4c6a-93e5-ee31347316cc"
                                         ]
                                       },
                                       "components": [{ "id": "64fa65b3-c2df-4fd0-958b-83965bd6aa08", "quantity": 1 }]
                                     }"""
-                                -- Without global operation country but with local operation country
                                 """{
                                       "assembly": {
                                         "operations": [
-                                          { "country": "DE", "id": "b8d0dc25-170d-4c6a-93e5-ee31347316cc" }
+                                          "b8d0dc25-170d-4c6a-93e5-ee31347316cc"
                                         ]
                                       },
                                       "components": [{ "id": "64fa65b3-c2df-4fd0-958b-83965bd6aa08", "quantity": 1 }]
                                     }"""
                             )
-                            (\( frAssemblyImpact, deOperationImpact ) ->
-                                TestUtils.expectDifferentFloats frAssemblyImpact deOperationImpact
+                            (\( frAssemblyImpact, defaultEnergyMixImpact ) ->
+                                TestUtils.expectDifferentFloats frAssemblyImpact defaultEnergyMixImpact
                             )
-                        , itFromResult "should use the operation country when no assembly country is set"
-                            (compareAssemblyEcsImpacts requirements
-                                -- With global operation country and local operation country
-                                """{
-                                      "assembly": {
-                                        "operations": [
-                                          { "country": "DE", "id": "b8d0dc25-170d-4c6a-93e5-ee31347316cc" }
-                                        ]
-                                      },
-                                      "components": [{ "id": "64fa65b3-c2df-4fd0-958b-83965bd6aa08", "quantity": 1 }]
-                                    }"""
-                                -- Without global operation country but with local operation country
-                                """{
-                                      "assembly": {
-                                        "country": "DE",
-                                        "operations": [
-                                          { "id": "b8d0dc25-170d-4c6a-93e5-ee31347316cc" }
-                                        ]
-                                      },
-                                      "components": [{ "id": "64fa65b3-c2df-4fd0-958b-83965bd6aa08", "quantity": 1 }]
-                                    }"""
+                        , itFromResult "should decode a legacy assemblyCountry field"
+                            ("""{
+                                  "assemblyCountry": "FR",
+                                  "components": [{ "id": "64fa65b3-c2df-4fd0-958b-83965bd6aa08", "quantity": 1 }]
+                                }"""
+                                |> decodeJsonThen Component.decodeQuery Ok
+                                |> Result.map .assembly
                             )
-                            (\( operationCountryImpact, assemblyCountryImpact ) ->
-                                Expect.within (Expect.Absolute 0.00001) operationCountryImpact assemblyCountryImpact
-                            )
+                            (.country >> Expect.equal (Just (CountryCode.fromString "FR")))
                         ]
                     , describe "computeTransports"
                         [ suiteFromResult2 "unknown locations"
@@ -1702,7 +1658,7 @@ suite =
                             )
                         ]
                     , describe "updateAssemblyCountry"
-                        [ it "should update every operation country when the assembly country changes"
+                        [ it "should update assembly country"
                             (injectionMoulding
                                 |> Result.map
                                     (\process ->
@@ -1714,22 +1670,13 @@ suite =
                                                 { emptyQuery
                                                     | assembly =
                                                         { country = Just (CountryCode.fromString "FR")
-                                                        , operations =
-                                                            [ { country = Just (CountryCode.fromString "DE"), id = process.id }
-                                                            , { country = Nothing, id = process.id }
-                                                            ]
+                                                        , operations = [ process.id, process.id ]
                                                         }
                                                 }
                                                     |> Component.updateAssemblyCountry portugal
                                         in
-                                        Expect.all
-                                            [ \_ -> updated.assembly.country |> Expect.equal portugal
-                                            , \_ ->
-                                                updated.assembly.operations
-                                                    |> List.map .country
-                                                    |> Expect.equal [ portugal, portugal ]
-                                            ]
-                                            ()
+                                        updated.assembly.country
+                                            |> Expect.equal portugal
                                     )
                                 |> Result.withDefault (Expect.fail "injectionMoulding setup failure")
                             )

@@ -89,7 +89,6 @@ type alias Config db msg =
     , toggleTransportByAir : Split -> msg
     , toggleTransportCooling : Bool -> msg
     , updateAssemblyCountry : Maybe CountryCode.Code -> msg
-    , updateAssemblyOperationCountry : Index -> Maybe CountryCode.Code -> msg
     , updateConsumptionAmount : Index -> Maybe Amount -> msg
     , updateDistribution : Result String Process.Id -> msg
     , updateElementAmount : TargetElement -> Maybe Amount -> msg
@@ -1486,7 +1485,6 @@ assemblyView ({ db, impact, query, scope } as config) lifeCycle =
                             [ thead []
                                 [ tr [ class "fs-7 text-muted bg-light" ]
                                     [ th [ class "bg-light ps-3 align-middle", Attr.scope "col" ] [ text "Opération" ]
-                                    , th [ class "bg-light align-middle", Attr.scope "col" ] [ text "Pays/Région" ]
                                     , th [ class "bg-light align-middle text-end", Attr.scope "col" ] [ text "Pertes" ]
                                     , th [ class "bg-light align-middle text-end", Attr.scope "col" ] [ text "Masse" ]
                                     , th [ class "bg-light align-middle text-end", Attr.scope "col" ] [ text "Impact" ]
@@ -1507,20 +1505,6 @@ assemblyView ({ db, impact, query, scope } as config) lifeCycle =
                                             tr [ class "fs-7" ]
                                                 [ td [ class "ps-3 align-middle" ]
                                                     [ text <| Process.getDisplayName process ]
-                                                , td [ class "align-middle" ]
-                                                    [ countrySelector
-                                                        { attrs = [ class "form-select-sm w-100" ]
-                                                        , countries = db.countries
-                                                        , disabled = True
-                                                        , domId = "assembly-operation-country-" ++ String.fromInt index
-                                                        , scope = scope
-                                                        , select = config.updateAssemblyOperationCountry index
-                                                        , selected =
-                                                            query.assembly.operations
-                                                                |> LE.getAt index
-                                                                |> Maybe.andThen .country
-                                                        }
-                                                    ]
                                                 , td [ class "align-middle text-end text-nowrap" ]
                                                     [ wastePercent process.qtyVariationRatio ]
                                                 , td [ class "align-middle text-end text-nowrap" ]
@@ -1560,7 +1544,6 @@ addAssemblyOperationButton ({ openSelectAssemblyOperationModal, query } as confi
                     (\{ id } ->
                         -- prevent adding the same operation twice
                         query.assembly.operations
-                            |> List.map .id
                             |> List.member id
                             |> not
                     )
