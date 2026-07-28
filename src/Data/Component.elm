@@ -539,12 +539,17 @@ addResults (Results results) (Results acc) =
 
 {-| Sequencially apply assembly processes to existing Results initialized from product mass.
 
-Energy mixes are resolved per operation country, falling back to the assembly country, then config defaults.
+Energy mixes are resolved:
+
+  - from the assembly country when set,
+  - otherwise from each operation country,
+  - else from config defaults when both are unknown.
+
 No transport is applied between operations.
 
 -}
-applyAssemblyOperations : Requirements db -> List ExpandedLocalizedProcess -> Results -> Result String Results
-applyAssemblyOperations requirements expandedProcesses initialResults =
+applyAssemblyOperations : Requirements db -> Maybe CountryCode.Code -> List ExpandedLocalizedProcess -> Results -> Result String Results
+applyAssemblyOperations { config, db } maybeAssemblyCountry expandedProcesses initialResults =
     expandedProcesses
         |> checkAssemblyProcessesUnit
         |> Result.andThen
@@ -555,8 +560,13 @@ applyAssemblyOperations requirements expandedProcesses initialResults =
                             results
                                 |> Result.andThen
                                     (\results_ ->
-                                        loadEnergyMixes requirements.config country
-                                            |> Result.map (\mixes -> applyProcessStep AssemblyStage process mixes results_)
+                                        db.countries
+                                            |> Country.resolveMaybeWithFallback maybeAssemblyCountry (Maybe.map .code country)
+                                            |> Result.andThen
+                                                (\resolvedCountry ->
+                                                    loadEnergyMixes config resolvedCountry
+                                                        |> Result.map (\mixes -> applyProcessStep AssemblyStage process mixes results_)
+                                                )
                                     )
                         )
                         (Ok initialResults)
@@ -803,7 +813,7 @@ computeAssemblyImpacts requirements { assembly } lifeCycle =
             |> Result.andThen
                 (\expandedProcesses ->
                     assemblyResultsFromMass productionMass
-                        |> applyAssemblyOperations requirements expandedProcesses
+                        |> applyAssemblyOperations requirements assembly.country expandedProcesses
                         |> Result.map
                             (\assemblyResults ->
                                 { lifeCycle
@@ -1837,18 +1847,9 @@ expandAssembly db { country, operations } =
 {-| Resolve an assembly process with country fallback to the assembly country
 -}
 expandAssemblyProcess : DataContainer db -> Maybe CountryCode.Code -> LocalizedProcess -> Result String ExpandedLocalizedProcess
-expandAssemblyProcess { countries, processes } defaultAssemblyCountry { country, id } =
-    let
-        resolvedCountryCode =
-            case country of
-                Just countryCode ->
-                    Just countryCode
-
-                Nothing ->
-                    defaultAssemblyCountry
-    in
+expandAssemblyProcess { countries, processes } maybeAssemblyCountry { country, id } =
     Ok ExpandedLocalizedProcess
-        |> RE.andMap (Country.resolveMaybe resolvedCountryCode countries)
+        |> RE.andMap (countries |> Country.resolveMaybeWithFallback maybeAssemblyCountry country)
         |> RE.andMap (Process.findById id processes)
 
 
@@ -2689,7 +2690,15 @@ tryMapItems fn query =
 
 updateAssemblyCountry : Maybe CountryCode.Code -> Query -> Query
 updateAssemblyCountry country ({ assembly } as query) =
-    { query | assembly = { assembly | country = country } }
+    { query
+        | assembly =
+            { assembly
+                | country = country
+                , operations =
+                    assembly.operations
+                        |> List.map (\operation -> { operation | country = country })
+            }
+    }
 
 
 updateAssemblyOperationCountry : Index -> Maybe CountryCode.Code -> Query -> Query

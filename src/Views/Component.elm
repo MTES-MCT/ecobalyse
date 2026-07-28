@@ -888,6 +888,7 @@ amountInput { event, readonly, unit } amount =
 type alias CountrySelector msg =
     { attrs : List (Attribute msg)
     , countries : List Country
+    , disabled : Bool
     , domId : String
     , scope : Scope
     , select : Maybe CountryCode.Code -> msg
@@ -918,15 +919,21 @@ countrySelector config =
                 ++ [ class "form-select w-33"
                    , id config.domId
                    , autocomplete False
-                   , onInput <|
-                        \str ->
-                            config.select <|
-                                if String.isEmpty str then
-                                    Nothing
-
-                                else
-                                    Just <| CountryCode.fromString str
                    ]
+                ++ (if config.disabled then
+                        [ disabled True ]
+
+                    else
+                        [ onInput <|
+                            \str ->
+                                config.select <|
+                                    if String.isEmpty str then
+                                        Nothing
+
+                                    else
+                                        Just <| CountryCode.fromString str
+                        ]
+                   )
             )
 
 
@@ -1464,6 +1471,7 @@ assemblyView ({ db, impact, query, scope } as config) lifeCycle =
                 , countrySelector
                     { attrs = []
                     , countries = db.countries
+                    , disabled = False
                     , domId = "assembly-country"
                     , scope = scope
                     , select = config.updateAssemblyCountry
@@ -1508,6 +1516,7 @@ assemblyView ({ db, impact, query, scope } as config) lifeCycle =
                                                     [ countrySelector
                                                         { attrs = [ class "form-select-sm w-100" ]
                                                         , countries = db.countries
+                                                        , disabled = True
                                                         , domId = "assembly-operation-country-" ++ String.fromInt index
                                                         , scope = scope
                                                         , select = config.updateAssemblyOperationCountry index

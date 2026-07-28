@@ -925,6 +925,105 @@ suite =
                                     )
                                 ]
                             )
+                        , suiteFromResult "assembly operation country resolution"
+                            (injectionMoulding
+                                |> Result.andThen
+                                    (\process ->
+                                        let
+                                            testRequirements =
+                                                requirements
+                                                    |> updateRequirementsProcess process
+                                                        (\p -> { p | categories = [ Category.Assembly ] })
+
+                                            computeAssemblyImpact json =
+                                                json
+                                                    |> decodeJsonThen Component.decodeQuery (Component.compute testRequirements)
+                                                    |> Result.map
+                                                        (\lifeCycle ->
+                                                            lifeCycle.assembly
+                                                                |> Component.extractImpacts
+                                                                |> getEcsImpact
+                                                        )
+                                        in
+                                        Result.map2 Tuple.pair
+                                            (computeAssemblyImpact """
+                                                {
+                                                  "assembly": {
+                                                    "country": "FR",
+                                                    "operations": [
+                                                      { "country": "DE", "id": "111539de-deea-588a-9581-6f6ceaa2dfa9" }
+                                                    ]
+                                                  },
+                                                  "components": [{ "id": "64fa65b3-c2df-4fd0-958b-83965bd6aa08", "quantity": 1 }]
+                                                }
+                                                """)
+                                            (computeAssemblyImpact """
+                                                {
+                                                  "assembly": {
+                                                    "country": "FR",
+                                                    "operations": [
+                                                      { "id": "111539de-deea-588a-9581-6f6ceaa2dfa9" }
+                                                    ]
+                                                  },
+                                                  "components": [{ "id": "64fa65b3-c2df-4fd0-958b-83965bd6aa08", "quantity": 1 }]
+                                                }
+                                                """)
+                                    )
+                            )
+                            (\( localizedImpact, defaultOperationImpact ) ->
+                                [ it "should ignore a per-operation country when an assembly country is set"
+                                    (Expect.within (Expect.Absolute 0.00001) localizedImpact defaultOperationImpact)
+                                ]
+                            )
+                        , suiteFromResult "assembly operation country fallback"
+                            (injectionMoulding
+                                |> Result.andThen
+                                    (\process ->
+                                        let
+                                            testRequirements =
+                                                requirements
+                                                    |> updateRequirementsProcess process
+                                                        (\p -> { p | categories = [ Category.Assembly ] })
+
+                                            computeAssemblyImpact json =
+                                                json
+                                                    |> decodeJsonThen Component.decodeQuery (Component.compute testRequirements)
+                                                    |> Result.map
+                                                        (\lifeCycle ->
+                                                            lifeCycle.assembly
+                                                                |> Component.extractImpacts
+                                                                |> getEcsImpact
+                                                        )
+                                        in
+                                        Result.map2 Tuple.pair
+                                            (computeAssemblyImpact """
+                                                {
+                                                  "assembly": {
+                                                    "operations": [
+                                                      { "country": "DE", "id": "111539de-deea-588a-9581-6f6ceaa2dfa9" }
+                                                    ]
+                                                  },
+                                                  "components": [{ "id": "64fa65b3-c2df-4fd0-958b-83965bd6aa08", "quantity": 1 }]
+                                                }
+                                                """)
+                                            (computeAssemblyImpact """
+                                                {
+                                                  "assembly": {
+                                                    "country": "DE",
+                                                    "operations": [
+                                                      { "id": "111539de-deea-588a-9581-6f6ceaa2dfa9" }
+                                                    ]
+                                                  },
+                                                  "components": [{ "id": "64fa65b3-c2df-4fd0-958b-83965bd6aa08", "quantity": 1 }]
+                                                }
+                                                """)
+                                    )
+                            )
+                            (\( operationCountryImpact, assemblyCountryImpact ) ->
+                                [ it "should use the operation country when no assembly country is set"
+                                    (Expect.within (Expect.Absolute 0.00001) operationCountryImpact assemblyCountryImpact)
+                                ]
+                            )
                         ]
                     , describe "computeTransports"
                         [ suiteFromResult2 "unknown locations"
@@ -1638,6 +1737,39 @@ suite =
                                 |> .assembly
                                 |> .country
                                 |> Expect.equal (Just (CountryCode.fromString "FR"))
+                            )
+                        ]
+                    , describe "updateAssemblyCountry"
+                        [ it "should update every operation country when the assembly country changes"
+                            (injectionMoulding
+                                |> Result.map
+                                    (\process ->
+                                        let
+                                            portugal =
+                                                Just (CountryCode.fromString "PT")
+
+                                            updated =
+                                                { emptyQuery
+                                                    | assembly =
+                                                        { country = Just (CountryCode.fromString "FR")
+                                                        , operations =
+                                                            [ { country = Just (CountryCode.fromString "DE"), id = process.id }
+                                                            , { country = Nothing, id = process.id }
+                                                            ]
+                                                        }
+                                                }
+                                                    |> Component.updateAssemblyCountry portugal
+                                        in
+                                        Expect.all
+                                            [ \_ -> updated.assembly.country |> Expect.equal portugal
+                                            , \_ ->
+                                                updated.assembly.operations
+                                                    |> List.map .country
+                                                    |> Expect.equal [ portugal, portugal ]
+                                            ]
+                                            ()
+                                    )
+                                |> Result.withDefault (Expect.fail "injectionMoulding setup failure")
                             )
                         ]
                     , suiteFromResult2 "removeElement"
