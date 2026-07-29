@@ -10589,5 +10589,207 @@
       }
     ],
     "newName": "Petrol Euro6d emissions, 200 000 km"
+  },
+  {
+    "activityCreationType": "from_scratch",
+    "alias": "vehicle-ev-other-materials-rer",
+    "comment": "according to score environnemental methodology",
+    "database": "Ecoinvent 3.9.1",
+    "exchanges": [
+      {
+        "amount": 0.0112,
+        "name": "Acrylonitrile-butadiene-styrene copolymer//[RER] acrylonitrile-butadiene-styrene copolymer production"
+      },
+      {
+        "amount": 0.0104,
+        "name": "Synthetic rubber//[RER] synthetic rubber production"
+      },
+      {
+        "amount": 0.0157,
+        "name": "Epoxy resin, liquid//[RER] epoxy resin production, liquid"
+      },
+      {
+        "amount": 0.001,
+        "name": "Polystyrene, general purpose//[RER] polystyrene production, general purpose"
+      },
+      {
+        "amount": 0.001,
+        "name": "Polystyrene, high impact//[RER] polystyrene production, high impact"
+      },
+            {
+        "amount": 0.0021,
+        "name": "Polyethylene, high density, granulate//[RER] polyethylene production, high density, granulate"
+      },
+      {
+        "amount": 0.0021,
+        "name": "Polyethylene, low density, granulate//[RER] polyethylene production, low density, granulate"
+      },
+      {
+        "amount": 0.0021,
+        "name": "Polyethylene, linear low density, granulate//[RER] polyethylene production, linear low density, granulate"
+      },
+      {
+        "amount": 0.0016,
+        "name": "Glass fibre reinforced plastic, polyamide, injection moulded//[RER] glass fibre reinforced plastic production, polyamide, injection moulded"
+      },
+      {
+        "amount": 0.0103,
+        "name": "Glass fibre reinforced plastic, polyamide, injection moulded//[RER] glass fibre reinforced plastic production, polyamide, injection moulded"
+      },
+      {
+        "amount": 0.0051,
+        "name": "Polycarbonate//[RER] polycarbonate production"
+      },
+            {
+        "amount": 0.0025,
+        "name": "Polyethylene terephthalate, granulate, amorphous//[RER] polyethylene terephthalate production, granulate, amorphous"
+      },
+      {
+        "amount": 0.0266,
+        "name": "Polypropylene, granulate//[RER] polypropylene production, granulate"
+      },
+      {
+        "amount": 0.0179,
+        "name": "Polyurethane, flexible foam//[RER] polyurethane production, flexible foam, TDI-based, low density"
+      },
+      {
+        "amount": 0.0170,
+        "name": "Polyurethane, flexible foam, flame retardant//[RER] polyurethane production, flexible foam, TDI-based, flame retardant"
+      },
+      {
+        "amount": 0.0202,
+        "name": "Polyvinylchloride, bulk polymerised//[GLO] market for polyvinylchloride, bulk polymerised"
+      },
+            {
+        "amount": 0.032,
+        "name": "copper, cathode//[GLO] market for copper, cathode"
+      },
+      {
+        "amount": 0.032,
+        "name": "wire drawing, copper//[RER] wire drawing, copper"
+      },
+      {
+        "amount": 0.027,
+        "name": "Tempering, flat glass//[RER] tempering, flat glass"
+      },
+      {
+        "amount": 0.027,
+        "name": "Flat glass, coated//[RER] market for flat glass, coated"
+      },
+      {
+        "amount": 0.039,
+        "name": "Latex//[RER] latex production"
+      },
+      {
+        "amount": 0.039,
+        "name": "Injection moulding//[RER] injection moulding"
+      },
+      {
+        "amount": 0.039,
+        "name": "Blow moulding//[RER] blow moulding"
+      }
+    ],
+    "newName": "EV other materials, RER"
+  },
+  {
+    "activityCreationType": "from_scratch",
+    "alias": "vehicle-ev-other-materials-row",
+    "comment": "according to score environnemental methodology",
+    "database": "Ecoinvent 3.9.1",
+    "exchanges": [
+      {
+        "amount": 0.0112,
+        "name": "Acrylonitrile-butadiene-styrene copolymer//[RoW] acrylonitrile-butadiene-styrene copolymer production"
+      },
+      {
+        "amount": 0.0104,
+        "name": "Synthetic rubber//[RoW] synthetic rubber production"
+      },
+      {
+        "amount": 0.0157,
+        "name": "Epoxy resin, liquid//[RoW] epoxy resin production, liquid"
+      },
+      {
+        "amount": 0.001,
+        "name": "Polystyrene, general purpose//[RoW] polystyrene production, general purpose"
+      },
+      {
+        "amount": 0.001,
+        "name": "Polystyrene, high impact//[RoW] polystyrene production, high impact"
+      },
+            {
+        "amount": 0.0021,
+        "name": "Polyethylene, high density, granulate//[RoW] polyethylene production, high density, granulate"
+      },
+      {
+        "amount": 0.0021,
+        "name": "Polyethylene, low density, granulate//[RoW] polyethylene production, low density, granulate"
+      },
+      {
+        "amount": 0.0021,
+        "name": "Polyethylene, linear low density, granulate//[RoW] polyethylene production, linear low density, granulate"
+      },
+      {
+        "amount": 0.0016,
+        "name": "Glass fibre reinforced plastic, polyamide, injection moulded//[RoW] glass fibre reinforced plastic production, polyamide, injection moulded"
+      },
+      {
+        "amount": 0.0103,
+        "name": "Glass fibre reinforced plastic, polyamide, injection moulded//[RoW] glass fibre reinforced plastic production, polyamide, injection moulded"
+      },
+      {
+        "amount": 0.0051,
+        "name": "Polycarbonate//[RoW] polycarbonate production"
+      },
+            {
+        "amount": 0.0025,
+        "name": "Polyethylene terephthalate, granulate, amorphous//[RoW] polyethylene terephthalate production, granulate, amorphous"
+      },
+      {
+        "amount": 0.0266,
+        "name": "Polypropylene, granulate//[RoW] polypropylene production, granulate"
+      },
+      {
+        "amount": 0.0179,
+        "name": "Polyurethane, flexible foam//[RoW] polyurethane production, flexible foam, TDI-based, low density"
+      },
+      {
+        "amount": 0.0170,
+        "name": "Polyurethane, flexible foam, flame retardant//[RoW] polyurethane production, flexible foam, TDI-based, flame retardant"
+      },
+      {
+        "amount": 0.0202,
+        "name": "Polyvinylchloride, bulk polymerised//[GLO] market for polyvinylchloride, bulk polymerised"
+      },
+            {
+        "amount": 0.032,
+        "name": "copper, cathode//[GLO] market for copper, cathode"
+      },
+      {
+        "amount": 0.032,
+        "name": "wire drawing, copper//[RoW] wire drawing, copper"
+      },
+      {
+        "amount": 0.027,
+        "name": "Tempering, flat glass//[RoW] tempering, flat glass"
+      },
+      {
+        "amount": 0.027,
+        "name": "Flat glass, coated//[RoW] market for flat glass, coated"
+      },
+      {
+        "amount": 0.039,
+        "name": "Latex//[RoW] latex production"
+      },
+      {
+        "amount": 0.039,
+        "name": "Injection moulding//[RoW] injection moulding"
+      },
+      {
+        "amount": 0.039,
+        "name": "Blow moulding//[RoW] blow moulding"
+      }
+    ],
+    "newName": "EV other materials, RoW"
   }
 ]
