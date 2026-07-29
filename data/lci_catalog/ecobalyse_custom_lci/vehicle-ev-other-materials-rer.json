@@ -2,7 +2,7 @@
   "activityName": "EV other materials, RER",
   "categories": [
     "material",
-    "material_type:others"
+    "material_type:other"
   ],
   "comment": "Selon méthodologie du score environnemental VE",
   "displayName": "Autres matériaux de véhicules électriques, Europe - score environnemental VE",
