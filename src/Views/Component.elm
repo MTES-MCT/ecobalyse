@@ -1328,7 +1328,7 @@ elementTransformsView config cooling targetElement materialResults materialCount
                             }
                         ]
                     , td [ class "align-middle text-end text-nowrap" ]
-                        [ wastePercent transform.process.qtyVariationRatio
+                        [ Format.qtyVariationRatioAsWastePercent transform.process.qtyVariationRatio
                         ]
                     , td [ class "text-end align-middle text-nowrap" ]
                         [ Component.extractAmount transformResult
@@ -1506,7 +1506,8 @@ assemblyView ({ db, impact, query, scope } as config) lifeCycle =
                                                 [ td [ class "ps-3 align-middle w-100" ]
                                                     [ text <| Process.getDisplayName process ]
                                                 , td [ class "align-middle text-end text-nowrap" ]
-                                                    [ wastePercent process.qtyVariationRatio ]
+                                                    [ Format.qtyVariationRatioAsWastePercent process.qtyVariationRatio
+                                                    ]
                                                 , td [ class "align-middle text-end text-nowrap" ]
                                                     [ operationResult
                                                         |> Component.extractMass
@@ -1837,11 +1838,3 @@ endOfLifeMaterialRow ({ componentConfig, query, scope } as config) ( materialTyp
             ]
         ]
     ]
-
-
-{-| Render the waste QuantityVariationRatio as a human readable percentage
-FIXME: move to Format module?
--}
-wastePercent : Unit.QuantityVariationRatio -> Html msg
-wastePercent ratio =
-    Format.percent <| (1 - Unit.qtyVariationRatioToFloat ratio) * 100
