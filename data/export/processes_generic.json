@@ -47661,9 +47661,9 @@
     "displayName": "Autres matériaux de véhicules électriques, Europe - score environnemental VE",
     "elecKwh": 0,
     "heatMJ": 0,
-    "id": "5dd6af2c-4875-47ac-bdf0-2d3546e8eea9",
+    "id": "773423e0-1784-4ff7-904b-146b8b3c64fd",
     "impacts": {
-      "ecs": 410.4
+      "ecs": 405.8
     },
     "landOccupation": null,
     "location": null,
@@ -47690,9 +47690,9 @@
     "displayName": "Autres matériaux de véhicules électriques, Hors Europe - score environnemental VE",
     "elecKwh": 0,
     "heatMJ": 0,
-    "id": "e5571807-acd0-44f3-852a-99cda687b7ba",
+    "id": "94e78ae0-e1f9-4211-8f31-7ce8f1130f1b",
     "impacts": {
-      "ecs": 417.2
+      "ecs": 413.1
     },
     "landOccupation": null,
     "location": null,
@@ -51677,64 +51677,6 @@
     "qtyVariationRatio": 1.0,
     "scopes": [
       "food2"
-    ],
-    "source": "Ecobalyse_custom_lci",
-    "unit": "kg",
-    "visible": true
-  },
-  {
-    "activityName": "Other Materials, Europe - EV ecoscore regulation",
-    "alias": null,
-    "categories": [
-      "material",
-      "material_type:pp"
-    ],
-    "comment": "A utiliser uniquement pour une modélisation approchée du score environnemental voitures électriques (méthode réglementaire).",
-    "displayName": "Autres matériaux, Europe (Réglementaire - Score environnemental VE)",
-    "elecKwh": 0,
-    "heatMJ": 0,
-    "id": "773423e0-1784-4ff7-904b-146b8b3c64fd",
-    "impacts": {
-      "ecs": 2601.0
-    },
-    "landOccupation": null,
-    "location": "RER",
-    "massPerUnit": null,
-    "metadata": {
-      "defaultOrigin": null
-    },
-    "qtyVariationRatio": 1.0,
-    "scopes": [
-      "veli"
-    ],
-    "source": "Ecobalyse_custom_lci",
-    "unit": "kg",
-    "visible": true
-  },
-  {
-    "activityName": "Other Materials, Out of Europe - EV ecoscore regulation",
-    "alias": null,
-    "categories": [
-      "material",
-      "material_type:pp"
-    ],
-    "comment": "A utiliser uniquement pour une modélisation approchée du score environnemental voitures électriques (méthode réglementaire).",
-    "displayName": "Autres matériaux, hors Europe (Réglementaire - Score environnemental VE)",
-    "elecKwh": 0,
-    "heatMJ": 0,
-    "id": "94e78ae0-e1f9-4211-8f31-7ce8f1130f1b",
-    "impacts": {
-      "ecs": 2639.0
-    },
-    "landOccupation": null,
-    "location": "RoW",
-    "massPerUnit": null,
-    "metadata": {
-      "defaultOrigin": null
-    },
-    "qtyVariationRatio": 1.0,
-    "scopes": [
-      "veli"
     ],
     "source": "Ecobalyse_custom_lci",
     "unit": "kg",
