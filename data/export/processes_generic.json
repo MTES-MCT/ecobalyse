@@ -47651,6 +47651,64 @@
     "visible": false
   },
   {
+    "activityName": "EV other materials, RER",
+    "alias": null,
+    "categories": [
+      "material",
+      "material_type:other"
+    ],
+    "comment": "Selon méthodologie du score environnemental VE",
+    "displayName": "Autres matériaux de véhicules électriques, Europe - score environnemental VE",
+    "elecKwh": 0,
+    "heatMJ": 0,
+    "id": "773423e0-1784-4ff7-904b-146b8b3c64fd",
+    "impacts": {
+      "ecs": 1666.0
+    },
+    "landOccupation": null,
+    "location": null,
+    "massPerUnit": null,
+    "metadata": {
+      "defaultOrigin": null
+    },
+    "qtyVariationRatio": 1.0,
+    "scopes": [
+      "veli"
+    ],
+    "source": "Ecobalyse_custom_lci",
+    "unit": "kg",
+    "visible": true
+  },
+  {
+    "activityName": "EV other materials, RoW",
+    "alias": null,
+    "categories": [
+      "material",
+      "material_type:other"
+    ],
+    "comment": "Selon méthodologie du score environnemental VE",
+    "displayName": "Autres matériaux de véhicules électriques, Hors Europe - score environnemental VE",
+    "elecKwh": 0,
+    "heatMJ": 0,
+    "id": "94e78ae0-e1f9-4211-8f31-7ce8f1130f1b",
+    "impacts": {
+      "ecs": 1696.0
+    },
+    "landOccupation": null,
+    "location": null,
+    "massPerUnit": null,
+    "metadata": {
+      "defaultOrigin": null
+    },
+    "qtyVariationRatio": 1.0,
+    "scopes": [
+      "veli"
+    ],
+    "source": "Ecobalyse_custom_lci",
+    "unit": "kg",
+    "visible": true
+  },
+  {
     "activityName": "Egg, shelled raw, import WFLDB, CMAPS {GLO} U",
     "alias": "egg-shelled-raw-default",
     "categories": [
@@ -51619,64 +51677,6 @@
     "qtyVariationRatio": 1.0,
     "scopes": [
       "food2"
-    ],
-    "source": "Ecobalyse_custom_lci",
-    "unit": "kg",
-    "visible": true
-  },
-  {
-    "activityName": "Other Materials, Europe - EV ecoscore regulation",
-    "alias": null,
-    "categories": [
-      "material",
-      "material_type:pp"
-    ],
-    "comment": "A utiliser uniquement pour une modélisation approchée du score environnemental voitures électriques (méthode réglementaire).",
-    "displayName": "Autres matériaux, Europe (Réglementaire - Score environnemental VE)",
-    "elecKwh": 0,
-    "heatMJ": 0,
-    "id": "773423e0-1784-4ff7-904b-146b8b3c64fd",
-    "impacts": {
-      "ecs": 2601.0
-    },
-    "landOccupation": null,
-    "location": "RER",
-    "massPerUnit": null,
-    "metadata": {
-      "defaultOrigin": null
-    },
-    "qtyVariationRatio": 1.0,
-    "scopes": [
-      "veli"
-    ],
-    "source": "Ecobalyse_custom_lci",
-    "unit": "kg",
-    "visible": true
-  },
-  {
-    "activityName": "Other Materials, Out of Europe - EV ecoscore regulation",
-    "alias": null,
-    "categories": [
-      "material",
-      "material_type:pp"
-    ],
-    "comment": "A utiliser uniquement pour une modélisation approchée du score environnemental voitures électriques (méthode réglementaire).",
-    "displayName": "Autres matériaux, hors Europe (Réglementaire - Score environnemental VE)",
-    "elecKwh": 0,
-    "heatMJ": 0,
-    "id": "94e78ae0-e1f9-4211-8f31-7ce8f1130f1b",
-    "impacts": {
-      "ecs": 2639.0
-    },
-    "landOccupation": null,
-    "location": "RoW",
-    "massPerUnit": null,
-    "metadata": {
-      "defaultOrigin": null
-    },
-    "qtyVariationRatio": 1.0,
-    "scopes": [
-      "veli"
     ],
     "source": "Ecobalyse_custom_lci",
     "unit": "kg",
