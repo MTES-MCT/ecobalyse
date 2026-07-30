@@ -34,7 +34,9 @@ import Result.Extra as RE
 import Test exposing (..)
 import TestUtils
     exposing
-        ( expectResultErrorContains
+        ( expectFloatDifferent
+        , expectFloatMostlyEqual
+        , expectResultErrorContains
         , it
         , itFromResult
         , itFromResult2
@@ -155,7 +157,7 @@ suite =
                                     |> Result.andThen (Component.addOrSetProcess requirements.db Category.Transform targetItem (Just 0) firstTransform)
                                     |> Result.map (elementTransformCountryAt 0 0 0)
                                 )
-                                (Expect.equal (Just (CountryCode.fromString "FR")))
+                                (Expect.equal (Just CountryCode.france))
                             , itFromResult "should default a new transform country to the last transform country"
                                 (itemsWithExistingTransform
                                     |> Result.andThen (Component.addOrSetProcess requirements.db Category.Transform targetItem (Just 0) secondTransform)
@@ -303,8 +305,7 @@ suite =
                                             , getImpact [ { country = Just country, process = fading } ]
                                             )
                                     in
-                                    abs (defaultImpact - localizedImpact)
-                                        |> Expect.greaterThan 0.00001
+                                    expectFloatDifferent defaultImpact localizedImpact
                                 )
                             , it "should add impacts when multiple transforms are passed (no elec, no heat)"
                                 (getTestEcsImpact
@@ -832,6 +833,189 @@ suite =
                             )
                          ]
                         )
+                    , describe "computeAssemblyImpacts"
+                        [ suiteFromResult "should keep product mass unchanged when no assembly operations are defined"
+                            ("""{ "components": [{ "id": "64fa65b3-c2df-4fd0-958b-83965bd6aa08", "quantity": 1 }] }"""
+                                |> decodeJsonThen Component.decodeQuery (Component.compute requirements)
+                                |> Result.map
+                                    (\lifeCycle ->
+                                        ( Component.extractMass lifeCycle.production
+                                            |> Mass.inKilograms
+                                        , Mass.inKilograms lifeCycle.productMass
+                                        , lifeCycle.assembly |> Component.extractImpacts |> getEcsImpact
+                                        )
+                                    )
+                            )
+                            (\( productionMass, productMass, assemblyImpact ) ->
+                                [ it "should keep product mass unchanged" <|
+                                    Expect.within (Expect.Absolute 0.00001) productionMass productMass
+                                , it "should keep assembly impacts unchanged" <|
+                                    Expect.within (Expect.Absolute 0.00001) assemblyImpact 0
+                                ]
+                            )
+                        , suiteFromResult "should apply 50% waste ratios sequentially"
+                            ("""{
+                                  "components": [{ "id": "64fa65b3-c2df-4fd0-958b-83965bd6aa08", "quantity": 1 }],
+                                  "assembly": {
+                                    "operations": [
+                                      "b8d0dc25-170d-4c6a-93e5-ee31347316cc",
+                                      "b8d0dc25-170d-4c6a-93e5-ee31347316cc"
+                                    ]
+                                  }
+                                }"""
+                                |> decodeJsonThen Component.decodeQuery (Component.compute requirements)
+                            )
+                            (\lifeCycle ->
+                                let
+                                    -- fake assembly process qty variation ratio
+                                    qtyVariationRatioFloat =
+                                        0.5
+
+                                    productionMass =
+                                        lifeCycle.production
+                                            |> Component.extractMass
+                                            |> Mass.inKilograms
+
+                                    operationMasses =
+                                        lifeCycle.assembly
+                                            |> Component.extractItems
+                                            |> List.map (Component.extractMass >> Mass.inKilograms)
+
+                                    firstMass =
+                                        operationMasses
+                                            |> LE.getAt 0
+                                            |> Result.fromMaybe "No first operation mass"
+
+                                    secondMass =
+                                        operationMasses
+                                            |> LE.getAt 1
+                                            |> Result.fromMaybe "No second operation mass"
+                                in
+                                [ itFromResult "should halve mass after the first 50% waste operation"
+                                    firstMass
+                                    (Expect.within (Expect.Absolute 0.00001)
+                                        (productionMass * qtyVariationRatioFloat)
+                                    )
+                                , it "should reduce end product mass to a quarter after two 50% waste operations" <|
+                                    Expect.within (Expect.Absolute 0.00001)
+                                        (productionMass * qtyVariationRatioFloat * qtyVariationRatioFloat)
+                                        (Mass.inKilograms lifeCycle.productMass)
+                                , itFromResult "should apply the second 50% waste ratio on the remaining mass"
+                                    secondMass
+                                    (Expect.within (Expect.Absolute 0.00001)
+                                        (productionMass * qtyVariationRatioFloat * qtyVariationRatioFloat)
+                                    )
+                                ]
+                            )
+                        , itFromResult2 "should localize energy mixes to the assembly country when it is set"
+                            (computeAssemblyEcsImpact requirements
+                                """{
+                                      "assembly": {
+                                        "country": "FR",
+                                        "operations": [
+                                          "b8d0dc25-170d-4c6a-93e5-ee31347316cc"
+                                        ]
+                                      },
+                                      "components": [{ "id": "64fa65b3-c2df-4fd0-958b-83965bd6aa08", "quantity": 1 }]
+                                    }"""
+                            )
+                            (computeAssemblyEcsImpact requirements
+                                """{
+                                      "assembly": {
+                                        "operations": [
+                                          "b8d0dc25-170d-4c6a-93e5-ee31347316cc"
+                                        ]
+                                      },
+                                      "components": [{ "id": "64fa65b3-c2df-4fd0-958b-83965bd6aa08", "quantity": 1 }]
+                                    }"""
+                            )
+                            (\frAssemblyImpact defaultEnergyMixImpact ->
+                                expectFloatDifferent frAssemblyImpact defaultEnergyMixImpact
+                            )
+                        , itFromResult "should decode a legacy assemblyCountry field"
+                            ("""{
+                                  "assemblyCountry": "FR",
+                                  "components": [{ "id": "64fa65b3-c2df-4fd0-958b-83965bd6aa08", "quantity": 1 }]
+                                }"""
+                                |> decodeJsonThen Component.decodeQuery Ok
+                                |> Result.map .assembly
+                            )
+                            (.country >> Expect.equal (Just CountryCode.france))
+                        , suiteFromResult2 "should propagate assembly waste down to distribution and EoL stages"
+                            -- no assembly operations, hence no assembly waste
+                            ("""{
+                                  "components": [
+                                    { "id": "64fa65b3-c2df-4fd0-958b-83965bd6aa08", "quantity": 4 },
+                                    { "id": "ad9d7f23-076b-49c5-93a4-ee1cd7b53973", "quantity": 1 },
+                                    { "id": "eda5dd7e-52e4-450f-8658-1876efc62bd6", "quantity": 1 }
+                                  ],
+                                  "recyclable": true
+                                }"""
+                                |> decodeJsonThen Component.decodeQuery (Component.compute requirements)
+                            )
+                            --  assembly operations featuring waste
+                            ("""{
+                                  "components": [
+                                    { "id": "64fa65b3-c2df-4fd0-958b-83965bd6aa08", "quantity": 4 },
+                                    { "id": "ad9d7f23-076b-49c5-93a4-ee1cd7b53973", "quantity": 1 },
+                                    { "id": "eda5dd7e-52e4-450f-8658-1876efc62bd6", "quantity": 1 }
+                                  ],
+                                  "recyclable": true,
+                                  "assembly": {
+                                    "operations": [
+                                      "b8d0dc25-170d-4c6a-93e5-ee31347316cc",
+                                      "b8d0dc25-170d-4c6a-93e5-ee31347316cc"
+                                    ]
+                                  }
+                                }"""
+                                |> decodeJsonThen Component.decodeQuery (Component.compute requirements)
+                            )
+                            (\lifeCycle withAssemblyWaste ->
+                                let
+                                    -- 50% * 50% = 25% expected assembly waste from accumulated operations
+                                    massScaleRatio =
+                                        0.25
+
+                                    baseDistributionVolume =
+                                        Volume.inCubicMeters lifeCycle.distribution.volume
+
+                                    baseEndOfLifeMass =
+                                        Component.getEndOfLifeTotalMass requirements lifeCycle
+
+                                    baseEndOfLifeImpact =
+                                        getEcsImpact lifeCycle.endOfLife
+
+                                    baseToDistributionImpact =
+                                        getEcsImpact lifeCycle.transports.toDistribution.impacts
+                                in
+                                [ it "should scale EoL stage material masses with assembly waste"
+                                    (withAssemblyWaste
+                                        |> Component.getEndOfLifeTotalMass requirements
+                                        |> expectFloatMostlyEqual (baseEndOfLifeMass * massScaleRatio)
+                                    )
+                                , it "should scale EoL stage impacts with assembly waste"
+                                    (withAssemblyWaste.endOfLife
+                                        |> getEcsImpact
+                                        |> expectFloatMostlyEqual (baseEndOfLifeImpact * massScaleRatio)
+                                    )
+                                , it "should scale distribution stage volume with assembly waste"
+                                    (withAssemblyWaste.distribution.volume
+                                        |> Volume.inCubicMeters
+                                        |> expectFloatMostlyEqual (baseDistributionVolume * massScaleRatio)
+                                    )
+                                , it "should scale transport to distribution stage impacts with assembly waste"
+                                    (withAssemblyWaste.transports.toDistribution.impacts
+                                        |> getEcsImpact
+                                        |> expectFloatMostlyEqual (baseToDistributionImpact * massScaleRatio)
+                                    )
+                                , it "should keep EoL stage masses consistent with product mass"
+                                    (withAssemblyWaste
+                                        |> Component.getEndOfLifeTotalMass requirements
+                                        |> expectFloatMostlyEqual (Mass.inKilograms withAssemblyWaste.productMass)
+                                    )
+                                ]
+                            )
+                        ]
                     , describe "computeTransports"
                         [ suiteFromResult2 "unknown locations"
                             -- setup
@@ -868,7 +1052,7 @@ suite =
                         , suiteFromResult "assembly country handling"
                             -- setup
                             ("""{
-                                  "assemblyCountry": "FR",
+                                  "assembly": { "country": "FR" },
                                   "components": [
                                     { "id": "ad9d7f23-076b-49c5-93a4-ee1cd7b53973", "quantity": 1 },
                                     { "id": "eda5dd7e-52e4-450f-8658-1876efc62bd6", "quantity": 1 }
@@ -928,7 +1112,7 @@ suite =
                             )
                         , it "should reject an empty component list with an assembly country"
                             ("""{
-                                  "assemblyCountry": "FR",
+                                  "assembly": { "country": "FR" },
                                   "components": []
                                 }"""
                                 |> decodeJsonThen Component.decodeQuery (Component.compute requirements)
@@ -992,7 +1176,7 @@ suite =
                                     { "id": "ad9d7f23-076b-49c5-93a4-ee1cd7b53973", "quantity": 1 },
                                     { "id": "eda5dd7e-52e4-450f-8658-1876efc62bd6", "quantity": 1 }
                                   ],
-                                  "assemblyCountry": "PT",
+                                  "assembly": { "country": "PT" },
                                   "transportOptions": { "byAir": 100 }
                                 }"""
                                 |> decodeJsonThen Component.decodeQuery (Component.compute requirements)
@@ -1464,7 +1648,11 @@ suite =
                         -- setup
                         (chair
                             |> Result.andThen (computeItemsWithRequirements requirements)
-                            |> Result.map (.production >> Component.getEndOfLifeDetailedImpacts requirements True)
+                            |> Result.map
+                                (\lifeCycle ->
+                                    lifeCycle
+                                        |> Component.getEndOfLifeDetailedImpacts requirements True
+                                )
                         )
                         -- tests
                         (\chairMaterialGroups ->
@@ -1520,22 +1708,26 @@ suite =
                     , let
                         query =
                             { emptyQuery
-                                | items = [ Component.createItem Nothing ]
-                                , assemblyCountry = Just (CountryCode.fromString "FR")
+                                | assembly =
+                                    { country = Just CountryCode.france
+                                    , operations = []
+                                    }
                             }
                       in
                       describe "mapItems"
                         [ it "should reset the assembly country when mapItems empties the list"
                             (query
                                 |> Component.mapItems (always [])
-                                |> .assemblyCountry
+                                |> .assembly
+                                |> .country
                                 |> Expect.equal Nothing
                             )
                         , it "should preserve the assembly country when mapItems keeps the list"
                             (query
                                 |> Component.mapItems (always [ Component.createItem Nothing ])
-                                |> .assemblyCountry
-                                |> Expect.equal (Just (CountryCode.fromString "FR"))
+                                |> .assembly
+                                |> .country
+                                |> Expect.equal (Just CountryCode.france)
                             )
                         ]
                     , suiteFromResult2 "removeElement"
@@ -1619,25 +1811,33 @@ suite =
                         )
                     , let
                         query =
-                            { emptyQuery | assemblyCountry = Just (CountryCode.fromString "FR") }
+                            { emptyQuery
+                                | assembly =
+                                    { country = Just CountryCode.france
+                                    , operations = []
+                                    }
+                            }
                       in
                       describe "setQueryItems"
                         [ it "should preserve the assembly country for a single item"
                             (query
                                 |> Component.setQueryItems [ Component.createItem Nothing ]
-                                |> .assemblyCountry
-                                |> Expect.equal (Just (CountryCode.fromString "FR"))
+                                |> .assembly
+                                |> .country
+                                |> Expect.equal (Just CountryCode.france)
                             )
                         , it "should preserve the assembly country for multiple items"
                             (query
                                 |> Component.setQueryItems [ Component.createItem Nothing, Component.createItem Nothing ]
-                                |> .assemblyCountry
-                                |> Expect.equal (Just (CountryCode.fromString "FR"))
+                                |> .assembly
+                                |> .country
+                                |> Expect.equal (Just CountryCode.france)
                             )
                         , it "should reset the assembly country when the list becomes empty"
                             (query
                                 |> Component.setQueryItems []
-                                |> .assemblyCountry
+                                |> .assembly
+                                |> .country
                                 |> Expect.equal Nothing
                             )
                         ]
@@ -1806,8 +2006,8 @@ suite =
                         lowVoltageElec
                         (\lifeCycle lowVoltageElecProcess ->
                             let
-                                productMass =
-                                    Component.extractMass lifeCycle.production |> Mass.inKilograms
+                                productMassInKg =
+                                    Mass.inKilograms lifeCycle.productMass
 
                                 massDependentProcess =
                                     { lowVoltageElecProcess
@@ -1818,7 +2018,7 @@ suite =
                             [ it "should ignore provided amount and use product mass when using a mass-dependent process"
                                 (Component.useProcessAmount lifeCycle massDependentProcess (Amount.fromFloat 999)
                                     |> Amount.toFloat
-                                    |> Expect.within (Expect.Absolute 0.00001) productMass
+                                    |> Expect.within (Expect.Absolute 0.00001) productMassInKg
                                 )
                             , it "should return the given amount for a regular, non-mass-dependent process"
                                 (Component.useProcessAmount lifeCycle lowVoltageElecProcess (Amount.fromFloat 3)
@@ -1984,6 +2184,12 @@ suite =
             ]
 
 
+computeAssemblyEcsImpact : Requirements db -> String -> Result String Float
+computeAssemblyEcsImpact requirements =
+    decodeJsonThen Component.decodeQuery (Component.compute requirements)
+        >> Result.map (.assembly >> Component.extractImpacts >> getEcsImpact)
+
+
 computeItemsWithRequirements : Requirements db -> List Item -> Result String LifeCycle
 computeItemsWithRequirements requirements items =
     emptyQuery
@@ -2080,6 +2286,7 @@ setupTestDb db =
                 [ steel
                 , injectionMoulding
                 , dryDistribution
+                , fakeAssemblyProcess
                 , lowVoltageElec
                 , wood
                 , plastic
@@ -2280,6 +2487,49 @@ dryDistribution =
             "source": "Ecobalyse_manual_lcia",
             "unit": "m3"
         }
+        """
+
+
+fakeAssemblyProcess : Result String Process
+fakeAssemblyProcess =
+    decodeJson (Process.decode Impact.decodeImpacts) <|
+        """ {
+                "activityName": "fake assembly process",
+                "categories": ["assembly"],
+                "comment": "Test fixture",
+                "displayName": "Fake assembly process",
+                "elecKwh": 1.5,
+                "heatMJ": 3,
+                "id": "b8d0dc25-170d-4c6a-93e5-ee31347316cc",
+                "impacts": {
+                    "acd": 0,
+                    "cch": 0,
+                    "ecs": 42,
+                    "etf": 0,
+                    "etf-c": 0,
+                    "fru": 0,
+                    "fwe": 0,
+                    "htc": 0,
+                    "htc-c": 0,
+                    "htn": 0,
+                    "htn-c": 0,
+                    "ior": 0,
+                    "ldu": 0,
+                    "mru": 0,
+                    "ozd": 0,
+                    "pco": 0,
+                    "pma": 0,
+                    "swe": 0,
+                    "tre": 0,
+                    "wtu": 0
+                },
+                "location": "RER",
+                "massPerUnit": null,
+                "qtyVariationRatio": 0.5,
+                "scopes": ["object", "veli"],
+                "source": "Ecobalyse",
+                "unit": "kg"
+            }
         """
 
 

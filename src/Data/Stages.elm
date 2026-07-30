@@ -2,7 +2,8 @@ module Data.Stages exposing (Stages, map)
 
 
 type alias Stages a =
-    { distribution : a
+    { assembly : a
+    , distribution : a
     , endOfLife : a
     , materials : a
     , packaging : a
@@ -15,7 +16,8 @@ type alias Stages a =
 
 map : (a -> b) -> Stages a -> Stages b
 map fn stages =
-    { distribution = fn stages.distribution
+    { assembly = fn stages.assembly
+    , distribution = fn stages.distribution
     , endOfLife = fn stages.endOfLife
     , materials = fn stages.materials
     , packaging = fn stages.packaging
