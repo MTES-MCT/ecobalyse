@@ -1913,7 +1913,7 @@
       }
     ],
     "id": "f134b3fd-0439-4b25-a06e-f1b8fd6e201c",
-    "name": "Composants non détaillés - veli actif",
+    "name": "[Composants] Composants non détaillés - veli actif",
     "scopes": ["veli"]
   },
   {
@@ -1939,7 +1939,7 @@
       }
     ],
     "id": "71086438-51a9-4980-ac3b-f24d5baa4cd5",
-    "name": "Composants non détaillés - veli lourd",
+    "name": "[Composants] Composants non détaillés - veli lourd",
     "scopes": ["veli"]
   },
   {
