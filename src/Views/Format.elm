@@ -22,6 +22,7 @@ module Views.Format exposing
     , percent
     , priceInEUR
     , qtyVariationRatio
+    , qtyVariationRatioAsWastePercent
     , splitAsFloat
     , splitAsPercentage
     , squareMeters
@@ -349,3 +350,8 @@ diff =
 qtyVariationRatio : Unit.QuantityVariationRatio -> Html msg
 qtyVariationRatio ratio =
     ratio |> Unit.qtyVariationRatioToFloat |> String.fromFloat |> text
+
+
+qtyVariationRatioAsWastePercent : Unit.QuantityVariationRatio -> Html msg
+qtyVariationRatioAsWastePercent ratio =
+    percent <| (1 - Unit.qtyVariationRatioToFloat ratio) * 100

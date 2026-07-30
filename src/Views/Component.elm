@@ -72,11 +72,13 @@ type alias Config db msg =
     , lifeCycle : Result String LifeCycle
     , noOp : msg
     , openEditElementModal : Component -> TargetElement -> msg
+    , openSelectAssemblyOperationModal : Autocomplete Process -> msg
     , openSelectConsumptionModal : Autocomplete Process -> msg
     , openSelectPackagingModal : Autocomplete Process -> msg
     , openSelectProcessModal : Category -> TargetItem -> Maybe Index -> Autocomplete Process -> msg
     , openSelectProductionItem : Autocomplete ProductionItem -> msg
     , query : Query
+    , removeAssemblyOperation : Index -> msg
     , removeConsumption : Index -> msg
     , removeElement : TargetElement -> msg
     , removeElementTransform : TargetElement -> Index -> msg
@@ -574,7 +576,7 @@ lifeCycleView ({ db, docsUrl, explorerRoute, impact, query, scope } as config) l
                         , smallDocumentationLink config "transport"
                         ]
                     ]
-                , assemblyView config
+                , assemblyView config lifeCycle
                 ]
 
           else
@@ -729,7 +731,7 @@ genericContextStagesView config lifeCycle =
         [ noTransportView
         , packagingView config lifeCycle
         , lifeCycle.transports.toDistribution
-            |> transportToDistributionView config (Component.extractMass lifeCycle.production)
+            |> transportToDistributionView config lifeCycle.productMass
         , distributionView config lifeCycle
         , noTransportView
         , useStageView config lifeCycle
@@ -883,7 +885,9 @@ amountInput { event, readonly, unit } amount =
 
 
 type alias CountrySelector msg =
-    { countries : List Country
+    { attrs : List (Attribute msg)
+    , countries : List Country
+    , disabled : Bool
     , domId : String
     , scope : Scope
     , select : Maybe CountryCode.Code -> msg
@@ -910,18 +914,21 @@ countrySelector config =
                     [ text name ]
             )
         |> select
-            [ class "form-select w-33"
-            , id config.domId
-            , autocomplete False
-            , onInput <|
-                \str ->
-                    config.select <|
-                        if String.isEmpty str then
-                            Nothing
+            (config.attrs
+                ++ [ class "form-select w-33"
+                   , id config.domId
+                   , autocomplete False
+                   , disabled config.disabled
+                   , onInput <|
+                        \str ->
+                            config.select <|
+                                if String.isEmpty str then
+                                    Nothing
 
-                        else
-                            Just <| CountryCode.fromString str
-            ]
+                                else
+                                    Just <| CountryCode.fromString str
+                   ]
+            )
 
 
 elementView : Config db msg -> TargetItem -> Index -> ExpandedElement -> Results -> Html msg
@@ -1073,7 +1080,7 @@ finalElementTransportView : Config db msg -> Bool -> Maybe Country -> Mass -> Ht
 finalElementTransportView ({ db, query, scope } as config) cooling elementCountry mass =
     db.countries
         |> Scope.anyOf [ scope ]
-        |> Country.resolveMaybe query.assemblyCountry
+        |> Country.resolveMaybe query.assembly.country
         |> Result.map (elementTransportView config [ class "subdued" ] cooling mass elementCountry)
         |> Result.withDefault (text "")
 
@@ -1321,9 +1328,7 @@ elementTransformsView config cooling targetElement materialResults materialCount
                             }
                         ]
                     , td [ class "align-middle text-end text-nowrap" ]
-                        [ Unit.qtyVariationRatioToFloat transform.process.qtyVariationRatio
-                            |> String.fromFloat
-                            |> text
+                        [ Format.qtyVariationRatioAsWastePercent transform.process.qtyVariationRatio
                         ]
                     , td [ class "text-end align-middle text-nowrap" ]
                         [ Component.extractAmount transformResult
@@ -1441,30 +1446,122 @@ quantityInput config itemIndex quantity =
         ]
 
 
-assemblyView : Config db msg -> Html msg
-assemblyView config =
+assemblyView : Config db msg -> LifeCycle -> Html msg
+assemblyView ({ db, impact, query, scope } as config) lifeCycle =
     div [ class "card shadow-sm" ]
         [ div [ class "card-header d-flex align-items-center justify-content-between gap-2" ]
             [ h2 [ class "h5 mb-0" ]
                 [ text "Assemblage" ]
             , div [ class "d-flex flex-fill justify-content-end align-items-center gap-2" ]
-                [ Impact.empty
-                    |> Format.formatImpact config.impact
+                [ lifeCycle.assembly
+                    |> Component.extractImpacts
+                    |> Format.formatImpact impact
                 ]
             , documentationLink config "assembly"
             ]
-        , div [ class "card-body" ]
-            [ div [ class "d-flex align-items-center gap-2" ]
-                [ label [ for "assembly-country" ] [ text "Pays d'assemblage" ]
+        , div [ class "card-body d-flex flex-column gap-3 p-0" ]
+            [ div [ class "d-flex align-items-center gap-2 px-3 pt-3" ]
+                [ label [ for "assembly-country" ] [ text "Pays d’assemblage" ]
                 , countrySelector
-                    { countries = config.db.countries
+                    { attrs = []
+                    , countries = db.countries
+                    , disabled = False
                     , domId = "assembly-country"
-                    , scope = config.scope
+                    , scope = scope
                     , select = config.updateAssemblyCountry
-                    , selected = config.query.assemblyCountry
+                    , selected = query.assembly.country
                     }
                 ]
+            , case Component.expandAssembly db query.assembly of
+                Err error ->
+                    div [ class "px-3 pb-3" ] [ error |> simpleError (Just "Erreur") ]
+
+                Ok expandedOperations ->
+                    if List.isEmpty expandedOperations then
+                        div [ class "px-3 pb-3 text-muted" ] [ text "Aucun procédé d’assemblage" ]
+
+                    else
+                        table [ class "table table-sm mb-0 border-top" ]
+                            [ thead []
+                                [ tr [ class "fs-7 text-muted bg-light" ]
+                                    [ th [ class "bg-light ps-3 align-middle", Attr.scope "col" ] [ text "Opération" ]
+                                    , th [ class "bg-light align-middle text-end", Attr.scope "col" ] [ text "Pertes" ]
+                                    , th [ class "bg-light align-middle text-end", Attr.scope "col" ] [ text "Masse" ]
+                                    , th [ class "bg-light align-middle text-end", Attr.scope "col" ] [ text "Impact" ]
+                                    , th [ class "bg-light align-middle", Attr.scope "col" ] []
+                                    ]
+                                ]
+                            , tbody []
+                                (expandedOperations
+                                    |> List.indexedMap
+                                        (\index { process } ->
+                                            let
+                                                operationResult =
+                                                    lifeCycle.assembly
+                                                        |> Component.extractItems
+                                                        |> LE.getAt index
+                                                        |> Maybe.withDefault Component.emptyResults
+                                            in
+                                            tr []
+                                                [ td [ class "ps-3 align-middle w-100" ]
+                                                    [ text <| Process.getDisplayName process ]
+                                                , td [ class "align-middle text-end text-nowrap" ]
+                                                    [ Format.qtyVariationRatioAsWastePercent process.qtyVariationRatio
+                                                    ]
+                                                , td [ class "align-middle text-end text-nowrap" ]
+                                                    [ operationResult
+                                                        |> Component.extractMass
+                                                        |> Format.kg
+                                                    ]
+                                                , td [ class "align-middle text-end text-nowrap" ]
+                                                    [ operationResult
+                                                        |> Component.extractImpacts
+                                                        |> Format.formatImpact impact
+                                                    ]
+                                                , td [ class "align-middle pe-3 text-end" ]
+                                                    [ button
+                                                        [ type_ "button"
+                                                        , class "btn btn-sm btn-outline-secondary"
+                                                        , title "Supprimer ce procédé d’assemblage"
+                                                        , onClick (config.removeAssemblyOperation index)
+                                                        ]
+                                                        [ Icon.trash ]
+                                                    ]
+                                                ]
+                                        )
+                                )
+                            ]
+            , addAssemblyOperationButton config
             ]
+        ]
+
+
+addAssemblyOperationButton : Config db msg -> Html msg
+addAssemblyOperationButton ({ openSelectAssemblyOperationModal, query } as config) =
+    let
+        availableProcesses =
+            listAvailableProcesses config Category.Assembly
+                |> List.filter
+                    (\{ id } ->
+                        -- prevent adding the same operation twice
+                        query.assembly.operations
+                            |> List.member id
+                            |> not
+                    )
+
+        autocompleteState =
+            availableProcesses
+                |> AutocompleteSelector.init Process.getDisplayName
+    in
+    button
+        [ type_ "button"
+        , class "btn btn-outline-primary w-100 rounded-0 gap-1"
+        , class "d-flex justify-content-center align-items-center"
+        , disabled <| List.isEmpty availableProcesses
+        , onClick <| openSelectAssemblyOperationModal autocompleteState
+        ]
+        [ Icon.plus
+        , text "Ajouter un procédé d’assemblage"
         ]
 
 
@@ -1616,13 +1713,7 @@ endOfLifeView ({ componentConfig, query, scope, updateRecyclable } as config) li
                         [ text "Non" ]
                     ]
                 ]
-            , lifeCycle.production
-                |> Component.getEndOfLifeImpacts
-                    { config = componentConfig
-                    , db = config.db
-                    , scope = config.scope
-                    }
-                    query.recyclable
+            , lifeCycle.endOfLife
                 |> Format.formatImpact config.impact
             , documentationLink config "eol"
             ]
@@ -1640,13 +1731,13 @@ endOfLifeView ({ componentConfig, query, scope, updateRecyclable } as config) li
                                 , th [ class "text-end pe-3" ] [ text "Impact" ]
                                 ]
                             ]
-                        , lifeCycle.production
-                            |> Component.getEndOfLifeDetailedImpacts
-                                { config = componentConfig
-                                , db = config.db
-                                , scope = config.scope
-                                }
-                                query.recyclable
+                        , Component.getEndOfLifeDetailedImpacts
+                            { config = componentConfig
+                            , db = config.db
+                            , scope = config.scope
+                            }
+                            query.recyclable
+                            lifeCycle
                             |> AnyDict.toList
                             |> List.sortBy (Tuple.first >> Category.materialTypeToLabel)
                             |> List.concatMap (endOfLifeMaterialRow config)
