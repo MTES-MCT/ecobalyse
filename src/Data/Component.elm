@@ -545,7 +545,7 @@ Notes:
 applyAssemblyOperations : Requirements db -> Maybe CountryCode.Code -> List ExpandedLocalizedProcess -> Results -> Result String Results
 applyAssemblyOperations requirements maybeAssemblyCountry expandedProcesses initialResults =
     expandedProcesses
-        |> checkAssemblyProcessesUnit
+        |> validateAssemblyProcessesUnit
         |> Result.andThen
             (\processes ->
                 requirements.db.countries
@@ -641,7 +641,7 @@ specify a country to use its electricity/heat mixes, or fallback to config defau
 -}
 applyTransforms : Requirements db -> TransportOptions -> Maybe Country -> Process.Unit -> List ExpandedLocalizedProcess -> Results -> Result String Results
 applyTransforms requirements transportOptions initialCountry unit transforms materialResults =
-    checkTransformsUnit unit transforms
+    validateTransformProcessesUnit unit transforms
         |> Result.andThen
             (RE.foldlWhileOk
                 (\{ country, process } ( previousCountry, results ) ->
@@ -705,38 +705,6 @@ assemblyResultsFromMass mass =
         , quantity = 1
         , stage = Nothing
         }
-
-
-checkAssemblyProcessesUnit : List ExpandedLocalizedProcess -> Result String (List ExpandedLocalizedProcess)
-checkAssemblyProcessesUnit processes =
-    if not <| List.all (.process >> .unit >> (==) Process.Kilogram) processes then
-        "Les procédés d’assemblage doivent être exprimés en kg\u{00A0}: "
-            ++ (processes
-                    |> List.filter (.process >> .unit >> (/=) Process.Kilogram)
-                    |> List.map (\{ process } -> Process.getDisplayName process ++ " (" ++ Process.unitToString process.unit ++ ")")
-                    |> String.join ", "
-               )
-            |> Err
-
-    else
-        Ok processes
-
-
-checkTransformsUnit : Process.Unit -> List ExpandedLocalizedProcess -> Result String (List ExpandedLocalizedProcess)
-checkTransformsUnit unit transforms =
-    if not <| List.all (.process >> .unit >> (==) unit) transforms then
-        "Les procédés de transformation ne partagent pas la même unité que la matière source ("
-            ++ Process.unitToString unit
-            ++ ")\u{00A0}: "
-            ++ (transforms
-                    |> List.filter (.process >> .unit >> (/=) unit)
-                    |> List.map (\{ process } -> Process.getDisplayName process ++ " (" ++ Process.unitToString process.unit ++ ")")
-                    |> String.join ", "
-               )
-            |> Err
-
-    else
-        Ok transforms
 
 
 {-| Create a component from a custom definition
@@ -2831,6 +2799,21 @@ validateAssembly requirements assembly =
         |> RE.andMap (assembly.operations |> RE.combineMap (validateAssemblyProcessId requirements))
 
 
+validateAssemblyProcessesUnit : List ExpandedLocalizedProcess -> Result String (List ExpandedLocalizedProcess)
+validateAssemblyProcessesUnit processes =
+    if not <| List.all (.process >> .unit >> (==) Process.Kilogram) processes then
+        "Les procédés d’assemblage doivent être exprimés en kg\u{00A0}: "
+            ++ (processes
+                    |> List.filter (.process >> .unit >> (/=) Process.Kilogram)
+                    |> List.map (\{ process } -> Process.getDisplayName process ++ " (" ++ Process.unitToString process.unit ++ ")")
+                    |> String.join ", "
+               )
+            |> Err
+
+    else
+        Ok processes
+
+
 validateAssemblyProcessId : Requirements db -> Process.Id -> Result String Process.Id
 validateAssemblyProcessId { db, scope } processId =
     case
@@ -2842,7 +2825,7 @@ validateAssemblyProcessId { db, scope } processId =
             Err <|
                 "Aucun procédé d’assemblage scopé "
                     ++ Scope.toLabel scope
-                    ++ " avec cet id: "
+                    ++ " avec cet id\u{202F}: "
                     ++ Process.idToString processId
 
         Ok process ->
@@ -2972,3 +2955,20 @@ validateQuery ({ db } as requirements) query =
         |> RE.andMap (Ok query.recyclable)
         |> RE.andMap (Ok query.transportOptions)
         |> Result.mapError (\s -> "Requête invalide\u{202F}: " ++ s)
+
+
+validateTransformProcessesUnit : Process.Unit -> List ExpandedLocalizedProcess -> Result String (List ExpandedLocalizedProcess)
+validateTransformProcessesUnit unit transforms =
+    if not <| List.all (.process >> .unit >> (==) unit) transforms then
+        "Les procédés de transformation ne partagent pas la même unité que la matière source ("
+            ++ Process.unitToString unit
+            ++ ")\u{00A0}: "
+            ++ (transforms
+                    |> List.filter (.process >> .unit >> (/=) unit)
+                    |> List.map (\{ process } -> Process.getDisplayName process ++ " (" ++ Process.unitToString process.unit ++ ")")
+                    |> String.join ", "
+               )
+            |> Err
+
+    else
+        Ok transforms
