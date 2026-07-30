@@ -81,6 +81,7 @@ module Data.Component exposing
     , getDocLink
     , getEndOfLifeDetailedImpacts
     , getEndOfLifeScopeCollectionRate
+    , getEndOfLifeTotalMass
     , getFinalElementCountry
     , getPackagingProcessId
     , getResultedElement
@@ -2132,6 +2133,19 @@ getEndOfLifeScopeCollectionRate { endOfLife } recyclable scope =
 
     else
         Split.zero
+
+
+getEndOfLifeTotalMass : Requirements db -> LifeCycle -> Float
+getEndOfLifeTotalMass requirements =
+    getEndOfLifeDetailedImpacts requirements True
+        >> AnyDict.values
+        >> List.concatMap
+            (\{ collected, nonCollected } ->
+                [ Mass.inKilograms <| Tuple.first collected
+                , Mass.inKilograms <| Tuple.first nonCollected
+                ]
+            )
+        >> List.sum
 
 
 {-| Get an element's country last transform if any, or the country of its material otherwise.

@@ -939,6 +939,83 @@ suite =
                                 |> Result.map .assembly
                             )
                             (.country >> Expect.equal (Just CountryCode.france))
+                        , suiteFromResult2 "should propagate assembly waste down to distribution and EoL stages"
+                            -- no assembly operations, hence no assembly waste
+                            ("""{
+                                  "components": [
+                                    { "id": "64fa65b3-c2df-4fd0-958b-83965bd6aa08", "quantity": 4 },
+                                    { "id": "ad9d7f23-076b-49c5-93a4-ee1cd7b53973", "quantity": 1 },
+                                    { "id": "eda5dd7e-52e4-450f-8658-1876efc62bd6", "quantity": 1 }
+                                  ],
+                                  "recyclable": true
+                                }"""
+                                |> decodeJsonThen Component.decodeQuery (Component.compute requirements)
+                            )
+                            --  assembly operations featuring waste
+                            ("""{
+                                  "components": [
+                                    { "id": "64fa65b3-c2df-4fd0-958b-83965bd6aa08", "quantity": 4 },
+                                    { "id": "ad9d7f23-076b-49c5-93a4-ee1cd7b53973", "quantity": 1 },
+                                    { "id": "eda5dd7e-52e4-450f-8658-1876efc62bd6", "quantity": 1 }
+                                  ],
+                                  "recyclable": true,
+                                  "assembly": {
+                                    "operations": [
+                                      "b8d0dc25-170d-4c6a-93e5-ee31347316cc",
+                                      "b8d0dc25-170d-4c6a-93e5-ee31347316cc"
+                                    ]
+                                  }
+                                }"""
+                                |> decodeJsonThen Component.decodeQuery (Component.compute requirements)
+                            )
+                            (\lifeCycle withAssemblyWaste ->
+                                let
+                                    -- 50% * 50% = 25% expected assembly waste from accumulated operations
+                                    massScaleRatio =
+                                        0.25
+
+                                    baseDistributionVolume =
+                                        Volume.inCubicMeters lifeCycle.distribution.volume
+
+                                    baseEndOfLifeMass =
+                                        Component.getEndOfLifeTotalMass requirements lifeCycle
+
+                                    baseEndOfLifeImpact =
+                                        getEcsImpact lifeCycle.endOfLife
+
+                                    baseToDistributionImpact =
+                                        getEcsImpact lifeCycle.transports.toDistribution.impacts
+
+                                    expectMostlyEqual =
+                                        Expect.within (Expect.Absolute 0.00001)
+                                in
+                                [ it "should scale EoL stage material masses with assembly waste"
+                                    (withAssemblyWaste
+                                        |> Component.getEndOfLifeTotalMass requirements
+                                        |> expectMostlyEqual (baseEndOfLifeMass * massScaleRatio)
+                                    )
+                                , it "should scale EoL stage impacts with assembly waste"
+                                    (withAssemblyWaste.endOfLife
+                                        |> getEcsImpact
+                                        |> expectMostlyEqual (baseEndOfLifeImpact * massScaleRatio)
+                                    )
+                                , it "should scale distribution stage volume with assembly waste"
+                                    (withAssemblyWaste.distribution.volume
+                                        |> Volume.inCubicMeters
+                                        |> expectMostlyEqual (baseDistributionVolume * massScaleRatio)
+                                    )
+                                , it "should scale transport to distribution stage impacts with assembly waste"
+                                    (withAssemblyWaste.transports.toDistribution.impacts
+                                        |> getEcsImpact
+                                        |> expectMostlyEqual (baseToDistributionImpact * massScaleRatio)
+                                    )
+                                , it "should keep EoL stage masses consistent with product mass"
+                                    (withAssemblyWaste
+                                        |> Component.getEndOfLifeTotalMass requirements
+                                        |> expectMostlyEqual (Mass.inKilograms withAssemblyWaste.productMass)
+                                    )
+                                ]
+                            )
                         ]
                     , describe "computeTransports"
                         [ suiteFromResult2 "unknown locations"
