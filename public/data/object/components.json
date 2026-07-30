@@ -2604,10 +2604,7 @@
     ],
     "id": "190276e9-5b90-42d6-8fbd-bc7ddfd4c960",
     "name": "Plastique PP, moulé, 100% vierge",
-    "scopes": [
-      "object",
-      "veli"
-    ]
+    "scopes": ["object","veli"]
   },
   {
     "comment": null,
@@ -2620,10 +2617,7 @@
     ],
     "id": "d59cdd7a-24cb-406d-936f-35773da209ab",
     "name": "Plastique PP rigide, autre transformation, 100% vierge",
-    "scopes": [
-      "object",
-      "veli"
-    ]
+    "scopes": ["object","veli"]
   },
   {
     "comment": null,
@@ -2636,10 +2630,7 @@
     ],
     "id": "4cd6a5fa-1b1f-423f-8814-53e716fa00df",
     "name": "Plastique PET, moulé, 100% vierge",
-    "scopes": [
-      "object",
-      "veli"
-    ]
+    "scopes": ["object","veli"]
   },
   {
     "comment": null,
@@ -2652,10 +2643,7 @@
     ],
     "id": "88d9bb2d-db16-4a64-9678-d34c9606d945",
     "name": "Plastique PET rigide, autre transformation, 100% vierge",
-    "scopes": [
-      "object",
-      "veli"
-    ]
+    "scopes": ["object","veli"]
   },
   {
     "comment": null,
@@ -2668,10 +2656,7 @@
     ],
     "id": "40c039b2-6d5e-4ebb-9c42-6769e428ec97",
     "name": "Plastique PET, moulé, 100% recyclé",
-    "scopes": [
-      "object",
-      "veli"
-    ]
+    "scopes": ["object","veli"]
   },
   {
     "comment": null,
@@ -2684,10 +2669,7 @@
     ],
     "id": "4b368d0b-484c-4949-9c04-25667bc2f442",
     "name": "Plastique PET rigide, autre transformation, 100% recyclé",
-    "scopes": [
-      "object",
-      "veli"
-    ]
+    "scopes": ["object","veli"]
   },
   {
     "comment": null,
