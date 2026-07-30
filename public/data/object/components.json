@@ -1681,7 +1681,7 @@
       }
     ],
     "id": "7c50438a-7129-40d1-a235-7dea89072e37",
-    "name": "Aluminium, plaque usinée avec traitement thermique, 100% vierge Europe",
+    "name": "Aluminium vierge, plaque usinée avec traitement thermique,Europe",
     "scopes": ["veli"]
   },
   {
@@ -1706,7 +1706,7 @@
       }
     ],
     "id": "e4f2f2c8-5f9f-47fe-9296-de1ef0889b66",
-    "name": "Aluminium, plaque usinée avec traitement thermique, 100% vierge hors Europe et Inde",
+    "name": "Aluminium vierge, plaque usinée avec traitement thermique, hors Europe et Inde",
     "scopes": ["veli"]
   },
   {
@@ -2603,7 +2603,7 @@
       }
     ],
     "id": "190276e9-5b90-42d6-8fbd-bc7ddfd4c960",
-    "name": "Plastique PP, moulé, 100% vierge",
+    "name": "Plastique PP vierge, moulé",
     "scopes": ["object", "veli"]
   },
   {
@@ -2616,7 +2616,7 @@
       }
     ],
     "id": "d59cdd7a-24cb-406d-936f-35773da209ab",
-    "name": "Plastique PP rigide, autre transformation, 100% vierge",
+    "name": "Plastique PP vierge, rigide, autre transformation",
     "scopes": ["object", "veli"]
   },
   {
@@ -2629,7 +2629,7 @@
       }
     ],
     "id": "4cd6a5fa-1b1f-423f-8814-53e716fa00df",
-    "name": "Plastique PET, moulé, 100% vierge",
+    "name": "Plastique PET vierge, moulé",
     "scopes": ["object", "veli"]
   },
   {
@@ -2642,7 +2642,7 @@
       }
     ],
     "id": "88d9bb2d-db16-4a64-9678-d34c9606d945",
-    "name": "Plastique PET rigide, autre transformation, 100% vierge",
+    "name": "Plastique PET vierge, rigide, autre transformation",
     "scopes": ["object", "veli"]
   },
   {
@@ -2655,7 +2655,7 @@
       }
     ],
     "id": "40c039b2-6d5e-4ebb-9c42-6769e428ec97",
-    "name": "Plastique PET, moulé, 100% recyclé",
+    "name": "Plastique PET recyclé, moulé",
     "scopes": ["object", "veli"]
   },
   {
@@ -2668,7 +2668,7 @@
       }
     ],
     "id": "4b368d0b-484c-4949-9c04-25667bc2f442",
-    "name": "Plastique PET rigide, autre transformation, 100% recyclé",
+    "name": "Plastique PET recyclé, rigide, autre transformation",
     "scopes": ["object", "veli"]
   },
   {
