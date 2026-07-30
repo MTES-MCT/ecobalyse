@@ -160,7 +160,7 @@
 * [🟩 Compléments hors ACV](textile/complements-hors-acv/README.md)
   * [🌍 Export hors Europe](textile/complements-hors-acv/export-hors-europe.md)
   * [🐠 Microfibres](textile/complements-hors-acv/microfibres.md)
-* [🔴 Durabilité](textile/durabilite.md)
+* [🔴 Durabilité - old](textile/durabilite.md)
 * [🔴 Durabilité des vêtements](textile/durabilite-1.md)
 * [🟡 Périmètre](textile/perimetre.md)
 * [🔵 Paramétrage](textile/parametrage.md)

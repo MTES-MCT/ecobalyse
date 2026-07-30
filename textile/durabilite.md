@@ -2,7 +2,9 @@
 hidden: true
 ---
 
-# 🔴 Durabilité
+# 🔴 Durabilité - old
+
+[Lien de la page publique](https://fabrique-numerique.gitbook.io/ecobalyse/textile/durabilite-1)
 
 {% hint style="warning" %}
 Mise à jour importante de cette page le 14/07/2025 pour intégrer les derniers ajustements sur les définitions, notamment pour la largeur de gamme, suite à la phase de consolidation qui a suivi le webinaire du mois de mai 2025. Les derniers modifications apportées sont \*_en italique pour les ajouts_\* et \*~~barré pour les suppressions~~\*.
@@ -49,7 +51,7 @@ Pour combiner les deux dimension de la durabilité, la formule suivante est cons
 **Durabilité\_Holistique = min (Durabilité\_Physique ; Durabilité\_NonPhysique)**\
 \
 Cette formule traduit l'idée qu'un vêtement arrive en fin de vie, soit pour une cause d'usure physique soit pour une cause non physique. C'est donc bien la dimension la plus limitante qui définirait la durée moyenne d'utilisation modélisée.\
-&#xNAN;_&#x43;ette proposition est une simple base de travail qui appelle des échanges au sein de groupe de travail qui doit être mis en place._
+_&#x43;ette proposition est une simple base de travail qui appelle des échanges au sein de groupe de travail qui doit être mis en place._
 {% endhint %}
 
 ## Méthode de calcul&#x20;
