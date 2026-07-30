@@ -687,7 +687,8 @@ toStagesImpacts trigram results =
             Impact.getImpact trigram
                 >> Just
     in
-    { distribution = getImpact results.distribution.total
+    { assembly = Nothing
+    , distribution = getImpact results.distribution.total
     , endOfLife = Nothing
     , materials = getImpact results.recipe.ingredientsTotal
     , packaging = getImpact results.packaging

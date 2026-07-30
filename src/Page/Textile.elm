@@ -1011,11 +1011,13 @@ simulatorFormView session model ({ inputs } as simulator) =
                     }
         , noOp = NoOp
         , openEditElementModal = \_ _ -> NoOp
+        , openSelectAssemblyOperationModal = \_ -> NoOp
         , openSelectConsumptionModal = \_ -> NoOp
         , openSelectPackagingModal = \_ -> NoOp
         , openSelectProcessModal = \_ _ _ _ -> SetModal NoModal
         , openSelectProductionItem = AddTrimModal >> SetModal
         , query = Component.emptyQuery |> Component.setQueryItems inputs.trims
+        , removeAssemblyOperation = \_ -> NoOp
         , removeConsumption = \_ -> NoOp
         , removePackaging = \_ -> NoOp
         , removeElement = \_ -> NoOp

@@ -4,7 +4,6 @@
     "id": "1d70182c-53aa-4358-bc2c-9cd754be1ec4",
     "name": "Veli actif, 25km/h max, 2.5kWh/100km, assemblage France",
     "query": {
-      "assemblyCountry": "FR",
       "components": [
         {
           "custom": {
@@ -248,7 +247,10 @@
           "processId": "9357c6da-88b3-4a71-b1f9-1ffb13efee2e"
         }
       ],
-      "recyclable": true
+      "recyclable": true,
+      "assembly": {
+        "country": "FR"
+      }
     },
     "scope": "veli"
   },
@@ -257,7 +259,6 @@
     "id": "1fd65352-4574-4800-853c-5623dd9eb40c",
     "name": "Veli actif, 25km/h max, 2.5kWh/100km, fabrication France",
     "query": {
-      "assemblyCountry": "FR",
       "components": [
         {
           "custom": {
@@ -496,7 +497,10 @@
           "processId": "9357c6da-88b3-4a71-b1f9-1ffb13efee2e"
         }
       ],
-      "recyclable": true
+      "recyclable": true,
+      "assembly": {
+        "country": "FR"
+      }
     },
     "scope": "veli"
   },
@@ -505,7 +509,6 @@
     "id": "351a0340-2be5-49e1-a7e2-4d843e860fc5",
     "name": "Veli, 90km/h max, 6kWh/100km, assemblage France",
     "query": {
-      "assemblyCountry": "FR",
       "components": [
         {
           "custom": {
@@ -664,7 +667,10 @@
           "processId": "f90da3e9-3a58-46b3-93e5-af389217bfc8"
         }
       ],
-      "recyclable": true
+      "recyclable": true,
+      "assembly": {
+        "country": "FR"
+      }
     },
     "scope": "veli"
   },
@@ -673,7 +679,6 @@
     "id": "3d248bde-1c32-4a63-9dfe-8fb38acd7317",
     "name": "Vélo à assistance électrique, assemblage France",
     "query": {
-      "assemblyCountry": "FR",
       "components": [
         {
           "country": "CN",
@@ -741,7 +746,10 @@
           "amount": 150,
           "processId": "eec31f13-d00a-4741-a84f-85d887026f8c"
         }
-      ]
+      ],
+      "assembly": {
+        "country": "FR"
+      }
     },
     "scope": "veli"
   },
@@ -750,7 +758,6 @@
     "id": "4582eb3a-e6fd-40e2-9c0c-fd65ac222ea8",
     "name": "Voiture électrique CatB, 15kWh/100km, fabrication Europe de l'Ouest",
     "query": {
-      "assemblyCountry": "REO",
       "components": [
         {
           "custom": {
@@ -1024,7 +1031,10 @@
           "processId": "2fd57bd2-ac17-4deb-bf02-1f4ac620c00c"
         }
       ],
-      "recyclable": true
+      "recyclable": true,
+      "assembly": {
+        "country": "REO"
+      }
     },
     "scope": "veli"
   },
@@ -1033,7 +1043,6 @@
     "id": "45c8f837-45ea-48d8-9de7-e9e58ea81acd",
     "name": "Vélo à assistance électrique, fabrication France",
     "query": {
-      "assemblyCountry": "FR",
       "components": [
         {
           "country": "CN",
@@ -1176,7 +1185,10 @@
           "amount": 150,
           "processId": "eec31f13-d00a-4741-a84f-85d887026f8c"
         }
-      ]
+      ],
+      "assembly": {
+        "country": "FR"
+      }
     },
     "scope": "veli"
   },
@@ -1185,7 +1197,6 @@
     "id": "48545a07-026b-46ca-8440-4bfaa036cce6",
     "name": "Veli, 90km/h max, 6kWh/100km, fabrication France",
     "query": {
-      "assemblyCountry": "FR",
       "components": [
         {
           "custom": {
@@ -1401,7 +1412,10 @@
           "processId": "f90da3e9-3a58-46b3-93e5-af389217bfc8"
         }
       ],
-      "recyclable": true
+      "recyclable": true,
+      "assembly": {
+        "country": "FR"
+      }
     },
     "scope": "veli"
   },
@@ -1410,7 +1424,6 @@
     "id": "49d12b6d-4c9f-4820-8d9e-18d94189d806",
     "name": "Voiture électrique CatB, proxi méthode score environnemental, fabrication France",
     "query": {
-      "assemblyCountry": "FR",
       "components": [
         {
           "quantity": 680,
@@ -1472,13 +1485,13 @@
           "quantity": 1
         }
       ],
-      "consumptions": [
-        {
-          "amount": 1,
-          "processId": "8b4fae1f-71bc-44d4-9e40-b2399ef04f34"
-        }
-      ],
-      "recyclable": true
+      "recyclable": true,
+      "assembly": {
+        "country": "FR",
+        "operations": [
+          "8b4fae1f-71bc-44d4-9e40-b2399ef04f34"
+        ]
+      }
     },
     "scope": "veli"
   },
@@ -1487,7 +1500,6 @@
     "id": "4da7b5bc-ec65-4b58-99b4-48d87cf8fcb0",
     "name": "Veli actif, 25km/h max, 2.5kWh/100km, Asie",
     "query": {
-      "assemblyCountry": "RAS",
       "components": [
         {
           "custom": {
@@ -1734,7 +1746,10 @@
           "processId": "9357c6da-88b3-4a71-b1f9-1ffb13efee2e"
         }
       ],
-      "recyclable": true
+      "recyclable": true,
+      "assembly": {
+        "country": "RAS"
+      }
     },
     "scope": "veli"
   },
@@ -1743,7 +1758,6 @@
     "id": "611c25c4-46a8-4f07-acff-b0ce9c99b86c",
     "name": "Vélo de ville, cadre aluminium, majorant par défaut",
     "query": {
-      "assemblyCountry": "FR",
       "components": [
         {
           "id": "1bd0f5c3-c368-4a2f-b404-2214a6c9b677",
@@ -1781,7 +1795,10 @@
           "id": "d2228b50-8187-4940-92a5-6dffe2a2ba85",
           "quantity": 1
         }
-      ]
+      ],
+      "assembly": {
+        "country": "FR"
+      }
     },
     "scope": "veli"
   },
@@ -1790,7 +1807,6 @@
     "id": "78517d8b-65cb-4205-accc-3bbab581176d",
     "name": "Veli, 45km/h max, 5kWh/100km, fabrication France",
     "query": {
-      "assemblyCountry": "FR",
       "components": [
         {
           "custom": {
@@ -2001,7 +2017,10 @@
           "processId": "856c13fc-372b-4c21-a171-8b79e6225e8a"
         }
       ],
-      "recyclable": true
+      "recyclable": true,
+      "assembly": {
+        "country": "FR"
+      }
     },
     "scope": "veli"
   },
@@ -2010,7 +2029,6 @@
     "id": "8d5768cb-dd06-4dbf-a6d8-62c1429beaf7",
     "name": "Veli actif, 45km/h max, 4kWh/100km, Asie",
     "query": {
-      "assemblyCountry": "RAS",
       "components": [
         {
           "custom": {
@@ -2275,7 +2293,10 @@
           "processId": "92ba1245-5c8e-49ad-9336-fdd465c6f822"
         }
       ],
-      "recyclable": true
+      "recyclable": true,
+      "assembly": {
+        "country": "RAS"
+      }
     },
     "scope": "veli"
   },
@@ -2284,7 +2305,6 @@
     "id": "a6a45e4e-c92c-4382-98b4-76ae7f95d1c5",
     "name": "Veli, 90km/h max, 6kWh/100km, Asie",
     "query": {
-      "assemblyCountry": "RAS",
       "components": [
         {
           "custom": {
@@ -2443,7 +2463,10 @@
           "processId": "f90da3e9-3a58-46b3-93e5-af389217bfc8"
         }
       ],
-      "recyclable": true
+      "recyclable": true,
+      "assembly": {
+        "country": "RAS"
+      }
     },
     "scope": "veli"
   },
@@ -2452,7 +2475,6 @@
     "id": "a6fb87c9-13fa-44d9-a679-d808a70e5546",
     "name": "Voiture essence CatB, 5.5L/100km, fabrication Europe de l'Ouest",
     "query": {
-      "assemblyCountry": "REO",
       "components": [
         {
           "custom": {
@@ -2775,7 +2797,10 @@
           "processId": "8a981011-da2c-4120-bf9e-86cdeb560fbb"
         }
       ],
-      "recyclable": true
+      "recyclable": true,
+      "assembly": {
+        "country": "REO"
+      }
     },
     "scope": "veli"
   },
@@ -2784,7 +2809,6 @@
     "id": "b13801be-ca81-477c-9fc7-35f906bf7f2e",
     "name": "Utilitaire léger diesel, 5.5L/100km, fabrication Europe de l'Ouest",
     "query": {
-      "assemblyCountry": "REO",
       "components": [
         {
           "quantity": 1,
@@ -3108,7 +3132,10 @@
           "processId": "9c894465-b599-41cd-a39e-a69f1699c024"
         }
       ],
-      "recyclable": true
+      "recyclable": true,
+      "assembly": {
+        "country": "REO"
+      }
     },
     "scope": "veli"
   },
@@ -3117,7 +3144,6 @@
     "id": "b616ba6d-26bf-4624-8835-f70f35cdbd17",
     "name": "Vélo de ville, cadre aluminium, assemblage France",
     "query": {
-      "assemblyCountry": "FR",
       "components": [
         {
           "country": "CN",
@@ -3164,7 +3190,10 @@
           "id": "d2228b50-8187-4940-92a5-6dffe2a2ba85",
           "quantity": 1
         }
-      ]
+      ],
+      "assembly": {
+        "country": "FR"
+      }
     },
     "scope": "veli"
   },
@@ -3173,7 +3202,6 @@
     "id": "b6791d66-3c1c-4214-9637-aa576cb1ee63",
     "name": "Veli, 45km/h max, 5kWh/100km, Asie",
     "query": {
-      "assemblyCountry": "RAS",
       "components": [
         {
           "custom": {
@@ -3332,7 +3360,10 @@
           "processId": "856c13fc-372b-4c21-a171-8b79e6225e8a"
         }
       ],
-      "recyclable": true
+      "recyclable": true,
+      "assembly": {
+        "country": "RAS"
+      }
     },
     "scope": "veli"
   },
@@ -3341,7 +3372,6 @@
     "id": "cbbcf0f6-6855-4655-a164-102672d1ef89",
     "name": "Veli actif, 45km/h max, 4kWh/100km, assemblage France",
     "query": {
-      "assemblyCountry": "FR",
       "components": [
         {
           "custom": {
@@ -3606,7 +3636,10 @@
           "processId": "92ba1245-5c8e-49ad-9336-fdd465c6f822"
         }
       ],
-      "recyclable": true
+      "recyclable": true,
+      "assembly": {
+        "country": "FR"
+      }
     },
     "scope": "veli"
   },
@@ -3679,7 +3712,6 @@
     "id": "cf636ce9-e95b-4e25-9a22-625986f85ef0",
     "name": "Minibus quadricycle à assistance électrique, 4kWh/100km, France",
     "query": {
-      "assemblyCountry": "FR",
       "components": [
         {
           "country": "FR",
@@ -3782,7 +3814,10 @@
           "amount": 4,
           "processId": "9357c6da-88b3-4a71-b1f9-1ffb13efee2e"
         }
-      ]
+      ],
+      "assembly": {
+        "country": "FR"
+      }
     },
     "scope": "veli"
   },
@@ -3791,7 +3826,6 @@
     "id": "d60f8f78-fdd0-49b2-ba61-9dfbd7297b96",
     "name": "Veli actif, 45km/h max, 4kWh/100km, fabrication France",
     "query": {
-      "assemblyCountry": "FR",
       "components": [
         {
           "custom": {
@@ -4140,7 +4174,10 @@
           "processId": "92ba1245-5c8e-49ad-9336-fdd465c6f822"
         }
       ],
-      "recyclable": true
+      "recyclable": true,
+      "assembly": {
+        "country": "FR"
+      }
     },
     "scope": "veli"
   },
@@ -4149,7 +4186,6 @@
     "id": "e5fc4df5-e0be-49a0-a661-10f6e15773f1",
     "name": "Vélo de ville, cadre aluminium, fabrication France",
     "query": {
-      "assemblyCountry": "FR",
       "components": [
         {
           "country": "FR",
@@ -4252,7 +4288,10 @@
           "id": "d2228b50-8187-4940-92a5-6dffe2a2ba85",
           "quantity": 1
         }
-      ]
+      ],
+      "assembly": {
+        "country": "FR"
+      }
     },
     "scope": "veli"
   },
@@ -4261,7 +4300,6 @@
     "id": "f526e36b-a4ae-41e8-be0a-f7db24f4a774",
     "name": "Veli, 45km/h max, 5kWh/100km, assemblage France",
     "query": {
-      "assemblyCountry": "FR",
       "components": [
         {
           "custom": {
@@ -4420,7 +4458,10 @@
           "processId": "856c13fc-372b-4c21-a171-8b79e6225e8a"
         }
       ],
-      "recyclable": true
+      "recyclable": true,
+      "assembly": {
+        "country": "FR"
+      }
     },
     "scope": "veli"
   }
