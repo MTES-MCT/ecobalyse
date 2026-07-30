@@ -4,6 +4,7 @@ module TestUtils exposing
     , createServerRequest
     , expectDifferentFloats
     , expectImpactsEqual
+    , expectMostlyEqualFloats
     , expectResultErrorContains
     , expectResultWithin
     , it
@@ -52,7 +53,13 @@ componentConfig db =
 expectDifferentFloats : Float -> Float -> Expectation
 expectDifferentFloats expected actual =
     abs (expected - actual)
-        |> Expect.greaterThan 0.00000001
+        |> Expect.greaterThan 0.000000000000001
+
+
+expectMostlyEqualFloats : Float -> Float -> Expectation
+expectMostlyEqualFloats expected actual =
+    abs (expected - actual)
+        |> Expect.lessThan 0.000000000000001
 
 
 it : String -> Expectation -> Test

@@ -34,7 +34,8 @@ import Result.Extra as RE
 import Test exposing (..)
 import TestUtils
     exposing
-        ( expectResultErrorContains
+        ( expectMostlyEqualFloats
+        , expectResultErrorContains
         , it
         , itFromResult
         , itFromResult2
@@ -985,34 +986,31 @@ suite =
 
                                     baseToDistributionImpact =
                                         getEcsImpact lifeCycle.transports.toDistribution.impacts
-
-                                    expectMostlyEqual =
-                                        Expect.within (Expect.Absolute 0.00001)
                                 in
                                 [ it "should scale EoL stage material masses with assembly waste"
                                     (withAssemblyWaste
                                         |> Component.getEndOfLifeTotalMass requirements
-                                        |> expectMostlyEqual (baseEndOfLifeMass * massScaleRatio)
+                                        |> expectMostlyEqualFloats (baseEndOfLifeMass * massScaleRatio)
                                     )
                                 , it "should scale EoL stage impacts with assembly waste"
                                     (withAssemblyWaste.endOfLife
                                         |> getEcsImpact
-                                        |> expectMostlyEqual (baseEndOfLifeImpact * massScaleRatio)
+                                        |> expectMostlyEqualFloats (baseEndOfLifeImpact * massScaleRatio)
                                     )
                                 , it "should scale distribution stage volume with assembly waste"
                                     (withAssemblyWaste.distribution.volume
                                         |> Volume.inCubicMeters
-                                        |> expectMostlyEqual (baseDistributionVolume * massScaleRatio)
+                                        |> expectMostlyEqualFloats (baseDistributionVolume * massScaleRatio)
                                     )
                                 , it "should scale transport to distribution stage impacts with assembly waste"
                                     (withAssemblyWaste.transports.toDistribution.impacts
                                         |> getEcsImpact
-                                        |> expectMostlyEqual (baseToDistributionImpact * massScaleRatio)
+                                        |> expectMostlyEqualFloats (baseToDistributionImpact * massScaleRatio)
                                     )
                                 , it "should keep EoL stage masses consistent with product mass"
                                     (withAssemblyWaste
                                         |> Component.getEndOfLifeTotalMass requirements
-                                        |> expectMostlyEqual (Mass.inKilograms withAssemblyWaste.productMass)
+                                        |> expectMostlyEqualFloats (Mass.inKilograms withAssemblyWaste.productMass)
                                     )
                                 ]
                             )
