@@ -81,7 +81,7 @@ frame ({ activePage } as config) ( title, content ) =
 
           else
             text ""
-        , main_ [ class "PageContent bg-white" ]
+        , main_ [ class "PageContent bg-white highcharts-light" ]
             [ -- general static notifications
               notificationListView config
 
