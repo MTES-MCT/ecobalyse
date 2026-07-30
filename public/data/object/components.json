@@ -1053,6 +1053,180 @@
     "scopes": ["veli"]
   },
   {
+    "comment": "Fourche pour vélo de ville",
+    "elements": [
+      {
+        "amount": 0.7,
+        "material": "ac028973-5dfa-47bc-868c-e49be116f53e",
+        "transforms": []
+      }
+    ],
+    "id": "ece23923-fd79-492e-b0f7-c4cf97e45a8d",
+    "name": "[Composant] Fourche vélo acier",
+    "scopes": ["veli"]
+  },
+  {
+    "comment": "Fourche pour vélo de ville",
+    "elements": [
+      {
+        "amount": 0.5,
+        "material": "cc8e1090-e90a-4dcb-89a2-4b45daac88af",
+        "transforms": [
+          "d693bd0d-88d4-4370-81ee-597956bb58f0",
+          "7319ac9c-5796-412f-a1eb-58e01afa7708",
+          "d935e937-35e7-471d-8d78-f5c6c1685adf"
+        ]
+      }
+    ],
+    "id": "1bd0f5c3-c368-4a2f-b404-2214a6c9b677",
+    "name": "[Composant] Fourche vélo aluminium",
+    "scopes": ["veli"]
+  },
+  {
+    "comment": null,
+    "elements": [
+      {
+        "amount": 0.9,
+        "material": "3e514eac-185c-449e-bdc2-e1082ca0576d",
+        "transforms": [
+          "ea284007-49a8-4be1-95fc-452ea180285a",
+          "7319ac9c-5796-412f-a1eb-58e01afa7708"
+        ]
+      },
+      {
+        "amount": 0.015,
+        "material": "9c5a7a8e-6483-4da8-9cc2-0a90a30cb93a",
+        "transforms": []
+      },
+      {
+        "amount": 0.18,
+        "material": "2bd832fa-3376-4ebd-b699-2a7f0f32ce84",
+        "transforms": [
+          "d693bd0d-88d4-4370-81ee-597956bb58f0",
+          "7319ac9c-5796-412f-a1eb-58e01afa7708",
+          "d935e937-35e7-471d-8d78-f5c6c1685adf"
+        ]
+      },
+      {
+        "amount": 0.1,
+        "material": "c5295f47-0307-48a6-8552-3705063af767",
+        "transforms": ["4a08bcab-5c25-4dec-961a-0f7208f40084"]
+      }
+    ],
+    "id": "b4d552ed-6a9b-4b29-b293-50349c62e1c0",
+    "name": "[Composant] Freins à disque vélo - kit complet",
+    "scopes": ["veli"]
+  },
+  {
+    "comment": null,
+    "elements": [
+      {
+        "amount": 0.19,
+        "material": "2bd832fa-3376-4ebd-b699-2a7f0f32ce84",
+        "transforms": [
+          "d693bd0d-88d4-4370-81ee-597956bb58f0",
+          "7319ac9c-5796-412f-a1eb-58e01afa7708",
+          "d935e937-35e7-471d-8d78-f5c6c1685adf"
+        ]
+      },
+      {
+        "amount": 0.28,
+        "material": "3e514eac-185c-449e-bdc2-e1082ca0576d",
+        "transforms": [
+          "ea284007-49a8-4be1-95fc-452ea180285a",
+          "7319ac9c-5796-412f-a1eb-58e01afa7708"
+        ]
+      },
+      {
+        "amount": 0.14,
+        "material": "c5295f47-0307-48a6-8552-3705063af767",
+        "transforms": ["4a08bcab-5c25-4dec-961a-0f7208f40084"]
+      },
+      {
+        "amount": 0.045,
+        "material": "9c5a7a8e-6483-4da8-9cc2-0a90a30cb93a",
+        "transforms": []
+      }
+    ],
+    "id": "347629ff-e7e9-4822-a948-d8c7757b2a9a",
+    "name": "[Composant] Freins à patins vélo - kit complet",
+    "scopes": ["veli"]
+  },
+  {
+    "comment": "Chassis-carosserie pour un véhicule de 100kg environ.",
+    "elements": [
+      {
+        "amount": 0.3,
+        "material": "cc8e1090-e90a-4dcb-89a2-4b45daac88af",
+        "transforms": [
+          "d693bd0d-88d4-4370-81ee-597956bb58f0",
+          "7319ac9c-5796-412f-a1eb-58e01afa7708",
+          "d935e937-35e7-471d-8d78-f5c6c1685adf"
+        ]
+      },
+      {
+        "amount": 0.03,
+        "material": "20f5db04-a4c7-48ab-9903-38c65cd70be0",
+        "transforms": []
+      }
+    ],
+    "id": "6ab7bcdf-7648-43b5-beb6-b4fa11c2d5d3",
+    "name": "[Composant] Guidon de vélo",
+    "scopes": ["veli"]
+  },
+  {
+    "comment": "Moteur de Quadricycle lourd limité à 90km/h (catégorie L7e)",
+    "elements": [
+      {
+        "amount": 50.0,
+        "material": "97a70d45-d7d5-4ee5-86b4-ee506300cdaa",
+        "transforms": []
+      }
+    ],
+    "id": "da06c70f-5b61-4de7-bb51-5761818aa0dd",
+    "name": "[Composant] Moteur électrique 15kW",
+    "scopes": ["veli"]
+  },
+  {
+    "comment": "Moteur de vélo électrique caréné ou dédié à la logistique, speedbike (catégorie L1eA)",
+    "elements": [
+      {
+        "amount": 5.0,
+        "material": "97a70d45-d7d5-4ee5-86b4-ee506300cdaa",
+        "transforms": []
+      }
+    ],
+    "id": "059f0f35-099d-4305-8a60-1666222dadb2",
+    "name": "[Composant] Moteur électrique 1kW",
+    "scopes": ["veli"]
+  },
+  {
+    "comment": "Moteur de VAE (puissance nominale maximale de 250kW)",
+    "elements": [
+      {
+        "amount": 3.0,
+        "material": "97a70d45-d7d5-4ee5-86b4-ee506300cdaa",
+        "transforms": []
+      }
+    ],
+    "id": "20b35f34-166f-4da7-abc4-54d2a64de367",
+    "name": "[Composant] Moteur électrique 250Wn",
+    "scopes": ["veli"]
+  },
+  {
+    "comment": "Moteur de Quadricycle léger (catégorie L6e)",
+    "elements": [
+      {
+        "amount": 20.0,
+        "material": "97a70d45-d7d5-4ee5-86b4-ee506300cdaa",
+        "transforms": []
+      }
+    ],
+    "id": "edca4c52-b34a-4906-b2e0-4f726bfcc8f7",
+    "name": "[Composant] Moteur électrique 6kW",
+    "scopes": ["veli"]
+  },
+  {
     "comment": "Pour roue 28' de vélo de ville ou pneus cargo 20'-24' (vélos cargo, velis actifs)",
     "elements": [
       {
@@ -1806,180 +1980,6 @@
     "id": "a5d0097f-1121-407b-acb1-35065d4f9fda",
     "name": "Emballage plastique (1 kg)",
     "scopes": ["object"]
-  },
-  {
-    "comment": "Fourche pour vélo de ville",
-    "elements": [
-      {
-        "amount": 0.7,
-        "material": "ac028973-5dfa-47bc-868c-e49be116f53e",
-        "transforms": []
-      }
-    ],
-    "id": "ece23923-fd79-492e-b0f7-c4cf97e45a8d",
-    "name": "Fourche vélo acier",
-    "scopes": ["veli"]
-  },
-  {
-    "comment": "Fourche pour vélo de ville",
-    "elements": [
-      {
-        "amount": 0.5,
-        "material": "cc8e1090-e90a-4dcb-89a2-4b45daac88af",
-        "transforms": [
-          "d693bd0d-88d4-4370-81ee-597956bb58f0",
-          "7319ac9c-5796-412f-a1eb-58e01afa7708",
-          "d935e937-35e7-471d-8d78-f5c6c1685adf"
-        ]
-      }
-    ],
-    "id": "1bd0f5c3-c368-4a2f-b404-2214a6c9b677",
-    "name": "Fourche vélo aluminium",
-    "scopes": ["veli"]
-  },
-  {
-    "comment": null,
-    "elements": [
-      {
-        "amount": 0.9,
-        "material": "3e514eac-185c-449e-bdc2-e1082ca0576d",
-        "transforms": [
-          "ea284007-49a8-4be1-95fc-452ea180285a",
-          "7319ac9c-5796-412f-a1eb-58e01afa7708"
-        ]
-      },
-      {
-        "amount": 0.015,
-        "material": "9c5a7a8e-6483-4da8-9cc2-0a90a30cb93a",
-        "transforms": []
-      },
-      {
-        "amount": 0.18,
-        "material": "2bd832fa-3376-4ebd-b699-2a7f0f32ce84",
-        "transforms": [
-          "d693bd0d-88d4-4370-81ee-597956bb58f0",
-          "7319ac9c-5796-412f-a1eb-58e01afa7708",
-          "d935e937-35e7-471d-8d78-f5c6c1685adf"
-        ]
-      },
-      {
-        "amount": 0.1,
-        "material": "c5295f47-0307-48a6-8552-3705063af767",
-        "transforms": ["4a08bcab-5c25-4dec-961a-0f7208f40084"]
-      }
-    ],
-    "id": "b4d552ed-6a9b-4b29-b293-50349c62e1c0",
-    "name": "Freins à disque vélo - kit complet",
-    "scopes": ["veli"]
-  },
-  {
-    "comment": null,
-    "elements": [
-      {
-        "amount": 0.19,
-        "material": "2bd832fa-3376-4ebd-b699-2a7f0f32ce84",
-        "transforms": [
-          "d693bd0d-88d4-4370-81ee-597956bb58f0",
-          "7319ac9c-5796-412f-a1eb-58e01afa7708",
-          "d935e937-35e7-471d-8d78-f5c6c1685adf"
-        ]
-      },
-      {
-        "amount": 0.28,
-        "material": "3e514eac-185c-449e-bdc2-e1082ca0576d",
-        "transforms": [
-          "ea284007-49a8-4be1-95fc-452ea180285a",
-          "7319ac9c-5796-412f-a1eb-58e01afa7708"
-        ]
-      },
-      {
-        "amount": 0.14,
-        "material": "c5295f47-0307-48a6-8552-3705063af767",
-        "transforms": ["4a08bcab-5c25-4dec-961a-0f7208f40084"]
-      },
-      {
-        "amount": 0.045,
-        "material": "9c5a7a8e-6483-4da8-9cc2-0a90a30cb93a",
-        "transforms": []
-      }
-    ],
-    "id": "347629ff-e7e9-4822-a948-d8c7757b2a9a",
-    "name": "Freins à patins vélo - kit complet",
-    "scopes": ["veli"]
-  },
-  {
-    "comment": "Chassis-carosserie pour un véhicule de 100kg environ.",
-    "elements": [
-      {
-        "amount": 0.3,
-        "material": "cc8e1090-e90a-4dcb-89a2-4b45daac88af",
-        "transforms": [
-          "d693bd0d-88d4-4370-81ee-597956bb58f0",
-          "7319ac9c-5796-412f-a1eb-58e01afa7708",
-          "d935e937-35e7-471d-8d78-f5c6c1685adf"
-        ]
-      },
-      {
-        "amount": 0.03,
-        "material": "20f5db04-a4c7-48ab-9903-38c65cd70be0",
-        "transforms": []
-      }
-    ],
-    "id": "6ab7bcdf-7648-43b5-beb6-b4fa11c2d5d3",
-    "name": "Guidon de vélo",
-    "scopes": ["veli"]
-  },
-  {
-    "comment": "Moteur de Quadricycle lourd limité à 90km/h (catégorie L7e)",
-    "elements": [
-      {
-        "amount": 50.0,
-        "material": "97a70d45-d7d5-4ee5-86b4-ee506300cdaa",
-        "transforms": []
-      }
-    ],
-    "id": "da06c70f-5b61-4de7-bb51-5761818aa0dd",
-    "name": "Moteur électrique 15kW",
-    "scopes": ["veli"]
-  },
-  {
-    "comment": "Moteur de vélo électrique caréné ou dédié à la logistique, speedbike (catégorie L1eA)",
-    "elements": [
-      {
-        "amount": 5.0,
-        "material": "97a70d45-d7d5-4ee5-86b4-ee506300cdaa",
-        "transforms": []
-      }
-    ],
-    "id": "059f0f35-099d-4305-8a60-1666222dadb2",
-    "name": "Moteur électrique 1kW",
-    "scopes": ["veli"]
-  },
-  {
-    "comment": "Moteur de VAE (puissance nominale maximale de 250kW)",
-    "elements": [
-      {
-        "amount": 3.0,
-        "material": "97a70d45-d7d5-4ee5-86b4-ee506300cdaa",
-        "transforms": []
-      }
-    ],
-    "id": "20b35f34-166f-4da7-abc4-54d2a64de367",
-    "name": "Moteur électrique 250Wn",
-    "scopes": ["veli"]
-  },
-  {
-    "comment": "Moteur de Quadricycle léger (catégorie L6e)",
-    "elements": [
-      {
-        "amount": 20.0,
-        "material": "97a70d45-d7d5-4ee5-86b4-ee506300cdaa",
-        "transforms": []
-      }
-    ],
-    "id": "edca4c52-b34a-4906-b2e0-4f726bfcc8f7",
-    "name": "Moteur électrique 6kW",
-    "scopes": ["veli"]
   },
   {
     "comment": null,
