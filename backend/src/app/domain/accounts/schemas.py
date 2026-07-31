@@ -51,9 +51,9 @@ class OrganizationCreate(BaseSchema):
 
 
 class Organization(BaseSchema):
-    type: OrganizationType
     name: str | None
     siren: str | None
+    type: OrganizationType
 
 
 class UserRole(BaseSchema):
@@ -74,11 +74,11 @@ class UserProfile(BaseSchema):
     This is nested in the User Model for 'profile'
     """
 
-    organization: Organization
-    terms_accepted: bool
     email_optin: bool
     first_name: str | None = None
     last_name: str | None = None
+    organization: Organization
+    terms_accepted: bool
 
 
 class User(BaseSchema):
@@ -86,15 +86,15 @@ class User(BaseSchema):
 
     id: UUID
     email: str
-    profile: UserProfile
-    joined_at: date
-    is_superuser: bool = False
+    has_active_token: bool = False
     is_active: bool = False
+    is_superuser: bool = False
     is_verified: bool = False
-    roles: list[UserRole] = []
+    joined_at: date
+    profile: UserProfile
     last_login_at: datetime | None = None
     magic_link_sent_at: datetime | None = None
-    has_active_token: bool = False
+    roles: list[UserRole] = []
 
 
 class UserCreate(BaseSchema):
@@ -109,10 +109,10 @@ class UserCreate(BaseSchema):
 
 
 class UserProfileUpdate(BaseSchema):
-    email_optin: bool | None
-    first_name: str | None
-    last_name: str | None
-    terms_accepted: bool | None
+    email_optin: bool | None = None
+    first_name: str | None = None
+    last_name: str | None = None
+    terms_accepted: bool | None = None
 
 
 class AccountLogin(BaseSchema):

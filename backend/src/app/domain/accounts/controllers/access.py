@@ -153,8 +153,10 @@ class AccessController(Controller):
         profiles_service: NamedDependency[UserProfileService],
     ) -> User:
         """Update an user profile."""
+
         db_obj = await profiles_service.update(
-            item_id=current_user.profile.id, data=data.to_dict()
+            item_id=current_user.profile.id,
+            data=data.model_dump(by_alias=False, exclude_none=True),
         )
 
         return users_service.to_schema(db_obj.user, schema_type=User)

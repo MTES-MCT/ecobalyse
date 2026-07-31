@@ -175,6 +175,11 @@ async def test_user_update_profile(
     assert json == {
         "id": json["id"],
         "email": "user@example.com",
+        "hasActiveToken": False,
+        "isActive": True,
+        "isSuperuser": False,
+        "isVerified": False,
+        "joinedAt": json["joinedAt"],
         "profile": {
             "emailOptin": True,
             "firstName": "test1",
@@ -186,14 +191,9 @@ async def test_user_update_profile(
             },
             "termsAccepted": True,
         },
-        "roles": [],
-        "isSuperuser": False,
-        "isActive": True,
-        "isVerified": False,
-        "joinedAt": json["joinedAt"],
         "lastLoginAt": json["lastLoginAt"],
         "magicLinkSentAt": json["magicLinkSentAt"],
-        "hasActiveToken": False,
+        "roles": [],
     }
 
     response = await client.patch(
