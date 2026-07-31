@@ -4,7 +4,6 @@ from typing import TYPE_CHECKING
 from uuid import UUID
 
 from advanced_alchemy.filters import OrderBy
-from advanced_alchemy.typing import convert
 from litestar import get
 from litestar.controller import Controller
 from litestar.di import NamedDependency, Provide
@@ -42,11 +41,11 @@ class JournalEntryController(Controller):
             OrderBy(field_name="created_at", sort_order="desc"),
         )
 
-        return convert(
-            obj=results,
-            type=list[JournalEntry],  # type: ignore[valid-type]
-            from_attributes=True,
-        )
+        converted_results = [
+            JournalEntry.model_validate(converted_result)
+            for converted_result in results
+        ]
+        return converted_results
 
     @get(
         operation_id="ListJournalEntriesPerTable",
@@ -65,11 +64,11 @@ class JournalEntryController(Controller):
             OrderBy(field_name="created_at", sort_order="desc"), table_name=table_name
         )
 
-        return convert(
-            obj=results,
-            type=list[JournalEntry],  # type: ignore[valid-type]
-            from_attributes=True,
-        )
+        converted_results = [
+            JournalEntry.model_validate(converted_result)
+            for converted_result in results
+        ]
+        return converted_results
 
     @get(
         operation_id="ListJournalEntriesPerTableAndRecordId",
@@ -93,8 +92,8 @@ class JournalEntryController(Controller):
             record_id=record_id,
         )
 
-        return convert(
-            obj=results,
-            type=list[JournalEntry],  # type: ignore[valid-type]
-            from_attributes=True,
-        )
+        converted_results = [
+            JournalEntry.model_validate(converted_result)
+            for converted_result in results
+        ]
+        return converted_results

@@ -2,15 +2,18 @@ from __future__ import annotations
 
 from collections.abc import AsyncGenerator, AsyncIterator
 from pathlib import Path
-from typing import Any
+from typing import Any, Callable, TypeVar
 
 import pytest
 from advanced_alchemy.base import UUIDAuditBase
+from advanced_alchemy.typing import (
+    PYDANTIC_INSTALLED,
+)
 from advanced_alchemy.utils.fixtures import open_fixture_async
 from httpx import AsyncClient
 from litestar import Litestar
-from litestar.serialization import decode_json, encode_json
 from litestar.testing import AsyncTestClient
+from litestar.types import Empty, EmptyType, TypeDecodersSequence
 from pytest_databases.docker.postgres import PostgresService
 from sqlalchemy import event
 from sqlalchemy.engine import URL
@@ -32,6 +35,69 @@ from app.domain.processes.services import ProcessService
 
 here = Path(__file__).parent
 pytestmark = pytest.mark.anyio
+
+T = TypeVar("T")
+import json
+from uuid import UUID
+
+
+class UUIDEncoder(json.JSONEncoder):
+    def default(self, obj):
+        if isinstance(obj, UUID):
+            # if the obj is uuid, we simply return the value of uuid
+            return obj.hex
+        return json.JSONEncoder.default(self, obj)
+
+
+def encode_json(value: Any, serializer: Callable[[Any], Any] | None = None) -> bytes:
+    """Encode a value into JSON.
+
+    Args:
+        value: Value to encode
+        serializer: Optional callable to support non-natively supported types.
+
+    Returns:
+        JSON as bytes
+
+    Raises:
+        SerializationException: If error encoding ``obj``.
+    """
+
+    if PYDANTIC_INSTALLED and not isinstance(value, dict):
+        return value.model_dump_json(indent=2, by_alias=True).encode("utf-8")
+    else:
+        import json
+
+        return json.dumps(value, cls=UUIDEncoder, indent=2, sort_keys=True).encode(
+            "utf-8"
+        )
+
+
+def decode_json(  # type: ignore[misc]
+    value: str | bytes,
+    target_type: type[T] | EmptyType = Empty,  # pyright: ignore
+    type_decoders: TypeDecodersSequence | None = None,
+    strict: bool = True,
+) -> Any:
+    """Decode a JSON string/bytes into an object.
+
+    Args:
+        value: Value to decode
+        target_type: An optional type to decode the data into
+        type_decoders: Optional sequence of type decoders
+        strict: Whether type coercion rules should be strict. Setting to False enables
+            a wider set of coercion rules from string to non-string types for all values
+
+    Returns:
+        An object
+
+    Raises:
+        SerializationException: If error decoding ``value``.
+    """
+
+    if target_type is Empty:
+        return value
+    return target_type.model_validate_json(value.decode("utf-8"))
 
 
 @pytest.fixture(name="engine")
