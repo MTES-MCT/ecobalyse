@@ -81,7 +81,7 @@ class AccessController(Controller):
         data: AccountRegisterMagicLink,
     ) -> User:
         """User Signup."""
-        user_data = data.to_dict()
+        user_data = data.model_dump(by_alias=False)
 
         role_obj = await roles_service.get_one_or_none(
             slug=slugify(users_service.default_role)

@@ -4,8 +4,11 @@ from datetime import date, datetime  # noqa: TC003
 from enum import StrEnum
 from uuid import UUID  # noqa: TC003
 
-from litestar.exceptions import ValidationException
+from pydantic import (
+    model_validator,
+)
 from stdnum.fr import siren
+from typing_extensions import Self
 
 from app.lib.schema import BaseSchema
 
@@ -33,21 +36,22 @@ class OrganizationCreate(BaseSchema):
     name: str | None = None
     siren: str | None = None
 
-    def __post_init__(self):
+    @model_validator(mode="after")
+    def check_organization(self) -> Self:
         if self.type != OrganizationType.INDIVIDUAL and self.name is None:
-            raise ValidationException("You need to provide an organization name")
+            raise ValueError("You need to provide an organization name")
 
         if self.type == OrganizationType.BUSINESS and self.siren is None:
-            raise ValidationException(
-                "You need to provide a SIREN number for a business"
-            )
+            raise ValueError("You need to provide a SIREN number for a business")
         if self.siren is not None:
             try:
                 siren.validate(self.siren)
             except Exception:
-                raise ValidationException("SIREN format is invalid")
+                raise ValueError("SIREN format is invalid")
 
             self.siren = siren.compact(self.siren)
+
+        return self
 
 
 class Organization(BaseSchema):
