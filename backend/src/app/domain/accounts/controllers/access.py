@@ -10,7 +10,6 @@ from uuid import UUID
 from advanced_alchemy.filters import (
     OrderBy,
 )
-from advanced_alchemy.typing import convert
 from advanced_alchemy.utils.text import slugify
 from litestar import Controller, Request, Response, delete, get, patch, post
 from litestar.background_tasks import BackgroundTask
@@ -269,12 +268,11 @@ class AccessController(Controller):
             m.Token.user == current_user,
             OrderBy(field_name="created_at", sort_order="desc"),
         )
-
-        return convert(
-            obj=results,
-            type=list[ApiTokenFromDb],  # type: ignore[valid-type]
-            from_attributes=True,
-        )
+        converted_results = [
+            ApiTokenFromDb.model_validate(converted_result)
+            for converted_result in results
+        ]
+        return converted_results
 
     @delete(
         operation_id="DeleteToken",
@@ -315,8 +313,7 @@ class AccessController(Controller):
             OrderBy(field_name="created_at", sort_order="desc"),
         )
 
-        return convert(
-            obj=results,
-            type=list[User],  # type: ignore[valid-type]
-            from_attributes=True,
-        )
+        converted_results = [
+            User.model_validate(converted_result) for converted_result in results
+        ]
+        return converted_results

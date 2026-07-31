@@ -137,6 +137,10 @@ async def test_user_profile(
     assert json == {
         "id": json["id"],
         "email": "user@example.com",
+        "isActive": True,
+        "isSuperuser": False,
+        "isVerified": False,
+        "joinedAt": json["joinedAt"],
         "profile": {
             "emailOptin": False,
             "firstName": "Example",
@@ -148,13 +152,10 @@ async def test_user_profile(
             },
             "termsAccepted": True,
         },
-        "roles": [],
-        "isSuperuser": False,
-        "isActive": True,
-        "isVerified": False,
-        "joinedAt": json["joinedAt"],
         "lastLoginAt": json["lastLoginAt"],
         "magicLinkSentAt": json["magicLinkSentAt"],
+        "roles": [],
+        "tokens": [],
         "hasActiveToken": False,
     }
 
@@ -175,7 +176,6 @@ async def test_user_update_profile(
     assert json == {
         "id": json["id"],
         "email": "user@example.com",
-        "hasActiveToken": False,
         "isActive": True,
         "isSuperuser": False,
         "isVerified": False,
@@ -194,6 +194,8 @@ async def test_user_update_profile(
         "lastLoginAt": json["lastLoginAt"],
         "magicLinkSentAt": json["magicLinkSentAt"],
         "roles": [],
+        "tokens": [],
+        "hasActiveToken": False,
     }
 
     response = await client.patch(
@@ -273,6 +275,10 @@ async def test_user_signup_and_login(
         assert json == {
             "id": json["id"],
             "email": "foo@bar.com",
+            "isActive": True,
+            "isSuperuser": False,
+            "isVerified": False,
+            "joinedAt": json["joinedAt"],
             "profile": {
                 "emailOptin": False,
                 "firstName": "first name test",
@@ -284,13 +290,8 @@ async def test_user_signup_and_login(
                 },
                 "termsAccepted": True,
             },
-            "isSuperuser": False,
-            "isActive": True,
-            "isVerified": False,
-            "joinedAt": json["joinedAt"],
             "lastLoginAt": None,
             "magicLinkSentAt": None,
-            "hasActiveToken": False,
             "roles": [
                 {
                     "roleId": json["roles"][0]["roleId"],
@@ -299,6 +300,8 @@ async def test_user_signup_and_login(
                     "assignedAt": json["roles"][0]["assignedAt"],
                 }
             ],
+            "tokens": [],
+            "hasActiveToken": False,
         }
 
         # Valid individual
@@ -748,6 +751,7 @@ async def test_list_accounts_show_recent_token_use(
 ) -> None:
     async def _get_token_status():
         response = await client.get("/api/accounts", headers=superuser_token_headers)
+
         return next(
             user for user in response.json() if user["email"] == "user@example.com"
         )["hasActiveToken"]

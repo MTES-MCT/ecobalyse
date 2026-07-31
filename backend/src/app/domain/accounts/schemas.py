@@ -1,12 +1,10 @@
 from __future__ import annotations
 
-from datetime import date, datetime  # noqa: TC003
+from datetime import date, datetime, timedelta, timezone  # noqa: TC003
 from enum import StrEnum
 from uuid import UUID  # noqa: TC003
 
-from pydantic import (
-    model_validator,
-)
+from pydantic import computed_field, model_validator
 from stdnum.fr import siren
 from typing_extensions import Self
 
@@ -90,7 +88,20 @@ class User(BaseSchema):
 
     id: UUID
     email: str
-    has_active_token: bool = False
+
+    @computed_field
+    @property
+    def has_active_token(self) -> bool:
+
+        now = datetime.now(timezone.utc)
+        # We don’t care much about exactitude here, leap years are ignored.
+        # An alternative would be to use the dateutil module.
+        one_year_ago = now - timedelta(days=365)
+        return any(
+            t.last_accessed_at is not None and t.last_accessed_at > one_year_ago
+            for t in self.tokens
+        )
+
     is_active: bool = False
     is_superuser: bool = False
     is_verified: bool = False
@@ -99,6 +110,7 @@ class User(BaseSchema):
     last_login_at: datetime | None = None
     magic_link_sent_at: datetime | None = None
     roles: list[UserRole] = []
+    tokens: list[ApiTokenFromDb] = []
 
 
 class UserCreate(BaseSchema):
