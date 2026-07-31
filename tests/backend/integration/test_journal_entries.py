@@ -259,4 +259,5 @@ async def test_components_journal(
                     },
                 ],
             },
+            ensure_ascii=False,
         )
