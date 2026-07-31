@@ -1,8 +1,10 @@
 from __future__ import annotations
 
+import json
 from collections.abc import AsyncGenerator, AsyncIterator
 from pathlib import Path
 from typing import Any, Callable, TypeVar
+from uuid import UUID
 
 import pytest
 from advanced_alchemy.base import UUIDAuditBase
@@ -37,8 +39,6 @@ here = Path(__file__).parent
 pytestmark = pytest.mark.anyio
 
 T = TypeVar("T")
-import json
-from uuid import UUID
 
 
 class UUIDEncoder(json.JSONEncoder):
