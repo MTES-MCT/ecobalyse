@@ -7,7 +7,7 @@ from uuid import UUID  # noqa: TC003
 from litestar.exceptions import ValidationException
 from stdnum.fr import siren
 
-from app.lib.schema import BaseSchema, CamelizedBaseStruct
+from app.lib.schema import BaseSchema
 
 __all__ = (
     "AccountLogin",
@@ -129,20 +129,20 @@ class AccountRegisterMagicLink(BaseSchema):
     is_active: bool = True
 
 
-class ApiToken(CamelizedBaseStruct):
+class ApiToken(BaseSchema):
     """Api token validation"""
 
     token: str
 
 
-class ApiTokenFromDb(CamelizedBaseStruct):
+class ApiTokenFromDb(BaseSchema):
     """Api token DB information"""
 
     id: UUID
     last_accessed_at: datetime | None = None
 
 
-class ApiTokenCreate(CamelizedBaseStruct):
+class ApiTokenCreate(BaseSchema):
     """Api token creation"""
 
     hashed_token: str

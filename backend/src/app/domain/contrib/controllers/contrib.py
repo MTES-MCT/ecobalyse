@@ -1,6 +1,7 @@
 from __future__ import annotations
 
 from litestar import Controller, post
+from litestar.di import NamedDependency
 
 from app.config import get_settings
 from app.db import models as m
@@ -22,7 +23,7 @@ class ExampleContribController(Controller):
     )
     async def create_example_contrib(
         self,
-        current_user: m.User,
+        current_user: NamedDependency[m.User],
         data: ExampleContribCreate,
     ) -> ExampleContribResponse:
         return await create_example_contrib_pr(

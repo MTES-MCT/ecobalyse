@@ -6,7 +6,7 @@ from uuid import UUID
 from advanced_alchemy.filters import OrderBy
 from litestar import delete, get, post, put
 from litestar.controller import Controller
-from litestar.di import Provide
+from litestar.di import NamedDependency, Provide
 from litestar.params import Parameter
 
 from app.db import models as m
@@ -44,7 +44,7 @@ class ComponentController(Controller):
     )
     async def list_components(
         self,
-        components_service: ComponentService,
+        components_service: NamedDependency[ComponentService],
     ) -> list[Dict[str, Any]]:
         """List components."""
         results = await components_service.get_many(
@@ -65,8 +65,8 @@ class ComponentController(Controller):
     async def create_component(
         self,
         data: Dict[str, Any],
-        current_user: m.User,
-        components_service: ComponentService,
+        current_user: NamedDependency[m.User],
+        components_service: NamedDependency[ComponentService],
     ) -> Dict[str, Any]:
         """Create a component."""
 
@@ -84,8 +84,8 @@ class ComponentController(Controller):
     async def update_component(
         self,
         data: Dict[str, Any],
-        components_service: ComponentService,
-        current_user: m.User,
+        components_service: NamedDependency[ComponentService],
+        current_user: NamedDependency[m.User],
         component_id: UUID = Parameter(
             title="Component ID", description="The component to update."
         ),
@@ -106,8 +106,8 @@ class ComponentController(Controller):
     )
     async def delete_component(
         self,
-        components_service: ComponentService,
-        current_user: m.User,
+        components_service: NamedDependency[ComponentService],
+        current_user: NamedDependency[m.User],
         component_id: UUID = Parameter(
             title="Component ID", description="The component to delete."
         ),
@@ -121,7 +121,7 @@ class ComponentController(Controller):
     )
     async def get_component(
         self,
-        components_service: ComponentService,
+        components_service: NamedDependency[ComponentService],
         component_id: UUID = Parameter(
             title="Component ID", description="The component to retrieve."
         ),

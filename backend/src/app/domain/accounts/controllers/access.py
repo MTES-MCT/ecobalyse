@@ -10,15 +10,13 @@ from uuid import UUID
 from advanced_alchemy.filters import (
     OrderBy,
 )
-from advanced_alchemy.service.typing import (
-    convert,
-)
+from advanced_alchemy.typing import convert
 from advanced_alchemy.utils.text import slugify
 from litestar import Controller, Request, Response, delete, get, patch, post
 from litestar.background_tasks import BackgroundTask
-from litestar.di import Provide
+from litestar.di import NamedDependency, Provide
 from litestar.exceptions import PermissionDeniedException
-from litestar.params import Parameter
+from litestar.params import FromQuery, Parameter
 from litestar.security.jwt import Token
 
 from app.db import models as m
@@ -61,7 +59,10 @@ class AccessController(Controller):
 
     @get(operation_id="AccountLogin", path=urls.ACCOUNT_LOGIN, exclude_from_auth=True)
     async def login(
-        self, users_service: UserService, email: str, token: str
+        self,
+        users_service: NamedDependency[UserService],
+        email: FromQuery[str],
+        token: FromQuery[str],
     ) -> Response[OAuth2Login]:
         """Authenticate a user using a magic link token."""
         user = await users_service.authenticate_magic_token(email, token)
@@ -75,8 +76,8 @@ class AccessController(Controller):
     async def signup_magic_link(
         self,
         request: Request,
-        users_service: UserService,
-        roles_service: RoleService,
+        users_service: NamedDependency[UserService],
+        roles_service: NamedDependency[RoleService],
         data: AccountRegisterMagicLink,
     ) -> User:
         """User Signup."""
@@ -114,7 +115,7 @@ class AccessController(Controller):
     async def login_magic_link(
         self,
         request: Request,
-        users_service: UserService,
+        users_service: NamedDependency[UserService],
         data: AccountLogin,
     ) -> None:
         """User Login."""
@@ -147,9 +148,9 @@ class AccessController(Controller):
     async def update_profile(
         self,
         data: UserProfileUpdate,
-        current_user: m.User,
-        users_service: UserService,
-        profiles_service: UserProfileService,
+        current_user: NamedDependency[m.User],
+        users_service: NamedDependency[UserService],
+        profiles_service: NamedDependency[UserProfileService],
     ) -> User:
         """Update an user profile."""
         db_obj = await profiles_service.update(
@@ -163,7 +164,11 @@ class AccessController(Controller):
         path=urls.ACCOUNT_PROFILE,
         guards=[requires_active_user],
     )
-    async def profile(self, current_user: m.User, users_service: UserService) -> User:
+    async def profile(
+        self,
+        current_user: NamedDependency[m.User],
+        users_service: NamedDependency[UserService],
+    ) -> User:
         """User Profile."""
         return users_service.to_schema(current_user, schema_type=User)
 
@@ -175,8 +180,8 @@ class AccessController(Controller):
     async def validate_token(
         self,
         request: Request,
-        tokens_service: TokenService,
-        users_service: UserService,
+        tokens_service: NamedDependency[TokenService],
+        users_service: NamedDependency[UserService],
         data: ApiToken,
     ) -> None:
         """Validate a token"""
@@ -241,7 +246,9 @@ class AccessController(Controller):
         guards=[requires_active_user],
     )
     async def generate_token(
-        self, current_user: m.User, tokens_service: TokenService
+        self,
+        current_user: NamedDependency[m.User],
+        tokens_service: NamedDependency[TokenService],
     ) -> ApiToken:
         token = await tokens_service.generate_for_user(current_user)
         return ApiToken(token=token)
@@ -252,7 +259,9 @@ class AccessController(Controller):
         guards=[requires_active_user],
     )
     async def get_tokens(
-        self, current_user: m.User, tokens_service: TokenService
+        self,
+        current_user: NamedDependency[m.User],
+        tokens_service: NamedDependency[TokenService],
     ) -> list[ApiTokenFromDb]:
         results = await tokens_service.get_many(
             m.Token.user == current_user,
@@ -272,8 +281,8 @@ class AccessController(Controller):
     )
     async def delete_token(
         self,
-        current_user: m.User,
-        tokens_service: TokenService,
+        current_user: NamedDependency[m.User],
+        tokens_service: NamedDependency[TokenService],
         token_id: UUID = Parameter(
             title="Token ID", description="The token to delete."
         ),
@@ -296,7 +305,7 @@ class AccessController(Controller):
     )
     async def list_accounts(
         self,
-        users_service: UserService,
+        users_service: NamedDependency[UserService],
     ) -> list[User]:
         """List all accounts."""
 

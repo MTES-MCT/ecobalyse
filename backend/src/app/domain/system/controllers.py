@@ -4,6 +4,7 @@ from typing import TYPE_CHECKING, Literal, TypeVar
 
 import structlog
 from litestar import Controller, MediaType, Request, get
+from litestar.di import NamedDependency
 from litestar.response import Response
 from sqlalchemy import text
 
@@ -35,7 +36,7 @@ class SystemController(Controller):
     async def check_system_health(
         self,
         request: Request,
-        db_session: AsyncSession,
+        db_session: NamedDependency[AsyncSession],
     ) -> Response[SystemHealth]:
         """Check database available and returns app config info."""
         try:
