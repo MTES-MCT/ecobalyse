@@ -72,7 +72,7 @@ async def _create_users(
             is_active=is_active,
             terms_accepted=True,
         )
-        users_to_upsert.append(user_in.to_dict())
+        users_to_upsert.append(user_in.model_dump())
 
     console = get_console()
 
