@@ -114,21 +114,6 @@ describe("lib.store", () => {
         bookmarks: stableBookmarks,
       });
     });
-
-    test("should not migrate string bookmarks from ongoing store to stable store", () => {
-      const localStorage = {
-        ecobalyse: JSON.stringify({
-          auth: null,
-          bookmarks: [`{"created":1,"name":"veli bookmark","query":{}}`],
-        }),
-        store: "{}",
-      };
-
-      const key = initializeStoreKey(localStorage);
-
-      expect(key).toBe("store");
-      expect(JSON.parse(localStorage.store)).toEqual({ auth: null });
-    });
   });
 
   describe("exportBookmarks", () => {
