@@ -390,7 +390,7 @@ async def test_token_generation(
             user = await users_service.get_one_or_none(email=first_user["email"])
             token = await token_service.generate_for_user(user, secret=secret)
 
-            db_token = (await token_service.repository.list())[-1]
+            db_token = (await token_service.repository.get_many())[-1]
 
             assert token.startswith(
                 "eco_api_eyJlbWFpbCI6ICJzdXBlcnVzZXJAZXhhbXBsZS5jb20iLCAiaWQiOiAi"
@@ -792,7 +792,7 @@ async def test_list_accounts_show_recent_token_use(
     async with TokenService.new(session) as token_service:
         # The last_accessed_at date is now
 
-        all_tokens = await token_service.repository.list()
+        all_tokens = await token_service.repository.get_many()
         assert len(all_tokens) == 1
         token = all_tokens[0]
         assert token.last_accessed_at is not None
@@ -864,7 +864,7 @@ async def test_components_access_with_eco_api_token(
     assert response.status_code == 201
 
     async with TokenService.new(session) as token_service:
-        tokens = await token_service.repository.list()
+        tokens = await token_service.repository.get_many()
         assert len(tokens) == 2
         failed_access_token = tokens[0]
         ok_access_token = tokens[1]

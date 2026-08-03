@@ -50,7 +50,7 @@ async def test_components_api_create(
     assert len(json_response["id"]) == 36
 
     async with JournalEntryService.new(session) as journal_entries_service:
-        entries = await journal_entries_service.list()
+        entries = await journal_entries_service.get_many()
         assert len(entries) == 8
         entry = entries[7]
         assert entry.action == m.JournalAction.CREATED
@@ -126,7 +126,7 @@ async def test_components_create_with_scopes(
     assert json["published"]
 
     async with JournalEntryService.new(session) as journal_entries_service:
-        entries = await journal_entries_service.list()
+        entries = await journal_entries_service.get_many()
         assert len(entries) == 8
         entry = entries[7]
         assert entry.action == m.JournalAction.CREATED
@@ -296,7 +296,7 @@ async def test_components_update(
             ]
         )
 
-        entries = await journal_entries_service.list()
+        entries = await journal_entries_service.get_many()
         assert len(entries) == 9
         entry = entries[7]
         assert entry.action == m.JournalAction.UPDATED
@@ -337,7 +337,7 @@ async def test_components_update(
         assert json["scopes"] == ["object"]
         assert len(json["elements"]) == 1
 
-        entries = await journal_entries_service.list()
+        entries = await journal_entries_service.get_many()
         assert len(entries) == 10
         entry = entries[9]
         assert entry.action == m.JournalAction.UPDATED
@@ -355,7 +355,7 @@ async def test_components_update(
             ],
         }
 
-        entries = await journal_entries_service.list()
+        entries = await journal_entries_service.get_many()
         assert len(entries) == 10
 
 
@@ -372,7 +372,7 @@ async def test_components_delete(
         )
         assert response.status_code == 403
 
-        entries = await journal_entries_service.list()
+        entries = await journal_entries_service.get_many()
         assert len(entries) == 7
 
         response = await client.delete(
@@ -381,7 +381,7 @@ async def test_components_delete(
         )
         assert response.status_code == 204
 
-        entries = await journal_entries_service.list()
+        entries = await journal_entries_service.get_many()
         assert len(entries) == 8
         assert entries[7].action == "deleted"
 
