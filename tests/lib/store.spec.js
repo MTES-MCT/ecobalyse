@@ -94,7 +94,7 @@ describe("lib.store", () => {
       expect(JSON.parse(localStorage.store)).toEqual({ auth: null });
     });
 
-    test("should migrate object bookmarks from ecobalyse to store when store is empty", () => {
+    test("should migrate plain-object bookmarks from ongoing store to stable when it's empty", () => {
       const stableBookmarks = [
         { created: 1, name: "Textile bookmark", query: { kind: "textile" } },
       ];
