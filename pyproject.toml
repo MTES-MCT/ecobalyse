@@ -25,6 +25,8 @@ dependencies = [
     "sentry-sdk[litestar]>=2.66.1",
     "pwdlib[argon2]>=0.3.0",
     "pydantic>=2.13.4",
+    "aiofiles>=25.1.0",
+    "ruff==0.15.22",
 ]
 
 [build-system]
