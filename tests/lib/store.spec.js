@@ -20,7 +20,7 @@ describe("lib.store", () => {
   });
 
   describe("initializeStoreKey", () => {
-    test("should initialize ongoing store with auth only when only stable store exists", () => {
+    test("should backport auth only to ongoing store when only stable store exists", () => {
       const authStableStore = {
         auth: { token: "stable-session-token" },
         bookmarks: anonStableStore.bookmarks,
@@ -31,14 +31,15 @@ describe("lib.store", () => {
 
       const key = initializeStoreKey(localStorage);
 
-      expect(key).toBe("ecobalyse");
-      expect(JSON.parse(localStorage.ecobalyse)).toEqual(authStableStore);
+      expect(key).toBe("store");
+      expect(JSON.parse(localStorage.ecobalyse)).toEqual({ auth: authStableStore.auth });
+      expect(JSON.parse(localStorage.store)).toEqual(authStableStore);
     });
 
     test("should backport auth only to stable store when only ongoing store exists", () => {
       const authOngoingStore = {
         auth: { token: "ongoing-session-token" },
-        bookmarks: anonOngoingStore.bookmarks,
+        bookmarks: [`{"created":1,"name":"ongoing version bookmark","query":{}}`],
       };
       const localStorage = {
         ecobalyse: JSON.stringify(authOngoingStore),
@@ -46,7 +47,7 @@ describe("lib.store", () => {
 
       const key = initializeStoreKey(localStorage);
 
-      expect(key).toBe("ecobalyse");
+      expect(key).toBe("store");
       expect(JSON.parse(localStorage.store)).toEqual({ auth: authOngoingStore.auth });
     });
 
@@ -60,19 +61,58 @@ describe("lib.store", () => {
 
       const key = initializeStoreKey(localStorage);
 
-      expect(key).toBe("ecobalyse");
+      expect(key).toBe("store");
       expect(localStorage.store).toBe(JSON.stringify(stableSession));
       expect(localStorage.ecobalyse).toBe(JSON.stringify(ongoingSession));
     });
 
-    test("should return ongoing key when no store is initialized", () => {
+    test("should return stable key when no store is initialized", () => {
       const localStorage = {};
 
       const key = initializeStoreKey(localStorage);
 
-      expect(key).toBe("ecobalyse");
+      expect(key).toBe("store");
       expect(localStorage.store).toBeUndefined();
       expect(localStorage.ecobalyse).toBeUndefined();
+    });
+
+    test("should not migrate string bookmarks from ongoing store to stable store when the latter is empty (#2698)", () => {
+      const ongoingSession = {
+        auth: null,
+        bookmarks: [`{"created":1,"name":"veli bookmark","query":{"kind":"veli"}}`],
+      };
+      const localStorage = {
+        ecobalyse: JSON.stringify(ongoingSession),
+        store: "{}",
+      };
+      const ecobalyseBefore = localStorage.ecobalyse;
+
+      const key = initializeStoreKey(localStorage);
+
+      expect(key).toBe("store");
+      expect(localStorage.ecobalyse).toBe(ecobalyseBefore);
+      expect(JSON.parse(localStorage.store)).toEqual({ auth: null });
+    });
+
+    test("should migrate plain-object bookmarks from ongoing store to stable when it's empty", () => {
+      const stableBookmarks = [
+        { created: 1, name: "Textile bookmark", query: { kind: "textile" } },
+      ];
+      const ongoingSession = {
+        auth: { token: "stable-only-user" },
+        bookmarks: stableBookmarks,
+      };
+      const localStorage = {
+        ecobalyse: JSON.stringify(ongoingSession),
+      };
+
+      const key = initializeStoreKey(localStorage);
+
+      expect(key).toBe("store");
+      expect(JSON.parse(localStorage.store)).toEqual({
+        auth: ongoingSession.auth,
+        bookmarks: stableBookmarks,
+      });
     });
   });
 
@@ -187,6 +227,53 @@ describe("lib.store", () => {
 
       expect(JSON.parse(localStorage.ecobalyse)).toEqual({ bookmarks: ongoingBookmarks });
       expect(JSON.parse(localStorage.store)).toEqual({ bookmarks: stableBookmarks });
+    });
+
+    test("should import legacy export with string bookmarks into the `ecobalyse` key and leave `store` contents unchanged", () => {
+      const ongoingVersionStringBookmarks = [
+        `{"created":1,"name":"veli bookmark","query":{"kind":"veli"}}`,
+      ];
+      const localStorage = {
+        ecobalyse: JSON.stringify({ bookmarks: [] }),
+        store: JSON.stringify({ bookmarks: [] }),
+      };
+
+      global.FileReader = function () {
+        this.result = null;
+        this.addEventListener = (_, handler) => {
+          this.onLoad = handler;
+        };
+        this.readAsText = jest.fn(() => {
+          this.result = JSON.stringify({
+            ecobalyse: ongoingVersionStringBookmarks,
+            store: [],
+          });
+          this.onLoad();
+        });
+      };
+
+      global.document = {
+        location: { reload: jest.fn() },
+        createElement: jest.fn((_) => ({
+          click: jest.fn(),
+          addEventListener: (_, handler) => {
+            fileUploadHandler = handler;
+          },
+        })),
+      };
+
+      global.alert = jest.fn();
+
+      importBookmarks(localStorage);
+
+      fileUploadHandler({
+        target: { files: [{ name: sampleFilename }] },
+      });
+
+      expect(JSON.parse(localStorage.ecobalyse)).toEqual({
+        bookmarks: ongoingVersionStringBookmarks,
+      });
+      expect(JSON.parse(localStorage.store)).toEqual({ bookmarks: [] });
     });
 
     test("should keep existing bookmarks list when import file has no bookmarks", () => {
