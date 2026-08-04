@@ -1,4 +1,3 @@
-
 import bw2calc
 from bw2data import get_multilca_data_objs
 

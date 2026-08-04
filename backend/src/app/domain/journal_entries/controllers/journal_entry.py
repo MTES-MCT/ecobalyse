@@ -81,12 +81,18 @@ class JournalEntryController(Controller):
     async def list_journal_entries_per_table_and_record_id(
         self,
         journal_entries_service: NamedDependency[JournalEntryService],
-        record_id: UUID = Parameter(
-            title="Record id", description="The record_id to get journal for."
-        ),
-        table_name: str = Parameter(
-            title="Table name", description="The table name to get journal from."
-        ),
+        record_id: Annotated[
+            UUID,
+            Parameter(
+                title="Record id", description="The record_id to get journal for."
+            ),
+        ],
+        table_name: Annotated[
+            str,
+            Parameter(
+                title="Table name", description="The table name to get journal from."
+            ),
+        ],
     ) -> list[JournalEntry]:
         """List all journal entries per table."""
         results = await journal_entries_service.get_many(

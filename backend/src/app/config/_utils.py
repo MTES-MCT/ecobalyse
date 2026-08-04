@@ -114,7 +114,9 @@ def get_config_val(key: str, default: None, type_hint: UnsetType = _UNSET) -> No
 
 
 @overload
-def get_config_val[T](key: str, default: ParseTypes | None, type_hint: type[T]) -> T: ...
+def get_config_val[T](
+    key: str, default: ParseTypes | None, type_hint: type[T]
+) -> T: ...
 
 
 def get_config_val[T](

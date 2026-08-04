@@ -208,7 +208,9 @@ AGRIBALYSE_MIGRATIONS = [
                     {"unit": "ha", "multiplier": 1e-4},
                 ),
             ]
-            + functools.reduce(operator.iadd, [
+            + functools.reduce(
+                operator.iadd,
+                [
                     [
                         [
                             (f"Water, river, {country}", "l"),
@@ -221,7 +223,9 @@ AGRIBALYSE_MIGRATIONS = [
                     ]
                     # only ES for AGB, all for Ginko
                     for country in ["ES", "ID", "CO", "CR", "EC", "IN", "BR", "US"]
-                ], []),
+                ],
+                [],
+            ),
         },
     }
 ]

@@ -1,8 +1,7 @@
 import logging
 import sys
-from collections.abc import Callable
 from functools import lru_cache
-from typing import Any, cast
+from typing import cast
 
 import sentry_sdk
 import structlog

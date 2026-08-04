@@ -60,7 +60,7 @@ def encode_json(value: Any, serializer: Callable[[Any], Any] | None = None) -> s
     return json.dumps(value, cls=UUIDEncoder, indent=2, sort_keys=True)
 
 
-def decode_json(  # type: ignore[misc]
+def decode_json[T](  # type: ignore[misc]
     value: str | bytes,
     target_type: type[T] | EmptyType = Empty,  # pyright: ignore
     type_decoders: TypeDecodersSequence | None = None,

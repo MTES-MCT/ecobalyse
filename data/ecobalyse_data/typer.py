@@ -1,4 +1,3 @@
-
 import bw2data
 import typer
 

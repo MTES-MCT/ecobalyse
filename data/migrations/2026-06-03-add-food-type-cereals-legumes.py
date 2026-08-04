@@ -50,9 +50,7 @@ def main():
                     # Arbitrarly take the first rawToCookedRatio, and emit a warning
                     # in case they are not all identical
                     rawToCookedRatio = metadata[0]["rawToCookedRatio"]
-                    if any(
-                        m["rawToCookedRatio"] != rawToCookedRatio for m in metadata
-                    ):
+                    if any(m["rawToCookedRatio"] != rawToCookedRatio for m in metadata):
                         categories.add(OTHER_ITEMS_TAG)
                         logger.warning(
                             f"{activity['displayName']}: several rawToCookedRatio found, using the first one ",

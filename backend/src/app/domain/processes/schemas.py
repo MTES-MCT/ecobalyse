@@ -1,7 +1,6 @@
 from __future__ import annotations
 
 from uuid import UUID
-from typing import Optional
 
 from pydantic import Field
 
@@ -102,19 +101,19 @@ class Impacts(BaseSchema):
 class Process(BaseSchema):
     """Component properties to use for a response."""
 
-    activity_name: Optional[str] = None
-    alias: Optional[str] = None
+    activity_name: str | None = None
+    alias: str | None = None
     categories: list[Category]
     comment: str
-    display_name: Optional[str] = None
+    display_name: str | None = None
     elec_kwh: float = Field(alias="elecKwh", default=0)
     heat_mj: float = Field(alias="heatMJ", default=0)
     id: UUID
     impacts: Impacts
-    location: Optional[str] = None
-    mass_per_unit: Optional[float] = None
+    location: str | None = None
+    mass_per_unit: float | None = None
     qty_variation_ratio: float = 1
-    scopes: list[Scope] = []
+    scopes: list[Scope] = Field(default=[])
     source: str
     unit: Unit
 

@@ -1,6 +1,6 @@
 from __future__ import annotations
 
-from typing import TYPE_CHECKING, Any, ClassVar, Dict
+from typing import TYPE_CHECKING, Annotated, Any, ClassVar
 from uuid import UUID
 
 from advanced_alchemy.filters import OrderBy
@@ -45,7 +45,7 @@ class ComponentController(Controller):
     async def list_components(
         self,
         components_service: NamedDependency[ComponentService],
-    ) -> list[Dict[str, Any]]:
+    ) -> list[dict[str, Any]]:
         """List components."""
         results = await components_service.get_many(
             OrderBy(field_name="id", sort_order="asc"), uniquify=True
@@ -64,10 +64,10 @@ class ComponentController(Controller):
     )
     async def create_component(
         self,
-        data: Dict[str, Any],
+        data: dict[str, Any],
         current_user: NamedDependency[m.User],
         components_service: NamedDependency[ComponentService],
-    ) -> Dict[str, Any]:
+    ) -> dict[str, Any]:
         """Create a component."""
 
         data["owner"] = current_user
@@ -83,13 +83,14 @@ class ComponentController(Controller):
     )
     async def update_component(
         self,
-        data: Dict[str, Any],
+        data: dict[str, Any],
         components_service: NamedDependency[ComponentService],
         current_user: NamedDependency[m.User],
-        component_id: UUID = Parameter(
-            title="Component ID", description="The component to update."
-        ),
-    ) -> Dict[str, Any]:
+        component_id: Annotated[
+            UUID,
+            Parameter(title="Component ID", description="The component to update."),
+        ],
+    ) -> dict[str, Any]:
         """Update a component."""
 
         data["owner"] = current_user
@@ -108,9 +109,10 @@ class ComponentController(Controller):
         self,
         components_service: NamedDependency[ComponentService],
         current_user: NamedDependency[m.User],
-        component_id: UUID = Parameter(
-            title="Component ID", description="The component to delete."
-        ),
+        component_id: Annotated[
+            UUID,
+            Parameter(title="Component ID", description="The component to delete."),
+        ],
     ) -> None:
         """Delete a component."""
 
@@ -122,10 +124,11 @@ class ComponentController(Controller):
     async def get_component(
         self,
         components_service: NamedDependency[ComponentService],
-        component_id: UUID = Parameter(
-            title="Component ID", description="The component to retrieve."
-        ),
-    ) -> Dict[str, Any]:
+        component_id: Annotated[
+            UUID,
+            Parameter(title="Component ID", description="The component to retrieve."),
+        ],
+    ) -> dict[str, Any]:
         """Get a component."""
 
         component = await components_service.get(component_id)

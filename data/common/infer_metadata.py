@@ -67,9 +67,7 @@ def infer_transported_cooled(categories: list[str]) -> list[str]:
     return categories
 
 
-def infer_default_origin(
-    origin_zone: str | None, categories: list[str]
-) -> str | None:
+def infer_default_origin(origin_zone: str | None, categories: list[str]) -> str | None:
     """generic default origin is infered from legacy default_origin with the _LEGACY_ZONE_TO_COUNTRY mapping"""
     if origin_zone is not None:
         if origin_zone not in _LEGACY_ZONE_TO_COUNTRY:
