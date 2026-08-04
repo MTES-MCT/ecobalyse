@@ -18,14 +18,14 @@ __all__ = ("do_run_migrations", "run_migrations_offline", "run_migrations_online
 
 # this is the Alembic Config object, which provides
 # access to the values within the .ini file in use.
-config: "AlembicCommandConfig" = context.config  # type: ignore  # noqa: PGH003
+config: "AlembicCommandConfig" = context.config  # type: ignore
 writer = rewriter.Rewriter()
 
 
 @writer.rewrites(ops.CreateTableOp)
 def order_columns(
-    context: "EnvironmentContext",  # noqa: ARG001
-    revision: tuple[str, ...],  # noqa: ARG001
+    context: "EnvironmentContext",
+    revision: tuple[str, ...],
     op: ops.CreateTableOp,
 ) -> ops.CreateTableOp:
     """Orders ID first and the audit columns at the end."""
@@ -47,8 +47,8 @@ def order_columns(
         op.table_name,
         columns,  # pyright: ignore[reportUnknownArgumentType]
         schema=op.schema,
-        # TODO: Remove when https://github.com/sqlalchemy/alembic/issues/1193 is fixed  # noqa: FIX002
-        _namespace_metadata=op._namespace_metadata,  # noqa: SLF001  # pyright: ignore[reportPrivateUsage]
+        # TODO: Remove when https://github.com/sqlalchemy/alembic/issues/1193 is fixed
+        _namespace_metadata=op._namespace_metadata,  # pyright: ignore[reportPrivateUsage]
         **op.kw,
     )
 

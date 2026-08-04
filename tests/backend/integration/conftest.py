@@ -123,7 +123,7 @@ async def _seed_db(
 
 @pytest.fixture(autouse=True)
 def _patch_db(
-    app: "Litestar",
+    app: Litestar,
     engine: AsyncEngine,
     sessionmaker: async_sessionmaker[AsyncSession],
     monkeypatch: pytest.MonkeyPatch,

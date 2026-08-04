@@ -1,7 +1,7 @@
 from __future__ import annotations
 
+from uuid import UUID
 from typing import Optional
-from uuid import UUID  # noqa: TC003
 
 from pydantic import Field
 

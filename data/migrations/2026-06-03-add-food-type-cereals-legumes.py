@@ -22,7 +22,7 @@ RATIO_TO_CAT = {
 
 OTHER_ITEMS_TAG = "material_type:other_food_items"
 
-INGREDIENT_CATEGORIES = set(RATIO_TO_CAT.values()) | set([OTHER_ITEMS_TAG])
+INGREDIENT_CATEGORIES = set(RATIO_TO_CAT.values()) | {OTHER_ITEMS_TAG}
 
 
 def main():
@@ -40,7 +40,7 @@ def main():
                 if metadata and "ingredient" in categories:
                     # The `material` tag is added if needed. All ingredients have
                     # to have it.
-                    categories |= set(["material"])
+                    categories |= {"material"}
 
                     # Any `material_type:*` tag is removed, so that we can just
                     # add the proper one afterwards, without having to worry about
@@ -51,7 +51,7 @@ def main():
                     # in case they are not all identical
                     rawToCookedRatio = metadata[0]["rawToCookedRatio"]
                     if any(
-                        [m["rawToCookedRatio"] != rawToCookedRatio for m in metadata]
+                        m["rawToCookedRatio"] != rawToCookedRatio for m in metadata
                     ):
                         categories.add(OTHER_ITEMS_TAG)
                         logger.warning(

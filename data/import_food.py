@@ -26,7 +26,6 @@ from bw2io.strategies import (
 )
 from bw2io.strategies.simapro import set_lognormal_loc_value_uncertainty_safe
 
-from common import brightway_patch as brightway_patch
 from common.import_ import (
     import_simapro_csv,
     setup_project,
@@ -179,6 +178,5 @@ if __name__ == "__main__":
     else:
         logger.info(f"{db} already imported")
 
-    if args.recreate_activities:
-        if "Ecobalyse_custom_lci" in bw2data.databases:
-            del bw2data.databases["Ecobalyse_custom_lci"]
+    if args.recreate_activities and "Ecobalyse_custom_lci" in bw2data.databases:
+        del bw2data.databases["Ecobalyse_custom_lci"]

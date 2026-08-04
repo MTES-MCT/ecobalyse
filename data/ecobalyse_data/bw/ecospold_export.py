@@ -6,7 +6,7 @@ Exports Brightway2 datasets to EcoSpold 1 XML format compatible with SimaPro.
 
 from datetime import datetime
 from pathlib import Path
-from typing import Any, Dict, List, Union
+from typing import Any
 
 import numpy as np
 from lxml import etree
@@ -71,7 +71,7 @@ LOCATIONS = {
 }
 
 
-def bool_to_text(b: Union[bool, str, None]) -> str:
+def bool_to_text(b: bool | str | None) -> str:
     """Convert a boolean-like value to 'true' or 'false' string."""
     if b in (True, "yes", "Yes", "true", "True"):
         return "true"
@@ -100,7 +100,7 @@ def pretty_number(val: float) -> str:
 class Ecospold1Exporter:
     """Export one or more datasets to Ecospold1 XML."""
 
-    def __init__(self, schema_location: Union[str, None] = None):
+    def __init__(self, schema_location: str | None = None):
         self.root = etree.Element(
             "ecoSpold",
             {
@@ -111,13 +111,16 @@ class Ecospold1Exporter:
         )
         self.count = 0
 
-    def add_dataset(self, node: Dict[str, Any], key_to_dsnum=None) -> None:
+    def add_dataset(self, node: dict[str, Any], key_to_dsnum=None) -> None:
         self.count += 1
         tags = dict(node.get("tags", []))
         # Normalize timestamp without microseconds (friendlier to some parsers)
         timestamp = tags.get(
             "ecoSpold01timestamp",
-            datetime.now().replace(microsecond=0).isoformat(),
+            datetime.datetime.now(tz=datetime.timezone.utc)
+            .now()
+            .replace(microsecond=0)
+            .isoformat(),
         )
 
         dataset = etree.SubElement(
@@ -246,7 +249,7 @@ class Ecospold1Exporter:
             },
         )
 
-        SOURCE_MAP: Dict[str, str] = {
+        SOURCE_MAP: dict[str, str] = {
             "Undefined (default)": "0",
             "Article": "1",
             "Chapters in anthology": "2",
@@ -272,7 +275,7 @@ class Ecospold1Exporter:
         }
 
         # Build sources; keep track of numbers we used
-        sources: List[Dict[str, Any]] = node.get("references", []) or []
+        sources: list[dict[str, Any]] = node.get("references", []) or []
         for index, source in enumerate(sources):
             authors = source.get("authors", []) or [""]
             first_author = authors[0] if authors else ""
@@ -478,7 +481,7 @@ def _simapro_geography_name(ds):
         parts = [p.strip() for p in name.split("|")]
         if len(parts) >= 2:
             short = parts[1]
-    short = short.replace("{%s}" % loc, "").strip()
+    short = short.replace(f"{{{loc}}}", "").strip()
     return f"[{loc}] {short}"
 
 

@@ -10,14 +10,12 @@ from datetime import UTC, datetime, timedelta
 from enum import Enum
 from multiprocessing import Pool
 from pathlib import Path
-from typing import Optional
+from typing import Annotated
 
 import typer
 from dateutil import parser
-from ecobalyse import logging_config as logging_config
 from ecobalyse import scalingo
 from rich import print
-from typing_extensions import Annotated
 
 
 class LoggingLevels(str, Enum):
@@ -133,7 +131,7 @@ def main(
 @app.command()
 def log_archives(
     download_dir: Annotated[
-        Optional[Path],
+        Path | None,
         typer.Argument(help="The output CSV file."),
     ] = Path("./archives_logs"),
     download: Annotated[
@@ -154,7 +152,7 @@ def log_archives(
     if download:
         bearer_token = scalingo.get_bearer_token(api_token=api_token)
 
-        (archives, downloaded_files) = scalingo.list_logs_archives_for_range(
+        (_archives, _downloaded_files) = scalingo.list_logs_archives_for_range(
             start_date=now,
             end_date=now - timedelta(days=days),
             bearer_token=bearer_token,

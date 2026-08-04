@@ -1,5 +1,7 @@
 from __future__ import annotations
 
+from typing import ClassVar
+
 from litestar import Controller, post
 from litestar.di import NamedDependency
 
@@ -14,7 +16,7 @@ settings = get_settings()
 
 
 class ExampleContribController(Controller):
-    tags = ["Contrib", "Examples"]
+    tags: ClassVar[list[str]] = ["Contrib", "Examples"]
 
     @post(
         operation_id="CreateExampleContrib",

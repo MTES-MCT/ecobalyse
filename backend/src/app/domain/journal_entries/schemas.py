@@ -9,7 +9,7 @@ from app.config.base import UUIDEncoder
 from app.domain.accounts.schemas import User
 from app.lib.schema import BaseSchema
 
-__all__ = "JournalEntry"
+__all__ = ("JournalEntry",)
 
 from pydantic import PlainSerializer
 

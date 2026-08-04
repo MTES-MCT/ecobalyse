@@ -1,6 +1,6 @@
 from __future__ import annotations
 
-from typing import TYPE_CHECKING, Optional
+from typing import TYPE_CHECKING
 
 from advanced_alchemy.base import UUIDAuditBase
 from sqlalchemy import Enum, Float, String
@@ -26,7 +26,7 @@ class Process(UUIDAuditBase):
 
     comment: Mapped[str]
     mass_per_unit: Mapped[float] = mapped_column(Float, nullable=True, default=None)
-    display_name: Mapped[Optional[str]]
+    display_name: Mapped[str | None]
     elec_kwh: Mapped[float] = mapped_column(Float, nullable=False, default=0)
     heat_mj: Mapped[float] = mapped_column(Float, nullable=False, default=0)
 
@@ -42,7 +42,7 @@ class Process(UUIDAuditBase):
     activity_name: Mapped[str] = mapped_column(String, nullable=False)
 
     unit: Mapped[Unit] = mapped_column(Enum(Unit, values_callable=get_enum_values))
-    location: Mapped[Optional[str]] = mapped_column(String, nullable=True)
+    location: Mapped[str | None] = mapped_column(String, nullable=True)
     qty_variation_ratio: Mapped[float] = mapped_column(Float, nullable=False, default=1)
 
     # -----------

@@ -36,11 +36,11 @@ def run_cli() -> NoReturn:
 
         sys.exit(litestar_group())
     except ImportError as exc:
-        print(  # noqa: T201
+        print(
             "Could not load required libraries. ",
             "Please check your installation and make sure you activated any necessary virtual environment",
         )
-        print(exc)  # noqa: T201
+        print(exc)
         sys.exit(1)
 
 

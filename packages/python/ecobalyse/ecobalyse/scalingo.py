@@ -9,13 +9,12 @@ from requests.auth import HTTPBasicAuth
 
 # Tell ruff to not delete the unused import by rexporting it using as
 # See https://docs.astral.sh/ruff/rules/unused-import/
-from ecobalyse import logging_config as logging_config
 
 logger = logging.getLogger(__name__)
 
 
 def get_bearer_token(api_token: str) -> str:
-    logging.info("-> Getting Bearer token")
+    logger.info("-> Getting Bearer token")
     basic = HTTPBasicAuth("", api_token)
     endpoint = "https://auth.scalingo.com/v1/tokens/exchange"
     headers = {"Content-Type": "application/json", "Accept": "application/json"}
@@ -32,7 +31,7 @@ def parse_archive_datetime(date_string: str) -> datetime:
 def list_logs_archives(
     bearer_token: str, cursor: str = "1", application: str = "ecobalyse"
 ) -> dict:
-    logging.info(f"-> Listing log archives for cursor {cursor}")
+    logger.info(f"-> Listing log archives for cursor {cursor}")
 
     endpoint = f"https://api.osc-fr1.scalingo.com/v1/apps/{application}/logs_archives?cursor={cursor}"
     headers = {
@@ -55,7 +54,8 @@ def download_archive(archive: dict, download_dir: Path) -> str | None:
         logger.info(f"Downloading `{url}`…")
         response = requests.get(url, allow_redirects=True)
         if response.status_code == 200:
-            open(dest_file_path, "wb").write(response.content)
+            with open(dest_file_path, "wb") as f:
+                f.write(response.content)
         else:
             logger.error(f"Download failed: {response.status_code}, {response.content}")
     else:
@@ -72,7 +72,7 @@ def list_logs_archives_for_range(
     application: str = "ecobalyse",
     download_dir: Path | None = None,
 ) -> tuple[list[dict], list[dict]]:
-    logging.info(f"-> Listing log archives from {start_date} to {end_date}")
+    logger.info(f"-> Listing log archives from {start_date} to {end_date}")
 
     cursor = 1
     archives_logs = list_logs_archives(bearer_token=bearer_token, cursor=cursor)

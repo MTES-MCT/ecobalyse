@@ -1,8 +1,8 @@
 from __future__ import annotations
 
 from datetime import UTC, datetime
-from typing import TYPE_CHECKING
-from uuid import UUID  # noqa: TC003
+from typing import TYPE_CHECKING, ClassVar
+from uuid import UUID
 
 from advanced_alchemy.base import UUIDAuditBase
 from sqlalchemy import ForeignKey
@@ -18,7 +18,7 @@ class UserRole(UUIDAuditBase):
     """User Role."""
 
     __tablename__ = "user_account_role"
-    __table_args__ = {"comment": "Links a user to a specific role."}
+    __table_args__: ClassVar[dict] = {"comment": "Links a user to a specific role."}
     user_id: Mapped[UUID] = mapped_column(
         ForeignKey("user_account.id", ondelete="cascade"), nullable=False
     )

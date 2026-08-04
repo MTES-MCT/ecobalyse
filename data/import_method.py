@@ -19,7 +19,6 @@ from bw2io.strategies import (
 )
 from frozendict import frozendict
 
-from common import brightway_patch as brightway_patch
 from common.impacts import impacts
 from common.import_ import setup_project
 from config import settings
@@ -187,7 +186,7 @@ def import_method():
             # remove duplicates in exchanges
             for m in ef.data:
                 m["exchanges"] = [
-                    dict(f) for f in list(set([frozendict(d) for d in m["exchanges"]]))
+                    dict(f) for f in list({frozendict(d) for d in m["exchanges"]})
                 ]
 
             ef.write_methods(overwrite=True)

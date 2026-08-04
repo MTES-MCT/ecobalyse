@@ -1,5 +1,6 @@
 from __future__ import annotations
 
+from typing import Annotated, ClassVar
 from uuid import UUID
 
 from advanced_alchemy.filters import OrderBy
@@ -23,6 +24,8 @@ from app.lib.deps import create_filter_dependencies
 class ProcessController(Controller):
     """Process CRUD"""
 
+    tags: ClassVar[list[str]] = ["Processes"]
+
     dependencies = {
         "processes_service": Provide(provide_processes_service),
     } | create_filter_dependencies(
@@ -35,8 +38,6 @@ class ProcessController(Controller):
             "updated_at": True,
         },
     )
-
-    tags = ["Processes"]
 
     @get(operation_id="ListProcesses", path=urls.PROCESS_LIST)
     async def list_processes(
@@ -65,9 +66,9 @@ class ProcessController(Controller):
         self,
         current_user: NamedDependency[m.User | None],
         processes_service: NamedDependency[ProcessService],
-        process_id: UUID = Parameter(
-            title="Process ID", description="The process to retrieve."
-        ),
+        process_id: Annotated[
+            UUID, Parameter(title="Process ID", description="The process to retrieve.")
+        ],
     ) -> Process:
         """Get a process."""
 

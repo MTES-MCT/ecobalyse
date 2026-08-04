@@ -3,7 +3,6 @@ import json
 import sys
 from enum import StrEnum
 from pathlib import Path, PurePosixPath
-from typing import List, Optional
 
 import bw2data
 import bw2io
@@ -61,7 +60,7 @@ def setup_project(
 
 
 def link_technosphere_by_activity_hash_ref_product(
-    db, external_db_name: Optional[str] = None, fields: Optional[List[str]] = None
+    db, external_db_name: str | None = None, fields: list[str] | None = None
 ):
     """
     This is a custom version of `bw2io.strategies.generic.link_technosphere_by_activity_hash`
@@ -121,7 +120,7 @@ def search_activity(activity_dict: dict, default_db: str | None = None):
         )
         return result
     else:
-        raise ValueError("Activity must be a dict")
+        raise TypeError("Activity must be a dict")
 
 
 def create_activity(
@@ -327,7 +326,7 @@ def add_activity_from_existing(activity_data, created_activities_db):
         for exchange_spec in activity_data["delete"]:
             for exchange in new_activity.exchanges():
                 if all(
-                    [exchange.get(spec[0]) == spec[1] for spec in exchange_spec.items()]
+                    exchange.get(spec[0]) == spec[1] for spec in exchange_spec.items()
                 ):
                     exchange.delete()
                     logger.debug(f"Deleted {exchange}")
@@ -398,11 +397,13 @@ def add_activity_from_existing(activity_data, created_activities_db):
 def add_unlinked_flows_to_biosphere_database(
     database,
     biosphere_name=None,
-    fields={"name", "unit", "categories"},
+    fields=None,
 ) -> None:
+    if fields is None:
+        fields = {"name", "unit", "categories"}
     biosphere_name = biosphere_name or bw2data.config.biosphere
     assert biosphere_name in bw2data.databases, (
-        "{} biosphere database not found".format(biosphere_name)
+        f"{biosphere_name} biosphere database not found"
     )
 
     bio = bw2data.Database(biosphere_name)
@@ -451,12 +452,16 @@ def import_simapro_csv(
     dbname,
     external_db=None,
     biosphere="biosphere3",
-    migrations=[],
-    strategies=[],
+    migrations=None,
+    strategies=None,
 ):
     """
     Import the s3 file `database_s3_key` into a database named `dbname` and apply the provided brightway `migrations`.
     """
+    if strategies is None:
+        strategies = []
+    if migrations is None:
+        migrations = []
     logger.info(f"🟢 Importing {database_s3_key} into {dbname}")
     assert PurePosixPath(database_s3_key).suffixes[-2:] in [
         [".CSV", ".zip"],

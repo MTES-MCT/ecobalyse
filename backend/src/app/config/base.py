@@ -376,7 +376,7 @@ class AppSettings:
 class ServerSettings:
     """Server configurations."""
 
-    HOST: str = field(default_factory=get_env("LITESTAR_HOST", "0.0.0.0"))  # noqa: S104
+    HOST: str = field(default_factory=get_env("LITESTAR_HOST", "0.0.0.0"))
     """Server network host."""
     PORT: int = field(default_factory=get_env("LITESTAR_PORT", 8000))
     """Server port."""
@@ -396,7 +396,7 @@ class EmailSettings:
 
     FROM: str = field(
         default_factory=get_env("EMAIL_FROM", "contact@ecobalyse.beta.gouv.fr")
-    )  # noqa: S104
+    )
     """From email value."""
     SERVER_HOST: str = field(default_factory=get_env("EMAIL_SERVER_HOST", None))
     """Email server host."""

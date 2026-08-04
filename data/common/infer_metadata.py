@@ -2,7 +2,6 @@
 
 import functools
 import json
-from typing import List, Optional, Set, Tuple
 
 from config import DATA_ROOT_DIR
 
@@ -48,7 +47,7 @@ TRANSPORTED_COOLED_CATEGORY = "transported_cooled"
 _MATERIAL_TYPE_PREFIX = "material_type:"
 
 
-def get_material_types(categories: List[str]) -> Set[str]:
+def get_material_types(categories: list[str]) -> set[str]:
     return {
         category[len(_MATERIAL_TYPE_PREFIX) :]
         for category in categories
@@ -56,7 +55,7 @@ def get_material_types(categories: List[str]) -> Set[str]:
     }
 
 
-def infer_transported_cooled(categories: List[str]) -> List[str]:
+def infer_transported_cooled(categories: list[str]) -> list[str]:
     """add transported_cooled tag to materials with TRANSPORTED_COOLED_MATERIAL_TYPES"""
     material_types = get_material_types(categories)
     is_ingredient = "ingredient" in categories
@@ -69,8 +68,8 @@ def infer_transported_cooled(categories: List[str]) -> List[str]:
 
 
 def infer_default_origin(
-    origin_zone: Optional[str], categories: List[str]
-) -> Optional[str]:
+    origin_zone: str | None, categories: list[str]
+) -> str | None:
     """generic default origin is infered from legacy default_origin with the _LEGACY_ZONE_TO_COUNTRY mapping"""
     if origin_zone is not None:
         if origin_zone not in _LEGACY_ZONE_TO_COUNTRY:
@@ -87,7 +86,7 @@ def infer_default_origin(
 
 
 def infer_raw_to_cooked_ratio(
-    explicit_ratio: Optional[float], categories: List[str]
+    explicit_ratio: float | None, categories: list[str]
 ) -> float:
     """If explicit_ratio is None, infer the raw_to_cooked_ratio from the material_type tag"""
     if explicit_ratio is not None:
@@ -106,7 +105,7 @@ def infer_raw_to_cooked_ratio(
 
 
 @functools.cache
-def load_base_ingredients() -> Tuple[str, ...]:
+def load_base_ingredients() -> tuple[str, ...]:
     with open(_BASE_INGREDIENTS_PATH, "r", encoding="utf-8") as f:
         base_ingredients = json.load(f)
 

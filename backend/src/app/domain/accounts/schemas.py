@@ -2,7 +2,7 @@ from __future__ import annotations
 
 from datetime import date, datetime, timedelta, timezone  # noqa: TC003
 from enum import StrEnum
-from uuid import UUID  # noqa: TC003
+from uuid import UUID
 
 from pydantic import computed_field, model_validator
 from stdnum.fr import siren
@@ -44,7 +44,7 @@ class OrganizationCreate(BaseSchema):
         if self.siren is not None:
             try:
                 siren.validate(self.siren)
-            except Exception:
+            except ValueError:
                 raise ValueError("SIREN format is invalid")
 
             self.siren = siren.compact(self.siren)

@@ -1,7 +1,7 @@
 from __future__ import annotations
 
 from collections.abc import Sequence
-from typing import TYPE_CHECKING, Any, Optional, Union, cast
+from typing import TYPE_CHECKING, Any, ClassVar, cast
 from uuid import uuid4
 
 from advanced_alchemy.exceptions import ErrorMessages
@@ -40,7 +40,7 @@ class ComponentService(SQLAlchemyAsyncRepositoryService[m.Component]):
 
     repository_type = ComponentRepository
 
-    match_fields = ["name"]
+    match_fields: ClassVar[list[str]] = ["name"]
 
     async def to_model_on_create(
         self, data: ModelDictT[m.Component]
@@ -65,13 +65,13 @@ class ComponentService(SQLAlchemyAsyncRepositoryService[m.Component]):
         item_id: Any,
         user: m.User,
         *,
-        auto_commit: Optional[bool] = None,
-        auto_expunge: Optional[bool] = None,
-        id_attribute: Optional[Union[str, InstrumentedAttribute[Any]]] = None,
-        error_messages: Optional[Union[ErrorMessages, EmptyType]] = Empty,
-        load: Optional[LoadSpec] = None,
-        execution_options: Optional[dict[str, Any]] = None,
-        uniquify: Optional[bool] = None,
+        auto_commit: bool | None = None,
+        auto_expunge: bool | None = None,
+        id_attribute: str | InstrumentedAttribute[Any] | None = None,
+        error_messages: ErrorMessages | EmptyType | None = Empty,
+        load: LoadSpec | None = None,
+        execution_options: dict[str, Any] | None = None,
+        uniquify: bool | None = None,
     ) -> ModelT:
         """Wrap repository delete operation.
 
@@ -118,14 +118,14 @@ class ComponentService(SQLAlchemyAsyncRepositoryService[m.Component]):
         item_ids: list[Any],
         user: m.User,
         *,
-        auto_commit: Optional[bool] = None,
-        auto_expunge: Optional[bool] = None,
-        id_attribute: Optional[Union[str, InstrumentedAttribute[Any]]] = None,
-        chunk_size: Optional[int] = None,
-        error_messages: Optional[Union[ErrorMessages, EmptyType]] = Empty,
-        load: Optional[LoadSpec] = None,
-        execution_options: Optional[dict[str, Any]] = None,
-        uniquify: Optional[bool] = None,
+        auto_commit: bool | None = None,
+        auto_expunge: bool | None = None,
+        id_attribute: str | InstrumentedAttribute[Any] | None = None,
+        chunk_size: int | None = None,
+        error_messages: ErrorMessages | EmptyType | None = Empty,
+        load: LoadSpec | None = None,
+        execution_options: dict[str, Any] | None = None,
+        uniquify: bool | None = None,
     ) -> Sequence[ModelT]:
         """Wrap repository bulk instance deletion.
 

@@ -18,7 +18,7 @@ def check_process_relationships(items, processes, item_type):
             continue  # Skip items without processId
 
         # Verify that the processId exists in processes.json
-        if process_id not in processes.keys():
+        if process_id not in processes:
             raise ValueError(
                 f"Process ID {process_id} from {item_type} {item.get('name', 'unknown')} not found in processes.json"
             )

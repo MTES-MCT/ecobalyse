@@ -6,7 +6,6 @@ from bw2io.strategies import (
     normalize_units,
 )
 
-from common import brightway_patch as brightway_patch
 from common.import_ import (
     import_simapro_csv,
     setup_project,

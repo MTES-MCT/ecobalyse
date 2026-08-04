@@ -14,7 +14,7 @@ def extract_branch_name(content: str) -> str | None:
     # (it should be part of the body)
     # Branch names format: https://docs.github.com/en/get-started/using-git/dealing-with-special-characters-in-branch-and-tag-names#naming-branches-and-tags
     # The English alphabet (a to z and A to Z), Numbers (0 to 9), period (.), hyphen (-), underscore (_), forward slash (/)
-    result = re.search(r"ecobalyse-private: ([0-9a-zA-Z./_-]+)", content, re.M | re.I)
+    result = re.search(r"ecobalyse-private: ([0-9a-zA-Z./_-]+)", content, re.MULTILINE | re.IGNORECASE)
     if result:
         return result.group(1)
 
@@ -32,9 +32,9 @@ def get_github(github_access_token=None):
 
     try:
         return (g.get_repo("MTES-MCT/ecobalyse"), g)
-    except github.RateLimitExceededException as e:
+    except github.RateLimitExceededException:
         print(
             "-> ⚠️ Github rate limit exceeded, can't get the tag for the current commit. You should setup GITHUB_ACCESS_TOKEN env variable to a valid Github access token.",
             file=sys.stderr,
         )
-        raise e
+        raise

@@ -260,34 +260,31 @@ def load_test_fixtures() -> None:
 async def get_or_create_default_user(db_session):
     logger = get_logger()
 
-    async with alchemy.get_session() as db_session:
-        users_service = await anext(provide_users_service(db_session))
+    users_service = await anext(provide_users_service(db_session))
 
-        settings = get_settings()
+    settings = get_settings()
+    user = await users_service.get_one_or_none(email=settings.app.DEFAULT_USER_EMAIL)
+    if not user:
+        await logger.awarning(
+            f"default super user {settings.app.DEFAULT_USER_EMAIL} not found, creating it"
+        )
+
+        await _create_user(
+            email=settings.app.DEFAULT_USER_EMAIL,
+            first_name="Admin",
+            last_name="Ecobalyse",
+            organization="Ecobalyse",
+            # Not super user
+            superuser=False,
+            # Deactivate default user
+            is_active=False,
+        )
+
         user = await users_service.get_one_or_none(
             email=settings.app.DEFAULT_USER_EMAIL
         )
-        if not user:
-            await logger.awarning(
-                f"default super user {settings.app.DEFAULT_USER_EMAIL} not found, creating it"
-            )
 
-            await _create_user(
-                email=settings.app.DEFAULT_USER_EMAIL,
-                first_name="Admin",
-                last_name="Ecobalyse",
-                organization="Ecobalyse",
-                # Not super user
-                superuser=False,
-                # Deactivate default user
-                is_active=False,
-            )
-
-            user = await users_service.get_one_or_none(
-                email=settings.app.DEFAULT_USER_EMAIL
-            )
-
-        return user
+    return user
 
 
 async def load_components_fixtures(components_data: dict) -> None:

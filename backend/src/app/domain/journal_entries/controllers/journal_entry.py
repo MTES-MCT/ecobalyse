@@ -1,6 +1,6 @@
 from __future__ import annotations
 
-from typing import TYPE_CHECKING
+from typing import TYPE_CHECKING, Annotated
 from uuid import UUID
 
 from advanced_alchemy.filters import OrderBy
@@ -18,14 +18,17 @@ if TYPE_CHECKING:
     from app.domain.journal_entries.services import JournalEntryService
 
 
+from typing import ClassVar
+
+
 class JournalEntryController(Controller):
     """JournalEntry CRUD"""
 
-    dependencies = {
+    tags: ClassVar[list[str]] = ["Journal entries"]
+
+    dependencies: ClassVar[dict] = {
         "journal_entries_service": Provide(provide_journal_entries_service),
     }
-
-    tags = ["Journal entries"]
 
     @get(
         operation_id="ListJournalEntries",

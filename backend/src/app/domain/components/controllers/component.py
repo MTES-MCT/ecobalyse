@@ -1,6 +1,6 @@
 from __future__ import annotations
 
-from typing import TYPE_CHECKING, Any, Dict
+from typing import TYPE_CHECKING, Any, ClassVar, Dict
 from uuid import UUID
 
 from advanced_alchemy.filters import OrderBy
@@ -37,7 +37,7 @@ class ComponentController(Controller):
         },
     )
 
-    tags = ["Components"]
+    tags: ClassVar[list[str]] = ["Components"]
 
     @get(
         operation_id="ListComponents", path=urls.COMPONENT_LIST, exclude_from_auth=True
