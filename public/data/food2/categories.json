@@ -31,7 +31,7 @@
     "id": "d6ba3a8b-cd58-497c-8872-b436c1659ec9",
     "label": "Fruits et légumes",
     "scope": "food2",
-    "cooling": false,
+    "cooling": true,
     "distribution": "29118025-efa0-47bb-94e2-f5ccba31a903"
   },
   {
@@ -52,7 +52,7 @@
     "id": "1eacb555-5f0c-498e-8e97-f4c9104642e4",
     "label": "Produits congelés",
     "scope": "food2",
-    "cooling": false,
+    "cooling": true,
     "distribution": "a7b3d399-4c7b-4556-9826-a79f952feb7f"
   },
   {
