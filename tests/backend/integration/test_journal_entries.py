@@ -173,7 +173,7 @@ async def test_components_journal(
 
         assert response.status_code == 200
 
-        entries = await journal_entries_service.list()
+        entries = await journal_entries_service.get_many()
 
         assert (
             len([entry for entry in entries if entry.action == m.JournalAction.DELETED])
@@ -196,7 +196,7 @@ async def test_components_journal(
 
         assert response.status_code == 204
 
-        entries = await journal_entries_service.list()
+        entries = await journal_entries_service.get_many()
         assert len(entries) == 16
 
         response = await client.get("/api/journal", headers=superuser_token_headers)
@@ -260,6 +260,4 @@ async def test_components_journal(
                 ],
             },
             ensure_ascii=False,
-            indent=2,
-            sort_keys=True,
         )

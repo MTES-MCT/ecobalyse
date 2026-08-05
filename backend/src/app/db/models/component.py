@@ -22,4 +22,6 @@ class Component(UUIDAuditBase):
     )
 
     def __repr__(self) -> str:
-        return f"Component(id={self.id!r}, published={self.published}, value={self.value!r})"
+        return (
+            f"Component(id={self.id!r}, published={self.published}, value={self.value})"
+        )

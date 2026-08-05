@@ -58,7 +58,6 @@ class JournalEntry(
     @property
     def value_str(self) -> str | None:
         if self.value is not None:
-            # Used for json/msgspec serialization
             return json.dumps(self.value, ensure_ascii=False, indent=2, sort_keys=True)
 
     def __repr__(self) -> str:

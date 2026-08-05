@@ -1,22 +1,20 @@
 from __future__ import annotations
 
-from datetime import date, datetime  # noqa: TC003
+from datetime import date, datetime, timedelta, timezone  # noqa: TC003
 from enum import StrEnum
 from uuid import UUID  # noqa: TC003
 
-import msgspec
-from litestar.exceptions import ValidationException
+from pydantic import computed_field, model_validator
 from stdnum.fr import siren
+from typing_extensions import Self
 
-from app.lib.schema import CamelizedBaseStruct
+from app.lib.schema import BaseSchema
 
 __all__ = (
     "AccountLogin",
     "User",
     "UserCreate",
     "UserRole",
-    "UserRoleAdd",
-    "UserRoleRevoke",
 )
 
 
@@ -31,35 +29,36 @@ class OrganizationType(StrEnum):
     STUDENT = "student"
 
 
-class OrganizationCreate(CamelizedBaseStruct):
+class OrganizationCreate(BaseSchema):
     type: OrganizationType
     name: str | None = None
     siren: str | None = None
 
-    def __post_init__(self):
+    @model_validator(mode="after")
+    def check_organization(self) -> Self:
         if self.type != OrganizationType.INDIVIDUAL and self.name is None:
-            raise ValidationException("You need to provide an organization name")
+            raise ValueError("You need to provide an organization name")
 
         if self.type == OrganizationType.BUSINESS and self.siren is None:
-            raise ValidationException(
-                "You need to provide a SIREN number for a business"
-            )
+            raise ValueError("You need to provide a SIREN number for a business")
         if self.siren is not None:
             try:
                 siren.validate(self.siren)
             except Exception:
-                raise ValidationException("SIREN format is invalid")
+                raise ValueError("SIREN format is invalid")
 
             self.siren = siren.compact(self.siren)
 
+        return self
 
-class Organization(CamelizedBaseStruct):
+
+class Organization(BaseSchema):
+    name: str | None
+    siren: str | None
     type: OrganizationType
-    name: str | None | msgspec.UnsetType = msgspec.UNSET
-    siren: str | None | msgspec.UnsetType = msgspec.UNSET
 
 
-class UserRole(CamelizedBaseStruct):
+class UserRole(BaseSchema):
     """Holds role details for a user.
 
     This is nested in the User Model for 'roles'
@@ -71,36 +70,50 @@ class UserRole(CamelizedBaseStruct):
     assigned_at: datetime
 
 
-class UserProfile(CamelizedBaseStruct):
+class UserProfile(BaseSchema):
     """Holds profile details for a user.
 
     This is nested in the User Model for 'profile'
     """
 
-    organization: Organization
-    terms_accepted: bool
     email_optin: bool
     first_name: str | None = None
     last_name: str | None = None
+    organization: Organization
+    terms_accepted: bool
 
 
-class User(CamelizedBaseStruct):
+class User(BaseSchema):
     """User properties to use for a response."""
 
     id: UUID
     email: str
-    profile: UserProfile
-    joined_at: date
-    is_superuser: bool = False
+
+    @computed_field
+    @property
+    def has_active_token(self) -> bool:
+
+        now = datetime.now(timezone.utc)
+        # We don’t care much about exactitude here, leap years are ignored.
+        # An alternative would be to use the dateutil module.
+        one_year_ago = now - timedelta(days=365)
+        return any(
+            t.last_accessed_at is not None and t.last_accessed_at > one_year_ago
+            for t in self.tokens
+        )
+
     is_active: bool = False
+    is_superuser: bool = False
     is_verified: bool = False
-    roles: list[UserRole] = []
+    joined_at: date
+    profile: UserProfile
     last_login_at: datetime | None = None
     magic_link_sent_at: datetime | None = None
-    has_active_token: bool = False
+    roles: list[UserRole] = []
+    tokens: list[ApiTokenFromDb] = []
 
 
-class UserCreate(CamelizedBaseStruct):
+class UserCreate(BaseSchema):
     email: str
     first_name: str
     last_name: str
@@ -111,18 +124,18 @@ class UserCreate(CamelizedBaseStruct):
     is_verified: bool = False
 
 
-class UserProfileUpdate(CamelizedBaseStruct, omit_defaults=True):
-    email_optin: bool | None | msgspec.UnsetType = msgspec.UNSET
-    first_name: str | None | msgspec.UnsetType = msgspec.UNSET
-    last_name: str | None | msgspec.UnsetType = msgspec.UNSET
-    terms_accepted: bool | None | msgspec.UnsetType = msgspec.UNSET
+class UserProfileUpdate(BaseSchema):
+    email_optin: bool | None = None
+    first_name: str | None = None
+    last_name: str | None = None
+    terms_accepted: bool | None = None
 
 
-class AccountLogin(CamelizedBaseStruct):
+class AccountLogin(BaseSchema):
     email: str
 
 
-class AccountRegisterMagicLink(CamelizedBaseStruct):
+class AccountRegisterMagicLink(BaseSchema):
     email: str
     first_name: str
     last_name: str
@@ -132,32 +145,20 @@ class AccountRegisterMagicLink(CamelizedBaseStruct):
     is_active: bool = True
 
 
-class UserRoleAdd(CamelizedBaseStruct):
-    """User role add ."""
-
-    user_name: str
-
-
-class UserRoleRevoke(CamelizedBaseStruct):
-    """User role revoke ."""
-
-    user_name: str
-
-
-class ApiToken(CamelizedBaseStruct):
+class ApiToken(BaseSchema):
     """Api token validation"""
 
     token: str
 
 
-class ApiTokenFromDb(CamelizedBaseStruct):
+class ApiTokenFromDb(BaseSchema):
     """Api token DB information"""
 
     id: UUID
     last_accessed_at: datetime | None = None
 
 
-class ApiTokenCreate(CamelizedBaseStruct):
+class ApiTokenCreate(BaseSchema):
     """Api token creation"""
 
     hashed_token: str

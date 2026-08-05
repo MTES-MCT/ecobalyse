@@ -4,12 +4,9 @@ from typing import TYPE_CHECKING
 from uuid import UUID
 
 from advanced_alchemy.filters import OrderBy
-from advanced_alchemy.service.typing import (
-    convert,
-)
 from litestar import get
 from litestar.controller import Controller
-from litestar.di import Provide
+from litestar.di import NamedDependency, Provide
 from litestar.params import Parameter
 
 from app.domain.accounts.guards import requires_superuser
@@ -37,18 +34,18 @@ class JournalEntryController(Controller):
     )
     async def list_journal_entries(
         self,
-        journal_entries_service: JournalEntryService,
+        journal_entries_service: NamedDependency[JournalEntryService],
     ) -> list[JournalEntry]:
         """List all journal entries."""
         results = await journal_entries_service.get_many(
             OrderBy(field_name="created_at", sort_order="desc"),
         )
 
-        return convert(
-            obj=results,
-            type=list[JournalEntry],  # type: ignore[valid-type]
-            from_attributes=True,
-        )
+        converted_results = [
+            JournalEntry.model_validate(converted_result)
+            for converted_result in results
+        ]
+        return converted_results
 
     @get(
         operation_id="ListJournalEntriesPerTable",
@@ -57,7 +54,7 @@ class JournalEntryController(Controller):
     )
     async def list_journal_entries_per_table(
         self,
-        journal_entries_service: JournalEntryService,
+        journal_entries_service: NamedDependency[JournalEntryService],
         table_name: str = Parameter(
             title="Table name", description="The table name to get journal from."
         ),
@@ -67,11 +64,11 @@ class JournalEntryController(Controller):
             OrderBy(field_name="created_at", sort_order="desc"), table_name=table_name
         )
 
-        return convert(
-            obj=results,
-            type=list[JournalEntry],  # type: ignore[valid-type]
-            from_attributes=True,
-        )
+        converted_results = [
+            JournalEntry.model_validate(converted_result)
+            for converted_result in results
+        ]
+        return converted_results
 
     @get(
         operation_id="ListJournalEntriesPerTableAndRecordId",
@@ -80,7 +77,7 @@ class JournalEntryController(Controller):
     )
     async def list_journal_entries_per_table_and_record_id(
         self,
-        journal_entries_service: JournalEntryService,
+        journal_entries_service: NamedDependency[JournalEntryService],
         record_id: UUID = Parameter(
             title="Record id", description="The record_id to get journal for."
         ),
@@ -95,8 +92,8 @@ class JournalEntryController(Controller):
             record_id=record_id,
         )
 
-        return convert(
-            obj=results,
-            type=list[JournalEntry],  # type: ignore[valid-type]
-            from_attributes=True,
-        )
+        converted_results = [
+            JournalEntry.model_validate(converted_result)
+            for converted_result in results
+        ]
+        return converted_results

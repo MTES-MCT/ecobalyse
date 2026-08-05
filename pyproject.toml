@@ -7,8 +7,7 @@ requires-python = "==3.12.*"
 dependencies = [
     "litestar[jwt,sqlalchemy,standard]>=2.24.0",
     "aiosqlite>=0.21.0",
-    "advanced-alchemy>=1.4.4",
-    "msgspec>=0.19.0",
+    "advanced-alchemy>=1.11.0",
     "check-jsonschema~=0.37",
     "pytest-databases[postgres]>=0.19.0",
     "psycopg[binary,pool]>=3.3.4",
@@ -24,6 +23,8 @@ dependencies = [
     "asyncstdlib>=3.13.1",
     "sentry-sdk[litestar]>=2.66.1",
     "pwdlib[argon2]>=0.3.0",
+    "pydantic>=2.13.4",
+    "ruff==0.15.22",
 ]
 
 [build-system]
@@ -84,6 +85,9 @@ pythonpath = ["."]
 testpaths = ["tests"]
 filterwarnings = [
     "ignore:All values in characterization matrix:UserWarning:bw2calc",
+    # Due to code that must be updated un advanced_alchemy but was not so far
+    # see https://github.com/shoriminimoe/novamoc/pull/53
+    "ignore:.*set_async_context.*:DeprecationWarning:advanced_alchemy._listeners",
 ]
 
 [tool.ruff]
