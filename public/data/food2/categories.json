@@ -1,0 +1,79 @@
+[
+  {
+    "id": "2ab49980-2bc8-40b9-8db2-010d0d14ce50",
+    "label": "Charcuterie",
+    "scope": "food2",
+    "cooling": true,
+    "distribution": "be66b80b-1500-4e3b-bfd2-87a89ff54031"
+  },
+  {
+    "id": "8ff16df9-acff-47b3-bc6d-c25afca653e0",
+    "label": "Crudités",
+    "scope": "food2",
+    "cooling": true,
+    "distribution": "29118025-efa0-47bb-94e2-f5ccba31a903"
+  },
+  {
+    "id": "ed82925c-7f21-4101-b9be-056e3c185749",
+    "label": "Céréales brutes",
+    "scope": "food2",
+    "cooling": false,
+    "distribution": "29118025-efa0-47bb-94e2-f5ccba31a903"
+  },
+  {
+    "id": "22bd618d-effb-4769-86ff-e326b7fe78b6",
+    "label": "Céréales transformées",
+    "scope": "food2",
+    "cooling": true,
+    "distribution": "be66b80b-1500-4e3b-bfd2-87a89ff54031"
+  },
+  {
+    "id": "d6ba3a8b-cd58-497c-8872-b436c1659ec9",
+    "label": "Fruits et légumes",
+    "scope": "food2",
+    "cooling": false,
+    "distribution": "29118025-efa0-47bb-94e2-f5ccba31a903"
+  },
+  {
+    "id": "0f5377d4-efce-45f7-8547-169ac0e124d0",
+    "label": "Matières grasses végétales",
+    "scope": "food2",
+    "cooling": false,
+    "distribution": "29118025-efa0-47bb-94e2-f5ccba31a903"
+  },
+  {
+    "id": "18fdea50-1a04-4948-bf13-7b54e169235b",
+    "label": "Plats préparés",
+    "scope": "food2",
+    "cooling": true,
+    "distribution": "be66b80b-1500-4e3b-bfd2-87a89ff54031"
+  },
+  {
+    "id": "1eacb555-5f0c-498e-8e97-f4c9104642e4",
+    "label": "Produits congelés",
+    "scope": "food2",
+    "cooling": false,
+    "distribution": "a7b3d399-4c7b-4556-9826-a79f952feb7f"
+  },
+  {
+    "id": "3d69eb9f-0126-4e97-a017-d47f00fdcabb",
+    "label": "Produits laitiers",
+    "scope": "food2",
+    "cooling": true,
+    "distribution": "be66b80b-1500-4e3b-bfd2-87a89ff54031"
+  },
+  {
+    "id": "73b44868-899b-476f-bab6-1ecb4877ade2",
+    "label": "Sauces",
+    "scope": "food2",
+    "cooling": false,
+    "distribution": "29118025-efa0-47bb-94e2-f5ccba31a903"
+  },
+  {
+    "id": "18c80093-442d-469c-9a22-6297e97ba1a7",
+    "label": "Viandes",
+    "scope": "food2",
+    "cooling": true,
+    "distribution": "be66b80b-1500-4e3b-bfd2-87a89ff54031"
+  }
+]
