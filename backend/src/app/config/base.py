@@ -10,9 +10,6 @@ from pathlib import Path
 from typing import TYPE_CHECKING, Any, Final, TypeVar, cast
 from uuid import UUID
 
-from advanced_alchemy.typing import (
-    PYDANTIC_INSTALLED,
-)
 from advanced_alchemy.utils.text import slugify
 from litestar.data_extractors import RequestExtractorField
 from litestar.types import Empty, EmptyType, TypeDecodersSequence
@@ -38,7 +35,7 @@ class UUIDEncoder(json.JSONEncoder):
     def default(self, obj):
         if isinstance(obj, UUID):
             # if the obj is uuid, we simply return the value of uuid
-            return obj.hex
+            return str(obj)
         return json.JSONEncoder.default(self, obj)
 
 
@@ -56,14 +53,11 @@ def encode_json(value: Any, serializer: Callable[[Any], Any] | None = None) -> b
         SerializationException: If error encoding ``obj``.
     """
 
-    if PYDANTIC_INSTALLED and not isinstance(value, dict):
-        return value.model_dump_json(indent=2, by_alias=True).encode("utf-8")
-    else:
-        import json
+    # We have a pydantic model to encode
+    if not isinstance(value, dict):
+        value = value.model_dump(by_alias=True)
 
-        return json.dumps(value, cls=UUIDEncoder, indent=2, sort_keys=True).encode(
-            "utf-8"
-        )
+    return json.dumps(value, cls=UUIDEncoder, indent=2, sort_keys=True)
 
 
 def decode_json(  # type: ignore[misc]
@@ -90,7 +84,7 @@ def decode_json(  # type: ignore[misc]
 
     if target_type is Empty:
         return value
-    return target_type.model_validate_json(value.decode("utf-8"))
+    return target_type.model_validate_json(value)
 
 
 @dataclass
@@ -156,6 +150,7 @@ class DatabaseSettings:
             engine = create_async_engine(
                 url=self.URL,
                 future=True,
+                # Used for jsonb fields
                 json_serializer=encode_json,
                 json_deserializer=decode_json,
                 echo=self.ECHO,
@@ -172,46 +167,6 @@ class DatabaseSettings:
 
             See [`async_sessionmaker()`][sqlalchemy.ext.asyncio.async_sessionmaker].
             """
-
-            @event.listens_for(engine.sync_engine, "connect")
-            def _sqla_on_connect(
-                dbapi_connection: Any, _: Any
-            ) -> Any:  # pragma: no cover
-                """Using msgspec for serialization of the json column values means that the
-                output is binary, not `str` like `json.dumps` would output.
-                SQLAlchemy expects that the json serializer returns `str` and calls `.encode()` on the value to
-                turn it to bytes before writing to the JSONB column. I'd need to either wrap `serialization.to_json` to
-                return a `str` so that SQLAlchemy could then convert it to binary, or do the following, which
-                changes the behaviour of the dialect to expect a binary value from the serializer.
-                See Also https://github.com/sqlalchemy/sqlalchemy/blob/14bfbadfdf9260a1c40f63b31641b27fe9de12a0/lib/sqlalchemy/dialects/postgresql/asyncpg.py#L934  pylint: disable=line-too-long
-                """
-
-                def encoder(bin_value: bytes) -> bytes:
-                    return b"\x01" + bin_value
-
-                def decoder(bin_value: bytes) -> Any:
-                    # the byte is the \x01 prefix for jsonb used by PostgreSQL.
-                    # asyncpg returns it when format='binary'
-                    return decode_json(bin_value[1:])
-
-                dbapi_connection.await_(
-                    dbapi_connection.driver_connection.set_type_codec(
-                        "jsonb",
-                        encoder=encoder,
-                        decoder=decoder,
-                        schema="pg_catalog",
-                        format="binary",
-                    ),
-                )
-                dbapi_connection.await_(
-                    dbapi_connection.driver_connection.set_type_codec(
-                        "json",
-                        encoder=encoder,
-                        decoder=decoder,
-                        schema="pg_catalog",
-                        format="binary",
-                    ),
-                )
 
         elif self.URL.startswith("sqlite+aiosqlite"):
             engine = create_async_engine(
