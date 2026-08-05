@@ -18,13 +18,13 @@ dependencies = [
     "emails>=0.6",
     "python-stdnum>=2.1",
     "pygithub>=2.6.1",
-    "typer~=0.26",
+    "typer~=0.27",
     "pytest-mock>=3.14.1",
     "asyncstdlib>=3.13.1",
     "sentry-sdk[litestar]>=2.66.1",
     "pwdlib[argon2]>=0.3.0",
     "pydantic>=2.13.4",
-    "ruff==0.15.22",
+    "ruff==0.16.1",
 ]
 
 [build-system]
@@ -55,7 +55,7 @@ backend = "app.__main__:run_cli"
 dev = [
     "pre-commit>=4.6.0",
     "pytest~=9.1",
-    "ruff~=0.15",
+    "ruff~=0.16",
 ]
 
 data = [
