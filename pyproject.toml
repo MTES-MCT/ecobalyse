@@ -8,7 +8,6 @@ dependencies = [
     "litestar[jwt,sqlalchemy,standard]>=2.24.0",
     "aiosqlite>=0.21.0",
     "advanced-alchemy>=1.11.0",
-    "msgspec>=0.19.0",
     "check-jsonschema~=0.37",
     "pytest-databases[postgres]>=0.19.0",
     "psycopg[binary,pool]>=3.3.4",
