@@ -2,6 +2,7 @@ import logging
 import os
 from datetime import datetime
 from pathlib import Path
+from typing import Any
 
 import requests
 from dateutil import parser
@@ -29,8 +30,8 @@ def parse_archive_datetime(date_string: str) -> datetime:
 
 
 def list_logs_archives(
-    bearer_token: str, cursor: str = "1", application: str = "ecobalyse"
-) -> dict:
+    bearer_token: str, cursor: int = 1, application: str = "ecobalyse"
+) -> dict[str, Any]:
     logger.info(f"-> Listing log archives for cursor {cursor}")
 
     endpoint = f"https://api.osc-fr1.scalingo.com/v1/apps/{application}/logs_archives?cursor={cursor}"
@@ -71,12 +72,12 @@ def list_logs_archives_for_range(
     bearer_token: str,
     application: str = "ecobalyse",
     download_dir: Path | None = None,
-) -> tuple[list[dict], list[dict]]:
+) -> tuple[list[dict], list[str]] | None:
     logger.info(f"-> Listing log archives from {start_date} to {end_date}")
 
     cursor = 1
     archives_logs = list_logs_archives(bearer_token=bearer_token, cursor=cursor)
-    archives = archives_logs["archives"]
+    archives: list[dict] = archives_logs["archives"]
 
     if len(archives) == 0:
         logger.info("-> No more archives, returning")
@@ -87,12 +88,12 @@ def list_logs_archives_for_range(
 
     last_archive = archives[-1]
     last_archive_to_date = parse_archive_datetime(last_archive["to"])
-    downloaded_files = []
+    downloaded_files: list[str] = []
 
     while first_archive_from_date > start_date and archives_logs["has_more"]:
         cursor = archives_logs["next_cursor"]
         archives_logs = list_logs_archives(bearer_token=bearer_token, cursor=cursor)
-        archives = archives_logs["archives"]
+        archives: list[dict] = archives_logs["archives"]
 
         if len(archives) == 0:
             logger.info("-> No more archives, returning")

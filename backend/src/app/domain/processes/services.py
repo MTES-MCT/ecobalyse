@@ -4,6 +4,7 @@ import re
 from typing import TYPE_CHECKING, ClassVar
 from uuid import uuid4
 
+from advanced_alchemy.extensions.litestar import service
 from advanced_alchemy.repository import (
     SQLAlchemyAsyncRepository,
 )
@@ -89,9 +90,13 @@ class ProcessService(SQLAlchemyAsyncRepositoryService[m.Process]):
 
     async def _populate_with_categories_and_impacts(
         self,
-        data: ModelDictT[m.Team],
+        data: ModelDictT[m.Process],
         operation: str | None,
-    ) -> ModelDictT[m.Team]:
+    ) -> ModelDictT[m.Process]:
+
+        if not service.is_dict(data):
+            return data
+
         owner: m.User | None = data.pop("owner", None)
 
         renamed_process = {}

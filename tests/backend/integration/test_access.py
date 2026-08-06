@@ -387,7 +387,7 @@ async def test_token_generation(
     ):
         first_user = raw_users[0]
         secret = "test_secret"
-        user = await users_service.get_one_or_none(email=first_user["email"])
+        user = await users_service.get_one(email=first_user["email"])
         token = await token_service.generate_for_user(user, secret=secret)
 
         db_token = (await token_service.repository.get_many())[-1]

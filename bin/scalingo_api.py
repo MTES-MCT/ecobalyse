@@ -131,7 +131,7 @@ def main(
 @app.command()
 def log_archives(
     download_dir: Annotated[
-        Path | None,
+        Path,
         typer.Argument(help="The output CSV file."),
     ] = Path("./archives_logs"),
     download: Annotated[
@@ -149,10 +149,11 @@ def log_archives(
     now = datetime.now(UTC)
     api_token = os.getenv("SCALINGO_API_TOKEN")
 
-    if download:
+    if download and api_token:
         bearer_token = scalingo.get_bearer_token(api_token=api_token)
 
-        (_archives, _downloaded_files) = scalingo.list_logs_archives_for_range(
+        # Download files
+        scalingo.list_logs_archives_for_range(
             start_date=now,
             end_date=now - timedelta(days=days),
             bearer_token=bearer_token,

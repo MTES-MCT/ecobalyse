@@ -7,6 +7,7 @@ from datetime import UTC, datetime, timedelta
 from typing import Any, ClassVar
 from uuid import UUID, uuid4
 
+from advanced_alchemy.extensions.litestar import service
 from advanced_alchemy.repository import (
     SQLAlchemyAsyncRepository,
     SQLAlchemyAsyncSlugRepository,
@@ -173,6 +174,9 @@ class UserService(SQLAlchemyAsyncRepositoryService[m.User]):
         data: ModelDictT[m.User],
         operation: str | None,
     ) -> ModelDictT[m.User]:
+
+        if not service.is_dict(data):
+            return data
         first_name = data.pop("first_name", None) if is_dict(data) else None
         terms_accepted = data.pop("terms_accepted", None) if is_dict(data) else None
         last_name = data.pop("last_name", None) if is_dict(data) else None

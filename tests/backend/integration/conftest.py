@@ -23,7 +23,7 @@ from sqlalchemy.pool import NullPool
 from app.config import app as config
 from app.config import get_settings
 from app.config.base import decode_json, encode_json
-from app.db.models import Component, Process, User
+from app.db.models import Component, User
 from app.domain.accounts.guards import auth
 from app.domain.accounts.services import RoleService, UserService
 from app.domain.components.services import ComponentService
@@ -80,7 +80,7 @@ async def fx_session(
 async def _seed_db(
     engine: AsyncEngine,
     session: AsyncSession,
-    raw_processes: list[Process | dict[str, Any]],
+    raw_processes: list[dict[str, Any]],
     raw_components: list[Component | dict[str, Any]],
     raw_users: list[User | dict[str, Any]],
 ) -> AsyncGenerator[None, None]:

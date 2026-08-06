@@ -151,10 +151,10 @@ def create_users(
 
     anyio.run(
         _create_users,
-        cast("str", users),
+        users,
         organization,
         organization_type,
-        cast("bool", superuser),
+        superuser,
     )
 
 
@@ -226,8 +226,8 @@ def create_user(
     anyio.run(
         _create_user,
         cast("str", email),
-        cast("str", first_name),
-        cast("str", last_name),
+        first_name,
+        last_name,
         organization,
         organization_type,
         cast("bool", superuser),
@@ -333,7 +333,7 @@ def load_components_json(json_file: click.File) -> None:
 
 
 async def load_processes_fixtures(
-    db_session, processes_service, processes_data: dict
+    db_session, processes_service, processes_data: list[dict[str, Any]]
 ) -> None:
     """Import/Synchronize Database Fixtures."""
 

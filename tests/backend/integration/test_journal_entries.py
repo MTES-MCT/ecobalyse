@@ -8,7 +8,6 @@ from sqlalchemy.ext.asyncio import (
 )
 
 from app.db import models as m
-from app.db.models import Process
 from app.domain.accounts.services import UserService
 from app.domain.journal_entries.services import JournalEntryService
 from app.domain.processes.services import ProcessService
@@ -24,7 +23,7 @@ async def test_processes_journal(
     session: AsyncSession,
     superuser_token_headers: dict[str, str],
     other_superuser_token_headers: dict[str, str],
-    raw_processes: list[Process | dict[str, Any]],
+    raw_processes: list[dict[str, Any]],
 ) -> None:
     async with (
         ProcessService.new(session) as processes_services,

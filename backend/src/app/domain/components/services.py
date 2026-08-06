@@ -5,6 +5,7 @@ from typing import TYPE_CHECKING, Any, ClassVar, cast
 from uuid import uuid4
 
 from advanced_alchemy.exceptions import ErrorMessages
+from advanced_alchemy.extensions.litestar import service
 from advanced_alchemy.repository import (
     SQLAlchemyAsyncRepository,
 )
@@ -174,6 +175,9 @@ class ComponentService(SQLAlchemyAsyncRepositoryService[m.Component]):
     async def _create_component(
         self, data: ModelDictT[m.Component], processes_service, owner_id: UUID
     ):
+        if not service.is_dict(data):
+            return data
+
         if "published" not in data:
             data["published"] = False
 
@@ -197,6 +201,9 @@ class ComponentService(SQLAlchemyAsyncRepositoryService[m.Component]):
     async def _update_component(
         self, data: ModelDictT[m.Component], processes_service, owner_id: UUID
     ):
+
+        if not service.is_dict(data):
+            return data
 
         data["id"] = data.get("id", uuid4())
         data["value"] = data.copy()
@@ -225,6 +232,10 @@ class ComponentService(SQLAlchemyAsyncRepositoryService[m.Component]):
         data: ModelDictT[m.Component],
         operation: str | None,
     ) -> ModelDictT[m.Component]:
+
+        if not service.is_dict(data):
+            return data
+
         has_id = data.get("id") is not None
 
         owner: m.User | None = data.pop("owner", None)
