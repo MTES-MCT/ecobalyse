@@ -76,18 +76,16 @@ def search_one(
     exact_matches = []
     for result in results:
         # Check exact name match
-        if result["name"] == search_terms and (
-            # If location specified, also check location match
-            location is None
-            or result.get("location") == location
-            and (
-                categories is None
-                or tuple(result.get("categories", ())) == tuple(categories)
-                and unit is None
-                or result.get("unit") == unit
-            )
-        ):
-            # If categories specified, also check categories match
+        name_match = result["name"] == search_terms
+        # If location specified, also check location match
+        location_match = location is None or result.get("location") == location
+        # If categories specified, also check categories match
+        categories_match = categories is None or tuple(
+            result.get("categories", ())
+        ) == tuple(categories)
+        unit_match = unit is None or result.get("unit") == unit
+
+        if name_match and location_match and categories_match and unit_match:
             exact_matches.append(result)
 
     if len(exact_matches) == 1:
