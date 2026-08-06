@@ -124,7 +124,10 @@ requirementsFromConfig config =
 
 {-| Select a product category.
 
-FIXME: might deserve a ProductSelectorConfig typed paramater.
+FIXME:
+
+  - might deserve a ProductSelectorConfig typed parameter
+  - hide when no categories available
 
 -}
 productSelectorView : Scope -> List Product -> Maybe Product.Id -> (Maybe Product.Id -> msg) -> Html msg
@@ -135,37 +138,41 @@ productSelectorView scope products selectedProduct onSelect =
                 |> Product.findByScope scope
                 |> List.sortBy Product.toLabel
     in
-    div [ class "d-flex flex-row align-items-center gap-2 my-3" ]
-        [ label
-            [ Attr.for "product-category"
-            , class "form-label fw-bold text-nowrap"
-            ]
-            [ text "Catégorie de produit" ]
-        , select
-            [ Attr.id "product-category"
-            , class "form-select"
-            , onInput <|
-                -- FIXME: maybe resolve the product directly here?
-                \str ->
-                    if String.isEmpty str then
-                        onSelect Nothing
+    if List.isEmpty sortedProducts then
+        text ""
 
-                    else
-                        onSelect (Just (Product.idFromString str))
+    else
+        div [ class "d-flex flex-row align-items-center gap-2 my-3" ]
+            [ label
+                [ Attr.for "product-category"
+                , class "form-label fw-bold text-nowrap"
+                ]
+                [ text "Catégorie de produit" ]
+            , select
+                [ Attr.id "product-category"
+                , class "form-select"
+                , onInput <|
+                    -- FIXME: maybe resolve the product directly here?
+                    \str ->
+                        if String.isEmpty str then
+                            onSelect Nothing
+
+                        else
+                            onSelect (Just (Product.idFromString str))
+                ]
+                (option [ value "", selected (selectedProduct == Nothing) ] [ text "Autres" ]
+                    :: (sortedProducts
+                            |> List.map
+                                (\product ->
+                                    option
+                                        [ value (Product.idToString product.id)
+                                        , selected (selectedProduct == Just product.id)
+                                        ]
+                                        [ text product.label ]
+                                )
+                       )
+                )
             ]
-            (option [ value "", selected (selectedProduct == Nothing) ] [ text "Autres" ]
-                :: (sortedProducts
-                        |> List.map
-                            (\product ->
-                                option
-                                    [ value (Product.idToString product.id)
-                                    , selected (selectedProduct == Just product.id)
-                                    ]
-                                    [ text product.label ]
-                            )
-                   )
-            )
-        ]
 
 
 type alias Labels =
