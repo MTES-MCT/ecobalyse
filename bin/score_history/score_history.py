@@ -1,12 +1,12 @@
 #!/usr/bin/env python
 
+import datetime
 import json
 import logging
 import os
 import pathlib
 import sys
 from contextlib import contextmanager
-from datetime import datetime
 from enum import StrEnum
 
 import pandas as pd

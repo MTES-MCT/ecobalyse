@@ -4,7 +4,7 @@ EcoSpold 1 Exporter for Brightway2 databases.
 Exports Brightway2 datasets to EcoSpold 1 XML format compatible with SimaPro.
 """
 
-from datetime import datetime
+import datetime
 from pathlib import Path
 from typing import Any
 
@@ -117,7 +117,7 @@ class Ecospold1Exporter:
         # Normalize timestamp without microseconds (friendlier to some parsers)
         timestamp = tags.get(
             "ecoSpold01timestamp",
-            datetime.datetime.now(tz=datetime.timezone.utc)
+            datetime.datetime.now(tz=datetime.UTC)
             .now()
             .replace(microsecond=0)
             .isoformat(),

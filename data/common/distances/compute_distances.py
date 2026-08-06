@@ -16,9 +16,9 @@ Countries are represented by their alpha-2 codes (France -> FR), and by their ce
 """
 
 import collections
+import datetime
 import json
 import pathlib
-from datetime import datetime
 
 import country_set
 import geopy.distance
@@ -158,5 +158,5 @@ if __name__ == "__main__":
     with open(output_path, "w") as outfile:
         json.dump(distances, outfile)
     print(
-        f"{datetime.datetime.now(tz=datetime.timezone.utc).now().time()} finished writing output to {output_path}"
+        f"{datetime.datetime.now(tz=datetime.UTC).now().time()} finished writing output to {output_path}"
     )

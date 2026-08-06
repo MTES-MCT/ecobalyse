@@ -1,8 +1,8 @@
 import csv
+import datetime
 import json
 import os
 import re
-from datetime import datetime
 from pathlib import Path
 
 import yaml
@@ -172,7 +172,7 @@ def export_db_to_simapro(
         "{SimaPro 9.1.1.7}",
         "{processes}",
         "{Project: ecobalyse export"
-        + f"{datetime.datetime.now(tz=datetime.timezone.utc):%d.%m.%Y}"
+        + f"{datetime.datetime.now(tz=datetime.UTC):%d.%m.%Y}"
         + "}",
         "{CSV Format version: 9.0.0}",
         "{CSV separator: Semicolon}",
@@ -303,7 +303,7 @@ def export_db_to_simapro(
 
                 if item == "Date":
                     writer.writerow(
-                        [f"{datetime.datetime.now(tz=datetime.timezone.utc):%d.%m.%Y}"]
+                        [f"{datetime.datetime.now(tz=datetime.UTC):%d.%m.%Y}"]
                     )
 
                 if item == "Comment":
