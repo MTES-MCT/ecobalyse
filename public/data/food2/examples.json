@@ -4,6 +4,9 @@
     "id": "230897cd-a061-47e9-a945-5acec568de8e",
     "name": "Farine de blé FR (1kg)",
     "query": {
+      "assembly": {
+        "country": "FR"
+      },
       "components": [
         {
           "custom": {
@@ -31,9 +34,6 @@
       "recyclable": true,
       "transportOptions": {
         "cooling": true
-      },
-      "assembly": {
-        "country": "FR"
       }
     },
     "scope": "food2"
@@ -43,6 +43,9 @@
     "id": "66b02aae-9c0c-48c4-aba4-e0ee191b5aca",
     "name": "Pizza bolognese Bio (350g)",
     "query": {
+      "assembly": {
+        "country": "FR"
+      },
       "components": [
         {
           "custom": {
@@ -141,9 +144,6 @@
       "recyclable": true,
       "transportOptions": {
         "cooling": true
-      },
-      "assembly": {
-        "country": "FR"
       }
     },
     "scope": "food2"
@@ -153,6 +153,9 @@
     "id": "766efdbc-5102-4c60-bf3d-6ab32482ec28",
     "name": "Farine de blé bio FR (1kg)",
     "query": {
+      "assembly": {
+        "country": "FR"
+      },
       "components": [
         {
           "custom": {
@@ -180,9 +183,6 @@
       "recyclable": true,
       "transportOptions": {
         "cooling": true
-      },
-      "assembly": {
-        "country": "FR"
       }
     },
     "scope": "food2"
@@ -192,6 +192,9 @@
     "id": "7d14ebac-8ac8-4466-b334-0e9a4ba0deb5",
     "name": "Pizza bolognese FR (350g)",
     "query": {
+      "assembly": {
+        "country": "FR"
+      },
       "components": [
         {
           "custom": {
@@ -289,9 +292,42 @@
       "recyclable": true,
       "transportOptions": {
         "cooling": true
-      },
-      "assembly": {
-        "country": "FR"
+      }
+    },
+    "scope": "food2"
+  },
+  {
+    "category": "",
+    "id": "b59cf71f-ad75-4f27-b09f-0167f8a1f79a",
+    "name": "Mangue (transport par avion)",
+    "query": {
+      "components": [
+        {
+          "custom": {
+            "elements": [
+              {
+                "amount": 1,
+                "material": {
+                  "id": "f8421f12-46da-533c-8cae-38c0d90a8bdb"
+                },
+                "transforms": []
+              }
+            ],
+            "name": "Mangue Origine Inconnue"
+          },
+          "quantity": 1
+        }
+      ],
+      "consumptions": [
+        {
+          "amount": 1,
+          "processId": "b4642cec-b72e-4116-81c5-5dbfccb46055"
+        }
+      ],
+      "distribution": "be66b80b-1500-4e3b-bfd2-87a89ff54031",
+      "recyclable": true,
+      "transportOptions": {
+        "byAir": 100
       }
     },
     "scope": "food2"
@@ -301,6 +337,9 @@
     "id": "cb3576d3-703f-47f4-ae0c-de4f87c4c429",
     "name": "Filet de poulet FR (250g)",
     "query": {
+      "assembly": {
+        "country": "FR"
+      },
       "components": [
         {
           "custom": {
@@ -339,9 +378,6 @@
       "recyclable": true,
       "transportOptions": {
         "cooling": true
-      },
-      "assembly": {
-        "country": "FR"
       }
     },
     "scope": "food2"
@@ -351,6 +387,9 @@
     "id": "faff660e-2785-438e-ba1b-b04ab806b0cc",
     "name": "Pizza végétal (350g)",
     "query": {
+      "assembly": {
+        "country": "FR"
+      },
       "components": [
         {
           "custom": {
@@ -456,9 +495,6 @@
       "recyclable": true,
       "transportOptions": {
         "cooling": true
-      },
-      "assembly": {
-        "country": "FR"
       }
     },
     "scope": "food2"
