@@ -124,11 +124,6 @@ decodeDistributionConfig processes countries =
         |> Decode.required "defaultProcess" (decodeScopedMaybeProcess processes)
 
 
-decodeScopedMaybeProcess : List Process -> Decoder (Scope.Dict (Maybe Process))
-decodeScopedMaybeProcess processes =
-    Scope.decodeDict (Decode.maybe (Process.decodeFromId processes))
-
-
 decodeDocLinksConfig : Decoder DocLinksConfig
 decodeDocLinksConfig =
     Decode.succeed DocLinksConfig
@@ -198,6 +193,11 @@ decodeProductionConfig processes =
     Decode.succeed ProductionConfig
         |> Decode.requiredAt [ "defaultProcesses", "elec" ] (Process.decodeFromId processes)
         |> Decode.requiredAt [ "defaultProcesses", "heat" ] (Process.decodeFromId processes)
+
+
+decodeScopedMaybeProcess : List Process -> Decoder (Scope.Dict (Maybe Process))
+decodeScopedMaybeProcess processes =
+    Scope.decodeDict (Decode.maybe (Process.decodeFromId processes))
 
 
 decodeTransportConfig : List Process -> Decoder TransportConfig

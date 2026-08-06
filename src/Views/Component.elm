@@ -123,12 +123,6 @@ requirementsFromConfig config =
 
 
 {-| Select a product category.
-
-FIXME:
-
-  - might deserve a ProductSelectorConfig typed parameter
-  - hide when no categories available
-
 -}
 productSelectorView : Scope -> List Product -> Maybe Product.Id -> (Maybe Product.Id -> msg) -> Html msg
 productSelectorView scope products selectedProduct onSelect =
@@ -152,7 +146,6 @@ productSelectorView scope products selectedProduct onSelect =
                 [ Attr.id "product-category"
                 , class "form-select"
                 , onInput <|
-                    -- FIXME: maybe resolve the product directly here?
                     \str ->
                         if String.isEmpty str then
                             onSelect Nothing
@@ -1648,15 +1641,17 @@ distributionView ({ componentConfig, db, impact, query, scope, updateDistributio
 
                 distributionProcesses ->
                     let
-                        effectiveDistribution =
-                            query |> Component.getDistributionProcessId { config = componentConfig, db = db, scope = scope }
+                        distribution =
+                            query
+                                |> Component.getDistributionProcessId
+                                    { config = componentConfig, db = db, scope = scope }
                     in
                     distributionProcesses
                         |> List.map
                             (\process ->
                                 option
                                     [ value (Process.idToString process.id)
-                                    , selected (effectiveDistribution == Just process.id)
+                                    , selected (distribution == Just process.id)
                                     ]
                                     [ text (Process.getDisplayName process) ]
                             )

@@ -2186,8 +2186,7 @@ suite =
                                         ]
                             )
                         , it "should reject a query carrying an unknown product id" <|
-                            (emptyQuery
-                                |> (\query -> { query | product = Just (Product.idFromString "unknown-id") })
+                            ({ emptyQuery | product = Just (Product.idFromString "unknown-id") }
                                 |> Component.validateQuery requirements
                                 |> expectResultErrorContains "Catégorie de produit introuvable"
                             )
