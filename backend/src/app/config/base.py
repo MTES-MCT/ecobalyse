@@ -39,7 +39,7 @@ class UUIDEncoder(json.JSONEncoder):
         return json.JSONEncoder.default(self, obj)
 
 
-def encode_json(value: Any, serializer: Callable[[Any], Any] | None = None) -> bytes:
+def encode_json(value: Any, serializer: Callable[[Any], Any] | None = None) -> str:
     """Encode a value into JSON.
 
     Args:
@@ -47,7 +47,7 @@ def encode_json(value: Any, serializer: Callable[[Any], Any] | None = None) -> b
         serializer: Optional callable to support non-natively supported types.
 
     Returns:
-        JSON as bytes
+        JSON as str
 
     Raises:
         SerializationException: If error encoding ``obj``.
@@ -83,7 +83,8 @@ def decode_json(  # type: ignore[misc]
     """
 
     if target_type is Empty:
-        return value
+        return json.loads(value)
+
     return target_type.model_validate_json(value)
 
 
