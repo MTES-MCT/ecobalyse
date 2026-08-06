@@ -1,9 +1,9 @@
 [
   {
+    "cooling": false,
+    "distribution": null,
     "id": "20cef7a5-7892-4394-b8bc-6a25e5881ef4",
     "label": "Autres objets",
-    "scope": "object",
-    "cooling": false,
-    "distribution": null
+    "scope": "object"
   }
 ]
