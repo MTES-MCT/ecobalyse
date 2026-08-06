@@ -19,6 +19,7 @@ from bw2io.strategies import (
 )
 from frozendict import frozendict
 
+from common import brightway_patch as brightway_patch  # noqa: PLC0414
 from common.impacts import impacts
 from common.import_ import setup_project
 from config import settings
