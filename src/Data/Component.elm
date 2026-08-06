@@ -56,8 +56,8 @@ module Data.Component exposing
     , elementsToString
     , emptyComponent
     , emptyLifeCycle
+    , emptyQuery
     , emptyResults
-    , emptyScopedQuery
     , encode
     , encodeBase64Query
     , encodeId
@@ -209,7 +209,7 @@ type alias Query =
     , durability : Maybe Unit.Ratio
     , items : List Item
     , packagings : List Packaging
-    , product : Product.Id
+    , product : Maybe Product.Id
     , recyclable : Bool
     , transportOptions : TransportOptions
     }
@@ -1284,11 +1284,11 @@ decode =
             )
 
 
-decodeBase64Query : Scope -> String -> Result String Query
-decodeBase64Query scope =
+decodeBase64Query : String -> Result String Query
+decodeBase64Query =
     Base64.decode
         >> Result.andThen
-            (Decode.decodeString (decodeQuery scope)
+            (Decode.decodeString decodeQuery
                 >> Result.mapError Decode.errorToString
             )
 
@@ -1390,8 +1390,8 @@ decodeQuantity =
         |> Decode.map Quantity
 
 
-decodeQuery : Scope -> Decoder Query
-decodeQuery scope =
+decodeQuery : Decoder Query
+decodeQuery =
     decodeAssembly
         |> Decode.andThen
             (\assembly ->
@@ -1401,7 +1401,7 @@ decodeQuery scope =
                     |> DU.strictOptional "durability" Unit.decodeRatio
                     |> Decode.required "components" (Decode.list decodeItem)
                     |> Decode.optional "packagings" (Decode.list decodePackaging) []
-                    |> Decode.optional "product" Product.decodeId (Product.fallbackId scope)
+                    |> DU.strictOptional "product" Product.decodeId
                     |> Decode.optional "recyclable" Decode.bool True
                     |> Decode.optional "transportOptions" decodeTransportOptions defaultTransportOptions
             )
@@ -1506,15 +1506,15 @@ emptyLifeCycleTransports =
     }
 
 
-emptyQuery : Product.Id -> Query
-emptyQuery productId =
+emptyQuery : Query
+emptyQuery =
     { assembly = emptyAssembly
     , consumptions = []
     , distribution = Nothing
     , durability = Nothing
     , items = []
     , packagings = []
-    , product = productId
+    , product = Nothing
     , recyclable = True
     , transportOptions = defaultTransportOptions
     }
@@ -1533,13 +1533,6 @@ emptyResults =
         , quantity = 1
         , stage = Nothing
         }
-
-
-{-| FIXME: this function should probably take a GenericScope rather than a Scope?
--}
-emptyScopedQuery : Scope -> Query
-emptyScopedQuery =
-    Product.fallbackId >> emptyQuery
 
 
 encode : Component -> Encode.Value
@@ -1700,7 +1693,7 @@ encodeQuery query =
             else
                 query.packagings |> Encode.list encodePackaging |> Just
           )
-        , ( "product", query.product |> Product.idToString |> Encode.string |> Just )
+        , ( "product", query.product |> Maybe.map (Product.idToString >> Encode.string) )
         , ( "recyclable", query.recyclable |> Encode.bool |> Just )
         , ( "transportOptions", encodeTransportOptions query.transportOptions )
         ]
@@ -1990,16 +1983,19 @@ getConsumptionProcessId (Consumption { processId }) =
 -}
 getDistributionProcessIdFromQuery : Requirements db -> Query -> Maybe Process.Id
 getDistributionProcessIdFromQuery { db } query =
-    -- FIXME: try using Maybe.Extra.orElse instead
     case query.distribution of
         Just processId ->
             Just processId
 
         Nothing ->
-            db.products
-                |> Product.findById query.product
-                |> Result.map .distribution
-                |> Result.withDefault Nothing
+            query.product
+                |> Maybe.andThen
+                    (\productId ->
+                        db.products
+                            |> Product.findById productId
+                            |> Result.toMaybe
+                            |> Maybe.andThen .distribution
+                    )
 
 
 {-| Retrieve a documentation link from config, if defined
@@ -2396,10 +2392,10 @@ packaging amount =
     QuantifiedProcess amount >> Packaging
 
 
-parseBase64Query : Scope -> Parser (Maybe Query -> a) a
-parseBase64Query scope =
+parseBase64Query : Parser (Maybe Query -> a) a
+parseBase64Query =
     Parser.custom "QUERY" <|
-        decodeBase64Query scope
+        decodeBase64Query
             >> Result.toMaybe
             >> Just
 
@@ -2721,14 +2717,20 @@ updateDistribution maybeProcessId query =
 
 {-| Update the product in the query, resetting product-dependent fields along the way
 -}
-updateProduct : Product -> Query -> Query
-updateProduct product query =
-    if product.id /= query.product then
-        { query | distribution = Nothing, product = product.id }
-            |> setTransportCooling product.cooling
+updateProduct : Maybe Product -> Query -> Query
+updateProduct maybeProduct query =
+    case maybeProduct of
+        Just product ->
+            if query.product == Just product.id then
+                query
 
-    else
-        query
+            else
+                { query | distribution = Nothing, product = Just product.id }
+                    |> setTransportCooling product.cooling
+
+        Nothing ->
+            { query | distribution = Nothing, product = Nothing }
+                |> setTransportCooling defaultTransportOptions.cooling
 
 
 updateDurability : Unit.Ratio -> Query -> Query
@@ -2998,22 +3000,28 @@ validateQuery ({ db } as requirements) query =
         |> Result.mapError (\s -> "Requête invalide\u{202F}: " ++ s)
 
 
-validateProduct : Requirements db -> Product.Id -> Result String Product.Id
-validateProduct { db, scope } productId =
-    db.products
-        |> Product.findById productId
-        |> Result.andThen
-            (\product ->
-                if product.scope == scope then
-                    Ok productId
+validateProduct : Requirements db -> Maybe Product.Id -> Result String (Maybe Product.Id)
+validateProduct requirements maybeProductId =
+    case maybeProductId of
+        Just productId ->
+            requirements.db.products
+                |> Product.findById productId
+                |> Result.andThen
+                    (\product ->
+                        if product.scope == requirements.scope then
+                            Ok productId
 
-                else
-                    Err <|
-                        "La catégorie de produit "
-                            ++ Product.toLabel product
-                            ++ " n’est pas disponible pour le périmètre "
-                            ++ Scope.toLabel scope
-            )
+                        else
+                            Err <|
+                                "La catégorie de produit "
+                                    ++ Product.toLabel product
+                                    ++ " n’est pas disponible pour le périmètre "
+                                    ++ Scope.toLabel requirements.scope
+                    )
+                |> Result.map Just
+
+        Nothing ->
+            Ok Nothing
 
 
 validateTransformProcessesUnit : Process.Unit -> List ExpandedLocalizedProcess -> Result String (List ExpandedLocalizedProcess)

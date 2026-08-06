@@ -122,7 +122,12 @@ requirementsFromConfig config =
     }
 
 
-productSelectorView : Scope -> List Product -> Product.Id -> (Product.Id -> msg) -> Html msg
+{-| Select a product category.
+
+FIXME: might deserve a ProductSelectorConfig typed paramater.
+
+-}
+productSelectorView : Scope -> List Product -> Maybe Product.Id -> (Maybe Product.Id -> msg) -> Html msg
 productSelectorView scope products selectedProduct onSelect =
     let
         sortedProducts =
@@ -136,17 +141,27 @@ productSelectorView scope products selectedProduct onSelect =
         , select
             [ Attr.id "selector-product-category"
             , class "form-select"
-            , onInput (Product.idFromString >> onSelect)
+            , onInput <|
+                -- FIXME: maybe resolve the product directly here?
+                \str ->
+                    if String.isEmpty str then
+                        onSelect Nothing
+
+                    else
+                        onSelect (Just (Product.idFromString str))
             ]
-            (sortedProducts
-                |> List.map
-                    (\product ->
-                        option
-                            [ value (Product.idToString product.id)
-                            , selected (product.id == selectedProduct)
-                            ]
-                            [ text product.label ]
-                    )
+            (option [ value "", selected (selectedProduct == Nothing) ]
+                [ text "Autres" ]
+                :: (sortedProducts
+                        |> List.map
+                            (\product ->
+                                option
+                                    [ value (Product.idToString product.id)
+                                    , selected (selectedProduct == Just product.id)
+                                    ]
+                                    [ text product.label ]
+                            )
+                   )
             )
         ]
 

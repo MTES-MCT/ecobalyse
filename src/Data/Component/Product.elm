@@ -3,7 +3,6 @@ module Data.Component.Product exposing
     , Product
     , decodeId
     , decodeListFromJsonString
-    , fallbackId
     , findById
     , findByScope
     , idFromString
@@ -58,30 +57,6 @@ decodeListFromJsonString : String -> Result String (List Product)
 decodeListFromJsonString =
     Decode.decodeString decodeList
         >> Result.mapError Decode.errorToString
-
-
-{-| Fallback product ids for legacy queries missing a `"product"` field.
-See `public/data/{food2,object,veli}/categories.json`.
-
-FIXME: these should probably be better configurable in public/data/components/config.json,
-this would avoid having hardcoded uuids here
-@see comment in Data.Component.Config about that
-
--}
-fallbackId : Scope -> Id
-fallbackId scope =
-    case scope of
-        Scope.Generic Scope.Food2 ->
-            Id "7f9bd0a2-d31d-4d89-9141-7fe461835072"
-
-        Scope.Generic Scope.Object ->
-            Id "20cef7a5-7892-4394-b8bc-6a25e5881ef4"
-
-        Scope.Generic Scope.Veli ->
-            Id "c0e28c58-3046-446b-be2f-95a66686e60d"
-
-        _ ->
-            Id "20cef7a5-7892-4394-b8bc-6a25e5881ef4"
 
 
 findById : Id -> List Product -> Result String Product

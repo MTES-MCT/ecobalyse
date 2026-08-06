@@ -52,45 +52,45 @@ suite =
                 ([ { created = Time.millisToPosix 1
                    , genericScope = Just Scope.Food2
                    , name = "food2 bookmark"
-                   , query = Bookmark.Generic Scope.Food2 (Component.emptyScopedQuery (Scope.Generic Scope.Food2))
+                   , query = Bookmark.Generic Scope.Food2 Component.emptyQuery
                    }
                  ]
                     |> Bookmark.encodeJsonList
                     |> Encode.encode 0
-                    |> expectQueryDecoded (Bookmark.Generic Scope.Food2 (Component.emptyScopedQuery (Scope.Generic Scope.Food2)))
+                    |> expectQueryDecoded (Bookmark.Generic Scope.Food2 Component.emptyQuery)
                 )
             , it "should encode and decode generic object bookmarks"
                 ([ { created = Time.millisToPosix 1
                    , genericScope = Just Scope.Object
                    , name = "object bookmark"
-                   , query = Bookmark.Generic Scope.Object (Component.emptyScopedQuery (Scope.Generic Scope.Object))
+                   , query = Bookmark.Generic Scope.Object Component.emptyQuery
                    }
                  ]
                     |> Bookmark.encodeJsonList
                     |> Encode.encode 0
-                    |> expectQueryDecoded (Bookmark.Generic Scope.Object (Component.emptyScopedQuery (Scope.Generic Scope.Object)))
+                    |> expectQueryDecoded (Bookmark.Generic Scope.Object Component.emptyQuery)
                 )
             , it "should encode and decode generic veli bookmarks"
                 ([ { created = Time.millisToPosix 1
                    , genericScope = Just Scope.Veli
                    , name = "veli bookmark"
-                   , query = Bookmark.Generic Scope.Veli (Component.emptyScopedQuery (Scope.Generic Scope.Veli))
+                   , query = Bookmark.Generic Scope.Veli Component.emptyQuery
                    }
                  ]
                     |> Bookmark.encodeJsonList
                     |> Encode.encode 0
-                    |> expectQueryDecoded (Bookmark.Generic Scope.Veli (Component.emptyScopedQuery (Scope.Generic Scope.Veli)))
+                    |> expectQueryDecoded (Bookmark.Generic Scope.Veli Component.emptyQuery)
                 )
             , it "should encode and decode generic bookmarks when genericScope field is missing"
                 ([ { created = Time.millisToPosix 1
                    , genericScope = Nothing
                    , name = "food2 bookmark"
-                   , query = Bookmark.Generic Scope.Food2 (Component.emptyScopedQuery (Scope.Generic Scope.Food2))
+                   , query = Bookmark.Generic Scope.Food2 Component.emptyQuery
                    }
                  ]
                     |> Bookmark.encodeJsonList
                     |> Encode.encode 0
-                    |> expectQueryDecoded (Bookmark.Generic Scope.Food2 (Component.emptyScopedQuery (Scope.Generic Scope.Food2)))
+                    |> expectQueryDecoded (Bookmark.Generic Scope.Food2 Component.emptyQuery)
                 )
             , it "should decode a scoped generic bookmark"
                 ("""
@@ -101,7 +101,7 @@ suite =
                      "subScope": "veli"
                  }]
                  """
-                    |> expectQueryDecoded (Bookmark.Generic Scope.Veli (Component.emptyScopedQuery (Scope.Generic Scope.Veli)))
+                    |> expectQueryDecoded (Bookmark.Generic Scope.Veli Component.emptyQuery)
                 )
             ]
         ]

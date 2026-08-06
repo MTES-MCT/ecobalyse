@@ -11,7 +11,6 @@ import Data.Food.Query as FoodQuery
 import Data.Impact as Impact
 import Data.Notification as Notification exposing (Notification)
 import Data.Plausible as Plausible
-import Data.Scope as Scope
 import Data.Session as Session exposing (Session)
 import Data.Textile.Query as TextileQuery
 import Html
@@ -184,14 +183,14 @@ setupSession { flags, navKey } dbLoadingState db componentConfig =
         , notifications = []
         , queries =
             { food = FoodQuery.empty
-            , food2 = Component.emptyScopedQuery (Scope.Generic Scope.Food2)
-            , object = Component.emptyScopedQuery (Scope.Generic Scope.Object)
+            , food2 = Component.emptyQuery
+            , object = Component.emptyQuery
             , textile =
                 db.textile.examples
                     |> Example.findByName "Tshirt coton (150g) - Majorant par défaut"
                     |> Result.map .query
                     |> Result.withDefault TextileQuery.default
-            , veli = Component.emptyScopedQuery (Scope.Generic Scope.Veli)
+            , veli = Component.emptyQuery
             }
         , scalingoAppName = flags.scalingoAppName
         , store = Session.defaultStore

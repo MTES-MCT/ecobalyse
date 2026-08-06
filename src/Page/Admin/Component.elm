@@ -571,7 +571,7 @@ componentRowView session selected component =
                         a
                             [ class "btn btn-outline-primary"
                             , title "Utiliser dans le simulateur"
-                            , Component.emptyScopedQuery (Scope.Generic Scope.Object)
+                            , Component.emptyQuery
                                 |> Component.setQueryItems [ Component.createItem (Just componentId) ]
                                 |> Just
                                 |> Route.ObjectSimulator (Scope.Generic Scope.Object) Definition.Ecs
@@ -646,7 +646,7 @@ modalView { componentConfig, db } modals index modal =
                             , impact = db.definitions |> Definition.get Definition.Ecs
                             , labels = ComponentView.scopeLabels ComponentView.AdminContext component.scope
                             , lifeCycle =
-                                Component.emptyScopedQuery (Scope.Generic Scope.Object)
+                                Component.emptyQuery
                                     |> Component.setQueryItems [ item ]
                                     |> Component.compute
                                         { config = componentConfig
@@ -665,7 +665,7 @@ modalView { componentConfig, db } modals index modal =
 
                             -- Note: we don't handle assembly country in the admin
                             , query =
-                                Component.emptyScopedQuery (Scope.Generic Scope.Object)
+                                Component.emptyQuery
                                     |> Component.setQueryItems [ item ]
                             , removeAssemblyOperation = \_ -> NoOp
                             , removeConsumption = \_ -> NoOp

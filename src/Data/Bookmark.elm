@@ -18,7 +18,6 @@ module Data.Bookmark exposing
     , toQueryDescription
     )
 
-import Data.Common.DecodeUtils as DU
 import Data.Common.EncodeUtils as EU
 import Data.Component as Component
 import Data.Db exposing (Db)
@@ -28,7 +27,6 @@ import Data.Scope as Scope exposing (GenericScope, Scope)
 import Data.Textile.Inputs as Inputs
 import Data.Textile.Query as TextileQuery
 import Json.Decode as Decode exposing (Decoder)
-import Json.Decode.Pipeline as JDP
 import Json.Encode as Encode
 import List.Extra as LE
 import Time exposing (Posix)
@@ -50,25 +48,19 @@ type Query
 
 decode : Decoder Bookmark
 decode =
-    -- FIXME: check that we couldn't use something less confusing than `identity` here
-    Decode.succeed identity
-        |> JDP.required "created" (Decode.map Time.millisToPosix Decode.int)
+    Decode.at [ "created" ] (Decode.map Time.millisToPosix Decode.int)
         |> Decode.andThen decodeBookmarkBody
 
 
 decodeBookmarkBody : Posix -> Decoder Bookmark
 decodeBookmarkBody created =
-    -- FIXME: check that we couldn't use something less confusing than `identity` here
-    Decode.succeed identity
-        |> DU.strictOptionalWithDefault "subScope" (Decode.maybe Scope.decodeGeneric) Nothing
+    Decode.at [ "subScope" ] (Decode.maybe Scope.decodeGeneric)
         |> Decode.andThen (decodeBookmarkName created)
 
 
 decodeBookmarkName : Posix -> Maybe GenericScope -> Decoder Bookmark
 decodeBookmarkName created genericScope =
-    -- FIXME: check that we couldn't use something less confusing than `identity` here
-    Decode.succeed identity
-        |> JDP.required "name" Decode.string
+    Decode.at [ "name" ] Decode.string
         |> Decode.andThen (decodeBookmarkQuery created genericScope)
 
 
@@ -102,11 +94,8 @@ decodeGenericQueryValue maybeGenericScope queryValue =
     let
         genericScope =
             maybeGenericScope |> Maybe.withDefault Scope.Object
-
-        queryScope =
-            Scope.Generic genericScope
     in
-    case queryValue |> Decode.decodeValue (Component.decodeQuery queryScope) of
+    case queryValue |> Decode.decodeValue Component.decodeQuery of
         Err err ->
             Decode.fail (Decode.errorToString err)
 

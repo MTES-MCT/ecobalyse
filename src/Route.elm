@@ -88,7 +88,7 @@ parser =
             Parser.s "food2"
                 </> Parser.s "simulator"
                 </> Impact.parseTrigram
-                </> Component.parseBase64Query (Scope.Generic Scope.Food2)
+                </> Component.parseBase64Query
         , Parser.map (ObjectSimulatorExample (Scope.Generic Scope.Food2))
             (Parser.s "food2"
                 </> Parser.s "edit-example"
@@ -102,7 +102,7 @@ parser =
             Parser.s "object"
                 </> Parser.s "simulator"
                 </> Impact.parseTrigram
-                </> Component.parseBase64Query (Scope.Generic Scope.Object)
+                </> Component.parseBase64Query
         , Parser.map (ObjectSimulatorExample (Scope.Generic Scope.Object))
             (Parser.s "object"
                 </> Parser.s "edit-example"
@@ -126,7 +126,7 @@ parser =
             Parser.s "veli"
                 </> Parser.s "simulator"
                 </> Impact.parseTrigram
-                </> Component.parseBase64Query (Scope.Generic Scope.Veli)
+                </> Component.parseBase64Query
         , Parser.map (ObjectSimulatorExample (Scope.Generic Scope.Veli))
             (Parser.s "veli"
                 </> Parser.s "edit-example"

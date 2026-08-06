@@ -150,7 +150,7 @@ type Msg
     | UpdateElementMaterialCountry TargetElement (Maybe CountryCode.Code)
     | UpdateElementTransformCountry TargetElement Index (Maybe CountryCode.Code)
     | UpdatePackagingAmount Index (Maybe Amount)
-    | UpdateProduct Product.Id
+    | UpdateProduct (Maybe Product.Id)
     | UpdateRecyclability Bool
     | UpdateRenamedBookmarkName Bookmark String
 
@@ -254,6 +254,24 @@ initFromExample session scope uuid =
     }
         |> createPageUpdate (session |> Session.updateObjectQuery scope exampleQuery)
         |> App.withCmds [ Ports.scrollTo { x = 0, y = 0 } ]
+
+
+selectProductCategory : Session -> Component.Query -> Maybe Product.Id -> PageUpdate Model Msg -> PageUpdate Model Msg
+selectProductCategory session query maybeProductId pageUpdate =
+    case maybeProductId of
+        Just productId ->
+            case Product.findById productId session.db.products of
+                Err error ->
+                    pageUpdate
+                        |> App.notifyError "Erreur de sélection de la catégorie de produit" error
+
+                Ok product ->
+                    pageUpdate
+                        |> updateQuery (query |> Component.updateProduct (Just product))
+
+        Nothing ->
+            pageUpdate
+                |> updateQuery (query |> Component.updateProduct Nothing)
 
 
 suggestBookmarkName : Session -> List (Example Component.Query) -> Component.Query -> String
@@ -735,16 +753,9 @@ update ({ navKey } as session) msg model =
             createPageUpdate session model
                 |> updateQuery (query |> Component.updatePackagingAmount index amount)
 
-        -- FIXME: update UpdateProduct msg to take a (Result String Product) so we can pattern match either `UpdateProduct (Ok product)` and `UpdateProduct (Err error)`
-        ( UpdateProduct productId, _ ) ->
+        ( UpdateProduct maybeProductId, _ ) ->
             createPageUpdate session model
-                |> (case Product.findById productId session.db.products of
-                        Err error ->
-                            App.notifyError "Erreur de sélection de la catégorie de produit" error
-
-                        Ok product ->
-                            updateQuery (query |> Component.updateProduct product)
-                   )
+                |> selectProductCategory session query maybeProductId
 
         ( UpdatePackagingAmount _ Nothing, _ ) ->
             createPageUpdate session model
@@ -823,7 +834,7 @@ selectExample autocompleteState ({ model } as pageUpdate) =
     let
         exampleQuery =
             Autocomplete.selectedValue autocompleteState
-                |> Maybe.withDefault (Component.emptyScopedQuery model.scope)
+                |> Maybe.withDefault Component.emptyQuery
     in
     pageUpdate
         |> updateQuery exampleQuery
@@ -1011,7 +1022,7 @@ simulatorView ({ componentConfig } as session) ({ scope } as model) =
             , div [ class "sticky-md-top bg-white pb-3" ]
                 [ ExampleView.view
                     { currentQuery = currentQuery
-                    , emptyQuery = Component.emptyScopedQuery scope
+                    , emptyQuery = Component.emptyQuery
                     , examples = model.examples
                     , helpUrl = Nothing
                     , onOpen = SelectExampleModal >> List.singleton >> SetModals

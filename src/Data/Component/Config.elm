@@ -23,10 +23,6 @@ import Json.Decode as Decode exposing (Decoder)
 import Json.Decode.Pipeline as Decode
 
 
-{-| FIXME: we should add a new productCategories: ProductCategoriesConfig field with a dict
-of default required Data.Component.Product.Id per generic scope, so that we don't need
-Product.fallbackId anymore
--}
 type alias Config =
     { distribution : DistributionConfig
     , docLinks : DocLinksConfig

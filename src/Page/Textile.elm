@@ -1002,7 +1002,7 @@ simulatorFormView session model ({ inputs } as simulator) =
         , impact = model.impact
         , labels = ComponentView.scopeLabels ComponentView.TextileTrimsContext Scope.Textile
         , lifeCycle =
-            Component.emptyScopedQuery (Scope.Generic Scope.Object)
+            Component.emptyQuery
                 |> Component.setQueryItems inputs.trims
                 |> Component.compute
                     { config = session.componentConfig
@@ -1016,9 +1016,7 @@ simulatorFormView session model ({ inputs } as simulator) =
         , openSelectPackagingModal = \_ -> NoOp
         , openSelectProcessModal = \_ _ _ _ -> SetModal NoModal
         , openSelectProductionItem = AddTrimModal >> SetModal
-        , query =
-            Component.emptyScopedQuery (Scope.Generic Scope.Object)
-                |> Component.setQueryItems inputs.trims
+        , query = Component.emptyQuery |> Component.setQueryItems inputs.trims
         , removeAssemblyOperation = \_ -> NoOp
         , removeConsumption = \_ -> NoOp
         , removePackaging = \_ -> NoOp
