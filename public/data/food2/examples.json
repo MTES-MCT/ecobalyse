@@ -384,6 +384,42 @@
   },
   {
     "category": "",
+    "id": "ef1395df-1a6f-4039-a51f-396f39da0317",
+    "name": "Haricots verts (transportés par avion, origine inconnue)",
+    "query": {
+      "components": [
+        {
+          "custom": {
+            "elements": [
+              {
+                "amount": 1,
+                "material": {
+                  "id": "2c450d9b-f216-4c02-9044-27b6dc46a563"
+                },
+                "transforms": []
+              }
+            ],
+            "name": "Haricot vert, découpé, cru Origine Inconnue"
+          },
+          "quantity": 1
+        }
+      ],
+      "consumptions": [
+        {
+          "amount": 1,
+          "processId": "21e4283e-6bbf-4b2a-b52b-4440022525ad"
+        }
+      ],
+      "distribution": "be66b80b-1500-4e3b-bfd2-87a89ff54031",
+      "recyclable": true,
+      "transportOptions": {
+        "byAir": 100
+      }
+    },
+    "scope": "food2"
+  },
+  {
+    "category": "",
     "id": "faff660e-2785-438e-ba1b-b04ab806b0cc",
     "name": "Pizza végétal (350g)",
     "query": {
