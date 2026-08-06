@@ -79,7 +79,7 @@ table { maxScore } { detailed, scope } =
                         [ class "btn btn-light btn-sm w-100"
 
                         -- FIXME: multiple exlorer for Veli
-                        , Route.href <| Route.ObjectSimulatorExample example.scope example.id
+                        , Route.href <| Route.GenericSimulatorExample example.scope example.id
                         , title <| "Charger " ++ example.name
                         ]
                         [ Icon.search ]

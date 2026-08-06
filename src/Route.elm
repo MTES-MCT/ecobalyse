@@ -32,13 +32,10 @@ type Route
     | FoodBuilder Definition.Trigram (Maybe FoodQuery.Query)
     | FoodBuilderExample Uuid
     | FoodBuilderHome
+    | GenericSimulator Scope Definition.Trigram (Maybe Component.Query)
+    | GenericSimulatorExample Scope Uuid
+    | GenericSimulatorHome Scope
     | Home
-      -- FIXME:
-      -- - We should rename all ObjetSimulator* routes and related functions to GenericSimulator*, taking care of rordering alphabetically
-      -- - Also, these generic routes should probably take a GenericScope rather than a Scope
-    | ObjectSimulator Scope Definition.Trigram (Maybe Component.Query)
-    | ObjectSimulatorExample Scope Uuid
-    | ObjectSimulatorHome Scope
     | Stats
     | TextileSimulator Definition.Trigram (Maybe TextileQuery.Query)
     | TextileSimulatorExample Uuid
@@ -82,28 +79,28 @@ parser =
             )
 
         -- Food2 specific routes
-        , Parser.map (ObjectSimulatorHome (Scope.Generic Scope.Food2))
+        , Parser.map (GenericSimulatorHome (Scope.Generic Scope.Food2))
             (Parser.s "food2" </> Parser.s "simulator")
-        , Parser.map (ObjectSimulator (Scope.Generic Scope.Food2)) <|
+        , Parser.map (GenericSimulator (Scope.Generic Scope.Food2)) <|
             Parser.s "food2"
                 </> Parser.s "simulator"
                 </> Impact.parseTrigram
                 </> Component.parseBase64Query
-        , Parser.map (ObjectSimulatorExample (Scope.Generic Scope.Food2))
+        , Parser.map (GenericSimulatorExample (Scope.Generic Scope.Food2))
             (Parser.s "food2"
                 </> Parser.s "edit-example"
                 </> Example.parseUuid
             )
 
         -- Object specific routes
-        , Parser.map (ObjectSimulatorHome (Scope.Generic Scope.Object))
+        , Parser.map (GenericSimulatorHome (Scope.Generic Scope.Object))
             (Parser.s "object" </> Parser.s "simulator")
-        , Parser.map (ObjectSimulator (Scope.Generic Scope.Object)) <|
+        , Parser.map (GenericSimulator (Scope.Generic Scope.Object)) <|
             Parser.s "object"
                 </> Parser.s "simulator"
                 </> Impact.parseTrigram
                 </> Component.parseBase64Query
-        , Parser.map (ObjectSimulatorExample (Scope.Generic Scope.Object))
+        , Parser.map (GenericSimulatorExample (Scope.Generic Scope.Object))
             (Parser.s "object"
                 </> Parser.s "edit-example"
                 </> Example.parseUuid
@@ -120,14 +117,14 @@ parser =
             )
 
         -- Veli specific routes
-        , Parser.map (ObjectSimulatorHome (Scope.Generic Scope.Veli))
+        , Parser.map (GenericSimulatorHome (Scope.Generic Scope.Veli))
             (Parser.s "veli" </> Parser.s "simulator")
-        , Parser.map (ObjectSimulator (Scope.Generic Scope.Veli)) <|
+        , Parser.map (GenericSimulator (Scope.Generic Scope.Veli)) <|
             Parser.s "veli"
                 </> Parser.s "simulator"
                 </> Impact.parseTrigram
                 </> Component.parseBase64Query
-        , Parser.map (ObjectSimulatorExample (Scope.Generic Scope.Veli))
+        , Parser.map (GenericSimulatorExample (Scope.Generic Scope.Veli))
             (Parser.s "veli"
                 </> Parser.s "edit-example"
                 </> Example.parseUuid
@@ -241,27 +238,27 @@ toString route =
                 FoodBuilderHome ->
                     [ "food" ]
 
-                Home ->
-                    []
-
-                ObjectSimulator scope trigram (Just query) ->
+                GenericSimulator scope trigram (Just query) ->
                     [ Scope.toString scope
                     , "simulator"
                     , Definition.toString trigram
                     , Component.encodeBase64Query query
                     ]
 
-                ObjectSimulator scope trigram Nothing ->
+                GenericSimulator scope trigram Nothing ->
                     [ Scope.toString scope
                     , "simulator"
                     , Definition.toString trigram
                     ]
 
-                ObjectSimulatorExample scope uuid ->
+                GenericSimulatorExample scope uuid ->
                     [ Scope.toString scope, "edit-example", Uuid.toString uuid ]
 
-                ObjectSimulatorHome scope ->
+                GenericSimulatorHome scope ->
                     [ Scope.toString scope, "simulator" ]
+
+                Home ->
+                    []
 
                 Stats ->
                     [ "stats" ]

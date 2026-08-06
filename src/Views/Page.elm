@@ -253,11 +253,11 @@ mainMenuLinks enabledSections =
         , addRouteIf enabledSections.food <|
             Internal [ text "Alimentaire" ] Route.FoodBuilderHome Food
         , addRouteIf enabledSections.objects <|
-            Internal [ text "Alimentaire", sup [] [ text "BÉTA" ] ] (Route.ObjectSimulatorHome (Scope.Generic Scope.Food2)) (Object (Scope.Generic Scope.Food2))
+            Internal [ text "Alimentaire", sup [] [ text "BÉTA" ] ] (Route.GenericSimulatorHome (Scope.Generic Scope.Food2)) (Object (Scope.Generic Scope.Food2))
         , addRouteIf enabledSections.objects <|
-            Internal [ text "Objets" ] (Route.ObjectSimulatorHome (Scope.Generic Scope.Object)) (Object (Scope.Generic Scope.Object))
+            Internal [ text "Objets" ] (Route.GenericSimulatorHome (Scope.Generic Scope.Object)) (Object (Scope.Generic Scope.Object))
         , addRouteIf enabledSections.veli <|
-            Internal [ text "Véhicules" ] (Route.ObjectSimulatorHome (Scope.Generic Scope.Veli)) (Object (Scope.Generic Scope.Veli))
+            Internal [ text "Véhicules" ] (Route.GenericSimulatorHome (Scope.Generic Scope.Veli)) (Object (Scope.Generic Scope.Veli))
         , Just <| Internal [ text "Explorateur" ] (Route.Explore Scope.Textile (Dataset.TextileExamples Nothing)) Explore
         , Just <| Internal [ text "API" ] Route.Api Api
         , Just <| MailTo "Contact" Env.contactEmail
@@ -275,7 +275,7 @@ secondaryMenuLinks enabledSections =
         , Just <| External "CGU" Env.cguUrl
         , Just <| Internal [ text "Admin" ] (Route.Admin AdminSection.ComponentSection) Admin
         , addRouteIf enabledSections.food2 <|
-            Internal [ text "Alimentaire²" ] (Route.ObjectSimulatorHome (Scope.Generic Scope.Food2)) (Object (Scope.Generic Scope.Food2))
+            Internal [ text "Alimentaire²" ] (Route.GenericSimulatorHome (Scope.Generic Scope.Food2)) (Object (Scope.Generic Scope.Food2))
         ]
 
 

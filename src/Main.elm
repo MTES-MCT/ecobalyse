@@ -299,19 +299,19 @@ setRoute url ( { state } as model, cmds ) =
                     FoodBuilder.init session Impact.default Nothing
                         |> toPage session model cmds FoodBuilderPage FoodBuilderMsg
 
+                Just (Route.GenericSimulator scope trigram maybeQuery) ->
+                    ObjectSimulator.init scope trigram maybeQuery session
+                        |> toPage session model cmds ObjectSimulatorPage ObjectSimulatorMsg
+
+                Just (Route.GenericSimulatorExample scope uuid) ->
+                    ObjectSimulator.initFromExample session scope uuid
+                        |> toPage session model cmds ObjectSimulatorPage ObjectSimulatorMsg
+
                 Just Route.Home ->
                     Home.init session
                         |> toPage session model cmds HomePage HomeMsg
 
-                Just (Route.ObjectSimulator scope trigram maybeQuery) ->
-                    ObjectSimulator.init scope trigram maybeQuery session
-                        |> toPage session model cmds ObjectSimulatorPage ObjectSimulatorMsg
-
-                Just (Route.ObjectSimulatorExample scope uuid) ->
-                    ObjectSimulator.initFromExample session scope uuid
-                        |> toPage session model cmds ObjectSimulatorPage ObjectSimulatorMsg
-
-                Just (Route.ObjectSimulatorHome scope) ->
+                Just (Route.GenericSimulatorHome scope) ->
                     ObjectSimulator.init scope Impact.default Nothing session
                         |> toPage session model cmds ObjectSimulatorPage ObjectSimulatorMsg
 

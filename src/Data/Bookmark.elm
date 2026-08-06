@@ -18,6 +18,7 @@ module Data.Bookmark exposing
     , toQueryDescription
     )
 
+import Data.Common.DecodeUtils as DU
 import Data.Common.EncodeUtils as EU
 import Data.Component as Component
 import Data.Db exposing (Db)
@@ -27,6 +28,7 @@ import Data.Scope as Scope exposing (GenericScope, Scope)
 import Data.Textile.Inputs as Inputs
 import Data.Textile.Query as TextileQuery
 import Json.Decode as Decode exposing (Decoder)
+import Json.Decode.Pipeline as JDP
 import Json.Encode as Encode
 import List.Extra as LE
 import Time exposing (Posix)
@@ -48,59 +50,20 @@ type Query
 
 decode : Decoder Bookmark
 decode =
-    Decode.at [ "created" ] (Decode.map Time.millisToPosix Decode.int)
-        |> Decode.andThen decodeBookmarkBody
-
-
-decodeBookmarkBody : Posix -> Decoder Bookmark
-decodeBookmarkBody created =
-    Decode.at [ "subScope" ] (Decode.maybe Scope.decodeGeneric)
-        |> Decode.andThen (decodeBookmarkName created)
-
-
-decodeBookmarkName : Posix -> Maybe GenericScope -> Decoder Bookmark
-decodeBookmarkName created genericScope =
-    Decode.at [ "name" ] Decode.string
-        |> Decode.andThen (decodeBookmarkQuery created genericScope)
-
-
-decodeBookmarkQuery : Posix -> Maybe GenericScope -> String -> Decoder Bookmark
-decodeBookmarkQuery created genericScope name =
-    Decode.field "query" Decode.value
-        |> Decode.andThen
-            (decodeQueryValue genericScope
-                >> Decode.map
-                    (\query ->
-                        { created = created
-                        , genericScope = genericScope
-                        , name = name
-                        , query = query
-                        }
-                    )
-            )
+    Decode.succeed Bookmark
+        |> JDP.required "created" (Decode.map Time.millisToPosix Decode.int)
+        |> DU.strictOptionalWithDefault "subScope" (Decode.maybe Scope.decodeGeneric) Nothing
+        |> JDP.required "name" Decode.string
+        |> JDP.required "query" decodeQuery
         |> Decode.map
             (\bookmark ->
                 case ( bookmark.query, bookmark.genericScope ) of
-                    ( Generic _ query, Just genericScope_ ) ->
-                        { bookmark | query = Generic genericScope_ query }
+                    ( Generic _ query, Just genericScope ) ->
+                        { bookmark | query = Generic genericScope query }
 
                     _ ->
                         bookmark
             )
-
-
-decodeGenericQueryValue : Maybe GenericScope -> Decode.Value -> Decoder Query
-decodeGenericQueryValue maybeGenericScope queryValue =
-    let
-        genericScope =
-            maybeGenericScope |> Maybe.withDefault Scope.Object
-    in
-    case queryValue |> Decode.decodeValue Component.decodeQuery of
-        Err err ->
-            Decode.fail (Decode.errorToString err)
-
-        Ok query ->
-            Decode.succeed (Generic genericScope query)
 
 
 decodeJsonList : Decoder (List Bookmark)
@@ -126,25 +89,12 @@ decodeJsonBookmark =
         |> Decode.map (Decode.decodeString decode >> Result.toMaybe)
 
 
-decodeQueryValue : Maybe GenericScope -> Decode.Value -> Decoder Query
-decodeQueryValue maybeGenericScope queryValue =
+decodeQuery : Decoder Query
+decodeQuery =
     Decode.oneOf
-        [ -- Legacy non-generic queries
-          case Decode.decodeValue FoodQuery.decode queryValue of
-            Err _ ->
-                Decode.fail "not a food query"
-
-            Ok query ->
-                Decode.succeed (Food query)
-        , case Decode.decodeValue TextileQuery.decode queryValue of
-            Err _ ->
-                Decode.fail "not a textile query"
-
-            Ok query ->
-                Decode.succeed (Textile query)
-
-        -- Generic queries
-        , decodeGenericQueryValue maybeGenericScope queryValue
+        [ Decode.map Food FoodQuery.decode
+        , Decode.map (Generic Scope.Object) Component.decodeQuery
+        , Decode.map Textile TextileQuery.decode
         ]
 
 

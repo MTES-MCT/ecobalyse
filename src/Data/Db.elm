@@ -35,14 +35,6 @@ type alias Db =
     }
 
 
-{-| "tables" in a Db.
-
-FIXME: Ideally we should only have one `productCategories` field, with the contents of current food2Categories,
-objectCategories and veliCategories lists combined. As a `Product` knows about its scope, this should then
-be straightforward to just merge them as is in a single list in the Db, and update the code consuming this merged
-list to filter against a scope whenever refining is needed.
-
--}
 type alias Properties a =
     { countries : a
     , definitions : a

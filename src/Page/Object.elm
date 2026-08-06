@@ -643,7 +643,7 @@ update ({ navKey } as session) msg model =
             createPageUpdate session model
                 |> App.withCmds
                     [ Just query
-                        |> Route.ObjectSimulator model.scope trigram
+                        |> Route.GenericSimulator model.scope trigram
                         |> Route.toString
                         |> Navigation.pushUrl navKey
                     , Plausible.send session <| Plausible.ImpactSelected model.scope trigram
@@ -1029,8 +1029,8 @@ simulatorView ({ componentConfig } as session) ({ scope } as model) =
                     , routes =
                         -- FIXME: explore route object/veli
                         { explore = Route.Explore scope (Dataset.ObjectExamples Nothing)
-                        , load = Route.ObjectSimulatorExample scope
-                        , scopeHome = Route.ObjectSimulatorHome scope
+                        , load = Route.GenericSimulatorExample scope
+                        , scopeHome = Route.GenericSimulatorHome scope
                         }
                     }
 
