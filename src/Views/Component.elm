@@ -1640,7 +1640,7 @@ distributionView ({ componentConfig, db, impact, query, scope, updateDistributio
                 distributionProcesses ->
                     let
                         effectiveDistribution =
-                            query |> Component.getDistributionProcessIdFromQuery { config = componentConfig, db = db, scope = scope }
+                            query |> Component.getDistributionProcessId { config = componentConfig, db = db, scope = scope }
                     in
                     distributionProcesses
                         |> List.map

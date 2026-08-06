@@ -78,7 +78,7 @@ module Data.Component exposing
     , findById
     , getAvailableDistributionProcesses
     , getConsumptionProcessId
-    , getDistributionProcessIdFromQuery
+    , getDistributionProcessId
     , getDocLink
     , getEndOfLifeDetailedImpacts
     , getEndOfLifeScopeCollectionRate
@@ -1979,10 +1979,15 @@ getConsumptionProcessId (Consumption { processId }) =
     processId
 
 
-{-| Get the effective distribution process id from a query
+{-| Get the distribution process:
+
+  - from the query itself when set
+  - or the one from the product category if not set
+  - TODO: or the default one for the scope if product category is not set
+
 -}
-getDistributionProcessIdFromQuery : Requirements db -> Query -> Maybe Process.Id
-getDistributionProcessIdFromQuery { db } query =
+getDistributionProcessId : Requirements db -> Query -> Maybe Process.Id
+getDistributionProcessId { db } query =
     case query.distribution of
         Just processId ->
             Just processId
@@ -2011,7 +2016,7 @@ when provided, or falling back to the selected product category default.
 -}
 getDistributionProcess : Requirements db -> Query -> Result DistributionProcessError Process
 getDistributionProcess ({ db, scope } as requirements) query =
-    case getDistributionProcessIdFromQuery requirements query of
+    case getDistributionProcessId requirements query of
         Just processId ->
             getAvailableDistributionProcesses db scope
                 |> Process.findById processId
@@ -2990,7 +2995,7 @@ validateQuery ({ db } as requirements) query =
     Ok Query
         |> RE.andMap (validateAssembly requirements query.assembly)
         |> RE.andMap (query.consumptions |> RE.combineMap (validateConsumption requirements))
-        |> RE.andMap (validateDistribution requirements (getDistributionProcessIdFromQuery requirements query))
+        |> RE.andMap (validateDistribution requirements (getDistributionProcessId requirements query))
         |> RE.andMap (validateDurability requirements query.durability)
         |> RE.andMap (query.items |> RE.combineMap (validateItem db.components))
         |> RE.andMap (query.packagings |> RE.combineMap (validatePackaging requirements))
