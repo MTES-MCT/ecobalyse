@@ -1983,24 +1983,33 @@ getConsumptionProcessId (Consumption { processId }) =
 
   - from the query itself when set
   - or the one from the product category if not set
-  - TODO: or the default one for the scope if product category is not set
+  - or the default one for the scope if product category is not set
 
 -}
 getDistributionProcessId : Requirements db -> Query -> Maybe Process.Id
-getDistributionProcessId { db } query =
+getDistributionProcessId { config, db, scope } query =
     case query.distribution of
         Just processId ->
             Just processId
 
         Nothing ->
-            query.product
-                |> Maybe.andThen
-                    (\productId ->
-                        db.products
-                            |> Product.findById productId
-                            |> Result.toMaybe
-                            |> Maybe.andThen .distribution
-                    )
+            case
+                query.product
+                    |> Maybe.andThen
+                        (\productId ->
+                            db.products
+                                |> Product.findById productId
+                                |> Result.toMaybe
+                                |> Maybe.andThen .distribution
+                        )
+            of
+                Just processId ->
+                    Just processId
+
+                Nothing ->
+                    config.distribution.defaultProcess
+                        |> Scope.dictGetMaybe scope
+                        |> Maybe.map .id
 
 
 {-| Retrieve a documentation link from config, if defined
@@ -2012,7 +2021,8 @@ getDocLink =
 
 
 {-| Retrieves a distribution process for a query, using an explicit distribution id
-when provided, or falling back to the selected product category default.
+when provided, falling back to the selected product category default, then to the
+scoped default from config.
 -}
 getDistributionProcess : Requirements db -> Query -> Result DistributionProcessError Process
 getDistributionProcess ({ db, scope } as requirements) query =

@@ -263,7 +263,7 @@ selectProductCategory session query maybeProductId pageUpdate =
             case Product.findById productId session.db.products of
                 Err error ->
                     pageUpdate
-                        |> App.notifyError "Erreur de sélection de la catégorie de produit" error
+                        |> App.notifyError "Catégorie de produit introuvable" error
 
                 Ok product ->
                     pageUpdate

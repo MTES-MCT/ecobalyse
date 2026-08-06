@@ -2191,6 +2191,20 @@ suite =
                                 |> Component.validateQuery requirements
                                 |> expectResultErrorContains "Catégorie de produit introuvable"
                             )
+                        , it "should fall back to the scoped default distribution process when product is unset" <|
+                            (emptyQuery
+                                |> Component.getDistributionProcessId { requirements | scope = Scope.Generic Scope.Food2 }
+                                |> Expect.equal
+                                    (requirements.config.distribution.defaultProcess
+                                        |> Scope.dictGetMaybe (Scope.Generic Scope.Food2)
+                                        |> Maybe.map .id
+                                    )
+                            )
+                        , it "should not fall back to a scoped default distribution process from another scope" <|
+                            (emptyQuery
+                                |> Component.getDistributionProcessId requirements
+                                |> Expect.equal Nothing
+                            )
                         ]
                     ]
                 )

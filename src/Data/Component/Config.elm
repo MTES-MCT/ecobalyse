@@ -45,6 +45,7 @@ type alias DataContainer db =
 
 type alias DistributionConfig =
     { country : Country
+    , defaultProcess : Scope.Dict (Maybe Process)
     }
 
 
@@ -107,7 +108,7 @@ type alias UseConfig =
 decode : { db | countries : List Country, processes : List Process } -> Decoder Config
 decode { countries, processes } =
     Decode.succeed Config
-        |> Decode.required "distribution" (decodeDistributionConfig countries)
+        |> Decode.required "distribution" (decodeDistributionConfig processes countries)
         |> Decode.required "docLinks" decodeDocLinksConfig
         |> Decode.required "durability" decodeDurabilityConfig
         |> Decode.required "endOfLife" (decodeEndOfLifeConfig processes)
@@ -116,10 +117,16 @@ decode { countries, processes } =
         |> Decode.required "use" (decodeUseConfig processes)
 
 
-decodeDistributionConfig : List Country -> Decoder DistributionConfig
-decodeDistributionConfig countries =
+decodeDistributionConfig : List Process -> List Country -> Decoder DistributionConfig
+decodeDistributionConfig processes countries =
     Decode.succeed DistributionConfig
         |> Decode.required "country" (Country.decodeFromCode countries)
+        |> Decode.required "defaultProcess" (decodeScopedMaybeProcess processes)
+
+
+decodeScopedMaybeProcess : List Process -> Decoder (Scope.Dict (Maybe Process))
+decodeScopedMaybeProcess processes =
+    Scope.decodeDict (Decode.maybe (Process.decodeFromId processes))
 
 
 decodeDocLinksConfig : Decoder DocLinksConfig
