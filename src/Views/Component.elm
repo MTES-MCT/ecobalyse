@@ -136,7 +136,7 @@ productSelectorView scope products selectedProduct onSelect =
         sortedProducts =
             products
                 |> Product.findByScope scope
-                |> List.sortBy Product.toLabel
+                |> List.sortBy .label
     in
     if List.isEmpty sortedProducts then
         text ""

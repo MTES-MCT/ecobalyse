@@ -3029,7 +3029,7 @@ validateProduct requirements maybeProductId =
                         else
                             Err <|
                                 "La catégorie de produit "
-                                    ++ Product.toLabel product
+                                    ++ product.label
                                     ++ " n’est pas disponible pour le périmètre "
                                     ++ Scope.toLabel requirements.scope
                     )

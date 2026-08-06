@@ -7,7 +7,6 @@ module Data.Component.Product exposing
     , findByScope
     , idFromString
     , idToString
-    , toLabel
     )
 
 import Data.Common.DecodeUtils as DU
@@ -79,8 +78,3 @@ idFromString =
 idToString : Id -> String
 idToString (Id string) =
     string
-
-
-toLabel : Product -> String
-toLabel =
-    .label
