@@ -135,11 +135,14 @@ productSelectorView scope products selectedProduct onSelect =
                 |> Product.findByScope scope
                 |> List.sortBy Product.toLabel
     in
-    div [ class "mb-3" ]
-        [ label [ Attr.for "selector-product-category", class "form-label" ]
+    div [ class "d-flex flex-row align-items-center gap-2 my-3" ]
+        [ label
+            [ Attr.for "product-category"
+            , class "form-label fw-bold text-nowrap"
+            ]
             [ text "Catégorie de produit" ]
         , select
-            [ Attr.id "selector-product-category"
+            [ Attr.id "product-category"
             , class "form-select"
             , onInput <|
                 -- FIXME: maybe resolve the product directly here?
@@ -150,8 +153,7 @@ productSelectorView scope products selectedProduct onSelect =
                     else
                         onSelect (Just (Product.idFromString str))
             ]
-            (option [ value "", selected (selectedProduct == Nothing) ]
-                [ text "Autres" ]
+            (option [ value "", selected (selectedProduct == Nothing) ] [ text "Autres" ]
                 :: (sortedProducts
                         |> List.map
                             (\product ->
