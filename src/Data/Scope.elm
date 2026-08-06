@@ -8,7 +8,6 @@ module Data.Scope exposing
     , decodeDict
     , decodeGeneric
     , dictGet
-    , dictGetMaybe
     , encode
     , encodeGeneric
     , fromString
@@ -82,16 +81,6 @@ decodeGeneric =
 dictGet : Scope -> Dict a -> Maybe a
 dictGet scope =
     AnyDict.get scope
-
-
-dictGetMaybe : Scope -> Dict (Maybe a) -> Maybe a
-dictGetMaybe scope dict =
-    case dictGet scope dict of
-        Just (Just value) ->
-            Just value
-
-        _ ->
-            Nothing
 
 
 encode : Scope -> Encode.Value

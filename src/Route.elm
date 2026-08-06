@@ -33,6 +33,9 @@ type Route
     | FoodBuilderExample Uuid
     | FoodBuilderHome
     | Home
+      -- FIXME:
+      -- - We should rename all ObjetSimulator* routes and related functions to GenericSimulator*, taking care of rordering alphabetically
+      -- - Also, these generic routes should probably take a GenericScope rather than a Scope
     | ObjectSimulator Scope Definition.Trigram (Maybe Component.Query)
     | ObjectSimulatorExample Scope Uuid
     | ObjectSimulatorHome Scope
@@ -85,7 +88,7 @@ parser =
             Parser.s "food2"
                 </> Parser.s "simulator"
                 </> Impact.parseTrigram
-                </> Component.parseBase64Query
+                </> Component.parseBase64Query (Scope.Generic Scope.Food2)
         , Parser.map (ObjectSimulatorExample (Scope.Generic Scope.Food2))
             (Parser.s "food2"
                 </> Parser.s "edit-example"
@@ -99,7 +102,7 @@ parser =
             Parser.s "object"
                 </> Parser.s "simulator"
                 </> Impact.parseTrigram
-                </> Component.parseBase64Query
+                </> Component.parseBase64Query (Scope.Generic Scope.Object)
         , Parser.map (ObjectSimulatorExample (Scope.Generic Scope.Object))
             (Parser.s "object"
                 </> Parser.s "edit-example"
@@ -123,7 +126,7 @@ parser =
             Parser.s "veli"
                 </> Parser.s "simulator"
                 </> Impact.parseTrigram
-                </> Component.parseBase64Query
+                </> Component.parseBase64Query (Scope.Generic Scope.Veli)
         , Parser.map (ObjectSimulatorExample (Scope.Generic Scope.Veli))
             (Parser.s "veli"
                 </> Parser.s "edit-example"

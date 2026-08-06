@@ -211,7 +211,7 @@ objectQueryFromScope scope session =
             session.queries.veli
 
         _ ->
-            Component.emptyQuery
+            Component.emptyScopedQuery (Scope.Generic Scope.Object)
 
 
 updateFoodQuery : FoodQuery.Query -> Session -> Session

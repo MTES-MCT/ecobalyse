@@ -16,6 +16,7 @@ import Data.Bookmark as Bookmark exposing (Bookmark)
 import Data.Component as Component exposing (Component, Index, TargetElement, TargetItem)
 import Data.Component.Amount as Amount exposing (Amount)
 import Data.Component.Config as Config
+import Data.Component.Product as Product
 import Data.Country.Code as CountryCode
 import Data.Dataset as Dataset
 import Data.Db exposing (Db)
@@ -149,6 +150,7 @@ type Msg
     | UpdateElementMaterialCountry TargetElement (Maybe CountryCode.Code)
     | UpdateElementTransformCountry TargetElement Index (Maybe CountryCode.Code)
     | UpdatePackagingAmount Index (Maybe Amount)
+    | UpdateProduct Product.Id
     | UpdateRecyclability Bool
     | UpdateRenamedBookmarkName Bookmark String
 
@@ -733,6 +735,17 @@ update ({ navKey } as session) msg model =
             createPageUpdate session model
                 |> updateQuery (query |> Component.updatePackagingAmount index amount)
 
+        -- FIXME: update UpdateProduct msg to take a (Result String Product) so we can pattern match either `UpdateProduct (Ok product)` and `UpdateProduct (Err error)`
+        ( UpdateProduct productId, _ ) ->
+            createPageUpdate session model
+                |> (case Product.findById productId session.db.products of
+                        Err error ->
+                            App.notifyError "Erreur de sélection de la catégorie de produit" error
+
+                        Ok product ->
+                            updateQuery (query |> Component.updateProduct product)
+                   )
+
         ( UpdatePackagingAmount _ Nothing, _ ) ->
             createPageUpdate session model
 
@@ -810,7 +823,7 @@ selectExample autocompleteState ({ model } as pageUpdate) =
     let
         exampleQuery =
             Autocomplete.selectedValue autocompleteState
-                |> Maybe.withDefault Component.emptyQuery
+                |> Maybe.withDefault (Component.emptyScopedQuery model.scope)
     in
     pageUpdate
         |> updateQuery exampleQuery
@@ -998,7 +1011,7 @@ simulatorView ({ componentConfig } as session) ({ scope } as model) =
             , div [ class "sticky-md-top bg-white pb-3" ]
                 [ ExampleView.view
                     { currentQuery = currentQuery
-                    , emptyQuery = Component.emptyQuery
+                    , emptyQuery = Component.emptyScopedQuery scope
                     , examples = model.examples
                     , helpUrl = Nothing
                     , onOpen = SelectExampleModal >> List.singleton >> SetModals
@@ -1009,6 +1022,11 @@ simulatorView ({ componentConfig } as session) ({ scope } as model) =
                         , scopeHome = Route.ObjectSimulatorHome scope
                         }
                     }
+
+                -- FIXME: ideally, this should be called within ComponentView.editorView, as we want
+                -- the product category selector rendered just after the example selector and **before**
+                -- the durability selector. We should move the durability selector to the Views.Component module
+                , ComponentView.productSelectorView scope session.db.products currentQuery.product UpdateProduct
                 ]
             , durabilityView componentConfig scope currentDurability
             , editorConfig session model

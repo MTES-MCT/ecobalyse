@@ -250,7 +250,8 @@
       "recyclable": true,
       "assembly": {
         "country": "FR"
-      }
+      },
+      "product": "c0e28c58-3046-446b-be2f-95a66686e60d"
     },
     "scope": "veli"
   },
@@ -500,7 +501,8 @@
       "recyclable": true,
       "assembly": {
         "country": "FR"
-      }
+      },
+      "product": "c0e28c58-3046-446b-be2f-95a66686e60d"
     },
     "scope": "veli"
   },
@@ -670,7 +672,8 @@
       "recyclable": true,
       "assembly": {
         "country": "FR"
-      }
+      },
+      "product": "c0e28c58-3046-446b-be2f-95a66686e60d"
     },
     "scope": "veli"
   },
@@ -749,7 +752,8 @@
       ],
       "assembly": {
         "country": "FR"
-      }
+      },
+      "product": "c0e28c58-3046-446b-be2f-95a66686e60d"
     },
     "scope": "veli"
   },
@@ -1034,7 +1038,8 @@
       "recyclable": true,
       "assembly": {
         "country": "REO"
-      }
+      },
+      "product": "c0e28c58-3046-446b-be2f-95a66686e60d"
     },
     "scope": "veli"
   },
@@ -1188,7 +1193,8 @@
       ],
       "assembly": {
         "country": "FR"
-      }
+      },
+      "product": "c0e28c58-3046-446b-be2f-95a66686e60d"
     },
     "scope": "veli"
   },
@@ -1415,7 +1421,8 @@
       "recyclable": true,
       "assembly": {
         "country": "FR"
-      }
+      },
+      "product": "c0e28c58-3046-446b-be2f-95a66686e60d"
     },
     "scope": "veli"
   },
@@ -1491,7 +1498,8 @@
         "operations": [
           "8b4fae1f-71bc-44d4-9e40-b2399ef04f34"
         ]
-      }
+      },
+      "product": "c0e28c58-3046-446b-be2f-95a66686e60d"
     },
     "scope": "veli"
   },
@@ -1749,7 +1757,8 @@
       "recyclable": true,
       "assembly": {
         "country": "RAS"
-      }
+      },
+      "product": "c0e28c58-3046-446b-be2f-95a66686e60d"
     },
     "scope": "veli"
   },
@@ -1798,7 +1807,8 @@
       ],
       "assembly": {
         "country": "FR"
-      }
+      },
+      "product": "c0e28c58-3046-446b-be2f-95a66686e60d"
     },
     "scope": "veli"
   },
@@ -2020,7 +2030,8 @@
       "recyclable": true,
       "assembly": {
         "country": "FR"
-      }
+      },
+      "product": "c0e28c58-3046-446b-be2f-95a66686e60d"
     },
     "scope": "veli"
   },
@@ -2296,7 +2307,8 @@
       "recyclable": true,
       "assembly": {
         "country": "RAS"
-      }
+      },
+      "product": "c0e28c58-3046-446b-be2f-95a66686e60d"
     },
     "scope": "veli"
   },
@@ -2466,7 +2478,8 @@
       "recyclable": true,
       "assembly": {
         "country": "RAS"
-      }
+      },
+      "product": "c0e28c58-3046-446b-be2f-95a66686e60d"
     },
     "scope": "veli"
   },
@@ -2800,7 +2813,8 @@
       "recyclable": true,
       "assembly": {
         "country": "REO"
-      }
+      },
+      "product": "c0e28c58-3046-446b-be2f-95a66686e60d"
     },
     "scope": "veli"
   },
@@ -3135,7 +3149,8 @@
       "recyclable": true,
       "assembly": {
         "country": "REO"
-      }
+      },
+      "product": "c0e28c58-3046-446b-be2f-95a66686e60d"
     },
     "scope": "veli"
   },
@@ -3193,7 +3208,8 @@
       ],
       "assembly": {
         "country": "FR"
-      }
+      },
+      "product": "c0e28c58-3046-446b-be2f-95a66686e60d"
     },
     "scope": "veli"
   },
@@ -3363,7 +3379,8 @@
       "recyclable": true,
       "assembly": {
         "country": "RAS"
-      }
+      },
+      "product": "c0e28c58-3046-446b-be2f-95a66686e60d"
     },
     "scope": "veli"
   },
@@ -3639,7 +3656,8 @@
       "recyclable": true,
       "assembly": {
         "country": "FR"
-      }
+      },
+      "product": "c0e28c58-3046-446b-be2f-95a66686e60d"
     },
     "scope": "veli"
   },
@@ -3703,7 +3721,8 @@
           "amount": 150,
           "processId": "eec31f13-d00a-4741-a84f-85d887026f8c"
         }
-      ]
+      ],
+      "product": "c0e28c58-3046-446b-be2f-95a66686e60d"
     },
     "scope": "veli"
   },
@@ -3817,7 +3836,8 @@
       ],
       "assembly": {
         "country": "FR"
-      }
+      },
+      "product": "c0e28c58-3046-446b-be2f-95a66686e60d"
     },
     "scope": "veli"
   },
@@ -4177,7 +4197,8 @@
       "recyclable": true,
       "assembly": {
         "country": "FR"
-      }
+      },
+      "product": "c0e28c58-3046-446b-be2f-95a66686e60d"
     },
     "scope": "veli"
   },
@@ -4291,7 +4312,8 @@
       ],
       "assembly": {
         "country": "FR"
-      }
+      },
+      "product": "c0e28c58-3046-446b-be2f-95a66686e60d"
     },
     "scope": "veli"
   },
@@ -4461,7 +4483,8 @@
       "recyclable": true,
       "assembly": {
         "country": "FR"
-      }
+      },
+      "product": "c0e28c58-3046-446b-be2f-95a66686e60d"
     },
     "scope": "veli"
   }

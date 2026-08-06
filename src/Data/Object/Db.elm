@@ -22,12 +22,12 @@ buildFromJson food2ExamplesJson objectExamplesJson veliExamplesJson =
         |> RE.andMap
             (Result.map3 (\a b c -> a ++ b ++ c)
                 (food2ExamplesJson
-                    |> Example.decodeListFromJsonString Component.decodeQuery
+                    |> Example.decodeListFromJsonStringWithScopedQuery Component.decodeQuery
                 )
                 (objectExamplesJson
-                    |> Example.decodeListFromJsonString Component.decodeQuery
+                    |> Example.decodeListFromJsonStringWithScopedQuery Component.decodeQuery
                 )
                 (veliExamplesJson
-                    |> Example.decodeListFromJsonString Component.decodeQuery
+                    |> Example.decodeListFromJsonStringWithScopedQuery Component.decodeQuery
                 )
             )

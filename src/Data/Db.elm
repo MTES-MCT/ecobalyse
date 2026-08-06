@@ -9,6 +9,7 @@ module Data.Db exposing
     )
 
 import Data.Component as Component exposing (Component)
+import Data.Component.Product as Product exposing (Product)
 import Data.Country as Country exposing (Country)
 import Data.Food.Db as FoodDb
 import Data.Impact as Impact
@@ -29,16 +30,27 @@ type alias Db =
     , food : FoodDb.Db
     , object : ObjectDb.Db
     , processes : List Process
+    , products : List Product
     , textile : TextileDb.Db
     }
 
 
+{-| "tables" in a Db.
+
+FIXME: Ideally we should only have one `productCategories` field, with the contents of current food2Categories,
+objectCategories and veliCategories lists combined. As a `Product` knows about its scope, this should then
+be straightforward to just merge them as is in a single list in the Db, and update the code consuming this merged
+list to filter against a scope whenever refining is needed.
+
+-}
 type alias Properties a =
     { countries : a
     , definitions : a
+    , food2Categories : a
     , food2Examples : a
     , foodIngredients : a
     , foodProductExamples : a
+    , objectCategories : a
     , objectComponents : a
     , objectExamples : a
     , processes : a
@@ -47,6 +59,7 @@ type alias Properties a =
     , textileProductExamples : a
     , textileProducts : a
     , transports : a
+    , veliCategories : a
     , veliComponents : a
     , veliExamples : a
     }
@@ -107,6 +120,15 @@ build json =
                         )
                     |> RE.andMap (Ok processes)
                     |> RE.andMap
+                        ([ json.food2Categories
+                         , json.objectCategories
+                         , json.veliCategories
+                         ]
+                            |> List.map (extractJsonString >> Product.decodeListFromJsonString)
+                            |> RE.combine
+                            |> Result.map List.concat
+                        )
+                    |> RE.andMap
                         (processes
                             |> TextileDb.buildFromJson
                                 (extractJsonString json.textileProductExamples)
@@ -125,9 +147,11 @@ propGetters : List (Properties a -> a)
 propGetters =
     [ .countries
     , .definitions
+    , .food2Categories
     , .food2Examples
     , .foodIngredients
     , .foodProductExamples
+    , .objectCategories
     , .objectComponents
     , .objectExamples
     , .processes
@@ -136,6 +160,7 @@ propGetters =
     , .textileProductExamples
     , .textileProducts
     , .transports
+    , .veliCategories
     , .veliComponents
     , .veliExamples
     ]

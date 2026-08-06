@@ -34,7 +34,8 @@
       "recyclable": true,
       "transportOptions": {
         "cooling": true
-      }
+      },
+      "product": "ed82925c-7f21-4101-b9be-056e3c185749"
     },
     "scope": "food2"
   },
@@ -144,7 +145,8 @@
       "recyclable": true,
       "transportOptions": {
         "cooling": true
-      }
+      },
+      "product": "1eacb555-5f0c-498e-8e97-f4c9104642e4"
     },
     "scope": "food2"
   },
@@ -183,7 +185,8 @@
       "recyclable": true,
       "transportOptions": {
         "cooling": true
-      }
+      },
+      "product": "ed82925c-7f21-4101-b9be-056e3c185749"
     },
     "scope": "food2"
   },
@@ -328,7 +331,11 @@
       "recyclable": true,
       "transportOptions": {
         "byAir": 100
-      }
+      },
+      "assembly": {
+        "country": "FR"
+      },
+      "product": "1eacb555-5f0c-498e-8e97-f4c9104642e4"
     },
     "scope": "food2"
   },
@@ -414,7 +421,11 @@
       "recyclable": true,
       "transportOptions": {
         "byAir": 100
-      }
+      },
+      "assembly": {
+        "country": "FR"
+      },
+      "product": "18c80093-442d-469c-9a22-6297e97ba1a7"
     },
     "scope": "food2"
   },
@@ -531,7 +542,8 @@
       "recyclable": true,
       "transportOptions": {
         "cooling": true
-      }
+      },
+      "product": "1eacb555-5f0c-498e-8e97-f4c9104642e4"
     },
     "scope": "food2"
   }

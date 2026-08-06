@@ -3,6 +3,7 @@ module Views.Component exposing
     , Context(..)
     , editorView
     , elementEditModalView
+    , productSelectorView
     , scopeLabels
     )
 
@@ -30,6 +31,7 @@ import Data.Component as Component
         )
 import Data.Component.Amount as Amount exposing (Amount)
 import Data.Component.Config as Config
+import Data.Component.Product as Product exposing (Product)
 import Data.Country as Country exposing (Country)
 import Data.Country.Code as CountryCode
 import Data.Impact as Impact exposing (Impacts)
@@ -118,6 +120,35 @@ requirementsFromConfig config =
     , db = config.db
     , scope = config.scope
     }
+
+
+productSelectorView : Scope -> List Product -> Product.Id -> (Product.Id -> msg) -> Html msg
+productSelectorView scope products selectedProduct onSelect =
+    let
+        sortedProducts =
+            products
+                |> Product.findByScope scope
+                |> List.sortBy Product.toLabel
+    in
+    div [ class "mb-3" ]
+        [ label [ Attr.for "selector-product-category", class "form-label" ]
+            [ text "Catégorie de produit" ]
+        , select
+            [ Attr.id "selector-product-category"
+            , class "form-select"
+            , onInput (Product.idFromString >> onSelect)
+            ]
+            (sortedProducts
+                |> List.map
+                    (\product ->
+                        option
+                            [ value (Product.idToString product.id)
+                            , selected (product.id == selectedProduct)
+                            ]
+                            [ text product.label ]
+                    )
+            )
+        ]
 
 
 type alias Labels =
@@ -1592,16 +1623,16 @@ distributionView ({ componentConfig, db, impact, query, scope, updateDistributio
                     Nothing
 
                 distributionProcesses ->
+                    let
+                        effectiveDistribution =
+                            query |> Component.getDistributionProcessIdFromQuery { config = componentConfig, db = db, scope = scope }
+                    in
                     distributionProcesses
                         |> List.map
                             (\process ->
                                 option
                                     [ value (Process.idToString process.id)
-                                    , selected <|
-                                        List.member (Just process.id)
-                                            [ componentConfig.distribution.defaultProcess |> Scope.dictGetMaybe scope |> Maybe.map .id
-                                            , query.distribution
-                                            ]
+                                    , selected (effectiveDistribution == Just process.id)
                                     ]
                                     [ text (Process.getDisplayName process) ]
                             )

@@ -1,6 +1,7 @@
 module Data.Example exposing
     ( Example
     , decodeListFromJsonString
+    , decodeListFromJsonStringWithScopedQuery
     , findByName
     , findByQuery
     , findByUuid
@@ -44,6 +45,42 @@ decode decodeQuery =
 decodeListFromJsonString : Decoder query -> String -> Result String (List (Example query))
 decodeListFromJsonString decodeQuery =
     Decode.decodeString (Decode.list (decode decodeQuery))
+        >> Result.mapError Decode.errorToString
+
+
+{-| Decode an example with a scoped query. This is useful
+-}
+decodeWithScopedQuery : (Scope -> Decoder query) -> Decoder (Example query)
+decodeWithScopedQuery decodeQueryForScope =
+    -- FIXME: use Json.Decode.Pipeline instead, or maybe directly use `decode`, with a slight refoactoring so it accepts a `scope`
+    Decode.field "scope" Scope.decode
+        |> Decode.andThen
+            (\scope ->
+                Decode.map5
+                    (\category id name recyclable query ->
+                        { category = category
+                        , id = id
+                        , name = name
+                        , query = query
+                        , recyclable = recyclable
+                        , scope = scope
+                        }
+                    )
+                    (Decode.at [ "category" ] Decode.string)
+                    (Decode.at [ "id" ] Uuid.decoder)
+                    (Decode.at [ "name" ] Decode.string)
+                    (Decode.oneOf
+                        [ Decode.at [ "recyclable" ] Decode.bool
+                        , Decode.succeed True
+                        ]
+                    )
+                    (Decode.at [ "query" ] (decodeQueryForScope scope))
+            )
+
+
+decodeListFromJsonStringWithScopedQuery : (Scope -> Decoder query) -> String -> Result String (List (Example query))
+decodeListFromJsonStringWithScopedQuery decodeQueryForScope =
+    Decode.decodeString (Decode.list (decodeWithScopedQuery decodeQueryForScope))
         >> Result.mapError Decode.errorToString
 
 

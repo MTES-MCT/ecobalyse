@@ -444,7 +444,7 @@ contributeExampleTabView ({ scope, session } as config) =
             Session.isAuthenticated session
 
         simulationIsEmpty =
-            Session.objectQueryFromScope scope session == Component.emptyQuery
+            Session.objectQueryFromScope scope session == Component.emptyScopedQuery scope
 
         simulationExists =
             session.db.object.examples

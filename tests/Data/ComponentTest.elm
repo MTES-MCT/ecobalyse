@@ -8,7 +8,7 @@ import Data.Component as Component
         , LifeCycle
         , Requirements
         , defaultTransportOptions
-        , emptyQuery
+        , emptyScopedQuery
         )
 import Data.Component.Amount as Amount
 import Data.Country as Country
@@ -596,7 +596,7 @@ suite =
                                     -- tests
                                     (\( testDistributionProcess, testRequirements ) ->
                                         [ suiteFromResult "distribution result tests"
-                                            (emptyQuery
+                                            (emptyScopedQuery (Scope.Generic Scope.Object)
                                                 |> Component.setQueryItems chairItems
                                                 |> Component.updateDistribution (Just testDistributionProcess.id)
                                                 |> Component.compute testRequirements
@@ -627,7 +627,7 @@ suite =
                                     (Process.idFromString "5fad4e70-5736-552d-a686-97e4fb627c37"
                                         |> Result.map
                                             (\missingDistributionId ->
-                                                emptyQuery
+                                                emptyScopedQuery (Scope.Generic Scope.Object)
                                                     |> Component.setQueryItems chairItems
                                                     |> Component.updateDistribution (Just missingDistributionId)
                                                     |> Component.compute requirements
@@ -800,7 +800,10 @@ suite =
                         (let
                             computePackagingEcsImpacts packagings =
                                 Component.emptyLifeCycle
-                                    |> Component.computePackagingImpacts requirements { emptyQuery | packagings = packagings }
+                                    |> Component.computePackagingImpacts requirements
+                                        (emptyScopedQuery (Scope.Generic Scope.Object)
+                                            |> (\query -> { query | packagings = packagings })
+                                        )
                                     |> Result.map (.packaging >> List.map getEcsImpact)
                          in
                          [ itFromResult "should compute no packaging impacts for a query without packagings"
@@ -836,7 +839,7 @@ suite =
                     , describe "computeAssemblyImpacts"
                         [ suiteFromResult "should keep product mass unchanged when no assembly operations are defined"
                             ("""{ "components": [{ "id": "64fa65b3-c2df-4fd0-958b-83965bd6aa08", "quantity": 1 }] }"""
-                                |> decodeJsonThen Component.decodeQuery (Component.compute requirements)
+                                |> decodeJsonThen (Component.decodeQuery (Scope.Generic Scope.Object)) (Component.compute requirements)
                                 |> Result.map
                                     (\lifeCycle ->
                                         ( Component.extractMass lifeCycle.production
@@ -863,7 +866,7 @@ suite =
                                     ]
                                   }
                                 }"""
-                                |> decodeJsonThen Component.decodeQuery (Component.compute requirements)
+                                |> decodeJsonThen (Component.decodeQuery (Scope.Generic Scope.Object)) (Component.compute requirements)
                             )
                             (\lifeCycle ->
                                 let
@@ -937,7 +940,7 @@ suite =
                                   "assemblyCountry": "FR",
                                   "components": [{ "id": "64fa65b3-c2df-4fd0-958b-83965bd6aa08", "quantity": 1 }]
                                 }"""
-                                |> decodeJsonThen Component.decodeQuery Ok
+                                |> decodeJsonThen (Component.decodeQuery (Scope.Generic Scope.Object)) Ok
                                 |> Result.map .assembly
                             )
                             (.country >> Expect.equal (Just CountryCode.france))
@@ -951,7 +954,7 @@ suite =
                                   ],
                                   "recyclable": true
                                 }"""
-                                |> decodeJsonThen Component.decodeQuery (Component.compute requirements)
+                                |> decodeJsonThen (Component.decodeQuery (Scope.Generic Scope.Object)) (Component.compute requirements)
                             )
                             --  assembly operations featuring waste
                             ("""{
@@ -968,7 +971,7 @@ suite =
                                     ]
                                   }
                                 }"""
-                                |> decodeJsonThen Component.decodeQuery (Component.compute requirements)
+                                |> decodeJsonThen (Component.decodeQuery (Scope.Generic Scope.Object)) (Component.compute requirements)
                             )
                             (\lifeCycle withAssemblyWaste ->
                                 let
@@ -1058,7 +1061,7 @@ suite =
                                     { "id": "eda5dd7e-52e4-450f-8658-1876efc62bd6", "quantity": 1 }
                                   ]
                                 }"""
-                                |> decodeJsonThen Component.decodeQuery (Component.compute requirements)
+                                |> decodeJsonThen (Component.decodeQuery (Scope.Generic Scope.Object)) (Component.compute requirements)
                             )
                             -- tests
                             (\productAssembledInFrance ->
@@ -1088,7 +1091,7 @@ suite =
                         , suiteFromResult "single item distribution transport"
                             -- setup
                             ("""{"components": [{ "id": "64fa65b3-c2df-4fd0-958b-83965bd6aa08", "quantity": 1 }]}"""
-                                |> decodeJsonThen Component.decodeQuery (Component.compute requirements)
+                                |> decodeJsonThen (Component.decodeQuery (Scope.Generic Scope.Object)) (Component.compute requirements)
                             )
                             -- tests
                             (\singleItemProduct ->
@@ -1115,12 +1118,12 @@ suite =
                                   "assembly": { "country": "FR" },
                                   "components": []
                                 }"""
-                                |> decodeJsonThen Component.decodeQuery (Component.compute requirements)
+                                |> decodeJsonThen (Component.decodeQuery (Scope.Generic Scope.Object)) (Component.compute requirements)
                                 |> expectResultErrorContains "Une liste de composants vide ne peut être assemblée"
                             )
                         , suiteFromResult "empty component list without assembly country"
                             ("""{ "components": [] }"""
-                                |> decodeJsonThen Component.decodeQuery (Component.compute requirements)
+                                |> decodeJsonThen (Component.decodeQuery (Scope.Generic Scope.Object)) (Component.compute requirements)
                             )
                             (\emptyProduct ->
                                 [ it "should not add transport to assembly"
@@ -1147,7 +1150,7 @@ suite =
                                   "components": [{ "id": "64fa65b3-c2df-4fd0-958b-83965bd6aa08", "quantity": 1 }],
                                   "transportOptions": { "byAir": 100 }
                                 }"""
-                                |> decodeJsonThen Component.decodeQuery (Component.compute requirements)
+                                |> decodeJsonThen (Component.decodeQuery (Scope.Generic Scope.Object)) (Component.compute requirements)
                             )
                             -- tests
                             (\singleItemProduct ->
@@ -1179,7 +1182,7 @@ suite =
                                   "assembly": { "country": "PT" },
                                   "transportOptions": { "byAir": 100 }
                                 }"""
-                                |> decodeJsonThen Component.decodeQuery (Component.compute requirements)
+                                |> decodeJsonThen (Component.decodeQuery (Scope.Generic Scope.Object)) (Component.compute requirements)
                             )
                             -- tests
                             (\multipleItemsProducs ->
@@ -1209,7 +1212,7 @@ suite =
                                     { "id": "eda5dd7e-52e4-450f-8658-1876efc62bd6", "quantity": 1 }
                                   ]
                                 }"""
-                                |> decodeJsonThen Component.decodeQuery (Component.compute requirements)
+                                |> decodeJsonThen (Component.decodeQuery (Scope.Generic Scope.Object)) (Component.compute requirements)
                             )
                             ("""{
                                   "components": [
@@ -1217,7 +1220,7 @@ suite =
                                     { "id": "eda5dd7e-52e4-450f-8658-1876efc62bd6", "quantity": 2 }
                                   ]
                                 }"""
-                                |> decodeJsonThen Component.decodeQuery (Component.compute requirements)
+                                |> decodeJsonThen (Component.decodeQuery (Scope.Generic Scope.Object)) (Component.compute requirements)
                             )
                             -- tests
                             (\productAssembledInUnknownCountry heavierProductAssembledInUnknownCountry ->
@@ -1295,14 +1298,14 @@ suite =
                           describe "transport options"
                             [ itFromResult2 "should handle transport cooling"
                                 ("""{"components": [{ "id": "64fa65b3-c2df-4fd0-958b-83965bd6aa08", "quantity": 1 }]}"""
-                                    |> decodeJsonThen Component.decodeQuery (Component.compute requirements)
+                                    |> decodeJsonThen (Component.decodeQuery (Scope.Generic Scope.Object)) (Component.compute requirements)
                                     |> Result.map getTransportStageEcs
                                 )
                                 ("""{
                                   "components": [{ "id": "64fa65b3-c2df-4fd0-958b-83965bd6aa08", "quantity": 1 }],
                                   "transportOptions": { "cooling": true }
                                 }"""
-                                    |> decodeJsonThen Component.decodeQuery (Component.compute requirements)
+                                    |> decodeJsonThen (Component.decodeQuery (Scope.Generic Scope.Object)) (Component.compute requirements)
                                     |> Result.map getTransportStageEcs
                                 )
                                 (\noTransportCooling withTransportCooling ->
@@ -1311,14 +1314,14 @@ suite =
                                 )
                             , itFromResult2 "should handle air transport"
                                 ("""{"components": [{ "id": "64fa65b3-c2df-4fd0-958b-83965bd6aa08", "quantity": 1 }]}"""
-                                    |> decodeJsonThen Component.decodeQuery (Component.compute requirements)
+                                    |> decodeJsonThen (Component.decodeQuery (Scope.Generic Scope.Object)) (Component.compute requirements)
                                     |> Result.map getTransportStageEcs
                                 )
                                 ("""{
                                   "components": [{ "id": "64fa65b3-c2df-4fd0-958b-83965bd6aa08", "quantity": 1 }],
                                   "transportOptions": { "byAir": 100 }
                                 }"""
-                                    |> decodeJsonThen Component.decodeQuery (Component.compute requirements)
+                                    |> decodeJsonThen (Component.decodeQuery (Scope.Generic Scope.Object)) (Component.compute requirements)
                                     |> Result.map getTransportStageEcs
                                 )
                                 (\noAirTransport withAirTransport ->
@@ -1337,7 +1340,7 @@ suite =
                                                     (\process -> { process | categories = Category.TransportedCooled :: process.categories })
                                     in
                                     """{"components": [{ "id": "64fa65b3-c2df-4fd0-958b-83965bd6aa08", "quantity": 1 }]}"""
-                                        |> decodeJsonThen Component.decodeQuery (Component.compute testSpecificReqs)
+                                        |> decodeJsonThen (Component.decodeQuery (Scope.Generic Scope.Object)) (Component.compute testSpecificReqs)
                                         |> Result.map (.transports >> .toAssembly >> .roadCooled >> Length.inKilometers)
                                         |> Result.withDefault 0
                                         |> Expect.greaterThan 0
@@ -1347,7 +1350,7 @@ suite =
                                       "components": [{ "id": "64fa65b3-c2df-4fd0-958b-83965bd6aa08", "quantity": 1 }],
                                       "transportOptions": { "cooling": true }
                                     }"""
-                                    |> decodeJsonThen Component.decodeQuery (Component.compute requirements)
+                                    |> decodeJsonThen (Component.decodeQuery (Scope.Generic Scope.Object)) (Component.compute requirements)
                                 )
                                 (\product ->
                                     product.transports.toAssembly.roadCooled
@@ -1359,7 +1362,7 @@ suite =
                                       "components": [{ "id": "64fa65b3-c2df-4fd0-958b-83965bd6aa08", "quantity": 1 }],
                                       "transportOptions": { "cooling": true }
                                     }"""
-                                    |> decodeJsonThen Component.decodeQuery (Component.compute requirements)
+                                    |> decodeJsonThen (Component.decodeQuery (Scope.Generic Scope.Object)) (Component.compute requirements)
                                 )
                                 (\product ->
                                     product.transports.toDistribution.roadCooled
@@ -1707,12 +1710,15 @@ suite =
                         )
                     , let
                         query =
-                            { emptyQuery
-                                | assembly =
-                                    { country = Just CountryCode.france
-                                    , operations = []
-                                    }
-                            }
+                            emptyScopedQuery (Scope.Generic Scope.Object)
+                                |> (\q ->
+                                        { q
+                                            | assembly =
+                                                { country = Just CountryCode.france
+                                                , operations = []
+                                                }
+                                        }
+                                   )
                       in
                       describe "mapItems"
                         [ it "should reset the assembly country when mapItems empties the list"
@@ -1811,12 +1817,15 @@ suite =
                         )
                     , let
                         query =
-                            { emptyQuery
-                                | assembly =
-                                    { country = Just CountryCode.france
-                                    , operations = []
-                                    }
-                            }
+                            emptyScopedQuery (Scope.Generic Scope.Object)
+                                |> (\q ->
+                                        { q
+                                            | assembly =
+                                                { country = Just CountryCode.france
+                                                , operations = []
+                                                }
+                                        }
+                                   )
                       in
                       describe "setQueryItems"
                         [ it "should preserve the assembly country for a single item"
@@ -1854,7 +1863,7 @@ suite =
                               ],
                               "recyclable": true
                             }"""
-                            |> decodeJsonThen Component.decodeQuery (Component.compute requirements)
+                            |> decodeJsonThen (Component.decodeQuery (Scope.Generic Scope.Object)) (Component.compute requirements)
                             |> Result.map (\results -> ( results, Component.stagesImpacts results ))
                         )
                         (\( lifeCycle, stagesImpacts ) ->
@@ -1911,7 +1920,7 @@ suite =
                               ],
                               "recyclable": false
                             }"""
-                            |> decodeJsonThen Component.decodeQuery (Component.compute requirements)
+                            |> decodeJsonThen (Component.decodeQuery (Scope.Generic Scope.Object)) (Component.compute requirements)
                             |> Result.map Component.stagesImpacts
                         )
                         (\stagesImpacts ->
@@ -2054,7 +2063,7 @@ suite =
                         (\nonExistingProcessId steelProcess sawingProcess dryDistributionProcess ->
                             [ describe "amount validation"
                                 [ it "should reject a non-positive amount" <|
-                                    (emptyQuery
+                                    (emptyScopedQuery (Scope.Generic Scope.Food2)
                                         |> (\query ->
                                                 { query
                                                     | consumptions =
@@ -2068,25 +2077,25 @@ suite =
                                 ]
                             , describe "distribution validation"
                                 [ it "should accept a distribution process" <|
-                                    (emptyQuery
+                                    (emptyScopedQuery (Scope.Generic Scope.Object)
                                         |> Component.updateDistribution (Just dryDistributionProcess.id)
                                         |> Component.validateQuery requirements
                                         |> Expect.ok
                                     )
                                 , it "should reject a distribution referencing a missing process" <|
-                                    (emptyQuery
+                                    (emptyScopedQuery (Scope.Generic Scope.Object)
                                         |> Component.updateDistribution (Just nonExistingProcessId)
                                         |> Component.validateQuery requirements
                                         |> expectResultErrorContains "Procédé introuvable par id"
                                     )
                                 , it "should reject a distribution referencing a process that is not a distribution" <|
-                                    (emptyQuery
+                                    (emptyScopedQuery (Scope.Generic Scope.Object)
                                         |> Component.updateDistribution (Just sawingProcess.id)
                                         |> Component.validateQuery requirements
                                         |> expectResultErrorContains "Le procédé n'est pas une distribution"
                                     )
                                 , it "should reject a distribution referencing a process that does not accept a volume" <|
-                                    (emptyQuery
+                                    (emptyScopedQuery (Scope.Generic Scope.Object)
                                         |> Component.updateDistribution (Just dryDistributionProcess.id)
                                         |> Component.validateQuery
                                             (requirements
@@ -2096,7 +2105,7 @@ suite =
                                         |> expectResultErrorContains "Le procédé de distribution doit accepter un volume"
                                     )
                                 , it "should reject a distribution referencing a process with the wrong scope" <|
-                                    (emptyQuery
+                                    (emptyScopedQuery (Scope.Generic Scope.Object)
                                         |> Component.updateDistribution (Just dryDistributionProcess.id)
                                         |> Component.validateQuery
                                             (requirements
@@ -2113,13 +2122,13 @@ suite =
                                 ]
                             , describe "durability validation"
                                 [ it "should accept a durability param when it's enabled by config" <|
-                                    (emptyQuery
+                                    (emptyScopedQuery (Scope.Generic Scope.Object)
                                         |> Component.updateDurability (Unit.ratio 1.42)
                                         |> Component.validateQuery { requirements | scope = Scope.Generic Scope.Object }
                                         |> Expect.ok
                                     )
                                 , it "should reject a durability param when it's disabled by config" <|
-                                    (emptyQuery
+                                    (emptyScopedQuery (Scope.Generic Scope.Object)
                                         |> Component.updateDurability (Unit.ratio 1.42)
                                         |> Component.validateQuery { requirements | scope = Scope.Generic Scope.Food2 }
                                         |> expectResultErrorContains ("La durabilité n'est pas activée pour le périmètre " ++ Scope.toLabel (Scope.Generic Scope.Food2))
@@ -2127,7 +2136,7 @@ suite =
                                 ]
                             , describe "process validation"
                                 [ it "should reject a consumption referencing a missing process" <|
-                                    (emptyQuery
+                                    (emptyScopedQuery (Scope.Generic Scope.Object)
                                         |> (\query ->
                                                 { query
                                                     | consumptions =
@@ -2139,7 +2148,7 @@ suite =
                                         |> expectResultErrorContains ("Aucun procédé scopé Objets avec cet id: " ++ Process.idToString nonExistingProcessId)
                                     )
                                 , it "should reject a consumption referencing a process with the wrong scope" <|
-                                    (emptyQuery
+                                    (emptyScopedQuery (Scope.Generic Scope.Object)
                                         |> (\query ->
                                                 { query
                                                     | consumptions =
@@ -2152,7 +2161,7 @@ suite =
                                         |> expectResultErrorContains ("Aucun procédé scopé Alimentaire BÉTA avec cet id: " ++ Process.idToString sawingProcess.id)
                                     )
                                 , it "should reject a packaging referencing a missing process" <|
-                                    (emptyQuery
+                                    (emptyScopedQuery (Scope.Generic Scope.Object)
                                         |> (\query ->
                                                 { query
                                                     | packagings =
@@ -2164,7 +2173,7 @@ suite =
                                         |> expectResultErrorContains ("Aucun procédé scopé Objets avec cet id: " ++ Process.idToString nonExistingProcessId)
                                     )
                                 , it "should reject a packaging referencing a process with the wrong scope" <|
-                                    (emptyQuery
+                                    (emptyScopedQuery (Scope.Generic Scope.Object)
                                         |> (\query ->
                                                 { query
                                                     | packagings =
@@ -2186,13 +2195,13 @@ suite =
 
 computeAssemblyEcsImpact : Requirements db -> String -> Result String Float
 computeAssemblyEcsImpact requirements =
-    decodeJsonThen Component.decodeQuery (Component.compute requirements)
+    decodeJsonThen (Component.decodeQuery (Scope.Generic Scope.Object)) (Component.compute requirements)
         >> Result.map (.assembly >> Component.extractImpacts >> getEcsImpact)
 
 
 computeItemsWithRequirements : Requirements db -> List Item -> Result String LifeCycle
 computeItemsWithRequirements requirements items =
-    emptyQuery
+    emptyScopedQuery (Scope.Generic Scope.Object)
         |> Component.setQueryItems items
         |> Component.compute requirements
 

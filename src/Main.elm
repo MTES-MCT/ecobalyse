@@ -11,6 +11,7 @@ import Data.Food.Query as FoodQuery
 import Data.Impact as Impact
 import Data.Notification as Notification exposing (Notification)
 import Data.Plausible as Plausible
+import Data.Scope as Scope
 import Data.Session as Session exposing (Session)
 import Data.Textile.Query as TextileQuery
 import Html
@@ -145,9 +146,11 @@ loadData : SessionConfig -> Cmd Msg
 loadData sessionConfig =
     [ ( "/data/countries.json", \data raw -> { raw | countries = data } )
     , ( "/data/impacts.json", \data raw -> { raw | definitions = data } )
+    , ( "/data/food2/categories.json", \data raw -> { raw | food2Categories = data } )
     , ( "/data/food2/examples.json", \data raw -> { raw | food2Examples = data } )
     , ( "/data/food/ingredients.json", \data raw -> { raw | foodIngredients = data } )
     , ( "/data/food/examples.json", \data raw -> { raw | foodProductExamples = data } )
+    , ( "/data/object/categories.json", \data raw -> { raw | objectCategories = data } )
     , ( "/data/object/components.json", \data raw -> { raw | objectComponents = data } )
     , ( "/data/object/examples.json", \data raw -> { raw | objectExamples = data } )
     , ( "/data/processes.json", \data raw -> { raw | processes = data } )
@@ -156,6 +159,7 @@ loadData sessionConfig =
     , ( "/data/textile/materials.json", \data raw -> { raw | textileMaterials = data } )
     , ( "/data/textile/products.json", \data raw -> { raw | textileProducts = data } )
     , ( "/data/transports.json", \data raw -> { raw | transports = data } )
+    , ( "/data/veli/categories.json", \data raw -> { raw | veliCategories = data } )
     , ( "/data/veli/components.json", \data raw -> { raw | veliComponents = data } )
     , ( "/data/veli/examples.json", \data raw -> { raw | veliExamples = data } )
     ]
@@ -180,14 +184,14 @@ setupSession { flags, navKey } dbLoadingState db componentConfig =
         , notifications = []
         , queries =
             { food = FoodQuery.empty
-            , food2 = Component.emptyQuery
-            , object = Component.emptyQuery
+            , food2 = Component.emptyScopedQuery (Scope.Generic Scope.Food2)
+            , object = Component.emptyScopedQuery (Scope.Generic Scope.Object)
             , textile =
                 db.textile.examples
                     |> Example.findByName "Tshirt coton (150g) - Majorant par défaut"
                     |> Result.map .query
                     |> Result.withDefault TextileQuery.default
-            , veli = Component.emptyQuery
+            , veli = Component.emptyScopedQuery (Scope.Generic Scope.Veli)
             }
         , scalingoAppName = flags.scalingoAppName
         , store = Session.defaultStore

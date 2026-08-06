@@ -13,7 +13,8 @@
           "id": "c845482e-8347-4a3c-9dd4-392d8fc2cb3f",
           "quantity": 1
         }
-      ]
+      ],
+      "product": "20cef7a5-7892-4394-b8bc-6a25e5881ef4"
     },
     "scope": "object"
   },
@@ -27,7 +28,8 @@
           "id": "f27f7f37-5165-49b8-9f41-36d4f15a9170",
           "quantity": 2
         }
-      ]
+      ],
+      "product": "20cef7a5-7892-4394-b8bc-6a25e5881ef4"
     },
     "scope": "object"
   },
@@ -61,7 +63,8 @@
       ],
       "assembly": {
         "country": "FR"
-      }
+      },
+      "product": "20cef7a5-7892-4394-b8bc-6a25e5881ef4"
     },
     "scope": "object"
   },
@@ -79,7 +82,8 @@
           "id": "260bdfe2-1bef-4fd6-bf68-6e6174686d0d",
           "quantity": 1
         }
-      ]
+      ],
+      "product": "20cef7a5-7892-4394-b8bc-6a25e5881ef4"
     },
     "scope": "object"
   },
@@ -123,7 +127,8 @@
           "id": "fa9820b7-5694-4b33-834e-03adc9a7b9b1",
           "quantity": 4
         }
-      ]
+      ],
+      "product": "20cef7a5-7892-4394-b8bc-6a25e5881ef4"
     },
     "scope": "object"
   },
@@ -170,7 +175,8 @@
           "id": "53dc3966-c0c5-4ce2-86da-74583fda95ae",
           "quantity": 15
         }
-      ]
+      ],
+      "product": "20cef7a5-7892-4394-b8bc-6a25e5881ef4"
     },
     "scope": "object"
   },
@@ -204,7 +210,8 @@
       ],
       "assembly": {
         "country": "CN"
-      }
+      },
+      "product": "20cef7a5-7892-4394-b8bc-6a25e5881ef4"
     },
     "scope": "object"
   },
@@ -218,7 +225,8 @@
           "id": "10e199b6-7e5f-47d9-bc85-9959c4e9ee62",
           "quantity": 3
         }
-      ]
+      ],
+      "product": "20cef7a5-7892-4394-b8bc-6a25e5881ef4"
     },
     "scope": "object"
   },
@@ -236,7 +244,8 @@
           "id": "c5d86519-e56a-4ad7-aada-d4f7fffd5628",
           "quantity": 1
         }
-      ]
+      ],
+      "product": "20cef7a5-7892-4394-b8bc-6a25e5881ef4"
     },
     "scope": "object"
   }
