@@ -24,7 +24,7 @@ PROCESSES_IMPACTS_PATH = os.path.join(
     PROJECT_ROOT_DIR, "public", "data", "processes_impacts.json"
 )
 
-TODAY_DATETIME_STR = datetime.datetime.now(tz=datetime.timezone.utc).strftime(
+TODAY_DATETIME_STR = datetime.datetime.now(tz=datetime.UTC).strftime(
     "%Y-%m-%d %H:%M:%S"
 )
 TOKEN = "dummy"
