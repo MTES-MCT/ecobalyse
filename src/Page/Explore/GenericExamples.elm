@@ -1,6 +1,6 @@
-module Page.Explore.ObjectExamples exposing (table)
+module Page.Explore.GenericExamples exposing (table)
 
-{-| Note: This module is used to display both objects and veli examples.
+{-| Note: This module is used to display object, veli and food2 examples.
 -}
 
 import Data.Component as Component
@@ -22,27 +22,18 @@ table :
     -> { detailed : Bool, scope : Scope }
     -> Table ( Example Component.Query, { score : Float } ) String msg
 table { maxScore } { detailed, scope } =
-    { filename = "examples"
+    { filename = Scope.toString scope ++ "-examples"
     , toId = Tuple.first >> .id >> Uuid.toString
     , toRoute =
-        Tuple.first
-            >> .id
-            >> Just
-            >> (case scope of
-                    Scope.Generic Scope.Food2 ->
-                        -- FIXME: we should eventually have food2 examples
-                        Dataset.ObjectExamples
+        \example ->
+            let
+                maybeId =
+                    example |> Tuple.first |> .id |> Just
 
-                    Scope.Generic Scope.Object ->
-                        Dataset.ObjectExamples
-
-                    Scope.Generic Scope.Veli ->
-                        Dataset.VeliExamples
-
-                    _ ->
-                        Dataset.ObjectExamples
-               )
-            >> Route.Explore scope
+                genericScope =
+                    scope |> Scope.toGenericScope |> Maybe.withDefault Scope.Object
+            in
+            Route.Explore scope (Dataset.GenericExamples genericScope maybeId)
     , toSearchableWords = Tuple.first >> Example.toSearchableString >> Text.toWords
     , facets = []
     , legend = []
@@ -55,6 +46,8 @@ table { maxScore } { detailed, scope } =
           , toValue = Table.StringValue (Tuple.first >> .scope >> Scope.toLabel)
           , toCell = Tuple.first >> .scope >> Scope.toLabel >> text
           }
+
+        -- FIXME: this column should eventually be replaced with the product category
         , { label = "Catégorie"
           , toValue = Table.StringValue (Tuple.first >> .category)
           , toCell =
@@ -77,8 +70,6 @@ table { maxScore } { detailed, scope } =
                 \( example, _ ) ->
                     a
                         [ class "btn btn-light btn-sm w-100"
-
-                        -- FIXME: multiple exlorer for Veli
                         , Route.href <| Route.GenericSimulatorExample example.scope example.id
                         , title <| "Charger " ++ example.name
                         ]

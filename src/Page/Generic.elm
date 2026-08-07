@@ -27,7 +27,7 @@ import Data.Key as Key
 import Data.Plausible as Plausible
 import Data.Process as Process exposing (Process)
 import Data.Process.Category as Category exposing (Category)
-import Data.Scope exposing (Scope)
+import Data.Scope as Scope exposing (Scope)
 import Data.Session as Session exposing (Session)
 import Data.Split exposing (Split)
 import Data.Unit as Unit
@@ -1009,6 +1009,9 @@ simulatorView ({ componentConfig } as session) ({ scope } as model) =
     let
         currentQuery =
             session |> Session.objectQueryFromScope scope
+
+        genericScope =
+            scope |> Scope.toGenericScope |> Maybe.withDefault Scope.Object
     in
     div [ class "row" ]
         [ div [ class "col-lg-8 bg-white" ]
@@ -1021,8 +1024,7 @@ simulatorView ({ componentConfig } as session) ({ scope } as model) =
                     , helpUrl = Nothing
                     , onOpen = SelectExampleModal >> List.singleton >> SetModals
                     , routes =
-                        -- FIXME: explore route object/veli
-                        { explore = Route.Explore scope (Dataset.ObjectExamples Nothing)
+                        { explore = Route.Explore scope (Dataset.GenericExamples genericScope Nothing)
                         , load = Route.GenericSimulatorExample scope
                         , scopeHome = Route.GenericSimulatorHome scope
                         }

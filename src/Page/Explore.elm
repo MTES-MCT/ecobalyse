@@ -45,8 +45,8 @@ import Page.Explore.Components as Components
 import Page.Explore.Countries as ExploreCountries
 import Page.Explore.FoodExamples as FoodExamples
 import Page.Explore.FoodIngredients as FoodIngredients
+import Page.Explore.GenericExamples as GenericExamples
 import Page.Explore.Impacts as ExploreImpacts
-import Page.Explore.ObjectExamples as ObjectExamples
 import Page.Explore.Processes as Processes
 import Page.Explore.ProductCategories as ProductCategories
 import Page.Explore.Table as Table
@@ -98,11 +98,11 @@ init scope dataset session =
                 Dataset.FoodIngredients _ ->
                     "Identifiant"
 
+                Dataset.GenericExamples _ _ ->
+                    "Coût Environnemental"
+
                 Dataset.Impacts _ ->
                     "Code"
-
-                Dataset.ObjectExamples _ ->
-                    "Coût Environnemental"
 
                 Dataset.Processes _ _ ->
                     "Nom"
@@ -118,9 +118,6 @@ init scope dataset session =
 
                 Dataset.TextileProducts _ ->
                     "Identifiant"
-
-                Dataset.VeliExamples _ ->
-                    "Coût Environnemental"
     in
     createPageUpdate session
         { dataset = dataset
@@ -168,14 +165,13 @@ update session msg model =
                                     Dataset.FoodExamples Nothing
 
                                 Scope.Generic Scope.Food2 ->
-                                    -- FIXME: we should eventually have food2 examples
-                                    Dataset.Processes (Scope.Generic Scope.Food2) Nothing
+                                    Dataset.GenericExamples Scope.Food2 Nothing
 
                                 Scope.Generic Scope.Object ->
-                                    Dataset.ObjectExamples Nothing
+                                    Dataset.GenericExamples Scope.Object Nothing
 
                                 Scope.Generic Scope.Veli ->
-                                    Dataset.VeliExamples Nothing
+                                    Dataset.GenericExamples Scope.Veli Nothing
 
                                 Scope.Textile ->
                                     Dataset.TextileExamples Nothing
@@ -525,19 +521,19 @@ componentsExplorer session scope tableConfig tableState maybeId =
     ]
 
 
-objectExamplesExplorer :
+genericExamplesExplorer :
     Session
     -> Table.Config ( Example Component.Query, { score : Float } ) Msg
     -> SortableTable.State
     -> Scope
     -> Maybe Uuid
     -> List (Html Msg)
-objectExamplesExplorer session tableConfig tableState scope maybeId =
+genericExamplesExplorer session tableConfig tableState scope maybeId =
     let
         scoredExamples =
             session.db.object.examples
                 |> List.filter (\example -> example.scope == scope)
-                |> List.map (\example -> ( example, { score = getObjectScore session scope example } ))
+                |> List.map (\example -> ( example, { score = getGenericScore session scope example } ))
                 |> List.sortBy (Tuple.first >> .name)
 
         max =
@@ -555,7 +551,7 @@ objectExamplesExplorer session tableConfig tableState scope maybeId =
             tableConfig
             tableState
             scope
-            (ObjectExamples.table max)
+            (GenericExamples.table max)
     , case maybeId of
         Just id ->
             detailsModal
@@ -564,8 +560,8 @@ objectExamplesExplorer session tableConfig tableState scope maybeId =
                         alert error
 
                     Ok example ->
-                        ( example, { score = getObjectScore session scope example } )
-                            |> Table.viewDetails scope (ObjectExamples.table max)
+                        ( example, { score = getGenericScore session scope example } )
+                            |> Table.viewDetails scope (GenericExamples.table max)
                 )
 
         Nothing ->
@@ -751,8 +747,8 @@ getFoodScorePer100g db =
         >> Result.withDefault 0
 
 
-getObjectScore : Session -> Scope -> Example Component.Query -> Float
-getObjectScore { componentConfig, db } scope { query } =
+getGenericScore : Session -> Scope -> Example Component.Query -> Float
+getGenericScore { componentConfig, db } scope { query } =
     query
         |> GenericSimulator.compute { config = componentConfig, db = db, scope = scope }
         |> Result.map
@@ -814,11 +810,11 @@ exploreView ({ db } as session) { facetValues, scope, dataset, tableState, searc
         Dataset.FoodIngredients maybeId ->
             foodIngredientsExplorer db tableConfig tableState maybeId
 
+        Dataset.GenericExamples genericScope maybeId ->
+            genericExamplesExplorer session tableConfig tableState (Scope.Generic genericScope) maybeId
+
         Dataset.Impacts maybeTrigram ->
             impactsExplorer db.definitions tableConfig tableState scope maybeTrigram
-
-        Dataset.ObjectExamples maybeId ->
-            objectExamplesExplorer session tableConfig tableState (Scope.Generic Scope.Object) maybeId
 
         Dataset.Processes scope_ maybeId ->
             processesExplorer session scope_ tableConfig tableState maybeId
@@ -834,9 +830,6 @@ exploreView ({ db } as session) { facetValues, scope, dataset, tableState, searc
 
         Dataset.TextileProducts maybeId ->
             textileProductsExplorer session tableConfig tableState maybeId
-
-        Dataset.VeliExamples maybeId ->
-            objectExamplesExplorer session tableConfig tableState (Scope.Generic Scope.Veli) maybeId
 
 
 searchInputView : Model -> Html Msg
