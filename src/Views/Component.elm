@@ -1879,7 +1879,9 @@ productCategorySelectorView { onSelect, products, query, scope } =
                             onSelect Nothing
 
                         else
-                            onSelect (Just (Product.idFromString str))
+                            Product.idFromString str
+                                |> Result.map (Just >> onSelect)
+                                |> Result.withDefault (onSelect Nothing)
                 ]
                 (option [ value "", selected (query.product == Nothing) ]
                     [ text "Autres" ]

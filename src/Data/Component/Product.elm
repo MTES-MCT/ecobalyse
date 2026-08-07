@@ -1,8 +1,9 @@
 module Data.Component.Product exposing
-    ( Id(..)
+    ( Id
     , Product
     , decodeId
     , decodeListFromJsonString
+    , encodeId
     , findById
     , findByScope
     , idFromString
@@ -12,12 +13,14 @@ module Data.Component.Product exposing
 import Data.Common.DecodeUtils as DU
 import Data.Process as Process
 import Data.Scope as Scope exposing (Scope)
+import Data.Uuid as Uuid exposing (Uuid)
 import Json.Decode as Decode exposing (Decoder)
 import Json.Decode.Pipeline as Pipe
+import Json.Encode as Encode
 
 
 type Id
-    = Id String
+    = Id Uuid
 
 
 {-| A generic product category, providing sensible defaults for common characteristics
@@ -44,7 +47,7 @@ decode =
 
 decodeId : Decoder Id
 decodeId =
-    Decode.map Id Decode.string
+    Decode.map Id Uuid.decoder
 
 
 decodeList : Decoder (List Product)
@@ -56,6 +59,11 @@ decodeListFromJsonString : String -> Result String (List Product)
 decodeListFromJsonString =
     Decode.decodeString decodeList
         >> Result.mapError Decode.errorToString
+
+
+encodeId : Id -> Encode.Value
+encodeId (Id uuid) =
+    Uuid.encoder uuid
 
 
 findById : Id -> List Product -> Result String Product
@@ -70,11 +78,11 @@ findByScope scope =
     List.filter (.scope >> (==) scope)
 
 
-idFromString : String -> Id
+idFromString : String -> Result String Id
 idFromString =
-    Id
+    Uuid.fromString >> Result.map Id
 
 
 idToString : Id -> String
-idToString (Id string) =
-    string
+idToString (Id uuid) =
+    Uuid.toString uuid

@@ -625,7 +625,7 @@ suite =
                                     )
                                 , it "should propagate the error for an unknown explicit distribution process"
                                     -- Non-existing distribution process id
-                                    (Process.idFromString "5fad4e70-5736-552d-a686-97e4fb627c37"
+                                    (Process.idFromString nonExistentUuid
                                         |> Result.map
                                             (\missingDistributionId ->
                                                 emptyQuery
@@ -826,7 +826,7 @@ suite =
                             )
                          , it "should propagate the error for an unknown packaging process"
                             -- unknown process id
-                            (Process.idFromString "5fad4e70-5736-552d-a686-97e4fb627c37"
+                            (Process.idFromString nonExistentUuid
                                 |> Result.andThen
                                     (\missingPackagingId ->
                                         computePackagingEcsImpacts [ Component.packaging (Amount.fromFloat 1) missingPackagingId ]
@@ -2045,7 +2045,7 @@ suite =
                         ]
                     , suiteFromResult4 "validateQuery"
                         -- Non-existing process
-                        (Process.idFromString "5fad4e70-5736-552d-a686-97e4fb627c37")
+                        (Process.idFromString nonExistentUuid)
                         -- Steel process
                         steel
                         -- Sawing process
@@ -2186,9 +2186,18 @@ suite =
                                         ]
                             )
                         , it "should reject a query carrying an unknown product id" <|
-                            ({ emptyQuery | product = Just (Product.idFromString "unknown-id") }
-                                |> Component.validateQuery requirements
+                            (Product.idFromString nonExistentUuid
+                                |> Result.andThen
+                                    (\id ->
+                                        { emptyQuery | product = Just id }
+                                            |> Component.validateQuery requirements
+                                    )
                                 |> expectResultErrorContains "Catégorie de produit introuvable"
+                            )
+                        , it "should reject a query with an invalid product uuid" <|
+                            ("""{"components":[],"product":"not-a-uuid"}"""
+                                |> decodeJson Component.decodeQuery
+                                |> Expect.err
                             )
                         , it "should fall back to the scoped default distribution process when product is unset" <|
                             (emptyQuery
@@ -2208,6 +2217,13 @@ suite =
                     ]
                 )
             ]
+
+
+{-| A test uuid we're pretty sure that doesn't exist in our datasets
+-}
+nonExistentUuid : String
+nonExistentUuid =
+    "5fad4e70-5736-552d-a686-97e4fb627c37"
 
 
 computeAssemblyEcsImpact : Requirements db -> String -> Result String Float

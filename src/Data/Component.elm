@@ -1693,7 +1693,7 @@ encodeQuery query =
             else
                 query.packagings |> Encode.list encodePackaging |> Just
           )
-        , ( "product", query.product |> Maybe.map (Product.idToString >> Encode.string) )
+        , ( "product", query.product |> Maybe.map Product.encodeId )
         , ( "recyclable", query.recyclable |> Encode.bool |> Just )
         , ( "transportOptions", encodeTransportOptions query.transportOptions )
         ]
