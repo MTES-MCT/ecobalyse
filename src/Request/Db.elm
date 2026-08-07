@@ -85,22 +85,22 @@ resolve data =
     RemoteData.succeed Db.Properties
         |> RemoteData.andMap data.countries
         |> RemoteData.andMap data.definitions
-        |> RemoteData.andMap data.food2Products
         |> RemoteData.andMap data.food2Examples
+        |> RemoteData.andMap data.food2Products
         |> RemoteData.andMap data.foodIngredients
         |> RemoteData.andMap data.foodProductExamples
-        |> RemoteData.andMap data.objectProducts
         |> RemoteData.andMap data.objectComponents
         |> RemoteData.andMap data.objectExamples
+        |> RemoteData.andMap data.objectProducts
         |> RemoteData.andMap data.processes
         |> RemoteData.andMap data.textileComponents
         |> RemoteData.andMap data.textileMaterials
         |> RemoteData.andMap data.textileProductExamples
         |> RemoteData.andMap data.textileProducts
         |> RemoteData.andMap data.transports
-        |> RemoteData.andMap data.veliProducts
         |> RemoteData.andMap data.veliComponents
         |> RemoteData.andMap data.veliExamples
+        |> RemoteData.andMap data.veliProducts
 
 
 toRawJsonStrings : LoadingState -> Maybe Db.RawJsonStrings
