@@ -9,7 +9,7 @@ module Data.Db exposing
     )
 
 import Data.Component as Component exposing (Component)
-import Data.Component.Product as Product exposing (Product)
+import Data.Component.ProductCategory as ProductCategory exposing (ProductCategory)
 import Data.Country as Country exposing (Country)
 import Data.Food.Db as FoodDb
 import Data.Impact as Impact
@@ -30,7 +30,7 @@ type alias Db =
     , food : FoodDb.Db
     , object : ObjectDb.Db
     , processes : List Process
-    , products : List Product
+    , products : List ProductCategory
     , textile : TextileDb.Db
     }
 
@@ -39,12 +39,12 @@ type alias Properties a =
     { countries : a
     , definitions : a
     , food2Examples : a
-    , food2Products : a
+    , food2ProductCategories : a
     , foodIngredients : a
     , foodProductExamples : a
     , objectComponents : a
     , objectExamples : a
-    , objectProducts : a
+    , objectProductCategories : a
     , processes : a
     , textileComponents : a
     , textileMaterials : a
@@ -53,7 +53,7 @@ type alias Properties a =
     , transports : a
     , veliComponents : a
     , veliExamples : a
-    , veliProducts : a
+    , veliProductCategories : a
     }
 
 
@@ -112,11 +112,11 @@ build json =
                         )
                     |> RE.andMap (Ok processes)
                     |> RE.andMap
-                        ([ json.food2Products
-                         , json.objectProducts
-                         , json.veliProducts
+                        ([ json.food2ProductCategories
+                         , json.objectProductCategories
+                         , json.veliProductCategories
                          ]
-                            |> List.map (extractJsonString >> Product.decodeListFromJsonString)
+                            |> List.map (extractJsonString >> ProductCategory.decodeListFromJsonString)
                             |> RE.combine
                             |> Result.map List.concat
                         )
@@ -139,11 +139,11 @@ propGetters : List (Properties a -> a)
 propGetters =
     [ .countries
     , .definitions
-    , .food2Products
+    , .food2ProductCategories
     , .food2Examples
     , .foodIngredients
     , .foodProductExamples
-    , .objectProducts
+    , .objectProductCategories
     , .objectComponents
     , .objectExamples
     , .processes
@@ -152,7 +152,7 @@ propGetters =
     , .textileProductExamples
     , .textileProducts
     , .transports
-    , .veliProducts
+    , .veliProductCategories
     , .veliComponents
     , .veliExamples
     ]

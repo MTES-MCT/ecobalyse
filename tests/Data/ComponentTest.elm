@@ -11,7 +11,7 @@ import Data.Component as Component
         , emptyQuery
         )
 import Data.Component.Amount as Amount
-import Data.Component.Product as Product
+import Data.Component.ProductCategory as Product
 import Data.Country as Country
 import Data.Country.Code as CountryCode
 import Data.Db exposing (Db)

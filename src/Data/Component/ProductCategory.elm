@@ -1,6 +1,6 @@
-module Data.Component.Product exposing
+module Data.Component.ProductCategory exposing
     ( Id
-    , Product
+    , ProductCategory
     , decodeId
     , decodeListFromJsonString
     , encodeId
@@ -27,7 +27,7 @@ type Id
 {-| A generic product category, providing sensible defaults for common characteristics
 like transport cooling and distribution process.
 -}
-type alias Product =
+type alias ProductCategory =
     { cooling : Bool
     , distribution : Maybe Process.Id
     , id : Id
@@ -36,9 +36,9 @@ type alias Product =
     }
 
 
-decode : Decoder Product
+decode : Decoder ProductCategory
 decode =
-    Decode.succeed Product
+    Decode.succeed ProductCategory
         |> Pipe.required "cooling" Decode.bool
         |> DU.strictOptional "distribution" Process.decodeId
         |> Pipe.required "id" decodeId
@@ -51,12 +51,12 @@ decodeId =
     Decode.map Id Uuid.decoder
 
 
-decodeList : Decoder (List Product)
+decodeList : Decoder (List ProductCategory)
 decodeList =
     Decode.list decode
 
 
-decodeListFromJsonString : String -> Result String (List Product)
+decodeListFromJsonString : String -> Result String (List ProductCategory)
 decodeListFromJsonString =
     Decode.decodeString decodeList
         >> Result.mapError Decode.errorToString
@@ -67,14 +67,14 @@ encodeId (Id uuid) =
     Uuid.encoder uuid
 
 
-findById : Id -> List Product -> Result String Product
+findById : Id -> List ProductCategory -> Result String ProductCategory
 findById id =
     List.filter (.id >> (==) id)
         >> List.head
         >> Result.fromMaybe ("Catégorie de produit introuvable id=" ++ idToString id ++ ".")
 
 
-findByScope : Scope -> List Product -> List Product
+findByScope : Scope -> List ProductCategory -> List ProductCategory
 findByScope scope =
     List.filter (.scope >> (==) scope)
 
@@ -89,7 +89,7 @@ idToString (Id uuid) =
     Uuid.toString uuid
 
 
-toSearchableString : Product -> String
+toSearchableString : ProductCategory -> String
 toSearchableString product =
     String.join " "
         [ idToString product.id

@@ -12,7 +12,7 @@ module Data.Dataset exposing
     )
 
 import Data.Component as Component
-import Data.Component.Product as ProductCategory
+import Data.Component.ProductCategory as ProductCategory
 import Data.Country.Code as CountryCode
 import Data.Food.Ingredient as Ingredient
 import Data.Impact.Definition as Definition

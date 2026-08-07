@@ -62,12 +62,12 @@ initLoadingState =
     { countries = RemoteData.NotAsked
     , definitions = RemoteData.NotAsked
     , food2Examples = RemoteData.NotAsked
-    , food2Products = RemoteData.NotAsked
+    , food2ProductCategories = RemoteData.NotAsked
     , foodIngredients = RemoteData.NotAsked
     , foodProductExamples = RemoteData.NotAsked
     , objectComponents = RemoteData.NotAsked
     , objectExamples = RemoteData.NotAsked
-    , objectProducts = RemoteData.NotAsked
+    , objectProductCategories = RemoteData.NotAsked
     , processes = RemoteData.NotAsked
     , textileComponents = RemoteData.NotAsked
     , textileMaterials = RemoteData.NotAsked
@@ -76,7 +76,7 @@ initLoadingState =
     , transports = RemoteData.NotAsked
     , veliComponents = RemoteData.NotAsked
     , veliExamples = RemoteData.NotAsked
-    , veliProducts = RemoteData.NotAsked
+    , veliProductCategories = RemoteData.NotAsked
     }
 
 
@@ -86,12 +86,12 @@ resolve data =
         |> RemoteData.andMap data.countries
         |> RemoteData.andMap data.definitions
         |> RemoteData.andMap data.food2Examples
-        |> RemoteData.andMap data.food2Products
+        |> RemoteData.andMap data.food2ProductCategories
         |> RemoteData.andMap data.foodIngredients
         |> RemoteData.andMap data.foodProductExamples
         |> RemoteData.andMap data.objectComponents
         |> RemoteData.andMap data.objectExamples
-        |> RemoteData.andMap data.objectProducts
+        |> RemoteData.andMap data.objectProductCategories
         |> RemoteData.andMap data.processes
         |> RemoteData.andMap data.textileComponents
         |> RemoteData.andMap data.textileMaterials
@@ -100,7 +100,7 @@ resolve data =
         |> RemoteData.andMap data.transports
         |> RemoteData.andMap data.veliComponents
         |> RemoteData.andMap data.veliExamples
-        |> RemoteData.andMap data.veliProducts
+        |> RemoteData.andMap data.veliProductCategories
 
 
 toRawJsonStrings : LoadingState -> Maybe Db.RawJsonStrings

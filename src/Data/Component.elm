@@ -142,7 +142,7 @@ import Data.Common.EncodeUtils as EU
 import Data.Complement as Complement exposing (ComplementsImpacts, ComplementsResultsImpacts)
 import Data.Component.Amount as Amount exposing (Amount)
 import Data.Component.Config as Config exposing (EndOfLifeStrategies, EndOfLifeStrategy)
-import Data.Component.Product as Product exposing (Product)
+import Data.Component.ProductCategory as ProductCategory exposing (ProductCategory)
 import Data.Country as Country exposing (Country)
 import Data.Country.Code as CountryCode
 import Data.Impact as Impact exposing (Impacts)
@@ -209,7 +209,7 @@ type alias Query =
     , durability : Maybe Unit.Ratio
     , items : List Item
     , packagings : List Packaging
-    , product : Maybe Product.Id
+    , product : Maybe ProductCategory.Id
     , recyclable : Bool
     , transportOptions : TransportOptions
     }
@@ -269,7 +269,7 @@ type alias DataContainer db =
         , countries : List Country
         , distances : Transport.Distances
         , processes : List Process
-        , products : List Product
+        , products : List ProductCategory
     }
 
 
@@ -1401,7 +1401,7 @@ decodeQuery =
                     |> DU.strictOptional "durability" Unit.decodeRatio
                     |> Decode.required "components" (Decode.list decodeItem)
                     |> Decode.optional "packagings" (Decode.list decodePackaging) []
-                    |> DU.strictOptional "product" Product.decodeId
+                    |> DU.strictOptional "product" ProductCategory.decodeId
                     |> Decode.optional "recyclable" Decode.bool True
                     |> Decode.optional "transportOptions" decodeTransportOptions defaultTransportOptions
             )
@@ -1693,7 +1693,7 @@ encodeQuery query =
             else
                 query.packagings |> Encode.list encodePackaging |> Just
           )
-        , ( "product", query.product |> Maybe.map Product.encodeId )
+        , ( "product", query.product |> Maybe.map ProductCategory.encodeId )
         , ( "recyclable", query.recyclable |> Encode.bool |> Just )
         , ( "transportOptions", encodeTransportOptions query.transportOptions )
         ]
@@ -1998,7 +1998,7 @@ getDistributionProcessId { config, db, scope } query =
                     |> Maybe.andThen
                         (\productId ->
                             db.products
-                                |> Product.findById productId
+                                |> ProductCategory.findById productId
                                 |> Result.toMaybe
                                 |> Maybe.andThen .distribution
                         )
@@ -2732,7 +2732,7 @@ updateDistribution maybeProcessId query =
 
 {-| Update the product in the query, resetting product-dependent fields along the way
 -}
-updateProduct : Maybe Product -> Query -> Query
+updateProduct : Maybe ProductCategory -> Query -> Query
 updateProduct maybeProduct query =
     case maybeProduct of
         Just product ->
@@ -3015,12 +3015,12 @@ validateQuery ({ db } as requirements) query =
         |> Result.mapError (\s -> "Requête invalide\u{202F}: " ++ s)
 
 
-validateProduct : Requirements db -> Maybe Product.Id -> Result String (Maybe Product.Id)
+validateProduct : Requirements db -> Maybe ProductCategory.Id -> Result String (Maybe ProductCategory.Id)
 validateProduct requirements maybeProductId =
     case maybeProductId of
         Just productId ->
             requirements.db.products
-                |> Product.findById productId
+                |> ProductCategory.findById productId
                 |> Result.andThen
                     (\product ->
                         if product.scope == requirements.scope then

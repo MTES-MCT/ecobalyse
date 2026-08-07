@@ -3,11 +3,11 @@ module Static.Json exposing
     , componentConfigJson
     , countriesJson
     , foodIngredientsJson
-    , food2ProductsJson
+    , food2ProductCategoriesJson
     , food2ExamplesJson
     , foodProductExamplesJson
     , impactsJson
-    , objectProductsJson
+    , objectProductCategoriesJson
     , objectExamplesJson
     , processesJson
     , rawJsonComponents
@@ -15,7 +15,7 @@ module Static.Json exposing
     , textileProductExamplesJson
     , textileProductsJson
     , transportsJson
-    , veliProductsJson
+    , veliProductCategoriesJson
     , veliExamplesJson
     )
 
@@ -53,9 +53,9 @@ food2ComponentsJson =
    """%food2ComponentsJson%"""
 
 
-food2ProductsJson : String
-food2ProductsJson =
-   """%food2ProductsJson%"""
+food2ProductCategoriesJson : String
+food2ProductCategoriesJson =
+   """%food2ProductCategoriesJson%"""
 
 
 food2ExamplesJson : String
@@ -68,9 +68,9 @@ impactsJson =
     """%impactsJson%"""
 
 
-objectProductsJson : String
-objectProductsJson =
-   """%objectProductsJson%"""
+objectProductCategoriesJson : String
+objectProductCategoriesJson =
+   """%objectProductCategoriesJson%"""
 
 
 objectComponentsJson : String
@@ -122,9 +122,9 @@ transportsJson =
     """%transportsJson%"""
 
 
-veliProductsJson : String
-veliProductsJson =
-   """%veliProductsJson%"""
+veliProductCategoriesJson : String
+veliProductCategoriesJson =
+   """%veliProductCategoriesJson%"""
 
 
 veliComponentsJson : String

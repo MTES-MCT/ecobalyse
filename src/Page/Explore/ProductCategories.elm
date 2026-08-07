@@ -1,6 +1,6 @@
 module Page.Explore.ProductCategories exposing (table)
 
-import Data.Component.Product as Product exposing (Product)
+import Data.Component.ProductCategory as ProductCategory exposing (ProductCategory)
 import Data.Dataset as Dataset
 import Data.Process as Process
 import Data.Scope as Scope exposing (Scope)
@@ -11,12 +11,12 @@ import Page.Explore.Table as Table exposing (Table)
 import Route
 
 
-table : Session -> { detailed : Bool, scope : Scope } -> Table Product String msg
+table : Session -> { detailed : Bool, scope : Scope } -> Table ProductCategory String msg
 table { db } { scope } =
     { filename = Scope.toString scope ++ "-product-categories"
-    , toId = .id >> Product.idToString
+    , toId = .id >> ProductCategory.idToString
     , toRoute = .id >> Just >> Dataset.ProductCategory scope >> Route.Explore scope
-    , toSearchableWords = Product.toSearchableString >> Text.toWords
+    , toSearchableWords = ProductCategory.toSearchableString >> Text.toWords
     , facets =
         [ { key = "Transport réfrigéré"
           , toValues =
@@ -30,10 +30,10 @@ table { db } { scope } =
     , legend = []
     , columns =
         [ { label = "Identifiant"
-          , toValue = Table.StringValue <| .id >> Product.idToString
+          , toValue = Table.StringValue <| .id >> ProductCategory.idToString
           , toCell =
                 \product ->
-                    code [] [ text (Product.idToString product.id) ]
+                    code [] [ text (ProductCategory.idToString product.id) ]
           }
         , { label = "Catégorie de produit"
           , toValue = Table.StringValue .label
@@ -51,7 +51,7 @@ table { db } { scope } =
     }
 
 
-distributionLabel : List Process.Process -> Product -> String
+distributionLabel : List Process.Process -> ProductCategory -> String
 distributionLabel processes product =
     case product.distribution of
         Just processId ->

@@ -31,7 +31,7 @@ import Data.Component as Component
         )
 import Data.Component.Amount as Amount exposing (Amount)
 import Data.Component.Config as Config
-import Data.Component.Product as Product exposing (Product)
+import Data.Component.ProductCategory as ProductCategory exposing (ProductCategory)
 import Data.Country as Country exposing (Country)
 import Data.Country.Code as CountryCode
 import Data.Impact as Impact exposing (Impacts)
@@ -1845,8 +1845,8 @@ endOfLifeMaterialRow ({ componentConfig, query, scope } as config) ( materialTyp
 
 
 type alias ProductCategorySelector msg =
-    { onSelect : Maybe Product.Id -> msg
-    , products : List Product
+    { onSelect : Maybe ProductCategory.Id -> msg
+    , products : List ProductCategory
     , query : Query
     , scope : Scope
     }
@@ -1857,7 +1857,7 @@ productCategorySelectorView { onSelect, products, query, scope } =
     let
         scopedProducts =
             products
-                |> Product.findByScope scope
+                |> ProductCategory.findByScope scope
                 |> List.sortBy .label
     in
     if List.isEmpty scopedProducts || query == Component.emptyQuery then
@@ -1879,7 +1879,7 @@ productCategorySelectorView { onSelect, products, query, scope } =
                             onSelect Nothing
 
                         else
-                            Product.idFromString str
+                            ProductCategory.idFromString str
                                 |> Result.map (Just >> onSelect)
                                 |> Result.withDefault (onSelect Nothing)
                 ]
@@ -1888,7 +1888,7 @@ productCategorySelectorView { onSelect, products, query, scope } =
                     :: List.map
                         (\product ->
                             option
-                                [ value (Product.idToString product.id)
+                                [ value (ProductCategory.idToString product.id)
                                 , selected (query.product == Just product.id)
                                 ]
                                 [ text product.label ]
