@@ -1,4 +1,4 @@
-module Page.Object exposing
+module Page.Generic exposing
     ( Model
     , Msg
     , init
