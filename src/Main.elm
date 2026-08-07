@@ -23,8 +23,8 @@ import Page.Auth as Auth
 import Page.Editorial as Editorial
 import Page.Explore as Explore
 import Page.Food as FoodBuilder
+import Page.Generic as GenericSimulator
 import Page.Home as Home
-import Page.Object as ObjectSimulator
 import Page.Stats as Stats
 import Page.Textile as TextileSimulator
 import Ports
@@ -66,10 +66,10 @@ type Page
     | EditorialPage Editorial.Model
     | ExplorePage Explore.Model
     | FoodBuilderPage FoodBuilder.Model
+    | GenericSimulatorPage GenericSimulator.Model
     | HomePage Home.Model
     | LoadingPage
     | NotFoundPage
-    | ObjectSimulatorPage ObjectSimulator.Model
     | ProcessAdminPage ProcessAdmin.Model
     | RestrictedAccessPage
     | StatsPage Stats.Model
@@ -106,8 +106,8 @@ type Msg
     | EditorialMsg Editorial.Msg
     | ExploreMsg Explore.Msg
     | FoodBuilderMsg FoodBuilder.Msg
+    | GenericSimulatorMsg GenericSimulator.Msg
     | HomeMsg Home.Msg
-    | ObjectSimulatorMsg ObjectSimulator.Msg
     | ProcessAdminMsg ProcessAdmin.Msg
     | RawDataReceived SessionConfig (WebData RawJsonString -> LoadingState -> LoadingState) (WebData RawJsonString)
     | StatsMsg Stats.Msg
@@ -300,20 +300,20 @@ setRoute url ( { state } as model, cmds ) =
                         |> toPage session model cmds FoodBuilderPage FoodBuilderMsg
 
                 Just (Route.GenericSimulator scope trigram maybeQuery) ->
-                    ObjectSimulator.init scope trigram maybeQuery session
-                        |> toPage session model cmds ObjectSimulatorPage ObjectSimulatorMsg
+                    GenericSimulator.init scope trigram maybeQuery session
+                        |> toPage session model cmds GenericSimulatorPage GenericSimulatorMsg
 
                 Just (Route.GenericSimulatorExample scope uuid) ->
-                    ObjectSimulator.initFromExample session scope uuid
-                        |> toPage session model cmds ObjectSimulatorPage ObjectSimulatorMsg
+                    GenericSimulator.initFromExample session scope uuid
+                        |> toPage session model cmds GenericSimulatorPage GenericSimulatorMsg
 
                 Just Route.Home ->
                     Home.init session
                         |> toPage session model cmds HomePage HomeMsg
 
                 Just (Route.GenericSimulatorHome scope) ->
-                    ObjectSimulator.init scope Impact.default Nothing session
-                        |> toPage session model cmds ObjectSimulatorPage ObjectSimulatorMsg
+                    GenericSimulator.init scope Impact.default Nothing session
+                        |> toPage session model cmds GenericSimulatorPage GenericSimulatorMsg
 
                 Just Route.Stats ->
                     Stats.init session
@@ -536,9 +536,9 @@ update rawMsg ({ state } as model) =
                         |> toPage session model Cmd.none HomePage HomeMsg
 
                 -- Object
-                ( ObjectSimulatorMsg objectMsg, ObjectSimulatorPage objectModel ) ->
-                    ObjectSimulator.update session objectMsg objectModel
-                        |> toPage session model Cmd.none ObjectSimulatorPage ObjectSimulatorMsg
+                ( GenericSimulatorMsg objectMsg, GenericSimulatorPage objectModel ) ->
+                    GenericSimulator.update session objectMsg objectModel
+                        |> toPage session model Cmd.none GenericSimulatorPage GenericSimulatorMsg
 
                 -- Process Admin
                 ( ProcessAdminMsg adminMsg, ProcessAdminPage adminModel ) ->
@@ -641,9 +641,9 @@ subscriptions { state } =
                 FoodBuilder.subscriptions subModel
                     |> Sub.map FoodBuilderMsg
 
-            Loaded _ (ObjectSimulatorPage subModel) ->
-                ObjectSimulator.subscriptions subModel
-                    |> Sub.map ObjectSimulatorMsg
+            Loaded _ (GenericSimulatorPage subModel) ->
+                GenericSimulator.subscriptions subModel
+                    |> Sub.map GenericSimulatorMsg
 
             Loaded _ (ProcessAdminPage _) ->
                 ProcessAdmin.subscriptions
@@ -742,6 +742,11 @@ view { dbLoadingState, flags, mobileNavigationOpened, state, tray } =
                         |> mapMsg FoodBuilderMsg
                         |> frame Page.Food
 
+                GenericSimulatorPage simulatorModel ->
+                    GenericSimulator.view session simulatorModel
+                        |> mapMsg GenericSimulatorMsg
+                        |> frame (Page.Generic simulatorModel.scope)
+
                 HomePage _ ->
                     Home.view session
                         |> mapMsg HomeMsg
@@ -754,11 +759,6 @@ view { dbLoadingState, flags, mobileNavigationOpened, state, tray } =
                 NotFoundPage ->
                     ( "404", [ Page.notFound ] )
                         |> frame Page.Other
-
-                ObjectSimulatorPage simulatorModel ->
-                    ObjectSimulator.view session simulatorModel
-                        |> mapMsg ObjectSimulatorMsg
-                        |> frame (Page.Object simulatorModel.scope)
 
                 ProcessAdminPage processAdminModel ->
                     ProcessAdmin.view session processAdminModel
