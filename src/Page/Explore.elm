@@ -156,25 +156,14 @@ update session msg model =
                         Dataset.Impacts _ ->
                             Dataset.Impacts Nothing
 
-                        Dataset.ProductCategory _ _ ->
-                            Dataset.ProductCategory scope Nothing
+                        Dataset.Processes _ _ ->
+                            Dataset.Processes scope Nothing
+
+                        Dataset.ProductCategory genericScope _ ->
+                            Dataset.ProductCategory (Scope.toGenericScope scope |> Maybe.withDefault genericScope) Nothing
 
                         _ ->
-                            case scope of
-                                Scope.Food ->
-                                    Dataset.FoodExamples Nothing
-
-                                Scope.Generic Scope.Food2 ->
-                                    Dataset.GenericExamples Scope.Food2 Nothing
-
-                                Scope.Generic Scope.Object ->
-                                    Dataset.GenericExamples Scope.Object Nothing
-
-                                Scope.Generic Scope.Veli ->
-                                    Dataset.GenericExamples Scope.Veli Nothing
-
-                                Scope.Textile ->
-                                    Dataset.TextileExamples Nothing
+                            Dataset.defaultDatasetFor scope
                       )
                         |> Route.Explore scope
                         |> Route.toString
@@ -819,8 +808,8 @@ exploreView ({ db } as session) { facetValues, scope, dataset, tableState, searc
         Dataset.Processes scope_ maybeId ->
             processesExplorer session scope_ tableConfig tableState maybeId
 
-        Dataset.ProductCategory scope_ maybeId ->
-            productCategoriesExplorer session scope_ tableConfig tableState maybeId
+        Dataset.ProductCategory genericScope maybeId ->
+            productCategoriesExplorer session (Scope.Generic genericScope) tableConfig tableState maybeId
 
         Dataset.TextileExamples maybeId ->
             textileExamplesExplorer session tableConfig tableState maybeId

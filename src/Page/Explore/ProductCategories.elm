@@ -13,9 +13,15 @@ import Route
 
 table : Session -> { detailed : Bool, scope : Scope } -> Table ProductCategory String msg
 table { db } { scope } =
+    let
+        genericScope =
+            scope
+                |> Scope.toGenericScope
+                |> Maybe.withDefault Scope.Object
+    in
     { filename = Scope.toString scope ++ "-product-categories"
     , toId = .id >> ProductCategory.idToString
-    , toRoute = .id >> Just >> Dataset.ProductCategory scope >> Route.Explore scope
+    , toRoute = \{ id } -> Route.Explore scope (Dataset.ProductCategory genericScope (Just id))
     , toSearchableWords = ProductCategory.toSearchableString >> Text.toWords
     , facets =
         [ { key = "Transport réfrigéré"

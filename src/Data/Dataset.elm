@@ -37,7 +37,7 @@ type Dataset
     | GenericExamples Scope.GenericScope (Maybe Uuid)
     | Impacts (Maybe Definition.Trigram)
     | Processes Scope (Maybe Process.Id)
-    | ProductCategory Scope (Maybe ProductCategory.Id)
+    | ProductCategory Scope.GenericScope (Maybe ProductCategory.Id)
     | TextileExamples (Maybe Uuid)
     | TextileMaterials (Maybe Material.Id)
     | TextileProducts (Maybe Product.Id)
@@ -59,7 +59,7 @@ datasets scope =
             , Impacts Nothing
             , Countries Nothing
             , Processes (Scope.Generic Scope.Food2) Nothing
-            , ProductCategory (Scope.Generic Scope.Food2) Nothing
+            , ProductCategory Scope.Food2 Nothing
             ]
 
         Scope.Generic Scope.Object ->
@@ -68,7 +68,7 @@ datasets scope =
             , Countries Nothing
             , Processes (Scope.Generic Scope.Object) Nothing
             , Impacts Nothing
-            , ProductCategory (Scope.Generic Scope.Object) Nothing
+            , ProductCategory Scope.Object Nothing
             ]
 
         Scope.Generic Scope.Veli ->
@@ -77,7 +77,7 @@ datasets scope =
             , Countries Nothing
             , Impacts Nothing
             , Processes (Scope.Generic Scope.Veli) Nothing
-            , ProductCategory (Scope.Generic Scope.Veli) Nothing
+            , ProductCategory Scope.Veli Nothing
             ]
 
         Scope.Textile ->
@@ -129,7 +129,7 @@ fromSlug string =
             Processes (Scope.Generic Scope.Food2) Nothing
 
         "food2-product-categories" ->
-            ProductCategory (Scope.Generic Scope.Food2) Nothing
+            ProductCategory Scope.Food2 Nothing
 
         "impacts" ->
             Impacts Nothing
@@ -150,7 +150,7 @@ fromSlug string =
             Processes (Scope.Generic Scope.Object) Nothing
 
         "object-product-categories" ->
-            ProductCategory (Scope.Generic Scope.Object) Nothing
+            ProductCategory Scope.Object Nothing
 
         "processes" ->
             Processes Scope.Textile Nothing
@@ -174,7 +174,7 @@ fromSlug string =
             Processes (Scope.Generic Scope.Veli) Nothing
 
         "veli-product-categories" ->
-            ProductCategory (Scope.Generic Scope.Veli) Nothing
+            ProductCategory Scope.Veli Nothing
 
         _ ->
             TextileExamples Nothing
@@ -373,8 +373,8 @@ strings dataset =
         Processes scope _ ->
             { label = "Procédés", slug = Scope.toString scope ++ "-processes" }
 
-        ProductCategory scope _ ->
-            { label = "Produits", slug = Scope.toString scope ++ "-product-categories" }
+        ProductCategory genericScope _ ->
+            { label = "Produits", slug = Scope.toString (Scope.Generic genericScope) ++ "-product-categories" }
 
         TextileExamples _ ->
             { label = "Exemples", slug = "textile-examples" }
