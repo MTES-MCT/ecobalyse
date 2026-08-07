@@ -664,9 +664,7 @@ modalView { componentConfig, db } modals index modal =
                             , openSelectProductionItem = \_ -> NoOp
 
                             -- Note: we don't handle assembly country in the admin
-                            , query =
-                                Component.emptyQuery
-                                    |> Component.setQueryItems [ item ]
+                            , query = Component.emptyQuery |> Component.setQueryItems [ item ]
                             , removeAssemblyOperation = \_ -> NoOp
                             , removeConsumption = \_ -> NoOp
                             , removePackaging = \_ -> NoOp

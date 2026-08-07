@@ -257,21 +257,18 @@ initFromExample session scope uuid =
 
 
 selectProductCategory : Session -> Component.Query -> Maybe Product.Id -> PageUpdate Model Msg -> PageUpdate Model Msg
-selectProductCategory session query maybeProductId pageUpdate =
+selectProductCategory session query maybeProductId =
     case maybeProductId of
         Just productId ->
             case Product.findById productId session.db.products of
                 Err error ->
-                    pageUpdate
-                        |> App.notifyError "Catégorie de produit introuvable" error
+                    App.notifyError "Catégorie de produit introuvable" error
 
                 Ok product ->
-                    pageUpdate
-                        |> updateQuery (query |> Component.updateProduct (Just product))
+                    updateQuery (query |> Component.updateProduct (Just product))
 
         Nothing ->
-            pageUpdate
-                |> updateQuery (query |> Component.updateProduct Nothing)
+            updateQuery (query |> Component.updateProduct Nothing)
 
 
 suggestBookmarkName : Session -> List (Example Component.Query) -> Component.Query -> String
