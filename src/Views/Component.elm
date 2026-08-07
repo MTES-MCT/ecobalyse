@@ -3,7 +3,7 @@ module Views.Component exposing
     , Context(..)
     , editorView
     , elementEditModalView
-    , productSelectorView
+    , productCategorySelectorView
     , scopeLabels
     )
 
@@ -120,52 +120,6 @@ requirementsFromConfig config =
     , db = config.db
     , scope = config.scope
     }
-
-
-{-| Select a product category.
--}
-productSelectorView : Scope -> List Product -> Maybe Product.Id -> (Maybe Product.Id -> msg) -> Html msg
-productSelectorView scope products selectedProduct onSelect =
-    let
-        sortedProducts =
-            products
-                |> Product.findByScope scope
-                |> List.sortBy .label
-    in
-    if List.isEmpty sortedProducts then
-        text ""
-
-    else
-        div [ class "d-flex flex-row align-items-center gap-2 my-3" ]
-            [ label
-                [ Attr.for "product-category"
-                , class "form-label fw-bold text-nowrap"
-                ]
-                [ text "Catégorie de produit" ]
-            , select
-                [ Attr.id "product-category"
-                , class "form-select"
-                , onInput <|
-                    \str ->
-                        if String.isEmpty str then
-                            onSelect Nothing
-
-                        else
-                            onSelect (Just (Product.idFromString str))
-                ]
-                (option [ value "", selected (selectedProduct == Nothing) ] [ text "Autres" ]
-                    :: (sortedProducts
-                            |> List.map
-                                (\product ->
-                                    option
-                                        [ value (Product.idToString product.id)
-                                        , selected (selectedProduct == Just product.id)
-                                        ]
-                                        [ text product.label ]
-                                )
-                       )
-                )
-            ]
 
 
 type alias Labels =
@@ -1888,3 +1842,55 @@ endOfLifeMaterialRow ({ componentConfig, query, scope } as config) ( materialTyp
             ]
         ]
     ]
+
+
+type alias ProductCategorySelector msg =
+    { onSelect : Maybe Product.Id -> msg
+    , products : List Product
+    , query : Query
+    , scope : Scope
+    }
+
+
+productCategorySelectorView : ProductCategorySelector msg -> Html msg
+productCategorySelectorView { onSelect, products, query, scope } =
+    let
+        scopedProducts =
+            products
+                |> Product.findByScope scope
+                |> List.sortBy .label
+    in
+    if List.isEmpty scopedProducts || query == Component.emptyQuery then
+        text ""
+
+    else
+        div [ class "d-flex flex-row align-items-center gap-2 my-3" ]
+            [ label
+                [ Attr.for "product-category"
+                , class "form-label fw-bold text-nowrap"
+                ]
+                [ text "Catégorie de produit" ]
+            , select
+                [ Attr.id "product-category"
+                , class "form-select"
+                , onInput <|
+                    \str ->
+                        if String.isEmpty str then
+                            onSelect Nothing
+
+                        else
+                            onSelect (Just (Product.idFromString str))
+                ]
+                (option [ value "", selected (query.product == Nothing) ]
+                    [ text "Autres" ]
+                    :: List.map
+                        (\product ->
+                            option
+                                [ value (Product.idToString product.id)
+                                , selected (query.product == Just product.id)
+                                ]
+                                [ text product.label ]
+                        )
+                        scopedProducts
+                )
+            ]

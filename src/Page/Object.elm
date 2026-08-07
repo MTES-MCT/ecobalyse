@@ -1033,11 +1033,12 @@ simulatorView ({ componentConfig } as session) ({ scope } as model) =
                         , scopeHome = Route.GenericSimulatorHome scope
                         }
                     }
-
-                -- FIXME: ideally, this should be called within ComponentView.editorView, as we want
-                -- the product category selector rendered just after the example selector and **before**
-                -- the durability selector. We should move the durability selector to the Views.Component module
-                , ComponentView.productSelectorView scope session.db.products currentQuery.product UpdateProduct
+                , ComponentView.productCategorySelectorView
+                    { onSelect = UpdateProduct
+                    , products = session.db.products
+                    , query = currentQuery
+                    , scope = scope
+                    }
                 ]
             , durabilityView componentConfig scope currentDurability
             , editorConfig session model
