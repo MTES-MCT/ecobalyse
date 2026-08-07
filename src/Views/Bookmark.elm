@@ -132,7 +132,7 @@ shareTabView { copyToClipBoard, impact, scope, session } =
                             session.queries.food2
                     in
                     ( Just query
-                        |> Route.GenericSimulator scope impact.trigram
+                        |> Route.GenericSimulator Scope.Food2 impact.trigram
                         |> Route.toString
                         |> (++) "/"
                         |> (++) session.clientUrl
@@ -148,7 +148,7 @@ shareTabView { copyToClipBoard, impact, scope, session } =
                             session.queries.object
                     in
                     ( Just query
-                        |> Route.GenericSimulator scope impact.trigram
+                        |> Route.GenericSimulator Scope.Object impact.trigram
                         |> Route.toString
                         |> (++) "/"
                         |> (++) session.clientUrl
@@ -164,7 +164,7 @@ shareTabView { copyToClipBoard, impact, scope, session } =
                             session.queries.veli
                     in
                     ( Just query
-                        |> Route.GenericSimulator scope impact.trigram
+                        |> Route.GenericSimulator Scope.Veli impact.trigram
                         |> Route.toString
                         |> (++) "/"
                         |> (++) session.clientUrl
@@ -361,7 +361,7 @@ bookmarkView cfg ({ name, query } as bookmark) =
 
                 Bookmark.Generic genericScope food2Query ->
                     Just food2Query
-                        |> Route.GenericSimulator (Scope.Generic genericScope) cfg.impact.trigram
+                        |> Route.GenericSimulator genericScope cfg.impact.trigram
 
                 Bookmark.Textile textileQuery ->
                     Just textileQuery

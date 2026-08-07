@@ -26,6 +26,10 @@ table :
     -> { detailed : Bool, scope : Scope }
     -> Table ( Example Component.Query, { score : Float } ) String msg
 table { maxScore } { detailed, scope } =
+    let
+        genericScope =
+            scope |> Scope.toGenericScope |> Maybe.withDefault Scope.Object
+    in
     { filename = Scope.toString scope ++ "-examples"
     , toId = Tuple.first >> .id >> Uuid.toString
     , toRoute =
@@ -33,9 +37,6 @@ table { maxScore } { detailed, scope } =
             let
                 maybeId =
                     example |> Tuple.first |> .id |> Just
-
-                genericScope =
-                    scope |> Scope.toGenericScope |> Maybe.withDefault Scope.Object
             in
             Route.Explore scope (Dataset.GenericExamples genericScope maybeId)
     , toSearchableWords = Tuple.first >> Example.toSearchableString >> Text.toWords
@@ -74,7 +75,7 @@ table { maxScore } { detailed, scope } =
                 \( example, _ ) ->
                     a
                         [ class "btn btn-light btn-sm w-100"
-                        , Route.href <| Route.GenericSimulatorExample example.scope example.id
+                        , Route.href <| Route.GenericSimulatorExample genericScope example.id
                         , title <| "Charger " ++ example.name
                         ]
                         [ Icon.search ]
