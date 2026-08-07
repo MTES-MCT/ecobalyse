@@ -1,12 +1,5 @@
 [
   {
-    "cooling": false,
-    "distribution": "29118025-efa0-47bb-94e2-f5ccba31a903",
-    "id": "7f9bd0a2-d31d-4d89-9141-7fe461835072",
-    "label": "Autres produits alimentaires",
-    "scope": "food2"
-  },
-  {
     "cooling": true,
     "distribution": "be66b80b-1500-4e3b-bfd2-87a89ff54031",
     "id": "2ab49980-2bc8-40b9-8db2-010d0d14ce50",
