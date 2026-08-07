@@ -1,6 +1,6 @@
 module Page.Explore.GenericExamples exposing (table)
 
-{-| Note: This module is used to display object, veli and food2 examples.
+{-| Note: This module is used to display generic examples.
 -}
 
 import Data.Component as Component
@@ -17,15 +17,11 @@ import Route
 import Views.Icon as Icon
 
 
-
--- TODO: add score per 100g column for all examples
-
-
 table :
-    { maxScore : Float }
+    { maxScore : Float, maxPer100g : Float }
     -> { detailed : Bool, scope : Scope }
-    -> Table ( Example Component.Query, { score : Float } ) String msg
-table { maxScore } { detailed, scope } =
+    -> Table ( Example Component.Query, { score : Float, per100g : Float } ) String msg
+table { maxScore, maxPer100g } { detailed, scope } =
     let
         genericScope =
             scope |> Scope.toGenericScope |> Maybe.withDefault Scope.Object
@@ -68,6 +64,12 @@ table { maxScore } { detailed, scope } =
           , toCell =
                 \( _, { score } ) ->
                     Common.impactBarGraph detailed maxScore score
+          }
+        , { label = "Coût Environnemental/100g"
+          , toValue = Table.FloatValue (Tuple.second >> .per100g)
+          , toCell =
+                \( _, { per100g } ) ->
+                    Common.impactBarGraph detailed maxPer100g per100g
           }
         , { label = ""
           , toValue = Table.NoValue
