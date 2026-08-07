@@ -89,9 +89,9 @@ Pour la **pondération**, les coefficients appliqués au coût environnemental s
 
 * la pondération du changement climatique est maintenue à 21,06%, afin que le poids relatif de cet impact ne soit pas diminué par l'ajout d'impacts biodiversité ;
 * les niveaux des 3 indicateurs de toxicité (écotoxicité, toxicité humaine cancer, toxicité humaine non cancer), [considérés dans leurs versions corrigées](impacts-consideres.md#indicateurs-de-toxicite-et-decotoxicite-corriges), sont réhaussés proportionnellement de façons à ce que la somme des 3 fasse 12,5% ;\
-  &#xNAN;_&#x43;ette modification revient environ à doubler la pondération de ces 3 indicateurs (\*2,12)._
+  _&#x43;ette modification revient environ à doubler la pondération de ces 3 indicateurs (\*2,12)._
 * les autres pondérations sont proportionnelles aux pondérations PEF initiales, mais réduite afin que la somme des pondérations reste bien à 100% après l'introduction des trois modifications précédentes.\
-  &#xNAN;_&#x43;ette modification revient environ à réduire d'environ 6% la pondération des 12 indicateurs concernés_.
+  _&#x43;ette modification revient environ à réduire d'environ 6% la pondération des 12 indicateurs concernés_.
 
 </details>
 

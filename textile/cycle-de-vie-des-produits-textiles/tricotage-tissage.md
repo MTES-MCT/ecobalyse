@@ -40,10 +40,10 @@ Une contexture est formulée comme suit : 30 x 27 Nm 56/50 :&#x20;
 
 1. **Préparation au tissage**\
    \
-   &#xNAN;_&#x4F;urdissage_\
+   _&#x4F;urdissage_\
    Les fils de chaîne sont alimentés à partir d’une ensouple (cylindre autour duquel est enroulée la chaîne du tissu) qui est installée à l’arrière d’un métier à tisser. La préparation de l'ensouple de tissage se fait par le procédé d'ourdissage.\
    \
-   &#xNAN;_&#x45;ncollage_\
+   _&#x45;ncollage_\
    Afin de protéger et lubrifier les fils de chaîne, des agents d'encollage sont appliqués après l'ourdissage (sous forme de solutions ou de dispersion d'eau). Dans ce cas précis, il sera nécessaire post-tissage de procéder au désencollage de ces mêmes fils afin de ne pas empêcher les colorants de se fixer sur la matière textile lors de l'ennoblissement. Deux types d'agents d'encollage sont utilisés : les polymères synthétiques vs naturels (à base de polysaccharides).<br>
 2. **Tissage**\
    Il existe différents types de métiers en fonction des besoins de production, des largeurs de tissus, des matériaux utilisés, des motifs voulus, etc.\
@@ -360,7 +360,7 @@ Exemple de cinq contextures proposant toutes un tissu de 280 g/m2 :  \
 \- 25x25, Nm 20x45\
 \- 40x40, Nm 48x48\
 \- 50x50, Nm 60x60\
-&#xNAN;_&#x68;ypothèse : embuvage = retrait = 8%_
+_&#x68;ypothèse : embuvage = retrait = 8%_
 
 Cet exemple illustre le fait que plus l'épaisseur des fils augmente (donc Nm diminue), plus la densité de fils diminue pour un grammage (g/m2) constant; et inversement.&#x20;
 

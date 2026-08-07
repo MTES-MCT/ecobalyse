@@ -52,7 +52,7 @@ Quatre procédés sont disponibles dans Ecobalyse :&#x20;
 <summary>Coton conventionnel</summary>
 
 **Procédé Ecoinvent** \
-&#xNAN;_&#x46;ibre production, cotton, ginning, RoW_
+_&#x46;ibre production, cotton, ginning, RoW_
 
 Procédé basé sur une moyenne pondérée des trois principaux pays producteurs (Chine, Inde, Etats-Unis).&#x20;
 
@@ -63,7 +63,7 @@ Procédé basé sur une moyenne pondérée des trois principaux pays producteurs
 <summary>Coton biologique</summary>
 
 **Procédé Ecoinvent** \
-&#xNAN;_&#x46;ibre production, cotton, organic, ginning, RoW_
+_&#x46;ibre production, cotton, organic, ginning, RoW_
 
 Ecobalyse a enrichi ce procédé avec une consommation d'eau liée à une irrigation moyenne mondiale de 0,75m3[^3] / kg de fibre de cotton organique (source : [Textile Echange](#user-content-fn-4)[^4]).&#x20;
 

@@ -43,7 +43,7 @@ Pour combiner les deux dimension de la durabilité, la formule suivante est cons
 **Durabilité\_Holistique = min (Durabilité\_Physique ; Durabilité\_NonPhysique)**\
 \
 Cette formule traduit l'idée qu'un vêtement arrive en fin de vie, soit pour une cause d'usure physique soit pour une cause non physique. C'est donc bien la dimension la plus limitante qui définirait la durée moyenne d'utilisation modélisée.\
-&#xNAN;_&#x43;ette proposition est une simple base de travail qui appelle des échanges au sein de groupe de travail qui doit être mis en place._
+_&#x43;ette proposition est une simple base de travail qui appelle des échanges au sein de groupe de travail qui doit être mis en place._
 {% endhint %}
 
 ## Méthode de calcul&#x20;

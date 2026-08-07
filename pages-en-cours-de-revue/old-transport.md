@@ -29,10 +29,10 @@ A des fins de simplification, le transport entre un magasin ou un centre de dist
   Mode de transport : camion
 * Maritime (transport international uniquement)\
   Modes de transport : bateau + camion\
-  &#xNAN;_&#x44;ans le cas d'un transport par voie maritime, le transport est réalisé en trois étapes : transport par la route vers le port de départ, transport par la mer de port à port, transport par la route depuis le port d'arrivée._
+  _&#x44;ans le cas d'un transport par voie maritime, le transport est réalisé en trois étapes : transport par la route vers le port de départ, transport par la mer de port à port, transport par la route depuis le port d'arrivée._
 * Aérienne (transport international uniquement)\
   Modes de transport : avion + camion\
-  &#xNAN;_&#x44;ans le cas d'un transport par voie aérienne, le transport est réalisé en trois étapes : transport par la route vers l'aéroport de départ, transport par avion d'aéroport à aéroport, transport par la route depuis l'aéroport d'arrivée._&#x20;
+  _&#x44;ans le cas d'un transport par voie aérienne, le transport est réalisé en trois étapes : transport par la route vers l'aéroport de départ, transport par avion d'aéroport à aéroport, transport par la route depuis l'aéroport d'arrivée._&#x20;
 * Ferroviaire (transport international uniquement)\
   Modes de transport : train
 
@@ -164,7 +164,7 @@ Sauf indication contraire spécifique, les modes de transport sont modélisés p
 
 Il est résulte les coûts environnementaux par mode de transport suivant (correspondant aux valeurs CE\[m1] ou CE\[m2] ci-dessus) :&#x20;
 
-<figure><img src="../../.gitbook/assets/image (314).png" alt=""><figcaption></figcaption></figure>
+<figure><img src="../.gitbook/assets/image (314).png" alt=""><figcaption></figcaption></figure>
 
 ## Transport international : mix des voies de transport
 

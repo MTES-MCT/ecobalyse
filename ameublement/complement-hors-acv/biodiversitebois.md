@@ -88,7 +88,7 @@ Principales sources utilisées pour ces statistiques :&#x20;
 
 
 Extrait :1  Indice de Biodiversité Potentielle (IBP) développé par CNPF/INRAE \
-&#xNAN;_"En particulier, les caractéristiques des coupes et le choix des essences influencent fortement les espèces présentes. Nos forêts ne sont donc pas à l’abri de problèmes d’érosion de la biodiversité. Des espèces sont ainsi devenues rares ou menacées."_&#x20;
+_"En particulier, les caractéristiques des coupes et le choix des essences influencent fortement les espèces présentes. Nos forêts ne sont donc pas à l’abri de problèmes d’érosion de la biodiversité. Des espèces sont ainsi devenues rares ou menacées."_&#x20;
 
 
 
