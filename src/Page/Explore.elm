@@ -23,10 +23,10 @@ import Data.Example as Example exposing (Example)
 import Data.Food.Ingredient as Ingredient exposing (Ingredient)
 import Data.Food.Query as FoodQuery
 import Data.Food.Recipe as Recipe
+import Data.Generic.Simulator as GenericSimulator
 import Data.Impact as Impact
 import Data.Impact.Definition as Definition exposing (Definition, Definitions)
 import Data.Key as Key
-import Data.Object.Simulator as ObjectSimulator
 import Data.Process as Process exposing (Process)
 import Data.Scope as Scope exposing (Scope)
 import Data.Session exposing (Session)
@@ -754,7 +754,7 @@ getFoodScorePer100g db =
 getObjectScore : Session -> Scope -> Example Component.Query -> Float
 getObjectScore { componentConfig, db } scope { query } =
     query
-        |> ObjectSimulator.compute { config = componentConfig, db = db, scope = scope }
+        |> GenericSimulator.compute { config = componentConfig, db = db, scope = scope }
         |> Result.map
             (Component.sumLifeCycleImpacts
                 >> Impact.getImpact Definition.Ecs

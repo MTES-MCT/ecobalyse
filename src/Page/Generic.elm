@@ -21,9 +21,9 @@ import Data.Country.Code as CountryCode
 import Data.Dataset as Dataset
 import Data.Db exposing (Db)
 import Data.Example as Example exposing (Example)
+import Data.Generic.Simulator as Simulator
 import Data.Impact.Definition as Definition exposing (Definition)
 import Data.Key as Key
-import Data.Object.Simulator as Simulator
 import Data.Plausible as Plausible
 import Data.Process as Process exposing (Process)
 import Data.Process.Category as Category exposing (Category)

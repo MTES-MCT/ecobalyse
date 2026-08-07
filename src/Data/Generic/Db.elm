@@ -1,4 +1,4 @@
-module Data.Object.Db exposing
+module Data.Generic.Db exposing
     ( Db
     , buildFromJson
     )
