@@ -512,7 +512,7 @@ componentsExplorer session scope tableConfig tableState maybeId =
 
 genericExamplesExplorer :
     Session
-    -> Table.Config ( Example Component.Query, { score : Float } ) Msg
+    -> Table.Config ( Example Component.Query, { score : Float, per100g : Float } ) Msg
     -> SortableTable.State
     -> Scope
     -> Maybe Uuid
@@ -522,13 +522,25 @@ genericExamplesExplorer session tableConfig tableState scope maybeId =
         scoredExamples =
             session.db.object.examples
                 |> List.filter (\example -> example.scope == scope)
-                |> List.map (\example -> ( example, { score = getGenericScore session scope example } ))
+                |> List.map
+                    (\example ->
+                        ( example
+                        , { score = getGenericScore session scope example
+                          , per100g = getGenericScorePer100g session scope example
+                          }
+                        )
+                    )
                 |> List.sortBy (Tuple.first >> .name)
 
         max =
             { maxScore =
                 scoredExamples
                     |> List.map (Tuple.second >> .score)
+                    |> List.maximum
+                    |> Maybe.withDefault 0
+            , maxPer100g =
+                scoredExamples
+                    |> List.map (Tuple.second >> .per100g)
                     |> List.maximum
                     |> Maybe.withDefault 0
             }
@@ -549,7 +561,11 @@ genericExamplesExplorer session tableConfig tableState scope maybeId =
                         alert error
 
                     Ok example ->
-                        ( example, { score = getGenericScore session scope example } )
+                        ( example
+                        , { score = getGenericScore session scope example
+                          , per100g = getGenericScorePer100g session scope example
+                          }
+                        )
                             |> Table.viewDetails scope (GenericExamples.table max)
                 )
 
@@ -744,6 +760,21 @@ getGenericScore { componentConfig, db } scope { query } =
             (Component.sumLifeCycleImpacts
                 >> Impact.getImpact Definition.Ecs
                 >> Unit.impactToFloat
+            )
+        |> Result.withDefault 0
+
+
+getGenericScorePer100g : Session -> Scope -> Example Component.Query -> Float
+getGenericScorePer100g { componentConfig, db } scope { query } =
+    query
+        |> GenericSimulator.compute { config = componentConfig, db = db, scope = scope }
+        |> Result.map
+            (\lifeCycle ->
+                lifeCycle
+                    |> Component.sumLifeCycleImpacts
+                    |> Impact.per100grams lifeCycle.productMass
+                    |> Impact.getImpact Definition.Ecs
+                    |> Unit.impactToFloat
             )
         |> Result.withDefault 0
 
