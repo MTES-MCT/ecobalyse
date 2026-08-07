@@ -177,7 +177,7 @@ viewList dataToMsg defaultConfig tableState scope createTable items =
             { attributes = []
             , close = Nothing
             , content =
-                [ text <| "Aucun composant disponible pour le secteur "
+                [ text <| "Aucun enregistrement disponible pour le secteur "
                 , strong [] [ text <| Scope.toLabel scope ]
                 ]
             , level = Alert.Info

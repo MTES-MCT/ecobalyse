@@ -145,9 +145,11 @@ loadData : SessionConfig -> Cmd Msg
 loadData sessionConfig =
     [ ( "/data/countries.json", \data raw -> { raw | countries = data } )
     , ( "/data/impacts.json", \data raw -> { raw | definitions = data } )
+    , ( "/data/food2/categories.json", \data raw -> { raw | food2ProductCategories = data } )
     , ( "/data/food2/examples.json", \data raw -> { raw | food2Examples = data } )
     , ( "/data/food/ingredients.json", \data raw -> { raw | foodIngredients = data } )
     , ( "/data/food/examples.json", \data raw -> { raw | foodProductExamples = data } )
+    , ( "/data/object/categories.json", \data raw -> { raw | objectProductCategories = data } )
     , ( "/data/object/components.json", \data raw -> { raw | objectComponents = data } )
     , ( "/data/object/examples.json", \data raw -> { raw | objectExamples = data } )
     , ( "/data/processes.json", \data raw -> { raw | processes = data } )
@@ -156,6 +158,7 @@ loadData sessionConfig =
     , ( "/data/textile/materials.json", \data raw -> { raw | textileMaterials = data } )
     , ( "/data/textile/products.json", \data raw -> { raw | textileProducts = data } )
     , ( "/data/transports.json", \data raw -> { raw | transports = data } )
+    , ( "/data/veli/categories.json", \data raw -> { raw | veliProductCategories = data } )
     , ( "/data/veli/components.json", \data raw -> { raw | veliComponents = data } )
     , ( "/data/veli/examples.json", \data raw -> { raw | veliExamples = data } )
     ]
@@ -296,19 +299,19 @@ setRoute url ( { state } as model, cmds ) =
                     FoodBuilder.init session Impact.default Nothing
                         |> toPage session model cmds FoodBuilderPage FoodBuilderMsg
 
+                Just (Route.GenericSimulator scope trigram maybeQuery) ->
+                    ObjectSimulator.init scope trigram maybeQuery session
+                        |> toPage session model cmds ObjectSimulatorPage ObjectSimulatorMsg
+
+                Just (Route.GenericSimulatorExample scope uuid) ->
+                    ObjectSimulator.initFromExample session scope uuid
+                        |> toPage session model cmds ObjectSimulatorPage ObjectSimulatorMsg
+
                 Just Route.Home ->
                     Home.init session
                         |> toPage session model cmds HomePage HomeMsg
 
-                Just (Route.ObjectSimulator scope trigram maybeQuery) ->
-                    ObjectSimulator.init scope trigram maybeQuery session
-                        |> toPage session model cmds ObjectSimulatorPage ObjectSimulatorMsg
-
-                Just (Route.ObjectSimulatorExample scope uuid) ->
-                    ObjectSimulator.initFromExample session scope uuid
-                        |> toPage session model cmds ObjectSimulatorPage ObjectSimulatorMsg
-
-                Just (Route.ObjectSimulatorHome scope) ->
+                Just (Route.GenericSimulatorHome scope) ->
                     ObjectSimulator.init scope Impact.default Nothing session
                         |> toPage session model cmds ObjectSimulatorPage ObjectSimulatorMsg
 

@@ -574,7 +574,7 @@ componentRowView session selected component =
                             , Component.emptyQuery
                                 |> Component.setQueryItems [ Component.createItem (Just componentId) ]
                                 |> Just
-                                |> Route.ObjectSimulator (Scope.Generic Scope.Object) Definition.Ecs
+                                |> Route.GenericSimulator (Scope.Generic Scope.Object) Definition.Ecs
                                 |> Route.href
                             ]
                             [ Icon.puzzle ]

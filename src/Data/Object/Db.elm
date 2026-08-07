@@ -3,7 +3,7 @@ module Data.Object.Db exposing
     , buildFromJson
     )
 
-{-| Note: The Object database also holds examples for VeLi
+{-| Note: The Object database holds examples all generic scopes
 -}
 
 import Data.Component as Component
