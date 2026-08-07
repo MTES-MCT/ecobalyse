@@ -1012,9 +1012,6 @@ simulatorView ({ componentConfig } as session) ({ scope } as model) =
     let
         currentQuery =
             session |> Session.objectQueryFromScope scope
-
-        currentDurability =
-            currentQuery |> .durability
     in
     div [ class "row" ]
         [ div [ class "col-lg-8 bg-white" ]
@@ -1040,7 +1037,7 @@ simulatorView ({ componentConfig } as session) ({ scope } as model) =
                     , scope = scope
                     }
                 ]
-            , durabilityView componentConfig scope currentDurability
+            , durabilityView componentConfig scope currentQuery.durability
             , editorConfig session model
                 |> ComponentView.editorView
             ]
@@ -1062,7 +1059,7 @@ simulatorView ({ componentConfig } as session) ({ scope } as model) =
                 -- Score
                 , customScoreInfo = Nothing
                 , productMass = lifeCycle.productMass
-                , totalImpacts = lifeCycle |> Component.applyDurability currentDurability
+                , totalImpacts = lifeCycle |> Component.applyDurability currentQuery.durability
                 , totalImpactsWithoutDurability = lifeCycle |> Component.sumLifeCycleImpacts |> Just
 
                 -- Impacts tabs
