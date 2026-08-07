@@ -17,6 +17,10 @@ import Route
 import Views.Icon as Icon
 
 
+
+-- TODO: add score per 100g column for all examples
+
+
 table :
     { maxScore : Float }
     -> { detailed : Bool, scope : Scope }

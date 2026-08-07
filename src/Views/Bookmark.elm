@@ -96,9 +96,9 @@ view cfg =
         }
 
 
-buildObjectApiQuery : Scope -> Maybe String -> String -> Component.Query -> String
-buildObjectApiQuery scope maybeToken clientUrl query =
-    -- FIXME: the Food2/Object/Veli API doesn't exist just yet, but we already expose what
+buildGenericApiQuery : Scope -> Maybe String -> String -> Component.Query -> String
+buildGenericApiQuery scope maybeToken clientUrl query =
+    -- FIXME: the generic Food2/Object/Veli API doesn't exist just yet, but we already expose what
     -- could be used when it's live
     (clientUrl ++ "/api/" ++ Scope.toString scope ++ "/simulator")
         |> Text.buildCurlCommand maybeToken
@@ -137,7 +137,7 @@ shareTabView { copyToClipBoard, impact, scope, session } =
                         |> (++) "/"
                         |> (++) session.clientUrl
                     , query
-                        |> buildObjectApiQuery scope (Session.getAccessToken session) session.clientUrl
+                        |> buildGenericApiQuery scope (Session.getAccessToken session) session.clientUrl
                     , Component.encodeQuery query
                         |> Encode.encode 2
                     )
@@ -153,7 +153,7 @@ shareTabView { copyToClipBoard, impact, scope, session } =
                         |> (++) "/"
                         |> (++) session.clientUrl
                     , query
-                        |> buildObjectApiQuery scope (Session.getAccessToken session) session.clientUrl
+                        |> buildGenericApiQuery scope (Session.getAccessToken session) session.clientUrl
                     , Component.encodeQuery query
                         |> Encode.encode 2
                     )
@@ -169,7 +169,7 @@ shareTabView { copyToClipBoard, impact, scope, session } =
                         |> (++) "/"
                         |> (++) session.clientUrl
                     , query
-                        |> buildObjectApiQuery scope (Session.getAccessToken session) session.clientUrl
+                        |> buildGenericApiQuery scope (Session.getAccessToken session) session.clientUrl
                     , Component.encodeQuery query
                         |> Encode.encode 2
                     )

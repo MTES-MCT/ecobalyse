@@ -535,9 +535,9 @@ update rawMsg ({ state } as model) =
                     Home.update session homeMsg homeModel
                         |> toPage session model Cmd.none HomePage HomeMsg
 
-                -- Object
-                ( GenericSimulatorMsg objectMsg, GenericSimulatorPage objectModel ) ->
-                    GenericSimulator.update session objectMsg objectModel
+                -- Generic simulator
+                ( GenericSimulatorMsg genericMsg, GenericSimulatorPage genericModel ) ->
+                    GenericSimulator.update session genericMsg genericModel
                         |> toPage session model Cmd.none GenericSimulatorPage GenericSimulatorMsg
 
                 -- Process Admin

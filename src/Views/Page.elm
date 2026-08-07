@@ -40,6 +40,7 @@ type ActivePage
     | Editorial String
     | Explore
     | Food
+      -- FIXME: should be Generic Scope.GenericScope
     | Generic Scope
     | Home
     | Other
