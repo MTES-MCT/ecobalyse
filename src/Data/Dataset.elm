@@ -12,6 +12,7 @@ module Data.Dataset exposing
     )
 
 import Data.Component as Component
+import Data.Component.Product as ProductCategory
 import Data.Country.Code as CountryCode
 import Data.Food.Ingredient as Ingredient
 import Data.Impact.Definition as Definition
@@ -36,6 +37,7 @@ type Dataset
     | Impacts (Maybe Definition.Trigram)
     | ObjectExamples (Maybe Uuid)
     | Processes Scope (Maybe Process.Id)
+    | ProductCategory Scope (Maybe ProductCategory.Id)
     | TextileExamples (Maybe Uuid)
     | TextileMaterials (Maybe Material.Id)
     | TextileProducts (Maybe Product.Id)
@@ -57,6 +59,7 @@ datasets scope =
             [ Impacts Nothing
             , Countries Nothing
             , Processes (Scope.Generic Scope.Food2) Nothing
+            , ProductCategory (Scope.Generic Scope.Food2) Nothing
             ]
 
         Scope.Generic Scope.Object ->
@@ -65,6 +68,7 @@ datasets scope =
             , Countries Nothing
             , Processes (Scope.Generic Scope.Object) Nothing
             , Impacts Nothing
+            , ProductCategory (Scope.Generic Scope.Object) Nothing
             ]
 
         Scope.Generic Scope.Veli ->
@@ -73,6 +77,7 @@ datasets scope =
             , Countries Nothing
             , Impacts Nothing
             , Processes (Scope.Generic Scope.Veli) Nothing
+            , ProductCategory (Scope.Generic Scope.Veli) Nothing
             ]
 
         Scope.Textile ->
@@ -120,6 +125,9 @@ fromSlug string =
         "food2-processes" ->
             Processes (Scope.Generic Scope.Food2) Nothing
 
+        "food2-product-categories" ->
+            ProductCategory (Scope.Generic Scope.Food2) Nothing
+
         "impacts" ->
             Impacts Nothing
 
@@ -137,6 +145,9 @@ fromSlug string =
 
         "object-processes" ->
             Processes (Scope.Generic Scope.Object) Nothing
+
+        "object-product-categories" ->
+            ProductCategory (Scope.Generic Scope.Object) Nothing
 
         "processes" ->
             Processes Scope.Textile Nothing
@@ -158,6 +169,9 @@ fromSlug string =
 
         "veli-processes" ->
             Processes (Scope.Generic Scope.Veli) Nothing
+
+        "veli-product-categories" ->
+            ProductCategory (Scope.Generic Scope.Veli) Nothing
 
         _ ->
             TextileExamples Nothing
@@ -185,6 +199,9 @@ isDetailed dataset =
             True
 
         Processes _ (Just _) ->
+            True
+
+        ProductCategory _ (Just _) ->
             True
 
         TextileExamples (Just _) ->
@@ -237,6 +254,9 @@ reset dataset =
         Processes scope _ ->
             Processes scope Nothing
 
+        ProductCategory scope _ ->
+            ProductCategory scope Nothing
+
         TextileExamples _ ->
             TextileExamples Nothing
 
@@ -263,6 +283,9 @@ same a b =
             True
 
         ( Processes scope1 _, Processes scope2 _ ) ->
+            scope1 == scope2
+
+        ( ProductCategory scope1 _, ProductCategory scope2 _ ) ->
             scope1 == scope2
 
         ( Impacts _, Impacts _ ) ->
@@ -314,6 +337,9 @@ setIdFromString idString dataset =
         Processes scope _ ->
             Processes scope (Process.idFromString idString |> Result.toMaybe)
 
+        ProductCategory scope _ ->
+            ProductCategory scope (ProductCategory.idFromString idString |> Result.toMaybe)
+
         TextileExamples _ ->
             TextileExamples (idString |> Uuid.fromString |> Result.toMaybe)
 
@@ -355,6 +381,9 @@ strings dataset =
 
         Processes scope _ ->
             { label = "Procédés", slug = Scope.toString scope ++ "-processes" }
+
+        ProductCategory scope _ ->
+            { label = "Produits", slug = Scope.toString scope ++ "-product-categories" }
 
         TextileExamples _ ->
             { label = "Exemples", slug = "textile-examples" }
@@ -412,6 +441,12 @@ toRoutePath dataset =
             [ slug dataset, Process.idToString id ]
 
         Processes _ Nothing ->
+            [ slug dataset ]
+
+        ProductCategory _ (Just id) ->
+            [ slug dataset, ProductCategory.idToString id ]
+
+        ProductCategory _ Nothing ->
             [ slug dataset ]
 
         TextileExamples (Just id) ->

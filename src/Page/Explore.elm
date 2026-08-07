@@ -14,6 +14,7 @@ import Browser.Events
 import Browser.Navigation as Nav
 import Csv.Encode as EncodeCsv exposing (Csv)
 import Data.Component as Component exposing (Component)
+import Data.Component.Product as ProductCategory
 import Data.Country as Country exposing (Country)
 import Data.Country.Code as CountryCode
 import Data.Dataset as Dataset exposing (Dataset)
@@ -47,6 +48,7 @@ import Page.Explore.FoodIngredients as FoodIngredients
 import Page.Explore.Impacts as ExploreImpacts
 import Page.Explore.ObjectExamples as ObjectExamples
 import Page.Explore.Processes as Processes
+import Page.Explore.ProductCategories as ProductCategories
 import Page.Explore.Table as Table
 import Page.Explore.TextileExamples as TextileExamples
 import Page.Explore.TextileMaterials as TextileMaterials
@@ -105,6 +107,9 @@ init scope dataset session =
                 Dataset.Processes _ _ ->
                     "Nom"
 
+                Dataset.ProductCategory _ _ ->
+                    "Catégorie de produit"
+
                 Dataset.TextileExamples _ ->
                     "Coût Environnemental"
 
@@ -153,6 +158,9 @@ update session msg model =
 
                         Dataset.Impacts _ ->
                             Dataset.Impacts Nothing
+
+                        Dataset.ProductCategory _ _ ->
+                            Dataset.ProductCategory scope Nothing
 
                         _ ->
                             case scope of
@@ -624,6 +632,33 @@ textileProductsExplorer session tableConfig tableState maybeId =
     ]
 
 
+productCategoriesExplorer :
+    Session
+    -> Scope
+    -> Table.Config ProductCategory.Product Msg
+    -> SortableTable.State
+    -> Maybe ProductCategory.Id
+    -> List (Html Msg)
+productCategoriesExplorer session scope tableConfig tableState maybeId =
+    [ session.db.products
+        |> ProductCategory.findByScope scope
+        |> Table.viewList (.id >> ProductCategory.idToString >> OpenDetail) tableConfig tableState scope (ProductCategories.table session)
+    , case maybeId of
+        Just id ->
+            detailsModal
+                (case ProductCategory.findById id session.db.products of
+                    Err error ->
+                        alert error
+
+                    Ok product ->
+                        Table.viewDetails scope (ProductCategories.table session) product
+                )
+
+        Nothing ->
+            text ""
+    ]
+
+
 textileMaterialsExplorer :
     Db
     -> Table.Config Material Msg
@@ -751,6 +786,9 @@ exploreView ({ db } as session) { facetValues, scope, dataset, tableState, searc
 
         Dataset.Processes scope_ maybeId ->
             processesExplorer session scope_ tableConfig tableState maybeId
+
+        Dataset.ProductCategory scope_ maybeId ->
+            productCategoriesExplorer session scope_ tableConfig tableState maybeId
 
         Dataset.TextileExamples maybeId ->
             textileExamplesExplorer session tableConfig tableState maybeId

@@ -8,6 +8,7 @@ module Data.Component.Product exposing
     , findByScope
     , idFromString
     , idToString
+    , toSearchableString
     )
 
 import Data.Common.DecodeUtils as DU
@@ -86,3 +87,12 @@ idFromString =
 idToString : Id -> String
 idToString (Id uuid) =
     Uuid.toString uuid
+
+
+toSearchableString : Product -> String
+toSearchableString product =
+    String.join " "
+        [ idToString product.id
+        , product.label
+        , Scope.toString product.scope
+        ]
