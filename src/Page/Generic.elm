@@ -323,6 +323,11 @@ update ({ navKey } as session) msg model =
         query =
             session
                 |> Session.objectQueryFromScope model.scope
+
+        genericScope =
+            model.scope
+                |> Scope.toGenericScope
+                |> Maybe.withDefault Scope.Object
     in
     case ( msg, model.modals ) of
         ( AppendModal modal, modals ) ->
@@ -640,7 +645,7 @@ update ({ navKey } as session) msg model =
             createPageUpdate session model
                 |> App.withCmds
                     [ Just query
-                        |> Route.GenericSimulator model.scope trigram
+                        |> Route.GenericSimulator genericScope trigram
                         |> Route.toString
                         |> Navigation.pushUrl navKey
                     , Plausible.send session <| Plausible.ImpactSelected model.scope trigram
@@ -1025,8 +1030,8 @@ simulatorView ({ componentConfig } as session) ({ scope } as model) =
                     , onOpen = SelectExampleModal >> List.singleton >> SetModals
                     , routes =
                         { explore = Route.Explore scope (Dataset.GenericExamples genericScope Nothing)
-                        , load = Route.GenericSimulatorExample scope
-                        , scopeHome = Route.GenericSimulatorHome scope
+                        , load = Route.GenericSimulatorExample genericScope
+                        , scopeHome = Route.GenericSimulatorHome genericScope
                         }
                     }
                 , ComponentView.productCategorySelectorView

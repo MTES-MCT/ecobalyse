@@ -11,6 +11,7 @@ import Data.Food.Query as FoodQuery
 import Data.Impact as Impact
 import Data.Notification as Notification exposing (Notification)
 import Data.Plausible as Plausible
+import Data.Scope as Scope
 import Data.Session as Session exposing (Session)
 import Data.Textile.Query as TextileQuery
 import Html
@@ -299,20 +300,20 @@ setRoute url ( { state } as model, cmds ) =
                     FoodBuilder.init session Impact.default Nothing
                         |> toPage session model cmds FoodBuilderPage FoodBuilderMsg
 
-                Just (Route.GenericSimulator scope trigram maybeQuery) ->
-                    GenericSimulator.init scope trigram maybeQuery session
+                Just (Route.GenericSimulator genericScope trigram maybeQuery) ->
+                    GenericSimulator.init (Scope.Generic genericScope) trigram maybeQuery session
                         |> toPage session model cmds GenericSimulatorPage GenericSimulatorMsg
 
-                Just (Route.GenericSimulatorExample scope uuid) ->
-                    GenericSimulator.initFromExample session scope uuid
+                Just (Route.GenericSimulatorExample genericScope uuid) ->
+                    GenericSimulator.initFromExample session (Scope.Generic genericScope) uuid
                         |> toPage session model cmds GenericSimulatorPage GenericSimulatorMsg
 
                 Just Route.Home ->
                     Home.init session
                         |> toPage session model cmds HomePage HomeMsg
 
-                Just (Route.GenericSimulatorHome scope) ->
-                    GenericSimulator.init scope Impact.default Nothing session
+                Just (Route.GenericSimulatorHome genericScope) ->
+                    GenericSimulator.init (Scope.Generic genericScope) Impact.default Nothing session
                         |> toPage session model cmds GenericSimulatorPage GenericSimulatorMsg
 
                 Just Route.Stats ->
