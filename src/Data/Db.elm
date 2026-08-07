@@ -38,22 +38,22 @@ type alias Db =
 type alias Properties a =
     { countries : a
     , definitions : a
-    , food2Categories : a
     , food2Examples : a
+    , food2Products : a
     , foodIngredients : a
     , foodProductExamples : a
-    , objectCategories : a
     , objectComponents : a
     , objectExamples : a
+    , objectProducts : a
     , processes : a
     , textileComponents : a
     , textileMaterials : a
     , textileProductExamples : a
     , textileProducts : a
     , transports : a
-    , veliCategories : a
     , veliComponents : a
     , veliExamples : a
+    , veliProducts : a
     }
 
 
@@ -112,9 +112,9 @@ build json =
                         )
                     |> RE.andMap (Ok processes)
                     |> RE.andMap
-                        ([ json.food2Categories
-                         , json.objectCategories
-                         , json.veliCategories
+                        ([ json.food2Products
+                         , json.objectProducts
+                         , json.veliProducts
                          ]
                             |> List.map (extractJsonString >> Product.decodeListFromJsonString)
                             |> RE.combine
@@ -139,11 +139,11 @@ propGetters : List (Properties a -> a)
 propGetters =
     [ .countries
     , .definitions
-    , .food2Categories
+    , .food2Products
     , .food2Examples
     , .foodIngredients
     , .foodProductExamples
-    , .objectCategories
+    , .objectProducts
     , .objectComponents
     , .objectExamples
     , .processes
@@ -152,7 +152,7 @@ propGetters =
     , .textileProductExamples
     , .textileProducts
     , .transports
-    , .veliCategories
+    , .veliProducts
     , .veliComponents
     , .veliExamples
     ]

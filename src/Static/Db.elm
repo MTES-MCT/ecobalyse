@@ -16,20 +16,20 @@ dbFromStaticFiles processesJson =
     Db.build
         { countries = Db.rawJsonString StaticJson.countriesJson
         , definitions = Db.rawJsonString StaticJson.impactsJson
-        , food2Categories = Db.rawJsonString StaticJson.food2CategoriesJson
         , food2Examples = Db.rawJsonString StaticJson.food2ExamplesJson
+        , food2Products = Db.rawJsonString StaticJson.food2ProductsJson
         , foodIngredients = Db.rawJsonString StaticJson.foodIngredientsJson
         , foodProductExamples = Db.rawJsonString StaticJson.foodProductExamplesJson
-        , objectCategories = Db.rawJsonString StaticJson.objectCategoriesJson
         , objectComponents = Db.rawJsonString StaticJson.rawJsonComponents.objectComponents
         , objectExamples = Db.rawJsonString StaticJson.objectExamplesJson
+        , objectProducts = Db.rawJsonString StaticJson.objectProductsJson
         , processes = Db.rawJsonString processesJson
         , textileComponents = Db.rawJsonString StaticJson.rawJsonComponents.textileComponents
         , textileMaterials = Db.rawJsonString StaticJson.textileMaterialsJson
         , textileProductExamples = Db.rawJsonString StaticJson.textileProductExamplesJson
         , textileProducts = Db.rawJsonString StaticJson.textileProductsJson
         , transports = Db.rawJsonString StaticJson.transportsJson
-        , veliCategories = Db.rawJsonString StaticJson.veliCategoriesJson
         , veliComponents = Db.rawJsonString StaticJson.rawJsonComponents.veliComponents
         , veliExamples = Db.rawJsonString StaticJson.veliExamplesJson
+        , veliProducts = Db.rawJsonString StaticJson.veliProductsJson
         }

@@ -61,22 +61,22 @@ initLoadingState : LoadingState
 initLoadingState =
     { countries = RemoteData.NotAsked
     , definitions = RemoteData.NotAsked
-    , food2Categories = RemoteData.NotAsked
     , food2Examples = RemoteData.NotAsked
+    , food2Products = RemoteData.NotAsked
     , foodIngredients = RemoteData.NotAsked
     , foodProductExamples = RemoteData.NotAsked
-    , objectCategories = RemoteData.NotAsked
     , objectComponents = RemoteData.NotAsked
     , objectExamples = RemoteData.NotAsked
+    , objectProducts = RemoteData.NotAsked
     , processes = RemoteData.NotAsked
     , textileComponents = RemoteData.NotAsked
     , textileMaterials = RemoteData.NotAsked
     , textileProductExamples = RemoteData.NotAsked
     , textileProducts = RemoteData.NotAsked
     , transports = RemoteData.NotAsked
-    , veliCategories = RemoteData.NotAsked
     , veliComponents = RemoteData.NotAsked
     , veliExamples = RemoteData.NotAsked
+    , veliProducts = RemoteData.NotAsked
     }
 
 
@@ -85,11 +85,11 @@ resolve data =
     RemoteData.succeed Db.Properties
         |> RemoteData.andMap data.countries
         |> RemoteData.andMap data.definitions
-        |> RemoteData.andMap data.food2Categories
+        |> RemoteData.andMap data.food2Products
         |> RemoteData.andMap data.food2Examples
         |> RemoteData.andMap data.foodIngredients
         |> RemoteData.andMap data.foodProductExamples
-        |> RemoteData.andMap data.objectCategories
+        |> RemoteData.andMap data.objectProducts
         |> RemoteData.andMap data.objectComponents
         |> RemoteData.andMap data.objectExamples
         |> RemoteData.andMap data.processes
@@ -98,7 +98,7 @@ resolve data =
         |> RemoteData.andMap data.textileProductExamples
         |> RemoteData.andMap data.textileProducts
         |> RemoteData.andMap data.transports
-        |> RemoteData.andMap data.veliCategories
+        |> RemoteData.andMap data.veliProducts
         |> RemoteData.andMap data.veliComponents
         |> RemoteData.andMap data.veliExamples
 

@@ -145,11 +145,11 @@ loadData : SessionConfig -> Cmd Msg
 loadData sessionConfig =
     [ ( "/data/countries.json", \data raw -> { raw | countries = data } )
     , ( "/data/impacts.json", \data raw -> { raw | definitions = data } )
-    , ( "/data/food2/categories.json", \data raw -> { raw | food2Categories = data } )
+    , ( "/data/food2/categories.json", \data raw -> { raw | food2Products = data } )
     , ( "/data/food2/examples.json", \data raw -> { raw | food2Examples = data } )
     , ( "/data/food/ingredients.json", \data raw -> { raw | foodIngredients = data } )
     , ( "/data/food/examples.json", \data raw -> { raw | foodProductExamples = data } )
-    , ( "/data/object/categories.json", \data raw -> { raw | objectCategories = data } )
+    , ( "/data/object/categories.json", \data raw -> { raw | objectProducts = data } )
     , ( "/data/object/components.json", \data raw -> { raw | objectComponents = data } )
     , ( "/data/object/examples.json", \data raw -> { raw | objectExamples = data } )
     , ( "/data/processes.json", \data raw -> { raw | processes = data } )
@@ -158,7 +158,7 @@ loadData sessionConfig =
     , ( "/data/textile/materials.json", \data raw -> { raw | textileMaterials = data } )
     , ( "/data/textile/products.json", \data raw -> { raw | textileProducts = data } )
     , ( "/data/transports.json", \data raw -> { raw | transports = data } )
-    , ( "/data/veli/categories.json", \data raw -> { raw | veliCategories = data } )
+    , ( "/data/veli/categories.json", \data raw -> { raw | veliProducts = data } )
     , ( "/data/veli/components.json", \data raw -> { raw | veliComponents = data } )
     , ( "/data/veli/examples.json", \data raw -> { raw | veliExamples = data } )
     ]
