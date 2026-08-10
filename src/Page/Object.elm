@@ -16,6 +16,7 @@ import Data.Bookmark as Bookmark exposing (Bookmark)
 import Data.Component as Component exposing (Component, Index, TargetElement, TargetItem)
 import Data.Component.Amount as Amount exposing (Amount)
 import Data.Component.Config as Config
+import Data.Component.ProductCategory as Product
 import Data.Country.Code as CountryCode
 import Data.Dataset as Dataset
 import Data.Db exposing (Db)
@@ -149,6 +150,7 @@ type Msg
     | UpdateElementMaterialCountry TargetElement (Maybe CountryCode.Code)
     | UpdateElementTransformCountry TargetElement Index (Maybe CountryCode.Code)
     | UpdatePackagingAmount Index (Maybe Amount)
+    | UpdateProduct (Maybe Product.Id)
     | UpdateRecyclability Bool
     | UpdateRenamedBookmarkName Bookmark String
 
@@ -252,6 +254,21 @@ initFromExample session scope uuid =
     }
         |> createPageUpdate (session |> Session.updateObjectQuery scope exampleQuery)
         |> App.withCmds [ Ports.scrollTo { x = 0, y = 0 } ]
+
+
+selectProductCategory : Session -> Component.Query -> Maybe Product.Id -> PageUpdate Model Msg -> PageUpdate Model Msg
+selectProductCategory session query maybeProductId =
+    case maybeProductId of
+        Just productId ->
+            case Product.findById productId session.db.products of
+                Err error ->
+                    App.notifyError "Catégorie de produit introuvable" error
+
+                Ok product ->
+                    updateQuery (query |> Component.updateProduct (Just product))
+
+        Nothing ->
+            updateQuery (query |> Component.updateProduct Nothing)
 
 
 suggestBookmarkName : Session -> List (Example Component.Query) -> Component.Query -> String
@@ -623,7 +640,7 @@ update ({ navKey } as session) msg model =
             createPageUpdate session model
                 |> App.withCmds
                     [ Just query
-                        |> Route.ObjectSimulator model.scope trigram
+                        |> Route.GenericSimulator model.scope trigram
                         |> Route.toString
                         |> Navigation.pushUrl navKey
                     , Plausible.send session <| Plausible.ImpactSelected model.scope trigram
@@ -732,6 +749,10 @@ update ({ navKey } as session) msg model =
         ( UpdatePackagingAmount index (Just amount), _ ) ->
             createPageUpdate session model
                 |> updateQuery (query |> Component.updatePackagingAmount index amount)
+
+        ( UpdateProduct maybeProductId, _ ) ->
+            createPageUpdate session model
+                |> selectProductCategory session query maybeProductId
 
         ( UpdatePackagingAmount _ Nothing, _ ) ->
             createPageUpdate session model
@@ -988,9 +1009,6 @@ simulatorView ({ componentConfig } as session) ({ scope } as model) =
     let
         currentQuery =
             session |> Session.objectQueryFromScope scope
-
-        currentDurability =
-            currentQuery |> .durability
     in
     div [ class "row" ]
         [ div [ class "col-lg-8 bg-white" ]
@@ -1005,12 +1023,18 @@ simulatorView ({ componentConfig } as session) ({ scope } as model) =
                     , routes =
                         -- FIXME: explore route object/veli
                         { explore = Route.Explore scope (Dataset.ObjectExamples Nothing)
-                        , load = Route.ObjectSimulatorExample scope
-                        , scopeHome = Route.ObjectSimulatorHome scope
+                        , load = Route.GenericSimulatorExample scope
+                        , scopeHome = Route.GenericSimulatorHome scope
                         }
                     }
+                , ComponentView.productCategorySelectorView
+                    { onSelect = UpdateProduct
+                    , products = session.db.products
+                    , query = currentQuery
+                    , scope = scope
+                    }
                 ]
-            , durabilityView componentConfig scope currentDurability
+            , durabilityView componentConfig scope currentQuery.durability
             , editorConfig session model
                 |> ComponentView.editorView
             ]
@@ -1032,7 +1056,7 @@ simulatorView ({ componentConfig } as session) ({ scope } as model) =
                 -- Score
                 , customScoreInfo = Nothing
                 , productMass = lifeCycle.productMass
-                , totalImpacts = lifeCycle |> Component.applyDurability currentDurability
+                , totalImpacts = lifeCycle |> Component.applyDurability currentQuery.durability
                 , totalImpactsWithoutDurability = lifeCycle |> Component.sumLifeCycleImpacts |> Just
 
                 -- Impacts tabs

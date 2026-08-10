@@ -64,9 +64,17 @@ const elmWithFixtures = elmTemplate
   .replace("%foodProductExamplesJson%", parseAndValidate("public/data/food/examples.json", "id"))
   // Food2 JSON data
   .replace("%food2ComponentsJson%", parseAndValidate("public/data/food2/components.json", "id"))
+  .replace(
+    "%food2ProductCategoriesJson%",
+    parseAndValidate("public/data/food2/categories.json", "id"),
+  )
   .replace("%food2ExamplesJson%", parseAndValidate("public/data/food2/examples.json", "id"))
   // Object JSON data
   .replace("%objectComponentsJson%", parseAndValidate("public/data/object/components.json", "id"))
+  .replace(
+    "%objectProductCategoriesJson%",
+    parseAndValidate("public/data/object/categories.json", "id"),
+  )
   .replace("%objectExamplesJson%", parseAndValidate("public/data/object/examples.json", "id"))
   // Textile JSON data
   .replace("%textileMaterialsJson%", parseAndValidate("public/data/textile/materials.json", "id"))
@@ -78,6 +86,10 @@ const elmWithFixtures = elmTemplate
   .replace("%textileProductsJson%", parseAndValidate("public/data/textile/products.json", "id"))
   // VeLi JSON data
   .replace("%veliComponentsJson%", parseAndValidate("public/data/veli/components.json", "id"))
+  .replace(
+    "%veliProductCategoriesJson%",
+    parseAndValidate("public/data/veli/categories.json", "id"),
+  )
   .replace("%veliExamplesJson%", parseAndValidate("public/data/veli/examples.json", "id"));
 
 const header =

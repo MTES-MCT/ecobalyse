@@ -20,7 +20,6 @@ from advanced_alchemy.utils.dataclass import Empty, EmptyType
 from sqlalchemy.orm import InstrumentedAttribute
 
 from app.db import models as m
-from app.domain.components.schemas import ComponentElement
 from app.domain.processes.deps import (
     provide_processes_service,
 )
@@ -171,39 +170,6 @@ class ComponentService(SQLAlchemyAsyncRepositoryService[m.Component]):
                 uniquify=self._get_uniquify(uniquify),
             ),
         )
-
-    async def _create_element(
-        self,
-        element: ModelDictT[ComponentElement],
-        component_id: str,
-        processes_service,
-    ):
-        element_dict = element if is_dict(element) else element.to_dict()
-
-        transforms_ids = element_dict.pop("transforms", [])
-
-        element_dict["material_process_id"] = element_dict.pop("material")
-        element_dict["component_id"] = component_id
-
-        elt = m.Element(**element_dict)
-
-        transforms: list[m.ProcessElementTransform] = []
-
-        if len(transforms_ids):
-            processes = await processes_service.get_many(
-                m.Process.id.in_(transforms_ids)
-            )
-            for idx, tid in enumerate(transforms_ids):
-                # See https://docs.sqlalchemy.org/en/20/orm/basic_relationships.html#association-object
-                elementTransform = m.ProcessElementTransform(position=idx)
-                elementTransform.transform = next(
-                    (p for p in processes if str(p.to_dict()["id"]) == str(tid))
-                )
-                transforms.append(elementTransform)
-
-            elt.process_transforms.extend(transforms)
-
-        return elt
 
     async def _create_component(
         self, data: ModelDictT[m.Component], processes_service, owner_id: UUID

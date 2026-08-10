@@ -14,6 +14,7 @@ import Browser.Events
 import Browser.Navigation as Nav
 import Csv.Encode as EncodeCsv exposing (Csv)
 import Data.Component as Component exposing (Component)
+import Data.Component.ProductCategory as ProductCategory exposing (ProductCategory)
 import Data.Country as Country exposing (Country)
 import Data.Country.Code as CountryCode
 import Data.Dataset as Dataset exposing (Dataset)
@@ -47,6 +48,7 @@ import Page.Explore.FoodIngredients as FoodIngredients
 import Page.Explore.Impacts as ExploreImpacts
 import Page.Explore.ObjectExamples as ObjectExamples
 import Page.Explore.Processes as Processes
+import Page.Explore.ProductCategories as ProductCategories
 import Page.Explore.Table as Table
 import Page.Explore.TextileExamples as TextileExamples
 import Page.Explore.TextileMaterials as TextileMaterials
@@ -105,6 +107,9 @@ init scope dataset session =
                 Dataset.Processes _ _ ->
                     "Nom"
 
+                Dataset.ProductCategory _ _ ->
+                    "Catégorie de produit"
+
                 Dataset.TextileExamples _ ->
                     "Coût Environnemental"
 
@@ -153,6 +158,9 @@ update session msg model =
 
                         Dataset.Impacts _ ->
                             Dataset.Impacts Nothing
+
+                        Dataset.ProductCategory _ _ ->
+                            Dataset.ProductCategory scope Nothing
 
                         _ ->
                             case scope of
@@ -299,7 +307,11 @@ countriesExplorer :
 countriesExplorer { distances, countries } tableConfig tableState scope maybeCode =
     [ countries
         |> List.filter (.scopes >> List.member scope)
-        |> Table.viewList (.code >> CountryCode.toString >> OpenDetail) tableConfig tableState scope (ExploreCountries.table distances countries)
+        |> Table.viewList (.code >> CountryCode.toString >> OpenDetail)
+            tableConfig
+            tableState
+            scope
+            (ExploreCountries.table distances countries)
     , case maybeCode of
         Just code ->
             detailsModal
@@ -327,7 +339,11 @@ impactsExplorer :
 impactsExplorer definitions tableConfig tableState scope maybeTrigram =
     [ Definition.toList definitions
         |> List.sortBy (.trigram >> Definition.toString)
-        |> Table.viewList (.trigram >> Definition.toString >> OpenDetail) tableConfig tableState scope ExploreImpacts.table
+        |> Table.viewList (.trigram >> Definition.toString >> OpenDetail)
+            tableConfig
+            tableState
+            scope
+            ExploreImpacts.table
     , maybeTrigram
         |> Maybe.map (\trigram -> Definition.get trigram definitions)
         |> Maybe.map (Table.viewDetails scope ExploreImpacts.table)
@@ -372,7 +388,11 @@ foodExamplesExplorer db tableConfig tableState maybeId =
     [ scoredExamples
         |> List.filter (Tuple.first >> .query >> (/=) FoodQuery.empty)
         |> List.sortBy (Tuple.first >> .name)
-        |> Table.viewList (Tuple.first >> .id >> Data.Uuid.toString >> OpenDetail) tableConfig tableState Scope.Food (FoodExamples.table max)
+        |> Table.viewList (Tuple.first >> .id >> Data.Uuid.toString >> OpenDetail)
+            tableConfig
+            tableState
+            Scope.Food
+            (FoodExamples.table max)
     , case maybeId of
         Just id ->
             detailsModal
@@ -404,7 +424,11 @@ foodIngredientsExplorer :
 foodIngredientsExplorer { food } tableConfig tableState maybeId =
     [ food.ingredients
         |> List.sortBy .name
-        |> Table.viewList (.id >> Ingredient.idToString >> OpenDetail) tableConfig tableState Scope.Food FoodIngredients.table
+        |> Table.viewList (.id >> Ingredient.idToString >> OpenDetail)
+            tableConfig
+            tableState
+            Scope.Food
+            FoodIngredients.table
     , case maybeId of
         Just id ->
             detailsModal
@@ -441,7 +465,11 @@ processesExplorer session scope tableConfig tableState maybeId =
     in
     [ scopedProcesses
         |> List.sortBy Process.getDisplayName
-        |> Table.viewList (.id >> Process.idToString >> OpenDetail) tableConfig tableState scope (Processes.table session)
+        |> Table.viewList (.id >> Process.idToString >> OpenDetail)
+            tableConfig
+            tableState
+            scope
+            (Processes.table session)
     , case maybeId of
         Just id ->
             detailsModal
@@ -523,7 +551,11 @@ objectExamplesExplorer session tableConfig tableState scope maybeId =
     [ scoredExamples
         |> List.filter (Tuple.first >> .query >> (/=) Component.emptyQuery)
         |> List.sortBy (Tuple.first >> .name)
-        |> Table.viewList (Tuple.first >> .id >> Data.Uuid.toString >> OpenDetail) tableConfig tableState scope (ObjectExamples.table max)
+        |> Table.viewList (Tuple.first >> .id >> Data.Uuid.toString >> OpenDetail)
+            tableConfig
+            tableState
+            scope
+            (ObjectExamples.table max)
     , case maybeId of
         Just id ->
             detailsModal
@@ -576,7 +608,11 @@ textileExamplesExplorer session tableConfig tableState maybeId =
     in
     [ scoredExamples
         |> List.sortBy (Tuple.first >> .name)
-        |> Table.viewList (Tuple.first >> .id >> Data.Uuid.toString >> OpenDetail) tableConfig tableState Scope.Textile (TextileExamples.table session max)
+        |> Table.viewList (Tuple.first >> .id >> Data.Uuid.toString >> OpenDetail)
+            tableConfig
+            tableState
+            Scope.Textile
+            (TextileExamples.table session max)
     , case maybeId of
         Just id ->
             detailsModal
@@ -607,7 +643,11 @@ textileProductsExplorer :
     -> List (Html Msg)
 textileProductsExplorer session tableConfig tableState maybeId =
     [ session.db.textile.products
-        |> Table.viewList (.id >> Product.idToString >> OpenDetail) tableConfig tableState Scope.Textile (TextileProducts.table session)
+        |> Table.viewList (.id >> Product.idToString >> OpenDetail)
+            tableConfig
+            tableState
+            Scope.Textile
+            (TextileProducts.table session)
     , case maybeId of
         Just id ->
             detailsModal
@@ -617,6 +657,37 @@ textileProductsExplorer session tableConfig tableState maybeId =
 
                     Ok product ->
                         Table.viewDetails Scope.Textile (TextileProducts.table session) product
+                )
+
+        Nothing ->
+            text ""
+    ]
+
+
+productCategoriesExplorer :
+    Session
+    -> Scope
+    -> Table.Config ProductCategory Msg
+    -> SortableTable.State
+    -> Maybe ProductCategory.Id
+    -> List (Html Msg)
+productCategoriesExplorer session scope tableConfig tableState maybeId =
+    [ session.db.products
+        |> ProductCategory.findByScope scope
+        |> Table.viewList (.id >> ProductCategory.idToString >> OpenDetail)
+            tableConfig
+            tableState
+            scope
+            (ProductCategories.table session)
+    , case maybeId of
+        Just id ->
+            detailsModal
+                (case ProductCategory.findById id session.db.products of
+                    Err error ->
+                        alert error
+
+                    Ok product ->
+                        Table.viewDetails scope (ProductCategories.table session) product
                 )
 
         Nothing ->
@@ -751,6 +822,9 @@ exploreView ({ db } as session) { facetValues, scope, dataset, tableState, searc
 
         Dataset.Processes scope_ maybeId ->
             processesExplorer session scope_ tableConfig tableState maybeId
+
+        Dataset.ProductCategory scope_ maybeId ->
+            productCategoriesExplorer session scope_ tableConfig tableState maybeId
 
         Dataset.TextileExamples maybeId ->
             textileExamplesExplorer session tableConfig tableState maybeId

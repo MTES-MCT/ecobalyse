@@ -5,7 +5,7 @@ from uuid import UUID
 from advanced_alchemy.filters import OrderBy
 from litestar import get
 from litestar.controller import Controller
-from litestar.di import Provide
+from litestar.di import NamedDependency, Provide
 from litestar.params import Parameter
 
 from app.db import models as m
@@ -41,8 +41,8 @@ class ProcessController(Controller):
     @get(operation_id="ListProcesses", path=urls.PROCESS_LIST)
     async def list_processes(
         self,
-        current_user: m.User | None,
-        processes_service: ProcessService,
+        current_user: NamedDependency[m.User | None],
+        processes_service: NamedDependency[ProcessService],
     ) -> list[Process]:
         """List processes."""
 
@@ -63,8 +63,8 @@ class ProcessController(Controller):
     @get(operation_id="GetProcess", path=urls.PROCESS_DETAIL)
     async def get_process(
         self,
-        current_user: m.User | None,
-        processes_service: ProcessService,
+        current_user: NamedDependency[m.User | None],
+        processes_service: NamedDependency[ProcessService],
         process_id: UUID = Parameter(
             title="Process ID", description="The process to retrieve."
         ),

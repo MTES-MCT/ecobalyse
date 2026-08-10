@@ -3,6 +3,7 @@ module Views.Component exposing
     , Context(..)
     , editorView
     , elementEditModalView
+    , productCategorySelectorView
     , scopeLabels
     )
 
@@ -30,6 +31,7 @@ import Data.Component as Component
         )
 import Data.Component.Amount as Amount exposing (Amount)
 import Data.Component.Config as Config
+import Data.Component.ProductCategory as ProductCategory exposing (ProductCategory)
 import Data.Country as Country exposing (Country)
 import Data.Country.Code as CountryCode
 import Data.Impact as Impact exposing (Impacts)
@@ -1592,16 +1594,18 @@ distributionView ({ componentConfig, db, impact, query, scope, updateDistributio
                     Nothing
 
                 distributionProcesses ->
+                    let
+                        distribution =
+                            query
+                                |> Component.getDistributionProcessId
+                                    { config = componentConfig, db = db, scope = scope }
+                    in
                     distributionProcesses
                         |> List.map
                             (\process ->
                                 option
                                     [ value (Process.idToString process.id)
-                                    , selected <|
-                                        List.member (Just process.id)
-                                            [ componentConfig.distribution.defaultProcess |> Scope.dictGetMaybe scope |> Maybe.map .id
-                                            , query.distribution
-                                            ]
+                                    , selected (distribution == Just process.id)
                                     ]
                                     [ text (Process.getDisplayName process) ]
                             )
@@ -1838,3 +1842,57 @@ endOfLifeMaterialRow ({ componentConfig, query, scope } as config) ( materialTyp
             ]
         ]
     ]
+
+
+type alias ProductCategorySelector msg =
+    { onSelect : Maybe ProductCategory.Id -> msg
+    , products : List ProductCategory
+    , query : Query
+    , scope : Scope
+    }
+
+
+productCategorySelectorView : ProductCategorySelector msg -> Html msg
+productCategorySelectorView { onSelect, products, query, scope } =
+    let
+        scopedProducts =
+            products
+                |> ProductCategory.findByScope scope
+                |> List.sortBy .label
+    in
+    if List.isEmpty scopedProducts || query == Component.emptyQuery then
+        text ""
+
+    else
+        div [ class "d-flex flex-row align-items-center gap-2 my-3" ]
+            [ label
+                [ Attr.for "product-category"
+                , class "form-label fw-bold text-nowrap"
+                ]
+                [ text "Catégorie de produit" ]
+            , select
+                [ Attr.id "product-category"
+                , class "form-select"
+                , onInput <|
+                    \str ->
+                        if String.isEmpty str then
+                            onSelect Nothing
+
+                        else
+                            ProductCategory.idFromString str
+                                |> Result.map (Just >> onSelect)
+                                |> Result.withDefault (onSelect Nothing)
+                ]
+                (option [ value "", selected (query.product == Nothing) ]
+                    [ text "Autres" ]
+                    :: List.map
+                        (\product ->
+                            option
+                                [ value (ProductCategory.idToString product.id)
+                                , selected (query.product == Just product.id)
+                                ]
+                                [ text product.label ]
+                        )
+                        scopedProducts
+                )
+            ]

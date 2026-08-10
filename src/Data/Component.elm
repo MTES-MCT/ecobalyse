@@ -78,6 +78,7 @@ module Data.Component exposing
     , findById
     , getAvailableDistributionProcesses
     , getConsumptionProcessId
+    , getDistributionProcessId
     , getDocLink
     , getEndOfLifeDetailedImpacts
     , getEndOfLifeScopeCollectionRate
@@ -128,6 +129,7 @@ module Data.Component exposing
     , updateItem
     , updateItemCustomName
     , updatePackagingAmount
+    , updateProduct
     , updateRecyclable
     , useProcessAmount
     , validateItem
@@ -140,6 +142,7 @@ import Data.Common.EncodeUtils as EU
 import Data.Complement as Complement exposing (ComplementsImpacts, ComplementsResultsImpacts)
 import Data.Component.Amount as Amount exposing (Amount)
 import Data.Component.Config as Config exposing (EndOfLifeStrategies, EndOfLifeStrategy)
+import Data.Component.ProductCategory as ProductCategory exposing (ProductCategory)
 import Data.Country as Country exposing (Country)
 import Data.Country.Code as CountryCode
 import Data.Impact as Impact exposing (Impacts)
@@ -206,6 +209,7 @@ type alias Query =
     , durability : Maybe Unit.Ratio
     , items : List Item
     , packagings : List Packaging
+    , product : Maybe ProductCategory.Id
     , recyclable : Bool
     , transportOptions : TransportOptions
     }
@@ -265,6 +269,7 @@ type alias DataContainer db =
         , countries : List Country
         , distances : Transport.Distances
         , processes : List Process
+        , products : List ProductCategory
     }
 
 
@@ -797,7 +802,7 @@ computeDistributionImpacts ({ config } as requirements) query ({ distribution, p
         finalProductVolume =
             computeVolumeFromMass productMass
     in
-    case getDistributionProcess requirements query.distribution of
+    case getDistributionProcess requirements query of
         Err (DistributionGenericError errorMessage) ->
             Err errorMessage
 
@@ -1396,6 +1401,7 @@ decodeQuery =
                     |> DU.strictOptional "durability" Unit.decodeRatio
                     |> Decode.required "components" (Decode.list decodeItem)
                     |> Decode.optional "packagings" (Decode.list decodePackaging) []
+                    |> DU.strictOptional "product" ProductCategory.decodeId
                     |> Decode.optional "recyclable" Decode.bool True
                     |> Decode.optional "transportOptions" decodeTransportOptions defaultTransportOptions
             )
@@ -1508,6 +1514,7 @@ emptyQuery =
     , durability = Nothing
     , items = []
     , packagings = []
+    , product = Nothing
     , recyclable = True
     , transportOptions = defaultTransportOptions
     }
@@ -1686,6 +1693,7 @@ encodeQuery query =
             else
                 query.packagings |> Encode.list encodePackaging |> Just
           )
+        , ( "product", query.product |> Maybe.map ProductCategory.encodeId )
         , ( "recyclable", query.recyclable |> Encode.bool |> Just )
         , ( "transportOptions", encodeTransportOptions query.transportOptions )
         ]
@@ -1971,6 +1979,39 @@ getConsumptionProcessId (Consumption { processId }) =
     processId
 
 
+{-| Get the distribution process:
+
+  - from the query itself when set
+  - or the one from the product category if not set
+  - or the default one for the scope if product category is not set
+
+-}
+getDistributionProcessId : Requirements db -> Query -> Maybe Process.Id
+getDistributionProcessId { config, db, scope } query =
+    case query.distribution of
+        Just processId ->
+            Just processId
+
+        Nothing ->
+            case
+                query.product
+                    |> Maybe.andThen
+                        (\productId ->
+                            db.products
+                                |> ProductCategory.findById productId
+                                |> Result.toMaybe
+                                |> Maybe.andThen .distribution
+                        )
+            of
+                Just processId ->
+                    Just processId
+
+                Nothing ->
+                    config.distribution.defaultProcess
+                        |> Scope.dictGetMaybe scope
+                        |> Maybe.map .id
+
+
 {-| Retrieve a documentation link from config, if defined
 Note: proxified from Config for convenience
 -}
@@ -1979,22 +2020,20 @@ getDocLink =
     Config.getDocLink
 
 
-{-| Retrieves a distribution process for a given scope from a provided distribution id, or a default
-process from config if available.
+{-| Retrieves a distribution process for a query, using an explicit distribution id
+when provided, falling back to the selected product category default, then to the
+scoped default from config.
 -}
-getDistributionProcess : Requirements db -> Maybe Process.Id -> Result DistributionProcessError Process
-getDistributionProcess { config, db, scope } maybeDistribution =
-    case maybeDistribution of
+getDistributionProcess : Requirements db -> Query -> Result DistributionProcessError Process
+getDistributionProcess ({ db, scope } as requirements) query =
+    case getDistributionProcessId requirements query of
         Just processId ->
             getAvailableDistributionProcesses db scope
                 |> Process.findById processId
                 |> Result.mapError DistributionGenericError
 
-        -- No distribution process specified, use the default scoped process if available
         Nothing ->
-            config.distribution.defaultProcess
-                |> Scope.dictGetMaybe scope
-                |> Result.fromMaybe DistributionNothingAvailable
+            Err DistributionNothingAvailable
 
 
 {-| Get an element's results at a given location in the results tree.
@@ -2691,6 +2730,24 @@ updateDistribution maybeProcessId query =
     { query | distribution = maybeProcessId }
 
 
+{-| Update the product in the query, resetting product-dependent fields along the way
+-}
+updateProduct : Maybe ProductCategory -> Query -> Query
+updateProduct maybeProduct query =
+    case maybeProduct of
+        Just product ->
+            if query.product == Just product.id then
+                query
+
+            else
+                { query | distribution = Nothing, product = Just product.id }
+                    |> setTransportCooling product.cooling
+
+        Nothing ->
+            { query | distribution = Nothing, product = Nothing }
+                |> setTransportCooling defaultTransportOptions.cooling
+
+
 updateDurability : Unit.Ratio -> Query -> Query
 updateDurability durability query =
     { query
@@ -2948,13 +3005,38 @@ validateQuery ({ db } as requirements) query =
     Ok Query
         |> RE.andMap (validateAssembly requirements query.assembly)
         |> RE.andMap (query.consumptions |> RE.combineMap (validateConsumption requirements))
-        |> RE.andMap (validateDistribution requirements query.distribution)
+        |> RE.andMap (validateDistribution requirements (getDistributionProcessId requirements query))
         |> RE.andMap (validateDurability requirements query.durability)
         |> RE.andMap (query.items |> RE.combineMap (validateItem db.components))
         |> RE.andMap (query.packagings |> RE.combineMap (validatePackaging requirements))
+        |> RE.andMap (validateProduct requirements query.product)
         |> RE.andMap (Ok query.recyclable)
         |> RE.andMap (Ok query.transportOptions)
         |> Result.mapError (\s -> "Requête invalide\u{202F}: " ++ s)
+
+
+validateProduct : Requirements db -> Maybe ProductCategory.Id -> Result String (Maybe ProductCategory.Id)
+validateProduct requirements maybeProductId =
+    case maybeProductId of
+        Just productId ->
+            requirements.db.products
+                |> ProductCategory.findById productId
+                |> Result.andThen
+                    (\product ->
+                        if product.scope == requirements.scope then
+                            Ok productId
+
+                        else
+                            Err <|
+                                "La catégorie de produit "
+                                    ++ product.label
+                                    ++ " n’est pas disponible pour le périmètre "
+                                    ++ Scope.toLabel requirements.scope
+                    )
+                |> Result.map Just
+
+        Nothing ->
+            Ok Nothing
 
 
 validateTransformProcessesUnit : Process.Unit -> List ExpandedLocalizedProcess -> Result String (List ExpandedLocalizedProcess)

@@ -131,11 +131,6 @@ decodeDocLinksConfig =
         |> Decode.required "scoped" (Scope.decodeDict (Decode.dict Decode.string))
 
 
-decodeScopedMaybeProcess : List Process -> Decoder (Scope.Dict (Maybe Process))
-decodeScopedMaybeProcess processes =
-    Scope.decodeDict (Decode.maybe (Process.decodeFromId processes))
-
-
 decodeDurabilityConfig : Decoder DurabilityConfig
 decodeDurabilityConfig =
     Decode.succeed DurabilityConfig
@@ -198,6 +193,11 @@ decodeProductionConfig processes =
     Decode.succeed ProductionConfig
         |> Decode.requiredAt [ "defaultProcesses", "elec" ] (Process.decodeFromId processes)
         |> Decode.requiredAt [ "defaultProcesses", "heat" ] (Process.decodeFromId processes)
+
+
+decodeScopedMaybeProcess : List Process -> Decoder (Scope.Dict (Maybe Process))
+decodeScopedMaybeProcess processes =
+    Scope.decodeDict (Decode.maybe (Process.decodeFromId processes))
 
 
 decodeTransportConfig : List Process -> Decoder TransportConfig

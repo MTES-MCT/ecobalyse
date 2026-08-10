@@ -74,3 +74,6 @@ class User(UUIDAuditBase):
         # An alternative would be to use the dateutil module.
         one_year_ago = now - datetime.timedelta(days=365)
         return any(t.last_accessed_at > one_year_ago for t in self.tokens)
+
+    def __repr__(self) -> str:
+        return f"User(id={self.id!r}, profile={self.profile!r})"

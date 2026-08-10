@@ -11,6 +11,7 @@ import Data.Component as Component
         , emptyQuery
         )
 import Data.Component.Amount as Amount
+import Data.Component.ProductCategory as Product
 import Data.Country as Country
 import Data.Country.Code as CountryCode
 import Data.Db exposing (Db)
@@ -624,7 +625,7 @@ suite =
                                     )
                                 , it "should propagate the error for an unknown explicit distribution process"
                                     -- Non-existing distribution process id
-                                    (Process.idFromString "5fad4e70-5736-552d-a686-97e4fb627c37"
+                                    (Process.idFromString nonExistentUuid
                                         |> Result.map
                                             (\missingDistributionId ->
                                                 emptyQuery
@@ -800,7 +801,8 @@ suite =
                         (let
                             computePackagingEcsImpacts packagings =
                                 Component.emptyLifeCycle
-                                    |> Component.computePackagingImpacts requirements { emptyQuery | packagings = packagings }
+                                    |> Component.computePackagingImpacts requirements
+                                        (emptyQuery |> (\query -> { query | packagings = packagings }))
                                     |> Result.map (.packaging >> List.map getEcsImpact)
                          in
                          [ itFromResult "should compute no packaging impacts for a query without packagings"
@@ -824,7 +826,7 @@ suite =
                             )
                          , it "should propagate the error for an unknown packaging process"
                             -- unknown process id
-                            (Process.idFromString "5fad4e70-5736-552d-a686-97e4fb627c37"
+                            (Process.idFromString nonExistentUuid
                                 |> Result.andThen
                                     (\missingPackagingId ->
                                         computePackagingEcsImpacts [ Component.packaging (Amount.fromFloat 1) missingPackagingId ]
@@ -2043,7 +2045,7 @@ suite =
                         ]
                     , suiteFromResult4 "validateQuery"
                         -- Non-existing process
-                        (Process.idFromString "5fad4e70-5736-552d-a686-97e4fb627c37")
+                        (Process.idFromString nonExistentUuid)
                         -- Steel process
                         steel
                         -- Sawing process
@@ -2054,14 +2056,11 @@ suite =
                         (\nonExistingProcessId steelProcess sawingProcess dryDistributionProcess ->
                             [ describe "amount validation"
                                 [ it "should reject a non-positive amount" <|
-                                    (emptyQuery
-                                        |> (\query ->
-                                                { query
-                                                    | consumptions =
-                                                        [ Component.consumption (Amount.fromFloat -1) steelProcess.id
-                                                        ]
-                                                }
-                                           )
+                                    ({ emptyQuery
+                                        | consumptions =
+                                            [ Component.consumption (Amount.fromFloat -1) steelProcess.id
+                                            ]
+                                     }
                                         |> Component.validateQuery { requirements | scope = Scope.Generic Scope.Food2 }
                                         |> expectResultErrorContains "Une quantité doit être supérieure ou égale à zéro"
                                     )
@@ -2127,61 +2126,104 @@ suite =
                                 ]
                             , describe "process validation"
                                 [ it "should reject a consumption referencing a missing process" <|
-                                    (emptyQuery
-                                        |> (\query ->
-                                                { query
-                                                    | consumptions =
-                                                        [ Component.consumption (Amount.fromFloat 1) nonExistingProcessId
-                                                        ]
-                                                }
-                                           )
+                                    ({ emptyQuery
+                                        | consumptions =
+                                            [ Component.consumption (Amount.fromFloat 1) nonExistingProcessId
+                                            ]
+                                     }
                                         |> Component.validateQuery requirements
                                         |> expectResultErrorContains ("Aucun procédé scopé Objets avec cet id: " ++ Process.idToString nonExistingProcessId)
                                     )
                                 , it "should reject a consumption referencing a process with the wrong scope" <|
-                                    (emptyQuery
-                                        |> (\query ->
-                                                { query
-                                                    | consumptions =
-                                                        -- Note: the sawing process isn't scoped for Food2
-                                                        [ Component.consumption (Amount.fromFloat 1) sawingProcess.id
-                                                        ]
-                                                }
-                                           )
+                                    ({ emptyQuery
+                                        | consumptions =
+                                            -- Note: the sawing process isn't scoped for Food2
+                                            [ Component.consumption (Amount.fromFloat 1) sawingProcess.id
+                                            ]
+                                     }
                                         |> Component.validateQuery { requirements | scope = Scope.Generic Scope.Food2 }
                                         |> expectResultErrorContains ("Aucun procédé scopé Alimentaire BÉTA avec cet id: " ++ Process.idToString sawingProcess.id)
                                     )
                                 , it "should reject a packaging referencing a missing process" <|
-                                    (emptyQuery
-                                        |> (\query ->
-                                                { query
-                                                    | packagings =
-                                                        [ Component.packaging (Amount.fromFloat 1) nonExistingProcessId
-                                                        ]
-                                                }
-                                           )
+                                    ({ emptyQuery
+                                        | packagings =
+                                            [ Component.packaging (Amount.fromFloat 1) nonExistingProcessId
+                                            ]
+                                     }
                                         |> Component.validateQuery requirements
                                         |> expectResultErrorContains ("Aucun procédé scopé Objets avec cet id: " ++ Process.idToString nonExistingProcessId)
                                     )
                                 , it "should reject a packaging referencing a process with the wrong scope" <|
-                                    (emptyQuery
-                                        |> (\query ->
-                                                { query
-                                                    | packagings =
-                                                        -- Note: the sawing process isn't scoped for Food2
-                                                        [ Component.packaging (Amount.fromFloat 1) sawingProcess.id
-                                                        ]
-                                                }
-                                           )
+                                    ({ emptyQuery
+                                        | packagings =
+                                            -- Note: the sawing process isn't scoped for Food2
+                                            [ Component.packaging (Amount.fromFloat 1) sawingProcess.id
+                                            ]
+                                     }
                                         |> Component.validateQuery { requirements | scope = Scope.Generic Scope.Food2 }
                                         |> expectResultErrorContains ("Aucun procédé scopé Alimentaire BÉTA avec cet id: " ++ Process.idToString sawingProcess.id)
                                     )
                                 ]
                             ]
                         )
+                    , describe "optional product category"
+                        [ it "should decode a query with no product field defined" <|
+                            ("""{"components":[]}"""
+                                |> decodeJson Component.decodeQuery
+                                |> Result.map .product
+                                |> Expect.equal (Ok Nothing)
+                            )
+                        , itFromResult "should clear product, distribution, and category cooling when unset"
+                            (requirements.db.products |> List.head |> Result.fromMaybe "no product categories in test db")
+                            (\categoryProduct ->
+                                emptyQuery
+                                    |> Component.updateProduct (Just categoryProduct)
+                                    |> Component.updateProduct Nothing
+                                    |> Expect.all
+                                        [ .product >> Expect.equal Nothing
+                                        , .distribution >> Expect.equal Nothing
+                                        , .transportOptions >> .cooling >> Expect.equal defaultTransportOptions.cooling
+                                        ]
+                            )
+                        , it "should reject a query carrying an unknown product id" <|
+                            (Product.idFromString nonExistentUuid
+                                |> Result.andThen
+                                    (\id ->
+                                        { emptyQuery | product = Just id }
+                                            |> Component.validateQuery requirements
+                                    )
+                                |> expectResultErrorContains "Catégorie de produit introuvable"
+                            )
+                        , it "should reject a query with an invalid product uuid" <|
+                            ("""{"components":[],"product":"not-a-uuid"}"""
+                                |> decodeJson Component.decodeQuery
+                                |> Expect.err
+                            )
+                        , it "should fall back to the scoped default distribution process when product is unset" <|
+                            (emptyQuery
+                                |> Component.getDistributionProcessId { requirements | scope = Scope.Generic Scope.Food2 }
+                                |> Expect.equal
+                                    (requirements.config.distribution.defaultProcess
+                                        |> Scope.dictGetMaybe (Scope.Generic Scope.Food2)
+                                        |> Maybe.map .id
+                                    )
+                            )
+                        , it "should not fall back to a scoped default distribution process from another scope" <|
+                            (emptyQuery
+                                |> Component.getDistributionProcessId requirements
+                                |> Expect.equal Nothing
+                            )
+                        ]
                     ]
                 )
             ]
+
+
+{-| A test uuid we're pretty sure that doesn't exist in our datasets
+-}
+nonExistentUuid : String
+nonExistentUuid =
+    "5fad4e70-5736-552d-a686-97e4fb627c37"
 
 
 computeAssemblyEcsImpact : Requirements db -> String -> Result String Float

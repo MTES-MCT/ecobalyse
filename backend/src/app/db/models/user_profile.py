@@ -53,3 +53,6 @@ class UserProfile(UUIDAuditBase):
     def organization_info(self) -> str:
         org_name = self.organization_name.strip()
         return org_name if org_name else "Non renseignée"
+
+    def __repr__(self) -> str:
+        return f"UserProfile(id={self.id!r}, first_name={self.first_name!r}, last_name={self.last_name!r}, user_email={self.last_name!r})"
