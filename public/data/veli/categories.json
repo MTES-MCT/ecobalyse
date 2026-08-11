@@ -25,6 +25,12 @@
   },
   {
     "cooling": false,
+    "id": "9aa6dc3a-5b0a-4721-8825-2dadab8706ab",
+    "label": "Quadricycles légers (L6e)",
+    "scope": "veli"
+  },
+  {
+    "cooling": false,
     "id": "bacd59a6-fdfe-4480-a6df-69f14b323857",
     "label": "Quadricycles lourd (L7e)",
     "scope": "veli"
