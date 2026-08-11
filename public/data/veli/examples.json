@@ -1,6 +1,6 @@
 [
   {
-    "category": "Veli",
+    "category": "7109cf4a-a81c-4b7b-a6fb-1e0ffdc20af1",
     "id": "1d70182c-53aa-4358-bc2c-9cd754be1ec4",
     "name": "Veli actif, 25km/h max, 2.5kWh/100km, assemblage France",
     "query": {
@@ -255,7 +255,7 @@
     "scope": "veli"
   },
   {
-    "category": "Veli",
+    "category": "7109cf4a-a81c-4b7b-a6fb-1e0ffdc20af1",
     "id": "1fd65352-4574-4800-853c-5623dd9eb40c",
     "name": "Veli actif, 25km/h max, 2.5kWh/100km, fabrication France",
     "query": {
@@ -505,7 +505,7 @@
     "scope": "veli"
   },
   {
-    "category": "Veli",
+    "category": "bacd59a6-fdfe-4480-a6df-69f14b323857",
     "id": "351a0340-2be5-49e1-a7e2-4d843e860fc5",
     "name": "Veli, 90km/h max, 6kWh/100km, assemblage France",
     "query": {
@@ -675,7 +675,7 @@
     "scope": "veli"
   },
   {
-    "category": "Vélo",
+    "category": "b87cbaf5-4ad5-4bc6-84b6-b63c934e1d60",
     "id": "3d248bde-1c32-4a63-9dfe-8fb38acd7317",
     "name": "Vélo à assistance électrique, assemblage France",
     "query": {
@@ -754,7 +754,7 @@
     "scope": "veli"
   },
   {
-    "category": "Voiture",
+    "category": "2f7f24c7-bd0f-4e68-97b7-4a5a97d5a197",
     "id": "4582eb3a-e6fd-40e2-9c0c-fd65ac222ea8",
     "name": "Voiture électrique CatB, 15kWh/100km, fabrication Europe de l'Ouest",
     "query": {
@@ -1039,7 +1039,7 @@
     "scope": "veli"
   },
   {
-    "category": "Vélo",
+    "category": "b87cbaf5-4ad5-4bc6-84b6-b63c934e1d60",
     "id": "45c8f837-45ea-48d8-9de7-e9e58ea81acd",
     "name": "Vélo à assistance électrique, fabrication France",
     "query": {
@@ -1193,7 +1193,7 @@
     "scope": "veli"
   },
   {
-    "category": "Veli",
+    "category": "bacd59a6-fdfe-4480-a6df-69f14b323857",
     "id": "48545a07-026b-46ca-8440-4bfaa036cce6",
     "name": "Veli, 90km/h max, 6kWh/100km, fabrication France",
     "query": {
@@ -1420,7 +1420,7 @@
     "scope": "veli"
   },
   {
-    "category": "Voiture",
+    "category": "2f7f24c7-bd0f-4e68-97b7-4a5a97d5a197",
     "id": "49d12b6d-4c9f-4820-8d9e-18d94189d806",
     "name": "Voiture électrique CatB, proxi méthode score environnemental, fabrication France",
     "query": {
@@ -1496,7 +1496,7 @@
     "scope": "veli"
   },
   {
-    "category": "Veli",
+    "category": "7109cf4a-a81c-4b7b-a6fb-1e0ffdc20af1",
     "id": "4da7b5bc-ec65-4b58-99b4-48d87cf8fcb0",
     "name": "Veli actif, 25km/h max, 2.5kWh/100km, Asie",
     "query": {
@@ -1754,7 +1754,7 @@
     "scope": "veli"
   },
   {
-    "category": "Vélo",
+    "category": "b87cbaf5-4ad5-4bc6-84b6-b63c934e1d60",
     "id": "611c25c4-46a8-4f07-acff-b0ce9c99b86c",
     "name": "Vélo de ville, cadre aluminium, majorant par défaut",
     "query": {
@@ -1803,7 +1803,7 @@
     "scope": "veli"
   },
   {
-    "category": "Veli",
+    "category": "9aa6dc3a-5b0a-4721-8825-2dadab8706ab",
     "id": "78517d8b-65cb-4205-accc-3bbab581176d",
     "name": "Veli, 45km/h max, 5kWh/100km, fabrication France",
     "query": {
@@ -2025,7 +2025,7 @@
     "scope": "veli"
   },
   {
-    "category": "Veli",
+    "category": "ed3b8835-7d3d-422a-a7af-4478a2938766",
     "id": "8d5768cb-dd06-4dbf-a6d8-62c1429beaf7",
     "name": "Veli actif, 45km/h max, 4kWh/100km, Asie",
     "query": {
@@ -2301,7 +2301,7 @@
     "scope": "veli"
   },
   {
-    "category": "Veli",
+    "category": "bacd59a6-fdfe-4480-a6df-69f14b323857",
     "id": "a6a45e4e-c92c-4382-98b4-76ae7f95d1c5",
     "name": "Veli, 90km/h max, 6kWh/100km, Asie",
     "query": {
@@ -2471,7 +2471,7 @@
     "scope": "veli"
   },
   {
-    "category": "Voiture",
+    "category": "6ca5d5a2-fa5d-46b5-b520-179df78046e9",
     "id": "a6fb87c9-13fa-44d9-a679-d808a70e5546",
     "name": "Voiture essence CatB, 5.5L/100km, fabrication Europe de l'Ouest",
     "query": {
@@ -2805,7 +2805,7 @@
     "scope": "veli"
   },
   {
-    "category": "Voiture",
+    "category": "ee81b5d9-c6e7-45e2-ba1c-1f8cb072a224",
     "id": "b13801be-ca81-477c-9fc7-35f906bf7f2e",
     "name": "Utilitaire léger diesel, 5.5L/100km, fabrication Europe de l'Ouest",
     "query": {
@@ -3140,7 +3140,7 @@
     "scope": "veli"
   },
   {
-    "category": "Vélo",
+    "category": "b87cbaf5-4ad5-4bc6-84b6-b63c934e1d60",
     "id": "b616ba6d-26bf-4624-8835-f70f35cdbd17",
     "name": "Vélo de ville, cadre aluminium, assemblage France",
     "query": {
@@ -3198,7 +3198,7 @@
     "scope": "veli"
   },
   {
-    "category": "Veli",
+    "category": "9aa6dc3a-5b0a-4721-8825-2dadab8706ab",
     "id": "b6791d66-3c1c-4214-9637-aa576cb1ee63",
     "name": "Veli, 45km/h max, 5kWh/100km, Asie",
     "query": {
@@ -3368,7 +3368,7 @@
     "scope": "veli"
   },
   {
-    "category": "Véli",
+    "category": "ed3b8835-7d3d-422a-a7af-4478a2938766",
     "id": "cbbcf0f6-6855-4655-a164-102672d1ef89",
     "name": "Veli actif, 45km/h max, 4kWh/100km, assemblage France",
     "query": {
@@ -3644,7 +3644,7 @@
     "scope": "veli"
   },
   {
-    "category": "Vélo",
+    "category": "b87cbaf5-4ad5-4bc6-84b6-b63c934e1d60",
     "id": "cefc2585-7125-4610-aadc-69970a3d67d1",
     "name": "Vélo à assistance électrique, majorant par défaut",
     "query": {
@@ -3708,7 +3708,7 @@
     "scope": "veli"
   },
   {
-    "category": "Veli",
+    "category": "7109cf4a-a81c-4b7b-a6fb-1e0ffdc20af1",
     "id": "cf636ce9-e95b-4e25-9a22-625986f85ef0",
     "name": "Minibus quadricycle à assistance électrique, 4kWh/100km, France",
     "query": {
@@ -3822,7 +3822,7 @@
     "scope": "veli"
   },
   {
-    "category": "Veli",
+    "category": "ed3b8835-7d3d-422a-a7af-4478a2938766",
     "id": "d60f8f78-fdd0-49b2-ba61-9dfbd7297b96",
     "name": "Veli actif, 45km/h max, 4kWh/100km, fabrication France",
     "query": {
@@ -4182,7 +4182,7 @@
     "scope": "veli"
   },
   {
-    "category": "Vélo",
+    "category": "b87cbaf5-4ad5-4bc6-84b6-b63c934e1d60",
     "id": "e5fc4df5-e0be-49a0-a661-10f6e15773f1",
     "name": "Vélo de ville, cadre aluminium, fabrication France",
     "query": {
@@ -4296,7 +4296,7 @@
     "scope": "veli"
   },
   {
-    "category": "Veli",
+    "category": "9aa6dc3a-5b0a-4721-8825-2dadab8706ab",
     "id": "f526e36b-a4ae-41e8-be0a-f7db24f4a774",
     "name": "Veli, 45km/h max, 5kWh/100km, assemblage France",
     "query": {
