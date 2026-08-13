@@ -1,1 +1,56 @@
-[]
+[
+  {
+    "cooling": false,
+    "id": "b87cbaf5-4ad5-4bc6-84b6-b63c934e1d60",
+    "label": "Vélos et VAEs de moins de 100kg",
+    "scope": "veli"
+  },
+  {
+    "cooling": false,
+    "id": "7109cf4a-a81c-4b7b-a6fb-1e0ffdc20af1",
+    "label": "VAEs de 100kg et plus et vélos à moteur (L1e-A)",
+    "scope": "veli"
+  },
+  {
+    "cooling": false,
+    "id": "ed3b8835-7d3d-422a-a7af-4478a2938766",
+    "label": "Cyclomoteurs (L1e-B et L2e)",
+    "scope": "veli"
+  },
+  {
+    "cooling": false,
+    "id": "77fea635-0fca-423e-8097-05ea7c165d1b",
+    "label": "Motocycles (L3e, L4e, L5e)",
+    "scope": "veli"
+  },
+  {
+    "cooling": false,
+    "id": "9aa6dc3a-5b0a-4721-8825-2dadab8706ab",
+    "label": "Quadricycles légers (L6e)",
+    "scope": "veli"
+  },
+  {
+    "cooling": false,
+    "id": "bacd59a6-fdfe-4480-a6df-69f14b323857",
+    "label": "Quadricycles lourd (L7e)",
+    "scope": "veli"
+  },
+  {
+    "cooling": false,
+    "id": "2f7f24c7-bd0f-4e68-97b7-4a5a97d5a197",
+    "label": "Voitures électriques (M1)",
+    "scope": "veli"
+  },
+  {
+    "cooling": false,
+    "id": "6ca5d5a2-fa5d-46b5-b520-179df78046e9",
+    "label": "Voitures essence (M1)",
+    "scope": "veli"
+  },
+  {
+    "cooling": false,
+    "id": "ee81b5d9-c6e7-45e2-ba1c-1f8cb072a224",
+    "label": "Voitures diesel (M1)",
+    "scope": "veli"
+  }
+]
