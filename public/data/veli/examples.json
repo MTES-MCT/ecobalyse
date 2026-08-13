@@ -3640,7 +3640,7 @@
     "id": "cefc2585-7125-4610-aadc-69970a3d67d1",
     "name": "Vélo à assistance électrique, majorant par défaut",
     "query": {
-      "product": "3d248bde-1c32-4a63-9dfe-8fb38acd7317",
+      "product": "b87cbaf5-4ad5-4bc6-84b6-b63c934e1d60",
       "components": [
         {
           "id": "49a16258-22eb-4700-88c4-5e3d1af071e7",
@@ -4301,7 +4301,7 @@
     "scope": "veli"
   },
   {
-    "category": "Voiture",
+    "category": "Veli",
     "id": "f526e36b-a4ae-41e8-be0a-f7db24f4a774",
     "name": "Veli, 45km/h max, 5kWh/100km, assemblage France",
     "query": {
