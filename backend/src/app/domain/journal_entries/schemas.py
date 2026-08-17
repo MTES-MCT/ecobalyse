@@ -1,9 +1,9 @@
 from __future__ import annotations
 
 import json
-from datetime import datetime  # noqa: TC003
+from datetime import datetime
 from typing import Annotated
-from uuid import UUID  # noqa: TC003
+from uuid import UUID
 
 from app.config.base import UUIDEncoder
 from app.domain.accounts.schemas import User
