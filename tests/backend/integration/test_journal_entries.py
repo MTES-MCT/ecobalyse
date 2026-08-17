@@ -233,31 +233,30 @@ async def test_components_journal(
         assert json_response[0]["action"] == m.JournalAction.DELETED
         assert json_response[1]["action"] == m.JournalAction.UPDATED
 
+        # The value should be returned as a string rather than an object
+        # so that the frontend doesn’t have to validate it.
         assert isinstance(json_response[1]["value"], str)
 
-        assert json_response[1]["value"] == json.dumps(
-            {
-                "id": "8ca2ca05-8aec-4121-acaa-7cdcc03150a9",
-                "name": "Tissu pour joli canapé",
-                "scopes": ["food"],
-                "elements": [
-                    {
-                        "amount": 1,
-                        "material": "97c209ec-7782-5a29-8c47-af7f17c82d11",
-                        "transforms": [
-                            "af42fc20-e3ec-5b99-9b9c-83ba6735e597",
-                            "d25636af-ab36-4857-a6d0-c66d1e7a281b",
-                        ],
-                    },
-                    {
-                        "amount": 1,
-                        "material": "d25636af-ab36-4857-a6d0-c66d1e7a281b",
-                        "transforms": [
-                            "97c209ec-7782-5a29-8c47-af7f17c82d11",
-                            "af42fc20-e3ec-5b99-9b9c-83ba6735e597",
-                        ],
-                    },
-                ],
-            },
-            ensure_ascii=False,
-        )
+        assert json.loads(json_response[1]["value"]) == {
+            "id": "8ca2ca05-8aec-4121-acaa-7cdcc03150a9",
+            "name": "Tissu pour joli canapé",
+            "scopes": ["food"],
+            "elements": [
+                {
+                    "amount": 1,
+                    "material": "97c209ec-7782-5a29-8c47-af7f17c82d11",
+                    "transforms": [
+                        "af42fc20-e3ec-5b99-9b9c-83ba6735e597",
+                        "d25636af-ab36-4857-a6d0-c66d1e7a281b",
+                    ],
+                },
+                {
+                    "amount": 1,
+                    "material": "d25636af-ab36-4857-a6d0-c66d1e7a281b",
+                    "transforms": [
+                        "97c209ec-7782-5a29-8c47-af7f17c82d11",
+                        "af42fc20-e3ec-5b99-9b9c-83ba6735e597",
+                    ],
+                },
+            ],
+        }
