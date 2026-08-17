@@ -21,7 +21,7 @@ import pytest
 from bw2data import config as bwconfig
 from bw2data import projects
 
-from common import brightway_patch as brightway_patch
+from common import brightway_patch as brightway_patch  # noqa: PLC0414
 from config import DATA_ROOT_DIR, TESTS_FIXTURE_DIR, settings
 from ecobalyse_data.tests import restore_archived_project
 

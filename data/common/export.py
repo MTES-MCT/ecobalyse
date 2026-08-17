@@ -31,7 +31,9 @@ def show_change(old: str, new: str) -> str:
     return (old + "\n-> " + new) if old != new else "(unchanged) " + old
 
 
-def get_changes(old, new, name, only_impacts=[], min_change=0.1, with_names=False):
+def get_changes(old, new, name, only_impacts=None, min_change=0.1, with_names=False):
+    if only_impacts is None:
+        only_impacts = []
     changes = []
     for trigram in new["impacts"]:
         if only_impacts and trigram not in only_impacts:
@@ -99,12 +101,14 @@ def display_changes(
     key,
     oldprocesses,
     processes,
-    only_impacts=[],
+    only_impacts=None,
     min_change=0.1,
     with_names=False,
 ):
     """Display a nice sorted table of impact changes to review
     key is the field to display (id for food, uuid for textile)"""
+    if only_impacts is None:
+        only_impacts = []
     old = {str(p[key]): p for p in oldprocesses if key in p}
 
     if type(processes) is list:
@@ -119,7 +123,7 @@ def display_changes(
             continue
         impact_changes = get_changes(
             old=old[id_],
-            new=processes[id_],
+            new=p,
             name=p["displayName"],
             only_impacts=only_impacts,
             min_change=min_change,
@@ -197,23 +201,22 @@ def export_processes_to_dir(
         to_export = processes_ecs_impacts
 
     # If merge is true, we don't overwrite the existing file but merge the new processes with the existing ones
-    if merge and scopes:
-        if os.path.exists(processes_impacts_absolute_path):
-            logger.info(
-                f"-> Merging with existing processes file {processes_impacts_absolute_path}"
-            )
-            with open(processes_impacts_absolute_path, "r") as f:
-                existing_processes = json.load(f)
+    if merge and scopes and os.path.exists(processes_impacts_absolute_path):
+        logger.info(
+            f"-> Merging with existing processes file {processes_impacts_absolute_path}"
+        )
+        with open(processes_impacts_absolute_path, "r") as f:
+            existing_processes = json.load(f)
 
-            # delete all existing processes with a scope in scopes
-            existing_processes = [
-                p
-                for p in existing_processes
-                if not any(s.value in p["scopes"] for s in scopes)
-            ]
+        # delete all existing processes with a scope in scopes
+        existing_processes = [
+            p
+            for p in existing_processes
+            if not any(s.value in p["scopes"] for s in scopes)
+        ]
 
-            # add the new processes to the existing processes
-            to_export = existing_processes + to_export
+        # add the new processes to the existing processes
+        to_export = existing_processes + to_export
 
     # Sort processes
     to_export.sort(key=activities_processes_sort_key)

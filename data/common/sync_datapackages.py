@@ -2,7 +2,6 @@
 
 import bw2data
 
-from common import brightway_patch as brightway_patch
 from config import settings
 from ecobalyse_data.logging import logger
 

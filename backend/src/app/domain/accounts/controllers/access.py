@@ -4,9 +4,10 @@ from __future__ import annotations
 
 import datetime
 import uuid
-from typing import TYPE_CHECKING
+from typing import TYPE_CHECKING, Annotated, ClassVar
 from uuid import UUID
 
+import jwt
 from advanced_alchemy.filters import (
     OrderBy,
 )
@@ -48,8 +49,8 @@ settings = get_settings()
 class AccessController(Controller):
     """User login and registration."""
 
-    tags = ["Access"]
-    dependencies = {
+    tags: ClassVar[list[str]] = ["Access"]
+    dependencies: ClassVar[dict] = {
         "profiles_service": Provide(create_service_provider(UserProfileService)),
         "roles_service": Provide(create_service_provider(RoleService)),
         "tokens_service": Provide(create_service_provider(TokenService)),
@@ -220,7 +221,7 @@ class AccessController(Controller):
                     data.token, settings.app.SECRET_KEY, [auth.algorithm]
                 )
                 user_email: str = payload["sub"]
-            except Exception:
+            except jwt.DecodeError:
                 raise PermissionDeniedException(detail="Error decoding Token")
 
             user: m.User | None = await users_service.get_one_or_none(email=user_email)
@@ -230,7 +231,7 @@ class AccessController(Controller):
                 detail="You must accept the terms to have access to detailed impacts"
             )
 
-        now = datetime.datetime.now(datetime.timezone.utc)
+        now = datetime.datetime.now(datetime.UTC)
         user.last_login_at = now
         await users_service.repository.update(user)
 
@@ -283,9 +284,9 @@ class AccessController(Controller):
         self,
         current_user: NamedDependency[m.User],
         tokens_service: NamedDependency[TokenService],
-        token_id: UUID = Parameter(
-            title="Token ID", description="The token to delete."
-        ),
+        token_id: Annotated[
+            UUID, Parameter(title="Token ID", description="The token to delete.")
+        ],
     ) -> None:
         """Delete a token."""
 

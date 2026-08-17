@@ -1,11 +1,6 @@
 from __future__ import annotations
 
-from typing import TYPE_CHECKING
-
 from litestar import Litestar
-
-if TYPE_CHECKING:
-    from litestar import Litestar
 
 
 def create_app() -> Litestar:

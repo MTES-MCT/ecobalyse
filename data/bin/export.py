@@ -5,11 +5,10 @@ import logging
 import multiprocessing
 from enum import Enum
 from pathlib import Path
-from typing import List, Optional
+from typing import Annotated
 
 import typer
 from bw2data.project import projects
-from typing_extensions import Annotated
 
 from config import DATA_ROOT_DIR, settings
 from ecobalyse_data.export import export_generic
@@ -31,9 +30,9 @@ class MetadataScope(str, Enum):
 @app.command()
 def metadata(
     scopes: Annotated[
-        List[MetadataScope],
+        list[MetadataScope] | None,
         typer.Option(help="The scope to export. If not specified, exports all scopes."),
-    ] = [MetadataScope.textile, MetadataScope.food, MetadataScope.generic],
+    ] = None,
     verbose: bool = typer.Option(False, "--verbose", "-v"),
     cpu_count: Annotated[
         int,
@@ -46,6 +45,8 @@ def metadata(
     """
     Export metadata files (materials.json, ingredients.json, …)
     """
+    if scopes is None:
+        scopes = [MetadataScope.textile, MetadataScope.food, MetadataScope.generic]
     if verbose:
         logger.setLevel(logging.DEBUG)
 
@@ -138,7 +139,7 @@ def metadata(
 @app.command()
 def processes_legacy(
     scopes: Annotated[
-        Optional[List[Scope]],
+        list[Scope] | None,
         typer.Option(help="The scope to export. If not specified, exports all scopes."),
     ] = None,
     display_changes: Annotated[

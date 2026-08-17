@@ -1,9 +1,10 @@
 from __future__ import annotations
 
 import re
-from typing import TYPE_CHECKING
+from typing import TYPE_CHECKING, ClassVar
 from uuid import uuid4
 
+from advanced_alchemy.extensions.litestar import service
 from advanced_alchemy.repository import (
     SQLAlchemyAsyncRepository,
 )
@@ -29,6 +30,8 @@ def camel_to_snake(name):
 
 
 class ProcessService(SQLAlchemyAsyncRepositoryService[m.Process]):
+    match_fields: ClassVar[list[str]] = ["display_name"]
+
     """Handles database operations for processes."""
 
     class ProcessRepository(SQLAlchemyAsyncRepository[m.Process]):
@@ -62,8 +65,6 @@ class ProcessService(SQLAlchemyAsyncRepositoryService[m.Process]):
         data = schema_dump(data)
         return await self._populate_with_categories_and_impacts(data, "update")
 
-    match_fields = ["display_name"]
-
     @staticmethod
     def remove_detailed_impacts(impacts: Impacts) -> Impacts:
         impacts.acd = 0
@@ -89,9 +90,13 @@ class ProcessService(SQLAlchemyAsyncRepositoryService[m.Process]):
 
     async def _populate_with_categories_and_impacts(
         self,
-        data: ModelDictT[m.Team],
+        data: ModelDictT[m.Process],
         operation: str | None,
-    ) -> ModelDictT[m.Team]:
+    ) -> ModelDictT[m.Process]:
+
+        if not service.is_dict(data):
+            return data
+
         owner: m.User | None = data.pop("owner", None)
 
         renamed_process = {}

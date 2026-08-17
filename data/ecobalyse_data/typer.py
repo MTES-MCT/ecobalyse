@@ -1,5 +1,3 @@
-from typing import List
-
 import bw2data
 import typer
 
@@ -8,7 +6,7 @@ from common.impacts import impacts as impacts_py
 from common.impacts import main_method
 
 
-def bw_databases_validation(values: List[str] | None):
+def bw_databases_validation(values: list[str] | None):
     if values:
         available_bw_databases = ", ".join(bw2data.databases)
 
@@ -28,7 +26,7 @@ def bw_database_validation(value: str | None):
     return value
 
 
-def ecobalyse_impact_validation(values: List[str] | None):
+def ecobalyse_impact_validation(values: list[str] | None):
     if values:
         for value in values:
             if value not in IMPACTS_JSON:

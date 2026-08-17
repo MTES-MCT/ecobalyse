@@ -1,11 +1,13 @@
 from __future__ import annotations
 
 import base64
+import binascii
 import json
-from datetime import UTC, datetime, timedelta, timezone
-from typing import Any
-from uuid import UUID, uuid4  # noqa: TC003
+from datetime import UTC, datetime, timedelta
+from typing import Any, ClassVar
+from uuid import UUID, uuid4
 
+from advanced_alchemy.extensions.litestar import service
 from advanced_alchemy.repository import (
     SQLAlchemyAsyncRepository,
     SQLAlchemyAsyncSlugRepository,
@@ -36,7 +38,7 @@ class UserService(SQLAlchemyAsyncRepositoryService[m.User]):
 
     repository_type = UserRepository
     default_role = constants.DEFAULT_USER_ROLE
-    match_fields = ["email"]
+    match_fields: ClassVar[list[str]] = ["email"]
 
     async def to_model_on_create(self, data: ModelDictT[m.User]) -> ModelDictT[m.User]:
         return await self._populate_model(data, operation="create")
@@ -65,7 +67,7 @@ class UserService(SQLAlchemyAsyncRepositoryService[m.User]):
 
         db_obj.is_verified = True
 
-        now = datetime.now(timezone.utc)
+        now = datetime.now(UTC)
 
         if db_obj.magic_link_sent_at and (
             db_obj.magic_link_sent_at
@@ -172,6 +174,9 @@ class UserService(SQLAlchemyAsyncRepositoryService[m.User]):
         data: ModelDictT[m.User],
         operation: str | None,
     ) -> ModelDictT[m.User]:
+
+        if not service.is_dict(data):
+            return data
         first_name = data.pop("first_name", None) if is_dict(data) else None
         terms_accepted = data.pop("terms_accepted", None) if is_dict(data) else None
         last_name = data.pop("last_name", None) if is_dict(data) else None
@@ -188,33 +193,30 @@ class UserService(SQLAlchemyAsyncRepositoryService[m.User]):
                 m.UserRole(role_id=role_id, assigned_at=datetime.now(UTC))
             )
 
-        if operation == "create" or operation == "upsert":
-            if any(
-                [
-                    v is not None
-                    for v in [
-                        first_name,
-                        last_name,
-                        organization,
-                        terms_accepted,
-                    ]
-                ]
-            ):
-                data.profile = m.UserProfile(
-                    first_name=first_name,
-                    last_name=last_name,
-                    organization_name=organization.get("name")
-                    if is_dict(organization)
-                    else organization.name,
-                    organization_type=organization.get("type")
-                    if is_dict(organization)
-                    else organization.type,
-                    organization_siren=organization.get("siren")
-                    if is_dict(organization)
-                    else organization.siren,
-                    terms_accepted=terms_accepted,
-                    email_optin=email_optin,
-                )
+        if (operation == "create" or operation == "upsert") and any(
+            v is not None
+            for v in [
+                first_name,
+                last_name,
+                organization,
+                terms_accepted,
+            ]
+        ):
+            data.profile = m.UserProfile(
+                first_name=first_name,
+                last_name=last_name,
+                organization_name=organization.get("name")
+                if is_dict(organization)
+                else organization.name,
+                organization_type=organization.get("type")
+                if is_dict(organization)
+                else organization.type,
+                organization_siren=organization.get("siren")
+                if is_dict(organization)
+                else organization.siren,
+                terms_accepted=terms_accepted,
+                email_optin=email_optin,
+            )
         return data
 
 
@@ -227,7 +229,7 @@ class RoleService(SQLAlchemyAsyncRepositoryService[m.Role]):
         model_type = m.Role
 
     repository_type = Repository
-    match_fields = ["name"]
+    match_fields: ClassVar[list[str]] = ["name"]
 
     async def to_model_on_create(self, data: ModelDictT[m.Role]) -> ModelDictT[m.Role]:
         data = schema_dump(data)
@@ -303,7 +305,7 @@ class TokenService(SQLAlchemyAsyncRepositoryService[m.Token]):
             decoded_bytes = base64.urlsafe_b64decode(token.replace("eco_api_", ""))
             json_payload = decoded_bytes.decode("utf-8")
             payload = json.loads(json_payload)
-        except Exception:
+        except (binascii.Error, ValueError):
             raise PermissionDeniedException(detail="Error decoding the token")
 
         return payload
@@ -311,7 +313,7 @@ class TokenService(SQLAlchemyAsyncRepositoryService[m.Token]):
     async def authenticate(self, secret: str, token_id: UUID) -> m.Token:
         token = await self.repository.get_one_or_none(id=token_id)
         if token and await crypt.verify_password(secret, token.hashed_token):
-            token.last_accessed_at = datetime.now(timezone.utc)
+            token.last_accessed_at = datetime.now(UTC)
             await self.repository.update(token)
             return token
 

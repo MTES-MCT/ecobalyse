@@ -10,7 +10,7 @@ from . import agribalyse
 def lower_formula_parameters(db):
     """lower formula parameters"""
     for ds in tqdm(db):
-        for k in ds.get("parameters", {}).keys():
+        for k in ds.get("parameters", {}):
             if "formula" in ds["parameters"][k]:
                 ds["parameters"][k]["formula"] = ds["parameters"][k]["formula"].lower()
     return db
@@ -155,7 +155,7 @@ def noLT(db):
         for k, v in new_method.items():
             if k == "exchanges":
                 for cf in v:
-                    if any(["long-term" in cat for cat in cf["categories"]]):
+                    if any("long-term" in cat for cat in cf["categories"]):
                         cf["amount"] = 0
         new_db.append(new_method)
     return new_db
@@ -172,7 +172,6 @@ def extract_name_location_product(db):
         s = ds["name"].strip()
         m = pattern.match(s)
         if not m:
-            breakpoint
             raise ValueError(f"Unexpected activity name: {s!r}")
 
         new_ds = copy.deepcopy(ds)

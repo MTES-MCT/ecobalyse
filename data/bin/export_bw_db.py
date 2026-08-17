@@ -3,12 +3,11 @@
 import json
 import os
 from pathlib import Path
-from typing import List, Optional
+from typing import Annotated
 
 import bw2data
 import typer
 from bw2data.project import projects
-from typing_extensions import Annotated
 
 from config import DATA_ROOT_DIR, settings
 from ecobalyse_data.bw import ecospold_export, simapro_export
@@ -26,11 +25,11 @@ app = typer.Typer(no_args_is_help=True)
 @app.command()
 def simapro(
     output_filename: Annotated[
-        Optional[Path],
+        Path | None,
         typer.Argument(help="The output CSV file."),
     ] = Path("simapro_export.csv"),
     db_name: Annotated[
-        Optional[str],
+        str | None,
         typer.Argument(
             callback=bw_database_validation,
             help=f"Brightway databases you want to compute impacts for. Default to all. You can specify multiple `--db`.\n\nAvailable databases are: {available_bw_databases}.",
@@ -71,14 +70,14 @@ def simapro(
 @app.command()
 def ecospold1(
     db_names: Annotated[
-        Optional[List[str]],
+        list[str] | None,
         typer.Argument(
             callback=bw_databases_validation,
             help="Brightway database(s) to export (merged into one file).",
         ),
     ] = None,
     output_filename: Annotated[
-        Optional[Path],
+        Path | None,
         typer.Option(
             "--output", "-o", help="Output XML file (default: <db_names>.XML)."
         ),

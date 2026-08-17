@@ -163,7 +163,7 @@ class SimaProJsonImporter(LCIImporter):
         )
 
     def write_database(self, data=None, name=None, *args, **kwargs):
-        importer = super(SimaProJsonImporter, self)
+        importer = super()
         db = importer.write_database(data, name, *args, **kwargs)
         db.metadata["simapro import"] = self.metadata
         db._metadata.flush()

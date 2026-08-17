@@ -120,7 +120,7 @@ async def current_user_from_token(
 
     token_id = token.extras.get("id")
 
-    now = datetime.datetime.now(datetime.timezone.utc)
+    now = datetime.datetime.now(datetime.UTC)
 
     if token_id:
         token_service_provider = create_service_provider(TokenService)

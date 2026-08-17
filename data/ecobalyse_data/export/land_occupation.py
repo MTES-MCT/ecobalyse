@@ -1,11 +1,9 @@
-from typing import Tuple
-
 import bw2calc
 from bw2data import get_multilca_data_objs
 
 from ecobalyse_data.logging import logger
 
-LAND_OCCUPATION_METHOD: Tuple[str, str, str] = (
+LAND_OCCUPATION_METHOD: tuple[str, str, str] = (
     "selected LCI results",
     "resource",
     "land occupation",

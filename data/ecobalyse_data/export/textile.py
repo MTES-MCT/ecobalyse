@@ -1,5 +1,4 @@
 from pathlib import Path
-from typing import List
 
 from common.export import export_json
 from ecobalyse_data.export.utils import get_metadata_for_scope
@@ -8,8 +7,8 @@ from models.process import Cff, Material
 
 
 def activities_to_materials_json(
-    activities: List[dict], materials_path: Path
-) -> List[Material]:
+    activities: list[dict], materials_path: Path
+) -> list[Material]:
     materials = activities_to_materials_list(activities)
 
     materials_dicts = [material.model_dump(by_alias=True) for material in materials]
@@ -23,14 +22,14 @@ def activities_to_materials_json(
     return materials_dicts
 
 
-def activities_to_materials_list(activities: List[dict]) -> List[Material]:
+def activities_to_materials_list(activities: list[dict]) -> list[Material]:
     materials = []
     for activity in activities:
         materials.extend(activity_to_materials(activity))
     return materials
 
 
-def activity_to_materials(eco_activity: dict) -> List[Material]:
+def activity_to_materials(eco_activity: dict) -> list[Material]:
     materials = []
 
     for textile_metadata in get_metadata_for_scope(eco_activity, "textile"):

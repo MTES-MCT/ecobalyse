@@ -60,7 +60,7 @@ def encode_json(value: Any, serializer: Callable[[Any], Any] | None = None) -> s
     return json.dumps(value, cls=UUIDEncoder, indent=2, sort_keys=True)
 
 
-def decode_json(  # type: ignore[misc]
+def decode_json[T](  # type: ignore[misc]
     value: str | bytes,
     target_type: type[T] | EmptyType = Empty,  # pyright: ignore
     type_decoders: TypeDecodersSequence | None = None,
@@ -376,7 +376,7 @@ class AppSettings:
 class ServerSettings:
     """Server configurations."""
 
-    HOST: str = field(default_factory=get_env("LITESTAR_HOST", "0.0.0.0"))  # noqa: S104
+    HOST: str = field(default_factory=get_env("LITESTAR_HOST", "0.0.0.0"))
     """Server network host."""
     PORT: int = field(default_factory=get_env("LITESTAR_PORT", 8000))
     """Server port."""
@@ -396,7 +396,7 @@ class EmailSettings:
 
     FROM: str = field(
         default_factory=get_env("EMAIL_FROM", "contact@ecobalyse.beta.gouv.fr")
-    )  # noqa: S104
+    )
     """From email value."""
     SERVER_HOST: str = field(default_factory=get_env("EMAIL_SERVER_HOST", None))
     """Email server host."""

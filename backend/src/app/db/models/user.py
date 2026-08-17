@@ -1,7 +1,7 @@
 from __future__ import annotations
 
 import datetime
-from typing import TYPE_CHECKING
+from typing import TYPE_CHECKING, ClassVar
 
 from advanced_alchemy.base import UUIDAuditBase
 from advanced_alchemy.types import DateTimeUTC
@@ -17,8 +17,8 @@ if TYPE_CHECKING:
 
 class User(UUIDAuditBase):
     __tablename__ = "user_account"
-    __table_args__ = {"comment": "User accounts for application access"}
-    __pii_columns__ = {"email"}
+    __table_args__: ClassVar[dict] = {"comment": "User accounts for application access"}
+    __pii_columns__: ClassVar[dict] = {"email"}
 
     email: Mapped[str] = mapped_column(unique=True, index=True, nullable=False)
     magic_link_hashed_token: Mapped[str | None] = mapped_column(
@@ -31,7 +31,7 @@ class User(UUIDAuditBase):
     @validates("magic_link_sent_at")
     def validate_tz_info(self, _: str, value: datetime.datetime) -> datetime.datetime:
         if value and value.tzinfo is None:
-            value = value.replace(tzinfo=datetime.timezone.utc)
+            value = value.replace(tzinfo=datetime.UTC)
         return value
 
     is_active: Mapped[bool] = mapped_column(default=False, nullable=False)
@@ -69,7 +69,7 @@ class User(UUIDAuditBase):
 
     @property
     def has_active_token(self) -> bool:
-        now = datetime.datetime.now(datetime.timezone.utc)
+        now = datetime.datetime.now(datetime.UTC)
         # We don’t care much about exactitude here, leap years are ignored.
         # An alternative would be to use the dateutil module.
         one_year_ago = now - datetime.timedelta(days=365)

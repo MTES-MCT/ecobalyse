@@ -22,7 +22,7 @@ class ApplicationCore(InitPluginProtocol, CLIPluginProtocol):
 
     """
 
-    __slots__ = "app_slug"
+    __slots__: tuple[str, ...] = ("app_slug",)
     app_slug: str
 
     def on_cli_init(self, cli: Group) -> None:

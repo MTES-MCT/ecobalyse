@@ -1,8 +1,8 @@
 import csv
+import datetime
 import json
 import os
 import re
-from datetime import datetime
 from pathlib import Path
 
 import yaml
@@ -142,7 +142,7 @@ def load_references(filepath):
     if not os.path.isfile(filepath):
         raise FileNotFoundError("The dictionary of references could not be found.")
     with open(filepath, encoding="utf-8") as file:
-        csv_list = [[val.strip() for val in r.split(";")] for r in file.readlines()]
+        csv_list = [[val.strip() for val in r.split(";")] for r in file]
     _, *data = csv_list
 
     dict_reference = {}
@@ -171,7 +171,9 @@ def export_db_to_simapro(
     headers = [
         "{SimaPro 9.1.1.7}",
         "{processes}",
-        "{Project: ecobalyse export" + f"{datetime.today():%d.%m.%Y}" + "}",
+        "{Project: ecobalyse export"
+        + f"{datetime.datetime.now(tz=datetime.UTC):%d.%m.%Y}"
+        + "}",
         "{CSV Format version: 9.0.0}",
         "{CSV separator: Semicolon}",
         "{Decimal separator: .}",
@@ -300,7 +302,9 @@ def export_db_to_simapro(
                     writer.writerow([ds.get("location", "Unspecified")])
 
                 if item == "Date":
-                    writer.writerow([f"{datetime.today():%d.%m.%Y}"])
+                    writer.writerow(
+                        [f"{datetime.datetime.now(tz=datetime.UTC):%d.%m.%Y}"]
+                    )
 
                 if item == "Comment":
                     string = ""
@@ -358,7 +362,7 @@ def export_db_to_simapro(
                                         1.0,
                                         "not defined",
                                         sub_category,
-                                        f"{replace_unsupported_characters(e.get('comment'))} | ID = {uuids.get((e['name']))}",
+                                        f"{replace_unsupported_characters(e.get('comment'))} | ID = {uuids.get(e['name'])}",
                                     ]
                                 )
 
@@ -371,7 +375,7 @@ def export_db_to_simapro(
                                         "100%",
                                         "not defined",
                                         sub_category,
-                                        f"{replace_unsupported_characters(e.get('comment'))} | ID = {uuids.get((e['name']))}",
+                                        f"{replace_unsupported_characters(e.get('comment'))} | ID = {uuids.get(e['name'])}",
                                     ]
                                 )
                             e["used"] = True
@@ -396,7 +400,7 @@ def export_db_to_simapro(
                                         0,
                                         0,
                                         0,
-                                        f"{replace_unsupported_characters(e.get('comment'))} | ID = {uuids.get((e['name']))}",
+                                        f"{replace_unsupported_characters(e.get('comment'))} | ID = {uuids.get(e['name'])}",
                                     ]
                                 )
                                 e["used"] = True
@@ -412,11 +416,13 @@ def export_db_to_simapro(
                                 )
 
                             sub_compartment = ""
-                            if len(e["categories"]) > 1:
-                                if e["categories"][1] != "fossil well":
-                                    sub_compartment = simapro_subs.get(
-                                        e["categories"][1], e["categories"][1]
-                                    )
+                            if (
+                                len(e["categories"]) > 1
+                                and e["categories"][1] != "fossil well"
+                            ):
+                                sub_compartment = simapro_subs.get(
+                                    e["categories"][1], e["categories"][1]
+                                )
 
                             writer.writerow(
                                 [
@@ -594,21 +600,24 @@ def export_db_to_simapro(
     unused_exchanges = []
     for ds in data_as_dict:
         for e in ds["exchanges"]:
-            if "used" not in e:
-                if [
+            if (
+                "used" not in e
+                and [
                     e["name"][:40],
                     e.get("product", "")[:40],
                     e.get("categories"),
                     e.get("location"),
-                ] not in unused_exchanges:
-                    unused_exchanges.append(
-                        [
-                            e["name"][:40],
-                            e.get("product", "")[:40],
-                            e.get("categories"),
-                            e.get("location"),
-                        ]
-                    )
+                ]
+                not in unused_exchanges
+            ):
+                unused_exchanges.append(
+                    [
+                        e["name"][:40],
+                        e.get("product", "")[:40],
+                        e.get("categories"),
+                        e.get("location"),
+                    ]
+                )
 
     if len(unused_exchanges) > 0:
         logger.warning(

@@ -6,9 +6,9 @@ import json
 import re
 import textwrap
 from pathlib import Path, PurePath
+from typing import Annotated
 
 import typer
-from typing_extensions import Annotated
 
 from ecobalyse_data.logging import logger
 
@@ -51,6 +51,10 @@ def flatten_keys(process: dict) -> dict:
         "categories": ",".join(process["scopes"]),
     }
     return result
+
+
+class JsonException(Exception):
+    pass
 
 
 def main(
@@ -104,7 +108,7 @@ def main(
         ]
 
         if len(processes) < 1:
-            raise Exception(f"{DATA_DIR / 'processes.json'} is empty")
+            raise JsonException(f"{DATA_DIR / 'processes.json'} is empty")
 
         # Export the JSON version
         logger.info(f"Writing {json_filename} to {output_path}")
@@ -126,7 +130,7 @@ def main(
             header = [
                 # Convert the header names to snake_case
                 re.sub("([A-Z]+)", r"_\1", key).lower()
-                for key in flat_processes[0].keys()
+                for key in flat_processes[0]
             ]
             writer.writerow(header)
             for p in flat_processes:

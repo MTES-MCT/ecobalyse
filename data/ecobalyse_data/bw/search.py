@@ -48,19 +48,19 @@ def search_one(
     """
     # If code is provided, look up directly by code
     if code:
-        try:
-            activity = bw2data.get_activity((dbname, code))
-            # Verify the name matches if search_terms provided
-            if search_terms and activity["name"] != search_terms:
-                raise ValueError(
-                    f"Activity with code {code} found but name doesn't match. "
-                    f"Expected: '{search_terms}', Got: '{activity.get('name')}'"
-                )
-            return activity
-        except Exception as e:
+        activity = bw2data.get_activity((dbname, code))
+        # Verify the name matches if search_terms provided
+        if search_terms and activity["name"] != search_terms:
             raise ValueError(
-                f"Activity with code {code} not found in database '{dbname}': {e}"
+                f"Activity with code {code} found but name doesn't match. "
+                f"Expected: '{search_terms}', Got: '{activity.get('name')}'"
             )
+        return activity
+        # @TODO: catch the specific exceptions and not all or ruff will complain
+        # except Exception as e:
+        #     raise ValueError(
+        #         f"Activity with code {code} not found in database '{dbname}': {e}"
+        #     )
 
     search_query = search_terms
     if location:
@@ -76,23 +76,23 @@ def search_one(
     exact_matches = []
     for result in results:
         # Check exact name match
-        if result["name"] == search_terms:
-            # If location specified, also check location match
-            if location is None or result.get("location") == location:
-                # If categories specified, also check categories match
-                if categories is None or tuple(result.get("categories", ())) == tuple(
-                    categories
-                ):
-                    if unit is None or result.get("unit") == unit:
-                        exact_matches.append(result)
+        name_match = result["name"] == search_terms
+        # If location specified, also check location match
+        location_match = location is None or result.get("location") == location
+        # If categories specified, also check categories match
+        categories_match = categories is None or tuple(
+            result.get("categories", ())
+        ) == tuple(categories)
+        unit_match = unit is None or result.get("unit") == unit
+
+        if name_match and location_match and categories_match and unit_match:
+            exact_matches.append(result)
 
     if len(exact_matches) == 1:
         return exact_matches[0]
     else:
         results_string = "\n".join([str(result) for result in results])
         raise ValueError(
-            (
-                f"This 'search' doesn't return one perfect match (got {len(results)}) matches in database '{dbname}':\n'{search_terms}'\n"
-                f" Please change your search terms or location so that it returns one perfect match.\nResults returned:\n{results_string}"
-            )
+            f"This 'search' doesn't return one perfect match (got {len(results)}) matches in database '{dbname}':\n'{search_terms}'\n"
+            f" Please change your search terms or location so that it returns one perfect match.\nResults returned:\n{results_string}"
         )

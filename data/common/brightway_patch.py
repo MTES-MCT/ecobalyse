@@ -1,6 +1,6 @@
 import json
 import os
-from typing import Iterable
+from collections.abc import Iterable
 
 import bw2io
 from bw2data import methods
@@ -132,7 +132,7 @@ def patched_write_method(self, data, process=True):
         elif isinstance(line[0], list):
             return line
         elif not isinstance(line[0], int):
-            raise ValueError(
+            raise TypeError(
                 f"Can't understand elementary flow identifier {line[0]} in data line {line}"
             )
         else:

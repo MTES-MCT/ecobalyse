@@ -1,6 +1,6 @@
 from __future__ import annotations
 
-from typing import TYPE_CHECKING, Literal, TypeVar
+from typing import TYPE_CHECKING, ClassVar, Literal, TypeVar
 
 import structlog
 from litestar import Controller, MediaType, Request, get
@@ -21,7 +21,7 @@ OnlineOffline = TypeVar("OnlineOffline", bound=Literal["online", "offline"])
 
 
 class SystemController(Controller):
-    tags = ["System"]
+    tags: ClassVar[list[str]] = ["System"]
 
     @get(
         operation_id="SystemHealth",
@@ -59,7 +59,7 @@ class SystemController(Controller):
             )
 
         return Response(
-            content=SystemHealth(database_status=db_status),  # type: ignore
+            content=SystemHealth(database_status=db_status),
             status_code=200 if db_ping else 500,
             media_type=MediaType.JSON,
         )
@@ -70,7 +70,7 @@ class SystemController(Controller):
         include_in_schema=False,
         guards=[requires_superuser],
     )
-    async def check_sentry(self) -> Response[str]:
+    async def check_sentry(self) -> str | None:
         """Provokes an error in order to check that the error reporting system is working"""
-        1 / 0
-        return "Hello!"
+        if 0 == 1 / 0:
+            return "Hello!"
