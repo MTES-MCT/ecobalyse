@@ -82,6 +82,7 @@ class Ingredient(TypedDict, total=False):
     alias: str
     metadata: Metadata
     impacts: dict[str, float]
+    impacts_norm: dict[str, float]
     variant_type: str
 
 
@@ -190,19 +191,19 @@ def check_explicit_pair_sanity_checks(
         )
         if ecs_lower > ecs_higher:
             base_lower = lower_ingr["metadata"]["ingredient"]["baseIngredient"]
-            violations.append(
-                {
-                    "base_ingredient": base_lower,
-                    "reason": f"{lower_alias} > {higher_alias}",
-                    "lower_variant": lower_alias,
-                    "lower_type": "explicit_sanity_check",
-                    "lower_ecs": round(ecs_lower, 2),
-                    "higher_variant": higher_alias,
-                    "higher_type": "explicit_sanity_check",
-                    "higher_ecs": round(ecs_higher, 2),
-                    "delta": round(ecs_lower - ecs_higher, 2),
-                }
-            )
+            violation: Violation = {
+                "base_ingredient": base_lower,
+                "reason": f"{lower_alias} > {higher_alias}",
+                "lower_variant": lower_alias,
+                "lower_type": "explicit_sanity_check",
+                "lower_ecs": round(ecs_lower, 2),
+                "higher_variant": higher_alias,
+                "higher_type": "explicit_sanity_check",
+                "higher_ecs": round(ecs_higher, 2),
+                "delta": round(ecs_lower - ecs_higher, 2),
+            }
+            violations.append(violation)
+
     return violations
 
 
@@ -238,19 +239,18 @@ def check_hierarchy(ingredient_by_base: dict[str, list[Ingredient]]) -> list[Vio
                 compute_ecs_with_complements(v2),
             )
             if ecs1 > ecs2:
-                violations.append(
-                    {
-                        "base_ingredient": base,
-                        "reason": f"{a1} > {a2}",
-                        "lower_variant": a1,
-                        "lower_type": t1,
-                        "lower_ecs": round(ecs1, 2),
-                        "higher_variant": a2,
-                        "higher_type": t2,
-                        "higher_ecs": round(ecs2, 2),
-                        "delta": round(ecs1 - ecs2, 2),
-                    }
-                )
+                violation: Violation = {
+                    "base_ingredient": base,
+                    "reason": f"{a1} > {a2}",
+                    "lower_variant": a1,
+                    "lower_type": t1,
+                    "lower_ecs": round(ecs1, 2),
+                    "higher_variant": a2,
+                    "higher_type": t2,
+                    "higher_ecs": round(ecs2, 2),
+                    "delta": round(ecs1 - ecs2, 2),
+                }
+                violations.append(violation)
 
     return violations
 
@@ -288,7 +288,7 @@ def _render_stacked_bar(df, ax, title):
     totals = pivot.sum(axis=1).sort_values()
     pivot = pivot.loc[totals.index]
 
-    colors = plt.get_cmap("tab20").colors
+    colors = plt.get_cmap("tab20").colors  # ty: ignore[unresolved-attribute]
     pivot.plot(kind="bar", stacked=True, ax=ax, color=colors)
     ax.set_xlabel("")
     ax.axhline(0, color="black", linewidth=0.8)
