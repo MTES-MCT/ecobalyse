@@ -31,6 +31,15 @@ repos:
         entry: |
           bash -c 'npm --prefix . run fix:ruff:check "${@}"' --
 
+      - id: app-ty-check
+        name: run ty check
+        language: system
+        files: ^.*$
+        exclude: data
+        types_or: [python]
+        entry: |
+          bash -c 'npm --prefix . run fix:ty:check "${@}"' --
+
       - id: app-ruff-format
         name: run ruff format
         language: system
