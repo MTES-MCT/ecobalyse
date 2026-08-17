@@ -12,9 +12,9 @@ import Data.Component as Component exposing (Component)
 import Data.Component.ProductCategory as ProductCategory exposing (ProductCategory)
 import Data.Country as Country exposing (Country)
 import Data.Food.Db as FoodDb
+import Data.Generic.Db as GenericDb
 import Data.Impact as Impact
 import Data.Impact.Definition as Definition exposing (Definitions)
-import Data.Object.Db as ObjectDb
 import Data.Process as Process exposing (Process)
 import Data.Textile.Db as TextileDb
 import Data.Transport as Transport exposing (Distances)
@@ -28,7 +28,7 @@ type alias Db =
     , definitions : Definitions
     , distances : Distances
     , food : FoodDb.Db
-    , object : ObjectDb.Db
+    , object : GenericDb.Db
     , processes : List Process
     , products : List ProductCategory
     , textile : TextileDb.Db
@@ -105,7 +105,7 @@ build json =
                                 (extractJsonString json.foodIngredients)
                         )
                     |> RE.andMap
-                        (ObjectDb.buildFromJson
+                        (GenericDb.buildFromJson
                             (extractJsonString json.food2Examples)
                             (extractJsonString json.objectExamples)
                             (extractJsonString json.veliExamples)

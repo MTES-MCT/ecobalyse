@@ -8,9 +8,9 @@ import Data.Bookmark as Bookmark exposing (Bookmark)
 import Data.Complement as Complement
 import Data.Component as Component
 import Data.Food.Recipe as Recipe
+import Data.Generic.Simulator as GenericSimulator
 import Data.Impact as Impact
 import Data.Impact.Definition as Definition exposing (Definition, Definitions)
-import Data.Object.Simulator as ObjectSimulator
 import Data.Scope as Scope
 import Data.Session as Session exposing (Session)
 import Data.Textile.Simulator as TextileSimulator
@@ -140,7 +140,7 @@ addToComparison session { name, query } =
 
         Bookmark.Generic genericScope food2Query ->
             food2Query
-                |> ObjectSimulator.compute
+                |> GenericSimulator.compute
                     { config = session.componentConfig
                     , db = session.db
                     , scope = Scope.Generic genericScope
@@ -152,7 +152,7 @@ addToComparison session { name, query } =
                         , label = name
                         , stagesImpacts =
                             lifeCycle
-                                |> ObjectSimulator.toStagesImpacts Definition.Ecs
+                                |> GenericSimulator.toStagesImpacts Definition.Ecs
                         }
                     )
 

@@ -40,8 +40,9 @@ type ActivePage
     | Editorial String
     | Explore
     | Food
+      -- FIXME: should be Generic Scope.GenericScope
+    | Generic Scope
     | Home
-    | Object Scope
     | Other
     | Stats
     | TextileSimulator
@@ -126,14 +127,14 @@ commonNotices msg activePage =
                 , Markdown.simple [] "**Méthodologie stabilisée.** Calculette en cours de développement"
                 ]
 
-        Object (Scope.Generic Scope.Food2) ->
+        Generic (Scope.Generic Scope.Food2) ->
             Notice.info
                 [ Icon.info
                 , Markdown.simple [] "**Méthodologie stabilisée. Cette version de la calculette remplacera à terme la version initiale.**"
                 , """Contribuez via notre [forum utilisateur](https://chat.ecobalyse.fr/ecobalyse/channels/02_alimentaire_general).""" |> Markdown.simple []
                 ]
 
-        Object (Scope.Generic Scope.Object) ->
+        Generic (Scope.Generic Scope.Object) ->
             Notice.info
                 [ Icon.info
                 , Markdown.simple [] "**Cette version est en cours de développement.**"
@@ -141,7 +142,7 @@ commonNotices msg activePage =
                     |> Markdown.simple []
                 ]
 
-        Object (Scope.Generic Scope.Veli) ->
+        Generic (Scope.Generic Scope.Veli) ->
             Notice.info
                 [ Icon.info
                 , Markdown.simple [] "**Cette version est en cours de développement.** Elle est réservée à des beta-testeurs."
@@ -253,11 +254,11 @@ mainMenuLinks enabledSections =
         , addRouteIf enabledSections.food <|
             Internal [ text "Alimentaire" ] Route.FoodBuilderHome Food
         , addRouteIf enabledSections.objects <|
-            Internal [ text "Alimentaire", sup [] [ text "BÉTA" ] ] (Route.GenericSimulatorHome (Scope.Generic Scope.Food2)) (Object (Scope.Generic Scope.Food2))
+            Internal [ text "Alimentaire", sup [] [ text "BÉTA" ] ] (Route.GenericSimulatorHome Scope.Food2) (Generic (Scope.Generic Scope.Food2))
         , addRouteIf enabledSections.objects <|
-            Internal [ text "Objets" ] (Route.GenericSimulatorHome (Scope.Generic Scope.Object)) (Object (Scope.Generic Scope.Object))
+            Internal [ text "Objets" ] (Route.GenericSimulatorHome Scope.Object) (Generic (Scope.Generic Scope.Object))
         , addRouteIf enabledSections.veli <|
-            Internal [ text "Véhicules" ] (Route.GenericSimulatorHome (Scope.Generic Scope.Veli)) (Object (Scope.Generic Scope.Veli))
+            Internal [ text "Véhicules" ] (Route.GenericSimulatorHome Scope.Veli) (Generic (Scope.Generic Scope.Veli))
         , Just <| Internal [ text "Explorateur" ] (Route.Explore Scope.Textile (Dataset.TextileExamples Nothing)) Explore
         , Just <| Internal [ text "API" ] Route.Api Api
         , Just <| MailTo "Contact" Env.contactEmail
@@ -275,7 +276,7 @@ secondaryMenuLinks enabledSections =
         , Just <| External "CGU" Env.cguUrl
         , Just <| Internal [ text "Admin" ] (Route.Admin AdminSection.ComponentSection) Admin
         , addRouteIf enabledSections.food2 <|
-            Internal [ text "Alimentaire²" ] (Route.GenericSimulatorHome (Scope.Generic Scope.Food2)) (Object (Scope.Generic Scope.Food2))
+            Internal [ text "Alimentaire²" ] (Route.GenericSimulatorHome Scope.Food2) (Generic (Scope.Generic Scope.Food2))
         ]
 
 

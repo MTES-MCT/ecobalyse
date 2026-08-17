@@ -1,4 +1,4 @@
-module Page.Object exposing
+module Page.Generic exposing
     ( Model
     , Msg
     , init
@@ -21,13 +21,13 @@ import Data.Country.Code as CountryCode
 import Data.Dataset as Dataset
 import Data.Db exposing (Db)
 import Data.Example as Example exposing (Example)
+import Data.Generic.Simulator as Simulator
 import Data.Impact.Definition as Definition exposing (Definition)
 import Data.Key as Key
-import Data.Object.Simulator as Simulator
 import Data.Plausible as Plausible
 import Data.Process as Process exposing (Process)
 import Data.Process.Category as Category exposing (Category)
-import Data.Scope exposing (Scope)
+import Data.Scope as Scope exposing (Scope)
 import Data.Session as Session exposing (Session)
 import Data.Split exposing (Split)
 import Data.Unit as Unit
@@ -323,6 +323,11 @@ update ({ navKey } as session) msg model =
         query =
             session
                 |> Session.objectQueryFromScope model.scope
+
+        genericScope =
+            model.scope
+                |> Scope.toGenericScope
+                |> Maybe.withDefault Scope.Object
     in
     case ( msg, model.modals ) of
         ( AppendModal modal, modals ) ->
@@ -640,7 +645,7 @@ update ({ navKey } as session) msg model =
             createPageUpdate session model
                 |> App.withCmds
                     [ Just query
-                        |> Route.GenericSimulator model.scope trigram
+                        |> Route.GenericSimulator genericScope trigram
                         |> Route.toString
                         |> Navigation.pushUrl navKey
                     , Plausible.send session <| Plausible.ImpactSelected model.scope trigram
@@ -1009,6 +1014,9 @@ simulatorView ({ componentConfig } as session) ({ scope } as model) =
     let
         currentQuery =
             session |> Session.objectQueryFromScope scope
+
+        genericScope =
+            scope |> Scope.toGenericScope |> Maybe.withDefault Scope.Object
     in
     div [ class "row" ]
         [ div [ class "col-lg-8 bg-white" ]
@@ -1021,10 +1029,9 @@ simulatorView ({ componentConfig } as session) ({ scope } as model) =
                     , helpUrl = Nothing
                     , onOpen = SelectExampleModal >> List.singleton >> SetModals
                     , routes =
-                        -- FIXME: explore route object/veli
-                        { explore = Route.Explore scope (Dataset.ObjectExamples Nothing)
-                        , load = Route.GenericSimulatorExample scope
-                        , scopeHome = Route.GenericSimulatorHome scope
+                        { explore = Route.Explore scope (Dataset.GenericExamples genericScope Nothing)
+                        , load = Route.GenericSimulatorExample genericScope
+                        , scopeHome = Route.GenericSimulatorHome genericScope
                         }
                     }
                 , ComponentView.productCategorySelectorView
