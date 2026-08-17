@@ -1,5 +1,4 @@
-from advanced_alchemy.typing import BaseModel
-from pydantic import ConfigDict
+from pydantic import BaseModel, ConfigDict
 from pydantic.alias_generators import to_camel
 
 

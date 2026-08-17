@@ -53,7 +53,7 @@ async def send_magic_link_email_task(
 
     async with alchemy.get_session() as db_session:
         users_service = await anext(provide_users_service(db_session))
-        user = await users_service.get_one_or_none(id=user_id)
+        user = await users_service.get(user_id)
         user.magic_link_sent_at = datetime.datetime.now(datetime.UTC)
 
         await users_service.update(item_id=user.id, data=user.to_dict())

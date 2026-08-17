@@ -2,7 +2,7 @@ import asyncio
 import base64
 import datetime
 import json
-import urllib
+import urllib.parse
 from typing import Any
 
 import pytest
@@ -341,7 +341,7 @@ async def test_user_signup_and_login(
 
 async def test_magic_link_expiration(
     session: AsyncSession,
-    raw_users: list[User | dict[str, Any]],
+    raw_users: list[dict[str, Any]],
 ) -> None:
     async with UserService.new(session) as users_service:
         # Magic link login is ok
@@ -377,7 +377,7 @@ async def test_magic_link_expiration(
 async def test_token_generation(
     session: AsyncSession,
     client: "AsyncClient",
-    raw_users: list[User | dict[str, Any]],
+    raw_users: list[dict[str, Any]],
 ) -> None:
     token = None
 

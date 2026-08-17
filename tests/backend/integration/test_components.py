@@ -95,6 +95,7 @@ async def test_components_db_create(
 
         assert len(results) == 2
 
+        assert results[0].value is not None
         assert results[0].value["elements"][0]["transforms"] == [
             "d25636af-ab36-4857-a6d0-c66d1e7a281b"
         ]

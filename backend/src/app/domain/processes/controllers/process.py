@@ -1,6 +1,6 @@
 from __future__ import annotations
 
-from typing import Annotated, ClassVar
+from typing import TYPE_CHECKING, Annotated
 from uuid import UUID
 
 from advanced_alchemy.filters import OrderBy
@@ -20,11 +20,16 @@ from app.domain.processes.schemas import (
 from app.domain.processes.services import ProcessService
 from app.lib.deps import create_filter_dependencies
 
+if TYPE_CHECKING:
+    from litestar.router import Router
+
 
 class ProcessController(Controller):
     """Process CRUD"""
 
-    tags: ClassVar[list[str]] = ["Processes"]
+    def __init__(self, owner: Router) -> None:
+        self.tags = ["Processes"]
+        super().__init__(owner)
 
     dependencies = {
         "processes_service": Provide(provide_processes_service),

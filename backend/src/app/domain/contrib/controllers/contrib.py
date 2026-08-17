@@ -1,6 +1,6 @@
 from __future__ import annotations
 
-from typing import ClassVar
+from typing import TYPE_CHECKING
 
 from litestar import Controller, post
 from litestar.di import NamedDependency
@@ -12,11 +12,16 @@ from app.domain.contrib import urls
 from app.domain.contrib.schemas import ExampleContribCreate, ExampleContribResponse
 from app.domain.contrib.services import create_example_contrib_pr
 
+if TYPE_CHECKING:
+    from litestar.router import Router
+
 settings = get_settings()
 
 
 class ExampleContribController(Controller):
-    tags: ClassVar[list[str]] = ["Contrib", "Examples"]
+    def __init__(self, owner: Router) -> None:
+        self.tags = ["Contrib", "Examples"]
+        super().__init__(owner)
 
     @post(
         operation_id="CreateExampleContrib",

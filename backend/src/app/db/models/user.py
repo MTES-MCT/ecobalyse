@@ -17,14 +17,15 @@ if TYPE_CHECKING:
 
 class User(UUIDAuditBase):
     __tablename__ = "user_account"
-    __table_args__: ClassVar[dict] = {"comment": "User accounts for application access"}
-    __pii_columns__: ClassVar[dict] = {"email"}
+    __table_args__: ClassVar[dict] = {"comment": "User accounts for application access"}  # ty: ignore[invalid-attribute-override]
+
+    __pii_columns__: ClassVar[set] = {"email"}
 
     email: Mapped[str] = mapped_column(unique=True, index=True, nullable=False)
     magic_link_hashed_token: Mapped[str | None] = mapped_column(
         String(length=255), nullable=True, default=None
     )
-    magic_link_sent_at: Mapped[datetime.datetime] = mapped_column(
+    magic_link_sent_at: Mapped[datetime.datetime | None] = mapped_column(
         DateTimeUTC(timezone=True), default=None, nullable=True
     )
 
