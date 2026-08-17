@@ -1,0 +1,898 @@
+openapi: 3.0.1
+info:
+  title: API Ecobalyse
+  description: L'API HTTP Ecobalyse permet de calculer les impacts environnementaux des produits textiles et alimentaires.
+  version: 0.0.1-alpha
+externalDocs:
+  description: Visiter le site
+  url: https://ecobalyse.beta.gouv.fr
+servers:
+  - url: https://ecobalyse.beta.gouv.fr/api
+tags:
+  - name: Commun
+    description: Documentation de l'API multi-domaines au format OpenAPI
+    externalDocs:
+      description: À propos
+      url: https://fabrique-numerique.gitbook.io/ecobalyse
+  - name: Alimentaire BETA
+    description: |
+      Documentation de l'API pour le domaine alimentaire au format OpenAPI
+
+      **⚠️ En construction, les résultats fournis sont incomplets et probablement invalides.**
+    externalDocs:
+      description: À propos
+      url: https://fabrique-numerique.gitbook.io/ecobalyse
+security:
+  - token: []
+paths:
+  /food2/countries:
+    get:
+      tags:
+      - Alimentaire BETA
+      summary: Liste des pays d'origine des ingrédients et de transformation
+      responses:
+        "200":
+          description: Opération réussie
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/FoodCountriesListResponse"
+  /food2/ingredients:
+    get:
+      tags:
+      - Alimentaire BETA
+      summary: Liste des ingrédients
+      description: |
+        Retourne la liste des ingrédients disponibles pour le calcul.
+
+        Un ingrédient est de l'une des deux natures suivantes, distinguées par le champ `type` :
+        - `process` : un procédé unique. Seuls les procédés portant la catégorie
+          `ingredient` sont listés par cet endpoint ;
+        - `component` : un composant, assemblage d'un matériau et de ses transformations.
+      responses:
+        "200":
+          description: Opération réussie
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/FoodIngredientsListResponse"
+              examples:
+                procede:
+                  summary: Ingrédient de type procédé
+                  value:
+                    - type: process
+                      id: "d330d763-6baa-442f-b479-55425b1fa54f"
+                      displayName: "Champignon frais FR (2025)"
+                      activityName: "Agaricus bisporus mushroom, fresh, at plant {NL} - Adapted from WFLDB U"
+                      source: "Agribalyse 3.2"
+                      unit: "kg"
+                      location: "NL"
+                composant:
+                  summary: Ingrédient de type composant
+                  value:
+                    - type: component
+                      id: "c845482e-8347-4a3c-9dd4-392d8fc2cb3f"
+                      name: "Nom du composant"
+                      comment: null
+                      elements:
+                        - amount: 0.055
+                          material: "fba45d5f-64fc-44ae-ac75-9301c95c4657"
+                          transforms: ["e232270f-3a08-4536-8d8d-dcb4a2031e7b"]
+  /food2/categories:
+    get:
+      responses:
+        "200":
+        description: Opération réussie
+        content:
+          application/json:
+            schema:
+              $ref:"#/components/schemas/FoodCategoriesListResponse"
+  /food2/transformations:
+    get:
+      responses:
+        "200":
+        description: Opération réussie
+        content:
+          application/json:
+            schema:
+              $ref:"#/components/schemas/FoodTransformationListResponse"
+  /food2/packagings:
+    get:
+      responses:
+        "200":
+        description: Opération réussie
+        content:
+          application/json:
+            schema:
+              $ref:"#/components/schemas/FoodPackagingListResponse"
+  /food2/use:
+    get:
+      responses:
+        "200":
+          description: Opération réussie
+          content:
+            application/json:
+              schema:
+                $ref:"#/components/schemas/FoodUseProcessListResponse"
+  /food2/simulator/detailed:
+    post:
+      tags:
+      - Alimentaire BETA
+      summary: Calcul détaillé des impacts d'un produit alimentaire
+      requestBody:
+        description: Requête modélisant les paramètres du produit à évaluer.
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: "#/components/schemas/Food2Query"
+            examples:
+              composantSurEtagere:
+                summary: Produit à base d'un composant sur étagère, référencé par son id
+                value:
+                  components:
+                    - id: "c845482e-8347-4a3c-9dd4-392d8fc2cb3f"
+                      quantity: 1
+                  recyclable: true
+              abricotBio:
+                summary: Produit à base d'un composant ad hoc (« Abricot Bio »)
+                value:
+                  product: "d6ba3a8b-cd58-497c-8872-b436c1659ec9"
+                  components:
+                    - quantity: 1
+                      custom:
+                        name: "Abricot Bio"
+                        elements:
+                          - amount: 1
+                            material:
+                              country: "FR"
+                              id: "36158ea6-066c-4fd6-9e28-6477c7297b37"
+                            transforms:
+                              - country: "FR"
+                                id: "de307fb4-99d3-4a01-962b-242ace7b2739"
+                  assembly:
+                    country: "FR"
+                    operations: []
+                  packagings:
+                    - amount: 1
+                      processId: "13bca207-f43b-4005-b617-2de8df0313c0"
+                  recyclable: true
+                  distribution: "be66b80b-1500-4e3b-bfd2-87a89ff54031"
+                  transportOptions:
+                    cooling: true
+                  consumptions:
+                    - amount: 1
+                      processId: "21e4283e-6bbf-4b2a-b52b-4440022525ad"
+      responses:
+        "200":
+          description: Opération réussie
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/DetailedFood2Response"
+
+  # TODO: endpoints à documenter
+  # /food2/categories:
+  # /food2/transformations:
+  # /food2/packagings:
+  # /food2/use:
+  # /food2:
+
+components:
+  securitySchemes:
+    token:
+      description: >
+        Un jeton d'API (token) vous permet d'accéder aux impacts détaillés des calculs effectués.
+        Il peut être passé dans les entêtes `Authorization: Bearer` ou `token` de la requête.
+      type: apiKey
+      name: token
+      in: header
+  parameters:
+    impactUrlParam:
+      name: impact
+      in: path
+      description: |
+        Trigramme de l'impact étudié ([la liste est documenté ici](https://fabrique-numerique.gitbook.io/ecobalyse/methodologie/impacts-consideres))
+      required: true
+      schema:
+        type: string
+        minLength: 3
+        maxLength: 3
+        default: "cch"
+        enum:
+          - "acd"
+          - "bvi"
+          - "cch"
+          - "ecs"
+          - "etf"
+          - "fru"
+          - "fwe"
+          - "htc"
+          - "htn"
+          - "ior"
+          - "ldu"
+          - "mru"
+          - "ozd"
+          - "pco"
+          - "pma"
+          - "swe"
+          - "tre"
+          - "wtu"
+  schemas:
+    Impacts:
+      type: object
+      properties:
+        acd:
+          type: number
+          description: "Acidification (mol éq. H+)"
+        bvi:
+          type: number
+          description: "Biodiversité locale (BVI)"
+        cch:
+          type: number
+          description: "Changement climatique (kg éq. CO2)"
+        ecs:
+          type: number
+          description: "Score d'impacts (Pts d'impact)"
+        etf:
+          type: number
+          description: "Écotoxicité de l'eau douce (CTUe)"
+        etf-c:
+          type: number
+          description: "Écotoxicité de l'eau douce, corrigée (CTUe)"
+        fru:
+          type: number
+          description: "Utilisation de ressources fossiles (MJ)"
+        fwe:
+          type: number
+          description: "Eutrophisation eaux douces (kg éq. P)"
+        htc:
+          type: number
+          description: "Toxicité humaine - cancer (CTUh)"
+        htc-c:
+          type: number
+          description: "Toxicité humaine - cancer, corrigée (CTUh)"
+        htn:
+          type: number
+          description: "Toxicité humaine - non-cancer (CTUh)"
+        htn-c:
+          type: number
+          description: "Toxicité humaine - non-cancer, corrigée (CTUh)"
+        ior:
+          type: number
+          description: "Radiations ionisantes (éq. kBq U235)"
+        ldu:
+          type: number
+          description: "Utilisation des sols (sans dimension (pt))"
+        mru:
+          type: number
+          description: "Utilisation de ressources minérales et métalliques (kg éq. Sb)"
+        ozd:
+          type: number
+          description: "Appauvrissement de la couche d'ozone (kg éq. CFC 11)"
+        pco:
+          type: number
+          description: "Formation d'ozone photochimique (kg éq. COVNM)"
+        pma:
+          type: number
+          description: "Particules (incidence de maladie)"
+        swe:
+          type: number
+          description: "Eutrophisation marine (kg éq. N)"
+        tre:
+          type: number
+          description: "Eutrophisation terrestre (mol éq. N)"
+        wtu:
+          type: number
+          description: "Utilisation de ressources en eau (m³)"
+
+    FoodCountriesListResponse:
+      type: array
+      description: Liste des pays d'origine des ingrédients et de transformation possible
+      items:
+        type: object
+        properties:
+          code:
+            type: string
+          name:
+            type: string
+    FoodIngredientsListResponse:
+      type: array
+      description: Liste des ingrédients disponibles pour le calcul
+      items:
+        $ref: "#/components/schemas/FoodIngredient"
+
+    FoodIngredient:
+      description: |
+        Un ingrédient est de l'une des deux natures suivantes :
+        - `process` : un procédé unique de catégorie `ingredient`
+          (ex. « Champignon frais FR »), dont le nom lisible est porté par `displayName` ;
+        - `component` : un composant, c'est-à-dire un assemblage de procédés
+          (un matériau et d'éventuelles transformations), dont le nom lisible est
+          porté par `name`.
+
+        Le champ `type` permet de déterminer la nature de l'objet.
+      oneOf:
+        - $ref: "#/components/schemas/FoodIngredientProcess"
+        - $ref: "#/components/schemas/FoodIngredientComponent"
+      discriminator:
+        propertyName: type
+        mapping:
+          process: "#/components/schemas/FoodIngredientProcess"
+          component: "#/components/schemas/FoodIngredientComponent"
+
+    FoodIngredientBase:
+      type: object
+      description: Champs communs à toutes les natures d'ingrédient
+      required:
+        - type
+        - id
+      properties:
+        type:
+          type: string
+          description: Nature de l'ingrédient
+          enum:
+            - process
+            - component
+        id:
+          type: string
+          format: uuid
+          description: Identifiant unique de l'ingrédient
+        comment:
+          type: string
+          nullable: true
+          description: Commentaire libre associé à l'ingrédient
+
+    FoodIngredientProcess:
+      description: Ingrédient constitué d'un procédé unique de catégorie `ingredient`
+      allOf:
+        - $ref: "#/components/schemas/FoodIngredientBase"
+        - type: object
+          required:
+            - displayName
+            - unit
+          properties:
+            displayName:
+              type: string
+              description: Nom lisible du procédé
+              example: "Champignon frais FR (2025)"
+            activityName:
+              type: string
+              description: Nom du procédé dans la base de données source
+            source:
+              type: string
+              description: Base de données d'origine du procédé
+              example: "Agribalyse 3.2"
+            unit:
+              type: string
+              description: Unité fonctionnelle du procédé
+              example: "kg"
+            location:
+              type: string
+              description: Code pays du procédé
+              example: "NL"
+
+    FoodIngredientComponent:
+      description: >
+        Ingrédient composé, décrit comme un assemblage d'un matériau
+        et de ses éventuelles transformations.
+      allOf:
+        - $ref: "#/components/schemas/FoodIngredientBase"
+        - type: object
+          required:
+            - name
+            - elements
+          properties:
+            name:
+              type: string
+              description: Nom lisible du composant
+            elements:
+              type: array
+              description: Éléments constitutifs du composant
+              items:
+                $ref: "#/components/schemas/FoodComponentElement"
+
+    FoodComponentElement:
+      type: object
+      description: Élément d'un composant, associant un matériau et ses transformations
+      required:
+        - amount
+        - material
+      properties:
+        amount:
+          type: number
+          description: Quantité de matière, exprimée dans l'unité du procédé `material`
+          example: 0.055
+        material:
+          type: string
+          format: uuid
+          description: Identifiant du procédé matière première
+        transforms:
+          type: array
+          description: Identifiants des procédés de transformation appliqués au matériau
+          items:
+            type: string
+            format: uuid
+
+    FoodCategoriesListResponse:
+      type: object
+      description: Liste des catégories possibles pour l'alimentaire
+      properties:
+        id:
+          type: string
+          description: identifiant unique de la catégorie
+        label:
+          type: string
+          description: Nom de la catégorie
+
+    FoodTransformationListResponse:
+      type: object
+      description: Liste des procédés de transformation des ingrédients, dont la catégorie est 'Transformation'
+      properties:
+        id:
+          type: string
+          description: ientidifiant unique de la transformation
+        displayName:
+          type: string
+          description: nom du procédé de transformation
+        materialtype:
+          type: string
+          description: type d'ingrédient pour lequel la transformation est compatible
+          enum:
+          - fruits_and_vegetables
+          - cereals
+          - offal
+          - other_food_items
+          - fish_and_shellfish
+          - red_meats
+          - poultry
+          example: "fruits_and_vegetables"
+
+    FoodPackagingListResponse:
+      type: object
+      description: Liste des procédés d'emballages dont la catégorie est packaging
+      properties:
+        id:
+          type: string
+          description: identifiant unique de l'emballage
+        displayName:
+          type: string
+          description: nom de l'emballage
+
+    FoodUseProcessListResponse:
+      type: object 
+      description: Liste des procédés de consommation des produits alimentaire dont la catégorie est use
+      properties:
+        id: 
+          type: string
+        DisplayName:
+          type: string
+
+    Food2Query:
+      type: object
+      description: |
+        Paramètres du produit alimentaire à évaluer.
+
+        Le produit est décrit par :
+        - son **type de produit** (`product`), qui détermine les paramètres par défaut du calcul ;
+        - la liste de ses **ingrédients** (`components`), qui peuvent être des procéds typé ingrédient, des ingrédients avec des procédés de transformation ('component' proposé par Ecobalyse) ou des objets custom, c'est à dire un assemblage libre de procédé 'ingrédients' et de transformation;
+        - l'**assemblage** de ces ingrédients (`assembly`) ;
+        - ses **emballages** (`packagings`) ;
+        - sa **distribution** (`distribution`) 
+        - ses options de transport (`transportOptions`) ;
+        - sa **consommation** (`consumptions`), par exemple la cuisson par le consommateur.
+
+        Tous les identifiants (`id`, `processId`, `product`, `distribution`) sont des UUID de
+        procédés ou de composants, obtenus via les endpoints de listing correspondants
+        (`/food2/ingredients`, `/food2/packagings`, `/food2/transformations`, `/food2/use`, etc.).
+      required:
+        - product
+        - components
+      properties:
+        product:
+          type: string
+          format: uuid
+          description: Identifiant du type de produit évalué
+          example: "d6ba3a8b-cd58-497c-8872-b436c1659ec9"
+        components:
+          type: array
+          description: Composants (ingrédients) constituant le produit, et leurs quantités
+          items:
+            $ref: "#/components/schemas/Food2QueryComponentItem"
+        assembly:
+          $ref: "#/components/schemas/Food2QueryAssembly"
+        packagings:
+          type: array
+          description: Emballages du produit
+          items:
+            $ref: "#/components/schemas/Food2QueryPackaging"
+        recyclable:
+          type: boolean
+          description: Indique si lele produit est recyclabe ou non. Pas d'impact sur le calcul.
+          example: true
+        distribution:
+          type: string
+          format: uuid
+          description: Identifiant du procédé de distribution du produit
+          example: "be66b80b-1500-4e3b-bfd2-87a89ff54031"
+        transportOptions:
+          $ref: "#/components/schemas/Food2QueryTransportOptions"
+        consumptions:
+          type: array
+          description: |
+            Procédés de consommation appliqués au produit (par exemple la cuisson
+            réalisée par le consommateur), tels que listés par `/food2/use`.
+          items:
+            $ref: "#/components/schemas/Food2QueryUse"
+
+    Food2QueryAssembly:
+      type: object
+      description: Étape d'assemblage des composants du produit
+      properties:
+        country:
+          type: string
+          description: Code pays où l'assemblage est réalisé
+          example: "FR"
+        operations:
+          type: array
+          description: |
+            Opérations d'assemblage appliquées au produit.
+            Un tableau vide signifie qu'aucune opération n'est prise en compte.
+          items:
+            type: object
+            properties:
+              id:
+                type: string
+                description: identifiant unique du procédé d'assemblage.
+
+    Food2QueryComponentItem:
+      description: |
+        Composant du produit, accompagné de sa quantité. Un composant est décrit
+        de l'une des deux manières suivantes, mutuellement exclusives :
+
+        - **sur étagère** : le champ `id` référence un composant déjà défini dans la base
+          (tel que listé par `/food2/ingredients` avec `type: component`) ;
+        - **ad hoc** : le champ `custom` décrit intégralement le composant dans la requête,
+          comme un assemblage d'ingrédients' et de leurs transformations.
+
+        Les champs `id` et `custom` ne peuvent pas être fournis ensemble, et l'un des deux
+        est obligatoire.
+      oneOf:
+        - $ref: "#/components/schemas/Food2QueryComponentItemRef"
+        - $ref: "#/components/schemas/Food2QueryComponentItemCustom"
+
+    Food2QueryComponentItemBase:
+      type: object
+      description: Champs communs aux deux manières de décrire un composant
+      required:
+        - quantity
+      properties:
+        quantity:
+          type: number
+          description: Quantité du composant dans le produit
+          example: 1
+
+    Food2QueryComponentItemRef:
+      description: Composant sur étagère, référencé par son identifiant
+      allOf:
+        - $ref: "#/components/schemas/Food2QueryComponentItemBase"
+        - type: object
+          required:
+            - id
+          properties:
+            id:
+              type: string
+              format: uuid
+              description: >
+                Identifiant d'un composant existant, obtenu via `/food2/ingredients`
+                parmi les ingrédients de `type: component`
+              example: "c845482e-8347-4a3c-9dd4-392d8fc2cb3f"
+      example:
+        id: "c845482e-8347-4a3c-9dd4-392d8fc2cb3f"
+        quantity: 1
+
+    Food2QueryComponentItemCustom:
+      description: Composant décrit intégralement dans la requête
+      allOf:
+        - $ref: "#/components/schemas/Food2QueryComponentItemBase"
+        - type: object
+          required:
+            - custom
+          properties:
+            custom:
+              $ref: "#/components/schemas/Food2QueryCustomComponent"
+      example:
+        quantity: 1
+        custom:
+          name: "Abricot Bio"
+          elements:
+            - amount: 1
+              material:
+                country: "FR"
+                id: "36158ea6-066c-4fd6-9e28-6477c7297b37"
+              transforms:
+                - country: "FR"
+                  id: "de307fb4-99d3-4a01-962b-242ace7b2739"
+
+    Food2QueryCustomComponent:
+      type: object
+      description: >
+        Composant décrit directement dans la requête, comme un assemblage
+        d'ingrédients et de leurs transformations.
+      required:
+        - elements
+      properties:
+        name:
+          type: string
+          description: Nom lisible donné à l'ingrédient
+          example: "Abricot Bio"
+        elements:
+          type: array
+          description: Sous-ingrédients constitutifs de l'ingrédient
+          items:
+            $ref: "#/components/schemas/Food2QueryComponentElement"
+
+    Food2QueryComponentElement:
+      type: object
+      description: |
+        Sous-ingrédient d'un ingrédient, associant au besoin des transformations.
+
+        À la différence de `FoodComponentElement` retourné par `/food2/ingredients`,
+        les sous-ingrédients et les transformations sont ici des objets, afin de préciser
+        le pays d'origine du sous-ingrédient et le pays de chaque transformation.
+      required:
+        - amount
+        - material
+      properties:
+        amount:
+          type: number
+          description: Quantité de l'ingrédient ou sous-ingrédient, exprimée dans l'unité du procédé `ingredient`
+          example: 0.9
+        material:
+          allOf:
+            - $ref: "#/components/schemas/Food2QueryLocalizedProcess"
+          description: Matière première de l'ingrédient, et son pays d'origine
+        transforms:
+          type: array
+          description: Procédés de transformation appliqués à l'ingrédient, et leur pays de réalisation
+          items:
+            $ref: "#/components/schemas/Food2QueryLocalizedProcess"
+
+    Food2QueryLocalizedProcess:
+      type: object
+      description: Référence à un procédé, localisée dans un pays donné
+      required:
+        - id
+      properties:
+        id:
+          type: string
+          format: uuid
+          description: Identifiant du procédé
+          example: "36158ea6-066c-4fd6-9e28-6477c7297b37"
+        country:
+          type: string
+          description: Code pays où le procédé est réalisé
+          example: "FR"
+
+    Food2QueryPackaging:
+      type: object
+      description: Référence à un procédé d'emballage, accompagnée de la quantité mise en œuvre.
+      required:
+        - processId
+        - amount
+      properties:
+        processId:
+          type: string
+          format: uuid
+          description: Identifiant du procédé d'emballage, tel que listé par `/food2/packagings`
+          example: "13bca207-f43b-4005-b617-2de8df0313c0"
+        amount:
+          type: number
+          description: Quantité, exprimée dans l'unité du procédé
+          example: 1
+
+    Food2QueryUse:
+      type: object
+      description: Référence à un procédé d'utilisation, accompagnée de la quantité qui lui est appliquée. Généralement, cette quantité est égale à la masse du produit hors emballage.
+      required:
+        - processId
+        - amount
+      properties:
+        processId:
+          type: string
+          format: uuid
+          description: Identifiant du procédé
+          example: "13bca207-f43b-4005-b617-2de8df0313c0"
+        amount:
+          type: number
+          description: Quantité, exprimée dans l'unité du procédé
+          example: 0.9
+
+    Food2QueryTransportOptions:
+      type: object
+      description: Options appliquées au calcul des impacts liés au transport
+      properties:
+        cooling:
+          type: boolean
+          description: Indique si le produit doit être transporté sous température dirigée (chaîne du froid)
+          example: true
+        byAir:
+          type: number
+          description: >
+            Part du produit transportée par avion, en pourcentage. Pour l'alimentaire, la seule
+            valeur acceptée est 100 ; si le produit n'est pas transporté par avion, ne pas
+            ajouter le champ au payload.
+          enum:
+            - 100
+          example: 100
+
+
+    DetailedFood2Response:
+      type: object
+      description: |
+        Résultat détaillé du calcul, décomposé par étape du cycle de vie :
+        production (`production`), transport (`transport`), distribution (`distribution`),
+        consommation (`use`) et fin de vie (`endOfLife`).
+
+        ⚠️ Le champ `impacts` n'a pas la même forme partout :
+        - dans `distribution`, `transport` et `use`, il s'agit d'un **dictionnaire d'impacts**
+          détaillant chaque indicateur (voir `Impacts`) ;
+        - dans l'arbre `production`, il s'agit d'un **nombre unique**, correspondant au score
+          d'impacts agrégé (`ecs`) du nœud.
+      properties:
+        production:
+          allOf:
+            - $ref: "#/components/schemas/Food2ResultNode"
+          description: >
+            Arbre des impacts de la phase de production, décomposé par ingrédient,
+            puis par sous-ingrédient, puis par étape (matière première, transport, transformation).
+        transport:
+          $ref: "#/components/schemas/Food2ResultTransport"
+        distribution:
+          $ref: "#/components/schemas/Food2ResultDistribution"
+        use:
+          type: array
+          description: |
+            Impacts des procédés de consommation appliqués au produit, dans le même ordre
+            que les entrées `consumptions` de la requête.
+          # les entrées ne portent aucun identifiant permettant de les rattacher à un procédé.
+          items:
+            $ref: "#/components/schemas/Impacts"
+        endOfLife:
+          type: number
+          description: Impacts de la phase de fin de vie du produit. Toujours à 0 pour l'alimentaire.
+          example: 0
+
+    Food2ResultNode:
+      type: object
+      description: |
+        Nœud de l'arbre des impacts de production. Un nœud représente, selon sa profondeur,
+        le produit entier, un composant, un élément de composant, ou une étape élémentaire
+        (identifiée alors par `stage`). Les nœuds terminaux ont un tableau `items` vide.
+      properties:
+        label:
+          type: string
+          description: Libellé lisible du nœud
+          example: "Abricot Bio"
+        stage:
+          type: string
+          description: |
+            Étape élémentaire du cycle de vie représentée par le nœud. Ce champ n'est présent
+            que sur les nœuds terminaux ; les nœuds d'agrégation (produit, composant, élément)
+            ne le portent pas.
+          enum:
+            - material
+            - transport
+            - transformation
+        materialType:
+          type: string
+          description: >
+            Type de matière du nœud. Présent uniquement sur les nœuds d'étape `material`.
+          example: "fruits_and_vegetables"
+        mass:
+          type: number
+          description: >
+            Masse considérée au niveau de ce nœud, en kg. Elle peut être supérieure à la masse
+            du produit fini en amont des étapes entraînant des pertes.
+          example: 0.9
+        quantity:
+          type: number
+          description: Quantité du nœud dans son parent
+          example: 1
+        impacts:
+          type: number
+          description: >
+            Score d'impacts agrégé (`ecs`, en points d'impact) du nœud, incluant ses descendants
+          example: 62.37246764018691
+        complementsImpacts:
+          $ref: "#/components/schemas/Food2ResultComplements"
+        items:
+          type: array
+          description: Sous-nœuds détaillant la décomposition de ce nœud
+          items:
+            $ref: "#/components/schemas/Food2ResultNode"
+
+    Food2ResultComplements:
+      type: object
+      description: |
+        Compléments hors ACV pris en compte pour ce nœud, exprimés en points d'impact.
+        Une valeur négative correspond à un bonus (impacts évités).
+
+        L'objet est vide pour les nœuds auxquels aucun complément ne s'applique.
+      properties:
+        cropDiversity:
+          type: number
+          description: Complément « diversité culturale »
+          example: -0.6045560747663551
+        hedges:
+          type: number
+          description: Complément « haies »
+          example: -3.932242990654206
+        plotSize:
+          type: number
+          description: Complément « taille de parcelle »
+          example: -5.404205607476635
+
+    Food2ResultTransport:
+      type: object
+      description: Impacts et distances des étapes de transport du produit
+      properties:
+        toAssembly:
+          allOf:
+            - $ref: "#/components/schemas/Food2ResultTransportLeg"
+          description: Transport des composants jusqu'au lieu d'assemblage
+        toDistribution:
+          allOf:
+            - $ref: "#/components/schemas/Food2ResultTransportLeg"
+          description: Transport du produit assemblé jusqu'au lieu de distribution
+
+    Food2ResultTransportLeg:
+      type: object
+      description: >
+        Étape de transport, détaillant la distance parcourue par mode de transport
+        ainsi que les impacts correspondants.
+
+        Les modes `*Cooled` correspondent au transport réfrigéré, activé par
+        l'option `transportOptions.cooling` de la requête ; la distance `air` est renseignée pour le transport toDistribution
+        lorsque l'option `transportOptions.byAir` est fournie.
+      properties:
+        air:
+          type: number
+          description: Distance parcourue par avion, en km
+          example: 500
+        road:
+          type: number
+          description: Distance parcourue par camion, en km
+          example: 0
+        roadCooled:
+          type: number
+          description: Distance parcourue par camion frigorifique, en km
+          example: 500
+        sea:
+          type: number
+          description: Distance parcourue par bateau, en km
+          example: 0
+        seaCooled:
+          type: number
+          description: Distance parcourue par bateau frigorifique, en km
+          example: 0
+        impacts:
+          $ref: "#/components/schemas/Impacts"
+
+    Food2ResultDistribution:
+      type: object
+      description: Impacts de la phase de distribution du produit
+      properties:
+        process:
+          type: string
+          format: uuid
+          description: >
+            Identifiant du procédé de distribution retenu, tel que fourni par le champ
+            `distribution` de la requête
+          example: "be66b80b-1500-4e3b-bfd2-87a89ff54031"
+        volume:
+          type: number
+          description: Volume occupé par le produit lors de sa distribution, en m³
+          example: 0.0009
+        impacts:
+          $ref: "#/components/schemas/Impacts"
