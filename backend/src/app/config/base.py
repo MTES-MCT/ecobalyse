@@ -14,6 +14,7 @@ from advanced_alchemy.utils.text import slugify
 from litestar.data_extractors import RequestExtractorField
 from litestar.types import Empty, EmptyType, TypeDecodersSequence
 from litestar.utils.module_loader import module_to_os_path
+from pydantic import BaseModel
 from sqlalchemy import event
 from sqlalchemy.ext.asyncio import AsyncEngine, create_async_engine
 from sqlalchemy.pool import NullPool
@@ -32,11 +33,11 @@ T = TypeVar("T")
 
 
 class UUIDEncoder(json.JSONEncoder):
-    def default(self, obj):
-        if isinstance(obj, UUID):
+    def default(self, o: Any):
+        if isinstance(o, UUID):
             # if the obj is uuid, we simply return the value of uuid
-            return str(obj)
-        return json.JSONEncoder.default(self, obj)
+            return str(o)
+        return json.JSONEncoder.default(self, o)
 
 
 def encode_json(value: Any, serializer: Callable[[Any], Any] | None = None) -> str:
@@ -62,7 +63,7 @@ def encode_json(value: Any, serializer: Callable[[Any], Any] | None = None) -> s
 
 def decode_json[T](  # type: ignore[misc]
     value: str | bytes,
-    target_type: type[T] | EmptyType = Empty,  # pyright: ignore
+    target_type: type[BaseModel] | EmptyType = Empty,  # pyright: ignore
     type_decoders: TypeDecodersSequence | None = None,
     strict: bool = True,
 ) -> Any:
@@ -398,11 +399,13 @@ class EmailSettings:
         default_factory=get_env("EMAIL_FROM", "contact@ecobalyse.beta.gouv.fr")
     )
     """From email value."""
-    SERVER_HOST: str = field(default_factory=get_env("EMAIL_SERVER_HOST", None))
+    SERVER_HOST: str | None = field(default_factory=get_env("EMAIL_SERVER_HOST", None))
     """Email server host."""
-    SERVER_USER: str = field(default_factory=get_env("EMAIL_SERVER_USER", None))
+    SERVER_USER: str | None = field(default_factory=get_env("EMAIL_SERVER_USER", None))
     """Email server user."""
-    SERVER_PASSWORD: str = field(default_factory=get_env("EMAIL_SERVER_PASSWORD", None))
+    SERVER_PASSWORD: str | None = field(
+        default_factory=get_env("EMAIL_SERVER_PASSWORD", None)
+    )
     """Email server password."""
     SERVER_TIMEOUT: int = field(default_factory=get_env("EMAIL_SERVER_TIMEOUT", 5))
     """Email server timeout."""
@@ -412,7 +415,7 @@ class EmailSettings:
     SERVER_USE_TLS: bool = field(default_factory=get_env("EMAIL_SERVER_USE_TLS", True))
 
     """Disable SQLAlchemy pool configuration."""
-    MAGIC_LINK_DURATION: str = field(
+    MAGIC_LINK_DURATION: float = field(
         default_factory=get_env("EMAIL_MAGIC_LINK_DURATION", 60 * 60 * 24)
     )
     """Email magic link duration in seconds. 24H by default."""

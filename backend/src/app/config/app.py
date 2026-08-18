@@ -106,7 +106,7 @@ def convert_unknown_exception_to_problem_details(
 
 problem_details = ProblemDetailsConfig(
     enable_for_all_http_exceptions=True,
-    exception_to_problem_detail_map={
+    exception_to_problem_detail_map={  # ty: ignore[invalid-argument-type]
         DuplicateKeyError: convert_sqlalchemy_exceptions_conflict_to_problem_details,
         IntegrityError: convert_sqlalchemy_exceptions_conflict_to_problem_details,
         ForeignKeyError: convert_sqlalchemy_exceptions_conflict_to_problem_details,

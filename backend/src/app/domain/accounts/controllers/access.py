@@ -4,7 +4,7 @@ from __future__ import annotations
 
 import datetime
 import uuid
-from typing import TYPE_CHECKING, Annotated, ClassVar
+from typing import TYPE_CHECKING, Annotated
 from uuid import UUID
 
 import jwt
@@ -36,6 +36,7 @@ from app.lib import http
 from app.lib.deps import create_service_provider
 
 if TYPE_CHECKING:
+    from litestar.router import Router
     from litestar.security.jwt import OAuth2Login
 
     from app.domain.accounts.services import UserService
@@ -49,13 +50,17 @@ settings = get_settings()
 class AccessController(Controller):
     """User login and registration."""
 
-    tags: ClassVar[list[str]] = ["Access"]
-    dependencies: ClassVar[dict] = {
-        "profiles_service": Provide(create_service_provider(UserProfileService)),
-        "roles_service": Provide(create_service_provider(RoleService)),
-        "tokens_service": Provide(create_service_provider(TokenService)),
-        "users_service": Provide(provide_users_service),
-    }
+    def __init__(self, owner: Router) -> None:
+        self.tags = ["Components"]
+
+        self.dependencies = {
+            "profiles_service": Provide(create_service_provider(UserProfileService)),
+            "roles_service": Provide(create_service_provider(RoleService)),
+            "tokens_service": Provide(create_service_provider(TokenService)),
+            "users_service": Provide(provide_users_service),
+        }
+
+        super().__init__(owner)
 
     @get(operation_id="AccountLogin", path=urls.ACCOUNT_LOGIN, exclude_from_auth=True)
     async def login(
@@ -79,7 +84,7 @@ class AccessController(Controller):
         users_service: NamedDependency[UserService],
         roles_service: NamedDependency[RoleService],
         data: AccountRegisterMagicLink,
-    ) -> User:
+    ) -> Response[User]:
         """User Signup."""
         user_data = data.model_dump(by_alias=False)
 
@@ -94,7 +99,7 @@ class AccessController(Controller):
 
         user = await users_service.create(user_data)
 
-        new_user = await users_service.get_one_or_none(id=user.id)
+        new_user = await users_service.get(user.id)
 
         background = BackgroundTask(
             tasks.send_magic_link_email_task,
@@ -117,13 +122,13 @@ class AccessController(Controller):
         request: Request,
         users_service: NamedDependency[UserService],
         data: AccountLogin,
-    ) -> None:
+    ) -> Response[None]:
         """User Login."""
 
         user = await users_service.get_one_or_none(email=data.email)
 
         if not user:
-            return None
+            return Response(None)
 
         # Generate new token
         token = str(uuid.uuid4())
@@ -238,7 +243,7 @@ class AccessController(Controller):
         if cache_duration:
             await memory_store.set(
                 data.token,
-                True,
+                "1",
                 expires_in=cache_duration,
             )  # Stores token in cache for 20 seconds
 

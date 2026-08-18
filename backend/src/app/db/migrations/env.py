@@ -38,7 +38,7 @@ def order_columns(
     cols_by_key = [  # pyright: ignore[reportUnknownVariableType]
         (
             special_names.get(col.key, index) if isinstance(col, Column) else 2000,
-            col.copy(),  # type: ignore[attr-defined]
+            col.copy(),  # ty: ignore[unresolved-attribute]
         )
         for index, col in enumerate(op.columns)
     ]

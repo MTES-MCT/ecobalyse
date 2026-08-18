@@ -15,20 +15,20 @@ from app.domain.journal_entries.deps import provide_journal_entries_service
 from app.domain.journal_entries.schemas import JournalEntry
 
 if TYPE_CHECKING:
+    from litestar.router import Router
+
     from app.domain.journal_entries.services import JournalEntryService
-
-
-from typing import ClassVar
 
 
 class JournalEntryController(Controller):
     """JournalEntry CRUD"""
 
-    tags: ClassVar[list[str]] = ["Journal entries"]
-
-    dependencies: ClassVar[dict] = {
-        "journal_entries_service": Provide(provide_journal_entries_service),
-    }
+    def __init__(self, owner: Router) -> None:
+        self.tags = ["Journal entries"]
+        self.dependencies = {
+            "journal_entries_service": Provide(provide_journal_entries_service),
+        }
+        super().__init__(owner)
 
     @get(
         operation_id="ListJournalEntries",

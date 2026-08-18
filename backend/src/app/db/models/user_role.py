@@ -18,7 +18,8 @@ class UserRole(UUIDAuditBase):
     """User Role."""
 
     __tablename__ = "user_account_role"
-    __table_args__: ClassVar[dict] = {"comment": "Links a user to a specific role."}
+    __table_args__: ClassVar[dict] = {"comment": "Links a user to a specific role."}  # ty: ignore[invalid-attribute-override]
+
     user_id: Mapped[UUID] = mapped_column(
         ForeignKey("user_account.id", ondelete="cascade"), nullable=False
     )

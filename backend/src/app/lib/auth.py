@@ -21,14 +21,11 @@ if TYPE_CHECKING:
         ResponseCookies,
     )
 
-UserType = TypeVar("UserType")
 AuthType = TypeVar("AuthType")
+TokenT = TypeVar("TokenT", bound=Token, default=Token)
+UserType = TypeVar("UserType")
 
 __all__ = ("CustomOAuth2PasswordBearerAuth",)
-
-
-UserType = TypeVar("UserType")
-TokenT = TypeVar("TokenT", bound=Token, default=Token)
 
 
 @dataclass

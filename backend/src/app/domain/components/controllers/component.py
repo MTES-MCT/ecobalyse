@@ -1,6 +1,6 @@
 from __future__ import annotations
 
-from typing import TYPE_CHECKING, Annotated, Any, ClassVar
+from typing import TYPE_CHECKING, Annotated, Any
 from uuid import UUID
 
 from advanced_alchemy.filters import OrderBy
@@ -18,26 +18,30 @@ from app.domain.components.deps import (
 from app.lib.deps import create_filter_dependencies
 
 if TYPE_CHECKING:
+    from litestar.router import Router
+
     from app.domain.components.services import ComponentService
 
 
 class ComponentController(Controller):
     """Component CRUD"""
 
-    dependencies = {
-        "components_service": Provide(provide_components_service),
-    } | create_filter_dependencies(
-        {
-            "id_filter": UUID,
-            "search": "name",
-            "pagination_type": "limit_offset",
-            "pagination_size": 20,
-            "created_at": True,
-            "updated_at": True,
-        },
-    )
+    def __init__(self, owner: Router) -> None:
 
-    tags: ClassVar[list[str]] = ["Components"]
+        self.dependencies = {
+            "components_service": Provide(provide_components_service),
+        } | create_filter_dependencies(
+            {
+                "id_filter": UUID,
+                "search": "name",
+                "pagination_type": "limit_offset",
+                "pagination_size": 20,
+                "created_at": True,
+                "updated_at": True,
+            },
+        )
+        self.tags = ["Components"]
+        super().__init__(owner)
 
     @get(
         operation_id="ListComponents", path=urls.COMPONENT_LIST, exclude_from_auth=True
@@ -45,7 +49,7 @@ class ComponentController(Controller):
     async def list_components(
         self,
         components_service: NamedDependency[ComponentService],
-    ) -> list[dict[str, Any]]:
+    ) -> list[dict[str, Any] | None]:
         """List components."""
         results = await components_service.get_many(
             OrderBy(field_name="id", sort_order="asc"), uniquify=True
@@ -67,7 +71,7 @@ class ComponentController(Controller):
         data: dict[str, Any],
         current_user: NamedDependency[m.User],
         components_service: NamedDependency[ComponentService],
-    ) -> dict[str, Any]:
+    ) -> dict[str, Any] | None:
         """Create a component."""
 
         data["owner"] = current_user
@@ -90,7 +94,7 @@ class ComponentController(Controller):
             UUID,
             Parameter(title="Component ID", description="The component to update."),
         ],
-    ) -> dict[str, Any]:
+    ) -> dict[str, Any] | None:
         """Update a component."""
 
         data["owner"] = current_user
@@ -116,7 +120,9 @@ class ComponentController(Controller):
     ) -> None:
         """Delete a component."""
 
-        _ = await components_service.delete(item_id=component_id, user=current_user)
+        _ = await components_service.delete_with_user(
+            item_id=component_id, user=current_user
+        )
 
     @get(
         operation_id="GetComponent", path=urls.COMPONENT_DETAIL, exclude_from_auth=True
@@ -128,7 +134,7 @@ class ComponentController(Controller):
             UUID,
             Parameter(title="Component ID", description="The component to retrieve."),
         ],
-    ) -> dict[str, Any]:
+    ) -> dict[str, Any] | None:
         """Get a component."""
 
         component = await components_service.get(component_id)

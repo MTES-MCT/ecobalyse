@@ -15,7 +15,7 @@ if TYPE_CHECKING:
 
 class Token(UUIDAuditBase):
     __tablename__ = "token"
-    __table_args__: ClassVar[dict] = {"comment": "Tokens for API access"}
+    __table_args__: ClassVar[dict] = {"comment": "Tokens for API access"}  # ty: ignore[invalid-attribute-override]
 
     user_id: Mapped[UUID] = mapped_column(
         ForeignKey("user_account.id", ondelete="cascade"), nullable=False

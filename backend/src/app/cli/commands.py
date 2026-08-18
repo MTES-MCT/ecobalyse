@@ -30,7 +30,7 @@ from app.domain.processes.deps import provide_processes_service
     help="Manage application users and roles.",
 )
 @click.pass_context
-def user_management_group(_: dict[str, Any]) -> None:
+def user_management_group(_) -> None:
     """Manage application users."""
 
 
@@ -240,7 +240,7 @@ def create_user(
     help="Manage application fixtures.",
 )
 @click.pass_context
-def fixtures_management_group(_: dict[str, Any]) -> None:
+def fixtures_management_group(_) -> None:
     """Manage application components."""
 
 
@@ -287,7 +287,7 @@ async def get_or_create_default_user(db_session):
     return user
 
 
-async def load_components_fixtures(components_data: dict) -> None:
+async def load_components_fixtures(components_data: list) -> None:
     """Import/Synchronize Database Fixtures."""
 
     logger = get_logger()
@@ -323,7 +323,7 @@ def load_components_json(json_file: click.File) -> None:
 
     console = get_console()
 
-    json_data = orjson.loads(json_file.read())
+    json_data = orjson.loads(json_file.read())  # ty: ignore[unresolved-attribute]
 
     async def _load_components_json(components_data) -> None:
         await load_components_fixtures(components_data)
@@ -399,8 +399,8 @@ async def load_processes_fixtures(
 @fixtures_management_group.command(
     name="load-processes", help="Load processes from JSON file."
 )
-@click.argument("json_files", type=click.File("rb"), nargs=-1)
-def load_processes_json(json_files: click.File) -> None:
+@click.argument("json_file", type=click.File("rb"), nargs=1)
+def load_processes_json(json_file: click.File) -> None:
     """Load processes json.
 
     Args:
@@ -409,10 +409,7 @@ def load_processes_json(json_files: click.File) -> None:
 
     console = get_console()
 
-    json_data = []
-
-    for json_file in json_files:
-        json_data += orjson.loads(json_file.read())
+    json_data = orjson.loads(json_file.read())  # ty: ignore[unresolved-attribute]
 
     async def _load_processes_json(components_data) -> None:
         async with alchemy.get_session() as db_session:

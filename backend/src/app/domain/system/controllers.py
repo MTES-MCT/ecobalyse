@@ -1,6 +1,6 @@
 from __future__ import annotations
 
-from typing import TYPE_CHECKING, ClassVar, Literal, TypeVar
+from typing import TYPE_CHECKING, Literal, TypeVar
 
 import structlog
 from litestar import Controller, MediaType, Request, get
@@ -14,6 +14,7 @@ from .schemas import SystemHealth
 from .urls import SENTRY_CHECK, SYSTEM_HEALTH
 
 if TYPE_CHECKING:
+    from litestar.router import Router
     from sqlalchemy.ext.asyncio import AsyncSession
 
 logger = structlog.get_logger()
@@ -21,7 +22,9 @@ OnlineOffline = TypeVar("OnlineOffline", bound=Literal["online", "offline"])
 
 
 class SystemController(Controller):
-    tags: ClassVar[list[str]] = ["System"]
+    def __init__(self, owner: Router) -> None:
+        self.tags = ["System"]
+        super().__init__(owner)
 
     @get(
         operation_id="SystemHealth",
