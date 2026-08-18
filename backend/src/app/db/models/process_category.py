@@ -32,14 +32,14 @@ class ProcessCategory(UUIDAuditBase, UniqueMixin):
     )
 
     @classmethod
-    def unique_hash(cls, name: str, slug: str | None = None) -> Hashable:  # noqa: ARG003
+    def unique_hash(cls, name: str, slug: str | None = None) -> Hashable:
         return name
 
     @classmethod
     def unique_filter(
         cls,
         name: str,
-        slug: str | None = None,  # noqa: ARG003
+        slug: str | None = None,
     ) -> ColumnElement[bool]:
         return cls.name == name
 

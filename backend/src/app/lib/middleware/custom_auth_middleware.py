@@ -1,7 +1,8 @@
 from __future__ import annotations
 
-from datetime import datetime, timedelta, timezone
-from typing import TYPE_CHECKING, Awaitable, Callable, Sequence
+from collections.abc import Awaitable, Callable, Sequence
+from datetime import UTC, datetime, timedelta
+from typing import TYPE_CHECKING
 
 from litestar.exceptions import NotAuthorizedException
 from litestar.middleware.authentication import (
@@ -12,8 +13,7 @@ from litestar.security.jwt.token import Token
 
 from app.domain.accounts.services import TokenService
 
-__all__ = "CustomAuthMiddleware"
-
+__all__: tuple[str, ...] = ("CustomAuthMiddleware",)
 
 if TYPE_CHECKING:
     from typing import Any
@@ -168,7 +168,7 @@ class CustomAuthMiddleware(AbstractAuthenticationMiddleware):
             token = Token(
                 sub=payload["email"],
                 # Be sure that the token expire in the future
-                exp=datetime.now(timezone.utc) + timedelta(days=1),
+                exp=datetime.now(UTC) + timedelta(days=1),
                 extras={"id": payload["id"], "secret": payload["secret"]},
             )
 

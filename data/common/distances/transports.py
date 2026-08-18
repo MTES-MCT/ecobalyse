@@ -26,7 +26,7 @@ if __name__ == "__main__":
     # add self distances
     country_distances.add_self_distances()
 
-    countries_official_list = set([c["code"] for c in load_json(COUNTRIES_OFFICIAL)])
+    countries_official_list = {c["code"] for c in load_json(COUNTRIES_OFFICIAL)}
     # delete countries that are not needed
     for country in country_distances._all_countries:
         if (

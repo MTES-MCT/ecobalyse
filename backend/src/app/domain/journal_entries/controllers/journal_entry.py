@@ -1,6 +1,6 @@
 from __future__ import annotations
 
-from typing import TYPE_CHECKING
+from typing import TYPE_CHECKING, Annotated
 from uuid import UUID
 
 from advanced_alchemy.filters import OrderBy
@@ -15,17 +15,20 @@ from app.domain.journal_entries.deps import provide_journal_entries_service
 from app.domain.journal_entries.schemas import JournalEntry
 
 if TYPE_CHECKING:
+    from litestar.router import Router
+
     from app.domain.journal_entries.services import JournalEntryService
 
 
 class JournalEntryController(Controller):
     """JournalEntry CRUD"""
 
-    dependencies = {
-        "journal_entries_service": Provide(provide_journal_entries_service),
-    }
-
-    tags = ["Journal entries"]
+    def __init__(self, owner: Router) -> None:
+        self.tags = ["Journal entries"]
+        self.dependencies = {
+            "journal_entries_service": Provide(provide_journal_entries_service),
+        }
+        super().__init__(owner)
 
     @get(
         operation_id="ListJournalEntries",
@@ -78,12 +81,18 @@ class JournalEntryController(Controller):
     async def list_journal_entries_per_table_and_record_id(
         self,
         journal_entries_service: NamedDependency[JournalEntryService],
-        record_id: UUID = Parameter(
-            title="Record id", description="The record_id to get journal for."
-        ),
-        table_name: str = Parameter(
-            title="Table name", description="The table name to get journal from."
-        ),
+        record_id: Annotated[
+            UUID,
+            Parameter(
+                title="Record id", description="The record_id to get journal for."
+            ),
+        ],
+        table_name: Annotated[
+            str,
+            Parameter(
+                title="Table name", description="The table name to get journal from."
+            ),
+        ],
     ) -> list[JournalEntry]:
         """List all journal entries per table."""
         results = await journal_entries_service.get_many(

@@ -1,5 +1,4 @@
 from pathlib import Path
-from typing import List
 
 from common import (
     get_normalization_weighting_factors,
@@ -28,7 +27,7 @@ def activities_to_processes(
 ):
     factors = get_normalization_weighting_factors(IMPACTS_JSON)
 
-    processes: List[Process] = compute_processes_for_activities(
+    processes: list[Process] = compute_processes_for_activities(
         activities,
         main_method,
         impacts_py,

@@ -1,6 +1,5 @@
 import json
 import os
-from typing import List, Optional
 
 import orjson
 
@@ -27,9 +26,9 @@ from models.process import (
 def _build_variant_metadata(
     variant: dict,
     activity: dict,
-    food_variant: Optional[dict],
+    food_variant: dict | None,
     es_by_alias: dict,
-) -> Optional[dict]:
+) -> dict | None:
     """Build the metadata block for a variant, omitting cross-domain nulls.
 
     - Wood variants get `forestManagement` and `complements.forest` only.
@@ -88,13 +87,13 @@ def _build_variant_metadata(
 
 
 def compute_processes_generic(
-    activities: List[dict],
+    activities: list[dict],
     processes_impacts_path: str,
     cpu_count: int = 1,
-    ecosystemic_factors_path: Optional[str] = None,
-    feed_file_path: Optional[str] = None,
-    raw_to_transformed_file_path: Optional[str] = None,
-) -> List[dict]:
+    ecosystemic_factors_path: str | None = None,
+    feed_file_path: str | None = None,
+    raw_to_transformed_file_path: str | None = None,
+) -> list[dict]:
     """Compute ProcessGeneric dicts with metadata enrichment.
 
     Merges process impacts with forest complement metadata and, for food
@@ -229,15 +228,15 @@ def compute_processes_generic(
 
 
 def activities_to_processes_generic_json(
-    activities: List[dict],
+    activities: list[dict],
     processes_impacts_path: str,
-    ecs_output_paths: List[str],
-    impacts_output_paths: List[str],
+    ecs_output_paths: list[str],
+    impacts_output_paths: list[str],
     cpu_count: int = 1,
-    ecosystemic_factors_path: Optional[str] = None,
-    feed_file_path: Optional[str] = None,
-    raw_to_transformed_file_path: Optional[str] = None,
-) -> List[dict]:
+    ecosystemic_factors_path: str | None = None,
+    feed_file_path: str | None = None,
+    raw_to_transformed_file_path: str | None = None,
+) -> list[dict]:
     """Export object processes to ProcessGeneric json files."""
     generic_dicts = compute_processes_generic(
         activities,
@@ -262,7 +261,7 @@ def activities_to_processes_generic_json(
     return generic_dicts
 
 
-def add_land_occupations(activities: List[dict]) -> List[dict]:
+def add_land_occupations(activities: list[dict]) -> list[dict]:
     todo = [a for a in activities if "landOccupation" not in a]
     bw_by_eco_id = {
         a["id"]: cached_search_one(

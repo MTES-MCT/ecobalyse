@@ -62,13 +62,7 @@ def print_recursive_calculation(
             return
     if __first:
         logger.info("Fraction of score | Absolute score | Amount | Activity")
-    message = "{}{:04.3g} | {:5.4n} | {:5.4n} | {}".format(
-        tab_character * __level,
-        _lca_obj.score / _total_score,
-        _lca_obj.score,
-        float(amount),
-        str(activity),
-    )
+    message = f"{tab_character * __level}{_lca_obj.score / _total_score:04.3g} | {_lca_obj.score:5.4n} | {float(amount):5.4n} | {activity!s}"
     logger.info(message)
     if __level < max_level:
         prod_exchanges = list(activity.production())

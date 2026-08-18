@@ -1,12 +1,12 @@
 #!/usr/bin/env python
 
+import datetime
 import json
 import logging
 import os
 import pathlib
 import sys
 from contextlib import contextmanager
-from datetime import datetime
 from enum import StrEnum
 
 import pandas as pd
@@ -24,7 +24,9 @@ PROCESSES_IMPACTS_PATH = os.path.join(
     PROJECT_ROOT_DIR, "public", "data", "processes_impacts.json"
 )
 
-TODAY_DATETIME_STR = datetime.now().strftime("%Y-%m-%d %H:%M:%S")
+TODAY_DATETIME_STR = datetime.datetime.now(tz=datetime.UTC).strftime(
+    "%Y-%m-%d %H:%M:%S"
+)
 TOKEN = "dummy"
 
 
@@ -579,9 +581,9 @@ def get_database_connection(engine):
     try:
         yield connection
         transaction.commit()  # Commit the transaction if all operations were successful
-    except Exception as e:
+    except Exception:
         transaction.rollback()  # Roll back the transaction in case of an error
-        raise e
+        raise
     finally:
         connection.close()  # Ensure the connection is closed
 

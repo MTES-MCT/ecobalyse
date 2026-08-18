@@ -4,11 +4,11 @@ class CountryDistances:
         self._all_countries = set()
         self._update_all_countries()
 
-    self_distance = {
-        "road": 500,
-        "sea": None,
-        "air": 500,
-    }
+        self.self_distance = {
+            "road": 500,
+            "sea": None,
+            "air": 500,
+        }
 
     def _convert_distances(self, distances):
         """
@@ -26,7 +26,7 @@ class CountryDistances:
         Returns a set of all countries for which distances are defined.
         """
         countries = set()
-        for key in self.distances.keys():
+        for key in self.distances:
             countries.update(key.split("|"))
         self._all_countries = countries
 

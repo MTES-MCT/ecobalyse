@@ -82,6 +82,7 @@ class Ingredient(TypedDict, total=False):
     alias: str
     metadata: Metadata
     impacts: dict[str, float]
+    impacts_norm: dict[str, float]
     variant_type: str
 
 
@@ -113,8 +114,7 @@ def parse_variant_type(alias: str, base_ingredient: str) -> str:
     """Extract variant type from an alias given its base product."""
     suffix = alias[len(base_ingredient) :]  # e.g. "-fr-2025", "-organic", "-default"
     # Strip -2025 suffix if present
-    if suffix.endswith("-2025"):
-        suffix = suffix[: -len("-2025")]
+    suffix = suffix.removesuffix("-2025")
     # Remove leading dash
     variant_type = suffix.lstrip("-") if suffix.startswith("-") else suffix
     if not variant_type:
@@ -164,10 +164,10 @@ def compute_impacts_norm(
 
 def compute_ecs_with_complements(ingredient: Ingredient) -> float:
     ecs_with_complements = 0
-    for key, value in ingredient["impacts_norm"].items():
+    for value in ingredient["impacts_norm"].values():
         ecs_with_complements += value
     if "complements" in ingredient["metadata"]:
-        for key, value in ingredient["metadata"]["complements"].items():
+        for value in ingredient["metadata"]["complements"].values():
             if value:
                 ecs_with_complements += value
 
@@ -191,19 +191,19 @@ def check_explicit_pair_sanity_checks(
         )
         if ecs_lower > ecs_higher:
             base_lower = lower_ingr["metadata"]["ingredient"]["baseIngredient"]
-            violations.append(
-                {
-                    "base_ingredient": base_lower,
-                    "reason": f"{lower_alias} > {higher_alias}",
-                    "lower_variant": lower_alias,
-                    "lower_type": "explicit_sanity_check",
-                    "lower_ecs": round(ecs_lower, 2),
-                    "higher_variant": higher_alias,
-                    "higher_type": "explicit_sanity_check",
-                    "higher_ecs": round(ecs_higher, 2),
-                    "delta": round(ecs_lower - ecs_higher, 2),
-                }
-            )
+            violation: Violation = {
+                "base_ingredient": base_lower,
+                "reason": f"{lower_alias} > {higher_alias}",
+                "lower_variant": lower_alias,
+                "lower_type": "explicit_sanity_check",
+                "lower_ecs": round(ecs_lower, 2),
+                "higher_variant": higher_alias,
+                "higher_type": "explicit_sanity_check",
+                "higher_ecs": round(ecs_higher, 2),
+                "delta": round(ecs_lower - ecs_higher, 2),
+            }
+            violations.append(violation)
+
     return violations
 
 
@@ -239,19 +239,18 @@ def check_hierarchy(ingredient_by_base: dict[str, list[Ingredient]]) -> list[Vio
                 compute_ecs_with_complements(v2),
             )
             if ecs1 > ecs2:
-                violations.append(
-                    {
-                        "base_ingredient": base,
-                        "reason": f"{a1} > {a2}",
-                        "lower_variant": a1,
-                        "lower_type": t1,
-                        "lower_ecs": round(ecs1, 2),
-                        "higher_variant": a2,
-                        "higher_type": t2,
-                        "higher_ecs": round(ecs2, 2),
-                        "delta": round(ecs1 - ecs2, 2),
-                    }
-                )
+                violation: Violation = {
+                    "base_ingredient": base,
+                    "reason": f"{a1} > {a2}",
+                    "lower_variant": a1,
+                    "lower_type": t1,
+                    "lower_ecs": round(ecs1, 2),
+                    "higher_variant": a2,
+                    "higher_type": t2,
+                    "higher_ecs": round(ecs2, 2),
+                    "delta": round(ecs1 - ecs2, 2),
+                }
+                violations.append(violation)
 
     return violations
 
@@ -263,9 +262,9 @@ def build_df(aliases, ingredients: list[Ingredient]):
     """Build a plotting DataFrame: one row per (alias, impact) for the given aliases."""
     rows = []
     for alias in aliases:
-        ingr = [
+        ingr = next(
             ingredient for ingredient in ingredients if ingredient["alias"] == alias
-        ][0]
+        )
         for impact_key, val in ingr["impacts_norm"].items():
             if impact_key in EXCLUDED_IMPACTS:
                 continue
@@ -289,7 +288,7 @@ def _render_stacked_bar(df, ax, title):
     totals = pivot.sum(axis=1).sort_values()
     pivot = pivot.loc[totals.index]
 
-    colors = plt.get_cmap("tab20").colors
+    colors = plt.get_cmap("tab20").colors  # ty: ignore[unresolved-attribute]
     pivot.plot(kind="bar", stacked=True, ax=ax, color=colors)
     ax.set_xlabel("")
     ax.axhline(0, color="black", linewidth=0.8)
@@ -348,7 +347,7 @@ def save_stacked_bar_plot(df, title, output_path, figsize=(10, 7)):
     if df.empty or df["product_name"].nunique() < 2:
         return False
     output_path.parent.mkdir(parents=True, exist_ok=True)
-    fig, ax = plt.subplots(figsize=figsize)
+    _fig, ax = plt.subplots(figsize=figsize)
     _render_stacked_bar(df, ax, title)
     plt.tight_layout()
     plt.savefig(output_path)

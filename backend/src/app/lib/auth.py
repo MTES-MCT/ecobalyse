@@ -21,19 +21,16 @@ if TYPE_CHECKING:
         ResponseCookies,
     )
 
-UserType = TypeVar("UserType")
 AuthType = TypeVar("AuthType")
+TokenT = TypeVar("TokenT", bound=Token, default=Token)
+UserType = TypeVar("UserType")
 
 __all__ = ("CustomOAuth2PasswordBearerAuth",)
 
 
-UserType = TypeVar("UserType")
-TokenT = TypeVar("TokenT", bound=Token, default=Token)
-
-
 @dataclass
 class CustomOAuth2PasswordBearerAuth(
-    OAuth2PasswordBearerAuth, Generic[UserType, TokenT], BaseJWTAuth[UserType, TokenT]
+    OAuth2PasswordBearerAuth, BaseJWTAuth[UserType, TokenT], Generic[UserType, TokenT]
 ):
     def create_response(
         self,

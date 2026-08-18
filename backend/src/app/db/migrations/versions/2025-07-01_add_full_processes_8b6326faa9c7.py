@@ -8,7 +8,6 @@ Create Date: 2025-07-01 13:11:35.106552
 """
 
 import warnings
-from typing import TYPE_CHECKING
 
 import sqlalchemy as sa
 from advanced_alchemy.types import (
@@ -22,16 +21,13 @@ from alembic import op
 from sqlalchemy import Text  # noqa: F401
 from sqlalchemy.dialects import postgresql
 
-if TYPE_CHECKING:
-    pass
-
 __all__ = [
-    "downgrade",
-    "upgrade",
-    "schema_upgrades",
-    "schema_downgrades",
-    "data_upgrades",
     "data_downgrades",
+    "data_upgrades",
+    "downgrade",
+    "schema_downgrades",
+    "schema_upgrades",
+    "upgrade",
 ]
 
 sa.GUID = GUID

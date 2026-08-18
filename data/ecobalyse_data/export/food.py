@@ -2,7 +2,6 @@ import csv
 import json
 from enum import StrEnum
 from pathlib import Path
-from typing import List, Optional
 
 from common.export import (
     export_json,
@@ -29,7 +28,7 @@ class DefaultOrigin(StrEnum):
     OUT_OF_EUROPE_AND_MAGHREB_BY_PLANE = "OutOfEuropeAndMaghrebByPlane"
 
 
-def float_or_none(value) -> Optional[float]:
+def float_or_none(value) -> float | None:
     try:
         return float(value)
     except ValueError:
@@ -87,7 +86,7 @@ def build_transformed_to_raw(raw_to_transformed):
 
 
 def compute_es_for_ingredients(
-    activities: List[dict],
+    activities: list[dict],
     ecosystemic_factors,
     feed_file_content,
     raw_to_transformed,
@@ -134,7 +133,7 @@ def compute_es_for_ingredients(
                     continue
 
                 # First, compute any missing feed activities
-                for feed_activity_alias in feed_quantities.keys():
+                for feed_activity_alias in feed_quantities:
                     if feed_activity_alias not in es_for_ingredients:
                         if feed_activity_alias not in metadata_by_alias:
                             raise ValueError(
@@ -160,14 +159,14 @@ def compute_es_for_ingredients(
 
 
 def activities_to_ingredients_json(
-    activities: List[dict],
+    activities: list[dict],
     processes_impacts_path: Path,
     ingredients_path: Path,
     ecosystemic_factors_path: str,
     feed_file_path: str,
     raw_to_transformed_file_path: str,
     cpu_count: int,
-) -> List[dict]:
+) -> list[dict]:
     ecosystemic_factors = load_ecosystemic_dic(ecosystemic_factors_path)
 
     with open(processes_impacts_path, "r") as file:
@@ -205,7 +204,7 @@ def activities_to_ingredients_json(
     return ingredients_dicts
 
 
-def add_land_occupations(activities: List[dict]) -> List[dict]:
+def add_land_occupations(activities: list[dict]) -> list[dict]:
     """Populate `landOccupation` on every food metadata block via MultiLCA.
 
     Hardcoded values (e.g. `walnut-inshell-fr`) are preserved. One score per
@@ -238,12 +237,12 @@ def add_land_occupations(activities: List[dict]) -> List[dict]:
 
 
 def activities_to_ingredients(
-    activities: List[dict],
+    activities: list[dict],
     processes_by_id,
     ecosystemic_factors,
     feed_file_content,
     raw_to_transformed,
-) -> List[Ingredient]:
+) -> list[Ingredient]:
     es_by_alias = compute_es_for_ingredients(
         activities,
         ecosystemic_factors,
@@ -259,7 +258,7 @@ def activities_to_ingredients(
     return ingredients
 
 
-def activity_to_ingredients(eco_activity: dict, es_by_alias: dict) -> List[Ingredient]:
+def activity_to_ingredients(eco_activity: dict, es_by_alias: dict) -> list[Ingredient]:
     ingredients = []
 
     bw_activity = cached_search_one(
@@ -277,15 +276,15 @@ def activity_to_ingredients(eco_activity: dict, es_by_alias: dict) -> List[Ingre
 
         if es:
 
-            def _neg(key):
+            def _neg(es, key):
                 value = es.get(key)
                 return -value if value is not None else None
 
             ecosystemic_services = EcosystemicServices(
-                crop_diversity=_neg("cropDiversity"),
-                hedges=_neg("hedges"),
-                permanent_pasture=_neg("permanentPasture"),
-                plot_size=_neg("plotSize"),
+                crop_diversity=_neg(es, "cropDiversity"),
+                hedges=_neg(es, "hedges"),
+                permanent_pasture=_neg(es, "permanentPasture"),
+                plot_size=_neg(es, "plotSize"),
             )
 
         try:

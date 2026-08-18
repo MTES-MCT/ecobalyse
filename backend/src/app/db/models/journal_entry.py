@@ -34,7 +34,7 @@ class JournalEntry(
 
     created_at: Mapped[datetime.datetime] = mapped_column(
         DateTimeUTC(timezone=True),
-        default=lambda: datetime.datetime.now(datetime.timezone.utc),
+        default=lambda: datetime.datetime.now(datetime.UTC),
     )
 
     table_name: Mapped[str] = mapped_column(nullable=False)

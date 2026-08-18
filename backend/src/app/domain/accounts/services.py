@@ -1,11 +1,13 @@
 from __future__ import annotations
 
 import base64
+import binascii
 import json
-from datetime import UTC, datetime, timedelta, timezone
-from typing import Any
-from uuid import UUID, uuid4  # noqa: TC003
+from datetime import UTC, datetime, timedelta
+from typing import ClassVar, cast
+from uuid import UUID, uuid4
 
+from advanced_alchemy.extensions.litestar import service
 from advanced_alchemy.repository import (
     SQLAlchemyAsyncRepository,
     SQLAlchemyAsyncSlugRepository,
@@ -36,7 +38,7 @@ class UserService(SQLAlchemyAsyncRepositoryService[m.User]):
 
     repository_type = UserRepository
     default_role = constants.DEFAULT_USER_ROLE
-    match_fields = ["email"]
+    match_fields: ClassVar[list[str]] = ["email"]
 
     async def to_model_on_create(self, data: ModelDictT[m.User]) -> ModelDictT[m.User]:
         return await self._populate_model(data, operation="create")
@@ -65,7 +67,7 @@ class UserService(SQLAlchemyAsyncRepositoryService[m.User]):
 
         db_obj.is_verified = True
 
-        now = datetime.now(timezone.utc)
+        now = datetime.now(UTC)
 
         if db_obj.magic_link_sent_at and (
             db_obj.magic_link_sent_at
@@ -84,33 +86,17 @@ class UserService(SQLAlchemyAsyncRepositoryService[m.User]):
         return db_obj
 
     async def _check_permissions(
-        self, db_obj: m.User | None, password: str, hashed_password: str
+        self, db_obj: m.User, password: bytes | str, hashed_password: str | None
     ) -> None:
         if hashed_password is None:
             msg = "Token not found or already used"
             raise PermissionDeniedException(detail=msg)
-        if not await crypt.verify_password(password, hashed_password):
+        if not await crypt.verify_password(password, hashed_password):  # ty: ignore[too-many-positional-arguments, invalid-argument-type]
             msg = "User not found or password invalid"
             raise PermissionDeniedException(detail=msg)
         if not db_obj.is_active:
             msg = "User account is inactive"
             raise PermissionDeniedException(detail=msg)
-
-    async def update_password(self, data: dict[str, Any], db_obj: m.User) -> None:
-        """Modify stored user password."""
-        if db_obj.hashed_password is None:
-            msg = "User not found or password invalid"
-            raise PermissionDeniedException(detail=msg)
-        if not await crypt.verify_password(
-            data["current_password"], db_obj.hashed_password
-        ):
-            msg = "User not found or password invalid"
-            raise PermissionDeniedException(detail=msg)
-        if not db_obj.is_active:
-            msg = "User account is not active"
-            raise PermissionDeniedException(detail=msg)
-        db_obj.hashed_password = await crypt.get_password_hash(data["new_password"])
-        await self.repository.update(db_obj)
 
     @staticmethod
     async def has_role_id(db_obj: m.User, role_id: UUID) -> bool:
@@ -163,7 +149,7 @@ class UserService(SQLAlchemyAsyncRepositoryService[m.User]):
             and (magic_link_token := data.pop("magic_link_token", None)) is not None
         ):
             data["magic_link_hashed_token"] = await crypt.get_password_hash(
-                magic_link_token
+                magic_link_token  # ty: ignore[too-many-positional-arguments]
             )
         return data
 
@@ -172,6 +158,10 @@ class UserService(SQLAlchemyAsyncRepositoryService[m.User]):
         data: ModelDictT[m.User],
         operation: str | None,
     ) -> ModelDictT[m.User]:
+
+        if not service.is_dict(data):
+            return data
+
         first_name = data.pop("first_name", None) if is_dict(data) else None
         terms_accepted = data.pop("terms_accepted", None) if is_dict(data) else None
         last_name = data.pop("last_name", None) if is_dict(data) else None
@@ -181,40 +171,39 @@ class UserService(SQLAlchemyAsyncRepositoryService[m.User]):
         role_id = data.pop("role_id", None) if is_dict(data) else None
 
         if is_dict(data):
-            data = await self.to_model(data)
+            data: m.User = await self.to_model(data)
+        else:
+            data: m.User = cast(m.User, data)
 
         if role_id is not None:
             data.roles.append(
                 m.UserRole(role_id=role_id, assigned_at=datetime.now(UTC))
             )
 
-        if operation == "create" or operation == "upsert":
-            if any(
-                [
-                    v is not None
-                    for v in [
-                        first_name,
-                        last_name,
-                        organization,
-                        terms_accepted,
-                    ]
-                ]
-            ):
-                data.profile = m.UserProfile(
-                    first_name=first_name,
-                    last_name=last_name,
-                    organization_name=organization.get("name")
-                    if is_dict(organization)
-                    else organization.name,
-                    organization_type=organization.get("type")
-                    if is_dict(organization)
-                    else organization.type,
-                    organization_siren=organization.get("siren")
-                    if is_dict(organization)
-                    else organization.siren,
-                    terms_accepted=terms_accepted,
-                    email_optin=email_optin,
-                )
+        if (operation == "create" or operation == "upsert") and any(
+            v is not None
+            for v in [
+                first_name,
+                last_name,
+                organization,
+                terms_accepted,
+            ]
+        ):
+            data.profile = m.UserProfile(
+                first_name=first_name,
+                last_name=last_name,
+                organization_name=organization.get("name")
+                if is_dict(organization)
+                else organization.name,
+                organization_type=organization.get("type")
+                if is_dict(organization)
+                else organization.type,
+                organization_siren=organization.get("siren")
+                if is_dict(organization)
+                else organization.siren,
+                terms_accepted=terms_accepted,
+                email_optin=email_optin,
+            )
         return data
 
 
@@ -227,7 +216,7 @@ class RoleService(SQLAlchemyAsyncRepositoryService[m.Role]):
         model_type = m.Role
 
     repository_type = Repository
-    match_fields = ["name"]
+    match_fields: ClassVar[list[str]] = ["name"]
 
     async def to_model_on_create(self, data: ModelDictT[m.Role]) -> ModelDictT[m.Role]:
         data = schema_dump(data)
@@ -275,11 +264,13 @@ class TokenService(SQLAlchemyAsyncRepositoryService[m.Token]):
     repository_type = Repository
 
     async def find_by_secret(self, secret: str) -> m.Token | None:
-        hashed_token = await crypt.get_password_hash(secret)
+        hashed_token = await crypt.get_password_hash(secret)  # ty: ignore[too-many-positional-arguments]
+
         return await self.repository.get_one_or_none(hashed_token=hashed_token)
 
     async def generate_for_user(self, user: m.User, secret: str = str(uuid4())) -> str:
-        hashed_token = await crypt.get_password_hash(secret)
+        hashed_token = await crypt.get_password_hash(secret)  # ty: ignore[too-many-positional-arguments]
+
         data = m.Token(user_id=user.id, hashed_token=hashed_token)
         added_token = await self.repository.add(data)
 
@@ -303,15 +294,15 @@ class TokenService(SQLAlchemyAsyncRepositoryService[m.Token]):
             decoded_bytes = base64.urlsafe_b64decode(token.replace("eco_api_", ""))
             json_payload = decoded_bytes.decode("utf-8")
             payload = json.loads(json_payload)
-        except Exception:
+        except (binascii.Error, ValueError):
             raise PermissionDeniedException(detail="Error decoding the token")
 
         return payload
 
     async def authenticate(self, secret: str, token_id: UUID) -> m.Token:
         token = await self.repository.get_one_or_none(id=token_id)
-        if token and await crypt.verify_password(secret, token.hashed_token):
-            token.last_accessed_at = datetime.now(timezone.utc)
+        if token and await crypt.verify_password(secret, token.hashed_token):  # ty: ignore[too-many-positional-arguments]
+            token.last_accessed_at = datetime.now(UTC)
             await self.repository.update(token)
             return token
 

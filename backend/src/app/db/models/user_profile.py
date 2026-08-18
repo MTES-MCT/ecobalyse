@@ -1,7 +1,7 @@
 from __future__ import annotations
 
-from typing import TYPE_CHECKING
-from uuid import UUID  # noqa: TC003
+from typing import TYPE_CHECKING, ClassVar
+from uuid import UUID
 
 from advanced_alchemy.base import UUIDAuditBase
 from sqlalchemy import ForeignKey
@@ -16,7 +16,7 @@ class UserProfile(UUIDAuditBase):
     """User Role."""
 
     __tablename__ = "user_account_profile"
-    __table_args__ = {"comment": "Profile details for a specific user."}
+    __table_args__: ClassVar[dict] = {"comment": "Profile details for a specific user."}  # ty: ignore[invalid-attribute-override]
     user_id: Mapped[UUID] = mapped_column(
         ForeignKey("user_account.id", ondelete="cascade"), nullable=False
     )
@@ -39,7 +39,7 @@ class UserProfile(UUIDAuditBase):
 
     @property
     def full_name(self) -> str:
-        return " ".join([self.first_name, self.last_name]).strip()
+        return f"{self.first_name} {self.last_name}".strip()
 
     @property
     def organization(self):
@@ -51,7 +51,7 @@ class UserProfile(UUIDAuditBase):
 
     @property
     def organization_info(self) -> str:
-        org_name = self.organization_name.strip()
+        org_name = self.organization_name.strip() if self.organization_name else None
         return org_name if org_name else "Non renseignée"
 
     def __repr__(self) -> str:

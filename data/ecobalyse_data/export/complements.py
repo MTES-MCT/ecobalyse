@@ -90,7 +90,7 @@ def compute_vegetal_ecosystemic_services(
 
 
 def number_format_ecosystemic_service(value):
-    return float("{:.3g}".format(value))
+    return float(f"{value:.3g}")
 
 
 def compute_animal_ecosystemic_services(
@@ -163,9 +163,9 @@ def es_transform(eco_service, value):
 def plot_es_transformations(save_path=None):
     # Create a range of values for x-axis (input values for es_transform)
     plot_characteristic_dic = {
-        "hedges": {"range": range(0, 200), "unit": "Mètre linéaire de haie/ha"},
-        "plotSize": {"range": range(0, 25), "unit": "Taille de parcelle (ha)"},
-        "cropDiversity": {"range": range(0, 30), "unit": "Simpson number"},
+        "hedges": {"range": range(200), "unit": "Mètre linéaire de haie/ha"},
+        "plotSize": {"range": range(25), "unit": "Taille de parcelle (ha)"},
+        "cropDiversity": {"range": range(30), "unit": "Simpson number"},
     }  # Adjust the range based on expected values
 
     num_plots = len(config.ecosystemic_services_list)

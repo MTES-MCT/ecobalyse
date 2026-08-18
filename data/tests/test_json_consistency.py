@@ -6,6 +6,7 @@ To add a new check define a new function and set it in the CHECKS dict
 
 import json
 import re
+import sys
 import tempfile
 import uuid
 from collections import Counter
@@ -383,7 +384,4 @@ if __name__ == "__main__":
         print("\n🎉 All checks have passed!")
     except AssertionError as e:
         print(f"\n❌ Test failed: {e}")
-        exit(1)
-    except Exception as e:
-        print(f"\n❌ Unexpected error: {e}")
-        exit(1)
+        sys.exit(1)
