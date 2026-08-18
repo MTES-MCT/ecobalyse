@@ -399,7 +399,7 @@ async def load_processes_fixtures(
 @fixtures_management_group.command(
     name="load-processes", help="Load processes from JSON file."
 )
-@click.argument("json_file", type=click.File("rb"), nargs=-1)
+@click.argument("json_file", type=click.File("rb"), nargs=1)
 def load_processes_json(json_file: click.File) -> None:
     """Load processes json.
 
@@ -409,10 +409,7 @@ def load_processes_json(json_file: click.File) -> None:
 
     console = get_console()
 
-    json_data = []
-
-    for content in json_file:  # ty: ignore[not-iterable]
-        json_data += orjson.loads(content.read())
+    json_data = orjson.loads(json_file.read())
 
     async def _load_processes_json(components_data) -> None:
         async with alchemy.get_session() as db_session:
