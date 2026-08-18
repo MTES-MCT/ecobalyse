@@ -409,7 +409,7 @@ def load_processes_json(json_file: click.File) -> None:
 
     console = get_console()
 
-    json_data = orjson.loads(json_file.read())
+    json_data = orjson.loads(json_file.read())  # ty: ignore[unresolved-attribute]
 
     async def _load_processes_json(components_data) -> None:
         async with alchemy.get_session() as db_session:
