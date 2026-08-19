@@ -4,6 +4,7 @@ import json
 import urllib.parse
 
 import bw2calc
+import bw2calc.errors
 import bw2data
 import requests
 from bw2data import get_multilca_data_objs
@@ -273,7 +274,7 @@ def compute_processes_for_activities(
     for idx, parameters in enumerate(computation_parameters):
         if idx in batched_set:
             eco_activity, bw_activity, _, _, _, _ = parameters
-            raw = batched_raw.get(bw_activity.id)
+            raw = batched_raw.get(bw_activity["id"])
             if raw is None:
                 # Fallback to per-activity if batch lost it for any reason.
                 processes.append(compute_process_for_activity(*parameters))

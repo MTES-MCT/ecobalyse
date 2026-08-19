@@ -98,6 +98,11 @@ src = ["backend/src", "data"]
 [tool.ruff.lint]
 extend-select = ["I"]
 
+[tool.ty.environment]
+extra-paths = [
+    "data/",
+]
+
 [tool.ty.src]
 exclude = [
     "data/",

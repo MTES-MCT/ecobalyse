@@ -530,7 +530,7 @@ def import_simapro_csv(
     database.apply_strategy(
         functools.partial(
             link_iterable_by_fields,
-            other=bw2data.Database(biosphere),
+            other=bw2data.Database(biosphere),  # ty: ignore[invalid-argument-type]
             kind="biosphere",
         ),
     )
@@ -584,5 +584,5 @@ def add_missing_substances(project, biosphere):
     bw2data.projects.set_current(project)
     bio = bw2data.Database(biosphere)
     for code, activity in substances.items():
-        if not [flow for flow in bio if flow["code"] == code]:
-            bio.new_activity(code, **activity)
+        if not [flow for flow in bio if flow["code"] == code]:  # ty: ignore[not-iterable]
+            bio.new_activity(code, **activity)  # ty: ignore[unresolved-attribute]
