@@ -29,7 +29,7 @@ def simapro(
         typer.Argument(help="The output CSV file."),
     ] = Path("simapro_export.csv"),
     db_name: Annotated[
-        str | None,
+        str,
         typer.Argument(
             callback=bw_database_validation,
             help=f"Brightway databases you want to compute impacts for. Default to all. You can specify multiple `--db`.\n\nAvailable databases are: {available_bw_databases}.",
@@ -129,7 +129,8 @@ def ecospold1(
     if output_filename is None:
         output_filename = Path(f"{'_'.join(n.lower() for n in db_names)}.XML")
 
-    activities = [act for name in db_names for act in bw2data.Database(name)]
+    activities = [act for name in db_names for act in bw2data.Database(name)]  # ty:ignore[not-iterable]
+
     ecospold_export.export_db_to_ecospold(activities, output_filename)
 
 

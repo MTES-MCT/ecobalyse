@@ -69,11 +69,11 @@ def link_technosphere_by_activity_hash_ref_product(
     and avoid breaking the linking as processes are now imported with the default type "processwithreferenceproduct"
     """
 
-    TECHNOSPHERE_TYPES = {"technosphere", "substitution", "production"}
+    TECHNOSPHERE_TYPES = ["technosphere", "substitution", "production"]
     if external_db_name is not None:
         other = (
             obj
-            for obj in bw2data.Database(external_db_name)
+            for obj in bw2data.Database(external_db_name)  # ty: ignore[not-iterable]
             if obj.get("type", "process") == "process"
             or obj.get("type") == "processwithreferenceproduct"
         )
@@ -156,7 +156,7 @@ def create_activity(
             "location": location,
         }
         code = activity_hash(data)
-        new_activity = bw2data.Database(dbname).new_activity(code, **data)
+        new_activity = bw2data.Database(dbname).new_activity(code, **data)  # ty: ignore[unresolved-attribute]
         new_activity["code"] = code
     new_activity["Process identifier"] = code
     new_activity.save()
@@ -396,11 +396,11 @@ def add_activity_from_existing(activity_data, created_activities_db):
 
 def add_unlinked_flows_to_biosphere_database(
     database,
-    biosphere_name=None,
-    fields=None,
+    biosphere_name,
+    fields: list[str] | None = None,
 ) -> None:
-    if fields is None:
-        fields = {"name", "unit", "categories"}
+    if not fields:
+        fields = ["name", "unit", "categories"]
     biosphere_name = biosphere_name or bw2data.config.biosphere
     assert biosphere_name in bw2data.databases, (
         f"{biosphere_name} biosphere database not found"
@@ -408,8 +408,8 @@ def add_unlinked_flows_to_biosphere_database(
 
     bio = bw2data.Database(biosphere_name)
 
-    def reformat(exc):
-        dct = {key: value for key, value in list(exc.items()) if key in fields}
+    def reformat(exc, fields):
+        dct = {key: value for key, value in list(exc.items()) if str(key) in fields}
         dct.update(
             type="emission",
             exchanges=[],
@@ -419,7 +419,7 @@ def add_unlinked_flows_to_biosphere_database(
         return dct
 
     new_data = [
-        reformat(exc)
+        reformat(exc, fields)
         for ds in database.data
         for exc in ds.get("exchanges", [])
         if exc["type"] == "biosphere" and not exc.get("input")
@@ -440,7 +440,7 @@ def add_unlinked_flows_to_biosphere_database(
     database.apply_strategy(
         functools.partial(
             link_iterable_by_fields,
-            other=(obj for obj in bw2data.Database(biosphere_name)),
+            other=(obj for obj in bw2data.Database(biosphere_name)),  # ty: ignore[not-iterable]
             edge_kinds=["biosphere"],
         ),
     )
@@ -505,26 +505,26 @@ def import_simapro_csv(
     database.apply_strategy(
         functools.partial(
             link_technosphere_by_activity_hash_ref_product,
-            fields=("name", "unit", "location"),
+            fields=["name", "unit", "location"],
         )
     )
     database.apply_strategy(
         functools.partial(
-            link_technosphere_by_activity_hash_ref_product, fields=("name", "unit")
-        )
-    )
-    database.apply_strategy(
-        functools.partial(
-            link_technosphere_by_activity_hash_ref_product,
-            external_db_name=external_db,
-            fields=("name", "unit", "location"),
+            link_technosphere_by_activity_hash_ref_product, fields=["name", "unit"]
         )
     )
     database.apply_strategy(
         functools.partial(
             link_technosphere_by_activity_hash_ref_product,
             external_db_name=external_db,
-            fields=("name", "unit"),
+            fields=["name", "unit", "location"],
+        )
+    )
+    database.apply_strategy(
+        functools.partial(
+            link_technosphere_by_activity_hash_ref_product,
+            external_db_name=external_db,
+            fields=["name", "unit"],
         )
     )
     database.apply_strategy(

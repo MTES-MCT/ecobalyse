@@ -152,19 +152,19 @@ class SimaProJsonImporter(LCIImporter):
                 ]
             )
         self.strategies.extend(
-            [
+            [  # ty: ignore[invalid-argument-type]
                 functools.partial(
                     link_iterable_by_fields,
-                    other=Database(biosphere_db or config.biosphere),
+                    other=Database(biosphere_db or config.biosphere),  # ty: ignore[invalid-argument-type]
                     kind="biosphere",
                 ),
                 convert_activity_parameters_to_list,
             ]
         )
 
-    def write_database(self, data=None, name=None, *args, **kwargs):
+    def write_database(self, data=None, *args, **kwargs):
         importer = super()
-        db = importer.write_database(data, name, *args, **kwargs)
+        db = importer.write_database(data, *args, **kwargs)
         db.metadata["simapro import"] = self.metadata
-        db._metadata.flush()
+        db._metadata.flush()  # ty: ignore[unresolved-attribute]
         return db
