@@ -4,6 +4,7 @@ import json
 import urllib.parse
 
 import bw2calc
+import bw2calc.errors
 import bw2data
 import requests
 from bw2data import get_multilca_data_objs
@@ -71,11 +72,9 @@ def compute_process_for_bw_activity(
     impacts_py,
     impacts_json,
     factors,
-) -> Process | None:
+) -> Process:
     """Compute a process when we have only have a brightway activity (bw_activity),
     no eco_activity (an activity in lci_activity/*)"""
-    computed_by = None
-    impacts = {}
 
     (computed_by, impacts) = compute_impacts(
         bw_activity,
@@ -273,7 +272,7 @@ def compute_processes_for_activities(
     for idx, parameters in enumerate(computation_parameters):
         if idx in batched_set:
             eco_activity, bw_activity, _, _, _, _ = parameters
-            raw = batched_raw.get(bw_activity.id)
+            raw = batched_raw.get(bw_activity["id"])
             if raw is None:
                 # Fallback to per-activity if batch lost it for any reason.
                 processes.append(compute_process_for_activity(*parameters))
@@ -303,10 +302,7 @@ def compute_impacts(
     with_aggregated=True,
     demand_amount=None,
 ) -> tuple[ComputedBy | None, Impacts | None]:
-    computed_by = None
     try:
-        impacts = {}
-
         logger.debug(f"-> Getting impacts from BW for {bw_activity}")
         impacts = compute_brightway_impacts(bw_activity, impacts_py, demand_amount)
 

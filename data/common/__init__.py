@@ -4,9 +4,8 @@ import json
 from subprocess import call
 from uuid import UUID
 
+from data.config import settings
 from frozendict import frozendict
-
-from config import settings
 
 
 @functools.cache
@@ -145,7 +144,7 @@ def fix_unit(unit):
 
 
 class FormatNumberJsonEncoder(json.JSONEncoder):
-    def encode(self, obj):
+    def encode(self, o) -> str:
         def recursive_format_number(obj):
             # in python, bools are a subclass of int, so we should check explicitly
             # if obj is not a bool, otherwise it will be converted to a float…
@@ -164,7 +163,7 @@ class FormatNumberJsonEncoder(json.JSONEncoder):
             else:
                 return obj
 
-        return super().encode(recursive_format_number(obj))
+        return super().encode(recursive_format_number(o))
 
 
 def activities_processes_sort_key(entry):

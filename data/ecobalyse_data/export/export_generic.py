@@ -89,10 +89,10 @@ def _build_variant_metadata(
 def compute_processes_generic(
     activities: list[dict],
     processes_impacts_path: str,
+    feed_file_path: str,
+    raw_to_transformed_file_path: str,
     cpu_count: int = 1,
     ecosystemic_factors_path: str | None = None,
-    feed_file_path: str | None = None,
-    raw_to_transformed_file_path: str | None = None,
 ) -> list[dict]:
     """Compute ProcessGeneric dicts with metadata enrichment.
 
@@ -232,19 +232,19 @@ def activities_to_processes_generic_json(
     processes_impacts_path: str,
     ecs_output_paths: list[str],
     impacts_output_paths: list[str],
+    feed_file_path: str,
+    raw_to_transformed_file_path: str,
     cpu_count: int = 1,
     ecosystemic_factors_path: str | None = None,
-    feed_file_path: str | None = None,
-    raw_to_transformed_file_path: str | None = None,
 ) -> list[dict]:
     """Export object processes to ProcessGeneric json files."""
     generic_dicts = compute_processes_generic(
         activities,
         processes_impacts_path,
+        feed_file_path,
+        raw_to_transformed_file_path,
         cpu_count,
         ecosystemic_factors_path=ecosystemic_factors_path,
-        feed_file_path=feed_file_path,
-        raw_to_transformed_file_path=raw_to_transformed_file_path,
     )
 
     for path in impacts_output_paths:
