@@ -62,7 +62,7 @@
   ["water", "Beryllium (II)", "Beryllium II"],
   ["air", "Beryllium (II)", "Beryllium II"],
   ["soil", "Beryllium (II)", "Beryllium II"],
-  ["water", "Arsenic", "Arsenic ion"],
+  ["water", "Arsenic", "Arsenic, ion"],
   ["air", "Arsenic", "Arsenic ion"],
   ["soil", "Arsenic", "Arsenic ion"],
   ["water", "Arsenic (III)", "Arsenic ion"],
@@ -453,11 +453,6 @@
   [
     "natural resource",
     "Occupation, arable, irrigated, intensive",
-    "Occupation, annual crop, irrigated, intensive"
-  ],
-  [
-    "natural resource",
-    "Occupation, arable, irrigated, intensive",
     "Occupation, permanent crop, irrigated, intensive"
   ],
   [
@@ -469,11 +464,6 @@
     "natural resource",
     "Occupation, arable, non-irrigated, extensive",
     "Occupation, annual crop, non-irrigated, extensive"
-  ],
-  [
-    "natural resource",
-    "Occupation, arable, non-irrigated, intensive",
-    "Occupation, annual crop, non-irrigated, intensive"
   ],
   [
     "natural resource",
@@ -539,11 +529,6 @@
     "natural resource",
     "Occupation, urban/industrial fallow",
     "Occupation, urban/industrial fallow (non-use)"
-  ],
-  [
-    "natural resource",
-    "Occupation, water bodies, artificial",
-    "Occupation, lake, artificial"
   ],
   [
     "natural resource",
@@ -818,7 +803,7 @@
   [
     "natural resource",
     "Transformation, to arable, fallow",
-    "Transformation, to cropland fallow (non-use)"
+    "Transformation, to annual crop, non-irrigated, fallow"
   ],
   [
     "natural resource",
@@ -893,11 +878,6 @@
   [
     "natural resource",
     "Transformation, to pasture and meadow, extensive",
-    "Transformation, to grassland, natural (non-use)"
-  ],
-  [
-    "natural resource",
-    "Transformation, to pasture and meadow, extensive",
     "Transformation, to pasture, man made, extensive"
   ],
   [
@@ -934,11 +914,6 @@
     "natural resource",
     "Transformation, to urban/industrial fallow",
     "Transformation, to urban/industrial fallow (non-use)"
-  ],
-  [
-    "natural resource",
-    "Transformation, to water bodies, artificial",
-    "Transformation, to lake, artificial"
   ],
   [
     "natural resource",
@@ -993,11 +968,10 @@
   ["water", "2-Butene, 2-methyl-", "2-Methyl-2-butene"],
   ["water", "Acrylate", "Acrylate, ion"],
   ["water", "Ammonium", "Ammonium, ion"],
-  ["water", "Arsenic", "Arsenic, ion"],
   ["water", "Benzene, 1,2-dichloro-", "o-Dichlorobenzene"],
   ["water", "Benzo(a)anthracene", "Benz(a)anthracene"],
   ["water", "Benzo(g,h,i)perylene", "Benzo(ghi)perylene"],
-  ["water", "Calcium", "Calcium, ion"],
+  ["water", "Calcium", "Calcium (II)"],
   [
     "water",
     "Carbamic acid, butyl-, 3-iodo-2-propynyl ester",
@@ -1017,21 +991,81 @@
   ["water", "Lithium", "Lithium, ion"],
   ["water", "Methylamine", "Methyl amine"],
   ["water", "Naphthalene", "Naphtalene"],
-  ["water", "Nickel", "Nickel, ion"],
   ["water", "Oils, biogenic", "Oils, non-fossil"],
   ["water", "Perchlorate", "Perchlorate, ion"],
   ["water", "Potassium", "Potassium, ion"],
-  ["water", "Silver", "Silver, ion"],
   ["water", "Sodium", "Sodium, ion"],
   ["water", "Sulphur", "Sulfur"],
   ["water", "Thiocyanate", "Thiocyanate, ion"],
   ["water", "Titanium", "Titanium, ion"],
   ["water", "Toluene, 2-chloro-", "Toluene, 2-chloro"],
   ["water", "Vanadium", "Vanadium, ion"],
-  ["water", "Zinc", "Zinc, ion"],
   [
     "air",
     "NMVOC, non-methane volatile organic compounds, unspecified origin",
     "NMVOC, non-methane volatile organic compounds"
-  ]
+  ],
+  ["air", "Copper", "Copper, ion"],
+  ["air", "Chromium", "Chromium, ion"],
+  ["air", "Ethene", "Ethylene"],
+  ["water", "Zinc, ion", "Zinc II"],
+  ["water", "Nickel, ion", "Nickel II"],
+  ["water", "Calcium, ion", "Calcium (II)"],
+  ["air", "Calcium", "Calcium (II)"],
+  [
+    "water",
+    "AOX, Adsorbable Organic Halogen as Cl",
+    "AOX, Adsorbable Organic Halogen"
+  ],
+  ["air", "Iron", "Iron, ion"],
+  ["water", "Silver, ion", "Silver I"],
+  ["air", "Ethene, tetrachloro-", "Tetrachloroethylene"],
+  ["soil", "Calcium", "Calcium (II)"],
+  ["air", "Ethene, chloro-", "Chloroethylene"],
+  ["water", "Ethene, chloro-", "Chloroethylene"],
+  ["water", "Ethene", "Ethylene"],
+  [
+    "natural resource",
+    "Transformation, to cropland fallow (non-use)",
+    "Transformation, to annual crop, non-irrigated, fallow"
+  ],
+  [
+    "natural resource",
+    "Transformation, from arable, organic",
+    "Transformation, from annual crop, organic"
+  ],
+  [
+    "natural resource",
+    "Transformation, to arable, organic",
+    "Transformation, to annual crop, organic"
+  ],
+  ["air", "Copper ion", "Copper, ion"],
+  ["water", "Calcium II", "Calcium (II)"],
+  ["water", "Copper ion", "Copper, ion"],
+  ["water", "Ethene, tetrachloro-", "Tetrachloroethylene"],
+  [
+    "natural resource",
+    "Occupation, traffic area, rail network, CH",
+    "Occupation, traffic area, rail network"
+  ],
+  [
+    "natural resource",
+    "Occupation, traffic area, rail/road embankment, CH",
+    "Occupation, traffic area, rail/road embankment"
+  ],
+  ["air", "Ethene, trichloro-", "Trichloroethylene"],
+  ["soil", "Pyraclostrobin (prop)", "Pyraclostrobin"],
+  ["water", "Ethene, trichloro-", "Trichloroethylene"],
+  ["soil", "Diclofop", "2-[4-(2,4-Dichlorophenoxy)phenoxy]propanoic acid"],
+  [
+    "natural resource",
+    "Transformation, from pasture and meadow, organic",
+    "Transformation, from grassland/pasture/meadow"
+  ],
+  ["soil", "Azadirachtin A+B", "Azadirachtin"],
+  ["soil", "Prothioconazol", "Prothioconazole"],
+  ["water", "Methyl pentane", "Methylpentane"],
+  ["air", "Tin oxide", "Tin (IV) oxide"],
+  ["soil", "Arsenic V", "Arsenic (V)"],
+  ["air", "Hydrogen chloride", "Hydrochloric acid"]
 ]
