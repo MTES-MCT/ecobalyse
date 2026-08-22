@@ -1,6 +1,9 @@
 #!/usr/bin/env python3
+import csv
 import functools
 import tempfile
+from collections import defaultdict
+from pathlib import Path
 from zipfile import ZipFile
 
 import bw2data
@@ -129,6 +132,93 @@ def broadcast_mineral_grades(db):
     return db
 
 
+def report_dropped_cfs(importer) -> None:
+    in_biosphere = {flow["name"] for flow in bw2data.Database(settings.bw.BIOSPHERE)}  # ty: ignore[not-iterable]
+    linked = {
+        (method["name"], cf["name"])
+        for method in importer.data
+        for cf in method["exchanges"]
+        if cf.get("input")
+    }
+    misplaced = [
+        (method["name"], cf)
+        for method in importer.data
+        for cf in method["exchanges"]
+        if not cf.get("input")
+        and (method["name"], cf["name"]) not in linked
+        and cf["name"] in in_biosphere
+    ]
+    if not misplaced:
+        logger.info("🟢 Every substance the method and the biosphere share is counted")
+        return
+
+    report = Path("output") / f"dropped-cfs-{settings.bw.METHOD}.csv"
+    report.parent.mkdir(parents=True, exist_ok=True)
+    with report.open("w", newline="") as handle:
+        writer = csv.writer(handle)
+        writer.writerow(["method", "category", "name", "categories", "unit", "amount"])
+        for name, cf in sorted(misplaced, key=lambda item: (item[0], item[1]["name"])):
+            writer.writerow(
+                [
+                    name[0],
+                    name[1] if len(name) > 1 else "",
+                    cf.get("name"),
+                    "/".join(cf.get("categories") or ()),
+                    cf.get("unit"),
+                    cf.get("amount"),
+                ]
+            )
+    logger.warning(
+        f"⚠️ {len(misplaced)} characterization factors name a substance the biosphere has, "
+        f"on a compartment that reaches none of its flows. Those substances will not be "
+        f"counted. See {report}"
+    )
+
+
+def remember_simapro_name(db):
+    """Keep the name a factor arrived with, so a collision can name the rename that
+    caused it instead of only the flow it landed on."""
+    for method in db:
+        for cf in method["exchanges"]:
+            cf.setdefault("simapro name", cf["name"])
+    return db
+
+
+def colliding_cfs(importer) -> dict:
+    grouped = defaultdict(lambda: defaultdict(list))
+    for method in importer.data:
+        for cf in method["exchanges"]:
+            key = (method["name"], cf["name"], tuple(cf.get("categories") or ()))
+            grouped[key][cf["amount"]].append(cf.get("simapro name", cf["name"]))
+    return {key: dict(values) for key, values in grouped.items() if len(values) > 1}
+
+
+def report_colliding_cfs(importer) -> None:
+    """Refuse to write a method whose factors would silently multiply a substance."""
+    collisions = colliding_cfs(importer)
+    if not collisions:
+        logger.info("🟢 No flow carries two disagreeing characterization factors")
+        return
+
+    # The same merge shows up once per subcategory, so report it by the names that
+    # collide rather than by flow: that is the list of renames to fix.
+    by_merge: dict[tuple[str, tuple[str, ...]], dict[float, list[str]]] = {}
+    for (_method_name, name, _categories), values in collisions.items():
+        sources = tuple(
+            sorted({source for names in values.values() for source in names})
+        )
+        by_merge.setdefault((name, sources), values)
+    for (name, sources), values in sorted(by_merge.items()):
+        logger.error(
+            f"    {list(sources)} all become {name!r}, factors {sorted(values)}"
+        )
+    raise ValueError(
+        f"{len(collisions)} flows would carry several disagreeing characterization "
+        f"factors, and every score of those substances would be multiplied. Fix the "
+        f"renames in data/simapro-biosphere.json that merge them, then import again."
+    )
+
+
 def import_method():
     """
     Import file at path `datapath` linked to biosphere named `dbname`
@@ -159,6 +249,7 @@ def import_method():
                 functools.partial(normalize_biosphere_categories, lcia=True),
                 functools.partial(normalize_biosphere_names, lcia=True),
                 normalize_simapro_biosphere_categories,
+                remember_simapro_name,
                 normalize_simapro_biosphere_names,
                 add_legacy_flow_synonyms,
                 broadcast_mineral_grades,
@@ -183,11 +274,21 @@ def import_method():
 
             # ef.write_excel(METHODNAME)
             # drop CFs which are not linked to a biosphere substance
+            # But report them rather than drop them quietly.
+            report_dropped_cfs(ef)
             ef.drop_unlinked()
-            # remove duplicates in exchanges
+            # Report before the deduplication below drops the name each factor arrived with.
+            report_colliding_cfs(ef)
+            # Remove duplicates in exchanges, ignoring that name: several names merged
+            # onto one flow by one factor must collapse back to a single factor, or
+            # bw2calc sums them and multiplies the substance.
             for m in ef.data:
                 m["exchanges"] = [
-                    dict(f) for f in list({frozendict(d) for d in m["exchanges"]})
+                    dict(f)
+                    for f in {
+                        frozendict({k: v for k, v in d.items() if k != "simapro name"})
+                        for d in m["exchanges"]
+                    }
                 ]
 
             ef.write_methods(overwrite=True)
@@ -197,10 +298,8 @@ def import_method():
 if __name__ == "__main__":
     setup_project()
 
-    if (
-        len([method for method in bw2data.methods if method[0] == settings.bw.METHOD])
-        == 0
-    ):
-        import_method()
-    else:
-        logger.debug(f"{settings.bw.METHOD} already imported")
+    # Always reimport. Importing a database adds elementary flows to the biosphere, and
+    # a method written before them characterizes none of them. Skipping the reimport
+    # because the method happens to exist is how a stale method silently stops counting
+    # the substances a freshly imported database emits.
+    import_method()
