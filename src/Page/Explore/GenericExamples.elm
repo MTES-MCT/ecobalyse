@@ -25,13 +25,7 @@ table :
 table { maxScore, maxPer100g } genericScope { detailed, scope } =
     { filename = Scope.toString scope ++ "-examples"
     , toId = Tuple.first >> .id >> Uuid.toString
-    , toRoute =
-        \example ->
-            let
-                maybeId =
-                    example |> Tuple.first |> .id |> Just
-            in
-            Route.Explore scope (Dataset.GenericExamples genericScope maybeId)
+    , toRoute = Tuple.first >> .id >> Just >> Dataset.GenericExamples genericScope >> Route.Explore scope
     , toSearchableWords = Tuple.first >> Example.toSearchableString >> Text.toWords
     , facets = []
     , legend = []

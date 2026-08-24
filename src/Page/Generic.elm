@@ -330,6 +330,9 @@ updateQuery query ({ model, session } as pageUpdate) =
 update : Session -> Msg -> Model -> PageUpdate Model Msg
 update ({ navKey } as session) msg model =
     let
+        globalScope =
+            Scope.Generic model.genericScope
+
         query =
             session
                 |> Session.genericQuery model.genericScope
@@ -534,7 +537,7 @@ update ({ navKey } as session) msg model =
         ( OpenComparator, _ ) ->
             { model | modals = [ ComparatorModal ] }
                 |> createPageUpdate (session |> Session.checkComparedSimulations)
-                |> App.withCmds [ Plausible.send session <| Plausible.ComparatorOpened (Scope.Generic model.genericScope) ]
+                |> App.withCmds [ Plausible.send session <| Plausible.ComparatorOpened globalScope ]
 
         ( RemoveComponentItem itemIndex, _ ) ->
             { model
@@ -545,7 +548,7 @@ update ({ navKey } as session) msg model =
             }
                 |> createPageUpdate session
                 |> updateQuery (query |> Component.mapItems (LE.removeAt itemIndex))
-                |> App.withCmds [ Plausible.send session <| Plausible.ComponentUpdated (Scope.Generic model.genericScope) ]
+                |> App.withCmds [ Plausible.send session <| Plausible.ComponentUpdated globalScope ]
 
         ( RemoveAssemblyOperation index, _ ) ->
             createPageUpdate session model
@@ -558,7 +561,7 @@ update ({ navKey } as session) msg model =
         ( RemoveElement targetElement, _ ) ->
             createPageUpdate session model
                 |> updateQuery (query |> Component.mapItems (Component.removeElement targetElement))
-                |> App.withCmds [ Plausible.send session <| Plausible.ComponentUpdated (Scope.Generic model.genericScope) ]
+                |> App.withCmds [ Plausible.send session <| Plausible.ComponentUpdated globalScope ]
 
         ( RemoveElementTransform targetElement transformIndex, _ ) ->
             createPageUpdate session model
@@ -567,7 +570,7 @@ update ({ navKey } as session) msg model =
                         |> Component.mapItems
                             (Component.removeElementTransform targetElement transformIndex)
                     )
-                |> App.withCmds [ Plausible.send session <| Plausible.ComponentUpdated (Scope.Generic model.genericScope) ]
+                |> App.withCmds [ Plausible.send session <| Plausible.ComponentUpdated globalScope ]
 
         ( RemovePackaging index, _ ) ->
             createPageUpdate session model
@@ -594,7 +597,7 @@ update ({ navKey } as session) msg model =
                                 |> Bookmark.Generic model.genericScope
                                 |> SaveBookmarkWithTime model.bookmarkName
                             )
-                    , Plausible.send session <| Plausible.BookmarkSaved (Scope.Generic model.genericScope)
+                    , Plausible.send session <| Plausible.BookmarkSaved globalScope
                     ]
 
         ( SaveBookmarkWithTime name bookmarkQuery now, _ ) ->
@@ -638,7 +641,7 @@ update ({ navKey } as session) msg model =
                 |> createPageUpdate session
                 |> App.withCmds
                     [ ComparatorView.comparisonTypeToString displayChoice
-                        |> Plausible.ComparisonTypeSelected (Scope.Generic model.genericScope)
+                        |> Plausible.ComparisonTypeSelected globalScope
                         |> Plausible.send session
                     ]
 
@@ -653,7 +656,7 @@ update ({ navKey } as session) msg model =
                         |> Route.GenericSimulator model.genericScope trigram
                         |> Route.toString
                         |> Navigation.pushUrl navKey
-                    , Plausible.send session <| Plausible.ImpactSelected (Scope.Generic model.genericScope) trigram
+                    , Plausible.send session <| Plausible.ImpactSelected globalScope trigram
                     ]
 
         ( SwitchImpactsTab impactsTab, _ ) ->
@@ -661,7 +664,7 @@ update ({ navKey } as session) msg model =
                 |> createPageUpdate session
                 |> App.withCmds
                     [ ImpactTabs.tabToString impactsTab
-                        |> Plausible.TabSelected (Scope.Generic model.genericScope)
+                        |> Plausible.TabSelected globalScope
                         |> Plausible.send session
                     ]
 
@@ -698,7 +701,7 @@ update ({ navKey } as session) msg model =
                     (query
                         |> Component.mapItems (Component.updateItem itemIndex (\item -> { item | quantity = quantity }))
                     )
-                |> App.withCmds [ Plausible.send session <| Plausible.ComponentUpdated (Scope.Generic model.genericScope) ]
+                |> App.withCmds [ Plausible.send session <| Plausible.ComponentUpdated globalScope ]
 
         ( UpdateConsumptionAmount index (Just amount), _ ) ->
             createPageUpdate session model
@@ -745,7 +748,7 @@ update ({ navKey } as session) msg model =
                         |> Component.mapItems
                             (Component.updateElementMaterialCountry targetElement maybeCountryCode)
                     )
-                |> App.withCmds [ Plausible.send session <| Plausible.ComponentUpdated (Scope.Generic model.genericScope) ]
+                |> App.withCmds [ Plausible.send session <| Plausible.ComponentUpdated globalScope ]
 
         ( UpdateElementTransformCountry targetElement transformIndex maybeCountryCode, _ ) ->
             createPageUpdate session model
@@ -754,7 +757,7 @@ update ({ navKey } as session) msg model =
                         |> Component.mapItems
                             (Component.updateElementTransformCountry targetElement transformIndex maybeCountryCode)
                     )
-                |> App.withCmds [ Plausible.send session <| Plausible.ComponentUpdated (Scope.Generic model.genericScope) ]
+                |> App.withCmds [ Plausible.send session <| Plausible.ComponentUpdated globalScope ]
 
         ( UpdatePackagingAmount index (Just amount), _ ) ->
             createPageUpdate session model
