@@ -1,10 +1,10 @@
 version: 2
 
 updates:
-  # master (current version)
+  # main (current version)
   - package-ecosystem: "npm"
     directory: "/"
-    target-branch: "master"
+    target-branch: "main"
     schedule:
       interval: "monthly"
     cooldown:
@@ -16,7 +16,7 @@ updates:
 
   - package-ecosystem: "uv"
     directory: "/"
-    target-branch: "master"
+    target-branch: "main"
     schedule:
       interval: "monthly"
     cooldown:

@@ -1,6 +1,6 @@
 # Score history
 
-Tracks the evolution of score over time. For every new commit to master
+Tracks the evolution of score over time. For every new commit to main
 scores are computed for textile examples and food ingredients.
 If the score changes, the new rows are appended to the score_history PostgreSQL
 table.

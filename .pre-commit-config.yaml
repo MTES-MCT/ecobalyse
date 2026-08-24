@@ -8,8 +8,8 @@ repos:
     - id: trailing-whitespace
       exclude: (vendor|rapidoc-9.3.4.min.js)
     - id: no-commit-to-branch
-      name: "don't commit to master"
-      args: [--branch, master]
+      name: "don't commit to main"
+      args: [--branch, main]
 
   - repo: local
     hooks:

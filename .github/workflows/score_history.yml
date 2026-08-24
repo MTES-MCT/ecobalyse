@@ -2,7 +2,7 @@ name: Score History
 
 on:
   push:
-    branches: [master]
+    branches: [main]
   workflow_dispatch:
 
 # prevent overlapping runs

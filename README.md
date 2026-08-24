@@ -30,7 +30,7 @@ Les variables d’environnement décrites ci-dessous doivent être définies. En
 - `ENCRYPTION_KEY` : la clé utilisée par les scripts `npm run encrypt` et  `npm run decrypt` pour chiffrer/déchiffrer les fichiers d’impacts détaillés inclus dans chaque archive de release. Pour générer une nouvelle clé, vous pouvez utiliser le script `bin/generate-crypto-key`
 - `GITHUB_TOKEN` : le jeton GitHub utilisé côté serveur pour créer les branches, commits et pull requests de contribution (requis)
 - `GITHUB_REPOSITORY` : dépôt cible au format `owner/repo` (par défaut `MTES-MCT/ecobalyse`).
-- `GITHUB_BASE_BRANCH` : branche de base pour les PR (par défaut `master`).
+- `GITHUB_BASE_BRANCH` : branche de base pour les PR (par défaut `main`).
 - `MATOMO_HOST` : le domaine de l’instance Matomo permettant le suivi d’audience du produit (typiquement `stats.beta.gouv.fr`)
 - `MATOMO_SITE_ID` : l’identifiant du site Ecobalyse sur l’instance Matomo permettant le suivi d’audience du produit
 - `MATOMO_TOKEN` : le token Matomo permettant le suivi d’audience du produit
@@ -196,7 +196,7 @@ Les fichiers sont alors générés dans le répertoire `dist` à la racine du pr
 
 ## Déploiement
 
-L’application est déployée automatiquement sur la plateforme [Scalingo](https://scalingo.com/) à chaque mise à jour de la branche `master` sur [le dépôt](https://github.com/MTES-MCT/ecobalyse/tree/master).
+L’application est déployée automatiquement sur la plateforme [Scalingo](https://scalingo.com/) à chaque mise à jour de la branche `main` sur [le dépôt](https://github.com/MTES-MCT/ecobalyse/tree/main).
 
 Chaque _Pull Request_ effectuée sur le dépôt est également automatiquement déployée sur une instance de revue spécifique, par exemple `https://ecobalyse-pr44.osc-fr1.scalingo.io/` pour la pull request #44. **Ces instances de recette restent actives 72 heures, puis sont automatiquement décommisionnées passé ce délai ou si la pull request correspondante est mergée.**
 
@@ -210,7 +210,7 @@ Pour ajouter une variable d’environnement sur une application, il est recomman
 
 Les fichiers d’impacts détaillés sont chiffrés à l’aide de [transcrypt](https://github.com/elasticdog/transcrypt) sur le dépôt public Github. En revanche, la version locale est une version décryptée par `transcrypt`. Vous pouvez donc utiliser, localement, les commandes git habituelles pour voir les différences dans ces fichiers, par exemple :
 
-    git diff master HEAD public/data/textile/processes_impacts.json
+    git diff main HEAD public/data/textile/processes_impacts.json
 
 Des commandes supplémentaires sont disponibles pour chiffrer et déchiffrer les fichiers manuellement au besoin (débogage par exemple). Notez que ces commandes requièrent la présence de la variable d’environnement `ENCRYPTION_KEY` pour fonctionner correctement :
 
