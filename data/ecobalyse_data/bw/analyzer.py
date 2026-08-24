@@ -13,10 +13,10 @@ def print_recursive_calculation(
     string_length=130,
     tab_character="  ",
     use_matrix_values=False,
-    _lca_obj=None,
-    _total_score=None,
-    __level=0,
-    __first=True,
+    lca_obj=None,
+    total_score=None,
+    level=0,
+    first=True,
 ):
     """Traverse a supply chain graph, and calculate the LCA scores of each component. Prints the result with the format:
 
@@ -47,24 +47,24 @@ def print_recursive_calculation(
     """
     activity = get_activity(activity)
 
-    if _lca_obj is None:
-        _lca_obj = bw2calc.LCA({activity: amount}, lcia_method)
-        _lca_obj.lci()
-        _lca_obj.lcia()
-        _total_score = _lca_obj.score
-    elif _total_score is None:
+    if lca_obj is None:
+        lca_obj = bw2calc.LCA({activity: amount}, lcia_method)
+        lca_obj.lci()
+        lca_obj.lcia()
+        total_score = lca_obj.score
+    elif total_score is None:
         raise ValueError
     else:
-        _lca_obj.redo_lcia({activity.id: amount})
+        lca_obj.redo_lcia({activity.id: amount})
 
-        if abs(_lca_obj.score) <= abs(_total_score * cutoff):
+        if abs(lca_obj.score) <= abs(total_score * cutoff):
             # logger.warning(f"->  {_lca_obj.score} below cutoff {abs(_total_score * cutoff)} for {activity}, returning.")
             return
-    if __first:
+    if first:
         logger.info("Fraction of score | Absolute score | Amount | Activity")
-    message = f"{tab_character * __level}{_lca_obj.score / _total_score:04.3g} | {_lca_obj.score:5.4n} | {float(amount):5.4n} | {activity!s}"
+    message = f"{tab_character * level}{lca_obj.score / total_score:04.3g} | {lca_obj.score:5.4n} | {float(amount):5.4n} | {activity!s}"
     logger.info(message)
-    if __level < max_level:
+    if level < max_level:
         prod_exchanges = list(activity.production())
         if not prod_exchanges:
             prod_amount = 1
@@ -72,9 +72,9 @@ def print_recursive_calculation(
             logger.warning("Hit multiple production exchanges; aborting in this branch")
             return
         else:
-            prod_amount = _lca_obj.technosphere_matrix[
-                _lca_obj.dicts.product[prod_exchanges[0].input.id],
-                _lca_obj.dicts.activity[prod_exchanges[0].output.id],
+            prod_amount = lca_obj.technosphere_matrix[
+                lca_obj.dicts.product[prod_exchanges[0].input.id],
+                lca_obj.dicts.activity[prod_exchanges[0].output.id],
             ]
 
         for exc in activity.technosphere():
@@ -88,9 +88,9 @@ def print_recursive_calculation(
                     else 1
                 )
                 tm_amount = (
-                    _lca_obj.technosphere_matrix[
-                        _lca_obj.dicts.product[exc.input.id],
-                        _lca_obj.dicts.activity[exc.output.id],
+                    lca_obj.technosphere_matrix[
+                        lca_obj.dicts.product[exc.input.id],
+                        lca_obj.dicts.activity[exc.output.id],
                     ]
                     * sign
                 )
@@ -105,8 +105,8 @@ def print_recursive_calculation(
                 cutoff=cutoff,
                 string_length=string_length,
                 tab_character=tab_character,
-                __first=False,
-                _lca_obj=_lca_obj,
-                _total_score=_total_score,
-                __level=__level + 1,
+                first=False,
+                lca_obj=lca_obj,
+                total_score=total_score,
+                level=level + 1,
             )

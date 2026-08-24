@@ -27,7 +27,7 @@ def compute_land_occupation_batch(
             f"-> land occupation: chunk {i // chunk_size + 1}/"
             f"{(total + chunk_size - 1) // chunk_size} ({len(chunk)} activities)"
         )
-        demands = {str(a.id): {a.id: 1} for a in chunk}
+        demands = {str(a.id): {a.id: 1.0} for a in chunk}
         data_objs = get_multilca_data_objs(
             functional_units=demands, method_config=method_config
         )

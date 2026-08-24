@@ -1,6 +1,7 @@
 import functools
 
 import bw2data
+from bw2data.backends import Activity
 
 
 @functools.cache
@@ -12,7 +13,7 @@ def cached_search_one(
     code=None,
     categories=None,
     unit=None,
-) -> dict:
+) -> Activity:
     return search_one(
         dbname,
         search_terms,
@@ -32,7 +33,7 @@ def search_one(
     code=None,
     categories=None,
     unit=None,
-) -> dict:
+) -> Activity:
     """Search for a single activity in a Brightway database.
 
     Args:
@@ -65,7 +66,7 @@ def search_one(
     search_query = search_terms
     if location:
         search_query = search_query + f" {location}"
-    results = bw2data.Database(dbname).search(search_query, limit=None)
+    results = bw2data.Database(dbname).search(search_query, limit=None)  # ty: ignore[unresolved-attribute]
 
     if excluded_term:
         results = [res for res in results if excluded_term not in res["name"]]

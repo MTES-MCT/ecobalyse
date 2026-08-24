@@ -27,7 +27,7 @@
     "lint:ruff:all": "npm run lint:ruff:check && npm run lint:ruff:format",
     "lint:ruff:check": "uv run ruff check --force-exclude --extend-select I",
     "lint:ruff:format": "npm run fix:ruff:format -- --check",
-    "lint:ty:check": "uv run ty check --exclude data",
+    "lint:ty:check": "uv run ty check",
     "lint:all": "npm run lint:prettier:all && npm run lint:elm && npm run lint:ruff:all && npm run lint:openapi && npm run lint:ty:check",
     "fix:elm-format": "npx elm-format --yes",
     "fix:prettier": "npm run lint:prettier -- --write",

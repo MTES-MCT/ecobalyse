@@ -10,7 +10,7 @@ import yaml
 from ecobalyse_data.logging import logger
 
 
-def get_delimiter(data=None, filepath=None) -> str:
+def get_delimiter(filepath) -> str:
     sniffer = csv.Sniffer()
     if filepath:
         with open(filepath, "r", encoding="utf-8") as stream:
@@ -62,7 +62,7 @@ def biosphere_flows_dictionary(version, biosphere_flows):
     with open(fp, encoding="utf-8") as file:
         input_dict = csv.reader(
             file,
-            delimiter=get_delimiter(filepath=fp),
+            delimiter=get_delimiter(fp),
         )
         for row in input_dict:
             csv_dict[(row[0], row[1], row[2], row[3])] = row[-1]

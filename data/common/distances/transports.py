@@ -8,8 +8,8 @@ from config import DATA_ROOT_DIR, settings
 
 INPUT_DISTANCES = DATA_ROOT_DIR / "common" / "distances" / "distances_raw.json"
 
-COUNTRIES_OFFICIAL = Path(settings.frontend_data_dir) / "countries.json"
-OUTPUT = Path(settings.frontend_data_dir) / "transports.json"
+COUNTRIES_OFFICIAL = DATA_ROOT_DIR / Path(settings.frontend_data_dir) / "countries.json"
+OUTPUT = DATA_ROOT_DIR / Path(settings.frontend_data_dir) / "transports.json"
 
 
 # dictionary of regions to add with the corresponding country (single source)

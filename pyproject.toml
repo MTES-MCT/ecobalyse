@@ -62,10 +62,9 @@ dev = [
 data = [
   "boto3~=1.43",
   "dynaconf~=3.3",
-  "frozendict ~= 2.4",
+  "frozendict~=2.4",
   "platformdirs~=4.11",
   "rich ~= 14.2",
-
   # Brightway
   "bw2analyzer == 0.11.8",
   "bw2calc == 2.5.0",
@@ -73,6 +72,9 @@ data = [
   "bw2io[multifunctional] == 0.9.17",
   "bw2parameters == 1.1.0",
   'pypardiso ~= 0.4; platform_machine!="arm64" and platform_machine!="aarch64"',
+  "countryinfo>=1.0.1",
+  "geopy>=2.5.0",
+  "searoute>=1.6.0",
 ]
 score-history = [
     "pandas>=3.0.3",
@@ -97,3 +99,8 @@ src = ["backend/src", "data"]
 
 [tool.ruff.lint]
 extend-select = ["I"]
+
+[tool.ty.environment]
+extra-paths = [
+    "data/",
+]

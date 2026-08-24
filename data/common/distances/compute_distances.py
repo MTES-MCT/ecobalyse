@@ -1,12 +1,3 @@
-#!/usr/bin/env -S uv run --script
-# /// script
-# requires-python = ">=3.10"
-# dependencies = [
-#     "countryinfo",
-#     "geopy",
-#     "searoute",
-# ]
-# ///
 """Compute road/sea/air distances between countries and write distances_raw.json.
 Countries are represented by their alpha-2 codes (France -> FR), and by their centroid
 
@@ -20,10 +11,10 @@ import datetime
 import json
 import pathlib
 
-import country_set
 import geopy.distance
 import searoute
 from countryinfo import CountryInfo, all_countries
+from data.common.distances import country_set
 
 # road and air distance is longer than geodesic distance so we apply a circuity factor
 # from https://www.plancarbonegeneral.com/approches-sectorielles/produit-generique/fret-amont-et-aval

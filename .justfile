@@ -68,6 +68,9 @@ export-veli:
     {{ python-cmd-data }} {{ export-script }} processes-legacy --scopes veli --merge
     {{ python-cmd-data }} {{ export-script }} merge-processes
 
+compute-distances:
+    {{ python-cmd-data }} -m common.distances.compute_distances
+
 export-transports:
     {{ python-cmd-data }} -m common.distances.transports
 

@@ -65,7 +65,7 @@ def lcia_impacts(
         factors,
     )
 
-    logger.info(impacts.model_dump(by_alias=True))
+    logger.info(impacts.model_dump(by_alias=True) if impacts else "No impacts")
 
     return (computed_by, impacts)
 

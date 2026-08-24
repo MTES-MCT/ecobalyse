@@ -1,6 +1,5 @@
 import json
 import os
-from collections.abc import Iterable
 
 import bw2io
 from bw2data import methods
@@ -123,7 +122,7 @@ def patched_write_method(self, data, process=True):
         self.register()
     self.metadata["num_cfs"] = len(data)
 
-    def normalize_ids(line: Iterable) -> tuple:
+    def normalize_ids(line) -> tuple:
         if isinstance(line[0], Activity):
             return (line[0].id, *line[1:])
         elif isinstance(line[0], tuple):
@@ -155,13 +154,13 @@ def patched_write_method(self, data, process=True):
     methods.flush()
 
 
-simapro.load_json_data_file = patched_load_json_data_file
-bw2io.load_json_data_file = patched_load_json_data_file
+simapro.load_json_data_file = patched_load_json_data_file  # ty: ignore[invalid-assignment]
+bw2io.load_json_data_file = patched_load_json_data_file  # ty: ignore[invalid-assignment]
 
 # @ccomb commit https://github.com/ccomb/brightway2-io/commit/3d3d9dea3cbfd212873eee1f757fecede6a3ec3f
 simapro_csv.strip_whitespace_and_delete = lambda obj: (
     obj.replace("\x7f", "\n").strip() if isinstance(obj, str) else obj
 )
 
-SimaProLCIACSVExtractor.read_method_data_set = read_method_data_set
+SimaProLCIACSVExtractor.read_method_data_set = read_method_data_set  # ty: ignore[invalid-assignment]
 Method.write = patched_write_method

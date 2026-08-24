@@ -95,23 +95,23 @@ def main(
     for database_name in databases:
         logger.info(f"-> Exploring DB '{database_name}'")
 
-        db = bw2data.Database(database_name)
+        db = bw2data.Database(database_name)  # ty:ignore[invalid-assignment]
 
         with Pool(cpu_count) as pool:
             activities_parameters = []
             nb_activity = 0
 
             logger.info(
-                f"-> Computing impacts for {len(db)} activities, using {cpu_count} cores, hold on, it will take a while…"
+                f"-> Computing impacts for {len(db)} activities, using {cpu_count} cores, hold on, it will take a while…"  # ty: ignore[invalid-argument-type]
             )
-            for activity in db:
+            for activity in db:  # ty:ignore[not-iterable]
                 if (
-                    "process" in activity.get("type")
+                    "process" in activity.get("type")  # ty:ignore[unresolved-attribute]
                     and (max < 0 or nb_activity < max)
                     and activity_name is None
                     or (
                         activity_name is not None
-                        and activity_name == activity.get("name")
+                        and activity_name == activity.get("name")  # ty:ignore[unresolved-attribute]
                     )
                 ):
                     activities_parameters.append(

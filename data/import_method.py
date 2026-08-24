@@ -101,7 +101,7 @@ def broadcast_mineral_grades(db):
             (cf["name"], tuple(cf.get("categories") or ()))
             for cf in method["exchanges"]
         }
-        for flow in biosphere:
+        for flow in biosphere:  # ty: ignore[not-iterable]
             categories = tuple(flow.get("categories") or ())
             if (
                 flow.get("type") != "emission"
@@ -135,7 +135,7 @@ def import_method():
     """
 
     logger.debug(
-        f"{settings.bw.BIOSPHERE} size: {len(bw2data.Database(settings.bw.BIOSPHERE))}"
+        f"{settings.bw.BIOSPHERE} size: {len(bw2data.Database(settings.bw.BIOSPHERE))}"  # ty: ignore[invalid-argument-type]
     )
     logger.info(f"🟢 Importing {settings.dbfiles.METHOD}")
     datapath = s3.get_file(settings.dbfiles.METHOD, settings.dbfiles.METHOD_MD5)
@@ -152,7 +152,7 @@ def import_method():
 
             ef.statistics()
 
-            ef.strategies = [
+            ef.strategies = [  # ty: ignore[invalid-assignment]
                 normalize_units,
                 set_biosphere_type,
                 drop_unspecified_subcategories,
@@ -166,7 +166,7 @@ def import_method():
                     link_iterable_by_fields,
                     other=(
                         obj
-                        for obj in bw2data.Database(ef.biosphere_name)
+                        for obj in bw2data.Database(ef.biosphere_name)  # ty: ignore[not-iterable]
                         if obj.get("type") == "emission"
                     ),
                     kind="biosphere",
@@ -178,7 +178,7 @@ def import_method():
             ef.strategies.append(noLT)
             ef.strategies.append(uraniumFRU)
             ef.apply_strategies()
-            logger.debug(f"biosphere3 size: {len(bw2data.Database('biosphere3'))}")
+            logger.debug(f"biosphere3 size: {len(bw2data.Database('biosphere3'))}")  # ty: ignore[invalid-argument-type]
             ef.statistics()
 
             # ef.write_excel(METHODNAME)
