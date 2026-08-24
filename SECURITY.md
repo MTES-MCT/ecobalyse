@@ -8,7 +8,7 @@ Cette politique couvre :
 
 - **l’application en production** : [ecobalyse.beta.gouv.fr](https://ecobalyse.beta.gouv.fr/)
 - **l’API publique** Ecobalyse
-- **le code source** hébergé sur GitHub : [`MTES-MCT/ecobalyse`](https://github.com/MTES-MCT/ecobalyse) sur les branches `master` (version courante) et `stable/textile` (version règlementaire)
+- **le code source** hébergé sur GitHub : [`MTES-MCT/ecobalyse`](https://github.com/MTES-MCT/ecobalyse) sur les branches `main` (version courante) et `stable/textile` (version règlementaire)
 - **les données** du projet, notamment les fichiers d’impacts détaillés chiffrés et la gestion des secrets
 
 Les instances de recette éphémères (ou *review apps*, par exemple `https://ecobalyse-pr42.osc-fr1.scalingo.io/`) sont considérées hors périmètre : elles sont automatiquement décommissionnées et ne doivent pas faire l’objet de tests de sécurité.

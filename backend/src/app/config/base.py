@@ -426,7 +426,7 @@ class GithubSettings:
     API_URL: str = field(
         default_factory=get_env("GITHUB_API_URL", "https://api.github.com")
     )
-    BASE_BRANCH: str = field(default_factory=get_env("GITHUB_BASE_BRANCH", "master"))
+    BASE_BRANCH: str = field(default_factory=get_env("GITHUB_BASE_BRANCH", "main"))
     REPOSITORY: str = field(
         default_factory=get_env("GITHUB_REPOSITORY", "MTES-MCT/ecobalyse")
     )
