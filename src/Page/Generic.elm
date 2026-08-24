@@ -169,7 +169,7 @@ init scope trigram maybeUrlQuery session =
                 |> Example.forScope scope
     in
     { activeImpactsTab = ImpactTabs.StagesImpactsTab
-    , bookmarkName = initialQuery |> suggestBookmarkName session examples
+    , bookmarkName = initialQuery |> suggestBookmarkName session scope examples
     , bookmarkTab = BookmarkView.SaveTab
     , comparisonType =
         if Session.isAuthenticated session then
@@ -229,7 +229,7 @@ initFromExample session scope uuid =
                 |> Result.withDefault (Session.objectQueryFromScope scope session)
     in
     { activeImpactsTab = ImpactTabs.StagesImpactsTab
-    , bookmarkName = exampleQuery |> suggestBookmarkName session examples
+    , bookmarkName = exampleQuery |> suggestBookmarkName session scope examples
     , bookmarkTab = BookmarkView.SaveTab
     , comparisonType = ComparatorView.Subscores
     , contributionDescription = ""
@@ -271,13 +271,17 @@ selectProductCategory session query maybeProductId =
             updateQuery (query |> Component.updateProduct Nothing)
 
 
-suggestBookmarkName : Session -> List (Example Component.Query) -> Component.Query -> String
-suggestBookmarkName { db, store } examples query =
+suggestBookmarkName : Session -> Scope -> List (Example Component.Query) -> Component.Query -> String
+suggestBookmarkName { db, store } scope examples query =
     let
         -- Existing user bookmark?
         userBookmark =
-            store.bookmarks
-                |> Bookmark.findByObjectQuery query
+            Scope.toGenericScope scope
+                |> Maybe.andThen
+                    (\genericScope ->
+                        store.bookmarks
+                            |> Bookmark.findByGenericQuery genericScope query
+                    )
 
         -- Matching product example name?
         exampleName =
@@ -304,7 +308,7 @@ updateQuery query ({ model, session } as pageUpdate) =
         | model =
             { model
                 | initialQuery = query
-                , bookmarkName = query |> suggestBookmarkName session model.examples
+                , bookmarkName = query |> suggestBookmarkName session model.scope model.examples
                 , lifeCycle =
                     query
                         |> Simulator.compute
@@ -586,7 +590,7 @@ update ({ navKey } as session) msg model =
                     [ Time.now
                         |> Task.perform
                             (query
-                                |> Bookmark.genericQueryFromScope model.scope
+                                |> Bookmark.Generic genericScope
                                 |> SaveBookmarkWithTime model.bookmarkName
                             )
                     , Plausible.send session <| Plausible.BookmarkSaved model.scope

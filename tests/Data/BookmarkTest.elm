@@ -104,6 +104,45 @@ suite =
                     |> expectQueryDecoded (Bookmark.Generic Scope.Veli Component.emptyQuery)
                 )
             ]
+        , describe "findByGenericQuery"
+            [ it "should find a bookmark for the matching generic scope"
+                (let
+                    food2Bookmark =
+                        { created = Time.millisToPosix 1
+                        , genericScope = Just Scope.Food2
+                        , name = "food2 bookmark"
+                        , query = Bookmark.Generic Scope.Food2 Component.emptyQuery
+                        }
+
+                    objectBookmark =
+                        { created = Time.millisToPosix 2
+                        , genericScope = Just Scope.Object
+                        , name = "object bookmark"
+                        , query = Bookmark.Generic Scope.Object Component.emptyQuery
+                        }
+                 in
+                 [ food2Bookmark, objectBookmark ]
+                    |> Bookmark.findByGenericQuery Scope.Food2 Component.emptyQuery
+                    |> Expect.equal (Just food2Bookmark)
+                )
+            , it "should not match a bookmark from another generic scope"
+                ([ { created = Time.millisToPosix 1
+                   , genericScope = Just Scope.Object
+                   , name = "object bookmark"
+                   , query = Bookmark.Generic Scope.Object Component.emptyQuery
+                   }
+                 ]
+                    |> Bookmark.findByGenericQuery Scope.Veli Component.emptyQuery
+                    |> Expect.equal Nothing
+                )
+            ]
+        , describe "genericQueryFromScope"
+            [ it "should build a generic query for the given scope"
+                (Component.emptyQuery
+                    |> Bookmark.Generic Scope.Veli
+                    |> Expect.equal (Bookmark.Generic Scope.Veli Component.emptyQuery)
+                )
+            ]
         ]
 
 
