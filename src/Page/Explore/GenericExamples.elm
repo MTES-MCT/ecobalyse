@@ -19,13 +19,10 @@ import Views.Icon as Icon
 
 table :
     { maxScore : Float, maxPer100g : Float }
+    -> Scope.GenericScope
     -> { detailed : Bool, scope : Scope }
     -> Table ( Example Component.Query, { score : Float, per100g : Float } ) String msg
-table { maxScore, maxPer100g } { detailed, scope } =
-    let
-        genericScope =
-            scope |> Scope.toGenericScope |> Maybe.withDefault Scope.Object
-    in
+table { maxScore, maxPer100g } genericScope { detailed, scope } =
     { filename = Scope.toString scope ++ "-examples"
     , toId = Tuple.first >> .id >> Uuid.toString
     , toRoute =

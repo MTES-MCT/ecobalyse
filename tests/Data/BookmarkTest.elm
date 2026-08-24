@@ -136,13 +136,6 @@ suite =
                     |> Expect.equal Nothing
                 )
             ]
-        , describe "genericQueryFromScope"
-            [ it "should build a generic query for the given scope"
-                (Component.emptyQuery
-                    |> Bookmark.Generic Scope.Veli
-                    |> Expect.equal (Bookmark.Generic Scope.Veli Component.emptyQuery)
-                )
-            ]
         ]
 
 

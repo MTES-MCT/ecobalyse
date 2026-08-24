@@ -3,7 +3,7 @@ module Views.ImpactTabs exposing
     , Tab(..)
     , createConfig
     , forFood
-    , forObject
+    , forGeneric
     , forTextile
     , tabToString
     , view
@@ -223,8 +223,8 @@ forFood results config =
     }
 
 
-forObject : Definitions -> Component.LifeCycle -> Config msg -> Config msg
-forObject definitions lifeCycle config =
+forGeneric : Definitions -> Component.LifeCycle -> Config msg -> Config msg
+forGeneric definitions lifeCycle config =
     { config
         | complementsImpact =
             lifeCycle.production

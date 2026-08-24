@@ -10,6 +10,7 @@ module Data.Session exposing
     , decodeRawStore
     , defaultStore
     , deleteBookmark
+    , genericQuery
     , getAccessToken
     , getAuth
     , hasAccessToDetailedImpacts
@@ -19,7 +20,6 @@ module Data.Session exposing
     , moveBookmark
     , moveListElement
     , notifyBackendError
-    , objectQueryFromScope
     , replaceBookmark
     , saveBookmark
     , selectAllBookmarks
@@ -31,7 +31,7 @@ module Data.Session exposing
     , updateDb
     , updateDbProcesses
     , updateFoodQuery
-    , updateObjectQuery
+    , updateGenericQuery
     , updateTextileQuery
     )
 
@@ -41,7 +41,7 @@ import Data.Common.DecodeUtils as DU
 import Data.Component as Component
 import Data.Db as Db exposing (Db)
 import Data.Food.Query as FoodQuery
-import Data.Scope as Scope exposing (Scope)
+import Data.Scope as Scope exposing (GenericScope)
 import Data.Textile.Query as TextileQuery
 import Data.User as User
 import Json.Decode as Decode exposing (Decoder)
@@ -198,20 +198,17 @@ updateDb fn session =
 -- Queries
 
 
-objectQueryFromScope : Scope -> Session -> Component.Query
-objectQueryFromScope scope session =
-    case scope of
-        Scope.Generic Scope.Food2 ->
+genericQuery : GenericScope -> Session -> Component.Query
+genericQuery genericScope session =
+    case genericScope of
+        Scope.Food2 ->
             session.queries.food2
 
-        Scope.Generic Scope.Object ->
+        Scope.Object ->
             session.queries.object
 
-        Scope.Generic Scope.Veli ->
+        Scope.Veli ->
             session.queries.veli
-
-        _ ->
-            Component.emptyQuery
 
 
 updateFoodQuery : FoodQuery.Query -> Session -> Session
@@ -219,22 +216,17 @@ updateFoodQuery foodQuery ({ queries } as session) =
     { session | queries = { queries | food = foodQuery } }
 
 
-updateObjectQuery : Scope -> Component.Query -> Session -> Session
-updateObjectQuery scope query ({ queries } as session) =
-    case scope of
-        Scope.Generic Scope.Food2 ->
+updateGenericQuery : GenericScope -> Component.Query -> Session -> Session
+updateGenericQuery genericScope query ({ queries } as session) =
+    case genericScope of
+        Scope.Food2 ->
             { session | queries = { queries | food2 = query } }
 
-        Scope.Generic Scope.Object ->
+        Scope.Object ->
             { session | queries = { queries | object = query } }
 
-        Scope.Generic Scope.Veli ->
+        Scope.Veli ->
             { session | queries = { queries | veli = query } }
-
-        _ ->
-            session
-                |> notifyError "Erreur de mise à jour de la requête"
-                    ("La requête " ++ Scope.toString scope ++ " n'est pas générique")
 
 
 updateTextileQuery : TextileQuery.Query -> Session -> Session

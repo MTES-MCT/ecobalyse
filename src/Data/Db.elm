@@ -28,7 +28,7 @@ type alias Db =
     , definitions : Definitions
     , distances : Distances
     , food : FoodDb.Db
-    , object : GenericDb.Db
+    , generic : GenericDb.Db
     , processes : List Process
     , products : List ProductCategory
     , textile : TextileDb.Db

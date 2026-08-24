@@ -543,7 +543,7 @@ componentRowView session selected component =
                 |> Component.computeImpacts
                     { config = session.componentConfig
                     , db = session.db
-                    , scope = Scope.Generic Scope.Object
+                    , scope = component.scope
                     }
                     Component.defaultTransportOptions
                 |> Result.map
@@ -566,20 +566,20 @@ componentRowView session selected component =
                     , onClick <| DuplicateComponent component
                     ]
                     [ Icon.copy ]
-                , case component.id of
-                    Just componentId ->
+                , case ( component.id, Scope.toGenericScope component.scope ) of
+                    ( Just componentId, Just genericScope ) ->
                         a
                             [ class "btn btn-outline-primary"
                             , title "Utiliser dans le simulateur"
                             , Component.emptyQuery
                                 |> Component.setQueryItems [ Component.createItem (Just componentId) ]
                                 |> Just
-                                |> Route.GenericSimulator Scope.Object Definition.Ecs
+                                |> Route.GenericSimulator genericScope Definition.Ecs
                                 |> Route.href
                             ]
                             [ Icon.puzzle ]
 
-                    Nothing ->
+                    _ ->
                         button
                             [ class "btn btn-outline-primary"
                             , title "Utiliser dans le simulateur"

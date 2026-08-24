@@ -359,8 +359,8 @@ bookmarkView cfg ({ name, query } as bookmark) =
                     Just foodQuery
                         |> Route.FoodBuilder cfg.impact.trigram
 
-                Bookmark.Generic genericScope food2Query ->
-                    Just food2Query
+                Bookmark.Generic genericScope genericQuery ->
+                    Just genericQuery
                         |> Route.GenericSimulator genericScope cfg.impact.trigram
 
                 Bookmark.Textile textileQuery ->
@@ -443,12 +443,20 @@ contributeExampleTabView ({ scope, session } as config) =
         isAuthenticated =
             Session.isAuthenticated session
 
+        currentQuery =
+            case Scope.toGenericScope scope of
+                Just genericScope ->
+                    Session.genericQuery genericScope session
+
+                Nothing ->
+                    Component.emptyQuery
+
         simulationIsEmpty =
-            Session.objectQueryFromScope scope session == Component.emptyQuery
+            currentQuery == Component.emptyQuery
 
         simulationExists =
-            session.db.object.examples
-                |> List.any (.query >> (==) (Session.objectQueryFromScope scope session))
+            session.db.generic.examples
+                |> List.any (.query >> (==) currentQuery)
 
         disabledForm =
             config.contribRequestPending || not isAuthenticated || simulationIsEmpty || simulationExists

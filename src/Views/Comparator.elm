@@ -138,8 +138,8 @@ addToComparison session { name, query } =
                         }
                     )
 
-        Bookmark.Generic genericScope food2Query ->
-            food2Query
+        Bookmark.Generic genericScope genericQuery ->
+            genericQuery
                 |> GenericSimulator.compute
                     { config = session.componentConfig
                     , db = session.db

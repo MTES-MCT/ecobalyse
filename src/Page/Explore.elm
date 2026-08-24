@@ -159,8 +159,13 @@ update session msg model =
                         Dataset.Processes _ _ ->
                             Dataset.Processes scope Nothing
 
-                        Dataset.ProductCategory genericScope _ ->
-                            Dataset.ProductCategory (Scope.toGenericScope scope |> Maybe.withDefault genericScope) Nothing
+                        Dataset.ProductCategory _ _ ->
+                            case Scope.toGenericScope scope of
+                                Just newGenericScope ->
+                                    Dataset.ProductCategory newGenericScope Nothing
+
+                                Nothing ->
+                                    Dataset.defaultDatasetFor scope
 
                         _ ->
                             Dataset.defaultDatasetFor scope
@@ -514,13 +519,16 @@ genericExamplesExplorer :
     Session
     -> Table.Config ( Example Component.Query, { score : Float, per100g : Float } ) Msg
     -> SortableTable.State
-    -> Scope
+    -> Scope.GenericScope
     -> Maybe Uuid
     -> List (Html Msg)
-genericExamplesExplorer session tableConfig tableState scope maybeId =
+genericExamplesExplorer session tableConfig tableState genericScope maybeId =
     let
+        scope =
+            Scope.Generic genericScope
+
         scoredExamples =
-            session.db.object.examples
+            session.db.generic.examples
                 |> List.filter (\example -> example.scope == scope)
                 |> List.map
                     (\example ->
@@ -552,11 +560,11 @@ genericExamplesExplorer session tableConfig tableState scope maybeId =
             tableConfig
             tableState
             scope
-            (GenericExamples.table max)
+            (GenericExamples.table max genericScope)
     , case maybeId of
         Just id ->
             detailsModal
-                (case Example.findByUuid id session.db.object.examples of
+                (case Example.findByUuid id session.db.generic.examples of
                     Err error ->
                         alert error
 
@@ -566,7 +574,7 @@ genericExamplesExplorer session tableConfig tableState scope maybeId =
                           , per100g = getGenericScorePer100g session scope example
                           }
                         )
-                            |> Table.viewDetails scope (GenericExamples.table max)
+                            |> Table.viewDetails scope (GenericExamples.table max genericScope)
                 )
 
         Nothing ->
@@ -667,19 +675,23 @@ textileProductsExplorer session tableConfig tableState maybeId =
 
 productCategoriesExplorer :
     Session
-    -> Scope
+    -> Scope.GenericScope
     -> Table.Config ProductCategory Msg
     -> SortableTable.State
     -> Maybe ProductCategory.Id
     -> List (Html Msg)
-productCategoriesExplorer session scope tableConfig tableState maybeId =
+productCategoriesExplorer session genericScope tableConfig tableState maybeId =
+    let
+        scope =
+            Scope.Generic genericScope
+    in
     [ session.db.products
         |> ProductCategory.findByScope scope
         |> Table.viewList (.id >> ProductCategory.idToString >> OpenDetail)
             tableConfig
             tableState
             scope
-            (ProductCategories.table session)
+            (ProductCategories.table session genericScope)
     , case maybeId of
         Just id ->
             detailsModal
@@ -688,7 +700,7 @@ productCategoriesExplorer session scope tableConfig tableState maybeId =
                         alert error
 
                     Ok product ->
-                        Table.viewDetails scope (ProductCategories.table session) product
+                        Table.viewDetails scope (ProductCategories.table session genericScope) product
                 )
 
         Nothing ->
@@ -831,7 +843,7 @@ exploreView ({ db } as session) { facetValues, scope, dataset, tableState, searc
             foodIngredientsExplorer db tableConfig tableState maybeId
 
         Dataset.GenericExamples genericScope maybeId ->
-            genericExamplesExplorer session tableConfig tableState (Scope.Generic genericScope) maybeId
+            genericExamplesExplorer session tableConfig tableState genericScope maybeId
 
         Dataset.Impacts maybeTrigram ->
             impactsExplorer db.definitions tableConfig tableState scope maybeTrigram
@@ -840,7 +852,7 @@ exploreView ({ db } as session) { facetValues, scope, dataset, tableState, searc
             processesExplorer session scope_ tableConfig tableState maybeId
 
         Dataset.ProductCategory genericScope maybeId ->
-            productCategoriesExplorer session (Scope.Generic genericScope) tableConfig tableState maybeId
+            productCategoriesExplorer session genericScope tableConfig tableState maybeId
 
         Dataset.TextileExamples maybeId ->
             textileExamplesExplorer session tableConfig tableState maybeId

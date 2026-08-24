@@ -11,14 +11,8 @@ import Page.Explore.Table as Table exposing (Table)
 import Route
 
 
-table : Session -> { detailed : Bool, scope : Scope } -> Table ProductCategory String msg
-table { db } { scope } =
-    let
-        genericScope =
-            scope
-                |> Scope.toGenericScope
-                |> Maybe.withDefault Scope.Object
-    in
+table : Session -> Scope.GenericScope -> { detailed : Bool, scope : Scope } -> Table ProductCategory String msg
+table { db } genericScope { scope } =
     { filename = Scope.toString scope ++ "-product-categories"
     , toId = .id >> ProductCategory.idToString
     , toRoute = \{ id } -> Route.Explore scope (Dataset.ProductCategory genericScope (Just id))

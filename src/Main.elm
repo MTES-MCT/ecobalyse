@@ -11,7 +11,6 @@ import Data.Food.Query as FoodQuery
 import Data.Impact as Impact
 import Data.Notification as Notification exposing (Notification)
 import Data.Plausible as Plausible
-import Data.Scope as Scope
 import Data.Session as Session exposing (Session)
 import Data.Textile.Query as TextileQuery
 import Html
@@ -301,11 +300,11 @@ setRoute url ( { state } as model, cmds ) =
                         |> toPage session model cmds FoodBuilderPage FoodBuilderMsg
 
                 Just (Route.GenericSimulator genericScope trigram maybeQuery) ->
-                    GenericSimulator.init (Scope.Generic genericScope) trigram maybeQuery session
+                    GenericSimulator.init genericScope trigram maybeQuery session
                         |> toPage session model cmds GenericSimulatorPage GenericSimulatorMsg
 
                 Just (Route.GenericSimulatorExample genericScope uuid) ->
-                    GenericSimulator.initFromExample session (Scope.Generic genericScope) uuid
+                    GenericSimulator.initFromExample session genericScope uuid
                         |> toPage session model cmds GenericSimulatorPage GenericSimulatorMsg
 
                 Just Route.Home ->
@@ -313,7 +312,7 @@ setRoute url ( { state } as model, cmds ) =
                         |> toPage session model cmds HomePage HomeMsg
 
                 Just (Route.GenericSimulatorHome genericScope) ->
-                    GenericSimulator.init (Scope.Generic genericScope) Impact.default Nothing session
+                    GenericSimulator.init genericScope Impact.default Nothing session
                         |> toPage session model cmds GenericSimulatorPage GenericSimulatorMsg
 
                 Just Route.Stats ->
@@ -746,7 +745,7 @@ view { dbLoadingState, flags, mobileNavigationOpened, state, tray } =
                 GenericSimulatorPage simulatorModel ->
                     GenericSimulator.view session simulatorModel
                         |> mapMsg GenericSimulatorMsg
-                        |> frame (Page.Generic simulatorModel.scope)
+                        |> frame (Page.Generic simulatorModel.genericScope)
 
                 HomePage _ ->
                     Home.view session
