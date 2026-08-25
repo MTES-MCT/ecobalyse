@@ -28,6 +28,7 @@ type Id
 
 {-| A default use-stage consumption for a product category.
 
+JSON may be a process id string, or an object with `processId` and optional `amount`.
 When `amount` is omitted, the process is treated as product-mass-dependent.
 
 -}
@@ -61,11 +62,22 @@ decode =
         |> Pipe.required "scope" Scope.decodeGeneric
 
 
+{-| accepts either a long or a short form for JSON def
+
+  - long form: consumptions: [{ "processId": "<uuid1>" }, { "processId": "<uuid2>" }, …]
+  -            consumptions: [{ "processId": "<uuid1>", "amount": 1 }, { "processId": "<uuid2>", "amount": 2 }, …]
+  - short form: consumptions: ["<uuid1>", "<uuid2>", …]
+
+-}
 decodeDefaultConsumption : Decoder DefaultConsumption
 decodeDefaultConsumption =
-    Decode.succeed DefaultConsumption
-        |> DU.strictOptional "amount" Amount.decode
-        |> Pipe.required "processId" Process.decodeId
+    Decode.oneOf
+        [ Decode.succeed DefaultConsumption
+            |> DU.strictOptional "amount" Amount.decode
+            |> Pipe.required "processId" Process.decodeId
+        , Process.decodeId
+            |> Decode.map (\processId -> { amount = Nothing, processId = processId })
+        ]
 
 
 decodeId : Decoder Id

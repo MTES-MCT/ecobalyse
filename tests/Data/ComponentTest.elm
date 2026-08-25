@@ -2218,6 +2218,37 @@ suite =
                                             )
                                         )
                             )
+                        , itFromResult2 "should decode product category consumptions from process ids"
+                            (findProcessByLabel requirements "Réfrigération")
+                            (findProcessByLabel requirements "Cuisson au four")
+                            (\refrigeration ovenCooking ->
+                                ("""[{
+                                      "cooling": false,
+                                      "consumptions": ["""
+                                    ++ Encode.encode 0 (Process.encodeId refrigeration.id)
+                                    ++ ", "
+                                    ++ Encode.encode 0 (Process.encodeId ovenCooking.id)
+                                    ++ """],
+                                      "id": "5fad4e70-5736-552d-a686-97e4fb627c37",
+                                      "label": "Test category",
+                                      "scope": "food2"
+                                    }]"""
+                                )
+                                    |> Product.decodeListFromJsonString
+                                    |> Result.map (List.head >> Maybe.map .consumptions)
+                                    |> Expect.equal
+                                        (Ok
+                                            (Just
+                                                [ { amount = Nothing
+                                                  , processId = refrigeration.id
+                                                  }
+                                                , { amount = Nothing
+                                                  , processId = ovenCooking.id
+                                                  }
+                                                ]
+                                            )
+                                        )
+                            )
                         , itFromResult "should clear product, distribution, consumptions, and category cooling when unset"
                             (requirements.db.products |> List.head |> Result.fromMaybe "no product categories in test db")
                             (\categoryProduct ->
