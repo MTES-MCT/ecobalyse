@@ -23,7 +23,7 @@ env:
 
 jobs:
   build:
-    timeout-minutes: 60
+    timeout-minutes: 55
     runs-on: ubuntu-latest
 
     services:
