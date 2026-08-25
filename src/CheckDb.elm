@@ -2,9 +2,11 @@ port module CheckDb exposing (main)
 
 import Data.Component as Component exposing (Component)
 import Data.Component.Config as ComponentConfig
+import Data.Component.ProductCategory as ProductCategory exposing (ProductCategory)
 import Data.Db exposing (Db)
 import Data.Example exposing (Example)
 import Data.Process as Process exposing (Process)
+import Data.Process.Category as ProcessCategory
 import Data.Scope as Scope
 import Data.Uuid as Uuid
 import Dict exposing (Dict)
@@ -247,6 +249,53 @@ checkExamplesScope db =
             )
 
 
+{-| Checks that a product category consumption references an existing, scope-compatible process.
+When amount is omitted, the process _must_ be product-mass-dependent.
+-}
+checkProductCategoryConsumption : Dict String Process -> ProductCategory -> ProductCategory.DefaultConsumption -> List Error
+checkProductCategoryConsumption processes product { amount, processId } =
+    let
+        processIdString =
+            Process.idToString processId
+    in
+    case processes |> Dict.get processIdString of
+        Just process ->
+            if process.scopes |> List.member (Scope.Generic product.scope) |> not then
+                formatError
+                    [ "Product category " ++ productCategoryLabel product
+                    , "references process " ++ processLabel process
+                    , "in consumptions but isn't scoped for " ++ backtick (Scope.toStringGeneric product.scope)
+                    ]
+
+            else if amount == Nothing && not (List.member ProcessCategory.ProductMassDependent process.categories) then
+                formatError
+                    [ "Product category " ++ productCategoryLabel product
+                    , "references process " ++ processLabel process
+                    , "in consumptions without an amount, but the process is not productmassdependent"
+                    ]
+
+            else
+                []
+
+        Nothing ->
+            formatError
+                [ "Product category " ++ productCategoryLabel product
+                , "references missing process " ++ processIdString ++ " in consumptions"
+                ]
+
+
+{-| Validates process references used by generic product category consumptions.
+-}
+checkProductCategoryConsumptions : Db -> List Error
+checkProductCategoryConsumptions db =
+    db.products
+        |> List.concatMap
+            (\product ->
+                product.consumptions
+                    |> List.concatMap (product |> checkProductCategoryConsumption (processById db.processes))
+            )
+
+
 {-| Reports a missing process id referenced from a component field.
 -}
 checkProcessId : Set String -> Component -> String -> Process.Id -> List Error
@@ -288,6 +337,7 @@ checkStaticDatabase config dbName dbResult =
             []
                 |> addGroupedErrors (section "Examples components checks") (checkExamplesComponentIds knownComponentStringIds db)
                 |> addGroupedErrors (section "Components processes checks") (checkComponentsProcessIds knownProcessStringIds db)
+                |> addGroupedErrors (section "Product category consumptions checks") (checkProductCategoryConsumptions db)
                 |> addGroupedErrors (section "Scoping checks") (checkExamplesScope db)
                 |> addGroupedErrors (section "Component config checks") (checkComponentConfig db config)
 
@@ -393,6 +443,16 @@ processLabel process =
     quote (Process.getDisplayName process)
         ++ " ("
         ++ Process.idToString process.id
+        ++ ")"
+
+
+productCategoryLabel : ProductCategory -> String
+productCategoryLabel product =
+    quote product.label
+        ++ " ("
+        ++ backtick (Scope.toStringGeneric product.scope)
+        ++ ", "
+        ++ ProductCategory.idToString product.id
         ++ ")"
 
 
