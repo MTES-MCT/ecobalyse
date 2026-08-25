@@ -1,8 +1,6 @@
 [
   {
-    "consumptions": [
-      "b4642cec-b72e-4116-81c5-5dbfccb46055"
-    ],
+    "consumptions": ["b4642cec-b72e-4116-81c5-5dbfccb46055"],
     "cooling": true,
     "distribution": "be66b80b-1500-4e3b-bfd2-87a89ff54031",
     "id": "2ab49980-2bc8-40b9-8db2-010d0d14ce50",
@@ -10,9 +8,7 @@
     "scope": "food2"
   },
   {
-    "consumptions": [
-      "b4642cec-b72e-4116-81c5-5dbfccb46055"
-    ],
+    "consumptions": ["b4642cec-b72e-4116-81c5-5dbfccb46055"],
     "cooling": true,
     "distribution": "29118025-efa0-47bb-94e2-f5ccba31a903",
     "id": "8ff16df9-acff-47b3-bc6d-c25afca653e0",
@@ -20,9 +16,7 @@
     "scope": "food2"
   },
   {
-    "consumptions": [
-      "21e4283e-6bbf-4b2a-b52b-4440022525ad"
-    ],
+    "consumptions": ["21e4283e-6bbf-4b2a-b52b-4440022525ad"],
     "cooling": false,
     "distribution": "29118025-efa0-47bb-94e2-f5ccba31a903",
     "id": "ed82925c-7f21-4101-b9be-056e3c185749",
@@ -52,9 +46,7 @@
     "scope": "food2"
   },
   {
-    "consumptions": [
-      "21e4283e-6bbf-4b2a-b52b-4440022525ad"
-    ],
+    "consumptions": ["21e4283e-6bbf-4b2a-b52b-4440022525ad"],
     "cooling": false,
     "distribution": "29118025-efa0-47bb-94e2-f5ccba31a903",
     "id": "0f5377d4-efce-45f7-8547-169ac0e124d0",
@@ -84,9 +76,7 @@
     "scope": "food2"
   },
   {
-    "consumptions": [
-      "b4642cec-b72e-4116-81c5-5dbfccb46055"
-    ],
+    "consumptions": ["b4642cec-b72e-4116-81c5-5dbfccb46055"],
     "cooling": true,
     "distribution": "be66b80b-1500-4e3b-bfd2-87a89ff54031",
     "id": "3d69eb9f-0126-4e97-a017-d47f00fdcabb",
@@ -94,9 +84,7 @@
     "scope": "food2"
   },
   {
-    "consumptions": [
-      "b4642cec-b72e-4116-81c5-5dbfccb46055"
-    ],
+    "consumptions": ["b4642cec-b72e-4116-81c5-5dbfccb46055"],
     "cooling": false,
     "distribution": "29118025-efa0-47bb-94e2-f5ccba31a903",
     "id": "73b44868-899b-476f-bab6-1ecb4877ade2",
