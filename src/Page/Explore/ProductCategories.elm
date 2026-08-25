@@ -26,6 +26,9 @@ table { db } genericScope _ =
         , { key = "Distribution"
           , toValues = distributionLabel db.processes >> List.singleton
           }
+        , { key = "Consommations"
+          , toValues = consumptionsFacetValues db.processes
+          }
         ]
     , legend = []
     , columns =
@@ -47,8 +50,48 @@ table { db } genericScope _ =
           , toValue = Table.StringValue <| distributionLabel db.processes
           , toCell = distributionLabel db.processes >> text
           }
+        , { label = "Consommations"
+          , toValue = Table.StringValue <| consumptionsLabel db.processes
+          , toCell = consumptionsLabel db.processes >> text
+          }
         ]
     }
+
+
+emptyLabel : String
+emptyLabel =
+    "—"
+
+
+consumptionProcessName : List Process.Process -> ProductCategory.DefaultConsumption -> String
+consumptionProcessName processes { processId } =
+    case processes |> Process.findById processId |> Result.map Process.getDisplayName of
+        Err err ->
+            "Erreur\u{00A0}: " ++ err
+
+        Ok displayName ->
+            displayName
+
+
+consumptionsFacetValues : List Process.Process -> ProductCategory -> List String
+consumptionsFacetValues processes product =
+    if List.isEmpty product.consumptions then
+        [ emptyLabel ]
+
+    else
+        product.consumptions
+            |> List.map (consumptionProcessName processes)
+
+
+consumptionsLabel : List Process.Process -> ProductCategory -> String
+consumptionsLabel processes product =
+    if List.isEmpty product.consumptions then
+        emptyLabel
+
+    else
+        product.consumptions
+            |> List.map (consumptionProcessName processes)
+            |> String.join ", "
 
 
 distributionLabel : List Process.Process -> ProductCategory -> String
@@ -63,4 +106,4 @@ distributionLabel processes product =
                     displayName
 
         Nothing ->
-            "—"
+            emptyLabel
