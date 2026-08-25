@@ -20,7 +20,7 @@ repos:
         exclude: data
         types_or: [javascript, json]
         entry: |
-          bash -c 'npm --prefix . run fix:prettier --write "${@}"' --
+          bash -c 'npm --prefix . run fix:prettier -- --write "${@}"'
 
       - id: app-ruff-check
         name: run ruff check
