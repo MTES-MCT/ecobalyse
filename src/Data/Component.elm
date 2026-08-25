@@ -796,6 +796,11 @@ consumption amount =
     QuantifiedProcess amount >> Consumption
 
 
+consumptionFromCategory : ProductCategory.DefaultConsumption -> Consumption
+consumptionFromCategory { amount, processId } =
+    consumption (Maybe.withDefault (Amount.fromFloat 1) amount) processId
+
+
 computeDistributionImpacts : Requirements db -> Query -> LifeCycle -> Result String LifeCycle
 computeDistributionImpacts ({ config } as requirements) query ({ distribution, productMass } as lifeCycle) =
     let
@@ -2740,11 +2745,19 @@ updateProduct maybeProduct query =
                 query
 
             else
-                { query | distribution = Nothing, product = Just product.id }
+                { query
+                    | consumptions = List.map consumptionFromCategory product.consumptions
+                    , distribution = Nothing
+                    , product = Just product.id
+                }
                     |> setTransportCooling product.cooling
 
         Nothing ->
-            { query | distribution = Nothing, product = Nothing }
+            { query
+                | consumptions = []
+                , distribution = Nothing
+                , product = Nothing
+            }
                 |> setTransportCooling defaultTransportOptions.cooling
 
 
