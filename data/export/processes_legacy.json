@@ -27437,30 +27437,6 @@
     "unit": "kg"
   },
   {
-    "activityName": "Raw cow milk archetype, feed mix UK-149NW, at farm (WFLDB)",
-    "categories": [
-      "ingredient",
-      "material",
-      "material_type:other_food_items"
-    ],
-    "comment": "Dairy farm archetype UK-149NW according to FAO, IDF, IFCN (2014).\nUK-149NW represents an average-sized farm in the United Kingdom, located in the north western part of the country. The Holstein Friesian cows have a milk yield of 7 780 kg milk/cow per year. The farm operates on 130 ha (92 percent grassland); the other part of the land is used for cash crops. Besides dairy, the farm generates returns from fattening beef bulls. About 39 percent of the work is done by family members.\n\nAllocation between milk and meat (live animals) based on bio-physical causality (IDF 2015)\nInventory is for 1 kg raw milk, uncorrected. Mass produced is given for FPCM equivalent (IDF 2015)\nCo-product is beef cattle, from dairy farm (culled cows and male calves).\n\nIncluded: all feed inputs, pasture and pasture-related emissions, enteric emissions.\nExcluded: milking, farm infrastructure and energy/water consumption, manure management, packaging, transport for raw milk collection.\n\nHence the raw milk archetypes datasets are intended to be used in the raw milk national mix datasets, where manure management, farm processes and local peat degradation are also combined. The inventory is presented for 1 kg uncorrected raw milk, but the output quantity is corrected to correspond to 1 kg of FPCM.\n\n1 kg FPCM\n (fat and protein corrected milk)\n1 kg LW (live weight) beef cattle, from dairy farm\nMilk yield = 7780 kg year-1 cow-1\nNumber of dairy cows per farm = 149\nNumber of heifers per farm = 114 (avg)\n\nData quality rating (DQR) = 1.7 ( i.e. very good quality)",
-    "displayName": "Raw cow milk archetype, feed mix UK-149NW, at farm",
-    "elecKwh": 0,
-    "heatMJ": 0,
-    "id": "919beed2-5a89-5f03-8090-e05dc54dfa35",
-    "impacts": {
-      "ecs": 91.04
-    },
-    "location": "RER",
-    "massPerUnit": null,
-    "qtyVariationRatio": 1.0,
-    "scopes": [
-      "food"
-    ],
-    "source": "WFLDB",
-    "unit": "kg"
-  },
-  {
     "activityName": "Soybean, at farm (WFLDB)",
     "categories": [
       "ingredient",
