@@ -2173,7 +2173,47 @@ suite =
                                 |> Result.map .product
                                 |> Expect.equal (Ok Nothing)
                             )
-                        , itFromResult "should clear product, distribution, and category cooling when unset"
+                        , it "should default product category consumptions to an empty list when omitted" <|
+                            ("""[{
+                                    "cooling": false,
+                                    "id": "5fad4e70-5736-552d-a686-97e4fb627c37",
+                                    "label": "Test",
+                                    "scope": "food2"
+                                }]"""
+                                |> Product.decodeListFromJsonString
+                                |> Result.map (List.head >> Maybe.map .consumptions)
+                                |> Expect.equal (Ok (Just []))
+                            )
+                        , itFromResult2 "should decode product category consumptions with optional amounts"
+                            (Process.idFromString "b4642cec-b72e-4116-81c5-5dbfccb46055")
+                            (Process.idFromString "21e4283e-6bbf-4b2a-b52b-4440022525ad")
+                            (\refrigerationId panCookingId ->
+                                """[{
+                                    "cooling": false,
+                                    "consumptions": [
+                                      { "processId": "b4642cec-b72e-4116-81c5-5dbfccb46055" },
+                                      { "amount": 5.5, "processId": "21e4283e-6bbf-4b2a-b52b-4440022525ad" }
+                                    ],
+                                    "id": "5fad4e70-5736-552d-a686-97e4fb627c37",
+                                    "label": "Test",
+                                    "scope": "food2"
+                                }]"""
+                                    |> Product.decodeListFromJsonString
+                                    |> Result.map (List.head >> Maybe.map .consumptions)
+                                    |> Expect.equal
+                                        (Ok
+                                            (Just
+                                                [ { amount = Nothing
+                                                  , processId = refrigerationId
+                                                  }
+                                                , { amount = Just (Amount.fromFloat 5.5)
+                                                  , processId = panCookingId
+                                                  }
+                                                ]
+                                            )
+                                        )
+                            )
+                        , itFromResult "should clear product, distribution, consumptions, and category cooling when unset"
                             (requirements.db.products |> List.head |> Result.fromMaybe "no product categories in test db")
                             (\categoryProduct ->
                                 emptyQuery
@@ -2182,8 +2222,40 @@ suite =
                                     |> Expect.all
                                         [ .product >> Expect.equal Nothing
                                         , .distribution >> Expect.equal Nothing
+                                        , .consumptions >> Expect.equal []
                                         , .transportOptions >> .cooling >> Expect.equal defaultTransportOptions.cooling
                                         ]
+                            )
+                        , itFromResult2 "should apply category default consumptions when selecting a product"
+                            (findProductCategoryByLabel requirements "Charcuterie")
+                            (Process.idFromString "b4642cec-b72e-4116-81c5-5dbfccb46055")
+                            (\categoryProduct refrigerationId ->
+                                emptyQuery
+                                    |> Component.updateProduct (Just categoryProduct)
+                                    |> .consumptions
+                                    |> List.map Component.getConsumptionProcessId
+                                    |> Expect.equal [ refrigerationId ]
+                            )
+                        , itFromResult2 "should replace consumptions when selecting another product category"
+                            (findProductCategoryByLabel requirements "Charcuterie")
+                            (findProductCategoryByLabel requirements "Produits congelés")
+                            (\charcuterie frozen ->
+                                emptyQuery
+                                    |> Component.updateProduct (Just charcuterie)
+                                    |> Component.updateProduct (Just frozen)
+                                    |> .consumptions
+                                    |> List.map Component.getConsumptionProcessId
+                                    |> Expect.equal (List.map .processId frozen.consumptions)
+                            )
+                        , itFromResult "should not reset consumptions when re-selecting the same product"
+                            (findProductCategoryByLabel requirements "Charcuterie")
+                            (\categoryProduct ->
+                                emptyQuery
+                                    |> Component.updateProduct (Just categoryProduct)
+                                    |> (\query -> { query | consumptions = [] })
+                                    |> Component.updateProduct (Just categoryProduct)
+                                    |> .consumptions
+                                    |> Expect.equal []
                             )
                         , it "should reject a query carrying an unknown product id" <|
                             (Product.idFromString nonExistentUuid
@@ -2259,6 +2331,14 @@ extractEcsImpact =
 extractComplementEcsImpact : Component.Results -> Float
 extractComplementEcsImpact =
     Component.extractComplementsImpacts >> Complement.mergeComplementsResultsImpacts >> getEcsImpact
+
+
+findProductCategoryByLabel : Requirements db -> String -> Result String Product.ProductCategory
+findProductCategoryByLabel { db } label =
+    db.products
+        |> List.filter (.label >> (==) label)
+        |> List.head
+        |> Result.fromMaybe ("Catégorie de produit introuvable label=" ++ label)
 
 
 getEcsImpact : Impacts -> Float
