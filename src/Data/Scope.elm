@@ -17,6 +17,7 @@ module Data.Scope exposing
     , toGenericScope
     , toLabel
     , toString
+    , toStringGeneric
     )
 
 import Dict.Any as AnyDict exposing (AnyDict)

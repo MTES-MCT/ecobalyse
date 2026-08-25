@@ -1050,7 +1050,7 @@ simulatorView ({ componentConfig } as session) ({ genericScope } as model) =
                     { onSelect = UpdateProduct
                     , products = session.db.products
                     , query = currentQuery
-                    , scope = scope
+                    , scope = genericScope
                     }
                 ]
             , durabilityView componentConfig scope currentQuery.durability

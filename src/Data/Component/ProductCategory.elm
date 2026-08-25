@@ -13,7 +13,7 @@ module Data.Component.ProductCategory exposing
 
 import Data.Common.DecodeUtils as DU
 import Data.Process as Process
-import Data.Scope as Scope exposing (Scope)
+import Data.Scope as Scope
 import Data.Uuid as Uuid exposing (Uuid)
 import Json.Decode as Decode exposing (Decoder)
 import Json.Decode.Pipeline as Pipe
@@ -32,7 +32,7 @@ type alias ProductCategory =
     , distribution : Maybe Process.Id
     , id : Id
     , label : String
-    , scope : Scope
+    , scope : Scope.GenericScope
     }
 
 
@@ -43,7 +43,7 @@ decode =
         |> DU.strictOptional "distribution" Process.decodeId
         |> Pipe.required "id" decodeId
         |> Pipe.required "label" Decode.string
-        |> Pipe.required "scope" Scope.decode
+        |> Pipe.required "scope" Scope.decodeGeneric
 
 
 decodeId : Decoder Id
@@ -74,9 +74,9 @@ findById id =
         >> Result.fromMaybe ("Catégorie de produit introuvable id=" ++ idToString id ++ ".")
 
 
-findByScope : Scope -> List ProductCategory -> List ProductCategory
-findByScope scope =
-    List.filter (.scope >> (==) scope)
+findByScope : Scope.GenericScope -> List ProductCategory -> List ProductCategory
+findByScope genericScope =
+    List.filter (.scope >> (==) genericScope)
 
 
 idFromString : String -> Result String Id
@@ -94,5 +94,5 @@ toSearchableString product =
     String.join " "
         [ idToString product.id
         , product.label
-        , Scope.toString product.scope
+        , Scope.toStringGeneric product.scope
         ]

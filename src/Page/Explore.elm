@@ -686,7 +686,7 @@ productCategoriesExplorer session genericScope tableConfig tableState maybeId =
             Scope.Generic genericScope
     in
     [ session.db.products
-        |> ProductCategory.findByScope scope
+        |> ProductCategory.findByScope genericScope
         |> Table.viewList (.id >> ProductCategory.idToString >> OpenDetail)
             tableConfig
             tableState
