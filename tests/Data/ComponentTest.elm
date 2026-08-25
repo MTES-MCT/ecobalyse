@@ -642,13 +642,13 @@ suite =
                     , describe "computeElementResults"
                         [ suiteFromResult "basic tests"
                             -- setup
-                            (Process.idFromString "f0dbe27b-1e74-55d0-88a2-bda812441744"
+                            (findProcessByLabel requirements "Production de fibres de coton"
                                 |> Result.andThen
-                                    (\cottonId ->
+                                    (\cotton ->
                                         Component.computeElementResults requirements
                                             defaultTransportOptions
                                             { amount = Amount.fromFloat 1
-                                            , material = { country = Nothing, id = cottonId }
+                                            , material = { country = Nothing, id = cotton.id }
 
                                             -- Note: weaving waste: 0.06253, fading: 0
                                             , transforms =
@@ -1274,11 +1274,11 @@ suite =
                                 |> Result.fromMaybe ("No test country available scoped " ++ Scope.toString requirements.scope)
                             )
                             -- cotton
-                            (Process.idFromString "f0dbe27b-1e74-55d0-88a2-bda812441744")
+                            (findProcessByLabel requirements "Production de fibres de coton")
                             -- tests
-                            (\country materialId ->
+                            (\country cotton ->
                                 { amount = Amount.fromFloat 1
-                                , material = { country = Just country.code, id = materialId }
+                                , material = { country = Just country.code, id = cotton.id }
                                 , transforms =
                                     [ { id = fading.id
                                       , country = Just country.code
@@ -2185,29 +2185,34 @@ suite =
                                 |> Expect.equal (Ok (Just []))
                             )
                         , itFromResult2 "should decode product category consumptions with optional amounts"
-                            (Process.idFromString "b4642cec-b72e-4116-81c5-5dbfccb46055")
-                            (Process.idFromString "21e4283e-6bbf-4b2a-b52b-4440022525ad")
-                            (\refrigerationId panCookingId ->
-                                """[{
+                            (findProcessByLabel requirements "Réfrigération")
+                            (findProcessByLabel requirements "Cuisson à la poêle")
+                            (\refrigeration panCooking ->
+                                ("""[{
                                     "cooling": false,
                                     "consumptions": [
-                                      { "processId": "b4642cec-b72e-4116-81c5-5dbfccb46055" },
-                                      { "amount": 5.5, "processId": "21e4283e-6bbf-4b2a-b52b-4440022525ad" }
+                                      { "processId": """
+                                    ++ Encode.encode 0 (Process.encodeId refrigeration.id)
+                                    ++ """ },
+                                      { "amount": 5.5, "processId": """
+                                    ++ Encode.encode 0 (Process.encodeId panCooking.id)
+                                    ++ """ }
                                     ],
                                     "id": "5fad4e70-5736-552d-a686-97e4fb627c37",
                                     "label": "Test",
                                     "scope": "food2"
                                 }]"""
+                                )
                                     |> Product.decodeListFromJsonString
                                     |> Result.map (List.head >> Maybe.map .consumptions)
                                     |> Expect.equal
                                         (Ok
                                             (Just
                                                 [ { amount = Nothing
-                                                  , processId = refrigerationId
+                                                  , processId = refrigeration.id
                                                   }
                                                 , { amount = Just (Amount.fromFloat 5.5)
-                                                  , processId = panCookingId
+                                                  , processId = panCooking.id
                                                   }
                                                 ]
                                             )
@@ -2228,13 +2233,13 @@ suite =
                             )
                         , itFromResult2 "should apply category default consumptions when selecting a product"
                             (findProductCategoryByLabel requirements "Charcuterie")
-                            (Process.idFromString "b4642cec-b72e-4116-81c5-5dbfccb46055")
-                            (\categoryProduct refrigerationId ->
+                            (findProcessByLabel requirements "Réfrigération")
+                            (\categoryProduct refrigeration ->
                                 emptyQuery
                                     |> Component.updateProduct (Just categoryProduct)
                                     |> .consumptions
                                     |> List.map Component.getConsumptionProcessId
-                                    |> Expect.equal [ refrigerationId ]
+                                    |> Expect.equal [ refrigeration.id ]
                             )
                         , itFromResult2 "should replace consumptions when selecting another product category"
                             (findProductCategoryByLabel requirements "Charcuterie")
@@ -2331,6 +2336,14 @@ extractEcsImpact =
 extractComplementEcsImpact : Component.Results -> Float
 extractComplementEcsImpact =
     Component.extractComplementsImpacts >> Complement.mergeComplementsResultsImpacts >> getEcsImpact
+
+
+findProcessByLabel : Requirements db -> String -> Result String Process
+findProcessByLabel { db } label =
+    db.processes
+        |> List.filter (Process.getDisplayName >> (==) label)
+        |> List.head
+        |> Result.fromMaybe ("Procédé introuvable label=" ++ label)
 
 
 findProductCategoryByLabel : Requirements db -> String -> Result String Product.ProductCategory
