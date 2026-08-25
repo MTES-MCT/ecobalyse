@@ -2175,10 +2175,10 @@ suite =
                             )
                         , it "should default product category consumptions to an empty list when omitted" <|
                             ("""[{
-                                    "cooling": false,
-                                    "id": "5fad4e70-5736-552d-a686-97e4fb627c37",
-                                    "label": "Test",
-                                    "scope": "food2"
+                                  "cooling": false,
+                                  "id": "5fad4e70-5736-552d-a686-97e4fb627c37",
+                                  "label": "Test",
+                                  "scope": "food2"
                                 }]"""
                                 |> Product.decodeListFromJsonString
                                 |> Result.map (List.head >> Maybe.map .consumptions)
@@ -2189,19 +2189,17 @@ suite =
                             (findProcessByLabel requirements "Cuisson à la poêle")
                             (\refrigeration panCooking ->
                                 ("""[{
-                                    "cooling": false,
-                                    "consumptions": [
-                                      { "processId": """
-                                    ++ Encode.encode 0 (Process.encodeId refrigeration.id)
-                                    ++ """ },
-                                      { "amount": 5.5, "processId": """
-                                    ++ Encode.encode 0 (Process.encodeId panCooking.id)
-                                    ++ """ }
-                                    ],
-                                    "id": "5fad4e70-5736-552d-a686-97e4fb627c37",
-                                    "label": "Test",
-                                    "scope": "food2"
-                                }]"""
+                                      "cooling": false,
+                                      "consumptions": [
+                                        { "processId": "{{refrigerationId}}" },
+                                        { "amount": 5.5, "processId": "{{panCookingId}}" }
+                                      ],
+                                      "id": "5fad4e70-5736-552d-a686-97e4fb627c37",
+                                      "label": "Test",
+                                      "scope": "food2"
+                                    }]"""
+                                    |> String.replace "{{refrigerationId}}" (Process.idToString refrigeration.id)
+                                    |> String.replace "{{panCookingId}}" (Process.idToString panCooking.id)
                                 )
                                     |> Product.decodeListFromJsonString
                                     |> Result.map (List.head >> Maybe.map .consumptions)
@@ -2224,15 +2222,13 @@ suite =
                             (\refrigeration ovenCooking ->
                                 ("""[{
                                       "cooling": false,
-                                      "consumptions": ["""
-                                    ++ Encode.encode 0 (Process.encodeId refrigeration.id)
-                                    ++ ", "
-                                    ++ Encode.encode 0 (Process.encodeId ovenCooking.id)
-                                    ++ """],
+                                      "consumptions": ["{{refrigerationId}}", "{{ovenCookingId}}"],
                                       "id": "5fad4e70-5736-552d-a686-97e4fb627c37",
                                       "label": "Test category",
                                       "scope": "food2"
                                     }]"""
+                                    |> String.replace "{{refrigerationId}}" (Process.idToString refrigeration.id)
+                                    |> String.replace "{{ovenCookingId}}" (Process.idToString ovenCooking.id)
                                 )
                                     |> Product.decodeListFromJsonString
                                     |> Result.map (List.head >> Maybe.map .consumptions)
