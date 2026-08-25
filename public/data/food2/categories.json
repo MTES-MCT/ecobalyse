@@ -1,5 +1,10 @@
 [
   {
+    "consumptions": [
+      {
+        "processId": "b4642cec-b72e-4116-81c5-5dbfccb46055"
+      }
+    ],
     "cooling": true,
     "distribution": "be66b80b-1500-4e3b-bfd2-87a89ff54031",
     "id": "2ab49980-2bc8-40b9-8db2-010d0d14ce50",
@@ -7,6 +12,11 @@
     "scope": "food2"
   },
   {
+    "consumptions": [
+      {
+        "processId": "b4642cec-b72e-4116-81c5-5dbfccb46055"
+      }
+    ],
     "cooling": true,
     "distribution": "29118025-efa0-47bb-94e2-f5ccba31a903",
     "id": "8ff16df9-acff-47b3-bc6d-c25afca653e0",
@@ -14,6 +24,11 @@
     "scope": "food2"
   },
   {
+    "consumptions": [
+      {
+        "processId": "21e4283e-6bbf-4b2a-b52b-4440022525ad"
+      }
+    ],
     "cooling": false,
     "distribution": "29118025-efa0-47bb-94e2-f5ccba31a903",
     "id": "ed82925c-7f21-4101-b9be-056e3c185749",
@@ -21,6 +36,14 @@
     "scope": "food2"
   },
   {
+    "consumptions": [
+      {
+        "processId": "b4642cec-b72e-4116-81c5-5dbfccb46055"
+      },
+      {
+        "processId": "a49670fc-0642-43f6-a673-fe15dc7d88da"
+      }
+    ],
     "cooling": true,
     "distribution": "be66b80b-1500-4e3b-bfd2-87a89ff54031",
     "id": "22bd618d-effb-4769-86ff-e326b7fe78b6",
@@ -28,6 +51,14 @@
     "scope": "food2"
   },
   {
+    "consumptions": [
+      {
+        "processId": "b4642cec-b72e-4116-81c5-5dbfccb46055"
+      },
+      {
+        "processId": "21e4283e-6bbf-4b2a-b52b-4440022525ad"
+      }
+    ],
     "cooling": true,
     "distribution": "29118025-efa0-47bb-94e2-f5ccba31a903",
     "id": "d6ba3a8b-cd58-497c-8872-b436c1659ec9",
@@ -35,6 +66,11 @@
     "scope": "food2"
   },
   {
+    "consumptions": [
+      {
+        "processId": "21e4283e-6bbf-4b2a-b52b-4440022525ad"
+      }
+    ],
     "cooling": false,
     "distribution": "29118025-efa0-47bb-94e2-f5ccba31a903",
     "id": "0f5377d4-efce-45f7-8547-169ac0e124d0",
@@ -42,6 +78,14 @@
     "scope": "food2"
   },
   {
+    "consumptions": [
+      {
+        "processId": "b4642cec-b72e-4116-81c5-5dbfccb46055"
+      },
+      {
+        "processId": "1040ee69-9dff-47f1-a989-c7cd04d2c419"
+      }
+    ],
     "cooling": true,
     "distribution": "be66b80b-1500-4e3b-bfd2-87a89ff54031",
     "id": "18fdea50-1a04-4948-bf13-7b54e169235b",
@@ -49,6 +93,14 @@
     "scope": "food2"
   },
   {
+    "consumptions": [
+      {
+        "processId": "0048f6f5-5f8f-4a34-acde-4e0d909883d4"
+      },
+      {
+        "processId": "a49670fc-0642-43f6-a673-fe15dc7d88da"
+      }
+    ],
     "cooling": true,
     "distribution": "a7b3d399-4c7b-4556-9826-a79f952feb7f",
     "id": "1eacb555-5f0c-498e-8e97-f4c9104642e4",
@@ -56,6 +108,11 @@
     "scope": "food2"
   },
   {
+    "consumptions": [
+      {
+        "processId": "b4642cec-b72e-4116-81c5-5dbfccb46055"
+      }
+    ],
     "cooling": true,
     "distribution": "be66b80b-1500-4e3b-bfd2-87a89ff54031",
     "id": "3d69eb9f-0126-4e97-a017-d47f00fdcabb",
@@ -63,6 +120,11 @@
     "scope": "food2"
   },
   {
+    "consumptions": [
+      {
+        "processId": "b4642cec-b72e-4116-81c5-5dbfccb46055"
+      }
+    ],
     "cooling": false,
     "distribution": "29118025-efa0-47bb-94e2-f5ccba31a903",
     "id": "73b44868-899b-476f-bab6-1ecb4877ade2",
@@ -70,6 +132,14 @@
     "scope": "food2"
   },
   {
+    "consumptions": [
+      {
+        "processId": "b4642cec-b72e-4116-81c5-5dbfccb46055"
+      },
+      {
+        "processId": "21e4283e-6bbf-4b2a-b52b-4440022525ad"
+      }
+    ],
     "cooling": true,
     "distribution": "be66b80b-1500-4e3b-bfd2-87a89ff54031",
     "id": "18c80093-442d-469c-9a22-6297e97ba1a7",
