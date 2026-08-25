@@ -208,7 +208,7 @@ checkExampleComponentItem processes components example =
 -}
 checkExamplesComponentIds : Set String -> Db -> List Error
 checkExamplesComponentIds knownComponentStringIds db =
-    db.object.examples
+    db.generic.examples
         |> List.filter (.scope >> Scope.isGeneric)
         |> List.concatMap
             (\example ->
@@ -234,7 +234,7 @@ checkExamplesScope db =
             , componentById db.components
             )
     in
-    db.object.examples
+    db.generic.examples
         |> List.filter (.scope >> Scope.isGeneric)
         |> List.concatMap
             (\example ->

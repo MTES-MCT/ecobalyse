@@ -11,11 +11,11 @@ import Page.Explore.Table as Table exposing (Table)
 import Route
 
 
-table : Session -> { detailed : Bool, scope : Scope } -> Table ProductCategory String msg
-table { db } { scope } =
-    { filename = Scope.toString scope ++ "-product-categories"
+table : Session -> Scope.GenericScope -> { detailed : Bool, scope : Scope } -> Table ProductCategory String msg
+table { db } genericScope _ =
+    { filename = Scope.toStringGeneric genericScope ++ "-product-categories"
     , toId = .id >> ProductCategory.idToString
-    , toRoute = .id >> Just >> Dataset.ProductCategory scope >> Route.Explore scope
+    , toRoute = \{ id } -> Route.Explore (Scope.Generic genericScope) (Dataset.ProductCategory genericScope (Just id))
     , toSearchableWords = ProductCategory.toSearchableString >> Text.toWords
     , facets =
         [ { key = "Transport réfrigéré"

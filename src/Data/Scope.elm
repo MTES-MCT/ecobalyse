@@ -14,8 +14,10 @@ module Data.Scope exposing
     , fromString
     , isGeneric
     , parse
+    , toGenericScope
     , toLabel
     , toString
+    , toStringGeneric
     )
 
 import Dict.Any as AnyDict exposing (AnyDict)
@@ -156,6 +158,16 @@ parse : Parser (Scope -> a) a
 parse =
     Parser.custom "SCOPE" <|
         (fromString >> Result.toMaybe)
+
+
+toGenericScope : Scope -> Maybe GenericScope
+toGenericScope scope =
+    case scope of
+        Generic genericScope ->
+            Just genericScope
+
+        _ ->
+            Nothing
 
 
 toLabel : Scope -> String

@@ -3023,7 +3023,7 @@ validateProduct requirements maybeProductId =
                 |> ProductCategory.findById productId
                 |> Result.andThen
                     (\product ->
-                        if product.scope == requirements.scope then
+                        if requirements.scope == Scope.Generic product.scope then
                             Ok productId
 
                         else

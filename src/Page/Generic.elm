@@ -1,4 +1,4 @@
-module Page.Object exposing
+module Page.Generic exposing
     ( Model
     , Msg
     , init
@@ -21,13 +21,13 @@ import Data.Country.Code as CountryCode
 import Data.Dataset as Dataset
 import Data.Db exposing (Db)
 import Data.Example as Example exposing (Example)
+import Data.Generic.Simulator as Simulator
 import Data.Impact.Definition as Definition exposing (Definition)
 import Data.Key as Key
-import Data.Object.Simulator as Simulator
 import Data.Plausible as Plausible
 import Data.Process as Process exposing (Process)
 import Data.Process.Category as Category exposing (Category)
-import Data.Scope exposing (Scope)
+import Data.Scope as Scope exposing (GenericScope, Scope)
 import Data.Session as Session exposing (Session)
 import Data.Split exposing (Split)
 import Data.Unit as Unit
@@ -76,7 +76,7 @@ type alias Model =
     , initialQuery : Component.Query
     , modals : List Modal
     , lifeCycle : Result String Component.LifeCycle
-    , scope : Scope
+    , genericScope : GenericScope
     }
 
 
@@ -155,21 +155,24 @@ type Msg
     | UpdateRenamedBookmarkName Bookmark String
 
 
-init : Scope -> Definition.Trigram -> Maybe Component.Query -> Session -> PageUpdate Model Msg
-init scope trigram maybeUrlQuery session =
+init : GenericScope -> Definition.Trigram -> Maybe Component.Query -> Session -> PageUpdate Model Msg
+init genericScope trigram maybeUrlQuery session =
     let
+        scope =
+            Scope.Generic genericScope
+
         initialQuery =
             -- If we received a serialized query from the URL, use it
             -- Otherwise, fallback to use session query
             maybeUrlQuery
-                |> Maybe.withDefault (Session.objectQueryFromScope scope session)
+                |> Maybe.withDefault (Session.genericQuery genericScope session)
 
         examples =
-            session.db.object.examples
+            session.db.generic.examples
                 |> Example.forScope scope
     in
     { activeImpactsTab = ImpactTabs.StagesImpactsTab
-    , bookmarkName = initialQuery |> suggestBookmarkName session examples
+    , bookmarkName = initialQuery |> suggestBookmarkName session genericScope examples
     , bookmarkTab = BookmarkView.SaveTab
     , comparisonType =
         if Session.isAuthenticated session then
@@ -195,9 +198,9 @@ init scope trigram maybeUrlQuery session =
                 , db = session.db
                 , scope = scope
                 }
-    , scope = scope
+    , genericScope = genericScope
     }
-        |> createPageUpdate (session |> Session.updateObjectQuery scope initialQuery)
+        |> createPageUpdate (session |> Session.updateGenericQuery genericScope initialQuery)
         |> App.withCmds
             (case maybeUrlQuery of
                 -- If we do have an URL query, we either come from a bookmark, a saved simulation click or
@@ -212,11 +215,14 @@ init scope trigram maybeUrlQuery session =
             )
 
 
-initFromExample : Session -> Scope -> Uuid -> PageUpdate Model Msg
-initFromExample session scope uuid =
+initFromExample : Session -> GenericScope -> Uuid -> PageUpdate Model Msg
+initFromExample session genericScope uuid =
     let
+        scope =
+            Scope.Generic genericScope
+
         examples =
-            session.db.object.examples
+            session.db.generic.examples
                 |> Example.forScope scope
 
         example =
@@ -226,10 +232,10 @@ initFromExample session scope uuid =
         exampleQuery =
             example
                 |> Result.map .query
-                |> Result.withDefault (Session.objectQueryFromScope scope session)
+                |> Result.withDefault (Session.genericQuery genericScope session)
     in
     { activeImpactsTab = ImpactTabs.StagesImpactsTab
-    , bookmarkName = exampleQuery |> suggestBookmarkName session examples
+    , bookmarkName = exampleQuery |> suggestBookmarkName session genericScope examples
     , bookmarkTab = BookmarkView.SaveTab
     , comparisonType = ComparatorView.Subscores
     , contributionDescription = ""
@@ -250,9 +256,9 @@ initFromExample session scope uuid =
                 , db = session.db
                 , scope = scope
                 }
-    , scope = scope
+    , genericScope = genericScope
     }
-        |> createPageUpdate (session |> Session.updateObjectQuery scope exampleQuery)
+        |> createPageUpdate (session |> Session.updateGenericQuery genericScope exampleQuery)
         |> App.withCmds [ Ports.scrollTo { x = 0, y = 0 } ]
 
 
@@ -271,13 +277,13 @@ selectProductCategory session query maybeProductId =
             updateQuery (query |> Component.updateProduct Nothing)
 
 
-suggestBookmarkName : Session -> List (Example Component.Query) -> Component.Query -> String
-suggestBookmarkName { db, store } examples query =
+suggestBookmarkName : Session -> GenericScope -> List (Example Component.Query) -> Component.Query -> String
+suggestBookmarkName { db, store } genericScope examples query =
     let
         -- Existing user bookmark?
         userBookmark =
             store.bookmarks
-                |> Bookmark.findByObjectQuery query
+                |> Bookmark.findByGenericQuery genericScope query
 
         -- Matching product example name?
         exampleName =
@@ -300,29 +306,36 @@ suggestBookmarkName { db, store } examples query =
 
 updateQuery : Component.Query -> PageUpdate Model Msg -> PageUpdate Model Msg
 updateQuery query ({ model, session } as pageUpdate) =
+    let
+        scope =
+            Scope.Generic model.genericScope
+    in
     { pageUpdate
         | model =
             { model
                 | initialQuery = query
-                , bookmarkName = query |> suggestBookmarkName session model.examples
+                , bookmarkName = query |> suggestBookmarkName session model.genericScope model.examples
                 , lifeCycle =
                     query
                         |> Simulator.compute
                             { config = session.componentConfig
                             , db = session.db
-                            , scope = model.scope
+                            , scope = scope
                             }
             }
-        , session = session |> Session.updateObjectQuery model.scope query
+        , session = session |> Session.updateGenericQuery model.genericScope query
     }
 
 
 update : Session -> Msg -> Model -> PageUpdate Model Msg
 update ({ navKey } as session) msg model =
     let
+        globalScope =
+            Scope.Generic model.genericScope
+
         query =
             session
-                |> Session.objectQueryFromScope model.scope
+                |> Session.genericQuery model.genericScope
     in
     case ( msg, model.modals ) of
         ( AppendModal modal, modals ) ->
@@ -524,7 +537,7 @@ update ({ navKey } as session) msg model =
         ( OpenComparator, _ ) ->
             { model | modals = [ ComparatorModal ] }
                 |> createPageUpdate (session |> Session.checkComparedSimulations)
-                |> App.withCmds [ Plausible.send session <| Plausible.ComparatorOpened model.scope ]
+                |> App.withCmds [ Plausible.send session <| Plausible.ComparatorOpened globalScope ]
 
         ( RemoveComponentItem itemIndex, _ ) ->
             { model
@@ -535,7 +548,7 @@ update ({ navKey } as session) msg model =
             }
                 |> createPageUpdate session
                 |> updateQuery (query |> Component.mapItems (LE.removeAt itemIndex))
-                |> App.withCmds [ Plausible.send session <| Plausible.ComponentUpdated model.scope ]
+                |> App.withCmds [ Plausible.send session <| Plausible.ComponentUpdated globalScope ]
 
         ( RemoveAssemblyOperation index, _ ) ->
             createPageUpdate session model
@@ -548,7 +561,7 @@ update ({ navKey } as session) msg model =
         ( RemoveElement targetElement, _ ) ->
             createPageUpdate session model
                 |> updateQuery (query |> Component.mapItems (Component.removeElement targetElement))
-                |> App.withCmds [ Plausible.send session <| Plausible.ComponentUpdated model.scope ]
+                |> App.withCmds [ Plausible.send session <| Plausible.ComponentUpdated globalScope ]
 
         ( RemoveElementTransform targetElement transformIndex, _ ) ->
             createPageUpdate session model
@@ -557,7 +570,7 @@ update ({ navKey } as session) msg model =
                         |> Component.mapItems
                             (Component.removeElementTransform targetElement transformIndex)
                     )
-                |> App.withCmds [ Plausible.send session <| Plausible.ComponentUpdated model.scope ]
+                |> App.withCmds [ Plausible.send session <| Plausible.ComponentUpdated globalScope ]
 
         ( RemovePackaging index, _ ) ->
             createPageUpdate session model
@@ -581,19 +594,19 @@ update ({ navKey } as session) msg model =
                     [ Time.now
                         |> Task.perform
                             (query
-                                |> Bookmark.genericQueryFromScope model.scope
+                                |> Bookmark.Generic model.genericScope
                                 |> SaveBookmarkWithTime model.bookmarkName
                             )
-                    , Plausible.send session <| Plausible.BookmarkSaved model.scope
+                    , Plausible.send session <| Plausible.BookmarkSaved globalScope
                     ]
 
-        ( SaveBookmarkWithTime name objectQuery now, _ ) ->
+        ( SaveBookmarkWithTime name bookmarkQuery now, _ ) ->
             model
                 |> createPageUpdate
                     (session
                         |> Session.saveBookmark
                             { name = String.trim name
-                            , query = objectQuery
+                            , query = bookmarkQuery
                             , created = now
                             , genericScope = Nothing
                             }
@@ -619,7 +632,7 @@ update ({ navKey } as session) msg model =
             { model | bookmarkTab = bookmarkTab }
                 |> createPageUpdate session
                 |> App.withCmds
-                    [ Plausible.TabSelected model.scope "Partager"
+                    [ Plausible.TabSelected (Scope.Generic model.genericScope) "Partager"
                         |> Plausible.sendIf session (bookmarkTab == BookmarkView.ShareTab)
                     ]
 
@@ -628,7 +641,7 @@ update ({ navKey } as session) msg model =
                 |> createPageUpdate session
                 |> App.withCmds
                     [ ComparatorView.comparisonTypeToString displayChoice
-                        |> Plausible.ComparisonTypeSelected model.scope
+                        |> Plausible.ComparisonTypeSelected globalScope
                         |> Plausible.send session
                     ]
 
@@ -640,10 +653,10 @@ update ({ navKey } as session) msg model =
             createPageUpdate session model
                 |> App.withCmds
                     [ Just query
-                        |> Route.GenericSimulator model.scope trigram
+                        |> Route.GenericSimulator model.genericScope trigram
                         |> Route.toString
                         |> Navigation.pushUrl navKey
-                    , Plausible.send session <| Plausible.ImpactSelected model.scope trigram
+                    , Plausible.send session <| Plausible.ImpactSelected globalScope trigram
                     ]
 
         ( SwitchImpactsTab impactsTab, _ ) ->
@@ -651,7 +664,7 @@ update ({ navKey } as session) msg model =
                 |> createPageUpdate session
                 |> App.withCmds
                     [ ImpactTabs.tabToString impactsTab
-                        |> Plausible.TabSelected model.scope
+                        |> Plausible.TabSelected globalScope
                         |> Plausible.send session
                     ]
 
@@ -688,7 +701,7 @@ update ({ navKey } as session) msg model =
                     (query
                         |> Component.mapItems (Component.updateItem itemIndex (\item -> { item | quantity = quantity }))
                     )
-                |> App.withCmds [ Plausible.send session <| Plausible.ComponentUpdated model.scope ]
+                |> App.withCmds [ Plausible.send session <| Plausible.ComponentUpdated globalScope ]
 
         ( UpdateConsumptionAmount index (Just amount), _ ) ->
             createPageUpdate session model
@@ -735,7 +748,7 @@ update ({ navKey } as session) msg model =
                         |> Component.mapItems
                             (Component.updateElementMaterialCountry targetElement maybeCountryCode)
                     )
-                |> App.withCmds [ Plausible.send session <| Plausible.ComponentUpdated model.scope ]
+                |> App.withCmds [ Plausible.send session <| Plausible.ComponentUpdated globalScope ]
 
         ( UpdateElementTransformCountry targetElement transformIndex maybeCountryCode, _ ) ->
             createPageUpdate session model
@@ -744,7 +757,7 @@ update ({ navKey } as session) msg model =
                         |> Component.mapItems
                             (Component.updateElementTransformCountry targetElement transformIndex maybeCountryCode)
                     )
-                |> App.withCmds [ Plausible.send session <| Plausible.ComponentUpdated model.scope ]
+                |> App.withCmds [ Plausible.send session <| Plausible.ComponentUpdated globalScope ]
 
         ( UpdatePackagingAmount index (Just amount), _ ) ->
             createPageUpdate session model
@@ -800,7 +813,7 @@ createExampleContribData model =
             { description = cleanDescription
             , name = cleanName
             , query = model.initialQuery
-            , scope = model.scope
+            , scope = Scope.Generic model.genericScope
             }
 
 
@@ -836,14 +849,14 @@ selectExample autocompleteState ({ model } as pageUpdate) =
     pageUpdate
         |> updateQuery exampleQuery
         |> App.apply update (SetModals [])
-        |> App.withCmds [ Plausible.send pageUpdate.session <| Plausible.ExampleSelected model.scope ]
+        |> App.withCmds [ Plausible.send pageUpdate.session <| Plausible.ExampleSelected (Scope.Generic model.genericScope) ]
 
 
 selectProductionItem : Component.Query -> Autocomplete Component.ProductionItem -> PageUpdate Model Msg -> PageUpdate Model Msg
 selectProductionItem query autocompleteState ({ model, session } as pageUpdate) =
     let
         plausibleCommand =
-            Plausible.send pageUpdate.session <| Plausible.ComponentAdded model.scope
+            Plausible.send pageUpdate.session <| Plausible.ComponentAdded (Scope.Generic model.genericScope)
     in
     case Autocomplete.selectedValue autocompleteState of
         Just (Component.ComponentItem component) ->
@@ -909,7 +922,7 @@ selectConsumption query autocompleteState ({ model } as pageUpdate) =
                                 ++ [ Component.consumption (Amount.fromFloat 1) process.id ]
                     }
                 |> App.apply update (SetModals [])
-                |> App.withCmds [ Plausible.send pageUpdate.session <| Plausible.ConsumptionAdded model.scope ]
+                |> App.withCmds [ Plausible.send pageUpdate.session <| Plausible.ConsumptionAdded (Scope.Generic model.genericScope) ]
 
         Nothing ->
             pageUpdate |> App.notifyWarning "Aucun composant sélectionné"
@@ -955,14 +968,18 @@ selectProcess category targetItem maybeElementIndex autocompleteState query ({ m
                     pageUpdate
                         |> updateQuery validQuery
                         |> App.apply update (SetModals (List.drop 1 model.modals))
-                        |> App.withCmds [ Plausible.send pageUpdate.session <| Plausible.ComponentUpdated model.scope ]
+                        |> App.withCmds [ Plausible.send pageUpdate.session <| Plausible.ComponentUpdated (Scope.Generic model.genericScope) ]
 
         Nothing ->
             pageUpdate |> App.notifyWarning "Aucun composant sélectionné"
 
 
 editorConfig : Session -> Model -> ComponentView.Config Db Msg
-editorConfig session ({ scope } as model) =
+editorConfig session ({ genericScope } as model) =
+    let
+        scope =
+            Scope.Generic genericScope
+    in
     { componentConfig = session.componentConfig
     , context = ComponentView.GenericContext
     , db = session.db
@@ -979,7 +996,7 @@ editorConfig session ({ scope } as model) =
     , openSelectPackagingModal = SelectPackagingModal >> List.singleton >> SetModals
     , openSelectProcessModal = \c ti mi ac -> AppendModal (SelectProcessModal c ti mi ac)
     , openSelectProductionItem = AddProductionItemModal >> List.singleton >> SetModals
-    , query = session |> Session.objectQueryFromScope model.scope
+    , query = session |> Session.genericQuery genericScope
     , removeAssemblyOperation = RemoveAssemblyOperation
     , removeConsumption = RemoveConsumption
     , removeElement = RemoveElement
@@ -1005,10 +1022,13 @@ editorConfig session ({ scope } as model) =
 
 
 simulatorView : Session -> Model -> Html Msg
-simulatorView ({ componentConfig } as session) ({ scope } as model) =
+simulatorView ({ componentConfig } as session) ({ genericScope } as model) =
     let
+        scope =
+            Scope.Generic genericScope
+
         currentQuery =
-            session |> Session.objectQueryFromScope scope
+            session |> Session.genericQuery genericScope
     in
     div [ class "row" ]
         [ div [ class "col-lg-8 bg-white" ]
@@ -1021,17 +1041,16 @@ simulatorView ({ componentConfig } as session) ({ scope } as model) =
                     , helpUrl = Nothing
                     , onOpen = SelectExampleModal >> List.singleton >> SetModals
                     , routes =
-                        -- FIXME: explore route object/veli
-                        { explore = Route.Explore scope (Dataset.ObjectExamples Nothing)
-                        , load = Route.GenericSimulatorExample scope
-                        , scopeHome = Route.GenericSimulatorHome scope
+                        { explore = Route.Explore scope (Dataset.GenericExamples genericScope Nothing)
+                        , load = Route.GenericSimulatorExample genericScope
+                        , scopeHome = Route.GenericSimulatorHome genericScope
                         }
                     }
                 , ComponentView.productCategorySelectorView
                     { onSelect = UpdateProduct
                     , products = session.db.products
                     , query = currentQuery
-                    , scope = scope
+                    , scope = genericScope
                     }
                 ]
             , durabilityView componentConfig scope currentQuery.durability
@@ -1047,7 +1066,7 @@ simulatorView ({ componentConfig } as session) ({ scope } as model) =
               SidebarView.view
                 { noOp = NoOp
                 , session = session
-                , scope = model.scope
+                , scope = scope
 
                 -- Impact selector
                 , selectedImpact = model.impact
@@ -1063,7 +1082,7 @@ simulatorView ({ componentConfig } as session) ({ scope } as model) =
                 , impactTabsConfig =
                     SwitchImpactsTab
                         |> ImpactTabs.createConfig session model.impact model.activeImpactsTab (always NoOp)
-                        |> ImpactTabs.forObject session.db.definitions lifeCycle
+                        |> ImpactTabs.forGeneric session.db.definitions lifeCycle
                         |> Just
 
                 -- Bookmarks
@@ -1192,7 +1211,7 @@ modalView : Session -> Model -> Modal -> Html Msg
 modalView session ({ modals } as model) modal =
     let
         scopeLabels =
-            ComponentView.scopeLabels ComponentView.GenericContext model.scope
+            ComponentView.scopeLabels ComponentView.GenericContext (Scope.Generic model.genericScope)
     in
     case modal of
         AddProductionItemModal autocompleteState ->
