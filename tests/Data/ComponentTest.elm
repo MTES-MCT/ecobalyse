@@ -1464,7 +1464,7 @@ suite =
                             , it "should include cooled transport when the option is set"
                                 (Mass.kilogram
                                     |> Component.computeTransportedMassImpacts requirements
-                                        { defaultTransportOptions | cooling = True }
+                                        { defaultTransportOptions | cooling = Just True }
                                         (Just portugal)
                                         (Just france)
                                     |> Result.map (.roadCooled >> Length.inKilometers)
@@ -2058,8 +2058,7 @@ suite =
                                 [ it "should reject a non-positive amount" <|
                                     ({ emptyQuery
                                         | consumptions =
-                                            [ Component.consumption (Amount.fromFloat -1) steelProcess.id
-                                            ]
+                                            Just [ Component.consumption (Amount.fromFloat -1) steelProcess.id ]
                                      }
                                         |> Component.validateQuery { requirements | scope = Scope.Generic Scope.Food2 }
                                         |> expectResultErrorContains "Une quantité doit être supérieure ou égale à zéro"
@@ -2128,8 +2127,7 @@ suite =
                                 [ it "should reject a consumption referencing a missing process" <|
                                     ({ emptyQuery
                                         | consumptions =
-                                            [ Component.consumption (Amount.fromFloat 1) nonExistingProcessId
-                                            ]
+                                            Just [ Component.consumption (Amount.fromFloat 1) nonExistingProcessId ]
                                      }
                                         |> Component.validateQuery requirements
                                         |> expectResultErrorContains ("Aucun procédé scopé Objets avec cet id: " ++ Process.idToString nonExistingProcessId)
@@ -2138,8 +2136,7 @@ suite =
                                     ({ emptyQuery
                                         | consumptions =
                                             -- Note: the sawing process isn't scoped for Food2
-                                            [ Component.consumption (Amount.fromFloat 1) sawingProcess.id
-                                            ]
+                                            Just [ Component.consumption (Amount.fromFloat 1) sawingProcess.id ]
                                      }
                                         |> Component.validateQuery { requirements | scope = Scope.Generic Scope.Food2 }
                                         |> expectResultErrorContains ("Aucun procédé scopé Alimentaire BÉTA avec cet id: " ++ Process.idToString sawingProcess.id)
@@ -2167,12 +2164,57 @@ suite =
                             ]
                         )
                     , describe "optional product category"
-                        [ it "should decode a query with no product field defined" <|
-                            ("""{"components":[]}"""
-                                |> decodeJson Component.decodeQuery
-                                |> Result.map .product
-                                |> Expect.equal (Ok Nothing)
-                            )
+                        [ describe "decoding"
+                            [ it "should decode a query with no product field defined" <|
+                                ("""{"components":[]}"""
+                                    |> decodeJson Component.decodeQuery
+                                    |> Result.map .product
+                                    |> Expect.equal (Ok Nothing)
+                                )
+                            , it "should decode omitted consumptions and cooling as unspecified" <|
+                                ("""{"components":[]}"""
+                                    |> decodeJson Component.decodeQuery
+                                    |> Result.map (\query -> ( query.consumptions, query.transportOptions.cooling ))
+                                    |> Expect.equal (Ok ( Nothing, Nothing ))
+                                )
+                            , it "should decode an explicit empty consumptions list" <|
+                                ("""{"components":[],"consumptions":[]}"""
+                                    |> decodeJson Component.decodeQuery
+                                    |> Result.map .consumptions
+                                    |> Expect.equal (Ok (Just []))
+                                )
+                            , it "should decode explicitly disabled cooling" <|
+                                ("""{"components":[],"transportOptions":{"cooling":false}}"""
+                                    |> decodeJson Component.decodeQuery
+                                    |> Result.map (.transportOptions >> .cooling)
+                                    |> Expect.equal (Ok (Just False))
+                                )
+                            ]
+                        , describe "encoding"
+                            [ it "should omit unspecified consumptions and cooling when encoding" <|
+                                (emptyQuery
+                                    |> Component.encodeQuery
+                                    |> Encode.encode 0
+                                    |> Expect.all
+                                        [ String.contains "\"consumptions\"" >> Expect.equal False
+                                        , String.contains "\"cooling\"" >> Expect.equal False
+                                        ]
+                                )
+                            , it "should encode an explicit empty consumptions list" <|
+                                ({ emptyQuery | consumptions = Just [] }
+                                    |> Component.encodeQuery
+                                    |> Encode.encode 0
+                                    |> String.contains "\"consumptions\":[]"
+                                    |> Expect.equal True
+                                )
+                            , it "should encode explicit cooling false" <|
+                                ({ emptyQuery | transportOptions = { defaultTransportOptions | cooling = Just False } }
+                                    |> Component.encodeQuery
+                                    |> Encode.encode 0
+                                    |> String.contains "\"cooling\":false"
+                                    |> Expect.equal True
+                                )
+                            ]
                         , it "should default product category consumptions to an empty list when omitted" <|
                             ("""[{
                                   "cooling": false,
@@ -2254,8 +2296,20 @@ suite =
                                     |> Expect.all
                                         [ .product >> Expect.equal Nothing
                                         , .distribution >> Expect.equal Nothing
-                                        , .consumptions >> Expect.equal []
-                                        , .transportOptions >> .cooling >> Expect.equal defaultTransportOptions.cooling
+                                        , .consumptions >> Expect.equal Nothing
+                                        , .transportOptions >> .cooling >> Expect.equal Nothing
+                                        ]
+                            )
+                        , itFromResult "should reset product category-dependent fields to Nothing when selecting a product"
+                            (findProductCategoryByLabel requirements "Charcuterie")
+                            (\categoryProduct ->
+                                emptyQuery
+                                    |> Component.updateProduct (Just categoryProduct)
+                                    |> Expect.all
+                                        [ .product >> Expect.equal (Just categoryProduct.id)
+                                        , .consumptions >> Expect.equal Nothing
+                                        , .distribution >> Expect.equal Nothing
+                                        , .transportOptions >> .cooling >> Expect.equal Nothing
                                         ]
                             )
                         , itFromResult2 "should apply category default consumptions when selecting a product"
@@ -2264,30 +2318,132 @@ suite =
                             (\categoryProduct refrigeration ->
                                 emptyQuery
                                     |> Component.updateProduct (Just categoryProduct)
-                                    |> .consumptions
+                                    |> Component.getConsumptions requirements
                                     |> List.map Component.getConsumptionProcessId
                                     |> Expect.equal [ refrigeration.id ]
                             )
-                        , itFromResult2 "should replace consumptions when selecting another product category"
+                        , itFromResult2 "should replace resolved consumptions when selecting another product category"
                             (findProductCategoryByLabel requirements "Charcuterie")
                             (findProductCategoryByLabel requirements "Produits congelés")
                             (\charcuterie frozen ->
                                 emptyQuery
                                     |> Component.updateProduct (Just charcuterie)
                                     |> Component.updateProduct (Just frozen)
-                                    |> .consumptions
+                                    |> Component.getConsumptions requirements
                                     |> List.map Component.getConsumptionProcessId
                                     |> Expect.equal (List.map .processId frozen.consumptions)
                             )
-                        , itFromResult "should not reset consumptions when re-selecting the same product"
+                        , itFromResult "should not reset explicit consumptions when re-selecting the same product"
                             (findProductCategoryByLabel requirements "Charcuterie")
                             (\categoryProduct ->
                                 emptyQuery
                                     |> Component.updateProduct (Just categoryProduct)
-                                    |> (\query -> { query | consumptions = [] })
+                                    |> (\query -> { query | consumptions = Just [] })
                                     |> Component.updateProduct (Just categoryProduct)
                                     |> .consumptions
+                                    |> Expect.equal (Just [])
+                            )
+                        , itFromResult2 "should let an explicit consumptions list take precedence over the category"
+                            (findProductCategoryByLabel requirements "Charcuterie")
+                            (findProcessByLabel requirements "Cuisson au four")
+                            (\charcuterie ovenCooking ->
+                                { emptyQuery
+                                    | consumptions = Just [ Component.consumption (Amount.fromFloat 1) ovenCooking.id ]
+                                    , product = Just charcuterie.id
+                                }
+                                    |> Component.getConsumptions requirements
+                                    |> List.map Component.getConsumptionProcessId
+                                    |> Expect.equal [ ovenCooking.id ]
+                            )
+                        , itFromResult "should let an explicit empty consumptions list take precedence over the category"
+                            (findProductCategoryByLabel requirements "Charcuterie")
+                            (\charcuterie ->
+                                { emptyQuery
+                                    | consumptions = Just []
+                                    , product = Just charcuterie.id
+                                }
+                                    |> Component.getConsumptions requirements
                                     |> Expect.equal []
+                            )
+                        , it "should resolve no consumptions when product and query are unspecified" <|
+                            (emptyQuery
+                                |> Component.getConsumptions requirements
+                                |> Expect.equal []
+                            )
+                        , itFromResult "should preserve explicit consumptions so deleting them all does not leverage category defaults"
+                            (findProductCategoryByLabel requirements "Charcuterie")
+                            (\charcuterie ->
+                                emptyQuery
+                                    |> Component.updateProduct (Just charcuterie)
+                                    |> Component.removeConsumption requirements 0
+                                    |> Expect.all
+                                        [ .consumptions >> Expect.equal (Just [])
+                                        , Component.getConsumptions requirements >> Expect.equal []
+                                        ]
+                            )
+                        , itFromResult2 "should preserve category consumptions when adding one"
+                            (findProductCategoryByLabel requirements "Charcuterie")
+                            (findProcessByLabel requirements "Cuisson au four")
+                            (\charcuterie ovenCooking ->
+                                emptyQuery
+                                    |> Component.updateProduct (Just charcuterie)
+                                    |> Component.addConsumption requirements ovenCooking.id
+                                    |> Component.getConsumptions requirements
+                                    |> List.map Component.getConsumptionProcessId
+                                    |> Expect.equal (List.map .processId charcuterie.consumptions ++ [ ovenCooking.id ])
+                            )
+                        , itFromResult2 "should update category consumption when explicitely updating its amount"
+                            (findProductCategoryByLabel requirements "Charcuterie")
+                            (findProcessByLabel requirements "Réfrigération")
+                            (\charcuterie refrigeration ->
+                                emptyQuery
+                                    |> Component.updateProduct (Just charcuterie)
+                                    |> Component.updateConsumptionAmount requirements 0 (Amount.fromFloat 3)
+                                    |> .consumptions
+                                    |> Expect.equal (Just [ Component.consumption (Amount.fromFloat 3) refrigeration.id ])
+                            )
+                        , itFromResult "should use product category cooling when the query doesn't set it"
+                            (findProductCategoryByLabel requirements "Charcuterie")
+                            (\charcuterie ->
+                                emptyQuery
+                                    |> Component.updateProduct (Just charcuterie)
+                                    |> Component.getTransportCooling requirements
+                                    |> Expect.equal True
+                            )
+                        , itFromResult "should let an explicit cooling value have precedence over product category defaults"
+                            (findProductCategoryByLabel requirements "Charcuterie")
+                            (\charcuterie ->
+                                emptyQuery
+                                    |> Component.updateProduct (Just charcuterie)
+                                    |> Component.setTransportCooling False
+                                    |> Component.getTransportCooling requirements
+                                    |> Expect.equal False
+                            )
+                        , itFromResult "should disable product category cooling when the query doesn't set it"
+                            (findProductCategoryByLabel requirements "Céréales brutes")
+                            (\cereals ->
+                                emptyQuery
+                                    |> Component.updateProduct (Just cereals)
+                                    |> Component.getTransportCooling requirements
+                                    |> Expect.equal False
+                            )
+                        , itFromResult "should resolve product category distribution when the query doesn't set it"
+                            (findProductCategoryByLabel requirements "Charcuterie")
+                            (\charcuterie ->
+                                emptyQuery
+                                    |> Component.updateProduct (Just charcuterie)
+                                    |> Component.getDistributionProcessId { requirements | scope = Scope.Generic Scope.Food2 }
+                                    |> Expect.equal charcuterie.distribution
+                            )
+                        , itFromResult2 "should let explicit distribution taking precedence over product category value"
+                            (findProductCategoryByLabel requirements "Charcuterie")
+                            (findProductCategoryByLabel requirements "Produits congelés")
+                            (\charcuterie frozen ->
+                                emptyQuery
+                                    |> Component.updateProduct (Just charcuterie)
+                                    |> Component.updateDistribution frozen.distribution
+                                    |> Component.getDistributionProcessId { requirements | scope = Scope.Generic Scope.Food2 }
+                                    |> Expect.equal frozen.distribution
                             )
                         , it "should reject a query carrying an unknown product id" <|
                             (Product.idFromString nonExistentUuid
