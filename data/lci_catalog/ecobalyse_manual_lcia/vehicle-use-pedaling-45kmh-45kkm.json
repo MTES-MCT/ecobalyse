@@ -1,0 +1,44 @@
+{
+  "categories": [
+    "use"
+  ],
+  "comment": "Réduction de la consommation sur la durée de vie, pour une puissance de pédalage de 100W et une durée de vie de 45 000 km",
+  "displayName": "Pédalage, Réduction de consommation, WMTC Class1-45km/h - kilométrage de 45 000 km",
+  "elecKwh": -99,
+  "heatMJ": 0,
+  "id": "f9ba783e-3922-40ee-acbb-24a0aac30f19",
+  "impacts": {
+    "acd": 0,
+    "cch": 0,
+    "etf": 0,
+    "etf-c": 0,
+    "fru": 0,
+    "fwe": 0,
+    "htc": 0,
+    "htc-c": 0,
+    "htn": 0,
+    "htn-c": 0,
+    "ior": 0,
+    "ldu": 0,
+    "mru": 0,
+    "ozd": 0,
+    "pco": 0,
+    "pma": 0,
+    "swe": 0,
+    "tre": 0,
+    "wtu": 0
+  },
+  "metadata": [
+    {
+      "id": "9f8db218-f778-426f-87dc-5184a03ebdfe",
+      "scopes": [
+        "veli"
+      ]
+    }
+  ],
+  "scopes": [
+    "veli"
+  ],
+  "source": "Ecobalyse_manual_lcia",
+  "unit": "item"
+}
