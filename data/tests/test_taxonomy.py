@@ -1,6 +1,12 @@
+import json
+
 import pytest
 
 from bin.export import _get_lcias
+from bin.generate_taxonomy_with_aliases import (
+    TAXONOMY_WITH_ALIASES_PATH,
+    build_taxonomy_with_aliases,
+)
 from common.infer_metadata import (
     infer_base_ingredient,
     load_base_ingredients,
@@ -64,3 +70,11 @@ def test_taxonomy_is_valid():
 def test_parse_taxonomy_rejects_invalid_content(taxonomy):
     with pytest.raises(ValueError):
         parse_taxonomy(taxonomy)
+
+
+def test_taxonomy_with_aliases_is_up_to_date():
+    with open(TAXONOMY_WITH_ALIASES_PATH, encoding="utf-8") as f:
+        assert json.load(f) == build_taxonomy_with_aliases(), (
+            "food/taxonomy_with_aliases.json is out of date, regenerate it"
+            " with: `just generate-taxonomy-with-aliases`"
+        )
