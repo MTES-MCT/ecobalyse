@@ -1862,7 +1862,7 @@ productCategorySelectorView { onSelect, products, query, scope } =
                 |> ProductCategory.findByScope scope
                 |> List.sortBy .label
     in
-    if List.isEmpty scopedProducts || query == Component.emptyQuery then
+    if List.isEmpty scopedProducts || List.isEmpty query.items then
         text ""
 
     else

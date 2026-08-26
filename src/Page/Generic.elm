@@ -1086,10 +1086,14 @@ simulatorView ({ componentConfig } as session) ({ genericScope } as model) =
 
                 -- Impacts tabs
                 , impactTabsConfig =
-                    SwitchImpactsTab
-                        |> ImpactTabs.createConfig session model.impact model.activeImpactsTab (always NoOp)
-                        |> ImpactTabs.forGeneric session.db.definitions lifeCycle
-                        |> Just
+                    if not <| List.isEmpty currentQuery.items then
+                        SwitchImpactsTab
+                            |> ImpactTabs.createConfig session model.impact model.activeImpactsTab (always NoOp)
+                            |> ImpactTabs.forGeneric session.db.definitions lifeCycle
+                            |> Just
+
+                    else
+                        Nothing
 
                 -- Bookmarks
                 , activeBookmarkTab = model.bookmarkTab
