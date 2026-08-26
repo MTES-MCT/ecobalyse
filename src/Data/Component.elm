@@ -55,6 +55,7 @@ module Data.Component exposing
     , defaultTransportOptions
     , elementTransforms
     , elementsToString
+    , emptyAssembly
     , emptyComponent
     , emptyLifeCycle
     , emptyQuery
@@ -219,8 +220,12 @@ type alias Query =
     }
 
 
-{-| Assembly step query, composed of an optional localization and zero, one or more successive
+{-| Assembly step query, composed of an optional localization and successive
 transformations operated on the output mass of the production stage.
+
+`operations` is `Nothing` when unspecified (product category default applies),
+`Just []` when explicitly empty, and `Just [id, …]` when explicitly set.
+
 -}
 type alias Assembly =
     { country : Maybe CountryCode.Code

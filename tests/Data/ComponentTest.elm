@@ -8,6 +8,7 @@ import Data.Component as Component
         , LifeCycle
         , Requirements
         , defaultTransportOptions
+        , emptyAssembly
         , emptyQuery
         )
 import Data.Component.Amount as Amount
@@ -853,6 +854,24 @@ suite =
                                     Expect.within (Expect.Absolute 0.00001) productionMass productMass
                                 , it "should keep assembly impacts unchanged" <|
                                     Expect.within (Expect.Absolute 0.00001) assemblyImpact 0
+                                ]
+                            )
+                        , itFromResult "should apply category default assembly operations when computing results"
+                            (findProductCategoryByLabel requirements "Vélos et VAEs de moins de 100kg"
+                                |> Result.andThen
+                                    (\categoryProduct ->
+                                        """{ "components": [{ "id": "64fa65b3-c2df-4fd0-958b-83965bd6aa08", "quantity": 1 }] }"""
+                                            |> decodeJsonThen Component.decodeQuery
+                                                (\query ->
+                                                    query
+                                                        |> Component.updateProduct (Just categoryProduct)
+                                                        |> Component.compute requirements
+                                                )
+                                    )
+                            )
+                            (Expect.all
+                                [ .assembly >> Component.extractItems >> List.length >> Expect.equal 1
+                                , .assembly >> Component.extractImpacts >> getEcsImpact >> Expect.greaterThan 0
                                 ]
                             )
                         , suiteFromResult "should apply 50% waste ratios sequentially"
@@ -2221,7 +2240,7 @@ suite =
                                     |> Expect.equal True
                                 )
                             , it "should encode an explicit empty assembly operations list" <|
-                                ({ emptyQuery | assembly = { country = Nothing, operations = Just [] } }
+                                ({ emptyQuery | assembly = { emptyAssembly | operations = Just [] } }
                                     |> Component.encodeQuery
                                     |> Encode.encode 0
                                     |> String.contains "\"operations\":[]"
@@ -2477,8 +2496,8 @@ suite =
                             (\categoryProduct ->
                                 emptyQuery
                                     |> Component.updateProduct (Just categoryProduct)
-                                    |> (\query ->
-                                            { query | assembly = { country = Nothing, operations = Just [] } }
+                                    |> (\({ assembly } as query) ->
+                                            { query | assembly = { assembly | operations = Just [] } }
                                        )
                                     |> Component.updateProduct (Just categoryProduct)
                                     |> .assembly
@@ -2490,7 +2509,7 @@ suite =
                             (findProcessByLabel requirements "Assemblage - calcul réglementaire Score Environnemental VE")
                             (\bikes regulatoryAssemblage ->
                                 { emptyQuery
-                                    | assembly = { country = Nothing, operations = Just [ regulatoryAssemblage.id ] }
+                                    | assembly = { emptyAssembly | operations = Just [ regulatoryAssemblage.id ] }
                                     , product = Just bikes.id
                                 }
                                     |> Component.getAssemblyOperations requirements
@@ -2500,7 +2519,7 @@ suite =
                             (findProductCategoryByLabel requirements "Vélos et VAEs de moins de 100kg")
                             (\bikes ->
                                 { emptyQuery
-                                    | assembly = { country = Nothing, operations = Just [] }
+                                    | assembly = { emptyAssembly | operations = Just [] }
                                     , product = Just bikes.id
                                 }
                                     |> Component.getAssemblyOperations requirements

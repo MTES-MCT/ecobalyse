@@ -77,7 +77,7 @@ assemblyFacetValues processes product =
 
     else
         product.assembly
-            |> List.map (assemblyProcessName processes)
+            |> List.map (processDisplayName processes)
 
 
 assemblyLabel : List Process.Process -> ProductCategory -> String
@@ -87,28 +87,8 @@ assemblyLabel processes product =
 
     else
         product.assembly
-            |> List.map (assemblyProcessName processes)
+            |> List.map (processDisplayName processes)
             |> String.join ", "
-
-
-assemblyProcessName : List Process.Process -> Process.Id -> String
-assemblyProcessName processes processId =
-    case processes |> Process.findById processId |> Result.map Process.getDisplayName of
-        Err err ->
-            "Erreur\u{00A0}: " ++ err
-
-        Ok displayName ->
-            displayName
-
-
-consumptionProcessName : List Process.Process -> ProductCategory.DefaultConsumption -> String
-consumptionProcessName processes { processId } =
-    case processes |> Process.findById processId |> Result.map Process.getDisplayName of
-        Err err ->
-            "Erreur\u{00A0}: " ++ err
-
-        Ok displayName ->
-            displayName
 
 
 consumptionsFacetValues : List Process.Process -> ProductCategory -> List String
@@ -118,7 +98,7 @@ consumptionsFacetValues processes product =
 
     else
         product.consumptions
-            |> List.map (consumptionProcessName processes)
+            |> List.map (.processId >> processDisplayName processes)
 
 
 consumptionsLabel : List Process.Process -> ProductCategory -> String
@@ -128,7 +108,7 @@ consumptionsLabel processes product =
 
     else
         product.consumptions
-            |> List.map (consumptionProcessName processes)
+            |> List.map (.processId >> processDisplayName processes)
             |> String.join ", "
 
 
@@ -136,12 +116,17 @@ distributionLabel : List Process.Process -> ProductCategory -> String
 distributionLabel processes product =
     case product.distribution of
         Just processId ->
-            case processes |> Process.findById processId |> Result.map Process.getDisplayName of
-                Err err ->
-                    "Erreur\u{00A0}: " ++ err
-
-                Ok displayName ->
-                    displayName
+            processDisplayName processes processId
 
         Nothing ->
             emptyLabel
+
+
+processDisplayName : List Process.Process -> Process.Id -> String
+processDisplayName processes processId =
+    case processes |> Process.findById processId |> Result.map Process.getDisplayName of
+        Err err ->
+            "Erreur\u{00A0}: " ++ err
+
+        Ok displayName ->
+            displayName
