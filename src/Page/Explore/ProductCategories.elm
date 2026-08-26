@@ -18,7 +18,10 @@ table { db } genericScope _ =
     , toRoute = \{ id } -> Route.Explore (Scope.Generic genericScope) (Dataset.ProductCategory genericScope (Just id))
     , toSearchableWords = ProductCategory.toSearchableString >> Text.toWords
     , facets =
-        [ { key = "Transport réfrigéré"
+        [ { key = "Assemblage"
+          , toValues = assemblyFacetValues db.processes
+          }
+        , { key = "Transport réfrigéré"
           , toValues =
                 \{ cooling } ->
                     [ Text.yesNo cooling ]
@@ -42,6 +45,10 @@ table { db } genericScope _ =
           , toValue = Table.StringValue .label
           , toCell = .label >> text
           }
+        , { label = "Assemblage"
+          , toValue = Table.StringValue <| assemblyLabel db.processes
+          , toCell = assemblyLabel db.processes >> text
+          }
         , { label = "Transport réfrigéré"
           , toValue = Table.StringValue <| .cooling >> Text.yesNo
           , toCell = .cooling >> Text.yesNo >> text
@@ -61,6 +68,37 @@ table { db } genericScope _ =
 emptyLabel : String
 emptyLabel =
     "—"
+
+
+assemblyFacetValues : List Process.Process -> ProductCategory -> List String
+assemblyFacetValues processes product =
+    if List.isEmpty product.assembly then
+        [ emptyLabel ]
+
+    else
+        product.assembly
+            |> List.map (assemblyProcessName processes)
+
+
+assemblyLabel : List Process.Process -> ProductCategory -> String
+assemblyLabel processes product =
+    if List.isEmpty product.assembly then
+        emptyLabel
+
+    else
+        product.assembly
+            |> List.map (assemblyProcessName processes)
+            |> String.join ", "
+
+
+assemblyProcessName : List Process.Process -> Process.Id -> String
+assemblyProcessName processes processId =
+    case processes |> Process.findById processId |> Result.map Process.getDisplayName of
+        Err err ->
+            "Erreur\u{00A0}: " ++ err
+
+        Ok displayName ->
+            displayName
 
 
 consumptionProcessName : List Process.Process -> ProductCategory.DefaultConsumption -> String
