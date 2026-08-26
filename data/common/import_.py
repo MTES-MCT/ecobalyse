@@ -501,32 +501,20 @@ def import_simapro_csv(
     database.apply_strategies()
     database.statistics()
 
-    # try to link remaining unlinked technosphere activities
-    database.apply_strategy(
-        functools.partial(
-            link_technosphere_by_activity_hash_ref_product,
-            fields=["name", "unit", "location"],
-        )
-    )
-    database.apply_strategy(
-        functools.partial(
-            link_technosphere_by_activity_hash_ref_product, fields=["name", "unit"]
-        )
-    )
-    database.apply_strategy(
-        functools.partial(
-            link_technosphere_by_activity_hash_ref_product,
-            external_db_name=external_db,
-            fields=["name", "unit", "location"],
-        )
-    )
-    database.apply_strategy(
-        functools.partial(
-            link_technosphere_by_activity_hash_ref_product,
-            external_db_name=external_db,
-            fields=["name", "unit"],
-        )
-    )
+    link_and_write(database, external_db=external_db, biosphere=biosphere)
+    logger.info(f"🟢 Finished importing {database_s3_key}")
+
+
+def link_and_write(database, external_db=None, biosphere="biosphere3") -> None:
+    for other_database in [None, external_db] if external_db else [None]:
+        for fields in (["name", "unit", "location"], ["name", "unit"]):
+            database.apply_strategy(
+                functools.partial(
+                    link_technosphere_by_activity_hash_ref_product,
+                    external_db_name=other_database,
+                    fields=fields,
+                )
+            )
     database.apply_strategy(
         functools.partial(
             link_iterable_by_fields,
@@ -557,8 +545,6 @@ def import_simapro_csv(
     database.statistics()
     bw2data.Database(biosphere).register()
     database.write_database()
-
-    logger.info(f"🟢 Finished importing {database_s3_key}")
 
 
 def add_missing_substances(project, biosphere):

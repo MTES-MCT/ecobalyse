@@ -336,6 +336,12 @@ update ({ navKey } as session) msg model =
         query =
             session
                 |> Session.genericQuery model.genericScope
+
+        requirements =
+            { config = session.componentConfig
+            , db = session.db
+            , scope = globalScope
+            }
     in
     case ( msg, model.modals ) of
         ( AppendModal modal, modals ) ->
@@ -484,7 +490,7 @@ update ({ navKey } as session) msg model =
 
         ( OnAutocompleteSelectConsumption, (SelectConsumptionModal autocompleteState) :: _ ) ->
             createPageUpdate session model
-                |> selectConsumption query autocompleteState
+                |> selectConsumption requirements query autocompleteState
 
         ( OnAutocompleteSelectConsumption, _ ) ->
             createPageUpdate session model
@@ -556,7 +562,7 @@ update ({ navKey } as session) msg model =
 
         ( RemoveConsumption index, _ ) ->
             createPageUpdate session model
-                |> updateQuery (query |> Component.removeConsumption index)
+                |> updateQuery (query |> Component.removeConsumption requirements index)
 
         ( RemoveElement targetElement, _ ) ->
             createPageUpdate session model
@@ -705,7 +711,7 @@ update ({ navKey } as session) msg model =
 
         ( UpdateConsumptionAmount index (Just amount), _ ) ->
             createPageUpdate session model
-                |> updateQuery (query |> Component.updateConsumptionAmount index amount)
+                |> updateQuery (query |> Component.updateConsumptionAmount requirements index amount)
 
         ( UpdateConsumptionAmount _ Nothing, _ ) ->
             createPageUpdate session model
@@ -910,17 +916,17 @@ selectAssemblyOperation query autocompleteState pageUpdate =
             pageUpdate |> App.notifyWarning "Aucun procédé d’assemblage sélectionné"
 
 
-selectConsumption : Component.Query -> Autocomplete Process -> PageUpdate Model Msg -> PageUpdate Model Msg
-selectConsumption query autocompleteState ({ model } as pageUpdate) =
+selectConsumption :
+    Component.Requirements db
+    -> Component.Query
+    -> Autocomplete Process
+    -> PageUpdate Model Msg
+    -> PageUpdate Model Msg
+selectConsumption requirements query autocompleteState ({ model } as pageUpdate) =
     case Autocomplete.selectedValue autocompleteState of
         Just process ->
             pageUpdate
-                |> updateQuery
-                    { query
-                        | consumptions =
-                            query.consumptions
-                                ++ [ Component.consumption (Amount.fromFloat 1) process.id ]
-                    }
+                |> updateQuery (query |> Component.addConsumption requirements process.id)
                 |> App.apply update (SetModals [])
                 |> App.withCmds [ Plausible.send pageUpdate.session <| Plausible.ConsumptionAdded (Scope.Generic model.genericScope) ]
 
