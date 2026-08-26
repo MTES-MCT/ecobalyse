@@ -22,9 +22,7 @@ table { db } genericScope _ =
           , toValues = assemblyFacetValues db.processes
           }
         , { key = "Transport réfrigéré"
-          , toValues =
-                \{ cooling } ->
-                    [ Text.yesNo cooling ]
+          , toValues = \{ cooling } -> [ Text.yesNo cooling ]
           }
         , { key = "Distribution"
           , toValues = distributionLabel db.processes >> List.singleton
@@ -73,7 +71,7 @@ emptyLabel =
 assemblyFacetValues : List Process.Process -> ProductCategory -> List String
 assemblyFacetValues processes product =
     if List.isEmpty product.assembly then
-        [ emptyLabel ]
+        []
 
     else
         product.assembly
@@ -94,7 +92,7 @@ assemblyLabel processes product =
 consumptionsFacetValues : List Process.Process -> ProductCategory -> List String
 consumptionsFacetValues processes product =
     if List.isEmpty product.consumptions then
-        [ emptyLabel ]
+        []
 
     else
         product.consumptions
