@@ -7,7 +7,7 @@ from pathlib import Path
 from typing import Annotated
 
 import typer
-from ecobalyse.json import FormatNumberJsonEncoder, activities_processes_sort_key
+from ecobalyse.json import CompactJSONEncoder, activities_processes_sort_key
 from ecobalyse.logging import logger
 
 
@@ -61,22 +61,18 @@ def _lint_and_fix(path: Path, fix: bool):
 
         assert src_data is not None
         try:
-            formatted_data = json.dumps(
-                json.loads(src_data),
-                cls=FormatNumberJsonEncoder,
-                ensure_ascii=False,
-                sort_keys=True,
-                indent=2,
-            )
-            formatted_data += "\n"
-
             input_data = json.loads(src_data)
 
             if path.name in SORT_PATHS:
                 input_data.sort(key=activities_processes_sort_key)
 
+            # TODO: add number_precision=settings.number_precision for processes files?
             formatted_data = json.dumps(
-                input_data, ensure_ascii=False, sort_keys=True, indent=2
+                input_data,
+                ensure_ascii=False,
+                sort_keys=True,
+                indent=2,
+                cls=CompactJSONEncoder,
             )
             formatted_data += "\n"
 
