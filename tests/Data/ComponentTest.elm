@@ -11,7 +11,7 @@ import Data.Component as Component
         , emptyQuery
         )
 import Data.Component.Amount as Amount
-import Data.Component.ProductCategory as Product
+import Data.Component.ProductCategory as Product exposing (ProductCategory)
 import Data.Country as Country
 import Data.Country.Code as CountryCode
 import Data.Db exposing (Db)
@@ -2659,7 +2659,7 @@ findProcessByLabel { db } label =
         |> Result.fromMaybe ("Procédé introuvable label=" ++ label)
 
 
-findProductCategoryByLabel : Requirements db -> String -> Result String Product.ProductCategory
+findProductCategoryByLabel : Requirements db -> String -> Result String ProductCategory
 findProductCategoryByLabel { db } label =
     db.products
         |> List.filter (.label >> (==) label)
