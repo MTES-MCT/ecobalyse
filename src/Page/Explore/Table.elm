@@ -381,7 +381,7 @@ valueToString item toValue =
             getInt item |> String.fromInt
 
         NoValue ->
-            "N/A"
+            emptyLabel
 
         StringValue getString ->
             getString item

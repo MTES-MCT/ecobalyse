@@ -860,7 +860,7 @@ suite =
                             (findProductCategoryByLabel requirements "Vélos et VAEs de moins de 100kg"
                                 |> Result.andThen
                                     (\categoryProduct ->
-                                        """{ "components": [{ "id": "64fa65b3-c2df-4fd0-958b-83965bd6aa08", "quantity": 1 }] }"""
+                                        """{ "components": [{ "id": "9178fe2e-6944-41d5-ad1b-7abbe8905c48", "quantity": 1 }] }"""
                                             |> decodeJsonThen Component.decodeQuery
                                                 (\query ->
                                                     query
