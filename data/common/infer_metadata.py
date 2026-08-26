@@ -5,7 +5,7 @@ import json
 
 from config import DATA_ROOT_DIR
 
-_BASE_INGREDIENTS_PATH = DATA_ROOT_DIR / "food" / "base_ingredients.json"
+_TAXONOMY_PATH = DATA_ROOT_DIR / "food" / "taxonomy.json"
 
 
 _LEGACY_ZONE_TO_COUNTRY = {
@@ -102,13 +102,49 @@ def infer_raw_to_cooked_ratio(
     )
 
 
+KNOWN_MATERIAL_TYPES = frozenset(_MATERIAL_TYPE_TO_RAW_TO_COOKED_RATIO) | {
+    "other_food_items"
+}
+
+
+def parse_taxonomy(taxonomy: dict) -> dict[str, str]:
+    """Turn a taxonomy document into the baseIngredient -> material_type
+    mapping, rejecting unknown material_types and duplicated baseIngredients.
+    """
+    if "food" not in taxonomy:
+        raise ValueError('missing "food" root key')
+    material_type_by_base = {}
+    for material_type, base_ingredients in taxonomy["food"].items():
+        if material_type not in KNOWN_MATERIAL_TYPES:
+            raise ValueError(
+                f"Unknown material_type {material_type!r}. "
+                f"Known material_types: {sorted(KNOWN_MATERIAL_TYPES)}."
+            )
+        for base_ingredient in base_ingredients:
+            if base_ingredient in material_type_by_base:
+                raise ValueError(
+                    f"baseIngredient {base_ingredient!r} appears under several "
+                    "material_types."
+                )
+            material_type_by_base[base_ingredient] = material_type
+    return material_type_by_base
+
+
+@functools.cache
+def load_taxonomy() -> dict[str, str]:
+    """Return the validated baseIngredient -> material_type mapping from
+    taxonomy.json."""
+    with open(_TAXONOMY_PATH, "r", encoding="utf-8") as f:
+        try:
+            return parse_taxonomy(json.load(f))
+        except ValueError as e:
+            raise ValueError(f"{_TAXONOMY_PATH}: {e}") from e
+
+
 @functools.cache
 def load_base_ingredients() -> tuple[str, ...]:
-    with open(_BASE_INGREDIENTS_PATH, "r", encoding="utf-8") as f:
-        base_ingredients = json.load(f)
-
     # sort by descending length so that `apple-juice-fr` matches baseIngredient `apple-juice` and not `apple`
-    return tuple(sorted(set(base_ingredients), key=len, reverse=True))
+    return tuple(sorted(load_taxonomy(), key=len, reverse=True))
 
 
 def infer_base_ingredient(alias: str) -> str:
@@ -121,5 +157,5 @@ def infer_base_ingredient(alias: str) -> str:
             return base_ingredient
     raise ValueError(
         f"Cannot infer baseIngredient for alias {alias!r}. "
-        f"Add the canonical baseIngredient to food/base_ingredients.json."
+        f"Add the canonical baseIngredient to food/taxonomy.json."
     )

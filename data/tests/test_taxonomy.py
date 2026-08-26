@@ -1,8 +1,12 @@
-import json
-from collections import Counter
+import pytest
 
 from bin.export import _get_lcias
-from common.infer_metadata import infer_base_ingredient, load_base_ingredients
+from common.infer_metadata import (
+    infer_base_ingredient,
+    load_base_ingredients,
+    load_taxonomy,
+    parse_taxonomy,
+)
 from config import DATA_ROOT_DIR
 
 
@@ -41,18 +45,25 @@ def test_no_useless_base_ingredient():
     unused = sorted(set(load_base_ingredients()) - used)
     assert not unused, (
         f"{len(unused)} baseIngredients is useless as it refers to 0 ingredient alias "
-        f" remove them from base_ingredients.json: {unused}"
+        f" remove them from food/taxonomy.json: {unused}"
     )
 
 
-def test_base_ingredients_unique():
-    """Every baseIngredient must be unique"""
-    with open(DATA_ROOT_DIR / "food" / "base_ingredients.json") as f:
-        entries = json.load(f)
+def test_taxonomy_is_valid():
+    """Loading validates the taxonomy: known material_types only,
+    every base_ingredient must appear under 1 and only 1 material_type
+    """
+    assert load_taxonomy()
 
-    duplicates = []
-    for bi, count in Counter(entries).items():
-        if count > 1:
-            duplicates.append(bi)
 
-    assert not duplicates, f"duplicate baseIngredient entries : {duplicates}"
+@pytest.mark.parametrize(
+    "taxonomy",
+    [
+        {},
+        {"food": {"not_a_material_type": ["apple"]}},
+        {"food": {"cereals": ["apple"], "legumes": ["apple"]}},
+    ],
+)
+def test_parse_taxonomy_rejects_invalid_content(taxonomy):
+    with pytest.raises(ValueError):
+        parse_taxonomy(taxonomy)
