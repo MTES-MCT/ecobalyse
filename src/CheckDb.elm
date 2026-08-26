@@ -244,6 +244,7 @@ checkExamplesScope db =
                     [ example.query.items
                         |> List.concatMap (checkExampleComponentItem processesMap componentsMap example)
                     , example.query.consumptions
+                        |> Maybe.withDefault []
                         |> List.concatMap (checkExampleConsumption processesMap example)
                     ]
             )

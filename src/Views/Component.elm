@@ -822,7 +822,7 @@ airTransportToggler ({ query } as config) =
 cooledTransportToggler : Config db msg -> Html msg
 cooledTransportToggler ({ query } as config) =
     togglerView
-        { checked = query.transportOptions.cooling
+        { checked = query |> Component.getTransportCooling (requirementsFromConfig config)
         , id = "transportCoolingSwitch"
         , label = "réfrigéré"
         , onCheck = config.toggleTransportCooling
@@ -1205,7 +1205,7 @@ elementTransportView ({ query } as config) attributes cooling transportedMass ma
                     -- Notes:
                     --   - air transport is always disabled before assembly (see Component.computeTransports)
                     --   - cooling before assembly is driven by the material process, not the transport option
-                    { transportOptions | byAir = Split.zero, cooling = cooling }
+                    { transportOptions | byAir = Split.zero, cooling = Just cooling }
                     maybeFrom
                     maybeTo
     in
@@ -1634,7 +1634,8 @@ useStageView ({ impact, query } as config) lifeCycle =
             , documentationLink config "use"
             ]
         , div [ class "d-flex flex-column p-0" ]
-            [ query.consumptions
+            [ query
+                |> Component.getConsumptions (requirementsFromConfig config)
                 |> quantifiedProcessList config
                     lifeCycle
                     { deletionLabel = "Supprimer cette consommation"
@@ -1656,7 +1657,8 @@ addConsumptionButton ({ openSelectConsumptionModal, query } as config) =
             listAvailableProcesses config Category.Use
                 |> List.filter
                     (\{ id } ->
-                        query.consumptions
+                        query
+                            |> Component.getConsumptions (requirementsFromConfig config)
                             |> List.map Component.getConsumptionProcessId
                             |> List.member id
                             |> not

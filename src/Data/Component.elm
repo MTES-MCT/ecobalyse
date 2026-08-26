@@ -27,6 +27,7 @@ module Data.Component exposing
     , TargetItem
     , TransportOptions
     , addAssemblyOperation
+    , addConsumption
     , addElement
     , addElementTransform
     , addItem
@@ -78,6 +79,7 @@ module Data.Component exposing
     , findById
     , getAvailableDistributionProcesses
     , getConsumptionProcessId
+    , getConsumptions
     , getDistributionProcessId
     , getDocLink
     , getEndOfLifeDetailedImpacts
@@ -87,6 +89,7 @@ module Data.Component exposing
     , getPackagingProcessId
     , getResultedElement
     , getTotalImpacts
+    , getTransportCooling
     , idFromString
     , idToString
     , isEmpty
@@ -200,7 +203,7 @@ type alias EnergyMixes =
 
 type alias Query =
     { assembly : Assembly
-    , consumptions : List Consumption
+    , consumptions : Maybe (List Consumption)
     , distribution : Maybe Process.Id
 
     -- Note: component durability is experimental, future work may eventually be needed to
@@ -372,7 +375,7 @@ type Quantity
 
 type alias TransportOptions =
     { byAir : Split
-    , cooling : Bool
+    , cooling : Maybe Bool
     }
 
 
@@ -457,6 +460,17 @@ addAssemblyOperation process ({ assembly } as query) =
             { assembly
                 | operations = assembly.operations ++ [ process.id ]
             }
+    }
+
+
+addConsumption : Requirements db -> Process.Id -> Query -> Query
+addConsumption requirements processId query =
+    { query
+        | consumptions =
+            Just
+                (getConsumptions requirements query
+                    ++ [ consumption (Amount.fromFloat 1) processId ]
+                )
     }
 
 
@@ -843,7 +857,7 @@ computeElementResults requirements transportOptions =
                                 |> applyTransforms requirements
                                     -- pre-assembly transport cooling is always driven automatically by the material
                                     -- process, and bypasses any user-provided transportOptions.cooling option
-                                    { transportOptions | cooling = Process.isTransportedCooled material.process }
+                                    { transportOptions | cooling = Just (Process.isTransportedCooled material.process) }
                                     material.country
                                     material.process.unit
                                     transforms
@@ -1161,7 +1175,7 @@ computeTransportedMassImpacts ({ config } as requirements) ({ byAir, cooling } a
             )
         -- remap cooled transportation modes if needed
         |> Result.map
-            (if cooling then
+            (if Maybe.withDefault False cooling then
                 Transport.makeCooled
 
              else
@@ -1213,7 +1227,7 @@ computeTransports ({ config, db } as requirements) ({ assembly, transportOptions
                                     --   - cooling before assembly is automatic and driven by the material process
                                     { transportOptions
                                         | byAir = Split.zero
-                                        , cooling = Process.isTransportedCooled expandedElement.material.process
+                                        , cooling = Just (Process.isTransportedCooled expandedElement.material.process)
                                     }
                                     (getFinalElementCountry expandedElement)
                                     maybeAssemblyCountry
@@ -1221,7 +1235,7 @@ computeTransports ({ config, db } as requirements) ({ assembly, transportOptions
                     -- toDistribution
                     (lifeCycle.productMass
                         |> computeTransportedMassImpacts requirements
-                            transportOptions
+                            { transportOptions | cooling = Just (getTransportCooling requirements query) }
                             maybeAssemblyCountry
                             (Just config.distribution.country)
                     )
@@ -1232,8 +1246,8 @@ computeTransports ({ config, db } as requirements) ({ assembly, transportOptions
 
 
 computeUseImpacts : Requirements db -> Query -> LifeCycle -> Result String LifeCycle
-computeUseImpacts { config, db } { consumptions } lifeCycle =
-    consumptions
+computeUseImpacts ({ config, db } as requirements) query lifeCycle =
+    getConsumptions requirements query
         |> expandConsumptions db.processes
         |> Result.map
             (\expandedQuantifiedProcesses ->
@@ -1401,7 +1415,7 @@ decodeQuery =
         |> Decode.andThen
             (\assembly ->
                 Decode.succeed (Query assembly)
-                    |> Decode.optional "consumptions" (Decode.list decodeConsumption) []
+                    |> DU.strictOptional "consumptions" (Decode.list decodeConsumption)
                     |> DU.strictOptional "distribution" Process.decodeId
                     |> DU.strictOptional "durability" Unit.decodeRatio
                     |> Decode.required "components" (Decode.list decodeItem)
@@ -1432,7 +1446,7 @@ decodeTransportOptions : Decoder TransportOptions
 decodeTransportOptions =
     Decode.succeed TransportOptions
         |> Decode.optional "byAir" Split.decodePercent Split.zero
-        |> Decode.optional "cooling" Decode.bool False
+        |> DU.strictOptional "cooling" Decode.bool
 
 
 defaultDurability : Unit.Ratio
@@ -1443,7 +1457,7 @@ defaultDurability =
 defaultTransportOptions : TransportOptions
 defaultTransportOptions =
     { byAir = Split.zero
-    , cooling = False
+    , cooling = Nothing
     }
 
 
@@ -1514,7 +1528,7 @@ emptyLifeCycleTransports =
 emptyQuery : Query
 emptyQuery =
     { assembly = emptyAssembly
-    , consumptions = []
+    , consumptions = Nothing
     , distribution = Nothing
     , durability = Nothing
     , items = []
@@ -1682,13 +1696,7 @@ encodeQuery query =
                 encodeAssembly query.assembly |> Just
           )
         , ( "components", query.items |> Encode.list encodeItem |> Just )
-        , ( "consumptions"
-          , if List.isEmpty query.consumptions then
-                Nothing
-
-            else
-                query.consumptions |> Encode.list encodeConsumption |> Just
-          )
+        , ( "consumptions", query.consumptions |> Maybe.map (Encode.list encodeConsumption) )
         , ( "distribution", query.distribution |> Maybe.map Process.encodeId )
         , ( "durability", query.durability |> Maybe.map Unit.encodeRatio )
         , ( "packagings"
@@ -1768,23 +1776,22 @@ encodeResults maybeTrigram (Results results) =
 
 encodeTransportOptions : TransportOptions -> Maybe Encode.Value
 encodeTransportOptions { byAir, cooling } =
-    -- Encode only JSON keys that are different from defaults
-    case ( byAir == defaultTransportOptions.byAir, cooling == defaultTransportOptions.cooling ) of
-        ( True, True ) ->
-            Nothing
+    let
+        fields =
+            List.filterMap identity
+                [ if byAir == defaultTransportOptions.byAir then
+                    Nothing
 
-        ( False, True ) ->
-            Just <| Encode.object [ ( "byAir", Split.encodePercent byAir ) ]
+                  else
+                    Just ( "byAir", Split.encodePercent byAir )
+                , cooling |> Maybe.map (\c -> ( "cooling", Encode.bool c ))
+                ]
+    in
+    if List.isEmpty fields then
+        Nothing
 
-        ( True, False ) ->
-            Just <| Encode.object [ ( "cooling", Encode.bool cooling ) ]
-
-        ( False, False ) ->
-            [ ( "byAir", Split.encodePercent byAir )
-            , ( "cooling", Encode.bool cooling )
-            ]
-                |> Encode.object
-                |> Just
+    else
+        Just (Encode.object fields)
 
 
 {-| Common reusable error strings
@@ -1982,6 +1989,31 @@ getAvailableDistributionProcesses db scope =
 getConsumptionProcessId : Consumption -> Process.Id
 getConsumptionProcessId (Consumption { processId }) =
     processId
+
+
+{-| Get the use-stage consumptions:
+
+  - from the query itself when set (`Just`, including an explicit empty list)
+  - or the ones from the product category if not set
+  - or an empty list if product category is not set
+
+-}
+getConsumptions : Requirements db -> Query -> List Consumption
+getConsumptions { db } query =
+    case query.consumptions of
+        Just consumptions ->
+            consumptions
+
+        Nothing ->
+            query.product
+                |> Maybe.andThen
+                    (\productId ->
+                        db.products
+                            |> ProductCategory.findById productId
+                            |> Result.toMaybe
+                            |> Maybe.map (.consumptions >> List.map consumptionFromCategory)
+                    )
+                |> Maybe.withDefault []
 
 
 {-| Get the distribution process:
@@ -2285,6 +2317,31 @@ getTransformDefaultCountry targetItem maybeElementIndex items =
             )
 
 
+{-| Get the to-distribution cooling option:
+
+  - from the query itself when set
+  - or the one from the product category if not set
+  - or `False` if product category is not set
+
+-}
+getTransportCooling : Requirements db -> Query -> Bool
+getTransportCooling { db } query =
+    case query.transportOptions.cooling of
+        Just cooling ->
+            cooling
+
+        Nothing ->
+            query.product
+                |> Maybe.andThen
+                    (\productId ->
+                        db.products
+                            |> ProductCategory.findById productId
+                            |> Result.toMaybe
+                            |> Maybe.map .cooling
+                    )
+                |> Maybe.withDefault False
+
+
 idFromString : String -> Result String Id
 idFromString =
     Uuid.fromString >> Result.map Id
@@ -2457,9 +2514,9 @@ removeAssemblyOperation index ({ assembly } as query) =
     }
 
 
-removeConsumption : Index -> Query -> Query
-removeConsumption index query =
-    { query | consumptions = query.consumptions |> LE.removeAt index }
+removeConsumption : Requirements db -> Index -> Query -> Query
+removeConsumption requirements index query =
+    { query | consumptions = Just (getConsumptions requirements query |> LE.removeAt index) }
 
 
 {-| Remove an element from an item
@@ -2572,7 +2629,7 @@ setTransportByAir byAir ({ transportOptions } as query) =
 
 setTransportCooling : Bool -> Query -> Query
 setTransportCooling cooling ({ transportOptions } as query) =
-    { query | transportOptions = { transportOptions | cooling = cooling } }
+    { query | transportOptions = { transportOptions | cooling = Just cooling } }
 
 
 stagesImpacts : LifeCycle -> Stages (Maybe Impacts)
@@ -2697,12 +2754,14 @@ updateAssemblyCountry country ({ assembly } as query) =
     { query | assembly = { assembly | country = country } }
 
 
-updateConsumptionAmount : Index -> Amount -> Query -> Query
-updateConsumptionAmount index amount query =
+updateConsumptionAmount : Requirements db -> Index -> Amount -> Query -> Query
+updateConsumptionAmount requirements index amount query =
     { query
         | consumptions =
-            query.consumptions
-                |> LE.updateAt index (\(Consumption c) -> Consumption { c | amount = amount })
+            Just
+                (getConsumptions requirements query
+                    |> LE.updateAt index (\(Consumption c) -> Consumption { c | amount = amount })
+                )
     }
 
 
@@ -2738,27 +2797,26 @@ updateDistribution maybeProcessId query =
 {-| Update the product in the query, resetting product-dependent fields along the way
 -}
 updateProduct : Maybe ProductCategory -> Query -> Query
-updateProduct maybeProduct query =
+updateProduct maybeProduct ({ transportOptions } as query) =
+    let
+        reset maybeProductId =
+            { query
+                | consumptions = Nothing
+                , distribution = Nothing
+                , product = maybeProductId
+                , transportOptions = { transportOptions | cooling = Nothing }
+            }
+    in
     case maybeProduct of
         Just product ->
             if query.product == Just product.id then
                 query
 
             else
-                { query
-                    | consumptions = List.map consumptionFromCategory product.consumptions
-                    , distribution = Nothing
-                    , product = Just product.id
-                }
-                    |> setTransportCooling product.cooling
+                reset (Just product.id)
 
         Nothing ->
-            { query
-                | consumptions = []
-                , distribution = Nothing
-                , product = Nothing
-            }
-                |> setTransportCooling defaultTransportOptions.cooling
+            reset Nothing
 
 
 updateDurability : Unit.Ratio -> Query -> Query
@@ -3017,7 +3075,11 @@ validateQuery : Requirements db -> Query -> Result String Query
 validateQuery ({ db } as requirements) query =
     Ok Query
         |> RE.andMap (validateAssembly requirements query.assembly)
-        |> RE.andMap (query.consumptions |> RE.combineMap (validateConsumption requirements))
+        |> RE.andMap
+            (getConsumptions requirements query
+                |> RE.combineMap (validateConsumption requirements)
+                |> Result.map (always query.consumptions)
+            )
         |> RE.andMap (validateDistribution requirements (getDistributionProcessId requirements query))
         |> RE.andMap (validateDurability requirements query.durability)
         |> RE.andMap (query.items |> RE.combineMap (validateItem db.components))
