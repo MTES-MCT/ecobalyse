@@ -63,11 +63,6 @@ table { db } genericScope _ =
     }
 
 
-emptyLabel : String
-emptyLabel =
-    "—"
-
-
 assemblyFacetValues : List Process.Process -> ProductCategory -> List String
 assemblyFacetValues processes product =
     if List.isEmpty product.assembly then
@@ -81,7 +76,7 @@ assemblyFacetValues processes product =
 assemblyLabel : List Process.Process -> ProductCategory -> String
 assemblyLabel processes product =
     if List.isEmpty product.assembly then
-        emptyLabel
+        Table.emptyLabel
 
     else
         product.assembly
@@ -102,7 +97,7 @@ consumptionsFacetValues processes product =
 consumptionsLabel : List Process.Process -> ProductCategory -> String
 consumptionsLabel processes product =
     if List.isEmpty product.consumptions then
-        emptyLabel
+        Table.emptyLabel
 
     else
         product.consumptions
@@ -117,7 +112,7 @@ distributionLabel processes product =
             processDisplayName processes processId
 
         Nothing ->
-            emptyLabel
+            Table.emptyLabel
 
 
 processDisplayName : List Process.Process -> Process.Id -> String
