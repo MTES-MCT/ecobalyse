@@ -9,6 +9,7 @@ from typing import Annotated
 
 import typer
 from bw2data.project import projects
+from ecobalyse.logging import logger
 
 from bin.generate_taxonomy_with_aliases import write_taxonomy_with_aliases
 from config import DATA_ROOT_DIR, settings
@@ -16,7 +17,6 @@ from ecobalyse_data.export import export_generic
 from ecobalyse_data.export import food as export_food
 from ecobalyse_data.export import process as export_process
 from ecobalyse_data.export import textile as export_textile
-from ecobalyse_data.logging import logger
 from models.process import GENERIC_SCOPES, Scope
 
 app = typer.Typer(pretty_exceptions_show_locals=False)
@@ -118,7 +118,6 @@ def metadata(
                 ecosystemic_factors_path=ecosystemic_factors_path,
                 feed_file_path=feed_file_path,
                 raw_to_transformed_file_path=raw_to_transformed_file_path,
-                cpu_count=cpu_count,
             )
 
         elif s == MetadataScope.generic:
@@ -193,8 +192,10 @@ def merge_processes(
     root_dir: Path = DATA_ROOT_DIR,
 ):
     """take legacy and generic processes from export_dir and merge them, put the merged file in public_dir"""
+    from ecobalyse.json import export_json
+
     from common import remove_detailed_impacts
-    from common.export import export_json, load_json
+    from common.export import load_json
 
     export_dir = root_dir / settings.export_dir
     impacts = load_json(export_dir / settings.processes_legacy_impacts_file)

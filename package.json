@@ -22,6 +22,8 @@
     "db:validate": "uv run --group data check-jsonschema --schemafile schemas/processes-schema.json public/data/processes*.json",
     "lint:openapi": "npx swagger-cli validate openapi.yaml",
     "lint:elm": "npx elm-format src review/src --validate",
+    "lint:json": "uv run bin/json_formatter.py",
+    "lint:json:all": "rg --files --ignore-file .prettierignore --no-ignore-vcs -g '*.json' --hidden -0 | xargs -0 -I{} uv run bin/json_formatter.py {}",
     "lint:prettier": "prettier --config .prettierrc --check",
     "lint:prettier:all": "npm run lint:prettier -- .",
     "lint:ruff:all": "npm run lint:ruff:check && npm run lint:ruff:format",

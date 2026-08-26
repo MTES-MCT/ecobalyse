@@ -3,6 +3,7 @@ import math
 import os
 from pathlib import Path
 
+from ecobalyse.json import activities_processes_sort_key, export_json
 from frozendict import deepfreeze
 from rich.console import Console
 from rich.table import Table
@@ -10,11 +11,7 @@ from rich.table import Table
 from config import DATA_ROOT_DIR, settings
 from ecobalyse_data.logging import logger
 
-from . import (
-    FormatNumberJsonEncoder,
-    activities_processes_sort_key,
-    remove_detailed_impacts,
-)
+from . import remove_detailed_impacts
 
 with open(DATA_ROOT_DIR / settings.impacts_file) as f:
     IMPACTS_JSON = deepfreeze(json.load(f))
@@ -140,22 +137,6 @@ def display_changes(
         display_changes_table(changes, with_names=with_names)
 
 
-def export_json(json_data, filename):
-    logger.info(f"Exporting {filename}")
-    json_string = json.dumps(
-        json_data,
-        indent=2,
-        ensure_ascii=False,
-        cls=FormatNumberJsonEncoder,
-        sort_keys=True,
-    )
-    with open(filename, "w", encoding="utf-8") as file:
-        file.write(json_string)
-        file.write("\n")  # Add a newline at the end of the file
-
-    logger.info(f"Exported {len(json_data)} elements to {filename}")
-
-
 def display_changes_from_json(
     processes_impacts_path,
     processes_corrected_impacts,
@@ -238,7 +219,10 @@ def export_processes_to_dir(
             }
         filtered.append(p)
 
-    export_json(filtered, processes_impacts_absolute_path)
+    export_json(
+        filtered,
+        processes_impacts_absolute_path,
+    )
     exported_files.append(processes_impacts_absolute_path)
 
     # Also update the aggregated file

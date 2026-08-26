@@ -3,9 +3,8 @@ import json
 from enum import StrEnum
 from pathlib import Path
 
-from common.export import (
-    export_json,
-)
+from ecobalyse.json import export_json
+
 from common.infer_metadata import infer_base_ingredient, infer_raw_to_cooked_ratio
 from ecobalyse_data.bw.search import cached_search_one
 from ecobalyse_data.export import complements
@@ -165,7 +164,6 @@ def activities_to_ingredients_json(
     ecosystemic_factors_path: str,
     feed_file_path: str,
     raw_to_transformed_file_path: str,
-    cpu_count: int,
 ) -> list[dict]:
     ecosystemic_factors = load_ecosystemic_dic(ecosystemic_factors_path)
 

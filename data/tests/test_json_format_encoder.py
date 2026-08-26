@@ -1,6 +1,5 @@
 import pytest
-
-from common import FormatNumberJsonEncoder
+from ecobalyse.json import FormatNumberJsonEncoder
 
 
 @pytest.mark.parametrize(

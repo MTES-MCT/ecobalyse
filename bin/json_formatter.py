@@ -1,14 +1,38 @@
 #!/usr/bin/env -S uv run --script
 
 
+import difflib
 import json
 from pathlib import Path
 from typing import Annotated
 
 import typer
+from ecobalyse.json import FormatNumberJsonEncoder, activities_processes_sort_key
+from ecobalyse.logging import logger
 
-from common import activities_processes_sort_key
-from ecobalyse_data.logging import logger
+
+# Taken from https://gist.github.com/KaoruNishikawa/55781991af9d50494dd85ac6db0cad89
+def diff(a: str, b: str) -> str:
+    line_color = {"+": 32, "-": 31}
+
+    diffs = difflib.ndiff(a.splitlines(keepends=True), b.splitlines(keepends=True))
+    diff_list = list(diffs)
+    styled: list[str] = []
+    for prev, next in zip(diff_list, diff_list[1:] + [""]):
+        color = line_color.get(prev[0], 0)
+        match prev[0]:
+            case " ":
+                styled.append(prev)
+            case "+" | "-":
+                index = [i for i, c in enumerate(next) if c == "^"]
+                _prev = list(prev)
+                for idx in index:
+                    _prev[idx] = f"\x1b[97;{color + 10};1m{_prev[idx]}\x1b[0;{color}m"
+                styled.append(f"\x1b[{color}m{''.join(_prev)}\x1b[0m")
+            case "?":
+                continue
+    return "".join(styled)
+
 
 EXCLUDED_PATHS: list[str] = [
     "/.git",
@@ -32,38 +56,43 @@ SORT_PATHS = [
 def _lint_and_fix(path: Path, fix: bool):
     logger.debug(f"Checking {path}")
 
-    src_data = None
     with open(path, "r", encoding="utf-8") as fp:
         src_data = fp.read()
-    assert src_data is not None
-    try:
-        formatted_data = json.dumps(
-            json.loads(src_data), ensure_ascii=False, sort_keys=True, indent=2
-        )
-        formatted_data += "\n"
 
-        input_data = json.loads(src_data)
+        assert src_data is not None
+        try:
+            formatted_data = json.dumps(
+                json.loads(src_data),
+                cls=FormatNumberJsonEncoder,
+                ensure_ascii=False,
+                sort_keys=True,
+                indent=2,
+            )
+            formatted_data += "\n"
 
-        if path.name in SORT_PATHS:
-            input_data.sort(key=activities_processes_sort_key)
+            input_data = json.loads(src_data)
 
-        formatted_data = json.dumps(
-            input_data, ensure_ascii=False, sort_keys=True, indent=2
-        )
-        formatted_data += "\n"
+            if path.name in SORT_PATHS:
+                input_data.sort(key=activities_processes_sort_key)
 
-        if formatted_data == src_data:
-            logger.debug(f"{path} is already properly formatted")
-            return True
-        elif fix:
-            logger.info(f"Reformatting {path}")
-            with open(path, "w", encoding="utf-8") as fp:
-                fp.write(formatted_data)
+            formatted_data = json.dumps(
+                input_data, ensure_ascii=False, sort_keys=True, indent=2
+            )
+            formatted_data += "\n"
+
+            if formatted_data == src_data:
+                logger.debug(f"{path} is already properly formatted")
                 return True
-        logger.error(f"{path} needs formatting")
-    except Exception:
-        print(f"json_formatter error in {path}")
-        raise
+            elif fix:
+                logger.info(f"Reformatting {path}")
+                with open(path, "w", encoding="utf-8") as fp:
+                    fp.write(formatted_data)
+                    return True
+            logger.error(f"{path} needs formatting")
+            print(diff(src_data, formatted_data))
+        except Exception:
+            print(f"json_formatter error in {path}")
+            raise
     return False
 
 

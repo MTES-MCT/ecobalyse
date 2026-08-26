@@ -2,8 +2,9 @@ import json
 import os
 
 import orjson
+from ecobalyse.json import activities_processes_sort_key
 
-from common import activities_processes_sort_key, remove_detailed_impacts
+from common import remove_detailed_impacts
 from common.export import export_json
 from common.infer_metadata import (
     infer_base_ingredient,
@@ -215,8 +216,6 @@ def compute_processes_generic(
             entry_dict["metadata"] = metadata_out
             generic_dicts.append(entry_dict)
 
-    generic_dicts.sort(key=activities_processes_sort_key)
-
     return generic_dicts
 
 
@@ -241,7 +240,7 @@ def activities_to_processes_generic_json(
     )
 
     for path in impacts_output_paths:
-        export_json(generic_dicts, path)
+        export_json(generic_dicts, path, sort_fn=activities_processes_sort_key)
         logger.info(f"Exported {len(generic_dicts)} generic processes to {path}")
 
     without_detailed_impacts = remove_detailed_impacts(generic_dicts)
