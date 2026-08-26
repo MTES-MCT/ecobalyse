@@ -51,7 +51,6 @@
       "format": "uuid",
       "type": "string"
     },
-
     "scopes": {
       "items": {
         "enum": ["food", "food2", "textile", "object", "veli"],
