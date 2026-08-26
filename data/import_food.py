@@ -3,7 +3,7 @@ import argparse
 
 import bw2data
 
-from common import brightway_patch as brightway_patch
+from common import brightway_patch as brightway_patch  # noqa: PLC0414
 from common.bw.strategies import SIMAPRO_BIOSPHERE_NAMES, SIMAPRO_STRATEGIES
 from common.import_ import (
     import_simapro_csv,
