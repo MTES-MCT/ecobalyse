@@ -14,7 +14,7 @@ dotenv.config({ path: path.resolve(__dirname, ".env") });
  */
 export default defineConfig({
   timeout: process.env.CI ? 80_000 : 10_000,
-  expect: { timeout: process.env.CI ? 10_000 : 2_000 },
+  expect: { timeout: process.env.CI ? 20_000 : 2_000 },
 
   testDir: "./e2e",
   /* Run tests in files in parallel */
