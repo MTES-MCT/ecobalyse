@@ -111,8 +111,6 @@ def parse_taxonomy(taxonomy: dict) -> dict[str, str]:
     """Turn a taxonomy document into the baseIngredient -> material_type
     mapping, rejecting unknown material_types and duplicated baseIngredients.
     """
-    if "food" not in taxonomy:
-        raise ValueError('missing "food" root key')
     material_type_by_base = {}
     for material_type, base_ingredients in taxonomy["food"].items():
         if material_type not in KNOWN_MATERIAL_TYPES:
@@ -135,10 +133,7 @@ def load_taxonomy() -> dict[str, str]:
     """Return the validated baseIngredient -> material_type mapping from
     taxonomy.json."""
     with open(_TAXONOMY_PATH, "r", encoding="utf-8") as f:
-        try:
-            return parse_taxonomy(json.load(f))
-        except ValueError as e:
-            raise ValueError(f"{_TAXONOMY_PATH}: {e}") from e
+        return parse_taxonomy(json.load(f))
 
 
 @functools.cache

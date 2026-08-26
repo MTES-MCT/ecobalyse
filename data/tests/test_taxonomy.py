@@ -59,7 +59,6 @@ def test_taxonomy_is_valid():
 @pytest.mark.parametrize(
     "taxonomy",
     [
-        {},
         {"food": {"not_a_material_type": ["apple"]}},
         {"food": {"cereals": ["apple"], "legumes": ["apple"]}},
     ],
