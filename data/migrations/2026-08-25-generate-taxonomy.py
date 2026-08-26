@@ -37,7 +37,7 @@ def main():
     for lci_path in sorted((DATA_ROOT_DIR / "lci_catalog").glob("*/*.json")):
         with open(lci_path, encoding="utf-8") as f:
             activity = json.load(f)
-        categories = activity.get("categories", [])
+        categories = activity["categories"]
         if "ingredient" not in categories:
             continue
         material_type = next(
@@ -45,7 +45,7 @@ def main():
             for category in categories
             if category.startswith(MATERIAL_TYPE_PREFIX)
         )
-        for metadata in activity.get("metadata", []):
+        for metadata in activity["metadata"]:
             class_votes[base_of(metadata["alias"])][material_type] += 1
 
     taxonomy = defaultdict(list)

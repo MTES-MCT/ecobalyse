@@ -13,12 +13,10 @@ from config import DATA_ROOT_DIR
 def _ingredient_aliases():
     """Yield every alias on an ingredient-category activity in lci_catalog/."""
     for activity in _get_lcias(DATA_ROOT_DIR):
-        if "ingredient" not in activity.get("categories", []):
+        if "ingredient" not in activity["categories"]:
             continue
-        for variant in activity.get("metadata", []):
-            alias = variant.get("alias")
-            if alias:
-                yield alias
+        for variant in activity["metadata"]:
+            yield variant["alias"]
 
 
 def test_infer_base_ingredient_covers_every_ingredient_alias():
