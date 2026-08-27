@@ -1,0 +1,55 @@
+name: PR stats
+
+# Insère la sortie de `bin/pr-stats` dans la description de la PR, entre
+# marqueurs, à l'ouverture et à chaque push. La logique de ventilation vit
+# dans bin/pr-stats
+
+on:
+  pull_request:
+    types: [opened, synchronize, reopened]
+
+permissions:
+  pull-requests: write
+
+concurrency:
+  group: pr-stats-${{ github.event.pull_request.number }}
+  cancel-in-progress: true
+
+jobs:
+  pr-stats:
+    runs-on: ubuntu-latest
+    # le token est en lecture seule pour les PRs venant de forks
+    if: github.event.pull_request.head.repo.full_name == github.repository
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          fetch-depth: 0
+
+      - name: Update PR description
+        env:
+          GH_TOKEN: ${{ github.token }}
+          PR_NUMBER: ${{ github.event.pull_request.number }}
+          BASE_REF: ${{ github.base_ref }}
+        run: |
+          ./bin/pr-stats "origin/$BASE_REF" > /tmp/stats.md
+          gh pr view "$PR_NUMBER" --json body --jq .body > /tmp/body.md
+          python3 - <<'EOF'
+          import re
+
+          START, END = "<!-- pr-stats:start -->", "<!-- pr-stats:end -->"
+          with open("/tmp/stats.md") as f:
+              block = f"{START}\n### Ventilation du diff\n\n{f.read().strip()}\n{END}"
+          with open("/tmp/body.md") as f:
+              body = f.read()
+
+          if START in body and END in body:
+              body = re.sub(
+                  re.escape(START) + ".*?" + re.escape(END), block, body, flags=re.S
+              )
+          else:
+              body = f"{body.rstrip()}\n\n{block}\n"
+
+          with open("/tmp/body.md", "w") as f:
+              f.write(body)
+          EOF
+          gh pr edit "$PR_NUMBER" --body-file /tmp/body.md
