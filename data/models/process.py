@@ -113,9 +113,6 @@ class Complements(EcoModel):
 class IngredientMetadata(EcoModel):
     base_ingredient: str
     crop_group: str | None = None
-    density: float
-    inedible_part: float
-    raw_to_cooked_ratio: float
     scenario: str | None = None
     process_id: uuid.UUID
 
