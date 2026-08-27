@@ -4,9 +4,8 @@ repos:
     hooks:
     - id: check-yaml
     - id: end-of-file-fixer
-      exclude: (svg|icomoon|rapidoc-9.3.4.min.js)
+      exclude: (svg|icomoon)
     - id: trailing-whitespace
-      exclude: (vendor|rapidoc-9.3.4.min.js)
     - id: no-commit-to-branch
       name: "don't commit to main"
       args: [--branch, main]

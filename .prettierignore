@@ -12,7 +12,6 @@ package-lock.json
 package.json
 Pipfile.lock
 public/icomoon/*
-public/vendor/*
 styles.scss
 tests/e2e-*-output.json
 tests/e2e-food.json
