@@ -172,7 +172,12 @@ def export_processes_to_dir(
 
     if extra_data is not None and extra_path is not None:
         extra_file = dir_to_export_to / extra_path
-        export_json(extra_data, extra_file)
+        export_json(
+            extra_data,
+            extra_file,
+            sort_fn=activities_processes_sort_key,
+            number_precision=settings.number_precision,
+        )
         exported_files.append(extra_file)
 
     # Export results
@@ -222,11 +227,16 @@ def export_processes_to_dir(
     export_json(
         filtered,
         processes_impacts_absolute_path,
+        number_precision=settings.number_precision,
     )
     exported_files.append(processes_impacts_absolute_path)
 
     # Also update the aggregated file
-    export_json(remove_detailed_impacts(filtered), processes_ecs_absolute_path)
+    export_json(
+        remove_detailed_impacts(filtered),
+        processes_ecs_absolute_path,
+        number_precision=settings.number_precision,
+    )
     exported_files.append(processes_ecs_absolute_path)
 
     # Write unfiltered data to last dir (local) for generic export to read later
@@ -234,7 +244,9 @@ def export_processes_to_dir(
     full_impacts_path = (
         DATA_ROOT_DIR / settings.export_dir / full_impacts_relative_file_path
     )
-    export_json(to_export, full_impacts_path)
+    export_json(
+        to_export, full_impacts_path, number_precision=settings.number_precision
+    )
 
     return exported_files
 

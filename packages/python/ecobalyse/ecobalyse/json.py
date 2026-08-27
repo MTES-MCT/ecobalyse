@@ -135,7 +135,9 @@ def activities_processes_sort_key(entry: dict[str, Any]) -> tuple:
 
 
 def dict_to_json_string(
-    json_data: dict[str, Any] | list[dict[str, Any]], sort_fn=None
+    json_data: dict[str, Any] | list[dict[str, Any]],
+    sort_fn=None,
+    number_precision=None,
 ) -> str:
     if sort_fn is not None and isinstance(json_data, list):
         json_data.sort(key=sort_fn)
@@ -146,14 +148,18 @@ def dict_to_json_string(
         ensure_ascii=False,
         cls=CompactJSONEncoder,
         sort_keys=True,
+        number_precision=number_precision,
     )
 
 
 def export_json(
-    json_data: dict[str, Any] | list[dict[str, Any]], filename, sort_fn=None
+    json_data: dict[str, Any] | list[dict[str, Any]],
+    filename,
+    sort_fn=None,
+    number_precision=None,
 ):
     logger.info(f"Exporting {filename}")
-    json_string = dict_to_json_string(json_data, sort_fn)
+    json_string = dict_to_json_string(json_data, sort_fn, number_precision)
 
     with open(filename, "w", encoding="utf-8") as file:
         file.write(json_string)

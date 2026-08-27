@@ -9,6 +9,7 @@ from typing import Annotated
 
 import typer
 from bw2data.project import projects
+from ecobalyse.json import activities_processes_sort_key
 from ecobalyse.logging import logger
 
 from bin.generate_taxonomy_with_aliases import write_taxonomy_with_aliases
@@ -205,8 +206,18 @@ def merge_processes(
 
     public_dir = root_dir / settings.frontend_data_dir
 
-    export_json(merged, public_dir / settings.processes_merged_impacts_file)
-    export_json(merged_ecs, public_dir / settings.processes_merged_ecs_file)
+    export_json(
+        merged,
+        public_dir / settings.processes_merged_impacts_file,
+        sort_fn=activities_processes_sort_key,
+        number_precision=settings.number_precision,
+    )
+    export_json(
+        merged_ecs,
+        public_dir / settings.processes_merged_ecs_file,
+        sort_fn=activities_processes_sort_key,
+        number_precision=settings.number_precision,
+    )
 
 
 def _get_lcis(root_dir):
