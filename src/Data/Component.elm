@@ -55,6 +55,7 @@ module Data.Component exposing
     , defaultTransportOptions
     , elementTransforms
     , elementsToString
+    , emptyAssembly
     , emptyComponent
     , emptyLifeCycle
     , emptyQuery
@@ -77,6 +78,7 @@ module Data.Component exposing
     , extractMass
     , extractStage
     , findById
+    , getAssemblyOperations
     , getAvailableDistributionProcesses
     , getConsumptionProcessId
     , getConsumptions
@@ -218,12 +220,16 @@ type alias Query =
     }
 
 
-{-| Assembly step query, composed of an optional localization and zero, one or more successive
+{-| Assembly step query, composed of an optional localization and successive
 transformations operated on the output mass of the production stage.
+
+`operations` is `Nothing` when unspecified (product category default applies),
+`Just []` when explicitly empty, and `Just [id, …]` when explicitly set.
+
 -}
 type alias Assembly =
     { country : Maybe CountryCode.Code
-    , operations : List Process.Id
+    , operations : Maybe (List Process.Id)
     }
 
 
@@ -453,12 +459,12 @@ type alias Requirements db =
 
 {-| Add a new assembly operation process to a query.
 -}
-addAssemblyOperation : Process -> Query -> Query
-addAssemblyOperation process ({ assembly } as query) =
+addAssemblyOperation : Requirements db -> Process -> Query -> Query
+addAssemblyOperation requirements process ({ assembly } as query) =
     { query
         | assembly =
             { assembly
-                | operations = assembly.operations ++ [ process.id ]
+                | operations = Just (getAssemblyOperations requirements query ++ [ process.id ])
             }
     }
 
@@ -766,12 +772,15 @@ compute requirements query =
 {-| Compute assembly stage impacts
 -}
 computeAssemblyImpacts : Requirements db -> Query -> LifeCycle -> Result String LifeCycle
-computeAssemblyImpacts requirements { assembly } lifeCycle =
+computeAssemblyImpacts requirements ({ assembly } as query) lifeCycle =
     let
         productionMass =
             extractMass lifeCycle.production
+
+        operations =
+            getAssemblyOperations requirements query
     in
-    if List.isEmpty assembly.operations then
+    if List.isEmpty operations then
         Ok
             { lifeCycle
                 | assembly = emptyResults
@@ -781,7 +790,8 @@ computeAssemblyImpacts requirements { assembly } lifeCycle =
             }
 
     else
-        expandAssembly requirements.db assembly
+        operations
+            |> expandAssembly requirements.db assembly.country
             |> Result.andThen
                 (\expandedProcesses ->
                     assemblyResultsFromMass productionMass
@@ -1434,7 +1444,7 @@ decodeAssembly =
         [ Decode.field "assembly"
             (Decode.succeed Assembly
                 |> DU.strictOptional "country" CountryCode.decode
-                |> Decode.optional "operations" (Decode.list Process.decodeId) []
+                |> DU.strictOptional "operations" (Decode.list Process.decodeId)
             )
         , Decode.field "assemblyCountry" CountryCode.decode
             |> Decode.map (\country -> { emptyAssembly | country = Just country })
@@ -1493,7 +1503,7 @@ elementsToString db component =
 emptyAssembly : Assembly
 emptyAssembly =
     { country = Nothing
-    , operations = []
+    , operations = Nothing
     }
 
 
@@ -1720,7 +1730,7 @@ encodeAssembly assembly =
     else
         EU.optionalPropertiesObject
             [ ( "country", assembly.country |> Maybe.map CountryCode.encode )
-            , ( "operations", assembly.operations |> Encode.list Process.encodeId |> Just )
+            , ( "operations", assembly.operations |> Maybe.map (Encode.list Process.encodeId) )
             ]
 
 
@@ -1806,11 +1816,11 @@ errors =
     }
 
 
-{-| Expand an assembly query into a list of ExpandedLocalizedProcess localized to the assembly
+{-| Expand assembly operations into a list of ExpandedLocalizedProcess localized to the assembly
 country when set
 -}
-expandAssembly : DataContainer db -> Assembly -> Result String (List ExpandedLocalizedProcess)
-expandAssembly { countries, processes } { country, operations } =
+expandAssembly : DataContainer db -> Maybe CountryCode.Code -> List Process.Id -> Result String (List ExpandedLocalizedProcess)
+expandAssembly { countries, processes } country operations =
     -- first retrieve the optional assembly country
     countries
         |> Country.resolveMaybe country
@@ -1976,6 +1986,31 @@ findById id =
     List.filter (.id >> (==) (Just id))
         >> List.head
         >> Result.fromMaybe ("Aucun composant avec id=" ++ idToString id)
+
+
+{-| Get the assembly operations:
+
+  - from the query itself when set (`Just`, including an explicit empty list)
+  - or the ones from the product category if not set
+  - or an empty list if product category is not set
+
+-}
+getAssemblyOperations : Requirements db -> Query -> List Process.Id
+getAssemblyOperations { db } query =
+    case query.assembly.operations of
+        Just operations ->
+            operations
+
+        Nothing ->
+            query.product
+                |> Maybe.andThen
+                    (\productId ->
+                        db.products
+                            |> ProductCategory.findById productId
+                            |> Result.toMaybe
+                            |> Maybe.map .assembly
+                    )
+                |> Maybe.withDefault []
 
 
 getAvailableDistributionProcesses : DataContainer db -> Scope -> List Process
@@ -2504,12 +2539,12 @@ quantityToInt (Quantity int) =
     int
 
 
-removeAssemblyOperation : Index -> Query -> Query
-removeAssemblyOperation index ({ assembly } as query) =
+removeAssemblyOperation : Requirements db -> Index -> Query -> Query
+removeAssemblyOperation requirements index ({ assembly } as query) =
     { query
         | assembly =
             { assembly
-                | operations = assembly.operations |> LE.removeAt index
+                | operations = Just (getAssemblyOperations requirements query |> LE.removeAt index)
             }
     }
 
@@ -2797,11 +2832,12 @@ updateDistribution maybeProcessId query =
 {-| Update the product in the query, resetting product-dependent fields along the way
 -}
 updateProduct : Maybe ProductCategory -> Query -> Query
-updateProduct maybeProduct ({ transportOptions } as query) =
+updateProduct maybeProduct ({ assembly, transportOptions } as query) =
     let
         reset maybeProductId =
             { query
-                | consumptions = Nothing
+                | assembly = { assembly | operations = Nothing }
+                , consumptions = Nothing
                 , distribution = Nothing
                 , product = maybeProductId
                 , transportOptions = { transportOptions | cooling = Nothing }
@@ -2920,11 +2956,15 @@ useProcessAmount lifeCycle process amount =
         amount
 
 
-validateAssembly : Requirements db -> Assembly -> Result String Assembly
-validateAssembly requirements assembly =
+validateAssembly : Requirements db -> Query -> Result String Assembly
+validateAssembly requirements query =
     Ok Assembly
-        |> RE.andMap (validateCountry requirements assembly.country)
-        |> RE.andMap (assembly.operations |> RE.combineMap (validateAssemblyProcessId requirements))
+        |> RE.andMap (validateCountry requirements query.assembly.country)
+        |> RE.andMap
+            (getAssemblyOperations requirements query
+                |> RE.combineMap (validateAssemblyProcessId requirements)
+                |> Result.map (always query.assembly.operations)
+            )
 
 
 validateAssemblyProcessesUnit : List ExpandedLocalizedProcess -> Result String (List ExpandedLocalizedProcess)
@@ -3074,7 +3114,7 @@ validateQuantifiedProcess requirements quantifiedProcess =
 validateQuery : Requirements db -> Query -> Result String Query
 validateQuery ({ db } as requirements) query =
     Ok Query
-        |> RE.andMap (validateAssembly requirements query.assembly)
+        |> RE.andMap (validateAssembly requirements query)
         |> RE.andMap
             (getConsumptions requirements query
                 |> RE.combineMap (validateConsumption requirements)

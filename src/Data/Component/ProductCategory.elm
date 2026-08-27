@@ -39,10 +39,11 @@ type alias DefaultConsumption =
 
 
 {-| A generic product category, providing sensible defaults for common characteristics
-like transport cooling, distribution process and use-stage consumptions.
+like assembly processes, transport cooling, distribution process and use-stage consumptions.
 -}
 type alias ProductCategory =
-    { consumptions : List DefaultConsumption
+    { assembly : List Process.Id
+    , consumptions : List DefaultConsumption
     , cooling : Bool
     , distribution : Maybe Process.Id
     , id : Id
@@ -54,6 +55,7 @@ type alias ProductCategory =
 decode : Decoder ProductCategory
 decode =
     Decode.succeed ProductCategory
+        |> DU.strictOptionalWithDefault "assembly" (Decode.list Process.decodeId) []
         |> DU.strictOptionalWithDefault "consumptions" (Decode.list decodeDefaultConsumption) []
         |> Pipe.required "cooling" Decode.bool
         |> DU.strictOptional "distribution" Process.decodeId
