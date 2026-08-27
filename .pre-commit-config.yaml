@@ -19,13 +19,12 @@ repos:
         exclude: data
         types_or: [javascript, json]
         entry: |
-          bash -c 'npm --prefix . run fix:prettier -- --write "${@}"'
+          bash -c 'npm --prefix . run fix:prettier -- "${@}"'
 
       - id: app-ruff-check
         name: run ruff check
         language: system
         files: ^.*$
-        exclude: data
         types_or: [python]
         entry: |
           bash -c 'npm --prefix . run fix:ruff:check "${@}"' --
@@ -34,7 +33,6 @@ repos:
         name: run ty check
         language: system
         files: ^.*$
-        exclude: data
         types_or: [python]
         entry: |
           bash -c 'npm --prefix . run fix:ty:check "${@}"' --
@@ -43,7 +41,6 @@ repos:
         name: run ruff format
         language: system
         files: ^.*$
-        exclude: data
         types_or: [python]
         entry: |
           bash -c 'npm --prefix . run fix:ruff:format "${@}"' --
@@ -57,22 +54,16 @@ repos:
         entry: |
           bash -c 'npm --prefix . run fix:elm-format "${@}"' --
 
-      ### data ###
       - id: fix-json
         name: run JSON formatter
         language: system
-        files: ^data/.*$
         types_or: [json]
         entry: |
-          bash -c 'just fix-json-data "${@}"' --
-
-      - id: fix-python
-        name: run ruff check
-        language: system
-        files: ^data/.*$
-        types_or: [python]
-        entry: |
-          bash -c 'just fix-python-data "${@}"' --
+          bash -c '
+            to_format=$(bin/filter_ignored.sh "$@")
+            [ -n "$to_format" ] && uv run bin/json_formatter.py --fix $to_format
+            exit 0
+          ' --
 
       - id: check-json-schemas
         name: check json schemas
