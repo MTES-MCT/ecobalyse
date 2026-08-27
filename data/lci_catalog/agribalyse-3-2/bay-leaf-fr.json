@@ -1,10 +1,6 @@
 {
   "activityName": "Mint {RoW}| mint production | Cut-off, U - Adapted from Ecoinvent U",
-  "categories": [
-    "ingredient",
-    "material",
-    "material_type:other_food_items"
-  ],
+  "categories": ["ingredient", "material", "material_type:other_food_items"],
   "displayName": "Feuilles de laurier FR",
   "id": "32e87acc-19ec-5c76-98c6-68a37ff0183e",
   "metadata": [
@@ -23,9 +19,7 @@
         "confidence": 1.0,
         "rule": "spice_condiment NOVA 1 default from food_type_inedible_part.csv"
       },
-      "ingredientCategories": [
-        "spice_condiment_additive"
-      ],
+      "ingredientCategories": ["spice_condiment_additive"],
       "ingredientDensity": 0.5,
       "ingredientDensityMatch": {
         "confidence": 1.0,
@@ -37,10 +31,7 @@
         "rule": "spice_condiment default from food_type_cooked_to_raw.csv"
       },
       "scenario": "reference",
-      "scopes": [
-        "food",
-        "food2"
-      ],
+      "scopes": ["food", "food2"],
       "transportCooling": "none",
       "transportCoolingMatch": {
         "confidence": 1.0,
@@ -63,9 +54,7 @@
         "confidence": 1.0,
         "rule": "vegetable NOVA 1 default from food_type_inedible_part.csv"
       },
-      "ingredientCategories": [
-        "vegetable_fresh"
-      ],
+      "ingredientCategories": ["vegetable_fresh"],
       "ingredientDensity": 0.9,
       "ingredientDensityMatch": {
         "confidence": 1.0,
@@ -77,10 +66,7 @@
         "rule": "vegetable default from food_type_cooked_to_raw.csv"
       },
       "scenario": "reference",
-      "scopes": [
-        "food",
-        "food2"
-      ],
+      "scopes": ["food", "food2"],
       "transportCooling": "always",
       "transportCoolingMatch": {
         "confidence": 1.0,
@@ -103,9 +89,7 @@
         "confidence": 1.0,
         "rule": "spice_condiment NOVA 1 default from food_type_inedible_part.csv"
       },
-      "ingredientCategories": [
-        "spice_condiment_additive"
-      ],
+      "ingredientCategories": ["spice_condiment_additive"],
       "ingredientDensity": 0.5,
       "ingredientDensityMatch": {
         "confidence": 1.0,
@@ -117,10 +101,7 @@
         "rule": "spice_condiment default from food_type_cooked_to_raw.csv"
       },
       "scenario": "reference",
-      "scopes": [
-        "food",
-        "food2"
-      ],
+      "scopes": ["food", "food2"],
       "transportCooling": "none",
       "transportCoolingMatch": {
         "confidence": 1.0,
@@ -143,9 +124,7 @@
         "confidence": 1.0,
         "rule": "vegetable NOVA 1 default from food_type_inedible_part.csv"
       },
-      "ingredientCategories": [
-        "vegetable_fresh"
-      ],
+      "ingredientCategories": ["vegetable_fresh"],
       "ingredientDensity": 0.9,
       "ingredientDensityMatch": {
         "confidence": 1.0,
@@ -157,10 +136,7 @@
         "rule": "vegetable default from food_type_cooked_to_raw.csv"
       },
       "scenario": "reference",
-      "scopes": [
-        "food",
-        "food2"
-      ],
+      "scopes": ["food", "food2"],
       "transportCooling": "always",
       "transportCoolingMatch": {
         "confidence": 1.0,
@@ -183,9 +159,7 @@
         "confidence": 1.0,
         "rule": "Matched with Mint in agb_inedible.csv"
       },
-      "ingredientCategories": [
-        "vegetable_fresh"
-      ],
+      "ingredientCategories": ["vegetable_fresh"],
       "ingredientDensity": 0.9,
       "ingredientDensityMatch": {
         "confidence": 1.0,
@@ -197,10 +171,7 @@
         "rule": "vegetable default from food_type_cooked_to_raw.csv"
       },
       "scenario": "reference",
-      "scopes": [
-        "food",
-        "food2"
-      ],
+      "scopes": ["food", "food2"],
       "transportCooling": "always",
       "transportCoolingMatch": {
         "confidence": 1.0,
@@ -223,9 +194,7 @@
         "confidence": 0.95,
         "rule": "Matched with Tarragon in agb_inedible.csv"
       },
-      "ingredientCategories": [
-        "spice_condiment_additive"
-      ],
+      "ingredientCategories": ["spice_condiment_additive"],
       "ingredientDensity": 0.5,
       "ingredientDensityMatch": {
         "confidence": 1.0,
@@ -237,10 +206,7 @@
         "rule": "spice_condiment default from food_type_cooked_to_raw.csv"
       },
       "scenario": "reference",
-      "scopes": [
-        "food",
-        "food2"
-      ],
+      "scopes": ["food", "food2"],
       "transportCooling": "none",
       "transportCoolingMatch": {
         "confidence": 1.0,
@@ -249,10 +215,7 @@
       "visible": true
     }
   ],
-  "scopes": [
-    "food",
-    "food2"
-  ],
+  "scopes": ["food", "food2"],
   "source": "Agribalyse 3.2",
   "unit": "kg"
 }

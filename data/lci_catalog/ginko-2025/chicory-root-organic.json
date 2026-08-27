@@ -1,10 +1,6 @@
 {
   "activityName": "Chicory roots, organic 2025, at farm gate {FR} U",
-  "categories": [
-    "ingredient",
-    "material",
-    "material_type:fruits_and_vegetables"
-  ],
+  "categories": ["ingredient", "material", "material_type:fruits_and_vegetables"],
   "displayName": "Racine de chicorée Bio",
   "id": "fdc3e290-76d2-5bab-a159-f73bd172814a",
   "location": "FR",
@@ -24,20 +20,14 @@
         "confidence": 0.95,
         "rule": "Matched with Chicory in agb_inedible.csv"
       },
-      "ingredientCategories": [
-        "vegetable_fresh",
-        "organic"
-      ],
+      "ingredientCategories": ["vegetable_fresh", "organic"],
       "ingredientDensity": 0.9,
       "ingredientDensityMatch": {
         "confidence": 1.0,
         "rule": "vegetable default from food_type_density.csv"
       },
       "scenario": "organic",
-      "scopes": [
-        "food",
-        "food2"
-      ],
+      "scopes": ["food", "food2"],
       "transportCooling": "always",
       "transportCoolingMatch": {
         "confidence": 1.0,
@@ -46,10 +36,7 @@
       "visible": true
     }
   ],
-  "scopes": [
-    "food",
-    "food2"
-  ],
+  "scopes": ["food", "food2"],
   "source": "Ginko 2025",
   "unit": "kg"
 }

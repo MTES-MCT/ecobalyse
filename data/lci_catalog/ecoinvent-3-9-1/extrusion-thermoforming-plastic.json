@@ -16,17 +16,11 @@
   "metadata": [
     {
       "id": "4a08bcab-5c25-4dec-961a-0f7208f40084",
-      "scopes": [
-        "object",
-        "veli"
-      ]
+      "scopes": ["object", "veli"]
     }
   ],
   "qtyVariationRatio": 0.94,
-  "scopes": [
-    "object",
-    "veli"
-  ],
+  "scopes": ["object", "veli"],
   "source": "Ecoinvent 3.9.1",
   "unit": "kg"
 }

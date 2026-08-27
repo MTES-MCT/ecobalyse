@@ -1,10 +1,6 @@
 {
   "activityName": "Coconut, dehusked, organic 2025 {RoW}| coconut production, dehusked | Cut-off, U",
-  "categories": [
-    "ingredient",
-    "material",
-    "material_type:other_food_items"
-  ],
+  "categories": ["ingredient", "material", "material_type:other_food_items"],
   "displayName": "Noix de coco décortiquée Bio",
   "id": "bd01eabb-9d4d-56d2-80fc-1ab5cf8060f4",
   "location": "RoW",
@@ -24,10 +20,7 @@
         "confidence": 1.0,
         "rule": "nut_oilseed NOVA 1 default from food_type_inedible_part.csv"
       },
-      "ingredientCategories": [
-        "nut_oilseed_raw",
-        "organic"
-      ],
+      "ingredientCategories": ["nut_oilseed_raw", "organic"],
       "ingredientDensity": 0.5,
       "ingredientDensityMatch": {
         "confidence": 0.95,
@@ -39,10 +32,7 @@
         "rule": "nut_oilseed default from food_type_cooked_to_raw.csv"
       },
       "scenario": "organic",
-      "scopes": [
-        "food",
-        "food2"
-      ],
+      "scopes": ["food", "food2"],
       "transportCooling": "none",
       "transportCoolingMatch": {
         "confidence": 1.0,
@@ -51,10 +41,7 @@
       "visible": true
     }
   ],
-  "scopes": [
-    "food",
-    "food2"
-  ],
+  "scopes": ["food", "food2"],
   "source": "Ginko 2025",
   "unit": "kg"
 }

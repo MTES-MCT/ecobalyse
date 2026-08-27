@@ -1,10 +1,6 @@
 {
   "activityName": "Pont l'Eveque cheese, variant 1, CMAPS {GLO} U",
-  "categories": [
-    "ingredient",
-    "material",
-    "material_type:other_food_items"
-  ],
+  "categories": ["ingredient", "material", "material_type:other_food_items"],
   "displayName": "Pont l'Évêque FR",
   "id": "fcc904e1-3656-432e-a81d-0903a78129c2",
   "metadata": [
@@ -14,23 +10,15 @@
       "displayName": "Pont l'Évêque FR",
       "id": "5e054aed-bba8-483c-b731-d08441fa6a48",
       "inediblePart": 0,
-      "ingredientCategories": [
-        "dairy_product"
-      ],
+      "ingredientCategories": ["dairy_product"],
       "ingredientDensity": 1,
       "rawToCookedRatio": 1,
       "scenario": "reference",
-      "scopes": [
-        "food",
-        "food2"
-      ],
+      "scopes": ["food", "food2"],
       "transportCooling": "always",
       "visible": true
     }
   ],
-  "scopes": [
-    "food",
-    "food2"
-  ],
+  "scopes": ["food", "food2"],
   "source": "Ecobalyse_custom_lci"
 }

@@ -1,8 +1,5 @@
 {
-  "categories": [
-    "transformation",
-    "material_type:organic_fibers"
-  ],
+  "categories": ["transformation", "material_type:organic_fibers"],
   "comment": "Même commentaire que `bleaching` sauf qu'en plus les impacts sont multipliés par 19% (scénario de pollution aquatique moyen). corr3 et corr2 (cf doc). Corr3 : valeurs d'élec et de chaleur issues du rapport BAT2023 avec majoration de 50%. corr2 : valeur d'écotox issue d'inventaires enrichis.",
   "displayName": "Blanchiment (scénario de pollution aquatique moyen)",
   "elecKwh": 0.2,
@@ -32,17 +29,11 @@
   "metadata": [
     {
       "id": "4935fdeb-99f7-46ff-8b10-46d07c55860b",
-      "scopes": [
-        "object",
-        "veli"
-      ]
+      "scopes": ["object", "veli"]
     }
   ],
   "qtyVariationRatio": 1,
-  "scopes": [
-    "object",
-    "veli"
-  ],
+  "scopes": ["object", "veli"],
   "source": "Ecobalyse_manual_lcia",
   "unit": "kg"
 }

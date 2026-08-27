@@ -1,10 +1,6 @@
 {
   "activityName": "Vanilla {MG}| vanilla production | Cut-off, U - Adapted from Ecoinvent U",
-  "categories": [
-    "ingredient",
-    "material",
-    "material_type:other_food_items"
-  ],
+  "categories": ["ingredient", "material", "material_type:other_food_items"],
   "displayName": "Extrait de vanille, alcoolique ou aqueux FR Outre-Mer",
   "id": "1d960b87-5360-543c-afb3-592f217fe6cd",
   "metadata": [
@@ -23,9 +19,7 @@
         "confidence": 1.0,
         "rule": "spice_condiment NOVA 1 default from food_type_inedible_part.csv"
       },
-      "ingredientCategories": [
-        "spice_condiment_additive"
-      ],
+      "ingredientCategories": ["spice_condiment_additive"],
       "ingredientDensity": 0.5,
       "ingredientDensityMatch": {
         "confidence": 1.0,
@@ -37,10 +31,7 @@
         "rule": "spice_condiment default from food_type_cooked_to_raw.csv"
       },
       "scenario": "reference",
-      "scopes": [
-        "food",
-        "food2"
-      ],
+      "scopes": ["food", "food2"],
       "transportCooling": "none",
       "transportCoolingMatch": {
         "confidence": 1.0,
@@ -63,9 +54,7 @@
         "confidence": 1.0,
         "rule": "spice_condiment NOVA 1 default from food_type_inedible_part.csv"
       },
-      "ingredientCategories": [
-        "spice_condiment_additive"
-      ],
+      "ingredientCategories": ["spice_condiment_additive"],
       "ingredientDensity": 0.5,
       "ingredientDensityMatch": {
         "confidence": 1.0,
@@ -77,10 +66,7 @@
         "rule": "spice_condiment default from food_type_cooked_to_raw.csv"
       },
       "scenario": "reference",
-      "scopes": [
-        "food",
-        "food2"
-      ],
+      "scopes": ["food", "food2"],
       "transportCooling": "none",
       "transportCoolingMatch": {
         "confidence": 1.0,
@@ -103,9 +89,7 @@
         "confidence": 1.0,
         "rule": "spice_condiment NOVA 1 default from food_type_inedible_part.csv"
       },
-      "ingredientCategories": [
-        "spice_condiment_additive"
-      ],
+      "ingredientCategories": ["spice_condiment_additive"],
       "ingredientDensity": 0.5,
       "ingredientDensityMatch": {
         "confidence": 1.0,
@@ -117,10 +101,7 @@
         "rule": "spice_condiment default from food_type_cooked_to_raw.csv"
       },
       "scenario": "import",
-      "scopes": [
-        "food",
-        "food2"
-      ],
+      "scopes": ["food", "food2"],
       "transportCooling": "none",
       "transportCoolingMatch": {
         "confidence": 1.0,
@@ -143,9 +124,7 @@
         "confidence": 1.0,
         "rule": "spice_condiment NOVA 1 default from food_type_inedible_part.csv"
       },
-      "ingredientCategories": [
-        "spice_condiment_additive"
-      ],
+      "ingredientCategories": ["spice_condiment_additive"],
       "ingredientDensity": 0.5,
       "ingredientDensityMatch": {
         "confidence": 1.0,
@@ -157,10 +136,7 @@
         "rule": "spice_condiment default from food_type_cooked_to_raw.csv"
       },
       "scenario": "import",
-      "scopes": [
-        "food",
-        "food2"
-      ],
+      "scopes": ["food", "food2"],
       "transportCooling": "none",
       "transportCoolingMatch": {
         "confidence": 1.0,
@@ -169,10 +145,7 @@
       "visible": true
     }
   ],
-  "scopes": [
-    "food",
-    "food2"
-  ],
+  "scopes": ["food", "food2"],
   "source": "Agribalyse 3.2",
   "unit": "kg"
 }

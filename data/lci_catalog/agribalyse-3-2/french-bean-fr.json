@@ -1,10 +1,6 @@
 {
   "activityName": "French bean, conventional, national average, at farm gate {FR} U",
-  "categories": [
-    "ingredient",
-    "material",
-    "material_type:fruits_and_vegetables"
-  ],
+  "categories": ["ingredient", "material", "material_type:fruits_and_vegetables"],
   "displayName": "Haricot vert FR",
   "id": "bef56d20-ec50-53ea-aaba-219e98fa25cd",
   "metadata": [
@@ -23,19 +19,14 @@
         "confidence": 0.95,
         "rule": "Matched with French bean in agb_inedible.csv"
       },
-      "ingredientCategories": [
-        "vegetable_fresh"
-      ],
+      "ingredientCategories": ["vegetable_fresh"],
       "ingredientDensity": 0.8,
       "ingredientDensityMatch": {
         "confidence": 1.0,
         "rule": "legume default from food_type_density.csv"
       },
       "scenario": "reference",
-      "scopes": [
-        "food",
-        "food2"
-      ],
+      "scopes": ["food", "food2"],
       "transportCooling": "always",
       "transportCoolingMatch": {
         "confidence": 1.0,
@@ -58,19 +49,14 @@
         "confidence": 1.0,
         "rule": "legume NOVA 1 default from food_type_inedible_part.csv"
       },
-      "ingredientCategories": [
-        "vegetable_fresh"
-      ],
+      "ingredientCategories": ["vegetable_fresh"],
       "ingredientDensity": 0.8,
       "ingredientDensityMatch": {
         "confidence": 1.0,
         "rule": "legume default from food_type_density.csv"
       },
       "scenario": "reference",
-      "scopes": [
-        "food",
-        "food2"
-      ],
+      "scopes": ["food", "food2"],
       "transportCooling": "none",
       "transportCoolingMatch": {
         "confidence": 1.0,
@@ -85,15 +71,10 @@
       "displayName": "Haricot vert FR (2025)",
       "id": "37101a07-9e1f-478d-803a-dad5693dcd8c",
       "inediblePart": 0.1,
-      "ingredientCategories": [
-        "vegetable_fresh"
-      ],
+      "ingredientCategories": ["vegetable_fresh"],
       "ingredientDensity": 0.271,
       "scenario": "reference",
-      "scopes": [
-        "food",
-        "food2"
-      ],
+      "scopes": ["food", "food2"],
       "transportCooling": "always",
       "visible": true
     },
@@ -105,15 +86,10 @@
       "explain": "ICV UE=FR",
       "id": "3934ba18-fd22-47f4-ad2e-31805ad8a5f7",
       "inediblePart": 0.1,
-      "ingredientCategories": [
-        "vegetable_fresh"
-      ],
+      "ingredientCategories": ["vegetable_fresh"],
       "ingredientDensity": 0.271,
       "scenario": "import",
-      "scopes": [
-        "food",
-        "food2"
-      ],
+      "scopes": ["food", "food2"],
       "transportCooling": "always",
       "visible": true
     },
@@ -125,15 +101,10 @@
       "explain": "ICV par défaut = FR",
       "id": "a38c77d5-be6c-49e5-beb0-d8d88d556392",
       "inediblePart": 0.1,
-      "ingredientCategories": [
-        "vegetable_fresh"
-      ],
+      "ingredientCategories": ["vegetable_fresh"],
       "ingredientDensity": 0.271,
       "scenario": "import",
-      "scopes": [
-        "food",
-        "food2"
-      ],
+      "scopes": ["food", "food2"],
       "transportCooling": "always",
       "visible": true
     },
@@ -152,19 +123,14 @@
         "confidence": 0.95,
         "rule": "Matched with French bean in agb_inedible.csv"
       },
-      "ingredientCategories": [
-        "vegetable_fresh"
-      ],
+      "ingredientCategories": ["vegetable_fresh"],
       "ingredientDensity": 0.8,
       "ingredientDensityMatch": {
         "confidence": 1.0,
         "rule": "legume default from food_type_density.csv"
       },
       "scenario": "import",
-      "scopes": [
-        "food",
-        "food2"
-      ],
+      "scopes": ["food", "food2"],
       "transportCooling": "always",
       "transportCoolingMatch": {
         "confidence": 1.0,
@@ -187,19 +153,14 @@
         "confidence": 1.0,
         "rule": "fruit NOVA 1 default from food_type_inedible_part.csv"
       },
-      "ingredientCategories": [
-        "vegetable_fresh"
-      ],
+      "ingredientCategories": ["vegetable_fresh"],
       "ingredientDensity": 1.3,
       "ingredientDensityMatch": {
         "confidence": 1.0,
         "rule": "tamarind found in density.csv"
       },
       "scenario": "import",
-      "scopes": [
-        "food",
-        "food2"
-      ],
+      "scopes": ["food", "food2"],
       "transportCooling": "always",
       "transportCoolingMatch": {
         "confidence": 1.0,
@@ -222,19 +183,14 @@
         "confidence": 1.0,
         "rule": "legume NOVA 1 default from food_type_inedible_part.csv"
       },
-      "ingredientCategories": [
-        "vegetable_fresh"
-      ],
+      "ingredientCategories": ["vegetable_fresh"],
       "ingredientDensity": 0.8,
       "ingredientDensityMatch": {
         "confidence": 1.0,
         "rule": "legume default from food_type_density.csv"
       },
       "scenario": "import",
-      "scopes": [
-        "food",
-        "food2"
-      ],
+      "scopes": ["food", "food2"],
       "transportCooling": "none",
       "transportCoolingMatch": {
         "confidence": 1.0,
@@ -257,19 +213,14 @@
         "confidence": 0.95,
         "rule": "Matched with French bean in agb_inedible.csv"
       },
-      "ingredientCategories": [
-        "vegetable_fresh"
-      ],
+      "ingredientCategories": ["vegetable_fresh"],
       "ingredientDensity": 0.8,
       "ingredientDensityMatch": {
         "confidence": 1.0,
         "rule": "legume default from food_type_density.csv"
       },
       "scenario": "import",
-      "scopes": [
-        "food",
-        "food2"
-      ],
+      "scopes": ["food", "food2"],
       "transportCooling": "always",
       "transportCoolingMatch": {
         "confidence": 1.0,
@@ -292,19 +243,14 @@
         "confidence": 1.0,
         "rule": "legume NOVA 1 default from food_type_inedible_part.csv"
       },
-      "ingredientCategories": [
-        "vegetable_fresh"
-      ],
+      "ingredientCategories": ["vegetable_fresh"],
       "ingredientDensity": 0.8,
       "ingredientDensityMatch": {
         "confidence": 1.0,
         "rule": "legume default from food_type_density.csv"
       },
       "scenario": "import",
-      "scopes": [
-        "food",
-        "food2"
-      ],
+      "scopes": ["food", "food2"],
       "transportCooling": "none",
       "transportCoolingMatch": {
         "confidence": 1.0,
@@ -327,19 +273,14 @@
         "confidence": 0.95,
         "rule": "Matched with French bean in agb_inedible.csv"
       },
-      "ingredientCategories": [
-        "vegetable_fresh"
-      ],
+      "ingredientCategories": ["vegetable_fresh"],
       "ingredientDensity": 0.8,
       "ingredientDensityMatch": {
         "confidence": 1.0,
         "rule": "legume default from food_type_density.csv"
       },
       "scenario": "import",
-      "scopes": [
-        "food",
-        "food2"
-      ],
+      "scopes": ["food", "food2"],
       "transportCooling": "always",
       "transportCoolingMatch": {
         "confidence": 1.0,
@@ -362,19 +303,14 @@
         "confidence": 1.0,
         "rule": "fruit NOVA 1 default from food_type_inedible_part.csv"
       },
-      "ingredientCategories": [
-        "vegetable_fresh"
-      ],
+      "ingredientCategories": ["vegetable_fresh"],
       "ingredientDensity": 1.3,
       "ingredientDensityMatch": {
         "confidence": 1.0,
         "rule": "tamarind found in density.csv"
       },
       "scenario": "import",
-      "scopes": [
-        "food",
-        "food2"
-      ],
+      "scopes": ["food", "food2"],
       "transportCooling": "always",
       "transportCoolingMatch": {
         "confidence": 1.0,
@@ -397,19 +333,14 @@
         "confidence": 1.0,
         "rule": "legume NOVA 1 default from food_type_inedible_part.csv"
       },
-      "ingredientCategories": [
-        "vegetable_fresh"
-      ],
+      "ingredientCategories": ["vegetable_fresh"],
       "ingredientDensity": 0.8,
       "ingredientDensityMatch": {
         "confidence": 1.0,
         "rule": "legume default from food_type_density.csv"
       },
       "scenario": "import",
-      "scopes": [
-        "food",
-        "food2"
-      ],
+      "scopes": ["food", "food2"],
       "transportCooling": "none",
       "transportCoolingMatch": {
         "confidence": 1.0,
@@ -418,9 +349,6 @@
       "visible": true
     }
   ],
-  "scopes": [
-    "food",
-    "food2"
-  ],
+  "scopes": ["food", "food2"],
   "source": "Agribalyse 3.2"
 }

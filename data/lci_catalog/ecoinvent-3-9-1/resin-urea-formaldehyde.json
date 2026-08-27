@@ -1,9 +1,6 @@
 {
   "activityName": "urea formaldehyde resin//[RER] market for urea formaldehyde resin",
-  "categories": [
-    "material",
-    "material_type:other"
-  ],
+  "categories": ["material", "material_type:other"],
   "comment": "",
   "displayName": "Résine (urée-formaldéhyde)",
   "elecKwh": 0.0,
@@ -12,17 +9,11 @@
   "metadata": [
     {
       "id": "4504b5ba-eb15-48b6-9b0a-4d4d89400196",
-      "scopes": [
-        "object",
-        "veli"
-      ]
+      "scopes": ["object", "veli"]
     }
   ],
   "qtyVariationRatio": 1,
-  "scopes": [
-    "object",
-    "veli"
-  ],
+  "scopes": ["object", "veli"],
   "source": "Ecoinvent 3.9.1",
   "unit": "kg"
 }

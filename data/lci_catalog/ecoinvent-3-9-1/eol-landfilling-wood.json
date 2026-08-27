@@ -1,9 +1,6 @@
 {
   "activityName": "waste wood, untreated//[CH] treatment of waste wood, untreated, sanitary landfill",
-  "categories": [
-    "end-of-life",
-    "material_type:wood"
-  ],
+  "categories": ["end-of-life", "material_type:wood"],
   "comment": "",
   "displayName": "Enfouissement du bois",
   "elecKwh": 0.0,
@@ -12,17 +9,11 @@
   "metadata": [
     {
       "id": "78a45d8f-d8f6-492a-b0d8-f6d6ee297306",
-      "scopes": [
-        "object",
-        "veli"
-      ]
+      "scopes": ["object", "veli"]
     }
   ],
   "qtyVariationRatio": 1,
-  "scopes": [
-    "object",
-    "veli"
-  ],
+  "scopes": ["object", "veli"],
   "source": "Ecoinvent 3.9.1",
   "unit": "kg"
 }

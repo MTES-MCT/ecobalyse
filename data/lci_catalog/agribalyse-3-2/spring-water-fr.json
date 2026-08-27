@@ -1,10 +1,6 @@
 {
   "activityName": "Mineral water, still, PET one-way, 1.5 L, at water factory {FR} - Adapted from WFLDB U",
-  "categories": [
-    "ingredient",
-    "material",
-    "material_type:other_food_items"
-  ],
+  "categories": ["ingredient", "material", "material_type:other_food_items"],
   "displayName": "Eau de source FR",
   "id": "86c135b5-3be1-539b-8abc-1a4ecb83f793",
   "metadata": [
@@ -23,9 +19,7 @@
         "confidence": 1.0,
         "rule": "beverage NOVA 1 default from food_type_inedible_part.csv"
       },
-      "ingredientCategories": [
-        "misc"
-      ],
+      "ingredientCategories": ["misc"],
       "ingredientDensity": 1.0,
       "ingredientDensityMatch": {
         "confidence": 0.95,
@@ -37,10 +31,7 @@
         "rule": "beverage default from food_type_cooked_to_raw.csv"
       },
       "scenario": "reference",
-      "scopes": [
-        "food",
-        "food2"
-      ],
+      "scopes": ["food", "food2"],
       "transportCooling": "none",
       "transportCoolingMatch": {
         "confidence": 0.642,
@@ -49,10 +40,7 @@
       "visible": true
     }
   ],
-  "scopes": [
-    "food",
-    "food2"
-  ],
+  "scopes": ["food", "food2"],
   "source": "Agribalyse 3.2",
   "unit": "L"
 }

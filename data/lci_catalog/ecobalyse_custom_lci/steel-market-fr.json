@@ -1,9 +1,6 @@
 {
   "activityName": "steel, low-alloyed, market, FR",
-  "categories": [
-    "material",
-    "material_type:ferrous_metals"
-  ],
+  "categories": ["material", "material_type:ferrous_metals"],
   "comment": "https://fabrique-numerique.gitbook.io/ecobalyse/methodes-transverses/production/procedes-acier-et-aluminium",
   "displayName": "Acier, lingot, mix marché, Europe",
   "elecKwh": 0.0,
@@ -12,17 +9,11 @@
   "metadata": [
     {
       "id": "21a0d5b0-861e-4bed-98a9-46c61d2a0618",
-      "scopes": [
-        "object",
-        "veli"
-      ]
+      "scopes": ["object", "veli"]
     }
   ],
   "qtyVariationRatio": 1,
-  "scopes": [
-    "object",
-    "veli"
-  ],
+  "scopes": ["object", "veli"],
   "source": "Ecobalyse_custom_lci",
   "unit": "kg"
 }

@@ -1,10 +1,6 @@
 {
   "activityName": "Melon, organic 2025, national average, at farm gate {FR} U",
-  "categories": [
-    "ingredient",
-    "material",
-    "material_type:fruits_and_vegetables"
-  ],
+  "categories": ["ingredient", "material", "material_type:fruits_and_vegetables"],
   "displayName": "Pastèque Bio",
   "id": "0ff273ad-f94f-50cf-912c-53e22b8eae3d",
   "location": "FR",
@@ -17,16 +13,10 @@
       "explain": "icv melon",
       "id": "d5aff6c8-470b-457b-bc67-294d8987ee5e",
       "inediblePart": 0.4,
-      "ingredientCategories": [
-        "vegetable_fresh",
-        "organic"
-      ],
+      "ingredientCategories": ["vegetable_fresh", "organic"],
       "ingredientDensity": 0.447,
       "scenario": "organic",
-      "scopes": [
-        "food",
-        "food2"
-      ],
+      "scopes": ["food", "food2"],
       "transportCooling": "always",
       "visible": true
     },
@@ -45,20 +35,14 @@
         "confidence": 1.0,
         "rule": "fruit NOVA 1 default from food_type_inedible_part.csv"
       },
-      "ingredientCategories": [
-        "vegetable_fresh",
-        "organic"
-      ],
+      "ingredientCategories": ["vegetable_fresh", "organic"],
       "ingredientDensity": 0.85,
       "ingredientDensityMatch": {
         "confidence": 1.0,
         "rule": "fruit default from food_type_density.csv"
       },
       "scenario": "organic",
-      "scopes": [
-        "food",
-        "food2"
-      ],
+      "scopes": ["food", "food2"],
       "transportCooling": "always",
       "transportCoolingMatch": {
         "confidence": 1.0,
@@ -81,20 +65,14 @@
         "confidence": 1.0,
         "rule": "fruit NOVA 1 default from food_type_inedible_part.csv"
       },
-      "ingredientCategories": [
-        "vegetable_fresh",
-        "organic"
-      ],
+      "ingredientCategories": ["vegetable_fresh", "organic"],
       "ingredientDensity": 1.0,
       "ingredientDensityMatch": {
         "confidence": 1.0,
         "rule": "watermelon found in density.csv"
       },
       "scenario": "organic",
-      "scopes": [
-        "food",
-        "food2"
-      ],
+      "scopes": ["food", "food2"],
       "transportCooling": "always",
       "transportCoolingMatch": {
         "confidence": 1.0,
@@ -103,9 +81,6 @@
       "visible": true
     }
   ],
-  "scopes": [
-    "food",
-    "food2"
-  ],
+  "scopes": ["food", "food2"],
   "source": "Ginko 2025"
 }

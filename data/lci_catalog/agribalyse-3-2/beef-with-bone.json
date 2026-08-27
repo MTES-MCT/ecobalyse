@@ -1,10 +1,6 @@
 {
   "activityName": "Meat with bone, beef, for direct consumption {FR} U",
-  "categories": [
-    "ingredient",
-    "material",
-    "material_type:red_meats"
-  ],
+  "categories": ["ingredient", "material", "material_type:red_meats"],
   "displayName": "Viande de boeuf avec os (crue) FR",
   "id": "df074caf-ee11-5573-8324-e3acaf92e2ae",
   "metadata": [
@@ -17,22 +13,14 @@
       "displayName": "Viande de boeuf avec os (crue) FR",
       "id": "9db6b0d1-941a-4dda-a347-b7a7fee8fd46",
       "inediblePart": 0.2,
-      "ingredientCategories": [
-        "animal_product"
-      ],
+      "ingredientCategories": ["animal_product"],
       "ingredientDensity": 1.0,
       "scenario": "reference",
-      "scopes": [
-        "food",
-        "food2"
-      ],
+      "scopes": ["food", "food2"],
       "transportCooling": "always",
       "visible": false
     }
   ],
-  "scopes": [
-    "food",
-    "food2"
-  ],
+  "scopes": ["food", "food2"],
   "source": "Agribalyse 3.2"
 }

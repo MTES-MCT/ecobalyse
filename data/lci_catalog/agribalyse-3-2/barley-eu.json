@@ -1,10 +1,6 @@
 {
   "activityName": "Barley grain, non-irrigated, at farm {DE} - Adapted from WFLDB U",
-  "categories": [
-    "ingredient",
-    "material",
-    "material_type:cereals"
-  ],
+  "categories": ["ingredient", "material", "material_type:cereals"],
   "displayName": "Orge UE",
   "id": "c097a91b-0cb8-5e4e-8242-4053f54d9d2b",
   "metadata": [
@@ -15,15 +11,10 @@
       "displayName": "Orge UE (2025)",
       "id": "34a88056-cd23-40e6-8eaa-6a64595fa9b2",
       "inediblePart": 0,
-      "ingredientCategories": [
-        "grain_raw"
-      ],
+      "ingredientCategories": ["grain_raw"],
       "ingredientDensity": 0.72,
       "scenario": "import",
-      "scopes": [
-        "food",
-        "food2"
-      ],
+      "scopes": ["food", "food2"],
       "transportCooling": "none",
       "visible": false
     },
@@ -34,22 +25,14 @@
       "displayName": "Orge par défaut (2025)",
       "id": "de8ef49d-d235-4513-9496-aa8409bdc093",
       "inediblePart": 0,
-      "ingredientCategories": [
-        "grain_raw"
-      ],
+      "ingredientCategories": ["grain_raw"],
       "ingredientDensity": 0.72,
       "scenario": "import",
-      "scopes": [
-        "food",
-        "food2"
-      ],
+      "scopes": ["food", "food2"],
       "transportCooling": "none",
       "visible": true
     }
   ],
-  "scopes": [
-    "food",
-    "food2"
-  ],
+  "scopes": ["food", "food2"],
   "source": "Agribalyse 3.2"
 }

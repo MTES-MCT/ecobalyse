@@ -1,9 +1,6 @@
 {
   "activityName": "EV other materials, RoW",
-  "categories": [
-    "material",
-    "material_type:other"
-  ],
+  "categories": ["material", "material_type:other"],
   "comment": "Selon méthodologie du score environnemental VE",
   "displayName": "Autres matériaux de véhicules électriques, Hors Europe - score environnemental VE",
   "elecKwh": 0.0,
@@ -12,15 +9,11 @@
   "metadata": [
     {
       "id": "94e78ae0-e1f9-4211-8f31-7ce8f1130f1b",
-      "scopes": [
-        "veli"
-      ]
+      "scopes": ["veli"]
     }
   ],
   "qtyVariationRatio": 1,
-  "scopes": [
-    "veli"
-  ],
+  "scopes": ["veli"],
   "source": "Ecobalyse_custom_lci",
   "unit": "kg"
 }

@@ -1,10 +1,6 @@
 {
   "activityName": "Triticale, organic, animal feed, at farm gate {FR} U",
-  "categories": [
-    "ingredient",
-    "material",
-    "material_type:cereals"
-  ],
+  "categories": ["ingredient", "material", "material_type:cereals"],
   "displayName": "Triricale Bio",
   "id": "af46369a-ac48-5f19-8278-ce85106e50e7",
   "metadata": [
@@ -16,23 +12,14 @@
       "explain": "",
       "id": "585c8bb1-1aaa-4c33-a5c1-84c886bb7ec3",
       "inediblePart": 0,
-      "ingredientCategories": [
-        "grain_raw",
-        "organic"
-      ],
+      "ingredientCategories": ["grain_raw", "organic"],
       "ingredientDensity": 0.72,
       "scenario": "organic",
-      "scopes": [
-        "food",
-        "food2"
-      ],
+      "scopes": ["food", "food2"],
       "transportCooling": "none",
       "visible": false
     }
   ],
-  "scopes": [
-    "food",
-    "food2"
-  ],
+  "scopes": ["food", "food2"],
   "source": "Agribalyse 3.2"
 }

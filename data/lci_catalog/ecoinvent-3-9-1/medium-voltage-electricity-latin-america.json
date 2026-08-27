@@ -1,8 +1,6 @@
 {
   "activityName": "electricity, medium voltage//[RLA] market group for electricity, medium voltage",
-  "categories": [
-    "energy"
-  ],
+  "categories": ["energy"],
   "comment": "Ancien identifiant (12/2024): elec-medium-region-latin-america.",
   "displayName": "Électricité moyenne tension, Amérique latine",
   "elecKwh": 0.0,
@@ -11,19 +9,11 @@
   "metadata": [
     {
       "id": "4d399737-0f9c-4e6d-8c05-9b2d7a0574a7",
-      "scopes": [
-        "object",
-        "food2"
-      ]
+      "scopes": ["object", "food2"]
     }
   ],
   "qtyVariationRatio": 1,
-  "scopes": [
-    "textile",
-    "object",
-    "veli",
-    "food2"
-  ],
+  "scopes": ["textile", "object", "veli", "food2"],
   "source": "Ecoinvent 3.9.1",
   "unit": "kWh"
 }

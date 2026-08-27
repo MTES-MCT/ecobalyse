@@ -1,10 +1,6 @@
 {
   "activityName": "Cabbage white, organic 2025 {RoW}| cabbage white production | Cut-off, U",
-  "categories": [
-    "ingredient",
-    "material",
-    "material_type:fruits_and_vegetables"
-  ],
+  "categories": ["ingredient", "material", "material_type:fruits_and_vegetables"],
   "displayName": "Chou blanc Bio",
   "id": "6efd58e4-7ff2-5ab9-9be8-b9d357f65606",
   "location": "RoW",
@@ -16,16 +12,10 @@
       "displayName": "Chou blanc Bio (2025)",
       "id": "2e0fe760-f9a2-4f11-b7d9-b516735644de",
       "inediblePart": 0.2,
-      "ingredientCategories": [
-        "vegetable_fresh",
-        "organic"
-      ],
+      "ingredientCategories": ["vegetable_fresh", "organic"],
       "ingredientDensity": 0.362,
       "scenario": "organic",
-      "scopes": [
-        "food",
-        "food2"
-      ],
+      "scopes": ["food", "food2"],
       "transportCooling": "always",
       "visible": true
     },
@@ -44,20 +34,14 @@
         "confidence": 0.95,
         "rule": "Matched with Cabbage in agb_inedible.csv"
       },
-      "ingredientCategories": [
-        "vegetable_fresh",
-        "organic"
-      ],
+      "ingredientCategories": ["vegetable_fresh", "organic"],
       "ingredientDensity": 0.9,
       "ingredientDensityMatch": {
         "confidence": 0.95,
         "rule": "Matched with cabbage in density.csv"
       },
       "scenario": "organic",
-      "scopes": [
-        "food",
-        "food2"
-      ],
+      "scopes": ["food", "food2"],
       "transportCooling": "always",
       "transportCoolingMatch": {
         "confidence": 1.0,
@@ -66,9 +50,6 @@
       "visible": true
     }
   ],
-  "scopes": [
-    "food",
-    "food2"
-  ],
+  "scopes": ["food", "food2"],
   "source": "Ginko 2025"
 }

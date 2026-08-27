@@ -1,10 +1,6 @@
 {
   "activityName": "Mustard, proxy from Rape seed {Canada without Quebec}| rape seed production | Cut-off, U - Adapted from Ecoinvent U",
-  "categories": [
-    "ingredient",
-    "material",
-    "material_type:other_food_items"
-  ],
+  "categories": ["ingredient", "material", "material_type:other_food_items"],
   "displayName": "Graines de moutarde FR",
   "id": "ec36830b-8a31-5d13-a5c1-072a4428c788",
   "metadata": [
@@ -23,9 +19,7 @@
         "confidence": 0.95,
         "rule": "Matched with mustard in inedible_part.csv"
       },
-      "ingredientCategories": [
-        "spice_condiment_additive"
-      ],
+      "ingredientCategories": ["spice_condiment_additive"],
       "ingredientDensity": 1.0,
       "ingredientDensityMatch": {
         "confidence": 0.95,
@@ -37,10 +31,7 @@
         "rule": "Matched with mustard in cooked_to_raw.csv"
       },
       "scenario": "reference",
-      "scopes": [
-        "food",
-        "food2"
-      ],
+      "scopes": ["food", "food2"],
       "transportCooling": "none",
       "transportCoolingMatch": {
         "confidence": 1.0,
@@ -63,9 +54,7 @@
         "confidence": 0.95,
         "rule": "Matched with mustard in inedible_part.csv"
       },
-      "ingredientCategories": [
-        "spice_condiment_additive"
-      ],
+      "ingredientCategories": ["spice_condiment_additive"],
       "ingredientDensity": 1.0,
       "ingredientDensityMatch": {
         "confidence": 0.95,
@@ -77,10 +66,7 @@
         "rule": "Matched with mustard in cooked_to_raw.csv"
       },
       "scenario": "import",
-      "scopes": [
-        "food",
-        "food2"
-      ],
+      "scopes": ["food", "food2"],
       "transportCooling": "none",
       "transportCoolingMatch": {
         "confidence": 1.0,
@@ -103,9 +89,7 @@
         "confidence": 0.95,
         "rule": "Matched with mustard in inedible_part.csv"
       },
-      "ingredientCategories": [
-        "spice_condiment_additive"
-      ],
+      "ingredientCategories": ["spice_condiment_additive"],
       "ingredientDensity": 1.0,
       "ingredientDensityMatch": {
         "confidence": 0.95,
@@ -117,10 +101,7 @@
         "rule": "Matched with mustard in cooked_to_raw.csv"
       },
       "scenario": "import",
-      "scopes": [
-        "food",
-        "food2"
-      ],
+      "scopes": ["food", "food2"],
       "transportCooling": "none",
       "transportCoolingMatch": {
         "confidence": 1.0,
@@ -143,9 +124,7 @@
         "confidence": 0.95,
         "rule": "Matched with mustard in inedible_part.csv"
       },
-      "ingredientCategories": [
-        "spice_condiment_additive"
-      ],
+      "ingredientCategories": ["spice_condiment_additive"],
       "ingredientDensity": 1.0,
       "ingredientDensityMatch": {
         "confidence": 0.95,
@@ -157,10 +136,7 @@
         "rule": "Matched with mustard in cooked_to_raw.csv"
       },
       "scenario": "import",
-      "scopes": [
-        "food",
-        "food2"
-      ],
+      "scopes": ["food", "food2"],
       "transportCooling": "none",
       "transportCoolingMatch": {
         "confidence": 1.0,
@@ -169,10 +145,7 @@
       "visible": true
     }
   ],
-  "scopes": [
-    "food",
-    "food2"
-  ],
+  "scopes": ["food", "food2"],
   "source": "Agribalyse 3.2",
   "unit": "kg"
 }

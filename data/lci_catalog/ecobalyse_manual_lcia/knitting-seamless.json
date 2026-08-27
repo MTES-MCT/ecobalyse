@@ -1,7 +1,5 @@
 {
-  "categories": [
-    "transformation"
-  ],
+  "categories": ["transformation"],
   "comment": "Ancien identifiant (12/2024): 11648b33-f117-4eca-bb09-233c0ad0757f.",
   "displayName": "Tricotage seamless",
   "elecKwh": 3.6698,
@@ -29,9 +27,7 @@
     "wtu": 0
   },
   "qtyVariationRatio": 0.995,
-  "scopes": [
-    "textile"
-  ],
+  "scopes": ["textile"],
   "source": "Ecobalyse_manual_lcia",
   "unit": "kg"
 }

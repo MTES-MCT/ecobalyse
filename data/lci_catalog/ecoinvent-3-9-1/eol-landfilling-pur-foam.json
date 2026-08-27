@@ -1,9 +1,6 @@
 {
   "activityName": "waste polyurethane//[CH] treatment of waste polyurethane, sanitary landfill",
-  "categories": [
-    "end-of-life",
-    "material_type:pur_foam"
-  ],
+  "categories": ["end-of-life", "material_type:pur_foam"],
   "comment": "",
   "displayName": "Enfouissement de mousse PUR",
   "elecKwh": 0.0,
@@ -12,17 +9,11 @@
   "metadata": [
     {
       "id": "6194fdb0-0b67-4101-8d6a-1e55924b7462",
-      "scopes": [
-        "object",
-        "veli"
-      ]
+      "scopes": ["object", "veli"]
     }
   ],
   "qtyVariationRatio": 1,
-  "scopes": [
-    "object",
-    "veli"
-  ],
+  "scopes": ["object", "veli"],
   "source": "Ecoinvent 3.9.1",
   "unit": "kg"
 }

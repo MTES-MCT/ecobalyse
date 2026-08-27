@@ -1,10 +1,6 @@
 {
   "activityName": "Alfalfa, hay, organic, animal feed, at farm gate {FR} U",
-  "categories": [
-    "ingredient",
-    "material",
-    "material_type:cereals"
-  ],
+  "categories": ["ingredient", "material", "material_type:cereals"],
   "displayName": "Luzerne Bio (2025)",
   "id": "38e5aebd-b15c-5724-90bc-3cf114d103f2",
   "metadata": [
@@ -15,23 +11,14 @@
       "displayName": "Luzerne Bio (2025)",
       "id": "fd187fa6-9cbc-4839-b13f-365c5371cee6",
       "inediblePart": 0,
-      "ingredientCategories": [
-        "grain_raw",
-        "organic"
-      ],
+      "ingredientCategories": ["grain_raw", "organic"],
       "ingredientDensity": 0.72,
       "scenario": "organic",
-      "scopes": [
-        "food",
-        "food2"
-      ],
+      "scopes": ["food", "food2"],
       "transportCooling": "none",
       "visible": false
     }
   ],
-  "scopes": [
-    "food",
-    "food2"
-  ],
+  "scopes": ["food", "food2"],
   "source": "Agribalyse 3.2"
 }

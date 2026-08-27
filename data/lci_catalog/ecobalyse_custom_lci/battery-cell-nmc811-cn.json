@@ -1,9 +1,6 @@
 {
   "activityName": "Battery cell production, NMC811, CN",
-  "categories": [
-    "material",
-    "material_type:battery_cell"
-  ],
+  "categories": ["material", "material_type:battery_cell"],
   "comment": "For 1kg cell. Based on GREET model (average of available battery size)",
   "displayName": "Cellule de batterie, NMC811, Chine",
   "elecKwh": 0.0,
@@ -12,15 +9,11 @@
   "metadata": [
     {
       "id": "402dc798-bcd8-47be-803a-2a93c5db1040",
-      "scopes": [
-        "veli"
-      ]
+      "scopes": ["veli"]
     }
   ],
   "qtyVariationRatio": 1,
-  "scopes": [
-    "veli"
-  ],
+  "scopes": ["veli"],
   "source": "Ecobalyse_custom_lci",
   "unit": "kg"
 }

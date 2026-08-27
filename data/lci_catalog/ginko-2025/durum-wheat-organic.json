@@ -1,10 +1,6 @@
 {
   "activityName": "Durum wheat grain, at farm, organic 2025 {GLO}",
-  "categories": [
-    "ingredient",
-    "material",
-    "material_type:cereals"
-  ],
+  "categories": ["ingredient", "material", "material_type:cereals"],
   "displayName": "Blé dur Bio",
   "id": "4214f67c-efb1-55cc-8d49-c67db79c9abc",
   "location": "GLO",
@@ -24,20 +20,14 @@
         "confidence": 1.0,
         "rule": "grain NOVA 1 default from food_type_inedible_part.csv"
       },
-      "ingredientCategories": [
-        "grain_raw",
-        "organic"
-      ],
+      "ingredientCategories": ["grain_raw", "organic"],
       "ingredientDensity": 0.77,
       "ingredientDensityMatch": {
         "confidence": 0.95,
         "rule": "Matched with Wheat in fao_density.csv"
       },
       "scenario": "organic",
-      "scopes": [
-        "food",
-        "food2"
-      ],
+      "scopes": ["food", "food2"],
       "transportCooling": "none",
       "transportCoolingMatch": {
         "confidence": 1.0,
@@ -46,10 +36,7 @@
       "visible": true
     }
   ],
-  "scopes": [
-    "food",
-    "food2"
-  ],
+  "scopes": ["food", "food2"],
   "source": "Ginko 2025",
   "unit": "kg"
 }

@@ -1,8 +1,6 @@
 {
   "activityName": "electricity, medium voltage//[IT] market for electricity, medium voltage",
-  "categories": [
-    "energy"
-  ],
+  "categories": ["energy"],
   "comment": "Ancien identifiant (12/2024): ae9240745e54987338d2228c3be2a5ec.",
   "displayName": "Électricité moyenne tension, Italie",
   "elecKwh": 0.0,
@@ -11,19 +9,11 @@
   "metadata": [
     {
       "id": "f400e7b3-70d3-4ff0-80fb-d93b6bc1c4e9",
-      "scopes": [
-        "object",
-        "food2"
-      ]
+      "scopes": ["object", "food2"]
     }
   ],
   "qtyVariationRatio": 1,
-  "scopes": [
-    "textile",
-    "object",
-    "veli",
-    "food2"
-  ],
+  "scopes": ["textile", "object", "veli", "food2"],
   "source": "Ecoinvent 3.9.1",
   "unit": "kWh"
 }

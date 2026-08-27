@@ -1,10 +1,6 @@
 {
   "activityName": "Onion, at farm (WFLDB)",
-  "categories": [
-    "ingredient",
-    "material",
-    "material_type:fruits_and_vegetables"
-  ],
+  "categories": ["ingredient", "material", "material_type:fruits_and_vegetables"],
   "displayName": "Ciboulette Origine Inconnue",
   "id": "80975666-2ccb-59a7-94ff-6325760324f9",
   "location": "NZ",
@@ -24,19 +20,14 @@
         "confidence": 1.0,
         "rule": "vegetable NOVA 1 default from food_type_inedible_part.csv"
       },
-      "ingredientCategories": [
-        "vegetable_fresh"
-      ],
+      "ingredientCategories": ["vegetable_fresh"],
       "ingredientDensity": 0.9,
       "ingredientDensityMatch": {
         "confidence": 1.0,
         "rule": "vegetable default from food_type_density.csv"
       },
       "scenario": "import",
-      "scopes": [
-        "food",
-        "food2"
-      ],
+      "scopes": ["food", "food2"],
       "transportCooling": "always",
       "transportCoolingMatch": {
         "confidence": 1.0,
@@ -59,19 +50,14 @@
         "confidence": 1.0,
         "rule": "Matched with Onions in agb_inedible.csv"
       },
-      "ingredientCategories": [
-        "vegetable_fresh"
-      ],
+      "ingredientCategories": ["vegetable_fresh"],
       "ingredientDensity": 1.0,
       "ingredientDensityMatch": {
         "confidence": 0.95,
         "rule": "Matched with onion in density.csv"
       },
       "scenario": "import",
-      "scopes": [
-        "food",
-        "food2"
-      ],
+      "scopes": ["food", "food2"],
       "transportCooling": "always",
       "transportCoolingMatch": {
         "confidence": 1.0,
@@ -94,19 +80,14 @@
         "confidence": 0.95,
         "rule": "Matched with Shallot in agb_inedible.csv"
       },
-      "ingredientCategories": [
-        "vegetable_fresh"
-      ],
+      "ingredientCategories": ["vegetable_fresh"],
       "ingredientDensity": 0.9,
       "ingredientDensityMatch": {
         "confidence": 1.0,
         "rule": "vegetable default from food_type_density.csv"
       },
       "scenario": "import",
-      "scopes": [
-        "food",
-        "food2"
-      ],
+      "scopes": ["food", "food2"],
       "transportCooling": "always",
       "transportCoolingMatch": {
         "confidence": 1.0,
@@ -115,10 +96,7 @@
       "visible": true
     }
   ],
-  "scopes": [
-    "food",
-    "food2"
-  ],
+  "scopes": ["food", "food2"],
   "source": "WFLDB",
   "unit": "kg"
 }

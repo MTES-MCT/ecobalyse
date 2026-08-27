@@ -1,8 +1,6 @@
 {
   "activityName": "Délavage chimique, procédé majorant, traitement inefficace des eaux usées",
-  "categories": [
-    "transformation"
-  ],
+  "categories": ["transformation"],
   "comment": "Données provenant de Base Impacts 2.01. Ancien identifiant (12/2024): 49adf2a8-c74f-46af-b4c7-e1a8e1f5a6cb.",
   "displayName": "Délavage chimique, procédé majorant, traitement inefficace des eaux usées",
   "elecKwh": 1.8139,
@@ -30,9 +28,7 @@
     "wtu": 0
   },
   "qtyVariationRatio": 1,
-  "scopes": [
-    "textile"
-  ],
+  "scopes": ["textile"],
   "source": "Ecobalyse_manual_lcia",
   "unit": "kg"
 }

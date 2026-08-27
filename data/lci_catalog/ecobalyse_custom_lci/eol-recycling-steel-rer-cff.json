@@ -1,9 +1,6 @@
 {
   "activityName": "steel EoL recycling, RER, CFF",
-  "categories": [
-    "end-of-life",
-    "material_type:ferrous_metals"
-  ],
+  "categories": ["end-of-life", "material_type:ferrous_metals"],
   "comment": "According to CFF: A=0.2, Q=1",
   "displayName": "Recyclage de l'acier, CFF",
   "elecKwh": 0.0,
@@ -12,17 +9,11 @@
   "metadata": [
     {
       "id": "51801e91-d907-4297-9a4c-5691bbbb665b",
-      "scopes": [
-        "object",
-        "veli"
-      ]
+      "scopes": ["object", "veli"]
     }
   ],
   "qtyVariationRatio": 1,
-  "scopes": [
-    "object",
-    "veli"
-  ],
+  "scopes": ["object", "veli"],
   "source": "Ecobalyse_custom_lci",
   "unit": "kg"
 }

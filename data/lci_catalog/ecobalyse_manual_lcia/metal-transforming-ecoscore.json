@@ -33,15 +33,11 @@
   "metadata": [
     {
       "id": "e482a49b-1d31-4776-904d-5dd65009d4b4",
-      "scopes": [
-        "veli"
-      ]
+      "scopes": ["veli"]
     }
   ],
   "qtyVariationRatio": 0.7,
-  "scopes": [
-    "veli"
-  ],
+  "scopes": ["veli"],
   "source": "Ecobalyse_manual_lcia",
   "unit": "kg"
 }

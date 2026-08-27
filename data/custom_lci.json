@@ -9383,50 +9383,35 @@
       "exchanges": [
         {
           "amount": 0.414084521,
-          "categories": [
-            "natural resource",
-            "in water"
-          ],
+          "categories": ["natural resource", "in water"],
           "code": "8c75e7ab-8ab8-41e4-b394-c166ff5b050d",
           "database": "biosphere3",
           "name": "Water, river"
         },
         {
           "amount": 0.326276371,
-          "categories": [
-            "natural resource",
-            "in water"
-          ],
+          "categories": ["natural resource", "in water"],
           "code": "5fc1446cca51f2043ed2359424f865dc",
           "database": "biosphere3",
           "name": "Water, well"
         },
         {
           "amount": 351.6662171,
-          "categories": [
-            "air",
-            "low population density, long-term"
-          ],
+          "categories": ["air", "low population density, long-term"],
           "database": "biosphere3",
           "name": "Water",
           "unit": "kilogram"
         },
         {
           "amount": 310.995,
-          "categories": [
-            "water",
-            "ground-"
-          ],
+          "categories": ["water", "ground-"],
           "database": "biosphere3",
           "name": "Water",
           "unit": "kilogram"
         },
         {
           "amount": 77.74893,
-          "categories": [
-            "water",
-            "surface water"
-          ],
+          "categories": ["water", "surface water"],
           "database": "biosphere3",
           "name": "Water",
           "unit": "kilogram"

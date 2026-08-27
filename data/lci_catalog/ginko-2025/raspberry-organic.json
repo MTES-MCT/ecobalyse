@@ -1,10 +1,6 @@
 {
   "activityName": "Raspberry, at farm, organic 2025 {RS}",
-  "categories": [
-    "ingredient",
-    "material",
-    "material_type:fruits_and_vegetables"
-  ],
+  "categories": ["ingredient", "material", "material_type:fruits_and_vegetables"],
   "displayName": "Framboise Bio",
   "id": "3bd75842-f9d9-55d8-8506-e6ea53be8495",
   "location": "RS",
@@ -17,16 +13,10 @@
       "explain": "icv bio = icv RS Gingko",
       "id": "091cda9d-3c9d-444c-ad0e-1d6f34491767",
       "inediblePart": 0.03,
-      "ingredientCategories": [
-        "vegetable_fresh",
-        "organic"
-      ],
+      "ingredientCategories": ["vegetable_fresh", "organic"],
       "ingredientDensity": 0.447,
       "scenario": "organic",
-      "scopes": [
-        "food",
-        "food2"
-      ],
+      "scopes": ["food", "food2"],
       "transportCooling": "always",
       "visible": true
     },
@@ -45,20 +35,14 @@
         "confidence": 0.95,
         "rule": "Matched with Raspberries in agb_inedible.csv"
       },
-      "ingredientCategories": [
-        "vegetable_fresh",
-        "organic"
-      ],
+      "ingredientCategories": ["vegetable_fresh", "organic"],
       "ingredientDensity": 0.9,
       "ingredientDensityMatch": {
         "confidence": 1.0,
         "rule": "raspberry found in density.csv"
       },
       "scenario": "organic",
-      "scopes": [
-        "food",
-        "food2"
-      ],
+      "scopes": ["food", "food2"],
       "transportCooling": "always",
       "transportCoolingMatch": {
         "confidence": 1.0,
@@ -67,9 +51,6 @@
       "visible": true
     }
   ],
-  "scopes": [
-    "food",
-    "food2"
-  ],
+  "scopes": ["food", "food2"],
   "source": "Ginko 2025"
 }

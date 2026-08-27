@@ -1,8 +1,5 @@
 {
-  "categories": [
-    "transformation",
-    "material_type:organic_fibers"
-  ],
+  "categories": ["transformation", "material_type:organic_fibers"],
   "comment": "corr3 (cf doc): valeurs issues du rapport BAT2023 avec majoration de 50%",
   "displayName": "Dégraissage",
   "elecKwh": 0.3,
@@ -32,16 +29,11 @@
   "metadata": [
     {
       "id": "a0a09e18-0d70-46ee-b7d8-705bf6268aa4",
-      "scopes": [
-        "object"
-      ]
+      "scopes": ["object"]
     }
   ],
   "qtyVariationRatio": 1,
-  "scopes": [
-    "object",
-    "textile"
-  ],
+  "scopes": ["object", "textile"],
   "source": "Ecobalyse_manual_lcia",
   "unit": "kg"
 }

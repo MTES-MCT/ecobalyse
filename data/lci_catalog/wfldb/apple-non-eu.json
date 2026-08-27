@@ -1,10 +1,6 @@
 {
   "activityName": "Apple, at farm (WFLDB)",
-  "categories": [
-    "ingredient",
-    "material",
-    "material_type:fruits_and_vegetables"
-  ],
+  "categories": ["ingredient", "material", "material_type:fruits_and_vegetables"],
   "displayName": "Pomme par défaut",
   "id": "75a76ed9-ad03-5269-a6f5-0fb86ce1073f",
   "location": "CN",
@@ -16,15 +12,10 @@
       "displayName": "Pomme par défaut (2025)",
       "id": "8c2299d6-49e4-493c-bafe-c0b4b7ef2079",
       "inediblePart": 0.1,
-      "ingredientCategories": [
-        "vegetable_fresh"
-      ],
+      "ingredientCategories": ["vegetable_fresh"],
       "ingredientDensity": 0.447,
       "scenario": "import",
-      "scopes": [
-        "food",
-        "food2"
-      ],
+      "scopes": ["food", "food2"],
       "transportCooling": "always",
       "visible": true
     },
@@ -43,19 +34,14 @@
         "confidence": 1.0,
         "rule": "Matched with Apple in agb_inedible.csv"
       },
-      "ingredientCategories": [
-        "vegetable_fresh"
-      ],
+      "ingredientCategories": ["vegetable_fresh"],
       "ingredientDensity": 0.9,
       "ingredientDensityMatch": {
         "confidence": 1.0,
         "rule": "apple found in density.csv"
       },
       "scenario": "import",
-      "scopes": [
-        "food",
-        "food2"
-      ],
+      "scopes": ["food", "food2"],
       "transportCooling": "always",
       "transportCoolingMatch": {
         "confidence": 1.0,
@@ -78,19 +64,14 @@
         "confidence": 1.0,
         "rule": "fruit NOVA 1 default from food_type_inedible_part.csv"
       },
-      "ingredientCategories": [
-        "vegetable_fresh"
-      ],
+      "ingredientCategories": ["vegetable_fresh"],
       "ingredientDensity": 0.85,
       "ingredientDensityMatch": {
         "confidence": 1.0,
         "rule": "fruit default from food_type_density.csv"
       },
       "scenario": "import",
-      "scopes": [
-        "food",
-        "food2"
-      ],
+      "scopes": ["food", "food2"],
       "transportCooling": "always",
       "transportCoolingMatch": {
         "confidence": 1.0,
@@ -99,9 +80,6 @@
       "visible": true
     }
   ],
-  "scopes": [
-    "food",
-    "food2"
-  ],
+  "scopes": ["food", "food2"],
   "source": "WFLDB"
 }

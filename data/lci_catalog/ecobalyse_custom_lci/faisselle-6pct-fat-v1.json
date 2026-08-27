@@ -1,10 +1,6 @@
 {
   "activityName": "Faisselle, 6pct fat, variant 1, CMAPS {GLO} U",
-  "categories": [
-    "ingredient",
-    "material",
-    "material_type:other_food_items"
-  ],
+  "categories": ["ingredient", "material", "material_type:other_food_items"],
   "displayName": "Faisselle, 6% MG environ FR",
   "id": "118517cd-2059-4d2d-8a07-10f75721f92e",
   "metadata": [
@@ -14,23 +10,15 @@
       "displayName": "Faisselle, 6% MG environ FR",
       "id": "0847b2c6-7fb6-49f2-9f25-1c0492f43407",
       "inediblePart": 0,
-      "ingredientCategories": [
-        "dairy_product"
-      ],
+      "ingredientCategories": ["dairy_product"],
       "ingredientDensity": 1,
       "rawToCookedRatio": 1,
       "scenario": "reference",
-      "scopes": [
-        "food",
-        "food2"
-      ],
+      "scopes": ["food", "food2"],
       "transportCooling": "always",
       "visible": true
     }
   ],
-  "scopes": [
-    "food",
-    "food2"
-  ],
+  "scopes": ["food", "food2"],
   "source": "Ecobalyse_custom_lci"
 }

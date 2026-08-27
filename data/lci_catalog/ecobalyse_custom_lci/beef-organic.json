@@ -1,10 +1,6 @@
 {
   "activityName": "Live beef, for direct consumption, consumption mix {FR} U {{beef-with-bone-organic-2025}}",
-  "categories": [
-    "ingredient",
-    "material",
-    "material_type:red_meats"
-  ],
+  "categories": ["ingredient", "material", "material_type:red_meats"],
   "displayName": "Boeuf Bio",
   "id": "b89c1ad9-ab9a-5c2d-a258-5a53c15be4cd",
   "metadata": [
@@ -21,20 +17,14 @@
         "confidence": 1.0,
         "rule": "meat NOVA 1 default from food_type_inedible_part.csv"
       },
-      "ingredientCategories": [
-        "animal_product",
-        "organic"
-      ],
+      "ingredientCategories": ["animal_product", "organic"],
       "ingredientDensity": 1.05,
       "ingredientDensityMatch": {
         "confidence": 1.0,
         "rule": "beef found in density.csv"
       },
       "scenario": "organic",
-      "scopes": [
-        "food",
-        "food2"
-      ],
+      "scopes": ["food", "food2"],
       "transportCooling": "always",
       "transportCoolingMatch": {
         "confidence": 1.0,
@@ -43,10 +33,7 @@
       "visible": false
     }
   ],
-  "scopes": [
-    "food",
-    "food2"
-  ],
+  "scopes": ["food", "food2"],
   "source": "Ecobalyse_custom_lci",
   "unit": "kg"
 }

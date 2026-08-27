@@ -1,10 +1,6 @@
 {
   "activityName": "Pasta, dried, from durum wheat, at plant, from GLO wheat and IT elec",
-  "categories": [
-    "ingredient",
-    "material",
-    "material_type:cereals"
-  ],
+  "categories": ["ingredient", "material", "material_type:cereals"],
   "displayName": "Pâtes IT (blé GLO + élec IT)",
   "id": "62daf7e7-0f77-50f7-a81b-891823b336de",
   "metadata": [
@@ -16,22 +12,14 @@
       "explain": "Pâtes avec blé GLO et transformation élec IT",
       "id": "c210f2f2-0188-4f30-bdb0-5703ae460117",
       "inediblePart": 0.2,
-      "ingredientCategories": [
-        "grain_processed"
-      ],
+      "ingredientCategories": ["grain_processed"],
       "ingredientDensity": 0.72,
       "scenario": "import",
-      "scopes": [
-        "food",
-        "food2"
-      ],
+      "scopes": ["food", "food2"],
       "transportCooling": "none",
       "visible": true
     }
   ],
-  "scopes": [
-    "food",
-    "food2"
-  ],
+  "scopes": ["food", "food2"],
   "source": "Ecobalyse_custom_lci"
 }

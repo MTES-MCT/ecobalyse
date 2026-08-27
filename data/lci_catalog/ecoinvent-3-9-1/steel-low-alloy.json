@@ -1,9 +1,6 @@
 {
   "activityName": "steel, low-alloyed//[GLO] market for steel, low-alloyed",
-  "categories": [
-    "material",
-    "material_type:ferrous_metals"
-  ],
+  "categories": ["material", "material_type:ferrous_metals"],
   "comment": "",
   "displayName": "Acier, faiblement allié",
   "elecKwh": 0.0,
@@ -12,15 +9,11 @@
   "metadata": [
     {
       "id": "49d20845-6677-49c1-b003-d5a5643f8dab",
-      "scopes": [
-        "textile"
-      ]
+      "scopes": ["textile"]
     }
   ],
   "qtyVariationRatio": 1,
-  "scopes": [
-    "textile"
-  ],
+  "scopes": ["textile"],
   "source": "Ecoinvent 3.9.1",
   "unit": "kg"
 }

@@ -1,10 +1,6 @@
 {
   "activityName": "Hazelnut, in shell, at farm, organic 2025 {IT}",
-  "categories": [
-    "ingredient",
-    "material",
-    "material_type:other_food_items"
-  ],
+  "categories": ["ingredient", "material", "material_type:other_food_items"],
   "displayName": "Noisette avec coque Bio",
   "id": "21bfc885-e198-5fd7-844c-ec386f73cd45",
   "location": "IT",
@@ -17,17 +13,11 @@
       "explain": "icv ue = icv IT",
       "id": "df64fdd7-1900-402c-86b9-e766e22c27ed",
       "inediblePart": 0.5,
-      "ingredientCategories": [
-        "nut_oilseed_raw",
-        "organic"
-      ],
+      "ingredientCategories": ["nut_oilseed_raw", "organic"],
       "ingredientDensity": 0.72,
       "rawToCookedRatio": 1.0,
       "scenario": "organic",
-      "scopes": [
-        "food",
-        "food2"
-      ],
+      "scopes": ["food", "food2"],
       "transportCooling": "none",
       "visible": true
     },
@@ -46,10 +36,7 @@
         "confidence": 1.0,
         "rule": "with shell keyword found in Hazelnuts, in shell"
       },
-      "ingredientCategories": [
-        "nut_oilseed_raw",
-        "organic"
-      ],
+      "ingredientCategories": ["nut_oilseed_raw", "organic"],
       "ingredientDensity": 0.55,
       "ingredientDensityMatch": {
         "confidence": 0.95,
@@ -61,10 +48,7 @@
         "rule": "Matched with hazelnut in cooked_to_raw.csv"
       },
       "scenario": "organic",
-      "scopes": [
-        "food",
-        "food2"
-      ],
+      "scopes": ["food", "food2"],
       "transportCooling": "none",
       "transportCoolingMatch": {
         "confidence": 1.0,
@@ -73,9 +57,6 @@
       "visible": true
     }
   ],
-  "scopes": [
-    "food",
-    "food2"
-  ],
+  "scopes": ["food", "food2"],
   "source": "Ginko 2025"
 }

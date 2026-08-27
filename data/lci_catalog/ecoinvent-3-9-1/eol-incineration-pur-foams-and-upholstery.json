@@ -1,9 +1,6 @@
 {
   "activityName": "waste polyurethane//[CH] treatment of waste polyurethane, municipal incineration",
-  "categories": [
-    "end-of-life",
-    "material_type:pur_foam"
-  ],
+  "categories": ["end-of-life", "material_type:pur_foam"],
   "comment": "",
   "displayName": "Incinération des mousses et rembourrés PUR",
   "elecKwh": 0.0,
@@ -12,17 +9,11 @@
   "metadata": [
     {
       "id": "04c1e26f-bc40-4dff-950a-51ca54d5ad16",
-      "scopes": [
-        "object",
-        "veli"
-      ]
+      "scopes": ["object", "veli"]
     }
   ],
   "qtyVariationRatio": 1,
-  "scopes": [
-    "object",
-    "veli"
-  ],
+  "scopes": ["object", "veli"],
   "source": "Ecoinvent 3.9.1",
   "unit": "kg"
 }

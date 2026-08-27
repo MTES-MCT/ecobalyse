@@ -1,10 +1,6 @@
 {
   "activityName": "Lemon {ES}| lemon production | Cut-off, U - Adapted from Ecoinvent U",
-  "categories": [
-    "ingredient",
-    "material",
-    "material_type:fruits_and_vegetables"
-  ],
+  "categories": ["ingredient", "material", "material_type:fruits_and_vegetables"],
   "displayName": "Citron UE",
   "id": "43389eb0-7495-5b8c-9e1d-effb41a5b82d",
   "metadata": [
@@ -23,19 +19,14 @@
         "confidence": 1.0,
         "rule": "Matched with Lemon in agb_inedible.csv"
       },
-      "ingredientCategories": [
-        "vegetable_fresh"
-      ],
+      "ingredientCategories": ["vegetable_fresh"],
       "ingredientDensity": 1.0,
       "ingredientDensityMatch": {
         "confidence": 1.0,
         "rule": "lemon found in density.csv"
       },
       "scenario": "reference",
-      "scopes": [
-        "food",
-        "food2"
-      ],
+      "scopes": ["food", "food2"],
       "transportCooling": "always",
       "transportCoolingMatch": {
         "confidence": 1.0,
@@ -51,15 +42,10 @@
       "explain": "ICV UE = icv ES",
       "id": "6ece5452-42de-4e0a-8c70-1d305e614cc8",
       "inediblePart": 0.3,
-      "ingredientCategories": [
-        "vegetable_fresh"
-      ],
+      "ingredientCategories": ["vegetable_fresh"],
       "ingredientDensity": 0.575,
       "scenario": "import",
-      "scopes": [
-        "food",
-        "food2"
-      ],
+      "scopes": ["food", "food2"],
       "transportCooling": "always",
       "visible": true
     },
@@ -78,19 +64,14 @@
         "confidence": 1.0,
         "rule": "Matched with Lemon in agb_inedible.csv"
       },
-      "ingredientCategories": [
-        "vegetable_fresh"
-      ],
+      "ingredientCategories": ["vegetable_fresh"],
       "ingredientDensity": 1.0,
       "ingredientDensityMatch": {
         "confidence": 1.0,
         "rule": "lemon found in density.csv"
       },
       "scenario": "import",
-      "scopes": [
-        "food",
-        "food2"
-      ],
+      "scopes": ["food", "food2"],
       "transportCooling": "always",
       "transportCoolingMatch": {
         "confidence": 1.0,
@@ -99,9 +80,6 @@
       "visible": true
     }
   ],
-  "scopes": [
-    "food",
-    "food2"
-  ],
+  "scopes": ["food", "food2"],
   "source": "Agribalyse 3.2"
 }

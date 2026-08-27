@@ -1,10 +1,6 @@
 {
   "activityName": "Live broiler, for direct consumption, consumption mix {FR} U {{chicken-breast-organic-2025}} {{chicken-breast-fr-organic-2025}}",
-  "categories": [
-    "ingredient",
-    "material",
-    "material_type:poultry"
-  ],
+  "categories": ["ingredient", "material", "material_type:poultry"],
   "displayName": "Poulet Bio",
   "id": "e409257e-dc33-528c-9c44-c70b7811a67b",
   "metadata": [
@@ -26,20 +22,14 @@
         "confidence": 1.0,
         "rule": "meat NOVA 1 default from food_type_inedible_part.csv"
       },
-      "ingredientCategories": [
-        "animal_product",
-        "organic"
-      ],
+      "ingredientCategories": ["animal_product", "organic"],
       "ingredientDensity": 1.05,
       "ingredientDensityMatch": {
         "confidence": 1.0,
         "rule": "meat default from food_type_density.csv"
       },
       "scenario": "organic",
-      "scopes": [
-        "food",
-        "food2"
-      ],
+      "scopes": ["food", "food2"],
       "transportCooling": "always",
       "transportCoolingMatch": {
         "confidence": 1.0,
@@ -60,20 +50,14 @@
         "confidence": 1.0,
         "rule": "meat NOVA 1 default from food_type_inedible_part.csv"
       },
-      "ingredientCategories": [
-        "animal_product",
-        "organic"
-      ],
+      "ingredientCategories": ["animal_product", "organic"],
       "ingredientDensity": 1.05,
       "ingredientDensityMatch": {
         "confidence": 1.0,
         "rule": "meat default from food_type_density.csv"
       },
       "scenario": "organic",
-      "scopes": [
-        "food",
-        "food2"
-      ],
+      "scopes": ["food", "food2"],
       "transportCooling": "always",
       "transportCoolingMatch": {
         "confidence": 1.0,
@@ -94,20 +78,14 @@
         "confidence": 1.0,
         "rule": "meat NOVA 1 default from food_type_inedible_part.csv"
       },
-      "ingredientCategories": [
-        "animal_product",
-        "organic"
-      ],
+      "ingredientCategories": ["animal_product", "organic"],
       "ingredientDensity": 1.0,
       "ingredientDensityMatch": {
         "confidence": 1.0,
         "rule": "rabbit found in density.csv"
       },
       "scenario": "organic",
-      "scopes": [
-        "food",
-        "food2"
-      ],
+      "scopes": ["food", "food2"],
       "transportCooling": "always",
       "transportCoolingMatch": {
         "confidence": 1.0,
@@ -116,10 +94,7 @@
       "visible": false
     }
   ],
-  "scopes": [
-    "food",
-    "food2"
-  ],
+  "scopes": ["food", "food2"],
   "source": "Ecobalyse_custom_lci",
   "unit": "kg"
 }

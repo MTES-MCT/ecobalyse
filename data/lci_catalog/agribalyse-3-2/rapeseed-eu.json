@@ -1,10 +1,6 @@
 {
   "activityName": "Rapeseed, at farm {GLO} - Adapted from WFLDB U",
-  "categories": [
-    "ingredient",
-    "material",
-    "material_type:other_food_items"
-  ],
+  "categories": ["ingredient", "material", "material_type:other_food_items"],
   "displayName": "Colza UE",
   "id": "37bf23d8-2c84-5aee-8715-8b38424ce44f",
   "metadata": [
@@ -16,16 +12,11 @@
       "explain": "icv UE = icv Glo",
       "id": "33e9d781-cdd1-4a9b-a6b6-18ee8855c996",
       "inediblePart": 0,
-      "ingredientCategories": [
-        "nut_oilseed_raw"
-      ],
+      "ingredientCategories": ["nut_oilseed_raw"],
       "ingredientDensity": 0.72,
       "rawToCookedRatio": 1.0,
       "scenario": "import",
-      "scopes": [
-        "food",
-        "food2"
-      ],
+      "scopes": ["food", "food2"],
       "transportCooling": "none",
       "visible": false
     },
@@ -44,9 +35,7 @@
         "confidence": 1.0,
         "rule": "nut_oilseed NOVA 1 default from food_type_inedible_part.csv"
       },
-      "ingredientCategories": [
-        "nut_oilseed_raw"
-      ],
+      "ingredientCategories": ["nut_oilseed_raw"],
       "ingredientDensity": 0.77,
       "ingredientDensityMatch": {
         "confidence": 1.0,
@@ -58,10 +47,7 @@
         "rule": "Matched with rapeseed in cooked_to_raw.csv"
       },
       "scenario": "import",
-      "scopes": [
-        "food",
-        "food2"
-      ],
+      "scopes": ["food", "food2"],
       "transportCooling": "none",
       "transportCoolingMatch": {
         "confidence": 1.0,
@@ -84,9 +70,7 @@
         "confidence": 1.0,
         "rule": "nut_oilseed NOVA 1 default from food_type_inedible_part.csv"
       },
-      "ingredientCategories": [
-        "nut_oilseed_raw"
-      ],
+      "ingredientCategories": ["nut_oilseed_raw"],
       "ingredientDensity": 0.77,
       "ingredientDensityMatch": {
         "confidence": 1.0,
@@ -98,10 +82,7 @@
         "rule": "Matched with rapeseed in cooked_to_raw.csv"
       },
       "scenario": "import",
-      "scopes": [
-        "food",
-        "food2"
-      ],
+      "scopes": ["food", "food2"],
       "transportCooling": "none",
       "transportCoolingMatch": {
         "confidence": 1.0,
@@ -110,9 +91,6 @@
       "visible": true
     }
   ],
-  "scopes": [
-    "food",
-    "food2"
-  ],
+  "scopes": ["food", "food2"],
   "source": "Agribalyse 3.2"
 }

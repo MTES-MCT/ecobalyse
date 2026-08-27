@@ -1,10 +1,6 @@
 {
   "activityName": "Tea, dried {CN}| tea production, dried | Cut-off, U",
-  "categories": [
-    "ingredient",
-    "material",
-    "material_type:other_food_items"
-  ],
+  "categories": ["ingredient", "material", "material_type:other_food_items"],
   "displayName": "Thé, feuilles séchées Origine Inconnue",
   "id": "d97f0811-5279-53fc-961a-4992626e8077",
   "location": "CN",
@@ -24,9 +20,7 @@
         "confidence": 1.0,
         "rule": "beverage NOVA 1 default from food_type_inedible_part.csv"
       },
-      "ingredientCategories": [
-        "misc"
-      ],
+      "ingredientCategories": ["misc"],
       "ingredientDensity": 0.9,
       "ingredientDensityMatch": {
         "confidence": 1.0,
@@ -38,10 +32,7 @@
         "rule": "beverage default from food_type_cooked_to_raw.csv"
       },
       "scenario": "import",
-      "scopes": [
-        "food",
-        "food2"
-      ],
+      "scopes": ["food", "food2"],
       "transportCooling": "none",
       "transportCoolingMatch": {
         "confidence": 1.0,
@@ -50,10 +41,7 @@
       "visible": true
     }
   ],
-  "scopes": [
-    "food",
-    "food2"
-  ],
+  "scopes": ["food", "food2"],
   "source": "Ecoinvent 3.11",
   "unit": "kg"
 }

@@ -1,10 +1,6 @@
 {
   "activityName": "Egg, organic, at farm gate {FR} U",
-  "categories": [
-    "ingredient",
-    "material",
-    "material_type:eggs"
-  ],
+  "categories": ["ingredient", "material", "material_type:eggs"],
   "displayName": "Oeuf Bio",
   "id": "443b5511-8714-51c5-9ded-c428a27c08d0",
   "location": "FR",
@@ -18,16 +14,10 @@
       "displayName": "Oeuf Bio (2025)",
       "id": "cfd4a437-aa49-49ff-818e-353421f2fc09",
       "inediblePart": 0.2,
-      "ingredientCategories": [
-        "animal_product",
-        "organic"
-      ],
+      "ingredientCategories": ["animal_product", "organic"],
       "ingredientDensity": 1.0,
       "scenario": "organic",
-      "scopes": [
-        "food",
-        "food2"
-      ],
+      "scopes": ["food", "food2"],
       "transportCooling": "none",
       "visible": true
     },
@@ -44,20 +34,14 @@
         "confidence": 1.0,
         "rule": "Matched with Egg in agb_inedible.csv"
       },
-      "ingredientCategories": [
-        "animal_product",
-        "organic"
-      ],
+      "ingredientCategories": ["animal_product", "organic"],
       "ingredientDensity": 1.0,
       "ingredientDensityMatch": {
         "confidence": 1.0,
         "rule": "egg found in density.csv"
       },
       "scenario": "organic",
-      "scopes": [
-        "food",
-        "food2"
-      ],
+      "scopes": ["food", "food2"],
       "transportCooling": "always",
       "transportCoolingMatch": {
         "confidence": 1.0,
@@ -66,9 +50,6 @@
       "visible": true
     }
   ],
-  "scopes": [
-    "food",
-    "food2"
-  ],
+  "scopes": ["food", "food2"],
   "source": "Agribalyse 3.2"
 }

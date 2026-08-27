@@ -1,10 +1,6 @@
 {
   "activityName": "Walnut, dried inshell, organic 2025, national average, at farm gate {FR} U",
-  "categories": [
-    "ingredient",
-    "material",
-    "material_type:other_food_items"
-  ],
+  "categories": ["ingredient", "material", "material_type:other_food_items"],
   "displayName": "Châtaigne Bio",
   "id": "6a93bbc3-875b-5cd2-ae7d-fc2cecf0efb2",
   "location": "FR",
@@ -24,10 +20,7 @@
         "confidence": 1.0,
         "rule": "nut_oilseed NOVA 1 default from food_type_inedible_part.csv"
       },
-      "ingredientCategories": [
-        "nut_oilseed_raw",
-        "organic"
-      ],
+      "ingredientCategories": ["nut_oilseed_raw", "organic"],
       "ingredientDensity": 0.6,
       "ingredientDensityMatch": {
         "confidence": 1.0,
@@ -39,10 +32,7 @@
         "rule": "Matched with chestnut in cooked_to_raw.csv"
       },
       "scenario": "organic",
-      "scopes": [
-        "food",
-        "food2"
-      ],
+      "scopes": ["food", "food2"],
       "transportCooling": "none",
       "transportCoolingMatch": {
         "confidence": 1.0,
@@ -65,10 +55,7 @@
         "confidence": 1.0,
         "rule": "nut_oilseed NOVA 1 default from food_type_inedible_part.csv"
       },
-      "ingredientCategories": [
-        "nut_oilseed_raw",
-        "organic"
-      ],
+      "ingredientCategories": ["nut_oilseed_raw", "organic"],
       "ingredientDensity": 0.6,
       "ingredientDensityMatch": {
         "confidence": 1.0,
@@ -80,10 +67,7 @@
         "rule": "nut_oilseed default from food_type_cooked_to_raw.csv"
       },
       "scenario": "organic",
-      "scopes": [
-        "food",
-        "food2"
-      ],
+      "scopes": ["food", "food2"],
       "transportCooling": "none",
       "transportCoolingMatch": {
         "confidence": 1.0,
@@ -106,10 +90,7 @@
         "confidence": 1.0,
         "rule": "Matched with Walnuts in agb_inedible.csv"
       },
-      "ingredientCategories": [
-        "nut_oilseed_raw",
-        "organic"
-      ],
+      "ingredientCategories": ["nut_oilseed_raw", "organic"],
       "ingredientDensity": 0.5,
       "ingredientDensityMatch": {
         "confidence": 0.95,
@@ -121,10 +102,7 @@
         "rule": "nut_oilseed default from food_type_cooked_to_raw.csv"
       },
       "scenario": "organic",
-      "scopes": [
-        "food",
-        "food2"
-      ],
+      "scopes": ["food", "food2"],
       "transportCooling": "none",
       "transportCoolingMatch": {
         "confidence": 1.0,
@@ -133,10 +111,7 @@
       "visible": true
     }
   ],
-  "scopes": [
-    "food",
-    "food2"
-  ],
+  "scopes": ["food", "food2"],
   "source": "Ginko 2025",
   "unit": "kg"
 }

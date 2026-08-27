@@ -1,10 +1,6 @@
 {
   "activityName": "Wheat grain {US}| wheat production | Cut-off, U - Adapted from Ecoinvent U",
-  "categories": [
-    "ingredient",
-    "material",
-    "material_type:cereals"
-  ],
+  "categories": ["ingredient", "material", "material_type:cereals"],
   "displayName": "Blé tendre Origine Inconnue",
   "id": "1b376854-2543-55e0-8d60-7246508b932e",
   "location": "US",
@@ -24,19 +20,14 @@
         "confidence": 1.0,
         "rule": "grain NOVA 1 default from food_type_inedible_part.csv"
       },
-      "ingredientCategories": [
-        "grain_raw"
-      ],
+      "ingredientCategories": ["grain_raw"],
       "ingredientDensity": 0.77,
       "ingredientDensityMatch": {
         "confidence": 0.95,
         "rule": "Matched with Wheat in fao_density.csv"
       },
       "scenario": "import",
-      "scopes": [
-        "food",
-        "food2"
-      ],
+      "scopes": ["food", "food2"],
       "transportCooling": "none",
       "transportCoolingMatch": {
         "confidence": 1.0,
@@ -59,19 +50,14 @@
         "confidence": 1.0,
         "rule": "grain NOVA 1 default from food_type_inedible_part.csv"
       },
-      "ingredientCategories": [
-        "grain_raw"
-      ],
+      "ingredientCategories": ["grain_raw"],
       "ingredientDensity": 0.64,
       "ingredientDensityMatch": {
         "confidence": 0.95,
         "rule": "Matched with Millet in fao_density.csv"
       },
       "scenario": "import",
-      "scopes": [
-        "food",
-        "food2"
-      ],
+      "scopes": ["food", "food2"],
       "transportCooling": "none",
       "transportCoolingMatch": {
         "confidence": 1.0,
@@ -80,10 +66,7 @@
       "visible": true
     }
   ],
-  "scopes": [
-    "food",
-    "food2"
-  ],
+  "scopes": ["food", "food2"],
   "source": "Agribalyse 3.2",
   "unit": "kg"
 }

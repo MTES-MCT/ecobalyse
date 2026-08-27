@@ -1,9 +1,6 @@
 {
   "activityName": "aluminium ingot, market, CN",
-  "categories": [
-    "material",
-    "material_type:aluminium"
-  ],
+  "categories": ["material", "material_type:aluminium"],
   "comment": "https://fabrique-numerique.gitbook.io/ecobalyse/methodes-transverses/production/procedes-acier-et-aluminium",
   "displayName": "Aluminium, lingot, mix marché, Chine",
   "elecKwh": 0.0,
@@ -12,17 +9,11 @@
   "metadata": [
     {
       "id": "63e8a99a-d6e5-4aa5-8fe4-71c3d0ca2107",
-      "scopes": [
-        "object",
-        "veli"
-      ]
+      "scopes": ["object", "veli"]
     }
   ],
   "qtyVariationRatio": 1,
-  "scopes": [
-    "object",
-    "veli"
-  ],
+  "scopes": ["object", "veli"],
   "source": "Ecobalyse_custom_lci",
   "unit": "kg"
 }

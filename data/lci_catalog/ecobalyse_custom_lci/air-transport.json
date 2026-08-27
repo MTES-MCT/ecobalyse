@@ -1,8 +1,6 @@
 {
   "activityName": "market for transport, freight, aircraft, long haul, with longtails, GLO",
-  "categories": [
-    "transport"
-  ],
+  "categories": ["transport"],
   "comment": "Ancien identifiant : d3130e7ed9686fcc4bbe980e0375ad88 (12/2024) ; puis ajout des trainées (12/2025)",
   "displayName": "transport aérien long-courrier",
   "elecKwh": 0.0,
@@ -11,17 +9,11 @@
   "metadata": [
     {
       "id": "6e9035eb-0632-43a9-92be-e77e6d3f1c1f",
-      "scopes": [
-        "food2"
-      ]
+      "scopes": ["food2"]
     }
   ],
   "qtyVariationRatio": 1,
-  "scopes": [
-    "textile",
-    "food",
-    "food2"
-  ],
+  "scopes": ["textile", "food", "food2"],
   "source": "Ecobalyse_custom_lci",
   "unit": "t⋅km"
 }

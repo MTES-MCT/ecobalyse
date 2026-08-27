@@ -1,7 +1,5 @@
 {
-  "categories": [
-    "use"
-  ],
+  "categories": ["use"],
   "comment": "Ancien identifiant (12/2024): d3bff7b7-efc1-459b-856d-ea0801d6912f.",
   "displayName": "Utilisation : Impact hors repassage (Robe)",
   "elecKwh": 0.2249,
@@ -29,9 +27,7 @@
     "wtu": 0
   },
   "qtyVariationRatio": 1,
-  "scopes": [
-    "textile"
-  ],
+  "scopes": ["textile"],
   "source": "Ecobalyse_manual_lcia",
   "unit": "kg"
 }

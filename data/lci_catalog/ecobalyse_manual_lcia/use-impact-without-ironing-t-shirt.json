@@ -1,7 +1,5 @@
 {
-  "categories": [
-    "use"
-  ],
+  "categories": ["use"],
   "comment": "Ancien identifiant (12/2024): 7f76529e-521d-4795-bb36-ff896c4692da.",
   "displayName": "Utilisation : Impact hors repassage (T-shirt)",
   "elecKwh": 0.2852,
@@ -29,9 +27,7 @@
     "wtu": 0
   },
   "qtyVariationRatio": 1,
-  "scopes": [
-    "textile"
-  ],
+  "scopes": ["textile"],
   "source": "Ecobalyse_manual_lcia",
   "unit": "kg"
 }

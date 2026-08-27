@@ -1,9 +1,6 @@
 {
   "activityName": "aluminium ingot, recycled, IN, CFF",
-  "categories": [
-    "material",
-    "material_type:aluminium"
-  ],
+  "categories": ["material", "material_type:aluminium"],
   "comment": "Matériau 100% issu du recyclage, calculé selon la méthode CFF (A=0.8, Q=1)",
   "displayName": "Aluminium recyclé, Inde",
   "elecKwh": 0.0,
@@ -12,17 +9,11 @@
   "metadata": [
     {
       "id": "162ef2fc-e2c3-46d6-982d-56634288dfd0",
-      "scopes": [
-        "object",
-        "veli"
-      ]
+      "scopes": ["object", "veli"]
     }
   ],
   "qtyVariationRatio": 1,
-  "scopes": [
-    "object",
-    "veli"
-  ],
+  "scopes": ["object", "veli"],
   "source": "Ecobalyse_custom_lci",
   "unit": "kg"
 }

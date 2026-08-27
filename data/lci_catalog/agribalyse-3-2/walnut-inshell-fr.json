@@ -1,10 +1,6 @@
 {
   "activityName": "Walnut, dried inshell, conventional, national average, at farm gate {FR} U",
-  "categories": [
-    "ingredient",
-    "material",
-    "material_type:other_food_items"
-  ],
+  "categories": ["ingredient", "material", "material_type:other_food_items"],
   "displayName": "Noix avec coque FR",
   "id": "d8540361-d9cf-56df-b716-9f4636ec250c",
   "metadata": [
@@ -23,9 +19,7 @@
         "confidence": 1.0,
         "rule": "nut_oilseed NOVA 1 default from food_type_inedible_part.csv"
       },
-      "ingredientCategories": [
-        "nut_oilseed_raw"
-      ],
+      "ingredientCategories": ["nut_oilseed_raw"],
       "ingredientDensity": 0.6,
       "ingredientDensityMatch": {
         "confidence": 1.0,
@@ -37,10 +31,7 @@
         "rule": "Matched with chestnut in cooked_to_raw.csv"
       },
       "scenario": "reference",
-      "scopes": [
-        "food",
-        "food2"
-      ],
+      "scopes": ["food", "food2"],
       "transportCooling": "none",
       "transportCoolingMatch": {
         "confidence": 1.0,
@@ -63,9 +54,7 @@
         "confidence": 1.0,
         "rule": "nut_oilseed NOVA 1 default from food_type_inedible_part.csv"
       },
-      "ingredientCategories": [
-        "nut_oilseed_raw"
-      ],
+      "ingredientCategories": ["nut_oilseed_raw"],
       "ingredientDensity": 0.6,
       "ingredientDensityMatch": {
         "confidence": 1.0,
@@ -77,10 +66,7 @@
         "rule": "nut_oilseed default from food_type_cooked_to_raw.csv"
       },
       "scenario": "reference",
-      "scopes": [
-        "food",
-        "food2"
-      ],
+      "scopes": ["food", "food2"],
       "transportCooling": "none",
       "transportCoolingMatch": {
         "confidence": 1.0,
@@ -103,9 +89,7 @@
         "confidence": 1.0,
         "rule": "Matched with Walnuts in agb_inedible.csv"
       },
-      "ingredientCategories": [
-        "nut_oilseed_raw"
-      ],
+      "ingredientCategories": ["nut_oilseed_raw"],
       "ingredientDensity": 0.5,
       "ingredientDensityMatch": {
         "confidence": 0.95,
@@ -117,10 +101,7 @@
         "rule": "nut_oilseed default from food_type_cooked_to_raw.csv"
       },
       "scenario": "reference",
-      "scopes": [
-        "food",
-        "food2"
-      ],
+      "scopes": ["food", "food2"],
       "transportCooling": "none",
       "transportCoolingMatch": {
         "confidence": 1.0,
@@ -135,17 +116,12 @@
       "displayName": "Noix avec coque FR (2025)",
       "id": "6aacd47b-541c-4aab-85fb-bcd2c924effb",
       "inediblePart": 0.5,
-      "ingredientCategories": [
-        "nut_oilseed_raw"
-      ],
+      "ingredientCategories": ["nut_oilseed_raw"],
       "ingredientDensity": 0.72,
       "landOccupation": 7.33,
       "rawToCookedRatio": 1.0,
       "scenario": "reference",
-      "scopes": [
-        "food",
-        "food2"
-      ],
+      "scopes": ["food", "food2"],
       "transportCooling": "none",
       "visible": true
     },
@@ -156,17 +132,12 @@
       "displayName": "Châtaigne avec coque FR (2025)",
       "id": "ae6a572a-d814-495e-b6a9-5b0acff707d9",
       "inediblePart": 0.5,
-      "ingredientCategories": [
-        "nut_oilseed_raw"
-      ],
+      "ingredientCategories": ["nut_oilseed_raw"],
       "ingredientDensity": 0.72,
       "landOccupation": 7.33,
       "rawToCookedRatio": 1.0,
       "scenario": "reference",
-      "scopes": [
-        "food",
-        "food2"
-      ],
+      "scopes": ["food", "food2"],
       "transportCooling": "none",
       "visible": true
     },
@@ -177,16 +148,11 @@
       "displayName": "Noix avec coque UE (2025)",
       "id": "0060abe9-a6c2-47fb-bc87-404a9bbd3971",
       "inediblePart": 0.5,
-      "ingredientCategories": [
-        "nut_oilseed_raw"
-      ],
+      "ingredientCategories": ["nut_oilseed_raw"],
       "ingredientDensity": 0.72,
       "rawToCookedRatio": 1.0,
       "scenario": "import",
-      "scopes": [
-        "food",
-        "food2"
-      ],
+      "scopes": ["food", "food2"],
       "transportCooling": "none",
       "visible": true
     },
@@ -197,16 +163,11 @@
       "displayName": "Noix avec coque par défaut (2025)",
       "id": "69d6cbd1-914d-40ea-aaa1-082911ed2fdd",
       "inediblePart": 0.5,
-      "ingredientCategories": [
-        "nut_oilseed_raw"
-      ],
+      "ingredientCategories": ["nut_oilseed_raw"],
       "ingredientDensity": 0.72,
       "rawToCookedRatio": 1.0,
       "scenario": "import",
-      "scopes": [
-        "food",
-        "food2"
-      ],
+      "scopes": ["food", "food2"],
       "transportCooling": "none",
       "visible": true
     },
@@ -225,9 +186,7 @@
         "confidence": 1.0,
         "rule": "nut_oilseed NOVA 1 default from food_type_inedible_part.csv"
       },
-      "ingredientCategories": [
-        "nut_oilseed_raw"
-      ],
+      "ingredientCategories": ["nut_oilseed_raw"],
       "ingredientDensity": 0.6,
       "ingredientDensityMatch": {
         "confidence": 1.0,
@@ -239,10 +198,7 @@
         "rule": "Matched with chestnut in cooked_to_raw.csv"
       },
       "scenario": "import",
-      "scopes": [
-        "food",
-        "food2"
-      ],
+      "scopes": ["food", "food2"],
       "transportCooling": "none",
       "transportCoolingMatch": {
         "confidence": 1.0,
@@ -265,9 +221,7 @@
         "confidence": 1.0,
         "rule": "Matched with Walnuts in agb_inedible.csv"
       },
-      "ingredientCategories": [
-        "nut_oilseed_raw"
-      ],
+      "ingredientCategories": ["nut_oilseed_raw"],
       "ingredientDensity": 0.5,
       "ingredientDensityMatch": {
         "confidence": 0.95,
@@ -279,10 +233,7 @@
         "rule": "nut_oilseed default from food_type_cooked_to_raw.csv"
       },
       "scenario": "import",
-      "scopes": [
-        "food",
-        "food2"
-      ],
+      "scopes": ["food", "food2"],
       "transportCooling": "none",
       "transportCoolingMatch": {
         "confidence": 1.0,
@@ -291,9 +242,6 @@
       "visible": true
     }
   ],
-  "scopes": [
-    "food",
-    "food2"
-  ],
+  "scopes": ["food", "food2"],
   "source": "Agribalyse 3.2"
 }

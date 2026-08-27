@@ -1,10 +1,6 @@
 {
   "activityName": "Rice, basmati, organic 2025 {IN}| rice production, basmati | Cut-off, U",
-  "categories": [
-    "ingredient",
-    "material",
-    "material_type:cereals"
-  ],
+  "categories": ["ingredient", "material", "material_type:cereals"],
   "displayName": "Riz basmati Bio",
   "id": "c5a04e94-759c-5216-a2e1-e92f28b8c103",
   "location": "IN",
@@ -24,20 +20,14 @@
         "confidence": 0.95,
         "rule": "Matched with rice in inedible_part.csv"
       },
-      "ingredientCategories": [
-        "grain_raw",
-        "organic"
-      ],
+      "ingredientCategories": ["grain_raw", "organic"],
       "ingredientDensity": 0.72,
       "ingredientDensityMatch": {
         "confidence": 0.95,
         "rule": "Matched with Rice in fao_density.csv"
       },
       "scenario": "organic",
-      "scopes": [
-        "food",
-        "food2"
-      ],
+      "scopes": ["food", "food2"],
       "transportCooling": "none",
       "transportCoolingMatch": {
         "confidence": 1.0,
@@ -60,20 +50,14 @@
         "confidence": 1.0,
         "rule": "grain NOVA 1 default from food_type_inedible_part.csv"
       },
-      "ingredientCategories": [
-        "grain_raw",
-        "organic"
-      ],
+      "ingredientCategories": ["grain_raw", "organic"],
       "ingredientDensity": 0.85,
       "ingredientDensityMatch": {
         "confidence": 0.95,
         "rule": "Matched with Rice, raw in fao_density.csv"
       },
       "scenario": "organic",
-      "scopes": [
-        "food",
-        "food2"
-      ],
+      "scopes": ["food", "food2"],
       "transportCooling": "none",
       "transportCoolingMatch": {
         "confidence": 1.0,
@@ -82,10 +66,7 @@
       "visible": true
     }
   ],
-  "scopes": [
-    "food",
-    "food2"
-  ],
+  "scopes": ["food", "food2"],
   "source": "Ginko 2025",
   "unit": "kg"
 }

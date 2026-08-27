@@ -1,8 +1,5 @@
 {
-  "categories": [
-    "transformation",
-    "material_type:synthetic_fibers"
-  ],
+  "categories": ["transformation", "material_type:synthetic_fibers"],
   "comment": "corr3 (cf doc): valeurs issues du rapport BAT2023 avec majoration de 50%",
   "displayName": "Lavage (fibres synthétiques)",
   "elecKwh": 0.2,
@@ -32,18 +29,11 @@
   "metadata": [
     {
       "id": "b9db938c-725f-4c14-a313-d73a8aa7391f",
-      "scopes": [
-        "object",
-        "veli"
-      ]
+      "scopes": ["object", "veli"]
     }
   ],
   "qtyVariationRatio": 1,
-  "scopes": [
-    "object",
-    "textile",
-    "veli"
-  ],
+  "scopes": ["object", "textile", "veli"],
   "source": "Ecobalyse_manual_lcia",
   "unit": "kg"
 }

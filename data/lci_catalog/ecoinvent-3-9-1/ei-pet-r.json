@@ -1,9 +1,6 @@
 {
   "activityName": "polyethylene terephthalate, granulate, amorphous, recycled//[RoW] polyethylene terephthalate production, granulate, amorphous, recycled",
-  "categories": [
-    "material",
-    "textile_material"
-  ],
+  "categories": ["material", "textile_material"],
   "comment": "Ancien identifiant (12/2024): 087896096b5bede914ef3ec1062b1c02.",
   "displayName": "PET, pour fibre synthétique, recyclé, granulé, amorphe",
   "elecKwh": 0.0,
@@ -24,15 +21,11 @@
       "origin": "Synthetic",
       "primary": true,
       "recycledFrom": "9dba0e95-0c35-4f8b-9267-62ddf47d4984",
-      "scopes": [
-        "textile"
-      ]
+      "scopes": ["textile"]
     }
   ],
   "qtyVariationRatio": 1,
-  "scopes": [
-    "textile"
-  ],
+  "scopes": ["textile"],
   "source": "Ecoinvent 3.9.1",
   "unit": "kg"
 }

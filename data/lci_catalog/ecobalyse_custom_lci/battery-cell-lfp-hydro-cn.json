@@ -1,9 +1,6 @@
 {
   "activityName": "Battery cell production, LFP Hydrothermal, CN",
-  "categories": [
-    "material",
-    "material_type:battery_cell"
-  ],
+  "categories": ["material", "material_type:battery_cell"],
   "comment": "For 1kg cell. Based on GREET model (average of available battery size)",
   "displayName": "Cellule de batterie, LFP hydrothermal, Chine",
   "elecKwh": 0.0,
@@ -12,15 +9,11 @@
   "metadata": [
     {
       "id": "058ff43a-75a2-4219-9192-03f9039e805b",
-      "scopes": [
-        "veli"
-      ]
+      "scopes": ["veli"]
     }
   ],
   "qtyVariationRatio": 1,
-  "scopes": [
-    "veli"
-  ],
+  "scopes": ["veli"],
   "source": "Ecobalyse_custom_lci",
   "unit": "kg"
 }

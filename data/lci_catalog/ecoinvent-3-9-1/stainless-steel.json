@@ -1,9 +1,6 @@
 {
   "activityName": "steel, chromium steel 18/8//[GLO] market for steel, chromium steel 18/8",
-  "categories": [
-    "material",
-    "material_type:ferrous_metals"
-  ],
+  "categories": ["material", "material_type:ferrous_metals"],
   "comment": "",
   "displayName": "Acier inoxydable",
   "elecKwh": 0.0,
@@ -12,17 +9,11 @@
   "metadata": [
     {
       "id": "30212fbf-5912-40eb-b2ab-87837361c462",
-      "scopes": [
-        "object",
-        "veli"
-      ]
+      "scopes": ["object", "veli"]
     }
   ],
   "qtyVariationRatio": 1,
-  "scopes": [
-    "veli",
-    "object"
-  ],
+  "scopes": ["veli", "object"],
   "source": "Ecoinvent 3.9.1",
   "unit": "kg"
 }

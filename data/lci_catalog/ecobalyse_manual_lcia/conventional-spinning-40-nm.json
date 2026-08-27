@@ -1,8 +1,5 @@
 {
-  "categories": [
-    "transformation",
-    "material_type:organic_fibers"
-  ],
+  "categories": ["transformation", "material_type:organic_fibers"],
   "comment": "",
   "displayName": "Filature conventionnelle (40 Nm)",
   "elecKwh": 3.64,
@@ -32,18 +29,11 @@
   "metadata": [
     {
       "id": "f5bfb554-c3c1-4a25-8eed-1fe9a5540811",
-      "scopes": [
-        "object",
-        "veli"
-      ]
+      "scopes": ["object", "veli"]
     }
   ],
   "qtyVariationRatio": 0.88,
-  "scopes": [
-    "textile",
-    "object",
-    "veli"
-  ],
+  "scopes": ["textile", "object", "veli"],
   "source": "Ecobalyse_manual_lcia",
   "unit": "kg"
 }

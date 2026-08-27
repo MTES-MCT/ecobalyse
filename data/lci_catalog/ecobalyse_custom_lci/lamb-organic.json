@@ -1,10 +1,6 @@
 {
   "activityName": "Live lamb, consumption mix {FR} U {{lamb-meat-without-bone-organic-2025}}",
-  "categories": [
-    "ingredient",
-    "material",
-    "material_type:red_meats"
-  ],
+  "categories": ["ingredient", "material", "material_type:red_meats"],
   "displayName": "Agneau Bio",
   "id": "5cd7bf39-6699-59f1-9838-655df48d27da",
   "metadata": [
@@ -21,20 +17,14 @@
         "confidence": 1.0,
         "rule": "meat NOVA 1 default from food_type_inedible_part.csv"
       },
-      "ingredientCategories": [
-        "animal_product",
-        "organic"
-      ],
+      "ingredientCategories": ["animal_product", "organic"],
       "ingredientDensity": 1.05,
       "ingredientDensityMatch": {
         "confidence": 1.0,
         "rule": "lamb found in density.csv"
       },
       "scenario": "organic",
-      "scopes": [
-        "food",
-        "food2"
-      ],
+      "scopes": ["food", "food2"],
       "transportCooling": "always",
       "transportCoolingMatch": {
         "confidence": 1.0,
@@ -43,10 +33,7 @@
       "visible": false
     }
   ],
-  "scopes": [
-    "food",
-    "food2"
-  ],
+  "scopes": ["food", "food2"],
   "source": "Ecobalyse_custom_lci",
   "unit": "kg"
 }

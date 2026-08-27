@@ -1,10 +1,6 @@
 {
   "activityName": "Coffee, green beans (Robusta), at farm {IN} - Adapted from WFLDB U",
-  "categories": [
-    "ingredient",
-    "material",
-    "material_type:other_food_items"
-  ],
+  "categories": ["ingredient", "material", "material_type:other_food_items"],
   "displayName": "Coffee, green beans (IN)",
   "id": "951060aa-ffa2-51a5-b58e-ea8505b54381",
   "metadata": [
@@ -23,9 +19,7 @@
         "confidence": 1.0,
         "rule": "legume NOVA 1 default from food_type_inedible_part.csv"
       },
-      "ingredientCategories": [
-        "vegetable_fresh"
-      ],
+      "ingredientCategories": ["vegetable_fresh"],
       "ingredientDensity": 0.8,
       "ingredientDensityMatch": {
         "confidence": 0.95,
@@ -37,10 +31,7 @@
         "rule": "Matched with coffee in cooked_to_raw.csv"
       },
       "scenario": "import",
-      "scopes": [
-        "food",
-        "food2"
-      ],
+      "scopes": ["food", "food2"],
       "transportCooling": "always",
       "transportCoolingMatch": {
         "confidence": 1.0,
@@ -49,10 +40,7 @@
       "visible": true
     }
   ],
-  "scopes": [
-    "food",
-    "food2"
-  ],
+  "scopes": ["food", "food2"],
   "source": "Agribalyse 3.2",
   "unit": "kg"
 }

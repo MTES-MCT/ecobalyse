@@ -1,10 +1,6 @@
 {
   "activityName": "Soft wheat flour, organic, CMAPS {GLO} U",
-  "categories": [
-    "ingredient",
-    "material",
-    "material_type:other_food_items"
-  ],
+  "categories": ["ingredient", "material", "material_type:other_food_items"],
   "displayName": "Farine de blé tendre, froment ou millet Bio",
   "id": "d623f9e8-7935-4249-827b-076c70d19192",
   "metadata": [
@@ -15,24 +11,15 @@
       "displayName": "Farine de blé tendre, froment ou millet Bio",
       "id": "3436324c-7835-4e9b-86c6-e9ca68a5e2af",
       "inediblePart": 0,
-      "ingredientCategories": [
-        "grain_processed",
-        "organic"
-      ],
+      "ingredientCategories": ["grain_processed", "organic"],
       "ingredientDensity": 1,
       "rawToCookedRatio": 1,
       "scenario": "organic",
-      "scopes": [
-        "food",
-        "food2"
-      ],
+      "scopes": ["food", "food2"],
       "transportCooling": "always",
       "visible": true
     }
   ],
-  "scopes": [
-    "food",
-    "food2"
-  ],
+  "scopes": ["food", "food2"],
   "source": "Ecobalyse_custom_lci"
 }

@@ -1,8 +1,6 @@
 {
   "activityName": "electricity, medium voltage//[IN] market group for electricity, medium voltage",
-  "categories": [
-    "energy"
-  ],
+  "categories": ["energy"],
   "comment": "Ancien identifiant (12/2024): 4ee8150b0cbf3603e03345d780ba7a61.",
   "displayName": "Électricité moyenne tension, Inde",
   "elecKwh": 0.0,
@@ -11,18 +9,11 @@
   "metadata": [
     {
       "id": "dde16714-c593-4ac3-8738-60ec3e936c63",
-      "scopes": [
-        "object",
-        "veli"
-      ]
+      "scopes": ["object", "veli"]
     }
   ],
   "qtyVariationRatio": 1,
-  "scopes": [
-    "textile",
-    "object",
-    "veli"
-  ],
+  "scopes": ["textile", "object", "veli"],
   "source": "Ecoinvent 3.9.1",
   "unit": "kWh"
 }

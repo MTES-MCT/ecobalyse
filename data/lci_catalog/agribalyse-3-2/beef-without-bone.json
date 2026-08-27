@@ -1,10 +1,6 @@
 {
   "activityName": "Meat without bone, beef, for direct consumption {FR} U",
-  "categories": [
-    "ingredient",
-    "material",
-    "material_type:red_meats"
-  ],
+  "categories": ["ingredient", "material", "material_type:red_meats"],
   "displayName": "Viande de boeuf sans os (crue) FR",
   "id": "de11b2d4-2820-5c1c-8a55-bbc6d58b8c27",
   "metadata": [
@@ -17,22 +13,14 @@
       "displayName": "Viande de boeuf sans os (crue) FR",
       "id": "22179caa-eb41-49c0-ae04-49eda23da4da",
       "inediblePart": 0,
-      "ingredientCategories": [
-        "animal_product"
-      ],
+      "ingredientCategories": ["animal_product"],
       "ingredientDensity": 1.0,
       "scenario": "reference",
-      "scopes": [
-        "food",
-        "food2"
-      ],
+      "scopes": ["food", "food2"],
       "transportCooling": "always",
       "visible": true
     }
   ],
-  "scopes": [
-    "food",
-    "food2"
-  ],
+  "scopes": ["food", "food2"],
   "source": "Agribalyse 3.2"
 }

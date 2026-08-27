@@ -1,10 +1,6 @@
 {
   "activityName": "Walnut, in shell, dried, at farm (WFLDB)",
-  "categories": [
-    "ingredient",
-    "material",
-    "material_type:other_food_items"
-  ],
+  "categories": ["ingredient", "material", "material_type:other_food_items"],
   "displayName": "Châtaigne Origine Inconnue",
   "id": "fe057abe-8daa-525f-b1f5-b0f4cd0fad07",
   "location": "US",
@@ -24,9 +20,7 @@
         "confidence": 1.0,
         "rule": "nut_oilseed NOVA 1 default from food_type_inedible_part.csv"
       },
-      "ingredientCategories": [
-        "nut_oilseed_raw"
-      ],
+      "ingredientCategories": ["nut_oilseed_raw"],
       "ingredientDensity": 0.6,
       "ingredientDensityMatch": {
         "confidence": 1.0,
@@ -38,10 +32,7 @@
         "rule": "Matched with chestnut in cooked_to_raw.csv"
       },
       "scenario": "import",
-      "scopes": [
-        "food",
-        "food2"
-      ],
+      "scopes": ["food", "food2"],
       "transportCooling": "none",
       "transportCoolingMatch": {
         "confidence": 1.0,
@@ -64,9 +55,7 @@
         "confidence": 1.0,
         "rule": "nut_oilseed NOVA 1 default from food_type_inedible_part.csv"
       },
-      "ingredientCategories": [
-        "nut_oilseed_raw"
-      ],
+      "ingredientCategories": ["nut_oilseed_raw"],
       "ingredientDensity": 0.6,
       "ingredientDensityMatch": {
         "confidence": 1.0,
@@ -78,10 +67,7 @@
         "rule": "nut_oilseed default from food_type_cooked_to_raw.csv"
       },
       "scenario": "import",
-      "scopes": [
-        "food",
-        "food2"
-      ],
+      "scopes": ["food", "food2"],
       "transportCooling": "none",
       "transportCoolingMatch": {
         "confidence": 1.0,
@@ -104,9 +90,7 @@
         "confidence": 1.0,
         "rule": "Matched with Walnuts in agb_inedible.csv"
       },
-      "ingredientCategories": [
-        "nut_oilseed_raw"
-      ],
+      "ingredientCategories": ["nut_oilseed_raw"],
       "ingredientDensity": 0.5,
       "ingredientDensityMatch": {
         "confidence": 0.95,
@@ -118,10 +102,7 @@
         "rule": "nut_oilseed default from food_type_cooked_to_raw.csv"
       },
       "scenario": "import",
-      "scopes": [
-        "food",
-        "food2"
-      ],
+      "scopes": ["food", "food2"],
       "transportCooling": "none",
       "transportCoolingMatch": {
         "confidence": 1.0,
@@ -144,9 +125,7 @@
         "confidence": 1.0,
         "rule": "nut_oilseed NOVA 1 default from food_type_inedible_part.csv"
       },
-      "ingredientCategories": [
-        "nut_oilseed_raw"
-      ],
+      "ingredientCategories": ["nut_oilseed_raw"],
       "ingredientDensity": 0.6,
       "ingredientDensityMatch": {
         "confidence": 1.0,
@@ -158,10 +137,7 @@
         "rule": "Matched with chestnut in cooked_to_raw.csv"
       },
       "scenario": "import",
-      "scopes": [
-        "food",
-        "food2"
-      ],
+      "scopes": ["food", "food2"],
       "transportCooling": "none",
       "transportCoolingMatch": {
         "confidence": 1.0,
@@ -184,9 +160,7 @@
         "confidence": 1.0,
         "rule": "nut_oilseed NOVA 1 default from food_type_inedible_part.csv"
       },
-      "ingredientCategories": [
-        "nut_oilseed_raw"
-      ],
+      "ingredientCategories": ["nut_oilseed_raw"],
       "ingredientDensity": 0.6,
       "ingredientDensityMatch": {
         "confidence": 1.0,
@@ -198,10 +172,7 @@
         "rule": "nut_oilseed default from food_type_cooked_to_raw.csv"
       },
       "scenario": "import",
-      "scopes": [
-        "food",
-        "food2"
-      ],
+      "scopes": ["food", "food2"],
       "transportCooling": "none",
       "transportCoolingMatch": {
         "confidence": 1.0,
@@ -224,9 +195,7 @@
         "confidence": 1.0,
         "rule": "Matched with Walnuts in agb_inedible.csv"
       },
-      "ingredientCategories": [
-        "nut_oilseed_raw"
-      ],
+      "ingredientCategories": ["nut_oilseed_raw"],
       "ingredientDensity": 0.5,
       "ingredientDensityMatch": {
         "confidence": 0.95,
@@ -238,10 +207,7 @@
         "rule": "nut_oilseed default from food_type_cooked_to_raw.csv"
       },
       "scenario": "import",
-      "scopes": [
-        "food",
-        "food2"
-      ],
+      "scopes": ["food", "food2"],
       "transportCooling": "none",
       "transportCoolingMatch": {
         "confidence": 1.0,
@@ -250,10 +216,7 @@
       "visible": true
     }
   ],
-  "scopes": [
-    "food",
-    "food2"
-  ],
+  "scopes": ["food", "food2"],
   "source": "WFLDB",
   "unit": "kg"
 }

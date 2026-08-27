@@ -1,10 +1,6 @@
 {
   "activityName": "Sweet sorghum grain {CN}| sweet sorghum production | Cut-off, U",
-  "categories": [
-    "ingredient",
-    "material",
-    "material_type:cereals"
-  ],
+  "categories": ["ingredient", "material", "material_type:cereals"],
   "displayName": "Sorgho Origine Inconnue",
   "id": "a3148dad-d8cb-56f5-b1a0-84ca9ce94485",
   "location": "CN",
@@ -24,19 +20,14 @@
         "confidence": 1.0,
         "rule": "grain NOVA 1 default from food_type_inedible_part.csv"
       },
-      "ingredientCategories": [
-        "grain_raw"
-      ],
+      "ingredientCategories": ["grain_raw"],
       "ingredientDensity": 0.535,
       "ingredientDensityMatch": {
         "confidence": 0.95,
         "rule": "Matched with Sorghum, seed in fao_density.csv"
       },
       "scenario": "import",
-      "scopes": [
-        "food",
-        "food2"
-      ],
+      "scopes": ["food", "food2"],
       "transportCooling": "none",
       "transportCoolingMatch": {
         "confidence": 1.0,
@@ -45,10 +36,7 @@
       "visible": true
     }
   ],
-  "scopes": [
-    "food",
-    "food2"
-  ],
+  "scopes": ["food", "food2"],
   "source": "Ecoinvent 3.11",
   "unit": "kg"
 }

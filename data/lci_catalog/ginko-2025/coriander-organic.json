@@ -1,10 +1,6 @@
 {
   "activityName": "Fennel, organic 2025 {GLO}| production | Cut-off, U",
-  "categories": [
-    "ingredient",
-    "material",
-    "material_type:other_food_items"
-  ],
+  "categories": ["ingredient", "material", "material_type:other_food_items"],
   "displayName": "Coriandre Bio",
   "id": "10651027-5ca6-5990-9d81-7ac4bda2abc9",
   "location": "GLO",
@@ -24,10 +20,7 @@
         "confidence": 1.0,
         "rule": "Matched with Coriander in agb_inedible.csv"
       },
-      "ingredientCategories": [
-        "spice_condiment_additive",
-        "organic"
-      ],
+      "ingredientCategories": ["spice_condiment_additive", "organic"],
       "ingredientDensity": 0.5,
       "ingredientDensityMatch": {
         "confidence": 1.0,
@@ -39,10 +32,7 @@
         "rule": "spice_condiment default from food_type_cooked_to_raw.csv"
       },
       "scenario": "organic",
-      "scopes": [
-        "food",
-        "food2"
-      ],
+      "scopes": ["food", "food2"],
       "transportCooling": "none",
       "transportCoolingMatch": {
         "confidence": 1.0,
@@ -65,10 +55,7 @@
         "confidence": 1.0,
         "rule": "Matched with Fennel in agb_inedible.csv"
       },
-      "ingredientCategories": [
-        "vegetable_fresh",
-        "organic"
-      ],
+      "ingredientCategories": ["vegetable_fresh", "organic"],
       "ingredientDensity": 0.9,
       "ingredientDensityMatch": {
         "confidence": 1.0,
@@ -80,10 +67,7 @@
         "rule": "vegetable default from food_type_cooked_to_raw.csv"
       },
       "scenario": "organic",
-      "scopes": [
-        "food",
-        "food2"
-      ],
+      "scopes": ["food", "food2"],
       "transportCooling": "always",
       "transportCoolingMatch": {
         "confidence": 1.0,
@@ -106,10 +90,7 @@
         "confidence": 1.0,
         "rule": "spice_condiment NOVA 1 default from food_type_inedible_part.csv"
       },
-      "ingredientCategories": [
-        "spice_condiment_additive",
-        "organic"
-      ],
+      "ingredientCategories": ["spice_condiment_additive", "organic"],
       "ingredientDensity": 0.5,
       "ingredientDensityMatch": {
         "confidence": 1.0,
@@ -121,10 +102,7 @@
         "rule": "spice_condiment default from food_type_cooked_to_raw.csv"
       },
       "scenario": "organic",
-      "scopes": [
-        "food",
-        "food2"
-      ],
+      "scopes": ["food", "food2"],
       "transportCooling": "none",
       "transportCoolingMatch": {
         "confidence": 1.0,
@@ -147,10 +125,7 @@
         "confidence": 1.0,
         "rule": "vegetable NOVA 1 default from food_type_inedible_part.csv"
       },
-      "ingredientCategories": [
-        "vegetable_fresh",
-        "organic"
-      ],
+      "ingredientCategories": ["vegetable_fresh", "organic"],
       "ingredientDensity": 0.9,
       "ingredientDensityMatch": {
         "confidence": 1.0,
@@ -162,10 +137,7 @@
         "rule": "vegetable default from food_type_cooked_to_raw.csv"
       },
       "scenario": "organic",
-      "scopes": [
-        "food",
-        "food2"
-      ],
+      "scopes": ["food", "food2"],
       "transportCooling": "always",
       "transportCoolingMatch": {
         "confidence": 1.0,
@@ -188,10 +160,7 @@
         "confidence": 1.0,
         "rule": "fruit NOVA 1 default from food_type_inedible_part.csv"
       },
-      "ingredientCategories": [
-        "vegetable_fresh",
-        "organic"
-      ],
+      "ingredientCategories": ["vegetable_fresh", "organic"],
       "ingredientDensity": 0.85,
       "ingredientDensityMatch": {
         "confidence": 1.0,
@@ -203,10 +172,7 @@
         "rule": "fruit default from food_type_cooked_to_raw.csv"
       },
       "scenario": "organic",
-      "scopes": [
-        "food",
-        "food2"
-      ],
+      "scopes": ["food", "food2"],
       "transportCooling": "always",
       "transportCoolingMatch": {
         "confidence": 1.0,
@@ -215,10 +181,7 @@
       "visible": true
     }
   ],
-  "scopes": [
-    "food",
-    "food2"
-  ],
+  "scopes": ["food", "food2"],
   "source": "Ginko 2025",
   "unit": "kg"
 }

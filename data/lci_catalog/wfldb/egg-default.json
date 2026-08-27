@@ -1,10 +1,6 @@
 {
   "activityName": "Chicken egg, poultry industrial laying systems, at farm (WFLDB)",
-  "categories": [
-    "ingredient",
-    "material",
-    "material_type:eggs"
-  ],
+  "categories": ["ingredient", "material", "material_type:eggs"],
   "displayName": "Œuf Origine Inconnue",
   "id": "001c68f3-e5ba-5f66-84e4-13594098e02a",
   "location": "CA",
@@ -22,19 +18,14 @@
         "confidence": 1.0,
         "rule": "Matched with Egg in agb_inedible.csv"
       },
-      "ingredientCategories": [
-        "animal_product"
-      ],
+      "ingredientCategories": ["animal_product"],
       "ingredientDensity": 1.0,
       "ingredientDensityMatch": {
         "confidence": 1.0,
         "rule": "egg found in density.csv"
       },
       "scenario": "import",
-      "scopes": [
-        "food",
-        "food2"
-      ],
+      "scopes": ["food", "food2"],
       "transportCooling": "always",
       "transportCoolingMatch": {
         "confidence": 1.0,
@@ -55,19 +46,14 @@
         "confidence": 1.0,
         "rule": "Matched with Egg in agb_inedible.csv"
       },
-      "ingredientCategories": [
-        "animal_product"
-      ],
+      "ingredientCategories": ["animal_product"],
       "ingredientDensity": 1.0,
       "ingredientDensityMatch": {
         "confidence": 1.0,
         "rule": "egg found in density.csv"
       },
       "scenario": "import",
-      "scopes": [
-        "food",
-        "food2"
-      ],
+      "scopes": ["food", "food2"],
       "transportCooling": "always",
       "transportCoolingMatch": {
         "confidence": 1.0,
@@ -88,19 +74,14 @@
         "confidence": 1.0,
         "rule": "Matched with Egg in agb_inedible.csv"
       },
-      "ingredientCategories": [
-        "animal_product"
-      ],
+      "ingredientCategories": ["animal_product"],
       "ingredientDensity": 1.0,
       "ingredientDensityMatch": {
         "confidence": 1.0,
         "rule": "egg found in density.csv"
       },
       "scenario": "import",
-      "scopes": [
-        "food",
-        "food2"
-      ],
+      "scopes": ["food", "food2"],
       "transportCooling": "always",
       "transportCoolingMatch": {
         "confidence": 1.0,
@@ -109,10 +90,7 @@
       "visible": true
     }
   ],
-  "scopes": [
-    "food",
-    "food2"
-  ],
+  "scopes": ["food", "food2"],
   "source": "WFLDB",
   "unit": "kg"
 }

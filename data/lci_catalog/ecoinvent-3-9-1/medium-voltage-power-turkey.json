@@ -1,8 +1,6 @@
 {
   "activityName": "electricity, medium voltage//[TR] market for electricity, medium voltage",
-  "categories": [
-    "energy"
-  ],
+  "categories": ["energy"],
   "comment": "Ancien identifiant (12/2024): 32644303e316aebb9ffa31e9856c8f6b.",
   "displayName": "Électricité moyenne tension, Turquie",
   "elecKwh": 0.0,
@@ -11,18 +9,11 @@
   "metadata": [
     {
       "id": "392ca5b9-ec19-40d6-82ad-e1e7a02dd40a",
-      "scopes": [
-        "object",
-        "veli"
-      ]
+      "scopes": ["object", "veli"]
     }
   ],
   "qtyVariationRatio": 1,
-  "scopes": [
-    "textile",
-    "object",
-    "veli"
-  ],
+  "scopes": ["textile", "object", "veli"],
   "source": "Ecoinvent 3.9.1",
   "unit": "kWh"
 }

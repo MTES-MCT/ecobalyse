@@ -1,8 +1,5 @@
 {
-  "categories": [
-    "transformation",
-    "material_type:wood"
-  ],
+  "categories": ["transformation", "material_type:wood"],
   "comment": "Energy consumptions based on Ecobalyse litterature review with an average scenario hypothesis. Wastes are based on French technical institue FCBA.",
   "displayName": "Panneaux, MDF (transformation)",
   "elecKwh": 300.0,
@@ -32,17 +29,11 @@
   "metadata": [
     {
       "id": "73bbaf31-eb1d-4e9a-a134-30a88cf7212c",
-      "scopes": [
-        "object",
-        "veli"
-      ]
+      "scopes": ["object", "veli"]
     }
   ],
   "qtyVariationRatio": 0.56,
-  "scopes": [
-    "object",
-    "veli"
-  ],
+  "scopes": ["object", "veli"],
   "source": "Ecobalyse_manual_lcia",
   "unit": "m3"
 }

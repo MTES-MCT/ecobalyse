@@ -1,10 +1,6 @@
 {
   "activityName": "Onion, organic 2025 {CN}| onion production | Cut-off, U",
-  "categories": [
-    "ingredient",
-    "material",
-    "material_type:other_food_items"
-  ],
+  "categories": ["ingredient", "material", "material_type:other_food_items"],
   "displayName": "Gingembre Bio",
   "id": "a514edc1-d743-5dc0-94b0-7226ea3d3f5d",
   "location": "CN",
@@ -24,10 +20,7 @@
         "confidence": 1.0,
         "rule": "spice_condiment NOVA 1 default from food_type_inedible_part.csv"
       },
-      "ingredientCategories": [
-        "spice_condiment_additive",
-        "organic"
-      ],
+      "ingredientCategories": ["spice_condiment_additive", "organic"],
       "ingredientDensity": 0.5,
       "ingredientDensityMatch": {
         "confidence": 1.0,
@@ -39,10 +32,7 @@
         "rule": "spice_condiment default from food_type_cooked_to_raw.csv"
       },
       "scenario": "organic",
-      "scopes": [
-        "food",
-        "food2"
-      ],
+      "scopes": ["food", "food2"],
       "transportCooling": "none",
       "transportCoolingMatch": {
         "confidence": 1.0,
@@ -51,10 +41,7 @@
       "visible": true
     }
   ],
-  "scopes": [
-    "food",
-    "food2"
-  ],
+  "scopes": ["food", "food2"],
   "source": "Ginko 2025",
   "unit": "kg"
 }

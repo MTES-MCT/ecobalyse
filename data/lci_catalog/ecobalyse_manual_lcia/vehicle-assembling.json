@@ -1,8 +1,5 @@
 {
-  "categories": [
-    "productmassdependent",
-    "assembly"
-  ],
+  "categories": ["productmassdependent", "assembly"],
   "comment": "https://fabrique-numerique.gitbook.io/ecobalyse/vehicules/cycle-de-vie/assemblage",
   "displayName": "Assemblage",
   "elecKwh": 1.5,
@@ -32,15 +29,11 @@
   "metadata": [
     {
       "id": "c51ab87d-f368-4704-a5ec-7ea17ba87d46",
-      "scopes": [
-        "veli"
-      ]
+      "scopes": ["veli"]
     }
   ],
   "qtyVariationRatio": 1,
-  "scopes": [
-    "veli"
-  ],
+  "scopes": ["veli"],
   "source": "Ecobalyse_manual_lcia",
   "unit": "kg"
 }

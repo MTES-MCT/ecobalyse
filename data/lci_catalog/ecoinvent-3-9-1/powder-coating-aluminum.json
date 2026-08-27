@@ -1,9 +1,6 @@
 {
   "activityName": "powder coat, aluminium sheet//[RER] powder coating, aluminium sheet",
-  "categories": [
-    "material",
-    "material_type:aluminium"
-  ],
+  "categories": ["material", "material_type:aluminium"],
   "comment": "",
   "displayName": "Thermolaquage aluminium",
   "elecKwh": 0.0,
@@ -12,17 +9,11 @@
   "metadata": [
     {
       "id": "8453c053-ff4a-4d60-9289-5723ae35e800",
-      "scopes": [
-        "object",
-        "veli"
-      ]
+      "scopes": ["object", "veli"]
     }
   ],
   "qtyVariationRatio": 1,
-  "scopes": [
-    "object",
-    "veli"
-  ],
+  "scopes": ["object", "veli"],
   "source": "Ecoinvent 3.9.1",
   "unit": "m2"
 }

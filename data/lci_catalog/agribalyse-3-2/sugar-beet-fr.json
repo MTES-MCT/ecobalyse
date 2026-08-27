@@ -1,10 +1,6 @@
 {
   "activityName": "Sugar beet, at farm {FR} - Adapted from WFLDB U",
-  "categories": [
-    "ingredient",
-    "material",
-    "material_type:other_food_items"
-  ],
+  "categories": ["ingredient", "material", "material_type:other_food_items"],
   "displayName": "Betterave à sucre FR",
   "id": "00de38d2-b735-5ce9-be8d-bf0d40d6a1fc",
   "metadata": [
@@ -23,9 +19,7 @@
         "confidence": 0.95,
         "rule": "Matched with sugar in inedible_part.csv"
       },
-      "ingredientCategories": [
-        "spice_condiment_additive"
-      ],
+      "ingredientCategories": ["spice_condiment_additive"],
       "ingredientDensity": 0.95,
       "ingredientDensityMatch": {
         "confidence": 0.95,
@@ -37,10 +31,7 @@
         "rule": "Matched with sugar in cooked_to_raw.csv"
       },
       "scenario": "reference",
-      "scopes": [
-        "food",
-        "food2"
-      ],
+      "scopes": ["food", "food2"],
       "transportCooling": "none",
       "transportCoolingMatch": {
         "confidence": 1.0,
@@ -49,10 +40,7 @@
       "visible": true
     }
   ],
-  "scopes": [
-    "food",
-    "food2"
-  ],
+  "scopes": ["food", "food2"],
   "source": "Agribalyse 3.2",
   "unit": "kg"
 }

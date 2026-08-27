@@ -1,8 +1,5 @@
 {
-  "categories": [
-    "transformation",
-    "material_type:aluminium"
-  ],
+  "categories": ["transformation", "material_type:aluminium"],
   "comment": "Extrusion, including scrap remelting, Source: Life Cycle Inventory (LCI) data for aluminium production and transformation processes in Europe, European Aluminium, 2025, 2022 data",
   "displayName": "Extrusion aluminium",
   "elecKwh": 0.5833,
@@ -32,17 +29,11 @@
   "metadata": [
     {
       "id": "d693bd0d-88d4-4370-81ee-597956bb58f0",
-      "scopes": [
-        "object",
-        "veli"
-      ]
+      "scopes": ["object", "veli"]
     }
   ],
   "qtyVariationRatio": 1,
-  "scopes": [
-    "object",
-    "veli"
-  ],
+  "scopes": ["object", "veli"],
   "source": "Ecobalyse_manual_lcia",
   "unit": "kg"
 }

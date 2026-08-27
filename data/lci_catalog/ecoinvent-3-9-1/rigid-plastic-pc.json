@@ -1,9 +1,6 @@
 {
   "activityName": "polycarbonate//[RER] polycarbonate production",
-  "categories": [
-    "material",
-    "material_type:rigid_plastics"
-  ],
+  "categories": ["material", "material_type:rigid_plastics"],
   "comment": "",
   "displayName": "Plastique PC, rigide",
   "elecKwh": 0.0,
@@ -12,17 +9,11 @@
   "metadata": [
     {
       "id": "6445c1fa-13a6-4058-8978-bcf2be63cd56",
-      "scopes": [
-        "object",
-        "veli"
-      ]
+      "scopes": ["object", "veli"]
     }
   ],
   "qtyVariationRatio": 1,
-  "scopes": [
-    "object",
-    "veli"
-  ],
+  "scopes": ["object", "veli"],
   "source": "Ecoinvent 3.9.1",
   "unit": "kg"
 }

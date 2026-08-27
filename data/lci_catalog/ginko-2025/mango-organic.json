@@ -1,10 +1,6 @@
 {
   "activityName": "Mango, organic 2025 {BR}| mango production | Cut-off, U",
-  "categories": [
-    "ingredient",
-    "material",
-    "material_type:fruits_and_vegetables"
-  ],
+  "categories": ["ingredient", "material", "material_type:fruits_and_vegetables"],
   "displayName": "Mangue Bio",
   "id": "5895eae6-a9f2-545f-9290-e942e8b8ea06",
   "location": "BR",
@@ -24,20 +20,14 @@
         "confidence": 1.0,
         "rule": "Matched with Mango in agb_inedible.csv"
       },
-      "ingredientCategories": [
-        "vegetable_fresh",
-        "organic"
-      ],
+      "ingredientCategories": ["vegetable_fresh", "organic"],
       "ingredientDensity": 0.95,
       "ingredientDensityMatch": {
         "confidence": 1.0,
         "rule": "mango found in density.csv"
       },
       "scenario": "organic",
-      "scopes": [
-        "food",
-        "food2"
-      ],
+      "scopes": ["food", "food2"],
       "transportCooling": "always",
       "transportCoolingMatch": {
         "confidence": 1.0,
@@ -46,10 +36,7 @@
       "visible": true
     }
   ],
-  "scopes": [
-    "food",
-    "food2"
-  ],
+  "scopes": ["food", "food2"],
   "source": "Ginko 2025",
   "unit": "kg"
 }

@@ -1,9 +1,6 @@
 {
   "activityName": "paraffin//[GLO] market for paraffin",
-  "categories": [
-    "material",
-    "material_type:other"
-  ],
+  "categories": ["material", "material_type:other"],
   "comment": "",
   "displayName": "Paraffine (wax/cire)",
   "elecKwh": 0.0,
@@ -12,15 +9,11 @@
   "metadata": [
     {
       "id": "e476467c-2bae-43a6-8fab-450a888543b8",
-      "scopes": [
-        "object"
-      ]
+      "scopes": ["object"]
     }
   ],
   "qtyVariationRatio": 1,
-  "scopes": [
-    "object"
-  ],
+  "scopes": ["object"],
   "source": "Ecoinvent 3.9.1",
   "unit": "kg"
 }

@@ -1,9 +1,6 @@
 {
   "activityName": "phenolic resin//[RER] market for phenolic resin",
-  "categories": [
-    "material",
-    "material_type:other"
-  ],
+  "categories": ["material", "material_type:other"],
   "comment": "",
   "displayName": "Résine (phénol-formaldéhyde)",
   "elecKwh": 0.0,
@@ -12,17 +9,11 @@
   "metadata": [
     {
       "id": "0ef7af4b-d5bf-4f4b-b396-ceab35f5eb1d",
-      "scopes": [
-        "object",
-        "veli"
-      ]
+      "scopes": ["object", "veli"]
     }
   ],
   "qtyVariationRatio": 1,
-  "scopes": [
-    "object",
-    "veli"
-  ],
+  "scopes": ["object", "veli"],
   "source": "Ecoinvent 3.9.1",
   "unit": "kg"
 }

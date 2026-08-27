@@ -1,9 +1,6 @@
 {
   "activityName": "scrap steel//[Europe without Switzerland] treatment of scrap steel, inert material landfill",
-  "categories": [
-    "end-of-life",
-    "material_type:ferrous_metals"
-  ],
+  "categories": ["end-of-life", "material_type:ferrous_metals"],
   "comment": "",
   "displayName": "Enfouissement de l'acier",
   "elecKwh": 0.0,
@@ -12,17 +9,11 @@
   "metadata": [
     {
       "id": "3f12bb2d-bac9-4b8d-bd72-69428c031f33",
-      "scopes": [
-        "object",
-        "veli"
-      ]
+      "scopes": ["object", "veli"]
     }
   ],
   "qtyVariationRatio": 1,
-  "scopes": [
-    "object",
-    "veli"
-  ],
+  "scopes": ["object", "veli"],
   "source": "Ecoinvent 3.9.1",
   "unit": "kg"
 }

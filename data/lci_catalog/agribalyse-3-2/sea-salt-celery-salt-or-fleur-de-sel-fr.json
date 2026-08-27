@@ -1,10 +1,6 @@
 {
   "activityName": "Sodium chloride, powder {GLO}| market for | Cut-off, S - Copied from Ecoinvent U",
-  "categories": [
-    "ingredient",
-    "material",
-    "material_type:fish_and_shellfish"
-  ],
+  "categories": ["ingredient", "material", "material_type:fish_and_shellfish"],
   "displayName": "Sel de mer, sel de céleri ou fleur de sel FR",
   "id": "e32ce795-0af6-5d90-8fed-2ed0e249baad",
   "metadata": [
@@ -18,19 +14,14 @@
         "confidence": 1.0,
         "rule": "fish_seafood NOVA 2-4 default from food_type_inedible_part.csv"
       },
-      "ingredientCategories": [
-        "animal_product"
-      ],
+      "ingredientCategories": ["animal_product"],
       "ingredientDensity": 1.05,
       "ingredientDensityMatch": {
         "confidence": 1.0,
         "rule": "fish_seafood default from food_type_density.csv"
       },
       "scenario": "reference",
-      "scopes": [
-        "food",
-        "food2"
-      ],
+      "scopes": ["food", "food2"],
       "transportCooling": "none",
       "transportCoolingMatch": {
         "confidence": 0.95,
@@ -48,19 +39,14 @@
         "confidence": 1.0,
         "rule": "fish_seafood NOVA 2-4 default from food_type_inedible_part.csv"
       },
-      "ingredientCategories": [
-        "animal_product"
-      ],
+      "ingredientCategories": ["animal_product"],
       "ingredientDensity": 1.05,
       "ingredientDensityMatch": {
         "confidence": 1.0,
         "rule": "fish_seafood default from food_type_density.csv"
       },
       "scenario": "import",
-      "scopes": [
-        "food",
-        "food2"
-      ],
+      "scopes": ["food", "food2"],
       "transportCooling": "none",
       "transportCoolingMatch": {
         "confidence": 0.95,
@@ -78,19 +64,14 @@
         "confidence": 1.0,
         "rule": "fish_seafood NOVA 2-4 default from food_type_inedible_part.csv"
       },
-      "ingredientCategories": [
-        "animal_product"
-      ],
+      "ingredientCategories": ["animal_product"],
       "ingredientDensity": 1.05,
       "ingredientDensityMatch": {
         "confidence": 1.0,
         "rule": "fish_seafood default from food_type_density.csv"
       },
       "scenario": "import",
-      "scopes": [
-        "food",
-        "food2"
-      ],
+      "scopes": ["food", "food2"],
       "transportCooling": "none",
       "transportCoolingMatch": {
         "confidence": 0.95,
@@ -108,19 +89,14 @@
         "confidence": 1.0,
         "rule": "fish_seafood NOVA 2-4 default from food_type_inedible_part.csv"
       },
-      "ingredientCategories": [
-        "animal_product"
-      ],
+      "ingredientCategories": ["animal_product"],
       "ingredientDensity": 1.05,
       "ingredientDensityMatch": {
         "confidence": 1.0,
         "rule": "fish_seafood default from food_type_density.csv"
       },
       "scenario": "import",
-      "scopes": [
-        "food",
-        "food2"
-      ],
+      "scopes": ["food", "food2"],
       "transportCooling": "none",
       "transportCoolingMatch": {
         "confidence": 0.95,
@@ -129,10 +105,7 @@
       "visible": true
     }
   ],
-  "scopes": [
-    "food",
-    "food2"
-  ],
+  "scopes": ["food", "food2"],
   "source": "Agribalyse 3.2",
   "unit": "kg"
 }

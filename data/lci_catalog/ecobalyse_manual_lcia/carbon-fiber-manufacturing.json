@@ -1,8 +1,5 @@
 {
-  "categories": [
-    "transformation",
-    "material_type:composites"
-  ],
+  "categories": ["transformation", "material_type:composites"],
   "comment": "Hao Chen et al., 2025 (median), hyp. 50% electricity 50% heat",
   "displayName": "Fabrication fibre de carbone",
   "elecKwh": 23.3333,
@@ -32,17 +29,11 @@
   "metadata": [
     {
       "id": "21cef26e-97ee-4707-b316-ac5d7d03d2bd",
-      "scopes": [
-        "object",
-        "veli"
-      ]
+      "scopes": ["object", "veli"]
     }
   ],
   "qtyVariationRatio": 0.5,
-  "scopes": [
-    "object",
-    "veli"
-  ],
+  "scopes": ["object", "veli"],
   "source": "Ecobalyse_manual_lcia",
   "unit": "kg"
 }

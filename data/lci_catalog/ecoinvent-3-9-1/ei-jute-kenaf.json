@@ -1,9 +1,6 @@
 {
   "activityName": "fibre, jute//[RoW] fibre production, jute, retting",
-  "categories": [
-    "material",
-    "textile_material"
-  ],
+  "categories": ["material", "textile_material"],
   "comment": "Ancien identifiant (12/2024): 4d81aa5f76872e1e4c0e1bb14b01e93b.",
   "displayName": "Production de jute, rouissage",
   "elecKwh": 0.0,
@@ -19,15 +16,11 @@
       "name": "Jute",
       "origin": "NaturalFromVegetal",
       "primary": false,
-      "scopes": [
-        "textile"
-      ]
+      "scopes": ["textile"]
     }
   ],
   "qtyVariationRatio": 1,
-  "scopes": [
-    "textile"
-  ],
+  "scopes": ["textile"],
   "source": "Ecoinvent 3.9.1",
   "unit": "kg"
 }

@@ -1,8 +1,5 @@
 {
-  "categories": [
-    "transformation",
-    "material_type:synthetic_fibers"
-  ],
+  "categories": ["transformation", "material_type:synthetic_fibers"],
   "comment": "",
   "displayName": "Filage (40 Nm)",
   "elecKwh": 1.36,
@@ -32,18 +29,11 @@
   "metadata": [
     {
       "id": "05157564-93b2-49cd-8ff1-e062e28a63c5",
-      "scopes": [
-        "object",
-        "veli"
-      ]
+      "scopes": ["object", "veli"]
     }
   ],
   "qtyVariationRatio": 0.97,
-  "scopes": [
-    "textile",
-    "object",
-    "veli"
-  ],
+  "scopes": ["textile", "object", "veli"],
   "source": "Ecobalyse_manual_lcia",
   "unit": "kg"
 }

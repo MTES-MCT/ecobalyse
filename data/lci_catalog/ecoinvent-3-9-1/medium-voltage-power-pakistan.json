@@ -1,8 +1,6 @@
 {
   "activityName": "electricity, medium voltage//[PK] market for electricity, medium voltage",
-  "categories": [
-    "energy"
-  ],
+  "categories": ["energy"],
   "comment": "Ancien identifiant (12/2024): 028c9bf863a1ab77a0e636029afc5839.",
   "displayName": "Électricité moyenne tension, Pakistan",
   "elecKwh": 0.0,
@@ -11,18 +9,11 @@
   "metadata": [
     {
       "id": "3cd78f83-fe81-46c4-82d7-c01d4d946295",
-      "scopes": [
-        "object",
-        "veli"
-      ]
+      "scopes": ["object", "veli"]
     }
   ],
   "qtyVariationRatio": 1,
-  "scopes": [
-    "object",
-    "textile",
-    "veli"
-  ],
+  "scopes": ["object", "textile", "veli"],
   "source": "Ecoinvent 3.9.1",
   "unit": "kWh"
 }

@@ -1,10 +1,6 @@
 {
   "activityName": "Oats, at farm {GLO} - Adapted from WFLDB U",
-  "categories": [
-    "ingredient",
-    "material",
-    "material_type:cereals"
-  ],
+  "categories": ["ingredient", "material", "material_type:cereals"],
   "displayName": "Avoine par défaut",
   "id": "786a7e5d-e48c-5989-8c31-bd49aabab932",
   "metadata": [
@@ -16,15 +12,10 @@
       "explain": "",
       "id": "94c4be9e-452d-4870-b1a2-5d2404a0490b",
       "inediblePart": 0,
-      "ingredientCategories": [
-        "grain_raw"
-      ],
+      "ingredientCategories": ["grain_raw"],
       "ingredientDensity": 0.72,
       "scenario": "import",
-      "scopes": [
-        "food",
-        "food2"
-      ],
+      "scopes": ["food", "food2"],
       "transportCooling": "none",
       "visible": false
     },
@@ -35,22 +26,14 @@
       "displayName": "Avoine UE (2025)",
       "id": "6c3815da-dec2-4cf2-9be6-9d99b4e9948d",
       "inediblePart": 0,
-      "ingredientCategories": [
-        "grain_raw"
-      ],
+      "ingredientCategories": ["grain_raw"],
       "ingredientDensity": 1.0,
       "scenario": "import",
-      "scopes": [
-        "food",
-        "food2"
-      ],
+      "scopes": ["food", "food2"],
       "transportCooling": "none",
       "visible": false
     }
   ],
-  "scopes": [
-    "food",
-    "food2"
-  ],
+  "scopes": ["food", "food2"],
   "source": "Agribalyse 3.2"
 }

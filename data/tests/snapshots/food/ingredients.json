@@ -3,10 +3,7 @@
     "activityName": "_18 Meat products, Poultry and meat n.e.c., DK",
     "alias": "milk-organic",
     "baseIngredient": "milk",
-    "categories": [
-      "dairy_product",
-      "organic"
-    ],
+    "categories": ["dairy_product", "organic"],
     "cropGroup": null,
     "defaultOrigin": "France",
     "density": 1.0,
@@ -31,10 +28,7 @@
     "activityName": "_18 Meat products, Poultry and meat n.e.c., DK",
     "alias": "ground-beef-grass-fed",
     "baseIngredient": "ground-beef",
-    "categories": [
-      "animal_product",
-      "organic"
-    ],
+    "categories": ["animal_product", "organic"],
     "cropGroup": null,
     "defaultOrigin": "France",
     "density": 1.0,
@@ -59,10 +53,7 @@
     "activityName": "__4 Grain crops, DK",
     "alias": "egg-bleublanccoeur",
     "baseIngredient": "egg",
-    "categories": [
-      "animal_product",
-      "bleublanccoeur"
-    ],
+    "categories": ["animal_product", "bleublanccoeur"],
     "cropGroup": null,
     "defaultOrigin": "France",
     "density": 1.0,
@@ -87,9 +78,7 @@
     "activityName": "_22 Vegetable and animal oils and fats, EU27",
     "alias": "milk",
     "baseIngredient": "milk",
-    "categories": [
-      "dairy_product"
-    ],
+    "categories": ["dairy_product"],
     "cropGroup": null,
     "defaultOrigin": "France",
     "density": 1.0,
@@ -114,9 +103,7 @@
     "activityName": "_22 Vegetable and animal oils and fats, EU27",
     "alias": "bean-fr",
     "baseIngredient": "bean",
-    "categories": [
-      "grain_raw"
-    ],
+    "categories": ["grain_raw"],
     "cropGroup": "AUTRES CEREALES",
     "defaultOrigin": "France",
     "density": 1.0,

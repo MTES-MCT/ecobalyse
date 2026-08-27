@@ -1,8 +1,6 @@
 {
   "activityName": "electricity, medium voltage//[KE] market for electricity, medium voltage",
-  "categories": [
-    "energy"
-  ],
+  "categories": ["energy"],
   "comment": "Ancien identifiant (12/2024): e5f92d33532b4e649da2541b264fa363.",
   "displayName": "Électricité moyenne tension, Kenya",
   "elecKwh": 0.0,
@@ -11,16 +9,11 @@
   "metadata": [
     {
       "id": "9c5f603c-3c31-4b97-9357-f381d3c66435",
-      "scopes": [
-        "food2"
-      ]
+      "scopes": ["food2"]
     }
   ],
   "qtyVariationRatio": 1,
-  "scopes": [
-    "textile",
-    "food2"
-  ],
+  "scopes": ["textile", "food2"],
   "source": "Ecoinvent 3.9.1",
   "unit": "kWh"
 }

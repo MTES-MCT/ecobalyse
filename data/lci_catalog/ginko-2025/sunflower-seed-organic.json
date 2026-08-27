@@ -1,10 +1,6 @@
 {
   "activityName": "Sunflower, at farm, organic 2025 {FR}",
-  "categories": [
-    "ingredient",
-    "material",
-    "material_type:other_food_items"
-  ],
+  "categories": ["ingredient", "material", "material_type:other_food_items"],
   "displayName": "Tournesol, graine Bio",
   "id": "fbbf0564-060f-5696-92f8-fc9f86a2049b",
   "location": "FR",
@@ -24,10 +20,7 @@
         "confidence": 0.96,
         "rule": "Matched with sunflower seed in inedible_part.csv"
       },
-      "ingredientCategories": [
-        "nut_oilseed_raw",
-        "organic"
-      ],
+      "ingredientCategories": ["nut_oilseed_raw", "organic"],
       "ingredientDensity": 0.62,
       "ingredientDensityMatch": {
         "confidence": 1.0,
@@ -39,10 +32,7 @@
         "rule": "nut_oilseed default from food_type_cooked_to_raw.csv"
       },
       "scenario": "organic",
-      "scopes": [
-        "food",
-        "food2"
-      ],
+      "scopes": ["food", "food2"],
       "transportCooling": "none",
       "transportCoolingMatch": {
         "confidence": 1.0,
@@ -51,10 +41,7 @@
       "visible": true
     }
   ],
-  "scopes": [
-    "food",
-    "food2"
-  ],
+  "scopes": ["food", "food2"],
   "source": "Ginko 2025",
   "unit": "kg"
 }
