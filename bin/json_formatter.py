@@ -7,6 +7,7 @@ from pathlib import Path
 from typing import Annotated
 
 import typer
+from data.config import settings
 from ecobalyse.json import CompactJSONEncoder, activities_processes_sort_key
 from ecobalyse.logging import logger
 
@@ -48,6 +49,7 @@ EXCLUDED_PATHS: list[str] = [
 
 SORT_PATHS = [
     "processes.json",
+    "processes_impacts.json",
     "processes_generic.json",
     "processes_generic_impacts.json",
 ]
@@ -63,16 +65,19 @@ def _lint_and_fix(path: Path, fix: bool):
         try:
             input_data = json.loads(src_data)
 
+            number_precision = None
             if path.name in SORT_PATHS:
                 input_data.sort(key=activities_processes_sort_key)
+                # Only apply precision number to processes files
+                number_precision = settings.number_precision
 
-            # TODO: add number_precision=settings.number_precision for processes files?
             formatted_data = json.dumps(
                 input_data,
                 ensure_ascii=False,
                 sort_keys=True,
                 indent=2,
                 cls=CompactJSONEncoder,
+                number_precision=number_precision,
             )
             formatted_data += "\n"
 
@@ -85,7 +90,6 @@ def _lint_and_fix(path: Path, fix: bool):
                     fp.write(formatted_data)
                     return True
             logger.error(f"{path} needs formatting")
-            print(diff(src_data, formatted_data))
         except Exception:
             print(f"json_formatter error in {path}")
             raise
