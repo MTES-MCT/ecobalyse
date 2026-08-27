@@ -483,7 +483,7 @@ update ({ navKey } as session) msg model =
 
         ( OnAutocompleteSelectAssemblyOperation, (SelectAssemblyOperationModal autocompleteState) :: _ ) ->
             createPageUpdate session model
-                |> selectAssemblyOperation query autocompleteState
+                |> selectAssemblyOperation requirements query autocompleteState
 
         ( OnAutocompleteSelectAssemblyOperation, _ ) ->
             createPageUpdate session model
@@ -558,7 +558,7 @@ update ({ navKey } as session) msg model =
 
         ( RemoveAssemblyOperation index, _ ) ->
             createPageUpdate session model
-                |> updateQuery (query |> Component.removeAssemblyOperation index)
+                |> updateQuery (query |> Component.removeAssemblyOperation requirements index)
 
         ( RemoveConsumption index, _ ) ->
             createPageUpdate session model
@@ -904,12 +904,12 @@ selectProductionItem query autocompleteState ({ model, session } as pageUpdate) 
             pageUpdate |> App.notifyWarning "Aucun composant sélectionné"
 
 
-selectAssemblyOperation : Component.Query -> Autocomplete Process -> PageUpdate Model Msg -> PageUpdate Model Msg
-selectAssemblyOperation query autocompleteState pageUpdate =
+selectAssemblyOperation : Component.Requirements Db -> Component.Query -> Autocomplete Process -> PageUpdate Model Msg -> PageUpdate Model Msg
+selectAssemblyOperation requirements query autocompleteState pageUpdate =
     case Autocomplete.selectedValue autocompleteState of
         Just process ->
             pageUpdate
-                |> updateQuery (query |> Component.addAssemblyOperation process)
+                |> updateQuery (query |> Component.addAssemblyOperation requirements process)
                 |> App.apply update (SetModals [])
 
         Nothing ->

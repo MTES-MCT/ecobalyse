@@ -250,6 +250,59 @@ checkExamplesScope db =
             )
 
 
+{-| Checks that a product category assembly process exists, is scoped, is an assembly process, and is in kg.
+-}
+checkProductCategoryAssembly : Dict String Process -> ProductCategory -> Process.Id -> List Error
+checkProductCategoryAssembly processes product processId =
+    let
+        processIdString =
+            Process.idToString processId
+    in
+    case processes |> Dict.get processIdString of
+        Just process ->
+            if process.scopes |> List.member (Scope.Generic product.scope) |> not then
+                formatError
+                    [ "Product category " ++ productCategoryLabel product
+                    , "references process " ++ processLabel process
+                    , "in assembly but isn't scoped for " ++ backtick (Scope.toStringGeneric product.scope)
+                    ]
+
+            else if not (List.member ProcessCategory.Assembly process.categories) then
+                formatError
+                    [ "Product category " ++ productCategoryLabel product
+                    , "references process " ++ processLabel process
+                    , "in assembly but the process is not an assembly process"
+                    ]
+
+            else if process.unit /= Process.Kilogram then
+                formatError
+                    [ "Product category " ++ productCategoryLabel product
+                    , "references process " ++ processLabel process
+                    , "in assembly but the process unit is not kg"
+                    ]
+
+            else
+                []
+
+        Nothing ->
+            formatError
+                [ "Product category " ++ productCategoryLabel product
+                , "references missing process " ++ processIdString ++ " in assembly"
+                ]
+
+
+{-| Validates process references used by generic product category assembly defaults.
+-}
+checkProductCategoryAssemblies : Db -> List Error
+checkProductCategoryAssemblies db =
+    db.products
+        |> List.concatMap
+            (\product ->
+                product.assembly
+                    |> List.concatMap (product |> checkProductCategoryAssembly (processById db.processes))
+            )
+
+
 {-| Checks that a product category consumption references an existing, scope-compatible process.
 When amount is omitted, the process _must_ be product-mass-dependent.
 -}
@@ -338,6 +391,7 @@ checkStaticDatabase config dbName dbResult =
             []
                 |> addGroupedErrors (section "Examples components checks") (checkExamplesComponentIds knownComponentStringIds db)
                 |> addGroupedErrors (section "Components processes checks") (checkComponentsProcessIds knownProcessStringIds db)
+                |> addGroupedErrors (section "Product category assembly checks") (checkProductCategoryAssemblies db)
                 |> addGroupedErrors (section "Product category consumptions checks") (checkProductCategoryConsumptions db)
                 |> addGroupedErrors (section "Scoping checks") (checkExamplesScope db)
                 |> addGroupedErrors (section "Component config checks") (checkComponentConfig db config)

@@ -126,7 +126,7 @@ transportToRow countryCode countries transport =
     let
         formatDistance length =
             if length == Quantity.zero then
-                span [ title "Non-applicable" ] [ text "N/A" ]
+                text Table.emptyLabel
 
             else
                 Format.km length

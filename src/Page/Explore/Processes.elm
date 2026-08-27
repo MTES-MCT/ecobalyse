@@ -31,7 +31,7 @@ table session { scope } =
         , Table.Facet "Région"
             (.location
                 >> Maybe.map (resolveRegionName session)
-                >> Maybe.withDefault "N/A"
+                >> Maybe.withDefault Table.emptyLabel
                 >> List.singleton
             )
         ]
@@ -67,8 +67,8 @@ baseColumns session =
       , toCell = .source >> text
       }
     , { label = "Région"
-      , toValue = Table.StringValue <| .location >> Maybe.withDefault "N/A"
-      , toCell = .location >> Maybe.map (resolveRegionName session) >> Maybe.withDefault "N/A" >> text
+      , toValue = Table.StringValue <| .location >> Maybe.withDefault Table.emptyLabel
+      , toCell = .location >> Maybe.map (resolveRegionName session) >> Maybe.withDefault Table.emptyLabel >> text
       }
     , { label = "Catégories"
       , toValue =
@@ -99,7 +99,7 @@ baseColumns session =
       , toCell = .qtyVariationRatio >> Format.qtyVariationRatio
       }
     , { label = "Masse par unité"
-      , toValue = Table.StringValue <| .massPerUnit >> Maybe.map String.fromFloat >> Maybe.withDefault "N/A"
+      , toValue = Table.StringValue <| .massPerUnit >> Maybe.map String.fromFloat >> Maybe.withDefault Table.emptyLabel
       , toCell = Format.massPerUnit
       }
     , { label = "Commentaire"
@@ -129,7 +129,7 @@ complementsColumns { db } =
             , toCell =
                 complementToMaybeFloat a
                     >> Maybe.map (Format.formatImpactFloat (Definition.get Definition.Ecs db.definitions))
-                    >> Maybe.withDefault (text "N/A")
+                    >> Maybe.withDefault (text Table.emptyLabel)
             }
         )
         Complement.allComplementsFields

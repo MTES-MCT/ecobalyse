@@ -5,6 +5,7 @@ module Page.Explore.Table exposing
     , Facets
     , Table
     , Value(..)
+    , emptyLabel
     , updateFacets
     , viewDetails
     , viewList
@@ -223,6 +224,11 @@ applyFiltersAndSearch config facets toSearchableWords =
         >> searchItems config toSearchableWords
 
 
+emptyLabel : String
+emptyLabel =
+    "—"
+
+
 viewFacet : Config data msg -> List data -> Facet data -> Html msg
 viewFacet ({ selectedFacets } as config) items { key, toValues } =
     let
@@ -245,18 +251,22 @@ viewFacet ({ selectedFacets } as config) items { key, toValues } =
                     )
                     ( [], [] )
                 |> Tuple.mapBoth Text.sortI18nStrings Text.sortI18nStrings
-    in
-    div [ class "FacetCard card" ]
-        [ div [ class "card-header fw-bold py-2" ] [ text key ]
-        , div
-            [ class "FacetCardBody card-body d-flex flex-column gap-1 p-2 no-scroll-chaining"
-            , attribute "data-scroll-id" key
-            ]
-            (if List.isEmpty (selectedOptions ++ availableOptions) then
-                [ em [ class "text-muted small" ] [ text "Aucune valeur disponible" ] ]
 
-             else
-                List.concat
+        allOptions =
+            selectedOptions ++ availableOptions
+    in
+    -- hide facet entirely when no usable options are available
+    if List.isEmpty allOptions || allOptions == [ emptyLabel ] then
+        text ""
+
+    else
+        div [ class "FacetCard card" ]
+            [ div [ class "card-header fw-bold py-2" ] [ text key ]
+            , div
+                [ class "FacetCardBody card-body d-flex flex-column gap-1 p-2 no-scroll-chaining"
+                , attribute "data-scroll-id" key
+                ]
+                (List.concat
                     [ selectedOptions |> List.map (viewFacetOption config True key)
                     , if not (List.isEmpty selectedOptions) then
                         [ div [ class "FacetCardSeparator border-bottom" ] [] ]
@@ -265,8 +275,8 @@ viewFacet ({ selectedFacets } as config) items { key, toValues } =
                         []
                     , availableOptions |> List.map (viewFacetOption config False key)
                     ]
-            )
-        ]
+                )
+            ]
 
 
 viewFacetOption : Config data msg -> Bool -> String -> String -> Html msg
@@ -371,7 +381,7 @@ valueToString item toValue =
             getInt item |> String.fromInt
 
         NoValue ->
-            "N/A"
+            emptyLabel
 
         StringValue getString ->
             getString item
