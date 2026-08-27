@@ -7,15 +7,8 @@
 *.yaml
 *.yml
 dist/
-elm.json
-package-lock.json
-package.json
-Pipfile.lock
 public/icomoon/*
 styles.scss
-tests/e2e-*-output.json
-tests/e2e-food.json
-tests/e2e-textile.json
-tests/processes-schema.json
 
-!/data/common/distances/distances_raw.json
+
+*.json

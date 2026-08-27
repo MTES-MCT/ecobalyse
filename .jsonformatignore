@@ -1,0 +1,13 @@
+.proxyrc.json
+dist/
+elm.json
+package-lock.json
+package.json
+public/icomoon/*
+public/vendor/*
+tests/e2e-*-output.json
+tests/e2e-food.json
+tests/e2e-textile.json
+tests/processes-schema.json
+
+!/data/common/distances/distances_raw.json
