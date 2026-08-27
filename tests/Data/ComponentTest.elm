@@ -1131,6 +1131,33 @@ suite =
                                     )
                                 ]
                             )
+                        , suiteFromResult2 "single item quantity scaling"
+                            -- setup
+                            ("""{"components": [{ "id": "64fa65b3-c2df-4fd0-958b-83965bd6aa08", "quantity": 1 }]}"""
+                                |> decodeJsonThen Component.decodeQuery (Component.compute requirements)
+                            )
+                            ("""{"components": [{ "id": "64fa65b3-c2df-4fd0-958b-83965bd6aa08", "quantity": 2 }]}"""
+                                |> decodeJsonThen Component.decodeQuery (Component.compute requirements)
+                            )
+                            -- tests
+                            (\singleItemProduct doubleQuantityProduct ->
+                                [ it "should double transport to assembly impacts when quantity doubles"
+                                    (doubleQuantityProduct.transports.toAssembly.impacts
+                                        |> getEcsImpact
+                                        |> expectFloatMostlyEqual (getEcsImpact singleItemProduct.transports.toAssembly.impacts * 2)
+                                    )
+                                , it "should keep distances to assembly unchanged when quantity doubles"
+                                    (doubleQuantityProduct.transports.toAssembly
+                                        |> Expect.all
+                                            [ .air >> Expect.equal singleItemProduct.transports.toAssembly.air
+                                            , .road >> Expect.equal singleItemProduct.transports.toAssembly.road
+                                            , .roadCooled >> Expect.equal singleItemProduct.transports.toAssembly.roadCooled
+                                            , .sea >> Expect.equal singleItemProduct.transports.toAssembly.sea
+                                            , .seaCooled >> Expect.equal singleItemProduct.transports.toAssembly.seaCooled
+                                            ]
+                                    )
+                                ]
+                            )
                         , it "should reject an empty component list with an assembly country"
                             ("""{
                                   "assembly": { "country": "FR" },
@@ -1276,6 +1303,25 @@ suite =
                                             heavierProductAssembledInUnknownCountry
                                                 |> .transports
                                                 |> .toDistribution
+                                                |> .impacts
+                                                |> getEcsImpact
+                                     in
+                                     heavierProductAssembledInUnknownCountryImpacts
+                                        |> Expect.greaterThan productAssembledInUnknownCountryImpacts
+                                    )
+                                , it "should increase assembly transport impacts when total transported mass increases"
+                                    (let
+                                        productAssembledInUnknownCountryImpacts =
+                                            productAssembledInUnknownCountry
+                                                |> .transports
+                                                |> .toAssembly
+                                                |> .impacts
+                                                |> getEcsImpact
+
+                                        heavierProductAssembledInUnknownCountryImpacts =
+                                            heavierProductAssembledInUnknownCountry
+                                                |> .transports
+                                                |> .toAssembly
                                                 |> .impacts
                                                 |> getEcsImpact
                                      in

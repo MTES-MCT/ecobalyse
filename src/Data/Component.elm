@@ -1229,8 +1229,10 @@ computeTransports ({ config, db } as requirements) ({ assembly, transportOptions
                     )
                     -- toAssembly
                     (transportElements <|
-                        \( expandedElement, elementResults ) ->
+                        \( quantity, expandedElement, elementResults ) ->
+                            -- element masses are per unit; scale by the parent item quantity
                             extractMass elementResults
+                                |> Quantity.multiplyBy (toFloat (quantityToInt quantity))
                                 |> computeTransportedMassImpacts requirements
                                     -- Notes:
                                     --   - air transport is always disabled before assembly
@@ -2292,9 +2294,9 @@ getResultedElement ( itemIndex, elementIndex ) productionResults expandedItems =
         (getElementResult ( itemIndex, elementIndex ) productionResults)
 
 
-{-| Create a list of expanded elements with their associated results from a list of items and production results.
+{-| Create a list of expanded elements with their associated results and parent item quantity.
 -}
-getResultedElementList : Results -> List ExpandedItem -> Result String (List ResultedElement)
+getResultedElementList : Results -> List ExpandedItem -> Result String (List ( Quantity, ExpandedElement, Results ))
 getResultedElementList productionResults =
     List.indexedMap
         (\itemIndex expandedItem ->
@@ -2303,7 +2305,7 @@ getResultedElementList productionResults =
                     (\elementIndex expandedElement ->
                         productionResults
                             |> getElementResult ( itemIndex, elementIndex )
-                            |> Result.map (\results -> ( expandedElement, results ))
+                            |> Result.map (\results -> ( expandedItem.quantity, expandedElement, results ))
                     )
         )
         >> List.concat
