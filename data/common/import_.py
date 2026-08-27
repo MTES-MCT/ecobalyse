@@ -249,7 +249,7 @@ def delete_exchange(activity, activity_to_delete, amount=False):
 
 def get_exchange_type(activity: dict) -> ExchangeType:
     """Get the type of an exchange based on the activity"""
-    if activity.get("database") == "biosphere3":
+    if activity.get("database") == settings.bw.BIOSPHERE:
         return ExchangeType.BIOSPHERE
     return ExchangeType.TECHNOSPHERE
 
@@ -463,7 +463,7 @@ def import_simapro_csv(
     database_md5: str,
     dbname,
     external_db=None,
-    biosphere="biosphere3",
+    biosphere=settings.bw.BIOSPHERE,
     migrations=None,
     strategies=None,
 ):
@@ -517,7 +517,7 @@ def import_simapro_csv(
     logger.info(f"🟢 Finished importing {database_s3_key}")
 
 
-def link_and_write(database, external_db=None, biosphere="biosphere3") -> None:
+def link_and_write(database, external_db=None, biosphere=settings.bw.BIOSPHERE) -> None:
     for other_database in [None, external_db] if external_db else [None]:
         for fields in (["name", "unit", "location"], ["name", "unit"]):
             database.apply_strategy(

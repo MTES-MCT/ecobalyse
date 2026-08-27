@@ -258,7 +258,7 @@ def import_method():
                     other=(
                         obj
                         for obj in bw2data.Database(ef.biosphere_name)  # ty: ignore[not-iterable]
-                        if obj.get("type") == "emission"
+                        if obj.get("type") in ("emission", "natural resource")
                     ),
                     kind="biosphere",
                 ),
