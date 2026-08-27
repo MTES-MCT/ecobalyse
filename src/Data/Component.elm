@@ -355,10 +355,10 @@ type alias ExpandedQuantifiedProcess =
     }
 
 
-{-| An expanded element and its results
+{-| An expanded element, its results, and the parent item quantity
 -}
 type alias ResultedElement =
-    ( ExpandedElement, Results )
+    ( Quantity, ExpandedElement, Results )
 
 
 {-| Index of an item element and associated source component
@@ -2279,24 +2279,27 @@ getMaterialDistribution (Results results) =
             (AnyDict.empty Category.materialTypeToString)
 
 
-{-| Get the an expanded element and its results at a given location in the elements tree.
+{-| Get an expanded element and its results at a given location in the elements tree.
 -}
 getResultedElement : ( Index, Index ) -> Results -> List ExpandedItem -> Result String ResultedElement
 getResultedElement ( itemIndex, elementIndex ) productionResults expandedItems =
-    Result.map2 Tuple.pair
-        -- Expanded element
-        (expandedItems
-            |> LE.getAt itemIndex
-            |> Result.fromMaybe errors.itemNotFound
-            |> Result.andThen (.elements >> LE.getAt elementIndex >> Result.fromMaybe errors.elementNotFound)
-        )
-        -- Element results
-        (getElementResult ( itemIndex, elementIndex ) productionResults)
+    expandedItems
+        |> LE.getAt itemIndex
+        |> Result.fromMaybe errors.itemNotFound
+        |> Result.andThen
+            (\{ elements, quantity } ->
+                Result.map2 (\expandedElement results -> ( quantity, expandedElement, results ))
+                    (elements
+                        |> LE.getAt elementIndex
+                        |> Result.fromMaybe errors.elementNotFound
+                    )
+                    (getElementResult ( itemIndex, elementIndex ) productionResults)
+            )
 
 
 {-| Create a list of expanded elements with their associated results and parent item quantity.
 -}
-getResultedElementList : Results -> List ExpandedItem -> Result String (List ( Quantity, ExpandedElement, Results ))
+getResultedElementList : Results -> List ExpandedItem -> Result String (List ResultedElement)
 getResultedElementList productionResults =
     List.indexedMap
         (\itemIndex expandedItem ->
