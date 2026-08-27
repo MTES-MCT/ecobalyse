@@ -1015,7 +1015,7 @@ elementEditModalView ({ query } as config) (( _, elementIndex ) as targetElement
         Err error ->
             div [ class "alert alert-danger" ] [ text error ]
 
-        Ok ( { amount, material, transforms } as expandedElement, elementResults ) ->
+        Ok ( _, { amount, material, transforms } as expandedElement, elementResults ) ->
             let
                 elementCooling =
                     Process.isTransportedCooled material.process
