@@ -2279,7 +2279,7 @@ getMaterialDistribution (Results results) =
             (AnyDict.empty Category.materialTypeToString)
 
 
-{-| Get an expanded element and its results at a given location in the elements tree.
+{-| Get an expanded element, its results, and the parent item quantity at a given location in the elements tree.
 -}
 getResultedElement : ( Index, Index ) -> Results -> List ExpandedItem -> Result String ResultedElement
 getResultedElement ( itemIndex, elementIndex ) productionResults expandedItems =
