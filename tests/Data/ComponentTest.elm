@@ -1006,6 +1006,9 @@ suite =
                                     baseEndOfLifeImpact =
                                         getEcsImpact lifeCycle.endOfLife
 
+                                    baseToAssemblyImpact =
+                                        getEcsImpact lifeCycle.transports.toAssembly.impacts
+
                                     baseToDistributionImpact =
                                         getEcsImpact lifeCycle.transports.toDistribution.impacts
                                 in
@@ -1028,6 +1031,11 @@ suite =
                                     (withAssemblyWaste.transports.toDistribution.impacts
                                         |> getEcsImpact
                                         |> expectFloatMostlyEqual (baseToDistributionImpact * massScaleRatio)
+                                    )
+                                , it "should keep transport to assembly stage impacts unchanged with assembly waste"
+                                    (withAssemblyWaste.transports.toAssembly.impacts
+                                        |> getEcsImpact
+                                        |> expectFloatMostlyEqual baseToAssemblyImpact
                                     )
                                 , it "should keep EoL stage masses consistent with product mass"
                                     (withAssemblyWaste
@@ -1139,25 +1147,31 @@ suite =
                             ("""{"components": [{ "id": "64fa65b3-c2df-4fd0-958b-83965bd6aa08", "quantity": 2 }]}"""
                                 |> decodeJsonThen Component.decodeQuery (Component.compute requirements)
                             )
-                            -- tests
-                            (\singleItemProduct doubleQuantityProduct ->
-                                [ it "should double transport to assembly impacts when quantity doubles"
-                                    (doubleQuantityProduct.transports.toAssembly.impacts
-                                        |> getEcsImpact
-                                        |> expectFloatMostlyEqual (getEcsImpact singleItemProduct.transports.toAssembly.impacts * 2)
-                                    )
-                                , it "should keep distances to assembly unchanged when quantity doubles"
-                                    (doubleQuantityProduct.transports.toAssembly
-                                        |> Expect.all
-                                            [ .air >> Expect.equal singleItemProduct.transports.toAssembly.air
-                                            , .road >> Expect.equal singleItemProduct.transports.toAssembly.road
-                                            , .roadCooled >> Expect.equal singleItemProduct.transports.toAssembly.roadCooled
-                                            , .sea >> Expect.equal singleItemProduct.transports.toAssembly.sea
-                                            , .seaCooled >> Expect.equal singleItemProduct.transports.toAssembly.seaCooled
-                                            ]
-                                    )
-                                ]
+                            doubledQuantitiesExpectations
+                        , suiteFromResult2 "single item quantity scaling with assembly country"
+                            -- setup
+                            ("""{
+                                  "assembly": { "country": "FR" },
+                                  "components": [{ "id": "64fa65b3-c2df-4fd0-958b-83965bd6aa08", "quantity": 1 }]
+                                }"""
+                                |> decodeJsonThen Component.decodeQuery (Component.compute requirements)
                             )
+                            ("""{
+                                  "assembly": { "country": "FR" },
+                                  "components": [{ "id": "64fa65b3-c2df-4fd0-958b-83965bd6aa08", "quantity": 2 }]
+                                }"""
+                                |> decodeJsonThen Component.decodeQuery (Component.compute requirements)
+                            )
+                            doubledQuantitiesExpectations
+                        , suiteFromResult2 "multi-element item quantity scaling"
+                            -- setup
+                            ("""{"components": [{ "id": "8ca2ca05-8aec-4121-acaa-7cdcc03150a9", "quantity": 1 }]}"""
+                                |> decodeJsonThen Component.decodeQuery (Component.compute requirements)
+                            )
+                            ("""{"components": [{ "id": "8ca2ca05-8aec-4121-acaa-7cdcc03150a9", "quantity": 2 }]}"""
+                                |> decodeJsonThen Component.decodeQuery (Component.compute requirements)
+                            )
+                            doubledQuantitiesExpectations
                         , it "should reject an empty component list with an assembly country"
                             ("""{
                                   "assembly": { "country": "FR" },
@@ -2672,6 +2686,41 @@ suite =
                     ]
                 )
             ]
+
+
+doubledQuantitiesExpectations : LifeCycle -> LifeCycle -> List Test
+doubledQuantitiesExpectations base doubled =
+    let
+        expectDoubledImpacts a b =
+            getEcsImpact b
+                |> expectFloatMostlyEqual (getEcsImpact a * 2)
+
+        expectDistancesUntouched expected =
+            Expect.all
+                [ .air >> Expect.equal expected.air
+                , .road >> Expect.equal expected.road
+                , .roadCooled >> Expect.equal expected.roadCooled
+                , .sea >> Expect.equal expected.sea
+                , .seaCooled >> Expect.equal expected.seaCooled
+                ]
+    in
+    [ it "should double transport to assembly impacts when quantity doubles"
+        (doubled.transports.toAssembly.impacts
+            |> expectDoubledImpacts base.transports.toAssembly.impacts
+        )
+    , it "should keep distances to assembly unchanged when quantity doubles"
+        (doubled.transports.toAssembly
+            |> expectDistancesUntouched base.transports.toAssembly
+        )
+    , it "should double transport to distribution impacts when quantity doubles"
+        (doubled.transports.toDistribution.impacts
+            |> expectDoubledImpacts base.transports.toDistribution.impacts
+        )
+    , it "should keep distances to distribution unchanged when quantity doubles"
+        (doubled.transports.toDistribution
+            |> expectDistancesUntouched base.transports.toDistribution
+        )
+    ]
 
 
 {-| A test uuid we're pretty sure that doesn't exist in our datasets
