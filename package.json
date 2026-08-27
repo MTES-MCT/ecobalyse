@@ -91,6 +91,7 @@
     "parcel": "^2.16.4",
     "prettier": "^3.9.6",
     "prettier-plugin-sort-json": "^4.2.0",
+    "rapidoc": "^9.3.8",
     "supertest": "^7.2.2"
   },
   "cacheDirectories": [
