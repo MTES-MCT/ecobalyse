@@ -10,7 +10,7 @@ class FakeMethodImporter:
 
 
 def an_existing_flow(biosphere_name):
-    for flow in bw2data.Database(biosphere_name):
+    for flow in bw2data.Database(biosphere_name):  # ty:ignore[not-iterable]
         if flow.get("type") == "emission" and flow.get("categories"):
             return flow
     raise AssertionError(f"no emission flow in {biosphere_name}")
