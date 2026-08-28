@@ -42,6 +42,7 @@ def metadata(
         ),
     ] = max(multiprocessing.cpu_count() // 2, 1),
     root_dir: Path = DATA_ROOT_DIR,
+    write_taxonomy: bool = True,
 ):
     """
     Export metadata files (materials.json, ingredients.json, …)
@@ -55,8 +56,7 @@ def metadata(
 
     activities = _get_lcias(root_dir)
 
-    if root_dir == DATA_ROOT_DIR:
-        # write the taxonomy_with_aliases() if it's not a test export
+    if write_taxonomy:
         write_taxonomy_with_aliases()
 
     processes_impacts_path = (

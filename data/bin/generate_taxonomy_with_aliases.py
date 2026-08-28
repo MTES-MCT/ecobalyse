@@ -8,6 +8,7 @@ This file is useful to audit and validate the taxonomy from a method perspective
 
 import json
 from collections import defaultdict
+from pathlib import Path
 
 from common.infer_metadata import infer_base_ingredient, load_taxonomy
 from config import DATA_ROOT_DIR
@@ -15,11 +16,13 @@ from config import DATA_ROOT_DIR
 TAXONOMY_WITH_ALIASES_PATH = DATA_ROOT_DIR / "food" / "taxonomy_with_aliases.json"
 
 
-def build_taxonomy_with_aliases() -> dict:
+def build_taxonomy_with_aliases(
+    lci_catalog_dir: Path = DATA_ROOT_DIR / "lci_catalog",
+) -> dict:
     material_type_by_base = load_taxonomy()
 
     aliases_by_base = defaultdict(set)
-    for lci_path in (DATA_ROOT_DIR / "lci_catalog").glob("*/*.json"):
+    for lci_path in lci_catalog_dir.glob("*/*.json"):
         with open(lci_path, encoding="utf-8") as f:
             activity = json.load(f)
         if "ingredient" not in activity["categories"]:
@@ -34,8 +37,10 @@ def build_taxonomy_with_aliases() -> dict:
     return {"food": dict(taxonomy_with_aliases)}
 
 
-def write_taxonomy_with_aliases():
-    with open(TAXONOMY_WITH_ALIASES_PATH, "w", encoding="utf-8") as f:
+def write_taxonomy_with_aliases(
+    taxonomy_with_aliases_path: Path = TAXONOMY_WITH_ALIASES_PATH,
+):
+    with open(taxonomy_with_aliases_path, "w", encoding="utf-8") as f:
         json.dump(
             build_taxonomy_with_aliases(),
             f,

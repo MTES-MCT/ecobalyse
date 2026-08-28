@@ -2,6 +2,7 @@
 
 import functools
 import json
+from pathlib import Path
 
 from config import DATA_ROOT_DIR
 
@@ -107,16 +108,18 @@ KNOWN_MATERIAL_TYPES = frozenset(_MATERIAL_TYPE_TO_RAW_TO_COOKED_RATIO) | {
 }
 
 
-def parse_taxonomy(taxonomy: dict) -> dict[str, str]:
+def parse_taxonomy(
+    taxonomy: dict, known_material_types: frozenset[str] = KNOWN_MATERIAL_TYPES
+) -> dict[str, str]:
     """Turn a taxonomy document into the baseIngredient -> material_type
     mapping, rejecting unknown material_types and duplicated baseIngredients.
     """
     material_type_by_base = {}
     for material_type, base_ingredients in taxonomy["food"].items():
-        if material_type not in KNOWN_MATERIAL_TYPES:
+        if material_type not in known_material_types:
             raise ValueError(
                 f"Unknown material_type {material_type!r}. "
-                f"Known material_types: {sorted(KNOWN_MATERIAL_TYPES)}."
+                f"Known material_types: {sorted(known_material_types)}."
             )
         for base_ingredient in base_ingredients:
             if base_ingredient in material_type_by_base:
@@ -129,10 +132,10 @@ def parse_taxonomy(taxonomy: dict) -> dict[str, str]:
 
 
 @functools.cache
-def load_taxonomy() -> dict[str, str]:
+def load_taxonomy(taxonomy_path: Path = _TAXONOMY_PATH) -> dict[str, str]:
     """Return the validated baseIngredient -> material_type mapping from
     taxonomy.json."""
-    with open(_TAXONOMY_PATH, "r", encoding="utf-8") as f:
+    with open(taxonomy_path, "r", encoding="utf-8") as f:
         return parse_taxonomy(json.load(f))
 
 
