@@ -65,8 +65,8 @@ git diff --numstat "$base"...HEAD | awk -F'\t' \
             if (n[b])
                 printf "| %s | %d%s | +%d | -%d |\n", label[b], n[b], \
                     (bin[b] ? " (dont " bin[b] " binaire)" : ""), add[b], del[b]
+            if (b == "gen" && crypted_count)
+                printf "| Généré (crypté) | %d | +%d | -%d |\n", \
+                    crypted_count, crypted_added, crypted_deleted
         }
-        if (crypted_count)
-            printf "| Généré (crypté) | %d | +%d | -%d |\n", \
-                crypted_count, crypted_added, crypted_deleted
     }'
