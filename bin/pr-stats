@@ -1,0 +1,72 @@
+#!/usr/bin/env bash
+# Actuellement une PR avec 200k LOC peut être un changement trivial de virgule
+# dans un fichier crypté. L'indicateur LOC actuel est donc trompeur.
+# L'objectif est de créer un meilleur indicateur de complexité d'une PR en
+# ventilant le diff de la branche courante entre code, donnée source et
+# fichiers générés (dont fichiers cryptés).
+set -euo pipefail
+
+base="${1:-origin/main}"
+merge_base=$(git merge-base "$base" HEAD)
+
+# Les fichiers cryptés (attribut filter=crypt) sont ré-encryptés en entier au
+# moindre changement : leurs compteurs numstat mesurent du ciphertext, pas le
+# changement réel. On les ventile à part, avec les mêmes nombres que GitHub :
+# le nombre de lignes des blobs commités (ciphertext), lus sans filtre via
+# git cat-file, donc identiques avec ou sans clé transcrypt.
+crypted_files=$(git diff --name-only "$base"...HEAD \
+    | git check-attr --stdin filter \
+    | awk -F': ' '$3 == "crypt" { print $1 }')
+
+crypted_count=0 crypted_added=0 crypted_deleted=0
+while IFS= read -r path; do
+    [ -n "$path" ] || continue
+    crypted_count=$((crypted_count + 1))
+    # fichier absent d'un côté (ajout ou suppression) : 0 ligne de ce côté
+    crypted_added=$((crypted_added + $({ git cat-file -p "HEAD:$path" 2>/dev/null || true; } | wc -l)))
+    crypted_deleted=$((crypted_deleted + $({ git cat-file -p "$merge_base:$path" 2>/dev/null || true; } | wc -l)))
+done <<< "$crypted_files"
+
+git diff --numstat "$base"...HEAD | awk -F'\t' \
+    -v crypted_paths="$crypted_files" \
+    -v crypted_count="$crypted_count" \
+    -v crypted_added="$crypted_added" \
+    -v crypted_deleted="$crypted_deleted" '
+    BEGIN {
+        split(crypted_paths, crypted_split, "\n")
+        for (i in crypted_split)
+            if (crypted_split[i] != "") is_crypted[crypted_split[i]] = 1
+    }
+    # premier motif qui matche gagne : les exceptions avant les génériques
+    function bucket(p) {
+        if (p ~ /^data\/food\/taxonomy_with_aliases\.json/) return "gen"
+        if (p ~ /^(data\/lci_catalog|data\/food|schemas|data\/tests\/fixtures)\//) return "src"
+        if (p ~ /^public\/data\/food2\/categories\.json/ || p ~ /^data\/(custom_lci|impacts)\.json/) return "src"
+        if (p ~ /^(public\/data|data\/export|data\/tests\/snapshots)\//) return "gen"
+        if (p ~ /^src\/Static\/Json\.elm/ || p ~ /package-lock\.json/) return "gen"
+        if (p ~ /\.(py|elm|js|mjs|ts|sh)$/) return "code"
+        return "other"
+    }
+    {
+        if ($3 in is_crypted) next
+        b = bucket($3)
+        n[b]++
+        if ($1 == "-") bin[b]++
+        else { add[b] += $1; del[b] += $2 }
+    }
+    END {
+        label["code"] = "Code"; label["src"] = "Donnée source"
+        label["gen"] = "Généré"; label["other"] = "Autre"
+        print "| | fichiers | ajouts | suppressions |"
+        print "|---|---|---|---|"
+        split("code src gen other", order, " ")
+        for (i = 1; i <= 4; i++) {
+            b = order[i]
+            if (n[b])
+                printf "| %s | %d%s | +%d | -%d |\n", label[b], n[b], \
+                    (bin[b] ? " (dont " bin[b] " binaire)" : ""), add[b], del[b]
+            if (b == "gen" && crypted_count)
+                printf "| Généré (crypté) | %d | +%d | -%d |\n", \
+                    crypted_count, crypted_added, crypted_deleted
+        }
+    }'

@@ -200,6 +200,9 @@ def merge_processes(
 
 
 def _get_lcis(root_dir):
+    #
+    #
+    # test
     lci_catalog = root_dir / "lci_catalog"
     logger.debug(f"-> Loading lci_catalog {lci_catalog}")
 
