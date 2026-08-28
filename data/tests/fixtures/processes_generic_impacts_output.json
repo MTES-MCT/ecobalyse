@@ -91,10 +91,7 @@
       "ingredient": {
         "baseIngredient": "bean",
         "cropGroup": "AUTRES CEREALES",
-        "density": 1.0,
-        "inediblePart": 0,
         "processId": "af42fc20-e3ec-5b99-9b9c-83ba6735e597",
-        "rawToCookedRatio": 2.259,
         "scenario": "reference"
       }
     },
@@ -153,10 +150,7 @@
       "ingredient": {
         "baseIngredient": "grazed-grass-permanent",
         "cropGroup": "PRAIRIES PERMANENTES",
-        "density": 1.0,
-        "inediblePart": 0,
         "processId": "af42fc20-e3ec-5b99-9b9c-83ba6735e597",
-        "rawToCookedRatio": 1.0,
         "scenario": "reference"
       }
     },
@@ -213,10 +207,7 @@
       "ingredient": {
         "baseIngredient": "milk",
         "cropGroup": null,
-        "density": 1.0,
-        "inediblePart": 0,
         "processId": "af42fc20-e3ec-5b99-9b9c-83ba6735e597",
-        "rawToCookedRatio": 1.0,
         "scenario": "reference"
       }
     },

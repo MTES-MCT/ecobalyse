@@ -8,7 +8,6 @@ from common.export import export_json
 from common.infer_metadata import (
     infer_base_ingredient,
     infer_default_origin,
-    infer_raw_to_cooked_ratio,
 )
 from ecobalyse_data.bw.search import cached_search_one
 from ecobalyse_data.export.complements import compute_forest_complement
@@ -58,12 +57,6 @@ def _build_variant_metadata(
             metadata["ingredient"] = IngredientMetadata(
                 base_ingredient=infer_base_ingredient(food_variant["alias"]),
                 crop_group=food_variant.get("cropGroup"),
-                density=food_variant["ingredientDensity"],
-                inedible_part=food_variant["inediblePart"],
-                raw_to_cooked_ratio=infer_raw_to_cooked_ratio(
-                    food_variant.get("rawToCookedRatio"),
-                    activity.get("categories", []),
-                ),
                 scenario=food_variant.get("scenario"),
                 process_id=activity["id"],
             ).model_dump(by_alias=True)
