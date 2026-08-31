@@ -16,12 +16,13 @@ tags:
       url: https://fabrique-numerique.gitbook.io/ecobalyse
   - name: Alimentaire BETA
     description: |
-      Documentation de l'API pour le domaine alimentaire au format OpenAPI
-
-      **⚠️ En construction, les résultats fournis sont incomplets et probablement invalides.**
+      Documentation de l'API générique BETA pour le domaine alimentaire au format OpenAPI
+      **La méthode alimentaire est stabilisée. ⚠️ L'API est en construction, les résultats fournis peuvent être incomplets.**
     externalDocs:
       description: À propos
-      url: https://fabrique-numerique.gitbook.io/ecobalyse
+      url:
+##à ajouter lors de la publication de la page de documentation
+
 security:
   - token: []
 paths:
@@ -37,7 +38,7 @@ paths:
             application/json:
               schema:
                 $ref: "#/components/schemas/FoodCountriesListResponse"
-  /food2/ingredients:
+  /food2/RawMaterial:
     get:
       tags:
       - Alimentaire BETA
@@ -55,7 +56,7 @@ paths:
           content:
             application/json:
               schema:
-                $ref: "#/components/schemas/FoodIngredientsListResponse"
+                $ref: "#/components/schemas/RawMaterialListResponse"
               examples:
                 procede:
                   summary: Ingrédient de type procédé
@@ -63,10 +64,6 @@ paths:
                     - type: process
                       id: "d330d763-6baa-442f-b479-55425b1fa54f"
                       displayName: "Champignon frais FR (2025)"
-                      activityName: "Agaricus bisporus mushroom, fresh, at plant {NL} - Adapted from WFLDB U"
-                      source: "Agribalyse 3.2"
-                      unit: "kg"
-                      location: "NL"
                 composant:
                   summary: Ingrédient de type composant
                   value:
@@ -171,12 +168,6 @@ paths:
               schema:
                 $ref: "#/components/schemas/DetailedFood2Response"
 
-  # TODO: endpoints à documenter
-  # /food2/categories:
-  # /food2/transformations:
-  # /food2/packagings:
-  # /food2/use:
-  # /food2:
 
 components:
   securitySchemes:
@@ -296,7 +287,7 @@ components:
             type: string
           name:
             type: string
-    FoodIngredientsListResponse:
+    RawMaterialListResponse:
       type: array
       description: Liste des ingrédients disponibles pour le calcul
       items:
