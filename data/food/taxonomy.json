@@ -39,7 +39,6 @@
     ],
     "fruits_and_vegetables": [
       "agave",
-      "alfalfa",
       "apple",
       "apple-compote",
       "apricot",
@@ -191,6 +190,7 @@
       "winter-pea"
     ],
     "other_food_items": [
+      "alfalfa",
       "almond-in-shell",
       "almond-shelled-with-skin",
       "apple-juice",

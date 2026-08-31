@@ -203,14 +203,6 @@
         "agave-non-eu",
         "agave-organic"
       ],
-      "alfalfa": [
-        "alfalfa-default",
-        "alfalfa-eu",
-        "alfalfa-fr",
-        "alfalfa-non-eu",
-        "alfalfa-organic",
-        "alfalfa-organic-2025"
-      ],
       "apple": [
         "apple-default",
         "apple-eu",
@@ -1289,6 +1281,14 @@
       ]
     },
     "other_food_items": {
+      "alfalfa": [
+        "alfalfa-default",
+        "alfalfa-eu",
+        "alfalfa-fr",
+        "alfalfa-non-eu",
+        "alfalfa-organic",
+        "alfalfa-organic-2025"
+      ],
       "almond-in-shell": [
         "almond-in-shell-default",
         "almond-in-shell-eu",
