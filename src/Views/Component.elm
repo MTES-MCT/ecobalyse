@@ -1015,7 +1015,7 @@ elementEditModalView ({ query } as config) (( _, elementIndex ) as targetElement
         Err error ->
             div [ class "alert alert-danger" ] [ text error ]
 
-        Ok ( { amount, material, transforms } as expandedElement, elementResults ) ->
+        Ok ( _, { amount, material, transforms } as expandedElement, elementResults ) ->
             let
                 elementCooling =
                     Process.isTransportedCooled material.process
@@ -1474,7 +1474,11 @@ assemblyView ({ db, impact, query, scope } as config) lifeCycle =
                     , selected = query.assembly.country
                     }
                 ]
-            , case Component.expandAssembly db query.assembly of
+            , case
+                query
+                    |> Component.getAssemblyOperations (requirementsFromConfig config)
+                    |> Component.expandAssembly db query.assembly.country
+              of
                 Err error ->
                     div [ class "px-3 pb-3" ] [ error |> simpleError (Just "Erreur") ]
 
@@ -1546,7 +1550,8 @@ addAssemblyOperationButton ({ openSelectAssemblyOperationModal, query } as confi
                 |> List.filter
                     (\{ id } ->
                         -- prevent adding the same operation twice
-                        query.assembly.operations
+                        query
+                            |> Component.getAssemblyOperations (requirementsFromConfig config)
                             |> List.member id
                             |> not
                     )

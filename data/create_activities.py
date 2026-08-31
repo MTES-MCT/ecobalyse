@@ -9,7 +9,7 @@ from config import DATA_ROOT_DIR
 from ecobalyse_data.logging import logger
 
 
-def create_activities(file):
+def create_custom_lci(file):
     """Add additional processes"""
 
     if "Ecobalyse_custom_lci" in bw2data.databases:
@@ -27,4 +27,4 @@ def create_activities(file):
 
 if __name__ == "__main__":
     setup_project()
-    create_activities(DATA_ROOT_DIR / "custom_lci.json")
+    create_custom_lci(DATA_ROOT_DIR / "custom_lci.json")

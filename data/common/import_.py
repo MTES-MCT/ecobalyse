@@ -100,27 +100,25 @@ def search_activity(activity_dict: dict, default_db: str | None = None):
     Returns:
         The found activity
     """
-    if isinstance(activity_dict, dict):
-        db_name = activity_dict.get("database", default_db)
-        if db_name is None:
-            raise ValueError("No database specified in activity dict or default_db")
-        activity_name = activity_dict["name"]
-        location = activity_dict.get("location")
-        code = activity_dict.get("code")
-        categories = activity_dict.get("categories")
-        unit = activity_dict.get("unit")
+    assert isinstance(activity_dict, dict), "Activity must be a dict"
+    db_name = activity_dict.get("database", default_db)
+    if db_name is None:
+        raise ValueError("No database specified in activity dict or default_db")
+    activity_name = activity_dict["name"]
+    location = activity_dict.get("location")
+    code = activity_dict.get("code")
+    categories = activity_dict.get("categories")
+    unit = activity_dict.get("unit")
 
-        result = cached_search_one(
-            db_name,
-            activity_name,
-            location=location,
-            code=code,
-            categories=tuple(categories) if categories else None,
-            unit=unit,
-        )
-        return result
-    else:
-        raise TypeError("Activity must be a dict")
+    result = cached_search_one(
+        db_name,
+        activity_name,
+        location=location,
+        code=code,
+        categories=tuple(categories) if categories else None,
+        unit=unit,
+    )
+    return result
 
 
 def create_activity(
@@ -183,6 +181,8 @@ def add_created_activities(created_activities_db, custom_lci_file):
         if activity_data.get("activityCreationType") == ActivityFrom.EXISTING:
             add_activity_from_existing(activity_data, created_activities_db)
             logger.debug("-")
+
+    bw2data.Database(created_activities_db).process()
 
 
 def add_activity_from_scratch(activity_data, dbname):
@@ -249,7 +249,7 @@ def delete_exchange(activity, activity_to_delete, amount=False):
 
 def get_exchange_type(activity: dict) -> ExchangeType:
     """Get the type of an exchange based on the activity"""
-    if activity.get("database") == "biosphere3":
+    if activity.get("database") == settings.bw.BIOSPHERE:
         return ExchangeType.BIOSPHERE
     return ExchangeType.TECHNOSPHERE
 
@@ -418,24 +418,36 @@ def add_unlinked_flows_to_biosphere_database(
         )
         return dct
 
-    new_data = [
-        reformat(exc, fields)
+    new_data = {
+        exc["code"]: exc
         for ds in database.data
-        for exc in ds.get("exchanges", [])
-        if exc["type"] == "biosphere" and not exc.get("input")
-    ]
+        for exc in [
+            reformat(raw, fields)
+            for raw in ds.get("exchanges", [])
+            if raw["type"] == "biosphere" and not raw.get("input")
+        ]
+    }
 
-    # Dictionary eliminate duplicates
-    # first load the new data with activity_hash
-    data = {(biosphere_name, exc["code"]): exc for exc in new_data}
-    # then deduplicate/overwrite them with original data
-    # still using the activity_hash as a key but the uuis as internal code
-    data.update(
-        {(biosphere_name, activity_hash(exc)): exc for exc in bio.load().values()}
-    )
-    # then reconstruct data with the uuid
-    data = {(biosphere_name, exc["code"]): exc for exc in data.values()}
-    bio.write(data)
+    known = {activity_hash(flow) for flow in bio}  # ty: ignore[not-iterable]
+    added = 0
+    for code, flow in new_data.items():
+        if code in known:
+            continue
+        node = bio.new_activity(  # ty: ignore[unresolved-attribute]
+            code,
+            **{
+                key: value
+                for key, value in flow.items()
+                if key not in ("code", "database")
+            },
+        )
+        del node["location"]
+        node.save()
+        known.add(code)
+        added += 1
+    if added:
+        logger.debug(f"-> Added {added} new flows to {biosphere_name}")
+        bio.process()
 
     database.apply_strategy(
         functools.partial(
@@ -451,7 +463,7 @@ def import_simapro_csv(
     database_md5: str,
     dbname,
     external_db=None,
-    biosphere="biosphere3",
+    biosphere=settings.bw.BIOSPHERE,
     migrations=None,
     strategies=None,
 ):
@@ -505,7 +517,7 @@ def import_simapro_csv(
     logger.info(f"🟢 Finished importing {database_s3_key}")
 
 
-def link_and_write(database, external_db=None, biosphere="biosphere3") -> None:
+def link_and_write(database, external_db=None, biosphere=settings.bw.BIOSPHERE) -> None:
     for other_database in [None, external_db] if external_db else [None]:
         for fields in (["name", "unit", "location"], ["name", "unit"]):
             database.apply_strategy(

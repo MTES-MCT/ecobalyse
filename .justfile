@@ -18,7 +18,7 @@ default:
 ################################################################################
 ### Data imports
 
-import-all: import-food import-ecoinvent import-bafu import-method create-activities sync-datapackages
+import-all: import-food import-ecoinvent import-bafu import-method create-activities
 
 import-food:
     {{ python-cmd-data }} data/import_food.py
@@ -34,9 +34,6 @@ import-method:
 
 create-activities:
     {{ python-cmd-data }} data/create_activities.py
-
-sync-datapackages:
-    {{ python-cmd-data }} data/common/sync_datapackages.py
 
 ################################################################################
 ### Data exports

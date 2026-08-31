@@ -18,10 +18,11 @@ table { db } genericScope _ =
     , toRoute = \{ id } -> Route.Explore (Scope.Generic genericScope) (Dataset.ProductCategory genericScope (Just id))
     , toSearchableWords = ProductCategory.toSearchableString >> Text.toWords
     , facets =
-        [ { key = "Transport réfrigéré"
-          , toValues =
-                \{ cooling } ->
-                    [ Text.yesNo cooling ]
+        [ { key = "Assemblage"
+          , toValues = assemblyFacetValues db.processes
+          }
+        , { key = "Transport réfrigéré"
+          , toValues = \{ cooling } -> [ Text.yesNo cooling ]
           }
         , { key = "Distribution"
           , toValues = distributionLabel db.processes >> List.singleton
@@ -42,6 +43,10 @@ table { db } genericScope _ =
           , toValue = Table.StringValue .label
           , toCell = .label >> text
           }
+        , { label = "Assemblage"
+          , toValue = Table.StringValue <| assemblyLabel db.processes
+          , toCell = assemblyLabel db.processes >> text
+          }
         , { label = "Transport réfrigéré"
           , toValue = Table.StringValue <| .cooling >> Text.yesNo
           , toCell = .cooling >> Text.yesNo >> text
@@ -58,39 +63,45 @@ table { db } genericScope _ =
     }
 
 
-emptyLabel : String
-emptyLabel =
-    "—"
+assemblyFacetValues : List Process.Process -> ProductCategory -> List String
+assemblyFacetValues processes product =
+    if List.isEmpty product.assembly then
+        []
+
+    else
+        product.assembly
+            |> List.map (processDisplayName processes)
 
 
-consumptionProcessName : List Process.Process -> ProductCategory.DefaultConsumption -> String
-consumptionProcessName processes { processId } =
-    case processes |> Process.findById processId |> Result.map Process.getDisplayName of
-        Err err ->
-            "Erreur\u{00A0}: " ++ err
+assemblyLabel : List Process.Process -> ProductCategory -> String
+assemblyLabel processes product =
+    if List.isEmpty product.assembly then
+        Table.emptyLabel
 
-        Ok displayName ->
-            displayName
+    else
+        product.assembly
+            |> List.map (processDisplayName processes)
+            |> String.join ", "
 
 
 consumptionsFacetValues : List Process.Process -> ProductCategory -> List String
 consumptionsFacetValues processes product =
     if List.isEmpty product.consumptions then
-        [ emptyLabel ]
+        []
 
     else
         product.consumptions
-            |> List.map (consumptionProcessName processes)
+            |> List.map (.processId >> processDisplayName processes)
 
 
 consumptionsLabel : List Process.Process -> ProductCategory -> String
 consumptionsLabel processes product =
     if List.isEmpty product.consumptions then
-        emptyLabel
+        Table.emptyLabel
 
     else
         product.consumptions
-            |> List.map (consumptionProcessName processes)
+            |> List.map (.processId >> processDisplayName processes)
             |> String.join ", "
 
 
@@ -98,12 +109,17 @@ distributionLabel : List Process.Process -> ProductCategory -> String
 distributionLabel processes product =
     case product.distribution of
         Just processId ->
-            case processes |> Process.findById processId |> Result.map Process.getDisplayName of
-                Err err ->
-                    "Erreur\u{00A0}: " ++ err
-
-                Ok displayName ->
-                    displayName
+            processDisplayName processes processId
 
         Nothing ->
-            emptyLabel
+            Table.emptyLabel
+
+
+processDisplayName : List Process.Process -> Process.Id -> String
+processDisplayName processes processId =
+    case processes |> Process.findById processId |> Result.map Process.getDisplayName of
+        Err err ->
+            "Erreur\u{00A0}: " ++ err
+
+        Ok displayName ->
+            displayName

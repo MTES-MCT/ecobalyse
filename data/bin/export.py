@@ -54,7 +54,7 @@ def metadata(
 
     # Metadata (materials/ingredients) is written both to the published dir and the local data dir
 
-    activities = _get_lcias(root_dir)
+    activities = _get_lcis(root_dir)
 
     if write_taxonomy:
         write_taxonomy_with_aliases(
@@ -165,7 +165,7 @@ def processes_legacy(
     if verbose:
         logger.setLevel(logging.DEBUG)
 
-    activities = _get_lcias(root_dir)
+    activities = _get_lcis(root_dir)
 
     # Filter activities by scope if specified
     if scopes:
@@ -208,7 +208,7 @@ def merge_processes(
     export_json(merged_ecs, public_dir / settings.processes_merged_ecs_file)
 
 
-def _get_lcias(root_dir):
+def _get_lcis(root_dir):
     lci_catalog = root_dir / "lci_catalog"
     logger.debug(f"-> Loading lci_catalog {lci_catalog}")
 

@@ -8,10 +8,11 @@ import Data.Component as Component
         , LifeCycle
         , Requirements
         , defaultTransportOptions
+        , emptyAssembly
         , emptyQuery
         )
 import Data.Component.Amount as Amount
-import Data.Component.ProductCategory as Product
+import Data.Component.ProductCategory as Product exposing (ProductCategory)
 import Data.Country as Country
 import Data.Country.Code as CountryCode
 import Data.Db exposing (Db)
@@ -855,6 +856,24 @@ suite =
                                     Expect.within (Expect.Absolute 0.00001) assemblyImpact 0
                                 ]
                             )
+                        , itFromResult "should apply category default assembly operations when computing results"
+                            (findProductCategoryByLabel requirements "Vélos et VAEs de moins de 100kg"
+                                |> Result.andThen
+                                    (\categoryProduct ->
+                                        """{ "components": [{ "id": "9178fe2e-6944-41d5-ad1b-7abbe8905c48", "quantity": 1 }] }"""
+                                            |> decodeJsonThen Component.decodeQuery
+                                                (\query ->
+                                                    query
+                                                        |> Component.updateProduct (Just categoryProduct)
+                                                        |> Component.compute requirements
+                                                )
+                                    )
+                            )
+                            (Expect.all
+                                [ .assembly >> Component.extractItems >> List.length >> Expect.equal 1
+                                , .assembly >> Component.extractImpacts >> getEcsImpact >> Expect.greaterThan 0
+                                ]
+                            )
                         , suiteFromResult "should apply 50% waste ratios sequentially"
                             ("""{
                                   "components": [{ "id": "64fa65b3-c2df-4fd0-958b-83965bd6aa08", "quantity": 1 }],
@@ -987,6 +1006,9 @@ suite =
                                     baseEndOfLifeImpact =
                                         getEcsImpact lifeCycle.endOfLife
 
+                                    baseToAssemblyImpact =
+                                        getEcsImpact lifeCycle.transports.toAssembly.impacts
+
                                     baseToDistributionImpact =
                                         getEcsImpact lifeCycle.transports.toDistribution.impacts
                                 in
@@ -1009,6 +1031,11 @@ suite =
                                     (withAssemblyWaste.transports.toDistribution.impacts
                                         |> getEcsImpact
                                         |> expectFloatMostlyEqual (baseToDistributionImpact * massScaleRatio)
+                                    )
+                                , it "should keep transport to assembly stage impacts unchanged with assembly waste"
+                                    (withAssemblyWaste.transports.toAssembly.impacts
+                                        |> getEcsImpact
+                                        |> expectFloatMostlyEqual baseToAssemblyImpact
                                     )
                                 , it "should keep EoL stage masses consistent with product mass"
                                     (withAssemblyWaste
@@ -1112,6 +1139,39 @@ suite =
                                     )
                                 ]
                             )
+                        , suiteFromResult2 "single item quantity scaling"
+                            -- setup
+                            ("""{"components": [{ "id": "64fa65b3-c2df-4fd0-958b-83965bd6aa08", "quantity": 1 }]}"""
+                                |> decodeJsonThen Component.decodeQuery (Component.compute requirements)
+                            )
+                            ("""{"components": [{ "id": "64fa65b3-c2df-4fd0-958b-83965bd6aa08", "quantity": 2 }]}"""
+                                |> decodeJsonThen Component.decodeQuery (Component.compute requirements)
+                            )
+                            doubledQuantitiesExpectations
+                        , suiteFromResult2 "single item quantity scaling with assembly country"
+                            -- setup
+                            ("""{
+                                  "assembly": { "country": "FR" },
+                                  "components": [{ "id": "64fa65b3-c2df-4fd0-958b-83965bd6aa08", "quantity": 1 }]
+                                }"""
+                                |> decodeJsonThen Component.decodeQuery (Component.compute requirements)
+                            )
+                            ("""{
+                                  "assembly": { "country": "FR" },
+                                  "components": [{ "id": "64fa65b3-c2df-4fd0-958b-83965bd6aa08", "quantity": 2 }]
+                                }"""
+                                |> decodeJsonThen Component.decodeQuery (Component.compute requirements)
+                            )
+                            doubledQuantitiesExpectations
+                        , suiteFromResult2 "multi-element item quantity scaling"
+                            -- setup
+                            ("""{"components": [{ "id": "8ca2ca05-8aec-4121-acaa-7cdcc03150a9", "quantity": 1 }]}"""
+                                |> decodeJsonThen Component.decodeQuery (Component.compute requirements)
+                            )
+                            ("""{"components": [{ "id": "8ca2ca05-8aec-4121-acaa-7cdcc03150a9", "quantity": 2 }]}"""
+                                |> decodeJsonThen Component.decodeQuery (Component.compute requirements)
+                            )
+                            doubledQuantitiesExpectations
                         , it "should reject an empty component list with an assembly country"
                             ("""{
                                   "assembly": { "country": "FR" },
@@ -1257,6 +1317,25 @@ suite =
                                             heavierProductAssembledInUnknownCountry
                                                 |> .transports
                                                 |> .toDistribution
+                                                |> .impacts
+                                                |> getEcsImpact
+                                     in
+                                     heavierProductAssembledInUnknownCountryImpacts
+                                        |> Expect.greaterThan productAssembledInUnknownCountryImpacts
+                                    )
+                                , it "should increase assembly transport impacts when total transported mass increases"
+                                    (let
+                                        productAssembledInUnknownCountryImpacts =
+                                            productAssembledInUnknownCountry
+                                                |> .transports
+                                                |> .toAssembly
+                                                |> .impacts
+                                                |> getEcsImpact
+
+                                        heavierProductAssembledInUnknownCountryImpacts =
+                                            heavierProductAssembledInUnknownCountry
+                                                |> .transports
+                                                |> .toAssembly
                                                 |> .impacts
                                                 |> getEcsImpact
                                      in
@@ -1712,7 +1791,7 @@ suite =
                             { emptyQuery
                                 | assembly =
                                     { country = Just CountryCode.france
-                                    , operations = []
+                                    , operations = Nothing
                                     }
                             }
                       in
@@ -1816,7 +1895,7 @@ suite =
                             { emptyQuery
                                 | assembly =
                                     { country = Just CountryCode.france
-                                    , operations = []
+                                    , operations = Nothing
                                     }
                             }
                       in
@@ -2171,16 +2250,28 @@ suite =
                                     |> Result.map .product
                                     |> Expect.equal (Ok Nothing)
                                 )
-                            , it "should decode omitted consumptions and cooling as unspecified" <|
+                            , it "should decode omitted consumptions, cooling, and assembly operations as unspecified" <|
                                 ("""{"components":[]}"""
                                     |> decodeJson Component.decodeQuery
-                                    |> Result.map (\query -> ( query.consumptions, query.transportOptions.cooling ))
-                                    |> Expect.equal (Ok ( Nothing, Nothing ))
+                                    |> Result.map
+                                        (\query ->
+                                            ( query.consumptions
+                                            , query.transportOptions.cooling
+                                            , query.assembly.operations
+                                            )
+                                        )
+                                    |> Expect.equal (Ok ( Nothing, Nothing, Nothing ))
                                 )
                             , it "should decode an explicit empty consumptions list" <|
                                 ("""{"components":[],"consumptions":[]}"""
                                     |> decodeJson Component.decodeQuery
                                     |> Result.map .consumptions
+                                    |> Expect.equal (Ok (Just []))
+                                )
+                            , it "should decode an explicit empty assembly operations list" <|
+                                ("""{"components":[],"assembly":{"operations":[]}}"""
+                                    |> decodeJson Component.decodeQuery
+                                    |> Result.map (.assembly >> .operations)
                                     |> Expect.equal (Ok (Just []))
                                 )
                             , it "should decode explicitly disabled cooling" <|
@@ -2191,13 +2282,14 @@ suite =
                                 )
                             ]
                         , describe "encoding"
-                            [ it "should omit unspecified consumptions and cooling when encoding" <|
+                            [ it "should omit unspecified consumptions, cooling, and assembly operations when encoding" <|
                                 (emptyQuery
                                     |> Component.encodeQuery
                                     |> Encode.encode 0
                                     |> Expect.all
                                         [ String.contains "\"consumptions\"" >> Expect.equal False
                                         , String.contains "\"cooling\"" >> Expect.equal False
+                                        , String.contains "\"operations\"" >> Expect.equal False
                                         ]
                                 )
                             , it "should encode an explicit empty consumptions list" <|
@@ -2205,6 +2297,13 @@ suite =
                                     |> Component.encodeQuery
                                     |> Encode.encode 0
                                     |> String.contains "\"consumptions\":[]"
+                                    |> Expect.equal True
+                                )
+                            , it "should encode an explicit empty assembly operations list" <|
+                                ({ emptyQuery | assembly = { emptyAssembly | operations = Just [] } }
+                                    |> Component.encodeQuery
+                                    |> Encode.encode 0
+                                    |> String.contains "\"operations\":[]"
                                     |> Expect.equal True
                                 )
                             , it "should encode explicit cooling false" <|
@@ -2215,6 +2314,17 @@ suite =
                                     |> Expect.equal True
                                 )
                             ]
+                        , it "should default product category assembly to an empty list when omitted" <|
+                            ("""[{
+                                  "cooling": false,
+                                  "id": "5fad4e70-5736-552d-a686-97e4fb627c37",
+                                  "label": "Test",
+                                  "scope": "food2"
+                                }]"""
+                                |> Product.decodeListFromJsonString
+                                |> Result.map (List.head >> Maybe.map .assembly)
+                                |> Expect.equal (Ok (Just []))
+                            )
                         , it "should default product category consumptions to an empty list when omitted" <|
                             ("""[{
                                   "cooling": false,
@@ -2287,7 +2397,23 @@ suite =
                                             )
                                         )
                             )
-                        , itFromResult "should clear product, distribution, consumptions, and category cooling when unset"
+                        , itFromResult "should decode product category assembly from process ids"
+                            (findProcessByLabel requirements "Assemblage")
+                            (\assemblage ->
+                                ("""[{
+                                      "assembly": ["{{assemblageId}}"],
+                                      "cooling": false,
+                                      "id": "5fad4e70-5736-552d-a686-97e4fb627c37",
+                                      "label": "Test category",
+                                      "scope": "veli"
+                                    }]"""
+                                    |> String.replace "{{assemblageId}}" (Process.idToString assemblage.id)
+                                )
+                                    |> Product.decodeListFromJsonString
+                                    |> Result.map (List.head >> Maybe.map .assembly)
+                                    |> Expect.equal (Ok (Just [ assemblage.id ]))
+                            )
+                        , itFromResult "should clear product, distribution, consumptions, assembly operations, and category cooling when unset"
                             (requirements.db.products |> List.head |> Result.fromMaybe "no product categories in test db")
                             (\categoryProduct ->
                                 emptyQuery
@@ -2295,6 +2421,7 @@ suite =
                                     |> Component.updateProduct Nothing
                                     |> Expect.all
                                         [ .product >> Expect.equal Nothing
+                                        , .assembly >> .operations >> Expect.equal Nothing
                                         , .distribution >> Expect.equal Nothing
                                         , .consumptions >> Expect.equal Nothing
                                         , .transportOptions >> .cooling >> Expect.equal Nothing
@@ -2307,6 +2434,7 @@ suite =
                                     |> Component.updateProduct (Just categoryProduct)
                                     |> Expect.all
                                         [ .product >> Expect.equal (Just categoryProduct.id)
+                                        , .assembly >> .operations >> Expect.equal Nothing
                                         , .consumptions >> Expect.equal Nothing
                                         , .distribution >> Expect.equal Nothing
                                         , .transportOptions >> .cooling >> Expect.equal Nothing
@@ -2402,6 +2530,87 @@ suite =
                                     |> .consumptions
                                     |> Expect.equal (Just [ Component.consumption (Amount.fromFloat 3) refrigeration.id ])
                             )
+                        , itFromResult2 "should apply category default assembly operations when selecting a product"
+                            (findProductCategoryByLabel requirements "Vélos et VAEs de moins de 100kg")
+                            (findProcessByLabel requirements "Assemblage")
+                            (\categoryProduct assemblage ->
+                                emptyQuery
+                                    |> Component.updateProduct (Just categoryProduct)
+                                    |> Component.getAssemblyOperations requirements
+                                    |> Expect.equal [ assemblage.id ]
+                            )
+                        , itFromResult2 "should replace resolved assembly operations when selecting another product category"
+                            (findProductCategoryByLabel requirements "Vélos et VAEs de moins de 100kg")
+                            (findProductCategoryByLabel requirements "Charcuterie")
+                            (\bikes charcuterie ->
+                                emptyQuery
+                                    |> Component.updateProduct (Just bikes)
+                                    |> Component.updateProduct (Just charcuterie)
+                                    |> Expect.all
+                                        [ .assembly >> .operations >> Expect.equal Nothing
+                                        , Component.getAssemblyOperations requirements >> Expect.equal []
+                                        ]
+                            )
+                        , itFromResult "should not reset explicit assembly operations when re-selecting the same product"
+                            (findProductCategoryByLabel requirements "Vélos et VAEs de moins de 100kg")
+                            (\categoryProduct ->
+                                emptyQuery
+                                    |> Component.updateProduct (Just categoryProduct)
+                                    |> (\({ assembly } as query) ->
+                                            { query | assembly = { assembly | operations = Just [] } }
+                                       )
+                                    |> Component.updateProduct (Just categoryProduct)
+                                    |> .assembly
+                                    |> .operations
+                                    |> Expect.equal (Just [])
+                            )
+                        , itFromResult2 "should let an explicit assembly operations list take precedence over the category"
+                            (findProductCategoryByLabel requirements "Vélos et VAEs de moins de 100kg")
+                            (findProcessByLabel requirements "Assemblage - calcul réglementaire Score Environnemental VE")
+                            (\bikes regulatoryAssemblage ->
+                                { emptyQuery
+                                    | assembly = { emptyAssembly | operations = Just [ regulatoryAssemblage.id ] }
+                                    , product = Just bikes.id
+                                }
+                                    |> Component.getAssemblyOperations requirements
+                                    |> Expect.equal [ regulatoryAssemblage.id ]
+                            )
+                        , itFromResult "should let an explicit empty assembly operations list take precedence over the category"
+                            (findProductCategoryByLabel requirements "Vélos et VAEs de moins de 100kg")
+                            (\bikes ->
+                                { emptyQuery
+                                    | assembly = { emptyAssembly | operations = Just [] }
+                                    , product = Just bikes.id
+                                }
+                                    |> Component.getAssemblyOperations requirements
+                                    |> Expect.equal []
+                            )
+                        , it "should resolve no assembly operations when product and query are unspecified" <|
+                            (emptyQuery
+                                |> Component.getAssemblyOperations requirements
+                                |> Expect.equal []
+                            )
+                        , itFromResult "should preserve explicit assembly operations so deleting them all does not leverage category defaults"
+                            (findProductCategoryByLabel requirements "Vélos et VAEs de moins de 100kg")
+                            (\bikes ->
+                                emptyQuery
+                                    |> Component.updateProduct (Just bikes)
+                                    |> Component.removeAssemblyOperation requirements 0
+                                    |> Expect.all
+                                        [ .assembly >> .operations >> Expect.equal (Just [])
+                                        , Component.getAssemblyOperations requirements >> Expect.equal []
+                                        ]
+                            )
+                        , itFromResult2 "should preserve category assembly operations when adding one"
+                            (findProductCategoryByLabel requirements "Vélos et VAEs de moins de 100kg")
+                            (findProcessByLabel requirements "Assemblage - calcul réglementaire Score Environnemental VE")
+                            (\bikes regulatoryAssemblage ->
+                                emptyQuery
+                                    |> Component.updateProduct (Just bikes)
+                                    |> Component.addAssemblyOperation requirements regulatoryAssemblage
+                                    |> Component.getAssemblyOperations requirements
+                                    |> Expect.equal (bikes.assembly ++ [ regulatoryAssemblage.id ])
+                            )
                         , itFromResult "should use product category cooling when the query doesn't set it"
                             (findProductCategoryByLabel requirements "Charcuterie")
                             (\charcuterie ->
@@ -2479,6 +2688,41 @@ suite =
             ]
 
 
+doubledQuantitiesExpectations : LifeCycle -> LifeCycle -> List Test
+doubledQuantitiesExpectations base doubled =
+    let
+        expectDoubledImpacts a b =
+            getEcsImpact b
+                |> expectFloatMostlyEqual (getEcsImpact a * 2)
+
+        expectDistancesUntouched expected =
+            Expect.all
+                [ .air >> Expect.equal expected.air
+                , .road >> Expect.equal expected.road
+                , .roadCooled >> Expect.equal expected.roadCooled
+                , .sea >> Expect.equal expected.sea
+                , .seaCooled >> Expect.equal expected.seaCooled
+                ]
+    in
+    [ it "should double transport to assembly impacts when quantity doubles"
+        (doubled.transports.toAssembly.impacts
+            |> expectDoubledImpacts base.transports.toAssembly.impacts
+        )
+    , it "should keep distances to assembly unchanged when quantity doubles"
+        (doubled.transports.toAssembly
+            |> expectDistancesUntouched base.transports.toAssembly
+        )
+    , it "should double transport to distribution impacts when quantity doubles"
+        (doubled.transports.toDistribution.impacts
+            |> expectDoubledImpacts base.transports.toDistribution.impacts
+        )
+    , it "should keep distances to distribution unchanged when quantity doubles"
+        (doubled.transports.toDistribution
+            |> expectDistancesUntouched base.transports.toDistribution
+        )
+    ]
+
+
 {-| A test uuid we're pretty sure that doesn't exist in our datasets
 -}
 nonExistentUuid : String
@@ -2529,7 +2773,7 @@ findProcessByLabel { db } label =
         |> Result.fromMaybe ("Procédé introuvable label=" ++ label)
 
 
-findProductCategoryByLabel : Requirements db -> String -> Result String Product.ProductCategory
+findProductCategoryByLabel : Requirements db -> String -> Result String ProductCategory
 findProductCategoryByLabel { db } label =
     db.products
         |> List.filter (.label >> (==) label)
