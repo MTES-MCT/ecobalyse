@@ -4,10 +4,7 @@
   "displayName": "Sachet en plastique (multimatériaux) pour fromage à pâte dûre - 250g",
   "id": "88cadf9f-1806-4d0c-acc7-ca3cbe0346e7",
   "metadata": [
-    {
-      "id": "79a6ff7a-e5c9-4ad3-8349-63fe3371ffbf",
-      "scopes": ["food2"]
-    }
+    { "id": "79a6ff7a-e5c9-4ad3-8349-63fe3371ffbf", "scopes": ["food2"] }
   ],
   "scopes": ["food", "food2"],
   "source": "Agribalyse 3.2",

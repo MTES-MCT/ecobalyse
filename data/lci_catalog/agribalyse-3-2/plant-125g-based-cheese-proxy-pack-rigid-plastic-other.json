@@ -4,10 +4,7 @@
   "displayName": "Pot en verre pour tartinade végétale - 500g - Proxy",
   "id": "5355540e-ad0b-4afa-898d-44b32ef95c09",
   "metadata": [
-    {
-      "id": "9645360c-d481-42ec-9217-916fc3672e28",
-      "scopes": ["food2"]
-    }
+    { "id": "9645360c-d481-42ec-9217-916fc3672e28", "scopes": ["food2"] }
   ],
   "scopes": ["food", "food2"],
   "source": "Agribalyse 3.2",

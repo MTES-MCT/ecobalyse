@@ -30,23 +30,14 @@
       "displayName": "Œuf Bio",
       "id": "5814ac7d-fe30-5a9c-8a10-e2b9554b63b0",
       "inediblePart": 0.1,
-      "inediblePartMatch": {
-        "confidence": 1.0,
-        "rule": "Matched with Egg in agb_inedible.csv"
-      },
+      "inediblePartMatch": { "confidence": 1.0, "rule": "Matched with Egg in agb_inedible.csv" },
       "ingredientCategories": ["animal_product", "organic"],
       "ingredientDensity": 1.0,
-      "ingredientDensityMatch": {
-        "confidence": 1.0,
-        "rule": "egg found in density.csv"
-      },
+      "ingredientDensityMatch": { "confidence": 1.0, "rule": "egg found in density.csv" },
       "scenario": "organic",
       "scopes": ["food", "food2"],
       "transportCooling": "always",
-      "transportCoolingMatch": {
-        "confidence": 1.0,
-        "rule": "meat NOVA 1 → always (perishable)"
-      },
+      "transportCoolingMatch": { "confidence": 1.0, "rule": "meat NOVA 1 → always (perishable)" },
       "visible": true
     }
   ],

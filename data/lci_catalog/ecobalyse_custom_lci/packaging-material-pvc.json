@@ -5,10 +5,7 @@
   "displayName": "Plastique PVC",
   "id": "cd9cf355-72f8-4213-af98-a67e17922fdd",
   "metadata": [
-    {
-      "id": "169294d5-93d5-4856-b3f0-13ccb5e261b6",
-      "scopes": ["food2"]
-    }
+    { "id": "169294d5-93d5-4856-b3f0-13ccb5e261b6", "scopes": ["food2"] }
   ],
   "scopes": ["food", "food2"],
   "source": "Ecobalyse_custom_lci",

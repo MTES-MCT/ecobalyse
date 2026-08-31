@@ -4,10 +4,7 @@
   "displayName": "Barquette en plastique (PP) pour plat préparé à base de poissons - 300g - Proxy",
   "id": "490de5c6-c7f8-40f2-a830-848f6112ad86",
   "metadata": [
-    {
-      "id": "1d5d2336-d2fc-4e4a-ba64-1a2eb6322574",
-      "scopes": ["food2"]
-    }
+    { "id": "1d5d2336-d2fc-4e4a-ba64-1a2eb6322574", "scopes": ["food2"] }
   ],
   "scopes": ["food", "food2"],
   "source": "Agribalyse 3.2",

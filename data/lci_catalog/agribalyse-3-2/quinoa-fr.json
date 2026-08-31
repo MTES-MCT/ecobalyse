@@ -7,10 +7,7 @@
     {
       "alias": "quinoa-fr",
       "cropGroup": "AUTRES CEREALES",
-      "cropGroupMatch": {
-        "confidence": 1.0,
-        "rule": "matched 'quinoa' in cropgroup.csv"
-      },
+      "cropGroupMatch": { "confidence": 1.0, "rule": "matched 'quinoa' in cropgroup.csv" },
       "defaultOrigin": "France",
       "displayName": "Quinoa FR",
       "id": "5adf35b2-34ce-56eb-a983-28d7af1b5ca1",
@@ -21,26 +18,17 @@
       },
       "ingredientCategories": ["grain_raw"],
       "ingredientDensity": 0.75,
-      "ingredientDensityMatch": {
-        "confidence": 1.0,
-        "rule": "grain default from food_type_density.csv"
-      },
+      "ingredientDensityMatch": { "confidence": 1.0, "rule": "grain default from food_type_density.csv" },
       "scenario": "reference",
       "scopes": ["food", "food2"],
       "transportCooling": "none",
-      "transportCoolingMatch": {
-        "confidence": 1.0,
-        "rule": "grain → none (non-perishable)"
-      },
+      "transportCoolingMatch": { "confidence": 1.0, "rule": "grain → none (non-perishable)" },
       "visible": true
     },
     {
       "alias": "quinoa-eu",
       "cropGroup": "AUTRES CEREALES",
-      "cropGroupMatch": {
-        "confidence": 1.0,
-        "rule": "matched 'quinoa' in cropgroup.csv"
-      },
+      "cropGroupMatch": { "confidence": 1.0, "rule": "matched 'quinoa' in cropgroup.csv" },
       "defaultOrigin": "EuropeAndMaghreb",
       "displayName": "Quinoa UE",
       "id": "bb1ef16c-0217-59f8-aede-5dbe713979f5",
@@ -51,17 +39,11 @@
       },
       "ingredientCategories": ["grain_raw"],
       "ingredientDensity": 0.75,
-      "ingredientDensityMatch": {
-        "confidence": 1.0,
-        "rule": "grain default from food_type_density.csv"
-      },
+      "ingredientDensityMatch": { "confidence": 1.0, "rule": "grain default from food_type_density.csv" },
       "scenario": "import",
       "scopes": ["food", "food2"],
       "transportCooling": "none",
-      "transportCoolingMatch": {
-        "confidence": 1.0,
-        "rule": "grain → none (non-perishable)"
-      },
+      "transportCoolingMatch": { "confidence": 1.0, "rule": "grain → none (non-perishable)" },
       "visible": true
     }
   ],

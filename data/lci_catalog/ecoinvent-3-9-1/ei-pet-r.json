@@ -9,10 +9,7 @@
   "metadata": [
     {
       "alias": "ei-pet-r",
-      "cff": {
-        "manufacturerAllocation": 0.5,
-        "recycledQualityRatio": 1
-      },
+      "cff": { "manufacturerAllocation": 0.5, "recycledQualityRatio": 1 },
       "defaultCountry": "CN",
       "displayName": "PET, pour fibre synthétique, recyclé, granulé, amorphe",
       "geographicOrigin": "Asie - Pacifique",

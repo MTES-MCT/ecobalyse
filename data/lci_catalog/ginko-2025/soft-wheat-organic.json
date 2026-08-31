@@ -8,10 +8,7 @@
     {
       "alias": "soft-wheat-organic",
       "cropGroup": "BLE TENDRE",
-      "cropGroupMatch": {
-        "confidence": 0.95,
-        "rule": "matched 'wheat' in cropgroup.csv"
-      },
+      "cropGroupMatch": { "confidence": 0.95, "rule": "matched 'wheat' in cropgroup.csv" },
       "defaultOrigin": "France",
       "displayName": "Blé tendre Bio",
       "id": "a98b8776-a96d-48e9-b218-976f5452907a",
@@ -22,17 +19,11 @@
       },
       "ingredientCategories": ["grain_raw", "organic"],
       "ingredientDensity": 0.77,
-      "ingredientDensityMatch": {
-        "confidence": 0.95,
-        "rule": "Matched with Wheat in fao_density.csv"
-      },
+      "ingredientDensityMatch": { "confidence": 0.95, "rule": "Matched with Wheat in fao_density.csv" },
       "scenario": "organic",
       "scopes": ["food", "food2"],
       "transportCooling": "none",
-      "transportCoolingMatch": {
-        "confidence": 1.0,
-        "rule": "grain → none (non-perishable)"
-      },
+      "transportCoolingMatch": { "confidence": 1.0, "rule": "grain → none (non-perishable)" },
       "visible": true
     }
   ],

@@ -7,10 +7,7 @@
   "heatMJ": 0,
   "id": "aa315629-988f-5886-bafe-247821f356fc",
   "metadata": [
-    {
-      "id": "4d399737-0f9c-4e6d-8c05-9b2d7a0574a7",
-      "scopes": ["object", "food2"]
-    }
+    { "id": "4d399737-0f9c-4e6d-8c05-9b2d7a0574a7", "scopes": ["object", "food2"] }
   ],
   "qtyVariationRatio": 1,
   "scopes": ["textile", "object", "veli", "food2"],

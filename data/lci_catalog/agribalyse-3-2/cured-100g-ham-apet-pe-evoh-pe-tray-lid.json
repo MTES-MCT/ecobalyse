@@ -4,10 +4,7 @@
   "displayName": "Barquette en plastique (APET/PE) pour jambon sec/cru - 100g",
   "id": "e7358961-c1f4-4ad7-b016-f79fa85e19cc",
   "metadata": [
-    {
-      "id": "61170580-cfc0-4115-9c44-dc6cf36eea9b",
-      "scopes": ["food2"]
-    }
+    { "id": "61170580-cfc0-4115-9c44-dc6cf36eea9b", "scopes": ["food2"] }
   ],
   "scopes": ["food", "food2"],
   "source": "Agribalyse 3.2",

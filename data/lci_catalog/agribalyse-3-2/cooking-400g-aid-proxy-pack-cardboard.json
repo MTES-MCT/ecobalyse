@@ -4,10 +4,7 @@
   "displayName": "Sachet en papier pour aide culinaire - 400g - Proxy",
   "id": "9e87c6ec-4d8f-46c2-9d05-e2458e99409b",
   "metadata": [
-    {
-      "id": "4717824b-972e-47f5-aa39-f2009b4251ee",
-      "scopes": ["food2"]
-    }
+    { "id": "4717824b-972e-47f5-aa39-f2009b4251ee", "scopes": ["food2"] }
   ],
   "scopes": ["food", "food2"],
   "source": "Agribalyse 3.2",

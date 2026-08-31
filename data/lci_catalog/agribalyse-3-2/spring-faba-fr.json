@@ -7,10 +7,7 @@
     {
       "alias": "spring-faba-fr",
       "cropGroup": "PROTEAGINEUX",
-      "cropGroupMatch": {
-        "confidence": 1.0,
-        "rule": "matched 'spring faba' in cropgroup.csv"
-      },
+      "cropGroupMatch": { "confidence": 1.0, "rule": "matched 'spring faba' in cropgroup.csv" },
       "defaultOrigin": "France",
       "displayName": "Fèves printanières FR",
       "id": "1f60064a-d421-5a13-a61e-0d7faad30f12",
@@ -21,17 +18,11 @@
       },
       "ingredientCategories": ["vegetable_fresh"],
       "ingredientDensity": 0.8,
-      "ingredientDensityMatch": {
-        "confidence": 1.0,
-        "rule": "legume default from food_type_density.csv"
-      },
+      "ingredientDensityMatch": { "confidence": 1.0, "rule": "legume default from food_type_density.csv" },
       "scenario": "reference",
       "scopes": ["food", "food2"],
       "transportCooling": "always",
-      "transportCoolingMatch": {
-        "confidence": 1.0,
-        "rule": "legume NOVA 1 → always (perishable)"
-      },
+      "transportCoolingMatch": { "confidence": 1.0, "rule": "legume NOVA 1 → always (perishable)" },
       "visible": true
     }
   ],

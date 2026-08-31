@@ -8,10 +8,7 @@
     {
       "alias": "chive-default",
       "cropGroup": "LEGUMES-FLEURS",
-      "cropGroupMatch": {
-        "confidence": 1.0,
-        "rule": "vegetable default"
-      },
+      "cropGroupMatch": { "confidence": 1.0, "rule": "vegetable default" },
       "defaultOrigin": "OutOfEuropeAndMaghreb",
       "displayName": "Ciboulette Origine Inconnue",
       "id": "af970b08-d802-5f9f-bff3-42b789fac6cd",
@@ -22,77 +19,47 @@
       },
       "ingredientCategories": ["vegetable_fresh"],
       "ingredientDensity": 0.9,
-      "ingredientDensityMatch": {
-        "confidence": 1.0,
-        "rule": "vegetable default from food_type_density.csv"
-      },
+      "ingredientDensityMatch": { "confidence": 1.0, "rule": "vegetable default from food_type_density.csv" },
       "scenario": "import",
       "scopes": ["food", "food2"],
       "transportCooling": "always",
-      "transportCoolingMatch": {
-        "confidence": 1.0,
-        "rule": "vegetable NOVA 1 → always (perishable)"
-      },
+      "transportCoolingMatch": { "confidence": 1.0, "rule": "vegetable NOVA 1 → always (perishable)" },
       "visible": true
     },
     {
       "alias": "onion-default",
       "cropGroup": "LEGUMES-FLEURS",
-      "cropGroupMatch": {
-        "confidence": 1.0,
-        "rule": "matched 'oignons' in cropgroup.csv"
-      },
+      "cropGroupMatch": { "confidence": 1.0, "rule": "matched 'oignons' in cropgroup.csv" },
       "defaultOrigin": "OutOfEuropeAndMaghreb",
       "displayName": "Oignons Origine Inconnue",
       "id": "88d3c7e0-920b-5444-b283-a8941e2aeb34",
       "inediblePart": 0.1,
-      "inediblePartMatch": {
-        "confidence": 1.0,
-        "rule": "Matched with Onions in agb_inedible.csv"
-      },
+      "inediblePartMatch": { "confidence": 1.0, "rule": "Matched with Onions in agb_inedible.csv" },
       "ingredientCategories": ["vegetable_fresh"],
       "ingredientDensity": 1.0,
-      "ingredientDensityMatch": {
-        "confidence": 0.95,
-        "rule": "Matched with onion in density.csv"
-      },
+      "ingredientDensityMatch": { "confidence": 0.95, "rule": "Matched with onion in density.csv" },
       "scenario": "import",
       "scopes": ["food", "food2"],
       "transportCooling": "always",
-      "transportCoolingMatch": {
-        "confidence": 1.0,
-        "rule": "vegetable NOVA 1 → always (perishable)"
-      },
+      "transportCoolingMatch": { "confidence": 1.0, "rule": "vegetable NOVA 1 → always (perishable)" },
       "visible": true
     },
     {
       "alias": "shallot-default",
       "cropGroup": "LEGUMES-FLEURS",
-      "cropGroupMatch": {
-        "confidence": 1.0,
-        "rule": "vegetable default"
-      },
+      "cropGroupMatch": { "confidence": 1.0, "rule": "vegetable default" },
       "defaultOrigin": "OutOfEuropeAndMaghreb",
       "displayName": "Échalotes Origine Inconnue",
       "id": "5ae615e4-9eae-5b56-b3db-9b59f01b80a8",
       "inediblePart": 0.1,
-      "inediblePartMatch": {
-        "confidence": 0.95,
-        "rule": "Matched with Shallot in agb_inedible.csv"
-      },
+      "inediblePartMatch": { "confidence": 0.95, "rule": "Matched with Shallot in agb_inedible.csv" },
       "ingredientCategories": ["vegetable_fresh"],
       "ingredientDensity": 0.9,
-      "ingredientDensityMatch": {
-        "confidence": 1.0,
-        "rule": "vegetable default from food_type_density.csv"
-      },
+      "ingredientDensityMatch": { "confidence": 1.0, "rule": "vegetable default from food_type_density.csv" },
       "scenario": "import",
       "scopes": ["food", "food2"],
       "transportCooling": "always",
-      "transportCoolingMatch": {
-        "confidence": 1.0,
-        "rule": "vegetable NOVA 1 → always (perishable)"
-      },
+      "transportCoolingMatch": { "confidence": 1.0, "rule": "vegetable NOVA 1 → always (perishable)" },
       "visible": true
     }
   ],

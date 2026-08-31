@@ -4,10 +4,7 @@
   "displayName": "Brique multimatériaux pour lait - 1L",
   "id": "5595e13b-991b-4268-b81a-e426ab6ca828",
   "metadata": [
-    {
-      "id": "0bdd4a5c-78ae-4e24-8158-f6b708391afa",
-      "scopes": ["food2"]
-    }
+    { "id": "0bdd4a5c-78ae-4e24-8158-f6b708391afa", "scopes": ["food2"] }
   ],
   "scopes": ["food", "food2"],
   "source": "Agribalyse 3.2",

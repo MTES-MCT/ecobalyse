@@ -7,10 +7,7 @@
     {
       "alias": "sesame-seed-non-eu",
       "cropGroup": "SEMENCES",
-      "cropGroupMatch": {
-        "confidence": 0.95,
-        "rule": "matched 'semences epeautre' in cropgroup.csv"
-      },
+      "cropGroupMatch": { "confidence": 0.95, "rule": "matched 'semences epeautre' in cropgroup.csv" },
       "defaultOrigin": "OutOfEuropeAndMaghreb",
       "displayName": "Graines de sésame HORS UE",
       "id": "81f92a28-a862-530c-a352-7e18f937c62c",
@@ -21,17 +18,11 @@
       },
       "ingredientCategories": ["grain_raw"],
       "ingredientDensity": 0.75,
-      "ingredientDensityMatch": {
-        "confidence": 1.0,
-        "rule": "grain default from food_type_density.csv"
-      },
+      "ingredientDensityMatch": { "confidence": 1.0, "rule": "grain default from food_type_density.csv" },
       "scenario": "import",
       "scopes": ["food", "food2"],
       "transportCooling": "none",
-      "transportCoolingMatch": {
-        "confidence": 1.0,
-        "rule": "grain → none (non-perishable)"
-      },
+      "transportCoolingMatch": { "confidence": 1.0, "rule": "grain → none (non-perishable)" },
       "visible": true
     }
   ],

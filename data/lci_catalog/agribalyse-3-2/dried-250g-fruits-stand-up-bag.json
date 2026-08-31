@@ -4,10 +4,7 @@
   "displayName": "Sachet stand up en plastique (multimatériaux) pour fruits séchés - 250g",
   "id": "5c40329b-4b0a-46ae-a493-c510fcab51b4",
   "metadata": [
-    {
-      "id": "813b4aeb-7d1e-4896-aa8d-01e3c47c4062",
-      "scopes": ["food2"]
-    }
+    { "id": "813b4aeb-7d1e-4896-aa8d-01e3c47c4062", "scopes": ["food2"] }
   ],
   "scopes": ["food", "food2"],
   "source": "Agribalyse 3.2",

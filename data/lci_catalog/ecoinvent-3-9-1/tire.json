@@ -7,10 +7,7 @@
   "heatMJ": 0,
   "id": "24f2929c-6c70-492b-871c-ccc5d57d90ff",
   "metadata": [
-    {
-      "id": "5f837a69-839d-4a49-9a30-19e1501ad51e",
-      "scopes": ["veli"]
-    }
+    { "id": "5f837a69-839d-4a49-9a30-19e1501ad51e", "scopes": ["veli"] }
   ],
   "qtyVariationRatio": 1,
   "scopes": ["veli"],

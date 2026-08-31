@@ -27,10 +27,7 @@
     "wtu": 0
   },
   "metadata": [
-    {
-      "id": "05157564-93b2-49cd-8ff1-e062e28a63c5",
-      "scopes": ["object", "veli"]
-    }
+    { "id": "05157564-93b2-49cd-8ff1-e062e28a63c5", "scopes": ["object", "veli"] }
   ],
   "qtyVariationRatio": 0.97,
   "scopes": ["textile", "object", "veli"],

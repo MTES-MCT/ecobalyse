@@ -7,31 +7,19 @@
     {
       "alias": "banana-fr-overseas",
       "cropGroup": "ARBORICULTURE",
-      "cropGroupMatch": {
-        "confidence": 1.0,
-        "rule": "matched 'banana' in cropgroup.csv"
-      },
+      "cropGroupMatch": { "confidence": 1.0, "rule": "matched 'banana' in cropgroup.csv" },
       "defaultOrigin": "FranceOutreMer",
       "displayName": "Banane FR Outre-Mer",
       "id": "ed59e002-178b-5132-9df5-6883261dfa1c",
       "inediblePart": 0.3,
-      "inediblePartMatch": {
-        "confidence": 1.0,
-        "rule": "Matched with Banana in agb_inedible.csv"
-      },
+      "inediblePartMatch": { "confidence": 1.0, "rule": "Matched with Banana in agb_inedible.csv" },
       "ingredientCategories": ["vegetable_fresh"],
       "ingredientDensity": 0.95,
-      "ingredientDensityMatch": {
-        "confidence": 1.0,
-        "rule": "banana found in density.csv"
-      },
+      "ingredientDensityMatch": { "confidence": 1.0, "rule": "banana found in density.csv" },
       "scenario": "reference",
       "scopes": ["food", "food2"],
       "transportCooling": "always",
-      "transportCoolingMatch": {
-        "confidence": 1.0,
-        "rule": "fruit NOVA 1 → always (perishable)"
-      },
+      "transportCoolingMatch": { "confidence": 1.0, "rule": "fruit NOVA 1 → always (perishable)" },
       "visible": true
     },
     {
@@ -52,40 +40,25 @@
     {
       "alias": "banana-fr",
       "cropGroup": "ARBORICULTURE",
-      "cropGroupMatch": {
-        "confidence": 1.0,
-        "rule": "matched 'banana' in cropgroup.csv"
-      },
+      "cropGroupMatch": { "confidence": 1.0, "rule": "matched 'banana' in cropgroup.csv" },
       "defaultOrigin": "France",
       "displayName": "Banane FR",
       "id": "1cdce07d-e655-5e2c-8020-36162b99aef9",
       "inediblePart": 0.3,
-      "inediblePartMatch": {
-        "confidence": 1.0,
-        "rule": "Matched with Banana in agb_inedible.csv"
-      },
+      "inediblePartMatch": { "confidence": 1.0, "rule": "Matched with Banana in agb_inedible.csv" },
       "ingredientCategories": ["vegetable_fresh"],
       "ingredientDensity": 0.95,
-      "ingredientDensityMatch": {
-        "confidence": 1.0,
-        "rule": "banana found in density.csv"
-      },
+      "ingredientDensityMatch": { "confidence": 1.0, "rule": "banana found in density.csv" },
       "scenario": "reference",
       "scopes": ["food", "food2"],
       "transportCooling": "always",
-      "transportCoolingMatch": {
-        "confidence": 1.0,
-        "rule": "fruit NOVA 1 → always (perishable)"
-      },
+      "transportCoolingMatch": { "confidence": 1.0, "rule": "fruit NOVA 1 → always (perishable)" },
       "visible": true
     },
     {
       "alias": "plantain-fr",
       "cropGroup": "VERGERS",
-      "cropGroupMatch": {
-        "confidence": 1.0,
-        "rule": "fruit default"
-      },
+      "cropGroupMatch": { "confidence": 1.0, "rule": "fruit default" },
       "defaultOrigin": "France",
       "displayName": "Plantain FR",
       "id": "e69b0ddf-f912-5bd7-9f29-bc5e018d730e",
@@ -96,17 +69,11 @@
       },
       "ingredientCategories": ["vegetable_fresh"],
       "ingredientDensity": 0.85,
-      "ingredientDensityMatch": {
-        "confidence": 1.0,
-        "rule": "fruit default from food_type_density.csv"
-      },
+      "ingredientDensityMatch": { "confidence": 1.0, "rule": "fruit default from food_type_density.csv" },
       "scenario": "reference",
       "scopes": ["food", "food2"],
       "transportCooling": "always",
-      "transportCoolingMatch": {
-        "confidence": 1.0,
-        "rule": "fruit NOVA 1 → always (perishable)"
-      },
+      "transportCoolingMatch": { "confidence": 1.0, "rule": "fruit NOVA 1 → always (perishable)" },
       "visible": true
     }
   ],

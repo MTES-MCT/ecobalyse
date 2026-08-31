@@ -4,10 +4,7 @@
   "displayName": "Bouteille en plastique (PET) pour boisson sans alcool - 1500g - Proxy",
   "id": "931774ee-c237-4bf9-8330-a84a5c64b2da",
   "metadata": [
-    {
-      "id": "d0681d41-511a-418a-9fba-b5b45e49e2fb",
-      "scopes": ["food2"]
-    }
+    { "id": "d0681d41-511a-418a-9fba-b5b45e49e2fb", "scopes": ["food2"] }
   ],
   "scopes": ["food", "food2"],
   "source": "Agribalyse 3.2",

@@ -4,10 +4,7 @@
   "displayName": "Sachet en plastique (PE) pour flocons d'avoine - 500g - Proxy",
   "id": "6f3d3cc3-0e8c-465a-a0aa-62362b34d3dc",
   "metadata": [
-    {
-      "id": "1be2ec9b-47a2-4ab1-a84c-dc6335308e6c",
-      "scopes": ["food2"]
-    }
+    { "id": "1be2ec9b-47a2-4ab1-a84c-dc6335308e6c", "scopes": ["food2"] }
   ],
   "scopes": ["food", "food2"],
   "source": "Agribalyse 3.2",

@@ -37,10 +37,7 @@
     {
       "alias": "chive-organic",
       "cropGroup": "LEGUMES-FLEURS",
-      "cropGroupMatch": {
-        "confidence": 1.0,
-        "rule": "vegetable default"
-      },
+      "cropGroupMatch": { "confidence": 1.0, "rule": "vegetable default" },
       "defaultOrigin": "France",
       "displayName": "Ciboulette Bio",
       "id": "91aacef3-c260-56f2-9dac-a3c8fbd9229d",
@@ -51,107 +48,65 @@
       },
       "ingredientCategories": ["vegetable_fresh", "organic"],
       "ingredientDensity": 0.9,
-      "ingredientDensityMatch": {
-        "confidence": 1.0,
-        "rule": "vegetable default from food_type_density.csv"
-      },
+      "ingredientDensityMatch": { "confidence": 1.0, "rule": "vegetable default from food_type_density.csv" },
       "scenario": "organic",
       "scopes": ["food", "food2"],
       "transportCooling": "always",
-      "transportCoolingMatch": {
-        "confidence": 1.0,
-        "rule": "vegetable NOVA 1 → always (perishable)"
-      },
+      "transportCoolingMatch": { "confidence": 1.0, "rule": "vegetable NOVA 1 → always (perishable)" },
       "visible": true
     },
     {
       "alias": "garlic-organic",
       "cropGroup": "LEGUMES-FLEURS",
-      "cropGroupMatch": {
-        "confidence": 1.0,
-        "rule": "vegetable default"
-      },
+      "cropGroupMatch": { "confidence": 1.0, "rule": "vegetable default" },
       "defaultOrigin": "France",
       "displayName": "Ail Bio",
       "id": "12f8ffd4-cbc0-5d7b-ba0e-9a0acb3e6918",
       "inediblePart": 0.1,
-      "inediblePartMatch": {
-        "confidence": 1.0,
-        "rule": "Matched with Garlic in agb_inedible.csv"
-      },
+      "inediblePartMatch": { "confidence": 1.0, "rule": "Matched with Garlic in agb_inedible.csv" },
       "ingredientCategories": ["vegetable_fresh", "organic"],
       "ingredientDensity": 0.3,
-      "ingredientDensityMatch": {
-        "confidence": 1.0,
-        "rule": "garlic found in density.csv"
-      },
+      "ingredientDensityMatch": { "confidence": 1.0, "rule": "garlic found in density.csv" },
       "scenario": "organic",
       "scopes": ["food", "food2"],
       "transportCooling": "always",
-      "transportCoolingMatch": {
-        "confidence": 1.0,
-        "rule": "vegetable NOVA 1 → always (perishable)"
-      },
+      "transportCoolingMatch": { "confidence": 1.0, "rule": "vegetable NOVA 1 → always (perishable)" },
       "visible": true
     },
     {
       "alias": "onion-organic",
       "cropGroup": "LEGUMES-FLEURS",
-      "cropGroupMatch": {
-        "confidence": 1.0,
-        "rule": "matched 'oignons' in cropgroup.csv"
-      },
+      "cropGroupMatch": { "confidence": 1.0, "rule": "matched 'oignons' in cropgroup.csv" },
       "defaultOrigin": "France",
       "displayName": "Oignons Bio",
       "id": "a2246bd0-9fbf-553e-b745-80d36196eb47",
       "inediblePart": 0.1,
-      "inediblePartMatch": {
-        "confidence": 1.0,
-        "rule": "Matched with Onions in agb_inedible.csv"
-      },
+      "inediblePartMatch": { "confidence": 1.0, "rule": "Matched with Onions in agb_inedible.csv" },
       "ingredientCategories": ["vegetable_fresh", "organic"],
       "ingredientDensity": 1.0,
-      "ingredientDensityMatch": {
-        "confidence": 0.95,
-        "rule": "Matched with onion in density.csv"
-      },
+      "ingredientDensityMatch": { "confidence": 0.95, "rule": "Matched with onion in density.csv" },
       "scenario": "organic",
       "scopes": ["food", "food2"],
       "transportCooling": "always",
-      "transportCoolingMatch": {
-        "confidence": 1.0,
-        "rule": "vegetable NOVA 1 → always (perishable)"
-      },
+      "transportCoolingMatch": { "confidence": 1.0, "rule": "vegetable NOVA 1 → always (perishable)" },
       "visible": true
     },
     {
       "alias": "shallot-organic",
       "cropGroup": "LEGUMES-FLEURS",
-      "cropGroupMatch": {
-        "confidence": 1.0,
-        "rule": "vegetable default"
-      },
+      "cropGroupMatch": { "confidence": 1.0, "rule": "vegetable default" },
       "defaultOrigin": "France",
       "displayName": "Échalotes Bio",
       "id": "a9b29bc8-4c79-516c-aa70-90b4e8f0e3c1",
       "inediblePart": 0.1,
-      "inediblePartMatch": {
-        "confidence": 0.95,
-        "rule": "Matched with Shallot in agb_inedible.csv"
-      },
+      "inediblePartMatch": { "confidence": 0.95, "rule": "Matched with Shallot in agb_inedible.csv" },
       "ingredientCategories": ["vegetable_fresh", "organic"],
       "ingredientDensity": 0.9,
-      "ingredientDensityMatch": {
-        "confidence": 1.0,
-        "rule": "vegetable default from food_type_density.csv"
-      },
+      "ingredientDensityMatch": { "confidence": 1.0, "rule": "vegetable default from food_type_density.csv" },
       "scenario": "organic",
       "scopes": ["food", "food2"],
       "transportCooling": "always",
-      "transportCoolingMatch": {
-        "confidence": 1.0,
-        "rule": "vegetable NOVA 1 → always (perishable)"
-      },
+      "transportCoolingMatch": { "confidence": 1.0, "rule": "vegetable NOVA 1 → always (perishable)" },
       "visible": true
     }
   ],

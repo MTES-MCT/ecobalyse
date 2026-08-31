@@ -8,31 +8,19 @@
     {
       "alias": "mango-organic",
       "cropGroup": "VERGERS",
-      "cropGroupMatch": {
-        "confidence": 1.0,
-        "rule": "matched 'mango' in cropgroup.csv"
-      },
+      "cropGroupMatch": { "confidence": 1.0, "rule": "matched 'mango' in cropgroup.csv" },
       "defaultOrigin": "France",
       "displayName": "Mangue Bio",
       "id": "c15d6695-452c-5401-b820-b3fe8c0f843b",
       "inediblePart": 0.2,
-      "inediblePartMatch": {
-        "confidence": 1.0,
-        "rule": "Matched with Mango in agb_inedible.csv"
-      },
+      "inediblePartMatch": { "confidence": 1.0, "rule": "Matched with Mango in agb_inedible.csv" },
       "ingredientCategories": ["vegetable_fresh", "organic"],
       "ingredientDensity": 0.95,
-      "ingredientDensityMatch": {
-        "confidence": 1.0,
-        "rule": "mango found in density.csv"
-      },
+      "ingredientDensityMatch": { "confidence": 1.0, "rule": "mango found in density.csv" },
       "scenario": "organic",
       "scopes": ["food", "food2"],
       "transportCooling": "always",
-      "transportCoolingMatch": {
-        "confidence": 1.0,
-        "rule": "fruit NOVA 1 → always (perishable)"
-      },
+      "transportCoolingMatch": { "confidence": 1.0, "rule": "fruit NOVA 1 → always (perishable)" },
       "visible": true
     }
   ],

@@ -4,10 +4,7 @@
   "displayName": "Sachet en plastique (PE) pour pain précuit - 320g - Proxy",
   "id": "bd49fbe2-8caf-4c04-9c20-116eed7a8255",
   "metadata": [
-    {
-      "id": "e1cb727b-35c5-4d6c-a6df-275a35dde299",
-      "scopes": ["food2"]
-    }
+    { "id": "e1cb727b-35c5-4d6c-a6df-275a35dde299", "scopes": ["food2"] }
   ],
   "scopes": ["food", "food2"],
   "source": "Agribalyse 3.2",

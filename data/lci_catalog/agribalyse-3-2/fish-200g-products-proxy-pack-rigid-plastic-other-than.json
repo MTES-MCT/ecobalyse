@@ -4,10 +4,7 @@
   "displayName": "Barquette en plastique (PET) pour chocolat individuel - 200g - Proxy",
   "id": "19636c9a-11a5-45e8-90f1-694b6f806860",
   "metadata": [
-    {
-      "id": "f3ec5a9b-14de-4f6d-ad70-f4ac859526d0",
-      "scopes": ["food2"]
-    }
+    { "id": "f3ec5a9b-14de-4f6d-ad70-f4ac859526d0", "scopes": ["food2"] }
   ],
   "scopes": ["food", "food2"],
   "source": "Agribalyse 3.2",

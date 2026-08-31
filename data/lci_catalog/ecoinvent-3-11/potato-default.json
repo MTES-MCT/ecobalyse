@@ -8,31 +8,19 @@
     {
       "alias": "potato-default",
       "cropGroup": "LEGUMES-FLEURS",
-      "cropGroupMatch": {
-        "confidence": 1.0,
-        "rule": "matched 'potato' in cropgroup.csv"
-      },
+      "cropGroupMatch": { "confidence": 1.0, "rule": "matched 'potato' in cropgroup.csv" },
       "defaultOrigin": "OutOfEuropeAndMaghreb",
       "displayName": "Pomme de terre Origine Inconnue",
       "id": "999485a8-08af-5135-bf2c-48ce04c68f81",
       "inediblePart": 0.1,
-      "inediblePartMatch": {
-        "confidence": 0.95,
-        "rule": "Matched with Potatoes in agb_inedible.csv"
-      },
+      "inediblePartMatch": { "confidence": 0.95, "rule": "Matched with Potatoes in agb_inedible.csv" },
       "ingredientCategories": ["vegetable_fresh"],
       "ingredientDensity": 1.1,
-      "ingredientDensityMatch": {
-        "confidence": 1.0,
-        "rule": "potato found in density.csv"
-      },
+      "ingredientDensityMatch": { "confidence": 1.0, "rule": "potato found in density.csv" },
       "scenario": "import",
       "scopes": ["food", "food2"],
       "transportCooling": "always",
-      "transportCoolingMatch": {
-        "confidence": 1.0,
-        "rule": "vegetable NOVA 1 → always (perishable)"
-      },
+      "transportCoolingMatch": { "confidence": 1.0, "rule": "vegetable NOVA 1 → always (perishable)" },
       "visible": true
     }
   ],

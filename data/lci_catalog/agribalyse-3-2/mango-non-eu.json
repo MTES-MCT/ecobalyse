@@ -7,10 +7,7 @@
     {
       "alias": "breadfruit-fr-overseas",
       "cropGroup": "VERGERS",
-      "cropGroupMatch": {
-        "confidence": 1.0,
-        "rule": "fruit default"
-      },
+      "cropGroupMatch": { "confidence": 1.0, "rule": "fruit default" },
       "defaultOrigin": "FranceOutreMer",
       "displayName": "Fruit à pain FR Outre-Mer",
       "id": "5912afe2-4eaf-5676-b83e-8635066f8359",
@@ -21,26 +18,17 @@
       },
       "ingredientCategories": ["vegetable_fresh"],
       "ingredientDensity": 0.85,
-      "ingredientDensityMatch": {
-        "confidence": 1.0,
-        "rule": "fruit default from food_type_density.csv"
-      },
+      "ingredientDensityMatch": { "confidence": 1.0, "rule": "fruit default from food_type_density.csv" },
       "scenario": "reference",
       "scopes": ["food", "food2"],
       "transportCooling": "always",
-      "transportCoolingMatch": {
-        "confidence": 1.0,
-        "rule": "fruit NOVA 1 → always (perishable)"
-      },
+      "transportCoolingMatch": { "confidence": 1.0, "rule": "fruit NOVA 1 → always (perishable)" },
       "visible": true
     },
     {
       "alias": "lychee-fr-overseas",
       "cropGroup": "VERGERS",
-      "cropGroupMatch": {
-        "confidence": 1.0,
-        "rule": "fruit default"
-      },
+      "cropGroupMatch": { "confidence": 1.0, "rule": "fruit default" },
       "defaultOrigin": "FranceOutreMer",
       "displayName": "Litchi FR Outre-Mer",
       "id": "d28fd59a-ae07-5813-b707-c9329ffc39ed",
@@ -51,47 +39,29 @@
       },
       "ingredientCategories": ["vegetable_fresh"],
       "ingredientDensity": 1.0,
-      "ingredientDensityMatch": {
-        "confidence": 1.0,
-        "rule": "lychee found in density.csv"
-      },
+      "ingredientDensityMatch": { "confidence": 1.0, "rule": "lychee found in density.csv" },
       "scenario": "reference",
       "scopes": ["food", "food2"],
       "transportCooling": "always",
-      "transportCoolingMatch": {
-        "confidence": 1.0,
-        "rule": "fruit NOVA 1 → always (perishable)"
-      },
+      "transportCoolingMatch": { "confidence": 1.0, "rule": "fruit NOVA 1 → always (perishable)" },
       "visible": true
     },
     {
       "alias": "mango-fr-overseas",
       "cropGroup": "VERGERS",
-      "cropGroupMatch": {
-        "confidence": 1.0,
-        "rule": "matched 'mango' in cropgroup.csv"
-      },
+      "cropGroupMatch": { "confidence": 1.0, "rule": "matched 'mango' in cropgroup.csv" },
       "defaultOrigin": "FranceOutreMer",
       "displayName": "Mangue FR Outre-Mer",
       "id": "5d39ed23-3000-54af-9c47-6954802a3cf5",
       "inediblePart": 0.2,
-      "inediblePartMatch": {
-        "confidence": 1.0,
-        "rule": "Matched with Mango in agb_inedible.csv"
-      },
+      "inediblePartMatch": { "confidence": 1.0, "rule": "Matched with Mango in agb_inedible.csv" },
       "ingredientCategories": ["vegetable_fresh"],
       "ingredientDensity": 0.95,
-      "ingredientDensityMatch": {
-        "confidence": 1.0,
-        "rule": "mango found in density.csv"
-      },
+      "ingredientDensityMatch": { "confidence": 1.0, "rule": "mango found in density.csv" },
       "scenario": "reference",
       "scopes": ["food", "food2"],
       "transportCooling": "always",
-      "transportCoolingMatch": {
-        "confidence": 1.0,
-        "rule": "fruit NOVA 1 → always (perishable)"
-      },
+      "transportCoolingMatch": { "confidence": 1.0, "rule": "fruit NOVA 1 → always (perishable)" },
       "visible": true
     },
     {
@@ -126,10 +96,7 @@
     {
       "alias": "breadfruit-fr",
       "cropGroup": "VERGERS",
-      "cropGroupMatch": {
-        "confidence": 1.0,
-        "rule": "fruit default"
-      },
+      "cropGroupMatch": { "confidence": 1.0, "rule": "fruit default" },
       "defaultOrigin": "France",
       "displayName": "Fruit à pain FR",
       "id": "8ba9ef9a-2311-5a41-aa49-273f5ad720fb",
@@ -140,26 +107,17 @@
       },
       "ingredientCategories": ["vegetable_fresh"],
       "ingredientDensity": 0.85,
-      "ingredientDensityMatch": {
-        "confidence": 1.0,
-        "rule": "fruit default from food_type_density.csv"
-      },
+      "ingredientDensityMatch": { "confidence": 1.0, "rule": "fruit default from food_type_density.csv" },
       "scenario": "reference",
       "scopes": ["food", "food2"],
       "transportCooling": "always",
-      "transportCoolingMatch": {
-        "confidence": 1.0,
-        "rule": "fruit NOVA 1 → always (perishable)"
-      },
+      "transportCoolingMatch": { "confidence": 1.0, "rule": "fruit NOVA 1 → always (perishable)" },
       "visible": true
     },
     {
       "alias": "lychee-fr",
       "cropGroup": "ARBORICULTURE",
-      "cropGroupMatch": {
-        "confidence": 1.0,
-        "rule": "matched 'banana' in cropgroup.csv"
-      },
+      "cropGroupMatch": { "confidence": 1.0, "rule": "matched 'banana' in cropgroup.csv" },
       "defaultOrigin": "France",
       "displayName": "Litchi FR",
       "id": "49f28010-4312-57ee-9a96-8058e2ca96f9",
@@ -170,47 +128,29 @@
       },
       "ingredientCategories": ["vegetable_fresh"],
       "ingredientDensity": 1.0,
-      "ingredientDensityMatch": {
-        "confidence": 1.0,
-        "rule": "lychee found in density.csv"
-      },
+      "ingredientDensityMatch": { "confidence": 1.0, "rule": "lychee found in density.csv" },
       "scenario": "reference",
       "scopes": ["food", "food2"],
       "transportCooling": "always",
-      "transportCoolingMatch": {
-        "confidence": 1.0,
-        "rule": "fruit NOVA 1 → always (perishable)"
-      },
+      "transportCoolingMatch": { "confidence": 1.0, "rule": "fruit NOVA 1 → always (perishable)" },
       "visible": true
     },
     {
       "alias": "mango-fr",
       "cropGroup": "VERGERS",
-      "cropGroupMatch": {
-        "confidence": 1.0,
-        "rule": "matched 'mango' in cropgroup.csv"
-      },
+      "cropGroupMatch": { "confidence": 1.0, "rule": "matched 'mango' in cropgroup.csv" },
       "defaultOrigin": "France",
       "displayName": "Mangue FR",
       "id": "49ca593f-7466-531a-8444-0746c68114a7",
       "inediblePart": 0.2,
-      "inediblePartMatch": {
-        "confidence": 1.0,
-        "rule": "Matched with Mango in agb_inedible.csv"
-      },
+      "inediblePartMatch": { "confidence": 1.0, "rule": "Matched with Mango in agb_inedible.csv" },
       "ingredientCategories": ["vegetable_fresh"],
       "ingredientDensity": 0.95,
-      "ingredientDensityMatch": {
-        "confidence": 1.0,
-        "rule": "mango found in density.csv"
-      },
+      "ingredientDensityMatch": { "confidence": 1.0, "rule": "mango found in density.csv" },
       "scenario": "reference",
       "scopes": ["food", "food2"],
       "transportCooling": "always",
-      "transportCoolingMatch": {
-        "confidence": 1.0,
-        "rule": "fruit NOVA 1 → always (perishable)"
-      },
+      "transportCoolingMatch": { "confidence": 1.0, "rule": "fruit NOVA 1 → always (perishable)" },
       "visible": true
     }
   ],

@@ -4,10 +4,7 @@
   "displayName": "Lot de 3 boîtes en acier avec fourreau carton pour pâté et terrine - 215g à 235g",
   "id": "558cc748-b9bb-40cc-844c-ea77e377e576",
   "metadata": [
-    {
-      "id": "fa83ebbe-b234-4bf5-a3d6-e2b744ca0750",
-      "scopes": ["food2"]
-    }
+    { "id": "fa83ebbe-b234-4bf5-a3d6-e2b744ca0750", "scopes": ["food2"] }
   ],
   "scopes": ["food", "food2"],
   "source": "Agribalyse 3.2",

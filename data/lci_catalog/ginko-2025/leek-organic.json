@@ -23,31 +23,19 @@
     {
       "alias": "leek-organic",
       "cropGroup": "LEGUMES-FLEURS",
-      "cropGroupMatch": {
-        "confidence": 1.0,
-        "rule": "vegetable default"
-      },
+      "cropGroupMatch": { "confidence": 1.0, "rule": "vegetable default" },
       "defaultOrigin": "France",
       "displayName": "Poireau Bio",
       "id": "39684b70-725c-5245-8c76-d5e1133b027b",
       "inediblePart": 0.2,
-      "inediblePartMatch": {
-        "confidence": 1.0,
-        "rule": "Matched with Leek in agb_inedible.csv"
-      },
+      "inediblePartMatch": { "confidence": 1.0, "rule": "Matched with Leek in agb_inedible.csv" },
       "ingredientCategories": ["vegetable_fresh", "organic"],
       "ingredientDensity": 0.9,
-      "ingredientDensityMatch": {
-        "confidence": 1.0,
-        "rule": "leek found in density.csv"
-      },
+      "ingredientDensityMatch": { "confidence": 1.0, "rule": "leek found in density.csv" },
       "scenario": "organic",
       "scopes": ["food", "food2"],
       "transportCooling": "always",
-      "transportCoolingMatch": {
-        "confidence": 1.0,
-        "rule": "vegetable NOVA 1 → always (perishable)"
-      },
+      "transportCoolingMatch": { "confidence": 1.0, "rule": "vegetable NOVA 1 → always (perishable)" },
       "visible": true
     }
   ],

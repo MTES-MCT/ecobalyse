@@ -7,10 +7,7 @@
     {
       "alias": "fig-fr",
       "cropGroup": "VERGERS",
-      "cropGroupMatch": {
-        "confidence": 1.0,
-        "rule": "fruit default"
-      },
+      "cropGroupMatch": { "confidence": 1.0, "rule": "fruit default" },
       "defaultOrigin": "France",
       "displayName": "Figue FR",
       "id": "c273baca-8341-5d48-932e-ed8507cfddfd",
@@ -21,26 +18,17 @@
       },
       "ingredientCategories": ["vegetable_fresh"],
       "ingredientDensity": 0.9,
-      "ingredientDensityMatch": {
-        "confidence": 1.0,
-        "rule": "fig found in density.csv"
-      },
+      "ingredientDensityMatch": { "confidence": 1.0, "rule": "fig found in density.csv" },
       "scenario": "reference",
       "scopes": ["food", "food2"],
       "transportCooling": "always",
-      "transportCoolingMatch": {
-        "confidence": 1.0,
-        "rule": "fruit NOVA 1 → always (perishable)"
-      },
+      "transportCoolingMatch": { "confidence": 1.0, "rule": "fruit NOVA 1 → always (perishable)" },
       "visible": true
     },
     {
       "alias": "nectarine-fr",
       "cropGroup": "VERGERS",
-      "cropGroupMatch": {
-        "confidence": 1.0,
-        "rule": "fruit default"
-      },
+      "cropGroupMatch": { "confidence": 1.0, "rule": "fruit default" },
       "defaultOrigin": "France",
       "displayName": "Nectarine FR",
       "id": "7cd66c2a-0af8-538c-82fb-cbb4242fbb0f",
@@ -51,47 +39,29 @@
       },
       "ingredientCategories": ["vegetable_fresh"],
       "ingredientDensity": 0.85,
-      "ingredientDensityMatch": {
-        "confidence": 1.0,
-        "rule": "fruit default from food_type_density.csv"
-      },
+      "ingredientDensityMatch": { "confidence": 1.0, "rule": "fruit default from food_type_density.csv" },
       "scenario": "reference",
       "scopes": ["food", "food2"],
       "transportCooling": "always",
-      "transportCoolingMatch": {
-        "confidence": 1.0,
-        "rule": "fruit NOVA 1 → always (perishable)"
-      },
+      "transportCoolingMatch": { "confidence": 1.0, "rule": "fruit NOVA 1 → always (perishable)" },
       "visible": true
     },
     {
       "alias": "peach-fr",
       "cropGroup": "VERGERS",
-      "cropGroupMatch": {
-        "confidence": 1.0,
-        "rule": "fruit default"
-      },
+      "cropGroupMatch": { "confidence": 1.0, "rule": "fruit default" },
       "defaultOrigin": "France",
       "displayName": "Pêches FR",
       "id": "74b8e366-049c-54ee-b6de-29b5496d317d",
       "inediblePart": 0.2,
-      "inediblePartMatch": {
-        "confidence": 0.95,
-        "rule": "Matched with Peach in agb_inedible.csv"
-      },
+      "inediblePartMatch": { "confidence": 0.95, "rule": "Matched with Peach in agb_inedible.csv" },
       "ingredientCategories": ["vegetable_fresh"],
       "ingredientDensity": 0.9,
-      "ingredientDensityMatch": {
-        "confidence": 0.95,
-        "rule": "Matched with peach in density.csv"
-      },
+      "ingredientDensityMatch": { "confidence": 0.95, "rule": "Matched with peach in density.csv" },
       "scenario": "reference",
       "scopes": ["food", "food2"],
       "transportCooling": "always",
-      "transportCoolingMatch": {
-        "confidence": 1.0,
-        "rule": "fruit NOVA 1 → always (perishable)"
-      },
+      "transportCoolingMatch": { "confidence": 1.0, "rule": "fruit NOVA 1 → always (perishable)" },
       "visible": true
     }
   ],

@@ -4,10 +4,7 @@
   "displayName": "Feuille pour abat vendu au rayon boucherie - 238g à 334g",
   "id": "f72ffc99-b01f-4a0c-a217-5ac6e5864766",
   "metadata": [
-    {
-      "id": "585efc7e-31b9-402d-a92c-62e4a87514fd",
-      "scopes": ["food2"]
-    }
+    { "id": "585efc7e-31b9-402d-a92c-62e4a87514fd", "scopes": ["food2"] }
   ],
   "scopes": ["food", "food2"],
   "source": "Agribalyse 3.2",

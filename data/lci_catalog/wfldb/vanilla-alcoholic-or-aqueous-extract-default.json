@@ -8,10 +8,7 @@
     {
       "alias": "vanilla-default",
       "cropGroup": "AUTRES CULTURES INDUSTRIELLES",
-      "cropGroupMatch": {
-        "confidence": 0.95,
-        "rule": "matched 'vanille' in cropgroup.csv"
-      },
+      "cropGroupMatch": { "confidence": 0.95, "rule": "matched 'vanille' in cropgroup.csv" },
       "defaultOrigin": "OutOfEuropeAndMaghreb",
       "displayName": "Extrait de vanille, alcoolique ou aqueux Origine Inconnue",
       "id": "c1749703-c662-546b-b61f-2f7c1f242a67",
@@ -22,10 +19,7 @@
       },
       "ingredientCategories": ["spice_condiment_additive"],
       "ingredientDensity": 0.5,
-      "ingredientDensityMatch": {
-        "confidence": 1.0,
-        "rule": "spice_condiment default from food_type_density.csv"
-      },
+      "ingredientDensityMatch": { "confidence": 1.0, "rule": "spice_condiment default from food_type_density.csv" },
       "rawToCookedRatio": 1.0,
       "rawToCookedRatioMatch": {
         "confidence": 1.0,
@@ -34,10 +28,7 @@
       "scenario": "import",
       "scopes": ["food", "food2"],
       "transportCooling": "none",
-      "transportCoolingMatch": {
-        "confidence": 1.0,
-        "rule": "spice_condiment → none (non-perishable)"
-      },
+      "transportCoolingMatch": { "confidence": 1.0, "rule": "spice_condiment → none (non-perishable)" },
       "visible": true
     }
   ],

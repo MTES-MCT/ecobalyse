@@ -293,9 +293,7 @@
     "location": "GLO",
     "massPerUnit": null,
     "metadata": {
-      "complements": {
-        "forest": -414.2
-      },
+      "complements": { "forest": -414.2 },
       "forestManagement": "certifiedSustainableManagement"
     },
     "qtyVariationRatio": 1.0,

@@ -4,10 +4,7 @@
   "displayName": "Sachet en plastique (PP) pour gâteaux à partager - 200g - Proxy",
   "id": "573d926d-4331-4599-9f08-de425dbd0362",
   "metadata": [
-    {
-      "id": "25da8c61-aa73-452f-9016-04ecfa685f55",
-      "scopes": ["food2"]
-    }
+    { "id": "25da8c61-aa73-452f-9016-04ecfa685f55", "scopes": ["food2"] }
   ],
   "scopes": ["food", "food2"],
   "source": "Agribalyse 3.2",

@@ -8,10 +8,7 @@
     {
       "alias": "flaxseed-organic",
       "cropGroup": "AUTRES OLEAGINEUX",
-      "cropGroupMatch": {
-        "confidence": 1.0,
-        "rule": "matched 'flaxseed' in cropgroup.csv"
-      },
+      "cropGroupMatch": { "confidence": 1.0, "rule": "matched 'flaxseed' in cropgroup.csv" },
       "defaultOrigin": "France",
       "displayName": "Graines de lin Bio",
       "id": "041e7eb9-639d-5610-987a-f54c94cca640",
@@ -22,17 +19,11 @@
       },
       "ingredientCategories": ["vegetable_fresh", "organic"],
       "ingredientDensity": 0.7,
-      "ingredientDensityMatch": {
-        "confidence": 1.0,
-        "rule": "Flaxseed found in fao_density.csv"
-      },
+      "ingredientDensityMatch": { "confidence": 1.0, "rule": "Flaxseed found in fao_density.csv" },
       "scenario": "organic",
       "scopes": ["food", "food2"],
       "transportCooling": "always",
-      "transportCoolingMatch": {
-        "confidence": 1.0,
-        "rule": "vegetable NOVA 1 → always (perishable)"
-      },
+      "transportCoolingMatch": { "confidence": 1.0, "rule": "vegetable NOVA 1 → always (perishable)" },
       "visible": true
     }
   ],

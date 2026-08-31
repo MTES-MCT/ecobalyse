@@ -37,10 +37,7 @@
   },
   {
     "alias": "coton-rdpc",
-    "cff": {
-      "manufacturerAllocation": 0.8,
-      "recycledQualityRatio": 0.5
-    },
+    "cff": { "manufacturerAllocation": 0.8, "recycledQualityRatio": 0.5 },
     "defaultCountry": "FR",
     "geographicOrigin": "France",
     "id": "457e9b0d-9eda-4dca-b199-deeb0a154fa9",
@@ -100,10 +97,7 @@
   },
   {
     "alias": "ei-pet-r",
-    "cff": {
-      "manufacturerAllocation": 0.5,
-      "recycledQualityRatio": 1.0
-    },
+    "cff": { "manufacturerAllocation": 0.5, "recycledQualityRatio": 1.0 },
     "defaultCountry": "CN",
     "geographicOrigin": "Asie - Pacifique",
     "id": "8f44c680-1263-4588-b79b-a9e4dc3d8de4",
@@ -199,10 +193,7 @@
   },
   {
     "alias": "coton-rdp",
-    "cff": {
-      "manufacturerAllocation": 0.8,
-      "recycledQualityRatio": 0.5
-    },
+    "cff": { "manufacturerAllocation": 0.8, "recycledQualityRatio": 0.5 },
     "defaultCountry": "FR",
     "geographicOrigin": "Espagne & France",
     "id": "d3d20384-88fb-4c75-ac12-c647365ac6c5",

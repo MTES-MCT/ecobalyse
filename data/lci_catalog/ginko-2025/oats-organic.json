@@ -8,10 +8,7 @@
     {
       "alias": "oats-organic",
       "cropGroup": "AUTRES CEREALES",
-      "cropGroupMatch": {
-        "confidence": 1.0,
-        "rule": "matched 'avoine' in cropgroup.csv"
-      },
+      "cropGroupMatch": { "confidence": 1.0, "rule": "matched 'avoine' in cropgroup.csv" },
       "defaultOrigin": "France",
       "displayName": "Avoine Bio",
       "id": "b837dc4f-3e6a-5471-a0d2-12a3080f7893",
@@ -22,17 +19,11 @@
       },
       "ingredientCategories": ["grain_raw", "organic"],
       "ingredientDensity": 0.41,
-      "ingredientDensityMatch": {
-        "confidence": 1.0,
-        "rule": "Oats found in fao_density.csv"
-      },
+      "ingredientDensityMatch": { "confidence": 1.0, "rule": "Oats found in fao_density.csv" },
       "scenario": "organic",
       "scopes": ["food", "food2"],
       "transportCooling": "none",
-      "transportCoolingMatch": {
-        "confidence": 1.0,
-        "rule": "grain → none (non-perishable)"
-      },
+      "transportCoolingMatch": { "confidence": 1.0, "rule": "grain → none (non-perishable)" },
       "visible": true
     }
   ],

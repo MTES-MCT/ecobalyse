@@ -4,10 +4,7 @@
   "displayName": "Barquette en plastique dans un sachet aluminium pour bœuf et veau - 244g",
   "id": "2e80ca39-5d74-41d7-98b3-6f1791f40375",
   "metadata": [
-    {
-      "id": "4a25d214-081b-4997-aac6-a38a6765fa7a",
-      "scopes": ["food2"]
-    }
+    { "id": "4a25d214-081b-4997-aac6-a38a6765fa7a", "scopes": ["food2"] }
   ],
   "scopes": ["food", "food2"],
   "source": "Agribalyse 3.2",

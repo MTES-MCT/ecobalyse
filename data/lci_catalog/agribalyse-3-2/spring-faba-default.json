@@ -8,10 +8,7 @@
     {
       "alias": "spring-faba-default",
       "cropGroup": "PROTEAGINEUX",
-      "cropGroupMatch": {
-        "confidence": 1.0,
-        "rule": "matched 'spring faba' in cropgroup.csv"
-      },
+      "cropGroupMatch": { "confidence": 1.0, "rule": "matched 'spring faba' in cropgroup.csv" },
       "defaultOrigin": "OutOfEuropeAndMaghreb",
       "displayName": "Fèves printanières Origine Inconnue",
       "id": "3c3f93e7-fb77-5306-bad5-3988bbc95489",
@@ -22,26 +19,17 @@
       },
       "ingredientCategories": ["vegetable_fresh"],
       "ingredientDensity": 0.8,
-      "ingredientDensityMatch": {
-        "confidence": 1.0,
-        "rule": "legume default from food_type_density.csv"
-      },
+      "ingredientDensityMatch": { "confidence": 1.0, "rule": "legume default from food_type_density.csv" },
       "scenario": "import",
       "scopes": ["food", "food2"],
       "transportCooling": "always",
-      "transportCoolingMatch": {
-        "confidence": 1.0,
-        "rule": "legume NOVA 1 → always (perishable)"
-      },
+      "transportCoolingMatch": { "confidence": 1.0, "rule": "legume NOVA 1 → always (perishable)" },
       "visible": true
     },
     {
       "alias": "spring-faba-eu",
       "cropGroup": "PROTEAGINEUX",
-      "cropGroupMatch": {
-        "confidence": 1.0,
-        "rule": "matched 'spring faba' in cropgroup.csv"
-      },
+      "cropGroupMatch": { "confidence": 1.0, "rule": "matched 'spring faba' in cropgroup.csv" },
       "defaultOrigin": "EuropeAndMaghreb",
       "displayName": "Fèves printanières UE",
       "id": "b43daba6-0d67-5baa-bb9c-30981b848e6e",
@@ -52,26 +40,17 @@
       },
       "ingredientCategories": ["vegetable_fresh"],
       "ingredientDensity": 0.8,
-      "ingredientDensityMatch": {
-        "confidence": 1.0,
-        "rule": "legume default from food_type_density.csv"
-      },
+      "ingredientDensityMatch": { "confidence": 1.0, "rule": "legume default from food_type_density.csv" },
       "scenario": "import",
       "scopes": ["food", "food2"],
       "transportCooling": "always",
-      "transportCoolingMatch": {
-        "confidence": 1.0,
-        "rule": "legume NOVA 1 → always (perishable)"
-      },
+      "transportCoolingMatch": { "confidence": 1.0, "rule": "legume NOVA 1 → always (perishable)" },
       "visible": true
     },
     {
       "alias": "spring-faba-non-eu",
       "cropGroup": "PROTEAGINEUX",
-      "cropGroupMatch": {
-        "confidence": 1.0,
-        "rule": "matched 'spring faba' in cropgroup.csv"
-      },
+      "cropGroupMatch": { "confidence": 1.0, "rule": "matched 'spring faba' in cropgroup.csv" },
       "defaultOrigin": "OutOfEuropeAndMaghreb",
       "displayName": "Fèves printanières HORS UE",
       "id": "4c7b0814-025a-5e73-b7ab-e90ab4cea87c",
@@ -82,17 +61,11 @@
       },
       "ingredientCategories": ["vegetable_fresh"],
       "ingredientDensity": 0.8,
-      "ingredientDensityMatch": {
-        "confidence": 1.0,
-        "rule": "legume default from food_type_density.csv"
-      },
+      "ingredientDensityMatch": { "confidence": 1.0, "rule": "legume default from food_type_density.csv" },
       "scenario": "import",
       "scopes": ["food", "food2"],
       "transportCooling": "always",
-      "transportCoolingMatch": {
-        "confidence": 1.0,
-        "rule": "legume NOVA 1 → always (perishable)"
-      },
+      "transportCoolingMatch": { "confidence": 1.0, "rule": "legume NOVA 1 → always (perishable)" },
       "visible": true
     }
   ],

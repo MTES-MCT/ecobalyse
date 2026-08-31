@@ -4,10 +4,7 @@
   "displayName": "Barquette en plastique (PP) et étui carton pour salade composée, réfrigérée - 320g",
   "id": "72d5fa3c-995c-466a-a5ba-122977a17a2f",
   "metadata": [
-    {
-      "id": "046a49d8-5a8c-43ae-a017-0801bcc2b372",
-      "scopes": ["food2"]
-    }
+    { "id": "046a49d8-5a8c-43ae-a017-0801bcc2b372", "scopes": ["food2"] }
   ],
   "scopes": ["food", "food2"],
   "source": "Agribalyse 3.2",

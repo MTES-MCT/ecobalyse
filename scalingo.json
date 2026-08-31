@@ -1,17 +1,9 @@
 {
   "env": {
-    "ENABLE_FOOD_SECTION": {
-      "value": "True"
-    },
-    "ENABLE_OBJECTS_SECTION": {
-      "value": "True"
-    },
-    "ENABLE_VELI_SECTION": {
-      "value": "True"
-    },
-    "IS_REVIEW_APP": {
-      "value": "true"
-    }
+    "ENABLE_FOOD_SECTION": { "value": "True" },
+    "ENABLE_OBJECTS_SECTION": { "value": "True" },
+    "ENABLE_VELI_SECTION": { "value": "True" },
+    "IS_REVIEW_APP": { "value": "true" }
   },
   "stack": "scalingo-22"
 }

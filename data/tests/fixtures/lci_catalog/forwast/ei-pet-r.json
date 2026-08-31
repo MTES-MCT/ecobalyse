@@ -9,10 +9,7 @@
   "metadata": [
     {
       "alias": "ei-pet-r",
-      "cff": {
-        "manufacturerAllocation": 0.5,
-        "recycledQualityRatio": 1
-      },
+      "cff": { "manufacturerAllocation": 0.5, "recycledQualityRatio": 1 },
       "defaultCountry": "CN",
       "displayName": "Production de PET recyclé, granulés, amorphe",
       "geographicOrigin": "Asie - Pacifique",

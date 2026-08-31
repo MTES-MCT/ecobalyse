@@ -8,10 +8,7 @@
     {
       "alias": "bay-leaf-default",
       "cropGroup": "DIVERS",
-      "cropGroupMatch": {
-        "confidence": 1.0,
-        "rule": "spice_condiment default"
-      },
+      "cropGroupMatch": { "confidence": 1.0, "rule": "spice_condiment default" },
       "defaultOrigin": "OutOfEuropeAndMaghreb",
       "displayName": "Feuilles de laurier Origine Inconnue",
       "id": "29b166a8-2590-5e8a-b07c-93aed2ca41e6",
@@ -22,10 +19,7 @@
       },
       "ingredientCategories": ["spice_condiment_additive"],
       "ingredientDensity": 0.5,
-      "ingredientDensityMatch": {
-        "confidence": 1.0,
-        "rule": "spice_condiment default from food_type_density.csv"
-      },
+      "ingredientDensityMatch": { "confidence": 1.0, "rule": "spice_condiment default from food_type_density.csv" },
       "rawToCookedRatio": 1.0,
       "rawToCookedRatioMatch": {
         "confidence": 1.0,
@@ -34,19 +28,13 @@
       "scenario": "import",
       "scopes": ["food", "food2"],
       "transportCooling": "none",
-      "transportCoolingMatch": {
-        "confidence": 1.0,
-        "rule": "spice_condiment → none (non-perishable)"
-      },
+      "transportCoolingMatch": { "confidence": 1.0, "rule": "spice_condiment → none (non-perishable)" },
       "visible": true
     },
     {
       "alias": "dill-fresh-default",
       "cropGroup": "LEGUMES-FLEURS",
-      "cropGroupMatch": {
-        "confidence": 1.0,
-        "rule": "vegetable default"
-      },
+      "cropGroupMatch": { "confidence": 1.0, "rule": "vegetable default" },
       "defaultOrigin": "OutOfEuropeAndMaghreb",
       "displayName": "Aneth, frais Origine Inconnue",
       "id": "751a8b5e-d97d-5933-b308-c0d6aeae6c1a",
@@ -57,31 +45,19 @@
       },
       "ingredientCategories": ["vegetable_fresh"],
       "ingredientDensity": 0.9,
-      "ingredientDensityMatch": {
-        "confidence": 1.0,
-        "rule": "vegetable default from food_type_density.csv"
-      },
+      "ingredientDensityMatch": { "confidence": 1.0, "rule": "vegetable default from food_type_density.csv" },
       "rawToCookedRatio": 0.856,
-      "rawToCookedRatioMatch": {
-        "confidence": 1.0,
-        "rule": "vegetable default from food_type_cooked_to_raw.csv"
-      },
+      "rawToCookedRatioMatch": { "confidence": 1.0, "rule": "vegetable default from food_type_cooked_to_raw.csv" },
       "scenario": "import",
       "scopes": ["food", "food2"],
       "transportCooling": "always",
-      "transportCoolingMatch": {
-        "confidence": 1.0,
-        "rule": "vegetable NOVA 1 → always (perishable)"
-      },
+      "transportCoolingMatch": { "confidence": 1.0, "rule": "vegetable NOVA 1 → always (perishable)" },
       "visible": true
     },
     {
       "alias": "herb-dried-default",
       "cropGroup": "AUTRES CULTURES INDUSTRIELLES",
-      "cropGroupMatch": {
-        "confidence": 0.95,
-        "rule": "matched 'rosemary' in cropgroup.csv"
-      },
+      "cropGroupMatch": { "confidence": 0.95, "rule": "matched 'rosemary' in cropgroup.csv" },
       "defaultOrigin": "OutOfEuropeAndMaghreb",
       "displayName": "Herbes séchées (marjolaine, origan, sarriette, thym, basilic, romarin, sauge) Origine Inconnue",
       "id": "8790077d-37a1-5c83-9534-db01d182c8d7",
@@ -92,10 +68,7 @@
       },
       "ingredientCategories": ["spice_condiment_additive"],
       "ingredientDensity": 0.5,
-      "ingredientDensityMatch": {
-        "confidence": 1.0,
-        "rule": "spice_condiment default from food_type_density.csv"
-      },
+      "ingredientDensityMatch": { "confidence": 1.0, "rule": "spice_condiment default from food_type_density.csv" },
       "rawToCookedRatio": 1.0,
       "rawToCookedRatioMatch": {
         "confidence": 1.0,
@@ -104,19 +77,13 @@
       "scenario": "import",
       "scopes": ["food", "food2"],
       "transportCooling": "none",
-      "transportCoolingMatch": {
-        "confidence": 1.0,
-        "rule": "dried packaging → none"
-      },
+      "transportCoolingMatch": { "confidence": 1.0, "rule": "dried packaging → none" },
       "visible": true
     },
     {
       "alias": "herb-fresh-default",
       "cropGroup": "AUTRES CULTURES INDUSTRIELLES",
-      "cropGroupMatch": {
-        "confidence": 0.95,
-        "rule": "matched 'rosemary' in cropgroup.csv"
-      },
+      "cropGroupMatch": { "confidence": 0.95, "rule": "matched 'rosemary' in cropgroup.csv" },
       "defaultOrigin": "OutOfEuropeAndMaghreb",
       "displayName": "Herbes fraîches (aneth, basilic, cerfeuil, romarin, sauge, thym) Origine Inconnue",
       "id": "83a078bb-4e00-5c7e-a8a9-6323213ab606",
@@ -127,80 +94,47 @@
       },
       "ingredientCategories": ["vegetable_fresh"],
       "ingredientDensity": 0.9,
-      "ingredientDensityMatch": {
-        "confidence": 1.0,
-        "rule": "vegetable default from food_type_density.csv"
-      },
+      "ingredientDensityMatch": { "confidence": 1.0, "rule": "vegetable default from food_type_density.csv" },
       "rawToCookedRatio": 0.856,
-      "rawToCookedRatioMatch": {
-        "confidence": 1.0,
-        "rule": "vegetable default from food_type_cooked_to_raw.csv"
-      },
+      "rawToCookedRatioMatch": { "confidence": 1.0, "rule": "vegetable default from food_type_cooked_to_raw.csv" },
       "scenario": "import",
       "scopes": ["food", "food2"],
       "transportCooling": "always",
-      "transportCoolingMatch": {
-        "confidence": 1.0,
-        "rule": "vegetable NOVA 1 → always (perishable)"
-      },
+      "transportCoolingMatch": { "confidence": 1.0, "rule": "vegetable NOVA 1 → always (perishable)" },
       "visible": true
     },
     {
       "alias": "mint-default",
       "cropGroup": "AUTRES CULTURES INDUSTRIELLES",
-      "cropGroupMatch": {
-        "confidence": 1.0,
-        "rule": "matched 'mint' in cropgroup.csv"
-      },
+      "cropGroupMatch": { "confidence": 1.0, "rule": "matched 'mint' in cropgroup.csv" },
       "defaultOrigin": "OutOfEuropeAndMaghreb",
       "displayName": "Menthe Origine Inconnue",
       "id": "4b5297bc-f65b-5caa-a1aa-2f70744457ee",
       "inediblePart": 0.1,
-      "inediblePartMatch": {
-        "confidence": 1.0,
-        "rule": "Matched with Mint in agb_inedible.csv"
-      },
+      "inediblePartMatch": { "confidence": 1.0, "rule": "Matched with Mint in agb_inedible.csv" },
       "ingredientCategories": ["vegetable_fresh"],
       "ingredientDensity": 0.9,
-      "ingredientDensityMatch": {
-        "confidence": 1.0,
-        "rule": "vegetable default from food_type_density.csv"
-      },
+      "ingredientDensityMatch": { "confidence": 1.0, "rule": "vegetable default from food_type_density.csv" },
       "rawToCookedRatio": 0.856,
-      "rawToCookedRatioMatch": {
-        "confidence": 1.0,
-        "rule": "vegetable default from food_type_cooked_to_raw.csv"
-      },
+      "rawToCookedRatioMatch": { "confidence": 1.0, "rule": "vegetable default from food_type_cooked_to_raw.csv" },
       "scenario": "import",
       "scopes": ["food", "food2"],
       "transportCooling": "always",
-      "transportCoolingMatch": {
-        "confidence": 1.0,
-        "rule": "vegetable NOVA 1 → always (perishable)"
-      },
+      "transportCoolingMatch": { "confidence": 1.0, "rule": "vegetable NOVA 1 → always (perishable)" },
       "visible": true
     },
     {
       "alias": "tarragon-fresh-default",
       "cropGroup": "AUTRES CULTURES INDUSTRIELLES",
-      "cropGroupMatch": {
-        "confidence": 0.95,
-        "rule": "matched 'tarragon' in cropgroup.csv"
-      },
+      "cropGroupMatch": { "confidence": 0.95, "rule": "matched 'tarragon' in cropgroup.csv" },
       "defaultOrigin": "OutOfEuropeAndMaghreb",
       "displayName": "Estragon frais Origine Inconnue",
       "id": "1530c386-76ae-5c9c-9002-0764a53fed0a",
       "inediblePart": 0.2,
-      "inediblePartMatch": {
-        "confidence": 0.95,
-        "rule": "Matched with Tarragon in agb_inedible.csv"
-      },
+      "inediblePartMatch": { "confidence": 0.95, "rule": "Matched with Tarragon in agb_inedible.csv" },
       "ingredientCategories": ["spice_condiment_additive"],
       "ingredientDensity": 0.5,
-      "ingredientDensityMatch": {
-        "confidence": 1.0,
-        "rule": "spice_condiment default from food_type_density.csv"
-      },
+      "ingredientDensityMatch": { "confidence": 1.0, "rule": "spice_condiment default from food_type_density.csv" },
       "rawToCookedRatio": 1.0,
       "rawToCookedRatioMatch": {
         "confidence": 1.0,
@@ -209,10 +143,7 @@
       "scenario": "import",
       "scopes": ["food", "food2"],
       "transportCooling": "none",
-      "transportCoolingMatch": {
-        "confidence": 1.0,
-        "rule": "spice_condiment → none (non-perishable)"
-      },
+      "transportCoolingMatch": { "confidence": 1.0, "rule": "spice_condiment → none (non-perishable)" },
       "visible": true
     }
   ],

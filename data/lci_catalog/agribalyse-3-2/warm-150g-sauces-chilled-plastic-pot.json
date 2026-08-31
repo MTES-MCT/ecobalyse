@@ -4,10 +4,7 @@
   "displayName": "Pot en plastique (PP) pour tartinables, réfrigéré - 150g",
   "id": "1a0274d3-e6e9-487c-ae59-998b87dca6f4",
   "metadata": [
-    {
-      "id": "03596a38-4149-47d7-a89b-2dcb257cf58c",
-      "scopes": ["food2"]
-    }
+    { "id": "03596a38-4149-47d7-a89b-2dcb257cf58c", "scopes": ["food2"] }
   ],
   "scopes": ["food", "food2"],
   "source": "Agribalyse 3.2",

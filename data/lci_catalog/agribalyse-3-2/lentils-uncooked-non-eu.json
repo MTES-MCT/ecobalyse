@@ -7,10 +7,7 @@
     {
       "alias": "lentil-fr",
       "cropGroup": "LEGUMINEUSES A GRAIN",
-      "cropGroupMatch": {
-        "confidence": 1.0,
-        "rule": "matched 'lentil' in cropgroup.csv"
-      },
+      "cropGroupMatch": { "confidence": 1.0, "rule": "matched 'lentil' in cropgroup.csv" },
       "defaultOrigin": "France",
       "displayName": "Lentille FR",
       "id": "661934eb-d2ca-5768-ac5e-9916e24cb036",
@@ -21,17 +18,11 @@
       },
       "ingredientCategories": ["vegetable_fresh"],
       "ingredientDensity": 0.8,
-      "ingredientDensityMatch": {
-        "confidence": 1.0,
-        "rule": "lentil found in density.csv"
-      },
+      "ingredientDensityMatch": { "confidence": 1.0, "rule": "lentil found in density.csv" },
       "scenario": "reference",
       "scopes": ["food", "food2"],
       "transportCooling": "always",
-      "transportCoolingMatch": {
-        "confidence": 1.0,
-        "rule": "legume NOVA 1 → always (perishable)"
-      },
+      "transportCoolingMatch": { "confidence": 1.0, "rule": "legume NOVA 1 → always (perishable)" },
       "visible": true
     },
     {
@@ -51,10 +42,7 @@
     {
       "alias": "lentil-default",
       "cropGroup": "LEGUMINEUSES A GRAIN",
-      "cropGroupMatch": {
-        "confidence": 1.0,
-        "rule": "matched 'lentil' in cropgroup.csv"
-      },
+      "cropGroupMatch": { "confidence": 1.0, "rule": "matched 'lentil' in cropgroup.csv" },
       "defaultOrigin": "OutOfEuropeAndMaghreb",
       "displayName": "Lentille Origine Inconnue",
       "id": "6d6db0b8-2e1d-5074-9a22-4e81d5fb52cd",
@@ -65,26 +53,17 @@
       },
       "ingredientCategories": ["vegetable_fresh"],
       "ingredientDensity": 0.8,
-      "ingredientDensityMatch": {
-        "confidence": 1.0,
-        "rule": "lentil found in density.csv"
-      },
+      "ingredientDensityMatch": { "confidence": 1.0, "rule": "lentil found in density.csv" },
       "scenario": "import",
       "scopes": ["food", "food2"],
       "transportCooling": "always",
-      "transportCoolingMatch": {
-        "confidence": 1.0,
-        "rule": "legume NOVA 1 → always (perishable)"
-      },
+      "transportCoolingMatch": { "confidence": 1.0, "rule": "legume NOVA 1 → always (perishable)" },
       "visible": true
     },
     {
       "alias": "lentil-eu",
       "cropGroup": "LEGUMINEUSES A GRAIN",
-      "cropGroupMatch": {
-        "confidence": 1.0,
-        "rule": "matched 'lentil' in cropgroup.csv"
-      },
+      "cropGroupMatch": { "confidence": 1.0, "rule": "matched 'lentil' in cropgroup.csv" },
       "defaultOrigin": "EuropeAndMaghreb",
       "displayName": "Lentille UE",
       "id": "dc7f89d4-6964-5367-8f9a-845afa0e8446",
@@ -95,26 +74,17 @@
       },
       "ingredientCategories": ["vegetable_fresh"],
       "ingredientDensity": 0.8,
-      "ingredientDensityMatch": {
-        "confidence": 1.0,
-        "rule": "lentil found in density.csv"
-      },
+      "ingredientDensityMatch": { "confidence": 1.0, "rule": "lentil found in density.csv" },
       "scenario": "import",
       "scopes": ["food", "food2"],
       "transportCooling": "always",
-      "transportCoolingMatch": {
-        "confidence": 1.0,
-        "rule": "legume NOVA 1 → always (perishable)"
-      },
+      "transportCoolingMatch": { "confidence": 1.0, "rule": "legume NOVA 1 → always (perishable)" },
       "visible": true
     },
     {
       "alias": "lentil-non-eu",
       "cropGroup": "LEGUMINEUSES A GRAIN",
-      "cropGroupMatch": {
-        "confidence": 1.0,
-        "rule": "matched 'lentil' in cropgroup.csv"
-      },
+      "cropGroupMatch": { "confidence": 1.0, "rule": "matched 'lentil' in cropgroup.csv" },
       "defaultOrigin": "OutOfEuropeAndMaghreb",
       "displayName": "Lentille HORS UE",
       "id": "efaed529-e1c8-57d9-9637-2cc16ad0c5b0",
@@ -125,17 +95,11 @@
       },
       "ingredientCategories": ["vegetable_fresh"],
       "ingredientDensity": 0.8,
-      "ingredientDensityMatch": {
-        "confidence": 1.0,
-        "rule": "lentil found in density.csv"
-      },
+      "ingredientDensityMatch": { "confidence": 1.0, "rule": "lentil found in density.csv" },
       "scenario": "import",
       "scopes": ["food", "food2"],
       "transportCooling": "always",
-      "transportCoolingMatch": {
-        "confidence": 1.0,
-        "rule": "legume NOVA 1 → always (perishable)"
-      },
+      "transportCoolingMatch": { "confidence": 1.0, "rule": "legume NOVA 1 → always (perishable)" },
       "visible": true
     }
   ],

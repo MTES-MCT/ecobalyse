@@ -1,9 +1,5 @@
 {
-  "categories": [
-    "transformation",
-    "material_type:ferrous_metals",
-    "material_type:aluminium"
-  ],
+  "categories": ["transformation", "material_type:ferrous_metals", "material_type:aluminium"],
   "comment": "Source: BAT Reference Document for the Ferrous Metals Processing Industry, JRC, 2022, steel wire drawing. Energy is assumed as being 50% electricity and 50% heat",
   "displayName": "Tréfillage de l'acier",
   "elecKwh": 0.1111,
@@ -31,10 +27,7 @@
     "wtu": 0
   },
   "metadata": [
-    {
-      "id": "7da5ea9a-8b04-462d-bd02-19ce266dd265",
-      "scopes": ["object", "veli"]
-    }
+    { "id": "7da5ea9a-8b04-462d-bd02-19ce266dd265", "scopes": ["object", "veli"] }
   ],
   "qtyVariationRatio": 0.96,
   "scopes": ["object", "veli"],

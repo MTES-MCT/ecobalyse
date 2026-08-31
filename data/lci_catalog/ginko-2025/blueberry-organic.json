@@ -23,31 +23,19 @@
     {
       "alias": "blueberry-organic",
       "cropGroup": "VERGERS",
-      "cropGroupMatch": {
-        "confidence": 1.0,
-        "rule": "fruit default"
-      },
+      "cropGroupMatch": { "confidence": 1.0, "rule": "fruit default" },
       "defaultOrigin": "France",
       "displayName": "Myrtille Bio",
       "id": "00484931-4bae-51e6-b779-b734d916acd4",
       "inediblePart": 0.03,
-      "inediblePartMatch": {
-        "confidence": 0.95,
-        "rule": "Matched with Blueberries in agb_inedible.csv"
-      },
+      "inediblePartMatch": { "confidence": 0.95, "rule": "Matched with Blueberries in agb_inedible.csv" },
       "ingredientCategories": ["vegetable_fresh", "organic"],
       "ingredientDensity": 0.9,
-      "ingredientDensityMatch": {
-        "confidence": 1.0,
-        "rule": "blueberry found in density.csv"
-      },
+      "ingredientDensityMatch": { "confidence": 1.0, "rule": "blueberry found in density.csv" },
       "scenario": "organic",
       "scopes": ["food", "food2"],
       "transportCooling": "always",
-      "transportCoolingMatch": {
-        "confidence": 1.0,
-        "rule": "fruit NOVA 1 → always (perishable)"
-      },
+      "transportCoolingMatch": { "confidence": 1.0, "rule": "fruit NOVA 1 → always (perishable)" },
       "visible": true
     }
   ],

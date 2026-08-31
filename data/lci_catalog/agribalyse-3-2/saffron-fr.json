@@ -7,10 +7,7 @@
     {
       "alias": "saffron-fr",
       "cropGroup": "DIVERS",
-      "cropGroupMatch": {
-        "confidence": 1.0,
-        "rule": "spice_condiment default"
-      },
+      "cropGroupMatch": { "confidence": 1.0, "rule": "spice_condiment default" },
       "defaultOrigin": "France",
       "displayName": "Safran FR",
       "id": "17a1fb76-b185-58e9-b054-55a618d5ef73",
@@ -21,10 +18,7 @@
       },
       "ingredientCategories": ["spice_condiment_additive"],
       "ingredientDensity": 0.5,
-      "ingredientDensityMatch": {
-        "confidence": 1.0,
-        "rule": "spice_condiment default from food_type_density.csv"
-      },
+      "ingredientDensityMatch": { "confidence": 1.0, "rule": "spice_condiment default from food_type_density.csv" },
       "rawToCookedRatio": 1.0,
       "rawToCookedRatioMatch": {
         "confidence": 1.0,
@@ -33,33 +27,21 @@
       "scenario": "reference",
       "scopes": ["food", "food2"],
       "transportCooling": "none",
-      "transportCoolingMatch": {
-        "confidence": 1.0,
-        "rule": "spice_condiment → none (non-perishable)"
-      },
+      "transportCoolingMatch": { "confidence": 1.0, "rule": "spice_condiment → none (non-perishable)" },
       "visible": true
     },
     {
       "alias": "black-pepper-default",
       "cropGroup": "DIVERS",
-      "cropGroupMatch": {
-        "confidence": 0.95,
-        "rule": "matched 'pepper' in cropgroup.csv"
-      },
+      "cropGroupMatch": { "confidence": 0.95, "rule": "matched 'pepper' in cropgroup.csv" },
       "defaultOrigin": "OutOfEuropeAndMaghreb",
       "displayName": "Poivre noir Origine Inconnue",
       "id": "217df27a-7ab5-5d1d-97a4-8b20db8f4952",
       "inediblePart": 0.03,
-      "inediblePartMatch": {
-        "confidence": 0.95,
-        "rule": "Matched with Peppers in agb_inedible.csv"
-      },
+      "inediblePartMatch": { "confidence": 0.95, "rule": "Matched with Peppers in agb_inedible.csv" },
       "ingredientCategories": ["spice_condiment_additive"],
       "ingredientDensity": 0.5,
-      "ingredientDensityMatch": {
-        "confidence": 1.0,
-        "rule": "spice_condiment default from food_type_density.csv"
-      },
+      "ingredientDensityMatch": { "confidence": 1.0, "rule": "spice_condiment default from food_type_density.csv" },
       "rawToCookedRatio": 1.0,
       "rawToCookedRatioMatch": {
         "confidence": 1.0,
@@ -68,19 +50,13 @@
       "scenario": "import",
       "scopes": ["food", "food2"],
       "transportCooling": "none",
-      "transportCoolingMatch": {
-        "confidence": 1.0,
-        "rule": "spice_condiment → none (non-perishable)"
-      },
+      "transportCoolingMatch": { "confidence": 1.0, "rule": "spice_condiment → none (non-perishable)" },
       "visible": true
     },
     {
       "alias": "cinnamon-default",
       "cropGroup": "DIVERS",
-      "cropGroupMatch": {
-        "confidence": 1.0,
-        "rule": "spice_condiment default"
-      },
+      "cropGroupMatch": { "confidence": 1.0, "rule": "spice_condiment default" },
       "defaultOrigin": "OutOfEuropeAndMaghreb",
       "displayName": "Cannelle Origine Inconnue",
       "id": "7160d46c-8d39-5113-9779-1fd5dcc04d49",
@@ -91,10 +67,7 @@
       },
       "ingredientCategories": ["spice_condiment_additive"],
       "ingredientDensity": 0.56,
-      "ingredientDensityMatch": {
-        "confidence": 0.95,
-        "rule": "Matched with Cinnamon, powder in fao_density.csv"
-      },
+      "ingredientDensityMatch": { "confidence": 0.95, "rule": "Matched with Cinnamon, powder in fao_density.csv" },
       "rawToCookedRatio": 1.0,
       "rawToCookedRatioMatch": {
         "confidence": 1.0,
@@ -103,19 +76,13 @@
       "scenario": "import",
       "scopes": ["food", "food2"],
       "transportCooling": "none",
-      "transportCoolingMatch": {
-        "confidence": 1.0,
-        "rule": "spice_condiment → none (non-perishable)"
-      },
+      "transportCoolingMatch": { "confidence": 1.0, "rule": "spice_condiment → none (non-perishable)" },
       "visible": true
     },
     {
       "alias": "saffron-default",
       "cropGroup": "DIVERS",
-      "cropGroupMatch": {
-        "confidence": 1.0,
-        "rule": "spice_condiment default"
-      },
+      "cropGroupMatch": { "confidence": 1.0, "rule": "spice_condiment default" },
       "defaultOrigin": "OutOfEuropeAndMaghreb",
       "displayName": "Safran Origine Inconnue",
       "id": "bd475d67-0055-5780-a48e-d94002bfe06a",
@@ -126,10 +93,7 @@
       },
       "ingredientCategories": ["spice_condiment_additive"],
       "ingredientDensity": 0.5,
-      "ingredientDensityMatch": {
-        "confidence": 1.0,
-        "rule": "spice_condiment default from food_type_density.csv"
-      },
+      "ingredientDensityMatch": { "confidence": 1.0, "rule": "spice_condiment default from food_type_density.csv" },
       "rawToCookedRatio": 1.0,
       "rawToCookedRatioMatch": {
         "confidence": 1.0,
@@ -138,19 +102,13 @@
       "scenario": "import",
       "scopes": ["food", "food2"],
       "transportCooling": "none",
-      "transportCoolingMatch": {
-        "confidence": 1.0,
-        "rule": "spice_condiment → none (non-perishable)"
-      },
+      "transportCoolingMatch": { "confidence": 1.0, "rule": "spice_condiment → none (non-perishable)" },
       "visible": true
     },
     {
       "alias": "saffron-eu",
       "cropGroup": "DIVERS",
-      "cropGroupMatch": {
-        "confidence": 1.0,
-        "rule": "spice_condiment default"
-      },
+      "cropGroupMatch": { "confidence": 1.0, "rule": "spice_condiment default" },
       "defaultOrigin": "EuropeAndMaghreb",
       "displayName": "Safran UE",
       "id": "23035522-46ca-58f3-aaae-b4bec71368ce",
@@ -161,10 +119,7 @@
       },
       "ingredientCategories": ["spice_condiment_additive"],
       "ingredientDensity": 0.5,
-      "ingredientDensityMatch": {
-        "confidence": 1.0,
-        "rule": "spice_condiment default from food_type_density.csv"
-      },
+      "ingredientDensityMatch": { "confidence": 1.0, "rule": "spice_condiment default from food_type_density.csv" },
       "rawToCookedRatio": 1.0,
       "rawToCookedRatioMatch": {
         "confidence": 1.0,
@@ -173,33 +128,21 @@
       "scenario": "import",
       "scopes": ["food", "food2"],
       "transportCooling": "none",
-      "transportCoolingMatch": {
-        "confidence": 1.0,
-        "rule": "spice_condiment → none (non-perishable)"
-      },
+      "transportCoolingMatch": { "confidence": 1.0, "rule": "spice_condiment → none (non-perishable)" },
       "visible": true
     },
     {
       "alias": "black-pepper-non-eu",
       "cropGroup": "DIVERS",
-      "cropGroupMatch": {
-        "confidence": 0.95,
-        "rule": "matched 'pepper' in cropgroup.csv"
-      },
+      "cropGroupMatch": { "confidence": 0.95, "rule": "matched 'pepper' in cropgroup.csv" },
       "defaultOrigin": "OutOfEuropeAndMaghreb",
       "displayName": "Poivre noir HORS UE",
       "id": "66a509c8-926d-5459-b2ab-d3b48720281a",
       "inediblePart": 0.03,
-      "inediblePartMatch": {
-        "confidence": 0.95,
-        "rule": "Matched with Peppers in agb_inedible.csv"
-      },
+      "inediblePartMatch": { "confidence": 0.95, "rule": "Matched with Peppers in agb_inedible.csv" },
       "ingredientCategories": ["spice_condiment_additive"],
       "ingredientDensity": 0.5,
-      "ingredientDensityMatch": {
-        "confidence": 1.0,
-        "rule": "spice_condiment default from food_type_density.csv"
-      },
+      "ingredientDensityMatch": { "confidence": 1.0, "rule": "spice_condiment default from food_type_density.csv" },
       "rawToCookedRatio": 1.0,
       "rawToCookedRatioMatch": {
         "confidence": 1.0,
@@ -208,19 +151,13 @@
       "scenario": "import",
       "scopes": ["food", "food2"],
       "transportCooling": "none",
-      "transportCoolingMatch": {
-        "confidence": 1.0,
-        "rule": "spice_condiment → none (non-perishable)"
-      },
+      "transportCoolingMatch": { "confidence": 1.0, "rule": "spice_condiment → none (non-perishable)" },
       "visible": true
     },
     {
       "alias": "cinnamon-non-eu",
       "cropGroup": "DIVERS",
-      "cropGroupMatch": {
-        "confidence": 1.0,
-        "rule": "spice_condiment default"
-      },
+      "cropGroupMatch": { "confidence": 1.0, "rule": "spice_condiment default" },
       "defaultOrigin": "OutOfEuropeAndMaghreb",
       "displayName": "Cannelle HORS UE",
       "id": "22dd97eb-a2d8-5d7b-9c9a-58c55c3fbfc1",
@@ -231,10 +168,7 @@
       },
       "ingredientCategories": ["spice_condiment_additive"],
       "ingredientDensity": 0.56,
-      "ingredientDensityMatch": {
-        "confidence": 0.95,
-        "rule": "Matched with Cinnamon, powder in fao_density.csv"
-      },
+      "ingredientDensityMatch": { "confidence": 0.95, "rule": "Matched with Cinnamon, powder in fao_density.csv" },
       "rawToCookedRatio": 1.0,
       "rawToCookedRatioMatch": {
         "confidence": 1.0,
@@ -243,19 +177,13 @@
       "scenario": "import",
       "scopes": ["food", "food2"],
       "transportCooling": "none",
-      "transportCoolingMatch": {
-        "confidence": 1.0,
-        "rule": "spice_condiment → none (non-perishable)"
-      },
+      "transportCoolingMatch": { "confidence": 1.0, "rule": "spice_condiment → none (non-perishable)" },
       "visible": true
     },
     {
       "alias": "saffron-non-eu",
       "cropGroup": "DIVERS",
-      "cropGroupMatch": {
-        "confidence": 1.0,
-        "rule": "spice_condiment default"
-      },
+      "cropGroupMatch": { "confidence": 1.0, "rule": "spice_condiment default" },
       "defaultOrigin": "OutOfEuropeAndMaghreb",
       "displayName": "Safran HORS UE",
       "id": "bbbc2735-e6d9-51f0-b744-94ba5d5d8003",
@@ -266,10 +194,7 @@
       },
       "ingredientCategories": ["spice_condiment_additive"],
       "ingredientDensity": 0.5,
-      "ingredientDensityMatch": {
-        "confidence": 1.0,
-        "rule": "spice_condiment default from food_type_density.csv"
-      },
+      "ingredientDensityMatch": { "confidence": 1.0, "rule": "spice_condiment default from food_type_density.csv" },
       "rawToCookedRatio": 1.0,
       "rawToCookedRatioMatch": {
         "confidence": 1.0,
@@ -278,10 +203,7 @@
       "scenario": "import",
       "scopes": ["food", "food2"],
       "transportCooling": "none",
-      "transportCoolingMatch": {
-        "confidence": 1.0,
-        "rule": "spice_condiment → none (non-perishable)"
-      },
+      "transportCoolingMatch": { "confidence": 1.0, "rule": "spice_condiment → none (non-perishable)" },
       "visible": true
     }
   ],

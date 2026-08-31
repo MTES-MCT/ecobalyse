@@ -8,10 +8,7 @@
     {
       "alias": "broad-bean-organic",
       "cropGroup": "PROTEAGINEUX",
-      "cropGroupMatch": {
-        "confidence": 1.0,
-        "rule": "matched 'broad bean' in cropgroup.csv"
-      },
+      "cropGroupMatch": { "confidence": 1.0, "rule": "matched 'broad bean' in cropgroup.csv" },
       "defaultOrigin": "France",
       "displayName": "Fève Bio",
       "id": "c8bf67df-29af-571f-850a-2f31fff43c75",
@@ -22,26 +19,17 @@
       },
       "ingredientCategories": ["vegetable_fresh", "organic"],
       "ingredientDensity": 0.8,
-      "ingredientDensityMatch": {
-        "confidence": 0.95,
-        "rule": "Matched with bean in density.csv"
-      },
+      "ingredientDensityMatch": { "confidence": 0.95, "rule": "Matched with bean in density.csv" },
       "scenario": "organic",
       "scopes": ["food", "food2"],
       "transportCooling": "always",
-      "transportCoolingMatch": {
-        "confidence": 1.0,
-        "rule": "legume NOVA 1 → always (perishable)"
-      },
+      "transportCoolingMatch": { "confidence": 1.0, "rule": "legume NOVA 1 → always (perishable)" },
       "visible": true
     },
     {
       "alias": "flageolet-bean-green-dried-organic",
       "cropGroup": "LEGUMINEUSES A GRAIN",
-      "cropGroupMatch": {
-        "confidence": 1.0,
-        "rule": "legume default"
-      },
+      "cropGroupMatch": { "confidence": 1.0, "rule": "legume default" },
       "defaultOrigin": "France",
       "displayName": "Haricots flageolets verts Bio",
       "id": "c68a008e-7c0a-54c1-bc0f-42cdd132a643",
@@ -52,26 +40,17 @@
       },
       "ingredientCategories": ["vegetable_fresh", "organic"],
       "ingredientDensity": 0.8,
-      "ingredientDensityMatch": {
-        "confidence": 1.0,
-        "rule": "legume default from food_type_density.csv"
-      },
+      "ingredientDensityMatch": { "confidence": 1.0, "rule": "legume default from food_type_density.csv" },
       "scenario": "organic",
       "scopes": ["food", "food2"],
       "transportCooling": "none",
-      "transportCoolingMatch": {
-        "confidence": 1.0,
-        "rule": "dried packaging → none"
-      },
+      "transportCoolingMatch": { "confidence": 1.0, "rule": "dried packaging → none" },
       "visible": true
     },
     {
       "alias": "lima-bean-organic",
       "cropGroup": "LEGUMINEUSES A GRAIN",
-      "cropGroupMatch": {
-        "confidence": 1.0,
-        "rule": "legume default"
-      },
+      "cropGroupMatch": { "confidence": 1.0, "rule": "legume default" },
       "defaultOrigin": "France",
       "displayName": "Haricots de Lima Bio",
       "id": "81402397-f98a-5fbe-8ce0-93ee600a1bf5",
@@ -82,26 +61,17 @@
       },
       "ingredientCategories": ["vegetable_fresh", "organic"],
       "ingredientDensity": 0.8,
-      "ingredientDensityMatch": {
-        "confidence": 1.0,
-        "rule": "legume default from food_type_density.csv"
-      },
+      "ingredientDensityMatch": { "confidence": 1.0, "rule": "legume default from food_type_density.csv" },
       "scenario": "organic",
       "scopes": ["food", "food2"],
       "transportCooling": "always",
-      "transportCoolingMatch": {
-        "confidence": 1.0,
-        "rule": "legume NOVA 1 → always (perishable)"
-      },
+      "transportCoolingMatch": { "confidence": 1.0, "rule": "legume NOVA 1 → always (perishable)" },
       "visible": true
     },
     {
       "alias": "mung-bean-sprouted-organic",
       "cropGroup": "LEGUMINEUSES A GRAIN",
-      "cropGroupMatch": {
-        "confidence": 1.0,
-        "rule": "legume default"
-      },
+      "cropGroupMatch": { "confidence": 1.0, "rule": "legume default" },
       "defaultOrigin": "France",
       "displayName": "Haricot mungo Bio",
       "id": "ed1ccbba-0745-5cec-889c-26e8d9d845d6",
@@ -112,26 +82,17 @@
       },
       "ingredientCategories": ["vegetable_fresh", "organic"],
       "ingredientDensity": 0.8,
-      "ingredientDensityMatch": {
-        "confidence": 1.0,
-        "rule": "legume default from food_type_density.csv"
-      },
+      "ingredientDensityMatch": { "confidence": 1.0, "rule": "legume default from food_type_density.csv" },
       "scenario": "organic",
       "scopes": ["food", "food2"],
       "transportCooling": "always",
-      "transportCoolingMatch": {
-        "confidence": 1.0,
-        "rule": "legume NOVA 1 → always (perishable)"
-      },
+      "transportCoolingMatch": { "confidence": 1.0, "rule": "legume NOVA 1 → always (perishable)" },
       "visible": true
     },
     {
       "alias": "red-bean-dried-organic",
       "cropGroup": "LEGUMINEUSES A GRAIN",
-      "cropGroupMatch": {
-        "confidence": 1.0,
-        "rule": "legume default"
-      },
+      "cropGroupMatch": { "confidence": 1.0, "rule": "legume default" },
       "defaultOrigin": "France",
       "displayName": "Haricots rouges Bio",
       "id": "ac918e69-cf8d-590e-bbe0-69e9cd9abc39",
@@ -142,17 +103,11 @@
       },
       "ingredientCategories": ["vegetable_fresh", "organic"],
       "ingredientDensity": 0.8,
-      "ingredientDensityMatch": {
-        "confidence": 1.0,
-        "rule": "legume default from food_type_density.csv"
-      },
+      "ingredientDensityMatch": { "confidence": 1.0, "rule": "legume default from food_type_density.csv" },
       "scenario": "organic",
       "scopes": ["food", "food2"],
       "transportCooling": "none",
-      "transportCoolingMatch": {
-        "confidence": 1.0,
-        "rule": "dried packaging → none"
-      },
+      "transportCoolingMatch": { "confidence": 1.0, "rule": "dried packaging → none" },
       "visible": true
     }
   ],

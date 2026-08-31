@@ -7,40 +7,25 @@
     {
       "alias": "spinach-fr",
       "cropGroup": "LEGUMES-FLEURS",
-      "cropGroupMatch": {
-        "confidence": 1.0,
-        "rule": "vegetable default"
-      },
+      "cropGroupMatch": { "confidence": 1.0, "rule": "vegetable default" },
       "defaultOrigin": "France",
       "displayName": "Épinard FR",
       "id": "909b8c8d-19a1-5a77-8e56-4b4c366fcbd0",
       "inediblePart": 0.03,
-      "inediblePartMatch": {
-        "confidence": 1.0,
-        "rule": "Matched with Spinach in agb_inedible.csv"
-      },
+      "inediblePartMatch": { "confidence": 1.0, "rule": "Matched with Spinach in agb_inedible.csv" },
       "ingredientCategories": ["vegetable_fresh"],
       "ingredientDensity": 0.9,
-      "ingredientDensityMatch": {
-        "confidence": 1.0,
-        "rule": "spinach found in density.csv"
-      },
+      "ingredientDensityMatch": { "confidence": 1.0, "rule": "spinach found in density.csv" },
       "scenario": "reference",
       "scopes": ["food", "food2"],
       "transportCooling": "always",
-      "transportCoolingMatch": {
-        "confidence": 1.0,
-        "rule": "vegetable NOVA 1 → always (perishable)"
-      },
+      "transportCoolingMatch": { "confidence": 1.0, "rule": "vegetable NOVA 1 → always (perishable)" },
       "visible": true
     },
     {
       "alias": "swiss-chard-fr",
       "cropGroup": "LEGUMES-FLEURS",
-      "cropGroupMatch": {
-        "confidence": 1.0,
-        "rule": "vegetable default"
-      },
+      "cropGroupMatch": { "confidence": 1.0, "rule": "vegetable default" },
       "defaultOrigin": "France",
       "displayName": "Blette FR",
       "id": "2920acc6-000a-4f43-9525-7d619d19f62e",
@@ -51,17 +36,11 @@
       },
       "ingredientCategories": ["vegetable_fresh"],
       "ingredientDensity": 0.9,
-      "ingredientDensityMatch": {
-        "confidence": 1.0,
-        "rule": "vegetable default from food_type_density.csv"
-      },
+      "ingredientDensityMatch": { "confidence": 1.0, "rule": "vegetable default from food_type_density.csv" },
       "scenario": "reference",
       "scopes": ["food", "food2"],
       "transportCooling": "always",
-      "transportCoolingMatch": {
-        "confidence": 1.0,
-        "rule": "vegetable NOVA 1 → always (perishable)"
-      },
+      "transportCoolingMatch": { "confidence": 1.0, "rule": "vegetable NOVA 1 → always (perishable)" },
       "visible": true
     },
     {
@@ -112,70 +91,43 @@
     {
       "alias": "new-zealand-spinach-default",
       "cropGroup": "LEGUMES-FLEURS",
-      "cropGroupMatch": {
-        "confidence": 1.0,
-        "rule": "vegetable default"
-      },
+      "cropGroupMatch": { "confidence": 1.0, "rule": "vegetable default" },
       "defaultOrigin": "OutOfEuropeAndMaghreb",
       "displayName": "Épinards de Nouvelle-Zélande Origine Inconnue",
       "id": "913296af-fd26-598a-baa6-511a630ab2fb",
       "inediblePart": 0.03,
-      "inediblePartMatch": {
-        "confidence": 0.95,
-        "rule": "Matched with Spinach in agb_inedible.csv"
-      },
+      "inediblePartMatch": { "confidence": 0.95, "rule": "Matched with Spinach in agb_inedible.csv" },
       "ingredientCategories": ["vegetable_fresh"],
       "ingredientDensity": 0.9,
-      "ingredientDensityMatch": {
-        "confidence": 0.95,
-        "rule": "Matched with spinach in density.csv"
-      },
+      "ingredientDensityMatch": { "confidence": 0.95, "rule": "Matched with spinach in density.csv" },
       "scenario": "import",
       "scopes": ["food", "food2"],
       "transportCooling": "always",
-      "transportCoolingMatch": {
-        "confidence": 1.0,
-        "rule": "vegetable NOVA 1 → always (perishable)"
-      },
+      "transportCoolingMatch": { "confidence": 1.0, "rule": "vegetable NOVA 1 → always (perishable)" },
       "visible": true
     },
     {
       "alias": "spinach-default",
       "cropGroup": "LEGUMES-FLEURS",
-      "cropGroupMatch": {
-        "confidence": 1.0,
-        "rule": "vegetable default"
-      },
+      "cropGroupMatch": { "confidence": 1.0, "rule": "vegetable default" },
       "defaultOrigin": "OutOfEuropeAndMaghreb",
       "displayName": "Épinard Origine Inconnue",
       "id": "ebe3c381-6d31-528a-b1f2-e3efbd6fe678",
       "inediblePart": 0.03,
-      "inediblePartMatch": {
-        "confidence": 1.0,
-        "rule": "Matched with Spinach in agb_inedible.csv"
-      },
+      "inediblePartMatch": { "confidence": 1.0, "rule": "Matched with Spinach in agb_inedible.csv" },
       "ingredientCategories": ["vegetable_fresh"],
       "ingredientDensity": 0.9,
-      "ingredientDensityMatch": {
-        "confidence": 1.0,
-        "rule": "spinach found in density.csv"
-      },
+      "ingredientDensityMatch": { "confidence": 1.0, "rule": "spinach found in density.csv" },
       "scenario": "import",
       "scopes": ["food", "food2"],
       "transportCooling": "always",
-      "transportCoolingMatch": {
-        "confidence": 1.0,
-        "rule": "vegetable NOVA 1 → always (perishable)"
-      },
+      "transportCoolingMatch": { "confidence": 1.0, "rule": "vegetable NOVA 1 → always (perishable)" },
       "visible": true
     },
     {
       "alias": "swiss-chard-default",
       "cropGroup": "LEGUMES-FLEURS",
-      "cropGroupMatch": {
-        "confidence": 1.0,
-        "rule": "vegetable default"
-      },
+      "cropGroupMatch": { "confidence": 1.0, "rule": "vegetable default" },
       "defaultOrigin": "OutOfEuropeAndMaghreb",
       "displayName": "Blette Origine Inconnue",
       "id": "3af7783a-ddd0-5feb-964f-570f25efcd55",
@@ -186,86 +138,53 @@
       },
       "ingredientCategories": ["vegetable_fresh"],
       "ingredientDensity": 0.9,
-      "ingredientDensityMatch": {
-        "confidence": 1.0,
-        "rule": "vegetable default from food_type_density.csv"
-      },
+      "ingredientDensityMatch": { "confidence": 1.0, "rule": "vegetable default from food_type_density.csv" },
       "scenario": "import",
       "scopes": ["food", "food2"],
       "transportCooling": "always",
-      "transportCoolingMatch": {
-        "confidence": 1.0,
-        "rule": "vegetable NOVA 1 → always (perishable)"
-      },
+      "transportCoolingMatch": { "confidence": 1.0, "rule": "vegetable NOVA 1 → always (perishable)" },
       "visible": true
     },
     {
       "alias": "new-zealand-spinach-non-eu",
       "cropGroup": "LEGUMES-FLEURS",
-      "cropGroupMatch": {
-        "confidence": 1.0,
-        "rule": "vegetable default"
-      },
+      "cropGroupMatch": { "confidence": 1.0, "rule": "vegetable default" },
       "defaultOrigin": "OutOfEuropeAndMaghreb",
       "displayName": "Épinards de Nouvelle-Zélande HORS UE",
       "id": "048723dc-3bc2-576e-8dc4-8ddf01dd2152",
       "inediblePart": 0.03,
-      "inediblePartMatch": {
-        "confidence": 0.95,
-        "rule": "Matched with Spinach in agb_inedible.csv"
-      },
+      "inediblePartMatch": { "confidence": 0.95, "rule": "Matched with Spinach in agb_inedible.csv" },
       "ingredientCategories": ["vegetable_fresh"],
       "ingredientDensity": 0.9,
-      "ingredientDensityMatch": {
-        "confidence": 0.95,
-        "rule": "Matched with spinach in density.csv"
-      },
+      "ingredientDensityMatch": { "confidence": 0.95, "rule": "Matched with spinach in density.csv" },
       "scenario": "import",
       "scopes": ["food", "food2"],
       "transportCooling": "always",
-      "transportCoolingMatch": {
-        "confidence": 1.0,
-        "rule": "vegetable NOVA 1 → always (perishable)"
-      },
+      "transportCoolingMatch": { "confidence": 1.0, "rule": "vegetable NOVA 1 → always (perishable)" },
       "visible": true
     },
     {
       "alias": "spinach-non-eu",
       "cropGroup": "LEGUMES-FLEURS",
-      "cropGroupMatch": {
-        "confidence": 1.0,
-        "rule": "vegetable default"
-      },
+      "cropGroupMatch": { "confidence": 1.0, "rule": "vegetable default" },
       "defaultOrigin": "OutOfEuropeAndMaghreb",
       "displayName": "Épinard HORS UE",
       "id": "2c46f0cb-63f3-5ba0-9170-f99231212e9f",
       "inediblePart": 0.03,
-      "inediblePartMatch": {
-        "confidence": 1.0,
-        "rule": "Matched with Spinach in agb_inedible.csv"
-      },
+      "inediblePartMatch": { "confidence": 1.0, "rule": "Matched with Spinach in agb_inedible.csv" },
       "ingredientCategories": ["vegetable_fresh"],
       "ingredientDensity": 0.9,
-      "ingredientDensityMatch": {
-        "confidence": 1.0,
-        "rule": "spinach found in density.csv"
-      },
+      "ingredientDensityMatch": { "confidence": 1.0, "rule": "spinach found in density.csv" },
       "scenario": "import",
       "scopes": ["food", "food2"],
       "transportCooling": "always",
-      "transportCoolingMatch": {
-        "confidence": 1.0,
-        "rule": "vegetable NOVA 1 → always (perishable)"
-      },
+      "transportCoolingMatch": { "confidence": 1.0, "rule": "vegetable NOVA 1 → always (perishable)" },
       "visible": true
     },
     {
       "alias": "swiss-chard-non-eu",
       "cropGroup": "LEGUMES-FLEURS",
-      "cropGroupMatch": {
-        "confidence": 1.0,
-        "rule": "vegetable default"
-      },
+      "cropGroupMatch": { "confidence": 1.0, "rule": "vegetable default" },
       "defaultOrigin": "OutOfEuropeAndMaghreb",
       "displayName": "Blette HORS UE",
       "id": "8691479c-e41d-5850-89b0-b565245298ee",
@@ -276,17 +195,11 @@
       },
       "ingredientCategories": ["vegetable_fresh"],
       "ingredientDensity": 0.9,
-      "ingredientDensityMatch": {
-        "confidence": 1.0,
-        "rule": "vegetable default from food_type_density.csv"
-      },
+      "ingredientDensityMatch": { "confidence": 1.0, "rule": "vegetable default from food_type_density.csv" },
       "scenario": "import",
       "scopes": ["food", "food2"],
       "transportCooling": "always",
-      "transportCoolingMatch": {
-        "confidence": 1.0,
-        "rule": "vegetable NOVA 1 → always (perishable)"
-      },
+      "transportCoolingMatch": { "confidence": 1.0, "rule": "vegetable NOVA 1 → always (perishable)" },
       "visible": true
     }
   ],

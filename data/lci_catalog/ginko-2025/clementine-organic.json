@@ -8,10 +8,7 @@
     {
       "alias": "clementine-organic",
       "cropGroup": "VERGERS",
-      "cropGroupMatch": {
-        "confidence": 1.0,
-        "rule": "fruit default"
-      },
+      "cropGroupMatch": { "confidence": 1.0, "rule": "fruit default" },
       "defaultOrigin": "France",
       "displayName": "Clémentine Bio",
       "id": "b391b900-8c98-5bce-a3e9-679a38cbdedd",
@@ -22,17 +19,11 @@
       },
       "ingredientCategories": ["vegetable_fresh", "organic"],
       "ingredientDensity": 0.85,
-      "ingredientDensityMatch": {
-        "confidence": 1.0,
-        "rule": "fruit default from food_type_density.csv"
-      },
+      "ingredientDensityMatch": { "confidence": 1.0, "rule": "fruit default from food_type_density.csv" },
       "scenario": "organic",
       "scopes": ["food", "food2"],
       "transportCooling": "always",
-      "transportCoolingMatch": {
-        "confidence": 1.0,
-        "rule": "fruit NOVA 1 → always (perishable)"
-      },
+      "transportCoolingMatch": { "confidence": 1.0, "rule": "fruit NOVA 1 → always (perishable)" },
       "visible": true
     }
   ],

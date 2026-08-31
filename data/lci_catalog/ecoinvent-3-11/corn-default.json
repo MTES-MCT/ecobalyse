@@ -8,10 +8,7 @@
     {
       "alias": "corn-default",
       "cropGroup": "MAIS GRAIN ET ENSILAGE",
-      "cropGroupMatch": {
-        "confidence": 1.0,
-        "rule": "matched 'corn' in cropgroup.csv"
-      },
+      "cropGroupMatch": { "confidence": 1.0, "rule": "matched 'corn' in cropgroup.csv" },
       "defaultOrigin": "OutOfEuropeAndMaghreb",
       "displayName": "Maïs Origine Inconnue",
       "id": "11fd6550-211b-5c84-8424-5331b1cb3ca6",
@@ -22,17 +19,11 @@
       },
       "ingredientCategories": ["grain_raw"],
       "ingredientDensity": 0.72,
-      "ingredientDensityMatch": {
-        "confidence": 1.0,
-        "rule": "corn found in density.csv"
-      },
+      "ingredientDensityMatch": { "confidence": 1.0, "rule": "corn found in density.csv" },
       "scenario": "import",
       "scopes": ["food", "food2"],
       "transportCooling": "none",
-      "transportCoolingMatch": {
-        "confidence": 1.0,
-        "rule": "grain → none (non-perishable)"
-      },
+      "transportCoolingMatch": { "confidence": 1.0, "rule": "grain → none (non-perishable)" },
       "visible": true
     }
   ],

@@ -8,10 +8,7 @@
     {
       "alias": "chickpea-dried-fr",
       "cropGroup": "LEGUMINEUSES A GRAIN",
-      "cropGroupMatch": {
-        "confidence": 0.95,
-        "rule": "matched 'chickpea' in cropgroup.csv"
-      },
+      "cropGroupMatch": { "confidence": 0.95, "rule": "matched 'chickpea' in cropgroup.csv" },
       "defaultOrigin": "France",
       "displayName": "Pois chiches FR",
       "id": "e1abc8f3-a037-53c1-8c1f-cc0cb45c098a",
@@ -22,26 +19,17 @@
       },
       "ingredientCategories": ["vegetable_fresh"],
       "ingredientDensity": 0.8,
-      "ingredientDensityMatch": {
-        "confidence": 1.0,
-        "rule": "legume default from food_type_density.csv"
-      },
+      "ingredientDensityMatch": { "confidence": 1.0, "rule": "legume default from food_type_density.csv" },
       "scenario": "reference",
       "scopes": ["food", "food2"],
       "transportCooling": "none",
-      "transportCoolingMatch": {
-        "confidence": 1.0,
-        "rule": "dried packaging → none"
-      },
+      "transportCoolingMatch": { "confidence": 1.0, "rule": "dried packaging → none" },
       "visible": true
     },
     {
       "alias": "chickpea-dried-organic",
       "cropGroup": "LEGUMINEUSES A GRAIN",
-      "cropGroupMatch": {
-        "confidence": 0.95,
-        "rule": "matched 'chickpea' in cropgroup.csv"
-      },
+      "cropGroupMatch": { "confidence": 0.95, "rule": "matched 'chickpea' in cropgroup.csv" },
       "defaultOrigin": "France",
       "displayName": "Pois chiches Bio",
       "id": "afb6d3fe-f3ef-515f-b1c0-e6480c420bad",
@@ -52,17 +40,11 @@
       },
       "ingredientCategories": ["vegetable_fresh", "organic"],
       "ingredientDensity": 0.8,
-      "ingredientDensityMatch": {
-        "confidence": 1.0,
-        "rule": "legume default from food_type_density.csv"
-      },
+      "ingredientDensityMatch": { "confidence": 1.0, "rule": "legume default from food_type_density.csv" },
       "scenario": "organic",
       "scopes": ["food", "food2"],
       "transportCooling": "none",
-      "transportCoolingMatch": {
-        "confidence": 1.0,
-        "rule": "dried packaging → none"
-      },
+      "transportCoolingMatch": { "confidence": 1.0, "rule": "dried packaging → none" },
       "visible": true
     }
   ],

@@ -8,10 +8,7 @@
     {
       "alias": "spring-water-default",
       "cropGroup": "DIVERS",
-      "cropGroupMatch": {
-        "confidence": 1.0,
-        "rule": "beverage default"
-      },
+      "cropGroupMatch": { "confidence": 1.0, "rule": "beverage default" },
       "defaultOrigin": "OutOfEuropeAndMaghreb",
       "displayName": "Eau de source Origine Inconnue",
       "id": "ff4bfbab-b234-5427-847e-ad10a30c3e49",
@@ -22,22 +19,13 @@
       },
       "ingredientCategories": ["misc"],
       "ingredientDensity": 1.0,
-      "ingredientDensityMatch": {
-        "confidence": 0.95,
-        "rule": "Matched with Water in fao_density.csv"
-      },
+      "ingredientDensityMatch": { "confidence": 0.95, "rule": "Matched with Water in fao_density.csv" },
       "rawToCookedRatio": 1.0,
-      "rawToCookedRatioMatch": {
-        "confidence": 1.0,
-        "rule": "beverage default from food_type_cooked_to_raw.csv"
-      },
+      "rawToCookedRatioMatch": { "confidence": 1.0, "rule": "beverage default from food_type_cooked_to_raw.csv" },
       "scenario": "import",
       "scopes": ["food", "food2"],
       "transportCooling": "none",
-      "transportCoolingMatch": {
-        "confidence": 0.642,
-        "rule": "Matched with bread in transport_cooling.csv"
-      },
+      "transportCoolingMatch": { "confidence": 0.642, "rule": "Matched with bread in transport_cooling.csv" },
       "visible": true
     }
   ],

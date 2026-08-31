@@ -4,10 +4,7 @@
   "displayName": "Barquettes en plastique (PET) et boîte en carton pour fromage fondu (snack) - 175g",
   "id": "4fe72cdc-5e61-48b0-b351-ce2c71bfb662",
   "metadata": [
-    {
-      "id": "10d4a85d-40db-4bec-8af4-1bc69668492d",
-      "scopes": ["food2"]
-    }
+    { "id": "10d4a85d-40db-4bec-8af4-1bc69668492d", "scopes": ["food2"] }
   ],
   "scopes": ["food", "food2"],
   "source": "Agribalyse 3.2",

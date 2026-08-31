@@ -4,10 +4,7 @@
   "displayName": "Pot en plastique (PP) et étui carton pour plat à base de pâtes ou céréales, réfrigéré - 280g",
   "id": "bdc8d394-91ae-4a77-93d0-b3f753d15471",
   "metadata": [
-    {
-      "id": "7d41485d-f453-43df-bda7-5aa770f88792",
-      "scopes": ["food2"]
-    }
+    { "id": "7d41485d-f453-43df-bda7-5aa770f88792", "scopes": ["food2"] }
   ],
   "scopes": ["food", "food2"],
   "source": "Agribalyse 3.2",

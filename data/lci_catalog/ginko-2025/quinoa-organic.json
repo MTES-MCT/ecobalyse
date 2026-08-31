@@ -8,10 +8,7 @@
     {
       "alias": "quinoa-organic",
       "cropGroup": "AUTRES CEREALES",
-      "cropGroupMatch": {
-        "confidence": 1.0,
-        "rule": "matched 'quinoa' in cropgroup.csv"
-      },
+      "cropGroupMatch": { "confidence": 1.0, "rule": "matched 'quinoa' in cropgroup.csv" },
       "defaultOrigin": "France",
       "displayName": "Quinoa Bio",
       "id": "2cd666b8-b286-5159-9162-c261158d456a",
@@ -22,17 +19,11 @@
       },
       "ingredientCategories": ["grain_raw", "organic"],
       "ingredientDensity": 0.75,
-      "ingredientDensityMatch": {
-        "confidence": 1.0,
-        "rule": "grain default from food_type_density.csv"
-      },
+      "ingredientDensityMatch": { "confidence": 1.0, "rule": "grain default from food_type_density.csv" },
       "scenario": "organic",
       "scopes": ["food", "food2"],
       "transportCooling": "none",
-      "transportCoolingMatch": {
-        "confidence": 1.0,
-        "rule": "grain → none (non-perishable)"
-      },
+      "transportCoolingMatch": { "confidence": 1.0, "rule": "grain → none (non-perishable)" },
       "visible": true
     }
   ],

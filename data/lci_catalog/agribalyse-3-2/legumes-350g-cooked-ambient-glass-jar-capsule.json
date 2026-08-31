@@ -4,10 +4,7 @@
   "displayName": "Bocal en verre pour légume cuit, ambiant - 350g",
   "id": "bfa7e2f0-c442-4d24-97d3-78259a80114a",
   "metadata": [
-    {
-      "id": "b0021146-0fe8-4ffd-9d32-2e568c090a0d",
-      "scopes": ["food2"]
-    }
+    { "id": "b0021146-0fe8-4ffd-9d32-2e568c090a0d", "scopes": ["food2"] }
   ],
   "scopes": ["food", "food2"],
   "source": "Agribalyse 3.2",

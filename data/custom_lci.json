@@ -35,19 +35,13 @@
     "comment": "based on share of recycled material (CFF parameters: A=0.2, Q=1) and net importations. France is used as a reference for Europe. Details in documentation",
     "database": "Ecobalyse_custom_lci",
     "exchanges": [
-      {
-        "amount": 0.557,
-        "name": "aluminium ingot, virgin, market, FR"
-      },
+      { "amount": 0.557, "name": "aluminium ingot, virgin, market, FR" },
       {
         "amount": 0.089,
         "database": "Ecoinvent 3.9.1",
         "name": "aluminium, cast alloy//[RER] treatment of aluminium scrap, post-consumer, prepared for recycling, at refiner"
       },
-      {
-        "amount": 0.354,
-        "name": "aluminium ingot, virgin, market, FR"
-      }
+      { "amount": 0.354, "name": "aluminium ingot, virgin, market, FR" }
     ],
     "location": "FR",
     "newName": "aluminium ingot, market, FR"
@@ -58,26 +52,11 @@
     "comment": "",
     "database": "Agribalyse 3.2",
     "exchanges": [
-      {
-        "amount": 0.2,
-        "name": "Cow milk, organic, system number 1, at farm gate {FR} U"
-      },
-      {
-        "amount": 0.2,
-        "name": "Cow milk, organic, system number 2, at farm gate {FR} U"
-      },
-      {
-        "amount": 0.2,
-        "name": "Cow milk, organic, system number 3, at farm gate {FR} U"
-      },
-      {
-        "amount": 0.2,
-        "name": "Cow milk, organic, system number 4, at farm gate {FR} U"
-      },
-      {
-        "amount": 0.2,
-        "name": "Cow milk, organic, system number 5, at farm gate {FR} U"
-      }
+      { "amount": 0.2, "name": "Cow milk, organic, system number 1, at farm gate {FR} U" },
+      { "amount": 0.2, "name": "Cow milk, organic, system number 2, at farm gate {FR} U" },
+      { "amount": 0.2, "name": "Cow milk, organic, system number 3, at farm gate {FR} U" },
+      { "amount": 0.2, "name": "Cow milk, organic, system number 4, at farm gate {FR} U" },
+      { "amount": 0.2, "name": "Cow milk, organic, system number 5, at farm gate {FR} U" }
     ],
     "location": "FR",
     "newName": "Cow milk, organic, national average, at farm gate FR U"
@@ -323,9 +302,7 @@
     "alias": "flour-organic-2025",
     "comment": "",
     "database": "Agribalyse 3.2",
-    "existingActivity": {
-      "name": "Wheat flour, at plant {FR} U"
-    },
+    "existingActivity": { "name": "Wheat flour, at plant {FR} U" },
     "newName": "Wheat flour, organic at industrial mill {FR} U {{flour-organic-2025}}",
     "replacementPlan": {
       "replace": [
@@ -342,9 +319,7 @@
         {
           "name": "Global milling process, soft wheat, steel-roller-milled, industrial production, French production mix, at plant, 1 kg bulk flour at the exit gate (PDi) {FR} U"
         },
-        {
-          "name": "Soft wheat, consumption mix {FR} U"
-        }
+        { "name": "Soft wheat, consumption mix {FR} U" }
       ]
     }
   },
@@ -360,9 +335,7 @@
     "replacementPlan": {
       "replace": [
         {
-          "from": {
-            "name": "Beef cattle, conventional, national average, at farm gate {FR} U"
-          },
+          "from": { "name": "Beef cattle, conventional, national average, at farm gate {FR} U" },
           "to": {
             "database": "Ecobalyse_custom_lci",
             "name": "Cull cow, organic, national average, at farm gate FR U"
@@ -379,9 +352,7 @@
         {
           "name": "Slaughtering and chilling, of beef, industrial production, French production mix, at plant, 1 kg of beef carcass {FR} U"
         },
-        {
-          "name": "Live beef, for direct consumption, consumption mix {FR} U"
-        }
+        { "name": "Live beef, for direct consumption, consumption mix {FR} U" }
       ]
     }
   },
@@ -397,9 +368,7 @@
     "replacementPlan": {
       "replace": [
         {
-          "from": {
-            "name": "Beef cattle, conventional, national average, at farm gate {FR} U"
-          },
+          "from": { "name": "Beef cattle, conventional, national average, at farm gate {FR} U" },
           "to": {
             "database": "PastoEco",
             "name": "Cull cow, conventional, highland milk system, pastoral farming system, at farm gate {FR} U"
@@ -416,9 +385,7 @@
         {
           "name": "Slaughtering and chilling, of beef, industrial production, French production mix, at plant, 1 kg of beef carcass {FR} U"
         },
-        {
-          "name": "Live beef, for direct consumption, consumption mix {FR} U"
-        }
+        { "name": "Live beef, for direct consumption, consumption mix {FR} U" }
       ]
     }
   },
@@ -427,17 +394,13 @@
     "alias": "beef-without-bone-feedlot-2025",
     "comment": "",
     "database": "Agribalyse 3.2",
-    "existingActivity": {
-      "name": "Meat without bone, beef, for direct consumption {FR} U"
-    },
+    "existingActivity": { "name": "Meat without bone, beef, for direct consumption {FR} U" },
     "location": "GLO",
     "newName": "Meat without bone, beef for direct consumption {{beef-without-bone-feedlot-2025}}",
     "replacementPlan": {
       "replace": [
         {
-          "from": {
-            "name": "Beef cattle, conventional, national average, at farm gate {FR} U"
-          },
+          "from": { "name": "Beef cattle, conventional, national average, at farm gate {FR} U" },
           "to": {
             "name": "Beef cattle, feedlot or intensive system, live weight, at farm {GB} - Adapted from WFLDB U"
           }
@@ -450,9 +413,7 @@
         {
           "name": "Slaughtering and chilling, of beef, industrial production, French production mix, at plant, 1 kg of beef carcass {FR} U"
         },
-        {
-          "name": "Live beef, for direct consumption, consumption mix {FR} U"
-        }
+        { "name": "Live beef, for direct consumption, consumption mix {FR} U" }
       ]
     }
   },
@@ -461,16 +422,12 @@
     "alias": "beef-without-bone-organic-2025",
     "comment": "",
     "database": "Agribalyse 3.2",
-    "existingActivity": {
-      "name": "Meat without bone, beef, for direct consumption {FR} U"
-    },
+    "existingActivity": { "name": "Meat without bone, beef, for direct consumption {FR} U" },
     "newName": "Meat without bone, beef for direct consumption {{beef-without-bone-organic-2025}}",
     "replacementPlan": {
       "replace": [
         {
-          "from": {
-            "name": "Beef cattle, conventional, national average, at farm gate {FR} U"
-          },
+          "from": { "name": "Beef cattle, conventional, national average, at farm gate {FR} U" },
           "to": {
             "database": "Ecobalyse_custom_lci",
             "name": "Cull cow, organic, national average, at farm gate FR U"
@@ -484,9 +441,7 @@
         {
           "name": "Slaughtering and chilling, of beef, industrial production, French production mix, at plant, 1 kg of beef carcass {FR} U"
         },
-        {
-          "name": "Live beef, for direct consumption, consumption mix {FR} U"
-        }
+        { "name": "Live beef, for direct consumption, consumption mix {FR} U" }
       ]
     }
   },
@@ -495,16 +450,12 @@
     "alias": "beef-without-bone-grass-fed-2025",
     "comment": "",
     "database": "Agribalyse 3.2",
-    "existingActivity": {
-      "name": "Meat without bone, beef, for direct consumption {FR} U"
-    },
+    "existingActivity": { "name": "Meat without bone, beef, for direct consumption {FR} U" },
     "newName": "Meat without bone, beef for direct consumption {{beef-without-bone-grass-fed-2025}}",
     "replacementPlan": {
       "replace": [
         {
-          "from": {
-            "name": "Beef cattle, conventional, national average, at farm gate {FR} U"
-          },
+          "from": { "name": "Beef cattle, conventional, national average, at farm gate {FR} U" },
           "to": {
             "database": "PastoEco",
             "name": "Cull cow, conventional, highland milk system, pastoral farming system, at farm gate {FR} U"
@@ -518,9 +469,7 @@
         {
           "name": "Slaughtering and chilling, of beef, industrial production, French production mix, at plant, 1 kg of beef carcass {FR} U"
         },
-        {
-          "name": "Live beef, for direct consumption, consumption mix {FR} U"
-        }
+        { "name": "Live beef, for direct consumption, consumption mix {FR} U" }
       ]
     }
   },
@@ -537,9 +486,7 @@
     "replacementPlan": {
       "replace": [
         {
-          "from": {
-            "name": "Beef cattle, conventional, national average, at farm gate {FR} U"
-          },
+          "from": { "name": "Beef cattle, conventional, national average, at farm gate {FR} U" },
           "to": {
             "name": "Beef cattle, feedlot or intensive system, live weight, at farm {GB} - Adapted from WFLDB U"
           }
@@ -555,9 +502,7 @@
         {
           "name": "Slaughtering and chilling, of beef, industrial production, French production mix, at plant, 1 kg of beef carcass {FR} U"
         },
-        {
-          "name": "Live beef, for direct consumption, consumption mix {FR} U"
-        }
+        { "name": "Live beef, for direct consumption, consumption mix {FR} U" }
       ]
     }
   },
@@ -566,17 +511,13 @@
     "alias": "beef-with-bone-feedlot-2025",
     "comment": "",
     "database": "Agribalyse 3.2",
-    "existingActivity": {
-      "name": "Meat with bone, beef, for direct consumption {FR} U"
-    },
+    "existingActivity": { "name": "Meat with bone, beef, for direct consumption {FR} U" },
     "location": "GLO",
     "newName": "Meat with bone, beef, for direct consumption {{beef-with-bone-feedlot-2025}}",
     "replacementPlan": {
       "replace": [
         {
-          "from": {
-            "name": "Beef cattle, conventional, national average, at farm gate {FR} U"
-          },
+          "from": { "name": "Beef cattle, conventional, national average, at farm gate {FR} U" },
           "to": {
             "name": "Beef cattle, feedlot or intensive system, live weight, at farm {GB} - Adapted from WFLDB U"
           }
@@ -589,9 +530,7 @@
         {
           "name": "Slaughtering and chilling, of beef, industrial production, French production mix, at plant, 1 kg of beef carcass {FR} U"
         },
-        {
-          "name": "Live beef, for direct consumption, consumption mix {FR} U"
-        }
+        { "name": "Live beef, for direct consumption, consumption mix {FR} U" }
       ]
     }
   },
@@ -600,16 +539,12 @@
     "alias": "beef-with-bone-grass-fed-2025",
     "comment": "",
     "database": "Agribalyse 3.2",
-    "existingActivity": {
-      "name": "Meat with bone, beef, for direct consumption {FR} U"
-    },
+    "existingActivity": { "name": "Meat with bone, beef, for direct consumption {FR} U" },
     "newName": "Meat with bone, beef for direct consumption {{beef-with-bone-grass-fed-2025}}",
     "replacementPlan": {
       "replace": [
         {
-          "from": {
-            "name": "Beef cattle, conventional, national average, at farm gate {FR} U"
-          },
+          "from": { "name": "Beef cattle, conventional, national average, at farm gate {FR} U" },
           "to": {
             "database": "PastoEco",
             "name": "Cull cow, conventional, highland milk system, pastoral farming system, at farm gate {FR} U"
@@ -623,9 +558,7 @@
         {
           "name": "Slaughtering and chilling, of beef, industrial production, French production mix, at plant, 1 kg of beef carcass {FR} U"
         },
-        {
-          "name": "Live beef, for direct consumption, consumption mix {FR} U"
-        }
+        { "name": "Live beef, for direct consumption, consumption mix {FR} U" }
       ]
     }
   },
@@ -634,16 +567,12 @@
     "alias": "beef-with-bone-organic-2025",
     "comment": "",
     "database": "Agribalyse 3.2",
-    "existingActivity": {
-      "name": "Meat with bone, beef, for direct consumption {FR} U"
-    },
+    "existingActivity": { "name": "Meat with bone, beef, for direct consumption {FR} U" },
     "newName": "Meat with bone, beef for direct consumption {{beef-with-bone-organic-2025}}",
     "replacementPlan": {
       "replace": [
         {
-          "from": {
-            "name": "Beef cattle, conventional, national average, at farm gate {FR} U"
-          },
+          "from": { "name": "Beef cattle, conventional, national average, at farm gate {FR} U" },
           "to": {
             "database": "Ecobalyse_custom_lci",
             "name": "Cull cow, organic, national average, at farm gate FR U"
@@ -657,9 +586,7 @@
         {
           "name": "Slaughtering and chilling, of beef, industrial production, French production mix, at plant, 1 kg of beef carcass {FR} U"
         },
-        {
-          "name": "Live beef, for direct consumption, consumption mix {FR} U"
-        }
+        { "name": "Live beef, for direct consumption, consumption mix {FR} U" }
       ]
     }
   },
@@ -668,16 +595,12 @@
     "alias": "lamb-meat-without-bone-organic-2025",
     "comment": "",
     "database": "Agribalyse 3.2",
-    "existingActivity": {
-      "name": "Meat without bone, lamb {FR} U"
-    },
+    "existingActivity": { "name": "Meat without bone, lamb {FR} U" },
     "newName": "lamb meat without bone {{lamb-meat-without-bone-organic-2025}}",
     "replacementPlan": {
       "replace": [
         {
-          "from": {
-            "name": "Lamb, conventional, indoor production system, at farm gate {FR} U"
-          },
+          "from": { "name": "Lamb, conventional, indoor production system, at farm gate {FR} U" },
           "to": {
             "database": "Ecobalyse_custom_lci",
             "name": "Lamb, organic, national average, at farm gate FR U"
@@ -691,9 +614,7 @@
         {
           "name": "Slaughtering and chilling, of lamb, industrial production, French production mix, at plant, 1 kg of lamb carcass {FR} U"
         },
-        {
-          "name": "Live lamb, consumption mix {FR} U"
-        }
+        { "name": "Live lamb, consumption mix {FR} U" }
       ]
     }
   },
@@ -702,19 +623,13 @@
     "alias": "rapeseed-oil-organic-2025",
     "comment": "",
     "database": "Agribalyse 3.2",
-    "existingActivity": {
-      "name": "Rapeseed oil, at oil mill {GLO} - Adapted from WFLDB U"
-    },
+    "existingActivity": { "name": "Rapeseed oil, at oil mill {GLO} - Adapted from WFLDB U" },
     "newName": "Rapeseed oil, at oil mill {GLO} - Adapted from WFLDB U {{rapeseed-oil-organic-2025}}",
     "replacementPlan": {
       "replace": [
         {
-          "from": {
-            "name": "Rapeseed, at farm {GLO} - Adapted from WFLDB U"
-          },
-          "to": {
-            "name": "Winter rapeseed, organic, at farm gate {FR} U"
-          }
+          "from": { "name": "Rapeseed, at farm {GLO} - Adapted from WFLDB U" },
+          "to": { "name": "Winter rapeseed, organic, at farm gate {FR} U" }
         }
       ],
       "upstreamPath": []
@@ -725,37 +640,23 @@
     "alias": "cooked-ham-organic-2025",
     "comment": "",
     "database": "Agribalyse 3.2",
-    "existingActivity": {
-      "name": "Cooked ham, case ready, at plant {FR} U"
-    },
+    "existingActivity": { "name": "Cooked ham, case ready, at plant {FR} U" },
     "newName": "Cooked ham case ready at plant {{cooked-ham-organic-2025}}",
     "replacementPlan": {
       "replace": [
         {
-          "from": {
-            "name": "Pig, conventional, national average, at farm gate {FR} U"
-          },
-          "to": {
-            "name": "Pig, organic, system number 2, at farm gate {FR} U"
-          }
+          "from": { "name": "Pig, conventional, national average, at farm gate {FR} U" },
+          "to": { "name": "Pig, organic, system number 2, at farm gate {FR} U" }
         }
       ],
       "upstreamPath": [
         {
           "name": "Superior cooked ham packed, Fresh hams muscles, superior cooked hams packed, industrial production, French production, at plant, 1 kg superior cooked hams packed (PDi) {FR} U"
         },
-        {
-          "name": "Meat without bone, pork {FR} U"
-        },
-        {
-          "name": "Pork, meat without bone, for processing, at slaughterhouse gate {FR} U"
-        },
-        {
-          "name": "Live pig, consumption mix {FR} U"
-        },
-        {
-          "name": "Mixt pig, conventional, national average, at farm gate {FR} U"
-        }
+        { "name": "Meat without bone, pork {FR} U" },
+        { "name": "Pork, meat without bone, for processing, at slaughterhouse gate {FR} U" },
+        { "name": "Live pig, consumption mix {FR} U" },
+        { "name": "Mixt pig, conventional, national average, at farm gate {FR} U" }
       ]
     }
   },
@@ -764,37 +665,23 @@
     "alias": "cooked-ham-bbc-2025",
     "comment": "",
     "database": "Agribalyse 3.2",
-    "existingActivity": {
-      "name": "Cooked ham, case ready, at plant {FR} U"
-    },
+    "existingActivity": { "name": "Cooked ham, case ready, at plant {FR} U" },
     "newName": "Cooked ham case ready at plant {{cooked-ham-bbc-2025}}",
     "replacementPlan": {
       "replace": [
         {
-          "from": {
-            "name": "Pig, conventional, national average, at farm gate {FR} U"
-          },
-          "to": {
-            "name": "Pig, conventionnal, Bleu Blanc Coeur, at farm gate {FR} U"
-          }
+          "from": { "name": "Pig, conventional, national average, at farm gate {FR} U" },
+          "to": { "name": "Pig, conventionnal, Bleu Blanc Coeur, at farm gate {FR} U" }
         }
       ],
       "upstreamPath": [
         {
           "name": "Superior cooked ham packed, Fresh hams muscles, superior cooked hams packed, industrial production, French production, at plant, 1 kg superior cooked hams packed (PDi) {FR} U"
         },
-        {
-          "name": "Meat without bone, pork {FR} U"
-        },
-        {
-          "name": "Pork, meat without bone, for processing, at slaughterhouse gate {FR} U"
-        },
-        {
-          "name": "Live pig, consumption mix {FR} U"
-        },
-        {
-          "name": "Mixt pig, conventional, national average, at farm gate {FR} U"
-        }
+        { "name": "Meat without bone, pork {FR} U" },
+        { "name": "Pork, meat without bone, for processing, at slaughterhouse gate {FR} U" },
+        { "name": "Live pig, consumption mix {FR} U" },
+        { "name": "Mixt pig, conventional, national average, at farm gate {FR} U" }
       ]
     }
   },
@@ -803,9 +690,7 @@
     "alias": "pig-conventional-national-average-farm-gate-fr-u-fr-organic",
     "comment": "",
     "database": "Agribalyse 3.2",
-    "existingActivity": {
-      "name": "Pig, conventional, national average, at farm gate {FR} U"
-    },
+    "existingActivity": { "name": "Pig, conventional, national average, at farm gate {FR} U" },
     "newName": "Pig, conventional, national average, at farm gate {FR} U {{pig-conventional-national-average-farm-gate-fr-u-fr-organic}}",
     "replacementPlan": {
       "replace": [
@@ -813,9 +698,7 @@
           "from": {
             "name": "Dried grain maize, conventional, national average, at processing {FR} U"
           },
-          "to": {
-            "name": "Grain maize, organic, animal feed, at farm gate {FR} U"
-          }
+          "to": { "name": "Grain maize, organic, animal feed, at farm gate {FR} U" }
         },
         {
           "from": {
@@ -838,9 +721,7 @@
     "alias": "pig-conventional-national-average-farm-gate-fr-u-br",
     "comment": "",
     "database": "Agribalyse 3.2",
-    "existingActivity": {
-      "name": "Pig, conventional, national average, at farm gate {FR} U"
-    },
+    "existingActivity": { "name": "Pig, conventional, national average, at farm gate {FR} U" },
     "location": "GLO",
     "newName": "Pig, conventional, national average, at farm gate {FR} U {{pig-conventional-national-average-farm-gate-fr-u-br}}",
     "replacementPlan": {
@@ -849,9 +730,7 @@
           "from": {
             "name": "Dried grain maize, conventional, national average, at processing {FR} U"
           },
-          "to": {
-            "name": "Maize grain, non-irrigated, at farm {BR} - Adapted from WFLDB U"
-          }
+          "to": { "name": "Maize grain, non-irrigated, at farm {BR} - Adapted from WFLDB U" }
         },
         {
           "from": {
@@ -874,19 +753,13 @@
     "alias": "sunflower-oil-organic-2025",
     "comment": "",
     "database": "Agribalyse 3.2",
-    "existingActivity": {
-      "name": "Sunflower oil, at oil mill {GLO} - Adapted from WFLDB U"
-    },
+    "existingActivity": { "name": "Sunflower oil, at oil mill {GLO} - Adapted from WFLDB U" },
     "newName": "Sunflower oil, at oil mill {GLO} - Adapted from WFLDB U {{sunflower-oil-organic-2025}}",
     "replacementPlan": {
       "replace": [
         {
-          "from": {
-            "name": "Sunflower, at farm {GLO} - Adapted from WFLDB U"
-          },
-          "to": {
-            "name": "Sunflower grain, organic, system number 3, at farm gate {FR} U"
-          }
+          "from": { "name": "Sunflower, at farm {GLO} - Adapted from WFLDB U" },
+          "to": { "name": "Sunflower grain, organic, system number 3, at farm gate {FR} U" }
         }
       ],
       "upstreamPath": []
@@ -897,31 +770,21 @@
     "alias": "chicken-breast-organic-2025",
     "comment": "",
     "database": "Agribalyse 3.2",
-    "existingActivity": {
-      "name": "Meat without bone, chicken, for direct consumption {FR} U"
-    },
+    "existingActivity": { "name": "Meat without bone, chicken, for direct consumption {FR} U" },
     "newName": "Meat without bone chicken for direct consumption {{chicken-breast-organic-2025}}",
     "replacementPlan": {
       "replace": [
         {
-          "from": {
-            "name": "Broiler, conventional, at farm gate {FR} U"
-          },
-          "to": {
-            "name": "Broiler, organic, at farm gate {FR} U"
-          }
+          "from": { "name": "Broiler, conventional, at farm gate {FR} U" },
+          "to": { "name": "Broiler, organic, at farm gate {FR} U" }
         }
       ],
       "upstreamPath": [
-        {
-          "name": "Meat with bone, chicken, for direct consumption {FR} U"
-        },
+        { "name": "Meat with bone, chicken, for direct consumption {FR} U" },
         {
           "name": "Meat with bone, chicken, for direct consumption, at slaughterhouse {FR} U"
         },
-        {
-          "name": "Live broiler, for direct consumption, consumption mix {FR} U"
-        }
+        { "name": "Live broiler, for direct consumption, consumption mix {FR} U" }
       ]
     }
   },
@@ -965,10 +828,7 @@
         {
           "name": "Live broiler, for direct consumption, consumption mix {FR} U {{chicken-breast-organic-2025}}"
         },
-        {
-          "database": "Agribalyse 3.2",
-          "name": "Broiler, organic, at farm gate {FR} U"
-        },
+        { "database": "Agribalyse 3.2", "name": "Broiler, organic, at farm gate {FR} U" },
         {
           "database": "Agribalyse 3.2",
           "name": "Broiler, broiler feed, organic prod, at farm gate {FR} U"
@@ -988,9 +848,7 @@
     "replacementPlan": {
       "replace": [
         {
-          "from": {
-            "name": "Cow milk, conventional, national average, at farm gate {FR} U"
-          },
+          "from": { "name": "Cow milk, conventional, national average, at farm gate {FR} U" },
           "to": {
             "database": "Ecobalyse_custom_lci",
             "name": "Cow milk, organic, national average, at farm gate FR U"
@@ -998,9 +856,7 @@
         }
       ],
       "upstreamPath": [
-        {
-          "name": "Cow milk, consumption mix {FR} U"
-        }
+        { "name": "Cow milk, consumption mix {FR} U" }
       ]
     }
   },
@@ -1009,9 +865,7 @@
     "alias": "meat-without-bone-chicken-direct-consumption-only-soybean-max",
     "comment": "",
     "database": "Agribalyse 3.2",
-    "existingActivity": {
-      "name": "Meat without bone, chicken, for direct consumption {FR} U"
-    },
+    "existingActivity": { "name": "Meat without bone, chicken, for direct consumption {FR} U" },
     "location": "GLO",
     "newName": "Meat without bone chicken for direct consumption {{meat-without-bone-chicken-direct-consumption-only-soybean-max}}",
     "replacementPlan": {
@@ -1034,18 +888,12 @@
         }
       ],
       "upstreamPath": [
-        {
-          "name": "Meat with bone, chicken, for direct consumption {FR} U"
-        },
+        { "name": "Meat with bone, chicken, for direct consumption {FR} U" },
         {
           "name": "Meat with bone, chicken, for direct consumption, at slaughterhouse {FR} U"
         },
-        {
-          "name": "Live broiler, for direct consumption, consumption mix {FR} U"
-        },
-        {
-          "name": "Broiler, conventional, at farm gate {FR} U"
-        }
+        { "name": "Live broiler, for direct consumption, consumption mix {FR} U" },
+        { "name": "Broiler, conventional, at farm gate {FR} U" }
       ]
     }
   },
@@ -1054,9 +902,7 @@
     "alias": "chicken-breast-br-max-2025",
     "comment": "",
     "database": "Agribalyse 3.2",
-    "existingActivity": {
-      "name": "Meat without bone, chicken, for direct consumption {FR} U"
-    },
+    "existingActivity": { "name": "Meat without bone, chicken, for direct consumption {FR} U" },
     "location": "GLO",
     "newName": "Meat without bone chicken for direct consumption {{chicken-breast-br-max-2025}}",
     "replacementPlan": {
@@ -1065,9 +911,7 @@
           "from": {
             "name": "Maize grain dried, conventional, stored and transported, processing {FR} U"
           },
-          "to": {
-            "name": "Maize grain, non-irrigated, at farm {BR} - Adapted from WFLDB U"
-          }
+          "to": { "name": "Maize grain, non-irrigated, at farm {BR} - Adapted from WFLDB U" }
         },
         {
           "from": {
@@ -1087,18 +931,12 @@
         }
       ],
       "upstreamPath": [
-        {
-          "name": "Meat with bone, chicken, for direct consumption {FR} U"
-        },
+        { "name": "Meat with bone, chicken, for direct consumption {FR} U" },
         {
           "name": "Meat with bone, chicken, for direct consumption, at slaughterhouse {FR} U"
         },
-        {
-          "name": "Live broiler, for direct consumption, consumption mix {FR} U"
-        },
-        {
-          "name": "Broiler, conventional, at farm gate {FR} U"
-        }
+        { "name": "Live broiler, for direct consumption, consumption mix {FR} U" },
+        { "name": "Broiler, conventional, at farm gate {FR} U" }
       ]
     }
   },
@@ -1107,9 +945,7 @@
     "alias": "chicken-breast-fr-feed-2025",
     "comment": "",
     "database": "Agribalyse 3.2",
-    "existingActivity": {
-      "name": "Meat without bone, chicken, for direct consumption {FR} U"
-    },
+    "existingActivity": { "name": "Meat without bone, chicken, for direct consumption {FR} U" },
     "newName": "Meat without bone chicken for direct consumption {{chicken-breast-fr-feed-2025}}",
     "replacementPlan": {
       "replace": [
@@ -1117,24 +953,16 @@
           "from": {
             "name": "Soybean meal, crushing in Brazil, common process meal and oil, at mill, average {BR} U"
           },
-          "to": {
-            "name": "Soybean grain dried, stored and transported, processing {FR} U"
-          }
+          "to": { "name": "Soybean grain dried, stored and transported, processing {FR} U" }
         }
       ],
       "upstreamPath": [
-        {
-          "name": "Meat with bone, chicken, for direct consumption {FR} U"
-        },
+        { "name": "Meat with bone, chicken, for direct consumption {FR} U" },
         {
           "name": "Meat with bone, chicken, for direct consumption, at slaughterhouse {FR} U"
         },
-        {
-          "name": "Live broiler, for direct consumption, consumption mix {FR} U"
-        },
-        {
-          "name": "Broiler, conventional, at farm gate {FR} U"
-        }
+        { "name": "Live broiler, for direct consumption, consumption mix {FR} U" },
+        { "name": "Broiler, conventional, at farm gate {FR} U" }
       ]
     }
   },
@@ -1143,31 +971,21 @@
     "alias": "meat-without-bone-chicken-direct-consumption-bbc",
     "comment": "",
     "database": "Agribalyse 3.2",
-    "existingActivity": {
-      "name": "Meat without bone, chicken, for direct consumption {FR} U"
-    },
+    "existingActivity": { "name": "Meat without bone, chicken, for direct consumption {FR} U" },
     "newName": "Meat without bone, chicken, for direct consumption {{meat-without-bone-chicken-direct-consumption-bbc}}",
     "replacementPlan": {
       "replace": [
         {
-          "from": {
-            "name": "Broiler, conventional, at farm gate {FR} U"
-          },
-          "to": {
-            "name": "Broiler, Bleu Blanc Coeur, at farm gate {FR} U"
-          }
+          "from": { "name": "Broiler, conventional, at farm gate {FR} U" },
+          "to": { "name": "Broiler, Bleu Blanc Coeur, at farm gate {FR} U" }
         }
       ],
       "upstreamPath": [
-        {
-          "name": "Meat with bone, chicken, for direct consumption {FR} U"
-        },
+        { "name": "Meat with bone, chicken, for direct consumption {FR} U" },
         {
           "name": "Meat with bone, chicken, for direct consumption, at slaughterhouse {FR} U"
         },
-        {
-          "name": "Live broiler, for direct consumption, consumption mix {FR} U"
-        }
+        { "name": "Live broiler, for direct consumption, consumption mix {FR} U" }
       ]
     }
   },
@@ -1214,9 +1032,7 @@
     "alias": "fresh-tomato-consumption-mix-fr-only",
     "comment": "",
     "database": "Ginko 2025",
-    "existingActivity": {
-      "name": "Fresh tomato, consumption mix, organic 2025 {FR} U"
-    },
+    "existingActivity": { "name": "Fresh tomato, consumption mix, organic 2025 {FR} U" },
     "newName": "Fresh tomato, consumption mix {{fresh-tomato-consumption-mix-fr-only}}",
     "replacementPlan": {
       "replace": [
@@ -1237,9 +1053,7 @@
     "alias": "fresh-tomato-consumption-mix-es-only",
     "comment": "",
     "database": "Ginko 2025",
-    "existingActivity": {
-      "name": "Fresh tomato, consumption mix, organic 2025 {FR} U"
-    },
+    "existingActivity": { "name": "Fresh tomato, consumption mix, organic 2025 {FR} U" },
     "location": "ES",
     "newName": "Fresh tomato, consumption mix {{fresh-tomato-consumption-mix-es-only}}",
     "replacementPlan": {
@@ -1261,16 +1075,12 @@
     "alias": "pork-default-2025",
     "comment": "",
     "database": "Agribalyse 3.2",
-    "existingActivity": {
-      "name": "Bacon, back, at plant {FR} U"
-    },
+    "existingActivity": { "name": "Bacon, back, at plant {FR} U" },
     "newName": "Bacon, back, at plant {{pork-default-2025}}",
     "replacementPlan": {
       "replace": [
         {
-          "from": {
-            "name": "Pig, conventional, national average, at farm gate {FR} U"
-          },
+          "from": { "name": "Pig, conventional, national average, at farm gate {FR} U" },
           "to": {
             "database": "WFLDB",
             "location": "CA",
@@ -1279,18 +1089,10 @@
         }
       ],
       "upstreamPath": [
-        {
-          "name": "Meat without bone, pork {FR} U"
-        },
-        {
-          "name": "Pork, meat without bone, for processing, at slaughterhouse gate {FR} U"
-        },
-        {
-          "name": "Live pig, consumption mix {FR} U"
-        },
-        {
-          "name": "Mixt pig, conventional, national average, at farm gate {FR} U"
-        }
+        { "name": "Meat without bone, pork {FR} U" },
+        { "name": "Pork, meat without bone, for processing, at slaughterhouse gate {FR} U" },
+        { "name": "Live pig, consumption mix {FR} U" },
+        { "name": "Mixt pig, conventional, national average, at farm gate {FR} U" }
       ]
     }
   },
@@ -1299,34 +1101,20 @@
     "alias": "pork-fr-bbc-2025",
     "comment": "",
     "database": "Agribalyse 3.2",
-    "existingActivity": {
-      "name": "Bacon, back, at plant {FR} U"
-    },
+    "existingActivity": { "name": "Bacon, back, at plant {FR} U" },
     "newName": "Bacon, back, at plant {{pork-fr-bbc-2025}}",
     "replacementPlan": {
       "replace": [
         {
-          "from": {
-            "name": "Pig, conventional, national average, at farm gate {FR} U"
-          },
-          "to": {
-            "name": "Pig, conventionnal, Bleu Blanc Coeur, at farm gate {FR} U"
-          }
+          "from": { "name": "Pig, conventional, national average, at farm gate {FR} U" },
+          "to": { "name": "Pig, conventionnal, Bleu Blanc Coeur, at farm gate {FR} U" }
         }
       ],
       "upstreamPath": [
-        {
-          "name": "Meat without bone, pork {FR} U"
-        },
-        {
-          "name": "Pork, meat without bone, for processing, at slaughterhouse gate {FR} U"
-        },
-        {
-          "name": "Live pig, consumption mix {FR} U"
-        },
-        {
-          "name": "Mixt pig, conventional, national average, at farm gate {FR} U"
-        }
+        { "name": "Meat without bone, pork {FR} U" },
+        { "name": "Pork, meat without bone, for processing, at slaughterhouse gate {FR} U" },
+        { "name": "Live pig, consumption mix {FR} U" },
+        { "name": "Mixt pig, conventional, national average, at farm gate {FR} U" }
       ]
     }
   },
@@ -1335,34 +1123,20 @@
     "alias": "pork-organic-2025",
     "comment": "",
     "database": "Agribalyse 3.2",
-    "existingActivity": {
-      "name": "Bacon, back, at plant {FR} U"
-    },
+    "existingActivity": { "name": "Bacon, back, at plant {FR} U" },
     "newName": "Bacon, back, at plant {{pork-organic-2025}}",
     "replacementPlan": {
       "replace": [
         {
-          "from": {
-            "name": "Pig, conventional, national average, at farm gate {FR} U"
-          },
-          "to": {
-            "name": "Pig, organic, system number 2, at farm gate {FR} U"
-          }
+          "from": { "name": "Pig, conventional, national average, at farm gate {FR} U" },
+          "to": { "name": "Pig, organic, system number 2, at farm gate {FR} U" }
         }
       ],
       "upstreamPath": [
-        {
-          "name": "Meat without bone, pork {FR} U"
-        },
-        {
-          "name": "Pork, meat without bone, for processing, at slaughterhouse gate {FR} U"
-        },
-        {
-          "name": "Live pig, consumption mix {FR} U"
-        },
-        {
-          "name": "Mixt pig, conventional, national average, at farm gate {FR} U"
-        }
+        { "name": "Meat without bone, pork {FR} U" },
+        { "name": "Pork, meat without bone, for processing, at slaughterhouse gate {FR} U" },
+        { "name": "Live pig, consumption mix {FR} U" },
+        { "name": "Mixt pig, conventional, national average, at farm gate {FR} U" }
       ]
     }
   },
@@ -1376,9 +1150,7 @@
         "name": "Tomato, fresh grade, organic 2025 {ES}| tomato production, fresh grade, in unheated greenhouse | Cut-off, U"
       }
     ],
-    "existingActivity": {
-      "name": "Fresh tomato, consumption mix, organic 2025 {FR} U"
-    },
+    "existingActivity": { "name": "Fresh tomato, consumption mix, organic 2025 {FR} U" },
     "newName": "Fresh tomato, consumption mix {{test-activity}}",
     "replacementPlan": {
       "replace": [
@@ -1400,12 +1172,8 @@
     "comment": "",
     "database": "Ecoinvent 3.9.1",
     "delete": [
-      {
-        "name": "aluminium, cast alloy//[GLO] market for aluminium, cast alloy"
-      },
-      {
-        "name": "aluminium, wrought alloy//[GLO] market for aluminium, wrought alloy"
-      }
+      { "name": "aluminium, cast alloy//[GLO] market for aluminium, cast alloy" },
+      { "name": "aluminium, wrought alloy//[GLO] market for aluminium, wrought alloy" }
     ],
     "existingActivity": {
       "name": "metal working, average for aluminium product manufacturing//[RER] metal working, average for aluminium product manufacturing"
@@ -1418,9 +1186,7 @@
     "comment": "",
     "database": "Ecoinvent 3.9.1",
     "delete": [
-      {
-        "name": "aluminium, wrought alloy//[GLO] market for aluminium, wrought alloy"
-      }
+      { "name": "aluminium, wrought alloy//[GLO] market for aluminium, wrought alloy" }
     ],
     "existingActivity": {
       "name": "section bar extrusion, aluminium//[RER] section bar extrusion, aluminium"
@@ -1433,13 +1199,9 @@
     "comment": "",
     "database": "Ecoinvent 3.9.1",
     "delete": [
-      {
-        "name": "aluminium, wrought alloy//[GLO] market for aluminium, wrought alloy"
-      }
+      { "name": "aluminium, wrought alloy//[GLO] market for aluminium, wrought alloy" }
     ],
-    "existingActivity": {
-      "name": "sheet rolling, aluminium//[RER] sheet rolling, aluminium"
-    },
+    "existingActivity": { "name": "sheet rolling, aluminium//[RER] sheet rolling, aluminium" },
     "newName": "Aluminium sheeet rolling"
   },
   {
@@ -1482,9 +1244,7 @@
         "name": "steel, chromium steel 18/8, hot rolled//[GLO] market for steel, chromium steel 18/8, hot rolled"
       }
     ],
-    "existingActivity": {
-      "name": "sheet rolling, chromium steel//[RER] sheet rolling, chromium steel"
-    },
+    "existingActivity": { "name": "sheet rolling, chromium steel//[RER] sheet rolling, chromium steel" },
     "newName": "chromium steel sheet rolling"
   },
   {
@@ -1493,13 +1253,9 @@
     "comment": "",
     "database": "Ecoinvent 3.9.1",
     "delete": [
-      {
-        "name": "steel, unalloyed//[GLO] market for steel, unalloyed"
-      }
+      { "name": "steel, unalloyed//[GLO] market for steel, unalloyed" }
     ],
-    "existingActivity": {
-      "name": "sheet rolling, steel//[RER] sheet rolling, steel"
-    },
+    "existingActivity": { "name": "sheet rolling, steel//[RER] sheet rolling, steel" },
     "newName": "steel sheet rolling"
   },
   {
@@ -1508,13 +1264,9 @@
     "comment": "",
     "database": "Ecoinvent 3.9.1",
     "delete": [
-      {
-        "name": "wire drawing, steel//[RER] wire drawing, steel"
-      }
+      { "name": "wire drawing, steel//[RER] wire drawing, steel" }
     ],
-    "existingActivity": {
-      "name": "section bar rolling, steel//[RER] section bar rolling, steel"
-    },
+    "existingActivity": { "name": "section bar rolling, steel//[RER] section bar rolling, steel" },
     "newName": "steel section bar rolling"
   },
   {
@@ -1533,9 +1285,7 @@
         "name": "electricity, medium voltage//[RER] market group for electricity, medium voltage"
       }
     ],
-    "existingActivity": {
-      "name": "zinc coat, pieces//[RER] zinc coating, pieces"
-    },
+    "existingActivity": { "name": "zinc coat, pieces//[RER] zinc coating, pieces" },
     "newName": "zinc coat, pieces, without energy, per m2, RER"
   },
   {
@@ -1544,10 +1294,7 @@
     "comment": "50µm Zn, 2mm Fe (62.5m²/t Fe). Adapted from 'zinc coating, pieces, RER', Ecoinvent (65µm Zn). Heat and electricity consumptions are not included.",
     "database": "Ecobalyse_custom_lci",
     "exchanges": [
-      {
-        "amount": 0.048,
-        "name": "zinc coat, pieces, without energy, per m2, RER"
-      }
+      { "amount": 0.048, "name": "zinc coat, pieces, without energy, per m2, RER" }
     ],
     "newName": "zinc coating, adapted from Ecoinvent"
   },
@@ -1669,9 +1416,7 @@
     "alias": "semolina-glo-fr",
     "comment": "Semolina from GLO wheat and FR electricity",
     "database": "Agribalyse 3.2",
-    "existingActivity": {
-      "name": "Durum wheat, semolina, at plant {GLO} - Adapted from WFLDB U"
-    },
+    "existingActivity": { "name": "Durum wheat, semolina, at plant {GLO} - Adapted from WFLDB U" },
     "newName": "Durum wheat, semolina, at plant, from GLO wheat and FR elec",
     "replacementPlan": {
       "replace": [
@@ -1692,9 +1437,7 @@
     "alias": "semolina-glo-it",
     "comment": "Semolina from GLO wheat and IT electricity",
     "database": "Agribalyse 3.2",
-    "existingActivity": {
-      "name": "Durum wheat, semolina, at plant {GLO} - Adapted from WFLDB U"
-    },
+    "existingActivity": { "name": "Durum wheat, semolina, at plant {GLO} - Adapted from WFLDB U" },
     "newName": "Durum wheat, semolina, at plant, from GLO wheat and IT elec",
     "replacementPlan": {
       "replace": [
@@ -1715,9 +1458,7 @@
     "alias": "semolina-glo-es",
     "comment": "Semolina from GLO wheat and ES electricity",
     "database": "Agribalyse 3.2",
-    "existingActivity": {
-      "name": "Durum wheat, semolina, at plant {GLO} - Adapted from WFLDB U"
-    },
+    "existingActivity": { "name": "Durum wheat, semolina, at plant {GLO} - Adapted from WFLDB U" },
     "newName": "Durum wheat, semolina, at plant, from GLO wheat and ES elec",
     "replacementPlan": {
       "replace": [
@@ -1738,9 +1479,7 @@
     "alias": "semolina-glo-de",
     "comment": "Semolina from GLO wheat and DE electricity",
     "database": "Agribalyse 3.2",
-    "existingActivity": {
-      "name": "Durum wheat, semolina, at plant {GLO} - Adapted from WFLDB U"
-    },
+    "existingActivity": { "name": "Durum wheat, semolina, at plant {GLO} - Adapted from WFLDB U" },
     "newName": "Durum wheat, semolina, at plant, from GLO wheat and DE elec",
     "replacementPlan": {
       "replace": [
@@ -1761,9 +1500,7 @@
     "alias": "semolina-glo-be",
     "comment": "Semolina from GLO wheat and BE electricity",
     "database": "Agribalyse 3.2",
-    "existingActivity": {
-      "name": "Durum wheat, semolina, at plant {GLO} - Adapted from WFLDB U"
-    },
+    "existingActivity": { "name": "Durum wheat, semolina, at plant {GLO} - Adapted from WFLDB U" },
     "newName": "Durum wheat, semolina, at plant, from GLO wheat and BE elec",
     "replacementPlan": {
       "replace": [
@@ -1784,16 +1521,12 @@
     "alias": "pasta-glo-fr",
     "comment": "Pasta from GLO wheat and FR electricity",
     "database": "Agribalyse 3.2",
-    "existingActivity": {
-      "name": "Pasta, dried, from durum wheat, at plant {GLO} - Adapted from WFLDB U"
-    },
+    "existingActivity": { "name": "Pasta, dried, from durum wheat, at plant {GLO} - Adapted from WFLDB U" },
     "newName": "Pasta, dried, from durum wheat, at plant, from GLO wheat and FR elec",
     "replacementPlan": {
       "replace": [
         {
-          "from": {
-            "name": "Durum wheat, semolina, at plant {GLO} - Adapted from WFLDB U"
-          },
+          "from": { "name": "Durum wheat, semolina, at plant {GLO} - Adapted from WFLDB U" },
           "to": {
             "database": "Ecobalyse_custom_lci",
             "name": "Durum wheat, semolina, at plant, from GLO wheat and FR elec"
@@ -1816,16 +1549,12 @@
     "alias": "pasta-glo-it",
     "comment": "Pasta from GLO wheat and IT electricity",
     "database": "Agribalyse 3.2",
-    "existingActivity": {
-      "name": "Pasta, dried, from durum wheat, at plant {GLO} - Adapted from WFLDB U"
-    },
+    "existingActivity": { "name": "Pasta, dried, from durum wheat, at plant {GLO} - Adapted from WFLDB U" },
     "newName": "Pasta, dried, from durum wheat, at plant, from GLO wheat and IT elec",
     "replacementPlan": {
       "replace": [
         {
-          "from": {
-            "name": "Durum wheat, semolina, at plant {GLO} - Adapted from WFLDB U"
-          },
+          "from": { "name": "Durum wheat, semolina, at plant {GLO} - Adapted from WFLDB U" },
           "to": {
             "database": "Ecobalyse_custom_lci",
             "name": "Durum wheat, semolina, at plant, from GLO wheat and IT elec"
@@ -1848,16 +1577,12 @@
     "alias": "pasta-glo-es",
     "comment": "Pasta from GLO wheat and ES electricity",
     "database": "Agribalyse 3.2",
-    "existingActivity": {
-      "name": "Pasta, dried, from durum wheat, at plant {GLO} - Adapted from WFLDB U"
-    },
+    "existingActivity": { "name": "Pasta, dried, from durum wheat, at plant {GLO} - Adapted from WFLDB U" },
     "newName": "Pasta, dried, from durum wheat, at plant, from GLO wheat and ES elec",
     "replacementPlan": {
       "replace": [
         {
-          "from": {
-            "name": "Durum wheat, semolina, at plant {GLO} - Adapted from WFLDB U"
-          },
+          "from": { "name": "Durum wheat, semolina, at plant {GLO} - Adapted from WFLDB U" },
           "to": {
             "database": "Ecobalyse_custom_lci",
             "name": "Durum wheat, semolina, at plant, from GLO wheat and ES elec"
@@ -1880,16 +1605,12 @@
     "alias": "pasta-glo-de",
     "comment": "Pasta from GLO wheat and DE electricity",
     "database": "Agribalyse 3.2",
-    "existingActivity": {
-      "name": "Pasta, dried, from durum wheat, at plant {GLO} - Adapted from WFLDB U"
-    },
+    "existingActivity": { "name": "Pasta, dried, from durum wheat, at plant {GLO} - Adapted from WFLDB U" },
     "newName": "Pasta, dried, from durum wheat, at plant, from GLO wheat and DE elec",
     "replacementPlan": {
       "replace": [
         {
-          "from": {
-            "name": "Durum wheat, semolina, at plant {GLO} - Adapted from WFLDB U"
-          },
+          "from": { "name": "Durum wheat, semolina, at plant {GLO} - Adapted from WFLDB U" },
           "to": {
             "database": "Ecobalyse_custom_lci",
             "name": "Durum wheat, semolina, at plant, from GLO wheat and DE elec"
@@ -1912,16 +1633,12 @@
     "alias": "pasta-glo-be",
     "comment": "Pasta from GLO wheat and BE electricity",
     "database": "Agribalyse 3.2",
-    "existingActivity": {
-      "name": "Pasta, dried, from durum wheat, at plant {GLO} - Adapted from WFLDB U"
-    },
+    "existingActivity": { "name": "Pasta, dried, from durum wheat, at plant {GLO} - Adapted from WFLDB U" },
     "newName": "Pasta, dried, from durum wheat, at plant, from GLO wheat and BE elec",
     "replacementPlan": {
       "replace": [
         {
-          "from": {
-            "name": "Durum wheat, semolina, at plant {GLO} - Adapted from WFLDB U"
-          },
+          "from": { "name": "Durum wheat, semolina, at plant {GLO} - Adapted from WFLDB U" },
           "to": {
             "database": "Ecobalyse_custom_lci",
             "name": "Durum wheat, semolina, at plant, from GLO wheat and BE elec"
@@ -1944,9 +1661,7 @@
     "alias": "deep-frying-be",
     "comment": "Deep Frying with BE electricity",
     "database": "Agribalyse 3.2",
-    "existingActivity": {
-      "name": "Deep-frying, industrial, 1kg of deep-fried product, for cooking {FR} U"
-    },
+    "existingActivity": { "name": "Deep-frying, industrial, 1kg of deep-fried product, for cooking {FR} U" },
     "location": "BE",
     "newName": "Deep-frying, industrial, 1kg of deep-fried product, for cooking {BE} U",
     "replacementPlan": {
@@ -1968,9 +1683,7 @@
     "alias": "deep-frying-de",
     "comment": "Deep Frying with DE electricity",
     "database": "Agribalyse 3.2",
-    "existingActivity": {
-      "name": "Deep-frying, industrial, 1kg of deep-fried product, for cooking {FR} U"
-    },
+    "existingActivity": { "name": "Deep-frying, industrial, 1kg of deep-fried product, for cooking {FR} U" },
     "location": "DE",
     "newName": "Deep-frying, industrial, 1kg of deep-fried product, for cooking {DE} U",
     "replacementPlan": {
@@ -1992,9 +1705,7 @@
     "alias": "deep-frying-it",
     "comment": "Deep Frying with IT electricity",
     "database": "Agribalyse 3.2",
-    "existingActivity": {
-      "name": "Deep-frying, industrial, 1kg of deep-fried product, for cooking {FR} U"
-    },
+    "existingActivity": { "name": "Deep-frying, industrial, 1kg of deep-fried product, for cooking {FR} U" },
     "location": "IT",
     "newName": "Deep-frying, industrial, 1kg of deep-fried product, for cooking {IT} U",
     "replacementPlan": {
@@ -2016,9 +1727,7 @@
     "alias": "deep-frying-es",
     "comment": "Deep Frying with ES electricity",
     "database": "Agribalyse 3.2",
-    "existingActivity": {
-      "name": "Deep-frying, industrial, 1kg of deep-fried product, for cooking {FR} U"
-    },
+    "existingActivity": { "name": "Deep-frying, industrial, 1kg of deep-fried product, for cooking {FR} U" },
     "location": "ES",
     "newName": "Deep-frying, industrial, 1kg of deep-fried product, for cooking {ES} U",
     "replacementPlan": {
@@ -2040,9 +1749,7 @@
     "alias": "oven-baking-be",
     "comment": "Oven Baking with BE electricity",
     "database": "Agribalyse 3.2",
-    "existingActivity": {
-      "name": "Oven baking, industrial, 1kg of oven-baked product, for cooking {FR} U"
-    },
+    "existingActivity": { "name": "Oven baking, industrial, 1kg of oven-baked product, for cooking {FR} U" },
     "location": "BE",
     "newName": "Oven baking, industrial, 1kg of oven-baked product, for cooking {BE} U",
     "replacementPlan": {
@@ -2064,9 +1771,7 @@
     "alias": "oven-baking-de",
     "comment": "Oven Baking with DE electricity",
     "database": "Agribalyse 3.2",
-    "existingActivity": {
-      "name": "Oven baking, industrial, 1kg of oven-baked product, for cooking {FR} U"
-    },
+    "existingActivity": { "name": "Oven baking, industrial, 1kg of oven-baked product, for cooking {FR} U" },
     "location": "DE",
     "newName": "Oven baking, industrial, 1kg of oven-baked product, for cooking {DE} U",
     "replacementPlan": {
@@ -2088,9 +1793,7 @@
     "alias": "oven-baking-it",
     "comment": "Oven Baking with IT electricity",
     "database": "Agribalyse 3.2",
-    "existingActivity": {
-      "name": "Oven baking, industrial, 1kg of oven-baked product, for cooking {FR} U"
-    },
+    "existingActivity": { "name": "Oven baking, industrial, 1kg of oven-baked product, for cooking {FR} U" },
     "location": "IT",
     "newName": "Oven baking, industrial, 1kg of oven-baked product, for cooking {IT} U",
     "replacementPlan": {
@@ -2112,9 +1815,7 @@
     "alias": "oven-baking-es",
     "comment": "Oven Baking with ES electricity",
     "database": "Agribalyse 3.2",
-    "existingActivity": {
-      "name": "Oven baking, industrial, 1kg of oven-baked product, for cooking {FR} U"
-    },
+    "existingActivity": { "name": "Oven baking, industrial, 1kg of oven-baked product, for cooking {FR} U" },
     "location": "ES",
     "newName": "Oven baking, industrial, 1kg of oven-baked product, for cooking {ES} U",
     "replacementPlan": {
@@ -2136,9 +1837,7 @@
     "alias": "boiling-be",
     "comment": "Boiling with BE electricity",
     "database": "Agribalyse 3.2",
-    "existingActivity": {
-      "name": "Boiling, industrial, 1kg of boiled product, for cooking {FR} U"
-    },
+    "existingActivity": { "name": "Boiling, industrial, 1kg of boiled product, for cooking {FR} U" },
     "location": "BE",
     "newName": "Boiling, industrial, 1kg of boiled product, for cooking {BE} U",
     "replacementPlan": {
@@ -2164,9 +1863,7 @@
     "alias": "boiling-de",
     "comment": "Boiling with DE electricity",
     "database": "Agribalyse 3.2",
-    "existingActivity": {
-      "name": "Boiling, industrial, 1kg of boiled product, for cooking {FR} U"
-    },
+    "existingActivity": { "name": "Boiling, industrial, 1kg of boiled product, for cooking {FR} U" },
     "location": "DE",
     "newName": "Boiling, industrial, 1kg of boiled product, for cooking {DE} U",
     "replacementPlan": {
@@ -2192,9 +1889,7 @@
     "alias": "boiling-it",
     "comment": "Boiling with IT electricity",
     "database": "Agribalyse 3.2",
-    "existingActivity": {
-      "name": "Boiling, industrial, 1kg of boiled product, for cooking {FR} U"
-    },
+    "existingActivity": { "name": "Boiling, industrial, 1kg of boiled product, for cooking {FR} U" },
     "location": "IT",
     "newName": "Boiling, industrial, 1kg of boiled product, for cooking {IT} U",
     "replacementPlan": {
@@ -2220,9 +1915,7 @@
     "alias": "boiling-es",
     "comment": "Boiling with ES electricity",
     "database": "Agribalyse 3.2",
-    "existingActivity": {
-      "name": "Boiling, industrial, 1kg of boiled product, for cooking {FR} U"
-    },
+    "existingActivity": { "name": "Boiling, industrial, 1kg of boiled product, for cooking {FR} U" },
     "location": "ES",
     "newName": "Boiling, industrial, 1kg of boiled product, for cooking {ES} U",
     "replacementPlan": {
@@ -2248,35 +1941,27 @@
     "alias": "cooking-be",
     "comment": "Cooking with BE electricity",
     "database": "Agribalyse 3.2",
-    "existingActivity": {
-      "name": "Cooking, industrial, 1kg of cooked product {FR} U"
-    },
+    "existingActivity": { "name": "Cooking, industrial, 1kg of cooked product {FR} U" },
     "location": "BE",
     "newName": "Cooking, industrial, 1kg of cooked product {BE} U",
     "replacementPlan": {
       "replace": [
         {
-          "from": {
-            "name": "Boiling, industrial, 1kg of boiled product, for cooking {FR} U"
-          },
+          "from": { "name": "Boiling, industrial, 1kg of boiled product, for cooking {FR} U" },
           "to": {
             "database": "Ecobalyse_custom_lci",
             "name": "Boiling, industrial, 1kg of boiled product, for cooking {BE} U"
           }
         },
         {
-          "from": {
-            "name": "Deep-frying, industrial, 1kg of deep-fried product, for cooking {FR} U"
-          },
+          "from": { "name": "Deep-frying, industrial, 1kg of deep-fried product, for cooking {FR} U" },
           "to": {
             "database": "Ecobalyse_custom_lci",
             "name": "Deep-frying, industrial, 1kg of deep-fried product, for cooking {BE} U"
           }
         },
         {
-          "from": {
-            "name": "Oven baking, industrial, 1kg of oven-baked product, for cooking {FR} U"
-          },
+          "from": { "name": "Oven baking, industrial, 1kg of oven-baked product, for cooking {FR} U" },
           "to": {
             "database": "Ecobalyse_custom_lci",
             "name": "Oven baking, industrial, 1kg of oven-baked product, for cooking {BE} U"
@@ -2291,35 +1976,27 @@
     "alias": "cooking-de",
     "comment": "Cooking with DE electricity",
     "database": "Agribalyse 3.2",
-    "existingActivity": {
-      "name": "Cooking, industrial, 1kg of cooked product {FR} U"
-    },
+    "existingActivity": { "name": "Cooking, industrial, 1kg of cooked product {FR} U" },
     "location": "DE",
     "newName": "Cooking, industrial, 1kg of cooked product {DE} U",
     "replacementPlan": {
       "replace": [
         {
-          "from": {
-            "name": "Boiling, industrial, 1kg of boiled product, for cooking {FR} U"
-          },
+          "from": { "name": "Boiling, industrial, 1kg of boiled product, for cooking {FR} U" },
           "to": {
             "database": "Ecobalyse_custom_lci",
             "name": "Boiling, industrial, 1kg of boiled product, for cooking {DE} U"
           }
         },
         {
-          "from": {
-            "name": "Deep-frying, industrial, 1kg of deep-fried product, for cooking {FR} U"
-          },
+          "from": { "name": "Deep-frying, industrial, 1kg of deep-fried product, for cooking {FR} U" },
           "to": {
             "database": "Ecobalyse_custom_lci",
             "name": "Deep-frying, industrial, 1kg of deep-fried product, for cooking {DE} U"
           }
         },
         {
-          "from": {
-            "name": "Oven baking, industrial, 1kg of oven-baked product, for cooking {FR} U"
-          },
+          "from": { "name": "Oven baking, industrial, 1kg of oven-baked product, for cooking {FR} U" },
           "to": {
             "database": "Ecobalyse_custom_lci",
             "name": "Oven baking, industrial, 1kg of oven-baked product, for cooking {DE} U"
@@ -2334,35 +2011,27 @@
     "alias": "cooking-it",
     "comment": "Cooking with IT electricity",
     "database": "Agribalyse 3.2",
-    "existingActivity": {
-      "name": "Cooking, industrial, 1kg of cooked product {FR} U"
-    },
+    "existingActivity": { "name": "Cooking, industrial, 1kg of cooked product {FR} U" },
     "location": "IT",
     "newName": "Cooking, industrial, 1kg of cooked product {IT} U",
     "replacementPlan": {
       "replace": [
         {
-          "from": {
-            "name": "Boiling, industrial, 1kg of boiled product, for cooking {FR} U"
-          },
+          "from": { "name": "Boiling, industrial, 1kg of boiled product, for cooking {FR} U" },
           "to": {
             "database": "Ecobalyse_custom_lci",
             "name": "Boiling, industrial, 1kg of boiled product, for cooking {IT} U"
           }
         },
         {
-          "from": {
-            "name": "Deep-frying, industrial, 1kg of deep-fried product, for cooking {FR} U"
-          },
+          "from": { "name": "Deep-frying, industrial, 1kg of deep-fried product, for cooking {FR} U" },
           "to": {
             "database": "Ecobalyse_custom_lci",
             "name": "Deep-frying, industrial, 1kg of deep-fried product, for cooking {IT} U"
           }
         },
         {
-          "from": {
-            "name": "Oven baking, industrial, 1kg of oven-baked product, for cooking {FR} U"
-          },
+          "from": { "name": "Oven baking, industrial, 1kg of oven-baked product, for cooking {FR} U" },
           "to": {
             "database": "Ecobalyse_custom_lci",
             "name": "Oven baking, industrial, 1kg of oven-baked product, for cooking {IT} U"
@@ -2377,35 +2046,27 @@
     "alias": "cooking-es",
     "comment": "Cooking with ES electricity",
     "database": "Agribalyse 3.2",
-    "existingActivity": {
-      "name": "Cooking, industrial, 1kg of cooked product {FR} U"
-    },
+    "existingActivity": { "name": "Cooking, industrial, 1kg of cooked product {FR} U" },
     "location": "ES",
     "newName": "Cooking, industrial, 1kg of cooked product {ES} U",
     "replacementPlan": {
       "replace": [
         {
-          "from": {
-            "name": "Boiling, industrial, 1kg of boiled product, for cooking {FR} U"
-          },
+          "from": { "name": "Boiling, industrial, 1kg of boiled product, for cooking {FR} U" },
           "to": {
             "database": "Ecobalyse_custom_lci",
             "name": "Boiling, industrial, 1kg of boiled product, for cooking {ES} U"
           }
         },
         {
-          "from": {
-            "name": "Deep-frying, industrial, 1kg of deep-fried product, for cooking {FR} U"
-          },
+          "from": { "name": "Deep-frying, industrial, 1kg of deep-fried product, for cooking {FR} U" },
           "to": {
             "database": "Ecobalyse_custom_lci",
             "name": "Deep-frying, industrial, 1kg of deep-fried product, for cooking {ES} U"
           }
         },
         {
-          "from": {
-            "name": "Oven baking, industrial, 1kg of oven-baked product, for cooking {FR} U"
-          },
+          "from": { "name": "Oven baking, industrial, 1kg of oven-baked product, for cooking {FR} U" },
           "to": {
             "database": "Ecobalyse_custom_lci",
             "name": "Oven baking, industrial, 1kg of oven-baked product, for cooking {ES} U"
@@ -2428,9 +2089,7 @@
     "replacementPlan": {
       "replace": [
         {
-          "from": {
-            "name": "Cooking, industrial, 1kg of cooked product {FR} U"
-          },
+          "from": { "name": "Cooking, industrial, 1kg of cooked product {FR} U" },
           "to": {
             "database": "Ecobalyse_custom_lci",
             "name": "Cooking, industrial, 1kg of cooked product {BE} U"
@@ -2453,9 +2112,7 @@
     "replacementPlan": {
       "replace": [
         {
-          "from": {
-            "name": "Cooking, industrial, 1kg of cooked product {FR} U"
-          },
+          "from": { "name": "Cooking, industrial, 1kg of cooked product {FR} U" },
           "to": {
             "database": "Ecobalyse_custom_lci",
             "name": "Cooking, industrial, 1kg of cooked product {DE} U"
@@ -2478,9 +2135,7 @@
     "replacementPlan": {
       "replace": [
         {
-          "from": {
-            "name": "Cooking, industrial, 1kg of cooked product {FR} U"
-          },
+          "from": { "name": "Cooking, industrial, 1kg of cooked product {FR} U" },
           "to": {
             "database": "Ecobalyse_custom_lci",
             "name": "Cooking, industrial, 1kg of cooked product {IT} U"
@@ -2503,9 +2158,7 @@
     "replacementPlan": {
       "replace": [
         {
-          "from": {
-            "name": "Cooking, industrial, 1kg of cooked product {FR} U"
-          },
+          "from": { "name": "Cooking, industrial, 1kg of cooked product {FR} U" },
           "to": {
             "database": "Ecobalyse_custom_lci",
             "name": "Cooking, industrial, 1kg of cooked product {ES} U"
@@ -2520,9 +2173,7 @@
     "alias": "drying-process-be",
     "comment": "Drying process with BE electricity",
     "database": "Agribalyse 3.2",
-    "existingActivity": {
-      "name": "Water evaporated, Drying process, Vacuum rotary, 1 kg water {FR} U"
-    },
+    "existingActivity": { "name": "Water evaporated, Drying process, Vacuum rotary, 1 kg water {FR} U" },
     "location": "BE",
     "newName": "Water evaporated, Drying process, Vacuum rotary, 1 kg water {BE} U",
     "replacementPlan": {
@@ -2544,9 +2195,7 @@
     "alias": "drying-process-de",
     "comment": "Drying process with DE electricity",
     "database": "Agribalyse 3.2",
-    "existingActivity": {
-      "name": "Water evaporated, Drying process, Vacuum rotary, 1 kg water {FR} U"
-    },
+    "existingActivity": { "name": "Water evaporated, Drying process, Vacuum rotary, 1 kg water {FR} U" },
     "location": "DE",
     "newName": "Water evaporated, Drying process, Vacuum rotary, 1 kg water {DE} U",
     "replacementPlan": {
@@ -2568,9 +2217,7 @@
     "alias": "drying-process-it",
     "comment": "Drying process with IT electricity",
     "database": "Agribalyse 3.2",
-    "existingActivity": {
-      "name": "Water evaporated, Drying process, Vacuum rotary, 1 kg water {FR} U"
-    },
+    "existingActivity": { "name": "Water evaporated, Drying process, Vacuum rotary, 1 kg water {FR} U" },
     "location": "IT",
     "newName": "Water evaporated, Drying process, Vacuum rotary, 1 kg water {IT} U",
     "replacementPlan": {
@@ -2592,9 +2239,7 @@
     "alias": "drying-process-es",
     "comment": "Drying process with ES electricity",
     "database": "Agribalyse 3.2",
-    "existingActivity": {
-      "name": "Water evaporated, Drying process, Vacuum rotary, 1 kg water {FR} U"
-    },
+    "existingActivity": { "name": "Water evaporated, Drying process, Vacuum rotary, 1 kg water {FR} U" },
     "location": "ES",
     "newName": "Water evaporated, Drying process, Vacuum rotary, 1 kg water {ES} U",
     "replacementPlan": {
@@ -2616,9 +2261,7 @@
     "alias": "soup-dehydrated-be",
     "comment": "Dehydrated soup with BE electricity",
     "database": "Agribalyse 3.2",
-    "existingActivity": {
-      "name": "Soup, mixed vegetables, dehydrated, at plant {FR} U"
-    },
+    "existingActivity": { "name": "Soup, mixed vegetables, dehydrated, at plant {FR} U" },
     "location": "BE",
     "newName": "Soup, mixed vegetables, dehydrated, at plant {BE} U",
     "replacementPlan": {
@@ -2633,9 +2276,7 @@
           }
         },
         {
-          "from": {
-            "name": "Water evaporated, Drying process, Vacuum rotary, 1 kg water {FR} U"
-          },
+          "from": { "name": "Water evaporated, Drying process, Vacuum rotary, 1 kg water {FR} U" },
           "to": {
             "database": "Ecobalyse_custom_lci",
             "name": "Water evaporated, Drying process, Vacuum rotary, 1 kg water {BE} U"
@@ -2650,9 +2291,7 @@
     "alias": "soup-dehydrated-de",
     "comment": "Dehydrated soup with DE electricity",
     "database": "Agribalyse 3.2",
-    "existingActivity": {
-      "name": "Soup, mixed vegetables, dehydrated, at plant {FR} U"
-    },
+    "existingActivity": { "name": "Soup, mixed vegetables, dehydrated, at plant {FR} U" },
     "location": "DE",
     "newName": "Soup, mixed vegetables, dehydrated, at plant {DE} U",
     "replacementPlan": {
@@ -2667,9 +2306,7 @@
           }
         },
         {
-          "from": {
-            "name": "Water evaporated, Drying process, Vacuum rotary, 1 kg water {FR} U"
-          },
+          "from": { "name": "Water evaporated, Drying process, Vacuum rotary, 1 kg water {FR} U" },
           "to": {
             "database": "Ecobalyse_custom_lci",
             "name": "Water evaporated, Drying process, Vacuum rotary, 1 kg water {DE} U"
@@ -2684,9 +2321,7 @@
     "alias": "soup-dehydrated-it",
     "comment": "Dehydrated soup with IT electricity",
     "database": "Agribalyse 3.2",
-    "existingActivity": {
-      "name": "Soup, mixed vegetables, dehydrated, at plant {FR} U"
-    },
+    "existingActivity": { "name": "Soup, mixed vegetables, dehydrated, at plant {FR} U" },
     "location": "IT",
     "newName": "Soup, mixed vegetables, dehydrated, at plant {IT} U",
     "replacementPlan": {
@@ -2701,9 +2336,7 @@
           }
         },
         {
-          "from": {
-            "name": "Water evaporated, Drying process, Vacuum rotary, 1 kg water {FR} U"
-          },
+          "from": { "name": "Water evaporated, Drying process, Vacuum rotary, 1 kg water {FR} U" },
           "to": {
             "database": "Ecobalyse_custom_lci",
             "name": "Water evaporated, Drying process, Vacuum rotary, 1 kg water {IT} U"
@@ -2718,9 +2351,7 @@
     "alias": "soup-dehydrated-es",
     "comment": "Dehydrated soup with ES electricity",
     "database": "Agribalyse 3.2",
-    "existingActivity": {
-      "name": "Soup, mixed vegetables, dehydrated, at plant {FR} U"
-    },
+    "existingActivity": { "name": "Soup, mixed vegetables, dehydrated, at plant {FR} U" },
     "location": "ES",
     "newName": "Soup, mixed vegetables, dehydrated, at plant {ES} U",
     "replacementPlan": {
@@ -2735,9 +2366,7 @@
           }
         },
         {
-          "from": {
-            "name": "Water evaporated, Drying process, Vacuum rotary, 1 kg water {FR} U"
-          },
+          "from": { "name": "Water evaporated, Drying process, Vacuum rotary, 1 kg water {FR} U" },
           "to": {
             "database": "Ecobalyse_custom_lci",
             "name": "Water evaporated, Drying process, Vacuum rotary, 1 kg water {ES} U"
@@ -2781,10 +2410,7 @@
         "database": "Ecoinvent 3.9.1",
         "name": "steel, unalloyed//[RoW] steel production, converter, unalloyed"
       },
-      {
-        "amount": 0.393,
-        "name": "steel, low-alloyed, recycled, RER, CFF"
-      }
+      { "amount": 0.393, "name": "steel, low-alloyed, recycled, RER, CFF" }
     ],
     "location": "FR",
     "newName": "steel, low-alloyed, market, FR"
@@ -2805,10 +2431,7 @@
         "database": "Ecoinvent 3.9.1",
         "name": "steel, unalloyed//[RoW] steel production, converter, unalloyed"
       },
-      {
-        "amount": 0.104,
-        "name": "steel, low-alloyed, recycled, RER, CFF"
-      }
+      { "amount": 0.104, "name": "steel, low-alloyed, recycled, RER, CFF" }
     ],
     "location": "CN",
     "newName": "steel, low-alloyed, market, CN"
@@ -2829,10 +2452,7 @@
         "database": "Ecoinvent 3.9.1",
         "name": "steel, unalloyed//[RoW] steel production, converter, unalloyed"
       },
-      {
-        "amount": 0.252,
-        "name": "steel, low-alloyed, recycled, RER, CFF"
-      }
+      { "amount": 0.252, "name": "steel, low-alloyed, recycled, RER, CFF" }
     ],
     "location": "CZ",
     "newName": "steel, low-alloyed, market, CZ"
@@ -2853,10 +2473,7 @@
         "database": "Ecoinvent 3.9.1",
         "name": "steel, unalloyed//[RoW] steel production, converter, unalloyed"
       },
-      {
-        "amount": 0.33,
-        "name": "steel, low-alloyed, recycled, RER, CFF"
-      }
+      { "amount": 0.33, "name": "steel, low-alloyed, recycled, RER, CFF" }
     ],
     "location": "DE",
     "newName": "steel, low-alloyed, market, DE"
@@ -2895,10 +2512,7 @@
         "database": "Ecoinvent 3.9.1",
         "name": "steel, unalloyed//[RoW] steel production, converter, unalloyed"
       },
-      {
-        "amount": 0.275,
-        "name": "steel, low-alloyed, recycled, RoW, CFF"
-      }
+      { "amount": 0.275, "name": "steel, low-alloyed, recycled, RoW, CFF" }
     ],
     "location": "RoW",
     "newName": "steel, low-alloyed, market, JP"
@@ -2939,19 +2553,13 @@
     "comment": "based on share of recycled material (CFF parameters: A=0.2, Q=1) and net importations. South Korea is used as a reference for Out of Europe and China. Details in documentation",
     "database": "Ecobalyse_custom_lci",
     "exchanges": [
-      {
-        "amount": 0.529,
-        "name": "aluminium ingot, virgin, market, KR"
-      },
+      { "amount": 0.529, "name": "aluminium ingot, virgin, market, KR" },
       {
         "amount": 0.377,
         "database": "Ecoinvent 3.9.1",
         "name": "aluminium, cast alloy//[RER] treatment of aluminium scrap, post-consumer, prepared for recycling, at refiner"
       },
-      {
-        "amount": 0.094,
-        "name": "aluminium ingot, virgin, market, KR"
-      }
+      { "amount": 0.094, "name": "aluminium ingot, virgin, market, KR" }
     ],
     "location": "KR",
     "newName": "aluminium ingot, market, KR"
@@ -2984,19 +2592,13 @@
     "comment": "based on share of recycled material (CFF parameters: A=0.2, Q=1) and net importations. Details in documentation",
     "database": "Ecobalyse_custom_lci",
     "exchanges": [
-      {
-        "amount": 0.806,
-        "name": "aluminium ingot, virgin, market, CN"
-      },
+      { "amount": 0.806, "name": "aluminium ingot, virgin, market, CN" },
       {
         "amount": 0.155,
         "database": "Ecoinvent 3.9.1",
         "name": "aluminium, cast alloy//[RER] treatment of aluminium scrap, post-consumer, prepared for recycling, at refiner"
       },
-      {
-        "amount": 0.039,
-        "name": "aluminium ingot, virgin, market, CN"
-      }
+      { "amount": 0.039, "name": "aluminium ingot, virgin, market, CN" }
     ],
     "location": "CN",
     "newName": "aluminium ingot, market, CN"
@@ -3083,10 +2685,7 @@
     "comment": "CFF parameters: A=0.2, Q=1",
     "database": "Ecobalyse_custom_lci",
     "exchanges": [
-      {
-        "amount": 0.8,
-        "name": "aluminium ingot, virgin, market, FR"
-      },
+      { "amount": 0.8, "name": "aluminium ingot, virgin, market, FR" },
       {
         "amount": 0.2,
         "database": "Ecoinvent 3.9.1",
@@ -3102,10 +2701,7 @@
     "comment": "CFF parameters: A=0.2, Q=1",
     "database": "Ecobalyse_custom_lci",
     "exchanges": [
-      {
-        "amount": 0.8,
-        "name": "aluminium ingot, virgin, market, IN"
-      },
+      { "amount": 0.8, "name": "aluminium ingot, virgin, market, IN" },
       {
         "amount": 0.2,
         "database": "Ecoinvent 3.9.1",
@@ -3121,10 +2717,7 @@
     "comment": "CFF parameters: A=0.2, Q=1",
     "database": "Ecobalyse_custom_lci",
     "exchanges": [
-      {
-        "amount": 0.8,
-        "name": "aluminium ingot, virgin, market, KR"
-      },
+      { "amount": 0.8, "name": "aluminium ingot, virgin, market, KR" },
       {
         "amount": 0.2,
         "database": "Ecoinvent 3.9.1",
@@ -3158,10 +2751,7 @@
     "comment": "For 1kg Cathode Active Material. Based on GREET model (average of available battery size)",
     "database": "Ecoinvent 3.9.1",
     "exchanges": [
-      {
-        "amount": 0.234,
-        "name": "lithium carbonate//[GLO] market for lithium carbonate"
-      },
+      { "amount": 0.234, "name": "lithium carbonate//[GLO] market for lithium carbonate" },
       {
         "amount": 0.489,
         "name": "iron ore concentrate//[GLO] market for iron ore concentrate"
@@ -3188,18 +2778,9 @@
     "comment": "For 1kg Cathode Active Material. Based on GREET model (average of available battery size)",
     "database": "Ecoinvent 3.9.1",
     "exchanges": [
-      {
-        "amount": 1.34,
-        "name": "nickel sulfate//[GLO] nickel sulfate production"
-      },
-      {
-        "amount": 0.168,
-        "name": "cobalt sulfate//[CN] cobalt sulfate production"
-      },
-      {
-        "amount": 0.163,
-        "name": "manganese sulfate//[GLO] manganese sulfate production"
-      },
+      { "amount": 1.34, "name": "nickel sulfate//[GLO] nickel sulfate production" },
+      { "amount": 0.168, "name": "cobalt sulfate//[CN] cobalt sulfate production" },
+      { "amount": 0.163, "name": "manganese sulfate//[GLO] manganese sulfate production" },
       {
         "amount": 0.89,
         "name": "sodium hydroxide, without water, in 50% solution state//[GLO] market for sodium hydroxide, without water, in 50% solution state"
@@ -3208,10 +2789,7 @@
         "amount": 0.124,
         "name": "ammonia, anhydrous, liquid//[CN] ammonia production, steam reforming, liquid"
       },
-      {
-        "amount": 0.246,
-        "name": "lithium hydroxide//[GLO] lithium hydroxide production"
-      },
+      { "amount": 0.246, "name": "lithium hydroxide//[GLO] lithium hydroxide production" },
       {
         "amount": 0.007,
         "name": "N-methyl-2-pyrrolidone//[RoW] N-methyl-2-pyrrolidone production"
@@ -3235,18 +2813,9 @@
     "comment": "For 1kg Cathode Active Material. Based on GREET model (average of available battery size)",
     "database": "Ecoinvent 3.9.1",
     "exchanges": [
-      {
-        "amount": 1.34,
-        "name": "nickel sulfate//[GLO] nickel sulfate production"
-      },
-      {
-        "amount": 0.168,
-        "name": "cobalt sulfate//[CN] cobalt sulfate production"
-      },
-      {
-        "amount": 0.163,
-        "name": "manganese sulfate//[GLO] manganese sulfate production"
-      },
+      { "amount": 1.34, "name": "nickel sulfate//[GLO] nickel sulfate production" },
+      { "amount": 0.168, "name": "cobalt sulfate//[CN] cobalt sulfate production" },
+      { "amount": 0.163, "name": "manganese sulfate//[GLO] manganese sulfate production" },
       {
         "amount": 0.89,
         "name": "sodium hydroxide, without water, in 50% solution state//[GLO] market for sodium hydroxide, without water, in 50% solution state"
@@ -3255,10 +2824,7 @@
         "amount": 0.124,
         "name": "ammonia, anhydrous, liquid//[CN] ammonia production, steam reforming, liquid"
       },
-      {
-        "amount": 0.246,
-        "name": "lithium hydroxide//[GLO] lithium hydroxide production"
-      },
+      { "amount": 0.246, "name": "lithium hydroxide//[GLO] lithium hydroxide production" },
       {
         "amount": 0.007,
         "name": "N-methyl-2-pyrrolidone//[RoW] N-methyl-2-pyrrolidone production"
@@ -3282,18 +2848,12 @@
     "comment": "For 1kg Cathode Active Material. Based on GREET model (average of available battery size)",
     "database": "Ecoinvent 3.9.1",
     "exchanges": [
-      {
-        "amount": 0.268,
-        "name": "lithium hydroxide//[GLO] lithium hydroxide production"
-      },
+      { "amount": 0.268, "name": "lithium hydroxide//[GLO] lithium hydroxide production" },
       {
         "amount": 0.366,
         "name": "phosphoric acid, fertiliser grade, without water, in 70% solution state//[RoW] phosphoric acid production, dihydrate process"
       },
-      {
-        "amount": 0.567,
-        "name": "iron sulfate//[RoW] iron sulfate production"
-      },
+      { "amount": 0.567, "name": "iron sulfate//[RoW] iron sulfate production" },
       {
         "amount": 0.007,
         "name": "N-methyl-2-pyrrolidone//[RoW] N-methyl-2-pyrrolidone production"
@@ -3323,10 +2883,7 @@
         "database": "Ecoinvent 3.9.1",
         "name": "electricity, medium voltage//[CN] market group for electricity, medium voltage"
       },
-      {
-        "amount": 10.1,
-        "name": "heat, industrial, market, RoW"
-      },
+      { "amount": 10.1, "name": "heat, industrial, market, RoW" },
       {
         "amount": 17,
         "code": "349b29d1-3e58-4c66-98b9-9d1a076efd2e",
@@ -3343,14 +2900,8 @@
     "comment": "For 1kg cell. Based on GREET model (average of available battery size)",
     "database": "Ecobalyse_custom_lci",
     "exchanges": [
-      {
-        "amount": 0.455,
-        "name": "CAM of Battery cell, LFP Hydrothermal, CN"
-      },
-      {
-        "amount": 0.234,
-        "name": "Graphite production for battery cell, CN"
-      },
+      { "amount": 0.455, "name": "CAM of Battery cell, LFP Hydrothermal, CN" },
+      { "amount": 0.234, "name": "Graphite production for battery cell, CN" },
       {
         "amount": 0.014,
         "database": "Ecoinvent 3.9.1",
@@ -3361,10 +2912,7 @@
         "database": "Ecoinvent 3.9.1",
         "name": "copper collector foil, for Li-ion battery//[GLO] copper collector foil production, for Li-ion battery"
       },
-      {
-        "amount": 0.021,
-        "name": "aluminium ingot, market, CN"
-      },
+      { "amount": 0.021, "name": "aluminium ingot, market, CN" },
       {
         "amount": 0.021,
         "database": "Ecoinvent 3.9.1",
@@ -3390,10 +2938,7 @@
         "database": "Ecoinvent 3.9.1",
         "name": "electricity, medium voltage//[CN] market group for electricity, medium voltage"
       },
-      {
-        "amount": 24,
-        "name": "heat, industrial, market, RoW"
-      }
+      { "amount": 24, "name": "heat, industrial, market, RoW" }
     ],
     "location": "CN",
     "newName": "Battery cell production, LFP Hydrothermal, CN"
@@ -3404,14 +2949,8 @@
     "comment": "For 1kg cell. Based on GREET model (average of available battery size)",
     "database": "Ecobalyse_custom_lci",
     "exchanges": [
-      {
-        "amount": 0.455,
-        "name": "CAM of Battery cell, LFP, CN"
-      },
-      {
-        "amount": 0.234,
-        "name": "Graphite production for battery cell, CN"
-      },
+      { "amount": 0.455, "name": "CAM of Battery cell, LFP, CN" },
+      { "amount": 0.234, "name": "Graphite production for battery cell, CN" },
       {
         "amount": 0.014,
         "database": "Ecoinvent 3.9.1",
@@ -3422,10 +2961,7 @@
         "database": "Ecoinvent 3.9.1",
         "name": "copper collector foil, for Li-ion battery//[GLO] copper collector foil production, for Li-ion battery"
       },
-      {
-        "amount": 0.021,
-        "name": "aluminium ingot, market, CN"
-      },
+      { "amount": 0.021, "name": "aluminium ingot, market, CN" },
       {
         "amount": 0.021,
         "database": "Ecoinvent 3.9.1",
@@ -3451,10 +2987,7 @@
         "database": "Ecoinvent 3.9.1",
         "name": "electricity, medium voltage//[CN] market group for electricity, medium voltage"
       },
-      {
-        "amount": 24,
-        "name": "heat, industrial, market, RoW"
-      }
+      { "amount": 24, "name": "heat, industrial, market, RoW" }
     ],
     "location": "CN",
     "newName": "Battery cell production, LFP, CN"
@@ -3465,14 +2998,8 @@
     "comment": "For 1kg cell. Based on GREET model (average of available battery size)",
     "database": "Ecobalyse_custom_lci",
     "exchanges": [
-      {
-        "amount": 0.423,
-        "name": "CAM of Battery cell, NMC811, CN"
-      },
-      {
-        "amount": 0.296,
-        "name": "Graphite production for battery cell, CN"
-      },
+      { "amount": 0.423, "name": "CAM of Battery cell, NMC811, CN" },
+      { "amount": 0.296, "name": "Graphite production for battery cell, CN" },
       {
         "amount": 0.015,
         "database": "Ecoinvent 3.9.1",
@@ -3483,10 +3010,7 @@
         "database": "Ecoinvent 3.9.1",
         "name": "copper collector foil, for Li-ion battery//[GLO] copper collector foil production, for Li-ion battery"
       },
-      {
-        "amount": 0.022,
-        "name": "aluminium ingot, market, CN"
-      },
+      { "amount": 0.022, "name": "aluminium ingot, market, CN" },
       {
         "amount": 0.019,
         "database": "Ecoinvent 3.9.1",
@@ -3512,10 +3036,7 @@
         "database": "Ecoinvent 3.9.1",
         "name": "electricity, medium voltage//[CN] market group for electricity, medium voltage"
       },
-      {
-        "amount": 34.3,
-        "name": "heat, industrial, market, RoW"
-      }
+      { "amount": 34.3, "name": "heat, industrial, market, RoW" }
     ],
     "location": "CN",
     "newName": "Battery cell production, NMC811, CN"
@@ -3526,14 +3047,8 @@
     "comment": "For 1kg cell. Based on GREET model (average of available battery size)",
     "database": "Ecobalyse_custom_lci",
     "exchanges": [
-      {
-        "amount": 0.423,
-        "name": "CAM of Battery cell, NMC811, RER"
-      },
-      {
-        "amount": 0.296,
-        "name": "Graphite production for battery cell, CN"
-      },
+      { "amount": 0.423, "name": "CAM of Battery cell, NMC811, RER" },
+      { "amount": 0.296, "name": "Graphite production for battery cell, CN" },
       {
         "amount": 0.015,
         "database": "Ecoinvent 3.9.1",
@@ -3544,10 +3059,7 @@
         "database": "Ecoinvent 3.9.1",
         "name": "copper collector foil, for Li-ion battery//[GLO] copper collector foil production, for Li-ion battery"
       },
-      {
-        "amount": 0.022,
-        "name": "aluminium ingot, market, FR"
-      },
+      { "amount": 0.022, "name": "aluminium ingot, market, FR" },
       {
         "amount": 0.019,
         "database": "Ecoinvent 3.9.1",
@@ -3573,10 +3085,7 @@
         "database": "Ecoinvent 3.9.1",
         "name": "electricity, medium voltage//[FR] market for electricity, medium voltage"
       },
-      {
-        "amount": 34.3,
-        "name": "heat, industrial, market, RER"
-      }
+      { "amount": 34.3, "name": "heat, industrial, market, RER" }
     ],
     "location": "FR",
     "newName": "Battery cell production, NMC811, FR"
@@ -3603,18 +3112,12 @@
         "amount": 0.136,
         "name": "limestone, crushed, washed//[CH] limestone production, crushed, washed"
       },
-      {
-        "amount": 0.119,
-        "name": "silica sand//[DE] silica sand production"
-      },
+      { "amount": 0.119, "name": "silica sand//[DE] silica sand production" },
       {
         "amount": 0.085,
         "name": "quicklime, milled, loose//[CH] quicklime production, milled, loose"
       },
-      {
-        "amount": 0.001,
-        "name": "carbon black//[GLO] carbon black production"
-      },
+      { "amount": 0.001, "name": "carbon black//[GLO] carbon black production" },
       {
         "amount": 0.13,
         "name": "transport, freight, lorry >32 metric ton, EURO4//[RER] transport, freight, lorry >32 metric ton, EURO4"
@@ -3667,14 +3170,8 @@
         "amount": 0.458,
         "name": "sodium hydroxide, without water, in 50% solution state//[GLO] market for sodium hydroxide, without water, in 50% solution state"
       },
-      {
-        "amount": 0.881,
-        "name": "sulfuric acid//[RER] sulfuric acid production"
-      },
-      {
-        "amount": 3,
-        "name": "tap water//[RER] market group for tap water"
-      },
+      { "amount": 0.881, "name": "sulfuric acid//[RER] sulfuric acid production" },
+      { "amount": 3, "name": "tap water//[RER] market group for tap water" },
       {
         "amount": 0.00864,
         "name": "wastewater, average//[Europe without Switzerland] treatment of wastewater, average, wastewater treatment"
@@ -3699,18 +3196,9 @@
         "database": "Ecobalyse_custom_lci",
         "name": "Hydrometallurgical treatment of battery cell, metal alloy, DA"
       },
-      {
-        "amount": -0.0993,
-        "name": "copper, cathode//[GLO] market for copper, cathode"
-      },
-      {
-        "amount": 0,
-        "name": "cobalt sulfate//[CN] cobalt sulfate production"
-      },
-      {
-        "amount": 0,
-        "name": "nickel sulfate//[GLO] market for nickel sulfate"
-      },
+      { "amount": -0.0993, "name": "copper, cathode//[GLO] market for copper, cathode" },
+      { "amount": 0, "name": "cobalt sulfate//[CN] cobalt sulfate production" },
+      { "amount": 0, "name": "nickel sulfate//[GLO] market for nickel sulfate" },
       {
         "amount": -0.0426,
         "name": "lithium carbonate//[GLO] market for lithium carbonate"
@@ -3735,18 +3223,9 @@
         "database": "Ecobalyse_custom_lci",
         "name": "Hydrometallurgical treatment of battery cell, metal alloy, DA"
       },
-      {
-        "amount": -0.0874,
-        "name": "copper, cathode//[GLO] market for copper, cathode"
-      },
-      {
-        "amount": -0.0511,
-        "name": "cobalt sulfate//[CN] cobalt sulfate production"
-      },
-      {
-        "amount": -0.408,
-        "name": "nickel sulfate//[GLO] market for nickel sulfate"
-      },
+      { "amount": -0.0874, "name": "copper, cathode//[GLO] market for copper, cathode" },
+      { "amount": -0.0511, "name": "cobalt sulfate//[CN] cobalt sulfate production" },
+      { "amount": -0.408, "name": "nickel sulfate//[GLO] market for nickel sulfate" },
       {
         "amount": -0.0416,
         "name": "lithium carbonate//[GLO] market for lithium carbonate"
@@ -3761,14 +3240,8 @@
     "comment": "For 1kg battery cell, 50%LFP 50%NMC811. Based on Delegated Act to Regulation (EU) 2023/1542, methodology for the calculation and verification of the carbon footprint of electric vehicle batteries, with 50% Li recycling (hydrometallurgical), according to EU-2023/1542 2027 target",
     "database": "Ecobalyse_custom_lci",
     "exchanges": [
-      {
-        "amount": 0.5,
-        "name": "Battery cell EoL recycling, LFP, CFF"
-      },
-      {
-        "amount": 0.5,
-        "name": "Battery cell EoL recycling, NMC811, CFF"
-      }
+      { "amount": 0.5, "name": "Battery cell EoL recycling, LFP, CFF" },
+      { "amount": 0.5, "name": "Battery cell EoL recycling, NMC811, CFF" }
     ],
     "location": "RER",
     "newName": "Battery cell EoL recycling, average, CFF"
@@ -3787,10 +3260,7 @@
         "amount": 0.088,
         "name": "metal part of electronics scrap, in copper, anode//[SE] treatment of electronics scrap, metals recovery in copper smelter"
       },
-      {
-        "amount": -0.088,
-        "name": "copper, cathode//[GLO] market for copper, cathode"
-      },
+      { "amount": -0.088, "name": "copper, cathode//[GLO] market for copper, cathode" },
       {
         "amount": -1.12e-05,
         "name": "gold, unrefined//[RoW] gold mine operation and gold production, unrefined"
@@ -3831,10 +3301,7 @@
     "comment": "CFF parameters: A=0.2, Q=1",
     "database": "Ecobalyse_custom_lci",
     "exchanges": [
-      {
-        "amount": -0.8,
-        "name": "aluminium ingot, virgin, market, FR"
-      },
+      { "amount": -0.8, "name": "aluminium ingot, virgin, market, FR" },
       {
         "amount": 0.8,
         "database": "Ecoinvent 3.9.1",
@@ -3850,10 +3317,7 @@
     "comment": "CFF parameters: A=0.2, Q=1",
     "database": "Ecoinvent 3.9.1",
     "exchanges": [
-      {
-        "amount": -0.8,
-        "name": "copper, cathode//[GLO] market for copper, cathode"
-      },
+      { "amount": -0.8, "name": "copper, cathode//[GLO] market for copper, cathode" },
       {
         "amount": 0.8,
         "name": "copper, cathode//[RER] treatment of copper scrap by electrolytic refining"
@@ -3922,10 +3386,7 @@
     "comment": "CFF parameters: A=0.5, Q=0.75",
     "database": "Ecoinvent 3.9.1",
     "exchanges": [
-      {
-        "amount": -0.375,
-        "name": "synthetic rubber//[GLO] market for synthetic rubber"
-      },
+      { "amount": -0.375, "name": "synthetic rubber//[GLO] market for synthetic rubber" },
       {
         "amount": 0.5,
         "name": "polyethylene terephthalate, granulate, amorphous, recycled//[Europe without Switzerland] polyethylene terephthalate production, granulate, amorphous, recycled"
@@ -7847,11 +7308,7 @@
     "comment": "CMAPS transformed ingredient",
     "database": "Agribalyse 3.2",
     "exchanges": [
-      {
-        "amount": 2.0,
-        "database": "Agribalyse 3.2",
-        "name": "Pineapple, at farm {TH} U"
-      },
+      { "amount": 2.0, "database": "Agribalyse 3.2", "name": "Pineapple, at farm {TH} U" },
       {
         "amount": 0.011111,
         "database": "Ecoinvent 3.9.1",
@@ -9418,12 +8875,8 @@
         }
       ],
       "upstreamPath": [
-        {
-          "name": "seed-cotton, organic//[GLO] market for seed-cotton, organic"
-        },
-        {
-          "name": "seed-cotton, organic//[RoW] seed-cotton production, organic"
-        }
+        { "name": "seed-cotton, organic//[GLO] market for seed-cotton, organic" },
+        { "name": "seed-cotton, organic//[RoW] seed-cotton production, organic" }
       ]
     }
   },
@@ -10092,18 +9545,9 @@
     "comment": "For 1kg Cathode Active Material. Based on GREET model (average of available battery size)",
     "database": "Ecoinvent 3.9.1",
     "exchanges": [
-      {
-        "amount": 1.009,
-        "name": "nickel sulfate//[GLO] nickel sulfate production"
-      },
-      {
-        "amount": 0.337,
-        "name": "cobalt sulfate//[CN] cobalt sulfate production"
-      },
-      {
-        "amount": 0.328,
-        "name": "manganese sulfate//[GLO] manganese sulfate production"
-      },
+      { "amount": 1.009, "name": "nickel sulfate//[GLO] nickel sulfate production" },
+      { "amount": 0.337, "name": "cobalt sulfate//[CN] cobalt sulfate production" },
+      { "amount": 0.328, "name": "manganese sulfate//[GLO] manganese sulfate production" },
       {
         "amount": 0.89,
         "name": "sodium hydroxide, without water, in 50% solution state//[GLO] market for sodium hydroxide, without water, in 50% solution state"
@@ -10112,10 +9556,7 @@
         "amount": 0.124,
         "name": "ammonia, anhydrous, liquid//[CN] ammonia production, steam reforming, liquid"
       },
-      {
-        "amount": 0.381,
-        "name": "lithium carbonate//[GLO] market for lithium carbonate"
-      },
+      { "amount": 0.381, "name": "lithium carbonate//[GLO] market for lithium carbonate" },
       {
         "amount": 0.007,
         "name": "N-methyl-2-pyrrolidone//[RoW] N-methyl-2-pyrrolidone production"
@@ -10139,14 +9580,8 @@
     "comment": "For 1kg cell. Based on GREET model (average of available battery size)",
     "database": "Ecobalyse_custom_lci",
     "exchanges": [
-      {
-        "amount": 0.443,
-        "name": "CAM of Battery cell, NMC622, CN"
-      },
-      {
-        "amount": 0.278,
-        "name": "Graphite production for battery cell, CN"
-      },
+      { "amount": 0.443, "name": "CAM of Battery cell, NMC622, CN" },
+      { "amount": 0.278, "name": "Graphite production for battery cell, CN" },
       {
         "amount": 0.015,
         "database": "Ecoinvent 3.9.1",
@@ -10157,10 +9592,7 @@
         "database": "Ecoinvent 3.9.1",
         "name": "copper collector foil, for Li-ion battery//[GLO] copper collector foil production, for Li-ion battery"
       },
-      {
-        "amount": 0.022,
-        "name": "aluminium ingot, market, CN"
-      },
+      { "amount": 0.022, "name": "aluminium ingot, market, CN" },
       {
         "amount": 0.018,
         "database": "Ecoinvent 3.9.1",
@@ -10186,10 +9618,7 @@
         "database": "Ecoinvent 3.9.1",
         "name": "electricity, medium voltage//[CN] market group for electricity, medium voltage"
       },
-      {
-        "amount": 32.3,
-        "name": "heat, industrial, market, RoW"
-      }
+      { "amount": 32.3, "name": "heat, industrial, market, RoW" }
     ],
     "location": "CN",
     "newName": "Battery cell production, NMC622, CN"
@@ -10218,18 +9647,12 @@
         "database": "Ecobalyse_custom_lci",
         "name": "steel, low-alloyed, market, CN"
       },
-      {
-        "amount": 5e-05,
-        "name": "nickel sulfate//[GLO] nickel sulfate production"
-      },
+      { "amount": 5e-05, "name": "nickel sulfate//[GLO] nickel sulfate production" },
       {
         "amount": 0.00193,
         "name": "zinc//[RoW] primary zinc production from concentrate"
       },
-      {
-        "amount": 0.00034,
-        "name": "brass//[RoW] market for brass"
-      },
+      { "amount": 0.00034, "name": "brass//[RoW] market for brass" },
       {
         "amount": 0.00019,
         "name": "steel, chromium steel 18/8//[GLO] market for steel, chromium steel 18/8"
@@ -10279,18 +9702,12 @@
         "database": "Ecobalyse_custom_lci",
         "name": "steel, low-alloyed, market, CN"
       },
-      {
-        "amount": 0.0001,
-        "name": "nickel sulfate//[GLO] nickel sulfate production"
-      },
+      { "amount": 0.0001, "name": "nickel sulfate//[GLO] nickel sulfate production" },
       {
         "amount": 0.00404,
         "name": "zinc//[RoW] primary zinc production from concentrate"
       },
-      {
-        "amount": 0.00072,
-        "name": "brass//[RoW] market for brass"
-      },
+      { "amount": 0.00072, "name": "brass//[RoW] market for brass" },
       {
         "amount": 0.00039,
         "name": "steel, chromium steel 18/8//[GLO] market for steel, chromium steel 18/8"
@@ -10322,30 +9739,18 @@
     "comment": "Tire made of 50% rubber (80% synthetic, 20% natural), 30% carbon black, 12% PET plastic, 7% stainless steel and 1% brass.",
     "database": "Ecoinvent 3.9.1",
     "exchanges": [
-      {
-        "amount": 0.4,
-        "name": "synthetic rubber//[RER] synthetic rubber production"
-      },
-      {
-        "amount": 0.3,
-        "name": "carbon black//[GLO] carbon black production"
-      },
+      { "amount": 0.4, "name": "synthetic rubber//[RER] synthetic rubber production" },
+      { "amount": 0.3, "name": "carbon black//[GLO] carbon black production" },
       {
         "amount": 0.07,
         "name": "steel, chromium steel 18/8//[GLO] market for steel, chromium steel 18/8"
       },
-      {
-        "amount": 0.1,
-        "name": "chemical, organic//[GLO] market for chemical, organic"
-      },
+      { "amount": 0.1, "name": "chemical, organic//[GLO] market for chemical, organic" },
       {
         "amount": 0.12,
         "name": "polyethylene terephthalate, granulate, amorphous//[GLO] market for polyethylene terephthalate, granulate, amorphous"
       },
-      {
-        "amount": 0.01,
-        "name": "brass//[RoW] market for brass"
-      }
+      { "amount": 0.01, "name": "brass//[RoW] market for brass" }
     ],
     "location": "GLO",
     "newName": "Tire"
@@ -10523,10 +9928,7 @@
         "amount": 0.0457,
         "name": "acrylonitrile-butadiene-styrene copolymer//[RER] acrylonitrile-butadiene-styrene copolymer production"
       },
-      {
-        "amount": 0.0427,
-        "name": "synthetic rubber//[RER] synthetic rubber production"
-      },
+      { "amount": 0.0427, "name": "synthetic rubber//[RER] synthetic rubber production" },
       {
         "amount": 0.0643,
         "name": "epoxy resin, liquid//[RER] epoxy resin production, liquid"
@@ -10559,10 +9961,7 @@
         "amount": 0.0421,
         "name": "glass fibre reinforced plastic, polyamide, injection moulded//[RER] glass fibre reinforced plastic production, polyamide, injection moulded"
       },
-      {
-        "amount": 0.021,
-        "name": "polycarbonate//[RER] polycarbonate production"
-      },
+      { "amount": 0.021, "name": "polycarbonate//[RER] polycarbonate production" },
       {
         "amount": 0.0102,
         "name": "polyethylene terephthalate, granulate, amorphous//[RER] polyethylene terephthalate production, granulate, amorphous"
@@ -10583,34 +9982,16 @@
         "amount": 0.0829,
         "name": "polyvinylchloride, suspension polymerised//[RER] polyvinylchloride production, suspension polymerisation"
       },
-      {
-        "amount": 0.13,
-        "name": "copper, cathode//[GLO] market for copper, cathode"
-      },
-      {
-        "amount": 0.13,
-        "name": "wire drawing, copper//[RER] wire drawing, copper"
-      },
-      {
-        "amount": 0.1112,
-        "name": "tempering, flat glass//[RER] tempering, flat glass"
-      },
+      { "amount": 0.13, "name": "copper, cathode//[GLO] market for copper, cathode" },
+      { "amount": 0.13, "name": "wire drawing, copper//[RER] wire drawing, copper" },
+      { "amount": 0.1112, "name": "tempering, flat glass//[RER] tempering, flat glass" },
       {
         "amount": 0.1112,
         "name": "flat glass, coated//[RER] market for flat glass, coated"
       },
-      {
-        "amount": 0.1582,
-        "name": "latex//[RER] latex production"
-      },
-      {
-        "amount": 0.1582,
-        "name": "injection moulding//[RER] injection moulding"
-      },
-      {
-        "amount": 0.1582,
-        "name": "blow moulding//[RER] blow moulding"
-      }
+      { "amount": 0.1582, "name": "latex//[RER] latex production" },
+      { "amount": 0.1582, "name": "injection moulding//[RER] injection moulding" },
+      { "amount": 0.1582, "name": "blow moulding//[RER] blow moulding" }
     ],
     "newName": "EV other materials, RER"
   },
@@ -10624,10 +10005,7 @@
         "amount": 0.0457,
         "name": "acrylonitrile-butadiene-styrene copolymer//[RoW] acrylonitrile-butadiene-styrene copolymer production"
       },
-      {
-        "amount": 0.0427,
-        "name": "synthetic rubber//[RoW] synthetic rubber production"
-      },
+      { "amount": 0.0427, "name": "synthetic rubber//[RoW] synthetic rubber production" },
       {
         "amount": 0.0643,
         "name": "epoxy resin, liquid//[RoW] epoxy resin production, liquid"
@@ -10660,10 +10038,7 @@
         "amount": 0.0421,
         "name": "glass fibre reinforced plastic, polyamide, injection moulded//[RoW] glass fibre reinforced plastic production, polyamide, injection moulded"
       },
-      {
-        "amount": 0.021,
-        "name": "polycarbonate//[RoW] polycarbonate production"
-      },
+      { "amount": 0.021, "name": "polycarbonate//[RoW] polycarbonate production" },
       {
         "amount": 0.0102,
         "name": "polyethylene terephthalate, granulate, amorphous//[RoW] polyethylene terephthalate production, granulate, amorphous"
@@ -10684,34 +10059,16 @@
         "amount": 0.0829,
         "name": "polyvinylchloride, suspension polymerised//[RoW] polyvinylchloride production, suspension polymerisation"
       },
-      {
-        "amount": 0.13,
-        "name": "copper, cathode//[GLO] market for copper, cathode"
-      },
-      {
-        "amount": 0.13,
-        "name": "wire drawing, copper//[RoW] wire drawing, copper"
-      },
-      {
-        "amount": 0.1112,
-        "name": "tempering, flat glass//[RoW] tempering, flat glass"
-      },
+      { "amount": 0.13, "name": "copper, cathode//[GLO] market for copper, cathode" },
+      { "amount": 0.13, "name": "wire drawing, copper//[RoW] wire drawing, copper" },
+      { "amount": 0.1112, "name": "tempering, flat glass//[RoW] tempering, flat glass" },
       {
         "amount": 0.1112,
         "name": "flat glass, coated//[RoW] market for flat glass, coated"
       },
-      {
-        "amount": 0.1582,
-        "name": "latex//[RoW] latex production"
-      },
-      {
-        "amount": 0.1582,
-        "name": "injection moulding//[RoW] injection moulding"
-      },
-      {
-        "amount": 0.1582,
-        "name": "blow moulding//[RoW] blow moulding"
-      }
+      { "amount": 0.1582, "name": "latex//[RoW] latex production" },
+      { "amount": 0.1582, "name": "injection moulding//[RoW] injection moulding" },
+      { "amount": 0.1582, "name": "blow moulding//[RoW] blow moulding" }
     ],
     "newName": "EV other materials, RoW"
   }

@@ -36,22 +36,13 @@
       },
       "ingredientCategories": ["animal_product"],
       "ingredientDensity": 1.05,
-      "ingredientDensityMatch": {
-        "confidence": 1.0,
-        "rule": "lamb found in density.csv"
-      },
+      "ingredientDensityMatch": { "confidence": 1.0, "rule": "lamb found in density.csv" },
       "rawToCookedRatio": 0.792,
-      "rawToCookedRatioMatch": {
-        "confidence": 1.0,
-        "rule": "meat default from food_type_cooked_to_raw.csv"
-      },
+      "rawToCookedRatioMatch": { "confidence": 1.0, "rule": "meat default from food_type_cooked_to_raw.csv" },
       "scenario": "reference",
       "scopes": ["food", "food2"],
       "transportCooling": "always",
-      "transportCoolingMatch": {
-        "confidence": 1.0,
-        "rule": "meat NOVA 1 → always (perishable)"
-      },
+      "transportCoolingMatch": { "confidence": 1.0, "rule": "meat NOVA 1 → always (perishable)" },
       "visible": false
     },
     {
@@ -69,22 +60,13 @@
       },
       "ingredientCategories": ["animal_product"],
       "ingredientDensity": 1.05,
-      "ingredientDensityMatch": {
-        "confidence": 1.0,
-        "rule": "lamb found in density.csv"
-      },
+      "ingredientDensityMatch": { "confidence": 1.0, "rule": "lamb found in density.csv" },
       "rawToCookedRatio": 0.792,
-      "rawToCookedRatioMatch": {
-        "confidence": 1.0,
-        "rule": "meat default from food_type_cooked_to_raw.csv"
-      },
+      "rawToCookedRatioMatch": { "confidence": 1.0, "rule": "meat default from food_type_cooked_to_raw.csv" },
       "scenario": "import",
       "scopes": ["food", "food2"],
       "transportCooling": "always",
-      "transportCoolingMatch": {
-        "confidence": 1.0,
-        "rule": "meat NOVA 1 → always (perishable)"
-      },
+      "transportCoolingMatch": { "confidence": 1.0, "rule": "meat NOVA 1 → always (perishable)" },
       "visible": false
     }
   ],

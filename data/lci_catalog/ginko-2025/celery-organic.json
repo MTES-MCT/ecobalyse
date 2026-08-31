@@ -22,31 +22,19 @@
     {
       "alias": "celery-organic",
       "cropGroup": "LEGUMES-FLEURS",
-      "cropGroupMatch": {
-        "confidence": 0.95,
-        "rule": "matched 'céleri-rave' in cropgroup.csv"
-      },
+      "cropGroupMatch": { "confidence": 0.95, "rule": "matched 'céleri-rave' in cropgroup.csv" },
       "defaultOrigin": "France",
       "displayName": "Céleri Bio",
       "id": "af91956c-a5ad-5a1d-beea-ca3ac6914c95",
       "inediblePart": 0.03,
-      "inediblePartMatch": {
-        "confidence": 1.0,
-        "rule": "Matched with Celery in agb_inedible.csv"
-      },
+      "inediblePartMatch": { "confidence": 1.0, "rule": "Matched with Celery in agb_inedible.csv" },
       "ingredientCategories": ["vegetable_fresh", "organic"],
       "ingredientDensity": 0.9,
-      "ingredientDensityMatch": {
-        "confidence": 1.0,
-        "rule": "vegetable default from food_type_density.csv"
-      },
+      "ingredientDensityMatch": { "confidence": 1.0, "rule": "vegetable default from food_type_density.csv" },
       "scenario": "organic",
       "scopes": ["food", "food2"],
       "transportCooling": "always",
-      "transportCoolingMatch": {
-        "confidence": 1.0,
-        "rule": "vegetable NOVA 1 → always (perishable)"
-      },
+      "transportCoolingMatch": { "confidence": 1.0, "rule": "vegetable NOVA 1 → always (perishable)" },
       "visible": true
     }
   ],

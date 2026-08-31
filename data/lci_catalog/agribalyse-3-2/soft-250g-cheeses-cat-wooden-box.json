@@ -4,10 +4,7 @@
   "displayName": "Boîte en bois pour fromage à pâte molle - 250g",
   "id": "604c4bbf-c35a-4717-bc27-6b80940440c9",
   "metadata": [
-    {
-      "id": "8f9a21ba-7bc0-4b41-8714-778ff6a05ef1",
-      "scopes": ["food2"]
-    }
+    { "id": "8f9a21ba-7bc0-4b41-8714-778ff6a05ef1", "scopes": ["food2"] }
   ],
   "scopes": ["food", "food2"],
   "source": "Agribalyse 3.2",

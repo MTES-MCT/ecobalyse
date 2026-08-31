@@ -27,10 +27,7 @@
     "wtu": 0
   },
   "metadata": [
-    {
-      "id": "92ba1245-5c8e-49ad-9336-fdd465c6f822",
-      "scopes": ["veli"]
-    }
+    { "id": "92ba1245-5c8e-49ad-9336-fdd465c6f822", "scopes": ["veli"] }
   ],
   "scopes": ["veli"],
   "source": "Ecobalyse_manual_lcia",

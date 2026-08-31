@@ -4,10 +4,7 @@
   "displayName": "Sachet en plastique (PP) pour herbes aromatiques - 100g - Proxy",
   "id": "9f2c95d7-a7db-44e0-9a52-c09ad35ea488",
   "metadata": [
-    {
-      "id": "ed359cdf-bd59-4a4b-b5bf-a6332deb61a5",
-      "scopes": ["food2"]
-    }
+    { "id": "ed359cdf-bd59-4a4b-b5bf-a6332deb61a5", "scopes": ["food2"] }
   ],
   "scopes": ["food", "food2"],
   "source": "Agribalyse 3.2",

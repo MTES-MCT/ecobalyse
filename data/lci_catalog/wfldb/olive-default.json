@@ -8,18 +8,12 @@
     {
       "alias": "olive-default",
       "cropGroup": "OLIVIERS",
-      "cropGroupMatch": {
-        "confidence": 0.95,
-        "rule": "matched 'olive' in cropgroup.csv"
-      },
+      "cropGroupMatch": { "confidence": 0.95, "rule": "matched 'olive' in cropgroup.csv" },
       "defaultOrigin": "OutOfEuropeAndMaghreb",
       "displayName": "Olives Origine Inconnue",
       "id": "34e35753-f5ae-58d4-8f4e-5d15a3821a8e",
       "inediblePart": 0.5,
-      "inediblePartMatch": {
-        "confidence": 1.0,
-        "rule": "Matched with Olives in agb_inedible.csv"
-      },
+      "inediblePartMatch": { "confidence": 1.0, "rule": "Matched with Olives in agb_inedible.csv" },
       "ingredientCategories": ["vegetable_fresh"],
       "ingredientDensity": 0.65,
       "ingredientDensityMatch": {
@@ -29,10 +23,7 @@
       "scenario": "import",
       "scopes": ["food", "food2"],
       "transportCooling": "always",
-      "transportCoolingMatch": {
-        "confidence": 1.0,
-        "rule": "fruit NOVA 1 → always (perishable)"
-      },
+      "transportCoolingMatch": { "confidence": 1.0, "rule": "fruit NOVA 1 → always (perishable)" },
       "visible": true
     }
   ],

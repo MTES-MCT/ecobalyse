@@ -4,10 +4,7 @@
   "displayName": "Sachet en plastique (multimatériaux) pour dessert - 330g",
   "id": "5b57c612-666a-43a4-9e36-eb476b450fc4",
   "metadata": [
-    {
-      "id": "47dba57f-47f2-4b86-9a75-8ee2c5effe4b",
-      "scopes": ["food2"]
-    }
+    { "id": "47dba57f-47f2-4b86-9a75-8ee2c5effe4b", "scopes": ["food2"] }
   ],
   "scopes": ["food", "food2"],
   "source": "Agribalyse 3.2",

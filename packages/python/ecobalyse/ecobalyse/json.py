@@ -16,7 +16,7 @@ class CompactJSONEncoder(json.JSONEncoder):
     CONTAINER_TYPES = (list, tuple, dict)
     """Container datatypes include primitives or other containers."""
 
-    MAX_WIDTH = 70
+    MAX_WIDTH = 80
     """Maximum width of a container that might be put on a single line."""
 
     MAX_ITEMS = 10
@@ -90,6 +90,15 @@ class CompactJSONEncoder(json.JSONEncoder):
         if self.sort_keys:
             o = dict(sorted(o.items(), key=lambda x: x[0]))
 
+        if self._put_on_single_line(o):
+            return (
+                "{ "
+                + ", ".join(
+                    f"{self.encode(k)}: {self.encode(el)}" for k, el in o.items()
+                )
+                + " }"
+            )
+
         self.indentation_level += 1
         output = [
             f"{self.indent_str}{self.encode(k)}: {self.encode(v)}" for k, v in o.items()
@@ -109,7 +118,7 @@ class CompactJSONEncoder(json.JSONEncoder):
             and len(str(o)) - 2 <= self.MAX_WIDTH
         )
 
-    def _primitives_only(self, o: list | tuple):
+    def _primitives_only(self, o: list | tuple | dict):
         return not any(isinstance(el, self.CONTAINER_TYPES) for el in o)
 
     @property

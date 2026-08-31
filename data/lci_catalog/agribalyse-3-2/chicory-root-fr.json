@@ -7,31 +7,19 @@
     {
       "alias": "chicory-root-fr",
       "cropGroup": "AUTRES CULTURES INDUSTRIELLES",
-      "cropGroupMatch": {
-        "confidence": 0.95,
-        "rule": "matched 'chicory' in cropgroup.csv"
-      },
+      "cropGroupMatch": { "confidence": 0.95, "rule": "matched 'chicory' in cropgroup.csv" },
       "defaultOrigin": "France",
       "displayName": "Racine de chicorée FR",
       "id": "980571f0-c174-5822-a5bd-94d0d7ae47a6",
       "inediblePart": 0.2,
-      "inediblePartMatch": {
-        "confidence": 0.95,
-        "rule": "Matched with Chicory in agb_inedible.csv"
-      },
+      "inediblePartMatch": { "confidence": 0.95, "rule": "Matched with Chicory in agb_inedible.csv" },
       "ingredientCategories": ["vegetable_fresh"],
       "ingredientDensity": 0.9,
-      "ingredientDensityMatch": {
-        "confidence": 1.0,
-        "rule": "vegetable default from food_type_density.csv"
-      },
+      "ingredientDensityMatch": { "confidence": 1.0, "rule": "vegetable default from food_type_density.csv" },
       "scenario": "reference",
       "scopes": ["food", "food2"],
       "transportCooling": "always",
-      "transportCoolingMatch": {
-        "confidence": 1.0,
-        "rule": "vegetable NOVA 1 → always (perishable)"
-      },
+      "transportCoolingMatch": { "confidence": 1.0, "rule": "vegetable NOVA 1 → always (perishable)" },
       "visible": true
     }
   ],

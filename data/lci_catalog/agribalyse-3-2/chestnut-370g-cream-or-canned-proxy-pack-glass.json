@@ -4,10 +4,7 @@
   "displayName": "Pot en verre pour crème de marrons - 370g - Proxy",
   "id": "1686b240-6292-4eae-ad10-0525404cbb10",
   "metadata": [
-    {
-      "id": "46d3c67f-19c4-46a2-9bcc-81dbcfb4ec33",
-      "scopes": ["food2"]
-    }
+    { "id": "46d3c67f-19c4-46a2-9bcc-81dbcfb4ec33", "scopes": ["food2"] }
   ],
   "scopes": ["food", "food2"],
   "source": "Agribalyse 3.2",

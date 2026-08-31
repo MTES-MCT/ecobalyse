@@ -8,10 +8,7 @@
     {
       "alias": "ginger-organic",
       "cropGroup": "AUTRES CULTURES INDUSTRIELLES",
-      "cropGroupMatch": {
-        "confidence": 1.0,
-        "rule": "matched 'ginger' in cropgroup.csv"
-      },
+      "cropGroupMatch": { "confidence": 1.0, "rule": "matched 'ginger' in cropgroup.csv" },
       "defaultOrigin": "France",
       "displayName": "Gingembre Bio",
       "id": "74b9a138-eefa-5d1e-b7a2-b5332e17d402",
@@ -22,10 +19,7 @@
       },
       "ingredientCategories": ["spice_condiment_additive", "organic"],
       "ingredientDensity": 0.5,
-      "ingredientDensityMatch": {
-        "confidence": 1.0,
-        "rule": "spice_condiment default from food_type_density.csv"
-      },
+      "ingredientDensityMatch": { "confidence": 1.0, "rule": "spice_condiment default from food_type_density.csv" },
       "rawToCookedRatio": 1.0,
       "rawToCookedRatioMatch": {
         "confidence": 1.0,
@@ -34,10 +28,7 @@
       "scenario": "organic",
       "scopes": ["food", "food2"],
       "transportCooling": "none",
-      "transportCoolingMatch": {
-        "confidence": 1.0,
-        "rule": "spice_condiment → none (non-perishable)"
-      },
+      "transportCoolingMatch": { "confidence": 1.0, "rule": "spice_condiment → none (non-perishable)" },
       "visible": true
     }
   ],

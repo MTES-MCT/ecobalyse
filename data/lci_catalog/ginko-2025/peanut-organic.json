@@ -24,45 +24,27 @@
     {
       "alias": "peanut-organic",
       "cropGroup": "FRUITS A COQUES",
-      "cropGroupMatch": {
-        "confidence": 1.0,
-        "rule": "nut default"
-      },
+      "cropGroupMatch": { "confidence": 1.0, "rule": "nut default" },
       "defaultOrigin": "France",
       "displayName": "Arachide Bio",
       "id": "863cf907-aeca-5d32-8c4e-8d95b7fca207",
       "inediblePart": 0.0,
-      "inediblePartMatch": {
-        "confidence": 0.95,
-        "rule": "Matched with peanut butter in inedible_part.csv"
-      },
+      "inediblePartMatch": { "confidence": 0.95, "rule": "Matched with peanut butter in inedible_part.csv" },
       "ingredientCategories": ["nut_oilseed_raw", "organic"],
       "ingredientDensity": 0.55,
-      "ingredientDensityMatch": {
-        "confidence": 1.0,
-        "rule": "peanut found in density.csv"
-      },
+      "ingredientDensityMatch": { "confidence": 1.0, "rule": "peanut found in density.csv" },
       "rawToCookedRatio": 1.0,
-      "rawToCookedRatioMatch": {
-        "confidence": 0.95,
-        "rule": "Matched with peanut butter in cooked_to_raw.csv"
-      },
+      "rawToCookedRatioMatch": { "confidence": 0.95, "rule": "Matched with peanut butter in cooked_to_raw.csv" },
       "scenario": "organic",
       "scopes": ["food", "food2"],
       "transportCooling": "none",
-      "transportCoolingMatch": {
-        "confidence": 1.0,
-        "rule": "nut_oilseed → none (non-perishable)"
-      },
+      "transportCoolingMatch": { "confidence": 1.0, "rule": "nut_oilseed → none (non-perishable)" },
       "visible": true
     },
     {
       "alias": "pine-nut-organic",
       "cropGroup": "FRUITS A COQUES",
-      "cropGroupMatch": {
-        "confidence": 0.95,
-        "rule": "matched 'noix' in cropgroup.csv"
-      },
+      "cropGroupMatch": { "confidence": 0.95, "rule": "matched 'noix' in cropgroup.csv" },
       "defaultOrigin": "France",
       "displayName": "Pignons de pin Bio",
       "id": "0bb2fb11-8213-525b-842e-9dbc30800371",
@@ -73,10 +55,7 @@
       },
       "ingredientCategories": ["nut_oilseed_raw", "organic"],
       "ingredientDensity": 0.63,
-      "ingredientDensityMatch": {
-        "confidence": 0.95,
-        "rule": "Matched with Nuts in fao_density.csv"
-      },
+      "ingredientDensityMatch": { "confidence": 0.95, "rule": "Matched with Nuts in fao_density.csv" },
       "rawToCookedRatio": 1.0,
       "rawToCookedRatioMatch": {
         "confidence": 1.0,
@@ -85,10 +64,7 @@
       "scenario": "organic",
       "scopes": ["food", "food2"],
       "transportCooling": "none",
-      "transportCoolingMatch": {
-        "confidence": 1.0,
-        "rule": "nut_oilseed → none (non-perishable)"
-      },
+      "transportCoolingMatch": { "confidence": 1.0, "rule": "nut_oilseed → none (non-perishable)" },
       "visible": true
     }
   ],

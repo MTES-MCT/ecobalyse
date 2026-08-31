@@ -8,31 +8,19 @@
     {
       "alias": "broccoli-organic",
       "cropGroup": "LEGUMES-FLEURS",
-      "cropGroupMatch": {
-        "confidence": 1.0,
-        "rule": "matched 'broccoli' in cropgroup.csv"
-      },
+      "cropGroupMatch": { "confidence": 1.0, "rule": "matched 'broccoli' in cropgroup.csv" },
       "defaultOrigin": "France",
       "displayName": "Brocoli Bio",
       "id": "46fb7fb8-2cdd-58ec-8715-bcd433139abd",
       "inediblePart": 0.2,
-      "inediblePartMatch": {
-        "confidence": 1.0,
-        "rule": "Matched with Broccoli in agb_inedible.csv"
-      },
+      "inediblePartMatch": { "confidence": 1.0, "rule": "Matched with Broccoli in agb_inedible.csv" },
       "ingredientCategories": ["vegetable_fresh", "organic"],
       "ingredientDensity": 0.9,
-      "ingredientDensityMatch": {
-        "confidence": 1.0,
-        "rule": "broccoli found in density.csv"
-      },
+      "ingredientDensityMatch": { "confidence": 1.0, "rule": "broccoli found in density.csv" },
       "scenario": "organic",
       "scopes": ["food", "food2"],
       "transportCooling": "always",
-      "transportCoolingMatch": {
-        "confidence": 1.0,
-        "rule": "vegetable NOVA 1 → always (perishable)"
-      },
+      "transportCoolingMatch": { "confidence": 1.0, "rule": "vegetable NOVA 1 → always (perishable)" },
       "visible": true
     }
   ],

@@ -7,10 +7,7 @@
   "heatMJ": 0,
   "id": "dc44ae3c-8552-5822-a76d-f95ef68682da",
   "metadata": [
-    {
-      "id": "b87b7c27-6d51-4890-bc41-604586feda5e",
-      "scopes": ["object"]
-    }
+    { "id": "b87b7c27-6d51-4890-bc41-604586feda5e", "scopes": ["object"] }
   ],
   "qtyVariationRatio": 1,
   "scopes": ["textile", "object"],

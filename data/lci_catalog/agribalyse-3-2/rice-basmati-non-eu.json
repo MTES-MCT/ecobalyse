@@ -22,40 +22,25 @@
     {
       "alias": "basmati-rice-default",
       "cropGroup": "RIZ",
-      "cropGroupMatch": {
-        "confidence": 0.95,
-        "rule": "matched 'rice' in cropgroup.csv"
-      },
+      "cropGroupMatch": { "confidence": 0.95, "rule": "matched 'rice' in cropgroup.csv" },
       "defaultOrigin": "OutOfEuropeAndMaghreb",
       "displayName": "Riz basmati Origine Inconnue",
       "id": "4ecb43f7-b431-5c0f-9cec-6bdd5c3d63dd",
       "inediblePart": 0.0,
-      "inediblePartMatch": {
-        "confidence": 0.95,
-        "rule": "Matched with rice in inedible_part.csv"
-      },
+      "inediblePartMatch": { "confidence": 0.95, "rule": "Matched with rice in inedible_part.csv" },
       "ingredientCategories": ["grain_raw"],
       "ingredientDensity": 0.72,
-      "ingredientDensityMatch": {
-        "confidence": 0.95,
-        "rule": "Matched with Rice in fao_density.csv"
-      },
+      "ingredientDensityMatch": { "confidence": 0.95, "rule": "Matched with Rice in fao_density.csv" },
       "scenario": "import",
       "scopes": ["food", "food2"],
       "transportCooling": "none",
-      "transportCoolingMatch": {
-        "confidence": 1.0,
-        "rule": "grain → none (non-perishable)"
-      },
+      "transportCoolingMatch": { "confidence": 1.0, "rule": "grain → none (non-perishable)" },
       "visible": true
     },
     {
       "alias": "rice-raw-default",
       "cropGroup": "RIZ",
-      "cropGroupMatch": {
-        "confidence": 0.95,
-        "rule": "matched 'rice' in cropgroup.csv"
-      },
+      "cropGroupMatch": { "confidence": 0.95, "rule": "matched 'rice' in cropgroup.csv" },
       "defaultOrigin": "OutOfEuropeAndMaghreb",
       "displayName": "Riz cru, toutes variétés (blanc, sauvage, riz thaï ou basmati, cru) Origine Inconnue",
       "id": "cd75bf39-ee3a-5532-9d70-d8b853be0460",
@@ -66,17 +51,11 @@
       },
       "ingredientCategories": ["grain_raw"],
       "ingredientDensity": 0.85,
-      "ingredientDensityMatch": {
-        "confidence": 0.95,
-        "rule": "Matched with Rice, raw in fao_density.csv"
-      },
+      "ingredientDensityMatch": { "confidence": 0.95, "rule": "Matched with Rice, raw in fao_density.csv" },
       "scenario": "import",
       "scopes": ["food", "food2"],
       "transportCooling": "none",
-      "transportCoolingMatch": {
-        "confidence": 1.0,
-        "rule": "grain → none (non-perishable)"
-      },
+      "transportCoolingMatch": { "confidence": 1.0, "rule": "grain → none (non-perishable)" },
       "visible": true
     }
   ],

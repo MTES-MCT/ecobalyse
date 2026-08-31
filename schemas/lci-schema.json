@@ -4,12 +4,8 @@
   "metadata": {
     "items": {
       "properties": {
-        "alias": {
-          "type": "string"
-        },
-        "displayName": {
-          "type": "string"
-        },
+        "alias": { "type": "string" },
+        "displayName": { "type": "string" },
         "forestManagement": {
           "enum": [
             "intensivePlantation",
@@ -20,15 +16,9 @@
           ],
           "type": "string"
         },
-        "id": {
-          "format": "uuid",
-          "type": "string"
-        },
+        "id": { "format": "uuid", "type": "string" },
         "scopes": {
-          "items": {
-            "enum": ["food", "food2", "textile", "object", "veli"],
-            "type": "string"
-          },
+          "items": { "enum": ["food", "food2", "textile", "object", "veli"], "type": "string" },
           "type": "array"
         }
       },
@@ -38,24 +28,11 @@
     "type": ["array", "null"]
   },
   "properties": {
-    "categories": {
-      "items": {
-        "type": "string"
-      },
-      "type": "array"
-    },
-    "displayName": {
-      "type": ["string", "null"]
-    },
-    "id": {
-      "format": "uuid",
-      "type": "string"
-    },
+    "categories": { "items": { "type": "string" }, "type": "array" },
+    "displayName": { "type": ["string", "null"] },
+    "id": { "format": "uuid", "type": "string" },
     "scopes": {
-      "items": {
-        "enum": ["food", "food2", "textile", "object", "veli"],
-        "type": "string"
-      },
+      "items": { "enum": ["food", "food2", "textile", "object", "veli"], "type": "string" },
       "type": "array"
     },
     "source": {

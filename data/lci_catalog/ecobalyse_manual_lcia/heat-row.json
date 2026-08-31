@@ -27,10 +27,7 @@
     "wtu": 0.000906321955087608
   },
   "metadata": [
-    {
-      "id": "f3b295ad-b7fe-4c15-9588-5d959a327440",
-      "scopes": ["object", "food2"]
-    }
+    { "id": "f3b295ad-b7fe-4c15-9588-5d959a327440", "scopes": ["object", "food2"] }
   ],
   "qtyVariationRatio": 1,
   "scopes": ["textile", "object", "veli", "food2"],

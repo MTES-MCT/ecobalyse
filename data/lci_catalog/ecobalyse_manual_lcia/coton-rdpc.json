@@ -29,10 +29,7 @@
   "metadata": [
     {
       "alias": "coton-rdpc",
-      "cff": {
-        "manufacturerAllocation": 0.8,
-        "recycledQualityRatio": 0.5
-      },
+      "cff": { "manufacturerAllocation": 0.8, "recycledQualityRatio": 0.5 },
       "defaultCountry": "FR",
       "displayName": "Production de coton recyclé (déchets post-consommation)",
       "geographicOrigin": "France",

@@ -22,10 +22,7 @@
     {
       "alias": "millet-whole-eu",
       "cropGroup": "AUTRES CEREALES",
-      "cropGroupMatch": {
-        "confidence": 0.95,
-        "rule": "matched 'millet' in cropgroup.csv"
-      },
+      "cropGroupMatch": { "confidence": 0.95, "rule": "matched 'millet' in cropgroup.csv" },
       "defaultOrigin": "EuropeAndMaghreb",
       "displayName": "Millet entier UE",
       "id": "a8944af5-37c6-5e57-bb18-ccdd2819e2d1",
@@ -36,17 +33,11 @@
       },
       "ingredientCategories": ["grain_raw"],
       "ingredientDensity": 0.64,
-      "ingredientDensityMatch": {
-        "confidence": 0.95,
-        "rule": "Matched with Millet in fao_density.csv"
-      },
+      "ingredientDensityMatch": { "confidence": 0.95, "rule": "Matched with Millet in fao_density.csv" },
       "scenario": "import",
       "scopes": ["food", "food2"],
       "transportCooling": "none",
-      "transportCoolingMatch": {
-        "confidence": 1.0,
-        "rule": "grain → none (non-perishable)"
-      },
+      "transportCoolingMatch": { "confidence": 1.0, "rule": "grain → none (non-perishable)" },
       "visible": true
     }
   ],

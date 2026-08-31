@@ -10,10 +10,7 @@
       "animalGroup2": "chicken",
       "animalProduct": "meat",
       "cropGroup": "PRAIRIES PERMANENTES",
-      "cropGroupMatch": {
-        "confidence": 1.0,
-        "rule": "matched 'prairies naturelles' in cropgroup.csv"
-      },
+      "cropGroupMatch": { "confidence": 1.0, "rule": "matched 'prairies naturelles' in cropgroup.csv" },
       "defaultOrigin": "France",
       "displayName": "Poulet Bio (2025)",
       "id": "e0a1afb5-7eee-5fd4-ac40-30da85bbea87",
@@ -24,17 +21,11 @@
       },
       "ingredientCategories": ["animal_product", "organic"],
       "ingredientDensity": 1.05,
-      "ingredientDensityMatch": {
-        "confidence": 1.0,
-        "rule": "meat default from food_type_density.csv"
-      },
+      "ingredientDensityMatch": { "confidence": 1.0, "rule": "meat default from food_type_density.csv" },
       "scenario": "organic",
       "scopes": ["food", "food2"],
       "transportCooling": "always",
-      "transportCoolingMatch": {
-        "confidence": 1.0,
-        "rule": "meat NOVA 1 → always (perishable)"
-      },
+      "transportCoolingMatch": { "confidence": 1.0, "rule": "meat NOVA 1 → always (perishable)" },
       "visible": false
     },
     {
@@ -52,17 +43,11 @@
       },
       "ingredientCategories": ["animal_product", "organic"],
       "ingredientDensity": 1.05,
-      "ingredientDensityMatch": {
-        "confidence": 1.0,
-        "rule": "meat default from food_type_density.csv"
-      },
+      "ingredientDensityMatch": { "confidence": 1.0, "rule": "meat default from food_type_density.csv" },
       "scenario": "organic",
       "scopes": ["food", "food2"],
       "transportCooling": "always",
-      "transportCoolingMatch": {
-        "confidence": 1.0,
-        "rule": "meat NOVA 1 → always (perishable)"
-      },
+      "transportCoolingMatch": { "confidence": 1.0, "rule": "meat NOVA 1 → always (perishable)" },
       "visible": false
     },
     {
@@ -80,17 +65,11 @@
       },
       "ingredientCategories": ["animal_product", "organic"],
       "ingredientDensity": 1.0,
-      "ingredientDensityMatch": {
-        "confidence": 1.0,
-        "rule": "rabbit found in density.csv"
-      },
+      "ingredientDensityMatch": { "confidence": 1.0, "rule": "rabbit found in density.csv" },
       "scenario": "organic",
       "scopes": ["food", "food2"],
       "transportCooling": "always",
-      "transportCoolingMatch": {
-        "confidence": 1.0,
-        "rule": "meat NOVA 1 → always (perishable)"
-      },
+      "transportCoolingMatch": { "confidence": 1.0, "rule": "meat NOVA 1 → always (perishable)" },
       "visible": false
     }
   ],

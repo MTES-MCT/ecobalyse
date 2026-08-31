@@ -8,10 +8,7 @@
     {
       "alias": "melon-default",
       "cropGroup": "LEGUMES-FLEURS",
-      "cropGroupMatch": {
-        "confidence": 0.95,
-        "rule": "matched 'melon' in cropgroup.csv"
-      },
+      "cropGroupMatch": { "confidence": 0.95, "rule": "matched 'melon' in cropgroup.csv" },
       "defaultOrigin": "OutOfEuropeAndMaghreb",
       "displayName": "Melon (miellat, Charentais, Cataloupe, Cavaillon) Origine Inconnue",
       "id": "85eb0842-4eab-5d67-8385-c91fa1e4f4ea",
@@ -22,26 +19,17 @@
       },
       "ingredientCategories": ["vegetable_fresh"],
       "ingredientDensity": 0.85,
-      "ingredientDensityMatch": {
-        "confidence": 1.0,
-        "rule": "fruit default from food_type_density.csv"
-      },
+      "ingredientDensityMatch": { "confidence": 1.0, "rule": "fruit default from food_type_density.csv" },
       "scenario": "import",
       "scopes": ["food", "food2"],
       "transportCooling": "always",
-      "transportCoolingMatch": {
-        "confidence": 1.0,
-        "rule": "fruit NOVA 1 → always (perishable)"
-      },
+      "transportCoolingMatch": { "confidence": 1.0, "rule": "fruit NOVA 1 → always (perishable)" },
       "visible": true
     },
     {
       "alias": "watermelon-default",
       "cropGroup": "LEGUMES-FLEURS",
-      "cropGroupMatch": {
-        "confidence": 1.0,
-        "rule": "matched 'pastèque' in cropgroup.csv"
-      },
+      "cropGroupMatch": { "confidence": 1.0, "rule": "matched 'pastèque' in cropgroup.csv" },
       "defaultOrigin": "OutOfEuropeAndMaghreb",
       "displayName": "Pastèque Origine Inconnue",
       "id": "7eda0b01-9fe3-52e7-b8f1-4fc434e76d43",
@@ -52,17 +40,11 @@
       },
       "ingredientCategories": ["vegetable_fresh"],
       "ingredientDensity": 1.0,
-      "ingredientDensityMatch": {
-        "confidence": 1.0,
-        "rule": "watermelon found in density.csv"
-      },
+      "ingredientDensityMatch": { "confidence": 1.0, "rule": "watermelon found in density.csv" },
       "scenario": "import",
       "scopes": ["food", "food2"],
       "transportCooling": "always",
-      "transportCoolingMatch": {
-        "confidence": 1.0,
-        "rule": "fruit NOVA 1 → always (perishable)"
-      },
+      "transportCoolingMatch": { "confidence": 1.0, "rule": "fruit NOVA 1 → always (perishable)" },
       "visible": true
     }
   ],

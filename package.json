@@ -33,7 +33,7 @@
     "lint:all": "npm run lint:prettier:all && npm run lint:elm && npm run lint:ruff:all && npm run lint:openapi && npm run lint:ty:check && npm run lint:json:all",
     "fix:elm-format": "npx elm-format --yes",
     "fix:json": "npm run lint:json -- --fix",
-    "fix:json:all": "npm run lint:json:all -- --fix",
+    "fix:json:all": "rg --files --ignore-file .jsonformatignore -t json --hidden -0 | xargs -0 npm run fix:json",
     "fix:prettier": "npm run lint:prettier -- --write",
     "fix:prettier:all": "npm run lint:prettier -- --write .",
     "fix:ruff:all": "npm run fix:ruff:check && npm run fix:ruff:format",

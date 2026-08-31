@@ -27,10 +27,7 @@
     "wtu": 0
   },
   "metadata": [
-    {
-      "id": "a0a09e18-0d70-46ee-b7d8-705bf6268aa4",
-      "scopes": ["object"]
-    }
+    { "id": "a0a09e18-0d70-46ee-b7d8-705bf6268aa4", "scopes": ["object"] }
   ],
   "qtyVariationRatio": 1,
   "scopes": ["object", "textile"],

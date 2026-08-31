@@ -8,10 +8,7 @@
     {
       "alias": "cashew-organic",
       "cropGroup": "FRUITS A COQUES",
-      "cropGroupMatch": {
-        "confidence": 1.0,
-        "rule": "nut default"
-      },
+      "cropGroupMatch": { "confidence": 1.0, "rule": "nut default" },
       "defaultOrigin": "France",
       "displayName": "Noix de cajou Bio",
       "id": "cd2c11dd-1804-539f-9e71-754325431c8a",
@@ -22,10 +19,7 @@
       },
       "ingredientCategories": ["nut_oilseed_raw", "organic"],
       "ingredientDensity": 0.6,
-      "ingredientDensityMatch": {
-        "confidence": 1.0,
-        "rule": "cashew found in density.csv"
-      },
+      "ingredientDensityMatch": { "confidence": 1.0, "rule": "cashew found in density.csv" },
       "rawToCookedRatio": 1.0,
       "rawToCookedRatioMatch": {
         "confidence": 1.0,
@@ -34,10 +28,7 @@
       "scenario": "organic",
       "scopes": ["food", "food2"],
       "transportCooling": "none",
-      "transportCoolingMatch": {
-        "confidence": 1.0,
-        "rule": "nut_oilseed → none (non-perishable)"
-      },
+      "transportCoolingMatch": { "confidence": 1.0, "rule": "nut_oilseed → none (non-perishable)" },
       "visible": true
     }
   ],

@@ -4,10 +4,7 @@
   "displayName": "Sachet en plastique (PP) pour cracker - 100g - Proxy",
   "id": "7357a8aa-d791-4caf-967a-cc741bd52a71",
   "metadata": [
-    {
-      "id": "07140461-7ff5-4c60-9d92-bbb4a6248abd",
-      "scopes": ["food2"]
-    }
+    { "id": "07140461-7ff5-4c60-9d92-bbb4a6248abd", "scopes": ["food2"] }
   ],
   "scopes": ["food", "food2"],
   "source": "Agribalyse 3.2",

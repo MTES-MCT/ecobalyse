@@ -7,10 +7,7 @@
     {
       "alias": "rye-whole-fr",
       "cropGroup": "AUTRES CEREALES",
-      "cropGroupMatch": {
-        "confidence": 0.95,
-        "rule": "matched 'seigle' in cropgroup.csv"
-      },
+      "cropGroupMatch": { "confidence": 0.95, "rule": "matched 'seigle' in cropgroup.csv" },
       "defaultOrigin": "France",
       "displayName": "Seigle entier FR",
       "id": "404e758a-d98b-5cb5-9483-ef18232cf0bf",
@@ -21,17 +18,11 @@
       },
       "ingredientCategories": ["grain_raw"],
       "ingredientDensity": 0.705,
-      "ingredientDensityMatch": {
-        "confidence": 0.961,
-        "rule": "Matched with Rye, whole in fao_density.csv"
-      },
+      "ingredientDensityMatch": { "confidence": 0.961, "rule": "Matched with Rye, whole in fao_density.csv" },
       "scenario": "reference",
       "scopes": ["food", "food2"],
       "transportCooling": "none",
-      "transportCoolingMatch": {
-        "confidence": 1.0,
-        "rule": "grain → none (non-perishable)"
-      },
+      "transportCoolingMatch": { "confidence": 1.0, "rule": "grain → none (non-perishable)" },
       "visible": true
     }
   ],

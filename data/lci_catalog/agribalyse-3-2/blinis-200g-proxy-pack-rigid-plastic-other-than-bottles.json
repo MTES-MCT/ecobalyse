@@ -4,10 +4,7 @@
   "displayName": "Barquette en plastique (PP) pour blinis - 200g - Proxy",
   "id": "a5d07fc6-60e9-4074-be48-dec16357468f",
   "metadata": [
-    {
-      "id": "bd6125e1-d216-474a-a0dc-28e5207284d2",
-      "scopes": ["food2"]
-    }
+    { "id": "bd6125e1-d216-474a-a0dc-28e5207284d2", "scopes": ["food2"] }
   ],
   "scopes": ["food", "food2"],
   "source": "Agribalyse 3.2",

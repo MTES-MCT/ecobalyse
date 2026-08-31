@@ -11,10 +11,7 @@
       "countrySpinning": "TR",
       "mass": 0.15,
       "materials": [
-        {
-          "id": "a52e486c-b67e-40af-8337-e8143cbf9076",
-          "share": 1
-        }
+        { "id": "a52e486c-b67e-40af-8337-e8143cbf9076", "share": 1 }
       ],
       "numberOfReferences": 200,
       "price": 30,
@@ -34,10 +31,7 @@
       "countrySpinning": "TR",
       "mass": 0.15,
       "materials": [
-        {
-          "id": "a1c1c2ec-33b1-49d6-bf8e-139e2eb7f097",
-          "share": 1
-        }
+        { "id": "a1c1c2ec-33b1-49d6-bf8e-139e2eb7f097", "share": 1 }
       ],
       "numberOfReferences": 200,
       "price": 30,
@@ -57,10 +51,7 @@
       "countrySpinning": "RAS",
       "mass": 0.55,
       "materials": [
-        {
-          "id": "9dba0e95-0c35-4f8b-9267-62ddf47d4984",
-          "share": 1
-        }
+        { "id": "9dba0e95-0c35-4f8b-9267-62ddf47d4984", "share": 1 }
       ],
       "numberOfReferences": 100000,
       "price": 15,
@@ -80,10 +71,7 @@
       "countrySpinning": "CN",
       "mass": 0.55,
       "materials": [
-        {
-          "id": "62a4d6fb-3276-4ba5-93a3-889ecd3bff84",
-          "share": 1
-        }
+        { "id": "62a4d6fb-3276-4ba5-93a3-889ecd3bff84", "share": 1 }
       ],
       "numberOfReferences": 9000,
       "price": 30,
@@ -103,14 +91,8 @@
       "countrySpinning": "CN",
       "mass": 0.55,
       "materials": [
-        {
-          "id": "c087d394-5901-4b03-ba7a-7d4b0db0490c",
-          "share": 0.7
-        },
-        {
-          "id": "9dba0e95-0c35-4f8b-9267-62ddf47d4984",
-          "share": 0.3
-        }
+        { "id": "c087d394-5901-4b03-ba7a-7d4b0db0490c", "share": 0.7 },
+        { "id": "9dba0e95-0c35-4f8b-9267-62ddf47d4984", "share": 0.3 }
       ],
       "numberOfReferences": 9000,
       "price": 30,
@@ -130,10 +112,7 @@
       "countrySpinning": "PK",
       "mass": 0.55,
       "materials": [
-        {
-          "id": "62a4d6fb-3276-4ba5-93a3-889ecd3bff84",
-          "share": 1
-        }
+        { "id": "62a4d6fb-3276-4ba5-93a3-889ecd3bff84", "share": 1 }
       ],
       "numberOfReferences": 2500,
       "price": 70,
@@ -153,10 +132,7 @@
       "countrySpinning": "IN",
       "mass": 0.55,
       "materials": [
-        {
-          "id": "a1c1c2ec-33b1-49d6-bf8e-139e2eb7f097",
-          "share": 1
-        }
+        { "id": "a1c1c2ec-33b1-49d6-bf8e-139e2eb7f097", "share": 1 }
       ],
       "numberOfReferences": 2500,
       "price": 70,
@@ -176,10 +152,7 @@
       "countrySpinning": "CN",
       "mass": 0.55,
       "materials": [
-        {
-          "id": "1fc3e17d-5661-429d-a150-7986eae16d9d",
-          "share": 1
-        }
+        { "id": "1fc3e17d-5661-429d-a150-7986eae16d9d", "share": 1 }
       ],
       "numberOfReferences": 200,
       "price": 95,
@@ -199,11 +172,7 @@
       "countrySpinning": "FR",
       "mass": 0.55,
       "materials": [
-        {
-          "country": "FR",
-          "id": "72e29a61-52a9-4eb5-b3fc-5fb87edea041",
-          "share": 1
-        }
+        { "country": "FR", "id": "72e29a61-52a9-4eb5-b3fc-5fb87edea041", "share": 1 }
       ],
       "numberOfReferences": 200,
       "price": 95,
@@ -223,14 +192,8 @@
       "countrySpinning": "RAS",
       "mass": 0.15,
       "materials": [
-        {
-          "id": "9dba0e95-0c35-4f8b-9267-62ddf47d4984",
-          "share": 0.95
-        },
-        {
-          "id": "73ef624d-250e-4a9a-af5d-43505b21b527",
-          "share": 0.05
-        }
+        { "id": "9dba0e95-0c35-4f8b-9267-62ddf47d4984", "share": 0.95 },
+        { "id": "73ef624d-250e-4a9a-af5d-43505b21b527", "share": 0.05 }
       ],
       "numberOfReferences": 100000,
       "price": 10,
@@ -250,14 +213,8 @@
       "countrySpinning": "CN",
       "mass": 0.15,
       "materials": [
-        {
-          "id": "62a4d6fb-3276-4ba5-93a3-889ecd3bff84",
-          "share": 0.75
-        },
-        {
-          "id": "d3d20384-88fb-4c75-ac12-c647365ac6c5",
-          "share": 0.25
-        }
+        { "id": "62a4d6fb-3276-4ba5-93a3-889ecd3bff84", "share": 0.75 },
+        { "id": "d3d20384-88fb-4c75-ac12-c647365ac6c5", "share": 0.25 }
       ],
       "numberOfReferences": 9000,
       "price": 20,
@@ -277,10 +234,7 @@
       "countrySpinning": "PK",
       "mass": 0.15,
       "materials": [
-        {
-          "id": "62a4d6fb-3276-4ba5-93a3-889ecd3bff84",
-          "share": 1
-        }
+        { "id": "62a4d6fb-3276-4ba5-93a3-889ecd3bff84", "share": 1 }
       ],
       "numberOfReferences": 2500,
       "price": 30,
@@ -300,10 +254,7 @@
       "countrySpinning": "TR",
       "mass": 0.15,
       "materials": [
-        {
-          "id": "62a4d6fb-3276-4ba5-93a3-889ecd3bff84",
-          "share": 1
-        }
+        { "id": "62a4d6fb-3276-4ba5-93a3-889ecd3bff84", "share": 1 }
       ],
       "numberOfReferences": 2500,
       "price": 30,
@@ -319,23 +270,14 @@
       "countrySpinning": "CN",
       "mass": 0.3,
       "materials": [
-        {
-          "id": "62a4d6fb-3276-4ba5-93a3-889ecd3bff84",
-          "share": 1
-        }
+        { "id": "62a4d6fb-3276-4ba5-93a3-889ecd3bff84", "share": 1 }
       ],
       "numberOfReferences": 100000,
       "price": 15,
       "product": "jupe",
       "trims": [
-        {
-          "id": "0e8ea799-9b06-490c-a925-37564746c454",
-          "quantity": 1
-        },
-        {
-          "id": "d56bb0d5-7999-4b8b-b076-94d79099b56a",
-          "quantity": 1
-        }
+        { "id": "0e8ea799-9b06-490c-a925-37564746c454", "quantity": 1 },
+        { "id": "d56bb0d5-7999-4b8b-b076-94d79099b56a", "quantity": 1 }
       ]
     },
     "scope": "textile"
@@ -348,19 +290,13 @@
       "countrySpinning": "CN",
       "mass": 0.25,
       "materials": [
-        {
-          "id": "62a4d6fb-3276-4ba5-93a3-889ecd3bff84",
-          "share": 1
-        }
+        { "id": "62a4d6fb-3276-4ba5-93a3-889ecd3bff84", "share": 1 }
       ],
       "numberOfReferences": 100000,
       "price": 15,
       "product": "chemise",
       "trims": [
-        {
-          "id": "d56bb0d5-7999-4b8b-b076-94d79099b56a",
-          "quantity": 10
-        }
+        { "id": "d56bb0d5-7999-4b8b-b076-94d79099b56a", "quantity": 10 }
       ]
     },
     "scope": "textile"
@@ -374,23 +310,14 @@
       "fading": true,
       "mass": 0.45,
       "materials": [
-        {
-          "id": "62a4d6fb-3276-4ba5-93a3-889ecd3bff84",
-          "share": 1
-        }
+        { "id": "62a4d6fb-3276-4ba5-93a3-889ecd3bff84", "share": 1 }
       ],
       "numberOfReferences": 100000,
       "price": 20,
       "product": "jean",
       "trims": [
-        {
-          "id": "0c903fc7-279b-4375-8cfa-ca8133b8e973",
-          "quantity": 1
-        },
-        {
-          "id": "0e8ea799-9b06-490c-a925-37564746c454",
-          "quantity": 1
-        }
+        { "id": "0c903fc7-279b-4375-8cfa-ca8133b8e973", "quantity": 1 },
+        { "id": "0e8ea799-9b06-490c-a925-37564746c454", "quantity": 1 }
       ]
     },
     "scope": "textile"
@@ -403,23 +330,14 @@
       "countrySpinning": "CN",
       "mass": 0.45,
       "materials": [
-        {
-          "id": "62a4d6fb-3276-4ba5-93a3-889ecd3bff84",
-          "share": 1
-        }
+        { "id": "62a4d6fb-3276-4ba5-93a3-889ecd3bff84", "share": 1 }
       ],
       "numberOfReferences": 100000,
       "price": 20,
       "product": "pantalon",
       "trims": [
-        {
-          "id": "0c903fc7-279b-4375-8cfa-ca8133b8e973",
-          "quantity": 1
-        },
-        {
-          "id": "0e8ea799-9b06-490c-a925-37564746c454",
-          "quantity": 1
-        }
+        { "id": "0c903fc7-279b-4375-8cfa-ca8133b8e973", "quantity": 1 },
+        { "id": "0e8ea799-9b06-490c-a925-37564746c454", "quantity": 1 }
       ]
     },
     "scope": "textile"
@@ -432,23 +350,14 @@
       "countrySpinning": "CN",
       "mass": 0.95,
       "materials": [
-        {
-          "id": "62a4d6fb-3276-4ba5-93a3-889ecd3bff84",
-          "share": 1
-        }
+        { "id": "62a4d6fb-3276-4ba5-93a3-889ecd3bff84", "share": 1 }
       ],
       "numberOfReferences": 100000,
       "price": 40,
       "product": "manteau",
       "trims": [
-        {
-          "id": "86b877ff-0d59-482f-bb34-3ff306b07496",
-          "quantity": 1
-        },
-        {
-          "id": "d56bb0d5-7999-4b8b-b076-94d79099b56a",
-          "quantity": 3
-        }
+        { "id": "86b877ff-0d59-482f-bb34-3ff306b07496", "quantity": 1 },
+        { "id": "d56bb0d5-7999-4b8b-b076-94d79099b56a", "quantity": 3 }
       ]
     },
     "scope": "textile"
@@ -462,10 +371,7 @@
       "countrySpinning": "CN",
       "mass": 0.15,
       "materials": [
-        {
-          "id": "62a4d6fb-3276-4ba5-93a3-889ecd3bff84",
-          "share": 1
-        }
+        { "id": "62a4d6fb-3276-4ba5-93a3-889ecd3bff84", "share": 1 }
       ],
       "numberOfReferences": 100000,
       "price": 10,
@@ -481,10 +387,7 @@
       "business": "small-business",
       "mass": 0.15,
       "materials": [
-        {
-          "id": "62a4d6fb-3276-4ba5-93a3-889ecd3bff84",
-          "share": 1
-        }
+        { "id": "62a4d6fb-3276-4ba5-93a3-889ecd3bff84", "share": 1 }
       ],
       "numberOfReferences": 200,
       "price": 30,
@@ -502,10 +405,7 @@
       "countrySpinning": "CN",
       "mass": 0.55,
       "materials": [
-        {
-          "id": "62a4d6fb-3276-4ba5-93a3-889ecd3bff84",
-          "share": 1
-        }
+        { "id": "62a4d6fb-3276-4ba5-93a3-889ecd3bff84", "share": 1 }
       ],
       "numberOfReferences": 100000,
       "price": 15,
@@ -522,10 +422,7 @@
       "countrySpinning": "CN",
       "mass": 0.04,
       "materials": [
-        {
-          "id": "62a4d6fb-3276-4ba5-93a3-889ecd3bff84",
-          "share": 1
-        }
+        { "id": "62a4d6fb-3276-4ba5-93a3-889ecd3bff84", "share": 1 }
       ],
       "numberOfReferences": 100000,
       "price": 4,
@@ -542,10 +439,7 @@
       "countrySpinning": "CN",
       "mass": 0.04,
       "materials": [
-        {
-          "id": "62a4d6fb-3276-4ba5-93a3-889ecd3bff84",
-          "share": 1
-        }
+        { "id": "62a4d6fb-3276-4ba5-93a3-889ecd3bff84", "share": 1 }
       ],
       "numberOfReferences": 100000,
       "price": 4,
@@ -562,10 +456,7 @@
       "countrySpinning": "CN",
       "mass": 0.03,
       "materials": [
-        {
-          "id": "62a4d6fb-3276-4ba5-93a3-889ecd3bff84",
-          "share": 1
-        }
+        { "id": "62a4d6fb-3276-4ba5-93a3-889ecd3bff84", "share": 1 }
       ],
       "numberOfReferences": 100000,
       "price": 4,
@@ -582,10 +473,7 @@
       "countrySpinning": "CN",
       "mass": 0.1,
       "materials": [
-        {
-          "id": "9dba0e95-0c35-4f8b-9267-62ddf47d4984",
-          "share": 1
-        }
+        { "id": "9dba0e95-0c35-4f8b-9267-62ddf47d4984", "share": 1 }
       ],
       "numberOfReferences": 100000,
       "price": 15,

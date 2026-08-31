@@ -4,10 +4,7 @@
   "displayName": "Barquette en plastique (PP) pour viande hachée - 320g",
   "id": "761eb291-702c-4625-ad6d-2d1c0e50f1ea",
   "metadata": [
-    {
-      "id": "e28f5164-5a94-4f2e-9b61-77613a208fd2",
-      "scopes": ["food2"]
-    }
+    { "id": "e28f5164-5a94-4f2e-9b61-77613a208fd2", "scopes": ["food2"] }
   ],
   "scopes": ["food", "food2"],
   "source": "Agribalyse 3.2",

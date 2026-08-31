@@ -4,10 +4,7 @@
   "displayName": "Barquette en plastique (PP) pour fruits de mer - 290g - Proxy",
   "id": "37579a1a-9e3d-4255-b1ce-00299262c496",
   "metadata": [
-    {
-      "id": "dc3371de-8cb1-4a4f-bb78-036f7e9ecaf9",
-      "scopes": ["food2"]
-    }
+    { "id": "dc3371de-8cb1-4a4f-bb78-036f7e9ecaf9", "scopes": ["food2"] }
   ],
   "scopes": ["food", "food2"],
   "source": "Agribalyse 3.2",

@@ -19,17 +19,11 @@
       },
       "ingredientCategories": ["animal_product", "organic"],
       "ingredientDensity": 1.05,
-      "ingredientDensityMatch": {
-        "confidence": 1.0,
-        "rule": "pork found in density.csv"
-      },
+      "ingredientDensityMatch": { "confidence": 1.0, "rule": "pork found in density.csv" },
       "scenario": "organic",
       "scopes": ["food", "food2"],
       "transportCooling": "always",
-      "transportCoolingMatch": {
-        "confidence": 1.0,
-        "rule": "meat NOVA 1 → always (perishable)"
-      },
+      "transportCoolingMatch": { "confidence": 1.0, "rule": "meat NOVA 1 → always (perishable)" },
       "visible": false
     }
   ],

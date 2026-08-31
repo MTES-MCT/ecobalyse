@@ -7,61 +7,37 @@
     {
       "alias": "grape-default",
       "cropGroup": "VIGNES",
-      "cropGroupMatch": {
-        "confidence": 0.95,
-        "rule": "matched 'grape' in cropgroup.csv"
-      },
+      "cropGroupMatch": { "confidence": 0.95, "rule": "matched 'grape' in cropgroup.csv" },
       "defaultOrigin": "OutOfEuropeAndMaghreb",
       "displayName": "Raisins (noirs ou blancs) Origine Inconnue",
       "id": "3733e844-5e53-5404-9b26-28fcb67896c8",
       "inediblePart": 0.1,
-      "inediblePartMatch": {
-        "confidence": 0.95,
-        "rule": "Matched with Grape in agb_inedible.csv"
-      },
+      "inediblePartMatch": { "confidence": 0.95, "rule": "Matched with Grape in agb_inedible.csv" },
       "ingredientCategories": ["vegetable_fresh"],
       "ingredientDensity": 1.0,
-      "ingredientDensityMatch": {
-        "confidence": 0.95,
-        "rule": "Matched with grape in density.csv"
-      },
+      "ingredientDensityMatch": { "confidence": 0.95, "rule": "Matched with grape in density.csv" },
       "scenario": "import",
       "scopes": ["food", "food2"],
       "transportCooling": "always",
-      "transportCoolingMatch": {
-        "confidence": 1.0,
-        "rule": "fruit NOVA 1 → always (perishable)"
-      },
+      "transportCoolingMatch": { "confidence": 1.0, "rule": "fruit NOVA 1 → always (perishable)" },
       "visible": true
     },
     {
       "alias": "grape-eu",
       "cropGroup": "VIGNES",
-      "cropGroupMatch": {
-        "confidence": 0.95,
-        "rule": "matched 'grape' in cropgroup.csv"
-      },
+      "cropGroupMatch": { "confidence": 0.95, "rule": "matched 'grape' in cropgroup.csv" },
       "defaultOrigin": "EuropeAndMaghreb",
       "displayName": "Raisins (noirs ou blancs) UE",
       "id": "654989b5-c728-5bf5-b673-832ef1612b1a",
       "inediblePart": 0.1,
-      "inediblePartMatch": {
-        "confidence": 0.95,
-        "rule": "Matched with Grape in agb_inedible.csv"
-      },
+      "inediblePartMatch": { "confidence": 0.95, "rule": "Matched with Grape in agb_inedible.csv" },
       "ingredientCategories": ["vegetable_fresh"],
       "ingredientDensity": 1.0,
-      "ingredientDensityMatch": {
-        "confidence": 0.95,
-        "rule": "Matched with grape in density.csv"
-      },
+      "ingredientDensityMatch": { "confidence": 0.95, "rule": "Matched with grape in density.csv" },
       "scenario": "import",
       "scopes": ["food", "food2"],
       "transportCooling": "always",
-      "transportCoolingMatch": {
-        "confidence": 1.0,
-        "rule": "fruit NOVA 1 → always (perishable)"
-      },
+      "transportCoolingMatch": { "confidence": 1.0, "rule": "fruit NOVA 1 → always (perishable)" },
       "visible": true
     }
   ],

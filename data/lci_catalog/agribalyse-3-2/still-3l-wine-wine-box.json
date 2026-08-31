@@ -4,10 +4,7 @@
   "displayName": "Bag in box pour vin tranquille - 3L",
   "id": "303acdf3-23b0-44a3-9815-9c84a498521d",
   "metadata": [
-    {
-      "id": "00675fcb-f29c-47ef-abf8-20903d7b42a3",
-      "scopes": ["food2"]
-    }
+    { "id": "00675fcb-f29c-47ef-abf8-20903d7b42a3", "scopes": ["food2"] }
   ],
   "scopes": ["food", "food2"],
   "source": "Agribalyse 3.2",

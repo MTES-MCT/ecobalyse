@@ -8,10 +8,7 @@
   "id": "994c7524-1d73-430b-9daa-800904613370",
   "massPerUnit": 565,
   "metadata": [
-    {
-      "id": "cfd38f78-03a4-4d5d-9909-d68e20b9943b",
-      "scopes": ["object", "veli"]
-    }
+    { "id": "cfd38f78-03a4-4d5d-9909-d68e20b9943b", "scopes": ["object", "veli"] }
   ],
   "qtyVariationRatio": 1,
   "scopes": ["object", "veli"],

@@ -4,10 +4,7 @@
   "displayName": "Barquette en plastique (PP) avec couvercle pour fromage bleu - 150g",
   "id": "7e1c3ba3-e5e5-4896-9527-d017b0af0974",
   "metadata": [
-    {
-      "id": "b4f0c5ec-73c2-48d7-81d0-b302a49f8ce5",
-      "scopes": ["food2"]
-    }
+    { "id": "b4f0c5ec-73c2-48d7-81d0-b302a49f8ce5", "scopes": ["food2"] }
   ],
   "scopes": ["food", "food2"],
   "source": "Agribalyse 3.2",

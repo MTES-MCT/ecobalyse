@@ -4,10 +4,7 @@
   "displayName": "Barquette en plastique (PET) pour dessert glacé - 354g - Proxy",
   "id": "731e1d77-7ecb-423b-a48b-94ea3458821c",
   "metadata": [
-    {
-      "id": "28347efb-4a92-4c97-958b-10d7e5d32ec5",
-      "scopes": ["food2"]
-    }
+    { "id": "28347efb-4a92-4c97-958b-10d7e5d32ec5", "scopes": ["food2"] }
   ],
   "scopes": ["food", "food2"],
   "source": "Agribalyse 3.2",

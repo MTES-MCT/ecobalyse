@@ -4,10 +4,7 @@
   "displayName": "Bouteille en verre blanc de 395g pour vin tranquille - 75cl",
   "id": "b87f89fe-b7a0-4b9f-a80f-fa0a7a96c09f",
   "metadata": [
-    {
-      "id": "0c8932fc-408d-4c1a-b417-7dff1d1f3ce8",
-      "scopes": ["food2"]
-    }
+    { "id": "0c8932fc-408d-4c1a-b417-7dff1d1f3ce8", "scopes": ["food2"] }
   ],
   "scopes": ["food", "food2"],
   "source": "Agribalyse 3.2",

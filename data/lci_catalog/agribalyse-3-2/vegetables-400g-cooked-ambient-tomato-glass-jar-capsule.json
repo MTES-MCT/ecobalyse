@@ -4,10 +4,7 @@
   "displayName": "Bocal en verre pour produit à base de tomate, ambiant - 400g",
   "id": "cc9f4dc8-870a-4d77-a5ff-16dde852d8b1",
   "metadata": [
-    {
-      "id": "653d098f-e05c-468a-8d1e-18811f2a71ac",
-      "scopes": ["food2"]
-    }
+    { "id": "653d098f-e05c-468a-8d1e-18811f2a71ac", "scopes": ["food2"] }
   ],
   "scopes": ["food", "food2"],
   "source": "Agribalyse 3.2",

@@ -7,10 +7,7 @@
     {
       "alias": "cocoa-bean-non-eu",
       "cropGroup": "ARBORICULTURE",
-      "cropGroupMatch": {
-        "confidence": 1.0,
-        "rule": "matched 'cocoa bean' in cropgroup.csv"
-      },
+      "cropGroupMatch": { "confidence": 1.0, "rule": "matched 'cocoa bean' in cropgroup.csv" },
       "defaultOrigin": "OutOfEuropeAndMaghreb",
       "displayName": "Fève de cacao HORS UE",
       "id": "35d0ffc8-3043-5012-86f3-4401ab37c5cf",
@@ -21,17 +18,11 @@
       },
       "ingredientCategories": ["vegetable_fresh"],
       "ingredientDensity": 0.9,
-      "ingredientDensityMatch": {
-        "confidence": 1.0,
-        "rule": "vegetable default from food_type_density.csv"
-      },
+      "ingredientDensityMatch": { "confidence": 1.0, "rule": "vegetable default from food_type_density.csv" },
       "scenario": "import",
       "scopes": ["food", "food2"],
       "transportCooling": "none",
-      "transportCoolingMatch": {
-        "confidence": 1.0,
-        "rule": "vegetable NOVA 1 → none (perishable)"
-      },
+      "transportCoolingMatch": { "confidence": 1.0, "rule": "vegetable NOVA 1 → none (perishable)" },
       "visible": true
     }
   ],

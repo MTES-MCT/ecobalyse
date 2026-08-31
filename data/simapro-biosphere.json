@@ -161,11 +161,7 @@
   ["air", "Ethane, chloro-", "Monochloroethane"],
   ["air", "Ethanol, 2-ethoxy-", "Ethylene glycol monoethyl ether"],
   ["air", "Methane, biogenic", "Methane, non-fossil"],
-  [
-    "air",
-    "Methane, land transformation",
-    "Methane, from soil or biomass stock"
-  ],
+  ["air", "Methane, land transformation", "Methane, from soil or biomass stock"],
   ["air", "Methane, tetrachloro-, CFC-10", "Methane, tetrachloro-, R-10"],
   ["air", "Methane, tetrafluoro-, CFC-14", "Methane, tetrafluoro-, R-14"],
   ["air", "Methylamine", "Methyl amine"],
@@ -210,11 +206,7 @@
   ["natural resource", "Chrysotile", "Chrysotile, in ground"],
   ["natural resource", "Cinnabar", "Cinnabar, in ground"],
   ["natural resource", "Clay, bentonite", "Clay, bentonite, in ground"],
-  [
-    "natural resource",
-    "Clay, unspecified",
-    "Clay, unspecified, in ground"
-  ],
+  ["natural resource", "Clay, unspecified", "Clay, unspecified, in ground"],
   ["natural resource", "Coal, brown", "Coal, brown, in ground"],
   ["natural resource", "Coal, hard", "Coal, hard, unspecified, in ground"],
   ["natural resource", "Cobalt", "Cobalt, in ground"],
@@ -355,21 +347,9 @@
     "Indium, 0.005% in sulfide, In 0.003%, Pb, Zn, Ag, Cd, in ground"
   ],
   ["natural resource", "Iodine", "Iodine, 0.03% in water"],
-  [
-    "natural resource",
-    "Iron",
-    "Iron, 46% in ore, 25% in crude ore, in ground"
-  ],
-  [
-    "natural resource",
-    "Kaolinite",
-    "Kaolinite, 24% in crude ore, in ground"
-  ],
-  [
-    "natural resource",
-    "Kieserite",
-    "Kieserite, 25% in crude ore, in ground"
-  ],
+  ["natural resource", "Iron", "Iron, 46% in ore, 25% in crude ore, in ground"],
+  ["natural resource", "Kaolinite", "Kaolinite, 24% in crude ore, in ground"],
+  ["natural resource", "Kieserite", "Kieserite, 25% in crude ore, in ground"],
   ["natural resource", "Krypton", "Krypton, in air"],
   [
     "natural resource",
@@ -387,11 +367,7 @@
     "Lead, Pb 0.014%, in mixed ore, in ground"
   ],
   ["natural resource", "Lithium", "Lithium, 0.15% in brine, in ground"],
-  [
-    "natural resource",
-    "Magnesite",
-    "Magnesite, 60% in crude ore, in ground"
-  ],
+  ["natural resource", "Magnesite", "Magnesite, 60% in crude ore, in ground"],
   ["natural resource", "Magnesium", "Magnesium, 0.13% in water"],
   [
     "natural resource",
@@ -977,11 +953,7 @@
     "Water, cooling, unspecified natural origin/m3",
     "Water, cooling, unspecified natural origin"
   ],
-  [
-    "natural resource",
-    "Water_3.1_m3",
-    "Water, unspecified natural origin"
-  ],
+  ["natural resource", "Water_3.1_m3", "Water, unspecified natural origin"],
   [
     "natural resource",
     "Wood, unspecified, standing/m3",

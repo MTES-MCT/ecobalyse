@@ -7,36 +7,21 @@
     {
       "alias": "sugar-beet-fr",
       "cropGroup": "AUTRES CULTURES INDUSTRIELLES",
-      "cropGroupMatch": {
-        "confidence": 1.0,
-        "rule": "matched 'betteraves sucrières' in cropgroup.csv"
-      },
+      "cropGroupMatch": { "confidence": 1.0, "rule": "matched 'betteraves sucrières' in cropgroup.csv" },
       "defaultOrigin": "France",
       "displayName": "Betterave à sucre FR",
       "id": "adff0f93-f19f-55fc-b58e-4a217495770f",
       "inediblePart": 0.0,
-      "inediblePartMatch": {
-        "confidence": 0.95,
-        "rule": "Matched with sugar in inedible_part.csv"
-      },
+      "inediblePartMatch": { "confidence": 0.95, "rule": "Matched with sugar in inedible_part.csv" },
       "ingredientCategories": ["spice_condiment_additive"],
       "ingredientDensity": 0.95,
-      "ingredientDensityMatch": {
-        "confidence": 0.95,
-        "rule": "Matched with Sugar in fao_density.csv"
-      },
+      "ingredientDensityMatch": { "confidence": 0.95, "rule": "Matched with Sugar in fao_density.csv" },
       "rawToCookedRatio": 1.0,
-      "rawToCookedRatioMatch": {
-        "confidence": 0.95,
-        "rule": "Matched with sugar in cooked_to_raw.csv"
-      },
+      "rawToCookedRatioMatch": { "confidence": 0.95, "rule": "Matched with sugar in cooked_to_raw.csv" },
       "scenario": "reference",
       "scopes": ["food", "food2"],
       "transportCooling": "none",
-      "transportCoolingMatch": {
-        "confidence": 1.0,
-        "rule": "spice_condiment → none (non-perishable)"
-      },
+      "transportCoolingMatch": { "confidence": 1.0, "rule": "spice_condiment → none (non-perishable)" },
       "visible": true
     }
   ],

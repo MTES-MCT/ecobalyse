@@ -4,10 +4,7 @@
   "displayName": "Sachet plastique (OPP) pour saucisson sec - 250g",
   "id": "c72e12c0-23bf-4a9d-97aa-31a36de33925",
   "metadata": [
-    {
-      "id": "7f1f9252-80a9-4fe8-a14b-7e8f77ad975a",
-      "scopes": ["food2"]
-    }
+    { "id": "7f1f9252-80a9-4fe8-a14b-7e8f77ad975a", "scopes": ["food2"] }
   ],
   "scopes": ["food", "food2"],
   "source": "Agribalyse 3.2",

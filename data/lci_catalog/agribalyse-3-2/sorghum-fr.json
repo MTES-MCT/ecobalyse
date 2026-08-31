@@ -7,10 +7,7 @@
     {
       "alias": "sorghum-fr",
       "cropGroup": "AUTRES CEREALES",
-      "cropGroupMatch": {
-        "confidence": 1.0,
-        "rule": "matched 'sorgho' in cropgroup.csv"
-      },
+      "cropGroupMatch": { "confidence": 1.0, "rule": "matched 'sorgho' in cropgroup.csv" },
       "defaultOrigin": "France",
       "displayName": "Sorgho FR",
       "id": "dd76552e-2cf6-5ec6-9ea8-1a3c3bd9a38f",
@@ -21,26 +18,17 @@
       },
       "ingredientCategories": ["grain_raw"],
       "ingredientDensity": 0.535,
-      "ingredientDensityMatch": {
-        "confidence": 0.95,
-        "rule": "Matched with Sorghum, seed in fao_density.csv"
-      },
+      "ingredientDensityMatch": { "confidence": 0.95, "rule": "Matched with Sorghum, seed in fao_density.csv" },
       "scenario": "reference",
       "scopes": ["food", "food2"],
       "transportCooling": "none",
-      "transportCoolingMatch": {
-        "confidence": 1.0,
-        "rule": "grain → none (non-perishable)"
-      },
+      "transportCoolingMatch": { "confidence": 1.0, "rule": "grain → none (non-perishable)" },
       "visible": true
     },
     {
       "alias": "sorghum-non-eu",
       "cropGroup": "AUTRES CEREALES",
-      "cropGroupMatch": {
-        "confidence": 1.0,
-        "rule": "matched 'sorgho' in cropgroup.csv"
-      },
+      "cropGroupMatch": { "confidence": 1.0, "rule": "matched 'sorgho' in cropgroup.csv" },
       "defaultOrigin": "OutOfEuropeAndMaghreb",
       "displayName": "Sorgho HORS UE",
       "id": "6781efe4-afc3-5114-af10-9836c7357bc0",
@@ -51,17 +39,11 @@
       },
       "ingredientCategories": ["grain_raw"],
       "ingredientDensity": 0.535,
-      "ingredientDensityMatch": {
-        "confidence": 0.95,
-        "rule": "Matched with Sorghum, seed in fao_density.csv"
-      },
+      "ingredientDensityMatch": { "confidence": 0.95, "rule": "Matched with Sorghum, seed in fao_density.csv" },
       "scenario": "import",
       "scopes": ["food", "food2"],
       "transportCooling": "none",
-      "transportCoolingMatch": {
-        "confidence": 1.0,
-        "rule": "grain → none (non-perishable)"
-      },
+      "transportCoolingMatch": { "confidence": 1.0, "rule": "grain → none (non-perishable)" },
       "visible": true
     }
   ],

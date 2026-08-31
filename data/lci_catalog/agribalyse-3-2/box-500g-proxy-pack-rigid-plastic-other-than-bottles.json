@@ -4,10 +4,7 @@
   "displayName": "Pot en plastique (PP) pour crème glacée - 500g - Proxy",
   "id": "53e26bf1-a8ec-4f7f-bcba-f88989039ddb",
   "metadata": [
-    {
-      "id": "9c098919-e422-4195-9122-e589916f0578",
-      "scopes": ["food2"]
-    }
+    { "id": "9c098919-e422-4195-9122-e589916f0578", "scopes": ["food2"] }
   ],
   "scopes": ["food", "food2"],
   "source": "Agribalyse 3.2",

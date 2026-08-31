@@ -191,12 +191,7 @@
     "location": "GLO",
     "massPerUnit": null,
     "metadata": {
-      "complements": {
-        "cropDiversity": 0,
-        "hedges": -0.443,
-        "permanentPasture": 0,
-        "plotSize": -0.625
-      },
+      "complements": { "cropDiversity": 0, "hedges": -0.443, "permanentPasture": 0, "plotSize": -0.625 },
       "defaultOrigin": "FR",
       "ingredient": {
         "cropGroup": null,
@@ -289,9 +284,7 @@
     "location": "GLO",
     "massPerUnit": null,
     "metadata": {
-      "complements": {
-        "forest": -0.4142
-      },
+      "complements": { "forest": -0.4142 },
       "forestManagement": "certifiedSustainableManagement"
     },
     "qtyVariationRatio": 1.0,

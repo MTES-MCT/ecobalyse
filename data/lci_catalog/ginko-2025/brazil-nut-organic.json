@@ -8,10 +8,7 @@
     {
       "alias": "brazil-nut-organic",
       "cropGroup": "FRUITS A COQUES",
-      "cropGroupMatch": {
-        "confidence": 0.95,
-        "rule": "matched 'noix' in cropgroup.csv"
-      },
+      "cropGroupMatch": { "confidence": 0.95, "rule": "matched 'noix' in cropgroup.csv" },
       "defaultOrigin": "France",
       "displayName": "Noix du Brésil Bio",
       "id": "050374dc-6dd8-5e5f-8543-2d124767edc0",
@@ -22,10 +19,7 @@
       },
       "ingredientCategories": ["nut_oilseed_raw", "organic"],
       "ingredientDensity": 0.63,
-      "ingredientDensityMatch": {
-        "confidence": 0.95,
-        "rule": "Matched with Nuts in fao_density.csv"
-      },
+      "ingredientDensityMatch": { "confidence": 0.95, "rule": "Matched with Nuts in fao_density.csv" },
       "rawToCookedRatio": 1.0,
       "rawToCookedRatioMatch": {
         "confidence": 1.0,
@@ -34,19 +28,13 @@
       "scenario": "organic",
       "scopes": ["food", "food2"],
       "transportCooling": "none",
-      "transportCoolingMatch": {
-        "confidence": 1.0,
-        "rule": "nut_oilseed → none (non-perishable)"
-      },
+      "transportCoolingMatch": { "confidence": 1.0, "rule": "nut_oilseed → none (non-perishable)" },
       "visible": true
     },
     {
       "alias": "pistachio-organic",
       "cropGroup": "FRUITS A COQUES",
-      "cropGroupMatch": {
-        "confidence": 1.0,
-        "rule": "matched 'pistaches' in cropgroup.csv"
-      },
+      "cropGroupMatch": { "confidence": 1.0, "rule": "matched 'pistaches' in cropgroup.csv" },
       "defaultOrigin": "France",
       "displayName": "Pistaches Bio",
       "id": "420449d8-4485-57df-91cf-abcf592a8e58",
@@ -57,10 +45,7 @@
       },
       "ingredientCategories": ["nut_oilseed_raw", "organic"],
       "ingredientDensity": 0.5,
-      "ingredientDensityMatch": {
-        "confidence": 0.95,
-        "rule": "Matched with pistachio in density.csv"
-      },
+      "ingredientDensityMatch": { "confidence": 0.95, "rule": "Matched with pistachio in density.csv" },
       "rawToCookedRatio": 1.0,
       "rawToCookedRatioMatch": {
         "confidence": 1.0,
@@ -69,10 +54,7 @@
       "scenario": "organic",
       "scopes": ["food", "food2"],
       "transportCooling": "none",
-      "transportCoolingMatch": {
-        "confidence": 1.0,
-        "rule": "nut_oilseed → none (non-perishable)"
-      },
+      "transportCoolingMatch": { "confidence": 1.0, "rule": "nut_oilseed → none (non-perishable)" },
       "visible": true
     }
   ],

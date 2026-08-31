@@ -4,10 +4,7 @@
   "displayName": "Camion frigorifique",
   "id": "219b986c-9751-58cf-977e-7ba8f0b4ae2b",
   "metadata": [
-    {
-      "id": "7ce0e82a-0b26-48fd-b260-0d8f4ed25001",
-      "scopes": ["food2"]
-    }
+    { "id": "7ce0e82a-0b26-48fd-b260-0d8f4ed25001", "scopes": ["food2"] }
   ],
   "scopes": ["food", "food2"],
   "source": "Agribalyse 3.2"

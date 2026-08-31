@@ -4,10 +4,7 @@
   "displayName": "Barquette en plastique (APET/PE) pour charcuteries tranchées - 100g",
   "id": "74564e30-b832-4a6f-b3d9-eac2fe62c461",
   "metadata": [
-    {
-      "id": "ff640ca9-f9cb-4324-9863-dff59fd91196",
-      "scopes": ["food2"]
-    }
+    { "id": "ff640ca9-f9cb-4324-9863-dff59fd91196", "scopes": ["food2"] }
   ],
   "scopes": ["food", "food2"],
   "source": "Agribalyse 3.2",

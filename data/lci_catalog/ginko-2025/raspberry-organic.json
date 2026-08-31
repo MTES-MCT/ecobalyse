@@ -23,31 +23,19 @@
     {
       "alias": "raspberry-organic",
       "cropGroup": "VERGERS",
-      "cropGroupMatch": {
-        "confidence": 1.0,
-        "rule": "fruit default"
-      },
+      "cropGroupMatch": { "confidence": 1.0, "rule": "fruit default" },
       "defaultOrigin": "France",
       "displayName": "Framboise Bio",
       "id": "ab97a5eb-d29c-5bb0-a2e7-d0aa2e719808",
       "inediblePart": 0.03,
-      "inediblePartMatch": {
-        "confidence": 0.95,
-        "rule": "Matched with Raspberries in agb_inedible.csv"
-      },
+      "inediblePartMatch": { "confidence": 0.95, "rule": "Matched with Raspberries in agb_inedible.csv" },
       "ingredientCategories": ["vegetable_fresh", "organic"],
       "ingredientDensity": 0.9,
-      "ingredientDensityMatch": {
-        "confidence": 1.0,
-        "rule": "raspberry found in density.csv"
-      },
+      "ingredientDensityMatch": { "confidence": 1.0, "rule": "raspberry found in density.csv" },
       "scenario": "organic",
       "scopes": ["food", "food2"],
       "transportCooling": "always",
-      "transportCoolingMatch": {
-        "confidence": 1.0,
-        "rule": "fruit NOVA 1 → always (perishable)"
-      },
+      "transportCoolingMatch": { "confidence": 1.0, "rule": "fruit NOVA 1 → always (perishable)" },
       "visible": true
     }
   ],

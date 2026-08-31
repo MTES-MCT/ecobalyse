@@ -8,10 +8,7 @@
     {
       "alias": "sesame-seed-organic",
       "cropGroup": "SEMENCES",
-      "cropGroupMatch": {
-        "confidence": 0.95,
-        "rule": "matched 'semences epeautre' in cropgroup.csv"
-      },
+      "cropGroupMatch": { "confidence": 0.95, "rule": "matched 'semences epeautre' in cropgroup.csv" },
       "defaultOrigin": "France",
       "displayName": "Graines de sésame Bio",
       "id": "6de259fc-527d-5ac5-991b-8ea3acf8e59a",
@@ -22,17 +19,11 @@
       },
       "ingredientCategories": ["grain_raw", "organic"],
       "ingredientDensity": 0.75,
-      "ingredientDensityMatch": {
-        "confidence": 1.0,
-        "rule": "grain default from food_type_density.csv"
-      },
+      "ingredientDensityMatch": { "confidence": 1.0, "rule": "grain default from food_type_density.csv" },
       "scenario": "organic",
       "scopes": ["food", "food2"],
       "transportCooling": "none",
-      "transportCoolingMatch": {
-        "confidence": 1.0,
-        "rule": "grain → none (non-perishable)"
-      },
+      "transportCoolingMatch": { "confidence": 1.0, "rule": "grain → none (non-perishable)" },
       "visible": true
     }
   ],

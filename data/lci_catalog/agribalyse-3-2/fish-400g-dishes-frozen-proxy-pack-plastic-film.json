@@ -4,10 +4,7 @@
   "displayName": "Sachet en plastique (PP) pour plat préparé à base de poissons, congelé - 400g - Proxy",
   "id": "ce25816c-7f85-49f4-a86c-aa188b332519",
   "metadata": [
-    {
-      "id": "2609f73b-3a32-4d60-a1ec-6b3d752826b4",
-      "scopes": ["food2"]
-    }
+    { "id": "2609f73b-3a32-4d60-a1ec-6b3d752826b4", "scopes": ["food2"] }
   ],
   "scopes": ["food", "food2"],
   "source": "Agribalyse 3.2",

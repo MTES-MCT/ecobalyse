@@ -23,10 +23,7 @@
     {
       "alias": "sesame-seed-default",
       "cropGroup": "SEMENCES",
-      "cropGroupMatch": {
-        "confidence": 0.95,
-        "rule": "matched 'semences epeautre' in cropgroup.csv"
-      },
+      "cropGroupMatch": { "confidence": 0.95, "rule": "matched 'semences epeautre' in cropgroup.csv" },
       "defaultOrigin": "OutOfEuropeAndMaghreb",
       "displayName": "Graines de sésame Origine Inconnue",
       "id": "33408c9c-e1fd-506c-983c-ff92a6160e4d",
@@ -37,22 +34,13 @@
       },
       "ingredientCategories": ["grain_raw"],
       "ingredientDensity": 0.75,
-      "ingredientDensityMatch": {
-        "confidence": 1.0,
-        "rule": "grain default from food_type_density.csv"
-      },
+      "ingredientDensityMatch": { "confidence": 1.0, "rule": "grain default from food_type_density.csv" },
       "rawToCookedRatio": 2.259,
-      "rawToCookedRatioMatch": {
-        "confidence": 1.0,
-        "rule": "grain default from food_type_cooked_to_raw.csv"
-      },
+      "rawToCookedRatioMatch": { "confidence": 1.0, "rule": "grain default from food_type_cooked_to_raw.csv" },
       "scenario": "import",
       "scopes": ["food", "food2"],
       "transportCooling": "none",
-      "transportCoolingMatch": {
-        "confidence": 1.0,
-        "rule": "grain → none (non-perishable)"
-      },
+      "transportCoolingMatch": { "confidence": 1.0, "rule": "grain → none (non-perishable)" },
       "visible": true
     }
   ],

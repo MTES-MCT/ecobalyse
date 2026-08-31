@@ -8,31 +8,19 @@
     {
       "alias": "pineapple-organic",
       "cropGroup": "ARBORICULTURE",
-      "cropGroupMatch": {
-        "confidence": 1.0,
-        "rule": "matched 'pineapple' in cropgroup.csv"
-      },
+      "cropGroupMatch": { "confidence": 1.0, "rule": "matched 'pineapple' in cropgroup.csv" },
       "defaultOrigin": "France",
       "displayName": "Ananas Bio",
       "id": "c52c5693-d7b8-53ff-ba1e-5a0fa6e153a2",
       "inediblePart": 0.5,
-      "inediblePartMatch": {
-        "confidence": 1.0,
-        "rule": "Matched with Pineapple in agb_inedible.csv"
-      },
+      "inediblePartMatch": { "confidence": 1.0, "rule": "Matched with Pineapple in agb_inedible.csv" },
       "ingredientCategories": ["vegetable_fresh", "organic"],
       "ingredientDensity": 0.95,
-      "ingredientDensityMatch": {
-        "confidence": 1.0,
-        "rule": "pineapple found in density.csv"
-      },
+      "ingredientDensityMatch": { "confidence": 1.0, "rule": "pineapple found in density.csv" },
       "scenario": "organic",
       "scopes": ["food", "food2"],
       "transportCooling": "always",
-      "transportCoolingMatch": {
-        "confidence": 1.0,
-        "rule": "fruit NOVA 1 → always (perishable)"
-      },
+      "transportCoolingMatch": { "confidence": 1.0, "rule": "fruit NOVA 1 → always (perishable)" },
       "visible": true
     }
   ],

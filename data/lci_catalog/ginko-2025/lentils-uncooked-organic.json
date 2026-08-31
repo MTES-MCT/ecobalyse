@@ -23,10 +23,7 @@
     {
       "alias": "lentil-organic",
       "cropGroup": "LEGUMINEUSES A GRAIN",
-      "cropGroupMatch": {
-        "confidence": 1.0,
-        "rule": "matched 'lentil' in cropgroup.csv"
-      },
+      "cropGroupMatch": { "confidence": 1.0, "rule": "matched 'lentil' in cropgroup.csv" },
       "defaultOrigin": "France",
       "displayName": "Lentille Bio",
       "id": "7715786d-8371-57ad-9834-14ef625a0d24",
@@ -37,17 +34,11 @@
       },
       "ingredientCategories": ["vegetable_fresh", "organic"],
       "ingredientDensity": 0.8,
-      "ingredientDensityMatch": {
-        "confidence": 1.0,
-        "rule": "lentil found in density.csv"
-      },
+      "ingredientDensityMatch": { "confidence": 1.0, "rule": "lentil found in density.csv" },
       "scenario": "organic",
       "scopes": ["food", "food2"],
       "transportCooling": "always",
-      "transportCoolingMatch": {
-        "confidence": 1.0,
-        "rule": "legume NOVA 1 → always (perishable)"
-      },
+      "transportCoolingMatch": { "confidence": 1.0, "rule": "legume NOVA 1 → always (perishable)" },
       "visible": true
     }
   ],

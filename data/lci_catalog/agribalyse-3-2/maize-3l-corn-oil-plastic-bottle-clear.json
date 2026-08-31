@@ -4,10 +4,7 @@
   "displayName": "Bouteille en plastique (PET) pour huile de maïs - 3L",
   "id": "f00aa5c3-0608-4654-9b93-563f5e86e5f2",
   "metadata": [
-    {
-      "id": "08485471-5469-49ae-b8df-9caeadd7ea65",
-      "scopes": ["food2"]
-    }
+    { "id": "08485471-5469-49ae-b8df-9caeadd7ea65", "scopes": ["food2"] }
   ],
   "scopes": ["food", "food2"],
   "source": "Agribalyse 3.2",

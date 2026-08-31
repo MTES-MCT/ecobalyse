@@ -4,10 +4,7 @@
   "displayName": "Lot de 4 coupelles (aluminium) pour desserts - 400g",
   "id": "14619ea7-3513-4e35-b8db-c221ed6bb18b",
   "metadata": [
-    {
-      "id": "60527756-e346-479e-8f91-a57b082bff42",
-      "scopes": ["food2"]
-    }
+    { "id": "60527756-e346-479e-8f91-a57b082bff42", "scopes": ["food2"] }
   ],
   "scopes": ["food", "food2"],
   "source": "Agribalyse 3.2",

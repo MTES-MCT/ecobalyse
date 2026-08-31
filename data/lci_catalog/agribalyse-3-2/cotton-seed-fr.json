@@ -7,10 +7,7 @@
     {
       "alias": "cotton-seed-fr",
       "cropGroup": "SEMENCES",
-      "cropGroupMatch": {
-        "confidence": 0.95,
-        "rule": "matched 'semences epeautre' in cropgroup.csv"
-      },
+      "cropGroupMatch": { "confidence": 0.95, "rule": "matched 'semences epeautre' in cropgroup.csv" },
       "defaultOrigin": "France",
       "displayName": "Graine de coton FR",
       "id": "4344cfec-c1ea-5b29-9374-d78dc27767a5",
@@ -21,17 +18,11 @@
       },
       "ingredientCategories": ["vegetable_fresh"],
       "ingredientDensity": 0.9,
-      "ingredientDensityMatch": {
-        "confidence": 1.0,
-        "rule": "vegetable default from food_type_density.csv"
-      },
+      "ingredientDensityMatch": { "confidence": 1.0, "rule": "vegetable default from food_type_density.csv" },
       "scenario": "reference",
       "scopes": ["food", "food2"],
       "transportCooling": "always",
-      "transportCoolingMatch": {
-        "confidence": 1.0,
-        "rule": "vegetable NOVA 1 → always (perishable)"
-      },
+      "transportCoolingMatch": { "confidence": 1.0, "rule": "vegetable NOVA 1 → always (perishable)" },
       "visible": true
     }
   ],

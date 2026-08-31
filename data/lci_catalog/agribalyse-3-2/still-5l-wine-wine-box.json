@@ -4,10 +4,7 @@
   "displayName": "Bag in box pour vin tranquille - 5L",
   "id": "5dbbfe8a-3cbc-4848-b279-0461ed9aaa62",
   "metadata": [
-    {
-      "id": "13bca207-f43b-4005-b617-2de8df0313c0",
-      "scopes": ["food2"]
-    }
+    { "id": "13bca207-f43b-4005-b617-2de8df0313c0", "scopes": ["food2"] }
   ],
   "scopes": ["food", "food2"],
   "source": "Agribalyse 3.2",

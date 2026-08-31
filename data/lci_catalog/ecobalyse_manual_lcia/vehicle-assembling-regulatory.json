@@ -27,10 +27,7 @@
     "wtu": 0
   },
   "metadata": [
-    {
-      "id": "8b4fae1f-71bc-44d4-9e40-b2399ef04f34",
-      "scopes": ["veli"]
-    }
+    { "id": "8b4fae1f-71bc-44d4-9e40-b2399ef04f34", "scopes": ["veli"] }
   ],
   "qtyVariationRatio": 1,
   "scopes": ["veli"],

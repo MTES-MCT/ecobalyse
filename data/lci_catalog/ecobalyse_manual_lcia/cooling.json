@@ -27,10 +27,7 @@
     "wtu": 0
   },
   "metadata": [
-    {
-      "id": "b4642cec-b72e-4116-81c5-5dbfccb46055",
-      "scopes": ["food2"]
-    }
+    { "id": "b4642cec-b72e-4116-81c5-5dbfccb46055", "scopes": ["food2"] }
   ],
   "qtyVariationRatio": 1,
   "scopes": ["food2"],

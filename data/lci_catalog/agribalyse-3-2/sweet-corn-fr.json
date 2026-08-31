@@ -7,10 +7,7 @@
     {
       "alias": "corn-fr",
       "cropGroup": "MAIS GRAIN ET ENSILAGE",
-      "cropGroupMatch": {
-        "confidence": 1.0,
-        "rule": "matched 'corn' in cropgroup.csv"
-      },
+      "cropGroupMatch": { "confidence": 1.0, "rule": "matched 'corn' in cropgroup.csv" },
       "defaultOrigin": "France",
       "displayName": "Maïs FR",
       "id": "2d48fa6b-180f-59f8-9b08-c2d3663fec10",
@@ -21,17 +18,11 @@
       },
       "ingredientCategories": ["grain_raw"],
       "ingredientDensity": 0.72,
-      "ingredientDensityMatch": {
-        "confidence": 1.0,
-        "rule": "corn found in density.csv"
-      },
+      "ingredientDensityMatch": { "confidence": 1.0, "rule": "corn found in density.csv" },
       "scenario": "reference",
       "scopes": ["food", "food2"],
       "transportCooling": "none",
-      "transportCoolingMatch": {
-        "confidence": 1.0,
-        "rule": "grain → none (non-perishable)"
-      },
+      "transportCoolingMatch": { "confidence": 1.0, "rule": "grain → none (non-perishable)" },
       "visible": true
     },
     {

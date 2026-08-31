@@ -8,10 +8,7 @@
     {
       "alias": "corn-organic",
       "cropGroup": "MAIS GRAIN ET ENSILAGE",
-      "cropGroupMatch": {
-        "confidence": 1.0,
-        "rule": "matched 'corn' in cropgroup.csv"
-      },
+      "cropGroupMatch": { "confidence": 1.0, "rule": "matched 'corn' in cropgroup.csv" },
       "defaultOrigin": "France",
       "displayName": "Maïs Bio",
       "id": "9cc8d676-2e49-532d-93fa-c68cf04eb294",
@@ -22,17 +19,11 @@
       },
       "ingredientCategories": ["grain_raw", "organic"],
       "ingredientDensity": 0.72,
-      "ingredientDensityMatch": {
-        "confidence": 1.0,
-        "rule": "corn found in density.csv"
-      },
+      "ingredientDensityMatch": { "confidence": 1.0, "rule": "corn found in density.csv" },
       "scenario": "organic",
       "scopes": ["food", "food2"],
       "transportCooling": "none",
-      "transportCoolingMatch": {
-        "confidence": 1.0,
-        "rule": "grain → none (non-perishable)"
-      },
+      "transportCoolingMatch": { "confidence": 1.0, "rule": "grain → none (non-perishable)" },
       "visible": true
     }
   ],

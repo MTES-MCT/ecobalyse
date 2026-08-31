@@ -8,10 +8,7 @@
     {
       "alias": "soybean-default",
       "cropGroup": "AUTRES OLEAGINEUX",
-      "cropGroupMatch": {
-        "confidence": 1.0,
-        "rule": "matched 'soybean' in cropgroup.csv"
-      },
+      "cropGroupMatch": { "confidence": 1.0, "rule": "matched 'soybean' in cropgroup.csv" },
       "defaultOrigin": "OutOfEuropeAndMaghreb",
       "displayName": "Soja Origine Inconnue",
       "id": "2c2e014e-3a4a-523a-8d26-eead5e99a957",
@@ -22,17 +19,11 @@
       },
       "ingredientCategories": ["nut_oilseed_raw"],
       "ingredientDensity": 0.74,
-      "ingredientDensityMatch": {
-        "confidence": 1.0,
-        "rule": "Soybean found in fao_density.csv"
-      },
+      "ingredientDensityMatch": { "confidence": 1.0, "rule": "Soybean found in fao_density.csv" },
       "scenario": "import",
       "scopes": ["food", "food2"],
       "transportCooling": "none",
-      "transportCoolingMatch": {
-        "confidence": 1.0,
-        "rule": "nut_oilseed → none (non-perishable)"
-      },
+      "transportCoolingMatch": { "confidence": 1.0, "rule": "nut_oilseed → none (non-perishable)" },
       "visible": true
     }
   ],

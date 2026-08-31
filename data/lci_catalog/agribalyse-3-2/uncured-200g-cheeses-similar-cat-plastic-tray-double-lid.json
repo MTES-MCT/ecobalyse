@@ -4,10 +4,7 @@
   "displayName": "Barquette en plastique (PE/PA) pour fromage frais - 200g",
   "id": "34e092bb-c61a-4b39-94dc-9bd7d3be5561",
   "metadata": [
-    {
-      "id": "55af055e-079e-469c-b6c9-88c814352f45",
-      "scopes": ["food2"]
-    }
+    { "id": "55af055e-079e-469c-b6c9-88c814352f45", "scopes": ["food2"] }
   ],
   "scopes": ["food", "food2"],
   "source": "Agribalyse 3.2",

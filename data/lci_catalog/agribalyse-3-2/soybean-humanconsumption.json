@@ -7,10 +7,7 @@
     {
       "alias": "soybean-fr",
       "cropGroup": "AUTRES OLEAGINEUX",
-      "cropGroupMatch": {
-        "confidence": 1.0,
-        "rule": "matched 'soybean' in cropgroup.csv"
-      },
+      "cropGroupMatch": { "confidence": 1.0, "rule": "matched 'soybean' in cropgroup.csv" },
       "defaultOrigin": "France",
       "displayName": "Soja FR",
       "id": "c466ec83-7735-43b6-a919-c933e6656a8d",
@@ -21,17 +18,11 @@
       },
       "ingredientCategories": ["nut_oilseed_raw"],
       "ingredientDensity": 0.74,
-      "ingredientDensityMatch": {
-        "confidence": 1.0,
-        "rule": "Soybean found in fao_density.csv"
-      },
+      "ingredientDensityMatch": { "confidence": 1.0, "rule": "Soybean found in fao_density.csv" },
       "scenario": "reference",
       "scopes": ["food", "food2"],
       "transportCooling": "none",
-      "transportCoolingMatch": {
-        "confidence": 1.0,
-        "rule": "nut_oilseed → none (non-perishable)"
-      },
+      "transportCoolingMatch": { "confidence": 1.0, "rule": "nut_oilseed → none (non-perishable)" },
       "visible": true
     }
   ],

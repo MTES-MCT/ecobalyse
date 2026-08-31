@@ -5,10 +5,7 @@
   "displayName": "Verre",
   "id": "8c427c46-2e2e-4954-b785-123c0c4cb1c5",
   "metadata": [
-    {
-      "id": "70ef0167-b049-44b3-9165-65d3ab38e6e9",
-      "scopes": ["food2"]
-    }
+    { "id": "70ef0167-b049-44b3-9165-65d3ab38e6e9", "scopes": ["food2"] }
   ],
   "scopes": ["food", "food2"],
   "source": "Ecobalyse_custom_lci",

@@ -4,10 +4,7 @@
   "displayName": "Sachet en plastique (PE) pour café moulu - 250g - Proxy",
   "id": "b227b85d-b77c-4a34-8a81-a1e17fcefbdf",
   "metadata": [
-    {
-      "id": "2699a94a-1300-4227-a598-85d8362f543f",
-      "scopes": ["food2"]
-    }
+    { "id": "2699a94a-1300-4227-a598-85d8362f543f", "scopes": ["food2"] }
   ],
   "scopes": ["food", "food2"],
   "source": "Agribalyse 3.2",

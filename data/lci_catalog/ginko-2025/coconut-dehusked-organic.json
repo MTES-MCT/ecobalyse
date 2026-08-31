@@ -8,10 +8,7 @@
     {
       "alias": "coconut-dehusked-organic",
       "cropGroup": "FRUITS A COQUES",
-      "cropGroupMatch": {
-        "confidence": 1.0,
-        "rule": "nut default"
-      },
+      "cropGroupMatch": { "confidence": 1.0, "rule": "nut default" },
       "defaultOrigin": "France",
       "displayName": "Noix de coco décortiquée Bio",
       "id": "77a5e811-7024-5b2c-b07c-77ac6c4dd63e",
@@ -22,10 +19,7 @@
       },
       "ingredientCategories": ["nut_oilseed_raw", "organic"],
       "ingredientDensity": 0.5,
-      "ingredientDensityMatch": {
-        "confidence": 0.95,
-        "rule": "Matched with coconut in density.csv"
-      },
+      "ingredientDensityMatch": { "confidence": 0.95, "rule": "Matched with coconut in density.csv" },
       "rawToCookedRatio": 1.0,
       "rawToCookedRatioMatch": {
         "confidence": 1.0,
@@ -34,10 +28,7 @@
       "scenario": "organic",
       "scopes": ["food", "food2"],
       "transportCooling": "none",
-      "transportCoolingMatch": {
-        "confidence": 1.0,
-        "rule": "nut_oilseed → none (non-perishable)"
-      },
+      "transportCoolingMatch": { "confidence": 1.0, "rule": "nut_oilseed → none (non-perishable)" },
       "visible": true
     }
   ],

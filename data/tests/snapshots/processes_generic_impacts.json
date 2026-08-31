@@ -33,9 +33,7 @@
     "landOccupation": null,
     "location": null,
     "massPerUnit": null,
-    "metadata": {
-      "defaultOrigin": null
-    },
+    "metadata": { "defaultOrigin": null },
     "qtyVariationRatio": 1.0,
     "scopes": ["object"],
     "source": "Ecobalyse_custom_lci",
@@ -77,12 +75,7 @@
     "location": "GLO",
     "massPerUnit": null,
     "metadata": {
-      "complements": {
-        "cropDiversity": 0,
-        "hedges": -2.81,
-        "permanentPasture": null,
-        "plotSize": -4.45
-      },
+      "complements": { "cropDiversity": 0, "hedges": -2.81, "permanentPasture": null, "plotSize": -4.45 },
       "defaultOrigin": "FR",
       "ingredient": {
         "baseIngredient": "bean",
@@ -132,12 +125,7 @@
     "location": "GLO",
     "massPerUnit": null,
     "metadata": {
-      "complements": {
-        "cropDiversity": 0,
-        "hedges": -4.85,
-        "permanentPasture": null,
-        "plotSize": -4.45
-      },
+      "complements": { "cropDiversity": 0, "hedges": -4.85, "permanentPasture": null, "plotSize": -4.45 },
       "defaultOrigin": "FR",
       "ingredient": {
         "baseIngredient": "grazed-grass-permanent",
@@ -187,12 +175,7 @@
     "location": "GLO",
     "massPerUnit": null,
     "metadata": {
-      "complements": {
-        "cropDiversity": 0,
-        "hedges": -2.81,
-        "permanentPasture": 0,
-        "plotSize": -4.45
-      },
+      "complements": { "cropDiversity": 0, "hedges": -2.81, "permanentPasture": 0, "plotSize": -4.45 },
       "defaultOrigin": "FR",
       "ingredient": {
         "baseIngredient": "milk",
@@ -241,9 +224,7 @@
     "landOccupation": 1500.0,
     "location": "GLO",
     "massPerUnit": null,
-    "metadata": {
-      "defaultOrigin": null
-    },
+    "metadata": { "defaultOrigin": null },
     "qtyVariationRatio": 1.0,
     "scopes": ["object"],
     "source": "forwast",
@@ -285,9 +266,7 @@
     "location": "GLO",
     "massPerUnit": null,
     "metadata": {
-      "complements": {
-        "forest": -414.2
-      },
+      "complements": { "forest": -414.2 },
       "defaultOrigin": null,
       "forestManagement": "certifiedSustainableManagement"
     },

@@ -24,24 +24,15 @@
     {
       "alias": "almond-in-shell-organic",
       "cropGroup": "FRUITS A COQUES",
-      "cropGroupMatch": {
-        "confidence": 0.95,
-        "rule": "matched 'almond' in cropgroup.csv"
-      },
+      "cropGroupMatch": { "confidence": 0.95, "rule": "matched 'almond' in cropgroup.csv" },
       "defaultOrigin": "France",
       "displayName": "Amandes en coquille Bio",
       "id": "3ac20d85-53e3-58ed-870a-0e151f391ffe",
       "inediblePart": 0.5,
-      "inediblePartMatch": {
-        "confidence": 1.0,
-        "rule": "with shell keyword found in Almonds, in shell"
-      },
+      "inediblePartMatch": { "confidence": 1.0, "rule": "with shell keyword found in Almonds, in shell" },
       "ingredientCategories": ["nut_oilseed_raw", "organic"],
       "ingredientDensity": 0.46,
-      "ingredientDensityMatch": {
-        "confidence": 0.95,
-        "rule": "Matched with Almonds in fao_density.csv"
-      },
+      "ingredientDensityMatch": { "confidence": 0.95, "rule": "Matched with Almonds in fao_density.csv" },
       "rawToCookedRatio": 1.0,
       "rawToCookedRatioMatch": {
         "confidence": 1.0,
@@ -50,10 +41,7 @@
       "scenario": "organic",
       "scopes": ["food", "food2"],
       "transportCooling": "none",
-      "transportCoolingMatch": {
-        "confidence": 1.0,
-        "rule": "nut_oilseed → none (non-perishable)"
-      },
+      "transportCoolingMatch": { "confidence": 1.0, "rule": "nut_oilseed → none (non-perishable)" },
       "visible": true
     }
   ],

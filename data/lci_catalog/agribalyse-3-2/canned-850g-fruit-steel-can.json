@@ -4,10 +4,7 @@
   "displayName": "Boîte en acier avec étiquette pour légumes ou fruits, ambiant - 750g à 850g",
   "id": "c8bc5683-6276-4e75-bfb2-823e45e8f9d2",
   "metadata": [
-    {
-      "id": "44a2d398-1a9c-4e29-b652-3a82c501d3c8",
-      "scopes": ["food2"]
-    }
+    { "id": "44a2d398-1a9c-4e29-b652-3a82c501d3c8", "scopes": ["food2"] }
   ],
   "scopes": ["food", "food2"],
   "source": "Agribalyse 3.2",

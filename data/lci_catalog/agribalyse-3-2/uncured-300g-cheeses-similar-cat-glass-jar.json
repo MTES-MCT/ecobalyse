@@ -4,10 +4,7 @@
   "displayName": "Pot en verre pour fromage frais -300g",
   "id": "992877a9-2a0a-4228-b542-922d6766164a",
   "metadata": [
-    {
-      "id": "79323a07-1e73-4c55-9326-bce651f28bf1",
-      "scopes": ["food2"]
-    }
+    { "id": "79323a07-1e73-4c55-9326-bce651f28bf1", "scopes": ["food2"] }
   ],
   "scopes": ["food", "food2"],
   "source": "Agribalyse 3.2",

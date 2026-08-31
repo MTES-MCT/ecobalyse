@@ -4,10 +4,7 @@
   "displayName": "Boîte en aluminium imprimée pour maquereau, ambiant - 169g",
   "id": "7e34718b-5600-4b51-91f5-545247061594",
   "metadata": [
-    {
-      "id": "c21778d1-47f2-4718-bc97-e12bfd2347d5",
-      "scopes": ["food2"]
-    }
+    { "id": "c21778d1-47f2-4718-bc97-e12bfd2347d5", "scopes": ["food2"] }
   ],
   "scopes": ["food", "food2"],
   "source": "Agribalyse 3.2",

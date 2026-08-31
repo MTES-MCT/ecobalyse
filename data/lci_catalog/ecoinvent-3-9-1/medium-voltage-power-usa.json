@@ -7,10 +7,7 @@
   "heatMJ": 0,
   "id": "5756830a-a96c-5303-b6aa-a15cc727daaa",
   "metadata": [
-    {
-      "id": "aefbf44a-93bb-4177-9cfa-61c1f47e4130",
-      "scopes": ["food2"]
-    }
+    { "id": "aefbf44a-93bb-4177-9cfa-61c1f47e4130", "scopes": ["food2"] }
   ],
   "qtyVariationRatio": 1,
   "scopes": ["textile", "food2"],

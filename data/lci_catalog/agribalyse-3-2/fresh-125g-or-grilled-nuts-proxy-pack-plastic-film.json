@@ -4,10 +4,7 @@
   "displayName": "Sachet en plastique (PE) pour noix fraîches ou grillées - 125g - Proxy",
   "id": "4ef1fde7-1227-4b64-aae3-99d4e4ee2d33",
   "metadata": [
-    {
-      "id": "805b47ce-38fa-4aa1-ad9b-aa5eaba15fa3",
-      "scopes": ["food2"]
-    }
+    { "id": "805b47ce-38fa-4aa1-ad9b-aa5eaba15fa3", "scopes": ["food2"] }
   ],
   "scopes": ["food", "food2"],
   "source": "Agribalyse 3.2",

@@ -7,24 +7,15 @@
     {
       "alias": "sunflower-seed-non-eu",
       "cropGroup": "TOURNESOL",
-      "cropGroupMatch": {
-        "confidence": 0.95,
-        "rule": "matched 'sunflower' in cropgroup.csv"
-      },
+      "cropGroupMatch": { "confidence": 0.95, "rule": "matched 'sunflower' in cropgroup.csv" },
       "defaultOrigin": "OutOfEuropeAndMaghreb",
       "displayName": "Tournesol, graine HORS UE",
       "id": "5d1e4843-a051-5fd4-999d-65bdf697560d",
       "inediblePart": 0.0,
-      "inediblePartMatch": {
-        "confidence": 0.96,
-        "rule": "Matched with sunflower seed in inedible_part.csv"
-      },
+      "inediblePartMatch": { "confidence": 0.96, "rule": "Matched with sunflower seed in inedible_part.csv" },
       "ingredientCategories": ["nut_oilseed_raw"],
       "ingredientDensity": 0.62,
-      "ingredientDensityMatch": {
-        "confidence": 1.0,
-        "rule": "Sunflower, seed found in fao_density.csv"
-      },
+      "ingredientDensityMatch": { "confidence": 1.0, "rule": "Sunflower, seed found in fao_density.csv" },
       "rawToCookedRatio": 1.0,
       "rawToCookedRatioMatch": {
         "confidence": 1.0,
@@ -33,10 +24,7 @@
       "scenario": "import",
       "scopes": ["food", "food2"],
       "transportCooling": "none",
-      "transportCoolingMatch": {
-        "confidence": 1.0,
-        "rule": "nut_oilseed → none (non-perishable)"
-      },
+      "transportCoolingMatch": { "confidence": 1.0, "rule": "nut_oilseed → none (non-perishable)" },
       "visible": true
     }
   ],

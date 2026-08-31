@@ -4,10 +4,7 @@
   "displayName": "Sachet en plastique (Kraft-OPP) pour saucisson sec entier - 250 g",
   "id": "e84924b5-9371-4836-a02e-10ace2280b37",
   "metadata": [
-    {
-      "id": "0c61c400-3cb2-4172-b6a6-9a41e8ac742d",
-      "scopes": ["food2"]
-    }
+    { "id": "0c61c400-3cb2-4172-b6a6-9a41e8ac742d", "scopes": ["food2"] }
   ],
   "scopes": ["food", "food2"],
   "source": "Agribalyse 3.2",

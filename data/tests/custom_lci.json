@@ -5,17 +5,10 @@
     "comment": "",
     "database": "forwast",
     "delete": [
-      {
-        "name": "__1 Bovine meat and milk, DK"
-      },
-      {
-        "name": "Nitrogen oxides"
-      }
+      { "name": "__1 Bovine meat and milk, DK" },
+      { "name": "Nitrogen oxides" }
     ],
-    "existingActivity": {
-      "database": "forwast",
-      "name": "__4 Grain crops, DK"
-    },
+    "existingActivity": { "database": "forwast", "name": "__4 Grain crops, DK" },
     "id": "746e9a35-31ab-4a77-9ffb-22cc420de6fb",
     "newName": "Grain crops modified example"
   },
@@ -25,16 +18,8 @@
     "comment": "",
     "database": "forwast",
     "exchanges": [
-      {
-        "amount": 1,
-        "database": "forwast",
-        "name": "__4 Grain crops, DK"
-      },
-      {
-        "amount": 2,
-        "database": "forwast",
-        "name": "__5 Sugar beets, DK"
-      }
+      { "amount": 1, "database": "forwast", "name": "__4 Grain crops, DK" },
+      { "amount": 2, "database": "forwast", "name": "__5 Sugar beets, DK" }
     ],
     "id": "e767795e-e97a-4325-b79b-729608196177",
     "newName": "Example activity from scratch"

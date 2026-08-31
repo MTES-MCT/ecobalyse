@@ -88,10 +88,7 @@
     "displayName": "Example activity from scratch",
     "id": "c651e52a-3965-54af-a216-fb5e90a80d8e",
     "metadata": [
-      {
-        "id": "a1b2c3d4-e5f6-7890-abcd-ef1234567890",
-        "scopes": ["object"]
-      }
+      { "id": "a1b2c3d4-e5f6-7890-abcd-ef1234567890", "scopes": ["object"] }
     ],
     "scopes": ["object"],
     "source": "Ecobalyse_custom_lci",
@@ -274,10 +271,7 @@
     "metadata": [
       {
         "alias": "ei-pet-r",
-        "cff": {
-          "manufacturerAllocation": 0.5,
-          "recycledQualityRatio": 1
-        },
+        "cff": { "manufacturerAllocation": 0.5, "recycledQualityRatio": 1 },
         "defaultCountry": "CN",
         "displayName": "Production de PET recyclé, granulés, amorphe",
         "geographicOrigin": "Asie - Pacifique",

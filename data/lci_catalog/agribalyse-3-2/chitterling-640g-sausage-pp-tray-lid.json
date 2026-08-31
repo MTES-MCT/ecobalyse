@@ -4,10 +4,7 @@
   "displayName": "Barquette en plastique (PP) pour andouille/andouillette - 640g",
   "id": "4446a824-39a2-46c0-9944-a64bb851ab27",
   "metadata": [
-    {
-      "id": "197d02f7-0fcc-4e51-be7e-816c35ab2a27",
-      "scopes": ["food2"]
-    }
+    { "id": "197d02f7-0fcc-4e51-be7e-816c35ab2a27", "scopes": ["food2"] }
   ],
   "scopes": ["food", "food2"],
   "source": "Agribalyse 3.2",

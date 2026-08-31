@@ -4,10 +4,7 @@
   "displayName": "Sachet en plastique (PE) pour dessert pour bébés - 340g - Proxy",
   "id": "da5657ee-fdfe-45cf-a031-7f8ea8a85e08",
   "metadata": [
-    {
-      "id": "5a4135e0-ac80-45b9-8319-d71596704c87",
-      "scopes": ["food2"]
-    }
+    { "id": "5a4135e0-ac80-45b9-8319-d71596704c87", "scopes": ["food2"] }
   ],
   "scopes": ["food", "food2"],
   "source": "Agribalyse 3.2",
