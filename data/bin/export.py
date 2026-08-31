@@ -10,6 +10,7 @@ from typing import Annotated
 import typer
 from bw2data.project import projects
 
+from bin.generate_taxonomy_with_aliases import write_taxonomy_with_aliases
 from config import DATA_ROOT_DIR, settings
 from ecobalyse_data.export import export_generic
 from ecobalyse_data.export import food as export_food
@@ -41,6 +42,7 @@ def metadata(
         ),
     ] = max(multiprocessing.cpu_count() // 2, 1),
     root_dir: Path = DATA_ROOT_DIR,
+    write_taxonomy: bool = True,
 ):
     """
     Export metadata files (materials.json, ingredients.json, …)
@@ -53,6 +55,13 @@ def metadata(
     # Metadata (materials/ingredients) is written both to the published dir and the local data dir
 
     activities = _get_lcis(root_dir)
+
+    if write_taxonomy:
+        write_taxonomy_with_aliases(
+            taxonomy_with_aliases_path=root_dir
+            / settings.scopes.food.dirname
+            / settings.scopes.food.taxonomy_with_aliases_file
+        )
 
     processes_impacts_path = (
         root_dir / settings.export_dir / settings.processes_legacy_impacts_full_file

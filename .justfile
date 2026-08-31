@@ -43,6 +43,9 @@ export-all:
     {{ python-cmd-data }} {{ export-script }} metadata
     {{ python-cmd-data }} {{ export-script }} merge-processes
 
+generate-taxonomy-with-aliases:
+    {{ python-cmd-data }} data/bin/generate_taxonomy_with_aliases.py
+
 merge-processes:
     {{ python-cmd-data }} {{ export-script }} merge-processes
 

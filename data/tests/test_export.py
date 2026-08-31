@@ -43,6 +43,7 @@ def test_export_ingredients(
     export.metadata(
         scopes=[export.MetadataScope.food],
         root_dir=TESTS_FIXTURE_DIR,
+        write_taxonomy=False,
     )
 
     with open(output_path / "ingredients.json", "rb") as f:
@@ -60,6 +61,7 @@ def test_export_materials(forwast, tmp_path, materials_textile_json):
     export.metadata(
         scopes=[export.MetadataScope.textile],
         root_dir=TESTS_FIXTURE_DIR,
+        write_taxonomy=False,
     )
 
     with open(output_path / "materials.json", "rb") as f:
@@ -82,6 +84,7 @@ def test_export_processes_generic(
     export.metadata(
         scopes=[export.MetadataScope.generic],
         root_dir=TESTS_FIXTURE_DIR,
+        write_taxonomy=False,
     )
 
     with open(tmp_path / settings.processes_generic_impacts_file, "rb") as f:
