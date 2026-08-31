@@ -11,9 +11,13 @@ from collections import defaultdict
 from pathlib import Path
 
 from common.infer_metadata import infer_base_ingredient, load_taxonomy
-from config import DATA_ROOT_DIR
+from config import DATA_ROOT_DIR, settings
 
-TAXONOMY_WITH_ALIASES_PATH = DATA_ROOT_DIR / "food" / "taxonomy_with_aliases.json"
+TAXONOMY_WITH_ALIASES_PATH = (
+    DATA_ROOT_DIR
+    / settings.scopes.food.dirname
+    / settings.scopes.food.taxonomy_with_aliases_file
+)
 
 
 def build_taxonomy_with_aliases(

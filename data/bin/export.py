@@ -57,7 +57,11 @@ def metadata(
     activities = _get_lcias(root_dir)
 
     if write_taxonomy:
-        write_taxonomy_with_aliases()
+        write_taxonomy_with_aliases(
+            taxonomy_with_aliases_path=root_dir
+            / settings.scopes.food.dirname
+            / settings.scopes.food.taxonomy_with_aliases_file
+        )
 
     processes_impacts_path = (
         root_dir / settings.export_dir / settings.processes_legacy_impacts_full_file
