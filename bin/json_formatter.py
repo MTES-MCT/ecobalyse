@@ -6,7 +6,6 @@ from pathlib import Path
 from typing import Annotated
 
 import typer
-from data.config import settings
 from ecobalyse.json import CompactJSONEncoder, activities_processes_sort_key
 from ecobalyse.logging import logger
 
@@ -30,7 +29,7 @@ SORT_PATHS = [
 ]
 
 
-def _lint_and_fix(path: Path, fix: bool):
+def _lint_and_fix(path: Path, fix: bool, number_precision: int):
     logger.debug(f"Checking {path}")
 
     with open(path, "r", encoding="utf-8") as fp:
@@ -40,11 +39,11 @@ def _lint_and_fix(path: Path, fix: bool):
         try:
             input_data = json.loads(src_data)
 
-            number_precision = None
+            precision = None
             if path.name in SORT_PATHS:
                 input_data.sort(key=activities_processes_sort_key)
                 # Only apply precision number to processes files
-                number_precision = settings.number_precision
+                precision = number_precision
 
             formatted_data = json.dumps(
                 input_data,
@@ -52,7 +51,7 @@ def _lint_and_fix(path: Path, fix: bool):
                 sort_keys=True,
                 indent=2,
                 cls=CompactJSONEncoder,
-                number_precision=number_precision,
+                number_precision=precision,
             )
             formatted_data += "\n"
 
@@ -89,6 +88,12 @@ def main(
             help="The paths of json files or of directories containing json files",
         ),
     ],
+    number_precision: Annotated[
+        int,
+        typer.Option(
+            help="Float precision to apply to process files",
+        ),
+    ] = 4,
     fix: Annotated[
         bool,
         typer.Option(
@@ -108,7 +113,7 @@ def main(
             logger.debug(f"ignoring {path}")
             continue
         if path.is_file():
-            success = _lint_and_fix(path, fix)
+            success = _lint_and_fix(path, fix, number_precision)
             if not success:
                 raise typer.Exit(-1)
         else:
@@ -119,7 +124,7 @@ def main(
                 if is_excluded(json_file):
                     logger.debug(f"ignoring {json_file}")
                     continue
-                success = _lint_and_fix(json_file, fix)
+                success = _lint_and_fix(json_file, fix, number_precision)
                 if not success:
                     raise typer.Exit(-1)
 
