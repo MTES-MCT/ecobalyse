@@ -142,6 +142,7 @@ def metadata(
                 ecosystemic_factors_path=ecosystemic_factors_path,
                 feed_file_path=feed_file_path,
                 raw_to_transformed_file_path=raw_to_transformed_file_path,
+                number_precision=settings.number_precision,
             )
 
 

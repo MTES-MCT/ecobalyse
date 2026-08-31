@@ -10,7 +10,6 @@ from common.infer_metadata import (
     infer_base_ingredient,
     infer_default_origin,
 )
-from config import settings
 from ecobalyse_data.bw.search import cached_search_one
 from ecobalyse_data.export.complements import compute_forest_complement
 from ecobalyse_data.export.land_occupation import compute_land_occupation_batch
@@ -229,6 +228,7 @@ def activities_to_processes_generic_json(
     raw_to_transformed_file_path: str,
     cpu_count: int = 1,
     ecosystemic_factors_path: str | None = None,
+    number_precision: int | None = None,
 ) -> list[dict]:
     """Export object processes to ProcessGeneric json files."""
     generic_dicts = compute_processes_generic(
@@ -245,7 +245,7 @@ def activities_to_processes_generic_json(
             generic_dicts,
             path,
             sort_fn=activities_processes_sort_key,
-            number_precision=settings.number_precision,
+            number_precision=number_precision,
         )
         logger.info(f"Exported {len(generic_dicts)} generic processes to {path}")
 
@@ -255,7 +255,7 @@ def activities_to_processes_generic_json(
             without_detailed_impacts,
             path,
             sort_fn=activities_processes_sort_key,
-            number_precision=settings.number_precision,
+            number_precision=number_precision,
         )
         logger.info(
             f"Exported {len(without_detailed_impacts)} generic processes without detailed impacts to {path}"
