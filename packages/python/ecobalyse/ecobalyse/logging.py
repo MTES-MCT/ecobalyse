@@ -1,12 +1,14 @@
+import importlib.util
 import logging
 
 from rich.logging import RichHandler
 
-from config import settings
-
 logger = logging.getLogger(__name__)
 
-logger.setLevel(settings.LOG_LEVEL)
+if importlib.util.find_spec("dynaconf") is not None:
+    from config import settings
+
+    logger.setLevel(settings.LOG_LEVEL)
 
 handler = RichHandler(markup=True)
 handler.setFormatter(logging.Formatter(fmt="%(message)s", datefmt="[%X]"))

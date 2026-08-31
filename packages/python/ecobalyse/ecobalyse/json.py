@@ -3,8 +3,6 @@ import json
 from typing import Any
 from uuid import UUID
 
-from .logging import logger
-
 # See this gist for inspiration
 # https://gist.github.com/jannismain/e96666ca4f059c3e5bc28abb711b5c92
 
@@ -167,11 +165,8 @@ def export_json(
     sort_fn=None,
     number_precision=None,
 ):
-    logger.info(f"Exporting {filename}")
     json_string = dict_to_json_string(json_data, sort_fn, number_precision)
 
     with open(filename, "w", encoding="utf-8") as file:
         file.write(json_string)
         file.write("\n")  # Add a newline at the end of the file
-
-    logger.info(f"Exported {len(json_data)} elements to {filename}")
