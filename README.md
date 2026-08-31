@@ -8,7 +8,7 @@ L’application est accessible [à cette adresse](https://ecobalyse.beta.gouv.fr
 
 ## Socle technique et prérequis
 
-Le frontend de cette application est écrit en [Elm](https://elm-lang.org/). Vous devez disposer d’un environnement [NodeJS](https://nodejs.org/fr/) 22+ et `npm`. Pour le backend vous devez disposer d’un environnement [python](https://www.python.org/) >=3.12, [uv](https://docs.astral.sh/uv/) et [gettext](https://www.gnu.org/software/gettext/) sur votre machine. Certains fichiers d’impacts détaillés nécessitent de configurer [`transcrypt`](https://github.com/elasticdog/transcrypt) pour les lire en local et le formattage des fichiers `json` requiert l’installation de [`ripgrep`](https://github.com/burntsushi/ripgrep).
+Le frontend de cette application est écrit en [Elm](https://elm-lang.org/). Vous devez disposer d’un environnement [NodeJS](https://nodejs.org/fr/) 22+ et `npm`. Pour le backend vous devez disposer d’un environnement [python](https://www.python.org/) >=3.12, [uv](https://docs.astral.sh/uv/) et [gettext](https://www.gnu.org/software/gettext/) sur votre machine. Certains fichiers d’impacts détaillés nécessitent de configurer [`transcrypt`](https://github.com/elasticdog/transcrypt) pour les lire en local et le formatage des fichiers `json` requiert l’installation de [`ripgrep`](https://github.com/burntsushi/ripgrep).
 
 [docker](https://www.docker.com/) est également une dépendance requise pour lancer la suite de tests.
 
