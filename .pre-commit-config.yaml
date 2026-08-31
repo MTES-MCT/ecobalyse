@@ -17,7 +17,7 @@ repos:
         language: system
         files: ^.*$
         exclude: data
-        types_or: [javascript, json]
+        types_or: [javascript]
         entry: |
           bash -c 'npm --prefix . run fix:prettier -- "${@}"'
 
