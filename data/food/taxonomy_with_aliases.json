@@ -22,20 +22,9 @@
         "barley-whole-fr",
         "barley-whole-non-eu"
       ],
-      "basmati-rice": [
-        "basmati-rice-default",
-        "basmati-rice-non-eu",
-        "basmati-rice-organic"
-      ],
-      "bean": [
-        "bean-eu-2025",
-        "bean-fr-2025",
-        "bean-non-eu-2025",
-        "bean-organic-2025"
-      ],
-      "breakfast-cereals": [
-        "breakfast-cereals-2025"
-      ],
+      "basmati-rice": ["basmati-rice-default", "basmati-rice-non-eu", "basmati-rice-organic"],
+      "bean": ["bean-eu-2025", "bean-fr-2025", "bean-non-eu-2025", "bean-organic-2025"],
+      "breakfast-cereals": ["breakfast-cereals-2025"],
       "corn": [
         "corn-default",
         "corn-eu",
@@ -94,13 +83,7 @@
         "pasta-glo-fr",
         "pasta-glo-it"
       ],
-      "quinoa": [
-        "quinoa-default",
-        "quinoa-eu",
-        "quinoa-fr",
-        "quinoa-non-eu",
-        "quinoa-organic"
-      ],
+      "quinoa": ["quinoa-default", "quinoa-eu", "quinoa-fr", "quinoa-non-eu", "quinoa-organic"],
       "rice": [
         "rice-basmati-eu-2025",
         "rice-basmati-non-eu-2025",
@@ -111,21 +94,9 @@
         "rice-raw-non-eu",
         "rice-raw-organic"
       ],
-      "rye-whole": [
-        "rye-whole-default",
-        "rye-whole-eu",
-        "rye-whole-fr",
-        "rye-whole-non-eu"
-      ],
-      "sesame-seed": [
-        "sesame-seed-default",
-        "sesame-seed-non-eu",
-        "sesame-seed-organic"
-      ],
-      "silage-maize": [
-        "silage-maize-fr-2025",
-        "silage-maize-organic-2025"
-      ],
+      "rye-whole": ["rye-whole-default", "rye-whole-eu", "rye-whole-fr", "rye-whole-non-eu"],
+      "sesame-seed": ["sesame-seed-default", "sesame-seed-non-eu", "sesame-seed-organic"],
+      "silage-maize": ["silage-maize-fr-2025", "silage-maize-organic-2025"],
       "soft-wheat": [
         "soft-wheat-default",
         "soft-wheat-eu",
@@ -138,22 +109,9 @@
         "soft-wheat-non-eu-2025",
         "soft-wheat-organic"
       ],
-      "sorghum": [
-        "sorghum-default",
-        "sorghum-fr",
-        "sorghum-non-eu",
-        "sorghum-organic"
-      ],
-      "spelt": [
-        "spelt-default",
-        "spelt-eu",
-        "spelt-fr",
-        "spelt-non-eu",
-        "spelt-organic"
-      ],
-      "triticale": [
-        "triticale-organic-2025"
-      ]
+      "sorghum": ["sorghum-default", "sorghum-fr", "sorghum-non-eu", "sorghum-organic"],
+      "spelt": ["spelt-default", "spelt-eu", "spelt-fr", "spelt-non-eu", "spelt-organic"],
+      "triticale": ["triticale-organic-2025"]
     },
     "eggs": {
       "egg": [
@@ -171,57 +129,21 @@
         "egg-shelled-raw-fr",
         "egg-shelled-raw-fr-organic"
       ],
-      "egg-without-shell": [
-        "egg-without-shell-fr-2025"
-      ]
+      "egg-without-shell": ["egg-without-shell-fr-2025"]
     },
     "fish_and_shellfish": {
-      "anchovy": [
-        "anchovy-eu-2025",
-        "anchovy-fr-2025",
-        "anchovy-non-eu-2025"
-      ],
-      "crab": [
-        "crab-eu-2025",
-        "crab-fr-2025"
-      ],
-      "fresh-shrimps": [
-        "fresh-shrimps-2025"
-      ],
-      "large-trout": [
-        "large-trout-2025"
-      ],
-      "lobster": [
-        "lobster-eu-2025",
-        "lobster-fr-2025",
-        "lobster-non-eu-2025"
-      ],
-      "sea-salt": [
-        "sea-salt-default",
-        "sea-salt-eu",
-        "sea-salt-fr",
-        "sea-salt-non-eu"
-      ],
-      "snail": [
-        "snail-default",
-        "snail-eu",
-        "snail-fr",
-        "snail-non-eu"
-      ],
-      "squid": [
-        "squid-fr-2025"
-      ],
-      "unknown-fishery-products": [
-        "unknown-fishery-products-2025"
-      ]
+      "anchovy": ["anchovy-eu-2025", "anchovy-fr-2025", "anchovy-non-eu-2025"],
+      "crab": ["crab-eu-2025", "crab-fr-2025"],
+      "fresh-shrimps": ["fresh-shrimps-2025"],
+      "large-trout": ["large-trout-2025"],
+      "lobster": ["lobster-eu-2025", "lobster-fr-2025", "lobster-non-eu-2025"],
+      "sea-salt": ["sea-salt-default", "sea-salt-eu", "sea-salt-fr", "sea-salt-non-eu"],
+      "snail": ["snail-default", "snail-eu", "snail-fr", "snail-non-eu"],
+      "squid": ["squid-fr-2025"],
+      "unknown-fishery-products": ["unknown-fishery-products-2025"]
     },
     "fruits_and_vegetables": {
-      "agave": [
-        "agave-default",
-        "agave-eu",
-        "agave-non-eu",
-        "agave-organic"
-      ],
+      "agave": ["agave-default", "agave-eu", "agave-non-eu", "agave-organic"],
       "apple": [
         "apple-default",
         "apple-eu",
@@ -233,9 +155,7 @@
         "apple-pulp-raw-fr",
         "apple-pulp-raw-fr-organic"
       ],
-      "apple-compote": [
-        "apple-compote-fr-2025"
-      ],
+      "apple-compote": ["apple-compote-fr-2025"],
       "apricot": [
         "apricot-default",
         "apricot-eu",
@@ -337,9 +257,7 @@
         "blueberry-organic",
         "blueberry-organic-2025"
       ],
-      "bolognese": [
-        "bolognese-2025"
-      ],
+      "bolognese": ["bolognese-2025"],
       "breadfruit": [
         "breadfruit-default",
         "breadfruit-eu",
@@ -375,17 +293,8 @@
         "brussels-sprout-organic-2025",
         "brussels-sprout-ue-2025"
       ],
-      "carambola": [
-        "carambola-default",
-        "carambola-non-eu",
-        "carambola-organic"
-      ],
-      "cardoon": [
-        "cardoon-default",
-        "cardoon-eu",
-        "cardoon-non-eu",
-        "cardoon-organic"
-      ],
+      "carambola": ["carambola-default", "carambola-non-eu", "carambola-organic"],
+      "cardoon": ["cardoon-default", "cardoon-eu", "cardoon-non-eu", "cardoon-organic"],
       "carrot": [
         "carrot-cut-raw-default",
         "carrot-cut-raw-fr",
@@ -429,9 +338,7 @@
         "celery-organic",
         "celery-organic-2025"
       ],
-      "chard": [
-        "chard-organic-2025"
-      ],
+      "chard": ["chard-organic-2025"],
       "cherry": [
         "cherry-default",
         "cherry-eu",
@@ -476,13 +383,7 @@
         "chinese-cabbage-organic-2025",
         "chinese-cabbage-ue-2025"
       ],
-      "chive": [
-        "chive-default",
-        "chive-eu",
-        "chive-fr",
-        "chive-non-eu",
-        "chive-organic"
-      ],
+      "chive": ["chive-default", "chive-eu", "chive-fr", "chive-non-eu", "chive-organic"],
       "clementine": [
         "clementine-default",
         "clementine-eu",
@@ -491,22 +392,9 @@
         "clementine-non-eu-2025",
         "clementine-organic"
       ],
-      "cocoa-bean": [
-        "cocoa-bean-default",
-        "cocoa-bean-non-eu"
-      ],
-      "cotton-seed": [
-        "cotton-seed-default",
-        "cotton-seed-eu",
-        "cotton-seed-fr",
-        "cotton-seed-non-eu"
-      ],
-      "cranberry": [
-        "cranberry-default",
-        "cranberry-fr",
-        "cranberry-non-eu",
-        "cranberry-organic"
-      ],
+      "cocoa-bean": ["cocoa-bean-default", "cocoa-bean-non-eu"],
+      "cotton-seed": ["cotton-seed-default", "cotton-seed-eu", "cotton-seed-fr", "cotton-seed-non-eu"],
+      "cranberry": ["cranberry-default", "cranberry-fr", "cranberry-non-eu", "cranberry-organic"],
       "cucumber": [
         "cucumber-default",
         "cucumber-default-2025",
@@ -522,15 +410,8 @@
         "cucumber-pulp-raw-fr",
         "cucumber-pulp-raw-fr-organic"
       ],
-      "curly-kale": [
-        "curly-kale-organic-2025"
-      ],
-      "date": [
-        "date-default",
-        "date-default-2025",
-        "date-non-eu",
-        "date-organic"
-      ],
+      "curly-kale": ["curly-kale-organic-2025"],
+      "date": ["date-default", "date-default-2025", "date-non-eu", "date-organic"],
       "eggplant": [
         "eggplant-default",
         "eggplant-eu",
@@ -582,12 +463,8 @@
         "french-bean-non-eu-2025",
         "french-bean-organic"
       ],
-      "french-fries": [
-        "french-fries-2025"
-      ],
-      "fruit-puree": [
-        "fruit-puree-2025"
-      ],
+      "french-fries": ["french-fries-2025"],
+      "fruit-puree": ["fruit-puree-2025"],
       "garlic": [
         "garlic-default",
         "garlic-dried-powder-default",
@@ -598,12 +475,7 @@
         "garlic-non-eu",
         "garlic-organic"
       ],
-      "gherkin": [
-        "gherkin-default",
-        "gherkin-eu",
-        "gherkin-fr",
-        "gherkin-non-eu"
-      ],
+      "gherkin": ["gherkin-default", "gherkin-eu", "gherkin-fr", "gherkin-non-eu"],
       "gooseberry": [
         "gooseberry-default",
         "gooseberry-eu",
@@ -611,16 +483,8 @@
         "gooseberry-non-eu",
         "gooseberry-organic"
       ],
-      "grape": [
-        "grape-default",
-        "grape-eu",
-        "grape-fr",
-        "grape-non-eu",
-        "grape-organic"
-      ],
-      "grape-black-or-white": [
-        "grape-black-or-white-default-2025"
-      ],
+      "grape": ["grape-default", "grape-eu", "grape-fr", "grape-non-eu", "grape-organic"],
+      "grape-black-or-white": ["grape-black-or-white-default-2025"],
       "grapefruit": [
         "grapefruit-default",
         "grapefruit-eu",
@@ -665,13 +529,7 @@
         "jerusalem-artichoke-non-eu",
         "jerusalem-artichoke-organic"
       ],
-      "kale": [
-        "kale-default",
-        "kale-eu",
-        "kale-fr",
-        "kale-non-eu",
-        "kale-organic"
-      ],
+      "kale": ["kale-default", "kale-eu", "kale-fr", "kale-non-eu", "kale-organic"],
       "kiwi": [
         "kiwi-default",
         "kiwi-eu",
@@ -732,19 +590,8 @@
         "lettuce-non-eu-2025",
         "lettuce-organic-2025"
       ],
-      "lima-bean": [
-        "lima-bean-default",
-        "lima-bean-eu",
-        "lima-bean-non-eu",
-        "lima-bean-organic"
-      ],
-      "lupin": [
-        "lupin-default",
-        "lupin-eu",
-        "lupin-fr",
-        "lupin-non-eu",
-        "lupin-organic"
-      ],
+      "lima-bean": ["lima-bean-default", "lima-bean-eu", "lima-bean-non-eu", "lima-bean-organic"],
+      "lupin": ["lupin-default", "lupin-eu", "lupin-fr", "lupin-non-eu", "lupin-organic"],
       "lychee": [
         "lychee-default",
         "lychee-fr",
@@ -753,10 +600,7 @@
         "lychee-non-eu-2025",
         "lychee-organic"
       ],
-      "mandarin": [
-        "mandarin-eu-2025",
-        "mandarin-non-eu-2025"
-      ],
+      "mandarin": ["mandarin-eu-2025", "mandarin-non-eu-2025"],
       "mango": [
         "mango-default",
         "mango-fr",
@@ -792,19 +636,14 @@
         "mung-bean-sprouted-non-eu",
         "mung-bean-sprouted-organic"
       ],
-      "mushroom": [
-        "mushroom-eu-2025",
-        "mushroom-fr-2025"
-      ],
+      "mushroom": ["mushroom-eu-2025", "mushroom-fr-2025"],
       "mushroom-morel": [
         "mushroom-morel-default",
         "mushroom-morel-eu",
         "mushroom-morel-fr",
         "mushroom-morel-non-eu"
       ],
-      "mustard": [
-        "mustard-2025"
-      ],
+      "mustard": ["mustard-2025"],
       "nectarine": [
         "nectarine-default",
         "nectarine-eu",
@@ -849,11 +688,7 @@
         "orange-pulp-raw-default-organic",
         "orange-pulp-raw-fr"
       ],
-      "palm-fruit": [
-        "palm-fruit-default",
-        "palm-fruit-non-eu",
-        "palm-fruit-organic"
-      ],
+      "palm-fruit": ["palm-fruit-default", "palm-fruit-non-eu", "palm-fruit-organic"],
       "papaya": [
         "papaya-default",
         "papaya-fr",
@@ -874,11 +709,7 @@
         "parsnip-non-eu",
         "parsnip-organic"
       ],
-      "passion-fruit": [
-        "passion-fruit-default",
-        "passion-fruit-non-eu",
-        "passion-fruit-organic"
-      ],
+      "passion-fruit": ["passion-fruit-default", "passion-fruit-non-eu", "passion-fruit-organic"],
       "peach": [
         "peach-default",
         "peach-eu",
@@ -903,12 +734,7 @@
         "pineapple-pulp-raw-default-organic",
         "pineapple-pulp-raw-fr"
       ],
-      "plantain": [
-        "plantain-default",
-        "plantain-fr",
-        "plantain-non-eu",
-        "plantain-organic"
-      ],
+      "plantain": ["plantain-default", "plantain-fr", "plantain-non-eu", "plantain-organic"],
       "plum": [
         "plum-eu-2025",
         "plum-fr-2025",
@@ -925,17 +751,8 @@
         "pomegranate-non-eu",
         "pomegranate-organic"
       ],
-      "potato": [
-        "potato-default",
-        "potato-eu",
-        "potato-fr",
-        "potato-non-eu",
-        "potato-organic"
-      ],
-      "potato-industry": [
-        "potato-industry-fr-2025",
-        "potato-industry-organic-2025"
-      ],
+      "potato": ["potato-default", "potato-eu", "potato-fr", "potato-non-eu", "potato-organic"],
+      "potato-industry": ["potato-industry-fr-2025", "potato-industry-organic-2025"],
       "potato-table": [
         "potato-table-eu-2025",
         "potato-table-fr-2025",
@@ -949,13 +766,7 @@
         "pumpkin-non-eu",
         "pumpkin-organic"
       ],
-      "quince": [
-        "quince-default",
-        "quince-eu",
-        "quince-fr",
-        "quince-non-eu",
-        "quince-organic"
-      ],
+      "quince": ["quince-default", "quince-eu", "quince-fr", "quince-non-eu", "quince-organic"],
       "raspberry": [
         "raspberry-default",
         "raspberry-eu",
@@ -975,10 +786,7 @@
         "red-bean-dried-non-eu",
         "red-bean-dried-organic"
       ],
-      "red-cabbage": [
-        "red-cabbage-non-eu-2025",
-        "red-cabbage-organic-2025"
-      ],
+      "red-cabbage": ["red-cabbage-non-eu-2025", "red-cabbage-organic-2025"],
       "red-currant": [
         "red-currant-default",
         "red-currant-eu",
@@ -1014,11 +822,7 @@
         "salad-lettuce-non-eu",
         "salad-lettuce-organic"
       ],
-      "salicornia-fresh": [
-        "salicornia-fresh-default",
-        "salicornia-fresh-eu",
-        "salicornia-fresh-non-eu"
-      ],
+      "salicornia-fresh": ["salicornia-fresh-default", "salicornia-fresh-eu", "salicornia-fresh-non-eu"],
       "salsify": [
         "salsify-default",
         "salsify-eu",
@@ -1026,12 +830,7 @@
         "salsify-non-eu",
         "salsify-organic"
       ],
-      "seaweed": [
-        "seaweed-default",
-        "seaweed-eu",
-        "seaweed-fr",
-        "seaweed-non-eu"
-      ],
+      "seaweed": ["seaweed-default", "seaweed-eu", "seaweed-fr", "seaweed-non-eu"],
       "shallot": [
         "shallot-default",
         "shallot-eu",
@@ -1057,11 +856,7 @@
         "spring-faba-non-eu",
         "spring-faba-organic"
       ],
-      "squash": [
-        "squash-eu-2025",
-        "squash-fr-2025",
-        "squash-organic-2025"
-      ],
+      "squash": ["squash-eu-2025", "squash-fr-2025", "squash-organic-2025"],
       "squash-with-skin-raw": [
         "squash-with-skin-raw-default",
         "squash-with-skin-raw-eu",
@@ -1083,9 +878,7 @@
         "strawberry-non-eu-2025",
         "strawberry-organic"
       ],
-      "strawberry-coulis": [
-        "strawberry-coulis-2025"
-      ],
+      "strawberry-coulis": ["strawberry-coulis-2025"],
       "sweet-potato": [
         "sweet-potato-default",
         "sweet-potato-eu",
@@ -1102,11 +895,7 @@
         "swiss-chard-non-eu-2025",
         "swiss-chard-organic"
       ],
-      "tamarind": [
-        "tamarind-default",
-        "tamarind-non-eu",
-        "tamarind-organic"
-      ],
+      "tamarind": ["tamarind-default", "tamarind-non-eu", "tamarind-organic"],
       "tomato": [
         "tomato-default",
         "tomato-eu",
@@ -1119,9 +908,7 @@
         "tomato-peeled-canned-drained-default-organic",
         "tomato-peeled-canned-drained-fr"
       ],
-      "tomato-sauce": [
-        "tomato-sauce-2025"
-      ],
+      "tomato-sauce": ["tomato-sauce-2025"],
       "turnip": [
         "turnip-default",
         "turnip-eu",
@@ -1132,12 +919,8 @@
         "turnip-organic",
         "turnip-organic-2025"
       ],
-      "unknown-fruit-vegetable": [
-        "unknown-fruit-vegetable-2025"
-      ],
-      "vegetable-mix": [
-        "vegetable-mix-2025"
-      ],
+      "unknown-fruit-vegetable": ["unknown-fruit-vegetable-2025"],
+      "vegetable-mix": ["vegetable-mix-2025"],
       "watermelon": [
         "watermelon-default",
         "watermelon-eu",
@@ -1163,10 +946,7 @@
         "white-cabbage-organic",
         "white-cabbage-organic-2025"
       ],
-      "wine-grape": [
-        "wine-grape-fr-2025",
-        "wine-grape-organic-2025"
-      ],
+      "wine-grape": ["wine-grape-fr-2025", "wine-grape-organic-2025"],
       "zucchini": [
         "zucchini-default",
         "zucchini-eu",
@@ -1179,32 +959,16 @@
       ]
     },
     "legumes": {
-      "chickpea": [
-        "chickpea-fr-2025",
-        "chickpea-non-eu-2025",
-        "chickpea-organic-2025"
-      ],
-      "garden-peas": [
-        "garden-peas-eu-2025",
-        "garden-peas-fr-2025",
-        "garden-peas-organic-2025"
-      ],
-      "lentil": [
-        "lentil-default",
-        "lentil-eu",
-        "lentil-fr",
-        "lentil-non-eu",
-        "lentil-organic"
-      ],
+      "chickpea": ["chickpea-fr-2025", "chickpea-non-eu-2025", "chickpea-organic-2025"],
+      "garden-peas": ["garden-peas-eu-2025", "garden-peas-fr-2025", "garden-peas-organic-2025"],
+      "lentil": ["lentil-default", "lentil-eu", "lentil-fr", "lentil-non-eu", "lentil-organic"],
       "lentils-uncooked": [
         "lentils-uncooked-eu-2025",
         "lentils-uncooked-fr-2025",
         "lentils-uncooked-non-eu-2025",
         "lentils-uncooked-organic-2025"
       ],
-      "oilseed": [
-        "oilseed-feed-2025"
-      ],
+      "oilseed": ["oilseed-feed-2025"],
       "soybean": [
         "soybean-br-deforestation",
         "soybean-br-no-deforestation",
@@ -1242,22 +1006,10 @@
         "almond-shelled-with-skin-default-organic",
         "almond-shelled-with-skin-fr"
       ],
-      "apple-juice": [
-        "apple-juice-2025"
-      ],
-      "balsamic-vinegar": [
-        "balsamic-vinegar-2025"
-      ],
-      "bay-leaf": [
-        "bay-leaf-default",
-        "bay-leaf-eu",
-        "bay-leaf-fr",
-        "bay-leaf-non-eu"
-      ],
-      "beaufort-cheese": [
-        "beaufort-cheese-default",
-        "beaufort-cheese-fr"
-      ],
+      "apple-juice": ["apple-juice-2025"],
+      "balsamic-vinegar": ["balsamic-vinegar-2025"],
+      "bay-leaf": ["bay-leaf-default", "bay-leaf-eu", "bay-leaf-fr", "bay-leaf-non-eu"],
+      "beaufort-cheese": ["beaufort-cheese-default", "beaufort-cheese-fr"],
       "beef": [
         "beef-boneless-raw-default",
         "beef-boneless-raw-fr",
@@ -1267,33 +1019,12 @@
         "beef-organic",
         "beef-organic-2025"
       ],
-      "beef-cattle": [
-        "beef-cattle-conventional-fr-live",
-        "beef-cattle-feedlot-gb-live"
-      ],
-      "black-pepper": [
-        "black-pepper-2025",
-        "black-pepper-default",
-        "black-pepper-non-eu"
-      ],
-      "blackberry-juice": [
-        "blackberry-juice-default",
-        "blackberry-juice-default-organic"
-      ],
-      "blue-cheese": [
-        "blue-cheese-auvergne-default",
-        "blue-cheese-auvergne-fr"
-      ],
-      "brazil-nut": [
-        "brazil-nut-default",
-        "brazil-nut-non-eu",
-        "brazil-nut-organic"
-      ],
-      "brie-cheese": [
-        "brie-cheese-2025",
-        "brie-cheese-default",
-        "brie-cheese-fr"
-      ],
+      "beef-cattle": ["beef-cattle-conventional-fr-live", "beef-cattle-feedlot-gb-live"],
+      "black-pepper": ["black-pepper-2025", "black-pepper-default", "black-pepper-non-eu"],
+      "blackberry-juice": ["blackberry-juice-default", "blackberry-juice-default-organic"],
+      "blue-cheese": ["blue-cheese-auvergne-default", "blue-cheese-auvergne-fr"],
+      "brazil-nut": ["brazil-nut-default", "brazil-nut-non-eu", "brazil-nut-organic"],
+      "brie-cheese": ["brie-cheese-2025", "brie-cheese-default", "brie-cheese-fr"],
       "broiler": [
         "broiler-br-max-live",
         "broiler-conventional-fr-live",
@@ -1316,38 +1047,14 @@
         "butter-82pct-fat-fr",
         "butter-organic-2025"
       ],
-      "camembert-cheese": [
-        "camembert-cheese-default",
-        "camembert-cheese-fr"
-      ],
-      "candied-fruits": [
-        "candied-fruits-2025"
-      ],
-      "cane-sugar": [
-        "cane-sugar-2025"
-      ],
-      "cantal-cheese": [
-        "cantal-cheese-default",
-        "cantal-cheese-fr"
-      ],
-      "cashew": [
-        "cashew-default",
-        "cashew-non-eu",
-        "cashew-organic"
-      ],
-      "cassava": [
-        "cassava-default",
-        "cassava-non-eu",
-        "cassava-organic"
-      ],
-      "chaource-cheese": [
-        "chaource-cheese-default",
-        "chaource-cheese-fr"
-      ],
-      "cheddar-cheese": [
-        "cheddar-cheese-default",
-        "cheddar-cheese-fr"
-      ],
+      "camembert-cheese": ["camembert-cheese-default", "camembert-cheese-fr"],
+      "candied-fruits": ["candied-fruits-2025"],
+      "cane-sugar": ["cane-sugar-2025"],
+      "cantal-cheese": ["cantal-cheese-default", "cantal-cheese-fr"],
+      "cashew": ["cashew-default", "cashew-non-eu", "cashew-organic"],
+      "cassava": ["cassava-default", "cassava-non-eu", "cassava-organic"],
+      "chaource-cheese": ["chaource-cheese-default", "chaource-cheese-fr"],
+      "cheddar-cheese": ["cheddar-cheese-default", "cheddar-cheese-fr"],
       "chestnut": [
         "chestnut-default",
         "chestnut-eu",
@@ -1355,31 +1062,17 @@
         "chestnut-non-eu",
         "chestnut-organic"
       ],
-      "chestnut-husked": [
-        "chestnut-husked-fr-2025"
-      ],
-      "chestnut-inshell": [
-        "chestnut-inshell-fr-2025",
-        "chestnut-inshell-organic-2025"
-      ],
+      "chestnut-husked": ["chestnut-husked-fr-2025"],
+      "chestnut-inshell": ["chestnut-inshell-fr-2025", "chestnut-inshell-organic-2025"],
       "chia-seed-dried": [
         "chia-seed-dried-default",
         "chia-seed-dried-fr",
         "chia-seed-dried-non-eu",
         "chia-seed-dried-organic"
       ],
-      "cinnamon": [
-        "cinnamon-default",
-        "cinnamon-non-eu"
-      ],
-      "cocoa-butter": [
-        "cocoa-butter-eu-2025",
-        "cocoa-butter-fr-2025"
-      ],
-      "cocoa-powder": [
-        "cocoa-powder-non-ue-2025",
-        "cocoa-powder-ue-2025"
-      ],
+      "cinnamon": ["cinnamon-default", "cinnamon-non-eu"],
+      "cocoa-butter": ["cocoa-butter-eu-2025", "cocoa-butter-fr-2025"],
+      "cocoa-powder": ["cocoa-powder-non-ue-2025", "cocoa-powder-ue-2025"],
       "coconut-dehusked": [
         "coconut-dehusked-default",
         "coconut-dehusked-fr",
@@ -1387,29 +1080,12 @@
         "coconut-dehusked-non-eu",
         "coconut-dehusked-organic"
       ],
-      "cod": [
-        "cod-eu-2025"
-      ],
-      "coffee-bean": [
-        "coffee-bean-default",
-        "coffee-bean-non-eu",
-        "coffee-bean-organic"
-      ],
-      "coffee-ground": [
-        "coffee-ground-2025"
-      ],
-      "comte-aop": [
-        "comte-aop-2025"
-      ],
-      "comte-cheese": [
-        "comte-cheese-default",
-        "comte-cheese-fr"
-      ],
-      "cooked-ham": [
-        "cooked-ham-2025",
-        "cooked-ham-bbc-2025",
-        "cooked-ham-organic-2025"
-      ],
+      "cod": ["cod-eu-2025"],
+      "coffee-bean": ["coffee-bean-default", "coffee-bean-non-eu", "coffee-bean-organic"],
+      "coffee-ground": ["coffee-ground-2025"],
+      "comte-aop": ["comte-aop-2025"],
+      "comte-cheese": ["comte-cheese-default", "comte-cheese-fr"],
+      "cooked-ham": ["cooked-ham-2025", "cooked-ham-bbc-2025", "cooked-ham-organic-2025"],
       "coriander": [
         "coriander-default",
         "coriander-eu",
@@ -1417,10 +1093,7 @@
         "coriander-non-eu",
         "coriander-organic"
       ],
-      "coulommiers-cheese": [
-        "coulommiers-cheese-default",
-        "coulommiers-cheese-fr"
-      ],
+      "coulommiers-cheese": ["coulommiers-cheese-default", "coulommiers-cheese-fr"],
       "cow-milk": [
         "cow-milk-default",
         "cow-milk-eu",
@@ -1439,48 +1112,26 @@
         "cull-cow-organic-live",
         "cull-cow-organic-national-average-live"
       ],
-      "dairy-spread-20pct-fat": [
-        "dairy-spread-20pct-fat-default",
-        "dairy-spread-20pct-fat-fr"
-      ],
-      "dairy-spread-25pct-fat": [
-        "dairy-spread-25pct-fat-default",
-        "dairy-spread-25pct-fat-fr"
-      ],
-      "dark-chocolate": [
-        "dark-chocolate-2025"
-      ],
-      "dill-fresh": [
-        "dill-fresh-default",
-        "dill-fresh-eu",
-        "dill-fresh-fr",
-        "dill-fresh-non-eu"
-      ],
+      "dairy-spread-20pct-fat": ["dairy-spread-20pct-fat-default", "dairy-spread-20pct-fat-fr"],
+      "dairy-spread-25pct-fat": ["dairy-spread-25pct-fat-default", "dairy-spread-25pct-fat-fr"],
+      "dark-chocolate": ["dark-chocolate-2025"],
+      "dill-fresh": ["dill-fresh-default", "dill-fresh-eu", "dill-fresh-fr", "dill-fresh-non-eu"],
       "dry-goat-cheese": [
         "dry-goat-cheese-chabichou-type-default",
         "dry-goat-cheese-chabichou-type-fr",
         "dry-goat-cheese-default",
         "dry-goat-cheese-fr"
       ],
-      "egg-white-powder": [
-        "egg-white-powder-fr-2025"
-      ],
-      "egg-yolk-powder": [
-        "egg-yolk-powder-fr-2025"
-      ],
+      "egg-white-powder": ["egg-white-powder-fr-2025"],
+      "egg-yolk-powder": ["egg-yolk-powder-fr-2025"],
       "emmental": [
         "emmental-2025",
         "emmental-cheese-default",
         "emmental-cheese-fr",
         "emmental-grated-fr-2025"
       ],
-      "extra-virgin-olive-oil": [
-        "extra-virgin-olive-oil-2025"
-      ],
-      "faisselle-6pct-fat": [
-        "faisselle-6pct-fat-default",
-        "faisselle-6pct-fat-fr"
-      ],
+      "extra-virgin-olive-oil": ["extra-virgin-olive-oil-2025"],
+      "faisselle-6pct-fat": ["faisselle-6pct-fat-default", "faisselle-6pct-fat-fr"],
       "fennel": [
         "fennel-default",
         "fennel-eu",
@@ -1513,63 +1164,25 @@
         "flageolet-bean-green-dried-non-eu",
         "flageolet-bean-green-dried-organic"
       ],
-      "flour": [
-        "flour-2025",
-        "flour-organic-2025"
-      ],
-      "fourme-dambert-cheese": [
-        "fourme-dambert-cheese-default",
-        "fourme-dambert-cheese-fr"
-      ],
-      "fresh-cream-cheese": [
-        "fresh-cream-cheese-2025"
-      ],
-      "fromage-blanc-0pct-fat": [
-        "fromage-blanc-0pct-fat-default",
-        "fromage-blanc-0pct-fat-fr"
-      ],
-      "fromage-blanc-3pct-fat": [
-        "fromage-blanc-3pct-fat-default",
-        "fromage-blanc-3pct-fat-fr"
-      ],
-      "fromage-blanc-8pct-fat": [
-        "fromage-blanc-8pct-fat-default",
-        "fromage-blanc-8pct-fat-fr"
-      ],
-      "ginger": [
-        "ginger-default",
-        "ginger-non-eu",
-        "ginger-organic"
-      ],
-      "glucose-syrup": [
-        "glucose-syrup-2025"
-      ],
+      "flour": ["flour-2025", "flour-organic-2025"],
+      "fourme-dambert-cheese": ["fourme-dambert-cheese-default", "fourme-dambert-cheese-fr"],
+      "fresh-cream-cheese": ["fresh-cream-cheese-2025"],
+      "fromage-blanc-0pct-fat": ["fromage-blanc-0pct-fat-default", "fromage-blanc-0pct-fat-fr"],
+      "fromage-blanc-3pct-fat": ["fromage-blanc-3pct-fat-default", "fromage-blanc-3pct-fat-fr"],
+      "fromage-blanc-8pct-fat": ["fromage-blanc-8pct-fat-default", "fromage-blanc-8pct-fat-fr"],
+      "ginger": ["ginger-default", "ginger-non-eu", "ginger-organic"],
+      "glucose-syrup": ["glucose-syrup-2025"],
       "goat-cheese": [
         "goat-cheese-2025",
         "goat-cheese-fresh-to-aged-default",
         "goat-cheese-fresh-to-aged-fr"
       ],
-      "goat-milk": [
-        "goat-milk-2025"
-      ],
-      "gorgonzola-cheese": [
-        "gorgonzola-cheese-default",
-        "gorgonzola-cheese-fr"
-      ],
-      "gouda-cheese": [
-        "gouda-cheese-default",
-        "gouda-cheese-fr"
-      ],
-      "grazed-grass-permanent": [
-        "grazed-grass-permanent-2025"
-      ],
-      "grazed-grass-temporary": [
-        "grazed-grass-temporary-2025"
-      ],
-      "greek-yogurt-sheep-milk": [
-        "greek-yogurt-sheep-milk-default",
-        "greek-yogurt-sheep-milk-fr"
-      ],
+      "goat-milk": ["goat-milk-2025"],
+      "gorgonzola-cheese": ["gorgonzola-cheese-default", "gorgonzola-cheese-fr"],
+      "gouda-cheese": ["gouda-cheese-default", "gouda-cheese-fr"],
+      "grazed-grass-permanent": ["grazed-grass-permanent-2025"],
+      "grazed-grass-temporary": ["grazed-grass-temporary-2025"],
+      "greek-yogurt-sheep-milk": ["greek-yogurt-sheep-milk-default", "greek-yogurt-sheep-milk-fr"],
       "green-bean-cut-raw": [
         "green-bean-cut-raw-default",
         "green-bean-cut-raw-fr",
@@ -1580,13 +1193,8 @@
         "green-olive-pitted-default-organic",
         "green-olive-pitted-fr"
       ],
-      "gruyere-cheese": [
-        "gruyere-cheese-default",
-        "gruyere-cheese-fr"
-      ],
-      "hake": [
-        "hake-eu-2025"
-      ],
+      "gruyere-cheese": ["gruyere-cheese-default", "gruyere-cheese-fr"],
+      "hake": ["hake-eu-2025"],
       "hazelnut": [
         "hazelnut-eu-2025",
         "hazelnut-non-eu-2025",
@@ -1608,119 +1216,41 @@
         "hazelnut-unshelled-non-eu-2025",
         "hazelnut-unshelled-organic-2025"
       ],
-      "herb-dried": [
-        "herb-dried-default",
-        "herb-dried-eu",
-        "herb-dried-fr",
-        "herb-dried-non-eu"
-      ],
-      "herb-fresh": [
-        "herb-fresh-default",
-        "herb-fresh-eu",
-        "herb-fresh-fr",
-        "herb-fresh-non-eu"
-      ],
-      "honey": [
-        "honey-default",
-        "honey-eu",
-        "honey-fr",
-        "honey-non-eu"
-      ],
-      "lamb": [
-        "lamb-default",
-        "lamb-fr",
-        "lamb-organic",
-        "lamb-organic-2025"
-      ],
-      "lamb-conventional-fr-live": [
-        "lamb-conventional-fr-live"
-      ],
-      "lamb-organic-national-average-farm-gate-fr-u-live": [
-        "lamb-organic-national-average-farm-gate-fr-u-live"
-      ],
-      "lemon-juice": [
-        "lemon-juice-2025"
-      ],
+      "herb-dried": ["herb-dried-default", "herb-dried-eu", "herb-dried-fr", "herb-dried-non-eu"],
+      "herb-fresh": ["herb-fresh-default", "herb-fresh-eu", "herb-fresh-fr", "herb-fresh-non-eu"],
+      "honey": ["honey-default", "honey-eu", "honey-fr", "honey-non-eu"],
+      "lamb": ["lamb-default", "lamb-fr", "lamb-organic", "lamb-organic-2025"],
+      "lamb-conventional-fr-live": ["lamb-conventional-fr-live"],
+      "lamb-organic-national-average-farm-gate-fr-u-live": ["lamb-organic-national-average-farm-gate-fr-u-live"],
+      "lemon-juice": ["lemon-juice-2025"],
       "macadamia-nut": [
         "macadamia-nut-default",
         "macadamia-nut-fr",
         "macadamia-nut-non-eu",
         "macadamia-nut-organic"
       ],
-      "milk": [
-        "milk-2025",
-        "milk-eu-2025",
-        "milk-non-eu-2025"
-      ],
-      "milk-powder": [
-        "milk-powder-2025"
-      ],
-      "mimolette-cheese": [
-        "mimolette-cheese-default",
-        "mimolette-cheese-fr"
-      ],
-      "mint": [
-        "mint-default",
-        "mint-eu",
-        "mint-fr",
-        "mint-non-eu"
-      ],
-      "mont-dor-cheese": [
-        "mont-dor-cheese-default",
-        "mont-dor-cheese-fr"
-      ],
-      "mozzarella": [
-        "mozzarella-2025",
-        "mozzarella-cow-milk-default",
-        "mozzarella-cow-milk-fr"
-      ],
-      "munster-cheese": [
-        "munster-cheese-default",
-        "munster-cheese-fr"
-      ],
+      "milk": ["milk-2025", "milk-eu-2025", "milk-non-eu-2025"],
+      "milk-powder": ["milk-powder-2025"],
+      "mimolette-cheese": ["mimolette-cheese-default", "mimolette-cheese-fr"],
+      "mint": ["mint-default", "mint-eu", "mint-fr", "mint-non-eu"],
+      "mont-dor-cheese": ["mont-dor-cheese-default", "mont-dor-cheese-fr"],
+      "mozzarella": ["mozzarella-2025", "mozzarella-cow-milk-default", "mozzarella-cow-milk-fr"],
+      "munster-cheese": ["munster-cheese-default", "munster-cheese-fr"],
       "mustard-seed": [
         "mustard-seed-default",
         "mustard-seed-eu",
         "mustard-seed-fr",
         "mustard-seed-non-eu"
       ],
-      "nutmeg": [
-        "nutmeg-default",
-        "nutmeg-non-eu",
-        "nutmeg-organic"
-      ],
-      "oat-flour": [
-        "oat-flour-default",
-        "oat-flour-default-organic",
-        "oat-flour-fr"
-      ],
-      "okra": [
-        "okra-default",
-        "okra-non-eu",
-        "okra-organic"
-      ],
-      "olive-oil": [
-        "olive-oil-eu-2025"
-      ],
-      "onion-dried": [
-        "onion-dried-2025"
-      ],
-      "orange-juice": [
-        "orange-juice-2025"
-      ],
-      "parmesan-cheese": [
-        "parmesan-cheese-default",
-        "parmesan-cheese-fr"
-      ],
-      "parsley-dried": [
-        "parsley-dried-default",
-        "parsley-dried-fr"
-      ],
-      "pea-shelled-raw": [
-        "pea-shelled-raw-default",
-        "pea-shelled-raw-fr",
-        "pea-shelled-raw-fr-organic"
-      ],
+      "nutmeg": ["nutmeg-default", "nutmeg-non-eu", "nutmeg-organic"],
+      "oat-flour": ["oat-flour-default", "oat-flour-default-organic", "oat-flour-fr"],
+      "okra": ["okra-default", "okra-non-eu", "okra-organic"],
+      "olive-oil": ["olive-oil-eu-2025"],
+      "onion-dried": ["onion-dried-2025"],
+      "orange-juice": ["orange-juice-2025"],
+      "parmesan-cheese": ["parmesan-cheese-default", "parmesan-cheese-fr"],
+      "parsley-dried": ["parsley-dried-default", "parsley-dried-fr"],
+      "pea-shelled-raw": ["pea-shelled-raw-default", "pea-shelled-raw-fr", "pea-shelled-raw-fr-organic"],
       "pea-with-pod": [
         "pea-with-pod-default",
         "pea-with-pod-eu",
@@ -1756,19 +1286,9 @@
         "persimmon-non-eu",
         "persimmon-organic"
       ],
-      "petit-suisse-10pct-fat": [
-        "petit-suisse-10pct-fat-default",
-        "petit-suisse-10pct-fat-fr"
-      ],
-      "petit-suisse-4pct-fat": [
-        "petit-suisse-4pct-fat-default",
-        "petit-suisse-4pct-fat-fr"
-      ],
-      "pig": [
-        "pig-bbc-fr-live",
-        "pig-conventional-fr-live",
-        "pig-organic-fr-live"
-      ],
+      "petit-suisse-10pct-fat": ["petit-suisse-10pct-fat-default", "petit-suisse-10pct-fat-fr"],
+      "petit-suisse-4pct-fat": ["petit-suisse-4pct-fat-default", "petit-suisse-4pct-fat-fr"],
+      "pig": ["pig-bbc-fr-live", "pig-conventional-fr-live", "pig-organic-fr-live"],
       "pine-nut": [
         "pine-nut-default",
         "pine-nut-eu",
@@ -1783,19 +1303,9 @@
         "pistachio-organic",
         "pistachio-organic-2025"
       ],
-      "pont-leveque-cheese": [
-        "pont-leveque-cheese-default",
-        "pont-leveque-cheese-fr"
-      ],
-      "poppy-seed": [
-        "poppy-seed-default",
-        "poppy-seed-eu",
-        "poppy-seed-non-eu",
-        "poppy-seed-organic"
-      ],
-      "potato-starch": [
-        "potato-starch-2025"
-      ],
+      "pont-leveque-cheese": ["pont-leveque-cheese-default", "pont-leveque-cheese-fr"],
+      "poppy-seed": ["poppy-seed-default", "poppy-seed-eu", "poppy-seed-non-eu", "poppy-seed-organic"],
+      "potato-starch": ["potato-starch-2025"],
       "poultry": [
         "poultry-boneless-raw-default",
         "poultry-boneless-raw-fr",
@@ -1812,14 +1322,8 @@
         "prickly-pear-fr",
         "prickly-pear-non-eu"
       ],
-      "processed-cheese": [
-        "processed-cheese-default",
-        "processed-cheese-fr"
-      ],
-      "raclette-cheese": [
-        "raclette-cheese-default",
-        "raclette-cheese-fr"
-      ],
+      "processed-cheese": ["processed-cheese-default", "processed-cheese-fr"],
+      "raclette-cheese": ["raclette-cheese-default", "raclette-cheese-fr"],
       "radish": [
         "radish-default",
         "radish-eu",
@@ -1838,104 +1342,37 @@
         "rapeseed-non-eu-2025",
         "rapeseed-organic"
       ],
-      "rapeseed-oil": [
-        "rapeseed-oil-2025",
-        "rapeseed-oil-organic-2025"
-      ],
-      "reblochon": [
-        "reblochon-2025",
-        "reblochon-cheese-default",
-        "reblochon-cheese-fr"
-      ],
+      "rapeseed-oil": ["rapeseed-oil-2025", "rapeseed-oil-organic-2025"],
+      "reblochon": ["reblochon-2025", "reblochon-cheese-default", "reblochon-cheese-fr"],
       "red-berries-frozen-raw": [
         "red-berries-frozen-raw-default",
         "red-berries-frozen-raw-default-organic",
         "red-berries-frozen-raw-fr"
       ],
-      "red-wine": [
-        "red-wine-2025"
-      ],
+      "red-wine": ["red-wine-2025"],
       "reduced-fat-firm-cheese-maasdam-type": [
         "reduced-fat-firm-cheese-maasdam-type-default",
         "reduced-fat-firm-cheese-maasdam-type-fr"
       ],
-      "refined-grapeseed-oil": [
-        "refined-grapeseed-oil-2025"
-      ],
-      "refined-linseed-oil": [
-        "refined-linseed-oil-2025"
-      ],
-      "refined-palm-oil": [
-        "refined-palm-oil-2025",
-        "refined-palm-oil-non-ue-2025"
-      ],
-      "refined-peanut-oil": [
-        "refined-peanut-oil-2025"
-      ],
-      "refined-rapeseed-oil": [
-        "refined-rapeseed-oil-2025"
-      ],
-      "refined-soybean-oil": [
-        "refined-soybean-oil-2025"
-      ],
-      "refined-sunflower-oil": [
-        "refined-sunflower-oil-2025"
-      ],
-      "rice-flour": [
-        "rice-flour-default",
-        "rice-flour-default-organic",
-        "rice-flour-fr"
-      ],
-      "roquefort-cheese": [
-        "roquefort-cheese-default",
-        "roquefort-cheese-fr"
-      ],
-      "saffron": [
-        "saffron-default",
-        "saffron-eu",
-        "saffron-fr",
-        "saffron-non-eu"
-      ],
-      "saint-marcellin-cheese": [
-        "saint-marcellin-cheese-default",
-        "saint-marcellin-cheese-fr"
-      ],
-      "salmon-raw": [
-        "salmon-raw-eu-2025"
-      ],
-      "salt": [
-        "salt-2025"
-      ],
-      "sardine": [
-        "sardine-eu-2025",
-        "sardine-fr-2025",
-        "sardine-non-eu-2025"
-      ],
-      "sausage-tofu": [
-        "sausage-tofu-2025"
-      ],
-      "sausage-toulouse-cooked": [
-        "sausage-toulouse-cooked-2025"
-      ],
-      "sheep-milk": [
-        "sheep-milk-default",
-        "sheep-milk-eu",
-        "sheep-milk-fr",
-        "sheep-milk-non-eu"
-      ],
-      "snow-pea": [
-        "snow-pea-default",
-        "snow-pea-eu",
-        "snow-pea-non-eu",
-        "snow-pea-organic"
-      ],
-      "soup": [
-        "soup-be",
-        "soup-de",
-        "soup-es",
-        "soup-fr",
-        "soup-it"
-      ],
+      "refined-grapeseed-oil": ["refined-grapeseed-oil-2025"],
+      "refined-linseed-oil": ["refined-linseed-oil-2025"],
+      "refined-palm-oil": ["refined-palm-oil-2025", "refined-palm-oil-non-ue-2025"],
+      "refined-peanut-oil": ["refined-peanut-oil-2025"],
+      "refined-rapeseed-oil": ["refined-rapeseed-oil-2025"],
+      "refined-soybean-oil": ["refined-soybean-oil-2025"],
+      "refined-sunflower-oil": ["refined-sunflower-oil-2025"],
+      "rice-flour": ["rice-flour-default", "rice-flour-default-organic", "rice-flour-fr"],
+      "roquefort-cheese": ["roquefort-cheese-default", "roquefort-cheese-fr"],
+      "saffron": ["saffron-default", "saffron-eu", "saffron-fr", "saffron-non-eu"],
+      "saint-marcellin-cheese": ["saint-marcellin-cheese-default", "saint-marcellin-cheese-fr"],
+      "salmon-raw": ["salmon-raw-eu-2025"],
+      "salt": ["salt-2025"],
+      "sardine": ["sardine-eu-2025", "sardine-fr-2025", "sardine-non-eu-2025"],
+      "sausage-tofu": ["sausage-tofu-2025"],
+      "sausage-toulouse-cooked": ["sausage-toulouse-cooked-2025"],
+      "sheep-milk": ["sheep-milk-default", "sheep-milk-eu", "sheep-milk-fr", "sheep-milk-non-eu"],
+      "snow-pea": ["snow-pea-default", "snow-pea-eu", "snow-pea-non-eu", "snow-pea-organic"],
+      "soup": ["soup-be", "soup-de", "soup-es", "soup-fr", "soup-it"],
       "soup-dehydrated": [
         "soup-dehydrated-be",
         "soup-dehydrated-de",
@@ -1943,17 +1380,9 @@
         "soup-dehydrated-fr",
         "soup-dehydrated-it"
       ],
-      "soy-flour": [
-        "soy-flour-default",
-        "soy-flour-default-organic",
-        "soy-flour-fr"
-      ],
-      "soy-milk": [
-        "soy-milk-2025"
-      ],
-      "soy-protein": [
-        "soy-protein-2025"
-      ],
+      "soy-flour": ["soy-flour-default", "soy-flour-default-organic", "soy-flour-fr"],
+      "soy-milk": ["soy-milk-2025"],
+      "soy-protein": ["soy-protein-2025"],
       "split-pea": [
         "split-pea-default",
         "split-pea-eu",
@@ -1961,10 +1390,7 @@
         "split-pea-non-eu",
         "split-pea-organic"
       ],
-      "spread-cheese-20-40pct-fat": [
-        "spread-cheese-20-40pct-fat-default",
-        "spread-cheese-20-40pct-fat-fr"
-      ],
+      "spread-cheese-20-40pct-fat": ["spread-cheese-20-40pct-fat-default", "spread-cheese-20-40pct-fat-fr"],
       "spring-pea": [
         "spring-pea-default",
         "spring-pea-eu",
@@ -1978,9 +1404,7 @@
         "spring-water-fr",
         "spring-water-non-eu"
       ],
-      "sugar": [
-        "sugar-2025"
-      ],
+      "sugar": ["sugar-2025"],
       "sugar-beet": [
         "sugar-beet-default",
         "sugar-beet-eu",
@@ -1988,17 +1412,8 @@
         "sugar-beet-non-eu",
         "sugar-beet-organic"
       ],
-      "sunflower": [
-        "sunflower-eu",
-        "sunflower-fr",
-        "sunflower-non-eu-2025",
-        "sunflower-organic"
-      ],
-      "sunflower-oil": [
-        "sunflower-oil-2025",
-        "sunflower-oil-eu-2025",
-        "sunflower-oil-organic-2025"
-      ],
+      "sunflower": ["sunflower-eu", "sunflower-fr", "sunflower-non-eu-2025", "sunflower-organic"],
+      "sunflower-oil": ["sunflower-oil-2025", "sunflower-oil-eu-2025", "sunflower-oil-organic-2025"],
       "sunflower-seed": [
         "sunflower-seed-default",
         "sunflower-seed-eu",
@@ -2018,83 +1433,37 @@
         "sweet-corn-frozen-raw-fr-organic",
         "sweet-corn-organic-fr-2025"
       ],
-      "swine-industrial-ca-live": [
-        "swine-industrial-ca-live"
-      ],
-      "tap-water": [
-        "tap-water-2025"
-      ],
-      "tapioca": [
-        "tapioca-default",
-        "tapioca-non-eu"
-      ],
-      "taro-tuber": [
-        "taro-tuber-default",
-        "taro-tuber-non-eu",
-        "taro-tuber-organic"
-      ],
+      "swine-industrial-ca-live": ["swine-industrial-ca-live"],
+      "tap-water": ["tap-water-2025"],
+      "tapioca": ["tapioca-default", "tapioca-non-eu"],
+      "taro-tuber": ["taro-tuber-default", "taro-tuber-non-eu", "taro-tuber-organic"],
       "tarragon-fresh": [
         "tarragon-fresh-default",
         "tarragon-fresh-eu",
         "tarragon-fresh-fr",
         "tarragon-fresh-non-eu"
       ],
-      "tea-dried": [
-        "tea-dried-2025",
-        "tea-dried-default",
-        "tea-dried-non-eu"
-      ],
-      "tomato-concentrated": [
-        "tomato-concentrated-2025"
-      ],
-      "tomato-juice": [
-        "tomato-juice-2025",
-        "tomato-juice-eu-2025"
-      ],
-      "tomato-paste": [
-        "tomato-paste-2025",
-        "tomato-paste-fr-2025"
-      ],
-      "tomme-cheese-cow-milk": [
-        "tomme-cheese-cow-milk-default",
-        "tomme-cheese-cow-milk-fr"
-      ],
-      "turmeric": [
-        "turmeric-2025"
-      ],
-      "unknown-cereals-and-grain-products": [
-        "unknown-cereals-and-grain-products-2025"
-      ],
-      "unknown-dairy-product": [
-        "unknown-dairy-product-2025"
-      ],
-      "unknown-dried-fruits": [
-        "unknown-dried-fruits-2025"
-      ],
-      "unknown-drink": [
-        "unknown-drink-2025"
-      ],
-      "unknown-groceries": [
-        "unknown-groceries-2025"
-      ],
-      "unknown-oil": [
-        "unknown-oil-2025"
-      ],
+      "tea-dried": ["tea-dried-2025", "tea-dried-default", "tea-dried-non-eu"],
+      "tomato-concentrated": ["tomato-concentrated-2025"],
+      "tomato-juice": ["tomato-juice-2025", "tomato-juice-eu-2025"],
+      "tomato-paste": ["tomato-paste-2025", "tomato-paste-fr-2025"],
+      "tomme-cheese-cow-milk": ["tomme-cheese-cow-milk-default", "tomme-cheese-cow-milk-fr"],
+      "turmeric": ["turmeric-2025"],
+      "unknown-cereals-and-grain-products": ["unknown-cereals-and-grain-products-2025"],
+      "unknown-dairy-product": ["unknown-dairy-product-2025"],
+      "unknown-dried-fruits": ["unknown-dried-fruits-2025"],
+      "unknown-drink": ["unknown-drink-2025"],
+      "unknown-groceries": ["unknown-groceries-2025"],
+      "unknown-oil": ["unknown-oil-2025"],
       "vanilla": [
         "vanilla-default",
         "vanilla-eu-antilles",
         "vanilla-fr-overseas",
         "vanilla-non-eu"
       ],
-      "vanilla-alcoholic-or-aqueous-extract": [
-        "vanilla-alcoholic-or-aqueous-extract-fr"
-      ],
-      "vinegar-alcohol": [
-        "vinegar-alcohol-2025"
-      ],
-      "virgin-hazelnut-oil": [
-        "virgin-hazelnut-oil-2025"
-      ],
+      "vanilla-alcoholic-or-aqueous-extract": ["vanilla-alcoholic-or-aqueous-extract-fr"],
+      "vinegar-alcohol": ["vinegar-alcohol-2025"],
+      "virgin-hazelnut-oil": ["virgin-hazelnut-oil-2025"],
       "walnut": [
         "walnut-default",
         "walnut-eu",
@@ -2105,28 +1474,20 @@
         "walnut-shelled-fr",
         "walnut-shelled-fr-organic"
       ],
-      "walnut-husked": [
-        "walnut-husked-fr-2025"
-      ],
+      "walnut-husked": ["walnut-husked-fr-2025"],
       "walnut-inshell": [
         "walnut-inshell-eu-2025",
         "walnut-inshell-fr-2025",
         "walnut-inshell-non-eu-2025",
         "walnut-inshell-organic-2025"
       ],
-      "whey": [
-        "whey-2025"
-      ],
+      "whey": ["whey-2025"],
       "white-bean-canned-drained": [
         "white-bean-canned-drained-default",
         "white-bean-canned-drained-fr",
         "white-bean-canned-drained-fr-organic"
       ],
-      "white-wine-dry": [
-        "white-wine-dry-default",
-        "white-wine-dry-default-organic",
-        "white-wine-dry-fr"
-      ],
+      "white-wine-dry": ["white-wine-dry-default", "white-wine-dry-default-organic", "white-wine-dry-fr"],
       "winter-pea": [
         "winter-pea-default",
         "winter-pea-eu",
@@ -2134,14 +1495,8 @@
         "winter-pea-non-eu",
         "winter-pea-organic"
       ],
-      "yam": [
-        "yam-default",
-        "yam-non-eu",
-        "yam-organic"
-      ],
-      "yogurt": [
-        "yogurt-2025"
-      ]
+      "yam": ["yam-default", "yam-non-eu", "yam-organic"],
+      "yogurt": ["yogurt-2025"]
     },
     "poultry": {
       "chicken-breast": [
@@ -2159,12 +1514,8 @@
         "rabbit-organic",
         "rabbit-organic-2025"
       ],
-      "turkey": [
-        "turkey-2025"
-      ],
-      "unknown-white-meat": [
-        "unknown-white-meat-2025"
-      ]
+      "turkey": ["turkey-2025"],
+      "unknown-white-meat": ["unknown-white-meat-2025"]
     },
     "red_meats": {
       "beef-with-bone": [
@@ -2202,15 +1553,9 @@
         "pork-organic",
         "pork-organic-2025"
       ],
-      "sausage-meat": [
-        "sausage-meat-2025"
-      ],
-      "sausage-toulouse": [
-        "sausage-toulouse-2025"
-      ],
-      "veal-meat": [
-        "veal-meat-2025"
-      ]
+      "sausage-meat": ["sausage-meat-2025"],
+      "sausage-toulouse": ["sausage-toulouse-2025"],
+      "veal-meat": ["veal-meat-2025"]
     }
   }
 }

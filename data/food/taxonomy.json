@@ -24,10 +24,7 @@
       "spelt",
       "triticale"
     ],
-    "eggs": [
-      "egg",
-      "egg-without-shell"
-    ],
+    "eggs": ["egg", "egg-without-shell"],
     "fish_and_shellfish": [
       "anchovy",
       "crab",
@@ -170,14 +167,7 @@
       "wine-grape",
       "zucchini"
     ],
-    "legumes": [
-      "chickpea",
-      "garden-peas",
-      "lentil",
-      "lentils-uncooked",
-      "oilseed",
-      "soybean"
-    ],
+    "legumes": ["chickpea", "garden-peas", "lentil", "lentils-uncooked", "oilseed", "soybean"],
     "other_food_items": [
       "alfalfa",
       "almond-in-shell",
@@ -370,12 +360,7 @@
       "yam",
       "yogurt"
     ],
-    "poultry": [
-      "chicken-breast",
-      "rabbit",
-      "turkey",
-      "unknown-white-meat"
-    ],
+    "poultry": ["chicken-breast", "rabbit", "turkey", "unknown-white-meat"],
     "red_meats": [
       "beef-with-bone",
       "beef-without-bone",
