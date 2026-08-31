@@ -76,5 +76,5 @@ def test_taxonomy_with_aliases_is_up_to_date():
     with open(TAXONOMY_WITH_ALIASES_PATH, encoding="utf-8") as f:
         assert json.load(f) == build_taxonomy_with_aliases(), (
             "food/taxonomy_with_aliases.json is out of date, regenerate it"
-            " with: `just generate-taxonomy-with-aliases`"
+            " with: `uv run python bin/generate_taxonomy_with_aliases.py`"
         )

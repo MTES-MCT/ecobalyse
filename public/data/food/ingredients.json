@@ -2812,7 +2812,7 @@
   {
     "activityName": "Plum puree, CMAPS {GLO} U",
     "alias": "plum-puree-fr",
-    "baseIngredient": "plum",
+    "baseIngredient": "plum-puree",
     "categories": [
       "vegetable_processed"
     ],
@@ -6147,7 +6147,7 @@
   {
     "activityName": "Fig puree, CMAPS {GLO} U",
     "alias": "fig-puree-fr",
-    "baseIngredient": "fig",
+    "baseIngredient": "fig-puree",
     "categories": [
       "vegetable_processed"
     ],
@@ -7267,7 +7267,7 @@
   {
     "activityName": "Raspberry juice, CMAPS {GLO} U",
     "alias": "raspberry-juice-fr",
-    "baseIngredient": "raspberry",
+    "baseIngredient": "raspberry-juice",
     "categories": [
       "vegetable_processed"
     ],
@@ -8024,7 +8024,7 @@
   {
     "activityName": "Soft wheat flour, organic, CMAPS {GLO} U",
     "alias": "soft-wheat-flour-fr-organic",
-    "baseIngredient": "soft-wheat",
+    "baseIngredient": "soft-wheat-flour",
     "categories": [
       "grain_processed",
       "organic"
@@ -10471,7 +10471,7 @@
   {
     "activityName": "Fig puree, import WFLDB, CMAPS {FR} U",
     "alias": "fig-puree-default",
-    "baseIngredient": "fig",
+    "baseIngredient": "fig-puree",
     "categories": [
       "vegetable_processed"
     ],
@@ -11612,7 +11612,7 @@
   {
     "activityName": "Soft wheat flour, CMAPS {FR} U",
     "alias": "soft-wheat-flour-default",
-    "baseIngredient": "soft-wheat",
+    "baseIngredient": "soft-wheat-flour",
     "categories": [
       "grain_processed"
     ],
@@ -12861,7 +12861,7 @@
   {
     "activityName": "Raspberry juice, CMAPS {GLO} U",
     "alias": "raspberry-juice-default",
-    "baseIngredient": "raspberry",
+    "baseIngredient": "raspberry-juice",
     "categories": [
       "vegetable_processed"
     ],
@@ -15290,7 +15290,7 @@
   {
     "activityName": "Barley flour, CMAPS {GLO} U",
     "alias": "barley-flour-fr",
-    "baseIngredient": "barley",
+    "baseIngredient": "barley-flour",
     "categories": [
       "grain_processed"
     ],
@@ -16256,7 +16256,7 @@
   {
     "activityName": "Plum puree, import WFLDB, CMAPS {FR} U",
     "alias": "plum-puree-default",
-    "baseIngredient": "plum",
+    "baseIngredient": "plum-puree",
     "categories": [
       "vegetable_processed"
     ],
@@ -18693,7 +18693,7 @@
   {
     "activityName": "Corn flour, CMAPS {GLO} U",
     "alias": "corn-flour-fr",
-    "baseIngredient": "corn",
+    "baseIngredient": "corn-flour",
     "categories": [
       "grain_processed"
     ],
@@ -20792,7 +20792,7 @@
   {
     "activityName": "Garlic, dried powder, CMAPS {GLO} U",
     "alias": "garlic-dried-powder-fr",
-    "baseIngredient": "garlic",
+    "baseIngredient": "garlic-dried-powder",
     "categories": [
       "spice_condiment_additive"
     ],
@@ -21168,7 +21168,7 @@
   {
     "activityName": "Raspberry juice, organic, CMAPS {GLO} U",
     "alias": "raspberry-juice-default-organic",
-    "baseIngredient": "raspberry",
+    "baseIngredient": "raspberry-juice",
     "categories": [
       "vegetable_processed",
       "organic"
@@ -23504,7 +23504,7 @@
   {
     "activityName": "Garlic, dried powder, import WFLDB, CMAPS {GLO} U",
     "alias": "garlic-dried-powder-default",
-    "baseIngredient": "garlic",
+    "baseIngredient": "garlic-dried-powder",
     "categories": [
       "spice_condiment_additive"
     ],
@@ -25166,7 +25166,7 @@
   {
     "activityName": "Corn flour, organic, CMAPS {GLO} U",
     "alias": "corn-flour-fr-organic",
-    "baseIngredient": "corn",
+    "baseIngredient": "corn-flour",
     "categories": [
       "grain_processed",
       "organic"
@@ -25243,7 +25243,7 @@
   {
     "activityName": "Barley flour, import WFLDB, CMAPS {FR} U",
     "alias": "barley-flour-default",
-    "baseIngredient": "barley",
+    "baseIngredient": "barley-flour",
     "categories": [
       "grain_processed"
     ],
@@ -28378,7 +28378,7 @@
   {
     "activityName": "Corn flour, CMAPS {FR} U",
     "alias": "corn-flour-default",
-    "baseIngredient": "corn",
+    "baseIngredient": "corn-flour",
     "categories": [
       "grain_processed"
     ],
@@ -31451,7 +31451,7 @@
   {
     "activityName": "Soft wheat flour, CMAPS {GLO} U",
     "alias": "soft-wheat-flour-fr",
-    "baseIngredient": "soft-wheat",
+    "baseIngredient": "soft-wheat-flour",
     "categories": [
       "grain_processed"
     ],
@@ -34911,7 +34911,7 @@
   {
     "activityName": "Garlic, dried powder, organic, CMAPS {GLO} U",
     "alias": "garlic-dried-powder-fr-organic",
-    "baseIngredient": "garlic",
+    "baseIngredient": "garlic-dried-powder",
     "categories": [
       "spice_condiment_additive",
       "organic"
@@ -35745,7 +35745,7 @@
   {
     "activityName": "Plum puree, organic, CMAPS {GLO} U",
     "alias": "plum-puree-fr-organic",
-    "baseIngredient": "plum",
+    "baseIngredient": "plum-puree",
     "categories": [
       "vegetable_processed",
       "organic"
@@ -38149,7 +38149,7 @@
   {
     "activityName": "Fig puree, organic, CMAPS {GLO} U",
     "alias": "fig-puree-fr-organic",
-    "baseIngredient": "fig",
+    "baseIngredient": "fig-puree",
     "categories": [
       "vegetable_processed",
       "organic"

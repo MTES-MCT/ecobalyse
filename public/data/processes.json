@@ -69848,7 +69848,7 @@
       },
       "defaultOrigin": "FR",
       "ingredient": {
-        "baseIngredient": "barley",
+        "baseIngredient": "barley-flour",
         "cropGroup": "ORGE",
         "processId": "7eed490b-ebb0-4329-ab6f-d360a7a6b222",
         "scenario": "reference"
@@ -69890,7 +69890,7 @@
       },
       "defaultOrigin": null,
       "ingredient": {
-        "baseIngredient": "barley",
+        "baseIngredient": "barley-flour",
         "cropGroup": "ORGE",
         "processId": "12712421-5454-400e-82b5-9e4dcb66d650",
         "scenario": "import"
@@ -72023,7 +72023,7 @@
       },
       "defaultOrigin": null,
       "ingredient": {
-        "baseIngredient": "corn",
+        "baseIngredient": "corn-flour",
         "cropGroup": "MAIS GRAIN ET ENSILAGE",
         "processId": "20244ef9-5b5a-4eb1-a0fa-251cc0f4a828",
         "scenario": "import"
@@ -72065,7 +72065,7 @@
       },
       "defaultOrigin": "FR",
       "ingredient": {
-        "baseIngredient": "corn",
+        "baseIngredient": "corn-flour",
         "cropGroup": "MAIS GRAIN ET ENSILAGE",
         "processId": "6ef925f1-e91c-4ef8-9d6a-f24c599a4282",
         "scenario": "reference"
@@ -72107,7 +72107,7 @@
       },
       "defaultOrigin": "FR",
       "ingredient": {
-        "baseIngredient": "corn",
+        "baseIngredient": "corn-flour",
         "cropGroup": "MAIS GRAIN ET ENSILAGE",
         "processId": "a6eab5b2-7c8b-40ff-a24c-31a23b934958",
         "scenario": "organic"
@@ -73249,7 +73249,7 @@
       },
       "defaultOrigin": "FR",
       "ingredient": {
-        "baseIngredient": "fig",
+        "baseIngredient": "fig-puree",
         "cropGroup": "VERGERS",
         "processId": "da942b84-4bbd-4901-8d0c-c56ec2b59d55",
         "scenario": "reference"
@@ -73291,7 +73291,7 @@
       },
       "defaultOrigin": null,
       "ingredient": {
-        "baseIngredient": "fig",
+        "baseIngredient": "fig-puree",
         "cropGroup": "VERGERS",
         "processId": "82c97409-bc40-4c24-bd7f-1b8acfa0121d",
         "scenario": "import"
@@ -73333,7 +73333,7 @@
       },
       "defaultOrigin": "FR",
       "ingredient": {
-        "baseIngredient": "fig",
+        "baseIngredient": "fig-puree",
         "cropGroup": "VERGERS",
         "processId": "0c48e3d9-8b23-4eca-9ded-00589eabcc03",
         "scenario": "organic"
@@ -73813,7 +73813,7 @@
       },
       "defaultOrigin": "FR",
       "ingredient": {
-        "baseIngredient": "garlic",
+        "baseIngredient": "garlic-dried-powder",
         "cropGroup": "LEGUMES-FLEURS",
         "processId": "23090481-9007-4d22-8d8e-08920c1aaa1e",
         "scenario": "reference"
@@ -73855,7 +73855,7 @@
       },
       "defaultOrigin": null,
       "ingredient": {
-        "baseIngredient": "garlic",
+        "baseIngredient": "garlic-dried-powder",
         "cropGroup": "LEGUMES-FLEURS",
         "processId": "5e862922-6159-4581-a820-ea30224c6ee0",
         "scenario": "import"
@@ -73897,7 +73897,7 @@
       },
       "defaultOrigin": "FR",
       "ingredient": {
-        "baseIngredient": "garlic",
+        "baseIngredient": "garlic-dried-powder",
         "cropGroup": "LEGUMES-FLEURS",
         "processId": "cc5fc515-4692-4e9c-b7e4-0fc21055d0ed",
         "scenario": "organic"
@@ -78006,7 +78006,7 @@
       },
       "defaultOrigin": "FR",
       "ingredient": {
-        "baseIngredient": "plum",
+        "baseIngredient": "plum-puree",
         "cropGroup": "VERGERS",
         "processId": "c050c8c5-262a-4851-a8f0-b31da30c32f8",
         "scenario": "reference"
@@ -78048,7 +78048,7 @@
       },
       "defaultOrigin": null,
       "ingredient": {
-        "baseIngredient": "plum",
+        "baseIngredient": "plum-puree",
         "cropGroup": "VERGERS",
         "processId": "7cdb00fc-10d6-4ad5-8759-93e879267192",
         "scenario": "import"
@@ -78090,7 +78090,7 @@
       },
       "defaultOrigin": "FR",
       "ingredient": {
-        "baseIngredient": "plum",
+        "baseIngredient": "plum-puree",
         "cropGroup": "VERGERS",
         "processId": "50b5c539-824e-4a44-97d9-d0626aa44700",
         "scenario": "organic"
@@ -78660,7 +78660,7 @@
       },
       "defaultOrigin": null,
       "ingredient": {
-        "baseIngredient": "raspberry",
+        "baseIngredient": "raspberry-juice",
         "cropGroup": "VERGERS",
         "processId": "6dde8cdb-2308-4fb5-86e2-f4b7beb68d81",
         "scenario": "import"
@@ -78702,7 +78702,7 @@
       },
       "defaultOrigin": "FR",
       "ingredient": {
-        "baseIngredient": "raspberry",
+        "baseIngredient": "raspberry-juice",
         "cropGroup": "VERGERS",
         "processId": "6dde8cdb-2308-4fb5-86e2-f4b7beb68d81",
         "scenario": "reference"
@@ -78744,7 +78744,7 @@
       },
       "defaultOrigin": null,
       "ingredient": {
-        "baseIngredient": "raspberry",
+        "baseIngredient": "raspberry-juice",
         "cropGroup": "VERGERS",
         "processId": "26e83cf0-279b-4698-a19c-fbbbeed8df30",
         "scenario": "organic"
@@ -79350,7 +79350,7 @@
       },
       "defaultOrigin": null,
       "ingredient": {
-        "baseIngredient": "soft-wheat",
+        "baseIngredient": "soft-wheat-flour",
         "cropGroup": "BLE TENDRE",
         "processId": "c78acecf-3809-4a36-9ed9-713a3e237401",
         "scenario": "import"
@@ -79392,7 +79392,7 @@
       },
       "defaultOrigin": "FR",
       "ingredient": {
-        "baseIngredient": "soft-wheat",
+        "baseIngredient": "soft-wheat-flour",
         "cropGroup": "BLE TENDRE",
         "processId": "0fe695a0-c88e-46e2-8e12-f5cf680f1de4",
         "scenario": "reference"
@@ -79434,7 +79434,7 @@
       },
       "defaultOrigin": "FR",
       "ingredient": {
-        "baseIngredient": "soft-wheat",
+        "baseIngredient": "soft-wheat-flour",
         "cropGroup": "BLE TENDRE",
         "processId": "d623f9e8-7935-4249-827b-076c70d19192",
         "scenario": "organic"
