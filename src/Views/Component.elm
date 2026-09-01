@@ -324,12 +324,13 @@ componentView config itemIndex ({ component, elements, quantity } as expandedIte
                 [ if config.scope /= Scope.Textile then
                     tr []
                         [ th [] []
-                        , th [ class "pb-0 fs-8 fw-normal text-muted" ] [ text "Quantité" ]
+                        , th [ class "pb-0 fs-8 fw-normal text-muted text-nowrap" ] [ text "Masse unitaire" ]
                         , th [ class "pb-0 fs-8 fw-normal text-muted", colspan 2 ]
                             [ span [] [ text config.labels.label ] ]
-                        , th [ class "pb-0 fs-8 fw-normal text-muted text-end" ] [ text "Masse unitaire" ]
-                        , th [ class "pb-0 fs-8 fw-normal text-muted text-end" ] [ text "Masse totale" ]
-                        , th [ colspan 2 ] []
+                        , th [ class "pb-0 fs-8 fw-normal text-muted text-nowrap text-center" ] [ text "Quantité" ]
+                        , th [ class "pb-0 fs-8 fw-normal text-muted text-nowrap text-center" ] [ text "Masse totale" ]
+                        , th [ class "pb-0 fs-8 fw-normal text-muted text-nowrap text-center" ] [ text "Impacts" ]
+                        , th [] []
                         ]
 
                   else
@@ -358,8 +359,9 @@ componentView config itemIndex ({ component, elements, quantity } as expandedIte
                           else
                             text ""
                         ]
-                    , td [ class "ps-0 pt-0 pb-2 align-middle" ]
-                        [ quantity |> quantityInput config itemIndex
+                    , td [ class "pt-0 pb-2 text-end align-middle text-nowrap fs-7" ]
+                        [ Component.extractUnitMass itemResults
+                            |> Format.kg
                         ]
                     , td [ class "pt-0 pb-2 align-middle text-truncate w-100", colspan 2 ]
                         [ if config.context == GenericContext then
@@ -379,15 +381,14 @@ componentView config itemIndex ({ component, elements, quantity } as expandedIte
                           else
                             span [ class "fw-bold" ] [ text component.name ]
                         ]
-                    , td [ class "pt-0 pb-2 text-end align-middle text-nowrap fs-7" ]
-                        [ Component.extractUnitMass itemResults
-                            |> Format.kg
+                    , td [ class "ps-0 pt-0 pb-2 align-middle" ]
+                        [ quantity |> quantityInput config itemIndex
                         ]
                     , td [ class "pt-0 pb-2 text-end align-middle text-nowrap fs-7" ]
                         [ Component.extractMass itemResults
                             |> Format.kg
                         ]
-                    , td [ class "pt-0 pb-2 text-end align-middle text-nowrap fs-7" ]
+                    , td [ class "pt-0 pb-2 text-end align-middle text-nowrap fs-7", style "min-width" "80px" ]
                         [ Component.getTotalImpacts itemResults
                             |> Format.formatImpact config.impact
                         ]
@@ -1429,7 +1430,7 @@ regionSelector config =
 
 quantityInput : Config db msg -> Index -> Quantity -> Html msg
 quantityInput config itemIndex quantity =
-    div [ class "input-group", style "width" "130px" ]
+    div [ class "input-group", style "width" "80px" ]
         [ input
             [ type_ "number"
             , class "form-control text-end"

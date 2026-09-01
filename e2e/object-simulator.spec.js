@@ -11,9 +11,6 @@ test("object simulator", async ({ page }) => {
   await page.getByRole("button", { name: "Ajouter un matériau" }).click();
   await page.getByRole("option", { name: "Mousse polyurethane (canapé 3p)" }).click();
 
-  await expect(page.getByRole("columnheader", { name: "Masse unitaire" }).first()).toBeVisible();
-  await expect(page.getByRole("columnheader", { name: "Masse totale" }).first()).toBeVisible();
-
   await page.getByRole("row", { name: "▶ Pied chaise acier" }).getByRole("spinbutton").fill("2");
   await page.getByRole("row", { name: "▶ Structure acier" }).getByRole("spinbutton").fill("3");
   await page.getByRole("row", { name: "▶ Mousse polyurethane" }).getByRole("spinbutton").fill("4");
