@@ -813,18 +813,21 @@ suite =
                                 |> toComputedResults
                             )
                             (\unitResults doubledResults ->
-                                [ ( Component.extractUnitMass doubledResults |> Mass.inKilograms
-                                  , Component.extractUnitMass unitResults |> Mass.inKilograms
-                                  )
-                                , ( Component.extractMass doubledResults |> Mass.inKilograms
-                                  , (Component.extractMass unitResults |> Mass.inKilograms) * 2
-                                  )
-                                , ( Component.getTotalImpacts doubledResults |> getEcsImpact
-                                  , (Component.getTotalImpacts unitResults |> getEcsImpact) * 2
-                                  )
-                                ]
-                                    |> List.map (\( a, b ) -> always <| Expect.within (Expect.Absolute 0.00001) a b)
-                                    |> (\expects -> Expect.all expects ())
+                                Expect.all
+                                    [ \_ ->
+                                        Expect.within (Expect.Absolute 0.00001)
+                                            (Component.extractUnitMass unitResults |> Mass.inKilograms)
+                                            (Component.extractUnitMass doubledResults |> Mass.inKilograms)
+                                    , \_ ->
+                                        Expect.within (Expect.Absolute 0.00001)
+                                            ((Component.extractMass unitResults |> Mass.inKilograms) * 2)
+                                            (Component.extractMass doubledResults |> Mass.inKilograms)
+                                    , \_ ->
+                                        Expect.within (Expect.Absolute 0.00001)
+                                            ((Component.getTotalImpacts unitResults |> getEcsImpact) * 2)
+                                            (Component.getTotalImpacts doubledResults |> getEcsImpact)
+                                    ]
+                                    ()
                             )
                          ]
                         )
