@@ -77,6 +77,7 @@ module Data.Component exposing
     , extractItems
     , extractMass
     , extractStage
+    , extractUnitMass
     , findById
     , getAssemblyOperations
     , getAvailableDistributionProcesses
@@ -1979,6 +1980,20 @@ extractMass (Results { mass }) =
 extractStage : Results -> Maybe Stage
 extractStage (Results { stage }) =
     stage
+
+
+{-| Extracts the unit mass of a Results item line
+
+Note: in case of a quantity of 0, the unit mass is the total mass.
+
+-}
+extractUnitMass : Results -> Mass
+extractUnitMass (Results { mass, quantity }) =
+    if quantity == 0 then
+        mass
+
+    else
+        mass |> Quantity.divideBy (toFloat quantity)
 
 
 {-| Lookup a Component from a provided Id

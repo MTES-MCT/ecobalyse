@@ -796,6 +796,36 @@ suite =
                                                 Expect.fail err
                                    )
                             )
+                         , itFromResult "should equal extractMass when quantity is 1"
+                            ("""{"id": "64fa65b3-c2df-4fd0-958b-83965bd6aa08", "quantity": 1}"""
+                                |> toComputedResults
+                            )
+                            (\results ->
+                                Expect.within (Expect.Absolute 0.00001)
+                                    (Component.extractUnitMass results |> Mass.inKilograms)
+                                    (Component.extractMass results |> Mass.inKilograms)
+                            )
+                         , itFromResult2 "should keep unit mass unchanged when quantity is scaled"
+                            ("""{"id": "64fa65b3-c2df-4fd0-958b-83965bd6aa08", "quantity": 1}"""
+                                |> toComputedResults
+                            )
+                            ("""{"id": "64fa65b3-c2df-4fd0-958b-83965bd6aa08", "quantity": 2}"""
+                                |> toComputedResults
+                            )
+                            (\unitResults doubledResults ->
+                                [ ( Component.extractUnitMass doubledResults |> Mass.inKilograms
+                                  , Component.extractUnitMass unitResults |> Mass.inKilograms
+                                  )
+                                , ( Component.extractMass doubledResults |> Mass.inKilograms
+                                  , (Component.extractMass unitResults |> Mass.inKilograms) * 2
+                                  )
+                                , ( Component.getTotalImpacts doubledResults |> getEcsImpact
+                                  , (Component.getTotalImpacts unitResults |> getEcsImpact) * 2
+                                  )
+                                ]
+                                    |> List.map (\( a, b ) -> always <| Expect.within (Expect.Absolute 0.00001) a b)
+                                    |> (\expects -> Expect.all expects ())
+                            )
                          ]
                         )
                     , describe "computePackagingImpacts"
