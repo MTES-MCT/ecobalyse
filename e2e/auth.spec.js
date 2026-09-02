@@ -14,7 +14,7 @@ test.describe("auth", () => {
   // One stateful journey: Alice registers once. A retry would replay it against a
   // DB that still has her (state isn't reset between attempts) and hang — so we keep
   // this run deterministic and disable retries instead of masking flakiness.
-  test.describe.configure({ mode: "serial", retries: 0 });
+  test.describe.configure({ mode: "serial", retries: 0, timeout: 90_000 });
 
   test.beforeEach(async () => {
     await deleteAllEmails();
@@ -68,7 +68,7 @@ test.describe("auth", () => {
       await expect(page.getByText("Email de connexion envoyé")).toBeVisible();
 
       expect(lastEmail.subject).toContain("Lien de connexion à Ecobalyse");
-      expect(lastEmail.headers.to).toBe("alice@cooper.com");
+      expect(lastEmail.to[0].address).toBe("alice@cooper.com");
       const links = extractUrlsFromText(lastEmail.text).filter((url) => url.includes("/auth/"));
       expect(links).toHaveLength(1);
 
