@@ -36,7 +36,8 @@ import Result.Extra as RE
 import Test exposing (..)
 import TestUtils
     exposing
-        ( expectFloatDifferent
+        ( expectAllSucceed
+        , expectFloatDifferent
         , expectFloatMostlyEqual
         , expectResultErrorContains
         , it
@@ -835,21 +836,17 @@ suite =
                                 |> toComputedResults
                             )
                             (\unitResults doubledResults ->
-                                Expect.all
-                                    [ \_ ->
-                                        expectFloatMostlyEqual
-                                            (Component.extractUnitMass unitResults |> Mass.inKilograms)
-                                            (Component.extractUnitMass doubledResults |> Mass.inKilograms)
-                                    , \_ ->
-                                        expectFloatMostlyEqual
-                                            ((Component.extractMass unitResults |> Mass.inKilograms) * 2)
-                                            (Component.extractMass doubledResults |> Mass.inKilograms)
-                                    , \_ ->
-                                        expectFloatMostlyEqual
-                                            ((Component.getTotalImpacts unitResults |> getEcsImpact) * 2)
-                                            (Component.getTotalImpacts doubledResults |> getEcsImpact)
+                                expectAllSucceed
+                                    [ expectFloatMostlyEqual
+                                        (Component.extractUnitMass unitResults |> Mass.inKilograms)
+                                        (Component.extractUnitMass doubledResults |> Mass.inKilograms)
+                                    , expectFloatMostlyEqual
+                                        ((Component.extractMass unitResults |> Mass.inKilograms) * 2)
+                                        (Component.extractMass doubledResults |> Mass.inKilograms)
+                                    , expectFloatMostlyEqual
+                                        ((Component.getTotalImpacts unitResults |> getEcsImpact) * 2)
+                                        (Component.getTotalImpacts doubledResults |> getEcsImpact)
                                     ]
-                                    ()
                             )
                          , itFromResult "should split unit mass evenly across two 1kg elements"
                             ("""{ "id": "ad9d7f23-076b-49c5-93a4-ee1cd7b53973",
@@ -876,13 +873,15 @@ suite =
                                                         |> Component.elementMassShare (Component.extractMass elementResults)
                                                 )
                                 in
-                                Expect.all
-                                    [ \_ -> Mass.inKilograms unitMass |> expectFloatMostlyEqual 2
-                                    , \_ -> Expect.equal [ Split.half, Split.half ] elementShares
+                                expectAllSucceed
+                                    [ Mass.inKilograms unitMass
+                                        |> expectFloatMostlyEqual 2
+                                    , elementShares
+                                        |> Expect.equal [ Split.half, Split.half ]
                                     ]
-                                    ()
                             )
                          , itFromResult2 "should keep element mass shares unchanged when quantity is scaled"
+                            -- initial quantity
                             ("""{ "id": "ad9d7f23-076b-49c5-93a4-ee1cd7b53973",
                                   "quantity": 1,
                                   "custom": {
@@ -894,6 +893,7 @@ suite =
                                 }"""
                                 |> toComputedResults
                             )
+                            -- doubled quantity
                             ("""{ "id": "ad9d7f23-076b-49c5-93a4-ee1cd7b53973",
                                   "quantity": 2,
                                   "custom": {
@@ -907,7 +907,7 @@ suite =
                             )
                             (\unitResults doubledResults ->
                                 let
-                                    shares results =
+                                    extractShares results =
                                         let
                                             unitMass =
                                                 Component.extractUnitMass results
@@ -919,15 +919,15 @@ suite =
                                                         |> Component.elementMassShare (Component.extractMass elementResults)
                                                 )
                                 in
-                                Expect.all
-                                    [ \_ -> shares doubledResults |> Expect.equal (shares unitResults)
-                                    , \_ -> shares doubledResults |> Expect.equal [ Split.half, Split.half ]
-                                    , \_ ->
-                                        Component.extractUnitMass doubledResults
-                                            |> Mass.inKilograms
-                                            |> expectFloatMostlyEqual (Component.extractUnitMass unitResults |> Mass.inKilograms)
+                                expectAllSucceed
+                                    [ extractShares doubledResults
+                                        |> Expect.equal (extractShares unitResults)
+                                    , extractShares doubledResults
+                                        |> Expect.equal [ Split.half, Split.half ]
+                                    , Component.extractUnitMass doubledResults
+                                        |> Mass.inKilograms
+                                        |> expectFloatMostlyEqual (Component.extractUnitMass unitResults |> Mass.inKilograms)
                                     ]
-                                    ()
                             )
                          ]
                         )
