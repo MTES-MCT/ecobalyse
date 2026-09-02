@@ -177,12 +177,6 @@
         "lobster-fr-2025",
         "lobster-non-eu-2025"
       ],
-      "sea-salt": [
-        "sea-salt-default",
-        "sea-salt-eu",
-        "sea-salt-fr",
-        "sea-salt-non-eu"
-      ],
       "snail": [
         "snail-default",
         "snail-eu",
@@ -1481,11 +1475,9 @@
         "cull-cow-organic-live",
         "cull-cow-organic-national-average-live"
       ],
-      "dairy-spread-20pct-fat": [
+      "dairy-spread": [
         "dairy-spread-20pct-fat-default",
-        "dairy-spread-20pct-fat-fr"
-      ],
-      "dairy-spread-25pct-fat": [
+        "dairy-spread-20pct-fat-fr",
         "dairy-spread-25pct-fat-default",
         "dairy-spread-25pct-fat-fr"
       ],
@@ -1519,7 +1511,7 @@
       "extra-virgin-olive-oil": [
         "extra-virgin-olive-oil-2025"
       ],
-      "faisselle-6pct-fat": [
+      "faisselle": [
         "faisselle-6pct-fat-default",
         "faisselle-6pct-fat-fr"
       ],
@@ -1559,15 +1551,11 @@
       "fresh-cream-cheese": [
         "fresh-cream-cheese-2025"
       ],
-      "fromage-blanc-0pct-fat": [
+      "fromage-blanc": [
         "fromage-blanc-0pct-fat-default",
-        "fromage-blanc-0pct-fat-fr"
-      ],
-      "fromage-blanc-3pct-fat": [
+        "fromage-blanc-0pct-fat-fr",
         "fromage-blanc-3pct-fat-default",
-        "fromage-blanc-3pct-fat-fr"
-      ],
-      "fromage-blanc-8pct-fat": [
+        "fromage-blanc-3pct-fat-fr",
         "fromage-blanc-8pct-fat-default",
         "fromage-blanc-8pct-fat-fr"
       ],
@@ -1665,9 +1653,6 @@
         "honey-eu",
         "honey-fr",
         "honey-non-eu"
-      ],
-      "lamb-organic-national-average-farm-gate-fr-u-live": [
-        "lamb-organic-national-average-farm-gate-fr-u-live"
       ],
       "lemon-juice": [
         "lemon-juice-2025"
@@ -1768,11 +1753,9 @@
         "persimmon-non-eu",
         "persimmon-organic"
       ],
-      "petit-suisse-10pct-fat": [
+      "petit-suisse": [
         "petit-suisse-10pct-fat-default",
-        "petit-suisse-10pct-fat-fr"
-      ],
-      "petit-suisse-4pct-fat": [
+        "petit-suisse-10pct-fat-fr",
         "petit-suisse-4pct-fat-default",
         "petit-suisse-4pct-fat-fr"
       ],
@@ -1913,6 +1896,12 @@
       ],
       "sausage-toulouse-cooked": [
         "sausage-toulouse-cooked-2025"
+      ],
+      "sea-salt": [
+        "sea-salt-default",
+        "sea-salt-eu",
+        "sea-salt-fr",
+        "sea-salt-non-eu"
       ],
       "sesame-seed": [
         "sesame-seed-default",
@@ -2163,22 +2152,16 @@
         "beef-boneless-raw-default",
         "beef-boneless-raw-fr",
         "beef-boneless-raw-fr-organic",
+        "beef-cattle-conventional-fr-live",
+        "beef-cattle-feedlot-gb-live",
         "beef-default",
         "beef-fr",
         "beef-organic",
-        "beef-organic-2025"
-      ],
-      "beef-cattle": [
-        "beef-cattle-conventional-fr-live",
-        "beef-cattle-feedlot-gb-live"
-      ],
-      "beef-with-bone": [
+        "beef-organic-2025",
         "beef-with-bone",
         "beef-with-bone-feedlot",
         "beef-with-bone-grass-fed",
-        "beef-with-bone-organic"
-      ],
-      "beef-without-bone": [
+        "beef-with-bone-organic",
         "beef-without-bone",
         "beef-without-bone-feedlot",
         "beef-without-bone-grass-fed",
@@ -2191,19 +2174,16 @@
         "ground-beef-organic-2025"
       ],
       "lamb": [
+        "lamb-conventional-fr-live",
         "lamb-default",
         "lamb-fr",
-        "lamb-organic",
-        "lamb-organic-2025"
-      ],
-      "lamb-conventional-fr-live": [
-        "lamb-conventional-fr-live"
-      ],
-      "lamb-meat-without-bone": [
         "lamb-meat-without-bone",
         "lamb-meat-without-bone-eu-2025",
         "lamb-meat-without-bone-non-eu-2025",
-        "lamb-meat-without-bone-organic"
+        "lamb-meat-without-bone-organic",
+        "lamb-organic",
+        "lamb-organic-2025",
+        "lamb-organic-national-average-farm-gate-fr-u-live"
       ],
       "pork": [
         "pork-boneless-raw-default",
