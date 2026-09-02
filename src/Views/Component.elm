@@ -324,14 +324,17 @@ componentView config itemIndex ({ component, elements, quantity } as expandedIte
                 [ if config.scope /= Scope.Textile then
                     tr []
                         [ th [] []
-                        , th [ class "pb-0 fs-8 fw-normal text-muted" ] [ text "Quantité" ]
+                        , th [ class "pb-0 fs-8 fw-normal text-muted text-nowrap" ] [ text "Masse unitaire" ]
                         , th [ class "pb-0 fs-8 fw-normal text-muted", colspan 2 ]
                             [ span [] [ text config.labels.label ] ]
-                        , th [ colspan 3 ] []
+                        , th [ class "pb-0 fs-8 fw-normal text-muted text-nowrap text-center" ] [ text "Quantité" ]
+                        , th [ class "pb-0 fs-8 fw-normal text-muted text-nowrap text-center" ] [ text "Masse totale" ]
+                        , th [ class "pb-0 fs-8 fw-normal text-muted text-nowrap text-center" ] [ text "Impacts" ]
+                        , th [] []
                         ]
 
                   else
-                    tr [] [ td [ colspan 7 ] [] ]
+                    tr [] [ td [ colspan 8 ] [] ]
                 , tr [ class "border-bottom" ]
                     [ th [ class "ps-2 pt-0 pb-2 align-middle", scope "col" ]
                         [ if config.context /= TextileTrimsContext then
@@ -356,8 +359,9 @@ componentView config itemIndex ({ component, elements, quantity } as expandedIte
                           else
                             text ""
                         ]
-                    , td [ class "ps-0 pt-0 pb-2 align-middle" ]
-                        [ quantity |> quantityInput config itemIndex
+                    , td [ class "pt-0 pb-2 text-end align-middle text-nowrap fs-7" ]
+                        [ Component.extractUnitMass itemResults
+                            |> Format.kg
                         ]
                     , td [ class "pt-0 pb-2 align-middle text-truncate w-100", colspan 2 ]
                         [ if config.context == GenericContext then
@@ -377,11 +381,14 @@ componentView config itemIndex ({ component, elements, quantity } as expandedIte
                           else
                             span [ class "fw-bold" ] [ text component.name ]
                         ]
+                    , td [ class "ps-0 pt-0 pb-2 align-middle" ]
+                        [ quantity |> quantityInput config itemIndex
+                        ]
                     , td [ class "pt-0 pb-2 text-end align-middle text-nowrap fs-7" ]
                         [ Component.extractMass itemResults
                             |> Format.kg
                         ]
-                    , td [ class "pt-0 pb-2 text-end align-middle text-nowrap fs-7" ]
+                    , td [ class "pt-0 pb-2 text-end align-middle text-nowrap fs-7", style "min-width" "80px" ]
                         [ Component.getTotalImpacts itemResults
                             |> Format.formatImpact config.impact
                         ]
@@ -413,7 +420,7 @@ componentDetailedView config elements itemIndex expandedItem itemResults =
     List.concat
         [ [ tr [ class "bg-light border-bottom" ]
                 [ th [] []
-                , th [ class "pb-1", colspan 6 ] [ text "Composition" ]
+                , th [ class "pb-1", colspan 7 ] [ text "Composition" ]
                 ]
           ]
         , if List.isEmpty elements then
@@ -432,7 +439,7 @@ componentDetailedView config elements itemIndex expandedItem itemResults =
                 elements
                 (Component.extractItems itemResults)
         , [ tr [ class "border-top" ]
-                [ td [ colspan 7, class "pe-3" ]
+                [ td [ colspan 8, class "pe-3" ]
                     [ addElementButton config ( expandedItem.component, itemIndex )
                     ]
                 ]
@@ -547,7 +554,8 @@ lifeCycleView ({ db, docsUrl, explorerRoute, impact, query, scope } as config) l
                                             , th [ Attr.scope "col", colspan 2 ]
                                                 [ text config.labels.name
                                                 ]
-                                            , th [ Attr.scope "col" ] [ text "Masse" ]
+                                            , th [ Attr.scope "col" ] [ text "Masse unitaire" ]
+                                            , th [ Attr.scope "col" ] [ text "Masse totale" ]
                                             , th [ Attr.scope "col" ] [ text "Impact" ]
                                             , th [ Attr.scope "col" ] []
                                             ]
@@ -975,7 +983,7 @@ elementView config (( component, _ ) as targetItem) elementIndex { amount, mater
                         ]
                     ]
                 ]
-            , td [ class "align-middle text-end text-nowrap", colspan 2 ]
+            , td [ class "align-middle text-end text-nowrap", colspan 3 ]
                 [ Component.getTotalImpacts elementResults
                     |> Format.formatImpact config.impact
                 ]
@@ -1422,7 +1430,7 @@ regionSelector config =
 
 quantityInput : Config db msg -> Index -> Quantity -> Html msg
 quantityInput config itemIndex quantity =
-    div [ class "input-group", style "width" "130px" ]
+    div [ class "input-group", style "width" "80px" ]
         [ input
             [ type_ "number"
             , class "form-control text-end"
