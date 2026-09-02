@@ -2,8 +2,6 @@ import { test, expect } from "@playwright/test";
 import { waitForAppReady } from "./lib";
 
 test("object simulator", async ({ page }) => {
-  test.setTimeout(30_000);
-
   await page.goto("/");
   await waitForAppReady(page);
   await page.getByLabel("Menu principal").getByRole("link", { name: "Objets" }).click();

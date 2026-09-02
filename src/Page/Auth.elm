@@ -102,7 +102,11 @@ init session =
                 |> App.createUpdate session
 
 
-{-| Init page when we receive magic link information
+{-| Init page when we receive magic link information.
+
+If the session is already authenticated (reload or bookmark of a magic-link URL),
+show the account instead of asking to confirm login again.
+
 -}
 initLogin : Session -> Email -> AccessToken -> PageUpdate Model Msg
 initLogin session email token =
