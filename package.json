@@ -86,7 +86,7 @@
     "elm-test": "0.19.1-revision17",
     "highcharts": "13.0.2",
     "jest": "^30.5.1",
-    "maildev": "^2.2.1",
+    "maildev": "^3.0.0-rc.2",
     "nodemon": "^3.1.14",
     "parcel": "^2.16.4",
     "prettier": "^3.9.6",
