@@ -68,7 +68,7 @@ test.describe("auth", () => {
       await expect(page.getByText("Email de connexion envoyé")).toBeVisible();
 
       expect(lastEmail.subject).toContain("Lien de connexion à Ecobalyse");
-      expect(lastEmail.headers.to).toBe("alice@cooper.com");
+      expect(lastEmail.to[0].address).toBe("alice@cooper.com");
       const links = extractUrlsFromText(lastEmail.text).filter((url) => url.includes("/auth/"));
       expect(links).toHaveLength(1);
 
