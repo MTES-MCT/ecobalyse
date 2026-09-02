@@ -1,7 +1,6 @@
 dist/
 elm.json
 package-lock.json
-package.json
 public/icomoon/*
 public/vendor/*
 tests/e2e-*-output.json
