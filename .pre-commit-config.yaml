@@ -62,7 +62,6 @@ repos:
           bash -c '
             to_format=$(bin/filter_ignored.sh "$@")
             [ -n "$to_format" ] && uv run bin/json_formatter.py --fix $to_format
-            exit 0
           ' --
 
       - id: check-json-schemas
