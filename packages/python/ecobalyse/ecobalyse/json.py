@@ -29,8 +29,7 @@ class CompactJSONEncoder(json.JSONEncoder):
             kwargs["indent"] = 4
         super().__init__(*args, **kwargs)
         self.indentation_level = 0
-        if number_precision is not None:
-            self.NUMBER_PRECISION = number_precision
+        self.NUMBER_PRECISION = number_precision
 
     def encode(self, o):
         """Encode JSON object *o* with respect to single line lists and number formatting."""
