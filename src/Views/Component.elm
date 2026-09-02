@@ -953,25 +953,24 @@ elementView config (( component, _ ) as targetItem) itemResults elementIndex { a
                 , "(" ++ (country |> Maybe.map .name |> Maybe.withDefault "Inconnu") ++ ")"
                 ]
 
-        originalUnitAmount =
-            if material.process.unit /= Process.Kilogram then
-                span [ class "text-muted fs-8" ]
-                    [ Format.amount material.process amount ]
+        amountInfo =
+            span [ class "d-flex text-muted fs-8" ]
+                [ if material.process.unit /= Process.Kilogram then
+                    span [] [ text "(", Format.amount material.process amount, text ")\u{00A0}" ]
 
-            else
-                text ""
+                  else
+                    text ""
+                , Format.kg elementMass
+                ]
     in
     tbody []
         [ tr [ class "fs-7 border-top" ]
             [ td [] []
-            , td [ class "ps-0 align-start text-end text-nowrap" ]
-                [ div [ class "d-flex flex-column" ]
-                    [ -- FIXME: move share to its own column
-                      Component.elementMassShare elementMass (Component.extractUnitMass itemResults)
-                        |> Format.splitAsPercentage 1
-                    , Format.kg elementMass
-                    , originalUnitAmount
-                    ]
+            , td [ class "d-flex flex-column align-items-end" ]
+                [ Component.extractUnitMass itemResults
+                    |> Component.elementMassShare elementMass
+                    |> Format.splitAsPercentage 1
+                , amountInfo
                 ]
             , td
                 [ colspan 2
