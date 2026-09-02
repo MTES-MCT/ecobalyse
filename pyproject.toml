@@ -36,6 +36,8 @@ requires = ["hatchling", "setuptools"]
 allow-direct-references = true
 
 [tool.hatch.build]
+# Add the corresponding paths to PYTHON_PATH so that imports relative to those dirs
+# are working as expected, as if the dirs were standalone packages
 dev-mode-dirs = ["./packages/python/ecobalyse", "./backend/src", ".", "./data"]
 ignore-vcs = true
 sources = ["src"]

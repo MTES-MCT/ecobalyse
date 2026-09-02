@@ -2,8 +2,9 @@ import json
 import math
 import os
 from pathlib import Path
+from typing import Any
 
-from ecobalyse.json import activities_processes_sort_key, export_json
+from ecobalyse.json import export_json
 from frozendict import deepfreeze
 from rich.console import Console
 from rich.table import Table
@@ -12,6 +13,16 @@ from config import DATA_ROOT_DIR, settings
 from ecobalyse_data.logging import logger
 
 from . import remove_detailed_impacts
+
+
+def activities_processes_sort_key(entry: dict[str, Any]) -> tuple:
+    return (
+        entry.get("source", ""),
+        entry.get("activityName", ""),
+        entry.get("location"),
+        entry.get("alias") or "",
+        entry.get("displayName", ""),
+    )
 
 
 def export_json_with_sort_and_precision(data, path):

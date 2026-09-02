@@ -6,7 +6,8 @@ from pathlib import Path
 from typing import Annotated
 
 import typer
-from ecobalyse.json import CompactJSONEncoder, activities_processes_sort_key
+from data.common.export import activities_processes_sort_key
+from ecobalyse.json import CompactJSONEncoder
 from ecobalyse.logging import logger
 
 EXCLUDED_PATHS: list[str] = [

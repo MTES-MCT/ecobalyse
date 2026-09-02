@@ -131,16 +131,6 @@ class CompactJSONEncoder(json.JSONEncoder):
             )
 
 
-def activities_processes_sort_key(entry: dict[str, Any]) -> tuple:
-    return (
-        entry.get("source", ""),
-        entry.get("activityName", ""),
-        entry.get("location"),
-        entry.get("alias") or "",
-        entry.get("displayName", ""),
-    )
-
-
 def dict_to_json_string(
     json_data: dict[str, Any] | list[dict[str, Any]],
     sort_fn=None,

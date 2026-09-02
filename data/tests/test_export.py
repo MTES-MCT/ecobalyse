@@ -1,5 +1,5 @@
 import orjson
-from ecobalyse.json import activities_processes_sort_key
+from data.common.export import activities_processes_sort_key
 
 from bin import export
 from common.export import export_json
