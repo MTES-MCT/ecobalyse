@@ -420,7 +420,7 @@ componentDetailedView config elements itemIndex expandedItem itemResults =
     List.concat
         [ [ tr [ class "bg-light border-bottom" ]
                 [ th [] []
-                , th [ class "pb-1", colspan 7 ] [ text "Composition" ]
+                , th [ class "pb-1", colspan 8 ] [ text "Composition" ]
                 ]
           ]
         , if List.isEmpty elements then
@@ -952,31 +952,28 @@ elementView config (( component, _ ) as targetItem) itemResults elementIndex { a
                 [ Process.getDisplayName process
                 , "(" ++ (country |> Maybe.map .name |> Maybe.withDefault "Inconnu") ++ ")"
                 ]
-
-        originalUnitAmount =
-            if material.process.unit /= Process.Kilogram then
-                span [ class "text-muted fs-8" ]
-                    [ Format.amount material.process amount ]
-
-            else
-                text ""
     in
     tbody []
         [ tr [ class "fs-7 border-top" ]
             [ td [] []
             , td [ class "ps-0 align-start text-end text-nowrap" ]
+                [ Component.elementMassShare elementMass (Component.extractUnitMass itemResults)
+                    |> Format.splitAsPercentage 1
+                ]
+            , td [ class "align-start text-end text-nowrap" ]
                 [ div [ class "d-flex flex-column" ]
-                    [ -- FIXME: move share to its own column
-                      Component.elementMassShare elementMass (Component.extractUnitMass itemResults)
-                        |> Format.splitAsPercentage 1
-                    , Format.kg elementMass
-                    , originalUnitAmount
+                    [ Format.kg elementMass
+                    , if material.process.unit /= Process.Kilogram then
+                        span [ class "text-muted fs-8 cursor-help", title "Quantité initiale dans l’unité d’origine" ]
+                            [ Format.amount material.process amount ]
+
+                      else
+                        text ""
                     ]
                 ]
             , td
                 [ colspan 2
                 , class "align-middle text-truncate"
-                , style "max-width" "10vw"
                 ]
                 [ div [ class "d-flex flex-column" ]
                     [ button
