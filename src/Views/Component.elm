@@ -325,7 +325,7 @@ componentView config itemIndex ({ component, elements, quantity } as expandedIte
                     tr []
                         [ th [] []
                         , th [ class "pb-0 fs-8 fw-normal text-muted text-nowrap" ] [ text "Masse unitaire" ]
-                        , th [ class "pb-0 fs-8 fw-normal text-muted", colspan 2 ]
+                        , th [ class "pb-0 fs-8 fw-normal text-muted", colspan 3 ]
                             [ span [] [ text config.labels.label ] ]
                         , th [ class "pb-0 fs-8 fw-normal text-muted text-nowrap text-center" ] [ text "Quantité" ]
                         , th [ class "pb-0 fs-8 fw-normal text-muted text-nowrap text-center" ] [ text "Masse totale" ]
@@ -363,7 +363,7 @@ componentView config itemIndex ({ component, elements, quantity } as expandedIte
                         [ Component.extractUnitMass itemResults
                             |> Format.kg
                         ]
-                    , td [ class "pt-0 pb-2 align-middle text-truncate w-100", colspan 2 ]
+                    , td [ class "pt-0 pb-2 align-middle text-truncate w-100", colspan 3 ]
                         [ if config.context == GenericContext then
                             div [ class "d-flex flex-column gap-1" ]
                                 [ div [ class "d-flex gap-2" ]
@@ -392,7 +392,7 @@ componentView config itemIndex ({ component, elements, quantity } as expandedIte
                         [ Component.getTotalImpacts itemResults
                             |> Format.formatImpact config.impact
                         ]
-                    , td [ class "pe-3 pt-0 pb-2 text-end align-middle text-nowrap" ]
+                    , td [ class "pe-3 pt-0 pb-2 text-end align-end text-nowrap" ]
                         [ if config.context == AdminContext then
                             text ""
 
@@ -420,7 +420,7 @@ componentDetailedView config elements itemIndex expandedItem itemResults =
     List.concat
         [ [ tr [ class "bg-light border-bottom" ]
                 [ th [] []
-                , th [ class "pb-1", colspan 7 ] [ text "Composition" ]
+                , th [ class "pb-1", colspan 8 ] [ text "Composition" ]
                 ]
           ]
         , if List.isEmpty elements then
@@ -973,9 +973,9 @@ elementView config (( component, _ ) as targetItem) itemResults elementIndex { a
                 , amountInfo
                 ]
             , td
-                [ colspan 2
+                [ colspan 3
                 , class "align-middle text-truncate"
-                , style "max-width" "10vw"
+                , style "max-width" "0"
                 ]
                 [ div [ class "d-flex flex-column" ]
                     [ button
