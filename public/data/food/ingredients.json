@@ -56,7 +56,7 @@
   {
     "activityName": "Fromage blanc, 0pct fat, variant 2, CMAPS {GLO} U",
     "alias": "fromage-blanc-0pct-fat-default",
-    "baseIngredient": "fromage-blanc-0pct-fat",
+    "baseIngredient": "fromage-blanc",
     "categories": [
       "dairy_product"
     ],
@@ -1398,7 +1398,7 @@
   {
     "activityName": "Faisselle, 6pct fat, variant 1, CMAPS {GLO} U",
     "alias": "faisselle-6pct-fat-fr",
-    "baseIngredient": "faisselle-6pct-fat",
+    "baseIngredient": "faisselle",
     "categories": [
       "dairy_product"
     ],
@@ -2812,7 +2812,7 @@
   {
     "activityName": "Plum puree, CMAPS {GLO} U",
     "alias": "plum-puree-fr",
-    "baseIngredient": "plum",
+    "baseIngredient": "plum-puree",
     "categories": [
       "vegetable_processed"
     ],
@@ -3211,7 +3211,7 @@
   {
     "activityName": "Meat with bone, beef, for direct consumption {{beef-with-bone-feedlot-2025}}",
     "alias": "beef-with-bone-feedlot",
-    "baseIngredient": "beef-with-bone",
+    "baseIngredient": "beef",
     "categories": [
       "animal_product"
     ],
@@ -3903,7 +3903,7 @@
   {
     "activityName": "Beef cattle, conventional, national average, at farm gate {FR} U",
     "alias": "beef-cattle-conventional-fr-live",
-    "baseIngredient": "beef-cattle",
+    "baseIngredient": "beef",
     "categories": [
       "animal_product"
     ],
@@ -5520,7 +5520,7 @@
   {
     "activityName": "Meat without bone, beef, for direct consumption {FR} U",
     "alias": "beef-without-bone",
-    "baseIngredient": "beef-without-bone",
+    "baseIngredient": "beef",
     "categories": [
       "animal_product"
     ],
@@ -5896,7 +5896,7 @@
   {
     "activityName": "Faisselle, 6pct fat, variant 2, CMAPS {GLO} U",
     "alias": "faisselle-6pct-fat-default",
-    "baseIngredient": "faisselle-6pct-fat",
+    "baseIngredient": "faisselle",
     "categories": [
       "dairy_product"
     ],
@@ -6147,7 +6147,7 @@
   {
     "activityName": "Fig puree, CMAPS {GLO} U",
     "alias": "fig-puree-fr",
-    "baseIngredient": "fig",
+    "baseIngredient": "fig-puree",
     "categories": [
       "vegetable_processed"
     ],
@@ -7267,7 +7267,7 @@
   {
     "activityName": "Raspberry juice, CMAPS {GLO} U",
     "alias": "raspberry-juice-fr",
-    "baseIngredient": "raspberry",
+    "baseIngredient": "raspberry-juice",
     "categories": [
       "vegetable_processed"
     ],
@@ -8024,7 +8024,7 @@
   {
     "activityName": "Soft wheat flour, organic, CMAPS {GLO} U",
     "alias": "soft-wheat-flour-fr-organic",
-    "baseIngredient": "soft-wheat",
+    "baseIngredient": "soft-wheat-flour",
     "categories": [
       "grain_processed",
       "organic"
@@ -10471,7 +10471,7 @@
   {
     "activityName": "Fig puree, import WFLDB, CMAPS {FR} U",
     "alias": "fig-puree-default",
-    "baseIngredient": "fig",
+    "baseIngredient": "fig-puree",
     "categories": [
       "vegetable_processed"
     ],
@@ -10525,7 +10525,7 @@
   {
     "activityName": "Lamb, fresh meat, at slaughterhouse (WFLDB)",
     "alias": "lamb-meat-without-bone-non-eu-2025",
-    "baseIngredient": "lamb-meat-without-bone",
+    "baseIngredient": "lamb",
     "categories": [
       "animal_product"
     ],
@@ -11612,7 +11612,7 @@
   {
     "activityName": "Soft wheat flour, CMAPS {FR} U",
     "alias": "soft-wheat-flour-default",
-    "baseIngredient": "soft-wheat",
+    "baseIngredient": "soft-wheat-flour",
     "categories": [
       "grain_processed"
     ],
@@ -12861,7 +12861,7 @@
   {
     "activityName": "Raspberry juice, CMAPS {GLO} U",
     "alias": "raspberry-juice-default",
-    "baseIngredient": "raspberry",
+    "baseIngredient": "raspberry-juice",
     "categories": [
       "vegetable_processed"
     ],
@@ -14701,7 +14701,7 @@
   {
     "activityName": "Fromage blanc, 3pct fat, variant 2, CMAPS {GLO} U",
     "alias": "fromage-blanc-3pct-fat-default",
-    "baseIngredient": "fromage-blanc-3pct-fat",
+    "baseIngredient": "fromage-blanc",
     "categories": [
       "dairy_product"
     ],
@@ -15290,7 +15290,7 @@
   {
     "activityName": "Barley flour, CMAPS {GLO} U",
     "alias": "barley-flour-fr",
-    "baseIngredient": "barley",
+    "baseIngredient": "barley-flour",
     "categories": [
       "grain_processed"
     ],
@@ -15584,7 +15584,7 @@
   {
     "activityName": "Meat without bone, beef for direct consumption {{beef-without-bone-grass-fed-2025}}",
     "alias": "beef-without-bone-grass-fed",
-    "baseIngredient": "beef-without-bone",
+    "baseIngredient": "beef",
     "categories": [
       "animal_product"
     ],
@@ -15689,7 +15689,7 @@
   {
     "activityName": "Meat with bone, beef for direct consumption {{beef-with-bone-organic-2025}}",
     "alias": "beef-with-bone-organic",
-    "baseIngredient": "beef-with-bone",
+    "baseIngredient": "beef",
     "categories": [
       "animal_product",
       "organic"
@@ -16256,7 +16256,7 @@
   {
     "activityName": "Plum puree, import WFLDB, CMAPS {FR} U",
     "alias": "plum-puree-default",
-    "baseIngredient": "plum",
+    "baseIngredient": "plum-puree",
     "categories": [
       "vegetable_processed"
     ],
@@ -16697,7 +16697,7 @@
   {
     "activityName": "Fromage blanc, 3pct fat, variant 1, CMAPS {GLO} U",
     "alias": "fromage-blanc-3pct-fat-fr",
-    "baseIngredient": "fromage-blanc-3pct-fat",
+    "baseIngredient": "fromage-blanc",
     "categories": [
       "dairy_product"
     ],
@@ -16805,7 +16805,7 @@
   {
     "activityName": "Dairy spread, 20pct fat, variant 1, CMAPS {GLO} U",
     "alias": "dairy-spread-20pct-fat-fr",
-    "baseIngredient": "dairy-spread-20pct-fat",
+    "baseIngredient": "dairy-spread",
     "categories": [
       "dairy_product"
     ],
@@ -16913,7 +16913,7 @@
   {
     "activityName": "Lamb, organic, national average, at farm gate FR U",
     "alias": "lamb-organic-national-average-farm-gate-fr-u-live",
-    "baseIngredient": "lamb-organic-national-average-farm-gate-fr-u-live",
+    "baseIngredient": "lamb",
     "categories": [
       "animal_product",
       "organic"
@@ -17885,7 +17885,7 @@
   {
     "activityName": "Petit suisse, 10pct fat, variant 1, CMAPS {GLO} U",
     "alias": "petit-suisse-10pct-fat-fr",
-    "baseIngredient": "petit-suisse-10pct-fat",
+    "baseIngredient": "petit-suisse",
     "categories": [
       "dairy_product"
     ],
@@ -18693,7 +18693,7 @@
   {
     "activityName": "Corn flour, CMAPS {GLO} U",
     "alias": "corn-flour-fr",
-    "baseIngredient": "corn",
+    "baseIngredient": "corn-flour",
     "categories": [
       "grain_processed"
     ],
@@ -20792,7 +20792,7 @@
   {
     "activityName": "Garlic, dried powder, CMAPS {GLO} U",
     "alias": "garlic-dried-powder-fr",
-    "baseIngredient": "garlic",
+    "baseIngredient": "garlic-dried-powder",
     "categories": [
       "spice_condiment_additive"
     ],
@@ -21168,7 +21168,7 @@
   {
     "activityName": "Raspberry juice, organic, CMAPS {GLO} U",
     "alias": "raspberry-juice-default-organic",
-    "baseIngredient": "raspberry",
+    "baseIngredient": "raspberry-juice",
     "categories": [
       "vegetable_processed",
       "organic"
@@ -21441,7 +21441,7 @@
   {
     "activityName": "Petit suisse, 10pct fat, variant 2, CMAPS {GLO} U",
     "alias": "petit-suisse-10pct-fat-default",
-    "baseIngredient": "petit-suisse-10pct-fat",
+    "baseIngredient": "petit-suisse",
     "categories": [
       "dairy_product"
     ],
@@ -21644,7 +21644,7 @@
   {
     "activityName": "Fromage blanc, 8pct fat, variant 1, CMAPS {GLO} U",
     "alias": "fromage-blanc-8pct-fat-fr",
-    "baseIngredient": "fromage-blanc-8pct-fat",
+    "baseIngredient": "fromage-blanc",
     "categories": [
       "dairy_product"
     ],
@@ -21780,7 +21780,7 @@
   {
     "activityName": "Meat without bone, beef for direct consumption {{beef-without-bone-feedlot-2025}}",
     "alias": "beef-without-bone-feedlot",
-    "baseIngredient": "beef-without-bone",
+    "baseIngredient": "beef",
     "categories": [
       "animal_product"
     ],
@@ -22209,7 +22209,7 @@
   {
     "activityName": "Dairy spread, 25pct fat, variant 1, CMAPS {GLO} U",
     "alias": "dairy-spread-25pct-fat-fr",
-    "baseIngredient": "dairy-spread-25pct-fat",
+    "baseIngredient": "dairy-spread",
     "categories": [
       "dairy_product"
     ],
@@ -23230,7 +23230,7 @@
   {
     "activityName": "Meat with bone, beef, for direct consumption {FR} U",
     "alias": "beef-with-bone",
-    "baseIngredient": "beef-with-bone",
+    "baseIngredient": "beef",
     "categories": [
       "animal_product"
     ],
@@ -23504,7 +23504,7 @@
   {
     "activityName": "Garlic, dried powder, import WFLDB, CMAPS {GLO} U",
     "alias": "garlic-dried-powder-default",
-    "baseIngredient": "garlic",
+    "baseIngredient": "garlic-dried-powder",
     "categories": [
       "spice_condiment_additive"
     ],
@@ -23666,7 +23666,7 @@
   {
     "activityName": "Beef cattle, feedlot or intensive system, live weight, at farm {GB} - Adapted from WFLDB U",
     "alias": "beef-cattle-feedlot-gb-live",
-    "baseIngredient": "beef-cattle",
+    "baseIngredient": "beef",
     "categories": [
       "animal_product"
     ],
@@ -24289,7 +24289,7 @@
   {
     "activityName": "Lamb, conventional, indoor production system, at farm gate {FR} U",
     "alias": "lamb-conventional-fr-live",
-    "baseIngredient": "lamb-conventional-fr-live",
+    "baseIngredient": "lamb",
     "categories": [
       "animal_product"
     ],
@@ -25166,7 +25166,7 @@
   {
     "activityName": "Corn flour, organic, CMAPS {GLO} U",
     "alias": "corn-flour-fr-organic",
-    "baseIngredient": "corn",
+    "baseIngredient": "corn-flour",
     "categories": [
       "grain_processed",
       "organic"
@@ -25243,7 +25243,7 @@
   {
     "activityName": "Barley flour, import WFLDB, CMAPS {FR} U",
     "alias": "barley-flour-default",
-    "baseIngredient": "barley",
+    "baseIngredient": "barley-flour",
     "categories": [
       "grain_processed"
     ],
@@ -25777,7 +25777,7 @@
   {
     "activityName": "Dairy spread, 25pct fat, variant 2, CMAPS {GLO} U",
     "alias": "dairy-spread-25pct-fat-default",
-    "baseIngredient": "dairy-spread-25pct-fat",
+    "baseIngredient": "dairy-spread",
     "categories": [
       "dairy_product"
     ],
@@ -27495,7 +27495,7 @@
   {
     "activityName": "Dairy spread, 20pct fat, variant 2, CMAPS {GLO} U",
     "alias": "dairy-spread-20pct-fat-default",
-    "baseIngredient": "dairy-spread-20pct-fat",
+    "baseIngredient": "dairy-spread",
     "categories": [
       "dairy_product"
     ],
@@ -28378,7 +28378,7 @@
   {
     "activityName": "Corn flour, CMAPS {FR} U",
     "alias": "corn-flour-default",
-    "baseIngredient": "corn",
+    "baseIngredient": "corn-flour",
     "categories": [
       "grain_processed"
     ],
@@ -31146,7 +31146,7 @@
   {
     "activityName": "Petit suisse, 4pct fat, variant 2, CMAPS {GLO} U",
     "alias": "petit-suisse-4pct-fat-default",
-    "baseIngredient": "petit-suisse-4pct-fat",
+    "baseIngredient": "petit-suisse",
     "categories": [
       "dairy_product"
     ],
@@ -31326,7 +31326,7 @@
   {
     "activityName": "Lamb, fresh meat, at slaughterhouse (WFLDB)",
     "alias": "lamb-meat-without-bone-eu-2025",
-    "baseIngredient": "lamb-meat-without-bone",
+    "baseIngredient": "lamb",
     "categories": [
       "animal_product"
     ],
@@ -31451,7 +31451,7 @@
   {
     "activityName": "Soft wheat flour, CMAPS {GLO} U",
     "alias": "soft-wheat-flour-fr",
-    "baseIngredient": "soft-wheat",
+    "baseIngredient": "soft-wheat-flour",
     "categories": [
       "grain_processed"
     ],
@@ -31926,7 +31926,7 @@
   {
     "activityName": "Meat without bone, lamb {FR} U",
     "alias": "lamb-meat-without-bone",
-    "baseIngredient": "lamb-meat-without-bone",
+    "baseIngredient": "lamb",
     "categories": [
       "animal_product"
     ],
@@ -33790,7 +33790,7 @@
   {
     "activityName": "lamb meat without bone {{lamb-meat-without-bone-organic-2025}}",
     "alias": "lamb-meat-without-bone-organic",
-    "baseIngredient": "lamb-meat-without-bone",
+    "baseIngredient": "lamb",
     "categories": [
       "animal_product",
       "organic"
@@ -34911,7 +34911,7 @@
   {
     "activityName": "Garlic, dried powder, organic, CMAPS {GLO} U",
     "alias": "garlic-dried-powder-fr-organic",
-    "baseIngredient": "garlic",
+    "baseIngredient": "garlic-dried-powder",
     "categories": [
       "spice_condiment_additive",
       "organic"
@@ -35076,7 +35076,7 @@
   {
     "activityName": "Fromage blanc, 0pct fat, variant 1, CMAPS {GLO} U",
     "alias": "fromage-blanc-0pct-fat-fr",
-    "baseIngredient": "fromage-blanc-0pct-fat",
+    "baseIngredient": "fromage-blanc",
     "categories": [
       "dairy_product"
     ],
@@ -35157,7 +35157,7 @@
   {
     "activityName": "Petit suisse, 4pct fat, variant 1, CMAPS {GLO} U",
     "alias": "petit-suisse-4pct-fat-fr",
-    "baseIngredient": "petit-suisse-4pct-fat",
+    "baseIngredient": "petit-suisse",
     "categories": [
       "dairy_product"
     ],
@@ -35745,7 +35745,7 @@
   {
     "activityName": "Plum puree, organic, CMAPS {GLO} U",
     "alias": "plum-puree-fr-organic",
-    "baseIngredient": "plum",
+    "baseIngredient": "plum-puree",
     "categories": [
       "vegetable_processed",
       "organic"
@@ -36590,7 +36590,7 @@
   {
     "activityName": "Fromage blanc, 8pct fat, variant 2, CMAPS {GLO} U",
     "alias": "fromage-blanc-8pct-fat-default",
-    "baseIngredient": "fromage-blanc-8pct-fat",
+    "baseIngredient": "fromage-blanc",
     "categories": [
       "dairy_product"
     ],
@@ -36843,7 +36843,7 @@
   {
     "activityName": "Meat with bone, beef for direct consumption {{beef-with-bone-grass-fed-2025}}",
     "alias": "beef-with-bone-grass-fed",
-    "baseIngredient": "beef-with-bone",
+    "baseIngredient": "beef",
     "categories": [
       "animal_product"
     ],
@@ -38149,7 +38149,7 @@
   {
     "activityName": "Fig puree, organic, CMAPS {GLO} U",
     "alias": "fig-puree-fr-organic",
-    "baseIngredient": "fig",
+    "baseIngredient": "fig-puree",
     "categories": [
       "vegetable_processed",
       "organic"
@@ -38655,7 +38655,7 @@
   {
     "activityName": "Meat without bone, beef for direct consumption {{beef-without-bone-organic-2025}}",
     "alias": "beef-without-bone-organic",
-    "baseIngredient": "beef-without-bone",
+    "baseIngredient": "beef",
     "categories": [
       "animal_product",
       "organic"

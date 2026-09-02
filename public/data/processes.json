@@ -30024,7 +30024,7 @@
       },
       "defaultOrigin": "FR",
       "ingredient": {
-        "baseIngredient": "beef-cattle",
+        "baseIngredient": "beef",
         "cropGroup": null,
         "processId": "32421967-5aaa-55fe-9918-fbddb857c443",
         "scenario": "reference"
@@ -30102,7 +30102,7 @@
       },
       "defaultOrigin": "REM",
       "ingredient": {
-        "baseIngredient": "beef-cattle",
+        "baseIngredient": "beef",
         "cropGroup": null,
         "processId": "c687d8a3-859a-5c8e-9258-aa07b4867474",
         "scenario": "reference"
@@ -47015,7 +47015,7 @@
       },
       "defaultOrigin": "FR",
       "ingredient": {
-        "baseIngredient": "lamb-conventional-fr-live",
+        "baseIngredient": "lamb",
         "cropGroup": null,
         "processId": "fb2ca05e-b366-573d-82ed-dbbb2c2b7e60",
         "scenario": "reference"
@@ -50217,7 +50217,7 @@
       },
       "defaultOrigin": "FR",
       "ingredient": {
-        "baseIngredient": "beef-with-bone",
+        "baseIngredient": "beef",
         "cropGroup": null,
         "processId": "df074caf-ee11-5573-8324-e3acaf92e2ae",
         "scenario": "reference"
@@ -50260,7 +50260,7 @@
       },
       "defaultOrigin": "FR",
       "ingredient": {
-        "baseIngredient": "beef-without-bone",
+        "baseIngredient": "beef",
         "cropGroup": null,
         "processId": "de11b2d4-2820-5c1c-8a55-bbc6d58b8c27",
         "scenario": "reference"
@@ -50346,7 +50346,7 @@
       },
       "defaultOrigin": "FR",
       "ingredient": {
-        "baseIngredient": "lamb-meat-without-bone",
+        "baseIngredient": "lamb",
         "cropGroup": null,
         "processId": "6e8e9591-9d76-549d-b551-9d7d228fb5bb",
         "scenario": "reference"
@@ -69848,7 +69848,7 @@
       },
       "defaultOrigin": "FR",
       "ingredient": {
-        "baseIngredient": "barley",
+        "baseIngredient": "barley-flour",
         "cropGroup": "ORGE",
         "processId": "7eed490b-ebb0-4329-ab6f-d360a7a6b222",
         "scenario": "reference"
@@ -69890,7 +69890,7 @@
       },
       "defaultOrigin": null,
       "ingredient": {
-        "baseIngredient": "barley",
+        "baseIngredient": "barley-flour",
         "cropGroup": "ORGE",
         "processId": "12712421-5454-400e-82b5-9e4dcb66d650",
         "scenario": "import"
@@ -72023,7 +72023,7 @@
       },
       "defaultOrigin": null,
       "ingredient": {
-        "baseIngredient": "corn",
+        "baseIngredient": "corn-flour",
         "cropGroup": "MAIS GRAIN ET ENSILAGE",
         "processId": "20244ef9-5b5a-4eb1-a0fa-251cc0f4a828",
         "scenario": "import"
@@ -72065,7 +72065,7 @@
       },
       "defaultOrigin": "FR",
       "ingredient": {
-        "baseIngredient": "corn",
+        "baseIngredient": "corn-flour",
         "cropGroup": "MAIS GRAIN ET ENSILAGE",
         "processId": "6ef925f1-e91c-4ef8-9d6a-f24c599a4282",
         "scenario": "reference"
@@ -72107,7 +72107,7 @@
       },
       "defaultOrigin": "FR",
       "ingredient": {
-        "baseIngredient": "corn",
+        "baseIngredient": "corn-flour",
         "cropGroup": "MAIS GRAIN ET ENSILAGE",
         "processId": "a6eab5b2-7c8b-40ff-a24c-31a23b934958",
         "scenario": "organic"
@@ -72359,7 +72359,7 @@
       },
       "defaultOrigin": "FR",
       "ingredient": {
-        "baseIngredient": "dairy-spread-20pct-fat",
+        "baseIngredient": "dairy-spread",
         "cropGroup": null,
         "processId": "cdc91aab-7241-45d6-a51c-4906e82d4ae6",
         "scenario": "reference"
@@ -72395,7 +72395,7 @@
     "metadata": {
       "defaultOrigin": null,
       "ingredient": {
-        "baseIngredient": "dairy-spread-20pct-fat",
+        "baseIngredient": "dairy-spread",
         "cropGroup": null,
         "processId": "5fc01e16-acab-491f-8d29-30060ae58d3d",
         "scenario": "import"
@@ -72437,7 +72437,7 @@
       },
       "defaultOrigin": "FR",
       "ingredient": {
-        "baseIngredient": "dairy-spread-25pct-fat",
+        "baseIngredient": "dairy-spread",
         "cropGroup": null,
         "processId": "f4b18162-4ee3-4e72-9f53-d922fe6f025e",
         "scenario": "reference"
@@ -72473,7 +72473,7 @@
     "metadata": {
       "defaultOrigin": null,
       "ingredient": {
-        "baseIngredient": "dairy-spread-25pct-fat",
+        "baseIngredient": "dairy-spread",
         "cropGroup": null,
         "processId": "de184828-68e7-485d-9414-e9613b03bf73",
         "scenario": "import"
@@ -73021,7 +73021,7 @@
       },
       "defaultOrigin": "FR",
       "ingredient": {
-        "baseIngredient": "faisselle-6pct-fat",
+        "baseIngredient": "faisselle",
         "cropGroup": null,
         "processId": "118517cd-2059-4d2d-8a07-10f75721f92e",
         "scenario": "reference"
@@ -73057,7 +73057,7 @@
     "metadata": {
       "defaultOrigin": null,
       "ingredient": {
-        "baseIngredient": "faisselle-6pct-fat",
+        "baseIngredient": "faisselle",
         "cropGroup": null,
         "processId": "a5ac65c6-8fd1-4f23-a2e2-c04abf8a2187",
         "scenario": "import"
@@ -73249,7 +73249,7 @@
       },
       "defaultOrigin": "FR",
       "ingredient": {
-        "baseIngredient": "fig",
+        "baseIngredient": "fig-puree",
         "cropGroup": "VERGERS",
         "processId": "da942b84-4bbd-4901-8d0c-c56ec2b59d55",
         "scenario": "reference"
@@ -73291,7 +73291,7 @@
       },
       "defaultOrigin": null,
       "ingredient": {
-        "baseIngredient": "fig",
+        "baseIngredient": "fig-puree",
         "cropGroup": "VERGERS",
         "processId": "82c97409-bc40-4c24-bd7f-1b8acfa0121d",
         "scenario": "import"
@@ -73333,7 +73333,7 @@
       },
       "defaultOrigin": "FR",
       "ingredient": {
-        "baseIngredient": "fig",
+        "baseIngredient": "fig-puree",
         "cropGroup": "VERGERS",
         "processId": "0c48e3d9-8b23-4eca-9ded-00589eabcc03",
         "scenario": "organic"
@@ -73579,7 +73579,7 @@
       },
       "defaultOrigin": "FR",
       "ingredient": {
-        "baseIngredient": "fromage-blanc-0pct-fat",
+        "baseIngredient": "fromage-blanc",
         "cropGroup": null,
         "processId": "954ad48d-1847-495d-a86f-f0bff96dc2f0",
         "scenario": "reference"
@@ -73615,7 +73615,7 @@
     "metadata": {
       "defaultOrigin": null,
       "ingredient": {
-        "baseIngredient": "fromage-blanc-0pct-fat",
+        "baseIngredient": "fromage-blanc",
         "cropGroup": null,
         "processId": "c1cf73ac-a181-45b4-bf7a-f47ad05c3e5b",
         "scenario": "import"
@@ -73657,7 +73657,7 @@
       },
       "defaultOrigin": "FR",
       "ingredient": {
-        "baseIngredient": "fromage-blanc-3pct-fat",
+        "baseIngredient": "fromage-blanc",
         "cropGroup": null,
         "processId": "f4741941-e95b-4753-85a7-86f837ec641b",
         "scenario": "reference"
@@ -73693,7 +73693,7 @@
     "metadata": {
       "defaultOrigin": null,
       "ingredient": {
-        "baseIngredient": "fromage-blanc-3pct-fat",
+        "baseIngredient": "fromage-blanc",
         "cropGroup": null,
         "processId": "4f39b297-807b-4fd6-8154-d4fdc0ae2a0a",
         "scenario": "import"
@@ -73735,7 +73735,7 @@
       },
       "defaultOrigin": "FR",
       "ingredient": {
-        "baseIngredient": "fromage-blanc-8pct-fat",
+        "baseIngredient": "fromage-blanc",
         "cropGroup": null,
         "processId": "32df9dcf-0eed-4203-8460-e24b2cb39177",
         "scenario": "reference"
@@ -73771,7 +73771,7 @@
     "metadata": {
       "defaultOrigin": null,
       "ingredient": {
-        "baseIngredient": "fromage-blanc-8pct-fat",
+        "baseIngredient": "fromage-blanc",
         "cropGroup": null,
         "processId": "e852a743-e703-4879-ac01-5a85bb2add12",
         "scenario": "import"
@@ -73813,7 +73813,7 @@
       },
       "defaultOrigin": "FR",
       "ingredient": {
-        "baseIngredient": "garlic",
+        "baseIngredient": "garlic-dried-powder",
         "cropGroup": "LEGUMES-FLEURS",
         "processId": "23090481-9007-4d22-8d8e-08920c1aaa1e",
         "scenario": "reference"
@@ -73855,7 +73855,7 @@
       },
       "defaultOrigin": null,
       "ingredient": {
-        "baseIngredient": "garlic",
+        "baseIngredient": "garlic-dried-powder",
         "cropGroup": "LEGUMES-FLEURS",
         "processId": "5e862922-6159-4581-a820-ea30224c6ee0",
         "scenario": "import"
@@ -73897,7 +73897,7 @@
       },
       "defaultOrigin": "FR",
       "ingredient": {
-        "baseIngredient": "garlic",
+        "baseIngredient": "garlic-dried-powder",
         "cropGroup": "LEGUMES-FLEURS",
         "processId": "cc5fc515-4692-4e9c-b7e4-0fc21055d0ed",
         "scenario": "organic"
@@ -74853,7 +74853,7 @@
       },
       "defaultOrigin": "FR",
       "ingredient": {
-        "baseIngredient": "lamb-organic-national-average-farm-gate-fr-u-live",
+        "baseIngredient": "lamb",
         "cropGroup": null,
         "processId": "0bcdedda-b2db-565a-8ee3-5b4eccc4266d",
         "scenario": "organic"
@@ -75538,7 +75538,7 @@
       },
       "defaultOrigin": "FR",
       "ingredient": {
-        "baseIngredient": "beef-with-bone",
+        "baseIngredient": "beef",
         "cropGroup": null,
         "processId": "61651aef-b4eb-5e46-9ebb-c02be2d31936",
         "scenario": "reference"
@@ -75581,7 +75581,7 @@
       },
       "defaultOrigin": "FR",
       "ingredient": {
-        "baseIngredient": "beef-with-bone",
+        "baseIngredient": "beef",
         "cropGroup": null,
         "processId": "c29b1e77-ce81-5794-ba00-730636c6d8de",
         "scenario": "organic"
@@ -75624,7 +75624,7 @@
       },
       "defaultOrigin": null,
       "ingredient": {
-        "baseIngredient": "beef-with-bone",
+        "baseIngredient": "beef",
         "cropGroup": null,
         "processId": "1d8ee50f-211e-57a2-96a6-130a9b72fb00",
         "scenario": "import"
@@ -75876,7 +75876,7 @@
       },
       "defaultOrigin": null,
       "ingredient": {
-        "baseIngredient": "beef-without-bone",
+        "baseIngredient": "beef",
         "cropGroup": null,
         "processId": "ca2328f4-90ee-500a-a377-6d7fddd89aaa",
         "scenario": "import"
@@ -75919,7 +75919,7 @@
       },
       "defaultOrigin": "FR",
       "ingredient": {
-        "baseIngredient": "beef-without-bone",
+        "baseIngredient": "beef",
         "cropGroup": null,
         "processId": "a28b796f-bd2c-5fa9-b162-9e7291f44ae1",
         "scenario": "reference"
@@ -75962,7 +75962,7 @@
       },
       "defaultOrigin": "FR",
       "ingredient": {
-        "baseIngredient": "beef-without-bone",
+        "baseIngredient": "beef",
         "cropGroup": null,
         "processId": "5834b4db-bfae-47d7-91b8-24f6479aeac8",
         "scenario": "organic"
@@ -77640,7 +77640,7 @@
       },
       "defaultOrigin": "FR",
       "ingredient": {
-        "baseIngredient": "petit-suisse-10pct-fat",
+        "baseIngredient": "petit-suisse",
         "cropGroup": null,
         "processId": "2548a428-3112-44ea-aa78-dc6458178fc5",
         "scenario": "reference"
@@ -77676,7 +77676,7 @@
     "metadata": {
       "defaultOrigin": null,
       "ingredient": {
-        "baseIngredient": "petit-suisse-10pct-fat",
+        "baseIngredient": "petit-suisse",
         "cropGroup": null,
         "processId": "6047806e-ff99-410e-96f6-77cb99f0c0a4",
         "scenario": "import"
@@ -77718,7 +77718,7 @@
       },
       "defaultOrigin": "FR",
       "ingredient": {
-        "baseIngredient": "petit-suisse-4pct-fat",
+        "baseIngredient": "petit-suisse",
         "cropGroup": null,
         "processId": "2020cf96-2004-4adf-ba2b-a96aca3afafd",
         "scenario": "reference"
@@ -77754,7 +77754,7 @@
     "metadata": {
       "defaultOrigin": null,
       "ingredient": {
-        "baseIngredient": "petit-suisse-4pct-fat",
+        "baseIngredient": "petit-suisse",
         "cropGroup": null,
         "processId": "64dc6887-ba32-44e7-8a24-e03ca42b6f96",
         "scenario": "import"
@@ -78006,7 +78006,7 @@
       },
       "defaultOrigin": "FR",
       "ingredient": {
-        "baseIngredient": "plum",
+        "baseIngredient": "plum-puree",
         "cropGroup": "VERGERS",
         "processId": "c050c8c5-262a-4851-a8f0-b31da30c32f8",
         "scenario": "reference"
@@ -78048,7 +78048,7 @@
       },
       "defaultOrigin": null,
       "ingredient": {
-        "baseIngredient": "plum",
+        "baseIngredient": "plum-puree",
         "cropGroup": "VERGERS",
         "processId": "7cdb00fc-10d6-4ad5-8759-93e879267192",
         "scenario": "import"
@@ -78090,7 +78090,7 @@
       },
       "defaultOrigin": "FR",
       "ingredient": {
-        "baseIngredient": "plum",
+        "baseIngredient": "plum-puree",
         "cropGroup": "VERGERS",
         "processId": "50b5c539-824e-4a44-97d9-d0626aa44700",
         "scenario": "organic"
@@ -78660,7 +78660,7 @@
       },
       "defaultOrigin": null,
       "ingredient": {
-        "baseIngredient": "raspberry",
+        "baseIngredient": "raspberry-juice",
         "cropGroup": "VERGERS",
         "processId": "6dde8cdb-2308-4fb5-86e2-f4b7beb68d81",
         "scenario": "import"
@@ -78702,7 +78702,7 @@
       },
       "defaultOrigin": "FR",
       "ingredient": {
-        "baseIngredient": "raspberry",
+        "baseIngredient": "raspberry-juice",
         "cropGroup": "VERGERS",
         "processId": "6dde8cdb-2308-4fb5-86e2-f4b7beb68d81",
         "scenario": "reference"
@@ -78744,7 +78744,7 @@
       },
       "defaultOrigin": null,
       "ingredient": {
-        "baseIngredient": "raspberry",
+        "baseIngredient": "raspberry-juice",
         "cropGroup": "VERGERS",
         "processId": "26e83cf0-279b-4698-a19c-fbbbeed8df30",
         "scenario": "organic"
@@ -79350,7 +79350,7 @@
       },
       "defaultOrigin": null,
       "ingredient": {
-        "baseIngredient": "soft-wheat",
+        "baseIngredient": "soft-wheat-flour",
         "cropGroup": "BLE TENDRE",
         "processId": "c78acecf-3809-4a36-9ed9-713a3e237401",
         "scenario": "import"
@@ -79392,7 +79392,7 @@
       },
       "defaultOrigin": "FR",
       "ingredient": {
-        "baseIngredient": "soft-wheat",
+        "baseIngredient": "soft-wheat-flour",
         "cropGroup": "BLE TENDRE",
         "processId": "0fe695a0-c88e-46e2-8e12-f5cf680f1de4",
         "scenario": "reference"
@@ -79434,7 +79434,7 @@
       },
       "defaultOrigin": "FR",
       "ingredient": {
-        "baseIngredient": "soft-wheat",
+        "baseIngredient": "soft-wheat-flour",
         "cropGroup": "BLE TENDRE",
         "processId": "d623f9e8-7935-4249-827b-076c70d19192",
         "scenario": "organic"
@@ -81626,7 +81626,7 @@
       },
       "defaultOrigin": "FR",
       "ingredient": {
-        "baseIngredient": "lamb-meat-without-bone",
+        "baseIngredient": "lamb",
         "cropGroup": null,
         "processId": "62a5bc6e-f8fc-5332-8db6-547246029a9b",
         "scenario": "organic"
@@ -101580,7 +101580,7 @@
     "metadata": {
       "defaultOrigin": "REM",
       "ingredient": {
-        "baseIngredient": "lamb-meat-without-bone",
+        "baseIngredient": "lamb",
         "cropGroup": null,
         "processId": "05b3b3c3-e0c0-5df5-9b95-eb67e0625cba",
         "scenario": "import"
@@ -101617,7 +101617,7 @@
     "metadata": {
       "defaultOrigin": null,
       "ingredient": {
-        "baseIngredient": "lamb-meat-without-bone",
+        "baseIngredient": "lamb",
         "cropGroup": null,
         "processId": "05b3b3c3-e0c0-5df5-9b95-eb67e0625cba",
         "scenario": "import"
