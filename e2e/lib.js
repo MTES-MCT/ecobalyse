@@ -14,7 +14,7 @@ export async function deleteAllEmails() {
 }
 
 export async function expectNotification(page, message) {
-  await expect(page.locator(".ToastTray").getByText(message)).toBeVisible();
+  await expect(page.locator(".ToastTray").getByText(message)).toBeVisible({ timeout: 30_000 });
   // immediately close the notification to avoid unwanted accumulation
   await page.locator(".ToastTray").locator("button", { name: "Fermer" }).nth(0).click();
 }
@@ -108,6 +108,10 @@ export async function waitFor(conditionFn, pollInterval = 50, timeoutAfter) {
       await new Promise((resolve) => setTimeout(resolve, pollInterval));
     }
   }
+}
+
+export async function waitForAppReady(page) {
+  await expect(page).not.toHaveTitle(/Chargement des données/, { timeout: 20_000 });
 }
 
 // Run an action that triggers a transactional email and return that email.

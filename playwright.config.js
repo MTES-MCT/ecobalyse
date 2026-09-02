@@ -16,6 +16,9 @@ export default defineConfig({
   timeout: process.env.CI ? 80_000 : 10_000,
   expect: { timeout: process.env.CI ? 20_000 : 2_000 },
 
+  // Parcel (:1234) is up before the Node API (:8001) finishes `server:build`.
+  globalSetup: "./e2e/global-setup.js",
+
   testDir: "./e2e",
   /* Run tests in files in parallel */
   fullyParallel: true,
@@ -61,6 +64,7 @@ export default defineConfig({
     },
     url: "http://localhost:1234",
     reuseExistingServer: !process.env.CI,
+    timeout: 120_000,
   },
 
   // Avoid git related timeouts

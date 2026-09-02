@@ -106,7 +106,14 @@ init session =
 -}
 initLogin : Session -> Email -> AccessToken -> PageUpdate Model Msg
 initLogin session email token =
-    App.createUpdate session { tab = MagicLinkLogin email token }
+    case Session.getAuth session of
+        Just user ->
+            { tab = Account user User.emptyProfileForm Dict.empty }
+                |> App.createUpdate session
+                |> App.withCmds [ Nav.pushUrl session.navKey <| Route.toString Route.Auth ]
+
+        Nothing ->
+            App.createUpdate session { tab = MagicLinkLogin email token }
 
 
 initSignup : Session -> PageUpdate Model Msg

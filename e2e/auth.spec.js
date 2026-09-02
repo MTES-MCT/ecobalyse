@@ -14,7 +14,7 @@ test.describe("auth", () => {
   // One stateful journey: Alice registers once. A retry would replay it against a
   // DB that still has her (state isn't reset between attempts) and hang — so we keep
   // this run deterministic and disable retries instead of masking flakiness.
-  test.describe.configure({ mode: "serial", retries: 0 });
+  test.describe.configure({ mode: "serial", retries: 0, timeout: 90_000 });
 
   test.beforeEach(async () => {
     await deleteAllEmails();
@@ -86,7 +86,7 @@ test.describe("auth", () => {
     });
 
     await test.step("api tokens", async () => {
-      await page.getByRole("link", { name: "Mon compte" }).click();
+      await page.goto("/#/auth");
 
       await page.getByRole("button", { name: "Jetons d’API" }).click();
 

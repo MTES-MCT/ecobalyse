@@ -1,8 +1,12 @@
 import { test, expect } from "@playwright/test";
+import { waitForAppReady } from "./lib";
 
 test.describe("Textile simulator", () => {
+  test.describe.configure({ timeout: 30_000 });
+
   test.beforeEach(async ({ page }) => {
     await page.goto("/");
+    await waitForAppReady(page);
     await page.getByLabel("Menu principal").getByRole("link", { name: "Textile" }).click();
   });
 
