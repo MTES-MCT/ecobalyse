@@ -1,5 +1,4 @@
 .prettierrc
-.proxyrc.json
 .venv/
 *.html
 *.md

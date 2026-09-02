@@ -1,4 +1,3 @@
-.proxyrc.json
 dist/
 elm.json
 package-lock.json
