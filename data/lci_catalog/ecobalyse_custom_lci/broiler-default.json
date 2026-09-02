@@ -1,10 +1,6 @@
 {
   "activityName": "Broiler, conventional, at farm gate {FR} U {{meat-without-bone-chicken-direct-consumption-only-soybean-max}}",
-  "categories": [
-    "ingredient",
-    "material",
-    "material_type:poultry"
-  ],
+  "categories": ["ingredient", "material", "material_type:poultry"],
   "displayName": "Poulet Origine Inconnue",
   "id": "877499d7-7a29-58f6-8a0d-e1eef40b2ec4",
   "metadata": [
@@ -14,10 +10,7 @@
       "animalGroup2": "chicken",
       "animalProduct": "meat",
       "cropGroup": "PRAIRIES PERMANENTES",
-      "cropGroupMatch": {
-        "confidence": 1.0,
-        "rule": "matched 'prairies naturelles' in cropgroup.csv"
-      },
+      "cropGroupMatch": { "confidence": 1.0, "rule": "matched 'prairies naturelles' in cropgroup.csv" },
       "defaultOrigin": "OutOfEuropeAndMaghreb",
       "displayName": "Poulet Origine Inconnue (2025)",
       "id": "9059b1ee-6dbe-5150-9766-79a2bcbf73f4",
@@ -26,24 +19,13 @@
         "confidence": 1.0,
         "rule": "meat NOVA 1 default from food_type_inedible_part.csv"
       },
-      "ingredientCategories": [
-        "animal_product"
-      ],
+      "ingredientCategories": ["animal_product"],
       "ingredientDensity": 1.05,
-      "ingredientDensityMatch": {
-        "confidence": 1.0,
-        "rule": "meat default from food_type_density.csv"
-      },
+      "ingredientDensityMatch": { "confidence": 1.0, "rule": "meat default from food_type_density.csv" },
       "scenario": "import",
-      "scopes": [
-        "food",
-        "food2"
-      ],
+      "scopes": ["food", "food2"],
       "transportCooling": "always",
-      "transportCoolingMatch": {
-        "confidence": 1.0,
-        "rule": "meat NOVA 1 → always (perishable)"
-      },
+      "transportCoolingMatch": { "confidence": 1.0, "rule": "meat NOVA 1 → always (perishable)" },
       "visible": false
     },
     {
@@ -59,24 +41,13 @@
         "confidence": 1.0,
         "rule": "meat NOVA 1 default from food_type_inedible_part.csv"
       },
-      "ingredientCategories": [
-        "animal_product"
-      ],
+      "ingredientCategories": ["animal_product"],
       "ingredientDensity": 1.05,
-      "ingredientDensityMatch": {
-        "confidence": 1.0,
-        "rule": "meat default from food_type_density.csv"
-      },
+      "ingredientDensityMatch": { "confidence": 1.0, "rule": "meat default from food_type_density.csv" },
       "scenario": "import",
-      "scopes": [
-        "food",
-        "food2"
-      ],
+      "scopes": ["food", "food2"],
       "transportCooling": "always",
-      "transportCoolingMatch": {
-        "confidence": 1.0,
-        "rule": "meat NOVA 1 → always (perishable)"
-      },
+      "transportCoolingMatch": { "confidence": 1.0, "rule": "meat NOVA 1 → always (perishable)" },
       "visible": false
     },
     {
@@ -92,31 +63,17 @@
         "confidence": 1.0,
         "rule": "meat NOVA 1 default from food_type_inedible_part.csv"
       },
-      "ingredientCategories": [
-        "animal_product"
-      ],
+      "ingredientCategories": ["animal_product"],
       "ingredientDensity": 1.0,
-      "ingredientDensityMatch": {
-        "confidence": 1.0,
-        "rule": "rabbit found in density.csv"
-      },
+      "ingredientDensityMatch": { "confidence": 1.0, "rule": "rabbit found in density.csv" },
       "scenario": "import",
-      "scopes": [
-        "food",
-        "food2"
-      ],
+      "scopes": ["food", "food2"],
       "transportCooling": "always",
-      "transportCoolingMatch": {
-        "confidence": 1.0,
-        "rule": "meat NOVA 1 → always (perishable)"
-      },
+      "transportCoolingMatch": { "confidence": 1.0, "rule": "meat NOVA 1 → always (perishable)" },
       "visible": false
     }
   ],
-  "scopes": [
-    "food",
-    "food2"
-  ],
+  "scopes": ["food", "food2"],
   "source": "Ecobalyse_custom_lci",
   "unit": "kg"
 }

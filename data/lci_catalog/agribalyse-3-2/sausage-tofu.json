@@ -1,10 +1,6 @@
 {
   "activityName": "Plant-based sausage with tofu (vegan), recipe, at plant {FR} U",
-  "categories": [
-    "ingredient",
-    "material",
-    "material_type:other_food_items"
-  ],
+  "categories": ["ingredient", "material", "material_type:other_food_items"],
   "displayName": "Saucisse végétale tofu FR",
   "id": "9c31da32-7c5e-5da7-aa6e-9a116ea32897",
   "metadata": [
@@ -17,17 +13,11 @@
       "ingredientCategories": [],
       "ingredientDensity": 1.0,
       "rawToCookedRatio": 1.0,
-      "scopes": [
-        "food",
-        "food2"
-      ],
+      "scopes": ["food", "food2"],
       "transportCooling": "always",
       "visible": true
     }
   ],
-  "scopes": [
-    "food",
-    "food2"
-  ],
+  "scopes": ["food", "food2"],
   "source": "Agribalyse 3.2"
 }

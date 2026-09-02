@@ -2,8 +2,9 @@ import json
 import os
 
 import orjson
+from ecobalyse.json import activities_processes_sort_key
 
-from common import activities_processes_sort_key, remove_detailed_impacts
+from common import remove_detailed_impacts
 from common.export import export_json
 from common.infer_metadata import (
     infer_base_ingredient,
@@ -215,8 +216,6 @@ def compute_processes_generic(
             entry_dict["metadata"] = metadata_out
             generic_dicts.append(entry_dict)
 
-    generic_dicts.sort(key=activities_processes_sort_key)
-
     return generic_dicts
 
 
@@ -229,6 +228,7 @@ def activities_to_processes_generic_json(
     raw_to_transformed_file_path: str,
     cpu_count: int = 1,
     ecosystemic_factors_path: str | None = None,
+    number_precision: int | None = None,
 ) -> list[dict]:
     """Export object processes to ProcessGeneric json files."""
     generic_dicts = compute_processes_generic(
@@ -241,12 +241,22 @@ def activities_to_processes_generic_json(
     )
 
     for path in impacts_output_paths:
-        export_json(generic_dicts, path)
+        export_json(
+            generic_dicts,
+            path,
+            sort_fn=activities_processes_sort_key,
+            number_precision=number_precision,
+        )
         logger.info(f"Exported {len(generic_dicts)} generic processes to {path}")
 
     without_detailed_impacts = remove_detailed_impacts(generic_dicts)
     for path in ecs_output_paths:
-        export_json(without_detailed_impacts, path)
+        export_json(
+            without_detailed_impacts,
+            path,
+            sort_fn=activities_processes_sort_key,
+            number_precision=number_precision,
+        )
         logger.info(
             f"Exported {len(without_detailed_impacts)} generic processes without detailed impacts to {path}"
         )

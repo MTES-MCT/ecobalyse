@@ -32,19 +32,10 @@
     "wtu": 0
   },
   "metadata": [
-    {
-      "id": "7319ac9c-5796-412f-a1eb-58e01afa7708",
-      "scopes": [
-        "object",
-        "veli"
-      ]
-    }
+    { "id": "7319ac9c-5796-412f-a1eb-58e01afa7708", "scopes": ["object", "veli"] }
   ],
   "qtyVariationRatio": 0.7,
-  "scopes": [
-    "object",
-    "veli"
-  ],
+  "scopes": ["object", "veli"],
   "source": "Ecobalyse_manual_lcia",
   "unit": "kg"
 }

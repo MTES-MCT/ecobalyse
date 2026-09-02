@@ -6,9 +6,8 @@ from pathlib import Path
 from typing import Annotated
 
 import typer
-
-from common import activities_processes_sort_key
-from ecobalyse_data.logging import logger
+from ecobalyse.json import CompactJSONEncoder, activities_processes_sort_key
+from ecobalyse.logging import logger
 
 EXCLUDED_PATHS: list[str] = [
     "/.git",
@@ -24,46 +23,50 @@ EXCLUDED_PATHS: list[str] = [
 
 SORT_PATHS = [
     "processes.json",
+    "processes_impacts.json",
     "processes_generic.json",
     "processes_generic_impacts.json",
 ]
 
 
-def _lint_and_fix(path: Path, fix: bool):
+def _lint_and_fix(path: Path, fix: bool, number_precision: int):
     logger.debug(f"Checking {path}")
 
-    src_data = None
     with open(path, "r", encoding="utf-8") as fp:
         src_data = fp.read()
-    assert src_data is not None
-    try:
-        formatted_data = json.dumps(
-            json.loads(src_data), ensure_ascii=False, sort_keys=True, indent=2
-        )
-        formatted_data += "\n"
 
-        input_data = json.loads(src_data)
+        assert src_data is not None
+        try:
+            input_data = json.loads(src_data)
 
-        if path.name in SORT_PATHS:
-            input_data.sort(key=activities_processes_sort_key)
+            precision = None
+            if path.name in SORT_PATHS:
+                input_data.sort(key=activities_processes_sort_key)
+                # Only apply precision number to processes files
+                precision = number_precision
 
-        formatted_data = json.dumps(
-            input_data, ensure_ascii=False, sort_keys=True, indent=2
-        )
-        formatted_data += "\n"
+            formatted_data = json.dumps(
+                input_data,
+                ensure_ascii=False,
+                sort_keys=True,
+                indent=2,
+                cls=CompactJSONEncoder,
+                number_precision=precision,
+            )
+            formatted_data += "\n"
 
-        if formatted_data == src_data:
-            logger.debug(f"{path} is already properly formatted")
-            return True
-        elif fix:
-            logger.info(f"Reformatting {path}")
-            with open(path, "w", encoding="utf-8") as fp:
-                fp.write(formatted_data)
+            if formatted_data == src_data:
+                logger.debug(f"{path} is already properly formatted")
                 return True
-        logger.error(f"{path} needs formatting")
-    except Exception:
-        print(f"json_formatter error in {path}")
-        raise
+            elif fix:
+                logger.info(f"Reformatting {path}")
+                with open(path, "w", encoding="utf-8") as fp:
+                    fp.write(formatted_data)
+                    return True
+            logger.error(f"{path} needs formatting")
+        except Exception:
+            print(f"json_formatter error in {path}")
+            raise
     return False
 
 
@@ -85,6 +88,12 @@ def main(
             help="The paths of json files or of directories containing json files",
         ),
     ],
+    number_precision: Annotated[
+        int,
+        typer.Option(
+            help="Float precision to apply to process files",
+        ),
+    ] = 4,
     fix: Annotated[
         bool,
         typer.Option(
@@ -104,7 +113,7 @@ def main(
             logger.debug(f"ignoring {path}")
             continue
         if path.is_file():
-            success = _lint_and_fix(path, fix)
+            success = _lint_and_fix(path, fix, number_precision)
             if not success:
                 raise typer.Exit(-1)
         else:
@@ -115,7 +124,7 @@ def main(
                 if is_excluded(json_file):
                     logger.debug(f"ignoring {json_file}")
                     continue
-                success = _lint_and_fix(json_file, fix)
+                success = _lint_and_fix(json_file, fix, number_precision)
                 if not success:
                     raise typer.Exit(-1)
 

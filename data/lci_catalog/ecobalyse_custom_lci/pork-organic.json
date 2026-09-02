@@ -1,10 +1,6 @@
 {
   "activityName": "Live pig, consumption mix {FR} U {{pork-organic-2025}}",
-  "categories": [
-    "ingredient",
-    "material",
-    "material_type:red_meats"
-  ],
+  "categories": ["ingredient", "material", "material_type:red_meats"],
   "displayName": "Porc Bio",
   "id": "97794c50-6932-5707-a453-29b8af52b242",
   "metadata": [
@@ -21,20 +17,11 @@
         "confidence": 1.0,
         "rule": "meat NOVA 2-4 default from food_type_inedible_part.csv"
       },
-      "ingredientCategories": [
-        "animal_product",
-        "organic"
-      ],
+      "ingredientCategories": ["animal_product", "organic"],
       "ingredientDensity": 1.05,
-      "ingredientDensityMatch": {
-        "confidence": 1.0,
-        "rule": "pork found in density.csv"
-      },
+      "ingredientDensityMatch": { "confidence": 1.0, "rule": "pork found in density.csv" },
       "scenario": "organic",
-      "scopes": [
-        "food",
-        "food2"
-      ],
+      "scopes": ["food", "food2"],
       "transportCooling": "always",
       "transportCoolingMatch": {
         "confidence": 0.95,
@@ -43,10 +30,7 @@
       "visible": false
     }
   ],
-  "scopes": [
-    "food",
-    "food2"
-  ],
+  "scopes": ["food", "food2"],
   "source": "Ecobalyse_custom_lci",
   "unit": "kg"
 }

@@ -1,8 +1,6 @@
 {
   "$id": "processes-schema.json",
   "$schema": "https://json-schema.org/draft/2019-09/schema#",
-  "items": {
-    "$ref": "schemas/process-schema.json"
-  },
+  "items": { "$ref": "schemas/process-schema.json" },
   "type": "array"
 }

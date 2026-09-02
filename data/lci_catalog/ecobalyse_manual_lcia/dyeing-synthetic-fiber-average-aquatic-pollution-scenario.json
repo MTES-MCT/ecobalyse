@@ -1,8 +1,5 @@
 {
-  "categories": [
-    "transformation",
-    "material_type:synthetic_fibers"
-  ],
+  "categories": ["transformation", "material_type:synthetic_fibers"],
   "comment": "Même commentaire que `dyeing-synthetic-fiber` sauf qu'en plus les impacts sont multipliés par 19% (scénario de pollution aquatique moyen). corr2 : inventaires enrichis (substances chimiques)\nAncien identifiant (12/2024): ecobalyse-teinture-fibres-synthetiques.",
   "displayName": "Teinture moyenne pour fibres synthétiques (scénario de pollution aquatique moyen)",
   "elecKwh": 1.0,
@@ -30,18 +27,10 @@
     "wtu": 0
   },
   "metadata": [
-    {
-      "id": "74309f3c-52a8-4373-b823-4b29374efbb7",
-      "scopes": [
-        "object"
-      ]
-    }
+    { "id": "74309f3c-52a8-4373-b823-4b29374efbb7", "scopes": ["object"] }
   ],
   "qtyVariationRatio": 1,
-  "scopes": [
-    "object",
-    "veli"
-  ],
+  "scopes": ["object", "veli"],
   "source": "Ecobalyse_manual_lcia",
   "unit": "kg"
 }

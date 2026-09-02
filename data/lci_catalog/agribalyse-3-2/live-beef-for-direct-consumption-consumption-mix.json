@@ -1,10 +1,6 @@
 {
   "activityName": "Live beef, for direct consumption, consumption mix {FR} U",
-  "categories": [
-    "ingredient",
-    "material",
-    "material_type:red_meats"
-  ],
+  "categories": ["ingredient", "material", "material_type:red_meats"],
   "displayName": "Live beef, for direct consumption, consumption mix (FR)",
   "id": "12fb7c01-cd0b-59ec-872f-06f5ba982b5d",
   "metadata": [
@@ -21,32 +17,17 @@
         "confidence": 1.0,
         "rule": "meat NOVA 1 default from food_type_inedible_part.csv"
       },
-      "ingredientCategories": [
-        "animal_product",
-        "organic"
-      ],
+      "ingredientCategories": ["animal_product", "organic"],
       "ingredientDensity": 1.05,
-      "ingredientDensityMatch": {
-        "confidence": 1.0,
-        "rule": "beef found in density.csv"
-      },
+      "ingredientDensityMatch": { "confidence": 1.0, "rule": "beef found in density.csv" },
       "scenario": "organic",
-      "scopes": [
-        "food",
-        "food2"
-      ],
+      "scopes": ["food", "food2"],
       "transportCooling": "always",
-      "transportCoolingMatch": {
-        "confidence": 1.0,
-        "rule": "meat NOVA 1 → always (perishable)"
-      },
+      "transportCoolingMatch": { "confidence": 1.0, "rule": "meat NOVA 1 → always (perishable)" },
       "visible": false
     }
   ],
-  "scopes": [
-    "food",
-    "food2"
-  ],
+  "scopes": ["food", "food2"],
   "source": "Agribalyse 3.2",
   "unit": "kg"
 }

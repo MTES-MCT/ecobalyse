@@ -1,7 +1,5 @@
 {
-  "categories": [
-    "end-of-life"
-  ],
+  "categories": ["end-of-life"],
   "comment": "Précalcul Ecobalyse à partir de Base Impacts",
   "displayName": "Fin de vie hors voiture (transport en camion, incinération, mise en décharge)",
   "elecKwh": 0.0,
@@ -29,9 +27,7 @@
     "wtu": 0
   },
   "qtyVariationRatio": 1,
-  "scopes": [
-    "textile"
-  ],
+  "scopes": ["textile"],
   "source": "Ecobalyse_manual_lcia",
   "unit": "kg"
 }

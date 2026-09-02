@@ -1,8 +1,5 @@
 {
-  "categories": [
-    "transformation",
-    "material_type:wood"
-  ],
+  "categories": ["transformation", "material_type:wood"],
   "comment": "Energy consumptions based on Ecobalyse litterature review with an average scenario hypothesis. Wastes are based on French technical institue FCBA.",
   "displayName": "Panneaux, aggloméré/particules (transformation)",
   "elecKwh": 155.0,
@@ -30,19 +27,10 @@
     "wtu": 0
   },
   "metadata": [
-    {
-      "id": "5463c3b3-8a85-4b1b-9a28-132021512143",
-      "scopes": [
-        "object",
-        "veli"
-      ]
-    }
+    { "id": "5463c3b3-8a85-4b1b-9a28-132021512143", "scopes": ["object", "veli"] }
   ],
   "qtyVariationRatio": 0.62,
-  "scopes": [
-    "object",
-    "veli"
-  ],
+  "scopes": ["object", "veli"],
   "source": "Ecobalyse_manual_lcia",
   "unit": "m3"
 }

@@ -1,8 +1,5 @@
 {
-  "categories": [
-    "productmassdependent",
-    "use"
-  ],
+  "categories": ["productmassdependent", "use"],
   "comment": "Consommation d’électricité telle que définie par la méthode Agribalyse 3.0 dans les tableaux 41, 42, 43 sur les techniques de préparation.",
   "displayName": "Cuisson au four",
   "elecKwh": 0.999,
@@ -30,17 +27,10 @@
     "wtu": 0
   },
   "metadata": [
-    {
-      "id": "a49670fc-0642-43f6-a673-fe15dc7d88da",
-      "scopes": [
-        "food2"
-      ]
-    }
+    { "id": "a49670fc-0642-43f6-a673-fe15dc7d88da", "scopes": ["food2"] }
   ],
   "qtyVariationRatio": 1,
-  "scopes": [
-    "food2"
-  ],
+  "scopes": ["food2"],
   "source": "Ecobalyse_manual_lcia",
   "unit": "kg"
 }

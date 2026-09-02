@@ -1,10 +1,6 @@
 {
   "activityName": "Soybean grain dried, stored and transported, processing {FR} U",
-  "categories": [
-    "ingredient",
-    "material",
-    "material_type:legumes"
-  ],
+  "categories": ["ingredient", "material", "material_type:legumes"],
   "displayName": "Soja feed par défaut",
   "id": "f19cf944-7a9c-51b2-ad22-ecc9f95e2c88",
   "metadata": [
@@ -15,22 +11,14 @@
       "displayName": "Soja feed par défaut (2025)",
       "id": "086b58da-1c4c-40a8-9327-37477d04cfba",
       "inediblePart": 0,
-      "ingredientCategories": [
-        "nut_oilseed_raw"
-      ],
+      "ingredientCategories": ["nut_oilseed_raw"],
       "ingredientDensity": 0.72,
       "scenario": "import",
-      "scopes": [
-        "food",
-        "food2"
-      ],
+      "scopes": ["food", "food2"],
       "transportCooling": "none",
       "visible": false
     }
   ],
-  "scopes": [
-    "food",
-    "food2"
-  ],
+  "scopes": ["food", "food2"],
   "source": "Agribalyse 3.2"
 }

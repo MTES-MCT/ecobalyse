@@ -1,10 +1,6 @@
 {
   "activityName": "Lentils, dry, at farm (WFLDB)",
-  "categories": [
-    "ingredient",
-    "material",
-    "material_type:legumes"
-  ],
+  "categories": ["ingredient", "material", "material_type:legumes"],
   "displayName": "Lentilles FR",
   "id": "e45f6ccb-035e-569c-80c5-f8a26993c5b3",
   "metadata": [
@@ -15,15 +11,10 @@
       "displayName": "Lentilles FR (2025)",
       "id": "e3833045-a0a4-48c7-ab73-5a01834b0219",
       "inediblePart": 0,
-      "ingredientCategories": [
-        "nut_oilseed_raw"
-      ],
+      "ingredientCategories": ["nut_oilseed_raw"],
       "ingredientDensity": 0.72,
       "scenario": "reference",
-      "scopes": [
-        "food",
-        "food2"
-      ],
+      "scopes": ["food", "food2"],
       "transportCooling": "none",
       "visible": true
     },
@@ -34,22 +25,14 @@
       "displayName": "Lentilles UE (2025)",
       "id": "d0cd6516-40b9-40ce-b632-63c3a0ed14c1",
       "inediblePart": 0,
-      "ingredientCategories": [
-        "nut_oilseed_raw"
-      ],
+      "ingredientCategories": ["nut_oilseed_raw"],
       "ingredientDensity": 0.72,
       "scenario": "import",
-      "scopes": [
-        "food",
-        "food2"
-      ],
+      "scopes": ["food", "food2"],
       "transportCooling": "none",
       "visible": true
     }
   ],
-  "scopes": [
-    "food",
-    "food2"
-  ],
+  "scopes": ["food", "food2"],
   "source": "WFLDB"
 }

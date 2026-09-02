@@ -1,10 +1,6 @@
 {
   "activityName": "Pea, organic, animal feed, at farm gate {FR} U",
-  "categories": [
-    "ingredient",
-    "material",
-    "material_type:cereals"
-  ],
+  "categories": ["ingredient", "material", "material_type:cereals"],
   "displayName": "Pois Bio",
   "id": "23e36bdc-12af-5f37-9de8-cf707916be39",
   "metadata": [
@@ -16,23 +12,14 @@
       "explain": "",
       "id": "8cf0b0ce-7ae7-4123-8fee-823b4c190418",
       "inediblePart": 0,
-      "ingredientCategories": [
-        "grain_raw",
-        "organic"
-      ],
+      "ingredientCategories": ["grain_raw", "organic"],
       "ingredientDensity": 0.72,
       "scenario": "organic",
-      "scopes": [
-        "food",
-        "food2"
-      ],
+      "scopes": ["food", "food2"],
       "transportCooling": "none",
       "visible": true
     }
   ],
-  "scopes": [
-    "food",
-    "food2"
-  ],
+  "scopes": ["food", "food2"],
   "source": "Agribalyse 3.2"
 }

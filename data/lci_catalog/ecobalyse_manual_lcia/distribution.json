@@ -1,8 +1,6 @@
 {
   "activityName": "Transport en camion non spécifié France",
-  "categories": [
-    "transport"
-  ],
+  "categories": ["transport"],
   "comment": "Données provenant de Base Impacts 2.01. Ancien identifiant (12/2024): f49b27fa-f22e-c6e1-ab4b-e9f873e2e648.",
   "displayName": "Transport en camion non spécifié France",
   "elecKwh": 0.0,
@@ -30,9 +28,7 @@
     "wtu": 0
   },
   "qtyVariationRatio": 1,
-  "scopes": [
-    "textile"
-  ],
+  "scopes": ["textile"],
   "source": "Ecobalyse_manual_lcia",
   "unit": "t⋅km"
 }

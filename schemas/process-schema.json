@@ -2,25 +2,13 @@
   "$id": "process-schema.json",
   "$schema": "https://json-schema.org/draft/2019-09/schema#",
   "properties": {
-    "activityName": {
-      "type": "string"
-    },
-    "alias": {
-      "type": ["string", "null"]
-    },
+    "activityName": { "type": "string" },
+    "alias": { "type": ["string", "null"] },
     "categories": { "$ref": "lci-schema.json/#/properties/categories" },
-    "comment": {
-      "type": "string"
-    },
+    "comment": { "type": "string" },
     "displayName": { "$ref": "lci-schema.json/#/properties/displayName" },
-    "elecKwh": {
-      "minimum": 0,
-      "type": "number"
-    },
-    "heatMJ": {
-      "minimum": 0,
-      "type": "number"
-    },
+    "elecKwh": { "minimum": 0, "type": "number" },
+    "heatMJ": { "minimum": 0, "type": "number" },
     "id": { "$ref": "lci-schema.json/#/properties/id" },
     "impacts": {
       "properties": {
@@ -48,21 +36,11 @@
       "required": ["ecs"],
       "type": "object"
     },
-    "massPerUnit": {
-      "exclusiveMinimum": 0,
-      "type": ["number", "null"]
-    },
-    "qtyVariationRatio": {
-      "exclusiveMinimum": 0,
-      "type": "number"
-    },
-
+    "massPerUnit": { "exclusiveMinimum": 0, "type": ["number", "null"] },
+    "qtyVariationRatio": { "exclusiveMinimum": 0, "type": "number" },
     "scopes": { "$ref": "lci-schema.json/#/properties/scopes" },
     "source": { "$ref": "lci-schema.json/#/properties/source" },
-    "unit": {
-      "enum": ["kg", "t⋅km", "kWh", "MJ", "L", "item", "m2", "m3"],
-      "type": "string"
-    }
+    "unit": { "enum": ["kg", "t⋅km", "kWh", "MJ", "L", "item", "m2", "m3"], "type": "string" }
   },
   "required": [
     "activityName",

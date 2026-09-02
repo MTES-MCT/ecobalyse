@@ -1,7 +1,5 @@
 {
-  "categories": [
-    "use"
-  ],
+  "categories": ["use"],
   "comment": "Ancien identifiant (12/2024): 4964273a-cdbd-43cf-8cf8-4b017aee4f03.",
   "displayName": "Utilisation : Impact hors repassage (Jean)",
   "elecKwh": 0.2852,
@@ -29,9 +27,7 @@
     "wtu": 0
   },
   "qtyVariationRatio": 1,
-  "scopes": [
-    "textile"
-  ],
+  "scopes": ["textile"],
   "source": "Ecobalyse_manual_lcia",
   "unit": "kg"
 }

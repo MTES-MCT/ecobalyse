@@ -1,10 +1,6 @@
 {
   "activityName": "Mango, pulp raw, import WFLDB, CMAPS {GLO} U",
-  "categories": [
-    "ingredient",
-    "material",
-    "material_type:other_food_items"
-  ],
+  "categories": ["ingredient", "material", "material_type:other_food_items"],
   "displayName": "Mangue, pulpe, crue Origine Inconnue",
   "id": "8a663670-3cc8-47a3-b144-0f74c0928a63",
   "metadata": [
@@ -15,23 +11,15 @@
       "displayName": "Mangue, pulpe, crue Origine Inconnue",
       "id": "f36ef00b-c03c-4027-a1ca-3b10968f66c9",
       "inediblePart": 0,
-      "ingredientCategories": [
-        "vegetable_fresh"
-      ],
+      "ingredientCategories": ["vegetable_fresh"],
       "ingredientDensity": 1,
       "rawToCookedRatio": 1,
       "scenario": "import",
-      "scopes": [
-        "food",
-        "food2"
-      ],
+      "scopes": ["food", "food2"],
       "transportCooling": "always",
       "visible": true
     }
   ],
-  "scopes": [
-    "food",
-    "food2"
-  ],
+  "scopes": ["food", "food2"],
   "source": "Ecobalyse_custom_lci"
 }

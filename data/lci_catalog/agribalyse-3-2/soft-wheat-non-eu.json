@@ -1,10 +1,6 @@
 {
   "activityName": "Wheat grain, at farm {GLO} - Adapted from WFLDB U",
-  "categories": [
-    "ingredient",
-    "material",
-    "material_type:cereals"
-  ],
+  "categories": ["ingredient", "material", "material_type:cereals"],
   "displayName": "Blé tendre par défaut",
   "id": "522c5380-a9b5-5f13-9b51-8ac5059be56c",
   "metadata": [
@@ -15,15 +11,10 @@
       "displayName": "Blé tendre UE (2025)",
       "id": "ae9ccfff-93bb-46b3-9ade-479fbbdb6d56",
       "inediblePart": 0,
-      "ingredientCategories": [
-        "grain_raw"
-      ],
+      "ingredientCategories": ["grain_raw"],
       "ingredientDensity": 1.0,
       "scenario": "import",
-      "scopes": [
-        "food",
-        "food2"
-      ],
+      "scopes": ["food", "food2"],
       "transportCooling": "none",
       "visible": true
     },
@@ -34,22 +25,14 @@
       "displayName": "Blé tendre par défaut (2025)",
       "id": "48c1fc68-01bb-4541-a274-ce1de33db1f9",
       "inediblePart": 0,
-      "ingredientCategories": [
-        "grain_raw"
-      ],
+      "ingredientCategories": ["grain_raw"],
       "ingredientDensity": 0.72,
       "scenario": "import",
-      "scopes": [
-        "food",
-        "food2"
-      ],
+      "scopes": ["food", "food2"],
       "transportCooling": "none",
       "visible": true
     }
   ],
-  "scopes": [
-    "food",
-    "food2"
-  ],
+  "scopes": ["food", "food2"],
   "source": "Agribalyse 3.2"
 }

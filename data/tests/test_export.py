@@ -1,4 +1,5 @@
 import orjson
+from ecobalyse.json import activities_processes_sort_key
 
 from bin import export
 from common.export import export_json
@@ -22,6 +23,8 @@ def test_export_processes(forwast, tmp_path, processes_impacts_json):
         export_json(
             json_data,
             TESTS_FIXTURE_DIR / "processes_legacy_impacts_output.json",
+            sort_fn=activities_processes_sort_key,
+            number_precision=4,
         )
         assert json_data == processes_impacts_json
 
@@ -38,6 +41,8 @@ def test_export_ingredients(
     export_json(
         processes_impacts_full_json,
         tmp_path / settings.processes_legacy_impacts_full_file,
+        sort_fn=activities_processes_sort_key,
+        number_precision=4,
     )
 
     export.metadata(
@@ -79,6 +84,8 @@ def test_export_processes_generic(
     export_json(
         processes_impacts_full_json,
         tmp_path / settings.processes_legacy_impacts_full_file,
+        sort_fn=activities_processes_sort_key,
+        number_precision=4,
     )
 
     export.metadata(
@@ -92,5 +99,7 @@ def test_export_processes_generic(
         export_json(
             json_data,
             TESTS_FIXTURE_DIR / "processes_generic_impacts_output.json",
+            sort_fn=activities_processes_sort_key,
+            number_precision=4,
         )
         assert json_data == processes_generic_impacts_json

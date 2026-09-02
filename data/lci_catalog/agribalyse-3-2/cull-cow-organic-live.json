@@ -1,10 +1,6 @@
 {
   "activityName": "Cull cow, organic, milk system number 1, at farm gate {FR} U",
-  "categories": [
-    "ingredient",
-    "material",
-    "material_type:other_food_items"
-  ],
+  "categories": ["ingredient", "material", "material_type:other_food_items"],
   "displayName": "Bovin bio vivant FR",
   "id": "4b692313-228b-5d38-ae02-553d2b3929ae",
   "metadata": [
@@ -17,24 +13,15 @@
       "displayName": "Bovin bio vivant FR",
       "id": "dd39c5d7-475d-44cf-bf66-deee453b2330",
       "inediblePart": 0,
-      "ingredientCategories": [
-        "animal_product",
-        "organic"
-      ],
+      "ingredientCategories": ["animal_product", "organic"],
       "ingredientDensity": 1.0,
       "rawToCookedRatio": 1.0,
       "scenario": "organic",
-      "scopes": [
-        "food",
-        "food2"
-      ],
+      "scopes": ["food", "food2"],
       "transportCooling": "always",
       "visible": false
     }
   ],
-  "scopes": [
-    "food",
-    "food2"
-  ],
+  "scopes": ["food", "food2"],
   "source": "Agribalyse 3.2"
 }

@@ -1,10 +1,7 @@
 [
   {
     "alias": "ei-pet-r",
-    "cff": {
-      "manufacturerAllocation": 0.5,
-      "recycledQualityRatio": 1.0
-    },
+    "cff": { "manufacturerAllocation": 0.5, "recycledQualityRatio": 1.0 },
     "defaultCountry": "CN",
     "geographicOrigin": "Asie - Pacifique",
     "id": "8f44c680-1263-4588-b79b-a9e4dc3d8de4",

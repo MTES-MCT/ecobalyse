@@ -1,9 +1,7 @@
 {
   "distribution": {
     "country": "FR",
-    "defaultProcess": {
-      "food2": "29118025-efa0-47bb-94e2-f5ccba31a903"
-    }
+    "defaultProcess": { "food2": "29118025-efa0-47bb-94e2-f5ccba31a903" }
   },
   "docLinks": {
     "default": {
@@ -29,23 +27,10 @@
       }
     }
   },
-  "durability": {
-    "enabled": {
-      "food2": false,
-      "object": true,
-      "veli": true
-    }
-  },
+  "durability": { "enabled": { "food2": false, "object": true, "veli": true } },
   "endOfLife": {
-    "enabled": {
-      "food2": false,
-      "object": true,
-      "veli": true
-    },
-    "scopeCollectionRates": {
-      "object": 70,
-      "veli": 70
-    },
+    "enabled": { "food2": false, "object": true, "veli": true },
+    "scopeCollectionRates": { "object": 70, "veli": 70 },
     "strategies": {
       "collected": {
         "aluminium": {
@@ -225,11 +210,7 @@
     }
   },
   "transports": {
-    "defaultDistance": {
-      "air": 10000,
-      "road": 2000,
-      "sea": 18000
-    },
+    "defaultDistance": { "air": 10000, "road": 2000, "sea": 18000 },
     "modeProcesses": {
       "boat": "ffff684d-2162-493a-ab2e-826f82f29f58",
       "boatCooling": "9eefe92d-37af-4446-829e-2a75c8bf2690",

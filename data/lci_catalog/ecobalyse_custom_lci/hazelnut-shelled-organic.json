@@ -1,10 +1,6 @@
 {
   "activityName": "Hazelnut, shelled, organic, CMAPS {GLO} U",
-  "categories": [
-    "ingredient",
-    "material",
-    "material_type:other_food_items"
-  ],
+  "categories": ["ingredient", "material", "material_type:other_food_items"],
   "displayName": "Noisette, décortiquée Origine Inconnue BIO",
   "id": "ad50625e-07e1-437d-98b5-feff77606e95",
   "metadata": [
@@ -15,24 +11,15 @@
       "displayName": "Noisette, décortiquée Origine Inconnue BIO",
       "id": "bbe32dc1-8689-454c-8777-70d0ec1f0491",
       "inediblePart": 0,
-      "ingredientCategories": [
-        "nut_oilseed_raw",
-        "organic"
-      ],
+      "ingredientCategories": ["nut_oilseed_raw", "organic"],
       "ingredientDensity": 1,
       "rawToCookedRatio": 1,
       "scenario": "organic",
-      "scopes": [
-        "food",
-        "food2"
-      ],
+      "scopes": ["food", "food2"],
       "transportCooling": "none",
       "visible": true
     }
   ],
-  "scopes": [
-    "food",
-    "food2"
-  ],
+  "scopes": ["food", "food2"],
   "source": "Ecobalyse_custom_lci"
 }

@@ -1,10 +1,6 @@
 {
   "activityName": "Dairy spread, 20pct fat, variant 2, CMAPS {GLO} U",
-  "categories": [
-    "ingredient",
-    "material",
-    "material_type:other_food_items"
-  ],
+  "categories": ["ingredient", "material", "material_type:other_food_items"],
   "displayName": "Matière grasse laitière à 20% MG, légère, \"à tartiner\", doux Origine Inconnue",
   "id": "5fc01e16-acab-491f-8d29-30060ae58d3d",
   "metadata": [
@@ -14,23 +10,15 @@
       "displayName": "Matière grasse laitière à 20% MG, légère, \"à tartiner\", doux Origine Inconnue",
       "id": "bb9bdb1a-a94a-4dd1-bd0d-cbfd7bf076be",
       "inediblePart": 0,
-      "ingredientCategories": [
-        "dairy_product"
-      ],
+      "ingredientCategories": ["dairy_product"],
       "ingredientDensity": 1,
       "rawToCookedRatio": 1,
       "scenario": "import",
-      "scopes": [
-        "food",
-        "food2"
-      ],
+      "scopes": ["food", "food2"],
       "transportCooling": "always",
       "visible": true
     }
   ],
-  "scopes": [
-    "food",
-    "food2"
-  ],
+  "scopes": ["food", "food2"],
   "source": "Ecobalyse_custom_lci"
 }

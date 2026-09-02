@@ -1,20 +1,13 @@
 {
   "activityName": "Soybean, organic, animal feed, at farm gate {FR} U",
-  "categories": [
-    "ingredient",
-    "material",
-    "material_type:legumes"
-  ],
+  "categories": ["ingredient", "material", "material_type:legumes"],
   "displayName": "Soja Bio (2025)",
   "id": "47f90f36-8629-5d8d-ae17-c64305c68ddb",
   "metadata": [
     {
       "alias": "soybean-organic",
       "cropGroup": "AUTRES OLEAGINEUX",
-      "cropGroupMatch": {
-        "confidence": 1.0,
-        "rule": "matched 'soybean' in cropgroup.csv"
-      },
+      "cropGroupMatch": { "confidence": 1.0, "rule": "matched 'soybean' in cropgroup.csv" },
       "defaultOrigin": "France",
       "displayName": "Soja Bio",
       "id": "4879c02e-05e5-5567-84e5-b7d6d9d3f22a",
@@ -23,30 +16,15 @@
         "confidence": 1.0,
         "rule": "nut_oilseed NOVA 1 default from food_type_inedible_part.csv"
       },
-      "ingredientCategories": [
-        "nut_oilseed_raw",
-        "organic"
-      ],
+      "ingredientCategories": ["nut_oilseed_raw", "organic"],
       "ingredientDensity": 0.74,
-      "ingredientDensityMatch": {
-        "confidence": 1.0,
-        "rule": "Soybean found in fao_density.csv"
-      },
+      "ingredientDensityMatch": { "confidence": 1.0, "rule": "Soybean found in fao_density.csv" },
       "rawToCookedRatio": 2.259,
-      "rawToCookedRatioMatch": {
-        "confidence": 1.0,
-        "rule": "Matched with soybean in cooked_to_raw.csv"
-      },
+      "rawToCookedRatioMatch": { "confidence": 1.0, "rule": "Matched with soybean in cooked_to_raw.csv" },
       "scenario": "organic",
-      "scopes": [
-        "food",
-        "food2"
-      ],
+      "scopes": ["food", "food2"],
       "transportCooling": "none",
-      "transportCoolingMatch": {
-        "confidence": 1.0,
-        "rule": "nut_oilseed → none (non-perishable)"
-      },
+      "transportCoolingMatch": { "confidence": 1.0, "rule": "nut_oilseed → none (non-perishable)" },
       "visible": false
     },
     {
@@ -56,23 +34,14 @@
       "displayName": "Soja Bio (2025)",
       "id": "92d34545-6952-466e-bf6d-c1f1f6069b48",
       "inediblePart": 0,
-      "ingredientCategories": [
-        "nut_oilseed_raw",
-        "organic"
-      ],
+      "ingredientCategories": ["nut_oilseed_raw", "organic"],
       "ingredientDensity": 0.72,
       "scenario": "organic",
-      "scopes": [
-        "food",
-        "food2"
-      ],
+      "scopes": ["food", "food2"],
       "transportCooling": "none",
       "visible": false
     }
   ],
-  "scopes": [
-    "food",
-    "food2"
-  ],
+  "scopes": ["food", "food2"],
   "source": "Agribalyse 3.2"
 }

@@ -1,10 +1,6 @@
 {
   "activityName": "Durum wheat grain, at farm, organic 2025 {GLO}",
-  "categories": [
-    "ingredient",
-    "material",
-    "material_type:cereals"
-  ],
+  "categories": ["ingredient", "material", "material_type:cereals"],
   "displayName": "Blé dur Bio",
   "id": "4214f67c-efb1-55cc-8d49-c67db79c9abc",
   "location": "GLO",
@@ -12,10 +8,7 @@
     {
       "alias": "durum-wheat-organic",
       "cropGroup": "AUTRES CEREALES",
-      "cropGroupMatch": {
-        "confidence": 0.95,
-        "rule": "matched 'blé dur hiver' in cropgroup.csv"
-      },
+      "cropGroupMatch": { "confidence": 0.95, "rule": "matched 'blé dur hiver' in cropgroup.csv" },
       "defaultOrigin": "France",
       "displayName": "Blé dur Bio",
       "id": "f9ac7349-eaae-5ff7-b7fe-8a57539464b8",
@@ -24,32 +17,17 @@
         "confidence": 1.0,
         "rule": "grain NOVA 1 default from food_type_inedible_part.csv"
       },
-      "ingredientCategories": [
-        "grain_raw",
-        "organic"
-      ],
+      "ingredientCategories": ["grain_raw", "organic"],
       "ingredientDensity": 0.77,
-      "ingredientDensityMatch": {
-        "confidence": 0.95,
-        "rule": "Matched with Wheat in fao_density.csv"
-      },
+      "ingredientDensityMatch": { "confidence": 0.95, "rule": "Matched with Wheat in fao_density.csv" },
       "scenario": "organic",
-      "scopes": [
-        "food",
-        "food2"
-      ],
+      "scopes": ["food", "food2"],
       "transportCooling": "none",
-      "transportCoolingMatch": {
-        "confidence": 1.0,
-        "rule": "grain → none (non-perishable)"
-      },
+      "transportCoolingMatch": { "confidence": 1.0, "rule": "grain → none (non-perishable)" },
       "visible": true
     }
   ],
-  "scopes": [
-    "food",
-    "food2"
-  ],
+  "scopes": ["food", "food2"],
   "source": "Ginko 2025",
   "unit": "kg"
 }

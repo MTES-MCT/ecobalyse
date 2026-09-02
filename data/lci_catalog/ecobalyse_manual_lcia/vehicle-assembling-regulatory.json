@@ -1,8 +1,5 @@
 {
-  "categories": [
-    "productmassdependent",
-    "assembly"
-  ],
+  "categories": ["productmassdependent", "assembly"],
   "comment": "https://fabrique-numerique.gitbook.io/ecobalyse/vehicules/cycle-de-vie/assemblage",
   "displayName": "Assemblage - calcul réglementaire Score Environnemental VE",
   "elecKwh": 2.165,
@@ -30,17 +27,10 @@
     "wtu": 0
   },
   "metadata": [
-    {
-      "id": "8b4fae1f-71bc-44d4-9e40-b2399ef04f34",
-      "scopes": [
-        "veli"
-      ]
-    }
+    { "id": "8b4fae1f-71bc-44d4-9e40-b2399ef04f34", "scopes": ["veli"] }
   ],
   "qtyVariationRatio": 1,
-  "scopes": [
-    "veli"
-  ],
+  "scopes": ["veli"],
   "source": "Ecobalyse_manual_lcia",
   "unit": "kg"
 }

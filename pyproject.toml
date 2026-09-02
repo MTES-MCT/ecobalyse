@@ -36,7 +36,7 @@ requires = ["hatchling", "setuptools"]
 allow-direct-references = true
 
 [tool.hatch.build]
-dev-mode-dirs = ["./packages/python/ecobalyse", "./backend/src", "."]
+dev-mode-dirs = ["./packages/python/ecobalyse", "./backend/src", ".", "./data"]
 ignore-vcs = true
 sources = ["src"]
 

@@ -1,10 +1,6 @@
 {
   "activityName": "Quinoa FR, organic 2025, at farm gate {FR} U",
-  "categories": [
-    "ingredient",
-    "material",
-    "material_type:cereals"
-  ],
+  "categories": ["ingredient", "material", "material_type:cereals"],
   "displayName": "Quinoa Bio",
   "id": "fe482c9c-eb04-5440-b5dc-ab9bef6ec86a",
   "location": "FR",
@@ -12,10 +8,7 @@
     {
       "alias": "quinoa-organic",
       "cropGroup": "AUTRES CEREALES",
-      "cropGroupMatch": {
-        "confidence": 1.0,
-        "rule": "matched 'quinoa' in cropgroup.csv"
-      },
+      "cropGroupMatch": { "confidence": 1.0, "rule": "matched 'quinoa' in cropgroup.csv" },
       "defaultOrigin": "France",
       "displayName": "Quinoa Bio",
       "id": "2cd666b8-b286-5159-9162-c261158d456a",
@@ -24,32 +17,17 @@
         "confidence": 1.0,
         "rule": "grain NOVA 1 default from food_type_inedible_part.csv"
       },
-      "ingredientCategories": [
-        "grain_raw",
-        "organic"
-      ],
+      "ingredientCategories": ["grain_raw", "organic"],
       "ingredientDensity": 0.75,
-      "ingredientDensityMatch": {
-        "confidence": 1.0,
-        "rule": "grain default from food_type_density.csv"
-      },
+      "ingredientDensityMatch": { "confidence": 1.0, "rule": "grain default from food_type_density.csv" },
       "scenario": "organic",
-      "scopes": [
-        "food",
-        "food2"
-      ],
+      "scopes": ["food", "food2"],
       "transportCooling": "none",
-      "transportCoolingMatch": {
-        "confidence": 1.0,
-        "rule": "grain → none (non-perishable)"
-      },
+      "transportCoolingMatch": { "confidence": 1.0, "rule": "grain → none (non-perishable)" },
       "visible": true
     }
   ],
-  "scopes": [
-    "food",
-    "food2"
-  ],
+  "scopes": ["food", "food2"],
   "source": "Ginko 2025",
   "unit": "kg"
 }

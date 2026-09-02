@@ -1,10 +1,6 @@
 {
   "activityName": "Lentil, organic 2025 {CA-SK}| lentil production | Cut-off, U",
-  "categories": [
-    "ingredient",
-    "material",
-    "material_type:legumes"
-  ],
+  "categories": ["ingredient", "material", "material_type:legumes"],
   "displayName": "Lentilles Bio",
   "id": "e4b46739-6483-5f69-9549-ddab528d9835",
   "location": "CA-SK",
@@ -17,26 +13,17 @@
       "explain": "icv bio = icv CA bio ginko",
       "id": "02b2ed63-6246-446c-8cf3-224dbe698821",
       "inediblePart": 0,
-      "ingredientCategories": [
-        "nut_oilseed_raw",
-        "organic"
-      ],
+      "ingredientCategories": ["nut_oilseed_raw", "organic"],
       "ingredientDensity": 0.72,
       "scenario": "organic",
-      "scopes": [
-        "food",
-        "food2"
-      ],
+      "scopes": ["food", "food2"],
       "transportCooling": "none",
       "visible": true
     },
     {
       "alias": "lentil-organic",
       "cropGroup": "LEGUMINEUSES A GRAIN",
-      "cropGroupMatch": {
-        "confidence": 1.0,
-        "rule": "matched 'lentil' in cropgroup.csv"
-      },
+      "cropGroupMatch": { "confidence": 1.0, "rule": "matched 'lentil' in cropgroup.csv" },
       "defaultOrigin": "France",
       "displayName": "Lentille Bio",
       "id": "7715786d-8371-57ad-9834-14ef625a0d24",
@@ -45,31 +32,16 @@
         "confidence": 1.0,
         "rule": "legume NOVA 1 default from food_type_inedible_part.csv"
       },
-      "ingredientCategories": [
-        "vegetable_fresh",
-        "organic"
-      ],
+      "ingredientCategories": ["vegetable_fresh", "organic"],
       "ingredientDensity": 0.8,
-      "ingredientDensityMatch": {
-        "confidence": 1.0,
-        "rule": "lentil found in density.csv"
-      },
+      "ingredientDensityMatch": { "confidence": 1.0, "rule": "lentil found in density.csv" },
       "scenario": "organic",
-      "scopes": [
-        "food",
-        "food2"
-      ],
+      "scopes": ["food", "food2"],
       "transportCooling": "always",
-      "transportCoolingMatch": {
-        "confidence": 1.0,
-        "rule": "legume NOVA 1 → always (perishable)"
-      },
+      "transportCoolingMatch": { "confidence": 1.0, "rule": "legume NOVA 1 → always (perishable)" },
       "visible": true
     }
   ],
-  "scopes": [
-    "food",
-    "food2"
-  ],
+  "scopes": ["food", "food2"],
   "source": "Ginko 2025"
 }

@@ -14,19 +14,10 @@
   "heatMJ": 0,
   "id": "9f53caf6-50c1-4e84-bde1-1c2f25f26f44",
   "metadata": [
-    {
-      "id": "f2c04faa-a41e-4ebd-ab44-d2dc4f4af629",
-      "scopes": [
-        "object",
-        "veli"
-      ]
-    }
+    { "id": "f2c04faa-a41e-4ebd-ab44-d2dc4f4af629", "scopes": ["object", "veli"] }
   ],
   "qtyVariationRatio": 1,
-  "scopes": [
-    "object",
-    "veli"
-  ],
+  "scopes": ["object", "veli"],
   "source": "Ecoinvent 3.9.1",
   "unit": "kg"
 }

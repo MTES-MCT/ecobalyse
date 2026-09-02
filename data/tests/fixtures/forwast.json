@@ -2,10 +2,7 @@
   "forwast": [
     {
       "activityName": "_22 Vegetable and animal oils and fats, EU27",
-      "categories": [
-        "Input Output",
-        "EU27 2003"
-      ],
+      "categories": ["Input Output", "EU27 2003"],
       "comment": "",
       "computedBy": "brightway",
       "displayName": "_22 Vegetable and animal oils and fats, EU27",

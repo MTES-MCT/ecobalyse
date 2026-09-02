@@ -1,10 +1,6 @@
 {
   "activityName": "Grain maize, organic, animal feed, at farm gate {FR} U",
-  "categories": [
-    "ingredient",
-    "material",
-    "material_type:cereals"
-  ],
+  "categories": ["ingredient", "material", "material_type:cereals"],
   "displayName": "Maïs doux Bio",
   "id": "d8acf28f-b1a6-5a65-b39b-224071f0c220",
   "metadata": [
@@ -16,23 +12,14 @@
       "explain": "Part non comestible : chataigne, olive",
       "id": "741c0970-2823-430a-b4e4-e61ce08ea95a",
       "inediblePart": 0.5,
-      "ingredientCategories": [
-        "grain_raw",
-        "organic"
-      ],
+      "ingredientCategories": ["grain_raw", "organic"],
       "ingredientDensity": 0.24,
       "scenario": "organic",
-      "scopes": [
-        "food",
-        "food2"
-      ],
+      "scopes": ["food", "food2"],
       "transportCooling": "none",
       "visible": true
     }
   ],
-  "scopes": [
-    "food",
-    "food2"
-  ],
+  "scopes": ["food", "food2"],
   "source": "Agribalyse 3.2"
 }

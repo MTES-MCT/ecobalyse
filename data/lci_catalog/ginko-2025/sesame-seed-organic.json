@@ -1,10 +1,6 @@
 {
   "activityName": "Peanut, organic 2025 {IN}| peanut production | Cut-off, U",
-  "categories": [
-    "ingredient",
-    "material",
-    "material_type:cereals"
-  ],
+  "categories": ["ingredient", "material", "material_type:cereals"],
   "displayName": "Graines de sésame Bio",
   "id": "35df8daa-137c-5c3b-8cc1-b572d80000d3",
   "location": "IN",
@@ -12,10 +8,7 @@
     {
       "alias": "sesame-seed-organic",
       "cropGroup": "SEMENCES",
-      "cropGroupMatch": {
-        "confidence": 0.95,
-        "rule": "matched 'semences epeautre' in cropgroup.csv"
-      },
+      "cropGroupMatch": { "confidence": 0.95, "rule": "matched 'semences epeautre' in cropgroup.csv" },
       "defaultOrigin": "France",
       "displayName": "Graines de sésame Bio",
       "id": "6de259fc-527d-5ac5-991b-8ea3acf8e59a",
@@ -24,32 +17,17 @@
         "confidence": 1.0,
         "rule": "grain NOVA 1 default from food_type_inedible_part.csv"
       },
-      "ingredientCategories": [
-        "grain_raw",
-        "organic"
-      ],
+      "ingredientCategories": ["grain_raw", "organic"],
       "ingredientDensity": 0.75,
-      "ingredientDensityMatch": {
-        "confidence": 1.0,
-        "rule": "grain default from food_type_density.csv"
-      },
+      "ingredientDensityMatch": { "confidence": 1.0, "rule": "grain default from food_type_density.csv" },
       "scenario": "organic",
-      "scopes": [
-        "food",
-        "food2"
-      ],
+      "scopes": ["food", "food2"],
       "transportCooling": "none",
-      "transportCoolingMatch": {
-        "confidence": 1.0,
-        "rule": "grain → none (non-perishable)"
-      },
+      "transportCoolingMatch": { "confidence": 1.0, "rule": "grain → none (non-perishable)" },
       "visible": true
     }
   ],
-  "scopes": [
-    "food",
-    "food2"
-  ],
+  "scopes": ["food", "food2"],
   "source": "Ginko 2025",
   "unit": "kg"
 }

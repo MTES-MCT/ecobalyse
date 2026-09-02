@@ -1,20 +1,13 @@
 {
   "activityName": "Soybean, national average, animal feed, at farm gate {FR} U",
-  "categories": [
-    "ingredient",
-    "material",
-    "material_type:cereals"
-  ],
+  "categories": ["ingredient", "material", "material_type:cereals"],
   "displayName": "Soja FR",
   "id": "74190248-e958-5427-99a3-b16d1593f46a",
   "metadata": [
     {
       "alias": "soybean-fr",
       "cropGroup": "AUTRES OLEAGINEUX",
-      "cropGroupMatch": {
-        "confidence": 1.0,
-        "rule": "matched 'soybean' in cropgroup.csv"
-      },
+      "cropGroupMatch": { "confidence": 1.0, "rule": "matched 'soybean' in cropgroup.csv" },
       "defaultOrigin": "France",
       "displayName": "Soja FR",
       "id": "c466ec83-7735-43b6-a919-c933e6656a8d",
@@ -23,30 +16,16 @@
         "confidence": 1.0,
         "rule": "nut_oilseed NOVA 1 default from food_type_inedible_part.csv"
       },
-      "ingredientCategories": [
-        "nut_oilseed_raw"
-      ],
+      "ingredientCategories": ["nut_oilseed_raw"],
       "ingredientDensity": 0.74,
-      "ingredientDensityMatch": {
-        "confidence": 1.0,
-        "rule": "Soybean found in fao_density.csv"
-      },
+      "ingredientDensityMatch": { "confidence": 1.0, "rule": "Soybean found in fao_density.csv" },
       "scenario": "reference",
-      "scopes": [
-        "food",
-        "food2"
-      ],
+      "scopes": ["food", "food2"],
       "transportCooling": "none",
-      "transportCoolingMatch": {
-        "confidence": 1.0,
-        "rule": "nut_oilseed → none (non-perishable)"
-      },
+      "transportCoolingMatch": { "confidence": 1.0, "rule": "nut_oilseed → none (non-perishable)" },
       "visible": true
     }
   ],
-  "scopes": [
-    "food",
-    "food2"
-  ],
+  "scopes": ["food", "food2"],
   "source": "Agribalyse 3.2"
 }
