@@ -13,6 +13,20 @@ from ecobalyse_data.logging import logger
 
 from . import remove_detailed_impacts
 
+
+def export_json_with_sort_and_precision(data, path):
+    export_json(
+        data,
+        path,
+        sort_fn=activities_processes_sort_key,
+        number_precision=settings.number_precision,
+    )
+
+
+def export_json_with_precision(data, path):
+    export_json(data, path, number_precision=settings.number_precision)
+
+
 with open(DATA_ROOT_DIR / settings.impacts_file) as f:
     IMPACTS_JSON = deepfreeze(json.load(f))
 
@@ -172,11 +186,9 @@ def export_processes_to_dir(
 
     if extra_data is not None and extra_path is not None:
         extra_file = dir_to_export_to / extra_path
-        export_json(
+        export_json_with_sort_and_precision(
             extra_data,
             extra_file,
-            sort_fn=activities_processes_sort_key,
-            number_precision=settings.number_precision,
         )
         exported_files.append(extra_file)
 
@@ -224,18 +236,16 @@ def export_processes_to_dir(
             }
         filtered.append(p)
 
-    export_json(
+    export_json_with_precision(
         filtered,
         processes_impacts_absolute_path,
-        number_precision=settings.number_precision,
     )
     exported_files.append(processes_impacts_absolute_path)
 
     # Also update the aggregated file
-    export_json(
+    export_json_with_precision(
         remove_detailed_impacts(filtered),
         processes_ecs_absolute_path,
-        number_precision=settings.number_precision,
     )
     exported_files.append(processes_ecs_absolute_path)
 
@@ -244,9 +254,7 @@ def export_processes_to_dir(
     full_impacts_path = (
         DATA_ROOT_DIR / settings.export_dir / full_impacts_relative_file_path
     )
-    export_json(
-        to_export, full_impacts_path, number_precision=settings.number_precision
-    )
+    export_json_with_precision(to_export, full_impacts_path)
 
     return exported_files
 

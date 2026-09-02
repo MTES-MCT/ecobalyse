@@ -2,14 +2,12 @@
 
 import json
 import logging
-import multiprocessing
 from enum import Enum
 from pathlib import Path
 from typing import Annotated
 
 import typer
 from bw2data.project import projects
-from ecobalyse.json import activities_processes_sort_key
 from ecobalyse.logging import logger
 
 from bin.generate_taxonomy_with_aliases import write_taxonomy_with_aliases
@@ -36,12 +34,6 @@ def metadata(
         typer.Option(help="The scope to export. If not specified, exports all scopes."),
     ] = None,
     verbose: bool = typer.Option(False, "--verbose", "-v"),
-    cpu_count: Annotated[
-        int,
-        typer.Option(
-            help="The number of CPUs/cores to use for computation. Default to MAX/2."
-        ),
-    ] = max(multiprocessing.cpu_count() // 2, 1),
     root_dir: Path = DATA_ROOT_DIR,
     write_taxonomy: bool = True,
 ):
@@ -138,11 +130,9 @@ def metadata(
                 impacts_output_paths=[
                     export_dir / settings.processes_generic_impacts_file
                 ],
-                cpu_count=cpu_count,
                 ecosystemic_factors_path=ecosystemic_factors_path,
                 feed_file_path=feed_file_path,
                 raw_to_transformed_file_path=raw_to_transformed_file_path,
-                number_precision=settings.number_precision,
             )
 
 
@@ -194,10 +184,9 @@ def merge_processes(
     root_dir: Path = DATA_ROOT_DIR,
 ):
     """take legacy and generic processes from export_dir and merge them, put the merged file in public_dir"""
-    from ecobalyse.json import export_json
 
     from common import remove_detailed_impacts
-    from common.export import load_json
+    from common.export import export_json_with_sort_and_precision, load_json
 
     export_dir = root_dir / settings.export_dir
     impacts = load_json(export_dir / settings.processes_legacy_impacts_file)
@@ -207,17 +196,13 @@ def merge_processes(
 
     public_dir = root_dir / settings.frontend_data_dir
 
-    export_json(
+    export_json_with_sort_and_precision(
         merged,
         public_dir / settings.processes_merged_impacts_file,
-        sort_fn=activities_processes_sort_key,
-        number_precision=settings.number_precision,
     )
-    export_json(
+    export_json_with_sort_and_precision(
         merged_ecs,
         public_dir / settings.processes_merged_ecs_file,
-        sort_fn=activities_processes_sort_key,
-        number_precision=settings.number_precision,
     )
 
 

@@ -3,8 +3,7 @@ import json
 from enum import StrEnum
 from pathlib import Path
 
-from data.config import settings
-from ecobalyse.json import export_json
+from data.common.export import export_json_with_precision
 
 from common.infer_metadata import infer_base_ingredient, infer_raw_to_cooked_ratio
 from ecobalyse_data.bw.search import cached_search_one
@@ -194,9 +193,7 @@ def activities_to_ingredients_json(
 
     ingredients_dicts.sort(key=lambda x: x["id"])
 
-    export_json(
-        ingredients_dicts, ingredients_path, number_precision=settings.number_precision
-    )
+    export_json_with_precision(ingredients_dicts, ingredients_path)
 
     logger.debug(
         f"-> Exported {len(ingredients_dicts)} 'ingredients' to {ingredients_path}"
