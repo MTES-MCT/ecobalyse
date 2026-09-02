@@ -1,3 +1,5 @@
+// @see https://learn.microsoft.com/en-us/power-platform/developer/playwright-samples/global-setup-teardown
+
 const NODE_API_URL = "http://127.0.0.1:8001/";
 const READY_TIMEOUT_MS = 120_000;
 
@@ -14,7 +16,7 @@ export default async function globalSetup() {
     }
 
     if (!isReady) {
-      await new Promise((resolve) => setTimeout(resolve, 500));
+      await new Promise((resolve) => setTimeout(resolve, 250));
     }
   }
 

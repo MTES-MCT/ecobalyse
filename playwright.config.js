@@ -64,7 +64,6 @@ export default defineConfig({
     },
     url: "http://localhost:1234",
     reuseExistingServer: !process.env.CI,
-    timeout: 120_000,
   },
 
   // Avoid git related timeouts

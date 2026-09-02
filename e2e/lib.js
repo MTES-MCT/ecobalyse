@@ -14,7 +14,9 @@ export async function deleteAllEmails() {
 }
 
 export async function expectNotification(page, message) {
-  await expect(page.locator(".ToastTray").getByText(message)).toBeVisible({ timeout: 30_000 });
+  // this can be astonishingly slow, sometimes because new massive detailed data are downloaded,
+  // which may be super slow in CI infrastructure
+  await expect(page.locator(".ToastTray").getByText(message)).toBeVisible({ timeout: 20_000 });
   // immediately close the notification to avoid unwanted accumulation
   await page.locator(".ToastTray").locator("button", { name: "Fermer" }).nth(0).click();
 }
@@ -111,6 +113,7 @@ export async function waitFor(conditionFn, pollInterval = 50, timeoutAfter) {
 }
 
 export async function waitForAppReady(page) {
+  // Note: initial app data loading may be super slow in CI infrastructure
   await expect(page).not.toHaveTitle(/Chargement des données/, { timeout: 20_000 });
 }
 

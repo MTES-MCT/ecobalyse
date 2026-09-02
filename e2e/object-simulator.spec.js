@@ -16,9 +16,9 @@ test("object simulator", async ({ page }) => {
   await page.getByRole("option", { name: "Mousse polyurethane (canapé 3p)" }).click();
 
   const production = page.locator(".card").filter({ hasText: "Production des matériaux" });
-  await production.locator("tbody").nth(0).getByRole("spinbutton").fill("2");
-  await production.locator("tbody").nth(1).getByRole("spinbutton").fill("3");
-  await production.locator("tbody").nth(2).getByRole("spinbutton").fill("4");
+  await production.getByRole("spinbutton").nth(0).fill("2");
+  await production.getByRole("spinbutton").nth(1).fill("3");
+  await production.getByRole("spinbutton").nth(2).fill("4");
 
   // Update transform for the first component through element edit modal
   await page.getByRole("button", { name: "▶" }).first().click();

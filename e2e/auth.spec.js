@@ -86,7 +86,7 @@ test.describe("auth", () => {
     });
 
     await test.step("api tokens", async () => {
-      await page.goto("/#/auth");
+      await page.getByRole("link", { name: "Mon compte" }).click();
 
       await page.getByRole("button", { name: "Jetons d’API" }).click();
 

@@ -10,8 +10,6 @@ test.describe("homepage", () => {
   });
 
   test("textile callout button", async ({ page }) => {
-    test.setTimeout(30_000);
-
     await page.goto("/");
     await waitForAppReady(page);
 
@@ -22,10 +20,7 @@ test.describe("homepage", () => {
   });
 
   test("food callout button", async ({ page }) => {
-    test.setTimeout(30_000);
-
     await page.goto("/");
-    await waitForAppReady(page);
 
     await page.getByTestId("food-callout-button").click();
 
@@ -33,10 +28,7 @@ test.describe("homepage", () => {
   });
 
   test("object callout button", async ({ page }) => {
-    test.setTimeout(30_000);
-
     await page.goto("/");
-    await waitForAppReady(page);
 
     await page.getByTestId("object-callout-button").click();
 
