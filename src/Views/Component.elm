@@ -434,7 +434,7 @@ componentDetailedView config elements itemIndex expandedItem itemResults =
 
           else
             List.map3
-                (elementView config ( expandedItem.component, itemIndex ))
+                (elementView config ( expandedItem.component, itemIndex ) itemResults)
                 (List.range 0 (List.length elements - 1))
                 elements
                 (Component.extractItems itemResults)
@@ -941,20 +941,38 @@ countrySelector config =
             )
 
 
-elementView : Config db msg -> TargetItem -> Index -> ExpandedElement -> Results -> Html msg
-elementView config (( component, _ ) as targetItem) elementIndex { amount, material, transforms } elementResults =
+elementView : Config db msg -> TargetItem -> Results -> Index -> ExpandedElement -> Results -> Html msg
+elementView config (( component, _ ) as targetItem) itemResults elementIndex { amount, material, transforms } elementResults =
     let
+        elementMass =
+            Component.extractMass elementResults
+
         materialLabel { country, process } =
             String.join " "
                 [ Process.getDisplayName process
                 , "(" ++ (country |> Maybe.map .name |> Maybe.withDefault "Inconnu") ++ ")"
                 ]
+
+        originalUnitAmount =
+            if material.process.unit /= Process.Kilogram then
+                span [ class "text-muted fs-8" ]
+                    [ Format.amount material.process amount ]
+
+            else
+                text ""
     in
     tbody []
         [ tr [ class "fs-7 border-top" ]
             [ td [] []
             , td [ class "ps-0 align-start text-end text-nowrap" ]
-                [ Format.amount material.process amount ]
+                [ div [ class "d-flex flex-column" ]
+                    [ -- FIXME: move share to its own column
+                      Component.elementMassShare elementMass (Component.extractUnitMass itemResults)
+                        |> Format.splitAsPercentage 1
+                    , Format.kg elementMass
+                    , originalUnitAmount
+                    ]
+                ]
             , td
                 [ colspan 2
                 , class "align-middle text-truncate"

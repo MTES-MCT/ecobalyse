@@ -53,6 +53,7 @@ module Data.Component exposing
     , decodeQuery
     , defaultDurability
     , defaultTransportOptions
+    , elementMassShare
     , elementTransforms
     , elementsToString
     , emptyAssembly
@@ -979,13 +980,7 @@ computeMaterialResults amount process =
                 |> Maybe.withDefault Complement.emptyComplementsResultsImpacts
 
         mass =
-            Mass.kilograms <|
-                if process.unit == Process.Kilogram then
-                    Amount.toFloat amount
-
-                else
-                    -- apply mass per unit
-                    Amount.toFloat amount * Maybe.withDefault 1 process.massPerUnit
+            massFromProcess amount process
 
         materialType =
             Process.getMaterialTypes process
@@ -1472,6 +1467,24 @@ defaultTransportOptions =
     { byAir = Split.zero
     , cooling = Nothing
     }
+
+
+{-| Share of an element's mass in a component's unit mass.
+
+When the unit mass is 0, the share is 0.
+
+-}
+elementMassShare : Mass -> Mass -> Split
+elementMassShare elementMass unitMass =
+    if unitMass == Quantity.zero then
+        Split.zero
+
+    else
+        Mass.inKilograms elementMass
+            / Mass.inKilograms unitMass
+            |> clamp 0 1
+            |> Split.fromFloat
+            |> Result.withDefault Split.zero
 
 
 elementToString : List Process -> Element -> Result String String
@@ -2507,6 +2520,22 @@ loadEnergyMixes config =
 mapItems : (List Item -> List Item) -> Query -> Query
 mapItems fn query =
     setQueryItems (fn query.items) query
+
+
+{-| Converts a process amount to a mass in kilograms.
+
+  - Kilogram processes: the amount is already a mass
+  - Other units: amount × massPerUnit (density). Missing density yields 0 kg.
+
+-}
+massFromProcess : Amount -> Process -> Mass
+massFromProcess amount process =
+    Mass.kilograms <|
+        if process.unit == Process.Kilogram then
+            Amount.toFloat amount
+
+        else
+            Amount.toFloat amount * Maybe.withDefault 0 process.massPerUnit
 
 
 nonLocalizedExpandedProcess : Process -> ExpandedLocalizedProcess
