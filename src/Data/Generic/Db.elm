@@ -1,9 +1,9 @@
-module Data.Object.Db exposing
+module Data.Generic.Db exposing
     ( Db
     , buildFromJson
     )
 
-{-| Note: The Object database also holds examples for VeLi
+{-| Note: The generic database holds examples all generic scopes
 -}
 
 import Data.Component as Component

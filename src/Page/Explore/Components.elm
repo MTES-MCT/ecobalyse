@@ -28,7 +28,7 @@ table ({ db } as session) { scope } =
     , legend = []
     , columns =
         [ { label = "Identifiant"
-          , toValue = Table.StringValue <| .id >> Maybe.map Component.idToString >> Maybe.withDefault "N/A"
+          , toValue = Table.StringValue <| .id >> Maybe.map Component.idToString >> Maybe.withDefault Table.emptyLabel
           , toCell =
                 \component ->
                     case component.id of
@@ -36,7 +36,7 @@ table ({ db } as session) { scope } =
                             code [] [ text (Component.idToString id) ]
 
                         Nothing ->
-                            text "N/A"
+                            text Table.emptyLabel
           }
         , { label = "Nom"
           , toValue = Table.StringValue .name
@@ -90,15 +90,15 @@ table ({ db } as session) { scope } =
                                 |> ul [ class "m-0 px-2" ]
           }
         , { label = "Commentaire"
-          , toValue = Table.StringValue <| .comment >> Maybe.withDefault "N/A"
-          , toCell = .comment >> Maybe.withDefault "N/A" >> text
+          , toValue = Table.StringValue <| .comment >> Maybe.withDefault Table.emptyLabel
+          , toCell = .comment >> Maybe.withDefault Table.emptyLabel >> text
           }
         , { label = "Coût environnemental"
           , toValue = Table.FloatValue <| getComponentEcoscore session scope >> Result.withDefault 0
           , toCell =
                 getComponentEcoscore session scope
                     >> Result.map (Format.formatImpactFloat { decimals = 2, unit = "Pts par composant" })
-                    >> Result.withDefault (text "N/A")
+                    >> Result.withDefault (text Table.emptyLabel)
           }
         ]
     }

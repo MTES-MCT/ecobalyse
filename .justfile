@@ -18,7 +18,7 @@ default:
 ################################################################################
 ### Data imports
 
-import-all: import-food import-ecoinvent import-bafu import-method create-activities sync-datapackages
+import-all: import-food import-ecoinvent import-bafu import-method create-activities
 
 import-food:
     {{ python-cmd-data }} data/import_food.py
@@ -35,9 +35,6 @@ import-method:
 create-activities:
     {{ python-cmd-data }} data/create_activities.py
 
-sync-datapackages:
-    {{ python-cmd-data }} data/common/sync_datapackages.py
-
 ################################################################################
 ### Data exports
 
@@ -45,6 +42,9 @@ export-all:
     {{ python-cmd-data }} {{ export-script }} processes-legacy
     {{ python-cmd-data }} {{ export-script }} metadata
     {{ python-cmd-data }} {{ export-script }} merge-processes
+
+generate-taxonomy-with-aliases:
+    {{ python-cmd-data }} data/bin/generate_taxonomy_with_aliases.py
 
 merge-processes:
     {{ python-cmd-data }} {{ export-script }} merge-processes
@@ -68,8 +68,15 @@ export-veli:
     {{ python-cmd-data }} {{ export-script }} processes-legacy --scopes veli --merge
     {{ python-cmd-data }} {{ export-script }} merge-processes
 
+compute-distances:
+    {{ python-cmd-data }} -m common.distances.compute_distances
+
 export-transports:
     {{ python-cmd-data }} -m common.distances.transports
+
+# Export a Brightway db: `just export-bw-db ecospold1 --activities` or `just export-bw-db simapro`
+export-bw-db *args:
+    {{ python-cmd-data }} ./data/bin/export_bw_db.py {{ args }}
 
 ################################################################################
 ### Data cleaning
@@ -84,10 +91,10 @@ delete-lci-methods:
 ### Linting & formatting
 
 check-lci-catalog:
-    uv run --group data check-jsonschema --schemafile data/schemas/lci-schema.json data/tests/fixtures/lci_catalog/*/* data/lci_catalog/*/*
+    uv run --group data check-jsonschema --schemafile schemas/lci-schema.json data/tests/fixtures/lci_catalog/*/* data/lci_catalog/*/*
 
-check-processes *target:
-    uv run --group data check-jsonschema --schemafile data/tests/processes-schema.json data/export/processes*.json data/tests/fixtures/processes_legacy_impacts_output.json data/tests/snapshots/processes_legacy_impacts.json
+check-processes:
+    uv run --group data check-jsonschema --schemafile schemas/processes-schema.json data/export/processes*.json data/tests/fixtures/processes_legacy_impacts_output.json data/tests/snapshots/processes_legacy_impacts.json
 
 check-json-data +target="data":
     {{ python-cmd-data }} ./data/bin/json_formatter.py {{ target }}

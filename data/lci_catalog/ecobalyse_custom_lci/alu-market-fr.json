@@ -1,11 +1,11 @@
 {
-  "activityName": "aluminium ingot, market, RER",
+  "activityName": "aluminium ingot, market, FR",
   "categories": [
     "material",
     "material_type:aluminium"
   ],
-  "comment": "https://fabrique-numerique.gitbook.io/ecobalyse/methodes-transverses-specifiques/procedes-acier-et-aluminium",
-  "displayName": "Aluminium, mix marché, Europe",
+  "comment": "https://fabrique-numerique.gitbook.io/ecobalyse/methodes-transverses/production/procedes-acier-et-aluminium",
+  "displayName": "Aluminium, lingot, mix marché, Europe",
   "elecKwh": 0.0,
   "heatMJ": 0,
   "id": "5d55d2e5-490c-5f02-ac5d-2f66e14f8ec7",

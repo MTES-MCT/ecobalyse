@@ -1,5 +1,6 @@
 module Data.Component exposing
-    ( Component
+    ( Assembly
+    , Component
     , Config
     , Consumption
     , Custom
@@ -15,6 +16,7 @@ module Data.Component exposing
     , Item
     , LifeCycle
     , Packaging
+    , ProductionItem(..)
     , Quantity
     , Query
     , Requirements
@@ -24,6 +26,8 @@ module Data.Component exposing
     , TargetElement
     , TargetItem
     , TransportOptions
+    , addAssemblyOperation
+    , addConsumption
     , addElement
     , addElementTransform
     , addItem
@@ -51,6 +55,7 @@ module Data.Component exposing
     , defaultTransportOptions
     , elementTransforms
     , elementsToString
+    , emptyAssembly
     , emptyComponent
     , emptyLifeCycle
     , emptyQuery
@@ -61,6 +66,7 @@ module Data.Component exposing
     , encodeItem
     , encodeLifeCycle
     , encodeQuery
+    , expandAssembly
     , expandConsumptions
     , expandElements
     , expandItems
@@ -71,17 +77,22 @@ module Data.Component exposing
     , extractItems
     , extractMass
     , extractStage
+    , extractUnitMass
     , findById
+    , getAssemblyOperations
     , getAvailableDistributionProcesses
     , getConsumptionProcessId
+    , getConsumptions
+    , getDistributionProcessId
     , getDocLink
     , getEndOfLifeDetailedImpacts
-    , getEndOfLifeImpacts
     , getEndOfLifeScopeCollectionRate
+    , getEndOfLifeTotalMass
     , getFinalElementCountry
     , getPackagingProcessId
     , getResultedElement
     , getTotalImpacts
+    , getTransportCooling
     , idFromString
     , idToString
     , isEmpty
@@ -95,8 +106,10 @@ module Data.Component exposing
     , packaging
     , parseBase64Query
     , parseConfig
+    , productionItemToLabel
     , quantityFromInt
     , quantityToInt
+    , removeAssemblyOperation
     , removeConsumption
     , removeElement
     , removeElementTransform
@@ -112,6 +125,7 @@ module Data.Component exposing
     , toSearchableString
     , transformListToString
     , tryMapItems
+    , updateAssemblyCountry
     , updateConsumptionAmount
     , updateDistribution
     , updateDurability
@@ -121,6 +135,7 @@ module Data.Component exposing
     , updateItem
     , updateItemCustomName
     , updatePackagingAmount
+    , updateProduct
     , updateRecyclable
     , useProcessAmount
     , validateItem
@@ -133,6 +148,7 @@ import Data.Common.EncodeUtils as EU
 import Data.Complement as Complement exposing (ComplementsImpacts, ComplementsResultsImpacts)
 import Data.Component.Amount as Amount exposing (Amount)
 import Data.Component.Config as Config exposing (EndOfLifeStrategies, EndOfLifeStrategy)
+import Data.Component.ProductCategory as ProductCategory exposing (ProductCategory)
 import Data.Country as Country exposing (Country)
 import Data.Country.Code as CountryCode
 import Data.Impact as Impact exposing (Impacts)
@@ -189,8 +205,8 @@ type alias EnergyMixes =
 
 
 type alias Query =
-    { assemblyCountry : Maybe CountryCode.Code
-    , consumptions : List Consumption
+    { assembly : Assembly
+    , consumptions : Maybe (List Consumption)
     , distribution : Maybe Process.Id
 
     -- Note: component durability is experimental, future work may eventually be needed to
@@ -199,8 +215,22 @@ type alias Query =
     , durability : Maybe Unit.Ratio
     , items : List Item
     , packagings : List Packaging
+    , product : Maybe ProductCategory.Id
     , recyclable : Bool
     , transportOptions : TransportOptions
+    }
+
+
+{-| Assembly step query, composed of an optional localization and successive
+transformations operated on the output mass of the production stage.
+
+`operations` is `Nothing` when unspecified (product category default applies),
+`Just []` when explicitly empty, and `Just [id, …]` when explicitly set.
+
+-}
+type alias Assembly =
+    { country : Maybe CountryCode.Code
+    , operations : Maybe (List Process.Id)
     }
 
 
@@ -249,6 +279,7 @@ type alias DataContainer db =
         , countries : List Country
         , distances : Transport.Distances
         , processes : List Process
+        , products : List ProductCategory
     }
 
 
@@ -293,6 +324,14 @@ type alias ExpandedLocalizedProcess =
     }
 
 
+{-| The type of item to add at the production stage of the life cycle: either an existing Component
+or a raw material Process (which is turned into a custom component).
+-}
+type ProductionItem
+    = ComponentItem Component
+    | MaterialItem Process
+
+
 {-| Packaging process id and a quantity of its unit
 -}
 type Packaging
@@ -317,10 +356,10 @@ type alias ExpandedQuantifiedProcess =
     }
 
 
-{-| An expanded element and its results
+{-| An expanded element, its results, and the parent item quantity
 -}
 type alias ResultedElement =
-    ( ExpandedElement, Results )
+    ( Quantity, ExpandedElement, Results )
 
 
 {-| Index of an item element and associated source component
@@ -343,7 +382,7 @@ type Quantity
 
 type alias TransportOptions =
     { byAir : Split
-    , cooling : Bool
+    , cooling : Maybe Bool
     }
 
 
@@ -369,9 +408,11 @@ type alias EndOfLifeMaterialImpacts =
 {-| Lifecycle impacts
 -}
 type alias LifeCycle =
-    { distribution : DistributionResults
+    { assembly : Results
+    , distribution : DistributionResults
     , endOfLife : Impacts
     , packaging : List Impacts
+    , productMass : Mass
     , production : Results
     , transports : LifeCycleTransport
     , use : List Impacts
@@ -404,7 +445,8 @@ type Results
 {-| Lifecycle stage. Note: End of life stage is handled separately.
 -}
 type Stage
-    = MaterialStage
+    = AssemblyStage
+    | MaterialStage
     | TransformStage
     | TransportStage
 
@@ -413,6 +455,29 @@ type alias Requirements db =
     { config : Config
     , db : DataContainer db
     , scope : Scope
+    }
+
+
+{-| Add a new assembly operation process to a query.
+-}
+addAssemblyOperation : Requirements db -> Process -> Query -> Query
+addAssemblyOperation requirements process ({ assembly } as query) =
+    { query
+        | assembly =
+            { assembly
+                | operations = Just (getAssemblyOperations requirements query ++ [ process.id ])
+            }
+    }
+
+
+addConsumption : Requirements db -> Process.Id -> Query -> Query
+addConsumption requirements processId query =
+    { query
+        | consumptions =
+            Just
+                (getConsumptions requirements query
+                    ++ [ consumption (Amount.fromFloat 1) processId ]
+                )
     }
 
 
@@ -495,6 +560,35 @@ addResults (Results results) (Results acc) =
         }
 
 
+{-| Sequencially apply assembly processes to existing Results initialized from product mass.
+
+Notes:
+
+  - Energy mixes are resolved from the assembly country when set, else from config defaults.
+  - No transport is applied between operations.
+
+-}
+applyAssemblyOperations : Requirements db -> Maybe CountryCode.Code -> List ExpandedLocalizedProcess -> Results -> Result String Results
+applyAssemblyOperations requirements maybeAssemblyCountry expandedProcesses initialResults =
+    expandedProcesses
+        |> validateAssemblyProcessesUnit
+        |> Result.andThen
+            (\processes ->
+                requirements.db.countries
+                    |> Country.resolveMaybe maybeAssemblyCountry
+                    |> Result.andThen
+                        (loadEnergyMixes requirements.config
+                            >> Result.andThen
+                                (\mixes ->
+                                    List.foldl
+                                        (\{ process } -> Result.map (applyProcessStep AssemblyStage process mixes))
+                                        (Ok initialResults)
+                                        processes
+                                )
+                        )
+            )
+
+
 applyComplementsResultsImpacts : Amount -> Impacts -> ComplementsImpacts -> ComplementsResultsImpacts
 applyComplementsResultsImpacts amount impacts =
     Complement.mapComplements
@@ -519,41 +613,42 @@ applyDurability maybeDurability =
            )
 
 
-applyTransform : Process -> EnergyMixes -> Results -> Results
-applyTransform transform { elec, heat } (Results { amount, label, impacts, items, mass, complementsImpacts }) =
+{-| Apply a process step to a results, computing its impacts and updating the results accordingly
+-}
+applyProcessStep : Stage -> Process -> EnergyMixes -> Results -> Results
+applyProcessStep stage process { elec, heat } (Results { amount, label, impacts, items, mass, complementsImpacts }) =
     let
-        transformImpacts =
-            [ transform.impacts
-            , elec.impacts |> Impact.multiplyBy (Energy.inKilowattHours transform.elec)
-            , heat.impacts |> Impact.multiplyBy (Energy.inMegajoules transform.heat)
+        stepImpacts =
+            [ process.impacts
+            , elec.impacts |> Impact.multiplyBy (Energy.inKilowattHours process.elec)
+            , heat.impacts |> Impact.multiplyBy (Energy.inMegajoules process.heat)
             ]
                 |> Impact.sumImpacts
                 -- Note: impacts are always computed from input amount
                 |> Impact.multiplyBy (Amount.toFloat amount)
 
         outputAmount =
-            amount |> applyQtyVariationRatio transform.qtyVariationRatio
+            amount |> Amount.map ((*) (Unit.qtyVariationRatioToFloat process.qtyVariationRatio))
 
         outputMass =
-            mass |> Unit.applyQtyVariationRatioToMass transform.qtyVariationRatio
+            mass |> Unit.applyQtyVariationRatioToMass process.qtyVariationRatio
     in
     Results
         { amount = outputAmount
         , complementsImpacts = complementsImpacts
-        , impacts = Impact.sumImpacts [ transformImpacts, impacts ]
+        , impacts = Impact.sumImpacts [ stepImpacts, impacts ]
         , items =
             items
-                ++ [ -- transform result
-                     Results
+                ++ [ Results
                         { amount = outputAmount
                         , complementsImpacts = Complement.emptyComplementsResultsImpacts
-                        , impacts = transformImpacts
+                        , impacts = stepImpacts
                         , items = []
-                        , label = Just <| Process.getDisplayName transform
+                        , label = Just <| Process.getDisplayName process
                         , mass = outputMass
                         , materialType = Nothing
                         , quantity = 1
-                        , stage = Just TransformStage
+                        , stage = Just stage
                         }
                    ]
         , label = label
@@ -572,7 +667,7 @@ specify a country to use its electricity/heat mixes, or fallback to config defau
 -}
 applyTransforms : Requirements db -> TransportOptions -> Maybe Country -> Process.Unit -> List ExpandedLocalizedProcess -> Results -> Result String Results
 applyTransforms requirements transportOptions initialCountry unit transforms materialResults =
-    checkTransformsUnit unit transforms
+    validateTransformProcessesUnit unit transforms
         |> Result.andThen
             (RE.foldlWhileOk
                 (\{ country, process } ( previousCountry, results ) ->
@@ -586,7 +681,7 @@ applyTransforms requirements transportOptions initialCountry unit transforms mat
                                         (extractMass results)
                                         previousCountry
                                         country
-                                    |> Result.map (\results_ -> ( country, applyTransform process mixes results_ ))
+                                    |> Result.map (\results_ -> ( country, applyProcessStep TransformStage process mixes results_ ))
                             )
                 )
                 ( initialCountry, materialResults )
@@ -623,26 +718,19 @@ applyTransportedMassImpacts requirements transportOptions mass maybeFrom maybeTo
             )
 
 
-applyQtyVariationRatio : QuantityVariationRatio -> Amount -> Amount
-applyQtyVariationRatio qtyVariationRatio =
-    Amount.map (\amount -> amount * Unit.qtyVariationRatioToFloat qtyVariationRatio)
-
-
-checkTransformsUnit : Process.Unit -> List ExpandedLocalizedProcess -> Result String (List ExpandedLocalizedProcess)
-checkTransformsUnit unit transforms =
-    if not <| List.all (.process >> .unit >> (==) unit) transforms then
-        "Les procédés de transformation ne partagent pas la même unité que la matière source ("
-            ++ Process.unitToString unit
-            ++ ")\u{00A0}: "
-            ++ (transforms
-                    |> List.filter (.process >> .unit >> (/=) unit)
-                    |> List.map (\{ process } -> Process.getDisplayName process ++ " (" ++ Process.unitToString process.unit ++ ")")
-                    |> String.join ", "
-               )
-            |> Err
-
-    else
-        Ok transforms
+assemblyResultsFromMass : Mass -> Results
+assemblyResultsFromMass mass =
+    Results
+        { amount = mass |> Mass.inKilograms |> Amount.fromFloat
+        , complementsImpacts = Complement.emptyComplementsResultsImpacts
+        , impacts = Impact.empty
+        , items = []
+        , label = Just "Assembly"
+        , mass = mass
+        , materialType = Nothing
+        , quantity = 1
+        , stage = Nothing
+        }
 
 
 {-| Create a component from a custom definition
@@ -674,11 +762,49 @@ compute requirements query =
         |> RE.combine
         |> Result.map (List.foldr addResults emptyResults)
         |> Result.map (\(Results results) -> { emptyLifeCycle | production = Results { results | label = Just "Production" } })
+        |> Result.andThen (computeAssemblyImpacts requirements query)
         |> Result.andThen (computePackagingImpacts requirements query)
         |> Result.andThen (computeDistributionImpacts requirements query)
         |> Result.map (computeEndOfLifeResults requirements query)
         |> Result.andThen (computeTransports requirements query)
         |> Result.andThen (computeUseImpacts requirements query)
+
+
+{-| Compute assembly stage impacts
+-}
+computeAssemblyImpacts : Requirements db -> Query -> LifeCycle -> Result String LifeCycle
+computeAssemblyImpacts requirements ({ assembly } as query) lifeCycle =
+    let
+        productionMass =
+            extractMass lifeCycle.production
+
+        operations =
+            getAssemblyOperations requirements query
+    in
+    if List.isEmpty operations then
+        Ok
+            { lifeCycle
+                | assembly = emptyResults
+
+                -- No assembly, no waste: end product mass is the same as the production mass
+                , productMass = productionMass
+            }
+
+    else
+        operations
+            |> expandAssembly requirements.db assembly.country
+            |> Result.andThen
+                (\expandedProcesses ->
+                    assemblyResultsFromMass productionMass
+                        |> applyAssemblyOperations requirements assembly.country expandedProcesses
+                        |> Result.map
+                            (\assemblyResults ->
+                                { lifeCycle
+                                    | assembly = assemblyResults
+                                    , productMass = extractMass assemblyResults
+                                }
+                            )
+                )
 
 
 computeVolumeFromMass : Mass -> Volume
@@ -695,13 +821,18 @@ consumption amount =
     QuantifiedProcess amount >> Consumption
 
 
+consumptionFromCategory : ProductCategory.DefaultConsumption -> Consumption
+consumptionFromCategory { amount, processId } =
+    consumption (Maybe.withDefault (Amount.fromFloat 1) amount) processId
+
+
 computeDistributionImpacts : Requirements db -> Query -> LifeCycle -> Result String LifeCycle
-computeDistributionImpacts ({ config } as requirements) query ({ distribution, production } as lifeCycle) =
+computeDistributionImpacts ({ config } as requirements) query ({ distribution, productMass } as lifeCycle) =
     let
         finalProductVolume =
-            computeVolumeFromMass <| extractMass production
+            computeVolumeFromMass productMass
     in
-    case getDistributionProcess requirements query.distribution of
+    case getDistributionProcess requirements query of
         Err (DistributionGenericError errorMessage) ->
             Err errorMessage
 
@@ -737,7 +868,7 @@ computeElementResults requirements transportOptions =
                                 |> applyTransforms requirements
                                     -- pre-assembly transport cooling is always driven automatically by the material
                                     -- process, and bypasses any user-provided transportOptions.cooling option
-                                    { transportOptions | cooling = Process.isTransportedCooled material.process }
+                                    { transportOptions | cooling = Just (Process.isTransportedCooled material.process) }
                                     material.country
                                     material.process.unit
                                     transforms
@@ -749,8 +880,7 @@ computeEndOfLifeResults : Requirements db -> Query -> LifeCycle -> LifeCycle
 computeEndOfLifeResults requirements query lifeCycle =
     { lifeCycle
         | endOfLife =
-            lifeCycle.production
-                |> getEndOfLifeImpacts requirements query.recyclable
+            getEndOfLifeImpacts requirements query.recyclable lifeCycle
     }
 
 
@@ -915,14 +1045,14 @@ computePackagingImpacts { db } { packagings } lifeCycle =
 
 
 computeScoring : Definitions -> LifeCycle -> Scoring
-computeScoring definitions { production } =
+computeScoring definitions lifeCycle =
     let
         ( totalImpacts, totalMass, complementImpacts ) =
-            ( extractImpacts production
-            , extractMass production
+            ( extractImpacts lifeCycle.production
+            , lifeCycle.productMass
               -- New metadata complements should always be added and not substracted as before, that’s why we negate it
               -- here to stay compatible with the current implementations for Ecosystemic Services
-            , extractComplementsImpacts production
+            , extractComplementsImpacts lifeCycle.production
                 |> Complement.mergeComplementsResultsImpacts
                 |> Impact.getImpact Definition.Ecs
             )
@@ -1056,7 +1186,7 @@ computeTransportedMassImpacts ({ config } as requirements) ({ byAir, cooling } a
             )
         -- remap cooled transportation modes if needed
         |> Result.map
-            (if cooling then
+            (if Maybe.withDefault False cooling then
                 Transport.makeCooled
 
              else
@@ -1075,7 +1205,7 @@ computeTransportedMassImpacts ({ config } as requirements) ({ byAir, cooling } a
 
 -}
 computeTransports : Requirements db -> Query -> LifeCycle -> Result String LifeCycle
-computeTransports ({ config, db } as requirements) ({ transportOptions } as query) lifeCycle =
+computeTransports ({ config, db } as requirements) ({ assembly, transportOptions } as query) lifeCycle =
     Result.map2
         (\resultedElements maybeAssemblyCountry ->
             let
@@ -1100,35 +1230,37 @@ computeTransports ({ config, db } as requirements) ({ transportOptions } as quer
                     )
                     -- toAssembly
                     (transportElements <|
-                        \( expandedElement, elementResults ) ->
+                        \( quantity, expandedElement, elementResults ) ->
+                            -- element masses are per unit; scale by the parent item quantity
                             extractMass elementResults
+                                |> Quantity.multiplyBy (toFloat (quantityToInt quantity))
                                 |> computeTransportedMassImpacts requirements
                                     -- Notes:
                                     --   - air transport is always disabled before assembly
                                     --   - cooling before assembly is automatic and driven by the material process
                                     { transportOptions
                                         | byAir = Split.zero
-                                        , cooling = Process.isTransportedCooled expandedElement.material.process
+                                        , cooling = Just (Process.isTransportedCooled expandedElement.material.process)
                                     }
                                     (getFinalElementCountry expandedElement)
                                     maybeAssemblyCountry
                     )
                     -- toDistribution
-                    (extractMass lifeCycle.production
+                    (lifeCycle.productMass
                         |> computeTransportedMassImpacts requirements
-                            transportOptions
+                            { transportOptions | cooling = Just (getTransportCooling requirements query) }
                             maybeAssemblyCountry
                             (Just config.distribution.country)
                     )
         )
         (query.items |> expandItems db |> Result.andThen (getResultedElementList lifeCycle.production))
-        (Country.resolveMaybe query.assemblyCountry db.countries)
+        (Country.resolveMaybe assembly.country db.countries)
         |> RE.join
 
 
 computeUseImpacts : Requirements db -> Query -> LifeCycle -> Result String LifeCycle
-computeUseImpacts { config, db } { consumptions } lifeCycle =
-    consumptions
+computeUseImpacts ({ config, db } as requirements) query lifeCycle =
+    getConsumptions requirements query
         |> expandConsumptions db.processes
         |> Result.map
             (\expandedQuantifiedProcesses ->
@@ -1292,22 +1424,42 @@ decodeQuantity =
 
 decodeQuery : Decoder Query
 decodeQuery =
-    Decode.succeed Query
-        |> DU.strictOptional "assemblyCountry" CountryCode.decode
-        |> Decode.optional "consumptions" (Decode.list decodeConsumption) []
-        |> DU.strictOptional "distribution" Process.decodeId
-        |> DU.strictOptional "durability" Unit.decodeRatio
-        |> Decode.required "components" (Decode.list decodeItem)
-        |> Decode.optional "packagings" (Decode.list decodePackaging) []
-        |> Decode.optional "recyclable" Decode.bool True
-        |> Decode.optional "transportOptions" decodeTransportOptions defaultTransportOptions
+    decodeAssembly
+        |> Decode.andThen
+            (\assembly ->
+                Decode.succeed (Query assembly)
+                    |> DU.strictOptional "consumptions" (Decode.list decodeConsumption)
+                    |> DU.strictOptional "distribution" Process.decodeId
+                    |> DU.strictOptional "durability" Unit.decodeRatio
+                    |> Decode.required "components" (Decode.list decodeItem)
+                    |> Decode.optional "packagings" (Decode.list decodePackaging) []
+                    |> DU.strictOptional "product" ProductCategory.decodeId
+                    |> Decode.optional "recyclable" Decode.bool True
+                    |> Decode.optional "transportOptions" decodeTransportOptions defaultTransportOptions
+            )
+
+
+{-| Assembly field decoder
+-}
+decodeAssembly : Decoder Assembly
+decodeAssembly =
+    Decode.oneOf
+        [ Decode.field "assembly"
+            (Decode.succeed Assembly
+                |> DU.strictOptional "country" CountryCode.decode
+                |> DU.strictOptional "operations" (Decode.list Process.decodeId)
+            )
+        , Decode.field "assemblyCountry" CountryCode.decode
+            |> Decode.map (\country -> { emptyAssembly | country = Just country })
+        , Decode.succeed emptyAssembly
+        ]
 
 
 decodeTransportOptions : Decoder TransportOptions
 decodeTransportOptions =
     Decode.succeed TransportOptions
         |> Decode.optional "byAir" Split.decodePercent Split.zero
-        |> Decode.optional "cooling" Decode.bool False
+        |> DU.strictOptional "cooling" Decode.bool
 
 
 defaultDurability : Unit.Ratio
@@ -1318,7 +1470,7 @@ defaultDurability =
 defaultTransportOptions : TransportOptions
 defaultTransportOptions =
     { byAir = Split.zero
-    , cooling = False
+    , cooling = Nothing
     }
 
 
@@ -1351,6 +1503,13 @@ elementsToString db component =
         |> Result.map (String.join " | ")
 
 
+emptyAssembly : Assembly
+emptyAssembly =
+    { country = Nothing
+    , operations = Nothing
+    }
+
+
 emptyDistributionResults : DistributionResults
 emptyDistributionResults =
     { impacts = Impact.empty
@@ -1361,9 +1520,11 @@ emptyDistributionResults =
 
 emptyLifeCycle : LifeCycle
 emptyLifeCycle =
-    { distribution = emptyDistributionResults
+    { assembly = emptyResults
+    , distribution = emptyDistributionResults
     , endOfLife = Impact.empty
     , packaging = []
+    , productMass = Quantity.zero
     , production = emptyResults
     , transports = emptyLifeCycleTransports
     , use = []
@@ -1379,12 +1540,13 @@ emptyLifeCycleTransports =
 
 emptyQuery : Query
 emptyQuery =
-    { assemblyCountry = Nothing
-    , consumptions = []
+    { assembly = emptyAssembly
+    , consumptions = Nothing
     , distribution = Nothing
     , durability = Nothing
     , items = []
     , packagings = []
+    , product = Nothing
     , recyclable = True
     , transportOptions = defaultTransportOptions
     }
@@ -1539,15 +1701,15 @@ encodeLifeCycleTransport v =
 encodeQuery : Query -> Encode.Value
 encodeQuery query =
     EU.optionalPropertiesObject
-        [ ( "assemblyCountry", query.assemblyCountry |> Maybe.map CountryCode.encode )
-        , ( "components", query.items |> Encode.list encodeItem |> Just )
-        , ( "consumptions"
-          , if List.isEmpty query.consumptions then
+        [ ( "assembly"
+          , if query.assembly == emptyAssembly then
                 Nothing
 
             else
-                query.consumptions |> Encode.list encodeConsumption |> Just
+                encodeAssembly query.assembly |> Just
           )
+        , ( "components", query.items |> Encode.list encodeItem |> Just )
+        , ( "consumptions", query.consumptions |> Maybe.map (Encode.list encodeConsumption) )
         , ( "distribution", query.distribution |> Maybe.map Process.encodeId )
         , ( "durability", query.durability |> Maybe.map Unit.encodeRatio )
         , ( "packagings"
@@ -1557,9 +1719,22 @@ encodeQuery query =
             else
                 query.packagings |> Encode.list encodePackaging |> Just
           )
+        , ( "product", query.product |> Maybe.map ProductCategory.encodeId )
         , ( "recyclable", query.recyclable |> Encode.bool |> Just )
         , ( "transportOptions", encodeTransportOptions query.transportOptions )
         ]
+
+
+encodeAssembly : Assembly -> Encode.Value
+encodeAssembly assembly =
+    if assembly == emptyAssembly then
+        Encode.null
+
+    else
+        EU.optionalPropertiesObject
+            [ ( "country", assembly.country |> Maybe.map CountryCode.encode )
+            , ( "operations", assembly.operations |> Maybe.map (Encode.list Process.encodeId) )
+            ]
 
 
 encodeComplementsResultsImpacts : Maybe Trigram -> ComplementsResultsImpacts -> Encode.Value
@@ -1614,23 +1789,22 @@ encodeResults maybeTrigram (Results results) =
 
 encodeTransportOptions : TransportOptions -> Maybe Encode.Value
 encodeTransportOptions { byAir, cooling } =
-    -- Encode only JSON keys that are different from defaults
-    case ( byAir == defaultTransportOptions.byAir, cooling == defaultTransportOptions.cooling ) of
-        ( True, True ) ->
-            Nothing
+    let
+        fields =
+            List.filterMap identity
+                [ if byAir == defaultTransportOptions.byAir then
+                    Nothing
 
-        ( False, True ) ->
-            Just <| Encode.object [ ( "byAir", Split.encodePercent byAir ) ]
+                  else
+                    Just ( "byAir", Split.encodePercent byAir )
+                , cooling |> Maybe.map (\c -> ( "cooling", Encode.bool c ))
+                ]
+    in
+    if List.isEmpty fields then
+        Nothing
 
-        ( True, False ) ->
-            Just <| Encode.object [ ( "cooling", Encode.bool cooling ) ]
-
-        ( False, False ) ->
-            [ ( "byAir", Split.encodePercent byAir )
-            , ( "cooling", Encode.bool cooling )
-            ]
-                |> Encode.object
-                |> Just
+    else
+        Just (Encode.object fields)
 
 
 {-| Common reusable error strings
@@ -1643,6 +1817,28 @@ errors =
     { elementNotFound = "Élément introuvable"
     , itemNotFound = "Item introuvable"
     }
+
+
+{-| Expand assembly operations into a list of ExpandedLocalizedProcess localized to the assembly
+country when set
+-}
+expandAssembly : DataContainer db -> Maybe CountryCode.Code -> List Process.Id -> Result String (List ExpandedLocalizedProcess)
+expandAssembly { countries, processes } country operations =
+    -- first retrieve the optional assembly country
+    countries
+        |> Country.resolveMaybe country
+        |> Result.andThen
+            -- then expand operations to use this optional country; so that each operation process
+            -- will use the same localized energy mix
+            (\resolvedCountry ->
+                operations
+                    |> RE.combineMap
+                        (\id ->
+                            processes
+                                |> Process.findById id
+                                |> Result.map (\process -> { country = resolvedCountry, process = process })
+                        )
+            )
 
 
 {-| Resolve full use consumption processes linked to their respective ids
@@ -1786,6 +1982,20 @@ extractStage (Results { stage }) =
     stage
 
 
+{-| Extracts the unit mass of a Results item line
+
+Note: in case of a quantity of 0, the unit mass is the total mass.
+
+-}
+extractUnitMass : Results -> Mass
+extractUnitMass (Results { mass, quantity }) =
+    if quantity == 0 then
+        mass
+
+    else
+        mass |> Quantity.divideBy (toFloat quantity)
+
+
 {-| Lookup a Component from a provided Id
 -}
 findById : Id -> List Component -> Result String Component
@@ -1793,6 +2003,31 @@ findById id =
     List.filter (.id >> (==) (Just id))
         >> List.head
         >> Result.fromMaybe ("Aucun composant avec id=" ++ idToString id)
+
+
+{-| Get the assembly operations:
+
+  - from the query itself when set (`Just`, including an explicit empty list)
+  - or the ones from the product category if not set
+  - or an empty list if product category is not set
+
+-}
+getAssemblyOperations : Requirements db -> Query -> List Process.Id
+getAssemblyOperations { db } query =
+    case query.assembly.operations of
+        Just operations ->
+            operations
+
+        Nothing ->
+            query.product
+                |> Maybe.andThen
+                    (\productId ->
+                        db.products
+                            |> ProductCategory.findById productId
+                            |> Result.toMaybe
+                            |> Maybe.map .assembly
+                    )
+                |> Maybe.withDefault []
 
 
 getAvailableDistributionProcesses : DataContainer db -> Scope -> List Process
@@ -1808,6 +2043,64 @@ getConsumptionProcessId (Consumption { processId }) =
     processId
 
 
+{-| Get the use-stage consumptions:
+
+  - from the query itself when set (`Just`, including an explicit empty list)
+  - or the ones from the product category if not set
+  - or an empty list if product category is not set
+
+-}
+getConsumptions : Requirements db -> Query -> List Consumption
+getConsumptions { db } query =
+    case query.consumptions of
+        Just consumptions ->
+            consumptions
+
+        Nothing ->
+            query.product
+                |> Maybe.andThen
+                    (\productId ->
+                        db.products
+                            |> ProductCategory.findById productId
+                            |> Result.toMaybe
+                            |> Maybe.map (.consumptions >> List.map consumptionFromCategory)
+                    )
+                |> Maybe.withDefault []
+
+
+{-| Get the distribution process:
+
+  - from the query itself when set
+  - or the one from the product category if not set
+  - or the default one for the scope if product category is not set
+
+-}
+getDistributionProcessId : Requirements db -> Query -> Maybe Process.Id
+getDistributionProcessId { config, db, scope } query =
+    case query.distribution of
+        Just processId ->
+            Just processId
+
+        Nothing ->
+            case
+                query.product
+                    |> Maybe.andThen
+                        (\productId ->
+                            db.products
+                                |> ProductCategory.findById productId
+                                |> Result.toMaybe
+                                |> Maybe.andThen .distribution
+                        )
+            of
+                Just processId ->
+                    Just processId
+
+                Nothing ->
+                    config.distribution.defaultProcess
+                        |> Scope.dictGetMaybe scope
+                        |> Maybe.map .id
+
+
 {-| Retrieve a documentation link from config, if defined
 Note: proxified from Config for convenience
 -}
@@ -1816,22 +2109,20 @@ getDocLink =
     Config.getDocLink
 
 
-{-| Retrieves a distribution process for a given scope from a provided distribution id, or a default
-process from config if available.
+{-| Retrieves a distribution process for a query, using an explicit distribution id
+when provided, falling back to the selected product category default, then to the
+scoped default from config.
 -}
-getDistributionProcess : Requirements db -> Maybe Process.Id -> Result DistributionProcessError Process
-getDistributionProcess { config, db, scope } maybeDistribution =
-    case maybeDistribution of
+getDistributionProcess : Requirements db -> Query -> Result DistributionProcessError Process
+getDistributionProcess ({ db, scope } as requirements) query =
+    case getDistributionProcessId requirements query of
         Just processId ->
             getAvailableDistributionProcesses db scope
                 |> Process.findById processId
                 |> Result.mapError DistributionGenericError
 
-        -- No distribution process specified, use the default scoped process if available
         Nothing ->
-            config.distribution.defaultProcess
-                |> Scope.dictGetMaybe scope
-                |> Result.fromMaybe DistributionNothingAvailable
+            Err DistributionNothingAvailable
 
 
 {-| Get an element's results at a given location in the results tree.
@@ -1844,9 +2135,22 @@ getElementResult ( itemIndex, elementIndex ) productionResults =
         |> Result.andThen (extractItems >> LE.getAt elementIndex >> Result.fromMaybe errors.elementNotFound)
 
 
-getEndOfLifeDetailedImpacts : Requirements db -> Bool -> Results -> DetailedEndOfLifeImpacts
-getEndOfLifeDetailedImpacts { config, scope } recyclable =
+getEndOfLifeDetailedImpacts : Requirements db -> Bool -> LifeCycle -> DetailedEndOfLifeImpacts
+getEndOfLifeDetailedImpacts { config, scope } recyclable lifeCycle =
     let
+        productionMass =
+            extractMass lifeCycle.production
+
+        -- Note: Assembly waste is modeled as a global mass reduction, without per-material losses,
+        -- while EoL impacts are computed per material category; so we need to scale each by the same
+        -- factor so their masses sum back to `productMass`
+        massScaleRatio =
+            if lifeCycle.productMass == Quantity.zero then
+                1
+
+            else
+                Mass.inKilograms lifeCycle.productMass / Mass.inKilograms productionMass
+
         collectionRatio =
             scope |> getEndOfLifeScopeCollectionRate config recyclable
 
@@ -1862,29 +2166,35 @@ getEndOfLifeDetailedImpacts { config, scope } recyclable =
               }
             )
     in
-    getMaterialDistribution
-        >> AnyDict.map
+    lifeCycle.production
+        |> getMaterialDistribution
+        |> AnyDict.map
             (\materialCategory mass ->
+                let
+                    -- Apply assembly mass loss ratio back to every material category
+                    scaledMass =
+                        mass |> Quantity.multiplyBy massScaleRatio
+                in
                 { collected =
                     config.endOfLife.strategies.collected
                         |> AnyDict.get materialCategory
                         |> Maybe.withDefault config.endOfLife.strategies.default
-                        |> applyStrategies (collectionRatio |> Split.applyToQuantity mass)
+                        |> applyStrategies (collectionRatio |> Split.applyToQuantity scaledMass)
                 , nonCollected =
                     config.endOfLife.strategies.nonCollected
                         |> AnyDict.get materialCategory
                         |> Maybe.withDefault config.endOfLife.strategies.default
-                        |> applyStrategies (nonCollectionRatio |> Split.applyToQuantity mass)
+                        |> applyStrategies (nonCollectionRatio |> Split.applyToQuantity scaledMass)
                 }
             )
-        >> AnyDict.toList
-        >> AnyDict.fromList Category.materialTypeToString
+        |> AnyDict.toList
+        |> AnyDict.fromList Category.materialTypeToString
 
 
-getEndOfLifeImpacts : Requirements db -> Bool -> Results -> Impacts
-getEndOfLifeImpacts ({ config, scope } as requirements) recyclable (Results results) =
+getEndOfLifeImpacts : Requirements db -> Bool -> LifeCycle -> Impacts
+getEndOfLifeImpacts ({ config, scope } as requirements) recyclable lifeCycle =
     if config.endOfLife |> Config.scopeEnabled scope then
-        Results results
+        lifeCycle
             |> getEndOfLifeDetailedImpacts requirements recyclable
             |> AnyDict.map
                 (\_ { collected, nonCollected } ->
@@ -1919,6 +2229,19 @@ getEndOfLifeScopeCollectionRate { endOfLife } recyclable scope =
 
     else
         Split.zero
+
+
+getEndOfLifeTotalMass : Requirements db -> LifeCycle -> Float
+getEndOfLifeTotalMass requirements =
+    getEndOfLifeDetailedImpacts requirements True
+        >> AnyDict.values
+        >> List.concatMap
+            (\{ collected, nonCollected } ->
+                [ Mass.inKilograms <| Tuple.first collected
+                , Mass.inKilograms <| Tuple.first nonCollected
+                ]
+            )
+        >> List.sum
 
 
 {-| Get an element's country last transform if any, or the country of its material otherwise.
@@ -1971,22 +2294,25 @@ getMaterialDistribution (Results results) =
             (AnyDict.empty Category.materialTypeToString)
 
 
-{-| Get the an expanded element and its results at a given location in the elements tree.
+{-| Get an expanded element, its results, and the parent item quantity at a given location in the elements tree.
 -}
 getResultedElement : ( Index, Index ) -> Results -> List ExpandedItem -> Result String ResultedElement
 getResultedElement ( itemIndex, elementIndex ) productionResults expandedItems =
-    Result.map2 Tuple.pair
-        -- Expanded element
-        (expandedItems
-            |> LE.getAt itemIndex
-            |> Result.fromMaybe errors.itemNotFound
-            |> Result.andThen (.elements >> LE.getAt elementIndex >> Result.fromMaybe errors.elementNotFound)
-        )
-        -- Element results
-        (getElementResult ( itemIndex, elementIndex ) productionResults)
+    expandedItems
+        |> LE.getAt itemIndex
+        |> Result.fromMaybe errors.itemNotFound
+        |> Result.andThen
+            (\{ elements, quantity } ->
+                Result.map2 (\expandedElement results -> ( quantity, expandedElement, results ))
+                    (elements
+                        |> LE.getAt elementIndex
+                        |> Result.fromMaybe errors.elementNotFound
+                    )
+                    (getElementResult ( itemIndex, elementIndex ) productionResults)
+            )
 
 
-{-| Create a list of expanded elements with their associated results from a list of items and production results.
+{-| Create a list of expanded elements with their associated results and parent item quantity.
 -}
 getResultedElementList : Results -> List ExpandedItem -> Result String (List ResultedElement)
 getResultedElementList productionResults =
@@ -1997,7 +2323,7 @@ getResultedElementList productionResults =
                     (\elementIndex expandedElement ->
                         productionResults
                             |> getElementResult ( itemIndex, elementIndex )
-                            |> Result.map (\results -> ( expandedElement, results ))
+                            |> Result.map (\results -> ( expandedItem.quantity, expandedElement, results ))
                     )
         )
         >> List.concat
@@ -2044,6 +2370,31 @@ getTransformDefaultCountry targetItem maybeElementIndex items =
                     Nothing ->
                         material.country
             )
+
+
+{-| Get the to-distribution cooling option:
+
+  - from the query itself when set
+  - or the one from the product category if not set
+  - or `False` if product category is not set
+
+-}
+getTransportCooling : Requirements db -> Query -> Bool
+getTransportCooling { db } query =
+    case query.transportOptions.cooling of
+        Just cooling ->
+            cooling
+
+        Nothing ->
+            query.product
+                |> Maybe.andThen
+                    (\productId ->
+                        db.products
+                            |> ProductCategory.findById productId
+                            |> Result.toMaybe
+                            |> Maybe.map .cooling
+                    )
+                |> Maybe.withDefault False
 
 
 idFromString : String -> Result String Id
@@ -2188,6 +2539,16 @@ parseConfig =
     Config.parse
 
 
+productionItemToLabel : ProductionItem -> String
+productionItemToLabel productionItem =
+    case productionItem of
+        ComponentItem { name } ->
+            name
+
+        MaterialItem process ->
+            Process.getDisplayName process
+
+
 quantityFromInt : Int -> Quantity
 quantityFromInt int =
     Quantity int
@@ -2198,9 +2559,19 @@ quantityToInt (Quantity int) =
     int
 
 
-removeConsumption : Index -> Query -> Query
-removeConsumption index query =
-    { query | consumptions = query.consumptions |> LE.removeAt index }
+removeAssemblyOperation : Requirements db -> Index -> Query -> Query
+removeAssemblyOperation requirements index ({ assembly } as query) =
+    { query
+        | assembly =
+            { assembly
+                | operations = Just (getAssemblyOperations requirements query |> LE.removeAt index)
+            }
+    }
+
+
+removeConsumption : Requirements db -> Index -> Query -> Query
+removeConsumption requirements index query =
+    { query | consumptions = Just (getConsumptions requirements query |> LE.removeAt index) }
 
 
 {-| Remove an element from an item
@@ -2288,14 +2659,20 @@ setElementMaterial db targetElement material items =
 
 setQueryItems : List Item -> Query -> Query
 setQueryItems items query =
+    let
+        currentAssembly =
+            query.assembly
+    in
     { query
-        | assemblyCountry =
-            -- reset assembly country if no items
-            if List.isEmpty items then
-                Nothing
+        | assembly =
+            { currentAssembly
+                | country =
+                    if List.isEmpty items then
+                        Nothing
 
-            else
-                query.assemblyCountry
+                    else
+                        currentAssembly.country
+            }
         , items = items
     }
 
@@ -2307,7 +2684,7 @@ setTransportByAir byAir ({ transportOptions } as query) =
 
 setTransportCooling : Bool -> Query -> Query
 setTransportCooling cooling ({ transportOptions } as query) =
-    { query | transportOptions = { transportOptions | cooling = cooling } }
+    { query | transportOptions = { transportOptions | cooling = Just cooling } }
 
 
 stagesImpacts : LifeCycle -> Stages (Maybe Impacts)
@@ -2321,6 +2698,9 @@ stagesImpacts lifeCycle =
         |> List.foldl
             (\(Results { impacts, stage }) acc ->
                 case stage of
+                    Just AssemblyStage ->
+                        { acc | assembly = acc.assembly |> Maybe.map (\i -> Impact.sumImpacts [ i, impacts ]) }
+
                     Just MaterialStage ->
                         { acc | materials = acc.materials |> Maybe.map (\i -> Impact.sumImpacts [ i, impacts ]) }
 
@@ -2333,7 +2713,17 @@ stagesImpacts lifeCycle =
                     Nothing ->
                         acc
             )
-            { distribution = lifeCycle.distribution.impacts |> Just
+            { assembly =
+                lifeCycle.assembly
+                    |> extractImpacts
+                    |> (\impacts ->
+                            if impacts == Impact.empty then
+                                Nothing
+
+                            else
+                                Just impacts
+                       )
+            , distribution = lifeCycle.distribution.impacts |> Just
             , endOfLife = lifeCycle.endOfLife |> Just
             , materials = Just Impact.empty
             , packaging = lifeCycle.packaging |> Impact.sumImpacts |> Just
@@ -2347,6 +2737,9 @@ stagesImpacts lifeCycle =
 stageToString : Stage -> String
 stageToString stage =
     case stage of
+        AssemblyStage ->
+            "assembly"
+
         MaterialStage ->
             "material"
 
@@ -2362,6 +2755,7 @@ sumLifeCycleImpacts lifeCycle =
     Impact.sumImpacts
         [ extractImpacts lifeCycle.production
         , extractComplementsImpacts lifeCycle.production |> Complement.mergeComplementsResultsImpacts
+        , extractImpacts lifeCycle.assembly
         , lifeCycle.distribution.impacts
         , lifeCycle.endOfLife
         , lifeCycle.packaging |> Impact.sumImpacts
@@ -2410,12 +2804,19 @@ tryMapItems fn query =
         |> Result.map (\items -> setQueryItems items query)
 
 
-updateConsumptionAmount : Index -> Amount -> Query -> Query
-updateConsumptionAmount index amount query =
+updateAssemblyCountry : Maybe CountryCode.Code -> Query -> Query
+updateAssemblyCountry country ({ assembly } as query) =
+    { query | assembly = { assembly | country = country } }
+
+
+updateConsumptionAmount : Requirements db -> Index -> Amount -> Query -> Query
+updateConsumptionAmount requirements index amount query =
     { query
         | consumptions =
-            query.consumptions
-                |> LE.updateAt index (\(Consumption c) -> Consumption { c | amount = amount })
+            Just
+                (getConsumptions requirements query
+                    |> LE.updateAt index (\(Consumption c) -> Consumption { c | amount = amount })
+                )
     }
 
 
@@ -2446,6 +2847,32 @@ updateCustom component fn maybeCustom =
 updateDistribution : Maybe Process.Id -> Query -> Query
 updateDistribution maybeProcessId query =
     { query | distribution = maybeProcessId }
+
+
+{-| Update the product in the query, resetting product-dependent fields along the way
+-}
+updateProduct : Maybe ProductCategory -> Query -> Query
+updateProduct maybeProduct ({ assembly, transportOptions } as query) =
+    let
+        reset maybeProductId =
+            { query
+                | assembly = { assembly | operations = Nothing }
+                , consumptions = Nothing
+                , distribution = Nothing
+                , product = maybeProductId
+                , transportOptions = { transportOptions | cooling = Nothing }
+            }
+    in
+    case maybeProduct of
+        Just product ->
+            if query.product == Just product.id then
+                query
+
+            else
+                reset (Just product.id)
+
+        Nothing ->
+            reset Nothing
 
 
 updateDurability : Unit.Ratio -> Query -> Query
@@ -2543,12 +2970,61 @@ the product mass in kilograms. Otherwise, return the amount.
 useProcessAmount : LifeCycle -> Process -> Amount -> Amount
 useProcessAmount lifeCycle process amount =
     if List.member Category.ProductMassDependent process.categories then
-        extractMass lifeCycle.production
-            |> Mass.inKilograms
-            |> Amount.fromFloat
+        Amount.fromFloat <| Mass.inKilograms lifeCycle.productMass
 
     else
         amount
+
+
+validateAssembly : Requirements db -> Query -> Result String Assembly
+validateAssembly requirements query =
+    Ok Assembly
+        |> RE.andMap (validateCountry requirements query.assembly.country)
+        |> RE.andMap
+            (getAssemblyOperations requirements query
+                |> RE.combineMap (validateAssemblyProcessId requirements)
+                |> Result.map (always query.assembly.operations)
+            )
+
+
+validateAssemblyProcessesUnit : List ExpandedLocalizedProcess -> Result String (List ExpandedLocalizedProcess)
+validateAssemblyProcessesUnit processes =
+    if not <| List.all (.process >> .unit >> (==) Process.Kilogram) processes then
+        "Les procédés d’assemblage doivent être exprimés en kg\u{00A0}: "
+            ++ (processes
+                    |> List.filter (.process >> .unit >> (/=) Process.Kilogram)
+                    |> List.map (\{ process } -> Process.getDisplayName process ++ " (" ++ Process.unitToString process.unit ++ ")")
+                    |> String.join ", "
+               )
+            |> Err
+
+    else
+        Ok processes
+
+
+validateAssemblyProcessId : Requirements db -> Process.Id -> Result String Process.Id
+validateAssemblyProcessId { db, scope } processId =
+    case
+        db.processes
+            |> Scope.anyOf [ scope ]
+            |> Process.findById processId
+    of
+        Err _ ->
+            Err <|
+                "Aucun procédé d’assemblage scopé "
+                    ++ Scope.toLabel scope
+                    ++ " avec cet id\u{202F}: "
+                    ++ Process.idToString processId
+
+        Ok process ->
+            if not <| List.member Category.Assembly process.categories then
+                Err "Le procédé n’est pas un assemblage"
+
+            else if process.unit /= Process.Kilogram then
+                Err "Le procédé d’assemblage doit accepter une masse en kg"
+
+            else
+                Ok process.id
 
 
 validateConsumption : Requirements db -> Consumption -> Result String Consumption
@@ -2658,12 +3134,58 @@ validateQuantifiedProcess requirements quantifiedProcess =
 validateQuery : Requirements db -> Query -> Result String Query
 validateQuery ({ db } as requirements) query =
     Ok Query
-        |> RE.andMap (validateCountry requirements query.assemblyCountry)
-        |> RE.andMap (query.consumptions |> RE.combineMap (validateConsumption requirements))
-        |> RE.andMap (validateDistribution requirements query.distribution)
+        |> RE.andMap (validateAssembly requirements query)
+        |> RE.andMap
+            (getConsumptions requirements query
+                |> RE.combineMap (validateConsumption requirements)
+                |> Result.map (always query.consumptions)
+            )
+        |> RE.andMap (validateDistribution requirements (getDistributionProcessId requirements query))
         |> RE.andMap (validateDurability requirements query.durability)
         |> RE.andMap (query.items |> RE.combineMap (validateItem db.components))
         |> RE.andMap (query.packagings |> RE.combineMap (validatePackaging requirements))
+        |> RE.andMap (validateProduct requirements query.product)
         |> RE.andMap (Ok query.recyclable)
         |> RE.andMap (Ok query.transportOptions)
         |> Result.mapError (\s -> "Requête invalide\u{202F}: " ++ s)
+
+
+validateProduct : Requirements db -> Maybe ProductCategory.Id -> Result String (Maybe ProductCategory.Id)
+validateProduct requirements maybeProductId =
+    case maybeProductId of
+        Just productId ->
+            requirements.db.products
+                |> ProductCategory.findById productId
+                |> Result.andThen
+                    (\product ->
+                        if requirements.scope == Scope.Generic product.scope then
+                            Ok productId
+
+                        else
+                            Err <|
+                                "La catégorie de produit "
+                                    ++ product.label
+                                    ++ " n’est pas disponible pour le périmètre "
+                                    ++ Scope.toLabel requirements.scope
+                    )
+                |> Result.map Just
+
+        Nothing ->
+            Ok Nothing
+
+
+validateTransformProcessesUnit : Process.Unit -> List ExpandedLocalizedProcess -> Result String (List ExpandedLocalizedProcess)
+validateTransformProcessesUnit unit transforms =
+    if not <| List.all (.process >> .unit >> (==) unit) transforms then
+        "Les procédés de transformation ne partagent pas la même unité que la matière source ("
+            ++ Process.unitToString unit
+            ++ ")\u{00A0}: "
+            ++ (transforms
+                    |> List.filter (.process >> .unit >> (/=) unit)
+                    |> List.map (\{ process } -> Process.getDisplayName process ++ " (" ++ Process.unitToString process.unit ++ ")")
+                    |> String.join ", "
+               )
+            |> Err
+
+    else
+        Ok transforms

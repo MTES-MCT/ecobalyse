@@ -1,12 +1,14 @@
 import tempfile
+from pathlib import Path
 
 import bw2data
 import orjson
+import typer
 from pytest import approx
 
 from bin import export_bw_db, export_lcia, lcia_info
 from config import settings
-from ecobalyse_data.bw import simapro_export
+from ecobalyse_data.bw import ecospold_export, simapro_export
 from models.process import ComputedBy, Impacts
 
 
@@ -16,7 +18,7 @@ def test_export_icv(mocker):
 
     with tempfile.NamedTemporaryFile(delete=False) as fp:
         # Just check that the main function runs as expected
-        export_lcia.main(output_file=fp, cpu_count=1, max=1)
+        export_lcia.main(output_file=typer.FileBinaryWrite(fp), cpu_count=1, max=1)
         fp.close()
 
         # And that it creates an empty file
@@ -31,7 +33,7 @@ def test_export_icv_forwast(forwast, forwast_json_icv):
         # Just check that the main function runs as expected
         export_lcia.main(
             project=settings.bw.project,
-            output_file=fp,
+            output_file=typer.FileBinaryWrite(fp),
             activity_name="_22 Vegetable and animal oils and fats, EU27",
             location="GLO",
             db=["forwast"],
@@ -59,9 +61,13 @@ def test_export_bw_db(mocker):
     # Just check that the imports are ok
 
     mocker.patch("ecobalyse_data.bw.simapro_export.export_db_to_simapro")
+    mocker.patch("ecobalyse_data.bw.ecospold_export.export_db_to_ecospold")
     with tempfile.NamedTemporaryFile(delete=False) as fp:
-        export_bw_db.main(fp, "")
-        simapro_export.export_db_to_simapro.assert_called_once()
+        export_bw_db.simapro(Path(fp.name), "")
+        simapro_export.export_db_to_simapro.assert_called_once()  # ty: ignore[unresolved-attribute]
+    with tempfile.NamedTemporaryFile(delete=False) as fp:
+        export_bw_db.ecospold1(["Ecobalyse_custom_lci"], Path(fp.name))
+        ecospold_export.export_db_to_ecospold.assert_called_once()  # ty: ignore[unresolved-attribute]
 
 
 def test_forwast_restore(forwast):

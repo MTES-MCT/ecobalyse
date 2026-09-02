@@ -4,9 +4,8 @@ module Data.Bookmark exposing
     , decodeJsonList
     , encodeJsonList
     , findByFoodQuery
-    , findByObjectQuery
+    , findByGenericQuery
     , findByTextileQuery
-    , genericQueryFromScope
     , isFood
     , isFood2
     , isObject
@@ -198,24 +197,14 @@ findByFoodQuery foodQuery =
     findByQuery (Food foodQuery)
 
 
-findByObjectQuery : Component.Query -> List Bookmark -> Maybe Bookmark
-findByObjectQuery objectQuery =
-    findByQuery (Generic Scope.Object objectQuery)
+findByGenericQuery : GenericScope -> Component.Query -> List Bookmark -> Maybe Bookmark
+findByGenericQuery genericScope =
+    Generic genericScope >> findByQuery
 
 
 findByTextileQuery : TextileQuery.Query -> List Bookmark -> Maybe Bookmark
 findByTextileQuery textileQuery =
     findByQuery (Textile textileQuery)
-
-
-genericQueryFromScope : Scope -> Component.Query -> Query
-genericQueryFromScope scope_ =
-    case scope_ of
-        Scope.Generic genericScope ->
-            Generic genericScope
-
-        _ ->
-            Generic Scope.Object
 
 
 replace : Bookmark -> List Bookmark -> List Bookmark

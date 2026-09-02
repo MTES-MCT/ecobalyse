@@ -2,9 +2,9 @@
 
 import json
 import urllib.parse
-from typing import List, Optional
 
 import bw2calc
+import bw2calc.errors
 import bw2data
 import requests
 from bw2data import get_multilca_data_objs
@@ -28,7 +28,7 @@ projects.set_current(settings.bw.project)
 available_bw_databases = ", ".join(bw2data.databases)
 
 
-def check_duplicate_activities(activities: List[dict]) -> None:
+def check_duplicate_activities(activities: list[dict]) -> None:
     """
     Check for duplicate activities based on source + activityName + location.
     Raises ValueError if duplicates are found.
@@ -72,11 +72,9 @@ def compute_process_for_bw_activity(
     impacts_py,
     impacts_json,
     factors,
-) -> Optional[Process]:
+) -> Process:
     """Compute a process when we have only have a brightway activity (bw_activity),
     no eco_activity (an activity in lci_activity/*)"""
-    computed_by = None
-    impacts = {}
 
     (computed_by, impacts) = compute_impacts(
         bw_activity,
@@ -195,23 +193,23 @@ def compute_brightway_impacts_batch(
         for (method_t, fu_name), ci in mlca.characterized_inventories.items():
             act_id = int(fu_name)
             per_demand[act_id][method_to_key[tuple(method_t)]] = float(
-                "{:.10g}".format(ci.sum())
+                f"{ci.sum():.10g}"
             )
         out.update(per_demand)
     return out
 
 
 def compute_processes_for_activities(
-    activities: List[dict],
+    activities: list[dict],
     main_method,
     impacts_py,
     impacts_json,
     factors,
-) -> List[Process]:
+) -> list[Process]:
     # Check for duplicate activities before processing
     check_duplicate_activities(activities)
 
-    processes: List[Process] = []
+    processes: list[Process] = []
 
     index = 1
     total = len(activities)
@@ -274,7 +272,7 @@ def compute_processes_for_activities(
     for idx, parameters in enumerate(computation_parameters):
         if idx in batched_set:
             eco_activity, bw_activity, _, _, _, _ = parameters
-            raw = batched_raw.get(bw_activity.id)
+            raw = batched_raw.get(bw_activity["id"])
             if raw is None:
                 # Fallback to per-activity if batch lost it for any reason.
                 processes.append(compute_process_for_activity(*parameters))
@@ -303,15 +301,10 @@ def compute_impacts(
     normalization_factors,
     with_aggregated=True,
     demand_amount=None,
-) -> tuple[Optional[ComputedBy], Optional[Impacts]]:
-    computed_by = None
+) -> tuple[ComputedBy | None, Impacts | None]:
     try:
-        impacts = {}
-
         logger.debug(f"-> Getting impacts from BW for {bw_activity}")
-        impacts = compute_brightway_impacts(
-            bw_activity, main_method, impacts_py, demand_amount
-        )
+        impacts = compute_brightway_impacts(bw_activity, impacts_py, demand_amount)
 
         computed_by = ComputedBy.brightway
 
@@ -332,8 +325,8 @@ def compute_impacts(
         return (None, None)
 
 
-def compute_brightway_impacts(activity, method, impacts_py, demand_amount=None):
-    results = dict()
+def compute_brightway_impacts(activity, impacts_py, demand_amount=None):
+    results = {}
     # Some processes have negative production amounts (e.g., waste treatment processes that
     # consume 1 kg of waste rather than produce it). We need to get the sign of the production
     # amount to properly normalize impacts to 1 unit of the process.
@@ -347,7 +340,7 @@ def compute_brightway_impacts(activity, method, impacts_py, demand_amount=None):
     for key, method in impacts_py.items():
         lca.switch_method(method)
         lca.lcia()
-        results[key] = float("{:.10g}".format(lca.score))
+        results[key] = float(f"{lca.score:.10g}")
         logger.debug(f"{activity}  {key}: {lca.score}")
 
     return results
@@ -372,7 +365,7 @@ def compute_simapro_impacts(activity, method, impacts_py):
         response = requests.get(api_request)
     except requests.exceptions.ConnectTimeout:
         logger.warning("SimaPro did not answer! Is it started?")
-        return dict()
+        return {}
 
     try:
         json_content = json.loads(response.content)
@@ -385,10 +378,10 @@ def compute_simapro_impacts(activity, method, impacts_py):
     except ValueError:
         pass
 
-    return dict()
+    return {}
 
 
-def get_mass_per_unit(eco_activity: dict, bw_activity) -> Optional[float]:
+def get_mass_per_unit(eco_activity: dict, bw_activity) -> float | None:
     """
     Get the mass per unit for an activity.
 
@@ -420,8 +413,10 @@ def get_mass_per_unit(eco_activity: dict, bw_activity) -> Optional[float]:
 
 
 def activity_to_process_with_impacts(
-    eco_activity, impacts, computed_by: ComputedBy | None, bw_activity={}
+    eco_activity, impacts, computed_by: ComputedBy | None, bw_activity=None
 ) -> Process:
+    if bw_activity is None:
+        bw_activity = {}
     unit = fix_unit(bw_activity.get("unit"))
 
     bw_activity["unit"] = unit

@@ -97,7 +97,7 @@ def requires_verified_user(
 
 async def current_user_from_token(
     token: Token, connection: ASGIConnection[Any, Any, Any, Any]
-) -> tuple[m.User, m.Token | None] | None:
+) -> tuple[m.User | None, m.Token | None] | None:
     """Lookup current user from local JWT token.
 
     Fetches the user information from the database
@@ -120,7 +120,7 @@ async def current_user_from_token(
 
     token_id = token.extras.get("id")
 
-    now = datetime.datetime.now(datetime.timezone.utc)
+    now = datetime.datetime.now(datetime.UTC)
 
     if token_id:
         token_service_provider = create_service_provider(TokenService)
@@ -138,7 +138,8 @@ async def current_user_from_token(
             and user
             and db_token.user_id == user.id
             and await crypt.verify_password(
-                token.extras.get("secret"), db_token.hashed_token
+                token.extras.get("secret", ""),
+                db_token.hashed_token,  # ty: ignore[too-many-positional-arguments]
             )
         ):
             db_token.last_accessed_at = now
@@ -161,7 +162,7 @@ async def current_user_from_token(
 
 
 auth = CustomOAuth2PasswordBearerAuth[m.User](
-    authentication_middleware_class=CustomAuthMiddleware,
+    authentication_middleware_class=CustomAuthMiddleware,  # ty: ignore[invalid-argument-type]
     default_token_expiration=datetime.timedelta(
         days=settings.app.DEFAULT_TOKEN_EXPIRATION_DAYS
     ),

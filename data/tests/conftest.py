@@ -18,10 +18,9 @@ os.environ["FORCE_ENV_FOR_DYNACONF"] = "testing"
 import bw2data
 import orjson
 import pytest
-from bw2data import config as bwconfig
 from bw2data import projects
 
-from common import brightway_patch as brightway_patch
+from common import brightway_patch as brightway_patch  # noqa: PLC0414
 from config import DATA_ROOT_DIR, TESTS_FIXTURE_DIR, settings
 from ecobalyse_data.tests import restore_archived_project
 
@@ -37,9 +36,6 @@ def forwast(temp_bw_dir):
 
 @pytest.fixture
 def temp_bw_dir(tmp_path):
-    bwconfig.dont_warn = True
-    bwconfig.is_test = True
-
     os.environ["BRIGHTWAY2_DIR"] = str(tmp_path)
     projects.change_base_directories(
         base_dir=tmp_path,

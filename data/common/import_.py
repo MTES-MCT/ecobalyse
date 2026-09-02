@@ -3,7 +3,6 @@ import json
 import sys
 from enum import StrEnum
 from pathlib import Path, PurePosixPath
-from typing import List, Optional
 
 import bw2data
 import bw2io
@@ -61,7 +60,7 @@ def setup_project(
 
 
 def link_technosphere_by_activity_hash_ref_product(
-    db, external_db_name: Optional[str] = None, fields: Optional[List[str]] = None
+    db, external_db_name: str | None = None, fields: list[str] | None = None
 ):
     """
     This is a custom version of `bw2io.strategies.generic.link_technosphere_by_activity_hash`
@@ -70,11 +69,11 @@ def link_technosphere_by_activity_hash_ref_product(
     and avoid breaking the linking as processes are now imported with the default type "processwithreferenceproduct"
     """
 
-    TECHNOSPHERE_TYPES = {"technosphere", "substitution", "production"}
+    TECHNOSPHERE_TYPES = ["technosphere", "substitution", "production"]
     if external_db_name is not None:
         other = (
             obj
-            for obj in bw2data.Database(external_db_name)
+            for obj in bw2data.Database(external_db_name)  # ty: ignore[not-iterable]
             if obj.get("type", "process") == "process"
             or obj.get("type") == "processwithreferenceproduct"
         )
@@ -101,27 +100,25 @@ def search_activity(activity_dict: dict, default_db: str | None = None):
     Returns:
         The found activity
     """
-    if isinstance(activity_dict, dict):
-        db_name = activity_dict.get("database", default_db)
-        if db_name is None:
-            raise ValueError("No database specified in activity dict or default_db")
-        activity_name = activity_dict["name"]
-        location = activity_dict.get("location")
-        code = activity_dict.get("code")
-        categories = activity_dict.get("categories")
-        unit = activity_dict.get("unit")
+    assert isinstance(activity_dict, dict), "Activity must be a dict"
+    db_name = activity_dict.get("database", default_db)
+    if db_name is None:
+        raise ValueError("No database specified in activity dict or default_db")
+    activity_name = activity_dict["name"]
+    location = activity_dict.get("location")
+    code = activity_dict.get("code")
+    categories = activity_dict.get("categories")
+    unit = activity_dict.get("unit")
 
-        result = cached_search_one(
-            db_name,
-            activity_name,
-            location=location,
-            code=code,
-            categories=tuple(categories) if categories else None,
-            unit=unit,
-        )
-        return result
-    else:
-        raise ValueError("Activity must be a dict")
+    result = cached_search_one(
+        db_name,
+        activity_name,
+        location=location,
+        code=code,
+        categories=tuple(categories) if categories else None,
+        unit=unit,
+    )
+    return result
 
 
 def create_activity(
@@ -157,7 +154,7 @@ def create_activity(
             "location": location,
         }
         code = activity_hash(data)
-        new_activity = bw2data.Database(dbname).new_activity(code, **data)
+        new_activity = bw2data.Database(dbname).new_activity(code, **data)  # ty: ignore[unresolved-attribute]
         new_activity["code"] = code
     new_activity["Process identifier"] = code
     new_activity.save()
@@ -184,6 +181,8 @@ def add_created_activities(created_activities_db, custom_lci_file):
         if activity_data.get("activityCreationType") == ActivityFrom.EXISTING:
             add_activity_from_existing(activity_data, created_activities_db)
             logger.debug("-")
+
+    bw2data.Database(created_activities_db).process()
 
 
 def add_activity_from_scratch(activity_data, dbname):
@@ -250,7 +249,7 @@ def delete_exchange(activity, activity_to_delete, amount=False):
 
 def get_exchange_type(activity: dict) -> ExchangeType:
     """Get the type of an exchange based on the activity"""
-    if activity.get("database") == "biosphere3":
+    if activity.get("database") == settings.bw.BIOSPHERE:
         return ExchangeType.BIOSPHERE
     return ExchangeType.TECHNOSPHERE
 
@@ -327,7 +326,7 @@ def add_activity_from_existing(activity_data, created_activities_db):
         for exchange_spec in activity_data["delete"]:
             for exchange in new_activity.exchanges():
                 if all(
-                    [exchange.get(spec[0]) == spec[1] for spec in exchange_spec.items()]
+                    exchange.get(spec[0]) == spec[1] for spec in exchange_spec.items()
                 ):
                     exchange.delete()
                     logger.debug(f"Deleted {exchange}")
@@ -397,18 +396,20 @@ def add_activity_from_existing(activity_data, created_activities_db):
 
 def add_unlinked_flows_to_biosphere_database(
     database,
-    biosphere_name=None,
-    fields={"name", "unit", "categories"},
+    biosphere_name,
+    fields: list[str] | None = None,
 ) -> None:
+    if not fields:
+        fields = ["name", "unit", "categories"]
     biosphere_name = biosphere_name or bw2data.config.biosphere
     assert biosphere_name in bw2data.databases, (
-        "{} biosphere database not found".format(biosphere_name)
+        f"{biosphere_name} biosphere database not found"
     )
 
     bio = bw2data.Database(biosphere_name)
 
-    def reformat(exc):
-        dct = {key: value for key, value in list(exc.items()) if key in fields}
+    def reformat(exc, fields):
+        dct = {key: value for key, value in list(exc.items()) if str(key) in fields}
         dct.update(
             type="emission",
             exchanges=[],
@@ -417,29 +418,41 @@ def add_unlinked_flows_to_biosphere_database(
         )
         return dct
 
-    new_data = [
-        reformat(exc)
+    new_data = {
+        exc["code"]: exc
         for ds in database.data
-        for exc in ds.get("exchanges", [])
-        if exc["type"] == "biosphere" and not exc.get("input")
-    ]
+        for exc in [
+            reformat(raw, fields)
+            for raw in ds.get("exchanges", [])
+            if raw["type"] == "biosphere" and not raw.get("input")
+        ]
+    }
 
-    # Dictionary eliminate duplicates
-    # first load the new data with activity_hash
-    data = {(biosphere_name, exc["code"]): exc for exc in new_data}
-    # then deduplicate/overwrite them with original data
-    # still using the activity_hash as a key but the uuis as internal code
-    data.update(
-        {(biosphere_name, activity_hash(exc)): exc for exc in bio.load().values()}
-    )
-    # then reconstruct data with the uuid
-    data = {(biosphere_name, exc["code"]): exc for exc in data.values()}
-    bio.write(data)
+    known = {activity_hash(flow) for flow in bio}  # ty: ignore[not-iterable]
+    added = 0
+    for code, flow in new_data.items():
+        if code in known:
+            continue
+        node = bio.new_activity(  # ty: ignore[unresolved-attribute]
+            code,
+            **{
+                key: value
+                for key, value in flow.items()
+                if key not in ("code", "database")
+            },
+        )
+        del node["location"]
+        node.save()
+        known.add(code)
+        added += 1
+    if added:
+        logger.debug(f"-> Added {added} new flows to {biosphere_name}")
+        bio.process()
 
     database.apply_strategy(
         functools.partial(
             link_iterable_by_fields,
-            other=(obj for obj in bw2data.Database(biosphere_name)),
+            other=(obj for obj in bw2data.Database(biosphere_name)),  # ty: ignore[not-iterable]
             edge_kinds=["biosphere"],
         ),
     )
@@ -450,13 +463,17 @@ def import_simapro_csv(
     database_md5: str,
     dbname,
     external_db=None,
-    biosphere="biosphere3",
-    migrations=[],
-    strategies=[],
+    biosphere=settings.bw.BIOSPHERE,
+    migrations=None,
+    strategies=None,
 ):
     """
     Import the s3 file `database_s3_key` into a database named `dbname` and apply the provided brightway `migrations`.
     """
+    if strategies is None:
+        strategies = []
+    if migrations is None:
+        migrations = []
     logger.info(f"🟢 Importing {database_s3_key} into {dbname}")
     assert PurePosixPath(database_s3_key).suffixes[-2:] in [
         [".CSV", ".zip"],
@@ -496,36 +513,24 @@ def import_simapro_csv(
     database.apply_strategies()
     database.statistics()
 
-    # try to link remaining unlinked technosphere activities
-    database.apply_strategy(
-        functools.partial(
-            link_technosphere_by_activity_hash_ref_product,
-            fields=("name", "unit", "location"),
-        )
-    )
-    database.apply_strategy(
-        functools.partial(
-            link_technosphere_by_activity_hash_ref_product, fields=("name", "unit")
-        )
-    )
-    database.apply_strategy(
-        functools.partial(
-            link_technosphere_by_activity_hash_ref_product,
-            external_db_name=external_db,
-            fields=("name", "unit", "location"),
-        )
-    )
-    database.apply_strategy(
-        functools.partial(
-            link_technosphere_by_activity_hash_ref_product,
-            external_db_name=external_db,
-            fields=("name", "unit"),
-        )
-    )
+    link_and_write(database, external_db=external_db, biosphere=biosphere)
+    logger.info(f"🟢 Finished importing {database_s3_key}")
+
+
+def link_and_write(database, external_db=None, biosphere=settings.bw.BIOSPHERE) -> None:
+    for other_database in [None, external_db] if external_db else [None]:
+        for fields in (["name", "unit", "location"], ["name", "unit"]):
+            database.apply_strategy(
+                functools.partial(
+                    link_technosphere_by_activity_hash_ref_product,
+                    external_db_name=other_database,
+                    fields=fields,
+                )
+            )
     database.apply_strategy(
         functools.partial(
             link_iterable_by_fields,
-            other=bw2data.Database(biosphere),
+            other=bw2data.Database(biosphere),  # ty: ignore[invalid-argument-type]
             kind="biosphere",
         ),
     )
@@ -553,8 +558,6 @@ def import_simapro_csv(
     bw2data.Database(biosphere).register()
     database.write_database()
 
-    logger.info(f"🟢 Finished importing {database_s3_key}")
-
 
 def add_missing_substances(project, biosphere):
     """Two additional substances provided by ecoinvent and that seem to be in 3.9.2 but not in 3.9.1"""
@@ -579,5 +582,5 @@ def add_missing_substances(project, biosphere):
     bw2data.projects.set_current(project)
     bio = bw2data.Database(biosphere)
     for code, activity in substances.items():
-        if not [flow for flow in bio if flow["code"] == code]:
-            bio.new_activity(code, **activity)
+        if not [flow for flow in bio if flow["code"] == code]:  # ty: ignore[not-iterable]
+            bio.new_activity(code, **activity)  # ty: ignore[unresolved-attribute]

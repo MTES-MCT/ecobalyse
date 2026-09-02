@@ -22,13 +22,12 @@ class ApplicationCore(InitPluginProtocol, CLIPluginProtocol):
 
     """
 
-    __slots__ = "app_slug"
+    __slots__: tuple[str, ...] = ("app_slug",)
     app_slug: str
 
     def on_cli_init(self, cli: Group) -> None:
         from app.cli.commands import (
             fixtures_management_group,
-            json_management_group,
             user_management_group,
         )
         from app.config import get_settings
@@ -37,7 +36,6 @@ class ApplicationCore(InitPluginProtocol, CLIPluginProtocol):
         self.app_slug = settings.app.slug
         cli.add_command(fixtures_management_group)
         cli.add_command(user_management_group)
-        cli.add_command(json_management_group)
 
     def on_app_init(self, app_config: AppConfig) -> AppConfig:
         """Configure application for use with SQLAlchemy.

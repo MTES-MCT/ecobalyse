@@ -4,9 +4,8 @@ import json
 from subprocess import call
 from uuid import UUID
 
+from data.config import settings
 from frozendict import frozendict
-
-from config import settings
 
 
 @functools.cache
@@ -42,6 +41,10 @@ def patch_agb3(path: str):
     call("sed -i 's/\"0;001172\"/0,001172/' " + path, shell=True)
 
 
+class DatabaseException(Exception):
+    pass
+
+
 def spproject(activity):
     """return the current (project, library) in simapro for an activity source database"""
     match activity.get("database"):
@@ -65,7 +68,7 @@ def spproject(activity):
         case "Agribalyse 3.2":
             return ("Agribalyse 3.2", "Agribalyse 3.2 - unit")
         case _:
-            raise Exception("Unknown database")
+            raise DatabaseException("Unknown database")
 
 
 def remove_detailed_impacts(processes):
@@ -141,26 +144,26 @@ def fix_unit(unit):
 
 
 class FormatNumberJsonEncoder(json.JSONEncoder):
-    def encode(self, obj):
+    def encode(self, o) -> str:
         def recursive_format_number(obj):
             # in python, bools are a subclass of int, so we should check explicitly
             # if obj is not a bool, otherwise it will be converted to a float…
             if isinstance(obj, (int, float)) and not isinstance(obj, bool):
                 if obj == 0:
-                    return int(0)
+                    return 0
                 else:
                     return float(f"{obj:.{settings.number_precision}g}")
             elif isinstance(obj, dict):
                 return {k: recursive_format_number(v) for k, v in obj.items()}
             # it looks like we are using tuples as lists, so treat them the same way
-            elif isinstance(obj, list) or isinstance(obj, tuple):
+            elif isinstance(obj, (list, tuple)):
                 return [recursive_format_number(v) for v in obj]
             elif isinstance(obj, UUID):
                 return str(obj)
             else:
                 return obj
 
-        return super().encode(recursive_format_number(obj))
+        return super().encode(recursive_format_number(o))
 
 
 def activities_processes_sort_key(entry):

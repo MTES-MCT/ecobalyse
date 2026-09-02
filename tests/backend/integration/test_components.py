@@ -1,4 +1,3 @@
-import json as jsonp
 import warnings
 from typing import TYPE_CHECKING
 
@@ -37,22 +36,24 @@ async def test_components_api_create(
         },
         headers=superuser_token_headers,
     )
-    json = response.json()
+    json_response = response.json()
 
     assert response.status_code == 201
-    assert json["name"] == "New Component"
-    assert json["comment"] == "A comment"
-    assert len(json["elements"]) == 1
-    assert json["elements"][0]["transforms"] == ["d25636af-ab36-4857-a6d0-c66d1e7a281b"]
+    assert json_response["name"] == "New Component"
+    assert json_response["comment"] == "A comment"
+    assert len(json_response["elements"]) == 1
+    assert json_response["elements"][0]["transforms"] == [
+        "d25636af-ab36-4857-a6d0-c66d1e7a281b"
+    ]
 
-    assert len(json["id"]) == 36
+    assert len(json_response["id"]) == 36
 
     async with JournalEntryService.new(session) as journal_entries_service:
-        entries = await journal_entries_service.list()
+        entries = await journal_entries_service.get_many()
         assert len(entries) == 8
         entry = entries[7]
         assert entry.action == m.JournalAction.CREATED
-        assert entry.value == json
+        assert entry.value == json_response
 
 
 async def test_components_db_create(
@@ -94,6 +95,7 @@ async def test_components_db_create(
 
         assert len(results) == 2
 
+        assert results[0].value is not None
         assert results[0].value["elements"][0]["transforms"] == [
             "d25636af-ab36-4857-a6d0-c66d1e7a281b"
         ]
@@ -124,7 +126,7 @@ async def test_components_create_with_scopes(
     assert json["published"]
 
     async with JournalEntryService.new(session) as journal_entries_service:
-        entries = await journal_entries_service.list()
+        entries = await journal_entries_service.get_many()
         assert len(entries) == 8
         entry = entries[7]
         assert entry.action == m.JournalAction.CREATED
@@ -210,15 +212,13 @@ async def test_components_update(
         assert response.status_code == 200
         json = response.json()
 
-        assert jsonp.dumps(json["elements"]) == jsonp.dumps(
-            [
-                {
-                    "amount": 1,
-                    "material": "af42fc20-e3ec-5b99-9b9c-83ba6735e597",
-                    "transforms": ["d25636af-ab36-4857-a6d0-c66d1e7a281b"],
-                }
-            ]
-        )
+        assert json["elements"] == [
+            {
+                "amount": 1,
+                "material": "af42fc20-e3ec-5b99-9b9c-83ba6735e597",
+                "transforms": ["d25636af-ab36-4857-a6d0-c66d1e7a281b"],
+            }
+        ]
 
         assert not json["published"]
 
@@ -248,15 +248,13 @@ async def test_components_update(
         assert json["comment"] == "Comment changed"
         assert json["scopes"] == ["object", "food"]
         assert json["published"]
-        assert jsonp.dumps(json["elements"]) == jsonp.dumps(
-            [
-                {
-                    "amount": 2,
-                    "material": "d25636af-ab36-4857-a6d0-c66d1e7a281b",
-                    "transforms": ["97c209ec-7782-5a29-8c47-af7f17c82d11"],
-                }
-            ]
-        )
+        assert json["elements"] == [
+            {
+                "amount": 2,
+                "material": "d25636af-ab36-4857-a6d0-c66d1e7a281b",
+                "transforms": ["97c209ec-7782-5a29-8c47-af7f17c82d11"],
+            }
+        ]
 
         response = await client.put(
             "/api/components/8ca2ca05-8aec-4121-acaa-7cdcc03150a9",
@@ -285,35 +283,32 @@ async def test_components_update(
 
         assert json["name"] == "Name Changed"
         assert json["comment"] == "Comment changed"
-        assert jsonp.dumps(json["elements"]) == jsonp.dumps(
-            [
-                {
-                    "amount": 3,
-                    "material": "d25636af-ab36-4857-a6d0-c66d1e7a281b",
-                }
-            ]
-        )
+        assert json["elements"] == [
+            {
+                "amount": 3,
+                "material": "d25636af-ab36-4857-a6d0-c66d1e7a281b",
+            }
+        ]
 
-        entries = await journal_entries_service.list()
+        entries = await journal_entries_service.get_many()
         assert len(entries) == 9
         entry = entries[7]
         assert entry.action == m.JournalAction.UPDATED
-        assert jsonp.dumps(entry.value) == jsonp.dumps(
-            {
-                "id": "8ca2ca05-8aec-4121-acaa-7cdcc03150a9",
-                "name": "Name Changed",
-                "scopes": ["object", "food"],
-                "comment": "Comment changed",
-                "elements": [
-                    {
-                        "amount": 2,
-                        "material": "d25636af-ab36-4857-a6d0-c66d1e7a281b",
-                        "transforms": ["97c209ec-7782-5a29-8c47-af7f17c82d11"],
-                    }
-                ],
-                "published": True,
-            }
-        )
+
+        assert entry.value == {
+            "id": "8ca2ca05-8aec-4121-acaa-7cdcc03150a9",
+            "name": "Name Changed",
+            "scopes": ["object", "food"],
+            "comment": "Comment changed",
+            "elements": [
+                {
+                    "amount": 2,
+                    "material": "d25636af-ab36-4857-a6d0-c66d1e7a281b",
+                    "transforms": ["97c209ec-7782-5a29-8c47-af7f17c82d11"],
+                }
+            ],
+            "published": True,
+        }
 
         response = await client.put(
             "/api/components/8ca2ca05-8aec-4121-acaa-7cdcc03150a9",
@@ -336,7 +331,7 @@ async def test_components_update(
         assert json["scopes"] == ["object"]
         assert len(json["elements"]) == 1
 
-        entries = await journal_entries_service.list()
+        entries = await journal_entries_service.get_many()
         assert len(entries) == 10
         entry = entries[9]
         assert entry.action == m.JournalAction.UPDATED
@@ -354,7 +349,7 @@ async def test_components_update(
             ],
         }
 
-        entries = await journal_entries_service.list()
+        entries = await journal_entries_service.get_many()
         assert len(entries) == 10
 
 
@@ -371,7 +366,7 @@ async def test_components_delete(
         )
         assert response.status_code == 403
 
-        entries = await journal_entries_service.list()
+        entries = await journal_entries_service.get_many()
         assert len(entries) == 7
 
         response = await client.delete(
@@ -380,7 +375,7 @@ async def test_components_delete(
         )
         assert response.status_code == 204
 
-        entries = await journal_entries_service.list()
+        entries = await journal_entries_service.get_many()
         assert len(entries) == 8
         assert entries[7].action == "deleted"
 

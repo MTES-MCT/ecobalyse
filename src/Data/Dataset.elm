@@ -12,6 +12,7 @@ module Data.Dataset exposing
     )
 
 import Data.Component as Component
+import Data.Component.ProductCategory as ProductCategory
 import Data.Country.Code as CountryCode
 import Data.Food.Ingredient as Ingredient
 import Data.Impact.Definition as Definition
@@ -33,13 +34,13 @@ type Dataset
     | Countries (Maybe CountryCode.Code)
     | FoodExamples (Maybe Uuid)
     | FoodIngredients (Maybe Ingredient.Id)
+    | GenericExamples Scope.GenericScope (Maybe Uuid)
     | Impacts (Maybe Definition.Trigram)
-    | ObjectExamples (Maybe Uuid)
     | Processes Scope (Maybe Process.Id)
+    | ProductCategory Scope.GenericScope (Maybe ProductCategory.Id)
     | TextileExamples (Maybe Uuid)
     | TextileMaterials (Maybe Material.Id)
     | TextileProducts (Maybe Product.Id)
-    | VeliExamples (Maybe Uuid)
 
 
 datasets : Scope -> List Dataset
@@ -54,25 +55,29 @@ datasets scope =
             ]
 
         Scope.Generic Scope.Food2 ->
-            [ Impacts Nothing
+            [ GenericExamples Scope.Food2 Nothing
+            , Impacts Nothing
             , Countries Nothing
             , Processes (Scope.Generic Scope.Food2) Nothing
+            , ProductCategory Scope.Food2 Nothing
             ]
 
         Scope.Generic Scope.Object ->
-            [ ObjectExamples Nothing
+            [ GenericExamples Scope.Object Nothing
             , Components (Scope.Generic Scope.Object) Nothing
             , Countries Nothing
             , Processes (Scope.Generic Scope.Object) Nothing
             , Impacts Nothing
+            , ProductCategory Scope.Object Nothing
             ]
 
         Scope.Generic Scope.Veli ->
-            [ VeliExamples Nothing
+            [ GenericExamples Scope.Veli Nothing
             , Components (Scope.Generic Scope.Veli) Nothing
             , Countries Nothing
             , Impacts Nothing
             , Processes (Scope.Generic Scope.Veli) Nothing
+            , ProductCategory Scope.Veli Nothing
             ]
 
         Scope.Textile ->
@@ -93,13 +98,13 @@ defaultDatasetFor scope =
             FoodExamples Nothing
 
         Scope.Generic Scope.Food2 ->
-            Processes (Scope.Generic Scope.Food2) Nothing
+            GenericExamples Scope.Food2 Nothing
 
         Scope.Generic Scope.Object ->
-            ObjectExamples Nothing
+            GenericExamples Scope.Object Nothing
 
         Scope.Generic Scope.Veli ->
-            VeliExamples Nothing
+            GenericExamples Scope.Veli Nothing
 
         Scope.Textile ->
             TextileExamples Nothing
@@ -117,8 +122,14 @@ fromSlug string =
         "food-processes" ->
             Processes Scope.Food Nothing
 
+        "food2-examples" ->
+            GenericExamples Scope.Food2 Nothing
+
         "food2-processes" ->
             Processes (Scope.Generic Scope.Food2) Nothing
+
+        "food2-product-categories" ->
+            ProductCategory Scope.Food2 Nothing
 
         "impacts" ->
             Impacts Nothing
@@ -133,10 +144,13 @@ fromSlug string =
             Components (Scope.Generic Scope.Object) Nothing
 
         "object-examples" ->
-            ObjectExamples Nothing
+            GenericExamples Scope.Object Nothing
 
         "object-processes" ->
             Processes (Scope.Generic Scope.Object) Nothing
+
+        "object-product-categories" ->
+            ProductCategory Scope.Object Nothing
 
         "processes" ->
             Processes Scope.Textile Nothing
@@ -154,10 +168,13 @@ fromSlug string =
             Components (Scope.Generic Scope.Veli) Nothing
 
         "veli-examples" ->
-            VeliExamples Nothing
+            GenericExamples Scope.Veli Nothing
 
         "veli-processes" ->
             Processes (Scope.Generic Scope.Veli) Nothing
+
+        "veli-product-categories" ->
+            ProductCategory Scope.Veli Nothing
 
         _ ->
             TextileExamples Nothing
@@ -178,13 +195,16 @@ isDetailed dataset =
         FoodIngredients (Just _) ->
             True
 
+        GenericExamples _ (Just _) ->
+            True
+
         Impacts (Just _) ->
             True
 
-        ObjectExamples (Just _) ->
+        Processes _ (Just _) ->
             True
 
-        Processes _ (Just _) ->
+        ProductCategory _ (Just _) ->
             True
 
         TextileExamples (Just _) ->
@@ -194,9 +214,6 @@ isDetailed dataset =
             True
 
         TextileProducts (Just _) ->
-            True
-
-        VeliExamples (Just _) ->
             True
 
         _ ->
@@ -228,14 +245,17 @@ reset dataset =
         FoodIngredients _ ->
             FoodIngredients Nothing
 
+        GenericExamples scope _ ->
+            GenericExamples scope Nothing
+
         Impacts _ ->
             Impacts Nothing
 
-        ObjectExamples _ ->
-            ObjectExamples Nothing
-
         Processes scope _ ->
             Processes scope Nothing
+
+        ProductCategory scope _ ->
+            ProductCategory scope Nothing
 
         TextileExamples _ ->
             TextileExamples Nothing
@@ -245,9 +265,6 @@ reset dataset =
 
         TextileProducts _ ->
             TextileProducts Nothing
-
-        VeliExamples _ ->
-            VeliExamples Nothing
 
 
 same : Dataset -> Dataset -> Bool
@@ -265,6 +282,9 @@ same a b =
         ( Processes scope1 _, Processes scope2 _ ) ->
             scope1 == scope2
 
+        ( ProductCategory scope1 _, ProductCategory scope2 _ ) ->
+            scope1 == scope2
+
         ( Impacts _, Impacts _ ) ->
             True
 
@@ -274,16 +294,13 @@ same a b =
         ( Components scope1 _, Components scope2 _ ) ->
             scope1 == scope2
 
-        ( ObjectExamples _, ObjectExamples _ ) ->
-            True
+        ( GenericExamples scope1 _, GenericExamples scope2 _ ) ->
+            scope1 == scope2
 
         ( TextileMaterials _, TextileMaterials _ ) ->
             True
 
         ( TextileProducts _, TextileProducts _ ) ->
-            True
-
-        ( VeliExamples _, VeliExamples _ ) ->
             True
 
         _ ->
@@ -305,14 +322,17 @@ setIdFromString idString dataset =
         FoodIngredients _ ->
             FoodIngredients (idString |> Ingredient.idFromString |> Result.toMaybe)
 
+        GenericExamples scope _ ->
+            GenericExamples scope (idString |> Uuid.fromString |> Result.toMaybe)
+
         Impacts _ ->
             Impacts (Definition.toTrigram idString |> Result.toMaybe)
 
-        ObjectExamples _ ->
-            ObjectExamples (idString |> Uuid.fromString |> Result.toMaybe)
-
         Processes scope _ ->
             Processes scope (Process.idFromString idString |> Result.toMaybe)
+
+        ProductCategory scope _ ->
+            ProductCategory scope (ProductCategory.idFromString idString |> Result.toMaybe)
 
         TextileExamples _ ->
             TextileExamples (idString |> Uuid.fromString |> Result.toMaybe)
@@ -322,9 +342,6 @@ setIdFromString idString dataset =
 
         TextileProducts _ ->
             TextileProducts (Just (Product.Id idString))
-
-        VeliExamples _ ->
-            VeliExamples (idString |> Uuid.fromString |> Result.toMaybe)
 
 
 slug : Dataset -> String
@@ -347,14 +364,17 @@ strings dataset =
         FoodIngredients _ ->
             { label = "Ingrédients", slug = "ingredients" }
 
+        GenericExamples genericScope _ ->
+            { label = "Exemples", slug = Scope.toString (Scope.Generic genericScope) ++ "-examples" }
+
         Impacts _ ->
             { label = "Impacts", slug = "impacts" }
 
-        ObjectExamples _ ->
-            { label = "Exemples", slug = "object-examples" }
-
         Processes scope _ ->
             { label = "Procédés", slug = Scope.toString scope ++ "-processes" }
+
+        ProductCategory genericScope _ ->
+            { label = "Produits", slug = Scope.toString (Scope.Generic genericScope) ++ "-product-categories" }
 
         TextileExamples _ ->
             { label = "Exemples", slug = "textile-examples" }
@@ -364,9 +384,6 @@ strings dataset =
 
         TextileProducts _ ->
             { label = "Produits", slug = "products" }
-
-        VeliExamples _ ->
-            { label = "Exemples", slug = "veli-examples" }
 
 
 toRoutePath : Dataset -> List String
@@ -396,22 +413,28 @@ toRoutePath dataset =
         FoodIngredients Nothing ->
             [ slug dataset ]
 
+        GenericExamples _ (Just id) ->
+            [ slug dataset, Uuid.toString id ]
+
+        GenericExamples _ Nothing ->
+            [ slug dataset ]
+
         Impacts (Just trigram) ->
             [ slug dataset, Definition.toString trigram ]
 
         Impacts Nothing ->
             [ slug dataset ]
 
-        ObjectExamples (Just id) ->
-            [ slug dataset, Uuid.toString id ]
-
-        ObjectExamples Nothing ->
-            [ slug dataset ]
-
         Processes _ (Just id) ->
             [ slug dataset, Process.idToString id ]
 
         Processes _ Nothing ->
+            [ slug dataset ]
+
+        ProductCategory _ (Just id) ->
+            [ slug dataset, ProductCategory.idToString id ]
+
+        ProductCategory _ Nothing ->
             [ slug dataset ]
 
         TextileExamples (Just id) ->
@@ -430,10 +453,4 @@ toRoutePath dataset =
             [ slug dataset, Product.idToString id ]
 
         TextileProducts Nothing ->
-            [ slug dataset ]
-
-        VeliExamples (Just id) ->
-            [ slug dataset, Uuid.toString id ]
-
-        VeliExamples Nothing ->
             [ slug dataset ]

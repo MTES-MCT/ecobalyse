@@ -1,11 +1,8 @@
 from __future__ import annotations
 
-from typing import Optional
-from uuid import UUID  # noqa: TC003
+from uuid import UUID
 
-import msgspec
-
-from app.lib.schema import CamelizedBaseStruct
+from pydantic import Field
 
 __all__ = (
     "Process",
@@ -15,9 +12,11 @@ __all__ = (
 from enum import StrEnum
 
 from app.domain.components.schemas import Scope
+from app.lib.schema import BaseSchema
 
 
 class Category(StrEnum):
+    ASSEMBLY = "assembly"
     DISTRIBUTION = "distribution"
     ENERGY = "energy"
     EOL = "end-of-life"
@@ -76,17 +75,18 @@ class Category(StrEnum):
     USE = "use"
 
 
-class Impacts(CamelizedBaseStruct):
+class Impacts(BaseSchema):
     acd: float = 0
     cch: float = 0
+    ecs: float = 0
     etf: float = 0
-    etf_c: float = msgspec.field(name="etf-c", default=0)
+    etf_c: float = Field(alias="etf-c", default=0)
     fru: float = 0
     fwe: float = 0
     htc: float = 0
-    htc_c: float = msgspec.field(name="htc-c", default=0)
+    htc_c: float = Field(alias="htc-c", default=0)
     htn: float = 0
-    htn_c: float = msgspec.field(name="htn-c", default=0)
+    htn_c: float = Field(alias="htn-c", default=0)
     ior: float = 0
     ldu: float = 0
     mru: float = 0
@@ -96,30 +96,26 @@ class Impacts(CamelizedBaseStruct):
     swe: float = 0
     tre: float = 0
     wtu: float = 0
-    ecs: float = 0
 
 
-class Process(CamelizedBaseStruct):
+class Process(BaseSchema):
     """Component properties to use for a response."""
 
+    activity_name: str | None = None
+    alias: str | None = None
     categories: list[Category]
     comment: str
+    display_name: str | None = None
+    elec_kwh: float = Field(alias="elecKwh", default=0)
+    heat_mj: float = Field(alias="heatMJ", default=0)
     id: UUID
     impacts: Impacts
+    location: str | None = None
+    mass_per_unit: float | None = None
+    qty_variation_ratio: float = 1
+    scopes: list[Scope] = Field(default=[])
     source: str
     unit: Unit
-
-    # Optional fields
-
-    activity_name: Optional[str] = None
-    alias: Optional[str] = None
-    mass_per_unit: Optional[float] = msgspec.field(name="massPerUnit", default=None)
-    display_name: Optional[str] = None
-    elec_kwh: float = msgspec.field(name="elecKwh", default=0)
-    heat_mj: float = msgspec.field(name="heatMJ", default=0)
-    location: Optional[str] = None
-    scopes: list[Scope] = []
-    qty_variation_ratio: float = 1
 
 
 class Unit(StrEnum):

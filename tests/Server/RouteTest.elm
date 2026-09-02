@@ -82,7 +82,7 @@ foodEndpoints db =
                             royalPizza.ingredients |> List.map (\i -> { i | country = Just <| CountryCode.fromString "BD" })
                     }
                     |> testFoodEndpoint db
-                    |> expectFoodValidationError "ingredients" "Le code pays BD n'est pas utilisable dans un contexte Alimentaire."
+                    |> expectFoodValidationError "ingredients" "Le code pays BD n’est pas utilisable dans un contexte Alimentaire."
                     |> asTest "validate an ingredient incompatible country code"
                 , FoodQuery.encode
                     { royalPizza
@@ -257,7 +257,7 @@ textileEndpoints db =
                         | countryDyeing = Just <| CountryCode.fromString "US"
                     }
                     |> testTextileEndpoint db
-                    |> expectTextileValidationError "countryDyeing" "Le code pays US n'est pas utilisable dans un contexte Textile."
+                    |> expectTextileValidationError "countryDyeing" "Le code pays US n’est pas utilisable dans un contexte Textile."
                     |> asTest "validate that an ingredient country scope is valid"
                 ]
             )

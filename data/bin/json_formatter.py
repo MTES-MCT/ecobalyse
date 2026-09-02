@@ -3,14 +3,14 @@
 
 import json
 from pathlib import Path
+from typing import Annotated
 
 import typer
-from typing_extensions import Annotated, List
 
 from common import activities_processes_sort_key
 from ecobalyse_data.logging import logger
 
-EXCLUDED_PATHS: List[str] = [
+EXCLUDED_PATHS: list[str] = [
     "/.git",
     "/.venv/",
     "/.vscode",
@@ -61,9 +61,9 @@ def _lint_and_fix(path: Path, fix: bool):
                 fp.write(formatted_data)
                 return True
         logger.error(f"{path} needs formatting")
-    except Exception as e:
+    except Exception:
         print(f"json_formatter error in {path}")
-        raise e
+        raise
     return False
 
 
@@ -76,7 +76,7 @@ def is_excluded(path: Path):
 
 def main(
     paths: Annotated[
-        List[Path],
+        list[Path],
         typer.Argument(
             dir_okay=True,
             exists=True,

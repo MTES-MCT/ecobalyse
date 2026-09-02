@@ -15,7 +15,7 @@ import Browser.Events
 import Browser.Navigation as Navigation
 import Data.AutocompleteSelector as AutocompleteSelector
 import Data.Bookmark as Bookmark exposing (Bookmark)
-import Data.Component as Component exposing (Component, Index)
+import Data.Component as Component exposing (Index)
 import Data.Country.Code as CountryCode
 import Data.Dataset as Dataset
 import Data.Db exposing (Db)
@@ -93,7 +93,7 @@ type alias Model =
 
 type Modal
     = AddMaterialModal (Maybe Inputs.MaterialInput) (Autocomplete Material)
-    | AddTrimModal (Autocomplete Component)
+    | AddTrimModal (Autocomplete Component.ProductionItem)
     | ComparatorModal
     | ConfirmSwitchToRegulatoryModal
     | ExplorerDetailsTab Material
@@ -118,7 +118,7 @@ type Msg
     | OnAutocompleteMaterial (Autocomplete.Msg Material)
     | OnAutocompleteProduct (Autocomplete.Msg Product)
     | OnAutocompleteSelect
-    | OnAutocompleteTrim (Autocomplete.Msg Component)
+    | OnAutocompleteTrim (Autocomplete.Msg Component.ProductionItem)
     | OnDragLeaveBookmark
     | OnDragOverBookmark Bookmark
     | OnDragStartBookmark Bookmark
@@ -730,16 +730,21 @@ selectExample autocompleteState { model, session } =
         |> App.withCmds [ Plausible.send session <| Plausible.ExampleSelected Scope.Textile ]
 
 
-selectTrim : Autocomplete Component -> PageUpdate Model Msg -> PageUpdate Model Msg
+selectTrim : Autocomplete Component.ProductionItem -> PageUpdate Model Msg -> PageUpdate Model Msg
 selectTrim autocompleteState ({ session } as pageUpdate) =
     case Autocomplete.selectedValue autocompleteState of
-        Just trim ->
+        Just (Component.ComponentItem trim) ->
             pageUpdate
                 |> App.apply update (SetModal NoModal)
                 |> updateQuery
                     (session.queries.textile
                         |> Query.updateTrims session.db.textile.products (Component.addItem trim.id)
                     )
+
+        -- Note: raw materials are not offered in the Textile trims context, so
+        -- only components are selectable here.
+        Just (Component.MaterialItem _) ->
+            pageUpdate |> App.notifyError "Erreur" "Un matériau brut ne peut pas être ajouté comme accessoire"
 
         Nothing ->
             pageUpdate |> App.notifyError "Erreur" "Aucun accessoire sélectionné"
@@ -995,6 +1000,7 @@ simulatorFormView session model ({ inputs } as simulator) =
         , docsUrl = Just <| Gitbook.publicUrlFromPath Gitbook.TextileTrims
         , explorerRoute = Just (Route.Explore Scope.Textile (Dataset.Components Scope.Textile Nothing))
         , impact = model.impact
+        , labels = ComponentView.scopeLabels ComponentView.TextileTrimsContext Scope.Textile
         , lifeCycle =
             Component.emptyQuery
                 |> Component.setQueryItems inputs.trims
@@ -1004,13 +1010,14 @@ simulatorFormView session model ({ inputs } as simulator) =
                     , scope = Scope.Textile
                     }
         , noOp = NoOp
-        , openCreateComponentModal = NoOp
-        , openSelectComponentModal = AddTrimModal >> SetModal
-        , openSelectPackagingModal = \_ -> NoOp
         , openEditElementModal = \_ _ -> NoOp
-        , openSelectProcessModal = \_ _ _ _ -> SetModal NoModal
+        , openSelectAssemblyOperationModal = \_ -> NoOp
         , openSelectConsumptionModal = \_ -> NoOp
+        , openSelectPackagingModal = \_ -> NoOp
+        , openSelectProcessModal = \_ _ _ _ -> SetModal NoModal
+        , openSelectProductionItem = AddTrimModal >> SetModal
         , query = Component.emptyQuery |> Component.setQueryItems inputs.trims
+        , removeAssemblyOperation = \_ -> NoOp
         , removeConsumption = \_ -> NoOp
         , removePackaging = \_ -> NoOp
         , removeElement = \_ -> NoOp
@@ -1277,7 +1284,7 @@ view session model =
                                 , onAutocompleteSelect = OnAutocompleteSelect
                                 , placeholderText = "tapez ici un nom d'accesoire pour le rechercher"
                                 , title = "Sélectionnez un accessoire"
-                                , toLabel = .name
+                                , toLabel = Component.productionItemToLabel
                                 , toCategory = always ""
                                 }
 

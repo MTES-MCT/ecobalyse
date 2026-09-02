@@ -2,11 +2,11 @@
 
 import functools
 import json
-from typing import List, Optional, Set, Tuple
+from pathlib import Path
 
 from config import DATA_ROOT_DIR
 
-_BASE_INGREDIENTS_PATH = DATA_ROOT_DIR / "food" / "base_ingredients.json"
+_TAXONOMY_PATH = DATA_ROOT_DIR / "food" / "taxonomy.json"
 
 
 _LEGACY_ZONE_TO_COUNTRY = {
@@ -48,7 +48,7 @@ TRANSPORTED_COOLED_CATEGORY = "transported_cooled"
 _MATERIAL_TYPE_PREFIX = "material_type:"
 
 
-def get_material_types(categories: List[str]) -> Set[str]:
+def get_material_types(categories: list[str]) -> set[str]:
     return {
         category[len(_MATERIAL_TYPE_PREFIX) :]
         for category in categories
@@ -56,7 +56,7 @@ def get_material_types(categories: List[str]) -> Set[str]:
     }
 
 
-def infer_transported_cooled(categories: List[str]) -> List[str]:
+def infer_transported_cooled(categories: list[str]) -> list[str]:
     """add transported_cooled tag to materials with TRANSPORTED_COOLED_MATERIAL_TYPES"""
     material_types = get_material_types(categories)
     is_ingredient = "ingredient" in categories
@@ -68,9 +68,7 @@ def infer_transported_cooled(categories: List[str]) -> List[str]:
     return categories
 
 
-def infer_default_origin(
-    origin_zone: Optional[str], categories: List[str]
-) -> Optional[str]:
+def infer_default_origin(origin_zone: str | None, categories: list[str]) -> str | None:
     """generic default origin is infered from legacy default_origin with the _LEGACY_ZONE_TO_COUNTRY mapping"""
     if origin_zone is not None:
         if origin_zone not in _LEGACY_ZONE_TO_COUNTRY:
@@ -87,7 +85,7 @@ def infer_default_origin(
 
 
 def infer_raw_to_cooked_ratio(
-    explicit_ratio: Optional[float], categories: List[str]
+    explicit_ratio: float | None, categories: list[str]
 ) -> float:
     """If explicit_ratio is None, infer the raw_to_cooked_ratio from the material_type tag"""
     if explicit_ratio is not None:
@@ -105,13 +103,46 @@ def infer_raw_to_cooked_ratio(
     )
 
 
-@functools.cache
-def load_base_ingredients() -> Tuple[str, ...]:
-    with open(_BASE_INGREDIENTS_PATH, "r", encoding="utf-8") as f:
-        base_ingredients = json.load(f)
+KNOWN_MATERIAL_TYPES = frozenset(_MATERIAL_TYPE_TO_RAW_TO_COOKED_RATIO) | {
+    "other_food_items"
+}
 
+
+def parse_taxonomy(
+    taxonomy: dict, known_material_types: frozenset[str] = KNOWN_MATERIAL_TYPES
+) -> dict[str, str]:
+    """Turn a taxonomy document into the baseIngredient -> material_type
+    mapping, rejecting unknown material_types and duplicated baseIngredients.
+    """
+    material_type_by_base = {}
+    for material_type, base_ingredients in taxonomy["food"].items():
+        if material_type not in known_material_types:
+            raise ValueError(
+                f"Unknown material_type {material_type!r}. "
+                f"Known material_types: {sorted(known_material_types)}."
+            )
+        for base_ingredient in base_ingredients:
+            if base_ingredient in material_type_by_base:
+                raise ValueError(
+                    f"baseIngredient {base_ingredient!r} appears under several "
+                    "material_types."
+                )
+            material_type_by_base[base_ingredient] = material_type
+    return material_type_by_base
+
+
+@functools.cache
+def load_taxonomy(taxonomy_path: Path = _TAXONOMY_PATH) -> dict[str, str]:
+    """Return the validated baseIngredient -> material_type mapping from
+    taxonomy.json."""
+    with open(taxonomy_path, "r", encoding="utf-8") as f:
+        return parse_taxonomy(json.load(f))
+
+
+@functools.cache
+def load_base_ingredients() -> tuple[str, ...]:
     # sort by descending length so that `apple-juice-fr` matches baseIngredient `apple-juice` and not `apple`
-    return tuple(sorted(set(base_ingredients), key=len, reverse=True))
+    return tuple(sorted(load_taxonomy(), key=len, reverse=True))
 
 
 def infer_base_ingredient(alias: str) -> str:
@@ -124,5 +155,5 @@ def infer_base_ingredient(alias: str) -> str:
             return base_ingredient
     raise ValueError(
         f"Cannot infer baseIngredient for alias {alias!r}. "
-        f"Add the canonical baseIngredient to food/base_ingredients.json."
+        f"Add the canonical baseIngredient to food/taxonomy.json."
     )

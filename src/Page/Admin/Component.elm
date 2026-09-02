@@ -543,7 +543,7 @@ componentRowView session selected component =
                 |> Component.computeImpacts
                     { config = session.componentConfig
                     , db = session.db
-                    , scope = Scope.Generic Scope.Object
+                    , scope = component.scope
                     }
                     Component.defaultTransportOptions
                 |> Result.map
@@ -566,20 +566,20 @@ componentRowView session selected component =
                     , onClick <| DuplicateComponent component
                     ]
                     [ Icon.copy ]
-                , case component.id of
-                    Just componentId ->
+                , case ( component.id, Scope.toGenericScope component.scope ) of
+                    ( Just componentId, Just genericScope ) ->
                         a
                             [ class "btn btn-outline-primary"
                             , title "Utiliser dans le simulateur"
                             , Component.emptyQuery
                                 |> Component.setQueryItems [ Component.createItem (Just componentId) ]
                                 |> Just
-                                |> Route.ObjectSimulator (Scope.Generic Scope.Object) Definition.Ecs
+                                |> Route.GenericSimulator genericScope Definition.Ecs
                                 |> Route.href
                             ]
                             [ Icon.puzzle ]
 
-                    Nothing ->
+                    _ ->
                         button
                             [ class "btn btn-outline-primary"
                             , title "Utiliser dans le simulateur"
@@ -644,6 +644,7 @@ modalView { componentConfig, db } modals index modal =
                             , docsUrl = Nothing
                             , explorerRoute = Nothing
                             , impact = db.definitions |> Definition.get Definition.Ecs
+                            , labels = ComponentView.scopeLabels ComponentView.AdminContext component.scope
                             , lifeCycle =
                                 Component.emptyQuery
                                     |> Component.setQueryItems [ item ]
@@ -653,17 +654,18 @@ modalView { componentConfig, db } modals index modal =
                                         , scope = component.scope
                                         }
                             , noOp = NoOp
-                            , openCreateComponentModal = NoOp
-                            , openSelectComponentModal = \_ -> NoOp
+                            , openEditElementModal = \_ _ -> NoOp
+                            , openSelectAssemblyOperationModal = \_ -> NoOp
                             , openSelectConsumptionModal = \_ -> NoOp
                             , openSelectPackagingModal = \_ -> NoOp
-                            , openEditElementModal = \_ _ -> NoOp
                             , openSelectProcessModal =
                                 \p ti ei s ->
                                     SetModals (SelectProcessModal p ti ei s :: modals)
+                            , openSelectProductionItem = \_ -> NoOp
 
                             -- Note: we don't handle assembly country in the admin
                             , query = Component.emptyQuery |> Component.setQueryItems [ item ]
+                            , removeAssemblyOperation = \_ -> NoOp
                             , removeConsumption = \_ -> NoOp
                             , removePackaging = \_ -> NoOp
                             , removeElement =

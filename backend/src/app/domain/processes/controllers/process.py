@@ -1,11 +1,12 @@
 from __future__ import annotations
 
+from typing import TYPE_CHECKING, Annotated
 from uuid import UUID
 
 from advanced_alchemy.filters import OrderBy
 from litestar import get
 from litestar.controller import Controller
-from litestar.di import Provide
+from litestar.di import NamedDependency, Provide
 from litestar.params import Parameter
 
 from app.db import models as m
@@ -19,9 +20,16 @@ from app.domain.processes.schemas import (
 from app.domain.processes.services import ProcessService
 from app.lib.deps import create_filter_dependencies
 
+if TYPE_CHECKING:
+    from litestar.router import Router
+
 
 class ProcessController(Controller):
     """Process CRUD"""
+
+    def __init__(self, owner: Router) -> None:
+        self.tags = ["Processes"]
+        super().__init__(owner)
 
     dependencies = {
         "processes_service": Provide(provide_processes_service),
@@ -36,13 +44,11 @@ class ProcessController(Controller):
         },
     )
 
-    tags = ["Processes"]
-
     @get(operation_id="ListProcesses", path=urls.PROCESS_LIST)
     async def list_processes(
         self,
-        current_user: m.User | None,
-        processes_service: ProcessService,
+        current_user: NamedDependency[m.User | None],
+        processes_service: NamedDependency[ProcessService],
     ) -> list[Process]:
         """List processes."""
 
@@ -63,11 +69,11 @@ class ProcessController(Controller):
     @get(operation_id="GetProcess", path=urls.PROCESS_DETAIL)
     async def get_process(
         self,
-        current_user: m.User | None,
-        processes_service: ProcessService,
-        process_id: UUID = Parameter(
-            title="Process ID", description="The process to retrieve."
-        ),
+        current_user: NamedDependency[m.User | None],
+        processes_service: NamedDependency[ProcessService],
+        process_id: Annotated[
+            UUID, Parameter(title="Process ID", description="The process to retrieve.")
+        ],
     ) -> Process:
         """Get a process."""
 

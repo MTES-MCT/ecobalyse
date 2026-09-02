@@ -2,13 +2,12 @@
 
 import multiprocessing
 from multiprocessing import Pool
-from typing import List, Optional
+from typing import Annotated
 
 import bw2data
 import orjson
 import typer
 from bw2data.project import projects
-from typing_extensions import Annotated
 
 from common import (
     get_normalization_weighting_factors,
@@ -33,7 +32,7 @@ def main(
     # Use half the cores to avoid locking the system. Also look at the the .env.sample file
     # where environment variables are used to change the behaviour of some computing libs
     cpu_count: Annotated[
-        Optional[int],
+        int | None,
         typer.Option(
             help="The number of CPUs/cores to use for computation. Default to MAX/2."
         ),
@@ -45,25 +44,25 @@ def main(
         ),
     ] = -1,
     db: Annotated[
-        Optional[List[str]],
+        list[str] | None,
         typer.Option(
             help="Brightway databases you want to computate impacts for. Default to all. You can specify multiple `--db`.",
         ),
-    ] = [],
+    ] = None,
     project: Annotated[
-        Optional[str],
+        str | None,
         typer.Option(
             help=f"Brightway project name. Default to {settings.bw.project}.",
         ),
     ] = settings.bw.project,
     activity_name: Annotated[
-        Optional[str],
+        str | None,
         typer.Option(
             help="Brightway activity name",
         ),
     ] = None,
     location: Annotated[
-        Optional[str],
+        str | None,
         typer.Option(
             help="Location of the LCI (Country code like FR, BE, DE, or region like GLO, RoW, RER, etc.).",
         ),
@@ -80,6 +79,8 @@ def main(
     """
 
     # Init BW project
+    if db is None:
+        db = []
     projects.set_current(project)
 
     all_impacts = {}
@@ -94,32 +95,36 @@ def main(
     for database_name in databases:
         logger.info(f"-> Exploring DB '{database_name}'")
 
-        db = bw2data.Database(database_name)
+        db = bw2data.Database(database_name)  # ty:ignore[invalid-assignment]
 
         with Pool(cpu_count) as pool:
             activities_parameters = []
             nb_activity = 0
 
             logger.info(
-                f"-> Computing impacts for {len(db)} activities, using {cpu_count} cores, hold on, it will take a while…"
+                f"-> Computing impacts for {len(db)} activities, using {cpu_count} cores, hold on, it will take a while…"  # ty: ignore[invalid-argument-type]
             )
-            for activity in db:
-                if "process" in activity.get("type") and (max < 0 or nb_activity < max):
-                    if activity_name is None or (
+            for activity in db:  # ty:ignore[not-iterable]
+                if (
+                    "process" in activity.get("type")  # ty:ignore[unresolved-attribute]
+                    and (max < 0 or nb_activity < max)
+                    and activity_name is None
+                    or (
                         activity_name is not None
-                        and activity_name == activity.get("name")
-                    ):
-                        activities_parameters.append(
-                            # Parameters of the `get_process_with_impacts` function
-                            (
-                                activity,
-                                main_method,
-                                impacts_py,
-                                IMPACTS_JSON,
-                                factors,
-                            )
+                        and activity_name == activity.get("name")  # ty:ignore[unresolved-attribute]
+                    )
+                ):
+                    activities_parameters.append(
+                        # Parameters of the `get_process_with_impacts` function
+                        (
+                            activity,
+                            main_method,
+                            impacts_py,
+                            IMPACTS_JSON,
+                            factors,
                         )
-                        nb_activity += 1
+                    )
+                    nb_activity += 1
 
             processes_with_impacts = []
             if multiprocessing:

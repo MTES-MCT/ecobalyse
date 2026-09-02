@@ -1,4 +1,4 @@
-module Data.Object.Simulator exposing
+module Data.Generic.Simulator exposing
     ( compute
     , toStagesImpacts
     )

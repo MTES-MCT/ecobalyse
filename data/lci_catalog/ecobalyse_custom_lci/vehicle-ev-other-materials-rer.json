@@ -1,11 +1,11 @@
 {
-  "activityName": "Other Materials, Europe - EV ecoscore regulation",
+  "activityName": "EV other materials, RER",
   "categories": [
     "material",
-    "material_type:pp"
+    "material_type:other"
   ],
-  "comment": "A utiliser uniquement pour une modélisation approchée du score environnemental voitures électriques (méthode réglementaire).",
-  "displayName": "Autres matériaux, Europe (Réglementaire - Score environnemental VE)",
+  "comment": "Selon méthodologie du score environnemental VE",
+  "displayName": "Autres matériaux de véhicules électriques, Europe - score environnemental VE",
   "elecKwh": 0.0,
   "heatMJ": 0,
   "id": "405431f4-cb58-4deb-9a27-145123ff9e68",

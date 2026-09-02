@@ -34,7 +34,7 @@ class JournalEntry(
 
     created_at: Mapped[datetime.datetime] = mapped_column(
         DateTimeUTC(timezone=True),
-        default=lambda: datetime.datetime.now(datetime.timezone.utc),
+        default=lambda: datetime.datetime.now(datetime.UTC),
     )
 
     table_name: Mapped[str] = mapped_column(nullable=False)
@@ -58,7 +58,6 @@ class JournalEntry(
     @property
     def value_str(self) -> str | None:
         if self.value is not None:
-            # Used for json/msgspec serialization
             return json.dumps(self.value, ensure_ascii=False, indent=2, sort_keys=True)
 
     def __repr__(self) -> str:

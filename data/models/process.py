@@ -1,10 +1,9 @@
 import uuid
 from enum import Enum
-from typing import Any, List, Optional
+from typing import Annotated, Any
 
 from pydantic import AfterValidator, AliasGenerator, BaseModel, ConfigDict, Field
 from pydantic.alias_generators import to_camel, to_snake
-from typing_extensions import Annotated
 
 from common.export import (
     validate_id,
@@ -93,58 +92,55 @@ class Cff(EcoModel):
 class Material(EcoModel):
     id: uuid.UUID
     alias: Annotated[str, AfterValidator(validate_id)]
-    recycled_from: Optional[uuid.UUID]
+    recycled_from: uuid.UUID | None
     name: str
     origin: str
-    primary: Optional[bool]
+    primary: bool | None
     geographic_origin: str
     default_country: str
-    cff: Optional[Cff]
+    cff: Cff | None
     process_id: uuid.UUID
 
 
 class Complements(EcoModel):
-    forest: Optional[float] = None
-    crop_diversity: Optional[float] = None
-    hedges: Optional[float] = None
-    permanent_pasture: Optional[float] = None
-    plot_size: Optional[float] = None
+    forest: float | None = None
+    crop_diversity: float | None = None
+    hedges: float | None = None
+    permanent_pasture: float | None = None
+    plot_size: float | None = None
 
 
 class IngredientMetadata(EcoModel):
     base_ingredient: str
-    crop_group: Optional[str] = None
-    density: float
-    inedible_part: float
-    raw_to_cooked_ratio: float
-    scenario: Optional[str] = None
+    crop_group: str | None = None
+    scenario: str | None = None
     process_id: uuid.UUID
 
 
 class ProcessGenericMetadata(EcoModel):
-    forest_management: Optional[ForestManagement] = None
-    complements: Optional[Complements] = None
-    ingredient: Optional[IngredientMetadata] = None
-    default_origin: Optional[str] = None
+    forest_management: ForestManagement | None = None
+    complements: Complements | None = None
+    ingredient: IngredientMetadata | None = None
+    default_origin: str | None = None
 
 
 class ProcessGeneric(EcoModel):
     activity_name: str
-    alias: Optional[Annotated[str, AfterValidator(validate_id)]] = None
-    categories: List[str]
+    alias: Annotated[str, AfterValidator(validate_id)] | None = None
+    categories: list[str]
     comment: str
     display_name: str
     elec_kwh: Annotated[float, Field(serialization_alias="elecKwh")]
     heat_mj: Annotated[float, Field(serialization_alias="heatMJ")]
     id: uuid.UUID
     impacts: Impacts
-    land_occupation: Optional[float] = None
-    location: Optional[str]
-    mass_per_unit: Optional[float]
-    metadata: Optional[ProcessGenericMetadata] = None
-    scopes: List[Scope]
+    land_occupation: float | None = None
+    location: str | None
+    mass_per_unit: float | None
+    metadata: ProcessGenericMetadata | None = None
+    scopes: list[Scope]
     source: str
-    unit: Optional[UnitEnum]
+    unit: UnitEnum | None
     qty_variation_ratio: float
     visible: bool = True
 
@@ -152,25 +148,25 @@ class ProcessGeneric(EcoModel):
 class EcosystemicServices(EcoModel):
     crop_diversity: float
     hedges: float
-    permanent_pasture: Optional[float] = None
+    permanent_pasture: float | None = None
     plot_size: float
 
 
 class Ingredient(EcoModel):
     alias: Annotated[str, AfterValidator(validate_id)]
     base_ingredient: str
-    categories: List[str]
-    crop_group: Optional[str]
+    categories: list[str]
+    crop_group: str | None
     default_origin: str
     density: float
-    ecosystemic_services: Optional[EcosystemicServices]
+    ecosystemic_services: EcosystemicServices | None
     id: uuid.UUID
     inedible_part: float
-    land_occupation: Optional[float]
+    land_occupation: float | None
     name: str
     raw_to_cooked_ratio: float
-    scenario: Optional[str]
-    location: Optional[str]
+    scenario: str | None
+    location: str | None
     activity_name: str
     transport_cooling: str
     visible: bool
@@ -178,20 +174,20 @@ class Ingredient(EcoModel):
 
 
 class Process(EcoModel):
-    bw_activity: Optional[Any]
-    categories: List[str]
+    bw_activity: Any | None
+    categories: list[str]
     comment: str
-    computed_by: Optional[ComputedBy]
-    mass_per_unit: Optional[float]
+    computed_by: ComputedBy | None
+    mass_per_unit: float | None
     display_name: str
     elec_kwh: Annotated[float, Field(serialization_alias="elecKwh")]
     heat_mj: Annotated[float, Field(serialization_alias="heatMJ")]
-    id: Optional[uuid.UUID]
-    impacts: Optional[Impacts] = None
-    location: Optional[str]
-    scopes: List[Scope]
+    id: uuid.UUID | None
+    impacts: Impacts | None = None
+    location: str | None
+    scopes: list[Scope]
     source: str
     # Process identifier in Simapro
     activity_name: str
-    unit: Optional[UnitEnum]
+    unit: UnitEnum | None
     qty_variation_ratio: float

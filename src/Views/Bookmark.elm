@@ -96,9 +96,9 @@ view cfg =
         }
 
 
-buildObjectApiQuery : Scope -> Maybe String -> String -> Component.Query -> String
-buildObjectApiQuery scope maybeToken clientUrl query =
-    -- FIXME: the Food2/Object/Veli API doesn't exist just yet, but we already expose what
+buildGenericApiQuery : Scope -> Maybe String -> String -> Component.Query -> String
+buildGenericApiQuery scope maybeToken clientUrl query =
+    -- FIXME: the generic Food2/Object/Veli API doesn't exist just yet, but we already expose what
     -- could be used when it's live
     (clientUrl ++ "/api/" ++ Scope.toString scope ++ "/simulator")
         |> Text.buildCurlCommand maybeToken
@@ -132,12 +132,12 @@ shareTabView { copyToClipBoard, impact, scope, session } =
                             session.queries.food2
                     in
                     ( Just query
-                        |> Route.ObjectSimulator scope impact.trigram
+                        |> Route.GenericSimulator Scope.Food2 impact.trigram
                         |> Route.toString
                         |> (++) "/"
                         |> (++) session.clientUrl
                     , query
-                        |> buildObjectApiQuery scope (Session.getAccessToken session) session.clientUrl
+                        |> buildGenericApiQuery scope (Session.getAccessToken session) session.clientUrl
                     , Component.encodeQuery query
                         |> Encode.encode 2
                     )
@@ -148,12 +148,12 @@ shareTabView { copyToClipBoard, impact, scope, session } =
                             session.queries.object
                     in
                     ( Just query
-                        |> Route.ObjectSimulator scope impact.trigram
+                        |> Route.GenericSimulator Scope.Object impact.trigram
                         |> Route.toString
                         |> (++) "/"
                         |> (++) session.clientUrl
                     , query
-                        |> buildObjectApiQuery scope (Session.getAccessToken session) session.clientUrl
+                        |> buildGenericApiQuery scope (Session.getAccessToken session) session.clientUrl
                     , Component.encodeQuery query
                         |> Encode.encode 2
                     )
@@ -164,12 +164,12 @@ shareTabView { copyToClipBoard, impact, scope, session } =
                             session.queries.veli
                     in
                     ( Just query
-                        |> Route.ObjectSimulator scope impact.trigram
+                        |> Route.GenericSimulator Scope.Veli impact.trigram
                         |> Route.toString
                         |> (++) "/"
                         |> (++) session.clientUrl
                     , query
-                        |> buildObjectApiQuery scope (Session.getAccessToken session) session.clientUrl
+                        |> buildGenericApiQuery scope (Session.getAccessToken session) session.clientUrl
                     , Component.encodeQuery query
                         |> Encode.encode 2
                     )
@@ -359,9 +359,9 @@ bookmarkView cfg ({ name, query } as bookmark) =
                     Just foodQuery
                         |> Route.FoodBuilder cfg.impact.trigram
 
-                Bookmark.Generic genericScope food2Query ->
-                    Just food2Query
-                        |> Route.ObjectSimulator (Scope.Generic genericScope) cfg.impact.trigram
+                Bookmark.Generic genericScope genericQuery ->
+                    Just genericQuery
+                        |> Route.GenericSimulator genericScope cfg.impact.trigram
 
                 Bookmark.Textile textileQuery ->
                     Just textileQuery
@@ -443,12 +443,20 @@ contributeExampleTabView ({ scope, session } as config) =
         isAuthenticated =
             Session.isAuthenticated session
 
+        currentQuery =
+            case Scope.toGenericScope scope of
+                Just genericScope ->
+                    Session.genericQuery genericScope session
+
+                Nothing ->
+                    Component.emptyQuery
+
         simulationIsEmpty =
-            Session.objectQueryFromScope scope session == Component.emptyQuery
+            currentQuery == Component.emptyQuery
 
         simulationExists =
-            session.db.object.examples
-                |> List.any (.query >> (==) (Session.objectQueryFromScope scope session))
+            session.db.generic.examples
+                |> List.any (.query >> (==) currentQuery)
 
         disabledForm =
             config.contribRequestPending || not isAuthenticated || simulationIsEmpty || simulationExists

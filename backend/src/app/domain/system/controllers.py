@@ -4,6 +4,7 @@ from typing import TYPE_CHECKING, Literal, TypeVar
 
 import structlog
 from litestar import Controller, MediaType, Request, get
+from litestar.di import NamedDependency
 from litestar.response import Response
 from sqlalchemy import text
 
@@ -13,6 +14,7 @@ from .schemas import SystemHealth
 from .urls import SENTRY_CHECK, SYSTEM_HEALTH
 
 if TYPE_CHECKING:
+    from litestar.router import Router
     from sqlalchemy.ext.asyncio import AsyncSession
 
 logger = structlog.get_logger()
@@ -20,7 +22,9 @@ OnlineOffline = TypeVar("OnlineOffline", bound=Literal["online", "offline"])
 
 
 class SystemController(Controller):
-    tags = ["System"]
+    def __init__(self, owner: Router) -> None:
+        self.tags = ["System"]
+        super().__init__(owner)
 
     @get(
         operation_id="SystemHealth",
@@ -35,7 +39,7 @@ class SystemController(Controller):
     async def check_system_health(
         self,
         request: Request,
-        db_session: AsyncSession,
+        db_session: NamedDependency[AsyncSession],
     ) -> Response[SystemHealth]:
         """Check database available and returns app config info."""
         try:
@@ -58,7 +62,7 @@ class SystemController(Controller):
             )
 
         return Response(
-            content=SystemHealth(database_status=db_status),  # type: ignore
+            content=SystemHealth(database_status=db_status),
             status_code=200 if db_ping else 500,
             media_type=MediaType.JSON,
         )
@@ -69,7 +73,7 @@ class SystemController(Controller):
         include_in_schema=False,
         guards=[requires_superuser],
     )
-    async def check_sentry(self) -> Response[str]:
+    async def check_sentry(self) -> str | None:
         """Provokes an error in order to check that the error reporting system is working"""
-        1 / 0
-        return "Hello!"
+        if 0 == 1 / 0:
+            return "Hello!"

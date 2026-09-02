@@ -11,7 +11,6 @@ from app.domain.processes.deps import provide_processes_service
 
 if TYPE_CHECKING:
     from httpx import AsyncClient
-    from sqlalchemy.ext.asyncio import AsyncSession
 
 pytestmark = pytest.mark.anyio
 
@@ -23,7 +22,7 @@ async def test_load_processes(
     raw_processes: list[dict[str, Any]],
 ) -> None:
     processes_service = await anext(provide_processes_service(session))
-    processes = await processes_service.list()
+    processes = await processes_service.get_many()
     initial_processes_nb = len(processes)
 
     new_process = {
@@ -89,7 +88,7 @@ async def test_load_processes(
     )
     await session.commit()
 
-    processes = await processes_service.list()
+    processes = await processes_service.get_many()
 
     assert initial_processes_nb + 1 == len(processes)
 

@@ -7,14 +7,13 @@ requires-python = "==3.12.*"
 dependencies = [
     "litestar[jwt,sqlalchemy,standard]>=2.24.0",
     "aiosqlite>=0.21.0",
-    "advanced-alchemy>=1.4.4",
-    "msgspec>=0.19.0",
-    "check-jsonschema~=0.37",
+    "advanced-alchemy>=1.11.0",
+    "check-jsonschema~=0.38",
     "pytest-databases[postgres]>=0.19.0",
     "psycopg[binary,pool]>=3.3.4",
     "asyncpg>=0.30.0",
     "structlog>=25.2.0",
-    "orjson>=3.11.9",
+    "orjson>=3.12.0",
     "aiosmtplib>=5.1.2",
     "emails>=0.6",
     "python-stdnum>=2.1",
@@ -22,8 +21,10 @@ dependencies = [
     "typer~=0.26",
     "pytest-mock>=3.14.1",
     "asyncstdlib>=3.13.1",
-    "sentry-sdk[litestar]>=2.64.0",
+    "sentry-sdk[litestar]>=2.66.1",
     "pwdlib[argon2]>=0.3.0",
+    "pydantic>=2.13.4",
+    "aiofiles>=25.1.0",
 ]
 
 [build-system]
@@ -52,18 +53,18 @@ backend = "app.__main__:run_cli"
 
 [dependency-groups]
 dev = [
-    "pre-commit>=4.6.0",
+    "pre-commit>=4.6.2",
     "pytest~=9.1",
-    "ruff~=0.15",
+    "ruff~=0.16",
+    "ty>=0.0.72",
 ]
 
 data = [
   "boto3~=1.43",
   "dynaconf~=3.3",
-  "frozendict ~= 2.4",
-  "platformdirs ~= 4.5",
+  "frozendict~=2.4",
+  "platformdirs~=4.11",
   "rich ~= 14.2",
-
   # Brightway
   "bw2analyzer == 0.11.8",
   "bw2calc == 2.5.0",
@@ -71,11 +72,26 @@ data = [
   "bw2io[multifunctional] == 0.9.17",
   "bw2parameters == 1.1.0",
   'pypardiso ~= 0.4; platform_machine!="arm64" and platform_machine!="aarch64"',
+  "countryinfo>=1.0.1",
+  "geopy>=2.5.0",
+  "searoute>=1.6.0",
+]
+score-history = [
+    "pandas>=3.0.3",
+    "psycopg2-binary>=2.9.12",
+    "requests>=2.34.2",
+    "sqlalchemy>=2.0.52",
 ]
 
 [tool.pytest.ini_options]
 pythonpath = ["."]
 testpaths = ["tests"]
+filterwarnings = [
+    "ignore:All values in characterization matrix:UserWarning:bw2calc",
+    # Due to code that must be updated un advanced_alchemy but was not so far
+    # see https://github.com/shoriminimoe/novamoc/pull/53
+    "ignore:.*set_async_context.*:DeprecationWarning:advanced_alchemy._listeners",
+]
 
 [tool.ruff]
 target-version = "py312"
@@ -83,3 +99,8 @@ src = ["backend/src", "data"]
 
 [tool.ruff.lint]
 extend-select = ["I"]
+
+[tool.ty.environment]
+extra-paths = [
+    "data/",
+]

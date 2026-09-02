@@ -5,12 +5,12 @@ import logging
 import multiprocessing
 from enum import Enum
 from pathlib import Path
-from typing import List, Optional
+from typing import Annotated
 
 import typer
 from bw2data.project import projects
-from typing_extensions import Annotated
 
+from bin.generate_taxonomy_with_aliases import write_taxonomy_with_aliases
 from config import DATA_ROOT_DIR, settings
 from ecobalyse_data.export import export_generic
 from ecobalyse_data.export import food as export_food
@@ -31,9 +31,9 @@ class MetadataScope(str, Enum):
 @app.command()
 def metadata(
     scopes: Annotated[
-        List[MetadataScope],
+        list[MetadataScope] | None,
         typer.Option(help="The scope to export. If not specified, exports all scopes."),
-    ] = [MetadataScope.textile, MetadataScope.food, MetadataScope.generic],
+    ] = None,
     verbose: bool = typer.Option(False, "--verbose", "-v"),
     cpu_count: Annotated[
         int,
@@ -42,16 +42,26 @@ def metadata(
         ),
     ] = max(multiprocessing.cpu_count() // 2, 1),
     root_dir: Path = DATA_ROOT_DIR,
+    write_taxonomy: bool = True,
 ):
     """
     Export metadata files (materials.json, ingredients.json, …)
     """
+    if scopes is None:
+        scopes = [MetadataScope.textile, MetadataScope.food, MetadataScope.generic]
     if verbose:
         logger.setLevel(logging.DEBUG)
 
     # Metadata (materials/ingredients) is written both to the published dir and the local data dir
 
-    activities = _get_lcias(root_dir)
+    activities = _get_lcis(root_dir)
+
+    if write_taxonomy:
+        write_taxonomy_with_aliases(
+            taxonomy_with_aliases_path=root_dir
+            / settings.scopes.food.dirname
+            / settings.scopes.food.taxonomy_with_aliases_file
+        )
 
     processes_impacts_path = (
         root_dir / settings.export_dir / settings.processes_legacy_impacts_full_file
@@ -138,7 +148,7 @@ def metadata(
 @app.command()
 def processes_legacy(
     scopes: Annotated[
-        Optional[List[Scope]],
+        list[Scope] | None,
         typer.Option(help="The scope to export. If not specified, exports all scopes."),
     ] = None,
     display_changes: Annotated[
@@ -155,7 +165,7 @@ def processes_legacy(
     if verbose:
         logger.setLevel(logging.DEBUG)
 
-    activities = _get_lcias(root_dir)
+    activities = _get_lcis(root_dir)
 
     # Filter activities by scope if specified
     if scopes:
@@ -198,7 +208,7 @@ def merge_processes(
     export_json(merged_ecs, public_dir / settings.processes_merged_ecs_file)
 
 
-def _get_lcias(root_dir):
+def _get_lcis(root_dir):
     lci_catalog = root_dir / "lci_catalog"
     logger.debug(f"-> Loading lci_catalog {lci_catalog}")
 
