@@ -439,7 +439,7 @@ componentDetailedView config elements itemIndex expandedItem itemResults =
                 elements
                 (Component.extractItems itemResults)
         , [ tr [ class "border-top" ]
-                [ td [ colspan 8, class "pe-3" ]
+                [ td [ colspan 9, class "pe-3" ]
                     [ addElementButton config ( expandedItem.component, itemIndex )
                     ]
                 ]
