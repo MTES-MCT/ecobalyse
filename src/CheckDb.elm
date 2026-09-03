@@ -79,7 +79,7 @@ checkDefaultExamples db config =
     Scope.genericScopes
         |> List.concatMap
             (\genericScope ->
-                case ComponentConfig.getDefaultExampleQuery config db.generic.examples genericScope of
+                case ComponentConfig.getDefaultExampleQuery db.generic.examples genericScope config of
                     Err err ->
                         [ err ]
 

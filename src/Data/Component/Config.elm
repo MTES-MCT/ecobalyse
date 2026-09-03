@@ -279,8 +279,8 @@ decodeUseConfig processes =
 
 {-| Resolves the default example query for a generic scope from config `defaultExamples` UUIDs.
 -}
-getDefaultExampleQuery : Config -> List (Example query) -> GenericScope -> Result String query
-getDefaultExampleQuery config examples genericScope =
+getDefaultExampleQuery : List (Example query) -> GenericScope -> Config -> Result String query
+getDefaultExampleQuery examples genericScope config =
     let
         scope =
             Scope.Generic genericScope

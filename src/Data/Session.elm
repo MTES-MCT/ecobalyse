@@ -224,7 +224,8 @@ simulatorGenericQuery genericScope session =
             genericQuery genericScope session
     in
     if List.isEmpty sessionQuery.items then
-        Config.getDefaultExampleQuery session.componentConfig session.db.generic.examples genericScope
+        session.componentConfig
+            |> Config.getDefaultExampleQuery session.db.generic.examples genericScope
             |> Result.withDefault sessionQuery
 
     else
