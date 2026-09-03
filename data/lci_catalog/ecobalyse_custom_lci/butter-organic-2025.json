@@ -2,8 +2,7 @@
   "activityName": "Butter, 82% fat, unsalted, at dairy {FR} U {{butter-organic-2025}}",
   "categories": [
     "ingredient",
-    "material",
-    "material_type:other_food_items"
+    "material"
   ],
   "displayName": "Beurre Bio (2025)",
   "id": "387b0378-8ad4-519a-97b0-33c3a7e7664f",

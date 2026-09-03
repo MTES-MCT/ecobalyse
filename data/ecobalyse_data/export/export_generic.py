@@ -8,6 +8,7 @@ from common.export import export_json
 from common.infer_metadata import (
     infer_base_ingredient,
     infer_default_origin,
+    infer_variant_material_type,
 )
 from ecobalyse_data.bw.search import cached_search_one
 from ecobalyse_data.export.complements import compute_forest_complement
@@ -188,7 +189,9 @@ def compute_processes_generic(
             entry = ProcessGeneric(
                 activity_name=process["activityName"],
                 alias=variant.get("alias"),
-                categories=process["categories"],
+                categories=infer_variant_material_type(
+                    process["categories"], variant.get("alias")
+                ),
                 comment=process.get("comment", ""),
                 display_name=variant.get(
                     "displayName", activity.get("displayName", "")

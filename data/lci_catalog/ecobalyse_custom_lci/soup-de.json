@@ -2,8 +2,7 @@
   "activityName": "Soup, mixed vegetables, prepacked, to be reheated, at plant {DE} U",
   "categories": [
     "ingredient",
-    "material",
-    "material_type:other_food_items"
+    "material"
   ],
   "displayName": "Soupe DE (légumes FR + élec DE)",
   "id": "1c27e968-92e7-548a-948a-0aa9336cf8a9",

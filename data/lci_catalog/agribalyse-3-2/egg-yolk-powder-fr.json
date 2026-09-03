@@ -2,8 +2,7 @@
   "activityName": "Egg yolk, powder, at plant {FR} U",
   "categories": [
     "ingredient",
-    "material",
-    "material_type:other_food_items"
+    "material"
   ],
   "displayName": "poudre de jaune d'oeuf FR",
   "id": "59c5e707-db3b-5ed7-b6c1-a97a1e2a369e",

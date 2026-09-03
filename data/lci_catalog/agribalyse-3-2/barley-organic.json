@@ -2,8 +2,7 @@
   "activityName": "Barley, organic, animal feed, at farm gate {FR} U",
   "categories": [
     "ingredient",
-    "material",
-    "material_type:cereals"
+    "material"
   ],
   "displayName": "Orge Bio",
   "id": "c75a676a-b792-56c8-9c18-646f8f83266b",

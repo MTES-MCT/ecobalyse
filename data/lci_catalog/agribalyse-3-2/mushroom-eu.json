@@ -2,8 +2,7 @@
   "activityName": "Agaricus bisporus mushroom, fresh, at plant {NL} - Adapted from WFLDB U",
   "categories": [
     "ingredient",
-    "material",
-    "material_type:fruits_and_vegetables"
+    "material"
   ],
   "displayName": "Champignon frais UE",
   "id": "007db9be-fbb0-5c2f-ac8a-4780bc4a5304",

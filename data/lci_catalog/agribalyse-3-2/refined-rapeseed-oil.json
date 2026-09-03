@@ -2,8 +2,7 @@
   "activityName": "Rapeseed oil, refined, at oil mill {FR} U",
   "categories": [
     "ingredient",
-    "material",
-    "material_type:other_food_items"
+    "material"
   ],
   "displayName": "Huile de colza (raffinée) FR",
   "id": "4f84affb-e3f9-5a97-9a49-a9e4d965bd49",

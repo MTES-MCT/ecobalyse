@@ -2,8 +2,7 @@
   "activityName": "Ground beef fresh case ready for direct consumption at plant {{ground-beef-feedlot-2025}}",
   "categories": [
     "ingredient",
-    "material",
-    "material_type:red_meats"
+    "material"
   ],
   "displayName": "Boeuf haché cru par défaut (2025)",
   "id": "62cce1fb-5980-52ff-bb1f-63fa756ca169",

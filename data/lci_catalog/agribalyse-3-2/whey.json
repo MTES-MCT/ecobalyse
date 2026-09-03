@@ -2,8 +2,7 @@
   "activityName": "Whey, at plant {FR} U",
   "categories": [
     "ingredient",
-    "material",
-    "material_type:other_food_items"
+    "material"
   ],
   "displayName": "Poudre de lactosérum FR",
   "id": "8fe04c35-9fc3-5eba-a65c-e7e9b0f29d62",

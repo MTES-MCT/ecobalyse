@@ -48,26 +48,6 @@ TRANSPORTED_COOLED_CATEGORY = "transported_cooled"
 _MATERIAL_TYPE_PREFIX = "material_type:"
 
 
-def get_material_types(categories: list[str]) -> set[str]:
-    return {
-        category[len(_MATERIAL_TYPE_PREFIX) :]
-        for category in categories
-        if category.startswith(_MATERIAL_TYPE_PREFIX)
-    }
-
-
-def infer_transported_cooled(categories: list[str]) -> list[str]:
-    """add transported_cooled tag to materials with TRANSPORTED_COOLED_MATERIAL_TYPES"""
-    material_types = get_material_types(categories)
-    is_ingredient = "ingredient" in categories
-    is_perishable = (
-        bool(material_types & TRANSPORTED_COOLED_MATERIAL_TYPES) and is_ingredient
-    )
-    if is_perishable and TRANSPORTED_COOLED_CATEGORY not in categories:
-        return categories + [TRANSPORTED_COOLED_CATEGORY]
-    return categories
-
-
 def infer_default_origin(origin_zone: str | None, categories: list[str]) -> str | None:
     """generic default origin is infered from legacy default_origin with the _LEGACY_ZONE_TO_COUNTRY mapping"""
     if origin_zone is not None:
@@ -84,23 +64,17 @@ def infer_default_origin(origin_zone: str | None, categories: list[str]) -> str 
     return None
 
 
-def infer_raw_to_cooked_ratio(
-    explicit_ratio: float | None, categories: list[str]
-) -> float:
-    """If explicit_ratio is None, infer the raw_to_cooked_ratio from the material_type tag"""
+def infer_raw_to_cooked_ratio(explicit_ratio: float | None, alias: str) -> float:
+    """If explicit_ratio is None, infer the rawToCookedRatio from the
+    material_type of the alias."""
     if explicit_ratio is not None:
         return explicit_ratio
 
-    material_types = get_material_types(categories)
-    if len(material_types) == 1:
-        ratio = _MATERIAL_TYPE_TO_RAW_TO_COOKED_RATIO.get(next(iter(material_types)))
-        if ratio is not None:
-            return ratio
-
-    raise ValueError(
-        f"Cannot infer rawToCookedRatio from material_type tags {material_types!r}. "
-        f"Set an explicit rawToCookedRatio on the metadata entry."
-    )
+    material_type = infer_material_type_for_alias(alias)
+    # other_food_items has no reference value (heterogenous products):
+    # in this case we set the rawToCookedRatio to 1
+    # food2 doesn't use this field so it will be deleted when food1 is decommissioned
+    return _MATERIAL_TYPE_TO_RAW_TO_COOKED_RATIO.get(material_type, 1.0)
 
 
 KNOWN_MATERIAL_TYPES = frozenset(_MATERIAL_TYPE_TO_RAW_TO_COOKED_RATIO) | {
@@ -157,3 +131,49 @@ def infer_base_ingredient(alias: str) -> str:
         f"Cannot infer baseIngredient for alias {alias!r}. "
         f"Add the canonical baseIngredient to food/taxonomy.json."
     )
+
+
+def infer_material_type(base_ingredient: str) -> str:
+    """Return the material_type of a baseIngredient from the taxonomy."""
+    return load_taxonomy()[base_ingredient]
+
+
+def infer_material_type_for_alias(alias: str) -> str:
+    return infer_material_type(infer_base_ingredient(alias))
+
+
+def infer_variant_material_type(categories: list[str], alias: str) -> list[str]:
+    """Return an ingredient variant's categories, extended with the
+    material_type of its alias and, the transported_cooled tag if needed"""
+    if "ingredient" not in categories:
+        return categories
+    material_type = infer_material_type_for_alias(alias)
+    variant_categories = set(categories) | {_MATERIAL_TYPE_PREFIX + material_type}
+    if material_type in TRANSPORTED_COOLED_MATERIAL_TYPES:
+        variant_categories.add(TRANSPORTED_COOLED_CATEGORY)
+    return sorted(variant_categories)
+
+
+def validate_ingredient_activity(activity: dict) -> None:
+    """check that ingredients don't contain manual material_types tag
+    (material_type are infered from the taxonomy)
+    also check that ingredients have an alias"""
+    categories = activity["categories"]
+    if "ingredient" not in categories:
+        return
+    manual_tags = [
+        category
+        for category in categories
+        if category.startswith(_MATERIAL_TYPE_PREFIX)
+    ]
+    if manual_tags:
+        raise ValueError(
+            f"manual {manual_tags[0]} tag on an ingredient activity. "
+            "material_type is infered from food/taxonomy.json"
+        )
+    for metadata in activity["metadata"]:
+        if not metadata.get("alias"):
+            raise ValueError(
+                f"ingredient variant {metadata.get('displayName')} has no "
+                "alias. material_type inference is per-alias"
+            )

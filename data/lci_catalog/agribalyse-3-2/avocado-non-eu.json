@@ -2,8 +2,7 @@
   "activityName": "Avocado {GLO}| production | Cut-off, U - Adapted from Ecoinvent U",
   "categories": [
     "ingredient",
-    "material",
-    "material_type:fruits_and_vegetables"
+    "material"
   ],
   "displayName": "Avocat par défaut",
   "id": "a22991db-b071-5ce1-8672-64cd941276cf",

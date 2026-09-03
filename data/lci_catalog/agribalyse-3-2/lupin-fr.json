@@ -2,8 +2,7 @@
   "activityName": "Lupin, conventional, national average, at farm gate, production {FR} U",
   "categories": [
     "ingredient",
-    "material",
-    "material_type:fruits_and_vegetables"
+    "material"
   ],
   "displayName": "Lupin FR",
   "id": "29bb0bfe-f5b0-52b5-8a3a-e742c6a7ae1c",

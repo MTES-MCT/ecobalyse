@@ -2,8 +2,7 @@
   "activityName": "Sunflower, at farm {GLO} - Adapted from WFLDB U",
   "categories": [
     "ingredient",
-    "material",
-    "material_type:other_food_items"
+    "material"
   ],
   "displayName": "Tournesol par défaut",
   "id": "eed4eacb-f996-5d55-b02d-c3e3f23d7d0a",

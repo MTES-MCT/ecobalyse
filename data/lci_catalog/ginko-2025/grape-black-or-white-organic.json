@@ -2,8 +2,7 @@
   "activityName": "Grape, wine grape, at farm, organic 2025 {IT}",
   "categories": [
     "ingredient",
-    "material",
-    "material_type:fruits_and_vegetables"
+    "material"
   ],
   "displayName": "Raisins (noirs ou blancs) Bio",
   "id": "dbda34a4-ff99-577d-917b-a8547b7ae0bc",

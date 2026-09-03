@@ -2,8 +2,7 @@
   "activityName": "Orange, fresh grade {ES}| orange production, fresh grade | Cut-off, U - Adapted from Ecoinvent U",
   "categories": [
     "ingredient",
-    "material",
-    "material_type:fruits_and_vegetables"
+    "material"
   ],
   "displayName": "Kumquat FR",
   "id": "86e21e49-df5f-5d4d-bff0-30f392f35c41",

@@ -2,8 +2,7 @@
   "activityName": "Pear {RoW}| pear production | Cut-off, U",
   "categories": [
     "ingredient",
-    "material",
-    "material_type:other_food_items"
+    "material"
   ],
   "displayName": "Pear (ROW)",
   "id": "f71ab1a4-eee6-5aca-9ddf-18943d0f025b",

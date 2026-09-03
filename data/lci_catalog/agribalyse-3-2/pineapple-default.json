@@ -2,8 +2,7 @@
   "activityName": "Pineapple, at farm {TH} U",
   "categories": [
     "ingredient",
-    "material",
-    "material_type:fruits_and_vegetables"
+    "material"
   ],
   "displayName": "Ananas Origine Inconnue",
   "id": "f7543e0a-87c8-514e-8b2a-952c586698c1",

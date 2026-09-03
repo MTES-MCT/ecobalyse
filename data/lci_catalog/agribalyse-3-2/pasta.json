@@ -2,8 +2,7 @@
   "activityName": "Pasta, dried, from durum wheat, at plant {GLO} - Adapted from WFLDB U",
   "categories": [
     "ingredient",
-    "material",
-    "material_type:cereals"
+    "material"
   ],
   "displayName": "Pâtes FR",
   "id": "390a7925-02ce-5a2a-9d72-b8fcc0c56d0a",

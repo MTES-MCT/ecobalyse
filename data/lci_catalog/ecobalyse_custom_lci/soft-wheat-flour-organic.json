@@ -2,8 +2,7 @@
   "activityName": "Soft wheat flour, organic, CMAPS {GLO} U",
   "categories": [
     "ingredient",
-    "material",
-    "material_type:other_food_items"
+    "material"
   ],
   "displayName": "Farine de blé tendre, froment ou millet Bio",
   "id": "d623f9e8-7935-4249-827b-076c70d19192",

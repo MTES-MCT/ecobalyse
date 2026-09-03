@@ -2,8 +2,7 @@
   "activityName": "Milk powder, skimmed, non rehydrated, at plant {FR} U",
   "categories": [
     "ingredient",
-    "material",
-    "material_type:other_food_items"
+    "material"
   ],
   "displayName": "Poudre de lait écrémé FR",
   "id": "d3159c54-3fc8-52f5-ba87-9d92297812dc",

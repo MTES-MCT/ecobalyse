@@ -2,8 +2,7 @@
   "activityName": "Fresh shrimps, China production {FR} U",
   "categories": [
     "ingredient",
-    "material",
-    "material_type:fish_and_shellfish"
+    "material"
   ],
   "displayName": "Crevettes fraîches par défaut",
   "id": "a52241fa-2076-5f27-a60d-f4b533f98efa",

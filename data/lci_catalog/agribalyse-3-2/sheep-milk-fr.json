@@ -2,8 +2,7 @@
   "activityName": "Sheep milk, conventional, Roquefort system, at farm gate {FR} U",
   "categories": [
     "ingredient",
-    "material",
-    "material_type:other_food_items"
+    "material"
   ],
   "displayName": "Lait de brebis FR",
   "id": "4461cfce-0540-526a-b994-e3fdb175af26",

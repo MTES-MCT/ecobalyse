@@ -2,8 +2,7 @@
   "activityName": "Beef cattle, conventional, national average, at farm gate {FR} U",
   "categories": [
     "ingredient",
-    "material",
-    "material_type:other_food_items"
+    "material"
   ],
   "displayName": "Bovin viande conventionnel vivant FR",
   "id": "32421967-5aaa-55fe-9918-fbddb857c443",

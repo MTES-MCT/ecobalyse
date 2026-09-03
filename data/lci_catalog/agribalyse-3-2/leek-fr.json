@@ -2,8 +2,7 @@
   "activityName": "Leek, conventional, national average, at plant {FR} U",
   "categories": [
     "ingredient",
-    "material",
-    "material_type:fruits_and_vegetables"
+    "material"
   ],
   "displayName": "Poireau FR",
   "id": "f23fb5d9-4b50-5522-8ff9-f3cebb75034e",

@@ -2,8 +2,7 @@
   "activityName": "Parmesan cheese, variant 1, CMAPS {GLO} U",
   "categories": [
     "ingredient",
-    "material",
-    "material_type:other_food_items"
+    "material"
   ],
   "displayName": "Parmesan FR",
   "id": "e37ce56b-4431-4996-b4c2-ee1703aa8190",

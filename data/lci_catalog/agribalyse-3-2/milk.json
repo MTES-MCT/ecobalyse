@@ -2,8 +2,7 @@
   "activityName": "Cow milk, conventional, national average, at farm gate {FR} U",
   "categories": [
     "ingredient",
-    "material",
-    "material_type:other_food_items"
+    "material"
   ],
   "displayName": "Lait FR",
   "id": "af882009-fd6a-5f8f-a1fc-74a5f4c6d543",

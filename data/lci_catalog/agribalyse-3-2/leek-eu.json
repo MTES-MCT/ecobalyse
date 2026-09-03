@@ -2,8 +2,7 @@
   "activityName": "Leek, consumption mix {FR} U",
   "categories": [
     "ingredient",
-    "material",
-    "material_type:fruits_and_vegetables"
+    "material"
   ],
   "displayName": "Poireau UE",
   "id": "18b6dc5f-20cd-5030-bf69-c99023c024fc",

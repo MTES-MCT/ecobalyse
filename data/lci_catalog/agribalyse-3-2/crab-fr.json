@@ -2,8 +2,7 @@
   "activityName": "Brown crab, 1 kg of product, at landing {FR} U",
   "categories": [
     "ingredient",
-    "material",
-    "material_type:fish_and_shellfish"
+    "material"
   ],
   "displayName": "Crabe FR",
   "id": "f8c88512-2b57-5f1a-abba-46ac604886f4",

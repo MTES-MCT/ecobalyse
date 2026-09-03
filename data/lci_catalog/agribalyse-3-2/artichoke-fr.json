@@ -2,8 +2,7 @@
   "activityName": "Cauliflower, conventional, national average, at farm gate {FR} U",
   "categories": [
     "ingredient",
-    "material",
-    "material_type:fruits_and_vegetables"
+    "material"
   ],
   "displayName": "Artichaut FR",
   "id": "713f3426-7d8c-5b26-b7c0-98cb92ed0ab7",

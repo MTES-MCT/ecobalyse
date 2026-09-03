@@ -2,8 +2,7 @@
   "activityName": "Meat without bone, lamb {FR} U",
   "categories": [
     "ingredient",
-    "material",
-    "material_type:red_meats"
+    "material"
   ],
   "displayName": "Viande d'agneau (désossée) FR",
   "id": "6e8e9591-9d76-549d-b551-9d7d228fb5bb",

@@ -2,8 +2,7 @@
   "activityName": "Broiler, organic, at farm gate {FR} U",
   "categories": [
     "ingredient",
-    "material",
-    "material_type:other_food_items"
+    "material"
   ],
   "displayName": "Poulet bio vivant FR",
   "id": "b0fe0012-b892-52c7-9904-e5b2aa5f31d6",

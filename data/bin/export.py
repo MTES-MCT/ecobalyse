@@ -11,6 +11,7 @@ import typer
 from bw2data.project import projects
 
 from bin.generate_taxonomy_with_aliases import write_taxonomy_with_aliases
+from common.infer_metadata import validate_ingredient_activity
 from config import DATA_ROOT_DIR, settings
 from ecobalyse_data.export import export_generic
 from ecobalyse_data.export import food as export_food
@@ -216,7 +217,12 @@ def _get_lcis(root_dir):
     for lci_path in lci_catalog.glob("*/*.json"):
         if lci_path.is_file():
             with open(lci_path, "r") as file:
-                activities.append(json.load(file))
+                activity = json.load(file)
+            try:
+                validate_ingredient_activity(activity)
+            except ValueError as e:
+                raise ValueError(f"{lci_path.name}: {e}") from e
+            activities.append(activity)
     return activities
 
 

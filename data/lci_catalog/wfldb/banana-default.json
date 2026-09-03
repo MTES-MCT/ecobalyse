@@ -2,8 +2,7 @@
   "activityName": "Banana, at farm (WFLDB)",
   "categories": [
     "ingredient",
-    "material",
-    "material_type:fruits_and_vegetables"
+    "material"
   ],
   "displayName": "Banane Origine Inconnue",
   "id": "69b987f0-1a0b-516f-9770-c234f01cfb60",

@@ -2,8 +2,7 @@
   "activityName": "Peach, conventional, national average, at orchard {FR} U",
   "categories": [
     "ingredient",
-    "material",
-    "material_type:fruits_and_vegetables"
+    "material"
   ],
   "displayName": "Figue FR",
   "id": "517dfbb5-abc8-59bd-b0a0-f315a22fdaab",

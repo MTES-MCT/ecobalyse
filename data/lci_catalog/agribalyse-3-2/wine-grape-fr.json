@@ -2,8 +2,7 @@
   "activityName": "Grape, full production (phase), integrated, variety mix, Languedoc-Roussillon, at vineyard {FR} U",
   "categories": [
     "ingredient",
-    "material",
-    "material_type:fruits_and_vegetables"
+    "material"
   ],
   "displayName": "Raisin de cuve FR",
   "id": "6782d9ba-d838-5e68-baaf-e2b71f01e6c0",

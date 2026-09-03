@@ -2,8 +2,7 @@
   "activityName": "Cull cow, conventional, highland milk system, pastoral farming system, at farm gate {FR} U",
   "categories": [
     "ingredient",
-    "material",
-    "material_type:other_food_items"
+    "material"
   ],
   "displayName": "Vache de réforme herbagère vivante FR",
   "id": "ab63e665-4844-52a9-b2ed-a3fffea628e7",

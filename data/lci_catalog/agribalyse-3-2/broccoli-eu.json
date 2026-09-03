@@ -2,8 +2,7 @@
   "activityName": "Broccoli {GLO}| production | Cut-off, U - Adapted from Ecoinvent U",
   "categories": [
     "ingredient",
-    "material",
-    "material_type:fruits_and_vegetables"
+    "material"
   ],
   "displayName": "Brocoli UE",
   "id": "9cab280c-527f-56b6-a620-5f12170108f3",

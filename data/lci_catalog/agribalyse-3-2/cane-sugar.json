@@ -2,8 +2,7 @@
   "activityName": "Sugar, from sugarcane, at sugar refinery {GLO} - Adapted from WFLDB U",
   "categories": [
     "ingredient",
-    "material",
-    "material_type:other_food_items"
+    "material"
   ],
   "displayName": "Sucre de canne par défaut",
   "id": "623c75ca-c86e-5e92-96bd-c315cea7fb41",

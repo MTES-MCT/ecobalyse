@@ -2,8 +2,7 @@
   "activityName": "Wheat flour, organic at industrial mill {FR} U {{flour-organic-2025}}",
   "categories": [
     "ingredient",
-    "material",
-    "material_type:other_food_items"
+    "material"
   ],
   "displayName": "Farine Bio (2025)",
   "id": "d78f41f4-fe75-5ee7-96e6-7a9d1352545c",

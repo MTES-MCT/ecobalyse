@@ -2,8 +2,7 @@
   "activityName": "Meat without bone, beef for direct consumption {{beef-without-bone-grass-fed-2025}}",
   "categories": [
     "ingredient",
-    "material",
-    "material_type:red_meats"
+    "material"
   ],
   "displayName": "Viande de boeuf sans os - vache de réforme 100% herbe FR (2025)",
   "id": "a28b796f-bd2c-5fa9-b162-9e7291f44ae1",

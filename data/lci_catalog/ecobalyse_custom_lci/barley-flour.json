@@ -2,8 +2,7 @@
   "activityName": "Barley flour, CMAPS {GLO} U",
   "categories": [
     "ingredient",
-    "material",
-    "material_type:other_food_items"
+    "material"
   ],
   "displayName": "Farine d'orge FR",
   "id": "7eed490b-ebb0-4329-ab6f-d360a7a6b222",

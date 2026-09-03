@@ -2,8 +2,7 @@
   "activityName": "Tomato pulp, canned {FR} U",
   "categories": [
     "ingredient",
-    "material",
-    "material_type:other_food_items"
+    "material"
   ],
   "displayName": "Purée de tomates FR",
   "id": "da0b61f8-a284-5ec6-8266-07c7c6a57d54",

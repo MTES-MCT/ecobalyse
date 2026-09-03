@@ -2,8 +2,7 @@
   "activityName": "Soup, mixed vegetables, dehydrated, at plant {BE} U",
   "categories": [
     "ingredient",
-    "material",
-    "material_type:other_food_items"
+    "material"
   ],
   "displayName": "Soupe déshydratée BE",
   "id": "c10d2318-bf02-58b4-93cc-df882b6d75b3",

@@ -2,8 +2,7 @@
   "activityName": "Kiwi FR, conventional, national average, at orchard {FR} U",
   "categories": [
     "ingredient",
-    "material",
-    "material_type:fruits_and_vegetables"
+    "material"
   ],
   "displayName": "Kiwi FR",
   "id": "56cd1f16-f2d4-5c4a-a6ba-4a2e3321914e",

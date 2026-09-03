@@ -2,8 +2,7 @@
   "activityName": "Strawberry, conventional, national average, at farm gate {FR} U",
   "categories": [
     "ingredient",
-    "material",
-    "material_type:fruits_and_vegetables"
+    "material"
   ],
   "displayName": "Cassis FR",
   "id": "6f6ab521-c7d4-58f9-b051-2b7cd11be4b4",

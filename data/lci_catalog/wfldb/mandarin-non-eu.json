@@ -2,8 +2,7 @@
   "activityName": "Mandarin, at farm (WFLDB)",
   "categories": [
     "ingredient",
-    "material",
-    "material_type:fruits_and_vegetables"
+    "material"
   ],
   "displayName": "Mandarine par défaut",
   "id": "205fbb70-754d-5160-98aa-736cf6231c22",

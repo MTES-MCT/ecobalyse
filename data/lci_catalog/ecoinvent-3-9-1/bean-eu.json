@@ -2,8 +2,7 @@
   "activityName": "protein pea//[FR] protein pea production",
   "categories": [
     "ingredient",
-    "material",
-    "material_type:cereals"
+    "material"
   ],
   "displayName": "Pois UE",
   "id": "90f96aaa-159f-50a4-8456-55bad07c4cc4",

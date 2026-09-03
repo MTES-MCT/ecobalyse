@@ -2,8 +2,7 @@
   "activityName": "Rapeseed oil, at oil mill {GLO} - Adapted from WFLDB U {{rapeseed-oil-organic-2025}}",
   "categories": [
     "ingredient",
-    "material",
-    "material_type:other_food_items"
+    "material"
   ],
   "displayName": "Huile de colza Bio (2025)",
   "id": "8d2d6d07-6700-5c72-b8f6-ea1b96bfe06c",

@@ -2,8 +2,7 @@
   "activityName": "Cocoa butter, at plant {RER} - Adapted from WFLDB U",
   "categories": [
     "ingredient",
-    "material",
-    "material_type:other_food_items"
+    "material"
   ],
   "displayName": "Beurre de cacao UE",
   "id": "e959ac4d-1b20-59cd-a2f3-44f11703a015",

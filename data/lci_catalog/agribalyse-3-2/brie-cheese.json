@@ -2,8 +2,7 @@
   "activityName": "Brie cheese, from cow's milk, consumption mix {FR} U",
   "categories": [
     "ingredient",
-    "material",
-    "material_type:other_food_items"
+    "material"
   ],
   "displayName": "Brie FR",
   "id": "21ae29d3-8860-5e24-8997-106fffe0eb85",

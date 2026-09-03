@@ -2,8 +2,7 @@
   "activityName": "Sausage meat, raw, recipe, at plant {FR} U",
   "categories": [
     "ingredient",
-    "material",
-    "material_type:red_meats"
+    "material"
   ],
   "displayName": "Chair à saucisse crue FR",
   "id": "09a19a0e-c516-5091-a5a2-3e79dca3d049",

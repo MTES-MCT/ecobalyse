@@ -2,8 +2,7 @@
   "activityName": "Soy protein, textured, dehydrated, from soy flour, at plant {FR} U",
   "categories": [
     "ingredient",
-    "material",
-    "material_type:other_food_items"
+    "material"
   ],
   "displayName": "Protéines de soja par défaut",
   "id": "a17484e2-a2fe-5733-b135-1445fc3bc8f7",

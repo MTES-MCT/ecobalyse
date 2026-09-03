@@ -2,8 +2,7 @@
   "activityName": "Honey, raw, large-scale production, unpackaged, at farm {US} - Adapted from WFLDB U",
   "categories": [
     "ingredient",
-    "material",
-    "material_type:other_food_items"
+    "material"
   ],
   "displayName": "Miel Origine Inconnue",
   "id": "3599f500-2911-5f5f-9d21-184948f38272",

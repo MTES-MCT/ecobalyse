@@ -2,8 +2,7 @@
   "activityName": "Hake, consumption mix {FR} U",
   "categories": [
     "ingredient",
-    "material",
-    "material_type:other_food_items"
+    "material"
   ],
   "displayName": "Colin UE",
   "id": "4f41f725-37a1-5e0f-8739-c0aa256caef7",

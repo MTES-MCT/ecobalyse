@@ -2,8 +2,7 @@
   "activityName": "Alfalfa, hay, organic, animal feed, at farm gate {FR} U",
   "categories": [
     "ingredient",
-    "material",
-    "material_type:cereals"
+    "material"
   ],
   "displayName": "Luzerne Bio (2025)",
   "id": "38e5aebd-b15c-5724-90bc-3cf114d103f2",

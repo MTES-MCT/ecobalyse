@@ -2,8 +2,7 @@
   "activityName": "Chicken egg, raw, without shell, at plant {FR} U",
   "categories": [
     "ingredient",
-    "material",
-    "material_type:eggs"
+    "material"
   ],
   "displayName": "Oeuf cru décoquillé FR",
   "id": "9cf1ea38-7315-5a26-9747-c26e4440a357",

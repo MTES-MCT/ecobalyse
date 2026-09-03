@@ -2,8 +2,7 @@
   "activityName": "Peanut oil, at oil mill {SN} U",
   "categories": [
     "ingredient",
-    "material",
-    "material_type:other_food_items"
+    "material"
   ],
   "displayName": "Huile d'arachide (raffinée) par défaut",
   "id": "c61cb7a0-e4e5-5a9d-8779-cd9284f33ee9",

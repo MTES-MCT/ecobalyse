@@ -2,8 +2,7 @@
   "activityName": "Triticale, organic, animal feed, at farm gate {FR} U",
   "categories": [
     "ingredient",
-    "material",
-    "material_type:cereals"
+    "material"
   ],
   "displayName": "Triricale Bio",
   "id": "af46369a-ac48-5f19-8278-ce85106e50e7",

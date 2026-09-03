@@ -2,8 +2,7 @@
   "activityName": "Gouda cheese, variant 1, CMAPS {GLO} U",
   "categories": [
     "ingredient",
-    "material",
-    "material_type:other_food_items"
+    "material"
   ],
   "displayName": "Gouda FR",
   "id": "8a70129f-4515-4482-a595-d97c0fadf984",

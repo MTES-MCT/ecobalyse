@@ -2,8 +2,7 @@
   "activityName": "Yogurt, from cow milk, at plant {FR} U",
   "categories": [
     "ingredient",
-    "material",
-    "material_type:other_food_items"
+    "material"
   ],
   "displayName": "Fromage blanc FR",
   "id": "bf655bc6-7f4a-5890-ac61-80b2ade4ee05",

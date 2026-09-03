@@ -2,8 +2,7 @@
   "activityName": "Peach, production mix, national average, at orchard {FR} U",
   "categories": [
     "ingredient",
-    "material",
-    "material_type:fruits_and_vegetables"
+    "material"
   ],
   "displayName": "Pêche FR",
   "id": "e9553ddf-857a-58be-b1e7-55f7f556c96f",

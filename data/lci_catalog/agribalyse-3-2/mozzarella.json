@@ -2,8 +2,7 @@
   "activityName": "Mozzarella cheese, from cow's milk, at plant {FR} U",
   "categories": [
     "ingredient",
-    "material",
-    "material_type:other_food_items"
+    "material"
   ],
   "displayName": "Mozzarella FR",
   "id": "da05b6a9-f02b-518c-8ab1-d7da28ed51f5",

@@ -2,8 +2,7 @@
   "activityName": "Sweet corn, at farm (WFLDB)",
   "categories": [
     "ingredient",
-    "material",
-    "material_type:cereals"
+    "material"
   ],
   "displayName": "Maïs doux UE",
   "id": "bb5f2ee6-2b42-5422-b5e6-23f3c3075cee",

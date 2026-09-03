@@ -2,8 +2,7 @@
   "activityName": "Coffee, green beans (Robusta), at farm {IN} - Adapted from WFLDB U",
   "categories": [
     "ingredient",
-    "material",
-    "material_type:other_food_items"
+    "material"
   ],
   "displayName": "Coffee, green beans (IN)",
   "id": "951060aa-ffa2-51a5-b58e-ea8505b54381",

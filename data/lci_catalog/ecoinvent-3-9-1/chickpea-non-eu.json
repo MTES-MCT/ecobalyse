@@ -2,8 +2,7 @@
   "activityName": "chickpea//[RoW] chickpea production",
   "categories": [
     "ingredient",
-    "material",
-    "material_type:legumes"
+    "material"
   ],
   "displayName": "Pois chiche par défaut",
   "id": "4f4050d3-9afe-5a90-b1ff-7505465f0a31",

@@ -2,8 +2,7 @@
   "activityName": "Cocoa bean {ID}| cocoa bean production, sun-dried | Cut-off, U",
   "categories": [
     "ingredient",
-    "material",
-    "material_type:fruits_and_vegetables"
+    "material"
   ],
   "displayName": "Fève de cacao Origine Inconnue",
   "id": "60c5c68d-74ad-5499-9cd8-40f9f70d9569",

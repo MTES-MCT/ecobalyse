@@ -2,8 +2,7 @@
   "activityName": "Meat without bone, chicken, for direct consumption {FR} U",
   "categories": [
     "ingredient",
-    "material",
-    "material_type:poultry"
+    "material"
   ],
   "displayName": "Blanc de poulet cru FR",
   "id": "72e94715-bb24-59c1-8917-c4d00489c1fe",
