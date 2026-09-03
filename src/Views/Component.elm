@@ -321,20 +321,16 @@ componentView config itemIndex ({ component, elements, quantity } as expandedIte
                  else
                     []
                 )
-                [ if config.scope /= Scope.Textile then
-                    tr []
-                        [ th [] []
-                        , th [ class "pb-0 fs-8 fw-normal text-muted text-nowrap" ] [ text "Masse unitaire" ]
-                        , th [ class "pb-0 fs-8 fw-normal text-muted", colspan 3 ]
-                            [ span [] [ text config.labels.label ] ]
-                        , th [ class "pb-0 fs-8 fw-normal text-muted text-nowrap text-center" ] [ text "Quantité" ]
-                        , th [ class "pb-0 fs-8 fw-normal text-muted text-nowrap text-center" ] [ text "Masse totale" ]
-                        , th [ class "pb-0 fs-8 fw-normal text-muted text-nowrap text-center" ] [ text "Impacts" ]
-                        , th [] []
-                        ]
-
-                  else
-                    tr [] [ td [ colspan 8 ] [] ]
+                [ tr []
+                    [ th [] []
+                    , th [ class "pb-0 fs-8 fw-normal text-muted text-nowrap" ] [ text "Masse unitaire" ]
+                    , th [ class "pb-0 fs-8 fw-normal text-muted", colspan 3 ]
+                        [ span [] [ text config.labels.label ] ]
+                    , th [ class "pb-0 fs-8 fw-normal text-muted text-nowrap text-center" ] [ text "Quantité" ]
+                    , th [ class "pb-0 fs-8 fw-normal text-muted text-nowrap text-center" ] [ text "Masse totale" ]
+                    , th [ class "pb-0 fs-8 fw-normal text-muted text-nowrap text-center" ] [ text "Impacts" ]
+                    , th [] []
+                    ]
                 , tr [ class "border-bottom" ]
                     [ th [ class "ps-2 pt-0 pb-2 align-middle", scope "col" ]
                         [ if config.context /= TextileTrimsContext then
