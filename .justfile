@@ -35,6 +35,10 @@ import-method:
 create-activities:
     {{ python-cmd-data }} data/create_activities.py
 
+# Compare the impacts we publish with the ones VoLCA computes on the same source files
+compare-volca:
+    uv run --group data --group volca python data/bin/compare_volca.py
+
 ################################################################################
 ### Data exports
 
