@@ -321,20 +321,16 @@ componentView config itemIndex ({ component, elements, quantity } as expandedIte
                  else
                     []
                 )
-                [ if config.scope /= Scope.Textile then
-                    tr []
-                        [ th [] []
-                        , th [ class "pb-0 fs-8 fw-normal text-muted text-nowrap" ] [ text "Masse unitaire" ]
-                        , th [ class "pb-0 fs-8 fw-normal text-muted", colspan 2 ]
-                            [ span [] [ text config.labels.label ] ]
-                        , th [ class "pb-0 fs-8 fw-normal text-muted text-nowrap text-center" ] [ text "Quantité" ]
-                        , th [ class "pb-0 fs-8 fw-normal text-muted text-nowrap text-center" ] [ text "Masse totale" ]
-                        , th [ class "pb-0 fs-8 fw-normal text-muted text-nowrap text-center" ] [ text "Impacts" ]
-                        , th [] []
-                        ]
-
-                  else
-                    tr [] [ td [ colspan 8 ] [] ]
+                [ tr []
+                    [ th [] []
+                    , th [ class "pb-0 fs-8 fw-normal text-muted text-nowrap" ] [ text "Masse unitaire" ]
+                    , th [ class "pb-0 fs-8 fw-normal text-muted", colspan 3 ]
+                        [ span [] [ text config.labels.label ] ]
+                    , th [ class "pb-0 fs-8 fw-normal text-muted text-nowrap text-center" ] [ text "Quantité" ]
+                    , th [ class "pb-0 fs-8 fw-normal text-muted text-nowrap text-center" ] [ text "Masse totale" ]
+                    , th [ class "pb-0 fs-8 fw-normal text-muted text-nowrap text-center" ] [ text "Impacts" ]
+                    , th [] []
+                    ]
                 , tr [ class "border-bottom" ]
                     [ th [ class "ps-2 pt-0 pb-2 align-middle", scope "col" ]
                         [ if config.context /= TextileTrimsContext then
@@ -363,7 +359,7 @@ componentView config itemIndex ({ component, elements, quantity } as expandedIte
                         [ Component.extractUnitMass itemResults
                             |> Format.kg
                         ]
-                    , td [ class "pt-0 pb-2 align-middle text-truncate w-100", colspan 2 ]
+                    , td [ class "pt-0 pb-2 align-middle text-truncate w-100", colspan 3 ]
                         [ if config.context == GenericContext then
                             div [ class "d-flex flex-column gap-1" ]
                                 [ div [ class "d-flex gap-2" ]
@@ -392,7 +388,7 @@ componentView config itemIndex ({ component, elements, quantity } as expandedIte
                         [ Component.getTotalImpacts itemResults
                             |> Format.formatImpact config.impact
                         ]
-                    , td [ class "pe-3 pt-0 pb-2 text-end align-middle text-nowrap" ]
+                    , td [ class "pe-3 pt-0 pb-2 text-end align-end text-nowrap" ]
                         [ if config.context == AdminContext then
                             text ""
 
@@ -420,7 +416,7 @@ componentDetailedView config elements itemIndex expandedItem itemResults =
     List.concat
         [ [ tr [ class "bg-light border-bottom" ]
                 [ th [] []
-                , th [ class "pb-1", colspan 7 ] [ text "Composition" ]
+                , th [ class "pb-1", colspan 8 ] [ text "Composition" ]
                 ]
           ]
         , if List.isEmpty elements then
@@ -434,12 +430,12 @@ componentDetailedView config elements itemIndex expandedItem itemResults =
 
           else
             List.map3
-                (elementView config ( expandedItem.component, itemIndex ))
+                (elementView config ( expandedItem.component, itemIndex ) itemResults)
                 (List.range 0 (List.length elements - 1))
                 elements
                 (Component.extractItems itemResults)
         , [ tr [ class "border-top" ]
-                [ td [ colspan 8, class "pe-3" ]
+                [ td [ colspan 9, class "pe-3" ]
                     [ addElementButton config ( expandedItem.component, itemIndex )
                     ]
                 ]
@@ -941,24 +937,41 @@ countrySelector config =
             )
 
 
-elementView : Config db msg -> TargetItem -> Index -> ExpandedElement -> Results -> Html msg
-elementView config (( component, _ ) as targetItem) elementIndex { amount, material, transforms } elementResults =
+elementView : Config db msg -> TargetItem -> Results -> Index -> ExpandedElement -> Results -> Html msg
+elementView config (( component, _ ) as targetItem) itemResults elementIndex { amount, material, transforms } elementResults =
     let
+        elementMass =
+            Component.extractMass elementResults
+
         materialLabel { country, process } =
             String.join " "
                 [ Process.getDisplayName process
                 , "(" ++ (country |> Maybe.map .name |> Maybe.withDefault "Inconnu") ++ ")"
                 ]
+
+        amountInfo =
+            span [ class "d-flex text-muted fs-8" ]
+                [ if material.process.unit /= Process.Kilogram then
+                    span [] [ text "(", Format.amount material.process amount, text ")\u{00A0}" ]
+
+                  else
+                    text ""
+                , Format.kg elementMass
+                ]
     in
     tbody []
         [ tr [ class "fs-7 border-top" ]
             [ td [] []
-            , td [ class "ps-0 align-start text-end text-nowrap" ]
-                [ Format.amount material.process amount ]
+            , td [ class "d-flex flex-column align-items-end" ]
+                [ Component.extractUnitMass itemResults
+                    |> Component.elementMassShare elementMass
+                    |> Format.splitAsPercentage 1
+                , amountInfo
+                ]
             , td
-                [ colspan 2
+                [ colspan 3
                 , class "align-middle text-truncate"
-                , style "max-width" "10vw"
+                , style "max-width" "0"
                 ]
                 [ div [ class "d-flex flex-column" ]
                     [ button

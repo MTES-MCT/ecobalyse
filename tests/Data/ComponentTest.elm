@@ -36,7 +36,8 @@ import Result.Extra as RE
 import Test exposing (..)
 import TestUtils
     exposing
-        ( expectFloatDifferent
+        ( expectAllSucceed
+        , expectFloatDifferent
         , expectFloatMostlyEqual
         , expectResultErrorContains
         , it
@@ -206,22 +207,22 @@ suite =
                           describe "qtyVariationRatio"
                             [ it "should not apply any quantity variation ratio when no transforms are passed"
                                 (getTestMass []
-                                    |> Expect.within (Expect.Absolute 0.00001) 1
+                                    |> expectFloatMostlyEqual 1
                                 )
                             , it "should apply quantity variation ratio when one transform is passed"
                                 (getTestMass [ { weaving | qtyVariationRatio = Unit.qtyVariationRatio 0.2 } ]
-                                    |> Expect.within (Expect.Absolute 0.00001) 0.2
+                                    |> expectFloatMostlyEqual 0.2
                                 )
                             , it "should apply quantity variation superior to 1"
                                 (getTestMass [ { weaving | qtyVariationRatio = Unit.qtyVariationRatio 2 } ]
-                                    |> Expect.within (Expect.Absolute 0.00001) 2
+                                    |> expectFloatMostlyEqual 2
                                 )
                             , it "should apply quantity variation ratio sequentially when multiple transforms are passed"
                                 (getTestMass
                                     [ { weaving | qtyVariationRatio = Unit.qtyVariationRatio 0.5 }
                                     , { weaving | qtyVariationRatio = Unit.qtyVariationRatio 0.5 }
                                     ]
-                                    |> Expect.within (Expect.Absolute 0.00001) 0.25
+                                    |> expectFloatMostlyEqual 0.25
                                 )
                             ]
                         , let
@@ -248,7 +249,7 @@ suite =
                           describe "impacts"
                             [ it "should not add impacts when no transforms are passed"
                                 (getTestEcsImpact []
-                                    |> Expect.within (Expect.Absolute 0.00001) 0
+                                    |> expectFloatMostlyEqual 0
                                 )
                             , it "should add impacts when one transform is passed (no elec, no heat)"
                                 (getTestEcsImpact
@@ -496,7 +497,7 @@ suite =
                                     -- forcing air transport ratio to full must not change the result, as it's always
                                     -- reset to zero at the transform step level
                                     getEcsForByAir Split.full
-                                        |> Expect.within (Expect.Absolute 0.00001) (getEcsForByAir Split.zero)
+                                        |> expectFloatMostlyEqual (getEcsForByAir Split.zero)
                                 )
                             ]
                         ]
@@ -700,6 +701,28 @@ suite =
                                     )
                                 ]
                             )
+                        , suiteFromResult "missing massPerUnit defaults to 0"
+                            (wood
+                                |> Result.andThen
+                                    (\woodProcess ->
+                                        { amount = Amount.fromFloat 1
+                                        , material = { country = Nothing, id = woodProcess.id }
+                                        , transforms = []
+                                        }
+                                            |> Component.computeElementResults
+                                                (updateRequirementsProcess woodProcess (\p -> { p | massPerUnit = Nothing }) requirements)
+                                                defaultTransportOptions
+                                    )
+                            )
+                            (\results ->
+                                [ it "should compute mass as 0 when a non-kg process features an unknown massPerUnit"
+                                    (results
+                                        |> Component.extractMass
+                                        |> Mass.inKilograms
+                                        |> Expect.equal 0
+                                    )
+                                ]
+                            )
                         , suiteFromResult2 "compute metadata complements"
                             wood
                             sawing
@@ -716,7 +739,7 @@ suite =
                                     (results
                                         |> Result.map extractComplementEcsImpact
                                         |> Result.withDefault 0
-                                        |> Expect.within (Expect.Absolute 0.00001) 1.41462
+                                        |> expectFloatMostlyEqual 1.41462
                                     )
                                 ]
                             )
@@ -790,7 +813,7 @@ suite =
                                 |> (\result ->
                                         case result of
                                             Ok ( a, b ) ->
-                                                Expect.within (Expect.Absolute 0.00001) b (a * 2)
+                                                expectFloatMostlyEqual b (a * 2)
 
                                             Err err ->
                                                 Expect.fail err
@@ -801,7 +824,7 @@ suite =
                                 |> toComputedResults
                             )
                             (\results ->
-                                Expect.within (Expect.Absolute 0.00001)
+                                expectFloatMostlyEqual
                                     (Component.extractUnitMass results |> Mass.inKilograms)
                                     (Component.extractMass results |> Mass.inKilograms)
                             )
@@ -813,24 +836,119 @@ suite =
                                 |> toComputedResults
                             )
                             (\unitResults doubledResults ->
-                                Expect.all
-                                    [ \_ ->
-                                        Expect.within (Expect.Absolute 0.00001)
-                                            (Component.extractUnitMass unitResults |> Mass.inKilograms)
-                                            (Component.extractUnitMass doubledResults |> Mass.inKilograms)
-                                    , \_ ->
-                                        Expect.within (Expect.Absolute 0.00001)
-                                            ((Component.extractMass unitResults |> Mass.inKilograms) * 2)
-                                            (Component.extractMass doubledResults |> Mass.inKilograms)
-                                    , \_ ->
-                                        Expect.within (Expect.Absolute 0.00001)
-                                            ((Component.getTotalImpacts unitResults |> getEcsImpact) * 2)
-                                            (Component.getTotalImpacts doubledResults |> getEcsImpact)
+                                expectAllSucceed
+                                    [ expectFloatMostlyEqual
+                                        (Component.extractUnitMass unitResults |> Mass.inKilograms)
+                                        (Component.extractUnitMass doubledResults |> Mass.inKilograms)
+                                    , expectFloatMostlyEqual
+                                        ((Component.extractMass unitResults |> Mass.inKilograms) * 2)
+                                        (Component.extractMass doubledResults |> Mass.inKilograms)
+                                    , expectFloatMostlyEqual
+                                        ((Component.getTotalImpacts unitResults |> getEcsImpact) * 2)
+                                        (Component.getTotalImpacts doubledResults |> getEcsImpact)
                                     ]
-                                    ()
+                            )
+                         , itFromResult "should split unit mass evenly across two 1kg elements"
+                            ("""{ "id": "ad9d7f23-076b-49c5-93a4-ee1cd7b53973",
+                                  "quantity": 1,
+                                  "custom": {
+                                    "elements": [
+                                      { "amount": 1, "material": "6527710e-2434-5347-9bef-2205e0aa4f66" },
+                                      { "amount": 1, "material": "59b42284-3e45-5343-8a20-1d7d66137461" }
+                                    ]
+                                  }
+                                }"""
+                                |> toComputedResults
+                            )
+                            (\results ->
+                                let
+                                    unitMass =
+                                        Component.extractUnitMass results
+
+                                    elementShares =
+                                        Component.extractItems results
+                                            |> List.map
+                                                (\elementResults ->
+                                                    unitMass
+                                                        |> Component.elementMassShare (Component.extractMass elementResults)
+                                                )
+                                in
+                                expectAllSucceed
+                                    [ Mass.inKilograms unitMass
+                                        |> expectFloatMostlyEqual 2
+                                    , elementShares
+                                        |> Expect.equal [ Split.half, Split.half ]
+                                    ]
+                            )
+                         , itFromResult2 "should keep element mass shares unchanged when quantity is scaled"
+                            -- initial quantity
+                            ("""{ "id": "ad9d7f23-076b-49c5-93a4-ee1cd7b53973",
+                                  "quantity": 1,
+                                  "custom": {
+                                    "elements": [
+                                      { "amount": 1, "material": "6527710e-2434-5347-9bef-2205e0aa4f66" },
+                                      { "amount": 1, "material": "59b42284-3e45-5343-8a20-1d7d66137461" }
+                                    ]
+                                  }
+                                }"""
+                                |> toComputedResults
+                            )
+                            -- doubled quantity
+                            ("""{ "id": "ad9d7f23-076b-49c5-93a4-ee1cd7b53973",
+                                  "quantity": 2,
+                                  "custom": {
+                                    "elements": [
+                                      { "amount": 1, "material": "6527710e-2434-5347-9bef-2205e0aa4f66" },
+                                      { "amount": 1, "material": "59b42284-3e45-5343-8a20-1d7d66137461" }
+                                    ]
+                                  }
+                                }"""
+                                |> toComputedResults
+                            )
+                            (\unitResults doubledResults ->
+                                let
+                                    extractShares results =
+                                        let
+                                            unitMass =
+                                                Component.extractUnitMass results
+                                        in
+                                        Component.extractItems results
+                                            |> List.map
+                                                (\elementResults ->
+                                                    unitMass
+                                                        |> Component.elementMassShare (Component.extractMass elementResults)
+                                                )
+                                in
+                                expectAllSucceed
+                                    [ extractShares doubledResults
+                                        |> Expect.equal (extractShares unitResults)
+                                    , extractShares doubledResults
+                                        |> Expect.equal [ Split.half, Split.half ]
+                                    , Component.extractUnitMass doubledResults
+                                        |> Mass.inKilograms
+                                        |> expectFloatMostlyEqual (Component.extractUnitMass unitResults |> Mass.inKilograms)
+                                    ]
                             )
                          ]
                         )
+                    , describe "elementMassShare"
+                        [ it "should be 50% when element mass is half of unit mass"
+                            (Component.elementMassShare (Mass.kilograms 1) (Mass.kilograms 2)
+                                |> Expect.equal Split.half
+                            )
+                        , it "should be 0 when unit mass is 0"
+                            (Component.elementMassShare (Mass.kilograms 1) Quantity.zero
+                                |> Expect.equal Split.zero
+                            )
+                        , it "should be 0 when element mass is 0"
+                            (Component.elementMassShare Quantity.zero (Mass.kilograms 2)
+                                |> Expect.equal Split.zero
+                            )
+                        , it "should be 100% when element mass equals unit mass"
+                            (Component.elementMassShare (Mass.kilograms 2) (Mass.kilograms 2)
+                                |> Expect.equal Split.full
+                            )
+                        ]
                     , describe "computePackagingImpacts"
                         (let
                             computePackagingEcsImpacts packagings =
@@ -884,9 +1002,9 @@ suite =
                             )
                             (\( productionMass, productMass, assemblyImpact ) ->
                                 [ it "should keep product mass unchanged" <|
-                                    Expect.within (Expect.Absolute 0.00001) productionMass productMass
+                                    expectFloatMostlyEqual productionMass productMass
                                 , it "should keep assembly impacts unchanged" <|
-                                    Expect.within (Expect.Absolute 0.00001) assemblyImpact 0
+                                    expectFloatMostlyEqual assemblyImpact 0
                                 ]
                             )
                         , itFromResult "should apply category default assembly operations when computing results"
@@ -947,16 +1065,16 @@ suite =
                                 in
                                 [ itFromResult "should halve mass after the first 50% waste operation"
                                     firstMass
-                                    (Expect.within (Expect.Absolute 0.00001)
+                                    (expectFloatMostlyEqual
                                         (productionMass * qtyVariationRatioFloat)
                                     )
                                 , it "should reduce end product mass to a quarter after two 50% waste operations" <|
-                                    Expect.within (Expect.Absolute 0.00001)
+                                    expectFloatMostlyEqual
                                         (productionMass * qtyVariationRatioFloat * qtyVariationRatioFloat)
                                         (Mass.inKilograms lifeCycle.productMass)
                                 , itFromResult "should apply the second 50% waste ratio on the remaining mass"
                                     secondMass
-                                    (Expect.within (Expect.Absolute 0.00001)
+                                    (expectFloatMostlyEqual
                                         (productionMass * qtyVariationRatioFloat * qtyVariationRatioFloat)
                                     )
                                 ]
@@ -2007,7 +2125,7 @@ suite =
                                     |> List.filterMap identity
                                     |> Impact.sumImpacts
                                     |> getEcsImpact
-                                    |> Expect.within (Expect.Absolute 0.00001)
+                                    |> expectFloatMostlyEqual
                                         ([ Component.extractImpacts lifeCycle.production
                                          , lifeCycle.transports.toAssembly.impacts
                                          , lifeCycle.transports.toDistribution.impacts
@@ -2132,12 +2250,12 @@ suite =
                             [ it "should ignore provided amount and use product mass when using a mass-dependent process"
                                 (Component.useProcessAmount lifeCycle massDependentProcess (Amount.fromFloat 999)
                                     |> Amount.toFloat
-                                    |> Expect.within (Expect.Absolute 0.00001) productMassInKg
+                                    |> expectFloatMostlyEqual productMassInKg
                                 )
                             , it "should return the given amount for a regular, non-mass-dependent process"
                                 (Component.useProcessAmount lifeCycle lowVoltageElecProcess (Amount.fromFloat 3)
                                     |> Amount.toFloat
-                                    |> Expect.within (Expect.Absolute 0.00001) 3
+                                    |> expectFloatMostlyEqual 3
                                 )
                             ]
                         )

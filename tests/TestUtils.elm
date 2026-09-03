@@ -2,6 +2,7 @@ module TestUtils exposing
     ( asTest
     , componentConfig
     , createServerRequest
+    , expectAllSucceed
     , expectFloatDifferent
     , expectFloatMostlyEqual
     , expectImpactsEqual
@@ -48,6 +49,11 @@ asTest =
 componentConfig : Db -> Result String Component.Config
 componentConfig db =
     Component.parseConfig db StaticJson.componentConfigJson
+
+
+expectAllSucceed : List Expectation -> Expectation
+expectAllSucceed expectations =
+    Expect.all (expectations |> List.map always) ()
 
 
 expectFloatDifferent : Float -> Float -> Expectation
