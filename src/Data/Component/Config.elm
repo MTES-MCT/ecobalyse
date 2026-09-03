@@ -309,8 +309,10 @@ validateDefaultExamples rawDict =
                 |> List.map Scope.toStringGeneric
 
         errors =
-            List.map (\key -> "defaultExamples\u{00A0}: scope invalide `" ++ key ++ "`") invalidKeys
-                ++ List.map (\scope -> "defaultExamples\u{00A0}: scope manquant `" ++ scope ++ "`") missingScopes
+            List.concat
+                [ List.map (\key -> "defaultExamples\u{00A0}: scope invalide `" ++ key ++ "`") invalidKeys
+                , List.map (\scope -> "defaultExamples\u{00A0}: scope manquant `" ++ scope ++ "`") missingScopes
+                ]
     in
     if not <| List.isEmpty errors then
         Decode.fail <| String.join "\n" errors
