@@ -12793,7 +12793,7 @@
       "transported_cooled"
     ],
     "comment": "AGRIBALYSE v3.2 dataset, 2024.\nTranslated name: Fraise moyenne France, conventionnelle, sortie ferme\nIncluded processes: The inventory includes : (1) the processes of soil preparation and cultivation, sowing, weed control, fertilisation, pest and pathogen control, harvest ; (2) the machines and shed or surface used to park them; (3) all inputs as seed, seedling, fertilizers (mineral and organic), active substances, water for irrigation, fuels as well as the transport to the farm; (4) the direct emissions of the fuel combustion, the abrasion of tyres and the direct emissions on the field. \n (based on the project AGRIBALYSE 2.0 fruits and vegetables)\nFor more information about this LCI, see the report \"Dominique Grasselly, Maëlie Trédan, CTIFL, Vincent Colomb, ADEME, 2017.AGRIBALYSE®fruits et légumes. Compléments à la base de données d'inventaires de cycle de vie et démarche d'écoconception de systèmes de culture, 50p.\" (english version available)\nDirect Land Use Change method (PAS 2050-1:2012) was applied only when CO2 from land transformation is different from 0.\nILCD - Overall data quality :\nTechnological representativeness (TeR) = 2 (good) >=85% and <95%\nGeographical representativeness (GR) = 2 (good) >=85% abd <95%\nTime-related representativeness (TiR) = 2 (good) >=85% and <95%\nCompleteness (C) = 2 (good) >=85% and <95%\nPrecision / Uncertainty (P) = 2 (good) >7% and <=10%\nMethodological appropriateness ans consistency (M) = 2 (good) >=85% and <95%\nFinal note = 2\nGeography: France. \nTechnology: Conventional production.\nTime period: Inventory data based on the time period  2011-2015.\nVersion: 1.0\nEnergy values: Net values\nPercent representativeness: na\nProduction volume: na\nLocal category: Agricultural\nLocal subcategory: AGRIBALYSE\\Plant Production\\Vegetables\\\nSource file: AGRIBALYSEV1.4_Complete.xml",
-    "displayName": "Cassis FR",
+    "displayName": "Fraise FR",
     "elecKwh": 0,
     "heatMJ": 0,
     "id": "6f6ab521-c7d4-58f9-b051-2b7cd11be4b4",
@@ -14572,6 +14572,30 @@
     "unit": "kg"
   },
   {
+    "activityName": "Wheat grain {DE}| wheat production | Cut-off, U - Adapted from Ecoinvent U",
+    "categories": [
+      "ingredient",
+      "material",
+      "material_type:cereals"
+    ],
+    "comment": "AGRIBALYSE v3.2 dataset, 2024.\noriginal ecoinvent name: Wheat grain {DE}| wheat production | Cut-off, U\n\nThis dataset represents the production of 1 kg of wheat grain (fresh matter). The Yield_ is 7567 kg/ha at a moisture content at storage of 14.5%.\n\nNone\n\n[This dataset was already contained in the ecoinvent database version 2. It was not individually updated during the transfer to ecoinvent version 3. Life Cycle Impact Assessment results may still have changed, as they are affected by changes in the supply chain, i.e. in other datasets. This dataset was generated following the ecoinvent quality guidelines for version 2. It may have been subject to central changes described in the ecoinvent version 3 change report (http://www.ecoinvent.org/database/ecoinvent-version-3/reports-of-changes/), and the results of the central updates were reviewed extensively. The changes added e.g. consistent water flows and other information throughout the database. The documentation of this dataset can be found in the ecoinvent reports of version 2, which are still available via the ecoinvent website. The change report linked above covers all central changes that were made during the conversion process.]\n\nProduction volume: 23692699648 kg\nIncluded activities start: This activity starts after the harvest of the previous crop. The inputs of seeds, mineral fertilisers and pesticides are considered. It is assumed that no organic fertilisers are applied.\nIncluded activities end: The dataset includes all machine operations and corresponding machine infrastructure and sheds. Machine operations are: soil cultivation, sowing, fertilisation, weed control, pest and pathogen control, combine-harvest, grain drying and transport from field to farm (4 km). Further, direct field emissions are included. This activity ends after harvest and grain drying at the farm gate.\nEnergy values: Undefined\nGeography: The inventory is modelled for Germany\nTechnology level: Current\nTechnology: conventional production typical for the region\nStart date: 01/01/2000\nEnd date: 31/12/2022\nIs data valid for entire period: True\nTime period: The Yield_ data have been collected for the years 2000-2004.\nMacro-economic scenario name: Business-as-Usual\n\nVersion: 31.3.0.0\nCreated: 7/28/2010 6:43:44 PM\nLast edited: 4/28/2016 3:22:46 PM\nSource: 46431282-8808-562e-be9b-25551c2fbf6d_0201ee86-f71b-4457-8fe8-79f3ed720b07.spold\nUUID: 46431282-8808-562e-be9b-25551c2fbf6d",
+    "displayName": "Blé tendre UE",
+    "elecKwh": 0,
+    "heatMJ": 0,
+    "id": "1b376854-2543-55e0-8d60-7246508b932e",
+    "impacts": {
+      "ecs": 72.51
+    },
+    "location": "DE",
+    "massPerUnit": null,
+    "qtyVariationRatio": 1.0,
+    "scopes": [
+      "food"
+    ],
+    "source": "Agribalyse 3.2",
+    "unit": "kg"
+  },
+  {
     "activityName": "Wheat grain {ES}| wheat production | Cut-off, U - Adapted from Ecoinvent U",
     "categories": [
       "ingredient",
@@ -14579,7 +14603,7 @@
       "material_type:cereals"
     ],
     "comment": "AGRIBALYSE v3.2 dataset, 2024.\noriginal ecoinvent name: Wheat grain {ES}| wheat production | Cut-off, U\n\nThis dataset represents the production of 1 kg of wheat grain (fresh matter). The Yield_ is 3049 kg/ha at a moisture content at storage of 15%.\n\nNone\n\n[This dataset was already contained in the ecoinvent database version 2. It was not individually updated during the transfer to ecoinvent version 3. Life Cycle Impact Assessment results may still have changed, as they are affected by changes in the supply chain, i.e. in other datasets. This dataset was generated following the ecoinvent quality guidelines for version 2. It may have been subject to central changes described in the ecoinvent version 3 change report (http://www.ecoinvent.org/database/ecoinvent-version-3/reports-of-changes/), and the results of the central updates were reviewed extensively. The changes added e.g. consistent water flows and other information throughout the database. The documentation of this dataset can be found in the ecoinvent reports of version 2, which are still available via the ecoinvent website. The change report linked above covers all central changes that were made during the conversion process.]\n\nProduction volume: 4026693888 kg\nIncluded activities start: This activity starts after the harvest of the previous crop. The inputs of seeds, mineral fertilisers and pesticides are considered. It is assumed that no organic fertilisers are applied.\nIncluded activities end: The dataset includes all machine operations and corresponding machine infrastructure and sheds. Machine operations are: soil cultivation, sowing, fertilisation, weed control, pest and pathogen control, combine-harvest and transport from field to farm (5 km). Further, direct field emissions are included. This activity ends after harvest at the farm gate.\nEnergy values: Undefined\nGeography: The inventory is modelled for Spain\nTechnology level: Current\nTechnology: conventional production typical for the region\nStart date: 01/01/2000\nEnd date: 31/12/2022\nIs data valid for entire period: True\nTime period: The Yield_ data have been collected for the years 2000-2004.\nMacro-economic scenario name: Business-as-Usual\n\nVersion: 29.3.0.0\nCreated: 7/28/2010 6:43:47 PM\nLast edited: 7/5/2012 12:05:27 PM\nSource: c8180b27-2507-5dab-8234-368aef4afe60_0201ee86-f71b-4457-8fe8-79f3ed720b07.spold\nUUID: c8180b27-2507-5dab-8234-368aef4afe60",
-    "displayName": "Wheat grain (ES)",
+    "displayName": "Blé tendre Origine Inconnue",
     "elecKwh": 0,
     "heatMJ": 0,
     "id": "bda1b5eb-37e0-5ffd-9514-4382e62d62b7",
@@ -14635,30 +14659,6 @@
       "ecs": 155.8
     },
     "location": "RoW",
-    "massPerUnit": null,
-    "qtyVariationRatio": 1.0,
-    "scopes": [
-      "food"
-    ],
-    "source": "Agribalyse 3.2",
-    "unit": "kg"
-  },
-  {
-    "activityName": "Wheat grain {US}| wheat production | Cut-off, U - Adapted from Ecoinvent U",
-    "categories": [
-      "ingredient",
-      "material",
-      "material_type:cereals"
-    ],
-    "comment": "AGRIBALYSE v3.2 dataset, 2024.\noriginal ecoinvent name: Wheat grain {US}| wheat production | Cut-off, U\n\nThis dataset represents the production of 1 kg of wheat grain (fresh matter). The Yield_ is 2253 kg/ha at a moisture content at storage of 15%.\n\nNone\n\n[This dataset was already contained in the ecoinvent database version 2. It was not individually updated during the transfer to ecoinvent version 3. Life Cycle Impact Assessment results may still have changed, as they are affected by changes in the supply chain, i.e. in other datasets. This dataset was generated following the ecoinvent quality guidelines for version 2. It may have been subject to central changes described in the ecoinvent version 3 change report (http://www.ecoinvent.org/database/ecoinvent-version-3/reports-of-changes/), and the results of the central updates were reviewed extensively. The changes added e.g. consistent water flows and other information throughout the database. The documentation of this dataset can be found in the ecoinvent reports of version 2, which are still available via the ecoinvent website. The change report linked above covers all central changes that were made during the conversion process.]\n\nProduction volume: 57241989120 kg\nIncluded activities start: This activity starts after the harvest of the previous crop. The inputs of seeds, mineral fertilisers, pesticides and irrigation water are considered. It is assumed that no organic fertilisers are applied.\nIncluded activities end: The dataset includes all machine operations and corresponding machine infrastructure and sheds. Machine operations are: soil cultivation, sowing, fertilisation, irrigation, weed control, pest and pathogen control, combine-harvest and transport from field to farm (1 km). Further, direct field emissions are included. This activity ends after harvest and drying of grains at the farm gate.\nEnergy values: Undefined\nGeography: The inventory is modelled for United States\nTechnology level: Current\nTechnology: Conventional production typical for the country. Water for irrigation is pumped from 48 meter depth by electric pumps.\nStart date: 01/01/2001\nEnd date: 31/12/2022\nIs data valid for entire period: True\nTime period: The Yield_ data have been collected for the years 2001-2006.\nMacro-economic scenario name: Business-as-Usual\n\nVersion: 26.3.0.0\nCreated: 7/28/2010 6:43:55 PM\nLast edited: 8/11/2021 9:17:58 AM\nSource: 35be8f53-9093-58c0-82eb-5f8599c27ec4_0201ee86-f71b-4457-8fe8-79f3ed720b07.spold\nUUID: 35be8f53-9093-58c0-82eb-5f8599c27ec4",
-    "displayName": "Blé tendre Origine Inconnue",
-    "elecKwh": 0,
-    "heatMJ": 0,
-    "id": "1b376854-2543-55e0-8d60-7246508b932e",
-    "impacts": {
-      "ecs": 223.4
-    },
-    "location": "US",
     "massPerUnit": null,
     "qtyVariationRatio": 1.0,
     "scopes": [
@@ -25250,22 +25250,22 @@
     "unit": "kg"
   },
   {
-    "activityName": "Grape, wine grape, at farm, organic 2025 {IT}",
+    "activityName": "Grape, organic 2025 {RoW}| grape production | Cut-off, U",
     "categories": [
       "ingredient",
       "material",
       "material_type:fruits_and_vegetables",
       "transported_cooled"
     ],
-    "comment": "This dataset has been extrapolated from the dataset Grape, wine grape, at farm {IT} - Adapted from WFLDB U from the database WFLDB and version 3.5.\nFor further information, please consult the ADEME report \"Construction of LCIs for organic agricultural products based on extrapolations of conventional LCIs for the French food market and environmental labelling\"",
+    "comment": "This dataset has been extrapolated from the dataset Grape {RoW}| grape production | Cut-off, U - Adapted from Ecoinvent U from the database Ecoinvent and version 3.9.1.\nFor further information, please consult the ADEME report \"Construction of LCIs for organic agricultural products based on extrapolations of conventional LCIs for the French food market and environmental labelling\"",
     "displayName": "Raisins (noirs ou blancs) Bio",
     "elecKwh": 0,
     "heatMJ": 0,
     "id": "dbda34a4-ff99-577d-917b-a8547b7ae0bc",
     "impacts": {
-      "ecs": 131.2
+      "ecs": 50.03
     },
-    "location": "IT",
+    "location": "RoW",
     "massPerUnit": null,
     "qtyVariationRatio": 1.0,
     "scopes": [
@@ -61399,6 +61399,49 @@
   },
   {
     "activityName": "Spinach {GLO}| production | Cut-off, U - Adapted from Ecoinvent U",
+    "alias": "spinach-eu",
+    "categories": [
+      "ingredient",
+      "material",
+      "material_type:fruits_and_vegetables",
+      "transported_cooled"
+    ],
+    "comment": "AGRIBALYSE v3.2 dataset, 2024.\noriginal ecoinvent name: Spinach {GLO}| spinach production | Cut-off, U\n\nThis dataset represents spinach production according to the Integrated Production standard in CH.\n\nYield: 25 t / ha.\n\nDuration of one cropping cycle: 1.25 months.\n\nField production.\n\nThe LCA study, from which this LCI has been derived, contains detailed descriptions of the system boundaries and the data sources used (Stoessel et al. 2012). The publication is published and freely available with comprehensive supporting information:\n\nhttp://pubs.acs.org/doi/pdf/10.1021/es2030577\n\nFranziska Stoessel, Ronnie Juraske, Stephan Pfister, Stefanie Hellweg. (2012) Life Cycle Inventory and Carbon and Water FoodPrint of Fruits and Vegetables: Application to a Swiss Retailer. Environmental Science & Technology 6(46) 3253-3262.\n\nNone\n\nThis activity was adapted to include the global average land use change (LUC) emissions according 2nd edition of the Quantis-modified tool developed by Blonk Consultants 'WFLDB-adapted-Blonk 2014 direct-land-use-change-assessment-tool_2015-05-18a.xlsx', tab. 'Country & land use unknown'. The size of the emission depends on (i) the relative crop expansion in all countries of the crop during the last 20 years and (ii) the corresponding, country specific land transformations. The current results are based on the average FAOSTAT data (harvested area) of 2009-2011 and 1989-1991. The weighted average is used which takes into account relative difference in crop expansion into primary forest, secondary forest, grassland, perennial and annual land.\n\nProduction volume: 18088361984 kg\nIncluded activities start: From sowing.\nIncluded activities end: This activity ends with harvest and storage. \nThe dataset includes a storage period of 0.15 month and it's use of electricity.  The pesticide inputs are classified according to their chemical classes and the emmssions are assigned to the soil (100%). \nMercury emissions are neglected due to a lack of data while other heavy metal emissions are included. The dataset doesn't include infrastructure for production and storage facilities. No transports for agricultural means of production from the regional storage to the farm are included.\nEnergy values: Undefined\nGeography: The inventory is modelled for Global\nTechnology level: Current\nTechnology: Integrated production\nStart date: 01/01/2010\nEnd date: 31/12/2022\nIs data valid for entire period: True\nTime period: \nMacro-economic scenario name: Business-as-Usual\n\nVersion: 9.3.0.0\nCreated: 5/14/2011 3:58:48 PM\nLast edited: 7/22/2016 11:03:50 AM\nSource: e4a00562-8b82-5559-af5a-fc02eb23f5e7_a47ddfcf-af07-4c1a-9914-1e30c941cd19.spold\nUUID: e4a00562-8b82-5559-af5a-fc02eb23f5e7",
+    "displayName": "Épinard UE",
+    "elecKwh": 0,
+    "heatMJ": 0,
+    "id": "d2cba2cd-ebb6-5a6c-83cc-b7fee34643a6",
+    "impacts": {
+      "ecs": 44.26
+    },
+    "landOccupation": 0.04615,
+    "location": "GLO",
+    "massPerUnit": null,
+    "metadata": {
+      "complements": {
+        "cropDiversity": 0,
+        "hedges": 0,
+        "permanentPasture": null,
+        "plotSize": 0
+      },
+      "defaultOrigin": "REM",
+      "ingredient": {
+        "baseIngredient": "spinach",
+        "cropGroup": "LEGUMES-FLEURS",
+        "processId": "543622a6-3e36-58cd-b77c-66c678eb7959",
+        "scenario": "import"
+      }
+    },
+    "qtyVariationRatio": 1.0,
+    "scopes": [
+      "food2"
+    ],
+    "source": "Agribalyse 3.2",
+    "unit": "kg",
+    "visible": true
+  },
+  {
+    "activityName": "Spinach {GLO}| production | Cut-off, U - Adapted from Ecoinvent U",
     "alias": "spinach-fr",
     "categories": [
       "ingredient",
@@ -61554,6 +61597,49 @@
         "plotSize": 0
       },
       "defaultOrigin": null,
+      "ingredient": {
+        "baseIngredient": "swiss-chard",
+        "cropGroup": "LEGUMES-FLEURS",
+        "processId": "543622a6-3e36-58cd-b77c-66c678eb7959",
+        "scenario": "import"
+      }
+    },
+    "qtyVariationRatio": 1.0,
+    "scopes": [
+      "food2"
+    ],
+    "source": "Agribalyse 3.2",
+    "unit": "kg",
+    "visible": true
+  },
+  {
+    "activityName": "Spinach {GLO}| production | Cut-off, U - Adapted from Ecoinvent U",
+    "alias": "swiss-chard-eu",
+    "categories": [
+      "ingredient",
+      "material",
+      "material_type:fruits_and_vegetables",
+      "transported_cooled"
+    ],
+    "comment": "AGRIBALYSE v3.2 dataset, 2024.\noriginal ecoinvent name: Spinach {GLO}| spinach production | Cut-off, U\n\nThis dataset represents spinach production according to the Integrated Production standard in CH.\n\nYield: 25 t / ha.\n\nDuration of one cropping cycle: 1.25 months.\n\nField production.\n\nThe LCA study, from which this LCI has been derived, contains detailed descriptions of the system boundaries and the data sources used (Stoessel et al. 2012). The publication is published and freely available with comprehensive supporting information:\n\nhttp://pubs.acs.org/doi/pdf/10.1021/es2030577\n\nFranziska Stoessel, Ronnie Juraske, Stephan Pfister, Stefanie Hellweg. (2012) Life Cycle Inventory and Carbon and Water FoodPrint of Fruits and Vegetables: Application to a Swiss Retailer. Environmental Science & Technology 6(46) 3253-3262.\n\nNone\n\nThis activity was adapted to include the global average land use change (LUC) emissions according 2nd edition of the Quantis-modified tool developed by Blonk Consultants 'WFLDB-adapted-Blonk 2014 direct-land-use-change-assessment-tool_2015-05-18a.xlsx', tab. 'Country & land use unknown'. The size of the emission depends on (i) the relative crop expansion in all countries of the crop during the last 20 years and (ii) the corresponding, country specific land transformations. The current results are based on the average FAOSTAT data (harvested area) of 2009-2011 and 1989-1991. The weighted average is used which takes into account relative difference in crop expansion into primary forest, secondary forest, grassland, perennial and annual land.\n\nProduction volume: 18088361984 kg\nIncluded activities start: From sowing.\nIncluded activities end: This activity ends with harvest and storage. \nThe dataset includes a storage period of 0.15 month and it's use of electricity.  The pesticide inputs are classified according to their chemical classes and the emmssions are assigned to the soil (100%). \nMercury emissions are neglected due to a lack of data while other heavy metal emissions are included. The dataset doesn't include infrastructure for production and storage facilities. No transports for agricultural means of production from the regional storage to the farm are included.\nEnergy values: Undefined\nGeography: The inventory is modelled for Global\nTechnology level: Current\nTechnology: Integrated production\nStart date: 01/01/2010\nEnd date: 31/12/2022\nIs data valid for entire period: True\nTime period: \nMacro-economic scenario name: Business-as-Usual\n\nVersion: 9.3.0.0\nCreated: 5/14/2011 3:58:48 PM\nLast edited: 7/22/2016 11:03:50 AM\nSource: e4a00562-8b82-5559-af5a-fc02eb23f5e7_a47ddfcf-af07-4c1a-9914-1e30c941cd19.spold\nUUID: e4a00562-8b82-5559-af5a-fc02eb23f5e7",
+    "displayName": "Blette UE",
+    "elecKwh": 0,
+    "heatMJ": 0,
+    "id": "1326c16c-fb23-5397-ba04-1394b57e60c4",
+    "impacts": {
+      "ecs": 44.26
+    },
+    "landOccupation": 0.04615,
+    "location": "GLO",
+    "massPerUnit": null,
+    "metadata": {
+      "complements": {
+        "cropDiversity": 0,
+        "hedges": 0,
+        "permanentPasture": null,
+        "plotSize": 0
+      },
+      "defaultOrigin": "REM",
       "ingredient": {
         "baseIngredient": "swiss-chard",
         "cropGroup": "LEGUMES-FLEURS",
@@ -62820,6 +62906,49 @@
     "visible": true
   },
   {
+    "activityName": "Strawberry, conventional, national average, at farm gate {FR} U",
+    "alias": "strawberry-fr",
+    "categories": [
+      "ingredient",
+      "material",
+      "material_type:fruits_and_vegetables",
+      "transported_cooled"
+    ],
+    "comment": "AGRIBALYSE v3.2 dataset, 2024.\nTranslated name: Fraise moyenne France, conventionnelle, sortie ferme\nIncluded processes: The inventory includes : (1) the processes of soil preparation and cultivation, sowing, weed control, fertilisation, pest and pathogen control, harvest ; (2) the machines and shed or surface used to park them; (3) all inputs as seed, seedling, fertilizers (mineral and organic), active substances, water for irrigation, fuels as well as the transport to the farm; (4) the direct emissions of the fuel combustion, the abrasion of tyres and the direct emissions on the field. \n (based on the project AGRIBALYSE 2.0 fruits and vegetables)\nFor more information about this LCI, see the report \"Dominique Grasselly, Maëlie Trédan, CTIFL, Vincent Colomb, ADEME, 2017.AGRIBALYSE®fruits et légumes. Compléments à la base de données d'inventaires de cycle de vie et démarche d'écoconception de systèmes de culture, 50p.\" (english version available)\nDirect Land Use Change method (PAS 2050-1:2012) was applied only when CO2 from land transformation is different from 0.\nILCD - Overall data quality :\nTechnological representativeness (TeR) = 2 (good) >=85% and <95%\nGeographical representativeness (GR) = 2 (good) >=85% abd <95%\nTime-related representativeness (TiR) = 2 (good) >=85% and <95%\nCompleteness (C) = 2 (good) >=85% and <95%\nPrecision / Uncertainty (P) = 2 (good) >7% and <=10%\nMethodological appropriateness ans consistency (M) = 2 (good) >=85% and <95%\nFinal note = 2\nGeography: France. \nTechnology: Conventional production.\nTime period: Inventory data based on the time period  2011-2015.\nVersion: 1.0\nEnergy values: Net values\nPercent representativeness: na\nProduction volume: na\nLocal category: Agricultural\nLocal subcategory: AGRIBALYSE\\Plant Production\\Vegetables\\\nSource file: AGRIBALYSEV1.4_Complete.xml",
+    "displayName": "Fraise FR",
+    "elecKwh": 0,
+    "heatMJ": 0,
+    "id": "8ad09e31-6b20-56d1-b059-f871361a16d7",
+    "impacts": {
+      "ecs": 146.6
+    },
+    "landOccupation": 0.4839,
+    "location": "FR",
+    "massPerUnit": null,
+    "metadata": {
+      "complements": {
+        "cropDiversity": 0,
+        "hedges": -1.04,
+        "permanentPasture": null,
+        "plotSize": -2.93
+      },
+      "defaultOrigin": "FR",
+      "ingredient": {
+        "baseIngredient": "strawberry",
+        "cropGroup": "LEGUMES-FLEURS",
+        "processId": "6f6ab521-c7d4-58f9-b051-2b7cd11be4b4",
+        "scenario": "reference"
+      }
+    },
+    "qtyVariationRatio": 1.0,
+    "scopes": [
+      "food2"
+    ],
+    "source": "Agribalyse 3.2",
+    "unit": "kg",
+    "visible": true
+  },
+  {
     "activityName": "Strawberry, coulis, recipe, at plant {FR} U",
     "alias": "strawberry-coulis-2025",
     "categories": [
@@ -62950,7 +63079,7 @@
   },
   {
     "activityName": "Strawberry, soilless protected crops, heated, conventional, at farm gate {FR} U",
-    "alias": "strawberry-fr-offseason",
+    "alias": "strawberry-fr-offseason-2025",
     "categories": [
       "ingredient",
       "material",
@@ -62958,7 +63087,7 @@
       "transported_cooled"
     ],
     "comment": "AGRIBALYSE v3.2 dataset, 2024. \nIncluded processes: The inventory includes : The inventory includes : (1) the greenhouse; (2) all inputs as seedling, coconut fibre, fertilizers (mineral), active substances, water for irrigation, electricity.\nRemark: AGRIBALYSE V1.4, Mai 2020 (based on the project AGRIBALYSE 2.0 fruits and vegetables)\nCut-off rule, exclusion : undefined\nRemark: Functional unit:1 kg de fraise\nRemark: AGRIBALYSE (based on the project AGRIBALYSE 2.0 fruits and vegetables)\nFor more information about this LCI, see the report \"Dominique Grasselly, Maëlie Trédan, CTIFL, Vincent Colomb, ADEME, 2017.AGRIBALYSE®fruits et légumes. Compléments à la base de données d'inventaires de cycle de vie et démarche d'écoconception de systèmes de culture, 50p.\" (english version available)\nRaw datas comes from:Sampling procedure : the data is based on literature and statistical data as well as expert judgements. Dataset was generated by the MEANS-InOut platforms (V2.3.1), following AGRIBALYSE methodology V1.3\nPEF – Overall data quality : \nTechnological representativeness (TeR) = 1 : Very good\nGeographical representativeness (GR) = 2 : Good\nTime-related representativeness (TiR) = 2 : Good\nPrecision / uncertainty (P) = 2 : Good\nFinal note = 1,75 : Very good data quality level\nYield: 50000.0 kg\nundefined\nDataset was generated by MEANS-InOut software.\nStage was last modified on 2023-12-12.\nModels used : [Energy consumption; CO2 Liming - IPCC 2006, tier 1; NO3 leaching - AGRIBALYSE - water rejected 2013;  Energy, in biomass - EcoInventv2 ; N2O Direct - IPCC 2019, tier 1; Loss of water - user entry; Transport of inputs (ecoinvent v3); Water  take off; NH3 - EMEP 2019 Tier 2; NOx  EEA, 2016;  CO2 biogenic - EcoInvent2; Pesticides - OLCA-Pest_DB; CO2 Urea - IPCC 2006, tier 1; N2O Indirect - IPCC 2019, tier 1; PO4 off Land - AGRIBALYSE - water rejected 2013; Heavy metals Flow - SALCA - SM - Special crops; ]\nMEANS id : Stage #16823\nTechnology: Conventional production -  production mode: Conventional production -\nTime period: Inventory data based on the period : 2011-2015\nVersion: 0.0\nEnergy values: Net values\nProduction volume: Production volume : na\nSource file: culture gariguette H_MEANS#16823-Ecoinvent 3.8 - AGB 3.1.1.xml",
-    "displayName": "Fraise hors saison FR",
+    "displayName": "Fraise hors saison FR (2025)",
     "elecKwh": 0,
     "heatMJ": 0,
     "id": "3c20126c-e2ab-403b-8bbc-0fc0d2fd3a1b",
@@ -66903,18 +67032,60 @@
     "visible": true
   },
   {
-    "activityName": "Wheat grain {ES}| wheat production | Cut-off, U - Adapted from Ecoinvent U",
+    "activityName": "Wheat grain {DE}| wheat production | Cut-off, U - Adapted from Ecoinvent U",
     "alias": "soft-wheat-eu",
     "categories": [
       "ingredient",
       "material",
       "material_type:cereals"
     ],
-    "comment": "AGRIBALYSE v3.2 dataset, 2024.\noriginal ecoinvent name: Wheat grain {ES}| wheat production | Cut-off, U\n\nThis dataset represents the production of 1 kg of wheat grain (fresh matter). The Yield_ is 3049 kg/ha at a moisture content at storage of 15%.\n\nNone\n\n[This dataset was already contained in the ecoinvent database version 2. It was not individually updated during the transfer to ecoinvent version 3. Life Cycle Impact Assessment results may still have changed, as they are affected by changes in the supply chain, i.e. in other datasets. This dataset was generated following the ecoinvent quality guidelines for version 2. It may have been subject to central changes described in the ecoinvent version 3 change report (http://www.ecoinvent.org/database/ecoinvent-version-3/reports-of-changes/), and the results of the central updates were reviewed extensively. The changes added e.g. consistent water flows and other information throughout the database. The documentation of this dataset can be found in the ecoinvent reports of version 2, which are still available via the ecoinvent website. The change report linked above covers all central changes that were made during the conversion process.]\n\nProduction volume: 4026693888 kg\nIncluded activities start: This activity starts after the harvest of the previous crop. The inputs of seeds, mineral fertilisers and pesticides are considered. It is assumed that no organic fertilisers are applied.\nIncluded activities end: The dataset includes all machine operations and corresponding machine infrastructure and sheds. Machine operations are: soil cultivation, sowing, fertilisation, weed control, pest and pathogen control, combine-harvest and transport from field to farm (5 km). Further, direct field emissions are included. This activity ends after harvest at the farm gate.\nEnergy values: Undefined\nGeography: The inventory is modelled for Spain\nTechnology level: Current\nTechnology: conventional production typical for the region\nStart date: 01/01/2000\nEnd date: 31/12/2022\nIs data valid for entire period: True\nTime period: The Yield_ data have been collected for the years 2000-2004.\nMacro-economic scenario name: Business-as-Usual\n\nVersion: 29.3.0.0\nCreated: 7/28/2010 6:43:47 PM\nLast edited: 7/5/2012 12:05:27 PM\nSource: c8180b27-2507-5dab-8234-368aef4afe60_0201ee86-f71b-4457-8fe8-79f3ed720b07.spold\nUUID: c8180b27-2507-5dab-8234-368aef4afe60",
+    "comment": "AGRIBALYSE v3.2 dataset, 2024.\noriginal ecoinvent name: Wheat grain {DE}| wheat production | Cut-off, U\n\nThis dataset represents the production of 1 kg of wheat grain (fresh matter). The Yield_ is 7567 kg/ha at a moisture content at storage of 14.5%.\n\nNone\n\n[This dataset was already contained in the ecoinvent database version 2. It was not individually updated during the transfer to ecoinvent version 3. Life Cycle Impact Assessment results may still have changed, as they are affected by changes in the supply chain, i.e. in other datasets. This dataset was generated following the ecoinvent quality guidelines for version 2. It may have been subject to central changes described in the ecoinvent version 3 change report (http://www.ecoinvent.org/database/ecoinvent-version-3/reports-of-changes/), and the results of the central updates were reviewed extensively. The changes added e.g. consistent water flows and other information throughout the database. The documentation of this dataset can be found in the ecoinvent reports of version 2, which are still available via the ecoinvent website. The change report linked above covers all central changes that were made during the conversion process.]\n\nProduction volume: 23692699648 kg\nIncluded activities start: This activity starts after the harvest of the previous crop. The inputs of seeds, mineral fertilisers and pesticides are considered. It is assumed that no organic fertilisers are applied.\nIncluded activities end: The dataset includes all machine operations and corresponding machine infrastructure and sheds. Machine operations are: soil cultivation, sowing, fertilisation, weed control, pest and pathogen control, combine-harvest, grain drying and transport from field to farm (4 km). Further, direct field emissions are included. This activity ends after harvest and grain drying at the farm gate.\nEnergy values: Undefined\nGeography: The inventory is modelled for Germany\nTechnology level: Current\nTechnology: conventional production typical for the region\nStart date: 01/01/2000\nEnd date: 31/12/2022\nIs data valid for entire period: True\nTime period: The Yield_ data have been collected for the years 2000-2004.\nMacro-economic scenario name: Business-as-Usual\n\nVersion: 31.3.0.0\nCreated: 7/28/2010 6:43:44 PM\nLast edited: 4/28/2016 3:22:46 PM\nSource: 46431282-8808-562e-be9b-25551c2fbf6d_0201ee86-f71b-4457-8fe8-79f3ed720b07.spold\nUUID: 46431282-8808-562e-be9b-25551c2fbf6d",
     "displayName": "Blé tendre UE",
     "elecKwh": 0,
     "heatMJ": 0,
     "id": "c56ff7bd-cb19-5798-8611-6ce072b541ba",
+    "impacts": {
+      "ecs": 72.51
+    },
+    "landOccupation": 1.53,
+    "location": "DE",
+    "massPerUnit": null,
+    "metadata": {
+      "complements": {
+        "cropDiversity": 0,
+        "hedges": 0,
+        "permanentPasture": null,
+        "plotSize": 0
+      },
+      "defaultOrigin": "REM",
+      "ingredient": {
+        "baseIngredient": "soft-wheat",
+        "cropGroup": "BLE TENDRE",
+        "processId": "1b376854-2543-55e0-8d60-7246508b932e",
+        "scenario": "import"
+      }
+    },
+    "qtyVariationRatio": 1.0,
+    "scopes": [
+      "food2"
+    ],
+    "source": "Agribalyse 3.2",
+    "unit": "kg",
+    "visible": true
+  },
+  {
+    "activityName": "Wheat grain {ES}| wheat production | Cut-off, U - Adapted from Ecoinvent U",
+    "alias": "millet-whole-default",
+    "categories": [
+      "ingredient",
+      "material",
+      "material_type:cereals"
+    ],
+    "comment": "AGRIBALYSE v3.2 dataset, 2024.\noriginal ecoinvent name: Wheat grain {ES}| wheat production | Cut-off, U\n\nThis dataset represents the production of 1 kg of wheat grain (fresh matter). The Yield_ is 3049 kg/ha at a moisture content at storage of 15%.\n\nNone\n\n[This dataset was already contained in the ecoinvent database version 2. It was not individually updated during the transfer to ecoinvent version 3. Life Cycle Impact Assessment results may still have changed, as they are affected by changes in the supply chain, i.e. in other datasets. This dataset was generated following the ecoinvent quality guidelines for version 2. It may have been subject to central changes described in the ecoinvent version 3 change report (http://www.ecoinvent.org/database/ecoinvent-version-3/reports-of-changes/), and the results of the central updates were reviewed extensively. The changes added e.g. consistent water flows and other information throughout the database. The documentation of this dataset can be found in the ecoinvent reports of version 2, which are still available via the ecoinvent website. The change report linked above covers all central changes that were made during the conversion process.]\n\nProduction volume: 4026693888 kg\nIncluded activities start: This activity starts after the harvest of the previous crop. The inputs of seeds, mineral fertilisers and pesticides are considered. It is assumed that no organic fertilisers are applied.\nIncluded activities end: The dataset includes all machine operations and corresponding machine infrastructure and sheds. Machine operations are: soil cultivation, sowing, fertilisation, weed control, pest and pathogen control, combine-harvest and transport from field to farm (5 km). Further, direct field emissions are included. This activity ends after harvest at the farm gate.\nEnergy values: Undefined\nGeography: The inventory is modelled for Spain\nTechnology level: Current\nTechnology: conventional production typical for the region\nStart date: 01/01/2000\nEnd date: 31/12/2022\nIs data valid for entire period: True\nTime period: The Yield_ data have been collected for the years 2000-2004.\nMacro-economic scenario name: Business-as-Usual\n\nVersion: 29.3.0.0\nCreated: 7/28/2010 6:43:47 PM\nLast edited: 7/5/2012 12:05:27 PM\nSource: c8180b27-2507-5dab-8234-368aef4afe60_0201ee86-f71b-4457-8fe8-79f3ed720b07.spold\nUUID: c8180b27-2507-5dab-8234-368aef4afe60",
+    "displayName": "Millet entier Origine Inconnue",
+    "elecKwh": 0,
+    "heatMJ": 0,
+    "id": "9591a756-7917-52d6-9b0c-ca286988348e",
     "impacts": {
       "ecs": 325.2
     },
@@ -66928,7 +67099,49 @@
         "permanentPasture": null,
         "plotSize": 0
       },
-      "defaultOrigin": "REM",
+      "defaultOrigin": null,
+      "ingredient": {
+        "baseIngredient": "millet-whole",
+        "cropGroup": "AUTRES CEREALES",
+        "processId": "bda1b5eb-37e0-5ffd-9514-4382e62d62b7",
+        "scenario": "import"
+      }
+    },
+    "qtyVariationRatio": 1.0,
+    "scopes": [
+      "food2"
+    ],
+    "source": "Agribalyse 3.2",
+    "unit": "kg",
+    "visible": true
+  },
+  {
+    "activityName": "Wheat grain {ES}| wheat production | Cut-off, U - Adapted from Ecoinvent U",
+    "alias": "soft-wheat-default",
+    "categories": [
+      "ingredient",
+      "material",
+      "material_type:cereals"
+    ],
+    "comment": "AGRIBALYSE v3.2 dataset, 2024.\noriginal ecoinvent name: Wheat grain {ES}| wheat production | Cut-off, U\n\nThis dataset represents the production of 1 kg of wheat grain (fresh matter). The Yield_ is 3049 kg/ha at a moisture content at storage of 15%.\n\nNone\n\n[This dataset was already contained in the ecoinvent database version 2. It was not individually updated during the transfer to ecoinvent version 3. Life Cycle Impact Assessment results may still have changed, as they are affected by changes in the supply chain, i.e. in other datasets. This dataset was generated following the ecoinvent quality guidelines for version 2. It may have been subject to central changes described in the ecoinvent version 3 change report (http://www.ecoinvent.org/database/ecoinvent-version-3/reports-of-changes/), and the results of the central updates were reviewed extensively. The changes added e.g. consistent water flows and other information throughout the database. The documentation of this dataset can be found in the ecoinvent reports of version 2, which are still available via the ecoinvent website. The change report linked above covers all central changes that were made during the conversion process.]\n\nProduction volume: 4026693888 kg\nIncluded activities start: This activity starts after the harvest of the previous crop. The inputs of seeds, mineral fertilisers and pesticides are considered. It is assumed that no organic fertilisers are applied.\nIncluded activities end: The dataset includes all machine operations and corresponding machine infrastructure and sheds. Machine operations are: soil cultivation, sowing, fertilisation, weed control, pest and pathogen control, combine-harvest and transport from field to farm (5 km). Further, direct field emissions are included. This activity ends after harvest at the farm gate.\nEnergy values: Undefined\nGeography: The inventory is modelled for Spain\nTechnology level: Current\nTechnology: conventional production typical for the region\nStart date: 01/01/2000\nEnd date: 31/12/2022\nIs data valid for entire period: True\nTime period: The Yield_ data have been collected for the years 2000-2004.\nMacro-economic scenario name: Business-as-Usual\n\nVersion: 29.3.0.0\nCreated: 7/28/2010 6:43:47 PM\nLast edited: 7/5/2012 12:05:27 PM\nSource: c8180b27-2507-5dab-8234-368aef4afe60_0201ee86-f71b-4457-8fe8-79f3ed720b07.spold\nUUID: c8180b27-2507-5dab-8234-368aef4afe60",
+    "displayName": "Blé tendre Origine Inconnue",
+    "elecKwh": 0,
+    "heatMJ": 0,
+    "id": "eb95f8d6-e3c0-556b-acff-91c7773f5b33",
+    "impacts": {
+      "ecs": 325.2
+    },
+    "landOccupation": 2.923,
+    "location": "ES",
+    "massPerUnit": null,
+    "metadata": {
+      "complements": {
+        "cropDiversity": 0,
+        "hedges": 0,
+        "permanentPasture": null,
+        "plotSize": 0
+      },
+      "defaultOrigin": null,
       "ingredient": {
         "baseIngredient": "soft-wheat",
         "cropGroup": "BLE TENDRE",
@@ -67059,90 +67272,6 @@
         "baseIngredient": "soft-wheat",
         "cropGroup": "BLE TENDRE",
         "processId": "ceb88fa5-9d41-5268-b7f8-73b34374de14",
-        "scenario": "import"
-      }
-    },
-    "qtyVariationRatio": 1.0,
-    "scopes": [
-      "food2"
-    ],
-    "source": "Agribalyse 3.2",
-    "unit": "kg",
-    "visible": true
-  },
-  {
-    "activityName": "Wheat grain {US}| wheat production | Cut-off, U - Adapted from Ecoinvent U",
-    "alias": "millet-whole-default",
-    "categories": [
-      "ingredient",
-      "material",
-      "material_type:cereals"
-    ],
-    "comment": "AGRIBALYSE v3.2 dataset, 2024.\noriginal ecoinvent name: Wheat grain {US}| wheat production | Cut-off, U\n\nThis dataset represents the production of 1 kg of wheat grain (fresh matter). The Yield_ is 2253 kg/ha at a moisture content at storage of 15%.\n\nNone\n\n[This dataset was already contained in the ecoinvent database version 2. It was not individually updated during the transfer to ecoinvent version 3. Life Cycle Impact Assessment results may still have changed, as they are affected by changes in the supply chain, i.e. in other datasets. This dataset was generated following the ecoinvent quality guidelines for version 2. It may have been subject to central changes described in the ecoinvent version 3 change report (http://www.ecoinvent.org/database/ecoinvent-version-3/reports-of-changes/), and the results of the central updates were reviewed extensively. The changes added e.g. consistent water flows and other information throughout the database. The documentation of this dataset can be found in the ecoinvent reports of version 2, which are still available via the ecoinvent website. The change report linked above covers all central changes that were made during the conversion process.]\n\nProduction volume: 57241989120 kg\nIncluded activities start: This activity starts after the harvest of the previous crop. The inputs of seeds, mineral fertilisers, pesticides and irrigation water are considered. It is assumed that no organic fertilisers are applied.\nIncluded activities end: The dataset includes all machine operations and corresponding machine infrastructure and sheds. Machine operations are: soil cultivation, sowing, fertilisation, irrigation, weed control, pest and pathogen control, combine-harvest and transport from field to farm (1 km). Further, direct field emissions are included. This activity ends after harvest and drying of grains at the farm gate.\nEnergy values: Undefined\nGeography: The inventory is modelled for United States\nTechnology level: Current\nTechnology: Conventional production typical for the country. Water for irrigation is pumped from 48 meter depth by electric pumps.\nStart date: 01/01/2001\nEnd date: 31/12/2022\nIs data valid for entire period: True\nTime period: The Yield_ data have been collected for the years 2001-2006.\nMacro-economic scenario name: Business-as-Usual\n\nVersion: 26.3.0.0\nCreated: 7/28/2010 6:43:55 PM\nLast edited: 8/11/2021 9:17:58 AM\nSource: 35be8f53-9093-58c0-82eb-5f8599c27ec4_0201ee86-f71b-4457-8fe8-79f3ed720b07.spold\nUUID: 35be8f53-9093-58c0-82eb-5f8599c27ec4",
-    "displayName": "Millet entier Origine Inconnue",
-    "elecKwh": 0,
-    "heatMJ": 0,
-    "id": "9591a756-7917-52d6-9b0c-ca286988348e",
-    "impacts": {
-      "ecs": 223.4
-    },
-    "landOccupation": 4.589,
-    "location": "US",
-    "massPerUnit": null,
-    "metadata": {
-      "complements": {
-        "cropDiversity": 0,
-        "hedges": 0,
-        "permanentPasture": null,
-        "plotSize": 0
-      },
-      "defaultOrigin": null,
-      "ingredient": {
-        "baseIngredient": "millet-whole",
-        "cropGroup": "AUTRES CEREALES",
-        "processId": "1b376854-2543-55e0-8d60-7246508b932e",
-        "scenario": "import"
-      }
-    },
-    "qtyVariationRatio": 1.0,
-    "scopes": [
-      "food2"
-    ],
-    "source": "Agribalyse 3.2",
-    "unit": "kg",
-    "visible": true
-  },
-  {
-    "activityName": "Wheat grain {US}| wheat production | Cut-off, U - Adapted from Ecoinvent U",
-    "alias": "soft-wheat-default",
-    "categories": [
-      "ingredient",
-      "material",
-      "material_type:cereals"
-    ],
-    "comment": "AGRIBALYSE v3.2 dataset, 2024.\noriginal ecoinvent name: Wheat grain {US}| wheat production | Cut-off, U\n\nThis dataset represents the production of 1 kg of wheat grain (fresh matter). The Yield_ is 2253 kg/ha at a moisture content at storage of 15%.\n\nNone\n\n[This dataset was already contained in the ecoinvent database version 2. It was not individually updated during the transfer to ecoinvent version 3. Life Cycle Impact Assessment results may still have changed, as they are affected by changes in the supply chain, i.e. in other datasets. This dataset was generated following the ecoinvent quality guidelines for version 2. It may have been subject to central changes described in the ecoinvent version 3 change report (http://www.ecoinvent.org/database/ecoinvent-version-3/reports-of-changes/), and the results of the central updates were reviewed extensively. The changes added e.g. consistent water flows and other information throughout the database. The documentation of this dataset can be found in the ecoinvent reports of version 2, which are still available via the ecoinvent website. The change report linked above covers all central changes that were made during the conversion process.]\n\nProduction volume: 57241989120 kg\nIncluded activities start: This activity starts after the harvest of the previous crop. The inputs of seeds, mineral fertilisers, pesticides and irrigation water are considered. It is assumed that no organic fertilisers are applied.\nIncluded activities end: The dataset includes all machine operations and corresponding machine infrastructure and sheds. Machine operations are: soil cultivation, sowing, fertilisation, irrigation, weed control, pest and pathogen control, combine-harvest and transport from field to farm (1 km). Further, direct field emissions are included. This activity ends after harvest and drying of grains at the farm gate.\nEnergy values: Undefined\nGeography: The inventory is modelled for United States\nTechnology level: Current\nTechnology: Conventional production typical for the country. Water for irrigation is pumped from 48 meter depth by electric pumps.\nStart date: 01/01/2001\nEnd date: 31/12/2022\nIs data valid for entire period: True\nTime period: The Yield_ data have been collected for the years 2001-2006.\nMacro-economic scenario name: Business-as-Usual\n\nVersion: 26.3.0.0\nCreated: 7/28/2010 6:43:55 PM\nLast edited: 8/11/2021 9:17:58 AM\nSource: 35be8f53-9093-58c0-82eb-5f8599c27ec4_0201ee86-f71b-4457-8fe8-79f3ed720b07.spold\nUUID: 35be8f53-9093-58c0-82eb-5f8599c27ec4",
-    "displayName": "Blé tendre Origine Inconnue",
-    "elecKwh": 0,
-    "heatMJ": 0,
-    "id": "eb95f8d6-e3c0-556b-acff-91c7773f5b33",
-    "impacts": {
-      "ecs": 223.4
-    },
-    "landOccupation": 4.589,
-    "location": "US",
-    "massPerUnit": null,
-    "metadata": {
-      "complements": {
-        "cropDiversity": 0,
-        "hedges": 0,
-        "permanentPasture": null,
-        "plotSize": 0
-      },
-      "defaultOrigin": null,
-      "ingredient": {
-        "baseIngredient": "soft-wheat",
-        "cropGroup": "BLE TENDRE",
-        "processId": "1b376854-2543-55e0-8d60-7246508b932e",
         "scenario": "import"
       }
     },
@@ -92149,7 +92278,7 @@
     ],
     "source": "Ginko 2025",
     "unit": "kg",
-    "visible": true
+    "visible": false
   },
   {
     "activityName": "Banana, at farm, organic 2025 {GLO}",
@@ -92321,7 +92450,7 @@
     ],
     "source": "Ginko 2025",
     "unit": "kg",
-    "visible": true
+    "visible": false
   },
   {
     "activityName": "Blackberry, at farm, organic 2025 {RS}",
@@ -92493,7 +92622,7 @@
     ],
     "source": "Ginko 2025",
     "unit": "kg",
-    "visible": true
+    "visible": false
   },
   {
     "activityName": "Cabbage white, organic 2025 {RoW}| cabbage white production | Cut-off, U",
@@ -94208,7 +94337,7 @@
     ],
     "source": "Ginko 2025",
     "unit": "kg",
-    "visible": true
+    "visible": false
   },
   {
     "activityName": "Fava bean, Swiss integrated production, organic 2025 {CH}| fava bean production, Swiss integrated production, at farm | Cut-off, U",
@@ -94894,7 +95023,7 @@
     "visible": false
   },
   {
-    "activityName": "Grape, wine grape, at farm, organic 2025 {IT}",
+    "activityName": "Grape, organic 2025 {RoW}| grape production | Cut-off, U",
     "alias": "grape-organic",
     "categories": [
       "ingredient",
@@ -94902,23 +95031,23 @@
       "material_type:fruits_and_vegetables",
       "transported_cooled"
     ],
-    "comment": "This dataset has been extrapolated from the dataset Grape, wine grape, at farm {IT} - Adapted from WFLDB U from the database WFLDB and version 3.5.\nFor further information, please consult the ADEME report \"Construction of LCIs for organic agricultural products based on extrapolations of conventional LCIs for the French food market and environmental labelling\"",
+    "comment": "This dataset has been extrapolated from the dataset Grape {RoW}| grape production | Cut-off, U - Adapted from Ecoinvent U from the database Ecoinvent and version 3.9.1.\nFor further information, please consult the ADEME report \"Construction of LCIs for organic agricultural products based on extrapolations of conventional LCIs for the French food market and environmental labelling\"",
     "displayName": "Raisins (noirs ou blancs) Bio",
     "elecKwh": 0,
     "heatMJ": 0,
     "id": "8d83f94f-a882-51f6-baf5-aec52f2431f3",
     "impacts": {
-      "ecs": 131.2
+      "ecs": 50.03
     },
-    "landOccupation": 1.683,
-    "location": "IT",
+    "landOccupation": 0.4564,
+    "location": "RoW",
     "massPerUnit": null,
     "metadata": {
       "complements": {
         "cropDiversity": 0,
-        "hedges": -3.05,
+        "hedges": -0.827,
         "permanentPasture": null,
-        "plotSize": -10.5
+        "plotSize": -2.84
       },
       "defaultOrigin": "FR",
       "ingredient": {
@@ -95102,7 +95231,7 @@
     ],
     "source": "Ginko 2025",
     "unit": "kg",
-    "visible": true
+    "visible": false
   },
   {
     "activityName": "Kiwi, consumption mix, organic 2025 {FR} U",
@@ -96385,7 +96514,7 @@
     ],
     "source": "Ginko 2025",
     "unit": "kg",
-    "visible": true
+    "visible": false
   },
   {
     "activityName": "Olive, organic 2025 {ES}| olive production | Cut-off, U",
@@ -97620,7 +97749,7 @@
     ],
     "source": "Ginko 2025",
     "unit": "kg",
-    "visible": true
+    "visible": false
   },
   {
     "activityName": "Radish, organic 2025 {FR}| radish production, in unheated greenhouse | Cut-off, U",
@@ -98302,7 +98431,7 @@
     ],
     "source": "Ginko 2025",
     "unit": "kg",
-    "visible": true
+    "visible": false
   },
   {
     "activityName": "Strawberry, open field, organic 2025, at farm gate {FR} U",
@@ -98856,7 +98985,7 @@
     ],
     "source": "Ginko 2025",
     "unit": "kg",
-    "visible": true
+    "visible": false
   },
   {
     "activityName": "Walnut, dried inshell, organic 2025, national average, at farm gate {FR} U",
@@ -98898,7 +99027,7 @@
     ],
     "source": "Ginko 2025",
     "unit": "kg",
-    "visible": true
+    "visible": false
   },
   {
     "activityName": "Walnut, dried inshell, organic 2025, national average, at farm gate {FR} U",
@@ -98940,7 +99069,7 @@
     ],
     "source": "Ginko 2025",
     "unit": "kg",
-    "visible": true
+    "visible": false
   },
   {
     "activityName": "Ware potato, organic 2025, for industrial use, at farm gate {FR} U",

@@ -1,12 +1,13 @@
 {
-  "activityName": "Wheat grain {ES}| wheat production | Cut-off, U - Adapted from Ecoinvent U",
+  "activityName": "Wheat grain {DE}| wheat production | Cut-off, U - Adapted from Ecoinvent U",
   "categories": [
     "ingredient",
     "material",
     "material_type:cereals"
   ],
-  "displayName": "Wheat grain (ES)",
-  "id": "bda1b5eb-37e0-5ffd-9514-4382e62d62b7",
+  "displayName": "Blé tendre UE",
+  "id": "1b376854-2543-55e0-8d60-7246508b932e",
+  "location": "DE",
   "metadata": [
     {
       "alias": "soft-wheat-eu",

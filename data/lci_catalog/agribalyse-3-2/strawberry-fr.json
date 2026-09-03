@@ -5,9 +5,49 @@
     "material",
     "material_type:fruits_and_vegetables"
   ],
-  "displayName": "Cassis FR",
+  "displayName": "Fraise FR",
   "id": "6f6ab521-c7d4-58f9-b051-2b7cd11be4b4",
   "metadata": [
+    {
+      "alias": "strawberry-fr",
+      "cropGroup": "LEGUMES-FLEURS",
+      "cropGroupMatch": {
+        "confidence": 1.0,
+        "rule": "matched 'strawberry' in cropgroup.csv"
+      },
+      "defaultOrigin": "France",
+      "displayName": "Fraise FR",
+      "id": "8ad09e31-6b20-56d1-b059-f871361a16d7",
+      "inediblePart": 0.03,
+      "inediblePartMatch": {
+        "confidence": 0.95,
+        "rule": "Matched with Strawberries in agb_inedible.csv"
+      },
+      "ingredientCategories": [
+        "vegetable_fresh"
+      ],
+      "ingredientDensity": 0.95,
+      "ingredientDensityMatch": {
+        "confidence": 1.0,
+        "rule": "strawberry found in density.csv"
+      },
+      "rawToCookedRatio": 0.856,
+      "rawToCookedRatioMatch": {
+        "confidence": 1.0,
+        "rule": "fruit default from food_type_cooked_to_raw.csv"
+      },
+      "scenario": "reference",
+      "scopes": [
+        "food",
+        "food2"
+      ],
+      "transportCooling": "always",
+      "transportCoolingMatch": {
+        "confidence": 1.0,
+        "rule": "fruit NOVA 1 → always (perishable)"
+      },
+      "visible": true
+    },
     {
       "alias": "black-currant-fr",
       "cropGroup": "VERGERS",
