@@ -2,8 +2,7 @@
   "activityName": "Apple juice, reconstituted from a concentrate, at plant {FR} U",
   "categories": [
     "ingredient",
-    "material",
-    "material_type:other_food_items"
+    "material"
   ],
   "displayName": "Jus de pomme FR",
   "id": "397b6faf-7387-5ff5-944b-720f1a264eaa",

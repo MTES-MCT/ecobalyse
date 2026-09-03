@@ -2,8 +2,7 @@
   "activityName": "Tomato juice, pure juice, filled, at plant {FR} U",
   "categories": [
     "ingredient",
-    "material",
-    "material_type:other_food_items"
+    "material"
   ],
   "displayName": "Jus de tomate FR",
   "id": "03d11278-5fce-5f34-b935-0a4b1dc7f20e",

@@ -2,8 +2,7 @@
   "activityName": "Apple compote, recipe, at plant {FR} U",
   "categories": [
     "ingredient",
-    "material",
-    "material_type:fruits_and_vegetables"
+    "material"
   ],
   "displayName": "Compote de pomme FR",
   "id": "4c9bbe9d-9502-5810-a006-bdb2c82923e4",

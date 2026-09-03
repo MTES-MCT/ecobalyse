@@ -2,8 +2,7 @@
   "activityName": "Quinoa, intensive production, at farm {PE} - Adapted from WFLDB U",
   "categories": [
     "ingredient",
-    "material",
-    "material_type:cereals"
+    "material"
   ],
   "displayName": "Quinoa Origine Inconnue",
   "id": "65a5cf25-fb55-5c39-9131-33c54fe459e4",

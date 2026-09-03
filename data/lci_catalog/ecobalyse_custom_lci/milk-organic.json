@@ -2,8 +2,7 @@
   "activityName": "Cow milk, organic, national average, at farm gate FR U",
   "categories": [
     "ingredient",
-    "material",
-    "material_type:other_food_items"
+    "material"
   ],
   "displayName": "Lait Bio",
   "id": "1782b099-df28-5c5f-b2e4-17ac2e60583e",

@@ -2,8 +2,7 @@
   "activityName": "Seaweed optimized production, 1kg algae (Laminaria), fresh weight {FR} U",
   "categories": [
     "ingredient",
-    "material",
-    "material_type:fruits_and_vegetables"
+    "material"
   ],
   "displayName": "Algue FR",
   "id": "bb57f10a-3dfe-581b-a984-8d8fe0603d3b",

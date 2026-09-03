@@ -2,8 +2,7 @@
   "activityName": "Carrot, cut raw, import WFLDB, CMAPS {GLO} U",
   "categories": [
     "ingredient",
-    "material",
-    "material_type:other_food_items"
+    "material"
   ],
   "displayName": "Carotte, découpée, crue Origine Inconnue",
   "id": "a6c41774-da38-4e02-840d-0ce0fe1a5795",

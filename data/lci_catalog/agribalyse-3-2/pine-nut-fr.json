@@ -2,8 +2,7 @@
   "activityName": "Peanut {RoW}| peanut production | Cut-off, U - Adapted from Ecoinvent U",
   "categories": [
     "ingredient",
-    "material",
-    "material_type:other_food_items"
+    "material"
   ],
   "displayName": "Pignons de pin FR",
   "id": "08244c00-866e-56a4-ba1f-1049763f13cd",

@@ -2,8 +2,7 @@
   "activityName": "Emmental cheese, variant 1, CMAPS {GLO} U",
   "categories": [
     "ingredient",
-    "material",
-    "material_type:other_food_items"
+    "material"
   ],
   "displayName": "Emmental ou emmenthal FR",
   "id": "7c666e95-fd3a-4313-94f1-9c8f72962854",

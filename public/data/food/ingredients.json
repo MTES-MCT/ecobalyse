@@ -2694,7 +2694,7 @@
     "location": "FR",
     "name": "Pois UE (2025)",
     "processId": "90f96aaa-159f-50a4-8456-55bad07c4cc4",
-    "rawToCookedRatio": 2.259,
+    "rawToCookedRatio": 2.33,
     "scenario": "import",
     "transportCooling": "none",
     "visible": true
@@ -3284,7 +3284,7 @@
     "location": "GLO",
     "name": "Pois par défaut (2025)",
     "processId": "b1de3c75-d408-5099-b3f6-8de91704766d",
-    "rawToCookedRatio": 2.259,
+    "rawToCookedRatio": 2.33,
     "scenario": "import",
     "transportCooling": "none",
     "visible": true
@@ -5409,7 +5409,7 @@
     "location": "GLO",
     "name": "Maïs doux UE (2025)",
     "processId": "bb5f2ee6-2b42-5422-b5e6-23f3c3075cee",
-    "rawToCookedRatio": 2.259,
+    "rawToCookedRatio": 1.0,
     "scenario": "import",
     "transportCooling": "none",
     "visible": false
@@ -5512,7 +5512,7 @@
     "location": "CA-SK",
     "name": "Haricot mungo HORS UE",
     "processId": "bb8ea198-7de7-55cc-bee5-a7779c0a98f9",
-    "rawToCookedRatio": 0.856,
+    "rawToCookedRatio": 2.33,
     "scenario": "import",
     "transportCooling": "always",
     "visible": true
@@ -5806,7 +5806,7 @@
     "location": "CA-AB",
     "name": "Haricots de Lima Origine Inconnue",
     "processId": "027d4c09-56b5-52d6-9b70-27c3835aeb0f",
-    "rawToCookedRatio": 0.856,
+    "rawToCookedRatio": 2.33,
     "scenario": "import",
     "transportCooling": "always",
     "visible": true
@@ -6504,7 +6504,7 @@
     "location": "GLO",
     "name": "Soja HORS UE",
     "processId": "b3074ca2-8ce8-57cc-9e5d-18d79716122f",
-    "rawToCookedRatio": 2.259,
+    "rawToCookedRatio": 2.33,
     "scenario": "import",
     "transportCooling": "none",
     "visible": true
@@ -6937,7 +6937,7 @@
     "location": "BR-RS",
     "name": "Soja Origine Inconnue",
     "processId": "7f641dda-c53f-50db-be67-6d8404d15b0b",
-    "rawToCookedRatio": 2.259,
+    "rawToCookedRatio": 2.33,
     "scenario": "import",
     "transportCooling": "none",
     "visible": true
@@ -8016,7 +8016,7 @@
     "location": "CH",
     "name": "Soja UE",
     "processId": "bc395cd5-f5cd-577a-929f-699f5d70186c",
-    "rawToCookedRatio": 2.259,
+    "rawToCookedRatio": 2.33,
     "scenario": "import",
     "transportCooling": "none",
     "visible": true
@@ -9977,7 +9977,7 @@
     "location": "FR",
     "name": "Maïs doux FR (2025)",
     "processId": "cb2a7bff-4fdf-558d-b7db-c9ac0f57356f",
-    "rawToCookedRatio": 2.259,
+    "rawToCookedRatio": 1.0,
     "scenario": "reference",
     "transportCooling": "none",
     "visible": true
@@ -12397,7 +12397,7 @@
     "location": "GLO",
     "name": "Sel de mer, sel de céleri ou fleur de sel HORS UE",
     "processId": "e32ce795-0af6-5d90-8fed-2ed0e249baad",
-    "rawToCookedRatio": 0.819,
+    "rawToCookedRatio": 1.0,
     "scenario": "import",
     "transportCooling": "none",
     "visible": true
@@ -13065,7 +13065,7 @@
     "location": "CA-ON",
     "name": "Haricots rouges Origine Inconnue",
     "processId": "93d42f7f-1454-5571-8cad-1200f0b43e76",
-    "rawToCookedRatio": 0.856,
+    "rawToCookedRatio": 2.33,
     "scenario": "import",
     "transportCooling": "none",
     "visible": true
@@ -14371,7 +14371,7 @@
     "location": "CA-AB",
     "name": "Haricots flageolets verts Origine Inconnue",
     "processId": "027d4c09-56b5-52d6-9b70-27c3835aeb0f",
-    "rawToCookedRatio": 0.856,
+    "rawToCookedRatio": 2.33,
     "scenario": "import",
     "transportCooling": "none",
     "visible": true
@@ -14955,7 +14955,7 @@
     "location": "GLO",
     "name": "Sel de mer, sel de céleri ou fleur de sel FR",
     "processId": "e32ce795-0af6-5d90-8fed-2ed0e249baad",
-    "rawToCookedRatio": 0.819,
+    "rawToCookedRatio": 1.0,
     "scenario": "reference",
     "transportCooling": "none",
     "visible": true
@@ -15872,7 +15872,7 @@
     "location": "FR",
     "name": "Colza FR",
     "processId": "ae71503a-ec6e-555c-a152-1421984a576c",
-    "rawToCookedRatio": 2.259,
+    "rawToCookedRatio": 1.0,
     "scenario": "reference",
     "transportCooling": "none",
     "visible": true
@@ -16221,7 +16221,7 @@
     "location": "IN",
     "name": "Graines de sésame Bio",
     "processId": "35df8daa-137c-5c3b-8cc1-b572d80000d3",
-    "rawToCookedRatio": 2.259,
+    "rawToCookedRatio": 1.0,
     "scenario": "organic",
     "transportCooling": "none",
     "visible": true
@@ -17069,7 +17069,7 @@
     "location": "FR",
     "name": "Maïs doux Bio (2025)",
     "processId": "d8acf28f-b1a6-5a65-b39b-224071f0c220",
-    "rawToCookedRatio": 2.259,
+    "rawToCookedRatio": 1.0,
     "scenario": "organic",
     "transportCooling": "none",
     "visible": true
@@ -19205,7 +19205,7 @@
     "location": "CH",
     "name": "Haricots de Lima Bio",
     "processId": "e26ec937-b713-5a48-9308-3dbadaa95c54",
-    "rawToCookedRatio": 0.856,
+    "rawToCookedRatio": 2.33,
     "scenario": "organic",
     "transportCooling": "always",
     "visible": true
@@ -19286,7 +19286,7 @@
     "location": "IN",
     "name": "Graines de sésame HORS UE",
     "processId": "a412238d-cf70-5bd6-a297-af2bff8f3ee2",
-    "rawToCookedRatio": 2.259,
+    "rawToCookedRatio": 1.0,
     "scenario": "import",
     "transportCooling": "none",
     "visible": true
@@ -20894,7 +20894,7 @@
     "location": "FR",
     "name": "Pois Bio (2025)",
     "processId": "23e36bdc-12af-5f37-9de8-cf707916be39",
-    "rawToCookedRatio": 2.259,
+    "rawToCookedRatio": 2.33,
     "scenario": "organic",
     "transportCooling": "none",
     "visible": true
@@ -20943,7 +20943,7 @@
     "location": "CA-SK",
     "name": "Fève HORS UE",
     "processId": "bb8ea198-7de7-55cc-bee5-a7779c0a98f9",
-    "rawToCookedRatio": 0.856,
+    "rawToCookedRatio": 2.33,
     "scenario": "import",
     "transportCooling": "always",
     "visible": true
@@ -21106,7 +21106,7 @@
     "location": "CH",
     "name": "Pois, avec leurs cosses HORS UE",
     "processId": "8e4c2c9a-f13d-550a-8bbc-18c95f008ed1",
-    "rawToCookedRatio": 0.856,
+    "rawToCookedRatio": 2.33,
     "scenario": "import",
     "transportCooling": "always",
     "visible": true
@@ -21133,7 +21133,7 @@
     "location": "FR",
     "name": "Colza UE",
     "processId": "ae71503a-ec6e-555c-a152-1421984a576c",
-    "rawToCookedRatio": 2.259,
+    "rawToCookedRatio": 1.0,
     "scenario": "import",
     "transportCooling": "none",
     "visible": true
@@ -21406,7 +21406,7 @@
     "location": "CA-SK",
     "name": "Haricots flageolets verts HORS UE",
     "processId": "bb8ea198-7de7-55cc-bee5-a7779c0a98f9",
-    "rawToCookedRatio": 0.856,
+    "rawToCookedRatio": 2.33,
     "scenario": "import",
     "transportCooling": "none",
     "visible": true
@@ -23326,7 +23326,7 @@
     "location": "GLO",
     "name": "Sel de mer, sel de céleri ou fleur de sel Origine Inconnue",
     "processId": "e32ce795-0af6-5d90-8fed-2ed0e249baad",
-    "rawToCookedRatio": 0.819,
+    "rawToCookedRatio": 1.0,
     "scenario": "import",
     "transportCooling": "none",
     "visible": true
@@ -25050,7 +25050,7 @@
     "location": "CH",
     "name": "Haricots rouges Bio",
     "processId": "e26ec937-b713-5a48-9308-3dbadaa95c54",
-    "rawToCookedRatio": 0.856,
+    "rawToCookedRatio": 2.33,
     "scenario": "organic",
     "transportCooling": "none",
     "visible": true
@@ -27641,7 +27641,7 @@
     "location": "CA-SK",
     "name": "Haricots rouges HORS UE",
     "processId": "bb8ea198-7de7-55cc-bee5-a7779c0a98f9",
-    "rawToCookedRatio": 0.856,
+    "rawToCookedRatio": 2.33,
     "scenario": "import",
     "transportCooling": "none",
     "visible": true
@@ -27897,7 +27897,7 @@
     "location": "BR",
     "name": "Maïs doux par défaut (2025)",
     "processId": "155ffeb2-2732-52ff-9d6d-39d6fa6d49b0",
-    "rawToCookedRatio": 2.259,
+    "rawToCookedRatio": 1.0,
     "scenario": "import",
     "transportCooling": "none",
     "visible": true
@@ -28321,7 +28321,7 @@
     "location": "CA-AB",
     "name": "Fève Origine Inconnue",
     "processId": "027d4c09-56b5-52d6-9b70-27c3835aeb0f",
-    "rawToCookedRatio": 0.856,
+    "rawToCookedRatio": 2.33,
     "scenario": "import",
     "transportCooling": "always",
     "visible": true
@@ -28830,7 +28830,7 @@
     "location": "FR",
     "name": "Soja FR",
     "processId": "74190248-e958-5427-99a3-b16d1593f46a",
-    "rawToCookedRatio": 2.259,
+    "rawToCookedRatio": 2.33,
     "scenario": "reference",
     "transportCooling": "none",
     "visible": true
@@ -29102,7 +29102,7 @@
     "location": "CA-SK",
     "name": "Haricots de Lima HORS UE",
     "processId": "bb8ea198-7de7-55cc-bee5-a7779c0a98f9",
-    "rawToCookedRatio": 0.856,
+    "rawToCookedRatio": 2.33,
     "scenario": "import",
     "transportCooling": "always",
     "visible": true
@@ -29212,7 +29212,7 @@
     "location": "CH",
     "name": "Haricots flageolets verts Bio",
     "processId": "e26ec937-b713-5a48-9308-3dbadaa95c54",
-    "rawToCookedRatio": 0.856,
+    "rawToCookedRatio": 2.33,
     "scenario": "organic",
     "transportCooling": "none",
     "visible": true
@@ -29498,7 +29498,7 @@
     "location": "CH",
     "name": "Fève Bio",
     "processId": "e26ec937-b713-5a48-9308-3dbadaa95c54",
-    "rawToCookedRatio": 0.856,
+    "rawToCookedRatio": 2.33,
     "scenario": "organic",
     "transportCooling": "always",
     "visible": true
@@ -31367,7 +31367,7 @@
     "location": "CA-AB",
     "name": "Haricot mungo Origine Inconnue",
     "processId": "027d4c09-56b5-52d6-9b70-27c3835aeb0f",
-    "rawToCookedRatio": 0.856,
+    "rawToCookedRatio": 2.33,
     "scenario": "import",
     "transportCooling": "always",
     "visible": true
@@ -32239,7 +32239,7 @@
     "location": "FR",
     "name": "Colza Bio",
     "processId": "8610dcdb-d565-522e-a67c-547c1e03a449",
-    "rawToCookedRatio": 2.259,
+    "rawToCookedRatio": 1.0,
     "scenario": "organic",
     "transportCooling": "none",
     "visible": true
@@ -32342,7 +32342,7 @@
     "location": "GLO",
     "name": "Sel de mer, sel de céleri ou fleur de sel UE",
     "processId": "e32ce795-0af6-5d90-8fed-2ed0e249baad",
-    "rawToCookedRatio": 0.819,
+    "rawToCookedRatio": 1.0,
     "scenario": "import",
     "transportCooling": "none",
     "visible": true
@@ -35897,7 +35897,7 @@
     "location": "CH",
     "name": "Haricot mungo Bio",
     "processId": "e26ec937-b713-5a48-9308-3dbadaa95c54",
-    "rawToCookedRatio": 0.856,
+    "rawToCookedRatio": 2.33,
     "scenario": "organic",
     "transportCooling": "always",
     "visible": true
@@ -38382,7 +38382,7 @@
     "location": "FR",
     "name": "Luzerne Bio (2025)",
     "processId": "38e5aebd-b15c-5724-90bc-3cf114d103f2",
-    "rawToCookedRatio": 2.259,
+    "rawToCookedRatio": 1.0,
     "scenario": "organic",
     "transportCooling": "none",
     "visible": false
@@ -38512,7 +38512,7 @@
     "location": "FR",
     "name": "Graines de Cucurbitacées UE",
     "processId": "3f7d5194-32eb-5b18-a009-b7a97389ac2f",
-    "rawToCookedRatio": 0.856,
+    "rawToCookedRatio": 1.0,
     "scenario": "import",
     "transportCooling": "always",
     "visible": true

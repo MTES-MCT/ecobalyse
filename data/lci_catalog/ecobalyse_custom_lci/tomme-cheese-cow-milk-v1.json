@@ -2,8 +2,7 @@
   "activityName": "Tomme cheese, cow milk, variant 1, CMAPS {GLO} U",
   "categories": [
     "ingredient",
-    "material",
-    "material_type:other_food_items"
+    "material"
   ],
   "displayName": "Tomme ou tome de vache FR",
   "id": "42c47c6f-5d48-4269-82da-92c13604d495",

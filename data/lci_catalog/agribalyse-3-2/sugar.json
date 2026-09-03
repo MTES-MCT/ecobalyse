@@ -2,8 +2,7 @@
   "activityName": "Sugar, from sugar beet, at sugar refinery {GLO} - Adapted from WFLDB U",
   "categories": [
     "ingredient",
-    "material",
-    "material_type:other_food_items"
+    "material"
   ],
   "displayName": "Sucre de betterave par défaut",
   "id": "63e87a59-6c93-5359-919f-629740cdc970",

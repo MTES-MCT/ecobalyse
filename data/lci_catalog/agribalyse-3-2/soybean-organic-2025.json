@@ -2,8 +2,7 @@
   "activityName": "Soybean, organic, animal feed, at farm gate {FR} U",
   "categories": [
     "ingredient",
-    "material",
-    "material_type:legumes"
+    "material"
   ],
   "displayName": "Soja Bio (2025)",
   "id": "47f90f36-8629-5d8d-ae17-c64305c68ddb",

@@ -2,8 +2,7 @@
   "activityName": "Ground beef fresh case ready for direct consumption at plant {{ground-beef-organic-2025}}",
   "categories": [
     "ingredient",
-    "material",
-    "material_type:red_meats"
+    "material"
   ],
   "displayName": "Boeuf haché cru Bio (2025)",
   "id": "ed2f34df-710f-52c8-9bf6-e42ab1d64dbe",

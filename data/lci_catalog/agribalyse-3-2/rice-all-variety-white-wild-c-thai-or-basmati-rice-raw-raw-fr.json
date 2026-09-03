@@ -2,8 +2,7 @@
   "activityName": "Rice, non-basmati {CN}| rice production, non-basmati | Cut-off, U - Adapted from Ecoinvent U",
   "categories": [
     "ingredient",
-    "material",
-    "material_type:cereals"
+    "material"
   ],
   "displayName": "Riz cru, toutes variétés (blanc, sauvage, riz thaï ou basmati, cru) FR",
   "id": "fd82f2d0-0857-5328-9307-9273102d36fa",

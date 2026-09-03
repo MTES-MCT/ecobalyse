@@ -2,8 +2,7 @@
   "activityName": "Barley grain {FR}| barley production | Cut-off, U - Adapted from Ecoinvent U",
   "categories": [
     "ingredient",
-    "material",
-    "material_type:cereals"
+    "material"
   ],
   "displayName": "Orge entière FR",
   "id": "a3ea35c9-a1c7-56d4-a745-35f09d44d44b",

@@ -2,8 +2,7 @@
   "activityName": "Coffee, roast and ground, at plant {FR} U",
   "categories": [
     "ingredient",
-    "material",
-    "material_type:other_food_items"
+    "material"
   ],
   "displayName": "Café moulu par défaut",
   "id": "b0cedbbc-6e19-5082-a33f-e1ebb8e57f2c",

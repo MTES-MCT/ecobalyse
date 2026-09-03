@@ -2,8 +2,7 @@
   "activityName": "Squid, consumption mix {FR} U",
   "categories": [
     "ingredient",
-    "material",
-    "material_type:fish_and_shellfish"
+    "material"
   ],
   "displayName": "Calmar FR",
   "id": "936e5a40-efcd-537c-80e0-6c9fbf70e187",

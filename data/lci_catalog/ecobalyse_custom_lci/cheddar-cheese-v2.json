@@ -2,8 +2,7 @@
   "activityName": "Cheddar cheese, variant 2, CMAPS {GLO} U",
   "categories": [
     "ingredient",
-    "material",
-    "material_type:other_food_items"
+    "material"
   ],
   "displayName": "Cheddar Origine Inconnue",
   "id": "8626a204-5341-4430-878f-0838a982cd86",

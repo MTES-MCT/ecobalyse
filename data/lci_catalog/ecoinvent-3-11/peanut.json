@@ -2,8 +2,7 @@
   "activityName": "Peanut {BR-SP}| peanut production, in cropping system | Cut-off, U",
   "categories": [
     "ingredient",
-    "material",
-    "material_type:other_food_items"
+    "material"
   ],
   "displayName": "Peanut (BR-SP)",
   "id": "f427ffaa-0462-509d-840f-5e975d42f83e",

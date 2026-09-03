@@ -2,8 +2,7 @@
   "activityName": "Garlic, fresh, at farm (WFLDB)",
   "categories": [
     "ingredient",
-    "material",
-    "material_type:fruits_and_vegetables"
+    "material"
   ],
   "displayName": "Ail Origine Inconnue",
   "id": "07df4ddb-700e-5f24-8fe1-69ca28b962e4",

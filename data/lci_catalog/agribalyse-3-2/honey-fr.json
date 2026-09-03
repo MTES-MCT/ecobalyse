@@ -2,8 +2,7 @@
   "activityName": "Honey, raw, small-scale production, unpackaged, at farm {CH} - Adapted from WFLDB U",
   "categories": [
     "ingredient",
-    "material",
-    "material_type:other_food_items"
+    "material"
   ],
   "displayName": "Miel FR",
   "id": "f76d7bbd-3bb5-5258-9b9c-f9653613627b",

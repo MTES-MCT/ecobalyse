@@ -2,8 +2,7 @@
   "activityName": "Sunflower grain, conventional, 9% moisture, national average, animal feed, at farm gate, production {FR} U",
   "categories": [
     "ingredient",
-    "material",
-    "material_type:other_food_items"
+    "material"
   ],
   "displayName": "Tournesol, graine FR",
   "id": "9e357717-0a62-567b-93e1-ae01ca0d5b05",

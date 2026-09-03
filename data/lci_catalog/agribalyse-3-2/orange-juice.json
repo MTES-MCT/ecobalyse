@@ -2,8 +2,7 @@
   "activityName": "Orange nectar, recipe, at plant {FR} U",
   "categories": [
     "ingredient",
-    "material",
-    "material_type:other_food_items"
+    "material"
   ],
   "displayName": "Jus d'orange par défaut",
   "id": "95cf8e59-9db9-52d4-bcfc-a95fcf1e19b9",

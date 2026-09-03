@@ -2,8 +2,7 @@
   "activityName": "Almonds, in shell, at farm {CN} - Adapted from WFLDB U",
   "categories": [
     "ingredient",
-    "material",
-    "material_type:other_food_items"
+    "material"
   ],
   "displayName": "Amandes en coquille FR",
   "id": "5f29f62d-78b1-50cd-a109-6c3ed1804a85",

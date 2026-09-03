@@ -2,8 +2,7 @@
   "activityName": "Gorgonzola cheese, variant 2, CMAPS {GLO} U",
   "categories": [
     "ingredient",
-    "material",
-    "material_type:other_food_items"
+    "material"
   ],
   "displayName": "Gorgonzola Origine Inconnue",
   "id": "b7bbb132-dadf-4405-923a-2c51b5fd312f",

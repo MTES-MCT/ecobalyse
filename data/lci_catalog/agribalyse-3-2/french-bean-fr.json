@@ -2,8 +2,7 @@
   "activityName": "French bean, conventional, national average, at farm gate {FR} U",
   "categories": [
     "ingredient",
-    "material",
-    "material_type:fruits_and_vegetables"
+    "material"
   ],
   "displayName": "Haricot vert FR",
   "id": "bef56d20-ec50-53ea-aaba-219e98fa25cd",

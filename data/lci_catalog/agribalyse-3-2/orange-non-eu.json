@@ -2,8 +2,7 @@
   "activityName": "Orange, fresh grade {ZA}| orange production, fresh grade | Cut-off, U - Adapted from Ecoinvent U",
   "categories": [
     "ingredient",
-    "material",
-    "material_type:fruits_and_vegetables"
+    "material"
   ],
   "displayName": "Orange par défaut",
   "id": "d2b3821c-d838-5a0d-9e46-eb40c55fcea6",

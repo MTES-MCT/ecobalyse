@@ -2,8 +2,7 @@
   "activityName": "European pilchard or sardine, consumption mix {FR} U",
   "categories": [
     "ingredient",
-    "material",
-    "material_type:other_food_items"
+    "material"
   ],
   "displayName": "Sardine UE",
   "id": "41b15ace-9a9c-5bd0-a561-944fc883d342",

@@ -2,8 +2,7 @@
   "activityName": "Egg, conventional, indoor system, non-cage, at farm gate {FR} U",
   "categories": [
     "ingredient",
-    "material",
-    "material_type:eggs"
+    "material"
   ],
   "displayName": "Oeuf FR",
   "id": "9a38e883-4ad0-5740-b63d-a4eab07aa491",

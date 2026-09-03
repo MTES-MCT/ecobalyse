@@ -2,8 +2,7 @@
   "activityName": "Meat with bone, beef, for direct consumption {{beef-with-bone-feedlot-2025}}",
   "categories": [
     "ingredient",
-    "material",
-    "material_type:red_meats"
+    "material"
   ],
   "displayName": "Viande de boeuf avec os par défaut (2025)",
   "id": "1d8ee50f-211e-57a2-96a6-130a9b72fb00",

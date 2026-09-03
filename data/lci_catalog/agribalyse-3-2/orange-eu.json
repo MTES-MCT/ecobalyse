@@ -2,8 +2,7 @@
   "activityName": "Orange, fresh grade, at farm {ES} - Adapted from WFLDB U",
   "categories": [
     "ingredient",
-    "material",
-    "material_type:fruits_and_vegetables"
+    "material"
   ],
   "displayName": "Orange UE",
   "id": "9507422d-6b86-5782-be6e-a41828b55a8a",

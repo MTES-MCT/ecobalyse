@@ -2,8 +2,7 @@
   "activityName": "Ground beef fresh case ready for direct consumption at plant {{ground-beef-grass-fed-2025}}",
   "categories": [
     "ingredient",
-    "material",
-    "material_type:red_meats"
+    "material"
   ],
   "displayName": "Boeuf haché cru - v. de réforme 100% herbe FR (2025)",
   "id": "62dbf767-ba1a-5b4a-bcc9-52c013ce5922",

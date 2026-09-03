@@ -2,8 +2,7 @@
   "activityName": "Cooked ham case ready at plant {{cooked-ham-organic-2025}}",
   "categories": [
     "ingredient",
-    "material",
-    "material_type:other_food_items"
+    "material"
   ],
   "displayName": "Jambon cuit Bio (2025)",
   "id": "0ccbe554-2dd8-52b8-b3b5-744bf12bdc5f",

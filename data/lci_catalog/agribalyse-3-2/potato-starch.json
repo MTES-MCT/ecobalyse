@@ -2,8 +2,7 @@
   "activityName": "Potato starch {GLO}| market for | Cut-off, S - Copied from Ecoinvent U",
   "categories": [
     "ingredient",
-    "material",
-    "material_type:other_food_items"
+    "material"
   ],
   "displayName": "Fécule de pomme de terre par défaut",
   "id": "8bfee7f3-3f0e-54f1-8f71-55933c720a03",

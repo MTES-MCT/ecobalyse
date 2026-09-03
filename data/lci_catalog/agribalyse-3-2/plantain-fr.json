@@ -2,8 +2,7 @@
   "activityName": "Banana {RoW}| banana production | Cut-off, U - Adapted from Ecoinvent U",
   "categories": [
     "ingredient",
-    "material",
-    "material_type:fruits_and_vegetables"
+    "material"
   ],
   "displayName": "Plantain FR",
   "id": "1600286c-6efd-558e-b54e-04769a3738e4",

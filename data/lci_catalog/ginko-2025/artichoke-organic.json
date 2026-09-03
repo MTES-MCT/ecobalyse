@@ -2,8 +2,7 @@
   "activityName": "Cauliflower, organic 2025, national average, at farm gate {FR} U",
   "categories": [
     "ingredient",
-    "material",
-    "material_type:fruits_and_vegetables"
+    "material"
   ],
   "displayName": "Artichaut Bio",
   "id": "6aef3a0d-65bf-5358-9ff8-d731b0170fc3",

@@ -2,8 +2,7 @@
   "activityName": "Wheat grain {FR}| wheat production | Cut-off, U - Adapted from Ecoinvent U",
   "categories": [
     "ingredient",
-    "material",
-    "material_type:cereals"
+    "material"
   ],
   "displayName": "Millet entier FR",
   "id": "ef78c003-0bcf-5358-8fc0-0b30b338e4d2",

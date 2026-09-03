@@ -2,8 +2,7 @@
   "activityName": "Apple, at farm (WFLDB)",
   "categories": [
     "ingredient",
-    "material",
-    "material_type:fruits_and_vegetables"
+    "material"
   ],
   "displayName": "Pomme par défaut",
   "id": "75a76ed9-ad03-5269-a6f5-0fb86ce1073f",

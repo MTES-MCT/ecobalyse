@@ -2,8 +2,7 @@
   "activityName": "Wheat grain {US}| wheat grain production | Cut-off, U",
   "categories": [
     "ingredient",
-    "material",
-    "material_type:cereals"
+    "material"
   ],
   "displayName": "Millet entier Origine Inconnue",
   "id": "a56b9f19-8a66-57fc-bfc4-ad38c3ff228b",

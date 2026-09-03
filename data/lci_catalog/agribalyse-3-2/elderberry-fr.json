@@ -2,8 +2,7 @@
   "activityName": "Elderberry, at farm {PL} - Adapted from WFLDB U",
   "categories": [
     "ingredient",
-    "material",
-    "material_type:fruits_and_vegetables"
+    "material"
   ],
   "displayName": "Baies de sureau FR",
   "id": "c98d1b38-5fd0-55ff-b3f3-71a07be11a18",

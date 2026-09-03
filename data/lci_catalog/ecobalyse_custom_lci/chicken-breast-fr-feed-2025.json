@@ -2,8 +2,7 @@
   "activityName": "Meat without bone chicken for direct consumption {{chicken-breast-fr-feed-2025}}",
   "categories": [
     "ingredient",
-    "material",
-    "material_type:poultry"
+    "material"
   ],
   "displayName": "Blanc de poulet cru (alim. ani. 100%FR) FR (2025)",
   "id": "53f3f0e1-45e3-5676-a4ec-b78b5d2dfffc",

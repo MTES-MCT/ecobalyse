@@ -2,8 +2,7 @@
   "activityName": "Tomato, medium size, conventional, heated greenhouse, at greenhouse {FR} U",
   "categories": [
     "ingredient",
-    "material",
-    "material_type:fruits_and_vegetables"
+    "material"
   ],
   "displayName": "Tomate sous serre chauffée par défaut",
   "id": "c2c52a71-4b6a-5cb9-9210-6541119e2d0a",

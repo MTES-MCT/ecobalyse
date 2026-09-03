@@ -2,8 +2,7 @@
   "activityName": "Onion {NL}| onion production | Cut-off, U - Adapted from Ecoinvent U",
   "categories": [
     "ingredient",
-    "material",
-    "material_type:fruits_and_vegetables"
+    "material"
   ],
   "displayName": "Oignon UE",
   "id": "ee7c6756-fd7f-535c-b28a-de50cf042cc7",

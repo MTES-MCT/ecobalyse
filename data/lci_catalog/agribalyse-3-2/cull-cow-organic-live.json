@@ -2,8 +2,7 @@
   "activityName": "Cull cow, organic, milk system number 1, at farm gate {FR} U",
   "categories": [
     "ingredient",
-    "material",
-    "material_type:other_food_items"
+    "material"
   ],
   "displayName": "Bovin bio vivant FR",
   "id": "4b692313-228b-5d38-ae02-553d2b3929ae",

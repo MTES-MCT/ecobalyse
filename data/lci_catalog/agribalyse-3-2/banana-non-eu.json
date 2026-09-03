@@ -2,8 +2,7 @@
   "activityName": "Banana, at farm {GLO} - Adapted from WFLDB U",
   "categories": [
     "ingredient",
-    "material",
-    "material_type:fruits_and_vegetables"
+    "material"
   ],
   "displayName": "Banane par défaut",
   "id": "b63c1ef7-1434-5148-9eb3-020feff64caf",

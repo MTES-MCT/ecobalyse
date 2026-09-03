@@ -2,8 +2,7 @@
   "activityName": "Dark chocolate, at plant {RER} - Adapted from WFLDB U",
   "categories": [
     "ingredient",
-    "material",
-    "material_type:other_food_items"
+    "material"
   ],
   "displayName": "Chocolat noir par défaut",
   "id": "0d235a67-c74d-57aa-92eb-aa4fe79d619b",

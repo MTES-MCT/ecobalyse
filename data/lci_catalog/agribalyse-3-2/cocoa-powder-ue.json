@@ -2,8 +2,7 @@
   "activityName": "Cocoa powder, consumption mix {FR} U",
   "categories": [
     "ingredient",
-    "material",
-    "material_type:other_food_items"
+    "material"
   ],
   "displayName": "Poudre de cacao UE",
   "id": "cd4ce74c-2c6e-55e1-a72f-062614a59553",

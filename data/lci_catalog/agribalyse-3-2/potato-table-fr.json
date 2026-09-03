@@ -2,8 +2,7 @@
   "activityName": "Ware potato, conventional, for fresh market, other varieties, at farm gate {FR} U",
   "categories": [
     "ingredient",
-    "material",
-    "material_type:fruits_and_vegetables"
+    "material"
   ],
   "displayName": "Pomme de terre de table FR",
   "id": "502d8075-c62e-51ff-893f-f2b9faed162a",

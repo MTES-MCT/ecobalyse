@@ -2,8 +2,7 @@
   "activityName": "Pear, at farm (WFLDB)",
   "categories": [
     "ingredient",
-    "material",
-    "material_type:other_food_items"
+    "material"
   ],
   "displayName": "Poires Origine Inconnue",
   "id": "6f49dbec-3118-5319-a408-3b543180124d",

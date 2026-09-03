@@ -2,8 +2,7 @@
   "activityName": "Rapeseed, conventional, 9% moisture, national average, animal feed, at farm gate, production {FR} U",
   "categories": [
     "ingredient",
-    "material",
-    "material_type:cereals"
+    "material"
   ],
   "displayName": "Colza FR",
   "id": "ae71503a-ec6e-555c-a152-1421984a576c",

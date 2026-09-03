@@ -2,8 +2,7 @@
   "activityName": "Linseed {RoW}| linseed production | Cut-off, U - Adapted from Ecoinvent U",
   "categories": [
     "ingredient",
-    "material",
-    "material_type:other_food_items"
+    "material"
   ],
   "displayName": "Graines de chia FR",
   "id": "bc1ad095-db0a-5389-a97a-a5406236da97",

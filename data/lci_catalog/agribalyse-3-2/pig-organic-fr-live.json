@@ -2,8 +2,7 @@
   "activityName": "Pig, organic, system number 2, at farm gate {FR} U",
   "categories": [
     "ingredient",
-    "material",
-    "material_type:other_food_items"
+    "material"
   ],
   "displayName": "Porc bio vivant FR",
   "id": "da0a3d32-2199-5af2-abca-745a224944f3",

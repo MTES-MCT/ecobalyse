@@ -2,8 +2,7 @@
   "activityName": "Reblochon cheese, variant 1, CMAPS {GLO} U",
   "categories": [
     "ingredient",
-    "material",
-    "material_type:other_food_items"
+    "material"
   ],
   "displayName": "Reblochon FR (GLO)",
   "id": "056411b4-5f1d-43b2-a810-67f3a7823d67",

@@ -2,8 +2,7 @@
   "activityName": "Strawberry, coulis, recipe, at plant {FR} U",
   "categories": [
     "ingredient",
-    "material",
-    "material_type:fruits_and_vegetables"
+    "material"
   ],
   "displayName": "Purée de fraise FR",
   "id": "373c3cf1-dad1-57be-9f95-13a815c6d128",

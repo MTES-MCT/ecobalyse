@@ -2,8 +2,7 @@
   "activityName": "Oilseed meal mix, as feed, at regional warehouse, as DM {RER} - Adapted from WFLDB U",
   "categories": [
     "ingredient",
-    "material",
-    "material_type:legumes"
+    "material"
   ],
   "displayName": "Tourteau FR",
   "id": "6bd27f6b-5c60-5768-abbf-440ab5e78be0",

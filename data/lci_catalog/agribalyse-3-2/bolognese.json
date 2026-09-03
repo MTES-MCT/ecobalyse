@@ -2,8 +2,7 @@
   "activityName": "Tomato sauce, with meat or Bolognese sauce, prepacked, recipe, at plant {FR} U",
   "categories": [
     "ingredient",
-    "material",
-    "material_type:fruits_and_vegetables"
+    "material"
   ],
   "displayName": "Sauce tomate à la viande FR",
   "id": "acf19430-b9cb-522b-aa8c-9beca5b0e761",

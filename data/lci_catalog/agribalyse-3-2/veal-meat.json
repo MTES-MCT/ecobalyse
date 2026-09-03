@@ -2,8 +2,7 @@
   "activityName": "Meat without bone, veal {FR} U",
   "categories": [
     "ingredient",
-    "material",
-    "material_type:red_meats"
+    "material"
   ],
   "displayName": "Viande de veau FR",
   "id": "549c1346-26e6-5a06-ad41-037d65b9a57d",

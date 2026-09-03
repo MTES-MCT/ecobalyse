@@ -2,8 +2,7 @@
   "activityName": "Hazelnut, in shell, at farm {IT} - Adapted from WFLDB U",
   "categories": [
     "ingredient",
-    "material",
-    "material_type:other_food_items"
+    "material"
   ],
   "displayName": "Noisette avec coque UE",
   "id": "5480e882-3629-5734-b444-f70363982918",

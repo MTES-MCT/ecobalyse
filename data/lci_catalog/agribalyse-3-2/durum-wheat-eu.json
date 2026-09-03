@@ -2,8 +2,7 @@
   "activityName": "Durum wheat grain, at farm {GR} - Adapted from WFLDB U",
   "categories": [
     "ingredient",
-    "material",
-    "material_type:cereals"
+    "material"
   ],
   "displayName": "Blé dur UE",
   "id": "463139b8-7c36-5c9c-84e6-f1fdb73f3455",

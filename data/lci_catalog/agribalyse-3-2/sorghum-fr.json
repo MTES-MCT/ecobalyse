@@ -2,8 +2,7 @@
   "activityName": "Sweet sorghum grain {RoW}| sweet sorghum production | Cut-off, U - Adapted from Ecoinvent U",
   "categories": [
     "ingredient",
-    "material",
-    "material_type:cereals"
+    "material"
   ],
   "displayName": "Sorgho FR",
   "id": "2171b416-da21-57f2-b2e3-98060e941fee",

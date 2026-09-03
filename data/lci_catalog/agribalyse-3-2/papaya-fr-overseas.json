@@ -2,8 +2,7 @@
   "activityName": "Papaya {GLO}| production | Cut-off, U - Adapted from Ecoinvent U",
   "categories": [
     "ingredient",
-    "material",
-    "material_type:fruits_and_vegetables"
+    "material"
   ],
   "displayName": "Papaye FR Outre-Mer",
   "id": "18a2531b-63ac-53fa-95a9-d9f957364901",

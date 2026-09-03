@@ -2,8 +2,7 @@
   "activityName": "Oats, at farm {FI} - Adapted from WFLDB U",
   "categories": [
     "ingredient",
-    "material",
-    "material_type:cereals"
+    "material"
   ],
   "displayName": "Avoine Origine Inconnue",
   "id": "ada3a28d-48b5-5b33-ac83-11cb80d253d2",

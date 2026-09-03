@@ -2,8 +2,7 @@
   "activityName": "Munster cheese, variant 1, CMAPS {GLO} U",
   "categories": [
     "ingredient",
-    "material",
-    "material_type:other_food_items"
+    "material"
   ],
   "displayName": "Munster FR",
   "id": "f35956cc-a5ac-4be9-8dec-bc9c7006631c",

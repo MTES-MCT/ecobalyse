@@ -2,8 +2,7 @@
   "activityName": "Barley, feed grain, conventional, national average, animal feed, at farm gate {FR} U",
   "categories": [
     "ingredient",
-    "material",
-    "material_type:cereals"
+    "material"
   ],
   "displayName": "Orge FR",
   "id": "1dafb792-e215-58fa-a64d-1f9b2d9a2cde",

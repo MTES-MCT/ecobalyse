@@ -2,8 +2,7 @@
   "activityName": "Sugar beet, at farm {CA} - Adapted from WFLDB U",
   "categories": [
     "ingredient",
-    "material",
-    "material_type:other_food_items"
+    "material"
   ],
   "displayName": "Betterave à sucre Origine Inconnue",
   "id": "40b64f1f-f1d9-5f71-8315-43eedc458bbb",

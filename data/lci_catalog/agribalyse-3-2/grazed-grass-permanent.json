@@ -2,8 +2,7 @@
   "activityName": "Grazed grass, permanent meadow, without clover, Northwestern region, on field {FR} U",
   "categories": [
     "ingredient",
-    "material",
-    "material_type:other_food_items"
+    "material"
   ],
   "displayName": "Herbe de prairie permanente FR",
   "id": "cffed1a1-f77d-51f3-bbf6-4adf4905c783",
