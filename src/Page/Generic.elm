@@ -162,10 +162,12 @@ init genericScope trigram maybeUrlQuery session =
             Scope.Generic genericScope
 
         initialQuery =
-            -- If we received a serialized query from the URL, use it
-            -- Otherwise, fallback to use session query
-            maybeUrlQuery
-                |> Maybe.withDefault (Session.genericQuery genericScope session)
+            case maybeUrlQuery of
+                Just urlQuery ->
+                    urlQuery
+
+                Nothing ->
+                    Session.simulatorGenericQuery genericScope session
 
         examples =
             session.db.generic.examples
@@ -232,7 +234,7 @@ initFromExample session genericScope uuid =
         exampleQuery =
             example
                 |> Result.map .query
-                |> Result.withDefault (Session.genericQuery genericScope session)
+                |> Result.withDefault (Session.simulatorGenericQuery genericScope session)
     in
     { activeImpactsTab = ImpactTabs.StagesImpactsTab
     , bookmarkName = exampleQuery |> suggestBookmarkName session genericScope examples

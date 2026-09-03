@@ -67,8 +67,25 @@ checkComponentConfig db jsonConfig =
         Err err ->
             [ err ]
 
-        Ok _ ->
-            []
+        Ok config ->
+            checkDefaultExamples db config
+
+
+{-| Validates that default example UUIDs in config point to existing examples
+with matching scopes.
+-}
+checkDefaultExamples : Db -> ComponentConfig.Config -> List Error
+checkDefaultExamples db config =
+    Scope.genericScopes
+        |> List.concatMap
+            (\genericScope ->
+                case ComponentConfig.getDefaultExampleQuery config db.generic.examples genericScope of
+                    Err err ->
+                        [ err ]
+
+                    Ok _ ->
+                        []
+            )
 
 
 {-| Returns missing component ids referenced by a component item.

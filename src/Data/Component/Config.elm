@@ -5,6 +5,7 @@ module Data.Component.Config exposing
     , EndOfLifeStrategiesConfig
     , EndOfLifeStrategy
     , decode
+    , getDefaultExampleQuery
     , getDocLink
     , parse
     , scopeEnabled
@@ -12,19 +13,23 @@ module Data.Component.Config exposing
 
 import Data.Common.DecodeUtils as DU
 import Data.Country as Country exposing (Country)
+import Data.Example as Example exposing (Example)
 import Data.Impact as Impact exposing (Impacts)
 import Data.Process as Process exposing (Process)
 import Data.Process.Category as Category exposing (MaterialDict)
-import Data.Scope as Scope exposing (Scope)
+import Data.Scope as Scope exposing (GenericScope, Scope)
 import Data.Split as Split exposing (Split)
 import Data.Transport as Transport exposing (Transport)
+import Data.Uuid as Uuid exposing (Uuid)
 import Dict exposing (Dict)
+import Dict.Any as AnyDict
 import Json.Decode as Decode exposing (Decoder)
 import Json.Decode.Pipeline as Decode
 
 
 type alias Config =
-    { distribution : DistributionConfig
+    { defaultExamples : Scope.Dict Uuid
+    , distribution : DistributionConfig
     , docLinks : DocLinksConfig
     , durability : DurabilityConfig
     , endOfLife : EndOfLifeConfig
@@ -108,6 +113,7 @@ type alias UseConfig =
 decode : { db | countries : List Country, processes : List Process } -> Decoder Config
 decode { countries, processes } =
     Decode.succeed Config
+        |> Decode.required "defaultExamples" decodeDefaultExamples
         |> Decode.required "distribution" (decodeDistributionConfig processes countries)
         |> Decode.required "docLinks" decodeDocLinksConfig
         |> Decode.required "durability" decodeDurabilityConfig
@@ -115,6 +121,63 @@ decode { countries, processes } =
         |> Decode.required "production" (decodeProductionConfig processes)
         |> Decode.required "transports" (decodeTransportConfig processes)
         |> Decode.required "use" (decodeUseConfig processes)
+
+
+decodeDefaultExamples : Decoder (Scope.Dict Uuid)
+decodeDefaultExamples =
+    Decode.dict Uuid.decoder
+        |> Decode.andThen validateDefaultExamples
+
+
+validateDefaultExamples : Dict String Uuid -> Decoder (Scope.Dict Uuid)
+validateDefaultExamples rawDict =
+    let
+        invalidKeys =
+            Dict.keys rawDict
+                |> List.filterMap
+                    (\key ->
+                        case Scope.fromStringGeneric key of
+                            Err _ ->
+                                Just key
+
+                            Ok _ ->
+                                Nothing
+                    )
+
+        missingScopes =
+            Scope.genericScopes
+                |> List.filter
+                    (\genericScope ->
+                        case Dict.get (Scope.toStringGeneric genericScope) rawDict of
+                            Just _ ->
+                                False
+
+                            Nothing ->
+                                True
+                    )
+                |> List.map Scope.toStringGeneric
+
+        errors =
+            List.map (\key -> "defaultExamples\u{00A0}: scope invalide `" ++ key ++ "`") invalidKeys
+                ++ List.map (\scope -> "defaultExamples\u{00A0}: scope manquant `" ++ scope ++ "`") missingScopes
+    in
+    case errors of
+        [] ->
+            rawDict
+                |> Dict.foldl
+                    (\key uuid acc ->
+                        case Scope.fromStringGeneric key of
+                            Err _ ->
+                                acc
+
+                            Ok genericScope ->
+                                AnyDict.insert (Scope.Generic genericScope) uuid acc
+                    )
+                    (AnyDict.empty Scope.toString)
+                |> Decode.succeed
+
+        _ ->
+            Decode.fail (String.join "\n" errors)
 
 
 decodeDistributionConfig : List Process -> List Country -> Decoder DistributionConfig
@@ -212,6 +275,36 @@ decodeUseConfig processes =
     Decode.succeed UseConfig
         |> Decode.requiredAt [ "defaultProcesses", "elec" ] (Process.decodeFromId processes)
         |> Decode.requiredAt [ "defaultProcesses", "heat" ] (Process.decodeFromId processes)
+
+
+{-| Resolves the default example query for a generic scope from config `defaultExamples` UUIDs.
+-}
+getDefaultExampleQuery : Config -> List (Example query) -> GenericScope -> Result String query
+getDefaultExampleQuery config examples genericScope =
+    let
+        scope =
+            Scope.Generic genericScope
+    in
+    config.defaultExamples
+        |> Scope.dictGet scope
+        |> Result.fromMaybe ("Exemple par défaut introuvable pour " ++ Scope.toString scope)
+        |> Result.andThen
+            (\uuid ->
+                examples
+                    |> Example.findByUuid uuid
+                    |> Result.andThen
+                        (\example ->
+                            if example.scope == scope then
+                                Ok example.query
+
+                            else
+                                Err <|
+                                    "Exemple par défaut "
+                                        ++ Uuid.toString uuid
+                                        ++ " n'appartient pas au scope "
+                                        ++ Scope.toString scope
+                        )
+            )
 
 
 getDocLink : Config -> Scope -> String -> Maybe String
