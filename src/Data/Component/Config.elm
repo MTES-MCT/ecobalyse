@@ -5,7 +5,6 @@ module Data.Component.Config exposing
     , EndOfLifeStrategiesConfig
     , EndOfLifeStrategy
     , decode
-    , getDefaultExampleQuery
     , getDocLink
     , parse
     , scopeEnabled
@@ -13,11 +12,10 @@ module Data.Component.Config exposing
 
 import Data.Common.DecodeUtils as DU
 import Data.Country as Country exposing (Country)
-import Data.Example as Example exposing (Example)
 import Data.Impact as Impact exposing (Impacts)
 import Data.Process as Process exposing (Process)
 import Data.Process.Category as Category exposing (MaterialDict)
-import Data.Scope as Scope exposing (GenericScope, Scope)
+import Data.Scope as Scope exposing (Scope)
 import Data.Split as Split exposing (Split)
 import Data.Transport as Transport exposing (Transport)
 import Data.Uuid as Uuid exposing (Uuid)
@@ -224,36 +222,6 @@ decodeUseConfig processes =
     Decode.succeed UseConfig
         |> Decode.requiredAt [ "defaultProcesses", "elec" ] (Process.decodeFromId processes)
         |> Decode.requiredAt [ "defaultProcesses", "heat" ] (Process.decodeFromId processes)
-
-
-{-| Resolves the default example query for a generic scope from config `defaultExamples` UUIDs.
--}
-getDefaultExampleQuery : List (Example query) -> GenericScope -> Config -> Result String query
-getDefaultExampleQuery examples genericScope config =
-    let
-        scope =
-            Scope.Generic genericScope
-    in
-    config.defaultExamples
-        |> Scope.dictGet scope
-        |> Result.fromMaybe ("Exemple par défaut introuvable pour " ++ Scope.toString scope)
-        |> Result.andThen
-            (\uuid ->
-                examples
-                    |> Example.findByUuid uuid
-                    |> Result.andThen
-                        (\example ->
-                            if example.scope == scope then
-                                Ok example.query
-
-                            else
-                                Err <|
-                                    "Exemple par défaut "
-                                        ++ Uuid.toString uuid
-                                        ++ " n'appartient pas au scope "
-                                        ++ Scope.toString scope
-                        )
-            )
 
 
 getDocLink : Config -> Scope -> String -> Maybe String

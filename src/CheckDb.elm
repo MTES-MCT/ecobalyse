@@ -4,7 +4,7 @@ import Data.Component as Component exposing (Component)
 import Data.Component.Config as ComponentConfig
 import Data.Component.ProductCategory as ProductCategory exposing (ProductCategory)
 import Data.Db exposing (Db)
-import Data.Example exposing (Example)
+import Data.Example as Example exposing (Example)
 import Data.Process as Process exposing (Process)
 import Data.Process.Category as ProcessCategory
 import Data.Scope as Scope
@@ -79,12 +79,29 @@ checkDefaultExamples db config =
     Scope.genericScopes
         |> List.concatMap
             (\genericScope ->
-                case ComponentConfig.getDefaultExampleQuery db.generic.examples genericScope config of
-                    Err err ->
-                        [ err ]
+                let
+                    scope =
+                        Scope.Generic genericScope
+                in
+                case config.defaultExamples |> Scope.dictGet scope of
+                    Just uuid ->
+                        case db.generic.examples |> Example.findByUuid uuid of
+                            Err err ->
+                                [ err ]
 
-                    Ok _ ->
-                        []
+                            Ok example ->
+                                if example.scope == scope then
+                                    []
+
+                                else
+                                    [ "Exemple par défaut "
+                                        ++ Uuid.toString uuid
+                                        ++ " n'appartient pas au scope "
+                                        ++ Scope.toString scope
+                                    ]
+
+                    Nothing ->
+                        [ "Exemple par défaut introuvable pour " ++ Scope.toString scope ]
             )
 
 

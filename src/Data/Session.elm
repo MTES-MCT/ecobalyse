@@ -40,8 +40,8 @@ import Browser.Navigation as Nav
 import Data.Bookmark as Bookmark exposing (Bookmark)
 import Data.Common.DecodeUtils as DU
 import Data.Component as Component
-import Data.Component.Config as Config
 import Data.Db as Db exposing (Db)
+import Data.Example as Example
 import Data.Food.Query as FoodQuery
 import Data.Scope as Scope exposing (GenericScope)
 import Data.Textile.Query as TextileQuery
@@ -220,13 +220,23 @@ simulator page without an explicit URL query.
 simulatorGenericQuery : GenericScope -> Session -> Component.Query
 simulatorGenericQuery genericScope session =
     let
+        scope =
+            Scope.Generic genericScope
+
         sessionQuery =
             genericQuery genericScope session
     in
     if List.isEmpty sessionQuery.items then
-        session.componentConfig
-            |> Config.getDefaultExampleQuery session.db.generic.examples genericScope
-            |> Result.withDefault sessionQuery
+        session.componentConfig.defaultExamples
+            |> Scope.dictGet scope
+            |> Maybe.andThen
+                (\uuid ->
+                    session.db.generic.examples
+                        |> Example.findByUuid uuid
+                        |> Result.toMaybe
+                        |> Maybe.map .query
+                )
+            |> Maybe.withDefault sessionQuery
 
     else
         sessionQuery
