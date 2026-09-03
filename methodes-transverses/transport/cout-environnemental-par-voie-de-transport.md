@@ -29,21 +29,21 @@ Enfin, pour le transport par voie ferroviaire (voie `fer`), il peut y avoir une 
 À chaque étape, le coût environnemental du transport pour une voie de transport i est calculé de la façon suivante :
 
 $$
-I_{v.i}=\frac{m}{1000}*(D_{intrazone,depart}∗I_{camion}+D_{i}∗I_{m.2}*D_{intrazone,arrivée}∗I_{camion})
+I_{v.i}=\frac{m}{1000}*(D_{ToHub,depart}∗I_{camion}+D_{i}∗I_{m.2}*D_{ToHub,arrivée}∗I_{camion})
 $$
 
 Avec :&#x20;
 
 * `I_v.i` : le coût environnemental par voie, exprimé en points d'impact Pts
 * `m` : la masse de produit transporté, exprimée en kg. La masse transportée dépend de l'étape du cycle de vie à laquelle a lieu le transport.
-* `D_intrazone,départ` et `D_intrazone,arrivée` : la distance parcourue en camion entre le site et le hub de transport régional, pour le pays ou la zone de départ et pour le pays ou la zone d'arrivée respectivement, exprimée en km.
+* `D_ToHub,départ` et `D_ToHub,arrivée` : la distance parcourue en camion entre le site et le hub de transport régional, pour le pays ou la zone de départ et pour le pays ou la zone d'arrivée respectivement, exprimée en km.
   * Cette distance dépend du pays ou de la zone géographique sélectionnée. Les valeurs sont indiquées dans la section "Paramètres retenus pour l’affichage environnemental".
 * `D_i` : la distance parcourue par le mode de transport principal i, exprimée en km
-  * `D_mer,bateau` , `D_terre,camion`,`D_air,avion` , `D_fer,train` sont des paramètres dont les valeurs sont indiquées dans la section "Paramètres retenus pour l’affichage environnemental".
+  * `D_mer` , `D_terre`,`D_air` , `D_fer` sont des paramètres dont les valeurs sont indiquées dans la section "Paramètres retenus pour l’affichage environnemental".
 * `I_camion` : le coût environnemental du camion, exprimé en Pts/t.km
 * `I_m.i` : le coût environnemental du mode i, exprimé en Pts/t.km
 
-Pour un pays donné, `D_Hub,départ` est identique à `D_Hub,arrivée`.
+Pour un pays donné, `D_ToHub,départ` est identique à `D_ToHub,arrivée`.
 
 ### Transport au sein d'un même pays
 
@@ -52,7 +52,7 @@ Les valeurs sont indiquées dans la section "Paramètres retenus pour l’affich
 Lorsque deux étapes successives sont réalisées dans un même pays, le coût environnemental du transport est calculé de la façon suivante :&#x20;
 
 $$
-I=\frac{m}{1000}*(D_{intrazone}∗I_{camion})
+I=\frac{m}{1000}*(D_{ToHub}∗I_{camion})
 $$
 
 Avec les paramètres définis précédemment.
@@ -69,9 +69,9 @@ Le tableau suivant décrit les sources de données et le mode de calcul des dist
 
 [Toutes les distances entre pays (identifiés par leurs code alpha-2) sont visibles sur cette page](https://github.com/MTES-MCT/wikicarbone/blob/master/public/data/transports.json) (hors distances vers et depuis les ports et aéroports).
 
-### Distances `D_intrazone`&#x20;
+### Distances `D_ToHub`&#x20;
 
-Les autres distances sont paramétrées pour chaque zone géogaphique et sont disponibles dans l'explorateur "Pays".
+Les autres distances sont paramétrées pour chaque zone géographique et sont disponibles dans l'explorateur "Pays" ("Distance au hub").
 
 ### Situations où l'un des pays n'est pas connu ou pas proposé dans Ecobalyse
 
@@ -103,11 +103,11 @@ Je sélectionne "Inconnu"
 
 Dans ce cas, les distances suivantes sont fixées par défaut, en cohérence avec la méthode PEF ([Product Environmental Footprint Category Rules Guidance](https://eplca.jrc.ec.europa.eu/permalink/PEFCR_guidance_v6.3-2.pdf), 7.14.3 From factory to final client) :&#x20;
 
-* D\_mer = 18 000 km
-* D\_air, air = 10 000 km
-*   D\_intrazone = 2 000km
+* `D_mer` = 18 000 km
+* `D_air` = 10 000 km
+* `D_ToHub` = 2 000km
 
-    &#x20;
+Si à la fois le pays de départ et le pays d'arrivée sont inconnus, c'est la méthode générale qui s'applique avec les paramètres ci-dessus, et non la méthode de calcul "Transport au sein d'un même pays".
 
 </details>
 
