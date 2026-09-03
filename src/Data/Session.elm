@@ -26,7 +26,6 @@ module Data.Session exposing
     , selectNoBookmarks
     , serializeStore
     , setAuth
-    , simulatorGenericQuery
     , toggleComparedSimulation
     , updateAuth
     , updateDb
@@ -41,7 +40,6 @@ import Data.Bookmark as Bookmark exposing (Bookmark)
 import Data.Common.DecodeUtils as DU
 import Data.Component as Component
 import Data.Db as Db exposing (Db)
-import Data.Example as Example
 import Data.Food.Query as FoodQuery
 import Data.Scope as Scope exposing (GenericScope)
 import Data.Textile.Query as TextileQuery
@@ -211,35 +209,6 @@ genericQuery genericScope session =
 
         Scope.Veli ->
             session.queries.veli
-
-
-{-| Like genericQuery, but falls back to the configured default example
-when the stored query is empty (no items). Use this when initializing a
-simulator page without an explicit URL query.
--}
-simulatorGenericQuery : GenericScope -> Session -> Component.Query
-simulatorGenericQuery genericScope session =
-    let
-        scope =
-            Scope.Generic genericScope
-
-        sessionQuery =
-            genericQuery genericScope session
-    in
-    if List.isEmpty sessionQuery.items then
-        session.componentConfig.defaultExamples
-            |> Scope.dictGet scope
-            |> Maybe.andThen
-                (\uuid ->
-                    session.db.generic.examples
-                        |> Example.findByUuid uuid
-                        |> Result.toMaybe
-                        |> Maybe.map .query
-                )
-            |> Maybe.withDefault sessionQuery
-
-    else
-        sessionQuery
 
 
 updateFoodQuery : FoodQuery.Query -> Session -> Session

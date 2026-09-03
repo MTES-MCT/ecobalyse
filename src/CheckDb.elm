@@ -10,6 +10,7 @@ import Data.Process.Category as ProcessCategory
 import Data.Scope as Scope
 import Data.Uuid as Uuid
 import Dict exposing (Dict)
+import Dict.Any as AnyDict
 import List.Extra as LE
 import Set exposing (Set)
 import Static.Db as StaticDb
@@ -76,29 +77,24 @@ with matching scopes.
 -}
 checkDefaultExamples : Db -> ComponentConfig.Config -> List Error
 checkDefaultExamples db config =
-    Scope.genericScopes
-        |> List.map Scope.Generic
+    config.defaultExamples
+        |> AnyDict.toList
         |> List.concatMap
-            (\scope ->
-                case config.defaultExamples |> Scope.dictGet scope of
-                    Just uuid ->
-                        case db.generic.examples |> Example.findByUuid uuid of
-                            Err err ->
-                                [ err ]
+            (\( scope, uuid ) ->
+                case db.generic.examples |> Example.findByUuid uuid of
+                    Err err ->
+                        [ err ]
 
-                            Ok example ->
-                                if example.scope == scope then
-                                    []
+                    Ok example ->
+                        if example.scope == scope then
+                            []
 
-                                else
-                                    [ "Default example"
-                                        ++ Uuid.toString uuid
-                                        ++ " doesn't belong to the scope "
-                                        ++ Scope.toString scope
-                                    ]
-
-                    Nothing ->
-                        [ "Exemple par défaut introuvable pour " ++ Scope.toString scope ]
+                        else
+                            [ "Default example"
+                                ++ Uuid.toString uuid
+                                ++ " doesn't belong to the scope "
+                                ++ Scope.toString scope
+                            ]
             )
 
 

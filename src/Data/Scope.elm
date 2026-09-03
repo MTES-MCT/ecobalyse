@@ -12,8 +12,6 @@ module Data.Scope exposing
     , encode
     , encodeGeneric
     , fromString
-    , fromStringGeneric
-    , genericScopes
     , isGeneric
     , parse
     , toGenericScope
@@ -144,13 +142,6 @@ fromStringGeneric string =
 
         _ ->
             Err <| "Couldn't decode unknown generic scope " ++ string
-
-
-{-| Exhaustive list of generic scopes
--}
-genericScopes : List GenericScope
-genericScopes =
-    [ Food2, Object, Veli ]
 
 
 isGeneric : Scope -> Bool

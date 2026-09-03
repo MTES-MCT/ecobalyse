@@ -158,20 +158,15 @@ type Msg
 init : GenericScope -> Definition.Trigram -> Maybe Component.Query -> Session -> PageUpdate Model Msg
 init genericScope trigram maybeUrlQuery session =
     let
-        scope =
-            Scope.Generic genericScope
-
         initialQuery =
-            case maybeUrlQuery of
-                Just urlQuery ->
-                    urlQuery
-
-                Nothing ->
-                    Session.simulatorGenericQuery genericScope session
+            -- If we received a serialized query from the URL, use it
+            -- Otherwise, fallback to use either an existing session query or a default example
+            maybeUrlQuery
+                |> Maybe.withDefault (initQuery genericScope session)
 
         examples =
             session.db.generic.examples
-                |> Example.forScope scope
+                |> Example.forScope (Scope.Generic genericScope)
     in
     { activeImpactsTab = ImpactTabs.StagesImpactsTab
     , bookmarkName = initialQuery |> suggestBookmarkName session genericScope examples
@@ -198,7 +193,7 @@ init genericScope trigram maybeUrlQuery session =
             |> Simulator.compute
                 { config = session.componentConfig
                 , db = session.db
-                , scope = scope
+                , scope = Scope.Generic genericScope
                 }
     , genericScope = genericScope
     }
@@ -234,7 +229,7 @@ initFromExample session genericScope uuid =
         exampleQuery =
             example
                 |> Result.map .query
-                |> Result.withDefault (Session.simulatorGenericQuery genericScope session)
+                |> Result.withDefault (initQuery genericScope session)
     in
     { activeImpactsTab = ImpactTabs.StagesImpactsTab
     , bookmarkName = exampleQuery |> suggestBookmarkName session genericScope examples
@@ -262,6 +257,31 @@ initFromExample session genericScope uuid =
     }
         |> createPageUpdate (session |> Session.updateGenericQuery genericScope exampleQuery)
         |> App.withCmds [ Ports.scrollTo { x = 0, y = 0 } ]
+
+
+initQuery : GenericScope -> Session -> Component.Query
+initQuery genericScope session =
+    let
+        scope =
+            Scope.Generic genericScope
+
+        sessionQuery =
+            Session.genericQuery genericScope session
+    in
+    if List.isEmpty sessionQuery.items then
+        session.componentConfig.defaultExamples
+            |> Scope.dictGet scope
+            |> Maybe.andThen
+                (\uuid ->
+                    session.db.generic.examples
+                        |> Example.findByUuid uuid
+                        |> Result.toMaybe
+                        |> Maybe.map .query
+                )
+            |> Maybe.withDefault sessionQuery
+
+    else
+        sessionQuery
 
 
 selectProductCategory : Session -> Component.Query -> Maybe Product.Id -> PageUpdate Model Msg -> PageUpdate Model Msg

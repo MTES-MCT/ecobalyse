@@ -111,7 +111,7 @@ type alias UseConfig =
 decode : { db | countries : List Country, processes : List Process } -> Decoder Config
 decode { countries, processes } =
     Decode.succeed Config
-        |> Decode.required "defaultExamples" decodeDefaultExamples
+        |> DU.strictOptionalWithDefault "defaultExamples" (Scope.decodeDict Uuid.decoder) (AnyDict.empty Scope.toString)
         |> Decode.required "distribution" (decodeDistributionConfig processes countries)
         |> Decode.required "docLinks" decodeDocLinksConfig
         |> Decode.required "durability" decodeDurabilityConfig
@@ -119,12 +119,6 @@ decode { countries, processes } =
         |> Decode.required "production" (decodeProductionConfig processes)
         |> Decode.required "transports" (decodeTransportConfig processes)
         |> Decode.required "use" (decodeUseConfig processes)
-
-
-decodeDefaultExamples : Decoder (Scope.Dict Uuid)
-decodeDefaultExamples =
-    Decode.dict Uuid.decoder
-        |> Decode.andThen validateDefaultExamples
 
 
 decodeDistributionConfig : List Process -> List Country -> Decoder DistributionConfig
@@ -246,55 +240,3 @@ scopeEnabled scope =
     .enabled
         >> Scope.dictGet scope
         >> Maybe.withDefault False
-
-
-validateDefaultExamples : Dict String Uuid -> Decoder (Scope.Dict Uuid)
-validateDefaultExamples rawDict =
-    let
-        invalidKeys =
-            Dict.keys rawDict
-                |> List.filterMap
-                    (\key ->
-                        case Scope.fromStringGeneric key of
-                            Err _ ->
-                                Just key
-
-                            Ok _ ->
-                                Nothing
-                    )
-
-        missingScopes =
-            Scope.genericScopes
-                |> List.filter
-                    (\genericScope ->
-                        case Dict.get (Scope.toStringGeneric genericScope) rawDict of
-                            Just _ ->
-                                False
-
-                            Nothing ->
-                                True
-                    )
-                |> List.map Scope.toStringGeneric
-
-        errors =
-            List.concat
-                [ List.map (\key -> "defaultExamples\u{00A0}: scope invalide `" ++ key ++ "`") invalidKeys
-                , List.map (\scope -> "defaultExamples\u{00A0}: scope manquant `" ++ scope ++ "`") missingScopes
-                ]
-    in
-    if not <| List.isEmpty errors then
-        Decode.fail <| String.join "\n" errors
-
-    else
-        rawDict
-            |> Dict.foldl
-                (\key uuid acc ->
-                    case Scope.fromStringGeneric key of
-                        Err _ ->
-                            acc
-
-                        Ok genericScope ->
-                            AnyDict.insert (Scope.Generic genericScope) uuid acc
-                )
-                (AnyDict.empty Scope.toString)
-            |> Decode.succeed
