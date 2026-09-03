@@ -77,12 +77,9 @@ with matching scopes.
 checkDefaultExamples : Db -> ComponentConfig.Config -> List Error
 checkDefaultExamples db config =
     Scope.genericScopes
+        |> List.map Scope.Generic
         |> List.concatMap
-            (\genericScope ->
-                let
-                    scope =
-                        Scope.Generic genericScope
-                in
+            (\scope ->
                 case config.defaultExamples |> Scope.dictGet scope of
                     Just uuid ->
                         case db.generic.examples |> Example.findByUuid uuid of
@@ -94,9 +91,9 @@ checkDefaultExamples db config =
                                     []
 
                                 else
-                                    [ "Exemple par défaut "
+                                    [ "Default example"
                                         ++ Uuid.toString uuid
-                                        ++ " n'appartient pas au scope "
+                                        ++ " doesn't belong to the scope "
                                         ++ Scope.toString scope
                                     ]
 
