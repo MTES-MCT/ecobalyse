@@ -1,4 +1,7 @@
 {
+  "defaultExamples": {
+    "food2": "8db95001-4a1a-4036-a12a-bfa511f3ed20"
+  },
   "distribution": {
     "country": "FR",
     "defaultProcess": {
