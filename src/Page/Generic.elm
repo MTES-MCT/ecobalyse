@@ -31,7 +31,7 @@ import Data.Scope as Scope exposing (GenericScope, Scope)
 import Data.Session as Session exposing (Session)
 import Data.Split exposing (Split)
 import Data.Unit as Unit
-import Data.Uuid exposing (Uuid)
+import Data.Uuid as Uuid exposing (Uuid)
 import Html exposing (..)
 import Html.Attributes as Attr exposing (..)
 import Html.Events exposing (..)
@@ -41,6 +41,7 @@ import RemoteData
 import Request.BackendHttp exposing (WebData)
 import Request.BackendHttp.Error as BackendHttpError
 import Request.Contrib as Contrib
+import Result.Extra as RE
 import Route
 import Task
 import Time exposing (Posix)
@@ -159,10 +160,7 @@ init : GenericScope -> Definition.Trigram -> Maybe Component.Query -> Session ->
 init genericScope trigram maybeUrlQuery session =
     let
         initialQuery =
-            -- If we received a serialized query from the URL, use it
-            -- Otherwise, fallback to use either an existing session query or a default example
-            maybeUrlQuery
-                |> Maybe.withDefault (initQuery genericScope session)
+            initQuery session genericScope maybeUrlQuery
 
         examples =
             session.db.generic.examples
@@ -229,7 +227,7 @@ initFromExample session genericScope uuid =
         exampleQuery =
             example
                 |> Result.map .query
-                |> Result.withDefault (initQuery genericScope session)
+                |> Result.withDefault Component.emptyQuery
     in
     { activeImpactsTab = ImpactTabs.StagesImpactsTab
     , bookmarkName = exampleQuery |> suggestBookmarkName session genericScope examples
@@ -256,32 +254,38 @@ initFromExample session genericScope uuid =
     , genericScope = genericScope
     }
         |> createPageUpdate (session |> Session.updateGenericQuery genericScope exampleQuery)
+        |> App.notifyErrorIf (RE.isErr example) "Exemple introuvable" ("L’exemple de produit " ++ Uuid.toString uuid ++ " n’existe pas.")
         |> App.withCmds [ Ports.scrollTo { x = 0, y = 0 } ]
 
 
-initQuery : GenericScope -> Session -> Component.Query
-initQuery genericScope session =
-    let
-        scope =
-            Scope.Generic genericScope
+{-| Initializes the initial query to load, using the URL query if any, or falling back to use:
 
-        sessionQuery =
-            Session.genericQuery genericScope session
-    in
-    if List.isEmpty sessionQuery.items then
-        session.componentConfig.defaultExamples
-            |> Scope.dictGet scope
-            |> Maybe.andThen
-                (\uuid ->
-                    session.db.generic.examples
-                        |> Example.findByUuid uuid
-                        |> Result.toMaybe
-                        |> Maybe.map .query
-                )
-            |> Maybe.withDefault sessionQuery
+  - the session query if it's not empty
+  - the default configured example for this scope, if any
+  - an empty query
 
-    else
-        sessionQuery
+-}
+initQuery : Session -> GenericScope -> Maybe Component.Query -> Component.Query
+initQuery session genericScope =
+    Maybe.withDefault <|
+        let
+            sessionQuery =
+                Session.genericQuery genericScope session
+        in
+        if List.isEmpty sessionQuery.items then
+            session.componentConfig.defaultExamples
+                |> Scope.dictGet (Scope.Generic genericScope)
+                |> Maybe.andThen
+                    (\uuid ->
+                        session.db.generic.examples
+                            |> Example.findByUuid uuid
+                            |> Result.toMaybe
+                            |> Maybe.map .query
+                    )
+                |> Maybe.withDefault Component.emptyQuery
+
+        else
+            sessionQuery
 
 
 selectProductCategory : Session -> Component.Query -> Maybe Product.Id -> PageUpdate Model Msg -> PageUpdate Model Msg
