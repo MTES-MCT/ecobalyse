@@ -2,25 +2,27 @@
 
 
 import json
+import os
+import posixpath
 from pathlib import Path
 from typing import Annotated
 
+import pathspec
 import typer
 from data.common.export import activities_processes_sort_key
 from ecobalyse.json import CompactJSONEncoder
 from ecobalyse.logging import logger
 
-EXCLUDED_PATHS: list[str] = [
-    "/.git",
-    "/.venv/",
-    "/.vscode",
-    "/node_modules/",
-    "/package-lock.json",
-    "/package.json",
-    "/tests/activities-schema.json",
-    "/tests/processes-schema.json",
-    "/data/common/distances/distances_raw.json",
-]
+
+def load_ignore_spec_file(ignore_file: Path) -> pathspec.PathSpec:
+    """Charge un fichier de patterns au format gitignore"""
+    with open(ignore_file, encoding="utf-8") as f:
+        return load_ignore_spec(f.read().splitlines())
+
+
+def load_ignore_spec(lines: list[str]) -> pathspec.PathSpec:
+    return pathspec.GitIgnoreSpec.from_lines("gitignore", lines)
+
 
 SORT_PATHS = [
     "processes.json",
@@ -30,7 +32,7 @@ SORT_PATHS = [
 ]
 
 
-def _lint_and_fix(path: Path, fix: bool, number_precision: int):
+def lint_and_fix(path: Path, fix: bool, number_precision: int):
     logger.debug(f"Checking {path}")
 
     with open(path, "r", encoding="utf-8") as fp:
@@ -71,11 +73,45 @@ def _lint_and_fix(path: Path, fix: bool, number_precision: int):
     return False
 
 
-def is_excluded(path: Path):
-    # TODO: starting with Python 3.13, we should be able to use
-    # https://docs.python.org/3.13/library/pathlib.html#pathlib.PurePath.full_match
-    # return any([path.full_match(exclusion) for exclusion in EXCLUDED_PATHS])
-    return any(exclusion in str(path) for exclusion in EXCLUDED_PATHS)
+def is_excluded(path: Path | str, ignore_spec: pathspec.PathSpec, rel_dir: Path):
+    return ignore_spec.match_file(posixpath.relpath(path, rel_dir))
+
+
+def rel_path(name: str, rel_dir: Path) -> str:
+    return name if rel_dir == Path(".") else (rel_dir / name).as_posix()
+
+
+def find_json_files(
+    root: Path, ignore_spec: pathspec.PathSpec, ignore_file_dir_path: Path
+) -> list[Path]:
+    """Returns all the *.json under `root`, taking into account `ignore_spec`"""
+    matches: list[Path] = []
+
+    for dirpath, dirnames, filenames in os.walk(root):
+        rel_dir = Path(dirpath).relative_to(root)
+
+        """
+        Optimize os.walk by removing excluded dirs from the parsing
+
+        https://docs.python.org/3/library/os.html#os.walk
+        When topdown is True, the caller can modify the dirnames list in-place (perhaps using del or slice assignment),
+        and walk() will only recurse into the subdirectories whose names remain in dirnames;
+        """
+        dirnames[:] = [
+            d
+            for d in dirnames
+            if not is_excluded(
+                rel_path(d, rel_dir) + "/", ignore_spec, ignore_file_dir_path
+            )
+        ]
+        for name in filenames:
+            if not name.lower().endswith(".json"):
+                continue
+            rel = rel_path(name, rel_dir)
+            if not is_excluded(rel, ignore_spec, ignore_file_dir_path):
+                matches.append(Path(dirpath) / name)
+
+    return matches
 
 
 def main(
@@ -89,6 +125,12 @@ def main(
             help="The paths of json files or of directories containing json files",
         ),
     ],
+    ignore_file: Annotated[
+        Path,
+        typer.Option(
+            help="Float precision to apply to process files",
+        ),
+    ] = Path(".jsonformatignore"),
     number_precision: Annotated[
         int,
         typer.Option(
@@ -109,25 +151,32 @@ def main(
     By default, this will check that the files passed as arguments are properly formatted.
     With the --fix option, this will additionaly format them in place.
     """
+    ignore_file_dir_path = Path(os.path.dirname(os.path.realpath(ignore_file)))
+    ignore_spec = load_ignore_spec_file(ignore_file)
+
+    # logger.setLevel(logging.DEBUG)
+    files_to_format: list[Path] = []
+
     for path in paths:
-        if is_excluded(path):
+        # Check if the Paths are not directly excluded
+        if is_excluded(path, ignore_spec, ignore_file_dir_path):
             logger.debug(f"ignoring {path}")
             continue
-        if path.is_file():
-            success = _lint_and_fix(path, fix, number_precision)
-            if not success:
-                raise typer.Exit(-1)
         else:
-            assert path.is_dir()
-            json_files = path.glob("**/*.json")
+            # We can lint the file directly as we’re sure it was not excluded
+            if path.is_file():
+                files_to_format.append(path)
+            else:
+                assert path.is_dir()
+                files_to_format = files_to_format + find_json_files(
+                    path, ignore_spec, ignore_file_dir_path
+                )
 
-            for json_file in json_files:
-                if is_excluded(json_file):
-                    logger.debug(f"ignoring {json_file}")
-                    continue
-                success = _lint_and_fix(json_file, fix, number_precision)
-                if not success:
-                    raise typer.Exit(-1)
+    for file_to_format in files_to_format:
+        logger.debug(f"formatting {file_to_format}")
+        success = lint_and_fix(file_to_format, fix, number_precision)
+        if not success:
+            raise typer.Exit(-1)
 
 
 if __name__ == "__main__":

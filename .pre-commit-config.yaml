@@ -59,10 +59,7 @@ repos:
         language: system
         types_or: [json]
         entry: |
-          bash -c '
-            to_format=$(bin/filter_ignored.sh "$@")
-            [ -n "$to_format" ] && uv run bin/json_formatter.py --fix $to_format
-          ' --
+          bash -c 'npm --prefix . run fix:json:all "${@}"' --
 
       - id: check-json-schemas
         name: check json schemas

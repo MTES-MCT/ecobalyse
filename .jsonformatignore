@@ -1,8 +1,15 @@
+.git/
+node_modules/
+elm-stuff/
+.venv/
 dist/
 elm.json
+package.json
 package-lock.json
 public/icomoon/*
 public/vendor/*
 tests/e2e-*-output.json
 tests/e2e-food.json
 tests/e2e-textile.json
+test-results/
+/output/
