@@ -17,8 +17,11 @@ if [ "$IS_REVIEW_APP" == "true" ]; then
    uv run backend database upgrade --no-prompt
 fi
 
-# Always update the processes with the latest data, even on staging or production
-uv run backend fixtures load-processes public/data/processes_impacts.json
+# Always reset the processes with the latest data, even on production
+# As we don’t use FK to processes anymore, we decided to stop updating
+# the processes and instead just delete and add again
+# (Updates were taking ages and was blocking scalingo deploy)
+uv run backend fixtures reset-processes public/data/processes_impacts.json
 
 if [ "$IS_REVIEW_APP" == "true" ]; then
    # We want to keep the staging components as they are, so we only load the default ones on review apps

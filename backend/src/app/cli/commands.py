@@ -420,3 +420,62 @@ def load_processes_json(json_file: click.File) -> None:
 
     console.rule("Loading processes file.")
     anyio.run(_load_processes_json, json_data)
+
+
+async def reset_processes_fixtures(
+    db_session, processes_service, processes_data: list[dict[str, Any]]
+) -> None:
+    """Import/Synchronize Database Fixtures."""
+
+    from structlog import get_logger
+
+    logger = get_logger()
+
+    user = await get_or_create_default_user(db_session)
+
+    for process in processes_data:
+        process["id"] = UUID(process["id"])
+        process["owner"] = user
+
+    existing_processes = await processes_service.get_many()
+    existing_processes_ids = [process.id for process in existing_processes]
+
+    await processes_service.delete_many(
+        item_ids=existing_processes_ids,
+        auto_commit=False,
+    )
+    await processes_service.create_many(
+        data=processes_data,
+        auto_commit=False,
+    )
+
+    await db_session.commit()
+
+    await logger.ainfo(f"Deleted {len(existing_processes_ids)} existing processes")
+    await logger.ainfo(f"Loaded {len(processes_data)} processes fixtures")
+
+
+@fixtures_management_group.command(
+    name="reset-processes", help="Reset (delete and load) processes from JSON file."
+)
+@click.argument("json_file", type=click.File("rb"), nargs=1)
+def reset_processes_json(json_file: click.File) -> None:
+    """Reset processes from a json file.
+
+    Args:
+        processes json file (Path): The path to the JSON file to load.
+    """
+
+    console = get_console()
+
+    json_data = orjson.loads(json_file.read())  # ty: ignore[unresolved-attribute]
+
+    async def _reset_processes_json(components_data) -> None:
+        async with alchemy.get_session() as db_session:
+            processes_service = await anext(provide_processes_service(db_session))
+            await reset_processes_fixtures(
+                db_session, processes_service, components_data
+            )
+
+    console.rule("Resetting processes from file.")
+    anyio.run(_reset_processes_json, json_data)
