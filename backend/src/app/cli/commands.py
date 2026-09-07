@@ -9,6 +9,7 @@ import click
 import orjson
 from advanced_alchemy.utils.fixtures import open_fixture_async
 from rich import get_console
+from sqlalchemy.sql import text
 from structlog import get_logger
 
 from app.config import get_settings
@@ -436,14 +437,7 @@ async def reset_processes_fixtures(
     for process in processes_data:
         process["id"] = UUID(process["id"])
         process["owner"] = user
-
-    existing_processes = await processes_service.get_many()
-    existing_processes_ids = [process.id for process in existing_processes]
-
-    await processes_service.delete_many(
-        item_ids=existing_processes_ids,
-        auto_commit=False,
-    )
+    await db_session.execute(text("""TRUNCATE PROCESS CASCADE"""))
     await processes_service.create_many(
         data=processes_data,
         auto_commit=False,
@@ -451,7 +445,6 @@ async def reset_processes_fixtures(
 
     await db_session.commit()
 
-    await logger.ainfo(f"Deleted {len(existing_processes_ids)} existing processes")
     await logger.ainfo(f"Loaded {len(processes_data)} processes fixtures")
 
 
