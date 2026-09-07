@@ -6,6 +6,7 @@ module App exposing
     , mapSession
     , mapToCmd
     , notifyError
+    , notifyErrorIf
     , notifyInfo
     , notifyInfoIf
     , notifySuccess
@@ -96,6 +97,15 @@ notify notification =
 notifyError : String -> String -> PageUpdate model msg -> PageUpdate model msg
 notifyError title message =
     notify <| Notification.error title message
+
+
+notifyErrorIf : Bool -> String -> String -> PageUpdate model msg -> PageUpdate model msg
+notifyErrorIf bool title message =
+    if bool then
+        notifyError title message
+
+    else
+        identity
 
 
 notifyInfo : String -> PageUpdate model msg -> PageUpdate model msg
