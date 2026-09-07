@@ -2,8 +2,7 @@
   "activityName": "Maize grain, non-irrigated, at farm {BR} - Adapted from WFLDB U",
   "categories": [
     "ingredient",
-    "material",
-    "material_type:cereals"
+    "material"
   ],
   "displayName": "Maïs doux par défaut",
   "id": "155ffeb2-2732-52ff-9d6d-39d6fa6d49b0",

@@ -2,8 +2,7 @@
   "activityName": "Egg, shelled raw, variant 1, CMAPS {GLO} U",
   "categories": [
     "ingredient",
-    "material",
-    "material_type:other_food_items"
+    "material"
   ],
   "displayName": "Oeuf, décoquillé, de poule, de cane ou d'oie, cru FR",
   "id": "1268b17e-0e32-477f-90f4-3ac32fbbc05e",

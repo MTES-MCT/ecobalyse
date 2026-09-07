@@ -2,8 +2,7 @@
   "activityName": "Lamb, conventional, indoor production system, at farm gate {FR} U",
   "categories": [
     "ingredient",
-    "material",
-    "material_type:other_food_items"
+    "material"
   ],
   "displayName": "Agneau conventionnel vivant FR",
   "id": "fb2ca05e-b366-573d-82ed-dbbb2c2b7e60",

@@ -2,8 +2,7 @@
   "activityName": "Banana, mixed production, West Indies, at farm gate {WI} U",
   "categories": [
     "ingredient",
-    "material",
-    "material_type:fruits_and_vegetables"
+    "material"
   ],
   "displayName": "Banane antillaise",
   "id": "a3d13f74-6d65-58dc-8323-34bf259e7c92",

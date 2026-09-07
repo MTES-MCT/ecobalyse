@@ -2,8 +2,7 @@
   "activityName": "Raspberry juice, CMAPS {GLO} U",
   "categories": [
     "ingredient",
-    "material",
-    "material_type:other_food_items"
+    "material"
   ],
   "displayName": "Jus de framboise FR",
   "id": "6dde8cdb-2308-4fb5-86e2-f4b7beb68d81",

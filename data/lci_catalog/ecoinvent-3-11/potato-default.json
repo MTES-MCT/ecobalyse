@@ -2,8 +2,7 @@
   "activityName": "Potato {US}| potato production | Cut-off, U",
   "categories": [
     "ingredient",
-    "material",
-    "material_type:fruits_and_vegetables"
+    "material"
   ],
   "displayName": "Pomme de terre Origine Inconnue",
   "id": "658fe53f-3c86-5f0f-82a6-5169f5f44a43",

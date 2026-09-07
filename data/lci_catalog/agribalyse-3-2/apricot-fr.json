@@ -2,8 +2,7 @@
   "activityName": "Apricot, conventional, national average, at orchard {FR} U",
   "categories": [
     "ingredient",
-    "material",
-    "material_type:fruits_and_vegetables"
+    "material"
   ],
   "displayName": "Abricot FR",
   "id": "27963cf9-10af-5456-9a28-96a33fa1ea5c",

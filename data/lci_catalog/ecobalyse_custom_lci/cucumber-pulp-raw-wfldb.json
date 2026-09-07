@@ -2,8 +2,7 @@
   "activityName": "Cucumber, pulp raw, import WFLDB, CMAPS {GLO} U",
   "categories": [
     "ingredient",
-    "material",
-    "material_type:other_food_items"
+    "material"
   ],
   "displayName": "Concombre, pulpe, cru Origine Inconnue",
   "id": "34d6a1f5-50c8-40ed-9f23-1258037923af",

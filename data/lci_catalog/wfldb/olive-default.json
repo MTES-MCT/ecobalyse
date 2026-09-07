@@ -2,8 +2,7 @@
   "activityName": "Olive, at farm (WFLDB)",
   "categories": [
     "ingredient",
-    "material",
-    "material_type:fruits_and_vegetables"
+    "material"
   ],
   "displayName": "Olives Origine Inconnue",
   "id": "d6035ce6-53d8-5b88-8237-c3cf91bd925c",

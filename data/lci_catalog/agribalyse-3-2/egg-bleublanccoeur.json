@@ -2,8 +2,7 @@
   "activityName": "Egg, Bleu Blanc Coeur, outdoor system, at farm gate {FR} U",
   "categories": [
     "ingredient",
-    "material",
-    "material_type:eggs"
+    "material"
   ],
   "displayName": "Oeuf Bleu-Blanc-Cœur FR",
   "id": "346a7b44-b666-582f-a3f1-aef98c55392a",

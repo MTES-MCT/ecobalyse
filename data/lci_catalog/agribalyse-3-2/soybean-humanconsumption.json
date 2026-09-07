@@ -2,8 +2,7 @@
   "activityName": "Soybean, national average, animal feed, at farm gate {FR} U",
   "categories": [
     "ingredient",
-    "material",
-    "material_type:cereals"
+    "material"
   ],
   "displayName": "Soja FR",
   "id": "74190248-e958-5427-99a3-b16d1593f46a",

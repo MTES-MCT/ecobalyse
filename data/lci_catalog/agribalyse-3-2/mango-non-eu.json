@@ -2,8 +2,7 @@
   "activityName": "Mango, conventional, Val de San Francisco, at orchard {BR} U",
   "categories": [
     "ingredient",
-    "material",
-    "material_type:fruits_and_vegetables"
+    "material"
   ],
   "displayName": "Mangue par défaut",
   "id": "03ab5b2e-e1fe-5a46-b99b-32c2c9320af7",

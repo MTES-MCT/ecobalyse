@@ -2,8 +2,7 @@
   "activityName": "Mozzarella, cow milk, variant 1, CMAPS {GLO} U",
   "categories": [
     "ingredient",
-    "material",
-    "material_type:other_food_items"
+    "material"
   ],
   "displayName": "Mozzarella au lait de vache FR",
   "id": "04525e74-d4bd-4e04-8eca-dd55e217d376",

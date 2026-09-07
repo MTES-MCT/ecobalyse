@@ -2,8 +2,7 @@
   "activityName": "Onion, conventional, national average, at farm {FR} U",
   "categories": [
     "ingredient",
-    "material",
-    "material_type:fruits_and_vegetables"
+    "material"
   ],
   "displayName": "Oignon FR",
   "id": "98da8cb9-325b-57c5-a984-ea78a7b11367",

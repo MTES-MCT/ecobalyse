@@ -2,8 +2,7 @@
   "activityName": "Sweet corn, frozen raw, variant 1, CMAPS {GLO} U",
   "categories": [
     "ingredient",
-    "material",
-    "material_type:other_food_items"
+    "material"
   ],
   "displayName": "Maïs doux, surgelé, cru FR",
   "id": "788bd8ce-ef29-43a3-abcf-4e384aeb711c",

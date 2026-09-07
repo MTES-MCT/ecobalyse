@@ -2,8 +2,7 @@
   "activityName": "Live broiler, for direct consumption, consumption mix {FR} U {{chicken-breast-organic-2025}} {{chicken-breast-fr-organic-2025}}",
   "categories": [
     "ingredient",
-    "material",
-    "material_type:poultry"
+    "material"
   ],
   "displayName": "Poulet Bio",
   "id": "e409257e-dc33-528c-9c44-c70b7811a67b",

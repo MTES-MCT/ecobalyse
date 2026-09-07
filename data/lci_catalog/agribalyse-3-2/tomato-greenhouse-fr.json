@@ -2,8 +2,7 @@
   "activityName": "Tomato, medium size, conventional, soil based, non-heated greenhouse, at greenhouse {FR} U",
   "categories": [
     "ingredient",
-    "material",
-    "material_type:fruits_and_vegetables"
+    "material"
   ],
   "displayName": "Tomate sous serre non chauffée FR",
   "id": "9125cc12-caea-5bab-9090-6ca1d9703412",

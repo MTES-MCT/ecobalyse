@@ -2,8 +2,7 @@
   "activityName": "Sweet corn, frozen raw, variant 2, CMAPS {GLO} U",
   "categories": [
     "ingredient",
-    "material",
-    "material_type:other_food_items"
+    "material"
   ],
   "displayName": "Maïs doux, surgelé, cru Origine Inconnue",
   "id": "36ee8250-6999-4e95-8c8e-9972187d9e0a",

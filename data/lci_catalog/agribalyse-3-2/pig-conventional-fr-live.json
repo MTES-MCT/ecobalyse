@@ -2,8 +2,7 @@
   "activityName": "Pig, conventional, national average, at farm gate {FR} U",
   "categories": [
     "ingredient",
-    "material",
-    "material_type:other_food_items"
+    "material"
   ],
   "displayName": "Porc conventionnel vivant FR",
   "id": "02ea0433-a76b-5019-a740-b4e02165d987",

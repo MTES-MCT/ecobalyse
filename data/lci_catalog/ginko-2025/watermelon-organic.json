@@ -2,8 +2,7 @@
   "activityName": "Melon, organic 2025, national average, at farm gate {FR} U",
   "categories": [
     "ingredient",
-    "material",
-    "material_type:fruits_and_vegetables"
+    "material"
   ],
   "displayName": "Pastèque Bio",
   "id": "0ff273ad-f94f-50cf-912c-53e22b8eae3d",

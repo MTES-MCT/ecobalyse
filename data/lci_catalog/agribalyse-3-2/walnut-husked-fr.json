@@ -2,8 +2,7 @@
   "activityName": "Walnut, dried, husked, processed in FR | Ambient (long) | Pack proxy | at packaging {FR} U",
   "categories": [
     "ingredient",
-    "material",
-    "material_type:other_food_items"
+    "material"
   ],
   "displayName": "Noix décortiquées FR",
   "id": "fe2503b1-10b5-5e7a-a265-9dadbf1eb48b",

@@ -2,8 +2,7 @@
   "activityName": "Durum wheat grain, at farm, organic 2025 {GLO}",
   "categories": [
     "ingredient",
-    "material",
-    "material_type:cereals"
+    "material"
   ],
   "displayName": "Blé dur Bio",
   "id": "4214f67c-efb1-55cc-8d49-c67db79c9abc",

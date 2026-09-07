@@ -2,8 +2,7 @@
   "activityName": "Pineapple {GLO}| production | Cut-off, U - Adapted from Ecoinvent U",
   "categories": [
     "ingredient",
-    "material",
-    "material_type:fruits_and_vegetables"
+    "material"
   ],
   "displayName": "Ananas par défaut",
   "id": "f49057d9-83e2-5647-9bf6-bc57bebe9cbb",

@@ -2,8 +2,7 @@
   "activityName": "Raw cow milk archetype, feed mix IT-154, at farm (WFLDB)",
   "categories": [
     "ingredient",
-    "material",
-    "material_type:other_food_items"
+    "material"
   ],
   "displayName": "Lait UE",
   "id": "b7386800-8318-56d3-8f1b-1f802f304a8c",

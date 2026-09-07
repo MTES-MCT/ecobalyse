@@ -2,8 +2,7 @@
   "activityName": "Cabbage red {GLO}| production | Cut-off, U - Adapted from Ecoinvent U",
   "categories": [
     "ingredient",
-    "material",
-    "material_type:fruits_and_vegetables"
+    "material"
   ],
   "displayName": "Chou rouge par défaut",
   "id": "28864990-2cb7-5320-b0de-1d11f7917fe1",

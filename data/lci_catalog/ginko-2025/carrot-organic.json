@@ -2,8 +2,7 @@
   "activityName": "Carrot, organic 2025, national average, at farm gate {FR} U",
   "categories": [
     "ingredient",
-    "material",
-    "material_type:fruits_and_vegetables"
+    "material"
   ],
   "displayName": "Carotte Bio",
   "id": "aca17031-05bd-5cb4-8908-b85daa23a6c7",

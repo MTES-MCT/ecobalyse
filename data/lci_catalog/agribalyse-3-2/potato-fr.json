@@ -2,8 +2,7 @@
   "activityName": "Ware potato, conventional, variety mix, national average, at farm gate {FR} U",
   "categories": [
     "ingredient",
-    "material",
-    "material_type:fruits_and_vegetables"
+    "material"
   ],
   "displayName": "Pomme de terre FR",
   "id": "b46880a2-f5ef-51ca-bdf9-46ca878b4086",

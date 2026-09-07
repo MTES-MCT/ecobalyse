@@ -2,8 +2,7 @@
   "activityName": "Toulouse sausage, cooked, recipe, at plant {FR} U",
   "categories": [
     "ingredient",
-    "material",
-    "material_type:other_food_items"
+    "material"
   ],
   "displayName": "Saucisse de Toulouse (cuite) FR",
   "id": "b19dd010-16ff-5064-9ec9-06ac0eea9597",

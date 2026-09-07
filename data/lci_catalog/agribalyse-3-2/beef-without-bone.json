@@ -2,8 +2,7 @@
   "activityName": "Meat without bone, beef, for direct consumption {FR} U",
   "categories": [
     "ingredient",
-    "material",
-    "material_type:red_meats"
+    "material"
   ],
   "displayName": "Viande de boeuf sans os (crue) FR",
   "id": "de11b2d4-2820-5c1c-8a55-bbc6d58b8c27",

@@ -2,8 +2,7 @@
   "activityName": "Pig, conventionnal, Bleu Blanc Coeur, at farm gate {FR} U",
   "categories": [
     "ingredient",
-    "material",
-    "material_type:other_food_items"
+    "material"
   ],
   "displayName": "Porc BBC vivant FR",
   "id": "9cd2c3b6-bf9b-559f-aec0-670a1190caba",

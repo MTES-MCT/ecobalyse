@@ -2,8 +2,7 @@
   "activityName": "Grapeseed oil, refined at plant {FR} U",
   "categories": [
     "ingredient",
-    "material",
-    "material_type:other_food_items"
+    "material"
   ],
   "displayName": "Huile de pépin de raisin (raffinée) FR",
   "id": "d964e4e0-c201-5306-be65-4dc2886dacaf",

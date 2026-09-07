@@ -2,8 +2,7 @@
   "activityName": "Cheese, from goat's milk, consumption mix {FR} U",
   "categories": [
     "ingredient",
-    "material",
-    "material_type:other_food_items"
+    "material"
   ],
   "displayName": "Fromage de chèvre FR",
   "id": "482bea72-b3e2-5a57-ab70-324254899d7a",

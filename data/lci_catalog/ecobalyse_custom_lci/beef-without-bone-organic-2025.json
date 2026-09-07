@@ -2,8 +2,7 @@
   "activityName": "Meat without bone, beef for direct consumption {{beef-without-bone-organic-2025}}",
   "categories": [
     "ingredient",
-    "material",
-    "material_type:red_meats"
+    "material"
   ],
   "displayName": "Viande de boeuf sans os Bio (2025)",
   "id": "5834b4db-bfae-47d7-91b8-24f6479aeac8",
