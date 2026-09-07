@@ -1,6 +1,6 @@
 {
   "activityName": "Cabbage white {RoW}| cabbage white production | Cut-off, U - Adapted from Ecoinvent U",
-  "categories": ["ingredient", "material", "material_type:fruits_and_vegetables"],
+  "categories": ["ingredient", "material"],
   "displayName": "Chou blanc par défaut",
   "id": "fdca416b-3599-5a17-8c86-c7243403514b",
   "metadata": [

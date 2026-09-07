@@ -1,6 +1,6 @@
 {
   "activityName": "Sunflower, at farm {HU} - Adapted from WFLDB U",
-  "categories": ["ingredient", "material", "material_type:other_food_items"],
+  "categories": ["ingredient", "material"],
   "displayName": "Tournesol UE",
   "id": "eb15bb83-38f3-54be-9cc6-d0c59687cf40",
   "metadata": [

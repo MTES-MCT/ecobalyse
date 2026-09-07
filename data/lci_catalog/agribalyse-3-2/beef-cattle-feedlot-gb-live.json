@@ -1,6 +1,6 @@
 {
   "activityName": "Beef cattle, feedlot or intensive system, live weight, at farm {GB} - Adapted from WFLDB U",
-  "categories": ["ingredient", "material", "material_type:other_food_items"],
+  "categories": ["ingredient", "material"],
   "displayName": "Bovin viande feedlot vivant import",
   "id": "c687d8a3-859a-5c8e-9258-aa07b4867474",
   "location": "GB",

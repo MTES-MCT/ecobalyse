@@ -1,6 +1,6 @@
 {
   "activityName": "Salt {FR} U",
-  "categories": ["ingredient", "material", "material_type:other_food_items"],
+  "categories": ["ingredient", "material"],
   "displayName": "Sel",
   "id": "f56af26e-a6f5-5261-8a8a-2d8f531b88bf",
   "metadata": [

@@ -1,6 +1,6 @@
 {
   "activityName": "Lentils, dry, at farm (WFLDB)",
-  "categories": ["ingredient", "material", "material_type:legumes"],
+  "categories": ["ingredient", "material"],
   "displayName": "Lentilles FR",
   "id": "e45f6ccb-035e-569c-80c5-f8a26993c5b3",
   "metadata": [

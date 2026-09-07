@@ -1,6 +1,6 @@
 {
   "activityName": "Peach, at farm (WFLDB)",
-  "categories": ["ingredient", "material", "material_type:fruits_and_vegetables"],
+  "categories": ["ingredient", "material"],
   "displayName": "Figue Origine Inconnue",
   "id": "bd2e0742-a804-54f9-9e5f-712a5eb8d6e1",
   "location": "GLO",

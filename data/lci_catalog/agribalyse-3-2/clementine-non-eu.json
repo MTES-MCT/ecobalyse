@@ -1,6 +1,6 @@
 {
   "activityName": "Clementine, export quality, Souss, at orchard {MA} U",
-  "categories": ["ingredient", "material", "material_type:fruits_and_vegetables"],
+  "categories": ["ingredient", "material"],
   "displayName": "Clémentine par défaut",
   "id": "9be3efe6-2ba6-5f65-895b-f7173e18f510",
   "metadata": [

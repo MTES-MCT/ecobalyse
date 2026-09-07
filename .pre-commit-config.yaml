@@ -54,12 +54,12 @@ repos:
         entry: |
           bash -c 'npm --prefix . run fix:elm-format "${@}"' --
 
-      - id: fix-json
-        name: run JSON formatter
-        language: system
-        types_or: [json]
-        entry: |
-          bash -c 'npm --prefix . run fix:json:all "${@}"' --
+      # - id: fix-json
+      #   name: run JSON formatter
+      #   language: system
+      #   types_or: [json]
+      #   entry: |
+      #     bash -c 'npm --prefix . run fix:json:all "${@}"' --
 
       - id: check-json-schemas
         name: check json schemas

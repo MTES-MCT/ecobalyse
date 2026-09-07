@@ -4,12 +4,13 @@ import Data.Component as Component exposing (Component)
 import Data.Component.Config as ComponentConfig
 import Data.Component.ProductCategory as ProductCategory exposing (ProductCategory)
 import Data.Db exposing (Db)
-import Data.Example exposing (Example)
+import Data.Example as Example exposing (Example)
 import Data.Process as Process exposing (Process)
 import Data.Process.Category as ProcessCategory
 import Data.Scope as Scope
 import Data.Uuid as Uuid
 import Dict exposing (Dict)
+import Dict.Any as AnyDict
 import List.Extra as LE
 import Set exposing (Set)
 import Static.Db as StaticDb
@@ -67,8 +68,34 @@ checkComponentConfig db jsonConfig =
         Err err ->
             [ err ]
 
-        Ok _ ->
-            []
+        Ok config ->
+            checkDefaultExamples db config
+
+
+{-| Validates that default example UUIDs in config point to existing examples
+with matching scopes.
+-}
+checkDefaultExamples : Db -> ComponentConfig.Config -> List Error
+checkDefaultExamples db config =
+    config.defaultExamples
+        |> AnyDict.toList
+        |> List.concatMap
+            (\( scope, uuid ) ->
+                case db.generic.examples |> Example.findByUuid uuid of
+                    Err err ->
+                        [ err ]
+
+                    Ok example ->
+                        if example.scope == scope then
+                            []
+
+                        else
+                            [ "Default example"
+                                ++ Uuid.toString uuid
+                                ++ " doesn't belong to the scope "
+                                ++ Scope.toString scope
+                            ]
+            )
 
 
 {-| Returns missing component ids referenced by a component item.

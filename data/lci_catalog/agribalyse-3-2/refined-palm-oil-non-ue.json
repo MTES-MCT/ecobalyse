@@ -1,6 +1,6 @@
 {
   "activityName": "Palm oil, refined, consumption mix {FR} U",
-  "categories": ["ingredient", "material", "material_type:other_food_items"],
+  "categories": ["ingredient", "material"],
   "displayName": "Huile de palme (raffinée) par défaut",
   "id": "89421fa8-b27c-5d69-ab44-b9b5ec8a2a36",
   "metadata": [

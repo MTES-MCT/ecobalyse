@@ -1,6 +1,6 @@
 {
   "activityName": "Cauliflower {GLO}| cauliflower production | Cut-off, U",
-  "categories": ["ingredient", "material", "material_type:fruits_and_vegetables"],
+  "categories": ["ingredient", "material"],
   "displayName": "Chou de Bruxelles Origine Inconnue",
   "id": "0d6454a0-4726-5aac-a67a-7982b0292717",
   "location": "GLO",

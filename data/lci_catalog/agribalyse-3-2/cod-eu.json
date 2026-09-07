@@ -1,6 +1,6 @@
 {
   "activityName": "Cod, consumption mix {FR} U",
-  "categories": ["ingredient", "material", "material_type:other_food_items"],
+  "categories": ["ingredient", "material"],
   "displayName": "Morue UE",
   "id": "fc9efae9-2dd7-59b6-b2db-62b6f62f00d8",
   "metadata": [

@@ -1,6 +1,6 @@
 {
   "activityName": "Tap water {ZA}| market for tap water | Cut-off, S - Copied from Ecoinvent U",
-  "categories": ["ingredient", "material", "material_type:other_food_items"],
+  "categories": ["ingredient", "material"],
   "displayName": "Eau de source Origine Inconnue",
   "id": "47e8165a-1e55-5f8f-a1d3-5ace4fa34ec2",
   "location": "ZA",

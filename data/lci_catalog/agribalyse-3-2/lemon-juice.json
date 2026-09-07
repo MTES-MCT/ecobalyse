@@ -1,6 +1,6 @@
 {
   "activityName": "Lemon juice, pure juice, at plant {IT} U",
-  "categories": ["ingredient", "material", "material_type:other_food_items"],
+  "categories": ["ingredient", "material"],
   "displayName": "Jus de citron UE",
   "id": "505d6b15-5ffc-5101-b3d4-7cbfc0ca79ca",
   "metadata": [

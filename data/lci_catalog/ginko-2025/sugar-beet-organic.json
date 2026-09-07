@@ -1,6 +1,6 @@
 {
   "activityName": "Sugar beet, at farm, organic 2025 {DE}",
-  "categories": ["ingredient", "material", "material_type:other_food_items"],
+  "categories": ["ingredient", "material"],
   "displayName": "Betterave à sucre Bio",
   "id": "c37026ee-3767-531e-a4c5-b33726d520d4",
   "location": "DE",

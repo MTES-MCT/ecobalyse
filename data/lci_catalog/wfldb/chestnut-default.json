@@ -1,6 +1,6 @@
 {
   "activityName": "Walnut, in shell, dried, at farm (WFLDB)",
-  "categories": ["ingredient", "material", "material_type:other_food_items"],
+  "categories": ["ingredient", "material"],
   "displayName": "Châtaigne Origine Inconnue",
   "id": "fe057abe-8daa-525f-b1f5-b0f4cd0fad07",
   "location": "US",

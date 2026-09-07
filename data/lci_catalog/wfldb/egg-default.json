@@ -1,6 +1,6 @@
 {
   "activityName": "Chicken egg, poultry industrial laying systems, at farm (WFLDB)",
-  "categories": ["ingredient", "material", "material_type:eggs"],
+  "categories": ["ingredient", "material"],
   "displayName": "Œuf Origine Inconnue",
   "id": "001c68f3-e5ba-5f66-84e4-13594098e02a",
   "location": "CA",

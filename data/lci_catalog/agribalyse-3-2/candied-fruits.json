@@ -1,6 +1,6 @@
 {
   "activityName": "Candied fruits, recipe, at plant {FR} U",
-  "categories": ["ingredient", "material", "material_type:other_food_items"],
+  "categories": ["ingredient", "material"],
   "displayName": "Fruits confits FR",
   "id": "98e02da4-68bd-5330-92a8-0a3015ca8658",
   "metadata": [

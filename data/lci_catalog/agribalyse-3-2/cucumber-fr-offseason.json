@@ -1,6 +1,6 @@
 {
   "activityName": "Cucumber {GLO}| cucumber production, in heated greenhouse | Cut-off, U - Adapted from Ecoinvent U",
-  "categories": ["ingredient", "material", "material_type:fruits_and_vegetables"],
+  "categories": ["ingredient", "material"],
   "displayName": "Concombre hors saison FR",
   "id": "5de89b65-5a7b-5ae7-9009-9d2776bd5457",
   "metadata": [

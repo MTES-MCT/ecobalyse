@@ -1,6 +1,6 @@
 {
   "activityName": "Comte cheese, from cow's milk, at plant {FR} U",
-  "categories": ["ingredient", "material", "material_type:other_food_items"],
+  "categories": ["ingredient", "material"],
   "displayName": "Comté FR AOP",
   "id": "d3772933-1a5a-547f-b6ce-6bf65ac3b2cc",
   "metadata": [

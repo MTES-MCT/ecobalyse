@@ -1,6 +1,6 @@
 {
   "activityName": "Wheat flour, at plant {FR} U",
-  "categories": ["ingredient", "material", "material_type:other_food_items"],
+  "categories": ["ingredient", "material"],
   "displayName": "Farine UE",
   "id": "6f5dbce2-6d88-55c5-bb96-0c41de8b0072",
   "metadata": [

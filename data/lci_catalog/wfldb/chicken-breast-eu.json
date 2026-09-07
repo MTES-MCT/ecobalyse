@@ -1,6 +1,6 @@
 {
   "activityName": "Chicken, fresh meat, at slaughterhouse (WFLDB)",
-  "categories": ["ingredient", "material", "material_type:poultry"],
+  "categories": ["ingredient", "material"],
   "displayName": "Blanc de poulet cru UE",
   "id": "311355dc-d317-565e-8496-48f248fd1b58",
   "location": "PL",

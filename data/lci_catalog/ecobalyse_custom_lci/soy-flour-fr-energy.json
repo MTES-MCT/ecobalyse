@@ -1,6 +1,6 @@
 {
   "activityName": "Soy flour, CMAPS {FR} U",
-  "categories": ["ingredient", "material", "material_type:other_food_items"],
+  "categories": ["ingredient", "material"],
   "displayName": "Farine de soja Origine Inconnue",
   "id": "d0c858b2-32cb-42dc-a683-6121250edb80",
   "metadata": [

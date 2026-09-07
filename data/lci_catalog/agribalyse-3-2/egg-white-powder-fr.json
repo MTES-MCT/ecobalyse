@@ -1,6 +1,6 @@
 {
   "activityName": "Egg white, powder, at plant {FR} U",
-  "categories": ["ingredient", "material", "material_type:other_food_items"],
+  "categories": ["ingredient", "material"],
   "displayName": "poudre de blanc d'oeuf FR",
   "id": "e327d611-5762-5bf8-a574-aa248d0252b2",
   "metadata": [

@@ -1,6 +1,6 @@
 {
   "activityName": "Peanut {CN}| peanut production | Cut-off, U - Adapted from Ecoinvent U",
-  "categories": ["ingredient", "material", "material_type:other_food_items"],
+  "categories": ["ingredient", "material"],
   "displayName": "Pistache avec coque par défaut",
   "id": "fbae9eff-5128-5eae-9c6b-f82d066229aa",
   "metadata": [

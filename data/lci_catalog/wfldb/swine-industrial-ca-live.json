@@ -1,6 +1,6 @@
 {
   "activityName": "Swine, industrial system, live weight, at farm (WFLDB)",
-  "categories": ["ingredient", "material", "material_type:other_food_items"],
+  "categories": ["ingredient", "material"],
   "displayName": "Porc industriel vivant CA",
   "id": "5de425ae-09bf-597d-999e-0e93d53a67d3",
   "location": "CA",

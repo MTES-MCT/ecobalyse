@@ -1,6 +1,6 @@
 {
   "activityName": "Tea, dried {CN}| tea production, dried | Cut-off, U",
-  "categories": ["ingredient", "material", "material_type:other_food_items"],
+  "categories": ["ingredient", "material"],
   "displayName": "Thé, feuilles séchées Origine Inconnue",
   "id": "d97f0811-5279-53fc-961a-4992626e8077",
   "location": "CN",

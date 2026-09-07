@@ -1,6 +1,6 @@
 {
   "activityName": "Parsley, fresh, at farm {US} - Adapted from WFLDB U",
-  "categories": ["ingredient", "material", "material_type:fruits_and_vegetables"],
+  "categories": ["ingredient", "material"],
   "displayName": "Persil frais FR",
   "id": "323cc6b7-04c5-5510-9123-4c8b0a1dee51",
   "metadata": [

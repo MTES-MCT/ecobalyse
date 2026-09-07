@@ -18,13 +18,16 @@ import Data.Process.Category as Category exposing (MaterialDict)
 import Data.Scope as Scope exposing (Scope)
 import Data.Split as Split exposing (Split)
 import Data.Transport as Transport exposing (Transport)
+import Data.Uuid as Uuid exposing (Uuid)
 import Dict exposing (Dict)
+import Dict.Any as AnyDict
 import Json.Decode as Decode exposing (Decoder)
 import Json.Decode.Pipeline as Decode
 
 
 type alias Config =
-    { distribution : DistributionConfig
+    { defaultExamples : Scope.Dict Uuid
+    , distribution : DistributionConfig
     , docLinks : DocLinksConfig
     , durability : DurabilityConfig
     , endOfLife : EndOfLifeConfig
@@ -108,6 +111,7 @@ type alias UseConfig =
 decode : { db | countries : List Country, processes : List Process } -> Decoder Config
 decode { countries, processes } =
     Decode.succeed Config
+        |> DU.strictOptionalWithDefault "defaultExamples" (Scope.decodeDict Uuid.decoder) (AnyDict.empty Scope.toString)
         |> Decode.required "distribution" (decodeDistributionConfig processes countries)
         |> Decode.required "docLinks" decodeDocLinksConfig
         |> Decode.required "durability" decodeDurabilityConfig

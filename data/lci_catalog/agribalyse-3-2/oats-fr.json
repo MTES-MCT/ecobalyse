@@ -1,6 +1,6 @@
 {
   "activityName": "Oat grain {RoW}| oat production | Cut-off, U - Adapted from Ecoinvent U",
-  "categories": ["ingredient", "material", "material_type:cereals"],
+  "categories": ["ingredient", "material"],
   "displayName": "Avoine FR",
   "id": "475387dc-a0c3-5c43-bb0e-7c6de1cc7db1",
   "metadata": [

@@ -1,6 +1,6 @@
 {
   "activityName": "Sweet corn {US}| sweet corn production | Cut-off, U",
-  "categories": ["ingredient", "material", "material_type:cereals"],
+  "categories": ["ingredient", "material"],
   "displayName": "Sweet corn (US)",
   "id": "7d255c03-7e40-5495-9bf0-d9718d9b4fc2",
   "metadata": [

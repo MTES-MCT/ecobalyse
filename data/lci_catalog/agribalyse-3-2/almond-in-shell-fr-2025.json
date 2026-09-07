@@ -1,6 +1,6 @@
 {
   "activityName": "Almond, consumption mix {FR} U",
-  "categories": ["ingredient", "material", "material_type:other_food_items"],
+  "categories": ["ingredient", "material"],
   "displayName": "Amandes en coque FR",
   "id": "7b78962a-2d8e-5aff-b6e6-f65c76e9f799",
   "metadata": [

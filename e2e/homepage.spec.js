@@ -1,5 +1,6 @@
 // @ts-check
 import { test, expect } from "@playwright/test";
+import { waitForAppReady } from "./lib";
 
 test.describe("homepage", () => {
   test("has expected title", async ({ page }) => {
@@ -10,8 +11,10 @@ test.describe("homepage", () => {
 
   test("textile callout button", async ({ page }) => {
     await page.goto("/");
+    await waitForAppReady(page);
 
     await page.getByLabel("Menu principal").getByRole("link", { name: "Textile" }).click();
+    await expect(page).toHaveURL(/textile\/simulator/);
 
     await expect(page.getByTestId("score-card")).toBeVisible();
   });

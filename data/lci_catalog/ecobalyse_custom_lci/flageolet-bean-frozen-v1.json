@@ -1,6 +1,6 @@
 {
   "activityName": "Flageolet bean, frozen, variant 1, CMAPS {GLO} U",
-  "categories": ["ingredient", "material", "material_type:other_food_items"],
+  "categories": ["ingredient", "material"],
   "displayName": "Haricot flageolet, surgelé FR",
   "id": "fa4206cd-3265-422e-b232-41933c9a0f62",
   "metadata": [

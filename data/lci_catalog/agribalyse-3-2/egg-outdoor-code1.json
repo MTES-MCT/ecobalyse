@@ -1,6 +1,6 @@
 {
   "activityName": "Egg, conventional, outdoor system, at farm gate {FR} U",
-  "categories": ["ingredient", "material", "material_type:eggs"],
+  "categories": ["ingredient", "material"],
   "displayName": "Oeuf (code 1) FR",
   "id": "ad59238f-a580-5942-b0f8-5b4547008744",
   "metadata": [

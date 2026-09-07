@@ -1,6 +1,6 @@
 {
   "activityName": "Sunflower oil, at oil mill {GLO} - Adapted from WFLDB U {{sunflower-oil-organic-2025}}",
-  "categories": ["ingredient", "material", "material_type:other_food_items"],
+  "categories": ["ingredient", "material"],
   "displayName": "Huile de tournesol Bio (2025)",
   "id": "74316df8-a65f-5999-af15-448b841aab30",
   "metadata": [

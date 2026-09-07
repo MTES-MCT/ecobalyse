@@ -1,6 +1,6 @@
 {
   "activityName": "Palm oil, refined, processed in EU, at plant {RER} U",
-  "categories": ["ingredient", "material", "material_type:other_food_items"],
+  "categories": ["ingredient", "material"],
   "displayName": "Huile de palme (raffinée) UE",
   "id": "efe74b6f-b497-5052-8308-1e968aca2807",
   "metadata": [
