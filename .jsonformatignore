@@ -8,6 +8,7 @@ package.json
 package-lock.json
 public/icomoon/*
 public/vendor/*
+public/version.json
 tests/e2e-*-output.json
 tests/e2e-food.json
 tests/e2e-textile.json
