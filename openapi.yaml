@@ -343,7 +343,12 @@ paths:
     get:
       tags:
         - Générique
-      summary: Liste des ingrédients ou matériaux
+      summary: Liste des composants du catalogue
+      description: |
+        Identifiants utilisables pour le champ `components[].id`.
+        Pour les matières et ingrédients d'un composant personnalisé (`custom`), voir
+        `/{scope}/processes/material`.
+        **Note :** le catalogue `food2` est actuellement vide.
       parameters:
         - $ref: "#/components/parameters/genericScopeParam"
       responses:
@@ -1303,8 +1308,10 @@ components:
         components:
           type: array
           description: |
-            Liste des matériaux ou ingrédients constituant le produit.
-            Le catalogue de ces composants est disponible sur `/{scope}/catalog`.
+            Liste des composants constituant le produit.
+            Un composant du catalogue se référence par `id` (liste disponible sur `/{scope}/catalog`).
+            Un composant personnalisé se décrit via `custom` (matières listées sur
+            `/{scope}/processes/material`).
           items:
             $ref: "#/components/schemas/GenericQueryItem"
           minItems: 1
