@@ -337,7 +337,7 @@ paths:
             application/json:
               schema:
                 $ref: "#/components/schemas/CountryListResponse"
-  /{scope}/components:
+  /{scope}/catalog:
     get:
       tags:
         - Générique
@@ -368,7 +368,7 @@ paths:
             application/json:
               schema:
                 $ref: "#/components/schemas/GenericCategoryListResponse"
-  /{scope}/materials:
+  /{scope}/processes/material:
     get:
       tags:
         - Générique
@@ -376,7 +376,7 @@ paths:
       description: |
         Identifiants utilisables pour le champ `components[].custom.elements[].material.id`.
         Le champ `unit` indique l'unité dans laquelle la quantité `amount` est exprimée.
-        **Attention :** Les matières d'emballage sont exclues (voir `/{scope}/packagings`).
+        **Attention :** Les matières d'emballage sont exclues (voir `/{scope}/processes/packaging`).
       parameters:
         - $ref: "#/components/parameters/genericScopeParam"
       responses:
@@ -386,7 +386,7 @@ paths:
             application/json:
               schema:
                 $ref: "#/components/schemas/GenericProcessListResponse"
-  /{scope}/transforms:
+  /{scope}/processes/transform:
     get:
       tags:
         - Générique
@@ -402,8 +402,7 @@ paths:
             application/json:
               schema:
                 $ref: "#/components/schemas/GenericProcessListResponse"
-  ## FIXME: rename `/{scope}/assemblies` to `/{scope}/processes/assembly`
-  /{scope}/assemblies:
+  /{scope}/processes/assembly:
     get:
       tags:
         - Générique
@@ -418,8 +417,7 @@ paths:
             application/json:
               schema:
                 $ref: "#/components/schemas/GenericProcessListResponse"
-  ## FIXME: rename `/{scope}/distributions` to `/{scope}/processes/distribution`
-  /{scope}/distributions:
+  /{scope}/processes/distribution:
     get:
       tags:
         - Générique
@@ -434,8 +432,7 @@ paths:
             application/json:
               schema:
                 $ref: "#/components/schemas/GenericProcessListResponse"
-  ## FIXME: rename `/{scope}/packagings` to `/{scope}/processes/packaging`
-  /{scope}/packagings:
+  /{scope}/processes/packaging:
     get:
       tags:
         - Générique
@@ -450,8 +447,7 @@ paths:
             application/json:
               schema:
                 $ref: "#/components/schemas/GenericProcessListResponse"
-  ## FIXME: rename `/{scope}/consumptions` to `/{scope}/processes/consumption`
-  /{scope}/consumptions:
+  /{scope}/processes/consumption:
     get:
       tags:
         - Générique
@@ -1304,10 +1300,9 @@ components:
       properties:
         components:
           type: array
-          # FIXME: rename `/{scope}/components` to `/{scope}/catalog`
           description: |
             Liste des matériaux ou ingrédients constituant le produit.
-            Le catalogue de ces composants est disponible sur `/{scope}/components`.
+            Le catalogue de ces composants est disponible sur `/{scope}/catalog`.
           items:
             $ref: "#/components/schemas/GenericQueryItem"
           minItems: 1
@@ -1323,7 +1318,7 @@ components:
         consumptions:
           type: array
           description: |
-            Procédés de consommation à l'étape d'utilisation (liste disponible sur `/{scope}/consumptions`).
+            Procédés de consommation à l'étape d'utilisation (liste disponible sur `/{scope}/processes/consumption`).
             Si omis, les consommations de la catégorie de produit sélectionnée s'appliquent.
           items:
             $ref: "#/components/schemas/GenericQueryQuantifiedProcess"
@@ -1331,7 +1326,7 @@ components:
           type: string
           format: uuid
           description: |
-            Identifiant du procédé de distribution (liste disponible sur `/{scope}/distributions`).
+            Identifiant du procédé de distribution (liste disponible sur `/{scope}/processes/distribution`).
             Si omis, le procédé de la catégorie de produit sélectionnée ou de la configuration du
             périmètre générique s'applique.
         durability:
@@ -1341,7 +1336,7 @@ components:
             pas activée pour le périmètre générique actif.
         packagings:
           type: array
-          description: Emballages du produit (liste disponible sur `/{scope}/packagings`).
+          description: Emballages du produit (liste disponible sur `/{scope}/processes/packaging`).
           items:
             $ref: "#/components/schemas/GenericQueryQuantifiedProcess"
         recyclable:
@@ -1361,7 +1356,7 @@ components:
         operations:
           type: array
           description: |
-            Procédés d'assemblage (liste disponible sur `/{scope}/assemblies`).
+            Procédés d'assemblage (liste disponible sur `/{scope}/processes/assembly`).
             `[]` désactive explicitement les opérations par défaut de la catégorie.
           items:
             type: string
@@ -1375,8 +1370,7 @@ components:
         id:
           type: string
           format: uuid
-          # FIXME: rename `/{scope}/components` to `/{scope}/catalog`
-          description: Identifiant d'un composant du catalogue (liste disponible sur `/{scope}/components`).
+          description: Identifiant d'un composant du catalogue (liste disponible sur `/{scope}/catalog`).
         quantity:
           type: integer
           minimum: 1
@@ -1407,13 +1401,13 @@ components:
         amount:
           type: number
           description: |
-            Quantité de matière, exprimée dans l'unité du procédé matière (`unit` renvoyé par `/{scope}/materials`).
+            Quantité de matière, exprimée dans l'unité du procédé matière (`unit` renvoyé par `/{scope}/processes/material`).
         material:
           $ref: "#/components/schemas/GenericQueryLocalizedProcess"
         transforms:
           type: array
           description: |
-            Transformations successives de la matière (liste disponible sur `/{scope}/transforms`).
+            Transformations successives de la matière (liste disponible sur `/{scope}/processes/transform`).
           items:
             $ref: "#/components/schemas/GenericQueryLocalizedProcess"
     GenericQueryLocalizedProcess:

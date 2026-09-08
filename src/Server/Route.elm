@@ -16,7 +16,6 @@ import Data.Validation as Validation
 import Json.Decode as Decode
 import Json.Encode as Encode
 import Server.Request exposing (Request)
-import Static.Json as StaticJson
 import Url
 import Url.Parser as Parser exposing ((</>), Parser, s)
 
@@ -45,8 +44,8 @@ type Route
       -- Generic Routes
       --   GET
     | GenericGetAssemblyList GenericScope
+    | GenericGetCatalogList GenericScope
     | GenericGetCategoryList GenericScope
-    | GenericGetComponentList GenericScope
     | GenericGetConsumptionList GenericScope
     | GenericGetCountryList GenericScope
     | GenericGetDistributionList GenericScope
@@ -82,27 +81,17 @@ decodeFoodQueryBody db =
         >> Result.andThen (FoodValidation.validate db)
 
 
-decodeGenericQueryBody : Db -> GenericScope -> Encode.Value -> Result Validation.Errors Component.Query
-decodeGenericQueryBody db genericScope body =
+decodeGenericQueryBody : Component.Config -> Db -> GenericScope -> Encode.Value -> Result Validation.Errors Component.Query
+decodeGenericQueryBody config db genericScope body =
     Decode.decodeValue Component.decodeQuery body
         |> Result.mapError Validation.fromDecodingError
         |> Result.andThen
-            (\query ->
-                -- FIXME: investigate how we could already have the config here; I'd rather expect
-                -- it to be readily parsed before even decoding route payloads, and to have already
-                -- failed starting the server well before reaching to this point
-                Component.parseConfig db StaticJson.componentConfigJson
-                    |> Result.mapError Validation.fromErrorString
-                    |> Result.andThen
-                        (\config ->
-                            query
-                                |> Component.validateQuery
-                                    { config = config
-                                    , db = db
-                                    , scope = Scope.Generic genericScope
-                                    }
-                                |> Result.mapError Validation.fromErrorString
-                        )
+            (Component.validateQuery
+                { config = config
+                , db = db
+                , scope = Scope.Generic genericScope
+                }
+                >> Result.mapError Validation.fromErrorString
             )
 
 
@@ -113,24 +102,27 @@ decodeTextileQueryBody db =
         >> Result.andThen (TextileValidation.validate db)
 
 
-endpoint : Db -> Request -> Maybe Route
-endpoint db { body, method, url } =
+endpoint : Component.Config -> Db -> Request -> Maybe Route
+endpoint config db { body, method, url } =
     -- Notes:
     -- - Url.fromString can't build a Url without a fully qualified URL, so as we only have the
     --   request path from Express, we build a fake URL with a fake protocol and hostname.
     -- - We update the path appending the HTTP method to it, for simpler, cheaper route parsing.
     Url.fromString ("http://x/" ++ method ++ url)
-        |> Maybe.andThen (Parser.parse (parser db body))
+        |> Maybe.andThen (Parser.parse (parser config db body))
 
 
-genericGet : String -> (GenericScope -> Route) -> Parser (Route -> a) a
-genericGet segment toRoute =
-    Parser.map toRoute
-        (s "GET" </> Scope.parseGeneric </> s segment)
+genericGet : List String -> (GenericScope -> Route) -> Parser (Route -> a) a
+genericGet path toRoute =
+    path
+        |> List.foldl
+            (\segment parser_ -> parser_ </> s segment)
+            (s "GET" </> Scope.parseGeneric)
+        |> Parser.map toRoute
 
 
-parser : Db -> Encode.Value -> Parser (Route -> a) a
-parser db body =
+parser : Component.Config -> Db -> Encode.Value -> Parser (Route -> a) a
+parser config db body =
     Parser.oneOf
         [ -- Food
           (s "GET" </> s "food" </> s "countries")
@@ -145,22 +137,20 @@ parser db body =
             |> Parser.map (FoodPostRecipe (decodeFoodQueryBody db body))
 
         -- Generic
-        , genericGet "assemblies" GenericGetAssemblyList
-        , genericGet "categories" GenericGetCategoryList
-        , genericGet "components" GenericGetComponentList
-        , genericGet "consumptions" GenericGetConsumptionList
-        , genericGet "countries" GenericGetCountryList
-        , genericGet "distributions" GenericGetDistributionList
-        , genericGet "materials" GenericGetMaterialList
-        , genericGet "packagings" GenericGetPackagingList
-        , genericGet "transforms" GenericGetTransformList
+        , genericGet [ "catalog" ] GenericGetCatalogList
+        , genericGet [ "categories" ] GenericGetCategoryList
+        , genericGet [ "countries" ] GenericGetCountryList
+        , genericGet [ "processes", "assembly" ] GenericGetAssemblyList
+        , genericGet [ "processes", "consumption" ] GenericGetConsumptionList
+        , genericGet [ "processes", "distribution" ] GenericGetDistributionList
+        , genericGet [ "processes", "material" ] GenericGetMaterialList
+        , genericGet [ "processes", "packaging" ] GenericGetPackagingList
+        , genericGet [ "processes", "transform" ] GenericGetTransformList
         , (s "POST" </> Scope.parseGeneric </> s "simulator")
             |> Parser.map
                 (\genericScope ->
                     body
-                        -- FIXME: as commented in decodeGenericQueryBody, investigate passing
-                        -- the config here; maybe reuse the `Requirements db config` pattern
-                        |> decodeGenericQueryBody db genericScope
+                        |> decodeGenericQueryBody config db genericScope
                         |> GenericPostSimulator genericScope
                 )
 

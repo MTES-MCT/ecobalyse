@@ -21,6 +21,7 @@ import Test exposing (..)
 import TestUtils
     exposing
         ( asTest
+        , componentConfig
         , createServerRequest
         , suiteFromResult
         , suiteWithDb
@@ -153,11 +154,21 @@ genericEndpoints db =
                         { method = "GET"
                         , protocol = "http"
                         , host = "fqdn"
-                        , url = "/veli/components"
+                        , url = "/veli/catalog"
                         , version = Nothing
                         }
-                    |> Expect.equal (Just (Route.GenericGetComponentList Scope.Veli))
-                    |> asTest "map GET /veli/components"
+                    |> Expect.equal (Just (Route.GenericGetCatalogList Scope.Veli))
+                    |> asTest "map GET /veli/catalog"
+                , Encode.null
+                    |> testEndpoint db
+                        { method = "GET"
+                        , protocol = "http"
+                        , host = "fqdn"
+                        , url = "/object/processes/assembly"
+                        , version = Nothing
+                        }
+                    |> Expect.equal (Just (Route.GenericGetAssemblyList Scope.Object))
+                    |> asTest "map GET /object/processes/assembly"
                 ]
             , describe "POST endpoints"
                 [ Component.encodeQuery query
@@ -388,9 +399,14 @@ testEndpoint :
         }
     -> Encode.Value
     -> Maybe Route.Route
-testEndpoint dbs params =
-    createServerRequest dbs params
-        >> Route.endpoint dbs
+testEndpoint dbs params body =
+    case componentConfig dbs of
+        Ok config ->
+            createServerRequest dbs params body
+                |> Route.endpoint config dbs
+
+        Err _ ->
+            Nothing
 
 
 testFoodEndpoint : Db -> Encode.Value -> Maybe Route.Route
