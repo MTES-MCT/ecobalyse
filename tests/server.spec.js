@@ -690,6 +690,112 @@ describe("API", () => {
       }
     });
   });
+
+  describe("Generic", () => {
+    describe("/object/countries", () => {
+      it("should render with object countries list", async () => {
+        await expectListResponseContains("/api/object/countries", { code: "FR", name: "France" });
+      });
+    });
+
+    describe("/object/catalog", () => {
+      it("should render with object catalog components", async () => {
+        await expectListResponseContains("/api/object/catalog", {
+          id: "c5d86519-e56a-4ad7-aada-d4f7fffd5628",
+          name: "Toile protection PP (jardinière pin 80 * 40 * 28)",
+        });
+      });
+    });
+
+    describe("/food2/categories", () => {
+      it("should render with food2 product categories", async () => {
+        await expectListResponseContains("/api/food2/categories", {
+          id: "2ab49980-2bc8-40b9-8db2-010d0d14ce50",
+          label: "Charcuterie",
+        });
+      });
+    });
+
+    describe("/object/processes/material", () => {
+      it("should render materials with a unit", async () => {
+        await expectListResponseContains("/api/object/processes/material", {
+          id: "01d21ed5-9fc6-4d36-a0ea-cfea8035385b",
+        });
+      });
+    });
+
+    describe("/object/processes/transform", () => {
+      it("should render with object transform processes", async () => {
+        await expectListResponseContains("/api/object/processes/transform", {
+          id: "85b74ce2-2cbc-4d73-a5a2-5c5ffde16319",
+        });
+      });
+    });
+
+    describe("/object/processes/packaging", () => {
+      it("should render with object packaging processes", async () => {
+        await expectListResponseContains("/api/object/processes/packaging", {
+          id: "1421dfdc-0168-4e6c-bbb4-c724785d61d6",
+        });
+      });
+    });
+
+    describe("/veli/processes/assembly", () => {
+      it("should render with veli assembly processes", async () => {
+        await expectListResponseContains("/api/veli/processes/assembly", {
+          id: "c51ab87d-f368-4704-a5ec-7ea17ba87d46",
+        });
+      });
+    });
+
+    describe("/food2/processes/distribution", () => {
+      it("should render with food2 distribution processes", async () => {
+        await expectListResponseContains("/api/food2/processes/distribution", {
+          id: "be66b80b-1500-4e3b-bfd2-87a89ff54031",
+        });
+      });
+    });
+
+    describe("/food2/processes/consumption", () => {
+      it("should render with food2 consumption processes", async () => {
+        await expectListResponseContains("/api/food2/processes/consumption", {
+          id: "b4642cec-b72e-4116-81c5-5dbfccb46055",
+        });
+      });
+    });
+
+    describe("/food2/catalog", () => {
+      it("should render an empty food2 catalog", async () => {
+        const response = await request(app)
+          .get("/api/food2/catalog")
+          .set("Authorization", "Bearer 1234567890");
+
+        expectStatus(response, 200);
+        expect(response.body).toEqual([]);
+      });
+    });
+
+    for (const scope of ["food2", "object", "veli"]) {
+      describe(`/${scope}/simulator`, () => {
+        it("should reject an invalid query", async () => {
+          const response = await makePostRequest(`/api/${scope}/simulator`, {});
+          expectFieldErrorMessage(response, "decoding", /components/);
+        });
+
+        const examples = require(`${__dirname}/../public/data/${scope}/examples.json`);
+
+        for (const { name, query } of examples) {
+          it(name, async () => {
+            const response = await makePostRequest(`/api/${scope}/simulator`, query);
+            expect(response.body.error).toBeUndefined();
+            expectStatus(response, 200);
+            expect(response.body.impacts).toBeDefined();
+            expect(response.body.webUrl).toContain(`/${scope}/simulator/`);
+          });
+        }
+      });
+    }
+  });
 });
 
 afterAll(() => {
