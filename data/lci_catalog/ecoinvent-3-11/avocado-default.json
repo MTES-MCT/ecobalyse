@@ -2,8 +2,7 @@
   "activityName": "Avocado {GLO}| avocado production | Cut-off, U",
   "categories": [
     "ingredient",
-    "material",
-    "material_type:fruits_and_vegetables"
+    "material"
   ],
   "displayName": "Avocat Origine Inconnue",
   "id": "e98a7545-d87c-5d0a-9567-75ec761b5aed",

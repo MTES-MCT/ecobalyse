@@ -2,8 +2,7 @@
   "activityName": "Sunflower oil, refined, low dehulling at plant {FR} U",
   "categories": [
     "ingredient",
-    "material",
-    "material_type:other_food_items"
+    "material"
   ],
   "displayName": "Huile de tournesol (raffinée) FR",
   "id": "8e0beff3-1532-50ab-bbec-9a61933ba66f",

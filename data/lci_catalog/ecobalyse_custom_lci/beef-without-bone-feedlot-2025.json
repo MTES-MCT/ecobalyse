@@ -2,8 +2,7 @@
   "activityName": "Meat without bone, beef for direct consumption {{beef-without-bone-feedlot-2025}}",
   "categories": [
     "ingredient",
-    "material",
-    "material_type:red_meats"
+    "material"
   ],
   "displayName": "Viande de boeuf sans os par défaut (2025)",
   "id": "ca2328f4-90ee-500a-a377-6d7fddd89aaa",

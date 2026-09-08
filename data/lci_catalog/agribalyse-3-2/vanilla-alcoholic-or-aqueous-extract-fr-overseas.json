@@ -2,8 +2,7 @@
   "activityName": "Vanilla {MG}| vanilla production | Cut-off, U - Adapted from Ecoinvent U",
   "categories": [
     "ingredient",
-    "material",
-    "material_type:other_food_items"
+    "material"
   ],
   "displayName": "Extrait de vanille, alcoolique ou aqueux FR Outre-Mer",
   "id": "1d960b87-5360-543c-afb3-592f217fe6cd",

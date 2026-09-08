@@ -2,8 +2,7 @@
   "activityName": "Fennel {GLO}| production | Cut-off, U - Adapted from Ecoinvent U",
   "categories": [
     "ingredient",
-    "material",
-    "material_type:other_food_items"
+    "material"
   ],
   "displayName": "Fenouil FR",
   "id": "b3f17eec-c537-5b65-af1b-3dd496bbe9c7",

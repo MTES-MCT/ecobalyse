@@ -2,8 +2,7 @@
   "activityName": "Tomato, fresh grade, open field, at farm (WFLDB)",
   "categories": [
     "ingredient",
-    "material",
-    "material_type:fruits_and_vegetables"
+    "material"
   ],
   "displayName": "Tomates cerises Origine Inconnue",
   "id": "2ca9071e-932c-5ffc-90af-cfab3383bcab",

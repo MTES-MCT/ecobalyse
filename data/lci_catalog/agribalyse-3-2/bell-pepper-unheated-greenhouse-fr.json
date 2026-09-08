@@ -2,8 +2,7 @@
   "activityName": "Bell pepper {FR}| bell pepper production, in unheated greenhouse | Cut-off, U - Adapted from Ecoinvent U",
   "categories": [
     "ingredient",
-    "material",
-    "material_type:fruits_and_vegetables"
+    "material"
   ],
   "displayName": "Poivron sous serre non chauffée FR",
   "id": "cac779d9-52e2-5978-9551-71e107141598",

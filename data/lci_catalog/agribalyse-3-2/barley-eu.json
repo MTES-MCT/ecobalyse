@@ -2,8 +2,7 @@
   "activityName": "Barley grain, non-irrigated, at farm {DE} - Adapted from WFLDB U",
   "categories": [
     "ingredient",
-    "material",
-    "material_type:cereals"
+    "material"
   ],
   "displayName": "Orge UE",
   "id": "c097a91b-0cb8-5e4e-8242-4053f54d9d2b",

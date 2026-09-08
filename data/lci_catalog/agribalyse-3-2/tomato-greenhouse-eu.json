@@ -2,8 +2,7 @@
   "activityName": "Tomato, fresh grade {ES}| tomato production, fresh grade, in unheated greenhouse | Cut-off, U - Copied from Ecoinvent U",
   "categories": [
     "ingredient",
-    "material",
-    "material_type:fruits_and_vegetables"
+    "material"
   ],
   "displayName": "Tomate UE",
   "id": "cb7a8284-e815-51d9-bc5a-fbf5a4301f91",

@@ -2,8 +2,7 @@
   "activityName": "Roquefort cheese, variant 1, CMAPS {GLO} U",
   "categories": [
     "ingredient",
-    "material",
-    "material_type:other_food_items"
+    "material"
   ],
   "displayName": "Roquefort FR",
   "id": "96ee726e-be65-41a5-b94d-9f053810bc65",

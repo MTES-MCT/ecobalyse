@@ -2,8 +2,7 @@
   "activityName": "Soybean {BR-RS}| soybean production | Cut-off, U - Adapted from Ecoinvent U",
   "categories": [
     "ingredient",
-    "material",
-    "material_type:cereals"
+    "material"
   ],
   "displayName": "Soja Origine Inconnue",
   "id": "7f641dda-c53f-50db-be67-6d8404d15b0b",

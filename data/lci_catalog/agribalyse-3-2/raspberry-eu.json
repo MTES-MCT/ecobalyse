@@ -2,8 +2,7 @@
   "activityName": "Raspberry, at farm {RS} - Adapted from WFLDB U",
   "categories": [
     "ingredient",
-    "material",
-    "material_type:fruits_and_vegetables"
+    "material"
   ],
   "displayName": "Framboise UE",
   "id": "fa788be2-e63a-5c3a-b770-1aa7304b1b97",

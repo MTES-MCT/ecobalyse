@@ -2,8 +2,7 @@
   "activityName": "Lentil {CA-SK}| lentil production | Cut-off, U - Adapted from Ecoinvent U",
   "categories": [
     "ingredient",
-    "material",
-    "material_type:legumes"
+    "material"
   ],
   "displayName": "Lentilles par défaut",
   "id": "df2d5183-1356-5119-aaec-1ab1683323be",

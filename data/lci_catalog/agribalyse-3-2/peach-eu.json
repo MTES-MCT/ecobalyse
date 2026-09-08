@@ -2,8 +2,7 @@
   "activityName": "Peach {ES}| peach production | Cut-off, U - Adapted from Ecoinvent U",
   "categories": [
     "ingredient",
-    "material",
-    "material_type:fruits_and_vegetables"
+    "material"
   ],
   "displayName": "Pêche UE",
   "id": "17e2572c-243b-5da1-8dec-13a7fbd688d4",

@@ -2,8 +2,7 @@
   "activityName": "Tomato sauce, w vegetables, prepacked, recipe, at plant {FR} U",
   "categories": [
     "ingredient",
-    "material",
-    "material_type:fruits_and_vegetables"
+    "material"
   ],
   "displayName": "Sauce tomate FR",
   "id": "e0cda604-6fad-5e65-9034-a8222058fcd7",

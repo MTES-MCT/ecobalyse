@@ -2,8 +2,7 @@
   "activityName": "Egg, conventionnal, national average, at farm gate {FR} U",
   "categories": [
     "ingredient",
-    "material",
-    "material_type:eggs"
+    "material"
   ],
   "displayName": "Œuf FR",
   "id": "40a540cb-7e26-5ab4-9c90-6ea98c37f1a4",

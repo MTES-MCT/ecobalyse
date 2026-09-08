@@ -2,8 +2,7 @@
   "activityName": "Silage maize, conventional, national average, animal feed, at farm gate, production {FR} U",
   "categories": [
     "ingredient",
-    "material",
-    "material_type:cereals"
+    "material"
   ],
   "displayName": "Ensilage maïs FR",
   "id": "f22c4816-818b-569a-8f42-931035f860c8",

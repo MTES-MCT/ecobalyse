@@ -2,8 +2,7 @@
   "activityName": "Poultry, boneless raw, modified variant 2, CMAPS {GLO} U",
   "categories": [
     "ingredient",
-    "material",
-    "material_type:other_food_items"
+    "material"
   ],
   "displayName": "Pièce de volaille et lapin, désossée, crue (poulet, dinde, chapon, canard, oie, lapin) Origine Inconnue",
   "id": "4f1edf79-457b-492a-b2ea-173bde2f2365",

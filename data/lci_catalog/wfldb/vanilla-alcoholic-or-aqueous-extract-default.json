@@ -2,8 +2,7 @@
   "activityName": "Vanilla, cured and dried beans, at farm (WFLDB)",
   "categories": [
     "ingredient",
-    "material",
-    "material_type:other_food_items"
+    "material"
   ],
   "displayName": "Extrait de vanille, alcoolique ou aqueux Origine Inconnue",
   "id": "fadf1c0a-cbf3-5a86-bac2-9d2ae54007ae",

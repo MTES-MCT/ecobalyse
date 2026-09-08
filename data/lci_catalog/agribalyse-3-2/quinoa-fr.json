@@ -2,8 +2,7 @@
   "activityName": "Quinoa FR, conventional, at farm gate {FR} U",
   "categories": [
     "ingredient",
-    "material",
-    "material_type:cereals"
+    "material"
   ],
   "displayName": "Quinoa FR",
   "id": "6ae3a729-3ffc-5981-bfc4-3d081fc34ca6",

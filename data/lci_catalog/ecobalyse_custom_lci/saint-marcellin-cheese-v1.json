@@ -2,8 +2,7 @@
   "activityName": "Saint-Marcellin cheese, variant 1, CMAPS {GLO} U",
   "categories": [
     "ingredient",
-    "material",
-    "material_type:other_food_items"
+    "material"
   ],
   "displayName": "Saint-Marcellin FR",
   "id": "49ffc98b-ef6f-4f09-a04b-1fe792484862",

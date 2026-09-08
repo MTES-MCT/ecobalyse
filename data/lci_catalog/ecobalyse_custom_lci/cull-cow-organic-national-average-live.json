@@ -2,8 +2,7 @@
   "activityName": "Cull cow, organic, national average, at farm gate FR U",
   "categories": [
     "ingredient",
-    "material",
-    "material_type:other_food_items"
+    "material"
   ],
   "displayName": "Bovin bio moyen vivant FR",
   "id": "6be00c07-d618-504d-b823-4b7a704226f2",

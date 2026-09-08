@@ -2,8 +2,7 @@
   "activityName": "Extra Virgin Olive Oil, at plant {ES} U",
   "categories": [
     "ingredient",
-    "material",
-    "material_type:other_food_items"
+    "material"
   ],
   "displayName": "Huile d'olive (extra vierge) UE",
   "id": "50599f17-c18d-51fc-a464-64c50ffc1606",

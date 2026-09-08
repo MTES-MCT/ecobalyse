@@ -2,8 +2,7 @@
   "activityName": "Olive {ES}| olive production | Cut-off, U - Adapted from Ecoinvent U",
   "categories": [
     "ingredient",
-    "material",
-    "material_type:other_food_items"
+    "material"
   ],
   "displayName": "Olive UE",
   "id": "2a6ee2b6-f32f-5afb-9169-4ff3b1c4d4be",

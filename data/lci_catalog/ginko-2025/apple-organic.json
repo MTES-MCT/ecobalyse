@@ -2,8 +2,7 @@
   "activityName": "Apple, organic 2025, national average, at orchard {FR} U",
   "categories": [
     "ingredient",
-    "material",
-    "material_type:fruits_and_vegetables"
+    "material"
   ],
   "displayName": "Pomme Bio",
   "id": "4e5c74d0-2104-5335-b3d8-32c90c49af98",

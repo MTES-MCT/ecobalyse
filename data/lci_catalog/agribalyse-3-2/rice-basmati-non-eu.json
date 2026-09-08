@@ -2,8 +2,7 @@
   "activityName": "Rice, basmati {IN}| rice production, basmati | Cut-off, U - Adapted from Ecoinvent U",
   "categories": [
     "ingredient",
-    "material",
-    "material_type:cereals"
+    "material"
   ],
   "displayName": "Riz basmati par défaut",
   "id": "65b736e2-5707-52d2-9248-ec6a8f180150",

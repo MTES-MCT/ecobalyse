@@ -2,8 +2,7 @@
   "activityName": "Rye grain, feed, Swiss integrated production {CH}| production | Cut-off, U - Copied from Ecoinvent U",
   "categories": [
     "ingredient",
-    "material",
-    "material_type:cereals"
+    "material"
   ],
   "displayName": "Seigle entier FR",
   "id": "86150d85-24d2-5636-96c2-9ef02a14ca2b",

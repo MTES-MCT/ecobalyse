@@ -2,8 +2,7 @@
   "activityName": "Strawberry for processing, open field, conventional, at farm gate {MA} U",
   "categories": [
     "ingredient",
-    "material",
-    "material_type:fruits_and_vegetables"
+    "material"
   ],
   "displayName": "Fraise par défaut",
   "id": "6bf0c865-2ee1-5690-867b-9c602dc03afc",

@@ -2,8 +2,7 @@
   "activityName": "Reblochon cheese, from cow's milk, at plant {FR} U",
   "categories": [
     "ingredient",
-    "material",
-    "material_type:other_food_items"
+    "material"
   ],
   "displayName": "Reblochon FR",
   "id": "eaa302de-7b3e-5d25-bff1-5e1eecbd2410",

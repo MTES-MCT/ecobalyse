@@ -2,8 +2,7 @@
   "activityName": "Zucchini, conventional, national average, at farm gate {FR} U",
   "categories": [
     "ingredient",
-    "material",
-    "material_type:fruits_and_vegetables"
+    "material"
   ],
   "displayName": "Courgette UE",
   "id": "fd10572d-1b9c-5b7d-b355-49888c1721b7",

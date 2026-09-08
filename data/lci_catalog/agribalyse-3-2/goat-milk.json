@@ -2,8 +2,7 @@
   "activityName": "Goat milk, consumption mix {FR} U",
   "categories": [
     "ingredient",
-    "material",
-    "material_type:other_food_items"
+    "material"
   ],
   "displayName": "Lait de chèvre FR",
   "id": "f360ae33-51fc-5cc7-a121-5ac6f6469cce",

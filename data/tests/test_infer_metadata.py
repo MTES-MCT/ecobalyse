@@ -1,17 +1,17 @@
 import pytest
 
-from common.infer_metadata import infer_raw_to_cooked_ratio, infer_transported_cooled
+from common.infer_metadata import (
+    infer_raw_to_cooked_ratio,
+    infer_variant_material_type,
+)
 
 
 @pytest.mark.parametrize(
-    ("categories_input", "categories_output"),
+    ("categories", "alias", "variant_categories"),
     [
         (
-            ["ingredient", "material", "material_type:other_food_items"],
-            ["ingredient", "material", "material_type:other_food_items"],
-        ),
-        (
-            ["ingredient", "material", "material_type:fruits_and_vegetables"],
+            ["ingredient", "material"],
+            "carrot-fr",
             [
                 "ingredient",
                 "material",
@@ -20,38 +20,31 @@ from common.infer_metadata import infer_raw_to_cooked_ratio, infer_transported_c
             ],
         ),
         (
-            ["material", "material_type:fruits_and_vegetables"],
-            ["material", "material_type:fruits_and_vegetables"],
+            ["ingredient", "material"],
+            "milk",
+            ["ingredient", "material", "material_type:other_food_items"],
         ),
+        # non-ingredient processes are untouched
         (
-            ["ingredient", "material", "material_type:offal", "transported_cooled"],
-            ["ingredient", "material", "material_type:offal", "transported_cooled"],
+            ["material", "transformation"],
+            "unused-alias",
+            ["material", "transformation"],
         ),
     ],
 )
-def test_infer_transport_cooled(categories_input, categories_output):
-    assert infer_transported_cooled(categories_input) == categories_output
+def test_infer_variant_material_type(categories, alias, variant_categories):
+    assert infer_variant_material_type(categories, alias) == variant_categories
 
 
 @pytest.mark.parametrize(
-    ("explicit_ratio", "categories", "infered_ratio"),
+    ("explicit_ratio", "alias", "infered_ratio"),
     [
-        (
-            None,
-            ["ingredient", "material", "material_type:fruits_and_vegetables"],
-            0.856,
-        ),
-        (
-            None,
-            ["ingredient", "material", "material_type:cereals"],
-            2.259,
-        ),
-        (
-            1.67,
-            ["ingredient", "material", "material_type:cereals"],
-            1.67,
-        ),
+        (None, "carrot-fr", 0.856),
+        (None, "barley-fr", 2.259),
+        (1.67, "barley-fr", 1.67),
+        # other_food_items has no reference value: neutral 1.0
+        (None, "milk", 1.0),
     ],
 )
-def test_infer_raw_to_cooked_ratio(explicit_ratio, categories, infered_ratio):
-    assert infer_raw_to_cooked_ratio(explicit_ratio, categories) == infered_ratio
+def test_infer_raw_to_cooked_ratio(explicit_ratio, alias, infered_ratio):
+    assert infer_raw_to_cooked_ratio(explicit_ratio, alias) == infered_ratio

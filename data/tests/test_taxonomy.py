@@ -12,6 +12,7 @@ from common.infer_metadata import (
     load_base_ingredients,
     load_taxonomy,
     parse_taxonomy,
+    validate_ingredient_activity,
 )
 from config import DATA_ROOT_DIR
 
@@ -78,3 +79,45 @@ def test_taxonomy_with_aliases_is_up_to_date():
             "food/taxonomy_with_aliases.json is out of date, regenerate it"
             " with: `uv run python bin/generate_taxonomy_with_aliases.py`"
         )
+
+
+def test_catalog_respects_ingredient_invariants():
+    """Every ingredient activity of the catalog must satisfy the taxonomy
+    invariants: no manual material_type tag, one alias per variant."""
+    lci_catalog = DATA_ROOT_DIR / "lci_catalog"
+    for lci_path in lci_catalog.glob("*/*.json"):
+        with open(lci_path, encoding="utf-8") as f:
+            activity = json.load(f)
+        try:
+            validate_ingredient_activity(activity)
+        except ValueError as e:
+            raise AssertionError(f"{lci_path.name}: {e}") from e
+
+
+def test_validate_ingredient_activity_rejects_manual_tag():
+    with pytest.raises(ValueError, match="manual"):
+        validate_ingredient_activity(
+            {
+                "categories": ["ingredient", "material_type:fruits_and_vegetables"],
+                "metadata": [{"alias": "carrot-fr"}],
+            }
+        )
+
+
+def test_validate_ingredient_activity_rejects_variant_without_alias():
+    with pytest.raises(ValueError, match="has no alias"):
+        validate_ingredient_activity(
+            {
+                "categories": ["ingredient"],
+                "metadata": [{"alias": "carrot-fr"}, {"displayName": "no alias"}],
+            }
+        )
+
+
+def test_validate_ingredient_activity_ignores_non_ingredient():
+    validate_ingredient_activity(
+        {
+            "categories": ["transformation", "material_type:cereals"],
+            "metadata": [{"displayName": "no alias"}],
+        }
+    )

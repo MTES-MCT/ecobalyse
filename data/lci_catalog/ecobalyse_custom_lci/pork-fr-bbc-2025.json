@@ -2,8 +2,7 @@
   "activityName": "Bacon, back, at plant {{pork-fr-bbc-2025}}",
   "categories": [
     "ingredient",
-    "material",
-    "material_type:other_food_items"
+    "material"
   ],
   "displayName": "Viande de porc (alim. ani. 100% FR) (2025)",
   "id": "79dc0633-2115-513c-a011-98982292e461",

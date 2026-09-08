@@ -2,8 +2,7 @@
   "activityName": "Soybean grain dried, stored and transported, processing {FR} U",
   "categories": [
     "ingredient",
-    "material",
-    "material_type:legumes"
+    "material"
   ],
   "displayName": "Soja feed par défaut",
   "id": "f19cf944-7a9c-51b2-ad22-ecc9f95e2c88",

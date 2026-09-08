@@ -2,8 +2,7 @@
   "activityName": "Walnut, shelled, import WFLDB, CMAPS {GLO} U",
   "categories": [
     "ingredient",
-    "material",
-    "material_type:other_food_items"
+    "material"
   ],
   "displayName": "Noix, décortiquée, fraîche ou sèche Origine Inconnue",
   "id": "9fb7c03a-98cb-47a4-90f1-43b79f002fd6",

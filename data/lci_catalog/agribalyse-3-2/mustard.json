@@ -2,8 +2,7 @@
   "activityName": "Mustard, recipe, at plant {FR} U",
   "categories": [
     "ingredient",
-    "material",
-    "material_type:fruits_and_vegetables"
+    "material"
   ],
   "displayName": "Moutarde FR",
   "id": "fbb479c0-2a32-52cb-bacb-070416350c1a",

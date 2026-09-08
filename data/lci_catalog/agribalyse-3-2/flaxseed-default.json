@@ -2,8 +2,7 @@
   "activityName": "Flaxseed, national average, animal feed, at farm gate {FR} U",
   "categories": [
     "ingredient",
-    "material",
-    "material_type:fruits_and_vegetables"
+    "material"
   ],
   "displayName": "Graines de lin Origine Inconnue",
   "id": "3f7d5194-32eb-5b18-a009-b7a97389ac2f",

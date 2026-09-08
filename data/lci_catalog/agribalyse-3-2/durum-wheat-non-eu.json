@@ -2,8 +2,7 @@
   "activityName": "Durum wheat grain, at farm {AU} - Adapted from WFLDB U",
   "categories": [
     "ingredient",
-    "material",
-    "material_type:cereals"
+    "material"
   ],
   "displayName": "Blé dur par défaut",
   "id": "3db38105-5636-53f6-a788-cc705904d4a4",

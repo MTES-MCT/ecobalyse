@@ -2,8 +2,7 @@
   "activityName": "French fries or chips, frozen, at processing {FR} U",
   "categories": [
     "ingredient",
-    "material",
-    "material_type:fruits_and_vegetables"
+    "material"
   ],
   "displayName": "Frites de pomme de terre congelées FR",
   "id": "7fe83417-ee25-52c0-90a5-b7291bf1e02a",

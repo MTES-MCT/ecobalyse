@@ -2,8 +2,7 @@
   "activityName": "Onions, dried, consumption mix {FR} U",
   "categories": [
     "ingredient",
-    "material",
-    "material_type:other_food_items"
+    "material"
   ],
   "displayName": "Oignons déshydratés par défaut",
   "id": "23f18220-12d7-5c14-87ff-6d00f5aca043",

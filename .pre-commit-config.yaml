@@ -59,6 +59,7 @@ repos:
 
       ### data ###
       - id: fix-json
+        require_serial: True
         name: run JSON formatter
         language: system
         files: ^data/.*$

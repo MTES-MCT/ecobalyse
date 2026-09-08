@@ -2,8 +2,7 @@
   "activityName": "Quinoa FR, organic 2025, at farm gate {FR} U",
   "categories": [
     "ingredient",
-    "material",
-    "material_type:cereals"
+    "material"
   ],
   "displayName": "Quinoa Bio",
   "id": "fe482c9c-eb04-5440-b5dc-ab9bef6ec86a",
