@@ -5,6 +5,7 @@ set dotenv-load := true
 
 export-script := "data/bin/export.py"
 python-cmd-data := "uv run --group data python"
+python-cmd := "uv run python"
 export PYTHONPATH := "$PYTHONPATH:./data/"
 
 ################################################################################
@@ -96,11 +97,17 @@ check-lci-catalog:
 check-processes:
     uv run --group data check-jsonschema --schemafile schemas/processes-schema.json data/export/processes*.json data/tests/fixtures/processes_legacy_impacts_output.json data/tests/snapshots/processes_legacy_impacts.json
 
-check-json-data +target="data":
-    {{ python-cmd-data }} ./bin/json_formatter.py {{ target }}
+check-json-data:
+    just check-json data
 
-fix-json-data +target="data":
-    {{ python-cmd-data }} ./bin/json_formatter.py --fix {{ target }}
+check-json +target:
+    {{ python-cmd }} ./bin/json_formatter.py {{ target }}
+
+fix-json-data:
+    just fix-json data
+
+fix-json +target:
+    {{ python-cmd }} ./bin/json_formatter.py --fix {{ target }}
 
 check-python-data +target="data":
     uv run --group data ruff check --force-exclude {{ target }}
