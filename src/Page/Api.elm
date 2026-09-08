@@ -57,11 +57,11 @@ getApiServerUrl { clientUrl } =
 changelog : List News
 changelog =
     [ { date = "7 septembre 2026"
-      , level = "minor"
-      , domains = [ "Alimentaire", "Objets", "Véhicules" ]
-      , md = """Ajout de l’API du calculateur générique pour les périmètres `food2`, `object` et `veli`\u{00A0}:
+      , level = "major"
+      , domains = [ "Générique" ]
+      , md = """Ajout de l’API du calculateur générique pour les périmètres `food2`, `object` et `veli` en version bêta\u{00A0}:
 
-- `POST /api/{scope}/simulator` calcule les impacts à partir d’une requête JSON identique à celle du simulateur web
+- `POST /api/{food2|object|veli}/simulator` calcule les impacts à partir d’une requête JSON identique à celle du simulateur web
 - des points d’accès `GET` listent les ressources nécessaires pour construire une requête (ingrédients/matériaux, pays, catégories, procédés)
 """
       }

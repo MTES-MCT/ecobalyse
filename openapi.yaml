@@ -29,6 +29,8 @@ tags:
       url: https://fabrique-numerique.gitbook.io/ecobalyse
   - name: Générique
     description: |
+      **⚠️ Actuellement en version bêta**
+
       Documentation de l'API du calculateur générique
 
       Le paramètre de chemin `scope` sélectionne le périmètre générique :
