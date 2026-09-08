@@ -12,7 +12,7 @@ For each base food product, verifies that a hierarchy of impacts is respected
 among its ingredients (organic < fr < eu < non-ue < default), and produces:
 - bar charts per base product (output/ingredient_plots/)
 - Importable bookmark files for the Ecobalyse comparator (output/bookmarks/)
-- A CSV report of hierarchy anomalies (output/ingredient_hierarchy_report.csv) and a french format version (; and ,) (output/ingredient_hierarchy_report_fr.csv)
+- A CSV report of hierarchy anomalies (output/ingredient_hierarchy_anomalies.csv) and a french format version (; and ,) (output/ingredient_hierarchy_anomalies_fr.csv)
 """
 
 import json
@@ -29,9 +29,7 @@ import pandas as pd
 # Constants
 
 PROJECT_ROOT = pathlib.Path(__file__).parent.parent.resolve()
-PROCESSES_GENERIC_PATH = (
-    PROJECT_ROOT / "public" / "data" / "processes_generic_impacts.json"
-)
+PROCESSES_PATH = PROJECT_ROOT / "public" / "data" / "processes_impacts.json"
 IMPACTS_PATH = PROJECT_ROOT / "public" / "data" / "impacts.json"
 OUTPUT_DIR = PROJECT_ROOT / "output"
 PLOTS_DIR = OUTPUT_DIR / "ingredient_plots"
@@ -81,7 +79,7 @@ class Metadata(TypedDict):
 
 
 class Ingredient(TypedDict, total=False):
-    """subset of processes_generic.json
+    """subset of a process entry in processes_impacts.json
     `variant_type` is added by `group_ingredients`.
     """
 
@@ -533,8 +531,8 @@ def write_anomaly_report(anomalies):
         return
 
     OUTPUT_DIR.mkdir(parents=True, exist_ok=True)
-    report_path = OUTPUT_DIR / "anomalies.csv"
-    report_path_fr = OUTPUT_DIR / "anomalies_fr.csv"
+    report_path = OUTPUT_DIR / "ingredient_hierarchy_anomalies.csv"
+    report_path_fr = OUTPUT_DIR / "ingredient_hierarchy_anomalies_fr.csv"
     df = pd.DataFrame(anomalies)
     df.to_csv(report_path, index=False)
     df.to_csv(report_path_fr, index=False, sep=";", decimal=",", encoding="utf-8-sig")
@@ -571,8 +569,8 @@ def print_summary(ingredients_by_base, anomalies):
     print("\nOutputs:")
     print(f"  Plots:     {PLOTS_DIR}/")
     print(f"  Bookmarks: {BOOKMARKS_DIR}/")
-    print(f"  Report:    {OUTPUT_DIR / 'ingredient_hierarchy_report.csv'}")
-    print(f"  Report FR: {OUTPUT_DIR / 'ingredient_hierarchy_report_fr.csv'}")
+    print(f"  Report:    {OUTPUT_DIR / 'ingredient_hierarchy_anomalies.csv'}")
+    print(f"  Report FR: {OUTPUT_DIR / 'ingredient_hierarchy_anomalies_fr.csv'}")
     print("=" * 60)
 
 
@@ -580,11 +578,11 @@ def print_summary(ingredients_by_base, anomalies):
 
 
 def main():
-    logger.info("Loading ingredients from processes_generic_impacts.json...")
-    processes_generic = load_json(PROCESSES_GENERIC_PATH)
+    logger.info("Loading ingredients from processes_impacts.json...")
+    processes = load_json(PROCESSES_PATH)
     ingredients = [
         proc
-        for proc in processes_generic
+        for proc in processes
         if (proc.get("metadata") and proc["metadata"].get("ingredient"))
     ]
 
