@@ -102,14 +102,14 @@ decodeTextileQueryBody db =
         >> Result.andThen (TextileValidation.validate db)
 
 
-endpoint : Component.Config -> Db -> Request -> Maybe Route
-endpoint config db { body, method, url } =
+endpoint : Db -> Component.Config -> Request -> Maybe Route
+endpoint db config { body, method, url } =
     -- Notes:
     -- - Url.fromString can't build a Url without a fully qualified URL, so as we only have the
     --   request path from Express, we build a fake URL with a fake protocol and hostname.
     -- - We update the path appending the HTTP method to it, for simpler, cheaper route parsing.
     Url.fromString ("http://x/" ++ method ++ url)
-        |> Maybe.andThen (Parser.parse (parser config db body))
+        |> Maybe.andThen (Parser.parse (parser db config body))
 
 
 genericGet : List String -> (GenericScope -> Route) -> Parser (Route -> a) a
@@ -121,8 +121,8 @@ genericGet path toRoute =
         |> Parser.map toRoute
 
 
-parser : Component.Config -> Db -> Encode.Value -> Parser (Route -> a) a
-parser config db body =
+parser : Db -> Component.Config -> Encode.Value -> Parser (Route -> a) a
+parser db config body =
     Parser.oneOf
         [ -- Food
           (s "GET" </> s "food" </> s "countries")
