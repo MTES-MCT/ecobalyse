@@ -80,6 +80,11 @@ jobs:
     - name: Install Node dependencies
       run: npm ci --prefer-offline --no-audit --ignore-scripts
 
+    - name: Install Ubuntu dependencies
+      run: |
+        sudo apt-get update
+        sudo apt-get install -y just
+
     - name: Install the latest version of uv
       uses: astral-sh/setup-uv@v4
       with:
