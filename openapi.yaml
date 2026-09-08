@@ -1302,8 +1302,6 @@ components:
     GenericQuery:
       type: object
       additionalProperties: false
-      required:
-      - components
       properties:
         components:
           type: array
@@ -1314,7 +1312,6 @@ components:
             `/{scope}/processes/material`).
           items:
             $ref: "#/components/schemas/GenericQueryItem"
-          minItems: 1
         product:
           type: string
           format: uuid
