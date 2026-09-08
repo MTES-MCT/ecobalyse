@@ -16,6 +16,7 @@ module Data.Process exposing
     , getImpact
     , getMaterialTypes
     , getTechnicalName
+    , hasCategory
     , idFromString
     , idToString
     , impactsPerUnit
@@ -254,6 +255,11 @@ getTechnicalName { activityName } =
     activityNameToString activityName
 
 
+hasCategory : Category -> Process -> Bool
+hasCategory category process =
+    List.member category process.categories
+
+
 impactsPerUnit : { country | electricityProcess : Process, heatProcess : Process } -> Process -> Impacts
 impactsPerUnit { electricityProcess, heatProcess } { elec, heat, impacts } =
     Impact.sumImpacts
@@ -265,7 +271,7 @@ impactsPerUnit { electricityProcess, heatProcess } { elec, heat, impacts } =
 
 isTransportedCooled : Process -> Bool
 isTransportedCooled =
-    .categories >> List.member Category.TransportedCooled
+    hasCategory Category.TransportedCooled
 
 
 listAvailableMaterialTransforms : Process -> List Process -> List Process
@@ -297,7 +303,7 @@ listAvailableMaterialTransforms material =
 
 listByCategory : Category -> List Process -> List Process
 listByCategory category =
-    List.filter (.categories >> List.member category)
+    List.filter (hasCategory category)
 
 
 listByUnit : Unit -> List Process -> List Process

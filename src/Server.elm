@@ -154,36 +154,26 @@ executeFoodQuery request db encoder =
         >> toResponse request
 
 
-executeGenericQuery : Request -> Db -> Scope.GenericScope -> Component.Query -> JsonResponse
-executeGenericQuery request db genericScope query =
-    Component.parseConfig db StaticJson.componentConfigJson
-        |> Result.map
-            (\config ->
-                query
-                    |> GenericSimulator.compute
-                        { config = config
-                        , db = db
-                        , scope = Scope.Generic genericScope
-                        }
-                    |> Result.mapError Validation.fromErrorString
-                    |> Result.map (toGenericResults request db genericScope query)
-                    |> toResponse request
-            )
-        |> Result.withDefault ( 500, Encode.string "Error while loading generic configuration" )
+executeGenericQuery : Request -> Db -> Component.Config -> Scope.GenericScope -> Component.Query -> JsonResponse
+executeGenericQuery request db config genericScope query =
+    query
+        |> GenericSimulator.compute
+            { config = config
+            , db = db
+            , scope = Scope.Generic genericScope
+            }
+        |> Result.mapError Validation.fromErrorString
+        |> Result.map (toGenericResults request db genericScope query)
+        |> toResponse request
 
 
-executeTextileQuery : Request -> Db -> (Simulator -> Encode.Value) -> TextileQuery.Query -> JsonResponse
-executeTextileQuery request db encoder query =
-    Component.parseConfig db StaticJson.componentConfigJson
-        |> Result.map
-            (\config ->
-                query
-                    |> Simulator.compute db config
-                    |> Result.mapError Validation.fromErrorString
-                    |> Result.map encoder
-                    |> toResponse request
-            )
-        |> Result.withDefault ( 500, Encode.string "Error while loading generic configuration" )
+executeTextileQuery : Request -> Db -> Component.Config -> (Simulator -> Encode.Value) -> TextileQuery.Query -> JsonResponse
+executeTextileQuery request db config encoder query =
+    query
+        |> Simulator.compute db config
+        |> Result.mapError Validation.fromErrorString
+        |> Result.map encoder
+        |> toResponse request
 
 
 encodeCountry : Country -> Encode.Value
@@ -258,18 +248,18 @@ genericProcessesResponse :
     Db
     -> Scope.GenericScope
     -> ProcessCategory.Category
-    -- FIXME: we should handle a list of extra filters here
-    -> (Process -> Bool)
+    -> List (Process -> Bool)
     -> JsonResponse
-genericProcessesResponse db genericScope category extraFilter =
-    db.processes
-        |> List.filter .visible
-        |> Scope.anyOf [ Scope.Generic genericScope ]
-        |> Process.listByCategory category
-        |> List.filter extraFilter
-        |> List.sortBy Process.getDisplayName
-        |> Encode.list encodeGenericProcess
-        |> respondWith 200
+genericProcessesResponse db genericScope category =
+    List.foldl List.filter
+        (db.processes
+            |> List.filter .visible
+            |> Scope.anyOf [ Scope.Generic genericScope ]
+            |> Process.listByCategory category
+        )
+        >> List.sortBy Process.getDisplayName
+        >> Encode.list encodeGenericProcess
+        >> respondWith 200
 
 
 genericQueryDescription : Db -> Component.Query -> String
@@ -314,7 +304,17 @@ respondWith =
 
 handleRequest : Db -> Request -> JsonResponse
 handleRequest db request =
-    case Route.endpoint db request of
+    case Component.parseConfig db StaticJson.componentConfigJson of
+        Err _ ->
+            ( 500, Encode.string "Error while loading component configuration" )
+
+        Ok config ->
+            handleConfiguredRequest config db request
+
+
+handleConfiguredRequest : Component.Config -> Db -> Request -> JsonResponse
+handleConfiguredRequest config db request =
+    case Route.endpoint config db request of
         -- GET routes
         Just Route.FoodGetCountryList ->
             db.countries
@@ -345,7 +345,14 @@ handleRequest db request =
             genericProcessesResponse db
                 genericScope
                 ProcessCategory.Assembly
-                (always True)
+                []
+
+        Just (Route.GenericGetCatalogList genericScope) ->
+            db.components
+                |> List.filter (not << Component.isEmpty)
+                |> List.filter (.scope >> (==) (Scope.Generic genericScope))
+                |> Encode.list encodeComponent
+                |> respondWith 200
 
         Just (Route.GenericGetCategoryList genericScope) ->
             db.products
@@ -353,18 +360,11 @@ handleRequest db request =
                 |> Encode.list ProductCategory.encode
                 |> respondWith 200
 
-        Just (Route.GenericGetComponentList genericScope) ->
-            db.components
-                |> List.filter (not << Component.isEmpty)
-                |> List.filter (.scope >> (==) (Scope.Generic genericScope))
-                |> Encode.list encodeComponent
-                |> respondWith 200
-
         Just (Route.GenericGetConsumptionList genericScope) ->
             genericProcessesResponse db
                 genericScope
                 ProcessCategory.Use
-                (always True)
+                []
 
         Just (Route.GenericGetCountryList genericScope) ->
             db.countries
@@ -376,26 +376,25 @@ handleRequest db request =
             genericProcessesResponse db
                 genericScope
                 ProcessCategory.Distribution
-                (.unit >> (==) Process.CubicMeter)
+                [ .unit >> (==) Process.CubicMeter ]
 
         Just (Route.GenericGetMaterialList genericScope) ->
             genericProcessesResponse db
                 genericScope
                 ProcessCategory.Material
-                -- FIXME: we should probably use a helper from the Process module here
-                (.categories >> List.member ProcessCategory.Packaging >> not)
+                [ Process.hasCategory ProcessCategory.Packaging >> not ]
 
         Just (Route.GenericGetPackagingList genericScope) ->
             genericProcessesResponse db
                 genericScope
                 ProcessCategory.Packaging
-                (always True)
+                []
 
         Just (Route.GenericGetTransformList genericScope) ->
             genericProcessesResponse db
                 genericScope
                 ProcessCategory.Transform
-                (always True)
+                []
 
         Just Route.TextileGetCountryList ->
             db.countries
@@ -428,7 +427,7 @@ handleRequest db request =
                 |> respondWith 400
 
         Just (Route.GenericPostSimulator genericScope (Ok query)) ->
-            executeGenericQuery request db genericScope query
+            executeGenericQuery request db config genericScope query
 
         Just (Route.GenericPostSimulator _ (Err error)) ->
             encodeValidationErrors request error
@@ -436,7 +435,7 @@ handleRequest db request =
 
         Just (Route.TextilePostSimulator (Ok textileQuery)) ->
             textileQuery
-                |> executeTextileQuery request db (toAllImpactsSimple request db.textile.wellKnown)
+                |> executeTextileQuery request db config (toAllImpactsSimple request db.textile.wellKnown)
 
         Just (Route.TextilePostSimulator (Err error)) ->
             encodeValidationErrors request error
@@ -446,6 +445,7 @@ handleRequest db request =
             textileQuery
                 |> executeTextileQuery request
                     db
+                    config
                     (\simulator ->
                         Simulator.encode
                             (toDetailedTextileWebUrl request simulator |> Just)
@@ -458,7 +458,7 @@ handleRequest db request =
 
         Just (Route.TextilePostSimulatorSingle (Ok textileQuery) trigram) ->
             textileQuery
-                |> executeTextileQuery request db (toSingleImpactSimple request db.textile.wellKnown trigram)
+                |> executeTextileQuery request db config (toSingleImpactSimple request db.textile.wellKnown trigram)
 
         Just (Route.TextilePostSimulatorSingle (Err error) _) ->
             encodeValidationErrors request error
