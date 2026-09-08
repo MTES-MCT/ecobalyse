@@ -286,19 +286,12 @@ genericProcessesResponse db genericScope filters =
         |> respondWith 200
 
 
-genericQueryDescription : Db -> Component.Query -> Maybe String
-genericQueryDescription db query =
-    query.product
-        |> Maybe.andThen (\id -> db.products |> ProductCategory.findById id |> Result.toMaybe)
-        |> Maybe.map .label
-
-
 toGenericResults : Request -> Db -> GenericScope -> Component.Query -> Component.LifeCycle -> Encode.Value
 toGenericResults request db genericScope query lifeCycle =
     EU.optionalPropertiesObject
         [ ( "webUrl", toGenericWebUrl request genericScope query |> Encode.string |> Just )
         , ( "impacts", lifeCycle |> Component.applyDurability query.durability |> Impact.encode |> Just )
-        , ( "description", genericQueryDescription db query |> Maybe.map Encode.string )
+        , ( "description", Component.queryToString db query |> Result.toMaybe |> Maybe.map Encode.string )
         , ( "query", Component.encodeQuery query |> Just )
         ]
 
