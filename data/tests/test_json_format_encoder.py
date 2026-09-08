@@ -100,3 +100,64 @@ def test_format_number_json_encoder(input_data, expected, test_id):
     assert result == expected, (
         f"{test_id}: Expected {expected}, but got {result} for input {input_data}"
     )
+
+
+def test_max_width_encoder():
+
+    input_data_small = {
+        "data": {
+            "numbers": [1.00001, 0.9999999],
+        }
+    }
+    input_data = {
+        "data": {
+            "numbers": [1.00001, 0.9999999],
+            "text": "test utrui utruitrui t",
+            "another": "one bites the dust",
+        }
+    }
+
+    encoder = CompactJSONEncoder()
+
+    result_small = encoder.encode(input_data_small)
+    assert result_small == '{ "data": { "numbers": [1.00001, 0.9999999] } }'
+
+    result = encoder.encode(input_data)
+    assert (
+        result
+        == """{
+    "data": {
+        "numbers": [1.00001, 0.9999999],
+        "text": "test utrui utruitrui t",
+        "another": "one bites the dust"
+    }
+}"""
+    )
+
+
+def test_max_items_encoder():
+
+    input_data = [0, 1, 2, 3, 4, 5, 6, 7, 8, 9]
+    encoder = CompactJSONEncoder()
+
+    result = encoder.encode(input_data)
+    assert result == """[0, 1, 2, 3, 4, 5, 6, 7, 8, 9]"""
+    input_data.append(10)
+    result = encoder.encode(input_data)
+
+    assert (
+        result
+        == """[
+    0,
+    1,
+    2,
+    3,
+    4,
+    5,
+    6,
+    7,
+    8,
+    9,
+    10
+]"""
+    )
