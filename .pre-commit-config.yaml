@@ -59,7 +59,7 @@ repos:
         language: system
         types_or: [json]
         entry: |
-          bash -c 'npm --prefix . run fix:json:all "${@}"' --
+          bash -c 'npm --prefix . run fix:json "${@}"' --
 
       - id: check-json-schemas
         name: check json schemas
