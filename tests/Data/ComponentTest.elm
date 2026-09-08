@@ -40,6 +40,7 @@ import TestUtils
         , expectFloatDifferent
         , expectFloatMostlyEqual
         , expectResultErrorContains
+        , expectStringContains
         , it
         , itFromResult
         , itFromResult2
@@ -1876,6 +1877,76 @@ suite =
                             |> decodeJsonThen Component.decodeItem (Component.itemToString db)
                         )
                         (Expect.equal "1 Custom new component [ 4,40e-4m3 Bois d'oeuvre (Feuillus / Hêtre) | 8,80e-4kg Plastique granulé (PP) ]")
+                    , it "queryToString with an empty query"
+                        (Component.queryToString db emptyQuery
+                            |> Expect.equal (Ok "")
+                        )
+                    , itFromResult "queryToString with a product category"
+                        (List.head db.products
+                            |> Result.fromMaybe "No product categories in db"
+                            |> Result.andThen
+                                (\product ->
+                                    { emptyQuery | product = Just product.id }
+                                        |> Component.queryToString db
+                                        |> Result.map (\description -> ( product.label, description ))
+                                )
+                        )
+                        (\( label, description ) -> Expect.equal label description)
+                    , suiteFromResult "queryToString with items, assembly, packaging, distribution and consumption"
+                        (""" { "components": [
+                                 { "id": "64fa65b3-c2df-4fd0-958b-83965bd6aa08",
+                                   "quantity": 1,
+                                   "custom": {
+                                     "elements": [
+                                       {
+                                         "amount": 0.00044,
+                                         "material": "17431e06-2973-516e-b043-be9ad405e4fb"
+                                       },
+                                       {
+                                         "amount": 0.00088,
+                                         "material": "59b42284-3e45-5343-8a20-1d7d66137461"
+                                       }
+                                     ]
+                                   }
+                                 }
+                               ],
+                               "assembly": {
+                                 "country": "FR",
+                                 "operations": [ "b8d0dc25-170d-4c6a-93e5-ee31347316cc" ]
+                               },
+                               "packagings": [
+                                 { "amount": 2, "processId": "4a80c078-9f86-4a7d-b402-73db3381e33b" }
+                               ],
+                               "distribution": "29118025-efa0-47bb-94e2-f5ccba31a903",
+                               "consumptions": [
+                                 { "amount": 1, "processId": "931c9bb0-619a-5f75-b41b-ab8061e2ad92" }
+                               ]
+                             }"""
+                            |> decodeJsonThen Component.decodeQuery (Component.queryToString db)
+                        )
+                        (\description ->
+                            [ it "should have the expected items description"
+                                (description
+                                    |> expectStringContains "1 Pied 70 cm (plein bois) [ 4,40e-4m3 Bois d'oeuvre (Feuillus / Hêtre) | 8,80e-4kg Plastique granulé (PP) ]"
+                                )
+                            , it "should have the expected assembly description"
+                                (description
+                                    |> expectStringContains "Assemblage (France)\u{00A0}: Fake assembly process"
+                                )
+                            , it "should have the expected packaging description"
+                                (description
+                                    |> expectStringContains "Emballage\u{00A0}: 2Item(s) Sachet en plastique (PP) pour chips - 150g - Proxy"
+                                )
+                            , it "should have the expected distribution description"
+                                (description
+                                    |> expectStringContains "Distribution\u{00A0}: Vente au détail\u{202F}: produit sec"
+                                )
+                            , it "should have the expected consumption description"
+                                (description
+                                    |> expectStringContains "Consommation\u{00A0}: 1kWh Electricité basse tension, France"
+                                )
+                            ]
+                        )
                     , suiteFromResult "getEndOfLifeDetailedImpacts"
                         -- setup
                         (chair
