@@ -36,8 +36,25 @@ import Static.Db as StaticDb
 import Static.Json as StaticJson
 
 
+type alias Model =
+    List CachedDb
+
+
 type Msg
     = Received Request
+
+
+{-| Parsed database and component config, keyed by the raw processes JSON.
+
+Authenticated requests receive detailed impacts, unauthenticated ones the public
+processes file. Caching by that payload keeps the two datasets from mixing.
+
+-}
+type alias CachedDb =
+    { config : Component.Config
+    , db : Db
+    , processes : String
+    }
 
 
 type alias JsonResponse =
@@ -288,11 +305,11 @@ toGenericWebUrl request genericScope query =
         |> (++) (serverRootUrl request)
 
 
-cmdRequest : Db -> Request -> Cmd Msg
-cmdRequest db request =
+cmdRequest : CachedDb -> Request -> Cmd Msg
+cmdRequest { config, db } request =
     let
         ( code, responseBody ) =
-            handleRequest db request
+            handleConfiguredRequest config db request
     in
     sendResponse code request responseBody
 
@@ -471,28 +488,65 @@ handleConfiguredRequest config db request =
                 |> respondWith 404
 
 
-update : Msg -> Cmd Msg
-update msg =
+{-| Retrieve an already cached database for a given processes list (detailed or public).
+-}
+findCachedDb : String -> Model -> Maybe CachedDb
+findCachedDb processes =
+    List.filter (.processes >> (==) processes)
+        >> List.head
+
+
+{-| Load the database from the static files and cache it in the model. Database is cached
+in the model to avoid loading it from the static files every time we receive a request.
+-}
+loadAndCacheDb : Model -> Request -> ( Model, Cmd Msg )
+loadAndCacheDb model request =
+    case StaticDb.dbFromStaticFiles request.processes of
+        Err error ->
+            ( model
+            , error
+                |> Validation.fromErrorString
+                |> encodeValidationErrors request
+                |> sendResponse 503 request
+            )
+
+        Ok db ->
+            case Component.parseConfig db StaticJson.componentConfigJson of
+                Err _ ->
+                    ( model
+                    , Encode.string "Error while loading component configuration"
+                        |> sendResponse 500 request
+                    )
+
+                Ok config ->
+                    let
+                        cached =
+                            { config = config
+                            , db = db
+                            , processes = request.processes
+                            }
+                    in
+                    ( cached :: model, cmdRequest cached request )
+
+
+update : Msg -> Model -> ( Model, Cmd Msg )
+update msg model =
     case msg of
         Received request ->
-            case StaticDb.dbFromStaticFiles request.processes of
-                Err error ->
-                    error
-                        |> Validation.fromErrorString
-                        |> encodeValidationErrors request
-                        |> sendResponse 503 request
+            case findCachedDb request.processes model of
+                Just cached ->
+                    ( model, cmdRequest cached request )
 
-                Ok db ->
-                    cmdRequest db request
+                Nothing ->
+                    loadAndCacheDb model request
 
 
-main : Program () () Msg
+main : Program () Model Msg
 main =
-    -- Note: The Api server being stateless, there's no need for a model
     Platform.worker
-        { init = always ( (), Cmd.none )
+        { init = always ( [], Cmd.none )
         , subscriptions = always (input Received)
-        , update = \msg _ -> ( (), update msg )
+        , update = update
         }
 
 
