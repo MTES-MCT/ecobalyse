@@ -22,7 +22,7 @@ fi
 # the processes and instead just delete and add again
 # (Updates were taking ages and was blocking scalingo deploy)
 # https://github.com/MTES-MCT/ecobalyse/pull/2785
-uv run backend fixtures reset-processes public/data/processes_impacts.json
+# uv run backend fixtures reset-processes public/data/processes_impacts.json
 
 if [ "$IS_REVIEW_APP" == "true" ]; then
    # We want to keep the staging components as they are, so we only load the default ones on review apps
