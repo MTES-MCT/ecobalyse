@@ -20,7 +20,7 @@ import Data.Impact as Impact
 import Data.Impact.Definition as Definition
 import Data.Process as Process exposing (Process)
 import Data.Process.Category as ProcessCategory
-import Data.Scope as Scope
+import Data.Scope as Scope exposing (GenericScope)
 import Data.Textile.Inputs as Inputs
 import Data.Textile.Material as Material exposing (Material)
 import Data.Textile.Product as TextileProduct exposing (Product)
@@ -171,7 +171,7 @@ executeFoodQuery request db encoder =
         >> toResponse request
 
 
-executeGenericQuery : Request -> Db -> Component.Config -> Scope.GenericScope -> Component.Query -> JsonResponse
+executeGenericQuery : Request -> Db -> Component.Config -> GenericScope -> Component.Query -> JsonResponse
 executeGenericQuery request db config genericScope query =
     query
         |> GenericSimulator.compute
@@ -261,43 +261,43 @@ encodeProcessList =
     Encode.list encodeProcess
 
 
-genericProcessesResponse :
-    Db
-    -> Scope.GenericScope
-    -> ProcessCategory.Category
-    -> List (Process -> Bool)
-    -> JsonResponse
-genericProcessesResponse db genericScope category =
-    List.foldl List.filter
-        (db.processes
-            |> List.filter .visible
-            |> Scope.anyOf [ Scope.Generic genericScope ]
-            |> Process.listByCategory category
-        )
-        >> List.sortBy Process.getDisplayName
-        >> Encode.list encodeGenericProcess
-        >> respondWith 200
+{-| Retrieve a filtered list of processes; filters are applied using `AND` logic, and:
+
+  - only `visible` processes are returned;
+  - processes are always filtered against the generic scope provided.
+
+-}
+genericProcessesResponse : Db -> GenericScope -> List (Process -> Bool) -> JsonResponse
+genericProcessesResponse db genericScope filters =
+    filters
+        |> List.foldl List.filter
+            (db.processes
+                |> List.filter .visible
+                |> Scope.anyOf [ Scope.Generic genericScope ]
+            )
+        |> List.sortBy Process.getDisplayName
+        |> Encode.list encodeGenericProcess
+        |> respondWith 200
 
 
-genericQueryDescription : Db -> Component.Query -> String
+genericQueryDescription : Db -> Component.Query -> Maybe String
 genericQueryDescription db query =
     query.product
         |> Maybe.andThen (\id -> db.products |> ProductCategory.findById id |> Result.toMaybe)
         |> Maybe.map .label
-        |> Maybe.withDefault "Untitled simulation"
 
 
-toGenericResults : Request -> Db -> Scope.GenericScope -> Component.Query -> Component.LifeCycle -> Encode.Value
+toGenericResults : Request -> Db -> GenericScope -> Component.Query -> Component.LifeCycle -> Encode.Value
 toGenericResults request db genericScope query lifeCycle =
-    Encode.object
-        [ ( "webUrl", toGenericWebUrl request genericScope query |> Encode.string )
-        , ( "impacts", lifeCycle |> Component.applyDurability query.durability |> Impact.encode )
-        , ( "description", genericQueryDescription db query |> Encode.string )
-        , ( "query", Component.encodeQuery query )
+    EU.optionalPropertiesObject
+        [ ( "webUrl", toGenericWebUrl request genericScope query |> Encode.string |> Just )
+        , ( "impacts", lifeCycle |> Component.applyDurability query.durability |> Impact.encode |> Just )
+        , ( "description", genericQueryDescription db query |> Maybe.map Encode.string )
+        , ( "query", Component.encodeQuery query |> Just )
         ]
 
 
-toGenericWebUrl : Request -> Scope.GenericScope -> Component.Query -> String
+toGenericWebUrl : Request -> GenericScope -> Component.Query -> String
 toGenericWebUrl request genericScope query =
     Just query
         |> WebRoute.GenericSimulator genericScope Impact.default
@@ -361,8 +361,7 @@ handleConfiguredRequest config db request =
         Just (Route.GenericGetAssemblyList genericScope) ->
             genericProcessesResponse db
                 genericScope
-                ProcessCategory.Assembly
-                []
+                [ .categories >> List.member ProcessCategory.Assembly ]
 
         Just (Route.GenericGetCatalogList genericScope) ->
             db.components
@@ -380,8 +379,7 @@ handleConfiguredRequest config db request =
         Just (Route.GenericGetConsumptionList genericScope) ->
             genericProcessesResponse db
                 genericScope
-                ProcessCategory.Use
-                []
+                [ .categories >> List.member ProcessCategory.Use ]
 
         Just (Route.GenericGetCountryList genericScope) ->
             db.countries
@@ -392,26 +390,26 @@ handleConfiguredRequest config db request =
         Just (Route.GenericGetDistributionList genericScope) ->
             genericProcessesResponse db
                 genericScope
-                ProcessCategory.Distribution
-                [ .unit >> (==) Process.CubicMeter ]
+                [ .categories >> List.member ProcessCategory.Distribution
+                , .unit >> (==) Process.CubicMeter
+                ]
 
         Just (Route.GenericGetMaterialList genericScope) ->
             genericProcessesResponse db
                 genericScope
-                ProcessCategory.Material
-                [ Process.hasCategory ProcessCategory.Packaging >> not ]
+                [ .categories >> List.member ProcessCategory.Material
+                , Process.hasCategory ProcessCategory.Packaging >> not
+                ]
 
         Just (Route.GenericGetPackagingList genericScope) ->
             genericProcessesResponse db
                 genericScope
-                ProcessCategory.Packaging
-                []
+                [ .categories >> List.member ProcessCategory.Packaging ]
 
         Just (Route.GenericGetTransformList genericScope) ->
             genericProcessesResponse db
                 genericScope
-                ProcessCategory.Transform
-                []
+                [ .categories >> List.member ProcessCategory.Transform ]
 
         Just Route.TextileGetCountryList ->
             db.countries
