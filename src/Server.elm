@@ -61,6 +61,13 @@ type alias JsonResponse =
     ( Int, Encode.Value )
 
 
+type alias GenericRequirements =
+    { config : Component.Config
+    , db : Db
+    , genericScope : GenericScope
+    }
+
+
 apiDocUrl : Request -> String
 apiDocUrl request =
     serverRootUrl request ++ "#/api"
@@ -171,8 +178,8 @@ executeFoodQuery request db encoder =
         >> toResponse request
 
 
-executeGenericQuery : Request -> Db -> Component.Config -> GenericScope -> Component.Query -> JsonResponse
-executeGenericQuery request db config genericScope query =
+executeGenericQuery : GenericRequirements -> Request -> Component.Query -> JsonResponse
+executeGenericQuery { config, db, genericScope } request query =
     query
         |> GenericSimulator.compute
             { config = config
@@ -185,12 +192,11 @@ executeGenericQuery request db config genericScope query =
 
 
 executeTextileQuery : Request -> Db -> Component.Config -> (Simulator -> Encode.Value) -> TextileQuery.Query -> JsonResponse
-executeTextileQuery request db config encoder query =
-    query
-        |> Simulator.compute db config
-        |> Result.mapError Validation.fromErrorString
-        |> Result.map encoder
-        |> toResponse request
+executeTextileQuery request db config encoder =
+    Simulator.compute db config
+        >> Result.mapError Validation.fromErrorString
+        >> Result.map encoder
+        >> toResponse request
 
 
 encodeCountry : Country -> Encode.Value
@@ -309,7 +315,7 @@ cmdRequest : CachedDb -> Request -> Cmd Msg
 cmdRequest { config, db } request =
     let
         ( code, responseBody ) =
-            handleConfiguredRequest config db request
+            handleConfiguredRequest db config request
     in
     sendResponse code request responseBody
 
@@ -326,12 +332,12 @@ handleRequest db request =
             ( 500, Encode.string "Error while loading component configuration" )
 
         Ok config ->
-            handleConfiguredRequest config db request
+            handleConfiguredRequest db config request
 
 
-handleConfiguredRequest : Component.Config -> Db -> Request -> JsonResponse
-handleConfiguredRequest config db request =
-    case Route.endpoint config db request of
+handleConfiguredRequest : Db -> Component.Config -> Request -> JsonResponse
+handleConfiguredRequest db config request =
+    case Route.endpoint db config request of
         -- GET routes
         Just Route.FoodGetCountryList ->
             db.countries
@@ -442,7 +448,7 @@ handleConfiguredRequest config db request =
                 |> respondWith 400
 
         Just (Route.GenericPostSimulator genericScope (Ok query)) ->
-            executeGenericQuery request db config genericScope query
+            query |> executeGenericQuery (GenericRequirements config db genericScope) request
 
         Just (Route.GenericPostSimulator _ (Err error)) ->
             encodeValidationErrors request error

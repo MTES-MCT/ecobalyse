@@ -403,7 +403,7 @@ testEndpoint dbs params body =
     case componentConfig dbs of
         Ok config ->
             createServerRequest dbs params body
-                |> Route.endpoint config dbs
+                |> Route.endpoint dbs config
 
         Err _ ->
             Nothing
