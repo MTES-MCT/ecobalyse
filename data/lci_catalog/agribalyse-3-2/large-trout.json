@@ -2,8 +2,7 @@
   "activityName": "Large trout, 2-4kg, conventional, at farm gate {FR} U",
   "categories": [
     "ingredient",
-    "material",
-    "material_type:fish_and_shellfish"
+    "material"
   ],
   "displayName": "Truite d'élevage FR",
   "id": "cf946224-f726-5923-b0e7-a9e70d596235",

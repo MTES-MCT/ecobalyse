@@ -2,8 +2,7 @@
   "activityName": "Vinegar, balsamic, processed in FR | Ambient (long) | Pack proxy | at packaging {FR} U",
   "categories": [
     "ingredient",
-    "material",
-    "material_type:other_food_items"
+    "material"
   ],
   "displayName": "Vinaigre balsamique FR",
   "id": "1ada0a0e-4dc5-57d9-bf34-60f617c63d9b",

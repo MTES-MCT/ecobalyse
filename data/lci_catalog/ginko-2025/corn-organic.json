@@ -2,8 +2,7 @@
   "activityName": "Maize grain, organic 2025, 28% moisture, national average, animal feed, at farm gate {FR} U",
   "categories": [
     "ingredient",
-    "material",
-    "material_type:cereals"
+    "material"
   ],
   "displayName": "Maïs Bio",
   "id": "6d73f88c-df32-5699-8d43-bfd5151f1e2e",

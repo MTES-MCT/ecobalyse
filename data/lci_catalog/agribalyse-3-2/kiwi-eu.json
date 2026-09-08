@@ -2,8 +2,7 @@
   "activityName": "Kiwi {GLO}| production | Cut-off, U - Adapted from Ecoinvent U",
   "categories": [
     "ingredient",
-    "material",
-    "material_type:fruits_and_vegetables"
+    "material"
   ],
   "displayName": "Kiwi UE",
   "id": "a54c2a40-275b-5b68-a7f6-df81e8cc85d6",

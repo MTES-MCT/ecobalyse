@@ -2,8 +2,7 @@
   "activityName": "Mineral water, still, PET one-way, 1.5 L, at water factory {FR} - Adapted from WFLDB U",
   "categories": [
     "ingredient",
-    "material",
-    "material_type:other_food_items"
+    "material"
   ],
   "displayName": "Eau de source FR",
   "id": "86c135b5-3be1-539b-8abc-1a4ecb83f793",

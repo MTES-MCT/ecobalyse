@@ -2,8 +2,7 @@
   "activityName": "Tomato paste, 30 degrees Brix, for double concentrate, at plant {GLO} - Adapted from WFLDB U",
   "categories": [
     "ingredient",
-    "material",
-    "material_type:other_food_items"
+    "material"
   ],
   "displayName": "Concentré de tomates par défaut",
   "id": "3072909f-a8aa-54c6-997a-d409bd0765f7",

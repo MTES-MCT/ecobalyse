@@ -2,8 +2,7 @@
   "activityName": "Carrot {NL}| carrot production | Cut-off, U - Adapted from Ecoinvent U",
   "categories": [
     "ingredient",
-    "material",
-    "material_type:fruits_and_vegetables"
+    "material"
   ],
   "displayName": "Carotte UE",
   "id": "ee211d20-de3c-5a1f-bf56-8588c12abafb",

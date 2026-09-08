@@ -2,8 +2,7 @@
   "activityName": "Olive {ES}| olive production | Cut-off, U",
   "categories": [
     "ingredient",
-    "material",
-    "material_type:fruits_and_vegetables"
+    "material"
   ],
   "displayName": "Olives FR",
   "id": "c80b7dbb-26fb-5bb1-b8a6-6ddc6dc3afc1",

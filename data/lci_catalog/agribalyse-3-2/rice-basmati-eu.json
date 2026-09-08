@@ -2,8 +2,7 @@
   "activityName": "Basmati rice, consumption mix {FR} U",
   "categories": [
     "ingredient",
-    "material",
-    "material_type:cereals"
+    "material"
   ],
   "displayName": "Riz basmati UE",
   "id": "742f7798-b666-5551-a959-965856c51063",

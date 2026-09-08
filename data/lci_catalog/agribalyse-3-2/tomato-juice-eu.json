@@ -2,8 +2,7 @@
   "activityName": "Tomato juice, pure juice, at processing {ES} U",
   "categories": [
     "ingredient",
-    "material",
-    "material_type:other_food_items"
+    "material"
   ],
   "displayName": "Jus de tomate UE",
   "id": "867503bb-8abb-5fc8-992b-0030f07ba812",

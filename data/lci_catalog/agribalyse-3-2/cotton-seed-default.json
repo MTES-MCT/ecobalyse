@@ -2,8 +2,7 @@
   "activityName": "Seed-cotton {BD}| seed-cotton production, conventional | Cut-off, U - Adapted from Ecoinvent U",
   "categories": [
     "ingredient",
-    "material",
-    "material_type:fruits_and_vegetables"
+    "material"
   ],
   "displayName": "Graine de coton Origine Inconnue",
   "id": "c46bb388-7429-50a4-aafa-6d2017097530",

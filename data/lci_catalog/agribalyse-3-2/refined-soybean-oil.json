@@ -2,8 +2,7 @@
   "activityName": "Soybean oil, refined, at plant {FR} U",
   "categories": [
     "ingredient",
-    "material",
-    "material_type:other_food_items"
+    "material"
   ],
   "displayName": "Huile de soja (raffinée) FR",
   "id": "aa0a0ccc-1598-58a1-bbc8-dc1913fa8cc0",

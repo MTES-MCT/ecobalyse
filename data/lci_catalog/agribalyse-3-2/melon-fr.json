@@ -2,8 +2,7 @@
   "activityName": "Melon, conventional, national average, at farm gate {FR} U",
   "categories": [
     "ingredient",
-    "material",
-    "material_type:fruits_and_vegetables"
+    "material"
   ],
   "displayName": "Melon FR",
   "id": "4111a9a4-48a1-5dd7-9467-c677f36526f7",

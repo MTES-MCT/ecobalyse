@@ -2,8 +2,7 @@
   "activityName": "Cow milk {CA-QC}| milk production, from cow | Cut-off, S - Copied from Ecoinvent U",
   "categories": [
     "ingredient",
-    "material",
-    "material_type:other_food_items"
+    "material"
   ],
   "displayName": "Cow milk (CA-QC)",
   "id": "dceabbbb-f3ff-565b-af5c-80304aa4e14a",

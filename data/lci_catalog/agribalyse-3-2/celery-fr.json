@@ -2,8 +2,7 @@
   "activityName": "Celery {GLO}| 675 production | Cut-off, U - Adapted from Ecoinvent U",
   "categories": [
     "ingredient",
-    "material",
-    "material_type:fruits_and_vegetables"
+    "material"
   ],
   "displayName": "Céleri branche FR",
   "id": "e43c0236-b838-54cc-b0fd-1682e560c5c9",

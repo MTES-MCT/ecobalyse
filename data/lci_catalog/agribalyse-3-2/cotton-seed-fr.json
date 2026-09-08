@@ -2,8 +2,7 @@
   "activityName": "Seed-cotton {RoW}| seed-cotton production, conventional | Cut-off, U - Adapted from Ecoinvent U",
   "categories": [
     "ingredient",
-    "material",
-    "material_type:fruits_and_vegetables"
+    "material"
   ],
   "displayName": "Graine de coton FR",
   "id": "fa1095a5-4727-54c5-9c81-7802bd6b4d89",

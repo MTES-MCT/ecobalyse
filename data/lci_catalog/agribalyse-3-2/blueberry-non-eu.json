@@ -2,8 +2,7 @@
   "activityName": "Blueberry, at farm {CA} - Adapted from WFLDB U",
   "categories": [
     "ingredient",
-    "material",
-    "material_type:fruits_and_vegetables"
+    "material"
   ],
   "displayName": "Myrtille par défaut",
   "id": "f42f7ae6-af44-5a02-b421-76bba5ea2183",

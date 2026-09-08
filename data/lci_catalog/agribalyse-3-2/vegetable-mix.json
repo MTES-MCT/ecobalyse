@@ -2,8 +2,7 @@
   "activityName": "Diced mixed vegetables, canned, recipe, at plant {FR} U",
   "categories": [
     "ingredient",
-    "material",
-    "material_type:fruits_and_vegetables"
+    "material"
   ],
   "displayName": "Mélange de légumes",
   "id": "7dffda5e-1e8e-5e97-9005-07fb20bef5a6",

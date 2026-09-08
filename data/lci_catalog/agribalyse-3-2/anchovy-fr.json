@@ -2,8 +2,7 @@
   "activityName": "Anchovy, consumption mix {FR} U",
   "categories": [
     "ingredient",
-    "material",
-    "material_type:fish_and_shellfish"
+    "material"
   ],
   "displayName": "Anchois FR",
   "id": "4980f239-131e-54a6-b7dc-a16823f5c9d2",

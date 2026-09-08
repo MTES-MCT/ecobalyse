@@ -2,8 +2,7 @@
   "activityName": "Pineapple, at farm {CR} - Adapted from WFLDB U",
   "categories": [
     "ingredient",
-    "material",
-    "material_type:fruits_and_vegetables"
+    "material"
   ],
   "displayName": "Ananas FR Outre-Mer",
   "id": "049e074f-f883-5aa9-a303-83fb4baf0df7",

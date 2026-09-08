@@ -2,8 +2,7 @@
   "activityName": "Sunflower oil, at oil mill {GLO} - Adapted from WFLDB U",
   "categories": [
     "ingredient",
-    "material",
-    "material_type:other_food_items"
+    "material"
   ],
   "displayName": "Huile de tournesol par défaut",
   "id": "0065536b-4fd4-592d-a4dd-d82a0a2bd8e2",

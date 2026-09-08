@@ -2,8 +2,7 @@
   "activityName": "Apple, conventional, national average, at orchard {FR} U",
   "categories": [
     "ingredient",
-    "material",
-    "material_type:fruits_and_vegetables"
+    "material"
   ],
   "displayName": "Pomme FR",
   "id": "89897143-e8e9-569c-93cb-f41e1fa51f9d",

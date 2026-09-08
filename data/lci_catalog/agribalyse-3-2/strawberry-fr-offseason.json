@@ -2,8 +2,7 @@
   "activityName": "Strawberry, soilless protected crops, heated, conventional, at farm gate {FR} U",
   "categories": [
     "ingredient",
-    "material",
-    "material_type:fruits_and_vegetables"
+    "material"
   ],
   "displayName": "Fraise hors saison FR",
   "id": "cb853b96-275b-5a2c-bfcb-8b1b0a867691",

@@ -2,8 +2,7 @@
   "activityName": "Cherry, conventional, national average, at orchard {FR} U",
   "categories": [
     "ingredient",
-    "material",
-    "material_type:fruits_and_vegetables"
+    "material"
   ],
   "displayName": "Cerise FR",
   "id": "0a71f9e5-6368-5a12-ac7f-4040d88a2222",

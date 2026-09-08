@@ -2,8 +2,7 @@
   "activityName": "Breakfast cereals, rich in fibre, with chocolate, fortified with vitamins and chemical elements, recipe, at plant {FR} U",
   "categories": [
     "ingredient",
-    "material",
-    "material_type:cereals"
+    "material"
   ],
   "displayName": "Mélange de céréales FR",
   "id": "6723a379-33f1-5571-ad41-5fb83ed6fd41",

@@ -2,8 +2,7 @@
   "activityName": "Raclette cheese, variant 1, CMAPS {GLO} U",
   "categories": [
     "ingredient",
-    "material",
-    "material_type:other_food_items"
+    "material"
   ],
   "displayName": "Raclette (fromage) FR",
   "id": "863fc139-2b67-47c1-a91c-e3e11aefc938",

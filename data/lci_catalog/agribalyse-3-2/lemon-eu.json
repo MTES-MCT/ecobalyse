@@ -2,8 +2,7 @@
   "activityName": "Lemon {ES}| lemon production | Cut-off, U - Adapted from Ecoinvent U",
   "categories": [
     "ingredient",
-    "material",
-    "material_type:fruits_and_vegetables"
+    "material"
   ],
   "displayName": "Citron UE",
   "id": "43389eb0-7495-5b8c-9e1d-effb41a5b82d",

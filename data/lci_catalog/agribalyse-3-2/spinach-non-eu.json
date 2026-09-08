@@ -2,8 +2,7 @@
   "activityName": "Spinach {GLO}| production | Cut-off, U - Adapted from Ecoinvent U",
   "categories": [
     "ingredient",
-    "material",
-    "material_type:fruits_and_vegetables"
+    "material"
   ],
   "displayName": "Epinard par défaut",
   "id": "543622a6-3e36-58cd-b77c-66c678eb7959",

@@ -2,8 +2,7 @@
   "activityName": "Salmon, fillet, raw, at processing {FR} U",
   "categories": [
     "ingredient",
-    "material",
-    "material_type:other_food_items"
+    "material"
   ],
   "displayName": "Saumon cru UE",
   "id": "b11a9236-ae0e-5426-a68a-822f771a3335",

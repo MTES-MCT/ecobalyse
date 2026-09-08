@@ -2,8 +2,7 @@
   "activityName": "Carrot, conventional, national average, at farm gate {FR} U",
   "categories": [
     "ingredient",
-    "material",
-    "material_type:fruits_and_vegetables"
+    "material"
   ],
   "displayName": "Carotte FR",
   "id": "0d80b8b8-1afc-505c-9195-e030e53857a9",

@@ -2,8 +2,7 @@
   "activityName": "Emmental cheese, from cow's milk, at plant {FR} U",
   "categories": [
     "ingredient",
-    "material",
-    "material_type:other_food_items"
+    "material"
   ],
   "displayName": "Emmental FR",
   "id": "c6051714-549e-540b-9f88-9d7c34c82ec8",

@@ -2,8 +2,7 @@
   "activityName": "Potato, at farm (WFLDB)",
   "categories": [
     "ingredient",
-    "material",
-    "material_type:fruits_and_vegetables"
+    "material"
   ],
   "displayName": "Pomme de terre de table UE",
   "id": "22dbe2d5-b300-5ccb-be44-88aa86c9c545",

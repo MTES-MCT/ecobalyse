@@ -2,8 +2,7 @@
   "activityName": "Iceberg lettuce {GLO}| production | Cut-off, U - Adapted from Ecoinvent U",
   "categories": [
     "ingredient",
-    "material",
-    "material_type:fruits_and_vegetables"
+    "material"
   ],
   "displayName": "Laitue UE",
   "id": "0fd37188-1f5c-52cf-97c9-76347567f38d",

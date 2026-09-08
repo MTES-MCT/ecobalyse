@@ -2,8 +2,7 @@
   "activityName": "Oat flour, variant 1, CMAPS {GLO} U",
   "categories": [
     "ingredient",
-    "material",
-    "material_type:other_food_items"
+    "material"
   ],
   "displayName": "Farine d'avoine FR",
   "id": "caac2379-42c7-40c1-9aeb-2f4217288676",

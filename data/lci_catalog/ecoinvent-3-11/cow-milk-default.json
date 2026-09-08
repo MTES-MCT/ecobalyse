@@ -2,8 +2,7 @@
   "activityName": "Cow milk {RoW}| milk production, from cow | Cut-off, U",
   "categories": [
     "ingredient",
-    "material",
-    "material_type:other_food_items"
+    "material"
   ],
   "displayName": "Lait de vache Origine Inconnue",
   "id": "a93d427a-31e7-5c56-a363-cffae671d90f",

@@ -48,7 +48,9 @@
     "activityName": "_22 Vegetable and animal oils and fats, EU27",
     "alias": "bean-fr",
     "categories": [
-      "ingredient"
+      "ingredient",
+      "material_type:legumes",
+      "transported_cooled"
     ],
     "comment": "",
     "displayName": "Pois FR",
@@ -107,7 +109,8 @@
     "activityName": "_22 Vegetable and animal oils and fats, EU27",
     "alias": "grazed-grass-permanent-2025",
     "categories": [
-      "ingredient"
+      "ingredient",
+      "material_type:other_food_items"
     ],
     "comment": "",
     "displayName": "Herbe de prairie permanente FR",
@@ -164,7 +167,8 @@
     "activityName": "_22 Vegetable and animal oils and fats, EU27",
     "alias": "milk",
     "categories": [
-      "ingredient"
+      "ingredient",
+      "material_type:other_food_items"
     ],
     "comment": "",
     "displayName": "Lait FR",

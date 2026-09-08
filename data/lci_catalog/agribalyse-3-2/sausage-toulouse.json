@@ -2,8 +2,7 @@
   "activityName": "Toulouse sausage, raw, recipe, at plant {FR} U",
   "categories": [
     "ingredient",
-    "material",
-    "material_type:red_meats"
+    "material"
   ],
   "displayName": "Saucisse de Toulouse (crue) FR",
   "id": "5f6559d9-1fa7-56ea-b655-bbd471c11a43",

@@ -2,8 +2,7 @@
   "activityName": "Cranberry, at farm {CL} - Adapted from WFLDB U",
   "categories": [
     "ingredient",
-    "material",
-    "material_type:fruits_and_vegetables"
+    "material"
   ],
   "displayName": "Canneberge FR",
   "id": "6c1700db-d7ef-5307-933d-8dc73b6fcc94",

@@ -2,8 +2,7 @@
   "activityName": "Mozzarella, cow milk, variant 2, CMAPS {GLO} U",
   "categories": [
     "ingredient",
-    "material",
-    "material_type:other_food_items"
+    "material"
   ],
   "displayName": "Mozzarella au lait de vache Origine Inconnue",
   "id": "cd275278-5182-4380-ae4b-c973f4401d13",

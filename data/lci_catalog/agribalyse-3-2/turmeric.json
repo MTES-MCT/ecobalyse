@@ -2,8 +2,7 @@
   "activityName": "Turmeric, consumption mix {FR} U",
   "categories": [
     "ingredient",
-    "material",
-    "material_type:other_food_items"
+    "material"
   ],
   "displayName": "Curcuma par défaut",
   "id": "e9f00d47-7c55-579b-9a9f-3ab02e3a3079",

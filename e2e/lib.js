@@ -1,18 +1,22 @@
 import { expect } from "@playwright/test";
 
+const MAILDEV_API = "http://localhost:1081/api";
+
 export async function checkEmails() {
-  const res = await fetch("http://localhost:1081/email");
+  const res = await fetch(`${MAILDEV_API}/email`);
   const emails = await res.json();
   return emails.reverse();
 }
 
 export async function deleteAllEmails() {
-  const res = await fetch("http://localhost:1081/email/all", { method: "DELETE" });
+  const res = await fetch(`${MAILDEV_API}/email/all`, { method: "DELETE" });
   return await res.json();
 }
 
 export async function expectNotification(page, message) {
-  await expect(page.locator(".ToastTray").getByText(message)).toBeVisible();
+  // this can be astonishingly slow, sometimes because new massive detailed data are downloaded,
+  // which may be super slow in CI infrastructure
+  await expect(page.locator(".ToastTray").getByText(message)).toBeVisible({ timeout: 20_000 });
   // immediately close the notification to avoid unwanted accumulation
   await page.locator(".ToastTray").locator("button", { name: "Fermer" }).nth(0).click();
 }
@@ -42,7 +46,7 @@ export async function loginUser(page, email) {
   await expect(page.getByText("Email de connexion envoyé")).toBeVisible();
 
   expect(lastEmail.subject).toContain("Lien de connexion à Ecobalyse");
-  expect(lastEmail.headers.to).toBe(email);
+  expect(lastEmail.to[0].address).toBe(email);
   const links = extractUrlsFromText(lastEmail.text).filter((url) => url.includes("/auth/"));
   expect(links).toHaveLength(1);
 
@@ -82,7 +86,7 @@ export async function registerAndLoginUser(
   await expect(page.getByText("Email de connexion envoyé")).toBeVisible();
 
   expect(lastEmail.subject).toContain("Lien de connexion à Ecobalyse");
-  expect(lastEmail.headers.to).toBe(email);
+  expect(lastEmail.to[0].address).toBe(email);
   const links = extractUrlsFromText(lastEmail.text).filter((url) => url.includes("/auth/"));
   expect(links).toHaveLength(1);
 
@@ -106,6 +110,11 @@ export async function waitFor(conditionFn, pollInterval = 50, timeoutAfter) {
       await new Promise((resolve) => setTimeout(resolve, pollInterval));
     }
   }
+}
+
+export async function waitForAppReady(page) {
+  // Note: initial app data loading may be super slow in CI infrastructure
+  await expect(page).not.toHaveTitle(/Chargement des données/, { timeout: 20_000 });
 }
 
 // Run an action that triggers a transactional email and return that email.

@@ -2,8 +2,7 @@
   "activityName": "Extra Virgin Olive Oil, consumption mix {FR} U",
   "categories": [
     "ingredient",
-    "material",
-    "material_type:other_food_items"
+    "material"
   ],
   "displayName": "Huile d'olive UE",
   "id": "7cec809d-b5dc-560b-bb8f-0c9e14f74dfc",

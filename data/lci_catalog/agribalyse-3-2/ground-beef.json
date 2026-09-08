@@ -2,8 +2,7 @@
   "activityName": "Ground beef, fresh, case ready, for direct consumption, at plant {FR} U",
   "categories": [
     "ingredient",
-    "material",
-    "material_type:red_meats"
+    "material"
   ],
   "displayName": "Boeuf haché cru FR",
   "id": "149ac87d-7e47-56c6-a39a-e6b5cf8dea56",

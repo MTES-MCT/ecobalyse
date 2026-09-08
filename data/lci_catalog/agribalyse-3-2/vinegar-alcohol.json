@@ -2,8 +2,7 @@
   "activityName": "Vinegar alcohol, consumption mix {FR} U",
   "categories": [
     "ingredient",
-    "material",
-    "material_type:other_food_items"
+    "material"
   ],
   "displayName": "Vinaigre d'alcool FR",
   "id": "9aa797a6-7eba-5b2f-af18-79df36032ebb",

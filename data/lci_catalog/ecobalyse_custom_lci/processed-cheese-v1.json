@@ -2,8 +2,7 @@
   "activityName": "Processed cheese, variant 1, CMAPS {GLO} U",
   "categories": [
     "ingredient",
-    "material",
-    "material_type:other_food_items"
+    "material"
   ],
   "displayName": "Fromage fondu FR",
   "id": "336dd311-926b-465b-9555-786b442a3edc",

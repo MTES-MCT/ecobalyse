@@ -2,8 +2,7 @@
   "activityName": "Barley flour, import WFLDB, CMAPS {FR} U",
   "categories": [
     "ingredient",
-    "material",
-    "material_type:other_food_items"
+    "material"
   ],
   "displayName": "Farine d'orge Origine Inconnue",
   "id": "12712421-5454-400e-82b5-9e4dcb66d650",

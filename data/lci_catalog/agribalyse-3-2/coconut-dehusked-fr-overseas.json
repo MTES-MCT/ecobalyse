@@ -2,8 +2,7 @@
   "activityName": "Coconut, dehusked {ID}| coconut production, dehusked | Cut-off, U - Adapted from Ecoinvent U",
   "categories": [
     "ingredient",
-    "material",
-    "material_type:other_food_items"
+    "material"
   ],
   "displayName": "Noix de coco décortiquée FR Outre-Mer",
   "id": "165ee2e7-f4a7-556b-a965-32c7ae320c53",

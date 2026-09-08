@@ -2,8 +2,7 @@
   "activityName": "Broiler, conventional, at farm gate {FR} U {{meat-without-bone-chicken-direct-consumption-only-soybean-max}}",
   "categories": [
     "ingredient",
-    "material",
-    "material_type:poultry"
+    "material"
   ],
   "displayName": "Poulet Origine Inconnue",
   "id": "877499d7-7a29-58f6-8a0d-e1eef40b2ec4",
