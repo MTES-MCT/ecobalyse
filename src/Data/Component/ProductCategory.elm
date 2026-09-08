@@ -4,6 +4,7 @@ module Data.Component.ProductCategory exposing
     , ProductCategory
     , decodeId
     , decodeListFromJsonString
+    , encode
     , encodeId
     , findById
     , findByScope
@@ -13,6 +14,7 @@ module Data.Component.ProductCategory exposing
     )
 
 import Data.Common.DecodeUtils as DU
+import Data.Common.EncodeUtils as EU
 import Data.Component.Amount as Amount exposing (Amount)
 import Data.Process as Process
 import Data.Scope as Scope
@@ -96,6 +98,38 @@ decodeListFromJsonString : String -> Result String (List ProductCategory)
 decodeListFromJsonString =
     Decode.decodeString decodeList
         >> Result.mapError Decode.errorToString
+
+
+encode : ProductCategory -> Encode.Value
+encode product =
+    EU.optionalPropertiesObject
+        [ ( "id", encodeId product.id |> Just )
+        , ( "label", Encode.string product.label |> Just )
+        , ( "assembly"
+          , if List.isEmpty product.assembly then
+                Nothing
+
+            else
+                Encode.list Process.encodeId product.assembly |> Just
+          )
+        , ( "consumptions"
+          , if List.isEmpty product.consumptions then
+                Nothing
+
+            else
+                Encode.list encodeDefaultConsumption product.consumptions |> Just
+          )
+        , ( "cooling", Encode.bool product.cooling |> Just )
+        , ( "distribution", product.distribution |> Maybe.map Process.encodeId )
+        ]
+
+
+encodeDefaultConsumption : DefaultConsumption -> Encode.Value
+encodeDefaultConsumption { amount, processId } =
+    EU.optionalPropertiesObject
+        [ ( "processId", Process.encodeId processId |> Just )
+        , ( "amount", amount |> Maybe.map Amount.encode )
+        ]
 
 
 encodeId : Id -> Encode.Value
