@@ -56,7 +56,16 @@ getApiServerUrl { clientUrl } =
 
 changelog : List News
 changelog =
-    [ { date = "23 février 2026"
+    [ { date = "7 septembre 2026"
+      , level = "minor"
+      , domains = [ "Alimentaire", "Objets", "Véhicules" ]
+      , md = """Ajout de l’API du calculateur générique pour les périmètres `food2`, `object` et `veli`\u{00A0}:
+
+- `POST /api/{scope}/simulator` calcule les impacts à partir d’une requête JSON identique à celle du simulateur web
+- des points d’accès `GET` listent les ressources nécessaires pour construire une requête (ingrédients/matériaux, pays, catégories, procédés)
+"""
+      }
+    , { date = "23 février 2026"
       , level = "minor"
       , domains = [ "Textile" ]
       , md = """Ajout de l'impact des accessoires textiles dans les réponses de l’API."""
@@ -579,7 +588,7 @@ view session =
             [ h1 [ class "mb-3" ] [ text "API Ecobalyse" ]
             , div [ class "row" ]
                 [ div [ class "col-xl-8 d-flex flex-column gap-3" ]
-                    [ """L'API HTTP Ecobalyse permet de calculer les impacts environnementaux des produits textiles et alimentaires. """
+                    [ """L'API HTTP Ecobalyse permet de calculer les impacts environnementaux des produits textiles, alimentaires, objets et véhicules. """
                         |> Markdown.simple [ class "fw-bold" ]
                     , p [ class "mb-0" ]
                         [ text "Elle est accessible à l'adresse "
