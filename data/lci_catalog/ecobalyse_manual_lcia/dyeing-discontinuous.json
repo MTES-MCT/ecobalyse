@@ -1,8 +1,6 @@
 {
   "activityName": "Teinture en discontinu",
-  "categories": [
-    "transformation"
-  ],
+  "categories": ["transformation"],
   "comment": "",
   "displayName": "Teinture en discontinu",
   "elecKwh": 1.2,
@@ -30,9 +28,7 @@
     "wtu": 0
   },
   "qtyVariationRatio": 1,
-  "scopes": [
-    "textile"
-  ],
+  "scopes": ["textile"],
   "source": "Ecobalyse_manual_lcia",
   "unit": "kg"
 }

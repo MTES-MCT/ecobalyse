@@ -1,7 +1,5 @@
 {
-  "categories": [
-    "transformation"
-  ],
+  "categories": ["transformation"],
   "comment": "Ancien identifiant (12/2024): 9c478d79-ff6b-45e1-9396-c3bd897faa1d.",
   "displayName": "Tricotage moyen (mix de métiers circulaire & rectiligne)",
   "elecKwh": 2.4,
@@ -29,9 +27,7 @@
     "wtu": 0
   },
   "qtyVariationRatio": 0.94554,
-  "scopes": [
-    "textile"
-  ],
+  "scopes": ["textile"],
   "source": "Ecobalyse_manual_lcia",
   "unit": "kg"
 }

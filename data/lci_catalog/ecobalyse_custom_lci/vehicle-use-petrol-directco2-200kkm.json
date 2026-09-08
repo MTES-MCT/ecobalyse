@@ -1,25 +1,16 @@
 {
   "activityName": "Petrol E10, direct CO2 emissions, 200 000 km",
-  "categories": [
-    "use"
-  ],
+  "categories": ["use"],
   "comment": "Emissions directes de CO2 sur la durée de vie, pour une consommation de 1L/100km et une durée de vie de 200 000 km.",
   "displayName": "Essence E10, pour 100km, émissions directes de CO2 - kilométrage de 200 000 km",
   "elecKwh": 0.0,
   "heatMJ": 0,
   "id": "7f4f7a90-ed14-4677-9679-1814f2219cd1",
   "metadata": [
-    {
-      "id": "28f048f7-9496-4f46-a536-fed45ee73f45",
-      "scopes": [
-        "veli"
-      ]
-    }
+    { "id": "28f048f7-9496-4f46-a536-fed45ee73f45", "scopes": ["veli"] }
   ],
   "qtyVariationRatio": 1,
-  "scopes": [
-    "veli"
-  ],
+  "scopes": ["veli"],
   "source": "Ecobalyse_custom_lci",
   "unit": "L"
 }

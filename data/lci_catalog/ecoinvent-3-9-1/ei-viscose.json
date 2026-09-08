@@ -1,9 +1,6 @@
 {
   "activityName": "fibre, viscose//[GLO] market for fibre, viscose",
-  "categories": [
-    "material",
-    "textile_material"
-  ],
+  "categories": ["material", "textile_material"],
   "comment": "Ancien identifiant (12/2024): f89bba0c170190e003fa3f643591cca5.",
   "displayName": "Fibre de viscose",
   "elecKwh": 0.0,
@@ -19,15 +16,11 @@
       "name": "Viscose",
       "origin": "ArtificialFromOrganic",
       "primary": true,
-      "scopes": [
-        "textile"
-      ]
+      "scopes": ["textile"]
     }
   ],
   "qtyVariationRatio": 1,
-  "scopes": [
-    "textile"
-  ],
+  "scopes": ["textile"],
   "source": "Ecoinvent 3.9.1",
   "unit": "kg"
 }

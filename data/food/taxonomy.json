@@ -22,10 +22,7 @@
       "spelt",
       "triticale"
     ],
-    "eggs": [
-      "egg",
-      "egg-without-shell"
-    ],
+    "eggs": ["egg", "egg-without-shell"],
     "fish_and_shellfish": [
       "anchovy",
       "crab",
@@ -366,14 +363,7 @@
       "yogurt",
       "sea-salt"
     ],
-    "poultry": [
-      "broiler",
-      "chicken-breast",
-      "poultry",
-      "rabbit",
-      "turkey",
-      "unknown-white-meat"
-    ],
+    "poultry": ["broiler", "chicken-breast", "poultry", "rabbit", "turkey", "unknown-white-meat"],
     "red_meats": [
       "beef",
       "ground-beef",

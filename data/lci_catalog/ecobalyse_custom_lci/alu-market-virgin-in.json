@@ -1,28 +1,16 @@
 {
   "activityName": "aluminium ingot, virgin, market, IN",
-  "categories": [
-    "material",
-    "material_type:aluminium"
-  ],
+  "categories": ["material", "material_type:aluminium"],
   "comment": "https://fabrique-numerique.gitbook.io/ecobalyse/methodes-transverses/production/procedes-acier-et-aluminium",
   "displayName": "Aluminium vierge, lingot, mix marché, Inde",
   "elecKwh": 0.0,
   "heatMJ": 0,
   "id": "e1ab1dc3-fa30-58d9-b211-779f3a426200",
   "metadata": [
-    {
-      "id": "81103034-fa68-4329-b092-0e86c4c297e4",
-      "scopes": [
-        "object",
-        "veli"
-      ]
-    }
+    { "id": "81103034-fa68-4329-b092-0e86c4c297e4", "scopes": ["object", "veli"] }
   ],
   "qtyVariationRatio": 1,
-  "scopes": [
-    "object",
-    "veli"
-  ],
+  "scopes": ["object", "veli"],
   "source": "Ecobalyse_custom_lci",
   "unit": "kg"
 }

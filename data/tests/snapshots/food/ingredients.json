@@ -3,19 +3,11 @@
     "activityName": "_18 Meat products, Poultry and meat n.e.c., DK",
     "alias": "milk-organic",
     "baseIngredient": "milk",
-    "categories": [
-      "dairy_product",
-      "organic"
-    ],
+    "categories": ["dairy_product", "organic"],
     "cropGroup": null,
     "defaultOrigin": "France",
     "density": 1.0,
-    "ecosystemicServices": {
-      "cropDiversity": 0,
-      "hedges": 3.42,
-      "permanentPasture": 2.18,
-      "plotSize": 4.45
-    },
+    "ecosystemicServices": { "cropDiversity": 0, "hedges": 3.42, "permanentPasture": 2.18, "plotSize": 4.45 },
     "id": "2bf307e8-8cb0-400b-a4f1-cf615d9e96f4",
     "inediblePart": 0,
     "landOccupation": 1.751,
@@ -31,19 +23,11 @@
     "activityName": "_18 Meat products, Poultry and meat n.e.c., DK",
     "alias": "ground-beef-grass-fed",
     "baseIngredient": "ground-beef",
-    "categories": [
-      "animal_product",
-      "organic"
-    ],
+    "categories": ["animal_product", "organic"],
     "cropGroup": null,
     "defaultOrigin": "France",
     "density": 1.0,
-    "ecosystemicServices": {
-      "cropDiversity": 0,
-      "hedges": 4.85,
-      "permanentPasture": 7.28,
-      "plotSize": 4.45
-    },
+    "ecosystemicServices": { "cropDiversity": 0, "hedges": 4.85, "permanentPasture": 7.28, "plotSize": 4.45 },
     "id": "3fd1b6d5-58d9-40eb-b215-d2e8c2876a5f",
     "inediblePart": 0,
     "landOccupation": 0.02229,
@@ -59,19 +43,11 @@
     "activityName": "__4 Grain crops, DK",
     "alias": "egg-bleublanccoeur",
     "baseIngredient": "egg",
-    "categories": [
-      "animal_product",
-      "bleublanccoeur"
-    ],
+    "categories": ["animal_product", "bleublanccoeur"],
     "cropGroup": null,
     "defaultOrigin": "France",
     "density": 1.0,
-    "ecosystemicServices": {
-      "cropDiversity": 0,
-      "hedges": 4.85,
-      "permanentPasture": 7.28,
-      "plotSize": 4.45
-    },
+    "ecosystemicServices": { "cropDiversity": 0, "hedges": 4.85, "permanentPasture": 7.28, "plotSize": 4.45 },
     "id": "7ef7399a-1d56-4947-b773-9f6438a50fda",
     "inediblePart": 0.2,
     "landOccupation": 4.468,
@@ -87,18 +63,11 @@
     "activityName": "_22 Vegetable and animal oils and fats, EU27",
     "alias": "milk",
     "baseIngredient": "milk",
-    "categories": [
-      "dairy_product"
-    ],
+    "categories": ["dairy_product"],
     "cropGroup": null,
     "defaultOrigin": "France",
     "density": 1.0,
-    "ecosystemicServices": {
-      "cropDiversity": 0,
-      "hedges": 2.81,
-      "permanentPasture": 0,
-      "plotSize": 4.45
-    },
+    "ecosystemicServices": { "cropDiversity": 0, "hedges": 2.81, "permanentPasture": 0, "plotSize": 4.45 },
     "id": "8f3863e7-f981-4367-90a2-e1aaa096a6e0",
     "inediblePart": 0,
     "landOccupation": 1.391,
@@ -114,18 +83,11 @@
     "activityName": "_22 Vegetable and animal oils and fats, EU27",
     "alias": "bean-fr",
     "baseIngredient": "bean",
-    "categories": [
-      "grain_raw"
-    ],
+    "categories": ["grain_raw"],
     "cropGroup": "AUTRES CEREALES",
     "defaultOrigin": "France",
     "density": 1.0,
-    "ecosystemicServices": {
-      "cropDiversity": 0,
-      "hedges": 2.81,
-      "permanentPasture": null,
-      "plotSize": 4.45
-    },
+    "ecosystemicServices": { "cropDiversity": 0, "hedges": 2.81, "permanentPasture": null, "plotSize": 4.45 },
     "id": "bfdf1505-8426-499e-8286-a1e4b4920c7e",
     "inediblePart": 0,
     "landOccupation": 1.0,
@@ -145,12 +107,7 @@
     "cropGroup": "PRAIRIES PERMANENTES",
     "defaultOrigin": "France",
     "density": 1.0,
-    "ecosystemicServices": {
-      "cropDiversity": 0,
-      "hedges": 4.85,
-      "permanentPasture": null,
-      "plotSize": 4.45
-    },
+    "ecosystemicServices": { "cropDiversity": 0, "hedges": 4.85, "permanentPasture": null, "plotSize": 4.45 },
     "id": "c88d387e-8435-4741-b742-0094dbdcee45",
     "inediblePart": 0,
     "landOccupation": 1.0,

@@ -1,7 +1,5 @@
 {
-  "categories": [
-    "transformation"
-  ],
+  "categories": ["transformation"],
   "comment": "Ancien identifiant (12/2024): 6524ac1e-cc95-4b5a-b462-2fccad7a0bce.",
   "displayName": "Tricotage fully-fashioned",
   "elecKwh": 1.6846,
@@ -29,9 +27,7 @@
     "wtu": 0
   },
   "qtyVariationRatio": 0.995,
-  "scopes": [
-    "textile"
-  ],
+  "scopes": ["textile"],
   "source": "Ecobalyse_manual_lcia",
   "unit": "kg"
 }
