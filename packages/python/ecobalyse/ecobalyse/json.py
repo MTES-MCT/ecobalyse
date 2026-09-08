@@ -20,16 +20,14 @@ class CompactJSONEncoder(json.JSONEncoder):
     MAX_ITEMS = 10
     """Maximum number of items in container that might be put on single line."""
 
-    NUMBER_PRECISION = None
-    """Number of significant digits to keep for floats (and ints). None disables formatting."""
-
     def __init__(self, *args, number_precision=None, **kwargs):
         # using this class without indentation is pointless
         if kwargs.get("indent") is None:
             kwargs["indent"] = 4
         super().__init__(*args, **kwargs)
         self.indentation_level = 0
-        self.NUMBER_PRECISION = number_precision
+        """Number of significant digits to keep for floats (and ints). None disables formatting."""
+        self.number_precision = number_precision
 
     def encode(self, o):
         """Encode JSON object *o* with respect to single line lists and number formatting."""
@@ -55,11 +53,11 @@ class CompactJSONEncoder(json.JSONEncoder):
         # in python, bools are a subclass of int, so we should check explicitly
         # if obj is not a bool, otherwise it will be converted to a float...
         if isinstance(o, (int, float)) and not isinstance(o, bool):
-            if self.NUMBER_PRECISION is None:
+            if self.number_precision is None:
                 return o
             if o == 0:
                 return 0
-            return float(f"{o:.{self.NUMBER_PRECISION}g}")
+            return float(f"{o:.{self.number_precision}g}")
         elif isinstance(o, dict):
             return {k: self._format_value(v) for k, v in o.items()}
         elif isinstance(o, (list, tuple)):
