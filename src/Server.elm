@@ -7,6 +7,7 @@ port module Server exposing
 
 import Data.Common.EncodeUtils as EU
 import Data.Component as Component exposing (Component)
+import Data.Component.ProductCategory as ProductCategory
 import Data.Country exposing (Country)
 import Data.Country.Code as CountryCode
 import Data.Db exposing (Db)
@@ -14,6 +15,7 @@ import Data.Food.Ingredient as Ingredient
 import Data.Food.Origin as Origin
 import Data.Food.Query as FoodQuery
 import Data.Food.Recipe as Recipe
+import Data.Generic.Simulator as GenericSimulator
 import Data.Impact as Impact
 import Data.Impact.Definition as Definition
 import Data.Process as Process exposing (Process)
@@ -152,6 +154,24 @@ executeFoodQuery request db encoder =
         >> toResponse request
 
 
+executeGenericQuery : Request -> Db -> Scope.GenericScope -> Component.Query -> JsonResponse
+executeGenericQuery request db genericScope query =
+    Component.parseConfig db StaticJson.componentConfigJson
+        |> Result.map
+            (\config ->
+                query
+                    |> GenericSimulator.compute
+                        { config = config
+                        , db = db
+                        , scope = Scope.Generic genericScope
+                        }
+                    |> Result.mapError Validation.fromErrorString
+                    |> Result.map (toGenericResults request db genericScope query)
+                    |> toResponse request
+            )
+        |> Result.withDefault ( 500, Encode.string "Error while loading generic configuration" )
+
+
 executeTextileQuery : Request -> Db -> (Simulator -> Encode.Value) -> TextileQuery.Query -> JsonResponse
 executeTextileQuery request db encoder query =
     Component.parseConfig db StaticJson.componentConfigJson
@@ -163,7 +183,7 @@ executeTextileQuery request db encoder query =
                     |> Result.map encoder
                     |> toResponse request
             )
-        |> Result.withDefault ( 500, Encode.string "Impossible de charger la configuration des composants" )
+        |> Result.withDefault ( 500, Encode.string "Error while loading generic configuration" )
 
 
 encodeCountry : Country -> Encode.Value
@@ -206,9 +226,13 @@ encodeComponent { id, name } =
         ]
 
 
-encodeProcessList : List Process -> Encode.Value
-encodeProcessList =
-    Encode.list encodeProcess
+encodeGenericProcess : Process -> Encode.Value
+encodeGenericProcess process =
+    Encode.object
+        [ ( "id", process.id |> Process.idToString |> Encode.string )
+        , ( "name", process |> Process.getDisplayName |> Encode.string )
+        , ( "unit", process.unit |> Process.unitToString |> Encode.string )
+        ]
 
 
 encodeIngredient : Ingredient.Ingredient -> Encode.Value
@@ -223,6 +247,55 @@ encodeIngredient ingredient =
 encodeIngredients : List Ingredient.Ingredient -> Encode.Value
 encodeIngredients ingredients =
     Encode.list encodeIngredient ingredients
+
+
+encodeProcessList : List Process -> Encode.Value
+encodeProcessList =
+    Encode.list encodeProcess
+
+
+genericProcessesResponse :
+    Db
+    -> Scope.GenericScope
+    -> ProcessCategory.Category
+    -- FIXME: we should handle a list of extra filters here
+    -> (Process -> Bool)
+    -> JsonResponse
+genericProcessesResponse db genericScope category extraFilter =
+    db.processes
+        |> List.filter .visible
+        |> Scope.anyOf [ Scope.Generic genericScope ]
+        |> Process.listByCategory category
+        |> List.filter extraFilter
+        |> List.sortBy Process.getDisplayName
+        |> Encode.list encodeGenericProcess
+        |> respondWith 200
+
+
+genericQueryDescription : Db -> Component.Query -> String
+genericQueryDescription db query =
+    query.product
+        |> Maybe.andThen (\id -> db.products |> ProductCategory.findById id |> Result.toMaybe)
+        |> Maybe.map .label
+        |> Maybe.withDefault "Untitled simulation"
+
+
+toGenericResults : Request -> Db -> Scope.GenericScope -> Component.Query -> Component.LifeCycle -> Encode.Value
+toGenericResults request db genericScope query lifeCycle =
+    Encode.object
+        [ ( "webUrl", toGenericWebUrl request genericScope query |> Encode.string )
+        , ( "impacts", lifeCycle |> Component.applyDurability query.durability |> Impact.encode )
+        , ( "description", genericQueryDescription db query |> Encode.string )
+        , ( "query", Component.encodeQuery query )
+        ]
+
+
+toGenericWebUrl : Request -> Scope.GenericScope -> Component.Query -> String
+toGenericWebUrl request genericScope query =
+    Just query
+        |> WebRoute.GenericSimulator genericScope Impact.default
+        |> WebRoute.toString
+        |> (++) (serverRootUrl request)
 
 
 cmdRequest : Db -> Request -> Cmd Msg
@@ -268,6 +341,62 @@ handleRequest db request =
                 |> encodeProcessList
                 |> respondWith 200
 
+        Just (Route.GenericGetAssemblyList genericScope) ->
+            genericProcessesResponse db
+                genericScope
+                ProcessCategory.Assembly
+                (always True)
+
+        Just (Route.GenericGetCategoryList genericScope) ->
+            db.products
+                |> ProductCategory.findByScope genericScope
+                |> Encode.list ProductCategory.encode
+                |> respondWith 200
+
+        Just (Route.GenericGetComponentList genericScope) ->
+            db.components
+                |> List.filter (not << Component.isEmpty)
+                |> List.filter (.scope >> (==) (Scope.Generic genericScope))
+                |> Encode.list encodeComponent
+                |> respondWith 200
+
+        Just (Route.GenericGetConsumptionList genericScope) ->
+            genericProcessesResponse db
+                genericScope
+                ProcessCategory.Use
+                (always True)
+
+        Just (Route.GenericGetCountryList genericScope) ->
+            db.countries
+                |> Scope.anyOf [ Scope.Generic genericScope ]
+                |> Encode.list encodeCountry
+                |> respondWith 200
+
+        Just (Route.GenericGetDistributionList genericScope) ->
+            genericProcessesResponse db
+                genericScope
+                ProcessCategory.Distribution
+                (.unit >> (==) Process.CubicMeter)
+
+        Just (Route.GenericGetMaterialList genericScope) ->
+            genericProcessesResponse db
+                genericScope
+                ProcessCategory.Material
+                -- FIXME: we should probably use a helper from the Process module here
+                (.categories >> List.member ProcessCategory.Packaging >> not)
+
+        Just (Route.GenericGetPackagingList genericScope) ->
+            genericProcessesResponse db
+                genericScope
+                ProcessCategory.Packaging
+                (always True)
+
+        Just (Route.GenericGetTransformList genericScope) ->
+            genericProcessesResponse db
+                genericScope
+                ProcessCategory.Transform
+                (always True)
+
         Just Route.TextileGetCountryList ->
             db.countries
                 |> Scope.anyOf [ Scope.Textile ]
@@ -295,6 +424,13 @@ handleRequest db request =
             executeFoodQuery request db (toFoodResults request foodQuery) foodQuery
 
         Just (Route.FoodPostRecipe (Err error)) ->
+            encodeValidationErrors request error
+                |> respondWith 400
+
+        Just (Route.GenericPostSimulator genericScope (Ok query)) ->
+            executeGenericQuery request db genericScope query
+
+        Just (Route.GenericPostSimulator _ (Err error)) ->
             encodeValidationErrors request error
                 |> respondWith 400
 
