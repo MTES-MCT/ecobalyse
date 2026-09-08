@@ -1,5 +1,6 @@
 from __future__ import annotations
 
+import itertools
 from pathlib import Path
 from typing import Any, cast
 from uuid import UUID
@@ -433,17 +434,18 @@ async def reset_processes_fixtures(
     logger = get_logger()
 
     user = await get_or_create_default_user(db_session)
+    await db_session.execute(text("""TRUNCATE PROCESS CASCADE"""))
 
     for process in processes_data:
         process["id"] = UUID(process["id"])
         process["owner"] = user
-    await db_session.execute(text("""TRUNCATE PROCESS CASCADE"""))
-    await processes_service.create_many(
-        data=processes_data,
-        auto_commit=False,
-    )
 
-    await db_session.commit()
+    for batch in itertools.batched(processes_data, 500):
+        await logger.ainfo(f"Inserting from {len(batch)} items")
+
+        await processes_service.create_many(
+            data=batch,
+        )
 
     await logger.ainfo(f"Loaded {len(processes_data)} processes fixtures")
 
