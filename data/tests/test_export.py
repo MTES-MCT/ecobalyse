@@ -1,10 +1,10 @@
 import orjson
-from data.common.export import activities_processes_sort_key
 
 from bin import export
 from common.export import export_json
 from config import DATA_ROOT_DIR, TESTS_FIXTURE_DIR, settings
 from create_activities import create_custom_lci
+from ecobalyse_data.json import activities_processes_sort_key
 
 
 def test_export_processes(forwast, tmp_path, processes_impacts_json):

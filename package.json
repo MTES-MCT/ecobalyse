@@ -29,7 +29,7 @@
     "lint:ruff:all": "npm run lint:ruff:check && npm run lint:ruff:format",
     "lint:ruff:check": "uv run ruff check --force-exclude --extend-select I",
     "lint:ruff:format": "npm run fix:ruff:format -- --check",
-    "lint:ty:check": "uv run ty check",
+    "lint:ty:check": "uv run --all-groups ty check",
     "lint:all": "npm run lint:prettier:all && npm run lint:elm && npm run lint:ruff:all && npm run lint:openapi && npm run lint:ty:check && npm run lint:json:all",
     "fix:elm-format": "npx elm-format --yes",
     "fix:json": "just fix-json",

@@ -9,9 +9,10 @@ from typing import Annotated
 
 import pathspec
 import typer
-from data.common.export import activities_processes_sort_key
 from ecobalyse.json import CompactJSONEncoder
 from ecobalyse.logging import logger
+
+from ecobalyse_data.json import activities_processes_sort_key
 
 
 def load_ignore_spec_file(ignore_file: Path) -> pathspec.PathSpec:
