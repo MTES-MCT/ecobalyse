@@ -36,6 +36,18 @@ import Static.Db as StaticDb
 import Static.Json as StaticJson
 
 
+{-| The model is a list of cached databases; each cached database knows about
+the component configuration, the database, and the raw processes JSON datas,
+which may hold either restricted or detailed impacts data.
+
+Notes:
+
+  - even if this list may ever only contain two entries, the List API is
+    convenient enough for retrieving a given cache entry.
+  - this is how running the server api tests went from 80s just to 4s on
+    a MacBook Pro M2 Max (and improved production api performances as well).
+
+-}
 type alias Model =
     List CachedDb
 
@@ -461,9 +473,7 @@ handleConfiguredRequest db config request =
                     db
                     config
                     (\simulator ->
-                        Simulator.encode
-                            (toDetailedTextileWebUrl request simulator |> Just)
-                            simulator
+                        simulator |> Simulator.encode (toDetailedTextileWebUrl request simulator |> Just)
                     )
 
         Just (Route.TextilePostSimulatorDetailed (Err error)) ->
