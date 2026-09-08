@@ -175,6 +175,14 @@ genericEndpoints db =
                     |> testGenericEndpoint db "/object/simulator"
                     |> Expect.equal (Just (Route.GenericPostSimulator Scope.Object (Ok query)))
                     |> asTest "map POST /object/simulator"
+                , Encode.object []
+                    |> testGenericEndpoint db "/object/simulator"
+                    |> Expect.equal (Just (Route.GenericPostSimulator Scope.Object (Ok Component.emptyQuery)))
+                    |> asTest "accept an empty JSON object"
+                , Encode.object [ ( "components", Encode.list Encode.string [] ) ]
+                    |> testGenericEndpoint db "/object/simulator"
+                    |> Expect.equal (Just (Route.GenericPostSimulator Scope.Object (Ok Component.emptyQuery)))
+                    |> asTest "accept an empty components list"
                 , Encode.null
                     |> testGenericEndpoint db "/object/simulator"
                     |> expectGenericValidationError "decoding" "Expecting an OBJECT with a field named `components`"

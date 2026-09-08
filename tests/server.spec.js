@@ -777,9 +777,18 @@ describe("API", () => {
 
     for (const scope of ["food2", "object", "veli"]) {
       describe(`/${scope}/simulator`, () => {
-        it("should reject an invalid query", async () => {
+        it("should accept an empty query", async () => {
           const response = await makePostRequest(`/api/${scope}/simulator`, {});
-          expectFieldErrorMessage(response, "decoding", /components/);
+          expect(response.body.error).toBeUndefined();
+          expectStatus(response, 200);
+          expect(response.body.impacts).toBeDefined();
+        });
+
+        it("should accept an empty components list", async () => {
+          const response = await makePostRequest(`/api/${scope}/simulator`, { components: [] });
+          expect(response.body.error).toBeUndefined();
+          expectStatus(response, 200);
+          expect(response.body.impacts).toBeDefined();
         });
 
         const examples = require(`${__dirname}/../public/data/${scope}/examples.json`);

@@ -3,6 +3,7 @@ module Server.Route exposing
     , endpoint
     )
 
+import Data.Common.DecodeUtils as DecodeUtils
 import Data.Component as Component
 import Data.Db exposing (Db)
 import Data.Food.Query as FoodQuery
@@ -81,10 +82,21 @@ decodeFoodQueryBody db =
         >> Result.andThen (FoodValidation.validate db)
 
 
+decodeGenericQuery : Encode.Value -> Result Validation.Errors Component.Query
+decodeGenericQuery body =
+    if DecodeUtils.isEmptyObject body then
+        -- If the json body is an empty object, return an empty query
+        Ok Component.emptyQuery
+
+    else
+        body
+            |> Decode.decodeValue Component.decodeQuery
+            |> Result.mapError Validation.fromDecodingError
+
+
 decodeGenericQueryBody : Component.Config -> Db -> GenericScope -> Encode.Value -> Result Validation.Errors Component.Query
 decodeGenericQueryBody config db genericScope body =
-    Decode.decodeValue Component.decodeQuery body
-        |> Result.mapError Validation.fromDecodingError
+    decodeGenericQuery body
         |> Result.andThen
             (Component.validateQuery
                 { config = config
