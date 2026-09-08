@@ -6,6 +6,9 @@ from operator import itemgetter
 from uuid import uuid4
 
 import structlog
+from httpx import AsyncClient
+from litestar.exceptions import NotFoundException, ValidationException
+
 from app.config.base import GithubSettings
 from app.db import models as m
 from app.domain.contrib.schemas import (
@@ -13,8 +16,6 @@ from app.domain.contrib.schemas import (
     ExampleContribResponse,
 )
 from app.lib.json import format_json
-from httpx import AsyncClient
-from litestar.exceptions import NotFoundException, ValidationException
 
 logger = structlog.get_logger()
 

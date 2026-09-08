@@ -2,8 +2,7 @@
   "activityName": "Rapeseed, conventional, 9% moisture, national average, animal feed, at farm gate, production {FR} U",
   "categories": [
     "ingredient",
-    "material",
-    "material_type:cereals"
+    "material"
   ],
   "displayName": "Colza FR",
   "id": "ae71503a-ec6e-555c-a152-1421984a576c",
@@ -30,11 +29,6 @@
       "ingredientDensityMatch": {
         "confidence": 1.0,
         "rule": "Rapeseed found in fao_density.csv"
-      },
-      "rawToCookedRatio": 2.259,
-      "rawToCookedRatioMatch": {
-        "confidence": 1.0,
-        "rule": "Matched with rapeseed in cooked_to_raw.csv"
       },
       "scenario": "reference",
       "scopes": [
@@ -70,11 +64,6 @@
       "ingredientDensityMatch": {
         "confidence": 1.0,
         "rule": "Rapeseed found in fao_density.csv"
-      },
-      "rawToCookedRatio": 2.259,
-      "rawToCookedRatioMatch": {
-        "confidence": 1.0,
-        "rule": "Matched with rapeseed in cooked_to_raw.csv"
       },
       "scenario": "import",
       "scopes": [

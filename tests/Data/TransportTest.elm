@@ -1,6 +1,5 @@
 module Data.TransportTest exposing (..)
 
-import Data.Component.Config as ComponentConfig
 import Data.Country.Code as CountryCode
 import Data.Impact as Impact
 import Data.Impact.Definition as Definition
@@ -14,7 +13,7 @@ import List.Extra as LE
 import Mass
 import Quantity
 import Test exposing (..)
-import TestUtils exposing (asTest, it, suiteWithDb)
+import TestUtils exposing (asTest, componentConfig, it, suiteWithDb)
 
 
 km : Float -> Length.Length
@@ -86,7 +85,7 @@ suite =
                     ]
                 ]
             , TestUtils.suiteFromResult "computeImpacts"
-                (ComponentConfig.default db)
+                (componentConfig db)
                 (\{ transports } ->
                     [ it "should compute transport impacts"
                         (chinaToFrance

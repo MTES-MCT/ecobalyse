@@ -4,12 +4,12 @@ from pathlib import Path
 from common.distances.country_set import REGION_PROXIES
 from common.distances.CountryDistances import CountryDistances
 from common.export import load_json
-from config import PROJECT_ROOT_DIR, settings
+from config import DATA_ROOT_DIR, settings
 
-INPUT_DISTANCES = PROJECT_ROOT_DIR / "common" / "distances" / "distances_raw.json"
+INPUT_DISTANCES = DATA_ROOT_DIR / "common" / "distances" / "distances_raw.json"
 
-COUNTRIES_OFFICIAL = Path(settings.output_dir) / "countries.json"
-OUTPUT = Path(settings.output_dir) / "transports.json"
+COUNTRIES_OFFICIAL = DATA_ROOT_DIR / Path(settings.frontend_data_dir) / "countries.json"
+OUTPUT = DATA_ROOT_DIR / Path(settings.frontend_data_dir) / "transports.json"
 
 
 # dictionary of regions to add with the corresponding country (single source)
@@ -26,7 +26,7 @@ if __name__ == "__main__":
     # add self distances
     country_distances.add_self_distances()
 
-    countries_official_list = set([c["code"] for c in load_json(COUNTRIES_OFFICIAL)])
+    countries_official_list = {c["code"] for c in load_json(COUNTRIES_OFFICIAL)}
     # delete countries that are not needed
     for country in country_distances._all_countries:
         if (

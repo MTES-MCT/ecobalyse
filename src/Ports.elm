@@ -39,7 +39,7 @@ port importBookmarks : () -> Cmd msg
 port loadJeDonneMonAvis : () -> Cmd msg
 
 
-port loadRapidoc : String -> Cmd msg
+port loadRapidoc : () -> Cmd msg
 
 
 port removeBodyClass : String -> Cmd msg

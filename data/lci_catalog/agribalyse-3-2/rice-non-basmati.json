@@ -2,8 +2,7 @@
   "activityName": "Rice, non-basmati {RoW}| rice production, non-basmati | Cut-off, U - Adapted from Ecoinvent U",
   "categories": [
     "ingredient",
-    "material",
-    "material_type:cereals"
+    "material"
   ],
   "displayName": "Rice, non-basmati (ROW)",
   "id": "4e94a467-d4bd-5f38-a7ff-374f465ee789",
@@ -30,11 +29,6 @@
       "ingredientDensityMatch": {
         "confidence": 0.95,
         "rule": "Matched with Rice, raw in fao_density.csv"
-      },
-      "rawToCookedRatio": 2.259,
-      "rawToCookedRatioMatch": {
-        "confidence": 1.0,
-        "rule": "grain default from food_type_cooked_to_raw.csv"
       },
       "scenario": "import",
       "scopes": [
@@ -70,11 +64,6 @@
       "ingredientDensityMatch": {
         "confidence": 0.95,
         "rule": "Matched with Rice, raw in fao_density.csv"
-      },
-      "rawToCookedRatio": 2.259,
-      "rawToCookedRatioMatch": {
-        "confidence": 1.0,
-        "rule": "grain default from food_type_cooked_to_raw.csv"
       },
       "scenario": "import",
       "scopes": [

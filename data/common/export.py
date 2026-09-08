@@ -1,24 +1,22 @@
 import json
 import math
 import os
+from pathlib import Path
 
-import matplotlib.pyplot
-import numpy
 from frozendict import deepfreeze
 from rich.console import Console
 from rich.table import Table
 
-from config import PROJECT_ROOT_DIR, settings
+from config import DATA_ROOT_DIR, settings
 from ecobalyse_data.logging import logger
 
 from . import (
     FormatNumberJsonEncoder,
     activities_processes_sort_key,
-    get_normalization_weighting_factors,
     remove_detailed_impacts,
 )
 
-with open(PROJECT_ROOT_DIR / settings.impacts_file) as f:
+with open(DATA_ROOT_DIR / settings.impacts_file) as f:
     IMPACTS_JSON = deepfreeze(json.load(f))
 
 
@@ -33,7 +31,9 @@ def show_change(old: str, new: str) -> str:
     return (old + "\n-> " + new) if old != new else "(unchanged) " + old
 
 
-def get_changes(old, new, name, only_impacts=[], min_change=0.1, with_names=False):
+def get_changes(old, new, name, only_impacts=None, min_change=0.1, with_names=False):
+    if only_impacts is None:
+        only_impacts = []
     changes = []
     for trigram in new["impacts"]:
         if only_impacts and trigram not in only_impacts:
@@ -101,12 +101,14 @@ def display_changes(
     key,
     oldprocesses,
     processes,
-    only_impacts=[],
+    only_impacts=None,
     min_change=0.1,
     with_names=False,
 ):
     """Display a nice sorted table of impact changes to review
     key is the field to display (id for food, uuid for textile)"""
+    if only_impacts is None:
+        only_impacts = []
     old = {str(p[key]): p for p in oldprocesses if key in p}
 
     if type(processes) is list:
@@ -121,7 +123,7 @@ def display_changes(
             continue
         impact_changes = get_changes(
             old=old[id_],
-            new=processes[id_],
+            new=p,
             name=p["displayName"],
             only_impacts=only_impacts,
             min_change=min_change,
@@ -136,43 +138,6 @@ def display_changes(
 
     if review:
         display_changes_table(changes, with_names=with_names)
-
-
-def plot_impacts(process_name, impacts_smp, impacts_bw, folder, impacts_py):
-    trigrams = [
-        t
-        for t in impacts_py.keys()
-        if t in impacts_smp.keys() and t in impacts_bw.keys()
-    ]
-    factors = get_normalization_weighting_factors(impacts_py)
-
-    simapro_values = [
-        impacts_smp.get(t, 0) / factors["ecs_normalizations"][t] for t in trigrams
-    ]
-    brightway_values = [
-        impacts_bw.get(t, 0) / factors["ecs_normalizations"][t] for t in trigrams
-    ]
-
-    x = numpy.arange(len(trigrams))
-    width = 0.35
-
-    fig, ax = matplotlib.pyplot.subplots(figsize=(12, 8))
-
-    ax.bar(x - width / 2, simapro_values, width, label="SimaPro")
-    ax.bar(x + width / 2, brightway_values, width, label="Brightway")
-
-    ax.set_xlabel("Impact Categories")
-    ax.set_ylabel("Impact Values (normalized, non weighted)")
-    ax.set_title(f"Environmental Impacts for {process_name}")
-    ax.set_xticks(x)
-    ax.set_xticklabels(trigrams, rotation=90)
-    ax.legend()
-
-    matplotlib.pyplot.tight_layout()
-    filepath = f"{folder}/{process_name.replace('/', '_')}.png"
-    matplotlib.pyplot.savefig(filepath)
-    logger.info(f"Saved impact comparison plot to {filepath}")
-    matplotlib.pyplot.close()
 
 
 def export_json(json_data, filename):
@@ -206,11 +171,11 @@ def display_changes_from_json(
         display_changes("id", oldprocesses, processes_corrected_impacts)
 
 
-def export_processes_to_dirs(
+def export_processes_to_dir(
     processes_ecs_path,
     processes_impacts_path,
     processes_ecs_impacts,
-    dirs,
+    dir_to_export_to: Path,
     full_impacts_relative_file_path,
     extra_data=None,
     extra_path=None,
@@ -219,71 +184,72 @@ def export_processes_to_dirs(
 ):
     exported_files = []
 
-    for dir in dirs:
-        logger.info("")
-        logger.info(f"-> Exporting to {dir}")
-        processes_impacts_absolute_path = os.path.join(dir, processes_impacts_path)
-        processes_ecs_absolute_path = os.path.join(dir, processes_ecs_path)
+    logger.info("")
+    logger.info(f"-> Exporting to {dir}")
+    processes_impacts_absolute_path = dir_to_export_to / processes_impacts_path
+    processes_ecs_absolute_path = dir_to_export_to / processes_ecs_path
 
-        if extra_data is not None and extra_path is not None:
-            extra_file = os.path.join(dir, extra_path)
-            export_json(extra_data, extra_file)
-            exported_files.append(extra_file)
+    if extra_data is not None and extra_path is not None:
+        extra_file = dir_to_export_to / extra_path
+        export_json(extra_data, extra_file)
+        exported_files.append(extra_file)
 
-        # Export results
-        if type(processes_ecs_impacts) is not list:
-            to_export = list(processes_ecs_impacts.values())
-        else:
-            to_export = processes_ecs_impacts
+    # Export results
+    if type(processes_ecs_impacts) is not list:
+        to_export = list(processes_ecs_impacts.values())
+    else:
+        to_export = processes_ecs_impacts
 
-        # If merge is true, we don't overwrite the existing file but merge the new processes with the existing ones
-        if merge and scopes:
-            if os.path.exists(processes_impacts_absolute_path):
-                logger.info(
-                    f"-> Merging with existing processes file {processes_impacts_absolute_path}"
-                )
-                with open(processes_impacts_absolute_path, "r") as f:
-                    existing_processes = json.load(f)
-
-                # delete all existing processes with a scope in scopes
-                existing_processes = [
-                    p
-                    for p in existing_processes
-                    if not any(s.value in p["scopes"] for s in scopes)
-                ]
-
-                # add the new processes to the existing processes
-                to_export = existing_processes + to_export
-
-        # Sort processes
-        to_export.sort(key=activities_processes_sort_key)
-
-        # Filter out generic-scope-only processes and trim scopes for mixed ones
-        from models.process import (
-            GENERIC_SCOPES,  # local import to avoid circular dependency
+    # If merge is true, we don't overwrite the existing file but merge the new processes with the existing ones
+    if merge and scopes and os.path.exists(processes_impacts_absolute_path):
+        logger.info(
+            f"-> Merging with existing processes file {processes_impacts_absolute_path}"
         )
+        with open(processes_impacts_absolute_path, "r") as f:
+            existing_processes = json.load(f)
 
-        filtered = []
-        for p in to_export:
-            proc_scopes = set(p.get("scopes", []))
-            if proc_scopes <= GENERIC_SCOPES:
-                continue
-            if proc_scopes & GENERIC_SCOPES:
-                p = {
-                    **p,
-                    "scopes": [s for s in p["scopes"] if s not in GENERIC_SCOPES],
-                }
-            filtered.append(p)
+        # delete all existing processes with a scope in scopes
+        existing_processes = [
+            p
+            for p in existing_processes
+            if not any(s.value in p["scopes"] for s in scopes)
+        ]
 
-        export_json(filtered, processes_impacts_absolute_path)
-        exported_files.append(processes_impacts_absolute_path)
+        # add the new processes to the existing processes
+        to_export = existing_processes + to_export
 
-        # Also update the aggregated file
-        export_json(remove_detailed_impacts(filtered), processes_ecs_absolute_path)
-        exported_files.append(processes_ecs_absolute_path)
+    # Sort processes
+    to_export.sort(key=activities_processes_sort_key)
+
+    # Filter out generic-scope-only processes and trim scopes for mixed ones
+    from models.process import (
+        GENERIC_SCOPES,  # local import to avoid circular dependency
+    )
+
+    filtered = []
+    for p in to_export:
+        proc_scopes = set(p.get("scopes", []))
+        if proc_scopes <= GENERIC_SCOPES:
+            continue
+        if proc_scopes & GENERIC_SCOPES:
+            p = {
+                **p,
+                "scopes": [s for s in p["scopes"] if s not in GENERIC_SCOPES],
+            }
+        filtered.append(p)
+
+    export_json(filtered, processes_impacts_absolute_path)
+    exported_files.append(processes_impacts_absolute_path)
+
+    # Also update the aggregated file
+    export_json(remove_detailed_impacts(filtered), processes_ecs_absolute_path)
+    exported_files.append(processes_ecs_absolute_path)
 
     # Write unfiltered data to last dir (local) for generic export to read later
-    full_impacts_path = os.path.join(dirs[-1], full_impacts_relative_file_path)
+
+    full_impacts_path = (
+        DATA_ROOT_DIR / settings.export_dir / full_impacts_relative_file_path
+    )
     export_json(to_export, full_impacts_path)
 
     return exported_files

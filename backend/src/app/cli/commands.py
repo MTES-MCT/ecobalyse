@@ -1,22 +1,19 @@
 from __future__ import annotations
 
-import json
 from pathlib import Path
 from typing import Any, cast
 from uuid import UUID
 
 import anyio
 import click
-import msgspec
 import orjson
-from advanced_alchemy.filters import OrderBy
-from advanced_alchemy.service.typing import (
-    convert,
-)
 from advanced_alchemy.utils.fixtures import open_fixture_async
+from rich import get_console
+from sqlalchemy.sql import text
+from structlog import get_logger
+
 from app.config import get_settings
-from app.config.app import alchemy, default_json_serializer
-from app.db import models as m
+from app.config.app import alchemy
 from app.domain.accounts.deps import provide_users_service
 from app.domain.accounts.schemas import (
     OrganizationCreate,
@@ -25,12 +22,7 @@ from app.domain.accounts.schemas import (
 )
 from app.domain.accounts.services import UserService
 from app.domain.components.deps import provide_components_service
-from app.domain.components.schemas import (
-    JsonComponent,
-)
 from app.domain.processes.deps import provide_processes_service
-from rich import get_console
-from structlog import get_logger
 
 
 @click.group(
@@ -39,7 +31,7 @@ from structlog import get_logger
     help="Manage application users and roles.",
 )
 @click.pass_context
-def user_management_group(_: dict[str, Any]) -> None:
+def user_management_group(_) -> None:
     """Manage application users."""
 
 
@@ -81,7 +73,7 @@ async def _create_users(
             is_active=is_active,
             terms_accepted=True,
         )
-        users_to_upsert.append(user_in.to_dict())
+        users_to_upsert.append(user_in.model_dump())
 
     console = get_console()
 
@@ -160,10 +152,10 @@ def create_users(
 
     anyio.run(
         _create_users,
-        cast("str", users),
+        users,
         organization,
         organization_type,
-        cast("bool", superuser),
+        superuser,
     )
 
 
@@ -235,8 +227,8 @@ def create_user(
     anyio.run(
         _create_user,
         cast("str", email),
-        cast("str", first_name),
-        cast("str", last_name),
+        first_name,
+        last_name,
         organization,
         organization_type,
         cast("bool", superuser),
@@ -249,7 +241,7 @@ def create_user(
     help="Manage application fixtures.",
 )
 @click.pass_context
-def fixtures_management_group(_: dict[str, Any]) -> None:
+def fixtures_management_group(_) -> None:
     """Manage application components."""
 
 
@@ -269,37 +261,34 @@ def load_test_fixtures() -> None:
 async def get_or_create_default_user(db_session):
     logger = get_logger()
 
-    async with alchemy.get_session() as db_session:
-        users_service = await anext(provide_users_service(db_session))
+    users_service = await anext(provide_users_service(db_session))
 
-        settings = get_settings()
+    settings = get_settings()
+    user = await users_service.get_one_or_none(email=settings.app.DEFAULT_USER_EMAIL)
+    if not user:
+        await logger.awarning(
+            f"default super user {settings.app.DEFAULT_USER_EMAIL} not found, creating it"
+        )
+
+        await _create_user(
+            email=settings.app.DEFAULT_USER_EMAIL,
+            first_name="Admin",
+            last_name="Ecobalyse",
+            organization="Ecobalyse",
+            # Not super user
+            superuser=False,
+            # Deactivate default user
+            is_active=False,
+        )
+
         user = await users_service.get_one_or_none(
             email=settings.app.DEFAULT_USER_EMAIL
         )
-        if not user:
-            await logger.awarning(
-                f"default super user {settings.app.DEFAULT_USER_EMAIL} not found, creating it"
-            )
 
-            await _create_user(
-                email=settings.app.DEFAULT_USER_EMAIL,
-                first_name="Admin",
-                last_name="Ecobalyse",
-                organization="Ecobalyse",
-                # Not super user
-                superuser=False,
-                # Deactivate default user
-                is_active=False,
-            )
-
-            user = await users_service.get_one_or_none(
-                email=settings.app.DEFAULT_USER_EMAIL
-            )
-
-        return user
+    return user
 
 
-async def load_components_fixtures(components_data: dict) -> None:
+async def load_components_fixtures(components_data: list) -> None:
     """Import/Synchronize Database Fixtures."""
 
     logger = get_logger()
@@ -335,7 +324,7 @@ def load_components_json(json_file: click.File) -> None:
 
     console = get_console()
 
-    json_data = orjson.loads(json_file.read())
+    json_data = orjson.loads(json_file.read())  # ty: ignore[unresolved-attribute]
 
     async def _load_components_json(components_data) -> None:
         await load_components_fixtures(components_data)
@@ -345,7 +334,7 @@ def load_components_json(json_file: click.File) -> None:
 
 
 async def load_processes_fixtures(
-    db_session, processes_service, processes_data: dict
+    db_session, processes_service, processes_data: list[dict[str, Any]]
 ) -> None:
     """Import/Synchronize Database Fixtures."""
 
@@ -411,8 +400,8 @@ async def load_processes_fixtures(
 @fixtures_management_group.command(
     name="load-processes", help="Load processes from JSON file."
 )
-@click.argument("json_files", type=click.File("rb"), nargs=-1)
-def load_processes_json(json_files: click.File) -> None:
+@click.argument("json_file", type=click.File("rb"), nargs=1)
+def load_processes_json(json_file: click.File) -> None:
     """Load processes json.
 
     Args:
@@ -421,10 +410,7 @@ def load_processes_json(json_files: click.File) -> None:
 
     console = get_console()
 
-    json_data = []
-
-    for json_file in json_files:
-        json_data += orjson.loads(json_file.read())
+    json_data = orjson.loads(json_file.read())  # ty: ignore[unresolved-attribute]
 
     async def _load_processes_json(components_data) -> None:
         async with alchemy.get_session() as db_session:
@@ -437,47 +423,52 @@ def load_processes_json(json_files: click.File) -> None:
     anyio.run(_load_processes_json, json_data)
 
 
-async def dump_components(db_session, components_service) -> None:
-    """Dump components JSON"""
+async def reset_processes_fixtures(
+    db_session, processes_service, processes_data: list[dict[str, Any]]
+) -> None:
+    """Import/Synchronize Database Fixtures."""
 
-    # Disable ruff check for True equality as this syntax in required by SQLAlchemy
-    results = await components_service.get_many(
-        m.Component.published == True,  # noqa: E712
-        OrderBy(field_name="name", sort_order="asc"),
-        uniquify=True,
+    from structlog import get_logger
+
+    logger = get_logger()
+
+    user = await get_or_create_default_user(db_session)
+
+    for process in processes_data:
+        process["id"] = UUID(process["id"])
+        process["owner"] = user
+    await db_session.execute(text("""TRUNCATE PROCESS CASCADE"""))
+    await processes_service.create_many(
+        data=processes_data,
+        auto_commit=False,
     )
 
-    components = convert(
-        obj=results,
-        type=list[JsonComponent],  # type: ignore[valid-type]
-        from_attributes=True,
-    )
+    await db_session.commit()
 
-    # Needed for converting non JSON types to JSON compatibles types using msgspec
-    components_dict = msgspec.json.decode(default_json_serializer(components))
-
-    print(json.dumps(components_dict, indent=2, ensure_ascii=False))
+    await logger.ainfo(f"Loaded {len(processes_data)} processes fixtures")
 
 
-@click.group(
-    name="json",
-    invoke_without_command=False,
-    help="Manage JSON extraction.",
+@fixtures_management_group.command(
+    name="reset-processes", help="Reset (delete and load) processes from JSON file."
 )
-@click.pass_context
-def json_management_group(_: dict[str, Any]) -> None:
-    """Manage JSON extraction."""
+@click.argument("json_file", type=click.File("rb"), nargs=1)
+def reset_processes_json(json_file: click.File) -> None:
+    """Reset processes from a json file.
 
+    Args:
+        processes json file (Path): The path to the JSON file to load.
+    """
 
-@json_management_group.command(
-    name="dump-components", help="Extract components from the DB into a JSON file."
-)
-def dump_components_command() -> None:
-    """Dump components JSON."""
+    console = get_console()
 
-    async def _dump_components() -> None:
+    json_data = orjson.loads(json_file.read())  # ty: ignore[unresolved-attribute]
+
+    async def _reset_processes_json(components_data) -> None:
         async with alchemy.get_session() as db_session:
-            components_service = await anext(provide_components_service(db_session))
-            await dump_components(db_session, components_service)
+            processes_service = await anext(provide_processes_service(db_session))
+            await reset_processes_fixtures(
+                db_session, processes_service, components_data
+            )
 
-    anyio.run(_dump_components)
+    console.rule("Resetting processes from file.")
+    anyio.run(_reset_processes_json, json_data)

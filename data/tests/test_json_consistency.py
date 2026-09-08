@@ -6,12 +6,13 @@ To add a new check define a new function and set it in the CHECKS dict
 
 import json
 import re
+import sys
 import tempfile
 import uuid
 from collections import Counter
 from pathlib import Path
 
-from config import PROJECT_ROOT_DIR, TESTS_FIXTURE_DIR
+from config import DATA_ROOT_DIR, TESTS_FIXTURE_DIR
 from ecobalyse_data.export.food import Scenario, scenario
 from ecobalyse_data.export.utils import get_metadata_for_scope
 
@@ -213,7 +214,7 @@ def check_scenario(filename, content, key):
 def check_all(checks_by_file, content_checks_by_file=None):
     for filename, checks_by_key in checks_by_file.items():
         print(f"Checking {filename}")
-        with open(filename) as f:
+        with open(DATA_ROOT_DIR / filename) as f:
             content = json.load(f)
 
             # Run content-level checks (no specific key)
@@ -237,7 +238,7 @@ def creation_alias_matches_export_alias(activities_fp):
     the alias inside {{...}} must match the activity.alias,
     and must correspond to an entry in custom_lci.json.
     """
-    with open("custom_lci.json") as f:
+    with open(DATA_ROOT_DIR / "custom_lci.json") as f:
         atc = json.load(f)
     activities = json.load(activities_fp)
 
@@ -304,7 +305,7 @@ def test():
     with tempfile.NamedTemporaryFile(
         mode="w+", prefix="activities-"
     ) as activities_temp:
-        json.dump(_concat_lci(PROJECT_ROOT_DIR / "lci_catalog"), activities_temp)
+        json.dump(_concat_lci(DATA_ROOT_DIR / "lci_catalog"), activities_temp)
         activities_temp.seek(0)
 
         with tempfile.NamedTemporaryFile(
@@ -337,17 +338,17 @@ def test():
                     # "displayName": (duplicate,),
                     "alias": (duplicate_across_records, alias_syntax),  # TODO
                 },
-                "public/data/food/ingredients.json": {
+                "../public/data/food/ingredients.json": {
                     "id": (duplicate_across_records, invalid_uuid, missing),
                     "alias": (missing, duplicate_across_records, alias_syntax),
                     "name": (missing, duplicate_across_records),
                 },
-                "public/data/processes_legacy.json": {
+                "export/processes_legacy.json": {
                     "id": (duplicate_across_records, invalid_uuid, missing),
                     "displayName": (duplicate_across_records,),
                     "categories": (duplicate_within_value,),
                 },
-                "public/data/processes_generic.json": {
+                "export/processes_generic.json": {
                     "id": (duplicate_across_records, invalid_uuid, missing),
                     "displayName": (duplicate_across_records,),
                     "categories": (duplicate_within_value,),
@@ -356,7 +357,7 @@ def test():
                     "id": (duplicate_across_records, invalid_uuid, missing),
                     "categories": (duplicate_within_value,),
                 },
-                "public/data/textile/materials.json": {
+                "../public/data/textile/materials.json": {
                     "id": (duplicate_across_records, missing),
                     "name": (missing,),
                     "processId": (missing, duplicate_across_records, invalid_uuid),
@@ -383,7 +384,4 @@ if __name__ == "__main__":
         print("\n🎉 All checks have passed!")
     except AssertionError as e:
         print(f"\n❌ Test failed: {e}")
-        exit(1)
-    except Exception as e:
-        print(f"\n❌ Unexpected error: {e}")
-        exit(1)
+        sys.exit(1)

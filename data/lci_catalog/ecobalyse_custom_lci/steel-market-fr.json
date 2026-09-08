@@ -4,8 +4,8 @@
     "material",
     "material_type:ferrous_metals"
   ],
-  "comment": "",
-  "displayName": "Acier, mix marché, Europe",
+  "comment": "https://fabrique-numerique.gitbook.io/ecobalyse/methodes-transverses/production/procedes-acier-et-aluminium",
+  "displayName": "Acier, lingot, mix marché, Europe",
   "elecKwh": 0.0,
   "heatMJ": 0,
   "id": "72baac75-80a1-5bd9-a7ce-facdd5255658",

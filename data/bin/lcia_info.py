@@ -2,12 +2,11 @@
 
 
 import json
-from typing import List, Optional
+from typing import Annotated
 
 import bw2data
 import typer
 from bw2data.project import projects
-from typing_extensions import Annotated
 
 from common import get_normalization_weighting_factors
 from common.export import (
@@ -50,10 +49,6 @@ def lcia_impacts(
             help=f"Brightway database containing the activity.\n\nAvailable databases are: {available_bw_databases}.",
         ),
     ],
-    simapro: Annotated[
-        bool,
-        typer.Option(help="Get impacts from simapro instead of Brightway."),
-    ] = False,
 ):
     """
     Get impacts about an LCIA
@@ -68,10 +63,9 @@ def lcia_impacts(
         impacts_py,
         IMPACTS_JSON,
         factors,
-        simapro=simapro,
     )
 
-    logger.info(impacts.model_dump(by_alias=True))
+    logger.info(impacts.model_dump(by_alias=True) if impacts else "No impacts")
 
     return (computed_by, impacts)
 
@@ -96,7 +90,6 @@ def lcia_details(
             help="The trigram name from the method ('acd', 'cch', …) of the impact you want to get information for.",
         ),
     ],
-    simapro: bool = typer.Option(False, "--simapro", "-s"),
 ):
     """
     Get detailed information about an LCIA
@@ -111,7 +104,7 @@ def lcia_details(
 
     factors = get_normalization_weighting_factors(IMPACTS_JSON)
     impacts = compute_process_for_bw_activity(
-        activity, main_method, impacts_py, IMPACTS_JSON, factors, simapro=simapro
+        activity, main_method, impacts_py, IMPACTS_JSON, factors
     ).model_dump(by_alias=True)
 
     logger.info(impacts)
@@ -128,12 +121,12 @@ def compare_processes(
         typer.Argument(help="The second json file."),
     ],
     impact: Annotated[
-        Optional[List[str]],
+        list[str] | None,
         typer.Option(
             callback=ecobalyse_impact_validation,
             help="The trigram name ('ecs', 'etf', …) of the impact you want to compare. You can specify multiple `--impact`. If not specified, all impacts are compared.",
         ),
-    ] = [],
+    ] = None,
     min: Annotated[
         float,
         typer.Option(
@@ -149,6 +142,8 @@ def compare_processes(
     Compare two `processes_impacts.json` files
     """
 
+    if impact is None:
+        impact = []
     first_processes = json.load(first_file)
     second_processes = json.load(second_file)
 
@@ -189,11 +184,6 @@ def compare_activity(
             help="The trigram name from the method ('acd', 'cch', …) of the impact you want to get information for.",
         ),
     ],
-    # TODO
-    simapro: Annotated[
-        bool,
-        typer.Option(help="Get activities from simapro."),
-    ] = False,
     recursive_calculation: Annotated[
         bool,
         typer.Option(help="If using BW and not simapro, print recursive calculations."),
@@ -222,7 +212,6 @@ def compare_activity(
         impacts_py,
         IMPACTS_JSON,
         factors,
-        simapro=simapro,
     ).model_dump()
 
     logger.info(first_simapro_process)
@@ -241,7 +230,6 @@ def compare_activity(
         impacts_py,
         IMPACTS_JSON,
         factors,
-        simapro=simapro,
     ).model_dump()
 
     logger.info(second_simapro_process)

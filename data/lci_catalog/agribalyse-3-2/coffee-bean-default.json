@@ -2,8 +2,7 @@
   "activityName": "Coffee, green bean {IN}| coffee green bean production, arabica | Cut-off, U - Copied from Ecoinvent U",
   "categories": [
     "ingredient",
-    "material",
-    "material_type:other_food_items"
+    "material"
   ],
   "displayName": "Café en grains Origine Inconnue",
   "id": "d7221189-781b-572e-a67f-8bd781606c1e",

@@ -1,8 +1,8 @@
 from __future__ import annotations
 
 import datetime
-from typing import TYPE_CHECKING
-from uuid import UUID  # noqa: TC003
+from typing import TYPE_CHECKING, ClassVar
+from uuid import UUID
 
 from advanced_alchemy.base import UUIDAuditBase
 from advanced_alchemy.types import DateTimeUTC
@@ -15,7 +15,7 @@ if TYPE_CHECKING:
 
 class Token(UUIDAuditBase):
     __tablename__ = "token"
-    __table_args__ = {"comment": "Tokens for API access"}
+    __table_args__: ClassVar[dict] = {"comment": "Tokens for API access"}  # ty: ignore[invalid-attribute-override]
 
     user_id: Mapped[UUID] = mapped_column(
         ForeignKey("user_account.id", ondelete="cascade"), nullable=False
@@ -32,7 +32,7 @@ class Token(UUIDAuditBase):
     @validates("last_accessed_at")
     def validate_tz_info(self, _: str, value: datetime.datetime) -> datetime.datetime:
         if value and value.tzinfo is None:
-            value = value.replace(tzinfo=datetime.timezone.utc)
+            value = value.replace(tzinfo=datetime.UTC)
         return value
 
     # -----------

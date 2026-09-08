@@ -2,8 +2,7 @@
   "activityName": "Lemon {ES}| lemon production | Cut-off, U - Adapted from Ecoinvent U",
   "categories": [
     "ingredient",
-    "material",
-    "material_type:fruits_and_vegetables"
+    "material"
   ],
   "displayName": "Citron UE",
   "id": "43389eb0-7495-5b8c-9e1d-effb41a5b82d",
@@ -31,11 +30,6 @@
         "confidence": 1.0,
         "rule": "lemon found in density.csv"
       },
-      "rawToCookedRatio": 0.856,
-      "rawToCookedRatioMatch": {
-        "confidence": 1.0,
-        "rule": "fruit default from food_type_cooked_to_raw.csv"
-      },
       "scenario": "reference",
       "scopes": [
         "food",
@@ -60,7 +54,6 @@
         "vegetable_fresh"
       ],
       "ingredientDensity": 0.575,
-      "rawToCookedRatio": 0.856,
       "scenario": "import",
       "scopes": [
         "food",
@@ -91,11 +84,6 @@
       "ingredientDensityMatch": {
         "confidence": 1.0,
         "rule": "lemon found in density.csv"
-      },
-      "rawToCookedRatio": 0.856,
-      "rawToCookedRatioMatch": {
-        "confidence": 1.0,
-        "rule": "fruit default from food_type_cooked_to_raw.csv"
       },
       "scenario": "import",
       "scopes": [

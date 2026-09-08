@@ -2,8 +2,7 @@
   "activityName": "Broiler, organic, at farm gate {FR} U {{chicken-breast-fr-organic-2025}}",
   "categories": [
     "ingredient",
-    "material",
-    "material_type:other_food_items"
+    "material"
   ],
   "displayName": "Poulet bio vivant FR (alim. ani. 100% FR issu de poulet bio FR)",
   "id": "2e91c78a-925c-57c7-b13e-759ea6671127",

@@ -2,8 +2,7 @@
   "activityName": "Apple, pulp raw, import WFLDB, CMAPS {GLO} U",
   "categories": [
     "ingredient",
-    "material",
-    "material_type:other_food_items"
+    "material"
   ],
   "displayName": "Pomme, pulpe, crue Origine Inconnue",
   "id": "3c4f63f9-86e8-48ae-bb29-eca125e85681",

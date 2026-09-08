@@ -2,8 +2,7 @@
   "activityName": "Cauliflower {GLO}| cauliflower production | Cut-off, U",
   "categories": [
     "ingredient",
-    "material",
-    "material_type:fruits_and_vegetables"
+    "material"
   ],
   "displayName": "Chou de Bruxelles Origine Inconnue",
   "id": "0d6454a0-4726-5aac-a67a-7982b0292717",
@@ -31,11 +30,6 @@
       "ingredientDensityMatch": {
         "confidence": 1.0,
         "rule": "vegetable default from food_type_density.csv"
-      },
-      "rawToCookedRatio": 0.856,
-      "rawToCookedRatioMatch": {
-        "confidence": 1.0,
-        "rule": "vegetable default from food_type_cooked_to_raw.csv"
       },
       "scenario": "import",
       "scopes": [
@@ -72,11 +66,6 @@
         "confidence": 1.0,
         "rule": "vegetable default from food_type_density.csv"
       },
-      "rawToCookedRatio": 0.856,
-      "rawToCookedRatioMatch": {
-        "confidence": 1.0,
-        "rule": "vegetable default from food_type_cooked_to_raw.csv"
-      },
       "scenario": "import",
       "scopes": [
         "food",
@@ -111,11 +100,6 @@
       "ingredientDensityMatch": {
         "confidence": 1.0,
         "rule": "cauliflower found in density.csv"
-      },
-      "rawToCookedRatio": 0.856,
-      "rawToCookedRatioMatch": {
-        "confidence": 1.0,
-        "rule": "vegetable default from food_type_cooked_to_raw.csv"
       },
       "scenario": "import",
       "scopes": [
@@ -152,11 +136,6 @@
         "confidence": 0.95,
         "rule": "Matched with cabbage in density.csv"
       },
-      "rawToCookedRatio": 0.856,
-      "rawToCookedRatioMatch": {
-        "confidence": 0.95,
-        "rule": "Matched with cabbage in cooked_to_raw.csv"
-      },
       "scenario": "import",
       "scopes": [
         "food",
@@ -191,11 +170,6 @@
       "ingredientDensityMatch": {
         "confidence": 1.0,
         "rule": "vegetable default from food_type_density.csv"
-      },
-      "rawToCookedRatio": 0.856,
-      "rawToCookedRatioMatch": {
-        "confidence": 0.95,
-        "rule": "Matched with artichoke in cooked_to_raw.csv"
       },
       "scenario": "import",
       "scopes": [
@@ -232,11 +206,6 @@
         "confidence": 1.0,
         "rule": "vegetable default from food_type_density.csv"
       },
-      "rawToCookedRatio": 0.856,
-      "rawToCookedRatioMatch": {
-        "confidence": 1.0,
-        "rule": "vegetable default from food_type_cooked_to_raw.csv"
-      },
       "scenario": "import",
       "scopes": [
         "food",
@@ -271,11 +240,6 @@
       "ingredientDensityMatch": {
         "confidence": 1.0,
         "rule": "vegetable default from food_type_density.csv"
-      },
-      "rawToCookedRatio": 0.856,
-      "rawToCookedRatioMatch": {
-        "confidence": 1.0,
-        "rule": "vegetable default from food_type_cooked_to_raw.csv"
       },
       "scenario": "import",
       "scopes": [
@@ -312,11 +276,6 @@
         "confidence": 1.0,
         "rule": "vegetable default from food_type_density.csv"
       },
-      "rawToCookedRatio": 0.856,
-      "rawToCookedRatioMatch": {
-        "confidence": 1.0,
-        "rule": "vegetable default from food_type_cooked_to_raw.csv"
-      },
       "scenario": "import",
       "scopes": [
         "food",
@@ -351,11 +310,6 @@
       "ingredientDensityMatch": {
         "confidence": 1.0,
         "rule": "vegetable default from food_type_density.csv"
-      },
-      "rawToCookedRatio": 0.856,
-      "rawToCookedRatioMatch": {
-        "confidence": 1.0,
-        "rule": "Matched with artichoke in cooked_to_raw.csv"
       },
       "scenario": "import",
       "scopes": [
@@ -392,11 +346,6 @@
         "confidence": 1.0,
         "rule": "vegetable default from food_type_density.csv"
       },
-      "rawToCookedRatio": 0.856,
-      "rawToCookedRatioMatch": {
-        "confidence": 1.0,
-        "rule": "vegetable default from food_type_cooked_to_raw.csv"
-      },
       "scenario": "import",
       "scopes": [
         "food",
@@ -431,11 +380,6 @@
       "ingredientDensityMatch": {
         "confidence": 1.0,
         "rule": "vegetable default from food_type_density.csv"
-      },
-      "rawToCookedRatio": 0.856,
-      "rawToCookedRatioMatch": {
-        "confidence": 1.0,
-        "rule": "vegetable default from food_type_cooked_to_raw.csv"
       },
       "scenario": "import",
       "scopes": [
@@ -472,11 +416,6 @@
         "confidence": 1.0,
         "rule": "cauliflower found in density.csv"
       },
-      "rawToCookedRatio": 0.856,
-      "rawToCookedRatioMatch": {
-        "confidence": 1.0,
-        "rule": "vegetable default from food_type_cooked_to_raw.csv"
-      },
       "scenario": "import",
       "scopes": [
         "food",
@@ -511,11 +450,6 @@
       "ingredientDensityMatch": {
         "confidence": 0.95,
         "rule": "Matched with cabbage in density.csv"
-      },
-      "rawToCookedRatio": 0.856,
-      "rawToCookedRatioMatch": {
-        "confidence": 0.95,
-        "rule": "Matched with cabbage in cooked_to_raw.csv"
       },
       "scenario": "import",
       "scopes": [
@@ -552,11 +486,6 @@
         "confidence": 1.0,
         "rule": "vegetable default from food_type_density.csv"
       },
-      "rawToCookedRatio": 0.856,
-      "rawToCookedRatioMatch": {
-        "confidence": 0.95,
-        "rule": "Matched with artichoke in cooked_to_raw.csv"
-      },
       "scenario": "import",
       "scopes": [
         "food",
@@ -591,11 +520,6 @@
       "ingredientDensityMatch": {
         "confidence": 1.0,
         "rule": "vegetable default from food_type_density.csv"
-      },
-      "rawToCookedRatio": 0.856,
-      "rawToCookedRatioMatch": {
-        "confidence": 1.0,
-        "rule": "vegetable default from food_type_cooked_to_raw.csv"
       },
       "scenario": "import",
       "scopes": [
@@ -632,11 +556,6 @@
         "confidence": 1.0,
         "rule": "vegetable default from food_type_density.csv"
       },
-      "rawToCookedRatio": 0.856,
-      "rawToCookedRatioMatch": {
-        "confidence": 1.0,
-        "rule": "vegetable default from food_type_cooked_to_raw.csv"
-      },
       "scenario": "import",
       "scopes": [
         "food",
@@ -672,11 +591,6 @@
         "confidence": 1.0,
         "rule": "vegetable default from food_type_density.csv"
       },
-      "rawToCookedRatio": 0.856,
-      "rawToCookedRatioMatch": {
-        "confidence": 1.0,
-        "rule": "vegetable default from food_type_cooked_to_raw.csv"
-      },
       "scenario": "import",
       "scopes": [
         "food",
@@ -711,11 +625,6 @@
       "ingredientDensityMatch": {
         "confidence": 1.0,
         "rule": "vegetable default from food_type_density.csv"
-      },
-      "rawToCookedRatio": 0.856,
-      "rawToCookedRatioMatch": {
-        "confidence": 1.0,
-        "rule": "Matched with artichoke in cooked_to_raw.csv"
       },
       "scenario": "import",
       "scopes": [

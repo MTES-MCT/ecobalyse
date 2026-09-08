@@ -2,8 +2,7 @@
   "activityName": "Sweet sorghum grain {RoW}| sweet sorghum production | Cut-off, U - Adapted from Ecoinvent U",
   "categories": [
     "ingredient",
-    "material",
-    "material_type:cereals"
+    "material"
   ],
   "displayName": "Sorgho FR",
   "id": "2171b416-da21-57f2-b2e3-98060e941fee",
@@ -30,11 +29,6 @@
       "ingredientDensityMatch": {
         "confidence": 0.95,
         "rule": "Matched with Sorghum, seed in fao_density.csv"
-      },
-      "rawToCookedRatio": 2.259,
-      "rawToCookedRatioMatch": {
-        "confidence": 1.0,
-        "rule": "grain default from food_type_cooked_to_raw.csv"
       },
       "scenario": "reference",
       "scopes": [
@@ -70,11 +64,6 @@
       "ingredientDensityMatch": {
         "confidence": 0.95,
         "rule": "Matched with Sorghum, seed in fao_density.csv"
-      },
-      "rawToCookedRatio": 2.259,
-      "rawToCookedRatioMatch": {
-        "confidence": 1.0,
-        "rule": "grain default from food_type_cooked_to_raw.csv"
       },
       "scenario": "import",
       "scopes": [

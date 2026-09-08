@@ -2,8 +2,7 @@
   "activityName": "Clementine, export quality, Souss, at orchard {MA} U",
   "categories": [
     "ingredient",
-    "material",
-    "material_type:fruits_and_vegetables"
+    "material"
   ],
   "displayName": "Clémentine par défaut",
   "id": "9be3efe6-2ba6-5f65-895b-f7173e18f510",
@@ -31,11 +30,6 @@
         "confidence": 1.0,
         "rule": "fruit default from food_type_density.csv"
       },
-      "rawToCookedRatio": 0.856,
-      "rawToCookedRatioMatch": {
-        "confidence": 1.0,
-        "rule": "fruit default from food_type_cooked_to_raw.csv"
-      },
       "scenario": "reference",
       "scopes": [
         "food",
@@ -60,7 +54,6 @@
         "vegetable_fresh"
       ],
       "ingredientDensity": 0.575,
-      "rawToCookedRatio": 0.856,
       "scenario": "import",
       "scopes": [
         "food",
@@ -81,7 +74,6 @@
         "vegetable_fresh"
       ],
       "ingredientDensity": 0.575,
-      "rawToCookedRatio": 0.856,
       "scenario": "import",
       "scopes": [
         "food",
@@ -112,11 +104,6 @@
       "ingredientDensityMatch": {
         "confidence": 1.0,
         "rule": "fruit default from food_type_density.csv"
-      },
-      "rawToCookedRatio": 0.856,
-      "rawToCookedRatioMatch": {
-        "confidence": 1.0,
-        "rule": "fruit default from food_type_cooked_to_raw.csv"
       },
       "scenario": "import",
       "scopes": [
@@ -153,11 +140,6 @@
         "confidence": 1.0,
         "rule": "fruit default from food_type_density.csv"
       },
-      "rawToCookedRatio": 0.856,
-      "rawToCookedRatioMatch": {
-        "confidence": 1.0,
-        "rule": "fruit default from food_type_cooked_to_raw.csv"
-      },
       "scenario": "import",
       "scopes": [
         "food",
@@ -192,11 +174,6 @@
       "ingredientDensityMatch": {
         "confidence": 1.0,
         "rule": "fruit default from food_type_density.csv"
-      },
-      "rawToCookedRatio": 0.856,
-      "rawToCookedRatioMatch": {
-        "confidence": 1.0,
-        "rule": "fruit default from food_type_cooked_to_raw.csv"
       },
       "scenario": "import",
       "scopes": [

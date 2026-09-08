@@ -2,8 +2,7 @@
   "activityName": "Silage maize, conventional, national average, animal feed, at farm gate, production {FR} U",
   "categories": [
     "ingredient",
-    "material",
-    "material_type:cereals"
+    "material"
   ],
   "displayName": "Ensilage maïs FR",
   "id": "f22c4816-818b-569a-8f42-931035f860c8",
@@ -20,7 +19,6 @@
         "grain_raw"
       ],
       "ingredientDensity": 0.24,
-      "rawToCookedRatio": 2.259,
       "scenario": "reference",
       "scopes": [
         "food",
@@ -42,7 +40,6 @@
         "organic"
       ],
       "ingredientDensity": 0.24,
-      "rawToCookedRatio": 2.259,
       "scenario": "organic",
       "scopes": [
         "food",

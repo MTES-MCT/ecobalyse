@@ -2,8 +2,7 @@
   "activityName": "Barley grain {RoW}| barley production | Cut-off, U - Adapted from Ecoinvent U",
   "categories": [
     "ingredient",
-    "material",
-    "material_type:cereals"
+    "material"
   ],
   "displayName": "Barley grain (ROW)",
   "id": "bfd9f7a5-5920-574f-84e4-69450e278567",
@@ -30,11 +29,6 @@
       "ingredientDensityMatch": {
         "confidence": 0.952,
         "rule": "Matched with Barley, whole in fao_density.csv"
-      },
-      "rawToCookedRatio": 2.259,
-      "rawToCookedRatioMatch": {
-        "confidence": 0.95,
-        "rule": "Matched with barley in cooked_to_raw.csv"
       },
       "scenario": "import",
       "scopes": [
@@ -70,11 +64,6 @@
       "ingredientDensityMatch": {
         "confidence": 0.952,
         "rule": "Matched with Barley, whole in fao_density.csv"
-      },
-      "rawToCookedRatio": 2.259,
-      "rawToCookedRatioMatch": {
-        "confidence": 0.95,
-        "rule": "Matched with barley in cooked_to_raw.csv"
       },
       "scenario": "import",
       "scopes": [

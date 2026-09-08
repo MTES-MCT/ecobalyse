@@ -20,10 +20,10 @@ Cette localisation pilote :
 - le transport du composant vers son pays d'assemblage
 - le mix énergétique (elec + chaleur) utilisés par les procédés de transformation intra-élément
 
-La personnalisation de la localisation du composant est uniquement possible dans la modélisation du produit côté calculette front end. 
-Les composants proposés dans la liste de données sources sont non-localisées par défaut. 
+La personnalisation de la localisation du composant est uniquement possible dans la modélisation du produit côté calculette front end.
+Les composants proposés dans la liste de données sources sont non-localisées par défaut.
 
-## Les limites de cette expérimentation : 
+## Les limites de cette expérimentation :
 
 - l'absence de transport en intra composant (de la matière à sa transfo 1 jusqu'à n) --> Conséquences: pour une étoffe coton d'1kg France mode éthique, le transport total jusqu'à la dernière étape de la confection en France vaut pour 40 points (dans le modèle textile v7) VS dans le modèle générique actuel, on compte 23 points de transport total.
 
@@ -43,13 +43,13 @@ Remarque: on ne localise pas les procédés en eux-même
 - le transport entre les composants et le lieu d'assemblage se fait en cumulant la distance entre la dernière étape de transformation de chaque élement de chaque composant vers le pays d'assemblage
 
 ## Exemple (à compléter par la méthode) :
-Composant: 
+Composant:
 nom du composant: Etoffe coton 1kg - France
 Element 1:
 1,xx kg coton / country: Asie
 filature conventionnelle / country : Turquie
 tissage / country: Turquie
-blanchiement / country: 
+blanchiment / country:
 dégraissage/ country :
 teinture moyenne / country :
 

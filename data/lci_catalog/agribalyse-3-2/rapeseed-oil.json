@@ -2,8 +2,7 @@
   "activityName": "Rapeseed oil, at oil mill {GLO} - Adapted from WFLDB U",
   "categories": [
     "ingredient",
-    "material",
-    "material_type:other_food_items"
+    "material"
   ],
   "displayName": "Huile de colza par défaut",
   "id": "543ad281-c288-5a2b-870b-8d918a21cbe0",

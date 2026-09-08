@@ -2,8 +2,7 @@
   "activityName": "Hemp, grain, Champagne, at farm gate, organic 2025 {FR} U",
   "categories": [
     "ingredient",
-    "material",
-    "material_type:cereals"
+    "material"
   ],
   "displayName": "Chanvre Bio",
   "id": "0200d628-d58b-55e6-ae11-5683a2e08ddc",
@@ -32,11 +31,6 @@
       "ingredientDensityMatch": {
         "confidence": 1.0,
         "rule": "grain default from food_type_density.csv"
-      },
-      "rawToCookedRatio": 2.259,
-      "rawToCookedRatioMatch": {
-        "confidence": 1.0,
-        "rule": "grain default from food_type_cooked_to_raw.csv"
       },
       "scenario": "organic",
       "scopes": [

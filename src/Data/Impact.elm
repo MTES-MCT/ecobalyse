@@ -47,7 +47,8 @@ type alias StagesImpacts =
 
 noStagesImpacts : StagesImpacts
 noStagesImpacts =
-    { distribution = Nothing
+    { assembly = Nothing
+    , distribution = Nothing
     , endOfLife = Nothing
     , materials = Nothing
     , packaging = Nothing
@@ -69,7 +70,8 @@ type alias StagesColors =
 
 stagesColors : StagesColors
 stagesColors =
-    { distribution = Color.red
+    { assembly = Color.orange
+    , distribution = Color.red
     , endOfLife = Color.turquoise
     , materials = Color.purple
     , packaging = Color.blue
@@ -85,6 +87,7 @@ stagesImpactsAsChartEntries stagesImpacts =
     [ ( "Accessoires", stagesImpacts.trims, stagesColors.trims )
     , ( "Matières premières", stagesImpacts.materials, stagesColors.materials )
     , ( "Transformation", stagesImpacts.transform, stagesColors.transform )
+    , ( "Assemblage", stagesImpacts.assembly, stagesColors.assembly )
     , ( "Emballage", stagesImpacts.packaging, stagesColors.packaging )
     , ( "Transports", stagesImpacts.transports, stagesColors.transports )
     , ( "Distribution", stagesImpacts.distribution, stagesColors.distribution )

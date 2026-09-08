@@ -5,12 +5,12 @@ from pathlib import Path
 from dynaconf import Dynaconf, Validator
 from platformdirs import user_cache_path
 
-PROJECT_ROOT_DIR = Path.resolve(Path(__file__).parent)
-TESTS_FIXTURE_DIR = PROJECT_ROOT_DIR / "tests" / "fixtures"
+DATA_ROOT_DIR = Path.resolve(Path(__file__).parent)
+TESTS_FIXTURE_DIR = DATA_ROOT_DIR / "tests" / "fixtures"
 IS_CI = os.environ.get("CI") == "true"
 
 settings = Dynaconf(
-    root_path=PROJECT_ROOT_DIR,
+    root_path=DATA_ROOT_DIR,
     envvar_prefix="EB",
     settings_files=["settings.toml"],
     environments=True,
@@ -22,17 +22,6 @@ settings = Dynaconf(
         Validator(
             "LOG_LEVEL",
             is_in=(logging.getLevelNamesMapping().keys()),
-        ),
-        # Check that the output dir was set
-        Validator(
-            "OUTPUT_DIR",
-            must_exist=True,
-            messages={
-                "must_exist_true": "🚨 For the export to work properly, you need to specify "
-                "the EB_{name} env variable.\nIt needs to point to the 'public/data/' directory "
-                "of the https://github.com/MTES-MCT/ecobalyse/ repository. \nPlease, edit your .env file "
-                "accordingly."
-            },
         ),
         # The S3 related variables are read from the environment
         Validator("S3_ENDPOINT", must_exist=not IS_CI),

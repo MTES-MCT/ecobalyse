@@ -1,12 +1,3 @@
-#!/usr/bin/env -S uv run --script
-# /// script
-# requires-python = ">=3.10"
-# dependencies = [
-#     "countryinfo",
-#     "geopy",
-#     "searoute",
-# ]
-# ///
 """Compute road/sea/air distances between countries and write distances_raw.json.
 Countries are represented by their alpha-2 codes (France -> FR), and by their centroid
 
@@ -16,14 +7,14 @@ Countries are represented by their alpha-2 codes (France -> FR), and by their ce
 """
 
 import collections
+import datetime
 import json
 import pathlib
-from datetime import datetime
 
-import country_set
 import geopy.distance
 import searoute
 from countryinfo import CountryInfo, all_countries
+from data.common.distances import country_set
 
 # road and air distance is longer than geodesic distance so we apply a circuity factor
 # from https://www.plancarbonegeneral.com/approches-sectorielles/produit-generique/fret-amont-et-aval
@@ -106,16 +97,17 @@ def is_road_connected(code_from, code_to, component_of):
 
 def sea_distance(code_from, code_to, coords):
     """searoute sea distance in km, or None if it cannot be computed."""
-    try:
-        route = searoute.searoute(
-            [coords[code_from][1], coords[code_from][0]],
-            [coords[code_to][1], coords[code_to][0]],
-            units="km",
-        )
-        return round(route.properties["length"])
-    except Exception as e:
-        print(f"sea distance failed for {code_from}-{code_to}: {e!r}")
-        return None
+    # try:
+    route = searoute.searoute(
+        [coords[code_from][1], coords[code_from][0]],
+        [coords[code_to][1], coords[code_to][0]],
+        units="km",
+    )
+    return round(route.properties["length"])
+    # @TODO: catch the specific exception
+    # except Exception as e:
+    #     print(f"sea distance failed for {code_from}-{code_to}: {e!r}")
+    #     return None
 
 
 def compute_geodesic_distance(code_from, code_to, coords):
@@ -156,4 +148,6 @@ if __name__ == "__main__":
     output_path = here / "distances_raw.json"
     with open(output_path, "w") as outfile:
         json.dump(distances, outfile)
-    print(f"{datetime.now().time()} finished writing output to {output_path}")
+    print(
+        f"{datetime.datetime.now(tz=datetime.UTC).now().time()} finished writing output to {output_path}"
+    )

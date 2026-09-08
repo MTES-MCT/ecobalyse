@@ -2,8 +2,7 @@
   "activityName": "Durum wheat grain, at farm {GLO} - Adapted from WFLDB U",
   "categories": [
     "ingredient",
-    "material",
-    "material_type:cereals"
+    "material"
   ],
   "displayName": "Durum wheat grain, at farm (GLO)",
   "id": "cfdd1afe-f9ff-516e-ab27-2a9cfbede91c",
@@ -30,11 +29,6 @@
       "ingredientDensityMatch": {
         "confidence": 0.95,
         "rule": "Matched with Wheat in fao_density.csv"
-      },
-      "rawToCookedRatio": 2.259,
-      "rawToCookedRatioMatch": {
-        "confidence": 1.0,
-        "rule": "Matched with durum wheat in cooked_to_raw.csv"
       },
       "scenario": "import",
       "scopes": [
@@ -71,11 +65,6 @@
         "confidence": 1.0,
         "rule": "grain default from food_type_density.csv"
       },
-      "rawToCookedRatio": 2.259,
-      "rawToCookedRatioMatch": {
-        "confidence": 1.0,
-        "rule": "grain default from food_type_cooked_to_raw.csv"
-      },
       "scenario": "import",
       "scopes": [
         "food",
@@ -110,11 +99,6 @@
       "ingredientDensityMatch": {
         "confidence": 1.0,
         "rule": "grain default from food_type_density.csv"
-      },
-      "rawToCookedRatio": 2.259,
-      "rawToCookedRatioMatch": {
-        "confidence": 1.0,
-        "rule": "grain default from food_type_cooked_to_raw.csv"
       },
       "scenario": "import",
       "scopes": [

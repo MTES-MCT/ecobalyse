@@ -2,8 +2,7 @@
   "activityName": "Wheat grain, at farm {GLO} - Adapted from WFLDB U",
   "categories": [
     "ingredient",
-    "material",
-    "material_type:cereals"
+    "material"
   ],
   "displayName": "Blé tendre par défaut",
   "id": "522c5380-a9b5-5f13-9b51-8ac5059be56c",
@@ -19,7 +18,6 @@
         "grain_raw"
       ],
       "ingredientDensity": 1.0,
-      "rawToCookedRatio": 2.259,
       "scenario": "import",
       "scopes": [
         "food",
@@ -39,7 +37,6 @@
         "grain_raw"
       ],
       "ingredientDensity": 0.72,
-      "rawToCookedRatio": 2.259,
       "scenario": "import",
       "scopes": [
         "food",

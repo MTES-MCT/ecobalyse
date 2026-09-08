@@ -2,8 +2,7 @@
   "activityName": "Soybean {BR}| market for soybean | Cut-off, U - Copied from Ecoinvent U",
   "categories": [
     "ingredient",
-    "material",
-    "material_type:legumes"
+    "material"
   ],
   "displayName": "Soja déforestant par défaut",
   "id": "9b4a341d-1411-5042-bbff-9d3232e71295",
@@ -19,7 +18,6 @@
         "nut_oilseed_raw"
       ],
       "ingredientDensity": 0.72,
-      "rawToCookedRatio": 2.33,
       "scenario": "import",
       "scopes": [
         "food",

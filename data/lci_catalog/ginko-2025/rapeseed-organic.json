@@ -2,8 +2,7 @@
   "activityName": "Rapeseed, organic 2025, 9% moisture, national average, animal feed, at farm gate, production {FR} U",
   "categories": [
     "ingredient",
-    "material",
-    "material_type:cereals"
+    "material"
   ],
   "displayName": "Colza Bio",
   "id": "8610dcdb-d565-522e-a67c-547c1e03a449",
@@ -32,11 +31,6 @@
       "ingredientDensityMatch": {
         "confidence": 1.0,
         "rule": "Rapeseed found in fao_density.csv"
-      },
-      "rawToCookedRatio": 2.259,
-      "rawToCookedRatioMatch": {
-        "confidence": 1.0,
-        "rule": "Matched with rapeseed in cooked_to_raw.csv"
       },
       "scenario": "organic",
       "scopes": [

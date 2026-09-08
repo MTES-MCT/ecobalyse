@@ -2,8 +2,7 @@
   "activityName": "Soybean, at farm (WFLDB)",
   "categories": [
     "ingredient",
-    "material",
-    "material_type:cereals"
+    "material"
   ],
   "displayName": "Soybean, at farm",
   "id": "b3074ca2-8ce8-57cc-9e5d-18d79716122f",
@@ -31,11 +30,6 @@
       "ingredientDensityMatch": {
         "confidence": 1.0,
         "rule": "Soybean found in fao_density.csv"
-      },
-      "rawToCookedRatio": 2.259,
-      "rawToCookedRatioMatch": {
-        "confidence": 1.0,
-        "rule": "Matched with soybean in cooked_to_raw.csv"
       },
       "scenario": "import",
       "scopes": [

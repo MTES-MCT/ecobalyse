@@ -2,8 +2,7 @@
   "activityName": "Maize grain, organic 2025, 28% moisture, national average, animal feed, at farm gate {FR} U",
   "categories": [
     "ingredient",
-    "material",
-    "material_type:cereals"
+    "material"
   ],
   "displayName": "Maïs Bio",
   "id": "6d73f88c-df32-5699-8d43-bfd5151f1e2e",
@@ -32,11 +31,6 @@
       "ingredientDensityMatch": {
         "confidence": 1.0,
         "rule": "corn found in density.csv"
-      },
-      "rawToCookedRatio": 2.259,
-      "rawToCookedRatioMatch": {
-        "confidence": 1.0,
-        "rule": "grain default from food_type_cooked_to_raw.csv"
       },
       "scenario": "organic",
       "scopes": [

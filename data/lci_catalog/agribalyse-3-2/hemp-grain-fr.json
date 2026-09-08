@@ -2,8 +2,7 @@
   "activityName": "Hemp, grain, Champagne, at farm gate {FR} U",
   "categories": [
     "ingredient",
-    "material",
-    "material_type:cereals"
+    "material"
   ],
   "displayName": "Chanvre FR",
   "id": "3e9aef8c-ece2-5fa8-bf95-f3451df9b541",
@@ -30,11 +29,6 @@
       "ingredientDensityMatch": {
         "confidence": 1.0,
         "rule": "grain default from food_type_density.csv"
-      },
-      "rawToCookedRatio": 2.259,
-      "rawToCookedRatioMatch": {
-        "confidence": 1.0,
-        "rule": "grain default from food_type_cooked_to_raw.csv"
       },
       "scenario": "reference",
       "scopes": [
@@ -71,11 +65,6 @@
         "confidence": 1.0,
         "rule": "grain default from food_type_density.csv"
       },
-      "rawToCookedRatio": 2.259,
-      "rawToCookedRatioMatch": {
-        "confidence": 1.0,
-        "rule": "grain default from food_type_cooked_to_raw.csv"
-      },
       "scenario": "import",
       "scopes": [
         "food",
@@ -111,11 +100,6 @@
         "confidence": 1.0,
         "rule": "grain default from food_type_density.csv"
       },
-      "rawToCookedRatio": 2.259,
-      "rawToCookedRatioMatch": {
-        "confidence": 1.0,
-        "rule": "grain default from food_type_cooked_to_raw.csv"
-      },
       "scenario": "import",
       "scopes": [
         "food",
@@ -150,11 +134,6 @@
       "ingredientDensityMatch": {
         "confidence": 1.0,
         "rule": "grain default from food_type_density.csv"
-      },
-      "rawToCookedRatio": 2.259,
-      "rawToCookedRatioMatch": {
-        "confidence": 1.0,
-        "rule": "grain default from food_type_cooked_to_raw.csv"
       },
       "scenario": "import",
       "scopes": [

@@ -35,6 +35,7 @@ import Data.Food.Ingredient as Ingredient
 import Data.Food.Preparation as Preparation
 import Data.Food.Retail as Retail
 import Data.Process as Process exposing (Process)
+import Data.Text as Text
 import Json.Decode as Decode exposing (Decoder)
 import Json.Decode.Pipeline as Pipe
 import Json.Encode as Encode
@@ -123,15 +124,10 @@ addPackaging packaging query =
     }
 
 
-buildApiQuery : String -> Query -> String
-buildApiQuery clientUrl query =
-    """curl -sS -X POST %apiUrl% \\
-  -H "accept: application/json" \\
-  -H "content-type: application/json" \\
-  -d '%json%'
-"""
-        |> String.replace "%apiUrl%" (clientUrl ++ "/api/food")
-        |> String.replace "%json%" (encode query |> Encode.encode 0)
+buildApiQuery : Maybe String -> String -> Query -> String
+buildApiQuery maybeToken clientUrl query =
+    (clientUrl ++ "/api/food")
+        |> Text.buildCurlCommand maybeToken (encode query |> Encode.encode 0)
 
 
 decode : Decoder Query

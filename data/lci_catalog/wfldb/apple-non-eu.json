@@ -2,8 +2,7 @@
   "activityName": "Apple, at farm (WFLDB)",
   "categories": [
     "ingredient",
-    "material",
-    "material_type:fruits_and_vegetables"
+    "material"
   ],
   "displayName": "Pomme par défaut",
   "id": "75a76ed9-ad03-5269-a6f5-0fb86ce1073f",
@@ -20,7 +19,6 @@
         "vegetable_fresh"
       ],
       "ingredientDensity": 0.447,
-      "rawToCookedRatio": 0.856,
       "scenario": "import",
       "scopes": [
         "food",
@@ -51,11 +49,6 @@
       "ingredientDensityMatch": {
         "confidence": 1.0,
         "rule": "apple found in density.csv"
-      },
-      "rawToCookedRatio": 0.856,
-      "rawToCookedRatioMatch": {
-        "confidence": 1.0,
-        "rule": "fruit default from food_type_cooked_to_raw.csv"
       },
       "scenario": "import",
       "scopes": [
@@ -91,11 +84,6 @@
       "ingredientDensityMatch": {
         "confidence": 1.0,
         "rule": "fruit default from food_type_density.csv"
-      },
-      "rawToCookedRatio": 0.856,
-      "rawToCookedRatioMatch": {
-        "confidence": 1.0,
-        "rule": "fruit default from food_type_cooked_to_raw.csv"
       },
       "scenario": "import",
       "scopes": [

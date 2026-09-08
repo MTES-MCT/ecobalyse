@@ -2,8 +2,7 @@
   "activityName": "Lupin, conventional, national average, at farm gate, production {FR} U",
   "categories": [
     "ingredient",
-    "material",
-    "material_type:fruits_and_vegetables"
+    "material"
   ],
   "displayName": "Lupin FR",
   "id": "29bb0bfe-f5b0-52b5-8a3a-e742c6a7ae1c",
@@ -30,11 +29,6 @@
       "ingredientDensityMatch": {
         "confidence": 1.0,
         "rule": "legume default from food_type_density.csv"
-      },
-      "rawToCookedRatio": 0.856,
-      "rawToCookedRatioMatch": {
-        "confidence": 1.0,
-        "rule": "legume default from food_type_cooked_to_raw.csv"
       },
       "scenario": "reference",
       "scopes": [
@@ -71,11 +65,6 @@
         "confidence": 1.0,
         "rule": "legume default from food_type_density.csv"
       },
-      "rawToCookedRatio": 0.856,
-      "rawToCookedRatioMatch": {
-        "confidence": 1.0,
-        "rule": "legume default from food_type_cooked_to_raw.csv"
-      },
       "scenario": "import",
       "scopes": [
         "food",
@@ -111,11 +100,6 @@
         "confidence": 1.0,
         "rule": "legume default from food_type_density.csv"
       },
-      "rawToCookedRatio": 0.856,
-      "rawToCookedRatioMatch": {
-        "confidence": 1.0,
-        "rule": "legume default from food_type_cooked_to_raw.csv"
-      },
       "scenario": "import",
       "scopes": [
         "food",
@@ -150,11 +134,6 @@
       "ingredientDensityMatch": {
         "confidence": 1.0,
         "rule": "legume default from food_type_density.csv"
-      },
-      "rawToCookedRatio": 0.856,
-      "rawToCookedRatioMatch": {
-        "confidence": 1.0,
-        "rule": "legume default from food_type_cooked_to_raw.csv"
       },
       "scenario": "import",
       "scopes": [

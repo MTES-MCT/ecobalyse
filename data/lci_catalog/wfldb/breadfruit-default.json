@@ -2,8 +2,7 @@
   "activityName": "Mango, at farm (WFLDB)",
   "categories": [
     "ingredient",
-    "material",
-    "material_type:fruits_and_vegetables"
+    "material"
   ],
   "displayName": "Fruit à pain Origine Inconnue",
   "id": "5e07df03-5de7-5783-958e-aa8799612b4f",
@@ -31,11 +30,6 @@
       "ingredientDensityMatch": {
         "confidence": 1.0,
         "rule": "fruit default from food_type_density.csv"
-      },
-      "rawToCookedRatio": 0.856,
-      "rawToCookedRatioMatch": {
-        "confidence": 1.0,
-        "rule": "fruit default from food_type_cooked_to_raw.csv"
       },
       "scenario": "import",
       "scopes": [
@@ -72,11 +66,6 @@
         "confidence": 1.0,
         "rule": "fruit default from food_type_density.csv"
       },
-      "rawToCookedRatio": 0.856,
-      "rawToCookedRatioMatch": {
-        "confidence": 1.0,
-        "rule": "fruit default from food_type_cooked_to_raw.csv"
-      },
       "scenario": "import",
       "scopes": [
         "food",
@@ -111,11 +100,6 @@
       "ingredientDensityMatch": {
         "confidence": 1.0,
         "rule": "lychee found in density.csv"
-      },
-      "rawToCookedRatio": 0.856,
-      "rawToCookedRatioMatch": {
-        "confidence": 1.0,
-        "rule": "Matched with lychee in cooked_to_raw.csv"
       },
       "scenario": "import",
       "scopes": [
@@ -152,11 +136,6 @@
         "confidence": 1.0,
         "rule": "mango found in density.csv"
       },
-      "rawToCookedRatio": 0.856,
-      "rawToCookedRatioMatch": {
-        "confidence": 1.0,
-        "rule": "fruit default from food_type_cooked_to_raw.csv"
-      },
       "scenario": "import",
       "scopes": [
         "food",
@@ -191,11 +170,6 @@
       "ingredientDensityMatch": {
         "confidence": 1.0,
         "rule": "fruit default from food_type_density.csv"
-      },
-      "rawToCookedRatio": 0.856,
-      "rawToCookedRatioMatch": {
-        "confidence": 1.0,
-        "rule": "fruit default from food_type_cooked_to_raw.csv"
       },
       "scenario": "import",
       "scopes": [
@@ -232,11 +206,6 @@
         "confidence": 1.0,
         "rule": "fruit default from food_type_density.csv"
       },
-      "rawToCookedRatio": 0.856,
-      "rawToCookedRatioMatch": {
-        "confidence": 1.0,
-        "rule": "fruit default from food_type_cooked_to_raw.csv"
-      },
       "scenario": "import",
       "scopes": [
         "food",
@@ -271,11 +240,6 @@
       "ingredientDensityMatch": {
         "confidence": 1.0,
         "rule": "fruit default from food_type_density.csv"
-      },
-      "rawToCookedRatio": 0.856,
-      "rawToCookedRatioMatch": {
-        "confidence": 1.0,
-        "rule": "fruit default from food_type_cooked_to_raw.csv"
       },
       "scenario": "import",
       "scopes": [
@@ -312,11 +276,6 @@
         "confidence": 1.0,
         "rule": "lychee found in density.csv"
       },
-      "rawToCookedRatio": 0.856,
-      "rawToCookedRatioMatch": {
-        "confidence": 1.0,
-        "rule": "Matched with lychee in cooked_to_raw.csv"
-      },
       "scenario": "import",
       "scopes": [
         "food",
@@ -351,11 +310,6 @@
       "ingredientDensityMatch": {
         "confidence": 1.0,
         "rule": "mango found in density.csv"
-      },
-      "rawToCookedRatio": 0.856,
-      "rawToCookedRatioMatch": {
-        "confidence": 1.0,
-        "rule": "fruit default from food_type_cooked_to_raw.csv"
       },
       "scenario": "import",
       "scopes": [

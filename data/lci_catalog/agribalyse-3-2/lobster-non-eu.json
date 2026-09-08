@@ -2,8 +2,7 @@
   "activityName": "Lobster, 1 kg of product, at landing {US} U",
   "categories": [
     "ingredient",
-    "material",
-    "material_type:fish_and_shellfish"
+    "material"
   ],
   "displayName": "Homard par défaut",
   "id": "229d86fa-5c43-573b-b6c9-cb83e46619c1",
@@ -19,7 +18,6 @@
       ],
       "ingredientDensity": 1.0,
       "landOccupation": 0.125,
-      "rawToCookedRatio": 0.819,
       "scenario": "import",
       "scopes": [
         "food",

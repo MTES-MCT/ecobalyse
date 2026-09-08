@@ -2,8 +2,7 @@
   "activityName": "Turkey, conventional, at farm gate {FR} U",
   "categories": [
     "ingredient",
-    "material",
-    "material_type:poultry"
+    "material"
   ],
   "displayName": "Viande de dinde FR",
   "id": "051c01d7-eb24-52f5-ac8a-0a6e48eaab06",
@@ -21,7 +20,6 @@
         "animal_product"
       ],
       "ingredientDensity": 1.0,
-      "rawToCookedRatio": 0.755,
       "scenario": "reference",
       "scopes": [
         "food",

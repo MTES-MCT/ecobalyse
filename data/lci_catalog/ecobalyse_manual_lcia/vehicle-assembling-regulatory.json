@@ -1,10 +1,10 @@
 {
   "categories": [
     "productmassdependent",
-    "use"
+    "assembly"
   ],
-  "comment": "A titre provisoire ce procédé est intégré dans la phase d'usage, la phase d'assemblage n'intégrant pas de procédé à ce stade. https://fabrique-numerique.gitbook.io/ecobalyse/vehicules/cycle-de-vie/assemblage",
-  "displayName": "Assemblage (France, temp.) - calcul réglementaire Score Environnemental VE",
+  "comment": "https://fabrique-numerique.gitbook.io/ecobalyse/vehicules/cycle-de-vie/assemblage",
+  "displayName": "Assemblage - calcul réglementaire Score Environnemental VE",
   "elecKwh": 2.165,
   "heatMJ": 4.581,
   "id": "bd6b7bad-3056-4474-b58c-dc10f8cfb638",

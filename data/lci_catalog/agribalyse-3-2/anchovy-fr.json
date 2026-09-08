@@ -2,8 +2,7 @@
   "activityName": "Anchovy, consumption mix {FR} U",
   "categories": [
     "ingredient",
-    "material",
-    "material_type:fish_and_shellfish"
+    "material"
   ],
   "displayName": "Anchois FR",
   "id": "4980f239-131e-54a6-b7dc-a16823f5c9d2",
@@ -18,7 +17,6 @@
         "animal_product"
       ],
       "ingredientDensity": 1.0,
-      "rawToCookedRatio": 0.819,
       "scenario": "reference",
       "scopes": [
         "food",
@@ -37,14 +35,13 @@
         "animal_product"
       ],
       "ingredientDensity": 1.0,
-      "rawToCookedRatio": 0.819,
       "scenario": "import",
       "scopes": [
         "food",
         "food2"
       ],
       "transportCooling": "always",
-      "visible": true
+      "visible": false
     },
     {
       "alias": "anchovy-non-eu-2025",
@@ -56,14 +53,13 @@
         "animal_product"
       ],
       "ingredientDensity": 1.0,
-      "rawToCookedRatio": 0.819,
       "scenario": "import",
       "scopes": [
         "food",
         "food2"
       ],
       "transportCooling": "always",
-      "visible": true
+      "visible": false
     }
   ],
   "scopes": [

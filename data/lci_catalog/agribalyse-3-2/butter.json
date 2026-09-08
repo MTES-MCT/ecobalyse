@@ -2,8 +2,7 @@
   "activityName": "Butter, 82% fat, unsalted, at dairy {FR} U",
   "categories": [
     "ingredient",
-    "material",
-    "material_type:other_food_items"
+    "material"
   ],
   "displayName": "Beurre FR",
   "id": "570fc07d-d926-5405-8b71-6f855c8f06e1",

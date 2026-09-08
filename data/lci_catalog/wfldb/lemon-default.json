@@ -2,8 +2,7 @@
   "activityName": "Lemon, at farm (WFLDB)",
   "categories": [
     "ingredient",
-    "material",
-    "material_type:fruits_and_vegetables"
+    "material"
   ],
   "displayName": "Citron Origine Inconnue",
   "id": "297f48db-c574-5ad1-8515-0af5873e880d",
@@ -31,11 +30,6 @@
       "ingredientDensityMatch": {
         "confidence": 1.0,
         "rule": "lemon found in density.csv"
-      },
-      "rawToCookedRatio": 0.856,
-      "rawToCookedRatioMatch": {
-        "confidence": 1.0,
-        "rule": "fruit default from food_type_cooked_to_raw.csv"
       },
       "scenario": "import",
       "scopes": [
@@ -71,11 +65,6 @@
       "ingredientDensityMatch": {
         "confidence": 1.0,
         "rule": "lemon found in density.csv"
-      },
-      "rawToCookedRatio": 0.856,
-      "rawToCookedRatioMatch": {
-        "confidence": 1.0,
-        "rule": "fruit default from food_type_cooked_to_raw.csv"
       },
       "scenario": "import",
       "scopes": [

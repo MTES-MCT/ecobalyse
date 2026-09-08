@@ -42,3 +42,8 @@ yellow =
 grey : String
 grey =
     "#dddddd"
+
+
+orange : String
+orange =
+    "#ff9500"

@@ -70,12 +70,12 @@ def get_env(
 
 
 @overload
-def get_env(
+def get_env[T](
     key: str, default: ParseTypes | None, type_hint: type[T]
 ) -> Callable[[], T]: ...
 
 
-def get_env(
+def get_env[T](
     key: str, default: ParseTypes | None, type_hint: type[T] | UnsetType = _UNSET
 ) -> Callable[[], ParseTypes | T | None]:
     return lambda: get_config_val(key=key, default=default, type_hint=type_hint)
@@ -114,10 +114,12 @@ def get_config_val(key: str, default: None, type_hint: UnsetType = _UNSET) -> No
 
 
 @overload
-def get_config_val(key: str, default: ParseTypes | None, type_hint: type[T]) -> T: ...
+def get_config_val[T](
+    key: str, default: ParseTypes | None, type_hint: type[T]
+) -> T: ...
 
 
-def get_config_val(  # noqa: C901, PLR0912, PLR0911
+def get_config_val[T](
     key: str, default: ParseTypes | None, type_hint: type[T] | UnsetType = _UNSET
 ) -> ParseTypes | T | None:
     """Parse environment variables.

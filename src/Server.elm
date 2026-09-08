@@ -31,6 +31,7 @@ import Route as WebRoute
 import Server.Request exposing (Request)
 import Server.Route as Route
 import Static.Db as StaticDb
+import Static.Json as StaticJson
 
 
 type Msg
@@ -153,11 +154,7 @@ executeFoodQuery request db encoder =
 
 executeTextileQuery : Request -> Db -> (Simulator -> Encode.Value) -> TextileQuery.Query -> JsonResponse
 executeTextileQuery request db encoder query =
-    -- Important note: the Textile API doesn't currently use any specific component configuration
-    -- for trims so only the production stage impacts are taken into account.
-    -- This might change if we ever want to compute, say, EoL impacts for trims: then we should apply a
-    -- non-passthrough component configuration like the one used for other scopes like Object and Veli.
-    Component.defaultConfig db
+    Component.parseConfig db StaticJson.componentConfigJson
         |> Result.map
             (\config ->
                 query

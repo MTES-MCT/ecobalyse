@@ -2,8 +2,7 @@
   "activityName": "Soy drink, plain, recipe, at plant {FR} U",
   "categories": [
     "ingredient",
-    "material",
-    "material_type:other_food_items"
+    "material"
   ],
   "displayName": "Lait de soja FR",
   "id": "c8440201-4cac-58f9-b469-0b3fdf52c928",

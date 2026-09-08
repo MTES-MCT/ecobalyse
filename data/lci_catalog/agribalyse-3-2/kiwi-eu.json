@@ -2,8 +2,7 @@
   "activityName": "Kiwi {GLO}| production | Cut-off, U - Adapted from Ecoinvent U",
   "categories": [
     "ingredient",
-    "material",
-    "material_type:fruits_and_vegetables"
+    "material"
   ],
   "displayName": "Kiwi UE",
   "id": "a54c2a40-275b-5b68-a7f6-df81e8cc85d6",
@@ -19,7 +18,6 @@
         "vegetable_fresh"
       ],
       "ingredientDensity": 0.447,
-      "rawToCookedRatio": 0.856,
       "scenario": "import",
       "scopes": [
         "food",
@@ -40,7 +38,6 @@
         "vegetable_fresh"
       ],
       "ingredientDensity": 0.447,
-      "rawToCookedRatio": 0.856,
       "scenario": "import",
       "scopes": [
         "food",
@@ -71,11 +68,6 @@
       "ingredientDensityMatch": {
         "confidence": 1.0,
         "rule": "fruit default from food_type_density.csv"
-      },
-      "rawToCookedRatio": 0.856,
-      "rawToCookedRatioMatch": {
-        "confidence": 1.0,
-        "rule": "fruit default from food_type_cooked_to_raw.csv"
       },
       "scenario": "import",
       "scopes": [
@@ -112,11 +104,6 @@
         "confidence": 1.0,
         "rule": "kiwi found in density.csv"
       },
-      "rawToCookedRatio": 0.856,
-      "rawToCookedRatioMatch": {
-        "confidence": 1.0,
-        "rule": "Matched with kiwi in cooked_to_raw.csv"
-      },
       "scenario": "import",
       "scopes": [
         "food",
@@ -151,11 +138,6 @@
       "ingredientDensityMatch": {
         "confidence": 1.0,
         "rule": "fruit default from food_type_density.csv"
-      },
-      "rawToCookedRatio": 0.856,
-      "rawToCookedRatioMatch": {
-        "confidence": 0.95,
-        "rule": "Matched with fruit in cooked_to_raw.csv"
       },
       "scenario": "import",
       "scopes": [

@@ -2,12 +2,15 @@ port module CheckDb exposing (main)
 
 import Data.Component as Component exposing (Component)
 import Data.Component.Config as ComponentConfig
+import Data.Component.ProductCategory as ProductCategory exposing (ProductCategory)
 import Data.Db exposing (Db)
-import Data.Example exposing (Example)
+import Data.Example as Example exposing (Example)
 import Data.Process as Process exposing (Process)
+import Data.Process.Category as ProcessCategory
 import Data.Scope as Scope
 import Data.Uuid as Uuid
 import Dict exposing (Dict)
+import Dict.Any as AnyDict
 import List.Extra as LE
 import Set exposing (Set)
 import Static.Db as StaticDb
@@ -65,8 +68,34 @@ checkComponentConfig db jsonConfig =
         Err err ->
             [ err ]
 
-        Ok _ ->
-            []
+        Ok config ->
+            checkDefaultExamples db config
+
+
+{-| Validates that default example UUIDs in config point to existing examples
+with matching scopes.
+-}
+checkDefaultExamples : Db -> ComponentConfig.Config -> List Error
+checkDefaultExamples db config =
+    config.defaultExamples
+        |> AnyDict.toList
+        |> List.concatMap
+            (\( scope, uuid ) ->
+                case db.generic.examples |> Example.findByUuid uuid of
+                    Err err ->
+                        [ err ]
+
+                    Ok example ->
+                        if example.scope == scope then
+                            []
+
+                        else
+                            [ "Default example"
+                                ++ Uuid.toString uuid
+                                ++ " doesn't belong to the scope "
+                                ++ Scope.toString scope
+                            ]
+            )
 
 
 {-| Returns missing component ids referenced by a component item.
@@ -208,7 +237,7 @@ checkExampleComponentItem processes components example =
 -}
 checkExamplesComponentIds : Set String -> Db -> List Error
 checkExamplesComponentIds knownComponentStringIds db =
-    db.object.examples
+    db.generic.examples
         |> List.filter (.scope >> Scope.isGeneric)
         |> List.concatMap
             (\example ->
@@ -234,7 +263,7 @@ checkExamplesScope db =
             , componentById db.components
             )
     in
-    db.object.examples
+    db.generic.examples
         |> List.filter (.scope >> Scope.isGeneric)
         |> List.concatMap
             (\example ->
@@ -242,8 +271,109 @@ checkExamplesScope db =
                     [ example.query.items
                         |> List.concatMap (checkExampleComponentItem processesMap componentsMap example)
                     , example.query.consumptions
+                        |> Maybe.withDefault []
                         |> List.concatMap (checkExampleConsumption processesMap example)
                     ]
+            )
+
+
+{-| Checks that a product category assembly process exists, is scoped, is an assembly process, and is in kg.
+-}
+checkProductCategoryAssembly : Dict String Process -> ProductCategory -> Process.Id -> List Error
+checkProductCategoryAssembly processes product processId =
+    let
+        processIdString =
+            Process.idToString processId
+    in
+    case processes |> Dict.get processIdString of
+        Just process ->
+            if process.scopes |> List.member (Scope.Generic product.scope) |> not then
+                formatError
+                    [ "Product category " ++ productCategoryLabel product
+                    , "references process " ++ processLabel process
+                    , "in assembly but isn't scoped for " ++ backtick (Scope.toStringGeneric product.scope)
+                    ]
+
+            else if not (List.member ProcessCategory.Assembly process.categories) then
+                formatError
+                    [ "Product category " ++ productCategoryLabel product
+                    , "references process " ++ processLabel process
+                    , "in assembly but the process is not an assembly process"
+                    ]
+
+            else if process.unit /= Process.Kilogram then
+                formatError
+                    [ "Product category " ++ productCategoryLabel product
+                    , "references process " ++ processLabel process
+                    , "in assembly but the process unit is not kg"
+                    ]
+
+            else
+                []
+
+        Nothing ->
+            formatError
+                [ "Product category " ++ productCategoryLabel product
+                , "references missing process " ++ processIdString ++ " in assembly"
+                ]
+
+
+{-| Validates process references used by generic product category assembly defaults.
+-}
+checkProductCategoryAssemblies : Db -> List Error
+checkProductCategoryAssemblies db =
+    db.products
+        |> List.concatMap
+            (\product ->
+                product.assembly
+                    |> List.concatMap (product |> checkProductCategoryAssembly (processById db.processes))
+            )
+
+
+{-| Checks that a product category consumption references an existing, scope-compatible process.
+When amount is omitted, the process _must_ be product-mass-dependent.
+-}
+checkProductCategoryConsumption : Dict String Process -> ProductCategory -> ProductCategory.DefaultConsumption -> List Error
+checkProductCategoryConsumption processes product { amount, processId } =
+    let
+        processIdString =
+            Process.idToString processId
+    in
+    case processes |> Dict.get processIdString of
+        Just process ->
+            if process.scopes |> List.member (Scope.Generic product.scope) |> not then
+                formatError
+                    [ "Product category " ++ productCategoryLabel product
+                    , "references process " ++ processLabel process
+                    , "in consumptions but isn't scoped for " ++ backtick (Scope.toStringGeneric product.scope)
+                    ]
+
+            else if amount == Nothing && not (List.member ProcessCategory.ProductMassDependent process.categories) then
+                formatError
+                    [ "Product category " ++ productCategoryLabel product
+                    , "references process " ++ processLabel process
+                    , "in consumptions without an amount, but the process is not productmassdependent"
+                    ]
+
+            else
+                []
+
+        Nothing ->
+            formatError
+                [ "Product category " ++ productCategoryLabel product
+                , "references missing process " ++ processIdString ++ " in consumptions"
+                ]
+
+
+{-| Validates process references used by generic product category consumptions.
+-}
+checkProductCategoryConsumptions : Db -> List Error
+checkProductCategoryConsumptions db =
+    db.products
+        |> List.concatMap
+            (\product ->
+                product.consumptions
+                    |> List.concatMap (product |> checkProductCategoryConsumption (processById db.processes))
             )
 
 
@@ -288,6 +418,8 @@ checkStaticDatabase config dbName dbResult =
             []
                 |> addGroupedErrors (section "Examples components checks") (checkExamplesComponentIds knownComponentStringIds db)
                 |> addGroupedErrors (section "Components processes checks") (checkComponentsProcessIds knownProcessStringIds db)
+                |> addGroupedErrors (section "Product category assembly checks") (checkProductCategoryAssemblies db)
+                |> addGroupedErrors (section "Product category consumptions checks") (checkProductCategoryConsumptions db)
                 |> addGroupedErrors (section "Scoping checks") (checkExamplesScope db)
                 |> addGroupedErrors (section "Component config checks") (checkComponentConfig db config)
 
@@ -393,6 +525,16 @@ processLabel process =
     quote (Process.getDisplayName process)
         ++ " ("
         ++ Process.idToString process.id
+        ++ ")"
+
+
+productCategoryLabel : ProductCategory -> String
+productCategoryLabel product =
+    quote product.label
+        ++ " ("
+        ++ backtick (Scope.toStringGeneric product.scope)
+        ++ ", "
+        ++ ProductCategory.idToString product.id
         ++ ")"
 
 

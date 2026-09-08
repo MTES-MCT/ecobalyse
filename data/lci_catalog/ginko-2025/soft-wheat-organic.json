@@ -2,8 +2,7 @@
   "activityName": "Soft wheat grain, organic 2025, breadmaking quality, 15% moisture, at farm gate {FR} U",
   "categories": [
     "ingredient",
-    "material",
-    "material_type:cereals"
+    "material"
   ],
   "displayName": "Blé tendre Bio",
   "id": "992cc10e-4594-54cf-8a6d-07649a7fae8a",
@@ -32,11 +31,6 @@
       "ingredientDensityMatch": {
         "confidence": 0.95,
         "rule": "Matched with Wheat in fao_density.csv"
-      },
-      "rawToCookedRatio": 2.259,
-      "rawToCookedRatioMatch": {
-        "confidence": 1.0,
-        "rule": "grain default from food_type_cooked_to_raw.csv"
       },
       "scenario": "organic",
       "scopes": [

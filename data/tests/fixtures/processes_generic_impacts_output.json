@@ -48,7 +48,9 @@
     "activityName": "_22 Vegetable and animal oils and fats, EU27",
     "alias": "bean-fr",
     "categories": [
-      "ingredient"
+      "ingredient",
+      "material_type:legumes",
+      "transported_cooled"
     ],
     "comment": "",
     "displayName": "Pois FR",
@@ -91,12 +93,8 @@
       "ingredient": {
         "baseIngredient": "bean",
         "cropGroup": "AUTRES CEREALES",
-        "density": 1.0,
-        "inediblePart": 0,
         "processId": "af42fc20-e3ec-5b99-9b9c-83ba6735e597",
-        "rawToCookedRatio": 2.259,
-        "scenario": "reference",
-        "transportCooling": "none"
+        "scenario": "reference"
       }
     },
     "qtyVariationRatio": 1.0,
@@ -111,7 +109,8 @@
     "activityName": "_22 Vegetable and animal oils and fats, EU27",
     "alias": "grazed-grass-permanent-2025",
     "categories": [
-      "ingredient"
+      "ingredient",
+      "material_type:other_food_items"
     ],
     "comment": "",
     "displayName": "Herbe de prairie permanente FR",
@@ -154,12 +153,8 @@
       "ingredient": {
         "baseIngredient": "grazed-grass-permanent",
         "cropGroup": "PRAIRIES PERMANENTES",
-        "density": 1.0,
-        "inediblePart": 0,
         "processId": "af42fc20-e3ec-5b99-9b9c-83ba6735e597",
-        "rawToCookedRatio": 1.0,
-        "scenario": "reference",
-        "transportCooling": "none"
+        "scenario": "reference"
       }
     },
     "qtyVariationRatio": 1.0,
@@ -172,7 +167,8 @@
     "activityName": "_22 Vegetable and animal oils and fats, EU27",
     "alias": "milk",
     "categories": [
-      "ingredient"
+      "ingredient",
+      "material_type:other_food_items"
     ],
     "comment": "",
     "displayName": "Lait FR",
@@ -215,12 +211,8 @@
       "ingredient": {
         "baseIngredient": "milk",
         "cropGroup": null,
-        "density": 1.0,
-        "inediblePart": 0,
         "processId": "af42fc20-e3ec-5b99-9b9c-83ba6735e597",
-        "rawToCookedRatio": 1.0,
-        "scenario": "reference",
-        "transportCooling": "always"
+        "scenario": "reference"
       }
     },
     "qtyVariationRatio": 1.0,

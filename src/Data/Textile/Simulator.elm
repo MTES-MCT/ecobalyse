@@ -862,7 +862,8 @@ toStagesImpacts trigram simulator =
             else
                 identity
     in
-    { distribution = Nothing
+    { assembly = Nothing
+    , distribution = Nothing
     , endOfLife =
         getImpacts Label.EndOfLife
             |> getImpact

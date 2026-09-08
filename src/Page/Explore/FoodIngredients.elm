@@ -122,7 +122,7 @@ table { detailed, scope } =
           , toCell = .process >> .source >> text
           }
         , { label = "Services écosystémiques"
-          , toValue = Table.StringValue <| always "N/A"
+          , toValue = Table.StringValue <| always Table.emptyLabel
           , toCell =
                 \{ ecosystemicServices } ->
                     div [ class "overflow-scroll" ]

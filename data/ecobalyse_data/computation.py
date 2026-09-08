@@ -2,9 +2,9 @@
 
 import json
 import urllib.parse
-from typing import List, Optional
 
 import bw2calc
+import bw2calc.errors
 import bw2data
 import requests
 from bw2data import get_multilca_data_objs
@@ -27,7 +27,7 @@ projects.set_current(settings.bw.project)
 available_bw_databases = ", ".join(bw2data.databases)
 
 
-def check_duplicate_activities(activities: List[dict]) -> None:
+def check_duplicate_activities(activities: list[dict]) -> None:
     """
     Check for duplicate activities based on source + activityName + location.
     Raises ValueError if duplicates are found.
@@ -71,12 +71,9 @@ def compute_process_for_bw_activity(
     impacts_py,
     impacts_json,
     factors,
-    simapro=False,
-) -> Optional[Process]:
+) -> Process:
     """Compute a process when we have only have a brightway activity (bw_activity),
     no eco_activity (an activity in lci_activity/*)"""
-    computed_by = None
-    impacts = {}
 
     (computed_by, impacts) = compute_impacts(
         bw_activity,
@@ -84,7 +81,6 @@ def compute_process_for_bw_activity(
         impacts_py,
         impacts_json,
         factors,
-        simapro=simapro,
     )
 
     process = activity_to_process_with_impacts(
@@ -110,7 +106,6 @@ def compute_process_for_activity(
     impacts_py,
     impacts_json,
     factors,
-    simapro=False,
 ) -> Process:
     """Compute a process when we have an ecobalyse activity (eco_activity in lci_activity/*) and a brightway activity (bw_activity)"""
     computed_by = None
@@ -134,7 +129,6 @@ def compute_process_for_activity(
             impacts_py,
             impacts_json,
             factors,
-            simapro=simapro,
             demand_amount=demand_amount,
         )
     else:
@@ -198,24 +192,23 @@ def compute_brightway_impacts_batch(
         for (method_t, fu_name), ci in mlca.characterized_inventories.items():
             act_id = int(fu_name)
             per_demand[act_id][method_to_key[tuple(method_t)]] = float(
-                "{:.10g}".format(ci.sum())
+                f"{ci.sum():.10g}"
             )
         out.update(per_demand)
     return out
 
 
 def compute_processes_for_activities(
-    activities: List[dict],
+    activities: list[dict],
     main_method,
     impacts_py,
     impacts_json,
     factors,
-    simapro=False,
-) -> List[Process]:
+) -> list[Process]:
     # Check for duplicate activities before processing
     check_duplicate_activities(activities)
 
-    processes: List[Process] = []
+    processes: list[Process] = []
 
     index = 1
     total = len(activities)
@@ -241,18 +234,10 @@ def compute_processes_for_activities(
 
         computation_parameters.append(
             # Parameters of the `get_process_with_impacts` function
-            (
-                eco_activity,
-                bw_activity,
-                main_method,
-                impacts_py,
-                impacts_json,
-                factors,
-                False if eco_activity["source"] == "Ecobalyse_custom_lci" else simapro,
-            )
+            (eco_activity, bw_activity, main_method, impacts_py, impacts_json, factors)
         )
 
-    # Batch all non-simapro, non-hardcoded BW computations through MultiLCA.
+    # Batch all non-hardcoded BW computations through MultiLCA.
     # This is dramatically faster than per-activity LCA (~10x in benchmarks) because
     # the technosphere matrix is built once per chunk and the linear system is solved
     # for many demands and impact categories at once.
@@ -260,11 +245,9 @@ def compute_processes_for_activities(
     batch_acts = []
     batch_amts = []
     for idx, params in enumerate(computation_parameters):
-        eco_activity, bw_activity, _, _, _, _, eff_simapro = params
+        eco_activity, bw_activity, _, _, _, _ = params
         if eco_activity.get("impacts"):
             continue  # hardcoded
-        if eff_simapro:
-            continue  # leave simapro path to per-activity flow
         if not bw_activity:
             continue
         batch_indices.append(idx)
@@ -287,8 +270,8 @@ def compute_processes_for_activities(
 
     for idx, parameters in enumerate(computation_parameters):
         if idx in batched_set:
-            eco_activity, bw_activity, _, _, _, _, _ = parameters
-            raw = batched_raw.get(bw_activity.id)
+            eco_activity, bw_activity, _, _, _, _ = parameters
+            raw = batched_raw.get(bw_activity["id"])
             if raw is None:
                 # Fallback to per-activity if batch lost it for any reason.
                 processes.append(compute_process_for_activity(*parameters))
@@ -315,40 +298,14 @@ def compute_impacts(
     impacts_py,
     impacts_json,
     normalization_factors,
-    simapro=False,
     with_aggregated=True,
     demand_amount=None,
-) -> tuple[Optional[ComputedBy], Optional[Impacts]]:
-    computed_by = None
+) -> tuple[ComputedBy | None, Impacts | None]:
     try:
-        impacts = {}
+        logger.debug(f"-> Getting impacts from BW for {bw_activity}")
+        impacts = compute_brightway_impacts(bw_activity, impacts_py, demand_amount)
 
-        # Try to compute impacts using Simapro
-        if simapro:
-            logger.debug(f"-> Getting impacts from Simapro for {bw_activity}")
-            impacts = compute_simapro_impacts(bw_activity, main_method, impacts_py)
-
-            if not impacts:
-                raise ValueError(
-                    f"-> Impacts retrieval from Simapro failed for {bw_activity}"
-                )
-
-            unit = fix_unit(bw_activity.get("unit"))
-
-            # WARNING assume remote is in m3 or kWh (couldn't find unit from COM intf)
-            if unit == "kWh":
-                impacts = {k: v * 3.6 for k, v in impacts.items()}
-            elif unit == "L":
-                impacts = {k: v / 1000 for k, v in impacts.items()}
-
-            computed_by = ComputedBy.simapro
-        else:
-            logger.debug(f"-> Getting impacts from BW for {bw_activity}")
-            impacts = compute_brightway_impacts(
-                bw_activity, main_method, impacts_py, demand_amount
-            )
-
-            computed_by = ComputedBy.brightway
+        computed_by = ComputedBy.brightway
 
         corrections = {
             k: v["correction"] for (k, v) in impacts_json.items() if "correction" in v
@@ -367,8 +324,8 @@ def compute_impacts(
         return (None, None)
 
 
-def compute_brightway_impacts(activity, method, impacts_py, demand_amount=None):
-    results = dict()
+def compute_brightway_impacts(activity, impacts_py, demand_amount=None):
+    results = {}
     # Some processes have negative production amounts (e.g., waste treatment processes that
     # consume 1 kg of waste rather than produce it). We need to get the sign of the production
     # amount to properly normalize impacts to 1 unit of the process.
@@ -382,7 +339,7 @@ def compute_brightway_impacts(activity, method, impacts_py, demand_amount=None):
     for key, method in impacts_py.items():
         lca.switch_method(method)
         lca.lcia()
-        results[key] = float("{:.10g}".format(lca.score))
+        results[key] = float(f"{lca.score:.10g}")
         logger.debug(f"{activity}  {key}: {lca.score}")
 
     return results
@@ -407,7 +364,7 @@ def compute_simapro_impacts(activity, method, impacts_py):
         response = requests.get(api_request)
     except requests.exceptions.ConnectTimeout:
         logger.warning("SimaPro did not answer! Is it started?")
-        return dict()
+        return {}
 
     try:
         json_content = json.loads(response.content)
@@ -420,10 +377,10 @@ def compute_simapro_impacts(activity, method, impacts_py):
     except ValueError:
         pass
 
-    return dict()
+    return {}
 
 
-def get_mass_per_unit(eco_activity: dict, bw_activity) -> Optional[float]:
+def get_mass_per_unit(eco_activity: dict, bw_activity) -> float | None:
     """
     Get the mass per unit for an activity.
 
@@ -455,8 +412,10 @@ def get_mass_per_unit(eco_activity: dict, bw_activity) -> Optional[float]:
 
 
 def activity_to_process_with_impacts(
-    eco_activity, impacts, computed_by: ComputedBy | None, bw_activity={}
+    eco_activity, impacts, computed_by: ComputedBy | None, bw_activity=None
 ) -> Process:
+    if bw_activity is None:
+        bw_activity = {}
     unit = fix_unit(bw_activity.get("unit"))
 
     bw_activity["unit"] = unit

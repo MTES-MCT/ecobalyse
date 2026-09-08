@@ -9,11 +9,12 @@ module Data.Db exposing
     )
 
 import Data.Component as Component exposing (Component)
+import Data.Component.ProductCategory as ProductCategory exposing (ProductCategory)
 import Data.Country as Country exposing (Country)
 import Data.Food.Db as FoodDb
+import Data.Generic.Db as GenericDb
 import Data.Impact as Impact
 import Data.Impact.Definition as Definition exposing (Definitions)
-import Data.Object.Db as ObjectDb
 import Data.Process as Process exposing (Process)
 import Data.Textile.Db as TextileDb
 import Data.Transport as Transport exposing (Distances)
@@ -27,8 +28,9 @@ type alias Db =
     , definitions : Definitions
     , distances : Distances
     , food : FoodDb.Db
-    , object : ObjectDb.Db
+    , generic : GenericDb.Db
     , processes : List Process
+    , products : List ProductCategory
     , textile : TextileDb.Db
     }
 
@@ -37,10 +39,12 @@ type alias Properties a =
     { countries : a
     , definitions : a
     , food2Examples : a
+    , food2ProductCategories : a
     , foodIngredients : a
     , foodProductExamples : a
     , objectComponents : a
     , objectExamples : a
+    , objectProductCategories : a
     , processes : a
     , textileComponents : a
     , textileMaterials : a
@@ -49,6 +53,7 @@ type alias Properties a =
     , transports : a
     , veliComponents : a
     , veliExamples : a
+    , veliProductCategories : a
     }
 
 
@@ -100,12 +105,21 @@ build json =
                                 (extractJsonString json.foodIngredients)
                         )
                     |> RE.andMap
-                        (ObjectDb.buildFromJson
+                        (GenericDb.buildFromJson
                             (extractJsonString json.food2Examples)
                             (extractJsonString json.objectExamples)
                             (extractJsonString json.veliExamples)
                         )
                     |> RE.andMap (Ok processes)
+                    |> RE.andMap
+                        ([ json.food2ProductCategories
+                         , json.objectProductCategories
+                         , json.veliProductCategories
+                         ]
+                            |> List.map (extractJsonString >> ProductCategory.decodeListFromJsonString)
+                            |> RE.combine
+                            |> Result.map List.concat
+                        )
                     |> RE.andMap
                         (processes
                             |> TextileDb.buildFromJson
@@ -125,9 +139,11 @@ propGetters : List (Properties a -> a)
 propGetters =
     [ .countries
     , .definitions
+    , .food2ProductCategories
     , .food2Examples
     , .foodIngredients
     , .foodProductExamples
+    , .objectProductCategories
     , .objectComponents
     , .objectExamples
     , .processes
@@ -136,6 +152,7 @@ propGetters =
     , .textileProductExamples
     , .textileProducts
     , .transports
+    , .veliProductCategories
     , .veliComponents
     , .veliExamples
     ]

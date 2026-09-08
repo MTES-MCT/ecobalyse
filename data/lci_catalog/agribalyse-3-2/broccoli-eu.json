@@ -2,8 +2,7 @@
   "activityName": "Broccoli {GLO}| production | Cut-off, U - Adapted from Ecoinvent U",
   "categories": [
     "ingredient",
-    "material",
-    "material_type:fruits_and_vegetables"
+    "material"
   ],
   "displayName": "Brocoli UE",
   "id": "9cab280c-527f-56b6-a620-5f12170108f3",
@@ -20,7 +19,6 @@
         "vegetable_fresh"
       ],
       "ingredientDensity": 0.2355,
-      "rawToCookedRatio": 0.856,
       "scenario": "import",
       "scopes": [
         "food",
@@ -41,7 +39,6 @@
         "vegetable_fresh"
       ],
       "ingredientDensity": 0.2355,
-      "rawToCookedRatio": 0.856,
       "scenario": "import",
       "scopes": [
         "food",
@@ -72,11 +69,6 @@
       "ingredientDensityMatch": {
         "confidence": 1.0,
         "rule": "broccoli found in density.csv"
-      },
-      "rawToCookedRatio": 0.856,
-      "rawToCookedRatioMatch": {
-        "confidence": 1.0,
-        "rule": "Matched with broccoli in cooked_to_raw.csv"
       },
       "scenario": "reference",
       "scopes": [
@@ -113,11 +105,6 @@
         "confidence": 1.0,
         "rule": "broccoli found in density.csv"
       },
-      "rawToCookedRatio": 0.856,
-      "rawToCookedRatioMatch": {
-        "confidence": 1.0,
-        "rule": "Matched with broccoli in cooked_to_raw.csv"
-      },
       "scenario": "import",
       "scopes": [
         "food",
@@ -153,11 +140,6 @@
         "confidence": 1.0,
         "rule": "broccoli found in density.csv"
       },
-      "rawToCookedRatio": 0.856,
-      "rawToCookedRatioMatch": {
-        "confidence": 1.0,
-        "rule": "Matched with broccoli in cooked_to_raw.csv"
-      },
       "scenario": "import",
       "scopes": [
         "food",
@@ -192,11 +174,6 @@
       "ingredientDensityMatch": {
         "confidence": 1.0,
         "rule": "broccoli found in density.csv"
-      },
-      "rawToCookedRatio": 0.856,
-      "rawToCookedRatioMatch": {
-        "confidence": 1.0,
-        "rule": "Matched with broccoli in cooked_to_raw.csv"
       },
       "scenario": "import",
       "scopes": [

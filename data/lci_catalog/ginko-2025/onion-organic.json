@@ -2,8 +2,7 @@
   "activityName": "Onion, organic 2025, national average, at farm {FR} U",
   "categories": [
     "ingredient",
-    "material",
-    "material_type:fruits_and_vegetables"
+    "material"
   ],
   "displayName": "Oignon Bio",
   "id": "78fd0a9f-52de-5cf3-998b-817e77b2fdbd",
@@ -21,7 +20,6 @@
         "organic"
       ],
       "ingredientDensity": 0.6195,
-      "rawToCookedRatio": 0.856,
       "scenario": "organic",
       "scopes": [
         "food",
@@ -43,7 +41,6 @@
         "organic"
       ],
       "ingredientDensity": 0.6195,
-      "rawToCookedRatio": 0.856,
       "scenario": "organic",
       "scopes": [
         "food",
@@ -75,11 +72,6 @@
       "ingredientDensityMatch": {
         "confidence": 1.0,
         "rule": "vegetable default from food_type_density.csv"
-      },
-      "rawToCookedRatio": 0.856,
-      "rawToCookedRatioMatch": {
-        "confidence": 1.0,
-        "rule": "vegetable default from food_type_cooked_to_raw.csv"
       },
       "scenario": "organic",
       "scopes": [
@@ -117,11 +109,6 @@
         "confidence": 1.0,
         "rule": "garlic found in density.csv"
       },
-      "rawToCookedRatio": 0.856,
-      "rawToCookedRatioMatch": {
-        "confidence": 1.0,
-        "rule": "Matched with garlic in cooked_to_raw.csv"
-      },
       "scenario": "organic",
       "scopes": [
         "food",
@@ -158,11 +145,6 @@
         "confidence": 0.95,
         "rule": "Matched with onion in density.csv"
       },
-      "rawToCookedRatio": 0.856,
-      "rawToCookedRatioMatch": {
-        "confidence": 0.95,
-        "rule": "Matched with onion in cooked_to_raw.csv"
-      },
       "scenario": "organic",
       "scopes": [
         "food",
@@ -198,11 +180,6 @@
       "ingredientDensityMatch": {
         "confidence": 1.0,
         "rule": "vegetable default from food_type_density.csv"
-      },
-      "rawToCookedRatio": 0.856,
-      "rawToCookedRatioMatch": {
-        "confidence": 1.0,
-        "rule": "vegetable default from food_type_cooked_to_raw.csv"
       },
       "scenario": "organic",
       "scopes": [

@@ -2,8 +2,7 @@
   "activityName": "Onion {RoW}| onion production | Cut-off, U - Copied from Ecoinvent U",
   "categories": [
     "ingredient",
-    "material",
-    "material_type:fruits_and_vegetables"
+    "material"
   ],
   "displayName": "Oignon par défaut",
   "id": "79bd1332-375a-5aa9-8cc2-b3619a56faba",
@@ -19,7 +18,6 @@
         "vegetable_fresh"
       ],
       "ingredientDensity": 0.6195,
-      "rawToCookedRatio": 0.856,
       "scenario": "import",
       "scopes": [
         "food",
@@ -50,11 +48,6 @@
       "ingredientDensityMatch": {
         "confidence": 1.0,
         "rule": "vegetable default from food_type_density.csv"
-      },
-      "rawToCookedRatio": 0.856,
-      "rawToCookedRatioMatch": {
-        "confidence": 1.0,
-        "rule": "vegetable default from food_type_cooked_to_raw.csv"
       },
       "scenario": "import",
       "scopes": [
@@ -91,11 +84,6 @@
         "confidence": 0.95,
         "rule": "Matched with onion in density.csv"
       },
-      "rawToCookedRatio": 0.856,
-      "rawToCookedRatioMatch": {
-        "confidence": 0.95,
-        "rule": "Matched with onion in cooked_to_raw.csv"
-      },
       "scenario": "import",
       "scopes": [
         "food",
@@ -130,11 +118,6 @@
       "ingredientDensityMatch": {
         "confidence": 1.0,
         "rule": "vegetable default from food_type_density.csv"
-      },
-      "rawToCookedRatio": 0.856,
-      "rawToCookedRatioMatch": {
-        "confidence": 1.0,
-        "rule": "vegetable default from food_type_cooked_to_raw.csv"
       },
       "scenario": "import",
       "scopes": [

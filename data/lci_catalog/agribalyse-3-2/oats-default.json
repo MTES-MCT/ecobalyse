@@ -2,8 +2,7 @@
   "activityName": "Oats, at farm {FI} - Adapted from WFLDB U",
   "categories": [
     "ingredient",
-    "material",
-    "material_type:cereals"
+    "material"
   ],
   "displayName": "Avoine Origine Inconnue",
   "id": "ada3a28d-48b5-5b33-ac83-11cb80d253d2",
@@ -31,11 +30,6 @@
       "ingredientDensityMatch": {
         "confidence": 1.0,
         "rule": "Oats found in fao_density.csv"
-      },
-      "rawToCookedRatio": 2.259,
-      "rawToCookedRatioMatch": {
-        "confidence": 0.95,
-        "rule": "Matched with oat in cooked_to_raw.csv"
       },
       "scenario": "import",
       "scopes": [
@@ -71,11 +65,6 @@
       "ingredientDensityMatch": {
         "confidence": 1.0,
         "rule": "Oats found in fao_density.csv"
-      },
-      "rawToCookedRatio": 2.259,
-      "rawToCookedRatioMatch": {
-        "confidence": 0.95,
-        "rule": "Matched with oat in cooked_to_raw.csv"
       },
       "scenario": "import",
       "scopes": [

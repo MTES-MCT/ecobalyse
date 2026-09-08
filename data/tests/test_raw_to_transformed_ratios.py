@@ -2,13 +2,13 @@ import json
 
 import pytest
 
-from config import PROJECT_ROOT_DIR
+from config import DATA_ROOT_DIR
 
 
 @pytest.fixture(scope="module")
 def raw_to_transformed():
     path = (
-        PROJECT_ROOT_DIR
+        DATA_ROOT_DIR
         / "food"
         / "ecosystemic_services"
         / "raw_to_transformed_ratios.json"
@@ -19,7 +19,7 @@ def raw_to_transformed():
 
 @pytest.fixture(scope="module")
 def from_scratch_by_alias():
-    path = PROJECT_ROOT_DIR / "custom_lci.json"
+    path = DATA_ROOT_DIR / "custom_lci.json"
     with open(path) as f:
         activities = json.load(f)
     return {

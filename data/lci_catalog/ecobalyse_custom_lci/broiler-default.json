@@ -2,8 +2,7 @@
   "activityName": "Broiler, conventional, at farm gate {FR} U {{meat-without-bone-chicken-direct-consumption-only-soybean-max}}",
   "categories": [
     "ingredient",
-    "material",
-    "material_type:poultry"
+    "material"
   ],
   "displayName": "Poulet Origine Inconnue",
   "id": "877499d7-7a29-58f6-8a0d-e1eef40b2ec4",
@@ -33,11 +32,6 @@
       "ingredientDensityMatch": {
         "confidence": 1.0,
         "rule": "meat default from food_type_density.csv"
-      },
-      "rawToCookedRatio": 0.755,
-      "rawToCookedRatioMatch": {
-        "confidence": 1.0,
-        "rule": "poultry keyword found in Broiler"
       },
       "scenario": "import",
       "scopes": [
@@ -72,11 +66,6 @@
         "confidence": 1.0,
         "rule": "meat default from food_type_density.csv"
       },
-      "rawToCookedRatio": 0.755,
-      "rawToCookedRatioMatch": {
-        "confidence": 1.0,
-        "rule": "poultry keyword found in Poultry"
-      },
       "scenario": "import",
       "scopes": [
         "food",
@@ -109,11 +98,6 @@
       "ingredientDensityMatch": {
         "confidence": 1.0,
         "rule": "rabbit found in density.csv"
-      },
-      "rawToCookedRatio": 0.755,
-      "rawToCookedRatioMatch": {
-        "confidence": 1.0,
-        "rule": "poultry keyword found in Rabbit"
       },
       "scenario": "import",
       "scopes": [

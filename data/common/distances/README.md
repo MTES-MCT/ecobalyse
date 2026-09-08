@@ -30,7 +30,7 @@ proxies, validates against the official country list, and writes
 
 ```bash
 cd data
-uv run common/distances/compute_distances.py          # road/sea/air -> distances_raw.json
+just compute-distances          # road/sea/air -> distances_raw.json
 just export-transports   # -> transports.json
 ```
 

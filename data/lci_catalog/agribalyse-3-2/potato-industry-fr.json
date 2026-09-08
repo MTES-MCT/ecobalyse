@@ -2,8 +2,7 @@
   "activityName": "Ware potato, conventional, for industrial use, at farm gate {FR} U",
   "categories": [
     "ingredient",
-    "material",
-    "material_type:fruits_and_vegetables"
+    "material"
   ],
   "displayName": "Pomme de terre industrie FR",
   "id": "e949fbaa-d02d-59cb-be3d-c552ffed37c2",
@@ -19,7 +18,6 @@
         "vegetable_fresh"
       ],
       "ingredientDensity": 0.6375,
-      "rawToCookedRatio": 0.856,
       "scenario": "reference",
       "scopes": [
         "food",

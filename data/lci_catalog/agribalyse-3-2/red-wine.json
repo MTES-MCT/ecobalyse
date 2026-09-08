@@ -2,8 +2,7 @@
   "activityName": "Red Wine, from grape, in a cooperative cellar, packaged, French production mix, at plant, 1 L of red wine (PGi) {FR} U",
   "categories": [
     "ingredient",
-    "material",
-    "material_type:other_food_items"
+    "material"
   ],
   "displayName": "Vin rouge FR",
   "id": "e7a1682b-e2a2-5167-aa90-ed507c4e0e90",

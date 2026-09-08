@@ -2,8 +2,7 @@
   "activityName": "Palm fruit bunch, at farm, organic 2025 {MY}",
   "categories": [
     "ingredient",
-    "material",
-    "material_type:fruits_and_vegetables"
+    "material"
   ],
   "displayName": "Fruit du palmier Bio",
   "id": "fddd8c6c-4a83-5a70-985d-018a763953c7",
@@ -32,11 +31,6 @@
       "ingredientDensityMatch": {
         "confidence": 1.0,
         "rule": "vegetable default from food_type_density.csv"
-      },
-      "rawToCookedRatio": 0.856,
-      "rawToCookedRatioMatch": {
-        "confidence": 0.95,
-        "rule": "Matched with fruit in cooked_to_raw.csv"
       },
       "scenario": "organic",
       "scopes": [

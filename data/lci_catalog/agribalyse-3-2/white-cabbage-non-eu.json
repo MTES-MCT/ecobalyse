@@ -2,8 +2,7 @@
   "activityName": "Cabbage white {RoW}| cabbage white production | Cut-off, U - Adapted from Ecoinvent U",
   "categories": [
     "ingredient",
-    "material",
-    "material_type:fruits_and_vegetables"
+    "material"
   ],
   "displayName": "Chou blanc par défaut",
   "id": "fdca416b-3599-5a17-8c86-c7243403514b",
@@ -31,11 +30,6 @@
         "confidence": 0.95,
         "rule": "Matched with cabbage in density.csv"
       },
-      "rawToCookedRatio": 0.856,
-      "rawToCookedRatioMatch": {
-        "confidence": 0.95,
-        "rule": "Matched with cabbage in cooked_to_raw.csv"
-      },
       "scenario": "reference",
       "scopes": [
         "food",
@@ -60,7 +54,6 @@
         "vegetable_fresh"
       ],
       "ingredientDensity": 0.362,
-      "rawToCookedRatio": 0.856,
       "scenario": "import",
       "scopes": [
         "food",
@@ -80,7 +73,6 @@
         "vegetable_fresh"
       ],
       "ingredientDensity": 0.362,
-      "rawToCookedRatio": 0.856,
       "scenario": "import",
       "scopes": [
         "food",
@@ -111,11 +103,6 @@
       "ingredientDensityMatch": {
         "confidence": 0.95,
         "rule": "Matched with cabbage in density.csv"
-      },
-      "rawToCookedRatio": 0.856,
-      "rawToCookedRatioMatch": {
-        "confidence": 0.95,
-        "rule": "Matched with cabbage in cooked_to_raw.csv"
       },
       "scenario": "import",
       "scopes": [

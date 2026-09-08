@@ -15,9 +15,9 @@ env:
   EMAIL_SERVER_USE_TLS: false
 on:
   push:
-    branches: [ master, staging ]
+    branches: [ main, staging ]
   pull_request:
-    branches: [ master, staging ]
+    branches: [ main, staging ]
   workflow_dispatch:
 
 jobs:
@@ -80,9 +80,6 @@ jobs:
     - name: Install Node dependencies
       run: npm ci --prefer-offline --no-audit --ignore-scripts
 
-    - name: Check JSON db formating
-      run: npm run db:validate
-
     - name: Install Ubuntu dependencies
       run: |
         sudo apt-get update
@@ -93,6 +90,9 @@ jobs:
       with:
         version: "latest"
         python-version: ${{ matrix.python-version }}
+
+    - name: Check JSON db formating
+      run: npm run db:validate
 
     - name: Build app
       run: npm run build --if-present

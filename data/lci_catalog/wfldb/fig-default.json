@@ -2,8 +2,7 @@
   "activityName": "Peach, at farm (WFLDB)",
   "categories": [
     "ingredient",
-    "material",
-    "material_type:fruits_and_vegetables"
+    "material"
   ],
   "displayName": "Figue Origine Inconnue",
   "id": "bd2e0742-a804-54f9-9e5f-712a5eb8d6e1",
@@ -31,11 +30,6 @@
       "ingredientDensityMatch": {
         "confidence": 1.0,
         "rule": "fig found in density.csv"
-      },
-      "rawToCookedRatio": 0.856,
-      "rawToCookedRatioMatch": {
-        "confidence": 1.0,
-        "rule": "fruit default from food_type_cooked_to_raw.csv"
       },
       "scenario": "import",
       "scopes": [
@@ -72,11 +66,6 @@
         "confidence": 1.0,
         "rule": "fruit default from food_type_density.csv"
       },
-      "rawToCookedRatio": 0.856,
-      "rawToCookedRatioMatch": {
-        "confidence": 1.0,
-        "rule": "fruit default from food_type_cooked_to_raw.csv"
-      },
       "scenario": "import",
       "scopes": [
         "food",
@@ -111,11 +100,6 @@
       "ingredientDensityMatch": {
         "confidence": 0.95,
         "rule": "Matched with peach in density.csv"
-      },
-      "rawToCookedRatio": 0.856,
-      "rawToCookedRatioMatch": {
-        "confidence": 0.95,
-        "rule": "Matched with peach in cooked_to_raw.csv"
       },
       "scenario": "import",
       "scopes": [
@@ -152,11 +136,6 @@
         "confidence": 1.0,
         "rule": "fig found in density.csv"
       },
-      "rawToCookedRatio": 0.856,
-      "rawToCookedRatioMatch": {
-        "confidence": 1.0,
-        "rule": "fruit default from food_type_cooked_to_raw.csv"
-      },
       "scenario": "import",
       "scopes": [
         "food",
@@ -192,11 +171,6 @@
         "confidence": 1.0,
         "rule": "fruit default from food_type_density.csv"
       },
-      "rawToCookedRatio": 0.856,
-      "rawToCookedRatioMatch": {
-        "confidence": 1.0,
-        "rule": "fruit default from food_type_cooked_to_raw.csv"
-      },
       "scenario": "import",
       "scopes": [
         "food",
@@ -231,11 +205,6 @@
       "ingredientDensityMatch": {
         "confidence": 0.95,
         "rule": "Matched with peach in density.csv"
-      },
-      "rawToCookedRatio": 0.856,
-      "rawToCookedRatioMatch": {
-        "confidence": 0.95,
-        "rule": "Matched with peach in cooked_to_raw.csv"
       },
       "scenario": "import",
       "scopes": [

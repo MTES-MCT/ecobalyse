@@ -2,8 +2,7 @@
   "activityName": "Raspberry, at farm {RS} - Adapted from WFLDB U",
   "categories": [
     "ingredient",
-    "material",
-    "material_type:fruits_and_vegetables"
+    "material"
   ],
   "displayName": "Framboise UE",
   "id": "fa788be2-e63a-5c3a-b770-1aa7304b1b97",
@@ -31,11 +30,6 @@
         "confidence": 1.0,
         "rule": "raspberry found in density.csv"
       },
-      "rawToCookedRatio": 0.856,
-      "rawToCookedRatioMatch": {
-        "confidence": 1.0,
-        "rule": "Matched with raspberry in cooked_to_raw.csv"
-      },
       "scenario": "reference",
       "scopes": [
         "food",
@@ -60,7 +54,6 @@
         "vegetable_fresh"
       ],
       "ingredientDensity": 0.447,
-      "rawToCookedRatio": 0.856,
       "scenario": "import",
       "scopes": [
         "food",
@@ -91,11 +84,6 @@
       "ingredientDensityMatch": {
         "confidence": 1.0,
         "rule": "raspberry found in density.csv"
-      },
-      "rawToCookedRatio": 0.856,
-      "rawToCookedRatioMatch": {
-        "confidence": 1.0,
-        "rule": "Matched with raspberry in cooked_to_raw.csv"
       },
       "scenario": "import",
       "scopes": [
@@ -132,11 +120,6 @@
         "confidence": 1.0,
         "rule": "raspberry found in density.csv"
       },
-      "rawToCookedRatio": 0.856,
-      "rawToCookedRatioMatch": {
-        "confidence": 1.0,
-        "rule": "Matched with raspberry in cooked_to_raw.csv"
-      },
       "scenario": "import",
       "scopes": [
         "food",
@@ -171,11 +154,6 @@
       "ingredientDensityMatch": {
         "confidence": 1.0,
         "rule": "raspberry found in density.csv"
-      },
-      "rawToCookedRatio": 0.856,
-      "rawToCookedRatioMatch": {
-        "confidence": 1.0,
-        "rule": "Matched with raspberry in cooked_to_raw.csv"
       },
       "scenario": "import",
       "scopes": [

@@ -1,12 +1,15 @@
 import json
 import os
-from typing import List, Optional
 
 import orjson
 
 from common import activities_processes_sort_key, remove_detailed_impacts
 from common.export import export_json
-from common.infer_metadata import infer_base_ingredient, infer_default_origin
+from common.infer_metadata import (
+    infer_base_ingredient,
+    infer_default_origin,
+    infer_variant_material_type,
+)
 from ecobalyse_data.bw.search import cached_search_one
 from ecobalyse_data.export.complements import compute_forest_complement
 from ecobalyse_data.export.land_occupation import compute_land_occupation_batch
@@ -23,9 +26,9 @@ from models.process import (
 def _build_variant_metadata(
     variant: dict,
     activity: dict,
-    food_variant: Optional[dict],
+    food_variant: dict | None,
     es_by_alias: dict,
-) -> Optional[dict]:
+) -> dict | None:
     """Build the metadata block for a variant, omitting cross-domain nulls.
 
     - Wood variants get `forestManagement` and `complements.forest` only.
@@ -45,32 +48,31 @@ def _build_variant_metadata(
             activity.get("landOccupation"),
         )
 
-    metadata["defaultOrigin"] = infer_default_origin(
-        food_variant.get("defaultOrigin") if food_variant is not None else None,
-        activity.get("categories", []),
-    )
+    try:
+        metadata["defaultOrigin"] = infer_default_origin(
+            food_variant.get("defaultOrigin") if food_variant is not None else None,
+            activity.get("categories", []),
+        )
 
-    if food_variant is not None:
-        metadata["ingredient"] = IngredientMetadata(
-            base_ingredient=infer_base_ingredient(food_variant["alias"]),
-            crop_group=food_variant.get("cropGroup"),
-            density=food_variant["ingredientDensity"],
-            inedible_part=food_variant["inediblePart"],
-            raw_to_cooked_ratio=food_variant["rawToCookedRatio"],
-            scenario=food_variant.get("scenario"),
-            transport_cooling=food_variant["transportCooling"],
-            process_id=activity["id"],
-        ).model_dump(by_alias=True)
+        if food_variant is not None:
+            metadata["ingredient"] = IngredientMetadata(
+                base_ingredient=infer_base_ingredient(food_variant["alias"]),
+                crop_group=food_variant.get("cropGroup"),
+                scenario=food_variant.get("scenario"),
+                process_id=activity["id"],
+            ).model_dump(by_alias=True)
 
-        ecs = es_by_alias.get(food_variant["alias"])
-        if ecs:
-            for key in (
-                "cropDiversity",
-                "hedges",
-                "plotSize",
-                "permanentPasture",
-            ):
-                complements[key] = ecs.get(key)
+            ecs = es_by_alias.get(food_variant["alias"])
+            if ecs:
+                for key in (
+                    "cropDiversity",
+                    "hedges",
+                    "plotSize",
+                    "permanentPasture",
+                ):
+                    complements[key] = ecs.get(key)
+    except ValueError as e:
+        raise ValueError(f"entry {variant['alias']!r}: {e}") from e
 
     if complements:
         metadata["complements"] = complements
@@ -79,13 +81,13 @@ def _build_variant_metadata(
 
 
 def compute_processes_generic(
-    activities: List[dict],
+    activities: list[dict],
     processes_impacts_path: str,
+    feed_file_path: str,
+    raw_to_transformed_file_path: str,
     cpu_count: int = 1,
-    ecosystemic_factors_path: Optional[str] = None,
-    feed_file_path: Optional[str] = None,
-    raw_to_transformed_file_path: Optional[str] = None,
-) -> List[dict]:
+    ecosystemic_factors_path: str | None = None,
+) -> list[dict]:
     """Compute ProcessGeneric dicts with metadata enrichment.
 
     Merges process impacts with forest complement metadata and, for food
@@ -187,7 +189,9 @@ def compute_processes_generic(
             entry = ProcessGeneric(
                 activity_name=process["activityName"],
                 alias=variant.get("alias"),
-                categories=process["categories"],
+                categories=infer_variant_material_type(
+                    process["categories"], variant.get("alias")
+                ),
                 comment=process.get("comment", ""),
                 display_name=variant.get(
                     "displayName", activity.get("displayName", "")
@@ -220,23 +224,23 @@ def compute_processes_generic(
 
 
 def activities_to_processes_generic_json(
-    activities: List[dict],
+    activities: list[dict],
     processes_impacts_path: str,
-    ecs_output_paths: List[str],
-    impacts_output_paths: List[str],
+    ecs_output_paths: list[str],
+    impacts_output_paths: list[str],
+    feed_file_path: str,
+    raw_to_transformed_file_path: str,
     cpu_count: int = 1,
-    ecosystemic_factors_path: Optional[str] = None,
-    feed_file_path: Optional[str] = None,
-    raw_to_transformed_file_path: Optional[str] = None,
-) -> List[dict]:
+    ecosystemic_factors_path: str | None = None,
+) -> list[dict]:
     """Export object processes to ProcessGeneric json files."""
     generic_dicts = compute_processes_generic(
         activities,
         processes_impacts_path,
+        feed_file_path,
+        raw_to_transformed_file_path,
         cpu_count,
         ecosystemic_factors_path=ecosystemic_factors_path,
-        feed_file_path=feed_file_path,
-        raw_to_transformed_file_path=raw_to_transformed_file_path,
     )
 
     for path in impacts_output_paths:
@@ -253,7 +257,7 @@ def activities_to_processes_generic_json(
     return generic_dicts
 
 
-def add_land_occupations(activities: List[dict]) -> List[dict]:
+def add_land_occupations(activities: list[dict]) -> list[dict]:
     todo = [a for a in activities if "landOccupation" not in a]
     bw_by_eco_id = {
         a["id"]: cached_search_one(

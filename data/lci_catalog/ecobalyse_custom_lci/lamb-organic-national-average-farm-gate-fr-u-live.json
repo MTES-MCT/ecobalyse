@@ -2,8 +2,7 @@
   "activityName": "Lamb, organic, national average, at farm gate FR U",
   "categories": [
     "ingredient",
-    "material",
-    "material_type:other_food_items"
+    "material"
   ],
   "displayName": "Agneau bio vivant FR",
   "id": "0bcdedda-b2db-565a-8ee3-5b4eccc4266d",

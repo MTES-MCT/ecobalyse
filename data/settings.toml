@@ -1,9 +1,10 @@
 [default]
 ENV_NAME = "default" # Do not override this value, it’s used by the unit tests
 LOG_LEVEL = "INFO"
-PLOT_EXPORT = false
-# local data dir for intermediate data files
-LOCAL_DIR = "public/data"
+
+FRONTEND_DATA_DIR = "../public/data"
+EXPORT_DIR = "./export"
+
 
 PROCESSES_LEGACY_IMPACTS_FILE = "processes_legacy_impacts.json"
 PROCESSES_LEGACY_IMPACTS_FULL_FILE = "processes_legacy_impacts_full.json"
@@ -67,6 +68,7 @@ ECOSYSTEMIC_FACTORS_FILE = "ecosystemic_services/ecosystemic_factors.csv"
 FEED_FILE = "ecosystemic_services/feed.json"
 RAW_TO_TRANSFORMED_RATIOS_FILE = "ecosystemic_services/raw_to_transformed_ratios.json"
 INGREDIENTS_FILE = "ingredients.json"
+TAXONOMY_WITH_ALIASES_FILE = "taxonomy_with_aliases.json"
 GRAZED_GRASS_PERMANENT_KEY = "grazed-grass-permanent-2025"
 GRAZED_GRASS_TEMPORARY_KEY = "grazed-grass-temporary-2025"
 
@@ -83,8 +85,6 @@ DIRNAME = "veli"
 [testing]
 ENV_NAME = "testing" # Do not override this value, it's used by the unit tests
 
-PLOT_EXPORT = false
-
 [testing.bw]
 METHOD = "Environmental Footprint 3.1 (adapted)"
 BIOSPHERE = "ecoinvent-3.9.1-biosphere"
@@ -97,6 +97,7 @@ INGREDIENTS_FILE = "ingredients.json"
 FEED_FILE = "feed.json"
 RAW_TO_TRANSFORMED_RATIOS_FILE = "raw_to_transformed_ratios.json"
 ECOSYSTEMIC_FACTORS_FILE = "ecosystemic_factors.csv"
+TAXONOMY_WITH_ALIASES_FILE = "taxonomy_with_aliases.json"
 GRAZED_GRASS_PERMANENT_KEY = "grazed-grass-permanent-2025"
 GRAZED_GRASS_TEMPORARY_KEY = "grazed-grass-temporary-2025"
 

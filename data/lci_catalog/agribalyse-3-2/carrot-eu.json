@@ -2,8 +2,7 @@
   "activityName": "Carrot {NL}| carrot production | Cut-off, U - Adapted from Ecoinvent U",
   "categories": [
     "ingredient",
-    "material",
-    "material_type:fruits_and_vegetables"
+    "material"
   ],
   "displayName": "Carotte UE",
   "id": "ee211d20-de3c-5a1f-bf56-8588c12abafb",
@@ -19,7 +18,6 @@
         "vegetable_fresh"
       ],
       "ingredientDensity": 0.6375,
-      "rawToCookedRatio": 0.856,
       "scenario": "import",
       "scopes": [
         "food",
@@ -39,7 +37,6 @@
         "vegetable_fresh"
       ],
       "ingredientDensity": 0.6375,
-      "rawToCookedRatio": 0.856,
       "scenario": "import",
       "scopes": [
         "food",
@@ -60,7 +57,6 @@
         "vegetable_fresh"
       ],
       "ingredientDensity": 0.6375,
-      "rawToCookedRatio": 0.856,
       "scenario": "import",
       "scopes": [
         "food",
@@ -91,11 +87,6 @@
       "ingredientDensityMatch": {
         "confidence": 0.95,
         "rule": "Matched with carrot in density.csv"
-      },
-      "rawToCookedRatio": 0.856,
-      "rawToCookedRatioMatch": {
-        "confidence": 0.95,
-        "rule": "Matched with carrot in cooked_to_raw.csv"
       },
       "scenario": "import",
       "scopes": [
@@ -132,11 +123,6 @@
         "confidence": 1.0,
         "rule": "vegetable default from food_type_density.csv"
       },
-      "rawToCookedRatio": 0.856,
-      "rawToCookedRatioMatch": {
-        "confidence": 1.0,
-        "rule": "vegetable default from food_type_cooked_to_raw.csv"
-      },
       "scenario": "import",
       "scopes": [
         "food",
@@ -171,11 +157,6 @@
       "ingredientDensityMatch": {
         "confidence": 1.0,
         "rule": "vegetable default from food_type_density.csv"
-      },
-      "rawToCookedRatio": 0.856,
-      "rawToCookedRatioMatch": {
-        "confidence": 1.0,
-        "rule": "vegetable default from food_type_cooked_to_raw.csv"
       },
       "scenario": "import",
       "scopes": [
@@ -212,11 +193,6 @@
         "confidence": 1.0,
         "rule": "vegetable default from food_type_density.csv"
       },
-      "rawToCookedRatio": 0.856,
-      "rawToCookedRatioMatch": {
-        "confidence": 1.0,
-        "rule": "vegetable default from food_type_cooked_to_raw.csv"
-      },
       "scenario": "import",
       "scopes": [
         "food",
@@ -251,11 +227,6 @@
       "ingredientDensityMatch": {
         "confidence": 1.0,
         "rule": "vegetable default from food_type_density.csv"
-      },
-      "rawToCookedRatio": 0.856,
-      "rawToCookedRatioMatch": {
-        "confidence": 1.0,
-        "rule": "vegetable default from food_type_cooked_to_raw.csv"
       },
       "scenario": "import",
       "scopes": [
@@ -292,11 +263,6 @@
         "confidence": 1.0,
         "rule": "vegetable default from food_type_density.csv"
       },
-      "rawToCookedRatio": 0.856,
-      "rawToCookedRatioMatch": {
-        "confidence": 1.0,
-        "rule": "vegetable default from food_type_cooked_to_raw.csv"
-      },
       "scenario": "import",
       "scopes": [
         "food",
@@ -331,11 +297,6 @@
       "ingredientDensityMatch": {
         "confidence": 1.0,
         "rule": "vegetable default from food_type_density.csv"
-      },
-      "rawToCookedRatio": 0.856,
-      "rawToCookedRatioMatch": {
-        "confidence": 1.0,
-        "rule": "Matched with turnip in cooked_to_raw.csv"
       },
       "scenario": "import",
       "scopes": [

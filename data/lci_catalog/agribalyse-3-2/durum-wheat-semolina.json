@@ -2,8 +2,7 @@
   "activityName": "Durum wheat, semolina, at plant {GLO} - Adapted from WFLDB U",
   "categories": [
     "ingredient",
-    "material",
-    "material_type:cereals"
+    "material"
   ],
   "displayName": "Semoule de blé dur FR",
   "id": "d3e8debc-63df-587e-b552-8557bb96eb84",
@@ -19,7 +18,6 @@
         "grain_processed"
       ],
       "ingredientDensity": 0.24,
-      "rawToCookedRatio": 2.259,
       "scenario": "reference",
       "scopes": [
         "food",
@@ -39,7 +37,6 @@
         "grain_processed"
       ],
       "ingredientDensity": 0.24,
-      "rawToCookedRatio": 2.259,
       "scenario": "import",
       "scopes": [
         "food",
@@ -59,7 +56,6 @@
         "grain_processed"
       ],
       "ingredientDensity": 0.24,
-      "rawToCookedRatio": 2.259,
       "scenario": "import",
       "scopes": [
         "food",

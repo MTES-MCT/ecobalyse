@@ -2,8 +2,7 @@
   "activityName": "Barley grain, non-irrigated, at farm (WFLDB)",
   "categories": [
     "ingredient",
-    "material",
-    "material_type:cereals"
+    "material"
   ],
   "displayName": "Orge entière Origine Inconnue",
   "id": "3bb4591b-3223-5994-a85e-ef739de6ac61",
@@ -31,11 +30,6 @@
       "ingredientDensityMatch": {
         "confidence": 0.952,
         "rule": "Matched with Barley, whole in fao_density.csv"
-      },
-      "rawToCookedRatio": 2.259,
-      "rawToCookedRatioMatch": {
-        "confidence": 0.95,
-        "rule": "Matched with barley in cooked_to_raw.csv"
       },
       "scenario": "import",
       "scopes": [

@@ -2,8 +2,7 @@
   "activityName": "Sweet corn {US}| sweet corn production | Cut-off, U",
   "categories": [
     "ingredient",
-    "material",
-    "material_type:cereals"
+    "material"
   ],
   "displayName": "Sweet corn (US)",
   "id": "7d255c03-7e40-5495-9bf0-d9718d9b4fc2",
@@ -30,11 +29,6 @@
       "ingredientDensityMatch": {
         "confidence": 1.0,
         "rule": "corn found in density.csv"
-      },
-      "rawToCookedRatio": 2.259,
-      "rawToCookedRatioMatch": {
-        "confidence": 1.0,
-        "rule": "grain default from food_type_cooked_to_raw.csv"
       },
       "scenario": "import",
       "scopes": [
@@ -70,11 +64,6 @@
       "ingredientDensityMatch": {
         "confidence": 1.0,
         "rule": "corn found in density.csv"
-      },
-      "rawToCookedRatio": 2.259,
-      "rawToCookedRatioMatch": {
-        "confidence": 1.0,
-        "rule": "grain default from food_type_cooked_to_raw.csv"
       },
       "scenario": "import",
       "scopes": [

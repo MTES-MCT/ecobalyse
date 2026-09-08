@@ -1,7 +1,7 @@
 import logging
 import sys
 from functools import lru_cache
-from typing import Any, Callable, cast
+from typing import cast
 
 import sentry_sdk
 import structlog
@@ -32,7 +32,6 @@ from litestar.plugins.problem_details import (
     ProblemDetailsException,
 )
 from litestar.plugins.structlog import StructlogConfig
-from litestar.serialization.msgspec_hooks import _msgspec_json_encoder
 from litestar.status_codes import (
     HTTP_404_NOT_FOUND,
     HTTP_409_CONFLICT,
@@ -40,7 +39,6 @@ from litestar.status_codes import (
 )
 from sentry_sdk.integrations.litestar import LitestarIntegration
 from structlog.types import Processor
-from structlog.typing import EventDict
 
 from .base import get_settings
 
@@ -108,7 +106,7 @@ def convert_unknown_exception_to_problem_details(
 
 problem_details = ProblemDetailsConfig(
     enable_for_all_http_exceptions=True,
-    exception_to_problem_detail_map={
+    exception_to_problem_detail_map={  # ty: ignore[invalid-argument-type]
         DuplicateKeyError: convert_sqlalchemy_exceptions_conflict_to_problem_details,
         IntegrityError: convert_sqlalchemy_exceptions_conflict_to_problem_details,
         ForeignKeyError: convert_sqlalchemy_exceptions_conflict_to_problem_details,
@@ -124,13 +122,8 @@ def _is_tty() -> bool:
     return bool(sys.stderr.isatty() or sys.stdout.isatty())
 
 
-def default_json_serializer(value: EventDict, **_: Any) -> bytes:
-    return _msgspec_json_encoder.encode(value)
-
-
 def default_structlog_processors(
     as_json: bool = True,
-    json_serializer: Callable[[Any], Any] = default_json_serializer,
 ) -> list[Processor]:  # pyright: ignore
     """Set the default processors for structlog.
 
@@ -147,7 +140,7 @@ def default_structlog_processors(
                 structlog.processors.add_log_level,
                 structlog.processors.format_exc_info,
                 structlog.processors.TimeStamper(fmt="iso"),
-                structlog.processors.JSONRenderer(serializer=json_serializer),
+                structlog.processors.JSONRenderer(),
             ]
         return [
             structlog.contextvars.merge_contextvars,

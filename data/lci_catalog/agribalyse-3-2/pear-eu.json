@@ -2,8 +2,7 @@
   "activityName": "Pear {BE}| pear production | Cut-off, U - Adapted from Ecoinvent U",
   "categories": [
     "ingredient",
-    "material",
-    "material_type:fruits_and_vegetables"
+    "material"
   ],
   "displayName": "Poire UE",
   "id": "de7a45ad-3947-5110-8a68-893f3afb6f04",
@@ -19,7 +18,6 @@
         "vegetable_fresh"
       ],
       "ingredientDensity": 0.447,
-      "rawToCookedRatio": 0.856,
       "scenario": "import",
       "scopes": [
         "food",

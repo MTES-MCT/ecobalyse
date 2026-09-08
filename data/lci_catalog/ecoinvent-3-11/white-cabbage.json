@@ -2,8 +2,7 @@
   "activityName": "White cabbage {CH}| white cabbage production, conventional, plain region | Cut-off, U",
   "categories": [
     "ingredient",
-    "material",
-    "material_type:fruits_and_vegetables"
+    "material"
   ],
   "displayName": "White cabbage (CH)",
   "id": "5ae60d6f-609c-5a7c-a15b-f662367370c0",
@@ -30,11 +29,6 @@
       "ingredientDensityMatch": {
         "confidence": 0.95,
         "rule": "Matched with cabbage in density.csv"
-      },
-      "rawToCookedRatio": 0.856,
-      "rawToCookedRatioMatch": {
-        "confidence": 0.95,
-        "rule": "Matched with cabbage in cooked_to_raw.csv"
       },
       "scenario": "import",
       "scopes": [
@@ -70,11 +64,6 @@
       "ingredientDensityMatch": {
         "confidence": 0.95,
         "rule": "Matched with cabbage in density.csv"
-      },
-      "rawToCookedRatio": 0.856,
-      "rawToCookedRatioMatch": {
-        "confidence": 0.95,
-        "rule": "Matched with cabbage in cooked_to_raw.csv"
       },
       "scenario": "import",
       "scopes": [

@@ -1,3 +1,6 @@
+import functools
+import operator
+
 GINKO_MIGRATIONS = [
     {
         "name": "diesel-fix",
@@ -205,7 +208,8 @@ AGRIBALYSE_MIGRATIONS = [
                     {"unit": "ha", "multiplier": 1e-4},
                 ),
             ]
-            + sum(
+            + functools.reduce(
+                operator.iadd,
                 [
                     [
                         [

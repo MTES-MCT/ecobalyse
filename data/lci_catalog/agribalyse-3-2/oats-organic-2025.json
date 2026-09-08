@@ -2,8 +2,7 @@
   "activityName": "Spring oats, organic, national average, at feed plant {FR} U",
   "categories": [
     "ingredient",
-    "material",
-    "material_type:cereals"
+    "material"
   ],
   "displayName": "Avoine Bio (2025)",
   "id": "66b57474-7f48-5016-b79c-87bc090fd016",
@@ -21,7 +20,6 @@
         "organic"
       ],
       "ingredientDensity": 0.72,
-      "rawToCookedRatio": 2.259,
       "scenario": "organic",
       "scopes": [
         "food",

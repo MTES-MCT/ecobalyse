@@ -1,47 +1,5 @@
 [
   {
-    "comment": null,
-    "elements": [
-      {
-        "amount": 0.055,
-        "material": "fba45d5f-64fc-44ae-ac75-9301c95c4657",
-        "transforms": ["e232270f-3a08-4536-8d8d-dcb4a2031e7b"]
-      }
-    ],
-    "id": "c845482e-8347-4a3c-9dd4-392d8fc2cb3f",
-    "name": "Bac + Pieds (jardinière pin 80 * 40 * 28)",
-    "scopes": ["object"]
-  },
-  {
-    "comment": null,
-    "elements": [
-      {
-        "amount": 0.055,
-        "material": "fba45d5f-64fc-44ae-ac75-9301c95c4657",
-        "transforms": ["baf8cc1a-767e-452d-b86e-e9399a99cb55"]
-      }
-    ],
-    "id": "6ff284b4-976d-4cf4-a4be-164f1c46ede2",
-    "name": "Bac + Pieds (jardinière pin 80 * 40 * 28 / séchage du bois au four)",
-    "scopes": ["object"]
-  },
-  {
-    "comment": null,
-    "elements": [
-      {
-        "amount": 0.35,
-        "material": "7cd80a58-6d07-4abc-ab41-624c0d1487c7",
-        "transforms": [
-          "ea284007-49a8-4be1-95fc-452ea180285a",
-          "7319ac9c-5796-412f-a1eb-58e01afa7708"
-        ]
-      }
-    ],
-    "id": "3aaebbee-a087-404b-bce8-3a710245b0fa",
-    "name": "Barre penderie 60cm (acier)",
-    "scopes": ["object"]
-  },
-  {
     "comment": "Exemple de batterie pour vélo à assistance électrique ou trottinette.",
     "elements": [
       {
@@ -126,7 +84,7 @@
       }
     ],
     "id": "9178fe2e-6944-41d5-ad1b-7abbe8905c48",
-    "name": "Batterie Li-ion 400Wh, NMC622, casing aluminium, Chine",
+    "name": "[Composant] Batterie Li-ion 400Wh, NMC622, casing aluminium, Chine",
     "scopes": ["veli"]
   },
   {
@@ -221,7 +179,7 @@
       }
     ],
     "id": "990f4263-3b6c-48ce-92e8-566584edf5b2",
-    "name": "Batterie Li-ion 400Wh, NMC622, casing plastique, Chine",
+    "name": "[Composant] Batterie Li-ion 400Wh, NMC622, casing plastique, Chine",
     "scopes": ["veli"]
   },
   {
@@ -316,7 +274,7 @@
       }
     ],
     "id": "c374ab14-9e12-49d0-91c3-cfc0b6b70f1b",
-    "name": "Batterie Li-ion 650Wh, NMC622, casing plastique, Chine",
+    "name": "[Composant] Batterie Li-ion 650Wh, NMC622, casing plastique, Chine",
     "scopes": ["veli"]
   },
   {
@@ -410,7 +368,7 @@
       }
     ],
     "id": "7cfe659e-3764-4a8c-a25b-201396cbc09f",
-    "name": "Batterie Li-ion 1.2kWh, NMC811, Chine",
+    "name": "[Composant] Batterie Li-ion 1.2kWh, NMC811, Chine",
     "scopes": ["veli"]
   },
   {
@@ -504,7 +462,7 @@
       }
     ],
     "id": "57df64a3-278e-4e93-b836-9ba44b880fb5",
-    "name": "Batterie Li-ion 7kWh, NMC811, Chine",
+    "name": "[Composant] Batterie Li-ion 7kWh, NMC811, Chine",
     "scopes": ["veli"]
   },
   {
@@ -598,7 +556,7 @@
       }
     ],
     "id": "3b15918f-d21c-4251-96a8-548ac8444a04",
-    "name": "Batterie Li-ion 7kWh, NMC811, cellules France",
+    "name": "[Composant] Batterie Li-ion 7kWh, NMC811, cellules France",
     "scopes": ["veli"]
   },
   {
@@ -692,7 +650,7 @@
       }
     ],
     "id": "cdc7add7-06ac-4861-9f28-efc005598e4c",
-    "name": "Batterie Li-ion 7kWh, LFP, Chine",
+    "name": "[Composant] Batterie Li-ion 7kWh, LFP, Chine",
     "scopes": ["veli"]
   },
   {
@@ -786,7 +744,7 @@
       }
     ],
     "id": "7fd8dd70-2807-420f-8637-a1f2b669d0d7",
-    "name": "Batterie Li-ion 52kWh, NMC811, Chine",
+    "name": "[Composant] Batterie Li-ion 52kWh, NMC811, Chine",
     "scopes": ["veli"]
   },
   {
@@ -880,7 +838,7 @@
       }
     ],
     "id": "52e25580-d83a-4de6-9632-da4303d5211d",
-    "name": "Batterie Li-ion 52kWh, NMC811, France",
+    "name": "[Composant] Batterie Li-ion 52kWh, NMC811, France",
     "scopes": ["veli"]
   },
   {
@@ -902,7 +860,7 @@
       }
     ],
     "id": "ec58a163-e957-4da9-a9f3-3044198bead0",
-    "name": "Béquille double vélo",
+    "name": "[Composant] Béquille double vélo",
     "scopes": ["veli"]
   },
   {
@@ -924,7 +882,966 @@
       }
     ],
     "id": "29a80ed1-26c9-419e-9f46-9c9b77d06458",
-    "name": "Béquille simple vélo ",
+    "name": "[Composant] Béquille simple vélo ",
+    "scopes": ["veli"]
+  },
+  {
+    "comment": "Cadre pour vélo de ville.",
+    "elements": [
+      {
+        "amount": 3.0,
+        "material": "cc8e1090-e90a-4dcb-89a2-4b45daac88af",
+        "transforms": [
+          "d693bd0d-88d4-4370-81ee-597956bb58f0",
+          "7319ac9c-5796-412f-a1eb-58e01afa7708",
+          "d935e937-35e7-471d-8d78-f5c6c1685adf"
+        ]
+      }
+    ],
+    "id": "49a16258-22eb-4700-88c4-5e3d1af071e7",
+    "name": "[Composant] Cadre VAE aluminium",
+    "scopes": ["veli"]
+  },
+  {
+    "comment": "Cadre pour vélo de ville.",
+    "elements": [
+      {
+        "amount": 2.5,
+        "material": "ac028973-5dfa-47bc-868c-e49be116f53e",
+        "transforms": [
+          "ea284007-49a8-4be1-95fc-452ea180285a",
+          "7319ac9c-5796-412f-a1eb-58e01afa7708"
+        ]
+      }
+    ],
+    "id": "ab8a548f-6758-48f8-a3f3-da44f77d1920",
+    "name": "[Composant] Cadre vélo acier",
+    "scopes": ["veli"]
+  },
+  {
+    "comment": "Cadre pour vélo de ville.",
+    "elements": [
+      {
+        "amount": 2.0,
+        "material": "cc8e1090-e90a-4dcb-89a2-4b45daac88af",
+        "transforms": [
+          "d693bd0d-88d4-4370-81ee-597956bb58f0",
+          "7319ac9c-5796-412f-a1eb-58e01afa7708",
+          "d935e937-35e7-471d-8d78-f5c6c1685adf"
+        ]
+      }
+    ],
+    "id": "658611b7-4b76-4f1d-aed7-55ec11f299e3",
+    "name": "[Composant] Cadre vélo aluminium",
+    "scopes": ["veli"]
+  },
+  {
+    "comment": "Exemple de chassis-carosserie pour un véhicule de 100kg environ.",
+    "elements": [
+      {
+        "amount": 50.0,
+        "material": "21a0d5b0-861e-4bed-98a9-46c61d2a0618",
+        "transforms": [
+          "ea284007-49a8-4be1-95fc-452ea180285a",
+          "7319ac9c-5796-412f-a1eb-58e01afa7708"
+        ]
+      },
+      {
+        "amount": 5.0,
+        "material": "01d21ed5-9fc6-4d36-a0ea-cfea8035385b",
+        "transforms": ["85b74ce2-2cbc-4d73-a5a2-5c5ffde16319"]
+      },
+      {
+        "amount": 0.002,
+        "material": "fba45d5f-64fc-44ae-ac75-9301c95c4657",
+        "transforms": ["e232270f-3a08-4536-8d8d-dcb4a2031e7b"]
+      }
+    ],
+    "id": "f50ff677-3501-49cb-b69d-e826d4114681",
+    "name": "[Composant] Chassis-carosserie - veli actif (majorité acier, Europe)",
+    "scopes": ["veli"]
+  },
+  {
+    "comment": "Chassis-carosserie pour un véhicule de 100kg environ.",
+    "elements": [
+      {
+        "amount": 0.002,
+        "material": "fba45d5f-64fc-44ae-ac75-9301c95c4657",
+        "transforms": ["e232270f-3a08-4536-8d8d-dcb4a2031e7b"]
+      },
+      {
+        "amount": 10.0,
+        "material": "21a0d5b0-861e-4bed-98a9-46c61d2a0618",
+        "transforms": [
+          "ea284007-49a8-4be1-95fc-452ea180285a",
+          "7319ac9c-5796-412f-a1eb-58e01afa7708"
+        ]
+      },
+      {
+        "amount": 5.0,
+        "material": "01d21ed5-9fc6-4d36-a0ea-cfea8035385b",
+        "transforms": ["85b74ce2-2cbc-4d73-a5a2-5c5ffde16319"]
+      },
+      {
+        "amount": 30.0,
+        "material": "2bd832fa-3376-4ebd-b699-2a7f0f32ce84",
+        "transforms": [
+          "971df5fa-c32e-4a7e-b1aa-14ce9f240b5c",
+          "7319ac9c-5796-412f-a1eb-58e01afa7708",
+          "d935e937-35e7-471d-8d78-f5c6c1685adf"
+        ]
+      }
+    ],
+    "id": "e4963a4a-85af-4fd7-920c-e1dbb9a9c10a",
+    "name": "[Composant] Chassis-carosserie - veli actif (majorité aluminium, Asie)",
+    "scopes": ["veli"]
+  },
+  {
+    "comment": "Chassis-carosserie pour un véhicule de 100kg environ.",
+    "elements": [
+      {
+        "amount": 5.0,
+        "material": "21a0d5b0-861e-4bed-98a9-46c61d2a0618",
+        "transforms": [
+          "ea284007-49a8-4be1-95fc-452ea180285a",
+          "7319ac9c-5796-412f-a1eb-58e01afa7708"
+        ]
+      },
+      {
+        "amount": 2.0,
+        "material": "01d21ed5-9fc6-4d36-a0ea-cfea8035385b",
+        "transforms": ["85b74ce2-2cbc-4d73-a5a2-5c5ffde16319"]
+      },
+      {
+        "amount": 0.002,
+        "material": "fba45d5f-64fc-44ae-ac75-9301c95c4657",
+        "transforms": ["e232270f-3a08-4536-8d8d-dcb4a2031e7b"]
+      },
+      {
+        "amount": 35.0,
+        "material": "4b4e1204-48ac-48ac-a0e2-ee2176202a5a",
+        "transforms": [
+          "971df5fa-c32e-4a7e-b1aa-14ce9f240b5c",
+          "7319ac9c-5796-412f-a1eb-58e01afa7708",
+          "d935e937-35e7-471d-8d78-f5c6c1685adf"
+        ]
+      }
+    ],
+    "id": "2a598afa-6936-4e7f-8262-33b790701911",
+    "name": "[Composant] Chassis-carosserie - veli actif (majorité aluminium, Europe)",
+    "scopes": ["veli"]
+  },
+  {
+    "comment": "Chassis-carosserie pour un véhicule de 450kg environ.",
+    "elements": [
+      {
+        "amount": 40.0,
+        "material": "01d21ed5-9fc6-4d36-a0ea-cfea8035385b",
+        "transforms": ["85b74ce2-2cbc-4d73-a5a2-5c5ffde16319"]
+      },
+      {
+        "amount": 180.0,
+        "material": "21a0d5b0-861e-4bed-98a9-46c61d2a0618",
+        "transforms": [
+          "ea284007-49a8-4be1-95fc-452ea180285a",
+          "7319ac9c-5796-412f-a1eb-58e01afa7708"
+        ]
+      }
+    ],
+    "id": "189674e0-737e-4d6d-aab0-3fdfc19839ed",
+    "name": "[Composant] Chassis-carosserie veli lourd",
+    "scopes": ["veli"]
+  },
+  {
+    "comment": "Fourche pour vélo de ville",
+    "elements": [
+      {
+        "amount": 0.7,
+        "material": "ac028973-5dfa-47bc-868c-e49be116f53e",
+        "transforms": []
+      }
+    ],
+    "id": "ece23923-fd79-492e-b0f7-c4cf97e45a8d",
+    "name": "[Composant] Fourche vélo acier",
+    "scopes": ["veli"]
+  },
+  {
+    "comment": "Fourche pour vélo de ville",
+    "elements": [
+      {
+        "amount": 0.5,
+        "material": "cc8e1090-e90a-4dcb-89a2-4b45daac88af",
+        "transforms": [
+          "d693bd0d-88d4-4370-81ee-597956bb58f0",
+          "7319ac9c-5796-412f-a1eb-58e01afa7708",
+          "d935e937-35e7-471d-8d78-f5c6c1685adf"
+        ]
+      }
+    ],
+    "id": "1bd0f5c3-c368-4a2f-b404-2214a6c9b677",
+    "name": "[Composant] Fourche vélo aluminium",
+    "scopes": ["veli"]
+  },
+  {
+    "comment": null,
+    "elements": [
+      {
+        "amount": 0.9,
+        "material": "3e514eac-185c-449e-bdc2-e1082ca0576d",
+        "transforms": [
+          "ea284007-49a8-4be1-95fc-452ea180285a",
+          "7319ac9c-5796-412f-a1eb-58e01afa7708"
+        ]
+      },
+      {
+        "amount": 0.015,
+        "material": "9c5a7a8e-6483-4da8-9cc2-0a90a30cb93a",
+        "transforms": []
+      },
+      {
+        "amount": 0.18,
+        "material": "2bd832fa-3376-4ebd-b699-2a7f0f32ce84",
+        "transforms": [
+          "d693bd0d-88d4-4370-81ee-597956bb58f0",
+          "7319ac9c-5796-412f-a1eb-58e01afa7708",
+          "d935e937-35e7-471d-8d78-f5c6c1685adf"
+        ]
+      },
+      {
+        "amount": 0.1,
+        "material": "c5295f47-0307-48a6-8552-3705063af767",
+        "transforms": ["4a08bcab-5c25-4dec-961a-0f7208f40084"]
+      }
+    ],
+    "id": "b4d552ed-6a9b-4b29-b293-50349c62e1c0",
+    "name": "[Composant] Freins à disque vélo - kit complet",
+    "scopes": ["veli"]
+  },
+  {
+    "comment": null,
+    "elements": [
+      {
+        "amount": 0.19,
+        "material": "2bd832fa-3376-4ebd-b699-2a7f0f32ce84",
+        "transforms": [
+          "d693bd0d-88d4-4370-81ee-597956bb58f0",
+          "7319ac9c-5796-412f-a1eb-58e01afa7708",
+          "d935e937-35e7-471d-8d78-f5c6c1685adf"
+        ]
+      },
+      {
+        "amount": 0.28,
+        "material": "3e514eac-185c-449e-bdc2-e1082ca0576d",
+        "transforms": [
+          "ea284007-49a8-4be1-95fc-452ea180285a",
+          "7319ac9c-5796-412f-a1eb-58e01afa7708"
+        ]
+      },
+      {
+        "amount": 0.14,
+        "material": "c5295f47-0307-48a6-8552-3705063af767",
+        "transforms": ["4a08bcab-5c25-4dec-961a-0f7208f40084"]
+      },
+      {
+        "amount": 0.045,
+        "material": "9c5a7a8e-6483-4da8-9cc2-0a90a30cb93a",
+        "transforms": []
+      }
+    ],
+    "id": "347629ff-e7e9-4822-a948-d8c7757b2a9a",
+    "name": "[Composant] Freins à patins vélo - kit complet",
+    "scopes": ["veli"]
+  },
+  {
+    "comment": "Chassis-carosserie pour un véhicule de 100kg environ.",
+    "elements": [
+      {
+        "amount": 0.3,
+        "material": "cc8e1090-e90a-4dcb-89a2-4b45daac88af",
+        "transforms": [
+          "d693bd0d-88d4-4370-81ee-597956bb58f0",
+          "7319ac9c-5796-412f-a1eb-58e01afa7708",
+          "d935e937-35e7-471d-8d78-f5c6c1685adf"
+        ]
+      },
+      {
+        "amount": 0.03,
+        "material": "20f5db04-a4c7-48ab-9903-38c65cd70be0",
+        "transforms": []
+      }
+    ],
+    "id": "6ab7bcdf-7648-43b5-beb6-b4fa11c2d5d3",
+    "name": "[Composant] Guidon de vélo",
+    "scopes": ["veli"]
+  },
+  {
+    "comment": "Moteur de Quadricycle lourd limité à 90km/h (catégorie L7e)",
+    "elements": [
+      {
+        "amount": 50.0,
+        "material": "97a70d45-d7d5-4ee5-86b4-ee506300cdaa",
+        "transforms": []
+      }
+    ],
+    "id": "da06c70f-5b61-4de7-bb51-5761818aa0dd",
+    "name": "[Composant] Moteur électrique 15kW",
+    "scopes": ["veli"]
+  },
+  {
+    "comment": "Moteur de vélo électrique caréné ou dédié à la logistique, speedbike (catégorie L1eA)",
+    "elements": [
+      {
+        "amount": 5.0,
+        "material": "97a70d45-d7d5-4ee5-86b4-ee506300cdaa",
+        "transforms": []
+      }
+    ],
+    "id": "059f0f35-099d-4305-8a60-1666222dadb2",
+    "name": "[Composant] Moteur électrique 1kW",
+    "scopes": ["veli"]
+  },
+  {
+    "comment": "Moteur de VAE (puissance nominale maximale de 250kW)",
+    "elements": [
+      {
+        "amount": 3.0,
+        "material": "97a70d45-d7d5-4ee5-86b4-ee506300cdaa",
+        "transforms": []
+      }
+    ],
+    "id": "20b35f34-166f-4da7-abc4-54d2a64de367",
+    "name": "[Composant] Moteur électrique 250Wn",
+    "scopes": ["veli"]
+  },
+  {
+    "comment": "Moteur de Quadricycle léger (catégorie L6e)",
+    "elements": [
+      {
+        "amount": 20.0,
+        "material": "97a70d45-d7d5-4ee5-86b4-ee506300cdaa",
+        "transforms": []
+      }
+    ],
+    "id": "edca4c52-b34a-4906-b2e0-4f726bfcc8f7",
+    "name": "[Composant] Moteur électrique 6kW",
+    "scopes": ["veli"]
+  },
+  {
+    "comment": "Pour roue 28' de vélo de ville ou pneus cargo 20'-24' (vélos cargo, velis actifs)",
+    "elements": [
+      {
+        "amount": 0.8,
+        "material": "5f837a69-839d-4a49-9a30-19e1501ad51e",
+        "transforms": []
+      },
+      {
+        "amount": 0.2,
+        "material": "9c5a7a8e-6483-4da8-9cc2-0a90a30cb93a",
+        "transforms": ["4a08bcab-5c25-4dec-961a-0f7208f40084"]
+      }
+    ],
+    "id": "8e38b6a5-1c95-43f6-987f-2e368fc74edc",
+    "name": "[Composant] Pneu + chambre velo",
+    "scopes": ["veli"]
+  },
+  {
+    "comment": null,
+    "elements": [
+      {
+        "amount": 6,
+        "material": "5f837a69-839d-4a49-9a30-19e1501ad51e",
+        "transforms": []
+      }
+    ],
+    "id": "6b3d7f30-e87b-426c-93ed-3a1179238583",
+    "name": "[Composant] Pneu veli 45-90km/h",
+    "scopes": ["veli"]
+  },
+  {
+    "comment": "Porte-bagage permettant une charge maximale de 25kg",
+    "elements": [
+      {
+        "amount": 0.8,
+        "material": "2bd832fa-3376-4ebd-b699-2a7f0f32ce84",
+        "transforms": [
+          "d693bd0d-88d4-4370-81ee-597956bb58f0",
+          "7319ac9c-5796-412f-a1eb-58e01afa7708",
+          "d935e937-35e7-471d-8d78-f5c6c1685adf"
+        ]
+      }
+    ],
+    "id": "892ba9b4-e6d4-408c-87b9-5eef455f5b4f",
+    "name": "[Composant] Porte bagage AR 25kg vélo ",
+    "scopes": ["veli"]
+  },
+  {
+    "comment": null,
+    "elements": [
+      {
+        "amount": 8.0,
+        "material": "21a0d5b0-861e-4bed-98a9-46c61d2a0618",
+        "transforms": [
+          "ea284007-49a8-4be1-95fc-452ea180285a",
+          "7319ac9c-5796-412f-a1eb-58e01afa7708"
+        ]
+      }
+    ],
+    "id": "d4583813-5f80-47e0-b028-df438f59cfe2",
+    "name": "[Composant] Roue veli 45-90km/h (jante acier, Europe)",
+    "scopes": ["veli"]
+  },
+  {
+    "comment": null,
+    "elements": [
+      {
+        "amount": 2.5,
+        "material": "21a0d5b0-861e-4bed-98a9-46c61d2a0618",
+        "transforms": [
+          "ea284007-49a8-4be1-95fc-452ea180285a",
+          "7319ac9c-5796-412f-a1eb-58e01afa7708"
+        ]
+      },
+      {
+        "amount": 4.0,
+        "material": "4b4e1204-48ac-48ac-a0e2-ee2176202a5a",
+        "transforms": [
+          "971df5fa-c32e-4a7e-b1aa-14ce9f240b5c",
+          "7319ac9c-5796-412f-a1eb-58e01afa7708",
+          "d935e937-35e7-471d-8d78-f5c6c1685adf"
+        ]
+      }
+    ],
+    "id": "515c966d-f4af-460f-a21b-f6bdca512209",
+    "name": "[Composant] Roue veli 45-90km/h (jante alu, Europe)",
+    "scopes": ["veli"]
+  },
+  {
+    "comment": "y compris jante, rayons, moyeu.",
+    "elements": [
+      {
+        "amount": 0.3,
+        "material": "2bd832fa-3376-4ebd-b699-2a7f0f32ce84",
+        "transforms": [
+          "971df5fa-c32e-4a7e-b1aa-14ce9f240b5c",
+          "7319ac9c-5796-412f-a1eb-58e01afa7708",
+          "d935e937-35e7-471d-8d78-f5c6c1685adf"
+        ]
+      },
+      {
+        "amount": 0.5,
+        "material": "2bd832fa-3376-4ebd-b699-2a7f0f32ce84",
+        "transforms": [
+          "d693bd0d-88d4-4370-81ee-597956bb58f0",
+          "7319ac9c-5796-412f-a1eb-58e01afa7708"
+        ]
+      }
+    ],
+    "id": "9d294fb5-b42a-4a9f-adc6-ff38f6d27e65",
+    "name": "[Composant] Roue veli actif 20' (alu, Asie)",
+    "scopes": ["veli"]
+  },
+  {
+    "comment": "y compris jante, rayons, moyeu, hors disque éventuel.",
+    "elements": [
+      {
+        "amount": 0.6,
+        "material": "2bd832fa-3376-4ebd-b699-2a7f0f32ce84",
+        "transforms": [
+          "d693bd0d-88d4-4370-81ee-597956bb58f0",
+          "7319ac9c-5796-412f-a1eb-58e01afa7708"
+        ]
+      },
+      {
+        "amount": 0.5,
+        "material": "2bd832fa-3376-4ebd-b699-2a7f0f32ce84",
+        "transforms": [
+          "971df5fa-c32e-4a7e-b1aa-14ce9f240b5c",
+          "7319ac9c-5796-412f-a1eb-58e01afa7708",
+          "d935e937-35e7-471d-8d78-f5c6c1685adf"
+        ]
+      }
+    ],
+    "id": "a94918a7-8915-4841-9cdc-deec0536c724",
+    "name": "[Composant] Roue velo 28' (alu, Asie)",
+    "scopes": ["veli"]
+  },
+  {
+    "comment": "Chassis-carosserie pour un véhicule de 100kg environ.",
+    "elements": [
+      {
+        "amount": 0.06,
+        "material": "c5295f47-0307-48a6-8552-3705063af767",
+        "transforms": ["85b74ce2-2cbc-4d73-a5a2-5c5ffde16319"]
+      },
+      {
+        "amount": 0.4,
+        "material": "ac028973-5dfa-47bc-868c-e49be116f53e",
+        "transforms": [
+          "ea284007-49a8-4be1-95fc-452ea180285a",
+          "7319ac9c-5796-412f-a1eb-58e01afa7708"
+        ]
+      },
+      {
+        "amount": 0.5,
+        "material": "20f5db04-a4c7-48ab-9903-38c65cd70be0",
+        "transforms": []
+      }
+    ],
+    "id": "c4a8eb8f-b4c6-42b8-bd04-0f68e9083424",
+    "name": "[Composant] Selle vélo (dont tige, 60°)",
+    "scopes": ["veli"]
+  },
+  {
+    "comment": "Ce composant est un exemple de siège avec dossier, pour un véhicule de 100kg environ",
+    "elements": [
+      {
+        "amount": 0.5,
+        "material": "c5295f47-0307-48a6-8552-3705063af767",
+        "transforms": ["85b74ce2-2cbc-4d73-a5a2-5c5ffde16319"]
+      },
+      {
+        "amount": 2.0,
+        "material": "21a0d5b0-861e-4bed-98a9-46c61d2a0618",
+        "transforms": [
+          "ea284007-49a8-4be1-95fc-452ea180285a",
+          "7319ac9c-5796-412f-a1eb-58e01afa7708"
+        ]
+      },
+      {
+        "amount": 0.5,
+        "material": "20f5db04-a4c7-48ab-9903-38c65cd70be0",
+        "transforms": []
+      }
+    ],
+    "id": "ae9c83de-71bf-4f21-9030-afbfd4ad3b3a",
+    "name": "[Composant] Siège 1 place - veli actif",
+    "scopes": ["veli"]
+  },
+  {
+    "comment": "Ce composant est un exemple de siège avec dossier, pour un véhicule de 400kg environ et pouvant rouler jusqu'à 45 ou 90km/h",
+    "elements": [
+      {
+        "amount": 3.0,
+        "material": "21a0d5b0-861e-4bed-98a9-46c61d2a0618",
+        "transforms": [
+          "ea284007-49a8-4be1-95fc-452ea180285a",
+          "7319ac9c-5796-412f-a1eb-58e01afa7708"
+        ]
+      },
+      {
+        "amount": 3.0,
+        "material": "c5295f47-0307-48a6-8552-3705063af767",
+        "transforms": ["85b74ce2-2cbc-4d73-a5a2-5c5ffde16319"]
+      },
+      {
+        "amount": 1.0,
+        "material": "20f5db04-a4c7-48ab-9903-38c65cd70be0",
+        "transforms": []
+      }
+    ],
+    "id": "1d2de15a-53d9-465d-a2cf-fa2c5f68f5e9",
+    "name": "[Composant] Siège 1 place - veli lourd",
+    "scopes": ["veli"]
+  },
+  {
+    "comment": "Ensemble des éléments de transmission pour un vélo, avec vitesses et plateau unique, incluant pédalier et pédales, chaine, cassette, levier de vitesse, câble et gaine associée, dérailleur.",
+    "elements": [
+      {
+        "amount": 1.0,
+        "material": "2bd832fa-3376-4ebd-b699-2a7f0f32ce84",
+        "transforms": [
+          "d693bd0d-88d4-4370-81ee-597956bb58f0",
+          "7319ac9c-5796-412f-a1eb-58e01afa7708",
+          "d935e937-35e7-471d-8d78-f5c6c1685adf"
+        ]
+      },
+      {
+        "amount": 1.0,
+        "material": "3e514eac-185c-449e-bdc2-e1082ca0576d",
+        "transforms": [
+          "ea284007-49a8-4be1-95fc-452ea180285a",
+          "7319ac9c-5796-412f-a1eb-58e01afa7708"
+        ]
+      },
+      {
+        "amount": 0.16,
+        "material": "c5295f47-0307-48a6-8552-3705063af767",
+        "transforms": ["4a08bcab-5c25-4dec-961a-0f7208f40084"]
+      }
+    ],
+    "id": "4a273102-9973-4352-8683-2503aea7bfbb",
+    "name": "[Composant] Transmission vélo AR - kit complet",
+    "scopes": ["veli"]
+  },
+  {
+    "comment": "Ensemble des éléments de transmission pour un vélo, avec plusieurs plateaux et vitesses, incluant pédalier et pédales, chaine, cassettes, leviers de vitesse, câbles et gaines associées, dérailleurs.",
+    "elements": [
+      {
+        "amount": 1.1,
+        "material": "2bd832fa-3376-4ebd-b699-2a7f0f32ce84",
+        "transforms": [
+          "d693bd0d-88d4-4370-81ee-597956bb58f0",
+          "7319ac9c-5796-412f-a1eb-58e01afa7708",
+          "d935e937-35e7-471d-8d78-f5c6c1685adf"
+        ]
+      },
+      {
+        "amount": 1.2,
+        "material": "3e514eac-185c-449e-bdc2-e1082ca0576d",
+        "transforms": [
+          "ea284007-49a8-4be1-95fc-452ea180285a",
+          "7319ac9c-5796-412f-a1eb-58e01afa7708"
+        ]
+      },
+      {
+        "amount": 0.3,
+        "material": "c5295f47-0307-48a6-8552-3705063af767",
+        "transforms": ["4a08bcab-5c25-4dec-961a-0f7208f40084"]
+      }
+    ],
+    "id": "d2228b50-8187-4940-92a5-6dffe2a2ba85",
+    "name": "[Composant] Transmission vélo - kit complet AV+AR",
+    "scopes": ["veli"]
+  },
+  {
+    "comment": null,
+    "elements": [
+      {
+        "amount": 10.0,
+        "material": "6445c1fa-13a6-4058-8978-bcf2be63cd56",
+        "transforms": []
+      }
+    ],
+    "id": "6cb4338a-4663-4325-90b6-f7279a498c9b",
+    "name": "[Composant] Vitrage veli (PC)",
+    "scopes": ["veli"]
+  },
+  {
+    "comment": null,
+    "elements": [
+      {
+        "amount": 20.0,
+        "material": "42748244-0939-4da2-ad5f-206ce541d7ee",
+        "transforms": []
+      }
+    ],
+    "id": "d3ef64c0-3deb-4ef2-838d-015d8ece019e",
+    "name": "[Composant] Vitrage veli (verre)",
+    "scopes": ["veli"]
+  },
+  {
+    "comment": null,
+    "elements": [
+      {
+        "amount": 1,
+        "material": {
+          "country": "REE",
+          "id": "30212fbf-5912-40eb-b2ab-87837361c462"
+        },
+        "transforms": [
+          {
+            "country": "REE",
+            "id": "ea284007-49a8-4be1-95fc-452ea180285a"
+          },
+          {
+            "country": "REE",
+            "id": "7319ac9c-5796-412f-a1eb-58e01afa7708"
+          }
+        ]
+      }
+    ],
+    "id": "2ca21a17-7090-4ad0-ab7f-e83e9f48020b",
+    "name": "Acier inoxidable laminé, usiné",
+    "scopes": ["veli"]
+  },
+  {
+    "comment": null,
+    "elements": [
+      {
+        "amount": 1,
+        "material": {
+          "country": "REE",
+          "id": "21a0d5b0-861e-4bed-98a9-46c61d2a0618"
+        },
+        "transforms": [
+          {
+            "country": "REE",
+            "id": "ea284007-49a8-4be1-95fc-452ea180285a"
+          },
+          {
+            "country": "REE",
+            "id": "7319ac9c-5796-412f-a1eb-58e01afa7708"
+          }
+        ]
+      }
+    ],
+    "id": "2285d4ab-9fc6-4aa1-a2b7-2db38fa4e2d1",
+    "name": "Acier laminé, usiné, mix marché Europe",
+    "scopes": ["veli"]
+  },
+  {
+    "comment": null,
+    "elements": [
+      {
+        "amount": 1,
+        "material": {
+          "id": "3e514eac-185c-449e-bdc2-e1082ca0576d"
+        },
+        "transforms": [
+          {
+            "id": "ea284007-49a8-4be1-95fc-452ea180285a"
+          },
+          {
+            "id": "7319ac9c-5796-412f-a1eb-58e01afa7708"
+          }
+        ]
+      }
+    ],
+    "id": "bd0d3f86-996a-4957-bfaf-cafaa1d9e2aa",
+    "name": "Acier laminé, usiné, mix marché hors Europe",
+    "scopes": ["veli"]
+  },
+  {
+    "comment": null,
+    "elements": [
+      {
+        "amount": 1,
+        "material": {
+          "country": "REE",
+          "id": "4b4e1204-48ac-48ac-a0e2-ee2176202a5a"
+        },
+        "transforms": [
+          {
+            "country": "REE",
+            "id": "971df5fa-c32e-4a7e-b1aa-14ce9f240b5c"
+          },
+          {
+            "country": "REE",
+            "id": "7319ac9c-5796-412f-a1eb-58e01afa7708"
+          },
+          {
+            "country": "REE",
+            "id": "d935e937-35e7-471d-8d78-f5c6c1685adf"
+          }
+        ]
+      }
+    ],
+    "id": "ef50924c-ee2a-42af-9b9c-38c1701dd3f8",
+    "name": "Aluminium, plaque usinée avec traitement thermique, mix marché Europe",
+    "scopes": ["veli"]
+  },
+  {
+    "comment": null,
+    "elements": [
+      {
+        "amount": 1,
+        "material": {
+          "id": "2bd832fa-3376-4ebd-b699-2a7f0f32ce84"
+        },
+        "transforms": [
+          {
+            "id": "971df5fa-c32e-4a7e-b1aa-14ce9f240b5c"
+          },
+          {
+            "id": "7319ac9c-5796-412f-a1eb-58e01afa7708"
+          },
+          {
+            "id": "d935e937-35e7-471d-8d78-f5c6c1685adf"
+          }
+        ]
+      }
+    ],
+    "id": "abba240e-05a3-4395-adf3-2426d2deb824",
+    "name": "Aluminium, plaque usinée avec traitement thermique, mix marché hors Europe et Chine",
+    "scopes": ["veli"]
+  },
+  {
+    "comment": null,
+    "elements": [
+      {
+        "amount": 1,
+        "material": {
+          "country": "REE",
+          "id": "baae8572-db4a-4cb8-8f74-e72ba5ef0116"
+        },
+        "transforms": [
+          {
+            "country": "REE",
+            "id": "971df5fa-c32e-4a7e-b1aa-14ce9f240b5c"
+          },
+          {
+            "country": "REE",
+            "id": "7319ac9c-5796-412f-a1eb-58e01afa7708"
+          },
+          {
+            "country": "REE",
+            "id": "d935e937-35e7-471d-8d78-f5c6c1685adf"
+          }
+        ]
+      }
+    ],
+    "id": "7c50438a-7129-40d1-a235-7dea89072e37",
+    "name": "Aluminium vierge, plaque usinée avec traitement thermique,Europe",
+    "scopes": ["veli"]
+  },
+  {
+    "comment": null,
+    "elements": [
+      {
+        "amount": 1,
+        "material": {
+          "id": "cc8e1090-e90a-4dcb-89a2-4b45daac88af"
+        },
+        "transforms": [
+          {
+            "id": "971df5fa-c32e-4a7e-b1aa-14ce9f240b5c"
+          },
+          {
+            "id": "7319ac9c-5796-412f-a1eb-58e01afa7708"
+          },
+          {
+            "id": "d935e937-35e7-471d-8d78-f5c6c1685adf"
+          }
+        ]
+      }
+    ],
+    "id": "e4f2f2c8-5f9f-47fe-9296-de1ef0889b66",
+    "name": "Aluminium vierge, plaque usinée avec traitement thermique, hors Europe et Inde",
+    "scopes": ["veli"]
+  },
+  {
+    "comment": null,
+    "elements": [
+      {
+        "amount": 1,
+        "material": {
+          "country": "REE",
+          "id": "2bd832fa-3376-4ebd-b699-2a7f0f32ce84"
+        },
+        "transforms": [
+          {
+            "country": "REE",
+            "id": "d693bd0d-88d4-4370-81ee-597956bb58f0"
+          },
+          {
+            "country": "REE",
+            "id": "7319ac9c-5796-412f-a1eb-58e01afa7708"
+          },
+          {
+            "country": "REE",
+            "id": "d935e937-35e7-471d-8d78-f5c6c1685adf"
+          }
+        ]
+      }
+    ],
+    "id": "a4d621eb-dee9-4758-8522-fc1746bb08ea",
+    "name": "Aluminium, tube usiné avec traitement thermique, mix marché Europe",
+    "scopes": ["veli"]
+  },
+  {
+    "comment": null,
+    "elements": [
+      {
+        "amount": 1,
+        "material": {
+          "id": "2bd832fa-3376-4ebd-b699-2a7f0f32ce84"
+        },
+        "transforms": [
+          {
+            "id": "d693bd0d-88d4-4370-81ee-597956bb58f0"
+          },
+          {
+            "id": "7319ac9c-5796-412f-a1eb-58e01afa7708"
+          },
+          {
+            "id": "d935e937-35e7-471d-8d78-f5c6c1685adf"
+          }
+        ]
+      }
+    ],
+    "id": "128b5347-386e-4e10-9112-41d0309a3024",
+    "name": "Aluminium, tube usiné avec traitement thermique, mix marché hors Europe et Chine",
+    "scopes": ["veli"]
+  },
+  {
+    "comment": null,
+    "elements": [
+      {
+        "amount": 0.055,
+        "material": "fba45d5f-64fc-44ae-ac75-9301c95c4657",
+        "transforms": ["e232270f-3a08-4536-8d8d-dcb4a2031e7b"]
+      }
+    ],
+    "id": "c845482e-8347-4a3c-9dd4-392d8fc2cb3f",
+    "name": "Bac + Pieds (jardinière pin 80 * 40 * 28)",
+    "scopes": ["object"]
+  },
+  {
+    "comment": null,
+    "elements": [
+      {
+        "amount": 0.055,
+        "material": "fba45d5f-64fc-44ae-ac75-9301c95c4657",
+        "transforms": ["baf8cc1a-767e-452d-b86e-e9399a99cb55"]
+      }
+    ],
+    "id": "6ff284b4-976d-4cf4-a4be-164f1c46ede2",
+    "name": "Bac + Pieds (jardinière pin 80 * 40 * 28 / séchage du bois au four)",
+    "scopes": ["object"]
+  },
+  {
+    "comment": null,
+    "elements": [
+      {
+        "amount": 0.35,
+        "material": "7cd80a58-6d07-4abc-ab41-624c0d1487c7",
+        "transforms": [
+          "ea284007-49a8-4be1-95fc-452ea180285a",
+          "7319ac9c-5796-412f-a1eb-58e01afa7708"
+        ]
+      }
+    ],
+    "id": "3aaebbee-a087-404b-bce8-3a710245b0fa",
+    "name": "Barre penderie 60cm (acier)",
+    "scopes": ["object"]
+  },
+  {
+    "comment": null,
+    "elements": [
+      {
+        "amount": 1,
+        "material": "d738711a-c339-4e9e-8d63-b202f6b5c131",
+        "transforms": [
+          {
+            "country": "REE",
+            "id": "e232270f-3a08-4536-8d8d-dcb4a2031e7b"
+          }
+        ]
+      }
+    ],
+    "id": "7583bda0-49d1-4e36-84f5-e8fbd59f4c83",
+    "name": "Bois massif, feuillu, Europe",
+    "scopes": ["veli"]
+  },
+  {
+    "comment": null,
+    "elements": [
+      {
+        "amount": 1,
+        "material": {
+          "country": "REE",
+          "id": "fba45d5f-64fc-44ae-ac75-9301c95c4657"
+        },
+        "transforms": [
+          {
+            "country": "RAS",
+            "id": "e232270f-3a08-4536-8d8d-dcb4a2031e7b"
+          }
+        ]
+      }
+    ],
+    "id": "e6896642-af4d-46b8-b8b7-c29df7e4e1c5",
+    "name": "Bois massif, pin, Asie",
     "scopes": ["veli"]
   },
   {
@@ -974,186 +1891,6 @@
     "scopes": ["veli"]
   },
   {
-    "comment": "Chassis-carosserie pour un véhicule de 100kg environ.",
-    "elements": [
-      {
-        "amount": 3.0,
-        "material": "cc8e1090-e90a-4dcb-89a2-4b45daac88af",
-        "transforms": [
-          "d693bd0d-88d4-4370-81ee-597956bb58f0",
-          "7319ac9c-5796-412f-a1eb-58e01afa7708",
-          "d935e937-35e7-471d-8d78-f5c6c1685adf"
-        ]
-      }
-    ],
-    "id": "49a16258-22eb-4700-88c4-5e3d1af071e7",
-    "name": "Cadre VAE aluminium",
-    "scopes": ["veli"]
-  },
-  {
-    "comment": "Cadre pour vélo de ville.",
-    "elements": [
-      {
-        "amount": 2.5,
-        "material": "ac028973-5dfa-47bc-868c-e49be116f53e",
-        "transforms": [
-          "ea284007-49a8-4be1-95fc-452ea180285a",
-          "7319ac9c-5796-412f-a1eb-58e01afa7708"
-        ]
-      }
-    ],
-    "id": "ab8a548f-6758-48f8-a3f3-da44f77d1920",
-    "name": "Cadre vélo acier",
-    "scopes": ["veli"]
-  },
-  {
-    "comment": "Cadre pour vélo de ville.",
-    "elements": [
-      {
-        "amount": 2.0,
-        "material": "cc8e1090-e90a-4dcb-89a2-4b45daac88af",
-        "transforms": [
-          "d693bd0d-88d4-4370-81ee-597956bb58f0",
-          "7319ac9c-5796-412f-a1eb-58e01afa7708",
-          "d935e937-35e7-471d-8d78-f5c6c1685adf"
-        ]
-      }
-    ],
-    "id": "658611b7-4b76-4f1d-aed7-55ec11f299e3",
-    "name": "Cadre vélo aluminium",
-    "scopes": ["veli"]
-  },
-  {
-    "comment": "Cadre pour vélo de ville.",
-    "elements": [
-      {
-        "amount": 1.0,
-        "material": "9e71da1a-8e74-462f-becc-cd6f0bbfcccc",
-        "transforms": ["21cef26e-97ee-4707-b316-ac5d7d03d2bd"]
-      }
-    ],
-    "id": "82f868be-ac18-4d96-b6bb-6bed7a65e737",
-    "name": "Cadre vélo carbone",
-    "scopes": ["veli"]
-  },
-  {
-    "comment": "Exemple de chassis-carosserie pour un véhicule de 100kg environ.",
-    "elements": [
-      {
-        "amount": 50.0,
-        "material": "21a0d5b0-861e-4bed-98a9-46c61d2a0618",
-        "transforms": [
-          "ea284007-49a8-4be1-95fc-452ea180285a",
-          "7319ac9c-5796-412f-a1eb-58e01afa7708"
-        ]
-      },
-      {
-        "amount": 5.0,
-        "material": "01d21ed5-9fc6-4d36-a0ea-cfea8035385b",
-        "transforms": ["85b74ce2-2cbc-4d73-a5a2-5c5ffde16319"]
-      },
-      {
-        "amount": 0.002,
-        "material": "fba45d5f-64fc-44ae-ac75-9301c95c4657",
-        "transforms": ["e232270f-3a08-4536-8d8d-dcb4a2031e7b"]
-      }
-    ],
-    "id": "f50ff677-3501-49cb-b69d-e826d4114681",
-    "name": "Chassis-carosserie - veli actif (majorité acier, Europe)",
-    "scopes": ["veli"]
-  },
-  {
-    "comment": "Chassis-carosserie pour un véhicule de 100kg environ.",
-    "elements": [
-      {
-        "amount": 0.002,
-        "material": "fba45d5f-64fc-44ae-ac75-9301c95c4657",
-        "transforms": ["e232270f-3a08-4536-8d8d-dcb4a2031e7b"]
-      },
-      {
-        "amount": 10.0,
-        "material": "21a0d5b0-861e-4bed-98a9-46c61d2a0618",
-        "transforms": [
-          "ea284007-49a8-4be1-95fc-452ea180285a",
-          "7319ac9c-5796-412f-a1eb-58e01afa7708"
-        ]
-      },
-      {
-        "amount": 5.0,
-        "material": "01d21ed5-9fc6-4d36-a0ea-cfea8035385b",
-        "transforms": ["85b74ce2-2cbc-4d73-a5a2-5c5ffde16319"]
-      },
-      {
-        "amount": 30.0,
-        "material": "2bd832fa-3376-4ebd-b699-2a7f0f32ce84",
-        "transforms": [
-          "971df5fa-c32e-4a7e-b1aa-14ce9f240b5c",
-          "7319ac9c-5796-412f-a1eb-58e01afa7708",
-          "d935e937-35e7-471d-8d78-f5c6c1685adf"
-        ]
-      }
-    ],
-    "id": "e4963a4a-85af-4fd7-920c-e1dbb9a9c10a",
-    "name": "Chassis-carosserie - veli actif (majorité aluminium, Asie)",
-    "scopes": ["veli"]
-  },
-  {
-    "comment": "Chassis-carosserie pour un véhicule de 100kg environ.",
-    "elements": [
-      {
-        "amount": 5.0,
-        "material": "21a0d5b0-861e-4bed-98a9-46c61d2a0618",
-        "transforms": [
-          "ea284007-49a8-4be1-95fc-452ea180285a",
-          "7319ac9c-5796-412f-a1eb-58e01afa7708"
-        ]
-      },
-      {
-        "amount": 2.0,
-        "material": "01d21ed5-9fc6-4d36-a0ea-cfea8035385b",
-        "transforms": ["85b74ce2-2cbc-4d73-a5a2-5c5ffde16319"]
-      },
-      {
-        "amount": 0.002,
-        "material": "fba45d5f-64fc-44ae-ac75-9301c95c4657",
-        "transforms": ["e232270f-3a08-4536-8d8d-dcb4a2031e7b"]
-      },
-      {
-        "amount": 35.0,
-        "material": "4b4e1204-48ac-48ac-a0e2-ee2176202a5a",
-        "transforms": [
-          "971df5fa-c32e-4a7e-b1aa-14ce9f240b5c",
-          "7319ac9c-5796-412f-a1eb-58e01afa7708",
-          "d935e937-35e7-471d-8d78-f5c6c1685adf"
-        ]
-      }
-    ],
-    "id": "2a598afa-6936-4e7f-8262-33b790701911",
-    "name": "Chassis-carosserie - veli actif (majorité aluminium, Europe)",
-    "scopes": ["veli"]
-  },
-  {
-    "comment": "Chassis-carosserie pour un véhicule de 450kg environ.",
-    "elements": [
-      {
-        "amount": 40.0,
-        "material": "01d21ed5-9fc6-4d36-a0ea-cfea8035385b",
-        "transforms": ["85b74ce2-2cbc-4d73-a5a2-5c5ffde16319"]
-      },
-      {
-        "amount": 180.0,
-        "material": "21a0d5b0-861e-4bed-98a9-46c61d2a0618",
-        "transforms": [
-          "ea284007-49a8-4be1-95fc-452ea180285a",
-          "7319ac9c-5796-412f-a1eb-58e01afa7708"
-        ]
-      }
-    ],
-    "id": "189674e0-737e-4d6d-aab0-3fdfc19839ed",
-    "name": "Chassis-carosserie veli lourd",
-    "scopes": ["veli"]
-  },
-  {
     "comment": "Regroupe l'ensemble des composants non détaillés, pour un véhicule de 100kg environ",
     "elements": [
       {
@@ -1176,7 +1913,7 @@
       }
     ],
     "id": "f134b3fd-0439-4b25-a06e-f1b8fd6e201c",
-    "name": "Composants non détaillés - veli actif",
+    "name": "[Composants] Composants non détaillés - veli actif",
     "scopes": ["veli"]
   },
   {
@@ -1202,7 +1939,7 @@
       }
     ],
     "id": "71086438-51a9-4980-ac3b-f24d5baa4cd5",
-    "name": "Composants non détaillés - veli lourd",
+    "name": "[Composants] Composants non détaillés - veli lourd",
     "scopes": ["veli"]
   },
   {
@@ -1219,6 +1956,19 @@
     "scopes": ["object"]
   },
   {
+    "comment": "",
+    "elements": [
+      {
+        "amount": 1.0,
+        "material": "9e71da1a-8e74-462f-becc-cd6f0bbfcccc",
+        "transforms": ["21cef26e-97ee-4707-b316-ac5d7d03d2bd"]
+      }
+    ],
+    "id": "82f868be-ac18-4d96-b6bb-6bed7a65e737",
+    "name": "Fibre de carbone",
+    "scopes": ["veli"]
+  },
+  {
     "comment": null,
     "elements": [
       {
@@ -1230,180 +1980,6 @@
     "id": "a5d0097f-1121-407b-acb1-35065d4f9fda",
     "name": "Emballage plastique (1 kg)",
     "scopes": ["object"]
-  },
-  {
-    "comment": "Fourche pour vélo de ville",
-    "elements": [
-      {
-        "amount": 0.7,
-        "material": "ac028973-5dfa-47bc-868c-e49be116f53e",
-        "transforms": []
-      }
-    ],
-    "id": "ece23923-fd79-492e-b0f7-c4cf97e45a8d",
-    "name": "Fourche vélo acier",
-    "scopes": ["veli"]
-  },
-  {
-    "comment": "Fourche pour vélo de ville",
-    "elements": [
-      {
-        "amount": 0.5,
-        "material": "cc8e1090-e90a-4dcb-89a2-4b45daac88af",
-        "transforms": [
-          "d693bd0d-88d4-4370-81ee-597956bb58f0",
-          "7319ac9c-5796-412f-a1eb-58e01afa7708",
-          "d935e937-35e7-471d-8d78-f5c6c1685adf"
-        ]
-      }
-    ],
-    "id": "1bd0f5c3-c368-4a2f-b404-2214a6c9b677",
-    "name": "Fourche vélo aluminium",
-    "scopes": ["veli"]
-  },
-  {
-    "comment": null,
-    "elements": [
-      {
-        "amount": 0.9,
-        "material": "3e514eac-185c-449e-bdc2-e1082ca0576d",
-        "transforms": [
-          "ea284007-49a8-4be1-95fc-452ea180285a",
-          "7319ac9c-5796-412f-a1eb-58e01afa7708"
-        ]
-      },
-      {
-        "amount": 0.015,
-        "material": "9c5a7a8e-6483-4da8-9cc2-0a90a30cb93a",
-        "transforms": []
-      },
-      {
-        "amount": 0.18,
-        "material": "2bd832fa-3376-4ebd-b699-2a7f0f32ce84",
-        "transforms": [
-          "d693bd0d-88d4-4370-81ee-597956bb58f0",
-          "7319ac9c-5796-412f-a1eb-58e01afa7708",
-          "d935e937-35e7-471d-8d78-f5c6c1685adf"
-        ]
-      },
-      {
-        "amount": 0.1,
-        "material": "c5295f47-0307-48a6-8552-3705063af767",
-        "transforms": ["4a08bcab-5c25-4dec-961a-0f7208f40084"]
-      }
-    ],
-    "id": "b4d552ed-6a9b-4b29-b293-50349c62e1c0",
-    "name": "Freins à disque vélo - kit complet",
-    "scopes": ["veli"]
-  },
-  {
-    "comment": null,
-    "elements": [
-      {
-        "amount": 0.19,
-        "material": "2bd832fa-3376-4ebd-b699-2a7f0f32ce84",
-        "transforms": [
-          "d693bd0d-88d4-4370-81ee-597956bb58f0",
-          "7319ac9c-5796-412f-a1eb-58e01afa7708",
-          "d935e937-35e7-471d-8d78-f5c6c1685adf"
-        ]
-      },
-      {
-        "amount": 0.28,
-        "material": "3e514eac-185c-449e-bdc2-e1082ca0576d",
-        "transforms": [
-          "ea284007-49a8-4be1-95fc-452ea180285a",
-          "7319ac9c-5796-412f-a1eb-58e01afa7708"
-        ]
-      },
-      {
-        "amount": 0.14,
-        "material": "c5295f47-0307-48a6-8552-3705063af767",
-        "transforms": ["4a08bcab-5c25-4dec-961a-0f7208f40084"]
-      },
-      {
-        "amount": 0.045,
-        "material": "9c5a7a8e-6483-4da8-9cc2-0a90a30cb93a",
-        "transforms": []
-      }
-    ],
-    "id": "347629ff-e7e9-4822-a948-d8c7757b2a9a",
-    "name": "Freins à patins vélo - kit complet",
-    "scopes": ["veli"]
-  },
-  {
-    "comment": "Chassis-carosserie pour un véhicule de 100kg environ.",
-    "elements": [
-      {
-        "amount": 0.3,
-        "material": "cc8e1090-e90a-4dcb-89a2-4b45daac88af",
-        "transforms": [
-          "d693bd0d-88d4-4370-81ee-597956bb58f0",
-          "7319ac9c-5796-412f-a1eb-58e01afa7708",
-          "d935e937-35e7-471d-8d78-f5c6c1685adf"
-        ]
-      },
-      {
-        "amount": 0.03,
-        "material": "20f5db04-a4c7-48ab-9903-38c65cd70be0",
-        "transforms": []
-      }
-    ],
-    "id": "6ab7bcdf-7648-43b5-beb6-b4fa11c2d5d3",
-    "name": "Guidon de vélo",
-    "scopes": ["veli"]
-  },
-  {
-    "comment": "Moteur de Quadricycle lourd limité à 90km/h (catégorie L7e)",
-    "elements": [
-      {
-        "amount": 50.0,
-        "material": "97a70d45-d7d5-4ee5-86b4-ee506300cdaa",
-        "transforms": []
-      }
-    ],
-    "id": "da06c70f-5b61-4de7-bb51-5761818aa0dd",
-    "name": "Moteur électrique 15kW",
-    "scopes": ["veli"]
-  },
-  {
-    "comment": "Moteur de vélo électrique caréné ou dédié à la logistique, speedbike (catégorie L1eA)",
-    "elements": [
-      {
-        "amount": 5.0,
-        "material": "97a70d45-d7d5-4ee5-86b4-ee506300cdaa",
-        "transforms": []
-      }
-    ],
-    "id": "059f0f35-099d-4305-8a60-1666222dadb2",
-    "name": "Moteur électrique 1kW",
-    "scopes": ["veli"]
-  },
-  {
-    "comment": "Moteur de VAE (puissance nominale maximale de 250kW)",
-    "elements": [
-      {
-        "amount": 3.0,
-        "material": "97a70d45-d7d5-4ee5-86b4-ee506300cdaa",
-        "transforms": []
-      }
-    ],
-    "id": "20b35f34-166f-4da7-abc4-54d2a64de367",
-    "name": "Moteur électrique 250Wn",
-    "scopes": ["veli"]
-  },
-  {
-    "comment": "Moteur de Quadricycle léger (catégorie L6e)",
-    "elements": [
-      {
-        "amount": 20.0,
-        "material": "97a70d45-d7d5-4ee5-86b4-ee506300cdaa",
-        "transforms": []
-      }
-    ],
-    "id": "edca4c52-b34a-4906-b2e0-4f726bfcc8f7",
-    "name": "Moteur électrique 6kW",
-    "scopes": ["veli"]
   },
   {
     "comment": null,
@@ -1961,32 +2537,6 @@
     "comment": null,
     "elements": [
       {
-        "amount": 1.0,
-        "material": "65e40baa-1c85-4f85-a139-e5d55bef3961",
-        "transforms": ["85b74ce2-2cbc-4d73-a5a2-5c5ffde16319"]
-      }
-    ],
-    "id": "4cd6a5fa-1b1f-423f-8814-53e716fa00df",
-    "name": "Pièce en plastique PET (1kg)",
-    "scopes": ["object"]
-  },
-  {
-    "comment": null,
-    "elements": [
-      {
-        "amount": 1.0,
-        "material": "01d21ed5-9fc6-4d36-a0ea-cfea8035385b",
-        "transforms": ["85b74ce2-2cbc-4d73-a5a2-5c5ffde16319"]
-      }
-    ],
-    "id": "190276e9-5b90-42d6-8fbd-bc7ddfd4c960",
-    "name": "Pièce plastique PP (1kg)",
-    "scopes": ["object"]
-  },
-  {
-    "comment": null,
-    "elements": [
-      {
         "amount": 0.4,
         "material": "7cd80a58-6d07-4abc-ab41-624c0d1487c7",
         "transforms": [
@@ -2047,6 +2597,84 @@
     "comment": null,
     "elements": [
       {
+        "amount": 1.0,
+        "material": "01d21ed5-9fc6-4d36-a0ea-cfea8035385b",
+        "transforms": ["85b74ce2-2cbc-4d73-a5a2-5c5ffde16319"]
+      }
+    ],
+    "id": "190276e9-5b90-42d6-8fbd-bc7ddfd4c960",
+    "name": "Plastique PP vierge, moulé",
+    "scopes": ["object", "veli"]
+  },
+  {
+    "comment": null,
+    "elements": [
+      {
+        "amount": 1.0,
+        "material": "01d21ed5-9fc6-4d36-a0ea-cfea8035385b",
+        "transforms": ["4a08bcab-5c25-4dec-961a-0f7208f40084"]
+      }
+    ],
+    "id": "d59cdd7a-24cb-406d-936f-35773da209ab",
+    "name": "Plastique PP vierge, rigide, autre transformation",
+    "scopes": ["object", "veli"]
+  },
+  {
+    "comment": null,
+    "elements": [
+      {
+        "amount": 1.0,
+        "material": "0e4122f6-f1ce-4d80-afbb-5e366402d8e6",
+        "transforms": ["85b74ce2-2cbc-4d73-a5a2-5c5ffde16319"]
+      }
+    ],
+    "id": "4cd6a5fa-1b1f-423f-8814-53e716fa00df",
+    "name": "Plastique PET vierge, moulé",
+    "scopes": ["object", "veli"]
+  },
+  {
+    "comment": null,
+    "elements": [
+      {
+        "amount": 1.0,
+        "material": "0e4122f6-f1ce-4d80-afbb-5e366402d8e6",
+        "transforms": ["4a08bcab-5c25-4dec-961a-0f7208f40084"]
+      }
+    ],
+    "id": "88d9bb2d-db16-4a64-9678-d34c9606d945",
+    "name": "Plastique PET vierge, rigide, autre transformation",
+    "scopes": ["object", "veli"]
+  },
+  {
+    "comment": null,
+    "elements": [
+      {
+        "amount": 1.0,
+        "material": "d46b2b8f-7354-4518-a8e1-a4d2a659898e",
+        "transforms": ["85b74ce2-2cbc-4d73-a5a2-5c5ffde16319"]
+      }
+    ],
+    "id": "40c039b2-6d5e-4ebb-9c42-6769e428ec97",
+    "name": "Plastique PET recyclé, moulé",
+    "scopes": ["object", "veli"]
+  },
+  {
+    "comment": null,
+    "elements": [
+      {
+        "amount": 1.0,
+        "material": "d46b2b8f-7354-4518-a8e1-a4d2a659898e",
+        "transforms": ["4a08bcab-5c25-4dec-961a-0f7208f40084"]
+      }
+    ],
+    "id": "4b368d0b-484c-4949-9c04-25667bc2f442",
+    "name": "Plastique PET recyclé, rigide, autre transformation",
+    "scopes": ["object", "veli"]
+  },
+  {
+    "comment": null,
+    "elements": [
+      {
         "amount": 0.138,
         "material": "dc58fc13-b036-46ed-ab5f-fd0a112e8b78",
         "transforms": ["e232270f-3a08-4536-8d8d-dcb4a2031e7b"]
@@ -2075,37 +2703,6 @@
     "scopes": ["object"]
   },
   {
-    "comment": "Pour roue 28' de vélo de ville ou pneus cargo 20'-24' (vélos cargo, velis actifs)",
-    "elements": [
-      {
-        "amount": 0.8,
-        "material": "5f837a69-839d-4a49-9a30-19e1501ad51e",
-        "transforms": []
-      },
-      {
-        "amount": 0.2,
-        "material": "9c5a7a8e-6483-4da8-9cc2-0a90a30cb93a",
-        "transforms": ["4a08bcab-5c25-4dec-961a-0f7208f40084"]
-      }
-    ],
-    "id": "8e38b6a5-1c95-43f6-987f-2e368fc74edc",
-    "name": "Pneu + chambre velo",
-    "scopes": ["veli"]
-  },
-  {
-    "comment": null,
-    "elements": [
-      {
-        "amount": 6,
-        "material": "5f837a69-839d-4a49-9a30-19e1501ad51e",
-        "transforms": []
-      }
-    ],
-    "id": "6b3d7f30-e87b-426c-93ed-3a1179238583",
-    "name": "Pneu veli 45-90km/h",
-    "scopes": ["veli"]
-  },
-  {
     "comment": null,
     "elements": [
       {
@@ -2117,192 +2714,6 @@
     "id": "01181ac8-bb9e-431d-aee4-f1ca97737d88",
     "name": "Poignée de porte (laiton)",
     "scopes": ["object"]
-  },
-  {
-    "comment": "Porte-bagage permettant une charge maximale de 25kg",
-    "elements": [
-      {
-        "amount": 0.8,
-        "material": "2bd832fa-3376-4ebd-b699-2a7f0f32ce84",
-        "transforms": [
-          "d693bd0d-88d4-4370-81ee-597956bb58f0",
-          "7319ac9c-5796-412f-a1eb-58e01afa7708",
-          "d935e937-35e7-471d-8d78-f5c6c1685adf"
-        ]
-      }
-    ],
-    "id": "892ba9b4-e6d4-408c-87b9-5eef455f5b4f",
-    "name": "Porte bagage AR 25kg vélo ",
-    "scopes": ["veli"]
-  },
-  {
-    "comment": null,
-    "elements": [
-      {
-        "amount": 8.0,
-        "material": "21a0d5b0-861e-4bed-98a9-46c61d2a0618",
-        "transforms": [
-          "ea284007-49a8-4be1-95fc-452ea180285a",
-          "7319ac9c-5796-412f-a1eb-58e01afa7708"
-        ]
-      }
-    ],
-    "id": "d4583813-5f80-47e0-b028-df438f59cfe2",
-    "name": "Roue veli 45-90km/h (jante acier, Europe)",
-    "scopes": ["veli"]
-  },
-  {
-    "comment": null,
-    "elements": [
-      {
-        "amount": 2.5,
-        "material": "21a0d5b0-861e-4bed-98a9-46c61d2a0618",
-        "transforms": [
-          "ea284007-49a8-4be1-95fc-452ea180285a",
-          "7319ac9c-5796-412f-a1eb-58e01afa7708"
-        ]
-      },
-      {
-        "amount": 4.0,
-        "material": "4b4e1204-48ac-48ac-a0e2-ee2176202a5a",
-        "transforms": [
-          "971df5fa-c32e-4a7e-b1aa-14ce9f240b5c",
-          "7319ac9c-5796-412f-a1eb-58e01afa7708",
-          "d935e937-35e7-471d-8d78-f5c6c1685adf"
-        ]
-      }
-    ],
-    "id": "515c966d-f4af-460f-a21b-f6bdca512209",
-    "name": "Roue veli 45-90km/h (jante alu, Europe)",
-    "scopes": ["veli"]
-  },
-  {
-    "comment": "y compris jante, rayons, moyeu.",
-    "elements": [
-      {
-        "amount": 0.3,
-        "material": "2bd832fa-3376-4ebd-b699-2a7f0f32ce84",
-        "transforms": [
-          "971df5fa-c32e-4a7e-b1aa-14ce9f240b5c",
-          "7319ac9c-5796-412f-a1eb-58e01afa7708",
-          "d935e937-35e7-471d-8d78-f5c6c1685adf"
-        ]
-      },
-      {
-        "amount": 0.5,
-        "material": "2bd832fa-3376-4ebd-b699-2a7f0f32ce84",
-        "transforms": [
-          "d693bd0d-88d4-4370-81ee-597956bb58f0",
-          "7319ac9c-5796-412f-a1eb-58e01afa7708"
-        ]
-      }
-    ],
-    "id": "9d294fb5-b42a-4a9f-adc6-ff38f6d27e65",
-    "name": "Roue veli actif 20' (alu, Asie)",
-    "scopes": ["veli"]
-  },
-  {
-    "comment": "y compris jante, rayons, moyeu, hors disque éventuel.",
-    "elements": [
-      {
-        "amount": 0.6,
-        "material": "2bd832fa-3376-4ebd-b699-2a7f0f32ce84",
-        "transforms": [
-          "d693bd0d-88d4-4370-81ee-597956bb58f0",
-          "7319ac9c-5796-412f-a1eb-58e01afa7708"
-        ]
-      },
-      {
-        "amount": 0.5,
-        "material": "2bd832fa-3376-4ebd-b699-2a7f0f32ce84",
-        "transforms": [
-          "971df5fa-c32e-4a7e-b1aa-14ce9f240b5c",
-          "7319ac9c-5796-412f-a1eb-58e01afa7708",
-          "d935e937-35e7-471d-8d78-f5c6c1685adf"
-        ]
-      }
-    ],
-    "id": "a94918a7-8915-4841-9cdc-deec0536c724",
-    "name": "Roue velo 28' (alu, Asie)",
-    "scopes": ["veli"]
-  },
-  {
-    "comment": "Chassis-carosserie pour un véhicule de 100kg environ.",
-    "elements": [
-      {
-        "amount": 0.06,
-        "material": "c5295f47-0307-48a6-8552-3705063af767",
-        "transforms": ["85b74ce2-2cbc-4d73-a5a2-5c5ffde16319"]
-      },
-      {
-        "amount": 0.4,
-        "material": "ac028973-5dfa-47bc-868c-e49be116f53e",
-        "transforms": [
-          "ea284007-49a8-4be1-95fc-452ea180285a",
-          "7319ac9c-5796-412f-a1eb-58e01afa7708"
-        ]
-      },
-      {
-        "amount": 0.5,
-        "material": "20f5db04-a4c7-48ab-9903-38c65cd70be0",
-        "transforms": []
-      }
-    ],
-    "id": "c4a8eb8f-b4c6-42b8-bd04-0f68e9083424",
-    "name": "Selle vélo (dont tige, 60°)",
-    "scopes": ["veli"]
-  },
-  {
-    "comment": "Ce composant est un exemple de siège avec dossier, pour un véhicule de 100kg environ",
-    "elements": [
-      {
-        "amount": 0.5,
-        "material": "c5295f47-0307-48a6-8552-3705063af767",
-        "transforms": ["85b74ce2-2cbc-4d73-a5a2-5c5ffde16319"]
-      },
-      {
-        "amount": 2.0,
-        "material": "21a0d5b0-861e-4bed-98a9-46c61d2a0618",
-        "transforms": [
-          "ea284007-49a8-4be1-95fc-452ea180285a",
-          "7319ac9c-5796-412f-a1eb-58e01afa7708"
-        ]
-      },
-      {
-        "amount": 0.5,
-        "material": "20f5db04-a4c7-48ab-9903-38c65cd70be0",
-        "transforms": []
-      }
-    ],
-    "id": "ae9c83de-71bf-4f21-9030-afbfd4ad3b3a",
-    "name": "Siège 1 place - veli actif",
-    "scopes": ["veli"]
-  },
-  {
-    "comment": "Ce composant est un exemple de siège avec dossier, pour un véhicule de 400kg environ et pouvant rouler jusqu'à 45 ou 90km/h",
-    "elements": [
-      {
-        "amount": 3.0,
-        "material": "21a0d5b0-861e-4bed-98a9-46c61d2a0618",
-        "transforms": [
-          "ea284007-49a8-4be1-95fc-452ea180285a",
-          "7319ac9c-5796-412f-a1eb-58e01afa7708"
-        ]
-      },
-      {
-        "amount": 3.0,
-        "material": "c5295f47-0307-48a6-8552-3705063af767",
-        "transforms": ["85b74ce2-2cbc-4d73-a5a2-5c5ffde16319"]
-      },
-      {
-        "amount": 1.0,
-        "material": "20f5db04-a4c7-48ab-9903-38c65cd70be0",
-        "transforms": []
-      }
-    ],
-    "id": "1d2de15a-53d9-465d-a2cf-fa2c5f68f5e9",
-    "name": "Siège 1 place - veli lourd",
-    "scopes": ["veli"]
   },
   {
     "comment": null,
@@ -2397,91 +2808,5 @@
     "id": "c5d86519-e56a-4ad7-aada-d4f7fffd5628",
     "name": "Toile protection PP (jardinière pin 80 * 40 * 28)",
     "scopes": ["object"]
-  },
-  {
-    "comment": "Ensemble des éléments de transmission pour un vélo, avec vitesses et plateau unique, incluant pédalier et pédales, chaine, cassette, levier de vitesse, câble et gaine associée, dérailleur.",
-    "elements": [
-      {
-        "amount": 1.0,
-        "material": "2bd832fa-3376-4ebd-b699-2a7f0f32ce84",
-        "transforms": [
-          "d693bd0d-88d4-4370-81ee-597956bb58f0",
-          "7319ac9c-5796-412f-a1eb-58e01afa7708",
-          "d935e937-35e7-471d-8d78-f5c6c1685adf"
-        ]
-      },
-      {
-        "amount": 1.0,
-        "material": "3e514eac-185c-449e-bdc2-e1082ca0576d",
-        "transforms": [
-          "ea284007-49a8-4be1-95fc-452ea180285a",
-          "7319ac9c-5796-412f-a1eb-58e01afa7708"
-        ]
-      },
-      {
-        "amount": 0.16,
-        "material": "c5295f47-0307-48a6-8552-3705063af767",
-        "transforms": ["4a08bcab-5c25-4dec-961a-0f7208f40084"]
-      }
-    ],
-    "id": "4a273102-9973-4352-8683-2503aea7bfbb",
-    "name": "Transmission vélo AR - kit complet",
-    "scopes": ["veli"]
-  },
-  {
-    "comment": "Ensemble des éléments de transmission pour un vélo, avec plusieurs plateaux et vitesses, incluant pédalier et pédales, chaine, cassettes, leviers de vitesse, câbles et gaines associées, dérailleurs.",
-    "elements": [
-      {
-        "amount": 1.1,
-        "material": "2bd832fa-3376-4ebd-b699-2a7f0f32ce84",
-        "transforms": [
-          "d693bd0d-88d4-4370-81ee-597956bb58f0",
-          "7319ac9c-5796-412f-a1eb-58e01afa7708",
-          "d935e937-35e7-471d-8d78-f5c6c1685adf"
-        ]
-      },
-      {
-        "amount": 1.2,
-        "material": "3e514eac-185c-449e-bdc2-e1082ca0576d",
-        "transforms": [
-          "ea284007-49a8-4be1-95fc-452ea180285a",
-          "7319ac9c-5796-412f-a1eb-58e01afa7708"
-        ]
-      },
-      {
-        "amount": 0.3,
-        "material": "c5295f47-0307-48a6-8552-3705063af767",
-        "transforms": ["4a08bcab-5c25-4dec-961a-0f7208f40084"]
-      }
-    ],
-    "id": "d2228b50-8187-4940-92a5-6dffe2a2ba85",
-    "name": "Transmission vélo - kit complet AV+AR",
-    "scopes": ["veli"]
-  },
-  {
-    "comment": null,
-    "elements": [
-      {
-        "amount": 10.0,
-        "material": "6445c1fa-13a6-4058-8978-bcf2be63cd56",
-        "transforms": []
-      }
-    ],
-    "id": "6cb4338a-4663-4325-90b6-f7279a498c9b",
-    "name": "Vitrage veli (PC)",
-    "scopes": ["veli"]
-  },
-  {
-    "comment": null,
-    "elements": [
-      {
-        "amount": 20.0,
-        "material": "42748244-0939-4da2-ad5f-206ce541d7ee",
-        "transforms": []
-      }
-    ],
-    "id": "d3ef64c0-3deb-4ef2-838d-015d8ece019e",
-    "name": "Vitrage veli (verre)",
-    "scopes": ["veli"]
   }
 ]

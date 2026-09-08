@@ -1,6 +1,10 @@
 module TestUtils exposing
     ( asTest
+    , componentConfig
     , createServerRequest
+    , expectAllSucceed
+    , expectFloatDifferent
+    , expectFloatMostlyEqual
     , expectImpactsEqual
     , expectResultErrorContains
     , expectResultWithin
@@ -16,6 +20,7 @@ module TestUtils exposing
     , tShirtCotonFrance
     )
 
+import Data.Component as Component
 import Data.Country.Code as CountryCode
 import Data.Db exposing (Db)
 import Data.Impact as Impact exposing (Impacts)
@@ -39,6 +44,28 @@ import Test exposing (..)
 asTest : String -> Expectation -> Test
 asTest =
     it
+
+
+componentConfig : Db -> Result String Component.Config
+componentConfig db =
+    Component.parseConfig db StaticJson.componentConfigJson
+
+
+expectAllSucceed : List Expectation -> Expectation
+expectAllSucceed expectations =
+    Expect.all (expectations |> List.map always) ()
+
+
+expectFloatDifferent : Float -> Float -> Expectation
+expectFloatDifferent expected actual =
+    abs (expected - actual)
+        |> Expect.greaterThan 0.000000000000001
+
+
+expectFloatMostlyEqual : Float -> Float -> Expectation
+expectFloatMostlyEqual expected actual =
+    abs (expected - actual)
+        |> Expect.lessThan 0.000000000000001
 
 
 it : String -> Expectation -> Test

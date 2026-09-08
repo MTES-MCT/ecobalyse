@@ -2,8 +2,7 @@
   "activityName": "Rye grain {RoW}| rye production | Cut-off, U - Adapted from Ecoinvent U",
   "categories": [
     "ingredient",
-    "material",
-    "material_type:cereals"
+    "material"
   ],
   "displayName": "Rye grain (ROW)",
   "id": "52992c30-4b58-5aaa-9383-8d76966683f2",
@@ -30,11 +29,6 @@
       "ingredientDensityMatch": {
         "confidence": 0.961,
         "rule": "Matched with Rye, whole in fao_density.csv"
-      },
-      "rawToCookedRatio": 2.259,
-      "rawToCookedRatioMatch": {
-        "confidence": 1.0,
-        "rule": "grain default from food_type_cooked_to_raw.csv"
       },
       "scenario": "import",
       "scopes": [
@@ -71,11 +65,6 @@
         "confidence": 0.961,
         "rule": "Matched with Rye, whole in fao_density.csv"
       },
-      "rawToCookedRatio": 2.259,
-      "rawToCookedRatioMatch": {
-        "confidence": 1.0,
-        "rule": "grain default from food_type_cooked_to_raw.csv"
-      },
       "scenario": "import",
       "scopes": [
         "food",
@@ -110,11 +99,6 @@
       "ingredientDensityMatch": {
         "confidence": 0.961,
         "rule": "Matched with Rye, whole in fao_density.csv"
-      },
-      "rawToCookedRatio": 2.259,
-      "rawToCookedRatioMatch": {
-        "confidence": 1.0,
-        "rule": "grain default from food_type_cooked_to_raw.csv"
       },
       "scenario": "import",
       "scopes": [

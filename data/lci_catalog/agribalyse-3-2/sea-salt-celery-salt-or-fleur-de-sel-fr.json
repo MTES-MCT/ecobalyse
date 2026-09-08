@@ -2,8 +2,7 @@
   "activityName": "Sodium chloride, powder {GLO}| market for | Cut-off, S - Copied from Ecoinvent U",
   "categories": [
     "ingredient",
-    "material",
-    "material_type:fish_and_shellfish"
+    "material"
   ],
   "displayName": "Sel de mer, sel de céleri ou fleur de sel FR",
   "id": "e32ce795-0af6-5d90-8fed-2ed0e249baad",
@@ -25,11 +24,6 @@
       "ingredientDensityMatch": {
         "confidence": 1.0,
         "rule": "fish_seafood default from food_type_density.csv"
-      },
-      "rawToCookedRatio": 0.819,
-      "rawToCookedRatioMatch": {
-        "confidence": 1.0,
-        "rule": "fish_seafood default from food_type_cooked_to_raw.csv"
       },
       "scenario": "reference",
       "scopes": [
@@ -61,11 +55,6 @@
         "confidence": 1.0,
         "rule": "fish_seafood default from food_type_density.csv"
       },
-      "rawToCookedRatio": 0.819,
-      "rawToCookedRatioMatch": {
-        "confidence": 1.0,
-        "rule": "fish_seafood default from food_type_cooked_to_raw.csv"
-      },
       "scenario": "import",
       "scopes": [
         "food",
@@ -96,11 +85,6 @@
         "confidence": 1.0,
         "rule": "fish_seafood default from food_type_density.csv"
       },
-      "rawToCookedRatio": 0.819,
-      "rawToCookedRatioMatch": {
-        "confidence": 1.0,
-        "rule": "fish_seafood default from food_type_cooked_to_raw.csv"
-      },
       "scenario": "import",
       "scopes": [
         "food",
@@ -130,11 +114,6 @@
       "ingredientDensityMatch": {
         "confidence": 1.0,
         "rule": "fish_seafood default from food_type_density.csv"
-      },
-      "rawToCookedRatio": 0.819,
-      "rawToCookedRatioMatch": {
-        "confidence": 1.0,
-        "rule": "fish_seafood default from food_type_cooked_to_raw.csv"
       },
       "scenario": "import",
       "scopes": [

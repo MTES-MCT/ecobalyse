@@ -2,8 +2,7 @@
   "activityName": "Corn glucose syrup, at plant {GLO} - Adapted from WFLDB U",
   "categories": [
     "ingredient",
-    "material",
-    "material_type:other_food_items"
+    "material"
   ],
   "displayName": "Sirop de glucose FR ou UE ou par défaut",
   "id": "318c3bec-0cb7-5bb3-9656-de9757735286",

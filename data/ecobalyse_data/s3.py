@@ -10,7 +10,7 @@ DB_CACHE_PATH = Path(settings.DB_CACHE_DIR)
 DB_CACHE_PATH.mkdir(parents=True, exist_ok=True)
 
 
-class S3Client(object):
+class S3Client:
     _client = None
 
     @classmethod

@@ -2,8 +2,7 @@
   "activityName": "Chicory roots, organic 2025, at farm gate {FR} U",
   "categories": [
     "ingredient",
-    "material",
-    "material_type:fruits_and_vegetables"
+    "material"
   ],
   "displayName": "Racine de chicorée Bio",
   "id": "fdc3e290-76d2-5bab-a159-f73bd172814a",
@@ -32,11 +31,6 @@
       "ingredientDensityMatch": {
         "confidence": 1.0,
         "rule": "vegetable default from food_type_density.csv"
-      },
-      "rawToCookedRatio": 0.856,
-      "rawToCookedRatioMatch": {
-        "confidence": 1.0,
-        "rule": "vegetable default from food_type_cooked_to_raw.csv"
       },
       "scenario": "organic",
       "scopes": [

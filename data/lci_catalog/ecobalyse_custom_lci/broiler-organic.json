@@ -2,8 +2,7 @@
   "activityName": "Live broiler, for direct consumption, consumption mix {FR} U {{chicken-breast-organic-2025}} {{chicken-breast-fr-organic-2025}}",
   "categories": [
     "ingredient",
-    "material",
-    "material_type:poultry"
+    "material"
   ],
   "displayName": "Poulet Bio",
   "id": "e409257e-dc33-528c-9c44-c70b7811a67b",
@@ -34,11 +33,6 @@
       "ingredientDensityMatch": {
         "confidence": 1.0,
         "rule": "meat default from food_type_density.csv"
-      },
-      "rawToCookedRatio": 0.755,
-      "rawToCookedRatioMatch": {
-        "confidence": 1.0,
-        "rule": "poultry keyword found in Broiler"
       },
       "scenario": "organic",
       "scopes": [
@@ -74,11 +68,6 @@
         "confidence": 1.0,
         "rule": "meat default from food_type_density.csv"
       },
-      "rawToCookedRatio": 0.755,
-      "rawToCookedRatioMatch": {
-        "confidence": 1.0,
-        "rule": "poultry keyword found in Poultry"
-      },
       "scenario": "organic",
       "scopes": [
         "food",
@@ -112,11 +101,6 @@
       "ingredientDensityMatch": {
         "confidence": 1.0,
         "rule": "rabbit found in density.csv"
-      },
-      "rawToCookedRatio": 0.755,
-      "rawToCookedRatioMatch": {
-        "confidence": 1.0,
-        "rule": "poultry keyword found in Rabbit"
       },
       "scenario": "organic",
       "scopes": [

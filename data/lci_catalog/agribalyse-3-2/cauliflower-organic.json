@@ -2,8 +2,7 @@
   "activityName": "Cauliflower, winter, organic, at farm gate {FR} U",
   "categories": [
     "ingredient",
-    "material",
-    "material_type:fruits_and_vegetables"
+    "material"
   ],
   "displayName": "Chou-fleur Bio",
   "id": "c55887bb-7316-5689-b010-5cf3ac5054bf",
@@ -20,7 +19,6 @@
         "organic"
       ],
       "ingredientDensity": 0.2355,
-      "rawToCookedRatio": 0.856,
       "scenario": "organic",
       "scopes": [
         "food",
@@ -41,7 +39,6 @@
         "organic"
       ],
       "ingredientDensity": 0.362,
-      "rawToCookedRatio": 0.856,
       "scenario": "organic",
       "scopes": [
         "food",
@@ -62,7 +59,6 @@
         "organic"
       ],
       "ingredientDensity": 0.362,
-      "rawToCookedRatio": 0.856,
       "scenario": "organic",
       "scopes": [
         "food",
@@ -84,7 +80,6 @@
         "vegetable_fresh"
       ],
       "ingredientDensity": 0.362,
-      "rawToCookedRatio": 0.856,
       "scenario": "organic",
       "scopes": [
         "food",

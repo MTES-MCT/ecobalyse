@@ -1,7 +1,9 @@
 import { test, expect } from "@playwright/test";
+import { waitForAppReady } from "./lib";
 
 test("object simulator", async ({ page }) => {
   await page.goto("/");
+  await waitForAppReady(page);
   await page.getByLabel("Menu principal").getByRole("link", { name: "Objets" }).click();
 
   await page.getByRole("button", { name: "Ajouter un matériau" }).click();
@@ -11,9 +13,10 @@ test("object simulator", async ({ page }) => {
   await page.getByRole("button", { name: "Ajouter un matériau" }).click();
   await page.getByRole("option", { name: "Mousse polyurethane (canapé 3p)" }).click();
 
-  await page.getByRole("row", { name: "▶ Pied chaise acier" }).getByRole("spinbutton").fill("2");
-  await page.getByRole("row", { name: "▶ Structure acier" }).getByRole("spinbutton").fill("3");
-  await page.getByRole("row", { name: "▶ Mousse polyurethane" }).getByRole("spinbutton").fill("4");
+  const production = page.locator(".card").filter({ hasText: "Production des matériaux" });
+  await production.getByRole("spinbutton").nth(0).fill("2");
+  await production.getByRole("spinbutton").nth(1).fill("3");
+  await production.getByRole("spinbutton").nth(2).fill("4");
 
   // Update transform for the first component through element edit modal
   await page.getByRole("button", { name: "▶" }).first().click();

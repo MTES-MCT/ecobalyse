@@ -2,8 +2,7 @@
   "activityName": "Zucchini {GLO}| zucchini production | Cut-off, U",
   "categories": [
     "ingredient",
-    "material",
-    "material_type:fruits_and_vegetables"
+    "material"
   ],
   "displayName": "Zucchini (GLO)",
   "id": "7be320b4-ce5e-5115-8b41-e3edccb3e363",
@@ -30,11 +29,6 @@
       "ingredientDensityMatch": {
         "confidence": 1.0,
         "rule": "zucchini found in density.csv"
-      },
-      "rawToCookedRatio": 0.856,
-      "rawToCookedRatioMatch": {
-        "confidence": 1.0,
-        "rule": "Matched with zucchini in cooked_to_raw.csv"
       },
       "scenario": "import",
       "scopes": [

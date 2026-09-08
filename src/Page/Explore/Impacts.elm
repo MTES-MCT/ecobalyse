@@ -51,7 +51,7 @@ table { detailed, scope } =
                 \def ->
                     def.ecoscoreData
                         |> Maybe.map (.normalization >> Unit.impactToFloat >> Format.formatRichFloat 2 def.unit)
-                        |> Maybe.withDefault (text "N/A")
+                        |> Maybe.withDefault (text Table.emptyLabel)
           }
         , { label = "Pondération (Coût Evt)"
           , toValue =
@@ -59,7 +59,7 @@ table { detailed, scope } =
                     .ecoscoreData
                         >> Maybe.map (.weighting >> Split.toFloat)
                         >> Maybe.withDefault 0
-          , toCell = .ecoscoreData >> Maybe.map (.weighting >> Format.splitAsPercentage 2) >> Maybe.withDefault (text "N/A")
+          , toCell = .ecoscoreData >> Maybe.map (.weighting >> Format.splitAsPercentage 2) >> Maybe.withDefault (text Table.emptyLabel)
           }
         , { label = "Description"
           , toValue = Table.StringValue .description

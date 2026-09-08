@@ -2,8 +2,7 @@
   "activityName": "Olive, at farm (WFLDB)",
   "categories": [
     "ingredient",
-    "material",
-    "material_type:fruits_and_vegetables"
+    "material"
   ],
   "displayName": "Olives Origine Inconnue",
   "id": "d6035ce6-53d8-5b88-8237-c3cf91bd925c",
@@ -31,11 +30,6 @@
       "ingredientDensityMatch": {
         "confidence": 0.95,
         "rule": "Matched with Olives, green, with stone in fao_density.csv"
-      },
-      "rawToCookedRatio": 0.856,
-      "rawToCookedRatioMatch": {
-        "confidence": 1.0,
-        "rule": "fruit default from food_type_cooked_to_raw.csv"
       },
       "scenario": "import",
       "scopes": [

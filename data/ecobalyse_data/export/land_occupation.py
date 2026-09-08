@@ -1,11 +1,9 @@
-from typing import Tuple
-
 import bw2calc
 from bw2data import get_multilca_data_objs
 
 from ecobalyse_data.logging import logger
 
-LAND_OCCUPATION_METHOD: Tuple[str, str, str] = (
+LAND_OCCUPATION_METHOD: tuple[str, str, str] = (
     "selected LCI results",
     "resource",
     "land occupation",
@@ -29,7 +27,7 @@ def compute_land_occupation_batch(
             f"-> land occupation: chunk {i // chunk_size + 1}/"
             f"{(total + chunk_size - 1) // chunk_size} ({len(chunk)} activities)"
         )
-        demands = {str(a.id): {a.id: 1} for a in chunk}
+        demands = {str(a.id): {a.id: 1.0} for a in chunk}
         data_objs = get_multilca_data_objs(
             functional_units=demands, method_config=method_config
         )

@@ -2,8 +2,7 @@
   "activityName": "Ware potato, conventional, for fresh market, firm flesh varieties, at farm gate {FR} U",
   "categories": [
     "ingredient",
-    "material",
-    "material_type:fruits_and_vegetables"
+    "material"
   ],
   "displayName": "Patate douce Origine Inconnue",
   "id": "b34810a1-15f9-56f8-bed3-45324e1db9a9",
@@ -31,11 +30,6 @@
       "ingredientDensityMatch": {
         "confidence": 0.95,
         "rule": "Matched with Sweet potato, raw in fao_density.csv"
-      },
-      "rawToCookedRatio": 0.856,
-      "rawToCookedRatioMatch": {
-        "confidence": 0.95,
-        "rule": "Matched with potato in cooked_to_raw.csv"
       },
       "scenario": "import",
       "scopes": [

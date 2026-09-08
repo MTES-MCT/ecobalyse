@@ -4,6 +4,7 @@ import datetime
 from typing import TYPE_CHECKING, Any
 
 import pytest
+
 from app.domain.accounts.schemas import OrganizationCreate, OrganizationType
 
 if TYPE_CHECKING:
@@ -255,7 +256,7 @@ def fx_raw_users() -> list[dict[str, Any]]:
                 type=OrganizationType.BUSINESS,
                 siren="901518415",
             ),
-            "magic_link_sent_at": datetime.datetime.now(datetime.timezone.utc),
+            "magic_link_sent_at": datetime.datetime.now(datetime.UTC),
         },
         {
             "id": "5ef29f3c-3560-4d15-ba6b-a2e5c721e999",
@@ -268,7 +269,7 @@ def fx_raw_users() -> list[dict[str, Any]]:
             "organization": OrganizationCreate(
                 type=OrganizationType.INDIVIDUAL,
             ),
-            "magic_link_sent_at": datetime.datetime.now(datetime.timezone.utc)
+            "magic_link_sent_at": datetime.datetime.now(datetime.UTC)
             - datetime.timedelta(days=2),
         },
         {

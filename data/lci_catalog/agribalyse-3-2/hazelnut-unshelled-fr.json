@@ -2,8 +2,7 @@
   "activityName": "Hazelnut, unshelled, consumption mix {FR} U",
   "categories": [
     "ingredient",
-    "material",
-    "material_type:other_food_items"
+    "material"
   ],
   "displayName": "Noisette décortiquée FR",
   "id": "d30eb143-0ad2-5f4e-b05c-243351d52251",

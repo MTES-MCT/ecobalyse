@@ -21,12 +21,12 @@ from alembic import op
 from sqlalchemy import Text  # noqa: F401
 
 __all__ = [
-    "downgrade",
-    "upgrade",
-    "schema_upgrades",
-    "schema_downgrades",
-    "data_upgrades",
     "data_downgrades",
+    "data_upgrades",
+    "downgrade",
+    "schema_downgrades",
+    "schema_upgrades",
+    "upgrade",
 ]
 
 sa.GUID = GUID
@@ -70,7 +70,6 @@ def schema_downgrades() -> None:
     """schema downgrade migrations go here."""
     # Droping enum values is not supported
     # https://www.postgresql.org/docs/current/datatype-enum.html#DATATYPE-ENUM-IMPLEMENTATION-DETAILS
-    pass
 
 
 def data_upgrades() -> None:

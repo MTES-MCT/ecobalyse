@@ -2,8 +2,7 @@
   "activityName": "White wine, dry, variant 1, CMAPS {GLO} U",
   "categories": [
     "ingredient",
-    "material",
-    "material_type:other_food_items"
+    "material"
   ],
   "displayName": "Vin blanc (sec) FR",
   "id": "76527443-1bad-4d7a-867f-b62957e34f62",

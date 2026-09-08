@@ -2,8 +2,7 @@
   "activityName": "Broiler, conventional, at farm gate {FR} U",
   "categories": [
     "ingredient",
-    "material",
-    "material_type:other_food_items"
+    "material"
   ],
   "displayName": "Poulet conventionnel vivant FR",
   "id": "b98f0823-abe6-57fd-b49f-e1f9638e0256",

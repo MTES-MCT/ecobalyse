@@ -2,8 +2,7 @@
   "activityName": "Black pepper, dried, consumption mix {FR} U",
   "categories": [
     "ingredient",
-    "material",
-    "material_type:other_food_items"
+    "material"
   ],
   "displayName": "Poivre noir par défaut",
   "id": "15216785-bcf6-5ba4-a974-e9e31337b9f8",

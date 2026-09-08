@@ -2,8 +2,7 @@
   "activityName": "Ware potato, organic 2025, for industrial use, at farm gate {FR} U",
   "categories": [
     "ingredient",
-    "material",
-    "material_type:fruits_and_vegetables"
+    "material"
   ],
   "displayName": "Pomme de terre industrie Bio",
   "id": "d3a43c9f-bb4e-5bf9-b6fc-2326a8dd42c6",
@@ -20,7 +19,6 @@
         "organic"
       ],
       "ingredientDensity": 0.6375,
-      "rawToCookedRatio": 0.856,
       "scenario": "organic",
       "scopes": [
         "food",

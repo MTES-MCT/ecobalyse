@@ -1,6 +1,6 @@
 import json
 
-from config import PROJECT_ROOT_DIR, settings
+from config import DATA_ROOT_DIR, settings
 from ecobalyse_data.export import food
 
 
@@ -14,7 +14,7 @@ def test_load_es_dic(es_factors_csv_file, es_factors_json):
 
 def test_feed_permanent_pasture():
     """Known grazing live animal has permanent pasture in its feed"""
-    feed_file_path = PROJECT_ROOT_DIR / "food" / "ecosystemic_services" / "feed.json"
+    feed_file_path = DATA_ROOT_DIR / "food" / "ecosystemic_services" / "feed.json"
 
     with open(feed_file_path) as f:
         content = json.load(f)
@@ -31,7 +31,7 @@ def test_feed_permanent_pasture():
 
 def test_raw_to_transformed_keys_in_feed():
     """Every raw (upstream) alias in raw_to_transformed_ratios.json must exist in feed.json"""
-    es_dir = PROJECT_ROOT_DIR / "food" / "ecosystemic_services"
+    es_dir = DATA_ROOT_DIR / "food" / "ecosystemic_services"
 
     with open(es_dir / "feed.json") as f:
         feed = json.load(f)

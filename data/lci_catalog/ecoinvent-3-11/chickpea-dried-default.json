@@ -2,8 +2,7 @@
   "activityName": "Chickpea {RoW}| chickpea production | Cut-off, U",
   "categories": [
     "ingredient",
-    "material",
-    "material_type:fruits_and_vegetables"
+    "material"
   ],
   "displayName": "Pois chiches Origine Inconnue",
   "id": "98475699-637a-50d3-9260-595a36698121",
@@ -31,11 +30,6 @@
       "ingredientDensityMatch": {
         "confidence": 1.0,
         "rule": "legume default from food_type_density.csv"
-      },
-      "rawToCookedRatio": 0.856,
-      "rawToCookedRatioMatch": {
-        "confidence": 1.0,
-        "rule": "legume default from food_type_cooked_to_raw.csv"
       },
       "scenario": "import",
       "scopes": [

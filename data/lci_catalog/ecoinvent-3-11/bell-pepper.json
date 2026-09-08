@@ -2,8 +2,7 @@
   "activityName": "Bell pepper {RoW}| bell pepper production, open field | Cut-off, U",
   "categories": [
     "ingredient",
-    "material",
-    "material_type:fruits_and_vegetables"
+    "material"
   ],
   "displayName": "Bell pepper (ROW)",
   "id": "b3a82bf4-8ebd-51db-aa88-e0460ee22acb",
@@ -30,11 +29,6 @@
       "ingredientDensityMatch": {
         "confidence": 0.95,
         "rule": "Matched with bell pepper in density.csv"
-      },
-      "rawToCookedRatio": 0.856,
-      "rawToCookedRatioMatch": {
-        "confidence": 1.0,
-        "rule": "vegetable default from food_type_cooked_to_raw.csv"
       },
       "scenario": "import",
       "scopes": [
@@ -70,11 +64,6 @@
       "ingredientDensityMatch": {
         "confidence": 1.0,
         "rule": "vegetable default from food_type_density.csv"
-      },
-      "rawToCookedRatio": 0.856,
-      "rawToCookedRatioMatch": {
-        "confidence": 1.0,
-        "rule": "vegetable default from food_type_cooked_to_raw.csv"
       },
       "scenario": "import",
       "scopes": [

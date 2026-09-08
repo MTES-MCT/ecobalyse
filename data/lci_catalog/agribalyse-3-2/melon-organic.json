@@ -2,8 +2,7 @@
   "activityName": "Melon, organic, at farm gate {FR} U",
   "categories": [
     "ingredient",
-    "material",
-    "material_type:fruits_and_vegetables"
+    "material"
   ],
   "displayName": "Melon Bio",
   "id": "ec780463-622d-55aa-9df3-aebf8874f50d",
@@ -20,7 +19,6 @@
         "organic"
       ],
       "ingredientDensity": 0.447,
-      "rawToCookedRatio": 0.856,
       "scenario": "organic",
       "scopes": [
         "food",

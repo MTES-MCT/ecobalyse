@@ -2,8 +2,7 @@
   "activityName": "Lentil {CA-SK}| lentil production | Cut-off, U - Adapted from Ecoinvent U",
   "categories": [
     "ingredient",
-    "material",
-    "material_type:legumes"
+    "material"
   ],
   "displayName": "Lentilles par défaut",
   "id": "df2d5183-1356-5119-aaec-1ab1683323be",
@@ -31,11 +30,6 @@
         "confidence": 1.0,
         "rule": "lentil found in density.csv"
       },
-      "rawToCookedRatio": 2.33,
-      "rawToCookedRatioMatch": {
-        "confidence": 1.0,
-        "rule": "Matched with lentil in cooked_to_raw.csv"
-      },
       "scenario": "reference",
       "scopes": [
         "food",
@@ -59,7 +53,6 @@
         "nut_oilseed_raw"
       ],
       "ingredientDensity": 0.72,
-      "rawToCookedRatio": 2.33,
       "scenario": "import",
       "scopes": [
         "food",
@@ -90,11 +83,6 @@
       "ingredientDensityMatch": {
         "confidence": 1.0,
         "rule": "lentil found in density.csv"
-      },
-      "rawToCookedRatio": 2.33,
-      "rawToCookedRatioMatch": {
-        "confidence": 1.0,
-        "rule": "Matched with lentil in cooked_to_raw.csv"
       },
       "scenario": "import",
       "scopes": [
@@ -131,11 +119,6 @@
         "confidence": 1.0,
         "rule": "lentil found in density.csv"
       },
-      "rawToCookedRatio": 2.33,
-      "rawToCookedRatioMatch": {
-        "confidence": 1.0,
-        "rule": "Matched with lentil in cooked_to_raw.csv"
-      },
       "scenario": "import",
       "scopes": [
         "food",
@@ -170,11 +153,6 @@
       "ingredientDensityMatch": {
         "confidence": 1.0,
         "rule": "lentil found in density.csv"
-      },
-      "rawToCookedRatio": 2.33,
-      "rawToCookedRatioMatch": {
-        "confidence": 1.0,
-        "rule": "Matched with lentil in cooked_to_raw.csv"
       },
       "scenario": "import",
       "scopes": [

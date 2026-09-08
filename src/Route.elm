@@ -32,10 +32,10 @@ type Route
     | FoodBuilder Definition.Trigram (Maybe FoodQuery.Query)
     | FoodBuilderExample Uuid
     | FoodBuilderHome
+    | GenericSimulator Scope.GenericScope Definition.Trigram (Maybe Component.Query)
+    | GenericSimulatorExample Scope.GenericScope Uuid
+    | GenericSimulatorHome Scope.GenericScope
     | Home
-    | ObjectSimulator Scope Definition.Trigram (Maybe Component.Query)
-    | ObjectSimulatorExample Scope Uuid
-    | ObjectSimulatorHome Scope
     | Stats
     | TextileSimulator Definition.Trigram (Maybe TextileQuery.Query)
     | TextileSimulatorExample Uuid
@@ -63,6 +63,11 @@ parser =
         , Parser.map Explore
             (Parser.s "explore" </> Scope.parse </> Dataset.parseSlug)
 
+        -- Generic simulator routes
+        , parseGenericSimulatorRoutes Scope.Food2 "food2"
+        , parseGenericSimulatorRoutes Scope.Object "object"
+        , parseGenericSimulatorRoutes Scope.Veli "veli"
+
         --
         -- Food specific routes
         --
@@ -78,34 +83,6 @@ parser =
                 </> Example.parseUuid
             )
 
-        -- Food2 specific routes
-        , Parser.map (ObjectSimulatorHome (Scope.Generic Scope.Food2))
-            (Parser.s "food2" </> Parser.s "simulator")
-        , Parser.map (ObjectSimulator (Scope.Generic Scope.Food2)) <|
-            Parser.s "food2"
-                </> Parser.s "simulator"
-                </> Impact.parseTrigram
-                </> Component.parseBase64Query
-        , Parser.map (ObjectSimulatorExample (Scope.Generic Scope.Food2))
-            (Parser.s "food2"
-                </> Parser.s "edit-example"
-                </> Example.parseUuid
-            )
-
-        -- Object specific routes
-        , Parser.map (ObjectSimulatorHome (Scope.Generic Scope.Object))
-            (Parser.s "object" </> Parser.s "simulator")
-        , Parser.map (ObjectSimulator (Scope.Generic Scope.Object)) <|
-            Parser.s "object"
-                </> Parser.s "simulator"
-                </> Impact.parseTrigram
-                </> Component.parseBase64Query
-        , Parser.map (ObjectSimulatorExample (Scope.Generic Scope.Object))
-            (Parser.s "object"
-                </> Parser.s "edit-example"
-                </> Example.parseUuid
-            )
-
         -- Textile specific routes
         , Parser.map TextileSimulatorHome
             (Parser.s "textile" </> Parser.s "simulator")
@@ -115,17 +92,21 @@ parser =
                 </> Parser.s "edit-example"
                 </> Example.parseUuid
             )
+        ]
 
-        -- Veli specific routes
-        , Parser.map (ObjectSimulatorHome (Scope.Generic Scope.Veli))
-            (Parser.s "veli" </> Parser.s "simulator")
-        , Parser.map (ObjectSimulator (Scope.Generic Scope.Veli)) <|
-            Parser.s "veli"
+
+parseGenericSimulatorRoutes : Scope.GenericScope -> String -> Parser (Route -> a) a
+parseGenericSimulatorRoutes genericScope path =
+    Parser.oneOf
+        [ Parser.map (GenericSimulatorHome genericScope)
+            (Parser.s path </> Parser.s "simulator")
+        , Parser.map (GenericSimulator genericScope) <|
+            Parser.s path
                 </> Parser.s "simulator"
                 </> Impact.parseTrigram
                 </> Component.parseBase64Query
-        , Parser.map (ObjectSimulatorExample (Scope.Generic Scope.Veli))
-            (Parser.s "veli"
+        , Parser.map (GenericSimulatorExample genericScope)
+            (Parser.s path
                 </> Parser.s "edit-example"
                 </> Example.parseUuid
             )
@@ -238,27 +219,32 @@ toString route =
                 FoodBuilderHome ->
                     [ "food" ]
 
-                Home ->
-                    []
-
-                ObjectSimulator scope trigram (Just query) ->
-                    [ Scope.toString scope
+                GenericSimulator genericScope trigram (Just query) ->
+                    [ Scope.toString (Scope.Generic genericScope)
                     , "simulator"
                     , Definition.toString trigram
                     , Component.encodeBase64Query query
                     ]
 
-                ObjectSimulator scope trigram Nothing ->
-                    [ Scope.toString scope
+                GenericSimulator genericScope trigram Nothing ->
+                    [ Scope.toString (Scope.Generic genericScope)
                     , "simulator"
                     , Definition.toString trigram
                     ]
 
-                ObjectSimulatorExample scope uuid ->
-                    [ Scope.toString scope, "edit-example", Uuid.toString uuid ]
+                GenericSimulatorExample genericScope uuid ->
+                    [ Scope.toString (Scope.Generic genericScope)
+                    , "edit-example"
+                    , Uuid.toString uuid
+                    ]
 
-                ObjectSimulatorHome scope ->
-                    [ Scope.toString scope, "simulator" ]
+                GenericSimulatorHome genericScope ->
+                    [ Scope.toString (Scope.Generic genericScope)
+                    , "simulator"
+                    ]
+
+                Home ->
+                    []
 
                 Stats ->
                     [ "stats" ]

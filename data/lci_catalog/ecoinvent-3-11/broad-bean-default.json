@@ -2,8 +2,7 @@
   "activityName": "Fava bean {CA-AB}| fava bean production | Cut-off, U",
   "categories": [
     "ingredient",
-    "material",
-    "material_type:fruits_and_vegetables"
+    "material"
   ],
   "displayName": "Fève Origine Inconnue",
   "id": "027d4c09-56b5-52d6-9b70-27c3835aeb0f",
@@ -31,11 +30,6 @@
       "ingredientDensityMatch": {
         "confidence": 0.95,
         "rule": "Matched with bean in density.csv"
-      },
-      "rawToCookedRatio": 0.856,
-      "rawToCookedRatioMatch": {
-        "confidence": 1.0,
-        "rule": "legume default from food_type_cooked_to_raw.csv"
       },
       "scenario": "import",
       "scopes": [
@@ -72,11 +66,6 @@
         "confidence": 1.0,
         "rule": "legume default from food_type_density.csv"
       },
-      "rawToCookedRatio": 0.856,
-      "rawToCookedRatioMatch": {
-        "confidence": 1.0,
-        "rule": "legume default from food_type_cooked_to_raw.csv"
-      },
       "scenario": "import",
       "scopes": [
         "food",
@@ -112,11 +101,6 @@
         "confidence": 1.0,
         "rule": "legume default from food_type_density.csv"
       },
-      "rawToCookedRatio": 0.856,
-      "rawToCookedRatioMatch": {
-        "confidence": 1.0,
-        "rule": "legume default from food_type_cooked_to_raw.csv"
-      },
       "scenario": "import",
       "scopes": [
         "food",
@@ -151,11 +135,6 @@
       "ingredientDensityMatch": {
         "confidence": 1.0,
         "rule": "legume default from food_type_density.csv"
-      },
-      "rawToCookedRatio": 0.856,
-      "rawToCookedRatioMatch": {
-        "confidence": 1.0,
-        "rule": "legume default from food_type_cooked_to_raw.csv"
       },
       "scenario": "import",
       "scopes": [

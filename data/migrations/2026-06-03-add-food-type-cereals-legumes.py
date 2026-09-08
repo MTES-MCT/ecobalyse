@@ -5,7 +5,7 @@ Transform activities.json from flat structure to nested structure with metadata.
 
 import json
 
-from config import PROJECT_ROOT_DIR
+from config import DATA_ROOT_DIR
 from ecobalyse_data.logging import logger
 
 # Extracted from https://fabrique-numerique.gitbook.io/ecobalyse/alimentaire/impacts-consideres/rapport-cru-cuit
@@ -22,11 +22,11 @@ RATIO_TO_CAT = {
 
 OTHER_ITEMS_TAG = "material_type:other_food_items"
 
-INGREDIENT_CATEGORIES = set(RATIO_TO_CAT.values()) | set([OTHER_ITEMS_TAG])
+INGREDIENT_CATEGORIES = set(RATIO_TO_CAT.values()) | {OTHER_ITEMS_TAG}
 
 
 def main():
-    lci_catalog = PROJECT_ROOT_DIR / "lci_catalog"
+    lci_catalog = DATA_ROOT_DIR / "lci_catalog"
     logger.debug(f"-> Loading lci_catalog {lci_catalog}")
 
     for lci_path in lci_catalog.glob("*/*.json"):
@@ -40,7 +40,7 @@ def main():
                 if metadata and "ingredient" in categories:
                     # The `material` tag is added if needed. All ingredients have
                     # to have it.
-                    categories |= set(["material"])
+                    categories |= {"material"}
 
                     # Any `material_type:*` tag is removed, so that we can just
                     # add the proper one afterwards, without having to worry about
@@ -50,9 +50,7 @@ def main():
                     # Arbitrarly take the first rawToCookedRatio, and emit a warning
                     # in case they are not all identical
                     rawToCookedRatio = metadata[0]["rawToCookedRatio"]
-                    if any(
-                        [m["rawToCookedRatio"] != rawToCookedRatio for m in metadata]
-                    ):
+                    if any(m["rawToCookedRatio"] != rawToCookedRatio for m in metadata):
                         categories.add(OTHER_ITEMS_TAG)
                         logger.warning(
                             f"{activity['displayName']}: several rawToCookedRatio found, using the first one ",

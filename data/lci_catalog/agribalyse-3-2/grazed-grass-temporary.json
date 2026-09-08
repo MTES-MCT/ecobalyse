@@ -2,8 +2,7 @@
   "activityName": "Grazed grass, temporary meadow, without clover, Northwestern region, on field {FR} U",
   "categories": [
     "ingredient",
-    "material",
-    "material_type:other_food_items"
+    "material"
   ],
   "displayName": "Herbe de prairie temporaire FR",
   "id": "0c45b91e-f807-598f-b58b-28eee5c6db7e",

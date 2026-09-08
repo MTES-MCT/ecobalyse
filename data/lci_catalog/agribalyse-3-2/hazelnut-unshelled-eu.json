@@ -2,8 +2,7 @@
   "activityName": "Hazelnut, unshelled, at plant {IT} U",
   "categories": [
     "ingredient",
-    "material",
-    "material_type:other_food_items"
+    "material"
   ],
   "displayName": "Noisette décortiquée UE",
   "id": "1b50ea0d-2e40-5cc8-99c3-4a19bcebe775",

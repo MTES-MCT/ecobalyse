@@ -5,7 +5,7 @@ name: Ingredient Hierarchy Check
 on:
   push:
     branches:
-      - master
+      - main
   pull_request:
     paths:
         - 'public/data/processes_impacts.json'

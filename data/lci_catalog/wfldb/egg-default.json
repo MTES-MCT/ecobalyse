@@ -2,8 +2,7 @@
   "activityName": "Chicken egg, poultry industrial laying systems, at farm (WFLDB)",
   "categories": [
     "ingredient",
-    "material",
-    "material_type:eggs"
+    "material"
   ],
   "displayName": "Œuf Origine Inconnue",
   "id": "001c68f3-e5ba-5f66-84e4-13594098e02a",
@@ -29,11 +28,6 @@
       "ingredientDensityMatch": {
         "confidence": 1.0,
         "rule": "egg found in density.csv"
-      },
-      "rawToCookedRatio": 0.974,
-      "rawToCookedRatioMatch": {
-        "confidence": 1.0,
-        "rule": "Matched with egg in cooked_to_raw.csv"
       },
       "scenario": "import",
       "scopes": [
@@ -68,11 +62,6 @@
         "confidence": 1.0,
         "rule": "egg found in density.csv"
       },
-      "rawToCookedRatio": 0.974,
-      "rawToCookedRatioMatch": {
-        "confidence": 1.0,
-        "rule": "Matched with egg in cooked_to_raw.csv"
-      },
       "scenario": "import",
       "scopes": [
         "food",
@@ -105,11 +94,6 @@
       "ingredientDensityMatch": {
         "confidence": 1.0,
         "rule": "egg found in density.csv"
-      },
-      "rawToCookedRatio": 0.974,
-      "rawToCookedRatioMatch": {
-        "confidence": 1.0,
-        "rule": "Matched with egg in cooked_to_raw.csv"
       },
       "scenario": "import",
       "scopes": [

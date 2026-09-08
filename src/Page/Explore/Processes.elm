@@ -30,27 +30,18 @@ table session { scope } =
         , Table.Facet "Unités" (.unit >> Process.unitToString >> List.singleton)
         , Table.Facet "Région"
             (.location
-                >> Maybe.map
-                    (\location ->
-                        -- attempt decoding the region string as a an existing country code in the shared db
-                        case session.db.countries |> Country.findByCode (CountryCode.fromString location) of
-                            Err _ ->
-                                location
-
-                            Ok { name } ->
-                                name ++ " (" ++ location ++ ")"
-                    )
-                >> Maybe.withDefault "N/A"
+                >> Maybe.map (resolveRegionName session)
+                >> Maybe.withDefault Table.emptyLabel
                 >> List.singleton
             )
         ]
     , legend = []
-    , columns = baseColumns ++ impactsColumns session ++ complementsColumns session
+    , columns = baseColumns session ++ impactsColumns session ++ complementsColumns session
     }
 
 
-baseColumns : List (Column Process String msg)
-baseColumns =
+baseColumns : Session -> List (Column Process String msg)
+baseColumns session =
     [ { label = "Identifiant"
       , toValue = Table.StringValue <| .id >> Process.idToString
       , toCell =
@@ -76,8 +67,8 @@ baseColumns =
       , toCell = .source >> text
       }
     , { label = "Région"
-      , toValue = Table.StringValue <| .location >> Maybe.withDefault "N/A"
-      , toCell = .location >> Maybe.withDefault "N/A" >> text
+      , toValue = Table.StringValue <| .location >> Maybe.withDefault Table.emptyLabel
+      , toCell = .location >> Maybe.map (resolveRegionName session) >> Maybe.withDefault Table.emptyLabel >> text
       }
     , { label = "Catégories"
       , toValue =
@@ -108,7 +99,7 @@ baseColumns =
       , toCell = .qtyVariationRatio >> Format.qtyVariationRatio
       }
     , { label = "Masse par unité"
-      , toValue = Table.StringValue <| .massPerUnit >> Maybe.map String.fromFloat >> Maybe.withDefault "N/A"
+      , toValue = Table.StringValue <| .massPerUnit >> Maybe.map String.fromFloat >> Maybe.withDefault Table.emptyLabel
       , toCell = Format.massPerUnit
       }
     , { label = "Commentaire"
@@ -138,7 +129,7 @@ complementsColumns { db } =
             , toCell =
                 complementToMaybeFloat a
                     >> Maybe.map (Format.formatImpactFloat (Definition.get Definition.Ecs db.definitions))
-                    >> Maybe.withDefault (text "N/A")
+                    >> Maybe.withDefault (text Table.emptyLabel)
             }
         )
         Complement.allComplementsFields
@@ -163,6 +154,16 @@ impactsColumns ({ db } as session) =
         Definition.Ecs
             |> impactCell db.definitions
             |> List.singleton
+
+
+resolveRegionName : Session -> String -> String
+resolveRegionName { db } location =
+    case db.countries |> Country.findByCode (CountryCode.fromString location) of
+        Err _ ->
+            location
+
+        Ok { name } ->
+            name ++ " (" ++ location ++ ")"
 
 
 tooltipedCell : String -> Html msg

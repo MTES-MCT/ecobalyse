@@ -2,8 +2,7 @@
   "activityName": "Wheat grain, organic 2025 {FR}| wheat production | Cut-off, U",
   "categories": [
     "ingredient",
-    "material",
-    "material_type:cereals"
+    "material"
   ],
   "displayName": "Millet entier Bio",
   "id": "3cf9ad2c-958a-5905-a6e2-afce13869286",
@@ -32,11 +31,6 @@
       "ingredientDensityMatch": {
         "confidence": 0.95,
         "rule": "Matched with Millet in fao_density.csv"
-      },
-      "rawToCookedRatio": 2.259,
-      "rawToCookedRatioMatch": {
-        "confidence": 1.0,
-        "rule": "grain default from food_type_cooked_to_raw.csv"
       },
       "scenario": "organic",
       "scopes": [

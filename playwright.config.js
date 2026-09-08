@@ -13,9 +13,11 @@ dotenv.config({ path: path.resolve(__dirname, ".env") });
  * @see https://playwright.dev/docs/test-configuration
  */
 export default defineConfig({
-  timeout: process.env.CI ? 120_000 : 10_000,
+  timeout: process.env.CI ? 80_000 : 10_000,
+  expect: { timeout: process.env.CI ? 20_000 : 2_000 },
 
-  expect: { timeout: process.env.CI ? 10_000 : 2_000 },
+  // Parcel (:1234) is up before the Node API (:8001) finishes `server:build`.
+  globalSetup: "./e2e/global-setup.js",
 
   testDir: "./e2e",
   /* Run tests in files in parallel */
@@ -23,7 +25,7 @@ export default defineConfig({
   /* Fail the build on CI if you accidentally left test.only in the source code. */
   forbidOnly: !!process.env.CI,
   /* Retry on CI only */
-  retries: process.env.CI ? 10 : 0,
+  retries: 0,
   /* Opt out of parallel tests on CI. */
   workers: process.env.CI ? 1 : undefined,
 

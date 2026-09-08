@@ -12,7 +12,7 @@ def get_scheme(request: Request) -> None | str:
     return request.scope.get("scheme")
 
 
-def get_base_url(request: Request) -> None | str:
+def get_base_url(request: Request) -> str:
     host = get_host(request)
     scheme = get_scheme(request)
     return f"{scheme}://{host}"

@@ -2,8 +2,7 @@
   "activityName": "Egg, conventional, indoor system, cage, at farm gate {FR} U",
   "categories": [
     "ingredient",
-    "material",
-    "material_type:eggs"
+    "material"
   ],
   "displayName": "Oeuf (code 3) FR",
   "id": "5bad1f5e-34de-57aa-827b-afeda19f8fe5",
@@ -21,7 +20,6 @@
         "animal_product"
       ],
       "ingredientDensity": 1.0,
-      "rawToCookedRatio": 0.974,
       "scenario": "reference",
       "scopes": [
         "food",

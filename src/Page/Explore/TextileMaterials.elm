@@ -59,7 +59,7 @@ table db { detailed, scope } =
             (.defaultCountry
                 >> (\code -> Country.findByCode code db.countries)
                 >> Result.map (\{ code, name } -> name ++ " (" ++ CountryCode.toString code ++ ")")
-                >> Result.withDefault "N/A"
+                >> Result.withDefault Table.emptyLabel
                 >> List.singleton
             )
         ]
@@ -109,8 +109,8 @@ table db { detailed, scope } =
                     >> withPill Gitbook.TextileSpinning
           }
         , { label = "Procédé de recyclage"
-          , toValue = Table.StringValue <| getRecycledProcess db.textile.materials >> Maybe.map Process.getDisplayName >> Maybe.withDefault "N/A"
-          , toCell = getRecycledProcess db.textile.materials >> Maybe.map (Process.getDisplayName >> text) >> Maybe.withDefault (text "N/A")
+          , toValue = Table.StringValue <| getRecycledProcess db.textile.materials >> Maybe.map Process.getDisplayName >> Maybe.withDefault Table.emptyLabel
+          , toCell = getRecycledProcess db.textile.materials >> Maybe.map (Process.getDisplayName >> text) >> Maybe.withDefault (text Table.emptyLabel)
           }
         , { label = "Origine géographique"
           , toValue = Table.StringValue .geographicOrigin
@@ -152,7 +152,7 @@ table db { detailed, scope } =
                             >> Format.splitAsFloat 1
                             >> withPill Gitbook.TextileCircularFootprintFormula
                         )
-                    >> Maybe.withDefault (text "N/A")
+                    >> Maybe.withDefault (text Table.emptyLabel)
           }
         , { label = "CFF: Rapport de qualité"
           , toValue =
@@ -167,7 +167,7 @@ table db { detailed, scope } =
                             >> Format.splitAsFloat 1
                             >> withPill Gitbook.TextileCircularFootprintFormula
                         )
-                    >> Maybe.withDefault (text "N/A")
+                    >> Maybe.withDefault (text Table.emptyLabel)
           }
         ]
     }

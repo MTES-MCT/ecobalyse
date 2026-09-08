@@ -2,19 +2,17 @@ import orjson
 
 from bin import export
 from common.export import export_json
-from config import TESTS_FIXTURE_DIR, settings
-from create_activities import create_activities
+from config import DATA_ROOT_DIR, TESTS_FIXTURE_DIR, settings
+from create_activities import create_custom_lci
 
 
 def test_export_processes(forwast, tmp_path, processes_impacts_json):
-    settings.set("OUTPUT_DIR", str(tmp_path))
-    settings.set("LOCAL_DIR", str(tmp_path))
-    create_activities("tests/custom_lci.json")
+    settings.set("FRONTEND_DATA_DIR", str(tmp_path))
+    settings.set("EXPORT_DIR", str(tmp_path))
+    create_custom_lci(DATA_ROOT_DIR / "tests" / "custom_lci.json")
 
     export.processes_legacy(
         scopes=None,
-        simapro=False,
-        plot=False,
         verbose=False,
         root_dir=TESTS_FIXTURE_DIR,
     )
@@ -31,8 +29,8 @@ def test_export_processes(forwast, tmp_path, processes_impacts_json):
 def test_export_ingredients(
     forwast, tmp_path, ingredients_food_json, processes_impacts_full_json
 ):
-    settings.set("OUTPUT_DIR", str(tmp_path))
-    settings.set("LOCAL_DIR", str(tmp_path))
+    settings.set("FRONTEND_DATA_DIR", str(tmp_path))
+    settings.set("EXPORT_DIR", str(tmp_path))
 
     output_path = tmp_path / "food"
     output_path.mkdir()
@@ -45,6 +43,7 @@ def test_export_ingredients(
     export.metadata(
         scopes=[export.MetadataScope.food],
         root_dir=TESTS_FIXTURE_DIR,
+        write_taxonomy=False,
     )
 
     with open(output_path / "ingredients.json", "rb") as f:
@@ -53,8 +52,8 @@ def test_export_ingredients(
 
 
 def test_export_materials(forwast, tmp_path, materials_textile_json):
-    settings.set("OUTPUT_DIR", str(tmp_path))
-    settings.set("LOCAL_DIR", str(tmp_path))
+    settings.set("FRONTEND_DATA_DIR", str(tmp_path))
+    settings.set("EXPORT_DIR", str(tmp_path))
 
     output_path = tmp_path / "textile"
     output_path.mkdir()
@@ -62,6 +61,7 @@ def test_export_materials(forwast, tmp_path, materials_textile_json):
     export.metadata(
         scopes=[export.MetadataScope.textile],
         root_dir=TESTS_FIXTURE_DIR,
+        write_taxonomy=False,
     )
 
     with open(output_path / "materials.json", "rb") as f:
@@ -72,8 +72,8 @@ def test_export_materials(forwast, tmp_path, materials_textile_json):
 def test_export_processes_generic(
     forwast, tmp_path, processes_impacts_full_json, processes_generic_impacts_json
 ):
-    settings.set("OUTPUT_DIR", str(tmp_path))
-    settings.set("LOCAL_DIR", str(tmp_path))
+    settings.set("FRONTEND_DATA_DIR", str(tmp_path))
+    settings.set("EXPORT_DIR", str(tmp_path))
 
     # Write the full (unfiltered) processes data that the generic export reads.
     export_json(
@@ -84,6 +84,7 @@ def test_export_processes_generic(
     export.metadata(
         scopes=[export.MetadataScope.generic],
         root_dir=TESTS_FIXTURE_DIR,
+        write_taxonomy=False,
     )
 
     with open(tmp_path / settings.processes_generic_impacts_file, "rb") as f:

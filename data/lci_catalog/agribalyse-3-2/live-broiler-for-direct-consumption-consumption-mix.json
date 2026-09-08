@@ -2,8 +2,7 @@
   "activityName": "Live broiler, for direct consumption, consumption mix {FR} U",
   "categories": [
     "ingredient",
-    "material",
-    "material_type:poultry"
+    "material"
   ],
   "displayName": "Live broiler, for direct consumption, consumption mix (FR)",
   "id": "bc5a154d-e89e-5ea1-a2ac-926d7cfa9945",
@@ -29,11 +28,6 @@
       "ingredientDensityMatch": {
         "confidence": 1.0,
         "rule": "meat default from food_type_density.csv"
-      },
-      "rawToCookedRatio": 0.755,
-      "rawToCookedRatioMatch": {
-        "confidence": 1.0,
-        "rule": "poultry keyword found in Broiler"
       },
       "scenario": "organic",
       "scopes": [
@@ -69,11 +63,6 @@
         "confidence": 1.0,
         "rule": "meat default from food_type_density.csv"
       },
-      "rawToCookedRatio": 0.755,
-      "rawToCookedRatioMatch": {
-        "confidence": 1.0,
-        "rule": "poultry keyword found in Poultry"
-      },
       "scenario": "organic",
       "scopes": [
         "food",
@@ -107,11 +96,6 @@
       "ingredientDensityMatch": {
         "confidence": 1.0,
         "rule": "rabbit found in density.csv"
-      },
-      "rawToCookedRatio": 0.755,
-      "rawToCookedRatioMatch": {
-        "confidence": 1.0,
-        "rule": "poultry keyword found in Rabbit"
       },
       "scenario": "organic",
       "scopes": [

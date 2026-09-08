@@ -2,8 +2,7 @@
   "activityName": "Zucchini, springtime, under tunnel, organic, at farm gate {FR} U",
   "categories": [
     "ingredient",
-    "material",
-    "material_type:fruits_and_vegetables"
+    "material"
   ],
   "displayName": "Courgette Bio",
   "id": "d399abe1-42a8-5292-af8c-5dda32a20d21",
@@ -21,7 +20,6 @@
       ],
       "ingredientDensity": 0.447,
       "landOccupation": 0.125,
-      "rawToCookedRatio": 0.856,
       "scenario": "organic",
       "scopes": [
         "food",
@@ -43,7 +41,6 @@
       ],
       "ingredientDensity": 0.362,
       "landOccupation": 0.125,
-      "rawToCookedRatio": 0.856,
       "scenario": "organic",
       "scopes": [
         "food",

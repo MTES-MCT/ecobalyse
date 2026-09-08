@@ -1,6 +1,5 @@
 module Data.Textile.SimulatorTest exposing (..)
 
-import Data.Component as Component
 import Data.Country.Code as CountryCode
 import Data.Db exposing (Db)
 import Data.Impact as Impact
@@ -15,13 +14,12 @@ import Data.Unit as Unit
 import Expect exposing (Expectation)
 import Json.Decode as Decode
 import Test exposing (..)
-import TestUtils exposing (asTest, suiteFromResult, suiteWithDb, tShirtCotonFrance)
+import TestUtils exposing (asTest, componentConfig, suiteFromResult, suiteWithDb, tShirtCotonFrance)
 
 
 getImpact : Db -> Definition.Trigram -> Query -> Result String Float
 getImpact db trigram query =
-    -- Note: Tesxtile trims use the default component config which only provide production stage impacts.
-    Component.defaultConfig db
+    componentConfig db
         |> Result.andThen
             (\config ->
                 query
@@ -52,8 +50,7 @@ ecs =
 
 computeWithDefaultComponentConfig : Db -> Query -> Result String Simulator
 computeWithDefaultComponentConfig db query =
-    -- Note: Tesxtile trims use the default component config which only provide production stage impacts.
-    Component.defaultConfig db
+    componentConfig db
         |> Result.andThen (\config -> query |> Simulator.compute db config)
 
 
@@ -217,8 +214,7 @@ suite =
                 [ suiteFromResult "should compute total impacts without complements"
                     tShirtCotonFrance
                     (\query ->
-                        [ -- Note: Tesxtile trims use the default component config which only provide production stage impacts.
-                          Component.defaultConfig db
+                        [ componentConfig db
                             |> Result.andThen
                                 (\config ->
                                     query |> Simulator.compute db config
