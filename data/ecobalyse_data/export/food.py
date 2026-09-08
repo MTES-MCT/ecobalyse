@@ -304,7 +304,7 @@ def activity_to_ingredients(eco_activity: dict, es_by_alias: dict) -> list[Ingre
                     name=food_metadata["displayName"],
                     raw_to_cooked_ratio=infer_raw_to_cooked_ratio(
                         food_metadata.get("rawToCookedRatio"),
-                        eco_activity.get("categories", []),
+                        food_metadata["alias"],
                     ),
                     scenario=food_metadata.get("scenario"),
                     activity_name=eco_activity["activityName"],
