@@ -402,7 +402,7 @@ paths:
             application/json:
               schema:
                 $ref: "#/components/schemas/GenericProcessListResponse"
-  ## FIXME: rename `/{scope}/assemblies` to `/{scope}/assembly`
+  ## FIXME: rename `/{scope}/assemblies` to `/{scope}/processes/assembly`
   /{scope}/assemblies:
     get:
       tags:
@@ -418,6 +418,7 @@ paths:
             application/json:
               schema:
                 $ref: "#/components/schemas/GenericProcessListResponse"
+  ## FIXME: rename `/{scope}/distributions` to `/{scope}/processes/distribution`
   /{scope}/distributions:
     get:
       tags:
@@ -433,6 +434,7 @@ paths:
             application/json:
               schema:
                 $ref: "#/components/schemas/GenericProcessListResponse"
+  ## FIXME: rename `/{scope}/packagings` to `/{scope}/processes/packaging`
   /{scope}/packagings:
     get:
       tags:
@@ -448,6 +450,7 @@ paths:
             application/json:
               schema:
                 $ref: "#/components/schemas/GenericProcessListResponse"
+  ## FIXME: rename `/{scope}/consumptions` to `/{scope}/processes/consumption`
   /{scope}/consumptions:
     get:
       tags:
