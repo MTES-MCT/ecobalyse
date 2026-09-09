@@ -1518,3 +1518,8 @@ components:
           unit:
             type: string
             description: Unité du procédé (`kg`, `m3`, `kWh`, `MJ`, `L`, `m2`, `Item(s)`, `t⋅km`)
+          categories:
+            type: array
+            items:
+              type: string
+            description: Catégories du procédé
