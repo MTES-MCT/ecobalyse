@@ -107,3 +107,6 @@ extend-select = ["I"]
 extra-paths = [
     "data/",
 ]
+
+[tool.uv]
+required-version =  ">=0.12"
