@@ -621,6 +621,7 @@ components:
         - `veli` : véhicules légers/intermédiaires
       schema:
         type: string
+        example: food2
         enum:
           - food2
           - object
