@@ -26,7 +26,7 @@
       "scopes": ["food", "food2"],
       "transportCooling": "none",
       "transportCoolingMatch": { "confidence": 1.0, "rule": "nut_oilseed → none (non-perishable)" },
-      "visible": true
+      "visible": false
     },
     {
       "alias": "macadamia-nut-organic",
@@ -52,7 +52,7 @@
       "scopes": ["food", "food2"],
       "transportCooling": "none",
       "transportCoolingMatch": { "confidence": 1.0, "rule": "nut_oilseed → none (non-perishable)" },
-      "visible": true
+      "visible": false
     },
     {
       "alias": "walnut-organic",
@@ -75,7 +75,7 @@
       "scopes": ["food", "food2"],
       "transportCooling": "none",
       "transportCoolingMatch": { "confidence": 1.0, "rule": "nut_oilseed → none (non-perishable)" },
-      "visible": true
+      "visible": false
     }
   ],
   "scopes": ["food", "food2"],

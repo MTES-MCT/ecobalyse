@@ -39,7 +39,7 @@
       "scopes": ["food", "food2"],
       "transportCooling": "always",
       "transportCoolingMatch": { "confidence": 1.0, "rule": "vegetable NOVA 1 → always (perishable)" },
-      "visible": true
+      "visible": false
     }
   ],
   "scopes": ["food", "food2"],

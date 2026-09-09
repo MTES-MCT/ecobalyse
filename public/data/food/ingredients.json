@@ -2352,7 +2352,7 @@
     "rawToCookedRatio": 0.856,
     "scenario": "organic",
     "transportCooling": "always",
-    "visible": true
+    "visible": false
   },
   {
     "activityName": "Peach, at farm (WFLDB)",
@@ -2540,7 +2540,7 @@
     "visible": false
   },
   {
-    "activityName": "Spinach {CH}| spinach production, conventional, plain region | Cut-off, U",
+    "activityName": "Spinach {GLO}| production | Cut-off, U - Adapted from Ecoinvent U",
     "alias": "swiss-chard-eu",
     "baseIngredient": "swiss-chard",
     "categories": ["vegetable_fresh"],
@@ -2550,10 +2550,10 @@
     "ecosystemicServices": { "cropDiversity": 0, "hedges": 0, "permanentPasture": null, "plotSize": 0 },
     "id": "1326c16c-fb23-5397-ba04-1394b57e60c4",
     "inediblePart": 0.2,
-    "landOccupation": 0.5332,
-    "location": "CH",
+    "landOccupation": 0.04615,
+    "location": "GLO",
     "name": "Blette UE",
-    "processId": "e1a847b5-ed54-5cdf-b4b0-c8c8e118017e",
+    "processId": "543622a6-3e36-58cd-b77c-66c678eb7959",
     "rawToCookedRatio": 0.856,
     "scenario": "import",
     "transportCooling": "always",
@@ -6212,7 +6212,7 @@
     "rawToCookedRatio": 0.856,
     "scenario": "organic",
     "transportCooling": "always",
-    "visible": true
+    "visible": false
   },
   {
     "activityName": "Peanut {IN}| peanut production | Cut-off, U - Adapted from Ecoinvent U",
@@ -7281,7 +7281,7 @@
   },
   {
     "activityName": "Strawberry, soilless protected crops, heated, conventional, at farm gate {FR} U",
-    "alias": "strawberry-fr-offseason",
+    "alias": "strawberry-fr-offseason-2025",
     "baseIngredient": "strawberry",
     "categories": ["vegetable_fresh"],
     "cropGroup": "LEGUMES-FLEURS",
@@ -7292,7 +7292,7 @@
     "inediblePart": 0.03,
     "landOccupation": 1.077,
     "location": "FR",
-    "name": "Fraise hors saison FR",
+    "name": "Fraise hors saison FR (2025)",
     "processId": "cb853b96-275b-5a2c-bfcb-8b1b0a867691",
     "rawToCookedRatio": 0.856,
     "scenario": "reference",
@@ -8477,7 +8477,7 @@
     "rawToCookedRatio": 0.856,
     "scenario": "organic",
     "transportCooling": "always",
-    "visible": true
+    "visible": false
   },
   {
     "activityName": "Snail, wild {BE} U",
@@ -10907,7 +10907,7 @@
     "rawToCookedRatio": 0.856,
     "scenario": "organic",
     "transportCooling": "always",
-    "visible": true
+    "visible": false
   },
   {
     "activityName": "Pasta, dried, from durum wheat, at plant, from GLO wheat and FR elec",
@@ -11627,7 +11627,7 @@
     "rawToCookedRatio": 0.856,
     "scenario": "organic",
     "transportCooling": "always",
-    "visible": true
+    "visible": false
   },
   {
     "activityName": "Fromage blanc, 3pct fat, variant 2, CMAPS {GLO} U",
@@ -12462,7 +12462,7 @@
     "rawToCookedRatio": 1.0,
     "scenario": "organic",
     "transportCooling": "none",
-    "visible": true
+    "visible": false
   },
   {
     "activityName": "Almond, shelled with skin, CMAPS {GLO} U",
@@ -14032,7 +14032,7 @@
     "rawToCookedRatio": 2.259,
     "scenario": "organic",
     "transportCooling": "none",
-    "visible": true
+    "visible": false
   },
   {
     "activityName": "Coffee, roast and ground, at plant {FR} U",
@@ -16295,20 +16295,20 @@
     "visible": true
   },
   {
-    "activityName": "Strawberry, open field, conventional, at farm gate {FR} U",
+    "activityName": "Strawberry, conventional, national average, at farm gate {FR} U",
     "alias": "strawberry-fr",
     "baseIngredient": "strawberry",
     "categories": ["vegetable_fresh"],
     "cropGroup": "LEGUMES-FLEURS",
     "defaultOrigin": "France",
     "density": 0.95,
-    "ecosystemicServices": { "cropDiversity": 0, "hedges": 1.04, "permanentPasture": null, "plotSize": 2.93 },
+    "ecosystemicServices": { "cropDiversity": 0, "hedges": 0.767, "permanentPasture": null, "plotSize": 2.15 },
     "id": "8ad09e31-6b20-56d1-b059-f871361a16d7",
     "inediblePart": 0.03,
-    "landOccupation": 0.6573,
+    "landOccupation": 0.4839,
     "location": "FR",
     "name": "Fraise FR",
-    "processId": "de1d34f6-d229-5dbe-aaef-d1f1c18d05f8",
+    "processId": "6f6ab521-c7d4-58f9-b051-2b7cd11be4b4",
     "rawToCookedRatio": 0.856,
     "scenario": "reference",
     "transportCooling": "always",
@@ -16610,18 +16610,18 @@
     "visible": true
   },
   {
-    "activityName": "Grape, wine grape, at farm, organic 2025 {IT}",
+    "activityName": "Grape, organic 2025 {RoW}| grape production | Cut-off, U",
     "alias": "grape-organic",
     "baseIngredient": "grape",
     "categories": ["vegetable_fresh", "organic"],
     "cropGroup": "VIGNES",
     "defaultOrigin": "France",
     "density": 1.0,
-    "ecosystemicServices": { "cropDiversity": 0, "hedges": 3.05, "permanentPasture": null, "plotSize": 10.5 },
+    "ecosystemicServices": { "cropDiversity": 0, "hedges": 0.827, "permanentPasture": null, "plotSize": 2.84 },
     "id": "8d83f94f-a882-51f6-baf5-aec52f2431f3",
     "inediblePart": 0.1,
-    "landOccupation": 1.683,
-    "location": "IT",
+    "landOccupation": 0.4564,
+    "location": "RoW",
     "name": "Raisins (noirs ou blancs) Bio",
     "processId": "dbda34a4-ff99-577d-917b-a8547b7ae0bc",
     "rawToCookedRatio": 0.856,
@@ -17560,7 +17560,7 @@
     "visible": true
   },
   {
-    "activityName": "Wheat grain {US}| wheat production | Cut-off, U - Adapted from Ecoinvent U",
+    "activityName": "Wheat grain {ES}| wheat production | Cut-off, U - Adapted from Ecoinvent U",
     "alias": "millet-whole-default",
     "baseIngredient": "millet-whole",
     "categories": ["grain_raw"],
@@ -17570,10 +17570,10 @@
     "ecosystemicServices": { "cropDiversity": 0, "hedges": 0, "permanentPasture": null, "plotSize": 0 },
     "id": "9591a756-7917-52d6-9b0c-ca286988348e",
     "inediblePart": 0,
-    "landOccupation": 4.589,
-    "location": "US",
+    "landOccupation": 2.923,
+    "location": "ES",
     "name": "Millet entier Origine Inconnue",
-    "processId": "1b376854-2543-55e0-8d60-7246508b932e",
+    "processId": "bda1b5eb-37e0-5ffd-9514-4382e62d62b7",
     "rawToCookedRatio": 2.259,
     "scenario": "import",
     "transportCooling": "none",
@@ -21112,7 +21112,7 @@
     "rawToCookedRatio": 1.0,
     "scenario": "organic",
     "transportCooling": "none",
-    "visible": true
+    "visible": false
   },
   {
     "activityName": "Sugar beet, at farm {CA} - Adapted from WFLDB U",
@@ -21277,7 +21277,7 @@
     "rawToCookedRatio": 0.856,
     "scenario": "organic",
     "transportCooling": "always",
-    "visible": true
+    "visible": false
   },
   {
     "activityName": "White asparagus {CN}| white asparagus production | Cut-off, U",
@@ -22910,7 +22910,7 @@
     "visible": true
   },
   {
-    "activityName": "Wheat grain {ES}| wheat production | Cut-off, U - Adapted from Ecoinvent U",
+    "activityName": "Wheat grain {DE}| wheat production | Cut-off, U - Adapted from Ecoinvent U",
     "alias": "soft-wheat-eu",
     "baseIngredient": "soft-wheat",
     "categories": ["grain_raw"],
@@ -22920,10 +22920,10 @@
     "ecosystemicServices": { "cropDiversity": 0, "hedges": 0, "permanentPasture": null, "plotSize": 0 },
     "id": "c56ff7bd-cb19-5798-8611-6ce072b541ba",
     "inediblePart": 0,
-    "landOccupation": 2.923,
-    "location": "ES",
+    "landOccupation": 1.53,
+    "location": "DE",
     "name": "Blé tendre UE",
-    "processId": "bda1b5eb-37e0-5ffd-9514-4382e62d62b7",
+    "processId": "1b376854-2543-55e0-8d60-7246508b932e",
     "rawToCookedRatio": 2.259,
     "scenario": "import",
     "transportCooling": "none",
@@ -24037,7 +24037,7 @@
     "rawToCookedRatio": 1.0,
     "scenario": "organic",
     "transportCooling": "none",
-    "visible": true
+    "visible": false
   },
   {
     "activityName": "Agaricus bisporus mushroom, fresh, at plant {NL} - Adapted from WFLDB U",
@@ -24500,7 +24500,7 @@
     "visible": true
   },
   {
-    "activityName": "Spinach {CH}| spinach production, conventional, plain region | Cut-off, U",
+    "activityName": "Spinach {GLO}| production | Cut-off, U - Adapted from Ecoinvent U",
     "alias": "spinach-eu",
     "baseIngredient": "spinach",
     "categories": ["vegetable_fresh"],
@@ -24510,10 +24510,10 @@
     "ecosystemicServices": { "cropDiversity": 0, "hedges": 0, "permanentPasture": null, "plotSize": 0 },
     "id": "d2cba2cd-ebb6-5a6c-83cc-b7fee34643a6",
     "inediblePart": 0.03,
-    "landOccupation": 0.5332,
-    "location": "CH",
+    "landOccupation": 0.04615,
+    "location": "GLO",
     "name": "Épinard UE",
-    "processId": "e1a847b5-ed54-5cdf-b4b0-c8c8e118017e",
+    "processId": "543622a6-3e36-58cd-b77c-66c678eb7959",
     "rawToCookedRatio": 0.856,
     "scenario": "import",
     "transportCooling": "always",
@@ -28040,7 +28040,7 @@
     "visible": true
   },
   {
-    "activityName": "Wheat grain {US}| wheat production | Cut-off, U - Adapted from Ecoinvent U",
+    "activityName": "Wheat grain {ES}| wheat production | Cut-off, U - Adapted from Ecoinvent U",
     "alias": "soft-wheat-default",
     "baseIngredient": "soft-wheat",
     "categories": ["grain_raw"],
@@ -28050,10 +28050,10 @@
     "ecosystemicServices": { "cropDiversity": 0, "hedges": 0, "permanentPasture": null, "plotSize": 0 },
     "id": "eb95f8d6-e3c0-556b-acff-91c7773f5b33",
     "inediblePart": 0,
-    "landOccupation": 4.589,
-    "location": "US",
+    "landOccupation": 2.923,
+    "location": "ES",
     "name": "Blé tendre Origine Inconnue",
-    "processId": "1b376854-2543-55e0-8d60-7246508b932e",
+    "processId": "bda1b5eb-37e0-5ffd-9514-4382e62d62b7",
     "rawToCookedRatio": 2.259,
     "scenario": "import",
     "transportCooling": "none",
@@ -29992,7 +29992,7 @@
     "rawToCookedRatio": 2.259,
     "scenario": "organic",
     "transportCooling": "none",
-    "visible": true
+    "visible": false
   },
   {
     "activityName": "Avocado {GLO}| production | Cut-off, U - Adapted from Ecoinvent U",
