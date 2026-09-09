@@ -1,25 +1,16 @@
 {
   "activityName": "Diesel Euro6d emissions, 200 000 km",
-  "categories": [
-    "use"
-  ],
+  "categories": ["use"],
   "comment": "Emissions sur la durée de vie, selon les valeurs limites d'émissions fixée par la norme et pour une durée de vie de 200 000 km.",
   "displayName": "Diesel, Emissions EuroVId - kilométrage de 200 000 km",
   "elecKwh": 0.0,
   "heatMJ": 0,
   "id": "3fb4ff55-e80a-40ad-bc42-a47423bc524b",
   "metadata": [
-    {
-      "id": "9c894465-b599-41cd-a39e-a69f1699c024",
-      "scopes": [
-        "veli"
-      ]
-    }
+    { "id": "9c894465-b599-41cd-a39e-a69f1699c024", "scopes": ["veli"] }
   ],
   "qtyVariationRatio": 1,
-  "scopes": [
-    "veli"
-  ],
+  "scopes": ["veli"],
   "source": "Ecobalyse_custom_lci",
   "unit": "item"
 }

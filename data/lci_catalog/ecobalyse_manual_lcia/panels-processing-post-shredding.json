@@ -1,9 +1,5 @@
 {
-  "categories": [
-    "transformation",
-    "material_type:other",
-    "material_type:wood"
-  ],
+  "categories": ["transformation", "material_type:other", "material_type:wood"],
   "comment": "Energy consumption based on average data from wood-based panels processes displayed in Ecobalyse (OSB, particleboard, HDF, MDF, plywood). No waste is considered as this process is used for inputs other than virgin wood (ex : recycled wood, glue, resins, etc.).",
   "displayName": "Panneaux (transformation, post-déchiquetage)",
   "elecKwh": 0.0,
@@ -31,19 +27,10 @@
     "wtu": 0
   },
   "metadata": [
-    {
-      "id": "4889e0a7-256f-43a1-9ce9-f8a96aea87e2",
-      "scopes": [
-        "object",
-        "veli"
-      ]
-    }
+    { "id": "4889e0a7-256f-43a1-9ce9-f8a96aea87e2", "scopes": ["object", "veli"] }
   ],
   "qtyVariationRatio": 1,
-  "scopes": [
-    "object",
-    "veli"
-  ],
+  "scopes": ["object", "veli"],
   "source": "Ecobalyse_manual_lcia",
   "unit": "m3"
 }

@@ -1,25 +1,16 @@
 {
   "activityName": "Diesel Euro4 emissions, 200 000 km",
-  "categories": [
-    "use"
-  ],
+  "categories": ["use"],
   "comment": "Emissions sur la durée de vie, selon les valeurs limites d'émissions fixée par la norme et pour une durée de vie de 200 000 km.",
   "displayName": "Diesel, Emissions EuroIV - kilométrage de 200 000 km",
   "elecKwh": 0.0,
   "heatMJ": 0,
   "id": "f2c7d501-459c-4cc7-bdea-2a824c8555be",
   "metadata": [
-    {
-      "id": "cb471c73-27fd-42db-9450-a52b2d479d68",
-      "scopes": [
-        "veli"
-      ]
-    }
+    { "id": "cb471c73-27fd-42db-9450-a52b2d479d68", "scopes": ["veli"] }
   ],
   "qtyVariationRatio": 1,
-  "scopes": [
-    "veli"
-  ],
+  "scopes": ["veli"],
   "source": "Ecobalyse_custom_lci",
   "unit": "item"
 }

@@ -8,19 +8,13 @@
     "elecKwh": 0,
     "heatMJ": 0,
     "id": "a1b2c3d4-e5f6-7890-abcd-ef1234567890",
-    "impacts": {
-      "ecs": 103.1
-    },
+    "impacts": { "ecs": 103.1 },
     "landOccupation": null,
     "location": null,
     "massPerUnit": null,
-    "metadata": {
-      "defaultOrigin": null
-    },
+    "metadata": { "defaultOrigin": null },
     "qtyVariationRatio": 1.0,
-    "scopes": [
-      "object"
-    ],
+    "scopes": ["object"],
     "source": "Ecobalyse_custom_lci",
     "unit": "kg",
     "visible": true
@@ -28,29 +22,18 @@
   {
     "activityName": "_22 Vegetable and animal oils and fats, EU27",
     "alias": "bean-fr",
-    "categories": [
-      "ingredient",
-      "material_type:legumes",
-      "transported_cooled"
-    ],
+    "categories": ["ingredient", "material_type:legumes", "transported_cooled"],
     "comment": "",
     "displayName": "Pois FR",
     "elecKwh": 0,
     "heatMJ": 0,
     "id": "bfdf1505-8426-499e-8286-a1e4b4920c7e",
-    "impacts": {
-      "ecs": 102.6
-    },
+    "impacts": { "ecs": 102.6 },
     "landOccupation": 1.0,
     "location": "GLO",
     "massPerUnit": null,
     "metadata": {
-      "complements": {
-        "cropDiversity": 0,
-        "hedges": -2.81,
-        "permanentPasture": null,
-        "plotSize": -4.45
-      },
+      "complements": { "cropDiversity": 0, "hedges": -2.81, "permanentPasture": null, "plotSize": -4.45 },
       "defaultOrigin": "FR",
       "ingredient": {
         "baseIngredient": "bean",
@@ -60,9 +43,7 @@
       }
     },
     "qtyVariationRatio": 1.0,
-    "scopes": [
-      "food2"
-    ],
+    "scopes": ["food2"],
     "source": "forwast",
     "unit": "kg",
     "visible": true
@@ -70,28 +51,18 @@
   {
     "activityName": "_22 Vegetable and animal oils and fats, EU27",
     "alias": "grazed-grass-permanent-2025",
-    "categories": [
-      "ingredient",
-      "material_type:other_food_items"
-    ],
+    "categories": ["ingredient", "material_type:other_food_items"],
     "comment": "",
     "displayName": "Herbe de prairie permanente FR",
     "elecKwh": 0,
     "heatMJ": 0,
     "id": "c88d387e-8435-4741-b742-0094dbdcee45",
-    "impacts": {
-      "ecs": 102.6
-    },
+    "impacts": { "ecs": 102.6 },
     "landOccupation": 1.0,
     "location": "GLO",
     "massPerUnit": null,
     "metadata": {
-      "complements": {
-        "cropDiversity": 0,
-        "hedges": -4.85,
-        "permanentPasture": null,
-        "plotSize": -4.45
-      },
+      "complements": { "cropDiversity": 0, "hedges": -4.85, "permanentPasture": null, "plotSize": -4.45 },
       "defaultOrigin": "FR",
       "ingredient": {
         "baseIngredient": "grazed-grass-permanent",
@@ -109,28 +80,18 @@
   {
     "activityName": "_22 Vegetable and animal oils and fats, EU27",
     "alias": "milk",
-    "categories": [
-      "ingredient",
-      "material_type:other_food_items"
-    ],
+    "categories": ["ingredient", "material_type:other_food_items"],
     "comment": "",
     "displayName": "Lait FR",
     "elecKwh": 0,
     "heatMJ": 0,
     "id": "8f3863e7-f981-4367-90a2-e1aaa096a6e0",
-    "impacts": {
-      "ecs": 102.6
-    },
+    "impacts": { "ecs": 102.6 },
     "landOccupation": 1.391,
     "location": "GLO",
     "massPerUnit": null,
     "metadata": {
-      "complements": {
-        "cropDiversity": 0,
-        "hedges": -2.81,
-        "permanentPasture": 0,
-        "plotSize": -4.45
-      },
+      "complements": { "cropDiversity": 0, "hedges": -2.81, "permanentPasture": 0, "plotSize": -4.45 },
       "defaultOrigin": "FR",
       "ingredient": {
         "baseIngredient": "milk",
@@ -154,19 +115,13 @@
     "elecKwh": 0,
     "heatMJ": 0,
     "id": "0e9c64fe-8a5c-40ba-b60c-ff2b47b56627",
-    "impacts": {
-      "ecs": 31.77
-    },
+    "impacts": { "ecs": 31.77 },
     "landOccupation": 1500.0,
     "location": "GLO",
     "massPerUnit": null,
-    "metadata": {
-      "defaultOrigin": null
-    },
+    "metadata": { "defaultOrigin": null },
     "qtyVariationRatio": 1.0,
-    "scopes": [
-      "object"
-    ],
+    "scopes": ["object"],
     "source": "forwast",
     "unit": "kg",
     "visible": true
@@ -180,23 +135,17 @@
     "elecKwh": 0,
     "heatMJ": 0,
     "id": "b2c3d4e5-f6a7-8901-bcde-f12345678901",
-    "impacts": {
-      "ecs": 31.77
-    },
+    "impacts": { "ecs": 31.77 },
     "landOccupation": 1500.0,
     "location": "GLO",
     "massPerUnit": null,
     "metadata": {
-      "complements": {
-        "forest": -414.2
-      },
+      "complements": { "forest": -414.2 },
       "defaultOrigin": null,
       "forestManagement": "certifiedSustainableManagement"
     },
     "qtyVariationRatio": 1.0,
-    "scopes": [
-      "object"
-    ],
+    "scopes": ["object"],
     "source": "forwast",
     "unit": "kg",
     "visible": true

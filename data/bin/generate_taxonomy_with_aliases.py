@@ -10,6 +10,8 @@ import json
 from collections import defaultdict
 from pathlib import Path
 
+from ecobalyse.json import export_json
+
 from common.infer_metadata import infer_base_ingredient, load_taxonomy
 from config import DATA_ROOT_DIR, settings
 
@@ -44,15 +46,7 @@ def build_taxonomy_with_aliases(
 def write_taxonomy_with_aliases(
     taxonomy_with_aliases_path: Path = TAXONOMY_WITH_ALIASES_PATH,
 ):
-    with open(taxonomy_with_aliases_path, "w", encoding="utf-8") as f:
-        json.dump(
-            build_taxonomy_with_aliases(),
-            f,
-            ensure_ascii=False,
-            sort_keys=True,
-            indent=2,
-        )
-        f.write("\n")
+    export_json(build_taxonomy_with_aliases(), taxonomy_with_aliases_path)
 
 
 if __name__ == "__main__":

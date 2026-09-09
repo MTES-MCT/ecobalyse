@@ -3,8 +3,8 @@ import os
 
 import orjson
 
-from common import activities_processes_sort_key, remove_detailed_impacts
-from common.export import export_json
+from common import remove_detailed_impacts
+from common.export import export_json_with_sort_and_precision
 from common.infer_metadata import (
     infer_base_ingredient,
     infer_default_origin,
@@ -85,7 +85,6 @@ def compute_processes_generic(
     processes_impacts_path: str,
     feed_file_path: str,
     raw_to_transformed_file_path: str,
-    cpu_count: int = 1,
     ecosystemic_factors_path: str | None = None,
 ) -> list[dict]:
     """Compute ProcessGeneric dicts with metadata enrichment.
@@ -218,8 +217,6 @@ def compute_processes_generic(
             entry_dict["metadata"] = metadata_out
             generic_dicts.append(entry_dict)
 
-    generic_dicts.sort(key=activities_processes_sort_key)
-
     return generic_dicts
 
 
@@ -230,7 +227,6 @@ def activities_to_processes_generic_json(
     impacts_output_paths: list[str],
     feed_file_path: str,
     raw_to_transformed_file_path: str,
-    cpu_count: int = 1,
     ecosystemic_factors_path: str | None = None,
 ) -> list[dict]:
     """Export object processes to ProcessGeneric json files."""
@@ -239,17 +235,22 @@ def activities_to_processes_generic_json(
         processes_impacts_path,
         feed_file_path,
         raw_to_transformed_file_path,
-        cpu_count,
         ecosystemic_factors_path=ecosystemic_factors_path,
     )
 
     for path in impacts_output_paths:
-        export_json(generic_dicts, path)
+        export_json_with_sort_and_precision(
+            generic_dicts,
+            path,
+        )
         logger.info(f"Exported {len(generic_dicts)} generic processes to {path}")
 
     without_detailed_impacts = remove_detailed_impacts(generic_dicts)
     for path in ecs_output_paths:
-        export_json(without_detailed_impacts, path)
+        export_json_with_sort_and_precision(
+            without_detailed_impacts,
+            path,
+        )
         logger.info(
             f"Exported {len(without_detailed_impacts)} generic processes without detailed impacts to {path}"
         )

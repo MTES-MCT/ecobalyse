@@ -1,7 +1,5 @@
 {
-  "categories": [
-    "use"
-  ],
+  "categories": ["use"],
   "comment": "Consommation sur la durée de vie pour une consommation de 1kWh/100km et une durée de vie de 30 000 km",
   "displayName": "Electricité, pour 100km - kilométrage de 30 000 km",
   "elecKwh": 300,
@@ -29,16 +27,9 @@
     "wtu": 0
   },
   "metadata": [
-    {
-      "id": "9357c6da-88b3-4a71-b1f9-1ffb13efee2e",
-      "scopes": [
-        "veli"
-      ]
-    }
+    { "id": "9357c6da-88b3-4a71-b1f9-1ffb13efee2e", "scopes": ["veli"] }
   ],
-  "scopes": [
-    "veli"
-  ],
+  "scopes": ["veli"],
   "source": "Ecobalyse_manual_lcia",
   "unit": "kWh"
 }

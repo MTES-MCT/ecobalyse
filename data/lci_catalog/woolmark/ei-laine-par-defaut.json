@@ -1,10 +1,6 @@
 {
   "activityName": "wool; sheep; production mix; at farm; 1 kg greasy wool",
-  "categories": [
-    "material",
-    "textile_material",
-    "material_type:organic_fibers"
-  ],
+  "categories": ["material", "textile_material", "material_type:organic_fibers"],
   "comment": "Ancien identifiant (12/2024): wool-default.",
   "displayName": "Laine par défaut",
   "elecKwh": 0.0,
@@ -20,17 +16,11 @@
       "name": "Laine par défaut",
       "origin": "NaturalFromAnimal",
       "primary": false,
-      "scopes": [
-        "object",
-        "textile"
-      ]
+      "scopes": ["object", "textile"]
     }
   ],
   "qtyVariationRatio": 1,
-  "scopes": [
-    "textile",
-    "object"
-  ],
+  "scopes": ["textile", "object"],
   "source": "Woolmark",
   "unit": "kg"
 }

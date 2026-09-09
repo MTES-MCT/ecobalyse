@@ -1,8 +1,5 @@
 {
-  "categories": [
-    "material",
-    "textile_material"
-  ],
+  "categories": ["material", "textile_material"],
   "comment": "Ancien identifiant (12/2024): elasthane-lycra.",
   "displayName": "Elasthane (Lycra)",
   "elecKwh": 0,
@@ -39,15 +36,11 @@
       "name": "Elasthane (Lycra)",
       "origin": "Synthetic",
       "primary": false,
-      "scopes": [
-        "textile"
-      ]
+      "scopes": ["textile"]
     }
   ],
   "qtyVariationRatio": 1,
-  "scopes": [
-    "textile"
-  ],
+  "scopes": ["textile"],
   "source": "Ecobalyse_manual_lcia",
   "unit": "kg"
 }

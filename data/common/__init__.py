@@ -1,10 +1,7 @@
 # Please only pure functions here
 import functools
-import json
 from subprocess import call
-from uuid import UUID
 
-from data.config import settings
 from frozendict import frozendict
 
 
@@ -141,36 +138,3 @@ def fix_unit(unit):
             return "t⋅km"
         case _:
             return unit
-
-
-class FormatNumberJsonEncoder(json.JSONEncoder):
-    def encode(self, o) -> str:
-        def recursive_format_number(obj):
-            # in python, bools are a subclass of int, so we should check explicitly
-            # if obj is not a bool, otherwise it will be converted to a float…
-            if isinstance(obj, (int, float)) and not isinstance(obj, bool):
-                if obj == 0:
-                    return 0
-                else:
-                    return float(f"{obj:.{settings.number_precision}g}")
-            elif isinstance(obj, dict):
-                return {k: recursive_format_number(v) for k, v in obj.items()}
-            # it looks like we are using tuples as lists, so treat them the same way
-            elif isinstance(obj, (list, tuple)):
-                return [recursive_format_number(v) for v in obj]
-            elif isinstance(obj, UUID):
-                return str(obj)
-            else:
-                return obj
-
-        return super().encode(recursive_format_number(o))
-
-
-def activities_processes_sort_key(entry):
-    return (
-        entry.get("source", ""),
-        entry.get("activityName", ""),
-        entry.get("location"),
-        entry.get("alias") or "",
-        entry.get("displayName", ""),
-    )

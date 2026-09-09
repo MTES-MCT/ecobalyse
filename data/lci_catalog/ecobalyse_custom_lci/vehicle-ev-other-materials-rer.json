@@ -1,26 +1,16 @@
 {
   "activityName": "EV other materials, RER",
-  "categories": [
-    "material",
-    "material_type:other"
-  ],
+  "categories": ["material", "material_type:other"],
   "comment": "Selon méthodologie du score environnemental VE",
   "displayName": "Autres matériaux de véhicules électriques, Europe - score environnemental VE",
   "elecKwh": 0.0,
   "heatMJ": 0,
   "id": "405431f4-cb58-4deb-9a27-145123ff9e68",
   "metadata": [
-    {
-      "id": "773423e0-1784-4ff7-904b-146b8b3c64fd",
-      "scopes": [
-        "veli"
-      ]
-    }
+    { "id": "773423e0-1784-4ff7-904b-146b8b3c64fd", "scopes": ["veli"] }
   ],
   "qtyVariationRatio": 1,
-  "scopes": [
-    "veli"
-  ],
+  "scopes": ["veli"],
   "source": "Ecobalyse_custom_lci",
   "unit": "kg"
 }

@@ -1,7 +1,5 @@
 {
-  "categories": [
-    "transformation"
-  ],
+  "categories": ["transformation"],
   "comment": "Bien que `elecKwh` = 0, ce procédé consomme de l'électricité mais dans une autre unité (kWh/pick.m). Voir weavingElecPPPM. Ancien identifiant (12/2024): f9686809-f55e-4b96-b1f0-3298959de7d0.",
   "displayName": "Tissage (habillement)",
   "elecKwh": 0.0,
@@ -29,9 +27,7 @@
     "wtu": 0
   },
   "qtyVariationRatio": 0.93747,
-  "scopes": [
-    "textile"
-  ],
+  "scopes": ["textile"],
   "source": "Ecobalyse_manual_lcia",
   "unit": "kg"
 }

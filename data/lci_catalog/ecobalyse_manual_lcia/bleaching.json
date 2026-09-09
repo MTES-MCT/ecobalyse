@@ -1,8 +1,5 @@
 {
-  "categories": [
-    "transformation",
-    "material_type:organic_fibers"
-  ],
+  "categories": ["transformation", "material_type:organic_fibers"],
   "comment": "corr3 et corr2 (cf doc). Corr3 : valeurs d'élec et de chaleur issues du rapport BAT2023 avec majoration de 50%. corr2 : valeur d'écotox issue d'inventaires enrichis.",
   "displayName": "Blanchiment",
   "elecKwh": 0.2,
@@ -30,9 +27,7 @@
     "wtu": 0
   },
   "qtyVariationRatio": 1,
-  "scopes": [
-    "textile"
-  ],
+  "scopes": ["textile"],
   "source": "Ecobalyse_manual_lcia",
   "unit": "kg"
 }
