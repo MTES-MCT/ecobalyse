@@ -55,7 +55,6 @@ repos:
           bash -c 'npm --prefix . run fix:elm-format "${@}"' --
 
       - id: fix-json
-        require_serial: True
         name: run JSON formatter
         language: system
         types_or: [json]
