@@ -257,6 +257,7 @@ encodeGenericProcess process =
         [ ( "id", process.id |> Process.idToString |> Encode.string )
         , ( "name", process |> Process.getDisplayName |> Encode.string )
         , ( "unit", process.unit |> Process.unitToString |> Encode.string )
+        , ( "categories", process.categories |> Encode.list ProcessCategory.encode )
         ]
 
 
