@@ -1,28 +1,16 @@
 {
   "activityName": "polyurethane, rigid foam//[RER] polyurethane production, rigid foam",
-  "categories": [
-    "material",
-    "material_type:pur_foam"
-  ],
+  "categories": ["material", "material_type:pur_foam"],
   "comment": "",
   "displayName": "Mousse rigide, PUR",
   "elecKwh": 0.0,
   "heatMJ": 0,
   "id": "7adec581-5650-5c76-b119-e907f2534de6",
   "metadata": [
-    {
-      "id": "20f5db04-a4c7-48ab-9903-38c65cd70be0",
-      "scopes": [
-        "object",
-        "veli"
-      ]
-    }
+    { "id": "20f5db04-a4c7-48ab-9903-38c65cd70be0", "scopes": ["object", "veli"] }
   ],
   "qtyVariationRatio": 1,
-  "scopes": [
-    "object",
-    "veli"
-  ],
+  "scopes": ["object", "veli"],
   "source": "Ecoinvent 3.9.1",
   "unit": "kg"
 }

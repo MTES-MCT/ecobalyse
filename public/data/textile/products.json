@@ -1,30 +1,20 @@
 [
   {
-    "dyeing": {
-      "defaultMedium": "fabric"
-    },
+    "dyeing": { "defaultMedium": "fabric" },
     "economics": {
       "business": "large-business-without-services",
       "numberOfReferences": 100000,
       "price": 15,
       "repairCost": 10
     },
-    "endOfLife": {
-      "volume": 0.006
-    },
+    "endOfLife": { "volume": 0.006 },
     "fabric": "weaving",
     "id": "chemise",
-    "making": {
-      "complexity": "low",
-      "pcrWaste": 0.2
-    },
+    "making": { "complexity": "low", "pcrWaste": 0.2 },
     "name": "Chemise",
     "surfaceMass": 200,
     "trims": [
-      {
-        "id": "d56bb0d5-7999-4b8b-b076-94d79099b56a",
-        "quantity": 11
-      }
+      { "id": "d56bb0d5-7999-4b8b-b076-94d79099b56a", "quantity": 11 }
     ],
     "use": {
       "daysOfWear": 40,
@@ -39,35 +29,22 @@
     "yarnSize": 40
   },
   {
-    "dyeing": {
-      "defaultMedium": "yarn"
-    },
+    "dyeing": { "defaultMedium": "yarn" },
     "economics": {
       "business": "large-business-without-services",
       "numberOfReferences": 100000,
       "price": 20,
       "repairCost": 14
     },
-    "endOfLife": {
-      "volume": 0.004
-    },
+    "endOfLife": { "volume": 0.004 },
     "fabric": "weaving",
     "id": "jean",
-    "making": {
-      "complexity": "medium",
-      "pcrWaste": 0.22
-    },
+    "making": { "complexity": "medium", "pcrWaste": 0.22 },
     "name": "Jean",
     "surfaceMass": 250,
     "trims": [
-      {
-        "id": "0c903fc7-279b-4375-8cfa-ca8133b8e973",
-        "quantity": 1
-      },
-      {
-        "id": "0e8ea799-9b06-490c-a925-37564746c454",
-        "quantity": 1
-      }
+      { "id": "0c903fc7-279b-4375-8cfa-ca8133b8e973", "quantity": 1 },
+      { "id": "0e8ea799-9b06-490c-a925-37564746c454", "quantity": 1 }
     ],
     "use": {
       "daysOfWear": 70,
@@ -82,35 +59,22 @@
     "yarnSize": 40
   },
   {
-    "dyeing": {
-      "defaultMedium": "fabric"
-    },
+    "dyeing": { "defaultMedium": "fabric" },
     "economics": {
       "business": "large-business-without-services",
       "numberOfReferences": 100000,
       "price": 15,
       "repairCost": 19
     },
-    "endOfLife": {
-      "volume": 0.007
-    },
+    "endOfLife": { "volume": 0.007 },
     "fabric": "weaving",
     "id": "jupe",
-    "making": {
-      "complexity": "low",
-      "pcrWaste": 0.2
-    },
+    "making": { "complexity": "low", "pcrWaste": 0.2 },
     "name": "Jupe / Robe",
     "surfaceMass": 200,
     "trims": [
-      {
-        "id": "0e8ea799-9b06-490c-a925-37564746c454",
-        "quantity": 1
-      },
-      {
-        "id": "d56bb0d5-7999-4b8b-b076-94d79099b56a",
-        "quantity": 1
-      }
+      { "id": "0e8ea799-9b06-490c-a925-37564746c454", "quantity": 1 },
+      { "id": "d56bb0d5-7999-4b8b-b076-94d79099b56a", "quantity": 1 }
     ],
     "use": {
       "daysOfWear": 70,
@@ -125,35 +89,22 @@
     "yarnSize": 40
   },
   {
-    "dyeing": {
-      "defaultMedium": "fabric"
-    },
+    "dyeing": { "defaultMedium": "fabric" },
     "economics": {
       "business": "large-business-without-services",
       "numberOfReferences": 100000,
       "price": 40,
       "repairCost": 31
     },
-    "endOfLife": {
-      "volume": 0.015
-    },
+    "endOfLife": { "volume": 0.015 },
     "fabric": "weaving",
     "id": "manteau",
-    "making": {
-      "complexity": "high",
-      "pcrWaste": 0.2
-    },
+    "making": { "complexity": "high", "pcrWaste": 0.2 },
     "name": "Manteau / Veste",
     "surfaceMass": 450,
     "trims": [
-      {
-        "id": "d56bb0d5-7999-4b8b-b076-94d79099b56a",
-        "quantity": 5
-      },
-      {
-        "id": "86b877ff-0d59-482f-bb34-3ff306b07496",
-        "quantity": 1
-      }
+      { "id": "d56bb0d5-7999-4b8b-b076-94d79099b56a", "quantity": 5 },
+      { "id": "86b877ff-0d59-482f-bb34-3ff306b07496", "quantity": 1 }
     ],
     "use": {
       "daysOfWear": 100,
@@ -168,35 +119,22 @@
     "yarnSize": 30
   },
   {
-    "dyeing": {
-      "defaultMedium": "fabric"
-    },
+    "dyeing": { "defaultMedium": "fabric" },
     "economics": {
       "business": "large-business-without-services",
       "numberOfReferences": 100000,
       "price": 20,
       "repairCost": 14
     },
-    "endOfLife": {
-      "volume": 0.004
-    },
+    "endOfLife": { "volume": 0.004 },
     "fabric": "weaving",
     "id": "pantalon",
-    "making": {
-      "complexity": "medium",
-      "pcrWaste": 0.2
-    },
+    "making": { "complexity": "medium", "pcrWaste": 0.2 },
     "name": "Pantalon / Short",
     "surfaceMass": 250,
     "trims": [
-      {
-        "id": "0c903fc7-279b-4375-8cfa-ca8133b8e973",
-        "quantity": 1
-      },
-      {
-        "id": "0e8ea799-9b06-490c-a925-37564746c454",
-        "quantity": 1
-      }
+      { "id": "0c903fc7-279b-4375-8cfa-ca8133b8e973", "quantity": 1 },
+      { "id": "0e8ea799-9b06-490c-a925-37564746c454", "quantity": 1 }
     ],
     "use": {
       "daysOfWear": 70,
@@ -211,31 +149,21 @@
     "yarnSize": 40
   },
   {
-    "dyeing": {
-      "defaultMedium": "fabric"
-    },
+    "dyeing": { "defaultMedium": "fabric" },
     "economics": {
       "business": "large-business-without-services",
       "numberOfReferences": 100000,
       "price": 20,
       "repairCost": 15
     },
-    "endOfLife": {
-      "volume": 0.0102
-    },
+    "endOfLife": { "volume": 0.0102 },
     "fabric": "knitting-mix",
     "id": "pull",
-    "making": {
-      "complexity": "low",
-      "pcrWaste": 0.2
-    },
+    "making": { "complexity": "low", "pcrWaste": 0.2 },
     "name": "Pull",
     "surfaceMass": 250,
     "trims": [
-      {
-        "id": "d56bb0d5-7999-4b8b-b076-94d79099b56a",
-        "quantity": 5
-      }
+      { "id": "d56bb0d5-7999-4b8b-b076-94d79099b56a", "quantity": 5 }
     ],
     "use": {
       "daysOfWear": 85,
@@ -250,31 +178,21 @@
     "yarnSize": 35
   },
   {
-    "dyeing": {
-      "defaultMedium": "fabric"
-    },
+    "dyeing": { "defaultMedium": "fabric" },
     "economics": {
       "business": "large-business-without-services",
       "numberOfReferences": 100000,
       "price": 10,
       "repairCost": 10
     },
-    "endOfLife": {
-      "volume": 0.0018
-    },
+    "endOfLife": { "volume": 0.0018 },
     "fabric": "knitting-mix",
     "id": "tshirt",
-    "making": {
-      "complexity": "low",
-      "pcrWaste": 0.15
-    },
+    "making": { "complexity": "low", "pcrWaste": 0.15 },
     "name": "T-shirt / Polo",
     "surfaceMass": 200,
     "trims": [
-      {
-        "id": "d56bb0d5-7999-4b8b-b076-94d79099b56a",
-        "quantity": 3
-      }
+      { "id": "d56bb0d5-7999-4b8b-b076-94d79099b56a", "quantity": 3 }
     ],
     "use": {
       "daysOfWear": 45,
@@ -289,24 +207,17 @@
     "yarnSize": 40
   },
   {
-    "dyeing": {
-      "defaultMedium": "fabric"
-    },
+    "dyeing": { "defaultMedium": "fabric" },
     "economics": {
       "business": "large-business-without-services",
       "numberOfReferences": 100000,
       "price": 4,
       "repairCost": 9
     },
-    "endOfLife": {
-      "volume": 0.002
-    },
+    "endOfLife": { "volume": 0.002 },
     "fabric": "knitting-fully-fashioned",
     "id": "chaussettes",
-    "making": {
-      "complexity": "very-low",
-      "pcrWaste": 0.02
-    },
+    "making": { "complexity": "very-low", "pcrWaste": 0.02 },
     "name": "Chaussettes",
     "surfaceMass": 250,
     "trims": [],
@@ -323,31 +234,21 @@
     "yarnSize": 35
   },
   {
-    "dyeing": {
-      "defaultMedium": "fabric"
-    },
+    "dyeing": { "defaultMedium": "fabric" },
     "economics": {
       "business": "large-business-without-services",
       "numberOfReferences": 100000,
       "price": 4,
       "repairCost": 9
     },
-    "endOfLife": {
-      "volume": 0.002
-    },
+    "endOfLife": { "volume": 0.002 },
     "fabric": "weaving",
     "id": "calecon",
-    "making": {
-      "complexity": "low",
-      "pcrWaste": 0.15
-    },
+    "making": { "complexity": "low", "pcrWaste": 0.15 },
     "name": "Caleçon (tissé)",
     "surfaceMass": 180,
     "trims": [
-      {
-        "id": "d56bb0d5-7999-4b8b-b076-94d79099b56a",
-        "quantity": 2
-      }
+      { "id": "d56bb0d5-7999-4b8b-b076-94d79099b56a", "quantity": 2 }
     ],
     "use": {
       "daysOfWear": 60,
@@ -362,24 +263,17 @@
     "yarnSize": 45
   },
   {
-    "dyeing": {
-      "defaultMedium": "fabric"
-    },
+    "dyeing": { "defaultMedium": "fabric" },
     "economics": {
       "business": "large-business-without-services",
       "numberOfReferences": 100000,
       "price": 4,
       "repairCost": 9
     },
-    "endOfLife": {
-      "volume": 0.002
-    },
+    "endOfLife": { "volume": 0.002 },
     "fabric": "knitting-mix",
     "id": "slip",
-    "making": {
-      "complexity": "low",
-      "pcrWaste": 0.15
-    },
+    "making": { "complexity": "low", "pcrWaste": 0.15 },
     "name": "Boxer / Slip (tricoté)",
     "surfaceMass": 180,
     "trims": [],
@@ -396,31 +290,21 @@
     "yarnSize": 45
   },
   {
-    "dyeing": {
-      "defaultMedium": "fabric"
-    },
+    "dyeing": { "defaultMedium": "fabric" },
     "economics": {
       "business": "large-business-without-services",
       "numberOfReferences": 100000,
       "price": 15,
       "repairCost": 9
     },
-    "endOfLife": {
-      "volume": 0.004
-    },
+    "endOfLife": { "volume": 0.004 },
     "fabric": "knitting-mix",
     "id": "maillot-de-bain",
-    "making": {
-      "complexity": "low",
-      "pcrWaste": 0.15
-    },
+    "making": { "complexity": "low", "pcrWaste": 0.15 },
     "name": "Maillot de bain",
     "surfaceMass": 220,
     "trims": [
-      {
-        "id": "d56bb0d5-7999-4b8b-b076-94d79099b56a",
-        "quantity": 1
-      }
+      { "id": "d56bb0d5-7999-4b8b-b076-94d79099b56a", "quantity": 1 }
     ],
     "use": {
       "daysOfWear": 30,

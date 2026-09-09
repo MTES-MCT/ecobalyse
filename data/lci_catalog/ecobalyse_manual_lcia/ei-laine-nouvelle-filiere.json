@@ -1,9 +1,5 @@
 {
-  "categories": [
-    "material",
-    "textile_material",
-    "material_type:organic_fibers"
-  ],
+  "categories": ["material", "textile_material", "material_type:organic_fibers"],
   "comment": "corr4: Impacts de la laine par défaut multiplié par le coefficient 4%/37%=0.108. Cela vient d'une différence de taux d'allocation : 4% pour cette laine et 37% pour la laine par défaut.",
   "displayName": "Laine nouvelle filière",
   "elecKwh": 0.0,
@@ -40,17 +36,11 @@
       "name": "Laine nouvelle filière",
       "origin": "NaturalFromAnimal",
       "primary": true,
-      "scopes": [
-        "object",
-        "textile"
-      ]
+      "scopes": ["object", "textile"]
     }
   ],
   "qtyVariationRatio": 1,
-  "scopes": [
-    "textile",
-    "object"
-  ],
+  "scopes": ["textile", "object"],
   "source": "Ecobalyse_manual_lcia",
   "unit": "kg"
 }

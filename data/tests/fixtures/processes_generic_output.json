@@ -35,9 +35,7 @@
     "massPerUnit": null,
     "metadata": null,
     "qtyVariationRatio": 1.0,
-    "scopes": [
-      "object"
-    ],
+    "scopes": ["object"],
     "source": "Ecobalyse_custom_lci",
     "unit": "kg",
     "visible": true
@@ -45,9 +43,7 @@
   {
     "activityName": "_22 Vegetable and animal oils and fats, EU27",
     "alias": "bean-fr",
-    "categories": [
-      "ingredient"
-    ],
+    "categories": ["ingredient"],
     "comment": "",
     "displayName": "Pois FR",
     "elecKwh": 0,
@@ -98,9 +94,7 @@
       }
     },
     "qtyVariationRatio": 1.0,
-    "scopes": [
-      "food2"
-    ],
+    "scopes": ["food2"],
     "source": "forwast",
     "unit": "kg",
     "visible": true
@@ -108,9 +102,7 @@
   {
     "activityName": "_22 Vegetable and animal oils and fats, EU27",
     "alias": "grazed-grass-permanent-2025",
-    "categories": [
-      "ingredient"
-    ],
+    "categories": ["ingredient"],
     "comment": "",
     "displayName": "Herbe de prairie permanente FR",
     "elecKwh": 0,
@@ -169,9 +161,7 @@
   {
     "activityName": "_22 Vegetable and animal oils and fats, EU27",
     "alias": "milk",
-    "categories": [
-      "ingredient"
-    ],
+    "categories": ["ingredient"],
     "comment": "",
     "displayName": "Lait FR",
     "elecKwh": 0,
@@ -263,9 +253,7 @@
     "massPerUnit": null,
     "metadata": null,
     "qtyVariationRatio": 1.0,
-    "scopes": [
-      "object"
-    ],
+    "scopes": ["object"],
     "source": "forwast",
     "unit": "kg",
     "visible": true
@@ -305,15 +293,11 @@
     "location": "GLO",
     "massPerUnit": null,
     "metadata": {
-      "complements": {
-        "forest": -414.2
-      },
+      "complements": { "forest": -414.2 },
       "forestManagement": "certifiedSustainableManagement"
     },
     "qtyVariationRatio": 1.0,
-    "scopes": [
-      "object"
-    ],
+    "scopes": ["object"],
     "source": "forwast",
     "unit": "kg",
     "visible": true

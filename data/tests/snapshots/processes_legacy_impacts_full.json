@@ -1,10 +1,7 @@
 [
   {
     "activityName": "This process is not linked to a Brightway activity",
-    "categories": [
-      "material",
-      "textile_material"
-    ],
+    "categories": ["material", "textile_material"],
     "comment": "Ancien identifiant (12/2024): elasthane-lycra.",
     "displayName": "Elasthane (Lycra)",
     "elecKwh": 0,
@@ -35,17 +32,13 @@
     "location": null,
     "massPerUnit": null,
     "qtyVariationRatio": 1.0,
-    "scopes": [
-      "textile"
-    ],
+    "scopes": ["textile"],
     "source": "Ecobalyse_manual_lcia",
     "unit": "kg"
   },
   {
     "activityName": "This process is not linked to a Brightway activity",
-    "categories": [
-      "processing"
-    ],
+    "categories": ["processing"],
     "comment": "corr3 (cf doc): valeurs issues du rapport BAT2023 avec majoration de 50%",
     "displayName": "Mercerisage",
     "elecKwh": 0.1,
@@ -76,9 +69,7 @@
     "location": null,
     "massPerUnit": null,
     "qtyVariationRatio": 1.0,
-    "scopes": [
-      "textile"
-    ],
+    "scopes": ["textile"],
     "source": "Ecobalyse_manual_lcia",
     "unit": "kg"
   },
@@ -115,17 +106,13 @@
     "location": null,
     "massPerUnit": null,
     "qtyVariationRatio": 1.0,
-    "scopes": [
-      "object"
-    ],
+    "scopes": ["object"],
     "source": "Ecobalyse_custom_lci",
     "unit": "kg"
   },
   {
     "activityName": "_18 Meat products, Poultry and meat n.e.c., DK",
-    "categories": [
-      "ingredient"
-    ],
+    "categories": ["ingredient"],
     "comment": "",
     "displayName": "Lait Bio",
     "elecKwh": 0,
@@ -156,17 +143,13 @@
     "location": "GLO",
     "massPerUnit": null,
     "qtyVariationRatio": 1.0,
-    "scopes": [
-      "food"
-    ],
+    "scopes": ["food"],
     "source": "forwast",
     "unit": "kg"
   },
   {
     "activityName": "_22 Vegetable and animal oils and fats, EU27",
-    "categories": [
-      "ingredient"
-    ],
+    "categories": ["ingredient"],
     "comment": "",
     "displayName": "Lait FR",
     "elecKwh": 0,
@@ -197,18 +180,13 @@
     "location": "GLO",
     "massPerUnit": null,
     "qtyVariationRatio": 1.0,
-    "scopes": [
-      "food"
-    ],
+    "scopes": ["food"],
     "source": "forwast",
     "unit": "kg"
   },
   {
     "activityName": "_31 Leather products, footwear, EU27",
-    "categories": [
-      "material",
-      "textile_material"
-    ],
+    "categories": ["material", "textile_material"],
     "comment": "Ancien identifiant (12/2024): 75b27555d86fe1c66686cdf4339efc89.",
     "displayName": "Production de plexiglas (Polyméthacrylate de méthyle)",
     "elecKwh": 0,
@@ -239,9 +217,7 @@
     "location": "GLO",
     "massPerUnit": null,
     "qtyVariationRatio": 1.0,
-    "scopes": [
-      "textile"
-    ],
+    "scopes": ["textile"],
     "source": "forwast",
     "unit": "kg"
   },
@@ -278,18 +254,13 @@
     "location": "GLO",
     "massPerUnit": null,
     "qtyVariationRatio": 1.0,
-    "scopes": [
-      "object"
-    ],
+    "scopes": ["object"],
     "source": "forwast",
     "unit": "kg"
   },
   {
     "activityName": "_73 Furniture and other manufactured goods n.e.c., EU27",
-    "categories": [
-      "material",
-      "textile_material"
-    ],
+    "categories": ["material", "textile_material"],
     "comment": "Ancien identifiant (12/2024): 087896096b5bede914ef3ec1062b1c02.",
     "displayName": "Production de PET recyclé, granulés, amorphe",
     "elecKwh": 0,
@@ -320,17 +291,13 @@
     "location": "GLO",
     "massPerUnit": null,
     "qtyVariationRatio": 1.0,
-    "scopes": [
-      "textile"
-    ],
+    "scopes": ["textile"],
     "source": "forwast",
     "unit": "kg"
   },
   {
     "activityName": "_80 Post and telecommunication, DK",
-    "categories": [
-      "transport"
-    ],
+    "categories": ["transport"],
     "comment": "Ancien identifiant (12/2024): 86ac591e1e5c1d96a0d004ac830563d9.",
     "displayName": "transport maritime",
     "elecKwh": 0,
@@ -361,17 +328,13 @@
     "location": "GLO",
     "massPerUnit": null,
     "qtyVariationRatio": 1.0,
-    "scopes": [
-      "textile"
-    ],
+    "scopes": ["textile"],
     "source": "forwast",
     "unit": "t⋅km"
   },
   {
     "activityName": "__4 Grain crops, DK",
-    "categories": [
-      "ingredient"
-    ],
+    "categories": ["ingredient"],
     "comment": "",
     "displayName": "Oeuf Bleu-Blanc-Cœur FR",
     "elecKwh": 0,
@@ -402,9 +365,7 @@
     "location": "GLO",
     "massPerUnit": null,
     "qtyVariationRatio": 1.0,
-    "scopes": [
-      "food"
-    ],
+    "scopes": ["food"],
     "source": "forwast",
     "unit": "kg"
   }

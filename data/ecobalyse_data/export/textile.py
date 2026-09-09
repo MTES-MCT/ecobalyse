@@ -1,5 +1,7 @@
 from pathlib import Path
 
+from data.config import settings
+
 from common.export import export_json
 from ecobalyse_data.export.utils import get_metadata_for_scope
 from ecobalyse_data.logging import logger
@@ -15,7 +17,9 @@ def activities_to_materials_json(
 
     materials_dicts.sort(key=lambda x: x["id"])
 
-    export_json(materials_dicts, materials_path)
+    export_json(
+        materials_dicts, materials_path, number_precision=settings.number_precision
+    )
 
     logger.info(f"-> Exported {len(materials_dicts)} materials to {materials_path}")
 

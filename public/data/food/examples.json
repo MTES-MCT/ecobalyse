@@ -3,9 +3,7 @@
     "category": "",
     "id": "1d04242a-6312-4d92-9233-8b485d128e65",
     "name": "Produit vide",
-    "query": {
-      "ingredients": []
-    },
+    "query": { "ingredients": [] },
     "scope": "food"
   },
   {
@@ -15,17 +13,10 @@
     "query": {
       "distribution": "ambient",
       "ingredients": [
-        {
-          "country": "FR",
-          "id": "db791ac8-02b9-41b0-bc2b-2913e745bd19",
-          "mass": 1000
-        }
+        { "country": "FR", "id": "db791ac8-02b9-41b0-bc2b-2913e745bd19", "mass": 1000 }
       ],
       "packaging": [
-        {
-          "amount": 0.02,
-          "id": "bd49fbe2-8caf-4c04-9c20-116eed7a8255"
-        }
+        { "amount": 0.02, "id": "bd49fbe2-8caf-4c04-9c20-116eed7a8255" }
       ]
     },
     "scope": "food"
@@ -37,17 +28,10 @@
     "query": {
       "distribution": "ambient",
       "ingredients": [
-        {
-          "country": "FR",
-          "id": "a2e25aca-1f42-4bc8-bc0e-4d7c751775aa",
-          "mass": 1000
-        }
+        { "country": "FR", "id": "a2e25aca-1f42-4bc8-bc0e-4d7c751775aa", "mass": 1000 }
       ],
       "packaging": [
-        {
-          "amount": 0.02,
-          "id": "bd49fbe2-8caf-4c04-9c20-116eed7a8255"
-        }
+        { "amount": 0.02, "id": "bd49fbe2-8caf-4c04-9c20-116eed7a8255" }
       ]
     },
     "scope": "food"
@@ -59,16 +43,10 @@
     "query": {
       "distribution": "ambient",
       "ingredients": [
-        {
-          "id": "a2e25aca-1f42-4bc8-bc0e-4d7c751775aa",
-          "mass": 1000
-        }
+        { "id": "a2e25aca-1f42-4bc8-bc0e-4d7c751775aa", "mass": 1000 }
       ],
       "packaging": [
-        {
-          "amount": 0.02,
-          "id": "bd49fbe2-8caf-4c04-9c20-116eed7a8255"
-        }
+        { "amount": 0.02, "id": "bd49fbe2-8caf-4c04-9c20-116eed7a8255" }
       ]
     },
     "scope": "food"
@@ -80,17 +58,10 @@
     "query": {
       "distribution": "frozen",
       "ingredients": [
-        {
-          "country": "FR",
-          "id": "a360871c-fc35-4cb3-af2c-5eeb8bd6f984",
-          "mass": 250
-        }
+        { "country": "FR", "id": "a360871c-fc35-4cb3-af2c-5eeb8bd6f984", "mass": 250 }
       ],
       "packaging": [
-        {
-          "amount": 0.05,
-          "id": "bf2ed341-2676-4e52-acc3-3ed55cc1c95d"
-        }
+        { "amount": 0.05, "id": "bf2ed341-2676-4e52-acc3-3ed55cc1c95d" }
       ],
       "preparation": ["freezing", "oven"]
     },
@@ -103,17 +74,10 @@
     "query": {
       "distribution": "frozen",
       "ingredients": [
-        {
-          "country": "RLA",
-          "id": "8fb5024c-ceec-4201-b069-ea253c537ad6",
-          "mass": 250
-        }
+        { "country": "RLA", "id": "8fb5024c-ceec-4201-b069-ea253c537ad6", "mass": 250 }
       ],
       "packaging": [
-        {
-          "amount": 0.05,
-          "id": "bf2ed341-2676-4e52-acc3-3ed55cc1c95d"
-        }
+        { "amount": 0.05, "id": "bf2ed341-2676-4e52-acc3-3ed55cc1c95d" }
       ],
       "preparation": ["freezing", "oven"]
     },
@@ -126,62 +90,23 @@
     "query": {
       "distribution": "frozen",
       "ingredients": [
-        {
-          "id": "a2e25aca-1f42-4bc8-bc0e-4d7c751775aa",
-          "mass": 148
-        },
-        {
-          "id": "6523c72b-2c28-474d-9bf8-45e018bbd0be",
-          "mass": 100
-        },
-        {
-          "id": "faa513ae-9c32-4e6c-874e-58c13309339e",
-          "mass": 19
-        },
-        {
-          "id": "91f8ec52-d3bb-44db-84be-08bb1996caf8",
-          "mass": 43
-        },
-        {
-          "id": "5fc8032f-ca1c-4497-844b-f9213075eab3",
-          "mass": 3
-        },
-        {
-          "id": "96b301d9-d21b-4cea-8903-bd7917e95a30",
-          "mass": 5
-        },
-        {
-          "id": "36b3ffec-51e7-4e26-b1b5-7d52554e0aa6",
-          "mass": 33
-        },
-        {
-          "id": "74314f2e-aa88-4ac1-aa78-bb29dceebf0b",
-          "mass": 19
-        },
-        {
-          "id": "3cfab110-363e-442a-9170-1af337fe9ea3",
-          "mass": 2
-        },
-        {
-          "id": "97cde31b-e46e-472d-836d-9b217c3845df",
-          "mass": 14
-        },
-        {
-          "id": "4d5198e7-413a-4ae2-8448-535aa3b302ae",
-          "mass": 6
-        }
+        { "id": "a2e25aca-1f42-4bc8-bc0e-4d7c751775aa", "mass": 148 },
+        { "id": "6523c72b-2c28-474d-9bf8-45e018bbd0be", "mass": 100 },
+        { "id": "faa513ae-9c32-4e6c-874e-58c13309339e", "mass": 19 },
+        { "id": "91f8ec52-d3bb-44db-84be-08bb1996caf8", "mass": 43 },
+        { "id": "5fc8032f-ca1c-4497-844b-f9213075eab3", "mass": 3 },
+        { "id": "96b301d9-d21b-4cea-8903-bd7917e95a30", "mass": 5 },
+        { "id": "36b3ffec-51e7-4e26-b1b5-7d52554e0aa6", "mass": 33 },
+        { "id": "74314f2e-aa88-4ac1-aa78-bb29dceebf0b", "mass": 19 },
+        { "id": "3cfab110-363e-442a-9170-1af337fe9ea3", "mass": 2 },
+        { "id": "97cde31b-e46e-472d-836d-9b217c3845df", "mass": 14 },
+        { "id": "4d5198e7-413a-4ae2-8448-535aa3b302ae", "mass": 6 }
       ],
       "packaging": [
-        {
-          "amount": 0.1,
-          "id": "09bf8c91-b95e-4bd3-aaf3-4c5450f74ae7"
-        }
+        { "amount": 0.1, "id": "09bf8c91-b95e-4bd3-aaf3-4c5450f74ae7" }
       ],
       "preparation": ["freezing", "oven"],
-      "transform": {
-        "id": "a2836bb8-7f45-5cfa-bb00-8b38046291cf",
-        "mass": 398
-      }
+      "transform": { "id": "a2836bb8-7f45-5cfa-bb00-8b38046291cf", "mass": 398 }
     },
     "scope": "food"
   },
@@ -192,73 +117,23 @@
     "query": {
       "distribution": "frozen",
       "ingredients": [
-        {
-          "country": "FR",
-          "id": "a2e25aca-1f42-4bc8-bc0e-4d7c751775aa",
-          "mass": 148
-        },
-        {
-          "country": "FR",
-          "id": "6523c72b-2c28-474d-9bf8-45e018bbd0be",
-          "mass": 100
-        },
-        {
-          "country": "FR",
-          "id": "faa513ae-9c32-4e6c-874e-58c13309339e",
-          "mass": 19
-        },
-        {
-          "country": "FR",
-          "id": "22179caa-eb41-49c0-ae04-49eda23da4da",
-          "mass": 43
-        },
-        {
-          "country": "FR",
-          "id": "5fc8032f-ca1c-4497-844b-f9213075eab3",
-          "mass": 3
-        },
-        {
-          "country": "FR",
-          "id": "96b301d9-d21b-4cea-8903-bd7917e95a30",
-          "mass": 5
-        },
-        {
-          "country": "FR",
-          "id": "36b3ffec-51e7-4e26-b1b5-7d52554e0aa6",
-          "mass": 33
-        },
-        {
-          "country": "FR",
-          "id": "74314f2e-aa88-4ac1-aa78-bb29dceebf0b",
-          "mass": 19
-        },
-        {
-          "country": "FR",
-          "id": "3cfab110-363e-442a-9170-1af337fe9ea3",
-          "mass": 2
-        },
-        {
-          "country": "FR",
-          "id": "97cde31b-e46e-472d-836d-9b217c3845df",
-          "mass": 14
-        },
-        {
-          "country": "FR",
-          "id": "4d5198e7-413a-4ae2-8448-535aa3b302ae",
-          "mass": 6
-        }
+        { "country": "FR", "id": "a2e25aca-1f42-4bc8-bc0e-4d7c751775aa", "mass": 148 },
+        { "country": "FR", "id": "6523c72b-2c28-474d-9bf8-45e018bbd0be", "mass": 100 },
+        { "country": "FR", "id": "faa513ae-9c32-4e6c-874e-58c13309339e", "mass": 19 },
+        { "country": "FR", "id": "22179caa-eb41-49c0-ae04-49eda23da4da", "mass": 43 },
+        { "country": "FR", "id": "5fc8032f-ca1c-4497-844b-f9213075eab3", "mass": 3 },
+        { "country": "FR", "id": "96b301d9-d21b-4cea-8903-bd7917e95a30", "mass": 5 },
+        { "country": "FR", "id": "36b3ffec-51e7-4e26-b1b5-7d52554e0aa6", "mass": 33 },
+        { "country": "FR", "id": "74314f2e-aa88-4ac1-aa78-bb29dceebf0b", "mass": 19 },
+        { "country": "FR", "id": "3cfab110-363e-442a-9170-1af337fe9ea3", "mass": 2 },
+        { "country": "FR", "id": "97cde31b-e46e-472d-836d-9b217c3845df", "mass": 14 },
+        { "country": "FR", "id": "4d5198e7-413a-4ae2-8448-535aa3b302ae", "mass": 6 }
       ],
       "packaging": [
-        {
-          "amount": 0.1,
-          "id": "09bf8c91-b95e-4bd3-aaf3-4c5450f74ae7"
-        }
+        { "amount": 0.1, "id": "09bf8c91-b95e-4bd3-aaf3-4c5450f74ae7" }
       ],
       "preparation": ["freezing", "oven"],
-      "transform": {
-        "id": "a2836bb8-7f45-5cfa-bb00-8b38046291cf",
-        "mass": 392
-      }
+      "transform": { "id": "a2836bb8-7f45-5cfa-bb00-8b38046291cf", "mass": 392 }
     },
     "scope": "food"
   },
@@ -269,73 +144,23 @@
     "query": {
       "distribution": "frozen",
       "ingredients": [
-        {
-          "country": "FR",
-          "id": "db791ac8-02b9-41b0-bc2b-2913e745bd19",
-          "mass": 148
-        },
-        {
-          "country": "FR",
-          "id": "6523c72b-2c28-474d-9bf8-45e018bbd0be",
-          "mass": 100
-        },
-        {
-          "country": "FR",
-          "id": "faa513ae-9c32-4e6c-874e-58c13309339e",
-          "mass": 19
-        },
-        {
-          "country": "FR",
-          "id": "ff532795-d725-4c6b-82bc-022d38b83bff",
-          "mass": 43
-        },
-        {
-          "country": "FR",
-          "id": "5fc8032f-ca1c-4497-844b-f9213075eab3",
-          "mass": 3
-        },
-        {
-          "country": "FR",
-          "id": "51f8e8d2-13c0-446c-bf0a-9272fc46edde",
-          "mass": 5
-        },
-        {
-          "country": "FR",
-          "id": "36b3ffec-51e7-4e26-b1b5-7d52554e0aa6",
-          "mass": 33
-        },
-        {
-          "country": "FR",
-          "id": "74314f2e-aa88-4ac1-aa78-bb29dceebf0b",
-          "mass": 19
-        },
-        {
-          "country": "FR",
-          "id": "64fb23f2-0cac-403c-bbfa-1973c9a0ea40",
-          "mass": 2
-        },
-        {
-          "country": "FR",
-          "id": "97cde31b-e46e-472d-836d-9b217c3845df",
-          "mass": 14
-        },
-        {
-          "country": "FR",
-          "id": "9042b6d0-c309-4757-a03f-ba802f0c8c01",
-          "mass": 6
-        }
+        { "country": "FR", "id": "db791ac8-02b9-41b0-bc2b-2913e745bd19", "mass": 148 },
+        { "country": "FR", "id": "6523c72b-2c28-474d-9bf8-45e018bbd0be", "mass": 100 },
+        { "country": "FR", "id": "faa513ae-9c32-4e6c-874e-58c13309339e", "mass": 19 },
+        { "country": "FR", "id": "ff532795-d725-4c6b-82bc-022d38b83bff", "mass": 43 },
+        { "country": "FR", "id": "5fc8032f-ca1c-4497-844b-f9213075eab3", "mass": 3 },
+        { "country": "FR", "id": "51f8e8d2-13c0-446c-bf0a-9272fc46edde", "mass": 5 },
+        { "country": "FR", "id": "36b3ffec-51e7-4e26-b1b5-7d52554e0aa6", "mass": 33 },
+        { "country": "FR", "id": "74314f2e-aa88-4ac1-aa78-bb29dceebf0b", "mass": 19 },
+        { "country": "FR", "id": "64fb23f2-0cac-403c-bbfa-1973c9a0ea40", "mass": 2 },
+        { "country": "FR", "id": "97cde31b-e46e-472d-836d-9b217c3845df", "mass": 14 },
+        { "country": "FR", "id": "9042b6d0-c309-4757-a03f-ba802f0c8c01", "mass": 6 }
       ],
       "packaging": [
-        {
-          "amount": 0.1,
-          "id": "09bf8c91-b95e-4bd3-aaf3-4c5450f74ae7"
-        }
+        { "amount": 0.1, "id": "09bf8c91-b95e-4bd3-aaf3-4c5450f74ae7" }
       ],
       "preparation": ["freezing", "oven"],
-      "transform": {
-        "id": "a2836bb8-7f45-5cfa-bb00-8b38046291cf",
-        "mass": 398
-      }
+      "transform": { "id": "a2836bb8-7f45-5cfa-bb00-8b38046291cf", "mass": 398 }
     },
     "scope": "food"
   },
@@ -346,54 +171,21 @@
     "query": {
       "distribution": "frozen",
       "ingredients": [
-        {
-          "id": "a2e25aca-1f42-4bc8-bc0e-4d7c751775aa",
-          "mass": 97
-        },
-        {
-          "id": "6523c72b-2c28-474d-9bf8-45e018bbd0be",
-          "mass": 89
-        },
-        {
-          "id": "faa513ae-9c32-4e6c-874e-58c13309339e",
-          "mass": 70
-        },
-        {
-          "id": "755225f1-f0c5-497f-b8a9-263828a84a22",
-          "mass": 16
-        },
-        {
-          "id": "5fc8032f-ca1c-4497-844b-f9213075eab3",
-          "mass": 5
-        },
-        {
-          "id": "5d22559d-c16d-4545-94b9-be2ff51e2879",
-          "mass": 31
-        },
-        {
-          "id": "96b301d9-d21b-4cea-8903-bd7917e95a30",
-          "mass": 16
-        },
-        {
-          "id": "47b15759-416e-4c86-9127-4c75a55b7b8f",
-          "mass": 1
-        },
-        {
-          "id": "36b3ffec-51e7-4e26-b1b5-7d52554e0aa6",
-          "mass": 22
-        }
+        { "id": "a2e25aca-1f42-4bc8-bc0e-4d7c751775aa", "mass": 97 },
+        { "id": "6523c72b-2c28-474d-9bf8-45e018bbd0be", "mass": 89 },
+        { "id": "faa513ae-9c32-4e6c-874e-58c13309339e", "mass": 70 },
+        { "id": "755225f1-f0c5-497f-b8a9-263828a84a22", "mass": 16 },
+        { "id": "5fc8032f-ca1c-4497-844b-f9213075eab3", "mass": 5 },
+        { "id": "5d22559d-c16d-4545-94b9-be2ff51e2879", "mass": 31 },
+        { "id": "96b301d9-d21b-4cea-8903-bd7917e95a30", "mass": 16 },
+        { "id": "47b15759-416e-4c86-9127-4c75a55b7b8f", "mass": 1 },
+        { "id": "36b3ffec-51e7-4e26-b1b5-7d52554e0aa6", "mass": 22 }
       ],
       "packaging": [
-        {
-          "amount": 0.1,
-          "id": "09bf8c91-b95e-4bd3-aaf3-4c5450f74ae7"
-        }
+        { "amount": 0.1, "id": "09bf8c91-b95e-4bd3-aaf3-4c5450f74ae7" }
       ],
       "preparation": ["freezing", "oven"],
-      "transform": {
-        "id": "a2836bb8-7f45-5cfa-bb00-8b38046291cf",
-        "mass": 363
-      }
+      "transform": { "id": "a2836bb8-7f45-5cfa-bb00-8b38046291cf", "mass": 363 }
     },
     "scope": "food"
   },
@@ -404,62 +196,21 @@
     "query": {
       "distribution": "frozen",
       "ingredients": [
-        {
-          "country": "FR",
-          "id": "a2e25aca-1f42-4bc8-bc0e-4d7c751775aa",
-          "mass": 97
-        },
-        {
-          "country": "FR",
-          "id": "6523c72b-2c28-474d-9bf8-45e018bbd0be",
-          "mass": 89
-        },
-        {
-          "country": "FR",
-          "id": "faa513ae-9c32-4e6c-874e-58c13309339e",
-          "mass": 70
-        },
-        {
-          "country": "FR",
-          "id": "755225f1-f0c5-497f-b8a9-263828a84a22",
-          "mass": 16
-        },
-        {
-          "country": "FR",
-          "id": "5fc8032f-ca1c-4497-844b-f9213075eab3",
-          "mass": 5
-        },
-        {
-          "country": "FR",
-          "id": "5d22559d-c16d-4545-94b9-be2ff51e2879",
-          "mass": 31
-        },
-        {
-          "country": "FR",
-          "id": "96b301d9-d21b-4cea-8903-bd7917e95a30",
-          "mass": 16
-        },
-        {
-          "id": "47b15759-416e-4c86-9127-4c75a55b7b8f",
-          "mass": 1
-        },
-        {
-          "country": "FR",
-          "id": "36b3ffec-51e7-4e26-b1b5-7d52554e0aa6",
-          "mass": 22
-        }
+        { "country": "FR", "id": "a2e25aca-1f42-4bc8-bc0e-4d7c751775aa", "mass": 97 },
+        { "country": "FR", "id": "6523c72b-2c28-474d-9bf8-45e018bbd0be", "mass": 89 },
+        { "country": "FR", "id": "faa513ae-9c32-4e6c-874e-58c13309339e", "mass": 70 },
+        { "country": "FR", "id": "755225f1-f0c5-497f-b8a9-263828a84a22", "mass": 16 },
+        { "country": "FR", "id": "5fc8032f-ca1c-4497-844b-f9213075eab3", "mass": 5 },
+        { "country": "FR", "id": "5d22559d-c16d-4545-94b9-be2ff51e2879", "mass": 31 },
+        { "country": "FR", "id": "96b301d9-d21b-4cea-8903-bd7917e95a30", "mass": 16 },
+        { "id": "47b15759-416e-4c86-9127-4c75a55b7b8f", "mass": 1 },
+        { "country": "FR", "id": "36b3ffec-51e7-4e26-b1b5-7d52554e0aa6", "mass": 22 }
       ],
       "packaging": [
-        {
-          "amount": 0.1,
-          "id": "09bf8c91-b95e-4bd3-aaf3-4c5450f74ae7"
-        }
+        { "amount": 0.1, "id": "09bf8c91-b95e-4bd3-aaf3-4c5450f74ae7" }
       ],
       "preparation": ["freezing", "oven"],
-      "transform": {
-        "id": "a2836bb8-7f45-5cfa-bb00-8b38046291cf",
-        "mass": 363
-      }
+      "transform": { "id": "a2836bb8-7f45-5cfa-bb00-8b38046291cf", "mass": 363 }
     },
     "scope": "food"
   },
@@ -470,62 +221,23 @@
     "query": {
       "distribution": "frozen",
       "ingredients": [
-        {
-          "id": "a2e25aca-1f42-4bc8-bc0e-4d7c751775aa",
-          "mass": 113
-        },
-        {
-          "id": "6523c72b-2c28-474d-9bf8-45e018bbd0be",
-          "mass": 76
-        },
-        {
-          "id": "faa513ae-9c32-4e6c-874e-58c13309339e",
-          "mass": 36.00000000000001
-        },
-        {
-          "id": "5fc8032f-ca1c-4497-844b-f9213075eab3",
-          "mass": 4
-        },
-        {
-          "id": "96b301d9-d21b-4cea-8903-bd7917e95a30",
-          "mass": 21
-        },
-        {
-          "id": "47b15759-416e-4c86-9127-4c75a55b7b8f",
-          "mass": 2
-        },
-        {
-          "id": "74314f2e-aa88-4ac1-aa78-bb29dceebf0b",
-          "mass": 12
-        },
-        {
-          "id": "16caaefa-40f5-4d29-a3e6-26349846f2c9",
-          "mass": 36.00000000000001
-        },
-        {
-          "id": "361139ac-1028-4cc8-9c0e-4955c5fa39d3",
-          "mass": 36.00000000000001
-        },
-        {
-          "id": "97cde31b-e46e-472d-836d-9b217c3845df",
-          "mass": 12
-        },
-        {
-          "id": "36b3ffec-51e7-4e26-b1b5-7d52554e0aa6",
-          "mass": 22
-        }
+        { "id": "a2e25aca-1f42-4bc8-bc0e-4d7c751775aa", "mass": 113 },
+        { "id": "6523c72b-2c28-474d-9bf8-45e018bbd0be", "mass": 76 },
+        { "id": "faa513ae-9c32-4e6c-874e-58c13309339e", "mass": 36.00000000000001 },
+        { "id": "5fc8032f-ca1c-4497-844b-f9213075eab3", "mass": 4 },
+        { "id": "96b301d9-d21b-4cea-8903-bd7917e95a30", "mass": 21 },
+        { "id": "47b15759-416e-4c86-9127-4c75a55b7b8f", "mass": 2 },
+        { "id": "74314f2e-aa88-4ac1-aa78-bb29dceebf0b", "mass": 12 },
+        { "id": "16caaefa-40f5-4d29-a3e6-26349846f2c9", "mass": 36.00000000000001 },
+        { "id": "361139ac-1028-4cc8-9c0e-4955c5fa39d3", "mass": 36.00000000000001 },
+        { "id": "97cde31b-e46e-472d-836d-9b217c3845df", "mass": 12 },
+        { "id": "36b3ffec-51e7-4e26-b1b5-7d52554e0aa6", "mass": 22 }
       ],
       "packaging": [
-        {
-          "amount": 0.1,
-          "id": "09bf8c91-b95e-4bd3-aaf3-4c5450f74ae7"
-        }
+        { "amount": 0.1, "id": "09bf8c91-b95e-4bd3-aaf3-4c5450f74ae7" }
       ],
       "preparation": ["freezing", "oven"],
-      "transform": {
-        "id": "a2836bb8-7f45-5cfa-bb00-8b38046291cf",
-        "mass": 396
-      }
+      "transform": { "id": "a2836bb8-7f45-5cfa-bb00-8b38046291cf", "mass": 396 }
     },
     "scope": "food"
   },
@@ -536,40 +248,17 @@
     "query": {
       "distribution": "frozen",
       "ingredients": [
-        {
-          "country": "FR",
-          "id": "a2e25aca-1f42-4bc8-bc0e-4d7c751775aa",
-          "mass": 113
-        },
-        {
-          "country": "FR",
-          "id": "6523c72b-2c28-474d-9bf8-45e018bbd0be",
-          "mass": 76
-        },
+        { "country": "FR", "id": "a2e25aca-1f42-4bc8-bc0e-4d7c751775aa", "mass": 113 },
+        { "country": "FR", "id": "6523c72b-2c28-474d-9bf8-45e018bbd0be", "mass": 76 },
         {
           "country": "FR",
           "id": "faa513ae-9c32-4e6c-874e-58c13309339e",
           "mass": 36.00000000000001
         },
-        {
-          "country": "FR",
-          "id": "5fc8032f-ca1c-4497-844b-f9213075eab3",
-          "mass": 4
-        },
-        {
-          "country": "FR",
-          "id": "96b301d9-d21b-4cea-8903-bd7917e95a30",
-          "mass": 21
-        },
-        {
-          "id": "47b15759-416e-4c86-9127-4c75a55b7b8f",
-          "mass": 2
-        },
-        {
-          "country": "FR",
-          "id": "74314f2e-aa88-4ac1-aa78-bb29dceebf0b",
-          "mass": 12
-        },
+        { "country": "FR", "id": "5fc8032f-ca1c-4497-844b-f9213075eab3", "mass": 4 },
+        { "country": "FR", "id": "96b301d9-d21b-4cea-8903-bd7917e95a30", "mass": 21 },
+        { "id": "47b15759-416e-4c86-9127-4c75a55b7b8f", "mass": 2 },
+        { "country": "FR", "id": "74314f2e-aa88-4ac1-aa78-bb29dceebf0b", "mass": 12 },
         {
           "country": "FR",
           "id": "16caaefa-40f5-4d29-a3e6-26349846f2c9",
@@ -580,28 +269,14 @@
           "id": "361139ac-1028-4cc8-9c0e-4955c5fa39d3",
           "mass": 36.00000000000001
         },
-        {
-          "country": "FR",
-          "id": "97cde31b-e46e-472d-836d-9b217c3845df",
-          "mass": 12
-        },
-        {
-          "country": "FR",
-          "id": "36b3ffec-51e7-4e26-b1b5-7d52554e0aa6",
-          "mass": 22
-        }
+        { "country": "FR", "id": "97cde31b-e46e-472d-836d-9b217c3845df", "mass": 12 },
+        { "country": "FR", "id": "36b3ffec-51e7-4e26-b1b5-7d52554e0aa6", "mass": 22 }
       ],
       "packaging": [
-        {
-          "amount": 0.1,
-          "id": "09bf8c91-b95e-4bd3-aaf3-4c5450f74ae7"
-        }
+        { "amount": 0.1, "id": "09bf8c91-b95e-4bd3-aaf3-4c5450f74ae7" }
       ],
       "preparation": ["freezing", "oven"],
-      "transform": {
-        "id": "a2836bb8-7f45-5cfa-bb00-8b38046291cf",
-        "mass": 370
-      }
+      "transform": { "id": "a2836bb8-7f45-5cfa-bb00-8b38046291cf", "mass": 370 }
     },
     "scope": "food"
   },
@@ -612,17 +287,10 @@
     "query": {
       "distribution": "frozen",
       "ingredients": [
-        {
-          "country": "RLA",
-          "id": "91f8ec52-d3bb-44db-84be-08bb1996caf8",
-          "mass": 200
-        }
+        { "country": "RLA", "id": "91f8ec52-d3bb-44db-84be-08bb1996caf8", "mass": 200 }
       ],
       "packaging": [
-        {
-          "amount": 0.05,
-          "id": "bf2ed341-2676-4e52-acc3-3ed55cc1c95d"
-        }
+        { "amount": 0.05, "id": "bf2ed341-2676-4e52-acc3-3ed55cc1c95d" }
       ],
       "preparation": ["freezing", "pan-cooking"]
     },
@@ -635,17 +303,10 @@
     "query": {
       "distribution": "frozen",
       "ingredients": [
-        {
-          "country": "FR",
-          "id": "22179caa-eb41-49c0-ae04-49eda23da4da",
-          "mass": 250
-        }
+        { "country": "FR", "id": "22179caa-eb41-49c0-ae04-49eda23da4da", "mass": 250 }
       ],
       "packaging": [
-        {
-          "amount": 0.05,
-          "id": "bf2ed341-2676-4e52-acc3-3ed55cc1c95d"
-        }
+        { "amount": 0.05, "id": "bf2ed341-2676-4e52-acc3-3ed55cc1c95d" }
       ],
       "preparation": ["freezing", "pan-cooking"]
     },
@@ -658,17 +319,10 @@
     "query": {
       "distribution": "frozen",
       "ingredients": [
-        {
-          "country": "FR",
-          "id": "ff532795-d725-4c6b-82bc-022d38b83bff",
-          "mass": 200
-        }
+        { "country": "FR", "id": "ff532795-d725-4c6b-82bc-022d38b83bff", "mass": 200 }
       ],
       "packaging": [
-        {
-          "amount": 0.05,
-          "id": "bf2ed341-2676-4e52-acc3-3ed55cc1c95d"
-        }
+        { "amount": 0.05, "id": "bf2ed341-2676-4e52-acc3-3ed55cc1c95d" }
       ],
       "preparation": ["freezing", "pan-cooking"]
     },

@@ -1,7 +1,5 @@
 {
-  "categories": [
-    "transformation"
-  ],
+  "categories": ["transformation"],
   "comment": "Ancien identifiant (12/2024): 2e16787c-7a89-4883-acdf-37d3d362bdab.",
   "displayName": "Tricotage circulaire",
   "elecKwh": 1.1808,
@@ -29,9 +27,7 @@
     "wtu": 0
   },
   "qtyVariationRatio": 0.966,
-  "scopes": [
-    "textile"
-  ],
+  "scopes": ["textile"],
   "source": "Ecobalyse_manual_lcia",
   "unit": "kg"
 }

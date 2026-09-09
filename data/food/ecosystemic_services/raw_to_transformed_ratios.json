@@ -5,52 +5,20 @@
       "source": "cmaps_custom_lci",
       "source_ref": "beef-boneless-raw-v1"
     },
-    "beef-with-bone": {
-      "ratio": 1.5,
-      "source": "brightway_manual",
-      "source_ref": ""
-    },
-    "beef-without-bone": {
-      "ratio": 1.875,
-      "source": "brightway_manual",
-      "source_ref": ""
-    },
-    "ground-beef-2025": {
-      "ratio": 2.3,
-      "source": "brightway_manual",
-      "source_ref": ""
-    }
+    "beef-with-bone": { "ratio": 1.5, "source": "brightway_manual", "source_ref": "" },
+    "beef-without-bone": { "ratio": 1.875, "source": "brightway_manual", "source_ref": "" },
+    "ground-beef-2025": { "ratio": 2.3, "source": "brightway_manual", "source_ref": "" }
   },
   "beef-cattle-feedlot-gb-live": {
-    "beef-with-bone-feedlot": {
-      "ratio": 1.5,
-      "source": "brightway_manual",
-      "source_ref": ""
-    },
-    "beef-without-bone-feedlot": {
-      "ratio": 1.875,
-      "source": "brightway_manual",
-      "source_ref": ""
-    },
-    "ground-beef-feedlot-2025": {
-      "ratio": 2.3,
-      "source": "brightway_manual",
-      "source_ref": ""
-    }
+    "beef-with-bone-feedlot": { "ratio": 1.5, "source": "brightway_manual", "source_ref": "" },
+    "beef-without-bone-feedlot": { "ratio": 1.875, "source": "brightway_manual", "source_ref": "" },
+    "ground-beef-feedlot-2025": { "ratio": 2.3, "source": "brightway_manual", "source_ref": "" }
   },
   "broiler-br-max-live": {
-    "chicken-breast-br-max": {
-      "ratio": 1.934,
-      "source": "brightway_manual",
-      "source_ref": ""
-    }
+    "chicken-breast-br-max": { "ratio": 1.934, "source": "brightway_manual", "source_ref": "" }
   },
   "broiler-conventional-fr-live": {
-    "chicken-breast": {
-      "ratio": 1.934,
-      "source": "brightway_manual",
-      "source_ref": ""
-    },
+    "chicken-breast": { "ratio": 1.934, "source": "brightway_manual", "source_ref": "" },
     "poultry-boneless-raw-fr": {
       "ratio": 2.01,
       "source": "cmaps_custom_lci",
@@ -58,42 +26,22 @@
     }
   },
   "broiler-fr-feed-live": {
-    "chicken-breast-fr-feed-2025": {
-      "ratio": 1.934,
-      "source": "brightway_manual",
-      "source_ref": ""
-    }
+    "chicken-breast-fr-feed-2025": { "ratio": 1.934, "source": "brightway_manual", "source_ref": "" }
   },
   "broiler-fr-organic-live": {
-    "chicken-breast-fr-organic-2025": {
-      "ratio": 1.934,
-      "source": "brightway_manual",
-      "source_ref": ""
-    }
+    "chicken-breast-fr-organic-2025": { "ratio": 1.934, "source": "brightway_manual", "source_ref": "" }
   },
   "broiler-organic-fr-live": {
-    "chicken-breast-organic": {
-      "ratio": 1.934,
-      "source": "brightway_manual",
-      "source_ref": ""
-    }
+    "chicken-breast-organic": { "ratio": 1.934, "source": "brightway_manual", "source_ref": "" }
   },
   "cow-milk-fr": {
-    "beaufort-cheese-fr": {
-      "ratio": 5.26,
-      "source": "cmaps_custom_lci",
-      "source_ref": "beaufort-cheese-v1"
-    },
+    "beaufort-cheese-fr": { "ratio": 5.26, "source": "cmaps_custom_lci", "source_ref": "beaufort-cheese-v1" },
     "blue-cheese-auvergne-fr": {
       "ratio": 4.47,
       "source": "cmaps_custom_lci",
       "source_ref": "blue-cheese-auvergne-v1"
     },
-    "brie-cheese-fr": {
-      "ratio": 3.8,
-      "source": "cmaps_custom_lci",
-      "source_ref": "brie-cheese-v1"
-    },
+    "brie-cheese-fr": { "ratio": 3.8, "source": "cmaps_custom_lci", "source_ref": "brie-cheese-v1" },
     "butter-39-41pct-fat-light-fr": {
       "ratio": 3.67,
       "source": "cmaps_custom_lci",
@@ -104,41 +52,13 @@
       "source": "cmaps_custom_lci",
       "source_ref": "butter-60-62pct-fat-reduced-v1"
     },
-    "butter-82pct-fat-fr": {
-      "ratio": 6.77,
-      "source": "cmaps_custom_lci",
-      "source_ref": "butter-82pct-fat-v1"
-    },
-    "camembert-cheese-fr": {
-      "ratio": 3.62,
-      "source": "cmaps_custom_lci",
-      "source_ref": "camembert-cheese-v1"
-    },
-    "cantal-cheese-fr": {
-      "ratio": 4.83,
-      "source": "cmaps_custom_lci",
-      "source_ref": "cantal-cheese-v1"
-    },
-    "chaource-cheese-fr": {
-      "ratio": 3.52,
-      "source": "cmaps_custom_lci",
-      "source_ref": "chaource-cheese-v1"
-    },
-    "cheddar-cheese-fr": {
-      "ratio": 5.03,
-      "source": "cmaps_custom_lci",
-      "source_ref": "cheddar-cheese-v1"
-    },
-    "comte-cheese-fr": {
-      "ratio": 5.34,
-      "source": "cmaps_custom_lci",
-      "source_ref": "comte-cheese-v1"
-    },
-    "coulommiers-cheese-fr": {
-      "ratio": 3.52,
-      "source": "cmaps_custom_lci",
-      "source_ref": "chaource-cheese-v1"
-    },
+    "butter-82pct-fat-fr": { "ratio": 6.77, "source": "cmaps_custom_lci", "source_ref": "butter-82pct-fat-v1" },
+    "camembert-cheese-fr": { "ratio": 3.62, "source": "cmaps_custom_lci", "source_ref": "camembert-cheese-v1" },
+    "cantal-cheese-fr": { "ratio": 4.83, "source": "cmaps_custom_lci", "source_ref": "cantal-cheese-v1" },
+    "chaource-cheese-fr": { "ratio": 3.52, "source": "cmaps_custom_lci", "source_ref": "chaource-cheese-v1" },
+    "cheddar-cheese-fr": { "ratio": 5.03, "source": "cmaps_custom_lci", "source_ref": "cheddar-cheese-v1" },
+    "comte-cheese-fr": { "ratio": 5.34, "source": "cmaps_custom_lci", "source_ref": "comte-cheese-v1" },
+    "coulommiers-cheese-fr": { "ratio": 3.52, "source": "cmaps_custom_lci", "source_ref": "chaource-cheese-v1" },
     "dairy-spread-20pct-fat-fr": {
       "ratio": 2.11,
       "source": "cmaps_custom_lci",
@@ -149,11 +69,7 @@
       "source": "cmaps_custom_lci",
       "source_ref": "dairy-spread-25pct-fat-v1"
     },
-    "emmental-cheese-fr": {
-      "ratio": 4.87,
-      "source": "cmaps_custom_lci",
-      "source_ref": "emmental-cheese-v1"
-    },
+    "emmental-cheese-fr": { "ratio": 4.87, "source": "cmaps_custom_lci", "source_ref": "emmental-cheese-v1" },
     "faisselle-6pct-fat-fr": {
       "ratio": 1.22,
       "source": "cmaps_custom_lci",
@@ -189,41 +105,17 @@
       "source": "cmaps_custom_lci",
       "source_ref": "gorgonzola-cheese-v1"
     },
-    "gouda-cheese-fr": {
-      "ratio": 4.93,
-      "source": "cmaps_custom_lci",
-      "source_ref": "gouda-cheese-v1"
-    },
-    "gruyere-cheese-fr": {
-      "ratio": 5.4,
-      "source": "cmaps_custom_lci",
-      "source_ref": "gruyere-cheese-v1"
-    },
-    "mimolette-cheese-fr": {
-      "ratio": 5.26,
-      "source": "cmaps_custom_lci",
-      "source_ref": "beaufort-cheese-v1"
-    },
-    "mont-dor-cheese-fr": {
-      "ratio": 3.77,
-      "source": "cmaps_custom_lci",
-      "source_ref": "mont-dor-cheese-v1"
-    },
+    "gouda-cheese-fr": { "ratio": 4.93, "source": "cmaps_custom_lci", "source_ref": "gouda-cheese-v1" },
+    "gruyere-cheese-fr": { "ratio": 5.4, "source": "cmaps_custom_lci", "source_ref": "gruyere-cheese-v1" },
+    "mimolette-cheese-fr": { "ratio": 5.26, "source": "cmaps_custom_lci", "source_ref": "beaufort-cheese-v1" },
+    "mont-dor-cheese-fr": { "ratio": 3.77, "source": "cmaps_custom_lci", "source_ref": "mont-dor-cheese-v1" },
     "mozzarella-cow-milk-fr": {
       "ratio": 2.98,
       "source": "cmaps_custom_lci",
       "source_ref": "mozzarella-cow-milk-v1"
     },
-    "munster-cheese-fr": {
-      "ratio": 4.05,
-      "source": "cmaps_custom_lci",
-      "source_ref": "munster-cheese-v1"
-    },
-    "parmesan-cheese-fr": {
-      "ratio": 5.57,
-      "source": "cmaps_custom_lci",
-      "source_ref": "parmesan-cheese-v1"
-    },
+    "munster-cheese-fr": { "ratio": 4.05, "source": "cmaps_custom_lci", "source_ref": "munster-cheese-v1" },
+    "parmesan-cheese-fr": { "ratio": 5.57, "source": "cmaps_custom_lci", "source_ref": "parmesan-cheese-v1" },
     "petit-suisse-10pct-fat-fr": {
       "ratio": 1.92,
       "source": "cmaps_custom_lci",
@@ -239,31 +131,15 @@
       "source": "cmaps_custom_lci",
       "source_ref": "pont-leveque-cheese-v1"
     },
-    "processed-cheese-fr": {
-      "ratio": 3.51,
-      "source": "cmaps_custom_lci",
-      "source_ref": "processed-cheese-v1"
-    },
-    "raclette-cheese-fr": {
-      "ratio": 4.42,
-      "source": "cmaps_custom_lci",
-      "source_ref": "raclette-cheese-v1"
-    },
-    "reblochon-cheese-fr": {
-      "ratio": 4.07,
-      "source": "cmaps_custom_lci",
-      "source_ref": "reblochon-cheese-v1"
-    },
+    "processed-cheese-fr": { "ratio": 3.51, "source": "cmaps_custom_lci", "source_ref": "processed-cheese-v1" },
+    "raclette-cheese-fr": { "ratio": 4.42, "source": "cmaps_custom_lci", "source_ref": "raclette-cheese-v1" },
+    "reblochon-cheese-fr": { "ratio": 4.07, "source": "cmaps_custom_lci", "source_ref": "reblochon-cheese-v1" },
     "reduced-fat-firm-cheese-maasdam-type-fr": {
       "ratio": 3.82,
       "source": "cmaps_custom_lci",
       "source_ref": "reduced-fat-firm-cheese-maasdam-type-v1"
     },
-    "roquefort-cheese-fr": {
-      "ratio": 4.65,
-      "source": "cmaps_custom_lci",
-      "source_ref": "roquefort-cheese-v1"
-    },
+    "roquefort-cheese-fr": { "ratio": 4.65, "source": "cmaps_custom_lci", "source_ref": "roquefort-cheese-v1" },
     "saint-marcellin-cheese-fr": {
       "ratio": 3.34,
       "source": "cmaps_custom_lci",
@@ -281,106 +157,38 @@
     }
   },
   "cull-cow-grass-fed-fr-live": {
-    "beef-with-bone-grass-fed": {
-      "ratio": 1.5,
-      "source": "brightway_manual",
-      "source_ref": ""
-    },
-    "beef-without-bone-grass-fed": {
-      "ratio": 1.875,
-      "source": "brightway_manual",
-      "source_ref": ""
-    },
-    "ground-beef-grass-fed-2025": {
-      "ratio": 2.3,
-      "source": "brightway_manual",
-      "source_ref": ""
-    }
+    "beef-with-bone-grass-fed": { "ratio": 1.5, "source": "brightway_manual", "source_ref": "" },
+    "beef-without-bone-grass-fed": { "ratio": 1.875, "source": "brightway_manual", "source_ref": "" },
+    "ground-beef-grass-fed-2025": { "ratio": 2.3, "source": "brightway_manual", "source_ref": "" }
   },
   "cull-cow-organic-national-average-live": {
-    "beef-with-bone-organic": {
-      "ratio": 1.5,
-      "source": "brightway_manual",
-      "source_ref": ""
-    },
-    "beef-without-bone-organic": {
-      "ratio": 1.875,
-      "source": "brightway_manual",
-      "source_ref": ""
-    },
-    "ground-beef-organic-2025": {
-      "ratio": 2.3,
-      "source": "brightway_manual",
-      "source_ref": ""
-    }
+    "beef-with-bone-organic": { "ratio": 1.5, "source": "brightway_manual", "source_ref": "" },
+    "beef-without-bone-organic": { "ratio": 1.875, "source": "brightway_manual", "source_ref": "" },
+    "ground-beef-organic-2025": { "ratio": 2.3, "source": "brightway_manual", "source_ref": "" }
   },
   "egg-organic": {
-    "egg-shelled-raw-fr-organic": {
-      "ratio": 1.11,
-      "source": "cmaps_custom_lci",
-      "source_ref": "egg-shelled-raw-v2"
-    }
+    "egg-shelled-raw-fr-organic": { "ratio": 1.11, "source": "cmaps_custom_lci", "source_ref": "egg-shelled-raw-v2" }
   },
   "lamb-conventional-fr-live": {
-    "lamb-meat-without-bone": {
-      "ratio": 2.39,
-      "source": "brightway_manual",
-      "source_ref": ""
-    }
+    "lamb-meat-without-bone": { "ratio": 2.39, "source": "brightway_manual", "source_ref": "" }
   },
   "lamb-organic-national-average-farm-gate-fr-u-live": {
-    "lamb-meat-without-bone-organic": {
-      "ratio": 2.39,
-      "source": "brightway_manual",
-      "source_ref": ""
-    }
+    "lamb-meat-without-bone-organic": { "ratio": 2.39, "source": "brightway_manual", "source_ref": "" }
   },
   "pig-bbc-fr-live": {
-    "cooked-ham-bbc-2025": {
-      "ratio": 1.959,
-      "source": "brightway_manual",
-      "source_ref": ""
-    },
-    "pork-fr-2025-bbc": {
-      "ratio": 2.102,
-      "source": "brightway_manual",
-      "source_ref": ""
-    }
+    "cooked-ham-bbc-2025": { "ratio": 1.959, "source": "brightway_manual", "source_ref": "" },
+    "pork-fr-2025-bbc": { "ratio": 2.102, "source": "brightway_manual", "source_ref": "" }
   },
   "pig-conventional-fr-live": {
-    "cooked-ham-2025": {
-      "ratio": 1.959,
-      "source": "brightway_manual",
-      "source_ref": ""
-    },
-    "pork-fr-2025": {
-      "ratio": 2.102,
-      "source": "brightway_manual",
-      "source_ref": ""
-    },
-    "pork-liver-2025": {
-      "ratio": 2.102,
-      "source": "brightway_manual",
-      "source_ref": ""
-    }
+    "cooked-ham-2025": { "ratio": 1.959, "source": "brightway_manual", "source_ref": "" },
+    "pork-fr-2025": { "ratio": 2.102, "source": "brightway_manual", "source_ref": "" },
+    "pork-liver-2025": { "ratio": 2.102, "source": "brightway_manual", "source_ref": "" }
   },
   "pig-organic-fr-live": {
-    "cooked-ham-organic-2025": {
-      "ratio": 1.959,
-      "source": "brightway_manual",
-      "source_ref": ""
-    },
-    "pork-organic-2025": {
-      "ratio": 2.102,
-      "source": "brightway_manual",
-      "source_ref": ""
-    }
+    "cooked-ham-organic-2025": { "ratio": 1.959, "source": "brightway_manual", "source_ref": "" },
+    "pork-organic-2025": { "ratio": 2.102, "source": "brightway_manual", "source_ref": "" }
   },
   "swine-industrial-ca-live": {
-    "pork-default-2025": {
-      "ratio": 2.102,
-      "source": "brightway_manual",
-      "source_ref": ""
-    }
+    "pork-default-2025": { "ratio": 2.102, "source": "brightway_manual", "source_ref": "" }
   }
 }

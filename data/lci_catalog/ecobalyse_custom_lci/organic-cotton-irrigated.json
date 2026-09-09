@@ -1,10 +1,6 @@
 {
   "activityName": "fibre, cotton, organic//[RoW] fibre production, cotton, organic, irrigated, ginning",
-  "categories": [
-    "material",
-    "textile_material",
-    "material_type:organic_fibers"
-  ],
+  "categories": ["material", "textile_material", "material_type:organic_fibers"],
   "comment": "Ancien identifiant (12/2024): coton-bio.",
   "displayName": "Production de fibres de coton bio",
   "elecKwh": 0.0,
@@ -20,16 +16,11 @@
       "name": "Coton biologique",
       "origin": "NaturalFromVegetal",
       "primary": true,
-      "scopes": [
-        "textile"
-      ]
+      "scopes": ["textile"]
     }
   ],
   "qtyVariationRatio": 1,
-  "scopes": [
-    "textile",
-    "object"
-  ],
+  "scopes": ["textile", "object"],
   "source": "Ecobalyse_custom_lci",
   "unit": "kg"
 }

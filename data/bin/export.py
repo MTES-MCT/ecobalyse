@@ -2,13 +2,13 @@
 
 import json
 import logging
-import multiprocessing
 from enum import Enum
 from pathlib import Path
 from typing import Annotated
 
 import typer
 from bw2data.project import projects
+from ecobalyse.logging import logger
 
 from bin.generate_taxonomy_with_aliases import write_taxonomy_with_aliases
 from common.infer_metadata import validate_ingredient_activity
@@ -17,7 +17,6 @@ from ecobalyse_data.export import export_generic
 from ecobalyse_data.export import food as export_food
 from ecobalyse_data.export import process as export_process
 from ecobalyse_data.export import textile as export_textile
-from ecobalyse_data.logging import logger
 from models.process import GENERIC_SCOPES, Scope
 
 app = typer.Typer(pretty_exceptions_show_locals=False)
@@ -36,12 +35,6 @@ def metadata(
         typer.Option(help="The scope to export. If not specified, exports all scopes."),
     ] = None,
     verbose: bool = typer.Option(False, "--verbose", "-v"),
-    cpu_count: Annotated[
-        int,
-        typer.Option(
-            help="The number of CPUs/cores to use for computation. Default to MAX/2."
-        ),
-    ] = max(multiprocessing.cpu_count() // 2, 1),
     root_dir: Path = DATA_ROOT_DIR,
     write_taxonomy: bool = True,
 ):
@@ -119,7 +112,6 @@ def metadata(
                 ecosystemic_factors_path=ecosystemic_factors_path,
                 feed_file_path=feed_file_path,
                 raw_to_transformed_file_path=raw_to_transformed_file_path,
-                cpu_count=cpu_count,
             )
 
         elif s == MetadataScope.generic:
@@ -139,7 +131,6 @@ def metadata(
                 impacts_output_paths=[
                     export_dir / settings.processes_generic_impacts_file
                 ],
-                cpu_count=cpu_count,
                 ecosystemic_factors_path=ecosystemic_factors_path,
                 feed_file_path=feed_file_path,
                 raw_to_transformed_file_path=raw_to_transformed_file_path,
@@ -194,8 +185,9 @@ def merge_processes(
     root_dir: Path = DATA_ROOT_DIR,
 ):
     """take legacy and generic processes from export_dir and merge them, put the merged file in public_dir"""
+
     from common import remove_detailed_impacts
-    from common.export import export_json, load_json
+    from common.export import export_json_with_sort_and_precision, load_json
 
     export_dir = root_dir / settings.export_dir
     impacts = load_json(export_dir / settings.processes_legacy_impacts_file)
@@ -205,8 +197,14 @@ def merge_processes(
 
     public_dir = root_dir / settings.frontend_data_dir
 
-    export_json(merged, public_dir / settings.processes_merged_impacts_file)
-    export_json(merged_ecs, public_dir / settings.processes_merged_ecs_file)
+    export_json_with_sort_and_precision(
+        merged,
+        public_dir / settings.processes_merged_impacts_file,
+    )
+    export_json_with_sort_and_precision(
+        merged_ecs,
+        public_dir / settings.processes_merged_ecs_file,
+    )
 
 
 def _get_lcis(root_dir):

@@ -1,9 +1,5 @@
 {
-  "categories": [
-    "material",
-    "textile_material",
-    "material_type:organic_fibers"
-  ],
+  "categories": ["material", "textile_material", "material_type:organic_fibers"],
   "comment": "corr1: Données Base Impacts 2.01 uuid_bi=d23093d-1346-4018-8c0f-7aae33c67bcd auquel a été retranché l'impact de la filature\nAncien identifiant (12/2024): 993955be-5888-6f39-137c-56af8c5187c1.",
   "displayName": "Production de coton recyclé (déchets post-consommation)",
   "elecKwh": 0.0,
@@ -33,10 +29,7 @@
   "metadata": [
     {
       "alias": "coton-rdpc",
-      "cff": {
-        "manufacturerAllocation": 0.8,
-        "recycledQualityRatio": 0.5
-      },
+      "cff": { "manufacturerAllocation": 0.8, "recycledQualityRatio": 0.5 },
       "defaultCountry": "FR",
       "displayName": "Production de coton recyclé (déchets post-consommation)",
       "geographicOrigin": "France",
@@ -45,15 +38,11 @@
       "origin": "NaturalFromVegetal",
       "primary": true,
       "recycledFrom": "62a4d6fb-3276-4ba5-93a3-889ecd3bff84",
-      "scopes": [
-        "textile"
-      ]
+      "scopes": ["textile"]
     }
   ],
   "qtyVariationRatio": 1,
-  "scopes": [
-    "textile"
-  ],
+  "scopes": ["textile"],
   "source": "Ecobalyse_manual_lcia",
   "unit": "kg"
 }

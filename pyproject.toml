@@ -25,6 +25,7 @@ dependencies = [
     "pwdlib[argon2]>=0.3.0",
     "pydantic>=2.13.4",
     "aiofiles>=25.1.0",
+    "pathspec>=1.1.1",
 ]
 
 [build-system]
@@ -36,7 +37,9 @@ requires = ["hatchling", "setuptools"]
 allow-direct-references = true
 
 [tool.hatch.build]
-dev-mode-dirs = ["./packages/python/ecobalyse", "./backend/src", "."]
+# Add the corresponding paths to PYTHON_PATH so that imports relative to those dirs
+# are working as expected, as if the dirs were standalone packages
+dev-mode-dirs = ["./packages/python/ecobalyse", "./backend/src", ".", "./data"]
 ignore-vcs = true
 sources = ["src"]
 
@@ -85,7 +88,7 @@ score-history = [
 
 [tool.pytest.ini_options]
 pythonpath = ["."]
-testpaths = ["tests"]
+testpaths = ["tests", "data/tests/", "packages/python/ecobalyse/ecobalyse/tests/"]
 filterwarnings = [
     "ignore:All values in characterization matrix:UserWarning:bw2calc",
     # Due to code that must be updated un advanced_alchemy but was not so far
@@ -104,3 +107,6 @@ extend-select = ["I"]
 extra-paths = [
     "data/",
 ]
+
+[tool.uv]
+required-version =  ">=0.12"

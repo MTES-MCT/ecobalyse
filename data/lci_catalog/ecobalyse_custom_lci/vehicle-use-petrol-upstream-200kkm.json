@@ -1,25 +1,16 @@
 {
   "activityName": "Petrol E10, upstream, 200 000 km",
-  "categories": [
-    "use"
-  ],
+  "categories": ["use"],
   "comment": "Impacts de la production de carburant sur la durée de vie, pour une consommation de 1L/100km et une durée de vie de 200 000 km.",
   "displayName": "Essence E10, pour 100km, partie amont - kilométrage de 200 000 km",
   "elecKwh": 0.0,
   "heatMJ": 0,
   "id": "193a3b77-aecf-40cb-9985-19a6737c8916",
   "metadata": [
-    {
-      "id": "ca2c68db-c76c-4d8c-ab84-2c50036efef9",
-      "scopes": [
-        "veli"
-      ]
-    }
+    { "id": "ca2c68db-c76c-4d8c-ab84-2c50036efef9", "scopes": ["veli"] }
   ],
   "qtyVariationRatio": 1,
-  "scopes": [
-    "veli"
-  ],
+  "scopes": ["veli"],
   "source": "Ecobalyse_custom_lci",
   "unit": "L"
 }
