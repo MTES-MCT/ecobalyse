@@ -112,12 +112,12 @@ extra-paths = [
     "data/",
 ]
 
-# pyvolca is only installed by the optional "volca" group, so ty never resolves it
+# pyvolca comes with the optional "volca" group, so the import is missing on a machine
+# without that group and perfectly fine on a machine with it. An inline `ty: ignore` is
+# right in the first case and reported as unused in the second, so it lives here instead.
 [[tool.ty.overrides]]
 include = ["data/bin/compare_volca.py"]
-
-[tool.ty.overrides.rules]
-unresolved-import = "ignore"
+rules = { unresolved-import = "ignore" }
 
 [tool.uv]
 required-version =  ">=0.12"
