@@ -1,6 +1,6 @@
 """Compare the impacts we publish with the ones VoLCA computes from the same source files.
 
-One cloud per impact category: a point is one activity, x the impact published in
+One graph per impact category: a point is one activity, x the impact published in
 processes_impacts.json, y what VoLCA computes on the same SimaPro export with the same
 method. The command stands on its own: it installs the engine, generates its configuration,
 starts a server on a free port, loads the seven databases, resolves every published activity
@@ -96,7 +96,7 @@ FACTORS = get_normalization_weighting_factors(IMPACTS_JSON)
 PROCESSES = (
     DATA_ROOT_DIR / settings.frontend_data_dir / settings.processes_merged_impacts_file
 )
-LABELS_PER_CLOUD = 3  # how many worst deviations each cloud names
+LABELS_PER_GRAPH = 3  # how many worst deviations each graph names
 TABLE_ROWS = 30  # how many lines the deviation table holds
 OUTPUT = Path("output")
 
@@ -272,7 +272,7 @@ def outliers(
 
 
 def draw(rows: list[dict], path: Path) -> None:
-    """Draw one cloud per impact category, the worst deviations named: rows in, figure out."""
+    """Draw one graph per impact category, the worst deviations named: rows in, figure out."""
     sources = sorted({r["source"] for r in rows})
     colour = {source: f"C{rank}" for rank, source in enumerate(sources)}
     fig, axes = plt.subplots(4, 5, figsize=(25, 20))
@@ -287,7 +287,7 @@ def draw(rows: list[dict], path: Path) -> None:
             alpha=0.6,
         )
         middle = statistics.median(published)
-        for rank, (ratio, r) in enumerate(outliers(points, LABELS_PER_CLOUD)):
+        for rank, (ratio, r) in enumerate(outliers(points, LABELS_PER_GRAPH)):
             x, y = r["brightway"][trigram], r["volca"][trigram]
             right = x > middle  # names near the right edge grow leftwards
             ax.scatter([x], [y], s=30, facecolor="none", edgecolor="black", zorder=3)
@@ -512,7 +512,7 @@ def stopwatch() -> tuple[Phase, Phase, dict[str, float]]:
 
 
 def write(rows: list[dict], version: str, spent: dict[str, float]) -> None:
-    """Keep the comparison: every row as data, every category as a cloud.
+    """Keep the comparison: every row as data, every category as a graph.
 
     Takes the compared rows, the engine version that produced them and what each phase cost.
     Writes the two files in output/.
