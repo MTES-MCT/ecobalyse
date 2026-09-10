@@ -3,6 +3,7 @@
   "categories": ["ingredient", "material"],
   "displayName": "Water extraction, container filling and grouping, at water factory (FR)",
   "id": "94505f63-f1b7-5f74-933a-611ab0d8fa60",
+  "massPerUnit": 1,
   "metadata": [
     {
       "alias": "spring-water-eu",
