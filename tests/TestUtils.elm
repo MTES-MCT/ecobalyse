@@ -8,6 +8,7 @@ module TestUtils exposing
     , expectImpactsEqual
     , expectResultErrorContains
     , expectResultWithin
+    , expectStringContains
     , it
     , itFromResult
     , itFromResult2
@@ -66,6 +67,15 @@ expectFloatMostlyEqual : Float -> Float -> Expectation
 expectFloatMostlyEqual expected actual =
     abs (expected - actual)
         |> Expect.lessThan 0.000000000000001
+
+
+expectStringContains : String -> String -> Expectation
+expectStringContains expected actual =
+    if String.contains expected actual then
+        Expect.pass
+
+    else
+        Expect.fail <| "Expected string to contain " ++ expected ++ ", but got " ++ actual
 
 
 it : String -> Expectation -> Test

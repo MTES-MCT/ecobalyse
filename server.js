@@ -107,13 +107,12 @@ app.get("/stats", (_, res) => res.redirect("/#/stats"));
 // API
 const openApiContents = processOpenApi(
   yaml.load(fs.readFileSync("openapi.yaml")),
-  // @FIXME: we should have the correct version number specified in the package.json file
   require("./package.json").version,
 );
 
 function processOpenApi(contents, versionNumber) {
   // Add app version info to openapi docs
-  contents.version = versionNumber;
+  contents.info.version = versionNumber;
   // Remove food1 api docs if disabled from env
   if (ENABLE_FOOD_SECTION !== "True" || ENABLE_FOOD1_API_DOCS !== "True") {
     contents.paths = filterLegacyFood1Paths(contents.paths);

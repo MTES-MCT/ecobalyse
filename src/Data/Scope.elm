@@ -14,6 +14,7 @@ module Data.Scope exposing
     , fromString
     , isGeneric
     , parse
+    , parseGeneric
     , toGenericScope
     , toLabel
     , toString
@@ -158,6 +159,11 @@ parse : Parser (Scope -> a) a
 parse =
     Parser.custom "SCOPE" <|
         (fromString >> Result.toMaybe)
+
+
+parseGeneric : Parser (GenericScope -> a) a
+parseGeneric =
+    Parser.custom "GENERIC_SCOPE" (fromStringGeneric >> Result.toMaybe)
 
 
 toGenericScope : Scope -> Maybe GenericScope

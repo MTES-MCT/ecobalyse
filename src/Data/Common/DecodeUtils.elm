@@ -2,10 +2,12 @@ module Data.Common.DecodeUtils exposing
     ( betterErrorToString
     , decodeExpected
     , decodeNonEmptyString
+    , isEmptyObject
     , strictOptional
     , strictOptionalWithDefault
     )
 
+import Dict
 import Json.Decode as Decode exposing (Decoder, Error)
 import Json.Decode.Extra as DE
 
@@ -37,6 +39,13 @@ decodeExpected decoder expected =
                 else
                     Decode.fail "Unmatched expected value"
             )
+
+
+isEmptyObject : Decode.Value -> Bool
+isEmptyObject =
+    Decode.decodeValue (Decode.dict Decode.value)
+        >> Result.map Dict.isEmpty
+        >> Result.withDefault False
 
 
 {-| A stricter Decode.maybe using Json.Decode.Extra's optionalField here because we want
