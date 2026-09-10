@@ -136,11 +136,9 @@ def unit_factors(table: str) -> UnitTable:
 
 
 def alias_csv(source: Source, missing: list[str], dep: Catalogue) -> str:
-    """Hand VoLCA Ecobalyse's renames, so this database's inputs link where its own import links them.
-
-    Only the renames on the name alone are handed over, the ones VoLCA's aliases can express.
-    Takes the source, the names the engine reports missing and the dependency's catalogue.
-    Returns the alias CSV relink reads, targets spelled as the dependency spells them.
+    """Before linking a database to it's upstream, Ecobalyse renames some of the input names.
+    VoLCA has to apply the same renames or the inputs stay unlinked.
+    Returns a source,target CSV, each target spelled as the dependency spells it.
     """
     renames = [
         (old[0], new["name"])
