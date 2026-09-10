@@ -17799,7 +17799,7 @@
     "impacts": { "ecs": 0.2274 },
     "landOccupation": 0.0001296,
     "location": "FR",
-    "massPerUnit": null,
+    "massPerUnit": 1.0,
     "metadata": {
       "complements": {
         "cropDiversity": 0,
@@ -27450,7 +27450,7 @@
     "impacts": { "ecs": 0.2954 },
     "landOccupation": 3.067e-05,
     "location": "ZA",
-    "massPerUnit": null,
+    "massPerUnit": 1.0,
     "metadata": {
       "complements": { "cropDiversity": 0, "hedges": 0, "permanentPasture": null, "plotSize": 0 },
       "defaultOrigin": null,
@@ -29604,7 +29604,7 @@
     "impacts": { "ecs": 0.2274 },
     "landOccupation": 0.0001296,
     "location": "FR",
-    "massPerUnit": null,
+    "massPerUnit": 1.0,
     "metadata": {
       "complements": { "cropDiversity": 0, "hedges": 0, "permanentPasture": null, "plotSize": 0 },
       "defaultOrigin": "REM",
@@ -29633,7 +29633,7 @@
     "impacts": { "ecs": 0.2274 },
     "landOccupation": 0.0001296,
     "location": "FR",
-    "massPerUnit": null,
+    "massPerUnit": 1.0,
     "metadata": {
       "complements": { "cropDiversity": 0, "hedges": 0, "permanentPasture": null, "plotSize": 0 },
       "defaultOrigin": null,

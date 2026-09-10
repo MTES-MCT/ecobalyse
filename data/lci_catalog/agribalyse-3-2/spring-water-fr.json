@@ -3,6 +3,7 @@
   "categories": ["ingredient", "material"],
   "displayName": "Eau de source FR",
   "id": "86c135b5-3be1-539b-8abc-1a4ecb83f793",
+  "massPerUnit": 1,
   "metadata": [
     {
       "alias": "spring-water-fr",
