@@ -1,6 +1,7 @@
 [
   {
     "assembly": ["c51ab87d-f368-4704-a5ec-7ea17ba87d46"],
+    "consumptions": ["eec31f13-d00a-4741-a84f-85d887026f8c", "21e4283e-6bbf-4b2a-b52b-4440022525ad"],
     "cooling": false,
     "id": "b87cbaf5-4ad5-4bc6-84b6-b63c934e1d60",
     "label": "Vélos et VAEs de moins de 100kg",
@@ -43,6 +44,7 @@
   },
   {
     "assembly": ["c51ab87d-f368-4704-a5ec-7ea17ba87d46"],
+    "consumptions": ["2fd57bd2-ac17-4deb-bf02-1f4ac620c00c"],
     "cooling": false,
     "id": "2f7f24c7-bd0f-4e68-97b7-4a5a97d5a197",
     "label": "Voitures électriques (M1)",
@@ -50,6 +52,7 @@
   },
   {
     "assembly": ["c51ab87d-f368-4704-a5ec-7ea17ba87d46"],
+    "consumptions": ["ca2c68db-c76c-4d8c-ab84-2c50036efef9", "28f048f7-9496-4f46-a536-fed45ee73f45", "8a981011-da2c-4120-bf9e-86cdeb560fbb"],
     "cooling": false,
     "id": "6ca5d5a2-fa5d-46b5-b520-179df78046e9",
     "label": "Voitures essence (M1)",
@@ -57,6 +60,7 @@
   },
   {
     "assembly": ["c51ab87d-f368-4704-a5ec-7ea17ba87d46"],
+    "consumptions": ["abdcf301-11db-4ced-8ab8-f6592ef60756", "9c894465-b599-41cd-a39e-a69f1699c024", "58e1c9d2-7b9f-405a-b54e-92c9e9586d45"],
     "cooling": false,
     "id": "ee81b5d9-c6e7-45e2-ba1c-1f8cb072a224",
     "label": "Voitures diesel (M1)",
