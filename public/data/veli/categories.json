@@ -8,9 +8,7 @@
   },
   {
     "assembly": ["c51ab87d-f368-4704-a5ec-7ea17ba87d46"],
-    "consumptions": [
-      {"amount": 150, "processId":"eec31f13-d00a-4741-a84f-85d887026f8c"}
-    ],
+    "consumptions": [{"amount": 150, "processId":"eec31f13-d00a-4741-a84f-85d887026f8c"}],
     "cooling": false,
     "id": "b87cbaf5-4ad5-4bc6-84b6-b63c934e1d60",
     "label": "VAEs de moins de 100kg",
@@ -18,9 +16,7 @@
   },
   {
     "assembly": ["c51ab87d-f368-4704-a5ec-7ea17ba87d46"],
-    "consumptions": [
-      {"amount": 2.5, "processId":"9357c6da-88b3-4a71-b1f9-1ffb13efee2e"}
-    ],
+    "consumptions": [{"amount": 2.5, "processId":"9357c6da-88b3-4a71-b1f9-1ffb13efee2e"}],
     "cooling": false,
     "id": "7109cf4a-a81c-4b7b-a6fb-1e0ffdc20af1",
     "label": "VAEs de 100kg et plus et vélos à moteur (L1e-A)",
@@ -28,9 +24,7 @@
   },
   {
     "assembly": ["c51ab87d-f368-4704-a5ec-7ea17ba87d46"],
-    "consumptions": [
-      {"amount": 4, "processId":"92ba1245-5c8e-49ad-9336-fdd465c6f822"}
-    ],
+    "consumptions": [{"amount": 4, "processId":"92ba1245-5c8e-49ad-9336-fdd465c6f822"}],
     "cooling": false,
     "id": "ed3b8835-7d3d-422a-a7af-4478a2938766",
     "label": "Cyclomoteurs (L1e-B et L2e)",
@@ -38,9 +32,7 @@
   },
   {
     "assembly": ["c51ab87d-f368-4704-a5ec-7ea17ba87d46"],
-    "consumptions": [
-      {"amount": 8, "processId":"f90da3e9-3a58-46b3-93e5-af389217bfc8"}
-    ],
+    "consumptions": [{"amount": 8, "processId":"f90da3e9-3a58-46b3-93e5-af389217bfc8"}],
     "cooling": false,
     "id": "77fea635-0fca-423e-8097-05ea7c165d1b",
     "label": "Motocycles (L3e, L4e, L5e)",
@@ -48,9 +40,7 @@
   },
   {
     "assembly": ["c51ab87d-f368-4704-a5ec-7ea17ba87d46"],
-    "consumptions": [
-      {"amount": 5, "processId":"856c13fc-372b-4c21-a171-8b79e6225e8a"}
-    ],
+    "consumptions": [{"amount": 5, "processId":"856c13fc-372b-4c21-a171-8b79e6225e8a"}],
     "cooling": false,
     "id": "9aa6dc3a-5b0a-4721-8825-2dadab8706ab",
     "label": "Quadricycles légers (L6e)",
@@ -58,9 +48,7 @@
   },
   {
     "assembly": ["c51ab87d-f368-4704-a5ec-7ea17ba87d46"],
-    "consumptions": [
-      {"amount": 6, "processId":"f90da3e9-3a58-46b3-93e5-af389217bfc8"}
-    ],
+    "consumptions": [{"amount": 6, "processId":"f90da3e9-3a58-46b3-93e5-af389217bfc8"}],
     "cooling": false,
     "id": "bacd59a6-fdfe-4480-a6df-69f14b323857",
     "label": "Quadricycles lourd (L7e)",
@@ -68,9 +56,7 @@
   },
   {
     "assembly": ["c51ab87d-f368-4704-a5ec-7ea17ba87d46"],
-    "consumptions": [
-      {"amount": 5.5, "processId":"2fd57bd2-ac17-4deb-bf02-1f4ac620c00c"}
-    ],
+    "consumptions": [{"amount": 5.5, "processId":"2fd57bd2-ac17-4deb-bf02-1f4ac620c00c"}],
     "cooling": false,
     "id": "2f7f24c7-bd0f-4e68-97b7-4a5a97d5a197",
     "label": "Voitures électriques (M1)",
@@ -78,11 +64,6 @@
   },
   {
     "assembly": ["c51ab87d-f368-4704-a5ec-7ea17ba87d46"],
-    "consumptions": [
-      {"amount": 5.5, "processId":"ca2c68db-c76c-4d8c-ab84-2c50036efef9"},
-      {"amount": 5.5, "processId":"28f048f7-9496-4f46-a536-fed45ee73f45"},
-      {"amount": 1, "processId":"8a981011-da2c-4120-bf9e-86cdeb560fbb"}
-    ],
     "cooling": false,
     "id": "6ca5d5a2-fa5d-46b5-b520-179df78046e9",
     "label": "Voitures essence (M1)",
@@ -90,10 +71,6 @@
   },
   {
     "assembly": ["c51ab87d-f368-4704-a5ec-7ea17ba87d46"],
-    "consumptions": [
-      {"amount": 5.5, "processId":"abdcf301-11db-4ced-8ab8-f6592ef60756"},
-      {"amount": 5.5, "processId":"9c894465-b599-41cd-a39e-a69f1699c024"},
-      {"amount": 1, "processId":"58e1c9d2-7b9f-405a-b54e-92c9e9586d45"}],
     "cooling": false,
     "id": "ee81b5d9-c6e7-45e2-ba1c-1f8cb072a224",
     "label": "Voitures diesel (M1)",
