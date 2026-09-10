@@ -808,15 +808,17 @@ components:
             - `eol`: Fin de vie
 
             Par exemple, pour désactiver l'étape de filature ainsi que celle d'ennoblissement, on peut passer `disabledSteps=spinning,ennobling`.
-          enum:
-          - material
-          - spinning
-          - fabric
-          - making
-          - ennobling
-          - distribution
-          - use
-          - eol
+          items:
+            type: string
+            enum:
+            - material
+            - spinning
+            - fabric
+            - making
+            - ennobling
+            - distribution
+            - use
+            - eol
         dyeingProcessType:
           type: string
           description: |

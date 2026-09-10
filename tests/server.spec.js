@@ -69,6 +69,7 @@ describe("API", () => {
         expectStatus(response, 200);
         expect(response.body.openapi).toEqual("3.0.1");
         expect(response.body.info.title).toEqual("API Ecobalyse");
+        expect(response.body.info.version).toEqual(require("../package.json").version);
       });
 
       it("should respond with an HTTP 400 error on invalid JSON provided", async () => {
