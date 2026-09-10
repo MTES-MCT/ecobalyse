@@ -78,6 +78,11 @@
   },
   {
     "assembly": ["c51ab87d-f368-4704-a5ec-7ea17ba87d46"],
+    "consumptions": [
+      { "amount": 5.5, "processId": "ca2c68db-c76c-4d8c-ab84-2c50036efef9" },
+      { "amount": 5.5, "processId": "28f048f7-9496-4f46-a536-fed45ee73f45" },
+      { "amount": 1, "processId": "8a981011-da2c-4120-bf9e-86cdeb560fbb" }
+    ],
     "cooling": false,
     "id": "6ca5d5a2-fa5d-46b5-b520-179df78046e9",
     "label": "Voitures essence (M1)",
@@ -85,6 +90,11 @@
   },
   {
     "assembly": ["c51ab87d-f368-4704-a5ec-7ea17ba87d46"],
+    "consumptions": [
+      { "amount": 5.5, "processId": "abdcf301-11db-4ced-8ab8-f6592ef60756" },
+      { "amount": 5.5, "processId": "9c894465-b599-41cd-a39e-a69f1699c024" },
+      { "amount": 1, "processId": "58e1c9d2-7b9f-405a-b54e-92c9e9586d45" }
+    ],
     "cooling": false,
     "id": "ee81b5d9-c6e7-45e2-ba1c-1f8cb072a224",
     "label": "Voitures diesel (M1)",
