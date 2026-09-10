@@ -98,7 +98,7 @@ PROCESSES = (
 )
 LABELS_PER_GRAPH = 3  # how many worst deviations each graph names
 TABLE_ROWS = 30  # how many lines the deviation table holds
-OUTPUT = Path("output")
+OUTPUT = DATA_ROOT_DIR.parent / "output"
 
 
 def config_toml(files: dict[str, Path]) -> str:
