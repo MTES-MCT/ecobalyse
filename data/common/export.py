@@ -181,7 +181,7 @@ def export_processes_to_dir(
     exported_files = []
 
     logger.info("")
-    logger.info(f"-> Exporting to {dir}")
+    logger.info(f"-> Exporting to {dir_to_export_to}")
     processes_impacts_absolute_path = dir_to_export_to / processes_impacts_path
     processes_ecs_absolute_path = dir_to_export_to / processes_ecs_path
 
