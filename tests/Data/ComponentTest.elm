@@ -1008,7 +1008,7 @@ suite =
                                 ]
                             )
                         , itFromResult "should apply category default assembly operations when computing results"
-                            (findProductCategoryByLabel requirements "Vélos et VAEs de moins de 100kg"
+                            (findProductCategoryByLabel requirements "VAEs de moins de 100kg"
                                 |> Result.andThen
                                     (\categoryProduct ->
                                         """{ "components": [{ "id": "9178fe2e-6944-41d5-ad1b-7abbe8905c48", "quantity": 1 }] }"""
@@ -2682,7 +2682,7 @@ suite =
                                     |> Expect.equal (Just [ Component.consumption (Amount.fromFloat 3) refrigeration.id ])
                             )
                         , itFromResult2 "should apply category default assembly operations when selecting a product"
-                            (findProductCategoryByLabel requirements "Vélos et VAEs de moins de 100kg")
+                            (findProductCategoryByLabel requirements "VAEs de moins de 100kg")
                             (findProcessByLabel requirements "Assemblage")
                             (\categoryProduct assemblage ->
                                 emptyQuery
@@ -2691,7 +2691,7 @@ suite =
                                     |> Expect.equal [ assemblage.id ]
                             )
                         , itFromResult2 "should replace resolved assembly operations when selecting another product category"
-                            (findProductCategoryByLabel requirements "Vélos et VAEs de moins de 100kg")
+                            (findProductCategoryByLabel requirements "VAEs de moins de 100kg")
                             (findProductCategoryByLabel requirements "Charcuterie")
                             (\bikes charcuterie ->
                                 emptyQuery
@@ -2703,7 +2703,7 @@ suite =
                                         ]
                             )
                         , itFromResult "should not reset explicit assembly operations when re-selecting the same product"
-                            (findProductCategoryByLabel requirements "Vélos et VAEs de moins de 100kg")
+                            (findProductCategoryByLabel requirements "VAEs de moins de 100kg")
                             (\categoryProduct ->
                                 emptyQuery
                                     |> Component.updateProduct (Just categoryProduct)
@@ -2716,7 +2716,7 @@ suite =
                                     |> Expect.equal (Just [])
                             )
                         , itFromResult2 "should let an explicit assembly operations list take precedence over the category"
-                            (findProductCategoryByLabel requirements "Vélos et VAEs de moins de 100kg")
+                            (findProductCategoryByLabel requirements "VAEs de moins de 100kg")
                             (findProcessByLabel requirements "Assemblage - calcul réglementaire Score Environnemental VE")
                             (\bikes regulatoryAssemblage ->
                                 { emptyQuery
@@ -2727,7 +2727,7 @@ suite =
                                     |> Expect.equal [ regulatoryAssemblage.id ]
                             )
                         , itFromResult "should let an explicit empty assembly operations list take precedence over the category"
-                            (findProductCategoryByLabel requirements "Vélos et VAEs de moins de 100kg")
+                            (findProductCategoryByLabel requirements "VAEs de moins de 100kg")
                             (\bikes ->
                                 { emptyQuery
                                     | assembly = { emptyAssembly | operations = Just [] }
@@ -2742,7 +2742,7 @@ suite =
                                 |> Expect.equal []
                             )
                         , itFromResult "should preserve explicit assembly operations so deleting them all does not leverage category defaults"
-                            (findProductCategoryByLabel requirements "Vélos et VAEs de moins de 100kg")
+                            (findProductCategoryByLabel requirements "VAEs de moins de 100kg")
                             (\bikes ->
                                 emptyQuery
                                     |> Component.updateProduct (Just bikes)
@@ -2753,7 +2753,7 @@ suite =
                                         ]
                             )
                         , itFromResult2 "should preserve category assembly operations when adding one"
-                            (findProductCategoryByLabel requirements "Vélos et VAEs de moins de 100kg")
+                            (findProductCategoryByLabel requirements "VAEs de moins de 100kg")
                             (findProcessByLabel requirements "Assemblage - calcul réglementaire Score Environnemental VE")
                             (\bikes regulatoryAssemblage ->
                                 emptyQuery
