@@ -28,19 +28,11 @@ from common.import_ import setup_project
 from config import settings
 from ecobalyse_data import s3
 from ecobalyse_data.bw.strategy import noLT, uraniumFRU
+from ecobalyse_data.export.land_occupation import LAND_OCCUPATION_METHOD
 from ecobalyse_data.logging import logger
 
-# Agribalyse 3.2, Ginko, WFLDB and Ecoinvent 3.9.1 carry the legacy SimaPro flow
-# names. EF 3.1 1.03 renamed a number of substances (keeping the same CAS) to newer
-# names, so the new method stopped characterizing the legacy-named biosphere flows: their
-# impact (ozone depletion, freshwater ecotoxicity) would be silently undercounted on
-# those databases. We re-characterize each legacy flow with its modern synonym's
-# factor, so the substance is counted whatever naming vintage a source database uses.
-#
-# Mapping is modern name -> legacy name (as it appears in biosphere3).
-# Every entry must be a clean rename, i.e. the legacy name must
-# be absent from the 1.03 method; add_legacy_flow_synonyms only fills that gap and never
-# overrides a factor the method already defines (which would double-count).
+# Agribalyse 3.2, Ginko, WFLDB and Ecoinvent 3.9.1 carry the legacy SimaPro flow names.
+# EF 3.1 1.03 renamed a number of substances.
 METHOD_FLOW_SYNONYMS = {
     # Ozone depletion (emissions to air)
     "Bromomethane": "Methane, bromo-, Halon 1001",
@@ -53,8 +45,12 @@ METHOD_FLOW_SYNONYMS = {
     "Pyrethrin II": "Pyrethrin",
     "Flupyrsulfuron-methyl sodium": "Flupyrsulfuron-methyl",
     "Flurochloridone": "Fluorochloridone",
-    # Human toxicity, non-cancer: Mecoprop-P keeps its ecotoxicity factor in 1.03 but
-    # lost its human-toxicity one, so the gap-filling guard re-adds it only there.
+    # 1.03 names fluoroglycofen systematically (CAS 77501-60-1)
+    # but the databases name it under its common name
+    "Benzoic acid, 5-[2-chloro-4-(trifluoromethyl)phenoxy]-2-nitro-, "
+    "carboxymethyl ester": "Fluoroglycofen",
+    # Mecoprop-P keeps its ecotoxicity factor in 1.03 but
+    # lost its human-toxicity one
     "Mecoprop": "Mecoprop-P",
 }
 
@@ -130,6 +126,42 @@ def broadcast_mineral_grades(db):
             )
             present.add(key)
     return db
+
+
+# The ecoinvent bw2io LCIA implementation characterizes land occupation through an explicit list
+# of 58 flow names written in ecoinvent's own vocabulary, every one of them at factor 1.
+# The databases we import are SimaPro exports: they name some lands differently.
+def missing_land_occupation_cfs(flows, characterized):
+    """Give a factor of 1 to every land occupation flow the method does not characterize
+    yet. `flows` is an iterable of (key, name), `characterized` the set of keys the method
+    already carries."""
+    NON_LAND_OCCUPATION = ("sea and ocean", "benthos")
+    return [
+        (key, 1)
+        for key, name in flows
+        if name.startswith("Occupation, ")
+        and key not in characterized
+        and not any(sea in name for sea in NON_LAND_OCCUPATION)
+    ]
+
+
+def characterize_remaining_land_occupation() -> None:
+    """Extend the land occupation method
+    to the occupation flows of the imported databases
+    Idempotent: a second run adds nothing."""
+    method = bw2data.Method(LAND_OCCUPATION_METHOD)
+    cfs = method.load()
+    added = missing_land_occupation_cfs(
+        (
+            (flow.key, flow["name"])
+            for flow in bw2data.Database(settings.bw.BIOSPHERE)  # ty: ignore[not-iterable]
+            if (flow.get("categories") or (None,))[0] == "natural resource"
+        ),
+        # The stored factors carry their flow as a list, the biosphere as a tuple.
+        {tuple(cf[0]) for cf in cfs},
+    )
+    logger.info(f"-> Characterizing {len(added)} more land occupation flows")
+    method.write(cfs + added)
 
 
 def report_dropped_cfs(importer) -> None:
@@ -303,3 +335,4 @@ if __name__ == "__main__":
     # because the method happens to exist is how a stale method silently stops counting
     # the substances a freshly imported database emits.
     import_method()
+    characterize_remaining_land_occupation()
