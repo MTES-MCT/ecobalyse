@@ -69,7 +69,7 @@
   {
     "assembly": ["c51ab87d-f368-4704-a5ec-7ea17ba87d46"],
     "consumptions": [
-      { "amount": 5.5, "processId": "2fd57bd2-ac17-4deb-bf02-1f4ac620c00c" }
+      { "amount": 15, "processId": "2fd57bd2-ac17-4deb-bf02-1f4ac620c00c" }
     ],
     "cooling": false,
     "id": "2f7f24c7-bd0f-4e68-97b7-4a5a97d5a197",
@@ -92,8 +92,8 @@
     "assembly": ["c51ab87d-f368-4704-a5ec-7ea17ba87d46"],
     "consumptions": [
       { "amount": 5.5, "processId": "abdcf301-11db-4ced-8ab8-f6592ef60756" },
-      { "amount": 5.5, "processId": "9c894465-b599-41cd-a39e-a69f1699c024" },
-      { "amount": 1, "processId": "58e1c9d2-7b9f-405a-b54e-92c9e9586d45" }
+      { "amount": 5.5, "processId": "58e1c9d2-7b9f-405a-b54e-92c9e9586d45" },
+      { "amount": 1, "processId": "9c894465-b599-41cd-a39e-a69f1699c024" }
     ],
     "cooling": false,
     "id": "ee81b5d9-c6e7-45e2-ba1c-1f8cb072a224",
