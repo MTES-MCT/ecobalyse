@@ -4,6 +4,7 @@
   "displayName": "Eau de source Origine Inconnue",
   "id": "47e8165a-1e55-5f8f-a1d3-5ace4fa34ec2",
   "location": "ZA",
+  "massPerUnit": 1,
   "metadata": [
     {
       "alias": "spring-water-default",
