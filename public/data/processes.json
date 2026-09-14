@@ -22869,7 +22869,7 @@
     "id": "86c135b5-3be1-539b-8abc-1a4ecb83f793",
     "impacts": { "ecs": 0.2274 },
     "location": "FR",
-    "massPerUnit": null,
+    "massPerUnit": 1.0,
     "qtyVariationRatio": 1.0,
     "scopes": ["food"],
     "source": "Agribalyse 3.2",
@@ -22887,7 +22887,7 @@
     "impacts": { "ecs": 0.2274 },
     "landOccupation": 0.0001296,
     "location": "FR",
-    "massPerUnit": null,
+    "massPerUnit": 1.0,
     "metadata": {
       "complements": {
         "cropDiversity": 0,
@@ -36232,7 +36232,7 @@
     "id": "47e8165a-1e55-5f8f-a1d3-5ace4fa34ec2",
     "impacts": { "ecs": 0.2954 },
     "location": "ZA",
-    "massPerUnit": null,
+    "massPerUnit": 1.0,
     "qtyVariationRatio": 1.0,
     "scopes": ["food"],
     "source": "Agribalyse 3.2",
@@ -36250,7 +36250,7 @@
     "impacts": { "ecs": 0.2954 },
     "landOccupation": 3.067e-05,
     "location": "ZA",
-    "massPerUnit": null,
+    "massPerUnit": 1.0,
     "metadata": {
       "complements": { "cropDiversity": 0, "hedges": 0, "permanentPasture": null, "plotSize": 0 },
       "defaultOrigin": null,
@@ -39186,7 +39186,7 @@
     "id": "94505f63-f1b7-5f74-933a-611ab0d8fa60",
     "impacts": { "ecs": 0.2274 },
     "location": "FR",
-    "massPerUnit": null,
+    "massPerUnit": 1.0,
     "qtyVariationRatio": 1.0,
     "scopes": ["food"],
     "source": "Agribalyse 3.2",
@@ -39204,7 +39204,7 @@
     "impacts": { "ecs": 0.2274 },
     "landOccupation": 0.0001296,
     "location": "FR",
-    "massPerUnit": null,
+    "massPerUnit": 1.0,
     "metadata": {
       "complements": { "cropDiversity": 0, "hedges": 0, "permanentPasture": null, "plotSize": 0 },
       "defaultOrigin": "REM",
@@ -39233,7 +39233,7 @@
     "impacts": { "ecs": 0.2274 },
     "landOccupation": 0.0001296,
     "location": "FR",
-    "massPerUnit": null,
+    "massPerUnit": 1.0,
     "metadata": {
       "complements": { "cropDiversity": 0, "hedges": 0, "permanentPasture": null, "plotSize": 0 },
       "defaultOrigin": null,
