@@ -38,7 +38,7 @@ Pour les vélos à assistance électrique, un indice de réparabilité réglemen
 {% endhint %}
 
 {% hint style="info" %}
-Un indice de réparabilité automobile est en cours d'élaboration par un groupe de travail de l'association Mobilians ([voir article](https://www.auto-infos.fr/article/les-independants-posent-les-bases-d-un-futur-indice-de-reparabilite-automobile.286910)). France Assureur a également annoncé la création d'un indice de réparabilité automobile, dont la conception est confiée à l'association SRA, regroupant les entreprises d'assurance automobile ([voir communiqué](https://www.franceassureurs.fr/espace-presse/transition-vers-le-vehicule-electrique-quels-impacts-pour-lassurance-quelles-propositions-pour-preserver-une-assurance-automobile-accessible-a-tous/)).
+Plusieurs indices de réparabilité automobile sont en cours d'élaboration ([Mobilians](https://www.auto-infos.fr/article/les-independants-posent-les-bases-d-un-futur-indice-de-reparabilite-automobile.286910), [France Assureur via SRA](https://www.franceassureurs.fr/espace-presse/transition-vers-le-vehicule-electrique-quels-impacts-pour-lassurance-quelles-propositions-pour-preserver-une-assurance-automobile-accessible-a-tous/) notamment). L'ADEME suit ces travaux en vue d'en assurer une cohérence et d'aboutir à un outil reconnu par l'Etat.
 {% endhint %}
 
 ### Durabilité non physique
@@ -57,13 +57,30 @@ Un coefficient de durabilité physique `C_physique` est établi à partir à par
 
 Le calcul du coefficient de durabilité des velis n'est pas intégré dans la calculette Ecobalyse. Il doit être réalisé séparément avec la grille d'analyse ci-dessous, puis reportée dans la calculette :
 
+{% file src="../.gitbook/assets/XD_Coefficient durabilité 20260914 v5.0.xlsx" %}
+
+<details>
+
+<summary>Archives</summary>
+
+Nouveauté v5 : intégration du règlement UE 2026/173 relatif à la circularité
+
 {% file src="../.gitbook/assets/XD_Coefficient durabilité 20260622 v4.0.xlsx" %}
+
+Nouveautés v4 :&#x20;
+
+* Simplification en vue de rendre le calcul plus facile
+* Différentiation des critères et pondérations entre trois types de velis, au regard des différences de réglementations applicables, avec notamment une meilleure intégration du règlement batterie batterie UE 2023/1542
+
+{% file src="../.gitbook/assets/XD_GT_ACV_Coefficient durabilité 20241118 v3.0.xlsx" %}
+
+</details>
 
 ### Voitures
 
 Ecobalyse ne mène aujourd'hui aucun projet de construction d'un coefficient de durabilité pour les voitures.
 
-A court terme, il est proposé à titre exploratoire de fixer le coefficient de durabilité physique `C_physique` par défaut à 1 et de le corriger comme suit, sans pouvoir être inférieur à `Coef_min` :
+A court terme, il est possible à titre exploratoire de fixer le coefficient de durabilité physique `C_physique` par défaut à 1 et de le corriger comme suit, sans pouvoir être inférieur à `Coef_min` :
 
 | Caractéristique                                          | Correction de C\_physique |
 | -------------------------------------------------------- | ------------------------- |
