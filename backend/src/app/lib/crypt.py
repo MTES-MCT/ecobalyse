@@ -3,7 +3,6 @@ from __future__ import annotations
 import asyncio
 import base64
 
-from asyncstdlib.functools import cache
 from pwdlib import PasswordHash
 from pwdlib.hashers.argon2 import Argon2Hasher
 
@@ -24,7 +23,6 @@ def get_encryption_key(secret: str) -> bytes:
     return base64.urlsafe_b64encode(secret.encode())
 
 
-@cache
 async def get_password_hash(password: str | bytes) -> str:
     """Get password hash.
 
@@ -38,7 +36,6 @@ async def get_password_hash(password: str | bytes) -> str:
     )
 
 
-@cache
 async def verify_password(plain_password: str | bytes, hashed_password: str) -> bool:
     """Verify Password.
 
