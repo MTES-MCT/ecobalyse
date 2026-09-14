@@ -36,7 +36,9 @@ async def get_password_hash(password: str | bytes) -> str:
     )
 
 
-async def verify_password(plain_password: str | bytes, hashed_password: str) -> bool:
+async def verify_password(
+    plain_password: str | bytes, hashed_password: str | None
+) -> bool:
     """Verify Password.
 
     Args:
