@@ -36,9 +36,8 @@ PLOTS_DIR = OUTPUT_DIR / "ingredient_plots"
 BOOKMARKS_DIR = OUTPUT_DIR / "bookmarks"
 LCI_CATALOG_DIR = PROJECT_ROOT / "data" / "lci_catalog"
 GITHUB_LCI_CATALOG_URL = (
-    "https://github.com/MTES-MCT/ecobalyse/blob/master/data/lci_catalog"
+    "https://github.com/MTES-MCT/ecobalyse/blob/main/data/lci_catalog"
 )
-EXPLORER_PROCESS_URL = "https://ecobalyse.beta.gouv.fr/#/explore/food2/food2-processes"
 
 # --- Sanity checks ---
 #
@@ -101,13 +100,11 @@ class Anomaly(TypedDict):
     expected_lower_ecs: float
     expected_lower_activity_name: str
     expected_lower_display_name: str
-    expected_lower_explorer: str
     expected_lower_lci_catalog: str | None
     expected_higher_variant: str
     expected_higher_ecs: float
     expected_higher_activity_name: str
     expected_higher_display_name: str
-    expected_higher_explorer: str
     expected_higher_lci_catalog: str | None
 
 
@@ -223,14 +220,12 @@ def build_anomaly(
         "expected_higher_variant": expected_higher["alias"],
         "expected_higher_activity_name": expected_higher["activityName"],
         "expected_higher_display_name": expected_higher["displayName"],
-        "expected_higher_explorer": f"{EXPLORER_PROCESS_URL}/{expected_higher['id']}",
         "expected_higher_lci_catalog": lci_catalog_url(
             expected_higher["id"], lci_index
         ),
         "expected_lower_variant": expected_lower["alias"],
         "expected_lower_activity_name": expected_lower["activityName"],
         "expected_lower_display_name": expected_lower["displayName"],
-        "expected_lower_explorer": f"{EXPLORER_PROCESS_URL}/{expected_lower['id']}",
         "expected_lower_lci_catalog": lci_catalog_url(expected_lower["id"], lci_index),
     }
 
