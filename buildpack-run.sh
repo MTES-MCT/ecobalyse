@@ -14,6 +14,7 @@ mkdir ecobalyse
 cd ecobalyse
 # Trick to avoid cloning the whole repo
 # Instead, only fetch the current commit
+git config --global init.defaultBranch main
 git init
 git remote add origin https://github.com/MTES-MCT/ecobalyse.git
 # depth=1 as we don't need the history
