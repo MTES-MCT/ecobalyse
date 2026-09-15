@@ -6,6 +6,7 @@ import Data.Db exposing (Db)
 import Data.Example as Example
 import Data.Food.Preparation as Preparation
 import Data.Food.Query as FoodQuery exposing (PackagingAmount(..))
+import Data.Scope as Scope
 import Data.Split as Split
 import Data.Textile.Material as Material
 import Data.Textile.Product as Product
@@ -17,7 +18,15 @@ import Json.Encode as Encode
 import Mass
 import Server.Route as Route
 import Test exposing (..)
-import TestUtils exposing (asTest, createServerRequest, suiteFromResult, suiteWithDb, tShirtCotonFrance)
+import TestUtils
+    exposing
+        ( asTest
+        , componentConfig
+        , createServerRequest
+        , suiteFromResult
+        , suiteWithDb
+        , tShirtCotonFrance
+        )
 
 
 suite : Test
@@ -26,6 +35,8 @@ suite =
         (\db ->
             [ foodEndpoints db
                 |> describe "Food"
+            , genericEndpoints db
+                |> describe "Generic"
             , textileEndpoints db
                 |> describe "Textile"
             ]
@@ -107,6 +118,79 @@ foodEndpoints db =
                     |> asTest "validate a preparation list length"
                 ]
             ]
+
+
+genericEndpoints : Db -> List Test
+genericEndpoints db =
+    [ suiteFromResult "Generic endpoints"
+        (db.generic.examples
+            |> Example.findByName "Boîte en plastique (1,2 kg)"
+            |> Result.map .query
+        )
+        (\query ->
+            [ describe "GET endpoints"
+                [ Encode.null
+                    |> testEndpoint db
+                        { method = "GET"
+                        , protocol = "http"
+                        , host = "fqdn"
+                        , url = "/object/countries"
+                        , version = Nothing
+                        }
+                    |> Expect.equal (Just (Route.GenericGetCountryList Scope.Object))
+                    |> asTest "map GET /object/countries"
+                , Encode.null
+                    |> testEndpoint db
+                        { method = "GET"
+                        , protocol = "http"
+                        , host = "fqdn"
+                        , url = "/food2/categories"
+                        , version = Nothing
+                        }
+                    |> Expect.equal (Just (Route.GenericGetCategoryList Scope.Food2))
+                    |> asTest "map GET /food2/categories"
+                , Encode.null
+                    |> testEndpoint db
+                        { method = "GET"
+                        , protocol = "http"
+                        , host = "fqdn"
+                        , url = "/veli/catalog"
+                        , version = Nothing
+                        }
+                    |> Expect.equal (Just (Route.GenericGetCatalogList Scope.Veli))
+                    |> asTest "map GET /veli/catalog"
+                , Encode.null
+                    |> testEndpoint db
+                        { method = "GET"
+                        , protocol = "http"
+                        , host = "fqdn"
+                        , url = "/object/processes/assembly"
+                        , version = Nothing
+                        }
+                    |> Expect.equal (Just (Route.GenericGetAssemblyList Scope.Object))
+                    |> asTest "map GET /object/processes/assembly"
+                ]
+            , describe "POST endpoints"
+                [ Component.encodeQuery query
+                    |> testGenericEndpoint db "/object/simulator"
+                    |> Expect.equal (Just (Route.GenericPostSimulator Scope.Object (Ok query)))
+                    |> asTest "map POST /object/simulator"
+                , Encode.object []
+                    |> testGenericEndpoint db "/object/simulator"
+                    |> Expect.equal (Just (Route.GenericPostSimulator Scope.Object (Ok Component.emptyQuery)))
+                    |> asTest "accept an empty JSON object"
+                , Encode.object [ ( "components", Encode.list Encode.string [] ) ]
+                    |> testGenericEndpoint db "/object/simulator"
+                    |> Expect.equal (Just (Route.GenericPostSimulator Scope.Object (Ok Component.emptyQuery)))
+                    |> asTest "accept an empty components list"
+                , Encode.null
+                    |> testGenericEndpoint db "/object/simulator"
+                    |> expectGenericValidationError "decoding" "Expecting an OBJECT with a field named `components`"
+                    |> asTest "fail on invalid query passed"
+                ]
+            ]
+        )
+    ]
 
 
 textileEndpoints : Db -> List Test
@@ -323,9 +407,14 @@ testEndpoint :
         }
     -> Encode.Value
     -> Maybe Route.Route
-testEndpoint dbs params =
-    createServerRequest dbs params
-        >> Route.endpoint dbs
+testEndpoint dbs params body =
+    case componentConfig dbs of
+        Ok config ->
+            createServerRequest dbs params body
+                |> Route.endpoint dbs config
+
+        Err _ ->
+            Nothing
 
 
 testFoodEndpoint : Db -> Encode.Value -> Maybe Route.Route
@@ -350,6 +439,17 @@ testTextileEndpoint dbs =
         }
 
 
+testGenericEndpoint : Db -> String -> Encode.Value -> Maybe Route.Route
+testGenericEndpoint dbs url =
+    testEndpoint dbs
+        { method = "POST"
+        , protocol = "http"
+        , host = "fqdn"
+        , url = url
+        , version = Nothing
+        }
+
+
 expectFoodValidationError : String -> String -> Maybe Route.Route -> Expect.Expectation
 expectFoodValidationError key message route =
     case route of
@@ -364,6 +464,16 @@ expectTextileValidationError : String -> String -> Maybe Route.Route -> Expect.E
 expectTextileValidationError key message route =
     case route of
         Just (Route.TextilePostSimulator (Err errors)) ->
+            errors |> expectValidationError key message
+
+        _ ->
+            Expect.fail <| "No matching error found: " ++ Debug.toString route
+
+
+expectGenericValidationError : String -> String -> Maybe Route.Route -> Expect.Expectation
+expectGenericValidationError key message route =
+    case route of
+        Just (Route.GenericPostSimulator _ (Err errors)) ->
             errors |> expectValidationError key message
 
         _ ->

@@ -3,11 +3,14 @@ module Server.Route exposing
     , endpoint
     )
 
+import Data.Common.DecodeUtils as DecodeUtils
+import Data.Component as Component
 import Data.Db exposing (Db)
 import Data.Food.Query as FoodQuery
 import Data.Food.Validation as FoodValidation
 import Data.Impact as Impact
 import Data.Impact.Definition as Definition
+import Data.Scope as Scope exposing (GenericScope)
 import Data.Textile.Query as TextileQuery
 import Data.Textile.Validation as TextileValidation
 import Data.Validation as Validation
@@ -39,6 +42,20 @@ type Route
       --     Food recipe builder (POST, JSON body)
     | FoodPostRecipe (Result Validation.Errors FoodQuery.Query)
       --
+      -- Generic Routes
+      --   GET
+    | GenericGetAssemblyList GenericScope
+    | GenericGetCatalogList GenericScope
+    | GenericGetCategoryList GenericScope
+    | GenericGetConsumptionList GenericScope
+    | GenericGetCountryList GenericScope
+    | GenericGetDistributionList GenericScope
+    | GenericGetMaterialList GenericScope
+    | GenericGetPackagingList GenericScope
+    | GenericGetTransformList GenericScope
+      --   POST
+    | GenericPostSimulator GenericScope (Result Validation.Errors Component.Query)
+      --
       -- Textile Routes
       --   GET
       --     Textile country list
@@ -58,8 +75,66 @@ type Route
     | TextilePostSimulatorSingle (Result Validation.Errors TextileQuery.Query) Definition.Trigram
 
 
-parser : Db -> Encode.Value -> Parser (Route -> a) a
-parser db body =
+decodeFoodQueryBody : Db -> Encode.Value -> Result Validation.Errors FoodQuery.Query
+decodeFoodQueryBody db =
+    Decode.decodeValue FoodQuery.decode
+        >> Result.mapError Validation.fromDecodingError
+        >> Result.andThen (FoodValidation.validate db)
+
+
+decodeGenericQuery : Encode.Value -> Result Validation.Errors Component.Query
+decodeGenericQuery body =
+    if DecodeUtils.isEmptyObject body then
+        -- If the json body is an empty object, return an empty query
+        Ok Component.emptyQuery
+
+    else
+        body
+            |> Decode.decodeValue Component.decodeQuery
+            |> Result.mapError Validation.fromDecodingError
+
+
+decodeGenericQueryBody : Component.Config -> Db -> GenericScope -> Encode.Value -> Result Validation.Errors Component.Query
+decodeGenericQueryBody config db genericScope body =
+    decodeGenericQuery body
+        |> Result.andThen
+            (Component.validateQuery
+                { config = config
+                , db = db
+                , scope = Scope.Generic genericScope
+                }
+                >> Result.mapError Validation.fromErrorString
+            )
+
+
+decodeTextileQueryBody : Db -> Encode.Value -> Result Validation.Errors TextileQuery.Query
+decodeTextileQueryBody db =
+    Decode.decodeValue TextileQuery.decode
+        >> Result.mapError Validation.fromDecodingError
+        >> Result.andThen (TextileValidation.validate db)
+
+
+endpoint : Db -> Component.Config -> Request -> Maybe Route
+endpoint db config { body, method, url } =
+    -- Notes:
+    -- - Url.fromString can't build a Url without a fully qualified URL, so as we only have the
+    --   request path from Express, we build a fake URL with a fake protocol and hostname.
+    -- - We update the path appending the HTTP method to it, for simpler, cheaper route parsing.
+    Url.fromString ("http://x/" ++ method ++ url)
+        |> Maybe.andThen (Parser.parse (parser db config body))
+
+
+genericGet : List String -> (GenericScope -> Route) -> Parser (Route -> a) a
+genericGet path toRoute =
+    path
+        |> List.foldl
+            (\segment parser_ -> parser_ </> s segment)
+            (s "GET" </> Scope.parseGeneric)
+        |> Parser.map toRoute
+
+
+parser : Db -> Component.Config -> Encode.Value -> Parser (Route -> a) a
+parser db config body =
     Parser.oneOf
         [ -- Food
           (s "GET" </> s "food" </> s "countries")
@@ -72,6 +147,24 @@ parser db body =
             |> Parser.map FoodGetPackagingList
         , (s "POST" </> s "food")
             |> Parser.map (FoodPostRecipe (decodeFoodQueryBody db body))
+
+        -- Generic
+        , genericGet [ "catalog" ] GenericGetCatalogList
+        , genericGet [ "categories" ] GenericGetCategoryList
+        , genericGet [ "countries" ] GenericGetCountryList
+        , genericGet [ "processes", "assembly" ] GenericGetAssemblyList
+        , genericGet [ "processes", "consumption" ] GenericGetConsumptionList
+        , genericGet [ "processes", "distribution" ] GenericGetDistributionList
+        , genericGet [ "processes", "material" ] GenericGetMaterialList
+        , genericGet [ "processes", "packaging" ] GenericGetPackagingList
+        , genericGet [ "processes", "transform" ] GenericGetTransformList
+        , (s "POST" </> Scope.parseGeneric </> s "simulator")
+            |> Parser.map
+                (\genericScope ->
+                    body
+                        |> decodeGenericQueryBody config db genericScope
+                        |> GenericPostSimulator genericScope
+                )
 
         -- Textile
         , (s "GET" </> s "textile" </> s "countries")
@@ -89,27 +182,3 @@ parser db body =
         , (s "POST" </> s "textile" </> s "simulator" </> Impact.parseTrigram)
             |> Parser.map (TextilePostSimulatorSingle (decodeTextileQueryBody db body))
         ]
-
-
-decodeFoodQueryBody : Db -> Encode.Value -> Result Validation.Errors FoodQuery.Query
-decodeFoodQueryBody db =
-    Decode.decodeValue FoodQuery.decode
-        >> Result.mapError Validation.fromDecodingError
-        >> Result.andThen (FoodValidation.validate db)
-
-
-decodeTextileQueryBody : Db -> Encode.Value -> Result Validation.Errors TextileQuery.Query
-decodeTextileQueryBody db =
-    Decode.decodeValue TextileQuery.decode
-        >> Result.mapError Validation.fromDecodingError
-        >> Result.andThen (TextileValidation.validate db)
-
-
-endpoint : Db -> Request -> Maybe Route
-endpoint db { body, method, url } =
-    -- Notes:
-    -- - Url.fromString can't build a Url without a fully qualified URL, so as we only have the
-    --   request path from Express, we build a fake URL with a fake protocol and hostname.
-    -- - We update the path appending the HTTP method to it, for simpler, cheaper route parsing.
-    Url.fromString ("http://x/" ++ method ++ url)
-        |> Maybe.andThen (Parser.parse (parser db body))

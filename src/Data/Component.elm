@@ -110,6 +110,7 @@ module Data.Component exposing
     , productionItemToLabel
     , quantityFromInt
     , quantityToInt
+    , queryToString
     , removeAssemblyOperation
     , removeConsumption
     , removeElement
@@ -214,9 +215,13 @@ type alias Query =
     -- reuse existing mechanics and handle holistic durability like it's implemented for textile,
     -- though it's still an ongoing discussion and we need to move forward and iterate.
     , durability : Maybe Unit.Ratio
+
+    -- FIXME: Rename to composition? or production?
     , items : List Item
     , packagings : List Packaging
     , product : Maybe ProductCategory.Id
+
+    -- FIXME: this should be Maybe Bool so we could have a product category default value
     , recyclable : Bool
     , transportOptions : TransportOptions
     }
@@ -265,6 +270,12 @@ type alias ExpandedItem =
     }
 
 
+{-| FIXME: find a better name for this type
+
+This is used to represent a custom/altered component, which is a component that is not part of the database.
+It is also used to override the component name in the production tbale as well as the elements and quantity.
+
+-}
 type alias Custom =
     { elements : List Element
     , name : Maybe String
@@ -559,6 +570,14 @@ addResults (Results results) (Results acc) =
             , mass = Quantity.sum [ results.mass, acc.mass ]
             , stage = Nothing
         }
+
+
+amountProcessToString : Amount -> Process -> String
+amountProcessToString amount process =
+    Format.formatFloat 5 (Amount.toFloat amount)
+        ++ Process.unitToString process.unit
+        ++ " "
+        ++ Process.getDisplayName process
 
 
 {-| Sequencially apply assembly processes to existing Results initialized from product mass.
@@ -1491,13 +1510,7 @@ elementToString : List Process -> Element -> Result String String
 elementToString processes element =
     processes
         |> Process.findById element.material.id
-        |> Result.map
-            (\process ->
-                Format.formatFloat 5 (Amount.toFloat element.amount)
-                    ++ Process.unitToString process.unit
-                    ++ " "
-                    ++ Process.getDisplayName process
-            )
+        |> Result.map (amountProcessToString element.amount)
 
 
 elementTransforms : TargetElement -> List Item -> List Process.Id
@@ -1520,6 +1533,17 @@ emptyAssembly : Assembly
 emptyAssembly =
     { country = Nothing
     , operations = Nothing
+    }
+
+
+emptyComponent : Component
+emptyComponent =
+    { comment = Nothing
+    , elements = []
+    , id = Nothing
+    , name = ""
+    , published = False
+    , scope = Scope.Generic Scope.Object
     }
 
 
@@ -1627,19 +1651,30 @@ encodeCustom custom =
 
 encodeElement : Element -> Encode.Value
 encodeElement element =
-    Encode.object
-        [ ( "amount", Amount.encode element.amount )
-        , ( "material", encodeLocalizedProcess element.material )
-        , ( "transforms", element.transforms |> Encode.list encodeTransform )
+    EU.optionalPropertiesObject
+        [ ( "amount", Amount.encode element.amount |> Just )
+        , ( "material", encodeLocalizedProcess element.material |> Just )
+        , ( "transforms"
+          , if List.isEmpty element.transforms then
+                Nothing
+
+            else
+                Just (element.transforms |> Encode.list encodeTransform)
+          )
         ]
 
 
 encodeLocalizedProcess : LocalizedProcess -> Encode.Value
 encodeLocalizedProcess localizedProcess =
-    EU.optionalPropertiesObject
-        [ ( "country", localizedProcess.country |> Maybe.map CountryCode.encode )
-        , ( "id", localizedProcess.id |> Process.encodeId |> Just )
-        ]
+    case localizedProcess.country of
+        Just country ->
+            Encode.object
+                [ ( "country", CountryCode.encode country )
+                , ( "id", Process.encodeId localizedProcess.id )
+                ]
+
+        Nothing ->
+            Process.encodeId localizedProcess.id
 
 
 encodePackaging : Packaging -> Encode.Value
@@ -1670,6 +1705,8 @@ encodeItem item =
     EU.optionalPropertiesObject
         [ ( "id", item.id |> Maybe.map (idToString >> Encode.string) )
         , ( "quantity", item.quantity |> quantityToInt |> Encode.int |> Just )
+
+        -- FIXME: find a better name than custom, or better: a native way to encode/decode altered/modified components
         , ( "custom", item.custom |> Maybe.map encodeCustom )
         ]
 
@@ -2458,17 +2495,6 @@ itemToComponent { components } { custom, id } =
             custom |> componentFromCustom Nothing |> Ok
 
 
-emptyComponent : Component
-emptyComponent =
-    { comment = Nothing
-    , elements = []
-    , id = Nothing
-    , name = ""
-    , published = False
-    , scope = Scope.Generic Scope.Object
-    }
-
-
 itemToString : DataContainer db -> Item -> Result String String
 itemToString db { custom, id, quantity } =
     let
@@ -2500,7 +2526,6 @@ itemToString db { custom, id, quantity } =
 
 itemsToString : DataContainer db -> List Item -> Result String String
 itemsToString db =
-    -- FIXME: handle query
     RE.combineMap (itemToString db)
         >> Result.map (String.join ", ")
 
@@ -2578,6 +2603,14 @@ productionItemToLabel productionItem =
             Process.getDisplayName process
 
 
+quantifiedProcessesToString : String -> List ExpandedQuantifiedProcess -> String
+quantifiedProcessesToString label processes =
+    processes
+        |> List.map (\{ amount, process } -> amountProcessToString amount process)
+        |> String.join ", "
+        |> (++) (label ++ "\u{00A0}: ")
+
+
 quantityFromInt : Int -> Quantity
 quantityFromInt int =
     Quantity int
@@ -2586,6 +2619,114 @@ quantityFromInt int =
 quantityToInt : Quantity -> Int
 quantityToInt (Quantity int) =
     int
+
+
+queryAssemblyToString : DataContainer db -> Assembly -> Result String (Maybe String)
+queryAssemblyToString db { country, operations } =
+    Result.map2
+        (\maybeCountry maybeOperations ->
+            case ( maybeCountry, maybeOperations ) of
+                ( Nothing, Nothing ) ->
+                    Nothing
+
+                ( Just name, Nothing ) ->
+                    Just ("Assemblage (" ++ name ++ ")")
+
+                ( Nothing, Just ops ) ->
+                    Just ("Assemblage\u{00A0}: " ++ ops)
+
+                ( Just name, Just ops ) ->
+                    Just ("Assemblage (" ++ name ++ ")\u{00A0}: " ++ ops)
+        )
+        (case country of
+            Just code ->
+                Country.findByCode code db.countries
+                    |> Result.map (.name >> Just)
+
+            Nothing ->
+                Ok Nothing
+        )
+        (case operations of
+            Just [] ->
+                Ok (Just "aucun")
+
+            Just ids ->
+                ids
+                    |> RE.combineMap (\id -> Process.findById id db.processes |> Result.map Process.getDisplayName)
+                    |> Result.map (String.join ", " >> Just)
+
+            Nothing ->
+                Ok Nothing
+        )
+
+
+queryConsumptionsToString : DataContainer db -> Maybe (List Consumption) -> Result String (Maybe String)
+queryConsumptionsToString db maybeConsumptions =
+    case maybeConsumptions of
+        Just [] ->
+            Ok Nothing
+
+        Just consumptions ->
+            expandConsumptions db.processes consumptions
+                |> Result.map (quantifiedProcessesToString "Consommation" >> Just)
+
+        Nothing ->
+            Ok Nothing
+
+
+queryDistributionToString : DataContainer db -> Maybe Process.Id -> Result String (Maybe String)
+queryDistributionToString db maybeProcessId =
+    case maybeProcessId of
+        Just processId ->
+            Process.findById processId db.processes
+                |> Result.map (\process -> Just ("Distribution\u{00A0}: " ++ Process.getDisplayName process))
+
+        Nothing ->
+            Ok Nothing
+
+
+queryItemsToString : DataContainer db -> List Item -> Result String (Maybe String)
+queryItemsToString db items =
+    if List.isEmpty items then
+        Ok Nothing
+
+    else
+        itemsToString db items
+            |> Result.map Just
+
+
+queryPackagingsToString : DataContainer db -> List Packaging -> Result String (Maybe String)
+queryPackagingsToString db packagings =
+    if List.isEmpty packagings then
+        Ok Nothing
+
+    else
+        expandPackagings db.processes packagings
+            |> Result.map (quantifiedProcessesToString "Emballage" >> Just)
+
+
+queryProductToString : DataContainer db -> Maybe ProductCategory.Id -> Result String (Maybe String)
+queryProductToString db maybeProductId =
+    case maybeProductId of
+        Just productId ->
+            ProductCategory.findById productId db.products
+                |> Result.map (.label >> Just)
+
+        Nothing ->
+            Ok Nothing
+
+
+queryToString : DataContainer db -> Query -> Result String String
+queryToString db query =
+    [ queryProductToString db query.product
+    , queryItemsToString db query.items
+    , queryAssemblyToString db query.assembly
+    , queryPackagingsToString db query.packagings
+    , queryDistributionToString db query.distribution
+    , queryConsumptionsToString db query.consumptions
+    ]
+        |> RE.combine
+        |> Result.map (List.filterMap identity >> String.join ", ")
 
 
 removeAssemblyOperation : Requirements db -> Index -> Query -> Query
