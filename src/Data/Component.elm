@@ -218,6 +218,8 @@ type alias Query =
     , items : List Item
     , packagings : List Packaging
     , product : Maybe ProductCategory.Id
+
+    -- FIXME: this should be Maybe Bool so we could have a product category default value
     , recyclable : Bool
     , transportOptions : TransportOptions
     }
@@ -1641,10 +1643,16 @@ encodeCustom custom =
 
 encodeElement : Element -> Encode.Value
 encodeElement element =
-    Encode.object
-        [ ( "amount", Amount.encode element.amount )
-        , ( "material", encodeLocalizedProcess element.material )
-        , ( "transforms", element.transforms |> Encode.list encodeTransform )
+    EU.optionalPropertiesObject
+        [ ( "amount", Amount.encode element.amount |> Just )
+        , ( "material", encodeLocalizedProcess element.material |> Just )
+        , ( "transforms"
+          , if List.isEmpty element.transforms then
+                Nothing
+
+            else
+                Just (element.transforms |> Encode.list encodeTransform)
+          )
         ]
 
 
