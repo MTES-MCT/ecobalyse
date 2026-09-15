@@ -5,7 +5,7 @@ import Data.Db exposing (Db)
 import Data.Textile.Inputs as Inputs
 import Data.Textile.LifeCycle as LifeCycle exposing (LifeCycle)
 import Data.Textile.Query exposing (Query)
-import Data.Textile.Stage.Label as Label
+import Data.Textile.Stage.Label as Label exposing (Label)
 import Expect
 import Json.Decode as Decode
 import Length
@@ -87,7 +87,7 @@ suite =
                     tShirtCotonFrance
                     (\query ->
                         [ encodedStageLabels db query
-                            |> Expect.equal (Ok (List.map Label.toString Label.all))
+                            |> Expect.equal (Ok (List.map Label.toString stageLabelsInOrder))
                             |> asTest "include all stages by default"
                         ]
                     )
@@ -97,7 +97,7 @@ suite =
                         [ encodedStageLabels db { query | disabledStages = [ Label.Ennobling ] }
                             |> Expect.equal
                                 (Ok
-                                    (Label.all
+                                    (stageLabelsInOrder
                                         |> List.filter ((/=) Label.Ennobling)
                                         |> List.map Label.toString
                                     )
@@ -111,7 +111,7 @@ suite =
                         [ encodedStageLabels db { query | upcycled = True }
                             |> Expect.equal
                                 (Ok
-                                    (Label.all
+                                    (stageLabelsInOrder
                                         |> List.filter (\label -> not (List.member label Label.upcyclables))
                                         |> List.map Label.toString
                                     )
@@ -125,7 +125,7 @@ suite =
                         [ encodedStageLabels db { query | disabledStages = [ Label.Use ], upcycled = True }
                             |> Expect.equal
                                 (Ok
-                                    (Label.all
+                                    (stageLabelsInOrder
                                         |> List.filter (\label -> not (List.member label (Label.Use :: Label.upcyclables)))
                                         |> List.map Label.toString
                                     )
@@ -136,3 +136,18 @@ suite =
                 ]
             ]
         )
+
+
+{-| Pipeline order used by `LifeCycle.init`.
+-}
+stageLabelsInOrder : List Label
+stageLabelsInOrder =
+    [ Label.Material
+    , Label.Spinning
+    , Label.Fabric
+    , Label.Ennobling
+    , Label.Making
+    , Label.Distribution
+    , Label.Use
+    , Label.EndOfLife
+    ]
