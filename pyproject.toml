@@ -79,6 +79,10 @@ data = [
   "geopy>=2.5.0",
   "searoute>=1.6.0",
 ]
+volca = [
+  "pyvolca>=0.11.0",
+  "matplotlib>=3.11",
+]
 score-history = [
     "pandas>=3.0.3",
     "psycopg2-binary>=2.9.12",
@@ -107,6 +111,13 @@ extend-select = ["I"]
 extra-paths = [
     "data/",
 ]
+
+# pyvolca comes with the optional "volca" group, so the import is missing on a machine
+# without that group and perfectly fine on a machine with it. An inline `ty: ignore` is
+# right in the first case and reported as unused in the second, so it lives here instead.
+[[tool.ty.overrides]]
+include = ["data/bin/compare_volca.py"]
+rules = { unresolved-import = "ignore" }
 
 [tool.uv]
 required-version =  ">=0.12"
