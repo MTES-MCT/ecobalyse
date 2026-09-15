@@ -121,7 +121,7 @@ Voici les différents champs de la requête, dans l'ordre du cycle de vie. Tous 
 - Défaut: champ omis = pas de coefficient appliqué.
 
 > **💡 Notes :**
-> - Deux notions de quantité cohabitent, et il est facile de les confondre. `quantity` est un entier (au moins 1) qui compte les exemplaires du composant: deux pizzas identiques, c'est `"quantity": 2`. `amount` est la quantité de matière, d'emballage ou de consommation: 150 g de farine s'écrivent `"amount": 0.15` si l'unité est le kilogramme.
+> - Deux notions de quantité cohabitent, et il est facile de les confondre. `quantity` est un entier (au moins 1) qui compte les exemplaires du composant: quatre olives sur notre pizza, c'est `"quantity": 4`, si l'on dispose d'un ingrédient olive unitaire. `amount` est la quantité de matière, d'emballage ou de consommation: 150 g de farine s'écrivent `"amount": 0.15` si l'unité est le kilogramme.
 > - Omettre un champ n'équivaut pas toujours à envoyer `[]`: c'est vrai pour `packagings`, mais pas pour `consumptions` ni `assembly.operations`, où `[]` désactive les défauts de la catégorie.
 
 
