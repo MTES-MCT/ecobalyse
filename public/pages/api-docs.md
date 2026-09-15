@@ -30,7 +30,7 @@ $ API=https://ecobalyse.beta.gouv.fr/api
 $ TOKEN=<votre token ici>
 ```
 
-Pour poster une requête JSON de modélisation, on utilise le paramètre `-d`:
+Pour poster une requête JSON de modélisation sur le point d'entrée dédié, on utilise le paramètre `-d`:
 
 ```
 $ curl -sS -X POST "$API/food2/simulator" \
@@ -50,7 +50,9 @@ Ici, `{}` est la requête JSON en question; elle est vide! Elle doit donc renvoy
     …
 ```
 
-La réponse contient notamment `impacts`, qui liste les différentes valeurs d'impact, ainsi qu'un champ `webUrl` qui permet de charger la simulation dans l'interface Web.
+La réponse contient notamment `impacts`, qui liste les différentes valeurs d'impact, ainsi qu'un champ `webUrl` qui permet de charger la simulation dans l'interface Web. Le coût environnemental s'obtient en interrogeant le chemin `impacts.ecs`.
+
+> ⚠️ Si des valeurs d'impacts sont nulles, cela peut vouloir dire que vous n'avez pas accepté les conditions générales d'utilisation du service. Veullez en ce cas vous reporter à votre espace de gestion de compte.
 
 ## Anatomie d'un corps de requête JSON
 
@@ -123,7 +125,6 @@ Voici les différents champs de la requête, dans l'ordre du cycle de vie. Tous 
 > **💡 Notes :**
 > - Deux notions de quantité cohabitent, et il est facile de les confondre. `quantity` est un entier (au moins 1) qui compte les exemplaires du composant: quatre olives sur notre pizza, c'est `"quantity": 4`, si l'on dispose d'un ingrédient olive unitaire. `amount` est la quantité de matière, d'emballage ou de consommation: 150 g de farine s'écrivent `"amount": 0.15` si l'unité est le kilogramme.
 > - Omettre un champ n'équivaut pas toujours à envoyer `[]`: c'est vrai pour `packagings`, mais pas pour `consumptions` ni `assembly.operations`, où `[]` désactive les défauts de la catégorie.
-
 
 ## L'étape de production
 
