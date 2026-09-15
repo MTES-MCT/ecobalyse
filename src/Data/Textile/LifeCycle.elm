@@ -168,12 +168,9 @@ updateStages labels update_ lifeCycle =
 
 
 encode : Inputs -> LifeCycle -> Encode.Value
-encode { upcycled } =
-    -- Hide upcycled stages
-    Encode.array Stage.encode
-        << (if upcycled then
-                Array.filter (\{ label } -> Label.upcyclables |> List.member label |> not)
-
-            else
-                identity
-           )
+encode { disabledStages, upcycled } =
+    -- Hide upcycled stages results
+    Array.filter (\{ label } -> upcycled /= True || not (List.member label Label.upcyclables))
+        -- Hide disabled stages results
+        >> Array.filter (\{ label } -> not (List.member label disabledStages))
+        >> Encode.array Stage.encode
