@@ -1666,10 +1666,15 @@ encodeElement element =
 
 encodeLocalizedProcess : LocalizedProcess -> Encode.Value
 encodeLocalizedProcess localizedProcess =
-    EU.optionalPropertiesObject
-        [ ( "country", localizedProcess.country |> Maybe.map CountryCode.encode )
-        , ( "id", localizedProcess.id |> Process.encodeId |> Just )
-        ]
+    case localizedProcess.country of
+        Just country ->
+            Encode.object
+                [ ( "country", CountryCode.encode country )
+                , ( "id", Process.encodeId localizedProcess.id )
+                ]
+
+        Nothing ->
+            Process.encodeId localizedProcess.id
 
 
 encodePackaging : Packaging -> Encode.Value
