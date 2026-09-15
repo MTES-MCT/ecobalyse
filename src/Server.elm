@@ -102,7 +102,7 @@ toAllImpactsDetailed v =
         , ( "impacts", Impact.encode v.impacts )
         , ( "impactsWithoutDurability", Impact.encode (Simulator.getTotalImpactsWithoutDurability v) )
         , ( "inputs", Inputs.encode v.inputs )
-        , ( "lifeCycle", LifeCycle.encode v.lifeCycle )
+        , ( "lifeCycle", LifeCycle.encode v.inputs v.lifeCycle )
         , ( "transport", Transport.encode v.transport )
         , ( "trimsImpacts", Impact.encode v.trimsImpacts )
         , ( "useNbCycles", Encode.int v.useNbCycles )
