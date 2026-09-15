@@ -120,10 +120,10 @@ app.ports.appStarted.subscribe(() => {
   loadScript(u + "matomo.js");
 });
 
-app.ports.loadRapidoc.subscribe((rapidocScriptUrl) => {
+app.ports.loadRapidoc.subscribe(() => {
   // load the rapi-doc script if the component hasn't be registered yet
   if (!customElements.get("rapi-doc")) {
-    loadScript(rapidocScriptUrl);
+    import("rapidoc");
   }
 });
 

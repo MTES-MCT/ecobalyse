@@ -37,7 +37,7 @@ init : Session -> PageUpdate Model Msg
 init session =
     App.createUpdate session ()
         |> App.withCmds
-            [ Ports.loadRapidoc "/vendor/rapidoc-9.3.4.min.js"
+            [ Ports.loadRapidoc ()
             , Ports.scrollTo { x = 0, y = 0 }
             ]
 
