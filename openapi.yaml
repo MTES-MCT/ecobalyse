@@ -1405,7 +1405,6 @@ components:
       required:
       - amount
       - material
-      - transforms
       properties:
         amount:
           type: number
@@ -1417,6 +1416,7 @@ components:
           type: array
           description: |
             Transformations successives de la matière (liste disponible sur `/{scope}/processes/transform`).
+            Champ optionnel: l'omettre équivaut à un tableau vide.
           items:
             $ref: "#/components/schemas/GenericQueryLocalizedProcess"
     GenericQueryLocalizedProcess:
