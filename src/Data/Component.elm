@@ -215,6 +215,8 @@ type alias Query =
     -- reuse existing mechanics and handle holistic durability like it's implemented for textile,
     -- though it's still an ongoing discussion and we need to move forward and iterate.
     , durability : Maybe Unit.Ratio
+
+    -- FIXME: Rename to composition? or production?
     , items : List Item
     , packagings : List Packaging
     , product : Maybe ProductCategory.Id
@@ -268,6 +270,12 @@ type alias ExpandedItem =
     }
 
 
+{-| FIXME: find a better name for this type
+
+This is used to represent a custom/altered component, which is a component that is not part of the database.
+It is also used to override the component name in the production tbale as well as the elements and quantity.
+
+-}
 type alias Custom =
     { elements : List Element
     , name : Maybe String
@@ -1692,6 +1700,8 @@ encodeItem item =
     EU.optionalPropertiesObject
         [ ( "id", item.id |> Maybe.map (idToString >> Encode.string) )
         , ( "quantity", item.quantity |> quantityToInt |> Encode.int |> Just )
+
+        -- FIXME: find a better name than custom, or better: a native way to encode/decode altered/modified components
         , ( "custom", item.custom |> Maybe.map encodeCustom )
         ]
 
