@@ -95,7 +95,6 @@ class Ingredient(TypedDict, total=False):
 class Anomaly(TypedDict):
     base_ingredient: str
     reason: str
-    delta: float
     expected_lower_variant: str
     expected_lower_ecs: float
     expected_lower_activity_name: str
@@ -106,6 +105,7 @@ class Anomaly(TypedDict):
     expected_higher_activity_name: str
     expected_higher_display_name: str
     expected_higher_lci_catalog: str | None
+    delta: float
 
 
 logging.basicConfig(level=logging.INFO, format="%(levelname)s: %(message)s")
@@ -214,19 +214,19 @@ def build_anomaly(
     return {
         "base_ingredient": expected_lower["metadata"]["ingredient"]["baseIngredient"],
         "reason": f"{expected_higher['alias']} < {expected_lower['alias']}",
+        "expected_lower_variant": expected_lower["alias"],
         "expected_lower_ecs": round(expected_lower_ecs, 2),
-        "expected_higher_ecs": round(expected_higher_ecs, 2),
-        "delta": round(expected_lower_ecs - expected_higher_ecs, 2),
+        "expected_lower_activity_name": expected_lower["activityName"],
+        "expected_lower_display_name": expected_lower["displayName"],
+        "expected_lower_lci_catalog": lci_catalog_url(expected_lower["id"], lci_index),
         "expected_higher_variant": expected_higher["alias"],
+        "expected_higher_ecs": round(expected_higher_ecs, 2),
         "expected_higher_activity_name": expected_higher["activityName"],
         "expected_higher_display_name": expected_higher["displayName"],
         "expected_higher_lci_catalog": lci_catalog_url(
             expected_higher["id"], lci_index
         ),
-        "expected_lower_variant": expected_lower["alias"],
-        "expected_lower_activity_name": expected_lower["activityName"],
-        "expected_lower_display_name": expected_lower["displayName"],
-        "expected_lower_lci_catalog": lci_catalog_url(expected_lower["id"], lci_index),
+        "delta": round(expected_lower_ecs - expected_higher_ecs, 2),
     }
 
 
