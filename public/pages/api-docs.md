@@ -30,7 +30,9 @@ $ API=https://ecobalyse.beta.gouv.fr/api
 $ TOKEN=<votre token ici>
 ```
 
-Pour poster une requête JSON de modélisation sur le point d'entrée dédié, on utilise le paramètre `-d`:
+## Requêter l'API
+
+Pour poster une requête JSON de modélisation sur le point d'entrée dédié, on utilise le verbe `POST` et le paramètre `-d`:
 
 ```
 $ curl -sS -X POST "$API/food2/simulator" \
@@ -40,19 +42,87 @@ $ curl -sS -X POST "$API/food2/simulator" \
   -d '{}'
 ```
 
-Ici, `{}` est la requête JSON en question; elle est vide! Elle doit donc renvoyer un score nul:
+Ici, `{}` est la requête JSON en question ; elle est vide! Elle doit donc renvoyer un score nul dans la réponse HTTP :
 
 ```json
 {
   "webUrl": "https://ecobalyse.beta.gouv.fr/#/food2/simulator/ecs/eyJjb21wb25lbnR…",
   "impacts": {
-    "acd": 0,
+    "ecs": 0,
     …
 ```
 
 La réponse contient notamment `impacts`, qui liste les différentes valeurs d'impact, ainsi qu'un champ `webUrl` qui permet de charger la simulation dans l'interface Web. Le coût environnemental s'obtient en interrogeant le chemin `impacts.ecs`.
 
 > ⚠️ Si des valeurs d'impacts sont nulles, cela peut vouloir dire que vous n'avez pas accepté les conditions générales d'utilisation du service. Veullez en ce cas vous reporter à votre espace de gestion de compte.
+
+### Modéliser la composition à l'étape de production
+
+Pour simplifiuer l'exercice, considérons notre pizza comme simplement consituée de 4 ingrédients :
+
+- 250g de farine
+- 100ml d'eau
+- 200g de tomate
+- 70g de mozzarella
+
+La requête que nous envoyons est donc la suivante :
+
+```json
+{
+  "components": [
+    {
+      "quantity": 1,
+      "name": "Farine FR",
+      "custom": {
+        "elements": [
+          {
+            "amount": 0.25,
+            "material": "a2e25aca-1f42-4bc8-bc0e-4d7c751775aa"
+          }
+        ]
+      }
+    },
+    {
+      "quantity": 1,
+      "custom": {
+        "name": "Tomate FR",
+        "elements": [
+          {
+            "amount": 0.2,
+            "material": "b94d40bd-3394-59d3-9397-fe097a5f7138",
+            "transforms": ["de307fb4-99d3-4a01-962b-242ace7b2739"]
+          }
+        ]
+      }
+    },
+    {
+      "quantity": 1,
+      "custom": {
+        "name": "Mozzarella FR",
+        "elements": [
+          {
+            "amount": 0.07,
+            "material": "faa513ae-9c32-4e6c-874e-58c13309339e",
+            "transforms": ["6de57003-6767-49e2-a5a1-36ead9b78c42"]
+          }
+        ]
+      }
+    },
+    {
+      "quantity": 1,
+      "custom": {
+        "name": "Eau de source UE",
+        "elements": [
+          {
+            "amount": 0.1,
+            "material": "2c2bec89-b05e-5493-a58e-b504fb81c6ea"
+          }
+        ]
+      }
+    }
+  ]
+}
+```
 
 ## Anatomie d'un corps de requête JSON
 
