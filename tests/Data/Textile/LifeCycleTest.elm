@@ -5,10 +5,31 @@ import Data.Db exposing (Db)
 import Data.Textile.Inputs as Inputs
 import Data.Textile.LifeCycle as LifeCycle exposing (LifeCycle)
 import Data.Textile.Query exposing (Query)
+import Data.Textile.Stage.Label as Label exposing (Label)
 import Expect
+import Json.Decode as Decode
 import Length
 import Test exposing (..)
-import TestUtils exposing (asTest, suiteWithDb, tShirtCotonFrance)
+import TestUtils
+    exposing
+        ( asTest
+        , suiteFromResult
+        , suiteWithDb
+        , tShirtCotonFrance
+        )
+
+
+encodedStageLabels : Db -> Query -> Result String (List String)
+encodedStageLabels db =
+    Inputs.fromQuery db
+        >> Result.andThen
+            (\inputs ->
+                inputs
+                    |> LifeCycle.init db
+                    |> LifeCycle.encode inputs
+                    |> Decode.decodeValue (Decode.list (Decode.field "label" Decode.string))
+                    |> Result.mapError Decode.errorToString
+            )
 
 
 lifeCycleToTransports : Db -> Query -> LifeCycle -> Result String LifeCycle
@@ -61,5 +82,72 @@ suite =
                     |> Expect.equal (Ok ( 1500, 42138 ))
                     |> asTest "should compute custom distances"
                 ]
+            , describe "encode"
+                [ suiteFromResult "should include all stages by default"
+                    tShirtCotonFrance
+                    (\query ->
+                        [ encodedStageLabels db query
+                            |> Expect.equal (Ok (List.map Label.toString stageLabelsInOrder))
+                            |> asTest "include all stages by default"
+                        ]
+                    )
+                , suiteFromResult "should hide disabled stages"
+                    tShirtCotonFrance
+                    (\query ->
+                        [ encodedStageLabels db { query | disabledStages = [ Label.Ennobling ] }
+                            |> Expect.equal
+                                (Ok
+                                    (stageLabelsInOrder
+                                        |> List.filter ((/=) Label.Ennobling)
+                                        |> List.map Label.toString
+                                    )
+                                )
+                            |> asTest "hide disabled stages"
+                        ]
+                    )
+                , suiteFromResult "should hide upcyclable stages when upcycled"
+                    tShirtCotonFrance
+                    (\query ->
+                        [ encodedStageLabels db { query | upcycled = True }
+                            |> Expect.equal
+                                (Ok
+                                    (stageLabelsInOrder
+                                        |> List.filter (\label -> not (List.member label Label.upcyclables))
+                                        |> List.map Label.toString
+                                    )
+                                )
+                            |> asTest "hide upcyclable stages when upcycled"
+                        ]
+                    )
+                , suiteFromResult "should hide extra disabled stages when upcycled"
+                    tShirtCotonFrance
+                    (\query ->
+                        [ encodedStageLabels db { query | disabledStages = [ Label.Use ], upcycled = True }
+                            |> Expect.equal
+                                (Ok
+                                    (stageLabelsInOrder
+                                        |> List.filter (\label -> not (List.member label (Label.Use :: Label.upcyclables)))
+                                        |> List.map Label.toString
+                                    )
+                                )
+                            |> asTest "hide extra disabled stages when upcycled"
+                        ]
+                    )
+                ]
             ]
         )
+
+
+{-| Pipeline order used by `LifeCycle.init`.
+-}
+stageLabelsInOrder : List Label
+stageLabelsInOrder =
+    [ Label.Material
+    , Label.Spinning
+    , Label.Fabric
+    , Label.Ennobling
+    , Label.Making
+    , Label.Distribution
+    , Label.Use
+    , Label.EndOfLife
+    ]

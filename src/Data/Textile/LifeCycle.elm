@@ -167,6 +167,10 @@ updateStages labels update_ lifeCycle =
     labels |> List.foldl (\label -> updateStage label update_) lifeCycle
 
 
-encode : LifeCycle -> Encode.Value
-encode =
-    Encode.array Stage.encode
+encode : Inputs -> LifeCycle -> Encode.Value
+encode { disabledStages, upcycled } =
+    -- Hide upcycled stages results
+    Array.filter (\{ label } -> upcycled /= True || not (List.member label Label.upcyclables))
+        -- Hide disabled stages results
+        >> Array.filter (\{ label } -> not (List.member label disabledStages))
+        >> Encode.array Stage.encode
