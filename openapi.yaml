@@ -395,15 +395,21 @@ paths:
             application/json:
               schema:
                 $ref: "#/components/schemas/GenericProcessListResponse"
-  /{scope}/processes/transform:
+  /{scope}/processes/transform/{materialType}:
     get:
       tags:
         - Générique
       summary: Liste des procédés de transformation de la matière
       description: |
         Identifiants utilisables pour le champ `components[].custom.elements[].transforms[].id`.
+
+        Le paramètre `materialType` filtre les procédés de transformation dont la catégorie
+        `material_type` correspond (par exemple `fruits_and_vegetables` ou `pp`).
+        Il reprend le suffixe de la catégorie `material_type:` du procédé matière.
+        Une valeur inconnue est rejetée avec une erreur HTTP 400.
       parameters:
         - $ref: "#/components/parameters/genericScopeParam"
+        - $ref: "#/components/parameters/genericMaterialTypeParam"
       responses:
         200:
           description: Opération réussie
@@ -411,6 +417,12 @@ paths:
             application/json:
               schema:
                 $ref: "#/components/schemas/GenericProcessListResponse"
+        400:
+          description: Paramètres invalides
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/InvalidParametersError"
   /{scope}/processes/assembly:
     get:
       tags:
@@ -611,6 +623,16 @@ components:
           operations:
           - c51ab87d-f368-4704-a5ec-7ea17ba87d46
   parameters:
+    genericMaterialTypeParam:
+      name: materialType
+      in: path
+      required: true
+      description: |
+        Identifiant du type de matière, correspondant au suffixe de la catégorie `material_type:`
+        du procédé matière (par exemple `pp` pour `material_type:pp`).
+      schema:
+        type: string
+        example: fruits_and_vegetables
     genericScopeParam:
       name: scope
       in: path
@@ -1132,6 +1154,9 @@ components:
             general:
               type: string
               description: Une erreur d'ordre général
+            materialType:
+              type: string
+              description: Type de matière invalide
           additionalProperties:
             type: string
             description: Une erreur particulière pour un champ spécifique
@@ -1417,8 +1442,8 @@ components:
         transforms:
           type: array
           description: |
-            Transformations successives de la matière (liste disponible sur `/{scope}/processes/transform`).
-            Champ optionnel: l'omettre équivaut à un tableau vide.
+            Transformations successives de la matière (liste disponible sur `/{scope}/processes/transform/{materialType}`).
+            Champ optionnel: l'omettre équivaut à une absence de transformation.
           items:
             $ref: "#/components/schemas/GenericQueryLocalizedProcess"
     GenericQueryLocalizedProcess:

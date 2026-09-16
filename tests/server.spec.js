@@ -725,10 +725,30 @@ describe("API", () => {
       });
     });
 
-    describe("/object/processes/transform", () => {
-      it("should render with object transform processes", async () => {
-        await expectListResponseContains("/api/object/processes/transform", {
+    describe("/object/processes/transform/{materialType}", () => {
+      it("should render object transform processes for a material type", async () => {
+        await expectListResponseContains("/api/object/processes/transform/pp", {
           name: "Moulage par injection",
+        });
+      });
+
+      it("should reject an invalid materialType", async () => {
+        const response = await request(app)
+          .get("/api/object/processes/transform/invalid-material-type")
+          .set("Authorization", "Bearer 1234567890");
+
+        expectFieldErrorMessage(
+          response,
+          "materialType",
+          /Type de matière non supporté: invalid-material-type/,
+        );
+      });
+    });
+
+    describe("/food2/processes/transform/{materialType}", () => {
+      it("should render food2 transform processes for a material type", async () => {
+        await expectListResponseContains("/api/food2/processes/transform/fruits_and_vegetables", {
+          name: "Cuisson des fruits et légumes frais",
         });
       });
     });

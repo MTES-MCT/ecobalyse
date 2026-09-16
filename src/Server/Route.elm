@@ -10,6 +10,7 @@ import Data.Food.Query as FoodQuery
 import Data.Food.Validation as FoodValidation
 import Data.Impact as Impact
 import Data.Impact.Definition as Definition
+import Data.Process.Category as ProcessCategory
 import Data.Scope as Scope exposing (GenericScope)
 import Data.Textile.Query as TextileQuery
 import Data.Textile.Validation as TextileValidation
@@ -52,7 +53,7 @@ type Route
     | GenericGetDistributionList GenericScope
     | GenericGetMaterialList GenericScope
     | GenericGetPackagingList GenericScope
-    | GenericGetTransformList GenericScope
+    | GenericGetTransformList GenericScope (Result String ProcessCategory.Material)
       --   POST
     | GenericPostSimulator GenericScope (Result Validation.Errors Component.Query)
       --
@@ -157,7 +158,8 @@ parser db config body =
         , genericGet [ "processes", "distribution" ] GenericGetDistributionList
         , genericGet [ "processes", "material" ] GenericGetMaterialList
         , genericGet [ "processes", "packaging" ] GenericGetPackagingList
-        , genericGet [ "processes", "transform" ] GenericGetTransformList
+        , (s "GET" </> Scope.parseGeneric </> s "processes" </> s "transform" </> ProcessCategory.parseMaterialType)
+            |> Parser.map GenericGetTransformList
         , (s "POST" </> Scope.parseGeneric </> s "simulator")
             |> Parser.map
                 (\genericScope ->

@@ -6,6 +6,7 @@ import Data.Db exposing (Db)
 import Data.Example as Example
 import Data.Food.Preparation as Preparation
 import Data.Food.Query as FoodQuery exposing (PackagingAmount(..))
+import Data.Process.Category as ProcessCategory
 import Data.Scope as Scope
 import Data.Split as Split
 import Data.Textile.Material as Material
@@ -169,6 +170,41 @@ genericEndpoints db =
                         }
                     |> Expect.equal (Just (Route.GenericGetAssemblyList Scope.Object))
                     |> asTest "map GET /object/processes/assembly"
+                , Encode.null
+                    |> testEndpoint db
+                        { method = "GET"
+                        , protocol = "http"
+                        , host = "fqdn"
+                        , url = "/object/processes/transform/pp"
+                        , version = Nothing
+                        }
+                    |> Expect.equal (Just (Route.GenericGetTransformList Scope.Object (Ok ProcessCategory.PP)))
+                    |> asTest "map GET /object/processes/transform/{materialType}"
+                , Encode.null
+                    |> testEndpoint db
+                        { method = "GET"
+                        , protocol = "http"
+                        , host = "fqdn"
+                        , url = "/food2/processes/transform/not-a-type"
+                        , version = Nothing
+                        }
+                    |> Expect.equal
+                        (Just
+                            (Route.GenericGetTransformList Scope.Food2
+                                (Err "Type de matière non supporté: not-a-type")
+                            )
+                        )
+                    |> asTest "map GET /{scope}/processes/transform with an invalid materialType"
+                , Encode.null
+                    |> testEndpoint db
+                        { method = "GET"
+                        , protocol = "http"
+                        , host = "fqdn"
+                        , url = "/object/processes/transform"
+                        , version = Nothing
+                        }
+                    |> Expect.equal Nothing
+                    |> asTest "reject GET /object/processes/transform without materialType"
                 ]
             , describe "POST endpoints"
                 [ Component.encodeQuery query
