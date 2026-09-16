@@ -182,22 +182,23 @@ expectResultWithin precision target result =
 
 createServerRequest :
     Db
-    -> { method : String, protocol : String, host : String, url : String, version : Maybe String }
+    -> String
+    -> String
     -> Encode.Value
     -> Request
-createServerRequest dbs { method, protocol, host, url, version } body =
+createServerRequest dbs method url body =
     let
         encode encoder =
             Encode.list encoder >> Encode.encode 0
     in
     { body = body
-    , host = host
+    , host = "fqdn"
     , jsResponseHandler = Encode.null
     , method = method
     , processes = dbs.processes |> encode Process.encode
-    , protocol = protocol
+    , protocol = "http"
     , url = url
-    , version = version
+    , version = Nothing
     }
 
 

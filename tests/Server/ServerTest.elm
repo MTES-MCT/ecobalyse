@@ -33,37 +33,19 @@ suite =
                 ]
             , describe "handleRequest"
                 [ Encode.null
-                    |> createServerRequest dbs
-                        { method = "GET"
-                        , protocol = "http"
-                        , host = "fqdn"
-                        , url = "/invalid"
-                        , version = Nothing
-                        }
+                    |> createServerRequest dbs "GET" "/invalid"
                     |> Server.handleRequest dbs
                     |> Tuple.first
                     |> Expect.equal 404
                     |> asTest "should catch invalid endpoints"
                 , Encode.null
-                    |> createServerRequest dbs
-                        { method = "GET"
-                        , protocol = "http"
-                        , host = "fqdn"
-                        , url = "/object/processes/transform/invalid-material-type"
-                        , version = Nothing
-                        }
+                    |> createServerRequest dbs "GET" "/object/processes/transform/invalid-material-type"
                     |> Server.handleRequest dbs
                     |> Tuple.first
                     |> Expect.equal 400
                     |> asTest "should reject an invalid materialType"
                 , Encode.null
-                    |> createServerRequest dbs
-                        { method = "GET"
-                        , protocol = "http"
-                        , host = "fqdn"
-                        , url = "/object/processes/transform/pp"
-                        , version = Nothing
-                        }
+                    |> createServerRequest dbs "GET" "/object/processes/transform/pp"
                     |> Server.handleRequest dbs
                     |> Tuple.first
                     |> Expect.equal 200
@@ -71,13 +53,7 @@ suite =
 
                 -- POST queries
                 , Encode.null
-                    |> createServerRequest dbs
-                        { method = "POST"
-                        , protocol = "http"
-                        , host = "fqdn"
-                        , url = "/food"
-                        , version = Nothing
-                        }
+                    |> createServerRequest dbs "POST" "/food"
                     |> Server.handleRequest dbs
                     |> Tuple.first
                     |> Expect.equal 400
@@ -101,13 +77,7 @@ suite =
                             , preparation = []
                             , transform = Nothing
                             }
-                            |> createServerRequest dbs
-                                { method = "POST"
-                                , protocol = "http"
-                                , host = "fqdn"
-                                , url = "/food"
-                                , version = Nothing
-                                }
+                            |> createServerRequest dbs "POST" "/food"
                             |> Server.handleRequest dbs
                             |> Tuple.first
                             |> Expect.equal 200
@@ -118,13 +88,7 @@ suite =
                     )
                     (\{ query } ->
                         Component.encodeQuery query
-                            |> createServerRequest dbs
-                                { method = "POST"
-                                , protocol = "http"
-                                , host = "fqdn"
-                                , url = "/object/simulator"
-                                , version = Nothing
-                                }
+                            |> createServerRequest dbs "POST" "/object/simulator"
                             |> Server.handleRequest dbs
                             |> Tuple.first
                             |> Expect.equal 200

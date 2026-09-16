@@ -131,63 +131,27 @@ genericEndpoints db =
         (\query ->
             [ describe "GET endpoints"
                 [ Encode.null
-                    |> testEndpoint db
-                        { method = "GET"
-                        , protocol = "http"
-                        , host = "fqdn"
-                        , url = "/object/countries"
-                        , version = Nothing
-                        }
+                    |> testEndpoint db "GET" "/object/countries"
                     |> Expect.equal (Just (Route.GenericGetCountryList Scope.Object))
                     |> asTest "map GET /object/countries"
                 , Encode.null
-                    |> testEndpoint db
-                        { method = "GET"
-                        , protocol = "http"
-                        , host = "fqdn"
-                        , url = "/food2/categories"
-                        , version = Nothing
-                        }
+                    |> testEndpoint db "GET" "/food2/categories"
                     |> Expect.equal (Just (Route.GenericGetCategoryList Scope.Food2))
                     |> asTest "map GET /food2/categories"
                 , Encode.null
-                    |> testEndpoint db
-                        { method = "GET"
-                        , protocol = "http"
-                        , host = "fqdn"
-                        , url = "/veli/catalog"
-                        , version = Nothing
-                        }
+                    |> testEndpoint db "GET" "/veli/catalog"
                     |> Expect.equal (Just (Route.GenericGetCatalogList Scope.Veli))
                     |> asTest "map GET /veli/catalog"
                 , Encode.null
-                    |> testEndpoint db
-                        { method = "GET"
-                        , protocol = "http"
-                        , host = "fqdn"
-                        , url = "/object/processes/assembly"
-                        , version = Nothing
-                        }
+                    |> testEndpoint db "GET" "/object/processes/assembly"
                     |> Expect.equal (Just (Route.GenericGetAssemblyList Scope.Object))
                     |> asTest "map GET /object/processes/assembly"
                 , Encode.null
-                    |> testEndpoint db
-                        { method = "GET"
-                        , protocol = "http"
-                        , host = "fqdn"
-                        , url = "/object/processes/transform/pp"
-                        , version = Nothing
-                        }
+                    |> testEndpoint db "GET" "/object/processes/transform/pp"
                     |> Expect.equal (Just (Route.GenericGetTransformList Scope.Object (Ok ProcessCategory.PP)))
                     |> asTest "map GET /object/processes/transform/{materialType}"
                 , Encode.null
-                    |> testEndpoint db
-                        { method = "GET"
-                        , protocol = "http"
-                        , host = "fqdn"
-                        , url = "/food2/processes/transform/not-a-type"
-                        , version = Nothing
-                        }
+                    |> testEndpoint db "GET" "/food2/processes/transform/not-a-type"
                     |> Expect.equal
                         (Just
                             (Route.GenericGetTransformList Scope.Food2
@@ -196,13 +160,7 @@ genericEndpoints db =
                         )
                     |> asTest "map GET /{scope}/processes/transform with an invalid materialType"
                 , Encode.null
-                    |> testEndpoint db
-                        { method = "GET"
-                        , protocol = "http"
-                        , host = "fqdn"
-                        , url = "/object/processes/transform"
-                        , version = Nothing
-                        }
+                    |> testEndpoint db "GET" "/object/processes/transform"
                     |> Expect.equal Nothing
                     |> asTest "reject GET /object/processes/transform without materialType"
                 ]
@@ -434,19 +392,14 @@ textileEndpoints db =
 
 testEndpoint :
     Db
-    ->
-        { method : String
-        , protocol : String
-        , host : String
-        , url : String
-        , version : Maybe String
-        }
+    -> String
+    -> String
     -> Encode.Value
     -> Maybe Route.Route
-testEndpoint dbs params body =
+testEndpoint dbs method url body =
     case componentConfig dbs of
         Ok config ->
-            createServerRequest dbs params body
+            createServerRequest dbs method url body
                 |> Route.endpoint dbs config
 
         Err _ ->
@@ -455,35 +408,17 @@ testEndpoint dbs params body =
 
 testFoodEndpoint : Db -> Encode.Value -> Maybe Route.Route
 testFoodEndpoint dbs =
-    testEndpoint dbs
-        { method = "POST"
-        , protocol = "http"
-        , host = "fqdn"
-        , url = "/food"
-        , version = Nothing
-        }
+    testEndpoint dbs "POST" "/food"
 
 
 testTextileEndpoint : Db -> Encode.Value -> Maybe Route.Route
 testTextileEndpoint dbs =
-    testEndpoint dbs
-        { method = "POST"
-        , protocol = "http"
-        , host = "fqdn"
-        , url = "/textile/simulator"
-        , version = Nothing
-        }
+    testEndpoint dbs "POST" "/textile/simulator"
 
 
 testGenericEndpoint : Db -> String -> Encode.Value -> Maybe Route.Route
 testGenericEndpoint dbs url =
-    testEndpoint dbs
-        { method = "POST"
-        , protocol = "http"
-        , host = "fqdn"
-        , url = url
-        , version = Nothing
-        }
+    testEndpoint dbs "POST" url
 
 
 expectFoodValidationError : String -> String -> Maybe Route.Route -> Expect.Expectation
