@@ -1389,7 +1389,8 @@ decodePackaging =
 decodeQuantifiedProcess : Decoder QuantifiedProcess
 decodeQuantifiedProcess =
     Decode.succeed QuantifiedProcess
-        |> Decode.required "amount" Amount.decode
+        -- If no amount is specified, defaults to zero (useful for productmassdependent processes)
+        |> Decode.optional "amount" Amount.decode (Amount.fromFloat 0)
         |> Decode.required "processId" Process.decodeId
 
 
@@ -3134,8 +3135,8 @@ updateRecyclable recyclable query =
     { query | recyclable = recyclable }
 
 
-{-| Return an Amount depending on the process category. If the process is mass dependent, return
-the product mass in kilograms. Otherwise, return the amount.
+{-| Return an Amount depending on the process category. If the process is mass dependent,
+ignore provided amount and return the product mass in kilograms. Otherwise, return the amount.
 -}
 useProcessAmount : LifeCycle -> Process -> Amount -> Amount
 useProcessAmount lifeCycle process amount =

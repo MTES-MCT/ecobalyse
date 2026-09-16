@@ -249,11 +249,11 @@ curl -sS "$API/food2/processes/consumption" \
   -H "Authorization: Bearer $TOKEN"
 ```
 
-Notre pizza étant vouée à être cuite au four, on mobilisera *Cuisson au four* (`a49670fc-0642-43f6-a673-fe15dc7d88da`). Ce procédé est étiqueté `productmassdependent` : le moteur de calcul utilisera la masse du produit, pas la valeur de `amount`. Le champ `amount` reste cependant obligatoire dans le JSON, on envoie donc `1` :
+Notre pizza étant vouée à être cuite au four, on mobilisera *Cuisson au four* (`a49670fc-0642-43f6-a673-fe15dc7d88da`). Ce procédé est étiqueté `productmassdependent` : le moteur de calcul utilisera la masse du produit, donc nul besoin de préciser `amount` :
 
 ```json
   "consumptions": [
-    {"amount": 1, "processId": "a49670fc-0642-43f6-a673-fe15dc7d88da"}
+    {"processId": "a49670fc-0642-43f6-a673-fe15dc7d88da"}
   ]
 ```
 
