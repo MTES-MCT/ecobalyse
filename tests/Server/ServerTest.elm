@@ -44,6 +44,30 @@ suite =
                     |> Tuple.first
                     |> Expect.equal 404
                     |> asTest "should catch invalid endpoints"
+                , Encode.null
+                    |> createServerRequest dbs
+                        { method = "GET"
+                        , protocol = "http"
+                        , host = "fqdn"
+                        , url = "/object/processes/transform/invalid-material-type"
+                        , version = Nothing
+                        }
+                    |> Server.handleRequest dbs
+                    |> Tuple.first
+                    |> Expect.equal 400
+                    |> asTest "should reject an invalid materialType"
+                , Encode.null
+                    |> createServerRequest dbs
+                        { method = "GET"
+                        , protocol = "http"
+                        , host = "fqdn"
+                        , url = "/object/processes/transform/pp"
+                        , version = Nothing
+                        }
+                    |> Server.handleRequest dbs
+                    |> Tuple.first
+                    |> Expect.equal 200
+                    |> asTest "should accept a valid materialType"
 
                 -- POST queries
                 , Encode.null

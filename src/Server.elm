@@ -28,6 +28,7 @@ import Data.Textile.Query as TextileQuery
 import Data.Textile.Simulator as Simulator exposing (Simulator)
 import Data.Textile.WellKnown exposing (WellKnown)
 import Data.Validation as Validation
+import Dict
 import Json.Encode as Encode
 import Route as WebRoute
 import Server.Request exposing (Request)
@@ -418,10 +419,17 @@ handleConfiguredRequest db config request =
                 genericScope
                 [ .categories >> List.member ProcessCategory.Packaging ]
 
-        Just (Route.GenericGetTransformList genericScope) ->
+        Just (Route.GenericGetTransformList _ (Err error)) ->
+            Dict.singleton "materialType" error
+                |> encodeValidationErrors request
+                |> respondWith 400
+
+        Just (Route.GenericGetTransformList genericScope (Ok materialType)) ->
             genericProcessesResponse db
                 genericScope
-                [ .categories >> List.member ProcessCategory.Transform ]
+                [ .categories >> List.member ProcessCategory.Transform
+                , Process.getMaterialTypes >> List.member materialType
+                ]
 
         Just Route.TextileGetCountryList ->
             db.countries

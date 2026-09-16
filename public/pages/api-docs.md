@@ -95,16 +95,16 @@ Dans la liste résultante, nous pouvons trouver nos trois autres ingrédients :
 
 Les quantités s'expriment dans cette unité : 250 g de farine deviennent `"amount": 0.25`, 100 ml d'eau `"amount": 0.1`.
 
-Nous pouvons également interroger le point d'entrée `GET /{scope}/processes/transform` pour voir quels sont les procédés de transformation disponibles pour nos ingrédients :
+Nous pouvons également interroger le point d'entrée `GET /{scope}/processes/transform/{materialType}` pour voir quels sont les procédés de transformation disponibles pour un type de matière. Le paramètre `materialType` reprend le suffixe de la catégorie `material_type:` du procédé matière (par exemple `fruits_and_vegetables` pour une tomate) ; une valeur invalide ou inconnue sera rejetée avec une erreur HTTP 400.
 
 ```
-$ curl -sS "$API/food2/processes/transform" \
+$ curl -sS "$API/food2/processes/transform/fruits_and_vegetables" \
   -H "accept: application/json" \
   -H "Authorization: Bearer $TOKEN"
 ```
 
 - Nous souhaitons cuire notre tomate, aussi le procédé *Cuisson des fruits et légumes frais*, identifiant `de307fb4-99d3-4a01-962b-242ace7b2739`, paraît adapté.
-- Pour la mozzarella, nous retenons *Cuisson divers*, identifiant `6de57003-6767-49e2-a5a1-36ead9b78c42` (catégorie `material_type:other_food_items`).
+- Pour la mozzarella, le type de matière est `other_food_items` (`GET /food2/processes/transform/other_food_items`) ; nous retenons *Cuisson divers*, identifiant `6de57003-6767-49e2-a5a1-36ead9b78c42`.
 - La farine et l'eau ne subissent pas de transformation, on omet donc le champ `transforms`.
 
 La requête que nous envoyons est donc la suivante :
@@ -188,7 +188,7 @@ $ curl -sS "$API/food2/catalog" \
 
 ### Les procédés matières
 
-Les *procédés matières* (`GET /{scope}/processes/material`) recensent eux les ingrédients ou matériaux *bruts* (par exemple, non transformés). On construit alors un composant `custom`: une liste d'éléments (`elements`), chacun mobilisant une matière (`id`), une quantité de cette dernière (`amount`) et, éventuellement, d'étapes successives de transformation (`transforms`, dont la liste des valeurs possibles est fournie par `GET /{scope}/processes/transform`). Une transformation ne s'applique qu'à l'élément qui la porte, dans l'ordre du tableau, et non au produit entier. Omettre `transforms` équivaut à envoyer une liste vide (`[]`).
+Les *procédés matières* (`GET /{scope}/processes/material`) recensent eux les ingrédients ou matériaux *bruts* (par exemple, non transformés). On construit alors un composant `custom`: une liste d'éléments (`elements`), chacun mobilisant une matière (`id`), une quantité de cette dernière (`amount`) et, éventuellement, d'étapes successives de transformation (`transforms`, dont la liste des valeurs possibles est fournie par `GET /{scope}/processes/transform/{materialType}`). Une transformation ne s'applique qu'à l'élément qui la porte, dans l'ordre du tableau, et non au produit entier. Omettre `transforms` équivaut à envoyer une liste vide (`[]`).
 
 Une entrée du tableau `components` peut donc prendre trois formes :
 
