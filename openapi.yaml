@@ -37,6 +37,8 @@ tags:
       - `food2`: alimentaire BÉTA
       - `object`: objets/ameublement
       - `veli`: véhicules légers/intermédiaires
+
+      Un tutoriel est disponible [ici](/#/pages/api-docs).
     externalDocs:
       # TODO: link to specific dev docs, with more examples, tooling etc
       description: À propos
