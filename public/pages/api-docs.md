@@ -188,13 +188,19 @@ $ curl -sS "$API/food2/catalog" \
 
 ### Les procédés matières
 
-Les *procédés matières* (`GET /{scope}/processes/material`) recensent eux les ingrédients ou matériaux *bruts* (par exemple, non transformés). On construit alors un composant `custom`: une liste d'éléments (`elements`), chacun mobilisant une matière (`id`), une quantité de cette dernière (`amount`) et, éventuellement, d'étapes successives de transformation (`transforms`, dont la liste des valeurs possibles est fournie par `GET /{scope}/processes/transform/{materialType}`). Une transformation ne s'applique qu'à l'élément qui la porte, dans l'ordre du tableau, et non au produit entier. Omettre `transforms` équivaut à envoyer une liste vide (`[]`).
+Les *procédés matières* (`GET /{scope}/processes/material`) recensent eux les ingrédients ou matériaux *bruts* (par exemple, non transformés). On construit alors un composant `custom`: une liste d'éléments (`elements`), chacun mobilisant :
+
+- une matière (`id`)
+- une quantité de cette dernière (`amount`)
+- éventuellement, une ou plusieurs étapes successives de transformation (`transforms`, dont la liste des valeurs possibles est fournie par `GET /{scope}/processes/transform/{materialType}`)
+
+> 💡 Les transformations ne s'appliquent qu'à l'élément qui les porte, dans l'ordre et avec application séquentielle du taux de perte résultant
 
 Une entrée du tableau `components` peut donc prendre trois formes :
 
-1. `id` seul : on reprend un composant du catalogue tel quel
+1. `id` seul : on reprend un composant existant du catalogue tel quel
 2. `custom` seul : on décrit un composant entièrement nouveau
-3. `id` et `custom` ensemble: on part d'un composant du catalogue et on le surcharge (éléments, nom, etc.)
+3. `id` et `custom` ensemble: on part d'un composant existant du catalogue, et on le surcharge (on, peut surcharger ou redéfinir ses éléments, son nom, etc.)
 
 > ⚠️ Comme vu précédemment, faute de composants alimentaires, une recette se décrit pour l'heure uniquement en mobilisant des champs de type `custom`.
 
@@ -209,62 +215,66 @@ Voici les différents champs de la requête, par phase ou spécificité du cycle
 ### Composition (`components`)
 
 - Type: tableau d'objets. Chaque objet a un `quantity` obligatoire (entier ≥ 1) et, selon le cas, un `id`, un `custom`, ou les deux.
-- Source: `GET /{scope}/catalog` pour les `id`; `GET /{scope}/processes/material` et `GET /{scope}/processes/transform` pour un `custom`.
-- Utilisation: décrit la production, c'est-à-dire de quoi le produit est fait. Un `id` reprend un composant du catalogue; un `custom` le décrit (ou le surcharge) via `elements` (matière, quantité, transformations éventuelles).
-- Défaut: tableau vide. Le champ est obligatoire dès que le corps n'est pas `{}`; on peut envoyer `"components": []`.
+- Source: `GET /{scope}/catalog` pour les `id`; `GET /{scope}/processes/material` et `GET /{scope}/processes/transform/{materialType}` pour un composant `custom`.
+- Utilisation: décrit la production, c'est à dire de quoi le produit est fait. Le champ `id` référence un composant existant du catalogue ; le champ `custom` le décrit (ou le surcharge) via `elements` (matière, quantité, transformations éventuelles).
+- Par défaut: tableau vide. Le champ est obligatoire dès que le corps n'est pas `{}`; on peut envoyer `"components": []`.
 
 ### Catégorie de produit (`product`)
 
 - Type: UUID.
 - Source: `GET /{scope}/categories`.
 - Utilisation: la catégorie de produit peut fournir des valeurs par défaut pour `assembly.operations`, `consumptions`, `distribution` et `transportOptions.cooling`. Un champ présent dans la requête l'emporte toujours sur ces défauts.
-- Défaut: aucune catégorie de produit n'est appliquée.
+- Par défaut: aucune catégorie de produit n'est appliquée.
 
 ### Assemblage (`assembly`)
 
-- Type: objet `{ "country", "operations" }`. `country` est un code pays; `operations` est un tableau d'UUID de procédés.
+- Type: objet `{ "country", "operations" }`:
+  * `country` est un code pays
+  * `operations` est un tableau d'UUID de procédés
 - Source: `GET /{scope}/countries` et `GET /{scope}/processes/assembly`.
 - Utilisation: localise l'assemblage (et le transport amont vers ce pays) et, le cas échéant, applique des procédés d'assemblage.
-- Défaut: champ omis = pas de pays, et les opérations de la catégorie `product` s'il y en a (sinon aucune). `"operations": []` désactive explicitement ces défauts. Omettre seulement `country` ou seulement `operations` est possible.
+- Par défaut: champ omis = pas de pays, et les opérations de la catégorie `product` s'il y en a (sinon aucune). `"operations": []` désactive explicitement ces défauts. Omettre seulement `country` ou seulement `operations` est possible.
 
 ### Distribution (`distribution`)
 
 - Type: UUID (une seule valeur, ce n'est pas un tableau).
 - Source: `GET /{scope}/processes/distribution`.
 - Utilisation: procédé de l'étape de distribution (vente au détail, etc.).
-- Défaut: si le champ est omis, celui de la catégorie `product`, sinon celui de la configuration du périmètre.
+- Par défaut: si le champ est omis, celui de la catégorie `product`, sinon celui de la configuration du périmètre.
 
 ### Transport (`transportOptions`)
 
-- Type: objet `{ "cooling", "byAir" }`. `cooling` est un booléen; `byAir` un nombre entre `0` et `100` (pourcentage de transport aérien vers la distribution).
+- Type: objet `{ "cooling", "byAir" }`:
+  * `cooling` est un booléen et précise si le transport est réfrigéré
+  * `byAir` est un nombre entre `0` et `100` et précise le taux de transport aérien vers l'étape de distribution
 - Utilisation: options du transport *vers la distribution* uniquement, pas des transports entre pays de matière déjà portés par `country`.
-- Défaut: `byAir` vaut `0`. `cooling` omis prend la valeur de la catégorie `product`, ou `false` s'il n'y en a pas. On peut n'envoyer qu'une des deux clés.
+- Par défaut: `byAir` vaut `0`. `cooling` omis prend la valeur de la catégorie `product`, ou `false` s'il n'y en a pas. On peut n'envoyer qu'une des deux clés.
 
 ### Emballage (`packagings`)
 
 - Type: tableau d'objets `{ "amount", "processId" }` (`amount` et `processId` obligatoires). `amount` est dans l'unité `unit` du procédé (`item`, `kg`, etc.).
 - Source: `GET /{scope}/processes/packaging`.
 - Utilisation: emballages du produit. Ces procédés ne figurent pas dans `processes/material`.
-- Défaut: tableau vide, que le champ soit omis ou envoyé comme `[]`. Il n'y a pas de défaut de catégorie.
+- Par défaut: tableau vide, que le champ soit omis ou envoyé comme `[]`. Il n'y a pas de défaut de catégorie.
 
 ### Consommations en phase d'utilisation (`consumptions`)
 
 - Type: tableau d'objets `{ "amount", "processId" }`, même forme que `packagings`.
 - Source: `GET /{scope}/processes/consumption`.
 - Utilisation: procédés de l'étape d'utilisation (cuisson, réfrigération, etc.). Beaucoup de procédés alimentaires sont proportionnels à la masse du produit (`unit` souvent `kg`).
-- Défaut: champ omis = consommations de la catégorie `product` (ou aucune s'il n'y a pas de catégorie). `"consumptions": []` = aucune consommation, même si la catégorie en prévoit.
+- Par défaut: champ omis = consommations de la catégorie `product` (ou aucune s'il n'y a pas de catégorie). `"consumptions": []` = aucune consommation, même si la catégorie en prévoit.
 
 ### Recyclabilité à l'étape Fin de vie (`recyclable`)
 
 - Type: booléen.
 - Utilisation: indique si le produit est recyclable. N'a d'effet que si la fin de vie est active (`object`, `veli`; pas `food2`).
-- Défaut: `true`.
+- Par défaut: `true`.
 
 ### Durabilité (`durability`)
 
 - Type: nombre (coefficient). Les impacts totaux sont divisés par cette valeur.
 - Utilisation: durabilité du produit. Activé pour `object` et `veli`; *rejeté* pour `food2` (ne pas l'envoyer dans une requête alimentaire).
-- Défaut: champ omis = pas de coefficient appliqué.
+- Par défaut: champ omis = pas de coefficient appliqué.
 
 > **💡 Notes :**
 > - Deux notions de quantité cohabitent, et il est facile de les confondre. `quantity` est un entier (au moins 1) qui compte les exemplaires du composant: quatre olives sur notre pizza, c'est `"quantity": 4`, si l'on dispose d'un ingrédient olive unitaire. `amount` est la quantité de matière, d'emballage ou de consommation: 150 g de farine s'écrivent `"amount": 0.15` si l'unité est le kilogramme.
@@ -467,4 +477,4 @@ $ curl -sS -X POST "$API/food2/simulator" \
 }'
 ```
 
-Son coût environnemental se trouve dans la clé `impacts.ecs` dans la réponse JSON.
+Son coût environnemental se trouve dans la clé `impacts.ecs` de la réponse JSON.
