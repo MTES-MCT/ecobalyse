@@ -37,10 +37,10 @@ type Category
 
 type Material
     = Aluminium
-    | BatteryCellNMC811
-    | BatteryCellNMC622
-    | BatteryCellLFP
     | BatteryAlkaline
+    | BatteryCellLFP
+    | BatteryCellNMC622
+    | BatteryCellNMC811
     | Cereals
     | Composites
     | Containerboard
@@ -273,17 +273,17 @@ materialTypeToLabel material =
         Aluminium ->
             "Aluminium"
 
-        BatteryCellNMC811 ->
-            "Cellule de batteries NMC811"
-
-        BatteryCellNMC622 ->
-            "Cellule de batteries NMC622"
+        BatteryAlkaline ->
+            "Pile Alcaline"
 
         BatteryCellLFP ->
             "Cellule de batteries LFP"
 
-        BatteryAlkaline ->
-            "Pile Alcaline"
+        BatteryCellNMC622 ->
+            "Cellule de batteries NMC622"
+
+        BatteryCellNMC811 ->
+            "Cellule de batteries NMC811"
 
         Cereals ->
             "Cereals"
@@ -370,17 +370,17 @@ materialTypeToString material =
         Aluminium ->
             "aluminium"
 
-        BatteryCellNMC811 ->
-            "battery_cell_nmc811"
-
-        BatteryCellNMC622 ->
-            "battery_cell_nmc622"
+        BatteryAlkaline ->
+            "battery_alkaline"
 
         BatteryCellLFP ->
             "battery_cell_lfp"
 
-        BatteryAlkaline ->
-            "battery_alkaline"
+        BatteryCellNMC622 ->
+            "battery_cell_nmc622"
+
+        BatteryCellNMC811 ->
+            "battery_cell_nmc811"
 
         Cereals ->
             "cereals"
