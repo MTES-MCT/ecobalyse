@@ -3240,7 +3240,10 @@
       { "amount": -0.0874, "name": "copper, cathode//[GLO] market for copper, cathode" },
       { "amount": -0.0409, "name": "cobalt sulfate//[CN] cobalt sulfate production" },
       { "amount": -0.3263, "name": "nickel sulfate//[GLO] market for nickel sulfate" },
-      { "amount": -0.033, "name": "lithium carbonate//[GLO] market for lithium carbonate"}
+      {
+        "amount": -0.033,
+        "name": "lithium carbonate//[GLO] market for lithium carbonate"
+      }
     ],
     "location": "RER",
     "newName": "Battery cell EoL recycling, NMC811, CFF"
@@ -3264,7 +3267,10 @@
       { "amount": -0.0866, "name": "copper, cathode//[GLO] market for copper, cathode" },
       { "amount": -0.086, "name": "cobalt sulfate//[CN] cobalt sulfate production" },
       { "amount": -0.2576, "name": "nickel sulfate//[GLO] market for nickel sulfate" },
-      { "amount": -0.054, "name": "lithium carbonate//[GLO] market for lithium carbonate"}
+      {
+        "amount": -0.054,
+        "name": "lithium carbonate//[GLO] market for lithium carbonate"
+      }
     ],
     "location": "RER",
     "newName": "Battery cell EoL recycling, NMC622, CFF"
@@ -3298,8 +3304,14 @@
         "database": "Ecobalyse_custom_lci",
         "name": "Hydrometallurgical treatment of battery cell"
       },
-      { "amount": -0.146, "name": "steel, unalloyed//[RER] steel production, converter, unalloyed" },
-      { "amount": -0.1294, "name": "zinc//[RoW] primary zinc production from concentrate" },
+      {
+        "amount": -0.146,
+        "name": "steel, unalloyed//[RER] steel production, converter, unalloyed"
+      },
+      {
+        "amount": -0.1294,
+        "name": "zinc//[RoW] primary zinc production from concentrate"
+      },
       { "amount": -0.0179, "name": "brass//[RoW] market for brass" }
     ],
     "location": "RER",
