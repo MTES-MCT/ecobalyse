@@ -145,6 +145,7 @@ loadData : SessionConfig -> Cmd Msg
 loadData sessionConfig =
     [ ( "/data/countries.json", \data raw -> { raw | countries = data } )
     , ( "/data/impacts.json", \data raw -> { raw | definitions = data } )
+    , ( "/data/food2/components.json", \data raw -> { raw | food2Components = data } )
     , ( "/data/food2/categories.json", \data raw -> { raw | food2ProductCategories = data } )
     , ( "/data/food2/examples.json", \data raw -> { raw | food2Examples = data } )
     , ( "/data/food/ingredients.json", \data raw -> { raw | foodIngredients = data } )

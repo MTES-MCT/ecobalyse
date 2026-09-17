@@ -16,6 +16,7 @@ dbFromStaticFiles processesJson =
     Db.build
         { countries = Db.rawJsonString StaticJson.countriesJson
         , definitions = Db.rawJsonString StaticJson.impactsJson
+        , food2Components = Db.rawJsonString StaticJson.food2ComponentsJson
         , food2Examples = Db.rawJsonString StaticJson.food2ExamplesJson
         , food2ProductCategories = Db.rawJsonString StaticJson.food2ProductCategoriesJson
         , foodIngredients = Db.rawJsonString StaticJson.foodIngredientsJson
