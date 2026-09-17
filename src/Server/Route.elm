@@ -10,6 +10,7 @@ import Data.Food.Query as FoodQuery
 import Data.Food.Validation as FoodValidation
 import Data.Impact as Impact
 import Data.Impact.Definition as Definition
+import Data.Process exposing (Process)
 import Data.Process.Category as ProcessCategory
 import Data.Scope as Scope exposing (GenericScope)
 import Data.Textile.Query as TextileQuery
@@ -83,21 +84,21 @@ decodeFoodQueryBody db =
         >> Result.andThen (FoodValidation.validate db)
 
 
-decodeGenericQuery : Encode.Value -> Result Validation.Errors Component.Query
-decodeGenericQuery body =
+decodeGenericQuery : List Process -> Encode.Value -> Result Validation.Errors Component.Query
+decodeGenericQuery processes body =
     if DecodeUtils.isEmptyObject body then
         -- If the json body is an empty object, return an empty query
         Ok Component.emptyQuery
 
     else
         body
-            |> Decode.decodeValue Component.decodeQuery
+            |> Decode.decodeValue (Component.decodeQuery processes)
             |> Result.mapError Validation.fromDecodingError
 
 
 decodeGenericQueryBody : Component.Config -> Db -> GenericScope -> Encode.Value -> Result Validation.Errors Component.Query
 decodeGenericQueryBody config db genericScope body =
-    decodeGenericQuery body
+    decodeGenericQuery db.processes body
         |> Result.andThen
             (Component.validateQuery
                 { config = config

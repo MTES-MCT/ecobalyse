@@ -1,6 +1,5 @@
 module Data.Component.ProductCategory exposing
-    ( DefaultConsumption
-    , Id
+    ( Id
     , ProductCategory
     , decodeId
     , decodeListFromJsonString
@@ -15,7 +14,7 @@ module Data.Component.ProductCategory exposing
 
 import Data.Common.DecodeUtils as DU
 import Data.Common.EncodeUtils as EU
-import Data.Component.Amount as Amount exposing (Amount)
+import Data.Component.Consumption as Consumption exposing (Consumption)
 import Data.Process as Process
 import Data.Scope as Scope
 import Data.Uuid as Uuid exposing (Uuid)
@@ -28,24 +27,12 @@ type Id
     = Id Uuid
 
 
-{-| A default use-stage consumption for a product category.
-
-JSON may be a process id string, or an object with `processId` and optional `amount`.
-When `amount` is omitted, the process is treated as product-mass-dependent.
-
--}
-type alias DefaultConsumption =
-    { amount : Maybe Amount
-    , processId : Process.Id
-    }
-
-
 {-| A generic product category, providing sensible defaults for common characteristics
 like assembly processes, transport cooling, distribution process and use-stage consumptions.
 -}
 type alias ProductCategory =
     { assembly : List Process.Id
-    , consumptions : List DefaultConsumption
+    , consumptions : List Consumption
     , cooling : Bool
     , distribution : Maybe Process.Id
     , id : Id
@@ -58,30 +45,12 @@ decode : Decoder ProductCategory
 decode =
     Decode.succeed ProductCategory
         |> DU.strictOptionalWithDefault "assembly" (Decode.list Process.decodeId) []
-        |> DU.strictOptionalWithDefault "consumptions" (Decode.list decodeDefaultConsumption) []
+        |> DU.strictOptionalWithDefault "consumptions" (Decode.list Consumption.decode) []
         |> Pipe.required "cooling" Decode.bool
         |> DU.strictOptional "distribution" Process.decodeId
         |> Pipe.required "id" decodeId
         |> Pipe.required "label" Decode.string
         |> Pipe.required "scope" Scope.decodeGeneric
-
-
-{-| accepts either a long or a short form for JSON def
-
-  - long form: consumptions: [{ "processId": "<uuid1>" }, { "processId": "<uuid2>" }, …]
-  -            consumptions: [{ "processId": "<uuid1>", "amount": 1 }, { "processId": "<uuid2>", "amount": 2 }, …]
-  - short form: consumptions: ["<uuid1>", "<uuid2>", …]
-
--}
-decodeDefaultConsumption : Decoder DefaultConsumption
-decodeDefaultConsumption =
-    Decode.oneOf
-        [ Decode.succeed DefaultConsumption
-            |> DU.strictOptional "amount" Amount.decode
-            |> Pipe.required "processId" Process.decodeId
-        , Process.decodeId
-            |> Decode.map (\processId -> { amount = Nothing, processId = processId })
-        ]
 
 
 decodeId : Decoder Id
@@ -117,18 +86,10 @@ encode product =
                 Nothing
 
             else
-                Encode.list encodeDefaultConsumption product.consumptions |> Just
+                Encode.list Consumption.encode product.consumptions |> Just
           )
         , ( "cooling", Encode.bool product.cooling |> Just )
         , ( "distribution", product.distribution |> Maybe.map Process.encodeId )
-        ]
-
-
-encodeDefaultConsumption : DefaultConsumption -> Encode.Value
-encodeDefaultConsumption { amount, processId } =
-    EU.optionalPropertiesObject
-        [ ( "processId", Process.encodeId processId |> Just )
-        , ( "amount", amount |> Maybe.map Amount.encode )
         ]
 
 
