@@ -991,7 +991,7 @@ suite =
                     , describe "computeAssemblyImpacts"
                         [ suiteFromResult "should keep product mass unchanged when no assembly operations are defined"
                             ("""{ "components": [{ "id": "64fa65b3-c2df-4fd0-958b-83965bd6aa08", "quantity": 1 }] }"""
-                                |> decodeJsonThen (Component.decodeQuery db.processes) (Component.compute requirements)
+                                |> decodeAndComputeQueryThen requirements
                                 |> Result.map
                                     (\lifeCycle ->
                                         ( Component.extractMass lifeCycle.production
@@ -1036,7 +1036,7 @@ suite =
                                     ]
                                   }
                                 }"""
-                                |> decodeJsonThen (Component.decodeQuery db.processes) (Component.compute requirements)
+                                |> decodeAndComputeQueryThen requirements
                             )
                             (\lifeCycle ->
                                 let
@@ -1124,7 +1124,7 @@ suite =
                                   ],
                                   "recyclable": true
                                 }"""
-                                |> decodeJsonThen (Component.decodeQuery db.processes) (Component.compute requirements)
+                                |> decodeAndComputeQueryThen requirements
                             )
                             --  assembly operations featuring waste
                             ("""{
@@ -1141,7 +1141,7 @@ suite =
                                     ]
                                   }
                                 }"""
-                                |> decodeJsonThen (Component.decodeQuery db.processes) (Component.compute requirements)
+                                |> decodeAndComputeQueryThen requirements
                             )
                             (\lifeCycle withAssemblyWaste ->
                                 let
@@ -1239,7 +1239,7 @@ suite =
                                     { "id": "eda5dd7e-52e4-450f-8658-1876efc62bd6", "quantity": 1 }
                                   ]
                                 }"""
-                                |> decodeJsonThen (Component.decodeQuery db.processes) (Component.compute requirements)
+                                |> decodeAndComputeQueryThen requirements
                             )
                             -- tests
                             (\productAssembledInFrance ->
@@ -1269,7 +1269,7 @@ suite =
                         , suiteFromResult "single item distribution transport"
                             -- setup
                             ("""{"components": [{ "id": "64fa65b3-c2df-4fd0-958b-83965bd6aa08", "quantity": 1 }]}"""
-                                |> decodeJsonThen (Component.decodeQuery db.processes) (Component.compute requirements)
+                                |> decodeAndComputeQueryThen requirements
                             )
                             -- tests
                             (\singleItemProduct ->
@@ -1294,10 +1294,10 @@ suite =
                         , suiteFromResult2 "single item quantity scaling"
                             -- setup
                             ("""{"components": [{ "id": "64fa65b3-c2df-4fd0-958b-83965bd6aa08", "quantity": 1 }]}"""
-                                |> decodeJsonThen (Component.decodeQuery db.processes) (Component.compute requirements)
+                                |> decodeAndComputeQueryThen requirements
                             )
                             ("""{"components": [{ "id": "64fa65b3-c2df-4fd0-958b-83965bd6aa08", "quantity": 2 }]}"""
-                                |> decodeJsonThen (Component.decodeQuery db.processes) (Component.compute requirements)
+                                |> decodeAndComputeQueryThen requirements
                             )
                             doubledQuantitiesExpectations
                         , suiteFromResult2 "single item quantity scaling with assembly country"
@@ -1306,22 +1306,22 @@ suite =
                                   "assembly": { "country": "FR" },
                                   "components": [{ "id": "64fa65b3-c2df-4fd0-958b-83965bd6aa08", "quantity": 1 }]
                                 }"""
-                                |> decodeJsonThen (Component.decodeQuery db.processes) (Component.compute requirements)
+                                |> decodeAndComputeQueryThen requirements
                             )
                             ("""{
                                   "assembly": { "country": "FR" },
                                   "components": [{ "id": "64fa65b3-c2df-4fd0-958b-83965bd6aa08", "quantity": 2 }]
                                 }"""
-                                |> decodeJsonThen (Component.decodeQuery db.processes) (Component.compute requirements)
+                                |> decodeAndComputeQueryThen requirements
                             )
                             doubledQuantitiesExpectations
                         , suiteFromResult2 "multi-element item quantity scaling"
                             -- setup
                             ("""{"components": [{ "id": "8ca2ca05-8aec-4121-acaa-7cdcc03150a9", "quantity": 1 }]}"""
-                                |> decodeJsonThen (Component.decodeQuery db.processes) (Component.compute requirements)
+                                |> decodeAndComputeQueryThen requirements
                             )
                             ("""{"components": [{ "id": "8ca2ca05-8aec-4121-acaa-7cdcc03150a9", "quantity": 2 }]}"""
-                                |> decodeJsonThen (Component.decodeQuery db.processes) (Component.compute requirements)
+                                |> decodeAndComputeQueryThen requirements
                             )
                             doubledQuantitiesExpectations
                         , it "should reject an empty component list with an assembly country"
@@ -1329,12 +1329,12 @@ suite =
                                   "assembly": { "country": "FR" },
                                   "components": []
                                 }"""
-                                |> decodeJsonThen (Component.decodeQuery db.processes) (Component.compute requirements)
+                                |> decodeAndComputeQueryThen requirements
                                 |> expectResultErrorContains "Une liste de composants vide ne peut être assemblée"
                             )
                         , suiteFromResult "empty component list without assembly country"
                             ("""{ "components": [] }"""
-                                |> decodeJsonThen (Component.decodeQuery db.processes) (Component.compute requirements)
+                                |> decodeAndComputeQueryThen requirements
                             )
                             (\emptyProduct ->
                                 [ it "should not add transport to assembly"
@@ -1361,7 +1361,7 @@ suite =
                                   "components": [{ "id": "64fa65b3-c2df-4fd0-958b-83965bd6aa08", "quantity": 1 }],
                                   "transportOptions": { "byAir": 100 }
                                 }"""
-                                |> decodeJsonThen (Component.decodeQuery db.processes) (Component.compute requirements)
+                                |> decodeAndComputeQueryThen requirements
                             )
                             -- tests
                             (\singleItemProduct ->
@@ -1393,7 +1393,7 @@ suite =
                                   "assembly": { "country": "PT" },
                                   "transportOptions": { "byAir": 100 }
                                 }"""
-                                |> decodeJsonThen (Component.decodeQuery db.processes) (Component.compute requirements)
+                                |> decodeAndComputeQueryThen requirements
                             )
                             -- tests
                             (\multipleItemsProducs ->
@@ -1423,7 +1423,7 @@ suite =
                                     { "id": "eda5dd7e-52e4-450f-8658-1876efc62bd6", "quantity": 1 }
                                   ]
                                 }"""
-                                |> decodeJsonThen (Component.decodeQuery db.processes) (Component.compute requirements)
+                                |> decodeAndComputeQueryThen requirements
                             )
                             ("""{
                                   "components": [
@@ -1431,7 +1431,7 @@ suite =
                                     { "id": "eda5dd7e-52e4-450f-8658-1876efc62bd6", "quantity": 2 }
                                   ]
                                 }"""
-                                |> decodeJsonThen (Component.decodeQuery db.processes) (Component.compute requirements)
+                                |> decodeAndComputeQueryThen requirements
                             )
                             -- tests
                             (\productAssembledInUnknownCountry heavierProductAssembledInUnknownCountry ->
@@ -1528,14 +1528,14 @@ suite =
                           describe "transport options"
                             [ itFromResult2 "should handle transport cooling"
                                 ("""{"components": [{ "id": "64fa65b3-c2df-4fd0-958b-83965bd6aa08", "quantity": 1 }]}"""
-                                    |> decodeJsonThen (Component.decodeQuery db.processes) (Component.compute requirements)
+                                    |> decodeAndComputeQueryThen requirements
                                     |> Result.map getTransportStageEcs
                                 )
                                 ("""{
                                   "components": [{ "id": "64fa65b3-c2df-4fd0-958b-83965bd6aa08", "quantity": 1 }],
                                   "transportOptions": { "cooling": true }
                                 }"""
-                                    |> decodeJsonThen (Component.decodeQuery db.processes) (Component.compute requirements)
+                                    |> decodeAndComputeQueryThen requirements
                                     |> Result.map getTransportStageEcs
                                 )
                                 (\noTransportCooling withTransportCooling ->
@@ -1544,14 +1544,14 @@ suite =
                                 )
                             , itFromResult2 "should handle air transport"
                                 ("""{"components": [{ "id": "64fa65b3-c2df-4fd0-958b-83965bd6aa08", "quantity": 1 }]}"""
-                                    |> decodeJsonThen (Component.decodeQuery db.processes) (Component.compute requirements)
+                                    |> decodeAndComputeQueryThen requirements
                                     |> Result.map getTransportStageEcs
                                 )
                                 ("""{
                                   "components": [{ "id": "64fa65b3-c2df-4fd0-958b-83965bd6aa08", "quantity": 1 }],
                                   "transportOptions": { "byAir": 100 }
                                 }"""
-                                    |> decodeJsonThen (Component.decodeQuery db.processes) (Component.compute requirements)
+                                    |> decodeAndComputeQueryThen requirements
                                     |> Result.map getTransportStageEcs
                                 )
                                 (\noAirTransport withAirTransport ->
@@ -1580,7 +1580,7 @@ suite =
                                       "components": [{ "id": "64fa65b3-c2df-4fd0-958b-83965bd6aa08", "quantity": 1 }],
                                       "transportOptions": { "cooling": true }
                                     }"""
-                                    |> decodeJsonThen (Component.decodeQuery db.processes) (Component.compute requirements)
+                                    |> decodeAndComputeQueryThen requirements
                                 )
                                 (\product ->
                                     product.transports.toAssembly.roadCooled
@@ -1592,7 +1592,7 @@ suite =
                                       "components": [{ "id": "64fa65b3-c2df-4fd0-958b-83965bd6aa08", "quantity": 1 }],
                                       "transportOptions": { "cooling": true }
                                     }"""
-                                    |> decodeJsonThen (Component.decodeQuery db.processes) (Component.compute requirements)
+                                    |> decodeAndComputeQueryThen requirements
                                 )
                                 (\product ->
                                     product.transports.toDistribution.roadCooled
@@ -2157,7 +2157,7 @@ suite =
                               ],
                               "recyclable": true
                             }"""
-                            |> decodeJsonThen (Component.decodeQuery db.processes) (Component.compute requirements)
+                            |> decodeAndComputeQueryThen requirements
                             |> Result.map (\results -> ( results, Component.stagesImpacts results ))
                         )
                         (\( lifeCycle, stagesImpacts ) ->
@@ -2214,7 +2214,7 @@ suite =
                               ],
                               "recyclable": false
                             }"""
-                            |> decodeJsonThen (Component.decodeQuery db.processes) (Component.compute requirements)
+                            |> decodeAndComputeQueryThen requirements
                             |> Result.map Component.stagesImpacts
                         )
                         (\stagesImpacts ->
@@ -3088,6 +3088,13 @@ findProductCategoryByLabel { db } label =
 getEcsImpact : Impacts -> Float
 getEcsImpact =
     Impact.getImpact Definition.Ecs >> Unit.impactToFloat
+
+
+decodeAndComputeQueryThen : Requirements db -> String -> Result String LifeCycle
+decodeAndComputeQueryThen ({ db } as requirements) =
+    decodeJsonThen
+        (Component.decodeQuery db.processes)
+        (Component.compute requirements)
 
 
 decodeJson : Decoder a -> String -> Result String a
