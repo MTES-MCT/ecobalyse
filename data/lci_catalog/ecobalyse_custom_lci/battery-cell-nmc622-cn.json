@@ -1,6 +1,6 @@
 {
   "activityName": "Battery cell production, NMC622, CN",
-  "categories": ["material", "material_type:battery_cell"],
+  "categories": ["material", "material_type:battery_cell_nmc622"],
   "comment": "For 1kg cell. Based on GREET model (average of available battery size)",
   "displayName": "Cellule de batterie, NMC622, Chine",
   "elecKwh": 0.0,
