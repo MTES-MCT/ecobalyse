@@ -2,9 +2,10 @@ module Static.Json exposing
     ( RawJsonComponents
     , componentConfigJson
     , countriesJson
-    , foodIngredientsJson
+    , food2ComponentsJson
     , food2ProductCategoriesJson
     , food2ExamplesJson
+    , foodIngredientsJson
     , foodProductExamplesJson
     , impactsJson
     , objectProductCategoriesJson

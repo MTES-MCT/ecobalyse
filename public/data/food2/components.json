@@ -1,1 +1,15 @@
-[]
+[
+  {
+    "comment": null,
+    "elements": [
+      {
+        "amount": 0.2,
+        "material": "b94d40bd-3394-59d3-9397-fe097a5f7138",
+        "transforms": ["de307fb4-99d3-4a01-962b-242ace7b2739"]
+      }
+    ],
+    "id": "151d05c3-8a6a-4576-a8c2-d5f92fb0806b",
+    "name": "Purée de tomate FR",
+    "scopes": ["food2"]
+  }
+]

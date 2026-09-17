@@ -38,6 +38,7 @@ type alias Db =
 type alias Properties a =
     { countries : a
     , definitions : a
+    , food2Components : a
     , food2Examples : a
     , food2ProductCategories : a
     , foodIngredients : a
@@ -74,8 +75,8 @@ build json =
             (\processes ->
                 Ok Db
                     |> RE.andMap
-                        -- Note: no food2 components just yet
-                        ([ json.objectComponents
+                        ([ json.food2Components
+                         , json.objectComponents
                          , json.textileComponents
                          , json.veliComponents
                          ]
