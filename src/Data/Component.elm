@@ -1401,13 +1401,37 @@ decodeItem =
         |> Decode.required "quantity" decodeQuantity
 
 
+{-| Decodes the custom payload of an item, whichcan have a nested `custom`
+key or a flat `elements` one.
+-}
 decodeItemCustom : Decoder (Maybe Custom)
 decodeItemCustom =
-    Decode.oneOf
-        [ Decode.map Just (Decode.field "custom" decodeCustom)
-        , Decode.map Just decodeCustom
-        , Decode.succeed Nothing
-        ]
+    -- First check if there's any nested `custom` key without decoding its contents
+    Decode.maybe (Decode.field "custom" Decode.value)
+        |> Decode.andThen
+            (\maybeNestedCustom ->
+                case maybeNestedCustom of
+                    -- Key is present: decode it strictly as Custom (invalid JSON fails)
+                    Just _ ->
+                        Decode.map Just (Decode.field "custom" decodeCustom)
+
+                    -- No nested `custom`: look for the canonical flat form
+                    Nothing ->
+                        -- Check for an `elements` key at the item root
+                        Decode.maybe (Decode.field "elements" Decode.value)
+                            -- Same idea: if the key exists, decode strictly
+                            |> Decode.andThen
+                                (\maybeElements ->
+                                    case maybeElements of
+                                        -- An `elements` key is present: decode the whole item as Custom
+                                        Just _ ->
+                                            Decode.map Just decodeCustom
+
+                                        -- This is a regular item without custom payload ({ id, quantity })
+                                        Nothing ->
+                                            Decode.succeed Nothing
+                                )
+            )
 
 
 decodeList : Decoder (List Component)
