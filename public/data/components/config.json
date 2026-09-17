@@ -43,25 +43,25 @@
           "landfilling": null,
           "recycling": { "percent": 100, "processId": "8b60398a-d6b8-467f-89c1-0a0bcd85ba62" }
         },
-        "battery_cell_nmc811": {
+        "battery_alkaline": {
           "incinerating": null,
           "landfilling": null,
-          "recycling": { "percent": 100, "processId": "03c400e8-d3b8-4b6a-8ea7-49180968d0e5" }
-        },
-        "battery_cell_nmc622": {
-          "incinerating": null,
-          "landfilling": null,
-          "recycling": { "percent": 100, "processId": "774702d7-ad9a-482c-a949-76b8cc64a18f" }
+          "recycling": { "percent": 100, "processId": "6a727794-8464-4605-a1cf-855b6f364445" }
         },
         "battery_cell_lfp": {
           "incinerating": null,
           "landfilling": null,
           "recycling": { "percent": 100, "processId": "658aa88f-c4c9-4e19-9988-c1f5d4fc5994" }
         },
-        "battery_alkaline": {
+        "battery_cell_nmc622": {
           "incinerating": null,
           "landfilling": null,
-          "recycling": { "percent": 100, "processId": "6a727794-8464-4605-a1cf-855b6f364445" }
+          "recycling": { "percent": 100, "processId": "774702d7-ad9a-482c-a949-76b8cc64a18f" }
+        },
+        "battery_cell_nmc811": {
+          "incinerating": null,
+          "landfilling": null,
+          "recycling": { "percent": 100, "processId": "03c400e8-d3b8-4b6a-8ea7-49180968d0e5" }
         },
         "composites": {
           "incinerating": { "percent": 82, "processId": "7f7af998-8313-47e7-b043-80fcf4d67042" },
