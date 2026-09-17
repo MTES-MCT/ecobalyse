@@ -1,1 +1,15 @@
-[]
+[
+  {
+    "comment": null,
+    "elements": [
+      {
+        "amount": 1,
+        "material": "85641d75-149d-4863-a1a8-463e71a85fc2",
+        "transforms": ["de307fb4-99d3-4a01-962b-242ace7b2739"]
+      }
+    ],
+    "id": "c845482e-8347-4a3c-9dd4-392d8fc2cb3f",
+    "name": "Sauce tomate",
+    "scopes": ["food2"]
+  },
+]
