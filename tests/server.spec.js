@@ -785,6 +785,36 @@ describe("API", () => {
       });
     });
 
+    describe("/food2/simulator consumptions", () => {
+      const ovenCookingId = "a49670fc-0642-43f6-a673-fe15dc7d88da";
+      const pizzaPackagingId = "fa775270-4bc7-4f6d-a9d3-c80ed05ed90c";
+
+      it("should accept a productmassdependent consumption as a uuid", async () => {
+        const response = await makePostRequest("/api/food2/simulator", {
+          components: [],
+          consumptions: [ovenCookingId],
+        });
+        expect(response.body.error).toBeUndefined();
+        expectStatus(response, 200);
+      });
+
+      it("should reject a productmassdependent consumption with an amount", async () => {
+        const response = await makePostRequest("/api/food2/simulator", {
+          components: [],
+          consumptions: [{ amount: 1, processId: ovenCookingId }],
+        });
+        expectFieldErrorMessage(response, "decoding", /amount ne doit pas/);
+      });
+
+      it("should reject a non-productmassdependent consumption without an amount", async () => {
+        const response = await makePostRequest("/api/food2/simulator", {
+          components: [],
+          consumptions: [pizzaPackagingId],
+        });
+        expectFieldErrorMessage(response, "decoding", /amount est obligatoire/);
+      });
+    });
+
     for (const scope of ["food2", "object", "veli"]) {
       describe(`/${scope}/simulator`, () => {
         it("should accept an empty query", async () => {

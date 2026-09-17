@@ -991,7 +991,7 @@ suite =
                     , describe "computeAssemblyImpacts"
                         [ suiteFromResult "should keep product mass unchanged when no assembly operations are defined"
                             ("""{ "components": [{ "id": "64fa65b3-c2df-4fd0-958b-83965bd6aa08", "quantity": 1 }] }"""
-                                |> decodeJsonThen Component.decodeQuery (Component.compute requirements)
+                                |> decodeJsonThen (Component.decodeQuery db.processes) (Component.compute requirements)
                                 |> Result.map
                                     (\lifeCycle ->
                                         ( Component.extractMass lifeCycle.production
@@ -1013,7 +1013,7 @@ suite =
                                 |> Result.andThen
                                     (\categoryProduct ->
                                         """{ "components": [{ "id": "9178fe2e-6944-41d5-ad1b-7abbe8905c48", "quantity": 1 }] }"""
-                                            |> decodeJsonThen Component.decodeQuery
+                                            |> decodeJsonThen (Component.decodeQuery db.processes)
                                                 (\query ->
                                                     query
                                                         |> Component.updateProduct (Just categoryProduct)
@@ -1036,7 +1036,7 @@ suite =
                                     ]
                                   }
                                 }"""
-                                |> decodeJsonThen Component.decodeQuery (Component.compute requirements)
+                                |> decodeJsonThen (Component.decodeQuery db.processes) (Component.compute requirements)
                             )
                             (\lifeCycle ->
                                 let
@@ -1110,7 +1110,7 @@ suite =
                                   "assemblyCountry": "FR",
                                   "components": [{ "id": "64fa65b3-c2df-4fd0-958b-83965bd6aa08", "quantity": 1 }]
                                 }"""
-                                |> decodeJsonThen Component.decodeQuery Ok
+                                |> decodeJsonThen (Component.decodeQuery db.processes) Ok
                                 |> Result.map .assembly
                             )
                             (.country >> Expect.equal (Just CountryCode.france))
@@ -1124,7 +1124,7 @@ suite =
                                   ],
                                   "recyclable": true
                                 }"""
-                                |> decodeJsonThen Component.decodeQuery (Component.compute requirements)
+                                |> decodeJsonThen (Component.decodeQuery db.processes) (Component.compute requirements)
                             )
                             --  assembly operations featuring waste
                             ("""{
@@ -1141,7 +1141,7 @@ suite =
                                     ]
                                   }
                                 }"""
-                                |> decodeJsonThen Component.decodeQuery (Component.compute requirements)
+                                |> decodeJsonThen (Component.decodeQuery db.processes) (Component.compute requirements)
                             )
                             (\lifeCycle withAssemblyWaste ->
                                 let
@@ -1239,7 +1239,7 @@ suite =
                                     { "id": "eda5dd7e-52e4-450f-8658-1876efc62bd6", "quantity": 1 }
                                   ]
                                 }"""
-                                |> decodeJsonThen Component.decodeQuery (Component.compute requirements)
+                                |> decodeJsonThen (Component.decodeQuery db.processes) (Component.compute requirements)
                             )
                             -- tests
                             (\productAssembledInFrance ->
@@ -1269,7 +1269,7 @@ suite =
                         , suiteFromResult "single item distribution transport"
                             -- setup
                             ("""{"components": [{ "id": "64fa65b3-c2df-4fd0-958b-83965bd6aa08", "quantity": 1 }]}"""
-                                |> decodeJsonThen Component.decodeQuery (Component.compute requirements)
+                                |> decodeJsonThen (Component.decodeQuery db.processes) (Component.compute requirements)
                             )
                             -- tests
                             (\singleItemProduct ->
@@ -1294,10 +1294,10 @@ suite =
                         , suiteFromResult2 "single item quantity scaling"
                             -- setup
                             ("""{"components": [{ "id": "64fa65b3-c2df-4fd0-958b-83965bd6aa08", "quantity": 1 }]}"""
-                                |> decodeJsonThen Component.decodeQuery (Component.compute requirements)
+                                |> decodeJsonThen (Component.decodeQuery db.processes) (Component.compute requirements)
                             )
                             ("""{"components": [{ "id": "64fa65b3-c2df-4fd0-958b-83965bd6aa08", "quantity": 2 }]}"""
-                                |> decodeJsonThen Component.decodeQuery (Component.compute requirements)
+                                |> decodeJsonThen (Component.decodeQuery db.processes) (Component.compute requirements)
                             )
                             doubledQuantitiesExpectations
                         , suiteFromResult2 "single item quantity scaling with assembly country"
@@ -1306,22 +1306,22 @@ suite =
                                   "assembly": { "country": "FR" },
                                   "components": [{ "id": "64fa65b3-c2df-4fd0-958b-83965bd6aa08", "quantity": 1 }]
                                 }"""
-                                |> decodeJsonThen Component.decodeQuery (Component.compute requirements)
+                                |> decodeJsonThen (Component.decodeQuery db.processes) (Component.compute requirements)
                             )
                             ("""{
                                   "assembly": { "country": "FR" },
                                   "components": [{ "id": "64fa65b3-c2df-4fd0-958b-83965bd6aa08", "quantity": 2 }]
                                 }"""
-                                |> decodeJsonThen Component.decodeQuery (Component.compute requirements)
+                                |> decodeJsonThen (Component.decodeQuery db.processes) (Component.compute requirements)
                             )
                             doubledQuantitiesExpectations
                         , suiteFromResult2 "multi-element item quantity scaling"
                             -- setup
                             ("""{"components": [{ "id": "8ca2ca05-8aec-4121-acaa-7cdcc03150a9", "quantity": 1 }]}"""
-                                |> decodeJsonThen Component.decodeQuery (Component.compute requirements)
+                                |> decodeJsonThen (Component.decodeQuery db.processes) (Component.compute requirements)
                             )
                             ("""{"components": [{ "id": "8ca2ca05-8aec-4121-acaa-7cdcc03150a9", "quantity": 2 }]}"""
-                                |> decodeJsonThen Component.decodeQuery (Component.compute requirements)
+                                |> decodeJsonThen (Component.decodeQuery db.processes) (Component.compute requirements)
                             )
                             doubledQuantitiesExpectations
                         , it "should reject an empty component list with an assembly country"
@@ -1329,12 +1329,12 @@ suite =
                                   "assembly": { "country": "FR" },
                                   "components": []
                                 }"""
-                                |> decodeJsonThen Component.decodeQuery (Component.compute requirements)
+                                |> decodeJsonThen (Component.decodeQuery db.processes) (Component.compute requirements)
                                 |> expectResultErrorContains "Une liste de composants vide ne peut être assemblée"
                             )
                         , suiteFromResult "empty component list without assembly country"
                             ("""{ "components": [] }"""
-                                |> decodeJsonThen Component.decodeQuery (Component.compute requirements)
+                                |> decodeJsonThen (Component.decodeQuery db.processes) (Component.compute requirements)
                             )
                             (\emptyProduct ->
                                 [ it "should not add transport to assembly"
@@ -1361,7 +1361,7 @@ suite =
                                   "components": [{ "id": "64fa65b3-c2df-4fd0-958b-83965bd6aa08", "quantity": 1 }],
                                   "transportOptions": { "byAir": 100 }
                                 }"""
-                                |> decodeJsonThen Component.decodeQuery (Component.compute requirements)
+                                |> decodeJsonThen (Component.decodeQuery db.processes) (Component.compute requirements)
                             )
                             -- tests
                             (\singleItemProduct ->
@@ -1393,7 +1393,7 @@ suite =
                                   "assembly": { "country": "PT" },
                                   "transportOptions": { "byAir": 100 }
                                 }"""
-                                |> decodeJsonThen Component.decodeQuery (Component.compute requirements)
+                                |> decodeJsonThen (Component.decodeQuery db.processes) (Component.compute requirements)
                             )
                             -- tests
                             (\multipleItemsProducs ->
@@ -1423,7 +1423,7 @@ suite =
                                     { "id": "eda5dd7e-52e4-450f-8658-1876efc62bd6", "quantity": 1 }
                                   ]
                                 }"""
-                                |> decodeJsonThen Component.decodeQuery (Component.compute requirements)
+                                |> decodeJsonThen (Component.decodeQuery db.processes) (Component.compute requirements)
                             )
                             ("""{
                                   "components": [
@@ -1431,7 +1431,7 @@ suite =
                                     { "id": "eda5dd7e-52e4-450f-8658-1876efc62bd6", "quantity": 2 }
                                   ]
                                 }"""
-                                |> decodeJsonThen Component.decodeQuery (Component.compute requirements)
+                                |> decodeJsonThen (Component.decodeQuery db.processes) (Component.compute requirements)
                             )
                             -- tests
                             (\productAssembledInUnknownCountry heavierProductAssembledInUnknownCountry ->
@@ -1528,14 +1528,14 @@ suite =
                           describe "transport options"
                             [ itFromResult2 "should handle transport cooling"
                                 ("""{"components": [{ "id": "64fa65b3-c2df-4fd0-958b-83965bd6aa08", "quantity": 1 }]}"""
-                                    |> decodeJsonThen Component.decodeQuery (Component.compute requirements)
+                                    |> decodeJsonThen (Component.decodeQuery db.processes) (Component.compute requirements)
                                     |> Result.map getTransportStageEcs
                                 )
                                 ("""{
                                   "components": [{ "id": "64fa65b3-c2df-4fd0-958b-83965bd6aa08", "quantity": 1 }],
                                   "transportOptions": { "cooling": true }
                                 }"""
-                                    |> decodeJsonThen Component.decodeQuery (Component.compute requirements)
+                                    |> decodeJsonThen (Component.decodeQuery db.processes) (Component.compute requirements)
                                     |> Result.map getTransportStageEcs
                                 )
                                 (\noTransportCooling withTransportCooling ->
@@ -1544,14 +1544,14 @@ suite =
                                 )
                             , itFromResult2 "should handle air transport"
                                 ("""{"components": [{ "id": "64fa65b3-c2df-4fd0-958b-83965bd6aa08", "quantity": 1 }]}"""
-                                    |> decodeJsonThen Component.decodeQuery (Component.compute requirements)
+                                    |> decodeJsonThen (Component.decodeQuery db.processes) (Component.compute requirements)
                                     |> Result.map getTransportStageEcs
                                 )
                                 ("""{
                                   "components": [{ "id": "64fa65b3-c2df-4fd0-958b-83965bd6aa08", "quantity": 1 }],
                                   "transportOptions": { "byAir": 100 }
                                 }"""
-                                    |> decodeJsonThen Component.decodeQuery (Component.compute requirements)
+                                    |> decodeJsonThen (Component.decodeQuery db.processes) (Component.compute requirements)
                                     |> Result.map getTransportStageEcs
                                 )
                                 (\noAirTransport withAirTransport ->
@@ -1570,7 +1570,7 @@ suite =
                                                     (\process -> { process | categories = Category.TransportedCooled :: process.categories })
                                     in
                                     """{"components": [{ "id": "64fa65b3-c2df-4fd0-958b-83965bd6aa08", "quantity": 1 }]}"""
-                                        |> decodeJsonThen Component.decodeQuery (Component.compute testSpecificReqs)
+                                        |> decodeJsonThen (Component.decodeQuery db.processes) (Component.compute testSpecificReqs)
                                         |> Result.map (.transports >> .toAssembly >> .roadCooled >> Length.inKilometers)
                                         |> Result.withDefault 0
                                         |> Expect.greaterThan 0
@@ -1580,7 +1580,7 @@ suite =
                                       "components": [{ "id": "64fa65b3-c2df-4fd0-958b-83965bd6aa08", "quantity": 1 }],
                                       "transportOptions": { "cooling": true }
                                     }"""
-                                    |> decodeJsonThen Component.decodeQuery (Component.compute requirements)
+                                    |> decodeJsonThen (Component.decodeQuery db.processes) (Component.compute requirements)
                                 )
                                 (\product ->
                                     product.transports.toAssembly.roadCooled
@@ -1592,7 +1592,7 @@ suite =
                                       "components": [{ "id": "64fa65b3-c2df-4fd0-958b-83965bd6aa08", "quantity": 1 }],
                                       "transportOptions": { "cooling": true }
                                     }"""
-                                    |> decodeJsonThen Component.decodeQuery (Component.compute requirements)
+                                    |> decodeJsonThen (Component.decodeQuery db.processes) (Component.compute requirements)
                                 )
                                 (\product ->
                                     product.transports.toDistribution.roadCooled
@@ -1922,7 +1922,7 @@ suite =
                                  { "amount": 1, "processId": "931c9bb0-619a-5f75-b41b-ab8061e2ad92" }
                                ]
                              }"""
-                            |> decodeJsonThen Component.decodeQuery (Component.queryToString db)
+                            |> decodeJsonThen (Component.decodeQuery db.processes) (Component.queryToString db)
                         )
                         (\description ->
                             [ it "should have the expected items description"
@@ -2157,7 +2157,7 @@ suite =
                               ],
                               "recyclable": true
                             }"""
-                            |> decodeJsonThen Component.decodeQuery (Component.compute requirements)
+                            |> decodeJsonThen (Component.decodeQuery db.processes) (Component.compute requirements)
                             |> Result.map (\results -> ( results, Component.stagesImpacts results ))
                         )
                         (\( lifeCycle, stagesImpacts ) ->
@@ -2214,7 +2214,7 @@ suite =
                               ],
                               "recyclable": false
                             }"""
-                            |> decodeJsonThen Component.decodeQuery (Component.compute requirements)
+                            |> decodeJsonThen (Component.decodeQuery db.processes) (Component.compute requirements)
                             |> Result.map Component.stagesImpacts
                         )
                         (\stagesImpacts ->
@@ -2359,7 +2359,7 @@ suite =
                                 [ it "should reject a non-positive amount" <|
                                     ({ emptyQuery
                                         | consumptions =
-                                            Just [ Component.consumption (Amount.fromFloat -1) steelProcess.id ]
+                                            Just [ Component.consumption (Just (Amount.fromFloat -1)) steelProcess.id ]
                                      }
                                         |> Component.validateQuery { requirements | scope = Scope.Generic Scope.Food2 }
                                         |> expectResultErrorContains "Une quantité doit être supérieure ou égale à zéro"
@@ -2428,7 +2428,7 @@ suite =
                                 [ it "should reject a consumption referencing a missing process" <|
                                     ({ emptyQuery
                                         | consumptions =
-                                            Just [ Component.consumption (Amount.fromFloat 1) nonExistingProcessId ]
+                                            Just [ Component.consumption (Just (Amount.fromFloat 1)) nonExistingProcessId ]
                                      }
                                         |> Component.validateQuery requirements
                                         |> expectResultErrorContains ("Aucun procédé scopé Objets avec cet id: " ++ Process.idToString nonExistingProcessId)
@@ -2437,10 +2437,30 @@ suite =
                                     ({ emptyQuery
                                         | consumptions =
                                             -- Note: the sawing process isn't scoped for Food2
-                                            Just [ Component.consumption (Amount.fromFloat 1) sawingProcess.id ]
+                                            Just [ Component.consumption (Just (Amount.fromFloat 1)) sawingProcess.id ]
                                      }
                                         |> Component.validateQuery { requirements | scope = Scope.Generic Scope.Food2 }
                                         |> expectResultErrorContains ("Aucun procédé scopé Alimentaire BÉTA avec cet id: " ++ Process.idToString sawingProcess.id)
+                                    )
+                                , itFromResult "should reject a productmassdependent consumption with an amount"
+                                    (findProcessByLabel requirements "Cuisson au four")
+                                    (\oven ->
+                                        { emptyQuery
+                                            | consumptions = Just [ Component.consumption (Just (Amount.fromFloat 1)) oven.id ]
+                                        }
+                                            |> Component.validateQuery { requirements | scope = Scope.Generic Scope.Food2 }
+                                            |> expectResultErrorContains "le champ amount ne doit pas être renseigné"
+                                    )
+                                , itFromResult "should reject a non-productmassdependent consumption without an amount"
+                                    (Process.idFromString "fa775270-4bc7-4f6d-a9d3-c80ed05ed90c"
+                                        |> Result.andThen (\id -> Process.findById id requirements.db.processes)
+                                    )
+                                    (\packaging ->
+                                        { emptyQuery
+                                            | consumptions = Just [ Component.consumption Nothing packaging.id ]
+                                        }
+                                            |> Component.validateQuery { requirements | scope = Scope.Generic Scope.Food2 }
+                                            |> expectResultErrorContains "le champ amount est obligatoire"
                                     )
                                 , it "should reject a packaging referencing a missing process" <|
                                     ({ emptyQuery
@@ -2468,13 +2488,13 @@ suite =
                         [ describe "decoding"
                             [ it "should decode a query with no product field defined" <|
                                 ("""{"components":[]}"""
-                                    |> decodeJson Component.decodeQuery
+                                    |> decodeJson (Component.decodeQuery db.processes)
                                     |> Result.map .product
                                     |> Expect.equal (Ok Nothing)
                                 )
                             , it "should decode omitted consumptions, cooling, and assembly operations as unspecified" <|
                                 ("""{"components":[]}"""
-                                    |> decodeJson Component.decodeQuery
+                                    |> decodeJson (Component.decodeQuery db.processes)
                                     |> Result.map
                                         (\query ->
                                             ( query.consumptions
@@ -2486,19 +2506,71 @@ suite =
                                 )
                             , it "should decode an explicit empty consumptions list" <|
                                 ("""{"components":[],"consumptions":[]}"""
-                                    |> decodeJson Component.decodeQuery
+                                    |> decodeJson (Component.decodeQuery db.processes)
                                     |> Result.map .consumptions
                                     |> Expect.equal (Ok (Just []))
                                 )
+                            , itFromResult "should decode a productmassdependent consumption as a uuid"
+                                (findProcessByLabel requirements "Cuisson au four")
+                                (\oven ->
+                                    ("""{"components":[],"consumptions":["{{id}}"]}"""
+                                        |> String.replace "{{id}}" (Process.idToString oven.id)
+                                    )
+                                        |> decodeJson (Component.decodeQuery db.processes)
+                                        |> Result.map .consumptions
+                                        |> Expect.equal (Ok (Just [ Component.consumption Nothing oven.id ]))
+                                )
+                            , itFromResult "should decode a productmassdependent consumption as an object without amount"
+                                (findProcessByLabel requirements "Cuisson au four")
+                                (\oven ->
+                                    ("""{"components":[],"consumptions":[{"processId":"{{id}}"}]}"""
+                                        |> String.replace "{{id}}" (Process.idToString oven.id)
+                                    )
+                                        |> decodeJson (Component.decodeQuery db.processes)
+                                        |> Result.map .consumptions
+                                        |> Expect.equal (Ok (Just [ Component.consumption Nothing oven.id ]))
+                                )
+                            , itFromResult "should reject a productmassdependent consumption with an amount"
+                                (findProcessByLabel requirements "Cuisson au four")
+                                (\oven ->
+                                    ("""{"components":[],"consumptions":[{"amount":1,"processId":"{{id}}"}]}"""
+                                        |> String.replace "{{id}}" (Process.idToString oven.id)
+                                    )
+                                        |> decodeJson (Component.decodeQuery db.processes)
+                                        |> expectResultErrorContains "le champ amount ne doit pas être renseigné"
+                                )
+                            , itFromResult "should reject a non-productmassdependent consumption without an amount"
+                                (Process.idFromString "fa775270-4bc7-4f6d-a9d3-c80ed05ed90c"
+                                    |> Result.andThen (\id -> Process.findById id requirements.db.processes)
+                                )
+                                (\packaging ->
+                                    ("""{"components":[],"consumptions":["{{id}}"]}"""
+                                        |> String.replace "{{id}}" (Process.idToString packaging.id)
+                                    )
+                                        |> decodeJson (Component.decodeQuery db.processes)
+                                        |> expectResultErrorContains "le champ amount est obligatoire"
+                                )
+                            , itFromResult "should decode a non-productmassdependent consumption with an amount"
+                                (Process.idFromString "fa775270-4bc7-4f6d-a9d3-c80ed05ed90c"
+                                    |> Result.andThen (\id -> Process.findById id requirements.db.processes)
+                                )
+                                (\packaging ->
+                                    ("""{"components":[],"consumptions":[{"amount":2,"processId":"{{id}}"}]}"""
+                                        |> String.replace "{{id}}" (Process.idToString packaging.id)
+                                    )
+                                        |> decodeJson (Component.decodeQuery db.processes)
+                                        |> Result.map .consumptions
+                                        |> Expect.equal (Ok (Just [ Component.consumption (Just (Amount.fromFloat 2)) packaging.id ]))
+                                )
                             , it "should decode an explicit empty assembly operations list" <|
                                 ("""{"components":[],"assembly":{"operations":[]}}"""
-                                    |> decodeJson Component.decodeQuery
+                                    |> decodeJson (Component.decodeQuery db.processes)
                                     |> Result.map (.assembly >> .operations)
                                     |> Expect.equal (Ok (Just []))
                                 )
                             , it "should decode explicitly disabled cooling" <|
                                 ("""{"components":[],"transportOptions":{"cooling":false}}"""
-                                    |> decodeJson Component.decodeQuery
+                                    |> decodeJson (Component.decodeQuery db.processes)
                                     |> Result.map (.transportOptions >> .cooling)
                                     |> Expect.equal (Ok (Just False))
                                 )
@@ -2669,7 +2741,7 @@ suite =
                                 emptyQuery
                                     |> Component.updateProduct (Just categoryProduct)
                                     |> Component.getConsumptions requirements
-                                    |> List.map Component.getConsumptionProcessId
+                                    |> List.map .processId
                                     |> Expect.equal [ refrigeration.id ]
                             )
                         , itFromResult2 "should replace resolved consumptions when selecting another product category"
@@ -2680,7 +2752,7 @@ suite =
                                     |> Component.updateProduct (Just charcuterie)
                                     |> Component.updateProduct (Just frozen)
                                     |> Component.getConsumptions requirements
-                                    |> List.map Component.getConsumptionProcessId
+                                    |> List.map .processId
                                     |> Expect.equal (List.map .processId frozen.consumptions)
                             )
                         , itFromResult "should not reset explicit consumptions when re-selecting the same product"
@@ -2698,11 +2770,11 @@ suite =
                             (findProcessByLabel requirements "Cuisson au four")
                             (\charcuterie ovenCooking ->
                                 { emptyQuery
-                                    | consumptions = Just [ Component.consumption (Amount.fromFloat 1) ovenCooking.id ]
+                                    | consumptions = Just [ Component.consumption Nothing ovenCooking.id ]
                                     , product = Just charcuterie.id
                                 }
                                     |> Component.getConsumptions requirements
-                                    |> List.map Component.getConsumptionProcessId
+                                    |> List.map .processId
                                     |> Expect.equal [ ovenCooking.id ]
                             )
                         , itFromResult "should let an explicit empty consumptions list take precedence over the category"
@@ -2737,12 +2809,12 @@ suite =
                             (\charcuterie ovenCooking ->
                                 emptyQuery
                                     |> Component.updateProduct (Just charcuterie)
-                                    |> Component.addConsumption requirements ovenCooking.id
+                                    |> Component.addConsumption requirements ovenCooking
                                     |> Component.getConsumptions requirements
-                                    |> List.map Component.getConsumptionProcessId
+                                    |> List.map .processId
                                     |> Expect.equal (List.map .processId charcuterie.consumptions ++ [ ovenCooking.id ])
                             )
-                        , itFromResult2 "should update category consumption when explicitely updating its amount"
+                        , itFromResult2 "should not update the amount of a productmassdependent consumption"
                             (findProductCategoryByLabel requirements "Charcuterie")
                             (findProcessByLabel requirements "Réfrigération")
                             (\charcuterie refrigeration ->
@@ -2750,7 +2822,17 @@ suite =
                                     |> Component.updateProduct (Just charcuterie)
                                     |> Component.updateConsumptionAmount requirements 0 (Amount.fromFloat 3)
                                     |> .consumptions
-                                    |> Expect.equal (Just [ Component.consumption (Amount.fromFloat 3) refrigeration.id ])
+                                    |> Expect.equal (Just [ Component.consumption Nothing refrigeration.id ])
+                            )
+                        , itFromResult "should update a non-productmassdependent consumption amount"
+                            (findProcessByLabel requirements "Sachet en plastique (PE) flow pack et étui carton pour pizza, réfrigérée - 380g")
+                            (\packaging ->
+                                { emptyQuery
+                                    | consumptions = Just [ Component.consumption (Just (Amount.fromFloat 1)) packaging.id ]
+                                }
+                                    |> Component.updateConsumptionAmount requirements 0 (Amount.fromFloat 3)
+                                    |> .consumptions
+                                    |> Expect.equal (Just [ Component.consumption (Just (Amount.fromFloat 3)) packaging.id ])
                             )
                         , itFromResult2 "should apply category default assembly operations when selecting a product"
                             (findProductCategoryByLabel requirements "VAEs de moins de 100kg")
@@ -2887,7 +2969,7 @@ suite =
                             )
                         , it "should reject a query with an invalid product uuid" <|
                             ("""{"components":[],"product":"not-a-uuid"}"""
-                                |> decodeJson Component.decodeQuery
+                                |> decodeJson (Component.decodeQuery db.processes)
                                 |> Expect.err
                             )
                         , it "should fall back to the scoped default distribution process when product is unset" <|
@@ -2954,7 +3036,7 @@ nonExistentUuid =
 
 computeAssemblyEcsImpact : Requirements db -> String -> Result String Float
 computeAssemblyEcsImpact requirements =
-    decodeJsonThen Component.decodeQuery (Component.compute requirements)
+    decodeJsonThen (Component.decodeQuery requirements.db.processes) (Component.compute requirements)
         >> Result.map (.assembly >> Component.extractImpacts >> getEcsImpact)
 
 

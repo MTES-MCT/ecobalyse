@@ -106,10 +106,11 @@ build json =
                                 (extractJsonString json.foodIngredients)
                         )
                     |> RE.andMap
-                        (GenericDb.buildFromJson
-                            (extractJsonString json.food2Examples)
-                            (extractJsonString json.objectExamples)
-                            (extractJsonString json.veliExamples)
+                        (processes
+                            |> GenericDb.buildFromJson
+                                (extractJsonString json.food2Examples)
+                                (extractJsonString json.objectExamples)
+                                (extractJsonString json.veliExamples)
                         )
                     |> RE.andMap (Ok processes)
                     |> RE.andMap

@@ -1356,8 +1356,11 @@ components:
           description: |
             Procédés de consommation à l'étape d'utilisation (liste disponible sur `/{scope}/processes/consumption`).
             Si omis, les consommations de la catégorie de produit sélectionnée s'appliquent.
+            Un procédé dont l'entrée sera la masse du produit (catégorisé `productmassdependent`)
+            s'identifie par un simple UUID (celui du procédé en question), sans quantité assiciée.
+            Les autres types de procédés procédés exigent que la quantité soit spécifiée (`{ "amount", "processId" }`).
           items:
-            $ref: "#/components/schemas/GenericQueryQuantifiedProcess"
+            $ref: "#/components/schemas/GenericQueryConsumption"
         distribution:
           type: string
           format: uuid
@@ -1461,6 +1464,36 @@ components:
           description: Code pays de localisation (liste disponible sur `/{scope}/countries`).
           minLength: 2
           maxLength: 3
+    GenericQueryConsumption:
+      oneOf:
+      - type: string
+        format: uuid
+        description: |
+          Identifiant d'un procédé `productmassdependent` (sans `amount`).
+      - type: object
+        additionalProperties: false
+        required:
+        - processId
+        properties:
+          processId:
+            type: string
+            format: uuid
+            description: Identifiant d'un procédé `productmassdependent` (sans `amount`).
+      - type: object
+        additionalProperties: false
+        required:
+        - amount
+        - processId
+        properties:
+          amount:
+            type: number
+            description: |
+              Quantité exprimée dans l'unité du procédé. Interdit si le procédé est
+              `productmassdependent` ; obligatoire sinon.
+          processId:
+            type: string
+            format: uuid
+            description: Identifiant du procédé.
     GenericQueryQuantifiedProcess:
       type: object
       additionalProperties: false

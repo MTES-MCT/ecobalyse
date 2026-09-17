@@ -328,9 +328,7 @@ curl -sS -X POST "$API/food2/simulator" \
   ],
   "distribution": "be66b80b-1500-4e3b-bfd2-87a89ff54031",
   "transportOptions": {"cooling": true, "byAir": 0},
-  "consumptions": [
-    {"amount": 1, "processId": "a49670fc-0642-43f6-a673-fe15dc7d88da"}
-  ]
+  "consumptions": ["a49670fc-0642-43f6-a673-fe15dc7d88da"]
 }'
 ```
 

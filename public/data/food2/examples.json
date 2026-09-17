@@ -86,10 +86,7 @@
           "quantity": 1
         }
       ],
-      "consumptions": [
-        { "amount": 0.35, "processId": "0048f6f5-5f8f-4a34-acde-4e0d909883d4" },
-        { "amount": 0.35, "processId": "a49670fc-0642-43f6-a673-fe15dc7d88da" }
-      ],
+      "consumptions": ["0048f6f5-5f8f-4a34-acde-4e0d909883d4", "a49670fc-0642-43f6-a673-fe15dc7d88da"],
       "distribution": "a7b3d399-4c7b-4556-9826-a79f952feb7f",
       "packagings": [
         { "amount": 1, "processId": "fa775270-4bc7-4f6d-a9d3-c80ed05ed90c" }
@@ -186,10 +183,7 @@
           "quantity": 1
         }
       ],
-      "consumptions": [
-        { "amount": 0.35, "processId": "0048f6f5-5f8f-4a34-acde-4e0d909883d4" },
-        { "amount": 0.35, "processId": "a49670fc-0642-43f6-a673-fe15dc7d88da" }
-      ],
+      "consumptions": ["0048f6f5-5f8f-4a34-acde-4e0d909883d4", "a49670fc-0642-43f6-a673-fe15dc7d88da"],
       "distribution": "a7b3d399-4c7b-4556-9826-a79f952feb7f",
       "packagings": [
         { "amount": 1, "processId": "fa775270-4bc7-4f6d-a9d3-c80ed05ed90c" }
@@ -237,9 +231,7 @@
           "quantity": 1
         }
       ],
-      "consumptions": [
-        { "amount": 1, "processId": "b4642cec-b72e-4116-81c5-5dbfccb46055" }
-      ],
+      "consumptions": ["b4642cec-b72e-4116-81c5-5dbfccb46055"],
       "distribution": "be66b80b-1500-4e3b-bfd2-87a89ff54031",
       "packagings": [
         { "amount": 1, "processId": "d64edb92-6adc-4a06-a0d0-250cf57c54bd" }
@@ -269,9 +261,7 @@
           "quantity": 1
         }
       ],
-      "consumptions": [
-        { "amount": 1, "processId": "b4642cec-b72e-4116-81c5-5dbfccb46055" }
-      ],
+      "consumptions": ["b4642cec-b72e-4116-81c5-5dbfccb46055"],
       "distribution": "be66b80b-1500-4e3b-bfd2-87a89ff54031",
       "recyclable": true,
       "transportOptions": { "byAir": 100 }
@@ -299,10 +289,7 @@
           "quantity": 1
         }
       ],
-      "consumptions": [
-        { "amount": 0.25, "processId": "0048f6f5-5f8f-4a34-acde-4e0d909883d4" },
-        { "amount": 0.25, "processId": "a49670fc-0642-43f6-a673-fe15dc7d88da" }
-      ],
+      "consumptions": ["0048f6f5-5f8f-4a34-acde-4e0d909883d4", "a49670fc-0642-43f6-a673-fe15dc7d88da"],
       "distribution": "be66b80b-1500-4e3b-bfd2-87a89ff54031",
       "packagings": [
         { "amount": 1, "processId": "fd569276-f8b5-41aa-8005-e533ac16b9bc" }
@@ -332,9 +319,7 @@
           "quantity": 1
         }
       ],
-      "consumptions": [
-        { "amount": 1, "processId": "21e4283e-6bbf-4b2a-b52b-4440022525ad" }
-      ],
+      "consumptions": ["21e4283e-6bbf-4b2a-b52b-4440022525ad"],
       "distribution": "be66b80b-1500-4e3b-bfd2-87a89ff54031",
       "recyclable": true,
       "transportOptions": { "byAir": 100 }
@@ -404,10 +389,7 @@
           "quantity": 1
         }
       ],
-      "consumptions": [
-        { "amount": 0.35, "processId": "0048f6f5-5f8f-4a34-acde-4e0d909883d4" },
-        { "amount": 0.35, "processId": "a49670fc-0642-43f6-a673-fe15dc7d88da" }
-      ],
+      "consumptions": ["0048f6f5-5f8f-4a34-acde-4e0d909883d4", "a49670fc-0642-43f6-a673-fe15dc7d88da"],
       "distribution": "a7b3d399-4c7b-4556-9826-a79f952feb7f",
       "packagings": [
         { "amount": 1, "processId": "fa775270-4bc7-4f6d-a9d3-c80ed05ed90c" }

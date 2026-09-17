@@ -2,7 +2,6 @@ module Data.Component exposing
     ( Assembly
     , Component
     , Config
-    , Consumption
     , Custom
     , DataContainer
     , Element
@@ -82,7 +81,6 @@ module Data.Component exposing
     , findById
     , getAssemblyOperations
     , getAvailableDistributionProcesses
-    , getConsumptionProcessId
     , getConsumptions
     , getDistributionProcessId
     , getDocLink
@@ -150,6 +148,7 @@ import Data.Common.EncodeUtils as EU
 import Data.Complement as Complement exposing (ComplementsImpacts, ComplementsResultsImpacts)
 import Data.Component.Amount as Amount exposing (Amount)
 import Data.Component.Config as Config exposing (EndOfLifeStrategies, EndOfLifeStrategy)
+import Data.Component.Consumption as Consumption exposing (Consumption)
 import Data.Component.ProductCategory as ProductCategory exposing (ProductCategory)
 import Data.Country as Country exposing (Country)
 import Data.Country.Code as CountryCode
@@ -238,12 +237,6 @@ type alias Assembly =
     { country : Maybe CountryCode.Code
     , operations : Maybe (List Process.Id)
     }
-
-
-{-| Use stage consumption, a process and a quantity of its unit
--}
-type Consumption
-    = Consumption QuantifiedProcess
 
 
 {-| Errors related to distribution process handling and availability
@@ -351,7 +344,7 @@ type Packaging
 
 
 {-| A generic compact representation of a process and an amount of it.
-This is used by `Consumption` and `Packaging`
+This is used by `Packaging`.
 -}
 type alias QuantifiedProcess =
     { amount : Amount
@@ -360,7 +353,7 @@ type alias QuantifiedProcess =
 
 
 {-| An expanded representation of a process and an amount of it.
-This is used by `Consumption` and `Packaging`
+This is used by resolved consumptions and packagings.
 -}
 type alias ExpandedQuantifiedProcess =
     { amount : Amount
@@ -482,14 +475,11 @@ addAssemblyOperation requirements process ({ assembly } as query) =
     }
 
 
-addConsumption : Requirements db -> Process.Id -> Query -> Query
-addConsumption requirements processId query =
+addConsumption : Requirements db -> Process -> Query -> Query
+addConsumption requirements process query =
     { query
         | consumptions =
-            Just
-                (getConsumptions requirements query
-                    ++ [ consumption (Amount.fromFloat 1) processId ]
-                )
+            Just (getConsumptions requirements query ++ [ Consumption.fromProcess process ])
     }
 
 
@@ -836,14 +826,9 @@ computeVolumeFromMass =
         >> Volume.cubicMeters
 
 
-consumption : Amount -> Process.Id -> Consumption
-consumption amount =
-    QuantifiedProcess amount >> Consumption
-
-
-consumptionFromCategory : ProductCategory.DefaultConsumption -> Consumption
-consumptionFromCategory { amount, processId } =
-    consumption (Maybe.withDefault (Amount.fromFloat 1) amount) processId
+consumption : Maybe Amount -> Process.Id -> Consumption
+consumption amount processId =
+    { amount = amount, processId = processId }
 
 
 computeDistributionImpacts : Requirements db -> Query -> LifeCycle -> Result String LifeCycle
@@ -1334,15 +1319,20 @@ decodeBase64Query : String -> Result String Query
 decodeBase64Query =
     Base64.decode
         >> Result.andThen
-            (Decode.decodeString decodeQuery
+            (Decode.decodeString (decodeQuery [])
                 >> Result.mapError Decode.errorToString
             )
 
 
-decodeConsumption : Decoder Consumption
-decodeConsumption =
-    decodeQuantifiedProcess
-        |> Decode.map Consumption
+{-| Decodes and validates a consumption from a list of processes.
+-}
+decodeConsumption : List Process -> Decoder Consumption
+decodeConsumption processes =
+    if List.isEmpty processes then
+        Consumption.decode
+
+    else
+        Consumption.decodeAndValidate processes
 
 
 decodeCustom : Decoder Custom
@@ -1389,8 +1379,7 @@ decodePackaging =
 decodeQuantifiedProcess : Decoder QuantifiedProcess
 decodeQuantifiedProcess =
     Decode.succeed QuantifiedProcess
-        -- If no amount is specified, defaults to zero (useful for productmassdependent processes)
-        |> Decode.optional "amount" Amount.decode (Amount.fromFloat 0)
+        |> Decode.required "amount" Amount.decode
         |> Decode.required "processId" Process.decodeId
 
 
@@ -1437,13 +1426,13 @@ decodeQuantity =
         |> Decode.map Quantity
 
 
-decodeQuery : Decoder Query
-decodeQuery =
+decodeQuery : List Process -> Decoder Query
+decodeQuery processes =
     decodeAssembly
         |> Decode.andThen
             (\assembly ->
                 Decode.succeed (Query assembly)
-                    |> DU.strictOptional "consumptions" (Decode.list decodeConsumption)
+                    |> DU.strictOptional "consumptions" (Decode.list (decodeConsumption processes))
                     |> DU.strictOptional "distribution" Process.decodeId
                     |> DU.strictOptional "durability" Unit.decodeRatio
                     |> Decode.required "components" (Decode.list decodeItem)
@@ -1622,11 +1611,6 @@ encodeBase64Query =
     encodeQuery >> Encode.encode 0 >> Base64.encode
 
 
-encodeConsumption : Consumption -> Encode.Value
-encodeConsumption (Consumption quantifiedProcess) =
-    encodeQuantifiedProcess quantifiedProcess
-
-
 encodeCustom : Custom -> Encode.Value
 encodeCustom custom =
     -- Note: custom scopes are never serialized nor exported as JSON, they are
@@ -1760,7 +1744,7 @@ encodeQuery query =
                 encodeAssembly query.assembly |> Just
           )
         , ( "components", query.items |> Encode.list encodeItem |> Just )
-        , ( "consumptions", query.consumptions |> Maybe.map (Encode.list encodeConsumption) )
+        , ( "consumptions", query.consumptions |> Maybe.map (Encode.list Consumption.encode) )
         , ( "distribution", query.distribution |> Maybe.map Process.encodeId )
         , ( "durability", query.durability |> Maybe.map Unit.encodeRatio )
         , ( "packagings"
@@ -1896,7 +1880,12 @@ expandAssembly { countries, processes } country operations =
 -}
 expandConsumptions : List Process -> List Consumption -> Result String (List ExpandedQuantifiedProcess)
 expandConsumptions processes =
-    List.map (\(Consumption quantifiedProcess) -> quantifiedProcess)
+    List.map
+        (\useConsumption ->
+            { amount = Maybe.withDefault (Amount.fromFloat 0) useConsumption.amount
+            , processId = useConsumption.processId
+            }
+        )
         >> expandQuantifiedProcesses processes
 
 
@@ -2089,11 +2078,6 @@ getAvailableDistributionProcesses db scope =
         |> List.filter (.unit >> (==) Process.CubicMeter)
 
 
-getConsumptionProcessId : Consumption -> Process.Id
-getConsumptionProcessId (Consumption { processId }) =
-    processId
-
-
 {-| Get the use-stage consumptions:
 
   - from the query itself when set (`Just`, including an explicit empty list)
@@ -2114,7 +2098,7 @@ getConsumptions { db } query =
                         db.products
                             |> ProductCategory.findById productId
                             |> Result.toMaybe
-                            |> Maybe.map (.consumptions >> List.map consumptionFromCategory)
+                            |> Maybe.map .consumptions
                     )
                 |> Maybe.withDefault []
 
@@ -2986,7 +2970,15 @@ updateConsumptionAmount requirements index amount query =
         | consumptions =
             Just
                 (getConsumptions requirements query
-                    |> LE.updateAt index (\(Consumption c) -> Consumption { c | amount = amount })
+                    |> LE.updateAt index
+                        (\useConsumption ->
+                            case useConsumption.amount of
+                                Just _ ->
+                                    { useConsumption | amount = Just amount }
+
+                                Nothing ->
+                                    useConsumption
+                        )
                 )
     }
 
@@ -3199,10 +3191,9 @@ validateAssemblyProcessId { db, scope } processId =
 
 
 validateConsumption : Requirements db -> Consumption -> Result String Consumption
-validateConsumption requirements (Consumption quantifiedProcess) =
-    quantifiedProcess
-        |> validateQuantifiedProcess requirements
-        |> Result.map Consumption
+validateConsumption requirements useConsumption =
+    validateProcessId requirements useConsumption.processId
+        |> Result.andThen (\_ -> Consumption.validate requirements.db.processes useConsumption)
 
 
 validateCountry : Requirements db -> Maybe CountryCode.Code -> Result String (Maybe CountryCode.Code)
