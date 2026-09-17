@@ -20,6 +20,7 @@ module Data.Process exposing
     , idFromString
     , idToString
     , impactsPerUnit
+    , isMassDependent
     , isTransportedCooled
     , listAvailableMaterialTransforms
     , listByCategory
@@ -216,6 +217,11 @@ idFromString =
 idToString : Id -> String
 idToString (Id uuid) =
     Uuid.toString uuid
+
+
+isMassDependent : Process -> Bool
+isMassDependent =
+    hasCategory Category.ProductMassDependent
 
 
 findById : Id -> List Process -> Result String Process

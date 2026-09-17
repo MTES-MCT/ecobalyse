@@ -2449,7 +2449,7 @@ suite =
                                             | consumptions = Just [ Component.consumption (Just (Amount.fromFloat 1)) oven.id ]
                                         }
                                             |> Component.validateQuery { requirements | scope = Scope.Generic Scope.Food2 }
-                                            |> expectResultErrorContains "le champ amount ne doit pas être renseigné"
+                                            |> expectResultErrorContains "le champ amount n'est pas accepté"
                                     )
                                 , itFromResult "should reject a non-productmassdependent consumption without an amount"
                                     (Process.idFromString "fa775270-4bc7-4f6d-a9d3-c80ed05ed90c"
@@ -2460,7 +2460,7 @@ suite =
                                             | consumptions = Just [ Component.consumption Nothing packaging.id ]
                                         }
                                             |> Component.validateQuery { requirements | scope = Scope.Generic Scope.Food2 }
-                                            |> expectResultErrorContains "le champ amount est obligatoire"
+                                            |> expectResultErrorContains "le champ amount est requis"
                                     )
                                 , it "should reject a packaging referencing a missing process" <|
                                     ({ emptyQuery
@@ -2537,7 +2537,7 @@ suite =
                                         |> String.replace "{{id}}" (Process.idToString oven.id)
                                     )
                                         |> decodeJson (Component.decodeQuery db.processes)
-                                        |> expectResultErrorContains "le champ amount ne doit pas être renseigné"
+                                        |> expectResultErrorContains "le champ amount n'est pas accepté"
                                 )
                             , itFromResult "should reject a non-productmassdependent consumption without an amount"
                                 (Process.idFromString "fa775270-4bc7-4f6d-a9d3-c80ed05ed90c"
@@ -2548,7 +2548,7 @@ suite =
                                         |> String.replace "{{id}}" (Process.idToString packaging.id)
                                     )
                                         |> decodeJson (Component.decodeQuery db.processes)
-                                        |> expectResultErrorContains "le champ amount est obligatoire"
+                                        |> expectResultErrorContains "le champ amount est requis"
                                 )
                             , itFromResult "should decode a non-productmassdependent consumption with an amount"
                                 (Process.idFromString "fa775270-4bc7-4f6d-a9d3-c80ed05ed90c"

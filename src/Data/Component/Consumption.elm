@@ -74,32 +74,25 @@ fromProcess process =
 
 validate : List Process -> Consumption -> Result String Consumption
 validate processes consumption =
-    case Process.findById consumption.processId processes of
-        Err error ->
-            Err error
+    processes
+        |> Process.findById consumption.processId
+        |> Result.andThen
+            (\process ->
+                case ( consumption.amount, Process.isMassDependent process ) of
+                    ( Just _, True ) ->
+                        """Le procédé "{processName}" étant productmassdependent, le champ amount n'est pas accepté"""
+                            |> String.replace "{processName}" (Process.getDisplayName process)
+                            |> Err
 
-        Ok process ->
-            let
-                isMassDependent =
-                    -- FIXME: move to Process module
-                    Process.hasCategory Category.ProductMassDependent process
-            in
-            case ( consumption.amount, isMassDependent ) of
-                ( Just _, True ) ->
-                    Err <|
-                        "Le procédé "
-                            ++ Process.getDisplayName process
-                            ++ " est productmassdependent, le champ amount ne doit pas être renseigné"
+                    ( Just amount, False ) ->
+                        Amount.validate amount
+                            |> Result.map (\validAmount -> { consumption | amount = Just validAmount })
 
-                ( Just amount, False ) ->
-                    Amount.validate amount
-                        |> Result.map (\validAmount -> { consumption | amount = Just validAmount })
+                    ( Nothing, True ) ->
+                        Ok consumption
 
-                ( Nothing, True ) ->
-                    Ok consumption
-
-                ( Nothing, False ) ->
-                    Err <|
-                        "Le procédé "
-                            ++ Process.getDisplayName process
-                            ++ " n’est pas productmassdependent, le champ amount est obligatoire"
+                    ( Nothing, False ) ->
+                        """Le procédé "{processName}" n’etant pas productmassdependent, le champ amount est requis"""
+                            |> String.replace "{processName}" (Process.getDisplayName process)
+                            |> Err
+            )
