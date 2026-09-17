@@ -95,11 +95,7 @@
         { "id": "b09809e2-9616-49d0-a039-f26d4806d141", "quantity": 1 },
         {
           "elements": [
-            {
-              "amount": 9,
-              "material": "20f5db04-a4c7-48ab-9903-38c65cd70be0",
-              "transforms": []
-            }
+            { "amount": 9, "material": "20f5db04-a4c7-48ab-9903-38c65cd70be0" }
           ],
           "id": "01181ac8-bb9e-431d-aee4-f1ca97737d88",
           "name": "Mousse polyurethane canapé 3p",
