@@ -803,7 +803,7 @@ describe("API", () => {
           components: [],
           consumptions: [{ amount: 1, processId: ovenCookingId }],
         });
-        expectFieldErrorMessage(response, "decoding", /amount ne doit pas/);
+        expectFieldErrorMessage(response, "decoding", /amount n'est pas accepté/);
       });
 
       it("should reject a non-productmassdependent consumption without an amount", async () => {
@@ -811,7 +811,7 @@ describe("API", () => {
           components: [],
           consumptions: [pizzaPackagingId],
         });
-        expectFieldErrorMessage(response, "decoding", /amount est obligatoire/);
+        expectFieldErrorMessage(response, "decoding", /amount est requis/);
       });
     });
 
