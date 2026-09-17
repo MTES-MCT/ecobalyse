@@ -1,5 +1,10 @@
 {
-  "categories": ["transformation", "material_type:battery_cell_nmc811", "material_type:battery_cell_nmc622", "material_type:battery_cell_lfp"],
+  "categories": [
+    "transformation",
+    "material_type:battery_cell_nmc811",
+    "material_type:battery_cell_nmc622",
+    "material_type:battery_cell_lfp"
+  ],
   "comment": "Battery assembling, based on ADEME Benchmark: around 1kWh/kWh of battery capacity. Converted in consumption per kg of cell.",
   "displayName": "Assemblage en batterie",
   "elecKwh": 0.2778,
