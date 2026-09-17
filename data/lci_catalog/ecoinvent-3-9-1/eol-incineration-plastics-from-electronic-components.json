@@ -1,6 +1,6 @@
 {
   "activityName": "waste plastic, consumer electronics//[CH] treatment of waste plastic, consumer electronics, municipal incineration with fly ash extraction",
-  "categories": ["end-of-life", "material_type:pwb", "material_type:battery_cell"],
+  "categories": ["end-of-life", "material_type:pwb", "material_type:battery_cell_nmc811", "material_type:battery_cell_nmc622", "material_type:battery_cell_lfp", "material_type:battery_alkaline"],
   "comment": "",
   "displayName": "Incinération des plastiques de composants électroniques",
   "elecKwh": 0.0,
