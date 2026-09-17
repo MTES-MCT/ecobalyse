@@ -12,7 +12,7 @@ L'API générique existe pour trois périmètres : `food2` (alimentaire bêta),
 
 Les exemples d'appels ci-après utilisent tous l'utilitaire en ligne de commande `curl`, utilisable depuis un terminal.
 
-Tous les appels s'authentifient de la même façon, en passant le jeton d'authentification via un entête dédié. Vous pouvez obtenir ce jeton d'accès à l'API depuis l'espace de gestion de [votre compte Ecobalyse](/#/auth), dans l'onglet *Jetons d'API*. Un appel sans jeton, ou avec un jeton invalide, est rejeté avec une erreur HTTP 401.
+Tous les appels s'authentifient de la même façon, en passant le jeton d'authentification via un en-tête dédié. Vous pouvez obtenir ce jeton d'accès à l'API depuis l'espace de gestion de [votre compte Ecobalyse](/#/auth), dans l'onglet *Jetons d'API*. Un appel sans jeton, ou avec un jeton invalide, est rejeté avec une erreur HTTP 401.
 
 > 💡 Pour permettre de jouer les exemples d'appels `curl` par simple copier-coller, assignez au préalable l'URL de l'API et votre jeton à des variables d'environnement dans votre terminal :
 >
@@ -229,7 +229,7 @@ Le champ `distribution` n'accepte qu'un seul procédé. Pour une pizza vendue au
   "distribution": "be66b80b-1500-4e3b-bfd2-87a89ff54031"
 ```
 
-> 💡 En l'absence d'une valeur spécifié pour ce champ, le périmètre `food2` est configuré pour appliquer le procédé *Vente au détail : produit sec* par défaut.
+> 💡 En l'absence d'une valeur spécifiée pour ce champ, le périmètre `food2` est configuré pour appliquer le procédé *Vente au détail : produit sec* par défaut.
 
 Le transport *entre assemblage et distribution* se paramètre via l'objet `transportOptions` :
 
@@ -249,14 +249,13 @@ curl -sS "$API/food2/processes/consumption" \
   -H "Authorization: Bearer $TOKEN"
 ```
 
-Notre pizza étant vouée à être cuite au four, on mobilisera *Cuisson au four* (`a49670fc-0642-43f6-a673-fe15dc7d88da`). Ce procédé est étiqueté `productmassdependent` : le moteur de calcul utilisera la masse du produit, donc nul besoin de préciser `amount` :
+Notre pizza étant vouée à être cuite au four, on mobilisera le procédé d'utilisation *Cuisson au four* (`a49670fc-0642-43f6-a673-fe15dc7d88da`). Ce procédé est étiqueté `productmassdependent` : le moteur de calcul utilise la masse du produit fini, le champ `amount` **ne doit pas** être renseigné (préciser une valeur déclencherait une erreur HTTP 400). Un procédé qui n'est pas `productmassdependent` exige au contraire la forme obligatoire `{ "amount", "processId" }`.
+
+On identifie un procédé `productmassdependent` par son UUID seul :
 
 ```json
-  "consumptions": [
-    {"processId": "a49670fc-0642-43f6-a673-fe15dc7d88da"}
-  ]
+  "consumptions": ["a49670fc-0642-43f6-a673-fe15dc7d88da"]
 ```
-
 
 
 ## Pour résumer
