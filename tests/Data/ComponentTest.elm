@@ -1767,6 +1767,46 @@ suite =
                                     )
                             )
                             (Expect.equal (Just CountryCode.china))
+                        , itFromResult "should decode an item with name and elements at the root"
+                            ("""{
+                                  "quantity": 1,
+                                  "name": "Tomate FR",
+                                  "elements": [
+                                    {
+                                      "amount": 0.2,
+                                      "material": "17431e06-2973-516e-b043-be9ad405e4fb"
+                                    }
+                                  ]
+                                }"""
+                                |> decodeJsonThen Component.decodeItem
+                                    (.custom
+                                        >> Maybe.andThen .name
+                                        >> Result.fromMaybe "Missing custom name"
+                                    )
+                            )
+                            (Expect.equal "Tomate FR")
+                        , itFromResult "should encode custom fields at the item root"
+                            ("""{
+                                  "quantity": 1,
+                                  "custom": {
+                                    "name": "Test",
+                                    "elements": [
+                                      {
+                                        "amount": 1,
+                                        "material": "17431e06-2973-516e-b043-be9ad405e4fb"
+                                      }
+                                    ]
+                                  }
+                                }"""
+                                |> decodeJsonThen Component.decodeItem
+                                    (Component.encodeItem >> Encode.encode 0 >> Ok)
+                            )
+                            (Expect.all
+                                [ String.contains "\"custom\"" >> Expect.equal False
+                                , String.contains "\"elements\"" >> Expect.equal True
+                                , String.contains "\"name\":\"Test\"" >> Expect.equal True
+                                ]
+                            )
                         ]
                     , describe "getDocLink"
                         [ it "should retrieve a scoped documentation link"
