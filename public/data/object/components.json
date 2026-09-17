@@ -43,8 +43,7 @@
       },
       {
         "amount": 0.05,
-        "material": { "country": "CN", "id": "51956fb2-304d-4e63-a3ef-b3eed44fde38" },
-        "transforms": []
+        "material": { "country": "CN", "id": "51956fb2-304d-4e63-a3ef-b3eed44fde38" }
       }
     ],
     "id": "9178fe2e-6944-41d5-ad1b-7abbe8905c48",
@@ -99,8 +98,7 @@
       },
       {
         "amount": 0.05,
-        "material": { "country": "CN", "id": "51956fb2-304d-4e63-a3ef-b3eed44fde38" },
-        "transforms": []
+        "material": { "country": "CN", "id": "51956fb2-304d-4e63-a3ef-b3eed44fde38" }
       }
     ],
     "id": "990f4263-3b6c-48ce-92e8-566584edf5b2",
@@ -155,8 +153,7 @@
       },
       {
         "amount": 0.05,
-        "material": { "country": "CN", "id": "51956fb2-304d-4e63-a3ef-b3eed44fde38" },
-        "transforms": []
+        "material": { "country": "CN", "id": "51956fb2-304d-4e63-a3ef-b3eed44fde38" }
       }
     ],
     "id": "c374ab14-9e12-49d0-91c3-cfc0b6b70f1b",
@@ -210,8 +207,7 @@
       },
       {
         "amount": 0.6,
-        "material": { "country": "CN", "id": "51956fb2-304d-4e63-a3ef-b3eed44fde38" },
-        "transforms": []
+        "material": { "country": "CN", "id": "51956fb2-304d-4e63-a3ef-b3eed44fde38" }
       }
     ],
     "id": "7cfe659e-3764-4a8c-a25b-201396cbc09f",
@@ -265,8 +261,7 @@
       },
       {
         "amount": 2.2,
-        "material": { "country": "CN", "id": "51956fb2-304d-4e63-a3ef-b3eed44fde38" },
-        "transforms": []
+        "material": { "country": "CN", "id": "51956fb2-304d-4e63-a3ef-b3eed44fde38" }
       }
     ],
     "id": "57df64a3-278e-4e93-b836-9ba44b880fb5",
@@ -320,8 +315,7 @@
       },
       {
         "amount": 2.2,
-        "material": { "country": "FR", "id": "51956fb2-304d-4e63-a3ef-b3eed44fde38" },
-        "transforms": []
+        "material": { "country": "FR", "id": "51956fb2-304d-4e63-a3ef-b3eed44fde38" }
       }
     ],
     "id": "3b15918f-d21c-4251-96a8-548ac8444a04",
@@ -375,8 +369,7 @@
       },
       {
         "amount": 2.2,
-        "material": { "country": "CN", "id": "51956fb2-304d-4e63-a3ef-b3eed44fde38" },
-        "transforms": []
+        "material": { "country": "CN", "id": "51956fb2-304d-4e63-a3ef-b3eed44fde38" }
       }
     ],
     "id": "cdc7add7-06ac-4861-9f28-efc005598e4c",
@@ -430,8 +423,7 @@
       },
       {
         "amount": 4.7,
-        "material": { "country": "CN", "id": "51956fb2-304d-4e63-a3ef-b3eed44fde38" },
-        "transforms": []
+        "material": { "country": "CN", "id": "51956fb2-304d-4e63-a3ef-b3eed44fde38" }
       }
     ],
     "id": "7fd8dd70-2807-420f-8637-a1f2b669d0d7",
@@ -485,8 +477,7 @@
       },
       {
         "amount": 4.7,
-        "material": { "country": "FR", "id": "51956fb2-304d-4e63-a3ef-b3eed44fde38" },
-        "transforms": []
+        "material": { "country": "FR", "id": "51956fb2-304d-4e63-a3ef-b3eed44fde38" }
       }
     ],
     "id": "52e25580-d83a-4de6-9632-da4303d5211d",
@@ -692,11 +683,7 @@
   {
     "comment": "Fourche pour vélo de ville",
     "elements": [
-      {
-        "amount": 0.7,
-        "material": "ac028973-5dfa-47bc-868c-e49be116f53e",
-        "transforms": []
-      }
+      { "amount": 0.7, "material": "ac028973-5dfa-47bc-868c-e49be116f53e" }
     ],
     "id": "ece23923-fd79-492e-b0f7-c4cf97e45a8d",
     "name": "[Composant] Fourche vélo acier",
@@ -727,11 +714,7 @@
         "material": "3e514eac-185c-449e-bdc2-e1082ca0576d",
         "transforms": ["ea284007-49a8-4be1-95fc-452ea180285a", "7319ac9c-5796-412f-a1eb-58e01afa7708"]
       },
-      {
-        "amount": 0.015,
-        "material": "9c5a7a8e-6483-4da8-9cc2-0a90a30cb93a",
-        "transforms": []
-      },
+      { "amount": 0.015, "material": "9c5a7a8e-6483-4da8-9cc2-0a90a30cb93a" },
       {
         "amount": 0.18,
         "material": "2bd832fa-3376-4ebd-b699-2a7f0f32ce84",
@@ -773,11 +756,7 @@
         "material": "c5295f47-0307-48a6-8552-3705063af767",
         "transforms": ["4a08bcab-5c25-4dec-961a-0f7208f40084"]
       },
-      {
-        "amount": 0.045,
-        "material": "9c5a7a8e-6483-4da8-9cc2-0a90a30cb93a",
-        "transforms": []
-      }
+      { "amount": 0.045, "material": "9c5a7a8e-6483-4da8-9cc2-0a90a30cb93a" }
     ],
     "id": "347629ff-e7e9-4822-a948-d8c7757b2a9a",
     "name": "[Composant] Freins à patins vélo - kit complet",
@@ -795,11 +774,7 @@
           "d935e937-35e7-471d-8d78-f5c6c1685adf"
         ]
       },
-      {
-        "amount": 0.03,
-        "material": "20f5db04-a4c7-48ab-9903-38c65cd70be0",
-        "transforms": []
-      }
+      { "amount": 0.03, "material": "20f5db04-a4c7-48ab-9903-38c65cd70be0" }
     ],
     "id": "6ab7bcdf-7648-43b5-beb6-b4fa11c2d5d3",
     "name": "[Composant] Guidon de vélo",
@@ -808,11 +783,7 @@
   {
     "comment": "Moteur de Quadricycle lourd limité à 90km/h (catégorie L7e)",
     "elements": [
-      {
-        "amount": 50.0,
-        "material": "97a70d45-d7d5-4ee5-86b4-ee506300cdaa",
-        "transforms": []
-      }
+      { "amount": 50.0, "material": "97a70d45-d7d5-4ee5-86b4-ee506300cdaa" }
     ],
     "id": "da06c70f-5b61-4de7-bb51-5761818aa0dd",
     "name": "[Composant] Moteur électrique 15kW",
@@ -821,11 +792,7 @@
   {
     "comment": "Moteur de vélo électrique caréné ou dédié à la logistique, speedbike (catégorie L1eA)",
     "elements": [
-      {
-        "amount": 5.0,
-        "material": "97a70d45-d7d5-4ee5-86b4-ee506300cdaa",
-        "transforms": []
-      }
+      { "amount": 5.0, "material": "97a70d45-d7d5-4ee5-86b4-ee506300cdaa" }
     ],
     "id": "059f0f35-099d-4305-8a60-1666222dadb2",
     "name": "[Composant] Moteur électrique 1kW",
@@ -834,11 +801,7 @@
   {
     "comment": "Moteur de VAE (puissance nominale maximale de 250kW)",
     "elements": [
-      {
-        "amount": 3.0,
-        "material": "97a70d45-d7d5-4ee5-86b4-ee506300cdaa",
-        "transforms": []
-      }
+      { "amount": 3.0, "material": "97a70d45-d7d5-4ee5-86b4-ee506300cdaa" }
     ],
     "id": "20b35f34-166f-4da7-abc4-54d2a64de367",
     "name": "[Composant] Moteur électrique 250Wn",
@@ -847,11 +810,7 @@
   {
     "comment": "Moteur de Quadricycle léger (catégorie L6e)",
     "elements": [
-      {
-        "amount": 20.0,
-        "material": "97a70d45-d7d5-4ee5-86b4-ee506300cdaa",
-        "transforms": []
-      }
+      { "amount": 20.0, "material": "97a70d45-d7d5-4ee5-86b4-ee506300cdaa" }
     ],
     "id": "edca4c52-b34a-4906-b2e0-4f726bfcc8f7",
     "name": "[Composant] Moteur électrique 6kW",
@@ -860,11 +819,7 @@
   {
     "comment": "Pour roue 28' de vélo de ville ou pneus cargo 20'-24' (vélos cargo, velis actifs)",
     "elements": [
-      {
-        "amount": 0.8,
-        "material": "5f837a69-839d-4a49-9a30-19e1501ad51e",
-        "transforms": []
-      },
+      { "amount": 0.8, "material": "5f837a69-839d-4a49-9a30-19e1501ad51e" },
       {
         "amount": 0.2,
         "material": "9c5a7a8e-6483-4da8-9cc2-0a90a30cb93a",
@@ -878,11 +833,7 @@
   {
     "comment": null,
     "elements": [
-      {
-        "amount": 6,
-        "material": "5f837a69-839d-4a49-9a30-19e1501ad51e",
-        "transforms": []
-      }
+      { "amount": 6, "material": "5f837a69-839d-4a49-9a30-19e1501ad51e" }
     ],
     "id": "6b3d7f30-e87b-426c-93ed-3a1179238583",
     "name": "[Composant] Pneu veli 45-90km/h",
@@ -997,11 +948,7 @@
         "material": "ac028973-5dfa-47bc-868c-e49be116f53e",
         "transforms": ["ea284007-49a8-4be1-95fc-452ea180285a", "7319ac9c-5796-412f-a1eb-58e01afa7708"]
       },
-      {
-        "amount": 0.5,
-        "material": "20f5db04-a4c7-48ab-9903-38c65cd70be0",
-        "transforms": []
-      }
+      { "amount": 0.5, "material": "20f5db04-a4c7-48ab-9903-38c65cd70be0" }
     ],
     "id": "c4a8eb8f-b4c6-42b8-bd04-0f68e9083424",
     "name": "[Composant] Selle vélo (dont tige, 60°)",
@@ -1020,11 +967,7 @@
         "material": "21a0d5b0-861e-4bed-98a9-46c61d2a0618",
         "transforms": ["ea284007-49a8-4be1-95fc-452ea180285a", "7319ac9c-5796-412f-a1eb-58e01afa7708"]
       },
-      {
-        "amount": 0.5,
-        "material": "20f5db04-a4c7-48ab-9903-38c65cd70be0",
-        "transforms": []
-      }
+      { "amount": 0.5, "material": "20f5db04-a4c7-48ab-9903-38c65cd70be0" }
     ],
     "id": "ae9c83de-71bf-4f21-9030-afbfd4ad3b3a",
     "name": "[Composant] Siège 1 place - veli actif",
@@ -1043,11 +986,7 @@
         "material": "c5295f47-0307-48a6-8552-3705063af767",
         "transforms": ["85b74ce2-2cbc-4d73-a5a2-5c5ffde16319"]
       },
-      {
-        "amount": 1.0,
-        "material": "20f5db04-a4c7-48ab-9903-38c65cd70be0",
-        "transforms": []
-      }
+      { "amount": 1.0, "material": "20f5db04-a4c7-48ab-9903-38c65cd70be0" }
     ],
     "id": "1d2de15a-53d9-465d-a2cf-fa2c5f68f5e9",
     "name": "[Composant] Siège 1 place - veli lourd",
@@ -1110,11 +1049,7 @@
   {
     "comment": null,
     "elements": [
-      {
-        "amount": 10.0,
-        "material": "6445c1fa-13a6-4058-8978-bcf2be63cd56",
-        "transforms": []
-      }
+      { "amount": 10.0, "material": "6445c1fa-13a6-4058-8978-bcf2be63cd56" }
     ],
     "id": "6cb4338a-4663-4325-90b6-f7279a498c9b",
     "name": "[Composant] Vitrage veli (PC)",
@@ -1123,11 +1058,7 @@
   {
     "comment": null,
     "elements": [
-      {
-        "amount": 20.0,
-        "material": "42748244-0939-4da2-ad5f-206ce541d7ee",
-        "transforms": []
-      }
+      { "amount": 20.0, "material": "42748244-0939-4da2-ad5f-206ce541d7ee" }
     ],
     "id": "d3ef64c0-3deb-4ef2-838d-015d8ece019e",
     "name": "[Composant] Vitrage veli (verre)",
@@ -1400,11 +1331,7 @@
         "material": "c5295f47-0307-48a6-8552-3705063af767",
         "transforms": ["85b74ce2-2cbc-4d73-a5a2-5c5ffde16319"]
       },
-      {
-        "amount": 1.0,
-        "material": "51956fb2-304d-4e63-a3ef-b3eed44fde38",
-        "transforms": []
-      }
+      { "amount": 1.0, "material": "51956fb2-304d-4e63-a3ef-b3eed44fde38" }
     ],
     "id": "f134b3fd-0439-4b25-a06e-f1b8fd6e201c",
     "name": "[Composants] Composants non détaillés - veli actif",
@@ -1423,11 +1350,7 @@
         "material": "c5295f47-0307-48a6-8552-3705063af767",
         "transforms": ["85b74ce2-2cbc-4d73-a5a2-5c5ffde16319"]
       },
-      {
-        "amount": 4.0,
-        "material": "51956fb2-304d-4e63-a3ef-b3eed44fde38",
-        "transforms": []
-      }
+      { "amount": 4.0, "material": "51956fb2-304d-4e63-a3ef-b3eed44fde38" }
     ],
     "id": "71086438-51a9-4980-ac3b-f24d5baa4cd5",
     "name": "[Composants] Composants non détaillés - veli lourd",
@@ -1436,11 +1359,7 @@
   {
     "comment": null,
     "elements": [
-      {
-        "amount": 1.0,
-        "material": "e1631a47-95b0-46e8-bde3-0f77850fa1d1",
-        "transforms": []
-      }
+      { "amount": 1.0, "material": "e1631a47-95b0-46e8-bde3-0f77850fa1d1" }
     ],
     "id": "3955d88b-4c39-4e1e-9af1-0a0908ea7d5f",
     "name": "Emballage carton (1 kg)",
@@ -1462,11 +1381,7 @@
   {
     "comment": null,
     "elements": [
-      {
-        "amount": 1.0,
-        "material": "c5e8e39e-276f-4a31-8289-1265af9c9a9e",
-        "transforms": []
-      }
+      { "amount": 1.0, "material": "c5e8e39e-276f-4a31-8289-1265af9c9a9e" }
     ],
     "id": "a5d0097f-1121-407b-acb1-35065d4f9fda",
     "name": "Emballage plastique (1 kg)",
@@ -1475,11 +1390,7 @@
   {
     "comment": null,
     "elements": [
-      {
-        "amount": 15.0,
-        "material": "20f5db04-a4c7-48ab-9903-38c65cd70be0",
-        "transforms": []
-      }
+      { "amount": 15.0, "material": "20f5db04-a4c7-48ab-9903-38c65cd70be0" }
     ],
     "id": "330c2ce9-f91b-42f3-bcdd-335da7f1d141",
     "name": "Mousse polyurethane (canapé 3p)",
@@ -1508,26 +1419,10 @@
         "material": "cfd38f78-03a4-4d5d-9909-d68e20b9943b",
         "transforms": ["4889e0a7-256f-43a1-9ce9-f8a96aea87e2"]
       },
-      {
-        "amount": 0.07,
-        "material": "e476467c-2bae-43a6-8fab-450a888543b8",
-        "transforms": []
-      },
-      {
-        "amount": 0.15,
-        "material": "0ef7af4b-d5bf-4f4b-b396-ceab35f5eb1d",
-        "transforms": []
-      },
-      {
-        "amount": 0.15,
-        "material": "4504b5ba-eb15-48b6-9b0a-4d4d89400196",
-        "transforms": []
-      },
-      {
-        "amount": 0.15,
-        "material": "195980ce-f6b5-4416-8898-11e77e9ff698",
-        "transforms": []
-      }
+      { "amount": 0.07, "material": "e476467c-2bae-43a6-8fab-450a888543b8" },
+      { "amount": 0.15, "material": "0ef7af4b-d5bf-4f4b-b396-ceab35f5eb1d" },
+      { "amount": 0.15, "material": "4504b5ba-eb15-48b6-9b0a-4d4d89400196" },
+      { "amount": 0.15, "material": "195980ce-f6b5-4416-8898-11e77e9ff698" }
     ],
     "id": "53dc3966-c0c5-4ce2-86da-74583fda95ae",
     "name": "Panneau aggloméré (0,01m3) (645kg/m3)",
@@ -1556,26 +1451,10 @@
         "material": "fba45d5f-64fc-44ae-ac75-9301c95c4657",
         "transforms": ["5463c3b3-8a85-4b1b-9a28-132021512143"]
       },
-      {
-        "amount": 15.0,
-        "material": "0ef7af4b-d5bf-4f4b-b396-ceab35f5eb1d",
-        "transforms": []
-      },
-      {
-        "amount": 15.0,
-        "material": "4504b5ba-eb15-48b6-9b0a-4d4d89400196",
-        "transforms": []
-      },
-      {
-        "amount": 15.0,
-        "material": "195980ce-f6b5-4416-8898-11e77e9ff698",
-        "transforms": []
-      },
-      {
-        "amount": 7.0,
-        "material": "e476467c-2bae-43a6-8fab-450a888543b8",
-        "transforms": []
-      }
+      { "amount": 15.0, "material": "0ef7af4b-d5bf-4f4b-b396-ceab35f5eb1d" },
+      { "amount": 15.0, "material": "4504b5ba-eb15-48b6-9b0a-4d4d89400196" },
+      { "amount": 15.0, "material": "195980ce-f6b5-4416-8898-11e77e9ff698" },
+      { "amount": 7.0, "material": "e476467c-2bae-43a6-8fab-450a888543b8" }
     ],
     "id": "58f571f7-6274-41ce-b6e4-23d4bf0465e3",
     "name": "Panneau aggloméré (1m3) (645kg/m3)",
@@ -1604,26 +1483,10 @@
         "material": "fba45d5f-64fc-44ae-ac75-9301c95c4657",
         "transforms": ["c295716a-fe72-44b7-b28c-efd7ad019b12"]
       },
-      {
-        "amount": 0.133,
-        "material": "195980ce-f6b5-4416-8898-11e77e9ff698",
-        "transforms": []
-      },
-      {
-        "amount": 0.133,
-        "material": "0ef7af4b-d5bf-4f4b-b396-ceab35f5eb1d",
-        "transforms": []
-      },
-      {
-        "amount": 0.05,
-        "material": "e476467c-2bae-43a6-8fab-450a888543b8",
-        "transforms": []
-      },
-      {
-        "amount": 0.133,
-        "material": "4504b5ba-eb15-48b6-9b0a-4d4d89400196",
-        "transforms": []
-      }
+      { "amount": 0.133, "material": "195980ce-f6b5-4416-8898-11e77e9ff698" },
+      { "amount": 0.133, "material": "0ef7af4b-d5bf-4f4b-b396-ceab35f5eb1d" },
+      { "amount": 0.05, "material": "e476467c-2bae-43a6-8fab-450a888543b8" },
+      { "amount": 0.133, "material": "4504b5ba-eb15-48b6-9b0a-4d4d89400196" }
     ],
     "id": "fa9820b7-5694-4b33-834e-03adc9a7b9b1",
     "name": "Panneau contreplaqué (0,01m3) (496kg/m3)",
@@ -1652,26 +1515,10 @@
         "material": "cfd38f78-03a4-4d5d-9909-d68e20b9943b",
         "transforms": ["4889e0a7-256f-43a1-9ce9-f8a96aea87e2"]
       },
-      {
-        "amount": 13.3,
-        "material": "0ef7af4b-d5bf-4f4b-b396-ceab35f5eb1d",
-        "transforms": []
-      },
-      {
-        "amount": 13.3,
-        "material": "195980ce-f6b5-4416-8898-11e77e9ff698",
-        "transforms": []
-      },
-      {
-        "amount": 5.0,
-        "material": "e476467c-2bae-43a6-8fab-450a888543b8",
-        "transforms": []
-      },
-      {
-        "amount": 13.3,
-        "material": "4504b5ba-eb15-48b6-9b0a-4d4d89400196",
-        "transforms": []
-      }
+      { "amount": 13.3, "material": "0ef7af4b-d5bf-4f4b-b396-ceab35f5eb1d" },
+      { "amount": 13.3, "material": "195980ce-f6b5-4416-8898-11e77e9ff698" },
+      { "amount": 5.0, "material": "e476467c-2bae-43a6-8fab-450a888543b8" },
+      { "amount": 13.3, "material": "4504b5ba-eb15-48b6-9b0a-4d4d89400196" }
     ],
     "id": "c5dea597-7b8f-4c0b-8257-8bac105b1af4",
     "name": "Panneau contreplaqué (1m3) (496kg/m3)",
@@ -1700,26 +1547,10 @@
         "material": "5ec73317-7049-4bcc-8da1-f011951e67ec",
         "transforms": ["4889e0a7-256f-43a1-9ce9-f8a96aea87e2"]
       },
-      {
-        "amount": 0.1,
-        "material": "e476467c-2bae-43a6-8fab-450a888543b8",
-        "transforms": []
-      },
-      {
-        "amount": 0.1,
-        "material": "0ef7af4b-d5bf-4f4b-b396-ceab35f5eb1d",
-        "transforms": []
-      },
-      {
-        "amount": 0.1,
-        "material": "4504b5ba-eb15-48b6-9b0a-4d4d89400196",
-        "transforms": []
-      },
-      {
-        "amount": 0.1,
-        "material": "195980ce-f6b5-4416-8898-11e77e9ff698",
-        "transforms": []
-      }
+      { "amount": 0.1, "material": "e476467c-2bae-43a6-8fab-450a888543b8" },
+      { "amount": 0.1, "material": "0ef7af4b-d5bf-4f4b-b396-ceab35f5eb1d" },
+      { "amount": 0.1, "material": "4504b5ba-eb15-48b6-9b0a-4d4d89400196" },
+      { "amount": 0.1, "material": "195980ce-f6b5-4416-8898-11e77e9ff698" }
     ],
     "id": "6d81112f-3f59-4bbb-9e9d-cfa2c828edc7",
     "name": "Panneau fibres dures (0,01m3) (999 kg/m3)",
@@ -1748,26 +1579,10 @@
         "material": "5ec73317-7049-4bcc-8da1-f011951e67ec",
         "transforms": ["4889e0a7-256f-43a1-9ce9-f8a96aea87e2"]
       },
-      {
-        "amount": 10.0,
-        "material": "0ef7af4b-d5bf-4f4b-b396-ceab35f5eb1d",
-        "transforms": []
-      },
-      {
-        "amount": 10.0,
-        "material": "195980ce-f6b5-4416-8898-11e77e9ff698",
-        "transforms": []
-      },
-      {
-        "amount": 10.0,
-        "material": "4504b5ba-eb15-48b6-9b0a-4d4d89400196",
-        "transforms": []
-      },
-      {
-        "amount": 10.0,
-        "material": "e476467c-2bae-43a6-8fab-450a888543b8",
-        "transforms": []
-      }
+      { "amount": 10.0, "material": "0ef7af4b-d5bf-4f4b-b396-ceab35f5eb1d" },
+      { "amount": 10.0, "material": "195980ce-f6b5-4416-8898-11e77e9ff698" },
+      { "amount": 10.0, "material": "4504b5ba-eb15-48b6-9b0a-4d4d89400196" },
+      { "amount": 10.0, "material": "e476467c-2bae-43a6-8fab-450a888543b8" }
     ],
     "id": "a0dd0af7-4dee-4dbd-92d2-a39ce1f8eb7a",
     "name": "Panneau fibres dures (1m3) (999 kg/m3)",
@@ -1796,26 +1611,10 @@
         "material": "fba45d5f-64fc-44ae-ac75-9301c95c4657",
         "transforms": ["73bbaf31-eb1d-4e9a-a134-30a88cf7212c"]
       },
-      {
-        "amount": 0.25,
-        "material": "4504b5ba-eb15-48b6-9b0a-4d4d89400196",
-        "transforms": []
-      },
-      {
-        "amount": 0.08,
-        "material": "e476467c-2bae-43a6-8fab-450a888543b8",
-        "transforms": []
-      },
-      {
-        "amount": 0.25,
-        "material": "0ef7af4b-d5bf-4f4b-b396-ceab35f5eb1d",
-        "transforms": []
-      },
-      {
-        "amount": 0.25,
-        "material": "195980ce-f6b5-4416-8898-11e77e9ff698",
-        "transforms": []
-      }
+      { "amount": 0.25, "material": "4504b5ba-eb15-48b6-9b0a-4d4d89400196" },
+      { "amount": 0.08, "material": "e476467c-2bae-43a6-8fab-450a888543b8" },
+      { "amount": 0.25, "material": "0ef7af4b-d5bf-4f4b-b396-ceab35f5eb1d" },
+      { "amount": 0.25, "material": "195980ce-f6b5-4416-8898-11e77e9ff698" }
     ],
     "id": "2fc72b7a-b840-49fa-8d25-996982160571",
     "name": "Panneau MDF (0,01m3) (752 kg/m3)",
@@ -1844,26 +1643,10 @@
         "material": "5ec73317-7049-4bcc-8da1-f011951e67ec",
         "transforms": ["4889e0a7-256f-43a1-9ce9-f8a96aea87e2"]
       },
-      {
-        "amount": 25.0,
-        "material": "195980ce-f6b5-4416-8898-11e77e9ff698",
-        "transforms": []
-      },
-      {
-        "amount": 25.0,
-        "material": "4504b5ba-eb15-48b6-9b0a-4d4d89400196",
-        "transforms": []
-      },
-      {
-        "amount": 8.0,
-        "material": "e476467c-2bae-43a6-8fab-450a888543b8",
-        "transforms": []
-      },
-      {
-        "amount": 25.0,
-        "material": "0ef7af4b-d5bf-4f4b-b396-ceab35f5eb1d",
-        "transforms": []
-      }
+      { "amount": 25.0, "material": "195980ce-f6b5-4416-8898-11e77e9ff698" },
+      { "amount": 25.0, "material": "4504b5ba-eb15-48b6-9b0a-4d4d89400196" },
+      { "amount": 8.0, "material": "e476467c-2bae-43a6-8fab-450a888543b8" },
+      { "amount": 25.0, "material": "0ef7af4b-d5bf-4f4b-b396-ceab35f5eb1d" }
     ],
     "id": "8c18a448-3a2e-4978-9c0f-a61d9d8e7f1e",
     "name": "Panneau MDF (1m3) (752 kg/m3)",
@@ -1892,26 +1675,10 @@
         "material": "dc58fc13-b036-46ed-ab5f-fd0a112e8b78",
         "transforms": ["98edc292-7ca2-4d3b-80f6-9bf4ffdef213"]
       },
-      {
-        "amount": 0.063,
-        "material": "e476467c-2bae-43a6-8fab-450a888543b8",
-        "transforms": []
-      },
-      {
-        "amount": 0.063,
-        "material": "4504b5ba-eb15-48b6-9b0a-4d4d89400196",
-        "transforms": []
-      },
-      {
-        "amount": 0.063,
-        "material": "195980ce-f6b5-4416-8898-11e77e9ff698",
-        "transforms": []
-      },
-      {
-        "amount": 0.063,
-        "material": "0ef7af4b-d5bf-4f4b-b396-ceab35f5eb1d",
-        "transforms": []
-      }
+      { "amount": 0.063, "material": "e476467c-2bae-43a6-8fab-450a888543b8" },
+      { "amount": 0.063, "material": "4504b5ba-eb15-48b6-9b0a-4d4d89400196" },
+      { "amount": 0.063, "material": "195980ce-f6b5-4416-8898-11e77e9ff698" },
+      { "amount": 0.063, "material": "0ef7af4b-d5bf-4f4b-b396-ceab35f5eb1d" }
     ],
     "id": "09fc1436-dfcb-425f-ade5-2c8c00a398b4",
     "name": "Panneau OSB (0,01m3) (635 kg/m3)",
@@ -1940,26 +1707,10 @@
         "material": "dc58fc13-b036-46ed-ab5f-fd0a112e8b78",
         "transforms": ["98edc292-7ca2-4d3b-80f6-9bf4ffdef213"]
       },
-      {
-        "amount": 6.3,
-        "material": "0ef7af4b-d5bf-4f4b-b396-ceab35f5eb1d",
-        "transforms": []
-      },
-      {
-        "amount": 6.3,
-        "material": "195980ce-f6b5-4416-8898-11e77e9ff698",
-        "transforms": []
-      },
-      {
-        "amount": 6.3,
-        "material": "4504b5ba-eb15-48b6-9b0a-4d4d89400196",
-        "transforms": []
-      },
-      {
-        "amount": 6.3,
-        "material": "e476467c-2bae-43a6-8fab-450a888543b8",
-        "transforms": []
-      }
+      { "amount": 6.3, "material": "0ef7af4b-d5bf-4f4b-b396-ceab35f5eb1d" },
+      { "amount": 6.3, "material": "195980ce-f6b5-4416-8898-11e77e9ff698" },
+      { "amount": 6.3, "material": "4504b5ba-eb15-48b6-9b0a-4d4d89400196" },
+      { "amount": 6.3, "material": "e476467c-2bae-43a6-8fab-450a888543b8" }
     ],
     "id": "819e2167-5d04-4898-9cd5-a41a3ecfb418",
     "name": "Panneau OSB (1m3) (635 kg/m3)",
@@ -2055,11 +1806,7 @@
         "material": "dc58fc13-b036-46ed-ab5f-fd0a112e8b78",
         "transforms": ["e232270f-3a08-4536-8d8d-dcb4a2031e7b"]
       },
-      {
-        "amount": 0.1,
-        "material": "76fa04fe-e6ab-46a7-91c9-28589035d4f2",
-        "transforms": []
-      }
+      { "amount": 0.1, "material": "76fa04fe-e6ab-46a7-91c9-28589035d4f2" }
     ],
     "id": "466908f9-a278-4666-b9af-1bd31e73d35d",
     "name": "Planche bois chêne verni (200 x 40 x 2 cm)",
@@ -2177,11 +1924,7 @@
         "material": "dc58fc13-b036-46ed-ab5f-fd0a112e8b78",
         "transforms": ["e232270f-3a08-4536-8d8d-dcb4a2031e7b"]
       },
-      {
-        "amount": 0.4,
-        "material": "76fa04fe-e6ab-46a7-91c9-28589035d4f2",
-        "transforms": []
-      }
+      { "amount": 0.4, "material": "76fa04fe-e6ab-46a7-91c9-28589035d4f2" }
     ],
     "id": "260bdfe2-1bef-4fd6-bf68-6e6174686d0d",
     "name": "Plateau chêne verni (250 * 110 * 5)",

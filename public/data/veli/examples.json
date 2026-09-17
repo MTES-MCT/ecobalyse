@@ -40,8 +40,7 @@
           "elements": [
             {
               "amount": 5,
-              "material": { "country": "RAS", "id": "97a70d45-d7d5-4ee5-86b4-ee506300cdaa" },
-              "transforms": []
+              "material": { "country": "RAS", "id": "97a70d45-d7d5-4ee5-86b4-ee506300cdaa" }
             }
           ],
           "id": "059f0f35-099d-4305-8a60-1666222dadb2",
@@ -72,13 +71,11 @@
           "elements": [
             {
               "amount": 0.8,
-              "material": { "country": "RAS", "id": "5f837a69-839d-4a49-9a30-19e1501ad51e" },
-              "transforms": []
+              "material": { "country": "RAS", "id": "5f837a69-839d-4a49-9a30-19e1501ad51e" }
             },
             {
               "amount": 0.2,
-              "material": { "country": "RAS", "id": "9c5a7a8e-6483-4da8-9cc2-0a90a30cb93a" },
-              "transforms": []
+              "material": { "country": "RAS", "id": "9c5a7a8e-6483-4da8-9cc2-0a90a30cb93a" }
             }
           ],
           "id": "8e38b6a5-1c95-43f6-987f-2e368fc74edc",
@@ -101,11 +98,7 @@
                 { "id": "7319ac9c-5796-412f-a1eb-58e01afa7708" }
               ]
             },
-            {
-              "amount": 0.5,
-              "material": { "id": "20f5db04-a4c7-48ab-9903-38c65cd70be0" },
-              "transforms": []
-            }
+            { "amount": 0.5, "material": { "id": "20f5db04-a4c7-48ab-9903-38c65cd70be0" } }
           ],
           "id": "ae9c83de-71bf-4f21-9030-afbfd4ad3b3a",
           "quantity": 2
@@ -129,8 +122,7 @@
             },
             {
               "amount": 1,
-              "material": { "country": "RAS", "id": "51956fb2-304d-4e63-a3ef-b3eed44fde38" },
-              "transforms": []
+              "material": { "country": "RAS", "id": "51956fb2-304d-4e63-a3ef-b3eed44fde38" }
             }
           ],
           "id": "f134b3fd-0439-4b25-a06e-f1b8fd6e201c",
@@ -140,8 +132,7 @@
           "elements": [
             {
               "amount": 10,
-              "material": { "country": "RAS", "id": "6445c1fa-13a6-4058-8978-bcf2be63cd56" },
-              "transforms": []
+              "material": { "country": "RAS", "id": "6445c1fa-13a6-4058-8978-bcf2be63cd56" }
             }
           ],
           "id": "6cb4338a-4663-4325-90b6-f7279a498c9b",
@@ -196,8 +187,7 @@
           "elements": [
             {
               "amount": 5,
-              "material": { "country": "FR", "id": "97a70d45-d7d5-4ee5-86b4-ee506300cdaa" },
-              "transforms": []
+              "material": { "country": "FR", "id": "97a70d45-d7d5-4ee5-86b4-ee506300cdaa" }
             }
           ],
           "id": "059f0f35-099d-4305-8a60-1666222dadb2",
@@ -227,13 +217,11 @@
           "elements": [
             {
               "amount": 0.8,
-              "material": { "country": "RAS", "id": "5f837a69-839d-4a49-9a30-19e1501ad51e" },
-              "transforms": []
+              "material": { "country": "RAS", "id": "5f837a69-839d-4a49-9a30-19e1501ad51e" }
             },
             {
               "amount": 0.2,
-              "material": { "country": "RAS", "id": "9c5a7a8e-6483-4da8-9cc2-0a90a30cb93a" },
-              "transforms": []
+              "material": { "country": "RAS", "id": "9c5a7a8e-6483-4da8-9cc2-0a90a30cb93a" }
             }
           ],
           "id": "8e38b6a5-1c95-43f6-987f-2e368fc74edc",
@@ -256,11 +244,7 @@
                 { "id": "7319ac9c-5796-412f-a1eb-58e01afa7708" }
               ]
             },
-            {
-              "amount": 0.5,
-              "material": { "id": "20f5db04-a4c7-48ab-9903-38c65cd70be0" },
-              "transforms": []
-            }
+            { "amount": 0.5, "material": { "id": "20f5db04-a4c7-48ab-9903-38c65cd70be0" } }
           ],
           "id": "ae9c83de-71bf-4f21-9030-afbfd4ad3b3a",
           "quantity": 2
@@ -284,8 +268,7 @@
             },
             {
               "amount": 1,
-              "material": { "country": "RAS", "id": "51956fb2-304d-4e63-a3ef-b3eed44fde38" },
-              "transforms": []
+              "material": { "country": "RAS", "id": "51956fb2-304d-4e63-a3ef-b3eed44fde38" }
             }
           ],
           "id": "f134b3fd-0439-4b25-a06e-f1b8fd6e201c",
@@ -295,8 +278,7 @@
           "elements": [
             {
               "amount": 10,
-              "material": { "country": "FR", "id": "6445c1fa-13a6-4058-8978-bcf2be63cd56" },
-              "transforms": []
+              "material": { "country": "FR", "id": "6445c1fa-13a6-4058-8978-bcf2be63cd56" }
             }
           ],
           "id": "6cb4338a-4663-4325-90b6-f7279a498c9b",
@@ -344,8 +326,7 @@
           "elements": [
             {
               "amount": 50,
-              "material": { "country": "RAS", "id": "97a70d45-d7d5-4ee5-86b4-ee506300cdaa" },
-              "transforms": []
+              "material": { "country": "RAS", "id": "97a70d45-d7d5-4ee5-86b4-ee506300cdaa" }
             }
           ],
           "id": "da06c70f-5b61-4de7-bb51-5761818aa0dd",
@@ -370,8 +351,7 @@
           "elements": [
             {
               "amount": 20,
-              "material": { "country": "REO", "id": "42748244-0939-4da2-ad5f-206ce541d7ee" },
-              "transforms": []
+              "material": { "country": "REO", "id": "42748244-0939-4da2-ad5f-206ce541d7ee" }
             }
           ],
           "id": "d3ef64c0-3deb-4ef2-838d-015d8ece019e",
@@ -394,11 +374,7 @@
                 { "id": "85b74ce2-2cbc-4d73-a5a2-5c5ffde16319" }
               ]
             },
-            {
-              "amount": 1,
-              "material": { "id": "20f5db04-a4c7-48ab-9903-38c65cd70be0" },
-              "transforms": []
-            }
+            { "amount": 1, "material": { "id": "20f5db04-a4c7-48ab-9903-38c65cd70be0" } }
           ],
           "id": "1d2de15a-53d9-465d-a2cf-fa2c5f68f5e9",
           "quantity": 2
@@ -475,18 +451,15 @@
             },
             {
               "amount": 10,
-              "material": { "country": "REO", "id": "a363f079-bc3f-424a-a2e1-06b9c76b4fc3" },
-              "transforms": []
+              "material": { "country": "REO", "id": "a363f079-bc3f-424a-a2e1-06b9c76b4fc3" }
             },
             {
               "amount": 20,
-              "material": { "country": "REO", "id": "42748244-0939-4da2-ad5f-206ce541d7ee" },
-              "transforms": []
+              "material": { "country": "REO", "id": "42748244-0939-4da2-ad5f-206ce541d7ee" }
             },
             {
               "amount": 10,
-              "material": { "country": "REO", "id": "29b1a0f9-4887-49f7-910f-e50ad9e1b572" },
-              "transforms": []
+              "material": { "country": "REO", "id": "29b1a0f9-4887-49f7-910f-e50ad9e1b572" }
             },
             {
               "amount": 220,
@@ -503,8 +476,7 @@
           "elements": [
             {
               "amount": 80,
-              "material": { "country": "REO", "id": "97a70d45-d7d5-4ee5-86b4-ee506300cdaa" },
-              "transforms": []
+              "material": { "country": "REO", "id": "97a70d45-d7d5-4ee5-86b4-ee506300cdaa" }
             }
           ],
           "name": "Moteur",
@@ -564,8 +536,7 @@
           "elements": [
             {
               "amount": 8,
-              "material": { "country": "REO", "id": "5f837a69-839d-4a49-9a30-19e1501ad51e" },
-              "transforms": []
+              "material": { "country": "REO", "id": "5f837a69-839d-4a49-9a30-19e1501ad51e" }
             }
           ],
           "name": "Pneus",
@@ -580,11 +551,7 @@
                 { "id": "4a08bcab-5c25-4dec-961a-0f7208f40084" }
               ]
             },
-            {
-              "amount": 10,
-              "material": { "id": "51956fb2-304d-4e63-a3ef-b3eed44fde38" },
-              "transforms": []
-            },
+            { "amount": 10, "material": { "id": "51956fb2-304d-4e63-a3ef-b3eed44fde38" } },
             {
               "amount": 1,
               "material": { "id": "30212fbf-5912-40eb-b2ab-87837361c462" },
@@ -732,8 +699,7 @@
           "elements": [
             {
               "amount": 50,
-              "material": { "country": "REO", "id": "97a70d45-d7d5-4ee5-86b4-ee506300cdaa" },
-              "transforms": []
+              "material": { "country": "REO", "id": "97a70d45-d7d5-4ee5-86b4-ee506300cdaa" }
             }
           ],
           "id": "da06c70f-5b61-4de7-bb51-5761818aa0dd",
@@ -757,8 +723,7 @@
           "elements": [
             {
               "amount": 6,
-              "material": { "country": "FR", "id": "5f837a69-839d-4a49-9a30-19e1501ad51e" },
-              "transforms": []
+              "material": { "country": "FR", "id": "5f837a69-839d-4a49-9a30-19e1501ad51e" }
             }
           ],
           "id": "6b3d7f30-e87b-426c-93ed-3a1179238583",
@@ -768,8 +733,7 @@
           "elements": [
             {
               "amount": 20,
-              "material": { "country": "FR", "id": "42748244-0939-4da2-ad5f-206ce541d7ee" },
-              "transforms": []
+              "material": { "country": "FR", "id": "42748244-0939-4da2-ad5f-206ce541d7ee" }
             }
           ],
           "id": "d3ef64c0-3deb-4ef2-838d-015d8ece019e",
@@ -794,8 +758,7 @@
             },
             {
               "amount": 1,
-              "material": { "country": "FR", "id": "20f5db04-a4c7-48ab-9903-38c65cd70be0" },
-              "transforms": []
+              "material": { "country": "FR", "id": "20f5db04-a4c7-48ab-9903-38c65cd70be0" }
             }
           ],
           "id": "1d2de15a-53d9-465d-a2cf-fa2c5f68f5e9",
@@ -820,8 +783,7 @@
             },
             {
               "amount": 4,
-              "material": { "country": "RAS", "id": "51956fb2-304d-4e63-a3ef-b3eed44fde38" },
-              "transforms": []
+              "material": { "country": "RAS", "id": "51956fb2-304d-4e63-a3ef-b3eed44fde38" }
             }
           ],
           "id": "71086438-51a9-4980-ac3b-f24d5baa4cd5",
@@ -877,8 +839,7 @@
           "elements": [
             {
               "amount": 5,
-              "material": { "country": "RAS", "id": "97a70d45-d7d5-4ee5-86b4-ee506300cdaa" },
-              "transforms": []
+              "material": { "country": "RAS", "id": "97a70d45-d7d5-4ee5-86b4-ee506300cdaa" }
             }
           ],
           "id": "059f0f35-099d-4305-8a60-1666222dadb2",
@@ -909,13 +870,11 @@
           "elements": [
             {
               "amount": 0.8,
-              "material": { "country": "RAS", "id": "5f837a69-839d-4a49-9a30-19e1501ad51e" },
-              "transforms": []
+              "material": { "country": "RAS", "id": "5f837a69-839d-4a49-9a30-19e1501ad51e" }
             },
             {
               "amount": 0.2,
-              "material": { "country": "RAS", "id": "9c5a7a8e-6483-4da8-9cc2-0a90a30cb93a" },
-              "transforms": []
+              "material": { "country": "RAS", "id": "9c5a7a8e-6483-4da8-9cc2-0a90a30cb93a" }
             }
           ],
           "id": "8e38b6a5-1c95-43f6-987f-2e368fc74edc",
@@ -938,11 +897,7 @@
                 { "country": "RAS", "id": "7319ac9c-5796-412f-a1eb-58e01afa7708" }
               ]
             },
-            {
-              "amount": 0.5,
-              "material": { "id": "20f5db04-a4c7-48ab-9903-38c65cd70be0" },
-              "transforms": []
-            }
+            { "amount": 0.5, "material": { "id": "20f5db04-a4c7-48ab-9903-38c65cd70be0" } }
           ],
           "id": "ae9c83de-71bf-4f21-9030-afbfd4ad3b3a",
           "quantity": 2
@@ -966,8 +921,7 @@
             },
             {
               "amount": 1,
-              "material": { "country": "RAS", "id": "51956fb2-304d-4e63-a3ef-b3eed44fde38" },
-              "transforms": []
+              "material": { "country": "RAS", "id": "51956fb2-304d-4e63-a3ef-b3eed44fde38" }
             }
           ],
           "id": "f134b3fd-0439-4b25-a06e-f1b8fd6e201c",
@@ -977,8 +931,7 @@
           "elements": [
             {
               "amount": 10,
-              "material": { "country": "RAS", "id": "6445c1fa-13a6-4058-8978-bcf2be63cd56" },
-              "transforms": []
+              "material": { "country": "RAS", "id": "6445c1fa-13a6-4058-8978-bcf2be63cd56" }
             }
           ],
           "id": "6cb4338a-4663-4325-90b6-f7279a498c9b",
@@ -1088,8 +1041,7 @@
             },
             {
               "amount": 0.6,
-              "material": { "country": "RAS", "id": "51956fb2-304d-4e63-a3ef-b3eed44fde38" },
-              "transforms": []
+              "material": { "country": "RAS", "id": "51956fb2-304d-4e63-a3ef-b3eed44fde38" }
             }
           ],
           "id": "7cfe659e-3764-4a8c-a25b-201396cbc09f",
@@ -1100,8 +1052,7 @@
           "elements": [
             {
               "amount": 20,
-              "material": { "country": "REO", "id": "97a70d45-d7d5-4ee5-86b4-ee506300cdaa" },
-              "transforms": []
+              "material": { "country": "REO", "id": "97a70d45-d7d5-4ee5-86b4-ee506300cdaa" }
             }
           ],
           "id": "edca4c52-b34a-4906-b2e0-4f726bfcc8f7",
@@ -1126,8 +1077,7 @@
           "elements": [
             {
               "amount": 20,
-              "material": { "country": "FR", "id": "42748244-0939-4da2-ad5f-206ce541d7ee" },
-              "transforms": []
+              "material": { "country": "FR", "id": "42748244-0939-4da2-ad5f-206ce541d7ee" }
             }
           ],
           "id": "d3ef64c0-3deb-4ef2-838d-015d8ece019e",
@@ -1193,8 +1143,7 @@
           "elements": [
             {
               "amount": 8,
-              "material": { "country": "RAS", "id": "97a70d45-d7d5-4ee5-86b4-ee506300cdaa" },
-              "transforms": []
+              "material": { "country": "RAS", "id": "97a70d45-d7d5-4ee5-86b4-ee506300cdaa" }
             }
           ],
           "id": "059f0f35-099d-4305-8a60-1666222dadb2",
@@ -1226,13 +1175,11 @@
           "elements": [
             {
               "amount": 0.8,
-              "material": { "country": "RAS", "id": "5f837a69-839d-4a49-9a30-19e1501ad51e" },
-              "transforms": []
+              "material": { "country": "RAS", "id": "5f837a69-839d-4a49-9a30-19e1501ad51e" }
             },
             {
               "amount": 0.2,
-              "material": { "country": "RAS", "id": "9c5a7a8e-6483-4da8-9cc2-0a90a30cb93a" },
-              "transforms": []
+              "material": { "country": "RAS", "id": "9c5a7a8e-6483-4da8-9cc2-0a90a30cb93a" }
             }
           ],
           "id": "8e38b6a5-1c95-43f6-987f-2e368fc74edc",
@@ -1255,11 +1202,7 @@
                 { "country": "RAS", "id": "7319ac9c-5796-412f-a1eb-58e01afa7708" }
               ]
             },
-            {
-              "amount": 0.5,
-              "material": { "id": "20f5db04-a4c7-48ab-9903-38c65cd70be0" },
-              "transforms": []
-            }
+            { "amount": 0.5, "material": { "id": "20f5db04-a4c7-48ab-9903-38c65cd70be0" } }
           ],
           "id": "ae9c83de-71bf-4f21-9030-afbfd4ad3b3a",
           "quantity": 2
@@ -1283,8 +1226,7 @@
             },
             {
               "amount": 1.5,
-              "material": { "country": "RAS", "id": "51956fb2-304d-4e63-a3ef-b3eed44fde38" },
-              "transforms": []
+              "material": { "country": "RAS", "id": "51956fb2-304d-4e63-a3ef-b3eed44fde38" }
             }
           ],
           "id": "f134b3fd-0439-4b25-a06e-f1b8fd6e201c",
@@ -1294,8 +1236,7 @@
           "elements": [
             {
               "amount": 10,
-              "material": { "country": "RAS", "id": "6445c1fa-13a6-4058-8978-bcf2be63cd56" },
-              "transforms": []
+              "material": { "country": "RAS", "id": "6445c1fa-13a6-4058-8978-bcf2be63cd56" }
             }
           ],
           "id": "6cb4338a-4663-4325-90b6-f7279a498c9b",
@@ -1343,8 +1284,7 @@
           "elements": [
             {
               "amount": 50,
-              "material": { "country": "RAS", "id": "97a70d45-d7d5-4ee5-86b4-ee506300cdaa" },
-              "transforms": []
+              "material": { "country": "RAS", "id": "97a70d45-d7d5-4ee5-86b4-ee506300cdaa" }
             }
           ],
           "id": "da06c70f-5b61-4de7-bb51-5761818aa0dd",
@@ -1369,8 +1309,7 @@
           "elements": [
             {
               "amount": 20,
-              "material": { "country": "REO", "id": "42748244-0939-4da2-ad5f-206ce541d7ee" },
-              "transforms": []
+              "material": { "country": "REO", "id": "42748244-0939-4da2-ad5f-206ce541d7ee" }
             }
           ],
           "id": "d3ef64c0-3deb-4ef2-838d-015d8ece019e",
@@ -1393,11 +1332,7 @@
                 { "id": "85b74ce2-2cbc-4d73-a5a2-5c5ffde16319" }
               ]
             },
-            {
-              "amount": 1,
-              "material": { "id": "20f5db04-a4c7-48ab-9903-38c65cd70be0" },
-              "transforms": []
-            }
+            { "amount": 1, "material": { "id": "20f5db04-a4c7-48ab-9903-38c65cd70be0" } }
           ],
           "id": "1d2de15a-53d9-465d-a2cf-fa2c5f68f5e9",
           "quantity": 2
@@ -1447,18 +1382,15 @@
             },
             {
               "amount": 6,
-              "material": { "country": "REO", "id": "a363f079-bc3f-424a-a2e1-06b9c76b4fc3" },
-              "transforms": []
+              "material": { "country": "REO", "id": "a363f079-bc3f-424a-a2e1-06b9c76b4fc3" }
             },
             {
               "amount": 17,
-              "material": { "country": "REO", "id": "42748244-0939-4da2-ad5f-206ce541d7ee" },
-              "transforms": []
+              "material": { "country": "REO", "id": "42748244-0939-4da2-ad5f-206ce541d7ee" }
             },
             {
               "amount": 10,
-              "material": { "country": "REO", "id": "29b1a0f9-4887-49f7-910f-e50ad9e1b572" },
-              "transforms": []
+              "material": { "country": "REO", "id": "29b1a0f9-4887-49f7-910f-e50ad9e1b572" }
             },
             {
               "amount": 130,
@@ -1475,8 +1407,7 @@
           "elements": [
             {
               "amount": 170,
-              "material": { "country": "REO", "id": "8b28671a-83f2-46e6-8c1c-e973a47dde97" },
-              "transforms": []
+              "material": { "country": "REO", "id": "8b28671a-83f2-46e6-8c1c-e973a47dde97" }
             }
           ],
           "name": "Groupe motopropulseur",
@@ -1551,8 +1482,7 @@
           "elements": [
             {
               "amount": 20,
-              "material": { "country": "REO", "id": "f92ed520-3845-4a5a-8745-e87fd6863f03" },
-              "transforms": []
+              "material": { "country": "REO", "id": "f92ed520-3845-4a5a-8745-e87fd6863f03" }
             }
           ],
           "name": "Batterie plomb",
@@ -1562,8 +1492,7 @@
           "elements": [
             {
               "amount": 8,
-              "material": { "country": "REO", "id": "5f837a69-839d-4a49-9a30-19e1501ad51e" },
-              "transforms": []
+              "material": { "country": "REO", "id": "5f837a69-839d-4a49-9a30-19e1501ad51e" }
             }
           ],
           "name": "Pneus",
@@ -1578,11 +1507,7 @@
                 { "id": "4a08bcab-5c25-4dec-961a-0f7208f40084" }
               ]
             },
-            {
-              "amount": 2,
-              "material": { "id": "51956fb2-304d-4e63-a3ef-b3eed44fde38" },
-              "transforms": []
-            },
+            { "amount": 2, "material": { "id": "51956fb2-304d-4e63-a3ef-b3eed44fde38" } },
             {
               "amount": 1,
               "material": { "id": "30212fbf-5912-40eb-b2ab-87837361c462" },
@@ -1641,18 +1566,15 @@
             },
             {
               "amount": 7,
-              "material": { "country": "REO", "id": "a363f079-bc3f-424a-a2e1-06b9c76b4fc3" },
-              "transforms": []
+              "material": { "country": "REO", "id": "a363f079-bc3f-424a-a2e1-06b9c76b4fc3" }
             },
             {
               "amount": 20,
-              "material": { "country": "REO", "id": "42748244-0939-4da2-ad5f-206ce541d7ee" },
-              "transforms": []
+              "material": { "country": "REO", "id": "42748244-0939-4da2-ad5f-206ce541d7ee" }
             },
             {
               "amount": 13,
-              "material": { "country": "REO", "id": "29b1a0f9-4887-49f7-910f-e50ad9e1b572" },
-              "transforms": []
+              "material": { "country": "REO", "id": "29b1a0f9-4887-49f7-910f-e50ad9e1b572" }
             },
             {
               "amount": 160,
@@ -1669,8 +1591,7 @@
           "elements": [
             {
               "amount": 210,
-              "material": { "country": "REO", "id": "8b28671a-83f2-46e6-8c1c-e973a47dde97" },
-              "transforms": []
+              "material": { "country": "REO", "id": "8b28671a-83f2-46e6-8c1c-e973a47dde97" }
             }
           ],
           "name": "Groupe motopropulseur",
@@ -1745,8 +1666,7 @@
           "elements": [
             {
               "amount": 20,
-              "material": { "country": "REO", "id": "f92ed520-3845-4a5a-8745-e87fd6863f03" },
-              "transforms": []
+              "material": { "country": "REO", "id": "f92ed520-3845-4a5a-8745-e87fd6863f03" }
             }
           ],
           "name": "Batterie plomb",
@@ -1756,8 +1676,7 @@
           "elements": [
             {
               "amount": 10,
-              "material": { "country": "REO", "id": "5f837a69-839d-4a49-9a30-19e1501ad51e" },
-              "transforms": []
+              "material": { "country": "REO", "id": "5f837a69-839d-4a49-9a30-19e1501ad51e" }
             }
           ],
           "name": "Pneus",
@@ -1772,11 +1691,7 @@
                 { "id": "4a08bcab-5c25-4dec-961a-0f7208f40084" }
               ]
             },
-            {
-              "amount": 2,
-              "material": { "id": "51956fb2-304d-4e63-a3ef-b3eed44fde38" },
-              "transforms": []
-            },
+            { "amount": 2, "material": { "id": "51956fb2-304d-4e63-a3ef-b3eed44fde38" } },
             {
               "amount": 1,
               "material": { "id": "30212fbf-5912-40eb-b2ab-87837361c462" },
@@ -1854,8 +1769,7 @@
           "elements": [
             {
               "amount": 20,
-              "material": { "country": "RAS", "id": "97a70d45-d7d5-4ee5-86b4-ee506300cdaa" },
-              "transforms": []
+              "material": { "country": "RAS", "id": "97a70d45-d7d5-4ee5-86b4-ee506300cdaa" }
             }
           ],
           "id": "edca4c52-b34a-4906-b2e0-4f726bfcc8f7",
@@ -1880,8 +1794,7 @@
           "elements": [
             {
               "amount": 20,
-              "material": { "country": "REO", "id": "42748244-0939-4da2-ad5f-206ce541d7ee" },
-              "transforms": []
+              "material": { "country": "REO", "id": "42748244-0939-4da2-ad5f-206ce541d7ee" }
             }
           ],
           "id": "d3ef64c0-3deb-4ef2-838d-015d8ece019e",
@@ -1904,11 +1817,7 @@
                 { "id": "85b74ce2-2cbc-4d73-a5a2-5c5ffde16319" }
               ]
             },
-            {
-              "amount": 1,
-              "material": { "id": "20f5db04-a4c7-48ab-9903-38c65cd70be0" },
-              "transforms": []
-            }
+            { "amount": 1, "material": { "id": "20f5db04-a4c7-48ab-9903-38c65cd70be0" } }
           ],
           "id": "1d2de15a-53d9-465d-a2cf-fa2c5f68f5e9",
           "quantity": 2
@@ -1972,8 +1881,7 @@
           "elements": [
             {
               "amount": 8,
-              "material": { "country": "RAS", "id": "97a70d45-d7d5-4ee5-86b4-ee506300cdaa" },
-              "transforms": []
+              "material": { "country": "RAS", "id": "97a70d45-d7d5-4ee5-86b4-ee506300cdaa" }
             }
           ],
           "id": "059f0f35-099d-4305-8a60-1666222dadb2",
@@ -2005,13 +1913,11 @@
           "elements": [
             {
               "amount": 0.8,
-              "material": { "country": "RAS", "id": "5f837a69-839d-4a49-9a30-19e1501ad51e" },
-              "transforms": []
+              "material": { "country": "RAS", "id": "5f837a69-839d-4a49-9a30-19e1501ad51e" }
             },
             {
               "amount": 0.2,
-              "material": { "country": "RAS", "id": "9c5a7a8e-6483-4da8-9cc2-0a90a30cb93a" },
-              "transforms": []
+              "material": { "country": "RAS", "id": "9c5a7a8e-6483-4da8-9cc2-0a90a30cb93a" }
             }
           ],
           "id": "8e38b6a5-1c95-43f6-987f-2e368fc74edc",
@@ -2034,11 +1940,7 @@
                 { "country": "RAS", "id": "7319ac9c-5796-412f-a1eb-58e01afa7708" }
               ]
             },
-            {
-              "amount": 0.5,
-              "material": { "id": "20f5db04-a4c7-48ab-9903-38c65cd70be0" },
-              "transforms": []
-            }
+            { "amount": 0.5, "material": { "id": "20f5db04-a4c7-48ab-9903-38c65cd70be0" } }
           ],
           "id": "ae9c83de-71bf-4f21-9030-afbfd4ad3b3a",
           "quantity": 2
@@ -2062,8 +1964,7 @@
             },
             {
               "amount": 1.5,
-              "material": { "country": "RAS", "id": "51956fb2-304d-4e63-a3ef-b3eed44fde38" },
-              "transforms": []
+              "material": { "country": "RAS", "id": "51956fb2-304d-4e63-a3ef-b3eed44fde38" }
             }
           ],
           "id": "f134b3fd-0439-4b25-a06e-f1b8fd6e201c",
@@ -2073,8 +1974,7 @@
           "elements": [
             {
               "amount": 10,
-              "material": { "country": "RAS", "id": "6445c1fa-13a6-4058-8978-bcf2be63cd56" },
-              "transforms": []
+              "material": { "country": "RAS", "id": "6445c1fa-13a6-4058-8978-bcf2be63cd56" }
             }
           ],
           "id": "6cb4338a-4663-4325-90b6-f7279a498c9b",
@@ -2265,8 +2165,7 @@
             },
             {
               "amount": 0.6,
-              "material": { "country": "RAS", "id": "51956fb2-304d-4e63-a3ef-b3eed44fde38" },
-              "transforms": []
+              "material": { "country": "RAS", "id": "51956fb2-304d-4e63-a3ef-b3eed44fde38" }
             }
           ],
           "id": "7cfe659e-3764-4a8c-a25b-201396cbc09f",
@@ -2277,8 +2176,7 @@
           "elements": [
             {
               "amount": 8,
-              "material": { "country": "REO", "id": "97a70d45-d7d5-4ee5-86b4-ee506300cdaa" },
-              "transforms": []
+              "material": { "country": "REO", "id": "97a70d45-d7d5-4ee5-86b4-ee506300cdaa" }
             }
           ],
           "id": "059f0f35-099d-4305-8a60-1666222dadb2",
@@ -2309,13 +2207,11 @@
           "elements": [
             {
               "amount": 0.8,
-              "material": { "country": "RAS", "id": "5f837a69-839d-4a49-9a30-19e1501ad51e" },
-              "transforms": []
+              "material": { "country": "RAS", "id": "5f837a69-839d-4a49-9a30-19e1501ad51e" }
             },
             {
               "amount": 0.2,
-              "material": { "country": "RAS", "id": "9c5a7a8e-6483-4da8-9cc2-0a90a30cb93a" },
-              "transforms": []
+              "material": { "country": "RAS", "id": "9c5a7a8e-6483-4da8-9cc2-0a90a30cb93a" }
             }
           ],
           "id": "8e38b6a5-1c95-43f6-987f-2e368fc74edc",
@@ -2340,8 +2236,7 @@
             },
             {
               "amount": 0.5,
-              "material": { "country": "REO", "id": "20f5db04-a4c7-48ab-9903-38c65cd70be0" },
-              "transforms": []
+              "material": { "country": "REO", "id": "20f5db04-a4c7-48ab-9903-38c65cd70be0" }
             }
           ],
           "id": "ae9c83de-71bf-4f21-9030-afbfd4ad3b3a",
@@ -2366,8 +2261,7 @@
             },
             {
               "amount": 1.5,
-              "material": { "country": "RAS", "id": "51956fb2-304d-4e63-a3ef-b3eed44fde38" },
-              "transforms": []
+              "material": { "country": "RAS", "id": "51956fb2-304d-4e63-a3ef-b3eed44fde38" }
             }
           ],
           "id": "f134b3fd-0439-4b25-a06e-f1b8fd6e201c",
@@ -2377,8 +2271,7 @@
           "elements": [
             {
               "amount": 10,
-              "material": { "country": "FR", "id": "6445c1fa-13a6-4058-8978-bcf2be63cd56" },
-              "transforms": []
+              "material": { "country": "FR", "id": "6445c1fa-13a6-4058-8978-bcf2be63cd56" }
             }
           ],
           "id": "6cb4338a-4663-4325-90b6-f7279a498c9b",
@@ -2496,8 +2389,7 @@
           "elements": [
             {
               "amount": 20,
-              "material": { "country": "RAS", "id": "97a70d45-d7d5-4ee5-86b4-ee506300cdaa" },
-              "transforms": []
+              "material": { "country": "RAS", "id": "97a70d45-d7d5-4ee5-86b4-ee506300cdaa" }
             }
           ],
           "id": "edca4c52-b34a-4906-b2e0-4f726bfcc8f7",
@@ -2522,8 +2414,7 @@
           "elements": [
             {
               "amount": 20,
-              "material": { "country": "REO", "id": "42748244-0939-4da2-ad5f-206ce541d7ee" },
-              "transforms": []
+              "material": { "country": "REO", "id": "42748244-0939-4da2-ad5f-206ce541d7ee" }
             }
           ],
           "id": "d3ef64c0-3deb-4ef2-838d-015d8ece019e",
@@ -2546,11 +2437,7 @@
                 { "id": "85b74ce2-2cbc-4d73-a5a2-5c5ffde16319" }
               ]
             },
-            {
-              "amount": 1,
-              "material": { "id": "20f5db04-a4c7-48ab-9903-38c65cd70be0" },
-              "transforms": []
-            }
+            { "amount": 1, "material": { "id": "20f5db04-a4c7-48ab-9903-38c65cd70be0" } }
           ],
           "id": "1d2de15a-53d9-465d-a2cf-fa2c5f68f5e9",
           "quantity": 2

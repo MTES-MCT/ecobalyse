@@ -584,7 +584,6 @@ components:
             material:
               country: FR
               id: d57e50ef-b40e-4abf-ab50-1edf4916a3e4
-            transforms: []
           name: "Farine de blé FR"
           quantity: 1
         packagings:
