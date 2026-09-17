@@ -123,47 +123,39 @@ curl -sS -X POST "$API/food2/simulator" \
   "components": [
     {
       "quantity": 1,
-      "custom": {
-        "name": "Farine UE (2025)",
-        "elements": [
-          {"amount": 0.25, "material": "a2e25aca-1f42-4bc8-bc0e-4d7c751775aa"}
-        ]
-      }
+      "name": "Farine UE (2025)",
+      "elements": [
+        {"amount": 0.25, "material": "a2e25aca-1f42-4bc8-bc0e-4d7c751775aa"}
+      ]
     },
     {
       "quantity": 1,
-      "custom": {
-        "name": "Tomate FR",
-        "elements": [
-          {
-            "amount": 0.2,
-            "material": "b94d40bd-3394-59d3-9397-fe097a5f7138",
-            "transforms": ["de307fb4-99d3-4a01-962b-242ace7b2739"]
-          }
-        ]
-      }
+      "name": "Tomate FR",
+      "elements": [
+        {
+          "amount": 0.2,
+          "material": "b94d40bd-3394-59d3-9397-fe097a5f7138",
+          "transforms": ["de307fb4-99d3-4a01-962b-242ace7b2739"]
+        }
+      ]
     },
     {
       "quantity": 1,
-      "custom": {
-        "name": "Mozzarella FR (2025)",
-        "elements": [
-          {
-            "amount": 0.07,
-            "material": "faa513ae-9c32-4e6c-874e-58c13309339e",
-            "transforms": ["6de57003-6767-49e2-a5a1-36ead9b78c42"]
-          }
-        ]
-      }
+      "name": "Mozzarella FR (2025)",
+      "elements": [
+        {
+          "amount": 0.07,
+          "material": "faa513ae-9c32-4e6c-874e-58c13309339e",
+          "transforms": ["6de57003-6767-49e2-a5a1-36ead9b78c42"]
+        }
+      ]
     },
     {
       "quantity": 1,
-      "custom": {
-        "name": "Eau de source UE",
-        "elements": [
-          {"amount": 0.1, "material": "2c2bec89-b05e-5493-a58e-b504fb81c6ea"}
-        ]
-      }
+      "name": "Eau de source UE",
+      "elements": [
+        {"amount": 0.1, "material": "2c2bec89-b05e-5493-a58e-b504fb81c6ea"}
+      ]
     }
   ]
 }'
@@ -279,47 +271,39 @@ curl -sS -X POST "$API/food2/simulator" \
   "components": [
     {
       "quantity": 1,
-      "custom": {
-        "name": "Farine UE (2025)",
-        "elements": [
-          {"amount": 0.25, "material": "a2e25aca-1f42-4bc8-bc0e-4d7c751775aa"}
-        ]
-      }
+      "name": "Farine UE (2025)",
+      "elements": [
+        {"amount": 0.25, "material": "a2e25aca-1f42-4bc8-bc0e-4d7c751775aa"}
+      ]
     },
     {
       "quantity": 1,
-      "custom": {
-        "name": "Tomate FR",
-        "elements": [
-          {
-            "amount": 0.2,
-            "material": "b94d40bd-3394-59d3-9397-fe097a5f7138",
-            "transforms": ["de307fb4-99d3-4a01-962b-242ace7b2739"]
-          }
-        ]
-      }
+      "name": "Tomate FR",
+      "elements": [
+        {
+          "amount": 0.2,
+          "material": "b94d40bd-3394-59d3-9397-fe097a5f7138",
+          "transforms": ["de307fb4-99d3-4a01-962b-242ace7b2739"]
+        }
+      ]
     },
     {
       "quantity": 1,
-      "custom": {
-        "name": "Mozzarella FR (2025)",
-        "elements": [
-          {
-            "amount": 0.07,
-            "material": "faa513ae-9c32-4e6c-874e-58c13309339e",
-            "transforms": ["6de57003-6767-49e2-a5a1-36ead9b78c42"]
-          }
-        ]
-      }
+      "name": "Mozzarella FR (2025)",
+      "elements": [
+        {
+          "amount": 0.07,
+          "material": "faa513ae-9c32-4e6c-874e-58c13309339e",
+          "transforms": ["6de57003-6767-49e2-a5a1-36ead9b78c42"]
+        }
+      ]
     },
     {
       "quantity": 1,
-      "custom": {
-        "name": "Eau de source UE",
-        "elements": [
-          {"amount": 0.1, "material": "2c2bec89-b05e-5493-a58e-b504fb81c6ea"}
-        ]
-      }
+      "name": "Eau de source UE",
+      "elements": [
+        {"amount": 0.1, "material": "2c2bec89-b05e-5493-a58e-b504fb81c6ea"}
+      ]
     }
   ],
   "packagings": [

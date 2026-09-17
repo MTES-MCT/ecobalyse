@@ -348,7 +348,7 @@ paths:
       summary: Liste des composants du catalogue
       description: |
         Identifiants utilisables pour le champ `components[].id`.
-        Pour les matières et ingrédients d'un composant personnalisé (`custom`), voir
+        Pour les matières et ingrédients d'un composant personnalisé (`elements`), voir
         `/{scope}/processes/material`.
         **Note :** le catalogue `food2` est actuellement vide.
       parameters:
@@ -383,7 +383,7 @@ paths:
         - Générique
       summary: Liste des procédés matières
       description: |
-        Identifiants utilisables pour le champ `components[].custom.elements[].material`
+        Identifiants utilisables pour le champ `components[].elements[].material`
         (UUID seul, ou objet de forme `{ "id", "country" }`).
         Le champ `unit` indique l'unité dans laquelle la quantité `amount` est exprimée.
         **Attention :** Les matières d'emballage sont exclues (voir `/{scope}/processes/packaging`).
@@ -402,7 +402,7 @@ paths:
         - Générique
       summary: Liste des procédés de transformation de la matière
       description: |
-        Identifiants utilisables pour le champ `components[].custom.elements[].transforms`
+        Identifiants utilisables pour le champ `components[].elements[].transforms`
         (UUID seul, ou objet de forme `{ "id", "country" }`).
 
         Le paramètre `materialType` filtre les procédés de transformation dont la catégorie
@@ -579,14 +579,13 @@ components:
         assembly:
           country: FR
         components:
-        - custom:
-            elements:
-            - amount: 1
-              material:
-                country: FR
-                id: d57e50ef-b40e-4abf-ab50-1edf4916a3e4
-              transforms: []
-            name: "Farine de blé FR"
+        - elements:
+          - amount: 1
+            material:
+              country: FR
+              id: d57e50ef-b40e-4abf-ab50-1edf4916a3e4
+            transforms: []
+          name: "Farine de blé FR"
           quantity: 1
         packagings:
         - amount: 1
@@ -1347,8 +1346,9 @@ components:
           description: |
             Liste des composants constituant le produit.
             Un composant du catalogue se référence par `id` (liste disponible sur `/{scope}/catalog`).
-            Un composant personnalisé se décrit via `custom` (matières listées sur
-            `/{scope}/processes/material`).
+            Un composant personnalisé se décrit via `name` et `elements` à la racine de l'item
+            (matières listées sur `/{scope}/processes/material`).
+            L'objet imbriqué `custom` reste accepté.
           items:
             $ref: "#/components/schemas/GenericQueryItem"
         product:
@@ -1427,8 +1427,13 @@ components:
           type: integer
           minimum: 1
           description: Nombre d'exemplaires de ce composant.
-        custom:
-          $ref: "#/components/schemas/GenericQueryCustom"
+        name:
+          type: string
+          description: Nom du composant personnalisé.
+        elements:
+          type: array
+          items:
+            $ref: "#/components/schemas/GenericQueryElement"
     GenericQueryCustom:
       type: object
       additionalProperties: false

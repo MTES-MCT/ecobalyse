@@ -1396,9 +1396,18 @@ decodeTransforms =
 decodeItem : Decoder Item
 decodeItem =
     Decode.succeed Item
-        |> DU.strictOptional "custom" decodeCustom
+        |> Decode.custom decodeItemCustom
         |> DU.strictOptional "id" (Decode.map Id Uuid.decoder)
         |> Decode.required "quantity" decodeQuantity
+
+
+decodeItemCustom : Decoder (Maybe Custom)
+decodeItemCustom =
+    Decode.oneOf
+        [ Decode.map Just (Decode.field "custom" decodeCustom)
+        , Decode.map Just decodeCustom
+        , Decode.succeed Nothing
+        ]
 
 
 decodeList : Decoder (List Component)
@@ -1611,29 +1620,6 @@ encodeBase64Query =
     encodeQuery >> Encode.encode 0 >> Base64.encode
 
 
-encodeCustom : Custom -> Encode.Value
-encodeCustom custom =
-    -- Note: custom scopes are never serialized nor exported as JSON, they are
-    --       only used by itemToComponent in the admin
-    EU.optionalPropertiesObject
-        [ ( "name"
-          , custom.name
-                |> Maybe.map String.trim
-                |> Maybe.andThen
-                    (\name ->
-                        -- Forbid serializing an empty name
-                        if name == "" then
-                            Nothing
-
-                        else
-                            Just name
-                    )
-                |> Maybe.map Encode.string
-          )
-        , ( "elements", custom.elements |> Encode.list encodeElement |> Just )
-        ]
-
-
 encodeElement : Element -> Encode.Value
 encodeElement element =
     EU.optionalPropertiesObject
@@ -1688,12 +1674,33 @@ encodeId =
 encodeItem : Item -> Encode.Value
 encodeItem item =
     EU.optionalPropertiesObject
-        [ ( "id", item.id |> Maybe.map (idToString >> Encode.string) )
-        , ( "quantity", item.quantity |> quantityToInt |> Encode.int |> Just )
+        ([ ( "id", item.id |> Maybe.map (idToString >> Encode.string) )
+         , ( "quantity", item.quantity |> quantityToInt |> Encode.int |> Just )
+         ]
+            ++ (case item.custom of
+                    Just custom ->
+                        -- Custom scopes are never serialized nor exported as JSON, they are
+                        -- only used by itemToComponent in the admin
+                        [ ( "name"
+                          , custom.name
+                                |> Maybe.map String.trim
+                                |> Maybe.andThen
+                                    (\name ->
+                                        if name == "" then
+                                            Nothing
 
-        -- FIXME: find a better name than custom, or better: a native way to encode/decode altered/modified components
-        , ( "custom", item.custom |> Maybe.map encodeCustom )
-        ]
+                                        else
+                                            Just name
+                                    )
+                                |> Maybe.map Encode.string
+                          )
+                        , ( "elements", custom.elements |> Encode.list encodeElement |> Just )
+                        ]
+
+                    Nothing ->
+                        []
+               )
+        )
 
 
 encodeLifeCycle : Maybe Trigram -> LifeCycle -> Encode.Value
