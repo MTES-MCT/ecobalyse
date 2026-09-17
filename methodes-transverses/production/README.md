@@ -1,42 +1,84 @@
-# 🧩 Production des matériaux
+# 🧩 Production des matériaux (ou ingrédients)
 
 {% hint style="warning" %}
-La section "Production des matériaux" est en cours de modification. Elle s'appelait auparavant "Production des composants". Afin de mieux répondre aux besoins des utilisateurs, cette section va désormais proposer un catalogue de matériaux.
+La section "Production des matériaux (ou ingrédients)" est en cours de modification. Elle s'appelait auparavant "Production des composants". Afin de mieux répondre aux besoins des utilisateurs, cette section va désormais proposer un catalogue de matériaux.
 
 Les méthodes de calcul présentées ici restent applicables pour l'instant, mais le vocabulaire évolue. Cette page de documentation ne reflète pas encore le principe de production des matériaux.
 {% endhint %}
 
+## Vocabulaire, 3 lexiques à différencier
+
+La construction de l'outil Ecobalyse, et en particulier la section relative aux matériaux (ou ingrédients) s'appuie sur un modèle de données structuré permettant d'exprimer une grande diversité de matériaux (ou ingrédients). Dans cette page, et dans la mesure du possible dans les autres pages de la documentation, on distingue 3 lexiques :&#x20;
+
+* Le <mark style="color:green;">**modèle de données Ecobalyse**</mark> : un lexique transverse, utilisé pour désigner des objets au sens informatique du terme
+* Le code source Ecobalyse : miroir du modèle de données mais avec des contraintes de format (par exemple une expression en anglais)
+* La <mark style="color:blue;">**présentation sur l'outil de calcul**</mark> : comment les différents objets sont libellés sur les différents calculateurs, avec la possibilité de changer ces libellés suivant les catégories de produits (ex : on parle de "matériaux" pour la verticale "Objets" et d' "ingrédients" pour la verticale "Alimentation").
+
+| Modèle de données Ecobalyse                                | Code source Ecobalyse                                                                                     | Présentation sur l'outil / Objets                                                                                                                                                                    | Présentation sur l'outil / Alimentation                                                                                                                                                                  |
+| ---------------------------------------------------------- | --------------------------------------------------------------------------------------------------------- | ---------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- | -------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
+| <mark style="color:green;">Composant</mark>                | component                                                                                                 | <mark style="color:blue;">Matériau</mark>                                                                                                                                                            | <mark style="color:blue;">Ingrédient</mark>                                                                                                                                                              |
+| <mark style="color:green;">Elément</mark>                  | element                                                                                                   | <p><mark style="color:blue;">Elément</mark> <br><mark style="color:blue;">[</mark><em><mark style="color:blue;">à remplacer par sous-matériau ?</mark></em><mark style="color:blue;">]</mark></p>    | <p><mark style="color:blue;">Elément</mark><br><mark style="color:blue;">[</mark><em><mark style="color:blue;">à remplacer par sous-ingrédient</mark></em><mark style="color:blue;">]</mark></p>         |
+| <mark style="color:green;">Procédé / matière</mark>        | <p>???<br>[<em>est-ce un seul nom dans le code ou faut-il aussi le différencier par verticale ?</em>]</p> | <p><mark style="color:blue;">Matériau</mark><br><mark style="color:blue;">[</mark><em><mark style="color:blue;">à remplacer par "Matériau de base"</mark></em><mark style="color:blue;">]</mark></p> | <p><mark style="color:blue;">Ingrédient</mark><br><mark style="color:blue;">[</mark><em><mark style="color:blue;">à remplacer par "Ingrédient de base"</mark></em><mark style="color:blue;">]</mark></p> |
+| <mark style="color:green;">Procédé / transformation</mark> | <p>???<br>[<em>est-ce un seul nom dans le code ou faut-il aussi le différencier par verticale ?</em>]</p> | <mark style="color:blue;">Transformation</mark>                                                                                                                                                      | <mark style="color:blue;">Transformation</mark>                                                                                                                                                          |
+
 ## Contexte
 
-La plupart des produits consistent en un assemblage de composants, eux mêmes constitués de plusieurs éléments (un élément étant une matière transformée).
+La description d'un produit (objet, produit alimentaire, véhicule...) passe prioritairement par la description de sa composition. Aussi, le parti qui est pris consiste à décrire un produit à partir de sa composition massique.
 
-Dans une logique de déploiement à grande échelle du calcul du coût environnemental, un module Composant a été développé. Ce dernier permet de modéliser un grand nombre de produits grâce à la création de un ou plusieurs composants. \
-Chaque composant est créé à partir d'une liste de matériaux (ex : acier, plastique, bois, etc.) et de procédés de transformation associés (ex : sciage de grumes de bois, moulage plastique, etc.).
+Fonctionnellement, <mark style="color:blue;">**du point de vue de l'utilisateur**</mark>, les premières questions posées sont :&#x20;
 
-Les cas d'usages sont nombreux; voici quelques exemples :&#x20;
+* quelle est la masse de chacun des <mark style="color:blue;">**Matériaux**</mark> qui composent un objet ?
+* quelle est la masse de chacun des <mark style="color:blue;">**Ingrédients**</mark> qui composent un produit alimentaire ?
 
-* boutons d'un vêtement (composant avec des paramètres imposés pour l'affichage réglementaire)
-* pied de chaise
-* pneu d'une voiture
-* ampoule d'une lampe
+&#x20;Pour décrire ces objets qui constituent le premier niveau de décomposition du produit, la notion de <mark style="color:green;">**Composant**</mark> est introduite <mark style="color:green;">**dans le modèle de données Ecobalyse**</mark>. Un <mark style="color:green;">**composant**</mark> peut donc alternativement décrire un <mark style="color:blue;">**matériau**</mark> pour un objet, ou un <mark style="color:blue;">**ingrédient**</mark> pour un produit alimentaire.
+
+Les <mark style="color:blue;">**matériaux**</mark> ou <mark style="color:blue;">**ingrédients**</mark> qui sont susceptibles d'être décrits peuvent être plus ou moins complexes. Dans ce but, <mark style="color:green;">**le modèle de données Ecobalyse**</mark> permet qu'un <mark style="color:green;">**composant**</mark> soit l'aggrégation d'un ou plusieurs <mark style="color:green;">**éléments**</mark>, chaque <mark style="color:green;">**élément**</mark> regroupant a minima un <mark style="color:green;">**procédé matière**</mark> auquel s'appliquent un ou plusieurs <mark style="color:green;">**procédés de transformation**</mark>.
+
+<figure><img src="../../.gitbook/assets/Composant.png" alt=""><figcaption></figcaption></figure>
+
+**Exemple : sauce tomate**&#x20;
+
+L'exemple de la sauce tomate relève de la verticale "Alimentation". Le vocabulaire correspondant (cf. tableau ci-dessus) est donc mobilisé sur l'interface utilisateurs.
+
+{% hint style="info" %}
+Un même <mark style="color:green;">**composant**</mark> (<mark style="color:blue;">**ingrédient**</mark>**)** peut être représenté de façon plus ou moins désagrégée : \
+\- un seul <mark style="color:green;">**élément**</mark> (<mark style="color:blue;">**sous-ingrédient**</mark>) et un seul <mark style="color:green;">**procédé matière**</mark> (<mark style="color:blue;">**ingrédient de base**</mark>)\
+\- un seul <mark style="color:green;">**élément**</mark> (<mark style="color:blue;">**sous-ingrédient**</mark>) constitué d'un <mark style="color:green;">**procédé matière**</mark> (<mark style="color:blue;">**ingrédient de base**</mark>) auquel s'appliquent un ou plusieurs <mark style="color:green;">**procédés de transformation**</mark> (<mark style="color:blue;">**transformations**</mark>)\
+\- plusieurs <mark style="color:green;">**éléments**</mark> (<mark style="color:blue;">**sous-ingrédients**</mark>) étant chacun composés d'un <mark style="color:green;">**procédé matière**</mark> (<mark style="color:green;">**ingrédient de base**</mark>) auquel s'appliquent un ou plusieurs <mark style="color:green;">**porcédés de transformation**</mark> (<mark style="color:blue;">**transformations**</mark>)&#x20;
+{% endhint %}
+
+<figure><img src="../../.gitbook/assets/Sauce tomate.png" alt=""><figcaption></figcaption></figure>
+
+## <mark style="color:$info;">Contexte (old / à supprimer)</mark>
+
+<mark style="color:$info;">La plupart des produits consistent en un assemblage de composants, eux mêmes constitués de plusieurs éléments (un élément étant une matière transformée).</mark>
+
+<mark style="color:$info;">Dans une logique de déploiement à grande échelle du calcul du coût environnemental, un module Composant a été développé. Ce dernier permet de modéliser un grand nombre de produits grâce à la création de un ou plusieurs composants.</mark> \ <mark style="color:$info;">Chaque composant est créé à partir d'une liste de matériaux (ex : acier, plastique, bois, etc.) et de procédés de transformation associés (ex : sciage de grumes de bois, moulage plastique, etc.).</mark>
+
+<mark style="color:$info;">Les cas d'usages sont nombreux; voici quelques exemples :</mark>&#x20;
+
+* <mark style="color:$info;">boutons d'un vêtement (composant avec des paramètres imposés pour l'affichage réglementaire)</mark>
+* <mark style="color:$info;">pied de chaise</mark>
+* <mark style="color:$info;">pneu d'une voiture</mark>
+* <mark style="color:$info;">ampoule d'une lampe</mark>
 
 {% tabs %}
 {% tab title="Composants d'un produit" %}
 <figure><img src="../../.gitbook/assets/image (382).png" alt=""><figcaption></figcaption></figure>
 
-Un ou plusieurs composants peuvent être modélisés (3 dans l'exemple ci-dessus).&#x20;
+<mark style="color:$info;">Un ou plusieurs composants peuvent être modélisés (3 dans l'exemple ci-dessus).</mark>&#x20;
 
-Un composant peut être présent en une ou plusieurs unités (ex : 2 tissus dans un canapé, 4 pieds de chaise, 4 pneus de voiture, etc.).
+<mark style="color:$info;">Un composant peut être présent en une ou plusieurs unités (ex : 2 tissus dans un canapé, 4 pieds de chaise, 4 pneus de voiture, etc.).</mark>
 
-Chaque composant est constitué d'au moins une matière transformée (cf. "_Focus Elément_")
+<mark style="color:$info;">Chaque composant est constitué d'au moins une matière transformée (cf. "</mark>_<mark style="color:$info;">Focus Elément</mark>_<mark style="color:$info;">")</mark>
 {% endtab %}
 
 {% tab title="Détail d'un composant" %}
 <figure><img src="../../.gitbook/assets/image (383).png" alt=""><figcaption></figcaption></figure>
 
-Chaque composant est constitué d'au moins un élément. Un élément correspond à une matière qui peut être transformée.&#x20;
+<mark style="color:$info;">Chaque composant est constitué d'au moins un élément. Un élément correspond à une matière qui peut être transformée.</mark>&#x20;
 
-Dans l'exemple ci-dessus, la structure acier du canapé est constituée d'un seul élément (de l'acier sur lequel est appliqué un procédé de transformation).&#x20;
+<mark style="color:$info;">Dans l'exemple ci-dessus, la structure acier du canapé est constituée d'un seul élément (de l'acier sur lequel est appliqué un procédé de transformation).</mark>&#x20;
 {% endtab %}
 {% endtabs %}
 
