@@ -86,6 +86,7 @@ class Ingredient(TypedDict, total=False):
     activityName: str
     displayName: str
     alias: str
+    visible: bool
     metadata: Metadata
     impacts: dict[str, float]
     impacts_norm: dict[str, float]
@@ -95,6 +96,10 @@ class Ingredient(TypedDict, total=False):
 class Anomaly(TypedDict):
     base_ingredient: str
     reason: str
+    # 1 when both ingredients are visible to end users, 0 otherwise
+    visible: int
+    # aliases of the hidden ingredients
+    hidden_variants: str
     expected_lower_variant: str
     expected_lower_ecs: float
     expected_lower_activity_name: str
@@ -133,7 +138,7 @@ def parse_variant_type(alias: str, base_ingredient: str) -> str:
 
 
 def group_ingredients(ingredients: list[Ingredient]) -> dict[str, list[Ingredient]]:
-    """Group visible ingredients by base_ingredient"""
+    """Group ingredients by base_ingredient"""
     ingredients_by_base = defaultdict(list)
 
     for ingredient in ingredients:
@@ -213,7 +218,13 @@ def build_anomaly(
 ) -> Anomaly:
     return {
         "base_ingredient": expected_lower["metadata"]["ingredient"]["baseIngredient"],
-        "reason": f"{expected_higher['alias']} < {expected_lower['alias']}",
+        "reason": f"{expected_lower['alias']} > {expected_higher['alias']}",
+        "visible": int(expected_lower["visible"] and expected_higher["visible"]),
+        "hidden_variants": " | ".join(
+            ingredient["alias"]
+            for ingredient in (expected_lower, expected_higher)
+            if not ingredient["visible"]
+        ),
         "expected_lower_variant": expected_lower["alias"],
         "expected_lower_ecs": round(expected_lower_ecs, 2),
         "expected_lower_activity_name": expected_lower["activityName"],
@@ -272,23 +283,15 @@ def check_hierarchy(
             continue
 
         for expected_lower, expected_higher in combinations(known, 2):
-            expected_lower_type, expected_higher_type = (
-                expected_lower["variant_type"],
-                expected_higher["variant_type"],
-            )
             order1, order2 = (
-                INGREDIENT_HIERARCHY[expected_lower_type],
-                INGREDIENT_HIERARCHY[expected_higher_type],
+                INGREDIENT_HIERARCHY[expected_lower["variant_type"]],
+                INGREDIENT_HIERARCHY[expected_higher["variant_type"]],
             )
             if order1 == order2:
                 continue
             # Ensure `expected_lower` is the one expected to have lower impact
             if order1 > order2:
                 expected_lower, expected_higher = expected_higher, expected_lower
-                expected_lower_type, expected_higher_type = (
-                    expected_higher_type,
-                    expected_lower_type,
-                )
 
             expected_lower_ecs, expected_higher_ecs = (
                 compute_ecs_with_complements(expected_lower),
@@ -321,7 +324,14 @@ def build_df(aliases, ingredients: list[Ingredient]):
         for impact_key, val in ingr["impacts_norm"].items():
             if impact_key in EXCLUDED_IMPACTS:
                 continue
-            rows.append({"product_name": alias, "impact": impact_key, "ecs": val})
+            rows.append(
+                {
+                    "product_name": alias,
+                    "impact": impact_key,
+                    "ecs": val,
+                    "visible": ingr["visible"],
+                }
+            )
         # Complements (ecosystemic services): leading `* ` sorts them first in the legend.
         if ingr["metadata"].get("complements"):
             for comp_key, val in ingr["metadata"]["complements"].items():
@@ -330,6 +340,7 @@ def build_df(aliases, ingredients: list[Ingredient]):
                         "product_name": alias,
                         "impact": f"* {comp_key}",
                         "ecs": val,
+                        "visible": ingr["visible"],
                     }
                 )
     return pd.DataFrame(rows)
@@ -382,6 +393,15 @@ def _render_stacked_bar(df, ax, title):
         plt.xticks(rotation=45, ha="right")
     else:
         plt.xticks(rotation=0, ha="center")
+
+    # Hidden ingredients (visible = false) are shown in italic grey
+    hidden_product_names = set(df.loc[~df["visible"], "product_name"])
+    for tick_label in ax.get_xticklabels():
+        if tick_label.get_text() in hidden_product_names:
+            tick_label.set_fontstyle("italic")
+            tick_label.set_color("dimgray")
+    if hidden_product_names:
+        ax.set_xlabel("en gris italique : ingrédient masqué (visible = false)")
 
     handles, labels = ax.get_legend_handles_labels()
     sorted_pairs = sorted(zip(labels, handles), key=lambda x: x[0], reverse=True)
@@ -529,6 +549,8 @@ def write_anomaly_report(anomalies):
     report_path = OUTPUT_DIR / "ingredient_hierarchy_anomalies.csv"
     report_path_fr = OUTPUT_DIR / "ingredient_hierarchy_anomalies_fr.csv"
     df = pd.DataFrame(anomalies)
+    # Visible anomalies first, then largest delta first
+    df = df.sort_values(["visible", "delta"], ascending=[False, False])
     df.to_csv(report_path, index=False)
     df.to_csv(report_path_fr, index=False, sep=";", decimal=",", encoding="utf-8-sig")
     logger.info(f"Wrote {len(anomalies)} anomalies to {report_path}")
@@ -548,7 +570,9 @@ def print_summary(ingredients_by_base, anomalies):
     print(f"Total base products:              {total_bases}")
     print(f"Base products with 2+ variants:   {bases_with_variants}")
     print(f"Total ingredients:                {total_ingredients}")
-    print(f"Hierarchy anomalies:             {len(anomalies)}")
+    visible_anomalies = sum(1 for anomaly in anomalies if anomaly["visible"])
+    print(f"Hierarchy anomalies:              {len(anomalies)}")
+    print(f"  of which visible to end users:  {visible_anomalies}")
 
     if anomalies:
         print("\nANOMALIES:")
@@ -592,7 +616,7 @@ def main():
     ingredients_by_base = group_ingredients(ingredients)
     logger.info(
         f"Found {len(ingredients_by_base)} base products, "
-        f"{sum(len(v) for v in ingredients_by_base.values())} visible variant ingredients"
+        f"{sum(len(v) for v in ingredients_by_base.values())} variant ingredients (visible and hidden)"
     )
 
     logger.info("Checking hierarchy...")
