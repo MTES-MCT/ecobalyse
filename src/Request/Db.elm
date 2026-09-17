@@ -61,6 +61,7 @@ initLoadingState : LoadingState
 initLoadingState =
     { countries = RemoteData.NotAsked
     , definitions = RemoteData.NotAsked
+    , food2Components = RemoteData.NotAsked
     , food2Examples = RemoteData.NotAsked
     , food2ProductCategories = RemoteData.NotAsked
     , foodIngredients = RemoteData.NotAsked
@@ -85,6 +86,7 @@ resolve data =
     RemoteData.succeed Db.Properties
         |> RemoteData.andMap data.countries
         |> RemoteData.andMap data.definitions
+        |> RemoteData.andMap data.food2Components
         |> RemoteData.andMap data.food2Examples
         |> RemoteData.andMap data.food2ProductCategories
         |> RemoteData.andMap data.foodIngredients
