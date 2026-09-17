@@ -32087,26 +32087,6 @@
     "visible": true
   },
   {
-    "activityName": "Battery cell EoL recycling, average, CFF",
-    "alias": null,
-    "categories": ["end-of-life", "material_type:battery_cell"],
-    "comment": "For 1kg battery cell, 50%LFP 50%NMC811. Based on Delegated Act to Regulation (EU) 2023/1542, methodology for the calculation and verification of the carbon footprint of electric vehicle batteries, with 50% Li recycling (hydrometallurgical), according to EU-2023/1542 2027 target",
-    "displayName": "Recyclage de cellules de batterie Li-ion, CFF",
-    "elecKwh": 0,
-    "heatMJ": 0,
-    "id": "ac83e8db-ebb5-4878-a039-e1cd40943627",
-    "impacts": { "ecs": -1575.0 },
-    "landOccupation": null,
-    "location": "RER",
-    "massPerUnit": null,
-    "metadata": { "defaultOrigin": null },
-    "qtyVariationRatio": 1.0,
-    "scopes": ["object", "veli"],
-    "source": "Ecobalyse_custom_lci",
-    "unit": "kg",
-    "visible": true
-  },
-  {
     "activityName": "Battery cell production, LFP Hydrothermal, CN",
     "alias": null,
     "categories": ["material", "material_type:battery_cell_lfp"],
