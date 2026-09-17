@@ -383,7 +383,8 @@ paths:
         - Générique
       summary: Liste des procédés matières
       description: |
-        Identifiants utilisables pour le champ `components[].custom.elements[].material.id`.
+        Identifiants utilisables pour le champ `components[].custom.elements[].material`
+        (UUID seul, ou objet de forme `{ "id", "country" }`).
         Le champ `unit` indique l'unité dans laquelle la quantité `amount` est exprimée.
         **Attention :** Les matières d'emballage sont exclues (voir `/{scope}/processes/packaging`).
       parameters:
@@ -401,7 +402,8 @@ paths:
         - Générique
       summary: Liste des procédés de transformation de la matière
       description: |
-        Identifiants utilisables pour le champ `components[].custom.elements[].transforms[].id`.
+        Identifiants utilisables pour le champ `components[].custom.elements[].transforms`
+        (UUID seul, ou objet de forme `{ "id", "country" }`).
 
         Le paramètre `materialType` filtre les procédés de transformation dont la catégorie
         `material_type` correspond (par exemple `fruits_and_vegetables` ou `pp`).
@@ -443,7 +445,9 @@ paths:
       tags:
         - Générique
       summary: Liste des procédés de distribution
-      description: Identifiants utilisables pour le champ `distribution`
+      description: |
+        Identifiants de procédés de stockage utilisables pour le champ `distribution`.
+        Seuls les procédés dont l'unité est le mètre cube (`m3`) sont renvoyés.
       parameters:
         - $ref: "#/components/parameters/genericScopeParam"
       responses:
@@ -473,7 +477,10 @@ paths:
       tags:
         - Générique
       summary: Liste des procédés de consommation à la phase d'utilisation
-      description: Identifiants utilisables pour le champ `consumptions[].processId`.
+      description: |
+        Identifiants utilisables pour le champ `consumptions` de la requête.
+        Un procédé `productmassdependent` s'écrit comme un UUID seul, les autres exigent la
+        définition d'une quantité sous la forme `{ "amount", "processId" }`.
       parameters:
         - $ref: "#/components/parameters/genericScopeParam"
       responses:
@@ -1332,6 +1339,8 @@ components:
     GenericQuery:
       type: object
       additionalProperties: false
+      description: |
+        Requête de simulation générique.
       properties:
         components:
           type: array
@@ -1347,17 +1356,21 @@ components:
           format: uuid
           description: |
             Identifiant de la catégorie de produit (liste disponible sur `/{scope}/categories`).
-            Lorsque ce champ est fourni, ses valeurs par défaut s'appliquent aux champs omis
-            (`assembly.operations`, `consumptions`, `distribution`, `transportOptions.cooling`).
+            Lorsque ce champ est fourni, ses valeurs par défaut s'appliquent aux champs suivants
+            s'ils sont vides ou absents :
+            - `assembly.operations`
+            - `consumptions`
+            - `distribution`
+            - `transportOptions.cooling`
         assembly:
           $ref: "#/components/schemas/GenericQueryAssembly"
         consumptions:
           type: array
           description: |
-            Procédés de consommation à l'étape d'utilisation (liste disponible sur `/{scope}/processes/consumption`).
+            List des procédés de consommation à l'étape d'utilisation (liste disponible sur `/{scope}/processes/consumption`).
             Si omis, les consommations de la catégorie de produit sélectionnée s'appliquent.
             Un procédé dont l'entrée sera la masse du produit (catégorisé `productmassdependent`)
-            s'identifie par un simple UUID (celui du procédé en question), sans quantité assiciée.
+            s'identifie par un simple UUID (celui du procédé en question), sans quantité associée.
             Les autres types de procédés procédés exigent que la quantité soit spécifiée (`{ "amount", "processId" }`).
           items:
             $ref: "#/components/schemas/GenericQueryConsumption"
@@ -1446,24 +1459,32 @@ components:
           type: array
           description: |
             Transformations successives de la matière (liste disponible sur `/{scope}/processes/transform/{materialType}`).
-            Champ optionnel: l'omettre équivaut à une absence de transformation.
+            Champ optionnel : l'omettre équivaut à une absence de transformation.
+            Chaque entrée accepte un UUID seul ou un objet de forme `{ "id", "country" }`.
           items:
             $ref: "#/components/schemas/GenericQueryLocalizedProcess"
     GenericQueryLocalizedProcess:
-      type: object
-      additionalProperties: false
-      required:
-      - id
-      properties:
-        id:
-          type: string
-          format: uuid
-          description: Identifiant du procédé.
-        country:
-          type: string
-          description: Code pays de localisation (liste disponible sur `/{scope}/countries`).
-          minLength: 2
-          maxLength: 3
+      description: |
+        Procédé localisé : UUID seul (pays d'origine par défaut), ou objet `{ "id", "country" }`
+        pour mobiliser le mix énergétique du pays.
+      oneOf:
+      - type: string
+        format: uuid
+        description: Identifiant du procédé (pays d'origine par défaut).
+      - type: object
+        additionalProperties: false
+        required:
+        - id
+        properties:
+          id:
+            type: string
+            format: uuid
+            description: Identifiant du procédé.
+          country:
+            type: string
+            description: Code pays de localisation (liste disponible sur `/{scope}/countries`).
+            minLength: 2
+            maxLength: 3
     GenericQueryConsumption:
       oneOf:
       - type: string
@@ -1550,17 +1571,10 @@ components:
           consumptions:
             type: array
             items:
-              type: object
-              required:
-              - processId
-              properties:
-                processId:
-                  type: string
-                amount:
-                  type: number
+              $ref: "#/components/schemas/GenericQueryConsumption"
             description: |
-              Consommations par défaut à la phase d'utilisation (**Note :** `amount` est omis
-              lorsque le procédé dépend de la masse du produit)
+              Consommations par défaut à la phase d'utilisation.
+              Un procédé `productmassdependent` est encodé comme un UUID (sans `amount`).
           cooling:
             type: boolean
             description: Transport réfrigéré par défaut
