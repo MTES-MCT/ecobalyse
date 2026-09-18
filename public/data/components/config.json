@@ -155,6 +155,26 @@
           "landfilling": { "percent": 9, "processId": "6e1bb4f8-716b-4162-bda9-330125955ea0" },
           "recycling": { "percent": 50, "processId": "8b60398a-d6b8-467f-89c1-0a0bcd85ba62" }
         },
+        "battery_alkaline": {
+          "incinerating": { "percent": 82, "processId": "14a60b7d-a1b2-4ff0-8247-b676681a7925" },
+          "landfilling": { "percent": 18, "processId": "63db8dee-78a5-4979-ae9b-fcc76d66ee4f" },
+          "recycling": null
+        },
+        "battery_cell_lfp": {
+          "incinerating": { "percent": 82, "processId": "14a60b7d-a1b2-4ff0-8247-b676681a7925" },
+          "landfilling": { "percent": 18, "processId": "63db8dee-78a5-4979-ae9b-fcc76d66ee4f" },
+          "recycling": null
+        },
+        "battery_cell_nmc622": {
+          "incinerating": { "percent": 82, "processId": "14a60b7d-a1b2-4ff0-8247-b676681a7925" },
+          "landfilling": { "percent": 18, "processId": "63db8dee-78a5-4979-ae9b-fcc76d66ee4f" },
+          "recycling": null
+        },
+        "battery_cell_nmc811": {
+          "incinerating": { "percent": 82, "processId": "14a60b7d-a1b2-4ff0-8247-b676681a7925" },
+          "landfilling": { "percent": 18, "processId": "63db8dee-78a5-4979-ae9b-fcc76d66ee4f" },
+          "recycling": null
+        },
         "composites": {
           "incinerating": { "percent": 82, "processId": "7f7af998-8313-47e7-b043-80fcf4d67042" },
           "landfilling": { "percent": 18, "processId": "63db8dee-78a5-4979-ae9b-fcc76d66ee4f" },
@@ -203,6 +223,11 @@
         "pur_foam": {
           "incinerating": { "percent": 82, "processId": "04c1e26f-bc40-4dff-950a-51ca54d5ad16" },
           "landfilling": { "percent": 18, "processId": "6194fdb0-0b67-4101-8d6a-1e55924b7462" },
+          "recycling": null
+        },
+        "pwb": {
+          "incinerating": { "percent": 82, "processId": "14a60b7d-a1b2-4ff0-8247-b676681a7925" },
+          "landfilling": { "percent": 18, "processId": "63db8dee-78a5-4979-ae9b-fcc76d66ee4f" },
           "recycling": null
         },
         "rigid_plastics": {
