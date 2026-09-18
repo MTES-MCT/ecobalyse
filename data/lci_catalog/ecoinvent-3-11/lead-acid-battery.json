@@ -1,6 +1,6 @@
 {
   "activityName": "Battery, lead acid, rechargeable, stationary {RoW}| battery production, lead acid, rechargeable, stationary | Cut-off, U",
-  "categories": ["material", "material_type:battery_cell"],
+  "categories": ["material", "material_type:battery_alkaline"],
   "comment": "densité energétique : 33.3 kWh/kg",
   "displayName": "Batterie Plomb",
   "elecKwh": 0.0,

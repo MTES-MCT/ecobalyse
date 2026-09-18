@@ -279,14 +279,14 @@ class LogSettings:
     """Level to log uvicorn error logs."""
 
 
-def _get_sentry_environment():
+def _get_sentry_environment() -> str:
     # We use the `NODE_ENV` envvar here even though we are on the Python side, as
     # we want to synchronise the sentry environment value with the one set on the
     # front end.
-    if get_config_val("IS_REVIEW_APP", None):
+    if get_config_val("IS_REVIEW_APP", False):
         return "review-app"
     else:
-        return get_config_val("NODE_ENV", None)
+        return get_config_val("NODE_ENV", "")
 
 
 @dataclass
