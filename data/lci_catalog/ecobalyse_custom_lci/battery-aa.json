@@ -12,6 +12,6 @@
   ],
   "qtyVariationRatio": 1,
   "scopes": ["object"],
-  "source": "Ecobalyse",
+  "source": "Ecobalyse_custom_lci",
   "unit": "item"
 }
