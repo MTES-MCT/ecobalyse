@@ -1717,6 +1717,12 @@ suite =
                                 |> decodeJson Component.decodeItem
                                 |> Expect.ok
                             )
+                        , it "should decode a catalogue item without a custom payload"
+                            ("""{ "id": "64fa65b3-c2df-4fd0-958b-83965bd6aa08", "quantity": 1 }"""
+                                |> decodeJson Component.decodeItem
+                                |> Result.map .custom
+                                |> Expect.equal (Ok Nothing)
+                            )
                         , itFromResult "should decode an item with a custom material country override"
                             ("""{
                                   "quantity": 1,
@@ -1785,6 +1791,43 @@ suite =
                                     )
                             )
                             (Expect.equal "Tomate FR")
+                        , it "should reject an item with an invalid nested custom object"
+                            ("""{"quantity":1,"custom":{"name":"X"}}"""
+                                |> decodeJson Component.decodeItem
+                                |> expectResultErrorContains "elements"
+                            )
+                        , it "should reject an item with invalid elements at the root"
+                            ("""{"quantity":1,"name":"X","elements":[{"amount":1}]}"""
+                                |> decodeJson Component.decodeItem
+                                |> expectResultErrorContains "material"
+                            )
+                        , itFromResult "should prefer a nested custom object over root elements"
+                            ("""{
+                                  "quantity": 1,
+                                  "name": "Flat name",
+                                  "elements": [
+                                    {
+                                      "amount": 1,
+                                      "material": "17431e06-2973-516e-b043-be9ad405e4fb"
+                                    }
+                                  ],
+                                  "custom": {
+                                    "name": "Nested name",
+                                    "elements": [
+                                      {
+                                        "amount": 0.5,
+                                        "material": "17431e06-2973-516e-b043-be9ad405e4fb"
+                                      }
+                                    ]
+                                  }
+                                }"""
+                                |> decodeJsonThen Component.decodeItem
+                                    (.custom
+                                        >> Maybe.andThen .name
+                                        >> Result.fromMaybe "Missing custom name"
+                                    )
+                            )
+                            (Expect.equal "Nested name")
                         , itFromResult "should encode custom fields at the item root"
                             ("""{
                                   "quantity": 1,
