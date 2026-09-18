@@ -166,6 +166,7 @@ import Data.Uuid as Uuid exposing (Uuid)
 import Dict.Any as AnyDict
 import Energy
 import Json.Decode as Decode exposing (Decoder)
+import Json.Decode.Extra as DE
 import Json.Decode.Pipeline as Decode
 import Json.Encode as Encode
 import List.Extra as LE
@@ -1401,33 +1402,28 @@ decodeItem =
         |> Decode.required "quantity" decodeQuantity
 
 
-{-| Decodes the custom payload of an item, whichcan have a nested `custom`
-key or a flat `elements` one.
--}
 decodeItemCustom : Decoder (Maybe Custom)
 decodeItemCustom =
-    -- First check if there's any nested `custom` key without decoding its contents
-    Decode.maybe (Decode.field "custom" Decode.value)
+    -- Test and validate nested `custom` legacy prop for backward
+    -- compatibility (saved bookmarks, admin, previous api calls, etc)
+    DE.optionalField "custom" decodeCustom
         |> Decode.andThen
-            (\maybeNestedCustom ->
-                case maybeNestedCustom of
-                    -- Key is present: decode it strictly as Custom (invalid JSON fails)
-                    Just _ ->
-                        Decode.map Just (Decode.field "custom" decodeCustom)
+            (\maybeNested ->
+                case maybeNested of
+                    Just custom ->
+                        Decode.succeed (Just custom)
 
-                    -- No nested `custom`: look for the canonical flat form
                     Nothing ->
-                        -- Check for an `elements` key at the item root
-                        Decode.maybe (Decode.field "elements" Decode.value)
-                            -- Same idea: if the key exists, decode strictly
+                        -- Test for flat form: `elements` on the item itself
+                        -- Note: decodeCustom needs the *whole* object
+                        DE.optionalField "elements" Decode.value
                             |> Decode.andThen
                                 (\maybeElements ->
                                     case maybeElements of
-                                        -- An `elements` key is present: decode the whole item as Custom
                                         Just _ ->
                                             Decode.map Just decodeCustom
 
-                                        -- This is a regular item without custom payload ({ id, quantity })
+                                        -- Regular item: no custom prop, nothing to decode
                                         Nothing ->
                                             Decode.succeed Nothing
                                 )
