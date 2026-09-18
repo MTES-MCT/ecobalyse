@@ -276,11 +276,6 @@ encodeIngredients ingredients =
     Encode.list encodeIngredient ingredients
 
 
-encodeProcessList : List Process -> Encode.Value
-encodeProcessList =
-    Encode.list encodeProcess
-
-
 {-| Retrieve a filtered list of processes; filters are applied using `AND` logic, and:
 
   - only `visible` processes are returned;
@@ -335,8 +330,8 @@ respondWith =
 handleRequest : Db -> Request -> JsonResponse
 handleRequest db request =
     case Component.parseConfig db StaticJson.componentConfigJson of
-        Err _ ->
-            ( 500, Encode.string "Error while loading component configuration" )
+        Err error ->
+            ( 500, invalidServerConfigurationError error )
 
         Ok config ->
             handleConfiguredRequest db config request
@@ -361,14 +356,14 @@ handleConfiguredRequest db config request =
             db.processes
                 |> Scope.anyOf [ Scope.Food ]
                 |> List.filter (.categories >> List.member ProcessCategory.Packaging)
-                |> encodeProcessList
+                |> Encode.list encodeProcess
                 |> respondWith 200
 
         Just Route.FoodGetTransformList ->
             db.processes
                 |> Scope.anyOf [ Scope.Food ]
                 |> List.filter (.categories >> List.member ProcessCategory.Transform)
-                |> encodeProcessList
+                |> Encode.list encodeProcess
                 |> respondWith 200
 
         Just (Route.GenericGetAssemblyList genericScope) ->
@@ -504,6 +499,11 @@ handleConfiguredRequest db config request =
                 |> respondWith 404
 
 
+invalidServerConfigurationError : String -> Encode.Value
+invalidServerConfigurationError error =
+    Encode.string <| "Invalid server configuration: " ++ error
+
+
 {-| Retrieve an already cached database for a given processes list (detailed or public).
 -}
 findCachedDb : String -> Model -> Maybe CachedDb
@@ -528,10 +528,9 @@ loadAndCacheDb model request =
 
         Ok db ->
             case Component.parseConfig db StaticJson.componentConfigJson of
-                Err _ ->
+                Err error ->
                     ( model
-                    , Encode.string "Error while loading component configuration"
-                        |> sendResponse 500 request
+                    , invalidServerConfigurationError error |> sendResponse 500 request
                     )
 
                 Ok config ->
