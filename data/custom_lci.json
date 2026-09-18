@@ -3187,7 +3187,7 @@
     "database": "Ecobalyse_custom_lci",
     "exchanges": [
       {
-        "amount": 0.085,
+        "amount": 2.941,
         "name": "Hydrometallurgical treatment of battery cell, metal alloy part, DA"
       }
     ],
