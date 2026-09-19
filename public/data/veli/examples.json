@@ -7,157 +7,134 @@
       "assembly": { "country": "FR", "operations": ["c51ab87d-f368-4704-a5ec-7ea17ba87d46"] },
       "components": [
         {
-          "custom": {
-            "elements": [
-              {
-                "amount": 50,
-                "material": { "country": "RAS", "id": "3e514eac-185c-449e-bdc2-e1082ca0576d" },
-                "transforms": [
-                  { "country": "RAS", "id": "ea284007-49a8-4be1-95fc-452ea180285a" },
-                  { "country": "FR", "id": "7319ac9c-5796-412f-a1eb-58e01afa7708" }
-                ]
-              },
-              {
-                "amount": 5,
-                "material": { "country": "RAS", "id": "01d21ed5-9fc6-4d36-a0ea-cfea8035385b" },
-                "transforms": [
-                  { "country": "RAS", "id": "85b74ce2-2cbc-4d73-a5a2-5c5ffde16319" }
-                ]
-              },
-              {
-                "amount": 0.002,
-                "material": { "country": "RAS", "id": "fba45d5f-64fc-44ae-ac75-9301c95c4657" },
-                "transforms": [
-                  { "country": "RAS", "id": "e232270f-3a08-4536-8d8d-dcb4a2031e7b" }
-                ]
-              }
-            ],
-            "name": "Chassis-carosserie - veli actif (majorité acier, Asie)"
-          },
+          "elements": [
+            {
+              "amount": 50,
+              "material": { "country": "RAS", "id": "3e514eac-185c-449e-bdc2-e1082ca0576d" },
+              "transforms": [
+                { "country": "RAS", "id": "ea284007-49a8-4be1-95fc-452ea180285a" },
+                { "country": "FR", "id": "7319ac9c-5796-412f-a1eb-58e01afa7708" }
+              ]
+            },
+            {
+              "amount": 5,
+              "material": { "country": "RAS", "id": "01d21ed5-9fc6-4d36-a0ea-cfea8035385b" },
+              "transforms": [
+                { "country": "RAS", "id": "85b74ce2-2cbc-4d73-a5a2-5c5ffde16319" }
+              ]
+            },
+            {
+              "amount": 0.002,
+              "material": { "country": "RAS", "id": "fba45d5f-64fc-44ae-ac75-9301c95c4657" },
+              "transforms": [
+                { "country": "RAS", "id": "e232270f-3a08-4536-8d8d-dcb4a2031e7b" }
+              ]
+            }
+          ],
           "id": "f50ff677-3501-49cb-b69d-e826d4114681",
+          "name": "Chassis-carosserie - veli actif (majorité acier, Asie)",
           "quantity": 1
         },
         { "id": "7cfe659e-3764-4a8c-a25b-201396cbc09f", "quantity": 1 },
         {
-          "custom": {
-            "elements": [
-              {
-                "amount": 5,
-                "material": { "country": "RAS", "id": "97a70d45-d7d5-4ee5-86b4-ee506300cdaa" },
-                "transforms": []
-              }
-            ]
-          },
+          "elements": [
+            {
+              "amount": 5,
+              "material": { "country": "RAS", "id": "97a70d45-d7d5-4ee5-86b4-ee506300cdaa" }
+            }
+          ],
           "id": "059f0f35-099d-4305-8a60-1666222dadb2",
           "quantity": 1
         },
         {
-          "custom": {
-            "elements": [
-              {
-                "amount": 0.3,
-                "material": { "country": "RAS", "id": "63e8a99a-d6e5-4aa5-8fe4-71c3d0ca2107" },
-                "transforms": [
-                  { "country": "RAS", "id": "971df5fa-c32e-4a7e-b1aa-14ce9f240b5c" },
-                  { "country": "RAS", "id": "7319ac9c-5796-412f-a1eb-58e01afa7708" }
-                ]
-              },
-              {
-                "amount": 0.5,
-                "material": { "country": "FR", "id": "4b4e1204-48ac-48ac-a0e2-ee2176202a5a" },
-                "transforms": [
-                  { "country": "FR", "id": "d693bd0d-88d4-4370-81ee-597956bb58f0" }
-                ]
-              }
-            ]
-          },
+          "elements": [
+            {
+              "amount": 0.3,
+              "material": { "country": "RAS", "id": "63e8a99a-d6e5-4aa5-8fe4-71c3d0ca2107" },
+              "transforms": [
+                { "country": "RAS", "id": "971df5fa-c32e-4a7e-b1aa-14ce9f240b5c" },
+                { "country": "RAS", "id": "7319ac9c-5796-412f-a1eb-58e01afa7708" }
+              ]
+            },
+            {
+              "amount": 0.5,
+              "material": { "country": "FR", "id": "4b4e1204-48ac-48ac-a0e2-ee2176202a5a" },
+              "transforms": [
+                { "country": "FR", "id": "d693bd0d-88d4-4370-81ee-597956bb58f0" }
+              ]
+            }
+          ],
           "id": "9d294fb5-b42a-4a9f-adc6-ff38f6d27e65",
           "quantity": 4
         },
         {
-          "custom": {
-            "elements": [
-              {
-                "amount": 0.8,
-                "material": { "country": "RAS", "id": "5f837a69-839d-4a49-9a30-19e1501ad51e" },
-                "transforms": []
-              },
-              {
-                "amount": 0.2,
-                "material": { "country": "RAS", "id": "9c5a7a8e-6483-4da8-9cc2-0a90a30cb93a" },
-                "transforms": []
-              }
-            ]
-          },
+          "elements": [
+            {
+              "amount": 0.8,
+              "material": { "country": "RAS", "id": "5f837a69-839d-4a49-9a30-19e1501ad51e" }
+            },
+            {
+              "amount": 0.2,
+              "material": { "country": "RAS", "id": "9c5a7a8e-6483-4da8-9cc2-0a90a30cb93a" }
+            }
+          ],
           "id": "8e38b6a5-1c95-43f6-987f-2e368fc74edc",
           "quantity": 4
         },
         {
-          "custom": {
-            "elements": [
-              {
-                "amount": 0.5,
-                "material": { "country": "RAS", "id": "c5295f47-0307-48a6-8552-3705063af767" },
-                "transforms": [
-                  { "country": "RAS", "id": "85b74ce2-2cbc-4d73-a5a2-5c5ffde16319" }
-                ]
-              },
-              {
-                "amount": 2,
-                "material": { "id": "21a0d5b0-861e-4bed-98a9-46c61d2a0618" },
-                "transforms": [
-                  { "id": "ea284007-49a8-4be1-95fc-452ea180285a" },
-                  { "id": "7319ac9c-5796-412f-a1eb-58e01afa7708" }
-                ]
-              },
-              {
-                "amount": 0.5,
-                "material": { "id": "20f5db04-a4c7-48ab-9903-38c65cd70be0" },
-                "transforms": []
-              }
-            ]
-          },
+          "elements": [
+            {
+              "amount": 0.5,
+              "material": { "country": "RAS", "id": "c5295f47-0307-48a6-8552-3705063af767" },
+              "transforms": [
+                { "country": "RAS", "id": "85b74ce2-2cbc-4d73-a5a2-5c5ffde16319" }
+              ]
+            },
+            {
+              "amount": 2,
+              "material": { "id": "21a0d5b0-861e-4bed-98a9-46c61d2a0618" },
+              "transforms": [
+                { "id": "ea284007-49a8-4be1-95fc-452ea180285a" },
+                { "id": "7319ac9c-5796-412f-a1eb-58e01afa7708" }
+              ]
+            },
+            { "amount": 0.5, "material": { "id": "20f5db04-a4c7-48ab-9903-38c65cd70be0" } }
+          ],
           "id": "ae9c83de-71bf-4f21-9030-afbfd4ad3b3a",
           "quantity": 2
         },
         {
-          "custom": {
-            "elements": [
-              {
-                "amount": 4,
-                "material": { "id": "30212fbf-5912-40eb-b2ab-87837361c462" },
-                "transforms": [
-                  { "id": "981e74ea-ef7d-40d1-b25e-c5534446474e" },
-                  { "country": "RAS", "id": "7319ac9c-5796-412f-a1eb-58e01afa7708" }
-                ]
-              },
-              {
-                "amount": 4,
-                "material": { "id": "c5295f47-0307-48a6-8552-3705063af767" },
-                "transforms": [
-                  { "country": "FR", "id": "85b74ce2-2cbc-4d73-a5a2-5c5ffde16319" }
-                ]
-              },
-              {
-                "amount": 1,
-                "material": { "country": "RAS", "id": "51956fb2-304d-4e63-a3ef-b3eed44fde38" },
-                "transforms": []
-              }
-            ]
-          },
+          "elements": [
+            {
+              "amount": 4,
+              "material": { "id": "30212fbf-5912-40eb-b2ab-87837361c462" },
+              "transforms": [
+                { "id": "981e74ea-ef7d-40d1-b25e-c5534446474e" },
+                { "country": "RAS", "id": "7319ac9c-5796-412f-a1eb-58e01afa7708" }
+              ]
+            },
+            {
+              "amount": 4,
+              "material": { "id": "c5295f47-0307-48a6-8552-3705063af767" },
+              "transforms": [
+                { "country": "FR", "id": "85b74ce2-2cbc-4d73-a5a2-5c5ffde16319" }
+              ]
+            },
+            {
+              "amount": 1,
+              "material": { "country": "RAS", "id": "51956fb2-304d-4e63-a3ef-b3eed44fde38" }
+            }
+          ],
           "id": "f134b3fd-0439-4b25-a06e-f1b8fd6e201c",
           "quantity": 1
         },
         {
-          "custom": {
-            "elements": [
-              {
-                "amount": 10,
-                "material": { "country": "RAS", "id": "6445c1fa-13a6-4058-8978-bcf2be63cd56" },
-                "transforms": []
-              }
-            ]
-          },
+          "elements": [
+            {
+              "amount": 10,
+              "material": { "country": "RAS", "id": "6445c1fa-13a6-4058-8978-bcf2be63cd56" }
+            }
+          ],
           "id": "6cb4338a-4663-4325-90b6-f7279a498c9b",
           "quantity": 1
         }
@@ -178,155 +155,132 @@
       "assembly": { "country": "FR", "operations": ["c51ab87d-f368-4704-a5ec-7ea17ba87d46"] },
       "components": [
         {
-          "custom": {
-            "elements": [
-              {
-                "amount": 50,
-                "material": { "country": "FR", "id": "21a0d5b0-861e-4bed-98a9-46c61d2a0618" },
-                "transforms": [
-                  { "country": "FR", "id": "ea284007-49a8-4be1-95fc-452ea180285a" },
-                  { "country": "FR", "id": "7319ac9c-5796-412f-a1eb-58e01afa7708" }
-                ]
-              },
-              {
-                "amount": 5,
-                "material": { "country": "FR", "id": "01d21ed5-9fc6-4d36-a0ea-cfea8035385b" },
-                "transforms": [
-                  { "country": "FR", "id": "85b74ce2-2cbc-4d73-a5a2-5c5ffde16319" }
-                ]
-              },
-              {
-                "amount": 0.002,
-                "material": { "country": "FR", "id": "fba45d5f-64fc-44ae-ac75-9301c95c4657" },
-                "transforms": [
-                  { "country": "FR", "id": "e232270f-3a08-4536-8d8d-dcb4a2031e7b" }
-                ]
-              }
-            ]
-          },
+          "elements": [
+            {
+              "amount": 50,
+              "material": { "country": "FR", "id": "21a0d5b0-861e-4bed-98a9-46c61d2a0618" },
+              "transforms": [
+                { "country": "FR", "id": "ea284007-49a8-4be1-95fc-452ea180285a" },
+                { "country": "FR", "id": "7319ac9c-5796-412f-a1eb-58e01afa7708" }
+              ]
+            },
+            {
+              "amount": 5,
+              "material": { "country": "FR", "id": "01d21ed5-9fc6-4d36-a0ea-cfea8035385b" },
+              "transforms": [
+                { "country": "FR", "id": "85b74ce2-2cbc-4d73-a5a2-5c5ffde16319" }
+              ]
+            },
+            {
+              "amount": 0.002,
+              "material": { "country": "FR", "id": "fba45d5f-64fc-44ae-ac75-9301c95c4657" },
+              "transforms": [
+                { "country": "FR", "id": "e232270f-3a08-4536-8d8d-dcb4a2031e7b" }
+              ]
+            }
+          ],
           "id": "f50ff677-3501-49cb-b69d-e826d4114681",
           "quantity": 1
         },
         { "id": "7cfe659e-3764-4a8c-a25b-201396cbc09f", "quantity": 1 },
         {
-          "custom": {
-            "elements": [
-              {
-                "amount": 5,
-                "material": { "country": "FR", "id": "97a70d45-d7d5-4ee5-86b4-ee506300cdaa" },
-                "transforms": []
-              }
-            ]
-          },
+          "elements": [
+            {
+              "amount": 5,
+              "material": { "country": "FR", "id": "97a70d45-d7d5-4ee5-86b4-ee506300cdaa" }
+            }
+          ],
           "id": "059f0f35-099d-4305-8a60-1666222dadb2",
           "quantity": 1
         },
         {
-          "custom": {
-            "elements": [
-              {
-                "amount": 0.3,
-                "material": { "country": "FR", "id": "4b4e1204-48ac-48ac-a0e2-ee2176202a5a" },
-                "transforms": [
-                  { "country": "FR", "id": "971df5fa-c32e-4a7e-b1aa-14ce9f240b5c" }
-                ]
-              },
-              {
-                "amount": 0.5,
-                "material": { "country": "FR", "id": "4b4e1204-48ac-48ac-a0e2-ee2176202a5a" },
-                "transforms": [
-                  { "country": "FR", "id": "d693bd0d-88d4-4370-81ee-597956bb58f0" }
-                ]
-              }
-            ]
-          },
+          "elements": [
+            {
+              "amount": 0.3,
+              "material": { "country": "FR", "id": "4b4e1204-48ac-48ac-a0e2-ee2176202a5a" },
+              "transforms": [
+                { "country": "FR", "id": "971df5fa-c32e-4a7e-b1aa-14ce9f240b5c" }
+              ]
+            },
+            {
+              "amount": 0.5,
+              "material": { "country": "FR", "id": "4b4e1204-48ac-48ac-a0e2-ee2176202a5a" },
+              "transforms": [
+                { "country": "FR", "id": "d693bd0d-88d4-4370-81ee-597956bb58f0" }
+              ]
+            }
+          ],
           "id": "9d294fb5-b42a-4a9f-adc6-ff38f6d27e65",
           "quantity": 4
         },
         {
-          "custom": {
-            "elements": [
-              {
-                "amount": 0.8,
-                "material": { "country": "RAS", "id": "5f837a69-839d-4a49-9a30-19e1501ad51e" },
-                "transforms": []
-              },
-              {
-                "amount": 0.2,
-                "material": { "country": "RAS", "id": "9c5a7a8e-6483-4da8-9cc2-0a90a30cb93a" },
-                "transforms": []
-              }
-            ]
-          },
+          "elements": [
+            {
+              "amount": 0.8,
+              "material": { "country": "RAS", "id": "5f837a69-839d-4a49-9a30-19e1501ad51e" }
+            },
+            {
+              "amount": 0.2,
+              "material": { "country": "RAS", "id": "9c5a7a8e-6483-4da8-9cc2-0a90a30cb93a" }
+            }
+          ],
           "id": "8e38b6a5-1c95-43f6-987f-2e368fc74edc",
           "quantity": 4
         },
         {
-          "custom": {
-            "elements": [
-              {
-                "amount": 0.5,
-                "material": { "country": "FR", "id": "c5295f47-0307-48a6-8552-3705063af767" },
-                "transforms": [
-                  { "country": "FR", "id": "85b74ce2-2cbc-4d73-a5a2-5c5ffde16319" }
-                ]
-              },
-              {
-                "amount": 2,
-                "material": { "id": "21a0d5b0-861e-4bed-98a9-46c61d2a0618" },
-                "transforms": [
-                  { "id": "ea284007-49a8-4be1-95fc-452ea180285a" },
-                  { "id": "7319ac9c-5796-412f-a1eb-58e01afa7708" }
-                ]
-              },
-              {
-                "amount": 0.5,
-                "material": { "id": "20f5db04-a4c7-48ab-9903-38c65cd70be0" },
-                "transforms": []
-              }
-            ]
-          },
+          "elements": [
+            {
+              "amount": 0.5,
+              "material": { "country": "FR", "id": "c5295f47-0307-48a6-8552-3705063af767" },
+              "transforms": [
+                { "country": "FR", "id": "85b74ce2-2cbc-4d73-a5a2-5c5ffde16319" }
+              ]
+            },
+            {
+              "amount": 2,
+              "material": { "id": "21a0d5b0-861e-4bed-98a9-46c61d2a0618" },
+              "transforms": [
+                { "id": "ea284007-49a8-4be1-95fc-452ea180285a" },
+                { "id": "7319ac9c-5796-412f-a1eb-58e01afa7708" }
+              ]
+            },
+            { "amount": 0.5, "material": { "id": "20f5db04-a4c7-48ab-9903-38c65cd70be0" } }
+          ],
           "id": "ae9c83de-71bf-4f21-9030-afbfd4ad3b3a",
           "quantity": 2
         },
         {
-          "custom": {
-            "elements": [
-              {
-                "amount": 4,
-                "material": { "id": "30212fbf-5912-40eb-b2ab-87837361c462" },
-                "transforms": [
-                  { "id": "981e74ea-ef7d-40d1-b25e-c5534446474e" },
-                  { "country": "FR", "id": "7319ac9c-5796-412f-a1eb-58e01afa7708" }
-                ]
-              },
-              {
-                "amount": 4,
-                "material": { "id": "c5295f47-0307-48a6-8552-3705063af767" },
-                "transforms": [
-                  { "country": "FR", "id": "85b74ce2-2cbc-4d73-a5a2-5c5ffde16319" }
-                ]
-              },
-              {
-                "amount": 1,
-                "material": { "country": "RAS", "id": "51956fb2-304d-4e63-a3ef-b3eed44fde38" },
-                "transforms": []
-              }
-            ]
-          },
+          "elements": [
+            {
+              "amount": 4,
+              "material": { "id": "30212fbf-5912-40eb-b2ab-87837361c462" },
+              "transforms": [
+                { "id": "981e74ea-ef7d-40d1-b25e-c5534446474e" },
+                { "country": "FR", "id": "7319ac9c-5796-412f-a1eb-58e01afa7708" }
+              ]
+            },
+            {
+              "amount": 4,
+              "material": { "id": "c5295f47-0307-48a6-8552-3705063af767" },
+              "transforms": [
+                { "country": "FR", "id": "85b74ce2-2cbc-4d73-a5a2-5c5ffde16319" }
+              ]
+            },
+            {
+              "amount": 1,
+              "material": { "country": "RAS", "id": "51956fb2-304d-4e63-a3ef-b3eed44fde38" }
+            }
+          ],
           "id": "f134b3fd-0439-4b25-a06e-f1b8fd6e201c",
           "quantity": 1
         },
         {
-          "custom": {
-            "elements": [
-              {
-                "amount": 10,
-                "material": { "country": "FR", "id": "6445c1fa-13a6-4058-8978-bcf2be63cd56" },
-                "transforms": []
-              }
-            ]
-          },
+          "elements": [
+            {
+              "amount": 10,
+              "material": { "country": "FR", "id": "6445c1fa-13a6-4058-8978-bcf2be63cd56" }
+            }
+          ],
           "id": "6cb4338a-4663-4325-90b6-f7279a498c9b",
           "quantity": 1
         }
@@ -347,97 +301,81 @@
       "assembly": { "country": "FR", "operations": ["c51ab87d-f368-4704-a5ec-7ea17ba87d46"] },
       "components": [
         {
-          "custom": {
-            "elements": [
-              {
-                "amount": 40,
-                "material": { "country": "RAS", "id": "01d21ed5-9fc6-4d36-a0ea-cfea8035385b" },
-                "transforms": [
-                  { "country": "RAS", "id": "85b74ce2-2cbc-4d73-a5a2-5c5ffde16319" }
-                ]
-              },
-              {
-                "amount": 180,
-                "material": { "country": "RAS", "id": "3e514eac-185c-449e-bdc2-e1082ca0576d" },
-                "transforms": [
-                  { "country": "RAS", "id": "ea284007-49a8-4be1-95fc-452ea180285a" },
-                  { "country": "FR", "id": "7319ac9c-5796-412f-a1eb-58e01afa7708" }
-                ]
-              }
-            ]
-          },
+          "elements": [
+            {
+              "amount": 40,
+              "material": { "country": "RAS", "id": "01d21ed5-9fc6-4d36-a0ea-cfea8035385b" },
+              "transforms": [
+                { "country": "RAS", "id": "85b74ce2-2cbc-4d73-a5a2-5c5ffde16319" }
+              ]
+            },
+            {
+              "amount": 180,
+              "material": { "country": "RAS", "id": "3e514eac-185c-449e-bdc2-e1082ca0576d" },
+              "transforms": [
+                { "country": "RAS", "id": "ea284007-49a8-4be1-95fc-452ea180285a" },
+                { "country": "FR", "id": "7319ac9c-5796-412f-a1eb-58e01afa7708" }
+              ]
+            }
+          ],
           "id": "189674e0-737e-4d6d-aab0-3fdfc19839ed",
           "quantity": 1
         },
         { "id": "57df64a3-278e-4e93-b836-9ba44b880fb5", "quantity": 1 },
         {
-          "custom": {
-            "elements": [
-              {
-                "amount": 50,
-                "material": { "country": "RAS", "id": "97a70d45-d7d5-4ee5-86b4-ee506300cdaa" },
-                "transforms": []
-              }
-            ]
-          },
+          "elements": [
+            {
+              "amount": 50,
+              "material": { "country": "RAS", "id": "97a70d45-d7d5-4ee5-86b4-ee506300cdaa" }
+            }
+          ],
           "id": "da06c70f-5b61-4de7-bb51-5761818aa0dd",
           "quantity": 1
         },
         {
-          "custom": {
-            "elements": [
-              {
-                "amount": 8,
-                "material": { "country": "RAS", "id": "3e514eac-185c-449e-bdc2-e1082ca0576d" },
-                "transforms": [
-                  { "country": "RAS", "id": "ea284007-49a8-4be1-95fc-452ea180285a" },
-                  { "country": "RAS", "id": "7319ac9c-5796-412f-a1eb-58e01afa7708" }
-                ]
-              }
-            ]
-          },
+          "elements": [
+            {
+              "amount": 8,
+              "material": { "country": "RAS", "id": "3e514eac-185c-449e-bdc2-e1082ca0576d" },
+              "transforms": [
+                { "country": "RAS", "id": "ea284007-49a8-4be1-95fc-452ea180285a" },
+                { "country": "RAS", "id": "7319ac9c-5796-412f-a1eb-58e01afa7708" }
+              ]
+            }
+          ],
           "id": "d4583813-5f80-47e0-b028-df438f59cfe2",
           "quantity": 4
         },
         { "id": "6b3d7f30-e87b-426c-93ed-3a1179238583", "quantity": 4 },
         {
-          "custom": {
-            "elements": [
-              {
-                "amount": 20,
-                "material": { "country": "REO", "id": "42748244-0939-4da2-ad5f-206ce541d7ee" },
-                "transforms": []
-              }
-            ]
-          },
+          "elements": [
+            {
+              "amount": 20,
+              "material": { "country": "REO", "id": "42748244-0939-4da2-ad5f-206ce541d7ee" }
+            }
+          ],
           "id": "d3ef64c0-3deb-4ef2-838d-015d8ece019e",
           "quantity": 1
         },
         {
-          "custom": {
-            "elements": [
-              {
-                "amount": 3,
-                "material": { "country": "RAS", "id": "3e514eac-185c-449e-bdc2-e1082ca0576d" },
-                "transforms": [
-                  { "country": "RAS", "id": "ea284007-49a8-4be1-95fc-452ea180285a" },
-                  { "country": "RAS", "id": "7319ac9c-5796-412f-a1eb-58e01afa7708" }
-                ]
-              },
-              {
-                "amount": 3,
-                "material": { "id": "c5295f47-0307-48a6-8552-3705063af767" },
-                "transforms": [
-                  { "id": "85b74ce2-2cbc-4d73-a5a2-5c5ffde16319" }
-                ]
-              },
-              {
-                "amount": 1,
-                "material": { "id": "20f5db04-a4c7-48ab-9903-38c65cd70be0" },
-                "transforms": []
-              }
-            ]
-          },
+          "elements": [
+            {
+              "amount": 3,
+              "material": { "country": "RAS", "id": "3e514eac-185c-449e-bdc2-e1082ca0576d" },
+              "transforms": [
+                { "country": "RAS", "id": "ea284007-49a8-4be1-95fc-452ea180285a" },
+                { "country": "RAS", "id": "7319ac9c-5796-412f-a1eb-58e01afa7708" }
+              ]
+            },
+            {
+              "amount": 3,
+              "material": { "id": "c5295f47-0307-48a6-8552-3705063af767" },
+              "transforms": [
+                { "id": "85b74ce2-2cbc-4d73-a5a2-5c5ffde16319" }
+              ]
+            },
+            { "amount": 1, "material": { "id": "20f5db04-a4c7-48ab-9903-38c65cd70be0" } }
+          ],
           "id": "1d2de15a-53d9-465d-a2cf-fa2c5f68f5e9",
           "quantity": 2
         },
@@ -486,165 +424,144 @@
       "assembly": { "country": "REO", "operations": ["c51ab87d-f368-4704-a5ec-7ea17ba87d46"] },
       "components": [
         {
-          "custom": {
-            "elements": [
-              {
-                "amount": 400,
-                "material": { "country": "REO", "id": "7cd80a58-6d07-4abc-ab41-624c0d1487c7" },
-                "transforms": [
-                  { "country": "REO", "id": "ea284007-49a8-4be1-95fc-452ea180285a" },
-                  { "country": "REO", "id": "7319ac9c-5796-412f-a1eb-58e01afa7708" }
-                ]
-              },
-              {
-                "amount": 20,
-                "material": { "country": "REO", "id": "baae8572-db4a-4cb8-8f74-e72ba5ef0116" },
-                "transforms": [
-                  { "country": "REO", "id": "971df5fa-c32e-4a7e-b1aa-14ce9f240b5c" },
-                  { "country": "REO", "id": "7319ac9c-5796-412f-a1eb-58e01afa7708" }
-                ]
-              },
-              {
-                "amount": 10,
-                "material": { "country": "REO", "id": "baae8572-db4a-4cb8-8f74-e72ba5ef0116" },
-                "transforms": [
-                  { "country": "REO", "id": "d693bd0d-88d4-4370-81ee-597956bb58f0" },
-                  { "country": "REO", "id": "7319ac9c-5796-412f-a1eb-58e01afa7708" }
-                ]
-              },
-              {
-                "amount": 10,
-                "material": { "country": "REO", "id": "a363f079-bc3f-424a-a2e1-06b9c76b4fc3" },
-                "transforms": []
-              },
-              {
-                "amount": 20,
-                "material": { "country": "REO", "id": "42748244-0939-4da2-ad5f-206ce541d7ee" },
-                "transforms": []
-              },
-              {
-                "amount": 10,
-                "material": { "country": "REO", "id": "29b1a0f9-4887-49f7-910f-e50ad9e1b572" },
-                "transforms": []
-              },
-              {
-                "amount": 220,
-                "material": { "country": "REO", "id": "c5295f47-0307-48a6-8552-3705063af767" },
-                "transforms": [
-                  { "country": "REO", "id": "4a08bcab-5c25-4dec-961a-0f7208f40084" }
-                ]
-              }
-            ],
-            "name": "Carosserie"
-          },
+          "elements": [
+            {
+              "amount": 400,
+              "material": { "country": "REO", "id": "7cd80a58-6d07-4abc-ab41-624c0d1487c7" },
+              "transforms": [
+                { "country": "REO", "id": "ea284007-49a8-4be1-95fc-452ea180285a" },
+                { "country": "REO", "id": "7319ac9c-5796-412f-a1eb-58e01afa7708" }
+              ]
+            },
+            {
+              "amount": 20,
+              "material": { "country": "REO", "id": "baae8572-db4a-4cb8-8f74-e72ba5ef0116" },
+              "transforms": [
+                { "country": "REO", "id": "971df5fa-c32e-4a7e-b1aa-14ce9f240b5c" },
+                { "country": "REO", "id": "7319ac9c-5796-412f-a1eb-58e01afa7708" }
+              ]
+            },
+            {
+              "amount": 10,
+              "material": { "country": "REO", "id": "baae8572-db4a-4cb8-8f74-e72ba5ef0116" },
+              "transforms": [
+                { "country": "REO", "id": "d693bd0d-88d4-4370-81ee-597956bb58f0" },
+                { "country": "REO", "id": "7319ac9c-5796-412f-a1eb-58e01afa7708" }
+              ]
+            },
+            {
+              "amount": 10,
+              "material": { "country": "REO", "id": "a363f079-bc3f-424a-a2e1-06b9c76b4fc3" }
+            },
+            {
+              "amount": 20,
+              "material": { "country": "REO", "id": "42748244-0939-4da2-ad5f-206ce541d7ee" }
+            },
+            {
+              "amount": 10,
+              "material": { "country": "REO", "id": "29b1a0f9-4887-49f7-910f-e50ad9e1b572" }
+            },
+            {
+              "amount": 220,
+              "material": { "country": "REO", "id": "c5295f47-0307-48a6-8552-3705063af767" },
+              "transforms": [
+                { "country": "REO", "id": "4a08bcab-5c25-4dec-961a-0f7208f40084" }
+              ]
+            }
+          ],
+          "name": "Carosserie",
           "quantity": 1
         },
         {
-          "custom": {
-            "elements": [
-              {
-                "amount": 80,
-                "material": { "country": "REO", "id": "97a70d45-d7d5-4ee5-86b4-ee506300cdaa" },
-                "transforms": []
-              }
-            ],
-            "name": "Moteur"
-          },
+          "elements": [
+            {
+              "amount": 80,
+              "material": { "country": "REO", "id": "97a70d45-d7d5-4ee5-86b4-ee506300cdaa" }
+            }
+          ],
+          "name": "Moteur",
           "quantity": 1
         },
         {
-          "custom": {
-            "elements": [
-              {
-                "amount": 10,
-                "material": { "country": "REO", "id": "7cd80a58-6d07-4abc-ab41-624c0d1487c7" },
-                "transforms": [
-                  { "country": "REO", "id": "ea284007-49a8-4be1-95fc-452ea180285a" },
-                  { "country": "REO", "id": "7319ac9c-5796-412f-a1eb-58e01afa7708" }
-                ]
-              }
-            ],
-            "name": "Système de transmission"
-          },
+          "elements": [
+            {
+              "amount": 10,
+              "material": { "country": "REO", "id": "7cd80a58-6d07-4abc-ab41-624c0d1487c7" },
+              "transforms": [
+                { "country": "REO", "id": "ea284007-49a8-4be1-95fc-452ea180285a" },
+                { "country": "REO", "id": "7319ac9c-5796-412f-a1eb-58e01afa7708" }
+              ]
+            }
+          ],
+          "name": "Système de transmission",
           "quantity": 1
         },
         {
-          "custom": {
-            "elements": [
-              {
-                "amount": 220,
-                "material": { "country": "REO", "id": "7cd80a58-6d07-4abc-ab41-624c0d1487c7" },
-                "transforms": [
-                  { "country": "REO", "id": "ea284007-49a8-4be1-95fc-452ea180285a" },
-                  { "country": "REO", "id": "7319ac9c-5796-412f-a1eb-58e01afa7708" }
-                ]
-              },
-              {
-                "amount": 15,
-                "material": { "country": "REO", "id": "30212fbf-5912-40eb-b2ab-87837361c462" },
-                "transforms": [
-                  { "country": "REO", "id": "981e74ea-ef7d-40d1-b25e-c5534446474e" }
-                ]
-              },
-              {
-                "amount": 70,
-                "material": { "country": "REO", "id": "baae8572-db4a-4cb8-8f74-e72ba5ef0116" },
-                "transforms": [
-                  { "country": "REO", "id": "7319ac9c-5796-412f-a1eb-58e01afa7708" }
-                ]
-              },
-              {
-                "amount": 15,
-                "material": { "country": "REO", "id": "baae8572-db4a-4cb8-8f74-e72ba5ef0116" },
-                "transforms": [
-                  { "country": "REO", "id": "d693bd0d-88d4-4370-81ee-597956bb58f0" },
-                  { "country": "REO", "id": "7319ac9c-5796-412f-a1eb-58e01afa7708" }
-                ]
-              }
-            ],
-            "name": "Chassis"
-          },
+          "elements": [
+            {
+              "amount": 220,
+              "material": { "country": "REO", "id": "7cd80a58-6d07-4abc-ab41-624c0d1487c7" },
+              "transforms": [
+                { "country": "REO", "id": "ea284007-49a8-4be1-95fc-452ea180285a" },
+                { "country": "REO", "id": "7319ac9c-5796-412f-a1eb-58e01afa7708" }
+              ]
+            },
+            {
+              "amount": 15,
+              "material": { "country": "REO", "id": "30212fbf-5912-40eb-b2ab-87837361c462" },
+              "transforms": [
+                { "country": "REO", "id": "981e74ea-ef7d-40d1-b25e-c5534446474e" }
+              ]
+            },
+            {
+              "amount": 70,
+              "material": { "country": "REO", "id": "baae8572-db4a-4cb8-8f74-e72ba5ef0116" },
+              "transforms": [
+                { "country": "REO", "id": "7319ac9c-5796-412f-a1eb-58e01afa7708" }
+              ]
+            },
+            {
+              "amount": 15,
+              "material": { "country": "REO", "id": "baae8572-db4a-4cb8-8f74-e72ba5ef0116" },
+              "transforms": [
+                { "country": "REO", "id": "d693bd0d-88d4-4370-81ee-597956bb58f0" },
+                { "country": "REO", "id": "7319ac9c-5796-412f-a1eb-58e01afa7708" }
+              ]
+            }
+          ],
+          "name": "Chassis",
           "quantity": 1
         },
         {
-          "custom": {
-            "elements": [
-              {
-                "amount": 8,
-                "material": { "country": "REO", "id": "5f837a69-839d-4a49-9a30-19e1501ad51e" },
-                "transforms": []
-              }
-            ],
-            "name": "Pneus"
-          },
+          "elements": [
+            {
+              "amount": 8,
+              "material": { "country": "REO", "id": "5f837a69-839d-4a49-9a30-19e1501ad51e" }
+            }
+          ],
+          "name": "Pneus",
           "quantity": 4
         },
         {
-          "custom": {
-            "elements": [
-              {
-                "amount": 10,
-                "material": { "id": "c5295f47-0307-48a6-8552-3705063af767" },
-                "transforms": [
-                  { "id": "4a08bcab-5c25-4dec-961a-0f7208f40084" }
-                ]
-              },
-              {
-                "amount": 10,
-                "material": { "id": "51956fb2-304d-4e63-a3ef-b3eed44fde38" },
-                "transforms": []
-              },
-              {
-                "amount": 1,
-                "material": { "id": "30212fbf-5912-40eb-b2ab-87837361c462" },
-                "transforms": [
-                  { "id": "981e74ea-ef7d-40d1-b25e-c5534446474e" },
-                  { "id": "7319ac9c-5796-412f-a1eb-58e01afa7708" }
-                ]
-              }
-            ],
-            "name": "Composants divers"
-          },
+          "elements": [
+            {
+              "amount": 10,
+              "material": { "id": "c5295f47-0307-48a6-8552-3705063af767" },
+              "transforms": [
+                { "id": "4a08bcab-5c25-4dec-961a-0f7208f40084" }
+              ]
+            },
+            { "amount": 10, "material": { "id": "51956fb2-304d-4e63-a3ef-b3eed44fde38" } },
+            {
+              "amount": 1,
+              "material": { "id": "30212fbf-5912-40eb-b2ab-87837361c462" },
+              "transforms": [
+                { "id": "981e74ea-ef7d-40d1-b25e-c5534446474e" },
+                { "id": "7319ac9c-5796-412f-a1eb-58e01afa7708" }
+              ]
+            }
+          ],
+          "name": "Composants divers",
           "quantity": 1
         },
         { "id": "52e25580-d83a-4de6-9632-da4303d5211d", "quantity": 1 }
@@ -666,15 +583,13 @@
       "components": [
         {
           "country": "CN",
-          "custom": {
-            "elements": [
-              {
-                "amount": 3,
-                "material": "4b4e1204-48ac-48ac-a0e2-ee2176202a5a",
-                "transforms": ["d693bd0d-88d4-4370-81ee-597956bb58f0", "d935e937-35e7-471d-8d78-f5c6c1685adf"]
-              }
-            ]
-          },
+          "elements": [
+            {
+              "amount": 3,
+              "material": "4b4e1204-48ac-48ac-a0e2-ee2176202a5a",
+              "transforms": ["d693bd0d-88d4-4370-81ee-597956bb58f0", "d935e937-35e7-471d-8d78-f5c6c1685adf"]
+            }
+          ],
           "id": "49a16258-22eb-4700-88c4-5e3d1af071e7",
           "quantity": 1
         },
@@ -682,35 +597,31 @@
         { "country": "DE", "id": "20b35f34-166f-4da7-abc4-54d2a64de367", "quantity": 1 },
         {
           "country": "FR",
-          "custom": {
-            "elements": [
-              {
-                "amount": 0.5,
-                "material": "baae8572-db4a-4cb8-8f74-e72ba5ef0116",
-                "transforms": ["d693bd0d-88d4-4370-81ee-597956bb58f0", "d935e937-35e7-471d-8d78-f5c6c1685adf"]
-              }
-            ]
-          },
+          "elements": [
+            {
+              "amount": 0.5,
+              "material": "baae8572-db4a-4cb8-8f74-e72ba5ef0116",
+              "transforms": ["d693bd0d-88d4-4370-81ee-597956bb58f0", "d935e937-35e7-471d-8d78-f5c6c1685adf"]
+            }
+          ],
           "id": "1bd0f5c3-c368-4a2f-b404-2214a6c9b677",
           "quantity": 1
         },
         { "country": "RAS", "id": "8e38b6a5-1c95-43f6-987f-2e368fc74edc", "quantity": 2 },
         {
           "country": "FR",
-          "custom": {
-            "elements": [
-              {
-                "amount": 0.6,
-                "material": "4b4e1204-48ac-48ac-a0e2-ee2176202a5a",
-                "transforms": ["d693bd0d-88d4-4370-81ee-597956bb58f0", "d935e937-35e7-471d-8d78-f5c6c1685adf"]
-              },
-              {
-                "amount": 0.5,
-                "material": "4b4e1204-48ac-48ac-a0e2-ee2176202a5a",
-                "transforms": ["d693bd0d-88d4-4370-81ee-597956bb58f0", "971df5fa-c32e-4a7e-b1aa-14ce9f240b5c"]
-              }
-            ]
-          },
+          "elements": [
+            {
+              "amount": 0.6,
+              "material": "4b4e1204-48ac-48ac-a0e2-ee2176202a5a",
+              "transforms": ["d693bd0d-88d4-4370-81ee-597956bb58f0", "d935e937-35e7-471d-8d78-f5c6c1685adf"]
+            },
+            {
+              "amount": 0.5,
+              "material": "4b4e1204-48ac-48ac-a0e2-ee2176202a5a",
+              "transforms": ["d693bd0d-88d4-4370-81ee-597956bb58f0", "971df5fa-c32e-4a7e-b1aa-14ce9f240b5c"]
+            }
+          ],
           "id": "a94918a7-8915-4841-9cdc-deec0536c724",
           "quantity": 2
         },
@@ -720,34 +631,30 @@
         { "country": "RAS", "id": "4a273102-9973-4352-8683-2503aea7bfbb", "quantity": 1 },
         {
           "country": "REO",
-          "custom": {
-            "elements": [
-              {
-                "amount": 0.3,
-                "material": "baae8572-db4a-4cb8-8f74-e72ba5ef0116",
-                "transforms": ["d693bd0d-88d4-4370-81ee-597956bb58f0", "d935e937-35e7-471d-8d78-f5c6c1685adf"]
-              },
-              {
-                "amount": 0.05,
-                "material": "c5295f47-0307-48a6-8552-3705063af767",
-                "transforms": ["85b74ce2-2cbc-4d73-a5a2-5c5ffde16319"]
-              }
-            ]
-          },
+          "elements": [
+            {
+              "amount": 0.3,
+              "material": "baae8572-db4a-4cb8-8f74-e72ba5ef0116",
+              "transforms": ["d693bd0d-88d4-4370-81ee-597956bb58f0", "d935e937-35e7-471d-8d78-f5c6c1685adf"]
+            },
+            {
+              "amount": 0.05,
+              "material": "c5295f47-0307-48a6-8552-3705063af767",
+              "transforms": ["85b74ce2-2cbc-4d73-a5a2-5c5ffde16319"]
+            }
+          ],
           "id": "29a80ed1-26c9-419e-9f46-9c9b77d06458",
           "quantity": 1
         },
         {
           "country": "FR",
-          "custom": {
-            "elements": [
-              {
-                "amount": 0.8,
-                "material": "4b4e1204-48ac-48ac-a0e2-ee2176202a5a",
-                "transforms": ["d693bd0d-88d4-4370-81ee-597956bb58f0", "d935e937-35e7-471d-8d78-f5c6c1685adf"]
-              }
-            ]
-          },
+          "elements": [
+            {
+              "amount": 0.8,
+              "material": "4b4e1204-48ac-48ac-a0e2-ee2176202a5a",
+              "transforms": ["d693bd0d-88d4-4370-81ee-597956bb58f0", "d935e937-35e7-471d-8d78-f5c6c1685adf"]
+            }
+          ],
           "id": "892ba9b4-e6d4-408c-87b9-5eef455f5b4f",
           "quantity": 1
         }
@@ -767,137 +674,118 @@
       "assembly": { "country": "FR", "operations": ["c51ab87d-f368-4704-a5ec-7ea17ba87d46"] },
       "components": [
         {
-          "custom": {
-            "elements": [
-              {
-                "amount": 40,
-                "material": { "country": "FR", "id": "01d21ed5-9fc6-4d36-a0ea-cfea8035385b" },
-                "transforms": [
-                  { "country": "FR", "id": "85b74ce2-2cbc-4d73-a5a2-5c5ffde16319" }
-                ]
-              },
-              {
-                "amount": 180,
-                "material": { "country": "FR", "id": "21a0d5b0-861e-4bed-98a9-46c61d2a0618" },
-                "transforms": [
-                  { "country": "FR", "id": "ea284007-49a8-4be1-95fc-452ea180285a" },
-                  { "country": "FR", "id": "7319ac9c-5796-412f-a1eb-58e01afa7708" }
-                ]
-              }
-            ]
-          },
+          "elements": [
+            {
+              "amount": 40,
+              "material": { "country": "FR", "id": "01d21ed5-9fc6-4d36-a0ea-cfea8035385b" },
+              "transforms": [
+                { "country": "FR", "id": "85b74ce2-2cbc-4d73-a5a2-5c5ffde16319" }
+              ]
+            },
+            {
+              "amount": 180,
+              "material": { "country": "FR", "id": "21a0d5b0-861e-4bed-98a9-46c61d2a0618" },
+              "transforms": [
+                { "country": "FR", "id": "ea284007-49a8-4be1-95fc-452ea180285a" },
+                { "country": "FR", "id": "7319ac9c-5796-412f-a1eb-58e01afa7708" }
+              ]
+            }
+          ],
           "id": "189674e0-737e-4d6d-aab0-3fdfc19839ed",
           "quantity": 1
         },
         { "id": "3b15918f-d21c-4251-96a8-548ac8444a04", "quantity": 1 },
         {
-          "custom": {
-            "elements": [
-              {
-                "amount": 50,
-                "material": { "country": "REO", "id": "97a70d45-d7d5-4ee5-86b4-ee506300cdaa" },
-                "transforms": []
-              }
-            ]
-          },
+          "elements": [
+            {
+              "amount": 50,
+              "material": { "country": "REO", "id": "97a70d45-d7d5-4ee5-86b4-ee506300cdaa" }
+            }
+          ],
           "id": "da06c70f-5b61-4de7-bb51-5761818aa0dd",
           "quantity": 1
         },
         {
-          "custom": {
-            "elements": [
-              {
-                "amount": 8,
-                "material": { "country": "FR", "id": "21a0d5b0-861e-4bed-98a9-46c61d2a0618" },
-                "transforms": [
-                  { "country": "FR", "id": "ea284007-49a8-4be1-95fc-452ea180285a" },
-                  { "country": "FR", "id": "7319ac9c-5796-412f-a1eb-58e01afa7708" }
-                ]
-              }
-            ]
-          },
+          "elements": [
+            {
+              "amount": 8,
+              "material": { "country": "FR", "id": "21a0d5b0-861e-4bed-98a9-46c61d2a0618" },
+              "transforms": [
+                { "country": "FR", "id": "ea284007-49a8-4be1-95fc-452ea180285a" },
+                { "country": "FR", "id": "7319ac9c-5796-412f-a1eb-58e01afa7708" }
+              ]
+            }
+          ],
           "id": "d4583813-5f80-47e0-b028-df438f59cfe2",
           "quantity": 4
         },
         {
-          "custom": {
-            "elements": [
-              {
-                "amount": 6,
-                "material": { "country": "FR", "id": "5f837a69-839d-4a49-9a30-19e1501ad51e" },
-                "transforms": []
-              }
-            ]
-          },
+          "elements": [
+            {
+              "amount": 6,
+              "material": { "country": "FR", "id": "5f837a69-839d-4a49-9a30-19e1501ad51e" }
+            }
+          ],
           "id": "6b3d7f30-e87b-426c-93ed-3a1179238583",
           "quantity": 4
         },
         {
-          "custom": {
-            "elements": [
-              {
-                "amount": 20,
-                "material": { "country": "FR", "id": "42748244-0939-4da2-ad5f-206ce541d7ee" },
-                "transforms": []
-              }
-            ]
-          },
+          "elements": [
+            {
+              "amount": 20,
+              "material": { "country": "FR", "id": "42748244-0939-4da2-ad5f-206ce541d7ee" }
+            }
+          ],
           "id": "d3ef64c0-3deb-4ef2-838d-015d8ece019e",
           "quantity": 1
         },
         {
-          "custom": {
-            "elements": [
-              {
-                "amount": 3,
-                "material": { "country": "FR", "id": "21a0d5b0-861e-4bed-98a9-46c61d2a0618" },
-                "transforms": [
-                  { "country": "FR", "id": "ea284007-49a8-4be1-95fc-452ea180285a" },
-                  { "country": "FR", "id": "7319ac9c-5796-412f-a1eb-58e01afa7708" }
-                ]
-              },
-              {
-                "amount": 3,
-                "material": { "country": "FR", "id": "c5295f47-0307-48a6-8552-3705063af767" },
-                "transforms": [
-                  { "country": "FR", "id": "85b74ce2-2cbc-4d73-a5a2-5c5ffde16319" }
-                ]
-              },
-              {
-                "amount": 1,
-                "material": { "country": "FR", "id": "20f5db04-a4c7-48ab-9903-38c65cd70be0" },
-                "transforms": []
-              }
-            ]
-          },
+          "elements": [
+            {
+              "amount": 3,
+              "material": { "country": "FR", "id": "21a0d5b0-861e-4bed-98a9-46c61d2a0618" },
+              "transforms": [
+                { "country": "FR", "id": "ea284007-49a8-4be1-95fc-452ea180285a" },
+                { "country": "FR", "id": "7319ac9c-5796-412f-a1eb-58e01afa7708" }
+              ]
+            },
+            {
+              "amount": 3,
+              "material": { "country": "FR", "id": "c5295f47-0307-48a6-8552-3705063af767" },
+              "transforms": [
+                { "country": "FR", "id": "85b74ce2-2cbc-4d73-a5a2-5c5ffde16319" }
+              ]
+            },
+            {
+              "amount": 1,
+              "material": { "country": "FR", "id": "20f5db04-a4c7-48ab-9903-38c65cd70be0" }
+            }
+          ],
           "id": "1d2de15a-53d9-465d-a2cf-fa2c5f68f5e9",
           "quantity": 2
         },
         {
-          "custom": {
-            "elements": [
-              {
-                "amount": 16,
-                "material": { "country": "RAS", "id": "30212fbf-5912-40eb-b2ab-87837361c462" },
-                "transforms": [
-                  { "country": "RAS", "id": "981e74ea-ef7d-40d1-b25e-c5534446474e" },
-                  { "country": "RAS", "id": "7319ac9c-5796-412f-a1eb-58e01afa7708" }
-                ]
-              },
-              {
-                "amount": 16,
-                "material": { "country": "RAS", "id": "c5295f47-0307-48a6-8552-3705063af767" },
-                "transforms": [
-                  { "country": "RAS", "id": "85b74ce2-2cbc-4d73-a5a2-5c5ffde16319" }
-                ]
-              },
-              {
-                "amount": 4,
-                "material": { "country": "RAS", "id": "51956fb2-304d-4e63-a3ef-b3eed44fde38" },
-                "transforms": []
-              }
-            ]
-          },
+          "elements": [
+            {
+              "amount": 16,
+              "material": { "country": "RAS", "id": "30212fbf-5912-40eb-b2ab-87837361c462" },
+              "transforms": [
+                { "country": "RAS", "id": "981e74ea-ef7d-40d1-b25e-c5534446474e" },
+                { "country": "RAS", "id": "7319ac9c-5796-412f-a1eb-58e01afa7708" }
+              ]
+            },
+            {
+              "amount": 16,
+              "material": { "country": "RAS", "id": "c5295f47-0307-48a6-8552-3705063af767" },
+              "transforms": [
+                { "country": "RAS", "id": "85b74ce2-2cbc-4d73-a5a2-5c5ffde16319" }
+              ]
+            },
+            {
+              "amount": 4,
+              "material": { "country": "RAS", "id": "51956fb2-304d-4e63-a3ef-b3eed44fde38" }
+            }
+          ],
           "id": "71086438-51a9-4980-ac3b-f24d5baa4cd5",
           "quantity": 1
         }
@@ -918,157 +806,134 @@
       "assembly": { "country": "RAS", "operations": ["c51ab87d-f368-4704-a5ec-7ea17ba87d46"] },
       "components": [
         {
-          "custom": {
-            "elements": [
-              {
-                "amount": 50,
-                "material": { "country": "RAS", "id": "3e514eac-185c-449e-bdc2-e1082ca0576d" },
-                "transforms": [
-                  { "country": "RAS", "id": "ea284007-49a8-4be1-95fc-452ea180285a" },
-                  { "country": "RAS", "id": "7319ac9c-5796-412f-a1eb-58e01afa7708" }
-                ]
-              },
-              {
-                "amount": 5,
-                "material": { "country": "RAS", "id": "01d21ed5-9fc6-4d36-a0ea-cfea8035385b" },
-                "transforms": [
-                  { "country": "RAS", "id": "85b74ce2-2cbc-4d73-a5a2-5c5ffde16319" }
-                ]
-              },
-              {
-                "amount": 0.002,
-                "material": { "country": "RAS", "id": "fba45d5f-64fc-44ae-ac75-9301c95c4657" },
-                "transforms": [
-                  { "country": "RAS", "id": "e232270f-3a08-4536-8d8d-dcb4a2031e7b" }
-                ]
-              }
-            ],
-            "name": "Chassis-carosserie - veli actif (majorité acier, Asie)"
-          },
+          "elements": [
+            {
+              "amount": 50,
+              "material": { "country": "RAS", "id": "3e514eac-185c-449e-bdc2-e1082ca0576d" },
+              "transforms": [
+                { "country": "RAS", "id": "ea284007-49a8-4be1-95fc-452ea180285a" },
+                { "country": "RAS", "id": "7319ac9c-5796-412f-a1eb-58e01afa7708" }
+              ]
+            },
+            {
+              "amount": 5,
+              "material": { "country": "RAS", "id": "01d21ed5-9fc6-4d36-a0ea-cfea8035385b" },
+              "transforms": [
+                { "country": "RAS", "id": "85b74ce2-2cbc-4d73-a5a2-5c5ffde16319" }
+              ]
+            },
+            {
+              "amount": 0.002,
+              "material": { "country": "RAS", "id": "fba45d5f-64fc-44ae-ac75-9301c95c4657" },
+              "transforms": [
+                { "country": "RAS", "id": "e232270f-3a08-4536-8d8d-dcb4a2031e7b" }
+              ]
+            }
+          ],
           "id": "f50ff677-3501-49cb-b69d-e826d4114681",
+          "name": "Chassis-carosserie - veli actif (majorité acier, Asie)",
           "quantity": 1
         },
         { "id": "7cfe659e-3764-4a8c-a25b-201396cbc09f", "quantity": 1 },
         {
-          "custom": {
-            "elements": [
-              {
-                "amount": 5,
-                "material": { "country": "RAS", "id": "97a70d45-d7d5-4ee5-86b4-ee506300cdaa" },
-                "transforms": []
-              }
-            ]
-          },
+          "elements": [
+            {
+              "amount": 5,
+              "material": { "country": "RAS", "id": "97a70d45-d7d5-4ee5-86b4-ee506300cdaa" }
+            }
+          ],
           "id": "059f0f35-099d-4305-8a60-1666222dadb2",
           "quantity": 1
         },
         {
-          "custom": {
-            "elements": [
-              {
-                "amount": 0.3,
-                "material": { "country": "RAS", "id": "63e8a99a-d6e5-4aa5-8fe4-71c3d0ca2107" },
-                "transforms": [
-                  { "country": "RAS", "id": "971df5fa-c32e-4a7e-b1aa-14ce9f240b5c" },
-                  { "country": "RAS", "id": "7319ac9c-5796-412f-a1eb-58e01afa7708" }
-                ]
-              },
-              {
-                "amount": 0.5,
-                "material": { "country": "RAS", "id": "63e8a99a-d6e5-4aa5-8fe4-71c3d0ca2107" },
-                "transforms": [
-                  { "country": "RAS", "id": "d693bd0d-88d4-4370-81ee-597956bb58f0" }
-                ]
-              }
-            ]
-          },
+          "elements": [
+            {
+              "amount": 0.3,
+              "material": { "country": "RAS", "id": "63e8a99a-d6e5-4aa5-8fe4-71c3d0ca2107" },
+              "transforms": [
+                { "country": "RAS", "id": "971df5fa-c32e-4a7e-b1aa-14ce9f240b5c" },
+                { "country": "RAS", "id": "7319ac9c-5796-412f-a1eb-58e01afa7708" }
+              ]
+            },
+            {
+              "amount": 0.5,
+              "material": { "country": "RAS", "id": "63e8a99a-d6e5-4aa5-8fe4-71c3d0ca2107" },
+              "transforms": [
+                { "country": "RAS", "id": "d693bd0d-88d4-4370-81ee-597956bb58f0" }
+              ]
+            }
+          ],
           "id": "9d294fb5-b42a-4a9f-adc6-ff38f6d27e65",
           "quantity": 4
         },
         {
-          "custom": {
-            "elements": [
-              {
-                "amount": 0.8,
-                "material": { "country": "RAS", "id": "5f837a69-839d-4a49-9a30-19e1501ad51e" },
-                "transforms": []
-              },
-              {
-                "amount": 0.2,
-                "material": { "country": "RAS", "id": "9c5a7a8e-6483-4da8-9cc2-0a90a30cb93a" },
-                "transforms": []
-              }
-            ]
-          },
+          "elements": [
+            {
+              "amount": 0.8,
+              "material": { "country": "RAS", "id": "5f837a69-839d-4a49-9a30-19e1501ad51e" }
+            },
+            {
+              "amount": 0.2,
+              "material": { "country": "RAS", "id": "9c5a7a8e-6483-4da8-9cc2-0a90a30cb93a" }
+            }
+          ],
           "id": "8e38b6a5-1c95-43f6-987f-2e368fc74edc",
           "quantity": 4
         },
         {
-          "custom": {
-            "elements": [
-              {
-                "amount": 0.5,
-                "material": { "country": "RAS", "id": "c5295f47-0307-48a6-8552-3705063af767" },
-                "transforms": [
-                  { "country": "RAS", "id": "85b74ce2-2cbc-4d73-a5a2-5c5ffde16319" }
-                ]
-              },
-              {
-                "amount": 2,
-                "material": { "country": "RAS", "id": "3e514eac-185c-449e-bdc2-e1082ca0576d" },
-                "transforms": [
-                  { "country": "RAS", "id": "ea284007-49a8-4be1-95fc-452ea180285a" },
-                  { "country": "RAS", "id": "7319ac9c-5796-412f-a1eb-58e01afa7708" }
-                ]
-              },
-              {
-                "amount": 0.5,
-                "material": { "id": "20f5db04-a4c7-48ab-9903-38c65cd70be0" },
-                "transforms": []
-              }
-            ]
-          },
+          "elements": [
+            {
+              "amount": 0.5,
+              "material": { "country": "RAS", "id": "c5295f47-0307-48a6-8552-3705063af767" },
+              "transforms": [
+                { "country": "RAS", "id": "85b74ce2-2cbc-4d73-a5a2-5c5ffde16319" }
+              ]
+            },
+            {
+              "amount": 2,
+              "material": { "country": "RAS", "id": "3e514eac-185c-449e-bdc2-e1082ca0576d" },
+              "transforms": [
+                { "country": "RAS", "id": "ea284007-49a8-4be1-95fc-452ea180285a" },
+                { "country": "RAS", "id": "7319ac9c-5796-412f-a1eb-58e01afa7708" }
+              ]
+            },
+            { "amount": 0.5, "material": { "id": "20f5db04-a4c7-48ab-9903-38c65cd70be0" } }
+          ],
           "id": "ae9c83de-71bf-4f21-9030-afbfd4ad3b3a",
           "quantity": 2
         },
         {
-          "custom": {
-            "elements": [
-              {
-                "amount": 4,
-                "material": { "id": "30212fbf-5912-40eb-b2ab-87837361c462" },
-                "transforms": [
-                  { "id": "981e74ea-ef7d-40d1-b25e-c5534446474e" },
-                  { "country": "RAS", "id": "7319ac9c-5796-412f-a1eb-58e01afa7708" }
-                ]
-              },
-              {
-                "amount": 4,
-                "material": { "id": "c5295f47-0307-48a6-8552-3705063af767" },
-                "transforms": [
-                  { "country": "FR", "id": "85b74ce2-2cbc-4d73-a5a2-5c5ffde16319" }
-                ]
-              },
-              {
-                "amount": 1,
-                "material": { "country": "RAS", "id": "51956fb2-304d-4e63-a3ef-b3eed44fde38" },
-                "transforms": []
-              }
-            ]
-          },
+          "elements": [
+            {
+              "amount": 4,
+              "material": { "id": "30212fbf-5912-40eb-b2ab-87837361c462" },
+              "transforms": [
+                { "id": "981e74ea-ef7d-40d1-b25e-c5534446474e" },
+                { "country": "RAS", "id": "7319ac9c-5796-412f-a1eb-58e01afa7708" }
+              ]
+            },
+            {
+              "amount": 4,
+              "material": { "id": "c5295f47-0307-48a6-8552-3705063af767" },
+              "transforms": [
+                { "country": "FR", "id": "85b74ce2-2cbc-4d73-a5a2-5c5ffde16319" }
+              ]
+            },
+            {
+              "amount": 1,
+              "material": { "country": "RAS", "id": "51956fb2-304d-4e63-a3ef-b3eed44fde38" }
+            }
+          ],
           "id": "f134b3fd-0439-4b25-a06e-f1b8fd6e201c",
           "quantity": 1
         },
         {
-          "custom": {
-            "elements": [
-              {
-                "amount": 10,
-                "material": { "country": "RAS", "id": "6445c1fa-13a6-4058-8978-bcf2be63cd56" },
-                "transforms": []
-              }
-            ]
-          },
+          "elements": [
+            {
+              "amount": 10,
+              "material": { "country": "RAS", "id": "6445c1fa-13a6-4058-8978-bcf2be63cd56" }
+            }
+          ],
           "id": "6cb4338a-4663-4325-90b6-f7279a498c9b",
           "quantity": 1
         }
@@ -1110,124 +975,111 @@
       "assembly": { "country": "FR", "operations": ["c51ab87d-f368-4704-a5ec-7ea17ba87d46"] },
       "components": [
         {
-          "custom": {
-            "elements": [
-              {
-                "amount": 40,
-                "material": { "country": "FR", "id": "01d21ed5-9fc6-4d36-a0ea-cfea8035385b" },
-                "transforms": [
-                  { "country": "FR", "id": "85b74ce2-2cbc-4d73-a5a2-5c5ffde16319" }
-                ]
-              },
-              {
-                "amount": 180,
-                "material": { "country": "FR", "id": "21a0d5b0-861e-4bed-98a9-46c61d2a0618" },
-                "transforms": [
-                  { "country": "FR", "id": "ea284007-49a8-4be1-95fc-452ea180285a" },
-                  { "country": "FR", "id": "7319ac9c-5796-412f-a1eb-58e01afa7708" }
-                ]
-              }
-            ]
-          },
+          "elements": [
+            {
+              "amount": 40,
+              "material": { "country": "FR", "id": "01d21ed5-9fc6-4d36-a0ea-cfea8035385b" },
+              "transforms": [
+                { "country": "FR", "id": "85b74ce2-2cbc-4d73-a5a2-5c5ffde16319" }
+              ]
+            },
+            {
+              "amount": 180,
+              "material": { "country": "FR", "id": "21a0d5b0-861e-4bed-98a9-46c61d2a0618" },
+              "transforms": [
+                { "country": "FR", "id": "ea284007-49a8-4be1-95fc-452ea180285a" },
+                { "country": "FR", "id": "7319ac9c-5796-412f-a1eb-58e01afa7708" }
+              ]
+            }
+          ],
           "id": "189674e0-737e-4d6d-aab0-3fdfc19839ed",
           "quantity": 1
         },
         {
-          "custom": {
-            "elements": [
-              {
-                "amount": 3.57,
-                "material": { "country": "FR", "id": "a1f6f8a2-5398-4b32-a3d6-fc0d88ca7a28" },
-                "transforms": [
-                  { "country": "FR", "id": "7f217ecc-5de8-4ce1-b2c2-b5d192c6cdb9" }
-                ]
-              },
-              {
-                "amount": 1.5,
-                "material": { "country": "FR", "id": "baae8572-db4a-4cb8-8f74-e72ba5ef0116" },
-                "transforms": [
-                  { "country": "FR", "id": "971df5fa-c32e-4a7e-b1aa-14ce9f240b5c" }
-                ]
-              },
-              {
-                "amount": 0.3,
-                "material": { "country": "FR", "id": "a363f079-bc3f-424a-a2e1-06b9c76b4fc3" },
-                "transforms": [
-                  { "country": "FR", "id": "d077f06e-4ae9-48b7-8019-64523e577b95" }
-                ]
-              },
-              {
-                "amount": 1.9,
-                "material": { "country": "FR", "id": "21a0d5b0-861e-4bed-98a9-46c61d2a0618" },
-                "transforms": [
-                  { "country": "FR", "id": "ea284007-49a8-4be1-95fc-452ea180285a" }
-                ]
-              },
-              {
-                "amount": 0.8,
-                "material": { "country": "FR", "id": "30212fbf-5912-40eb-b2ab-87837361c462" },
-                "transforms": [
-                  { "country": "FR", "id": "981e74ea-ef7d-40d1-b25e-c5534446474e" }
-                ]
-              },
-              {
-                "amount": 0.9,
-                "material": { "country": "FR", "id": "c5295f47-0307-48a6-8552-3705063af767" },
-                "transforms": [
-                  { "country": "FR", "id": "85b74ce2-2cbc-4d73-a5a2-5c5ffde16319" }
-                ]
-              },
-              {
-                "amount": 0.6,
-                "material": { "country": "RAS", "id": "51956fb2-304d-4e63-a3ef-b3eed44fde38" },
-                "transforms": []
-              }
-            ],
-            "name": "Batterie Li-ion 1.2kWh, NMC811, France"
-          },
+          "elements": [
+            {
+              "amount": 3.57,
+              "material": { "country": "FR", "id": "a1f6f8a2-5398-4b32-a3d6-fc0d88ca7a28" },
+              "transforms": [
+                { "country": "FR", "id": "7f217ecc-5de8-4ce1-b2c2-b5d192c6cdb9" }
+              ]
+            },
+            {
+              "amount": 1.5,
+              "material": { "country": "FR", "id": "baae8572-db4a-4cb8-8f74-e72ba5ef0116" },
+              "transforms": [
+                { "country": "FR", "id": "971df5fa-c32e-4a7e-b1aa-14ce9f240b5c" }
+              ]
+            },
+            {
+              "amount": 0.3,
+              "material": { "country": "FR", "id": "a363f079-bc3f-424a-a2e1-06b9c76b4fc3" },
+              "transforms": [
+                { "country": "FR", "id": "d077f06e-4ae9-48b7-8019-64523e577b95" }
+              ]
+            },
+            {
+              "amount": 1.9,
+              "material": { "country": "FR", "id": "21a0d5b0-861e-4bed-98a9-46c61d2a0618" },
+              "transforms": [
+                { "country": "FR", "id": "ea284007-49a8-4be1-95fc-452ea180285a" }
+              ]
+            },
+            {
+              "amount": 0.8,
+              "material": { "country": "FR", "id": "30212fbf-5912-40eb-b2ab-87837361c462" },
+              "transforms": [
+                { "country": "FR", "id": "981e74ea-ef7d-40d1-b25e-c5534446474e" }
+              ]
+            },
+            {
+              "amount": 0.9,
+              "material": { "country": "FR", "id": "c5295f47-0307-48a6-8552-3705063af767" },
+              "transforms": [
+                { "country": "FR", "id": "85b74ce2-2cbc-4d73-a5a2-5c5ffde16319" }
+              ]
+            },
+            {
+              "amount": 0.6,
+              "material": { "country": "RAS", "id": "51956fb2-304d-4e63-a3ef-b3eed44fde38" }
+            }
+          ],
           "id": "7cfe659e-3764-4a8c-a25b-201396cbc09f",
+          "name": "Batterie Li-ion 1.2kWh, NMC811, France",
           "quantity": 2
         },
         {
-          "custom": {
-            "elements": [
-              {
-                "amount": 20,
-                "material": { "country": "REO", "id": "97a70d45-d7d5-4ee5-86b4-ee506300cdaa" },
-                "transforms": []
-              }
-            ]
-          },
+          "elements": [
+            {
+              "amount": 20,
+              "material": { "country": "REO", "id": "97a70d45-d7d5-4ee5-86b4-ee506300cdaa" }
+            }
+          ],
           "id": "edca4c52-b34a-4906-b2e0-4f726bfcc8f7",
           "quantity": 1
         },
         {
-          "custom": {
-            "elements": [
-              {
-                "amount": 8,
-                "material": { "country": "REO", "id": "21a0d5b0-861e-4bed-98a9-46c61d2a0618" },
-                "transforms": [
-                  { "country": "REO", "id": "ea284007-49a8-4be1-95fc-452ea180285a" },
-                  { "country": "REO", "id": "7319ac9c-5796-412f-a1eb-58e01afa7708" }
-                ]
-              }
-            ]
-          },
+          "elements": [
+            {
+              "amount": 8,
+              "material": { "country": "REO", "id": "21a0d5b0-861e-4bed-98a9-46c61d2a0618" },
+              "transforms": [
+                { "country": "REO", "id": "ea284007-49a8-4be1-95fc-452ea180285a" },
+                { "country": "REO", "id": "7319ac9c-5796-412f-a1eb-58e01afa7708" }
+              ]
+            }
+          ],
           "id": "d4583813-5f80-47e0-b028-df438f59cfe2",
           "quantity": 4
         },
         { "id": "6b3d7f30-e87b-426c-93ed-3a1179238583", "quantity": 4 },
         {
-          "custom": {
-            "elements": [
-              {
-                "amount": 20,
-                "material": { "country": "FR", "id": "42748244-0939-4da2-ad5f-206ce541d7ee" },
-                "transforms": []
-              }
-            ]
-          },
+          "elements": [
+            {
+              "amount": 20,
+              "material": { "country": "FR", "id": "42748244-0939-4da2-ad5f-206ce541d7ee" }
+            }
+          ],
           "id": "d3ef64c0-3deb-4ef2-838d-015d8ece019e",
           "quantity": 1
         },
@@ -1250,166 +1102,143 @@
       "assembly": { "country": "RAS", "operations": ["c51ab87d-f368-4704-a5ec-7ea17ba87d46"] },
       "components": [
         {
-          "custom": {
-            "elements": [
-              {
-                "amount": 50,
-                "material": { "country": "RAS", "id": "3e514eac-185c-449e-bdc2-e1082ca0576d" },
-                "transforms": [
-                  { "country": "RAS", "id": "ea284007-49a8-4be1-95fc-452ea180285a" },
-                  { "country": "RAS", "id": "7319ac9c-5796-412f-a1eb-58e01afa7708" }
-                ]
-              },
-              {
-                "amount": 20,
-                "material": { "country": "RAS", "id": "01d21ed5-9fc6-4d36-a0ea-cfea8035385b" },
-                "transforms": [
-                  { "country": "RAS", "id": "85b74ce2-2cbc-4d73-a5a2-5c5ffde16319" }
-                ]
-              },
-              {
-                "amount": 0.002,
-                "material": { "country": "RAS", "id": "fba45d5f-64fc-44ae-ac75-9301c95c4657" },
-                "transforms": [
-                  { "country": "RAS", "id": "e232270f-3a08-4536-8d8d-dcb4a2031e7b" }
-                ]
-              },
-              {
-                "amount": 20,
-                "material": { "country": "RAS", "id": "63e8a99a-d6e5-4aa5-8fe4-71c3d0ca2107" },
-                "transforms": [
-                  { "country": "RAS", "id": "971df5fa-c32e-4a7e-b1aa-14ce9f240b5c" },
-                  { "country": "RAS", "id": "7319ac9c-5796-412f-a1eb-58e01afa7708" }
-                ]
-              }
-            ],
-            "name": "Chassis-carosserie - veli actif, Asie"
-          },
+          "elements": [
+            {
+              "amount": 50,
+              "material": { "country": "RAS", "id": "3e514eac-185c-449e-bdc2-e1082ca0576d" },
+              "transforms": [
+                { "country": "RAS", "id": "ea284007-49a8-4be1-95fc-452ea180285a" },
+                { "country": "RAS", "id": "7319ac9c-5796-412f-a1eb-58e01afa7708" }
+              ]
+            },
+            {
+              "amount": 20,
+              "material": { "country": "RAS", "id": "01d21ed5-9fc6-4d36-a0ea-cfea8035385b" },
+              "transforms": [
+                { "country": "RAS", "id": "85b74ce2-2cbc-4d73-a5a2-5c5ffde16319" }
+              ]
+            },
+            {
+              "amount": 0.002,
+              "material": { "country": "RAS", "id": "fba45d5f-64fc-44ae-ac75-9301c95c4657" },
+              "transforms": [
+                { "country": "RAS", "id": "e232270f-3a08-4536-8d8d-dcb4a2031e7b" }
+              ]
+            },
+            {
+              "amount": 20,
+              "material": { "country": "RAS", "id": "63e8a99a-d6e5-4aa5-8fe4-71c3d0ca2107" },
+              "transforms": [
+                { "country": "RAS", "id": "971df5fa-c32e-4a7e-b1aa-14ce9f240b5c" },
+                { "country": "RAS", "id": "7319ac9c-5796-412f-a1eb-58e01afa7708" }
+              ]
+            }
+          ],
           "id": "f50ff677-3501-49cb-b69d-e826d4114681",
+          "name": "Chassis-carosserie - veli actif, Asie",
           "quantity": 1
         },
         { "id": "7cfe659e-3764-4a8c-a25b-201396cbc09f", "quantity": 2 },
         {
-          "custom": {
-            "elements": [
-              {
-                "amount": 8,
-                "material": { "country": "RAS", "id": "97a70d45-d7d5-4ee5-86b4-ee506300cdaa" },
-                "transforms": []
-              }
-            ],
-            "name": "Moteur électrique"
-          },
+          "elements": [
+            {
+              "amount": 8,
+              "material": { "country": "RAS", "id": "97a70d45-d7d5-4ee5-86b4-ee506300cdaa" }
+            }
+          ],
           "id": "059f0f35-099d-4305-8a60-1666222dadb2",
+          "name": "Moteur électrique",
           "quantity": 1
         },
         {
-          "custom": {
-            "elements": [
-              {
-                "amount": 0.3,
-                "material": { "country": "RAS", "id": "63e8a99a-d6e5-4aa5-8fe4-71c3d0ca2107" },
-                "transforms": [
-                  { "country": "RAS", "id": "971df5fa-c32e-4a7e-b1aa-14ce9f240b5c" },
-                  { "country": "RAS", "id": "7319ac9c-5796-412f-a1eb-58e01afa7708" }
-                ]
-              },
-              {
-                "amount": 0.5,
-                "material": { "country": "RAS", "id": "63e8a99a-d6e5-4aa5-8fe4-71c3d0ca2107" },
-                "transforms": [
-                  { "country": "RAS", "id": "d693bd0d-88d4-4370-81ee-597956bb58f0" }
-                ]
-              }
-            ]
-          },
+          "elements": [
+            {
+              "amount": 0.3,
+              "material": { "country": "RAS", "id": "63e8a99a-d6e5-4aa5-8fe4-71c3d0ca2107" },
+              "transforms": [
+                { "country": "RAS", "id": "971df5fa-c32e-4a7e-b1aa-14ce9f240b5c" },
+                { "country": "RAS", "id": "7319ac9c-5796-412f-a1eb-58e01afa7708" }
+              ]
+            },
+            {
+              "amount": 0.5,
+              "material": { "country": "RAS", "id": "63e8a99a-d6e5-4aa5-8fe4-71c3d0ca2107" },
+              "transforms": [
+                { "country": "RAS", "id": "d693bd0d-88d4-4370-81ee-597956bb58f0" }
+              ]
+            }
+          ],
           "id": "9d294fb5-b42a-4a9f-adc6-ff38f6d27e65",
           "quantity": 4
         },
         {
-          "custom": {
-            "elements": [
-              {
-                "amount": 0.8,
-                "material": { "country": "RAS", "id": "5f837a69-839d-4a49-9a30-19e1501ad51e" },
-                "transforms": []
-              },
-              {
-                "amount": 0.2,
-                "material": { "country": "RAS", "id": "9c5a7a8e-6483-4da8-9cc2-0a90a30cb93a" },
-                "transforms": []
-              }
-            ]
-          },
+          "elements": [
+            {
+              "amount": 0.8,
+              "material": { "country": "RAS", "id": "5f837a69-839d-4a49-9a30-19e1501ad51e" }
+            },
+            {
+              "amount": 0.2,
+              "material": { "country": "RAS", "id": "9c5a7a8e-6483-4da8-9cc2-0a90a30cb93a" }
+            }
+          ],
           "id": "8e38b6a5-1c95-43f6-987f-2e368fc74edc",
           "quantity": 4
         },
         {
-          "custom": {
-            "elements": [
-              {
-                "amount": 0.5,
-                "material": { "country": "RAS", "id": "c5295f47-0307-48a6-8552-3705063af767" },
-                "transforms": [
-                  { "country": "RAS", "id": "85b74ce2-2cbc-4d73-a5a2-5c5ffde16319" }
-                ]
-              },
-              {
-                "amount": 2,
-                "material": { "country": "RAS", "id": "3e514eac-185c-449e-bdc2-e1082ca0576d" },
-                "transforms": [
-                  { "country": "RAS", "id": "ea284007-49a8-4be1-95fc-452ea180285a" },
-                  { "country": "RAS", "id": "7319ac9c-5796-412f-a1eb-58e01afa7708" }
-                ]
-              },
-              {
-                "amount": 0.5,
-                "material": { "id": "20f5db04-a4c7-48ab-9903-38c65cd70be0" },
-                "transforms": []
-              }
-            ]
-          },
+          "elements": [
+            {
+              "amount": 0.5,
+              "material": { "country": "RAS", "id": "c5295f47-0307-48a6-8552-3705063af767" },
+              "transforms": [
+                { "country": "RAS", "id": "85b74ce2-2cbc-4d73-a5a2-5c5ffde16319" }
+              ]
+            },
+            {
+              "amount": 2,
+              "material": { "country": "RAS", "id": "3e514eac-185c-449e-bdc2-e1082ca0576d" },
+              "transforms": [
+                { "country": "RAS", "id": "ea284007-49a8-4be1-95fc-452ea180285a" },
+                { "country": "RAS", "id": "7319ac9c-5796-412f-a1eb-58e01afa7708" }
+              ]
+            },
+            { "amount": 0.5, "material": { "id": "20f5db04-a4c7-48ab-9903-38c65cd70be0" } }
+          ],
           "id": "ae9c83de-71bf-4f21-9030-afbfd4ad3b3a",
           "quantity": 2
         },
         {
-          "custom": {
-            "elements": [
-              {
-                "amount": 6,
-                "material": { "id": "30212fbf-5912-40eb-b2ab-87837361c462" },
-                "transforms": [
-                  { "id": "981e74ea-ef7d-40d1-b25e-c5534446474e" },
-                  { "country": "RAS", "id": "7319ac9c-5796-412f-a1eb-58e01afa7708" }
-                ]
-              },
-              {
-                "amount": 5,
-                "material": { "id": "c5295f47-0307-48a6-8552-3705063af767" },
-                "transforms": [
-                  { "country": "FR", "id": "85b74ce2-2cbc-4d73-a5a2-5c5ffde16319" }
-                ]
-              },
-              {
-                "amount": 1.5,
-                "material": { "country": "RAS", "id": "51956fb2-304d-4e63-a3ef-b3eed44fde38" },
-                "transforms": []
-              }
-            ]
-          },
+          "elements": [
+            {
+              "amount": 6,
+              "material": { "id": "30212fbf-5912-40eb-b2ab-87837361c462" },
+              "transforms": [
+                { "id": "981e74ea-ef7d-40d1-b25e-c5534446474e" },
+                { "country": "RAS", "id": "7319ac9c-5796-412f-a1eb-58e01afa7708" }
+              ]
+            },
+            {
+              "amount": 5,
+              "material": { "id": "c5295f47-0307-48a6-8552-3705063af767" },
+              "transforms": [
+                { "country": "FR", "id": "85b74ce2-2cbc-4d73-a5a2-5c5ffde16319" }
+              ]
+            },
+            {
+              "amount": 1.5,
+              "material": { "country": "RAS", "id": "51956fb2-304d-4e63-a3ef-b3eed44fde38" }
+            }
+          ],
           "id": "f134b3fd-0439-4b25-a06e-f1b8fd6e201c",
           "quantity": 1
         },
         {
-          "custom": {
-            "elements": [
-              {
-                "amount": 10,
-                "material": { "country": "RAS", "id": "6445c1fa-13a6-4058-8978-bcf2be63cd56" },
-                "transforms": []
-              }
-            ]
-          },
+          "elements": [
+            {
+              "amount": 10,
+              "material": { "country": "RAS", "id": "6445c1fa-13a6-4058-8978-bcf2be63cd56" }
+            }
+          ],
           "id": "6cb4338a-4663-4325-90b6-f7279a498c9b",
           "quantity": 1
         }
@@ -1430,97 +1259,81 @@
       "assembly": { "country": "RAS", "operations": ["c51ab87d-f368-4704-a5ec-7ea17ba87d46"] },
       "components": [
         {
-          "custom": {
-            "elements": [
-              {
-                "amount": 40,
-                "material": { "country": "RAS", "id": "01d21ed5-9fc6-4d36-a0ea-cfea8035385b" },
-                "transforms": [
-                  { "country": "RAS", "id": "85b74ce2-2cbc-4d73-a5a2-5c5ffde16319" }
-                ]
-              },
-              {
-                "amount": 180,
-                "material": { "country": "RAS", "id": "3e514eac-185c-449e-bdc2-e1082ca0576d" },
-                "transforms": [
-                  { "country": "RAS", "id": "ea284007-49a8-4be1-95fc-452ea180285a" },
-                  { "country": "RAS", "id": "7319ac9c-5796-412f-a1eb-58e01afa7708" }
-                ]
-              }
-            ]
-          },
+          "elements": [
+            {
+              "amount": 40,
+              "material": { "country": "RAS", "id": "01d21ed5-9fc6-4d36-a0ea-cfea8035385b" },
+              "transforms": [
+                { "country": "RAS", "id": "85b74ce2-2cbc-4d73-a5a2-5c5ffde16319" }
+              ]
+            },
+            {
+              "amount": 180,
+              "material": { "country": "RAS", "id": "3e514eac-185c-449e-bdc2-e1082ca0576d" },
+              "transforms": [
+                { "country": "RAS", "id": "ea284007-49a8-4be1-95fc-452ea180285a" },
+                { "country": "RAS", "id": "7319ac9c-5796-412f-a1eb-58e01afa7708" }
+              ]
+            }
+          ],
           "id": "189674e0-737e-4d6d-aab0-3fdfc19839ed",
           "quantity": 1
         },
         { "id": "57df64a3-278e-4e93-b836-9ba44b880fb5", "quantity": 1 },
         {
-          "custom": {
-            "elements": [
-              {
-                "amount": 50,
-                "material": { "country": "RAS", "id": "97a70d45-d7d5-4ee5-86b4-ee506300cdaa" },
-                "transforms": []
-              }
-            ]
-          },
+          "elements": [
+            {
+              "amount": 50,
+              "material": { "country": "RAS", "id": "97a70d45-d7d5-4ee5-86b4-ee506300cdaa" }
+            }
+          ],
           "id": "da06c70f-5b61-4de7-bb51-5761818aa0dd",
           "quantity": 1
         },
         {
-          "custom": {
-            "elements": [
-              {
-                "amount": 8,
-                "material": { "country": "RAS", "id": "3e514eac-185c-449e-bdc2-e1082ca0576d" },
-                "transforms": [
-                  { "country": "RAS", "id": "ea284007-49a8-4be1-95fc-452ea180285a" },
-                  { "country": "RAS", "id": "7319ac9c-5796-412f-a1eb-58e01afa7708" }
-                ]
-              }
-            ]
-          },
+          "elements": [
+            {
+              "amount": 8,
+              "material": { "country": "RAS", "id": "3e514eac-185c-449e-bdc2-e1082ca0576d" },
+              "transforms": [
+                { "country": "RAS", "id": "ea284007-49a8-4be1-95fc-452ea180285a" },
+                { "country": "RAS", "id": "7319ac9c-5796-412f-a1eb-58e01afa7708" }
+              ]
+            }
+          ],
           "id": "d4583813-5f80-47e0-b028-df438f59cfe2",
           "quantity": 4
         },
         { "id": "6b3d7f30-e87b-426c-93ed-3a1179238583", "quantity": 4 },
         {
-          "custom": {
-            "elements": [
-              {
-                "amount": 20,
-                "material": { "country": "REO", "id": "42748244-0939-4da2-ad5f-206ce541d7ee" },
-                "transforms": []
-              }
-            ]
-          },
+          "elements": [
+            {
+              "amount": 20,
+              "material": { "country": "REO", "id": "42748244-0939-4da2-ad5f-206ce541d7ee" }
+            }
+          ],
           "id": "d3ef64c0-3deb-4ef2-838d-015d8ece019e",
           "quantity": 1
         },
         {
-          "custom": {
-            "elements": [
-              {
-                "amount": 3,
-                "material": { "country": "RAS", "id": "3e514eac-185c-449e-bdc2-e1082ca0576d" },
-                "transforms": [
-                  { "country": "RAS", "id": "ea284007-49a8-4be1-95fc-452ea180285a" },
-                  { "country": "RAS", "id": "7319ac9c-5796-412f-a1eb-58e01afa7708" }
-                ]
-              },
-              {
-                "amount": 3,
-                "material": { "id": "c5295f47-0307-48a6-8552-3705063af767" },
-                "transforms": [
-                  { "id": "85b74ce2-2cbc-4d73-a5a2-5c5ffde16319" }
-                ]
-              },
-              {
-                "amount": 1,
-                "material": { "id": "20f5db04-a4c7-48ab-9903-38c65cd70be0" },
-                "transforms": []
-              }
-            ]
-          },
+          "elements": [
+            {
+              "amount": 3,
+              "material": { "country": "RAS", "id": "3e514eac-185c-449e-bdc2-e1082ca0576d" },
+              "transforms": [
+                { "country": "RAS", "id": "ea284007-49a8-4be1-95fc-452ea180285a" },
+                { "country": "RAS", "id": "7319ac9c-5796-412f-a1eb-58e01afa7708" }
+              ]
+            },
+            {
+              "amount": 3,
+              "material": { "id": "c5295f47-0307-48a6-8552-3705063af767" },
+              "transforms": [
+                { "id": "85b74ce2-2cbc-4d73-a5a2-5c5ffde16319" }
+              ]
+            },
+            { "amount": 1, "material": { "id": "20f5db04-a4c7-48ab-9903-38c65cd70be0" } }
+          ],
           "id": "1d2de15a-53d9-465d-a2cf-fa2c5f68f5e9",
           "quantity": 2
         },
@@ -1542,193 +1355,169 @@
       "assembly": { "country": "REO", "operations": ["c51ab87d-f368-4704-a5ec-7ea17ba87d46"] },
       "components": [
         {
-          "custom": {
-            "elements": [
-              {
-                "amount": 430,
-                "material": { "country": "REO", "id": "7cd80a58-6d07-4abc-ab41-624c0d1487c7" },
-                "transforms": [
-                  { "country": "REO", "id": "ea284007-49a8-4be1-95fc-452ea180285a" },
-                  { "country": "REO", "id": "7319ac9c-5796-412f-a1eb-58e01afa7708" }
-                ]
-              },
-              {
-                "amount": 5,
-                "material": { "country": "REO", "id": "baae8572-db4a-4cb8-8f74-e72ba5ef0116" },
-                "transforms": [
-                  { "country": "REO", "id": "971df5fa-c32e-4a7e-b1aa-14ce9f240b5c" },
-                  { "country": "REO", "id": "7319ac9c-5796-412f-a1eb-58e01afa7708" }
-                ]
-              },
-              {
-                "amount": 5,
-                "material": { "country": "REO", "id": "baae8572-db4a-4cb8-8f74-e72ba5ef0116" },
-                "transforms": [
-                  { "country": "REO", "id": "d693bd0d-88d4-4370-81ee-597956bb58f0" },
-                  { "country": "REO", "id": "7319ac9c-5796-412f-a1eb-58e01afa7708" }
-                ]
-              },
-              {
-                "amount": 6,
-                "material": { "country": "REO", "id": "a363f079-bc3f-424a-a2e1-06b9c76b4fc3" },
-                "transforms": []
-              },
-              {
-                "amount": 17,
-                "material": { "country": "REO", "id": "42748244-0939-4da2-ad5f-206ce541d7ee" },
-                "transforms": []
-              },
-              {
-                "amount": 10,
-                "material": { "country": "REO", "id": "29b1a0f9-4887-49f7-910f-e50ad9e1b572" },
-                "transforms": []
-              },
-              {
-                "amount": 130,
-                "material": { "country": "REO", "id": "c5295f47-0307-48a6-8552-3705063af767" },
-                "transforms": [
-                  { "country": "REO", "id": "4a08bcab-5c25-4dec-961a-0f7208f40084" }
-                ]
-              }
-            ],
-            "name": "Carosserie"
-          },
+          "elements": [
+            {
+              "amount": 430,
+              "material": { "country": "REO", "id": "7cd80a58-6d07-4abc-ab41-624c0d1487c7" },
+              "transforms": [
+                { "country": "REO", "id": "ea284007-49a8-4be1-95fc-452ea180285a" },
+                { "country": "REO", "id": "7319ac9c-5796-412f-a1eb-58e01afa7708" }
+              ]
+            },
+            {
+              "amount": 5,
+              "material": { "country": "REO", "id": "baae8572-db4a-4cb8-8f74-e72ba5ef0116" },
+              "transforms": [
+                { "country": "REO", "id": "971df5fa-c32e-4a7e-b1aa-14ce9f240b5c" },
+                { "country": "REO", "id": "7319ac9c-5796-412f-a1eb-58e01afa7708" }
+              ]
+            },
+            {
+              "amount": 5,
+              "material": { "country": "REO", "id": "baae8572-db4a-4cb8-8f74-e72ba5ef0116" },
+              "transforms": [
+                { "country": "REO", "id": "d693bd0d-88d4-4370-81ee-597956bb58f0" },
+                { "country": "REO", "id": "7319ac9c-5796-412f-a1eb-58e01afa7708" }
+              ]
+            },
+            {
+              "amount": 6,
+              "material": { "country": "REO", "id": "a363f079-bc3f-424a-a2e1-06b9c76b4fc3" }
+            },
+            {
+              "amount": 17,
+              "material": { "country": "REO", "id": "42748244-0939-4da2-ad5f-206ce541d7ee" }
+            },
+            {
+              "amount": 10,
+              "material": { "country": "REO", "id": "29b1a0f9-4887-49f7-910f-e50ad9e1b572" }
+            },
+            {
+              "amount": 130,
+              "material": { "country": "REO", "id": "c5295f47-0307-48a6-8552-3705063af767" },
+              "transforms": [
+                { "country": "REO", "id": "4a08bcab-5c25-4dec-961a-0f7208f40084" }
+              ]
+            }
+          ],
+          "name": "Carosserie",
           "quantity": 1
         },
         {
-          "custom": {
-            "elements": [
-              {
-                "amount": 170,
-                "material": { "country": "REO", "id": "8b28671a-83f2-46e6-8c1c-e973a47dde97" },
-                "transforms": []
-              }
-            ],
-            "name": "Groupe motopropulseur"
-          },
+          "elements": [
+            {
+              "amount": 170,
+              "material": { "country": "REO", "id": "8b28671a-83f2-46e6-8c1c-e973a47dde97" }
+            }
+          ],
+          "name": "Groupe motopropulseur",
           "quantity": 1
         },
         {
-          "custom": {
-            "elements": [
-              {
-                "amount": 40,
-                "material": { "country": "REO", "id": "7cd80a58-6d07-4abc-ab41-624c0d1487c7" },
-                "transforms": [
-                  { "country": "REO", "id": "ea284007-49a8-4be1-95fc-452ea180285a" },
-                  { "country": "REO", "id": "7319ac9c-5796-412f-a1eb-58e01afa7708" }
-                ]
-              },
-              {
-                "amount": 10,
-                "material": { "country": "REO", "id": "30212fbf-5912-40eb-b2ab-87837361c462" },
-                "transforms": [
-                  { "country": "REO", "id": "981e74ea-ef7d-40d1-b25e-c5534446474e" },
-                  { "country": "REO", "id": "7319ac9c-5796-412f-a1eb-58e01afa7708" }
-                ]
-              },
-              {
-                "amount": 25,
-                "material": { "country": "REO", "id": "4b4e1204-48ac-48ac-a0e2-ee2176202a5a" },
-                "transforms": [
-                  { "id": "7319ac9c-5796-412f-a1eb-58e01afa7708" }
-                ]
-              }
-            ],
-            "name": "Système de transmission"
-          },
+          "elements": [
+            {
+              "amount": 40,
+              "material": { "country": "REO", "id": "7cd80a58-6d07-4abc-ab41-624c0d1487c7" },
+              "transforms": [
+                { "country": "REO", "id": "ea284007-49a8-4be1-95fc-452ea180285a" },
+                { "country": "REO", "id": "7319ac9c-5796-412f-a1eb-58e01afa7708" }
+              ]
+            },
+            {
+              "amount": 10,
+              "material": { "country": "REO", "id": "30212fbf-5912-40eb-b2ab-87837361c462" },
+              "transforms": [
+                { "country": "REO", "id": "981e74ea-ef7d-40d1-b25e-c5534446474e" },
+                { "country": "REO", "id": "7319ac9c-5796-412f-a1eb-58e01afa7708" }
+              ]
+            },
+            {
+              "amount": 25,
+              "material": { "country": "REO", "id": "4b4e1204-48ac-48ac-a0e2-ee2176202a5a" },
+              "transforms": [
+                { "id": "7319ac9c-5796-412f-a1eb-58e01afa7708" }
+              ]
+            }
+          ],
+          "name": "Système de transmission",
           "quantity": 1
         },
         {
-          "custom": {
-            "elements": [
-              {
-                "amount": 200,
-                "material": { "country": "REO", "id": "7cd80a58-6d07-4abc-ab41-624c0d1487c7" },
-                "transforms": [
-                  { "country": "REO", "id": "ea284007-49a8-4be1-95fc-452ea180285a" },
-                  { "country": "REO", "id": "7319ac9c-5796-412f-a1eb-58e01afa7708" }
-                ]
-              },
-              {
-                "amount": 15,
-                "material": { "country": "REO", "id": "30212fbf-5912-40eb-b2ab-87837361c462" },
-                "transforms": [
-                  { "country": "REO", "id": "981e74ea-ef7d-40d1-b25e-c5534446474e" }
-                ]
-              },
-              {
-                "amount": 30,
-                "material": { "country": "REO", "id": "baae8572-db4a-4cb8-8f74-e72ba5ef0116" },
-                "transforms": [
-                  { "country": "REO", "id": "7319ac9c-5796-412f-a1eb-58e01afa7708" }
-                ]
-              },
-              {
-                "amount": 10,
-                "material": { "country": "REO", "id": "baae8572-db4a-4cb8-8f74-e72ba5ef0116" },
-                "transforms": [
-                  { "country": "REO", "id": "d693bd0d-88d4-4370-81ee-597956bb58f0" },
-                  { "country": "REO", "id": "7319ac9c-5796-412f-a1eb-58e01afa7708" }
-                ]
-              }
-            ],
-            "name": "Chassis"
-          },
+          "elements": [
+            {
+              "amount": 200,
+              "material": { "country": "REO", "id": "7cd80a58-6d07-4abc-ab41-624c0d1487c7" },
+              "transforms": [
+                { "country": "REO", "id": "ea284007-49a8-4be1-95fc-452ea180285a" },
+                { "country": "REO", "id": "7319ac9c-5796-412f-a1eb-58e01afa7708" }
+              ]
+            },
+            {
+              "amount": 15,
+              "material": { "country": "REO", "id": "30212fbf-5912-40eb-b2ab-87837361c462" },
+              "transforms": [
+                { "country": "REO", "id": "981e74ea-ef7d-40d1-b25e-c5534446474e" }
+              ]
+            },
+            {
+              "amount": 30,
+              "material": { "country": "REO", "id": "baae8572-db4a-4cb8-8f74-e72ba5ef0116" },
+              "transforms": [
+                { "country": "REO", "id": "7319ac9c-5796-412f-a1eb-58e01afa7708" }
+              ]
+            },
+            {
+              "amount": 10,
+              "material": { "country": "REO", "id": "baae8572-db4a-4cb8-8f74-e72ba5ef0116" },
+              "transforms": [
+                { "country": "REO", "id": "d693bd0d-88d4-4370-81ee-597956bb58f0" },
+                { "country": "REO", "id": "7319ac9c-5796-412f-a1eb-58e01afa7708" }
+              ]
+            }
+          ],
+          "name": "Chassis",
           "quantity": 1
         },
         {
-          "custom": {
-            "elements": [
-              {
-                "amount": 20,
-                "material": { "country": "REO", "id": "f92ed520-3845-4a5a-8745-e87fd6863f03" },
-                "transforms": []
-              }
-            ],
-            "name": "Batterie plomb"
-          },
+          "elements": [
+            {
+              "amount": 20,
+              "material": { "country": "REO", "id": "f92ed520-3845-4a5a-8745-e87fd6863f03" }
+            }
+          ],
+          "name": "Batterie plomb",
           "quantity": 1
         },
         {
-          "custom": {
-            "elements": [
-              {
-                "amount": 8,
-                "material": { "country": "REO", "id": "5f837a69-839d-4a49-9a30-19e1501ad51e" },
-                "transforms": []
-              }
-            ],
-            "name": "Pneus"
-          },
+          "elements": [
+            {
+              "amount": 8,
+              "material": { "country": "REO", "id": "5f837a69-839d-4a49-9a30-19e1501ad51e" }
+            }
+          ],
+          "name": "Pneus",
           "quantity": 4
         },
         {
-          "custom": {
-            "elements": [
-              {
-                "amount": 2,
-                "material": { "id": "c5295f47-0307-48a6-8552-3705063af767" },
-                "transforms": [
-                  { "id": "4a08bcab-5c25-4dec-961a-0f7208f40084" }
-                ]
-              },
-              {
-                "amount": 2,
-                "material": { "id": "51956fb2-304d-4e63-a3ef-b3eed44fde38" },
-                "transforms": []
-              },
-              {
-                "amount": 1,
-                "material": { "id": "30212fbf-5912-40eb-b2ab-87837361c462" },
-                "transforms": [
-                  { "id": "981e74ea-ef7d-40d1-b25e-c5534446474e" },
-                  { "id": "7319ac9c-5796-412f-a1eb-58e01afa7708" }
-                ]
-              }
-            ],
-            "name": "Composants divers"
-          },
+          "elements": [
+            {
+              "amount": 2,
+              "material": { "id": "c5295f47-0307-48a6-8552-3705063af767" },
+              "transforms": [
+                { "id": "4a08bcab-5c25-4dec-961a-0f7208f40084" }
+              ]
+            },
+            { "amount": 2, "material": { "id": "51956fb2-304d-4e63-a3ef-b3eed44fde38" } },
+            {
+              "amount": 1,
+              "material": { "id": "30212fbf-5912-40eb-b2ab-87837361c462" },
+              "transforms": [
+                { "id": "981e74ea-ef7d-40d1-b25e-c5534446474e" },
+                { "id": "7319ac9c-5796-412f-a1eb-58e01afa7708" }
+              ]
+            }
+          ],
+          "name": "Composants divers",
           "quantity": 1
         }
       ],
@@ -1750,193 +1539,169 @@
       "assembly": { "country": "REO", "operations": ["c51ab87d-f368-4704-a5ec-7ea17ba87d46"] },
       "components": [
         {
-          "custom": {
-            "elements": [
-              {
-                "amount": 535,
-                "material": { "country": "REO", "id": "7cd80a58-6d07-4abc-ab41-624c0d1487c7" },
-                "transforms": [
-                  { "country": "REO", "id": "ea284007-49a8-4be1-95fc-452ea180285a" },
-                  { "country": "REO", "id": "7319ac9c-5796-412f-a1eb-58e01afa7708" }
-                ]
-              },
-              {
-                "amount": 7,
-                "material": { "country": "REO", "id": "baae8572-db4a-4cb8-8f74-e72ba5ef0116" },
-                "transforms": [
-                  { "country": "REO", "id": "971df5fa-c32e-4a7e-b1aa-14ce9f240b5c" },
-                  { "country": "REO", "id": "7319ac9c-5796-412f-a1eb-58e01afa7708" }
-                ]
-              },
-              {
-                "amount": 8,
-                "material": { "country": "REO", "id": "baae8572-db4a-4cb8-8f74-e72ba5ef0116" },
-                "transforms": [
-                  { "country": "REO", "id": "d693bd0d-88d4-4370-81ee-597956bb58f0" },
-                  { "country": "REO", "id": "7319ac9c-5796-412f-a1eb-58e01afa7708" }
-                ]
-              },
-              {
-                "amount": 7,
-                "material": { "country": "REO", "id": "a363f079-bc3f-424a-a2e1-06b9c76b4fc3" },
-                "transforms": []
-              },
-              {
-                "amount": 20,
-                "material": { "country": "REO", "id": "42748244-0939-4da2-ad5f-206ce541d7ee" },
-                "transforms": []
-              },
-              {
-                "amount": 13,
-                "material": { "country": "REO", "id": "29b1a0f9-4887-49f7-910f-e50ad9e1b572" },
-                "transforms": []
-              },
-              {
-                "amount": 160,
-                "material": { "country": "REO", "id": "c5295f47-0307-48a6-8552-3705063af767" },
-                "transforms": [
-                  { "country": "REO", "id": "4a08bcab-5c25-4dec-961a-0f7208f40084" }
-                ]
-              }
-            ],
-            "name": "Carosserie"
-          },
+          "elements": [
+            {
+              "amount": 535,
+              "material": { "country": "REO", "id": "7cd80a58-6d07-4abc-ab41-624c0d1487c7" },
+              "transforms": [
+                { "country": "REO", "id": "ea284007-49a8-4be1-95fc-452ea180285a" },
+                { "country": "REO", "id": "7319ac9c-5796-412f-a1eb-58e01afa7708" }
+              ]
+            },
+            {
+              "amount": 7,
+              "material": { "country": "REO", "id": "baae8572-db4a-4cb8-8f74-e72ba5ef0116" },
+              "transforms": [
+                { "country": "REO", "id": "971df5fa-c32e-4a7e-b1aa-14ce9f240b5c" },
+                { "country": "REO", "id": "7319ac9c-5796-412f-a1eb-58e01afa7708" }
+              ]
+            },
+            {
+              "amount": 8,
+              "material": { "country": "REO", "id": "baae8572-db4a-4cb8-8f74-e72ba5ef0116" },
+              "transforms": [
+                { "country": "REO", "id": "d693bd0d-88d4-4370-81ee-597956bb58f0" },
+                { "country": "REO", "id": "7319ac9c-5796-412f-a1eb-58e01afa7708" }
+              ]
+            },
+            {
+              "amount": 7,
+              "material": { "country": "REO", "id": "a363f079-bc3f-424a-a2e1-06b9c76b4fc3" }
+            },
+            {
+              "amount": 20,
+              "material": { "country": "REO", "id": "42748244-0939-4da2-ad5f-206ce541d7ee" }
+            },
+            {
+              "amount": 13,
+              "material": { "country": "REO", "id": "29b1a0f9-4887-49f7-910f-e50ad9e1b572" }
+            },
+            {
+              "amount": 160,
+              "material": { "country": "REO", "id": "c5295f47-0307-48a6-8552-3705063af767" },
+              "transforms": [
+                { "country": "REO", "id": "4a08bcab-5c25-4dec-961a-0f7208f40084" }
+              ]
+            }
+          ],
+          "name": "Carosserie",
           "quantity": 1
         },
         {
-          "custom": {
-            "elements": [
-              {
-                "amount": 210,
-                "material": { "country": "REO", "id": "8b28671a-83f2-46e6-8c1c-e973a47dde97" },
-                "transforms": []
-              }
-            ],
-            "name": "Groupe motopropulseur"
-          },
+          "elements": [
+            {
+              "amount": 210,
+              "material": { "country": "REO", "id": "8b28671a-83f2-46e6-8c1c-e973a47dde97" }
+            }
+          ],
+          "name": "Groupe motopropulseur",
           "quantity": 1
         },
         {
-          "custom": {
-            "elements": [
-              {
-                "amount": 50,
-                "material": { "country": "REO", "id": "7cd80a58-6d07-4abc-ab41-624c0d1487c7" },
-                "transforms": [
-                  { "country": "REO", "id": "ea284007-49a8-4be1-95fc-452ea180285a" },
-                  { "country": "REO", "id": "7319ac9c-5796-412f-a1eb-58e01afa7708" }
-                ]
-              },
-              {
-                "amount": 15,
-                "material": { "country": "REO", "id": "30212fbf-5912-40eb-b2ab-87837361c462" },
-                "transforms": [
-                  { "country": "REO", "id": "981e74ea-ef7d-40d1-b25e-c5534446474e" },
-                  { "country": "REO", "id": "7319ac9c-5796-412f-a1eb-58e01afa7708" }
-                ]
-              },
-              {
-                "amount": 30,
-                "material": { "country": "REO", "id": "4b4e1204-48ac-48ac-a0e2-ee2176202a5a" },
-                "transforms": [
-                  { "country": "REO", "id": "7319ac9c-5796-412f-a1eb-58e01afa7708" }
-                ]
-              }
-            ],
-            "name": "Système de transmission"
-          },
+          "elements": [
+            {
+              "amount": 50,
+              "material": { "country": "REO", "id": "7cd80a58-6d07-4abc-ab41-624c0d1487c7" },
+              "transforms": [
+                { "country": "REO", "id": "ea284007-49a8-4be1-95fc-452ea180285a" },
+                { "country": "REO", "id": "7319ac9c-5796-412f-a1eb-58e01afa7708" }
+              ]
+            },
+            {
+              "amount": 15,
+              "material": { "country": "REO", "id": "30212fbf-5912-40eb-b2ab-87837361c462" },
+              "transforms": [
+                { "country": "REO", "id": "981e74ea-ef7d-40d1-b25e-c5534446474e" },
+                { "country": "REO", "id": "7319ac9c-5796-412f-a1eb-58e01afa7708" }
+              ]
+            },
+            {
+              "amount": 30,
+              "material": { "country": "REO", "id": "4b4e1204-48ac-48ac-a0e2-ee2176202a5a" },
+              "transforms": [
+                { "country": "REO", "id": "7319ac9c-5796-412f-a1eb-58e01afa7708" }
+              ]
+            }
+          ],
+          "name": "Système de transmission",
           "quantity": 1
         },
         {
-          "custom": {
-            "elements": [
-              {
-                "amount": 250,
-                "material": { "country": "REO", "id": "7cd80a58-6d07-4abc-ab41-624c0d1487c7" },
-                "transforms": [
-                  { "country": "REO", "id": "ea284007-49a8-4be1-95fc-452ea180285a" },
-                  { "country": "REO", "id": "7319ac9c-5796-412f-a1eb-58e01afa7708" }
-                ]
-              },
-              {
-                "amount": 15,
-                "material": { "country": "REO", "id": "30212fbf-5912-40eb-b2ab-87837361c462" },
-                "transforms": [
-                  { "country": "REO", "id": "981e74ea-ef7d-40d1-b25e-c5534446474e" }
-                ]
-              },
-              {
-                "amount": 40,
-                "material": { "country": "REO", "id": "baae8572-db4a-4cb8-8f74-e72ba5ef0116" },
-                "transforms": [
-                  { "country": "REO", "id": "7319ac9c-5796-412f-a1eb-58e01afa7708" }
-                ]
-              },
-              {
-                "amount": 10,
-                "material": { "country": "REO", "id": "baae8572-db4a-4cb8-8f74-e72ba5ef0116" },
-                "transforms": [
-                  { "country": "REO", "id": "d693bd0d-88d4-4370-81ee-597956bb58f0" },
-                  { "country": "REO", "id": "7319ac9c-5796-412f-a1eb-58e01afa7708" }
-                ]
-              }
-            ],
-            "name": "Chassis"
-          },
+          "elements": [
+            {
+              "amount": 250,
+              "material": { "country": "REO", "id": "7cd80a58-6d07-4abc-ab41-624c0d1487c7" },
+              "transforms": [
+                { "country": "REO", "id": "ea284007-49a8-4be1-95fc-452ea180285a" },
+                { "country": "REO", "id": "7319ac9c-5796-412f-a1eb-58e01afa7708" }
+              ]
+            },
+            {
+              "amount": 15,
+              "material": { "country": "REO", "id": "30212fbf-5912-40eb-b2ab-87837361c462" },
+              "transforms": [
+                { "country": "REO", "id": "981e74ea-ef7d-40d1-b25e-c5534446474e" }
+              ]
+            },
+            {
+              "amount": 40,
+              "material": { "country": "REO", "id": "baae8572-db4a-4cb8-8f74-e72ba5ef0116" },
+              "transforms": [
+                { "country": "REO", "id": "7319ac9c-5796-412f-a1eb-58e01afa7708" }
+              ]
+            },
+            {
+              "amount": 10,
+              "material": { "country": "REO", "id": "baae8572-db4a-4cb8-8f74-e72ba5ef0116" },
+              "transforms": [
+                { "country": "REO", "id": "d693bd0d-88d4-4370-81ee-597956bb58f0" },
+                { "country": "REO", "id": "7319ac9c-5796-412f-a1eb-58e01afa7708" }
+              ]
+            }
+          ],
+          "name": "Chassis",
           "quantity": 1
         },
         {
-          "custom": {
-            "elements": [
-              {
-                "amount": 20,
-                "material": { "country": "REO", "id": "f92ed520-3845-4a5a-8745-e87fd6863f03" },
-                "transforms": []
-              }
-            ],
-            "name": "Batterie plomb"
-          },
+          "elements": [
+            {
+              "amount": 20,
+              "material": { "country": "REO", "id": "f92ed520-3845-4a5a-8745-e87fd6863f03" }
+            }
+          ],
+          "name": "Batterie plomb",
           "quantity": 1
         },
         {
-          "custom": {
-            "elements": [
-              {
-                "amount": 10,
-                "material": { "country": "REO", "id": "5f837a69-839d-4a49-9a30-19e1501ad51e" },
-                "transforms": []
-              }
-            ],
-            "name": "Pneus"
-          },
+          "elements": [
+            {
+              "amount": 10,
+              "material": { "country": "REO", "id": "5f837a69-839d-4a49-9a30-19e1501ad51e" }
+            }
+          ],
+          "name": "Pneus",
           "quantity": 4
         },
         {
-          "custom": {
-            "elements": [
-              {
-                "amount": 2,
-                "material": { "id": "c5295f47-0307-48a6-8552-3705063af767" },
-                "transforms": [
-                  { "id": "4a08bcab-5c25-4dec-961a-0f7208f40084" }
-                ]
-              },
-              {
-                "amount": 2,
-                "material": { "id": "51956fb2-304d-4e63-a3ef-b3eed44fde38" },
-                "transforms": []
-              },
-              {
-                "amount": 1,
-                "material": { "id": "30212fbf-5912-40eb-b2ab-87837361c462" },
-                "transforms": [
-                  { "id": "981e74ea-ef7d-40d1-b25e-c5534446474e" },
-                  { "id": "7319ac9c-5796-412f-a1eb-58e01afa7708" }
-                ]
-              }
-            ],
-            "name": "Composants divers"
-          },
+          "elements": [
+            {
+              "amount": 2,
+              "material": { "id": "c5295f47-0307-48a6-8552-3705063af767" },
+              "transforms": [
+                { "id": "4a08bcab-5c25-4dec-961a-0f7208f40084" }
+              ]
+            },
+            { "amount": 2, "material": { "id": "51956fb2-304d-4e63-a3ef-b3eed44fde38" } },
+            {
+              "amount": 1,
+              "material": { "id": "30212fbf-5912-40eb-b2ab-87837361c462" },
+              "transforms": [
+                { "id": "981e74ea-ef7d-40d1-b25e-c5534446474e" },
+                { "id": "7319ac9c-5796-412f-a1eb-58e01afa7708" }
+              ]
+            }
+          ],
+          "name": "Composants divers",
           "quantity": 1
         }
       ],
@@ -1979,97 +1744,81 @@
       "assembly": { "country": "RAS", "operations": ["c51ab87d-f368-4704-a5ec-7ea17ba87d46"] },
       "components": [
         {
-          "custom": {
-            "elements": [
-              {
-                "amount": 40,
-                "material": { "country": "RAS", "id": "01d21ed5-9fc6-4d36-a0ea-cfea8035385b" },
-                "transforms": [
-                  { "country": "RAS", "id": "85b74ce2-2cbc-4d73-a5a2-5c5ffde16319" }
-                ]
-              },
-              {
-                "amount": 180,
-                "material": { "country": "RAS", "id": "3e514eac-185c-449e-bdc2-e1082ca0576d" },
-                "transforms": [
-                  { "country": "RAS", "id": "ea284007-49a8-4be1-95fc-452ea180285a" },
-                  { "country": "RAS", "id": "7319ac9c-5796-412f-a1eb-58e01afa7708" }
-                ]
-              }
-            ]
-          },
+          "elements": [
+            {
+              "amount": 40,
+              "material": { "country": "RAS", "id": "01d21ed5-9fc6-4d36-a0ea-cfea8035385b" },
+              "transforms": [
+                { "country": "RAS", "id": "85b74ce2-2cbc-4d73-a5a2-5c5ffde16319" }
+              ]
+            },
+            {
+              "amount": 180,
+              "material": { "country": "RAS", "id": "3e514eac-185c-449e-bdc2-e1082ca0576d" },
+              "transforms": [
+                { "country": "RAS", "id": "ea284007-49a8-4be1-95fc-452ea180285a" },
+                { "country": "RAS", "id": "7319ac9c-5796-412f-a1eb-58e01afa7708" }
+              ]
+            }
+          ],
           "id": "189674e0-737e-4d6d-aab0-3fdfc19839ed",
           "quantity": 1
         },
         { "id": "7cfe659e-3764-4a8c-a25b-201396cbc09f", "quantity": 2 },
         {
-          "custom": {
-            "elements": [
-              {
-                "amount": 20,
-                "material": { "country": "RAS", "id": "97a70d45-d7d5-4ee5-86b4-ee506300cdaa" },
-                "transforms": []
-              }
-            ]
-          },
+          "elements": [
+            {
+              "amount": 20,
+              "material": { "country": "RAS", "id": "97a70d45-d7d5-4ee5-86b4-ee506300cdaa" }
+            }
+          ],
           "id": "edca4c52-b34a-4906-b2e0-4f726bfcc8f7",
           "quantity": 1
         },
         {
-          "custom": {
-            "elements": [
-              {
-                "amount": 8,
-                "material": { "country": "RAS", "id": "3e514eac-185c-449e-bdc2-e1082ca0576d" },
-                "transforms": [
-                  { "country": "RAS", "id": "ea284007-49a8-4be1-95fc-452ea180285a" },
-                  { "country": "RAS", "id": "7319ac9c-5796-412f-a1eb-58e01afa7708" }
-                ]
-              }
-            ]
-          },
+          "elements": [
+            {
+              "amount": 8,
+              "material": { "country": "RAS", "id": "3e514eac-185c-449e-bdc2-e1082ca0576d" },
+              "transforms": [
+                { "country": "RAS", "id": "ea284007-49a8-4be1-95fc-452ea180285a" },
+                { "country": "RAS", "id": "7319ac9c-5796-412f-a1eb-58e01afa7708" }
+              ]
+            }
+          ],
           "id": "d4583813-5f80-47e0-b028-df438f59cfe2",
           "quantity": 4
         },
         { "id": "6b3d7f30-e87b-426c-93ed-3a1179238583", "quantity": 4 },
         {
-          "custom": {
-            "elements": [
-              {
-                "amount": 20,
-                "material": { "country": "REO", "id": "42748244-0939-4da2-ad5f-206ce541d7ee" },
-                "transforms": []
-              }
-            ]
-          },
+          "elements": [
+            {
+              "amount": 20,
+              "material": { "country": "REO", "id": "42748244-0939-4da2-ad5f-206ce541d7ee" }
+            }
+          ],
           "id": "d3ef64c0-3deb-4ef2-838d-015d8ece019e",
           "quantity": 1
         },
         {
-          "custom": {
-            "elements": [
-              {
-                "amount": 3,
-                "material": { "country": "RAS", "id": "3e514eac-185c-449e-bdc2-e1082ca0576d" },
-                "transforms": [
-                  { "country": "RAS", "id": "ea284007-49a8-4be1-95fc-452ea180285a" },
-                  { "country": "RAS", "id": "7319ac9c-5796-412f-a1eb-58e01afa7708" }
-                ]
-              },
-              {
-                "amount": 3,
-                "material": { "id": "c5295f47-0307-48a6-8552-3705063af767" },
-                "transforms": [
-                  { "id": "85b74ce2-2cbc-4d73-a5a2-5c5ffde16319" }
-                ]
-              },
-              {
-                "amount": 1,
-                "material": { "id": "20f5db04-a4c7-48ab-9903-38c65cd70be0" },
-                "transforms": []
-              }
-            ]
-          },
+          "elements": [
+            {
+              "amount": 3,
+              "material": { "country": "RAS", "id": "3e514eac-185c-449e-bdc2-e1082ca0576d" },
+              "transforms": [
+                { "country": "RAS", "id": "ea284007-49a8-4be1-95fc-452ea180285a" },
+                { "country": "RAS", "id": "7319ac9c-5796-412f-a1eb-58e01afa7708" }
+              ]
+            },
+            {
+              "amount": 3,
+              "material": { "id": "c5295f47-0307-48a6-8552-3705063af767" },
+              "transforms": [
+                { "id": "85b74ce2-2cbc-4d73-a5a2-5c5ffde16319" }
+              ]
+            },
+            { "amount": 1, "material": { "id": "20f5db04-a4c7-48ab-9903-38c65cd70be0" } }
+          ],
           "id": "1d2de15a-53d9-465d-a2cf-fa2c5f68f5e9",
           "quantity": 2
         },
@@ -2091,166 +1840,143 @@
       "assembly": { "country": "FR", "operations": ["c51ab87d-f368-4704-a5ec-7ea17ba87d46"] },
       "components": [
         {
-          "custom": {
-            "elements": [
-              {
-                "amount": 50,
-                "material": { "country": "RAS", "id": "3e514eac-185c-449e-bdc2-e1082ca0576d" },
-                "transforms": [
-                  { "country": "RAS", "id": "ea284007-49a8-4be1-95fc-452ea180285a" },
-                  { "country": "FR", "id": "7319ac9c-5796-412f-a1eb-58e01afa7708" }
-                ]
-              },
-              {
-                "amount": 20,
-                "material": { "country": "RAS", "id": "01d21ed5-9fc6-4d36-a0ea-cfea8035385b" },
-                "transforms": [
-                  { "country": "RAS", "id": "85b74ce2-2cbc-4d73-a5a2-5c5ffde16319" }
-                ]
-              },
-              {
-                "amount": 0.002,
-                "material": { "country": "RAS", "id": "fba45d5f-64fc-44ae-ac75-9301c95c4657" },
-                "transforms": [
-                  { "country": "RAS", "id": "e232270f-3a08-4536-8d8d-dcb4a2031e7b" }
-                ]
-              },
-              {
-                "amount": 20,
-                "material": { "country": "RAS", "id": "63e8a99a-d6e5-4aa5-8fe4-71c3d0ca2107" },
-                "transforms": [
-                  { "country": "RAS", "id": "971df5fa-c32e-4a7e-b1aa-14ce9f240b5c" },
-                  { "country": "FR", "id": "7319ac9c-5796-412f-a1eb-58e01afa7708" }
-                ]
-              }
-            ],
-            "name": "Chassis-carosserie - veli actif, assemblage France"
-          },
+          "elements": [
+            {
+              "amount": 50,
+              "material": { "country": "RAS", "id": "3e514eac-185c-449e-bdc2-e1082ca0576d" },
+              "transforms": [
+                { "country": "RAS", "id": "ea284007-49a8-4be1-95fc-452ea180285a" },
+                { "country": "FR", "id": "7319ac9c-5796-412f-a1eb-58e01afa7708" }
+              ]
+            },
+            {
+              "amount": 20,
+              "material": { "country": "RAS", "id": "01d21ed5-9fc6-4d36-a0ea-cfea8035385b" },
+              "transforms": [
+                { "country": "RAS", "id": "85b74ce2-2cbc-4d73-a5a2-5c5ffde16319" }
+              ]
+            },
+            {
+              "amount": 0.002,
+              "material": { "country": "RAS", "id": "fba45d5f-64fc-44ae-ac75-9301c95c4657" },
+              "transforms": [
+                { "country": "RAS", "id": "e232270f-3a08-4536-8d8d-dcb4a2031e7b" }
+              ]
+            },
+            {
+              "amount": 20,
+              "material": { "country": "RAS", "id": "63e8a99a-d6e5-4aa5-8fe4-71c3d0ca2107" },
+              "transforms": [
+                { "country": "RAS", "id": "971df5fa-c32e-4a7e-b1aa-14ce9f240b5c" },
+                { "country": "FR", "id": "7319ac9c-5796-412f-a1eb-58e01afa7708" }
+              ]
+            }
+          ],
           "id": "f50ff677-3501-49cb-b69d-e826d4114681",
+          "name": "Chassis-carosserie - veli actif, assemblage France",
           "quantity": 1
         },
         { "id": "7cfe659e-3764-4a8c-a25b-201396cbc09f", "quantity": 2 },
         {
-          "custom": {
-            "elements": [
-              {
-                "amount": 8,
-                "material": { "country": "RAS", "id": "97a70d45-d7d5-4ee5-86b4-ee506300cdaa" },
-                "transforms": []
-              }
-            ],
-            "name": "Moteur électrique"
-          },
+          "elements": [
+            {
+              "amount": 8,
+              "material": { "country": "RAS", "id": "97a70d45-d7d5-4ee5-86b4-ee506300cdaa" }
+            }
+          ],
           "id": "059f0f35-099d-4305-8a60-1666222dadb2",
+          "name": "Moteur électrique",
           "quantity": 1
         },
         {
-          "custom": {
-            "elements": [
-              {
-                "amount": 0.3,
-                "material": { "country": "RAS", "id": "63e8a99a-d6e5-4aa5-8fe4-71c3d0ca2107" },
-                "transforms": [
-                  { "country": "RAS", "id": "971df5fa-c32e-4a7e-b1aa-14ce9f240b5c" },
-                  { "country": "RAS", "id": "7319ac9c-5796-412f-a1eb-58e01afa7708" }
-                ]
-              },
-              {
-                "amount": 0.5,
-                "material": { "country": "RAS", "id": "63e8a99a-d6e5-4aa5-8fe4-71c3d0ca2107" },
-                "transforms": [
-                  { "country": "RAS", "id": "d693bd0d-88d4-4370-81ee-597956bb58f0" }
-                ]
-              }
-            ]
-          },
+          "elements": [
+            {
+              "amount": 0.3,
+              "material": { "country": "RAS", "id": "63e8a99a-d6e5-4aa5-8fe4-71c3d0ca2107" },
+              "transforms": [
+                { "country": "RAS", "id": "971df5fa-c32e-4a7e-b1aa-14ce9f240b5c" },
+                { "country": "RAS", "id": "7319ac9c-5796-412f-a1eb-58e01afa7708" }
+              ]
+            },
+            {
+              "amount": 0.5,
+              "material": { "country": "RAS", "id": "63e8a99a-d6e5-4aa5-8fe4-71c3d0ca2107" },
+              "transforms": [
+                { "country": "RAS", "id": "d693bd0d-88d4-4370-81ee-597956bb58f0" }
+              ]
+            }
+          ],
           "id": "9d294fb5-b42a-4a9f-adc6-ff38f6d27e65",
           "quantity": 4
         },
         {
-          "custom": {
-            "elements": [
-              {
-                "amount": 0.8,
-                "material": { "country": "RAS", "id": "5f837a69-839d-4a49-9a30-19e1501ad51e" },
-                "transforms": []
-              },
-              {
-                "amount": 0.2,
-                "material": { "country": "RAS", "id": "9c5a7a8e-6483-4da8-9cc2-0a90a30cb93a" },
-                "transforms": []
-              }
-            ]
-          },
+          "elements": [
+            {
+              "amount": 0.8,
+              "material": { "country": "RAS", "id": "5f837a69-839d-4a49-9a30-19e1501ad51e" }
+            },
+            {
+              "amount": 0.2,
+              "material": { "country": "RAS", "id": "9c5a7a8e-6483-4da8-9cc2-0a90a30cb93a" }
+            }
+          ],
           "id": "8e38b6a5-1c95-43f6-987f-2e368fc74edc",
           "quantity": 4
         },
         {
-          "custom": {
-            "elements": [
-              {
-                "amount": 0.5,
-                "material": { "country": "RAS", "id": "c5295f47-0307-48a6-8552-3705063af767" },
-                "transforms": [
-                  { "country": "RAS", "id": "85b74ce2-2cbc-4d73-a5a2-5c5ffde16319" }
-                ]
-              },
-              {
-                "amount": 2,
-                "material": { "country": "RAS", "id": "3e514eac-185c-449e-bdc2-e1082ca0576d" },
-                "transforms": [
-                  { "country": "RAS", "id": "ea284007-49a8-4be1-95fc-452ea180285a" },
-                  { "country": "RAS", "id": "7319ac9c-5796-412f-a1eb-58e01afa7708" }
-                ]
-              },
-              {
-                "amount": 0.5,
-                "material": { "id": "20f5db04-a4c7-48ab-9903-38c65cd70be0" },
-                "transforms": []
-              }
-            ]
-          },
+          "elements": [
+            {
+              "amount": 0.5,
+              "material": { "country": "RAS", "id": "c5295f47-0307-48a6-8552-3705063af767" },
+              "transforms": [
+                { "country": "RAS", "id": "85b74ce2-2cbc-4d73-a5a2-5c5ffde16319" }
+              ]
+            },
+            {
+              "amount": 2,
+              "material": { "country": "RAS", "id": "3e514eac-185c-449e-bdc2-e1082ca0576d" },
+              "transforms": [
+                { "country": "RAS", "id": "ea284007-49a8-4be1-95fc-452ea180285a" },
+                { "country": "RAS", "id": "7319ac9c-5796-412f-a1eb-58e01afa7708" }
+              ]
+            },
+            { "amount": 0.5, "material": { "id": "20f5db04-a4c7-48ab-9903-38c65cd70be0" } }
+          ],
           "id": "ae9c83de-71bf-4f21-9030-afbfd4ad3b3a",
           "quantity": 2
         },
         {
-          "custom": {
-            "elements": [
-              {
-                "amount": 6,
-                "material": { "id": "30212fbf-5912-40eb-b2ab-87837361c462" },
-                "transforms": [
-                  { "id": "981e74ea-ef7d-40d1-b25e-c5534446474e" },
-                  { "country": "RAS", "id": "7319ac9c-5796-412f-a1eb-58e01afa7708" }
-                ]
-              },
-              {
-                "amount": 5,
-                "material": { "id": "c5295f47-0307-48a6-8552-3705063af767" },
-                "transforms": [
-                  { "country": "FR", "id": "85b74ce2-2cbc-4d73-a5a2-5c5ffde16319" }
-                ]
-              },
-              {
-                "amount": 1.5,
-                "material": { "country": "RAS", "id": "51956fb2-304d-4e63-a3ef-b3eed44fde38" },
-                "transforms": []
-              }
-            ]
-          },
+          "elements": [
+            {
+              "amount": 6,
+              "material": { "id": "30212fbf-5912-40eb-b2ab-87837361c462" },
+              "transforms": [
+                { "id": "981e74ea-ef7d-40d1-b25e-c5534446474e" },
+                { "country": "RAS", "id": "7319ac9c-5796-412f-a1eb-58e01afa7708" }
+              ]
+            },
+            {
+              "amount": 5,
+              "material": { "id": "c5295f47-0307-48a6-8552-3705063af767" },
+              "transforms": [
+                { "country": "FR", "id": "85b74ce2-2cbc-4d73-a5a2-5c5ffde16319" }
+              ]
+            },
+            {
+              "amount": 1.5,
+              "material": { "country": "RAS", "id": "51956fb2-304d-4e63-a3ef-b3eed44fde38" }
+            }
+          ],
           "id": "f134b3fd-0439-4b25-a06e-f1b8fd6e201c",
           "quantity": 1
         },
         {
-          "custom": {
-            "elements": [
-              {
-                "amount": 10,
-                "material": { "country": "RAS", "id": "6445c1fa-13a6-4058-8978-bcf2be63cd56" },
-                "transforms": []
-              }
-            ]
-          },
+          "elements": [
+            {
+              "amount": 10,
+              "material": { "country": "RAS", "id": "6445c1fa-13a6-4058-8978-bcf2be63cd56" }
+            }
+          ],
           "id": "6cb4338a-4663-4325-90b6-f7279a498c9b",
           "quantity": 1
         }
@@ -2298,42 +2024,40 @@
       "components": [
         {
           "country": "FR",
-          "custom": {
-            "elements": [
-              {
-                "amount": 16,
-                "material": "01d21ed5-9fc6-4d36-a0ea-cfea8035385b",
-                "transforms": [
-                  { "country": "FR", "id": "85b74ce2-2cbc-4d73-a5a2-5c5ffde16319" }
-                ]
-              },
-              {
-                "amount": 40,
-                "material": "21a0d5b0-861e-4bed-98a9-46c61d2a0618",
-                "transforms": [
-                  { "country": "FR", "id": "ea284007-49a8-4be1-95fc-452ea180285a" },
-                  { "country": "FR", "id": "7319ac9c-5796-412f-a1eb-58e01afa7708" }
-                ]
-              },
-              {
-                "amount": 0.02,
-                "material": "f4a5d1ad-9362-4b18-9555-d5ab58f3b993",
-                "transforms": [
-                  { "country": "FR", "id": "e232270f-3a08-4536-8d8d-dcb4a2031e7b" }
-                ]
-              },
-              {
-                "amount": 20,
-                "material": "4b4e1204-48ac-48ac-a0e2-ee2176202a5a",
-                "transforms": [
-                  { "country": "FR", "id": "d693bd0d-88d4-4370-81ee-597956bb58f0" },
-                  { "country": "FR", "id": "7319ac9c-5796-412f-a1eb-58e01afa7708" }
-                ]
-              }
-            ],
-            "name": "Chassis-carosserie Minibus quadricycle"
-          },
+          "elements": [
+            {
+              "amount": 16,
+              "material": "01d21ed5-9fc6-4d36-a0ea-cfea8035385b",
+              "transforms": [
+                { "country": "FR", "id": "85b74ce2-2cbc-4d73-a5a2-5c5ffde16319" }
+              ]
+            },
+            {
+              "amount": 40,
+              "material": "21a0d5b0-861e-4bed-98a9-46c61d2a0618",
+              "transforms": [
+                { "country": "FR", "id": "ea284007-49a8-4be1-95fc-452ea180285a" },
+                { "country": "FR", "id": "7319ac9c-5796-412f-a1eb-58e01afa7708" }
+              ]
+            },
+            {
+              "amount": 0.02,
+              "material": "f4a5d1ad-9362-4b18-9555-d5ab58f3b993",
+              "transforms": [
+                { "country": "FR", "id": "e232270f-3a08-4536-8d8d-dcb4a2031e7b" }
+              ]
+            },
+            {
+              "amount": 20,
+              "material": "4b4e1204-48ac-48ac-a0e2-ee2176202a5a",
+              "transforms": [
+                { "country": "FR", "id": "d693bd0d-88d4-4370-81ee-597956bb58f0" },
+                { "country": "FR", "id": "7319ac9c-5796-412f-a1eb-58e01afa7708" }
+              ]
+            }
+          ],
           "id": "189674e0-737e-4d6d-aab0-3fdfc19839ed",
+          "name": "Chassis-carosserie Minibus quadricycle",
           "quantity": 1
         },
         { "country": "DE", "id": "edca4c52-b34a-4906-b2e0-4f726bfcc8f7", "quantity": 1 },
@@ -2360,219 +2084,196 @@
       "assembly": { "country": "FR", "operations": ["c51ab87d-f368-4704-a5ec-7ea17ba87d46"] },
       "components": [
         {
-          "custom": {
-            "elements": [
-              {
-                "amount": 50,
-                "material": { "country": "FR", "id": "21a0d5b0-861e-4bed-98a9-46c61d2a0618" },
-                "transforms": [
-                  { "country": "FR", "id": "ea284007-49a8-4be1-95fc-452ea180285a" },
-                  { "country": "FR", "id": "7319ac9c-5796-412f-a1eb-58e01afa7708" }
-                ]
-              },
-              {
-                "amount": 20,
-                "material": { "country": "FR", "id": "01d21ed5-9fc6-4d36-a0ea-cfea8035385b" },
-                "transforms": [
-                  { "country": "FR", "id": "85b74ce2-2cbc-4d73-a5a2-5c5ffde16319" }
-                ]
-              },
-              {
-                "amount": 0.002,
-                "material": { "country": "FR", "id": "f4a5d1ad-9362-4b18-9555-d5ab58f3b993" },
-                "transforms": [
-                  { "country": "FR", "id": "e232270f-3a08-4536-8d8d-dcb4a2031e7b" }
-                ]
-              },
-              {
-                "amount": 20,
-                "material": { "country": "FR", "id": "4b4e1204-48ac-48ac-a0e2-ee2176202a5a" },
-                "transforms": [
-                  { "country": "FR", "id": "971df5fa-c32e-4a7e-b1aa-14ce9f240b5c" }
-                ]
-              }
-            ],
-            "name": "Chassis-carosserie - veli actif 150kg, France"
-          },
+          "elements": [
+            {
+              "amount": 50,
+              "material": { "country": "FR", "id": "21a0d5b0-861e-4bed-98a9-46c61d2a0618" },
+              "transforms": [
+                { "country": "FR", "id": "ea284007-49a8-4be1-95fc-452ea180285a" },
+                { "country": "FR", "id": "7319ac9c-5796-412f-a1eb-58e01afa7708" }
+              ]
+            },
+            {
+              "amount": 20,
+              "material": { "country": "FR", "id": "01d21ed5-9fc6-4d36-a0ea-cfea8035385b" },
+              "transforms": [
+                { "country": "FR", "id": "85b74ce2-2cbc-4d73-a5a2-5c5ffde16319" }
+              ]
+            },
+            {
+              "amount": 0.002,
+              "material": { "country": "FR", "id": "f4a5d1ad-9362-4b18-9555-d5ab58f3b993" },
+              "transforms": [
+                { "country": "FR", "id": "e232270f-3a08-4536-8d8d-dcb4a2031e7b" }
+              ]
+            },
+            {
+              "amount": 20,
+              "material": { "country": "FR", "id": "4b4e1204-48ac-48ac-a0e2-ee2176202a5a" },
+              "transforms": [
+                { "country": "FR", "id": "971df5fa-c32e-4a7e-b1aa-14ce9f240b5c" }
+              ]
+            }
+          ],
           "id": "f50ff677-3501-49cb-b69d-e826d4114681",
+          "name": "Chassis-carosserie - veli actif 150kg, France",
           "quantity": 1
         },
         {
-          "custom": {
-            "elements": [
-              {
-                "amount": 3.57,
-                "material": { "country": "FR", "id": "a1f6f8a2-5398-4b32-a3d6-fc0d88ca7a28" },
-                "transforms": [
-                  { "country": "FR", "id": "7f217ecc-5de8-4ce1-b2c2-b5d192c6cdb9" }
-                ]
-              },
-              {
-                "amount": 1.5,
-                "material": { "country": "FR", "id": "baae8572-db4a-4cb8-8f74-e72ba5ef0116" },
-                "transforms": [
-                  { "country": "FR", "id": "971df5fa-c32e-4a7e-b1aa-14ce9f240b5c" }
-                ]
-              },
-              {
-                "amount": 0.3,
-                "material": { "country": "FR", "id": "a363f079-bc3f-424a-a2e1-06b9c76b4fc3" },
-                "transforms": [
-                  { "country": "FR", "id": "d077f06e-4ae9-48b7-8019-64523e577b95" }
-                ]
-              },
-              {
-                "amount": 1.9,
-                "material": { "country": "FR", "id": "21a0d5b0-861e-4bed-98a9-46c61d2a0618" },
-                "transforms": [
-                  { "country": "FR", "id": "ea284007-49a8-4be1-95fc-452ea180285a" }
-                ]
-              },
-              {
-                "amount": 0.8,
-                "material": { "country": "FR", "id": "30212fbf-5912-40eb-b2ab-87837361c462" },
-                "transforms": [
-                  { "country": "FR", "id": "981e74ea-ef7d-40d1-b25e-c5534446474e" }
-                ]
-              },
-              {
-                "amount": 0.9,
-                "material": { "country": "FR", "id": "c5295f47-0307-48a6-8552-3705063af767" },
-                "transforms": [
-                  { "country": "FR", "id": "85b74ce2-2cbc-4d73-a5a2-5c5ffde16319" }
-                ]
-              },
-              {
-                "amount": 0.6,
-                "material": { "country": "RAS", "id": "51956fb2-304d-4e63-a3ef-b3eed44fde38" },
-                "transforms": []
-              }
-            ],
-            "name": "Batterie Li-ion 1.2kWh, NMC811, France"
-          },
+          "elements": [
+            {
+              "amount": 3.57,
+              "material": { "country": "FR", "id": "a1f6f8a2-5398-4b32-a3d6-fc0d88ca7a28" },
+              "transforms": [
+                { "country": "FR", "id": "7f217ecc-5de8-4ce1-b2c2-b5d192c6cdb9" }
+              ]
+            },
+            {
+              "amount": 1.5,
+              "material": { "country": "FR", "id": "baae8572-db4a-4cb8-8f74-e72ba5ef0116" },
+              "transforms": [
+                { "country": "FR", "id": "971df5fa-c32e-4a7e-b1aa-14ce9f240b5c" }
+              ]
+            },
+            {
+              "amount": 0.3,
+              "material": { "country": "FR", "id": "a363f079-bc3f-424a-a2e1-06b9c76b4fc3" },
+              "transforms": [
+                { "country": "FR", "id": "d077f06e-4ae9-48b7-8019-64523e577b95" }
+              ]
+            },
+            {
+              "amount": 1.9,
+              "material": { "country": "FR", "id": "21a0d5b0-861e-4bed-98a9-46c61d2a0618" },
+              "transforms": [
+                { "country": "FR", "id": "ea284007-49a8-4be1-95fc-452ea180285a" }
+              ]
+            },
+            {
+              "amount": 0.8,
+              "material": { "country": "FR", "id": "30212fbf-5912-40eb-b2ab-87837361c462" },
+              "transforms": [
+                { "country": "FR", "id": "981e74ea-ef7d-40d1-b25e-c5534446474e" }
+              ]
+            },
+            {
+              "amount": 0.9,
+              "material": { "country": "FR", "id": "c5295f47-0307-48a6-8552-3705063af767" },
+              "transforms": [
+                { "country": "FR", "id": "85b74ce2-2cbc-4d73-a5a2-5c5ffde16319" }
+              ]
+            },
+            {
+              "amount": 0.6,
+              "material": { "country": "RAS", "id": "51956fb2-304d-4e63-a3ef-b3eed44fde38" }
+            }
+          ],
           "id": "7cfe659e-3764-4a8c-a25b-201396cbc09f",
+          "name": "Batterie Li-ion 1.2kWh, NMC811, France",
           "quantity": 2
         },
         {
-          "custom": {
-            "elements": [
-              {
-                "amount": 8,
-                "material": { "country": "REO", "id": "97a70d45-d7d5-4ee5-86b4-ee506300cdaa" },
-                "transforms": []
-              }
-            ],
-            "name": "Moteur électrique"
-          },
+          "elements": [
+            {
+              "amount": 8,
+              "material": { "country": "REO", "id": "97a70d45-d7d5-4ee5-86b4-ee506300cdaa" }
+            }
+          ],
           "id": "059f0f35-099d-4305-8a60-1666222dadb2",
+          "name": "Moteur électrique",
           "quantity": 1
         },
         {
-          "custom": {
-            "elements": [
-              {
-                "amount": 0.3,
-                "material": { "country": "FR", "id": "4b4e1204-48ac-48ac-a0e2-ee2176202a5a" },
-                "transforms": [
-                  { "country": "FR", "id": "971df5fa-c32e-4a7e-b1aa-14ce9f240b5c" }
-                ]
-              },
-              {
-                "amount": 0.5,
-                "material": { "country": "RAS", "id": "63e8a99a-d6e5-4aa5-8fe4-71c3d0ca2107" },
-                "transforms": [
-                  { "country": "RAS", "id": "d693bd0d-88d4-4370-81ee-597956bb58f0" }
-                ]
-              }
-            ]
-          },
+          "elements": [
+            {
+              "amount": 0.3,
+              "material": { "country": "FR", "id": "4b4e1204-48ac-48ac-a0e2-ee2176202a5a" },
+              "transforms": [
+                { "country": "FR", "id": "971df5fa-c32e-4a7e-b1aa-14ce9f240b5c" }
+              ]
+            },
+            {
+              "amount": 0.5,
+              "material": { "country": "RAS", "id": "63e8a99a-d6e5-4aa5-8fe4-71c3d0ca2107" },
+              "transforms": [
+                { "country": "RAS", "id": "d693bd0d-88d4-4370-81ee-597956bb58f0" }
+              ]
+            }
+          ],
           "id": "9d294fb5-b42a-4a9f-adc6-ff38f6d27e65",
           "quantity": 4
         },
         {
-          "custom": {
-            "elements": [
-              {
-                "amount": 0.8,
-                "material": { "country": "RAS", "id": "5f837a69-839d-4a49-9a30-19e1501ad51e" },
-                "transforms": []
-              },
-              {
-                "amount": 0.2,
-                "material": { "country": "RAS", "id": "9c5a7a8e-6483-4da8-9cc2-0a90a30cb93a" },
-                "transforms": []
-              }
-            ]
-          },
+          "elements": [
+            {
+              "amount": 0.8,
+              "material": { "country": "RAS", "id": "5f837a69-839d-4a49-9a30-19e1501ad51e" }
+            },
+            {
+              "amount": 0.2,
+              "material": { "country": "RAS", "id": "9c5a7a8e-6483-4da8-9cc2-0a90a30cb93a" }
+            }
+          ],
           "id": "8e38b6a5-1c95-43f6-987f-2e368fc74edc",
           "quantity": 4
         },
         {
-          "custom": {
-            "elements": [
-              {
-                "amount": 0.5,
-                "material": { "country": "FR", "id": "c5295f47-0307-48a6-8552-3705063af767" },
-                "transforms": [
-                  { "country": "FR", "id": "85b74ce2-2cbc-4d73-a5a2-5c5ffde16319" }
-                ]
-              },
-              {
-                "amount": 2,
-                "material": { "country": "REO", "id": "21a0d5b0-861e-4bed-98a9-46c61d2a0618" },
-                "transforms": [
-                  { "country": "REO", "id": "ea284007-49a8-4be1-95fc-452ea180285a" },
-                  { "country": "REO", "id": "7319ac9c-5796-412f-a1eb-58e01afa7708" }
-                ]
-              },
-              {
-                "amount": 0.5,
-                "material": { "country": "REO", "id": "20f5db04-a4c7-48ab-9903-38c65cd70be0" },
-                "transforms": []
-              }
-            ]
-          },
+          "elements": [
+            {
+              "amount": 0.5,
+              "material": { "country": "FR", "id": "c5295f47-0307-48a6-8552-3705063af767" },
+              "transforms": [
+                { "country": "FR", "id": "85b74ce2-2cbc-4d73-a5a2-5c5ffde16319" }
+              ]
+            },
+            {
+              "amount": 2,
+              "material": { "country": "REO", "id": "21a0d5b0-861e-4bed-98a9-46c61d2a0618" },
+              "transforms": [
+                { "country": "REO", "id": "ea284007-49a8-4be1-95fc-452ea180285a" },
+                { "country": "REO", "id": "7319ac9c-5796-412f-a1eb-58e01afa7708" }
+              ]
+            },
+            {
+              "amount": 0.5,
+              "material": { "country": "REO", "id": "20f5db04-a4c7-48ab-9903-38c65cd70be0" }
+            }
+          ],
           "id": "ae9c83de-71bf-4f21-9030-afbfd4ad3b3a",
           "quantity": 2
         },
         {
-          "custom": {
-            "elements": [
-              {
-                "amount": 6,
-                "material": { "id": "30212fbf-5912-40eb-b2ab-87837361c462" },
-                "transforms": [
-                  { "id": "981e74ea-ef7d-40d1-b25e-c5534446474e" },
-                  { "country": "REO", "id": "7319ac9c-5796-412f-a1eb-58e01afa7708" }
-                ]
-              },
-              {
-                "amount": 5,
-                "material": { "id": "c5295f47-0307-48a6-8552-3705063af767" },
-                "transforms": [
-                  { "country": "FR", "id": "85b74ce2-2cbc-4d73-a5a2-5c5ffde16319" }
-                ]
-              },
-              {
-                "amount": 1.5,
-                "material": { "country": "RAS", "id": "51956fb2-304d-4e63-a3ef-b3eed44fde38" },
-                "transforms": []
-              }
-            ]
-          },
+          "elements": [
+            {
+              "amount": 6,
+              "material": { "id": "30212fbf-5912-40eb-b2ab-87837361c462" },
+              "transforms": [
+                { "id": "981e74ea-ef7d-40d1-b25e-c5534446474e" },
+                { "country": "REO", "id": "7319ac9c-5796-412f-a1eb-58e01afa7708" }
+              ]
+            },
+            {
+              "amount": 5,
+              "material": { "id": "c5295f47-0307-48a6-8552-3705063af767" },
+              "transforms": [
+                { "country": "FR", "id": "85b74ce2-2cbc-4d73-a5a2-5c5ffde16319" }
+              ]
+            },
+            {
+              "amount": 1.5,
+              "material": { "country": "RAS", "id": "51956fb2-304d-4e63-a3ef-b3eed44fde38" }
+            }
+          ],
           "id": "f134b3fd-0439-4b25-a06e-f1b8fd6e201c",
           "quantity": 1
         },
         {
-          "custom": {
-            "elements": [
-              {
-                "amount": 10,
-                "material": { "country": "FR", "id": "6445c1fa-13a6-4058-8978-bcf2be63cd56" },
-                "transforms": []
-              }
-            ]
-          },
+          "elements": [
+            {
+              "amount": 10,
+              "material": { "country": "FR", "id": "6445c1fa-13a6-4058-8978-bcf2be63cd56" }
+            }
+          ],
           "id": "6cb4338a-4663-4325-90b6-f7279a498c9b",
           "quantity": 1
         }
@@ -2594,35 +2295,31 @@
       "components": [
         {
           "country": "FR",
-          "custom": {
-            "elements": [
-              {
-                "amount": 0.5,
-                "material": "baae8572-db4a-4cb8-8f74-e72ba5ef0116",
-                "transforms": ["d693bd0d-88d4-4370-81ee-597956bb58f0", "d935e937-35e7-471d-8d78-f5c6c1685adf"]
-              }
-            ]
-          },
+          "elements": [
+            {
+              "amount": 0.5,
+              "material": "baae8572-db4a-4cb8-8f74-e72ba5ef0116",
+              "transforms": ["d693bd0d-88d4-4370-81ee-597956bb58f0", "d935e937-35e7-471d-8d78-f5c6c1685adf"]
+            }
+          ],
           "id": "1bd0f5c3-c368-4a2f-b404-2214a6c9b677",
           "quantity": 1
         },
         { "country": "RAS", "id": "8e38b6a5-1c95-43f6-987f-2e368fc74edc", "quantity": 2 },
         {
           "country": "FR",
-          "custom": {
-            "elements": [
-              {
-                "amount": 0.6,
-                "material": "4b4e1204-48ac-48ac-a0e2-ee2176202a5a",
-                "transforms": ["d693bd0d-88d4-4370-81ee-597956bb58f0", "d935e937-35e7-471d-8d78-f5c6c1685adf"]
-              },
-              {
-                "amount": 0.5,
-                "material": "4b4e1204-48ac-48ac-a0e2-ee2176202a5a",
-                "transforms": ["d693bd0d-88d4-4370-81ee-597956bb58f0", "971df5fa-c32e-4a7e-b1aa-14ce9f240b5c"]
-              }
-            ]
-          },
+          "elements": [
+            {
+              "amount": 0.6,
+              "material": "4b4e1204-48ac-48ac-a0e2-ee2176202a5a",
+              "transforms": ["d693bd0d-88d4-4370-81ee-597956bb58f0", "d935e937-35e7-471d-8d78-f5c6c1685adf"]
+            },
+            {
+              "amount": 0.5,
+              "material": "4b4e1204-48ac-48ac-a0e2-ee2176202a5a",
+              "transforms": ["d693bd0d-88d4-4370-81ee-597956bb58f0", "971df5fa-c32e-4a7e-b1aa-14ce9f240b5c"]
+            }
+          ],
           "id": "a94918a7-8915-4841-9cdc-deec0536c724",
           "quantity": 2
         },
@@ -2630,29 +2327,25 @@
         { "country": "RAS", "id": "c4a8eb8f-b4c6-42b8-bd04-0f68e9083424", "quantity": 1 },
         {
           "country": "FR",
-          "custom": {
-            "elements": [
-              {
-                "amount": 0.8,
-                "material": "4b4e1204-48ac-48ac-a0e2-ee2176202a5a",
-                "transforms": ["d693bd0d-88d4-4370-81ee-597956bb58f0", "d935e937-35e7-471d-8d78-f5c6c1685adf"]
-              }
-            ]
-          },
+          "elements": [
+            {
+              "amount": 0.8,
+              "material": "4b4e1204-48ac-48ac-a0e2-ee2176202a5a",
+              "transforms": ["d693bd0d-88d4-4370-81ee-597956bb58f0", "d935e937-35e7-471d-8d78-f5c6c1685adf"]
+            }
+          ],
           "id": "892ba9b4-e6d4-408c-87b9-5eef455f5b4f",
           "quantity": 1
         },
         {
           "country": "CN",
-          "custom": {
-            "elements": [
-              {
-                "amount": 2,
-                "material": "4b4e1204-48ac-48ac-a0e2-ee2176202a5a",
-                "transforms": ["d693bd0d-88d4-4370-81ee-597956bb58f0", "d935e937-35e7-471d-8d78-f5c6c1685adf"]
-              }
-            ]
-          },
+          "elements": [
+            {
+              "amount": 2,
+              "material": "4b4e1204-48ac-48ac-a0e2-ee2176202a5a",
+              "transforms": ["d693bd0d-88d4-4370-81ee-597956bb58f0", "d935e937-35e7-471d-8d78-f5c6c1685adf"]
+            }
+          ],
           "id": "49a16258-22eb-4700-88c4-5e3d1af071e7",
           "quantity": 1
         },
@@ -2671,97 +2364,81 @@
       "assembly": { "country": "FR", "operations": ["c51ab87d-f368-4704-a5ec-7ea17ba87d46"] },
       "components": [
         {
-          "custom": {
-            "elements": [
-              {
-                "amount": 40,
-                "material": { "country": "RAS", "id": "01d21ed5-9fc6-4d36-a0ea-cfea8035385b" },
-                "transforms": [
-                  { "country": "RAS", "id": "85b74ce2-2cbc-4d73-a5a2-5c5ffde16319" }
-                ]
-              },
-              {
-                "amount": 180,
-                "material": { "country": "RAS", "id": "3e514eac-185c-449e-bdc2-e1082ca0576d" },
-                "transforms": [
-                  { "country": "RAS", "id": "ea284007-49a8-4be1-95fc-452ea180285a" },
-                  { "country": "FR", "id": "7319ac9c-5796-412f-a1eb-58e01afa7708" }
-                ]
-              }
-            ]
-          },
+          "elements": [
+            {
+              "amount": 40,
+              "material": { "country": "RAS", "id": "01d21ed5-9fc6-4d36-a0ea-cfea8035385b" },
+              "transforms": [
+                { "country": "RAS", "id": "85b74ce2-2cbc-4d73-a5a2-5c5ffde16319" }
+              ]
+            },
+            {
+              "amount": 180,
+              "material": { "country": "RAS", "id": "3e514eac-185c-449e-bdc2-e1082ca0576d" },
+              "transforms": [
+                { "country": "RAS", "id": "ea284007-49a8-4be1-95fc-452ea180285a" },
+                { "country": "FR", "id": "7319ac9c-5796-412f-a1eb-58e01afa7708" }
+              ]
+            }
+          ],
           "id": "189674e0-737e-4d6d-aab0-3fdfc19839ed",
           "quantity": 1
         },
         { "id": "7cfe659e-3764-4a8c-a25b-201396cbc09f", "quantity": 2 },
         {
-          "custom": {
-            "elements": [
-              {
-                "amount": 20,
-                "material": { "country": "RAS", "id": "97a70d45-d7d5-4ee5-86b4-ee506300cdaa" },
-                "transforms": []
-              }
-            ]
-          },
+          "elements": [
+            {
+              "amount": 20,
+              "material": { "country": "RAS", "id": "97a70d45-d7d5-4ee5-86b4-ee506300cdaa" }
+            }
+          ],
           "id": "edca4c52-b34a-4906-b2e0-4f726bfcc8f7",
           "quantity": 1
         },
         {
-          "custom": {
-            "elements": [
-              {
-                "amount": 8,
-                "material": { "country": "RAS", "id": "3e514eac-185c-449e-bdc2-e1082ca0576d" },
-                "transforms": [
-                  { "country": "RAS", "id": "ea284007-49a8-4be1-95fc-452ea180285a" },
-                  { "country": "RAS", "id": "7319ac9c-5796-412f-a1eb-58e01afa7708" }
-                ]
-              }
-            ]
-          },
+          "elements": [
+            {
+              "amount": 8,
+              "material": { "country": "RAS", "id": "3e514eac-185c-449e-bdc2-e1082ca0576d" },
+              "transforms": [
+                { "country": "RAS", "id": "ea284007-49a8-4be1-95fc-452ea180285a" },
+                { "country": "RAS", "id": "7319ac9c-5796-412f-a1eb-58e01afa7708" }
+              ]
+            }
+          ],
           "id": "d4583813-5f80-47e0-b028-df438f59cfe2",
           "quantity": 4
         },
         { "id": "6b3d7f30-e87b-426c-93ed-3a1179238583", "quantity": 4 },
         {
-          "custom": {
-            "elements": [
-              {
-                "amount": 20,
-                "material": { "country": "REO", "id": "42748244-0939-4da2-ad5f-206ce541d7ee" },
-                "transforms": []
-              }
-            ]
-          },
+          "elements": [
+            {
+              "amount": 20,
+              "material": { "country": "REO", "id": "42748244-0939-4da2-ad5f-206ce541d7ee" }
+            }
+          ],
           "id": "d3ef64c0-3deb-4ef2-838d-015d8ece019e",
           "quantity": 1
         },
         {
-          "custom": {
-            "elements": [
-              {
-                "amount": 3,
-                "material": { "country": "RAS", "id": "3e514eac-185c-449e-bdc2-e1082ca0576d" },
-                "transforms": [
-                  { "country": "RAS", "id": "ea284007-49a8-4be1-95fc-452ea180285a" },
-                  { "country": "RAS", "id": "7319ac9c-5796-412f-a1eb-58e01afa7708" }
-                ]
-              },
-              {
-                "amount": 3,
-                "material": { "id": "c5295f47-0307-48a6-8552-3705063af767" },
-                "transforms": [
-                  { "id": "85b74ce2-2cbc-4d73-a5a2-5c5ffde16319" }
-                ]
-              },
-              {
-                "amount": 1,
-                "material": { "id": "20f5db04-a4c7-48ab-9903-38c65cd70be0" },
-                "transforms": []
-              }
-            ]
-          },
+          "elements": [
+            {
+              "amount": 3,
+              "material": { "country": "RAS", "id": "3e514eac-185c-449e-bdc2-e1082ca0576d" },
+              "transforms": [
+                { "country": "RAS", "id": "ea284007-49a8-4be1-95fc-452ea180285a" },
+                { "country": "RAS", "id": "7319ac9c-5796-412f-a1eb-58e01afa7708" }
+              ]
+            },
+            {
+              "amount": 3,
+              "material": { "id": "c5295f47-0307-48a6-8552-3705063af767" },
+              "transforms": [
+                { "id": "85b74ce2-2cbc-4d73-a5a2-5c5ffde16319" }
+              ]
+            },
+            { "amount": 1, "material": { "id": "20f5db04-a4c7-48ab-9903-38c65cd70be0" } }
+          ],
           "id": "1d2de15a-53d9-465d-a2cf-fa2c5f68f5e9",
           "quantity": 2
         },

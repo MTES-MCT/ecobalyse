@@ -2,7 +2,6 @@ module Data.Component exposing
     ( Assembly
     , Component
     , Config
-    , Consumption
     , Custom
     , DataContainer
     , Element
@@ -82,7 +81,6 @@ module Data.Component exposing
     , findById
     , getAssemblyOperations
     , getAvailableDistributionProcesses
-    , getConsumptionProcessId
     , getConsumptions
     , getDistributionProcessId
     , getDocLink
@@ -110,6 +108,7 @@ module Data.Component exposing
     , productionItemToLabel
     , quantityFromInt
     , quantityToInt
+    , queryToString
     , removeAssemblyOperation
     , removeConsumption
     , removeElement
@@ -149,6 +148,7 @@ import Data.Common.EncodeUtils as EU
 import Data.Complement as Complement exposing (ComplementsImpacts, ComplementsResultsImpacts)
 import Data.Component.Amount as Amount exposing (Amount)
 import Data.Component.Config as Config exposing (EndOfLifeStrategies, EndOfLifeStrategy)
+import Data.Component.Consumption as Consumption exposing (Consumption)
 import Data.Component.ProductCategory as ProductCategory exposing (ProductCategory)
 import Data.Country as Country exposing (Country)
 import Data.Country.Code as CountryCode
@@ -166,6 +166,7 @@ import Data.Uuid as Uuid exposing (Uuid)
 import Dict.Any as AnyDict
 import Energy
 import Json.Decode as Decode exposing (Decoder)
+import Json.Decode.Extra as DE
 import Json.Decode.Pipeline as Decode
 import Json.Encode as Encode
 import List.Extra as LE
@@ -214,9 +215,13 @@ type alias Query =
     -- reuse existing mechanics and handle holistic durability like it's implemented for textile,
     -- though it's still an ongoing discussion and we need to move forward and iterate.
     , durability : Maybe Unit.Ratio
+
+    -- FIXME: Rename to composition? or production?
     , items : List Item
     , packagings : List Packaging
     , product : Maybe ProductCategory.Id
+
+    -- FIXME: this should be Maybe Bool so we could have a product category default value
     , recyclable : Bool
     , transportOptions : TransportOptions
     }
@@ -233,12 +238,6 @@ type alias Assembly =
     { country : Maybe CountryCode.Code
     , operations : Maybe (List Process.Id)
     }
-
-
-{-| Use stage consumption, a process and a quantity of its unit
--}
-type Consumption
-    = Consumption QuantifiedProcess
 
 
 {-| Errors related to distribution process handling and availability
@@ -265,6 +264,12 @@ type alias ExpandedItem =
     }
 
 
+{-| FIXME: find a better name for this type
+
+This is used to represent a custom/altered component, which is a component that is not part of the database.
+It is also used to override the component name in the production tbale as well as the elements and quantity.
+
+-}
 type alias Custom =
     { elements : List Element
     , name : Maybe String
@@ -340,7 +345,7 @@ type Packaging
 
 
 {-| A generic compact representation of a process and an amount of it.
-This is used by `Consumption` and `Packaging`
+This is used by `Packaging`.
 -}
 type alias QuantifiedProcess =
     { amount : Amount
@@ -349,7 +354,7 @@ type alias QuantifiedProcess =
 
 
 {-| An expanded representation of a process and an amount of it.
-This is used by `Consumption` and `Packaging`
+This is used by resolved consumptions and packagings.
 -}
 type alias ExpandedQuantifiedProcess =
     { amount : Amount
@@ -471,14 +476,11 @@ addAssemblyOperation requirements process ({ assembly } as query) =
     }
 
 
-addConsumption : Requirements db -> Process.Id -> Query -> Query
-addConsumption requirements processId query =
+addConsumption : Requirements db -> Process -> Query -> Query
+addConsumption requirements process query =
     { query
         | consumptions =
-            Just
-                (getConsumptions requirements query
-                    ++ [ consumption (Amount.fromFloat 1) processId ]
-                )
+            Just (getConsumptions requirements query ++ [ Consumption.fromProcess process ])
     }
 
 
@@ -559,6 +561,14 @@ addResults (Results results) (Results acc) =
             , mass = Quantity.sum [ results.mass, acc.mass ]
             , stage = Nothing
         }
+
+
+amountProcessToString : Amount -> Process -> String
+amountProcessToString amount process =
+    Format.formatFloat 5 (Amount.toFloat amount)
+        ++ Process.unitToString process.unit
+        ++ " "
+        ++ Process.getDisplayName process
 
 
 {-| Sequencially apply assembly processes to existing Results initialized from product mass.
@@ -817,14 +827,9 @@ computeVolumeFromMass =
         >> Volume.cubicMeters
 
 
-consumption : Amount -> Process.Id -> Consumption
-consumption amount =
-    QuantifiedProcess amount >> Consumption
-
-
-consumptionFromCategory : ProductCategory.DefaultConsumption -> Consumption
-consumptionFromCategory { amount, processId } =
-    consumption (Maybe.withDefault (Amount.fromFloat 1) amount) processId
+consumption : Maybe Amount -> Process.Id -> Consumption
+consumption amount processId =
+    { amount = amount, processId = processId }
 
 
 computeDistributionImpacts : Requirements db -> Query -> LifeCycle -> Result String LifeCycle
@@ -1315,15 +1320,20 @@ decodeBase64Query : String -> Result String Query
 decodeBase64Query =
     Base64.decode
         >> Result.andThen
-            (Decode.decodeString decodeQuery
+            (Decode.decodeString (decodeQuery [])
                 >> Result.mapError Decode.errorToString
             )
 
 
-decodeConsumption : Decoder Consumption
-decodeConsumption =
-    decodeQuantifiedProcess
-        |> Decode.map Consumption
+{-| Decodes and validates a consumption from a list of processes.
+-}
+decodeConsumption : List Process -> Decoder Consumption
+decodeConsumption processes =
+    if List.isEmpty processes then
+        Consumption.decode
+
+    else
+        Consumption.decodeAndValidate processes
 
 
 decodeCustom : Decoder Custom
@@ -1387,9 +1397,37 @@ decodeTransforms =
 decodeItem : Decoder Item
 decodeItem =
     Decode.succeed Item
-        |> DU.strictOptional "custom" decodeCustom
+        |> Decode.custom decodeItemCustom
         |> DU.strictOptional "id" (Decode.map Id Uuid.decoder)
         |> Decode.required "quantity" decodeQuantity
+
+
+decodeItemCustom : Decoder (Maybe Custom)
+decodeItemCustom =
+    -- Test and validate nested `custom` legacy prop for backward
+    -- compatibility (saved bookmarks, admin, previous api calls, etc)
+    DE.optionalField "custom" decodeCustom
+        |> Decode.andThen
+            (\maybeNested ->
+                case maybeNested of
+                    Just custom ->
+                        Decode.succeed (Just custom)
+
+                    Nothing ->
+                        -- Test for flat form: `elements` on the item itself
+                        -- Note: decodeCustom needs the *whole* object
+                        DE.optionalField "elements" Decode.value
+                            |> Decode.andThen
+                                (\maybeElements ->
+                                    case maybeElements of
+                                        Just _ ->
+                                            Decode.map Just decodeCustom
+
+                                        -- Regular item: no custom prop, nothing to decode
+                                        Nothing ->
+                                            Decode.succeed Nothing
+                                )
+            )
 
 
 decodeList : Decoder (List Component)
@@ -1417,13 +1455,13 @@ decodeQuantity =
         |> Decode.map Quantity
 
 
-decodeQuery : Decoder Query
-decodeQuery =
+decodeQuery : List Process -> Decoder Query
+decodeQuery processes =
     decodeAssembly
         |> Decode.andThen
             (\assembly ->
                 Decode.succeed (Query assembly)
-                    |> DU.strictOptional "consumptions" (Decode.list decodeConsumption)
+                    |> DU.strictOptional "consumptions" (Decode.list (decodeConsumption processes))
                     |> DU.strictOptional "distribution" Process.decodeId
                     |> DU.strictOptional "durability" Unit.decodeRatio
                     |> Decode.required "components" (Decode.list decodeItem)
@@ -1491,13 +1529,7 @@ elementToString : List Process -> Element -> Result String String
 elementToString processes element =
     processes
         |> Process.findById element.material.id
-        |> Result.map
-            (\process ->
-                Format.formatFloat 5 (Amount.toFloat element.amount)
-                    ++ Process.unitToString process.unit
-                    ++ " "
-                    ++ Process.getDisplayName process
-            )
+        |> Result.map (amountProcessToString element.amount)
 
 
 elementTransforms : TargetElement -> List Item -> List Process.Id
@@ -1520,6 +1552,17 @@ emptyAssembly : Assembly
 emptyAssembly =
     { country = Nothing
     , operations = Nothing
+    }
+
+
+emptyComponent : Component
+emptyComponent =
+    { comment = Nothing
+    , elements = []
+    , id = Nothing
+    , name = ""
+    , published = False
+    , scope = Scope.Generic Scope.Object
     }
 
 
@@ -1597,49 +1640,32 @@ encodeBase64Query =
     encodeQuery >> Encode.encode 0 >> Base64.encode
 
 
-encodeConsumption : Consumption -> Encode.Value
-encodeConsumption (Consumption quantifiedProcess) =
-    encodeQuantifiedProcess quantifiedProcess
-
-
-encodeCustom : Custom -> Encode.Value
-encodeCustom custom =
-    -- Note: custom scopes are never serialized nor exported as JSON, they are
-    --       only used by itemToComponent in the admin
-    EU.optionalPropertiesObject
-        [ ( "name"
-          , custom.name
-                |> Maybe.map String.trim
-                |> Maybe.andThen
-                    (\name ->
-                        -- Forbid serializing an empty name
-                        if name == "" then
-                            Nothing
-
-                        else
-                            Just name
-                    )
-                |> Maybe.map Encode.string
-          )
-        , ( "elements", custom.elements |> Encode.list encodeElement |> Just )
-        ]
-
-
 encodeElement : Element -> Encode.Value
 encodeElement element =
-    Encode.object
-        [ ( "amount", Amount.encode element.amount )
-        , ( "material", encodeLocalizedProcess element.material )
-        , ( "transforms", element.transforms |> Encode.list encodeTransform )
+    EU.optionalPropertiesObject
+        [ ( "amount", Amount.encode element.amount |> Just )
+        , ( "material", encodeLocalizedProcess element.material |> Just )
+        , ( "transforms"
+          , if List.isEmpty element.transforms then
+                Nothing
+
+            else
+                Just (element.transforms |> Encode.list encodeTransform)
+          )
         ]
 
 
 encodeLocalizedProcess : LocalizedProcess -> Encode.Value
 encodeLocalizedProcess localizedProcess =
-    EU.optionalPropertiesObject
-        [ ( "country", localizedProcess.country |> Maybe.map CountryCode.encode )
-        , ( "id", localizedProcess.id |> Process.encodeId |> Just )
-        ]
+    case localizedProcess.country of
+        Just country ->
+            Encode.object
+                [ ( "country", CountryCode.encode country )
+                , ( "id", Process.encodeId localizedProcess.id )
+                ]
+
+        Nothing ->
+            Process.encodeId localizedProcess.id
 
 
 encodePackaging : Packaging -> Encode.Value
@@ -1668,10 +1694,33 @@ encodeId =
 encodeItem : Item -> Encode.Value
 encodeItem item =
     EU.optionalPropertiesObject
-        [ ( "id", item.id |> Maybe.map (idToString >> Encode.string) )
-        , ( "quantity", item.quantity |> quantityToInt |> Encode.int |> Just )
-        , ( "custom", item.custom |> Maybe.map encodeCustom )
-        ]
+        ([ ( "id", item.id |> Maybe.map (idToString >> Encode.string) )
+         , ( "quantity", item.quantity |> quantityToInt |> Encode.int |> Just )
+         ]
+            ++ (case item.custom of
+                    Just custom ->
+                        -- Custom scopes are never serialized nor exported as JSON, they are
+                        -- only used by itemToComponent in the admin
+                        [ ( "name"
+                          , custom.name
+                                |> Maybe.map String.trim
+                                |> Maybe.andThen
+                                    (\name ->
+                                        if name == "" then
+                                            Nothing
+
+                                        else
+                                            Just name
+                                    )
+                                |> Maybe.map Encode.string
+                          )
+                        , ( "elements", custom.elements |> Encode.list encodeElement |> Just )
+                        ]
+
+                    Nothing ->
+                        []
+               )
+        )
 
 
 encodeLifeCycle : Maybe Trigram -> LifeCycle -> Encode.Value
@@ -1722,7 +1771,7 @@ encodeQuery query =
                 encodeAssembly query.assembly |> Just
           )
         , ( "components", query.items |> Encode.list encodeItem |> Just )
-        , ( "consumptions", query.consumptions |> Maybe.map (Encode.list encodeConsumption) )
+        , ( "consumptions", query.consumptions |> Maybe.map (Encode.list Consumption.encode) )
         , ( "distribution", query.distribution |> Maybe.map Process.encodeId )
         , ( "durability", query.durability |> Maybe.map Unit.encodeRatio )
         , ( "packagings"
@@ -1858,7 +1907,12 @@ expandAssembly { countries, processes } country operations =
 -}
 expandConsumptions : List Process -> List Consumption -> Result String (List ExpandedQuantifiedProcess)
 expandConsumptions processes =
-    List.map (\(Consumption quantifiedProcess) -> quantifiedProcess)
+    List.map
+        (\useConsumption ->
+            { amount = Maybe.withDefault (Amount.fromFloat 0) useConsumption.amount
+            , processId = useConsumption.processId
+            }
+        )
         >> expandQuantifiedProcesses processes
 
 
@@ -2051,11 +2105,6 @@ getAvailableDistributionProcesses db scope =
         |> List.filter (.unit >> (==) Process.CubicMeter)
 
 
-getConsumptionProcessId : Consumption -> Process.Id
-getConsumptionProcessId (Consumption { processId }) =
-    processId
-
-
 {-| Get the use-stage consumptions:
 
   - from the query itself when set (`Just`, including an explicit empty list)
@@ -2076,7 +2125,7 @@ getConsumptions { db } query =
                         db.products
                             |> ProductCategory.findById productId
                             |> Result.toMaybe
-                            |> Maybe.map (.consumptions >> List.map consumptionFromCategory)
+                            |> Maybe.map .consumptions
                     )
                 |> Maybe.withDefault []
 
@@ -2458,17 +2507,6 @@ itemToComponent { components } { custom, id } =
             custom |> componentFromCustom Nothing |> Ok
 
 
-emptyComponent : Component
-emptyComponent =
-    { comment = Nothing
-    , elements = []
-    , id = Nothing
-    , name = ""
-    , published = False
-    , scope = Scope.Generic Scope.Object
-    }
-
-
 itemToString : DataContainer db -> Item -> Result String String
 itemToString db { custom, id, quantity } =
     let
@@ -2500,7 +2538,6 @@ itemToString db { custom, id, quantity } =
 
 itemsToString : DataContainer db -> List Item -> Result String String
 itemsToString db =
-    -- FIXME: handle query
     RE.combineMap (itemToString db)
         >> Result.map (String.join ", ")
 
@@ -2578,6 +2615,14 @@ productionItemToLabel productionItem =
             Process.getDisplayName process
 
 
+quantifiedProcessesToString : String -> List ExpandedQuantifiedProcess -> String
+quantifiedProcessesToString label processes =
+    processes
+        |> List.map (\{ amount, process } -> amountProcessToString amount process)
+        |> String.join ", "
+        |> (++) (label ++ "\u{00A0}: ")
+
+
 quantityFromInt : Int -> Quantity
 quantityFromInt int =
     Quantity int
@@ -2586,6 +2631,114 @@ quantityFromInt int =
 quantityToInt : Quantity -> Int
 quantityToInt (Quantity int) =
     int
+
+
+queryAssemblyToString : DataContainer db -> Assembly -> Result String (Maybe String)
+queryAssemblyToString db { country, operations } =
+    Result.map2
+        (\maybeCountry maybeOperations ->
+            case ( maybeCountry, maybeOperations ) of
+                ( Nothing, Nothing ) ->
+                    Nothing
+
+                ( Just name, Nothing ) ->
+                    Just ("Assemblage (" ++ name ++ ")")
+
+                ( Nothing, Just ops ) ->
+                    Just ("Assemblage\u{00A0}: " ++ ops)
+
+                ( Just name, Just ops ) ->
+                    Just ("Assemblage (" ++ name ++ ")\u{00A0}: " ++ ops)
+        )
+        (case country of
+            Just code ->
+                Country.findByCode code db.countries
+                    |> Result.map (.name >> Just)
+
+            Nothing ->
+                Ok Nothing
+        )
+        (case operations of
+            Just [] ->
+                Ok (Just "aucun")
+
+            Just ids ->
+                ids
+                    |> RE.combineMap (\id -> Process.findById id db.processes |> Result.map Process.getDisplayName)
+                    |> Result.map (String.join ", " >> Just)
+
+            Nothing ->
+                Ok Nothing
+        )
+
+
+queryConsumptionsToString : DataContainer db -> Maybe (List Consumption) -> Result String (Maybe String)
+queryConsumptionsToString db maybeConsumptions =
+    case maybeConsumptions of
+        Just [] ->
+            Ok Nothing
+
+        Just consumptions ->
+            expandConsumptions db.processes consumptions
+                |> Result.map (quantifiedProcessesToString "Consommation" >> Just)
+
+        Nothing ->
+            Ok Nothing
+
+
+queryDistributionToString : DataContainer db -> Maybe Process.Id -> Result String (Maybe String)
+queryDistributionToString db maybeProcessId =
+    case maybeProcessId of
+        Just processId ->
+            Process.findById processId db.processes
+                |> Result.map (\process -> Just ("Distribution\u{00A0}: " ++ Process.getDisplayName process))
+
+        Nothing ->
+            Ok Nothing
+
+
+queryItemsToString : DataContainer db -> List Item -> Result String (Maybe String)
+queryItemsToString db items =
+    if List.isEmpty items then
+        Ok Nothing
+
+    else
+        itemsToString db items
+            |> Result.map Just
+
+
+queryPackagingsToString : DataContainer db -> List Packaging -> Result String (Maybe String)
+queryPackagingsToString db packagings =
+    if List.isEmpty packagings then
+        Ok Nothing
+
+    else
+        expandPackagings db.processes packagings
+            |> Result.map (quantifiedProcessesToString "Emballage" >> Just)
+
+
+queryProductToString : DataContainer db -> Maybe ProductCategory.Id -> Result String (Maybe String)
+queryProductToString db maybeProductId =
+    case maybeProductId of
+        Just productId ->
+            ProductCategory.findById productId db.products
+                |> Result.map (.label >> Just)
+
+        Nothing ->
+            Ok Nothing
+
+
+queryToString : DataContainer db -> Query -> Result String String
+queryToString db query =
+    [ queryProductToString db query.product
+    , queryItemsToString db query.items
+    , queryAssemblyToString db query.assembly
+    , queryPackagingsToString db query.packagings
+    , queryDistributionToString db query.distribution
+    , queryConsumptionsToString db query.consumptions
+    ]
+        |> RE.combine
+        |> Result.map (List.filterMap identity >> String.join ", ")
 
 
 removeAssemblyOperation : Requirements db -> Index -> Query -> Query
@@ -2844,7 +2997,15 @@ updateConsumptionAmount requirements index amount query =
         | consumptions =
             Just
                 (getConsumptions requirements query
-                    |> LE.updateAt index (\(Consumption c) -> Consumption { c | amount = amount })
+                    |> LE.updateAt index
+                        (\useConsumption ->
+                            case useConsumption.amount of
+                                Just _ ->
+                                    { useConsumption | amount = Just amount }
+
+                                Nothing ->
+                                    useConsumption
+                        )
                 )
     }
 
@@ -2993,8 +3154,8 @@ updateRecyclable recyclable query =
     { query | recyclable = recyclable }
 
 
-{-| Return an Amount depending on the process category. If the process is mass dependent, return
-the product mass in kilograms. Otherwise, return the amount.
+{-| Return an Amount depending on the process category. If the process is mass dependent,
+ignore provided amount and return the product mass in kilograms. Otherwise, return the amount.
 -}
 useProcessAmount : LifeCycle -> Process -> Amount -> Amount
 useProcessAmount lifeCycle process amount =
@@ -3057,10 +3218,9 @@ validateAssemblyProcessId { db, scope } processId =
 
 
 validateConsumption : Requirements db -> Consumption -> Result String Consumption
-validateConsumption requirements (Consumption quantifiedProcess) =
-    quantifiedProcess
-        |> validateQuantifiedProcess requirements
-        |> Result.map Consumption
+validateConsumption requirements useConsumption =
+    validateProcessId requirements useConsumption.processId
+        |> Result.andThen (\_ -> Consumption.validate requirements.db.processes useConsumption)
 
 
 validateCountry : Requirements db -> Maybe CountryCode.Code -> Result String (Maybe CountryCode.Code)

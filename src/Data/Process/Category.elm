@@ -7,6 +7,7 @@ module Data.Process.Category exposing
     , encode
     , materialTypeToLabel
     , materialTypeToString
+    , parseMaterialType
     , toLabel
     )
 
@@ -14,6 +15,7 @@ import Dict.Any as AnyDict exposing (AnyDict)
 import Json.Decode as Decode exposing (Decoder)
 import Json.Decode.Extra as DE
 import Json.Encode as Encode
+import Url.Parser as Parser exposing (Parser)
 
 
 type Category
@@ -534,6 +536,11 @@ packagingTypeToLabel packagingType =
 
         Tray ->
             "Barquette"
+
+
+parseMaterialType : Parser (Result String Material -> a) a
+parseMaterialType =
+    Parser.custom "MATERIAL_TYPE" (materialTypeFromString >> Just)
 
 
 toString : Category -> String
