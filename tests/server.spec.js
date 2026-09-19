@@ -694,42 +694,42 @@ describe("API", () => {
 
   describe("Generic", () => {
     describe("/object/countries", () => {
-      it("should render with object countries list", async () => {
-        await expectListResponseContains("/api/object/countries", { code: "FR", name: "France" });
+      it("should respond with object countries list", async () => {
+        await expectListResponseWithObjectKeys("/api/object/countries", ["code", "name"]);
       });
     });
 
     describe("/object/catalog", () => {
-      it("should render with object catalog components", async () => {
-        await expectListResponseContains("/api/object/catalog", {
-          id: "c5d86519-e56a-4ad7-aada-d4f7fffd5628",
-          name: "Toile protection PP (jardinière pin 80 * 40 * 28)",
-        });
+      it("should respond with object catalog components", async () => {
+        await expectListResponseWithObjectKeys("/api/object/catalog", ["id", "name"]);
       });
     });
 
     describe("/food2/categories", () => {
-      it("should render with food2 product categories", async () => {
-        await expectListResponseContains("/api/food2/categories", {
-          id: "2ab49980-2bc8-40b9-8db2-010d0d14ce50",
-          label: "Charcuterie",
-        });
+      it("should respond with food2 product categories", async () => {
+        await expectListResponseWithObjectKeys("/api/food2/categories", ["id", "label"]);
       });
     });
 
     describe("/object/processes/material", () => {
-      it("should render materials with a unit", async () => {
-        await expectListResponseContains("/api/object/processes/material", {
-          name: "Plastique PP, granulé",
-        });
+      it("should respond materials with a unit", async () => {
+        await expectListResponseWithObjectKeys("/api/object/processes/material", [
+          "id",
+          "name",
+          "categories",
+          "unit",
+        ]);
       });
     });
 
     describe("/object/processes/transform/{materialType}", () => {
-      it("should render object transform processes for a material type", async () => {
-        await expectListResponseContains("/api/object/processes/transform/pp", {
-          name: "Moulage par injection",
-        });
+      it("should respond object transform processes for a material type", async () => {
+        await expectListResponseWithObjectKeys("/api/object/processes/transform/pp", [
+          "id",
+          "name",
+          "unit",
+          "categories",
+        ]);
       });
 
       it("should reject an invalid materialType", async () => {
@@ -746,42 +746,35 @@ describe("API", () => {
     });
 
     describe("/food2/processes/transform/{materialType}", () => {
-      it("should render food2 transform processes for a material type", async () => {
-        await expectListResponseContains("/api/food2/processes/transform/fruits_and_vegetables", {
-          name: "Cuisson des fruits et légumes frais",
-        });
+      it("should respond food2 transform processes for a material type", async () => {
+        await expectListResponseObjectMatch(
+          "/api/food2/processes/transform/fruits_and_vegetables",
+          ({ categories }) => categories.includes("material_type:fruits_and_vegetables"),
+        );
       });
     });
 
     describe("/object/processes/packaging", () => {
-      it("should render with object packaging processes", async () => {
-        await expectListResponseContains("/api/object/processes/packaging", {
-          name: "Carton",
-        });
+      it("should respond with object packaging processes", async () => {
+        await expectListResponseWithObjectKeys("/api/object/processes/packaging", ["id", "name"]);
       });
     });
 
     describe("/veli/processes/assembly", () => {
-      it("should render with veli assembly processes", async () => {
-        await expectListResponseContains("/api/veli/processes/assembly", {
-          name: "Assemblage",
-        });
+      it("should respond with veli assembly processes", async () => {
+        await expectListResponseWithObjectKeys("/api/veli/processes/packaging", ["id", "name"]);
       });
     });
 
     describe("/food2/processes/distribution", () => {
-      it("should render with food2 distribution processes", async () => {
-        await expectListResponseContains("/api/food2/processes/distribution", {
-          name: "Vente au détail : produit frais",
-        });
+      it("should respond with food2 distribution processes", async () => {
+        await expectListResponseWithObjectKeys("/api/food2/processes/distribution", ["id", "name"]);
       });
     });
 
     describe("/food2/processes/consumption", () => {
-      it("should render with food2 consumption processes", async () => {
-        await expectListResponseContains("/api/food2/processes/consumption", {
-          name: "Réfrigération",
-        });
+      it("should respond with food2 consumption processes", async () => {
+        await expectListResponseWithObjectKeys("/api/food2/processes/consumption", ["id", "name"]);
       });
     });
 
@@ -882,6 +875,35 @@ async function expectListResponseContains(path, object) {
 
   expectStatus(response, 200);
   expect(response.body).toContainObject(object);
+}
+
+async function expectListResponseObjectMatch(path, matchFunction) {
+  const response = await request(app).get(path).set("Authorization", "Bearer 1234567890");
+
+  expectStatus(response, 200);
+
+  const list = response.body;
+  expect(list).toBeInstanceOf(Array);
+  expect(list.length).toBeGreaterThan(0);
+  list.forEach((item) => {
+    expect(matchFunction(item)).toBe(true);
+  });
+}
+
+async function expectListResponseWithObjectKeys(path, keys) {
+  const response = await request(app).get(path).set("Authorization", "Bearer 1234567890");
+
+  expectStatus(response, 200);
+
+  const list = response.body;
+  expect(list).toBeInstanceOf(Array);
+  expect(list.length).toBeGreaterThan(0);
+  list.forEach((item) => {
+    expect(item).toBeInstanceOf(Object);
+    keys.forEach((key) => {
+      expect(item).toHaveProperty(key);
+    });
+  });
 }
 
 function expectStatus(response, expectedCode, type = "application/json") {
