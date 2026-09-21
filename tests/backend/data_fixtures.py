@@ -210,11 +210,32 @@ def fx_raw_components() -> list[dict[str, Any]]:
     ]
 
 
-@pytest.fixture(name="raw_users")
-def fx_raw_users() -> list[dict[str, Any]]:
+@pytest.fixture(name="raw_betauser")
+def fx_raw_betauser() -> dict[str, Any]:
     """Unstructured user representations."""
 
-    return [
+    return {
+        "id": "d4b534b3-6e6a-42f4-b278-d8145b3b5d59",
+        "email": "beta@example.com",
+        "name": "Beta User",
+        "magic_link_token": "Beta_User_2!_token",
+        "is_superuser": False,
+        "is_betauser": True,
+        "is_active": False,
+        "terms_accepted": True,
+        "first_name": "Beta",
+        "last_name": "User",
+        "organization": OrganizationCreate(
+            type=OrganizationType.INDIVIDUAL,
+        ),
+    }
+
+
+@pytest.fixture(name="raw_users")
+def fx_raw_users(raw_betauser) -> list[dict[str, Any]]:
+    """Unstructured user representations."""
+
+    users = [
         {
             "id": "97108ac1-ffcb-411d-8b1e-d9183399f63b",
             "email": "superuser@example.com",
@@ -295,3 +316,6 @@ def fx_raw_users() -> list[dict[str, Any]]:
             ),
         },
     ]
+    users.append(raw_betauser)
+
+    return users
