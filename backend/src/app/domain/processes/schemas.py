@@ -24,7 +24,10 @@ class Category(StrEnum):
     MATERIAL = "material"
 
     MATERIAL_TYPE_ALUMINIUM = "material_type:aluminium"
-    MATERIAL_TYPE_BATTERY_CELL = "material_type:battery_cell"
+    MATERIAL_TYPE_BATTERY_CELL_NMC811 = "material_type:battery_cell_nmc811"
+    MATERIAL_TYPE_BATTERY_CELL_NMC622 = "material_type:battery_cell_nmc622"
+    MATERIAL_TYPE_BATTERY_CELL_LFP = "material_type:battery_cell_lfp"
+    MATERIAL_TYPE_BATTERY_ALKALINE = "material_type:battery_alkaline"
     MATERIAL_TYPE_COMPOSITES = "material_type:composites"
     MATERIAL_TYPE_CONTAINERBOARD = "material_type:containerboard"
     MATERIAL_TYPE_COPPER = "material_type:copper"
