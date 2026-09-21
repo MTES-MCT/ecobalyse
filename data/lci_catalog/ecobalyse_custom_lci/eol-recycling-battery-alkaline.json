@@ -1,13 +1,13 @@
 {
-  "activityName": "Battery cell EoL recycling, NMC811, CFF",
-  "categories": ["end-of-life", "material_type:battery_cell_nmc811"],
+  "activityName": "Battery EoL recycling, Alkaline, CFF",
+  "categories": ["end-of-life", "material_type:battery_alkaline"],
   "comment": "Based on Delegated Act to Regulation (EU) 2023/1542, methodology for the calculation and verification of the carbon footprint of electric vehicle batteries, with 50% Li recycling (hydrometallurgical), according to EU-2023/1542 2027 target",
-  "displayName": "Recyclage de cellules de batterie Li-ion NMC811, CFF",
+  "displayName": "Recyclage de pile Alkaline, CFF",
   "elecKwh": 0.0,
   "heatMJ": 0,
-  "id": "fe4948bb-1bd6-4ce6-bbb5-a8db7650524f",
+  "id": "6d8e8ba6-104b-426a-87fa-fdb999affd7a",
   "metadata": [
-    { "id": "03c400e8-d3b8-4b6a-8ea7-49180968d0e5", "scopes": ["veli"] }
+    { "id": "6a727794-8464-4605-a1cf-855b6f364445", "scopes": ["veli"] }
   ],
   "qtyVariationRatio": 1,
   "scopes": ["veli"],
