@@ -100,11 +100,11 @@ async def _create_user(
 ) -> None:
     await _create_users(
         f"{email}/{first_name}/{last_name}",
-        organization,
-        organization_type,
-        betauser,
-        superuser,
-        is_active,
+        organization=organization,
+        organization_type=organization_type,
+        betauser=betauser,
+        superuser=superuser,
+        is_active=is_active,
     )
 
 
@@ -237,8 +237,8 @@ def create_user(
     last_name: str,
     organization: str,
     organization_type: OrganizationType,
-    superuser: bool,
     betauser: bool,
+    superuser: bool,
 ) -> None:
     """Create a user."""
 
