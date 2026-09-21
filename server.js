@@ -221,7 +221,7 @@ api.all(/(.*)/, bodyParser.json(), jsonErrorHandler, async (req, res) => {
   // Env gate for generic scopes (food2 / object / veli). Future per-user beta
   // claims can compose here: allow = isGenericScopeEnabled(scope) && isScopeAllowedForToken(...)
   const scope = parseGenericScopeFromUrl(req.url);
-  if (scope && !isGenericScopeEnabled(scope) && NODE_ENV !== "test") {
+  if (scope && !isGenericScopeEnabled(scope)) {
     return res.status(403).send({
       error: { scope: `Le périmètre "${scope}" n'est pas activé sur cette instance.` },
       documentation: "https://ecobalyse.beta.gouv.fr/#/api",

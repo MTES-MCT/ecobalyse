@@ -693,10 +693,21 @@ describe("API", () => {
   });
 
   describe("Generic", () => {
+    const previousSectionFlags = {};
+
     beforeAll(() => {
+      previousSectionFlags.food2 = process.env.ENABLE_FOOD2_SECTION;
+      previousSectionFlags.object = process.env.ENABLE_OBJECTS_SECTION;
+      previousSectionFlags.veli = process.env.ENABLE_VELI_SECTION;
       process.env.ENABLE_FOOD2_SECTION = "True";
       process.env.ENABLE_OBJECTS_SECTION = "True";
       process.env.ENABLE_VELI_SECTION = "True";
+    });
+
+    afterAll(() => {
+      process.env.ENABLE_FOOD2_SECTION = previousSectionFlags.food2;
+      process.env.ENABLE_OBJECTS_SECTION = previousSectionFlags.object;
+      process.env.ENABLE_VELI_SECTION = previousSectionFlags.veli;
     });
 
     describe("enabled section gates", () => {
@@ -728,6 +739,20 @@ describe("API", () => {
           { id: "food2", name: "Alimentaire BÉTA" },
           { id: "veli", name: "Véhicules" },
         ]);
+      });
+
+      it("should reject a disabled generic scope with 403", async () => {
+        process.env.ENABLE_FOOD2_SECTION = "False";
+
+        const response = await request(app)
+          .get("/api/food2/countries")
+          .set("Authorization", "Bearer 1234567890");
+
+        expectStatus(response, 403);
+        expect(response.body).toEqual({
+          error: { scope: 'Le périmètre "food2" n\'est pas activé sur cette instance.' },
+          documentation: "https://ecobalyse.beta.gouv.fr/#/api",
+        });
       });
     });
 

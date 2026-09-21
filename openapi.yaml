@@ -33,6 +33,9 @@ tags:
 
       Documentation de l'API du calculateur générique.
 
+      Les périmètres disponibles sur une instance sont listés par `GET /generic/scopes`
+      et s’utilisent comme valeur du paramètre de chemin `{scope}`.
+
       Un tutoriel permettant de prendre en main l'API générique est [disponible ici](/#/pages/api-docs).
     externalDocs:
       description: À propos
@@ -46,7 +49,7 @@ paths:
         - Commun
       summary: Documentation OpenAPI de l'API
       description: Sert la documentation de l'API au format [OpenAPI](https://swagger.io/specification/)
-      security: [] # root endpoint is always puclic access
+      security: [] # root endpoint is always public access
       responses:
         200:
           description: Documentation de l'API au format OpenAPI.
@@ -354,12 +357,8 @@ paths:
             application/json:
               schema:
                 $ref: "#/components/schemas/GenericScopeListResponse"
-        400:
-          description: Paramètres invalides
-          content:
-            application/json:
-              schema:
-                $ref: "#/components/schemas/InvalidParametersError"
+        401:
+          description: Jeton d’API manquant ou invalide
   /{scope}/catalog:
     get:
       tags:

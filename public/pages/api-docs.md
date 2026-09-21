@@ -36,7 +36,7 @@ La réponse est un tableau d'objets `{ "id", "name" }`, par exemple :
 [
   { "id": "food2", "name": "Alimentaire BÉTA" },
   { "id": "object", "name": "Objets" },
-  { "id": "veli", "name": "Véhicules" },
+  { "id": "veli", "name": "Véhicules" }
 ]
 ```
 

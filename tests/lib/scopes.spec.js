@@ -63,24 +63,15 @@ describe("lib.scopes", () => {
         "/{scope}/countries": { get: { tags: ["Générique"] } },
         "/textile/countries": { get: { tags: ["Textile"] } },
       },
-      components: {
-        parameters: {
-          genericScopeParam: {
-            description: "Périmètre",
-            schema: { type: "string" },
-          },
-        },
-      },
     });
 
-    test("should keep /{scope} paths when at least one scope is enabled", () => {
+    test("should keep generic paths when at least one scope is enabled", () => {
       const doc = baseDoc();
+      const pathsBefore = { ...doc.paths };
       applyGenericScopesToOpenApi(doc, {
         ENABLE_FOOD2_SECTION: "True",
       });
-      expect(doc.paths["/{scope}/countries"]).toBeDefined();
-      expect(doc.paths["/generic/scopes"]).toBeDefined();
-      expect(doc.components.parameters.genericScopeParam.schema.enum).toBeUndefined();
+      expect(doc.paths).toEqual(pathsBefore);
     });
 
     test("should strip generic paths when no generic scope is enabled", () => {
