@@ -693,6 +693,44 @@ describe("API", () => {
   });
 
   describe("Generic", () => {
+    beforeAll(() => {
+      process.env.ENABLE_FOOD2_SECTION = "True";
+      process.env.ENABLE_OBJECTS_SECTION = "True";
+      process.env.ENABLE_VELI_SECTION = "True";
+    });
+
+    describe("enabled section gates", () => {
+      const previous = {};
+
+      beforeEach(() => {
+        previous.food2 = process.env.ENABLE_FOOD2_SECTION;
+        previous.object = process.env.ENABLE_OBJECTS_SECTION;
+        previous.veli = process.env.ENABLE_VELI_SECTION;
+      });
+
+      afterEach(() => {
+        process.env.ENABLE_FOOD2_SECTION = previous.food2;
+        process.env.ENABLE_OBJECTS_SECTION = previous.object;
+        process.env.ENABLE_VELI_SECTION = previous.veli;
+      });
+
+      it("should list enabled generic scopes", async () => {
+        process.env.ENABLE_FOOD2_SECTION = "True";
+        process.env.ENABLE_OBJECTS_SECTION = "False";
+        process.env.ENABLE_VELI_SECTION = "True";
+
+        const response = await request(app)
+          .get("/api/generic/scopes")
+          .set("Authorization", "Bearer 1234567890");
+
+        expectStatus(response, 200);
+        expect(response.body).toEqual([
+          { id: "food2", name: "Alimentaire BÉTA" },
+          { id: "veli", name: "Véhicules" },
+        ]);
+      });
+    });
+
     describe("/object/countries", () => {
       it("should respond with object countries list", async () => {
         await expectListResponseWithObjectKeys("/api/object/countries", ["code", "name"]);

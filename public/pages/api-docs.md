@@ -4,13 +4,12 @@
 
 **Ce tutoriel présente pas à pas la modélisation d'une pizza en utilisant [l'API générique](/#/api) dans sa variante *Alimentaire bêta*, afin d'en obtenir le coût environnemental.**
 
-L'API générique existe pour trois périmètres : `food2` (alimentaire bêta), `object` (objets) et `veli` (véhicules). Ici, tous les appels utilisent `food2`.
 
 > ⚠️ Attention, l'API générique est en cours de construction, son utilisation ainsi que la présente documentation peuvent être amenées à évoluer
 
 ## Prérequis
 
-Les exemples d'appels ci-après utilisent tous l'utilitaire en ligne de commande `curl`, utilisable depuis un terminal.
+Les exemples d'appels ci-après utilisent tous l'utilitaire en ligne de commande [`curl`](https://curl.se), utilisable depuis un terminal.
 
 Tous les appels s'authentifient de la même façon, en passant le jeton d'authentification via un en-tête dédié. Vous pouvez obtenir ce jeton d'accès à l'API depuis l'espace de gestion de [votre compte Ecobalyse](/#/auth), dans l'onglet *Jetons d'API*. Un appel sans jeton, ou avec un jeton invalide, est rejeté avec une erreur HTTP 401.
 
@@ -20,6 +19,30 @@ Tous les appels s'authentifient de la même façon, en passant le jeton d'authen
 >API=https://ecobalyse.beta.gouv.fr/api
 >TOKEN=<votre token ici>
 >```
+
+## Les périmètres disponibles
+
+L'API générique existe pour plusieurs périmètres (ou *scope*). Pour connaître la liste des périmètres supportés par l'API générique sur le serveur :
+
+```bash
+curl -sS "$API/generic/scopes" \
+  -H "accept: application/json" \
+  -H "Authorization: Bearer $TOKEN"
+```
+
+La réponse est un tableau d'objets `{ "id", "name" }`, par exemple :
+
+```json
+[
+  { "id": "food2", "name": "Alimentaire BÉTA" },
+  { "id": "object", "name": "Objets" },
+  { "id": "veli", "name": "Véhicules" },
+]
+```
+
+Puisque nous souhaitons décrire une pizza, nous utiliserons donc le périmètre dont l'identifiant est `food2`.
+
+> ⚠️ Un appel vers un périmètre absent ou invalide renvoie une erreur HTTP 403.
 
 ## Premier appel : une requête vide
 

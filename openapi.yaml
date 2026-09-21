@@ -29,18 +29,12 @@ tags:
       url: https://fabrique-numerique.gitbook.io/ecobalyse
   - name: Générique
     description: |
-      **⚠️ Actuellement en version bêta**
+      **⚠️ Actuellement en version bêta d'accès restreint**
 
-      Documentation de l'API du calculateur générique
+      Documentation de l'API du calculateur générique.
 
-      Le paramètre de chemin `scope` sélectionne le périmètre générique :
-      - `food2`: alimentaire BÉTA
-      - `object`: objets/ameublement
-      - `veli`: véhicules légers/intermédiaires
-
-      Un tutoriel est disponible [ici](/#/pages/api-docs).
+      Un tutoriel permettant de prendre en main l'API générique est [disponible ici](/#/pages/api-docs).
     externalDocs:
-      # TODO: link to specific dev docs, with more examples, tooling etc
       description: À propos
       url: https://fabrique-numerique.gitbook.io/ecobalyse
 security:
@@ -52,6 +46,7 @@ paths:
         - Commun
       summary: Documentation OpenAPI de l'API
       description: Sert la documentation de l'API au format [OpenAPI](https://swagger.io/specification/)
+      security: [] # root endpoint is always puclic access
       responses:
         200:
           description: Documentation de l'API au format OpenAPI.
@@ -341,6 +336,30 @@ paths:
             application/json:
               schema:
                 $ref: "#/components/schemas/CountryListResponse"
+  /generic/scopes:
+    get:
+      tags:
+        - Générique
+      summary: Liste des périmètres génériques activés sur le serveur
+      description: |
+        Retourne les périmètres (*scopes*) du calculateur générique disponibles sur cette instance.
+
+        Utiliser les identifiants renvoyés comme valeur du paramètre de chemin `{scope}`
+        des autres points d’accès génériques. Un appel vers un périmètre absent de cette
+        liste renvoie une erreur HTTP 403.
+      responses:
+        200:
+          description: Opération réussie
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/GenericScopeListResponse"
+        400:
+          description: Paramètres invalides
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/InvalidParametersError"
   /{scope}/catalog:
     get:
       tags:
@@ -643,18 +662,12 @@ components:
       in: path
       required: true
       description: |
-        Périmètre du calculateur générique :
-
-        - `food2` : alimentaire BÉTA
-        - `object` : objets/ameublement
-        - `veli` : véhicules légers/intermédiaires
+        Identifiant d’un périmètre du calculateur générique activé sur cette instance
+        (liste disponible sur `GET /generic/scopes`). Par exemple `food2`.
       schema:
         type: string
         example: food2
-        enum:
-          - food2
-          - object
-          - veli
+        minLength: 1
     impactUrlParam:
       name: impact
       in: path
@@ -1245,6 +1258,26 @@ components:
         query:
           type: object
           description: Le jeu de paramètres utilisé pour effectuer la simulation.
+    GenericScopeListResponse:
+      type: array
+      description: |
+        Liste des périmètres génériques activés sur cette instance
+        (voir `GET /generic/scopes`).
+      items:
+        type: object
+        additionalProperties: false
+        required:
+          - id
+          - name
+        properties:
+          id:
+            type: string
+            description: Identifiant utilisable comme paramètre de chemin `{scope}`.
+            example: food2
+          name:
+            type: string
+            description: Libellé affichable du périmètre.
+            example: Alimentaire BÉTA
     SingleImpactResponse:
       type: object
       properties:

@@ -15,7 +15,13 @@ const { setupSentry } = require("./lib/sentry"); // MUST be required BEFORE expr
 const { createMatomoTracker } = require("./lib/matomo");
 const { createPlausibleTracker } = require("./lib/plausible");
 
-const { getProcessesAsString, filterLegacyFood1Paths } = require("./lib");
+const { filterLegacyFood1Paths, getProcessesAsString } = require("./lib");
+const {
+  applyGenericScopesToOpenApi,
+  getEnabledGenericScopeEntries,
+  isGenericScopeEnabled,
+  parseGenericScopeFromUrl,
+} = require("./lib/scopes");
 const express = require("express");
 
 const expressHost = "0.0.0.0";
@@ -117,6 +123,7 @@ function processOpenApi(contents, versionNumber) {
   if (ENABLE_FOOD_SECTION !== "True" || ENABLE_FOOD1_API_DOCS !== "True") {
     contents.paths = filterLegacyFood1Paths(contents.paths);
   }
+  applyGenericScopesToOpenApi(contents);
   return contents;
 }
 
@@ -174,18 +181,32 @@ api.get("/", async (req, res) => {
   res.status(200).send(openApiContents);
 });
 
+const respondWithFormattedJSON = (res, status, body) => {
+  res.status(status);
+  res.setHeader("Content-Type", "application/json");
+  res.send(jsonUtils.serialize(body));
+};
+
+api.get("/generic/scopes", async (req, res) => {
+  const token = extractTokenFromHeaders(req.headers);
+  if (!token && NODE_ENV !== "test") {
+    return res.status(401).send({
+      error: { authorization: "Un token valide est requis pour utiliser l’API" },
+      documentation: "https://ecobalyse.beta.gouv.fr/#/api",
+    });
+  }
+
+  matomoTracker.track(200, req);
+  await plausibleTracker.captureEvent(200, req);
+  respondWithFormattedJSON(res, 200, getEnabledGenericScopeEntries());
+});
+
 // Redirects: API
 api.get(/^\/countries$/, (_, res) => res.redirect("textile/countries"));
 api.get(/^\/materials$/, (_, res) => res.redirect("textile/materials"));
 api.get(/^\/products$/, (_, res) => res.redirect("textile/products"));
 const cleanRedirect = (url) => (url.startsWith("/") ? url : "");
 api.get(/^\/simulator(.*)$/, ({ url }, res) => res.redirect(`/api/textile${cleanRedirect(url)}`));
-
-const respondWithFormattedJSON = (res, status, body) => {
-  res.status(status);
-  res.setHeader("Content-Type", "application/json");
-  res.send(jsonUtils.serialize(body));
-};
 
 // Note: Text/JSON request body parser (JSON is decoded in Elm)
 api.all(/(.*)/, bodyParser.json(), jsonErrorHandler, async (req, res) => {
@@ -196,6 +217,17 @@ api.all(/(.*)/, bodyParser.json(), jsonErrorHandler, async (req, res) => {
       documentation: "https://ecobalyse.beta.gouv.fr/#/api",
     });
   }
+
+  // Env gate for generic scopes (food2 / object / veli). Future per-user beta
+  // claims can compose here: allow = isGenericScopeEnabled(scope) && isScopeAllowedForToken(...)
+  const scope = parseGenericScopeFromUrl(req.url);
+  if (scope && !isGenericScopeEnabled(scope) && NODE_ENV !== "test") {
+    return res.status(403).send({
+      error: { scope: `Le périmètre "${scope}" n'est pas activé sur cette instance.` },
+      documentation: "https://ecobalyse.beta.gouv.fr/#/api",
+    });
+  }
+
   const processes = await getProcesses(req.headers);
 
   elmApp.ports.input.send({
