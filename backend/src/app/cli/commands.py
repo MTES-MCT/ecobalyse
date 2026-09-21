@@ -85,7 +85,7 @@ async def _create_users(
         user = await users_service.upsert_many(
             data=users_to_upsert, auto_commit=True, match_fields=["email"]
         )
-        console.print(f"Users upserted: {[user['email'] for user in users_to_upsert]}")
+        console.print(f"Users upserted: {[user for user in users_to_upsert]}")
 
 
 async def _create_user(
@@ -222,13 +222,23 @@ def create_users(
     show_default=False,
     is_flag=True,
 )
+@click.option(
+    "--betauser",
+    help="Is a betauser",
+    type=click.BOOL,
+    default=False,
+    required=False,
+    show_default=False,
+    is_flag=True,
+)
 def create_user(
     email: str,
     first_name: str,
     last_name: str,
     organization: str,
     organization_type: OrganizationType,
-    superuser: bool | None,
+    superuser: bool,
+    betauser: bool,
 ) -> None:
     """Create a user."""
 
@@ -247,8 +257,47 @@ def create_user(
         last_name,
         organization,
         organization_type,
-        cast("bool", superuser),
+        betauser,
+        superuser,
     )
+
+
+async def _set_betauser(user_email: str, betauser: bool) -> None:
+
+    console = get_console()
+    async with alchemy.get_session() as db_session:
+        users_service = await anext(provide_users_service(db_session))
+        user = await users_service.get_one_or_none(email=user_email)
+
+        if not user:
+            raise click.ClickException("User not found")
+
+        await users_service.update(
+            item_id=user.id, data={"is_betauser": betauser}, auto_commit=True
+        )
+
+        console.print(f"Beta status updated to {betauser} for '{user_email}'")
+
+
+@user_management_group.command(
+    name="set-betauser", help="Set betauser status for an user"
+)
+@click.argument(
+    "email",
+    type=click.STRING,
+)
+@click.argument("beta_status", type=click.BOOL)
+def set_betauser(
+    email: str,
+    beta_status: bool,
+) -> None:
+    """Create a user."""
+
+    console = get_console()
+
+    console.rule(f"Set user beta status to {beta_status}.")
+
+    anyio.run(_set_betauser, email, beta_status)
 
 
 @click.group(
