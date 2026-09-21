@@ -76,7 +76,7 @@ def get_env[T](
 
 
 def get_env[T](
-    key: str, default: ParseTypes, type_hint: type[T] | UnsetType = _UNSET
+    key: str, default: ParseTypes | None, type_hint: type[T] | UnsetType = _UNSET
 ) -> Callable[[], ParseTypes | T | None]:
     return lambda: get_config_val(key=key, default=default, type_hint=type_hint)
 
@@ -107,6 +107,10 @@ def get_config_val(
 def get_config_val(
     key: str, default: list[str], type_hint: UnsetType = _UNSET
 ) -> list[str]: ...
+
+
+@overload
+def get_config_val(key: str, default: None, type_hint: UnsetType = _UNSET) -> None: ...
 
 
 @overload

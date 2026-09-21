@@ -2,7 +2,7 @@ from __future__ import annotations
 
 import itertools
 from pathlib import Path
-from typing import Any
+from typing import Any, cast
 from uuid import UUID
 
 import anyio
@@ -227,12 +227,12 @@ def create_user(
 
     anyio.run(
         _create_user,
-        email,
+        cast("str", email),
         first_name,
         last_name,
         organization,
         organization_type,
-        superuser,
+        cast("bool", superuser),
     )
 
 
