@@ -1,0 +1,94 @@
+const {
+  applyGenericScopesToOpenApi,
+  getEnabledGenericScopeEntries,
+  getEnabledGenericScopes,
+  isGenericScopeEnabled,
+  parseGenericScopeFromUrl,
+} = require("../../lib/scopes");
+
+describe("lib.scopes", () => {
+  describe("parseGenericScopeFromUrl", () => {
+    test.each([
+      ["/food2/countries", "food2"],
+      ["/object/simulator", "object"],
+      ["/veli/processes/assembly", "veli"],
+      ["/food2/simulator?x=1", "food2"],
+      ["/generic/scopes", null],
+      ["/textile/countries", null],
+      ["/food/countries", null],
+      ["/", null],
+    ])("%s → %s", (url, expected) => {
+      expect(parseGenericScopeFromUrl(url)).toBe(expected);
+    });
+  });
+
+  describe("isGenericScopeEnabled / getEnabledGenericScopes", () => {
+    test("should respect ENABLE_XXX_SECTION flags", () => {
+      const env = {
+        ENABLE_FOOD2_SECTION: "True",
+        ENABLE_OBJECTS_SECTION: "False",
+        ENABLE_VELI_SECTION: "True",
+      };
+      expect(isGenericScopeEnabled("food2", env)).toBe(true);
+      expect(isGenericScopeEnabled("object", env)).toBe(false);
+      expect(isGenericScopeEnabled("veli", env)).toBe(true);
+      expect(getEnabledGenericScopes(env)).toEqual(["food2", "veli"]);
+    });
+
+    test("should treat unset flags as disabled", () => {
+      expect(getEnabledGenericScopes({})).toEqual([]);
+      expect(isGenericScopeEnabled("food2", {})).toBe(false);
+    });
+  });
+
+  describe("getEnabledGenericScopeEntries", () => {
+    test("should return id/name entries for enabled scopes", () => {
+      expect(
+        getEnabledGenericScopeEntries({
+          ENABLE_FOOD2_SECTION: "True",
+          ENABLE_OBJECTS_SECTION: "False",
+          ENABLE_VELI_SECTION: "True",
+        }),
+      ).toEqual([
+        { id: "food2", name: "Alimentaire BÉTA" },
+        { id: "veli", name: "Véhicules" },
+      ]);
+    });
+  });
+
+  describe("applyGenericScopesToOpenApi", () => {
+    const baseDoc = () => ({
+      paths: {
+        "/generic/scopes": { get: { tags: ["Générique"] } },
+        "/{scope}/countries": { get: { tags: ["Générique"] } },
+        "/textile/countries": { get: { tags: ["Textile"] } },
+      },
+      components: {
+        parameters: {
+          genericScopeParam: {
+            description: "Périmètre",
+            schema: { type: "string" },
+          },
+        },
+      },
+    });
+
+    test("should keep /{scope} paths when at least one scope is enabled", () => {
+      const doc = baseDoc();
+      applyGenericScopesToOpenApi(doc, {
+        ENABLE_FOOD2_SECTION: "True",
+      });
+      expect(doc.paths["/{scope}/countries"]).toBeDefined();
+      expect(doc.paths["/generic/scopes"]).toBeDefined();
+      expect(doc.components.parameters.genericScopeParam.schema.enum).toBeUndefined();
+    });
+
+    test("should strip generic paths when no generic scope is enabled", () => {
+      const doc = baseDoc();
+      applyGenericScopesToOpenApi(doc, {});
+      expect(doc.paths).toEqual({
+        "/textile/countries": { get: { tags: ["Textile"] } },
+      });
+    });
+  });
+});
