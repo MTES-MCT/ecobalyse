@@ -368,7 +368,6 @@ paths:
         Identifiants utilisables pour le champ `components[].id`.
         Pour les matières et ingrédients d'un composant personnalisé (`elements`), voir
         `/{scope}/processes/material`.
-        **Note :** le catalogue `food2` est actuellement vide.
       parameters:
         - $ref: "#/components/parameters/genericScopeParam"
       responses:
