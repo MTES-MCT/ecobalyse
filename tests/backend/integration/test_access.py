@@ -136,6 +136,7 @@ async def test_user_profile(
         "id": json["id"],
         "email": "user@example.com",
         "isActive": True,
+        "isBetauser": False,
         "isSuperuser": False,
         "isVerified": False,
         "joinedAt": json["joinedAt"],
@@ -175,6 +176,7 @@ async def test_user_update_profile(
         "id": json["id"],
         "email": "user@example.com",
         "isActive": True,
+        "isBetauser": False,
         "isSuperuser": False,
         "isVerified": False,
         "joinedAt": json["joinedAt"],
@@ -274,6 +276,7 @@ async def test_user_signup_and_login(
             "id": json["id"],
             "email": "foo@bar.com",
             "isActive": True,
+            "isBetauser": False,
             "isSuperuser": False,
             "isVerified": False,
             "joinedAt": json["joinedAt"],
@@ -378,8 +381,10 @@ async def test_token_generation(
     session: AsyncSession,
     client: "AsyncClient",
     raw_users: list[dict[str, Any]],
+    raw_betauser: dict[str, Any],
 ) -> None:
-    token = None
+    betauser_token = None
+    superuser_token = None
 
     async with (
         TokenService.new(session) as token_service,
@@ -388,15 +393,15 @@ async def test_token_generation(
         first_user = raw_users[0]
         secret = "test_secret"
         user = await users_service.get_one(email=first_user["email"])
-        token = await token_service.generate_for_user(user, secret=secret)
+        superuser_token = await token_service.generate_for_user(user, secret=secret)
 
         db_token = (await token_service.repository.get_many())[-1]
 
-        assert token.startswith(
+        assert superuser_token.startswith(
             "eco_api_eyJlbWFpbCI6ICJzdXBlcnVzZXJAZXhhbXBsZS5jb20iLCAiaWQiOiAi"
         )
 
-        payload = await token_service.extract_payload(token)
+        payload = await token_service.extract_payload(superuser_token)
 
         assert payload == {
             "email": user.email,
@@ -409,10 +414,13 @@ async def test_token_generation(
         with pytest.raises(PermissionDeniedException, match="Invalid token"):
             await token_service.authenticate(secret="bad_secret", token_id=db_token.id)
 
+        betauser = await users_service.get_one(email=raw_betauser["email"])
+        betauser_token = await token_service.generate_for_user(betauser, secret=secret)
+
         await token_service.repository.session.commit()
 
     data = {
-        "token": token,
+        "token": superuser_token,
     }
     response = await client.post(
         "/api/tokens/validate",
@@ -420,6 +428,26 @@ async def test_token_generation(
     )
 
     assert response.status_code == 201
+
+    assert response.json() == {
+        "isBetauser": False,
+        "isSuperuser": True,
+    }
+
+    beta_data = {
+        "token": betauser_token,
+    }
+    response = await client.post(
+        "/api/tokens/validate",
+        json=beta_data,
+    )
+
+    assert response.status_code == 201
+
+    assert response.json() == {
+        "isBetauser": True,
+        "isSuperuser": False,
+    }
 
     bad_data = {
         "token": "bad_token",
@@ -430,6 +458,12 @@ async def test_token_generation(
     )
 
     assert response.status_code == 403
+
+    assert response.json() == {
+        "status": 403,
+        "title": "Error decoding Token",
+        "detail": "Forbidden",
+    }
 
 
 async def test_token_forged_email_rejected(

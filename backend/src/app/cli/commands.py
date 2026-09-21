@@ -54,6 +54,7 @@ async def _create_users(
     users_list_string: str,
     organization: str,
     organization_type: OrganizationType,
+    betauser: bool = False,
     superuser: bool = False,
     is_active: bool = True,
 ) -> None:
@@ -70,6 +71,7 @@ async def _create_users(
             first_name=first_name,
             last_name=last_name,
             organization=OrganizationCreate(name=organization, type=organization_type),
+            is_betauser=betauser,
             is_superuser=superuser,
             is_active=is_active,
             terms_accepted=True,
@@ -92,6 +94,7 @@ async def _create_user(
     last_name: str,
     organization: str,
     organization_type: OrganizationType = OrganizationType.LOCAL_AUTHORITY,
+    betauser: bool = False,
     superuser: bool = False,
     is_active: bool = True,
 ) -> None:
@@ -99,6 +102,7 @@ async def _create_user(
         f"{email}/{first_name}/{last_name}",
         organization,
         organization_type,
+        betauser,
         superuser,
         is_active,
     )
@@ -143,6 +147,7 @@ def create_users(
     users: str,
     organization: str,
     organization_type: OrganizationType,
+    betauser: bool,
     superuser: bool,
 ) -> None:
     """Create multiple users."""
@@ -156,6 +161,7 @@ def create_users(
         users,
         organization,
         organization_type,
+        betauser,
         superuser,
     )
 

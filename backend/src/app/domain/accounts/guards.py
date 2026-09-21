@@ -75,6 +75,26 @@ def requires_superuser(
     raise PermissionDeniedException(detail="Insufficient privileges")
 
 
+def requires_betauser(
+    connection: ASGIConnection[m.User, Any, Any, Any], _: BaseRouteHandler
+) -> None:
+    """Request requires active betauser.
+
+    Args:
+        connection (ASGIConnection): HTTP Request
+        _ (BaseRouteHandler): Route handler
+
+    Raises:
+        PermissionDeniedException: Permission denied exception
+
+    Returns:
+        None: Returns None when successful
+    """
+    if connection.user.is_superuser or connection.user.is_betauser:
+        return
+    raise PermissionDeniedException(detail="Insufficient privileges")
+
+
 def requires_verified_user(
     connection: ASGIConnection[m.User, Any, Any, Any], _: BaseRouteHandler
 ) -> None:

@@ -28,6 +28,7 @@ from app.domain.accounts.schemas import (
     AccountRegisterMagicLink,
     ApiToken,
     ApiTokenFromDb,
+    ApiTokenValidate,
     User,
     UserProfileUpdate,
 )
@@ -190,7 +191,7 @@ class AccessController(Controller):
         tokens_service: NamedDependency[TokenService],
         users_service: NamedDependency[UserService],
         data: ApiToken,
-    ) -> None:
+    ) -> ApiTokenValidate:
         """Validate a token"""
 
         cache_duration = settings.app.DEFAULT_TOKEN_VALIDATION_CACHE_SECONDS
@@ -198,10 +199,12 @@ class AccessController(Controller):
         if cache_duration:
             memory_store = request.app.stores.get("memory")
 
-            if await memory_store.get(data.token):
+            store_content = await memory_store.get(data.token)
+
+            if store_content:
                 # If the token is in the store, we had a previous successfull auth
                 # so we consider that the auth is still valid and we successfully return
-                return
+                return ApiTokenValidate.model_validate_json(store_content)
 
         if data.token.startswith("eco_api_"):
             payload = await tokens_service.extract_payload(data.token)
@@ -243,9 +246,15 @@ class AccessController(Controller):
         if cache_duration:
             await memory_store.set(
                 data.token,
-                "1",
+                ApiTokenValidate(
+                    is_betauser=user.is_betauser, is_superuser=user.is_superuser
+                ).model_dump_json(),
                 expires_in=cache_duration,
             )  # Stores token in cache for 20 seconds
+
+        return ApiTokenValidate(
+            is_betauser=user.is_betauser, is_superuser=user.is_superuser
+        )
 
     @post(
         operation_id="GenerateToken",

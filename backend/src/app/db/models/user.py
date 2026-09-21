@@ -37,6 +37,7 @@ class User(UUIDAuditBase):
 
     is_active: Mapped[bool] = mapped_column(default=False, nullable=False)
     is_superuser: Mapped[bool] = mapped_column(default=False, nullable=False)
+    is_betauser: Mapped[bool] = mapped_column(default=False, nullable=False)
     is_verified: Mapped[bool] = mapped_column(default=False, nullable=False)
     joined_at: Mapped[datetime.date] = mapped_column(default=datetime.datetime.now)
     last_login_at: Mapped[datetime.datetime] = mapped_column(
