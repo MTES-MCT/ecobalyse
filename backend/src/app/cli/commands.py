@@ -135,6 +135,15 @@ async def _create_user(
     default=OrganizationType.LOCAL_AUTHORITY,
 )
 @click.option(
+    "--betauser",
+    help="Should create beta users",
+    type=click.BOOL,
+    default=False,
+    required=False,
+    show_default=False,
+    is_flag=True,
+)
+@click.option(
     "--superuser",
     help="Should create super users",
     type=click.BOOL,
