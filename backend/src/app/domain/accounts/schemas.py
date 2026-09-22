@@ -103,6 +103,7 @@ class User(BaseSchema):
         )
 
     is_active: bool = False
+    is_betauser: bool = False
     is_superuser: bool = False
     is_verified: bool = False
     joined_at: date
@@ -119,6 +120,7 @@ class UserCreate(BaseSchema):
     last_name: str
     organization: OrganizationCreate
     terms_accepted: bool = False
+    is_betauser: bool = False
     is_superuser: bool = False
     is_active: bool = True
     is_verified: bool = False
@@ -149,6 +151,13 @@ class ApiToken(BaseSchema):
     """Api token validation"""
 
     token: str
+
+
+class ApiTokenValidate(BaseSchema):
+    """Api token validation"""
+
+    is_betauser: bool
+    is_superuser: bool
 
 
 class ApiTokenFromDb(BaseSchema):
