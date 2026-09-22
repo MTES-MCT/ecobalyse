@@ -158,7 +158,7 @@ curl -sS "$API/food2/processes/transform/other_food_items" \
 ```
 
 - Pour la mozzarella, *Cuisson divers*, identifiant `6de57003-6767-49e2-a5a1-36ead9b78c42`.
-- Farine et eau ne sont pas transformés, donc le champ `transforms` est omis complètement.
+- Pour simplifier cet exemple, farine et eau restent sans transformation (le champ `transforms` est omis), même si d'autres transformations existent pour le type `other_food_items`.
 
 ## Première simulation
 
