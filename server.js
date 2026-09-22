@@ -37,6 +37,7 @@ const {
 } = process.env;
 
 const INTERNAL_BACKEND_URL = "http://localhost:8002";
+const API_DOCS_URL = "https://ecobalyse.beta.gouv.fr/#/api";
 
 const app = express(); // web app
 const api = express(); // api app
@@ -161,6 +162,57 @@ const getProcesses = async (headers) => {
   }
 };
 
+/**
+ * Generic API requires a validated beta or superuser token.
+ */
+async function checkGenericApiAccess(token) {
+  // bypass betauser checks in tests
+  if (NODE_ENV === "test") {
+    return null;
+  }
+
+  function formatError(status, key, message) {
+    return {
+      status,
+      body: {
+        error: { [key]: message },
+        documentation: API_DOCS_URL,
+      },
+    };
+  }
+
+  try {
+    const tokenRes = await fetch(`${INTERNAL_BACKEND_URL}/api/tokens/validate`, {
+      method: "POST",
+      body: JSON.stringify({ token }),
+    });
+    if (tokenRes.status !== 201) {
+      return formatError(401, "authorization", "Un token valide est requis pour utiliser l’API");
+    }
+
+    const { isBetauser, isSuperuser } = await tokenRes.json();
+    if (isBetauser || isSuperuser) {
+      return null;
+    } else {
+      return formatError(
+        403,
+        "authorization",
+        "Accès réservé aux beta-testeurs et superutilisateurs",
+      );
+    }
+  } catch (error) {
+    console.error("Error validating token from the auth backend", error);
+    return {
+      status: 500,
+      body: formatError(
+        500,
+        "server",
+        `Erreur HTTP ${tokenRes?.status ?? 500} du serveur d'authentification: ${error.message}`,
+      ),
+    };
+  }
+}
+
 app.get("/processes/processes.json", async (req, res) => {
   // Note: JSON parsing is done in Elm land
   return res
@@ -192,8 +244,13 @@ api.get("/generic/scopes", async (req, res) => {
   if (!token && NODE_ENV !== "test") {
     return res.status(401).send({
       error: { authorization: "Un token valide est requis pour utiliser l’API" },
-      documentation: "https://ecobalyse.beta.gouv.fr/#/api",
+      documentation: API_DOCS_URL,
     });
+  }
+
+  const rejected = await checkGenericApiAccess(token);
+  if (rejected) {
+    return res.status(rejected.status).send(rejected.body);
   }
 
   matomoTracker.track(200, req);
@@ -214,18 +271,23 @@ api.all(/(.*)/, bodyParser.json(), jsonErrorHandler, async (req, res) => {
   if (!token && NODE_ENV !== "test") {
     return res.status(401).send({
       error: { authorization: "Un token valide est requis pour utiliser l’API" },
-      documentation: "https://ecobalyse.beta.gouv.fr/#/api",
+      documentation: API_DOCS_URL,
     });
   }
 
-  // Env gate for generic scopes (food2 / object / veli). Future per-user beta
-  // claims can compose here: allow = isGenericScopeEnabled(scope) && isScopeAllowedForToken(...)
   const scope = parseGenericScopeFromUrl(req.url);
-  if (scope && !isGenericScopeEnabled(scope)) {
-    return res.status(403).send({
-      error: { scope: `Le périmètre "${scope}" n'est pas activé sur cette instance.` },
-      documentation: "https://ecobalyse.beta.gouv.fr/#/api",
-    });
+  if (scope) {
+    if (!isGenericScopeEnabled(scope)) {
+      return res.status(403).send({
+        error: { scope: `Le périmètre "${scope}" n'est pas activé sur cette instance.` },
+        documentation: API_DOCS_URL,
+      });
+    }
+
+    const rejected = await checkGenericApiAccess(token);
+    if (rejected) {
+      return res.status(rejected.status).send(rejected.body);
+    }
   }
 
   const processes = await getProcesses(req.headers);

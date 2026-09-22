@@ -5,7 +5,7 @@
 **Ce tutoriel présente pas à pas la modélisation d'une pizza en utilisant [l'API générique](/#/api) dans sa variante *Alimentaire bêta*, afin d'en obtenir le coût environnemental.**
 
 
-> ⚠️ Attention, l'API générique est en cours de construction, son utilisation ainsi que la présente documentation peuvent être amenées à évoluer
+> ⚠️ Attention, l'API générique est en cours de construction et actuellement réservée à des utilisateurs en beta-test, son utilisation ainsi que la présente documentation peuvent être amenées à évoluer à tout moment. Vous pouvez vérifier votre statut d'accès à cette API en phase de test depuis votre compte utilisateur dans l'onglet "Jetons d'API".
 
 ## Prérequis
 

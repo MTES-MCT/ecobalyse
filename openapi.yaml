@@ -32,7 +32,6 @@ tags:
       **⚠️ Actuellement en version bêta d'accès restreint**
 
       Documentation de l'API du calculateur générique.
-
       Les périmètres disponibles sur une instance sont listés par `GET /generic/scopes`
       et s’utilisent comme valeur du paramètre de chemin `{scope}`.
 
@@ -344,6 +343,8 @@ paths:
                 $ref: "#/components/schemas/GenericScopeListResponse"
         401:
           description: Jeton d’API manquant ou invalide
+        403:
+          description: Compte non autorisé pour l’API générique (accès réservé aux bêta-testeurs)
   /{scope}/countries:
     get:
       tags:
