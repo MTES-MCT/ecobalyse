@@ -39,6 +39,18 @@ describe("lib.scopes", () => {
       expect(getEnabledGenericScopes({})).toEqual([]);
       expect(isGenericScopeEnabled("food2", {})).toBe(false);
     });
+
+    test("should treat unexpected flag values as disabled", () => {
+      const env = {
+        ENABLE_FOOD2_SECTION: "false",
+        ENABLE_OBJECTS_SECTION: "true",
+        ENABLE_VELI_SECTION: "1",
+      };
+      expect(isGenericScopeEnabled("food2", env)).toBe(false);
+      expect(isGenericScopeEnabled("object", env)).toBe(false);
+      expect(isGenericScopeEnabled("veli", env)).toBe(false);
+      expect(getEnabledGenericScopes(env)).toEqual([]);
+    });
   });
 
   describe("getEnabledGenericScopeEntries", () => {
