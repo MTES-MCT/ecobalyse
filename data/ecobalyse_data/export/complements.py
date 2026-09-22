@@ -63,6 +63,12 @@ FOOD_COMPLEMENTS_COEFFICIENTS = {
 def compute_vegetal_ecosystemic_services(
     food_metadata, ecosystemic_factors, process_with_impacts
 ) -> dict:
+    """Compute hedges, plotSize and cropDiversity complements for a vegetal ingredient.
+
+    For each service: raw CSV factor -> threshold transform -> * landOccupation
+    -> * coefficient -> negate (bonus is negative) -> cap per service.
+    The full method is described in docs/complements.md.
+    """
     services = {}
     for eco_service in config.ecosystemic_services_list:
         factor_raw = ecosystemic_factors[food_metadata["cropGroup"]][eco_service][
@@ -80,7 +86,9 @@ def compute_vegetal_ecosystemic_services(
         # To get the complement final value, we need to multiply it by its FOOD_COMPLEMENTS_COEFFICIENTS
         factor_final = factor_landocc * FOOD_COMPLEMENTS_COEFFICIENTS[eco_service]
 
-        # vegetal ecosystemic services are capped at 30% of the ecoscore impact
+        # Each vegetal ecosystemic service is capped, separately, at 30% of the
+        # ecoscore impact of the process (so the three together can reach 90%).
+        # See https://github.com/MTES-MCT/ecobalyse/issues/2304
         min_value = -0.3 * abs(process_with_impacts["impacts"]["ecs"])
         final_value = max(factor_final, min_value)
 

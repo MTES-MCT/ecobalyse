@@ -85,7 +85,7 @@ def compute_processes_generic(
     processes_impacts_path: str,
     feed_file_path: str,
     raw_to_transformed_file_path: str,
-    ecosystemic_factors_path: str | None = None,
+    ecosystemic_factors_path: str,
 ) -> list[dict]:
     """Compute ProcessGeneric dicts with metadata enrichment.
 
@@ -105,18 +105,24 @@ def compute_processes_generic(
     processes_by_id = {p["id"]: p for p in processes_list}
 
     food_activities = [a for a in activities if get_metadata_for_scope(a, "food")]
-    has_food = bool(food_activities)
-    need_ecs_inputs = has_food and all(
-        p is not None
-        for p in (
-            ecosystemic_factors_path,
-            feed_file_path,
-            raw_to_transformed_file_path,
-        )
-    )
 
     es_by_alias: dict = {}
-    if has_food:
+    if food_activities:
+        missing_ecs_input_files = [
+            str(path)
+            for path in (
+                ecosystemic_factors_path,
+                feed_file_path,
+                raw_to_transformed_file_path,
+            )
+            if not os.path.exists(path)
+        ]
+        if missing_ecs_input_files:
+            raise FileNotFoundError(
+                "Food activities found but ecosystemic services input files are "
+                f"missing, food complements can't be computed: {missing_ecs_input_files}"
+            )
+
         # Lazy import to avoid pulling matplotlib unless we actually need food logic
         from ecobalyse_data.export.food import (
             add_land_occupations as add_food_land_occupations,
@@ -130,19 +136,18 @@ def compute_processes_generic(
         food_by_id = {a["id"]: a for a in food_activities}
         activities = [food_by_id.get(a["id"], a) for a in activities]
 
-        if need_ecs_inputs:
-            ecosystemic_factors = load_ecosystemic_dic(ecosystemic_factors_path)
-            with open(feed_file_path, "r") as f:
-                feed_file_content = json.load(f)
-            with open(raw_to_transformed_file_path, "r") as f:
-                raw_to_transformed = json.load(f)
-            es_by_alias = compute_es_for_ingredients(
-                food_activities,
-                ecosystemic_factors,
-                feed_file_content,
-                raw_to_transformed,
-                processes_by_id,
-            )
+        ecosystemic_factors = load_ecosystemic_dic(ecosystemic_factors_path)
+        with open(feed_file_path, "r") as f:
+            feed_file_content = json.load(f)
+        with open(raw_to_transformed_file_path, "r") as f:
+            raw_to_transformed = json.load(f)
+        es_by_alias = compute_es_for_ingredients(
+            food_activities,
+            ecosystemic_factors,
+            feed_file_content,
+            raw_to_transformed,
+            processes_by_id,
+        )
 
     activities_needing_land = []
     for activity in activities:
@@ -227,7 +232,7 @@ def activities_to_processes_generic_json(
     impacts_output_paths: list[str],
     feed_file_path: str,
     raw_to_transformed_file_path: str,
-    ecosystemic_factors_path: str | None = None,
+    ecosystemic_factors_path: str,
 ) -> list[dict]:
     """Export object processes to ProcessGeneric json files."""
     generic_dicts = compute_processes_generic(
@@ -235,7 +240,7 @@ def activities_to_processes_generic_json(
         processes_impacts_path,
         feed_file_path,
         raw_to_transformed_file_path,
-        ecosystemic_factors_path=ecosystemic_factors_path,
+        ecosystemic_factors_path,
     )
 
     for path in impacts_output_paths:
