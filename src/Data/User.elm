@@ -49,6 +49,7 @@ type alias User =
     , hasActiveToken : Bool
     , id : Id
     , isActive : Bool
+    , isBetauser : Bool
     , isSuperuser : Bool
     , isVerified : Bool
     , joinedAt : Maybe Posix
@@ -145,6 +146,7 @@ decodeUser =
         |> JDP.optional "hasActiveToken" Decode.bool False
         |> JDP.required "id" (Decode.map Id Uuid.decoder)
         |> JDP.required "isActive" Decode.bool
+        |> JDP.optional "isBetauser" Decode.bool False
         |> JDP.required "isSuperuser" Decode.bool
         |> JDP.required "isVerified" Decode.bool
         |> DU.strictOptional "joinedAt" DE.datetime
@@ -246,6 +248,7 @@ encodeUser user =
         , ( "hasActiveToken", user.hasActiveToken |> Encode.bool )
         , ( "id", user.id |> encodeId )
         , ( "isActive", user.isActive |> Encode.bool )
+        , ( "isBetauser", user.isBetauser |> Encode.bool )
         , ( "isSuperuser", user.isSuperuser |> Encode.bool )
         , ( "isVerified", user.isVerified |> Encode.bool )
         , ( "magicLinkSentAt"

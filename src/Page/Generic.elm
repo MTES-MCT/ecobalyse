@@ -952,7 +952,7 @@ selectConsumption requirements query autocompleteState ({ model } as pageUpdate)
     case Autocomplete.selectedValue autocompleteState of
         Just process ->
             pageUpdate
-                |> updateQuery (query |> Component.addConsumption requirements process.id)
+                |> updateQuery (query |> Component.addConsumption requirements process)
                 |> App.apply update (SetModals [])
                 |> App.withCmds [ Plausible.send pageUpdate.session <| Plausible.ConsumptionAdded (Scope.Generic model.genericScope) ]
 

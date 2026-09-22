@@ -200,6 +200,7 @@ userJson =
         "email": "user@tld.org",
         "id": "8c1f1647-eccd-4fe6-a11b-0a049cc46d9f",
         "isActive": true,
+        "isBetauser": false,
         "isSuperuser": false,
         "isVerified": false,
         "magicLinkSentAt": null,

@@ -1,3 +1,6 @@
+// Purposely unmaintained simplified server kept for Docker/demo setups.
+// Prefer ../server.js for feature parity (token checks, generic scope gates, etc.).
+
 require("dotenv").config({ quiet: true });
 
 const fs = require("fs");
@@ -80,7 +83,7 @@ const getProcesses = async (headers, customProcessesImpacts, customProcesses) =>
 
 function processOpenApi(contents, versionNumber) {
   // Add app version info to openapi docs
-  contents.version = versionNumber;
+  contents.info.version = versionNumber;
   // Remove food api docs if disabled from env
   if (ENABLE_FOOD_SECTION !== "True") {
     contents.paths = Object.fromEntries(

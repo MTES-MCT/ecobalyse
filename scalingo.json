@@ -1,5 +1,6 @@
 {
   "env": {
+    "ENABLE_FOOD2_SECTION": { "value": "True" },
     "ENABLE_FOOD_SECTION": { "value": "True" },
     "ENABLE_OBJECTS_SECTION": { "value": "True" },
     "ENABLE_VELI_SECTION": { "value": "True" },
