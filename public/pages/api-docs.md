@@ -16,8 +16,8 @@ Tous les appels s'authentifient de la même façon, en passant le jeton d'authen
 > 💡 Pour permettre de jouer les exemples d'appels `curl` par simple copier-coller, assignez au préalable l'URL de l'API et votre jeton à des variables d'environnement dans votre terminal :
 >
 >```
->API=https://ecobalyse.beta.gouv.fr/api
->TOKEN=<votre token ici>
+>export API=https://ecobalyse.beta.gouv.fr/api
+>export TOKEN=<votre token ici>
 >```
 
 ## Les périmètres disponibles
