@@ -9,7 +9,12 @@ const helmet = require("helmet");
 const { Elm } = require("./server-app");
 const jsonUtils = require("./lib/json");
 const rateLimit = require("express-rate-limit");
-const { createCSPDirectives, extractTokenFromHeaders } = require("./lib/http");
+const {
+  API_DOCS_URL,
+  createCSPDirectives,
+  grantGenericApiAccess,
+  extractTokenFromHeaders,
+} = require("./lib/http");
 // monitoring
 const { setupSentry } = require("./lib/sentry"); // MUST be required BEFORE express
 const { createMatomoTracker } = require("./lib/matomo");
@@ -37,7 +42,6 @@ const {
 } = process.env;
 
 const INTERNAL_BACKEND_URL = "http://localhost:8002";
-const API_DOCS_URL = "https://ecobalyse.beta.gouv.fr/#/api";
 
 const app = express(); // web app
 const api = express(); // api app
@@ -70,7 +74,7 @@ const jsonErrorHandler = bodyParserErrorHandler({
   onError: (err, req, res, next) => {
     res.status(400).send({
       error: { decoding: `Format JSON invalide : ${err.message}` },
-      documentation: "https://ecobalyse.beta.gouv.fr/#/api",
+      documentation: API_DOCS_URL,
     });
   },
 });
@@ -171,44 +175,21 @@ async function checkGenericApiAccess(token) {
     return null;
   }
 
-  function formatError(status, key, message) {
-    return {
-      status,
-      body: {
-        error: { [key]: message },
-        documentation: API_DOCS_URL,
-      },
-    };
-  }
-
   try {
     const tokenRes = await fetch(`${INTERNAL_BACKEND_URL}/api/tokens/validate`, {
       method: "POST",
       body: JSON.stringify({ token }),
     });
-    if (tokenRes.status !== 201) {
-      return formatError(401, "authorization", "Un token valide est requis pour utiliser l’API");
-    }
-
-    const { isBetauser, isSuperuser } = await tokenRes.json();
-    if (isBetauser || isSuperuser) {
-      return null;
-    } else {
-      return formatError(
-        403,
-        "authorization",
-        "Accès réservé aux beta-testeurs et superutilisateurs",
-      );
-    }
+    const claims = tokenRes.status === 201 ? await tokenRes.json() : {};
+    return grantGenericApiAccess(tokenRes.status, claims);
   } catch (error) {
     console.error("Error validating token from the auth backend", error);
     return {
       status: 500,
-      body: formatError(
-        500,
-        "server",
-        `Erreur HTTP ${tokenRes?.status ?? 500} du serveur d'authentification: ${error.message}`,
-      ),
+      body: {
+        error: { server: `Erreur du serveur d'authentification: ${error.message}` },
+        documentation: API_DOCS_URL,
+      },
     };
   }
 }
