@@ -130,12 +130,12 @@ Keyed by **raw** (upstream) alias. Each value maps a **transformed** (downstream
 ```json
 {
   "beef-cattle-conventional-fr-live": {
-    "beef-with-bone":    { "ratio": 1.5,  "source": "brightway", "source_ref": "" },
-    "beef-without-bone": { "ratio": 1.875, "source": "brightway", "source_ref": "" },
-    "ground-beef-2025":  { "ratio": 2.3,  "source": "brightway", "source_ref": "" }
+    "beef-with-bone":    { "ratio": 1.5,  "source": "brightway_manual", "source_ref": "" },
+    "beef-without-bone": { "ratio": 1.875, "source": "brightway_manual", "source_ref": "" },
+    "ground-beef-2025":  { "ratio": 2.3,  "source": "brightway_manual", "source_ref": "" }
   },
   "cow-milk-fr": {
-    "blue-cheese-auvergne-fr": { "ratio": 4.47, "source": "cmaps", "source_ref": "blue-cheese-auvergne-v1" }
+    "blue-cheese-auvergne-fr": { "ratio": 4.47, "source": "cmaps_custom_lci", "source_ref": "blue-cheese-auvergne-v1" }
   }
 }
 ```
@@ -152,13 +152,13 @@ screenshot of a simapro window displaying the 1.5 ratio for beef-with-bone ![scr
   - `cmaps_custom_lci` — taken from the first exchange of a `from_scratch` entry in `custom_lci.json`
   - `manual` — neither of the above.
 - `source_ref` — reference a reviewer can use to find the ratio in the source system:
-  - For `brightway`: the Brightway activity name (e.g. `Meat with bone, beef, for direct consumption {FR}`).
-  - For `cmaps`: the `alias` in `custom_lci.json` (e.g. `blue-cheese-auvergne-v1`).
+  - For `brightway_manual`: the Brightway activity name (e.g. `Meat with bone, beef, for direct consumption {FR}`).
+  - For `cmaps_custom_lci`: the `alias` in `custom_lci.json` (e.g. `blue-cheese-auvergne-v1`).
 
 How to update:
 
 - **Brightway rows.** See screenshot for Simapro. In Brightway, from the transformed activity navigate to the raw_activity. For each activity get the input_amount and output_amount. The ratio is the product of the input_amount/output_amount, eg "How much raw_activity is needed to get 1 unit of transformed_activity".
-- **CMAPS rows.** Ensure a `from_scratch` entry exists in `custom_lci.json`. Set `ratio` equal to the first exchange's `amount`, `source` to `"cmaps"`, and `source_ref` to that entry's `alias`. The test `tests/test_raw_to_transformed_ratios.py::test_cmaps_rows_match_custom_lci` enforces this consistency.
+- **CMAPS rows.** Ensure a `from_scratch` entry exists in `custom_lci.json`. Set `ratio` equal to the first exchange's `amount`, `source` to `"cmaps_custom_lci"`, and `source_ref` to that entry's `alias`. The test `tests/test_raw_to_transformed_ratios.py::test_cmaps_rows_match_custom_lci` enforces this consistency.
 
 ## Forest
 
