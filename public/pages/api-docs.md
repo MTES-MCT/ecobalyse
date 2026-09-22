@@ -66,20 +66,54 @@ Ici, `{}` est la requête JSON en question ; elle est vide. Elle doit donc renv
     …
 ```
 
-La réponse contient `impacts` (le coût environnemental est `impacts.ecs`) et `webUrl`, qui charge la simulation dans l'interface Web.
+La réponse contient `impacts` (le coût environnemental est `impacts.ecs`) et `webUrl`, qui permet de charger la simulation dans l'interface Web.
 
 > ⚠️ Si des valeurs d'impacts sont nulles alors que la requête n'est pas vide, cela peut vouloir dire que vous n'avez pas accepté les conditions générales d'utilisation du service. Veuillez en ce cas vous reporter à votre espace de gestion de compte.
 
 ## La composition
 
-L'étape de production décrit avec quoi notre pizza est fabriquée. Pour simplifier, elle est constituée de quatre procédés matières :
+L'étape de production décrit avec quoi notre pizza est fabriquée. Pour simplifier :
 
 - 250 g de farine
 - 100 ml d'eau
-- 200 g de tomate
+- 200 g de purée de tomate
 - 70 g de mozzarella
 
-Listons les procédés matières :
+Chaque ligne de la composition, avant d'être un ingrédient, est techniquement un *composant*. L'API en accepte de deux sortes, que l'on peut mélanger dans la même requête :
+
+1. **Composant du catalogue** : déjà modélisé côté Ecobalyse, matières et transformations incluses. On le référence simplement par son identifiant `id` et une `quantity`.
+2. **Composant personnalisé** : on le décrit soi-même avec un nom et des éléments, chaque élément étant constitué d'une matière première à laquelle on applique d'éventuelles transformations successives.
+
+### Un composant du catalogue : la purée de tomate
+
+Listons d'abord le catalogue :
+
+```bash
+curl -sS "$API/food2/catalog" \
+  -H "accept: application/json" \
+  -H "Authorization: Bearer $TOKEN"
+```
+
+La réponse est un tableau d'objets `{ "id", "name" }`. On y trouve notamment :
+
+```json
+{
+  "id": "151d05c3-8a6a-4576-a8c2-d5f92fb0806b",
+  "name": "Purée de tomate FR"
+}
+```
+
+Ce composant embarque déjà 200g de tomate et sa cuisson. Dans la requête, il suffit donc d'écrire :
+
+```json
+  {"id": "151d05c3-8a6a-4576-a8c2-d5f92fb0806b", "quantity": 1}
+```
+
+Nul besoin de repréciser la matière ni la transformation, elles sont déjà incluses ici.
+
+### Des composants personnalisés : farine, eau, mozzarella
+
+Pour le reste de la pizza, aucun composant catalogue équivalent n'existe encore. On façnne alors à la main nos composants personnélisés à partir des procédés matières :
 
 ```bash
 curl -sS "$API/food2/processes/material" \
@@ -104,24 +138,18 @@ Pour retrouver un ingrédient dans la liste, cherchez son nom dans la réponse J
 curl -sS "$API/food2/processes/material" \
   -H "accept: application/json" \
   -H "Authorization: Bearer $TOKEN" \
-  | jq '.[] | select(.name | test("Tomate"; "i"))'
+  | jq '.[] | select(.name | test("Mozzarella"; "i"))'
 ```
 
-On trouvera de la même manière nos trois autres ingrédients :
+On retiendra :
 
+- *Farine UE (2025)*, identifiant `a2e25aca-1f42-4bc8-bc0e-4d7c751775aa`, unité `kg`, `material_type:other_food_items`
 - *Eau de source UE*, identifiant `2c2bec89-b05e-5493-a58e-b504fb81c6ea`, unité `L`, `material_type:other_food_items`
-- *Tomate FR*, identifiant `b94d40bd-3394-59d3-9397-fe097a5f7138`, unité `kg`, `material_type:fruits_and_vegetables`
 - *Mozzarella FR (2025)*, identifiant `faa513ae-9c32-4e6c-874e-58c13309339e`, unité `kg`, `material_type:other_food_items`
 
 ## Les transformations
 
-Certains ingrédients sont cuits. Les procédés de transformation se listent par type de matière : le paramètre `materialType` reprend le suffixe de la catégorie `material_type:` du procédé matière (`fruits_and_vegetables` pour la tomate).
-
-```bash
-curl -sS "$API/food2/processes/transform/fruits_and_vegetables" \
-  -H "accept: application/json" \
-  -H "Authorization: Bearer $TOKEN"
-```
+Contrairement au composant catalogue *Purée de tomate FR*, un composant personnalisé n'inclut les transformations que si on les ajoute soi-même. Les procédés de transformation se listent par type de matière : le paramètre `materialType` reprend le suffixe de la catégorie `material_type:` du procédé matière (`other_food_items` pour la mozzarella).
 
 ```bash
 curl -sS "$API/food2/processes/transform/other_food_items" \
@@ -129,13 +157,12 @@ curl -sS "$API/food2/processes/transform/other_food_items" \
   -H "Authorization: Bearer $TOKEN"
 ```
 
-- Pour la tomate, *Cuisson des fruits et légumes frais*, identifiant `de307fb4-99d3-4a01-962b-242ace7b2739`.
 - Pour la mozzarella, *Cuisson divers*, identifiant `6de57003-6767-49e2-a5a1-36ead9b78c42`.
-- Farine et eau ne sont pas transformés, donc le champ `transforms` est omis complètement
+- Farine et eau ne sont pas transformés, donc le champ `transforms` est omis complètement.
 
 ## Première simulation
 
-Postons notre simulation :
+Postons notre simulation, en assemblant notre purée de tomate du catalogue et nos composants farine, eau et mozzarella personnalisés :
 
 ```bash
 curl -sS -X POST "$API/food2/simulator" \
@@ -152,15 +179,8 @@ curl -sS -X POST "$API/food2/simulator" \
       ]
     },
     {
-      "quantity": 1,
-      "name": "Tomate FR",
-      "elements": [
-        {
-          "amount": 0.2,
-          "material": "b94d40bd-3394-59d3-9397-fe097a5f7138",
-          "transforms": ["de307fb4-99d3-4a01-962b-242ace7b2739"]
-        }
-      ]
+      "id": "151d05c3-8a6a-4576-a8c2-d5f92fb0806b",
+      "quantity": 1
     },
     {
       "quantity": 1,
@@ -186,8 +206,9 @@ curl -sS -X POST "$API/food2/simulator" \
 
 Notez que `impacts.ecs` n'est déjà plus nul !
 
-Notes:
-- Le champ `amount` s'exprime dans l'`unit` du procédé : 250 g de farine deviennent `"amount": 0.25`, 100 ml d'eau `"amount": 0.1`. À ne pas confondre avec `quantity`, qui compte le *nombre d'exemplaires* du composant par un entier supérieur ou égal à 1.
+Notes :
+- Pour un composant catalogue, seul `id` (+ `quantity`) est nécessaire.
+- Pour un composant personnalisé, le champ `amount` s'exprime dans l'`unit` du procédé : 250 g de farine deviennent `"amount": 0.25`, 100 ml d'eau `"amount": 0.1`. À ne pas confondre avec `quantity`, qui compte le *nombre d'exemplaires* du composant par un entier supérieur ou égal à 1.
 - Le champ `webUrl` de la réponse permet de charger la simulation dans un navigateur Web.
 
 
@@ -300,15 +321,8 @@ curl -sS -X POST "$API/food2/simulator" \
       ]
     },
     {
-      "quantity": 1,
-      "name": "Tomate FR",
-      "elements": [
-        {
-          "amount": 0.2,
-          "material": "b94d40bd-3394-59d3-9397-fe097a5f7138",
-          "transforms": ["de307fb4-99d3-4a01-962b-242ace7b2739"]
-        }
-      ]
+      "id": "151d05c3-8a6a-4576-a8c2-d5f92fb0806b",
+      "quantity": 1
     },
     {
       "quantity": 1,
@@ -361,7 +375,7 @@ Les champs `material` et `transforms` acceptent un UUID seul, comme dans ce tuto
 
 ### Catalogue
 
-Sur la verticale `object`, `GET /{scope}/catalog` recense des composants déjà modélisés, que l'on ajoute avec `{"id": "<uuid>", "quantity": 1}`.
+`GET /{scope}/catalog` recense les composants déjà modélisés pour un périmètre (comme *Purée de tomate FR* sur `food2`, ou divers composants sur `object`). On les ajoute avec `{"id": "<uuid>", "quantity": 1}`, sans redécrire leurs `elements`.
 
 ### Référence
 
