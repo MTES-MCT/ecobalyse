@@ -35,7 +35,8 @@ Les variables d’environnement décrites ci-dessous doivent être définies. En
 - `MATOMO_SITE_ID` : l’identifiant du site Ecobalyse sur l’instance Matomo permettant le suivi d’audience du produit
 - `MATOMO_TOKEN` : le token Matomo permettant le suivi d’audience du produit
 - `NODE_ENV` : l’environnement d’exécution `nodejs` (par défaut, `development`)
-- `PLAUSIBLE_HOST` : le domaine du serveur [Plausible](https://plausible.io/) (optionnel)
+- `PLAUSIBLE_HOST` : le domaine du serveur [Plausible](https://plausible.io/) (optionnel ; probablement `plausible.io`)
+- `PLAUSIBLE_SCRIPT` : le chemin sur `PLAUSIBLE_SERVER` du script Plausible à charger(optionnel ; ex : `/js/xx-yy-zz.js` ; visible dans les paramètres de Plausible.)
 - `RATELIMIT_MAX_RPM` : le nombre de requêtes maximum par minute et par ip (par défaut: 5000)
 - `RATELIMIT_WHITELIST` : liste des adresses IP non soumises au rate-limiting, séparées par des virgules
 - `SECRET_KEY` : le secret 32bits pour le backend ; vous pouvez en générer une avec `openssl rand -hex 32`

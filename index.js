@@ -11,8 +11,9 @@ const clientUrl = (location.origin + location.pathname).replace(/\/+$/g, "");
 
 // using a `let` statement to avoid this error:
 // @parcel/optimizer-swc: 'const' declarations must be initialized
-let { FORCE_PLAUSIBLE, NODE_ENV, PLAUSIBLE_HOST, SENTRY_DSN } = process.env;
-const plausibleEnabled = PLAUSIBLE_HOST && (NODE_ENV === "production" || FORCE_PLAUSIBLE);
+let { FORCE_PLAUSIBLE, NODE_ENV, PLAUSIBLE_HOST, PLAUSIBLE_SCRIPT, SENTRY_DSN } = process.env;
+const plausibleEnabled =
+  PLAUSIBLE_HOST && PLAUSIBLE_SCRIPT && (NODE_ENV === "production" || FORCE_PLAUSIBLE);
 
 // Sentry
 if (NODE_ENV === "production" && SENTRY_DSN) {
@@ -93,18 +94,21 @@ app.ports.appStarted.subscribe(() => {
 
   // Plausible
   if (plausibleEnabled) {
-    window.plausible =
+    loadScript(`https://${PLAUSIBLE_HOST}${PLAUSIBLE_SCRIPT}`);
+    ((window.plausible =
       window.plausible ||
       function () {
-        (window.plausible.q = window.plausible.q || []).push(arguments);
-      };
-    loadScript(
-      `https://${PLAUSIBLE_HOST}/js/script.file-downloads.outbound-links.pageview-props.tagged-events.manual.local.js`,
-      {
-        defer: true,
-        "data-domain":
-          process.env.APP === "ecobalyse" ? "ecobalyse.beta.gouv.fr" : "ecobalyse.test",
-      },
+        (plausible.q = plausible.q || []).push(arguments);
+      }),
+      (plausible.init =
+        plausible.init ||
+        function (i) {
+          plausible.o = i || {};
+        }));
+
+    plausible.init(
+      // Uncomment this if you want to test event sending on localhost
+      // { captureOnLocalhost: true }
     );
   }
 });
