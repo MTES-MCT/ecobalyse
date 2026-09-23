@@ -64,10 +64,7 @@ def compute_vegetal_ecosystemic_services(
     food_metadata, ecosystemic_factors, process_with_impacts
 ) -> dict:
     """Compute hedges, plotSize and cropDiversity complements for a vegetal ingredient.
-
-    For each service: raw CSV factor -> threshold transform -> * landOccupation
-    -> * coefficient -> negate (bonus is negative) -> cap per service.
-    The full method is described in docs/complements.md.
+    More info in docs/complements.md.
     """
     services = {}
     for eco_service in config.ecosystemic_services_list:
