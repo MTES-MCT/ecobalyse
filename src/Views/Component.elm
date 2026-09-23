@@ -1685,7 +1685,7 @@ addConsumptionButton ({ openSelectConsumptionModal, query } as config) =
                     (\{ id } ->
                         query
                             |> Component.getConsumptions (requirementsFromConfig config)
-                            |> List.map Component.getConsumptionProcessId
+                            |> List.map .processId
                             |> List.member id
                             |> not
                     )

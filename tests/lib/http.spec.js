@@ -1,4 +1,9 @@
-const { createCSPDirectives, extractTokenFromHeaders } = require("../../lib/http");
+const {
+  API_DOCS_URL,
+  createCSPDirectives,
+  extractTokenFromHeaders,
+  grantGenericApiAccess,
+} = require("../../lib/http");
 
 describe("lib.http", () => {
   describe("createCSPDirectives", () => {
@@ -51,6 +56,32 @@ describe("lib.http", () => {
         "https://jedonnemonavis.numerique.gouv.fr",
       ]);
       expect(directives["worker-src"]).toEqual(["'self'"]);
+    });
+  });
+
+  describe("grantGenericApiAccess", () => {
+    test("should reject a non-beta non-superuser token with 403", () => {
+      expect(grantGenericApiAccess(201, { isBetauser: false, isSuperuser: false })).toEqual({
+        status: 403,
+        body: {
+          error: { authorization: "Accès réservé aux beta-testeurs et superutilisateurs" },
+          documentation: API_DOCS_URL,
+        },
+      });
+    });
+
+    test("should allow a beta user token", () => {
+      expect(grantGenericApiAccess(201, { isBetauser: true, isSuperuser: false })).toBeNull();
+    });
+
+    test("should reject an invalid token with 401", () => {
+      expect(grantGenericApiAccess(403, {})).toEqual({
+        status: 401,
+        body: {
+          error: { authorization: "Un token valide est requis pour utiliser l’API" },
+          documentation: API_DOCS_URL,
+        },
+      });
     });
   });
 

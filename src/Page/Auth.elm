@@ -515,7 +515,7 @@ viewTab session currentTab =
                         viewApiTokenDelete apiToken
 
                     ApiTokens apiTokens ->
-                        viewApiTokens apiTokens
+                        viewApiTokens session apiTokens
 
                     MagicLinkForm email webData ->
                         viewMagicLinkForm email webData
@@ -753,8 +753,8 @@ viewApiTokenCreated token =
         ]
 
 
-viewApiTokens : WebData (List CreatedToken) -> Html Msg
-viewApiTokens apiTokens =
+viewApiTokens : Session -> WebData (List CreatedToken) -> Html Msg
+viewApiTokens session apiTokens =
     case apiTokens of
         RemoteData.Failure error ->
             p [ class "alert alert-danger" ]
@@ -768,7 +768,8 @@ viewApiTokens apiTokens =
 
         RemoteData.Success tokens ->
             div []
-                [ if List.isEmpty tokens then
+                [ viewGenericApiBetaAccess session
+                , if List.isEmpty tokens then
                     p [] [ text "Aucun jeton d’API actif." ]
 
                   else
@@ -811,6 +812,26 @@ viewApiTokens apiTokens =
                         [ text "Créer un jeton d’API" ]
                     ]
                 ]
+
+
+viewGenericApiBetaAccess : Session -> Html Msg
+viewGenericApiBetaAccess session =
+    if
+        Session.getAuth session
+            |> Maybe.map (\{ user } -> user.isBetauser || user.isSuperuser)
+            |> Maybe.withDefault False
+    then
+        p [ class "alert alert-success d-flex align-items-center gap-1" ]
+            [ Icon.check
+            , span []
+                [ text "Votre compte dispose d’un accès bêta à "
+                , a [ Route.href Route.Api ] [ text "l’API générique" ]
+                , text " (alimentaire bêta, objets, véhicules)."
+                ]
+            ]
+
+    else
+        text ""
 
 
 viewApiTokenDelete : CreatedToken -> Html Msg

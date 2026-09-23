@@ -9,13 +9,24 @@ const helmet = require("helmet");
 const { Elm } = require("./server-app");
 const jsonUtils = require("./lib/json");
 const rateLimit = require("express-rate-limit");
-const { createCSPDirectives, extractTokenFromHeaders } = require("./lib/http");
+const {
+  API_DOCS_URL,
+  createCSPDirectives,
+  grantGenericApiAccess,
+  extractTokenFromHeaders,
+} = require("./lib/http");
 // monitoring
 const { setupSentry } = require("./lib/sentry"); // MUST be required BEFORE express
 const { createMatomoTracker } = require("./lib/matomo");
 const { createPlausibleTracker } = require("./lib/plausible");
 
-const { getProcessesAsString, filterLegacyFood1Paths } = require("./lib");
+const { filterLegacyFood1Paths, getProcessesAsString } = require("./lib");
+const {
+  applyGenericScopesToOpenApi,
+  getEnabledGenericScopeEntries,
+  isGenericScopeEnabled,
+  parseGenericScopeFromUrl,
+} = require("./lib/scopes");
 const express = require("express");
 
 const expressHost = "0.0.0.0";
@@ -63,7 +74,7 @@ const jsonErrorHandler = bodyParserErrorHandler({
   onError: (err, req, res, next) => {
     res.status(400).send({
       error: { decoding: `Format JSON invalide : ${err.message}` },
-      documentation: "https://ecobalyse.beta.gouv.fr/#/api",
+      documentation: API_DOCS_URL,
     });
   },
 });
@@ -107,17 +118,17 @@ app.get("/stats", (_, res) => res.redirect("/#/stats"));
 // API
 const openApiContents = processOpenApi(
   yaml.load(fs.readFileSync("openapi.yaml")),
-  // @FIXME: we should have the correct version number specified in the package.json file
   require("./package.json").version,
 );
 
 function processOpenApi(contents, versionNumber) {
   // Add app version info to openapi docs
-  contents.version = versionNumber;
+  contents.info.version = versionNumber;
   // Remove food1 api docs if disabled from env
   if (ENABLE_FOOD_SECTION !== "True" || ENABLE_FOOD1_API_DOCS !== "True") {
     contents.paths = filterLegacyFood1Paths(contents.paths);
   }
+  applyGenericScopesToOpenApi(contents);
   return contents;
 }
 
@@ -155,6 +166,34 @@ const getProcesses = async (headers) => {
   }
 };
 
+/**
+ * Generic API requires a validated beta or superuser token.
+ */
+async function checkGenericApiAccess(token) {
+  // bypass betauser checks in tests
+  if (NODE_ENV === "test") {
+    return null;
+  }
+
+  try {
+    const tokenRes = await fetch(`${INTERNAL_BACKEND_URL}/api/tokens/validate`, {
+      method: "POST",
+      body: JSON.stringify({ token }),
+    });
+    const claims = tokenRes.status === 201 ? await tokenRes.json() : {};
+    return grantGenericApiAccess(tokenRes.status, claims);
+  } catch (error) {
+    console.error("Error validating token from the auth backend", error);
+    return {
+      status: 500,
+      body: {
+        error: { server: `Erreur du serveur d'authentification: ${error.message}` },
+        documentation: API_DOCS_URL,
+      },
+    };
+  }
+}
+
 app.get("/processes/processes.json", async (req, res) => {
   // Note: JSON parsing is done in Elm land
   return res
@@ -175,6 +214,31 @@ api.get("/", async (req, res) => {
   res.status(200).send(openApiContents);
 });
 
+const respondWithFormattedJSON = (res, status, body) => {
+  res.status(status);
+  res.setHeader("Content-Type", "application/json");
+  res.send(jsonUtils.serialize(body));
+};
+
+api.get("/generic/scopes", async (req, res) => {
+  const token = extractTokenFromHeaders(req.headers);
+  if (!token && NODE_ENV !== "test") {
+    return res.status(401).send({
+      error: { authorization: "Un token valide est requis pour utiliser l’API" },
+      documentation: API_DOCS_URL,
+    });
+  }
+
+  const rejected = await checkGenericApiAccess(token);
+  if (rejected) {
+    return res.status(rejected.status).send(rejected.body);
+  }
+
+  matomoTracker.track(200, req);
+  await plausibleTracker.captureEvent(200, req);
+  respondWithFormattedJSON(res, 200, getEnabledGenericScopeEntries());
+});
+
 // Redirects: API
 api.get(/^\/countries$/, (_, res) => res.redirect("textile/countries"));
 api.get(/^\/materials$/, (_, res) => res.redirect("textile/materials"));
@@ -182,21 +246,31 @@ api.get(/^\/products$/, (_, res) => res.redirect("textile/products"));
 const cleanRedirect = (url) => (url.startsWith("/") ? url : "");
 api.get(/^\/simulator(.*)$/, ({ url }, res) => res.redirect(`/api/textile${cleanRedirect(url)}`));
 
-const respondWithFormattedJSON = (res, status, body) => {
-  res.status(status);
-  res.setHeader("Content-Type", "application/json");
-  res.send(jsonUtils.serialize(body));
-};
-
 // Note: Text/JSON request body parser (JSON is decoded in Elm)
 api.all(/(.*)/, bodyParser.json(), jsonErrorHandler, async (req, res) => {
   const token = extractTokenFromHeaders(req.headers);
   if (!token && NODE_ENV !== "test") {
     return res.status(401).send({
       error: { authorization: "Un token valide est requis pour utiliser l’API" },
-      documentation: "https://ecobalyse.beta.gouv.fr/#/api",
+      documentation: API_DOCS_URL,
     });
   }
+
+  const scope = parseGenericScopeFromUrl(req.url);
+  if (scope) {
+    if (!isGenericScopeEnabled(scope)) {
+      return res.status(403).send({
+        error: { scope: `Le périmètre "${scope}" n'est pas activé sur cette instance.` },
+        documentation: API_DOCS_URL,
+      });
+    }
+
+    const rejected = await checkGenericApiAccess(token);
+    if (rejected) {
+      return res.status(rejected.status).send(rejected.body);
+    }
+  }
+
   const processes = await getProcesses(req.headers);
 
   elmApp.ports.input.send({

@@ -69,6 +69,7 @@ describe("API", () => {
         expectStatus(response, 200);
         expect(response.body.openapi).toEqual("3.0.1");
         expect(response.body.info.title).toEqual("API Ecobalyse");
+        expect(response.body.info.version).toEqual(require("../package.json").version);
       });
 
       it("should respond with an HTTP 400 error on invalid JSON provided", async () => {
@@ -690,6 +691,216 @@ describe("API", () => {
       }
     });
   });
+
+  describe("Generic", () => {
+    const previousSectionFlags = {};
+
+    beforeAll(() => {
+      previousSectionFlags.food2 = process.env.ENABLE_FOOD2_SECTION;
+      previousSectionFlags.object = process.env.ENABLE_OBJECTS_SECTION;
+      previousSectionFlags.veli = process.env.ENABLE_VELI_SECTION;
+      process.env.ENABLE_FOOD2_SECTION = "True";
+      process.env.ENABLE_OBJECTS_SECTION = "True";
+      process.env.ENABLE_VELI_SECTION = "True";
+    });
+
+    afterAll(() => {
+      process.env.ENABLE_FOOD2_SECTION = previousSectionFlags.food2;
+      process.env.ENABLE_OBJECTS_SECTION = previousSectionFlags.object;
+      process.env.ENABLE_VELI_SECTION = previousSectionFlags.veli;
+    });
+
+    describe("enabled section gates", () => {
+      const previous = {};
+
+      beforeEach(() => {
+        previous.food2 = process.env.ENABLE_FOOD2_SECTION;
+        previous.object = process.env.ENABLE_OBJECTS_SECTION;
+        previous.veli = process.env.ENABLE_VELI_SECTION;
+      });
+
+      afterEach(() => {
+        process.env.ENABLE_FOOD2_SECTION = previous.food2;
+        process.env.ENABLE_OBJECTS_SECTION = previous.object;
+        process.env.ENABLE_VELI_SECTION = previous.veli;
+      });
+
+      it("should list enabled generic scopes", async () => {
+        process.env.ENABLE_FOOD2_SECTION = "True";
+        process.env.ENABLE_OBJECTS_SECTION = "False";
+        process.env.ENABLE_VELI_SECTION = "True";
+
+        const response = await request(app)
+          .get("/api/generic/scopes")
+          .set("Authorization", "Bearer 1234567890");
+
+        expectStatus(response, 200);
+        expect(response.body).toEqual([
+          { id: "food2", name: "Alimentaire BÉTA" },
+          { id: "veli", name: "Véhicules" },
+        ]);
+      });
+
+      it("should reject a disabled generic scope with 403", async () => {
+        process.env.ENABLE_FOOD2_SECTION = "False";
+
+        const response = await request(app)
+          .get("/api/food2/countries")
+          .set("Authorization", "Bearer 1234567890");
+
+        expectStatus(response, 403);
+        expect(response.body).toEqual({
+          error: { scope: 'Le périmètre "food2" n\'est pas activé sur cette instance.' },
+          documentation: "https://ecobalyse.beta.gouv.fr/#/api",
+        });
+      });
+    });
+
+    describe("/object/countries", () => {
+      it("should respond with object countries list", async () => {
+        await expectListResponseWithObjectKeys("/api/object/countries", ["code", "name"]);
+      });
+    });
+
+    describe("/object/catalog", () => {
+      it("should respond with object catalog components", async () => {
+        await expectListResponseWithObjectKeys("/api/object/catalog", ["id", "name"]);
+      });
+    });
+
+    describe("/food2/categories", () => {
+      it("should respond with food2 product categories", async () => {
+        await expectListResponseWithObjectKeys("/api/food2/categories", ["id", "label"]);
+      });
+    });
+
+    describe("/object/processes/material", () => {
+      it("should respond materials with a unit", async () => {
+        await expectListResponseWithObjectKeys("/api/object/processes/material", [
+          "id",
+          "name",
+          "categories",
+          "unit",
+        ]);
+      });
+    });
+
+    describe("/object/processes/transform/{materialType}", () => {
+      it("should respond object transform processes for a material type", async () => {
+        await expectListResponseWithObjectKeys("/api/object/processes/transform/pp", [
+          "id",
+          "name",
+          "unit",
+          "categories",
+        ]);
+      });
+
+      it("should reject an invalid materialType", async () => {
+        const response = await request(app)
+          .get("/api/object/processes/transform/invalid-material-type")
+          .set("Authorization", "Bearer 1234567890");
+
+        expectFieldErrorMessage(
+          response,
+          "materialType",
+          /Type de matière non supporté: invalid-material-type/,
+        );
+      });
+    });
+
+    describe("/food2/processes/transform/{materialType}", () => {
+      it("should respond food2 transform processes for a material type", async () => {
+        await expectListResponseObjectMatch(
+          "/api/food2/processes/transform/fruits_and_vegetables",
+          ({ categories }) => categories.includes("material_type:fruits_and_vegetables"),
+        );
+      });
+    });
+
+    describe("/object/processes/packaging", () => {
+      it("should respond with object packaging processes", async () => {
+        await expectListResponseWithObjectKeys("/api/object/processes/packaging", ["id", "name"]);
+      });
+    });
+
+    describe("/veli/processes/assembly", () => {
+      it("should respond with veli assembly processes", async () => {
+        await expectListResponseWithObjectKeys("/api/veli/processes/packaging", ["id", "name"]);
+      });
+    });
+
+    describe("/food2/processes/distribution", () => {
+      it("should respond with food2 distribution processes", async () => {
+        await expectListResponseWithObjectKeys("/api/food2/processes/distribution", ["id", "name"]);
+      });
+    });
+
+    describe("/food2/processes/consumption", () => {
+      it("should respond with food2 consumption processes", async () => {
+        await expectListResponseWithObjectKeys("/api/food2/processes/consumption", ["id", "name"]);
+      });
+    });
+
+    describe("/food2/simulator consumptions", () => {
+      const ovenCookingId = "a49670fc-0642-43f6-a673-fe15dc7d88da";
+      const pizzaPackagingId = "fa775270-4bc7-4f6d-a9d3-c80ed05ed90c";
+
+      it("should accept a productmassdependent consumption as a uuid", async () => {
+        const response = await makePostRequest("/api/food2/simulator", {
+          components: [],
+          consumptions: [ovenCookingId],
+        });
+        expect(response.body.error).toBeUndefined();
+        expectStatus(response, 200);
+      });
+
+      it("should reject a productmassdependent consumption with an amount", async () => {
+        const response = await makePostRequest("/api/food2/simulator", {
+          components: [],
+          consumptions: [{ amount: 1, processId: ovenCookingId }],
+        });
+        expectFieldErrorMessage(response, "decoding", /amount n'est pas accepté/);
+      });
+
+      it("should reject a non-productmassdependent consumption without an amount", async () => {
+        const response = await makePostRequest("/api/food2/simulator", {
+          components: [],
+          consumptions: [pizzaPackagingId],
+        });
+        expectFieldErrorMessage(response, "decoding", /amount est requis/);
+      });
+    });
+
+    for (const scope of ["food2", "object", "veli"]) {
+      describe(`/${scope}/simulator`, () => {
+        it("should accept an empty query", async () => {
+          const response = await makePostRequest(`/api/${scope}/simulator`, {});
+          expect(response.body.error).toBeUndefined();
+          expectStatus(response, 200);
+          expect(response.body.impacts).toBeDefined();
+        });
+
+        it("should accept an empty components list", async () => {
+          const response = await makePostRequest(`/api/${scope}/simulator`, { components: [] });
+          expect(response.body.error).toBeUndefined();
+          expectStatus(response, 200);
+          expect(response.body.impacts).toBeDefined();
+        });
+
+        const examples = require(`${__dirname}/../public/data/${scope}/examples.json`);
+
+        for (const { name, query } of examples) {
+          it(name, async () => {
+            const response = await makePostRequest(`/api/${scope}/simulator`, query);
+            expect(response.body.error).toBeUndefined();
+            expectStatus(response, 200);
+            expect(response.body.impacts).toBeDefined();
+            expect(response.body.webUrl).toContain(`/${scope}/simulator/`);
+          });
+        }
+      });
+    }
+  });
 });
 
 afterAll(() => {
@@ -727,6 +938,35 @@ async function expectListResponseContains(path, object) {
 
   expectStatus(response, 200);
   expect(response.body).toContainObject(object);
+}
+
+async function expectListResponseObjectMatch(path, matchFunction) {
+  const response = await request(app).get(path).set("Authorization", "Bearer 1234567890");
+
+  expectStatus(response, 200);
+
+  const list = response.body;
+  expect(list).toBeInstanceOf(Array);
+  expect(list.length).toBeGreaterThan(0);
+  list.forEach((item) => {
+    expect(matchFunction(item)).toBe(true);
+  });
+}
+
+async function expectListResponseWithObjectKeys(path, keys) {
+  const response = await request(app).get(path).set("Authorization", "Bearer 1234567890");
+
+  expectStatus(response, 200);
+
+  const list = response.body;
+  expect(list).toBeInstanceOf(Array);
+  expect(list.length).toBeGreaterThan(0);
+  list.forEach((item) => {
+    expect(item).toBeInstanceOf(Object);
+    keys.forEach((key) => {
+      expect(item).toHaveProperty(key);
+    });
+  });
 }
 
 function expectStatus(response, expectedCode, type = "application/json") {

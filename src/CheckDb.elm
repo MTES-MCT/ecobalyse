@@ -2,6 +2,7 @@ port module CheckDb exposing (main)
 
 import Data.Component as Component exposing (Component)
 import Data.Component.Config as ComponentConfig
+import Data.Component.Consumption as Consumption exposing (Consumption)
 import Data.Component.ProductCategory as ProductCategory exposing (ProductCategory)
 import Data.Db exposing (Db)
 import Data.Example as Example exposing (Example)
@@ -196,17 +197,24 @@ checkComponentScopeMismatch processes example component =
 
 {-| Checks that an Example consumptions are linked to existing scope-compatible processes.
 -}
-checkExampleConsumption : Dict String Process -> Example query -> Component.Consumption -> List Error
+checkExampleConsumption : Dict String Process -> Example query -> Consumption -> List Error
 checkExampleConsumption processes example consumption =
     let
         processIdString =
-            Component.getConsumptionProcessId consumption
-                |> Process.idToString
+            Process.idToString consumption.processId
     in
     case processes |> Dict.get processIdString of
         Just process ->
             if List.member example.scope process.scopes then
-                []
+                case Consumption.validate (Dict.values processes) consumption of
+                    Err error ->
+                        formatError
+                            [ "Example " ++ exampleLabel example
+                            , error
+                            ]
+
+                    Ok _ ->
+                        []
 
             else
                 formatError
@@ -331,13 +339,13 @@ checkProductCategoryAssemblies db =
 
 
 {-| Checks that a product category consumption references an existing, scope-compatible process.
-When amount is omitted, the process _must_ be product-mass-dependent.
+Amount is required unless the process is product-mass-dependent, and forbidden otherwise.
 -}
-checkProductCategoryConsumption : Dict String Process -> ProductCategory -> ProductCategory.DefaultConsumption -> List Error
-checkProductCategoryConsumption processes product { amount, processId } =
+checkProductCategoryConsumption : Dict String Process -> ProductCategory -> Consumption -> List Error
+checkProductCategoryConsumption processes product consumption =
     let
         processIdString =
-            Process.idToString processId
+            Process.idToString consumption.processId
     in
     case processes |> Dict.get processIdString of
         Just process ->
@@ -348,15 +356,16 @@ checkProductCategoryConsumption processes product { amount, processId } =
                     , "in consumptions but isn't scoped for " ++ backtick (Scope.toStringGeneric product.scope)
                     ]
 
-            else if amount == Nothing && not (List.member ProcessCategory.ProductMassDependent process.categories) then
-                formatError
-                    [ "Product category " ++ productCategoryLabel product
-                    , "references process " ++ processLabel process
-                    , "in consumptions without an amount, but the process is not productmassdependent"
-                    ]
-
             else
-                []
+                case Consumption.validate (Dict.values processes) consumption of
+                    Err error ->
+                        formatError
+                            [ "Product category " ++ productCategoryLabel product
+                            , error
+                            ]
+
+                    Ok _ ->
+                        []
 
         Nothing ->
             formatError
