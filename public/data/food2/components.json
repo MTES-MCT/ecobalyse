@@ -11,5 +11,50 @@
     "id": "151d05c3-8a6a-4576-a8c2-d5f92fb0806b",
     "name": "Purée de tomate FR",
     "scopes": ["food2"]
+  },
+  {
+    "comment": "1 kg de Comté = 4,81 kg de lait FR + fabrication. Test de reconstruction d'un procédé Agribalyse.",
+    "elements": [
+      {
+        "amount": 1,
+        "material": { "country": "FR", "id": "b757094f-7cb1-58ea-9d3d-b6d7e0e0d471" },
+        "transforms": [
+          { "country": "FR", "id": "11bfb730-9efa-4263-91be-c10483b4c05c" }
+        ]
+      }
+    ],
+    "id": "f021570a-69e2-4931-adb9-174a56ca3e9e",
+    "name": "Comté reconstitué (1 kg)",
+    "scopes": ["food2"]
+  },
+  {
+    "comment": "1 kg de jus = 1,81 kg de carottes FR + pressage. Test de reconstruction d'un procédé Agribalyse.",
+    "elements": [
+      {
+        "amount": 1,
+        "material": { "country": "FR", "id": "bdae4e7c-3215-53b7-9e30-65e16253a0a3" },
+        "transforms": [
+          { "country": "FR", "id": "b23e518b-5945-40e6-ab1e-5c8851f8ad8c" }
+        ]
+      }
+    ],
+    "id": "be7569c3-0ac5-4828-b27d-8c7a30390f3e",
+    "name": "Jus de carotte reconstitué (1 kg)",
+    "scopes": ["food2"]
+  },
+  {
+    "comment": "1 kg de farine = 1,16 kg de blé tendre FR + mouture. Test de reconstruction d'un procédé Agribalyse.",
+    "elements": [
+      {
+        "amount": 1,
+        "material": { "country": "FR", "id": "38788025-a65e-4edf-a92f-aab0b89b0d61" },
+        "transforms": [
+          { "country": "FR", "id": "69d14785-9a31-474d-9c34-be7521601d7e" }
+        ]
+      }
+    ],
+    "id": "d3b8adda-9cc5-484a-8dcc-d04a4a990639",
+    "name": "Farine de blé reconstituée (1 kg)",
+    "scopes": ["food2"]
   }
 ]

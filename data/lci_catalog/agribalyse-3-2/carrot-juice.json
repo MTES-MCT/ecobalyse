@@ -1,0 +1,25 @@
+{
+  "activityName": "Carrot juice, pure juice, at plant {FR} U",
+  "categories": ["ingredient", "material"],
+  "displayName": "Jus de carotte FR",
+  "id": "ce7de197-f70e-4724-b319-8c65bfd4d34b",
+  "metadata": [
+    {
+      "alias": "carrot-juice-fr",
+      "defaultOrigin": "France",
+      "displayName": "Jus de carotte FR",
+      "explain": "Ajouté pour comparaison avec le composant 'Jus de carotte reconstitué'.",
+      "id": "17a97610-b253-4a03-9284-13c5000970e6",
+      "inediblePart": 0,
+      "ingredientCategories": ["vegetable_processed"],
+      "ingredientDensity": 1.0,
+      "rawToCookedRatio": 1.0,
+      "scenario": "reference",
+      "scopes": ["food2"],
+      "transportCooling": "none",
+      "visible": true
+    }
+  ],
+  "scopes": ["food2"],
+  "source": "Agribalyse 3.2"
+}
