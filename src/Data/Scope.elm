@@ -3,6 +3,7 @@ module Data.Scope exposing
     , GenericScope(..)
     , Scope(..)
     , all
+    , allGeneric
     , anyOf
     , decode
     , decodeDict
@@ -48,11 +49,17 @@ type alias Dict a =
 
 all : List Scope
 all =
-    [ Food
-    , Generic Food2
-    , Generic Object
-    , Generic Veli
-    , Textile
+    -- Legacy scopes
+    [ Food, Textile ]
+        -- Generic scopes
+        ++ List.map Generic allGeneric
+
+
+allGeneric : List GenericScope
+allGeneric =
+    [ Food2
+    , Object
+    , Veli
     ]
 
 
