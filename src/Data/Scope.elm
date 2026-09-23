@@ -120,20 +120,16 @@ fromString string =
         "food" ->
             Ok Food
 
-        "food2" ->
-            Ok (Generic Food2)
-
-        "object" ->
-            Ok (Generic Object)
-
         "textile" ->
             Ok Textile
 
-        "veli" ->
-            Ok (Generic Veli)
+        genericScopeString ->
+            case fromStringGeneric genericScopeString of
+                Err _ ->
+                    Err <| "Couldn't decode unknown scope " ++ genericScopeString
 
-        _ ->
-            Err <| "Couldn't decode unknown scope " ++ string
+                Ok genericScope ->
+                    Ok (Generic genericScope)
 
 
 fromStringGeneric : String -> Result String GenericScope
