@@ -152,7 +152,6 @@ screenshot of a simapro window displaying the 1.5 ratio for beef-with-bone ![scr
   - `cmaps_custom_lci` — taken from the first exchange of a `from_scratch` entry in `custom_lci.json`
   - `manual` — neither of the above.
 - `source_ref` — reference a reviewer can use to find the ratio in the source system:
-  - For `brightway_manual`: the Brightway activity name (e.g. `Meat with bone, beef, for direct consumption {FR}`).
   - For `cmaps_custom_lci`: the `alias` in `custom_lci.json` (e.g. `blue-cheese-auvergne-v1`).
 
 How to update:
@@ -171,20 +170,4 @@ flowchart LR
 ```
 
 `compute_forest_complement`, for processes with `forestManagement` in their
-metadata. The coefficient is a share of the land use (ldu) impact per m2.year,
-taken from a reference intensive plantation pine process: 4316 ldu points/kg for
-1563 m2.year.
-
-| forestManagement               | Share of ldu |
-| ------------------------------ | ------------ |
-| diversifiedForest              | -25%         |
-| certifiedDiversifiedForest     | -35%         |
-| certifiedSustainableManagement | -10%         |
-| sustainableManagement          | 0            |
-| intensivePlantation            | +25%         |
-
-
-## Tests
-
-- `tests/test_ecosystemic_services.py`: CSV loading, feed resolution
-- `tests/snapshots/`: exported values end to end
+metadata.
