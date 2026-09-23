@@ -252,7 +252,7 @@ mainMenuLinks enabledSections =
             Internal [ text "Textile" ] Route.TextileSimulatorHome TextileSimulator
         , addRouteIf enabledSections.food <|
             Internal [ text "Alimentaire" ] Route.FoodBuilderHome Food
-        , addRouteIf enabledSections.objects <|
+        , addRouteIf enabledSections.food2 <|
             Internal [ text "Alimentaire", sup [] [ text "BÉTA" ] ] (Route.GenericSimulatorHome Scope.Food2) (Generic Scope.Food2)
         , addRouteIf enabledSections.objects <|
             Internal [ text "Objets" ] (Route.GenericSimulatorHome Scope.Object) (Generic Scope.Object)
