@@ -32,7 +32,7 @@ Voici l'ordre général dans lequel il convient de procéder pour ajouter un nou
 
 ## 1. Ajouter le nouveau constructeur de type Elm
 
-Dans le module `[Data.Scope](../src/Data/Scope.elm)`, on ajoute le constructeur `Flowers` correspondant à notre nouvelle verticale *Fleurs* au type `GenericScope` :
+Dans le module [`Data.Scope`](../src/Data/Scope.elm), on ajoute le constructeur `Flowers` correspondant à notre nouvelle verticale *Fleurs* au type `GenericScope` :
 
 ```elm
 type GenericScope
@@ -86,7 +86,7 @@ toLabelGeneric genericScope =
 
 ### Liste exhaustive des scopes génériques
 
-Toujours dans le module `[Data.Scope](../src/Data/Scope.elm)`, compléter `allGeneric` avec `Flowers`, dans l'ordre alphabétique :
+Toujours dans le module [`Data.Scope`](../src/Data/Scope.elm), compléter `allGeneric` avec `Flowers`, dans l'ordre alphabétique :
 
 ```elm
 allGeneric : List GenericScope
@@ -100,7 +100,7 @@ allGeneric =
 
 ### Session
 
-Dans le module `[Data.Session](../src/Data/Session.elm)`, ajouter le champ `flowers : Component.Query` au type `Queries` :
+Dans le module [`Data.Session`](../src/Data/Session.elm), ajouter le champ `flowers : Component.Query` au type `Queries` :
 
 ```elm
 type alias Queries =
@@ -109,7 +109,7 @@ type alias Queries =
     …
 ```
 
-Le compilateur signalera également tous les enregistrements `Queries` à compléter, notamment dans la fonction `setupSession` du module `[Main](../src/Main.elm)` :
+Le compilateur signalera également tous les enregistrements `Queries` à compléter, notamment dans la fonction `setupSession` du module [`Main`](../src/Main.elm) :
 
 ```elm
     , queries =
@@ -136,7 +136,7 @@ ou `updateGenericQuery` :
 
 ### Dataset
 
-Le type `Dataset` du module `[Data.Dataset](../src/Data/Dataset.elm)` décrit le type de données de l'[Explorateur](/#/explore/food2).
+Le type `Dataset` du module [`Data.Dataset`](../src/Data/Dataset.elm) décrit le type de données de l'[Explorateur](/#/explore/food2).
 
 Ajouter les jeux de données de `datasets` et `defaultDatasetFor` pour `Scope.Generic Scope.Flowers`. Par exemple pour `datasets` :
 
@@ -185,7 +185,7 @@ Le compilateur Elm est un outil précieux mais certains fichiers compilent encor
 
 ### Parsing
 
-Dans le module `[Data.Scope](../src/Data/Scope.elm)`, mettre à jour la résolution des chaînes de caractères vers le nouveau type `Flowers`, que par nature le compilateur ne peut pas signaler. En effet, le code traite explicitement une liste blanche de chaînes de caractères acceptables en entrée, toute chaîne inconnue étant par défaut rejetée — dont `"flowers"`.
+Dans le module [`Data.Scope`](../src/Data/Scope.elm), mettre à jour la résolution des chaînes de caractères vers le nouveau type `Flowers`, que par nature le compilateur ne peut pas signaler. En effet, le code traite explicitement une liste blanche de chaînes de caractères acceptables en entrée, toute chaîne inconnue étant par défaut rejetée — dont `"flowers"`.
 
 Il convient donc de modifier la fonction `fromStringGeneric` pour mapper le nouvel identifiant textuel `"flowers"` :
 
@@ -196,7 +196,7 @@ Il convient donc de modifier la fonction `fromStringGeneric` pour mapper le nouv
 
 ### Éléments de vue génériques
 
-Dans le module `[Views.Page](../src/Views/Page.elm)`, la fonction `commonNotices` permet d'afficher un bandeau informatif dans l'entête de la page d'une calculette ; on peut décider d'en ajouter un spécifique à notre nouveau scope :
+Dans le module [`Views.Page`](../src/Views/Page.elm), la fonction `commonNotices` permet d'afficher un bandeau informatif dans l'entête de la page d'une calculette ; on peut décider d'en ajouter un spécifique à notre nouveau scope :
 
 ```elm
     Generic Scope.Flowers ->
@@ -208,7 +208,7 @@ Dans le module `[Views.Page](../src/Views/Page.elm)`, la fonction `commonNotices
 
 ### Routes
 
-Dans le module `[Route](../src/Route.elm)`, enregistrer le simulateur à côté des autres parsers de routes génériques :
+Dans le module [`Route`](../src/Route.elm), enregistrer le simulateur à côté des autres parsers de routes génériques :
 
 ```elm
         , parseGenericSimulatorRoutes Scope.Flowers "flowers"
@@ -258,7 +258,7 @@ Si vous décidez d'ajouter des catégories ou des composants à ce stade, vérif
 
 #### Data.Db
 
-Dans le module `[Data.Db](../src/Data/Db.elm)`, ajouter les nouveaux champs de données au type `Properties`.
+Dans le module [`Data.Db`](../src/Data/Db.elm), ajouter les nouveaux champs de données au type `Properties`.
 
 ```elm
 type alias Properties a =
@@ -298,7 +298,7 @@ Et enfin passer le contenu JSON des exemples à la fonction `GenericDb.buildFrom
 
 #### Request.Db
 
-Dans le module `[Request.Db](../src/Request/Db.elm)`, initialiser l'état de chargement des trois fichiers et les enchaîner dans `resolve` **dans le même ordre** :
+Dans le module [`Request.Db`](../src/Request/Db.elm), initialiser l'état de chargement des trois fichiers et les enchaîner dans `resolve` **dans le même ordre** :
 
 ```elm
     , flowersComponents = RemoteData.NotAsked
@@ -309,7 +309,7 @@ Dans le module `[Request.Db](../src/Request/Db.elm)`, initialiser l'état de cha
 
 #### Main
 
-Dans la fonction `loadData` du module `[Main](../src/Main.elm)`, ajouter les trois URLs des fichiers JSON correspondant à charger :
+Dans la fonction `loadData` du module [`Main`](../src/Main.elm), ajouter les trois URLs des fichiers JSON correspondant à charger :
 
 ```elm
     , ( "/data/flowers/categories.json", \data raw -> { raw | flowersProductCategories = data } )
@@ -322,7 +322,7 @@ Dans la fonction `loadData` du module `[Main](../src/Main.elm)`, ajouter les tro
 
 #### Data.Generic.Db
 
-Dans le module `[Data.Generic.Db](../src/Data/Generic/Db.elm)`, `buildFromJson` décode et concatène le contenu JSON des exemples pour chaque scope générique. On y ajoute la chaîne JSON du nouveau scope, contenue dans l'argument `flowersExamplesJson`, à la liste :
+Dans le module [`Data.Generic.Db`](../src/Data/Generic/Db.elm), `buildFromJson` décode et concatène le contenu JSON des exemples pour chaque scope générique. On y ajoute la chaîne JSON du nouveau scope, contenue dans l'argument `flowersExamplesJson`, à la liste :
 
 ```elm
 buildFromJson flowersExamplesJson food2ExamplesJson objectExamplesJson veliExamplesJson processes =
@@ -340,11 +340,11 @@ buildFromJson flowersExamplesJson food2ExamplesJson objectExamplesJson veliExamp
 
 #### Static.Db et template JSON
 
-Le module `[Static.Json](../src/Static/Json.elm)` est particulier, car il généré. Il sert notamment au serveur d'API, puisque Elm ne dispose pas d'API système pour interroger le système de fichiers et récupérer directement le contenu de fichiers s'y trouvant ; c'est pour cela que ces contenus sont encapsulés dans ce fichier généré, qui est chargé d'un bloc en RAM par l'app serveur. Les tests unitaires se servent également de ce module, puisque cet environnement ne dispose pas non plus d'accès direct au système de fichier.
+Le module [`Static.Json`](../src/Static/Json.elm) est particulier, car il généré. Il sert notamment au serveur d'API, puisque Elm ne dispose pas d'API système pour interroger le système de fichiers et récupérer directement le contenu de fichiers s'y trouvant ; c'est pour cela que ces contenus sont encapsulés dans ce fichier généré, qui est chargé d'un bloc en RAM par l'app serveur. Les tests unitaires se servent également de ce module, puisque cet environnement ne dispose pas non plus d'accès direct au système de fichier.
 
 > ⚠️ Notez que l'application Web Elm, elle, charge les données JSON à travers HTTP, réduisant ainsi le poids applicatif et les temps de chargement initiaux
 
-On modifie le template en question dans le fichier `[src/Static/Json.elm-template](../src/Static/Json.elm-template)`, ainsi que le script de génération situé dans `[bin/build-db](../bin/build-db)`. Exposer les trois chaînes en question :
+On modifie le template en question dans le fichier [`src/Static/Json.elm-template`](../src/Static/Json.elm-template), ainsi que le script de génération situé dans [`bin/build-db`](../bin/build-db). Exposer les trois chaînes en question :
 
 ```elm
 flowersComponentsJson : String
@@ -380,7 +380,7 @@ rawJsonComponents =
 
 > 💡 Seuls les JSON de *components* transitent par `RawJsonComponents` ; les examples et catégories de produit conservent leurs propres constantes `*Json` (comme `flowersExamplesJson`).
 
-Mobiliser ces nouveaux contenus JSON dans la fonction `dbFromStaticFiles` du module `[Static.Db](../src/Static/Db.elm)` ; encore une fois, l'ordre alphabétique est primordial :
+Mobiliser ces nouveaux contenus JSON dans la fonction `dbFromStaticFiles` du module [`Static.Db`](../src/Static/Db.elm) ; encore une fois, l'ordre alphabétique est primordial :
 
 ```elm
     , flowersComponents = Db.rawJsonString StaticJson.rawJsonComponents.flowersComponents
@@ -389,7 +389,7 @@ Mobiliser ces nouveaux contenus JSON dans la fonction `dbFromStaticFiles` du mod
     , food2Components = Db.rawJsonString StaticJson.food2ComponentsJson
 ```
 
-Dans le script `[bin/build-db](../bin/build-db)`, il faut maintenant ajouter les substitutions de chaînes requises pour générer le module de données statiques JSON Elm à partir du template :
+Dans le script [`bin/build-db`](../bin/build-db), il faut maintenant ajouter les substitutions de chaînes requises pour générer le module de données statiques JSON Elm à partir du template :
 
 ```js
   .replace(
@@ -416,7 +416,7 @@ Cette commande (re)génère le fichier et effectue les vérifications de cohére
 
 ### Menus et accueil
 
-Dans le module  `[Data.Session](../src/Data/Session.elm)`, ajouter le flag `flowers : Bool` à `EnabledSections`. Ces valeurs sont fournies par les *flags* JavaScript passés à l'initialisation de l'app Elm dans `[index.js](../index.js)` : **⚠️ si ce champ est erroné côté JavaScript, l'application plante au démarrage.**
+Dans le module  [`Data.Session`](../src/Data/Session.elm), ajouter le flag `flowers : Bool` à `EnabledSections`. Ces valeurs sont fournies par les *flags* JavaScript passés à l'initialisation de l'app Elm dans [`index.js`](../index.js) : **⚠️ si ce champ est erroné côté JavaScript, l'application plante au démarrage.**
 
 ```elm
 type alias EnabledSections =
@@ -429,7 +429,7 @@ type alias EnabledSections =
     }
 ```
 
-Dans `[index.js](../index.js)`, on ajoute donc le flag `flowers` à `enabledSections`.
+Dans [`index.js`](../index.js), on ajoute donc le flag `flowers` à `enabledSections`.
 
 > 💡 Parcel fige cette valeur dans le bundle au moment du build. Le menu ne change plus tant qu'on ne rebuilde pas !
 
@@ -440,7 +440,7 @@ Dans `[index.js](../index.js)`, on ajoute donc le flag `flowers` à `enabledSect
       food2: process.env.ENABLE_FOOD2_SECTION === "True",
 ```
 
-Dans la fonction `mainMenuLinks` du module `[Views.Page](../src/Views/Page.elm)`, conditionner l'affichage de la nouvelle entrée de menu sectorielle en vérifiant le flag `enabledSections.flowers` :
+Dans la fonction `mainMenuLinks` du module [`Views.Page`](../src/Views/Page.elm), conditionner l'affichage de la nouvelle entrée de menu sectorielle en vérifiant le flag `enabledSections.flowers` :
 
 ```elm
     , addRouteIf enabledSections.flowers <|
@@ -448,13 +448,13 @@ Dans la fonction `mainMenuLinks` du module `[Views.Page](../src/Views/Page.elm)`
           (Route.GenericSimulatorHome Scope.Flowers) (Generic Scope.Flowers)
 ```
 
-> 💡 Un bouton d'appel sur la page d'accueil est totalement optionnel. S'il est ajouté, le filtrer dans `[Page.Home](../src/Page/Home.elm)` avec le même flag.
+> 💡 Un bouton d'appel sur la page d'accueil est totalement optionnel. S'il est ajouté, le filtrer dans [`Page.Home`](../src/Page/Home.elm) avec le même flag.
 
-Les libellés et terminologies spécifiques à un scope pour affichage dans l'UI (*"ingrédients"*, *"matériau"*, etc.) se modifient dans la fonction `scopeLabels` du module `[Views.Component](../src/Views/Component.elm)`.
+Les libellés et terminologies spécifiques à un scope pour affichage dans l'UI (*"ingrédients"*, *"matériau"*, etc.) se modifient dans la fonction `scopeLabels` du module [`Views.Component`](../src/Views/Component.elm).
 
 ### Explorateur
 
-La fonction `scopesMenuView` du module `[Page.Explore](../src/Page/Explore.elm)` doit également être mise à jour pour activer la nouvelle entrée `Fleurs` dans le sélecteur de verticale :
+La fonction `scopesMenuView` du module [`Page.Explore`](../src/Page/Explore.elm) doit également être mise à jour pour activer la nouvelle entrée `Fleurs` dans le sélecteur de verticale :
 
 ```elm
         , [ ( Scope.Food, enabledSections.food )
@@ -467,7 +467,7 @@ La fonction `scopesMenuView` du module `[Page.Explore](../src/Page/Explore.elm)`
 
 ### Configuration transverse
 
-Dans `[public/data/components/config.json](../public/data/components/config.json)`, ajouter la clé `flowers` nécessaires aux sections du type `[Data.Component.Config](../src/Data/Component/Config.elm)` :
+Dans [`public/data/components/config.json`](../public/data/components/config.json), ajouter la clé `flowers` nécessaires aux sections du type [`Data.Component.Config`](../src/Data/Component/Config.elm) :
 
 - `defaultExamples` : UUID d'un exemple du scope
 - `durability.enabled` : activation du module durabilité
@@ -480,7 +480,7 @@ Dans `[public/data/components/config.json](../public/data/components/config.json
 
 ### Pays accessibles au nouveau scope
 
-Pour rendre des pays accessibles au nouveau scope, il convient de les étiqueter dans le fichier `[public/data/countries.json](../public/data/countries.json)` :
+Pour rendre des pays accessibles au nouveau scope, il convient de les étiqueter dans le fichier [`public/data/countries.json`](../public/data/countries.json) :
 
 ```json
   {
@@ -492,9 +492,9 @@ Pour rendre des pays accessibles au nouveau scope, il convient de les étiqueter
   },
 ```
 
-> 💡 Si des procédés doivent être scopés `"flowers"`, il sera nécéssaire au préalable d'autoriser l'identifiant dans l'enum `Scope` et l'ensemble `GENERIC_SCOPES` du module Python `[data/models/process.py](../data/models/process.py)`, ainsi que dans l'enum `scopes` de `[schemas/lci-schema.json](../schemas/lci-schema.json)`.
+> 💡 Si des procédés doivent être scopés `"flowers"`, il sera nécéssaire au préalable d'autoriser l'identifiant dans l'enum `Scope` et l'ensemble `GENERIC_SCOPES` du module Python [`data/models/process.py`](../data/models/process.py), ainsi que dans l'enum `scopes` de [`schemas/lci-schema.json`](../schemas/lci-schema.json).
 
-> 💡 Pour le tri des exemples génériques, on peut également ajouter `"flowers"` au tuple `SCOPES` dans le module Python `[bin/sort_generic_examples.py](../bin/sort_generic_examples.py)`.
+> 💡 Pour le tri des exemples génériques, on peut également ajouter `"flowers"` au tuple `SCOPES` dans le module Python [`bin/sort_generic_examples.py`](../bin/sort_generic_examples.py).
 
 ## 5. JavaScript et variables d'environnement
 
@@ -502,7 +502,7 @@ Le même flag `ENABLE_FLOWERS_SECTION` pilote le menu et la visibilité du scope
 
 ### Registre API
 
-Dans `[lib/scopes.js](../lib/scopes.js)`, `GENERIC_SCOPE_CONFIG` expose le registre de l'API générique :
+Dans [`lib/scopes.js`](../lib/scopes.js), `GENERIC_SCOPE_CONFIG` expose le registre de l'API générique :
 
 ```js
 const GENERIC_SCOPE_CONFIG = {
@@ -519,21 +519,21 @@ Le point d'entrée `GET /api/generic/scopes` ainsi que le contrôle d'accès des
 
 ### Documentation des variables
 
-Ajouter `ENABLE_FLOWERS_SECTION` à `[.env.sample](../.env.sample)` et à la liste des variables frontend du `[README.md](../README.md)`.
+Ajouter `ENABLE_FLOWERS_SECTION` à [`.env.sample`](../.env.sample) et à la liste des variables frontend du [`README.md`](../README.md).
 
 ### Review apps et CI
 
 Activer le flag également là où les autres scopes génériques le sont déjà :
 
-- `[scalingo.json](../scalingo.json)`
-- `[.github/workflows/node.js.yml](../.github/workflows/node.js.yml)`
-- `[.github/workflows/e2e.yml](../.github/workflows/e2e.yml)`
+- [`scalingo.json`](../scalingo.json)
+- [`.github/workflows/node.js.yml`](../.github/workflows/node.js.yml)
+- [`.github/workflows/e2e.yml`](../.github/workflows/e2e.yml)
 
-> ⚠️ On laissera volontairement de côté le fichier historique `[docker/server-simple.js](../docker/server-simple.js)`, actuellement déprécié et non synchronisé avec les encours de développements autour des fonctionnalités génériques : il n'impacte pas la production et ne subsiste aujourd'hui qu'à des fins d'archivage.
+> ⚠️ On laissera volontairement de côté le fichier historique [`docker/server-simple.js`](../docker/server-simple.js), actuellement déprécié et non synchronisé avec les encours de développements autour des fonctionnalités génériques : il n'impacte pas la production et ne subsiste aujourd'hui qu'à des fins d'archivage.
 
 ## 6. Déploiement progressif
 
-1. Ouvrir la pull request sans positionner `ENABLE_FLOWERS_SECTION` sur la production. L'absence de variable est traitée comme désactivé. De son côté, le fichier `[scalingo.json](../scalingo.json)` activera le flag sur la review app Scalingo
+1. Ouvrir la pull request sans positionner `ENABLE_FLOWERS_SECTION` sur la production. L'absence de variable est traitée comme désactivé. De son côté, le fichier [`scalingo.json`](../scalingo.json) activera le flag sur la review app Scalingo
 2. Une fois la PR recettée et validée, on peut la merger. À ce stade, la production n'affiche pas le menu et répond HTTP 403 sur `/api/flowers/*`
 3. Quand le scope doit devenir public : positionner `ENABLE_FLOWERS_SECTION=True` sur l'application Scalingo de production, puis redéployer pour que Parcel recompile le frontend en conséquence.
 
