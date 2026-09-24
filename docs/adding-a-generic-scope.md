@@ -1,23 +1,21 @@
 # Ajouter un scope générique
 
-Ce guide décrit, dans l'ordre, les étapes pour ajouter un nouveau périmètre au moteur générique et ouvrir une PR prête à être mergée.
+Ce guide décrit, dans l'ordre, les étapes pour ajouter un nouveau périmètre métier au moteur générique et ouvrir une PR prête à être mergée.
 
 > 💡 Dans ce document et dans la documentation du projet Ecobalyse, les termes *périmètre*, *domaine métier*, *verticale* et *scope* désignent tous le même concept : un domaine spécifique d'activités humaines pour lequel une calculette et le moteur de calcul générique derrière sont spécifiquement configurés. **Par commodité, nous emploierons ici le terme *scope*** qui est le terme technique à privilégier lors d'échanges techniques sur le sujet.
 
 Nous prendrons pour exemple l'ajout d'un nouveau scope **Flowers**, qui sera matérialisé de la façon suivante :
 
-- Libellé affiché dans l'UI (en français) : `Fleurs`
-- Identifiant technique du scope : `flowers`
-- Constructeur Elm associé : `Flowers`
+- Libellé en français : `Fleurs`
+- Identifiant technique : `flowers`
+- Constructeur Elm : `Flowers`
 - Variable d'environnement d'activation : `ENABLE_FLOWERS_SECTION`
 
-> ℹ️ Les **identifiants techniques sont en anglais** : identifiant de scope, noms de types, de constructeurs, de variables/constantes, paramètres et variables d'environnement. Les libellés visibles dans l'interface (boutons, menus, messages, erreurs, etc.) restent en français.
-
-
+> ℹ️ Les **identifiants techniques sont en anglais**, les libellés visibles dans l'interface (boutons, menus, messages, erreurs, etc.) sont en français.
 
 ## Architecture historique et généricité
 
-`Food` (ou *food1*) et `Textile`, scopes historiques, ont permis les premières implémentations de calculettes dont ont découlé les choix techniques socles du moteur générique. Ils disposent chacun d'un moteur de calcul, un module de page Elm et des points d'entrée d'API spécifiques ; `textile` et `food` ne sont donc pas *génériques*, tandis que `food2`, `object` et `veli` le sont.
+`Textile` puis `Food` (ou *food1*), scopes historiques, ont permis les premières implémentations de calculettes dont ont découlé les choix techniques socles du moteur générique. Ils disposent chacun d'un moteur de calcul, d'un module de page Elm et de points d'entrée d'API spécifiques ; `Textile` et `Food` ne sont donc pas *génériques*, tandis que `Food2`, `Object` et `Veli` le sont.
 
 C'est sur le modèle de ces derniers que de nouveaux scopes doivent être réfléchis et introduits dans la base de code, afin de s'appuyer sur le jeu de fonctionnalités transverses qu'offre désormais la plateforme. Pas de module `Page/Flowers.elm` ni de routes d'API spécifiques à un scope particulier, notamment.
 
@@ -25,13 +23,12 @@ C'est sur le modèle de ces derniers que de nouveaux scopes doivent être réfl�
 
 Voici l'ordre général dans lequel il convient de procéder pour ajouter un nouveau scope au projet Ecobalyse ; chaque étape est détaillée dans la suite du guide.
 
-1. Ajouter le nouveau constructeur `Flowers` au type Elm `GenericScope`
-2. Suivre et corriger les erreurs de compilation Elm suite à l'introduction du constructeur
+1. Ajouter un nouveau constructeur `Flowers`
+2. Suivre et corriger les erreurs de compilation Elm suite à son introduction
 3. Câbler ce que le compilateur ne voit pas (routes, fichiers JSON, menus…)
 4. Ajouter les fichiers de données et la configuration
-5. Enregistrer le scope côté JavaScript et définir les variables d'environnement
+5. Mettre à jour le code js et définir les variables d'environnement
 6. Déployer progressivement en production
-
 
 ## 1. Ajouter le nouveau constructeur de type Elm
 
@@ -39,67 +36,53 @@ Dans le module `[Data.Scope](../src/Data/Scope.elm)`, on ajoute le constructeur 
 
 ```elm
 type GenericScope
-    = Flowers -- <-- on ajoute le constructeur ici
+    = Flowers -- <-- on ajoute le nouveau constructeur ici
     | Food2
     | Object
     | Veli
 ```
 
-> 💡 L'avantage d'utiliser un langage strict fortement typé comme Elm et son compilateur sourcilleux, c'est que ce dernier nous guidera pour l'essentiel des modifications à opérer dans la base de code Elm pour que les modifications soient cohérentes. Il suffit simplement de suivre les messages qu'il nous fournit et corriger pas à pas.
+> 💡 L'avantage d'utiliser un langage strict fortement typé comme Elm et son compilateur sourcilleux, c'est que ce dernier nous guidera pour l'essentiel des modifications à opérer dans la base de code afin que les modifications restent cohérentes. Il suffit simplement de suivre les messages qu'il nous fournit et corriger pas à pas.
 
-> 💡 On note que les constructeurs doivent toujours être ordonnés alphabétiquement.
+> 💡 On note que les constructeurs doivent toujours être ordonnés alphabétiquement (une règle `elm-review` s'en assure dans la CI)
 
-Le compilateur nous indique immédiatement de gérer les nouvelles branches introduites par l'ajout de cette nouvelle entrée, typiquement dans des fonctions Elm comme `toLabel`, `toString` ou `toStringGeneric` du même fichier. Il s'agit là de fournir la représentation textuelle du scope dans certains contextes. Par exemple, le compilateur affiche ce message pour la fonction `toLabel` :
+Le compilateur nous indique immédiatement de gérer les nouvelles branches introduites par l'ajout de cette nouvelle entrée, typiquement dans des fonctions Elm comme `toLabelGeneric` et `toStringGeneric` du même fichier. Il s'agit là de fournir la représentation textuelle du scope dans certains contextes. Par exemple, le compilateur affiche ce message pour la fonction `toLabelGeneric` :
 
 ```
 -- MISSING PATTERNS ----------------------------------------- src/Data/Scope.elm
 
-182|#>#    case scope of
-183|#>#        Food ->
-184|#>#            "Alimentaire"
-185|#>#
-186|#>#        Generic Food2 ->
-187|#>#            "Alimentaire BÉTA"
-188|#>#
-189|#>#        Generic Object ->
-190|#>#            "Objets"
-191|#>#
-192|#>#        Generic Veli ->
-193|#>#            "Véhicules"
-194|#>#
-195|#>#        Textile ->
-196|#>#            "Textile"
+198|#>#    case genericScope of
+199|#>#        Food2 ->
+200|#>#            "Alimentaire BÉTA"
+201|#>#
+202|#>#        Object ->
+203|#>#            "Objets"
+204|#>#
+205|#>#        Veli ->
+206|#>#            "Véhicules"
 
 Missing possibilities include:
 
-    #Generic Flowers#
+    #Flowers#
 
 I would have to crash if I saw one of those. Add branches for them!
 ```
 
-Il faut donc rajouter le cas manquant, `Generic Flowers`. Pour rappel, si l'identifiant textuel de notre scope `Flowers` est `flowers`, son libellé d'affichage dans l'interface en français est `Fleurs` :
+Il nous faut donc rajouter la branche manquante traitant `Flowers`. Pour rappel, si l'identifiant textuel de notre scope `Flowers` est `flowers`, son libellé d'affichage dans l'interface en français est `Fleurs` :
 
 ```elm
-toLabel : Scope -> String
-toLabel scope =
-    case scope of
-        Food ->
-            "Alimentaire"
-
+toLabelGeneric : GenericScope -> String
+toLabelGeneric genericScope =
+    case genericScope of
         -- la nouvelle branche est ajoutée ici (notez l'ordre alphabétique)
-        Generic Flowers ->
+        Flowers ->
             "Fleurs"
 
-        Generic Food2 ->
+        Food2 ->
             "Alimentaire BÉTA"
         …
 ```
-
-
-
 ## 2. Cas exhaustifs
-
-
 
 ### Liste exhaustive des scopes génériques
 
@@ -114,8 +97,6 @@ allGeneric =
     , Veli
     ]
 ```
-
-
 
 ### Session
 
@@ -153,13 +134,29 @@ ou `updateGenericQuery` :
             { session | queries = { queries | flowers = query } }
 ```
 
-
-
 ### Dataset
 
 Le type `Dataset` du module `[Data.Dataset](../src/Data/Dataset.elm)` décrit le type de données de l'[Explorateur](/#/explore/food2).
 
-Ajouter les jeux de données de `datasets` et `defaultDatasetFor` pour `Scope.Generic Scope.Flowers`, sur le modèle des autres scopes génériques (`Food2`, `Object` et `Veli`).
+Ajouter les jeux de données de `datasets` et `defaultDatasetFor` pour `Scope.Generic Scope.Flowers`. Par exemple pour `datasets` :
+
+```elm
+    Scope.Generic Scope.Flowers ->
+        [ GenericExamples Scope.Flowers Nothing
+        , Components (Scope.Generic Scope.Flowers) Nothing
+        , Countries Nothing
+        , Processes (Scope.Generic Scope.Flowers) Nothing
+        , Impacts Nothing
+        , ProductCategory Scope.Flowers Nothing
+        ]
+```
+
+Et dans la fonction `defaultDatasetFor`, pointer par défaut vers les exemples du scope :
+
+```elm
+    Scope.Generic Scope.Flowers ->
+        GenericExamples Scope.Flowers Nothing
+```
 
 Ajouter également les slugs attendus pour les URLs de l'explorateur du nouveau scope `flowers` aux branches gérées par la fonction `fromSlug`. Le compilateur ne les réclamera pas, et sans eux l'explorateur ne pourra les résoudre et fonctionner correctement ; par exemple, ajouter ces branches pour gérer les nouveaux slugs vers les datasets à explorer correspondants :
 
@@ -177,8 +174,6 @@ Ajouter également les slugs attendus pour les URLs de l'explorateur du nouveau 
         ProductCategory Scope.Flowers Nothing
 ```
 
-
-
 ## 3. Mises à jour manuelles spécifiques
 
 Le compilateur Elm est un outil précieux mais certains fichiers compilent encore si on oublie d'opérer certaines modifications manuellement, et ce à quatre niveaux principalement :
@@ -188,20 +183,16 @@ Le compilateur Elm est un outil précieux mais certains fichiers compilent encor
 - les sources de données à charger pour le nouveau scope (composants, catégories de produits et exemples)
 - les menus de navigation et certains affichages dans l'interface utilisateur
 
-
-
 ### Parsing
 
 Dans le module `[Data.Scope](../src/Data/Scope.elm)`, mettre à jour la résolution des chaînes de caractères vers le nouveau type `Flowers`, que par nature le compilateur ne peut pas signaler. En effet, le code traite explicitement une liste blanche de chaînes de caractères acceptables en entrée, toute chaîne inconnue étant par défaut rejetée — dont `"flowers"`.
 
-Il convient donc de modifier les fonctions `fromStringGeneric` et `fromString` pour mapper le nouvel identifiant textuel `"flowers"` vers notre nouveau scope générique :
+Il convient donc de modifier la fonction `fromStringGeneric` pour mapper le nouvel identifiant textuel `"flowers"` :
 
 ```elm
     "flowers" ->
-        Ok (Generic Flowers)
+        Ok Flowers
 ```
-
-
 
 ### Éléments de vue génériques
 
@@ -214,8 +205,6 @@ Dans le module `[Views.Page](../src/Views/Page.elm)`, la fonction `commonNotices
             , Markdown.simple [] "**Cette verticale sent particulièrement bon.**"
             ]
 ```
-
-
 
 ### Routes
 
@@ -267,8 +256,6 @@ Si vous décidez d'ajouter des catégories ou des composants à ce stade, vérif
 - pour `components.json`, que chaque composant ait une propriété `"scopes": ["flowers"]`
 - pour `categories.json`, que chaque catégorie ait au minimum les propriétés requises `"cooling"`, `"id"`, `"label"` et `"scope": "flowers"`
 
-
-
 #### Data.Db
 
 Dans le module `[Data.Db](../src/Data/Db.elm)`, ajouter les nouveaux champs de données au type `Properties`.
@@ -307,7 +294,7 @@ Et enfin passer le contenu JSON des exemples à la fonction `GenericDb.buildFrom
         (extractJsonString json.veliExamples)
 ```
 
-
+> 💡 Ajouter aussi les accesseurs correspondants à la liste `propGetters` du même module : elle sert notamment au suivi de progression du chargement dans `Request.Db`.
 
 #### Request.Db
 
@@ -319,8 +306,6 @@ Dans le module `[Request.Db](../src/Request/Db.elm)`, initialiser l'état de cha
     , flowersProductCategories = RemoteData.NotAsked
     , food2Components = RemoteData.NotAsked
 ```
-
-
 
 #### Main
 
@@ -334,8 +319,6 @@ Dans la fonction `loadData` du module `[Main](../src/Main.elm)`, ajouter les tro
 ```
 
 > ⚠️ Encore une fois, l'ordre doit scrupuleusement suivre celui du type `Properties`, comme évoqué plus haut.
-
-
 
 #### Data.Generic.Db
 
@@ -354,8 +337,6 @@ buildFromJson flowersExamplesJson food2ExamplesJson objectExamplesJson veliExamp
             )
         |> Result.map (List.concat >> Db)
 ```
-
-
 
 #### Static.Db et template JSON
 
@@ -389,12 +370,15 @@ Ensuite, ajouter la propriété `flowersComponents` à la fonction `rawJsonCompo
 ```elm
 rawJsonComponents : RawJsonComponents
 rawJsonComponents =
-    { food2Components = food2ComponentsJson
+    { flowersComponents = flowersComponentsJson
+    , food2Components = food2ComponentsJson
     , objectComponents = objectComponentsJson
     , textileComponents = textileComponentsJson
     , veliComponents = veliComponentsJson
     }
 ```
+
+> 💡 Seuls les JSON de *components* transitent par `RawJsonComponents` ; les examples et catégories de produit conservent leurs propres constantes `*Json` (comme `flowersExamplesJson`).
 
 Mobiliser ces nouveaux contenus JSON dans la fonction `dbFromStaticFiles` du module `[Static.Db](../src/Static/Db.elm)` ; encore une fois, l'ordre alphabétique est primordial :
 
@@ -402,7 +386,7 @@ Mobiliser ces nouveaux contenus JSON dans la fonction `dbFromStaticFiles` du mod
     , flowersComponents = Db.rawJsonString StaticJson.rawJsonComponents.flowersComponents
     , flowersExamples = Db.rawJsonString StaticJson.flowersExamplesJson
     , flowersProductCategories = Db.rawJsonString StaticJson.flowersProductCategoriesJson
-    , food2Components = Db.rawJsonString StaticJson.rawJsonComponents.food2Components
+    , food2Components = Db.rawJsonString StaticJson.food2ComponentsJson
 ```
 
 Dans le script `[bin/build-db](../bin/build-db)`, il faut maintenant ajouter les substitutions de chaînes requises pour générer le module de données statiques JSON Elm à partir du template :
@@ -479,11 +463,7 @@ La fonction `scopesMenuView` du module `[Page.Explore](../src/Page/Explore.elm)`
           , ( Scope.Generic Scope.Object, enabledSections.objects )
 ```
 
-
-
 ## 4. Configuration, attribution des pays
-
-
 
 ### Configuration transverse
 
@@ -497,8 +477,6 @@ Dans `[public/data/components/config.json](../public/data/components/config.json
 - `docLinks.scoped` : surcharges éventuelles des liens par défaut vers la [documentation GitBook](https://fabrique-numerique.gitbook.io/ecobalyse)
 
 > 💡 Les stratégies de fin de vie (`endOfLife.strategies`) sont partagées ; on ne les duplique pas par scope.
-
-
 
 ### Pays accessibles au nouveau scope
 
@@ -514,7 +492,9 @@ Pour rendre des pays accessibles au nouveau scope, il convient de les étiqueter
   },
 ```
 
+> 💡 Si des procédés doivent être scopés `"flowers"`, il sera nécéssaire au préalable d'autoriser l'identifiant dans l'enum `Scope` et l'ensemble `GENERIC_SCOPES` du module Python `[data/models/process.py](../data/models/process.py)`, ainsi que dans l'enum `scopes` de `[schemas/lci-schema.json](../schemas/lci-schema.json)`.
 
+> 💡 Pour le tri des exemples génériques, on peut également ajouter `"flowers"` au tuple `SCOPES` dans le module Python `[bin/sort_generic_examples.py](../bin/sort_generic_examples.py)`.
 
 ## 5. JavaScript et variables d'environnement
 
@@ -536,8 +516,6 @@ const GENERIC_SCOPE_CONFIG = {
 Le point d'entrée `GET /api/generic/scopes` ainsi que le contrôle d'accès des URL `/{scope}/*` s'en servent. Un scope absent de ce registre répond comme s'il n'existait pas.
 
 > ℹ️ à terme, un fichier JSON centralisé de configuration prendra certainement le relai pour définir les propriétés d'un scope
-
-
 
 ### Documentation des variables
 

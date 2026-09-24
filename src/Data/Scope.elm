@@ -185,17 +185,24 @@ toLabel scope =
         Food ->
             "Alimentaire"
 
-        Generic Food2 ->
-            "Alimentaire BÉTA"
-
-        Generic Object ->
-            "Objets"
-
-        Generic Veli ->
-            "Véhicules"
+        Generic genericScope ->
+            toLabelGeneric genericScope
 
         Textile ->
             "Textile"
+
+
+toLabelGeneric : GenericScope -> String
+toLabelGeneric genericScope =
+    case genericScope of
+        Food2 ->
+            "Alimentaire BÉTA"
+
+        Object ->
+            "Objets"
+
+        Veli ->
+            "Véhicules"
 
 
 toString : Scope -> String
@@ -204,14 +211,8 @@ toString scope =
         Food ->
             "food"
 
-        Generic Food2 ->
-            "food2"
-
-        Generic Object ->
-            "object"
-
-        Generic Veli ->
-            "veli"
+        Generic genericScope ->
+            toStringGeneric genericScope
 
         Textile ->
             "textile"
