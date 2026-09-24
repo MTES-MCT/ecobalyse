@@ -218,6 +218,183 @@ addPackagingButton ({ query } as config) =
         ]
 
 
+{-| Creates an Autocomplete listing available, scoped, non-packaging materials
+-}
+createElementMaterialAutocomplete : Component.DataContainer db -> Scope -> Autocomplete Process
+createElementMaterialAutocomplete db scope =
+    Category.Material
+        |> listAvailableProcesses { db = db, scope = scope }
+        -- Exclude packaging materials as they're available in a dedicated section
+        |> List.filter (\{ categories } -> not <| List.member Category.Packaging categories)
+        |> AutocompleteSelector.init Process.getDisplayName
+
+
+addElementTransformButton : Config db msg -> Process -> TargetElement -> Html msg
+addElementTransformButton { db, openSelectProcessModal, query, scope } material ( targetItem, elementIndex ) =
+    let
+        availableTransformProcesses =
+            db.processes
+                |> List.filter .visible
+                |> Scope.anyOf [ scope ]
+                |> Process.listAvailableMaterialTransforms material
+                |> List.sortBy Process.getDisplayName
+                |> Process.available (Component.elementTransforms ( targetItem, elementIndex ) query.items)
+
+        autocompleteState =
+            availableTransformProcesses
+                |> AutocompleteSelector.init Process.getDisplayName
+    in
+    button
+        [ type_ "button"
+        , class "btn btn-link btn-sm w-100 text-decoration-none"
+        , class "d-flex justify-content-start align-items-center"
+        , class "gap-1 w-100 ps-0"
+        , disabled <| List.isEmpty availableTransformProcesses
+        , autocompleteState
+            |> openSelectProcessModal Category.Transform targetItem (Just elementIndex)
+            |> onClick
+        ]
+        [ Icon.plus
+        , text "Ajouter une transformation"
+        ]
+
+
+componentView : Config db msg -> Index -> ExpandedItem -> Results -> List (Html msg)
+componentView config itemIndex ({ component, elements, quantity } as expandedItem) itemResults =
+    let
+        collapsed =
+            config.detailed
+                |> List.member itemIndex
+                |> not
+    in
+    List.concat
+        [ [ tbody
+                (if itemIndex > 0 then
+                    -- Better visually separate components items when they're stacked and opened
+                    [ style "border-top" "1px solid #777" ]
+
+                 else
+                    []
+                )
+                [ tr []
+                    [ th [] []
+                    , th [ class "pb-0 fs-8 fw-normal text-muted text-nowrap" ] [ text "Masse unitaire" ]
+                    , th [ class "pb-0 fs-8 fw-normal text-muted", colspan 3 ]
+                        [ span [] [ text config.labels.label ] ]
+                    , th [ class "pb-0 fs-8 fw-normal text-muted text-nowrap text-center" ] [ text "Quantité" ]
+                    , th [ class "pb-0 fs-8 fw-normal text-muted text-nowrap text-center" ] [ text "Masse totale" ]
+                    , th [ class "pb-0 fs-8 fw-normal text-muted text-nowrap text-center" ] [ text "Impacts" ]
+                    , th [] []
+                    ]
+                , tr [ class "border-bottom" ]
+                    [ th [ class "ps-2 pt-0 pb-2 align-middle", scope "col" ]
+                        [ if config.context /= TextileTrimsContext then
+                            button
+                                [ type_ "button"
+                                , class "btn btn-link text-muted text-decoration-none font-monospace fs-5 p-0 m-0"
+                                , onClick <|
+                                    config.setDetailed <|
+                                        if collapsed && not (List.member itemIndex config.detailed) then
+                                            LE.unique <| itemIndex :: config.detailed
+
+                                        else
+                                            List.filter ((/=) itemIndex) config.detailed
+                                ]
+                                [ if collapsed then
+                                    text "▶"
+
+                                  else
+                                    text "▼"
+                                ]
+
+                          else
+                            text ""
+                        ]
+                    , td [ class "pt-0 pb-2 text-end align-middle text-nowrap fs-7" ]
+                        [ Component.extractUnitMass itemResults
+                            |> Format.kg
+                        ]
+                    , td [ class "pt-0 pb-2 align-middle text-truncate w-100", colspan 3 ]
+                        [ if config.context == GenericContext then
+                            div [ class "d-flex flex-column gap-1" ]
+                                [ div [ class "d-flex gap-2" ]
+                                    [ input
+                                        [ type_ "text"
+                                        , class "form-control"
+                                        , onInput (config.updateItemName ( component, itemIndex ))
+                                        , placeholder config.labels.label
+                                        , value component.name
+                                        ]
+                                        []
+                                    ]
+                                ]
+
+                          else
+                            span [ class "fw-bold" ] [ text component.name ]
+                        ]
+                    , td [ class "ps-0 pt-0 pb-2 align-middle" ]
+                        [ quantity |> quantityInput config itemIndex
+                        ]
+                    , td [ class "pt-0 pb-2 text-end align-middle text-nowrap fs-7" ]
+                        [ Component.extractMass itemResults
+                            |> Format.kg
+                        ]
+                    , td [ class "pt-0 pb-2 text-end align-middle text-nowrap fs-7", style "min-width" "80px" ]
+                        [ Component.getTotalImpacts itemResults
+                            |> Format.formatImpact config.impact
+                        ]
+                    , td [ class "pe-3 pt-0 pb-2 text-end align-end text-nowrap" ]
+                        [ button
+                            [ type_ "button"
+                            , class "btn btn-outline-secondary"
+                            , onClick (config.removeItem itemIndex)
+                            ]
+                            [ Icon.trash ]
+                        ]
+                    ]
+                ]
+          ]
+        , if not collapsed then
+            componentDetailedView config elements itemIndex expandedItem itemResults
+
+          else
+            []
+        ]
+
+
+componentDetailedView : Config db msg -> List ExpandedElement -> Index -> ExpandedItem -> Results -> List (Html msg)
+componentDetailedView config elements itemIndex expandedItem itemResults =
+    List.concat
+        [ [ tr [ class "bg-light border-bottom" ]
+                [ th [] []
+                , th [ class "pb-1", colspan 8 ] [ text "Composition" ]
+                ]
+          ]
+        , if List.isEmpty elements then
+            [ tr []
+                [ th [] []
+                , td []
+                    [ text "Aucun élément"
+                    ]
+                ]
+            ]
+
+          else
+            List.map3
+                (elementView config ( expandedItem.component, itemIndex ) itemResults)
+                (List.range 0 (List.length elements - 1))
+                elements
+                (Component.extractItems itemResults)
+        , [ tr [ class "border-top" ]
+                [ td [ colspan 9, class "pe-3" ]
+                    [ addElementButton config ( expandedItem.component, itemIndex )
+                    ]
+                ]
+          ]
+        ]
+
+
+>>>>>>> 3f0a7780 (chore: remove admin from Elm code)
 viewDebug : Query -> LifeCycle -> Html msg
 viewDebug query lifeCycle =
     div []
