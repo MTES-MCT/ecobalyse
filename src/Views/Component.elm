@@ -104,8 +104,7 @@ type alias Config db msg =
 
 
 type Context
-    = AdminContext
-    | GenericContext
+    = GenericContext
     | TextileTrimsContext
 
 
@@ -389,16 +388,12 @@ componentView config itemIndex ({ component, elements, quantity } as expandedIte
                             |> Format.formatImpact config.impact
                         ]
                     , td [ class "pe-3 pt-0 pb-2 text-end align-end text-nowrap" ]
-                        [ if config.context == AdminContext then
-                            text ""
-
-                          else
-                            button
-                                [ type_ "button"
-                                , class "btn btn-outline-secondary"
-                                , onClick (config.removeItem itemIndex)
-                                ]
-                                [ Icon.trash ]
+                        [ button
+                            [ type_ "button"
+                            , class "btn btn-outline-secondary"
+                            , onClick (config.removeItem itemIndex)
+                            ]
+                            [ Icon.trash ]
                         ]
                     ]
                 ]
@@ -542,30 +537,12 @@ lifeCycleView ({ db, docsUrl, explorerRoute, impact, query, scope } as config) l
                     Ok expandedItems ->
                         div [ class "table-responsive" ]
                             [ table [ class "table table-sm table-borderless mb-0" ]
-                                ((if config.context == AdminContext then
-                                    thead []
-                                        [ tr [ class "fs-7 text-muted" ]
-                                            [ th [] []
-                                            , th [ class "ps-0", Attr.scope "col" ] [ text "Quantité" ]
-                                            , th [ Attr.scope "col", colspan 2 ]
-                                                [ text config.labels.name
-                                                ]
-                                            , th [ Attr.scope "col" ] [ text "Masse unitaire" ]
-                                            , th [ Attr.scope "col" ] [ text "Masse totale" ]
-                                            , th [ Attr.scope "col" ] [ text "Impact" ]
-                                            , th [ Attr.scope "col" ] []
-                                            ]
-                                        ]
-
-                                  else
-                                    text ""
-                                 )
-                                    :: List.concat
-                                        (List.map3 (componentView config)
-                                            (List.range 0 (List.length query.items - 1))
-                                            expandedItems
-                                            (Component.extractItems lifeCycle.production)
-                                        )
+                                (List.concat
+                                    (List.map3 (componentView config)
+                                        (List.range 0 (List.length query.items - 1))
+                                        expandedItems
+                                        (Component.extractItems lifeCycle.production)
+                                    )
                                 )
                             ]
             , addProductionItemButton config
@@ -1450,7 +1427,6 @@ quantityInput config itemIndex quantity =
             , quantity |> Component.quantityToInt |> String.fromInt |> value
             , step "1"
             , Attr.min "1"
-            , disabled <| config.context == AdminContext
             , onInput <|
                 \str ->
                     String.toInt str

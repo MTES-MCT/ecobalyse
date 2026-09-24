@@ -61,11 +61,6 @@ fileDownload =
     icon "file-download"
 
 
-fileExport : Html msg
-fileExport =
-    icon "file-export"
-
-
 fileUpload : Html msg
 fileUpload =
     icon "file-upload"
@@ -84,11 +79,6 @@ ham =
 info : Html msg
 info =
     icon "info"
-
-
-list : Html msg
-list =
-    icon "list"
 
 
 lock : Html msg

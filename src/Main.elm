@@ -14,10 +14,6 @@ import Data.Plausible as Plausible
 import Data.Session as Session exposing (Session)
 import Data.Textile.Query as TextileQuery
 import Html
-import Page.Admin.Account as AccountAdmin
-import Page.Admin.Component as ComponentAdmin
-import Page.Admin.Process as ProcessAdmin
-import Page.Admin.Section as AdminSection
 import Page.Api as Api
 import Page.Auth as Auth
 import Page.Editorial as Editorial
@@ -59,10 +55,8 @@ type alias SessionConfig =
 
 
 type Page
-    = AccountAdminPage AccountAdmin.Model
-    | ApiPage Api.Model
+    = ApiPage Api.Model
     | AuthPage Auth.Model
-    | ComponentAdminPage ComponentAdmin.Model
     | EditorialPage Editorial.Model
     | ExplorePage Explore.Model
     | FoodBuilderPage FoodBuilder.Model
@@ -70,8 +64,6 @@ type Page
     | HomePage Home.Model
     | LoadingPage
     | NotFoundPage
-    | ProcessAdminPage ProcessAdmin.Model
-    | RestrictedAccessPage
     | StatsPage Stats.Model
     | TextileSimulatorPage TextileSimulator.Model
 
@@ -96,11 +88,9 @@ type alias Model =
 
 
 type Msg
-    = AccountAdminMsg AccountAdmin.Msg
-    | ApiMsg Api.Msg
+    = ApiMsg Api.Msg
     | AppMsg App.Msg
     | AuthMsg Auth.Msg
-    | ComponentAdminMsg ComponentAdmin.Msg
     | ComponentConfigReceived Db SessionConfig (WebData Component.Config)
     | DetailedProcessesReceived SessionConfig (BackendHttp.WebData String)
     | EditorialMsg Editorial.Msg
@@ -108,7 +98,6 @@ type Msg
     | FoodBuilderMsg FoodBuilder.Msg
     | GenericSimulatorMsg GenericSimulator.Msg
     | HomeMsg Home.Msg
-    | ProcessAdminMsg ProcessAdmin.Msg
     | RawDataReceived SessionConfig (WebData RawJsonString -> LoadingState -> LoadingState) (WebData RawJsonString)
     | StatsMsg Stats.Msg
     | StoreChanged String
@@ -226,17 +215,6 @@ toPage session model cmds toModel toMsg pageUpdate =
     )
 
 
-requireSuperuser : Session -> ( Model, Cmd Msg ) -> ( Model, Cmd Msg )
-requireSuperuser session ( model, cmds ) =
-    if Session.isSuperuser session then
-        ( model, cmds )
-
-    else
-        ( { model | state = Loaded session RestrictedAccessPage }
-        , Cmd.none
-        )
-
-
 setRoute : Url -> ( Model, Cmd Msg ) -> ( Model, Cmd Msg )
 setRoute url ( { state } as model, cmds ) =
     case state of
@@ -249,21 +227,6 @@ setRoute url ( { state } as model, cmds ) =
 
         Loaded session _ ->
             case Route.fromUrl url of
-                Just (Route.Admin AdminSection.AccountSection) ->
-                    AccountAdmin.init session AdminSection.AccountSection
-                        |> toPage session model cmds AccountAdminPage AccountAdminMsg
-                        |> requireSuperuser session
-
-                Just (Route.Admin AdminSection.ComponentSection) ->
-                    ComponentAdmin.init session AdminSection.ComponentSection
-                        |> toPage session model cmds ComponentAdminPage ComponentAdminMsg
-                        |> requireSuperuser session
-
-                Just (Route.Admin AdminSection.ProcessSection) ->
-                    ProcessAdmin.init session AdminSection.ProcessSection
-                        |> toPage session model cmds ProcessAdminPage ProcessAdminMsg
-                        |> requireSuperuser session
-
                 Just Route.Api ->
                     Api.init session
                         |> toPage session model cmds ApiPage ApiMsg
@@ -502,10 +465,6 @@ update rawMsg ({ state } as model) =
                         "Impossible de charger les impacts détaillés; les impacts agrégés seront utilisés."
 
                 -- Pages
-                ( AccountAdminMsg adminMsg, AccountAdminPage adminModel ) ->
-                    AccountAdmin.update session adminMsg adminModel
-                        |> toPage session model Cmd.none AccountAdminPage AccountAdminMsg
-
                 ( ApiMsg apiMsg, ApiPage apiModel ) ->
                     Api.update session apiMsg apiModel
                         |> toPage session model Cmd.none ApiPage ApiMsg
@@ -513,10 +472,6 @@ update rawMsg ({ state } as model) =
                 ( AuthMsg authMsg, AuthPage authModel ) ->
                     Auth.update session authMsg authModel
                         |> toPage session model Cmd.none AuthPage AuthMsg
-
-                ( ComponentAdminMsg adminMsg, ComponentAdminPage adminModel ) ->
-                    ComponentAdmin.update session adminMsg adminModel
-                        |> toPage session model Cmd.none ComponentAdminPage ComponentAdminMsg
 
                 ( EditorialMsg editorialMsg, EditorialPage editorialModel ) ->
                     Editorial.update session editorialMsg editorialModel
@@ -540,11 +495,6 @@ update rawMsg ({ state } as model) =
                 ( GenericSimulatorMsg genericMsg, GenericSimulatorPage genericModel ) ->
                     GenericSimulator.update session genericMsg genericModel
                         |> toPage session model Cmd.none GenericSimulatorPage GenericSimulatorMsg
-
-                -- Process Admin
-                ( ProcessAdminMsg adminMsg, ProcessAdminPage adminModel ) ->
-                    ProcessAdmin.update session adminMsg adminModel
-                        |> toPage session model Cmd.none ProcessAdminPage ProcessAdminMsg
 
                 -- Stats
                 ( StatsMsg statsMsg, StatsPage statsModel ) ->
@@ -591,12 +541,6 @@ update rawMsg ({ state } as model) =
                 ( VersionPoll, _ ) ->
                     ( model, Version.loadVersion VersionReceived )
 
-                -- Catch-all
-                ( _, RestrictedAccessPage ) ->
-                    ( { model | state = Loaded session RestrictedAccessPage }
-                    , Cmd.none
-                    )
-
                 ( _, NotFoundPage ) ->
                     ( { model | state = Loaded session NotFoundPage }
                     , Cmd.none
@@ -626,14 +570,6 @@ subscriptions { state } =
             _ ->
                 Sub.none
         , case state of
-            Loaded _ (AccountAdminPage _) ->
-                AccountAdmin.subscriptions
-                    |> Sub.map AccountAdminMsg
-
-            Loaded _ (ComponentAdminPage subModel) ->
-                ComponentAdmin.subscriptions subModel
-                    |> Sub.map ComponentAdminMsg
-
             Loaded _ (ExplorePage subModel) ->
                 Explore.subscriptions subModel
                     |> Sub.map ExploreMsg
@@ -645,10 +581,6 @@ subscriptions { state } =
             Loaded _ (GenericSimulatorPage subModel) ->
                 GenericSimulator.subscriptions subModel
                     |> Sub.map GenericSimulatorMsg
-
-            Loaded _ (ProcessAdminPage _) ->
-                ProcessAdmin.subscriptions
-                    |> Sub.map ProcessAdminMsg
 
             Loaded _ (TextileSimulatorPage subModel) ->
                 TextileSimulator.subscriptions subModel
@@ -708,11 +640,6 @@ view { dbLoadingState, flags, mobileNavigationOpened, state, tray } =
                     ( title, content |> List.map (Html.map msg) )
             in
             case page of
-                AccountAdminPage accountAdminModel ->
-                    AccountAdmin.view accountAdminModel
-                        |> mapMsg AccountAdminMsg
-                        |> frame Page.Admin
-
                 ApiPage _ ->
                     Api.view session
                         |> mapMsg ApiMsg
@@ -722,11 +649,6 @@ view { dbLoadingState, flags, mobileNavigationOpened, state, tray } =
                     Auth.view session authModel
                         |> mapMsg AuthMsg
                         |> frame Page.Auth
-
-                ComponentAdminPage componentAdminModel ->
-                    ComponentAdmin.view session componentAdminModel
-                        |> mapMsg ComponentAdminMsg
-                        |> frame Page.Admin
 
                 EditorialPage editorialModel ->
                     Editorial.view editorialModel
@@ -759,15 +681,6 @@ view { dbLoadingState, flags, mobileNavigationOpened, state, tray } =
 
                 NotFoundPage ->
                     ( "404", [ Page.notFound ] )
-                        |> frame Page.Other
-
-                ProcessAdminPage processAdminModel ->
-                    ProcessAdmin.view session processAdminModel
-                        |> mapMsg ProcessAdminMsg
-                        |> frame Page.Admin
-
-                RestrictedAccessPage ->
-                    ( "Accès restreint", [ Page.restricted ] )
                         |> frame Page.Other
 
                 StatsPage statsModel ->
