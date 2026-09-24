@@ -20,7 +20,7 @@ stays below conventional beef.
    (you need to be signed in to GitHub and a member of the project).
 2. Click the most recent run at the top of the list.
 3. Scroll down to the **Artifacts** section at the bottom of the page.
-![alt text](image.png)
+![alt text](dl_hierarchy_report.png)
 4. Click **ingredient-hierarchy-report**. A zip file downloads.
 5. Unzip it.
 
