@@ -1,12 +1,13 @@
-# Retrieving the ingredient hierarchy report
+# Ingredient hierarchy check
 
-This report checks that the scores of food ingredients follow an expected order.
+This check verifies that the scores of food ingredients follow an expected order.
 For a given base product (soft wheat, for instance), the expected order is:
 
     organic < France < European Union < outside EU < unknown origin
 
 It also checks a few explicit pairs, for example that the most impactful chicken
 stays below conventional beef.
+It outputs a report in a .zip file
 
 ## When is the report generated?
 
