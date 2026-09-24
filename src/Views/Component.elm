@@ -133,7 +133,10 @@ type alias Labels =
     }
 
 
-{-| Scoped label. TODO: we might eventually want to make these configurable.
+{-| Scoped label.
+
+FIXME: we should make these configurable in components/config.json
+
 -}
 scopeLabels : Context -> Scope -> Labels
 scopeLabels context scope =
