@@ -29,19 +29,17 @@ stays below conventional beef.
 
 | File or folder | Content |
 |---|---|
-| `ingredient_hierarchy_anomalies_fr.csv` | List of anomalies in French spreadsheet format (`;` separator, decimal comma). Opens directly in Excel or LibreOffice with French settings. |
-| `ingredient_hierarchy_anomalies.csv` | Same list in standard format (`,` separator, decimal point). |
+| `ingredient_hierarchy_anomalies_fr.csv` | List of anomalies in French format (`;` separator, decimal comma) |
+| `ingredient_hierarchy_anomalies.csv` | Same list in standard format (`,` separator, decimal point) |
 | `ingredient_plots/` | One chart per base product, with one bar per variant and the breakdown by impact. Files whose name ends with `_anomaly` concern a product with at least one anomaly. |
 | `ingredient_plots/_all_meats_barchart.png` | All meats on a single chart. |
 | `ingredient_plots/_pair_…png` | One chart per explicit pair check. |
 | `bookmarks/` | One bookmark file per base product, to import into the Ecobalyse comparator. |
 
-When no anomaly is found, the CSV files are not in the zip.
-
 ## Reading the anomalies file
 
-One row per pair of ingredients in the wrong order. Rows visible to end users
-come first, then by decreasing gap.
+One row per pair of ingredients. Rows visible to end users
+come first, then by decreasing delta.
 
 | Column | Meaning |
 |---|---|
@@ -54,5 +52,3 @@ come first, then by decreasing gap.
 | `expected_lower_lci_catalog` | Link to the ingredient definition file on GitHub. |
 | `expected_higher_…` | Same information for the variant that should have the higher score. |
 | `delta` | Score gap between the two, in points. The larger it is, the more the anomaly deserves attention. |
-
-On the charts, hidden ingredients are written in grey italics.
