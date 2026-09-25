@@ -47,20 +47,17 @@ module Data.Component exposing
     , createItem
     , decode
     , decodeItem
-    , decodeList
     , decodeListFromJsonString
     , decodeQuery
     , defaultDurability
     , defaultTransportOptions
     , elementMassShare
     , elementTransforms
-    , elementsToString
     , emptyAssembly
     , emptyComponent
     , emptyLifeCycle
     , emptyQuery
     , emptyResults
-    , encode
     , encodeBase64Query
     , encodeId
     , encodeItem
@@ -1621,18 +1618,6 @@ emptyResults =
         , quantity = 1
         , stage = Nothing
         }
-
-
-encode : Component -> Encode.Value
-encode v =
-    EU.optionalPropertiesObject
-        [ ( "comment", v.comment |> Maybe.map Encode.string )
-        , ( "elements", v.elements |> Encode.list encodeElement |> Just )
-        , ( "id", v.id |> Maybe.map encodeId )
-        , ( "name", v.name |> Encode.string |> Just )
-        , ( "published", v.published |> Encode.bool |> Just )
-        , ( "scopes", [ v.scope ] |> Encode.list Scope.encode |> Just )
-        ]
 
 
 encodeBase64Query : Query -> String

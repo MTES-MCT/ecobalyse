@@ -17,19 +17,6 @@ if [ "$IS_REVIEW_APP" == "true" ]; then
    uv run backend database upgrade --no-prompt
 fi
 
-# Always reset the processes with the latest data, even on production
-# As we don’t use FK to processes anymore, we decided to stop updating
-# the processes and instead just delete and add again
-# (Updates were taking ages and was blocking scalingo deploy)
-# https://github.com/MTES-MCT/ecobalyse/pull/2785
-# uv run backend fixtures reset-processes public/data/processes_impacts.json
-
-if [ "$IS_REVIEW_APP" == "true" ]; then
-   # We want to keep the staging components as they are, so we only load the default ones on review apps
-   echo "-> Loading components fixtures";
-   uv run backend fixtures load-components public/data/object/components.json
-fi
-
 # Test if variable is set
 if test -n "${BACKEND_ADMINS:+x}"; then
   uv run backend users create-users --users "$BACKEND_ADMINS" --organization "Ecobalyse" --superuser

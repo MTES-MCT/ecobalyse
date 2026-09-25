@@ -2,7 +2,6 @@ module Data.Scope exposing
     ( Dict
     , GenericScope(..)
     , Scope(..)
-    , all
     , anyOf
     , decode
     , decodeDict
@@ -44,16 +43,6 @@ type GenericScope
 -}
 type alias Dict a =
     AnyDict String Scope a
-
-
-all : List Scope
-all =
-    [ Food
-    , Generic Food2
-    , Generic Object
-    , Generic Veli
-    , Textile
-    ]
 
 
 {-| Filter a list of scoped records against any passed allowed scopes

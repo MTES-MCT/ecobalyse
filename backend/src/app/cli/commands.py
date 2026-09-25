@@ -1,16 +1,12 @@
 from __future__ import annotations
 
-import itertools
 from pathlib import Path
-from typing import Any, cast
-from uuid import UUID
+from typing import cast
 
 import anyio
 import click
-import orjson
 from advanced_alchemy.utils.fixtures import open_fixture_async
 from rich import get_console
-from sqlalchemy.sql import text
 from structlog import get_logger
 
 from app.config import get_settings
@@ -22,8 +18,6 @@ from app.domain.accounts.schemas import (
     UserCreate,
 )
 from app.domain.accounts.services import UserService
-from app.domain.components.deps import provide_components_service
-from app.domain.processes.deps import provide_processes_service
 
 
 @click.group(
@@ -82,7 +76,7 @@ async def _create_users(
 
     async with alchemy.get_session() as db_session:
         users_service = await anext(provide_users_service(db_session))
-        user = await users_service.upsert_many(
+        await users_service.upsert_many(
             data=users_to_upsert, auto_commit=True, match_fields=["email"]
         )
         console.print(f"Users upserted: {[user for user in users_to_upsert]}")
@@ -351,190 +345,3 @@ async def get_or_create_default_user(db_session):
         )
 
     return user
-
-
-async def load_components_fixtures(components_data: list) -> None:
-    """Import/Synchronize Database Fixtures."""
-
-    logger = get_logger()
-
-    async with alchemy.get_session() as db_session:
-        user = await get_or_create_default_user(db_session)
-
-        components_service = await anext(provide_components_service(db_session))
-
-        for component in components_data:
-            component["owner"] = user
-
-        await components_service.create_many(
-            data=components_data,
-            auto_commit=True,
-        )
-        await logger.ainfo("loaded components fixtures")
-
-
-@fixtures_management_group.command(
-    name="load-components", help="Load components from JSON file."
-)
-@click.argument(
-    "json_file",
-    type=click.File("rb"),
-)
-def load_components_json(json_file: click.File) -> None:
-    """Load components json.
-
-    Args:
-        component json file (Path): The path to the JSON file to load.
-    """
-
-    console = get_console()
-
-    json_data = orjson.loads(json_file.read())  # ty: ignore[unresolved-attribute]
-
-    async def _load_components_json(components_data) -> None:
-        await load_components_fixtures(components_data)
-
-    console.rule("Loading components file.")
-    anyio.run(_load_components_json, json_data)
-
-
-async def load_processes_fixtures(
-    db_session, processes_service, processes_data: list[dict[str, Any]]
-) -> None:
-    """Import/Synchronize Database Fixtures."""
-
-    from structlog import get_logger
-
-    logger = get_logger()
-
-    user = await get_or_create_default_user(db_session)
-
-    processes_fixtures_ids = []
-
-    for process in processes_data:
-        process["id"] = UUID(process["id"])
-        process["owner"] = user
-        processes_fixtures_ids.append(process["id"])
-
-    existing_processes = await processes_service.get_many()
-    existing_processes_ids = [process.id for process in existing_processes]
-
-    processes_to_add = []
-    processes_to_update = []
-    processes_ids_to_delete = []
-
-    for process_fixture in processes_data:
-        if process_fixture["id"] not in existing_processes_ids:
-            processes_to_add.append(process_fixture)
-        else:
-            processes_to_update.append(process_fixture)
-
-    for existing_process in existing_processes:
-        if existing_process.id not in processes_fixtures_ids:
-            processes_ids_to_delete.append(existing_process.id)
-
-    if processes_to_add:
-        await processes_service.create_many(
-            data=processes_to_add,
-            auto_commit=False,
-        )
-
-    if processes_to_update:
-        for process_to_update in processes_to_update:
-            await processes_service.update(
-                item_id=process_to_update["id"],
-                data=process_to_update,
-                auto_commit=False,
-                auto_refresh=False,
-            )
-
-    if processes_ids_to_delete:
-        await processes_service.delete_many(
-            item_ids=processes_ids_to_delete,
-            auto_commit=False,
-        )
-
-    await db_session.commit()
-
-    await logger.ainfo(f"Loaded {len(processes_data)} processes fixtures")
-    await logger.ainfo(f"Added: {len(processes_to_add)}")
-    await logger.ainfo(f"Updated: {len(processes_to_update)}")
-    await logger.ainfo(f"Deleted: {len(processes_ids_to_delete)}")
-
-
-@fixtures_management_group.command(
-    name="load-processes", help="Load processes from JSON file."
-)
-@click.argument("json_file", type=click.File("rb"), nargs=1)
-def load_processes_json(json_file: click.File) -> None:
-    """Load processes json.
-
-    Args:
-        processes json file (Path): The path to the JSON file to load.
-    """
-
-    console = get_console()
-
-    json_data = orjson.loads(json_file.read())  # ty: ignore[unresolved-attribute]
-
-    async def _load_processes_json(components_data) -> None:
-        async with alchemy.get_session() as db_session:
-            processes_service = await anext(provide_processes_service(db_session))
-            await load_processes_fixtures(
-                db_session, processes_service, components_data
-            )
-
-    console.rule("Loading processes file.")
-    anyio.run(_load_processes_json, json_data)
-
-
-async def reset_processes_fixtures(
-    db_session, processes_service, processes_data: list[dict[str, Any]]
-) -> None:
-    """Import/Synchronize Database Fixtures."""
-
-    from structlog import get_logger
-
-    logger = get_logger()
-
-    user = await get_or_create_default_user(db_session)
-    await db_session.execute(text("""TRUNCATE PROCESS CASCADE"""))
-
-    for process in processes_data:
-        process["id"] = UUID(process["id"])
-        process["owner"] = user
-
-    for batch in itertools.batched(processes_data, 500):
-        await logger.ainfo(f"Inserting from {len(batch)} items")
-
-        await processes_service.create_many(
-            data=batch,
-        )
-
-    await logger.ainfo(f"Loaded {len(processes_data)} processes fixtures")
-
-
-@fixtures_management_group.command(
-    name="reset-processes", help="Reset (delete and load) processes from JSON file."
-)
-@click.argument("json_file", type=click.File("rb"), nargs=1)
-def reset_processes_json(json_file: click.File) -> None:
-    """Reset processes from a json file.
-
-    Args:
-        processes json file (Path): The path to the JSON file to load.
-    """
-
-    console = get_console()
-
-    json_data = orjson.loads(json_file.read())  # ty: ignore[unresolved-attribute]
-
-    async def _reset_processes_json(components_data) -> None:
-        async with alchemy.get_session() as db_session:
-            processes_service = await anext(provide_processes_service(db_session))
-            await reset_processes_fixtures(
-                db_session, processes_service, components_data
-            )
-
-    console.rule("Resetting processes from file.")
-    anyio.run(_reset_processes_json, json_data)

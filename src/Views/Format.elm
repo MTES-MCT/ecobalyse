@@ -3,13 +3,11 @@ module Views.Format exposing
     , complement
     , cubicMeters
     , days
-    , diff
     , formatComplementsResultsImpactsToString
     , formatFloat
     , formatImpact
     , formatImpactFloat
     , formatRichFloat
-    , frenchDate
     , frenchDatetime
     , hours
     , kg
@@ -283,13 +281,6 @@ splitAsPercentage decimals value =
         |> Html.text
 
 
-frenchDate : Posix -> String
-frenchDate =
-    DateFormat.formatI18n DateFormat.french
-        "dd/MM/yyyy"
-        Time.utc
-
-
 frenchDatetime : Posix -> String
 frenchDatetime =
     DateFormat.formatI18n DateFormat.french
@@ -324,27 +315,6 @@ massPerUnit process =
 
         Nothing ->
             text "N/A"
-
-
-diff : String -> Html msg
-diff =
-    String.split "\n"
-        >> List.map
-            (\line ->
-                div
-                    [ class <|
-                        if String.startsWith "+ " line then
-                            "bg-success bg-opacity-10 text-success"
-
-                        else if String.startsWith "- " line then
-                            "bg-danger bg-opacity-10 text-danger"
-
-                        else
-                            "text-muted"
-                    ]
-                    [ text line ]
-            )
-        >> pre [ class "mb-0" ]
 
 
 qtyVariationRatio : Unit.QuantityVariationRatio -> Html msg

@@ -158,30 +158,6 @@ test.describe("auth", () => {
       expect(apiResponseJson2.impacts.cch).toBe(0); // no detailed impact
     });
 
-    await test.step("admin access", async () => {
-      // alice can't see the admin button
-      await expect(
-        page.getByLabel("Menu principal").getByRole("link", { name: "Admin" }),
-      ).not.toBeVisible();
-
-      await page.goto("/#/auth"); // triggers user admin status reloading
-
-      await page.getByRole("button", { name: "Déconnexion" }).click();
-
-      // Bob is an admin
-      await loginUser(page, "bob@dylan.com");
-
-      await page.goto("/#/auth"); // triggers user admin status reloading
-
-      await expect(
-        page.getByLabel("Menu principal").getByRole("link", { name: "Admin" }),
-      ).toBeVisible();
-
-      await page.getByLabel("Menu principal").getByRole("link", { name: "Admin" }).click();
-
-      await expect(page.getByRole("heading", { name: /Admin.*Composants/ })).toBeVisible();
-    });
-
     await test.step("impact selector", async () => {
       await page.goto("/#/auth"); // triggers user admin status reloading
       await page.getByRole("button", { name: "Déconnexion" }).click();

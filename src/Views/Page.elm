@@ -5,7 +5,6 @@ module Views.Page exposing
     , frame
     , loading
     , notFound
-    , restricted
     )
 
 import App
@@ -19,7 +18,6 @@ import Html exposing (..)
 import Html.Attributes exposing (..)
 import Html.Events exposing (..)
 import Json.Decode as Decode
-import Page.Admin.Section as AdminSection
 import Request.BackendHttp.Error as BackendError
 import Request.Version as Version exposing (Version(..))
 import Route
@@ -34,8 +32,7 @@ import Views.Spinner as Spinner
 
 
 type ActivePage
-    = Admin
-    | Api
+    = Api
     | Auth
     | Editorial String
     | Explore
@@ -273,24 +270,17 @@ secondaryMenuLinks enabledSections =
         , Just <| External "Communauté" Env.communityUrl
         , Just <| External "Code source" Env.githubUrl
         , Just <| External "CGU" Env.cguUrl
-        , Just <| Internal [ text "Admin" ] (Route.Admin AdminSection.ComponentSection) Admin
         , addRouteIf enabledSections.food2 <|
             Internal [ text "Alimentaire²" ] (Route.GenericSimulatorHome Scope.Food2) (Generic Scope.Food2)
         ]
 
 
 headerMenuLinks : Config msg -> List (MenuLink msg)
-headerMenuLinks { enabledSections, isSuperuser } =
+headerMenuLinks { enabledSections } =
     mainMenuLinks enabledSections
-        ++ List.filterMap identity
-            [ Just <| External "Communauté" Env.communityUrl
-            , Just <| External "Documentation" Env.gitbookUrl
-            , if isSuperuser then
-                Just <| Internal [ text "Admin" ] (Route.Admin AdminSection.ComponentSection) Admin
-
-              else
-                Nothing
-            ]
+        ++ [ External "Communauté" Env.communityUrl
+           , External "Documentation" Env.gitbookUrl
+           ]
 
 
 mobileMenuLinks : Config msg -> List (MenuLink msg)
@@ -638,19 +628,6 @@ notFound =
         [ h1 [ class "mb-3" ] [ text "Page non trouvée" ]
         , p [] [ text "La page que vous avez demandé n'existe pas." ]
         , a [ Route.href Route.Home ] [ text "Retour à l'accueil" ]
-        ]
-
-
-restricted : Html msg
-restricted =
-    Container.centered [ class "pb-5" ]
-        [ h1 [ class "mb-3" ] [ text "Accès refusé" ]
-        , p [] [ text "Cette page n'est accessible qu'à l'équipe Ecobalyse." ]
-        , p []
-            [ a [ Route.href Route.Auth ] [ text "Authentifiez-vous" ]
-            , text " avec les droits appropriés ou "
-            , a [ Route.href Route.Home ] [ text "retournez à l'accueil" ]
-            ]
         ]
 
 

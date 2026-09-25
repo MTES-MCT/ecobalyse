@@ -28,7 +28,6 @@ module Data.Session exposing
     , setAuth
     , toggleComparedSimulation
     , updateAuth
-    , updateDb
     , updateDbProcesses
     , updateFoodQuery
     , updateGenericQuery
@@ -187,14 +186,6 @@ saveBookmark bookmark =
 
 
 -- Db
-
-
-updateDb : (Db -> Db) -> Session -> Session
-updateDb fn session =
-    { session | db = fn session.db }
-
-
-
 -- Queries
 
 
