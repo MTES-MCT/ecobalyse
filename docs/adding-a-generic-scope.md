@@ -3,6 +3,7 @@
 Ce guide décrit, dans l'ordre, les étapes pour ajouter un nouveau périmètre métier au moteur générique et ouvrir une PR prête à être mergée.
 
 > 💡 Dans ce document et dans la documentation du projet Ecobalyse, les termes *périmètre*, *domaine métier*, *verticale* et *scope* désignent tous le même concept : un domaine spécifique d'activités humaines pour lequel une calculette et le moteur de calcul générique derrière sont spécifiquement configurés. **Par commodité, nous emploierons ici le terme *scope*** qui est le terme technique à privilégier lors d'échanges techniques sur le sujet.
+> ⚠️ Ce guide ne couvre ni la création de données métiers (ICV, procédés, etc) ni les subtilités de configuration spécifiques au scope ; il se concentre sur le mimimum technique à opérer pour qu'un nouveau scope soit *techniquement mergeable* en production.
 
 Nous prendrons pour exemple l'ajout d'un nouveau scope **Flowers**, qui sera matérialisé de la façon suivante :
 
