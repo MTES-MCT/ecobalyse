@@ -19,16 +19,12 @@ type alias Db =
 
 buildFromJson : String -> String -> String -> List Process -> Result String Db
 buildFromJson food2ExamplesJson objectExamplesJson veliExamplesJson processes =
-    Ok Db
-        |> RE.andMap
-            (Result.map3 (\a b c -> a ++ b ++ c)
-                (food2ExamplesJson
-                    |> Example.decodeListFromJsonString (Component.decodeQuery processes)
-                )
-                (objectExamplesJson
-                    |> Example.decodeListFromJsonString (Component.decodeQuery processes)
-                )
-                (veliExamplesJson
-                    |> Example.decodeListFromJsonString (Component.decodeQuery processes)
-                )
+    [ food2ExamplesJson
+    , objectExamplesJson
+    , veliExamplesJson
+    ]
+        |> RE.combineMap
+            (Example.decodeListFromJsonString <|
+                Component.decodeQuery processes
             )
+        |> Result.map (List.concat >> Db)

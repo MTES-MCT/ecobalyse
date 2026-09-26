@@ -1,12 +1,38 @@
 const {
+  ALL_SCOPES,
+  GENERIC_SCOPES,
+  LEGACY_SCOPES,
   applyGenericScopesToOpenApi,
   getEnabledGenericScopeEntries,
   getEnabledGenericScopes,
   isGenericScopeEnabled,
   parseGenericScopeFromUrl,
+  parseScopeFromUrl,
 } = require("../../lib/scopes");
 
 describe("lib.scopes", () => {
+  describe("ALL_SCOPES", () => {
+    test("should list legacy and generic scopes", () => {
+      expect(ALL_SCOPES).toEqual(["food", "food2", "object", "textile", "veli"]);
+      expect(LEGACY_SCOPES).toEqual(["food", "textile"]);
+      expect(GENERIC_SCOPES).toEqual(["food2", "object", "veli"]);
+    });
+  });
+
+  describe("parseScopeFromUrl", () => {
+    test.each([
+      ["/food/countries", "food"],
+      ["/food2/countries", "food2"],
+      ["/textile/countries", "textile"],
+      ["/object/simulator", "object"],
+      ["/veli/processes/assembly", "veli"],
+      ["/generic/scopes", null],
+      ["/", null],
+    ])("%s → %s", (url, expected) => {
+      expect(parseScopeFromUrl(url)).toBe(expected);
+    });
+  });
+
   describe("parseGenericScopeFromUrl", () => {
     test.each([
       ["/food2/countries", "food2"],

@@ -3,6 +3,7 @@ module Data.Scope exposing
     , GenericScope(..)
     , Scope(..)
     , all
+    , allGeneric
     , anyOf
     , decode
     , decodeDict
@@ -48,11 +49,17 @@ type alias Dict a =
 
 all : List Scope
 all =
-    [ Food
-    , Generic Food2
-    , Generic Object
-    , Generic Veli
-    , Textile
+    -- Legacy scopes
+    [ Food, Textile ]
+        -- Generic scopes
+        ++ List.map Generic allGeneric
+
+
+allGeneric : List GenericScope
+allGeneric =
+    [ Food2
+    , Object
+    , Veli
     ]
 
 
@@ -113,20 +120,16 @@ fromString string =
         "food" ->
             Ok Food
 
-        "food2" ->
-            Ok (Generic Food2)
-
-        "object" ->
-            Ok (Generic Object)
-
         "textile" ->
             Ok Textile
 
-        "veli" ->
-            Ok (Generic Veli)
+        genericScopeString ->
+            case fromStringGeneric genericScopeString of
+                Err _ ->
+                    Err <| "Couldn't decode unknown scope " ++ genericScopeString
 
-        _ ->
-            Err <| "Couldn't decode unknown scope " ++ string
+                Ok genericScope ->
+                    Ok (Generic genericScope)
 
 
 fromStringGeneric : String -> Result String GenericScope
@@ -182,17 +185,24 @@ toLabel scope =
         Food ->
             "Alimentaire"
 
-        Generic Food2 ->
-            "Alimentaire BÉTA"
-
-        Generic Object ->
-            "Objets"
-
-        Generic Veli ->
-            "Véhicules"
+        Generic genericScope ->
+            toLabelGeneric genericScope
 
         Textile ->
             "Textile"
+
+
+toLabelGeneric : GenericScope -> String
+toLabelGeneric genericScope =
+    case genericScope of
+        Food2 ->
+            "Alimentaire BÉTA"
+
+        Object ->
+            "Objets"
+
+        Veli ->
+            "Véhicules"
 
 
 toString : Scope -> String
@@ -201,14 +211,8 @@ toString scope =
         Food ->
             "food"
 
-        Generic Food2 ->
-            "food2"
-
-        Generic Object ->
-            "object"
-
-        Generic Veli ->
-            "veli"
+        Generic genericScope ->
+            toStringGeneric genericScope
 
         Textile ->
             "textile"
