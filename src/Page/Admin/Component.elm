@@ -776,7 +776,7 @@ modalView { componentConfig, db } modals index modal =
                         Just ( component, item ) ->
                             { title = "Paramètres et composition"
                             , content =
-                                [ ComponentView.itemEditView
+                                [ ComponentView.itemEditorView
                                     (adminEditorConfig componentConfig db modals component item)
                                     ( component, 0 )
                                 ]

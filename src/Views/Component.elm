@@ -2,7 +2,7 @@ module Views.Component exposing
     ( Config
     , Context(..)
     , editorView
-    , itemEditView
+    , itemEditorView
     , productCategorySelectorView
     , scopeLabels
     )
@@ -181,6 +181,58 @@ scopeLabels context scope =
             }
 
 
+{-| A view data structure carrying an always consistent representation of the row cells
+of a material or transform process table row. This avoids having to deal with colspans
+and so on.
+-}
+type alias ProcessRowCells msg =
+    { actions : Html msg
+    , amount : Html msg
+    , country : Html msg
+    , impact : Html msg
+    , label : Html msg
+    , waste : Html msg
+    }
+
+
+emptyProcessRowCells : ProcessRowCells msg
+emptyProcessRowCells =
+    { actions = text ""
+    , amount = text ""
+    , country = text ""
+    , impact = text ""
+    , label = text ""
+    , waste = text ""
+    }
+
+
+{-| A view data structure carrying an always consistent representation of the
+cells of a production item line table row. Avoids having to deal with colspans
+and so on.
+-}
+type alias ItemRowCells msg =
+    { actions : Html msg
+    , expander : Html msg
+    , impacts : Html msg
+    , label : Html msg
+    , quantity : Html msg
+    , totalMass : Html msg
+    , unitMass : Html msg
+    }
+
+
+emptyItemRowCells : ItemRowCells msg
+emptyItemRowCells =
+    { actions = text ""
+    , expander = text ""
+    , impacts = text ""
+    , label = text ""
+    , quantity = text ""
+    , totalMass = text ""
+    , unitMass = text ""
+    }
+
+
 addProductionItemButton : Config db msg -> Html msg
 addProductionItemButton ({ db } as config) =
     let
@@ -304,51 +356,8 @@ addElementTransformButton { db, openSelectProcessModal, query, scope } material 
         ]
 
 
-type alias SummaryCells msg =
-    { actions : Html msg
-    , expander : Html msg
-    , impacts : Html msg
-    , label : Html msg
-    , quantity : Html msg
-    , totalMass : Html msg
-    , unitMass : Html msg
-    }
-
-
-emptySummaryCells : SummaryCells msg
-emptySummaryCells =
-    { actions = text ""
-    , expander = text ""
-    , impacts = text ""
-    , label = text ""
-    , quantity = text ""
-    , totalMass = text ""
-    , unitMass = text ""
-    }
-
-
-summaryRow : List (Attribute msg) -> SummaryCells msg -> Html msg
-summaryRow attributes cells =
-    tr attributes
-        [ td [ class "ps-2 align-middle" ]
-            [ cells.expander ]
-        , td [ class "text-end align-middle text-nowrap" ]
-            [ cells.unitMass ]
-        , td [ class "align-middle text-truncate w-100", style "max-width" "0" ]
-            [ cells.label ]
-        , td [ class "align-middle text-center" ]
-            [ cells.quantity ]
-        , td [ class "text-end align-middle text-nowrap" ]
-            [ cells.totalMass ]
-        , td [ class "text-end align-middle text-nowrap", style "min-width" "80px" ]
-            [ cells.impacts ]
-        , td [ class "pe-3 text-end align-middle text-nowrap" ]
-            [ cells.actions ]
-        ]
-
-
-componentView : Config db msg -> Index -> ExpandedItem -> Results -> List (Html msg)
-componentView config itemIndex { component, elements, quantity } itemResults =
+itemView : Config db msg -> Index -> ExpandedItem -> Results -> List (Html msg)
+itemView config itemIndex { component, elements, quantity } itemResults =
     let
         collapsed =
             config.detailed
@@ -364,7 +373,7 @@ componentView config itemIndex { component, elements, quantity } itemResults =
             []
         )
         (summaryRow [ class "fs-8 fw-normal text-muted" ]
-            { emptySummaryCells
+            { emptyItemRowCells
                 | impacts = text "Impacts"
                 , label = text config.labels.label
                 , quantity = text "Quantité"
@@ -372,8 +381,8 @@ componentView config itemIndex { component, elements, quantity } itemResults =
                 , unitMass = text "Masse unitaire"
             }
             :: summaryRow [ class "border-bottom fs-7" ]
-                { actions = componentActions config itemIndex component
-                , expander = componentExpander config itemIndex collapsed
+                { actions = itemActions config itemIndex component
+                , expander = expandToggler config itemIndex collapsed
                 , impacts =
                     Component.getTotalImpacts itemResults
                         |> Format.formatImpact config.impact
@@ -390,14 +399,39 @@ componentView config itemIndex { component, elements, quantity } itemResults =
                     []
 
                 else
-                    componentDetailedRows config elements itemResults
+                    itemDetailedRows config elements itemResults
                )
         )
     ]
 
 
-componentActions : Config db msg -> Index -> Component -> Html msg
-componentActions config itemIndex component =
+expandToggler : Config db msg -> Index -> Bool -> Html msg
+expandToggler config itemIndex collapsed =
+    if config.context == TextileTrimsContext then
+        text ""
+
+    else
+        button
+            [ type_ "button"
+            , class "btn btn-link text-muted text-decoration-none font-monospace fs-5 p-0 m-0"
+            , onClick <|
+                config.setDetailed <|
+                    if collapsed then
+                        LE.unique <| itemIndex :: config.detailed
+
+                    else
+                        List.filter ((/=) itemIndex) config.detailed
+            ]
+            [ if collapsed then
+                text "▶"
+
+              else
+                text "▼"
+            ]
+
+
+itemActions : Config db msg -> Index -> Component -> Html msg
+itemActions config itemIndex component =
     let
         buttons =
             List.filterMap identity
@@ -434,38 +468,13 @@ componentActions config itemIndex component =
         div [ class "btn-group" ] buttons
 
 
-componentExpander : Config db msg -> Index -> Bool -> Html msg
-componentExpander config itemIndex collapsed =
-    if config.context == TextileTrimsContext then
-        text ""
-
-    else
-        button
-            [ type_ "button"
-            , class "btn btn-link text-muted text-decoration-none font-monospace fs-5 p-0 m-0"
-            , onClick <|
-                config.setDetailed <|
-                    if collapsed then
-                        LE.unique <| itemIndex :: config.detailed
-
-                    else
-                        List.filter ((/=) itemIndex) config.detailed
-            ]
-            [ if collapsed then
-                text "▶"
-
-              else
-                text "▼"
-            ]
-
-
-componentDetailedRows : Config db msg -> List ExpandedElement -> Results -> List (Html msg)
-componentDetailedRows config elements itemResults =
+itemDetailedRows : Config db msg -> List ExpandedElement -> Results -> List (Html msg)
+itemDetailedRows config elements itemResults =
     summaryRow [ class "bg-light border-bottom fs-7" ]
-        { emptySummaryCells | label = text "Composition" }
+        { emptyItemRowCells | label = text "Composition" }
         :: (if List.isEmpty elements then
                 [ summaryRow []
-                    { emptySummaryCells | label = text "Aucun élément" }
+                    { emptyItemRowCells | label = text "Aucun élément" }
                 ]
 
             else
@@ -576,7 +585,7 @@ lifeCycleView ({ db, docsUrl, explorerRoute, impact, query, scope } as config) l
                         div [ class "table-responsive" ]
                             [ table [ class "table table-sm table-borderless mb-0" ]
                                 (List.concat
-                                    (List.map3 (componentView config)
+                                    (List.map3 (itemView config)
                                         (List.range 0 (List.length query.items - 1))
                                         expandedItems
                                         (Component.extractItems lifeCycle.production)
@@ -975,7 +984,7 @@ elementSummaryRow config itemResults { amount, material, transforms } elementRes
                 ]
     in
     summaryRow [ class "fs-7 border-top" ]
-        { emptySummaryCells
+        { emptyItemRowCells
             | impacts =
                 Component.getTotalImpacts elementResults
                     |> Format.formatImpact config.impact
@@ -1007,28 +1016,7 @@ elementSummaryRow config itemResults { amount, material, transforms } elementRes
         }
 
 
-type alias ProcessCells msg =
-    { actions : Html msg
-    , amount : Html msg
-    , country : Html msg
-    , impact : Html msg
-    , label : Html msg
-    , waste : Html msg
-    }
-
-
-emptyProcessCells : ProcessCells msg
-emptyProcessCells =
-    { actions = text ""
-    , amount = text ""
-    , country = text ""
-    , impact = text ""
-    , label = text ""
-    , waste = text ""
-    }
-
-
-processRow : List (Attribute msg) -> ProcessCells msg -> Html msg
+processRow : List (Attribute msg) -> ProcessRowCells msg -> Html msg
 processRow attributes cells =
     tr attributes
         [ td [ class "text-end align-middle text-nowrap", style "min-width" "130px" ]
@@ -1046,8 +1034,28 @@ processRow attributes cells =
         ]
 
 
-itemEditView : Config db msg -> TargetItem -> Html msg
-itemEditView ({ query } as config) ( _, itemIndex ) =
+summaryRow : List (Attribute msg) -> ItemRowCells msg -> Html msg
+summaryRow attributes cells =
+    tr attributes
+        [ td [ class "ps-2 align-middle" ]
+            [ cells.expander ]
+        , td [ class "text-end align-middle text-nowrap" ]
+            [ cells.unitMass ]
+        , td [ class "align-middle text-truncate w-100", style "max-width" "0" ]
+            [ cells.label ]
+        , td [ class "align-middle text-center" ]
+            [ cells.quantity ]
+        , td [ class "text-end align-middle text-nowrap" ]
+            [ cells.totalMass ]
+        , td [ class "text-end align-middle text-nowrap", style "min-width" "80px" ]
+            [ cells.impacts ]
+        , td [ class "pe-3 text-end align-middle text-nowrap" ]
+            [ cells.actions ]
+        ]
+
+
+itemEditorView : Config db msg -> TargetItem -> Html msg
+itemEditorView ({ query } as config) ( _, itemIndex ) =
     case ( config.lifeCycle, Component.expandItems config.db query.items ) of
         ( Ok lifeCycle, Ok expandedItems ) ->
             case LE.getAt itemIndex expandedItems of
@@ -1080,7 +1088,7 @@ compositionModalBody config targetItem { component, elements } itemResults =
         elementRows =
             if List.isEmpty elements then
                 [ processRow []
-                    { emptyProcessCells | label = text "Aucun élément" }
+                    { emptyProcessRowCells | label = text "Aucun élément" }
                 ]
 
             else
@@ -1093,7 +1101,7 @@ compositionModalBody config targetItem { component, elements } itemResults =
 
         rows =
             processRow [ class "fs-8 fw-normal text-muted" ]
-                { emptyProcessCells
+                { emptyProcessRowCells
                     | amount = text "Quantité"
                     , country = text "Origine"
                     , impact = text "Impact"
@@ -1187,7 +1195,7 @@ elementCompositionRows config itemResults targetItem elementIndex ({ amount, mat
             Component.extractMass elementResults
     in
     processRow [ class "fs-7 border-top bg-light" ]
-        { emptyProcessCells
+        { emptyProcessRowCells
             | actions = deleteElementButton config targetElement
             , amount = amount |> elementAmountInput config targetElement material.process
             , impact =
@@ -1202,7 +1210,7 @@ elementCompositionRows config itemResults targetItem elementIndex ({ amount, mat
                 |> Maybe.withDefault (Component.extractMass materialResults)
                 |> finalElementTransportView config elementCooling (Component.getFinalElementCountry expandedElement)
            , processRow []
-                { emptyProcessCells
+                { emptyProcessRowCells
                     | label = addElementTransformButton config material.process targetElement
                 }
            ]
@@ -1307,7 +1315,7 @@ materialCompositionRows config targetElement materialResults material =
 
         materialRow =
             processRow [ class "fs-7" ]
-                { emptyProcessCells
+                { emptyProcessRowCells
                     | actions = modifyMaterialButton config targetElement
                     , amount =
                         Component.extractAmount materialResults
@@ -1333,7 +1341,7 @@ materialCompositionRows config targetElement materialResults material =
         complementsRow =
             if complementsImpacts /= Complement.emptyComplementsResultsImpacts then
                 [ processRow [ class "fs-7 text-muted" ]
-                    { emptyProcessCells
+                    { emptyProcessRowCells
                         | impact =
                             complementsImpacts
                                 |> Complement.mergeComplementsResultsImpacts
@@ -1374,7 +1382,7 @@ elementTransportView ({ query } as config) attributes cooling transportedMass ma
     case displayElementTransport of
         Err error ->
             processRow attributes
-                { emptyProcessCells
+                { emptyProcessRowCells
                     | label = error |> simpleError (Just "Erreur de calcul de distance")
                 }
 
@@ -1391,7 +1399,7 @@ elementTransportView ({ query } as config) attributes cooling transportedMass ma
                         []
             in
             processRow (class "fs-7 text-muted" :: attributes)
-                { emptyProcessCells
+                { emptyProcessRowCells
                     | country =
                         div [ class "d-flex flex-wrap justify-content-end align-items-center gap-2" ] <|
                             -- Note: it's supposed for now that a plane can transport either cooled or non-cooled stuff
@@ -1465,7 +1473,7 @@ transformCompositionRows config cooling targetElement materialResults materialCo
                 [ transform.country
                     |> elementTransportView config [] cooling previousMass previousCountry
                 , processRow [ class "fs-7 border-top" ]
-                    { emptyProcessCells
+                    { emptyProcessRowCells
                         | actions =
                             button
                                 [ type_ "button"

@@ -1301,7 +1301,7 @@ modalView session ({ modals } as model) modal =
                 , formAction = Nothing
                 , content =
                     [ targetItem
-                        |> ComponentView.itemEditView (editorConfig session model)
+                        |> ComponentView.itemEditorView (editorConfig session model)
                     ]
                 , footer = []
                 }
