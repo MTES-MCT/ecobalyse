@@ -1606,7 +1606,7 @@ quantityInput config itemIndex quantity =
     div [ class "input-group", style "width" "80px" ]
         [ input
             [ type_ "number"
-            , class "form-control text-end"
+            , class "form-control form-control-sm text-end"
             , quantity |> Component.quantityToInt |> String.fromInt |> value
             , step "1"
             , Attr.min "1"
