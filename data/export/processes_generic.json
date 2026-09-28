@@ -46410,7 +46410,7 @@
     "massPerUnit": null,
     "metadata": { "defaultOrigin": null },
     "qtyVariationRatio": 1.0,
-    "scopes": ["veli"],
+    "scopes": ["veli", "object"],
     "source": "Ecoinvent 3.9.1",
     "unit": "kg",
     "visible": true
