@@ -366,6 +366,18 @@ addElementTransformButton { db, openSelectProcessModal, query, scope } material 
         ]
 
 
+itemTableHeader : Config db msg -> Html msg
+itemTableHeader config =
+    summaryRow [ class "fs-8 fw-normal text-muted border-bottom" ]
+        { emptyItemRowCells
+            | impacts = text "Impacts"
+            , label = text config.labels.label
+            , quantity = text "Quantité"
+            , totalMass = text "Masse totale"
+            , unitMass = text "Masse unitaire"
+        }
+
+
 itemView : Config db msg -> Index -> ExpandedItem -> Results -> List (Html msg)
 itemView config itemIndex { component, elements, quantity } itemResults =
     let
@@ -382,29 +394,21 @@ itemView config itemIndex { component, elements, quantity } itemResults =
          else
             []
         )
-        (summaryRow [ class "fs-8 fw-normal text-muted" ]
-            { emptyItemRowCells
-                | impacts = text "Impacts"
-                , label = text config.labels.label
-                , quantity = text "Quantité"
-                , totalMass = text "Masse totale"
-                , unitMass = text "Masse unitaire"
+        (summaryRow [ class "border-bottom fs-7" ]
+            { actions = itemActions config itemIndex component
+            , expander = expandToggler config itemIndex collapsed
+            , impacts =
+                Component.getTotalImpacts itemResults
+                    |> Format.formatImpact config.impact
+            , label = span [ class "fw-bold" ] [ text component.name ]
+            , quantity = quantity |> quantityInput config itemIndex
+            , totalMass =
+                Component.extractMass itemResults
+                    |> Format.kg
+            , unitMass =
+                Component.extractUnitMass itemResults
+                    |> Format.kg
             }
-            :: summaryRow [ class "border-bottom fs-7" ]
-                { actions = itemActions config itemIndex component
-                , expander = expandToggler config itemIndex collapsed
-                , impacts =
-                    Component.getTotalImpacts itemResults
-                        |> Format.formatImpact config.impact
-                , label = span [ class "fw-bold" ] [ text component.name ]
-                , quantity = quantity |> quantityInput config itemIndex
-                , totalMass =
-                    Component.extractMass itemResults
-                        |> Format.kg
-                , unitMass =
-                    Component.extractUnitMass itemResults
-                        |> Format.kg
-                }
             :: (if collapsed then
                     []
 
@@ -424,6 +428,15 @@ expandToggler config itemIndex collapsed =
         button
             [ type_ "button"
             , class "btn btn-link text-muted text-decoration-none font-monospace fs-5 p-0 m-0"
+            , title "Déplier/Replier"
+            , attribute "aria-label" "Déplier/Replier"
+            , attribute "aria-expanded"
+                (if collapsed then
+                    "false"
+
+                 else
+                    "true"
+                )
             , onClick <|
                 config.setDetailed <|
                     if collapsed then
@@ -591,12 +604,14 @@ lifeCycleView ({ db, docsUrl, explorerRoute, impact, query, scope } as config) l
                     Ok expandedItems ->
                         div [ class "table-responsive" ]
                             [ table [ class "table table-sm table-borderless mb-0" ]
-                                (List.concat
-                                    (List.map3 (itemView config)
-                                        (List.range 0 (List.length query.items - 1))
-                                        expandedItems
-                                        (Component.extractItems lifeCycle.production)
-                                    )
+                                (thead []
+                                    [ itemTableHeader config ]
+                                    :: List.concat
+                                        (List.map3 (itemView config)
+                                            (List.range 0 (List.length query.items - 1))
+                                            expandedItems
+                                            (Component.extractItems lifeCycle.production)
+                                        )
                                 )
                             ]
             , addProductionItemButton config
