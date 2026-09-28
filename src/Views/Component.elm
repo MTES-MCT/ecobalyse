@@ -480,19 +480,16 @@ itemActions config itemIndex component =
 
 itemDetailedRows : Config db msg -> List ExpandedElement -> Results -> List (Html msg)
 itemDetailedRows config elements itemResults =
-    summaryRow [ class "bg-light border-bottom fs-7" ]
-        { emptyItemRowCells | label = text "Composition" }
-        :: (if List.isEmpty elements then
-                [ summaryRow []
-                    { emptyItemRowCells | label = text "Aucun élément" }
-                ]
+    if List.isEmpty elements then
+        List.singleton <|
+            summaryRow [ class "bg-light border-bottom fs-7" ]
+                { emptyItemRowCells | label = text "Aucun élément" }
 
-            else
-                List.map2
-                    (elementSummaryRow config itemResults)
-                    elements
-                    (Component.extractItems itemResults)
-           )
+    else
+        List.map2
+            (elementSummaryRow config itemResults)
+            elements
+            (Component.extractItems itemResults)
 
 
 viewDebug : Query -> LifeCycle -> Html msg
