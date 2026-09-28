@@ -24,7 +24,6 @@ module Data.Process exposing
     , isTransportedCooled
     , listAvailableMaterialTransforms
     , listByCategory
-    , unitLabel
     , unitToString
     )
 
@@ -333,34 +332,6 @@ toSearchableString process =
 toSearchableWords : Process -> List String
 toSearchableWords =
     toSearchableString >> Text.toWords
-
-
-unitLabel : Unit -> String
-unitLabel unit =
-    case unit of
-        CubicMeter ->
-            "Volume"
-
-        Items ->
-            "Quantité"
-
-        Kilogram ->
-            "Masse"
-
-        KilowattHour ->
-            "Électricité"
-
-        Liter ->
-            "Volume"
-
-        Megajoule ->
-            "Chaleur"
-
-        SquareMeter ->
-            "Surface"
-
-        TonKilometer ->
-            "Transport"
 
 
 unitToString : Unit -> String

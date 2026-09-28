@@ -89,12 +89,10 @@ module Data.Component exposing
     , getEndOfLifeTotalMass
     , getFinalElementCountry
     , getPackagingProcessId
-    , getResultedElement
     , getTotalImpacts
     , getTransportCooling
     , idFromString
     , idToString
-    , isCustomized
     , isEmpty
     , itemToComponent
     , itemToString
@@ -2355,24 +2353,6 @@ getMaterialDistribution (Results results) =
                         )
             )
             (AnyDict.empty Category.materialTypeToString)
-
-
-{-| Get an expanded element, its results, and the parent item quantity at a given location in the elements tree.
--}
-getResultedElement : ( Index, Index ) -> Results -> List ExpandedItem -> Result String ResultedElement
-getResultedElement ( itemIndex, elementIndex ) productionResults expandedItems =
-    expandedItems
-        |> LE.getAt itemIndex
-        |> Result.fromMaybe errors.itemNotFound
-        |> Result.andThen
-            (\{ elements, quantity } ->
-                Result.map2 (\expandedElement results -> ( quantity, expandedElement, results ))
-                    (elements
-                        |> LE.getAt elementIndex
-                        |> Result.fromMaybe errors.elementNotFound
-                    )
-                    (getElementResult ( itemIndex, elementIndex ) productionResults)
-            )
 
 
 {-| Create a list of expanded elements with their associated results and parent item quantity.

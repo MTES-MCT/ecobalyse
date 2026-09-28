@@ -1072,7 +1072,7 @@ itemEditView ({ query } as config) ( _, itemIndex ) =
 
 
 compositionModalBody : Config db msg -> TargetItem -> ExpandedItem -> Results -> Html msg
-compositionModalBody config (( _, itemIndex ) as targetItem) { component, elements } itemResults =
+compositionModalBody config targetItem { component, elements } itemResults =
     let
         elementCount =
             List.length elements
@@ -1134,7 +1134,6 @@ compositionModalBody config (( _, itemIndex ) as targetItem) { component, elemen
                     |> Format.formatImpact config.impact
                 ]
             ]
-        , catalogDivergenceWarning config itemIndex
         , div [ class "d-flex justify-content-between align-items-center gap-2" ]
             [ h3 [ class "h6 mb-0" ]
                 [ text "Liste des matières et leurs étapes de transformation" ]
@@ -1153,39 +1152,6 @@ compositionStat caption value =
         [ span [ class "fs-8 text-muted" ] [ text caption ]
         , span [ class "fw-bold" ] value
         ]
-
-
-catalogDivergenceWarning : Config db msg -> Index -> Html msg
-catalogDivergenceWarning config itemIndex =
-    if isCatalogComponentCustomized config itemIndex then
-        Alert.simple
-            { attributes = [ class "mb-0" ]
-            , close = Nothing
-            , content =
-                [ text "La composition ne correspond plus au composant du catalogue. La masse unitaire a été recalculée." ]
-            , level = Alert.Warning
-            , title = Nothing
-            }
-
-    else
-        text ""
-
-
-isCatalogComponentCustomized : Config db msg -> Index -> Bool
-isCatalogComponentCustomized { db, query } itemIndex =
-    case LE.getAt itemIndex query.items of
-        Just { custom, id } ->
-            case ( id, custom ) of
-                ( Just componentId, Just custom_ ) ->
-                    Component.findById componentId db.components
-                        |> Result.map (\catalogComponent -> Component.isCustomized catalogComponent custom_)
-                        |> Result.withDefault False
-
-                _ ->
-                    False
-
-        Nothing ->
-            False
 
 
 elementCompositionRows :
@@ -1223,7 +1189,7 @@ elementCompositionRows config itemResults targetItem elementIndex ({ amount, mat
     processRow [ class "fs-7 border-top bg-light" ]
         { emptyProcessCells
             | actions = deleteElementButton config targetElement
-            , amount = elementAmountInput config targetElement material.process amount
+            , amount = amount |> elementAmountInput config targetElement material.process
             , impact =
                 Component.getTotalImpacts elementResults
                     |> Format.formatImpact config.impact
