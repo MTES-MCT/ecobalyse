@@ -7,10 +7,8 @@ module Data.Bookmark exposing
     , findByGenericQuery
     , findByTextileQuery
     , isFood
-    , isFood2
-    , isObject
+    , isGeneric
     , isTextile
-    , isVeli
     , replace
     , sort
     , toId
@@ -146,21 +144,11 @@ isFood { query } =
             False
 
 
-isFood2 : Bookmark -> Bool
-isFood2 { query } =
+isGeneric : GenericScope -> Bookmark -> Bool
+isGeneric genericScope { query } =
     case query of
-        Generic Scope.Food2 _ ->
-            True
-
-        _ ->
-            False
-
-
-isObject : Bookmark -> Bool
-isObject { query } =
-    case query of
-        Generic Scope.Object _ ->
-            True
+        Generic bookmarkScope _ ->
+            bookmarkScope == genericScope
 
         _ ->
             False
@@ -170,16 +158,6 @@ isTextile : Bookmark -> Bool
 isTextile { query } =
     case query of
         Textile _ ->
-            True
-
-        _ ->
-            False
-
-
-isVeli : Bookmark -> Bool
-isVeli { query } =
-    case query of
-        Generic Scope.Veli _ ->
             True
 
         _ ->

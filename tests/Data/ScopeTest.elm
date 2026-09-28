@@ -29,4 +29,11 @@ suite =
                     |> Expect.equal 0
                 )
             ]
+        , describe "allGeneric"
+            [ asTest "matches the generic entries of all"
+                (Scope.all
+                    |> List.filterMap Scope.toGenericScope
+                    |> Expect.equal Scope.allGeneric
+                )
+            ]
         ]
