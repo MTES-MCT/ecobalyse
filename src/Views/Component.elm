@@ -122,6 +122,8 @@ requirementsFromConfig config =
 
 type alias Labels =
     { add : String
+    , addElement : String
+    , elementName : String
     , empty : String
     , heading : String
     , label : String
@@ -141,6 +143,8 @@ scopeLabels context scope =
     case ( context, scope ) of
         ( GenericContext, Scope.Generic Scope.Food2 ) ->
             { add = "Ajouter un ingrédient"
+            , addElement = "Ajouter un sous-ingrédient"
+            , elementName = "Sous-ingrédient"
             , empty = "Aucun ingrédient"
             , heading = "Recette"
             , label = "Nom de l'ingrédient"
@@ -151,6 +155,8 @@ scopeLabels context scope =
 
         ( GenericContext, _ ) ->
             { add = "Ajouter un matériau"
+            , addElement = "Ajouter un sous-matériau"
+            , elementName = "Sous-matériau"
             , empty = "Aucun matériau"
             , heading = "Production des matériaux"
             , label = "Nom du matériau"
@@ -162,6 +168,8 @@ scopeLabels context scope =
         ( TextileTrimsContext, Scope.Textile ) ->
             -- Note: in Textile context, raw element handling is not available
             { add = "Ajouter un accessoire"
+            , addElement = "Ajouter un élément"
+            , elementName = "Élément"
             , empty = "Aucun accessoire"
             , heading = "Accessoires"
             , label = "Nom de l'accessoire"
@@ -172,6 +180,8 @@ scopeLabels context scope =
 
         _ ->
             { add = "Ajouter un composant"
+            , addElement = "Ajouter un élément"
+            , elementName = "Élément"
             , empty = "Aucun composant"
             , heading = "Production des composants"
             , label = "Nom du composant"
@@ -281,7 +291,7 @@ addElementButton config targetItem =
             |> onClick
         ]
         [ Icon.plus
-        , text "Ajouter un élément"
+        , text config.labels.addElement
         ]
 
 
@@ -1201,7 +1211,7 @@ elementCompositionRows config itemResults targetItem elementIndex ({ amount, mat
             , impact =
                 Component.getTotalImpacts elementResults
                     |> Format.formatImpact config.impact
-            , label = elementHeading elementIndex itemResults elementMass
+            , label = elementHeading config elementIndex itemResults elementMass
         }
         :: materialCompositionRows config targetElement materialResults material
         ++ transformCompositionRows config elementCooling targetElement materialResults material.country transformsResults transforms
@@ -1243,8 +1253,8 @@ elementAmountInput config targetElement process amount =
             amount
 
 
-elementHeading : Index -> Results -> Mass -> Html msg
-elementHeading elementIndex itemResults elementMass =
+elementHeading : Config db msg -> Index -> Results -> Mass -> Html msg
+elementHeading config elementIndex itemResults elementMass =
     let
         share =
             Component.extractUnitMass itemResults
@@ -1252,7 +1262,7 @@ elementHeading elementIndex itemResults elementMass =
     in
     div [ class "d-flex flex-column" ]
         [ span [ class "fw-bold" ]
-            [ text <| "Élément #" ++ String.fromInt (elementIndex + 1) ]
+            [ text <| config.labels.elementName ++ " #" ++ String.fromInt (elementIndex + 1) ]
         , span [ class "text-muted" ]
             [ text "Poids\u{00A0}: "
             , Format.kg elementMass
