@@ -923,7 +923,6 @@ selectProductionItem query autocompleteState ({ model, session } as pageUpdate) 
                     pageUpdate
                         |> updateQuery validQuery
                         |> App.apply update (SetModals [])
-                        |> App.apply update (SetDetailedComponents (LE.unique (newItemIndex :: model.detailedComponents)))
                         |> App.withCmds [ plausibleCommand ]
 
         Nothing ->
