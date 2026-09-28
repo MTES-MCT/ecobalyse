@@ -125,9 +125,9 @@ type alias Labels =
     , addElement : String
     , elementName : String
     , empty : String
-    , heading : String
-    , label : String
-    , name : String
+    , itemName : String
+    , noun : String
+    , productionHeading : String
     , search : String
     , select : String
     }
@@ -146,9 +146,9 @@ scopeLabels context scope =
             , addElement = "Ajouter un sous-ingrédient"
             , elementName = "Sous-ingrédient"
             , empty = "Aucun ingrédient"
-            , heading = "Recette"
-            , label = "Nom de l'ingrédient"
-            , name = "Ingrédient"
+            , itemName = "Nom de l'ingrédient"
+            , noun = "Ingrédient"
+            , productionHeading = "Recette"
             , search = "tapez ici le nom de l’ingrédient pour le rechercher"
             , select = "Sélectionnez un ingrédient"
             }
@@ -158,9 +158,9 @@ scopeLabels context scope =
             , addElement = "Ajouter un sous-matériau"
             , elementName = "Sous-matériau"
             , empty = "Aucun matériau"
-            , heading = "Production des matériaux"
-            , label = "Nom du matériau"
-            , name = "Matériau"
+            , itemName = "Nom du matériau"
+            , noun = "Matériau"
+            , productionHeading = "Production des matériaux"
             , search = "tapez ici le nom du matériau pour le rechercher"
             , select = "Sélectionnez un matériau"
             }
@@ -171,9 +171,9 @@ scopeLabels context scope =
             , addElement = "Ajouter un élément"
             , elementName = "Élément"
             , empty = "Aucun accessoire"
-            , heading = "Accessoires"
-            , label = "Nom de l'accessoire"
-            , name = "Accessoire"
+            , itemName = "Nom de l'accessoire"
+            , noun = "Accessoire"
+            , productionHeading = "Accessoires"
             , search = "tapez ici le nom de l’accessoire pour le rechercher"
             , select = "Sélectionnez un accessoire"
             }
@@ -183,9 +183,9 @@ scopeLabels context scope =
             , addElement = "Ajouter un élément"
             , elementName = "Élément"
             , empty = "Aucun composant"
-            , heading = "Production des composants"
-            , label = "Nom du composant"
-            , name = "Composant"
+            , itemName = "Nom du composant"
+            , noun = "Composant"
+            , productionHeading = "Production des composants"
             , search = "tapez ici le nom du composant pour le rechercher"
             , select = "Sélectionnez un composant"
             }
@@ -371,7 +371,7 @@ itemTableHeader config =
     summaryRow [ class "fs-8 fw-normal text-muted border-bottom" ]
         { emptyItemRowCells
             | impacts = text "Impacts"
-            , label = text config.labels.label
+            , label = text config.labels.itemName
             , quantity = text "Quantité"
             , totalMass = text "Masse totale"
             , unitMass = text "Masse unitaire"
@@ -495,7 +495,7 @@ itemDetailedRows : Config db msg -> List ExpandedElement -> Results -> List (Htm
 itemDetailedRows config elements itemResults =
     if List.isEmpty elements then
         List.singleton <|
-            summaryRow [ class "bg-light border-bottom fs-7" ]
+            summaryRow [ class "bg-light border-bottom" ]
                 { emptyItemRowCells | label = text "Aucun élément" }
 
     else
@@ -561,7 +561,7 @@ lifeCycleView ({ db, docsUrl, explorerRoute, impact, query, scope } as config) l
         [ div [ class "card shadow-sm" ]
             [ div [ class "card-header d-flex align-items-center justify-content-between gap-2" ]
                 [ h2 [ class "h5 mb-0" ]
-                    [ text config.labels.heading
+                    [ text config.labels.productionHeading
                     , case explorerRoute of
                         Just route ->
                             Link.smallPillExternal
@@ -1140,7 +1140,7 @@ compositionModalBody config targetItem { component, elements } itemResults =
                 [ type_ "text"
                 , class "form-control"
                 , id "component-composition-label"
-                , placeholder config.labels.label
+                , placeholder config.labels.itemName
                 , value component.name
                 , onInput (config.updateItemName targetItem)
                 ]
