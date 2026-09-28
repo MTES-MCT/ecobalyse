@@ -2,7 +2,7 @@ module Views.Component exposing
     ( Config
     , Context(..)
     , editorView
-    , elementEditModalView
+    , itemEditView
     , productCategorySelectorView
     , scopeLabels
     )
@@ -24,7 +24,6 @@ import Data.Component as Component
         , Quantity
         , Query
         , Requirements
-        , ResultedElement
         , Results
         , TargetElement
         , TargetItem
@@ -50,7 +49,6 @@ import Json.Encode as Encode
 import List.Extra as LE
 import Mass exposing (Mass)
 import Quantity
-import Result.Extra as RE
 import Route exposing (Route)
 import Views.Alert as Alert
 import Views.Button as Button
@@ -73,7 +71,7 @@ type alias Config db msg =
     , labels : Labels
     , lifeCycle : Result String LifeCycle
     , noOp : msg
-    , openEditElementModal : Component -> TargetElement -> msg
+    , openItemEditModal : TargetItem -> msg
     , openSelectAssemblyOperationModal : Autocomplete Process -> msg
     , openSelectConsumptionModal : Autocomplete Process -> msg
     , openSelectPackagingModal : Autocomplete Process -> msg
@@ -224,14 +222,13 @@ addElementButton : Config db msg -> TargetItem -> Html msg
 addElementButton config targetItem =
     button
         [ type_ "button"
-        , class "btn btn-link text-decoration-none"
-        , class "d-flex justify-content-end align-items-center"
-        , class "gap-2 w-100 p-0 pb-1 text-end fs-7"
+        , class "btn btn-primary"
+        , class "d-flex justify-content-center align-items-center gap-1"
         , createElementMaterialAutocomplete config.db config.scope
             |> config.openSelectProcessModal Category.Material targetItem Nothing
             |> onClick
         ]
-        [ Icon.puzzle
+        [ Icon.plus
         , text "Ajouter un élément"
         ]
 
@@ -307,143 +304,176 @@ addElementTransformButton { db, openSelectProcessModal, query, scope } material 
         ]
 
 
+type alias SummaryCells msg =
+    { actions : Html msg
+    , expander : Html msg
+    , impacts : Html msg
+    , label : Html msg
+    , quantity : Html msg
+    , totalMass : Html msg
+    , unitMass : Html msg
+    }
+
+
+emptySummaryCells : SummaryCells msg
+emptySummaryCells =
+    { actions = text ""
+    , expander = text ""
+    , impacts = text ""
+    , label = text ""
+    , quantity = text ""
+    , totalMass = text ""
+    , unitMass = text ""
+    }
+
+
+summaryRow : List (Attribute msg) -> SummaryCells msg -> Html msg
+summaryRow attributes cells =
+    tr attributes
+        [ td [ class "ps-2 align-middle" ]
+            [ cells.expander ]
+        , td [ class "text-end align-middle text-nowrap" ]
+            [ cells.unitMass ]
+        , td [ class "align-middle text-truncate w-100", style "max-width" "0" ]
+            [ cells.label ]
+        , td [ class "align-middle text-center" ]
+            [ cells.quantity ]
+        , td [ class "text-end align-middle text-nowrap" ]
+            [ cells.totalMass ]
+        , td [ class "text-end align-middle text-nowrap", style "min-width" "80px" ]
+            [ cells.impacts ]
+        , td [ class "pe-3 text-end align-middle text-nowrap" ]
+            [ cells.actions ]
+        ]
+
+
 componentView : Config db msg -> Index -> ExpandedItem -> Results -> List (Html msg)
-componentView config itemIndex ({ component, elements, quantity } as expandedItem) itemResults =
+componentView config itemIndex { component, elements, quantity } itemResults =
     let
         collapsed =
             config.detailed
                 |> List.member itemIndex
                 |> not
     in
-    List.concat
-        [ [ tbody
-                (if itemIndex > 0 then
-                    -- Better visually separate components items when they're stacked and opened
-                    [ style "border-top" "1px solid #777" ]
+    [ tbody
+        (if itemIndex > 0 then
+            -- Better visually separate components items when they're stacked and opened
+            [ style "border-top" "1px solid #777" ]
 
-                 else
-                    []
-                )
-                [ tr []
-                    [ th [] []
-                    , th [ class "pb-0 fs-8 fw-normal text-muted text-nowrap" ] [ text "Masse unitaire" ]
-                    , th [ class "pb-0 fs-8 fw-normal text-muted", colspan 3 ]
-                        [ span [] [ text config.labels.label ] ]
-                    , th [ class "pb-0 fs-8 fw-normal text-muted text-nowrap text-center" ] [ text "Quantité" ]
-                    , th [ class "pb-0 fs-8 fw-normal text-muted text-nowrap text-center" ] [ text "Masse totale" ]
-                    , th [ class "pb-0 fs-8 fw-normal text-muted text-nowrap text-center" ] [ text "Impacts" ]
-                    , th [] []
-                    ]
-                , tr [ class "border-bottom" ]
-                    [ th [ class "ps-2 pt-0 pb-2 align-middle", scope "col" ]
-                        [ if config.context /= TextileTrimsContext then
-                            button
-                                [ type_ "button"
-                                , class "btn btn-link text-muted text-decoration-none font-monospace fs-5 p-0 m-0"
-                                , onClick <|
-                                    config.setDetailed <|
-                                        if collapsed && not (List.member itemIndex config.detailed) then
-                                            LE.unique <| itemIndex :: config.detailed
-
-                                        else
-                                            List.filter ((/=) itemIndex) config.detailed
-                                ]
-                                [ if collapsed then
-                                    text "▶"
-
-                                  else
-                                    text "▼"
-                                ]
-
-                          else
-                            text ""
-                        ]
-                    , td [ class "pt-0 pb-2 text-end align-middle text-nowrap fs-7" ]
-                        [ Component.extractUnitMass itemResults
-                            |> Format.kg
-                        ]
-                    , td [ class "pt-0 pb-2 align-middle text-truncate w-100", colspan 3 ]
-                        [ if config.context == GenericContext then
-                            div [ class "d-flex flex-column gap-1" ]
-                                [ div [ class "d-flex gap-2" ]
-                                    [ input
-                                        [ type_ "text"
-                                        , class "form-control"
-                                        , onInput (config.updateItemName ( component, itemIndex ))
-                                        , placeholder config.labels.label
-                                        , value component.name
-                                        ]
-                                        []
-                                    ]
-                                ]
-
-                          else
-                            span [ class "fw-bold" ] [ text component.name ]
-                        ]
-                    , td [ class "ps-0 pt-0 pb-2 align-middle" ]
-                        [ quantity |> quantityInput config itemIndex
-                        ]
-                    , td [ class "pt-0 pb-2 text-end align-middle text-nowrap fs-7" ]
-                        [ Component.extractMass itemResults
-                            |> Format.kg
-                        ]
-                    , td [ class "pt-0 pb-2 text-end align-middle text-nowrap fs-7", style "min-width" "80px" ]
-                        [ Component.getTotalImpacts itemResults
-                            |> Format.formatImpact config.impact
-                        ]
-                    , td [ class "pe-3 pt-0 pb-2 text-end align-end text-nowrap" ]
-                        [ if config.context == AdminContext then
-                            text ""
-
-                          else
-                            button
-                                [ type_ "button"
-                                , class "btn btn-outline-secondary"
-                                , onClick (config.removeItem itemIndex)
-                                ]
-                                [ Icon.trash ]
-                        ]
-                    ]
-                ]
-          ]
-        , if not collapsed then
-            componentDetailedView config elements itemIndex expandedItem itemResults
-
-          else
+         else
             []
-        ]
+        )
+        (summaryRow [ class "fs-8 fw-normal text-muted" ]
+            { emptySummaryCells
+                | impacts = text "Impacts"
+                , label = text config.labels.label
+                , quantity = text "Quantité"
+                , totalMass = text "Masse totale"
+                , unitMass = text "Masse unitaire"
+            }
+            :: summaryRow [ class "border-bottom fs-7" ]
+                { actions = componentActions config itemIndex component
+                , expander = componentExpander config itemIndex collapsed
+                , impacts =
+                    Component.getTotalImpacts itemResults
+                        |> Format.formatImpact config.impact
+                , label = span [ class "fw-bold" ] [ text component.name ]
+                , quantity = quantity |> quantityInput config itemIndex
+                , totalMass =
+                    Component.extractMass itemResults
+                        |> Format.kg
+                , unitMass =
+                    Component.extractUnitMass itemResults
+                        |> Format.kg
+                }
+            :: (if collapsed then
+                    []
+
+                else
+                    componentDetailedRows config elements itemResults
+               )
+        )
+    ]
 
 
-componentDetailedView : Config db msg -> List ExpandedElement -> Index -> ExpandedItem -> Results -> List (Html msg)
-componentDetailedView config elements itemIndex expandedItem itemResults =
-    List.concat
-        [ [ tr [ class "bg-light border-bottom" ]
-                [ th [] []
-                , th [ class "pb-1", colspan 8 ] [ text "Composition" ]
+componentActions : Config db msg -> Index -> Component -> Html msg
+componentActions config itemIndex component =
+    let
+        buttons =
+            List.filterMap identity
+                [ if config.context == TextileTrimsContext then
+                    Nothing
+
+                  else
+                    Just <|
+                        button
+                            [ type_ "button"
+                            , class "btn btn-outline-secondary"
+                            , attribute "aria-label" "Modifier la composition"
+                            , onClick (config.openItemEditModal ( component, itemIndex ))
+                            ]
+                            [ Icon.pencil ]
+                , if config.context == AdminContext then
+                    Nothing
+
+                  else
+                    Just <|
+                        button
+                            [ type_ "button"
+                            , class "btn btn-outline-secondary"
+                            , attribute "aria-label" "Supprimer"
+                            , onClick (config.removeItem itemIndex)
+                            ]
+                            [ Icon.trash ]
                 ]
-          ]
-        , if List.isEmpty elements then
-            [ tr []
-                [ th [] []
-                , td []
-                    [ text "Aucun élément"
-                    ]
-                ]
+    in
+    if List.isEmpty buttons then
+        text ""
+
+    else
+        div [ class "btn-group" ] buttons
+
+
+componentExpander : Config db msg -> Index -> Bool -> Html msg
+componentExpander config itemIndex collapsed =
+    if config.context == TextileTrimsContext then
+        text ""
+
+    else
+        button
+            [ type_ "button"
+            , class "btn btn-link text-muted text-decoration-none font-monospace fs-5 p-0 m-0"
+            , onClick <|
+                config.setDetailed <|
+                    if collapsed then
+                        LE.unique <| itemIndex :: config.detailed
+
+                    else
+                        List.filter ((/=) itemIndex) config.detailed
+            ]
+            [ if collapsed then
+                text "▶"
+
+              else
+                text "▼"
             ]
 
-          else
-            List.map3
-                (elementView config ( expandedItem.component, itemIndex ) itemResults)
-                (List.range 0 (List.length elements - 1))
-                elements
-                (Component.extractItems itemResults)
-        , [ tr [ class "border-top" ]
-                [ td [ colspan 9, class "pe-3" ]
-                    [ addElementButton config ( expandedItem.component, itemIndex )
-                    ]
+
+componentDetailedRows : Config db msg -> List ExpandedElement -> Results -> List (Html msg)
+componentDetailedRows config elements itemResults =
+    summaryRow [ class "bg-light border-bottom fs-7" ]
+        { emptySummaryCells | label = text "Composition" }
+        :: (if List.isEmpty elements then
+                [ summaryRow []
+                    { emptySummaryCells | label = text "Aucun élément" }
                 ]
-          ]
-        ]
+
+            else
+                List.map2
+                    (elementSummaryRow config itemResults)
+                    elements
+                    (Component.extractItems itemResults)
+           )
 
 
 viewDebug : Query -> LifeCycle -> Html msg
@@ -545,30 +575,12 @@ lifeCycleView ({ db, docsUrl, explorerRoute, impact, query, scope } as config) l
                     Ok expandedItems ->
                         div [ class "table-responsive" ]
                             [ table [ class "table table-sm table-borderless mb-0" ]
-                                ((if config.context == AdminContext then
-                                    thead []
-                                        [ tr [ class "fs-7 text-muted" ]
-                                            [ th [] []
-                                            , th [ class "ps-0", Attr.scope "col" ] [ text "Quantité" ]
-                                            , th [ Attr.scope "col", colspan 2 ]
-                                                [ text config.labels.name
-                                                ]
-                                            , th [ Attr.scope "col" ] [ text "Masse unitaire" ]
-                                            , th [ Attr.scope "col" ] [ text "Masse totale" ]
-                                            , th [ Attr.scope "col" ] [ text "Impact" ]
-                                            , th [ Attr.scope "col" ] []
-                                            ]
-                                        ]
-
-                                  else
-                                    text ""
-                                 )
-                                    :: List.concat
-                                        (List.map3 (componentView config)
-                                            (List.range 0 (List.length query.items - 1))
-                                            expandedItems
-                                            (Component.extractItems lifeCycle.production)
-                                        )
+                                (List.concat
+                                    (List.map3 (componentView config)
+                                        (List.range 0 (List.length query.items - 1))
+                                        expandedItems
+                                        (Component.extractItems lifeCycle.production)
+                                    )
                                 )
                             ]
             , addProductionItemButton config
@@ -940,8 +952,8 @@ countrySelector config =
             )
 
 
-elementView : Config db msg -> TargetItem -> Results -> Index -> ExpandedElement -> Results -> Html msg
-elementView config (( component, _ ) as targetItem) itemResults elementIndex { amount, material, transforms } elementResults =
+elementSummaryRow : Config db msg -> Results -> ExpandedElement -> Results -> Html msg
+elementSummaryRow config itemResults { amount, material, transforms } elementResults =
     let
         elementMass =
             Component.extractMass elementResults
@@ -962,27 +974,14 @@ elementView config (( component, _ ) as targetItem) itemResults elementIndex { a
                 , Format.kg elementMass
                 ]
     in
-    tbody []
-        [ tr [ class "fs-7 border-top" ]
-            [ td [] []
-            , td [ class "d-flex flex-column align-items-end" ]
-                [ Component.extractUnitMass itemResults
-                    |> Component.elementMassShare elementMass
-                    |> Format.splitAsPercentage 1
-                , amountInfo
-                ]
-            , td
-                [ colspan 3
-                , class "align-middle text-truncate"
-                , style "max-width" "0"
-                ]
-                [ div [ class "d-flex flex-column" ]
-                    [ button
-                        [ type_ "button"
-                        , class "btn btn-sm btn-link text-decoration-none p-0 text-start"
-                        , onClick (config.openEditElementModal component ( targetItem, elementIndex ))
-                        , title <| materialLabel material
-                        ]
+    summaryRow [ class "fs-7 border-top" ]
+        { emptySummaryCells
+            | impacts =
+                Component.getTotalImpacts elementResults
+                    |> Format.formatImpact config.impact
+            , label =
+                div [ class "d-flex flex-column" ]
+                    [ div [ title <| materialLabel material ]
                         [ span [ class "ComponentElementIcon" ] [ Icon.material ]
                         , text <| materialLabel material
                         ]
@@ -998,106 +997,296 @@ elementView config (( component, _ ) as targetItem) itemResults elementIndex { a
                             text <| Component.transformListToString transforms
                         ]
                     ]
+            , unitMass =
+                div [ class "d-flex flex-column align-items-end" ]
+                    [ Component.extractUnitMass itemResults
+                        |> Component.elementMassShare elementMass
+                        |> Format.splitAsPercentage 1
+                    , amountInfo
+                    ]
+        }
+
+
+type alias ProcessCells msg =
+    { actions : Html msg
+    , amount : Html msg
+    , country : Html msg
+    , impact : Html msg
+    , label : Html msg
+    , waste : Html msg
+    }
+
+
+emptyProcessCells : ProcessCells msg
+emptyProcessCells =
+    { actions = text ""
+    , amount = text ""
+    , country = text ""
+    , impact = text ""
+    , label = text ""
+    , waste = text ""
+    }
+
+
+processRow : List (Attribute msg) -> ProcessCells msg -> Html msg
+processRow attributes cells =
+    tr attributes
+        [ td [ class "text-end align-middle text-nowrap", style "min-width" "130px" ]
+            [ cells.amount ]
+        , td [ class "align-middle", style "min-width" "16rem" ]
+            [ cells.label ]
+        , td [ class "text-end align-middle text-nowrap" ]
+            [ cells.waste ]
+        , td [ class "align-middle", style "min-width" "12rem" ]
+            [ cells.country ]
+        , td [ class "text-end align-middle text-nowrap" ]
+            [ cells.impact ]
+        , td [ class "pe-3 text-end align-middle text-nowrap" ]
+            [ cells.actions ]
+        ]
+
+
+itemEditView : Config db msg -> TargetItem -> Html msg
+itemEditView ({ query } as config) ( _, itemIndex ) =
+    case ( config.lifeCycle, Component.expandItems config.db query.items ) of
+        ( Ok lifeCycle, Ok expandedItems ) ->
+            case LE.getAt itemIndex expandedItems of
+                Just expandedItem ->
+                    let
+                        itemResults =
+                            lifeCycle.production
+                                |> Component.extractItems
+                                |> LE.getAt itemIndex
+                                |> Maybe.withDefault Component.emptyResults
+                    in
+                    compositionModalBody config ( expandedItem.component, itemIndex ) expandedItem itemResults
+
+                Nothing ->
+                    simpleError (Just "Erreur") "Composant introuvable"
+
+        ( Err error, _ ) ->
+            simpleError (Just "Erreur") error
+
+        ( Ok _, Err error ) ->
+            simpleError (Just "Erreur") error
+
+
+compositionModalBody : Config db msg -> TargetItem -> ExpandedItem -> Results -> Html msg
+compositionModalBody config (( _, itemIndex ) as targetItem) { component, elements } itemResults =
+    let
+        elementCount =
+            List.length elements
+
+        elementRows =
+            if List.isEmpty elements then
+                [ processRow []
+                    { emptyProcessCells | label = text "Aucun élément" }
                 ]
-            , td [ class "align-middle text-end text-nowrap", colspan 3 ]
-                [ Component.getTotalImpacts elementResults
+
+            else
+                List.map3
+                    (elementCompositionRows config itemResults targetItem)
+                    (List.range 0 (elementCount - 1))
+                    elements
+                    (Component.extractItems itemResults)
+                    |> List.concat
+
+        rows =
+            processRow [ class "fs-8 fw-normal text-muted" ]
+                { emptyProcessCells
+                    | amount = text "Quantité"
+                    , country = text "Origine"
+                    , impact = text "Impact"
+                    , label = text "Matière et transformations"
+                    , waste = text "Pertes"
+                }
+                :: elementRows
+    in
+    div [ class "d-flex flex-column gap-3 p-3" ]
+        [ div []
+            [ label [ class "form-label", for "component-composition-label" ]
+                [ text "Libellé" ]
+            , input
+                [ type_ "text"
+                , class "form-control"
+                , id "component-composition-label"
+                , placeholder config.labels.label
+                , value component.name
+                , onInput (config.updateItemName targetItem)
+                ]
+                []
+            ]
+        , div [ class "d-flex flex-wrap gap-4 align-items-center bg-light border rounded p-3" ]
+            [ compositionStat "Éléments"
+                [ text <|
+                    if elementCount == 1 then
+                        "1 élément"
+
+                    else
+                        String.fromInt elementCount ++ " éléments"
+                ]
+            , compositionStat "Poids total"
+                [ Component.extractUnitMass itemResults
+                    |> Format.kg
+                ]
+            , compositionStat "Impact total"
+                [ Component.getTotalImpacts itemResults
                     |> Format.formatImpact config.impact
                 ]
-            , td [ class "pe-3 align-middle text-end text-nowrap" ]
-                [ div [ class "btn-group btn-group-sm" ]
-                    [ button
-                        [ type_ "button"
-                        , class "btn btn-outline-secondary"
-                        , attribute "aria-label" "Modifier l’élément"
-                        , onClick (config.openEditElementModal component ( targetItem, elementIndex ))
-                        ]
-                        [ Icon.pencil ]
-                    , button
-                        [ type_ "button"
-                        , class "btn btn-outline-secondary"
-                        , attribute "aria-label" "Supprimer l’élément"
-                        , onClick (config.removeElement ( targetItem, elementIndex ))
-                        ]
-                        [ Icon.trash ]
-                    ]
-                ]
+            ]
+        , catalogDivergenceWarning config itemIndex
+        , div [ class "d-flex justify-content-between align-items-center gap-2" ]
+            [ h3 [ class "h6 mb-0" ]
+                [ text "Liste des matières et leurs étapes de transformation" ]
+            , addElementButton config targetItem
+            ]
+        , div [ class "table-responsive" ]
+            [ table [ class "table table-sm table-borderless mb-0 w-100" ]
+                [ tbody [] rows ]
             ]
         ]
 
 
-getEditedResultedElement : Config db msg -> TargetElement -> Query -> Result String ResultedElement
-getEditedResultedElement { db, lifeCycle } ( ( _, itemIndex ), elementIndex ) query =
-    Result.map2 (Component.getResultedElement ( itemIndex, elementIndex ))
-        (Result.map .production lifeCycle)
-        (Component.expandItems db query.items)
-        |> RE.join
+compositionStat : String -> List (Html msg) -> Html msg
+compositionStat caption value =
+    div [ class "d-flex flex-column" ]
+        [ span [ class "fs-8 text-muted" ] [ text caption ]
+        , span [ class "fw-bold" ] value
+        ]
 
 
-elementEditModalView : Config db msg -> TargetElement -> Html msg
-elementEditModalView ({ query } as config) (( _, elementIndex ) as targetElement) =
-    case query |> getEditedResultedElement config targetElement of
-        Err error ->
-            div [ class "alert alert-danger" ] [ text error ]
+catalogDivergenceWarning : Config db msg -> Index -> Html msg
+catalogDivergenceWarning config itemIndex =
+    if isCatalogComponentCustomized config itemIndex then
+        Alert.simple
+            { attributes = [ class "mb-0" ]
+            , close = Nothing
+            , content =
+                [ text "La composition ne correspond plus au composant du catalogue. La masse unitaire a été recalculée." ]
+            , level = Alert.Warning
+            , title = Nothing
+            }
 
-        Ok ( _, { amount, material, transforms } as expandedElement, elementResults ) ->
-            let
-                elementCooling =
-                    Process.isTransportedCooled material.process
+    else
+        text ""
 
-                stageItems =
-                    Component.extractItems elementResults
 
-                materialResults =
-                    stageItems
-                        |> List.filter (Component.extractStage >> (==) (Just Component.MaterialStage))
-                        |> List.head
-                        |> Maybe.withDefault Component.emptyResults
+isCatalogComponentCustomized : Config db msg -> Index -> Bool
+isCatalogComponentCustomized { db, query } itemIndex =
+    case LE.getAt itemIndex query.items of
+        Just { custom, id } ->
+            case ( id, custom ) of
+                ( Just componentId, Just custom_ ) ->
+                    Component.findById componentId db.components
+                        |> Result.map (\catalogComponent -> Component.isCustomized catalogComponent custom_)
+                        |> Result.withDefault False
 
-                transformsResults =
-                    stageItems
-                        |> List.filter (Component.extractStage >> (==) (Just Component.TransformStage))
-            in
-            div [ class "table-responsive p-2" ]
-                [ table [ class "table table-sm table-borderless mb-0" ]
-                    [ tbody []
-                        (tr [ class "fs-7 text-muted" ]
-                            [ th [] []
-                            , th [ class "align-middle ps-0", scope "col" ]
-                                [ if material.process.unit == Process.Kilogram then
-                                    text "Masse finale"
+                _ ->
+                    False
 
-                                  else
-                                    text "Quantité finale"
-                                ]
-                            , th [ class "align-middle", scope "col" ]
-                                [ text <| "Élément #" ++ String.fromInt (elementIndex + 1) ]
-                            , th [ class "align-middle text-center", scope "col" ]
-                                [ text "Pays/Région" ]
-                            , th [ class "align-middle", scope "col" ]
-                                [ text "Pertes" ]
-                            , th [ class "align-middle text-truncate", scope "col" ]
-                                [ material.process.unit |> Process.unitLabel |> text ]
-                            , th [ class "align-middle text-end", scope "col" ]
-                                [ Component.getTotalImpacts elementResults
-                                    |> Format.formatImpact config.impact
-                                ]
-                            , th [] []
-                            ]
-                            :: elementMaterialView config targetElement materialResults material amount
-                            ++ elementTransformsView config elementCooling targetElement materialResults material.country transformsResults transforms
-                            ++ [ LE.last transformsResults
-                                    |> Maybe.map Component.extractMass
-                                    |> Maybe.withDefault (Component.extractMass materialResults)
-                                    |> finalElementTransportView config elementCooling (Component.getFinalElementCountry expandedElement)
-                               , tr [ class "border-top" ]
-                                    [ td [ colspan 2 ] []
-                                    , td [ colspan 6 ]
-                                        [ addElementTransformButton config material.process targetElement ]
-                                    ]
-                               ]
-                        )
-                    ]
-                ]
+        Nothing ->
+            False
+
+
+elementCompositionRows :
+    Config db msg
+    -> Results
+    -> TargetItem
+    -> Index
+    -> ExpandedElement
+    -> Results
+    -> List (Html msg)
+elementCompositionRows config itemResults targetItem elementIndex ({ amount, material, transforms } as expandedElement) elementResults =
+    let
+        targetElement =
+            ( targetItem, elementIndex )
+
+        elementCooling =
+            Process.isTransportedCooled material.process
+
+        stageItems =
+            Component.extractItems elementResults
+
+        materialResults =
+            stageItems
+                |> List.filter (Component.extractStage >> (==) (Just Component.MaterialStage))
+                |> List.head
+                |> Maybe.withDefault Component.emptyResults
+
+        transformsResults =
+            stageItems
+                |> List.filter (Component.extractStage >> (==) (Just Component.TransformStage))
+
+        elementMass =
+            Component.extractMass elementResults
+    in
+    processRow [ class "fs-7 border-top bg-light" ]
+        { emptyProcessCells
+            | actions = deleteElementButton config targetElement
+            , amount = elementAmountInput config targetElement material.process amount
+            , impact =
+                Component.getTotalImpacts elementResults
+                    |> Format.formatImpact config.impact
+            , label = elementHeading elementIndex itemResults elementMass
+        }
+        :: materialCompositionRows config targetElement materialResults material
+        ++ transformCompositionRows config elementCooling targetElement materialResults material.country transformsResults transforms
+        ++ [ LE.last transformsResults
+                |> Maybe.map Component.extractMass
+                |> Maybe.withDefault (Component.extractMass materialResults)
+                |> finalElementTransportView config elementCooling (Component.getFinalElementCountry expandedElement)
+           , processRow []
+                { emptyProcessCells
+                    | label = addElementTransformButton config material.process targetElement
+                }
+           ]
+
+
+deleteElementButton : Config db msg -> TargetElement -> Html msg
+deleteElementButton config targetElement =
+    button
+        [ type_ "button"
+        , class "btn btn-sm btn-outline-secondary text-nowrap"
+        , attribute "aria-label" "Supprimer l’élément"
+        , onClick (config.removeElement targetElement)
+        ]
+        [ Icon.trash
+        , span [ class "ms-1" ] [ text "Supprimer" ]
+        ]
+
+
+elementAmountInput : Config db msg -> TargetElement -> Process -> Amount -> Html msg
+elementAmountInput config targetElement process amount =
+    if config.scope == Scope.Textile then
+        Format.amount process amount
+
+    else
+        amountInput
+            { event = config.updateElementAmount targetElement
+            , readonly = False
+            , unit = process.unit
+            }
+            amount
+
+
+elementHeading : Index -> Results -> Mass -> Html msg
+elementHeading elementIndex itemResults elementMass =
+    let
+        share =
+            Component.extractUnitMass itemResults
+                |> Component.elementMassShare elementMass
+    in
+    div [ class "d-flex flex-column" ]
+        [ span [ class "fw-bold" ]
+            [ text <| "Élément #" ++ String.fromInt (elementIndex + 1) ]
+        , span [ class "text-muted" ]
+            [ text "Poids\u{00A0}: "
+            , Format.kg elementMass
+            , text " ("
+            , share |> Format.splitAsPercentage 0
+            , text ")"
+            ]
+        ]
 
 
 {-| Render transports from last transform step to assembly or distribution stage
@@ -1123,98 +1312,81 @@ listAvailableProcesses { db, scope } category =
         |> List.sortBy Process.getDisplayName
 
 
-selectMaterialButton : Config db msg -> TargetElement -> Process -> Html msg
-selectMaterialButton config ( targetItem, elementIndex ) material =
+modifyMaterialButton : Config db msg -> TargetElement -> Html msg
+modifyMaterialButton config ( targetItem, elementIndex ) =
     button
         [ type_ "button"
-        , class "btn btn-sm btn-link text-decoration-none p-0"
+        , class "btn btn-sm btn-outline-primary text-nowrap"
+        , attribute "aria-label" "Modifier la matière"
         , listAvailableProcesses config Category.Material
             |> AutocompleteSelector.init Process.getDisplayName
             |> config.openSelectProcessModal Category.Material targetItem (Just elementIndex)
             |> onClick
         ]
-        [ span [ class "ComponentElementIcon" ] [ Icon.material ]
-        , text <| Process.getDisplayName material
+        [ Icon.pencil
+        , span [ class "ms-1" ] [ text "Modifier" ]
         ]
 
 
-elementMaterialView :
+materialCompositionRows :
     Config db msg
     -> TargetElement
     -> Results
     -> ExpandedLocalizedProcess
-    -> Amount
     -> List (Html msg)
-elementMaterialView config targetElement materialResults material amount =
+materialCompositionRows config targetElement materialResults material =
     let
         complementsImpacts =
             Component.extractComplementsImpacts materialResults
-    in
-    [ tr [ class "fs-7" ]
-        [ td [] []
-        , td [ class "text-end align-middle text-nowrap ps-0", style "min-width" "130px" ]
-            [ if config.scope == Scope.Textile then
-                Format.amount material.process amount
 
-              else
-                amountInput
-                    { event = config.updateElementAmount targetElement
-                    , readonly = False
-                    , unit = material.process.unit
-                    }
-                    amount
-            ]
-        , td
-            [ class "align-middle text-truncate"
-            , title <| Process.getDisplayName material.process
-            ]
-            [ selectMaterialButton config targetElement material.process
-            ]
-        , td [ class "text-end align-middle text-nowrap" ]
-            [ regionSelector
-                { countries = config.db.countries
-                , domId = "material-country-" ++ Component.targetElementToString targetElement
-                , scope = config.scope
-                , select = config.updateElementMaterialCountry targetElement
-                , selected = material.country |> Maybe.map .code
+        materialRow =
+            processRow [ class "fs-7" ]
+                { emptyProcessCells
+                    | actions = modifyMaterialButton config targetElement
+                    , amount =
+                        Component.extractAmount materialResults
+                            |> Format.amount material.process
+                    , country =
+                        regionSelector
+                            { countries = config.db.countries
+                            , domId = "material-country-" ++ Component.targetElementToString targetElement
+                            , scope = config.scope
+                            , select = config.updateElementMaterialCountry targetElement
+                            , selected = material.country |> Maybe.map .code
+                            }
+                    , impact =
+                        Component.getTotalImpacts materialResults
+                            |> Format.formatImpact config.impact
+                    , label =
+                        span [ title <| Process.getDisplayName material.process ]
+                            [ span [ class "ComponentElementIcon" ] [ Icon.material ]
+                            , text <| Process.getDisplayName material.process
+                            ]
                 }
-            ]
-        , td [ class "text-end align-middle text-nowrap" ]
-            []
-        , td [ class "text-end align-middle text-nowrap" ]
-            [ Component.extractAmount materialResults
-                |> Format.amount material.process
-            ]
-        , td [ class "text-end align-middle text-nowrap" ]
-            [ Component.getTotalImpacts materialResults
-                |> Format.formatImpact config.impact
-            ]
-        , td [ class "pe-3 text-nowrap" ] []
-        ]
-    , if complementsImpacts /= Complement.emptyComplementsResultsImpacts then
-        tr [ class "fs-7" ]
-            [ td [] []
-            , td [ class "text-end align-middle text-nowrap ps-0", style "min-width" "130px" ]
-                []
-            , td
-                [ class "align-middle text-truncate w-100 text-muted cursor-help ps-4 fs-8"
-                , title (Format.formatComplementsResultsImpactsToString config.impact complementsImpacts)
-                ]
-                [ span [ class "ComponentElementIcon" ] [ Icon.calculator ], text "Dont compléments" ]
-            , td [ class "text-end align-middle text-nowrap", colspan 3 ]
-                []
-            , td [ class "text-end align-middle text-nowrap" ]
-                [ complementsImpacts
-                    |> Complement.mergeComplementsResultsImpacts
-                    |> Format.formatImpact config.impact
-                ]
-            , td [ class "pe-3 text-nowrap" ]
-                []
-            ]
 
-      else
-        text ""
-    ]
+        complementsRow =
+            if complementsImpacts /= Complement.emptyComplementsResultsImpacts then
+                [ processRow [ class "fs-7 text-muted" ]
+                    { emptyProcessCells
+                        | impact =
+                            complementsImpacts
+                                |> Complement.mergeComplementsResultsImpacts
+                                |> Format.formatImpact config.impact
+                        , label =
+                            span
+                                [ class "cursor-help fs-8"
+                                , title (Format.formatComplementsResultsImpactsToString config.impact complementsImpacts)
+                                ]
+                                [ span [ class "ComponentElementIcon" ] [ Icon.calculator ]
+                                , text "Dont compléments"
+                                ]
+                    }
+                ]
+
+            else
+                []
+    in
+    materialRow :: complementsRow
 
 
 elementTransportView : Config db msg -> List (Attribute msg) -> Bool -> Mass -> Maybe Country -> Maybe Country -> Html msg
@@ -1235,11 +1407,10 @@ elementTransportView ({ query } as config) attributes cooling transportedMass ma
     in
     case displayElementTransport of
         Err error ->
-            tr []
-                [ td [ class "p-2", colspan 7 ]
-                    [ error |> simpleError (Just "Erreur de calcul de distance")
-                    ]
-                ]
+            processRow attributes
+                { emptyProcessCells
+                    | label = error |> simpleError (Just "Erreur de calcul de distance")
+                }
 
         Ok transport ->
             let
@@ -1253,30 +1424,28 @@ elementTransportView ({ query } as config) attributes cooling transportedMass ma
                     else
                         []
             in
-            tr (class "fs-7 text-muted" :: attributes)
-                [ td [ colspan 2 ] []
-                , td []
-                    [ text <| "Transport " ++ renderCountry maybeFrom ++ " → " ++ renderCountry maybeTo ]
-                , td [ class "text-end align-middle d-flex justify-content-end align-items-center gap-2 text-nowrap" ] <|
-                    -- Note: it's supposed for now that a plane can transport either cooled or non-cooled stuff
-                    renderModeIfAny Icon.plane transport.air
-                        ++ renderModeIfAny Icon.boat transport.sea
-                        ++ renderModeIfAny Icon.boatCooled transport.seaCooled
-                        ++ renderModeIfAny Icon.bus transport.road
-                        ++ renderModeIfAny Icon.busCooled transport.roadCooled
-                        ++ [ Icon.package
-                           , Format.kg transportedMass
-                           ]
-                , td [ colspan 2 ] []
-                , td [ class "text-end align-middle text-nowrap" ]
-                    [ transport.impacts
-                        |> Format.formatImpact config.impact
-                    ]
-                , td [] []
-                ]
+            processRow (class "fs-7 text-muted" :: attributes)
+                { emptyProcessCells
+                    | country =
+                        div [ class "d-flex flex-wrap justify-content-end align-items-center gap-2" ] <|
+                            -- Note: it's supposed for now that a plane can transport either cooled or non-cooled stuff
+                            renderModeIfAny Icon.plane transport.air
+                                ++ renderModeIfAny Icon.boat transport.sea
+                                ++ renderModeIfAny Icon.boatCooled transport.seaCooled
+                                ++ renderModeIfAny Icon.bus transport.road
+                                ++ renderModeIfAny Icon.busCooled transport.roadCooled
+                                ++ [ Icon.package
+                                   , Format.kg transportedMass
+                                   ]
+                    , impact =
+                        transport.impacts
+                            |> Format.formatImpact config.impact
+                    , label =
+                        text <| "Transport " ++ renderCountry maybeFrom ++ " → " ++ renderCountry maybeTo
+                }
 
 
-elementTransformsView :
+transformCompositionRows :
     Config db msg
     -> Bool
     -> TargetElement
@@ -1285,7 +1454,7 @@ elementTransformsView :
     -> List Results
     -> List ExpandedLocalizedProcess
     -> List (Html msg)
-elementTransformsView config cooling targetElement materialResults materialCountry transformsResults transforms =
+transformCompositionRows config cooling targetElement materialResults materialCountry transformsResults transforms =
     transforms
         |> List.indexedMap
             (\transformIndex transform ->
@@ -1329,52 +1498,44 @@ elementTransformsView config cooling targetElement materialResults materialCount
                 in
                 [ transform.country
                     |> elementTransportView config [] cooling previousMass previousCountry
-                , tr [ class "fs-7 border-top" ]
-                    [ td [] []
-                    , td [ class "text-end align-middle text-nowrap" ] []
-                    , td
-                        [ class "text-truncate align-middle w-66 cursor-help "
-                        , style "max-width" "0"
-                        , title tooltipText
-                        ]
-                        [ span [ class "ComponentElementIcon" ] [ Icon.transform ]
-                        , text <| Process.getDisplayName transform.process
-                        ]
-                    , td [ class "text-end align-middle text-nowrap" ]
-                        [ regionSelector
-                            { countries = config.db.countries
-                            , domId =
-                                "transform-country-"
-                                    ++ Component.targetElementToString targetElement
-                                    ++ "-"
-                                    ++ String.fromInt transformIndex
-                            , scope = config.scope
-                            , select = config.updateElementTransformCountry targetElement transformIndex
-                            , selected = transform.country |> Maybe.map .code
-                            }
-                        ]
-                    , td [ class "align-middle text-end text-nowrap" ]
-                        [ Format.qtyVariationRatioAsWastePercent transform.process.qtyVariationRatio
-                        ]
-                    , td [ class "text-end align-middle text-nowrap" ]
-                        [ Component.extractAmount transformResult
-                            |> Format.amount transform.process
-                        ]
-                    , td [ class "text-end align-middle text-nowrap" ]
-                        [ Component.extractImpacts transformResult
-                            |> Format.formatImpact config.impact
-                        ]
-                    , td []
-                        [ button
-                            [ type_ "button"
-                            , class "btn btn-sm btn-outline-secondary"
-                            , transformIndex
-                                |> config.removeElementTransform targetElement
-                                |> onClick
-                            ]
-                            [ Icon.trash ]
-                        ]
-                    ]
+                , processRow [ class "fs-7 border-top" ]
+                    { emptyProcessCells
+                        | actions =
+                            button
+                                [ type_ "button"
+                                , class "btn btn-sm btn-outline-secondary"
+                                , attribute "aria-label" "Supprimer la transformation"
+                                , transformIndex
+                                    |> config.removeElementTransform targetElement
+                                    |> onClick
+                                ]
+                                [ Icon.trash ]
+                        , amount =
+                            Component.extractAmount transformResult
+                                |> Format.amount transform.process
+                        , country =
+                            regionSelector
+                                { countries = config.db.countries
+                                , domId =
+                                    "transform-country-"
+                                        ++ Component.targetElementToString targetElement
+                                        ++ "-"
+                                        ++ String.fromInt transformIndex
+                                , scope = config.scope
+                                , select = config.updateElementTransformCountry targetElement transformIndex
+                                , selected = transform.country |> Maybe.map .code
+                                }
+                        , impact =
+                            Component.extractImpacts transformResult
+                                |> Format.formatImpact config.impact
+                        , label =
+                            span [ class "cursor-help", title tooltipText ]
+                                [ span [ class "ComponentElementIcon" ] [ Icon.transform ]
+                                , text <| Process.getDisplayName transform.process
+                                ]
+                        , waste =
+                            Format.qtyVariationRatioAsWastePercent transform.process.qtyVariationRatio
+                    }
                 ]
             )
         |> List.concat

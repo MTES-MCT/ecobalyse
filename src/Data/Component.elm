@@ -94,6 +94,7 @@ module Data.Component exposing
     , getTransportCooling
     , idFromString
     , idToString
+    , isCustomized
     , isEmpty
     , itemToComponent
     , itemToString

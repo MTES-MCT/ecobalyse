@@ -13,6 +13,7 @@ import Base64
 import Browser.Dom as Dom
 import Browser.Events
 import Data.Component as Component exposing (Component, Index, Item, TargetItem)
+import Data.Db exposing (Db)
 import Data.Impact.Definition as Definition
 import Data.JournalEntry as JournalEntry exposing (JournalEntry)
 import Data.Key as Key
@@ -60,8 +61,9 @@ type alias Model =
 
 type Modal
     = DeleteComponentModal Component
-    | EditComponentModal Component Item
+    | EditCompositionModal
     | HistoryModal (WebData (List (JournalEntry String)))
+    | ItemEditModal Component Item
     | JournalEntryModal (JournalEntry String)
     | SelectProcessModal Category TargetItem (Maybe Index) (Autocomplete Process)
 
@@ -116,7 +118,7 @@ update session msg model =
                 |> Maybe.map
                     (\componentId ->
                         { model
-                            | modals = [ EditComponentModal component (Component.createItem (Just componentId)) ]
+                            | modals = [ ItemEditModal component (Component.createItem (Just componentId)) ]
                         }
                             |> createPageUpdate session
                             |> App.withCmds [ ComponentApi.getComponents session ComponentListResponse ]
@@ -141,7 +143,7 @@ update session msg model =
                 |> Maybe.map
                     (\componentId ->
                         createPageUpdate session
-                            { model | modals = [ EditComponentModal component (Component.createItem (Just componentId)) ] }
+                            { model | modals = [ ItemEditModal component (Component.createItem (Just componentId)) ] }
                     )
                 |> Maybe.withDefault (createPageUpdate session model)
 
@@ -192,8 +194,13 @@ update session msg model =
 
         OnAutocompleteSelectProcess category targetItem maybeElementIndex ->
             case model.modals of
-                [ SelectProcessModal _ _ _ autocompleteState, EditComponentModal _ item ] ->
-                    selectProcess category targetItem maybeElementIndex autocompleteState item model session
+                (SelectProcessModal _ _ _ autocompleteState) :: otherModals ->
+                    case editedItem otherModals of
+                        Just item ->
+                            selectProcess category targetItem maybeElementIndex autocompleteState item model session
+
+                        Nothing ->
+                            createPageUpdate session model
 
                 _ ->
                     createPageUpdate session model
@@ -302,7 +309,7 @@ createPageUpdate session model =
 onAutocompleteAddProcess : Category -> TargetItem -> Maybe Index -> Autocomplete.Msg Process -> Session -> Model -> PageUpdate Model Msg
 onAutocompleteAddProcess category targetItem maybeElementIndex autocompleteMsg session model =
     case model.modals of
-        [ SelectProcessModal _ _ _ autocompleteState, EditComponentModal component item ] ->
+        (SelectProcessModal _ _ _ autocompleteState) :: otherModals ->
             let
                 ( newAutocompleteState, autoCompleteCmd ) =
                     Autocomplete.update autocompleteMsg autocompleteState
@@ -310,9 +317,8 @@ onAutocompleteAddProcess category targetItem maybeElementIndex autocompleteMsg s
             createPageUpdate session
                 { model
                     | modals =
-                        [ SelectProcessModal category targetItem maybeElementIndex newAutocompleteState
-                        , EditComponentModal component item
-                        ]
+                        SelectProcessModal category targetItem maybeElementIndex newAutocompleteState
+                            :: otherModals
                 }
                 |> App.withCmds
                     [ autoCompleteCmd
@@ -330,7 +336,7 @@ saveComponent model session =
             createPageUpdate session { model | modals = [] }
                 |> App.withCmds [ ComponentApi.deleteComponent session ComponentDeleted component ]
 
-        [ EditComponentModal { comment, published } item ] ->
+        [ ItemEditModal { comment, published } item ] ->
             case Component.itemToComponent session.db item of
                 Err error ->
                     createPageUpdate session { model | modals = [] }
@@ -348,34 +354,83 @@ saveComponent model session =
             createPageUpdate session model
 
 
+editedComponent : List Modal -> Maybe ( Component, Item )
+editedComponent modals =
+    modals
+        |> List.filterMap
+            (\modal ->
+                case modal of
+                    ItemEditModal component item ->
+                        Just ( component, item )
+
+                    _ ->
+                        Nothing
+            )
+        |> List.head
+
+
+editedItem : List Modal -> Maybe Item
+editedItem modals =
+    modals
+        |> List.filterMap
+            (\modal ->
+                case modal of
+                    ItemEditModal _ item ->
+                        Just item
+
+                    _ ->
+                        Nothing
+            )
+        |> List.head
+
+
+setEditedItem : Item -> Modal -> Modal
+setEditedItem updatedItem modal =
+    case modal of
+        ItemEditModal component _ ->
+            ItemEditModal component updatedItem
+
+        other ->
+            other
+
+
 updateComponent : Item -> Model -> Model
 updateComponent customItem model =
-    case model.modals of
-        (EditComponentModal component _) :: others ->
-            { model | modals = EditComponentModal component customItem :: others }
-
-        _ ->
-            model
+    { model | modals = List.map (setEditedItem customItem) model.modals }
 
 
 updateComponentComment : String -> Model -> Model
 updateComponentComment comment model =
-    case model.modals of
-        (EditComponentModal component item) :: others ->
-            { model | modals = EditComponentModal { component | comment = Just comment } item :: others }
+    { model
+        | modals =
+            List.map
+                (\modal ->
+                    case modal of
+                        ItemEditModal component item ->
+                            ItemEditModal { component | comment = Just comment } item
 
-        _ ->
-            model
+                        other ->
+                            other
+                )
+                model.modals
+    }
 
 
 updateComponentPublished : Bool -> Model -> Model
 updateComponentPublished published model =
-    case model.modals of
-        (EditComponentModal component item) :: others ->
-            { model | modals = EditComponentModal { component | published = published } item :: others }
+    { model
+        | modals =
+            List.map
+                (\modal ->
+                    case modal of
+                        ItemEditModal component item ->
+                            ItemEditModal { component | published = published } item
 
-        _ ->
-            model
+                        other ->
+                            other
+                )
+                model.modals
+    }
 
 
 selectProcess :
@@ -387,7 +442,7 @@ selectProcess :
     -> Model
     -> Session
     -> PageUpdate Model Msg
-selectProcess category (( component, _ ) as targetItem) maybeElementIndex autocompleteState item model session =
+selectProcess category targetItem maybeElementIndex autocompleteState item model session =
     case Autocomplete.selectedValue autocompleteState of
         Just process ->
             case
@@ -400,7 +455,13 @@ selectProcess category (( component, _ ) as targetItem) maybeElementIndex autoco
                         |> App.notifyError "Erreur de sélection" err
 
                 Ok updatedItem ->
-                    createPageUpdate session { model | modals = [ EditComponentModal component updatedItem ] }
+                    createPageUpdate session
+                        { model
+                            | modals =
+                                model.modals
+                                    |> List.drop 1
+                                    |> List.map (setEditedItem updatedItem)
+                        }
 
         Nothing ->
             createPageUpdate session model
@@ -614,6 +675,84 @@ componentRowView session selected component =
         ]
 
 
+adminEditorConfig :
+    Component.Config
+    -> Db
+    -> List Modal
+    -> Component
+    -> Item
+    -> ComponentView.Config Db Msg
+adminEditorConfig componentConfig db modals component item =
+    { componentConfig = componentConfig
+    , context = ComponentView.AdminContext
+    , db = db
+    , debug = False
+    , detailed = [ 0 ]
+    , docsUrl = Nothing
+    , explorerRoute = Nothing
+    , impact = db.definitions |> Definition.get Definition.Ecs
+    , labels = ComponentView.scopeLabels ComponentView.AdminContext component.scope
+    , lifeCycle =
+        Component.emptyQuery
+            |> Component.setQueryItems [ item ]
+            |> Component.compute
+                { config = componentConfig
+                , db = db
+                , scope = component.scope
+                }
+    , noOp = NoOp
+    , openItemEditModal = \_ -> SetModals (EditCompositionModal :: modals)
+    , openSelectAssemblyOperationModal = \_ -> NoOp
+    , openSelectConsumptionModal = \_ -> NoOp
+    , openSelectPackagingModal = \_ -> NoOp
+    , openSelectProcessModal =
+        \category targetItem maybeElementIndex autocompleteState ->
+            SetModals (SelectProcessModal category targetItem maybeElementIndex autocompleteState :: modals)
+    , openSelectProductionItem = \_ -> NoOp
+
+    -- Note: we don't handle assembly country in the admin
+    , query = Component.emptyQuery |> Component.setQueryItems [ item ]
+    , removeAssemblyOperation = \_ -> NoOp
+    , removeConsumption = \_ -> NoOp
+    , removePackaging = \_ -> NoOp
+    , removeElement =
+        \targetElement ->
+            item |> updateSingleItem (Component.removeElement targetElement)
+    , removeElementTransform =
+        \targetElement transformIndex ->
+            item |> updateSingleItem (Component.removeElementTransform targetElement transformIndex)
+    , removeItem = \_ -> NoOp
+    , scope = component.scope
+    , setDetailed = \_ -> NoOp
+    , toggleTransportByAir = \_ -> NoOp
+    , toggleTransportCooling = \_ -> NoOp
+    , updateAssemblyCountry = \_ -> NoOp
+    , updateConsumptionAmount = \_ _ -> NoOp
+    , updateDistribution = \_ -> NoOp
+    , updateElementAmount =
+        \targetElement ->
+            Maybe.map
+                (\amount ->
+                    item |> updateSingleItem (Component.updateElementAmount targetElement amount)
+                )
+                >> Maybe.withDefault NoOp
+    , updateElementMaterialCountry =
+        \targetElement maybeCountryCode ->
+            item |> updateSingleItem (Component.updateElementMaterialCountry targetElement maybeCountryCode)
+    , updateElementTransformCountry =
+        \targetElement transformIndex maybeCountryCode ->
+            item
+                |> updateSingleItem
+                    (Component.updateElementTransformCountry targetElement transformIndex maybeCountryCode)
+    , updateItemName =
+        \targetItem name ->
+            item |> updateSingleItem (Component.updateItemCustomName targetItem name)
+    , updateItemQuantity = \_ _ -> NoOp
+    , updatePackagingAmount = \_ _ -> NoOp
+    , updateRecyclable = \_ -> NoOp
+    }
+
+
 modalView : Session -> List Modal -> Int -> Modal -> Html Msg
 modalView { componentConfig, db } modals index modal =
     let
@@ -632,74 +771,44 @@ modalView { componentConfig, db } modals index modal =
                     , size = Modal.Large
                     }
 
-                EditComponentModal component item ->
+                EditCompositionModal ->
+                    case editedComponent modals of
+                        Just ( component, item ) ->
+                            { title = "Paramètres et composition"
+                            , content =
+                                [ ComponentView.itemEditView
+                                    (adminEditorConfig componentConfig db modals component item)
+                                    ( component, 0 )
+                                ]
+                            , footer = []
+                            , size = Modal.Fluid
+                            }
+
+                        Nothing ->
+                            { title = "Paramètres et composition"
+                            , content = [ text "Composant introuvable" ]
+                            , footer = []
+                            , size = Modal.Large
+                            }
+
+                HistoryModal response ->
+                    { title = "Historique des modifications"
+                    , content = [ response |> WebDataView.map historyView ]
+                    , footer =
+                        [ button
+                            [ class "btn btn-primary"
+                            , onClick <| SetModals <| List.drop 1 modals
+                            ]
+                            [ text "Fermer" ]
+                        ]
+                    , size = Modal.ExtraLarge
+                    }
+
+                ItemEditModal component item ->
                     { title = "Modifier le composant"
                     , content =
                         [ ComponentView.editorView
-                            { componentConfig = componentConfig
-                            , context = ComponentView.AdminContext
-                            , db = db
-                            , debug = False
-                            , detailed = [ 0 ]
-                            , docsUrl = Nothing
-                            , explorerRoute = Nothing
-                            , impact = db.definitions |> Definition.get Definition.Ecs
-                            , labels = ComponentView.scopeLabels ComponentView.AdminContext component.scope
-                            , lifeCycle =
-                                Component.emptyQuery
-                                    |> Component.setQueryItems [ item ]
-                                    |> Component.compute
-                                        { config = componentConfig
-                                        , db = db
-                                        , scope = component.scope
-                                        }
-                            , noOp = NoOp
-                            , openEditElementModal = \_ _ -> NoOp
-                            , openSelectAssemblyOperationModal = \_ -> NoOp
-                            , openSelectConsumptionModal = \_ -> NoOp
-                            , openSelectPackagingModal = \_ -> NoOp
-                            , openSelectProcessModal =
-                                \p ti ei s ->
-                                    SetModals (SelectProcessModal p ti ei s :: modals)
-                            , openSelectProductionItem = \_ -> NoOp
-
-                            -- Note: we don't handle assembly country in the admin
-                            , query = Component.emptyQuery |> Component.setQueryItems [ item ]
-                            , removeAssemblyOperation = \_ -> NoOp
-                            , removeConsumption = \_ -> NoOp
-                            , removePackaging = \_ -> NoOp
-                            , removeElement =
-                                \targetElement ->
-                                    item |> updateSingleItem (Component.removeElement targetElement)
-                            , removeElementTransform =
-                                \targetElement transformIndex ->
-                                    item |> updateSingleItem (Component.removeElementTransform targetElement transformIndex)
-                            , removeItem = \_ -> NoOp
-                            , scope = component.scope
-                            , setDetailed = \_ -> NoOp
-                            , toggleTransportByAir = \_ -> NoOp
-                            , toggleTransportCooling = \_ -> NoOp
-                            , updateAssemblyCountry = \_ -> NoOp
-                            , updateConsumptionAmount = \_ _ -> NoOp
-                            , updateDistribution = \_ -> NoOp
-                            , updateElementAmount =
-                                \targetElement ->
-                                    Maybe.map
-                                        (\amount ->
-                                            item |> updateSingleItem (Component.updateElementAmount targetElement amount)
-                                        )
-                                        >> Maybe.withDefault NoOp
-                            , updateElementMaterialCountry =
-                                \targetElement maybeCountryCode ->
-                                    item |> updateSingleItem (Component.updateElementMaterialCountry targetElement maybeCountryCode)
-                            , updateElementTransformCountry = \_ _ _ -> NoOp
-                            , updateItemName =
-                                \targetItem name ->
-                                    item |> updateSingleItem (Component.updateItemCustomName targetItem name)
-                            , updateItemQuantity = \_ _ -> NoOp
-                            , updatePackagingAmount = \_ _ -> NoOp
-                            , updateRecyclable = \_ -> NoOp
-                            }
+                            (adminEditorConfig componentConfig db modals component item)
                         , div [ class "p-3 pt-2" ]
                             [ label [ class "form-label fw-bold", for "comment" ] [ text "Commentaire" ]
                             , textarea
@@ -733,19 +842,6 @@ modalView { componentConfig, db } modals index modal =
                             ]
                         ]
                     , size = Modal.Large
-                    }
-
-                HistoryModal response ->
-                    { title = "Historique des modifications"
-                    , content = [ response |> WebDataView.map historyView ]
-                    , footer =
-                        [ button
-                            [ class "btn btn-primary"
-                            , onClick <| SetModals <| List.drop 1 modals
-                            ]
-                            [ text "Fermer" ]
-                        ]
-                    , size = Modal.ExtraLarge
                     }
 
                 JournalEntryModal { action, createdAt, recordId, tableName, user, value } ->
@@ -826,7 +922,13 @@ modalView { componentConfig, db } modals index modal =
                 { close = SetModals <| List.drop 1 modals
                 , content = content
                 , footer = footer
-                , formAction = Just SaveComponent
+                , formAction =
+                    case modal of
+                        EditCompositionModal ->
+                            Nothing
+
+                        _ ->
+                            Just SaveComponent
                 , noOp = NoOp
                 , size = size
                 , subTitle = Nothing
