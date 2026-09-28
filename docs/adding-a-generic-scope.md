@@ -1,9 +1,9 @@
 # Ajouter un scope générique
 
-Ce guide décrit, dans l'ordre, les étapes pour ajouter un nouveau périmètre métier au moteur générique et ouvrir une PR prête à être mergée.
+Ce guide technique décrit, dans l'ordre, les étapes pour ajouter une nouvelle verticale au moteur générique et ouvrir une PR prête à être mergée et déployable en production.
 
-> 💡 Dans ce document et dans la documentation du projet Ecobalyse, les termes *périmètre*, *domaine métier*, *verticale* et *scope* désignent tous le même concept : un domaine spécifique d'activités humaines pour lequel une calculette et le moteur de calcul générique derrière sont spécifiquement configurés. **Par commodité, nous emploierons ici le terme *scope*** qui est le terme technique à privilégier lors d'échanges techniques sur le sujet.
-> ⚠️ Ce guide ne couvre ni la création de données métiers (ICV, procédés, etc) ni les subtilités de configuration spécifiques au scope ; il se concentre sur le mimimum technique à opérer pour qu'un nouveau scope soit *techniquement mergeable* en production.
+> 💡 Dans ce document et dans la documentation du projet Ecobalyse, les termes *périmètre*, *domaine métier*, *verticale* et *scope* désignent tous le même concept : un domaine spécifique d'activités humaines pour lequel une calculette et le moteur de calcul générique sous-jacent sont spécifiquement configurés et des données mises à disposition en conséquence. **Dans ce guide, nous emploierons le terme *scope*** qui est le terme à privilégier lors d'échanges techniques sur le sujet.
+> ⚠️ Ce guide ne couvre ni la création de données métiers (ICV, procédés, composants, catégories, exemples, etc.) ni les subtilités de configuration spécifiques au scope ; il se concentre sur le **minimum technique** à opérer pour qu'un nouveau scope soit *techniquement déployable* en production.
 
 Nous prendrons pour exemple l'ajout d'un nouveau scope **Flowers**, qui sera matérialisé de la façon suivante :
 
@@ -18,16 +18,16 @@ Nous prendrons pour exemple l'ajout d'un nouveau scope **Flowers**, qui sera mat
 
 `Textile` puis `Food` (ou *food1*), scopes historiques, ont permis les premières implémentations de calculettes dont ont découlé les choix techniques socles du moteur générique. Ils disposent chacun d'un moteur de calcul, d'un module de page Elm et de points d'entrée d'API spécifiques ; `Textile` et `Food` ne sont donc pas *génériques*, tandis que `Food2`, `Object` et `Veli` le sont.
 
-C'est sur le modèle de ces derniers que de nouveaux scopes doivent être réfléchis et introduits dans la base de code, afin de s'appuyer sur le jeu de fonctionnalités transverses qu'offre désormais la plateforme. Pas de module `Page/Flowers.elm` ni de routes d'API spécifiques à un scope particulier, notamment.
+C'est sur le modèle de ces derniers que de nouveaux scopes doivent être conçus et introduits dans la base de code, afin de s'appuyer sur le jeu de fonctionnalités transverses qu'offre désormais la plateforme. Pas de module `Page/Flowers.elm` ni de routes d'API spécifiques à un scope particulier, notamment.
 
 ## Séquence de mise à jour
 
-Voici l'ordre général dans lequel il convient de procéder pour ajouter un nouveau scope au projet Ecobalyse ; chaque étape est détaillée dans la suite du guide.
+Voici la séquence type qu'il convient de suivre pour ajouter un nouveau scope Ecobalyse à la base de code ; chaque étape est détaillée dans la suite du guide.
 
 1. Ajouter un nouveau constructeur `Flowers`
 2. Suivre et corriger les erreurs de compilation Elm suite à son introduction
-3. Câbler ce que le compilateur ne voit pas (routes, fichiers JSON, menus…)
-4. Ajouter les fichiers de données et la configuration
+3. Câbler ce que le compilateur ne "voit" pas (routes, fichiers JSON, menus…)
+4. Ajouter les fichiers de données minimaux requis
 5. Mettre à jour le code js et définir les variables d'environnement
 6. Déployer progressivement en production
 
@@ -43,7 +43,7 @@ type GenericScope
     | Veli
 ```
 
-> 💡 L'avantage d'utiliser un langage strict fortement typé comme Elm et son compilateur sourcilleux, c'est que ce dernier nous guidera pour l'essentiel des modifications à opérer dans la base de code afin que les modifications restent cohérentes. Il suffit simplement de suivre les messages qu'il nous fournit et corriger pas à pas.
+> 💡 L'avantage d'utiliser un langage strict fortement typé comme Elm et son compilateur sourcilleux, c'est que ce dernier nous guidera pour l'essentiel des modifications à opérer dans la base de code afin que les modifications restent cohérentes. Il suffit de suivre les messages qu'il nous fournit et corriger pas à pas.
 
 > 💡 On note que les constructeurs doivent toujours être ordonnés alphabétiquement (une règle `elm-review` s'en assure dans la CI)
 
@@ -83,6 +83,7 @@ toLabelGeneric genericScope =
             "Alimentaire BÉTA"
         …
 ```
+
 ## 2. Cas exhaustifs
 
 ### Liste exhaustive des scopes génériques
@@ -159,7 +160,7 @@ Et dans la fonction `defaultDatasetFor`, pointer par défaut vers les exemples d
         GenericExamples Scope.Flowers Nothing
 ```
 
-Ajouter également les slugs attendus pour les URLs de l'explorateur du nouveau scope `flowers` aux branches gérées par la fonction `fromSlug`. Le compilateur ne les réclamera pas, et sans eux l'explorateur ne pourra les résoudre et fonctionner correctement ; par exemple, ajouter ces branches pour gérer les nouveaux slugs vers les datasets à explorer correspondants :
+Ajouter également les slugs attendus pour les URLs de l'explorateur du nouveau scope `flowers` aux branches gérées par la fonction `fromSlug`. Le compilateur ne les réclamera pas, et sans eux l'explorateur ne pourra pas les résoudre ni fonctionner correctement ; par exemple, ajouter ces branches pour gérer les nouveaux slugs vers les datasets à explorer correspondants :
 
 ```elm
     "flowers-components" ->
@@ -179,8 +180,8 @@ Ajouter également les slugs attendus pour les URLs de l'explorateur du nouveau 
 
 Le compilateur Elm est un outil précieux mais certains fichiers compilent encore si on oublie d'opérer certaines modifications manuellement, et ce à quatre niveaux principalement :
 
-- le parsing et le mapping des chaînes de caractère arbitraires vers des types, par nature incertaine
-- le routing et les urls (chemins, segments, etc)
+- le parsing et le mapping des chaînes de caractères arbitraires vers des types, par nature incertaine
+- le routing et les urls (chemins, segments, etc.)
 - les sources de données à charger pour le nouveau scope (composants, catégories de produits et exemples)
 - les menus de navigation et certains affichages dans l'interface utilisateur
 
@@ -250,7 +251,7 @@ Un exemple n'est pas obligatoire pour démarrer l'application, mais il est utile
 ]
 ```
 
-> 💡 pour générer un UUID, vous pouvez utiliser un [service en ligne](https://www.uuidgenerator.net)
+> 💡 Pour générer un UUID, vous pouvez utiliser un [service en ligne](https://www.uuidgenerator.net)
 
 Si vous décidez d'ajouter des catégories ou des composants à ce stade, vérifiez :
 
@@ -341,9 +342,9 @@ buildFromJson flowersExamplesJson food2ExamplesJson objectExamplesJson veliExamp
 
 #### Static.Db et template JSON
 
-Le module [`Static.Json`](../src/Static/Json.elm) est particulier, car il généré. Il sert notamment au serveur d'API, puisque Elm ne dispose pas d'API système pour interroger le système de fichiers et récupérer directement le contenu de fichiers s'y trouvant ; c'est pour cela que ces contenus sont encapsulés dans ce fichier généré, qui est chargé d'un bloc en RAM par l'app serveur. Les tests unitaires se servent également de ce module, puisque cet environnement ne dispose pas non plus d'accès direct au système de fichier.
+Le module [`Static.Json`](../src/Static/Json.elm) est particulier, car il est généré. Il sert notamment au serveur d'API, puisque Elm ne dispose pas d'API système pour interroger le système de fichiers et récupérer directement le contenu de fichiers s'y trouvant ; c'est pour cela que ces contenus sont encapsulés dans ce fichier généré, qui est chargé d'un bloc en RAM par l'app serveur. Les tests unitaires se servent également de ce module, puisque cet environnement ne dispose pas non plus d'accès direct au système de fichiers.
 
-> ⚠️ Notez que l'application Web Elm, elle, charge les données JSON à travers HTTP, réduisant ainsi le poids applicatif et les temps de chargement initiaux
+> ⚠️ Notez que l'application Web Elm, elle, charge les données JSON à travers HTTP, réduisant ainsi le poids applicatif et les temps de chargement initiaux.
 
 On modifie le template en question dans le fichier [`src/Static/Json.elm-template`](../src/Static/Json.elm-template), ainsi que le script de génération situé dans [`bin/build-db`](../bin/build-db). Exposer les trois chaînes en question :
 
@@ -379,7 +380,7 @@ rawJsonComponents =
     }
 ```
 
-> 💡 Seuls les JSON de *components* transitent par `RawJsonComponents` ; les examples et catégories de produit conservent leurs propres constantes `*Json` (comme `flowersExamplesJson`).
+> 💡 Seuls les données JSON des composants transitent par `RawJsonComponents` ; les exemples et catégories de produit conservent leurs propres constantes `*Json` (comme `flowersExamplesJson`).
 
 Mobiliser ces nouveaux contenus JSON dans la fonction `dbFromStaticFiles` du module [`Static.Db`](../src/Static/Db.elm) ; encore une fois, l'ordre alphabétique est primordial :
 
@@ -413,11 +414,11 @@ Pour construire la base statique à partir de ce script et générer le fichier 
 npm run db:build
 ```
 
-Cette commande (re)génère le fichier et effectue les vérifications de cohérence et d'intégrité des données. Si vous vous êtes trompé dans les manipulations décrites précédement, c'est à ce stade que vous ne pourrez plus l'ignorer !
+Cette commande (re)génère le fichier et effectue les vérifications de cohérence et d'intégrité des données. Si vous vous êtes trompé dans les manipulations décrites précédemment, c'est à ce stade que vous ne pourrez plus l'ignorer !
 
 ### Menus et accueil
 
-Dans le module  [`Data.Session`](../src/Data/Session.elm), ajouter le flag `flowers : Bool` à `EnabledSections`. Ces valeurs sont fournies par les *flags* JavaScript passés à l'initialisation de l'app Elm dans [`index.js`](../index.js) : **⚠️ si ce champ est erroné côté JavaScript, l'application plante au démarrage.**
+Dans le module [`Data.Session`](../src/Data/Session.elm), ajouter le flag `flowers : Bool` à `EnabledSections`. Ces valeurs sont fournies par les *flags* JavaScript passés à l'initialisation de l'app Elm dans [`index.js`](../index.js) : **⚠️ si ce champ est erroné côté JavaScript, l'application plante au démarrage.**
 
 ```elm
 type alias EnabledSections =
@@ -432,7 +433,7 @@ type alias EnabledSections =
 
 Dans [`index.js`](../index.js), on ajoute donc le flag `flowers` à `enabledSections`.
 
-> 💡 Parcel fige cette valeur dans le bundle au moment du build. Le menu ne change plus tant qu'on ne rebuilde pas !
+> 💡 Parcel fige cette valeur dans le bundle au moment du build. Le menu ne change plus tant qu'on ne rebuild pas !
 
 ```js
     enabledSections: {
@@ -451,7 +452,7 @@ Dans la fonction `mainMenuLinks` du module [`Views.Page`](../src/Views/Page.elm)
 
 > 💡 Un bouton d'appel sur la page d'accueil est totalement optionnel. S'il est ajouté, le filtrer dans [`Page.Home`](../src/Page/Home.elm) avec le même flag.
 
-Les libellés et terminologies spécifiques à un scope pour affichage dans l'UI (*"ingrédients"*, *"matériau"*, etc.) se modifient dans la fonction `scopeLabels` du module [`Views.Component`](../src/Views/Component.elm).
+Les libellés et terminologies spécifiques à un scope pour affichage dans l'UI (*"ingrédient"*, *"matériau"*, etc.) se modifient dans la fonction `scopeLabels` du module [`Views.Component`](../src/Views/Component.elm).
 
 ### Explorateur
 
@@ -468,7 +469,7 @@ La fonction `scopesMenuView` du module [`Page.Explore`](../src/Page/Explore.elm)
 
 ### Configuration transverse
 
-Dans [`public/data/components/config.json`](../public/data/components/config.json), ajouter la clé `flowers` nécessaires aux sections du type [`Data.Component.Config`](../src/Data/Component/Config.elm) :
+Dans [`public/data/components/config.json`](../public/data/components/config.json), ajouter la clé `flowers` nécessaire aux sections du type [`Data.Component.Config`](../src/Data/Component/Config.elm) :
 
 - `defaultExamples` : UUID d'un exemple du scope
 - `durability.enabled` : activation du module durabilité
@@ -493,13 +494,13 @@ Pour rendre des pays accessibles au nouveau scope, il convient de les étiqueter
   },
 ```
 
-> 💡 Si des procédés doivent être scopés `"flowers"`, il sera nécéssaire au préalable d'autoriser l'identifiant dans l'enum `Scope` et l'ensemble `GENERIC_SCOPES` du module Python [`data/models/process.py`](../data/models/process.py), ainsi que dans l'enum `scopes` de [`schemas/lci-schema.json`](../schemas/lci-schema.json).
+> 💡 Si des procédés doivent être scopés `"flowers"`, il sera nécessaire au préalable d'autoriser l'identifiant dans l'enum `Scope` et l'ensemble `GENERIC_SCOPES` du module Python [`data/models/process.py`](../data/models/process.py), ainsi que dans l'enum `scopes` de [`schemas/lci-schema.json`](../schemas/lci-schema.json).
 
 > 💡 Pour le tri des exemples génériques, on peut également ajouter `"flowers"` au tuple `SCOPES` dans le module Python [`bin/sort_generic_examples.py`](../bin/sort_generic_examples.py).
 
 ## 5. JavaScript et variables d'environnement
 
-Le même flag `ENABLE_FLOWERS_SECTION` pilote le menu et la visibilité du scope au niveau de l'API. Seule la chaîne exacte `"True"` l'active. `False`, `true`, `1` ou une variable absente sont inopérant.
+Le même flag `ENABLE_FLOWERS_SECTION` pilote le menu et la visibilité du scope au niveau de l'API. Seule la chaîne exacte `"True"` l'active. `False`, `true`, `1` ou une variable absente sont inopérants.
 
 ### Registre API
 
@@ -516,7 +517,7 @@ const GENERIC_SCOPE_CONFIG = {
 
 Le point d'entrée `GET /api/generic/scopes` ainsi que le contrôle d'accès des URL `/{scope}/*` s'en servent. Un scope absent de ce registre répond comme s'il n'existait pas.
 
-> ℹ️ à terme, un fichier JSON centralisé de configuration prendra certainement le relai pour définir les propriétés d'un scope
+> ℹ️ À terme, un fichier JSON centralisé de configuration prendra certainement le relais pour définir les propriétés d'un scope
 
 ### Documentation des variables
 
@@ -530,11 +531,11 @@ Activer le flag également là où les autres scopes génériques le sont déjà
 - [`.github/workflows/node.js.yml`](../.github/workflows/node.js.yml)
 - [`.github/workflows/e2e.yml`](../.github/workflows/e2e.yml)
 
-> ⚠️ On laissera volontairement de côté le fichier historique [`docker/server-simple.js`](../docker/server-simple.js), actuellement déprécié et non synchronisé avec les encours de développements autour des fonctionnalités génériques : il n'impacte pas la production et ne subsiste aujourd'hui qu'à des fins d'archivage.
+> ⚠️ On laissera volontairement de côté le fichier historique [`docker/server-simple.js`](../docker/server-simple.js), actuellement déprécié et non synchronisé avec les en cours de développement autour des fonctionnalités génériques : il n'impacte pas la production et ne subsiste aujourd'hui qu'à des fins d'archivage.
 
 ## 6. Déploiement progressif
 
-1. Ouvrir la pull request sans positionner `ENABLE_FLOWERS_SECTION` sur la production. L'absence de variable est traitée comme désactivé. De son côté, le fichier [`scalingo.json`](../scalingo.json) activera le flag sur la review app Scalingo
+1. Ouvrir la pull request sans positionner `ENABLE_FLOWERS_SECTION` sur la production. L'absence de variable est traitée comme désactivé. De son côté, le fichier [`scalingo.json`](../scalingo.json) activera le flag sur la review app Scalingo.
 2. Une fois la PR recettée et validée, on peut la merger. À ce stade, la production n'affiche pas le menu et répond HTTP 403 sur `/api/flowers/*`
 3. Quand le scope doit devenir public : positionner `ENABLE_FLOWERS_SECTION=True` sur l'application Scalingo de production, puis redéployer pour que Parcel recompile le frontend en conséquence.
 
