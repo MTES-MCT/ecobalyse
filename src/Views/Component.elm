@@ -1247,7 +1247,6 @@ deleteElementButton config targetElement =
         , onClick (config.removeElement targetElement)
         ]
         [ Icon.trash
-        , span [ class "ms-1" ] [ text "Supprimer" ]
         ]
 
 
@@ -1313,15 +1312,13 @@ modifyMaterialButton config ( targetItem, elementIndex ) =
     button
         [ type_ "button"
         , class "btn btn-sm btn-outline-primary text-nowrap"
-        , attribute "aria-label" "Modifier la matière"
+        , attribute "aria-label" "Changer de matière première"
         , listAvailableProcesses config Category.Material
             |> AutocompleteSelector.init Process.getDisplayName
             |> config.openSelectProcessModal Category.Material targetItem (Just elementIndex)
             |> onClick
         ]
-        [ Icon.pencil
-        , span [ class "ms-1" ] [ text "Modifier" ]
-        ]
+        [ Icon.pencil ]
 
 
 materialCompositionRows :
