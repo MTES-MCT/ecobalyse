@@ -7,8 +7,8 @@
     {
       "alias": "carrot-juice-fr",
       "defaultOrigin": "France",
-      "displayName": "Jus de carotte FR",
-      "explain": "Ajouté pour comparaison avec le composant 'Jus de carotte reconstitué'.",
+      "displayName": "Jus de carotte FR agrégé",
+      "explain": "Ajouté pour comparaison avec le composant 'Jus de carotte'.",
       "id": "17a97610-b253-4a03-9284-13c5000970e6",
       "inediblePart": 0,
       "ingredientCategories": ["vegetable_processed"],
