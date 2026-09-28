@@ -1146,8 +1146,9 @@ compositionModalBody config targetItem { component, elements } itemResults =
                 ]
                 []
             ]
-        , div [ class "d-flex flex-wrap gap-4 align-items-center bg-light border rounded p-3" ]
-            [ compositionStat "Éléments"
+        , div [ class "d-flex flex-wrap gap-4 justify-content-evenly align-items-center bg-info-subtle border rounded p-3" ]
+            [ text "Détails de la composition"
+            , compositionStat "Éléments"
                 [ text <|
                     if elementCount == 1 then
                         "1 élément"
