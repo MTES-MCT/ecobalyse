@@ -18,16 +18,13 @@ test("object simulator", async ({ page }) => {
   await production.getByRole("spinbutton").nth(1).fill("3");
   await production.getByRole("spinbutton").nth(2).fill("4");
 
-  // Update transform for the first component through element edit modal
-  await page.getByRole("button", { name: "▶" }).first().click();
-  await page.locator("tbody .btn-group .btn-outline-secondary").first().click();
-  await expect(page.getByText("Modifier l'élément")).toBeVisible();
+  // Open the item editor modal for the first item
+  await production.getByRole("button", { name: "Modifier la composition" }).first().click();
+  await expect(page.getByRole("heading", { name: "Paramètres et composition" })).toBeVisible();
   await page
     .locator(".modal.show")
     .getByRole("button", { name: "Ajouter une transformation" })
     .click();
-  // TODO: reactivate this test once the duplicate processes pb is solved
-  //await page.getByRole("option", { name: "Extrusion (aluminium)" }).click();
 
   await expect(page.getByTestId("score-card")).toBeVisible();
 

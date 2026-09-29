@@ -1080,14 +1080,10 @@ itemEditorView ({ query } as config) ( _, itemIndex ) =
         ( Ok lifeCycle, Ok expandedItems ) ->
             case LE.getAt itemIndex expandedItems of
                 Just expandedItem ->
-                    let
-                        itemResults =
-                            lifeCycle.production
-                                |> Component.extractItems
-                                |> LE.getAt itemIndex
-                                |> Maybe.withDefault Component.emptyResults
-                    in
-                    compositionModalBody config ( expandedItem.component, itemIndex ) expandedItem itemResults
+                    Component.extractItems lifeCycle.production
+                        |> LE.getAt itemIndex
+                        |> Maybe.withDefault Component.emptyResults
+                        |> itemCompositionModalBody config ( expandedItem.component, itemIndex ) expandedItem
 
                 Nothing ->
                     simpleError (Just "Erreur") "Composant introuvable"
@@ -1099,8 +1095,8 @@ itemEditorView ({ query } as config) ( _, itemIndex ) =
             simpleError (Just "Erreur") error
 
 
-compositionModalBody : Config db msg -> TargetItem -> ExpandedItem -> Results -> Html msg
-compositionModalBody config targetItem { component, elements } itemResults =
+itemCompositionModalBody : Config db msg -> TargetItem -> ExpandedItem -> Results -> Html msg
+itemCompositionModalBody config targetItem { component, elements } itemResults =
     let
         elementCount =
             List.length elements
