@@ -403,13 +403,13 @@ itemView config itemIndex { component, elements, quantity } itemResults =
          else
             []
         )
-        [ summaryRow [ class "border-bottom fs-7" ]
+        [ summaryRow [ class "border-bottom" ]
             { actions = itemActions config itemIndex component
             , expander = expandToggler config itemIndex collapsed
             , impacts =
                 Component.getTotalImpacts itemResults
                     |> Format.formatImpact config.impact
-            , label = span [ class "fw-bold" ] [ text component.name ]
+            , label = span [ title component.name ] [ text component.name ]
             , quantity = quantity |> quantityInput config itemIndex
             , totalMass =
                 Component.extractMass itemResults
@@ -432,7 +432,7 @@ expandToggler config itemIndex collapsed =
     else
         button
             [ type_ "button"
-            , class "btn btn-link text-muted text-decoration-none font-monospace fs-7 p-0 m-0"
+            , class "btn btn-link text-muted text-decoration-none font-monospace p-0 m-0"
             , title "Déplier/Replier"
             , attribute "aria-label" "Déplier/Replier"
             , attribute "aria-expanded"
@@ -471,7 +471,7 @@ itemActions config itemIndex component =
                     Just <|
                         button
                             [ type_ "button"
-                            , class "btn btn-outline-secondary"
+                            , class "btn btn-sm btn-outline-secondary"
                             , attribute "aria-label" "Modifier la composition"
                             , onClick (config.openItemEditModal ( component, itemIndex ))
                             ]
@@ -483,7 +483,7 @@ itemActions config itemIndex component =
                     Just <|
                         button
                             [ type_ "button"
-                            , class "btn btn-outline-secondary"
+                            , class "btn btn-sm btn-outline-secondary"
                             , attribute "aria-label" "Supprimer"
                             , onClick (config.removeItem itemIndex)
                             ]
@@ -1694,7 +1694,7 @@ regionSelector config =
 
 quantityInput : Config db msg -> Index -> Quantity -> Html msg
 quantityInput config itemIndex quantity =
-    div [ class "input-group", style "width" "80px" ]
+    div [ class "input-group", style "width" "70px" ]
         [ input
             [ type_ "number"
             , class "form-control form-control-sm text-end"
