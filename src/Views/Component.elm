@@ -414,14 +414,23 @@ addElementTransformButton { db, openSelectProcessModal, query, scope } material 
 
 itemTableHeader : Config db msg -> Html msg
 itemTableHeader config =
-    itemRow [ class "fs-8 fw-normal text-muted border-bottom" ]
-        { emptyItemRowCells
-            | impacts = text "Impacts"
-            , label = text config.labels.itemName
-            , quantity = text "Quantité"
-            , totalMass = text "Masse totale"
-            , unitMass = text "Masse unitaire"
-        }
+    -- Note: header cells use <th scope="col"> so thead semantics stay valid for AT
+    tr [ class "fs-8 fw-normal text-muted border-bottom" ]
+        [ th [ class "ps-2 py-2 align-middle", scope "col" ]
+            [ span [ class "visually-hidden" ] [ text "Détails" ] ]
+        , th [ class "py-2 text-end align-middle text-nowrap", scope "col" ]
+            [ text "Masse unitaire" ]
+        , th [ class "py-2 align-middle text-truncate w-100", style "max-width" "0", scope "col" ]
+            [ text config.labels.itemName ]
+        , th [ class "py-2 align-middle text-center", scope "col" ]
+            [ text "Quantité" ]
+        , th [ class "py-2 text-end align-middle text-nowrap", scope "col" ]
+            [ text "Masse totale" ]
+        , th [ class "py-2 text-end align-middle text-nowrap", style "min-width" "80px", scope "col" ]
+            [ text "Impacts" ]
+        , th [ class "py-2 pe-3 text-end align-middle text-nowrap", scope "col" ]
+            [ span [ class "visually-hidden" ] [ text "Actions" ] ]
+        ]
 
 
 itemView : Config db msg -> Index -> ExpandedItem -> Results -> List (Html msg)
@@ -467,11 +476,19 @@ expandToggler config itemIndex collapsed =
         text ""
 
     else
+        let
+            label =
+                if collapsed then
+                    "Déplier les détails"
+
+                else
+                    "Replier les détails"
+        in
         button
             [ type_ "button"
             , class "btn btn-link text-muted text-decoration-none font-monospace fs-6 p-0 m-0"
-            , title "Déplier/Replier"
-            , attribute "aria-label" "Déplier/Replier"
+            , title label
+            , attribute "aria-label" label
             , attribute "aria-expanded"
                 (if collapsed then
                     "false"
@@ -1108,8 +1125,8 @@ itemCompositionModalBody config targetItem { component, elements } itemResults =
         compositionStat : String -> List (Html msg) -> Html msg
         compositionStat caption value =
             div [ class "d-flex flex-column" ]
-                [ span [ class "fw-bold text-secondary" ] value
-                , span [ class "fs-8 text-muted" ] [ text caption ]
+                [ dt [ class "fs-8 text-muted order-2 mb-0" ] [ text caption ]
+                , dd [ class "fw-bold text-secondary order-1 mb-0 ps-0" ] value
                 ]
     in
     div [ class "d-flex flex-column gap-3 p-3" ]
@@ -1129,9 +1146,10 @@ itemCompositionModalBody config targetItem { component, elements } itemResults =
         -- FIXME: responsive gap
         , div
             [ class "d-flex flex-wrap gap-4 align-items-center bg-info-subtle border rounded row-gap-1 column-gap-2 column-gap-lg-5 p-3"
+            , attribute "aria-live" "polite"
             ]
             [ span [ class "d-flex align-items-center gap-2" ]
-                [ span [ class "fs-4 mt-1 text-secondary opacity-75" ] [ Icon.info ]
+                [ span [ class "fs-4 mt-1 text-secondary opacity-75", attribute "aria-hidden" "true" ] [ Icon.info ]
                 , span [ class "fw-bold text-secondary" ] [ text "Détails de la composition" ]
                 ]
             , compositionStat
@@ -1158,33 +1176,37 @@ itemCompositionModalBody config targetItem { component, elements } itemResults =
             , addElementButton config targetItem
             ]
         , div [ class "table-responsive" ]
-            [ table [ class "CompositionElements table table-sm table-borderless mb-0 w-100" ] <|
-                if List.isEmpty elements then
-                    [ tbody []
-                        [ processRow [] { emptyProcessRowCells | label = text "Aucun élément" }
-                        ]
-                    ]
-
-                else
-                    List.map3
-                        (\elementIndex expandedElement elementResults ->
-                            tbody [ class "composition-element" ] <|
-                                elementCompositionRows config
-                                    ( targetItem, elementIndex )
-                                    expandedElement
-                                    itemResults
-                                    elementResults
-                        )
-                        (List.range 0 (elementCount - 1))
-                        elements
-                        (Component.extractItems itemResults)
-                        |> List.intersperse
-                            -- use an empty table row to separate elements
-                            (tbody [ class "composition-element-gap" ]
-                                [ tr [ attribute "aria-hidden" "true" ]
-                                    [ td [ colspan 6 ] [] ]
+            [ table [ class "CompositionElements table table-sm table-borderless mb-0 w-100" ]
+                (caption [ class "visually-hidden" ]
+                    [ text <| "Composition des " ++ String.toLower config.labels.elementNounPlural ]
+                    :: (if List.isEmpty elements then
+                            [ tbody []
+                                [ processRow [] { emptyProcessRowCells | label = text "Aucun élément" }
                                 ]
-                            )
+                            ]
+
+                        else
+                            List.map3
+                                (\elementIndex expandedElement elementResults ->
+                                    tbody [ class "composition-element" ] <|
+                                        elementCompositionRows config
+                                            ( targetItem, elementIndex )
+                                            expandedElement
+                                            itemResults
+                                            elementResults
+                                )
+                                (List.range 0 (elementCount - 1))
+                                elements
+                                (Component.extractItems itemResults)
+                                |> List.intersperse
+                                    -- use an empty table row to separate elements
+                                    (tbody [ class "composition-element-gap" ]
+                                        [ tr [ attribute "aria-hidden" "true" ]
+                                            [ td [ colspan 6 ] [] ]
+                                        ]
+                                    )
+                       )
+                )
             ]
         ]
 
@@ -1275,19 +1297,19 @@ elementCompositionRows config targetElement ({ amount, material, transforms } as
                         targetElement
                         transformsResults
                         transforms
-                    ++ [ LE.last transformsResults
+                    ++ (LE.last transformsResults
                             |> Maybe.map Component.extractMass
                             |> Maybe.withDefault (Component.extractMass materialResults)
                             |> finalElementTransportView config elementCooling (Component.getFinalElementCountry expandedElement)
-                       ]
+                       )
     in
     elementHeader config targetElement
         :: elementSummary
         :: compositionSectionHeading "Matière première" Nothing
         :: materialCompositionRows config targetElement materialResults material
-        ++ (materialTransportView config elementCooling materialResults material transforms
-                :: compositionSectionHeading "Étape de transformation"
-                    (Just <| addElementTransformButton config material.process targetElement)
+        ++ materialTransportView config elementCooling materialResults material transforms
+        ++ (compositionSectionHeading "Étape de transformation"
+                (Just <| addElementTransformButton config material.process targetElement)
                 :: transformRows
            )
 
@@ -1369,16 +1391,17 @@ processColumnHeaders headers =
   - without any transforms, it is the one toward assembly
 
 -}
-materialTransportView : Config db msg -> Bool -> Results -> ExpandedLocalizedProcess -> List ExpandedLocalizedProcess -> Html msg
+materialTransportView : Config db msg -> Bool -> Results -> ExpandedLocalizedProcess -> List ExpandedLocalizedProcess -> List (Html msg)
 materialTransportView config cooling materialResults material transforms =
     case transforms of
         firstTransform :: _ ->
-            firstTransform.country
+            [ firstTransform.country
                 |> elementTransportView config
                     []
                     cooling
                     (Component.extractMass materialResults)
                     material.country
+            ]
 
         [] ->
             Component.extractMass materialResults
@@ -1387,13 +1410,14 @@ materialTransportView config cooling materialResults material transforms =
 
 {-| Render transports from the last transform step of an element to the assembly or distribution stage
 -}
-finalElementTransportView : Config db msg -> Bool -> Maybe Country -> Mass -> Html msg
+finalElementTransportView : Config db msg -> Bool -> Maybe Country -> Mass -> List (Html msg)
 finalElementTransportView ({ db, query, scope } as config) cooling elementCountry mass =
     db.countries
         |> Scope.anyOf [ scope ]
         |> Country.resolveMaybe query.assembly.country
         |> Result.map (elementTransportView config [ class "subdued" ] cooling mass elementCountry)
-        |> Result.withDefault (text "")
+        |> Result.map List.singleton
+        |> Result.withDefault []
 
 
 listAvailableProcesses :
@@ -1667,51 +1691,43 @@ regionSelector config =
                 |> Scope.anyOf [ config.scope ]
                 |> List.sortBy .name
     in
-    scopedCountries
-        |> List.map (\{ code, name } -> ( name, Just code ))
-        |> (::) ( "Par défaut", Nothing )
-        |> List.map
-            (\( name, maybeCode ) ->
-                option
-                    [ maybeCode
-                        |> Maybe.map CountryCode.toString
-                        |> Maybe.withDefault ""
-                        |> value
-                    , selected <| config.selected == maybeCode
-                    ]
-                    [ text <|
-                        case maybeCode of
-                            Just code ->
-                                name ++ " (" ++ CountryCode.toString code ++ ")"
+    div []
+        [ label [ class "visually-hidden", for config.domId ] [ text "Région" ]
+        , scopedCountries
+            |> List.map (\{ code, name } -> ( name, Just code ))
+            |> (::) ( "Par défaut", Nothing )
+            |> List.map
+                (\( name, maybeCode ) ->
+                    option
+                        [ maybeCode
+                            |> Maybe.map CountryCode.toString
+                            |> Maybe.withDefault ""
+                            |> value
+                        , selected <| config.selected == maybeCode
+                        ]
+                        [ text <|
+                            case maybeCode of
+                                Just code ->
+                                    name ++ " (" ++ CountryCode.toString code ++ ")"
 
-                            Nothing ->
-                                "---"
-                    ]
-            )
-        |> select
-            [ class "RegionSelector form-select form-select-sm w-100"
-            , id config.domId
-            , autocomplete False
-            , config.selected
-                |> Maybe.andThen
-                    (\code ->
-                        scopedCountries
-                            |> Country.findByCode code
-                            |> Result.map .name
-                            |> Result.toMaybe
-                    )
-                |> Maybe.withDefault "Par défaut"
-                |> (++) "Région\u{00A0}: "
-                |> title
-            , onInput <|
-                \str ->
-                    config.select <|
-                        if String.isEmpty str || str == "---" then
-                            Nothing
+                                Nothing ->
+                                    "---"
+                        ]
+                )
+            |> select
+                [ class "RegionSelector form-select form-select-sm w-100"
+                , id config.domId
+                , autocomplete False
+                , onInput <|
+                    \str ->
+                        config.select <|
+                            if String.isEmpty str || str == "---" then
+                                Nothing
 
-                        else
-                            Just <| CountryCode.fromString str
-            ]
+                            else
+                                Just <| CountryCode.fromString str
+                ]
+        ]
 
 
 quantityInput : Config db msg -> Index -> Quantity -> Html msg
