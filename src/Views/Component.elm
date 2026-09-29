@@ -123,7 +123,8 @@ requirementsFromConfig config =
 type alias Labels =
     { add : String
     , addElement : String
-    , elementName : String
+    , elementNoun : String
+    , elementNounPlural : String
     , empty : String
     , itemName : String
     , noun : String
@@ -145,7 +146,8 @@ scopeLabels context scope =
         ( GenericContext, Scope.Generic Scope.Food2 ) ->
             { add = "Ajouter un ingrédient"
             , addElement = "Ajouter un sous-ingrédient"
-            , elementName = "Sous-ingrédient"
+            , elementNoun = "Sous-ingrédient"
+            , elementNounPlural = "Sous-ingrédients"
             , empty = "Aucun ingrédient"
             , itemName = "Nom de l'ingrédient"
             , noun = "Ingrédient"
@@ -158,7 +160,8 @@ scopeLabels context scope =
         ( GenericContext, _ ) ->
             { add = "Ajouter un matériau"
             , addElement = "Ajouter un sous-matériau"
-            , elementName = "Sous-matériau"
+            , elementNoun = "Sous-matériau"
+            , elementNounPlural = "Sous-matériaux"
             , empty = "Aucun matériau"
             , itemName = "Nom du matériau"
             , noun = "Matériau"
@@ -172,7 +175,8 @@ scopeLabels context scope =
             -- Note: in Textile context, raw element handling is not available
             { add = "Ajouter un accessoire"
             , addElement = "Ajouter un élément"
-            , elementName = "Élément"
+            , elementNoun = "Élément"
+            , elementNounPlural = "Éléments"
             , empty = "Aucun accessoire"
             , itemName = "Nom de l'accessoire"
             , noun = "Accessoire"
@@ -185,7 +189,8 @@ scopeLabels context scope =
         _ ->
             { add = "Ajouter un composant"
             , addElement = "Ajouter un élément"
-            , elementName = "Élément"
+            , elementNoun = "Élément"
+            , elementNounPlural = "Éléments"
             , empty = "Aucun composant"
             , itemName = "Nom du composant"
             , noun = "Composant"
@@ -1114,6 +1119,13 @@ compositionModalBody config targetItem { component, elements } itemResults =
     let
         elementCount =
             List.length elements
+
+        compositionStat : String -> List (Html msg) -> Html msg
+        compositionStat caption value =
+            div [ class "d-flex flex-column" ]
+                [ span [ class "fw-bold" ] value
+                , span [ class "fs-8 text-muted" ] [ text caption ]
+                ]
     in
     div [ class "d-flex flex-column gap-3 p-3" ]
         [ div []
@@ -1131,19 +1143,20 @@ compositionModalBody config targetItem { component, elements } itemResults =
             ]
         , div [ class "d-flex flex-wrap gap-4 justify-content-evenly align-items-center bg-info-subtle border rounded p-3" ]
             [ text "Détails de la composition"
-            , compositionStat "Éléments"
-                [ text <|
+            , compositionStat
+                (String.toLower <|
                     if elementCount == 1 then
-                        "1 élément"
+                        config.labels.elementNoun
 
                     else
-                        String.fromInt elementCount ++ " éléments"
-                ]
-            , compositionStat "Poids total"
+                        config.labels.elementNounPlural
+                )
+                [ text <| String.fromInt elementCount ]
+            , compositionStat "poids total"
                 [ Component.extractUnitMass itemResults
                     |> Format.kg
                 ]
-            , compositionStat "Impact total"
+            , compositionStat "impact total"
                 [ Component.getTotalImpacts itemResults
                     |> Format.formatImpact config.impact
                 ]
@@ -1178,14 +1191,6 @@ compositionModalBody config targetItem { component, elements } itemResults =
                                 ]
                             )
             ]
-        ]
-
-
-compositionStat : String -> List (Html msg) -> Html msg
-compositionStat caption value =
-    div [ class "d-flex flex-column" ]
-        [ span [ class "fs-8 text-muted" ] [ text caption ]
-        , span [ class "fw-bold" ] value
         ]
 
 
@@ -1253,7 +1258,7 @@ elementCompositionRows config itemResults targetItem elementIndex ({ amount, mat
                                 ]
                     , label =
                         span [ class "text-muted" ]
-                            [ text <| "Poids du " ++ String.toLower config.labels.elementName ++ "\u{00A0}: "
+                            [ text <| "Poids du " ++ String.toLower config.labels.elementNoun ++ "\u{00A0}: "
                             , span [ class "fw-bold" ] [ Format.kg elementMass ]
                             , text " ("
                             , share |> Format.splitAsPercentage 0
@@ -1322,7 +1327,7 @@ elementHeader config (( ( component, _ ), elementIndex ) as targetElement) =
         [ td [ class "py-2 px-3", colspan 6 ]
             [ div [ class "d-flex justify-content-between align-items-center gap-2" ]
                 [ span [ class "fw-bold" ]
-                    [ text <| config.labels.elementName ++ " " ++ String.fromInt (elementIndex + 1) ]
+                    [ text <| config.labels.elementNoun ++ " " ++ String.fromInt (elementIndex + 1) ]
                 , if List.length component.elements > 1 then
                     deleteElementButton config targetElement
 
