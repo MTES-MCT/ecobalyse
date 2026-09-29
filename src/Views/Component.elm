@@ -1250,6 +1250,8 @@ elementCompositionRows config itemResults targetItem elementIndex ({ amount, mat
                             span []
                                 [ Component.getTotalImpacts elementResults
                                     |> Format.formatImpact config.impact
+                                    |> List.singleton
+                                    |> span [ class "ImpactPill" ]
                                 , span [ class "text-muted fw-normal" ]
                                     [ text " (dont transport "
                                     , transportImpacts |> Format.formatImpact config.impact
@@ -1290,12 +1292,6 @@ elementCompositionRows config itemResults targetItem elementIndex ({ amount, mat
     elementHeader config targetElement
         :: elementSummary
         :: compositionSectionHeading "Matière première" Nothing
-        :: processColumnHeaders
-            { amount = "Quantité"
-            , country = "Origine"
-            , label = "Matière d’origine"
-            , waste = ""
-            }
         :: materialCompositionRows config targetElement materialResults material
         ++ compositionSectionHeading "Étape de transformation"
             (Just <| addElementTransformButton config material.process targetElement)
@@ -1312,7 +1308,7 @@ compositionSectionHeading title maybeAction =
     -- Note: heading rows span the table because they're not data. Process rows keep defining
     -- the shared columns, so amounts and impacts stay aligned across all elements
     tr [ class "composition-section" ]
-        [ td [ class "p-3", colspan 6 ]
+        [ td [ class "p-3 pb-2", colspan 6 ]
             [ div [ class "d-flex justify-content-between align-items-center gap-2" ]
                 [ span [ class "fw-bold" ] [ text title ]
                 , maybeAction |> Maybe.withDefault (text "")
@@ -1442,12 +1438,13 @@ materialCompositionRows config targetElement materialResults material =
                             , selected = material.country |> Maybe.map .code
                             }
                     , impact =
-                        Component.getTotalImpacts materialResults
-                            |> Format.formatImpact config.impact
+                        span [ class "ImpactPill" ]
+                            [ Component.getTotalImpacts materialResults
+                                |> Format.formatImpact config.impact
+                            ]
                     , label =
-                        span [ title <| Process.getDisplayName material.process ]
-                            [ span [ class "ComponentElementIcon" ] [ Icon.material ]
-                            , text <| Process.getDisplayName material.process
+                        span [ class "fw-bold", title <| Process.getDisplayName material.process ]
+                            [ text <| Process.getDisplayName material.process
                             ]
                 }
 
@@ -1613,12 +1610,13 @@ transformProcessRows config cooling targetElement materialResults materialCountr
                                 , selected = transform.country |> Maybe.map .code
                                 }
                         , impact =
-                            Component.extractImpacts transformResult
-                                |> Format.formatImpact config.impact
+                            span [ class "ImpactPill" ]
+                                [ Component.extractImpacts transformResult
+                                    |> Format.formatImpact config.impact
+                                ]
                         , label =
-                            span [ class "cursor-help", title tooltipText ]
-                                [ span [ class "ComponentElementIcon" ] [ Icon.transform ]
-                                , text <| Process.getDisplayName transform.process
+                            span [ class "fw-bold cursor-help", title tooltipText ]
+                                [ text <| Process.getDisplayName transform.process
                                 ]
                         , waste =
                             Format.qtyVariationRatioAsWastePercent transform.process.qtyVariationRatio

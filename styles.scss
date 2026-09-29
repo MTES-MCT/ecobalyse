@@ -1146,6 +1146,14 @@ q {
   }
 }
 
+.ImpactPill {
+  background-color: rgb(233 237 255);
+  border-radius: 4px;
+  color: rgb(41 37 162);
+  font-weight: bold;
+  padding: 4px 8px;
+}
+
 .ImpactSelector {
   @media screen and (width < $viewport-sm) {
     position: fixed;
