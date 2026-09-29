@@ -1148,7 +1148,7 @@ compositionModalBody config targetItem { component, elements } itemResults =
             ]
         , div [ class "d-flex justify-content-between align-items-center gap-2" ]
             [ h3 [ class "h5 mb-0" ]
-                [ text <| "Liste des " ++ String.toLower config.labels.nounPlural ++ " et leurs étapes de transformation" ]
+                [ text <| "Liste des " ++ String.toLower config.labels.elementNounPlural ++ " et leurs étapes de transformation" ]
             , addElementButton config targetItem
             ]
         , div [ class "table-responsive" ]
