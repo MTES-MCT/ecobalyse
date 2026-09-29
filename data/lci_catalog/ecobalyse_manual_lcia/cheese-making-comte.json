@@ -1,0 +1,36 @@
+{
+  "categories": ["transformation", "material_type:other_food_items"],
+  "comment": "Elec et chaleur de 'Comte cheese, from cow's milk, at plant {FR} U' (Agribalyse 3.2), ramenées au kg de lait. 4,81 kg de lait par kg de fromage. Source : analyse ecolysis Food-Transformer V3.2b.",
+  "displayName": "Fabrication de Comté",
+  "elecKwh": 0.09139,
+  "heatMJ": 0.70058,
+  "id": "5d2f7c2e-0c4b-4b4e-9a53-6f1a2b9c3d10",
+  "impacts": {
+    "acd": 0,
+    "cch": 0,
+    "etf": 0,
+    "etf-c": 0,
+    "fru": 0,
+    "fwe": 0,
+    "htc": 0,
+    "htc-c": 0,
+    "htn": 0,
+    "htn-c": 0,
+    "ior": 0,
+    "ldu": 0,
+    "mru": 0,
+    "ozd": 0,
+    "pco": 0,
+    "pma": 0,
+    "swe": 0,
+    "tre": 0,
+    "wtu": 0
+  },
+  "metadata": [
+    { "id": "11bfb730-9efa-4263-91be-c10483b4c05c", "scopes": ["food2"] }
+  ],
+  "qtyVariationRatio": 0.2079,
+  "scopes": ["food2"],
+  "source": "Ecobalyse_manual_lcia",
+  "unit": "kg"
+}
