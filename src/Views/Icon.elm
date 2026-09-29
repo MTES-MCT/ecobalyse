@@ -156,11 +156,6 @@ trash =
     icon "trash"
 
 
-transform : Html msg
-transform =
-    icon "transform"
-
-
 warning : Html msg
 warning =
     icon "warning"
