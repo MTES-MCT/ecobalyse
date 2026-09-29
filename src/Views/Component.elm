@@ -282,19 +282,19 @@ emptyItemRowCells =
 itemRow : List (Attribute msg) -> ItemRowCells msg -> Html msg
 itemRow attributes cells =
     tr attributes
-        [ td [ class "ps-2 align-middle" ]
+        [ td [ class "ps-2 py-2 align-middle" ]
             [ cells.expander ]
-        , td [ class "text-end align-middle text-nowrap" ]
+        , td [ class "py-2 text-end align-middle text-nowrap" ]
             [ cells.unitMass ]
-        , td [ class "align-middle text-truncate w-100", style "max-width" "0" ]
+        , td [ class "py-2 align-middle text-truncate w-100", style "max-width" "0" ]
             [ cells.label ]
-        , td [ class "align-middle text-center" ]
+        , td [ class "py-2 align-middle text-center" ]
             [ cells.quantity ]
-        , td [ class "text-end align-middle text-nowrap" ]
+        , td [ class "py-2 text-end align-middle text-nowrap" ]
             [ cells.totalMass ]
-        , td [ class "text-end align-middle text-nowrap", style "min-width" "80px" ]
+        , td [ class "py-2 text-end align-middle text-nowrap", style "min-width" "80px" ]
             [ cells.impacts ]
-        , td [ class "pe-3 text-end align-middle text-nowrap" ]
+        , td [ class "py-2 pe-3 text-end align-middle text-nowrap" ]
             [ cells.actions ]
         ]
 
@@ -478,7 +478,7 @@ expandToggler config itemIndex collapsed =
     else
         button
             [ type_ "button"
-            , class "btn btn-link text-muted text-decoration-none font-monospace p-0 m-0"
+            , class "btn btn-link text-muted text-decoration-none font-monospace fs-6 p-0 m-0"
             , title "Déplier/Replier"
             , attribute "aria-label" "Déplier/Replier"
             , attribute "aria-expanded"
