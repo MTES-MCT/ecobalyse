@@ -125,6 +125,7 @@ type alias Labels =
     , elementNoun : String
     , elementNounPlural : String
     , empty : String
+    , itemLabelCaption : String
     , itemName : String
     , noun : String
     , nounPlural : String
@@ -150,6 +151,7 @@ scopeLabels context scope =
                     , elementNoun = "Sous-ingrédient"
                     , elementNounPlural = "Sous-ingrédients"
                     , empty = "Aucun ingrédient"
+                    , itemLabelCaption = "Libellé de l'ingrédient"
                     , itemName = "Nom de l'ingrédient"
                     , noun = "Ingrédient"
                     , nounPlural = "Ingrédients"
@@ -164,6 +166,7 @@ scopeLabels context scope =
                     , elementNoun = "Sous-matériau"
                     , elementNounPlural = "Sous-matériaux"
                     , empty = "Aucun matériau"
+                    , itemLabelCaption = "Libellé du matériau"
                     , itemName = "Nom du matériau"
                     , noun = "Matériau"
                     , nounPlural = "Matériaux"
@@ -179,6 +182,7 @@ scopeLabels context scope =
             , elementNoun = "Élément"
             , elementNounPlural = "Éléments"
             , empty = "Aucun accessoire"
+            , itemLabelCaption = "Libellé de l'accessoire"
             , itemName = "Nom de l'accessoire"
             , noun = "Accessoire"
             , nounPlural = "Accessoires"
@@ -1109,13 +1113,12 @@ itemCompositionModalBody config targetItem { component, elements } itemResults =
                 ]
     in
     div [ class "d-flex flex-column gap-3 p-3" ]
-        [ div []
-            [ label [ class "form-label", for "component-composition-label" ]
-                [ text "Libellé" ]
+        [ div [ class "d-flex flex-row align-items-center gap-2" ]
+            [ label [ class "text-nowrap", for "item-label" ] [ text config.labels.itemLabelCaption ]
             , input
                 [ type_ "text"
                 , class "form-control"
-                , id "component-composition-label"
+                , id "item-label"
                 , placeholder config.labels.itemName
                 , value component.name
                 , onInput (config.updateItemName targetItem)
