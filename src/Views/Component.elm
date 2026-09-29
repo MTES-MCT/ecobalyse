@@ -1483,8 +1483,13 @@ elementTransportView ({ query } as config) attributes cooling transportedMass ma
 
         Ok transport ->
             let
-                renderCountry =
-                    Maybe.map .name >> Maybe.withDefault "Région inconnue"
+                renderCountry maybeCountry =
+                    case maybeCountry of
+                        Just { code, name } ->
+                            abbr [ title name ] [ text <| CountryCode.toString code ]
+
+                        Nothing ->
+                            text "Région inconnue"
 
                 renderModeIfAny icon distance =
                     if distance |> Quantity.greaterThan Quantity.zero then
@@ -1510,7 +1515,12 @@ elementTransportView ({ query } as config) attributes cooling transportedMass ma
                         transport.impacts
                             |> Format.formatImpact config.impact
                     , label =
-                        text <| "Transport " ++ renderCountry maybeFrom ++ " → " ++ renderCountry maybeTo
+                        div [ class "d-flex align-items-center gap-1 text-nowrap text-muted" ]
+                            [ text "Transport\u{00A0}"
+                            , renderCountry maybeFrom
+                            , text " → "
+                            , renderCountry maybeTo
+                            ]
                 }
 
 
