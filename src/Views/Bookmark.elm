@@ -103,6 +103,24 @@ buildGenericApiQuery scope maybeToken clientUrl query =
             (query |> Component.encodeQuery |> Encode.encode 0)
 
 
+shareGenericScope : Definition -> Session -> Scope.GenericScope -> ( String, String, String )
+shareGenericScope impact session genericScope =
+    let
+        query =
+            Session.genericQuery genericScope session
+    in
+    ( Just query
+        |> Route.GenericSimulator genericScope impact.trigram
+        |> Route.toString
+        |> (++) "/"
+        |> (++) session.clientUrl
+    , query
+        |> buildGenericApiQuery (Scope.Generic genericScope) (Session.getAccessToken session) session.clientUrl
+    , Component.encodeQuery query
+        |> Encode.encode 2
+    )
+
+
 shareTabView : ManagerConfig msg -> Html msg
 shareTabView { copyToClipBoard, impact, scope, session } =
     let
@@ -124,53 +142,8 @@ shareTabView { copyToClipBoard, impact, scope, session } =
                         |> Encode.encode 2
                     )
 
-                Scope.Generic Scope.Food2 ->
-                    let
-                        query =
-                            session.queries.food2
-                    in
-                    ( Just query
-                        |> Route.GenericSimulator Scope.Food2 impact.trigram
-                        |> Route.toString
-                        |> (++) "/"
-                        |> (++) session.clientUrl
-                    , query
-                        |> buildGenericApiQuery scope (Session.getAccessToken session) session.clientUrl
-                    , Component.encodeQuery query
-                        |> Encode.encode 2
-                    )
-
-                Scope.Generic Scope.Object ->
-                    let
-                        query =
-                            session.queries.object
-                    in
-                    ( Just query
-                        |> Route.GenericSimulator Scope.Object impact.trigram
-                        |> Route.toString
-                        |> (++) "/"
-                        |> (++) session.clientUrl
-                    , query
-                        |> buildGenericApiQuery scope (Session.getAccessToken session) session.clientUrl
-                    , Component.encodeQuery query
-                        |> Encode.encode 2
-                    )
-
-                Scope.Generic Scope.Veli ->
-                    let
-                        query =
-                            session.queries.veli
-                    in
-                    ( Just query
-                        |> Route.GenericSimulator Scope.Veli impact.trigram
-                        |> Route.toString
-                        |> (++) "/"
-                        |> (++) session.clientUrl
-                    , query
-                        |> buildGenericApiQuery scope (Session.getAccessToken session) session.clientUrl
-                    , Component.encodeQuery query
-                        |> Encode.encode 2
-                    )
+                Scope.Generic genericScope ->
+                    shareGenericScope impact session genericScope
 
                 Scope.Textile ->
                     let
@@ -519,14 +492,8 @@ queryFromScope session scope =
         Scope.Food ->
             Bookmark.Food session.queries.food
 
-        Scope.Generic Scope.Food2 ->
-            Bookmark.Generic Scope.Food2 session.queries.food2
-
-        Scope.Generic Scope.Object ->
-            Bookmark.Generic Scope.Object session.queries.object
-
-        Scope.Generic Scope.Veli ->
-            Bookmark.Generic Scope.Veli session.queries.veli
+        Scope.Generic genericScope ->
+            Bookmark.Generic genericScope (Session.genericQuery genericScope session)
 
         Scope.Textile ->
             Bookmark.Textile session.queries.textile
@@ -540,14 +507,8 @@ scopedBookmarks session scope =
                 Scope.Food ->
                     Bookmark.isFood
 
-                Scope.Generic Scope.Food2 ->
-                    Bookmark.isFood2
-
-                Scope.Generic Scope.Object ->
-                    Bookmark.isObject
-
-                Scope.Generic Scope.Veli ->
-                    Bookmark.isVeli
+                Scope.Generic genericScope ->
+                    Bookmark.isGeneric genericScope
 
                 Scope.Textile ->
                     Bookmark.isTextile

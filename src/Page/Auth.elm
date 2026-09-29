@@ -14,6 +14,7 @@ import Data.ApiToken as ApiToken exposing (CreatedToken, Token)
 import Data.Component.Config as ComponentConfig
 import Data.Env as Env
 import Data.Plausible as Plausible
+import Data.Scope as Scope
 import Data.Session as Session exposing (Session)
 import Data.User as User exposing (AccessTokenData, FormErrors, ProfileForm, SignupForm, User)
 import Dict
@@ -816,6 +817,12 @@ viewApiTokens session apiTokens =
 
 viewGenericApiBetaAccess : Session -> Html Msg
 viewGenericApiBetaAccess session =
+    let
+        genericScopesLabel =
+            Scope.allGeneric
+                |> List.map (Scope.Generic >> Scope.toLabel)
+                |> String.join ", "
+    in
     if
         Session.getAuth session
             |> Maybe.map (\{ user } -> user.isBetauser || user.isSuperuser)
@@ -826,7 +833,7 @@ viewGenericApiBetaAccess session =
             , span []
                 [ text "Votre compte dispose d’un accès bêta à "
                 , a [ Route.href Route.Api ] [ text "l’API générique" ]
-                , text " (alimentaire bêta, objets, véhicules)."
+                , text <| " (" ++ genericScopesLabel ++ ")."
                 ]
             ]
 
