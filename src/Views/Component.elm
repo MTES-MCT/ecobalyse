@@ -53,6 +53,8 @@ import Route exposing (Route)
 import Views.Alert as Alert
 import Views.Button as Button
 import Views.Component.DownArrow as DownArrow
+import Views.Component.ItemRow as ItemRow exposing (emptyItemRow)
+import Views.Component.ProcessRow as ProcessRow exposing (emptyProcessRow)
 import Views.Format as Format
 import Views.Icon as Icon
 import Views.Link as Link
@@ -190,104 +192,6 @@ scopeLabels context scope =
             , search = "tapez ici le nom de l’accessoire pour le rechercher"
             , select = "Sélectionnez un accessoire"
             }
-
-
-{-| A view data structure carrying an always consistent representation of the row cells
-of a material or transform process table row. This avoids having to deal with colspans
-and so on.
--}
-type alias ProcessRowCells msg =
-    { actions : Html msg
-    , amount : Html msg
-    , country : Html msg
-    , impact : Html msg
-    , label : Html msg
-    , waste : Html msg
-    }
-
-
-emptyProcessRowCells : ProcessRowCells msg
-emptyProcessRowCells =
-    { actions = text ""
-    , amount = text ""
-    , country = text ""
-    , impact = text ""
-    , label = text ""
-    , waste = text ""
-    }
-
-
-{-| Renders an item editor modal element process table row
--}
-processRow : List (Attribute msg) -> ProcessRowCells msg -> Html msg
-processRow attributes cells =
-    tr attributes
-        [ td
-            [ class "text-end align-middle text-nowrap ps-3 py-2"
-            , style "min-width" "130px"
-            , style "max-width" "150px"
-            ]
-            [ cells.amount ]
-        , td [ class "align-middle", style "min-width" "16rem" ]
-            [ cells.label ]
-        , td [ class "text-end align-middle text-nowrap" ]
-            [ cells.waste ]
-        , td [ class "align-middle", style "min-width" "12rem" ]
-            [ cells.country ]
-        , td [ class "text-end align-middle text-nowrap" ]
-            [ cells.impact ]
-        , td [ class "pe-3 text-end align-middle text-nowrap" ]
-            [ cells.actions ]
-        ]
-
-
-{-| A view data structure carrying an always consistent representation of the
-cells of a production item line table row. Avoids having to deal with colspans
-and so on.
--}
-type alias ItemRowCells msg =
-    { actions : Html msg
-    , expander : Html msg
-    , impacts : Html msg
-    , label : Html msg
-    , quantity : Html msg
-    , totalMass : Html msg
-    , unitMass : Html msg
-    }
-
-
-emptyItemRowCells : ItemRowCells msg
-emptyItemRowCells =
-    { actions = text ""
-    , expander = text ""
-    , impacts = text ""
-    , label = text ""
-    , quantity = text ""
-    , totalMass = text ""
-    , unitMass = text ""
-    }
-
-
-{-| Renders a production item table row
--}
-itemRow : List (Attribute msg) -> ItemRowCells msg -> Html msg
-itemRow attributes cells =
-    tr attributes
-        [ td [ class "ps-2 py-2 align-middle" ]
-            [ cells.expander ]
-        , td [ class "py-2 text-end align-middle text-nowrap" ]
-            [ cells.unitMass ]
-        , td [ class "py-2 align-middle text-truncate w-100", style "max-width" "0" ]
-            [ cells.label ]
-        , td [ class "py-2 align-middle text-center" ]
-            [ cells.quantity ]
-        , td [ class "py-2 text-end align-middle text-nowrap" ]
-            [ cells.totalMass ]
-        , td [ class "py-2 text-end align-middle text-nowrap", style "min-width" "80px" ]
-            [ cells.impacts ]
-        , td [ class "py-2 pe-3 text-end align-middle text-nowrap" ]
-            [ cells.actions ]
-        ]
 
 
 addProductionItemButton : Config db msg -> Html msg
@@ -449,7 +353,7 @@ itemView config itemIndex { component, elements, quantity } itemResults =
          else
             []
         )
-        [ itemRow [ class "border-bottom", classList [ ( "table-info", not collapsed ) ] ]
+        [ ItemRow.view [ class "border-bottom", classList [ ( "table-info", not collapsed ) ] ]
             { actions = itemActions config itemIndex component
             , expander = expandToggler config itemIndex collapsed
             , impacts =
@@ -552,8 +456,8 @@ itemDetailedRows : Config db msg -> List ExpandedElement -> Results -> List (Htm
 itemDetailedRows config elements itemResults =
     if List.isEmpty elements then
         List.singleton <|
-            itemRow [ class "bg-light border-bottom" ]
-                { emptyItemRowCells | label = text "Aucun élément" }
+            ItemRow.view [ class "bg-light border-bottom" ]
+                { emptyItemRow | label = text "Aucun élément" }
 
     else
         List.map2
@@ -1064,8 +968,8 @@ elementSummaryRow config itemResults { amount, material, transforms } elementRes
                 , Format.kg elementMass
                 ]
     in
-    itemRow [ class "fs-7 border-top" ]
-        { emptyItemRowCells
+    ItemRow.view [ class "fs-7 border-top" ]
+        { emptyItemRow
             | impacts =
                 Component.getTotalImpacts elementResults
                     |> Format.formatImpact config.impact
@@ -1181,7 +1085,7 @@ itemCompositionModalBody config targetItem { component, elements } itemResults =
                     [ text <| "Composition des " ++ String.toLower config.labels.elementNounPlural ]
                     :: (if List.isEmpty elements then
                             [ tbody []
-                                [ processRow [] { emptyProcessRowCells | label = text "Aucun élément" }
+                                [ ProcessRow.view [] { emptyProcessRow | label = text "Aucun élément" }
                                 ]
                             ]
 
@@ -1252,8 +1156,8 @@ elementCompositionRows config targetElement ({ amount, material, transforms } as
                 ]
 
         elementSummary =
-            processRow [ class "fs-7" ]
-                { emptyProcessRowCells
+            ProcessRow.view [ class "fs-7" ]
+                { emptyProcessRow
                     | amount =
                         amount |> elementAmountInput config targetElement material.process
                     , impact =
@@ -1281,12 +1185,12 @@ elementCompositionRows config targetElement ({ amount, material, transforms } as
 
         transformRows =
             if List.isEmpty transforms then
-                [ processRow [ class "fs-7 text-muted" ]
-                    { emptyProcessRowCells | label = text "Aucune transformation" }
+                [ ProcessRow.view [ class "fs-7 text-muted" ]
+                    { emptyProcessRow | label = text "Aucune transformation" }
                 ]
 
             else
-                processColumnHeaders
+                ProcessRow.columnHeaders
                     { amount = "Quantité"
                     , country = "Origine"
                     , label = "Intitulé"
@@ -1373,18 +1277,6 @@ elementAmountInput config targetElement process amount =
             amount
 
 
-processColumnHeaders : { amount : String, country : String, label : String, waste : String } -> Html msg
-processColumnHeaders headers =
-    processRow [ class "fs-8 fw-normal text-muted" ]
-        { emptyProcessRowCells
-            | amount = text headers.amount
-            , country = text headers.country
-            , impact = text "Impact"
-            , label = text headers.label
-            , waste = text headers.waste
-        }
-
-
 {-| Transport that _leaves_ an element's raw material step:
 
   - with a transform, it's the transport toward the first transformation step
@@ -1458,8 +1350,8 @@ materialCompositionRows config targetElement materialResults material =
             Component.extractComplementsImpacts materialResults
 
         materialRow =
-            processRow [ class "fs-7" ]
-                { emptyProcessRowCells
+            ProcessRow.view [ class "fs-7" ]
+                { emptyProcessRow
                     | actions = modifyMaterialButton config targetElement
                     , amount =
                         Component.extractAmount materialResults
@@ -1485,8 +1377,8 @@ materialCompositionRows config targetElement materialResults material =
 
         complementsRow =
             if complementsImpacts /= Complement.emptyComplementsResultsImpacts then
-                [ processRow [ class "fs-7 text-muted" ]
-                    { emptyProcessRowCells
+                [ ProcessRow.view [ class "fs-7 text-muted" ]
+                    { emptyProcessRow
                         | impact =
                             complementsImpacts
                                 |> Complement.mergeComplementsResultsImpacts
@@ -1526,8 +1418,8 @@ elementTransportView ({ query } as config) attributes cooling transportedMass ma
     in
     case displayElementTransport of
         Err error ->
-            processRow attributes
-                { emptyProcessRowCells
+            ProcessRow.view attributes
+                { emptyProcessRow
                     | label = error |> simpleError (Just "Erreur de calcul de distance")
                 }
 
@@ -1548,8 +1440,8 @@ elementTransportView ({ query } as config) attributes cooling transportedMass ma
                     else
                         []
             in
-            processRow (class "fs-7 text-muted" :: attributes)
-                { emptyProcessRowCells
+            ProcessRow.view (class "fs-7 text-muted" :: attributes)
+                { emptyProcessRow
                     | country =
                         div [ class "d-flex flex-wrap justify-content-end align-items-center gap-2" ] <|
                             -- Note: it's supposed for now that a plane can transport either cooled or non-cooled stuff
@@ -1630,8 +1522,8 @@ transformProcessRows config cooling targetElement transformsResults transforms =
                                )
                 in
                 inboundTransport
-                    ++ [ processRow [ class "fs-7 border-top" ]
-                            { emptyProcessRowCells
+                    ++ [ ProcessRow.view [ class "fs-7 border-top" ]
+                            { emptyProcessRow
                                 | actions =
                                     button
                                         [ type_ "button"
