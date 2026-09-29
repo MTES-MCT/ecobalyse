@@ -15,7 +15,6 @@ import Data.Session as Session exposing (Session)
 import Data.Textile.Query as TextileQuery
 import Html
 import Page.Admin.Account as AccountAdmin
-import Page.Admin.Component as ComponentAdmin
 import Page.Admin.Process as ProcessAdmin
 import Page.Admin.Section as AdminSection
 import Page.Api as Api
@@ -62,7 +61,6 @@ type Page
     = AccountAdminPage AccountAdmin.Model
     | ApiPage Api.Model
     | AuthPage Auth.Model
-    | ComponentAdminPage ComponentAdmin.Model
     | EditorialPage Editorial.Model
     | ExplorePage Explore.Model
     | FoodBuilderPage FoodBuilder.Model
@@ -100,7 +98,6 @@ type Msg
     | ApiMsg Api.Msg
     | AppMsg App.Msg
     | AuthMsg Auth.Msg
-    | ComponentAdminMsg ComponentAdmin.Msg
     | ComponentConfigReceived Db SessionConfig (WebData Component.Config)
     | DetailedProcessesReceived SessionConfig (BackendHttp.WebData String)
     | EditorialMsg Editorial.Msg
@@ -252,11 +249,6 @@ setRoute url ( { state } as model, cmds ) =
                 Just (Route.Admin AdminSection.AccountSection) ->
                     AccountAdmin.init session AdminSection.AccountSection
                         |> toPage session model cmds AccountAdminPage AccountAdminMsg
-                        |> requireSuperuser session
-
-                Just (Route.Admin AdminSection.ComponentSection) ->
-                    ComponentAdmin.init session AdminSection.ComponentSection
-                        |> toPage session model cmds ComponentAdminPage ComponentAdminMsg
                         |> requireSuperuser session
 
                 Just (Route.Admin AdminSection.ProcessSection) ->
@@ -514,10 +506,6 @@ update rawMsg ({ state } as model) =
                     Auth.update session authMsg authModel
                         |> toPage session model Cmd.none AuthPage AuthMsg
 
-                ( ComponentAdminMsg adminMsg, ComponentAdminPage adminModel ) ->
-                    ComponentAdmin.update session adminMsg adminModel
-                        |> toPage session model Cmd.none ComponentAdminPage ComponentAdminMsg
-
                 ( EditorialMsg editorialMsg, EditorialPage editorialModel ) ->
                     Editorial.update session editorialMsg editorialModel
                         |> toPage session model Cmd.none EditorialPage EditorialMsg
@@ -630,10 +618,6 @@ subscriptions { state } =
                 AccountAdmin.subscriptions
                     |> Sub.map AccountAdminMsg
 
-            Loaded _ (ComponentAdminPage subModel) ->
-                ComponentAdmin.subscriptions subModel
-                    |> Sub.map ComponentAdminMsg
-
             Loaded _ (ExplorePage subModel) ->
                 Explore.subscriptions subModel
                     |> Sub.map ExploreMsg
@@ -722,11 +706,6 @@ view { dbLoadingState, flags, mobileNavigationOpened, state, tray } =
                     Auth.view session authModel
                         |> mapMsg AuthMsg
                         |> frame Page.Auth
-
-                ComponentAdminPage componentAdminModel ->
-                    ComponentAdmin.view session componentAdminModel
-                        |> mapMsg ComponentAdminMsg
-                        |> frame Page.Admin
 
                 EditorialPage editorialModel ->
                     Editorial.view editorialModel

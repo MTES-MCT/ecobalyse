@@ -10,7 +10,6 @@ import Url.Parser as Parser exposing (Parser)
 
 type Section
     = AccountSection
-    | ComponentSection
     | ProcessSection
 
 
@@ -25,15 +24,11 @@ fromSlug slug =
         "accounts" ->
             AccountSection
 
-        "components" ->
-            ComponentSection
-
         "processes" ->
             ProcessSection
 
         _ ->
-            -- Default to components
-            ComponentSection
+            ProcessSection
 
 
 toLabel : Section -> String
@@ -41,9 +36,6 @@ toLabel section =
     case section of
         AccountSection ->
             "Utilisateurs"
-
-        ComponentSection ->
-            "Composants"
 
         ProcessSection ->
             "Procédés"
@@ -54,9 +46,6 @@ toSlug section =
     case section of
         AccountSection ->
             "accounts"
-
-        ComponentSection ->
-            "components"
 
         ProcessSection ->
             "processes"

@@ -102,8 +102,7 @@ type alias Config db msg =
 
 
 type Context
-    = AdminContext
-    | GenericContext
+    = GenericContext
     | TextileTrimsContext
 
 
@@ -142,36 +141,38 @@ FIXME: we should make these configurable in components/config.json
 -}
 scopeLabels : Context -> Scope -> Labels
 scopeLabels context scope =
-    case ( context, scope ) of
-        ( GenericContext, Scope.Generic Scope.Food2 ) ->
-            { add = "Ajouter un ingrédient"
-            , addElement = "Ajouter un sous-ingrédient"
-            , elementNoun = "Sous-ingrédient"
-            , elementNounPlural = "Sous-ingrédients"
-            , empty = "Aucun ingrédient"
-            , itemName = "Nom de l'ingrédient"
-            , noun = "Ingrédient"
-            , nounPlural = "Ingrédients"
-            , productionHeading = "Recette"
-            , search = "tapez ici le nom de l’ingrédient pour le rechercher"
-            , select = "Sélectionnez un ingrédient"
-            }
+    case context of
+        GenericContext ->
+            case scope of
+                Scope.Generic Scope.Food2 ->
+                    { add = "Ajouter un ingrédient"
+                    , addElement = "Ajouter un sous-ingrédient"
+                    , elementNoun = "Sous-ingrédient"
+                    , elementNounPlural = "Sous-ingrédients"
+                    , empty = "Aucun ingrédient"
+                    , itemName = "Nom de l'ingrédient"
+                    , noun = "Ingrédient"
+                    , nounPlural = "Ingrédients"
+                    , productionHeading = "Recette"
+                    , search = "tapez ici le nom de l’ingrédient pour le rechercher"
+                    , select = "Sélectionnez un ingrédient"
+                    }
 
-        ( GenericContext, _ ) ->
-            { add = "Ajouter un matériau"
-            , addElement = "Ajouter un sous-matériau"
-            , elementNoun = "Sous-matériau"
-            , elementNounPlural = "Sous-matériaux"
-            , empty = "Aucun matériau"
-            , itemName = "Nom du matériau"
-            , noun = "Matériau"
-            , nounPlural = "Matériaux"
-            , productionHeading = "Production des matériaux"
-            , search = "tapez ici le nom du matériau pour le rechercher"
-            , select = "Sélectionnez un matériau"
-            }
+                _ ->
+                    { add = "Ajouter un matériau"
+                    , addElement = "Ajouter un sous-matériau"
+                    , elementNoun = "Sous-matériau"
+                    , elementNounPlural = "Sous-matériaux"
+                    , empty = "Aucun matériau"
+                    , itemName = "Nom du matériau"
+                    , noun = "Matériau"
+                    , nounPlural = "Matériaux"
+                    , productionHeading = "Production des matériaux"
+                    , search = "tapez ici le nom du matériau pour le rechercher"
+                    , select = "Sélectionnez un matériau"
+                    }
 
-        ( TextileTrimsContext, Scope.Textile ) ->
+        TextileTrimsContext ->
             -- Note: in Textile context, raw element handling is not available
             { add = "Ajouter un accessoire"
             , addElement = "Ajouter un élément"
@@ -184,20 +185,6 @@ scopeLabels context scope =
             , productionHeading = "Accessoires"
             , search = "tapez ici le nom de l’accessoire pour le rechercher"
             , select = "Sélectionnez un accessoire"
-            }
-
-        _ ->
-            { add = "Ajouter un composant"
-            , addElement = "Ajouter un élément"
-            , elementNoun = "Élément"
-            , elementNounPlural = "Éléments"
-            , empty = "Aucun composant"
-            , itemName = "Nom du composant"
-            , noun = "Composant"
-            , nounPlural = "Composants"
-            , productionHeading = "Production des composants"
-            , search = "tapez ici le nom du composant pour le rechercher"
-            , select = "Sélectionnez un composant"
             }
 
 
@@ -508,39 +495,31 @@ expandToggler config itemIndex collapsed =
 itemActions : Config db msg -> Index -> Component -> Html msg
 itemActions config itemIndex component =
     let
-        buttons =
-            List.filterMap identity
-                [ if config.context == TextileTrimsContext then
-                    Nothing
-
-                  else
-                    Just <|
-                        button
-                            [ type_ "button"
-                            , class "btn btn-sm btn-outline-secondary"
-                            , attribute "aria-label" "Modifier la composition"
-                            , onClick (config.openItemEditModal ( component, itemIndex ))
-                            ]
-                            [ Icon.pencil ]
-                , if config.context == AdminContext then
-                    Nothing
-
-                  else
-                    Just <|
-                        button
-                            [ type_ "button"
-                            , class "btn btn-sm btn-outline-secondary"
-                            , attribute "aria-label" "Supprimer"
-                            , onClick (config.removeItem itemIndex)
-                            ]
-                            [ Icon.trash ]
+        deleteButton =
+            button
+                [ type_ "button"
+                , class "btn btn-sm btn-outline-secondary"
+                , attribute "aria-label" "Supprimer"
+                , onClick (config.removeItem itemIndex)
                 ]
-    in
-    if List.isEmpty buttons then
-        text ""
+                [ Icon.trash ]
 
-    else
-        div [ class "btn-group" ] buttons
+        editButton =
+            button
+                [ type_ "button"
+                , class "btn btn-sm btn-outline-secondary"
+                , attribute "aria-label" "Modifier la composition"
+                , onClick (config.openItemEditModal ( component, itemIndex ))
+                ]
+                [ Icon.pencil ]
+    in
+    div [ class "btn-group" ]
+        (if config.context == TextileTrimsContext then
+            [ deleteButton ]
+
+         else
+            [ editButton, deleteButton ]
+        )
 
 
 itemDetailsId : Index -> String
@@ -1705,7 +1684,6 @@ quantityInput config itemIndex quantity =
             , quantity |> Component.quantityToInt |> String.fromInt |> value
             , step "1"
             , Attr.min "1"
-            , disabled <| config.context == AdminContext
             , onInput <|
                 \str ->
                     String.toInt str

@@ -3,7 +3,6 @@ module Views.Format exposing
     , complement
     , cubicMeters
     , days
-    , diff
     , formatComplementsResultsImpactsToString
     , formatFloat
     , formatImpact
@@ -324,27 +323,6 @@ massPerUnit process =
 
         Nothing ->
             text "N/A"
-
-
-diff : String -> Html msg
-diff =
-    String.split "\n"
-        >> List.map
-            (\line ->
-                div
-                    [ class <|
-                        if String.startsWith "+ " line then
-                            "bg-success bg-opacity-10 text-success"
-
-                        else if String.startsWith "- " line then
-                            "bg-danger bg-opacity-10 text-danger"
-
-                        else
-                            "text-muted"
-                    ]
-                    [ text line ]
-            )
-        >> pre [ class "mb-0" ]
 
 
 qtyVariationRatio : Unit.QuantityVariationRatio -> Html msg
