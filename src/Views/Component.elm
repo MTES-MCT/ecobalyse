@@ -1104,7 +1104,7 @@ itemCompositionModalBody config targetItem { component, elements } itemResults =
         compositionStat : String -> List (Html msg) -> Html msg
         compositionStat caption value =
             div [ class "d-flex flex-column" ]
-                [ span [ class "fw-bold" ] value
+                [ span [ class "fw-bold text-secondary" ] value
                 , span [ class "fs-8 text-muted" ] [ text caption ]
                 ]
     in
@@ -1122,8 +1122,15 @@ itemCompositionModalBody config targetItem { component, elements } itemResults =
                 ]
                 []
             ]
-        , div [ class "d-flex flex-wrap gap-4 justify-content-evenly align-items-center bg-info-subtle border rounded p-3" ]
-            [ text "Détails de la composition"
+
+        -- FIXME: responsive gap
+        , div
+            [ class "d-flex flex-wrap gap-4 align-items-center bg-info-subtle border rounded row-gap-1 column-gap-2 column-gap-lg-5 p-3"
+            ]
+            [ span [ class "d-flex align-items-center gap-2" ]
+                [ span [ class "fs-4 mt-1 text-secondary opacity-75" ] [ Icon.info ]
+                , span [ class "fw-bold text-secondary" ] [ text "Détails de la composition" ]
+                ]
             , compositionStat
                 (String.toLower <|
                     if elementCount == 1 then
