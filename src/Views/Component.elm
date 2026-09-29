@@ -1667,7 +1667,7 @@ regionSelector config =
                     ]
             )
         |> select
-            [ class "RegionSelector form-select form-select-sm"
+            [ class "RegionSelector form-select form-select-sm w-100"
             , id config.domId
             , autocomplete False
             , config.selected
