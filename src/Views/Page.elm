@@ -273,7 +273,7 @@ secondaryMenuLinks enabledSections =
         , Just <| External "Communauté" Env.communityUrl
         , Just <| External "Code source" Env.githubUrl
         , Just <| External "CGU" Env.cguUrl
-        , Just <| Internal [ text "Admin" ] (Route.Admin AdminSection.ProcessSection) Admin
+        , Just <| Internal [ text "Admin" ] (Route.Admin AdminSection.AccountSection) Admin
         , addRouteIf enabledSections.food2 <|
             Internal [ text "Alimentaire²" ] (Route.GenericSimulatorHome Scope.Food2) (Generic Scope.Food2)
         ]
@@ -286,7 +286,7 @@ headerMenuLinks { enabledSections, isSuperuser } =
             [ Just <| External "Communauté" Env.communityUrl
             , Just <| External "Documentation" Env.gitbookUrl
             , if isSuperuser then
-                Just <| Internal [ text "Admin" ] (Route.Admin AdminSection.ProcessSection) Admin
+                Just <| Internal [ text "Admin" ] (Route.Admin AdminSection.AccountSection) Admin
 
               else
                 Nothing

@@ -13,22 +13,22 @@ type Section
     | ProcessSection
 
 
-parseSlug : Parser (Section -> a) a
-parseSlug =
-    Parser.custom "ADMIN_SECTION" (fromSlug >> Just)
-
-
-fromSlug : String -> Section
+fromSlug : String -> Maybe Section
 fromSlug slug =
     case slug of
         "accounts" ->
-            AccountSection
+            Just AccountSection
 
         "processes" ->
-            ProcessSection
+            Just ProcessSection
 
         _ ->
-            ProcessSection
+            Nothing
+
+
+parseSlug : Parser (Section -> a) a
+parseSlug =
+    Parser.custom "ADMIN_SECTION" fromSlug
 
 
 toLabel : Section -> String

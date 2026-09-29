@@ -179,7 +179,7 @@ test.describe("auth", () => {
 
       await page.getByLabel("Menu principal").getByRole("link", { name: "Admin" }).click();
 
-      await expect(page.getByRole("heading", { name: /Admin.*Procédés/ })).toBeVisible();
+      await expect(page.getByRole("heading", { name: /Admin.*Utilisateurs/ })).toBeVisible();
     });
 
     await test.step("impact selector", async () => {
