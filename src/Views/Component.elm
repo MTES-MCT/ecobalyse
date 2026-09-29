@@ -449,7 +449,7 @@ itemView config itemIndex { component, elements, quantity } itemResults =
          else
             []
         )
-        [ itemRow [ class "border-bottom" ]
+        [ itemRow [ class "border-bottom", classList [ ( "table-info", not collapsed ) ] ]
             { actions = itemActions config itemIndex component
             , expander = expandToggler config itemIndex collapsed
             , impacts =
@@ -466,7 +466,7 @@ itemView config itemIndex { component, elements, quantity } itemResults =
             }
         ]
     , itemDetailedRows config elements itemResults
-        |> tbody [ id <| itemDetailsId itemIndex, hidden collapsed ]
+        |> tbody [ class "table-light", id <| itemDetailsId itemIndex, hidden collapsed ]
     ]
 
 
@@ -1040,6 +1040,8 @@ countrySelector config =
             )
 
 
+{-| Renders elements summary when an item is expanded
+-}
 elementSummaryRow : Config db msg -> Results -> ExpandedElement -> Results -> Html msg
 elementSummaryRow config itemResults { amount, material, transforms } elementResults =
     let
@@ -1070,15 +1072,13 @@ elementSummaryRow config itemResults { amount, material, transforms } elementRes
             , label =
                 div [ class "d-flex flex-column" ]
                     [ div [ title <| materialLabel material ]
-                        [ span [ class "ComponentElementIcon" ] [ Icon.material ]
-                        , text <| materialLabel material
+                        [ text <| materialLabel material
                         ]
                     , div
                         [ class "d-flex align-items-center gap-1 text-muted"
                         , title <| Component.transformListToString transforms
                         ]
-                        [ span [ class "ComponentElementIcon me-0" ] [ Icon.transform ]
-                        , if List.isEmpty transforms then
+                        [ if List.isEmpty transforms then
                             text "Aucune transformation"
 
                           else
