@@ -1167,9 +1167,13 @@ itemCompositionModalBody config targetItem { component, elements } itemResults =
 
                 else
                     List.map3
-                        (\elementIndex expandedElement ->
-                            elementCompositionRows config itemResults targetItem elementIndex expandedElement
-                                >> tbody [ class "composition-element" ]
+                        (\elementIndex expandedElement elementResults ->
+                            tbody [ class "composition-element" ] <|
+                                elementCompositionRows config
+                                    ( targetItem, elementIndex )
+                                    expandedElement
+                                    itemResults
+                                    elementResults
                         )
                         (List.range 0 (elementCount - 1))
                         elements
@@ -1185,19 +1189,11 @@ itemCompositionModalBody config targetItem { component, elements } itemResults =
         ]
 
 
-elementCompositionRows :
-    Config db msg
-    -> Results
-    -> TargetItem
-    -> Index
-    -> ExpandedElement
-    -> Results
-    -> List (Html msg)
-elementCompositionRows config itemResults targetItem elementIndex ({ amount, material, transforms } as expandedElement) elementResults =
+{-| Renders a single item element's composition rows (header, summary, raw material, transforms, transport)
+-}
+elementCompositionRows : Config db msg -> TargetElement -> ExpandedElement -> Results -> Results -> List (Html msg)
+elementCompositionRows config targetElement ({ amount, material, transforms } as expandedElement) itemResults elementResults =
     let
-        targetElement =
-            ( targetItem, elementIndex )
-
         elementCooling =
             Process.isTransportedCooled material.process
 
@@ -1367,9 +1363,9 @@ processColumnHeaders headers =
         }
 
 
-{-| Transport that leaves the raw material step:
+{-| Transport that _leaves_ an element's raw material step:
 
-  - with a transform, it's the transport toward the first transformation
+  - with a transform, it's the transport toward the first transformation step
   - without any transforms, it is the one toward assembly
 
 -}
@@ -1389,7 +1385,7 @@ materialTransportView config cooling materialResults material transforms =
                 |> finalElementTransportView config cooling material.country
 
 
-{-| Render transports from last transform step to assembly or distribution stage
+{-| Render transports from the last transform step of an element to the assembly or distribution stage
 -}
 finalElementTransportView : Config db msg -> Bool -> Maybe Country -> Mass -> Html msg
 finalElementTransportView ({ db, query, scope } as config) cooling elementCountry mass =
