@@ -226,6 +226,30 @@ emptyProcessRowCells =
     }
 
 
+{-| Renders an item editor modal element process table row
+-}
+processRow : List (Attribute msg) -> ProcessRowCells msg -> Html msg
+processRow attributes cells =
+    tr attributes
+        [ td
+            [ class "text-end align-middle text-nowrap ps-3 py-2"
+            , style "min-width" "130px"
+            , style "max-width" "150px"
+            ]
+            [ cells.amount ]
+        , td [ class "align-middle", style "min-width" "16rem" ]
+            [ cells.label ]
+        , td [ class "text-end align-middle text-nowrap" ]
+            [ cells.waste ]
+        , td [ class "align-middle", style "min-width" "12rem" ]
+            [ cells.country ]
+        , td [ class "text-end align-middle text-nowrap" ]
+            [ cells.impact ]
+        , td [ class "pe-3 text-end align-middle text-nowrap" ]
+            [ cells.actions ]
+        ]
+
+
 {-| A view data structure carrying an always consistent representation of the
 cells of a production item line table row. Avoids having to deal with colspans
 and so on.
@@ -251,6 +275,28 @@ emptyItemRowCells =
     , totalMass = text ""
     , unitMass = text ""
     }
+
+
+{-| Renders a production item table row
+-}
+itemRow : List (Attribute msg) -> ItemRowCells msg -> Html msg
+itemRow attributes cells =
+    tr attributes
+        [ td [ class "ps-2 align-middle" ]
+            [ cells.expander ]
+        , td [ class "text-end align-middle text-nowrap" ]
+            [ cells.unitMass ]
+        , td [ class "align-middle text-truncate w-100", style "max-width" "0" ]
+            [ cells.label ]
+        , td [ class "align-middle text-center" ]
+            [ cells.quantity ]
+        , td [ class "text-end align-middle text-nowrap" ]
+            [ cells.totalMass ]
+        , td [ class "text-end align-middle text-nowrap", style "min-width" "80px" ]
+            [ cells.impacts ]
+        , td [ class "pe-3 text-end align-middle text-nowrap" ]
+            [ cells.actions ]
+        ]
 
 
 addProductionItemButton : Config db msg -> Html msg
@@ -377,7 +423,7 @@ addElementTransformButton { db, openSelectProcessModal, query, scope } material 
 
 itemTableHeader : Config db msg -> Html msg
 itemTableHeader config =
-    summaryRow [ class "fs-8 fw-normal text-muted border-bottom" ]
+    itemRow [ class "fs-8 fw-normal text-muted border-bottom" ]
         { emptyItemRowCells
             | impacts = text "Impacts"
             , label = text config.labels.itemName
@@ -403,7 +449,7 @@ itemView config itemIndex { component, elements, quantity } itemResults =
          else
             []
         )
-        [ summaryRow [ class "border-bottom" ]
+        [ itemRow [ class "border-bottom" ]
             { actions = itemActions config itemIndex component
             , expander = expandToggler config itemIndex collapsed
             , impacts =
@@ -506,7 +552,7 @@ itemDetailedRows : Config db msg -> List ExpandedElement -> Results -> List (Htm
 itemDetailedRows config elements itemResults =
     if List.isEmpty elements then
         List.singleton <|
-            summaryRow [ class "bg-light border-bottom" ]
+            itemRow [ class "bg-light border-bottom" ]
                 { emptyItemRowCells | label = text "Aucun élément" }
 
     else
@@ -1016,7 +1062,7 @@ elementSummaryRow config itemResults { amount, material, transforms } elementRes
                 , Format.kg elementMass
                 ]
     in
-    summaryRow [ class "fs-7 border-top" ]
+    itemRow [ class "fs-7 border-top" ]
         { emptyItemRowCells
             | impacts =
                 Component.getTotalImpacts elementResults
@@ -1047,48 +1093,6 @@ elementSummaryRow config itemResults { amount, material, transforms } elementRes
                     , amountInfo
                     ]
         }
-
-
-processRow : List (Attribute msg) -> ProcessRowCells msg -> Html msg
-processRow attributes cells =
-    tr attributes
-        [ td
-            [ class "text-end align-middle text-nowrap ps-3 py-2"
-            , style "min-width" "130px"
-            , style "max-width" "150px"
-            ]
-            [ cells.amount ]
-        , td [ class "align-middle", style "min-width" "16rem" ]
-            [ cells.label ]
-        , td [ class "text-end align-middle text-nowrap" ]
-            [ cells.waste ]
-        , td [ class "align-middle", style "min-width" "12rem" ]
-            [ cells.country ]
-        , td [ class "text-end align-middle text-nowrap" ]
-            [ cells.impact ]
-        , td [ class "pe-3 text-end align-middle text-nowrap" ]
-            [ cells.actions ]
-        ]
-
-
-summaryRow : List (Attribute msg) -> ItemRowCells msg -> Html msg
-summaryRow attributes cells =
-    tr attributes
-        [ td [ class "ps-2 align-middle" ]
-            [ cells.expander ]
-        , td [ class "text-end align-middle text-nowrap" ]
-            [ cells.unitMass ]
-        , td [ class "align-middle text-truncate w-100", style "max-width" "0" ]
-            [ cells.label ]
-        , td [ class "align-middle text-center" ]
-            [ cells.quantity ]
-        , td [ class "text-end align-middle text-nowrap" ]
-            [ cells.totalMass ]
-        , td [ class "text-end align-middle text-nowrap", style "min-width" "80px" ]
-            [ cells.impacts ]
-        , td [ class "pe-3 text-end align-middle text-nowrap" ]
-            [ cells.actions ]
-        ]
 
 
 itemEditorView : Config db msg -> TargetItem -> Html msg
