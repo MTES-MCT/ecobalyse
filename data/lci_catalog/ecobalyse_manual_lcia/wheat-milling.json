@@ -1,0 +1,36 @@
+{
+  "categories": ["transformation", "material_type:cereals"],
+  "comment": "Elec et chaleur de 'Wheat flour, at plant {FR} U' (Agribalyse 3.2), ramenées au kg de blé. 1,16 kg de blé par kg de farine. Source : analyse ecolysis Food-Transformer V3.2b.",
+  "displayName": "Mouture de blé tendre",
+  "elecKwh": 0.06929,
+  "heatMJ": 0.01234,
+  "id": "c763ff6f-ca47-489e-8146-d6f7a194d4bd",
+  "impacts": {
+    "acd": 0,
+    "cch": 0,
+    "etf": 0,
+    "etf-c": 0,
+    "fru": 0,
+    "fwe": 0,
+    "htc": 0,
+    "htc-c": 0,
+    "htn": 0,
+    "htn-c": 0,
+    "ior": 0,
+    "ldu": 0,
+    "mru": 0,
+    "ozd": 0,
+    "pco": 0,
+    "pma": 0,
+    "swe": 0,
+    "tre": 0,
+    "wtu": 0
+  },
+  "metadata": [
+    { "id": "69d14785-9a31-474d-9c34-be7521601d7e", "scopes": ["food2"] }
+  ],
+  "qtyVariationRatio": 0.8629,
+  "scopes": ["food2"],
+  "source": "Ecobalyse_manual_lcia",
+  "unit": "kg"
+}
