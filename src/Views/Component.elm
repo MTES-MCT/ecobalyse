@@ -1317,15 +1317,17 @@ compositionSectionHeading title maybeAction =
 
 
 elementHeader : Config db msg -> TargetElement -> Html msg
-elementHeader config (( _, elementIndex ) as targetElement) =
+elementHeader config (( ( component, _ ), elementIndex ) as targetElement) =
     tr []
         [ td [ class "py-2 px-3", colspan 6 ]
             [ div [ class "d-flex justify-content-between align-items-center gap-2" ]
                 [ span [ class "fw-bold" ]
                     [ text <| config.labels.elementName ++ " " ++ String.fromInt (elementIndex + 1) ]
+                , if List.length component.elements > 1 then
+                    deleteElementButton config targetElement
 
-                -- FIXME: delete element button should be hidden if there is only one element
-                , deleteElementButton config targetElement
+                  else
+                    text ""
                 ]
             ]
         ]
