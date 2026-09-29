@@ -403,7 +403,7 @@ itemView config itemIndex { component, elements, quantity } itemResults =
          else
             []
         )
-        (summaryRow [ class "border-bottom fs-7" ]
+        [ summaryRow [ class "border-bottom fs-7" ]
             { actions = itemActions config itemIndex component
             , expander = expandToggler config itemIndex collapsed
             , impacts =
@@ -418,13 +418,9 @@ itemView config itemIndex { component, elements, quantity } itemResults =
                 Component.extractUnitMass itemResults
                     |> Format.kg
             }
-            :: (if collapsed then
-                    []
-
-                else
-                    itemDetailedRows config elements itemResults
-               )
-        )
+        ]
+    , itemDetailedRows config elements itemResults
+        |> tbody [ id <| itemDetailsId itemIndex, hidden collapsed ]
     ]
 
 
@@ -436,7 +432,7 @@ expandToggler config itemIndex collapsed =
     else
         button
             [ type_ "button"
-            , class "btn btn-link text-muted text-decoration-none font-monospace fs-5 p-0 m-0"
+            , class "btn btn-link text-muted text-decoration-none font-monospace fs-7 p-0 m-0"
             , title "Déplier/Replier"
             , attribute "aria-label" "Déplier/Replier"
             , attribute "aria-expanded"
@@ -446,6 +442,7 @@ expandToggler config itemIndex collapsed =
                  else
                     "true"
                 )
+            , attribute "aria-controls" <| itemDetailsId itemIndex
             , onClick <|
                 config.setDetailed <|
                     if collapsed then
@@ -498,6 +495,11 @@ itemActions config itemIndex component =
 
     else
         div [ class "btn-group" ] buttons
+
+
+itemDetailsId : Index -> String
+itemDetailsId itemIndex =
+    "item-table-" ++ String.fromInt itemIndex
 
 
 itemDetailedRows : Config db msg -> List ExpandedElement -> Results -> List (Html msg)
