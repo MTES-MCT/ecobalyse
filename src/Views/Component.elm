@@ -1227,6 +1227,12 @@ elementCompositionRows config itemResults targetItem elementIndex ({ amount, mat
                 |> List.map Component.extractImpacts
                 |> Impact.sumImpacts
 
+        totalImpact =
+            span [ class "ImpactPill" ]
+                [ Component.getTotalImpacts elementResults
+                    |> Format.formatImpact config.impact
+                ]
+
         elementSummary =
             processRow [ class "fs-7" ]
                 { emptyProcessRowCells
@@ -1234,15 +1240,11 @@ elementCompositionRows config itemResults targetItem elementIndex ({ amount, mat
                         amount |> elementAmountInput config targetElement material.process
                     , impact =
                         if transportImpacts == Impact.empty then
-                            Component.getTotalImpacts elementResults
-                                |> Format.formatImpact config.impact
+                            totalImpact
 
                         else
                             span []
-                                [ Component.getTotalImpacts elementResults
-                                    |> Format.formatImpact config.impact
-                                    |> List.singleton
-                                    |> span [ class "ImpactPill" ]
+                                [ totalImpact
                                 , span [ class "text-muted fw-normal" ]
                                     [ text " (dont transport "
                                     , transportImpacts |> Format.formatImpact config.impact
@@ -1275,23 +1277,23 @@ elementCompositionRows config itemResults targetItem elementIndex ({ amount, mat
                     :: transformProcessRows config
                         elementCooling
                         targetElement
-                        materialResults
-                        material.country
                         transformsResults
                         transforms
+                    ++ [ LE.last transformsResults
+                            |> Maybe.map Component.extractMass
+                            |> Maybe.withDefault (Component.extractMass materialResults)
+                            |> finalElementTransportView config elementCooling (Component.getFinalElementCountry expandedElement)
+                       ]
     in
     elementHeader config targetElement
         :: elementSummary
         :: compositionSectionHeading "Matière première" Nothing
         :: materialCompositionRows config targetElement materialResults material
-        ++ compositionSectionHeading "Étape de transformation"
-            (Just <| addElementTransformButton config material.process targetElement)
-        :: transformRows
-        ++ [ LE.last transformsResults
-                |> Maybe.map Component.extractMass
-                |> Maybe.withDefault (Component.extractMass materialResults)
-                |> finalElementTransportView config elementCooling (Component.getFinalElementCountry expandedElement)
-           ]
+        ++ (materialTransportView config elementCooling materialResults material transforms
+                :: compositionSectionHeading "Étape de transformation"
+                    (Just <| addElementTransformButton config material.process targetElement)
+                :: transformRows
+           )
 
 
 compositionSectionHeading : String -> Maybe (Html msg) -> Html msg
@@ -1363,6 +1365,28 @@ processColumnHeaders headers =
             , label = text headers.label
             , waste = text headers.waste
         }
+
+
+{-| Transport that leaves the raw material step:
+
+  - with a transform, it's the transport toward the first transformation
+  - without any transforms, it is the one toward assembly
+
+-}
+materialTransportView : Config db msg -> Bool -> Results -> ExpandedLocalizedProcess -> List ExpandedLocalizedProcess -> Html msg
+materialTransportView config cooling materialResults material transforms =
+    case transforms of
+        firstTransform :: _ ->
+            firstTransform.country
+                |> elementTransportView config
+                    []
+                    cooling
+                    (Component.extractMass materialResults)
+                    material.country
+
+        [] ->
+            Component.extractMass materialResults
+                |> finalElementTransportView config cooling material.country
 
 
 {-| Render transports from last transform step to assembly or distribution stage
@@ -1534,12 +1558,10 @@ transformProcessRows :
     Config db msg
     -> Bool
     -> TargetElement
-    -> Results
-    -> Maybe Country
     -> List Results
     -> List ExpandedLocalizedProcess
     -> List (Html msg)
-transformProcessRows config cooling targetElement materialResults materialCountry transformsResults transforms =
+transformProcessRows config cooling targetElement transformsResults transforms =
     transforms
         |> List.indexedMap
             (\transformIndex transform ->
@@ -1549,22 +1571,28 @@ transformProcessRows config cooling targetElement materialResults materialCountr
                             |> LE.getAt transformIndex
                             |> Maybe.withDefault Component.emptyResults
 
-                    ( previousMass, previousCountry ) =
+                    -- note: outbound transport from the raw material step is rendered in the material section
+                    inboundTransport =
                         case transformIndex of
                             0 ->
-                                ( Component.extractMass materialResults
-                                , materialCountry
-                                )
+                                []
 
                             index ->
-                                ( transformsResults
-                                    |> LE.getAt (index - 1)
-                                    |> Maybe.withDefault Component.emptyResults
-                                    |> Component.extractMass
-                                , transforms
-                                    |> LE.getAt (index - 1)
-                                    |> Maybe.andThen .country
-                                )
+                                let
+                                    previousMass =
+                                        transformsResults
+                                            |> LE.getAt (index - 1)
+                                            |> Maybe.withDefault Component.emptyResults
+                                            |> Component.extractMass
+
+                                    previousCountry =
+                                        transforms
+                                            |> LE.getAt (index - 1)
+                                            |> Maybe.andThen .country
+                                in
+                                [ transform.country
+                                    |> elementTransportView config [] cooling previousMass previousCountry
+                                ]
 
                     tooltipText =
                         "Procédé\u{00A0}: "
@@ -1581,48 +1609,47 @@ transformProcessRows config cooling targetElement materialResults materialCountr
                                     |> Result.withDefault ""
                                )
                 in
-                [ transform.country
-                    |> elementTransportView config [] cooling previousMass previousCountry
-                , processRow [ class "fs-7 border-top" ]
-                    { emptyProcessRowCells
-                        | actions =
-                            button
-                                [ type_ "button"
-                                , class "btn btn-sm btn-outline-secondary"
-                                , attribute "aria-label" "Supprimer la transformation"
-                                , transformIndex
-                                    |> config.removeElementTransform targetElement
-                                    |> onClick
-                                ]
-                                [ Icon.trash ]
-                        , amount =
-                            Component.extractAmount transformResult
-                                |> Format.amount transform.process
-                        , country =
-                            regionSelector
-                                { countries = config.db.countries
-                                , domId =
-                                    "transform-country-"
-                                        ++ Component.targetElementToString targetElement
-                                        ++ "-"
-                                        ++ String.fromInt transformIndex
-                                , scope = config.scope
-                                , select = config.updateElementTransformCountry targetElement transformIndex
-                                , selected = transform.country |> Maybe.map .code
-                                }
-                        , impact =
-                            span [ class "ImpactPill" ]
-                                [ Component.extractImpacts transformResult
-                                    |> Format.formatImpact config.impact
-                                ]
-                        , label =
-                            span [ class "fw-bold cursor-help", title tooltipText ]
-                                [ text <| Process.getDisplayName transform.process
-                                ]
-                        , waste =
-                            Format.qtyVariationRatioAsWastePercent transform.process.qtyVariationRatio
-                    }
-                ]
+                inboundTransport
+                    ++ [ processRow [ class "fs-7 border-top" ]
+                            { emptyProcessRowCells
+                                | actions =
+                                    button
+                                        [ type_ "button"
+                                        , class "btn btn-sm btn-outline-secondary"
+                                        , attribute "aria-label" "Supprimer la transformation"
+                                        , transformIndex
+                                            |> config.removeElementTransform targetElement
+                                            |> onClick
+                                        ]
+                                        [ Icon.trash ]
+                                , amount =
+                                    Component.extractAmount transformResult
+                                        |> Format.amount transform.process
+                                , country =
+                                    regionSelector
+                                        { countries = config.db.countries
+                                        , domId =
+                                            "transform-country-"
+                                                ++ Component.targetElementToString targetElement
+                                                ++ "-"
+                                                ++ String.fromInt transformIndex
+                                        , scope = config.scope
+                                        , select = config.updateElementTransformCountry targetElement transformIndex
+                                        , selected = transform.country |> Maybe.map .code
+                                        }
+                                , impact =
+                                    span [ class "ImpactPill" ]
+                                        [ Component.extractImpacts transformResult
+                                            |> Format.formatImpact config.impact
+                                        ]
+                                , label =
+                                    span [ class "fw-bold cursor-help", title tooltipText ]
+                                        [ text <| Process.getDisplayName transform.process
+                                        ]
+                                , waste =
+                                    Format.qtyVariationRatioAsWastePercent transform.process.qtyVariationRatio
+                            }
+                       ]
             )
         |> List.concat
 
