@@ -127,6 +127,7 @@ type alias Labels =
     , empty : String
     , itemName : String
     , noun : String
+    , nounPlural : String
     , productionHeading : String
     , search : String
     , select : String
@@ -148,6 +149,7 @@ scopeLabels context scope =
             , empty = "Aucun ingrédient"
             , itemName = "Nom de l'ingrédient"
             , noun = "Ingrédient"
+            , nounPlural = "Ingrédients"
             , productionHeading = "Recette"
             , search = "tapez ici le nom de l’ingrédient pour le rechercher"
             , select = "Sélectionnez un ingrédient"
@@ -160,6 +162,7 @@ scopeLabels context scope =
             , empty = "Aucun matériau"
             , itemName = "Nom du matériau"
             , noun = "Matériau"
+            , nounPlural = "Matériaux"
             , productionHeading = "Production des matériaux"
             , search = "tapez ici le nom du matériau pour le rechercher"
             , select = "Sélectionnez un matériau"
@@ -173,6 +176,7 @@ scopeLabels context scope =
             , empty = "Aucun accessoire"
             , itemName = "Nom de l'accessoire"
             , noun = "Accessoire"
+            , nounPlural = "Accessoires"
             , productionHeading = "Accessoires"
             , search = "tapez ici le nom de l’accessoire pour le rechercher"
             , select = "Sélectionnez un accessoire"
@@ -185,6 +189,7 @@ scopeLabels context scope =
             , empty = "Aucun composant"
             , itemName = "Nom du composant"
             , noun = "Composant"
+            , nounPlural = "Composants"
             , productionHeading = "Production des composants"
             , search = "tapez ici le nom du composant pour le rechercher"
             , select = "Sélectionnez un composant"
@@ -353,9 +358,8 @@ addElementTransformButton { db, openSelectProcessModal, query, scope } material 
     in
     button
         [ type_ "button"
-        , class "btn btn-link btn-sm w-100 text-decoration-none"
-        , class "d-flex justify-content-start align-items-center"
-        , class "gap-1 w-100 ps-0"
+        , class "btn btn-sm btn-outline-primary text-nowrap"
+        , class "d-flex align-items-center gap-1"
         , disabled <| List.isEmpty availableTransformProcesses
         , autocompleteState
             |> openSelectProcessModal Category.Transform targetItem (Just elementIndex)
@@ -1041,7 +1045,11 @@ elementSummaryRow config itemResults { amount, material, transforms } elementRes
 processRow : List (Attribute msg) -> ProcessRowCells msg -> Html msg
 processRow attributes cells =
     tr attributes
-        [ td [ class "text-end align-middle text-nowrap", style "min-width" "130px" ]
+        [ td
+            [ class "text-end align-middle text-nowrap ps-3 py-2"
+            , style "min-width" "130px"
+            , style "max-width" "150px"
+            ]
             [ cells.amount ]
         , td [ class "align-middle", style "min-width" "16rem" ]
             [ cells.label ]
@@ -1106,31 +1114,6 @@ compositionModalBody config targetItem { component, elements } itemResults =
     let
         elementCount =
             List.length elements
-
-        elementRows =
-            if List.isEmpty elements then
-                [ processRow []
-                    { emptyProcessRowCells | label = text "Aucun élément" }
-                ]
-
-            else
-                List.map3
-                    (elementCompositionRows config itemResults targetItem)
-                    (List.range 0 (elementCount - 1))
-                    elements
-                    (Component.extractItems itemResults)
-                    |> List.concat
-
-        rows =
-            processRow [ class "fs-8 fw-normal text-muted" ]
-                { emptyProcessRowCells
-                    | amount = text "Quantité"
-                    , country = text "Origine"
-                    , impact = text "Impact"
-                    , label = text "Matière et transformations"
-                    , waste = text "Pertes"
-                }
-                :: elementRows
     in
     div [ class "d-flex flex-column gap-3 p-3" ]
         [ div []
@@ -1166,13 +1149,34 @@ compositionModalBody config targetItem { component, elements } itemResults =
                 ]
             ]
         , div [ class "d-flex justify-content-between align-items-center gap-2" ]
-            [ h3 [ class "h6 mb-0" ]
-                [ text "Liste des matières et leurs étapes de transformation" ]
+            [ h3 [ class "h5 mb-0" ]
+                [ text <| "Liste des " ++ String.toLower config.labels.nounPlural ++ " et leurs étapes de transformation" ]
             , addElementButton config targetItem
             ]
         , div [ class "table-responsive" ]
-            [ table [ class "table table-sm table-borderless mb-0 w-100" ]
-                [ tbody [] rows ]
+            [ table [ class "CompositionElements table table-sm table-borderless mb-0 w-100" ] <|
+                if List.isEmpty elements then
+                    [ tbody []
+                        [ processRow [] { emptyProcessRowCells | label = text "Aucun élément" }
+                        ]
+                    ]
+
+                else
+                    List.map3
+                        (\elementIndex expandedElement ->
+                            elementCompositionRows config itemResults targetItem elementIndex expandedElement
+                                >> tbody [ class "composition-element" ]
+                        )
+                        (List.range 0 (elementCount - 1))
+                        elements
+                        (Component.extractItems itemResults)
+                        |> List.intersperse
+                            -- use an empty table row to separate elements
+                            (tbody [ class "composition-element-gap" ]
+                                [ tr [ attribute "aria-hidden" "true" ]
+                                    [ td [ colspan 6 ] [] ]
+                                ]
+                            )
             ]
         ]
 
@@ -1216,27 +1220,115 @@ elementCompositionRows config itemResults targetItem elementIndex ({ amount, mat
 
         elementMass =
             Component.extractMass elementResults
+
+        share =
+            Component.extractUnitMass itemResults
+                |> Component.elementMassShare elementMass
+
+        transportImpacts =
+            stageItems
+                |> List.filter (Component.extractStage >> (==) (Just Component.TransportStage))
+                |> List.map Component.extractImpacts
+                |> Impact.sumImpacts
+
+        elementSummary =
+            processRow [ class "fs-7" ]
+                { emptyProcessRowCells
+                    | amount =
+                        amount |> elementAmountInput config targetElement material.process
+                    , impact =
+                        if transportImpacts == Impact.empty then
+                            Component.getTotalImpacts elementResults
+                                |> Format.formatImpact config.impact
+
+                        else
+                            span []
+                                [ Component.getTotalImpacts elementResults
+                                    |> Format.formatImpact config.impact
+                                , span [ class "text-muted fw-normal" ]
+                                    [ text " (dont transport "
+                                    , transportImpacts |> Format.formatImpact config.impact
+                                    , text ")"
+                                    ]
+                                ]
+                    , label =
+                        span [ class "text-muted" ]
+                            [ text <| "Poids du " ++ String.toLower config.labels.elementName ++ "\u{00A0}: "
+                            , span [ class "fw-bold" ] [ Format.kg elementMass ]
+                            , text " ("
+                            , share |> Format.splitAsPercentage 0
+                            , text ")"
+                            ]
+                }
+
+        transformRows =
+            if List.isEmpty transforms then
+                [ processRow [ class "fs-7 text-muted" ]
+                    { emptyProcessRowCells | label = text "Aucune transformation" }
+                ]
+
+            else
+                processColumnHeaders
+                    { amount = "Quantité"
+                    , country = "Origine"
+                    , label = "Intitulé"
+                    , waste = "Pertes"
+                    }
+                    :: transformProcessRows config
+                        elementCooling
+                        targetElement
+                        materialResults
+                        material.country
+                        transformsResults
+                        transforms
     in
-    processRow [ class "fs-7 border-top bg-light" ]
-        { emptyProcessRowCells
-            | actions = deleteElementButton config targetElement
-            , amount = amount |> elementAmountInput config targetElement material.process
-            , impact =
-                Component.getTotalImpacts elementResults
-                    |> Format.formatImpact config.impact
-            , label = elementHeading config elementIndex itemResults elementMass
-        }
+    elementHeader config targetElement
+        :: elementSummary
+        :: compositionSectionHeading "Matière première" Nothing
+        :: processColumnHeaders
+            { amount = "Quantité"
+            , country = "Origine"
+            , label = "Matière d’origine"
+            , waste = ""
+            }
         :: materialCompositionRows config targetElement materialResults material
-        ++ transformCompositionRows config elementCooling targetElement materialResults material.country transformsResults transforms
+        ++ compositionSectionHeading "Étape de transformation"
+            (Just <| addElementTransformButton config material.process targetElement)
+        :: transformRows
         ++ [ LE.last transformsResults
                 |> Maybe.map Component.extractMass
                 |> Maybe.withDefault (Component.extractMass materialResults)
                 |> finalElementTransportView config elementCooling (Component.getFinalElementCountry expandedElement)
-           , processRow []
-                { emptyProcessRowCells
-                    | label = addElementTransformButton config material.process targetElement
-                }
            ]
+
+
+compositionSectionHeading : String -> Maybe (Html msg) -> Html msg
+compositionSectionHeading title maybeAction =
+    -- Note: heading rows span the table because they're not data. Process rows keep defining
+    -- the shared columns, so amounts and impacts stay aligned across all elements
+    tr [ class "composition-section" ]
+        [ td [ class "p-3", colspan 6 ]
+            [ div [ class "d-flex justify-content-between align-items-center gap-2" ]
+                [ span [ class "fw-bold" ] [ text title ]
+                , maybeAction |> Maybe.withDefault (text "")
+                ]
+            ]
+        ]
+
+
+elementHeader : Config db msg -> TargetElement -> Html msg
+elementHeader config (( _, elementIndex ) as targetElement) =
+    tr []
+        [ td [ class "py-2 px-3", colspan 6 ]
+            [ div [ class "d-flex justify-content-between align-items-center gap-2" ]
+                [ span [ class "fw-bold" ]
+                    [ text <| config.labels.elementName ++ " " ++ String.fromInt (elementIndex + 1) ]
+
+                -- FIXME: delete element button should be hidden if there is only one element
+                , deleteElementButton config targetElement
+                ]
+            ]
+        ]
 
 
 deleteElementButton : Config db msg -> TargetElement -> Html msg
@@ -1244,10 +1336,12 @@ deleteElementButton config targetElement =
     button
         [ type_ "button"
         , class "btn btn-sm btn-outline-secondary text-nowrap"
+        , class "d-flex align-items-center gap-1"
         , attribute "aria-label" "Supprimer l’élément"
         , onClick (config.removeElement targetElement)
         ]
         [ Icon.trash
+        , text "Supprimer"
         ]
 
 
@@ -1265,24 +1359,16 @@ elementAmountInput config targetElement process amount =
             amount
 
 
-elementHeading : Config db msg -> Index -> Results -> Mass -> Html msg
-elementHeading config elementIndex itemResults elementMass =
-    let
-        share =
-            Component.extractUnitMass itemResults
-                |> Component.elementMassShare elementMass
-    in
-    div [ class "d-flex flex-column" ]
-        [ span [ class "fw-bold" ]
-            [ text <| config.labels.elementName ++ " #" ++ String.fromInt (elementIndex + 1) ]
-        , span [ class "text-muted" ]
-            [ text "Poids\u{00A0}: "
-            , Format.kg elementMass
-            , text " ("
-            , share |> Format.splitAsPercentage 0
-            , text ")"
-            ]
-        ]
+processColumnHeaders : { amount : String, country : String, label : String, waste : String } -> Html msg
+processColumnHeaders headers =
+    processRow [ class "fs-8 fw-normal text-muted" ]
+        { emptyProcessRowCells
+            | amount = text headers.amount
+            , country = text headers.country
+            , impact = text "Impact"
+            , label = text headers.label
+            , waste = text headers.waste
+        }
 
 
 {-| Render transports from last transform step to assembly or distribution stage
@@ -1439,7 +1525,7 @@ elementTransportView ({ query } as config) attributes cooling transportedMass ma
                 }
 
 
-transformCompositionRows :
+transformProcessRows :
     Config db msg
     -> Bool
     -> TargetElement
@@ -1448,7 +1534,7 @@ transformCompositionRows :
     -> List Results
     -> List ExpandedLocalizedProcess
     -> List (Html msg)
-transformCompositionRows config cooling targetElement materialResults materialCountry transformsResults transforms =
+transformProcessRows config cooling targetElement materialResults materialCountry transformsResults transforms =
     transforms
         |> List.indexedMap
             (\transformIndex transform ->
