@@ -112,8 +112,8 @@ addElementTransformButton { db, openSelectProcessModal, query, scope } material 
 
 createElementMaterialAutocomplete : Component.DataContainer db -> Scope -> Autocomplete Process
 createElementMaterialAutocomplete db scope =
-    Category.Material
-        |> listAvailableProcesses { db = db, scope = scope }
+    db.processes
+        |> Process.listAvailableByCategory scope Category.Material
         -- Exclude packaging materials as they're available in a dedicated section
         |> List.filter (\{ categories } -> not <| List.member Category.Packaging categories)
         |> AutocompleteSelector.init Process.getDisplayName
@@ -458,18 +458,6 @@ itemCompositionModalBody config targetItem { component, elements } itemResults =
         ]
 
 
-listAvailableProcesses :
-    { config | db : Component.DataContainer db, scope : Scope }
-    -> Category
-    -> List Process
-listAvailableProcesses { db, scope } category =
-    db.processes
-        |> List.filter .visible
-        |> Scope.anyOf [ scope ]
-        |> Process.listByCategory category
-        |> List.sortBy Process.getDisplayName
-
-
 {-| Transport that _leaves_ an element's raw material step:
 
   - with a transform, it's the transport toward the first transformation step
@@ -558,7 +546,8 @@ modifyMaterialButton config ( targetItem, elementIndex ) =
         [ type_ "button"
         , class "btn btn-sm btn-outline-primary text-nowrap"
         , attribute "aria-label" "Changer de matière première"
-        , listAvailableProcesses config Category.Material
+        , config.db.processes
+            |> Process.listAvailableByCategory config.scope Category.Material
             |> AutocompleteSelector.init Process.getDisplayName
             |> config.openSelectProcessModal Category.Material targetItem (Just elementIndex)
             |> onClick

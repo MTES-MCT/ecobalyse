@@ -202,8 +202,8 @@ addProductionItemButton ({ db } as config) =
                 |> List.map ComponentItem
 
         availableMaterials =
-            Category.Material
-                |> listAvailableProcesses config
+            db.processes
+                |> Process.listAvailableByCategory config.scope Category.Material
                 -- Exclude packaging materials as they're available in a dedicated section
                 |> List.filter (\{ categories } -> not <| List.member Category.Packaging categories)
                 |> List.map MaterialItem
@@ -233,7 +233,8 @@ addPackagingButton : Config db msg -> Html msg
 addPackagingButton ({ query } as config) =
     let
         availablePackagingProcesses =
-            listAvailableProcesses config Category.Packaging
+            config.db.processes
+                |> Process.listAvailableByCategory config.scope Category.Packaging
                 |> List.filter
                     (\{ id } ->
                         query.packagings
@@ -916,18 +917,6 @@ itemEditorView config =
         }
 
 
-listAvailableProcesses :
-    { config | db : Component.DataContainer db, scope : Scope }
-    -> Category
-    -> List Process
-listAvailableProcesses { db, scope } category =
-    db.processes
-        |> List.filter .visible
-        |> Scope.anyOf [ scope ]
-        |> Process.listByCategory category
-        |> List.sortBy Process.getDisplayName
-
-
 quantityInput : Config db msg -> Index -> Quantity -> Html msg
 quantityInput config itemIndex quantity =
     div [ class "input-group", style "width" "70px" ]
@@ -1053,7 +1042,8 @@ addAssemblyOperationButton : Config db msg -> Html msg
 addAssemblyOperationButton ({ openSelectAssemblyOperationModal, query } as config) =
     let
         availableProcesses =
-            listAvailableProcesses config Category.Assembly
+            config.db.processes
+                |> Process.listAvailableByCategory config.scope Category.Assembly
                 |> List.filter
                     (\{ id } ->
                         -- prevent adding the same operation twice
@@ -1166,7 +1156,8 @@ addConsumptionButton : Config db msg -> Html msg
 addConsumptionButton ({ openSelectConsumptionModal, query } as config) =
     let
         availableProcesses =
-            listAvailableProcesses config Category.Use
+            config.db.processes
+                |> Process.listAvailableByCategory config.scope Category.Use
                 |> List.filter
                     (\{ id } ->
                         query

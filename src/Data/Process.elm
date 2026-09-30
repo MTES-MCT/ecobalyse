@@ -22,6 +22,7 @@ module Data.Process exposing
     , impactsPerUnit
     , isMassDependent
     , isTransportedCooled
+    , listAvailableByCategory
     , listAvailableMaterialTransforms
     , listByCategory
     , unitToString
@@ -277,6 +278,15 @@ impactsPerUnit { electricityProcess, heatProcess } { elec, heat, impacts } =
 isTransportedCooled : Process -> Bool
 isTransportedCooled =
     hasCategory Category.TransportedCooled
+
+
+listAvailableByCategory : Scope -> Category -> List Process -> List Process
+listAvailableByCategory scope category processes =
+    processes
+        |> List.filter .visible
+        |> Scope.anyOf [ scope ]
+        |> listByCategory category
+        |> List.sortBy getDisplayName
 
 
 listAvailableMaterialTransforms : Process -> List Process -> List Process
