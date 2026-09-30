@@ -1150,7 +1150,7 @@ elementCompositionRows config targetElement ({ amount, material, transforms } as
                 |> Impact.sumImpacts
 
         totalImpact =
-            span [ class "ImpactPill" ]
+            span [ class "ImpactPill bg-info-subtle" ]
                 [ Component.getTotalImpacts elementResults
                     |> Format.formatImpact config.impact
                 ]
@@ -1365,7 +1365,7 @@ materialCompositionRows config targetElement materialResults material =
                             , selected = material.country |> Maybe.map .code
                             }
                     , impact =
-                        span [ class "ImpactPill" ]
+                        span [ class "ImpactPill bg-info-subtle" ]
                             [ Component.getTotalImpacts materialResults
                                 |> Format.formatImpact config.impact
                             ]

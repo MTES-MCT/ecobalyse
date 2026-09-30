@@ -31,6 +31,8 @@ emptyItemRow =
     }
 
 
+{-| Renders an item row at the production stage.
+-}
 view : List (Attribute msg) -> Cells msg -> Html msg
 view attributes cells =
     tr attributes

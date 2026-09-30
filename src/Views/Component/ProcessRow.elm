@@ -42,6 +42,8 @@ emptyProcessRow =
     }
 
 
+{-| Renders an item element process row in the production item editor modal table.
+-}
 view : List (Attribute msg) -> Cells msg -> Html msg
 view attributes cells =
     tr attributes
