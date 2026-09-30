@@ -617,7 +617,7 @@ applyComplementsResultsImpacts amount impacts =
         )
 
 
-{-| Fill unset element countries from each process default origin when known.
+{-| Fill unset element countries from each process default origin when known
 -}
 applyDefaultOrigins : List Process -> Component -> Component
 applyDefaultOrigins processes component =

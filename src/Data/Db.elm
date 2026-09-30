@@ -82,7 +82,7 @@ build json =
                          ]
                             |> List.map (extractJsonString >> Component.decodeListFromJsonString)
                             |> RE.combine
-                            -- Ensure applying default origins to components
+                            -- Ensure applying default origins to components elements
                             -- Note: this is performed at db build time mostly for performance reasons: we can't afford
                             -- recomputing the whole components db in memory on every score computation
                             |> Result.map (List.concat >> List.map (Component.applyDefaultOrigins processes))
