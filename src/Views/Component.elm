@@ -1115,6 +1115,13 @@ itemCompositionModalBody config targetItem { component, elements } itemResults =
         ]
 
 
+impactPill : Config db msg -> Impacts -> Html msg
+impactPill config impacts =
+    span [ class "ImpactPill bg-info-subtle" ]
+        [ impacts |> Format.formatImpact config.impact
+        ]
+
+
 {-| Renders a single item element's composition rows (header, summary, raw material, transforms, transport)
 -}
 elementCompositionRows : Config db msg -> TargetElement -> ExpandedElement -> Results -> Results -> List (Html msg)
@@ -1150,10 +1157,7 @@ elementCompositionRows config targetElement ({ amount, material, transforms } as
                 |> Impact.sumImpacts
 
         totalImpact =
-            span [ class "ImpactPill bg-info-subtle" ]
-                [ Component.getTotalImpacts elementResults
-                    |> Format.formatImpact config.impact
-                ]
+            impactPill config <| Component.getTotalImpacts elementResults
 
         elementSummary =
             ProcessRow.view [ class "fs-7" ]
@@ -1365,10 +1369,7 @@ materialCompositionRows config targetElement materialResults material =
                             , selected = material.country |> Maybe.map .code
                             }
                     , impact =
-                        span [ class "ImpactPill bg-info-subtle" ]
-                            [ Component.getTotalImpacts materialResults
-                                |> Format.formatImpact config.impact
-                            ]
+                        impactPill config <| Component.getTotalImpacts materialResults
                     , label =
                         span [ class "fw-bold", title <| Process.getDisplayName material.process ]
                             [ text <| Process.getDisplayName material.process
@@ -1550,10 +1551,7 @@ transformProcessRows config cooling targetElement transformsResults transforms =
                                         , selected = transform.country |> Maybe.map .code
                                         }
                                 , impact =
-                                    span [ class "ImpactPill bg-info-subtle" ]
-                                        [ Component.extractImpacts transformResult
-                                            |> Format.formatImpact config.impact
-                                        ]
+                                    impactPill config <| Component.extractImpacts transformResult
                                 , label =
                                     span [ class "fw-bold cursor-help", title tooltipText ]
                                         [ text <| Process.getDisplayName transform.process
