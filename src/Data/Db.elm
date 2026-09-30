@@ -82,9 +82,10 @@ build json =
                          ]
                             |> List.map (extractJsonString >> Component.decodeListFromJsonString)
                             |> RE.combine
-                            -- Ensure applying default origins to components elements
-                            -- Note: this is performed at db build time mostly for performance reasons: we can't afford
-                            -- recomputing the whole components db in memory on every score computation
+                            -- A missing country inherits the process default origin. Resolve it once here at build
+                            -- time so component elements always carries an explicit country. A later "unknown" choice
+                            -- stays Nothing on the query item and is not filled again. Also a one-time processing
+                            -- is more efficient than a per-query one.
                             |> Result.map (List.concat >> List.map (Component.applyDefaultOrigins processes))
                         )
                     |> RE.andMap
