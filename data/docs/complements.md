@@ -95,7 +95,7 @@ included). Then:
 #### feed.json
 
 In `food/ecosystemic_services/`. Each key is a live animal/egg/milk ingredient alias. The value is an object mapping feed ingredient aliases to quantities. Doesn't include meat ingredients.
-Each quantity is expressed in the unit of the processes except `grazed-grass-...` which is in m2.year
+Each quantity is expressed in the unit of the processes except `grazed-grass-…` which is in m2.year
 For example `silage-maize-fr-2025` is in kg so to produce 1 kg of `milk-2025` you need :
 - 0.175 m2.year of `grazed-grass-permanent-2025`
 - 0.349 kg of `silage-maize-fr-2025` and so on...
