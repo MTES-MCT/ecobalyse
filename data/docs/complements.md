@@ -32,7 +32,7 @@ flowchart TD
 
     subgraph animal [Animal ingredient]
         feed[feed.json<br/>or raw_to_transformed_ratios.json x upstream feed] --> feedes[vegetal services of each feed ingredient]
-        feedes --> sum[sum of quantity x feed service<br/>hedges, plotSize, cropDiversity]
+        feedes --> sum["sum of (quantity x feed service)<br/>hedges, plotSize, cropDiversity"]
         feed --> pp[permanentPasture =<br/>-1 x grazed-grass-permanent m2.year x coefficient]
         sum --> animout[hedges, plotSize, cropDiversity, permanentPasture]
         pp --> animout
