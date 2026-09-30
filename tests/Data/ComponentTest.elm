@@ -67,7 +67,125 @@ suite =
                 db =
                     setupTestDb originalDb
             in
-            [ suiteFromResult "setupRequirements"
+            [ describe "applyDefaultOrigins"
+                [ suiteFromResult2 "Purée de tomate FR"
+                    (Component.idFromString "151d05c3-8a6a-4576-a8c2-d5f92fb0806b"
+                        |> Result.andThen (\id -> Component.findById id originalDb.components)
+                    )
+                    (TestUtils.componentConfig originalDb)
+                    (\mashedTomato config ->
+                        let
+                            requirements =
+                                { config = config
+                                , db = originalDb
+                                , scope = Scope.Generic Scope.Food2
+                                }
+
+                            withoutMaterialCountry =
+                                { mashedTomato
+                                    | elements =
+                                        mashedTomato.elements
+                                            |> List.map
+                                                (\element ->
+                                                    { element
+                                                        | material =
+                                                            { country = Nothing
+                                                            , id = element.material.id
+                                                            }
+                                                    }
+                                                )
+                                }
+                        in
+                        [ it "should select the material process default origin"
+                            (mashedTomato.elements
+                                |> List.head
+                                |> Maybe.map (.material >> .country)
+                                |> Expect.equal (Just (Just CountryCode.france))
+                            )
+                        , it "should leave a transform without a default origin unset"
+                            (mashedTomato.elements
+                                |> List.head
+                                |> Maybe.andThen (.transforms >> List.head)
+                                |> Maybe.map .country
+                                |> Expect.equal (Just Nothing)
+                            )
+                        , itFromResult "should expose that origin once the component is expanded"
+                            (Component.expandElements originalDb mashedTomato.elements)
+                            (List.head
+                                >> Maybe.andThen (.material >> .country)
+                                >> Maybe.map (\country -> ( country.code, country.name ))
+                                >> Expect.equal (Just ( CountryCode.france, "France" ))
+                            )
+                        , itFromResult2 "should include that origin in the component score"
+                            (Component.computeImpacts requirements Component.defaultTransportOptions mashedTomato
+                                |> Result.map extractEcsImpact
+                            )
+                            (Component.computeImpacts requirements Component.defaultTransportOptions withoutMaterialCountry
+                                |> Result.map extractEcsImpact
+                            )
+                            TestUtils.expectFloatDifferent
+                        ]
+                    )
+                , suiteFromResult "explicit countries and missing defaults"
+                    (decodeJson Component.decode <|
+                        """
+                        {
+                          "elements": [
+                            {
+                              "amount": 1,
+                              "material": "b94d40bd-3394-59d3-9397-fe097a5f7138",
+                              "transforms": ["de307fb4-99d3-4a01-962b-242ace7b2739"]
+                            },
+                            {
+                              "amount": 1,
+                              "material": { "country": "CN", "id": "b94d40bd-3394-59d3-9397-fe097a5f7138" },
+                              "transforms": [{ "country": "DE", "id": "de307fb4-99d3-4a01-962b-242ace7b2739" }]
+                            },
+                            {
+                              "amount": 1,
+                              "material": "de307fb4-99d3-4a01-962b-242ace7b2739",
+                              "transforms": ["aaaaaaaa-bbbb-4ccc-8ddd-eeeeeeeeeeee"]
+                            }
+                          ],
+                          "name": "fixture",
+                          "scopes": ["food2"]
+                        }
+                        """
+                    )
+                    (\fixture ->
+                        let
+                            applied =
+                                Component.applyDefaultOrigins originalDb.processes fixture
+
+                            countryAt elementIndex pick =
+                                applied.elements
+                                    |> LE.getAt elementIndex
+                                    |> Maybe.map pick
+                        in
+                        [ it "should copy a default origin onto an unset material"
+                            (countryAt 0 (.material >> .country)
+                                |> Expect.equal (Just (Just CountryCode.france))
+                            )
+                        , it "should keep an explicit material country"
+                            (countryAt 1 (.material >> .country)
+                                |> Expect.equal (Just (Just (CountryCode.fromString "CN")))
+                            )
+                        , it "should keep an explicit transform country"
+                            (countryAt 1 (.transforms >> List.head >> Maybe.map .country)
+                                |> Expect.equal (Just (Just (Just (CountryCode.fromString "DE"))))
+                            )
+                        , it "should leave a process with no default origin unset"
+                            (countryAt 0 (.transforms >> List.head >> Maybe.map .country)
+                                |> Expect.equal (Just (Just Nothing))
+                            )
+                        , it "should leave an unknown process id unset"
+                            (countryAt 2 (.transforms >> List.head >> Maybe.map .country)
+                                |> Expect.equal (Just (Just Nothing))
+                            )
+                        ]
+                    )
+                ]
+            , suiteFromResult "setupRequirements"
                 (createTestRequirements db)
                 (\requirements ->
                     [ suiteFromResult3 "addElement"
