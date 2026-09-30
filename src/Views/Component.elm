@@ -29,7 +29,6 @@ import Data.Component as Component
 import Data.Component.Amount exposing (Amount)
 import Data.Component.Config as Config
 import Data.Component.ProductCategory as ProductCategory exposing (ProductCategory)
-import Data.Country exposing (Country)
 import Data.Country.Code as CountryCode
 import Data.Impact as Impact exposing (Impacts)
 import Data.Impact.Definition as Definition exposing (Definition)
@@ -53,6 +52,7 @@ import Views.Component.AmountInput as AmountInput
 import Views.Component.CompositionModal as CompositionModal
 import Views.Component.DownArrow as DownArrow
 import Views.Component.ItemRow as ItemRow exposing (emptyItemRow)
+import Views.Component.RegionSelector as RegionSelector
 import Views.Format as Format
 import Views.Icon as Icon
 import Views.Link as Link
@@ -789,53 +789,6 @@ noTransportView =
     DownArrow.view [] []
 
 
-type alias CountrySelector msg =
-    { attrs : List (Attribute msg)
-    , countries : List Country
-    , disabled : Bool
-    , domId : String
-    , scope : Scope
-    , select : Maybe CountryCode.Code -> msg
-    , selected : Maybe CountryCode.Code
-    }
-
-
-countrySelector : CountrySelector msg -> Html msg
-countrySelector config =
-    config.countries
-        |> Scope.anyOf [ config.scope ]
-        |> List.sortBy .name
-        |> List.map (\{ code, name } -> ( name, Just code ))
-        |> (::) ( "Inconnu", Nothing )
-        |> List.map
-            (\( name, maybeCode ) ->
-                option
-                    [ maybeCode
-                        |> Maybe.map CountryCode.toString
-                        |> Maybe.withDefault ""
-                        |> value
-                    , selected <| config.selected == maybeCode
-                    ]
-                    [ text name ]
-            )
-        |> select
-            (config.attrs
-                ++ [ class "form-select w-33"
-                   , id config.domId
-                   , autocomplete False
-                   , disabled config.disabled
-                   , onInput <|
-                        \str ->
-                            config.select <|
-                                if String.isEmpty str then
-                                    Nothing
-
-                                else
-                                    Just <| CountryCode.fromString str
-                   ]
-            )
-
-
 {-| Renders elements summary when an item is expanded
 -}
 elementSummaryRow : Config db msg -> Results -> ExpandedElement -> Results -> Html msg
@@ -960,14 +913,19 @@ assemblyView ({ db, impact, query, scope } as config) lifeCycle =
         , div [ class "card-body d-flex flex-column gap-3 p-0" ]
             [ div [ class "d-flex align-items-center gap-2 px-3 pt-3" ]
                 [ label [ for "assembly-country" ] [ text "Pays d’assemblage" ]
-                , countrySelector
+                , RegionSelector.view
                     { attrs = []
+                    , classes = "w-33"
                     , countries = db.countries
                     , disabled = False
                     , domId = "assembly-country"
+                    , emptyLabel = "Inconnu"
+                    , hideLabel = True
+                    , label = Nothing
                     , scope = scope
                     , select = config.updateAssemblyCountry
                     , selected = query.assembly.country
+                    , showCode = False
                     }
                 ]
             , case

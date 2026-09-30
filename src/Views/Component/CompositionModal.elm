@@ -501,11 +501,18 @@ materialCompositionRows config targetElement materialResults material =
                             |> Format.amount material.process
                     , country =
                         RegionSelector.view
-                            { countries = config.db.countries
+                            { attrs = []
+                            , classes = "RegionSelector form-select-sm w-100"
+                            , countries = config.db.countries
+                            , disabled = False
                             , domId = "material-country-" ++ Component.targetElementToString targetElement
+                            , emptyLabel = "---"
+                            , hideLabel = True
+                            , label = Just "Région"
                             , scope = config.scope
                             , select = config.updateElementMaterialCountry targetElement
                             , selected = material.country |> Maybe.map .code
+                            , showCode = True
                             }
                     , impact =
                         impactPill config <| Component.getTotalImpacts materialResults
@@ -628,15 +635,22 @@ transformProcessRows config cooling targetElement transformsResults transforms =
                                         |> Format.amount transform.process
                                 , country =
                                     RegionSelector.view
-                                        { countries = config.db.countries
+                                        { attrs = []
+                                        , classes = "RegionSelector form-select-sm w-100"
+                                        , countries = config.db.countries
+                                        , disabled = False
                                         , domId =
                                             "transform-country-"
                                                 ++ Component.targetElementToString targetElement
                                                 ++ "-"
                                                 ++ String.fromInt transformIndex
+                                        , emptyLabel = "---"
+                                        , hideLabel = True
+                                        , label = Just "Région"
                                         , scope = config.scope
                                         , select = config.updateElementTransformCountry targetElement transformIndex
                                         , selected = transform.country |> Maybe.map .code
+                                        , showCode = True
                                         }
                                 , impact =
                                     impactPill config <| Component.extractImpacts transformResult
