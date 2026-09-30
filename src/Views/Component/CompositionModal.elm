@@ -298,7 +298,7 @@ elementTransportView ({ query } as config) attributes cooling transportedMass ma
         Err error ->
             ProcessRow.view attributes
                 { emptyProcessRow
-                    | label = error |> simpleError (Just "Erreur de calcul de distance")
+                    | label = error |> Alert.simpleError (Just "Erreur de calcul de distance")
                 }
 
         Ok transport ->
@@ -674,17 +674,6 @@ requirementsFromConfig config =
     }
 
 
-simpleError : Maybe String -> String -> Html msg
-simpleError title message =
-    Alert.simple
-        { attributes = []
-        , close = Nothing
-        , content = [ text message ]
-        , level = Alert.Danger
-        , title = title
-        }
-
-
 {-| Production item composition editor modal body.
 -}
 view : Config db msg -> TargetItem -> Html msg
@@ -699,10 +688,10 @@ view ({ query } as config) ( _, itemIndex ) =
                         |> itemCompositionModalBody config ( expandedItem.component, itemIndex ) expandedItem
 
                 Nothing ->
-                    simpleError (Just "Erreur") "Composant introuvable"
+                    Alert.simpleError (Just "Erreur") "Composant introuvable"
 
         ( Err error, _ ) ->
-            simpleError (Just "Erreur") error
+            Alert.simpleError (Just "Erreur") error
 
         ( Ok _, Err error ) ->
-            simpleError (Just "Erreur") error
+            Alert.simpleError (Just "Erreur") error
