@@ -51,9 +51,7 @@ type alias Config db msg =
         , itemLabelCaption : String
         , itemName : String
         }
-
-    -- FIXME: lifeCycle should be already resolved at this stage, avoiding dealing with a Result
-    , lifeCycle : Result String LifeCycle
+    , lifeCycle : LifeCycle
     , openSelectProcessModal : Category -> TargetItem -> Maybe Index -> Autocomplete Process -> msg
     , query : Query
     , removeElement : TargetElement -> msg
@@ -677,9 +675,12 @@ requirementsFromConfig config =
 {-| Production item composition editor modal body.
 -}
 view : Config db msg -> TargetItem -> Html msg
-view ({ query } as config) ( _, itemIndex ) =
-    case ( config.lifeCycle, Component.expandItems config.db query.items ) of
-        ( Ok lifeCycle, Ok expandedItems ) ->
+view ({ lifeCycle, query } as config) ( _, itemIndex ) =
+    case Component.expandItems config.db query.items of
+        Err error ->
+            Alert.simpleError (Just "Erreur") error
+
+        Ok expandedItems ->
             case LE.getAt itemIndex expandedItems of
                 Just expandedItem ->
                     Component.extractItems lifeCycle.production
@@ -689,9 +690,3 @@ view ({ query } as config) ( _, itemIndex ) =
 
                 Nothing ->
                     Alert.simpleError (Just "Erreur") "Composant introuvable"
-
-        ( Err error, _ ) ->
-            Alert.simpleError (Just "Erreur") error
-
-        ( Ok _, Err error ) ->
-            Alert.simpleError (Just "Erreur") error

@@ -553,29 +553,35 @@ noTransportView =
 
 
 itemEditorView : Config db msg -> TargetItem -> Html msg
-itemEditorView config =
-    CompositionModal.view
-        { componentConfig = config.componentConfig
-        , db = config.db
-        , impact = config.impact
-        , labels =
-            { addElement = config.labels.addElement
-            , elementNoun = config.labels.elementNoun
-            , elementNounPlural = config.labels.elementNounPlural
-            , itemLabelCaption = config.labels.itemLabelCaption
-            , itemName = config.labels.itemName
-            }
-        , lifeCycle = config.lifeCycle
-        , openSelectProcessModal = config.openSelectProcessModal
-        , query = config.query
-        , removeElement = config.removeElement
-        , removeElementTransform = config.removeElementTransform
-        , scope = config.scope
-        , updateElementAmount = config.updateElementAmount
-        , updateElementMaterialCountry = config.updateElementMaterialCountry
-        , updateElementTransformCountry = config.updateElementTransformCountry
-        , updateItemName = config.updateItemName
-        }
+itemEditorView config targetItem =
+    case config.lifeCycle of
+        Err error ->
+            Alert.simpleError (Just "Erreur") error
+
+        Ok lifeCycle ->
+            CompositionModal.view
+                { componentConfig = config.componentConfig
+                , db = config.db
+                , impact = config.impact
+                , labels =
+                    { addElement = config.labels.addElement
+                    , elementNoun = config.labels.elementNoun
+                    , elementNounPlural = config.labels.elementNounPlural
+                    , itemLabelCaption = config.labels.itemLabelCaption
+                    , itemName = config.labels.itemName
+                    }
+                , lifeCycle = lifeCycle
+                , openSelectProcessModal = config.openSelectProcessModal
+                , query = config.query
+                , removeElement = config.removeElement
+                , removeElementTransform = config.removeElementTransform
+                , scope = config.scope
+                , updateElementAmount = config.updateElementAmount
+                , updateElementMaterialCountry = config.updateElementMaterialCountry
+                , updateElementTransformCountry = config.updateElementTransformCountry
+                , updateItemName = config.updateItemName
+                }
+                targetItem
 
 
 assemblyView : Config db msg -> LifeCycle -> Html msg
