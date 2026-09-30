@@ -68,7 +68,8 @@ suite =
                     setupTestDb originalDb
             in
             [ describe "applyDefaultOrigins"
-                [ suiteFromResult2 "Purée de tomate FR"
+                [ suiteFromResult2 "process default origin handling"
+                    -- this is "Purée de tomate" component
                     (Component.idFromString "151d05c3-8a6a-4576-a8c2-d5f92fb0806b"
                         |> Result.andThen (\id -> Component.findById id originalDb.components)
                     )
@@ -96,7 +97,7 @@ suite =
                                                 )
                                 }
                         in
-                        [ it "should select the material process default origin"
+                        [ it "should pick the material process default origin"
                             (mashedTomato.elements
                                 |> List.head
                                 |> Maybe.map (.material >> .country)
@@ -117,50 +118,55 @@ suite =
                                 >> Expect.equal (Just ( CountryCode.france, "France" ))
                             )
                         , itFromResult2 "should include that origin in the component score"
-                            (Component.computeImpacts requirements Component.defaultTransportOptions mashedTomato
+                            (mashedTomato
+                                |> Component.computeImpacts requirements Component.defaultTransportOptions
                                 |> Result.map extractEcsImpact
                             )
-                            (Component.computeImpacts requirements Component.defaultTransportOptions withoutMaterialCountry
+                            (withoutMaterialCountry
+                                |> Component.computeImpacts requirements Component.defaultTransportOptions
                                 |> Result.map extractEcsImpact
                             )
                             TestUtils.expectFloatDifferent
                         ]
                     )
                 , suiteFromResult "explicit countries and missing defaults"
-                    (decodeJson Component.decode <|
-                        """
-                        {
-                          "elements": [
-                            {
-                              "amount": 1,
-                              "material": "b94d40bd-3394-59d3-9397-fe097a5f7138",
-                              "transforms": ["de307fb4-99d3-4a01-962b-242ace7b2739"]
-                            },
-                            {
-                              "amount": 1,
-                              "material": { "country": "CN", "id": "b94d40bd-3394-59d3-9397-fe097a5f7138" },
-                              "transforms": [{ "country": "DE", "id": "de307fb4-99d3-4a01-962b-242ace7b2739" }]
-                            },
-                            {
-                              "amount": 1,
-                              "material": "de307fb4-99d3-4a01-962b-242ace7b2739",
-                              "transforms": ["aaaaaaaa-bbbb-4ccc-8ddd-eeeeeeeeeeee"]
-                            }
-                          ],
-                          "name": "fixture",
-                          "scopes": ["food2"]
-                        }
-                        """
+                    (createTestRequirements originalDb
+                        |> Result.andThen
+                            (\requirements ->
+                                Ok
+                                    (\tomato cooking ->
+                                        """
+                                        {
+                                          "elements": [
+                                            { "amount": 1, "material": "{{tomatoId}}", "transforms": ["{{cookingId}}"] },
+                                            {
+                                              "amount": 1,
+                                              "material": { "country": "CN", "id": "{{tomatoId}}" },
+                                              "transforms": [{ "country": "DE", "id": "{{cookingId}}" }]
+                                            },
+                                            { "amount": 1, "material": "{{cookingId}}", "transforms": ["{{unknownId}}"] }
+                                          ],
+                                          "name": "fixture",
+                                          "scopes": ["food2"]
+                                        }
+                                        """
+                                            |> String.replace "{{tomatoId}}" (Process.idToString tomato.id)
+                                            |> String.replace "{{cookingId}}" (Process.idToString cooking.id)
+                                            |> String.replace "{{unknownId}}" nonExistentUuid
+                                    )
+                                    |> RE.andMap (findProcessByLabel requirements "Tomate FR")
+                                    |> RE.andMap (findProcessByLabel requirements "Cuisson des fruits et légumes frais")
+                            )
+                        |> Result.andThen (decodeJson Component.decode)
                     )
                     (\fixture ->
                         let
-                            applied =
-                                Component.applyDefaultOrigins originalDb.processes fixture
-
-                            countryAt elementIndex pick =
-                                applied.elements
+                            countryAt elementIndex selector =
+                                fixture
+                                    |> Component.applyDefaultOrigins originalDb.processes
+                                    |> .elements
                                     |> LE.getAt elementIndex
-                                    |> Maybe.map pick
+                                    |> Maybe.map selector
                         in
                         [ it "should copy a default origin onto an unset material"
                             (countryAt 0 (.material >> .country)
