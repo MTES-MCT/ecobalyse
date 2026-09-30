@@ -499,7 +499,15 @@ addElement targetItem material items =
                                      , transforms = []
                                      }
                                    ]
-                        , name = material.displayName
+                        , name =
+                            -- Only seed the custom name from raw material process when it's the first element of
+                            -- a *still unnamed* custom
+                            case ( custom.name, custom.elements ) of
+                                ( Nothing, [] ) ->
+                                    material.displayName
+
+                                _ ->
+                                    custom.name
                     }
                 )
             |> Ok

@@ -95,6 +95,26 @@ suite =
                                 )
                                 -- it should be equal to the one we swapped in
                                 (Expect.equal (Just validMaterial.id))
+                            , itFromResult "should not overwrite the item name when adding an element"
+                                (chair
+                                    |> Result.andThen (Component.addElement ( testComponent, 1 ) validMaterial)
+                                    |> Result.map (LE.getAt 1 >> Maybe.andThen .custom >> Maybe.andThen .name)
+                                )
+                                (Expect.equal Nothing)
+                            , itFromResult "should preserve an existing custom name when adding an element"
+                                ([ Component.createItem Nothing ]
+                                    |> Component.addElement ( Component.emptyComponent, 0 ) validMaterial
+                                    |> Result.map (Component.updateItemCustomName ( Component.emptyComponent, 0 ) "custom label")
+                                    |> Result.andThen (Component.addElement ( Component.emptyComponent, 0 ) validMaterial)
+                                    |> Result.map (LE.getAt 0 >> Maybe.andThen .custom >> Maybe.andThen .name)
+                                )
+                                (Expect.equal (Just "custom label"))
+                            , itFromResult "should use raw material name when adding the first element to an item"
+                                ([ Component.createItem Nothing ]
+                                    |> Component.addElement ( Component.emptyComponent, 0 ) validMaterial
+                                    |> Result.map (LE.getAt 0 >> Maybe.andThen .custom >> Maybe.andThen .name)
+                                )
+                                (Expect.equal validMaterial.displayName)
                             , it "should reject an invalid element material"
                                 (chair
                                     |> Result.andThen (Component.addElement ( testComponent, 1 ) invalidMaterial)
