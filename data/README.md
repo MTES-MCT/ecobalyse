@@ -242,3 +242,8 @@ This will create:
 All these files are loaded by the Ecobalyse frontend (see in
 https://github.com/MTES-MCT/ecobalyse/ ) and exported both in this repository
 and in a second configurable location (typically the Ecobalyse repository).
+
+## Complements
+
+How complements (food ecosystemic services, forest) are computed during the
+export is described in [docs/complements.md](docs/complements.md).
