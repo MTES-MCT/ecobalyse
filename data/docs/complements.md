@@ -65,7 +65,7 @@ For each service:
    makes all three transforms return 0: no bonus for imported ingredients.
 
 3. Multiply by `landOccupation` (m2.year per unit of process), computed in
-   `export/land_occupation.py`, unless a value is hardcoded in the activity
+   `[export/land_occupation.py](data/ecobalyse_data/export/land_occupation.py)`, unless a value is hardcoded in the activity
    metadata. Skipped for the two grazed grass processes (`grazed_grass_*_key` in
    `settings.toml`), which are already in m2.year.
 
