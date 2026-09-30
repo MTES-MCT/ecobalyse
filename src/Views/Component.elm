@@ -1550,7 +1550,7 @@ transformProcessRows config cooling targetElement transformsResults transforms =
                                         , selected = transform.country |> Maybe.map .code
                                         }
                                 , impact =
-                                    span [ class "ImpactPill" ]
+                                    span [ class "ImpactPill bg-info-subtle" ]
                                         [ Component.extractImpacts transformResult
                                             |> Format.formatImpact config.impact
                                         ]
