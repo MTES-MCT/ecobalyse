@@ -9,14 +9,12 @@ module Views.Component exposing
 
 import Autocomplete exposing (Autocomplete)
 import Data.AutocompleteSelector as AutocompleteSelector
-import Data.Complement as Complement
 import Data.Component as Component
     exposing
         ( Component
         , EndOfLifeMaterialImpacts
         , ExpandedElement
         , ExpandedItem
-        , ExpandedLocalizedProcess
         , ExpandedQuantifiedProcess
         , Index
         , LifeCycle
@@ -28,10 +26,10 @@ import Data.Component as Component
         , TargetElement
         , TargetItem
         )
-import Data.Component.Amount as Amount exposing (Amount)
+import Data.Component.Amount exposing (Amount)
 import Data.Component.Config as Config
 import Data.Component.ProductCategory as ProductCategory exposing (ProductCategory)
-import Data.Country as Country exposing (Country)
+import Data.Country exposing (Country)
 import Data.Country.Code as CountryCode
 import Data.Impact as Impact exposing (Impacts)
 import Data.Impact.Definition as Definition exposing (Definition)
@@ -48,13 +46,13 @@ import Html.Events as Events exposing (..)
 import Json.Encode as Encode
 import List.Extra as LE
 import Mass exposing (Mass)
-import Quantity
 import Route exposing (Route)
 import Views.Alert as Alert
 import Views.Button as Button
+import Views.Component.AmountInput as AmountInput
+import Views.Component.CompositionModal as CompositionModal
 import Views.Component.DownArrow as DownArrow
 import Views.Component.ItemRow as ItemRow exposing (emptyItemRow)
-import Views.Component.ProcessRow as ProcessRow exposing (emptyProcessRow)
 import Views.Format as Format
 import Views.Icon as Icon
 import Views.Link as Link
@@ -231,21 +229,6 @@ addProductionItemButton ({ db } as config) =
         ]
 
 
-addElementButton : Config db msg -> TargetItem -> Html msg
-addElementButton config targetItem =
-    button
-        [ type_ "button"
-        , class "btn btn-primary"
-        , class "d-flex justify-content-center align-items-center gap-1"
-        , createElementMaterialAutocomplete config.db config.scope
-            |> config.openSelectProcessModal Category.Material targetItem Nothing
-            |> onClick
-        ]
-        [ Icon.plus
-        , text config.labels.addElement
-        ]
-
-
 addPackagingButton : Config db msg -> Html msg
 addPackagingButton ({ query } as config) =
     let
@@ -273,46 +256,6 @@ addPackagingButton ({ query } as config) =
         ]
         [ Icon.plus
         , text "Ajouter un emballage"
-        ]
-
-
-{-| Creates an Autocomplete listing available, scoped, non-packaging materials
--}
-createElementMaterialAutocomplete : Component.DataContainer db -> Scope -> Autocomplete Process
-createElementMaterialAutocomplete db scope =
-    Category.Material
-        |> listAvailableProcesses { db = db, scope = scope }
-        -- Exclude packaging materials as they're available in a dedicated section
-        |> List.filter (\{ categories } -> not <| List.member Category.Packaging categories)
-        |> AutocompleteSelector.init Process.getDisplayName
-
-
-addElementTransformButton : Config db msg -> Process -> TargetElement -> Html msg
-addElementTransformButton { db, openSelectProcessModal, query, scope } material ( targetItem, elementIndex ) =
-    let
-        availableTransformProcesses =
-            db.processes
-                |> List.filter .visible
-                |> Scope.anyOf [ scope ]
-                |> Process.listAvailableMaterialTransforms material
-                |> List.sortBy Process.getDisplayName
-                |> Process.available (Component.elementTransforms ( targetItem, elementIndex ) query.items)
-
-        autocompleteState =
-            availableTransformProcesses
-                |> AutocompleteSelector.init Process.getDisplayName
-    in
-    button
-        [ type_ "button"
-        , class "btn btn-sm btn-outline-primary text-nowrap"
-        , class "d-flex align-items-center gap-1"
-        , disabled <| List.isEmpty availableTransformProcesses
-        , autocompleteState
-            |> openSelectProcessModal Category.Transform targetItem (Just elementIndex)
-            |> onClick
-        ]
-        [ Icon.plus
-        , text "Ajouter une transformation"
         ]
 
 
@@ -699,7 +642,7 @@ quantifiedProcessList { db, impact } lifeCycle listConfig quantifiedProcesses =
                                 (\index { amount, process } ->
                                     tr []
                                         [ td [ class "ps-3 align-middle text-nowrap", style "min-width" "160px" ]
-                                            [ amountInput
+                                            [ AmountInput.view
                                                 { event = listConfig.updateAmount index
                                                 , readonly = List.member Category.ProductMassDependent process.categories
                                                 , unit = process.unit
@@ -845,58 +788,6 @@ noTransportView =
     DownArrow.view [] []
 
 
-type alias AmountInputConfig msg =
-    { event : Maybe Amount -> msg
-    , readonly : Bool
-    , unit : Process.Unit
-    }
-
-
-amountInput : AmountInputConfig msg -> Amount -> Html msg
-amountInput { event, readonly, unit } amount =
-    let
-        stringAmount =
-            Amount.toString amount
-
-        stepValue =
-            case String.split "." stringAmount of
-                -- This is an integer, increment by .1 for convenience
-                [ _ ] ->
-                    "0.1"
-
-                -- This is a float, increment at the precision of the float
-                [ _, decimals ] ->
-                    "0." ++ String.padLeft (String.length decimals) '0' "1"
-
-                -- Should not happen, but who knows?
-                _ ->
-                    "0.01"
-    in
-    div [ class "AmountInput input-group" ]
-        [ input
-            ([ type_ "number"
-             , class "form-control form-control-sm text-end incdec-arrows-left"
-             , value stringAmount
-             , Attr.min "0"
-             , step stepValue
-             , onInput <| Amount.fromString >> event
-             ]
-                ++ (if readonly then
-                        [ Attr.readonly readonly
-                        , title "Cette quantité n'est pas modifiable"
-                        , class "cursor-not-allowed"
-                        ]
-
-                    else
-                        []
-                   )
-            )
-            []
-        , small [ class "input-group-text fs-8" ]
-            [ text <| Process.unitToString unit ]
-        ]
-
-
 type alias CountrySelector msg =
     { attrs : List (Attribute msg)
     , countries : List Country
@@ -1000,320 +891,29 @@ elementSummaryRow config itemResults { amount, material, transforms } elementRes
 
 
 itemEditorView : Config db msg -> TargetItem -> Html msg
-itemEditorView ({ query } as config) ( _, itemIndex ) =
-    case ( config.lifeCycle, Component.expandItems config.db query.items ) of
-        ( Ok lifeCycle, Ok expandedItems ) ->
-            case LE.getAt itemIndex expandedItems of
-                Just expandedItem ->
-                    Component.extractItems lifeCycle.production
-                        |> LE.getAt itemIndex
-                        |> Maybe.withDefault Component.emptyResults
-                        |> itemCompositionModalBody config ( expandedItem.component, itemIndex ) expandedItem
-
-                Nothing ->
-                    simpleError (Just "Erreur") "Composant introuvable"
-
-        ( Err error, _ ) ->
-            simpleError (Just "Erreur") error
-
-        ( Ok _, Err error ) ->
-            simpleError (Just "Erreur") error
-
-
-itemCompositionModalBody : Config db msg -> TargetItem -> ExpandedItem -> Results -> Html msg
-itemCompositionModalBody config targetItem { component, elements } itemResults =
-    let
-        elementCount =
-            List.length elements
-
-        compositionStat : String -> List (Html msg) -> Html msg
-        compositionStat caption value =
-            div [ class "d-flex flex-column" ]
-                [ dt [ class "fs-8 text-muted order-2 mb-0" ] [ text caption ]
-                , dd [ class "fw-bold text-secondary order-1 mb-0 ps-0" ] value
-                ]
-    in
-    div [ class "d-flex flex-column gap-3 p-3" ]
-        [ div [ class "d-flex flex-row align-items-center gap-2" ]
-            [ label [ class "text-nowrap", for "item-label" ] [ text config.labels.itemLabelCaption ]
-            , input
-                [ type_ "text"
-                , class "form-control"
-                , id "item-label"
-                , placeholder config.labels.itemName
-                , value component.name
-                , onInput (config.updateItemName targetItem)
-                ]
-                []
-            ]
-
-        -- FIXME: responsive gap
-        , div
-            [ class "d-flex flex-wrap gap-4 align-items-center bg-info-subtle border rounded row-gap-1 column-gap-2 column-gap-lg-5 p-3"
-            , attribute "aria-live" "polite"
-            ]
-            [ span [ class "d-flex align-items-center gap-2" ]
-                [ span [ class "fs-4 mt-1 text-secondary opacity-75", attribute "aria-hidden" "true" ] [ Icon.info ]
-                , span [ class "fw-bold text-secondary" ] [ text "Détails de la composition" ]
-                ]
-            , compositionStat
-                (String.toLower <|
-                    if elementCount == 1 then
-                        config.labels.elementNoun
-
-                    else
-                        config.labels.elementNounPlural
-                )
-                [ text <| String.fromInt elementCount ]
-            , compositionStat "poids total"
-                [ Component.extractUnitMass itemResults
-                    |> Format.kg
-                ]
-            , compositionStat "impact total"
-                [ Component.getTotalImpacts itemResults
-                    |> Format.formatImpact config.impact
-                ]
-            ]
-        , div [ class "d-flex justify-content-between align-items-center gap-2" ]
-            [ h3 [ class "h5 mb-0" ]
-                [ text <| "Liste des " ++ String.toLower config.labels.elementNounPlural ++ " et leurs étapes de transformation" ]
-            , addElementButton config targetItem
-            ]
-        , div [ class "table-responsive" ]
-            [ table [ class "CompositionElements table table-sm table-borderless mb-0 w-100" ]
-                (caption [ class "visually-hidden" ]
-                    [ text <| "Composition des " ++ String.toLower config.labels.elementNounPlural ]
-                    :: (if List.isEmpty elements then
-                            [ tbody []
-                                [ ProcessRow.view [] { emptyProcessRow | label = text "Aucun élément" }
-                                ]
-                            ]
-
-                        else
-                            List.map3
-                                (\elementIndex expandedElement elementResults ->
-                                    tbody [ class "composition-element" ] <|
-                                        elementCompositionRows config
-                                            ( targetItem, elementIndex )
-                                            expandedElement
-                                            itemResults
-                                            elementResults
-                                )
-                                (List.range 0 (elementCount - 1))
-                                elements
-                                (Component.extractItems itemResults)
-                                |> List.intersperse
-                                    -- use an empty table row to separate elements
-                                    (tbody [ class "composition-element-gap" ]
-                                        [ tr [ attribute "aria-hidden" "true" ]
-                                            [ td [ colspan 6 ] [] ]
-                                        ]
-                                    )
-                       )
-                )
-            ]
-        ]
-
-
-impactPill : Config db msg -> Impacts -> Html msg
-impactPill config impacts =
-    span [ class "ImpactPill bg-info-subtle" ]
-        [ impacts |> Format.formatImpact config.impact
-        ]
-
-
-{-| Renders a single item element's composition rows (header, summary, raw material, transforms, transport)
--}
-elementCompositionRows : Config db msg -> TargetElement -> ExpandedElement -> Results -> Results -> List (Html msg)
-elementCompositionRows config targetElement ({ amount, material, transforms } as expandedElement) itemResults elementResults =
-    let
-        elementCooling =
-            Process.isTransportedCooled material.process
-
-        stageItems =
-            Component.extractItems elementResults
-
-        materialResults =
-            stageItems
-                |> List.filter (Component.extractStage >> (==) (Just Component.MaterialStage))
-                |> List.head
-                |> Maybe.withDefault Component.emptyResults
-
-        transformsResults =
-            stageItems
-                |> List.filter (Component.extractStage >> (==) (Just Component.TransformStage))
-
-        elementMass =
-            Component.extractMass elementResults
-
-        share =
-            Component.extractUnitMass itemResults
-                |> Component.elementMassShare elementMass
-
-        transportImpacts =
-            stageItems
-                |> List.filter (Component.extractStage >> (==) (Just Component.TransportStage))
-                |> List.map Component.extractImpacts
-                |> Impact.sumImpacts
-
-        totalImpact =
-            impactPill config <| Component.getTotalImpacts elementResults
-
-        elementSummary =
-            ProcessRow.view [ class "fs-7" ]
-                { emptyProcessRow
-                    | amount =
-                        amount |> elementAmountInput config targetElement material.process
-                    , impact =
-                        if transportImpacts == Impact.empty then
-                            totalImpact
-
-                        else
-                            span []
-                                [ totalImpact
-                                , span [ class "text-muted fw-normal" ]
-                                    [ text " (dont transport "
-                                    , transportImpacts |> Format.formatImpact config.impact
-                                    , text ")"
-                                    ]
-                                ]
-                    , label =
-                        span [ class "text-muted" ]
-                            [ text <| "Poids du " ++ String.toLower config.labels.elementNoun ++ "\u{00A0}: "
-                            , span [ class "fw-bold" ] [ Format.kg elementMass ]
-                            , text " ("
-                            , share |> Format.splitAsPercentage 0
-                            , text ")"
-                            ]
-                }
-
-        transformRows =
-            if List.isEmpty transforms then
-                [ ProcessRow.view [ class "fs-7 text-muted" ]
-                    { emptyProcessRow | label = text "Aucune transformation" }
-                ]
-
-            else
-                ProcessRow.columnHeaders
-                    { amount = "Quantité"
-                    , country = "Origine"
-                    , label = "Intitulé"
-                    , waste = "Pertes"
-                    }
-                    :: transformProcessRows config
-                        elementCooling
-                        targetElement
-                        transformsResults
-                        transforms
-                    ++ (LE.last transformsResults
-                            |> Maybe.map Component.extractMass
-                            |> Maybe.withDefault (Component.extractMass materialResults)
-                            |> finalElementTransportView config elementCooling (Component.getFinalElementCountry expandedElement)
-                       )
-    in
-    elementHeader config targetElement
-        :: elementSummary
-        :: compositionSectionHeading "Matière première" Nothing
-        :: materialCompositionRows config targetElement materialResults material
-        ++ materialTransportView config elementCooling materialResults material transforms
-        ++ (compositionSectionHeading "Étape de transformation"
-                (Just <| addElementTransformButton config material.process targetElement)
-                :: transformRows
-           )
-
-
-compositionSectionHeading : String -> Maybe (Html msg) -> Html msg
-compositionSectionHeading title maybeAction =
-    -- Note: heading rows span the table because they're not data. Process rows keep defining
-    -- the shared columns, so amounts and impacts stay aligned across all elements
-    tr [ class "composition-section" ]
-        [ td [ class "p-3 pb-2", colspan 6 ]
-            [ div [ class "d-flex justify-content-between align-items-center gap-2" ]
-                [ span [ class "fw-bold" ] [ text title ]
-                , maybeAction |> Maybe.withDefault (text "")
-                ]
-            ]
-        ]
-
-
-elementHeader : Config db msg -> TargetElement -> Html msg
-elementHeader config (( ( component, _ ), elementIndex ) as targetElement) =
-    tr []
-        [ td [ class "py-2 px-3", colspan 6 ]
-            [ div [ class "d-flex justify-content-between align-items-center gap-2" ]
-                [ span [ class "fw-bold" ]
-                    [ text <| config.labels.elementNoun ++ " " ++ String.fromInt (elementIndex + 1) ]
-                , if List.length component.elements > 1 then
-                    deleteElementButton config targetElement
-
-                  else
-                    text ""
-                ]
-            ]
-        ]
-
-
-deleteElementButton : Config db msg -> TargetElement -> Html msg
-deleteElementButton config targetElement =
-    button
-        [ type_ "button"
-        , class "btn btn-sm btn-outline-secondary text-nowrap"
-        , class "d-flex align-items-center gap-1"
-        , attribute "aria-label" "Supprimer l’élément"
-        , onClick (config.removeElement targetElement)
-        ]
-        [ Icon.trash
-        , text "Supprimer"
-        ]
-
-
-elementAmountInput : Config db msg -> TargetElement -> Process -> Amount -> Html msg
-elementAmountInput config targetElement process amount =
-    if config.scope == Scope.Textile then
-        Format.amount process amount
-
-    else
-        amountInput
-            { event = config.updateElementAmount targetElement
-            , readonly = False
-            , unit = process.unit
+itemEditorView config =
+    CompositionModal.view
+        { componentConfig = config.componentConfig
+        , db = config.db
+        , impact = config.impact
+        , labels =
+            { addElement = config.labels.addElement
+            , elementNoun = config.labels.elementNoun
+            , elementNounPlural = config.labels.elementNounPlural
+            , itemLabelCaption = config.labels.itemLabelCaption
+            , itemName = config.labels.itemName
             }
-            amount
-
-
-{-| Transport that _leaves_ an element's raw material step:
-
-  - with a transform, it's the transport toward the first transformation step
-  - without any transforms, it is the one toward assembly
-
--}
-materialTransportView : Config db msg -> Bool -> Results -> ExpandedLocalizedProcess -> List ExpandedLocalizedProcess -> List (Html msg)
-materialTransportView config cooling materialResults material transforms =
-    case transforms of
-        firstTransform :: _ ->
-            [ firstTransform.country
-                |> elementTransportView config
-                    []
-                    cooling
-                    (Component.extractMass materialResults)
-                    material.country
-            ]
-
-        [] ->
-            Component.extractMass materialResults
-                |> finalElementTransportView config cooling material.country
-
-
-{-| Render transports from the last transform step of an element to the assembly or distribution stage
--}
-finalElementTransportView : Config db msg -> Bool -> Maybe Country -> Mass -> List (Html msg)
-finalElementTransportView ({ db, query, scope } as config) cooling elementCountry mass =
-    db.countries
-        |> Scope.anyOf [ scope ]
-        |> Country.resolveMaybe query.assembly.country
-        |> Result.map (elementTransportView config [ class "subdued" ] cooling mass elementCountry)
-        |> Result.map List.singleton
-        |> Result.withDefault []
+        , lifeCycle = config.lifeCycle
+        , openSelectProcessModal = config.openSelectProcessModal
+        , query = config.query
+        , removeElement = config.removeElement
+        , removeElementTransform = config.removeElementTransform
+        , scope = config.scope
+        , updateElementAmount = config.updateElementAmount
+        , updateElementMaterialCountry = config.updateElementMaterialCountry
+        , updateElementTransformCountry = config.updateElementTransformCountry
+        , updateItemName = config.updateItemName
+        }
 
 
 listAvailableProcesses :
@@ -1326,298 +926,6 @@ listAvailableProcesses { db, scope } category =
         |> Scope.anyOf [ scope ]
         |> Process.listByCategory category
         |> List.sortBy Process.getDisplayName
-
-
-modifyMaterialButton : Config db msg -> TargetElement -> Html msg
-modifyMaterialButton config ( targetItem, elementIndex ) =
-    button
-        [ type_ "button"
-        , class "btn btn-sm btn-outline-primary text-nowrap"
-        , attribute "aria-label" "Changer de matière première"
-        , listAvailableProcesses config Category.Material
-            |> AutocompleteSelector.init Process.getDisplayName
-            |> config.openSelectProcessModal Category.Material targetItem (Just elementIndex)
-            |> onClick
-        ]
-        [ Icon.pencil ]
-
-
-materialCompositionRows :
-    Config db msg
-    -> TargetElement
-    -> Results
-    -> ExpandedLocalizedProcess
-    -> List (Html msg)
-materialCompositionRows config targetElement materialResults material =
-    let
-        complementsImpacts =
-            Component.extractComplementsImpacts materialResults
-
-        materialRow =
-            ProcessRow.view [ class "fs-7" ]
-                { emptyProcessRow
-                    | actions = modifyMaterialButton config targetElement
-                    , amount =
-                        Component.extractAmount materialResults
-                            |> Format.amount material.process
-                    , country =
-                        regionSelector
-                            { countries = config.db.countries
-                            , domId = "material-country-" ++ Component.targetElementToString targetElement
-                            , scope = config.scope
-                            , select = config.updateElementMaterialCountry targetElement
-                            , selected = material.country |> Maybe.map .code
-                            }
-                    , impact =
-                        impactPill config <| Component.getTotalImpacts materialResults
-                    , label =
-                        span [ class "fw-bold", title <| Process.getDisplayName material.process ]
-                            [ text <| Process.getDisplayName material.process
-                            ]
-                }
-
-        complementsRow =
-            if complementsImpacts /= Complement.emptyComplementsResultsImpacts then
-                [ ProcessRow.view [ class "fs-7 text-muted" ]
-                    { emptyProcessRow
-                        | impact =
-                            complementsImpacts
-                                |> Complement.mergeComplementsResultsImpacts
-                                |> Format.formatImpact config.impact
-                        , label =
-                            span
-                                [ class "cursor-help fs-8"
-                                , title (Format.formatComplementsResultsImpactsToString config.impact complementsImpacts)
-                                ]
-                                [ span [ class "ComponentElementIcon" ] [ Icon.calculator ]
-                                , text "Dont compléments"
-                                ]
-                    }
-                ]
-
-            else
-                []
-    in
-    materialRow :: complementsRow
-
-
-elementTransportView : Config db msg -> List (Attribute msg) -> Bool -> Mass -> Maybe Country -> Maybe Country -> Html msg
-elementTransportView ({ query } as config) attributes cooling transportedMass maybeFrom maybeTo =
-    let
-        { transportOptions } =
-            query
-
-        displayElementTransport =
-            transportedMass
-                |> Component.computeTransportedMassImpacts (requirementsFromConfig config)
-                    -- Notes:
-                    --   - air transport is always disabled before assembly (see Component.computeTransports)
-                    --   - cooling before assembly is driven by the material process, not the transport option
-                    { transportOptions | byAir = Split.zero, cooling = Just cooling }
-                    maybeFrom
-                    maybeTo
-    in
-    case displayElementTransport of
-        Err error ->
-            ProcessRow.view attributes
-                { emptyProcessRow
-                    | label = error |> simpleError (Just "Erreur de calcul de distance")
-                }
-
-        Ok transport ->
-            let
-                renderCountry maybeCountry =
-                    case maybeCountry of
-                        Just { code, name } ->
-                            abbr [ title name ] [ text <| CountryCode.toString code ]
-
-                        Nothing ->
-                            text "Région inconnue"
-
-                renderModeIfAny icon distance =
-                    if distance |> Quantity.greaterThan Quantity.zero then
-                        [ icon, Format.km distance ]
-
-                    else
-                        []
-            in
-            ProcessRow.view (class "fs-7 text-muted" :: attributes)
-                { emptyProcessRow
-                    | country =
-                        div [ class "d-flex flex-wrap justify-content-end align-items-center gap-2" ] <|
-                            -- Note: it's supposed for now that a plane can transport either cooled or non-cooled stuff
-                            renderModeIfAny Icon.plane transport.air
-                                ++ renderModeIfAny Icon.boat transport.sea
-                                ++ renderModeIfAny Icon.boatCooled transport.seaCooled
-                                ++ renderModeIfAny Icon.bus transport.road
-                                ++ renderModeIfAny Icon.busCooled transport.roadCooled
-                                ++ [ Icon.package
-                                   , Format.kg transportedMass
-                                   ]
-                    , impact =
-                        transport.impacts
-                            |> Format.formatImpact config.impact
-                    , label =
-                        div [ class "d-flex align-items-center gap-1 text-nowrap text-muted" ]
-                            [ text "Transport\u{00A0}"
-                            , renderCountry maybeFrom
-                            , text " → "
-                            , renderCountry maybeTo
-                            ]
-                }
-
-
-transformProcessRows :
-    Config db msg
-    -> Bool
-    -> TargetElement
-    -> List Results
-    -> List ExpandedLocalizedProcess
-    -> List (Html msg)
-transformProcessRows config cooling targetElement transformsResults transforms =
-    transforms
-        |> List.indexedMap
-            (\transformIndex transform ->
-                let
-                    transformResult =
-                        transformsResults
-                            |> LE.getAt transformIndex
-                            |> Maybe.withDefault Component.emptyResults
-
-                    -- note: outbound transport from the raw material step is rendered in the material section
-                    inboundTransport =
-                        case transformIndex of
-                            0 ->
-                                []
-
-                            index ->
-                                let
-                                    previousMass =
-                                        transformsResults
-                                            |> LE.getAt (index - 1)
-                                            |> Maybe.withDefault Component.emptyResults
-                                            |> Component.extractMass
-
-                                    previousCountry =
-                                        transforms
-                                            |> LE.getAt (index - 1)
-                                            |> Maybe.andThen .country
-                                in
-                                [ transform.country
-                                    |> elementTransportView config [] cooling previousMass previousCountry
-                                ]
-
-                    tooltipText =
-                        "Procédé\u{00A0}: "
-                            ++ Process.getDisplayName transform.process
-                            ++ (transform.country
-                                    |> Component.loadEnergyMixes config.componentConfig
-                                    |> Result.map
-                                        (\{ elec, heat } ->
-                                            "\nÉlectricité\u{00A0}: "
-                                                ++ Process.getDisplayName elec
-                                                ++ "\nChaleur\u{00A0}: "
-                                                ++ Process.getDisplayName heat
-                                        )
-                                    |> Result.withDefault ""
-                               )
-                in
-                inboundTransport
-                    ++ [ ProcessRow.view [ class "fs-7 border-top" ]
-                            { emptyProcessRow
-                                | actions =
-                                    button
-                                        [ type_ "button"
-                                        , class "btn btn-sm btn-outline-secondary"
-                                        , attribute "aria-label" "Supprimer la transformation"
-                                        , transformIndex
-                                            |> config.removeElementTransform targetElement
-                                            |> onClick
-                                        ]
-                                        [ Icon.trash ]
-                                , amount =
-                                    Component.extractAmount transformResult
-                                        |> Format.amount transform.process
-                                , country =
-                                    regionSelector
-                                        { countries = config.db.countries
-                                        , domId =
-                                            "transform-country-"
-                                                ++ Component.targetElementToString targetElement
-                                                ++ "-"
-                                                ++ String.fromInt transformIndex
-                                        , scope = config.scope
-                                        , select = config.updateElementTransformCountry targetElement transformIndex
-                                        , selected = transform.country |> Maybe.map .code
-                                        }
-                                , impact =
-                                    impactPill config <| Component.extractImpacts transformResult
-                                , label =
-                                    span [ class "fw-bold cursor-help", title tooltipText ]
-                                        [ text <| Process.getDisplayName transform.process
-                                        ]
-                                , waste =
-                                    Format.qtyVariationRatioAsWastePercent transform.process.qtyVariationRatio
-                            }
-                       ]
-            )
-        |> List.concat
-
-
-type alias RegionSelector msg =
-    { countries : List Country
-    , domId : String
-    , scope : Scope
-    , select : Maybe CountryCode.Code -> msg
-    , selected : Maybe CountryCode.Code
-    }
-
-
-regionSelector : RegionSelector msg -> Html msg
-regionSelector config =
-    let
-        scopedCountries =
-            config.countries
-                |> Scope.anyOf [ config.scope ]
-                |> List.sortBy .name
-    in
-    div []
-        [ label [ class "visually-hidden", for config.domId ] [ text "Région" ]
-        , scopedCountries
-            |> List.map (\{ code, name } -> ( name, Just code ))
-            |> (::) ( "Par défaut", Nothing )
-            |> List.map
-                (\( name, maybeCode ) ->
-                    option
-                        [ maybeCode
-                            |> Maybe.map CountryCode.toString
-                            |> Maybe.withDefault ""
-                            |> value
-                        , selected <| config.selected == maybeCode
-                        ]
-                        [ text <|
-                            case maybeCode of
-                                Just code ->
-                                    name ++ " (" ++ CountryCode.toString code ++ ")"
-
-                                Nothing ->
-                                    "---"
-                        ]
-                )
-            |> select
-                [ class "RegionSelector form-select form-select-sm w-100"
-                , id config.domId
-                , autocomplete False
-                , onInput <|
-                    \str ->
-                        config.select <|
-                            if String.isEmpty str || str == "---" then
-                                Nothing
-
-                            else
-                                Just <| CountryCode.fromString str
-                ]
-        ]
 
 
 quantityInput : Config db msg -> Index -> Quantity -> Html msg
