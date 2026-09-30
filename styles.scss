@@ -752,6 +752,40 @@ q {
   }
 }
 
+.CompositionElements {
+  border-collapse: separate;
+  border-spacing: 0;
+
+  > tbody.composition-element {
+    > tr:first-child > td {
+      background-color: #f6f6f6;
+      border-top: 1px solid #ddd;
+    }
+
+    > tr:last-child > td {
+      border-bottom: 1px solid #ddd;
+    }
+
+    > tr > td:first-child {
+      border-left: 1px solid #ddd;
+    }
+
+    > tr > td:last-child {
+      border-right: 1px solid #ddd;
+    }
+
+    > tr.composition-section > td {
+      border-top: 1px solid #eee;
+    }
+  }
+
+  > tbody.composition-element-gap > tr > td {
+    border: 0;
+    height: 1rem;
+    padding: 0;
+  }
+}
+
 .CopyButton {
   overflow-wrap: anywhere;
   &:hover {
@@ -1110,6 +1144,13 @@ q {
       margin-bottom: 5px;
     }
   }
+}
+
+.ImpactPill {
+  border-radius: 4px;
+  color: #2925a2;
+  font-weight: bold;
+  padding: 4px 8px;
 }
 
 .ImpactSelector {

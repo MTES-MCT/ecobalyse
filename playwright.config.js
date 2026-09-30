@@ -1,4 +1,5 @@
 // @ts-check
+import { execFileSync } from "node:child_process";
 import { defineConfig, devices } from "@playwright/test";
 
 /**
@@ -8,6 +9,26 @@ import { defineConfig, devices } from "@playwright/test";
 import dotenv from "dotenv";
 import path from "path";
 dotenv.config({ path: path.resolve(__dirname, ".env") });
+
+const devServerUrl = "http://localhost:1234";
+let devServerIsRunning = false;
+
+// Check if the dev server is already running
+try {
+  execFileSync("curl", ["--silent", "--output", "/dev/null", "--max-time", "1", devServerUrl], {
+    stdio: "ignore",
+  });
+  devServerIsRunning = true;
+} catch {
+  devServerIsRunning = false;
+}
+
+if (devServerIsRunning) {
+  console.error(
+    `A server is already running on ${devServerUrl}. Stop it before running the e2e tests.`,
+  );
+  process.exit(1);
+}
 
 /**
  * @see https://playwright.dev/docs/test-configuration
@@ -63,7 +84,7 @@ export default defineConfig({
       NODE_ENV: "test",
     },
     url: "http://localhost:1234",
-    reuseExistingServer: !process.env.CI,
+    reuseExistingServer: false,
   },
 
   // Avoid git related timeouts

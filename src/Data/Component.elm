@@ -47,20 +47,17 @@ module Data.Component exposing
     , createItem
     , decode
     , decodeItem
-    , decodeList
     , decodeListFromJsonString
     , decodeQuery
     , defaultDurability
     , defaultTransportOptions
     , elementMassShare
     , elementTransforms
-    , elementsToString
     , emptyAssembly
     , emptyComponent
     , emptyLifeCycle
     , emptyQuery
     , emptyResults
-    , encode
     , encodeBase64Query
     , encodeId
     , encodeItem
@@ -89,7 +86,6 @@ module Data.Component exposing
     , getEndOfLifeTotalMass
     , getFinalElementCountry
     , getPackagingProcessId
-    , getResultedElement
     , getTotalImpacts
     , getTransportCooling
     , idFromString
@@ -1623,18 +1619,6 @@ emptyResults =
         }
 
 
-encode : Component -> Encode.Value
-encode v =
-    EU.optionalPropertiesObject
-        [ ( "comment", v.comment |> Maybe.map Encode.string )
-        , ( "elements", v.elements |> Encode.list encodeElement |> Just )
-        , ( "id", v.id |> Maybe.map encodeId )
-        , ( "name", v.name |> Encode.string |> Just )
-        , ( "published", v.published |> Encode.bool |> Just )
-        , ( "scopes", [ v.scope ] |> Encode.list Scope.encode |> Just )
-        ]
-
-
 encodeBase64Query : Query -> String
 encodeBase64Query =
     encodeQuery >> Encode.encode 0 >> Base64.encode
@@ -2354,24 +2338,6 @@ getMaterialDistribution (Results results) =
                         )
             )
             (AnyDict.empty Category.materialTypeToString)
-
-
-{-| Get an expanded element, its results, and the parent item quantity at a given location in the elements tree.
--}
-getResultedElement : ( Index, Index ) -> Results -> List ExpandedItem -> Result String ResultedElement
-getResultedElement ( itemIndex, elementIndex ) productionResults expandedItems =
-    expandedItems
-        |> LE.getAt itemIndex
-        |> Result.fromMaybe errors.itemNotFound
-        |> Result.andThen
-            (\{ elements, quantity } ->
-                Result.map2 (\expandedElement results -> ( quantity, expandedElement, results ))
-                    (elements
-                        |> LE.getAt elementIndex
-                        |> Result.fromMaybe errors.elementNotFound
-                    )
-                    (getElementResult ( itemIndex, elementIndex ) productionResults)
-            )
 
 
 {-| Create a list of expanded elements with their associated results and parent item quantity.

@@ -3,6 +3,7 @@ module Views.Alert exposing
     , backendError
     , serverError
     , simple
+    , simpleError
     )
 
 import Data.Env as Env
@@ -129,6 +130,17 @@ escapeUrl =
         >> String.replace "<" "%3C"
         >> String.replace ">" "%3E"
         >> String.replace "&" "%26"
+
+
+simpleError : Maybe String -> String -> Html msg
+simpleError title message =
+    simple
+        { attributes = []
+        , close = Nothing
+        , content = [ text message ]
+        , level = Danger
+        , title = title
+        }
 
 
 serverError : String -> Html msg

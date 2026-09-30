@@ -2,37 +2,29 @@ module Views.Component exposing
     ( Config
     , Context(..)
     , editorView
-    , elementEditModalView
+    , itemEditorView
     , productCategorySelectorView
     , scopeLabels
     )
 
 import Autocomplete exposing (Autocomplete)
 import Data.AutocompleteSelector as AutocompleteSelector
-import Data.Complement as Complement
 import Data.Component as Component
     exposing
-        ( Component
-        , EndOfLifeMaterialImpacts
-        , ExpandedElement
-        , ExpandedItem
-        , ExpandedLocalizedProcess
+        ( EndOfLifeMaterialImpacts
         , ExpandedQuantifiedProcess
         , Index
         , LifeCycle
-        , ProductionItem(..)
+        , ProductionItem
         , Quantity
         , Query
         , Requirements
-        , ResultedElement
-        , Results
         , TargetElement
         , TargetItem
         )
-import Data.Component.Amount as Amount exposing (Amount)
+import Data.Component.Amount exposing (Amount)
 import Data.Component.Config as Config
 import Data.Component.ProductCategory as ProductCategory exposing (ProductCategory)
-import Data.Country as Country exposing (Country)
 import Data.Country.Code as CountryCode
 import Data.Impact as Impact exposing (Impacts)
 import Data.Impact.Definition as Definition exposing (Definition)
@@ -49,15 +41,16 @@ import Html.Events as Events exposing (..)
 import Json.Encode as Encode
 import List.Extra as LE
 import Mass exposing (Mass)
-import Quantity
-import Result.Extra as RE
 import Route exposing (Route)
 import Views.Alert as Alert
 import Views.Button as Button
+import Views.Component.AmountInput as AmountInput
+import Views.Component.CompositionModal as CompositionModal
 import Views.Component.DownArrow as DownArrow
+import Views.Component.ProductionTable as ProductionTable
+import Views.Component.RegionSelector as RegionSelector
 import Views.Format as Format
 import Views.Icon as Icon
-import Views.Link as Link
 import Views.Transport as TransportView
 
 
@@ -73,7 +66,7 @@ type alias Config db msg =
     , labels : Labels
     , lifeCycle : Result String LifeCycle
     , noOp : msg
-    , openEditElementModal : Component -> TargetElement -> msg
+    , openItemEditModal : TargetItem -> msg
     , openSelectAssemblyOperationModal : Autocomplete Process -> msg
     , openSelectConsumptionModal : Autocomplete Process -> msg
     , openSelectPackagingModal : Autocomplete Process -> msg
@@ -104,8 +97,7 @@ type alias Config db msg =
 
 
 type Context
-    = AdminContext
-    | GenericContext
+    = GenericContext
     | TextileTrimsContext
 
 
@@ -124,10 +116,15 @@ requirementsFromConfig config =
 
 type alias Labels =
     { add : String
+    , addElement : String
+    , elementNoun : String
+    , elementNounPlural : String
     , empty : String
-    , heading : String
-    , label : String
-    , name : String
+    , itemLabelCaption : String
+    , itemName : String
+    , noun : String
+    , nounPlural : String
+    , productionHeading : String
     , search : String
     , select : String
     }
@@ -140,107 +137,62 @@ FIXME: we should make these configurable in components/config.json
 -}
 scopeLabels : Context -> Scope -> Labels
 scopeLabels context scope =
-    case ( context, scope ) of
-        ( GenericContext, Scope.Generic Scope.Food2 ) ->
-            { add = "Ajouter un ingrédient"
-            , empty = "Aucun ingrédient"
-            , heading = "Recette"
-            , label = "Nom de l'ingrédient"
-            , name = "Ingrédient"
-            , search = "tapez ici le nom de l’ingrédient pour le rechercher"
-            , select = "Sélectionnez un ingrédient"
-            }
+    case context of
+        GenericContext ->
+            case scope of
+                Scope.Generic Scope.Food2 ->
+                    { add = "Ajouter un ingrédient"
+                    , addElement = "Ajouter un sous-ingrédient"
+                    , elementNoun = "Sous-ingrédient"
+                    , elementNounPlural = "Sous-ingrédients"
+                    , empty = "Aucun ingrédient"
+                    , itemLabelCaption = "Libellé de l'ingrédient"
+                    , itemName = "Nom de l'ingrédient"
+                    , noun = "Ingrédient"
+                    , nounPlural = "Ingrédients"
+                    , productionHeading = "Recette"
+                    , search = "tapez ici le nom de l’ingrédient pour le rechercher"
+                    , select = "Sélectionnez un ingrédient"
+                    }
 
-        ( GenericContext, _ ) ->
-            { add = "Ajouter un matériau"
-            , empty = "Aucun matériau"
-            , heading = "Production des matériaux"
-            , label = "Nom du matériau"
-            , name = "Matériau"
-            , search = "tapez ici le nom du matériau pour le rechercher"
-            , select = "Sélectionnez un matériau"
-            }
+                _ ->
+                    { add = "Ajouter un matériau"
+                    , addElement = "Ajouter un sous-matériau"
+                    , elementNoun = "Sous-matériau"
+                    , elementNounPlural = "Sous-matériaux"
+                    , empty = "Aucun matériau"
+                    , itemLabelCaption = "Libellé du matériau"
+                    , itemName = "Nom du matériau"
+                    , noun = "Matériau"
+                    , nounPlural = "Matériaux"
+                    , productionHeading = "Production des matériaux"
+                    , search = "tapez ici le nom du matériau pour le rechercher"
+                    , select = "Sélectionnez un matériau"
+                    }
 
-        ( TextileTrimsContext, Scope.Textile ) ->
+        TextileTrimsContext ->
             -- Note: in Textile context, raw element handling is not available
             { add = "Ajouter un accessoire"
+            , addElement = "Ajouter un élément"
+            , elementNoun = "Élément"
+            , elementNounPlural = "Éléments"
             , empty = "Aucun accessoire"
-            , heading = "Accessoires"
-            , label = "Nom de l'accessoire"
-            , name = "Accessoire"
+            , itemLabelCaption = "Libellé de l'accessoire"
+            , itemName = "Nom de l'accessoire"
+            , noun = "Accessoire"
+            , nounPlural = "Accessoires"
+            , productionHeading = "Accessoires"
             , search = "tapez ici le nom de l’accessoire pour le rechercher"
             , select = "Sélectionnez un accessoire"
             }
-
-        _ ->
-            { add = "Ajouter un composant"
-            , empty = "Aucun composant"
-            , heading = "Production des composants"
-            , label = "Nom du composant"
-            , name = "Composant"
-            , search = "tapez ici le nom du composant pour le rechercher"
-            , select = "Sélectionnez un composant"
-            }
-
-
-addProductionItemButton : Config db msg -> Html msg
-addProductionItemButton ({ db } as config) =
-    let
-        availableComponents =
-            db.components
-                |> List.filter (not << Component.isEmpty)
-                |> List.filter (.scope >> (==) config.scope)
-                |> List.map ComponentItem
-
-        availableMaterials =
-            Category.Material
-                |> listAvailableProcesses config
-                -- Exclude packaging materials as they're available in a dedicated section
-                |> List.filter (\{ categories } -> not <| List.member Category.Packaging categories)
-                |> List.map MaterialItem
-
-        availableProductionItems =
-            availableComponents ++ availableMaterials
-
-        autocompleteState =
-            availableProductionItems
-                |> List.sortBy Component.productionItemToLabel
-                |> AutocompleteSelector.init Component.productionItemToLabel
-    in
-    button
-        [ type_ "button"
-        , class "btn btn-outline-primary w-100"
-        , class "d-flex justify-content-center align-items-center"
-        , class "gap-1 w-100"
-        , disabled <| List.isEmpty availableProductionItems
-        , onClick <| config.openSelectProductionItem autocompleteState
-        ]
-        [ Icon.plus
-        , text config.labels.add
-        ]
-
-
-addElementButton : Config db msg -> TargetItem -> Html msg
-addElementButton config targetItem =
-    button
-        [ type_ "button"
-        , class "btn btn-link text-decoration-none"
-        , class "d-flex justify-content-end align-items-center"
-        , class "gap-2 w-100 p-0 pb-1 text-end fs-7"
-        , createElementMaterialAutocomplete config.db config.scope
-            |> config.openSelectProcessModal Category.Material targetItem Nothing
-            |> onClick
-        ]
-        [ Icon.puzzle
-        , text "Ajouter un élément"
-        ]
 
 
 addPackagingButton : Config db msg -> Html msg
 addPackagingButton ({ query } as config) =
     let
         availablePackagingProcesses =
-            listAvailableProcesses config Category.Packaging
+            config.db.processes
+                |> Process.listAvailableByCategory config.scope Category.Packaging
                 |> List.filter
                     (\{ id } ->
                         query.packagings
@@ -263,186 +215,6 @@ addPackagingButton ({ query } as config) =
         ]
         [ Icon.plus
         , text "Ajouter un emballage"
-        ]
-
-
-{-| Creates an Autocomplete listing available, scoped, non-packaging materials
--}
-createElementMaterialAutocomplete : Component.DataContainer db -> Scope -> Autocomplete Process
-createElementMaterialAutocomplete db scope =
-    Category.Material
-        |> listAvailableProcesses { db = db, scope = scope }
-        -- Exclude packaging materials as they're available in a dedicated section
-        |> List.filter (\{ categories } -> not <| List.member Category.Packaging categories)
-        |> AutocompleteSelector.init Process.getDisplayName
-
-
-addElementTransformButton : Config db msg -> Process -> TargetElement -> Html msg
-addElementTransformButton { db, openSelectProcessModal, query, scope } material ( targetItem, elementIndex ) =
-    let
-        availableTransformProcesses =
-            db.processes
-                |> List.filter .visible
-                |> Scope.anyOf [ scope ]
-                |> Process.listAvailableMaterialTransforms material
-                |> List.sortBy Process.getDisplayName
-                |> Process.available (Component.elementTransforms ( targetItem, elementIndex ) query.items)
-
-        autocompleteState =
-            availableTransformProcesses
-                |> AutocompleteSelector.init Process.getDisplayName
-    in
-    button
-        [ type_ "button"
-        , class "btn btn-link btn-sm w-100 text-decoration-none"
-        , class "d-flex justify-content-start align-items-center"
-        , class "gap-1 w-100 ps-0"
-        , disabled <| List.isEmpty availableTransformProcesses
-        , autocompleteState
-            |> openSelectProcessModal Category.Transform targetItem (Just elementIndex)
-            |> onClick
-        ]
-        [ Icon.plus
-        , text "Ajouter une transformation"
-        ]
-
-
-componentView : Config db msg -> Index -> ExpandedItem -> Results -> List (Html msg)
-componentView config itemIndex ({ component, elements, quantity } as expandedItem) itemResults =
-    let
-        collapsed =
-            config.detailed
-                |> List.member itemIndex
-                |> not
-    in
-    List.concat
-        [ [ tbody
-                (if itemIndex > 0 then
-                    -- Better visually separate components items when they're stacked and opened
-                    [ style "border-top" "1px solid #777" ]
-
-                 else
-                    []
-                )
-                [ tr []
-                    [ th [] []
-                    , th [ class "pb-0 fs-8 fw-normal text-muted text-nowrap" ] [ text "Masse unitaire" ]
-                    , th [ class "pb-0 fs-8 fw-normal text-muted", colspan 3 ]
-                        [ span [] [ text config.labels.label ] ]
-                    , th [ class "pb-0 fs-8 fw-normal text-muted text-nowrap text-center" ] [ text "Quantité" ]
-                    , th [ class "pb-0 fs-8 fw-normal text-muted text-nowrap text-center" ] [ text "Masse totale" ]
-                    , th [ class "pb-0 fs-8 fw-normal text-muted text-nowrap text-center" ] [ text "Impacts" ]
-                    , th [] []
-                    ]
-                , tr [ class "border-bottom" ]
-                    [ th [ class "ps-2 pt-0 pb-2 align-middle", scope "col" ]
-                        [ if config.context /= TextileTrimsContext then
-                            button
-                                [ type_ "button"
-                                , class "btn btn-link text-muted text-decoration-none font-monospace fs-5 p-0 m-0"
-                                , onClick <|
-                                    config.setDetailed <|
-                                        if collapsed && not (List.member itemIndex config.detailed) then
-                                            LE.unique <| itemIndex :: config.detailed
-
-                                        else
-                                            List.filter ((/=) itemIndex) config.detailed
-                                ]
-                                [ if collapsed then
-                                    text "▶"
-
-                                  else
-                                    text "▼"
-                                ]
-
-                          else
-                            text ""
-                        ]
-                    , td [ class "pt-0 pb-2 text-end align-middle text-nowrap fs-7" ]
-                        [ Component.extractUnitMass itemResults
-                            |> Format.kg
-                        ]
-                    , td [ class "pt-0 pb-2 align-middle text-truncate w-100", colspan 3 ]
-                        [ if config.context == GenericContext then
-                            div [ class "d-flex flex-column gap-1" ]
-                                [ div [ class "d-flex gap-2" ]
-                                    [ input
-                                        [ type_ "text"
-                                        , class "form-control"
-                                        , onInput (config.updateItemName ( component, itemIndex ))
-                                        , placeholder config.labels.label
-                                        , value component.name
-                                        ]
-                                        []
-                                    ]
-                                ]
-
-                          else
-                            span [ class "fw-bold" ] [ text component.name ]
-                        ]
-                    , td [ class "ps-0 pt-0 pb-2 align-middle" ]
-                        [ quantity |> quantityInput config itemIndex
-                        ]
-                    , td [ class "pt-0 pb-2 text-end align-middle text-nowrap fs-7" ]
-                        [ Component.extractMass itemResults
-                            |> Format.kg
-                        ]
-                    , td [ class "pt-0 pb-2 text-end align-middle text-nowrap fs-7", style "min-width" "80px" ]
-                        [ Component.getTotalImpacts itemResults
-                            |> Format.formatImpact config.impact
-                        ]
-                    , td [ class "pe-3 pt-0 pb-2 text-end align-end text-nowrap" ]
-                        [ if config.context == AdminContext then
-                            text ""
-
-                          else
-                            button
-                                [ type_ "button"
-                                , class "btn btn-outline-secondary"
-                                , onClick (config.removeItem itemIndex)
-                                ]
-                                [ Icon.trash ]
-                        ]
-                    ]
-                ]
-          ]
-        , if not collapsed then
-            componentDetailedView config elements itemIndex expandedItem itemResults
-
-          else
-            []
-        ]
-
-
-componentDetailedView : Config db msg -> List ExpandedElement -> Index -> ExpandedItem -> Results -> List (Html msg)
-componentDetailedView config elements itemIndex expandedItem itemResults =
-    List.concat
-        [ [ tr [ class "bg-light border-bottom" ]
-                [ th [] []
-                , th [ class "pb-1", colspan 8 ] [ text "Composition" ]
-                ]
-          ]
-        , if List.isEmpty elements then
-            [ tr []
-                [ th [] []
-                , td []
-                    [ text "Aucun élément"
-                    ]
-                ]
-            ]
-
-          else
-            List.map3
-                (elementView config ( expandedItem.component, itemIndex ) itemResults)
-                (List.range 0 (List.length elements - 1))
-                elements
-                (Component.extractItems itemResults)
-        , [ tr [ class "border-top" ]
-                [ td [ colspan 9, class "pe-3" ]
-                    [ addElementButton config ( expandedItem.component, itemIndex )
-                    ]
-                ]
-          ]
         ]
 
 
@@ -479,100 +251,39 @@ editorView : Config db msg -> Html msg
 editorView config =
     case config.lifeCycle of
         Err error ->
-            error |> simpleError (Just "Erreur de chargement du calculateur")
+            error |> Alert.simpleError (Just "Erreur de chargement du calculateur")
 
         Ok lifeCycle ->
             lifeCycleView config lifeCycle
 
 
-simpleError : Maybe String -> String -> Html msg
-simpleError title message =
-    Alert.simple
-        { attributes = []
-        , close = Nothing
-        , content = [ text message ]
-        , level = Alert.Danger
-        , title = title
-        }
-
-
 lifeCycleView : Config db msg -> LifeCycle -> Html msg
-lifeCycleView ({ db, docsUrl, explorerRoute, impact, query, scope } as config) lifeCycle =
+lifeCycleView ({ impact, query, scope } as config) lifeCycle =
     div [ class "d-flex flex-column" ]
-        [ div [ class "card shadow-sm" ]
-            [ div [ class "card-header d-flex align-items-center justify-content-between gap-2" ]
-                [ h2 [ class "h5 mb-0" ]
-                    [ text config.labels.heading
-                    , case explorerRoute of
-                        Just route ->
-                            Link.smallPillExternal
-                                [ Route.href route
-                                , Attr.title "Explorer"
-                                , attribute "aria-label" "Explorer"
-                                ]
-                                [ Icon.search ]
-
-                        Nothing ->
-                            text ""
-                    ]
-                , div [ class "d-flex flex-fill justify-content-end align-items-center gap-2" ]
-                    [ span [ class "cursor-help", Attr.title "Hors transports" ]
-                        [ lifeCycle.production
-                            |> Component.getTotalImpacts
-                            |> Format.formatImpact config.impact
-                        ]
-                    , case docsUrl of
-                        Just url ->
-                            Button.docsPillLink
-                                [ href url, target "_blank", style "height" "24px" ]
-                                [ Icon.question ]
-
-                        Nothing ->
-                            text ""
-                    ]
-                , documentationLink config "production"
-                ]
-            , if List.isEmpty query.items then
-                div [ class "card-body" ]
-                    [ text config.labels.empty
-                    ]
-
-              else
-                case Component.expandItems db query.items of
-                    Err error ->
-                        error |> simpleError (Just "Erreur")
-
-                    Ok expandedItems ->
-                        div [ class "table-responsive" ]
-                            [ table [ class "table table-sm table-borderless mb-0" ]
-                                ((if config.context == AdminContext then
-                                    thead []
-                                        [ tr [ class "fs-7 text-muted" ]
-                                            [ th [] []
-                                            , th [ class "ps-0", Attr.scope "col" ] [ text "Quantité" ]
-                                            , th [ Attr.scope "col", colspan 2 ]
-                                                [ text config.labels.name
-                                                ]
-                                            , th [ Attr.scope "col" ] [ text "Masse unitaire" ]
-                                            , th [ Attr.scope "col" ] [ text "Masse totale" ]
-                                            , th [ Attr.scope "col" ] [ text "Impact" ]
-                                            , th [ Attr.scope "col" ] []
-                                            ]
-                                        ]
-
-                                  else
-                                    text ""
-                                 )
-                                    :: List.concat
-                                        (List.map3 (componentView config)
-                                            (List.range 0 (List.length query.items - 1))
-                                            expandedItems
-                                            (Component.extractItems lifeCycle.production)
-                                        )
-                                )
-                            ]
-            , addProductionItemButton config
-            ]
+        [ ProductionTable.view
+            { canEditItemComposition = config.context /= TextileTrimsContext
+            , db = config.db
+            , detailed = config.detailed
+            , docsUrl = config.docsUrl
+            , documentationLink = documentationLink config "production"
+            , explorerRoute = config.explorerRoute
+            , impact = config.impact
+            , labels =
+                { add = config.labels.add
+                , empty = config.labels.empty
+                , itemName = config.labels.itemName
+                , productionHeading = config.labels.productionHeading
+                }
+            , noOp = config.noOp
+            , openItemEditModal = config.openItemEditModal
+            , openSelectProductionItem = config.openSelectProductionItem
+            , query = config.query
+            , removeItem = config.removeItem
+            , scope = config.scope
+            , setDetailed = config.setDetailed
+            , updateItemQuantity = config.updateItemQuantity
+            }
+            lifeCycle.production
         , if Scope.isGeneric scope && not (List.isEmpty query.items) then
             div []
                 [ DownArrow.view
@@ -687,7 +398,7 @@ quantifiedProcessList { db, impact } lifeCycle listConfig quantifiedProcesses =
             [ table [ class "table table-hover mb-0" ]
                 [ case quantifiedProcesses |> listConfig.expandFn db.processes of
                     Err error ->
-                        simpleError Nothing error
+                        Alert.simpleError Nothing error
 
                     Ok expanded ->
                         expanded
@@ -695,7 +406,7 @@ quantifiedProcessList { db, impact } lifeCycle listConfig quantifiedProcesses =
                                 (\index { amount, process } ->
                                     tr []
                                         [ td [ class "ps-3 align-middle text-nowrap", style "min-width" "160px" ]
-                                            [ amountInput
+                                            [ AmountInput.view
                                                 { event = listConfig.updateAmount index
                                                 , readonly = List.member Category.ProductMassDependent process.categories
                                                 , unit = process.unit
@@ -841,635 +552,36 @@ noTransportView =
     DownArrow.view [] []
 
 
-type alias AmountInputConfig msg =
-    { event : Maybe Amount -> msg
-    , readonly : Bool
-    , unit : Process.Unit
-    }
-
-
-amountInput : AmountInputConfig msg -> Amount -> Html msg
-amountInput { event, readonly, unit } amount =
-    let
-        stringAmount =
-            Amount.toString amount
-
-        stepValue =
-            case String.split "." stringAmount of
-                -- This is an integer, increment by .1 for convenience
-                [ _ ] ->
-                    "0.1"
-
-                -- This is a float, increment at the precision of the float
-                [ _, decimals ] ->
-                    "0." ++ String.padLeft (String.length decimals) '0' "1"
-
-                -- Should not happen, but who knows?
-                _ ->
-                    "0.01"
-    in
-    div [ class "AmountInput input-group" ]
-        [ input
-            ([ type_ "number"
-             , class "form-control form-control-sm text-end incdec-arrows-left"
-             , value stringAmount
-             , Attr.min "0"
-             , step stepValue
-             , onInput <| Amount.fromString >> event
-             ]
-                ++ (if readonly then
-                        [ Attr.readonly readonly
-                        , title "Cette quantité n'est pas modifiable"
-                        , class "cursor-not-allowed"
-                        ]
-
-                    else
-                        []
-                   )
-            )
-            []
-        , small [ class "input-group-text fs-8" ]
-            [ text <| Process.unitToString unit ]
-        ]
-
-
-type alias CountrySelector msg =
-    { attrs : List (Attribute msg)
-    , countries : List Country
-    , disabled : Bool
-    , domId : String
-    , scope : Scope
-    , select : Maybe CountryCode.Code -> msg
-    , selected : Maybe CountryCode.Code
-    }
-
-
-countrySelector : CountrySelector msg -> Html msg
-countrySelector config =
-    config.countries
-        |> Scope.anyOf [ config.scope ]
-        |> List.sortBy .name
-        |> List.map (\{ code, name } -> ( name, Just code ))
-        |> (::) ( "Inconnu", Nothing )
-        |> List.map
-            (\( name, maybeCode ) ->
-                option
-                    [ maybeCode
-                        |> Maybe.map CountryCode.toString
-                        |> Maybe.withDefault ""
-                        |> value
-                    , selected <| config.selected == maybeCode
-                    ]
-                    [ text name ]
-            )
-        |> select
-            (config.attrs
-                ++ [ class "form-select w-33"
-                   , id config.domId
-                   , autocomplete False
-                   , disabled config.disabled
-                   , onInput <|
-                        \str ->
-                            config.select <|
-                                if String.isEmpty str then
-                                    Nothing
-
-                                else
-                                    Just <| CountryCode.fromString str
-                   ]
-            )
-
-
-elementView : Config db msg -> TargetItem -> Results -> Index -> ExpandedElement -> Results -> Html msg
-elementView config (( component, _ ) as targetItem) itemResults elementIndex { amount, material, transforms } elementResults =
-    let
-        elementMass =
-            Component.extractMass elementResults
-
-        materialLabel { country, process } =
-            String.join " "
-                [ Process.getDisplayName process
-                , "(" ++ (country |> Maybe.map .name |> Maybe.withDefault "Inconnu") ++ ")"
-                ]
-
-        amountInfo =
-            span [ class "d-flex text-muted fs-8" ]
-                [ if material.process.unit /= Process.Kilogram then
-                    span [] [ text "(", Format.amount material.process amount, text ")\u{00A0}" ]
-
-                  else
-                    text ""
-                , Format.kg elementMass
-                ]
-    in
-    tbody []
-        [ tr [ class "fs-7 border-top" ]
-            [ td [] []
-            , td [ class "d-flex flex-column align-items-end" ]
-                [ Component.extractUnitMass itemResults
-                    |> Component.elementMassShare elementMass
-                    |> Format.splitAsPercentage 1
-                , amountInfo
-                ]
-            , td
-                [ colspan 3
-                , class "align-middle text-truncate"
-                , style "max-width" "0"
-                ]
-                [ div [ class "d-flex flex-column" ]
-                    [ button
-                        [ type_ "button"
-                        , class "btn btn-sm btn-link text-decoration-none p-0 text-start"
-                        , onClick (config.openEditElementModal component ( targetItem, elementIndex ))
-                        , title <| materialLabel material
-                        ]
-                        [ span [ class "ComponentElementIcon" ] [ Icon.material ]
-                        , text <| materialLabel material
-                        ]
-                    , div
-                        [ class "d-flex align-items-center gap-1 text-muted"
-                        , title <| Component.transformListToString transforms
-                        ]
-                        [ span [ class "ComponentElementIcon me-0" ] [ Icon.transform ]
-                        , if List.isEmpty transforms then
-                            text "Aucune transformation"
-
-                          else
-                            text <| Component.transformListToString transforms
-                        ]
-                    ]
-                ]
-            , td [ class "align-middle text-end text-nowrap", colspan 3 ]
-                [ Component.getTotalImpacts elementResults
-                    |> Format.formatImpact config.impact
-                ]
-            , td [ class "pe-3 align-middle text-end text-nowrap" ]
-                [ div [ class "btn-group btn-group-sm" ]
-                    [ button
-                        [ type_ "button"
-                        , class "btn btn-outline-secondary"
-                        , attribute "aria-label" "Modifier l’élément"
-                        , onClick (config.openEditElementModal component ( targetItem, elementIndex ))
-                        ]
-                        [ Icon.pencil ]
-                    , button
-                        [ type_ "button"
-                        , class "btn btn-outline-secondary"
-                        , attribute "aria-label" "Supprimer l’élément"
-                        , onClick (config.removeElement ( targetItem, elementIndex ))
-                        ]
-                        [ Icon.trash ]
-                    ]
-                ]
-            ]
-        ]
-
-
-getEditedResultedElement : Config db msg -> TargetElement -> Query -> Result String ResultedElement
-getEditedResultedElement { db, lifeCycle } ( ( _, itemIndex ), elementIndex ) query =
-    Result.map2 (Component.getResultedElement ( itemIndex, elementIndex ))
-        (Result.map .production lifeCycle)
-        (Component.expandItems db query.items)
-        |> RE.join
-
-
-elementEditModalView : Config db msg -> TargetElement -> Html msg
-elementEditModalView ({ query } as config) (( _, elementIndex ) as targetElement) =
-    case query |> getEditedResultedElement config targetElement of
+itemEditorView : Config db msg -> TargetItem -> Html msg
+itemEditorView config targetItem =
+    case config.lifeCycle of
         Err error ->
-            div [ class "alert alert-danger" ] [ text error ]
+            Alert.simpleError (Just "Erreur") error
 
-        Ok ( _, { amount, material, transforms } as expandedElement, elementResults ) ->
-            let
-                elementCooling =
-                    Process.isTransportedCooled material.process
-
-                stageItems =
-                    Component.extractItems elementResults
-
-                materialResults =
-                    stageItems
-                        |> List.filter (Component.extractStage >> (==) (Just Component.MaterialStage))
-                        |> List.head
-                        |> Maybe.withDefault Component.emptyResults
-
-                transformsResults =
-                    stageItems
-                        |> List.filter (Component.extractStage >> (==) (Just Component.TransformStage))
-            in
-            div [ class "table-responsive p-2" ]
-                [ table [ class "table table-sm table-borderless mb-0" ]
-                    [ tbody []
-                        (tr [ class "fs-7 text-muted" ]
-                            [ th [] []
-                            , th [ class "align-middle ps-0", scope "col" ]
-                                [ if material.process.unit == Process.Kilogram then
-                                    text "Masse finale"
-
-                                  else
-                                    text "Quantité finale"
-                                ]
-                            , th [ class "align-middle", scope "col" ]
-                                [ text <| "Élément #" ++ String.fromInt (elementIndex + 1) ]
-                            , th [ class "align-middle text-center", scope "col" ]
-                                [ text "Pays/Région" ]
-                            , th [ class "align-middle", scope "col" ]
-                                [ text "Pertes" ]
-                            , th [ class "align-middle text-truncate", scope "col" ]
-                                [ material.process.unit |> Process.unitLabel |> text ]
-                            , th [ class "align-middle text-end", scope "col" ]
-                                [ Component.getTotalImpacts elementResults
-                                    |> Format.formatImpact config.impact
-                                ]
-                            , th [] []
-                            ]
-                            :: elementMaterialView config targetElement materialResults material amount
-                            ++ elementTransformsView config elementCooling targetElement materialResults material.country transformsResults transforms
-                            ++ [ LE.last transformsResults
-                                    |> Maybe.map Component.extractMass
-                                    |> Maybe.withDefault (Component.extractMass materialResults)
-                                    |> finalElementTransportView config elementCooling (Component.getFinalElementCountry expandedElement)
-                               , tr [ class "border-top" ]
-                                    [ td [ colspan 2 ] []
-                                    , td [ colspan 6 ]
-                                        [ addElementTransformButton config material.process targetElement ]
-                                    ]
-                               ]
-                        )
-                    ]
-                ]
-
-
-{-| Render transports from last transform step to assembly or distribution stage
--}
-finalElementTransportView : Config db msg -> Bool -> Maybe Country -> Mass -> Html msg
-finalElementTransportView ({ db, query, scope } as config) cooling elementCountry mass =
-    db.countries
-        |> Scope.anyOf [ scope ]
-        |> Country.resolveMaybe query.assembly.country
-        |> Result.map (elementTransportView config [ class "subdued" ] cooling mass elementCountry)
-        |> Result.withDefault (text "")
-
-
-listAvailableProcesses :
-    { config | db : Component.DataContainer db, scope : Scope }
-    -> Category
-    -> List Process
-listAvailableProcesses { db, scope } category =
-    db.processes
-        |> List.filter .visible
-        |> Scope.anyOf [ scope ]
-        |> Process.listByCategory category
-        |> List.sortBy Process.getDisplayName
-
-
-selectMaterialButton : Config db msg -> TargetElement -> Process -> Html msg
-selectMaterialButton config ( targetItem, elementIndex ) material =
-    button
-        [ type_ "button"
-        , class "btn btn-sm btn-link text-decoration-none p-0"
-        , listAvailableProcesses config Category.Material
-            |> AutocompleteSelector.init Process.getDisplayName
-            |> config.openSelectProcessModal Category.Material targetItem (Just elementIndex)
-            |> onClick
-        ]
-        [ span [ class "ComponentElementIcon" ] [ Icon.material ]
-        , text <| Process.getDisplayName material
-        ]
-
-
-elementMaterialView :
-    Config db msg
-    -> TargetElement
-    -> Results
-    -> ExpandedLocalizedProcess
-    -> Amount
-    -> List (Html msg)
-elementMaterialView config targetElement materialResults material amount =
-    let
-        complementsImpacts =
-            Component.extractComplementsImpacts materialResults
-    in
-    [ tr [ class "fs-7" ]
-        [ td [] []
-        , td [ class "text-end align-middle text-nowrap ps-0", style "min-width" "130px" ]
-            [ if config.scope == Scope.Textile then
-                Format.amount material.process amount
-
-              else
-                amountInput
-                    { event = config.updateElementAmount targetElement
-                    , readonly = False
-                    , unit = material.process.unit
+        Ok lifeCycle ->
+            CompositionModal.view
+                { componentConfig = config.componentConfig
+                , db = config.db
+                , impact = config.impact
+                , labels =
+                    { addElement = config.labels.addElement
+                    , elementNoun = config.labels.elementNoun
+                    , elementNounPlural = config.labels.elementNounPlural
+                    , itemLabelCaption = config.labels.itemLabelCaption
+                    , itemName = config.labels.itemName
                     }
-                    amount
-            ]
-        , td
-            [ class "align-middle text-truncate"
-            , title <| Process.getDisplayName material.process
-            ]
-            [ selectMaterialButton config targetElement material.process
-            ]
-        , td [ class "text-end align-middle text-nowrap" ]
-            [ regionSelector
-                { countries = config.db.countries
-                , domId = "material-country-" ++ Component.targetElementToString targetElement
+                , lifeCycle = lifeCycle
+                , openSelectProcessModal = config.openSelectProcessModal
+                , query = config.query
+                , removeElement = config.removeElement
+                , removeElementTransform = config.removeElementTransform
                 , scope = config.scope
-                , select = config.updateElementMaterialCountry targetElement
-                , selected = material.country |> Maybe.map .code
+                , updateElementAmount = config.updateElementAmount
+                , updateElementMaterialCountry = config.updateElementMaterialCountry
+                , updateElementTransformCountry = config.updateElementTransformCountry
+                , updateItemName = config.updateItemName
                 }
-            ]
-        , td [ class "text-end align-middle text-nowrap" ]
-            []
-        , td [ class "text-end align-middle text-nowrap" ]
-            [ Component.extractAmount materialResults
-                |> Format.amount material.process
-            ]
-        , td [ class "text-end align-middle text-nowrap" ]
-            [ Component.getTotalImpacts materialResults
-                |> Format.formatImpact config.impact
-            ]
-        , td [ class "pe-3 text-nowrap" ] []
-        ]
-    , if complementsImpacts /= Complement.emptyComplementsResultsImpacts then
-        tr [ class "fs-7" ]
-            [ td [] []
-            , td [ class "text-end align-middle text-nowrap ps-0", style "min-width" "130px" ]
-                []
-            , td
-                [ class "align-middle text-truncate w-100 text-muted cursor-help ps-4 fs-8"
-                , title (Format.formatComplementsResultsImpactsToString config.impact complementsImpacts)
-                ]
-                [ span [ class "ComponentElementIcon" ] [ Icon.calculator ], text "Dont compléments" ]
-            , td [ class "text-end align-middle text-nowrap", colspan 3 ]
-                []
-            , td [ class "text-end align-middle text-nowrap" ]
-                [ complementsImpacts
-                    |> Complement.mergeComplementsResultsImpacts
-                    |> Format.formatImpact config.impact
-                ]
-            , td [ class "pe-3 text-nowrap" ]
-                []
-            ]
-
-      else
-        text ""
-    ]
-
-
-elementTransportView : Config db msg -> List (Attribute msg) -> Bool -> Mass -> Maybe Country -> Maybe Country -> Html msg
-elementTransportView ({ query } as config) attributes cooling transportedMass maybeFrom maybeTo =
-    let
-        { transportOptions } =
-            query
-
-        displayElementTransport =
-            transportedMass
-                |> Component.computeTransportedMassImpacts (requirementsFromConfig config)
-                    -- Notes:
-                    --   - air transport is always disabled before assembly (see Component.computeTransports)
-                    --   - cooling before assembly is driven by the material process, not the transport option
-                    { transportOptions | byAir = Split.zero, cooling = Just cooling }
-                    maybeFrom
-                    maybeTo
-    in
-    case displayElementTransport of
-        Err error ->
-            tr []
-                [ td [ class "p-2", colspan 7 ]
-                    [ error |> simpleError (Just "Erreur de calcul de distance")
-                    ]
-                ]
-
-        Ok transport ->
-            let
-                renderCountry =
-                    Maybe.map .name >> Maybe.withDefault "Région inconnue"
-
-                renderModeIfAny icon distance =
-                    if distance |> Quantity.greaterThan Quantity.zero then
-                        [ icon, Format.km distance ]
-
-                    else
-                        []
-            in
-            tr (class "fs-7 text-muted" :: attributes)
-                [ td [ colspan 2 ] []
-                , td []
-                    [ text <| "Transport " ++ renderCountry maybeFrom ++ " → " ++ renderCountry maybeTo ]
-                , td [ class "text-end align-middle d-flex justify-content-end align-items-center gap-2 text-nowrap" ] <|
-                    -- Note: it's supposed for now that a plane can transport either cooled or non-cooled stuff
-                    renderModeIfAny Icon.plane transport.air
-                        ++ renderModeIfAny Icon.boat transport.sea
-                        ++ renderModeIfAny Icon.boatCooled transport.seaCooled
-                        ++ renderModeIfAny Icon.bus transport.road
-                        ++ renderModeIfAny Icon.busCooled transport.roadCooled
-                        ++ [ Icon.package
-                           , Format.kg transportedMass
-                           ]
-                , td [ colspan 2 ] []
-                , td [ class "text-end align-middle text-nowrap" ]
-                    [ transport.impacts
-                        |> Format.formatImpact config.impact
-                    ]
-                , td [] []
-                ]
-
-
-elementTransformsView :
-    Config db msg
-    -> Bool
-    -> TargetElement
-    -> Results
-    -> Maybe Country
-    -> List Results
-    -> List ExpandedLocalizedProcess
-    -> List (Html msg)
-elementTransformsView config cooling targetElement materialResults materialCountry transformsResults transforms =
-    transforms
-        |> List.indexedMap
-            (\transformIndex transform ->
-                let
-                    transformResult =
-                        transformsResults
-                            |> LE.getAt transformIndex
-                            |> Maybe.withDefault Component.emptyResults
-
-                    ( previousMass, previousCountry ) =
-                        case transformIndex of
-                            0 ->
-                                ( Component.extractMass materialResults
-                                , materialCountry
-                                )
-
-                            index ->
-                                ( transformsResults
-                                    |> LE.getAt (index - 1)
-                                    |> Maybe.withDefault Component.emptyResults
-                                    |> Component.extractMass
-                                , transforms
-                                    |> LE.getAt (index - 1)
-                                    |> Maybe.andThen .country
-                                )
-
-                    tooltipText =
-                        "Procédé\u{00A0}: "
-                            ++ Process.getDisplayName transform.process
-                            ++ (transform.country
-                                    |> Component.loadEnergyMixes config.componentConfig
-                                    |> Result.map
-                                        (\{ elec, heat } ->
-                                            "\nÉlectricité\u{00A0}: "
-                                                ++ Process.getDisplayName elec
-                                                ++ "\nChaleur\u{00A0}: "
-                                                ++ Process.getDisplayName heat
-                                        )
-                                    |> Result.withDefault ""
-                               )
-                in
-                [ transform.country
-                    |> elementTransportView config [] cooling previousMass previousCountry
-                , tr [ class "fs-7 border-top" ]
-                    [ td [] []
-                    , td [ class "text-end align-middle text-nowrap" ] []
-                    , td
-                        [ class "text-truncate align-middle w-66 cursor-help "
-                        , style "max-width" "0"
-                        , title tooltipText
-                        ]
-                        [ span [ class "ComponentElementIcon" ] [ Icon.transform ]
-                        , text <| Process.getDisplayName transform.process
-                        ]
-                    , td [ class "text-end align-middle text-nowrap" ]
-                        [ regionSelector
-                            { countries = config.db.countries
-                            , domId =
-                                "transform-country-"
-                                    ++ Component.targetElementToString targetElement
-                                    ++ "-"
-                                    ++ String.fromInt transformIndex
-                            , scope = config.scope
-                            , select = config.updateElementTransformCountry targetElement transformIndex
-                            , selected = transform.country |> Maybe.map .code
-                            }
-                        ]
-                    , td [ class "align-middle text-end text-nowrap" ]
-                        [ Format.qtyVariationRatioAsWastePercent transform.process.qtyVariationRatio
-                        ]
-                    , td [ class "text-end align-middle text-nowrap" ]
-                        [ Component.extractAmount transformResult
-                            |> Format.amount transform.process
-                        ]
-                    , td [ class "text-end align-middle text-nowrap" ]
-                        [ Component.extractImpacts transformResult
-                            |> Format.formatImpact config.impact
-                        ]
-                    , td []
-                        [ button
-                            [ type_ "button"
-                            , class "btn btn-sm btn-outline-secondary"
-                            , transformIndex
-                                |> config.removeElementTransform targetElement
-                                |> onClick
-                            ]
-                            [ Icon.trash ]
-                        ]
-                    ]
-                ]
-            )
-        |> List.concat
-
-
-type alias RegionSelector msg =
-    { countries : List Country
-    , domId : String
-    , scope : Scope
-    , select : Maybe CountryCode.Code -> msg
-    , selected : Maybe CountryCode.Code
-    }
-
-
-regionSelector : RegionSelector msg -> Html msg
-regionSelector config =
-    let
-        scopedCountries =
-            config.countries
-                |> Scope.anyOf [ config.scope ]
-                |> List.sortBy .name
-    in
-    scopedCountries
-        |> List.map (\{ code, name } -> ( name, Just code ))
-        |> (::) ( "Par défaut", Nothing )
-        |> List.map
-            (\( name, maybeCode ) ->
-                option
-                    [ maybeCode
-                        |> Maybe.map CountryCode.toString
-                        |> Maybe.withDefault ""
-                        |> value
-                    , selected <| config.selected == maybeCode
-                    ]
-                    [ text <|
-                        case maybeCode of
-                            Just code ->
-                                name ++ " (" ++ CountryCode.toString code ++ ")"
-
-                            Nothing ->
-                                "---"
-                    ]
-            )
-        |> select
-            [ class "RegionSelector form-select form-select-sm"
-            , id config.domId
-            , autocomplete False
-            , config.selected
-                |> Maybe.andThen
-                    (\code ->
-                        scopedCountries
-                            |> Country.findByCode code
-                            |> Result.map .name
-                            |> Result.toMaybe
-                    )
-                |> Maybe.withDefault "Par défaut"
-                |> (++) "Région\u{00A0}: "
-                |> title
-            , onInput <|
-                \str ->
-                    config.select <|
-                        if String.isEmpty str || str == "---" then
-                            Nothing
-
-                        else
-                            Just <| CountryCode.fromString str
-            ]
-
-
-quantityInput : Config db msg -> Index -> Quantity -> Html msg
-quantityInput config itemIndex quantity =
-    div [ class "input-group", style "width" "80px" ]
-        [ input
-            [ type_ "number"
-            , class "form-control text-end"
-            , quantity |> Component.quantityToInt |> String.fromInt |> value
-            , step "1"
-            , Attr.min "1"
-            , disabled <| config.context == AdminContext
-            , onInput <|
-                \str ->
-                    String.toInt str
-                        |> Maybe.andThen
-                            (\int ->
-                                if int > 0 then
-                                    Just int
-
-                                else
-                                    Nothing
-                            )
-                        |> Maybe.map (Component.quantityFromInt >> config.updateItemQuantity itemIndex)
-                        |> Maybe.withDefault config.noOp
-            ]
-            []
-        ]
+                targetItem
 
 
 assemblyView : Config db msg -> LifeCycle -> Html msg
@@ -1488,14 +600,19 @@ assemblyView ({ db, impact, query, scope } as config) lifeCycle =
         , div [ class "card-body d-flex flex-column gap-3 p-0" ]
             [ div [ class "d-flex align-items-center gap-2 px-3 pt-3" ]
                 [ label [ for "assembly-country" ] [ text "Pays d’assemblage" ]
-                , countrySelector
+                , RegionSelector.view
                     { attrs = []
+                    , classes = "w-33"
                     , countries = db.countries
                     , disabled = False
                     , domId = "assembly-country"
+                    , emptyLabel = "Inconnu"
+                    , hideLabel = True
+                    , label = Nothing
                     , scope = scope
                     , select = config.updateAssemblyCountry
                     , selected = query.assembly.country
+                    , showCode = False
                     }
                 ]
             , case
@@ -1504,7 +621,7 @@ assemblyView ({ db, impact, query, scope } as config) lifeCycle =
                     |> Component.expandAssembly db query.assembly.country
               of
                 Err error ->
-                    div [ class "px-3 pb-3" ] [ error |> simpleError (Just "Erreur") ]
+                    div [ class "px-3 pb-3" ] [ error |> Alert.simpleError (Just "Erreur") ]
 
                 Ok expandedOperations ->
                     if List.isEmpty expandedOperations then
@@ -1570,7 +687,8 @@ addAssemblyOperationButton : Config db msg -> Html msg
 addAssemblyOperationButton ({ openSelectAssemblyOperationModal, query } as config) =
     let
         availableProcesses =
-            listAvailableProcesses config Category.Assembly
+            config.db.processes
+                |> Process.listAvailableByCategory config.scope Category.Assembly
                 |> List.filter
                     (\{ id } ->
                         -- prevent adding the same operation twice
@@ -1683,7 +801,8 @@ addConsumptionButton : Config db msg -> Html msg
 addConsumptionButton ({ openSelectConsumptionModal, query } as config) =
     let
         availableProcesses =
-            listAvailableProcesses config Category.Use
+            config.db.processes
+                |> Process.listAvailableByCategory config.scope Category.Use
                 |> List.filter
                     (\{ id } ->
                         query

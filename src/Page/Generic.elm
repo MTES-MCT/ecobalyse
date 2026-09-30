@@ -13,7 +13,7 @@ import Autocomplete exposing (Autocomplete)
 import Browser.Events
 import Browser.Navigation as Navigation
 import Data.Bookmark as Bookmark exposing (Bookmark)
-import Data.Component as Component exposing (Component, Index, TargetElement, TargetItem)
+import Data.Component as Component exposing (Index, TargetElement, TargetItem)
 import Data.Component.Amount as Amount exposing (Amount)
 import Data.Component.Config as Config
 import Data.Component.ProductCategory as Product
@@ -84,7 +84,7 @@ type alias Model =
 type Modal
     = AddProductionItemModal (Autocomplete Component.ProductionItem)
     | ComparatorModal
-    | EditElementModal Component TargetElement
+    | ItemEditModal TargetItem
     | SelectAssemblyOperationModal (Autocomplete Process)
     | SelectConsumptionModal (Autocomplete Process)
     | SelectExampleModal (Autocomplete Component.Query)
@@ -923,7 +923,6 @@ selectProductionItem query autocompleteState ({ model, session } as pageUpdate) 
                     pageUpdate
                         |> updateQuery validQuery
                         |> App.apply update (SetModals [])
-                        |> App.apply update (SetDetailedComponents (LE.unique (newItemIndex :: model.detailedComponents)))
                         |> App.withCmds [ plausibleCommand ]
 
         Nothing ->
@@ -1022,7 +1021,7 @@ editorConfig session ({ genericScope } as model) =
     , impact = model.impact
     , labels = ComponentView.scopeLabels ComponentView.GenericContext scope
     , noOp = NoOp
-    , openEditElementModal = \c ti -> AppendModal (EditElementModal c ti)
+    , openItemEditModal = \targetItem -> AppendModal (ItemEditModal targetItem)
     , openSelectAssemblyOperationModal = SelectAssemblyOperationModal >> List.singleton >> SetModals
     , openSelectConsumptionModal = SelectConsumptionModal >> List.singleton >> SetModals
     , openSelectPackagingModal = SelectPackagingModal >> List.singleton >> SetModals
@@ -1291,17 +1290,17 @@ modalView session ({ modals } as model) modal =
                 , footer = []
                 }
 
-        EditElementModal { name } targetElement ->
+        ItemEditModal targetItem ->
             ModalView.view
                 { size = ModalView.Fluid
                 , close = SetModals (List.drop 1 modals)
                 , noOp = NoOp
-                , title = "Modifier l'élément #" ++ String.fromInt (Tuple.second targetElement + 1)
-                , subTitle = Just <| "du composant “" ++ name ++ "”"
+                , title = "Paramètres et composition"
+                , subTitle = Nothing
                 , formAction = Nothing
                 , content =
-                    [ targetElement
-                        |> ComponentView.elementEditModalView (editorConfig session model)
+                    [ targetItem
+                        |> ComponentView.itemEditorView (editorConfig session model)
                     ]
                 , footer = []
                 }

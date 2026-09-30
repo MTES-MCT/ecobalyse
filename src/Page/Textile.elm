@@ -1010,7 +1010,7 @@ simulatorFormView session model ({ inputs } as simulator) =
                     , scope = Scope.Textile
                     }
         , noOp = NoOp
-        , openEditElementModal = \_ _ -> NoOp
+        , openItemEditModal = \_ -> NoOp
         , openSelectAssemblyOperationModal = \_ -> NoOp
         , openSelectConsumptionModal = \_ -> NoOp
         , openSelectPackagingModal = \_ -> NoOp
