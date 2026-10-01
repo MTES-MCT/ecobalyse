@@ -1,9 +1,9 @@
 {
-  "activityName": "Peach, at farm, organic 2025 {ES}",
+  "activityName": "Peach, organic 2025, national average, at orchard {FR} U",
   "categories": ["ingredient", "material"],
   "displayName": "Pêches Bio",
   "id": "5e66fd3b-87ae-5113-b33a-36b1c8c36df6",
-  "location": "ES",
+  "location": "FR",
   "metadata": [
     {
       "alias": "peach-organic",
