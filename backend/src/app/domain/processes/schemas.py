@@ -49,6 +49,7 @@ class Category(StrEnum):
     # Food types
     MATERIAL_TYPE_CEREALS = "material_type:cereals"
     MATERIAL_TYPE_EGGS = "material_type:eggs"
+    MATERIAL_TYPE_DAIRY = "material_type:dairy"
     MATERIAL_TYPE_FISH_AND_SHELLFISH = "material_type:fish_and_shellfish"
     MATERIAL_TYPE_FRUITS_AND_VEGETABLES = "material_type:fruits_and_vegetables"
     MATERIAL_TYPE_LEGUMES = "material_type:legumes"

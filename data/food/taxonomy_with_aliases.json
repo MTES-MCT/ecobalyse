@@ -92,6 +92,107 @@
       "spelt": ["spelt-default", "spelt-eu", "spelt-fr", "spelt-non-eu", "spelt-organic"],
       "triticale": ["triticale-organic-2025"]
     },
+    "dairy": {
+      "beaufort-cheese": ["beaufort-cheese-default", "beaufort-cheese-fr"],
+      "blue-cheese": ["blue-cheese-auvergne-default", "blue-cheese-auvergne-fr"],
+      "brie-cheese": ["brie-cheese-2025", "brie-cheese-default", "brie-cheese-fr"],
+      "butter": [
+        "butter-2025",
+        "butter-39-41pct-fat-light-default",
+        "butter-39-41pct-fat-light-fr",
+        "butter-60-62pct-fat-reduced-default",
+        "butter-60-62pct-fat-reduced-fr",
+        "butter-82pct-fat-default",
+        "butter-82pct-fat-fr",
+        "butter-organic-2025"
+      ],
+      "camembert-cheese": ["camembert-cheese-default", "camembert-cheese-fr"],
+      "cantal-cheese": ["cantal-cheese-default", "cantal-cheese-fr"],
+      "chaource-cheese": ["chaource-cheese-default", "chaource-cheese-fr"],
+      "cheddar-cheese": ["cheddar-cheese-default", "cheddar-cheese-fr"],
+      "comte-aop": ["comte-aop-2025"],
+      "comte-cheese": ["comte-cheese-default", "comte-cheese-fr"],
+      "coulommiers-cheese": ["coulommiers-cheese-default", "coulommiers-cheese-fr"],
+      "cow-milk": [
+        "cow-milk-default",
+        "cow-milk-eu",
+        "cow-milk-fr",
+        "cow-milk-non-eu",
+        "cow-milk-organic"
+      ],
+      "dairy-spread": [
+        "dairy-spread-20pct-fat-default",
+        "dairy-spread-20pct-fat-fr",
+        "dairy-spread-25pct-fat-default",
+        "dairy-spread-25pct-fat-fr"
+      ],
+      "dry-goat-cheese": [
+        "dry-goat-cheese-chabichou-type-default",
+        "dry-goat-cheese-chabichou-type-fr",
+        "dry-goat-cheese-default",
+        "dry-goat-cheese-fr"
+      ],
+      "emmental": [
+        "emmental-2025",
+        "emmental-cheese-default",
+        "emmental-cheese-fr",
+        "emmental-grated-fr-2025"
+      ],
+      "faisselle": ["faisselle-6pct-fat-default", "faisselle-6pct-fat-fr"],
+      "feta-type-cheese": [
+        "feta-type-cheese-cow-milk-default",
+        "feta-type-cheese-cow-milk-fr",
+        "feta-type-cheese-sheep-milk-default",
+        "feta-type-cheese-sheep-milk-fr"
+      ],
+      "fourme-dambert-cheese": ["fourme-dambert-cheese-default", "fourme-dambert-cheese-fr"],
+      "fresh-cream-cheese": ["fresh-cream-cheese-2025"],
+      "fromage-blanc": [
+        "fromage-blanc-0pct-fat-default",
+        "fromage-blanc-0pct-fat-fr",
+        "fromage-blanc-3pct-fat-default",
+        "fromage-blanc-3pct-fat-fr",
+        "fromage-blanc-8pct-fat-default",
+        "fromage-blanc-8pct-fat-fr"
+      ],
+      "goat-cheese": [
+        "goat-cheese-2025",
+        "goat-cheese-fresh-to-aged-default",
+        "goat-cheese-fresh-to-aged-fr"
+      ],
+      "goat-milk": ["goat-milk-2025"],
+      "gorgonzola-cheese": ["gorgonzola-cheese-default", "gorgonzola-cheese-fr"],
+      "gouda-cheese": ["gouda-cheese-default", "gouda-cheese-fr"],
+      "greek-yogurt-sheep-milk": ["greek-yogurt-sheep-milk-default", "greek-yogurt-sheep-milk-fr"],
+      "gruyere-cheese": ["gruyere-cheese-default", "gruyere-cheese-fr"],
+      "milk": ["milk-2025", "milk-eu-2025", "milk-non-eu-2025"],
+      "mimolette-cheese": ["mimolette-cheese-default", "mimolette-cheese-fr"],
+      "mont-dor-cheese": ["mont-dor-cheese-default", "mont-dor-cheese-fr"],
+      "mozzarella": ["mozzarella-2025", "mozzarella-cow-milk-default", "mozzarella-cow-milk-fr"],
+      "munster-cheese": ["munster-cheese-default", "munster-cheese-fr"],
+      "parmesan-cheese": ["parmesan-cheese-default", "parmesan-cheese-fr"],
+      "petit-suisse": [
+        "petit-suisse-10pct-fat-default",
+        "petit-suisse-10pct-fat-fr",
+        "petit-suisse-4pct-fat-default",
+        "petit-suisse-4pct-fat-fr"
+      ],
+      "pont-leveque-cheese": ["pont-leveque-cheese-default", "pont-leveque-cheese-fr"],
+      "processed-cheese": ["processed-cheese-default", "processed-cheese-fr"],
+      "raclette-cheese": ["raclette-cheese-default", "raclette-cheese-fr"],
+      "reblochon": ["reblochon-2025", "reblochon-cheese-default", "reblochon-cheese-fr"],
+      "reduced-fat-firm-cheese-maasdam-type": [
+        "reduced-fat-firm-cheese-maasdam-type-default",
+        "reduced-fat-firm-cheese-maasdam-type-fr"
+      ],
+      "roquefort-cheese": ["roquefort-cheese-default", "roquefort-cheese-fr"],
+      "saint-marcellin-cheese": ["saint-marcellin-cheese-default", "saint-marcellin-cheese-fr"],
+      "sheep-milk": ["sheep-milk-default", "sheep-milk-eu", "sheep-milk-fr", "sheep-milk-non-eu"],
+      "spread-cheese-20-40pct-fat": ["spread-cheese-20-40pct-fat-default", "spread-cheese-20-40pct-fat-fr"],
+      "tomme-cheese-cow-milk": ["tomme-cheese-cow-milk-default", "tomme-cheese-cow-milk-fr"],
+      "unknown-dairy-product": ["unknown-dairy-product-2025"],
+      "yogurt": ["yogurt-2025"]
+    },
     "eggs": {
       "egg": [
         "egg-bleublanccoeur-2025",
@@ -1031,30 +1132,13 @@
       "balsamic-vinegar": ["balsamic-vinegar-2025"],
       "barley-flour": ["barley-flour-default", "barley-flour-fr"],
       "bay-leaf": ["bay-leaf-default", "bay-leaf-eu", "bay-leaf-fr", "bay-leaf-non-eu"],
-      "beaufort-cheese": ["beaufort-cheese-default", "beaufort-cheese-fr"],
       "black-pepper": ["black-pepper-2025", "black-pepper-default", "black-pepper-non-eu"],
       "blackberry-juice": ["blackberry-juice-default", "blackberry-juice-default-organic"],
-      "blue-cheese": ["blue-cheese-auvergne-default", "blue-cheese-auvergne-fr"],
       "brazil-nut": ["brazil-nut-default", "brazil-nut-non-eu", "brazil-nut-organic"],
-      "brie-cheese": ["brie-cheese-2025", "brie-cheese-default", "brie-cheese-fr"],
-      "butter": [
-        "butter-2025",
-        "butter-39-41pct-fat-light-default",
-        "butter-39-41pct-fat-light-fr",
-        "butter-60-62pct-fat-reduced-default",
-        "butter-60-62pct-fat-reduced-fr",
-        "butter-82pct-fat-default",
-        "butter-82pct-fat-fr",
-        "butter-organic-2025"
-      ],
-      "camembert-cheese": ["camembert-cheese-default", "camembert-cheese-fr"],
       "candied-fruits": ["candied-fruits-2025"],
       "cane-sugar": ["cane-sugar-2025"],
-      "cantal-cheese": ["cantal-cheese-default", "cantal-cheese-fr"],
       "carrot-juice": ["carrot-juice-fr"],
       "cashew": ["cashew-default", "cashew-non-eu", "cashew-organic"],
-      "chaource-cheese": ["chaource-cheese-default", "chaource-cheese-fr"],
-      "cheddar-cheese": ["cheddar-cheese-default", "cheddar-cheese-fr"],
       "chestnut": [
         "chestnut-default",
         "chestnut-eu",
@@ -1083,8 +1167,6 @@
       "cod": ["cod-eu-2025"],
       "coffee-bean": ["coffee-bean-default", "coffee-bean-non-eu", "coffee-bean-organic"],
       "coffee-ground": ["coffee-ground-2025"],
-      "comte-aop": ["comte-aop-2025"],
-      "comte-cheese": ["comte-cheese-default", "comte-cheese-fr"],
       "cooked-ham": ["cooked-ham-2025", "cooked-ham-bbc-2025", "cooked-ham-organic-2025"],
       "coriander": [
         "coriander-default",
@@ -1094,14 +1176,6 @@
         "coriander-organic"
       ],
       "corn-flour": ["corn-flour-default", "corn-flour-fr", "corn-flour-fr-organic"],
-      "coulommiers-cheese": ["coulommiers-cheese-default", "coulommiers-cheese-fr"],
-      "cow-milk": [
-        "cow-milk-default",
-        "cow-milk-eu",
-        "cow-milk-fr",
-        "cow-milk-non-eu",
-        "cow-milk-organic"
-      ],
       "cucurbitacea-seed": [
         "cucurbitacea-seed-default",
         "cucurbitacea-seed-eu",
@@ -1113,30 +1187,11 @@
         "cull-cow-organic-live",
         "cull-cow-organic-national-average-live"
       ],
-      "dairy-spread": [
-        "dairy-spread-20pct-fat-default",
-        "dairy-spread-20pct-fat-fr",
-        "dairy-spread-25pct-fat-default",
-        "dairy-spread-25pct-fat-fr"
-      ],
       "dark-chocolate": ["dark-chocolate-2025"],
       "dill-fresh": ["dill-fresh-default", "dill-fresh-eu", "dill-fresh-fr", "dill-fresh-non-eu"],
-      "dry-goat-cheese": [
-        "dry-goat-cheese-chabichou-type-default",
-        "dry-goat-cheese-chabichou-type-fr",
-        "dry-goat-cheese-default",
-        "dry-goat-cheese-fr"
-      ],
       "egg-white-powder": ["egg-white-powder-fr-2025"],
       "egg-yolk-powder": ["egg-yolk-powder-fr-2025"],
-      "emmental": [
-        "emmental-2025",
-        "emmental-cheese-default",
-        "emmental-cheese-fr",
-        "emmental-grated-fr-2025"
-      ],
       "extra-virgin-olive-oil": ["extra-virgin-olive-oil-2025"],
-      "faisselle": ["faisselle-6pct-fat-default", "faisselle-6pct-fat-fr"],
       "fennel": [
         "fennel-default",
         "fennel-eu",
@@ -1144,12 +1199,6 @@
         "fennel-fr",
         "fennel-non-eu",
         "fennel-organic"
-      ],
-      "feta-type-cheese": [
-        "feta-type-cheese-cow-milk-default",
-        "feta-type-cheese-cow-milk-fr",
-        "feta-type-cheese-sheep-milk-default",
-        "feta-type-cheese-sheep-milk-fr"
       ],
       "fig-puree": ["fig-puree-default", "fig-puree-fr", "fig-puree-fr-organic"],
       "fish-secondary-ingredient": [
@@ -1159,16 +1208,6 @@
         "fish-secondary-ingredient-non-ue"
       ],
       "flour": ["flour-2025", "flour-organic-2025"],
-      "fourme-dambert-cheese": ["fourme-dambert-cheese-default", "fourme-dambert-cheese-fr"],
-      "fresh-cream-cheese": ["fresh-cream-cheese-2025"],
-      "fromage-blanc": [
-        "fromage-blanc-0pct-fat-default",
-        "fromage-blanc-0pct-fat-fr",
-        "fromage-blanc-3pct-fat-default",
-        "fromage-blanc-3pct-fat-fr",
-        "fromage-blanc-8pct-fat-default",
-        "fromage-blanc-8pct-fat-fr"
-      ],
       "garlic-dried-powder": [
         "garlic-dried-powder-default",
         "garlic-dried-powder-fr",
@@ -1176,17 +1215,8 @@
       ],
       "ginger": ["ginger-default", "ginger-non-eu", "ginger-organic"],
       "glucose-syrup": ["glucose-syrup-2025"],
-      "goat-cheese": [
-        "goat-cheese-2025",
-        "goat-cheese-fresh-to-aged-default",
-        "goat-cheese-fresh-to-aged-fr"
-      ],
-      "goat-milk": ["goat-milk-2025"],
-      "gorgonzola-cheese": ["gorgonzola-cheese-default", "gorgonzola-cheese-fr"],
-      "gouda-cheese": ["gouda-cheese-default", "gouda-cheese-fr"],
       "grazed-grass-permanent": ["grazed-grass-permanent-2025"],
       "grazed-grass-temporary": ["grazed-grass-temporary-2025"],
-      "greek-yogurt-sheep-milk": ["greek-yogurt-sheep-milk-default", "greek-yogurt-sheep-milk-fr"],
       "green-bean-cut-raw": [
         "green-bean-cut-raw-default",
         "green-bean-cut-raw-fr",
@@ -1197,7 +1227,6 @@
         "green-olive-pitted-default-organic",
         "green-olive-pitted-fr"
       ],
-      "gruyere-cheese": ["gruyere-cheese-default", "gruyere-cheese-fr"],
       "hake": ["hake-eu-2025"],
       "hazelnut": [
         "hazelnut-eu-2025",
@@ -1230,13 +1259,8 @@
         "macadamia-nut-non-eu",
         "macadamia-nut-organic"
       ],
-      "milk": ["milk-2025", "milk-eu-2025", "milk-non-eu-2025"],
       "milk-powder": ["milk-powder-2025"],
-      "mimolette-cheese": ["mimolette-cheese-default", "mimolette-cheese-fr"],
       "mint": ["mint-default", "mint-eu", "mint-fr", "mint-non-eu"],
-      "mont-dor-cheese": ["mont-dor-cheese-default", "mont-dor-cheese-fr"],
-      "mozzarella": ["mozzarella-2025", "mozzarella-cow-milk-default", "mozzarella-cow-milk-fr"],
-      "munster-cheese": ["munster-cheese-default", "munster-cheese-fr"],
       "mustard-seed": [
         "mustard-seed-default",
         "mustard-seed-eu",
@@ -1249,7 +1273,6 @@
       "olive-oil": ["olive-oil-eu-2025"],
       "onion-dried": ["onion-dried-2025"],
       "orange-juice": ["orange-juice-2025"],
-      "parmesan-cheese": ["parmesan-cheese-default", "parmesan-cheese-fr"],
       "parsley-dried": ["parsley-dried-default", "parsley-dried-fr"],
       "pea-shelled-raw": ["pea-shelled-raw-default", "pea-shelled-raw-fr", "pea-shelled-raw-fr-organic"],
       "peanut": [
@@ -1268,12 +1291,6 @@
         "persimmon-non-eu",
         "persimmon-organic"
       ],
-      "petit-suisse": [
-        "petit-suisse-10pct-fat-default",
-        "petit-suisse-10pct-fat-fr",
-        "petit-suisse-4pct-fat-default",
-        "petit-suisse-4pct-fat-fr"
-      ],
       "pig": ["pig-bbc-fr-live", "pig-conventional-fr-live", "pig-organic-fr-live"],
       "pine-nut": [
         "pine-nut-default",
@@ -1290,11 +1307,8 @@
         "pistachio-organic-2025"
       ],
       "plum-puree": ["plum-puree-default", "plum-puree-fr", "plum-puree-fr-organic"],
-      "pont-leveque-cheese": ["pont-leveque-cheese-default", "pont-leveque-cheese-fr"],
       "poppy-seed": ["poppy-seed-default", "poppy-seed-eu", "poppy-seed-non-eu", "poppy-seed-organic"],
       "potato-starch": ["potato-starch-2025"],
-      "processed-cheese": ["processed-cheese-default", "processed-cheese-fr"],
-      "raclette-cheese": ["raclette-cheese-default", "raclette-cheese-fr"],
       "rapeseed": [
         "rapeseed-default",
         "rapeseed-eu",
@@ -1310,17 +1324,12 @@
         "raspberry-juice-default-organic",
         "raspberry-juice-fr"
       ],
-      "reblochon": ["reblochon-2025", "reblochon-cheese-default", "reblochon-cheese-fr"],
       "red-berries-frozen-raw": [
         "red-berries-frozen-raw-default",
         "red-berries-frozen-raw-default-organic",
         "red-berries-frozen-raw-fr"
       ],
       "red-wine": ["red-wine-2025"],
-      "reduced-fat-firm-cheese-maasdam-type": [
-        "reduced-fat-firm-cheese-maasdam-type-default",
-        "reduced-fat-firm-cheese-maasdam-type-fr"
-      ],
       "refined-grapeseed-oil": ["refined-grapeseed-oil-2025"],
       "refined-linseed-oil": ["refined-linseed-oil-2025"],
       "refined-palm-oil": ["refined-palm-oil-2025", "refined-palm-oil-non-ue-2025"],
@@ -1329,9 +1338,7 @@
       "refined-soybean-oil": ["refined-soybean-oil-2025"],
       "refined-sunflower-oil": ["refined-sunflower-oil-2025"],
       "rice-flour": ["rice-flour-default", "rice-flour-default-organic", "rice-flour-fr"],
-      "roquefort-cheese": ["roquefort-cheese-default", "roquefort-cheese-fr"],
       "saffron": ["saffron-default", "saffron-eu", "saffron-fr", "saffron-non-eu"],
-      "saint-marcellin-cheese": ["saint-marcellin-cheese-default", "saint-marcellin-cheese-fr"],
       "salmon-raw": ["salmon-raw-eu-2025"],
       "salt": ["salt-2025"],
       "sardine": ["sardine-eu-2025", "sardine-fr-2025", "sardine-non-eu-2025"],
@@ -1339,7 +1346,6 @@
       "sausage-toulouse-cooked": ["sausage-toulouse-cooked-2025"],
       "sea-salt": ["sea-salt-default", "sea-salt-eu", "sea-salt-fr", "sea-salt-non-eu"],
       "sesame-seed": ["sesame-seed-default", "sesame-seed-non-eu", "sesame-seed-organic"],
-      "sheep-milk": ["sheep-milk-default", "sheep-milk-eu", "sheep-milk-fr", "sheep-milk-non-eu"],
       "soft-wheat-flour": ["soft-wheat-flour-default", "soft-wheat-flour-fr", "soft-wheat-flour-fr-organic"],
       "soup": ["soup-be", "soup-de", "soup-es", "soup-fr", "soup-it"],
       "soup-dehydrated": [
@@ -1352,7 +1358,6 @@
       "soy-flour": ["soy-flour-default", "soy-flour-default-organic", "soy-flour-fr"],
       "soy-milk": ["soy-milk-2025"],
       "soy-protein": ["soy-protein-2025"],
-      "spread-cheese-20-40pct-fat": ["spread-cheese-20-40pct-fat-default", "spread-cheese-20-40pct-fat-fr"],
       "spring-water": [
         "spring-water-default",
         "spring-water-eu",
@@ -1401,10 +1406,8 @@
       "tomato-concentrated": ["tomato-concentrated-2025"],
       "tomato-juice": ["tomato-juice-2025", "tomato-juice-eu-2025"],
       "tomato-paste": ["tomato-paste-2025", "tomato-paste-fr-2025"],
-      "tomme-cheese-cow-milk": ["tomme-cheese-cow-milk-default", "tomme-cheese-cow-milk-fr"],
       "turmeric": ["turmeric-2025"],
       "unknown-cereals-and-grain-products": ["unknown-cereals-and-grain-products-2025"],
-      "unknown-dairy-product": ["unknown-dairy-product-2025"],
       "unknown-dried-fruits": ["unknown-dried-fruits-2025"],
       "unknown-drink": ["unknown-drink-2025"],
       "unknown-groceries": ["unknown-groceries-2025"],
@@ -1441,8 +1444,7 @@
         "white-bean-canned-drained-fr",
         "white-bean-canned-drained-fr-organic"
       ],
-      "white-wine-dry": ["white-wine-dry-default", "white-wine-dry-default-organic", "white-wine-dry-fr"],
-      "yogurt": ["yogurt-2025"]
+      "white-wine-dry": ["white-wine-dry-default", "white-wine-dry-default-organic", "white-wine-dry-fr"]
     },
     "poultry": {
       "broiler": [
