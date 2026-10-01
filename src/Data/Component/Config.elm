@@ -229,10 +229,9 @@ getDocLink { docLinks } scope key =
 
 
 parse : DataContainer db -> String -> Result String Config
-parse db json =
-    json
-        |> Decode.decodeString (decode db)
-        |> Result.mapError Decode.errorToString
+parse db =
+    Decode.decodeString (decode db)
+        >> Result.mapError Decode.errorToString
 
 
 scopeEnabled : Scope -> { a | enabled : Scope.Dict Bool } -> Bool
