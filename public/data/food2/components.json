@@ -56,5 +56,425 @@
     "id": "d3b8adda-9cc5-484a-8dcc-d04a4a990639",
     "name": "Farine de blé (1 kg)",
     "scopes": ["food2"]
+  },
+  {
+    "comment": "1 kg = 0.79 kg de apple-fr + transformation. À comparer au procédé Agribalyse agrégé 'Apple compote, recipe, at plant {FR} U'.",
+    "elements": [
+      {
+        "amount": 1,
+        "material": { "country": "FR", "id": "d9519b9d-d166-4bb0-8f34-27bb874b104a" },
+        "transforms": [
+          { "country": "FR", "id": "a97ecfb4-87ef-5691-91b6-245a9768e6fd" }
+        ]
+      }
+    ],
+    "id": "0d54d050-e20a-5297-9a1c-7c7a06fbdf1e",
+    "name": "Compote de pomme FR (1 kg)",
+    "scopes": ["food2"]
+  },
+  {
+    "comment": "1 kg = 2.86 kg de saffron-fr + transformation. À comparer au procédé Agribalyse agrégé 'Black pepper, dried, consumption mix {FR} U'.",
+    "elements": [
+      {
+        "amount": 1,
+        "material": { "country": "FR", "id": "17a1fb76-b185-58e9-b054-55a618d5ef73" },
+        "transforms": [
+          { "country": "FR", "id": "70860769-9749-58ab-b1df-4fbcaaede777" }
+        ]
+      }
+    ],
+    "id": "f80acbc8-cd76-5ad7-b843-68a5242090d1",
+    "name": "Poivre noir par défaut (1 kg)",
+    "scopes": ["food2"]
+  },
+  {
+    "comment": "1 kg = 4.01 kg de cow-milk-fr + transformation. À comparer au procédé Agribalyse agrégé 'Brie cheese, from cow's milk, consumption mix {FR} U'.",
+    "elements": [
+      {
+        "amount": 1,
+        "material": { "country": "FR", "id": "b757094f-7cb1-58ea-9d3d-b6d7e0e0d471" },
+        "transforms": [
+          { "country": "FR", "id": "f364de9d-2ce7-5618-8a8d-9f6b2a437b28" }
+        ]
+      }
+    ],
+    "id": "50e652d0-7e34-592a-8e70-0f47542ee072",
+    "name": "Brie FR (1 kg)",
+    "scopes": ["food2"]
+  },
+  {
+    "comment": "1 kg = 0.38 kg de apple-fr + transformation. À comparer au procédé Agribalyse agrégé 'Candied fruits, recipe, at plant {FR} U'.",
+    "elements": [
+      {
+        "amount": 1,
+        "material": { "country": "FR", "id": "d9519b9d-d166-4bb0-8f34-27bb874b104a" },
+        "transforms": [
+          { "country": "FR", "id": "db0d62ad-425e-5784-b188-a7146dfb219a" }
+        ]
+      }
+    ],
+    "id": "0e573e03-3e76-573b-ad17-d6c43eacc88a",
+    "name": "Fruits confits FR (1 kg)",
+    "scopes": ["food2"]
+  },
+  {
+    "comment": "1 kg = 1.81 kg de carrot-fr + transformation. À comparer au procédé Agribalyse agrégé 'Carrot juice, pure juice, at plant {FR} U'.",
+    "elements": [
+      {
+        "amount": 1,
+        "material": { "country": "FR", "id": "bdae4e7c-3215-53b7-9e30-65e16253a0a3" },
+        "transforms": [
+          { "country": "FR", "id": "066bc04d-6c11-5131-a3c7-5b157b24622c" }
+        ]
+      }
+    ],
+    "id": "7bf2cbf4-10e8-5cd3-9405-e7247163b0cd",
+    "name": "Jus de carotte FR (1 kg)",
+    "scopes": ["food2"]
+  },
+  {
+    "comment": "1 kg = 4.80 kg de goat-milk-2025 + transformation. À comparer au procédé Agribalyse agrégé 'Cheese, from goat's milk, consumption mix {FR} U'.",
+    "elements": [
+      {
+        "amount": 1,
+        "material": { "country": "FR", "id": "a9eed813-3242-4701-8d76-f4fb2f222121" },
+        "transforms": [
+          { "country": "FR", "id": "e7d122b6-581e-5345-9daa-c8e396df97f6" }
+        ]
+      }
+    ],
+    "id": "3fb608d3-2417-575b-8968-b003c6c69548",
+    "name": "Fromage de chèvre FR (1 kg)",
+    "scopes": ["food2"]
+  },
+  {
+    "comment": "1 kg = 4.81 kg de cow-milk-fr + transformation. À comparer au procédé Agribalyse agrégé 'Comte cheese, from cow's milk, at plant {FR} U'.",
+    "elements": [
+      {
+        "amount": 1,
+        "material": { "country": "FR", "id": "b757094f-7cb1-58ea-9d3d-b6d7e0e0d471" },
+        "transforms": [
+          { "country": "FR", "id": "9088a731-da89-5f97-95ed-e02c60afe1fc" }
+        ]
+      }
+    ],
+    "id": "b916d9fd-559e-5ddf-af53-63ddf475cc37",
+    "name": "Comté FR AOP (1 kg)",
+    "scopes": ["food2"]
+  },
+  {
+    "comment": "1 kg = 0.88 kg de sweet-corn-br-2025 + transformation. À comparer au procédé Agribalyse agrégé 'Corn glucose syrup, at plant {GLO} - Adapted from WFLDB U'.",
+    "elements": [
+      {
+        "amount": 1,
+        "material": { "id": "be9a2aa4-4c8b-4801-abcf-01ba1581f053" },
+        "transforms": [
+          { "country": "FR", "id": "e50a7bb9-826f-5d83-925f-71c32df3d016" }
+        ]
+      }
+    ],
+    "id": "c2f24641-dfd9-500d-81e7-ef3eb712afd8",
+    "name": "Sirop de glucose FR ou UE ou par défaut (1 kg)",
+    "scopes": ["food2"]
+  },
+  {
+    "comment": "1 kg = 4.71 kg de cow-milk-fr + transformation. À comparer au procédé Agribalyse agrégé 'Emmental cheese, from cow's milk, at plant {FR} U'.",
+    "elements": [
+      {
+        "amount": 1,
+        "material": { "country": "FR", "id": "b757094f-7cb1-58ea-9d3d-b6d7e0e0d471" },
+        "transforms": [
+          { "country": "FR", "id": "6852e58a-73e9-51d4-b9f1-95073f7dbf19" }
+        ]
+      }
+    ],
+    "id": "17725275-d82d-5ccd-b601-aa3c7de77e35",
+    "name": "Emmental FR (1 kg)",
+    "scopes": ["food2"]
+  },
+  {
+    "comment": "1 kg = 4.74 kg de cow-milk-fr + transformation. À comparer au procédé Agribalyse agrégé 'Emmental cheese, grated, cheese production, from cow's milk, hard cheese, French production mix, at plant, 1 kg of Emmental, grated cheese (PGi) {FR} U'.",
+    "elements": [
+      {
+        "amount": 1,
+        "material": { "country": "FR", "id": "b757094f-7cb1-58ea-9d3d-b6d7e0e0d471" },
+        "transforms": [
+          { "country": "FR", "id": "82892e74-8963-5709-9ef7-96b0263b3744" }
+        ]
+      }
+    ],
+    "id": "37489cb9-03ed-5b6c-8bdc-0042eafcc92d",
+    "name": "Emmental rapé FR (1 kg)",
+    "scopes": ["food2"]
+  },
+  {
+    "comment": "1 kg = 5.70 kg de olive-eu-2025 + transformation. À comparer au procédé Agribalyse agrégé 'Extra Virgin Olive Oil, at plant {ES} U'.",
+    "elements": [
+      {
+        "amount": 1,
+        "material": { "id": "4234febf-7bb7-4713-a399-7fd586849e7b" },
+        "transforms": [
+          { "country": "FR", "id": "6a730b89-2e0e-5fce-9171-47981a18ce22" }
+        ]
+      }
+    ],
+    "id": "25883501-cafa-5f77-986f-4dd0dab0e3fe",
+    "name": "Huile d'olive (extra vierge) UE (1 kg)",
+    "scopes": ["food2"]
+  },
+  {
+    "comment": "1 kg = 1.00 kg de potato-fr + transformation. À comparer au procédé Agribalyse agrégé 'French fries or chips, frozen, at processing {FR} U'.",
+    "elements": [
+      {
+        "amount": 1,
+        "material": { "country": "FR", "id": "0528ba96-12c6-5f56-8b9f-a2343fc8e12b" },
+        "transforms": [
+          { "country": "FR", "id": "05cbc20a-d501-5c6a-8f79-a764fdc8f495" }
+        ]
+      }
+    ],
+    "id": "d12bd659-beea-5995-9cba-8dd153a339b4",
+    "name": "Frites de pomme de terre congelées FR (1 kg)",
+    "scopes": ["food2"]
+  },
+  {
+    "comment": "1 kg = 2.34 kg de lemon-pulp-raw-default + transformation. À comparer au procédé Agribalyse agrégé 'Lemon juice, pure juice, at plant {IT} U'.",
+    "elements": [
+      {
+        "amount": 1,
+        "material": { "id": "4fba3fff-ce86-4827-8c1f-aab86f16e469" },
+        "transforms": [
+          { "country": "FR", "id": "ad76d5a5-7686-5deb-9001-599458a95626" }
+        ]
+      }
+    ],
+    "id": "e4fc6aff-fea6-55a3-900b-b3ca573b0bc9",
+    "name": "Jus de citron UE (1 kg)",
+    "scopes": ["food2"]
+  },
+  {
+    "comment": "1 kg = 0.90 kg de cull-cow-grass-fed-fr-live + transformation. À comparer au procédé Agribalyse agrégé 'Live beef, for direct consumption, consumption mix {FR} U'.",
+    "elements": [
+      {
+        "amount": 1,
+        "material": { "country": "FR", "id": "cb385a08-0441-5377-b5f2-a76592ea1165" },
+        "transforms": [
+          { "country": "FR", "id": "1fd84d43-a33d-519b-b0bc-5fb097f69b47" }
+        ]
+      }
+    ],
+    "id": "410a1637-4da2-5d88-92b3-cbcc5753ec16",
+    "name": "Boeuf Bio (1 kg)",
+    "scopes": ["food2"]
+  },
+  {
+    "comment": "1 kg = 1.35 kg de cull-cow-grass-fed-fr-live + transformation. À comparer au procédé Agribalyse agrégé 'Meat with bone, beef, for direct consumption {FR} U'.",
+    "elements": [
+      {
+        "amount": 1,
+        "material": { "country": "FR", "id": "cb385a08-0441-5377-b5f2-a76592ea1165" },
+        "transforms": [
+          { "country": "FR", "id": "d366da83-92c6-5d21-b833-bb4275060412" }
+        ]
+      }
+    ],
+    "id": "2a345d2c-6266-5bc5-8b4c-a7c0169b0c72",
+    "name": "Viande de boeuf avec os (crue) FR (1 kg)",
+    "scopes": ["food2"]
+  },
+  {
+    "comment": "1 kg = 1.69 kg de cull-cow-grass-fed-fr-live + transformation. À comparer au procédé Agribalyse agrégé 'Meat without bone, beef, for direct consumption {FR} U'.",
+    "elements": [
+      {
+        "amount": 1,
+        "material": { "country": "FR", "id": "cb385a08-0441-5377-b5f2-a76592ea1165" },
+        "transforms": [
+          { "country": "FR", "id": "e2ee4101-3ec9-54bd-a821-069be84b79cd" }
+        ]
+      }
+    ],
+    "id": "8b9c14d2-29d4-5691-a47a-66a3790b229c",
+    "name": "Viande de boeuf sans os (crue) FR (1 kg)",
+    "scopes": ["food2"]
+  },
+  {
+    "comment": "1 kg = 3.43 kg de cow-milk-fr + transformation. À comparer au procédé Agribalyse agrégé 'Mozzarella cheese, from cow's milk, at plant {FR} U'.",
+    "elements": [
+      {
+        "amount": 1,
+        "material": { "country": "FR", "id": "b757094f-7cb1-58ea-9d3d-b6d7e0e0d471" },
+        "transforms": [
+          { "country": "FR", "id": "78fa5c86-5ce0-5bbc-870c-71aa0e434976" }
+        ]
+      }
+    ],
+    "id": "c7031ece-2c3e-5179-9d82-9c4e7d475a4d",
+    "name": "Mozzarella FR (1 kg)",
+    "scopes": ["food2"]
+  },
+  {
+    "comment": "1 kg = 0.78 kg de kumquat-fr-2025 + transformation. À comparer au procédé Agribalyse agrégé 'Orange nectar, recipe, at plant {FR} U'.",
+    "elements": [
+      {
+        "amount": 1,
+        "material": { "country": "FR", "id": "444b178e-2284-524a-894c-f5a5146c1755" },
+        "transforms": [
+          { "country": "FR", "id": "64f39a29-bd59-58c0-aafb-0f903989effa" }
+        ]
+      }
+    ],
+    "id": "a3269888-4f02-56cb-9524-cc71b1426b75",
+    "name": "Jus d'orange par défaut (1 kg)",
+    "scopes": ["food2"]
+  },
+  {
+    "comment": "1 kg = 2.84 kg de peanut-shelled-default + transformation. À comparer au procédé Agribalyse agrégé 'Peanut oil, at oil mill {SN} U'.",
+    "elements": [
+      {
+        "amount": 1,
+        "material": { "id": "7dd4caa8-d883-457c-a468-3107c4e55f20" },
+        "transforms": [
+          { "country": "FR", "id": "01d6cbc6-cc8e-5cd4-81f1-332c8f8d9d1e" }
+        ]
+      }
+    ],
+    "id": "c32497f3-abb9-56a8-9e29-1acd9b850ade",
+    "name": "Huile d'arachide (raffinée) par défaut (1 kg)",
+    "scopes": ["food2"]
+  },
+  {
+    "comment": "1 kg = 2.94 kg de rapeseed-default + transformation. À comparer au procédé Agribalyse agrégé 'Rapeseed oil, at oil mill {GLO} - Adapted from WFLDB U'.",
+    "elements": [
+      {
+        "amount": 1,
+        "material": { "id": "c1be6c42-5f21-5afc-af09-1cd4c2f426b6" },
+        "transforms": [
+          { "country": "FR", "id": "f0b3bbe0-7ea9-50ae-bc23-3253c2538189" }
+        ]
+      }
+    ],
+    "id": "2db81a08-e23b-5656-9b23-f43f0db2c46a",
+    "name": "Huile de colza par défaut (1 kg)",
+    "scopes": ["food2"]
+  },
+  {
+    "comment": "1 kg = 4.09 kg de cow-milk-fr + transformation. À comparer au procédé Agribalyse agrégé 'Reblochon cheese, from cow's milk, at plant {FR} U'.",
+    "elements": [
+      {
+        "amount": 1,
+        "material": { "country": "FR", "id": "b757094f-7cb1-58ea-9d3d-b6d7e0e0d471" },
+        "transforms": [
+          { "country": "FR", "id": "0735f16c-5773-5508-b123-2d69612d0678" }
+        ]
+      }
+    ],
+    "id": "3451b849-f5be-56cd-8f6a-e41f325f3e41",
+    "name": "Reblochon FR (1 kg)",
+    "scopes": ["food2"]
+  },
+  {
+    "comment": "1 kg = 1.02 kg de strawberry-eu-2025 + transformation. À comparer au procédé Agribalyse agrégé 'Strawberry, coulis, recipe, at plant {FR} U'.",
+    "elements": [
+      {
+        "amount": 1,
+        "material": { "id": "ce20da3d-0ce4-49e9-8942-6d99ff0221b1" },
+        "transforms": [
+          { "country": "FR", "id": "c337945e-871b-5515-9f14-dcafdf4d17b1" }
+        ]
+      }
+    ],
+    "id": "ef7c21c4-2578-5e86-b9ee-2d47fb29d3f3",
+    "name": "Purée de fraise FR (1 kg)",
+    "scopes": ["food2"]
+  },
+  {
+    "comment": "1 kg = 4.48 kg de sugar-beet-default + transformation. À comparer au procédé Agribalyse agrégé 'Sugar, from sugar beet, at sugar refinery {GLO} - Adapted from WFLDB U'.",
+    "elements": [
+      {
+        "amount": 1,
+        "material": { "id": "b6214661-a43d-53a3-b51e-f8cf2304d508" },
+        "transforms": [
+          { "country": "FR", "id": "cfca53e3-aeca-5c6c-8a65-52acc9691a94" }
+        ]
+      }
+    ],
+    "id": "3236ae3a-614b-56c5-bb4d-cff0eb4e6420",
+    "name": "Sucre de betterave par défaut (1 kg)",
+    "scopes": ["food2"]
+  },
+  {
+    "comment": "1 kg = 2.44 kg de sunflower-eu + transformation. À comparer au procédé Agribalyse agrégé 'Sunflower oil, at oil mill {GLO} - Adapted from WFLDB U'.",
+    "elements": [
+      {
+        "amount": 1,
+        "material": { "id": "23cd53c5-4b66-4b7c-892f-fe74054f66e5" },
+        "transforms": [
+          { "country": "FR", "id": "f3dd797b-9dde-5050-a5f7-d551726e7d26" }
+        ]
+      }
+    ],
+    "id": "112c614f-4da0-56a4-b3ab-a039cf41b89d",
+    "name": "Huile de tournesol par défaut (1 kg)",
+    "scopes": ["food2"]
+  },
+  {
+    "comment": "1 kg = 1.77 kg de sunflower-seed-fr + transformation. À comparer au procédé Agribalyse agrégé 'Sunflower oil, at plant {IT} U'.",
+    "elements": [
+      {
+        "amount": 1,
+        "material": { "country": "FR", "id": "1929b7c8-7e92-5ddd-b5ef-9b4321b72940" },
+        "transforms": [
+          { "country": "FR", "id": "5c66fc69-4c41-56e7-9573-546fdf40216f" }
+        ]
+      }
+    ],
+    "id": "03f582ab-d15a-5dd1-b401-641e8249e384",
+    "name": "Huile de tournesol UE (1 kg)",
+    "scopes": ["food2"]
+  },
+  {
+    "comment": "1 kg = 1.71 kg de tomato-eu + transformation. À comparer au procédé Agribalyse agrégé 'Tomato juice, pure juice, at processing {ES} U'.",
+    "elements": [
+      {
+        "amount": 1,
+        "material": { "id": "85641d75-149d-4863-a1a8-463e71a85fc2" },
+        "transforms": [
+          { "country": "FR", "id": "990d27c3-1293-5a9c-8173-bbd3689f8d83" }
+        ]
+      }
+    ],
+    "id": "8a456411-7ec7-5d49-b9c7-ad54b9844920",
+    "name": "Jus de tomate UE (1 kg)",
+    "scopes": ["food2"]
+  },
+  {
+    "comment": "1 kg = 2.45 kg de tomato-eu + transformation. À comparer au procédé Agribalyse agrégé 'Tomato juice, pure juice, filled, at plant {FR} U'.",
+    "elements": [
+      {
+        "amount": 1,
+        "material": { "id": "85641d75-149d-4863-a1a8-463e71a85fc2" },
+        "transforms": [
+          { "country": "FR", "id": "34024a4d-b49d-5e74-8f72-0a1d3db4a53f" }
+        ]
+      }
+    ],
+    "id": "75ed2b1e-e63f-5a6d-8744-abf2930cd76e",
+    "name": "Jus de tomate FR (1 kg)",
+    "scopes": ["food2"]
+  },
+  {
+    "comment": "1 kg = 1.16 kg de soft-wheat-fr + transformation. À comparer au procédé Agribalyse agrégé 'Wheat flour, at plant {FR} U'.",
+    "elements": [
+      {
+        "amount": 1,
+        "material": { "country": "FR", "id": "38788025-a65e-4edf-a92f-aab0b89b0d61" },
+        "transforms": [
+          { "country": "FR", "id": "ce5e9e79-a515-5b28-9ddd-f6a62b8a6716" }
+        ]
+      }
+    ],
+    "id": "9013814c-a217-504f-a963-6cf82470909a",
+    "name": "Farine UE (1 kg)",
+    "scopes": ["food2"]
   }
 ]

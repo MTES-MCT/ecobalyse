@@ -1,0 +1,36 @@
+{
+  "categories": ["transformation", "material_type:fruits_and_vegetables"],
+  "comment": "Elec et chaleur de 'Lemon juice, pure juice, at plant {IT} U' (Agribalyse 3.2), ramenées au kg de lemon. 2.34 kg par kg de produit. Source : classeur ecolysis Food-Transformer V3.2b, ligne 729. Généré par ecobalyse-method-tooling/food/koch-components.",
+  "displayName": "Transformation : Jus de citron UE",
+  "elecKwh": 0.01455,
+  "heatMJ": 0.04676,
+  "id": "68b95b11-3e5a-5598-8ed3-f67d341c9956",
+  "impacts": {
+    "acd": 0,
+    "cch": 0,
+    "etf": 0,
+    "etf-c": 0,
+    "fru": 0,
+    "fwe": 0,
+    "htc": 0,
+    "htc-c": 0,
+    "htn": 0,
+    "htn-c": 0,
+    "ior": 0,
+    "ldu": 0,
+    "mru": 0,
+    "ozd": 0,
+    "pco": 0,
+    "pma": 0,
+    "swe": 0,
+    "tre": 0,
+    "wtu": 0
+  },
+  "metadata": [
+    { "id": "ad76d5a5-7686-5deb-9001-599458a95626", "scopes": ["food2"] }
+  ],
+  "qtyVariationRatio": 0.4282,
+  "scopes": ["food2"],
+  "source": "Ecobalyse_manual_lcia",
+  "unit": "kg"
+}

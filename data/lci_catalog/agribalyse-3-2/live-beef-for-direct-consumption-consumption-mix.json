@@ -10,7 +10,7 @@
       "animalGroup2": "cow",
       "animalProduct": "meat",
       "defaultOrigin": "France",
-      "displayName": "Boeuf Bio",
+      "displayName": "Boeuf Bio agrégé",
       "id": "ee9f059d-cb4f-5e74-9981-7ced79fdc330",
       "inediblePart": 0.05,
       "inediblePartMatch": {

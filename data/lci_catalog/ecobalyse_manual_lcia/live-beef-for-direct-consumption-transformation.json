@@ -1,0 +1,36 @@
+{
+  "categories": ["transformation", "material_type:other_food_items"],
+  "comment": "Elec et chaleur de 'Live beef, for direct consumption, consumption mix {FR} U' (Agribalyse 3.2), ramenées au kg de beef cattle. 0.90 kg par kg de produit. Source : classeur ecolysis Food-Transformer V3.2b, ligne 768. Généré par ecobalyse-method-tooling/food/koch-components.",
+  "displayName": "Transformation : Boeuf Bio",
+  "elecKwh": 0.0,
+  "heatMJ": 0.0,
+  "id": "f40f7677-a2ab-5cb5-bca8-61212325d004",
+  "impacts": {
+    "acd": 0,
+    "cch": 0,
+    "etf": 0,
+    "etf-c": 0,
+    "fru": 0,
+    "fwe": 0,
+    "htc": 0,
+    "htc-c": 0,
+    "htn": 0,
+    "htn-c": 0,
+    "ior": 0,
+    "ldu": 0,
+    "mru": 0,
+    "ozd": 0,
+    "pco": 0,
+    "pma": 0,
+    "swe": 0,
+    "tre": 0,
+    "wtu": 0
+  },
+  "metadata": [
+    { "id": "1fd84d43-a33d-519b-b0bc-5fb097f69b47", "scopes": ["food2"] }
+  ],
+  "qtyVariationRatio": 1.111,
+  "scopes": ["food2"],
+  "source": "Ecobalyse_manual_lcia",
+  "unit": "kg"
+}

@@ -1,0 +1,36 @@
+{
+  "categories": ["transformation", "material_type:other_food_items"],
+  "comment": "Elec et chaleur de 'Emmental cheese, grated, cheese production, from cow's milk, hard cheese, French production mix, at plant, 1 kg of Emmental, grated cheese (PGi) {FR} U' (Agribalyse 3.2), ramenées au kg de cow milk. 4.74 kg par kg de produit. Source : classeur ecolysis Food-Transformer V3.2b, ligne 407. Généré par ecobalyse-method-tooling/food/koch-components.",
+  "displayName": "Transformation : Emmental rapé FR",
+  "elecKwh": 0.09442,
+  "heatMJ": 0.7237,
+  "id": "15f86f29-442f-5d82-8bbb-090d31d7ae23",
+  "impacts": {
+    "acd": 0,
+    "cch": 0,
+    "etf": 0,
+    "etf-c": 0,
+    "fru": 0,
+    "fwe": 0,
+    "htc": 0,
+    "htc-c": 0,
+    "htn": 0,
+    "htn-c": 0,
+    "ior": 0,
+    "ldu": 0,
+    "mru": 0,
+    "ozd": 0,
+    "pco": 0,
+    "pma": 0,
+    "swe": 0,
+    "tre": 0,
+    "wtu": 0
+  },
+  "metadata": [
+    { "id": "82892e74-8963-5709-9ef7-96b0263b3744", "scopes": ["food2"] }
+  ],
+  "qtyVariationRatio": 0.2108,
+  "scopes": ["food2"],
+  "source": "Ecobalyse_manual_lcia",
+  "unit": "kg"
+}

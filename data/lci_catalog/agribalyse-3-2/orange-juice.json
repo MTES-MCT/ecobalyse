@@ -8,7 +8,7 @@
       "alias": "orange-juice-2025",
       "cropGroup": "AUTRES CULTURES INDUSTRIELLES",
       "defaultOrigin": "OutOfEuropeAndMaghreb",
-      "displayName": "Jus d'orange par défaut (2025)",
+      "displayName": "Jus d'orange par défaut agrégé (2025)",
       "id": "4649b3db-d927-4ea5-baa0-d74fa3c768d2",
       "inediblePart": 0.2,
       "ingredientCategories": ["vegetable_processed"],

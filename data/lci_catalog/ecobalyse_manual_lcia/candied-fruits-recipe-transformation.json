@@ -1,0 +1,36 @@
+{
+  "categories": ["transformation", "material_type:fruits_and_vegetables"],
+  "comment": "Elec et chaleur de 'Candied fruits, recipe, at plant {FR} U' (Agribalyse 3.2), ramenées au kg de apple. 0.38 kg par kg de produit. Source : classeur ecolysis Food-Transformer V3.2b, ligne 184. Généré par ecobalyse-method-tooling/food/koch-components.",
+  "displayName": "Transformation : Fruits confits FR",
+  "elecKwh": 1.866,
+  "heatMJ": 1.962,
+  "id": "002870b8-6bbd-58a2-a0dd-dfdbf3b12d72",
+  "impacts": {
+    "acd": 0,
+    "cch": 0,
+    "etf": 0,
+    "etf-c": 0,
+    "fru": 0,
+    "fwe": 0,
+    "htc": 0,
+    "htc-c": 0,
+    "htn": 0,
+    "htn-c": 0,
+    "ior": 0,
+    "ldu": 0,
+    "mru": 0,
+    "ozd": 0,
+    "pco": 0,
+    "pma": 0,
+    "swe": 0,
+    "tre": 0,
+    "wtu": 0
+  },
+  "metadata": [
+    { "id": "db0d62ad-425e-5784-b188-a7146dfb219a", "scopes": ["food2"] }
+  ],
+  "qtyVariationRatio": 2.605,
+  "scopes": ["food2"],
+  "source": "Ecobalyse_manual_lcia",
+  "unit": "kg"
+}

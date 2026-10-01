@@ -1,0 +1,36 @@
+{
+  "categories": ["transformation", "material_type:other_food_items"],
+  "comment": "Elec et chaleur de 'Rapeseed oil, at oil mill {GLO} - Adapted from WFLDB U' (Agribalyse 3.2), ramenées au kg de rapeseed. 2.94 kg par kg de produit. Source : classeur ecolysis Food-Transformer V3.2b, ligne 1074. Généré par ecobalyse-method-tooling/food/koch-components.",
+  "displayName": "Transformation : Huile de colza par défaut",
+  "elecKwh": 0.02419,
+  "heatMJ": 0.4002,
+  "id": "adff04de-5a44-560b-9e33-782953e4dc85",
+  "impacts": {
+    "acd": 0,
+    "cch": 0,
+    "etf": 0,
+    "etf-c": 0,
+    "fru": 0,
+    "fwe": 0,
+    "htc": 0,
+    "htc-c": 0,
+    "htn": 0,
+    "htn-c": 0,
+    "ior": 0,
+    "ldu": 0,
+    "mru": 0,
+    "ozd": 0,
+    "pco": 0,
+    "pma": 0,
+    "swe": 0,
+    "tre": 0,
+    "wtu": 0
+  },
+  "metadata": [
+    { "id": "f0b3bbe0-7ea9-50ae-bc23-3253c2538189", "scopes": ["food2"] }
+  ],
+  "qtyVariationRatio": 0.3407,
+  "scopes": ["food2"],
+  "source": "Ecobalyse_manual_lcia",
+  "unit": "kg"
+}
