@@ -82,7 +82,7 @@
     "@parcel/transformer-image": "^2.16.4",
     "@parcel/transformer-sass": "^2.16.4",
     "@playwright/test": "^1.62.1",
-    "@types/node": "^25.9.5",
+    "@types/node": "^26.1.0",
     "bootstrap": "^5.3.8",
     "concurrently": "^10.0.5",
     "cpx2": "^9.0.3",
