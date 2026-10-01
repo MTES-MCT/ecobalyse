@@ -1,9 +1,9 @@
 {
-  "categories": ["transformation", "material_type:other_food_items"],
-  "comment": "Elec et chaleur de 'Emmental cheese, from cow's milk, at plant {FR} U' (Agribalyse 3.2), ramenées au kg de cow milk. 4.71 kg par kg de produit. Source : classeur ecolysis Food-Transformer V3.2b, ligne 405. Généré par ecobalyse-method-tooling/food/koch-components.",
+  "categories": ["transformation", "material_type:dairy"],
+  "comment": "Elec et chaleur de 'Emmental cheese, from cow's milk, at plant {FR} U' (Agribalyse 3.2), ramenées au kg de 'Milk, cow, conventional, national average, at farm {FR} U'. 4.72 kg par kg de produit. Source : classeur ecolysis 194-p09-ResultatsAnalyse10092026, feuille optionA, ligne 674. Généré par ecobalyse-method-tooling/food/koch-components.",
   "displayName": "Transformation : Emmental FR",
-  "elecKwh": 0.09581,
-  "heatMJ": 0.7344,
+  "elecKwh": 0.09579,
+  "heatMJ": 0.7349,
   "id": "071de010-70b0-5cf4-8895-d3dc8b39f3f0",
   "impacts": {
     "acd": 0,
@@ -29,7 +29,7 @@
   "metadata": [
     { "id": "6852e58a-73e9-51d4-b9f1-95073f7dbf19", "scopes": ["food2"] }
   ],
-  "qtyVariationRatio": 0.2122,
+  "qtyVariationRatio": 0.2121,
   "scopes": ["food2"],
   "source": "Ecobalyse_manual_lcia",
   "unit": "kg"

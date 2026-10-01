@@ -1,9 +1,9 @@
 {
-  "categories": ["transformation", "material_type:other_food_items"],
-  "comment": "Elec et chaleur de 'Mozzarella cheese, from cow's milk, at plant {FR} U' (Agribalyse 3.2), ramenées au kg de cow milk. 3.43 kg par kg de produit. Source : classeur ecolysis Food-Transformer V3.2b, ligne 882. Généré par ecobalyse-method-tooling/food/koch-components.",
+  "categories": ["transformation", "material_type:dairy"],
+  "comment": "Elec et chaleur de 'Mozzarella cheese, from cow's milk, at plant {FR} U' (Agribalyse 3.2), ramenées au kg de 'Milk, cow, conventional, national average, at farm {FR} U'. 3.43 kg par kg de produit. Source : classeur ecolysis 194-p09-ResultatsAnalyse10092026, feuille optionA, ligne 1281. Généré par ecobalyse-method-tooling/food/koch-components.",
   "displayName": "Transformation : Mozzarella FR",
-  "elecKwh": 0.1058,
-  "heatMJ": 0.4892,
+  "elecKwh": 0.1057,
+  "heatMJ": 0.488,
   "id": "cafa9030-ac86-5a8d-8ebe-8f3e4beb44fb",
   "impacts": {
     "acd": 0,
@@ -29,7 +29,7 @@
   "metadata": [
     { "id": "78fa5c86-5ce0-5bbc-870c-71aa0e434976", "scopes": ["food2"] }
   ],
-  "qtyVariationRatio": 0.2913,
+  "qtyVariationRatio": 0.2914,
   "scopes": ["food2"],
   "source": "Ecobalyse_manual_lcia",
   "unit": "kg"

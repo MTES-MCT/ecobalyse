@@ -1,6 +1,6 @@
 {
-  "categories": ["transformation", "material_type:other_food_items"],
-  "comment": "Elec et chaleur de 'Cheese, from goat's milk, consumption mix {FR} U' (Agribalyse 3.2), ramenées au kg de goat milk. 4.80 kg par kg de produit. Source : classeur ecolysis Food-Transformer V3.2b, ligne 243. Généré par ecobalyse-method-tooling/food/koch-components.",
+  "categories": ["transformation", "material_type:dairy"],
+  "comment": "Elec et chaleur de 'Cheese, from goat's milk, consumption mix {FR} U' (Agribalyse 3.2), ramenées au kg de 'Goat milk, conventional, north-west, at farm {FR} U'. 4.80 kg par kg de produit. Source : classeur ecolysis 194-p09-ResultatsAnalyse10092026, feuille optionA, ligne 434. Généré par ecobalyse-method-tooling/food/koch-components.",
   "displayName": "Transformation : Fromage de chèvre FR",
   "elecKwh": 0.07493,
   "heatMJ": 0.3465,
@@ -29,7 +29,7 @@
   "metadata": [
     { "id": "e7d122b6-581e-5345-9daa-c8e396df97f6", "scopes": ["food2"] }
   ],
-  "qtyVariationRatio": 0.2085,
+  "qtyVariationRatio": 0.2084,
   "scopes": ["food2"],
   "source": "Ecobalyse_manual_lcia",
   "unit": "kg"

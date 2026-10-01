@@ -1,9 +1,9 @@
 {
-  "categories": ["transformation", "material_type:other_food_items"],
-  "comment": "Elec et chaleur de 'Comte cheese, from cow's milk, at plant {FR} U' (Agribalyse 3.2), ramenées au kg de cow milk. 4.81 kg par kg de produit. Source : classeur ecolysis Food-Transformer V3.2b, ligne 326. Généré par ecobalyse-method-tooling/food/koch-components.",
+  "categories": ["transformation", "material_type:dairy"],
+  "comment": "Elec et chaleur de 'Comte cheese, from cow's milk, at plant {FR} U' (Agribalyse 3.2), ramenées au kg de 'Milk, cow, conventional, national average, at farm {FR} U'. 4.81 kg par kg de produit. Source : classeur ecolysis 194-p09-ResultatsAnalyse10092026, feuille optionA, ligne 551. Généré par ecobalyse-method-tooling/food/koch-components.",
   "displayName": "Transformation : Comté FR AOP",
-  "elecKwh": 0.0914,
-  "heatMJ": 0.7006,
+  "elecKwh": 0.09139,
+  "heatMJ": 0.7011,
   "id": "e7e54b0b-0bbc-5caf-b1ce-c71022fe73a8",
   "impacts": {
     "acd": 0,

@@ -1,6 +1,6 @@
 {
   "categories": ["transformation", "material_type:fruits_and_vegetables"],
-  "comment": "Elec et chaleur de 'Extra Virgin Olive Oil, at plant {ES} U' (Agribalyse 3.2), ramenées au kg de olive. 5.70 kg par kg de produit. Source : classeur ecolysis Food-Transformer V3.2b, ligne 441. Généré par ecobalyse-method-tooling/food/koch-components.",
+  "comment": "Elec et chaleur de 'Extra Virgin Olive Oil, at plant {ES} U' (Agribalyse 3.2), ramenées au kg de 'Olive {ES}| olive production | Cut-off, U - Adapted from Ecoinvent U'. 5.69 kg par kg de produit. Source : classeur ecolysis 194-p09-ResultatsAnalyse10092026, feuille optionA, ligne 721. Généré par ecobalyse-method-tooling/food/koch-components.",
   "displayName": "Transformation : Huile d'olive (extra vierge) UE",
   "elecKwh": 0.0235,
   "heatMJ": 0.0,

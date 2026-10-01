@@ -1,0 +1,36 @@
+{
+  "categories": ["transformation", "material_type:dairy"],
+  "comment": "Elec et chaleur de 'Whey, at plant {FR} U' (Agribalyse 3.2), ramenées au kg de 'Milk, cow, conventional, national average, at farm {FR} U'. 0.04 kg par kg de produit. Source : classeur ecolysis 194-p09-ResultatsAnalyse10092026, feuille optionA, ligne 2276. Généré par ecobalyse-method-tooling/food/koch-components.",
+  "displayName": "Transformation : Poudre de lactosérum FR",
+  "elecKwh": 0.0,
+  "heatMJ": 0.0,
+  "id": "8101e5f0-e9dc-526d-91d0-34d84b758fbb",
+  "impacts": {
+    "acd": 0,
+    "cch": 0,
+    "etf": 0,
+    "etf-c": 0,
+    "fru": 0,
+    "fwe": 0,
+    "htc": 0,
+    "htc-c": 0,
+    "htn": 0,
+    "htn-c": 0,
+    "ior": 0,
+    "ldu": 0,
+    "mru": 0,
+    "ozd": 0,
+    "pco": 0,
+    "pma": 0,
+    "swe": 0,
+    "tre": 0,
+    "wtu": 0
+  },
+  "metadata": [
+    { "id": "eb8e9292-d80a-5326-a302-ca0186e3c157", "scopes": ["food2"] }
+  ],
+  "qtyVariationRatio": 24.97,
+  "scopes": ["food2"],
+  "source": "Ecobalyse_manual_lcia",
+  "unit": "kg"
+}

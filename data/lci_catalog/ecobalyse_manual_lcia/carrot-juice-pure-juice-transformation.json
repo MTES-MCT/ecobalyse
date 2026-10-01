@@ -1,6 +1,6 @@
 {
   "categories": ["transformation", "material_type:fruits_and_vegetables"],
-  "comment": "Elec et chaleur de 'Carrot juice, pure juice, at plant {FR} U' (Agribalyse 3.2), ramenées au kg de carrot. 1.81 kg par kg de produit. Source : classeur ecolysis Food-Transformer V3.2b, ligne 198. Généré par ecobalyse-method-tooling/food/koch-components.",
+  "comment": "Elec et chaleur de 'Carrot juice, pure juice, at plant {FR} U' (Agribalyse 3.2), ramenées au kg de 'Carrot, conventional, national average, at farm {FR} U'. 1.81 kg par kg de produit. Source : classeur ecolysis 194-p09-ResultatsAnalyse10092026, feuille optionA, ligne 308. Généré par ecobalyse-method-tooling/food/koch-components.",
   "displayName": "Transformation : Jus de carotte FR",
   "elecKwh": 0.01745,
   "heatMJ": 0.06395,
