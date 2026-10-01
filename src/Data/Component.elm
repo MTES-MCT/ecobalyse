@@ -59,6 +59,7 @@ module Data.Component exposing
     , emptyLifeCycle
     , emptyQuery
     , emptyResults
+    , encodeApiResponse
     , encodeBase64Query
     , encodeId
     , encodeItem
@@ -280,6 +281,7 @@ type alias DataContainer db =
     { db
         | components : List Component
         , countries : List Country
+        , definitions : Definitions
         , distances : Transport.Distances
         , processes : List Process
         , products : List ProductCategory
@@ -1709,6 +1711,161 @@ encodeQuantifiedProcess v =
 encodeTransform : LocalizedProcess -> Encode.Value
 encodeTransform transform =
     encodeLocalizedProcess transform
+
+
+divideComplementsByDurability : Maybe Unit.Ratio -> ComplementsResultsImpacts -> ComplementsResultsImpacts
+divideComplementsByDurability maybeDurability complements =
+    case maybeDurability of
+        Just durability ->
+            complements
+                |> Complement.mapComplements (Maybe.map (Impact.divideBy (Unit.ratioToFloat durability)))
+
+        Nothing ->
+            complements
+
+
+divideImpactByDurability : Maybe Unit.Ratio -> Unit.Impact -> Unit.Impact
+divideImpactByDurability maybeDurability impact =
+    case maybeDurability of
+        Just durability ->
+            impact |> Quantity.divideBy (Unit.ratioToFloat durability)
+
+        Nothing ->
+            impact
+
+
+divideImpactsByDurability : Maybe Unit.Ratio -> Impacts -> Impacts
+divideImpactsByDurability maybeDurability impacts =
+    case maybeDurability of
+        Just durability ->
+            impacts |> Impact.divideBy (Unit.ratioToFloat durability)
+
+        Nothing ->
+            impacts
+
+
+encodeApiComplementPoints : ComplementsResultsImpacts -> Encode.Value
+encodeApiComplementPoints complements =
+    let
+        getEcs =
+            Maybe.map (Impact.getImpact Definition.Ecs >> Unit.encodeImpact)
+    in
+    EU.optionalPropertiesObject
+        [ ( "cropDiversity", getEcs complements.cropDiversity )
+        , ( "forest", getEcs complements.forest )
+        , ( "hedges", getEcs complements.hedges )
+        , ( "microfibers", getEcs complements.microfibers )
+        , ( "outOfEuropeEOL", getEcs complements.outOfEuropeEOL )
+        , ( "permanentPasture", getEcs complements.permanentPasture )
+        , ( "plotSize", getEcs complements.plotSize )
+        ]
+
+
+encodeApiComposition : Maybe Unit.Ratio -> Query -> LifeCycle -> Encode.Value
+encodeApiComposition maybeDurability query lifeCycle =
+    List.map2 (encodeApiCompositionItem maybeDurability)
+        query.items
+        (extractItems lifeCycle.production)
+        |> Encode.list identity
+
+
+encodeApiCompositionItem : Maybe Unit.Ratio -> Item -> Results -> Encode.Value
+encodeApiCompositionItem maybeDurability item (Results results) =
+    let
+        undivided =
+            getTotalImpacts (Results results)
+    in
+    EU.optionalPropertiesObject
+        [ ( "id", item.id |> Maybe.map encodeId )
+        , ( "name", results.label |> Maybe.map Encode.string )
+        , ( "quantity", results.quantity |> Encode.int |> Just )
+        , ( "mass", results.mass |> Mass.inKilograms |> Encode.float |> Just )
+        , ( "impacts", undivided |> divideImpactsByDurability maybeDurability |> Impact.encode |> Just )
+        , ( "impactsWithoutDurability", Impact.encode undivided |> Just )
+        , ( "totalComplements"
+          , results.complementsImpacts
+                |> divideComplementsByDurability maybeDurability
+                |> encodeApiComplementPoints
+                |> Just
+          )
+        ]
+
+
+encodeApiResponse : Definitions -> Query -> LifeCycle -> List ( String, Encode.Value )
+encodeApiResponse definitions query lifeCycle =
+    let
+        impactsWithoutDurability =
+            sumLifeCycleImpacts lifeCycle
+    in
+    [ ( "productMass"
+      , lifeCycle.productMass
+            |> Mass.inKilograms
+            |> Encode.float
+      )
+    , ( "impacts"
+      , impactsWithoutDurability
+            |> divideImpactsByDurability query.durability
+            |> Impact.encode
+      )
+    , ( "impactsWithoutDurability", Impact.encode impactsWithoutDurability )
+    , ( "totalComplements"
+      , extractComplementsImpacts lifeCycle.production
+            |> divideComplementsByDurability query.durability
+            |> encodeApiComplementPoints
+      )
+    , ( "subscores", lifeCycle |> encodeApiSubscores definitions query.durability impactsWithoutDurability )
+    , ( "stages", lifeCycle |> encodeApiStages query.durability )
+    , ( "composition", lifeCycle |> encodeApiComposition query.durability query )
+    ]
+
+
+encodeApiStages : Maybe Unit.Ratio -> LifeCycle -> Encode.Value
+encodeApiStages maybeDurability lifeCycle =
+    let
+        stages =
+            stagesImpacts lifeCycle
+
+        getEcs =
+            Maybe.withDefault Impact.empty
+                >> divideImpactsByDurability maybeDurability
+                >> Impact.getImpact Definition.Ecs
+                >> Unit.encodeImpact
+    in
+    Encode.object
+        [ ( "materials", getEcs stages.materials )
+        , ( "transform", getEcs stages.transform )
+        , ( "assembly", getEcs stages.assembly )
+        , ( "packaging", getEcs stages.packaging )
+        , ( "transports", getEcs stages.transports )
+        , ( "distribution", getEcs stages.distribution )
+        , ( "usage", getEcs stages.usage )
+        , ( "endOfLife", getEcs stages.endOfLife )
+        ]
+
+
+encodeApiSubscores : Definitions -> Maybe Unit.Ratio -> Impacts -> LifeCycle -> Encode.Value
+encodeApiSubscores definitions maybeDurability undivided lifeCycle =
+    let
+        areas =
+            Impact.toProtectionAreas definitions undivided
+
+        complements =
+            extractComplementsImpacts lifeCycle.production
+                |> Complement.mergeComplementsResultsImpacts
+                |> Impact.getImpact Definition.Ecs
+
+        getEcs impact =
+            impact
+                |> divideImpactByDurability maybeDurability
+                |> Unit.encodeImpact
+    in
+    Encode.object
+        [ ( "biodiversity", getEcs areas.biodiversity )
+        , ( "climate", getEcs areas.climate )
+        , ( "health", getEcs areas.health )
+        , ( "resources", getEcs areas.resources )
+        , ( "complements", getEcs complements )
+        ]
 
 
 encodeId : Id -> Encode.Value

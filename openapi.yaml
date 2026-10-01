@@ -1250,13 +1250,193 @@ components:
           type: string
           description: URL vers la simulation dans l'interface web.
         impacts:
-          $ref: "#/components/schemas/Impacts"
+          allOf:
+            - $ref: "#/components/schemas/Impacts"
+          description: |
+            Vecteur d'impacts du produit, après application du coefficient de durabilité.
+            Note : lorsque la durabilité n'est pas activée pour le scope, ce coefficient vaut `1`
+        impactsWithoutDurability:
+          allOf:
+            - $ref: "#/components/schemas/Impacts"
+          description: |
+            Même vecteur que `impacts`, **avant** application du coefficient de durabilité.
+            Note : Au niveau du produit, `subscores`, `stages` et `totalComplements`
+            sont calculés après durabilité : ils se comparent à `impacts`, pas à cet objet.
+        productMass:
+          type: number
+          description: Masse du produit fini, en kilogrammes.
+        totalComplements:
+          allOf:
+            - $ref: "#/components/schemas/GenericComplementPoints"
+          description: |
+            Coût environnemental en Points d'impact (`ecs`) des compléments du produit, après
+            application de la durabilité.
+            Note : une valeur négative **diminue** le coût environnemental.
+        subscores:
+          allOf:
+            - $ref: "#/components/schemas/GenericSubscores"
+          description: |
+            Détail du score d'impact (`ecs`) par sous-score, après application de la durabilité.
+        stages:
+          allOf:
+            - $ref: "#/components/schemas/GenericStages"
+          description: |
+            Détail du score d'impact (`ecs`) par étape du cycle de vie, après application de la durabilité.
+        composition:
+          type: array
+          description: |
+            Impacts de composition du produit à l'étape de production, après application de la durabilité.
+          items:
+            $ref: "#/components/schemas/GenericCompositionItem"
         description:
           type: string
           description: Une description de la simulation.
         query:
           type: object
           description: Le jeu de paramètres utilisé pour effectuer la simulation.
+      required:
+        - composition
+        - impacts
+        - impactsWithoutDurability
+        - productMass
+        - stages
+        - subscores
+        - totalComplements
+    GenericComplementPoints:
+      type: object
+      additionalProperties: false
+      description: |
+        Points d'impact (`ecs`) par complément, après application de la durabilité.
+        Une clé absente signifie que ce complément ne s'applique pas.
+        Une valeur négative **diminue** le coût environnemental.
+      properties:
+        cropDiversity:
+          type: number
+          description: Diversité culturale (Pts d'impact)
+        forest:
+          type: number
+          description: Forêt (Pts d'impact)
+        hedges:
+          type: number
+          description: Haies (Pts d'impact)
+        microfibers:
+          type: number
+          description: Microfibres (Pts d'impact)
+        outOfEuropeEOL:
+          type: number
+          description: Export hors Europe (Pts d'impact)
+        permanentPasture:
+          type: number
+          description: Prairies permanentes (Pts d'impact)
+        plotSize:
+          type: number
+          description: Taille des parcelles (Pts d'impact)
+    GenericCompositionItem:
+      type: object
+      additionalProperties: false
+      required:
+        - impacts
+        - impactsWithoutDurability
+        - mass
+        - quantity
+        - totalComplements
+      properties:
+        id:
+          type: string
+          format: uuid
+          description: Identifiant du composant catalogue. Absent pour un composant personnalisé
+        name:
+          type: string
+          description: Nom du composant.
+        quantity:
+          type: integer
+          description: Quantité demandée pour ce composant.
+        mass:
+          type: number
+          description: |
+            Masse de la ligne, en kilogrammes. La quantité est déjà appliquée :
+            ne pas multiplier `mass` par `quantity`.
+        impacts:
+          allOf:
+            - $ref: "#/components/schemas/Impacts"
+          description: |
+            Impacts de ce composant uniquement, après durabilité, compléments compris dans `ecs`
+        impactsWithoutDurability:
+          allOf:
+            - $ref: "#/components/schemas/Impacts"
+          description: |
+            Impacts de ce composant uniquement, avant durabilité
+        totalComplements:
+          allOf:
+            - $ref: "#/components/schemas/GenericComplementPoints"
+          description: |
+            Somme des compléments des éléments de ce composant, en points d'impact, après application de la durabilité
+    GenericStages:
+      type: object
+      additionalProperties: false
+      description: |
+        Cout environnemental en Pts d'impact (`ecs`) de chaque étape, après durabilité. Absence d'étape vaut 0.
+      required:
+        - assembly
+        - distribution
+        - endOfLife
+        - materials
+        - packaging
+        - transform
+        - transports
+        - usage
+      properties:
+        materials:
+          type: number
+          description: Matières premières (Pts d'impact), hors compléments
+        transform:
+          type: number
+          description: Transformation (Pts d'impact)
+        assembly:
+          type: number
+          description: Assemblage (Pts d'impact)
+        packaging:
+          type: number
+          description: Emballage (Pts d'impact)
+        transports:
+          type: number
+          description: Transports (Pts d'impact)
+        distribution:
+          type: number
+          description: Distribution (Pts d'impact)
+        usage:
+          type: number
+          description: Utilisation (Pts d'impact)
+        endOfLife:
+          type: number
+          description: Fin de vie (Pts d'impact)
+    GenericSubscores:
+      type: object
+      additionalProperties: false
+      description: |
+        Points d'impact (`ecs`) par sous-score, **après** application de la durabilité.
+      required:
+        - biodiversity
+        - climate
+        - complements
+        - health
+        - resources
+      properties:
+        biodiversity:
+          type: number
+          description: Biodiversité (Pts d'impact)
+        climate:
+          type: number
+          description: Climat (Pts d'impact)
+        health:
+          type: number
+          description: Santé environnementale (Pts d'impact)
+        resources:
+          type: number
+          description: Ressources (Pts d'impact)
+        complements:
+          type: number
+          description: Compléments (en Pts d'impact, une valeur négative **diminue** le score)
     GenericScopeListResponse:
       type: array
       description: |
