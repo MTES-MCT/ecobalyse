@@ -61,11 +61,6 @@ fileDownload =
     icon "file-download"
 
 
-fileExport : Html msg
-fileExport =
-    icon "file-export"
-
-
 fileUpload : Html msg
 fileUpload =
     icon "file-upload"
@@ -84,11 +79,6 @@ ham =
 info : Html msg
 info =
     icon "info"
-
-
-list : Html msg
-list =
-    icon "list"
 
 
 lock : Html msg
@@ -126,11 +116,6 @@ plus =
     icon "plus"
 
 
-puzzle : Html msg
-puzzle =
-    icon "puzzle"
-
-
 question : Html msg
 question =
     icon "question"
@@ -154,11 +139,6 @@ stats =
 trash : Html msg
 trash =
     icon "trash"
-
-
-transform : Html msg
-transform =
-    icon "transform"
 
 
 warning : Html msg

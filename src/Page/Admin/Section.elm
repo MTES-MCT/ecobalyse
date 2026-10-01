@@ -10,30 +10,25 @@ import Url.Parser as Parser exposing (Parser)
 
 type Section
     = AccountSection
-    | ComponentSection
     | ProcessSection
+
+
+fromSlug : String -> Maybe Section
+fromSlug slug =
+    case slug of
+        "accounts" ->
+            Just AccountSection
+
+        "processes" ->
+            Just ProcessSection
+
+        _ ->
+            Nothing
 
 
 parseSlug : Parser (Section -> a) a
 parseSlug =
-    Parser.custom "ADMIN_SECTION" (fromSlug >> Just)
-
-
-fromSlug : String -> Section
-fromSlug slug =
-    case slug of
-        "accounts" ->
-            AccountSection
-
-        "components" ->
-            ComponentSection
-
-        "processes" ->
-            ProcessSection
-
-        _ ->
-            -- Default to components
-            ComponentSection
+    Parser.custom "ADMIN_SECTION" fromSlug
 
 
 toLabel : Section -> String
@@ -41,9 +36,6 @@ toLabel section =
     case section of
         AccountSection ->
             "Utilisateurs"
-
-        ComponentSection ->
-            "Composants"
 
         ProcessSection ->
             "Procédés"
@@ -54,9 +46,6 @@ toSlug section =
     case section of
         AccountSection ->
             "accounts"
-
-        ComponentSection ->
-            "components"
 
         ProcessSection ->
             "processes"

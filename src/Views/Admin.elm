@@ -32,7 +32,6 @@ all : List ( Section, Bool )
 all =
     List.sortBy (Tuple.first >> AdminSection.toLabel >> String.toLower)
         [ ( AccountSection, True )
-        , ( ComponentSection, True )
         , ( ProcessSection, True )
         ]
 

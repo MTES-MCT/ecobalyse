@@ -1,11 +1,8 @@
-module Views.Scope exposing
-    ( scopeFilterForm
-    , singleScopeForm
-    )
+module Views.Scope exposing (scopeFilterForm)
 
 import Data.Scope as Scope exposing (Scope)
 import Html exposing (..)
-import Html.Attributes as Attr exposing (..)
+import Html.Attributes exposing (..)
 import Html.Events exposing (..)
 
 
@@ -44,27 +41,3 @@ scopeFilterForm update filtered =
                 update (List.filter ((/=) scope) filtered)
         )
         filtered
-
-
-singleScopeForm : (Scope -> msg) -> Scope -> Html msg
-singleScopeForm select selected =
-    div [ class "d-flex flex-row gap-3 align-items-center" ]
-        [ h3 [ class "h6 mb-0" ] [ text "Verticale" ]
-        , Scope.all
-            |> List.map
-                (\scope ->
-                    option
-                        [ Attr.selected <| scope == selected
-                        , value <| Scope.toString scope
-                        ]
-                        [ text <| Scope.toLabel scope ]
-                )
-            |> Html.select
-                [ class "form-select"
-                , onInput
-                    (Scope.fromString
-                        >> Result.withDefault selected
-                        >> select
-                    )
-                ]
-        ]
