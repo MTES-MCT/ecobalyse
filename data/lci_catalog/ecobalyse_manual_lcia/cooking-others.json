@@ -1,5 +1,5 @@
 {
-  "categories": ["transformation", "material_type:other_food_items"],
+  "categories": ["transformation", "material_type:dairy", "material_type:other_food_items"],
   "comment": "Raw to cooked ratio defined in Agribalyse 3 methodology",
   "displayName": "Cuisson divers",
   "elecKwh": 0.7167,

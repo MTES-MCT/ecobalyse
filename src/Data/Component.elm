@@ -31,6 +31,7 @@ module Data.Component exposing
     , addElementTransform
     , addItem
     , addOrSetProcess
+    , applyDefaultOrigins
     , applyDurability
     , applyTransforms
     , compute
@@ -614,6 +615,38 @@ applyComplementsResultsImpacts amount impacts =
                     |> Impact.multiplyBy (Amount.toFloat amount)
             )
         )
+
+
+{-| Fill unset element countries from each process default origin when known
+-}
+applyDefaultOrigins : List Process -> Component -> Component
+applyDefaultOrigins processes component =
+    let
+        applyLocalizedProcess ({ country, id } as localizedProcess) =
+            case country of
+                Just _ ->
+                    localizedProcess
+
+                Nothing ->
+                    { localizedProcess
+                        | country =
+                            processes
+                                |> Process.findById id
+                                |> Result.map Process.getDefaultOrigin
+                                |> Result.withDefault Nothing
+                    }
+    in
+    { component
+        | elements =
+            component.elements
+                |> List.map
+                    (\({ material, transforms } as element) ->
+                        { element
+                            | material = applyLocalizedProcess material
+                            , transforms = List.map applyLocalizedProcess transforms
+                        }
+                    )
+    }
 
 
 applyDurability : Maybe Unit.Ratio -> LifeCycle -> Impacts
