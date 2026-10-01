@@ -218,26 +218,27 @@ addPackagingButton ({ query } as config) =
         ]
 
 
-viewDebug : Query -> LifeCycle -> Html msg
-viewDebug query lifeCycle =
+viewDebug : Config db msg -> Query -> LifeCycle -> Html msg
+viewDebug config query lifeCycle =
     div []
         [ details [ class "card-body py-2" ]
             [ summary [] [ text "Debug" ]
             , div [ class "row g-2" ]
                 [ div [ class "col-6" ]
-                    [ h5 [] [ text "Query" ]
-                    , pre [ class "bg-light p-2 mb-0" ]
-                        [ query
-                            |> Component.encodeQuery
+                    [ h5 [] [ text "Results" ]
+                    , pre [ class "p-2 bg-light" ]
+                        [ lifeCycle
+                            |> Component.encodeLifeCycle (Just Definition.Ecs)
                             |> Encode.encode 2
                             |> text
                         ]
                     ]
                 , div [ class "col-6" ]
-                    [ h5 [] [ text "Results" ]
+                    [ h5 [] [ text "API response" ]
                     , pre [ class "p-2 bg-light" ]
                         [ lifeCycle
-                            |> Component.encodeLifeCycle (Just Definition.Ecs)
+                            |> Component.encodeApiResponse config.db.definitions query
+                            |> Encode.object
                             |> Encode.encode 2
                             |> text
                         ]
@@ -307,7 +308,7 @@ lifeCycleView ({ impact, query, scope } as config) lifeCycle =
           else
             text ""
         , if config.debug then
-            viewDebug query lifeCycle
+            viewDebug config query lifeCycle
 
           else
             text ""

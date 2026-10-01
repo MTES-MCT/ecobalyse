@@ -298,11 +298,15 @@ genericProcessesResponse db genericScope filters =
 toGenericResults : Request -> Db -> GenericScope -> Component.Query -> Component.LifeCycle -> Encode.Value
 toGenericResults request db genericScope query lifeCycle =
     EU.optionalPropertiesObject
-        [ ( "webUrl", toGenericWebUrl request genericScope query |> Encode.string |> Just )
-        , ( "impacts", lifeCycle |> Component.applyDurability query.durability |> Impact.encode |> Just )
-        , ( "description", Component.queryToString db query |> Result.toMaybe |> Maybe.map Encode.string )
-        , ( "query", Component.encodeQuery query |> Just )
-        ]
+        ([ ( "webUrl", toGenericWebUrl request genericScope query |> Encode.string |> Just )
+         , ( "description", Component.queryToString db query |> Result.toMaybe |> Maybe.map Encode.string )
+         , ( "query", Component.encodeQuery query |> Just )
+         ]
+            ++ (lifeCycle
+                    |> Component.encodeApiResponse db.definitions query
+                    |> List.map (\( key, value ) -> ( key, Just value ))
+               )
+        )
 
 
 toGenericWebUrl : Request -> GenericScope -> Component.Query -> String
