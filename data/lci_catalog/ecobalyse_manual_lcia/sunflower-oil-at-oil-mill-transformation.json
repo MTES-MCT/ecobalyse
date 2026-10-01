@@ -1,0 +1,36 @@
+{
+  "categories": ["transformation", "material_type:other_food_items"],
+  "comment": "Elec et chaleur de 'Sunflower oil, at oil mill {GLO} - Adapted from WFLDB U' (Agribalyse 3.2), ramenées au kg de 'Sunflower, at farm {GLO} - Adapted from WFLDB U'. 2.44 kg par kg de produit. Source : classeur ecolysis 194-p09-ResultatsAnalyse10092026, feuille optionA, ligne 2078. Généré par ecobalyse-method-tooling/food/koch-components.",
+  "displayName": "Transformation : Huile de tournesol par défaut",
+  "elecKwh": 0.1235,
+  "heatMJ": 2.337,
+  "id": "d0b58cee-9270-52d5-a20d-f6719815c7bc",
+  "impacts": {
+    "acd": 0,
+    "cch": 0,
+    "etf": 0,
+    "etf-c": 0,
+    "fru": 0,
+    "fwe": 0,
+    "htc": 0,
+    "htc-c": 0,
+    "htn": 0,
+    "htn-c": 0,
+    "ior": 0,
+    "ldu": 0,
+    "mru": 0,
+    "ozd": 0,
+    "pco": 0,
+    "pma": 0,
+    "swe": 0,
+    "tre": 0,
+    "wtu": 0
+  },
+  "metadata": [
+    { "id": "f3dd797b-9dde-5050-a5f7-d551726e7d26", "scopes": ["food2"] }
+  ],
+  "qtyVariationRatio": 0.4094,
+  "scopes": ["food2"],
+  "source": "Ecobalyse_manual_lcia",
+  "unit": "kg"
+}

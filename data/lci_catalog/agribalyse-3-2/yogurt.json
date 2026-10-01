@@ -10,7 +10,7 @@
       "animalGroup2": "cow",
       "animalProduct": "milk",
       "defaultOrigin": "France",
-      "displayName": "Fromage blanc FR (2025)",
+      "displayName": "Fromage blanc FR agrégé (2025)",
       "id": "0e77146c-be67-4f16-b072-f4fdb43b4acf",
       "inediblePart": 0.2,
       "ingredientCategories": ["dairy_product"],
