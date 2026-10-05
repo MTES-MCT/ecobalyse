@@ -67,6 +67,9 @@ def schema_upgrades() -> None:
     op.drop_table("process_process_category")
     op.drop_table("process")
     op.drop_table("process_category")
+    op.execute("DROP TYPE IF EXISTS unit")
+    op.execute("DROP TYPE IF EXISTS scope")
+    op.execute("DROP TYPE IF EXISTS journalaction")
     # ### end Alembic commands ###
 
 
