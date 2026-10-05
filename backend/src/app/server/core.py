@@ -57,13 +57,7 @@ class ApplicationCore(InitPluginProtocol, CLIPluginProtocol):
         from app.domain.accounts.deps import provide_user
         from app.domain.accounts.guards import auth as jwt_auth
         from app.domain.accounts.services import RoleService, UserService
-        from app.domain.components.controllers import ComponentController
-        from app.domain.components.services import ComponentService
         from app.domain.contrib.controllers import ExampleContribController
-        from app.domain.journal_entries.controllers import JournalEntryController
-        from app.domain.journal_entries.services import JournalEntryService
-        from app.domain.processes.controllers import ProcessController
-        from app.domain.processes.services import ProcessService
         from app.domain.system.controllers import SystemController
         from app.server import plugins
 
@@ -99,10 +93,7 @@ class ApplicationCore(InitPluginProtocol, CLIPluginProtocol):
         app_config.route_handlers.extend(
             [
                 AccessController,
-                ComponentController,
                 ExampleContribController,
-                JournalEntryController,
-                ProcessController,
                 SystemController,
             ],
         )
@@ -115,9 +106,6 @@ class ApplicationCore(InitPluginProtocol, CLIPluginProtocol):
                 "Body": Body,
                 "m": m,
                 "UUID": UUID,
-                "ComponentService": ComponentService,
-                "ProcessService": ProcessService,
-                "JournalEntryService": JournalEntryService,
                 "RoleService": RoleService,
                 "UserService": UserService,
                 "UserRoleService": UserRoleService,
