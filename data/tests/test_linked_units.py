@@ -76,3 +76,19 @@ def test_an_input_with_no_known_conversion_stops_the_import():
 
     with pytest.raises(ValueError, match="no conversion"):
         convert_to_linked_units(db, products(db), FLOWS)
+
+
+def test_a_flow_in_a_unit_of_another_dimension_is_another_flow():
+    """Sun drying emits water in kilograms, which the biosphere first lists per m3."""
+    flows = {("Water", ("air",)): {"cubic meter"}}
+    db = [
+        dataset(
+            "Drying",
+            "kilogram",
+            exchange("biosphere", "Water", "kilogram", 1.0, ("air",)),
+        )
+    ]
+
+    converted = convert_to_linked_units(db, products(db), flows)
+
+    assert converted[-1]["exchanges"][0]["unit"] == "kilogram"
