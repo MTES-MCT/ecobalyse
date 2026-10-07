@@ -14,6 +14,7 @@ from common.bw.simapro_json import SimaProJsonImporter, export_zipped_csv_to_jso
 from config import settings
 from ecobalyse_data import s3
 from ecobalyse_data.bw.search import cached_search_one
+from ecobalyse_data.bw.strategy import convert_to_linked_units, declared_units
 from ecobalyse_data.logging import logger
 
 
@@ -512,6 +513,22 @@ def import_simapro_csv(
 
     database.apply_strategies()
     database.statistics()
+
+    logger.debug("Converting exchanges to the units of what they link to")
+    suppliers = [
+        *database.data,
+        *(bw2data.Database(external_db) if external_db else []),  # ty: ignore[not-iterable]
+    ]
+    database.apply_strategy(
+        functools.partial(
+            convert_to_linked_units,
+            products=declared_units(suppliers, lambda ds: ds["name"]),
+            flows=declared_units(
+                bw2data.Database(biosphere),
+                lambda flow: (flow["name"], tuple(flow["categories"])),
+            ),
+        )
+    )
 
     link_and_write(database, external_db=external_db, biosphere=biosphere)
     logger.info(f"🟢 Finished importing {database_s3_key}")

@@ -7,8 +7,9 @@ starts a server on a free port, loads the seven databases, resolves every publis
 that has a source file behind it, scores each database in one batch, draws, and says what
 each phase cost.
 
-It needs an engine that carries its own reference data, so VoLCA v0.12.0 or later.
-VOLCA_BINARY points it at a local build instead of the release pyvolca installs.
+It needs an engine that carries its own reference data.
+VOLCA_BINARY points it at a local build instead of the release pyvolca installs,
+and VOLCA_DATA_DIR at the reference data that build carries.
 """
 
 import csv
@@ -21,7 +22,7 @@ import tempfile
 import time
 from collections.abc import Callable, Iterator, Sequence
 from contextlib import contextmanager, redirect_stderr
-from math import copysign, log
+from math import log
 from pathlib import Path
 from typing import NamedTuple, TypedDict
 
@@ -85,11 +86,10 @@ class Process(TypedDict):
 
 # what a whole database looks like once listed: product name, lowercased, -> its activities
 Catalogue = dict[str, list[volca.Activity]]
-# what the engine's units.csv says: unit name, lowercased -> (dimension, factor)
+# what the engine's units.csv says: unit name as the table spells it -> (dimension, factor)
 UnitTable = dict[str, tuple[str, float]]
 # what a phase says of itself, before it starts and once it is over
 Phase = Callable[[str], None]
-UNITS = {"t⋅km": "tkm"}  # Ecobalyse unit -> the unit VoLCA reads in the file
 TRIGRAMS = {category: trigram for trigram, (_, category) in impacts.items()}
 CORRECTIONS = {k: v["correction"] for k, v in IMPACTS_JSON.items() if "correction" in v}
 FACTORS = get_normalization_weighting_factors(IMPACTS_JSON)
@@ -101,14 +101,46 @@ TABLE_ROWS = 30  # how many lines the deviation table holds
 OUTPUT = DATA_ROOT_DIR.parent / "output"
 
 
+# Do the same data-changing import strategies of strategy.py do, as descriptive patches
+INVENTORY_PATCHES = (
+    """
+[[databases.patches]]
+description = "remove_creosote: the preservative a trellis system is no longer treated with"
+match = { product-name-contains = "system, wooden poles", flow-name-contains = "creosote" }
+set-value = 0.0
+"""
+    + "".join(
+        f"""
+[[databases.patches]]
+description = "remove_creosote: the {flow} of a trellis system sold flattened"
+match = {{ product-name-contains = "system, wooden poles", flow-name = "{flow}" }}
+set-value = 0.0
+"""
+        for flow in ("Pyrene", "Fluoranthene", "Phenanthrene", "Naphthalene")
+    )
+    + """
+[[databases.patches]]
+description = "remove_acetamiprid: not applied on a French field"
+match = { location = "FR", flow-name = "Acetamiprid" }
+set-value = 0.0
+"""
+)
+
+# The sources those strategies change. Ginko states neither substance: it reaches
+# the trellis system through Agribalyse, which is patched.
+PATCHED_SOURCES = {"AGRIBALYSE", "WFLDB", "EI391", "EI311"}
+
+
 def config_toml(files: dict[str, Path]) -> str:
-    """Build the engine configuration: the seven databases, the method and its uranium patch.
+    """Build the engine configuration: the seven databases and what Ecobalyse drops
+    from them, the method and its uranium patch.
 
     Takes each source file's local path, by settings.dbfiles key. Returns the TOML text.
     """
     databases = "\n".join(
         f"[[databases]]\nname = {json.dumps(source.db)}\n"
         f"path = {json.dumps(str(files[source.file]))}\n"
+        + (INVENTORY_PATCHES if source.file in PATCHED_SOURCES else "")
         for source in SOURCES.values()
     )
     return f"""[server]
@@ -127,9 +159,11 @@ scale = 0.6
 
 
 def unit_factors(table: str) -> UnitTable:
-    """Read the engine's unit table: units.csv text in, unit name -> (dimension, factor) out."""
+    """Read the engine's unit table: units.csv text in, unit name -> (dimension, factor) out.
+    The name keeps its case, to avoid confusing a megajoule (MJ) with a millijoule (mJ)
+    """
     return {
-        row["name"].lower(): (row["dimension"], float(row["factor"]))
+        row["name"]: (row["dimension"], float(row["factor"]))
         for row in csv.DictReader(io.StringIO(table))
         if row["name"] and not row["name"].startswith("#")
     }
@@ -210,18 +244,17 @@ def resolve(
 def scale(p: Process, a: volca.Activity, units: UnitTable) -> float | None:
     """What multiplies VoLCA's score to put it on Ecobalyse's functional unit.
 
-    VoLCA scores 1 reference unit of the product's dimension (kg, m3, kgm, mj...), Ecobalyse
-    1 declared unit (kg, L, t⋅km, kWh...). Takes the published process, its VoLCA activity
-    and the unit table. Returns the factor, or None when the units measure different things.
+    Takes the published process, its VoLCA activity and the unit table.
+    Returns the factor, or None when the units measure different things.
     """
     # packaging is scored for the amount the process produces, as computation.py does
     if p["unit"] == "item":
         return a.product_amount
-    dim, factor = units[UNITS.get(p["unit"], p["unit"]).lower()]
-    product_dim, product_factor = units[a.product_unit.lower()]
+    dim, factor = units[p["unit"]]
+    product_dim, product_factor = units[a.product_unit]
     if dim != product_dim:
         return None
-    return copysign(factor / product_factor, a.product_amount)
+    return factor / product_factor
 
 
 def volca_impacts(scored: volca.ScoredActivity, factor: float) -> dict[str, float]:
@@ -386,7 +419,10 @@ def score(client: Client, found: list[tuple[Process, volca.Activity]]) -> dict:
     process id -> its scores. Stops the run if the engine leaves any of them unanswered.
     """
     scores = client.score_activities(
-        [a.process_id for _, a in found], top_flows=0, exclude_long_term=True
+        [a.process_id for _, a in found],
+        collection=settings.bw.method,
+        top_flows=0,
+        exclude_long_term=True,
     )
     by_pid = {s.process_id: s for s in scores.results}
     unscored = (
@@ -532,7 +568,8 @@ def main() -> None:
     """Run the whole comparison: install the engine, load, link, score, report, draw."""
     doing, done, spent = stopwatch()
     installed = volca.download()
-    units = unit_factors((installed.data_dir / "units.csv").read_text())
+    data_dir = Path(os.environ.get("VOLCA_DATA_DIR", installed.data_dir))
+    units = unit_factors((data_dir / "units.csv").read_text())
     processes: list[Process] = json.loads(PROCESSES.read_text())
     wanted = to_compare(processes)
     aside = sum(p["source"] not in SOURCES for p in processes)

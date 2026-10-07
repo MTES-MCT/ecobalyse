@@ -1,6 +1,3 @@
-import functools
-import operator
-
 GINKO_MIGRATIONS = [
     {
         "name": "diesel-fix",
@@ -150,86 +147,6 @@ GINKO_MIGRATIONS = [
         },
     }
 ]
-# migrations necessary to link some remaining unlinked technosphere activities
-AGRIBALYSE_MIGRATIONS = [
-    {
-        "name": "agb-technosphere-fixes",
-        "description": "Specific technosphere fixes for Agribalyse 3",
-        "data": {
-            "fields": ["name", "unit"],
-            "data": [
-                (
-                    (
-                        "Wastewater, average {Europe without Switzerland}| market for wastewater, average | Cut-off, S - Copied from Ecoinvent U",
-                        "l",
-                    ),
-                    {"unit": "m3", "multiplier": 1e-3},
-                ),
-                (
-                    (
-                        "Wastewater, from residence {RoW}| market for wastewater, from residence | Cut-off, S - Copied from Ecoinvent U",
-                        "l",
-                    ),
-                    {"unit": "m3", "multiplier": 1e-3},
-                ),
-                (
-                    (
-                        "Heat, central or small-scale, natural gas {Europe without Switzerland}| market for heat, central or small-scale, natural gas | Cut-off, S - Copied from Ecoinvent U",
-                        "kWh",
-                    ),
-                    {"unit": "MJ", "multiplier": 3.6},
-                ),
-                (
-                    (
-                        "Heat, district or industrial, natural gas {Europe without Switzerland}| heat production, natural gas, at industrial furnace >100kW | Cut-off, S - Copied from Ecoinvent U",
-                        "kWh",
-                    ),
-                    {"unit": "MJ", "multiplier": 3.6},
-                ),
-                (
-                    (
-                        "Heat, district or industrial, natural gas {RER}| market group for | Cut-off, S - Copied from Ecoinvent U",
-                        "kWh",
-                    ),
-                    {"unit": "MJ", "multiplier": 3.6},
-                ),
-                (
-                    (
-                        "Heat, district or industrial, natural gas {RoW}| market for heat, district or industrial, natural gas | Cut-off, S - Copied from Ecoinvent U",
-                        "kWh",
-                    ),
-                    {"unit": "MJ", "multiplier": 3.6},
-                ),
-                (
-                    (
-                        "Land use change, perennial crop {BR}| market group for land use change, perennial crop | Cut-off, S - Copied from Ecoinvent U",
-                        "m2",
-                    ),
-                    {"unit": "ha", "multiplier": 1e-4},
-                ),
-            ]
-            + functools.reduce(
-                operator.iadd,
-                [
-                    [
-                        [
-                            (f"Water, river, {country}", "l"),
-                            {"unit": "cubic meter", "multiplier": 0.001},
-                        ],
-                        [
-                            (f"Water, well, {country}", "l"),
-                            {"unit": "cubic meter", "multiplier": 0.001},
-                        ],
-                    ]
-                    # only ES for AGB, all for Ginko
-                    for country in ["ES", "ID", "CO", "CR", "EC", "IN", "BR", "US"]
-                ],
-                [],
-            ),
-        },
-    }
-]
-
 PASTOECO_MIGRATIONS = [
     {
         "name": "pastoeco-technosphere-fixes",
