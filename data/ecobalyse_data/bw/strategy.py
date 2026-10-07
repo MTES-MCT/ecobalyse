@@ -149,6 +149,8 @@ def convert_to_linked_units(db, products, flows):
         if unit == exc["unit"]:
             return exc
         if (exc["unit"], unit) not in UNIT_CONVERSIONS:
+            if exc["type"] == "biosphere":
+                return exc
             raise ValueError(
                 f"{ds['name']} takes {exc['name']} in {exc['unit']}, "
                 f"which is linked in {unit}, and no conversion between them is known"
