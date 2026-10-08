@@ -28,19 +28,11 @@ from common.import_ import setup_project
 from config import settings
 from ecobalyse_data import s3
 from ecobalyse_data.bw.strategy import noLT, uraniumFRU
+from ecobalyse_data.export.land_occupation import LAND_OCCUPATION_METHOD
 from ecobalyse_data.logging import logger
 
-# Agribalyse 3.2, Ginko, WFLDB and Ecoinvent 3.9.1 carry the legacy SimaPro flow
-# names. EF 3.1 1.03 renamed a number of substances (keeping the same CAS) to newer
-# names, so the new method stopped characterizing the legacy-named biosphere flows: their
-# impact (ozone depletion, freshwater ecotoxicity) would be silently undercounted on
-# those databases. We re-characterize each legacy flow with its modern synonym's
-# factor, so the substance is counted whatever naming vintage a source database uses.
-#
-# Mapping is modern name -> legacy name (as it appears in biosphere3).
-# Every entry must be a clean rename, i.e. the legacy name must
-# be absent from the 1.03 method; add_legacy_flow_synonyms only fills that gap and never
-# overrides a factor the method already defines (which would double-count).
+# Agribalyse 3.2, Ginko, WFLDB and Ecoinvent 3.9.1 carry the legacy SimaPro flow names.
+# EF 3.1 1.03 renamed a number of substances.
 METHOD_FLOW_SYNONYMS = {
     # Ozone depletion (emissions to air)
     "Bromomethane": "Methane, bromo-, Halon 1001",
@@ -53,9 +45,25 @@ METHOD_FLOW_SYNONYMS = {
     "Pyrethrin II": "Pyrethrin",
     "Flupyrsulfuron-methyl sodium": "Flupyrsulfuron-methyl",
     "Flurochloridone": "Fluorochloridone",
-    # Human toxicity, non-cancer: Mecoprop-P keeps its ecotoxicity factor in 1.03 but
-    # lost its human-toxicity one, so the gap-filling guard re-adds it only there.
+    # 1.03 names fluoroglycofen systematically (CAS 77501-60-1)
+    # but the databases name it under its common name
+    "Benzoic acid, 5-[2-chloro-4-(trifluoromethyl)phenoxy]-2-nitro-, "
+    "carboxymethyl ester": "Fluoroglycofen",
+    # Mecoprop-P keeps its ecotoxicity factor in 1.03 but
+    # lost its human-toxicity one
     "Mecoprop": "Mecoprop-P",
+    # S-metolachlor, like Mecoprop-P, has an ecotoxicity factor of its own
+    # but none for human toxicity: it takes its racemic mixture's
+    "Metolachlor": "Metolachlor, (S)",
+    # 1.03 characterizes the salt the formulation is sold as,
+    # the databases emit the cation
+    "Chlormequat chloride": "Chlormequat",
+    # 1.03 names these two pesticides systematically (CAS 67564-91-4 and
+    # 65195-55-3), the databases under their common names
+    "cis-4-[3-(p-tert-Butylphenyl)-2-methylpropyl]-2,6-dimethylmorpholine": (
+        "Fenpropimorph"
+    ),
+    "Avermectin B1": "Abamectin",
 }
 
 
@@ -130,6 +138,121 @@ def broadcast_mineral_grades(db):
             )
             present.add(key)
     return db
+
+
+# The ecoinvent bw2io LCIA implementation characterizes land occupation through an explicit list
+# of 58 flow names written in ecoinvent's own vocabulary, every one of them at factor 1.
+# The databases we import are SimaPro exports: they name some lands differently.
+def missing_land_occupation_cfs(flows, characterized):
+    """Give a factor of 1 to every land occupation flow the method does not characterize
+    yet. `flows` is an iterable of (key, name), `characterized` the set of keys the method
+    already carries."""
+    NON_LAND_OCCUPATION = ("sea and ocean", "benthos")
+    return [
+        (key, 1)
+        for key, name in flows
+        if name.startswith("Occupation, ")
+        and key not in characterized
+        and not any(sea in name for sea in NON_LAND_OCCUPATION)
+    ]
+
+
+def factors_by_flow_id(cfs, ids):
+    """The factors a method carries, keyed by the biosphere node they characterize."""
+    factors = {}
+    for cf in cfs:
+        flow_id = cf[0] if isinstance(cf[0], int) else ids.get(tuple(cf[0]))
+        if flow_id is not None:
+            factors[flow_id] = cf[1]
+    return factors
+
+
+def characterize_remaining_land_occupation() -> None:
+    """Extend the land occupation method
+    to the occupation flows of the imported databases
+    Idempotent: a second run adds nothing."""
+    resources = [
+        flow
+        for flow in bw2data.Database(settings.bw.BIOSPHERE)  # ty: ignore[not-iterable]
+        if (flow.get("categories") or (None,))[0] == "natural resource"
+    ]
+    ids = {flow.key: flow.id for flow in resources}
+    method = bw2data.Method(LAND_OCCUPATION_METHOD)
+    cfs = method.load()
+    added = missing_land_occupation_cfs(
+        ((flow.id, flow["name"]) for flow in resources),
+        set(factors_by_flow_id(cfs, ids)),
+    )
+    logger.info(f"-> Characterizing {len(added)} more land occupation flows")
+    method.write(cfs + added)
+
+
+CUBIC_METERS = {"cubic meter": 1, "kilogram": 1e-3}
+
+
+def name_without_location(name, locations):
+    """The name of a water flow without the region it ends with."""
+    parts = name.split(", ")
+    for cut in range(len(parts) - 1, 0, -1):
+        if ", ".join(parts[cut:]) in locations:
+            return ", ".join(parts[:cut])
+    return None
+
+
+def missing_regional_water_cfs(flows, factors, locations):
+    """Give each water flow of a region the method does not list the factor of its name
+    without a region, which the method sets to the world average.
+    """
+    flows = list(flows)
+    per_cubic_meter = {}
+    for key, name, categories, unit in flows:
+        if key in factors and unit in CUBIC_METERS:
+            # a name the method also writes per unit ("Water/m3") is the same water
+            base = name.removesuffix("/m3").removesuffix("/kg")
+            per_cubic_meter.setdefault((base, categories), {})[unit] = (
+                factors[key] / CUBIC_METERS[unit]
+            )
+
+    def world_average(base, categories):
+        # the method's own subcompartment first, then its whole compartment
+        for scope in (categories, categories[:1]):
+            known = per_cubic_meter.get((base, scope), {})
+            if known:
+                return known.get("cubic meter", known.get("kilogram"))
+        return None
+
+    added = []
+    for key, name, categories, unit in flows:
+        if key in factors or unit not in CUBIC_METERS:
+            continue
+        base = name_without_location(name, locations)
+        amount = None if base is None else world_average(base, categories)
+        if amount is not None:
+            added.append((key, amount * CUBIC_METERS[unit]))
+    return added
+
+
+def characterize_unlisted_water_regions() -> None:
+    """Extend water use to the water flows of regions the method does not list.
+    Idempotent: a second run adds nothing."""
+    water = [
+        flow
+        for flow in bw2data.Database(settings.bw.BIOSPHERE)  # ty: ignore[not-iterable]
+        if flow["name"].startswith("Water")
+    ]
+    ids = {flow.key: flow.id for flow in water}
+    method = bw2data.Method(impacts["wtu"])
+    cfs = method.load()
+    added = missing_regional_water_cfs(
+        (
+            (flow.id, flow["name"], tuple(flow["categories"]), flow["unit"])
+            for flow in water
+        ),
+        factors_by_flow_id(cfs, ids),
+        {k if isinstance(k, str) else k[1] for k in bw2data.geomapping},
+    )
+    logger.info(f"-> Characterizing {len(added)} more regional water flows")
+    method.write(cfs + added)
 
 
 def report_dropped_cfs(importer) -> None:
@@ -303,3 +426,5 @@ if __name__ == "__main__":
     # because the method happens to exist is how a stale method silently stops counting
     # the substances a freshly imported database emits.
     import_method()
+    characterize_remaining_land_occupation()
+    characterize_unlisted_water_regions()
