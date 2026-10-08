@@ -871,6 +871,86 @@ describe("API", () => {
       });
     });
 
+    describe("generic simulator response", () => {
+      const sumValues = (object) =>
+        Object.values(object).reduce((total, value) => total + value, 0);
+
+      const flour = require("../public/data/food2/examples.json").find(({ name }) =>
+        name.startsWith("Farine de blé"),
+      );
+
+      it("should break the food2 score into subscores, stages, complements and composition", async () => {
+        const response = await makePostRequest("/api/food2/simulator", flour.query);
+
+        expectStatus(response, 200);
+        const { body } = response;
+
+        // Protection areas are recomputed from indicators; precomputed ecs can differ by a fraction of a point.
+        expect(Math.abs(sumValues(body.subscores) - body.impacts.ecs)).toBeLessThan(0.1);
+        expect(
+          Math.abs(sumValues(body.stages) + body.subscores.complements - body.impacts.ecs),
+        ).toBeLessThan(0.001);
+        expect(sumValues(body.totalComplements)).toBeCloseTo(body.subscores.complements, 4);
+        expect(body.impacts.ecs).toBeCloseTo(body.impactsWithoutDurability.ecs, 4);
+        expect(body.productMass).toEqual(expect.any(Number));
+        expect(Object.keys(body.stages)).toEqual([
+          "materials",
+          "transform",
+          "assembly",
+          "packaging",
+          "transports",
+          "distribution",
+          "usage",
+          "endOfLife",
+        ]);
+
+        const compositionComplements = body.composition.reduce(
+          (total, item) => total + sumValues(item.totalComplements),
+          0,
+        );
+        expect(compositionComplements).toBeCloseTo(sumValues(body.totalComplements), 4);
+        expect(body.composition.length).toBe(flour.query.components.length);
+        for (const item of body.composition) {
+          expect(item.elements).toBeUndefined();
+          expect(item.impacts.ecs).toBeCloseTo(item.impactsWithoutDurability.ecs, 4);
+          expect(item.totalComplements).toBeDefined();
+        }
+      });
+
+      it("should divide impacts by the durability coefficient", async () => {
+        const query = {
+          components: [{ id: "c5d86519-e56a-4ad7-aada-d4f7fffd5628", quantity: 1 }],
+        };
+        const without = await makePostRequest("/api/object/simulator", query);
+        const withDurability = await makePostRequest("/api/object/simulator", {
+          ...query,
+          durability: 2,
+        });
+
+        expectStatus(without, 200);
+        expectStatus(withDurability, 200);
+        expect(
+          Math.abs(
+            withDurability.body.impacts.ecs * 2 - withDurability.body.impactsWithoutDurability.ecs,
+          ),
+        ).toBeLessThan(0.001);
+        expect(withDurability.body.impactsWithoutDurability.ecs).toBeCloseTo(
+          without.body.impacts.ecs,
+          4,
+        );
+        expect(
+          Math.abs(
+            withDurability.body.composition[0].impacts.ecs * 2 -
+              withDurability.body.composition[0].impactsWithoutDurability.ecs,
+          ),
+        ).toBeLessThan(0.001);
+        expect(withDurability.body.subscores.climate * 2).toBeCloseTo(
+          without.body.subscores.climate,
+          4,
+        );
+      });
+    });
+
     for (const scope of ["food2", "object", "veli"]) {
       describe(`/${scope}/simulator`, () => {
         it("should accept an empty query", async () => {
