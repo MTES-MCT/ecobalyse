@@ -117,6 +117,10 @@ UNIT_CONVERSIONS = {
     ("square meter", "hectare"): 1e-4,
 }
 
+# Units the method characterizes elementary flows in (water per m3, never per litre).
+# Regional water flows are absent from ecoinvent's biosphere, so it cannot tell us.
+BIOSPHERE_REFERENCE_UNITS = {"cubic meter"}
+
 
 def declared_units(nodes, key):
     """Gather the units each node is declared in."""
@@ -126,7 +130,7 @@ def declared_units(nodes, key):
     return units
 
 
-def convert_to_linked_units(db, products, flows):
+def convert_to_linked_units(db, products):
     """Write each exchange in the unit of what it links to, where a source writes another."""
 
     def single(units):
@@ -135,8 +139,14 @@ def convert_to_linked_units(db, products, flows):
     def linked_unit(exc):
         match exc["type"]:
             case "biosphere":
-                key = (exc["name"], tuple(exc.get("categories", ())))
-                return single(flows.get(key, set())) or exc["unit"]
+                return next(
+                    (
+                        to
+                        for (written, to) in UNIT_CONVERSIONS
+                        if written == exc["unit"] and to in BIOSPHERE_REFERENCE_UNITS
+                    ),
+                    exc["unit"],
+                )
             case "technosphere" | "substitution":
                 return single(products.get(exc["name"], set())) or exc["unit"]
             case "production":
@@ -149,8 +159,6 @@ def convert_to_linked_units(db, products, flows):
         if unit == exc["unit"]:
             return exc
         if (exc["unit"], unit) not in UNIT_CONVERSIONS:
-            if exc["type"] == "biosphere":
-                return exc
             raise ValueError(
                 f"{ds['name']} takes {exc['name']} in {exc['unit']}, "
                 f"which is linked in {unit}, and no conversion between them is known"
