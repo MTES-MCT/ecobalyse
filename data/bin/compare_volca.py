@@ -126,9 +126,24 @@ set-value = 0.0
 """
 )
 
-# The sources those strategies change. Ginko states neither substance: it reaches
-# the trellis system through Agribalyse, which is patched.
-PATCHED_SOURCES = {"AGRIBALYSE", "WFLDB", "EI391", "EI311"}
+# Ginko 2025 calls a lentil market its file does not ship; Ecobalyse's import links that
+# input to an empty dataset, so it counts for nothing there and must here too
+GINKO_PATCHES = """
+[[databases.patches]]
+description = "the lentil market Ginko 2025 calls but does not ship"
+match = { flow-name = "Lentil, organic 2025 {GLO}| market for lentil | Cut-off, U" }
+set-value = 0.0
+"""
+
+# settings.dbfiles key -> what to patch in it. Ginko states neither substance of the
+# strategies: it reaches the trellis system through Agribalyse, which is patched.
+PATCHES = {
+    "AGRIBALYSE": INVENTORY_PATCHES,
+    "WFLDB": INVENTORY_PATCHES,
+    "EI391": INVENTORY_PATCHES,
+    "EI311": INVENTORY_PATCHES,
+    "GINKO": GINKO_PATCHES,
+}
 
 
 def config_toml(files: dict[str, Path]) -> str:
@@ -139,8 +154,7 @@ def config_toml(files: dict[str, Path]) -> str:
     """
     databases = "\n".join(
         f"[[databases]]\nname = {json.dumps(source.db)}\n"
-        f"path = {json.dumps(str(files[source.file]))}\n"
-        + (INVENTORY_PATCHES if source.file in PATCHED_SOURCES else "")
+        f"path = {json.dumps(str(files[source.file]))}\n" + PATCHES.get(source.file, "")
         for source in SOURCES.values()
     )
     return f"""[server]
