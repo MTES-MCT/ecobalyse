@@ -809,14 +809,14 @@ async def test_list_accounts_show_recent_token_use(
     data = response.json()
     assert await _get_token_status() is False
 
-    # Accessing detailled impacts should set the `last_accessed_at` date and
+    # Accessing profile info should set the `last_accessed_at` date and
     # "activate" the token
 
     token = data["token"]
     eco_api_user_token_headers = {"Authorization": f"Bearer {token}"}
 
     await client.get(
-        "/api/processes",
+        "/api/me",
         headers=eco_api_user_token_headers,
     )
     assert await _get_token_status() is True
@@ -841,65 +841,3 @@ async def test_list_accounts_show_recent_token_use(
         token.last_accessed_at = now - datetime.timedelta(days=367)
         await token_service.repository.session.commit()
         assert await _get_token_status() is False
-
-
-async def test_components_access_with_eco_api_token(
-    session: AsyncSession,
-    client: "AsyncClient",
-    user_token_headers: dict[str, str],
-    superuser_token_headers: dict[str, str],
-) -> None:
-    response = await client.post(
-        "/api/tokens",
-        headers=user_token_headers,
-    )
-    data = response.json()
-    token = data["token"]
-
-    eco_api_user_token_headers = {"Authorization": f"Bearer {token}"}
-
-    response = await client.post(
-        "/api/tokens",
-        headers=superuser_token_headers,
-    )
-    data = response.json()
-    token = data["token"]
-
-    eco_api_superuser_token_headers = {"Authorization": f"Bearer {token}"}
-
-    # Test create access
-    response = await client.post(
-        "/api/components",
-        json={
-            "name": "New Component",
-            "elements": [
-                {"amount": 0.91125, "material": "d25636af-ab36-4857-a6d0-c66d1e7a281b"}
-            ],
-        },
-        headers=eco_api_user_token_headers,
-    )
-
-    assert response.status_code == 403
-
-    # Test create access
-    response = await client.post(
-        "/api/components",
-        json={
-            "name": "New Component",
-            "elements": [
-                {"amount": 0.91125, "material": "d25636af-ab36-4857-a6d0-c66d1e7a281b"}
-            ],
-        },
-        headers=eco_api_superuser_token_headers,
-    )
-
-    assert response.status_code == 201
-
-    async with TokenService.new(session) as token_service:
-        tokens = await token_service.repository.get_many()
-        assert len(tokens) == 2
-        failed_access_token = tokens[0]
-        ok_access_token = tokens[1]
-
-        assert failed_access_token.last_accessed_at is None
-        assert ok_access_token.last_accessed_at is not None

@@ -139,7 +139,7 @@ async def current_user_from_token(
             and db_token.user_id == user.id
             and await crypt.verify_password(
                 token.extras.get("secret", ""),
-                db_token.hashed_token,  # ty: ignore[too-many-positional-arguments]
+                db_token.hashed_token,
             )
         ):
             db_token.last_accessed_at = now
