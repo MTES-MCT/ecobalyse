@@ -24,7 +24,7 @@ then
   fi
 
   if ! transcrypt -d &> /dev/null; then
-    transcrypt -y -c aes-256-cbc -p "$TRANSCRYPT_KEY"
+    transcrypt -y -F -c aes-256-cbc -p "$TRANSCRYPT_KEY"
   else
     echo 'ℹ️ `transcrypt` was already configured for this repo, skipping.'
   fi

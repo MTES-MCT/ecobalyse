@@ -14,10 +14,10 @@
   ],
   "scripts": {
     "build": "npm run server:build && rm -rf dist && npm run build:init && parcel build index.html --public-url ./",
-    "build:init": "./bin/update-version.sh && mkdir -p dist && cp -r public/* dist/ && npm run db:build",
+    "build:init": "./bin/update-version.sh && npm run db:build && mkdir -p dist && cp -r public/* dist/",
     "decrypt": "./bin/decrypt",
     "encrypt": "./bin/encrypt",
-    "db:build": "./bin/build-db && npm run db:check && npx elm-format --yes src/Static/Json.elm",
+    "db:build": "./bin/run-transcrypt.sh && ./bin/build-db && npm run db:check && npx elm-format --yes src/Static/Json.elm",
     "db:check": "elm make src/CheckDb.elm --optimize --output=check-db-app.js 1> /dev/null && node check-db.js",
     "db:validate": "uv run --group data check-jsonschema --schemafile schemas/processes-schema.json public/data/processes*.json",
     "lint:openapi": "npx swagger-cli validate openapi.yaml",

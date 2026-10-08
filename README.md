@@ -8,7 +8,7 @@ L’application est accessible [à cette adresse](https://ecobalyse.beta.gouv.fr
 
 ## Socle technique et prérequis
 
-Le frontend de cette application est écrit en [Elm](https://elm-lang.org/). Vous devez disposer d’un environnement [NodeJS](https://nodejs.org/fr/) 22+ et `npm`. Pour le backend vous devez disposer d’un environnement [python](https://www.python.org/) >=3.12, [uv](https://docs.astral.sh/uv/) et [gettext](https://www.gnu.org/software/gettext/) sur votre machine. Certains fichiers d’impacts détaillés nécessitent de configurer `[transcrypt](https://github.com/elasticdog/transcrypt)` pour les lire en local.
+Le frontend de cette application est écrit en [Elm](https://elm-lang.org/). Vous devez disposer d’un environnement [NodeJS](https://nodejs.org/fr/) 22+ et `npm`. Pour le backend vous devez disposer d’un environnement [python](https://www.python.org/) >=3.12, [uv](https://docs.astral.sh/uv/) et [gettext](https://www.gnu.org/software/gettext/) sur votre machine. Certains fichiers d’impacts détaillés nécessitent de configurer [`transcrypt`](https://github.com/elasticdog/transcrypt) pour les lire en local.
 
 [docker](https://www.docker.com/) est également une dépendance requise pour lancer la suite de tests.
 
@@ -76,7 +76,7 @@ Les variables d’environnement décrites ci-dessous doivent être définies. En
     npm ci --ignore-scripts
     ```
 
-- Déchiffrage du fichier des impacts détaillés. Attention, la variable d’environnement `TRANSCRYPT_KEY` documentée plus haut **doit** être disponible au script :
+- Déchiffrage du fichier des impacts détaillés. `npm start` le déclenche via `npm run db:build`. Attention, la variable d’environnement `TRANSCRYPT_KEY` documentée plus haut **doit** être accessible par le script :
 
   * soit en la spécifiant explicitement avant exécution
   * soit en renseignant sa valeur dans le fichier `.env` à la racine du dépôt
