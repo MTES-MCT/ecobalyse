@@ -63,7 +63,7 @@ def download_archive(archive: dict, download_dir: Path) -> str | None:
         logger.info(
             f"File `{filename}` already present in `{download_dir}`, skipping download"
         )
-    return dest_file_path if Path(dest_file_path).is_file else None
+    return dest_file_path if Path(dest_file_path).is_file() else None
 
 
 def list_logs_archives_for_range(
