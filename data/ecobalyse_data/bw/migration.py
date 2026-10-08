@@ -143,6 +143,14 @@ GINKO_MIGRATIONS = [
                         "name": "Transport, freight, sea, bulk carrier for dry goods {GLO}| market for transport, freight, sea, bulk carrier for dry goods | Cut-off, S - Copied from Ecoinvent U"
                     },
                 ),
+                (
+                    (
+                        "Harvester machine with engine, LT <5,000h production {FR} U/I U",
+                    ),
+                    {
+                        "name": "Harvester machine with engine, LT <5,000h production {FR} U"
+                    },
+                ),
             ],
         },
     }
