@@ -1,7 +1,6 @@
 from __future__ import annotations
 
 from pathlib import Path
-from typing import cast
 
 import anyio
 import click
@@ -246,7 +245,7 @@ def create_user(
 
     anyio.run(
         _create_user,
-        cast("str", email),
+        email,
         first_name,
         last_name,
         organization,
