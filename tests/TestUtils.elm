@@ -65,8 +65,9 @@ expectFloatDifferent expected actual =
 
 expectFloatMostlyEqual : Float -> Float -> Expectation
 expectFloatMostlyEqual expected actual =
-    abs (expected - actual)
-        |> Expect.lessThan 0.000000000000001
+    -- relative too: two sums of the same floats around 1000 can differ by one ulp (~1e-13)
+    actual
+        |> Expect.within (Expect.AbsoluteOrRelative 0.000000000000001 0.000000000001) expected
 
 
 expectStringContains : String -> String -> Expectation
