@@ -523,10 +523,6 @@ def import_simapro_csv(
         functools.partial(
             convert_to_linked_units,
             products=declared_units(suppliers, lambda ds: ds["name"]),
-            flows=declared_units(
-                bw2data.Database(biosphere),
-                lambda flow: (flow["name"], tuple(flow["categories"])),
-            ),
         )
     )
 
