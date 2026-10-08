@@ -12,13 +12,19 @@ then
 
   if [ -z "$TRANSCRYPT_KEY" ]
   then
-    echo "🚨 Error: the TRANSCRYPT_KEY env variable need to be set to decode encrypted files."
+    # attempt reading from .env file at the root of the repo
+    TRANSCRYPT_KEY="$(grep '^TRANSCRYPT_KEY=' "$(dirname "$0")/../.env" | cut -d= -f2-)"
+  fi
+
+  if [ -z "$TRANSCRYPT_KEY" ]
+  then
+    echo "🚨 Error: TRANSCRYPT_KEY must be set in the environment or in the .env file to decode encrypted files."
     echo "-> Exiting"
     exit 1
   fi
 
   if ! transcrypt -d &> /dev/null; then
-    transcrypt -y -c aes-256-cbc -p "$TRANSCRYPT_KEY"
+    transcrypt -y -F -c aes-256-cbc -p "$TRANSCRYPT_KEY"
   else
     echo 'ℹ️ `transcrypt` was already configured for this repo, skipping.'
   fi

@@ -76,10 +76,13 @@ Les variables d’environnement décrites ci-dessous doivent être définies. En
     npm ci --ignore-scripts
     ```
 
-- Déchiffrage du fichier des impacts détaillés. Attention, la variable d’environnement `TRANSCRYPT_KEY` documentée plus haut **doit** être renseignée et exportée auparavant.
+- Déchiffrage du fichier des impacts détaillés. `npm start` le déclenche via `npm run db:build`. Attention, la variable d’environnement `TRANSCRYPT_KEY` documentée plus haut **doit** être accessible par le script :
+
+  * soit en la spécifiant explicitement avant exécution
+  * soit en renseignant sa valeur dans le fichier `.env` à la racine du dépôt
 
     ```sh
-    export TRANSCRYPT_KEY="<clé de déchiffrement>"
+    export TRANSCRYPT_KEY="<clé de déchiffrement>" # inutile si renseignée dans .env
     ./bin/run-transcrypt.sh
     ```
 
