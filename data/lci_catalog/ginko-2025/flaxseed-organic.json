@@ -25,6 +25,52 @@
       "transportCooling": "always",
       "transportCoolingMatch": { "confidence": 1.0, "rule": "vegetable NOVA 1 → always (perishable)" },
       "visible": true
+    },
+    {
+      "alias": "cucurbitacea-seed-organic",
+      "cropGroup": "SEMENCES",
+      "cropGroupMatch": { "confidence": 0.95, "rule": "matched 'semences epeautre' in cropgroup.csv" },
+      "defaultOrigin": "France",
+      "displayName": "Graines de Cucurbitacées Bio",
+      "id": "dfba7516-f4f2-5d8c-92ce-d09035eff527",
+      "inediblePart": 0.2,
+      "inediblePartMatch": {
+        "confidence": 1.0,
+        "rule": "vegetable NOVA 1 default from food_type_inedible_part.csv"
+      },
+      "ingredientCategories": ["vegetable_fresh", "organic"],
+      "ingredientDensity": 0.9,
+      "ingredientDensityMatch": { "confidence": 1.0, "rule": "vegetable default from food_type_density.csv" },
+      "rawToCookedRatio": 0.856,
+      "rawToCookedRatioMatch": { "confidence": 1.0, "rule": "vegetable default from food_type_cooked_to_raw.csv" },
+      "scenario": "organic",
+      "scopes": ["food", "food2"],
+      "transportCooling": "always",
+      "transportCoolingMatch": { "confidence": 1.0, "rule": "vegetable NOVA 1 → always (perishable)" },
+      "visible": true
+    },
+    {
+      "alias": "poppy-seed-organic",
+      "cropGroup": "SEMENCES",
+      "cropGroupMatch": { "confidence": 0.95, "rule": "matched 'semences epeautre' in cropgroup.csv" },
+      "defaultOrigin": "France",
+      "displayName": "Graines de pavot Bio",
+      "id": "339e9754-e04d-5aff-9fb1-545b7436f424",
+      "inediblePart": 0.0,
+      "inediblePartMatch": { "confidence": 0.961, "rule": "Matched with poppy seed in inedible_part.csv" },
+      "ingredientCategories": ["nut_oilseed_raw", "organic"],
+      "ingredientDensity": 0.6,
+      "ingredientDensityMatch": { "confidence": 1.0, "rule": "nut_oilseed default from food_type_density.csv" },
+      "rawToCookedRatio": 1.0,
+      "rawToCookedRatioMatch": {
+        "confidence": 1.0,
+        "rule": "nut_oilseed default from food_type_cooked_to_raw.csv"
+      },
+      "scenario": "organic",
+      "scopes": ["food", "food2"],
+      "transportCooling": "none",
+      "transportCoolingMatch": { "confidence": 1.0, "rule": "nut_oilseed → none (non-perishable)" },
+      "visible": true
     }
   ],
   "scopes": ["food", "food2"],
