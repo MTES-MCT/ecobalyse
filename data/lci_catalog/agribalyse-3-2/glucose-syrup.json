@@ -8,7 +8,7 @@
       "alias": "glucose-syrup-2025",
       "cropGroup": "DIVERS",
       "defaultOrigin": "EuropeAndMaghreb",
-      "displayName": "Sirop de glucose FR ou UE ou par défaut (2025)",
+      "displayName": "Sirop de glucose FR ou UE ou par défaut agrégé (2025)",
       "id": "06dffb5c-07ad-48de-9630-632f4c84e02d",
       "inediblePart": 0,
       "ingredientCategories": ["spice_condiment_additive"],

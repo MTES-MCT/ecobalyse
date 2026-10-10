@@ -10,7 +10,7 @@
       "animalGroup2": "cow",
       "animalProduct": "meat",
       "defaultOrigin": "France",
-      "displayName": "Viande de boeuf avec os (crue) FR",
+      "displayName": "Viande de boeuf avec os (crue) FR agrégé",
       "id": "9db6b0d1-941a-4dda-a347-b7a7fee8fd46",
       "inediblePart": 0.2,
       "ingredientCategories": ["animal_product"],
