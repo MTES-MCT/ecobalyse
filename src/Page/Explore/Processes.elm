@@ -4,6 +4,7 @@ import Data.Complement as Complement
 import Data.Country as Country
 import Data.Country.Code as CountryCode
 import Data.Dataset as Dataset
+import Data.Env as Env
 import Data.Impact as Impact
 import Data.Impact.Definition as Definition exposing (Definitions)
 import Data.Process as Process exposing (Process)
@@ -111,16 +112,11 @@ baseColumns session detailed =
 
 commentCell : Bool -> String -> Html msg
 commentCell detailed comment =
-    let
-        -- TODO: should we make this configurable?
-        excerptLength =
-            80
-    in
-    if detailed || String.length comment <= excerptLength then
+    if detailed || String.length comment <= Env.explorerCommentExcerptLength then
         text comment
 
     else
-        text (String.left excerptLength comment ++ "…")
+        text (String.left Env.explorerCommentExcerptLength comment ++ "…")
 
 
 complementsColumns : Session -> List (Column Process String msg)

@@ -4,6 +4,8 @@ module Data.Env exposing
     , communityUrl
     , contactEmail
     , defaultDeadStock
+    , explorerCommentExcerptLength
+    , explorerTableMaxDisplayedRows
     , gitbookUrl
     , githubUrl
     , maxMakingDeadStockRatio
@@ -35,6 +37,20 @@ communityUrl =
 contactEmail : String
 contactEmail =
     "ecobalyse@beta.gouv.fr"
+
+
+{-| Length of the excerpt of a comment in the explorer table.
+-}
+explorerCommentExcerptLength : Int
+explorerCommentExcerptLength =
+    80
+
+
+{-| Maximum number of rows rendered at once in the explorer table.
+-}
+explorerTableMaxDisplayedRows : Int
+explorerTableMaxDisplayedRows =
+    200
 
 
 gitbookUrl : String

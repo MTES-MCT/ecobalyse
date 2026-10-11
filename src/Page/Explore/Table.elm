@@ -12,6 +12,7 @@ module Page.Explore.Table exposing
     )
 
 import Csv.Encode exposing (Csv)
+import Data.Env as Env
 import Data.Scope as Scope exposing (Scope)
 import Data.Text as Text
 import Dict exposing (Dict)
@@ -164,7 +165,7 @@ viewList dataToMsg defaultConfig tableState scope createTable items =
             items |> applyFiltersAndSearch defaultConfig facets toSearchableText
 
         displayedItems =
-            List.take maxDisplayedRows resultItems
+            List.take Env.explorerTableMaxDisplayedRows resultItems
 
         resultCount =
             List.length resultItems
@@ -194,11 +195,11 @@ viewList dataToMsg defaultConfig tableState scope createTable items =
     else
         div [ class "row g-3" ]
             [ div [ classList [ ( "col-xxl-10 col-xl-9 col-lg-9 col-md-12 col-sm-12", facetsEnabled ) ] ]
-                [ if resultCount > maxDisplayedRows then
+                [ if resultCount > Env.explorerTableMaxDisplayedRows then
                     p [ class "text-muted" ]
                         [ text <|
                             "Affichage des "
-                                ++ String.fromInt maxDisplayedRows
+                                ++ String.fromInt Env.explorerTableMaxDisplayedRows
                                 ++ " premiers résultats sur "
                                 ++ String.fromInt resultCount
                                 ++ " résultats"
@@ -344,12 +345,6 @@ filterItems { selectedFacets } facets =
                             |> Maybe.withDefault True
                     )
         )
-
-
-maxDisplayedRows : Int
-maxDisplayedRows =
-    -- TODO: should we make this configurable?
-    100
 
 
 searchItems : Config data msg -> (data -> String) -> List data -> List data
