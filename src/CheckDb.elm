@@ -19,7 +19,7 @@ import Static.Db as StaticDb
 
 type alias Flags =
     { componentConfigJson : String
-    , detailedProcessesJson : String
+    , detailedProcessesJson : Maybe String
     , nonDetailedProcessesJson : String
     }
 
@@ -433,15 +433,24 @@ checkStaticDatabase config dbName dbResult =
                 |> addGroupedErrors (section "Component config checks") (checkComponentConfig db config)
 
 
-{-| Decodes both static databases, executes checks, and returns grouped errors.
+{-| Decodes the public database, and the detailed one when it is available.
 -}
 checkStaticDatabases : Flags -> Result (List Error) ()
 checkStaticDatabases { componentConfigJson, detailedProcessesJson, nonDetailedProcessesJson } =
+    let
+        detailedDb =
+            case detailedProcessesJson of
+                Just detailedJson ->
+                    [ ( "Detailed Db", StaticDb.dbFromStaticFiles detailedJson ) ]
+
+                Nothing ->
+                    []
+    in
     case
         List.concatMap (\( dbName, dbResult ) -> checkStaticDatabase componentConfigJson dbName dbResult)
-            [ ( "Detailed Db", StaticDb.dbFromStaticFiles detailedProcessesJson )
-            , ( "Non-detailed Db", StaticDb.dbFromStaticFiles nonDetailedProcessesJson )
-            ]
+            (detailedDb
+                ++ [ ( "Non-detailed Db", StaticDb.dbFromStaticFiles nonDetailedProcessesJson ) ]
+            )
     of
         [] ->
             Ok ()
