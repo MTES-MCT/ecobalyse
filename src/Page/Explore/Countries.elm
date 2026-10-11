@@ -25,7 +25,7 @@ table distances countries { detailed, scope } =
     { filename = "countries"
     , toId = .code >> CountryCode.toString
     , toRoute = .code >> Just >> Dataset.Countries >> Route.Explore scope
-    , toSearchableWords = Country.toSearchableString >> Text.toWords
+    , toSearchableText = Country.toSearchableString >> Text.toSearchable
     , facets =
         [ Table.Facet "Mix électrique" (.electricityProcess >> Process.getDisplayName >> List.singleton)
         , Table.Facet "Chaleur" (.heatProcess >> Process.getDisplayName >> List.singleton)

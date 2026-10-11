@@ -27,7 +27,7 @@ table { db } { maxScore, maxPer100g } { detailed, scope } =
     { filename = "examples"
     , toId = Tuple.first >> .id >> Uuid.toString
     , toRoute = Tuple.first >> .id >> Just >> Dataset.TextileExamples >> Route.Explore scope
-    , toSearchableWords = Tuple.first >> Example.toSearchableString >> Text.toWords
+    , toSearchableText = Tuple.first >> Example.toSearchableString >> Text.toSearchable
     , facets =
         [ Table.Facet "Catégorie" (Tuple.first >> .category >> List.singleton)
         ]

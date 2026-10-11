@@ -19,7 +19,7 @@ table { detailed, scope } =
     { filename = "impacts"
     , toId = .trigram >> Definition.toString
     , toRoute = .trigram >> Just >> Dataset.Impacts >> Route.Explore scope
-    , toSearchableWords = Definition.toSearchableString >> Text.toWords
+    , toSearchableText = Definition.toSearchableString >> Text.toSearchable
     , facets =
         [ Table.Facet "Unité" (.unit >> List.singleton)
         ]

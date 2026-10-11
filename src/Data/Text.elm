@@ -3,6 +3,7 @@ module Data.Text exposing
     , isDigitsOnly
     , search
     , sortI18nStrings
+    , toSearchable
     , toWords
     , yesNo
     )
@@ -14,7 +15,7 @@ import String.Normalize as Normalize
 type alias SearchConfig element =
     { minQueryLength : Int
     , query : String
-    , toSearchableWords : element -> List String
+    , toSearchableText : element -> String
     }
 
 
@@ -37,6 +38,28 @@ isDigitsOnly =
     String.all Char.isDigit
 
 
+containsEveryWord : (String -> String -> Bool) -> List String -> String -> Bool
+containsEveryWord contains searchWords searchableText =
+    searchWords
+        |> List.all (\word -> contains word searchableText)
+
+
+containsWholeWord : String -> String -> Bool
+containsWholeWord word searchableText =
+    String.contains (" " ++ word ++ " ") (" " ++ searchableText ++ " ")
+
+
+containsWord : String -> String -> Bool
+containsWord =
+    String.contains
+
+
+nonWord : Regex.Regex
+nonWord =
+    Regex.fromString "[\\W_]+"
+        |> Maybe.withDefault Regex.never
+
+
 {-| Filter a list of stringifyable items against provided search terms:
 
   - case and accented letters insensitive
@@ -44,7 +67,7 @@ isDigitsOnly =
 
 -}
 search : SearchConfig element -> List element -> List element
-search { minQueryLength, query, toSearchableWords } elements =
+search { minQueryLength, query, toSearchableText } elements =
     let
         trimmedQuery =
             String.trim query
@@ -55,30 +78,20 @@ search { minQueryLength, query, toSearchableWords } elements =
     else
         let
             searchWords =
-                toWords trimmedQuery
+                trimmedQuery
+                    |> toWords
+                    |> List.filter (String.isEmpty >> not)
 
-            checkMatches fn element =
-                searchWords
-                    |> List.all
-                        (\word ->
-                            element
-                                |> toSearchableWords
-                                |> fn word
-                        )
-
-            exactWordsMatches =
+            ( exactMatches, rest ) =
                 elements
-                    |> List.filter (checkMatches List.member)
+                    |> List.map (\element -> ( toSearchableText element, element ))
+                    |> List.partition (Tuple.first >> containsEveryWord containsWholeWord searchWords)
 
-            partialWordsMatches =
-                elements
-                    |> List.filter
-                        (\element ->
-                            not (List.member element exactWordsMatches)
-                                && checkMatches (String.contains >> List.any) element
-                        )
+            ( partialMatches, _ ) =
+                rest
+                    |> List.partition (Tuple.first >> containsEveryWord containsWord searchWords)
         in
-        exactWordsMatches ++ partialWordsMatches
+        List.map Tuple.second exactMatches ++ List.map Tuple.second partialMatches
 
 
 {-| Sort strings in a case and accent insensitive manner (useful for non-US alphabets).
@@ -88,14 +101,19 @@ sortI18nStrings =
     List.sortBy (String.toLower >> Normalize.removeDiacritics)
 
 
+toSearchable : String -> String
+toSearchable =
+    String.toLower
+        >> Normalize.removeDiacritics
+        >> Regex.replace nonWord (\_ -> " ")
+        >> String.trim
+
+
 toWords : String -> List String
 toWords =
     String.toLower
         >> Normalize.removeDiacritics
-        >> Regex.split
-            (Regex.fromString "[\\W_]+"
-                |> Maybe.withDefault Regex.never
-            )
+        >> Regex.split nonWord
 
 
 yesNo : Bool -> String

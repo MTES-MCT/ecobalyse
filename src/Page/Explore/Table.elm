@@ -31,7 +31,7 @@ type alias Table data comparable msg =
     { filename : String
     , toId : data -> String
     , toRoute : data -> Route
-    , toSearchableWords : data -> List String
+    , toSearchableText : data -> String
     , facets : List (Facet data)
     , columns : List (Column data comparable msg)
     , legend : List (Html msg)
@@ -110,7 +110,7 @@ viewList :
     -> Html msg
 viewList dataToMsg defaultConfig tableState scope createTable items =
     let
-        ({ filename, toId, toSearchableWords, facets, columns, legend } as table) =
+        ({ filename, toId, toSearchableText, facets, columns, legend } as table) =
             createTable { detailed = False, scope = scope }
 
         { customizations } =
@@ -161,7 +161,13 @@ viewList dataToMsg defaultConfig tableState scope createTable items =
                 }
 
         resultItems =
-            items |> applyFiltersAndSearch defaultConfig facets toSearchableWords
+            items |> applyFiltersAndSearch defaultConfig facets toSearchableText
+
+        displayedItems =
+            List.take maxDisplayedRows resultItems
+
+        resultCount =
+            List.length resultItems
 
         csv =
             { filename = "ecobalyse-" ++ Scope.toString scope ++ "-" ++ filename ++ ".csv"
@@ -188,7 +194,19 @@ viewList dataToMsg defaultConfig tableState scope createTable items =
     else
         div [ class "row g-3" ]
             [ div [ classList [ ( "col-xxl-10 col-xl-9 col-lg-9 col-md-12 col-sm-12", facetsEnabled ) ] ]
-                [ div [ class "DatasetTable table-responsive table-scroll position-relative" ]
+                [ if resultCount > maxDisplayedRows then
+                    p [ class "text-muted" ]
+                        [ text <|
+                            "Affichage des "
+                                ++ String.fromInt maxDisplayedRows
+                                ++ " premiers résultats sur "
+                                ++ String.fromInt resultCount
+                                ++ " résultats"
+                        ]
+
+                  else
+                    text ""
+                , div [ class "DatasetTable table-responsive table-scroll position-relative" ]
                     [ if List.isEmpty resultItems then
                         Alert.simple
                             { attributes = []
@@ -199,7 +217,7 @@ viewList dataToMsg defaultConfig tableState scope createTable items =
                             }
 
                       else
-                        resultItems |> SortableTable.view config tableState
+                        displayedItems |> SortableTable.view config tableState
                     , div [ class "text-muted fs-7" ] legend
                     ]
                 , div [ class "text-end pt-3" ]
@@ -218,10 +236,10 @@ viewList dataToMsg defaultConfig tableState scope createTable items =
             ]
 
 
-applyFiltersAndSearch : Config data msg -> List (Facet data) -> (data -> List String) -> List data -> List data
-applyFiltersAndSearch config facets toSearchableWords =
+applyFiltersAndSearch : Config data msg -> List (Facet data) -> (data -> String) -> List data -> List data
+applyFiltersAndSearch config facets toSearchableText =
     filterItems config facets
-        >> searchItems config toSearchableWords
+        >> searchItems config toSearchableText
 
 
 emptyLabel : String
@@ -328,12 +346,18 @@ filterItems { selectedFacets } facets =
         )
 
 
-searchItems : Config data msg -> (data -> List String) -> List data -> List data
-searchItems { search } toSearchableWords =
+maxDisplayedRows : Int
+maxDisplayedRows =
+    -- TODO: should we make this configurable?
+    100
+
+
+searchItems : Config data msg -> (data -> String) -> List data -> List data
+searchItems { search } toSearchableText =
     Text.search
         { minQueryLength = 2
         , query = search
-        , toSearchableWords = toSearchableWords
+        , toSearchableText = toSearchableText
         }
 
 
