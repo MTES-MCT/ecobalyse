@@ -301,10 +301,7 @@ setRoute url ( { state } as model, cmds ) =
                     )
 
 
-{-| Updates current page and recomputes results that were cached against the previous database.
-
-Note: this currently only applies to the Generic and Textile simulators.
-
+{-| Updates current page and recomputes results that were possibly cached against the previous database.
 -}
 refreshCachedResults : Session -> Page -> Page
 refreshCachedResults session currentPage =
@@ -321,24 +318,6 @@ refreshCachedResults session currentPage =
 
         _ ->
             currentPage
-
-
-{-| Updates session's component config and recomputes page states after detailed processes have been loaded
--}
-refreshComponentConfig : Model -> Session -> Page -> Component.Config -> ( Model, Cmd Msg )
-refreshComponentConfig model session currentPage componentConfig =
-    let
-        updatedSession =
-            { session | componentConfig = componentConfig }
-    in
-    ( { model
-        | state =
-            currentPage
-                |> refreshCachedResults updatedSession
-                |> Loaded updatedSession
-      }
-    , Cmd.none
-    )
 
 
 updateInitializing : Msg -> Model -> ( Model, Cmd Msg )
@@ -476,8 +455,19 @@ update rawMsg ({ state } as model) =
 
                 -- Component config reloaded after detailed processes are received
                 ( ComponentConfigReceived _ _ (RemoteData.Success componentConfig), currentPage ) ->
-                    componentConfig
-                        |> refreshComponentConfig model session currentPage
+                    let
+                        updatedSession =
+                            { session | componentConfig = componentConfig }
+                    in
+                    ( { model
+                        | state =
+                            -- session has been updated with detailed processes and config: recompute current page state
+                            currentPage
+                                |> refreshCachedResults updatedSession
+                                |> Loaded updatedSession
+                      }
+                    , Cmd.none
+                    )
 
                 ( ComponentConfigReceived _ _ (RemoteData.Failure error), _ ) ->
                     notifyError model "Erreur" <|
