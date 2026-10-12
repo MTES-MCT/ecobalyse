@@ -23,11 +23,9 @@ from sqlalchemy.pool import NullPool
 from app.config import app as config
 from app.config import get_settings
 from app.config.base import decode_json, encode_json
-from app.db.models import Component, User
+from app.db.models import User
 from app.domain.accounts.guards import auth
 from app.domain.accounts.services import RoleService, UserService
-from app.domain.components.services import ComponentService
-from app.domain.processes.services import ProcessService
 
 here = Path(__file__).parent
 pytestmark = pytest.mark.anyio
@@ -80,8 +78,6 @@ async def fx_session(
 async def _seed_db(
     engine: AsyncEngine,
     session: AsyncSession,
-    raw_processes: list[dict[str, Any]],
-    raw_components: list[Component | dict[str, Any]],
     raw_users: list[User | dict[str, Any]],
 ) -> AsyncGenerator[None, None]:
     """Populate test database with.
@@ -111,12 +107,6 @@ async def _seed_db(
 
     async with UserService.new(session) as users_service:
         await users_service.create_many(raw_users, auto_commit=True)
-
-    async with ProcessService.new(session) as processes_service:
-        await processes_service.create_many(raw_processes, auto_commit=True)
-
-    async with ComponentService.new(session) as components_service:
-        await components_service.create_many(raw_components, auto_commit=True)
 
     yield
 

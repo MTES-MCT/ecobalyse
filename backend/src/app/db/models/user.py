@@ -9,7 +9,6 @@ from sqlalchemy import String
 from sqlalchemy.orm import Mapped, mapped_column, relationship, validates
 
 if TYPE_CHECKING:
-    from .journal_entry import JournalEntry
     from .token import Token
     from .user_profile import UserProfile
     from .user_role import UserRole
@@ -48,11 +47,6 @@ class User(UUIDAuditBase):
     # -----------
     # ORM Relationships
     # ------------
-    journal_entries: Mapped[list[JournalEntry]] = relationship(
-        back_populates="user",
-        lazy="selectin",
-        cascade="all, delete",
-    )
     roles: Mapped[list[UserRole]] = relationship(
         back_populates="user",
         lazy="selectin",

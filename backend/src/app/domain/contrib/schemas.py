@@ -1,9 +1,17 @@
 from __future__ import annotations
 
+from enum import StrEnum
 from typing import Any
 
-from app.domain.components.schemas import GenericScope
 from app.lib.schema import BaseSchema
+
+
+class GenericScope(StrEnum):
+    "All generic scopes."
+
+    FOOD2 = "food2"
+    OBJECT = "object"
+    VELI = "veli"
 
 
 class ExampleContribCreate(BaseSchema):

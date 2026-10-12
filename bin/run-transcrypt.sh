@@ -10,17 +10,18 @@
 if [ -z "$SOURCE_VERSION" ] || [ "$1" == "force" ]
 then
 
+  # Use already available key or use the one declared in the repository .env
+  TRANSCRYPT_KEY="${TRANSCRYPT_KEY:-$(grep '^TRANSCRYPT_KEY=' "$(dirname "$0")/../.env" 2>/dev/null | cut -d= -f2-)}"
+
   if [ -z "$TRANSCRYPT_KEY" ]
   then
-    echo "🚨 Error: the TRANSCRYPT_KEY env variable need to be set to decode encrypted files."
-    echo "-> Exiting"
-    exit 1
-  fi
-
-  if ! transcrypt -d &> /dev/null; then
-    transcrypt -y -c aes-256-cbc -p "$TRANSCRYPT_KEY"
+    echo "ℹ️ TRANSCRYPT_KEY is not set. Detailed impacts stay encrypted; the app will use aggregated impacts."
   else
-    echo 'ℹ️ `transcrypt` was already configured for this repo, skipping.'
+    if ! transcrypt -d &> /dev/null; then
+      transcrypt -y -F -c aes-256-cbc -p "$TRANSCRYPT_KEY"
+    else
+      echo 'ℹ️ `transcrypt` was already configured for this repo, skipping.'
+    fi
   fi
 
 fi

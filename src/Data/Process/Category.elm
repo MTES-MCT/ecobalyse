@@ -47,6 +47,7 @@ type Material
     | Composites
     | Containerboard
     | Copper
+    | Dairy
     | Eggs
     | FerrousMetal
     | FishAndShellfish
@@ -241,6 +242,9 @@ materialTypeFromString string =
         "cereals" ->
             Ok Cereals
 
+        "dairy" ->
+            Ok Dairy
+
         "eggs" ->
             Ok Eggs
 
@@ -298,6 +302,9 @@ materialTypeToLabel material =
 
         Copper ->
             "Cuivre"
+
+        Dairy ->
+            "Produits laitiers"
 
         Eggs ->
             "Œufs"
@@ -395,6 +402,9 @@ materialTypeToString material =
 
         Copper ->
             "copper"
+
+        Dairy ->
+            "dairy"
 
         Eggs ->
             "eggs"

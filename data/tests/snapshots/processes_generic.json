@@ -80,7 +80,7 @@
   {
     "activityName": "_22 Vegetable and animal oils and fats, EU27",
     "alias": "milk",
-    "categories": ["ingredient", "material_type:other_food_items"],
+    "categories": ["ingredient", "material_type:dairy", "transported_cooled"],
     "comment": "",
     "displayName": "Lait FR",
     "elecKwh": 0,

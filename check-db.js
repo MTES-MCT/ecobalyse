@@ -1,11 +1,15 @@
 require("dotenv").config();
 const { Elm } = require("./check-db-app");
-const { getComponentConfigAsString, getProcessesAsString } = require("./lib");
+const {
+  getComponentConfigAsString,
+  getDetailedProcessesAsString,
+  getProcessesAsString,
+} = require("./lib");
 
 const elmApp = Elm.CheckDb.init({
   flags: {
-    detailedProcessesJson: getProcessesAsString((detailed = true)),
-    nonDetailedProcessesJson: getProcessesAsString((detailed = false)),
+    detailedProcessesJson: getDetailedProcessesAsString(),
+    nonDetailedProcessesJson: getProcessesAsString(),
     componentConfigJson: getComponentConfigAsString(),
   },
 });

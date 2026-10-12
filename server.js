@@ -20,7 +20,11 @@ const { setupSentry } = require("./lib/sentry"); // MUST be required BEFORE expr
 const { createMatomoTracker } = require("./lib/matomo");
 const { createPlausibleTracker } = require("./lib/plausible");
 
-const { filterLegacyFood1Paths, getProcessesAsString } = require("./lib");
+const {
+  filterLegacyFood1Paths,
+  getDetailedProcessesAsString,
+  getProcessesAsString,
+} = require("./lib");
 const {
   applyGenericScopesToOpenApi,
   getEnabledGenericScopeEntries,
@@ -138,9 +142,9 @@ function processOpenApi(contents, versionNumber) {
 // concat the arrays and the stringify again the whole thing
 // Elm decoders should handle the differences between the two formats
 
-const processesImpacts = getProcessesAsString((detailed = true));
+const processesImpacts = getDetailedProcessesAsString();
 
-const processes = getProcessesAsString((detailed = false));
+const processes = getProcessesAsString();
 
 const getProcesses = async (headers) => {
   let isValidToken = false;
@@ -159,7 +163,7 @@ const getProcesses = async (headers) => {
     }
   }
 
-  if (NODE_ENV === "test" || isValidToken) {
+  if ((NODE_ENV === "test" || isValidToken) && processesImpacts) {
     return processesImpacts;
   } else {
     return processes;

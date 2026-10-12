@@ -66,7 +66,7 @@ def get_env(
 @overload
 def get_env(
     key: str, default: None, type_hint: UnsetType = _UNSET
-) -> Callable[[], None]: ...
+) -> Callable[[], str | None]: ...
 
 
 @overload
@@ -110,7 +110,9 @@ def get_config_val(
 
 
 @overload
-def get_config_val(key: str, default: None, type_hint: UnsetType = _UNSET) -> None: ...
+def get_config_val(
+    key: str, default: None, type_hint: UnsetType = _UNSET
+) -> str | None: ...
 
 
 @overload

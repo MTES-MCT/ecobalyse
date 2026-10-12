@@ -91,7 +91,7 @@ class UserService(SQLAlchemyAsyncRepositoryService[m.User]):
         if hashed_password is None:
             msg = "Token not found or already used"
             raise PermissionDeniedException(detail=msg)
-        if not await crypt.verify_password(password, hashed_password):  # ty: ignore[too-many-positional-arguments, invalid-argument-type]
+        if not await crypt.verify_password(password, hashed_password):
             msg = "User not found or password invalid"
             raise PermissionDeniedException(detail=msg)
         if not db_obj.is_active:
@@ -149,7 +149,7 @@ class UserService(SQLAlchemyAsyncRepositoryService[m.User]):
             and (magic_link_token := data.pop("magic_link_token", None)) is not None
         ):
             data["magic_link_hashed_token"] = await crypt.get_password_hash(
-                magic_link_token  # ty: ignore[too-many-positional-arguments]
+                magic_link_token
             )
         return data
 
@@ -264,12 +264,12 @@ class TokenService(SQLAlchemyAsyncRepositoryService[m.Token]):
     repository_type = Repository
 
     async def find_by_secret(self, secret: str) -> m.Token | None:
-        hashed_token = await crypt.get_password_hash(secret)  # ty: ignore[too-many-positional-arguments]
+        hashed_token = await crypt.get_password_hash(secret)
 
         return await self.repository.get_one_or_none(hashed_token=hashed_token)
 
     async def generate_for_user(self, user: m.User, secret: str = str(uuid4())) -> str:
-        hashed_token = await crypt.get_password_hash(secret)  # ty: ignore[too-many-positional-arguments]
+        hashed_token = await crypt.get_password_hash(secret)
 
         data = m.Token(user_id=user.id, hashed_token=hashed_token)
         added_token = await self.repository.add(data)
@@ -301,7 +301,7 @@ class TokenService(SQLAlchemyAsyncRepositoryService[m.Token]):
 
     async def authenticate(self, secret: str, token_id: UUID) -> m.Token:
         token = await self.repository.get_one_or_none(id=token_id)
-        if token and await crypt.verify_password(secret, token.hashed_token):  # ty: ignore[too-many-positional-arguments]
+        if token and await crypt.verify_password(secret, token.hashed_token):
             token.last_accessed_at = datetime.now(UTC)
             await self.repository.update(token)
             return token

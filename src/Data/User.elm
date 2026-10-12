@@ -17,8 +17,6 @@ module Data.User exposing
     , encodeUpdateProfileForm
     , encodeUser
     , getOrganizationName
-    , organizationToSirenString
-    , organizationToString
     , organizationTypeToString
     , organizationTypes
     , sirenFromString
@@ -495,44 +493,6 @@ updateOrganizationType type_ organization =
 
         _ ->
             organization
-
-
-organizationToSirenString : Organization -> String
-organizationToSirenString organization =
-    case organization of
-        Business _ siren ->
-            sirenToString siren
-
-        _ ->
-            ""
-
-
-organizationToString : Organization -> String
-organizationToString organization =
-    case organization of
-        Association name ->
-            name ++ " (association)"
-
-        Business name _ ->
-            name ++ " (entreprise)"
-
-        Education name ->
-            name ++ " (enseignement/recherche)"
-
-        Individual ->
-            "Particulier"
-
-        LocalAuthority name ->
-            name ++ " (collectivité ou EPCI)"
-
-        Media name ->
-            name ++ " (média)"
-
-        Public name ->
-            name ++ " (autre établissement public et État)"
-
-        Student name ->
-            name ++ " (étudiant·e)"
 
 
 organizationTypeToString : Organization -> String

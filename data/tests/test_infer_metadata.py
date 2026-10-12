@@ -22,6 +22,11 @@ from common.infer_metadata import (
         (
             ["ingredient", "material"],
             "milk",
+            ["ingredient", "material", "material_type:dairy", "transported_cooled"],
+        ),
+        (
+            ["ingredient", "material"],
+            "honey",
             ["ingredient", "material", "material_type:other_food_items"],
         ),
         # non-ingredient processes are untouched
@@ -42,8 +47,9 @@ def test_infer_variant_material_type(categories, alias, variant_categories):
         (None, "carrot-fr", 0.856),
         (None, "barley-fr", 2.259),
         (1.67, "barley-fr", 1.67),
-        # other_food_items has no reference value: neutral 1.0
+        # dairy and other_food_items have no reference value: neutral 1.0
         (None, "milk", 1.0),
+        (None, "honey", 1.0),
     ],
 )
 def test_infer_raw_to_cooked_ratio(explicit_ratio, alias, infered_ratio):

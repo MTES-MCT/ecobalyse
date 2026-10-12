@@ -8,7 +8,7 @@ L’application est accessible [à cette adresse](https://ecobalyse.beta.gouv.fr
 
 ## Socle technique et prérequis
 
-Le frontend de cette application est écrit en [Elm](https://elm-lang.org/). Vous devez disposer d’un environnement [NodeJS](https://nodejs.org/fr/) 22+ et `npm`. Pour le backend vous devez disposer d’un environnement [python](https://www.python.org/) >=3.12, [uv](https://docs.astral.sh/uv/) et [gettext](https://www.gnu.org/software/gettext/) sur votre machine. Certains fichiers d’impacts détaillés nécessitent de configurer [`transcrypt`](https://github.com/elasticdog/transcrypt) pour les lire en local.
+Le frontend de cette application est écrit en [Elm](https://elm-lang.org/). Vous devez disposer d’un environnement [NodeJS](https://nodejs.org/fr/) 22+ et `npm`. Pour le backend vous devez disposer d’un environnement [python](https://www.python.org/) >=3.12, [uv](https://docs.astral.sh/uv/) et [gettext](https://www.gnu.org/software/gettext/) sur votre machine. Pour disposer des impacts détaillés en local, une clé de déchiffrement et l'utilitaire [`transcrypt`](https://github.com/elasticdog/transcrypt) sont requis.
 
 [docker](https://www.docker.com/) est également une dépendance requise pour lancer la suite de tests.
 
@@ -40,7 +40,7 @@ Les variables d’environnement décrites ci-dessous doivent être définies. En
 - `RATELIMIT_MAX_RPM` : le nombre de requêtes maximum par minute et par ip (par défaut: 5000)
 - `RATELIMIT_WHITELIST` : liste des adresses IP non soumises au rate-limiting, séparées par des virgules
 - `SECRET_KEY` : le secret 32bits pour le backend ; vous pouvez en générer une avec `openssl rand -hex 32`
-- `TRANSCRYPT_KEY` : la clé utilisée et autogénérée par [transcrypt](https://github.com/elasticdog/transcrypt/blob/main/INSTALL.md) et disponible dans [https://vaultwarden.incubateur.net](https://vaultwarden.incubateur.net/)
+- `TRANSCRYPT_KEY` : clé [transcrypt](https://github.com/elasticdog/transcrypt/blob/main/INSTALL.md) optionnelle, disponible dans [Vaultwarden](https://vaultwarden.incubateur.net/). Sans elle, l’application ne fournira que les impacts agrégés.
 - `VERSION_POLL_SECONDS` : le nombre de secondes entre deux appels HTTP pour récupérer la dernière version de l’application (`/version.json`, défaut: `300`)
 
 ### Backend
@@ -76,10 +76,12 @@ Les variables d’environnement décrites ci-dessous doivent être définies. En
     npm ci --ignore-scripts
     ```
 
-- Déchiffrage du fichier des impacts détaillés. Attention, la variable d’environnement `TRANSCRYPT_KEY` documentée plus haut **doit** être renseignée et exportée auparavant.
+- Impacts détaillés (optionnel). Sans clé `TRANSCRYPT_KEY` accessible dans l’environnement, l’application utilisera les impacts agrégés. Si vous en disposez, cette clé peut être définie de deux façons :
+  - soit explicitement avant exécution
+  - soit en renseignant sa valeur dans le fichier `.env` à la racine du dépôt
 
     ```sh
-    export TRANSCRYPT_KEY="<clé de déchiffrement>"
+    export TRANSCRYPT_KEY="<clé de déchiffrement>" # inutile si renseignée dans .env
     ./bin/run-transcrypt.sh
     ```
 
@@ -126,8 +128,6 @@ Sans `docker` :
 
 ```bash
 uv run backend database upgrade --no-prompt
-uv run backend fixtures load-processes public/data/processes_impacts.json
-uv run backend fixtures load-components public/data/object/components.json
 ```
 
 ### Créer un super-utilisateur
@@ -209,7 +209,7 @@ Pour ajouter une variable d’environnement sur une application, il est recomman
 
 ### Fichiers d’impacts détaillés
 
-Les fichiers d’impacts détaillés sont chiffrés à l’aide de [transcrypt](https://github.com/elasticdog/transcrypt) sur le dépôt public Github. En revanche, la version locale est une version décryptée par `transcrypt`. Vous pouvez donc utiliser, localement, les commandes git habituelles pour voir les différences dans ces fichiers, par exemple :
+Les fichiers d’impacts détaillés sont chiffrés à l’aide de [transcrypt](https://github.com/elasticdog/transcrypt) sur le dépôt public Github. Si la variable d’environnement `TRANSCRYPT_KEY` est définie et valide, le fichier local des impacts détaillés sera déchiffré. Sans cette clé, l’application ne fournira que les impacts agrégés. Une fois le fichier déchiffré, les commandes git habituelles permettent d’auditer les changements, par exemple :
 
     git diff main HEAD public/data/textile/processes_impacts.json
 
