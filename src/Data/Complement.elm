@@ -10,6 +10,7 @@ module Data.Complement exposing
     , decodeComplementsImpacts
     , divideComplementsImpactsBy
     , emptyComplementsResultsImpacts
+    , encodeComplementsEcs
     , encodeComplementsImpacts
     , getTotalComplementsImpacts
     , impactsWithComplements
@@ -150,6 +151,20 @@ emptyComplementsResultsImpacts =
     , permanentPasture = Nothing
     , plotSize = Nothing
     }
+
+
+encodeComplementsEcs : ComplementsResultsImpacts -> Encode.Value
+encodeComplementsEcs =
+    let
+        encodeTuple label maybeImpacts =
+            ( label
+            , maybeImpacts
+                |> Maybe.map (Impact.getImpact Definition.Ecs >> Unit.encodeImpact)
+            )
+    in
+    allComplementsToList
+        >> List.map2 encodeTuple (allComplementsToList identifiers)
+        >> EU.optionalPropertiesObject
 
 
 encodeComplementsImpacts : ComplementsImpacts -> Encode.Value

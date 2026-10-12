@@ -1738,23 +1738,6 @@ encodeTransform transform =
     encodeLocalizedProcess transform
 
 
-encodeApiComplementPoints : ComplementsResultsImpacts -> Encode.Value
-encodeApiComplementPoints complements =
-    let
-        getEcs =
-            Maybe.map (Impact.getImpact Definition.Ecs >> Unit.encodeImpact)
-    in
-    EU.optionalPropertiesObject
-        [ ( "cropDiversity", getEcs complements.cropDiversity )
-        , ( "forest", getEcs complements.forest )
-        , ( "hedges", getEcs complements.hedges )
-        , ( "microfibers", getEcs complements.microfibers )
-        , ( "outOfEuropeEOL", getEcs complements.outOfEuropeEOL )
-        , ( "permanentPasture", getEcs complements.permanentPasture )
-        , ( "plotSize", getEcs complements.plotSize )
-        ]
-
-
 encodeApiComposition : Maybe Unit.Ratio -> Query -> LifeCycle -> Encode.Value
 encodeApiComposition maybeDurability query lifeCycle =
     List.map2 (encodeApiCompositionItem maybeDurability)
@@ -1779,7 +1762,7 @@ encodeApiCompositionItem maybeDurability item (Results results) =
         , ( "totalComplements"
           , results.complementsImpacts
                 |> applyDurabilityToComplements maybeDurability
-                |> encodeApiComplementPoints
+                |> Complement.encodeComplementsEcs
                 |> Just
           )
         ]
@@ -1805,7 +1788,7 @@ encodeApiResponse definitions query lifeCycle =
     , ( "totalComplements"
       , extractComplementsImpacts lifeCycle.production
             |> applyDurabilityToComplements query.durability
-            |> encodeApiComplementPoints
+            |> Complement.encodeComplementsEcs
       )
     , ( "subscores", lifeCycle |> encodeApiSubscores definitions query.durability impactsWithoutDurability )
     , ( "stages", lifeCycle |> encodeApiStages query.durability )
