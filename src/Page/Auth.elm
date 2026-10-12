@@ -39,7 +39,8 @@ import Views.Spinner as Spinner
 
 
 type alias Model =
-    { tab : Tab
+    { skipNextAuthInit : Bool
+    , tab : Tab
     }
 
 
@@ -94,13 +95,17 @@ init session =
             initAccount session auth
 
         Nothing ->
-            { tab = MagicLinkForm "" RemoteData.NotAsked }
+            { skipNextAuthInit = False
+            , tab = MagicLinkForm "" RemoteData.NotAsked
+            }
                 |> App.createUpdate session
 
 
 initAccount : Session -> Session.Auth -> PageUpdate Model Msg
 initAccount session auth =
-    { tab = Account auth User.emptyProfileForm Dict.empty }
+    { skipNextAuthInit = False
+    , tab = Account auth User.emptyProfileForm Dict.empty
+    }
         |> App.createUpdate session
         |> App.withCmds
             [ Auth.profile session (ProfileResponse { updated = False } auth.accessTokenData)
@@ -122,7 +127,10 @@ initLogin session email token =
                 |> App.withCmds [ Nav.pushUrl session.navKey <| Route.toString Route.Auth ]
 
         Nothing ->
-            App.createUpdate session { tab = MagicLinkLogin email token }
+            App.createUpdate session
+                { skipNextAuthInit = False
+                , tab = MagicLinkLogin email token
+                }
 
 
 initSignup : Session -> PageUpdate Model Msg
@@ -133,7 +141,9 @@ initSignup session =
                 |> App.withCmds [ Nav.pushUrl session.navKey <| Route.toString Route.Auth ]
 
         Nothing ->
-            { tab = Signup User.emptySignupForm Dict.empty RemoteData.NotAsked }
+            { skipNextAuthInit = False
+            , tab = Signup User.emptySignupForm Dict.empty RemoteData.NotAsked
+            }
                 |> App.createUpdate session
 
 
@@ -155,7 +165,8 @@ update session msg model =
                 newSession =
                     session |> Session.updateDbProcesses rawDetailedProcessesJson
             in
-            model
+            -- Skip next auth page init to avoid reinitializing the account tab
+            { model | skipNextAuthInit = True }
                 |> App.createUpdate newSession
                 |> App.withCmds
                     [ Nav.pushUrl newSession.navKey <| Route.toString Route.Auth
@@ -238,11 +249,7 @@ updateAccountTab session currentAuth profileForm msg model =
                 { model
                     | tab =
                         Account { currentAuth | user = user }
-                            { emailOptin = user.profile.emailOptin
-                            , firstName = user.profile.firstName
-                            , lastName = user.profile.lastName
-                            , ecoinventTermsAccepted = user.profile.termsAccepted
-                            }
+                            (User.profileFormFromUser user)
                             Dict.empty
                 }
                 |> App.mapSession (Session.updateAuth (\auth -> { auth | user = user }))
@@ -411,7 +418,7 @@ updateMagicLinkLoginTab session email token msg model =
             { model
                 | tab =
                     Account { accessTokenData = accessTokenData, user = user }
-                        User.emptyProfileForm
+                        (User.profileFormFromUser user)
                         Dict.empty
             }
                 |> App.createUpdate newSession
