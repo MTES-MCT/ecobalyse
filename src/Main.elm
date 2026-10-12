@@ -301,6 +301,46 @@ setRoute url ( { state } as model, cmds ) =
                     )
 
 
+{-| Updates current page and recomputes results that were cached against the previous database.
+
+Note: this currently only applies to the Generic and Textile simulators.
+
+-}
+refreshCachedResults : Session -> Page -> Page
+refreshCachedResults session currentPage =
+    case currentPage of
+        GenericSimulatorPage genericModel ->
+            genericModel
+                |> GenericSimulator.refreshResults session
+                |> GenericSimulatorPage
+
+        TextileSimulatorPage textileModel ->
+            textileModel
+                |> TextileSimulator.refreshResults session
+                |> TextileSimulatorPage
+
+        _ ->
+            currentPage
+
+
+{-| Updates session's component config and recomputes page states after detailed processes have been loaded
+-}
+refreshComponentConfig : Model -> Session -> Page -> Component.Config -> ( Model, Cmd Msg )
+refreshComponentConfig model session currentPage componentConfig =
+    let
+        updatedSession =
+            { session | componentConfig = componentConfig }
+    in
+    ( { model
+        | state =
+            currentPage
+                |> refreshCachedResults updatedSession
+                |> Loaded updatedSession
+      }
+    , Cmd.none
+    )
+
+
 updateInitializing : Msg -> Model -> ( Model, Cmd Msg )
 updateInitializing initMsg model =
     case initMsg of
@@ -434,13 +474,10 @@ update rawMsg ({ state } as model) =
                     in
                     ( { model | tray = newTray }, Cmd.map (AppMsg << App.ToastMsg) newToastMsg )
 
-                -- Component config (reloaded after detailed processes are received): refresh the session
-                -- config and re-init the current route so cached page results are recomputed with detailed impacts
+                -- Component config reloaded after detailed processes are received
                 ( ComponentConfigReceived _ _ (RemoteData.Success componentConfig), currentPage ) ->
-                    setRoute model.url
-                        ( { model | state = Loaded { session | componentConfig = componentConfig } currentPage }
-                        , Cmd.none
-                        )
+                    componentConfig
+                        |> refreshComponentConfig model session currentPage
 
                 ( ComponentConfigReceived _ _ (RemoteData.Failure error), _ ) ->
                     notifyError model "Erreur" <|

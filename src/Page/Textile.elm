@@ -3,6 +3,7 @@ module Page.Textile exposing
     , Msg
     , init
     , initFromExample
+    , refreshResults
     , subscriptions
     , update
     , view
@@ -252,6 +253,17 @@ initFromExample session uuid =
     }
         |> createPageUpdate (session |> Session.updateTextileQuery exampleQuery)
         |> App.withCmds [ Ports.scrollTo { x = 0, y = 0 } ]
+
+
+{-| Recomputes results after detailed processes have been loaded and session updated
+-}
+refreshResults : Session -> Model -> Model
+refreshResults session model =
+    { model
+        | simulator =
+            session.queries.textile
+                |> Simulator.compute session.db session.componentConfig
+    }
 
 
 suggestBookmarkName : Session -> Query -> String
