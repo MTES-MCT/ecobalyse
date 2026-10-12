@@ -654,13 +654,38 @@ applyDefaultOrigins processes component =
 applyDurability : Maybe Unit.Ratio -> LifeCycle -> Impacts
 applyDurability maybeDurability =
     sumLifeCycleImpacts
-        >> (case maybeDurability of
-                Just durability ->
-                    Impact.divideBy (Unit.ratioToFloat durability)
+        >> applyDurabilityToImpacts maybeDurability
 
-                Nothing ->
-                    identity
-           )
+
+applyDurabilityToComplements : Maybe Unit.Ratio -> ComplementsResultsImpacts -> ComplementsResultsImpacts
+applyDurabilityToComplements maybeDurability complements =
+    case maybeDurability of
+        Just durability ->
+            complements
+                |> Complement.mapComplements (Maybe.map (Impact.divideBy (Unit.ratioToFloat durability)))
+
+        Nothing ->
+            complements
+
+
+applyDurabilityToImpact : Maybe Unit.Ratio -> Unit.Impact -> Unit.Impact
+applyDurabilityToImpact maybeDurability impact =
+    case maybeDurability of
+        Just durability ->
+            impact |> Quantity.divideBy (Unit.ratioToFloat durability)
+
+        Nothing ->
+            impact
+
+
+applyDurabilityToImpacts : Maybe Unit.Ratio -> Impacts -> Impacts
+applyDurabilityToImpacts maybeDurability impacts =
+    case maybeDurability of
+        Just durability ->
+            impacts |> Impact.divideBy (Unit.ratioToFloat durability)
+
+        Nothing ->
+            impacts
 
 
 {-| Apply a process step to a results, computing its impacts and updating the results accordingly
@@ -1713,37 +1738,6 @@ encodeTransform transform =
     encodeLocalizedProcess transform
 
 
-divideComplementsByDurability : Maybe Unit.Ratio -> ComplementsResultsImpacts -> ComplementsResultsImpacts
-divideComplementsByDurability maybeDurability complements =
-    case maybeDurability of
-        Just durability ->
-            complements
-                |> Complement.mapComplements (Maybe.map (Impact.divideBy (Unit.ratioToFloat durability)))
-
-        Nothing ->
-            complements
-
-
-divideImpactByDurability : Maybe Unit.Ratio -> Unit.Impact -> Unit.Impact
-divideImpactByDurability maybeDurability impact =
-    case maybeDurability of
-        Just durability ->
-            impact |> Quantity.divideBy (Unit.ratioToFloat durability)
-
-        Nothing ->
-            impact
-
-
-divideImpactsByDurability : Maybe Unit.Ratio -> Impacts -> Impacts
-divideImpactsByDurability maybeDurability impacts =
-    case maybeDurability of
-        Just durability ->
-            impacts |> Impact.divideBy (Unit.ratioToFloat durability)
-
-        Nothing ->
-            impacts
-
-
 encodeApiComplementPoints : ComplementsResultsImpacts -> Encode.Value
 encodeApiComplementPoints complements =
     let
@@ -1780,11 +1774,11 @@ encodeApiCompositionItem maybeDurability item (Results results) =
         , ( "name", results.label |> Maybe.map Encode.string )
         , ( "quantity", results.quantity |> Encode.int |> Just )
         , ( "mass", results.mass |> Mass.inKilograms |> Encode.float |> Just )
-        , ( "impacts", undivided |> divideImpactsByDurability maybeDurability |> Impact.encode |> Just )
+        , ( "impacts", undivided |> applyDurabilityToImpacts maybeDurability |> Impact.encode |> Just )
         , ( "impactsWithoutDurability", Impact.encode undivided |> Just )
         , ( "totalComplements"
           , results.complementsImpacts
-                |> divideComplementsByDurability maybeDurability
+                |> applyDurabilityToComplements maybeDurability
                 |> encodeApiComplementPoints
                 |> Just
           )
@@ -1804,13 +1798,13 @@ encodeApiResponse definitions query lifeCycle =
       )
     , ( "impacts"
       , impactsWithoutDurability
-            |> divideImpactsByDurability query.durability
+            |> applyDurabilityToImpacts query.durability
             |> Impact.encode
       )
     , ( "impactsWithoutDurability", Impact.encode impactsWithoutDurability )
     , ( "totalComplements"
       , extractComplementsImpacts lifeCycle.production
-            |> divideComplementsByDurability query.durability
+            |> applyDurabilityToComplements query.durability
             |> encodeApiComplementPoints
       )
     , ( "subscores", lifeCycle |> encodeApiSubscores definitions query.durability impactsWithoutDurability )
@@ -1827,7 +1821,7 @@ encodeApiStages maybeDurability lifeCycle =
 
         getEcs =
             Maybe.withDefault Impact.empty
-                >> divideImpactsByDurability maybeDurability
+                >> applyDurabilityToImpacts maybeDurability
                 >> Impact.getImpact Definition.Ecs
                 >> Unit.encodeImpact
     in
@@ -1856,7 +1850,7 @@ encodeApiSubscores definitions maybeDurability undivided lifeCycle =
 
         getEcs impact =
             impact
-                |> divideImpactByDurability maybeDurability
+                |> applyDurabilityToImpact maybeDurability
                 |> Unit.encodeImpact
     in
     Encode.object
