@@ -1762,7 +1762,7 @@ encodeApiCompositionItem maybeDurability item (Results results) =
         , ( "totalComplements"
           , results.complementsImpacts
                 |> applyDurabilityToComplements maybeDurability
-                |> Complement.encodeComplementsEcs
+                |> Complement.encodeComplementsResultsEcs
                 |> Just
           )
         ]
@@ -1788,7 +1788,7 @@ encodeApiResponse definitions query lifeCycle =
     , ( "totalComplements"
       , extractComplementsImpacts lifeCycle.production
             |> applyDurabilityToComplements query.durability
-            |> Complement.encodeComplementsEcs
+            |> Complement.encodeComplementsResultsEcs
       )
     , ( "subscores", lifeCycle |> encodeApiSubscores definitions query.durability impactsWithoutDurability )
     , ( "stages", lifeCycle |> encodeApiStages query.durability )

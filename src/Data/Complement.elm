@@ -10,8 +10,8 @@ module Data.Complement exposing
     , decodeComplementsImpacts
     , divideComplementsImpactsBy
     , emptyComplementsResultsImpacts
-    , encodeComplementsEcs
     , encodeComplementsImpacts
+    , encodeComplementsResultsEcs
     , getTotalComplementsImpacts
     , impactsWithComplements
     , labels
@@ -153,25 +153,25 @@ emptyComplementsResultsImpacts =
     }
 
 
-encodeComplementsEcs : ComplementsResultsImpacts -> Encode.Value
-encodeComplementsEcs =
+encodeComplementsImpacts : ComplementsImpacts -> Encode.Value
+encodeComplementsImpacts =
     let
-        encodeTuple label maybeImpacts =
-            ( label
-            , maybeImpacts
-                |> Maybe.map (Impact.getImpact Definition.Ecs >> Unit.encodeImpact)
-            )
+        encodeTuple label maybeComplement =
+            ( label, maybeComplement |> Maybe.map Unit.encodeImpact )
     in
     allComplementsToList
         >> List.map2 encodeTuple (allComplementsToList identifiers)
         >> EU.optionalPropertiesObject
 
 
-encodeComplementsImpacts : ComplementsImpacts -> Encode.Value
-encodeComplementsImpacts =
+encodeComplementsResultsEcs : ComplementsResultsImpacts -> Encode.Value
+encodeComplementsResultsEcs =
     let
-        encodeTuple label maybeComplement =
-            ( label, maybeComplement |> Maybe.map Unit.encodeImpact )
+        encodeTuple label maybeImpacts =
+            ( label
+            , maybeImpacts
+                |> Maybe.map (Impact.getImpact Definition.Ecs >> Unit.encodeImpact)
+            )
     in
     allComplementsToList
         >> List.map2 encodeTuple (allComplementsToList identifiers)
