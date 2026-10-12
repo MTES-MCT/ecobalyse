@@ -91,16 +91,21 @@ init : Session -> PageUpdate Model Msg
 init session =
     case Session.getAuth session of
         Just auth ->
-            { tab = Account auth User.emptyProfileForm Dict.empty }
-                |> App.createUpdate session
-                |> App.withCmds
-                    [ Auth.profile session (ProfileResponse { updated = False } auth.accessTokenData)
-                    , ApiTokenHttp.list session ApiTokensResponse
-                    ]
+            initAccount session auth
 
         Nothing ->
             { tab = MagicLinkForm "" RemoteData.NotAsked }
                 |> App.createUpdate session
+
+
+initAccount : Session -> Session.Auth -> PageUpdate Model Msg
+initAccount session auth =
+    { tab = Account auth User.emptyProfileForm Dict.empty }
+        |> App.createUpdate session
+        |> App.withCmds
+            [ Auth.profile session (ProfileResponse { updated = False } auth.accessTokenData)
+            , ApiTokenHttp.list session ApiTokensResponse
+            ]
 
 
 {-| Init page when we receive magic link information.
@@ -112,9 +117,8 @@ show the account instead of asking to confirm login again.
 initLogin : Session -> Email -> AccessToken -> PageUpdate Model Msg
 initLogin session email token =
     case Session.getAuth session of
-        Just user ->
-            { tab = Account user User.emptyProfileForm Dict.empty }
-                |> App.createUpdate session
+        Just auth ->
+            initAccount session auth
                 |> App.withCmds [ Nav.pushUrl session.navKey <| Route.toString Route.Auth ]
 
         Nothing ->
@@ -124,9 +128,8 @@ initLogin session email token =
 initSignup : Session -> PageUpdate Model Msg
 initSignup session =
     case Session.getAuth session of
-        Just user ->
-            { tab = Account user User.emptyProfileForm Dict.empty }
-                |> App.createUpdate session
+        Just auth ->
+            initAccount session auth
                 |> App.withCmds [ Nav.pushUrl session.navKey <| Route.toString Route.Auth ]
 
         Nothing ->

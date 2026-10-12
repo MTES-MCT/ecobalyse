@@ -225,15 +225,21 @@ setRoute url ( { state } as model, cmds ) =
         Initializing ->
             ( model, cmds )
 
-        Loaded session _ ->
+        Loaded session currentPage ->
             case Route.fromUrl url of
                 Just Route.Api ->
                     Api.init session
                         |> toPage session model cmds ApiPage ApiMsg
 
                 Just Route.Auth ->
-                    Auth.init session
-                        |> toPage session model cmds AuthPage AuthMsg
+                    case ( Session.isAuthenticated session, currentPage ) of
+                        -- User is authenticated and already on the account page: skip reinit
+                        ( True, AuthPage _ ) ->
+                            ( model, cmds )
+
+                        _ ->
+                            Auth.init session
+                                |> toPage session model cmds AuthPage AuthMsg
 
                 Just (Route.AuthLogin email token) ->
                     Auth.initLogin session email token
