@@ -476,7 +476,7 @@ update rawMsg ({ state } as model) =
                     in
                     ( { model
                         | state =
-                            -- session has been updated with detailed processes and config: recompute current page state
+                            -- refresh simulator results cached from the previous config and db
                             currentPage
                                 |> refreshCachedResults updatedSession
                                 |> Loaded updatedSession
