@@ -101,12 +101,17 @@ init session =
                 |> App.createUpdate session
 
 
+accountPage : Session -> Session.Auth -> PageUpdate Model Msg
+accountPage session auth =
+    App.createUpdate session
+        { skipNextAuthInit = False
+        , tab = Account auth User.emptyProfileForm Dict.empty
+        }
+
+
 initAccount : Session -> Session.Auth -> PageUpdate Model Msg
 initAccount session auth =
-    { skipNextAuthInit = False
-    , tab = Account auth User.emptyProfileForm Dict.empty
-    }
-        |> App.createUpdate session
+    accountPage session auth
         |> App.withCmds
             [ Auth.profile session (ProfileResponse { updated = False } auth.accessTokenData)
             , ApiTokenHttp.list session ApiTokensResponse
@@ -123,8 +128,7 @@ initLogin : Session -> Email -> AccessToken -> PageUpdate Model Msg
 initLogin session email token =
     case Session.getAuth session of
         Just auth ->
-            initAccount session auth
-                |> App.withCmds [ Nav.pushUrl session.navKey <| Route.toString Route.Auth ]
+            redirectToAccount session auth
 
         Nothing ->
             App.createUpdate session
@@ -137,14 +141,19 @@ initSignup : Session -> PageUpdate Model Msg
 initSignup session =
     case Session.getAuth session of
         Just auth ->
-            initAccount session auth
-                |> App.withCmds [ Nav.pushUrl session.navKey <| Route.toString Route.Auth ]
+            redirectToAccount session auth
 
         Nothing ->
             { skipNextAuthInit = False
             , tab = Signup User.emptySignupForm Dict.empty RemoteData.NotAsked
             }
                 |> App.createUpdate session
+
+
+redirectToAccount : Session -> Session.Auth -> PageUpdate Model Msg
+redirectToAccount session =
+    accountPage session
+        >> App.withCmds [ Nav.pushUrl session.navKey <| Route.toString Route.Auth ]
 
 
 update : Session -> Msg -> Model -> PageUpdate Model Msg
