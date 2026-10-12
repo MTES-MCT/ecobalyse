@@ -40,8 +40,8 @@ if (process.env.TEST_WORKER_INDEX === undefined) {
  * @see https://playwright.dev/docs/test-configuration
  */
 export default defineConfig({
-  timeout: process.env.CI ? 80_000 : 10_000,
-  expect: { timeout: process.env.CI ? 20_000 : 2_000 },
+  timeout: process.env.CI ? 40_000 : 10_000,
+  expect: { timeout: process.env.CI ? 10_000 : 2_000 },
 
   // Parcel (:1234) is up before the Node API (:8001) finishes `server:build`.
   globalSetup: "./e2e/global-setup.js",

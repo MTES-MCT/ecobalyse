@@ -19,6 +19,7 @@ module Data.User exposing
     , getOrganizationName
     , organizationTypeToString
     , organizationTypes
+    , profileFormFromUser
     , sirenFromString
     , sirenToString
     , updateOrganizationName
@@ -224,6 +225,15 @@ emptyProfileForm =
     , emailOptin = False
     , firstName = ""
     , lastName = ""
+    }
+
+
+profileFormFromUser : User -> ProfileForm
+profileFormFromUser { profile } =
+    { ecoinventTermsAccepted = profile.termsAccepted
+    , emailOptin = profile.emailOptin
+    , firstName = profile.firstName
+    , lastName = profile.lastName
     }
 
 

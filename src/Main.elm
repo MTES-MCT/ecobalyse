@@ -225,15 +225,30 @@ setRoute url ( { state } as model, cmds ) =
         Initializing ->
             ( model, cmds )
 
-        Loaded session _ ->
+        Loaded session currentPage ->
             case Route.fromUrl url of
                 Just Route.Api ->
                     Api.init session
                         |> toPage session model cmds ApiPage ApiMsg
 
                 Just Route.Auth ->
-                    Auth.init session
-                        |> toPage session model cmds AuthPage AuthMsg
+                    let
+                        authInit =
+                            Auth.init session
+                                |> toPage session model cmds AuthPage AuthMsg
+                    in
+                    case currentPage of
+                        AuthPage ({ skipNextAuthInit } as authModel) ->
+                            if skipNextAuthInit && Session.isAuthenticated session then
+                                ( { model | state = Loaded session <| AuthPage { authModel | skipNextAuthInit = False } }
+                                , cmds
+                                )
+
+                            else
+                                authInit
+
+                        _ ->
+                            authInit
 
                 Just (Route.AuthLogin email token) ->
                     Auth.initLogin session email token
@@ -299,6 +314,25 @@ setRoute url ( { state } as model, cmds ) =
                     ( { model | state = Loaded session NotFoundPage }
                     , Cmd.none
                     )
+
+
+{-| Updates current page and recomputes results that were possibly cached against the previous database.
+-}
+refreshCachedResults : Session -> Page -> Page
+refreshCachedResults session currentPage =
+    case currentPage of
+        GenericSimulatorPage genericModel ->
+            genericModel
+                |> GenericSimulator.refreshResults session
+                |> GenericSimulatorPage
+
+        TextileSimulatorPage textileModel ->
+            textileModel
+                |> TextileSimulator.refreshResults session
+                |> TextileSimulatorPage
+
+        _ ->
+            currentPage
 
 
 updateInitializing : Msg -> Model -> ( Model, Cmd Msg )
@@ -434,13 +468,21 @@ update rawMsg ({ state } as model) =
                     in
                     ( { model | tray = newTray }, Cmd.map (AppMsg << App.ToastMsg) newToastMsg )
 
-                -- Component config (reloaded after detailed processes are received): refresh the session
-                -- config and re-init the current route so cached page results are recomputed with detailed impacts
+                -- Component config reloaded after detailed processes are received
                 ( ComponentConfigReceived _ _ (RemoteData.Success componentConfig), currentPage ) ->
-                    setRoute model.url
-                        ( { model | state = Loaded { session | componentConfig = componentConfig } currentPage }
-                        , Cmd.none
-                        )
+                    let
+                        updatedSession =
+                            { session | componentConfig = componentConfig }
+                    in
+                    ( { model
+                        | state =
+                            -- refresh simulator results cached from the previous config and db
+                            currentPage
+                                |> refreshCachedResults updatedSession
+                                |> Loaded updatedSession
+                      }
+                    , Cmd.none
+                    )
 
                 ( ComponentConfigReceived _ _ (RemoteData.Failure error), _ ) ->
                     notifyError model "Erreur" <|
