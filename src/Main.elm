@@ -517,41 +517,81 @@ updateLoaded session page msg model =
                 "Impossible de charger les impacts détaillés; les impacts agrégés seront utilisés."
 
         -- Pages
-        ( ApiMsg apiMsg, ApiPage apiModel ) ->
-            Api.update session apiMsg apiModel
-                |> toPage session model Cmd.none ApiPage ApiMsg
+        ( ApiMsg apiMsg, _ ) ->
+            case page of
+                ApiPage apiModel ->
+                    Api.update session apiMsg apiModel
+                        |> toPage session model Cmd.none ApiPage ApiMsg
 
-        ( AuthMsg authMsg, AuthPage authModel ) ->
-            Auth.update session authMsg authModel
-                |> toPage session model Cmd.none AuthPage AuthMsg
+                _ ->
+                    ( model, Cmd.none )
 
-        ( EditorialMsg editorialMsg, EditorialPage editorialModel ) ->
-            Editorial.update session editorialMsg editorialModel
-                |> toPage session model Cmd.none EditorialPage EditorialMsg
+        ( AuthMsg authMsg, _ ) ->
+            case page of
+                AuthPage authModel ->
+                    Auth.update session authMsg authModel
+                        |> toPage session model Cmd.none AuthPage AuthMsg
 
-        ( ExploreMsg examplesMsg, ExplorePage examplesModel ) ->
-            Explore.update session examplesMsg examplesModel
-                |> toPage session model Cmd.none ExplorePage ExploreMsg
+                _ ->
+                    ( model, Cmd.none )
+
+        ( EditorialMsg editorialMsg, _ ) ->
+            case page of
+                EditorialPage editorialModel ->
+                    Editorial.update session editorialMsg editorialModel
+                        |> toPage session model Cmd.none EditorialPage EditorialMsg
+
+                _ ->
+                    ( model, Cmd.none )
+
+        ( ExploreMsg examplesMsg, _ ) ->
+            case page of
+                ExplorePage examplesModel ->
+                    Explore.update session examplesMsg examplesModel
+                        |> toPage session model Cmd.none ExplorePage ExploreMsg
+
+                _ ->
+                    ( model, Cmd.none )
 
         -- Food
-        ( FoodBuilderMsg foodMsg, FoodBuilderPage foodModel ) ->
-            FoodBuilder.update session foodMsg foodModel
-                |> toPage session model Cmd.none FoodBuilderPage FoodBuilderMsg
+        ( FoodBuilderMsg foodMsg, _ ) ->
+            case page of
+                FoodBuilderPage foodModel ->
+                    FoodBuilder.update session foodMsg foodModel
+                        |> toPage session model Cmd.none FoodBuilderPage FoodBuilderMsg
+
+                _ ->
+                    ( model, Cmd.none )
 
         -- Home
-        ( HomeMsg homeMsg, HomePage homeModel ) ->
-            Home.update session homeMsg homeModel
-                |> toPage session model Cmd.none HomePage HomeMsg
+        ( HomeMsg homeMsg, _ ) ->
+            case page of
+                HomePage homeModel ->
+                    Home.update session homeMsg homeModel
+                        |> toPage session model Cmd.none HomePage HomeMsg
+
+                _ ->
+                    ( model, Cmd.none )
 
         -- Generic simulator
-        ( GenericSimulatorMsg genericMsg, GenericSimulatorPage genericModel ) ->
-            GenericSimulator.update session genericMsg genericModel
-                |> toPage session model Cmd.none GenericSimulatorPage GenericSimulatorMsg
+        ( GenericSimulatorMsg genericMsg, _ ) ->
+            case page of
+                GenericSimulatorPage genericModel ->
+                    GenericSimulator.update session genericMsg genericModel
+                        |> toPage session model Cmd.none GenericSimulatorPage GenericSimulatorMsg
+
+                _ ->
+                    ( model, Cmd.none )
 
         -- Stats
-        ( StatsMsg statsMsg, StatsPage statsModel ) ->
-            Stats.update session statsMsg statsModel
-                |> toPage session model Cmd.none StatsPage StatsMsg
+        ( StatsMsg statsMsg, _ ) ->
+            case page of
+                StatsPage statsModel ->
+                    Stats.update session statsMsg statsModel
+                        |> toPage session model Cmd.none StatsPage StatsMsg
+
+                _ ->
+                    ( model, Cmd.none )
 
         -- Store
         ( StoreChanged json, _ ) ->
@@ -571,9 +611,14 @@ updateLoaded session page msg model =
             )
 
         -- Textile
-        ( TextileSimulatorMsg textileMsg, TextileSimulatorPage textileModel ) ->
-            TextileSimulator.update session textileMsg textileModel
-                |> toPage session model Cmd.none TextileSimulatorPage TextileSimulatorMsg
+        ( TextileSimulatorMsg textileMsg, _ ) ->
+            case page of
+                TextileSimulatorPage textileModel ->
+                    TextileSimulator.update session textileMsg textileModel
+                        |> toPage session model Cmd.none TextileSimulatorPage TextileSimulatorMsg
+
+                _ ->
+                    ( model, Cmd.none )
 
         -- Url
         ( UrlChanged url, _ ) ->
