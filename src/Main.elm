@@ -443,10 +443,10 @@ updateLoaded session page msg model =
         ( AppMsg App.CloseMobileNavigation, _ ) ->
             ( { model | mobileNavigationOpened = False }, Cmd.none )
 
-        ( AppMsg (App.CloseNotification notification), currentPage ) ->
+        ( AppMsg (App.CloseNotification notification), _ ) ->
             ( { model
                 | state =
-                    currentPage
+                    page
                         |> Loaded (session |> Session.closeNotification notification)
               }
             , Cmd.none
@@ -461,13 +461,13 @@ updateLoaded session page msg model =
         ( AppMsg App.ReloadPage, _ ) ->
             ( model, Nav.reloadAndSkipCache )
 
-        ( AppMsg App.ResetSessionStore, currentPage ) ->
+        ( AppMsg App.ResetSessionStore, _ ) ->
             let
                 newSession =
                     -- FIXME: remove notifications from session
                     { session | notifications = [], store = Session.defaultStore }
             in
-            ( { model | state = currentPage |> Loaded newSession }
+            ( { model | state = page |> Loaded newSession }
             , Cmd.batch
                 [ newSession.store |> Session.serializeStore |> Ports.saveStore
                 , Notification.info "La session a été réinitialisée."
@@ -498,14 +498,14 @@ updateLoaded session page msg model =
             ( model, Cmd.none )
 
         -- Detailed processes
-        ( DetailedProcessesReceived (RemoteData.Success rawDetailedProcessesJson), currentPage ) ->
+        ( DetailedProcessesReceived (RemoteData.Success rawDetailedProcessesJson), _ ) ->
             let
                 newSession =
                     session |> Session.updateDbProcesses rawDetailedProcessesJson
             in
             ( { model
                 | state =
-                    currentPage
+                    page
                         |> refreshCachedResults newSession
                         |> Loaded newSession
               }
@@ -554,17 +554,17 @@ updateLoaded session page msg model =
                 |> toPage session model Cmd.none StatsPage StatsMsg
 
         -- Store
-        ( StoreChanged json, currentPage ) ->
+        ( StoreChanged json, _ ) ->
             let
                 newSession =
                     session |> Session.decodeRawStore json
 
                 newPage =
                     if session.detailedImpacts /= newSession.detailedImpacts then
-                        currentPage |> refreshCachedResults newSession
+                        page |> refreshCachedResults newSession
 
                     else
-                        currentPage
+                        page
             in
             ( { model | state = Loaded newSession newPage }
             , Cmd.none
@@ -588,10 +588,10 @@ updateLoaded session page msg model =
             ( model, Nav.load href )
 
         -- Version check
-        ( VersionReceived webData, currentPage ) ->
+        ( VersionReceived webData, _ ) ->
             ( { model
                 | state =
-                    currentPage
+                    page
                         |> Loaded { session | currentVersion = Version.update session.currentVersion webData }
               }
             , Cmd.none
