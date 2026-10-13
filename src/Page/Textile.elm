@@ -1453,7 +1453,6 @@ view session model =
                                 { autocompleteState = autocompleteState
                                 , closeModal = SetModal NoModal
                                 , footer = []
-                                , noOp = NoOp
                                 , onAutocomplete = OnAutocompleteMaterial
                                 , onAutocompleteSelect = OnAutocompleteSelect
                                 , placeholderText = "tapez ici le nom de la matière première pour la rechercher"
@@ -1467,7 +1466,6 @@ view session model =
                                 { autocompleteState = autocompleteState
                                 , closeModal = SetModal NoModal
                                 , footer = []
-                                , noOp = NoOp
                                 , onAutocomplete = OnAutocompleteTrim
                                 , onAutocompleteSelect = OnAutocompleteSelect
                                 , placeholderText = "tapez ici un nom d'accesoire pour le rechercher"
@@ -1549,7 +1547,6 @@ view session model =
                                 { autocompleteState = autocompleteState
                                 , closeModal = SetModal NoModal
                                 , footer = []
-                                , noOp = NoOp
                                 , onAutocomplete = OnAutocompleteExample
                                 , onAutocompleteSelect = OnAutocompleteSelect
                                 , placeholderText = "tapez ici le nom du produit pour le rechercher"
@@ -1572,7 +1569,6 @@ view session model =
                                         , text "Suggérer une nouvelle catégorie"
                                         ]
                                     ]
-                                , noOp = NoOp
                                 , onAutocomplete = OnAutocompleteProduct
                                 , onAutocompleteSelect = OnAutocompleteSelect
                                 , placeholderText = "tapez ici une catégorie pour la rechercher"

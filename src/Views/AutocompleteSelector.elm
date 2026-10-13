@@ -13,7 +13,6 @@ type alias Config element msg =
     { autocompleteState : Autocomplete element
     , closeModal : msg
     , footer : List (Html msg)
-    , noOp : msg
     , onAutocomplete : Autocomplete.Msg element -> msg
     , onAutocompleteSelect : msg
     , placeholderText : String
