@@ -231,94 +231,99 @@ setRoute url ( { state } as model, cmds ) =
             ( model, cmds )
 
         Loaded session currentPage ->
-            case Route.fromUrl url of
-                Just Route.Api ->
-                    Api.init session
-                        |> toPage session model cmds ApiPage ApiMsg
+            setRouteLoaded url session currentPage ( model, cmds )
 
-                Just Route.Auth ->
-                    let
-                        authInit =
-                            Auth.init session
-                                |> toPage session model cmds AuthPage AuthMsg
-                    in
-                    case currentPage of
-                        AuthPage ({ skipNextAuthInit } as authModel) ->
-                            if skipNextAuthInit && Session.isAuthenticated session then
-                                ( { model | state = Loaded session <| AuthPage { authModel | skipNextAuthInit = False } }
-                                , cmds
-                                )
 
-                            else
-                                authInit
+setRouteLoaded : Url -> Session -> Page -> ( Model, Cmd Msg ) -> ( Model, Cmd Msg )
+setRouteLoaded url session currentPage ( { state } as model, cmds ) =
+    case Route.fromUrl url of
+        Just Route.Api ->
+            Api.init session
+                |> toPage session model cmds ApiPage ApiMsg
 
-                        _ ->
-                            authInit
-
-                Just (Route.AuthLogin email token) ->
-                    Auth.initLogin session email token
+        Just Route.Auth ->
+            let
+                authInit =
+                    Auth.init session
                         |> toPage session model cmds AuthPage AuthMsg
+            in
+            case currentPage of
+                AuthPage ({ skipNextAuthInit } as authModel) ->
+                    if skipNextAuthInit && Session.isAuthenticated session then
+                        ( { model | state = Loaded session <| AuthPage { authModel | skipNextAuthInit = False } }
+                        , cmds
+                        )
 
-                Just Route.AuthSignup ->
-                    Auth.initSignup session
-                        |> toPage session model cmds AuthPage AuthMsg
+                    else
+                        authInit
 
-                Just (Route.Editorial slug) ->
-                    Editorial.init slug session
-                        |> toPage session model cmds EditorialPage EditorialMsg
+                _ ->
+                    authInit
 
-                Just (Route.Explore scope dataset) ->
-                    Explore.init scope dataset session
-                        |> toPage session model cmds ExplorePage ExploreMsg
+        Just (Route.AuthLogin email token) ->
+            Auth.initLogin session email token
+                |> toPage session model cmds AuthPage AuthMsg
 
-                Just (Route.FoodBuilder trigram maybeQuery) ->
-                    FoodBuilder.init session trigram maybeQuery
-                        |> toPage session model cmds FoodBuilderPage FoodBuilderMsg
+        Just Route.AuthSignup ->
+            Auth.initSignup session
+                |> toPage session model cmds AuthPage AuthMsg
 
-                Just (Route.FoodBuilderExample uuid) ->
-                    FoodBuilder.initFromExample session uuid
-                        |> toPage session model cmds FoodBuilderPage FoodBuilderMsg
+        Just (Route.Editorial slug) ->
+            Editorial.init slug session
+                |> toPage session model cmds EditorialPage EditorialMsg
 
-                Just Route.FoodBuilderHome ->
-                    FoodBuilder.init session Impact.default Nothing
-                        |> toPage session model cmds FoodBuilderPage FoodBuilderMsg
+        Just (Route.Explore scope dataset) ->
+            Explore.init scope dataset session
+                |> toPage session model cmds ExplorePage ExploreMsg
 
-                Just (Route.GenericSimulator genericScope trigram maybeQuery) ->
-                    GenericSimulator.init genericScope trigram maybeQuery session
-                        |> toPage session model cmds GenericSimulatorPage GenericSimulatorMsg
+        Just (Route.FoodBuilder trigram maybeQuery) ->
+            FoodBuilder.init session trigram maybeQuery
+                |> toPage session model cmds FoodBuilderPage FoodBuilderMsg
 
-                Just (Route.GenericSimulatorExample genericScope uuid) ->
-                    GenericSimulator.initFromExample session genericScope uuid
-                        |> toPage session model cmds GenericSimulatorPage GenericSimulatorMsg
+        Just (Route.FoodBuilderExample uuid) ->
+            FoodBuilder.initFromExample session uuid
+                |> toPage session model cmds FoodBuilderPage FoodBuilderMsg
 
-                Just Route.Home ->
-                    Home.init session
-                        |> toPage session model cmds HomePage HomeMsg
+        Just Route.FoodBuilderHome ->
+            FoodBuilder.init session Impact.default Nothing
+                |> toPage session model cmds FoodBuilderPage FoodBuilderMsg
 
-                Just (Route.GenericSimulatorHome genericScope) ->
-                    GenericSimulator.init genericScope Impact.default Nothing session
-                        |> toPage session model cmds GenericSimulatorPage GenericSimulatorMsg
+        Just (Route.GenericSimulator genericScope trigram maybeQuery) ->
+            GenericSimulator.init genericScope trigram maybeQuery session
+                |> toPage session model cmds GenericSimulatorPage GenericSimulatorMsg
 
-                Just Route.Stats ->
-                    Stats.init session
-                        |> toPage session model cmds StatsPage StatsMsg
+        Just (Route.GenericSimulatorExample genericScope uuid) ->
+            GenericSimulator.initFromExample session genericScope uuid
+                |> toPage session model cmds GenericSimulatorPage GenericSimulatorMsg
 
-                Just (Route.TextileSimulator trigram maybeQuery) ->
-                    TextileSimulator.init trigram maybeQuery session
-                        |> toPage session model cmds TextileSimulatorPage TextileSimulatorMsg
+        Just Route.Home ->
+            Home.init session
+                |> toPage session model cmds HomePage HomeMsg
 
-                Just (Route.TextileSimulatorExample uuid) ->
-                    TextileSimulator.initFromExample session uuid
-                        |> toPage session model cmds TextileSimulatorPage TextileSimulatorMsg
+        Just (Route.GenericSimulatorHome genericScope) ->
+            GenericSimulator.init genericScope Impact.default Nothing session
+                |> toPage session model cmds GenericSimulatorPage GenericSimulatorMsg
 
-                Just Route.TextileSimulatorHome ->
-                    TextileSimulator.init Impact.default Nothing session
-                        |> toPage session model cmds TextileSimulatorPage TextileSimulatorMsg
+        Just Route.Stats ->
+            Stats.init session
+                |> toPage session model cmds StatsPage StatsMsg
 
-                Nothing ->
-                    ( { model | state = Loaded session NotFoundPage }
-                    , Cmd.none
-                    )
+        Just (Route.TextileSimulator trigram maybeQuery) ->
+            TextileSimulator.init trigram maybeQuery session
+                |> toPage session model cmds TextileSimulatorPage TextileSimulatorMsg
+
+        Just (Route.TextileSimulatorExample uuid) ->
+            TextileSimulator.initFromExample session uuid
+                |> toPage session model cmds TextileSimulatorPage TextileSimulatorMsg
+
+        Just Route.TextileSimulatorHome ->
+            TextileSimulator.init Impact.default Nothing session
+                |> toPage session model cmds TextileSimulatorPage TextileSimulatorMsg
+
+        Nothing ->
+            ( { model | state = Loaded session NotFoundPage }
+            , Cmd.none
+            )
 
 
 {-| Updates current page and recomputes results that were possibly cached against the previous database.
