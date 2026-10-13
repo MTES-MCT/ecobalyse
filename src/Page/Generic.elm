@@ -1714,5 +1714,5 @@ subscriptions { modals } =
         [] ->
             Sub.none
 
-        _ ->
-            Browser.Events.onKeyDown (Key.escape (SetModals (List.drop 1 modals)))
+        _ :: remainingModals ->
+            Browser.Events.onKeyDown (Key.escape (SetModals remainingModals))
