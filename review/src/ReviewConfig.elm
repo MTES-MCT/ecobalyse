@@ -33,8 +33,10 @@ config =
 
     -- Common
     , NoExposingEverything.rule
-        |> Rule.ignoreErrorsForFiles [ "src/Data/Color.elm" ]
-        |> Rule.ignoreErrorsForFiles [ "src/Views/Icon.elm" ]
+        |> Rule.ignoreErrorsForFiles
+            [ "src/Data/Color.elm"
+            , "src/Views/Icon.elm"
+            ]
         |> Rule.ignoreErrorsForDirectories [ "tests/" ]
     , NoImportingEverything.rule
         [ "Html"
@@ -48,26 +50,32 @@ config =
         |> Rule.ignoreErrorsForDirectories [ "tests/" ]
     , NoRedundantCons.rule
     , NoUnsortedRecordFields.rule
-        |> Rule.ignoreErrorsForDirectories [ "tests/" ]
-        |> Rule.ignoreErrorsForDirectories [ "src/Page" ]
-        |> Rule.ignoreErrorsForFiles [ "src/Data/Component/Config.elm" ]
-        |> Rule.ignoreErrorsForFiles [ "src/Data/Impact/Definition.elm" ]
+        |> Rule.ignoreErrorsForDirectories [ "tests/", "src/Page/" ]
+        |> Rule.ignoreErrorsForFiles
+            [ "src/Data/Component/Config.elm"
+            , "src/Data/Impact/Definition.elm"
+            ]
     , NoUnsortedConstructors.rule
         |> Rule.ignoreErrorsForDirectories [ "tests/" ]
-        |> Rule.ignoreErrorsForFiles [ "src/Data/Impact/Definition.elm" ]
         |> Rule.ignoreErrorsForFiles [ "src/Data/Impact/Definition.elm" ]
 
     -- NoUnused
     , NoUnused.CustomTypeConstructors.rule []
-        |> Rule.ignoreErrorsForFiles [ "src/Views/Modal.elm" ]
-        |> Rule.ignoreErrorsForFiles [ "src/Page/Home.elm" ]
+        |> Rule.ignoreErrorsForFiles
+            [ "src/Views/Modal.elm"
+            , "src/Page/Home.elm"
+            ]
     , NoUnused.CustomTypeConstructorArgs.rule
-        |> Rule.ignoreErrorsForFiles [ "src/Server/Route.elm" ]
-        |> Rule.ignoreErrorsForFiles [ "src/Views/Page.elm" ]
+        |> Rule.ignoreErrorsForFiles
+            [ "src/Server/Route.elm"
+            , "src/Views/Page.elm"
+            ]
     , NoUnused.Dependencies.rule
     , NoUnused.Exports.rule
-        |> Rule.ignoreErrorsForFiles [ "src/Views/Button.elm" ]
-        |> Rule.ignoreErrorsForFiles [ "src/Views/Debug.elm" ]
+        |> Rule.ignoreErrorsForFiles
+            [ "src/Views/Button.elm"
+            , "src/Views/Debug.elm"
+            ]
     , NoUnused.Modules.rule
         |> Rule.ignoreErrorsForFiles [ "src/Views/Debug.elm" ]
     , NoUnused.Parameters.rule
@@ -75,6 +83,6 @@ config =
     , NoUnused.Patterns.rule
     , NoUnused.Variables.rule
 
-    -- Simlify
+    -- Simplify
     , Simplify.rule Simplify.defaults
     ]
