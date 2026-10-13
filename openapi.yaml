@@ -1253,15 +1253,9 @@ components:
           allOf:
             - $ref: "#/components/schemas/Impacts"
           description: |
-            Catégories d'impacts du produit, après application du coefficient de durabilité.
-            Note : lorsque la durabilité n'est pas activée pour le scope, ce coefficient vaut `1`
-        impactsWithoutDurability:
-          allOf:
-            - $ref: "#/components/schemas/Impacts"
-          description: |
-            Catégories d'impacts **avant** application du coefficient de durabilité.
-            Note : Au niveau du produit, `subscores`, `stages` et `totalComplements`
-            sont calculés après durabilité : ils se comparent à `impacts`, pas à cet objet.
+            Catégories d'impacts du produit. Si un coefficient de durabilité est supporté pour
+            le scope sélectionné et spécifié dans la requête, les impacts sont calculés après
+            application de ce coefficient.
         productMass:
           type: number
           description: Masse du produit fini, en kilogrammes.
@@ -1297,7 +1291,6 @@ components:
       required:
         - composition
         - impacts
-        - impactsWithoutDurability
         - productMass
         - stages
         - subscores
@@ -1336,7 +1329,6 @@ components:
       additionalProperties: false
       required:
         - impacts
-        - impactsWithoutDurability
         - mass
         - quantity
         - totalComplements
@@ -1361,11 +1353,6 @@ components:
             - $ref: "#/components/schemas/Impacts"
           description: |
             Impacts de ce composant uniquement, après durabilité, compléments compris dans `ecs`
-        impactsWithoutDurability:
-          allOf:
-            - $ref: "#/components/schemas/Impacts"
-          description: |
-            Impacts de ce composant uniquement, avant durabilité
         totalComplements:
           allOf:
             - $ref: "#/components/schemas/GenericComplementPoints"
@@ -1489,7 +1476,10 @@ components:
           $ref: "#/components/schemas/Impacts"
         complementsImpacts:
           type: object
-          description: Impact des compléments avec application du coefficient de durabilité (microfibres, export hors europe, etc.)
+          description: |
+            Impact des compléments hors-ACV (microfibres, export hors europe, etc.).
+            Si un coefficient de durabilité est supporté pour le scope sélectionné et spécifié
+            dans la requête, les impacts sont calculés après application de ce coefficient.
         daysOfWear:
           type: integer
           description: Nombre de jours d'usage du produit

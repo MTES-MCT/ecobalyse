@@ -891,7 +891,7 @@ describe("API", () => {
           Math.abs(sumValues(body.stages) + body.subscores.complements - body.impacts.ecs),
         ).toBeLessThan(0.001);
         expect(sumValues(body.totalComplements)).toBeCloseTo(body.subscores.complements, 4);
-        expect(body.impacts.ecs).toBeCloseTo(body.impactsWithoutDurability.ecs, 4);
+        expect(body.impactsWithoutDurability).toBeUndefined();
         expect(body.productMass).toEqual(expect.any(Number));
         expect(Object.keys(body.stages)).toEqual([
           "materials",
@@ -912,7 +912,7 @@ describe("API", () => {
         expect(body.composition.length).toBe(flour.query.components.length);
         for (const item of body.composition) {
           expect(item.elements).toBeUndefined();
-          expect(item.impacts.ecs).toBeCloseTo(item.impactsWithoutDurability.ecs, 4);
+          expect(item.impactsWithoutDurability).toBeUndefined();
           expect(item.totalComplements).toBeDefined();
         }
       });
@@ -930,18 +930,12 @@ describe("API", () => {
         expectStatus(without, 200);
         expectStatus(withDurability, 200);
         expect(
-          Math.abs(
-            withDurability.body.impacts.ecs * 2 - withDurability.body.impactsWithoutDurability.ecs,
-          ),
+          Math.abs(withDurability.body.impacts.ecs * 2 - without.body.impacts.ecs),
         ).toBeLessThan(0.001);
-        expect(withDurability.body.impactsWithoutDurability.ecs).toBeCloseTo(
-          without.body.impacts.ecs,
-          4,
-        );
         expect(
           Math.abs(
             withDurability.body.composition[0].impacts.ecs * 2 -
-              withDurability.body.composition[0].impactsWithoutDurability.ecs,
+              without.body.composition[0].impacts.ecs,
           ),
         ).toBeLessThan(0.001);
         expect(withDurability.body.subscores.climate * 2).toBeCloseTo(

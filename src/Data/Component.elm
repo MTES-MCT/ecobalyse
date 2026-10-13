@@ -1748,17 +1748,17 @@ encodeApiComposition maybeDurability query lifeCycle =
 
 encodeApiCompositionItem : Maybe Unit.Ratio -> Item -> Results -> Encode.Value
 encodeApiCompositionItem maybeDurability item (Results results) =
-    let
-        undivided =
-            getTotalImpacts (Results results)
-    in
     EU.optionalPropertiesObject
         [ ( "id", item.id |> Maybe.map encodeId )
         , ( "name", results.label |> Maybe.map Encode.string )
         , ( "quantity", results.quantity |> Encode.int |> Just )
         , ( "mass", results.mass |> Mass.inKilograms |> Encode.float |> Just )
-        , ( "impacts", undivided |> applyDurabilityToImpacts maybeDurability |> Impact.encode |> Just )
-        , ( "impactsWithoutDurability", Impact.encode undivided |> Just )
+        , ( "impacts"
+          , getTotalImpacts (Results results)
+                |> applyDurabilityToImpacts maybeDurability
+                |> Impact.encode
+                |> Just
+          )
         , ( "totalComplements"
           , results.complementsImpacts
                 |> applyDurabilityToComplements maybeDurability
@@ -1771,7 +1771,7 @@ encodeApiCompositionItem maybeDurability item (Results results) =
 encodeApiResponse : Definitions -> Query -> LifeCycle -> List ( String, Encode.Value )
 encodeApiResponse definitions query lifeCycle =
     let
-        impactsWithoutDurability =
+        lifeCycleImpacts =
             sumLifeCycleImpacts lifeCycle
     in
     [ ( "productMass"
@@ -1780,17 +1780,16 @@ encodeApiResponse definitions query lifeCycle =
             |> Encode.float
       )
     , ( "impacts"
-      , impactsWithoutDurability
+      , lifeCycleImpacts
             |> applyDurabilityToImpacts query.durability
             |> Impact.encode
       )
-    , ( "impactsWithoutDurability", Impact.encode impactsWithoutDurability )
     , ( "totalComplements"
       , extractComplementsImpacts lifeCycle.production
             |> applyDurabilityToComplements query.durability
             |> Complement.encodeComplementsResultsAs Definition.Ecs
       )
-    , ( "subscores", lifeCycle |> encodeApiSubscores definitions query.durability impactsWithoutDurability )
+    , ( "subscores", lifeCycle |> encodeApiSubscores definitions query.durability lifeCycleImpacts )
     , ( "stages", lifeCycle |> encodeApiStages query.durability )
     , ( "composition", lifeCycle |> encodeApiComposition query.durability query )
     ]
@@ -1821,10 +1820,10 @@ encodeApiStages maybeDurability lifeCycle =
 
 
 encodeApiSubscores : Definitions -> Maybe Unit.Ratio -> Impacts -> LifeCycle -> Encode.Value
-encodeApiSubscores definitions maybeDurability undivided lifeCycle =
+encodeApiSubscores definitions maybeDurability lifeCycleImpacts lifeCycle =
     let
         areas =
-            Impact.toProtectionAreas definitions undivided
+            Impact.toProtectionAreas definitions lifeCycleImpacts
 
         complements =
             extractComplementsImpacts lifeCycle.production
