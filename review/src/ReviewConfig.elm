@@ -5,14 +5,12 @@ import NoDebug.TodoOrToString
 import NoExposingEverything
 import NoImportingEverything
 import NoMissingTypeAnnotation
-import NoRedundantCons
 import NoUnsortedConstructors
 import NoUnsortedRecordFields
 import NoUnused.CustomTypeConstructorArgs
 import NoUnused.CustomTypeConstructors
 import NoUnused.Dependencies
 import NoUnused.Exports
-import NoUnused.Modules
 import NoUnused.Parameters
 import NoUnused.Patterns
 import NoUnused.Variables
@@ -48,7 +46,6 @@ config =
         |> Rule.ignoreErrorsForDirectories [ "tests/" ]
     , NoMissingTypeAnnotation.rule
         |> Rule.ignoreErrorsForDirectories [ "tests/" ]
-    , NoRedundantCons.rule
     , NoUnsortedRecordFields.rule
         |> Rule.ignoreErrorsForDirectories [ "tests/", "src/Page/" ]
         |> Rule.ignoreErrorsForFiles
@@ -76,8 +73,6 @@ config =
             [ "src/Views/Button.elm"
             , "src/Views/Debug.elm"
             ]
-    , NoUnused.Modules.rule
-        |> Rule.ignoreErrorsForFiles [ "src/Views/Debug.elm" ]
     , NoUnused.Parameters.rule
         |> Rule.ignoreErrorsForFiles [ "src/Page/Stats.elm" ]
     , NoUnused.Patterns.rule
