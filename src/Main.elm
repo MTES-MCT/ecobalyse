@@ -506,23 +506,31 @@ updateLoaded session page msg model =
             ( model, Cmd.none )
 
         -- Detailed processes
-        ( DetailedProcessesReceived (RemoteData.Success rawDetailedProcessesJson), _ ) ->
-            let
-                newSession =
-                    session |> Session.updateDbProcesses rawDetailedProcessesJson
-            in
-            ( { model
-                | state =
-                    page
-                        |> refreshCachedResults newSession
-                        |> Loaded newSession
-              }
-            , Cmd.none
-            )
+        ( DetailedProcessesReceived remoteData, _ ) ->
+            case remoteData of
+                RemoteData.Success rawDetailedProcessesJson ->
+                    let
+                        newSession =
+                            session |> Session.updateDbProcesses rawDetailedProcessesJson
+                    in
+                    ( { model
+                        | state =
+                            page
+                                |> refreshCachedResults newSession
+                                |> Loaded newSession
+                      }
+                    , Cmd.none
+                    )
 
-        ( DetailedProcessesReceived (RemoteData.Failure _), _ ) ->
-            notifyError model "Erreur" <|
-                "Impossible de charger les impacts détaillés; les impacts agrégés seront utilisés."
+                RemoteData.Failure _ ->
+                    notifyError model "Erreur" <|
+                        "Impossible de charger les impacts détaillés; les impacts agrégés seront utilisés."
+
+                RemoteData.Loading ->
+                    ( model, Cmd.none )
+
+                RemoteData.NotAsked ->
+                    ( model, Cmd.none )
 
         -- Pages
         ( ApiMsg apiMsg, _ ) ->
