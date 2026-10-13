@@ -1249,23 +1249,27 @@ components:
         webUrl:
           type: string
           description: URL vers la simulation dans l'interface web.
+        score:
+          allOf:
+            - $ref: "#/components/schemas/GenericScore"
+          description: |
+            Score en Pts d'impact du produit. Si un coefficient de durabilité est supporté pour
+            le scope sélectionné et spécifié dans la requête, il est appliqué à ce score.
         impacts:
           allOf:
             - $ref: "#/components/schemas/Impacts"
           description: |
-            Catégories d'impacts du produit. Si un coefficient de durabilité est supporté pour
-            le scope sélectionné et spécifié dans la requête, les impacts sont calculés après
-            application de ce coefficient.
+            Catégories d'impacts du produit, dans leurs unités respectives, après application
+            du coefficient de durabilité.
         productMass:
           type: number
           description: Masse du produit fini, en kilogrammes.
-        totalComplements:
+        complements:
           allOf:
             - $ref: "#/components/schemas/GenericComplementPoints"
           description: |
-            Coût environnemental en Points d'impact (`ecs`) des compléments du produit, après
-            application de la durabilité.
-            Note : une valeur négative **diminue** le coût environnemental.
+            Détail des compléments hors ACV, en Pts d'impact, après application de la durabilité.
+            La somme de ces valeurs est égale à `score.complements`.
         subscores:
           allOf:
             - $ref: "#/components/schemas/GenericSubscores"
@@ -1289,12 +1293,32 @@ components:
           type: object
           description: Le jeu de paramètres utilisé pour effectuer la simulation.
       required:
+        - complements
         - composition
         - impacts
         - productMass
+        - score
         - stages
         - subscores
-        - totalComplements
+    GenericScore:
+      type: object
+      additionalProperties: false
+      description: |
+        Éléments du score en Pts d'impact :
+        - `ecs` est le coût environnemental total en Pts d'impact, compléments hors ACV inclus
+        - `complements` est la somme en Pts d'impact de tous les compléments hors ACV
+      required:
+        - complements
+        - ecs
+      properties:
+        ecs:
+          type: number
+          description: Score d'impact (Pts), compléments inclus
+        complements:
+          type: number
+          description: |
+            Somme des compléments hors ACV (en Pts).
+            Une valeur négative **diminue** le coût environnemental.
     GenericComplementPoints:
       type: object
       additionalProperties: false
@@ -1328,10 +1352,11 @@ components:
       type: object
       additionalProperties: false
       required:
+        - complements
         - impacts
         - mass
         - quantity
-        - totalComplements
+        - score
       properties:
         id:
           type: string
@@ -1348,16 +1373,24 @@ components:
           description: |
             Masse de la ligne, en kilogrammes. La quantité est déjà appliquée :
             ne pas multiplier `mass` par `quantity`.
+        score:
+          allOf:
+            - $ref: "#/components/schemas/GenericScore"
+          description: |
+            Score de ce composant, après application de la durabilité.
+            Le coût environnemental (`ecs`) inclut les compléments.
         impacts:
           allOf:
             - $ref: "#/components/schemas/Impacts"
           description: |
-            Impacts de ce composant uniquement, après durabilité, compléments compris dans `ecs`
-        totalComplements:
+            Catégories d'impacts de ce composant, dans leurs unités respectives, après application
+            du coefficient de durabilité.
+        complements:
           allOf:
             - $ref: "#/components/schemas/GenericComplementPoints"
           description: |
-            Somme des compléments des éléments de ce composant, en points d'impact, après application de la durabilité
+            Compléments des éléments de ce composant, en Pts d'impact, après application de la durabilité.
+            La somme de ces valeurs est égale à `score.complements`.
     GenericStages:
       type: object
       additionalProperties: false
