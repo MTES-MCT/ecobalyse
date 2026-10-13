@@ -645,11 +645,6 @@ updateLoaded session page msg model =
         ( VersionPoll, _ ) ->
             ( model, Version.loadVersion VersionReceived )
 
-        ( _, NotFoundPage ) ->
-            ( { model | state = Loaded session NotFoundPage }
-            , Cmd.none
-            )
-
         _ ->
             ( model, Cmd.none )
 
