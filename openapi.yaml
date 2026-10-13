@@ -1253,13 +1253,13 @@ components:
           allOf:
             - $ref: "#/components/schemas/Impacts"
           description: |
-            Vecteur d'impacts du produit, après application du coefficient de durabilité.
+            Catégories d'impacts du produit, après application du coefficient de durabilité.
             Note : lorsque la durabilité n'est pas activée pour le scope, ce coefficient vaut `1`
         impactsWithoutDurability:
           allOf:
             - $ref: "#/components/schemas/Impacts"
           description: |
-            Même vecteur que `impacts`, **avant** application du coefficient de durabilité.
+            Catégories d'impacts **avant** application du coefficient de durabilité.
             Note : Au niveau du produit, `subscores`, `stages` et `totalComplements`
             sont calculés après durabilité : ils se comparent à `impacts`, pas à cet objet.
         productMass:
