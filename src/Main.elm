@@ -435,71 +435,8 @@ updateLoaded : Session -> Page -> Msg -> Model -> ( Model, Cmd Msg )
 updateLoaded session page msg model =
     case msg of
         -- Global app messages
-        AppMsg (App.AddToast notification) ->
-            let
-                ( newTray, newToastMsg ) =
-                    Toast.add model.tray <|
-                        case notification.level of
-                            Notification.Error ->
-                                Toast.persistent notification
-
-                            _ ->
-                                Toast.expireOnBlur 5000 notification
-            in
-            ( { model | tray = newTray }, Cmd.map (AppMsg << App.ToastMsg) newToastMsg )
-
-        AppMsg App.CloseMobileNavigation ->
-            ( { model | mobileNavigationOpened = False }, Cmd.none )
-
-        AppMsg (App.CloseNotification notification) ->
-            ( { model
-                | state =
-                    page
-                        |> Loaded (session |> Session.closeNotification notification)
-              }
-            , Cmd.none
-            )
-
-        AppMsg (App.LoadUrl url) ->
-            ( model, Nav.load url )
-
-        AppMsg App.OpenMobileNavigation ->
-            ( { model | mobileNavigationOpened = True }, Cmd.none )
-
-        AppMsg App.ReloadPage ->
-            ( model, Nav.reloadAndSkipCache )
-
-        AppMsg App.ResetSessionStore ->
-            let
-                newSession =
-                    -- FIXME: remove notifications from session
-                    { session | notifications = [], store = Session.defaultStore }
-            in
-            ( { model | state = page |> Loaded newSession }
-            , Cmd.batch
-                [ newSession.store |> Session.serializeStore |> Ports.saveStore
-                , Notification.info "La session a été réinitialisée."
-                    |> App.AddToast
-                    |> App.toCmd AppMsg
-                ]
-            )
-
-        AppMsg (App.SwitchVersion version) ->
-            ( model
-            , Nav.load <|
-                "/versions/"
-                    ++ version
-                    ++ "/#"
-                    ++ Maybe.withDefault "" model.url.fragment
-            )
-
-        -- Toast notifications
-        AppMsg (App.ToastMsg toastMsg) ->
-            let
-                ( newTray, newToastMsg ) =
-                    Toast.update toastMsg model.tray
-            in
-            ( { model | tray = newTray }, Cmd.map (AppMsg << App.ToastMsg) newToastMsg )
+        AppMsg appMsg ->
+            updateGlobalApp session page appMsg model
 
         -- Initial config response is handled while `Initializing`
         ComponentConfigReceived _ _ _ ->
@@ -663,6 +600,76 @@ updateLoaded session page msg model =
 
         RawDataReceived _ _ _ ->
             ( model, Cmd.none )
+
+
+updateGlobalApp : Session -> Page -> App.Msg -> Model -> ( Model, Cmd Msg )
+updateGlobalApp session page msg model =
+    case msg of
+        App.AddToast notification ->
+            let
+                ( newTray, newToastMsg ) =
+                    Toast.add model.tray <|
+                        case notification.level of
+                            Notification.Error ->
+                                Toast.persistent notification
+
+                            _ ->
+                                Toast.expireOnBlur 5000 notification
+            in
+            ( { model | tray = newTray }, Cmd.map (AppMsg << App.ToastMsg) newToastMsg )
+
+        App.CloseMobileNavigation ->
+            ( { model | mobileNavigationOpened = False }, Cmd.none )
+
+        App.CloseNotification notification ->
+            ( { model
+                | state =
+                    page
+                        |> Loaded (session |> Session.closeNotification notification)
+              }
+            , Cmd.none
+            )
+
+        App.LoadUrl url ->
+            ( model, Nav.load url )
+
+        App.OpenMobileNavigation ->
+            ( { model | mobileNavigationOpened = True }, Cmd.none )
+
+        App.ReloadPage ->
+            ( model, Nav.reloadAndSkipCache )
+
+        App.ResetSessionStore ->
+            let
+                newSession =
+                    -- FIXME: remove notifications from session
+                    { session | notifications = [], store = Session.defaultStore }
+            in
+            ( { model | state = page |> Loaded newSession }
+            , Cmd.batch
+                [ newSession.store |> Session.serializeStore |> Ports.saveStore
+                , Notification.info "La session a été réinitialisée."
+                    |> App.AddToast
+                    |> App.toCmd AppMsg
+                ]
+            )
+
+        App.SwitchVersion version ->
+            ( model
+            , Nav.load <|
+                "/versions/"
+                    ++ version
+                    ++ "/#"
+                    ++ Maybe.withDefault "" model.url.fragment
+            )
+
+        -- Toast notifications
+        App.ToastMsg toastMsg ->
+            let
+                ( newTray, newToastMsg ) =
+                    Toast.update toastMsg model.tray
+            in
+            ( { model | tray = newTray }, Cmd.map (AppMsg << App.ToastMsg) newToastMsg )
 
 
 notifyError : Model -> String -> String -> ( Model, Cmd Msg )
