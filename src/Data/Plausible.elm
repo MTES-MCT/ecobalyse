@@ -13,22 +13,39 @@ import Request.Version as Version
 import Url exposing (Url)
 
 
+{-| Front-end product analytics sent to Plausible
+-}
 type Event
-    = AuthApiTokenCreated
-    | AuthLoginOK
-    | AuthMagicLinkSent
-    | AuthProfileUpdated
-    | AuthSignup
-    | BookmarkSaved Scope
-    | ComparatorOpened Scope
-    | ComparisonTypeSelected Scope String
-    | ComponentAdded Scope
-    | ComponentUpdated Scope
-    | ConsumptionAdded Scope
-    | ExampleSelected Scope
-    | ImpactSelected Scope Trigram
-    | PageViewed Url
-    | TabSelected Scope String
+    = -- Auth: a new API token was created from the account page
+      AuthApiTokenCreated
+    | -- Auth: magic link login successfully completed with detailed processes loaded
+      AuthLoginOK
+    | -- Auth: a magic link was sent to the user
+      AuthMagicLinkSent
+    | -- Auth: a user profile was saved
+      AuthProfileUpdated
+    | -- Auth: a signup form was submitted successfully
+      AuthSignup
+    | -- Bookmarks: a simulation was saved as a bookmark
+      BookmarkSaved Scope
+    | -- Comparator: the comparison modal was opened
+      ComparatorOpened Scope
+    | -- Comparator: a tab was selected; can be "Impacts", "Étapes", "Sous-scores" or "Total"
+      ComparisonTypeSelected Scope String
+    | -- Generic simulator: a production item was added (existing component or raw material)
+      ComponentAdded Scope
+    | -- Generic simulator: a production item's quantity, name or elements were updated
+      ComponentUpdated Scope
+    | -- Generic simulator: a new consumption was added at the use stage
+      ConsumptionAdded Scope
+    | -- Simulator: an example simulation was loaded into the simulator
+      ExampleSelected Scope
+    | -- Simulator: the current impact indicator changed (eg. `ecs` -> `acd`)
+      ImpactSelected Scope Trigram
+    | -- Navigation: triggfered every time the URL changes
+      PageViewed Url
+    | -- Simulator: a tab was selected, eg. "Partager", "Impacts", "Étapes", "Sous-scores" etc.
+      TabSelected Scope String
 
 
 type alias Key =
