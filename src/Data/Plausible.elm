@@ -16,35 +16,35 @@ import Url exposing (Url)
 {-| Front-end product analytics sent to Plausible
 -}
 type Event
-    = -- Auth: a new API token was created from the account page
+    = -- `auth_api_token_created`: (Auth) A new API token was created from the account page
       AuthApiTokenCreated
-    | -- Auth: magic link login successfully completed with detailed processes loaded
+    | -- `auth_login_ok`: (Auth) Magic link login successfully completed with detailed processes loaded
       AuthLoginOK
-    | -- Auth: a magic link was sent to the user
+    | -- `auth_magic_link_sent`: (Auth) A magic link was sent to the user
       AuthMagicLinkSent
-    | -- Auth: a user profile was saved
+    | -- `auth_profile_updated`: (Auth) A user profile was saved
       AuthProfileUpdated
-    | -- Auth: a signup form was submitted successfully
+    | -- `auth_signup`: (Auth) A signup form was submitted successfully
       AuthSignup
-    | -- Bookmarks: a simulation was saved as a bookmark
+    | -- `bookmark_saved`: (Bookmarks) A simulation was saved as a bookmark
       BookmarkSaved Scope
-    | -- Comparator: the comparison modal was opened
+    | -- `comparator_opened`: (Comparator) The comparison modal was opened
       ComparatorOpened Scope
-    | -- Comparator: a tab was selected; can be "Impacts", "Étapes", "Sous-scores" or "Total"
+    | -- `comparison_type_selected`: (Comparator) A tab was selected; can be "Impacts", "Étapes", "Sous-scores" or "Total"
       ComparisonTypeSelected Scope String
-    | -- Generic simulator: a production item was added (existing component or raw material)
+    | -- `component_added` (Generic simulator) A production item was added (existing component or raw material)
       ComponentAdded Scope
-    | -- Generic simulator: a production item's quantity, name or elements were updated
+    | -- `component_updated` (Generic simulator) A production item's quantity, name or elements list was updated
       ComponentUpdated Scope
-    | -- Generic simulator: a new consumption was added at the use stage
+    | -- `consumption_added` (Generic simulator) A new consumption was added at the use stage
       ConsumptionAdded Scope
-    | -- Simulator: an example simulation was loaded into the simulator
+    | -- `example_selected`: (Simulator) An example simulation was loaded into the simulator
       ExampleSelected Scope
-    | -- Simulator: the current impact indicator changed (eg. `ecs` -> `acd`)
+    | -- `impact_selected`: (Simulator) The current impact indicator changed (eg. `ecs` -> `acd`)
       ImpactSelected Scope Trigram
-    | -- Navigation: triggfered every time the URL changes
+    | -- `pageview`: (Navigation) Triggered every time the URL changes
       PageViewed Url
-    | -- Simulator: a tab was selected, eg. "Partager", "Impacts", "Étapes", "Sous-scores" etc.
+    | -- `tab_selected`: (Simulator) A tab was selected, eg. "Partager", "Impacts", "Étapes", "Sous-scores" etc.
       TabSelected Scope String
 
 
