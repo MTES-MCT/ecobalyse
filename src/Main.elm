@@ -349,40 +349,48 @@ updateInitializing initMsg model =
     in
     case initMsg of
         -- Components
-        ComponentConfigReceived db sessionConfig (RemoteData.Success componentRawConfig) ->
-            case ComponentConfig.parse db componentRawConfig of
-                Err error ->
-                    ( { model | state = Errored <| configLoadingError error }
+        ComponentConfigReceived db sessionConfig remoteData ->
+            case remoteData of
+                RemoteData.Success componentRawConfig ->
+                    case ComponentConfig.parse db componentRawConfig of
+                        Err error ->
+                            ( { model | state = Errored <| configLoadingError error }
+                            , Cmd.none
+                            )
+
+                        Ok componentConfig ->
+                            let
+                                session =
+                                    componentConfig
+                                        |> setupSession sessionConfig model.dbLoadingState db componentRawConfig
+                            in
+                            setRoute sessionConfig.url
+                                ( { model | state = Loaded session LoadingPage }
+                                , Cmd.batch
+                                    [ if Session.hasAccessToDetailedImpacts session then
+                                        Request.Auth.processes session DetailedProcessesReceived
+
+                                      else
+                                        Cmd.none
+                                    , Plausible.send session <| Plausible.PageViewed sessionConfig.url
+                                    ]
+                                )
+
+                RemoteData.Failure error ->
+                    ( { model
+                        | state =
+                            RequestCommon.errorToString error
+                                |> configLoadingError
+                                |> Errored
+                      }
                     , Cmd.none
                     )
 
-                Ok componentConfig ->
-                    let
-                        session =
-                            componentConfig
-                                |> setupSession sessionConfig model.dbLoadingState db componentRawConfig
-                    in
-                    setRoute sessionConfig.url
-                        ( { model | state = Loaded session LoadingPage }
-                        , Cmd.batch
-                            [ if Session.hasAccessToDetailedImpacts session then
-                                Request.Auth.processes session DetailedProcessesReceived
+                RemoteData.Loading ->
+                    ( model, Cmd.none )
 
-                              else
-                                Cmd.none
-                            , Plausible.send session <| Plausible.PageViewed sessionConfig.url
-                            ]
-                        )
-
-        ComponentConfigReceived _ _ (RemoteData.Failure error) ->
-            ( { model
-                | state =
-                    RequestCommon.errorToString error
-                        |> configLoadingError
-                        |> Errored
-              }
-            , Cmd.none
-            )
+                RemoteData.NotAsked ->
+                    ( model, Cmd.none )
 
         -- Raw Json Db data received over HTTP
         RawDataReceived sessionConfig updateRaw data ->
