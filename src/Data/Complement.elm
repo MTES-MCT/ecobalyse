@@ -11,7 +11,7 @@ module Data.Complement exposing
     , divideComplementsImpactsBy
     , emptyComplementsResultsImpacts
     , encodeComplementsImpacts
-    , encodeComplementsResultsEcs
+    , encodeComplementsResultsAs
     , getTotalComplementsImpacts
     , impactsWithComplements
     , labels
@@ -164,13 +164,13 @@ encodeComplementsImpacts =
         >> EU.optionalPropertiesObject
 
 
-encodeComplementsResultsEcs : ComplementsResultsImpacts -> Encode.Value
-encodeComplementsResultsEcs =
+encodeComplementsResultsAs : Definition.Trigram -> ComplementsResultsImpacts -> Encode.Value
+encodeComplementsResultsAs trigram =
     let
         encodeTuple label maybeImpacts =
             ( label
             , maybeImpacts
-                |> Maybe.map (Impact.getImpact Definition.Ecs >> Unit.encodeImpact)
+                |> Maybe.map (Impact.getImpact trigram >> Unit.encodeImpact)
             )
     in
     allComplementsToList
