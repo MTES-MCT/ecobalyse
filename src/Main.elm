@@ -220,22 +220,8 @@ toPage session model cmds toModel toMsg pageUpdate =
     )
 
 
-setRoute : Url -> ( Model, Cmd Msg ) -> ( Model, Cmd Msg )
-setRoute url ( { state } as model, cmds ) =
-    case state of
-        Errored _ ->
-            -- FIXME: Static database decoding error, highly unlikely to ever happen
-            ( model, cmds )
-
-        Initializing ->
-            ( model, cmds )
-
-        Loaded session currentPage ->
-            setRouteLoaded url session currentPage ( model, cmds )
-
-
-setRouteLoaded : Url -> Session -> Page -> ( Model, Cmd Msg ) -> ( Model, Cmd Msg )
-setRouteLoaded url session currentPage ( { state } as model, cmds ) =
+setRoute : Url -> Session -> Page -> ( Model, Cmd Msg ) -> ( Model, Cmd Msg )
+setRoute url session currentPage ( model, cmds ) =
     case Route.fromUrl url of
         Just Route.Api ->
             Api.init session
@@ -385,6 +371,8 @@ updateInitializing initMsg model =
                                         |> setupSession sessionConfig model.dbLoadingState db componentRawConfig
                             in
                             setRoute sessionConfig.url
+                                session
+                                LoadingPage
                                 ( { model | state = Loaded session LoadingPage }
                                 , Cmd.batch
                                     [ if Session.hasAccessToDetailedImpacts session then
@@ -587,7 +575,7 @@ updateLoaded session page msg model =
         -- Url
         UrlChanged url ->
             ( { model | mobileNavigationOpened = False, url = url }, Cmd.none )
-                |> setRoute url
+                |> setRoute url session page
                 |> Tuple.mapSecond (\cmd -> Cmd.batch [ cmd, Plausible.send session <| Plausible.PageViewed url ])
 
         UrlRequested (Browser.Internal url) ->
