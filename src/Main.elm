@@ -111,22 +111,21 @@ type Msg
 
 init : Flags -> Url -> Nav.Key -> ( Model, Cmd Msg )
 init flags requestedUrl navKey =
-    setRoute requestedUrl
-        ( { dbLoadingState = RequestDb.initLoadingState
-          , flags = flags
-          , mobileNavigationOpened = False
-          , navKey = navKey
-          , state = Initializing
-          , tray = Toast.tray
-          , url = requestedUrl
-          }
-        , Cmd.batch
-            [ Ports.appStarted ()
-            , Version.loadVersion VersionReceived
-            , loadData { flags = flags, navKey = navKey, url = requestedUrl }
-            , Ports.loadJeDonneMonAvis ()
-            ]
-        )
+    ( { dbLoadingState = RequestDb.initLoadingState
+      , flags = flags
+      , mobileNavigationOpened = False
+      , navKey = navKey
+      , state = Initializing
+      , tray = Toast.tray
+      , url = requestedUrl
+      }
+    , Cmd.batch
+        [ Ports.appStarted ()
+        , Version.loadVersion VersionReceived
+        , loadData { flags = flags, navKey = navKey, url = requestedUrl }
+        , Ports.loadJeDonneMonAvis ()
+        ]
+    )
 
 
 {-| Loads Db raw json files in parallel.
