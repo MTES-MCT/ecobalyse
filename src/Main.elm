@@ -394,7 +394,7 @@ updateInitializing initMsg model =
 
         -- Raw Json Db data received over HTTP
         RawDataReceived sessionConfig updateRaw data ->
-            case model.dbLoadingState |> RequestDb.updateRawJson (updateRaw data) of
+            case RequestDb.updateRawJson (updateRaw data model.dbLoadingState) of
                 ( rawJsonData, Just (Ok db) ) ->
                     ( { model | dbLoadingState = rawJsonData }
                       -- trigger loading the json config over http
