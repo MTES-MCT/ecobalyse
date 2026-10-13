@@ -20,12 +20,14 @@ dependencies = [
     "pygithub>=2.6.1",
     "typer~=0.26",
     "pytest-mock>=3.14.1",
-    "asyncstdlib>=3.13.1",
     "sentry-sdk[litestar]>=2.66.1",
     "pwdlib[argon2]>=0.3.0",
     "pydantic>=2.13.4",
     "aiofiles>=25.1.0",
     "pathspec>=1.1.1",
+    # advanced-alchemy relies on `sqlalchemy.util.portable_instancemethod`,
+    # removed in SQLAlchemy 2.1. Remove this contraint once advanced-alchemy supports 2.1.
+    "sqlalchemy>=2.0.52,<2.1",
 ]
 
 [build-system]
@@ -87,7 +89,7 @@ score-history = [
     "pandas>=3.0.3",
     "psycopg2-binary>=2.9.12",
     "requests>=2.34.2",
-    "sqlalchemy>=2.0.52",
+    "sqlalchemy>=2.0.52,<2.1",
 ]
 
 [tool.pytest.ini_options]

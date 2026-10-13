@@ -17,10 +17,9 @@ module Data.User exposing
     , encodeUpdateProfileForm
     , encodeUser
     , getOrganizationName
-    , organizationToSirenString
-    , organizationToString
     , organizationTypeToString
     , organizationTypes
+    , profileFormFromUser
     , sirenFromString
     , sirenToString
     , updateOrganizationName
@@ -226,6 +225,15 @@ emptyProfileForm =
     , emailOptin = False
     , firstName = ""
     , lastName = ""
+    }
+
+
+profileFormFromUser : User -> ProfileForm
+profileFormFromUser { profile } =
+    { ecoinventTermsAccepted = profile.termsAccepted
+    , emailOptin = profile.emailOptin
+    , firstName = profile.firstName
+    , lastName = profile.lastName
     }
 
 
@@ -495,44 +503,6 @@ updateOrganizationType type_ organization =
 
         _ ->
             organization
-
-
-organizationToSirenString : Organization -> String
-organizationToSirenString organization =
-    case organization of
-        Business _ siren ->
-            sirenToString siren
-
-        _ ->
-            ""
-
-
-organizationToString : Organization -> String
-organizationToString organization =
-    case organization of
-        Association name ->
-            name ++ " (association)"
-
-        Business name _ ->
-            name ++ " (entreprise)"
-
-        Education name ->
-            name ++ " (enseignement/recherche)"
-
-        Individual ->
-            "Particulier"
-
-        LocalAuthority name ->
-            name ++ " (collectivité ou EPCI)"
-
-        Media name ->
-            name ++ " (média)"
-
-        Public name ->
-            name ++ " (autre établissement public et État)"
-
-        Student name ->
-            name ++ " (étudiant·e)"
 
 
 organizationTypeToString : Organization -> String

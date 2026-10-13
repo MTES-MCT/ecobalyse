@@ -11,31 +11,37 @@ import path from "path";
 dotenv.config({ path: path.resolve(__dirname, ".env") });
 
 const devServerUrl = "http://localhost:1234";
-let devServerIsRunning = false;
 
-// Check if the dev server is already running
-try {
-  execFileSync("curl", ["--silent", "--output", "/dev/null", "--max-time", "1", devServerUrl], {
-    stdio: "ignore",
-  });
-  devServerIsRunning = true;
-} catch {
-  devServerIsRunning = false;
-}
+// Skip running tests if a local dev server is found running before tests start. Playwright
+// reimports this file in each worker after its own server is listening; TEST_WORKER_INDEX
+// is set only in those processes, so the guard is skipped there
+// @see https://playwright.dev/docs/api/class-workerinfo#worker-info-worker-index
+if (process.env.TEST_WORKER_INDEX === undefined) {
+  let devServerIsRunning = false;
 
-if (devServerIsRunning) {
-  console.error(
-    `A server is already running on ${devServerUrl}. Stop it before running the e2e tests.`,
-  );
-  process.exit(1);
+  try {
+    execFileSync("curl", ["--silent", "--output", "/dev/null", "--max-time", "1", devServerUrl], {
+      stdio: "ignore",
+    });
+    devServerIsRunning = true;
+  } catch {
+    devServerIsRunning = false;
+  }
+
+  if (devServerIsRunning) {
+    console.error(
+      `A server is already running on ${devServerUrl}. Stop it before running the e2e tests.`,
+    );
+    process.exit(1);
+  }
 }
 
 /**
  * @see https://playwright.dev/docs/test-configuration
  */
 export default defineConfig({
-  timeout: process.env.CI ? 80_000 : 10_000,
-  expect: { timeout: process.env.CI ? 20_000 : 2_000 },
+  timeout: process.env.CI ? 40_000 : 10_000,
+  expect: { timeout: process.env.CI ? 10_000 : 2_000 },
 
   // Parcel (:1234) is up before the Node API (:8001) finishes `server:build`.
   globalSetup: "./e2e/global-setup.js",

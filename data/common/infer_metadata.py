@@ -35,6 +35,7 @@ _MATERIAL_TYPE_TO_RAW_TO_COOKED_RATIO = {
 
 TRANSPORTED_COOLED_MATERIAL_TYPES = frozenset(
     {
+        "dairy",
         "fruits_and_vegetables",
         "fish_and_shellfish",
         "legumes",
@@ -77,8 +78,10 @@ def infer_raw_to_cooked_ratio(explicit_ratio: float | None, alias: str) -> float
     return _MATERIAL_TYPE_TO_RAW_TO_COOKED_RATIO.get(material_type, 1.0)
 
 
+# `dairy` and `other_food_items` have no raw to cooked reference value
 KNOWN_MATERIAL_TYPES = frozenset(_MATERIAL_TYPE_TO_RAW_TO_COOKED_RATIO) | {
-    "other_food_items"
+    "dairy",
+    "other_food_items",
 }
 
 

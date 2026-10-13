@@ -3,6 +3,7 @@ module Page.Generic exposing
     , Msg
     , init
     , initFromExample
+    , refreshResults
     , subscriptions
     , update
     , view
@@ -301,6 +302,22 @@ selectProductCategory session query maybeProductId =
 
         Nothing ->
             updateQuery (query |> Component.updateProduct Nothing)
+
+
+{-| Recomputes results after detailed processes have been loaded and session updated
+-}
+refreshResults : Session -> Model -> Model
+refreshResults session model =
+    { model
+        | lifeCycle =
+            session
+                |> Session.genericQuery model.genericScope
+                |> Simulator.compute
+                    { config = session.componentConfig
+                    , db = session.db
+                    , scope = Scope.Generic model.genericScope
+                    }
+    }
 
 
 suggestBookmarkName : Session -> GenericScope -> List (Example Component.Query) -> Component.Query -> String

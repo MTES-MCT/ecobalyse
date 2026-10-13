@@ -13,22 +13,39 @@ import Request.Version as Version
 import Url exposing (Url)
 
 
+{-| Front-end product analytics sent to Plausible
+-}
 type Event
-    = AuthApiTokenCreated
-    | AuthLoginOK
-    | AuthMagicLinkSent
-    | AuthProfileUpdated
-    | AuthSignup
-    | BookmarkSaved Scope
-    | ComparatorOpened Scope
-    | ComparisonTypeSelected Scope String
-    | ComponentAdded Scope
-    | ComponentUpdated Scope
-    | ConsumptionAdded Scope
-    | ExampleSelected Scope
-    | ImpactSelected Scope Trigram
-    | PageViewed Url
-    | TabSelected Scope String
+    = -- `auth_api_token_created`: (Auth) A new API token was created from the account page
+      AuthApiTokenCreated
+    | -- `auth_login_ok`: (Auth) Magic link login successfully completed with detailed processes loaded
+      AuthLoginOK
+    | -- `auth_magic_link_sent`: (Auth) A magic link was sent to the user
+      AuthMagicLinkSent
+    | -- `auth_profile_updated`: (Auth) A user profile was saved
+      AuthProfileUpdated
+    | -- `auth_signup`: (Auth) A signup form was submitted successfully
+      AuthSignup
+    | -- `bookmark_saved`: (Bookmarks) A simulation was saved as a bookmark
+      BookmarkSaved Scope
+    | -- `comparator_opened`: (Comparator) The comparison modal was opened
+      ComparatorOpened Scope
+    | -- `comparison_type_selected`: (Comparator) A tab was selected; can be "Impacts", "Étapes", "Sous-scores" or "Total"
+      ComparisonTypeSelected Scope String
+    | -- `component_added` (Generic simulator) A production item was added (existing component or raw material)
+      ComponentAdded Scope
+    | -- `component_updated` (Generic simulator) A production item's quantity, name or elements list was updated
+      ComponentUpdated Scope
+    | -- `consumption_added` (Generic simulator) A new consumption was added at the use stage
+      ConsumptionAdded Scope
+    | -- `example_selected`: (Simulator) An example simulation was loaded into the simulator
+      ExampleSelected Scope
+    | -- `impact_selected`: (Simulator) The current impact indicator changed (eg. `ecs` -> `acd`)
+      ImpactSelected Scope Trigram
+    | -- `pageview`: (Navigation) Triggered every time the URL changes
+      PageViewed Url
+    | -- `tab_selected`: (Simulator) A tab was selected, eg. "Partager", "Impacts", "Étapes", "Sous-scores" etc.
+      TabSelected Scope String
 
 
 type alias Key =

@@ -8,7 +8,6 @@ module Views.Format exposing
     , formatImpact
     , formatImpactFloat
     , formatRichFloat
-    , frenchDate
     , frenchDatetime
     , hours
     , kg
@@ -280,13 +279,6 @@ splitAsPercentage decimals value =
     Split.toPercentString decimals value
         ++ "\u{202F}%"
         |> Html.text
-
-
-frenchDate : Posix -> String
-frenchDate =
-    DateFormat.formatI18n DateFormat.french
-        "dd/MM/yyyy"
-        Time.utc
 
 
 frenchDatetime : Posix -> String
