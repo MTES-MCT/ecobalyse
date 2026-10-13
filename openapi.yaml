@@ -712,7 +712,64 @@ components:
           description: "Changement climatique (kg éq. CO2)"
         ecs:
           type: number
-          description: "Score d'impacts (Pts d'impact)"
+          description: "Coût environnemental (Pts d'impact)"
+        etf:
+          type: number
+          description: "Écotoxicité de l'eau douce (CTUe)"
+        fru:
+          type: number
+          description: "Utilisation de ressources fossiles (MJ)"
+        fwe:
+          type: number
+          description: "Eutrophisation eaux douces (kg éq. P)"
+        htc:
+          type: number
+          description: "Toxicité humaine - cancer (CTUh)"
+        htn:
+          type: number
+          description: "Toxicité humaine - non-cancer (CTUh)"
+        ior:
+          type: number
+          description: "Radiations ionisantes (éq. kBq U235)"
+        ldu:
+          type: number
+          description: "Utilisation des sols (sans dimension (pt))"
+        mru:
+          type: number
+          description: "Utilisation de ressources minérales et métalliques (kg éq. Sb)"
+        ozd:
+          type: number
+          description: "Appauvrissement de la couche d'ozone (kg éq. CFC 11)"
+        pco:
+          type: number
+          description: "Formation d'ozone photochimique (kg éq. COVNM)"
+        pma:
+          type: number
+          description: "Particules (incidence de maladie)"
+        swe:
+          type: number
+          description: "Eutrophisation marine (kg éq. N)"
+        tre:
+          type: number
+          description: "Eutrophisation terrestre (mol éq. N)"
+        wtu:
+          type: number
+          description: "Utilisation de ressources en eau (m³)"
+    PhysicalImpacts:
+      type: object
+      description: |
+        Catégories d'impacts physiques, dans leurs unités respectives.
+        Le coût environnemental (`ecs`) n'en fait pas partie.
+      properties:
+        acd:
+          type: number
+          description: "Acidification (mol éq. H+)"
+        bvi:
+          type: number
+          description: "Biodiversité locale (BVI)"
+        cch:
+          type: number
+          description: "Changement climatique (kg éq. CO2)"
         etf:
           type: number
           description: "Écotoxicité de l'eau douce (CTUe)"
@@ -1257,9 +1314,9 @@ components:
             le scope sélectionné et spécifié dans la requête, il est appliqué à ce score.
         impacts:
           allOf:
-            - $ref: "#/components/schemas/Impacts"
+            - $ref: "#/components/schemas/PhysicalImpacts"
           description: |
-            Catégories d'impacts du produit, dans leurs unités respectives, après application
+            Catégories d'impacts physiques du produit, dans leurs unités respectives, après application
             du coefficient de durabilité.
         productMass:
           type: number
@@ -1381,9 +1438,9 @@ components:
             Le coût environnemental (`ecs`) inclut les compléments.
         impacts:
           allOf:
-            - $ref: "#/components/schemas/Impacts"
+            - $ref: "#/components/schemas/PhysicalImpacts"
           description: |
-            Catégories d'impacts de ce composant, dans leurs unités respectives, après application
+            Catégories d'impacts physiques de ce composant, dans leurs unités respectives, après application
             du coefficient de durabilité.
         complements:
           allOf:
