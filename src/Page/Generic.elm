@@ -1581,7 +1581,6 @@ modalView session ({ modals } as model) modal =
             ModalView.view
                 { size = ModalView.ExtraLarge
                 , close = SetModals (List.drop 1 modals)
-                , noOp = NoOp
                 , title = "Comparateur de simulations sauvegardées"
                 , subTitle = Just "Coût environnemental, par produit"
                 , formAction = Nothing
@@ -1608,7 +1607,6 @@ modalView session ({ modals } as model) modal =
             ModalView.view
                 { size = ModalView.Fluid
                 , close = SetModals (List.drop 1 modals)
-                , noOp = NoOp
                 , title = "Paramètres et composition"
                 , subTitle = Nothing
                 , formAction = Nothing

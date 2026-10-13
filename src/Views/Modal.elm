@@ -11,7 +11,6 @@ type alias Config msg =
     , content : List (Html msg)
     , footer : List (Html msg)
     , formAction : Maybe msg
-    , noOp : msg
     , size : Size
     , subTitle : Maybe String
     , title : String

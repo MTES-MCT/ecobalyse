@@ -73,7 +73,6 @@ type alias Model =
 type Msg
     = CloseModal
     | DownloadCsv String Csv
-    | NoOp
     | OpenDetail String
     | ScopeChange Scope
     | SetTableState SortableTable.State
@@ -137,9 +136,6 @@ update session msg model =
         DownloadCsv filename csv ->
             createPageUpdate session model
                 |> App.withCmds [ Download.string filename "text/csv" (csv |> EncodeCsv.toString) ]
-
-        NoOp ->
-            createPageUpdate session model
 
         OpenDetail id ->
             createPageUpdate session { model | dataset = model.dataset |> Dataset.setIdFromString id }
@@ -266,7 +262,6 @@ detailsModal content =
     ModalView.view
         { size = ModalView.Large
         , close = CloseModal
-        , noOp = NoOp
         , title = "Détail de l'enregistrement"
         , subTitle = Nothing
         , formAction = Nothing

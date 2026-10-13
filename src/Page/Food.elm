@@ -1908,7 +1908,6 @@ view session model =
                     ModalView.view
                         { size = ModalView.ExtraLarge
                         , close = SetModal NoModal
-                        , noOp = NoOp
                         , title = "Comparateur de simulations sauvegardées"
                         , subTitle = Just "Coût environnemental, par produit ⚠️\u{00A0}Attention, ces résultats sont provisoires"
                         , formAction = Nothing
@@ -1935,7 +1934,6 @@ view session model =
                     ModalView.view
                         { size = ModalView.Large
                         , close = SetModal NoModal
-                        , noOp = NoOp
                         , title = ingredient.name
                         , subTitle = Nothing
                         , formAction = Nothing
@@ -1947,7 +1945,6 @@ view session model =
                     ModalView.view
                         { size = ModalView.Large
                         , close = SetModal NoModal
-                        , noOp = NoOp
                         , title = Process.getDisplayName process
                         , subTitle = Nothing
                         , formAction = Nothing

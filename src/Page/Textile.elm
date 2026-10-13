@@ -1480,7 +1480,6 @@ view session model =
                             ModalView.view
                                 { size = ModalView.ExtraLarge
                                 , close = SetModal NoModal
-                                , noOp = NoOp
                                 , title = "Comparateur de simulations sauvegardées"
                                 , subTitle = Just "Coût environnemental, par produit"
                                 , formAction = Nothing
@@ -1507,7 +1506,6 @@ view session model =
                             ModalView.view
                                 { size = ModalView.Standard
                                 , close = SetModal NoModal
-                                , noOp = NoOp
                                 , title = "Avertissement"
                                 , subTitle = Nothing
                                 , formAction = Nothing
@@ -1536,7 +1534,6 @@ view session model =
                             ModalView.view
                                 { size = ModalView.Large
                                 , close = SetModal NoModal
-                                , noOp = NoOp
                                 , title = material.name
                                 , subTitle = Nothing
                                 , formAction = Nothing
