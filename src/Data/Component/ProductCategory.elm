@@ -21,6 +21,7 @@ import Data.Uuid as Uuid exposing (Uuid)
 import Json.Decode as Decode exposing (Decoder)
 import Json.Decode.Pipeline as Pipe
 import Json.Encode as Encode
+import List.Extra as LE
 
 
 type Id
@@ -100,8 +101,7 @@ encodeId (Id uuid) =
 
 findById : Id -> List ProductCategory -> Result String ProductCategory
 findById id =
-    List.filter (.id >> (==) id)
-        >> List.head
+    LE.find (.id >> (==) id)
         >> Result.fromMaybe ("Catégorie de produit introuvable id=" ++ idToString id ++ ".")
 
 

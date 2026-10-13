@@ -43,6 +43,7 @@ import Html.Attributes as Attr exposing (..)
 import Html.Events exposing (..)
 import Json.Encode as Encode
 import Length
+import List.Extra as LE
 import Mass exposing (Mass)
 import Page.Explore as Explore
 import Page.Explore.Processes as Processes
@@ -1276,8 +1277,7 @@ ingredientListView db selectedImpact recipe results =
                             , recipeIngredient = ingredient
                             , impact =
                                 results.recipe.ingredients
-                                    |> List.filter (\( recipeIngredient, _ ) -> recipeIngredient == ingredient)
-                                    |> List.head
+                                    |> LE.find (\( recipeIngredient, _ ) -> recipeIngredient == ingredient)
                                     |> Maybe.map Tuple.second
                                     |> Maybe.withDefault Impact.empty
                             , selectedImpact = selectedImpact

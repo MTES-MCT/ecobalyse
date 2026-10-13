@@ -179,8 +179,7 @@ elementCompositionRows config targetElement ({ material, transforms } as expande
 
         materialResults =
             stageItems
-                |> List.filter (Component.extractStage >> (==) (Just Component.MaterialStage))
-                |> List.head
+                |> LE.find (Component.extractStage >> (==) (Just Component.MaterialStage))
                 |> Maybe.withDefault Component.emptyResults
 
         transformsResults =

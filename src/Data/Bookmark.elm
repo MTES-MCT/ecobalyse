@@ -166,8 +166,7 @@ isTextile { query } =
 
 findByQuery : Query -> List Bookmark -> Maybe Bookmark
 findByQuery query =
-    List.filter (.query >> (==) query)
-        >> List.head
+    LE.find (.query >> (==) query)
 
 
 findByFoodQuery : FoodQuery.Query -> List Bookmark -> Maybe Bookmark

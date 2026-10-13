@@ -23,6 +23,7 @@ import Json.Decode.Extra as DE
 import Json.Decode.Pipeline as Pipe
 import Json.Encode as Encode
 import Length exposing (Length)
+import List.Extra as LE
 
 
 type AquaticPollutionScenario
@@ -46,8 +47,7 @@ type alias Country =
 
 findByCode : Code -> List Country -> Result String Country
 findByCode code =
-    List.filter (.code >> (==) code)
-        >> List.head
+    LE.find (.code >> (==) code)
         >> Result.fromMaybe ("Code pays invalide: " ++ CountryCode.toString code ++ ".")
 
 

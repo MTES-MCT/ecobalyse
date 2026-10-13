@@ -44,6 +44,7 @@ import Json.Decode.Extra as DE
 import Json.Decode.Pipeline as Pipe
 import Json.Encode as Encode
 import Json.Encode.Extra as EncodeExtra
+import List.Extra as LE
 
 
 type Id
@@ -227,8 +228,7 @@ isMassDependent =
 findById : Id -> List Process -> Result String Process
 findById id processes =
     processes
-        |> List.filter (.id >> (==) id)
-        |> List.head
+        |> LE.find (.id >> (==) id)
         |> Result.fromMaybe ("Procédé introuvable par id : " ++ idToString id)
 
 

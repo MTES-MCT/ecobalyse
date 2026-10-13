@@ -22,6 +22,7 @@ import Data.Uuid as Uuid exposing (Uuid)
 import Json.Decode as Decode exposing (Decoder)
 import Json.Decode.Pipeline as JDP
 import Json.Encode as Encode
+import List.Extra as LE
 
 
 type alias Material =
@@ -109,8 +110,7 @@ toSearchableString countries material =
 
 findById : Id -> List Material -> Result String Material
 findById id =
-    List.filter (.id >> (==) id)
-        >> List.head
+    LE.find (.id >> (==) id)
         >> Result.fromMaybe ("Matière non trouvée id=" ++ idToString id ++ ".")
 
 

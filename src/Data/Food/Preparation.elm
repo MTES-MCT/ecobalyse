@@ -18,6 +18,7 @@ import Energy exposing (Energy)
 import Json.Decode as Decode exposing (Decoder)
 import Json.Decode.Extra as DE
 import Json.Encode as Encode
+import List.Extra as LE
 import Mass exposing (Mass)
 
 
@@ -120,8 +121,7 @@ encodeId (Id id) =
 findById : Id -> Result String Preparation
 findById id =
     all
-        |> List.filter (.id >> (==) id)
-        |> List.head
+        |> LE.find (.id >> (==) id)
         |> Result.fromMaybe (notFoundError (idToString id))
 
 
