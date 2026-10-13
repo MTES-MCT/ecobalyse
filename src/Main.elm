@@ -433,9 +433,9 @@ update msg ({ state } as model) =
 
 updateLoaded : Session -> Page -> Msg -> Model -> ( Model, Cmd Msg )
 updateLoaded session page msg model =
-    case ( msg, page ) of
+    case msg of
         -- Global app messages
-        ( AppMsg (App.AddToast notification), _ ) ->
+        AppMsg (App.AddToast notification) ->
             let
                 ( newTray, newToastMsg ) =
                     Toast.add model.tray <|
@@ -448,10 +448,10 @@ updateLoaded session page msg model =
             in
             ( { model | tray = newTray }, Cmd.map (AppMsg << App.ToastMsg) newToastMsg )
 
-        ( AppMsg App.CloseMobileNavigation, _ ) ->
+        AppMsg App.CloseMobileNavigation ->
             ( { model | mobileNavigationOpened = False }, Cmd.none )
 
-        ( AppMsg (App.CloseNotification notification), _ ) ->
+        AppMsg (App.CloseNotification notification) ->
             ( { model
                 | state =
                     page
@@ -460,16 +460,16 @@ updateLoaded session page msg model =
             , Cmd.none
             )
 
-        ( AppMsg (App.LoadUrl url), _ ) ->
+        AppMsg (App.LoadUrl url) ->
             ( model, Nav.load url )
 
-        ( AppMsg App.OpenMobileNavigation, _ ) ->
+        AppMsg App.OpenMobileNavigation ->
             ( { model | mobileNavigationOpened = True }, Cmd.none )
 
-        ( AppMsg App.ReloadPage, _ ) ->
+        AppMsg App.ReloadPage ->
             ( model, Nav.reloadAndSkipCache )
 
-        ( AppMsg App.ResetSessionStore, _ ) ->
+        AppMsg App.ResetSessionStore ->
             let
                 newSession =
                     -- FIXME: remove notifications from session
@@ -484,7 +484,7 @@ updateLoaded session page msg model =
                 ]
             )
 
-        ( AppMsg (App.SwitchVersion version), _ ) ->
+        AppMsg (App.SwitchVersion version) ->
             ( model
             , Nav.load <|
                 "/versions/"
@@ -494,7 +494,7 @@ updateLoaded session page msg model =
             )
 
         -- Toast notifications
-        ( AppMsg (App.ToastMsg toastMsg), _ ) ->
+        AppMsg (App.ToastMsg toastMsg) ->
             let
                 ( newTray, newToastMsg ) =
                     Toast.update toastMsg model.tray
@@ -502,11 +502,11 @@ updateLoaded session page msg model =
             ( { model | tray = newTray }, Cmd.map (AppMsg << App.ToastMsg) newToastMsg )
 
         -- Initial config response is handled while `Initializing`
-        ( ComponentConfigReceived _ _ _, _ ) ->
+        ComponentConfigReceived _ _ _ ->
             ( model, Cmd.none )
 
         -- Detailed processes
-        ( DetailedProcessesReceived remoteData, _ ) ->
+        DetailedProcessesReceived remoteData ->
             case remoteData of
                 RemoteData.Success rawDetailedProcessesJson ->
                     let
@@ -533,7 +533,7 @@ updateLoaded session page msg model =
                     ( model, Cmd.none )
 
         -- Pages
-        ( ApiMsg apiMsg, _ ) ->
+        ApiMsg apiMsg ->
             case page of
                 ApiPage apiModel ->
                     Api.update session apiMsg apiModel
@@ -542,7 +542,7 @@ updateLoaded session page msg model =
                 _ ->
                     ( model, Cmd.none )
 
-        ( AuthMsg authMsg, _ ) ->
+        AuthMsg authMsg ->
             case page of
                 AuthPage authModel ->
                     Auth.update session authMsg authModel
@@ -551,7 +551,7 @@ updateLoaded session page msg model =
                 _ ->
                     ( model, Cmd.none )
 
-        ( EditorialMsg editorialMsg, _ ) ->
+        EditorialMsg editorialMsg ->
             case page of
                 EditorialPage editorialModel ->
                     Editorial.update session editorialMsg editorialModel
@@ -560,7 +560,7 @@ updateLoaded session page msg model =
                 _ ->
                     ( model, Cmd.none )
 
-        ( ExploreMsg examplesMsg, _ ) ->
+        ExploreMsg examplesMsg ->
             case page of
                 ExplorePage examplesModel ->
                     Explore.update session examplesMsg examplesModel
@@ -570,7 +570,7 @@ updateLoaded session page msg model =
                     ( model, Cmd.none )
 
         -- Food
-        ( FoodBuilderMsg foodMsg, _ ) ->
+        FoodBuilderMsg foodMsg ->
             case page of
                 FoodBuilderPage foodModel ->
                     FoodBuilder.update session foodMsg foodModel
@@ -580,7 +580,7 @@ updateLoaded session page msg model =
                     ( model, Cmd.none )
 
         -- Home
-        ( HomeMsg homeMsg, _ ) ->
+        HomeMsg homeMsg ->
             case page of
                 HomePage homeModel ->
                     Home.update session homeMsg homeModel
@@ -590,7 +590,7 @@ updateLoaded session page msg model =
                     ( model, Cmd.none )
 
         -- Generic simulator
-        ( GenericSimulatorMsg genericMsg, _ ) ->
+        GenericSimulatorMsg genericMsg ->
             case page of
                 GenericSimulatorPage genericModel ->
                     GenericSimulator.update session genericMsg genericModel
@@ -600,7 +600,7 @@ updateLoaded session page msg model =
                     ( model, Cmd.none )
 
         -- Stats
-        ( StatsMsg statsMsg, _ ) ->
+        StatsMsg statsMsg ->
             case page of
                 StatsPage statsModel ->
                     Stats.update session statsMsg statsModel
@@ -610,7 +610,7 @@ updateLoaded session page msg model =
                     ( model, Cmd.none )
 
         -- Store
-        ( StoreChanged json, _ ) ->
+        StoreChanged json ->
             let
                 newSession =
                     session |> Session.decodeRawStore json
@@ -627,7 +627,7 @@ updateLoaded session page msg model =
             )
 
         -- Textile
-        ( TextileSimulatorMsg textileMsg, _ ) ->
+        TextileSimulatorMsg textileMsg ->
             case page of
                 TextileSimulatorPage textileModel ->
                     TextileSimulator.update session textileMsg textileModel
@@ -637,19 +637,19 @@ updateLoaded session page msg model =
                     ( model, Cmd.none )
 
         -- Url
-        ( UrlChanged url, _ ) ->
+        UrlChanged url ->
             ( { model | mobileNavigationOpened = False, url = url }, Cmd.none )
                 |> setRoute url
                 |> Tuple.mapSecond (\cmd -> Cmd.batch [ cmd, Plausible.send session <| Plausible.PageViewed url ])
 
-        ( UrlRequested (Browser.Internal url), _ ) ->
+        UrlRequested (Browser.Internal url) ->
             ( { model | url = url }, Nav.pushUrl session.navKey (Url.toString url) )
 
-        ( UrlRequested (Browser.External href), _ ) ->
+        UrlRequested (Browser.External href) ->
             ( model, Nav.load href )
 
         -- Version check
-        ( VersionReceived webData, _ ) ->
+        VersionReceived webData ->
             ( { model
                 | state =
                     page
@@ -658,10 +658,10 @@ updateLoaded session page msg model =
             , Cmd.none
             )
 
-        ( VersionPoll, _ ) ->
+        VersionPoll ->
             ( model, Version.loadVersion VersionReceived )
 
-        _ ->
+        RawDataReceived _ _ _ ->
             ( model, Cmd.none )
 
 
