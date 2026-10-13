@@ -394,8 +394,13 @@ updateInitializing initMsg model =
 
         -- Raw Json Db data received over HTTP
         RawDataReceived sessionConfig updateRaw data ->
-            case RequestDb.updateRawJson (updateRaw data model.dbLoadingState) of
-                ( rawJsonData, Just (Ok db) ) ->
+            let
+                rawJsonData : LoadingState
+                rawJsonData =
+                    updateRaw data model.dbLoadingState
+            in
+            case RequestDb.updateRawJson rawJsonData of
+                Just (Ok db) ->
                     ( { model | dbLoadingState = rawJsonData }
                       -- trigger loading the json config over http
                     , Http.get
@@ -404,12 +409,12 @@ updateInitializing initMsg model =
                         }
                     )
 
-                ( rawJsonData, Just (Err err) ) ->
+                Just (Err err) ->
                     ( { model | dbLoadingState = rawJsonData, state = Errored (RequestDb.dbErrorToString err) }
                     , Cmd.none
                     )
 
-                ( rawJsonData, Nothing ) ->
+                Nothing ->
                     ( { model | dbLoadingState = rawJsonData }
                     , Cmd.none
                     )
