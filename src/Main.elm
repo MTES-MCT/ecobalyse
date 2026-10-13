@@ -411,15 +411,15 @@ updateInitializing initMsg model =
 
 
 update : Msg -> Model -> ( Model, Cmd Msg )
-update rawMsg ({ state } as model) =
-    case ( state, rawMsg ) of
-        ( Errored _, _ ) ->
+update msg ({ state } as model) =
+    case state of
+        Errored _ ->
             ( model, Cmd.none )
 
-        ( Initializing, initMsg ) ->
-            updateInitializing initMsg model
+        Initializing ->
+            updateInitializing msg model
 
-        ( Loaded session page, msg ) ->
+        Loaded session page ->
             updateLoaded session page msg model
 
 
