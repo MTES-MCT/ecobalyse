@@ -177,7 +177,7 @@ def characterize_remaining_land_occupation() -> None:
         if (flow.get("categories") or (None,))[0] == "natural resource"
     ]
     ids = {flow.key: flow.id for flow in resources}
-    method = bw2data.Method(LAND_OCCUPATION_METHOD)
+    method = bw2data.Method(LAND_OCCUPATION_METHOD)  # ty: ignore[call-non-callable]
     cfs = method.load()
     added = missing_land_occupation_cfs(
         ((flow.id, flow["name"]) for flow in resources),
@@ -241,7 +241,7 @@ def characterize_unlisted_water_regions() -> None:
         if flow["name"].startswith("Water")
     ]
     ids = {flow.key: flow.id for flow in water}
-    method = bw2data.Method(impacts["wtu"])
+    method = bw2data.Method(impacts["wtu"])  # ty: ignore[call-non-callable]
     cfs = method.load()
     added = missing_regional_water_cfs(
         (
