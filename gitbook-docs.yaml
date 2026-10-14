@@ -8,4 +8,4 @@ site:
       path: ecobalyse
       default: true
       content:
-        directory: null
+        directory: /
