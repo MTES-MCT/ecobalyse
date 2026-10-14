@@ -1323,7 +1323,8 @@ components:
           type: string
           description: Une description de la simulation.
         query:
-          type: object
+          allOf:
+            - $ref: "#/components/schemas/GenericQuery"
           description: Le jeu de paramètres utilisé pour effectuer la simulation.
       required:
         - complements
