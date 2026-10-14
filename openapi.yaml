@@ -111,7 +111,7 @@ paths:
           content:
             application/json:
               schema:
-                $ref: "#/components/schemas/GenericImpactsResponse"
+                $ref: "#/components/schemas/TextileSimulatorResponse"
         400:
           description: Paramètres invalides
           content:
@@ -143,7 +143,7 @@ paths:
           content:
             application/json:
               schema:
-                $ref: "#/components/schemas/GenericImpactsResponse"
+                $ref: "#/components/schemas/SingleImpactResponse"
         400:
           description: Paramètres invalides
           content:
@@ -1525,6 +1525,23 @@ components:
             "{impact}":
               type: number
               description: Valeur de l'impact recherché
+        description:
+          type: string
+          description: Une description de la simulation.
+        query:
+          type: object
+          description: Le jeu de paramètres utilisé pour effectuer la simulation.
+    TextileSimulatorResponse:
+      type: object
+      description: |
+        Impacts environnementaux d'un produit textile, exprimés dans leurs unités respectives, dont
+        [la documentation est disponible ici](https://fabrique-numerique.gitbook.io/ecobalyse/methodologie/impacts-consideres).
+      properties:
+        webUrl:
+          type: string
+          description: URL vers la simulation dans l'interface web.
+        impacts:
+          $ref: "#/components/schemas/Impacts"
         description:
           type: string
           description: Une description de la simulation.
