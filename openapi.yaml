@@ -1277,8 +1277,7 @@ components:
     GenericSimulatorResponse:
       type: object
       description: |
-        Impacts environnementaux exprimés dans leurs unités respectives, dont
-        [la documentation est disponible ici](https://fabrique-numerique.gitbook.io/ecobalyse/methodologie/impacts-consideres).
+        Simulator response for a given generic scope.
       properties:
         webUrl:
           type: string
