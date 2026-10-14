@@ -196,7 +196,7 @@ paths:
     get:
       tags:
         - Alimentaire
-      summary: Liste des pays utilisables pour les simulations alimentairess.
+      summary: Liste des pays utilisables pour les simulations alimentaires.
       responses:
         200:
           description: Opération réussie
@@ -342,9 +342,11 @@ paths:
               schema:
                 $ref: "#/components/schemas/GenericScopeListResponse"
         401:
-          description: Jeton d’API manquant ou invalide
+          $ref: "#/components/responses/AuthenticationError"
         403:
-          description: Compte non autorisé pour l’API générique (accès réservé aux bêta-testeurs)
+          $ref: "#/components/responses/ForbiddenAccessError"
+        500:
+          $ref: "#/components/responses/ServerError"
   /{scope}/countries:
     get:
       tags:
@@ -360,6 +362,12 @@ paths:
             application/json:
               schema:
                 $ref: "#/components/schemas/CountryListResponse"
+        401:
+          $ref: "#/components/responses/AuthenticationError"
+        403:
+          $ref: "#/components/responses/ForbiddenAccessError"
+        500:
+          $ref: "#/components/responses/ServerError"
   /{scope}/catalog:
     get:
       tags:
@@ -378,6 +386,12 @@ paths:
             application/json:
               schema:
                 $ref: "#/components/schemas/GenericComponentListResponse"
+        401:
+          $ref: "#/components/responses/AuthenticationError"
+        403:
+          $ref: "#/components/responses/ForbiddenAccessError"
+        500:
+          $ref: "#/components/responses/ServerError"
   /{scope}/categories:
     get:
       tags:
@@ -395,6 +409,12 @@ paths:
             application/json:
               schema:
                 $ref: "#/components/schemas/GenericCategoryListResponse"
+        401:
+          $ref: "#/components/responses/AuthenticationError"
+        403:
+          $ref: "#/components/responses/ForbiddenAccessError"
+        500:
+          $ref: "#/components/responses/ServerError"
   /{scope}/processes/material:
     get:
       tags:
@@ -414,6 +434,12 @@ paths:
             application/json:
               schema:
                 $ref: "#/components/schemas/GenericProcessListResponse"
+        401:
+          $ref: "#/components/responses/AuthenticationError"
+        403:
+          $ref: "#/components/responses/ForbiddenAccessError"
+        500:
+          $ref: "#/components/responses/ServerError"
   /{scope}/processes/transform/{materialType}:
     get:
       tags:
@@ -443,6 +469,12 @@ paths:
             application/json:
               schema:
                 $ref: "#/components/schemas/InvalidParametersError"
+        401:
+          $ref: "#/components/responses/AuthenticationError"
+        403:
+          $ref: "#/components/responses/ForbiddenAccessError"
+        500:
+          $ref: "#/components/responses/ServerError"
   /{scope}/processes/assembly:
     get:
       tags:
@@ -458,6 +490,12 @@ paths:
             application/json:
               schema:
                 $ref: "#/components/schemas/GenericProcessListResponse"
+        401:
+          $ref: "#/components/responses/AuthenticationError"
+        403:
+          $ref: "#/components/responses/ForbiddenAccessError"
+        500:
+          $ref: "#/components/responses/ServerError"
   /{scope}/processes/distribution:
     get:
       tags:
@@ -475,6 +513,12 @@ paths:
             application/json:
               schema:
                 $ref: "#/components/schemas/GenericProcessListResponse"
+        401:
+          $ref: "#/components/responses/AuthenticationError"
+        403:
+          $ref: "#/components/responses/ForbiddenAccessError"
+        500:
+          $ref: "#/components/responses/ServerError"
   /{scope}/processes/packaging:
     get:
       tags:
@@ -490,6 +534,12 @@ paths:
             application/json:
               schema:
                 $ref: "#/components/schemas/GenericProcessListResponse"
+        401:
+          $ref: "#/components/responses/AuthenticationError"
+        403:
+          $ref: "#/components/responses/ForbiddenAccessError"
+        500:
+          $ref: "#/components/responses/ServerError"
   /{scope}/processes/consumption:
     get:
       tags:
@@ -508,6 +558,12 @@ paths:
             application/json:
               schema:
                 $ref: "#/components/schemas/GenericProcessListResponse"
+        401:
+          $ref: "#/components/responses/AuthenticationError"
+        403:
+          $ref: "#/components/responses/ForbiddenAccessError"
+        500:
+          $ref: "#/components/responses/ServerError"
   /{scope}/simulator:
     post:
       tags:
@@ -546,6 +602,12 @@ paths:
             application/json:
               schema:
                 $ref: "#/components/schemas/InvalidParametersError"
+        401:
+          $ref: "#/components/responses/AuthenticationError"
+        403:
+          $ref: "#/components/responses/ForbiddenAccessError"
+        500:
+          $ref: "#/components/responses/ServerError"
 components:
   securitySchemes:
     token:
@@ -715,6 +777,28 @@ components:
           - "swe"
           - "tre"
           - "wtu"
+  responses:
+    AuthenticationError:
+      description: Jeton d’API manquant ou invalide
+      content:
+        application/json:
+          schema:
+            $ref: "#/components/schemas/InvalidParametersError"
+    ForbiddenAccessError:
+      description: |
+        Accès refusé ; cela peut être dû à un scope désactivé sur cette instance,
+        ou à un compte non autorisé (par exemple, accès réservé aux bêta-testeurs
+        et superutilisateurs)
+      content:
+        application/json:
+          schema:
+            $ref: "#/components/schemas/InvalidParametersError"
+    ServerError:
+      description: Erreur irrécupérable du serveur
+      content:
+        application/json:
+          schema:
+            $ref: "#/components/schemas/InvalidParametersError"
   schemas:
     Impacts:
       description: |
@@ -1208,6 +1292,15 @@ components:
             materialType:
               type: string
               description: Type de matière invalide
+            authorization:
+              type: string
+              description: Jeton/token absent ou invalide
+            scope:
+              type: string
+              description: Scope inactif sur cette instance
+            server:
+              type: string
+              description: Erreur du serveur d’authentification
           additionalProperties:
             type: string
             description: Une erreur particulière pour un champ spécifique
@@ -1277,7 +1370,7 @@ components:
     GenericSimulatorResponse:
       type: object
       description: |
-        Simulator response for a given generic scope.
+        Réponse du simulateur pour un périmètre générique.
       properties:
         webUrl:
           type: string
@@ -1316,7 +1409,7 @@ components:
         composition:
           type: array
           description: |
-            Impacts de composition du produit à l'étape de production, après application de la durabilité.
+            Impacts de composition du produit à **l'étape de production** uniquement, après application de la durabilité.
           items:
             $ref: "#/components/schemas/GenericCompositionItem"
         description:
@@ -1331,9 +1424,11 @@ components:
         - composition
         - impacts
         - productMass
+        - query
         - score
         - stages
         - subscores
+        - webUrl
     GenericScore:
       type: object
       additionalProperties: false
@@ -1654,11 +1749,11 @@ components:
         consumptions:
           type: array
           description: |
-            List des procédés de consommation à l'étape d'utilisation (liste disponible sur `/{scope}/processes/consumption`).
+            Liste des procédés de consommation à l'étape d'utilisation (liste disponible sur `/{scope}/processes/consumption`).
             Si omis, les consommations de la catégorie de produit sélectionnée s'appliquent.
             Un procédé dont l'entrée sera la masse du produit (catégorisé `productmassdependent`)
             s'identifie par un simple UUID (celui du procédé en question), sans quantité associée.
-            Les autres types de procédés procédés exigent que la quantité soit spécifiée (`{ "amount", "processId" }`).
+            Les autres types de procédés exigent que la quantité soit spécifiée (`{ "amount", "processId" }`).
           items:
             $ref: "#/components/schemas/GenericQueryConsumption"
         distribution:
@@ -1721,6 +1816,11 @@ components:
           type: array
           items:
             $ref: "#/components/schemas/GenericQueryElement"
+        scopes:
+          type: array
+          description: Scopes associés.
+          items:
+            type: string
     GenericQueryCustom:
       type: object
       additionalProperties: false
@@ -1734,6 +1834,11 @@ components:
           type: array
           items:
             $ref: "#/components/schemas/GenericQueryElement"
+        scopes:
+          type: array
+          description: Scopes associés.
+          items:
+            type: string
     GenericQueryElement:
       type: object
       additionalProperties: false
