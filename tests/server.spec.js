@@ -872,12 +872,12 @@ describe("API", () => {
     });
 
     describe("generic simulator response", () => {
-      const flour = require("../public/data/food2/examples.json").find(({ name }) =>
-        name.startsWith("Farine de blé"),
+      const compote = require("../public/data/food2/examples.json").find(
+        ({ name }) => name === "Lot de 4 pots de compote pomme banane",
       );
 
       it("should break the score down into subscores, stages, complements and composition", async () => {
-        const response = await makePostRequest("/api/food2/simulator", flour.query);
+        const response = await makePostRequest("/api/food2/simulator", compote.query);
 
         expectStatus(response, 200);
         const { body } = response;
@@ -899,9 +899,12 @@ describe("API", () => {
           "endOfLife",
         ]);
 
-        const compositionComplements = body.composition.reduce( (total, item) => total + sumValues(item.complements), 0);
+        const compositionComplements = body.composition.reduce(
+          (total, item) => total + sumValues(item.complements),
+          0,
+        );
         expectMostlyEqual(compositionComplements, sumValues(body.complements));
-        expect(body.composition.length).toBe(flour.query.components.length);
+        expect(body.composition.length).toBe(compote.query.components.length);
         for (const item of body.composition) {
           expectMostlyEqual(sumValues(item.complements), item.score.complements);
         }
@@ -920,9 +923,19 @@ describe("API", () => {
         });
         expectStatus(doubledDurability, 200);
 
-        expectMostlyEqual(doubledDurability.body.score.ecs * 2, defaultDurability.body.score.ecs);
-        expectMostlyEqual(doubledDurability.body.composition[0].score.ecs * 2, defaultDurability.body.composition[0].score.ecs);
-        expectMostlyEqual(doubledDurability.body.subscores.climate * 2, defaultDurability.body.subscores.climate);
+        // note: doubled durability = half the impacts
+        expectMostlyEqual(
+          doubledDurability.body.score.ecs * 2,
+          defaultDurability.body.score.ecs,
+        );
+        expectMostlyEqual(
+          doubledDurability.body.composition[0].score.ecs * 2,
+          defaultDurability.body.composition[0].score.ecs,
+        );
+        expectMostlyEqual(
+          doubledDurability.body.subscores.climate * 2,
+          defaultDurability.body.subscores.climate,
+        );
       });
     });
 

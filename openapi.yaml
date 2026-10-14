@@ -676,18 +676,20 @@ components:
       schema:
         type: string
         minLength: 3
-        maxLength: 3
+        maxLength: 5
         default: "cch"
         enum:
           - "acd"
-          - "bvi"
           - "cch"
           - "ecs"
           - "etf"
+          - "etf-c"
           - "fru"
           - "fwe"
           - "htc"
+          - "htc-c"
           - "htn"
+          - "htn-c"
           - "ior"
           - "ldu"
           - "mru"
@@ -700,13 +702,12 @@ components:
   schemas:
     Impacts:
       type: object
+      description: |
+        Tous les impacts, individuels comme agrégés.
       properties:
         acd:
           type: number
           description: "Acidification (mol éq. H+)"
-        bvi:
-          type: number
-          description: "Biodiversité locale (BVI)"
         cch:
           type: number
           description: "Changement climatique (kg éq. CO2)"
@@ -716,6 +717,9 @@ components:
         etf:
           type: number
           description: "Écotoxicité de l'eau douce (CTUe)"
+        etf-c:
+          type: number
+          description: "Écotoxicité de l'eau douce, corrigée (CTUe)"
         fru:
           type: number
           description: "Utilisation de ressources fossiles (MJ)"
@@ -725,9 +729,15 @@ components:
         htc:
           type: number
           description: "Toxicité humaine - cancer (CTUh)"
+        htc-c:
+          type: number
+          description: "Toxicité humaine - cancer, corrigée (CTUh)"
         htn:
           type: number
           description: "Toxicité humaine - non-cancer (CTUh)"
+        htn-c:
+          type: number
+          description: "Toxicité humaine - non-cancer, corrigée (CTUh)"
         ior:
           type: number
           description: "Radiations ionisantes (éq. kBq U235)"
@@ -759,20 +769,20 @@ components:
       type: object
       description: |
         Catégories d'impacts physiques, dans leurs unités respectives.
-        Le coût environnemental (`ecs`) n'en fait pas partie.
+        Ne contient pas de coûts agrégés comme `ecs`.
       properties:
         acd:
           type: number
           description: "Acidification (mol éq. H+)"
-        bvi:
-          type: number
-          description: "Biodiversité locale (BVI)"
         cch:
           type: number
           description: "Changement climatique (kg éq. CO2)"
         etf:
           type: number
           description: "Écotoxicité de l'eau douce (CTUe)"
+        etf-c:
+          type: number
+          description: "Écotoxicité de l'eau douce, corrigée (CTUe)"
         fru:
           type: number
           description: "Utilisation de ressources fossiles (MJ)"
@@ -782,9 +792,15 @@ components:
         htc:
           type: number
           description: "Toxicité humaine - cancer (CTUh)"
+        htc-c:
+          type: number
+          description: "Toxicité humaine - cancer, corrigée (CTUh)"
         htn:
           type: number
           description: "Toxicité humaine - non-cancer (CTUh)"
+        htn-c:
+          type: number
+          description: "Toxicité humaine - non-cancer, corrigée (CTUh)"
         ior:
           type: number
           description: "Radiations ionisantes (éq. kBq U235)"
@@ -1452,7 +1468,7 @@ components:
       type: object
       additionalProperties: false
       description: |
-        Cout environnemental en Pts d'impact (`ecs`) de chaque étape, après durabilité. Absence d'étape vaut 0.
+        Coût environnemental en Pts d'impact (`ecs`) de chaque étape, après durabilité. Une étape sans impact vaut 0.
       required:
         - assembly
         - distribution
@@ -1492,6 +1508,8 @@ components:
       additionalProperties: false
       description: |
         Points d'impact (`ecs`) par sous-score, **après** application de la durabilité.
+        Ces sous-scores sont recalculés à partir des indicateurs physiques.
+        Leur somme peut différer de `score.ecs` d'une fraction de point.
       required:
         - biodiversity
         - climate
