@@ -924,10 +924,7 @@ describe("API", () => {
         expectStatus(doubledDurability, 200);
 
         // note: doubled durability = half the impacts
-        expectMostlyEqual(
-          doubledDurability.body.score.ecs * 2,
-          defaultDurability.body.score.ecs,
-        );
+        expectMostlyEqual(doubledDurability.body.score.ecs * 2, defaultDurability.body.score.ecs);
         expectMostlyEqual(
           doubledDurability.body.composition[0].score.ecs * 2,
           defaultDurability.body.composition[0].score.ecs,
