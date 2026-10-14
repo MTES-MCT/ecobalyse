@@ -1,2 +1,0 @@
-# Niveaux de calcul ?
-

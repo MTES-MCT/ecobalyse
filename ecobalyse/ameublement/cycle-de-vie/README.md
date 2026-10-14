@@ -1,2 +1,0 @@
-# Cycle de vie
-
