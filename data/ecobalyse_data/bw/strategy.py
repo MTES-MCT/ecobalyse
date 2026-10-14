@@ -84,27 +84,25 @@ def remove_some_processes(db):
     return new_db
 
 
+# What remove_creosote drops: from any dataset whose name holds one of these words,
+# the preservative itself (unit trellis) and what it is flattened into (system trellis)
+TRELLIS_WORDS = ("treillis", "trellis")
+CREOSOTE = "creosote"
+CREOSOTE_FLOWS = ("Pyrene", "Fluoranthene", "Phenanthrene", "Naphtalene", "Naphthalene")
+
+
 def remove_creosote(db):
     """Remove creosote flows from flattened system trellis (AGB, WFLDB)"""
     new_db = []
     for ds in tqdm(db):
         new_ds = copy.deepcopy(ds)
         name = ds["name"].lower()
-        if "treillis" in name or "trellis" in name:
+        if any(word in name for word in TRELLIS_WORDS):
             new_ds["exchanges"] = [
                 exc
                 for exc in ds["exchanges"]
-                # this is for system trellis
-                if exc.get("name", "")
-                not in (
-                    "Pyrene",
-                    "Fluoranthene",
-                    "Phenanthrene",
-                    "Naphtalene",
-                    "Naphthalene",
-                )
-                # this is for unit trellis
-                and "creosote" not in exc.get("name", "").lower()
+                if exc.get("name", "") not in CREOSOTE_FLOWS
+                and CREOSOTE not in exc.get("name", "").lower()
             ]
         new_db.append(new_ds)
     return new_db
@@ -172,14 +170,19 @@ def convert_to_linked_units(db, products):
     ]
 
 
+# What remove_acetamiprid drops: this flow, from datasets in this location
+ACETAMIPRID = "Acetamiprid"
+ACETAMIPRID_LOCATION = "FR"
+
+
 def remove_acetamiprid(db):
     """Remove acetamiprid in FR activities"""
     new_db = []
     for ds in tqdm(db):
         new_ds = copy.deepcopy(ds)
-        if ds.get("location") == "FR":
+        if ds.get("location") == ACETAMIPRID_LOCATION:
             new_ds["exchanges"] = [
-                exc for exc in ds["exchanges"] if exc.get("name", "") != "Acetamiprid"
+                exc for exc in ds["exchanges"] if exc.get("name", "") != ACETAMIPRID
             ]
         new_db.append(new_ds)
     return new_db

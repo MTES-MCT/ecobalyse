@@ -44,7 +44,18 @@ from ecobalyse_data.bw.migration import (
     PASTOECO_MIGRATIONS,
     WOOLMARK_MIGRATIONS,
 )
-from ecobalyse_data.bw.strategy import use_unit_processes
+from ecobalyse_data.bw.strategy import (
+    ACETAMIPRID,
+    ACETAMIPRID_LOCATION,
+    CREOSOTE,
+    CREOSOTE_FLOWS,
+    TRELLIS_WORDS,
+    remove_acetamiprid,
+    remove_creosote,
+    use_unit_processes,
+)
+from import_ecoinvent import ECOINVENT_STRATEGIES, WOOLMARK_STRATEGIES
+from import_food import AGB_STRATEGIES, GINKO_STRATEGIES, WFLDB_STRATEGIES
 
 
 def db_name(file: str) -> str:
@@ -56,7 +67,7 @@ class Source(NamedTuple):
     file: str  # settings.dbfiles key
     dep: str | None = None  # the file its inputs link to, as in Ecobalyse's import
     migrations: Sequence[dict] = ()  # Ecobalyse's renames, handed to VoLCA as aliases
-    unit_processes: bool = False  # also rename what strategy.use_unit_processes renames
+    strategies: Sequence[Callable] = ()  # Ecobalyse's own, mirrored by STRATEGY_PATCHES
 
     @property
     def db(self) -> str:
@@ -64,13 +75,13 @@ class Source(NamedTuple):
 
 
 SOURCES = {  # "source" in processes_impacts.json -> where VoLCA reads it
-    "Agribalyse 3.2": Source("AGRIBALYSE"),
-    "Ecoinvent 3.9.1": Source("EI391"),
-    "Ecoinvent 3.11": Source("EI311"),
-    "WFLDB": Source("WFLDB"),
-    "Ginko 2025": Source("GINKO", "AGRIBALYSE", GINKO_MIGRATIONS),
+    "Agribalyse 3.2": Source("AGRIBALYSE", strategies=AGB_STRATEGIES),
+    "Ecoinvent 3.9.1": Source("EI391", strategies=ECOINVENT_STRATEGIES),
+    "Ecoinvent 3.11": Source("EI311", strategies=ECOINVENT_STRATEGIES),
+    "WFLDB": Source("WFLDB", strategies=WFLDB_STRATEGIES),
+    "Ginko 2025": Source("GINKO", "AGRIBALYSE", GINKO_MIGRATIONS, GINKO_STRATEGIES),
     "PastoEco": Source("PASTOECO", "AGRIBALYSE", PASTOECO_MIGRATIONS),
-    "Woolmark": Source("WOOL", "EI391", WOOLMARK_MIGRATIONS, True),
+    "Woolmark": Source("WOOL", "EI391", WOOLMARK_MIGRATIONS, WOOLMARK_STRATEGIES),
 }
 
 
@@ -101,49 +112,59 @@ TABLE_ROWS = 30  # how many lines the deviation table holds
 OUTPUT = DATA_ROOT_DIR.parent / "output"
 
 
-# Do the same data-changing import strategies of strategy.py do, as descriptive patches
-INVENTORY_PATCHES = (
+def zeroed(description: str, match: str) -> str:
+    """One engine patch that zeroes what it matches.
+
+    Takes what the patch is for and the inside of its TOML match table. Returns the
+    TOML text.
     """
-[[databases.patches]]
-description = "remove_creosote: the preservative a trellis system is no longer treated with"
-match = { product-name-contains = "system, wooden poles", flow-name-contains = "creosote" }
-set-value = 0.0
-"""
-    + "".join(
-        f"""
-[[databases.patches]]
-description = "remove_creosote: the {flow} of a trellis system sold flattened"
-match = {{ product-name-contains = "system, wooden poles", flow-name = "{flow}" }}
-set-value = 0.0
-"""
-        for flow in ("Pyrene", "Fluoranthene", "Phenanthrene", "Naphthalene")
+    return (
+        f"\n[[databases.patches]]\ndescription = {json.dumps(description)}\n"
+        f"match = {{ {match} }}\nset-value = 0.0\n"
     )
-    + """
-[[databases.patches]]
-description = "remove_acetamiprid: not applied on a French field"
-match = { location = "FR", flow-name = "Acetamiprid" }
-set-value = 0.0
-"""
-)
+
+
+# The data-changing strategies of strategy.py, made of the same constants. The name a
+# strategy reads is the product name in the engine; both tests ignore case.
+STRATEGY_PATCHES = {
+    remove_creosote: "".join(
+        [
+            zeroed(
+                f"remove_creosote: {flow} in a {word}",
+                f'product-name-contains = "{word}", flow-name = {json.dumps(flow)}',
+            )
+            for word in TRELLIS_WORDS
+            for flow in CREOSOTE_FLOWS
+        ]
+        + [
+            zeroed(
+                f"remove_creosote: the preservative of a {word}",
+                f'product-name-contains = "{word}", flow-name-contains = "{CREOSOTE}"',
+            )
+            for word in TRELLIS_WORDS
+        ]
+    ),
+    remove_acetamiprid: zeroed(
+        "remove_acetamiprid",
+        f'location = "{ACETAMIPRID_LOCATION}", flow-name = "{ACETAMIPRID}"',
+    ),
+}
 
 # Ginko 2025 calls a lentil market its file does not ship; Ecobalyse's import links that
 # input to an empty dataset, so it counts for nothing there and must here too
-GINKO_PATCHES = """
-[[databases.patches]]
-description = "the lentil market Ginko 2025 calls but does not ship"
-match = { flow-name = "Lentil, organic 2025 {GLO}| market for lentil | Cut-off, U" }
-set-value = 0.0
-"""
+GINKO_PATCHES = zeroed(
+    "the lentil market Ginko 2025 calls but does not ship",
+    'flow-name = "Lentil, organic 2025 {GLO}| market for lentil | Cut-off, U"',
+)
 
-# settings.dbfiles key -> what to patch in it. Ginko states neither substance of the
-# strategies: it reaches the trellis system through Agribalyse, which is patched.
-PATCHES = {
-    "AGRIBALYSE": INVENTORY_PATCHES,
-    "WFLDB": INVENTORY_PATCHES,
-    "EI391": INVENTORY_PATCHES,
-    "EI311": INVENTORY_PATCHES,
-    "GINKO": GINKO_PATCHES,
-}
+
+def patches(source: Source) -> str:
+    """What the engine must change in one source to match Ecobalyse's import.
+
+    Takes the source. Returns the TOML text of its patches, empty when it has none.
+    """
+    mirrored = "".join(STRATEGY_PATCHES.get(s, "") for s in source.strategies)
+    return mirrored + (GINKO_PATCHES if source.file == "GINKO" else "")
 
 
 def config_toml(files: dict[str, Path]) -> str:
@@ -154,7 +175,7 @@ def config_toml(files: dict[str, Path]) -> str:
     """
     databases = "\n".join(
         f"[[databases]]\nname = {json.dumps(source.db)}\n"
-        f"path = {json.dumps(str(files[source.file]))}\n" + PATCHES.get(source.file, "")
+        f"path = {json.dumps(str(files[source.file]))}\n" + patches(source)
         for source in SOURCES.values()
     )
     return f"""[server]
@@ -194,7 +215,7 @@ def alias_csv(source: Source, missing: list[str], dep: Catalogue) -> str:
         if tuple(migration["data"]["fields"]) == ("name",)
         for old, new in migration["data"]["data"]
     ]
-    if source.unit_processes:
+    if use_unit_processes in source.strategies:
         # the strategy works on datasets: hand it the missing names as one, and swallow the
         # progress bar it draws over that single dataset
         with redirect_stderr(io.StringIO()):
