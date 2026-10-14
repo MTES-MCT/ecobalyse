@@ -5,17 +5,17 @@ hidden: true
 # 🚚 OLD Transport
 
 {% hint style="info" %}
-Cette page décrit les principes communs aux différents types de produits susceptibles d'être modélisés dans Ecobalyse.&#x20;
+Cette page décrit les principes communs aux différents types de produits susceptibles d'être modélisés dans Ecobalyse.
 
 Le cas échéant, les spécificités relatives à chaque produit sont décrites dans la documentation métier correspondante.
 {% endhint %}
 
 ## Principales étapes de transport <a href="#distribution" id="distribution"></a>
 
-Le transport est modélisé en prenant en compte les étapes suivantes : &#x20;
+Le transport est modélisé en prenant en compte les étapes suivantes :
 
 * Transport des matières premières (ex : coton, blé, bois) du champs ou de la foret vers le site de transformation
-* Transport des produits intermédiaires (ex : tissu textile)  et composants (ex : pied de chaise, pneu) entre les sites de transformation,
+* Transport des produits intermédiaires (ex : tissu textile) et composants (ex : pied de chaise, pneu) entre les sites de transformation,
 * Transport du produit fini entre l'usine de production et un entrepôt de stockage en France
 * Transport entre un site de stockage en France et un magasin ou centre de distribution ou client final s'il est livré directement.
 
@@ -32,7 +32,7 @@ A des fins de simplification, le transport entre un magasin ou un centre de dist
   _&#x44;ans le cas d'un transport par voie maritime, le transport est réalisé en trois étapes : transport par la route vers le port de départ, transport par la mer de port à port, transport par la route depuis le port d'arrivée._
 * Aérienne (transport international uniquement)\
   Modes de transport : avion + camion\
-  _&#x44;ans le cas d'un transport par voie aérienne, le transport est réalisé en trois étapes : transport par la route vers l'aéroport de départ, transport par avion d'aéroport à aéroport, transport par la route depuis l'aéroport d'arrivée._&#x20;
+  _&#x44;ans le cas d'un transport par voie aérienne, le transport est réalisé en trois étapes : transport par la route vers l'aéroport de départ, transport par avion d'aéroport à aéroport, transport par la route depuis l'aéroport d'arrivée._
 * Ferroviaire (transport international uniquement)\
   Modes de transport : train
 
@@ -42,33 +42,33 @@ A des fins de simplification, ces 4 voies ne sont pas toujours proposés pour to
 
 ### Distances et mode de transport
 
-La distance et le mode de transport sont calculés en fonction du pays d'origines et de destination pour chaque étape de transport considérée.&#x20;
+La distance et le mode de transport sont calculés en fonction du pays d'origines et de destination pour chaque étape de transport considérée.
 
 <details>
 
 <summary>Situation 1 : je connais les pays d'origine et de destination, ils sont proposés dans Ecobalyse</summary>
 
-Les distances entre pays sont calculées de la façon suivante en fonction du mode de transport principal choisi :&#x20;
+Les distances entre pays sont calculées de la façon suivante en fonction du mode de transport principal choisi :
 
-**Voie terrestre :**&#x20;
+**Voie terrestre :**
 
 La distance par voie terrestre est calculée avec le calculateur [https://www.searates.com/services/distances-time](https://www.searates.com/services/distances-time/) (calculateur recommandé par le PEF, [Product Environmental Footprint Category Rules Guidance](https://eplca.jrc.ec.europa.eu/permalink/PEFCR_guidance_v6.3-2.pdf), 7.14.3 From factory to final client)
 
-**Voie maritime (+ terrestre)** :&#x20;
+**Voie maritime (+ terrestre)** :
 
 Le choix d'une voie maritime se décline en deux composantes :
 
 * Transport par bateau, avec une distance de port à port. Calcul de la distance avec le calculateur [https://www.searates.com/services/distances-time](https://www.searates.com/services/distances-time/) (calculateur recommandé par la méthode PEF).
-*   Transport par camion : distance fixée à 1000km. Pour les pays situés à moins de 2000 km en transport terrestre, cette distance est ramenée à la moitié de la distance en transport terrestre.&#x20;
+*   Transport par camion : distance fixée à 1000km. Pour les pays situés à moins de 2000 km en transport terrestre, cette distance est ramenée à la moitié de la distance en transport terrestre.
 
     Dvoiemer\_camion = min (1000; Dvoieterre/2)
 
-    avec :&#x20;
+    avec :
 
     * Dvoiemer\_camion : distance en camion par la voie maritime, en km
     * Dvoieterre : distance en camion par la voie terrestre, en km
 
-**Voie aérienne (+ terrestre)** :&#x20;
+**Voie aérienne (+ terrestre)** :
 
 Le choix d'une voie aérienne se décline en deux composantes :
 
@@ -77,16 +77,14 @@ Le choix d'une voie aérienne se décline en deux composantes :
 
     Dvoieair\_camion = min (1000; Dvoieterre/2)
 
-    avec :&#x20;
+    avec :
 
     * Dvoieair\_camion : distance en camion par la voie aérienne, en km
     * Dvoieterre : distance en camion par la voie terrestre, en km
 
 **Voie ferroviaire** : La distance par voie ferroviaire est calculée avec le calculateur [https://www.searates.com/services/distances-time](https://www.searates.com/services/distances-time/) EN COURS
 
-
-
-Lorsque deux étapes successives sont réalisées dans un même pays, des distances par défaut sont considérées :&#x20;
+Lorsque deux étapes successives sont réalisées dans un même pays, des distances par défaut sont considérées :
 
 * Distance par voie terrestre : 500 km
 * Distance par voie aérienne : 500 km en avion + 250 km par camion
@@ -126,7 +124,7 @@ Le transport est ensuite calculé de la même façon que si ce pays était direc
 
 Je sélectionne "Inconnu (par défaut)"
 
-Dans ce cas, les distances suivantes sont fixées par défaut, en cohérence avec la méthode PEF ([Product Environmental Footprint Category Rules Guidance](https://eplca.jrc.ec.europa.eu/permalink/PEFCR_guidance_v6.3-2.pdf), 7.14.3 From factory to final client) :&#x20;
+Dans ce cas, les distances suivantes sont fixées par défaut, en cohérence avec la méthode PEF ([Product Environmental Footprint Category Rules Guidance](https://eplca.jrc.ec.europa.eu/permalink/PEFCR_guidance_v6.3-2.pdf), 7.14.3 From factory to final client) :
 
 * 1000 km de transport routier, correspondant au transport de l'usine au port ou aéroport de départ et au transport du port ou aéroport d'arrivée à l'usine ou lieu de stockage d'arrivée
 * 18 000 km de transport maritime ou 10 000 km de transport aérien (pas de transport par train)
@@ -147,7 +145,7 @@ $$
 CEvoie_i=Masse*(Di_1∗CE[m1]+Di_2∗CE[m2])
 $$
 
-Avec :&#x20;
+Avec :
 
 * CEvoie\_i : le coût environnemental par voie, exprimé en points d'impact Pts
 * Masse : la masse transportée, en tonnes. La masse transportée s'exprime en tonnes. Une conversion est donc à prendre en compte par rapport à la masse, considérée en kg dans les autres parties des calculs.
@@ -162,9 +160,9 @@ Sauf indication contraire spécifique, les modes de transport sont modélisés p
 
 <table><thead><tr><th width="230">Type de transport</th><th>Procédé (Source)</th></tr></thead><tbody><tr><td>Camion</td><td>market group for transport, freight, lorry, unspecified, GLO (Ecoinvent)</td></tr><tr><td>Camion frigorifique</td><td></td></tr><tr><td>Bateau</td><td>market for transport, freight, sea, container ship, GLO (Ecoinvent)</td></tr><tr><td>Bateau frigorifique</td><td></td></tr><tr><td>Avion</td><td>market for transport, freight, aircraft, long haul, GLO (Ecoinvent)</td></tr><tr><td>Train</td><td>market group for transport, freight train, GLO (Ecoinvent)</td></tr></tbody></table>
 
-Il est résulte les coûts environnementaux par mode de transport suivant (correspondant aux valeurs CE\[m1] ou CE\[m2] ci-dessus) :&#x20;
+Il est résulte les coûts environnementaux par mode de transport suivant (correspondant aux valeurs CE\[m1] ou CE\[m2] ci-dessus) :
 
-<figure><img src="../.gitbook/assets/image (335).png" alt=""><figcaption></figcaption></figure>
+<figure><img src="../.gitbook/assets/image (315).png" alt=""><figcaption></figcaption></figure>
 
 ## Transport international : mix des voies de transport
 
@@ -188,7 +186,7 @@ $$
 CEtransport=t∗CEterrestre+(1−t)∗CEmaritime
 $$
 
-Avec :&#x20;
+Avec :
 
 * CEtransport : le coût environnemental de l'étape de transport considérée, exprimé en points d'impact Pts
 * t : la part de voie terrestre considérée, établie selon le tableau ci-dessus
@@ -201,25 +199,25 @@ Avec :&#x20;
 * Transport de composants
 * Transport de certains ingrédients alimentaires
 
-### Modélisation du transport avec part d'aérien ou de ferroviaire modifiable&#x20;
+### Modélisation du transport avec part d'aérien ou de ferroviaire modifiable
 
 #### Modélisation
 
 L'impact du transport sur chaque étape se calcule comme une pondération des trois types de transport considérés.
 
-Calcul avec paramétrage d'une part de voie aérienne :&#x20;
+Calcul avec paramétrage d'une part de voie aérienne :
 
 $$
 CEtransport=a*CEaérienne+(1-a)*( t∗CEterrestre+(1−t)∗CEmaritime)
 $$
 
-Calcul avec paramétrage d'une part de voie ferroviaire :&#x20;
+Calcul avec paramétrage d'une part de voie ferroviaire :
 
 $$
 CEtransport=f*CEferroviaire+(1-f)*( t∗CEterrestre+(1−t)∗CEmaritime)
 $$
 
-Avec :&#x20;
+Avec :
 
 * CEtransport : le coût environnemental de l'étape de transport considérée, exprimé en points d'impact Pts
 * a : la part de voie aérienne paramétrée
@@ -236,4 +234,3 @@ Avec :&#x20;
 * Transports de produits finis textile depuis un pays étrangers vers la France : ratio a "aérien"
 * Transport de véhicules depuis un pays étrangers vers la France : ratio f "ferroviaire"
 * Transport de meubles depuis un pays étrangers vers la France : ratio f "ferroviaire"
-

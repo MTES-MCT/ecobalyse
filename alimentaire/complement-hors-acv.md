@@ -10,13 +10,13 @@ La valorisation des services écosystémiques est intégrée à travers l'introd
 
 Les services écosystémiques sont attachées à la production agricole. Ils sont donc intégrés à l'étape "Ingrédients" du cycle de vie.
 
-Pour chaque ingrédient, le coût environnemental est la somme de la composante ACV du coût environnemental et de chacun des 4 services écosystémiques introduits ci-après :&#x20;
+Pour chaque ingrédient, le coût environnemental est la somme de la composante ACV du coût environnemental et de chacun des 4 services écosystémiques introduits ci-après :
 
 $$
 CoûtEnvironnemental = ComposanteACV + \sum_{1}^{4}ServicesEcosystémiques
 $$
 
-2 types de services écosystémiques sont à distinguer :&#x20;
+2 types de services écosystémiques sont à distinguer :
 
 * Les services écosystémiques "cultures", qui s'appliquent aux productions végétales, ainsi qu'aux productions animales via les végétaux consommés dans la ration alimentaire (en intégrant également les prairies).
 * Les services écosystémiques "élevages" qui ne s'appliquent qu'aux productions animales.
@@ -46,7 +46,7 @@ A partir du détail des formules de calcul (cf. [tableur complet](https://docs.g
 
 Si le conseil scientifique reconnait dans son second rapport, que l'introduction de compléments visant à valoriser la biodiversité territoriale est légitime, ses membres ont régulièrement souligné que ces compléments ne devraient généralement pas représenter plus de 30% de l'ensemble des impacts attachés à un produit. Ainsi, ces 4 composantes ont été calibrées pour que, ajoutées, elles représentent de l'ordre de 30% des impacts générés dans le cas de deux ingrédients emblématiques générant beaucoup de services écosystémiques : le blé bio et le boeuf bio.
 
-![](<../.gitbook/assets/image (461).png>)
+<img src="../.gitbook/assets/image (430).png" alt="" data-size="original">
 {% endhint %}
 
 {% hint style="info" %}
@@ -113,25 +113,25 @@ Les données mobilisées par l'OFB ou le service statistique du ministère de l'
 
 ### Services écosystémiques "cultures" / application aux productions animales
 
-Pour appliquer les services écosystémiques "cultures" (haies, tailles de parcelle et diversité culturale) aux ingrédients issus de l'élevage (produits laitiers ou viandes), une logique d'affectation similaire à celle appliquée pour les catégories d'impacts en ACV est appliquée :&#x20;
+Pour appliquer les services écosystémiques "cultures" (haies, tailles de parcelle et diversité culturale) aux ingrédients issus de l'élevage (produits laitiers ou viandes), une logique d'affectation similaire à celle appliquée pour les catégories d'impacts en ACV est appliquée :
 
 * L'élevage nécessite des cultures et des prairies pour l'alimentation animale
 * Chaque culture (et prairie) mobilisée génère des services écosystémiques dont la modélisation est détaillé ci-après
 
 ### Formules de calcul
 
-L'ensemble des formules de calcul implémentées pour le calcul de chacun des 4 services écosystémiques, en distinguant les services écosystémiques "cultures" et les services écosystémiques "élevages" sont détaillés dans le tableur suivant :&#x20;
+L'ensemble des formules de calcul implémentées pour le calcul de chacun des 4 services écosystémiques, en distinguant les services écosystémiques "cultures" et les services écosystémiques "élevages" sont détaillés dans le tableur suivant :
 
 [https://docs.google.com/spreadsheets/d/1wkwTva7ofeIHJorrlwmJuv-x0uB2jud4r6pqb7aJOwc/edit?usp=sharing](https://docs.google.com/spreadsheets/d/1wkwTva7ofeIHJorrlwmJuv-x0uB2jud4r6pqb7aJOwc/edit?usp=sharing)
 
-## Complément "haies"&#x20;
+## Complément "haies"
 
 ### Approche globale
 
 En l'absence de données de quantification des externalités positives liées aux haies, Ecobalyse approxime les externalités positives des haies par la quantité de haies (ml/ha)
 
 * Niveau 1 ⇒ complément fonction du label x type de productions
-* Label bio dans un premier temps, mais il est possible d'intégrer d'autres labels dès que des données sont disponibles&#x20;
+* Label bio dans un premier temps, mais il est possible d'intégrer d'autres labels dès que des données sont disponibles
 
 ⇒ Objectif : différencier le bio et le conventionnel selon la quantité de haies qui caractérise chacun de ces systèmes
 
@@ -154,20 +154,20 @@ Par défaut on considère que RPG conventionnel = RPG (IGN) - RPG Bio (Agence Bi
 * Déclinaison des calculs : nationale (France métropolitaine), régionale, départementale (+ données détaillées par parcelle disponibles également)
 * Millésime RPG : 2021
 
-#### Sources des données mobilisées :&#x20;
+#### Sources des données mobilisées :
 
 * RPG niveau 1 (parcelles totales, cultures principales par parcelle, France métropolitaine, millésime 2021) :[ https://geoservices.ign.fr/ressource/194788](https://geoservices.ign.fr/ressource/194788)
-* Agence bio (parcelles en AB) :[  https://www.data.gouv.fr/fr/datasets/616d6531c2951bbe8bd97771/](https://www.data.gouv.fr/fr/datasets/616d6531c2951bbe8bd97771/)  (National - année 2021)
+* Agence bio (parcelles en AB) :[ https://www.data.gouv.fr/fr/datasets/616d6531c2951bbe8bd97771/](https://www.data.gouv.fr/fr/datasets/616d6531c2951bbe8bd97771/) (National - année 2021)
 * Dispositif de suivi des bocages - DSB de l'IGN/OFB (haies) :[ https://geoservices.ign.fr/bdtopo#telechargementshpreg](https://geoservices.ign.fr/bdtopo) (la BD HAIE est contenue dans la BD TOPO, dossier « Occupation du Sol »)
 
 ### Synthèse des résultats obtenus
 
 <figure><img src="https://lh7-us.googleusercontent.com/slidesz/AGV_vUenk1JYQpMdM3wpNT0e201j0oWG7lM2KeZc3qJyrFki2cVgY5JeDcr2067QL16IRVT5S0ADGb9nsuKF_UKrfF8NPJl02vc95wJ-Ej1UWTo4m4k5iCth13E-rcIyRup1uv1GqdFIzqJ9FvbV_BonEE92DFDJ0ug=s2048?key=EL5kZ_dddkIc8Ka_PGQ4sg" alt=""><figcaption></figcaption></figure>
 
-&#x20;Par rapport aux parcelles Non bio , les parcelles Bio présentent en moyenne :
+Par rapport aux parcelles Non bio , les parcelles Bio présentent en moyenne :
 
 * \+ de haies pour 15/20 groupes de cultures
-* autant de haies  (- de 10% de différence) pour 5/20 gpes de cultures (Fourrage, Prairies permanentes, Prairies temporaires, Fruits à coque, Oliviers)
+* autant de haies (- de 10% de différence) pour 5/20 gpes de cultures (Fourrage, Prairies permanentes, Prairies temporaires, Fruits à coque, Oliviers)
 
 Quel que soit le mode de production, les groupes de cultures avec :
 
@@ -185,16 +185,16 @@ La formule de calcul mobilisée pour convertir les linéaires de haies par hecta
 
 <figure><img src="../.gitbook/assets/{3ECFAC33-83D9-42D6-9EEE-075CCE49EB9C}.png" alt=""><figcaption><p>Rq : image illustrative - les valeurs de référence sont dans le tableur en ligne</p></figcaption></figure>
 
-La formule de calcul appliquée est :&#x20;
+La formule de calcul appliquée est :
 
 $$
 SE_{haies} = Coef_{haies}*Surface*(min(1;ComplémentBrut/SeuilHaut)-1+ValoMax)
 $$
 
-Avec :&#x20;
+Avec :
 
 * CoefHaies : Un coefficient global appliqué au résultat et qui pilote le poids donné à ce résultat dans le coût environnemental. Dans le cadre ACV, cela correspond au rapport entre le coefficient de pondération et le facteur de normalisation de la catégorie d'impact considérée.
-* ComplémentBrut : La valeur de linéraire de haie par hectare considérée pour le groupe de culture (blé, maïs, orge...) et le scénario considéré (bio, import, référence). Ces valeurs, tirées de l'exploitation des données introduites ci-dessus, sont listées dans l'onglet "Références par groupe de culture" du [tableur de calcul](https://docs.google.com/spreadsheets/d/1wkwTva7ofeIHJorrlwmJuv-x0uB2jud4r6pqb7aJOwc/edit?usp=sharing). &#x20;
+* ComplémentBrut : La valeur de linéraire de haie par hectare considérée pour le groupe de culture (blé, maïs, orge...) et le scénario considéré (bio, import, référence). Ces valeurs, tirées de l'exploitation des données introduites ci-dessus, sont listées dans l'onglet "Références par groupe de culture" du [tableur de calcul](https://docs.google.com/spreadsheets/d/1wkwTva7ofeIHJorrlwmJuv-x0uB2jud4r6pqb7aJOwc/edit?usp=sharing).
 * SeuilHaut : La valeur, en mètre linéaire de haies par hectare, au-delà de laquelle il n'est plus considéré d'augmentation des services écosystémiques. En l'occurrence, un seuil de 140 ml/ha est considérée à partir de la bibliographie.
 * ValoMax : La valeur donnée au service écosystémique, avant application du coefficient global et multiplication par la surface, dans la configuration dans laquelle il est au maximum (donc au-delà de 140 ml/ha).
 
@@ -230,7 +230,7 @@ Par défaut on considère que RPG conventionnel = RPG (IGN) - RPG Bio (Agence Bi
 #### Sources des données mobilisées :
 
 * RPG niveau 1 (parcelles totales, cultures principales par parcelle, France métropolitaine, millésime 2021) :[ https://geoservices.ign.fr/ressource/194788](https://geoservices.ign.fr/ressource/194788)
-* Agence bio (parcelles en AB) :[  https://www.data.gouv.fr/fr/datasets/616d6531c2951bbe8bd97771/](https://www.data.gouv.fr/fr/datasets/616d6531c2951bbe8bd97771/)  (National - année 2021)
+* Agence bio (parcelles en AB) :[ https://www.data.gouv.fr/fr/datasets/616d6531c2951bbe8bd97771/](https://www.data.gouv.fr/fr/datasets/616d6531c2951bbe8bd97771/) (National - année 2021)
 
 ### Synthèse des résultats obtenus
 
@@ -248,11 +248,9 @@ Les + gros écarts (hors Divers) entre Bio et Non bio concernent les Autres cult
 
 La formule de calcul de calcul mobilisée pour convertir la taille moyenne des parcelles en points d'impacts est intégrée dans le [tableur de calcul](https://docs.google.com/spreadsheets/d/1wkwTva7ofeIHJorrlwmJuv-x0uB2jud4r6pqb7aJOwc/edit?usp=sharing), onglet "cultures".
 
-
-
 <figure><img src="../.gitbook/assets/{36EAE016-AB90-4355-BF34-399B9AFAD490}.png" alt=""><figcaption><p>Rq : image illustrative - les valeurs de référence sont dans le tableur en ligne</p></figcaption></figure>
 
-La formule de calcul appliquée est :&#x20;
+La formule de calcul appliquée est :
 
 $$
 SE_{surface} = Coef_{surface}*Surface*(max((1-ComplémentBrut/SeuilBas);0)-1+ValoMax)
@@ -297,27 +295,27 @@ La formule de calcul de calcul mobilisée pour convertir l'indice de Simpson moy
 
 <figure><img src="../.gitbook/assets/{FD6C678F-0E3A-4D7A-9A36-24DA5AE322DD}.png" alt=""><figcaption><p>Rq : image illustrative - les valeurs de référence sont dans le tableur en ligne</p></figcaption></figure>
 
-La formule de calcul appliquée est :&#x20;
+La formule de calcul appliquée est :
 
-* Lorsque l'indice de Simpson moyen est inférieur au seuil bas :&#x20;
+* Lorsque l'indice de Simpson moyen est inférieur au seuil bas :
 
 $$
 SE_{diversité} = 0
 $$
 
-* Lorsque l'indice de Simpson moyen est supérieur au seuil haut :&#x20;
+* Lorsque l'indice de Simpson moyen est supérieur au seuil haut :
 
 $$
 SE_{diversité} = Coef_{diversité}*Surface*ValoMax
 $$
 
-* Lorsque l'indice de Simpson est compris entre le seuil bas et le seuil haut : &#x20;
+* Lorsque l'indice de Simpson est compris entre le seuil bas et le seuil haut :
 
 $$
 SE_{diversité} = Coef_{diversité}*Surface*(ComplémentBrut-SeuilHaut+ValoMax)
 $$
 
-Avec :&#x20;
+Avec :
 
 * CoefDiversité : Un coefficient global appliqué au résultat et qui pilote le poids donné à ce résultat dans le coût environnemental. Dans le cadre ACV, cela correspond au rapport entre le coefficient de pondération et le facteur de normalisation de la catégorie d'impact considérée.
 * ComplémentBrut : La valeur de l'indice de Simpson moyen des parcelles considérées pour le groupe de culture (blé, maïs, orge...) et le scénario considéré (bio, import, référence). Ces valeurs, tirées de l'exploitation des données introduites ci-dessus, sont listées dans l'onglet "Références par groupe de culture" du [tableur de calcul](https://docs.google.com/spreadsheets/d/1wkwTva7ofeIHJorrlwmJuv-x0uB2jud4r6pqb7aJOwc/edit?usp=sharing).
@@ -343,7 +341,7 @@ Seules les surfaces de prairies permanentes sont valorisées dans le calcul de c
 
 ### Formule de calcul
 
-La formule mobilisée pour convertir les surfaces de prairies en services écosystémiques est mobilisée dans l'onglet "Elevage" du [tableur de calcul](https://docs.google.com/spreadsheets/d/1wkwTva7ofeIHJorrlwmJuv-x0uB2jud4r6pqb7aJOwc/edit?usp=sharing). Elle s'écrit simplement :&#x20;
+La formule mobilisée pour convertir les surfaces de prairies en services écosystémiques est mobilisée dans l'onglet "Elevage" du [tableur de calcul](https://docs.google.com/spreadsheets/d/1wkwTva7ofeIHJorrlwmJuv-x0uB2jud4r6pqb7aJOwc/edit?usp=sharing). Elle s'écrit simplement :
 
 $$
 SE_{prairies} = Coef_{prairies}*Surface_{prairies}

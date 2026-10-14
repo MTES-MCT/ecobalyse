@@ -9,31 +9,31 @@ description: >-
 
 Les impacts de la production des ingrédients agricoles sont issus de la base Agribalyse pour les productions françaises et des bases Ecoinvent et WFLDB pour les produits importés. Malgré la richesse de ces bases, elles sont loin de couvrir l’ensemble des pays de productions et des modes de production. Aussi une logique d'approximation par l'utilisation de proxy doit être mise en œuvre.
 
-S’il est bien sûr souhaitable d’enrichir les bases de données à l’avenir, notamment avec les données développées dans le cadre du projet européen FOODTURE, il est déjà possible de travailler de manière satisfaisante dans la majorité des situations.&#x20;
+S’il est bien sûr souhaitable d’enrichir les bases de données à l’avenir, notamment avec les données développées dans le cadre du projet européen FOODTURE, il est déjà possible de travailler de manière satisfaisante dans la majorité des situations.
 
 Les ingrédients sont définis selon la logique suivante, permettant à l’utilisateur de faire un choix clair :
 
-\-          Production FR
+\- Production FR
 
-\-          Production UE
+\- Production UE
 
-\-          Production hors UE
+\- Production hors UE
 
-\-          Production origine inconnue
+\- Production origine inconnue
 
-\-          Production bio&#x20;
+\- Production bio
 
 L'association des ingrédients et des inventaires de cycle de vie (ICV) pour chaque variante a fait l'objet d'un travail a) méthodologique, de définition des règles d'association b) d'automatisation des associations ingrédient-ICV via un outil Python.
 
-### <mark style="color:green;">**Pour les productions françaises**</mark>&#x20;
+### <mark style="color:green;">**Pour les productions françaises**</mark>
 
 De manière générale, l’inventaire Agribalyse « national average » a été privilégié, reflétant les conditions de productions standards.
 
-_Ex : "Pomme FR" fait appel à l'ICV "Apple, conventional, national average, at orchard (FR)" issu d'Agribalyse_&#x20;
+_Ex : "Pomme FR" fait appel à l'ICV "Apple, conventional, national average, at orchard (FR)" issu d'Agribalyse_
 
 En pratique, l'algorithme est construit sur une fonction de pertinence et une hiérarchisation des sources.
 
-**Priorité 1 : Identifier l'inventaire de production FR en amont du mix de consommation d'un ingrédient donné**.&#x20;
+**Priorité 1 : Identifier l'inventaire de production FR en amont du mix de consommation d'un ingrédient donné**.
 
 La source est l'[annexe 1 d'Agribalyse](https://entrepot.recherche.data.gouv.fr/file.xhtml?persistentId=doi:10.57745/MNNUAN) sur les mix de consommation : ce document permet de récupérer les éventuels proxies ingrédients. Dans l'exemple ci-dessous, on associe l'ingrédient "Figue" au mix de consommation "Fig, consumption mix {FR} U", qui renvoie à l'inventaire {FR} "Peach conventional, national average, at orchard {FR} U".
 
@@ -43,10 +43,10 @@ En cas d'échec,
 
 **Priorité 2 : Identifier l'inventaire le plus pertinent parmi des inventaires candidats d'Agribalyse**
 
-Pour un ingrédient donné, on pré-sélectionne les inventaires candidats contenant le nom de l'ingrédient.  Pour chaque inventaire candidat, un score de pertinence (SP) est calculé. Il dépend de :&#x20;
+Pour un ingrédient donné, on pré-sélectionne les inventaires candidats contenant le nom de l'ingrédient. Pour chaque inventaire candidat, un score de pertinence (SP) est calculé. Il dépend de :
 
 * **la correspondance sémantique** entre le nom de l'ingrédient (ex: "Apple") et le nom de l'inventaire (ex: "_Apple, conventional, national average, at orchard (FR)")._ Cet élément pénalise les inventaires au nom long, qui correspondent généralement à des ingrédients transformés (ex: "_Apple crumble, processed in FR | Ambient (long) | Pack proxy | No preparation | at consumer {FR} \[Ciqual code: 23493] U_").
-* **la distance D du pays de production de l'inventaire à la France** (géocentre à géocentre). Elle est caractérisée selon 4 catégories : <mark style="color:purple;">**a) D = 0**</mark> (inventaire FR): +10 au SP  ; <mark style="color:purple;">**b) 0 < D < 1000km**</mark> (inventaire Europe occidentale) : +8 au SP ; <mark style="color:purple;">**c) 999km < D < 3000km**</mark> (inventaire Europe et Maghreb) : +6 au SP ;  <mark style="color:purple;">**d) 2999km< D**</mark> : -5 au SP
+* **la distance D du pays de production de l'inventaire à la France** (géocentre à géocentre). Elle est caractérisée selon 4 catégories : <mark style="color:purple;">**a) D = 0**</mark> (inventaire FR): +10 au SP ; <mark style="color:purple;">**b) 0 < D < 1000km**</mark> (inventaire Europe occidentale) : +8 au SP ; <mark style="color:purple;">**c) 999km < D < 3000km**</mark> (inventaire Europe et Maghreb) : +6 au SP ; <mark style="color:purple;">**d) 2999km< D**</mark> : -5 au SP
 * **la présence de certains mots clés**. Les mots clés faisant à l'amont de la chaine de valeur / la sortie de ferme sont valorisés (+25 au SP), par exemple "farm gate" ou "at orchard". A l'inverse, les mots clés relatifs à l'aval de la chaine de valeur sont dévalorisés (-30 au SP), par exemple "at consumer", "at supermarket". Enfin, la mention "organic" est également dévalorisée pour la variante FR conventionnelle (-8 au SP).
 
 On identifie ainsi les cinq inventaires candidats au SP le plus important. S'il existe au moins un candidat tel que la distance D est inférieure à 3000km, on prend le candidat au SP le plus important. Si les cinq candidats sont tels que D > 3000km, on considère que le score de pertinence n'est pas suffisamment représentatif. Par exemple, le choix entre deux inventaires {US} (Etats-Unis) et {CN} (Chine) peut être arbitraire et décorrélé des modes de production. Dans une logique conservatrice, on sélectionne alors l'inventaire à l'**ECS** (**Environmental Cost Score** = socle ACV du coût environnemental) minimal.
@@ -122,7 +122,7 @@ A partir du [fichier d'ICV candidats](https://ademecloud.sharepoint.com/:x:/s/C-
 2. À défaut, inventaires localisés en Europe hors UE + France
 3. En dernier recours, inventaires du reste du monde
 
-<figure><img src="../../../.gitbook/assets/image (439).png" alt=""><figcaption></figcaption></figure>
+<figure><img src="../../../.gitbook/assets/image (410).png" alt=""><figcaption></figcaption></figure>
 
 Cette priorisation garantit que, lorsque cela est possible, l’inventaire retenu reflète effectivement les conditions européennes de production.
 
@@ -228,7 +228,7 @@ La sélection s’effectue selon une règle simple :
 1. **Si au moins un candidat hors UE est disponible**, seuls ces candidats sont retenus pour la suite du calcul.
 2. **Si aucun candidat hors UE n’est disponible**, la sélection bascule en mode « fallback UE » et s’appuie alors sur les inventaires européens disponibles.
 
-<figure><img src="../../../.gitbook/assets/image (441).png" alt=""><figcaption></figcaption></figure>
+<figure><img src="../../../.gitbook/assets/image (412).png" alt=""><figcaption></figcaption></figure>
 
 Cette hiérarchisation garantit que la variante « Production hors UE » reflète autant que possible des conditions de production réellement extra-européennes.
 
@@ -259,7 +259,7 @@ Pour chaque ingrédient, le processus génère :
 
 Cette information est exportée dans un fichier CSV de résultats finaux, permettant une vérification et un audit complets des choix réalisés.
 
-_<mark style="color:$primary;">La méthode mise en œuvre pour la variante</mark> <mark style="color:$primary;"></mark><mark style="color:$primary;">**« Production hors Union européenne »**</mark> <mark style="color:$primary;"></mark><mark style="color:$primary;">repose donc sur :</mark>_
+_<mark style="color:$primary;">La méthode mise en œuvre pour la variante</mark>_ _<mark style="color:$primary;">**« Production hors Union européenne »**</mark>_ _<mark style="color:$primary;">repose donc sur :</mark>_
 
 * _<mark style="color:$primary;">l'utilisation du</mark>_ [_<mark style="color:$primary;">fichier commun d’ICV candidats</mark>_](https://ademecloud.sharepoint.com/:x:/s/C-GroupeAffichageEnvironnemental-AffichageAlimentaire-ADEME/IQCx7wK1xblDRKFF4cUnyayBAVjoYEPTwwiaYben3YMlP_0) _<mark style="color:$primary;">valable pour la variante UE ;</mark>_
 * _<mark style="color:$primary;">une hiérarchisation géographique privilégiant explicitement les inventaires non européens ;</mark>_
@@ -268,7 +268,7 @@ _<mark style="color:$primary;">La méthode mise en œuvre pour la variante</mark
 
 _<mark style="color:$primary;">Cette approche permet d’obtenir, pour les ingrédients importés, des ICV cohérents et représentatifs de contextes de production extra-européens, tout en conservant une méthodologie homogène avec les variantes « France » et « UE ».</mark>_
 
-### <mark style="color:green;">**Pour les productions d'origine inconnue**</mark>&#x20;
+### <mark style="color:green;">**Pour les productions d'origine inconnue**</mark>
 
 La variante **« Production origine inconnue »** s’applique lorsque l’utilisateur ne dispose d’aucune information sur la provenance géographique d’un ingrédient.\
 Dans ce cas, il n’est pas possible d’appliquer une priorisation par zone (France, UE, hors UE). L’objectif est donc d’associer à l’ingrédient un ICV **conservateur**, évitant toute sous-estimation des impacts.
@@ -322,11 +322,11 @@ Pour chaque ingrédient, le processus produit :
 * la liste des candidats examinés ;
 * l’indication éventuelle d’un recours à un proxy.
 
-_<mark style="color:$primary;">La variante</mark> <mark style="color:$primary;"></mark><mark style="color:$primary;">**« Production origine inconnue »**</mark> <mark style="color:$primary;"></mark><mark style="color:$primary;">repose donc sur :</mark>_
+_<mark style="color:$primary;">La variante</mark>_ _<mark style="color:$primary;">**« Production origine inconnue »**</mark>_ _<mark style="color:$primary;">repose donc sur :</mark>_
 
 * _<mark style="color:$primary;">une recherche multi-bases non régionalisée ;</mark>_
 * _<mark style="color:$primary;">un filtrage strict vers les productions agricoles primaires ;</mark>_
-* _<mark style="color:$primary;">une sélection</mark> <mark style="color:$primary;"></mark><mark style="color:$primary;">**conservatrice par ECS maximal**</mark> <mark style="color:$primary;"></mark><mark style="color:$primary;">;</mark>_
+* _<mark style="color:$primary;">une sélection</mark>_ _<mark style="color:$primary;">**conservatrice par ECS maximal**</mark>_ _<mark style="color:$primary;">;</mark>_
 * _<mark style="color:$primary;">un mécanisme de fallback via proxies Agribalyse.</mark>_
 
 _<mark style="color:$primary;">Elle permet ainsi de traiter les ingrédients sans information d’origine tout en garantissant une évaluation prudente et traçable des impacts environnementaux.</mark>_
@@ -339,11 +339,11 @@ Dans une logique de simplification et au regard du manque de données sur les pr
 
 Le choix des ICV bio s'est fait parmi :
 
-1. Les ICV bio issus du travail d'extrapolation d'inventaires bio à partir des données conventionnelles d'Agribalyse, mené par le cabinet Ginko pour le compte de l'ADEME. Ceci ne concerne que les productions végétales françaises et importées. Ces ICV seront inclus dans des futures versions d'Agribalyse.&#x20;
+1. Les ICV bio issus du travail d'extrapolation d'inventaires bio à partir des données conventionnelles d'Agribalyse, mené par le cabinet Ginko pour le compte de l'ADEME. Ceci ne concerne que les productions végétales françaises et importées. Ces ICV seront inclus dans des futures versions d'Agribalyse.
 2. Les ICV bio directement issus d'Agribalyse (ex : "Wheat, organic, national average, at farm, Agribalyse).
-3. Les ICV bio construits par Ecobalyse : en l'absence de données bio moyennes, ces ICV correspondent à des moyennes pondérées d'ICV bio disponibles dans Agribalyse. &#x20;
+3. Les ICV bio construits par Ecobalyse : en l'absence de données bio moyennes, ces ICV correspondent à des moyennes pondérées d'ICV bio disponibles dans Agribalyse.
 
-{% file src="../../../.gitbook/assets/20221215 ICV bio moyen ecobalyse (1).xlsx" %}
+{% file src="../../../.gitbook/assets/20221215 ICV bio moyen (1)-8.xlsx" %}
 
 {% hint style="info" %}
 Les procédés construits par Ecobalyse font l'objet d'une [page dédiée](../../../def-cout-environnemental/source-des-procedes.md) présentant tous les cas de figure nécessitant la construction d'un inventaire, ainsi que le lien vers les détails du code pour la construction de ces inventaires.
@@ -351,9 +351,9 @@ Les procédés construits par Ecobalyse font l'objet d'une [page dédiée](../..
 
 #### Méthode de sélection
 
-En pratique, les règles d'association ingrédient-ICV sont semblables  aux règles applicables à la variante France. L'algorithme est construit sur une fonction de pertinence et une hiérarchisation des sources.
+En pratique, les règles d'association ingrédient-ICV sont semblables aux règles applicables à la variante France. L'algorithme est construit sur une fonction de pertinence et une hiérarchisation des sources.
 
-_<mark style="color:$success;">**Priorité 1 : Identifier l'inventaire de production FR en amont du mix de consommation d'un ingrédient donné**</mark><mark style="color:$success;">.</mark>_&#x20;
+_<mark style="color:$success;">**Priorité 1 : Identifier l'inventaire de production FR en amont du mix de consommation d'un ingrédient donné**</mark><mark style="color:$success;">.</mark>_
 
 La source est l'[annexe d'Ecobalyse](https://ademecloud.sharepoint.com/:x:/s/C-GroupeAffichageEnvironnemental-AffichageAlimentaire-ADEME/IQC7GqkQ4u2pQ6qhYU1DxySHAb0C6wSg_oSFB03jhpsLUe8) sur les mix de consommation, construite à partir de l'[annexe 1 d'Agribalyse](https://entrepot.recherche.data.gouv.fr/file.xhtml?persistentId=doi:10.57745/MNNUAN) destinée aux ingrédients conventionnels. Ce fichier fait le lien entre les mix de consommation et inventaires conventionnels et leur équivalent extrapolé bio. Il permet de récupérer facilement les éventuels proxies ingrédients.
 
@@ -363,7 +363,7 @@ _<mark style="color:$success;">**Priorité 3 : Identifier l'inventaire le plus p
 
 Pour les priorités 2 et 3, on raisonne de nouveau avec une fonction qui calcule le score de pertinence d'icv, pour un ingrédient donné.
 
-Ce score de pertinence (SP) est dépend de :&#x20;
+Ce score de pertinence (SP) est dépend de :
 
 * **la correspondance sémantique** entre le nom de l'ingrédient (ex: "Apricot") et le nom de l'inventaire (ex: "_Apricot, organic {FR}| apricot production | Cut-off, U")._
 * **la présence de certains mots clés**. Les mots clés faisant à l'amont de la chaine de valeur / la sortie de ferme sont valorisés (+8 au SP), par exemple "farm gate" ou "at orchard". A l'inverse, les mots clés relatifs à l'aval de la chaine de valeur sont dévalorisés (-20 au SP), par exemple "at consumer", "at supermarket". La mention "at packaging" est moins dévalorisée (-17 au SP), car cette étape n'intervient pas en bout de la chaine de valeur. Enfin, la mention "organic" est également fortement valorisée (+30 au SP), tandis que son absence est dévalorisée (-25 au SP).
@@ -378,13 +378,8 @@ Dans ce cas de figure, on identifie l'inventaire conventionnel associé à l'ing
 
 ### <mark style="color:green;">**Autres labels**</mark>
 
-Quelques données sous labels sont déjà disponibles dans Agribalyse et ont pu être intégrées dans Ecobalyse, c'est le cas pour les oeufs "Bleu Blanc Coeur" par exemple. Il est tout à fait possible de rajouter dans Ecobalyse d'autres labels à l'avenir. Pour cela, les porteurs de labels sont invités à se [rapprocher de l'ADEME et des travaux Agribalyse](../../../impacts-consideres.md).&#x20;
-
-
+Quelques données sous labels sont déjà disponibles dans Agribalyse et ont pu être intégrées dans Ecobalyse, c'est le cas pour les oeufs "Bleu Blanc Coeur" par exemple. Il est tout à fait possible de rajouter dans Ecobalyse d'autres labels à l'avenir. Pour cela, les porteurs de labels sont invités à se [rapprocher de l'ADEME et des travaux Agribalyse](../../../impacts-consideres.md).
 
 L’ensemble des appariements entre ingrédients et ICV est visible dans l’explorateur, et via le bouton "?" disponible à côté du nom de l'ingrédient.
 
-<figure><img src="../../../.gitbook/assets/image (405).png" alt=""><figcaption></figcaption></figure>
-
-
-
+<figure><img src="../../../.gitbook/assets/image (378).png" alt=""><figcaption></figcaption></figure>

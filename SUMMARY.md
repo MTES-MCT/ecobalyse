@@ -2,16 +2,14 @@
 
 ## 💡 Présentation et informations diverses <a href="#ecobalyse-info" id="ecobalyse-info"></a>
 
-***
-
 * [🇫🇷 Ecobalyse](README.md)
-* [🤝 Communauté](communaute.md)
-* [🫴 Contribuer avec vos données](contribuer.md)
-* [Conditions d'utilisation](conditions-dutilisation.md)
-* [ℹ️ Comment lire cette documentation](comment-lire-cette-documentation.md)
-* [Politique de confidentialité de données personnelles](politique-de-confidentialite-de-donnees-personnelles.md)
-* [L'équipe Ecobalyse](lequipe-ecobalyse.md)
-* [Nous contacter](nous-contacter.md)
+* [🤝 Communauté](ecobalyse-info/communaute.md)
+* [🫴 Contribuer avec vos données](ecobalyse-info/contribuer.md)
+* [Conditions d'utilisation](ecobalyse-info/conditions-dutilisation.md)
+* [ℹ️ Comment lire cette documentation](ecobalyse-info/comment-lire-cette-documentation.md)
+* [Politique de confidentialité de données personnelles](ecobalyse-info/politique-de-confidentialite-de-donnees-personnelles.md)
+* [L'équipe Ecobalyse](ecobalyse-info/lequipe-ecobalyse.md)
+* [Nous contacter](ecobalyse-info/nous-contacter.md)
 
 ## 📊 Le coût environnemental <a href="#def-cout-environnemental" id="def-cout-environnemental"></a>
 
@@ -67,7 +65,7 @@
   * [🍚 Rapport cru/cuit](alimentaire/impacts-consideres/rapport-cru-cuit.md)
 * [Complément hors ACV](alimentaire/complement-hors-acv.md)
 * [Paramétrage (old)](alimentaire/complements-hors-acv/README.md)
-  * [🧅 Paramétrage des ingrédients - logique par défaut  (old)](alimentaire/complements-hors-acv/complements-hors-acv.md)
+  * [🧅 Paramétrage des ingrédients - logique par défaut (old)](alimentaire/complements-hors-acv/complements-hors-acv.md)
   * [§Recette en pourcentage (old/brainstorm)](alimentaire/complements-hors-acv/recette-en-pourcentage-old-brainstorm.md)
   * [🥫 Paramétrage des emballages (à remplir une fois les travaux CTCPA implémentés)](alimentaire/complements-hors-acv/complements-hors-acv-1.md)
   * [🧊 Paramétrage de la conservation à l'étape distribution (cf. parties OLD à ajouter?)](alimentaire/complements-hors-acv/complements-hors-acv-2.md)
@@ -155,7 +153,7 @@
   * [🔥 Chaleur](textile/precisions-methodologiques/chaleur.md)
   * [🗑️ Taux de perte et rebut](textile/precisions-methodologiques/pertes-et-rebus.md)
   * [🤯 Circular Footpring Formula (CFF)](textile/precisions-methodologiques/circular-footpring-formula-cff.md)
-  * [👘 Stocks dormants ](textile/precisions-methodologiques/stocks-dormants-deadstock.md)
+  * [👘 Stocks dormants](textile/precisions-methodologiques/stocks-dormants-deadstock.md)
   * [🧥 Upcycling / Remanufacturage](textile/precisions-methodologiques/surcyclage-upcycling.md)
 * [🟩 Compléments hors ACV](textile/complements-hors-acv/README.md)
   * [🌍 Export hors Europe](textile/complements-hors-acv/export-hors-europe.md)

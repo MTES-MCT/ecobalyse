@@ -1,4 +1,4 @@
-# 🍎 Etape 1 : les ingrédients
+# 🍎 Etape 1 : ingrédients
 
 La première étape de la modélisation des produits alimentaires est la sélection des ingrédients composant le produit.
 
@@ -13,9 +13,9 @@ A chaque ingrédient, qu'il s'agisse d'un ingrédient agricole ou d'un ingrédie
 
 Ces inventaires de cycle de vie peuvent relever de plusieurs sources et de plusieurs choix. Les sous-pages suivantes viennent les introduire :
 
-* [La base Agribalyse](https://app.gitbook.com/o/-MMQU-ngAOgQAqCm4mf3/s/-MexpTrvmqKNzuVtxdad/~/changes/1279/alimentaire/impacts-consideres/etape-1-les-ingredients/impacts-consideres)
-* [Ingrédients agricoles - Inventaires mobilisés (impacts ACV)](https://app.gitbook.com/o/-MMQU-ngAOgQAqCm4mf3/s/-MexpTrvmqKNzuVtxdad/~/changes/1279/alimentaire/impacts-consideres/etape-1-les-ingredients/impacts-consideres-1)
-* [Cas particulier des produits issus de la pêche](https://app.gitbook.com/o/-MMQU-ngAOgQAqCm4mf3/s/-MexpTrvmqKNzuVtxdad/~/changes/1279/alimentaire/impacts-consideres/etape-1-les-ingredients/cas-particulier-des-produits-issu-de-la-peche)
-* [Inventaires complexes construits Ecobalyse](https://app.gitbook.com/o/-MMQU-ngAOgQAqCm4mf3/s/-MexpTrvmqKNzuVtxdad/~/changes/1279/alimentaire/impacts-consideres/etape-1-les-ingredients/boeuf-hache)
+* [La base Agribalyse](impacts-consideres.md)
+* [Ingrédients agricoles - Inventaires mobilisés (impacts ACV)](impacts-consideres-1.md)
+* [Cas particulier des produits issus de la pêche](cas-particulier-des-produits-issu-de-la-peche.md)
+* [Inventaires complexes construits Ecobalyse](boeuf-hache.md)
 
 Le détail des procédés correspondant aux ingrédients mobilisés avec Ecobalyse est accessible via la rubrique "procédés" de l'explorateur : [https://ecobalyse.beta.gouv.fr/#/explore/food/food-processes](https://ecobalyse.beta.gouv.fr/#/explore/food/food-processes)

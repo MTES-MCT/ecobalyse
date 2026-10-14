@@ -26,7 +26,7 @@ La répartition des trois voies de transport est ajustée en fonction des pays d
 
 Une [étude de l'ONG suisse "Public Eye" parue fin 2023 ](https://www.publiceye.ch/fr/thematiques/industrie-textile/en-mode-avion-zara-attise-la-crise-climatique)met en lumière l'importance du secteur textile dans le fret aérien. De manière générale, peu de données précises sont disponibles sur ces pratiques car les entreprises du secteur textile sont discrètes à ce sujet.
 
-Quelques enseignements clés de l'étude :&#x20;
+Quelques enseignements clés de l'étude :
 
 * le fret aérien est utilisé au sein même de l'UE alors que l'avantage en terme de temps reste faible (42 658 tonnes de vêtements transportées par avion au sein de l'UE en 2022 d'après les estimations de l'étude),
 * Shein a signé un partenariat stratégique avec China Southern Airlines afin d'optimiser ses flux logistiques aériens,
@@ -42,7 +42,7 @@ $$
 I_{i}=\frac{m}{1000}*D_i∗I_{m_i}
 $$
 
-Avec :&#x20;
+Avec :
 
 * `I_i` : le coût environnemental pour la voie _i_, exprimé en points d'impact Pts
 * `m` : la masse de produit transporté, exprimée en kg. La masse à considérer est ajustée en fonction des [Pertes et rebut](https://fabrique-numerique.gitbook.io/ecobalyse/textile/precisions-methodologiques/pertes-et-rebus).
@@ -58,7 +58,7 @@ $$
 I_{transport}=a*I_{air}+(1-a)*( t∗I_{terre}+(1−t)∗I_{mer})
 $$
 
-Avec :&#x20;
+Avec :
 
 * `I_transport` : le coût environnemental de l'étape de transport considérée, exprimé dans l'unité de la catégorie d'impact analysée
 * `a` : la part de voie aérienne, par rapport aux voies terrestre + maritime + aérienne combinées, valeur sans unité entre 0 et 1 (100%)
@@ -119,17 +119,17 @@ Le transport est ensuite calculé de la même façon que si ce pays était direc
 
 <details>
 
-<summary>Situation 3 : je ne connais pas le pays </summary>
+<summary>Situation 3 : je ne connais pas le pays</summary>
 
 Je sélectionne "Inconnu" ou "Inconnu (par défaut)"
 
-Dans ce cas, l'Inde est utilisée en arrière-plan comme pays de référence pour définir les distances et voies de transport.&#x20;
+Dans ce cas, l'Inde est utilisée en arrière-plan comme pays de référence pour définir les distances et voies de transport.
 
 </details>
 
 ### Répartition terrestre - maritime (`t`)
 
-La part du **transport terrestre (`t`)**, par rapport au transport "terrestre + maritime", est établie comme suit :&#x20;
+La part du **transport terrestre (`t`)**, par rapport au transport "terrestre + maritime", est établie comme suit :
 
 | **Distance terrestre** | **t** |
 | ---------------------- | ----- |
@@ -139,7 +139,7 @@ La part du **transport terrestre (`t`)**, par rapport au transport "terrestre + 
 | 2000 km <= 3000 km     | 25%   |
 | > 3000 km              | 0%    |
 
-_Exemples :_&#x20;
+_Exemples :_
 
 <table><thead><tr><th width="196.98333740234375">t</th><th width="133">Turquie</th><th width="129.54998779296875">France</th><th width="128.9166259765625">Espagne</th><th>Portugal</th></tr></thead><tbody><tr><td>Turquie</td><td>100%</td><td></td><td></td><td></td></tr><tr><td>France</td><td>25%</td><td>100%</td><td></td><td></td></tr><tr><td>Espagne</td><td>0%</td><td>90%</td><td>100%</td><td></td></tr><tr><td>Portugal</td><td>0%</td><td>50%</td><td>90%</td><td>100%</td></tr></tbody></table>
 
@@ -153,7 +153,7 @@ Ce paramètre est modifiable par l'utilisateur.
 
 #### Valeurs par défaut
 
-La part de **transport aérien (`a`)**, par rapport au transport "aérien + terrestre + maritime" est considérée comme suit pour la **valeur par défaut**: &#x20;
+La part de **transport aérien (`a`)**, par rapport au transport "aérien + terrestre + maritime" est considérée comme suit pour la **valeur par défaut**:
 
 **Si le coefficient de durabilité est > 1**
 
@@ -167,11 +167,8 @@ La part de **transport aérien (`a`)**, par rapport au transport "aérien + terr
 
 ## Procédés utilisés pour le coût environnemental
 
-Les procédés utilisés, définissant les coûts environnementaux `I_m_i` , sont identifiés dans l'[Explorateur de procédé](https://ecobalyse.beta.gouv.fr/#/explore/textile/textile-processes), et listés ci-dessous :&#x20;
+Les procédés utilisés, définissant les coûts environnementaux `I_m_i` , sont identifiés dans l'[Explorateur de procédé](https://ecobalyse.beta.gouv.fr/#/explore/textile/textile-processes), et listés ci-dessous :
 
 <table><thead><tr><th width="230">Type de transport</th><th>Procédé (Source)</th></tr></thead><tbody><tr><td>Camion</td><td>market group for transport, freight, lorry, unspecified, GLO (Ecoinvent)</td></tr><tr><td>Bateau</td><td>market for transport, freight, sea, container ship, GLO (Ecoinvent)</td></tr><tr><td>Avion</td><td>market for transport, freight, aircraft, long haul, GLO (Ecoinvent)</td></tr></tbody></table>
 
-<figure><img src="../../.gitbook/assets/image (17).png" alt=""><figcaption></figcaption></figure>
-
-
-
+<figure><img src="../../.gitbook/assets/image (16).png" alt=""><figcaption></figcaption></figure>

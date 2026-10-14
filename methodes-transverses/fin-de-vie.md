@@ -3,7 +3,7 @@
 {% hint style="warning" %}
 Cette section concerne les secteurs objets et véhicules, et dans un futur proche le textile.
 
-Le secteur Alimentaire n'inclut pas de phase de fin de vie.&#x20;
+Le secteur Alimentaire n'inclut pas de phase de fin de vie.
 
 Pour les emballages, la fin de vie est inclue dans les procédés Emballage proposés (voir [page de documentation dédiée](https://fabrique-numerique.gitbook.io/ecobalyse/methodes-transverses-specifiques/emballages)).
 {% endhint %}
@@ -12,24 +12,24 @@ Pour les emballages, la fin de vie est inclue dans les procédés Emballage prop
 Ce modèle est en cours de déploiement. Les éléments non intégrés à ce jour sont clairement indiqués.
 {% endhint %}
 
-## Contexte &#x20;
+## Contexte
 
 ### Les scénarios de fin de vie du produit
 
-Les scénarios de fin de vie d'un produit peuvent être définis avec ces deux critères :&#x20;
+Les scénarios de fin de vie d'un produit peuvent être définis avec ces deux critères :
 
 * la capacité de la filière à collecter le produit en fin de vie (taux de collecte), éventuellement décliné en une collecte pour traitement local d'une part et une collecte pour export d'autre part,
 * la recyclabilité du produit (oui vs non).
 
 Le schéma ci-dessous montre les scénarios possibles de fin de vie :
 
-<figure><img src="../.gitbook/assets/image (469).png" alt=""><figcaption></figcaption></figure>
+<figure><img src="../.gitbook/assets/image (438).png" alt=""><figcaption></figcaption></figure>
 
 ### L'export des produits en fin de vie hors Europe
 
 Dans plusieurs filières, il y a de fait un export des produits en fin de vie hors Europe, plus ou moins maitrisé.
 
-L'export hors Europe de produits en fin de vie conduit souvent à un traitement problématique des déchets :&#x20;
+L'export hors Europe de produits en fin de vie conduit souvent à un traitement problématique des déchets :
 
 * incinération à ciel ouvert
 * enfouissement en décharge non contrôlée
@@ -67,7 +67,7 @@ A chaque type de matériaux sont attachés des ratios de recyclage et incinérat
 
 **Schéma de principe de la modélisation Ecobalyse de la fin de vie :**
 
-<figure><img src="../.gitbook/assets/image (472).png" alt=""><figcaption></figcaption></figure>
+<figure><img src="../.gitbook/assets/image (441).png" alt=""><figcaption></figcaption></figure>
 
 {% hint style="info" %}
 Le détail des calculs avec paramètres et procédés appliqués est disponible en téléchargeant le fichier mis à disposition dans la section "Exemples"
@@ -97,7 +97,7 @@ $$
 {% endtab %}
 {% endtabs %}
 
-Avec :&#x20;
+Avec :
 
 Niveau 0 :
 
@@ -109,7 +109,7 @@ Niveau 0 :
 `I_EoL,FS,i` et `I_EoL,HF,i` sont indiqués dans la calculette Ecobalyse pour chaque type de matériau i
 {% endhint %}
 
-<figure><img src="../.gitbook/assets/image (460).png" alt=""><figcaption></figcaption></figure>
+<figure><img src="../.gitbook/assets/image (429).png" alt=""><figcaption></figcaption></figure>
 
 Niveau 1 :
 
@@ -121,36 +121,36 @@ Niveau 1 :
 * <mark style="color:$primary;">`R_FS,rec,i`</mark> : la part de recyclage du matériau (i) lorsque le produit est collecté et recyclable
 * <mark style="color:$primary;">`R_FS,inc,i`</mark> : la part d'incinération du matériau (i) lorsque le produit est collecté et recyclable
 * <mark style="color:$primary;">`R_FS,lan,i`</mark> : la part d'enfouissement du matériau (i) lorsque le produit est collecté et recyclable
-* <mark style="color:$info;">`R_FS,exp,i`</mark> <mark style="color:$info;"></mark><mark style="color:$info;">: la part d'export et traitement hors Europe du matériau (i) lorsque le produit est collecté et recyclable</mark>
+* <mark style="color:$info;">`R_FS,exp,i`</mark> <mark style="color:$info;">: la part d'export et traitement hors Europe du matériau (i) lorsque le produit est collecté et recyclable</mark>
 * <mark style="color:$primary;">`R_HF,rec,i`</mark> : la part de recyclage du matériau (i) lorsque le produit n'est pas collecté ou pas recyclable (fin de vie hors filière)
 * <mark style="color:$primary;">`R_HF,inc,i`</mark> : la part d'incinération du matériau (i) lorsque le produit n'est pas collecté ou pas recyclable (fin de vie hors filière)
 * <mark style="color:$primary;">`R_HF,lan,i`</mark> : la part d'enfouissement du matériau (i) lorsque le produit n'est pas collecté ou pas recyclable (fin de vie hors filière)
-* <mark style="color:$info;">`R_HF,exp,i`</mark> <mark style="color:$info;"></mark><mark style="color:$info;">: la part d'export et traitement hors Europe du matériau (i) lorsque le produit n'est pas collecté ou pas recyclable (fin de vie hors filière)</mark>
+* <mark style="color:$info;">`R_HF,exp,i`</mark> <mark style="color:$info;">: la part d'export et traitement hors Europe du matériau (i) lorsque le produit n'est pas collecté ou pas recyclable (fin de vie hors filière)</mark>
 * `I_Eol,rec,i` : l'impact environnemental du recyclage d'un kg d'un matériau de la famille de matériaux `i`, dans l'unité de la catégorie d'impact analysée
 * `I_EoL,inc,i` : l'impact environnemental de l'incinération d'un kg d'un matériau de la famille de matériaux `i`, dans l'unité de la catégorie d'impact analysée
-* <mark style="color:$info;">`I_EoL,exp,i`</mark> <mark style="color:$info;"></mark><mark style="color:$info;">: l'impact environnemental du traitement en fin de vie hors Europe d'un kg d'un matériau de la famille de matériaux</mark> <mark style="color:$info;"></mark><mark style="color:$info;">`i`</mark><mark style="color:$info;">, dans l'unité de la catégorie d'impact analysée</mark>
+* <mark style="color:$info;">`I_EoL,exp,i`</mark> <mark style="color:$info;">: l'impact environnemental du traitement en fin de vie hors Europe d'un kg d'un matériau de la famille de matériaux</mark> <mark style="color:$info;">`i`</mark><mark style="color:$info;">, dans l'unité de la catégorie d'impact analysée</mark>
 * `I_EoL,lan,i` : l'impact environnemental de l'enfouissement d'un kg d'un matériau de la famille de matériaux `i` , dans l'unité de la catégorie d'impact analysée
 
 ## Paramètres utilisateurs
 
-### Masse de matériau <mark style="color:$warning;">`m_i`</mark>&#x20;
+### Masse de matériau <mark style="color:$warning;">`m_i`</mark>
 
-Ma masse de matériau pour un type de matériau `i` donné <mark style="color:$warning;">`m_i`</mark> est la sommes des matériaux constitutif du produit, dont le type de matériau est `i`. Pour chaque matériau, le type de matériau correspondant est indiqué dans l'Explorateur de procédé de chaque secteur.&#x20;
+Ma masse de matériau pour un type de matériau `i` donné <mark style="color:$warning;">`m_i`</mark> est la sommes des matériaux constitutif du produit, dont le type de matériau est `i`. Pour chaque matériau, le type de matériau correspondant est indiqué dans l'Explorateur de procédé de chaque secteur.
 
-### Recyclabilité produit <mark style="color:$warning;">`r_p`</mark>&#x20;
+### Recyclabilité produit <mark style="color:$warning;">`r_p`</mark>
 
-La recyclabilité de chaque produit est définie selon des règles spécifiques à chaque secteur. Se référer aux pages sectorielles.&#x20;
+La recyclabilité de chaque produit est définie selon des règles spécifiques à chaque secteur. Se référer aux pages sectorielles.
 
-## Paramètres retenus pour le coût environnemental&#x20;
+## Paramètres retenus pour le coût environnemental
 
 ### Taux de collecte <mark style="color:$primary;">`TC`</mark>
 
-Un taux de collecte de 70% est appliqué par défaut, sauf mention explicite contraire dans les pages sectorielles.&#x20;
+Un taux de collecte de 70% est appliqué par défaut, sauf mention explicite contraire dans les pages sectorielles.
 
-### Taux de recyclage, d'incinération et de traitement hors Europe <mark style="color:$primary;">`R_FS,xxx,i`</mark> et  <mark style="color:$primary;">`R_HF,xxx,i`</mark>
+### Taux de recyclage, d'incinération et de traitement hors Europe <mark style="color:$primary;">`R_FS,xxx,i`</mark> et <mark style="color:$primary;">`R_HF,xxx,i`</mark>
 
 {% tabs %}
-{% tab title="Scénario "Filière Spécifique"" %}
+{% tab title="Scénario " %}
 Ces paramètres sont appliqués pour les produits collectés et traité dans une filière spécifique. A ce jour les paramètres sont communs à tous les secteurs. Ils ont vocation à être définis définis secteur par secteur et seront alors indiqués dans les pages Fin de vie sectorielles.
 
 Voir [page sectorielle Fin de vie Ameublement](https://fabrique-numerique.gitbook.io/ecobalyse/ameublement/cycle-de-vie/etape-4-fin-de-vie-ameublement), avec à ce jour les même données.
@@ -160,13 +160,13 @@ Voir [page sectorielle Fin de vie Ameublement](https://fabrique-numerique.gitboo
 NB : le taux de recyclage de 100% pour les batteries et composants électroniques ne signifie pas que 100% de la matière est recyclée, mais que, s'ils sont bien collectés, ces composants subissent tous un traitement permettant de récupérer une partie des matériaux.
 {% endtab %}
 
-{% tab title="Scénario "Hors filière"" %}
-Ce scénario est applicable par défaut pour les produits non collectés ou non recyclables :&#x20;
+{% tab title="Scénario " %}
+Ce scénario est applicable par défaut pour les produits non collectés ou non recyclables :
 
 <table><thead><tr><th width="195.20001220703125">Type de matériau</th><th width="115.30010986328125">Recyclage R_HF,rec,i</th><th width="126.0999755859375">Incinération R_HF,inc,i</th><th width="154.89990234375">Enfouissement (R_HF,lan,i)</th><th width="128">Traitement Hors Europe R_HF,exp,i</th></tr></thead><tbody><tr><td>Métaux ferreux</td><td>95%</td><td>5%</td><td>0%</td><td>0%</td></tr><tr><td>Aluminium</td><td>50%</td><td>41%</td><td>9%</td><td>0%</td></tr><tr><td>Cuivre</td><td>50%</td><td>41%</td><td>9%</td><td>0%</td></tr><tr><td>Autres matériaux</td><td>0%</td><td>82%</td><td>18%</td><td>0%</td></tr></tbody></table>
 
 {% hint style="info" %}
-Sources :&#x20;
+Sources :
 
 * Tous matériaux (hors métaux) : données issues du scénario "meubles collectés non recyclables" de la filière Ameublement (cf. référentiel Meubles Meublants 2023/FCBA )
 * Métaux : compromis entre les données FCBA (référence ci-dessus) et les données tous secteurs confondu (86% des emballages aciers et 37% des emballages aluminium sont recyclés (Citeo, 2023).
@@ -176,26 +176,26 @@ Sources :&#x20;
 
 ## Procédés utilisés pour le coût environnemental
 
-Les procédés utilisés sont identifiés dans l'Explorateur de procédé.&#x20;
+Les procédés utilisés sont identifiés dans l'Explorateur de procédé.
 
 Ils sont également détaillés ci-dessous.
 
 <details>
 
-<summary>Liste des procédés utilisés : </summary>
+<summary>Liste des procédés utilisés :</summary>
 
-<table><thead><tr><th width="124.9000244140625">Type de matériau i</th><th width="142.20001220703125">Recyclage (source Ecobalyse)</th><th>Incinération (source : Ecoinvent 3.9.1)</th><th>Enfouissement (source : Ecoinvent 3.9.1)</th></tr></thead><tbody><tr><td>Métaux ferreux</td><td>steel EoL recycling, RER, CFF</td><td>scrap steel//[CH] treatment of scrap steel, municipal incineration with fly ash extraction</td><td>waste aluminium//[RoW] treatment of waste aluminium, sanitary landfill</td></tr><tr><td>Aluminium</td><td>aluminium EoL recycling, RER, CFF</td><td>scrap aluminium//[CH] treatment of scrap aluminium, municipal incineration with fly ash extraction</td><td>waste aluminium//[RoW] treatment of waste aluminium, sanitary landfill</td></tr><tr><td>Cuivre</td><td>copper EoL recycling, RER, CFF</td><td>scrap copper//[Europe without Switzerland] treatment of scrap copper, municipal incineration</td><td>waste aluminium//[RoW] treatment of waste aluminium, sanitary landfill</td></tr><tr><td>Bois</td><td>wood EoL recycling, RER, CFF</td><td>waste wood, untreated//[CH] treatment of waste wood, untreated, municipal incineration with fly ash extraction</td><td>waste wood, untreated//[RoW] treatment of waste wood, untreated, sanitary landfill</td></tr><tr><td>Emballage carton</td><td>cardboard EoL recycling, RER, CFF</td><td>waste paperboard//[CH] treatment of waste paperboard, municipal incineration with fly ash extraction</td><td>waste paperboard//[RoW] treatment of waste paperboard, sanitary landfill</td></tr><tr><td>Verre</td><td>glass EoL recycling, RER, CFF</td><td>waste glass//[CH] treatment of waste glass, municipal incineration with fly ash extraction</td><td>inert waste//[RoW] treatment of inert waste, sanitary landfill</td></tr><tr><td>Caoutchouc</td><td>rubber EoL recycling, RER, CFF</td><td>waste plastic, mixture//[CH] treatment of waste plastic, mixture, municipal incineration with fly ash extraction</td><td>municipal solid waste//[RoW] treatment of municipal solid waste, sanitary landfill</td></tr><tr><td>Composites</td><td> </td><td>Treatment of waste plastic, mixture, municipal incineration with fly ash extraction, CH</td><td>municipal solid waste//[RoW] treatment of municipal solid waste, sanitary landfill</td></tr><tr><td>PET</td><td>pet bottle EoL recycling, RER, CFF</td><td>Treatment of waste plastic, mixture, municipal incineration with fly ash extraction, CH</td><td>waste plastic, mixture//[RoW] treatment of waste plastic, mixture, sanitary landfill</td></tr><tr><td>PP</td><td>plastics EoL recycling, RER, CFF</td><td>Treatment of waste plastic, mixture, municipal incineration with fly ash extraction, CH</td><td>waste plastic, mixture//[RoW] treatment of waste plastic, mixture, sanitary landfill</td></tr><tr><td>PEHD</td><td>plastics EoL recycling, RER, CFF</td><td>Treatment of waste plastic, mixture, municipal incineration with fly ash extraction, CH</td><td>waste plastic, mixture//[RoW] treatment of waste plastic, mixture, sanitary landfill</td></tr><tr><td>PEBD</td><td>plastics EoL recycling, RER, CFF</td><td>Treatment of waste plastic, mixture, municipal incineration with fly ash extraction, CH</td><td>waste plastic, mixture//[RoW] treatment of waste plastic, mixture, sanitary landfill</td></tr><tr><td>Plastiques rigides</td><td>plastics EoL recycling, RER, CFF</td><td>Treatment of waste plastic, mixture, municipal incineration with fly ash extraction, CH</td><td>waste plastic, mixture//[RoW] treatment of waste plastic, mixture, sanitary landfill</td></tr><tr><td>PUR</td><td>PUR foam EoL recycling, RER, CFF</td><td>waste polyurethane//[CH] treatment of waste polyurethane, municipal incineration with fly ash extraction</td><td>waste polyurethane//[RoW] treatment of waste polyurethane, sanitary landfill</td></tr><tr><td>Fibres synthétiques</td><td>PET fiber EoL recycling, GLO, CFF</td><td>waste textile, soiled//[CH] treatment of waste textile, soiled, municipal incineration with fly ash extraction</td><td>municipal solid waste//[RoW] treatment of municipal solid waste, sanitary landfill</td></tr><tr><td>Fibres organiques</td><td></td><td>waste textile, soiled//[CH] treatment of waste textile, soiled, municipal incineration with fly ash extraction</td><td>municipal solid waste//[RoW] treatment of municipal solid waste, sanitary landfill</td></tr><tr><td>Carte de circuit imprimé</td><td>Printed Wiring Board EoL recycling, CFF</td><td>waste plastic, consumer electronics//[CH] treatment of waste plastic, consumer electronics, municipal incineration with fly ash extraction</td><td>municipal solid waste//[RoW] treatment of municipal solid waste, sanitary landfill</td></tr><tr><td>Cellule de batteries</td><td>Battery cell EoL recycling, average, CFF</td><td>waste plastic, consumer electronics//[CH] treatment of waste plastic, consumer electronics, municipal incineration with fly ash extraction</td><td>municipal solid waste//[RoW] treatment of municipal solid waste, sanitary landfill</td></tr></tbody></table>
+<table><thead><tr><th width="124.9000244140625">Type de matériau i</th><th width="142.20001220703125">Recyclage (source Ecobalyse)</th><th>Incinération (source : Ecoinvent 3.9.1)</th><th>Enfouissement (source : Ecoinvent 3.9.1)</th></tr></thead><tbody><tr><td>Métaux ferreux</td><td>steel EoL recycling, RER, CFF</td><td>scrap steel//[CH] treatment of scrap steel, municipal incineration with fly ash extraction</td><td>waste aluminium//[RoW] treatment of waste aluminium, sanitary landfill</td></tr><tr><td>Aluminium</td><td>aluminium EoL recycling, RER, CFF</td><td>scrap aluminium//[CH] treatment of scrap aluminium, municipal incineration with fly ash extraction</td><td>waste aluminium//[RoW] treatment of waste aluminium, sanitary landfill</td></tr><tr><td>Cuivre</td><td>copper EoL recycling, RER, CFF</td><td>scrap copper//[Europe without Switzerland] treatment of scrap copper, municipal incineration</td><td>waste aluminium//[RoW] treatment of waste aluminium, sanitary landfill</td></tr><tr><td>Bois</td><td>wood EoL recycling, RER, CFF</td><td>waste wood, untreated//[CH] treatment of waste wood, untreated, municipal incineration with fly ash extraction</td><td>waste wood, untreated//[RoW] treatment of waste wood, untreated, sanitary landfill</td></tr><tr><td>Emballage carton</td><td>cardboard EoL recycling, RER, CFF</td><td>waste paperboard//[CH] treatment of waste paperboard, municipal incineration with fly ash extraction</td><td>waste paperboard//[RoW] treatment of waste paperboard, sanitary landfill</td></tr><tr><td>Verre</td><td>glass EoL recycling, RER, CFF</td><td>waste glass//[CH] treatment of waste glass, municipal incineration with fly ash extraction</td><td>inert waste//[RoW] treatment of inert waste, sanitary landfill</td></tr><tr><td>Caoutchouc</td><td>rubber EoL recycling, RER, CFF</td><td>waste plastic, mixture//[CH] treatment of waste plastic, mixture, municipal incineration with fly ash extraction</td><td>municipal solid waste//[RoW] treatment of municipal solid waste, sanitary landfill</td></tr><tr><td>Composites</td><td></td><td>Treatment of waste plastic, mixture, municipal incineration with fly ash extraction, CH</td><td>municipal solid waste//[RoW] treatment of municipal solid waste, sanitary landfill</td></tr><tr><td>PET</td><td>pet bottle EoL recycling, RER, CFF</td><td>Treatment of waste plastic, mixture, municipal incineration with fly ash extraction, CH</td><td>waste plastic, mixture//[RoW] treatment of waste plastic, mixture, sanitary landfill</td></tr><tr><td>PP</td><td>plastics EoL recycling, RER, CFF</td><td>Treatment of waste plastic, mixture, municipal incineration with fly ash extraction, CH</td><td>waste plastic, mixture//[RoW] treatment of waste plastic, mixture, sanitary landfill</td></tr><tr><td>PEHD</td><td>plastics EoL recycling, RER, CFF</td><td>Treatment of waste plastic, mixture, municipal incineration with fly ash extraction, CH</td><td>waste plastic, mixture//[RoW] treatment of waste plastic, mixture, sanitary landfill</td></tr><tr><td>PEBD</td><td>plastics EoL recycling, RER, CFF</td><td>Treatment of waste plastic, mixture, municipal incineration with fly ash extraction, CH</td><td>waste plastic, mixture//[RoW] treatment of waste plastic, mixture, sanitary landfill</td></tr><tr><td>Plastiques rigides</td><td>plastics EoL recycling, RER, CFF</td><td>Treatment of waste plastic, mixture, municipal incineration with fly ash extraction, CH</td><td>waste plastic, mixture//[RoW] treatment of waste plastic, mixture, sanitary landfill</td></tr><tr><td>PUR</td><td>PUR foam EoL recycling, RER, CFF</td><td>waste polyurethane//[CH] treatment of waste polyurethane, municipal incineration with fly ash extraction</td><td>waste polyurethane//[RoW] treatment of waste polyurethane, sanitary landfill</td></tr><tr><td>Fibres synthétiques</td><td>PET fiber EoL recycling, GLO, CFF</td><td>waste textile, soiled//[CH] treatment of waste textile, soiled, municipal incineration with fly ash extraction</td><td>municipal solid waste//[RoW] treatment of municipal solid waste, sanitary landfill</td></tr><tr><td>Fibres organiques</td><td></td><td>waste textile, soiled//[CH] treatment of waste textile, soiled, municipal incineration with fly ash extraction</td><td>municipal solid waste//[RoW] treatment of municipal solid waste, sanitary landfill</td></tr><tr><td>Carte de circuit imprimé</td><td>Printed Wiring Board EoL recycling, CFF</td><td>waste plastic, consumer electronics//[CH] treatment of waste plastic, consumer electronics, municipal incineration with fly ash extraction</td><td>municipal solid waste//[RoW] treatment of municipal solid waste, sanitary landfill</td></tr><tr><td>Cellule de batteries</td><td>Battery cell EoL recycling, average, CFF</td><td>waste plastic, consumer electronics//[CH] treatment of waste plastic, consumer electronics, municipal incineration with fly ash extraction</td><td>municipal solid waste//[RoW] treatment of municipal solid waste, sanitary landfill</td></tr></tbody></table>
 
 Traitement hors Europe : municipal solid waste//\[GLO] treatment of municipal solid waste, open burning
 
 </details>
 
-Les procédés recyclage ont été créés par Ecobalyse en suivant la méthode CFF, avec les paramètres et suivants (issus autant que possible de la réglementation PEF ou autre source réglementaire) :&#x20;
+Les procédés recyclage ont été créés par Ecobalyse en suivant la méthode CFF, avec les paramètres et suivants (issus autant que possible de la réglementation PEF ou autre source réglementaire) :
 
 {% hint style="info" %}
-Le recyclage d'un matériau donné est évalué comme suit par la CFF : ![](<../.gitbook/assets/image (442).png>)
+Le recyclage d'un matériau donné est évalué comme suit par la CFF : ![](<../.gitbook/assets/image (413).png>)
 
-Avec&#x20;
+Avec
 
 * A\_out un facteur d'allocation des coûts / crédit entre la fin de vie du produit analysé et l'utilisation du matériau recyclé dans un nouveau produit, sur la base de l'équilibre offre/demande du marché
   * A faible : la matière recyclée est fortement demandée, l'enjeu est d'encourager le recyclage en fin de vie. Faible bénéfice à l'usage de matière recyclé, fort bénéfice au recyclage en fin de vie
@@ -222,9 +222,8 @@ La colonne total correspond au total pour 1kg de matériau, collecté ou non col
 
 Traitement hors Europe : 271.86 Pts/kg
 
-## Exemples&#x20;
+## Exemples
 
-Le détail des calculs avec paramètres et procédés appliqué est disponible en téléchargeant le fichier suivant :&#x20;
+Le détail des calculs avec paramètres et procédés appliqué est disponible en téléchargeant le fichier suivant :
 
 {% file src="../.gitbook/assets/Ecobalyse - EoL processes - Clean (1).xlsx" %}
-

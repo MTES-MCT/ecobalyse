@@ -22,7 +22,7 @@ Voir page transverse :
 
 ## Paramètres retenus pour le coût environnemental
 
-#### Recyclabilité produit `r_p`  <a href="#recyclabilite-produit-r_p" id="recyclabilite-produit-r_p"></a>
+#### Recyclabilité produit `r_p` <a href="#recyclabilite-produit-r_p" id="recyclabilite-produit-r_p"></a>
 
 Il est considéré que tous les véhicules sont recyclables. Pour mémoire cela signifie qu'il peut être démantelé et que ses matériaux sont recyclés selon les pourcentages définis pour chacun d'entre eux. Cela ne signifie pas que les matériaux sont recyclés à 100%.
 
@@ -40,12 +40,12 @@ Exemple pour un véhicule très simplifié de 100kg constitué à 50% d'acier, 3
 
 L'essentiel de cette réduction est permise par les 14kg de cellules de batterie, car les matériaux récupérés ont un fort impact en termes de raréfactions de ressources métalliques.
 
-<figure><img src="../../.gitbook/assets/image (477).png" alt=""><figcaption></figcaption></figure>
+<figure><img src="../../.gitbook/assets/image (446).png" alt=""><figcaption></figcaption></figure>
 
 Sur les cellules de batteries spécifiquement, le traitement en fin de vie permet de réduire de 15% à 20% l'impact liée à la fabrication des cellules (hors assemblage et transport) :
 
 * La fabrication de la cellule, implique des procédés de transformations énergivores (énergie non récupérable en fin de vie)
 * Il est considéré que seuls 70% des véhicules sont collectés
 * Seule une partie des métaux est récupérée (90% du cuivre, du Cobalt et du Nickel, 50% du Lithium)
-* Le processus de recyclage vient réduire de l'ordre d'un quart les bénéfices du recyclage&#x20;
+* Le processus de recyclage vient réduire de l'ordre d'un quart les bénéfices du recyclage
 * Sur les métaux récupérés grâce au recyclage, 80% du bénéfice est attribué à la fin de vie de ce produit, les 20% restant étant attribués au produit fabriqué à partir des métaux recyclés (règle de calcul CFF)

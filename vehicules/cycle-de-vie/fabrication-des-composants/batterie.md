@@ -6,7 +6,7 @@ description: Cette page décrit le calcul du coût environnemental de la batteri
 
 ## Contexte
 
-La batterie représente 10% à 50% du coût environnemental d'un véhicule électrique. Ce chiffre varie principalement en fonction de l'autonomie recherchée pour le véhicule (capacité de la batterie), et du poids du véhicule.&#x20;
+La batterie représente 10% à 50% du coût environnemental d'un véhicule électrique. Ce chiffre varie principalement en fonction de l'autonomie recherchée pour le véhicule (capacité de la batterie), et du poids du véhicule.
 
 L'impact environnemental de la batterie dépend également de sa technologie : NMC811, LFP sont les deux principales technologies utilisées aujourd'hui.
 
@@ -22,19 +22,19 @@ La batterie est modélisée comme un composant (voir [page générique](https://
 * Un procédé de transformation "Assemblage batterie" doit être ajouté aux cellules pour prendre en compte les opérations d'assemblage. Ce procédé est appliqué aux cellules uniquement pour permettre une facilité d'utilisation tout en s'intégrant dans la méthode de calcul générique d'Ecobalyse
 * Divers procédés permettent de modéliser les différents matériaux utilisés dans la fabrication de batterie
 
-L'outil XLS suivant permet de construire les composants batteries :&#x20;
+L'outil XLS suivant permet de construire les composants batteries :
 
 {% file src="../../../.gitbook/assets/Battery inventory Ecobalyse 20260706 - public version.xlsx" %}
 
 ## Procédés utilisés pour le coût environnemental
 
-Les cellules suivantes sont modélisées :&#x20;
+Les cellules suivantes sont modélisées :
 
 * LFP hydrothermal, CN
 * LFP Solid State, CN
 * NMC811, CN
 * NMC811, FR<br>
 
-<figure><img src="../../../.gitbook/assets/image (464).png" alt=""><figcaption></figcaption></figure>
+<figure><img src="../../../.gitbook/assets/image (433).png" alt=""><figcaption></figcaption></figure>
 
 Les procédés utilisés sont identifiés dans l'[Explorateur de procédé](https://ecobalyse.beta.gouv.fr/#/explore/textile/textile-processes).

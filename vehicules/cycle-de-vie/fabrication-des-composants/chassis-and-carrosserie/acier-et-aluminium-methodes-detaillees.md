@@ -27,7 +27,7 @@ hidden: true
 ## Étapes de fabrication de l'aluminium
 
 1. Production de l'aluminium primaire\
-   Production à partir d'Alumine (ou oxyde d'Aluminium) par électrolyse (procédé Hall-Héroult). \
+   Production à partir d'Alumine (ou oxyde d'Aluminium) par électrolyse (procédé Hall-Héroult).\
    Ce procédé nécessite beaucoup d'électricité, de l'ordre de 14kWh/kg. Sont impact environnemental dépend donc du site de fabrication et de l'efficacité du procédé
 2.  Production d'un alliage d'aluminium, répartis en deux grande familles :
 
@@ -56,7 +56,7 @@ Le taux de perte et le procédé de transformation final sont également signifi
 
 ## Modélisation retenue dans Ecobalyse
 
-Compte-tenu de la difficulté à connaitre le pays de fabrication de l'aluminium primaire ou de l'acier brut et le taux de recyclage, Ecobalyse ne propose pas de différencier les deux métaux sur ces critères.&#x20;
+Compte-tenu de la difficulté à connaitre le pays de fabrication de l'aluminium primaire ou de l'acier brut et le taux de recyclage, Ecobalyse ne propose pas de différencier les deux métaux sur ces critères.
 
 A court terme, les procédés suivants sont proposés dans Ecobalyse. Les trois premiers sont construits avec un procédé de transformation moyen proposé par Ecoinvent :
 
@@ -75,6 +75,6 @@ A moyen terme, il pourrait être proposé :
 
 Dans Ecoinvent, les pertes lors des étapes de transformation finale de l'aluminium ou de l'acier sont intégrées dans le procédé de transformation. Par exemple, le procédé "metal working, average for aluminium product manufacturing" inclut 0.23kg d'aluminium, correspondant aux pertes supposées dans ce processus de transformation.
 
-Les schémas ci-dessous illustre cette modélisation :&#x20;
+Les schémas ci-dessous illustre cette modélisation :
 
-<figure><img src="../../../../.gitbook/assets/image (348).png" alt=""><figcaption><p>Procédés ecoinvent mis en œuvre pour modéliser 1kg d'aluminium </p></figcaption></figure>
+<figure><img src="../../../../.gitbook/assets/image (326).png" alt=""><figcaption><p>Procédés ecoinvent mis en œuvre pour modéliser 1kg d'aluminium</p></figcaption></figure>

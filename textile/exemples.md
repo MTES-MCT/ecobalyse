@@ -6,7 +6,7 @@ description: Page introduisant la notion d'exemples proposés au début du simul
 
 Le premier champ proposé sur la calculette Ecobalyse textile propose de sélectionner un exemple.
 
-<figure><img src="../.gitbook/assets/image (356).png" alt=""><figcaption></figcaption></figure>
+<figure><img src="../.gitbook/assets/image (332).png" alt=""><figcaption></figcaption></figure>
 
 Les différents exemples proposés permettent d'initier la modélisation d'un vêtement à partir d'un exemple similaire (un jean pour un jean, un Tshirt pour un Tshirt...). **Ce choix initial permet de faciliter les modélisations mais ne remplace ensuite pas le paramétrage de chacun des champs proposés**. La page de documentation "[Paramétrage](https://fabrique-numerique.gitbook.io/ecobalyse/textile/parametrage)" précise les paramètres qui peuvent ou doivent être renseignés suivant l'utilisation qui est faite de l'outil.
 
@@ -19,7 +19,7 @@ Deux types d'exemples sont proposés en première approche :
 
 Ces exemples "par défaut", sont définis, dans leur dénomination même, à travers les trois seuls paramètres qui les caractérisent : Catégorie de produit, Matières, Masse. Ils permettent de faire découler d'autres paramètres nécessaires au calcul.
 
-<figure><img src="../.gitbook/assets/image (317).png" alt=""><figcaption></figcaption></figure>
+<figure><img src="../.gitbook/assets/image (299).png" alt=""><figcaption></figcaption></figure>
 
 L'ensemble des autres paramètres exposés dans la calculette Ecobalyse sont, par défaut, fixés sur une valeur majorante. C'est en particulier le cas pour :
 

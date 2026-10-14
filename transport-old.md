@@ -8,9 +8,9 @@ hidden: true
 
 ## Modélisation Ecobalyse
 
-Les étapes de transport d'un meuble constituent souvent un enjeu clé du coût environnemental du produit. Cela s'explique par le poids significatif du meuble à transporter.&#x20;
+Les étapes de transport d'un meuble constituent souvent un enjeu clé du coût environnemental du produit. Cela s'explique par le poids significatif du meuble à transporter.
 
-L'utilisateur a la possibilité de préciser l'origine de deux paramètres dans le calculateur :&#x20;
+L'utilisateur a la possibilité de préciser l'origine de deux paramètres dans le calculateur :
 
 * l'origine des composants entrant dans la composition de son produit,\
   (ex : l'origine des 4 pieds de chaise d'une chaise de cuisine)
@@ -18,15 +18,15 @@ L'utilisateur a la possibilité de préciser l'origine de deux paramètres dans 
 
 ### Etapes considérées <a href="#distribution" id="distribution"></a>
 
-Les étapes de transport prisent en compte dans le coût environnemental du produit sont :&#x20;
+Les étapes de transport prisent en compte dans le coût environnemental du produit sont :
 
 * le transport des composant depuis leur site de fabrication et le site d'assemblage du meuble,
-* le transport du meuble (produit fini) depuis le site d'assemblage jusqu'à sa fin de vie.&#x20;
+* le transport du meuble (produit fini) depuis le site d'assemblage jusqu'à sa fin de vie.
 
 ### Modes de transport <a href="#procedes" id="procedes"></a>
 
-4 modes de transport sont modélisables dans Ecobalyse. \
-Chaque mode de transport correspond à un procédé Ecoinvent.&#x20;
+4 modes de transport sont modélisables dans Ecobalyse.\
+Chaque mode de transport correspond à un procédé Ecoinvent.
 
 | Type de transport | Procédé                                      |
 | ----------------- | -------------------------------------------- |
@@ -35,19 +35,19 @@ Chaque mode de transport correspond à un procédé Ecoinvent.&#x20;
 | Aérien            | transport, freight, aircraft, long haul, GLO |
 | Ferroviaire       | transport, freight train, GLO                |
 
-<figure><img src=".gitbook/assets/image (335).png" alt=""><figcaption></figcaption></figure>
+<figure><img src=".gitbook/assets/image (315).png" alt=""><figcaption></figcaption></figure>
 
 {% hint style="info" %}
-A date et pour les objets/meubles, seulement 2 modes de transport sont intégrés dans les scénarios : Terrestre et Maritime.&#x20;
+A date et pour les objets/meubles, seulement 2 modes de transport sont intégrés dans les scénarios : Terrestre et Maritime.
 
-Si vous considérez qu'il est souhaitable d'intégrer les modes de transport Aérien et Ferroviaire afin de refléter des pratiques de marché, n'hésitez pas à partager votre retour directement sur la plateforme d'échange [Mattermost ](https://fabrique-numerique.gitbook.io/ecobalyse/communaute)(canal _Ameublement_).&#x20;
+Si vous considérez qu'il est souhaitable d'intégrer les modes de transport Aérien et Ferroviaire afin de refléter des pratiques de marché, n'hésitez pas à partager votre retour directement sur la plateforme d'échange [Mattermost ](https://fabrique-numerique.gitbook.io/ecobalyse/communaute)(canal _Ameublement_).
 {% endhint %}
 
 ### Calcul des distances <a href="#distribution" id="distribution"></a>
 
 La répartition des deux types de transport (terrestre et maritime) est ajustée en fonction des pays de départ et d'arrivée pour chaque étape de transport.
 
-Des scénarios par défaut sont proposés pour répondre aux différents cas d'usage rencontrés sur le cycle de vie d'un meuble :&#x20;
+Des scénarios par défaut sont proposés pour répondre aux différents cas d'usage rencontrés sur le cycle de vie d'un meuble :
 
 <details>
 
@@ -92,7 +92,7 @@ La part du **transport terrestre (t)**, par rapport au transport "terrestre + ma
 
 ### Calcul de l'impact environnemental du transport <a href="#distribution" id="distribution"></a>
 
-À chaque étape, l'impact du transport se calcule comme une pondération des deux types de transport considérés :&#x20;
+À chaque étape, l'impact du transport se calcule comme une pondération des deux types de transport considérés :
 
 $$
 ImpactTransportX=t∗ImpactTerrestre+(1−t)∗ImpactMaritime
@@ -113,4 +113,3 @@ La masse transportée s'exprime en **tonnes**. Une conversion est donc à prendr
 Pour la distribution, il est considéré une distance par défaut de 500 km, effectuée en camion entre un entrepôt situé quelque part en France et un magasin ou point de retrait plus proche du consommateur.
 
 Cette hypothèse est conforme à la méthodologie ADEME (cf. méthodologie d'évaluation des impacts environnementaux des articles d'habillement - section A.2.b.2 p30).
-

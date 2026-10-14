@@ -45,7 +45,7 @@ Parmi les différentes catégories des linges de maison, des tailles de référe
 
 Pour les produits suivants, les tailles de référence définies dans la catégorie habillement sont à suivre : peignoir, poncho de bain, nid d'ange, gigoteuse, turbulette. <mark style="color:$warning;">Ajouter règle de correspondance de taille pour les marques ayant des tailles particulières. Dans l'optique de donner une info consommateur sur le coût environnemental, on peut demander un calcul par taille. Ensuite deuxième indication à donner selon l'unit fonctionnelle : coût/100g, coût/m2, coût/place.</mark>
 
-<figure><img src="../.gitbook/assets/image (476).png" alt=""><figcaption></figcaption></figure>
+<figure><img src="../.gitbook/assets/image (445).png" alt=""><figcaption></figcaption></figure>
 
 Tous les produits non cités ci-dessus pour les linges de lit et articles de literie n'ont pas de taille de référence (ex : édredon, plaid, couvre-lit, jetée de canapé, …).
 
@@ -63,11 +63,11 @@ Ajouter choix des tailles de fils, des fils.cm, tissage/tricotage/temps de confe
 
 Taux de perte en confection
 
-Pièces rondes : nappes, couvre lit, élément de décoration « rond » ou non carré =⇒ 10%\
+Pièces rondes : nappes, couvre lit, élément de décoration « rond » ou non carré =⇒ 10%\
 Pièces carrées : éléments carrés ou rectangulaires : nappes, linge de lit, de maison, etc =⇒ 3% (semble très peu)\
 Source : BP X30-323-24
 
-#### Draps / housses de couette / taies :&#x20;
+#### Draps / housses de couette / taies :
 
 Grammages et densité de fil remontée par les acteurs : 110 g/m2 et 80 fils/cm2.
 
@@ -85,7 +85,7 @@ Deux types existent : absorbantes ou imperméables. Une membrane peut être ajao
 
 #### Articles de literie
 
-Les articles de literie étudiés sont des produits multi-composants. Ils sont composés d'une enveloppe extérieure tissée, ainsi que d'un garnissage synthétique (généralement du polyester), ou d'un garnissage naturel (généralement un mélange de plume et de duvet).&#x20;
+Les articles de literie étudiés sont des produits multi-composants. Ils sont composés d'une enveloppe extérieure tissée, ainsi que d'un garnissage synthétique (généralement du polyester), ou d'un garnissage naturel (généralement un mélange de plume et de duvet).
 
 | Taille de référence 240 x 220 cm | Masse enveloppe | Masse garnissage | Ratio +/- 5% |
 | -------------------------------- | --------------- | ---------------- | ------------ |
@@ -100,36 +100,34 @@ Au niveau 1, fixer un exemple de couette avec grammages fixes. Le metteur en mar
 
 Hypothèse de construction pour les articles de literie (couettes, oreillers) : enveloppe aux mêmes propriétés de construction que les draps.
 
-
-
 ## Phase d'usage
 
 <table><thead><tr><th>Articles</th><th>Durée de vie</th><th width="317">Entretien</th><th>Source</th></tr></thead><tbody><tr><td>Oreillers / Traversins</td><td>1 an</td><td>Pas de nettoyage par défaut, pas de repassage</td><td>BP X30-323-18</td></tr><tr><td>Couettes / Edredons</td><td>2 ans</td><td>Pas de nettoyage avant 2 ans. Sinon 0,4/an. pas de repassage</td><td>BP X30-323-18</td></tr><tr><td>Couvertures</td><td>x</td><td>10 lavage sur tout le cycle de vie, pas de repassage</td><td>BP X30-323-24</td></tr><tr><td>Rideaux</td><td>x</td><td>10 lavage sur tout le cycle de vie, repassage 50% du temps pendant 5 min</td><td>BP X30-323-24</td></tr><tr><td></td><td></td><td></td><td></td></tr></tbody></table>
 
-#### Linges de lit&#x20;
+#### Linges de lit
 
 (Source : BP X30-323-24)
 
-Le scénario d’utilisation est le même pour tous les linges de lit expecté les couvertures. Ils sont entretenus chez les&#x20;consommateurs en machine. Les 100 cycles d’entretiens sont choisis pour quantifier cette phase d’utilisation,&#x20;provenant d’une enquête faite auprès d’utilisateur de draps, de housses et de taie. Les couvertures, moins souvent lavés, sont estimées à une de durée de vie de 10 lavages.
+Le scénario d’utilisation est le même pour tous les linges de lit expecté les couvertures. Ils sont entretenus chez les consommateurs en machine. Les 100 cycles d’entretiens sont choisis pour quantifier cette phase d’utilisation, provenant d’une enquête faite auprès d’utilisateur de draps, de housses et de taie. Les couvertures, moins souvent lavés, sont estimées à une de durée de vie de 10 lavages.
 
 Ces 100 utilisation reviennent à estimer une durée de vie d'environ 8 ans avec un lavage tous les 29 jours.
 
-Concernant le séchage, un scénario simple est proposé : 50 % du temps les articles sèchent en machine&#x20;(période hivernale), 50 % du temps à l’air libre.&#x20;
+Concernant le séchage, un scénario simple est proposé : 50 % du temps les articles sèchent en machine (période hivernale), 50 % du temps à l’air libre.
 
-Repassage&#x20;: Pour les linges de maison qui se repassent, il y a donc 50 repassages à considérer. Les articles se&#x20;répartissent selon deux groupes :
+Repassage : Pour les linges de maison qui se repassent, il y a donc 50 repassages à considérer. Les articles se répartissent selon deux groupes :
 
-*  Pour les taies ou les linges de literie enfant : 3 min / article
+* Pour les taies ou les linges de literie enfant : 3 min / article
 * Pour les tous les autres : 5 min / article
 
-#### Articles de literie&#x20;
+#### Articles de literie
 
 (Source : BP X30-323-24)
 
-Pour la phase d'usage des couettes et édredons, un nettoyage à l’eau une fois une fois sur deux et nettoyage en pressing une fois sur deux sont considérés. Paramètres de modélisation recommandés :&#x20;
+Pour la phase d'usage des couettes et édredons, un nettoyage à l’eau une fois une fois sur deux et nettoyage en pressing une fois sur deux sont considérés. Paramètres de modélisation recommandés :
 
-| Nettoyage à l'eau                                                                                                                                                                                                                                                                                                 | Nettoyage en pressing                                                                                                                                             |
-| ----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- | ----------------------------------------------------------------------------------------------------------------------------------------------------------------- |
-| <p></p><ul><li>Température du lavage : 40°C </li><li>Consommation électrique pour le lavage : 0.185 KWh / kg </li><li>Consommation d’eau pour le lavage : 9.7 L /kg </li><li>Consommation électrique pour le séchage : 0.335 KWh / kg </li><li>Consommation de détergent pour le lavage : 108 g / cycle</li></ul> | <p></p><ul><li>Consommation électrique : 0.9 KWh / kg </li><li>Consommation d’eau : 21L / kg </li><li>Consommation de perchloroethylene : 0,0125 L / kg</li></ul> |
+| Nettoyage à l'eau                                                                                                                                                                                                                                                                                      | Nettoyage en pressing                                                                                                                                    |
+| ------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------ | -------------------------------------------------------------------------------------------------------------------------------------------------------- |
+| <ul><li>Température du lavage : 40°C</li><li>Consommation électrique pour le lavage : 0.185 KWh / kg</li><li>Consommation d’eau pour le lavage : 9.7 L /kg</li><li>Consommation électrique pour le séchage : 0.335 KWh / kg</li><li>Consommation de détergent pour le lavage : 108 g / cycle</li></ul> | <ul><li>Consommation électrique : 0.9 KWh / kg</li><li>Consommation d’eau : 21L / kg</li><li>Consommation de perchloroethylene : 0,0125 L / kg</li></ul> |
 
 ## Fin de vie
 
@@ -141,6 +139,3 @@ Pour la phase d'usage des couettes et édredons, un nettoyage à l’eau une foi
 | Linges de lit      | Filière TLC hors export hors EU |   |
 
 ## Durabilité
-
-
-

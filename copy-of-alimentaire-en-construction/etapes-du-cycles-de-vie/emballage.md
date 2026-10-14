@@ -4,7 +4,7 @@ description: Choix du mode de conditionnement du produit modélisé
 
 # 🥫 Emballage
 
-La troisième étape du paramétrage d'un produit alimentaire dans Ecobalyse est le choix de l'emballage. Cette étape est optionnelle, un produit pouvant ne pas avoir de conditionnement.&#x20;
+La troisième étape du paramétrage d'un produit alimentaire dans Ecobalyse est le choix de l'emballage. Cette étape est optionnelle, un produit pouvant ne pas avoir de conditionnement.
 
 Le paramétrage se fait à travers :
 
@@ -17,11 +17,11 @@ Dans la modélisation des produits CIQUAL de la base Agribalyse, des procédés 
 
 ## Liste de matières proposées
 
-Les matières proposées sont dans la documentation d'Agribalyse&#x20;
+Les matières proposées sont dans la documentation d'Agribalyse
 
-<figure><img src="../../.gitbook/assets/image (199).png" alt=""><figcaption><p>Methodology AGB 3.0- 20200528_ANNEXES-CLEAN_vf.pdf, p205</p></figcaption></figure>
+<figure><img src="../../.gitbook/assets/image (189).png" alt=""><figcaption><p>Methodology AGB 3.0- 20200528_ANNEXES-CLEAN_vf.pdf, p205</p></figcaption></figure>
 
-La liste complète est :&#x20;
+La liste complète est :
 
 | steel      | Acier                      | Steel, unalloyed {RER}\| steel production, converter, unalloyed \| Cut-off, S - Copied from Ecoinvent                                           |
 | ---------- | -------------------------- | ----------------------------------------------------------------------------------------------------------------------------------------------- |
@@ -37,15 +37,13 @@ La liste complète est :&#x20;
 
 ## Caractérisation de chaque matière
 
-La matière sélectionnée est caractérisée par :&#x20;
+La matière sélectionnée est caractérisée par :
 
 * Masse d'emballage (g)
 
 {% hint style="warning" %}
 La masse est exprimée en grammes (g) pour la configuration du conditionnement. Dans le calcul (cf. ci-après), c'est toutefois une masse en kg qui est considérée (kg). Une conversion est donc réalisée.
 {% endhint %}
-
-&#x20;
 
 ## Calcul des impacts
 
@@ -63,7 +61,7 @@ $$
 
 ​
 
-Les impacts considérés peuvent être indifféremment :&#x20;
+Les impacts considérés peuvent être indifféremment :
 
 * l'un des 16 impact PEF proposés dans la base Agribalyse (cf. [impacts-consideres.md](../../textile/pages-textiles-old/impacts-consideres.md "mention")) - \[_**TODO : une modif à prévoir sur cette page, voire sur l'explorateur, pour dissocier l'alimentaire et le textile**_]
 * le score PEF calculé comme une somme pondérée des 16 impacts, en application de la méthode PEF (cf. [https://fabrique-numerique.gitbook.io/ecobalyse/textile/impacts-consideres#score-pef](https://fabrique-numerique.gitbook.io/ecobalyse/textile/impacts-consideres#score-pef) )

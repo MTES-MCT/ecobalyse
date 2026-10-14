@@ -30,7 +30,7 @@ $$
 I_{transport}=t∗I_{terre}+(1−t)∗I_{mer}
 $$
 
-Avec :&#x20;
+Avec :
 
 * `I_transport` : l'impact environnemental de l'étape de transport considérée, exprimé dans l'unité de la catégorie d'impact analysée
 * `t` : la part de voie terrestre considérée, établie selon le tableau indiqué dans la partie "Paramètres retenus pour l’affichage environnemental"
@@ -43,25 +43,25 @@ Avec :&#x20;
 * Transport de composants
 * Transport de certains ingrédients alimentaires
 
-### Modélisation du transport avec part d'aérien ou de ferroviaire modifiable&#x20;
+### Modélisation du transport avec part d'aérien ou de ferroviaire modifiable
 
 Ce modèle permet à l'utilisateur de définir une part de transport aérien ou de transport ferroviaire, selon le type de produit évalué.
 
 L'impact du transport sur chaque étape se calcule comme une pondération des trois types de transport considérés.
 
-Calcul avec paramétrage d'une part de voie aérienne :&#x20;
+Calcul avec paramétrage d'une part de voie aérienne :
 
 $$
 I_{transport}=a*I_{air}+(1-a)*( t∗I_{terre}+(1−t)∗I_{mer})
 $$
 
-Calcul avec paramétrage d'une part de voie ferroviaire :&#x20;
+Calcul avec paramétrage d'une part de voie ferroviaire :
 
 $$
 I_{transport}=f*I_{fer}+(1-f)*( t∗I_{terre}+(1−t)∗I_{mer})
 $$
 
-Avec :&#x20;
+Avec :
 
 * `I_transport` : le coût environnemental de l'étape de transport considérée, exprimé dans l'unité de la catégorie d'impact analysée
 * `a` : la part de voie aérienne paramétrée
@@ -97,7 +97,7 @@ L'impact par voie de transport `I_terre`, `I_mer`, `I_air` ou `I_fer` est calcul
 
 ## Exemple d'application
 
-### Part de voie terrestre&#x20;
+### Part de voie terrestre
 
 <table><thead><tr><th>t (% terrestre)</th><th>Turquie</th><th>France</th><th width="120">Espagne</th><th>Portugal</th></tr></thead><tbody><tr><td>Turquie</td><td>100%</td><td></td><td></td><td></td></tr><tr><td>France</td><td>25%</td><td>100%</td><td></td><td></td></tr><tr><td>Espagne</td><td>0%</td><td>90%</td><td>100%</td><td></td></tr><tr><td>Portugal</td><td>0%</td><td>50%</td><td>90%</td><td>100%</td></tr></tbody></table>
 
@@ -109,8 +109,8 @@ _"Pour un déplacement "Turquie-France", le transport sera fait de 25% de transp
 
 * `D_mer,camion` = `D_mer,camion,défaut` = 1000 km (`D_terre,camion` > 2000km)
 * `D_mer,bateau` = 6108 km
-* `D_terre,camion` =  2971 km
-* `D_air,avion` =  2799 km
+* `D_terre,camion` = 2971 km
+* `D_air,avion` = 2799 km
 
 Pour 1 kg transporté par voie maritime, le coût environnemental est calculé comme suit :
 
@@ -130,7 +130,7 @@ $$
 
 * `t` = 25% ; `a` = 0% ; `f` = 0%
 
-<figure><img src="../../.gitbook/assets/image (429).png" alt=""><figcaption></figcaption></figure>
+<figure><img src="../../.gitbook/assets/image (400).png" alt=""><figcaption></figcaption></figure>
 
 $$
 I_{transport}=a*I_{air}+(1-a)*( t∗I_{terre}+(1−t)∗I_{mer})
@@ -144,7 +144,7 @@ $$
 
 * `t` = 25% ; `a` = 20% ; `f` = 0%
 
-<figure><img src="../../.gitbook/assets/image (430).png" alt=""><figcaption></figcaption></figure>
+<figure><img src="../../.gitbook/assets/image (401).png" alt=""><figcaption></figcaption></figure>
 
 $$
 I_{transport}=36.3+0.8*29.0=59.5Pts

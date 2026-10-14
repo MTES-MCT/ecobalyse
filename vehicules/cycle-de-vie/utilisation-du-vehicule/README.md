@@ -10,7 +10,7 @@ Les énergies utilisées par les véhicules sont aujourd'hui très variées : es
 
 Les émissions au roulage du véhicule dépendent directement de l'énergie utilisée.
 
-### Consommations de carburant&#x20;
+### Consommations de carburant
 
 La consommation de carburant est indiquée par l'utilisateur. Pour assurer une égalité de traitement, les consommations sont évaluée selon un cycle de référence.
 
@@ -22,9 +22,9 @@ La procédure d'essai mondiale harmonisée pour les véhicules légers (Worldwid
 
 <summary>Différence entre consommation sur le cycle de référence et consommation réelle</summary>
 
-La télémétrie mise en place dans les voitures particulières récentes permet de mesurer la consommation réelle de ces véhicules. Ces consommations et leurs différences à la consommation théorique [ont fait l'objet d'une communication par la commission européenne](https://climate.ec.europa.eu/news-your-voice/news/first-commission-report-real-world-co2-emissions-cars-and-vans-using-data-board-fuel-consumption-2024-03-18_en) (voir graphique ci-dessous).&#x20;
+La télémétrie mise en place dans les voitures particulières récentes permet de mesurer la consommation réelle de ces véhicules. Ces consommations et leurs différences à la consommation théorique [ont fait l'objet d'une communication par la commission européenne](https://climate.ec.europa.eu/news-your-voice/news/first-commission-report-real-world-co2-emissions-cars-and-vans-using-data-board-fuel-consumption-2024-03-18_en) (voir graphique ci-dessous).
 
-<figure><img src="../../../.gitbook/assets/image (362).png" alt=""><figcaption><p>Real-world and WLTP consumption of cars</p></figcaption></figure>
+<figure><img src="../../../.gitbook/assets/image (338).png" alt=""><figcaption><p>Real-world and WLTP consumption of cars</p></figcaption></figure>
 
 Ces données présentent un écart de l'ordre de 20% pour l'essence, un peu moins pour le diesel, et une multiplication par 3 à 4.5 pour les véhicules hybrides rechargeables.
 
@@ -40,13 +40,13 @@ Le WMTC révisé est aujourd’hui le cycle de référence pour tous les nouveau
 
 <summary>Détails</summary>
 
-La documentation technique est disponible ici :  [https://unece.org/transport/standards/transport/vehicle-regulations-wp29/global-technical-regulations-gtrs](https://unece.org/transport/standards/transport/vehicle-regulations-wp29/global-technical-regulations-gtrs)
+La documentation technique est disponible ici : [https://unece.org/transport/standards/transport/vehicle-regulations-wp29/global-technical-regulations-gtrs](https://unece.org/transport/standards/transport/vehicle-regulations-wp29/global-technical-regulations-gtrs)
 
 Un rapport de la Commission EU de 2018 sur « les effets de la phase environnementale Euro 5 en ce qui concerne les véhicules de catégorie L » indique : « Les résultats de l’étude ont établi que l’utilisation du cycle WMTC était pertinente pour tous les véhicules de catégorie L. Il contribue à une meilleure protection de l’environnement dans des conditions d’utilisation réelles que les cycles de conduite actuellement utilisés. » [https://www.europarl.europa.eu/RegData/docs\_autres\_institutions/commission\_europeenne/com/2018/0136/COM\_COM(2018)0136\_FR.pdf](https://www.europarl.europa.eu/RegData/docs_autres_institutions/commission_europeenne/com/2018/0136/COM_COM\(2018\)0136_FR.pdf)
 
 Le cycle comporte 3 phases, applicable ou non selon la vitesse maximale du véhicule. De plus les vitesses sont tronquées pour les véhicules limités à 45km/h ou moins (voir graphique ci-dessous).
 
-<figure><img src="../../../.gitbook/assets/image (23).png" alt=""><figcaption></figcaption></figure>
+<figure><img src="../../../.gitbook/assets/image (21).png" alt=""><figcaption></figcaption></figure>
 
 </details>
 
@@ -80,14 +80,14 @@ $$
 I_{energie} = \sum_{0<i<n}C_i*I_{i,vie}
 $$
 
-Avec&#x20;
+Avec
 
 * `I_energie` : l'impact environnemental de la consommation d'énergie en phase utilisation, y compris émissions directes , dans l'unité de la catégorie d'impact analysée
 * `C_i` : la consommation de l'énergie i, en unité de l'énergie pour 100km
-* `I_i` :  l'impact environnemental sur la durée de vie du véhicule de la consommation d'une unité de l'énergie `i` pour 100km, en unité de la catégorie d'impact analysée par unité de l'énergie (Pts/L par exemple)
+* `I_i` : l'impact environnemental sur la durée de vie du véhicule de la consommation d'une unité de l'énergie `i` pour 100km, en unité de la catégorie d'impact analysée par unité de l'énergie (Pts/L par exemple)
 
 {% hint style="info" %}
-Le pédalage est modélisé sur le même principe, avec des valeurs de consommation prédéfinies par Ecobalyse ([voir page dédiée](https://fabrique-numerique.gitbook.io/ecobalyse/vehicules/cycle-de-vie/utilisation-du-vehicule/vehicules-legers-actifs-ou-equipes-de-panneaux-photovoltaiques/energie-apportee-par-pedalage))&#x20;
+Le pédalage est modélisé sur le même principe, avec des valeurs de consommation prédéfinies par Ecobalyse ([voir page dédiée](https://fabrique-numerique.gitbook.io/ecobalyse/vehicules/cycle-de-vie/utilisation-du-vehicule/vehicules-legers-actifs-ou-equipes-de-panneaux-photovoltaiques/energie-apportee-par-pedalage))
 {% endhint %}
 
 ### Émissions de particules
@@ -105,9 +105,9 @@ La consommation totale est renseignée par l'utilisateur pour chaque carburant.
 {% hint style="info" %}
 Ecobalyse ne permet pas encore de préciser séparément la consommation du véhicule, son kilométrage et sa durée de vie en année.
 
-L'outil suivant permet de réaliser ce calcul, avec des propositions de kilométrage et de durée de vie par défaut :&#x20;
+L'outil suivant permet de réaliser ce calcul, avec des propositions de kilométrage et de durée de vie par défaut :
 
-{% file src="../../../.gitbook/assets/Ecobalyse - Calculette utilisation (2).xlsx" %}
+{% file src="../../../.gitbook/assets/Ecobalyse - Calculette utilisation (1).xlsx" %}
 
 Cet outil permet également de prendre en compte des réduction de consommation permises par du pédalage ou par des panneaux photovoltaïques (voir [page dédiée](https://fabrique-numerique.gitbook.io/ecobalyse/vehicules/cycle-de-vie/utilisation-du-vehicule/vehicules-legers-actifs-ou-equipes-de-panneaux-photovoltaiques)).
 {% endhint %}
@@ -130,10 +130,10 @@ $$
 I_{i,vie} = 100*D_{vie}*I_{i,unitaire}
 $$
 
-Avec&#x20;
+Avec
 
 * `I_i,vie` : l'impact environnemental sur la durée de vie du véhicule de la consommation d'une unité de l'énergie `i` pour 100km, en unité de la catégorie d'impact analysée par unité de l'énergie (Pts/L par exemple)
-* `D_vie` : la durée de vie du véhicule en kilomètre (voir [contexte](./#duree-de-vie-des-vehicules))&#x20;
+* `D_vie` : la durée de vie du véhicule en kilomètre (voir [contexte](./#duree-de-vie-des-vehicules))
 * `I_i` : l'impact environnemental associé à la consommation d'une unité de l'énergie `i`, en unité de la catégorie d'impact analysée par unité de l'énergie (Pts/L par exemple)
   * Cela comprends les impacts liés à la fabrication du carburant ainsi que les impacts liés aux émissions à la consommation
 
@@ -144,4 +144,3 @@ L'électricité est modélisée comme Flux externe (voir [Modélisation de la co
 ### Emissions
 
 Des procédés sont construits par Ecobalyse pour quelques normes, en modélisant les principaux polluants (CO, HCNM/NMVOC, NOx, Particules) comme flux élémentaires dans la biosphère.
-

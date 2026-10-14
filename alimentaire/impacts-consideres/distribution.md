@@ -23,7 +23,7 @@ Hormis les transports, cette étape du cycle de vie a un impact qui provient de 
 
 Pour estimer l'impact d'un produit, on a besoin de sa densité. Les hypothèses de la documentation Agribalyse sont reprises :
 
-<figure><img src="../../.gitbook/assets/image (407).png" alt=""><figcaption></figcaption></figure>
+<figure><img src="../../.gitbook/assets/image (152).png" alt=""><figcaption></figcaption></figure>
 
 <figure><img src="../../.gitbook/assets/image2.png" alt=""><figcaption></figcaption></figure>
 
@@ -58,11 +58,5 @@ On calcule le volume du produit à partir de sa densité. Ce calcul est détaill
 L'impact est la multiplication du volume par les différentes consommations détaillées dans le tableau ci-dessous :
 
 <figure><img src="https://fabrique-numerique.gitbook.io/~gitbook/image?url=https%3A%2F%2F3014938591-files.gitbook.io%2F%7E%2Ffiles%2Fv0%2Fb%2Fgitbook-x-prod.appspot.com%2Fo%2Fspaces%252FfA9H8AuabUDfceZJ9lm7%252Fuploads%252FEoprrFQcdZtJ2uZlrwRk%252Fimage.png%3Falt%3Dmedia%26token%3Dcd7f0ee4-d32a-4092-9ad2-61e4ca5fc9bb&#x26;width=768&#x26;dpr=4&#x26;quality=100&#x26;sign=2fba8df7&#x26;sv=2" alt=""><figcaption><p>Méthodologie AGB 3.0-20200218_rapport-vf2.pdf</p></figcaption></figure>
-
-
-
-
-
-
 
 <br>

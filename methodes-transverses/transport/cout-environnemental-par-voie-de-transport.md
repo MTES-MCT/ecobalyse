@@ -8,17 +8,17 @@ description: >-
 
 ## Contexte
 
-Lorsqu'un produit est transporté par voie maritime (voie `mer`), en général deux modes de transport sont mobilisés : le bateau, mais aussi le camion pour le transport terrestre vers le port d'origine et depuis le port de destination :&#x20;
+Lorsqu'un produit est transporté par voie maritime (voie `mer`), en général deux modes de transport sont mobilisés : le bateau, mais aussi le camion pour le transport terrestre vers le port d'origine et depuis le port de destination :
 
-<figure><img src="../../.gitbook/assets/image (426).png" alt=""><figcaption></figcaption></figure>
+<figure><img src="../../.gitbook/assets/image (397).png" alt=""><figcaption></figcaption></figure>
 
-Il en est de même pour le transport par voie aérienne (voie `air`) :&#x20;
+Il en est de même pour le transport par voie aérienne (voie `air`) :
 
-<figure><img src="../../.gitbook/assets/image (427).png" alt=""><figcaption></figcaption></figure>
+<figure><img src="../../.gitbook/assets/image (398).png" alt=""><figcaption></figcaption></figure>
 
-Pour le transport par voie routière (voie `terre`), le camion est le seul mode de transport :&#x20;
+Pour le transport par voie routière (voie `terre`), le camion est le seul mode de transport :
 
-<figure><img src="../../.gitbook/assets/image (462).png" alt=""><figcaption></figcaption></figure>
+<figure><img src="../../.gitbook/assets/image (431).png" alt=""><figcaption></figcaption></figure>
 
 Enfin, pour le transport par voie ferroviaire (voie `fer`), il peut y avoir une combinaison avec du transport routier. Cependant, aujourd'hui l'essentiel du transport ferroviaire de marchandise (hors transport messagerie) est réalisé pour des produits industriels dont le producteur et le destinataire sont raccordés au réseau ferroviaire (exemples : usine automobile vers un centre de distribution, transport de bois). Cette voie de transport n'est pas encore implémentée dans Ecobalyse.
 
@@ -32,7 +32,7 @@ $$
 I_{v.i}=\frac{m}{1000}*(D_{ToHub,depart}∗I_{camion}+D_{i}∗I_{m.2}*D_{ToHub,arrivée}∗I_{camion})
 $$
 
-Avec :&#x20;
+Avec :
 
 * `I_v.i` : le coût environnemental par voie, exprimé en points d'impact Pts
 * `m` : la masse de produit transporté, exprimée en kg. La masse transportée dépend de l'étape du cycle de vie à laquelle a lieu le transport.
@@ -49,7 +49,7 @@ Pour un pays donné, `D_ToHub,départ` est identique à `D_ToHub,arrivée`.
 
 Les valeurs sont indiquées dans la section "Paramètres retenus pour l’affichage environnemental".
 
-Lorsque deux étapes successives sont réalisées dans un même pays, le coût environnemental du transport est calculé de la façon suivante :&#x20;
+Lorsque deux étapes successives sont réalisées dans un même pays, le coût environnemental du transport est calculé de la façon suivante :
 
 $$
 I=\frac{m}{1000}*(D_{ToHub}∗I_{camion})
@@ -69,7 +69,7 @@ Le tableau suivant décrit les sources de données et le mode de calcul des dist
 
 [Toutes les distances entre pays (identifiés par leurs code alpha-2) sont visibles sur cette page](https://github.com/MTES-MCT/wikicarbone/blob/master/public/data/transports.json) (hors distances vers et depuis les ports et aéroports).
 
-### Distances `D_ToHub`&#x20;
+### Distances `D_ToHub`
 
 Les autres distances sont paramétrées pour chaque zone géographique et sont disponibles dans l'explorateur "Pays" ("Distance au hub").
 
@@ -97,11 +97,11 @@ Exemple pour le pays _Allemagne ⇒_ je sélectionne la région _Europe de l'Oue
 
 <details>
 
-<summary>Situation 3 : je ne connais pas le pays </summary>
+<summary>Situation 3 : je ne connais pas le pays</summary>
 
 Je sélectionne "Inconnu"
 
-Dans ce cas, les distances suivantes sont fixées par défaut, en cohérence avec la méthode PEF ([Product Environmental Footprint Category Rules Guidance](https://eplca.jrc.ec.europa.eu/permalink/PEFCR_guidance_v6.3-2.pdf), 7.14.3 From factory to final client) :&#x20;
+Dans ce cas, les distances suivantes sont fixées par défaut, en cohérence avec la méthode PEF ([Product Environmental Footprint Category Rules Guidance](https://eplca.jrc.ec.europa.eu/permalink/PEFCR_guidance_v6.3-2.pdf), 7.14.3 From factory to final client) :
 
 * `D_mer` = 18 000 km
 * `D_air` = 10 000 km
@@ -121,7 +121,7 @@ Sauf indication contraire spécifique, les modes de transport sont modélisés p
 Le choix est fait de ne pas différencier les procédés en fonction de la géographie ou du type de produit, à des fins de simplification, et au regard de l'impact sur le coût environnemental global des produits. A titre d'exemple, le procédé Ecoinvent "transport, freight, lorry 16-32 metric ton, EURO5, RER" a un coût environnemental presque égale à celui du procédé "market group for transport, freight, lorry, unspecified" (différence inférieure à 1%), alors que le transport par camion représente en général une faible part du coût environnemental d'un produit.
 {% endhint %}
 
-Il en résulte les coûts environnementaux par mode de transport suivant (correspondant aux valeurs `I_m_j` ci-dessus) :&#x20;
+Il en résulte les coûts environnementaux par mode de transport suivant (correspondant aux valeurs `I_m_j` ci-dessus) :
 
 <figure><img src="../../.gitbook/assets/image (13).png" alt=""><figcaption></figcaption></figure>
 
@@ -134,7 +134,7 @@ Il en résulte les coûts environnementaux par mode de transport suivant (corres
 * `D_intrazone,arrivée`= 500km
   * Correspondant par exemple à 500km en Inde + 500km en France, voir schéma ci-dessous
 
-<figure><img src="../../.gitbook/assets/image (421).png" alt=""><figcaption></figcaption></figure>
+<figure><img src="../../.gitbook/assets/image (393).png" alt=""><figcaption></figcaption></figure>
 
 Pour 1 kg transporté par voie maritime, le coût environnemental est calculé comme suit :
 
@@ -148,7 +148,7 @@ $$
 
 ### Exemple 3 : Transport interne à la France
 
-* `D_intrazone`  = 500 km
+* `D_intrazone` = 500 km
 
 $$
 I_{v.terre}=\frac{m}{1000}*D_{terre,camion}∗I_{camion}
@@ -169,4 +169,3 @@ Pour 1 kg transporté par voie maritime, le coût environnemental est calculé c
 $$
 I_{v.mer}=\frac{1}{1000}*(18000∗1.3+2000∗15.5)=54.3 Pts
 $$
-

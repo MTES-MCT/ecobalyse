@@ -1,14 +1,12 @@
 # 🐑 Viande d'agneau
 
-
-
 {% hint style="danger" %}
 **Page en construction**
 {% endhint %}
 
 ## Construction de l'ingrédient viande d'agneau à partir du procédé agricole
 
-L'épaule d'agneau correspond à l'ICV suivant :&#x20;
+L'épaule d'agneau correspond à l'ICV suivant :
 
 * Meat with bone, lamb/FR U
 
@@ -16,7 +14,7 @@ $$
 ViandeAgneauREF
 $$
 
-Ce procédé est construit à partir de :&#x20;
+Ce procédé est construit à partir de :
 
 * Lamb, conventional, indoor production system, at farm gate
 
@@ -24,7 +22,7 @@ $$
 AgneauREF
 $$
 
-* de procédés d'abattage :&#x20;
+* de procédés d'abattage :
 
 <figure><img src="../../../.gitbook/assets/agneau 1.png" alt=""><figcaption></figcaption></figure>
 
@@ -35,8 +33,6 @@ On construit différents procédés de viande d'agneau **(N)**, sur la base du p
 $$
 ImpactViandeAgneau_N = (ImpactViandeAgneauREF - ImpactAgneauREF )+ImpactAgneau_N
 $$
-
-
 
 ## Procédés retenus
 
@@ -55,7 +51,4 @@ Lamb, organic, system n°2, at farm gate
 
 Lamb, organic, system n°3, at farm gate
 
-
-
-<figure><img src="../../../.gitbook/assets/image (213).png" alt=""><figcaption></figcaption></figure>
-
+<figure><img src="../../../.gitbook/assets/image (200).png" alt=""><figcaption></figcaption></figure>

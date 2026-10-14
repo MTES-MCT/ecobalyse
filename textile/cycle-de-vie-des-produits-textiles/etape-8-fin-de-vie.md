@@ -13,14 +13,14 @@ Trois scénarios de fin de vie sont identifiables pour les vêtements :
 
 Le PEFCR Apparel & Footwear détaille bien les deux premiers scénarios (voir ci-dessous), mais considère que 100% des vêtements exportés sont réutilisés et ne génèrent aucun impact, ce qui ne correspond pas à la réalité et présente une limite à la méthode.
 
-C'est pourquoi un complément hors ACV "Export hors Eurpoe" a été introduit par Ecobalyse en septembre 2023. Ce complément est détaillé dans une page spécifique [Export hors Europe](https://fabrique-numerique.gitbook.io/ecobalyse/textile/complements-hors-acv/export-hors-europe).&#x20;
+C'est pourquoi un complément hors ACV "Export hors Eurpoe" a été introduit par Ecobalyse en septembre 2023. Ce complément est détaillé dans une page spécifique [Export hors Europe](https://fabrique-numerique.gitbook.io/ecobalyse/textile/complements-hors-acv/export-hors-europe).
 {% endhint %}
 
 **Cette page décrit les méthodes pour la fin de vie incluent dans le PEFCR Apparel & Footwear v1.3, hors complément.**
 
 ### **Scénarios** PEFCR Apparel & Footwear
 
-<figure><img src="../../.gitbook/assets/image (432).png" alt=""><figcaption></figcaption></figure>
+<figure><img src="../../.gitbook/assets/image (403).png" alt=""><figcaption></figcaption></figure>
 
 Le recyclage consiste essentiellement en du recyclage en chiffons (_wipers_) et en matériaux d'isolation (_insulation_). La prise en compte de ce recyclage se fait via la Circular Footprint Formula (CFF). [Nous avons estimé l'impact de ces circuits de recyclage et trouvé qu'il était négligeable sur cette page.](https://fabrique-numerique.gitbook.io/ecobalyse/textile/cycle-de-vie-des-produits-textiles/etape-1-matieres/circular-footprint-formula-cff-matiere-1)
 
@@ -36,7 +36,7 @@ Les étapes suivantes sont évaluées et détaillées dans ce paragraphe : Le tr
 
 ### Calcul général
 
-Le calcul se décompose en une partie&#x20;
+Le calcul se décompose en une partie
 
 $$
 I_{8} = \frac{m}{1000}* I_{EoL}+d_{collection,car}*\frac{V_{vetement}}{V_{coffre}}*I_{car}
@@ -46,7 +46,7 @@ Avec :
 
 * `I_8` : l'impact environnemental de la fin de vie (hors complément hors ACV), dans l'unité de la catégorie d'impact analysée
 * `m` : la masse du vêtement, exprimée en kg,
-* `I_EoL` :  l'impact environnemental relatif à la fin de vie, dans l'unité de la catégorie d'impact analysée par kg
+* `I_EoL` : l'impact environnemental relatif à la fin de vie, dans l'unité de la catégorie d'impact analysée par kg
 * `d_collection,car` : la distance parcourue en voiture pour déposer un vêtement dans un point de collecte (distance entre le domicile du consommateur et le point de collecte), en km
 * `V_vetement` : le volume du vêtement étudié, en m3
 * `V_coffre` : le volume de coffre moyen d'une voiture, en m3
@@ -64,16 +64,16 @@ Avec :
 Ces données sont directement issues du PEFCR Apparel & Footwear 3.1, Table 44 (voir ci-dessous).
 
 * Volume du vêtement étudié `V_vetement` : voir colonne _Default product_ dans le tableau.
-* Volume de coffre moyen d'une voiture&#x20;
+* Volume de coffre moyen d'une voiture
   * `V_coffre` = 0.2m3
 
 Le rapport des deux correspond à la part du coffre occupée par le vêtement. Ce ratio est fourni dans la Table 44 ci-dessous, colonne _Allocation_).
 
-<figure><img src="../../.gitbook/assets/image (431).png" alt=""><figcaption></figcaption></figure>
+<figure><img src="../../.gitbook/assets/image (402).png" alt=""><figcaption></figcaption></figure>
 
 ## Procédés utilisés pour le coût environnemental
 
-Les procédés utilisés sont identifiés dans l'[Explorateur de procédé](https://ecobalyse.beta.gouv.fr/#/explore/textile/textile-processes) :&#x20;
+Les procédés utilisés sont identifiés dans l'[Explorateur de procédé](https://ecobalyse.beta.gouv.fr/#/explore/textile/textile-processes) :
 
 * I\_EoL : [Fin de vie hors voiture (transport en camion, incinération, mise en décharge)](https://ecobalyse.beta.gouv.fr/versions/v7.0.0/#/explore/textile/textile-processes/ab96b73f-8534-59ad-9f34-a579abe3b023)
 * I\_car : [Transport en voiture jusqu'au point de collecte précalculé pour la fin de vie](https://ecobalyse.beta.gouv.fr/versions/v7.0.0/#/explore/textile/textile-processes/2fd6b74f-600a-577c-ba37-b84d8f0482c2)
@@ -89,11 +89,11 @@ $$
 
 Avec :
 
-* `I_EoL` :  l'impact environnemental relatif à la fin de vie, dans l'unité de la catégorie d'impact analysée par kg
-* `I_rec,collection,truck` :  l'impact environnemental du transport en camion pour la collecte de vêtement destinés au recyclage, dans l'unité de la catégorie d'impact analysée
-* `I_wm,collection,truck` :  l'impact environnemental du transport en camion pour la collecte de vêtement en tant qu'ordures ménagères, dans l'unité de la catégorie d'impact analysée
-* `I_EoL,incineration` :  l'impact environnemental relatif à l'incinération, dans l'unité de la catégorie d'impact analysée
-* `I_EoL,landfill` :  l'impact environnemental relatif à l'enfouissement, dans l'unité de la catégorie d'impact analysée
+* `I_EoL` : l'impact environnemental relatif à la fin de vie, dans l'unité de la catégorie d'impact analysée par kg
+* `I_rec,collection,truck` : l'impact environnemental du transport en camion pour la collecte de vêtement destinés au recyclage, dans l'unité de la catégorie d'impact analysée
+* `I_wm,collection,truck` : l'impact environnemental du transport en camion pour la collecte de vêtement en tant qu'ordures ménagères, dans l'unité de la catégorie d'impact analysée
+* `I_EoL,incineration` : l'impact environnemental relatif à l'incinération, dans l'unité de la catégorie d'impact analysée
+* `I_EoL,landfill` : l'impact environnemental relatif à l'enfouissement, dans l'unité de la catégorie d'impact analysée
 
 **Impact environnemental camion pour la collecte en vue d'un recyclage `I_sort,collection,truck`**
 
@@ -158,13 +158,9 @@ Avec :
 * `m` : la masse du vêtement, exprimée en kg
 * `I_EoL,landfill` : l'impact environnemental relatif à l'incinération d'1 kg de produits, dans l'unité de la catégorie d'impact analysée par kg
 
-
-
 _<mark style="color:$info;">**NB : Les valeurs des paramètres sont directement issues du PEFCR Apparel & Footwear 3.1, essentiellement dans la Table 45 ci-dessous).**</mark>_
 
 _<mark style="color:$info;">**Les valeurs de chaque paramètre sont également détaillées dans les sections suivantes.**</mark>_
-
-
 {% endhint %}
 
 <figure><img src="../../.gitbook/assets/Capture d&#x27;écran 2025-09-25 171126.png" alt=""><figcaption></figcaption></figure>
@@ -176,6 +172,3 @@ Exemple pour un T-shirt de masse `m`=170g.
 $$
 I_{8} = \frac{m}{1000}* I_{EoL}+d_{collection,car}*\frac{V_{vetement}}{V_{coffre}}*I_{car} =  \frac{0.17}{1000}*33.11+1*\frac{0.0018}{0.2}*1.94=5.65Pts
 $$
-
-
-

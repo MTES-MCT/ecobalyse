@@ -7,8 +7,6 @@ description: >-
 
 # Matières manquantes
 
-
-
 <details>
 
 <summary>Cas 1: La matière manquante représente moins de 20% de la masse</summary>
@@ -26,4 +24,4 @@ Choix d’une autre matière en suivant le tableau de correspondance
 
 </details>
 
-<figure><img src="../../../.gitbook/assets/image (475).png" alt=""><figcaption></figcaption></figure>
+<figure><img src="../../../.gitbook/assets/image (444).png" alt=""><figcaption></figcaption></figure>

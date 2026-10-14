@@ -18,15 +18,13 @@ On calcule le volume du produit à partir de sa densité. Ce calcul est détaill
 
 L'impact est la multiplication du volume par les différentes consommations détaillées dans le tableau ci-dessous :
 
-<figure><img src="../../.gitbook/assets/image (221).png" alt=""><figcaption><p>Méthodologie AGB 3.0-20200218_rapport-vf2.pdf</p></figcaption></figure>
-
-
+<figure><img src="../../.gitbook/assets/image (208).png" alt=""><figcaption><p>Méthodologie AGB 3.0-20200218_rapport-vf2.pdf</p></figcaption></figure>
 
 <details>
 
 <summary>Exemple de calcul</summary>
 
-Pour 1 kg de produit surgelé, de densité 1 kg/L. Notons son volume V. On a V = 1 L = 0.001 m3. Calculons l'impact de la vente au détail I\_vente. Cela dépend de :&#x20;
+Pour 1 kg de produit surgelé, de densité 1 kg/L. Notons son volume V. On a V = 1 L = 0.001 m3. Calculons l'impact de la vente au détail I\_vente. Cela dépend de :
 
 * I\_energy : l'impact de l'énergie consommé dans le magasin (éclairage,...)
 * I\_cooling : l'impact du maintien au froid du produit congelé
@@ -34,7 +32,7 @@ Pour 1 kg de produit surgelé, de densité 1 kg/L. Notons son volume V. On a V =
 
 Ces impacts se calculent à partir des impacts unitaires suivant :
 
-* Iu\_élec : l'impact d'un kWh d'électricité&#x20;
+* Iu\_élec : l'impact d'un kWh d'électricité
 * Iu\_water : l'impact d'un m3 d'eau
 
 et des quantités suivantes :
@@ -66,9 +64,4 @@ I_vente = 0.001 * [(61.54 + 415.38)* Iu_élec
 
 </details>
 
-
-
 ## Pertes (à venir)
-
-
-

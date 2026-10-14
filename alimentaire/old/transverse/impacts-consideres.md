@@ -6,12 +6,12 @@ description: Proposition de page commune alim & textile
 
 ## Impacts agrégés et impacts détaillés
 
-**2 impacts agrégés**, c'est à dire regroupant différents impacts après normalisation et pondération, sont proposés dans Ecobalyse alimentaire :&#x20;
+**2 impacts agrégés**, c'est à dire regroupant différents impacts après normalisation et pondération, sont proposés dans Ecobalyse alimentaire :
 
 * un **coût environnemental**, traduisant la version beta de méthodologie présentée aux partenaires le 27 mars 2023, en vue de l'établissement futur d'une méthodologie de calcul pour l'affichage environnemental réglementaire français (cf. [article L.541-9-12 du code de l'environnement](https://www.legifrance.gouv.fr/codes/article_lc/LEGIARTI000043959458)) ;
 * un **score PEF** tel que défini dans la [recommandation de la Commission européenne du 16 décembre 2021](https://eur-lex.europa.eu/legal-content/EN/TXT/?uri=PI_COM%3AC%282021%299332) sur l'utilisation des méthode d'évaluation des empreintes environnementales.
 
-**Le détail des catégories d'impacts ACV** peut également être visualisé :&#x20;
+**Le détail des catégories d'impacts ACV** peut également être visualisé :
 
 * Les 16 catégories d'impacts de la méthode PEF ([lien](impacts-consideres.md#16-categories-dimpacts-pef))
 * La catégorie d'impact corrigée relative à l'écotoxicité (l[ien](impacts-consideres.md#indicateurs-de-toxicite-et-decotoxicite-corriges))
@@ -23,8 +23,6 @@ A terme, deux autres catégories d'impact ACV, relatives à la biodiversité mar
 Les impacts sont ensuite agrégés suivant la **règle de l'affectation unique** introduite dans le rapport du Conseil scientifique. Chaque catégorie d'impacts est ainsi rattachée à la catégorie à laquelle elle contribue le plus.
 
 <figure><img src="../../../.gitbook/assets/Mono-affectation.png" alt=""><figcaption><p>Répartition des catégories suivant la règle de l'affectation unique</p></figcaption></figure>
-
-
 
 ## Normalisations et pondérations
 
@@ -38,7 +36,7 @@ Les niveaux de normalisation et de pondération sont détaillés dans l'[explora
 
 Pour la construction du coût environnemental, **les mêmes coefficients de normalisation que ceux du score PEF** sont appliqués.
 
-Pour la **pondération**, la méthode de l'affichage environnemental établit que : &#x20;
+Pour la **pondération**, la méthode de l'affichage environnemental établit que :
 
 * la pondération du changement climatique est maintenue à 21,06% ;
 * la pondération de l'écotoxicité eau douce est réhaussée à 21,06% (détail des explications [ici](impacts-consideres.md#correction-des-indicateurs-de-toxicite-et-decotoxicite)) ;
@@ -51,19 +49,19 @@ Cette règle est une des deux options introduites dans le rapport du Conseil sci
 
 ## Unité du coût environnemental
 
-Le coût environnemental est exprimé en _**points d'impacts**_.&#x20;
+Le coût environnemental est exprimé en _**points d'impacts**_.
 
-Ce _**point d'impact**_ provient du "micro-point PEF". Le point PEF correspond à l’impact environnemental annuel d'un habitant européen.&#x20;
+Ce _**point d'impact**_ provient du "micro-point PEF". Le point PEF correspond à l’impact environnemental annuel d'un habitant européen.
 
 ## Correctifs sur la toxicité et d'écotoxicité
 
 ### Exclusion temporaire des catégories d'impact "toxicité humaine cancer" et "toxicité humaine non cancer"
 
-En l’état, les résultats des indicateurs de toxicité humaine\[1] (cancer et non-cancer) ne sont pas cohérents avec les connaissances scientifiques. En effet, pour les produits alimentaires, l’application stricte de la méthode PEF conduit à attribuer plus d’impacts toxiques à de nombreux produits bio, en comparaison avec leur équivalent conventionnel : blé, tomate, porc, poulet… Ceci s’explique par une sous-estimation des effets toxiques de pesticides de synthèse (cf. problématique 3), couplée à des difficultés de modélisation des engrais organiques qui sont beaucoup utilisés en agriculture biologique. Dans le cadre de la méthode PEF, les impacts associés aux métaux présents dans les effluents d’élevage utilisés comme engrais organiques sont attribués aux productions qui mobilisent ces effluents, et non pas aux productions qui les génèrent. Ceci est contraire au principe même de l’ACV, comme le reconnait la communauté scientifique, notamment le JRC au niveau européen\[2], et le GIS Revalim\[3] qui a d’ailleurs lancé un groupe de travail à ce sujet. Les limites des méthodes actuelles de modélisation de la toxicité humaine aboutissent donc à pénaliser injustement les productions contribuant par ailleurs au bouclage des cycles et à l’autonomie en azote, et notamment les productions biologiques. Ceci est incohérent avec la bibliographie scientifique qui s’accorde sur le fait que les productions biologiques permettent de réduire l’exposition des populations humaines aux risques de toxicité.&#x20;
+En l’état, les résultats des indicateurs de toxicité humaine\[1] (cancer et non-cancer) ne sont pas cohérents avec les connaissances scientifiques. En effet, pour les produits alimentaires, l’application stricte de la méthode PEF conduit à attribuer plus d’impacts toxiques à de nombreux produits bio, en comparaison avec leur équivalent conventionnel : blé, tomate, porc, poulet… Ceci s’explique par une sous-estimation des effets toxiques de pesticides de synthèse (cf. problématique 3), couplée à des difficultés de modélisation des engrais organiques qui sont beaucoup utilisés en agriculture biologique. Dans le cadre de la méthode PEF, les impacts associés aux métaux présents dans les effluents d’élevage utilisés comme engrais organiques sont attribués aux productions qui mobilisent ces effluents, et non pas aux productions qui les génèrent. Ceci est contraire au principe même de l’ACV, comme le reconnait la communauté scientifique, notamment le JRC au niveau européen\[2], et le GIS Revalim\[3] qui a d’ailleurs lancé un groupe de travail à ce sujet. Les limites des méthodes actuelles de modélisation de la toxicité humaine aboutissent donc à pénaliser injustement les productions contribuant par ailleurs au bouclage des cycles et à l’autonomie en azote, et notamment les productions biologiques. Ceci est incohérent avec la bibliographie scientifique qui s’accorde sur le fait que les productions biologiques permettent de réduire l’exposition des populations humaines aux risques de toxicité.
 
 **=> il est donc proposé de retirer temporairement les deux indicateurs de toxicité humaine (cancer et non cancer), le temps que la communauté scientifique améliore la prise en compte des métaux dans la méthode PEF (travaux en cours).**
 
-<figure><img src="../../../.gitbook/assets/image (228).png" alt="" width="375"><figcaption><p>Impact sur la toxicité humaine cancer du blé conventionnel et bio, décomposé par substance</p></figcaption></figure>
+<figure><img src="../../../.gitbook/assets/image (213).png" alt="" width="375"><figcaption><p>Impact sur la toxicité humaine cancer du blé conventionnel et bio, décomposé par substance</p></figcaption></figure>
 
 <figure><img src="../../../.gitbook/assets/Screenshot 2023-08-23 at 18.05.16.png" alt="" width="375"><figcaption><p>Impact sur la toxicité humaine non cancer du blé conventionnel et bio, décomposé par substance</p></figcaption></figure>
 
@@ -71,7 +69,7 @@ En l’état, les résultats des indicateurs de toxicité humaine\[1] (cancer et
 
 Pour les produits alimentaires, les impacts des métabolites, des co-adjuvants et les effets cocktails ne sont pas comptabilisés dans l’ACV à ce jour. D’autre part, le nombre de molécules de synthèse mises sur le marché est tel que les connaissances les concernant sont lacunaires, notamment dans les premières années de commercialisation. Ceci n’est pas le cas pour les molécules utilisées en agriculture biologique (leur nombre étant beaucoup plus limité et leur commercialisation ancienne). De ce fait, la différence d’impacts toxicité/écotoxicité des produits bio et conventionnels est aujourd’hui biaisée.
 
-**=> il est donc proposé de doubler la pondération des impacts écotoxicité associés aux molécules utilisées dans les pesticides de synthèse**.&#x20;
+**=> il est donc proposé de doubler la pondération des impacts écotoxicité associés aux molécules utilisées dans les pesticides de synthèse**.
 
 On a donc :
 

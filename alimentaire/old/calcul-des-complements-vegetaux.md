@@ -6,6 +6,4 @@ A partir de ces 3 paramètres sont calculés les 3 compléments suivants : haies
 \
 Le schéma suivant résume la manière dont sont fait le calculs de ces compléments. Le code du calcul des compléments est aussi disponible sur [le github du projet](https://github.com/MTES-MCT/ecobalyse/blob/master/data/food/ecosystemic_services/ecosystemic_services.py).
 
-
-
-<figure><img src="../../.gitbook/assets/image (303).png" alt=""><figcaption><p>Schéma de calcul des compléments végétaux</p></figcaption></figure>
+<figure><img src="../../.gitbook/assets/image (286).png" alt=""><figcaption><p>Schéma de calcul des compléments végétaux</p></figcaption></figure>

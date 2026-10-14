@@ -12,7 +12,7 @@ La base AGRIBALYSE® fournit les ICVs de 2500 produits alimentaires enregistrés
 
 ### Structure
 
-La base AGRIBALYSE est organisée en différents niveaux :&#x20;
+La base AGRIBALYSE est organisée en différents niveaux :
 
 * Le produit chez le consommateur avec un code CIQUAL
 * Le produit au magasin
@@ -20,13 +20,6 @@ La base AGRIBALYSE est organisée en différents niveaux :&#x20;
 * Le produit à l'étape d'emballage
 * Le produit à l'usine de fabrication
 
-![Modélisation d'un aliment dans la base AGRIBALYSE®](<../../../.gitbook/assets/image (198).png>)
+![Modélisation d'un aliment dans la base AGRIBALYSE®](<../../../.gitbook/assets/image (188).png>)
 
-![Exemple de la modélisation de la pizza margherita (CIQUAL 25404) dans la base AGRIBALYSE®](<../../../.gitbook/assets/image (195).png>)
-
-
-
-
-
-
-
+![Exemple de la modélisation de la pizza margherita (CIQUAL 25404) dans la base AGRIBALYSE®](<../../../.gitbook/assets/image (185).png>)

@@ -4,12 +4,12 @@ hidden: true
 
 # ♻️ Etape 8 - Fin de vie - old
 
-L'impact de la fin de vie se décompose en deux modules :&#x20;
+L'impact de la fin de vie se décompose en deux modules :
 
 * le complément _Fin de vie Hors Europe_ introduit par Ecobalyse en septembre 2023,
 * le scénario proposé dans la v.1.3 du _PEFCR Apparel & Footwear_.
 
-Jusqu'à l'introduction du complément, la fin de vie pesait entre 0% et 1% de l'impact total d'un vêtement. L'introduction du complément permet de répondre à la principale limite des scénarios proposés par le PEFCR A\&F (limite = 100% des vêtements exportés sont réutilisés et ne génèrent aucun impact).&#x20;
+Jusqu'à l'introduction du complément, la fin de vie pesait entre 0% et 1% de l'impact total d'un vêtement. L'introduction du complément permet de répondre à la principale limite des scénarios proposés par le PEFCR A\&F (limite = 100% des vêtements exportés sont réutilisés et ne génèrent aucun impact).
 
 ## Complément Fin de vie Hors Europe
 
@@ -17,11 +17,11 @@ Cf. la [page](../complements-hors-acv/export-hors-europe.md) dédiée dans la ru
 
 ## Scénario PEFCR Apparel & Footwear
 
-Scénarios considérés pour la fin de vie d'un vêtement :&#x20;
+Scénarios considérés pour la fin de vie d'un vêtement :
 
-![PEFCR v1.3 p121](<../../.gitbook/assets/image (184).png>)
+![PEFCR v1.3 p121](<../../.gitbook/assets/image (176).png>)
 
-&#x20;On prend en compte ces 2 scénarios :&#x20;
+On prend en compte ces 2 scénarios :
 
 * Recyclage
 * Décharge (incinératon & mise en décharge)
@@ -45,17 +45,15 @@ Pour évaluer l'impact de l'incinération et de la mise en décharge, on prend e
 * l'incinération
 * la mise en décharge
 
-
-
 ### **Focus Transport**
 
 **Distance transport (Table 41 / p. 122)**
 
-![](<../../.gitbook/assets/image (234).png>)
+![](<../../.gitbook/assets/image (219).png>)
 
 **Volume produit (Table 40 / p. 121)**
 
-![](<../../.gitbook/assets/image (233).png>)
+![](<../../.gitbook/assets/image (218).png>)
 
 #### Transport en camion
 
@@ -92,14 +90,14 @@ Impact_camion = 3.09 gCO2e
 
 #### Transport en voiture
 
-D'après le tableau Distance (Table 33), 19.5% des vêtements font 1 km en voiture pour être déposé dans le point de collecte des vêtements. D'où `d_voiture` la distance parcourue en voiture pour un vêtement.&#x20;
+D'après le tableau Distance (Table 33), 19.5% des vêtements font 1 km en voiture pour être déposé dans le point de collecte des vêtements. D'où `d_voiture` la distance parcourue en voiture pour un vêtement.
 
 ```
 d_voiture = 1*19.5%
 d_voiture = 0.195 km
 ```
 
-Le PEFCR v1.3 indique qu'il faut prendre en compte la part du coffre qu'occupe le vêtement que l'on amène au point de collecte (cf. tableau Volume / Table 40).&#x20;
+Le PEFCR v1.3 indique qu'il faut prendre en compte la part du coffre qu'occupe le vêtement que l'on amène au point de collecte (cf. tableau Volume / Table 40).
 
 ```
 Impact_voiture = d_voiture * part_coffre_occupé * P_voiture_cch 
@@ -113,7 +111,7 @@ Impact_voiture = 0.328 gCO2e
 
 ###
 
-### Focus Incinération (CFF)&#x20;
+### Focus Incinération (CFF)
 
 On prend les hypothèses issues du document PEF RP study p.72 :
 

@@ -5,12 +5,12 @@ Ces méthodes s'appliquent pour la version courante d'Ecobalyse, pas pour la ver
 {% endhint %}
 
 {% hint style="warning" %}
-Le calcul du transport est en cours de développement. Une partie des méthodes décrites ci-dessous ne sont pas encore implémentées.&#x20;
+Le calcul du transport est en cours de développement. Une partie des méthodes décrites ci-dessous ne sont pas encore implémentées.
 {% endhint %}
 
 ## Principales étapes de transport <a href="#distribution" id="distribution"></a>
 
-Le transport est modélisé en prenant en compte les étapes suivantes : &#x20;
+Le transport est modélisé en prenant en compte les étapes suivantes :
 
 1. Transport des matières premières (ex : coton, blé, bois) du champs ou de la foret vers le premier site de transformation,
 2. Transport des produits intermédiaires (ex : tissu textile), ingrédients déjà transformés, et composants (ex : pied de chaise, pneu) entre les sites de transformation,
@@ -25,19 +25,19 @@ Pour l'étape 4, un transport terrestre est considéré, avec une distance appel
 
 ## Un transport international modélisé en 3 phases
 
-Ecobalyse modélise chaque étape de transport sous la forme de trois phases distinctes :&#x20;
+Ecobalyse modélise chaque étape de transport sous la forme de trois phases distinctes :
 
 1. Transport du site de départ au hub régional de départ (hub routier, port ou aéroport), en camion
-2. Transport du hub de départ au hub d'arrivée, avec un mode de transport dépendant de divers paramètres (type de produit, régions concernées).&#x20;
+2. Transport du hub de départ au hub d'arrivée, avec un mode de transport dépendant de divers paramètres (type de produit, régions concernées).
 3. Transport du hub régional de départ au site d'arrivée, en camion
 
-_A titre d'exemple, un transport par voie maritime se décompose comme suit, avec deux modes de transport (bateau et camion) :_&#x20;
+_A titre d'exemple, un transport par voie maritime se décompose comme suit, avec deux modes de transport (bateau et camion) :_
 
-<figure><img src="../../.gitbook/assets/image (425).png" alt=""><figcaption></figcaption></figure>
+<figure><img src="../../.gitbook/assets/image (397).png" alt=""><figcaption></figcaption></figure>
 
 ### Voies et modes de transports
 
-Afin de bien modéliser les scénarios de transport, Ecobalyse distingue ainsi les notions de voie de transport et de mode de transport :&#x20;
+Afin de bien modéliser les scénarios de transport, Ecobalyse distingue ainsi les notions de voie de transport et de mode de transport :
 
 * Le mode de transport permettant de transporter une marchandise (bateau, camion, avion, train...)
 * Quatre voies de transport sont considérées, faisant chacune appel à un ou deux modes de transport :
@@ -55,4 +55,3 @@ A des fins de simplification, ces quatre voies ne sont pas toujours proposés po
 * La page [Coût environnemental par voie de transport](https://fabrique-numerique.gitbook.io/ecobalyse/transverse/transport/cout-environnemental-par-voie-de-transport) détaille le calcul du coût environnemental pour chacune des voies de transport, en fonction des situations.
 * La page [Choix des voies de transport](https://fabrique-numerique.gitbook.io/ecobalyse/transverse/transport/choix-des-voies-de-transport) détaille la façon dont une ou plusieurs voies de transport sont combinées pour une étape de transport donnée.
 * Des pages dédiées par secteur décrivent si besoin les voies de transport proposées à chaque étape, et les éventuels paramètres spécifiques au secteur.
-

@@ -2,7 +2,7 @@
 
 ## Choix de procédés
 
-Considérée comme un ingrédient agricole (at farm), le lait de vache est modélisé à travers les procédés suivants :&#x20;
+Considérée comme un ingrédient agricole (at farm), le lait de vache est modélisé à travers les procédés suivants :
 
 | Label / Origine        | France                                                   | Autres pays                                              |
 | ---------------------- | -------------------------------------------------------- | -------------------------------------------------------- |
@@ -22,7 +22,7 @@ Des étapes de traitement "at farm" qui seraient peut être à intégrer.
 {% hint style="info" %}
 **Axes de progrès ?**
 
-Les données ICV disponibles dans Agribalyse permettraient potentiellement d'introduire une distinction suivant :&#x20;
+Les données ICV disponibles dans Agribalyse permettraient potentiellement d'introduire une distinction suivant :
 
 * part de l'alimentation composée de maïs d'ensilage
 {% endhint %}
@@ -33,16 +33,15 @@ Le lait de vache "mix de consommation" France (Cow milk, consumption mix) propos
 
 Un transport de 160 km y est ajouté.
 
-<figure><img src="../../../.gitbook/assets/image (183).png" alt=""><figcaption></figcaption></figure>
+<figure><img src="../../../.gitbook/assets/image (175).png" alt=""><figcaption></figcaption></figure>
 
 ## Identification de l'origine par défaut
 
-Pour déterminer l'origine d'un ingrédient par défaut, chaque ingrédient est classé dans l'une des 4 catégories suivantes :&#x20;
+Pour déterminer l'origine d'un ingrédient par défaut, chaque ingrédient est classé dans l'une des 4 catégories suivantes :
 
 1. Ingrédient très majoritairement produit en France (> 95%) => origine par défaut : FRANCE
-2. Ingrédient très majoritairement produit en Europe/Maghreb (>95%) => transport par défaut : EUROPE/MAGHREB&#x20;
+2. Ingrédient très majoritairement produit en Europe/Maghreb (>95%) => transport par défaut : EUROPE/MAGHREB
 3. Ingrédient produit également hors Europe (> 5%) => transport par défaut : PAYS TIERS
-4. Ingrédient spécifique (ex. Haricots et Mangues)&#x20;
+4. Ingrédient spécifique (ex. Haricots et Mangues)
 
-**Lait => catégorie 2 : EUROPE/MAGHREB** (source : FranceAgriMer - à confirmer)&#x20;
-
+**Lait => catégorie 2 : EUROPE/MAGHREB** (source : FranceAgriMer - à confirmer)

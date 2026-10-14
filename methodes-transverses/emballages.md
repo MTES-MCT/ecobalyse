@@ -8,7 +8,7 @@ Pour le calcul du coût environnemental des vêtements, il n'est pas considéré
 
 ### Choix de prise en compte des emballages dans Ecobalyse
 
-Ecobalyse fait le choix de modéliser les emballages séparément des autres composants pour plusieurs raisons :&#x20;
+Ecobalyse fait le choix de modéliser les emballages séparément des autres composants pour plusieurs raisons :
 
 * Calculer un poids net du produit hors emballage.
 * Dédier le [calcul de la fin de vie](https://fabrique-numerique.gitbook.io/ecobalyse/methodes-transverses-specifiques/fin-de-vie-des-composants) à la fin de vie du produit, la fin de vie des emballages ayant lieu dès le début de la vie du produit
@@ -16,7 +16,7 @@ Ecobalyse fait le choix de modéliser les emballages séparément des autres com
 
 ### Matériaux d'emballage proposés
 
-Ecobalyse met à disposition tout ou partie des matériaux d'emballage suivants pour les secteurs concernés :&#x20;
+Ecobalyse met à disposition tout ou partie des matériaux d'emballage suivants pour les secteurs concernés :
 
 * Aluminium
 * Acier
@@ -33,7 +33,7 @@ Ecobalyse met à disposition tout ou partie des matériaux d'emballage suivants 
 
 ## Périmètre à prendre en compte
 
-L'Article L.543-43 du code de l'environnement décrit l'ensemble des emballages suivants :&#x20;
+L'Article L.543-43 du code de l'environnement décrit l'ensemble des emballages suivants :
 
 * Emballage de vente ou emballage primaire, c'est-à-dire l'emballage conçu de manière à constituer, au point de vente, un article destiné à l'utilisateur final ou au consommateur.
   * Egalement appelé emballage de vente ou emballage unité de vente consommateur (terme retenu dans PACK\_AGB).
@@ -45,7 +45,7 @@ L'Article L.543-43 du code de l'environnement décrit l'ensemble des emballages 
 
 ## Méthodes de calcul
 
-L'impact des emballages est calculé comme suit :&#x20;
+L'impact des emballages est calculé comme suit :
 
 $$
 I_{emballage} = \sum_{i}(Q_{d,i}*r_{d,i} * I_i)
@@ -54,9 +54,9 @@ $$
 Avec :
 
 * `I_emballage` : l'impact environnemental de l'emballage, dans l'unité de la catégorie d'impact analysée
-* `Q_d,i` la quantité de l'emballage `i` utilisée pour le produit évalué, exprimée en fonction de l'unité d'affichage de l'emballage `i`&#x20;
+* `Q_d,i` la quantité de l'emballage `i` utilisée pour le produit évalué, exprimée en fonction de l'unité d'affichage de l'emballage `i`
   * _Pour les masses, l'unité est le gramme_
-* `r_d,i` le ratio de conversion entre l'unité d'affichage de l'emballage `i` et l'unité du procédé de l'emballage `i`&#x20;
+* `r_d,i` le ratio de conversion entre l'unité d'affichage de l'emballage `i` et l'unité du procédé de l'emballage `i`
   * _Exemple : 0.001 si l'unité d'affichage est le gramme et l'unité du procédé est le kg_
 * `I_i` : l'impact environnemental du matériau d'emballage `i`, dans l'unité de la catégorie d'impact analysée, par unité du procédé de l'emballage i
   * _Pour les emballages exprimés en masse, l'unité est le Pt/kg_
@@ -95,7 +95,7 @@ Ces procédés sont mis à disposition dans l'explorateur de chaque secteur.
 
 **Cout environnemental des matériaux d'emballage (en Pts/kg) :**
 
-<figure><img src="../.gitbook/assets/image (466).png" alt=""><figcaption></figcaption></figure>
+<figure><img src="../.gitbook/assets/image (435).png" alt=""><figcaption></figcaption></figure>
 
 ## Exemple d'application
 
@@ -108,4 +108,3 @@ $$
 $$
 I_{emballage} = (100*123+50*348)/1000=29.7 Pts
 $$
-

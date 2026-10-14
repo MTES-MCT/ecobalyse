@@ -10,7 +10,7 @@ $$
 
 La page [Catégories d'impact ACV](https://fabrique-numerique.gitbook.io/ecobalyse/alimentaire/cout-environnemental/categories-dimpact-acv) et ses sous-pages viennent détailler la contribution au coût environnemental liée à des catégories d'impact de l'ACV. Cette méthodologie est commune à tous les secteurs traités par Ecobalyse.
 
-Le dispositif PEF est [recommandée ](https://environment.ec.europa.eu/publications/recommendation-use-environmental-footprint-methods_en)par la commission européenne depuis 2021. Il est également repris dans la proposition de directive "[GreenClaims](https://environment.ec.europa.eu/topics/circular-economy/green-claims_en)"; qui pointe également certaines lacunes du cadre PEF et le besoin d'y remédier.&#x20;
+Le dispositif PEF est [recommandée ](https://environment.ec.europa.eu/publications/recommendation-use-environmental-footprint-methods_en)par la commission européenne depuis 2021. Il est également repris dans la proposition de directive "[GreenClaims](https://environment.ec.europa.eu/topics/circular-economy/green-claims_en)"; qui pointe également certaines lacunes du cadre PEF et le besoin d'y remédier.
 
 {% content-ref url="categories-dimpact-acv/" %}
 [categories-dimpact-acv](categories-dimpact-acv/)
@@ -18,9 +18,9 @@ Le dispositif PEF est [recommandée ](https://environment.ec.europa.eu/publicati
 
 Les compléments hors ACV sont à ce jour spécifiques aux secteurs traités. Ils sont décrit dans des pages relative à chaque secteur.
 
-## Durabilité&#x20;
+## Durabilité
 
-La notion de durabilité est également intégrée au calcul du coût environnemental par un coefficient venant moduler le coût environnemental. Plus d'info dans la page transverse [Durabilité](https://app.gitbook.com/o/-MMQU-ngAOgQAqCm4mf3/s/-MexpTrvmqKNzuVtxdad/~/changes/1350/def-cout-environnemental/durabilite).
+La notion de durabilité est également intégrée au calcul du coût environnemental par un coefficient venant moduler le coût environnemental. Plus d'info dans la page transverse [Durabilité](durabilite.md).
 
 ## Unité du coût environnemental
 
@@ -28,5 +28,5 @@ Le coût environnemental est exprimé en points d'impacts. Ce point d'impact a �
 
 Pour une meilleure lisibilité des résultats, on définie l'impact d'un habitant européen à 1 MPts (mégapoints) d'impacts soit 1 000 000 Pt (points) d'impact. Ainsi 1 Pt d'impact correspond à 1 millionième de l'impact annuel d'un habitant européen.
 
-* 1  MPts (mégapoint d'impact) => 1 000 000 Pt (points d'impact)
+* 1 MPts (mégapoint d'impact) => 1 000 000 Pt (points d'impact)
 * 1 Pt (point d'impact) => 10^-6 MPts (mégapoints d'impact)
