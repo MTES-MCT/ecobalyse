@@ -64,7 +64,7 @@ Quelques données sous labels sont déjà disponibles dans Agribalyse et ont pu 
 
 L’ensemble des appariements entre ingrédients et ICV est visible dans l’explorateur, et via le bouton "?" disponible à côté du nom de l'ingrédient.
 
-<figure><img src="../../../.gitbook/assets/image (352).png" alt=""><figcaption></figcaption></figure>
+<figure><img src="../../../.gitbook/assets/image (405).png" alt=""><figcaption></figcaption></figure>
 
 
 

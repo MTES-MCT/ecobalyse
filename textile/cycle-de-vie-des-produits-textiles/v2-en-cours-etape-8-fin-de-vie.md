@@ -76,9 +76,9 @@ Les valeurs ProbaDéchet par type de fibre sont calculés sur la base de 3 hypot
 
 ### Arbre des flux
 
-<figure><img src="../../.gitbook/assets/image (402).png" alt=""><figcaption></figcaption></figure>
+<figure><img src="../../.gitbook/assets/image (473).png" alt=""><figcaption></figcaption></figure>
 
-<figure><img src="../../.gitbook/assets/image (403).png" alt=""><figcaption></figcaption></figure>
+<figure><img src="../../.gitbook/assets/image (474).png" alt=""><figcaption></figcaption></figure>
 
 <mark style="color:$warning;">**Question  à poser à Nicolas :**</mark> <mark style="color:$warning;"></mark><mark style="color:$warning;">est-ce que la partie transport pour la collecte est bien prise en compte ? Car pas de trace dans la doc générique, et à priori ce n'est pas négligeable sur le total de la FDV.</mark>&#x20;
 
@@ -127,7 +127,7 @@ Ces données sont directement issues du PEFCR Apparel & Footwear 3.1, Table 44 (
 
 Le rapport des deux correspond à la part du coffre occupée par le vêtement. Ce ratio est fourni dans la Table 44 ci-dessous, colonne _Allocation_).
 
-<figure><img src="../../.gitbook/assets/image (378).png" alt=""><figcaption></figcaption></figure>
+<figure><img src="../../.gitbook/assets/image (431).png" alt=""><figcaption></figcaption></figure>
 
 ## Procédés utilisés pour le coût environnemental
 

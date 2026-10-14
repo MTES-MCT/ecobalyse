@@ -57,5 +57,5 @@ Lamb, organic, system n°3, at farm gate
 
 
 
-<figure><img src="../../../.gitbook/assets/image (192).png" alt=""><figcaption></figcaption></figure>
+<figure><img src="../../../.gitbook/assets/image (213).png" alt=""><figcaption></figcaption></figure>
 

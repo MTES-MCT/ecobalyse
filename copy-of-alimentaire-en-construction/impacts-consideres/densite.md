@@ -14,11 +14,11 @@ $$V = \frac{m}{d}$$
 
 ##
 
-<figure><img src="../../.gitbook/assets/image (142).png" alt=""><figcaption><p>Methodology AGB 3.0- 20200528_MAIN-CLEAN-vf2.pdf</p></figcaption></figure>
+<figure><img src="../../.gitbook/assets/image (163).png" alt=""><figcaption><p>Methodology AGB 3.0- 20200528_MAIN-CLEAN-vf2.pdf</p></figcaption></figure>
 
 Pour connaître la densité `d`, on utilise les hypothèses de la documentation Agribalyse :
 
-<figure><img src="../../.gitbook/assets/image (172).png" alt=""><figcaption><p>Méthodologie AGB 3.0-20200218_rapport-vf2.pdf</p></figcaption></figure>
+<figure><img src="../../.gitbook/assets/image (193).png" alt=""><figcaption><p>Méthodologie AGB 3.0-20200218_rapport-vf2.pdf</p></figcaption></figure>
 
 ## Règles
 

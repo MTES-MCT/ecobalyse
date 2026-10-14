@@ -8,7 +8,7 @@ Selon le règlement, les produits de consommation invendus correspondent aux pro
 
 Différents paramètres expliquent la génération de stocks dormants :&#x20;
 
-<figure><img src="../../.gitbook/assets/image (15) (1).png" alt=""><figcaption><p>Source : Etude "A la chasse aux tissus dormants" (La Textilerie)</p></figcaption></figure>
+<figure><img src="../../.gitbook/assets/image (36).png" alt=""><figcaption><p>Source : Etude "A la chasse aux tissus dormants" (La Textilerie)</p></figcaption></figure>
 
 <details>
 

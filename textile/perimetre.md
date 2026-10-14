@@ -4,29 +4,30 @@
 
 Les catégories disponibles pour le secteur du textile d'habillement sont :
 
-| Catégories      | Produits inclus                                                                                                                                     |
-| --------------- | --------------------------------------------------------------------------------------------------------------------------------------------------- |
-| Boxer/Slip      | Body, boxer, culotte, legging, slip, string, tanga, …                                                                                               |
-| Caleçon         | Caleçon                                                                                                                                             |
-| Chaussettes     | Bas, chaussettes, collants, guêtre, jambière, mi-bas, …                                                                                             |
-| Chemise         | Tunique, blouse, chemise, chemise de nuit, chemisier, tunique, ...                                                                                  |
-| Jean            | Pantalon denim                                                                                                                                      |
-| Jupe/Robe       | Jupe, robe, combinaison, jupe culotte, jupe short, nuisette, ...                                                                                    |
-| Maillot de bain | Maillot de bain 1 pièce, 2 pièces, short de bain, slip de bain, t-shirt de bain, combinaison de bain, ...                                           |
-| Manteau/ Veste  | Blouson, boléro, coupe-vent, blazer, gilet de costume, , parka, imperméable, kimono, manteau, veste de costume, veste de sport, veste tailleur, ... |
-| Pantalon        | Bas de pyjama, bermuda, pantacourt, pantalon, salopette, sarouel, short, shorty, chino, ...                                                         |
-| Pull            | Gilet, pull, cardigan, sweatshirt, sous-pull, ...                                                                                                   |
-| T-shirt/Polo    | T-shirt manches courtes ou manches longues, polo, débardeur, haut de pyjama, maillot de corps, top bretelles, ...                                   |
+| Catégories      | Produits inclus                                                                                                                                                                                           |
+| --------------- | --------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
+| Boxer/Slip      | Body, boxer, culotte, slip, string, tanga, shorty …                                                                                                                                                       |
+| Caleçon         | Caleçon                                                                                                                                                                                                   |
+| Chaussettes     | Bas, chaussettes, collants, guêtre, jambière, mi-bas, …                                                                                                                                                   |
+| Chemise         | Tunique, blouse, chemise, chemise de nuit, chemisier, tunique, ...                                                                                                                                        |
+| Jean            | <p>Tout en jean - pantalon, pantacourt, corsaire,<br>knickers, jodhpurs, treillis, chino, sarouel</p>                                                                                                    |
+| Jupe/Robe       | Jupe, robe, combinaison, jupe culotte, jupe short, nuisette, ...                                                                                                                                          |
+| Maillot de bain | Maillot de bain 1 pièce, 2 pièces, short de bain, slip de bain, t-shirt de bain, combinaison de bain, ...                                                                                                 |
+| Manteau/ Veste  | Blouson, boléro, coupe-vent, blazer, gilet de costume, , parka, imperméable, kimono, manteau, veste de costume, veste de sport, surchemise, veste tailleur, pilote (bébé) ...                             |
+| Pantalon        | Bas de pyjama, bermuda, pantacourt, pantalon, salopette, sarouel, short, chino, legging ...                                                                                                               |
+| Pull            | Gilet, pull, cardigan, sweatshirt, ...                                                                                                                                                                    |
+| T-shirt/Polo    | T-shirt quelle que soit sa forme : manches courtes ou&#xD; manches longues, sous-pull, polo, débardeur, haut de&#xD; pyjama, maillot de corps, top bretelles, body,&#xD; barboteuse, dors bien (bébé) ... |
 
 Les produits suivants ne sont pas compris dans le périmètre du coût environnemental. Pour pouvoir les modéliser, il faut soit faire une modification au niveau infra-réglementaire ou une modification de l'arrêté
 
-| Nécessitant une modification de l’arrêté                                                                 | Infra-réglementaire                                        |
-| -------------------------------------------------------------------------------------------------------- | ---------------------------------------------------------- |
-| Linge de maison et revêtements                                                                           | Soutien-gorge                                              |
-| Produits textiles d’habillement à usage unique                                                           | Doudoune rembourrée                                        |
-| Produit de textile d’habillement à composants électroniques                                              | Déguisement                                                |
-| Produits ayant plus de 20% de la masse constituée de matières  non présent dans la notice méthodologique | Chemise 100% soie (ajout nécessaire de nouvelles matières) |
-| Chaussures, maroquinerie                                                                                 |                                                            |
+| Nécessitant une modification de l’arrêté                                                                   | Infra-réglementaire                                             |
+| ---------------------------------------------------------------------------------------------------------- | --------------------------------------------------------------- |
+| Linge de maison et revêtements                                                                             | Soutien-gorge                                                   |
+| Produits textiles d’habillement à usage unique                                                             | Doudoune rembourrée                                             |
+| Produit de textile d’habillement à composants électroniques                                                | Déguisement                                                     |
+| Produits ayant plus de 20% de la masse constituée de matières  non présent dans la notice méthodologique   | Chemise 100% soie (ajout nécessaire de nouvelles matières)      |
+| Chaussures, maroquinerie                                                                                   | <p>Accessoires textiles : écharpe,<br>bonnet, casquette, …</p> |
+| <p>Produits techniques : EPI, sport (soumis à<br>la REP ASL), vêtements non soumis à la<br>REP TLC …</p> |                                                                 |
 
 ## <mark style="color:red;">Taille de référence</mark>
 

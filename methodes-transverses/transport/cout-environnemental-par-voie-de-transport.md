@@ -10,15 +10,15 @@ description: >-
 
 Lorsqu'un produit est transporté par voie maritime (voie `mer`), en général deux modes de transport sont mobilisés : le bateau, mais aussi le camion pour le transport terrestre vers le port d'origine et depuis le port de destination :&#x20;
 
-<figure><img src="../../.gitbook/assets/image (373).png" alt=""><figcaption></figcaption></figure>
+<figure><img src="../../.gitbook/assets/image (426).png" alt=""><figcaption></figcaption></figure>
 
 Il en est de même pour le transport par voie aérienne (voie `air`) :&#x20;
 
-<figure><img src="../../.gitbook/assets/image (374).png" alt=""><figcaption></figcaption></figure>
+<figure><img src="../../.gitbook/assets/image (427).png" alt=""><figcaption></figcaption></figure>
 
 Pour le transport par voie routière (voie `terre`), le camion est le seul mode de transport :&#x20;
 
-<figure><img src="../../.gitbook/assets/image (391).png" alt=""><figcaption></figcaption></figure>
+<figure><img src="../../.gitbook/assets/image (462).png" alt=""><figcaption></figcaption></figure>
 
 Enfin, pour le transport par voie ferroviaire (voie `fer`), il peut y avoir une combinaison avec du transport routier. Cependant, aujourd'hui l'essentiel du transport ferroviaire de marchandise (hors transport messagerie) est réalisé pour des produits industriels dont le producteur et le destinataire sont raccordés au réseau ferroviaire (exemples : usine automobile vers un centre de distribution, transport de bois). Cette voie de transport n'est pas encore implémentée dans Ecobalyse.
 
@@ -123,7 +123,7 @@ Le choix est fait de ne pas différencier les procédés en fonction de la géog
 
 Il en résulte les coûts environnementaux par mode de transport suivant (correspondant aux valeurs `I_m_j` ci-dessus) :&#x20;
 
-<figure><img src="../../.gitbook/assets/image (5) (1) (1).png" alt=""><figcaption></figcaption></figure>
+<figure><img src="../../.gitbook/assets/image (13).png" alt=""><figcaption></figcaption></figure>
 
 ## Exemples d'application
 
@@ -134,7 +134,7 @@ Il en résulte les coûts environnementaux par mode de transport suivant (corres
 * `D_intrazone,arrivée`= 500km
   * Correspondant par exemple à 500km en Inde + 500km en France, voir schéma ci-dessous
 
-<figure><img src="../../.gitbook/assets/image (368).png" alt=""><figcaption></figcaption></figure>
+<figure><img src="../../.gitbook/assets/image (421).png" alt=""><figcaption></figcaption></figure>
 
 Pour 1 kg transporté par voie maritime, le coût environnemental est calculé comme suit :
 

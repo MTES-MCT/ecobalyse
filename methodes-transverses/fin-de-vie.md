@@ -23,7 +23,7 @@ Les scénarios de fin de vie d'un produit peuvent être définis avec ces deux c
 
 Le schéma ci-dessous montre les scénarios possibles de fin de vie :
 
-<figure><img src="../.gitbook/assets/image (398).png" alt=""><figcaption></figcaption></figure>
+<figure><img src="../.gitbook/assets/image (469).png" alt=""><figcaption></figcaption></figure>
 
 ### L'export des produits en fin de vie hors Europe
 
@@ -67,7 +67,7 @@ A chaque type de matériaux sont attachés des ratios de recyclage et incinérat
 
 **Schéma de principe de la modélisation Ecobalyse de la fin de vie :**
 
-<figure><img src="../.gitbook/assets/image (401).png" alt=""><figcaption></figcaption></figure>
+<figure><img src="../.gitbook/assets/image (472).png" alt=""><figcaption></figcaption></figure>
 
 {% hint style="info" %}
 Le détail des calculs avec paramètres et procédés appliqués est disponible en téléchargeant le fichier mis à disposition dans la section "Exemples"
@@ -109,7 +109,7 @@ Niveau 0 :
 `I_EoL,FS,i` et `I_EoL,HF,i` sont indiqués dans la calculette Ecobalyse pour chaque type de matériau i
 {% endhint %}
 
-<figure><img src="../.gitbook/assets/image (389).png" alt=""><figcaption></figcaption></figure>
+<figure><img src="../.gitbook/assets/image (460).png" alt=""><figcaption></figcaption></figure>
 
 Niveau 1 :
 
@@ -193,7 +193,7 @@ Traitement hors Europe : municipal solid waste//\[GLO] treatment of municipal so
 Les procédés recyclage ont été créés par Ecobalyse en suivant la méthode CFF, avec les paramètres et suivants (issus autant que possible de la réglementation PEF ou autre source réglementaire) :&#x20;
 
 {% hint style="info" %}
-Le recyclage d'un matériau donné est évalué comme suit par la CFF : ![](../.gitbook/assets/image.png)
+Le recyclage d'un matériau donné est évalué comme suit par la CFF : ![](<../.gitbook/assets/image (442).png>)
 
 Avec&#x20;
 

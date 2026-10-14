@@ -20,9 +20,9 @@ La base AGRIBALYSE est organisée en différents niveaux :&#x20;
 * Le produit à l'étape d'emballage
 * Le produit à l'usine de fabrication
 
-![Modélisation d'un aliment dans la base AGRIBALYSE®](<../.gitbook/assets/image (177).png>)
+![Modélisation d'un aliment dans la base AGRIBALYSE®](<../.gitbook/assets/image (198).png>)
 
-![Exemple de la modélisation de la pizza margherita (CIQUAL 25404) dans la base AGRIBALYSE®](<../.gitbook/assets/image (174).png>)
+![Exemple de la modélisation de la pizza margherita (CIQUAL 25404) dans la base AGRIBALYSE®](<../.gitbook/assets/image (195).png>)
 
 
 

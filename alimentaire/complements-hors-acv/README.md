@@ -2,11 +2,11 @@
 hidden: true
 ---
 
-# Paramétrage
+# Paramétrage (old)
 
 Le paramétrage peut se faire "de zéro" (produit personnalisé) ou mobiliser la fonction "exemples" de l'outil qui permet de partir d'un produit pré-paramétré.
 
-<figure><img src="../../.gitbook/assets/image (309).png" alt=""><figcaption></figcaption></figure>
+<figure><img src="../../.gitbook/assets/image (330).png" alt=""><figcaption></figcaption></figure>
 
 
 

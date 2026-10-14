@@ -46,7 +46,7 @@ A partir du détail des formules de calcul (cf. [tableur complet](https://docs.g
 
 Si le conseil scientifique reconnait dans son second rapport, que l'introduction de compléments visant à valoriser la biodiversité territoriale est légitime, ses membres ont régulièrement souligné que ces compléments ne devraient généralement pas représenter plus de 30% de l'ensemble des impacts attachés à un produit. Ainsi, ces 4 composantes ont été calibrées pour que, ajoutées, elles représentent de l'ordre de 30% des impacts générés dans le cas de deux ingrédients emblématiques générant beaucoup de services écosystémiques : le blé bio et le boeuf bio.
 
-![](<../.gitbook/assets/image (390).png>)
+![](<../.gitbook/assets/image (461).png>)
 {% endhint %}
 
 {% hint style="info" %}

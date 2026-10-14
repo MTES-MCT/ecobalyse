@@ -7,7 +7,7 @@ hidden: true
 
 ## Catégories de produits
 
-Le périmètre étudié dépasse le strict cadre de la REP TLC afin d’intégrer des produits textiles d’ameublement présentant des procédés de fabrication proches du linge de maison.
+Le périmètre étudié dépasse le strict cadre de la REP TLC afin d’intégrer des produits textiles d’ameublement présentant des procédés de fabrication proches des linges de maison.
 
 Les sous-catégories retenues sont :
 
@@ -22,7 +22,7 @@ Les sous-catégories retenues sont :
 
 #### Liste des produits
 
-<table><thead><tr><th width="197">Catégorie</th><th width="156">Produit</th><th width="557">Périmètre</th></tr></thead><tbody><tr><td>Décoration</td><td>Tapis de décoration</td><td>Tapis de décoration</td></tr><tr><td>Décoration</td><td>Rideau</td><td>Rideau, voilage</td></tr><tr><td>Linges de bain</td><td>Serviette</td><td>Serviette de bain, drap de bain, drap de douche, cape de bain, serviette de plage, fouta</td></tr><tr><td>Linges de bain</td><td>Tapis de bain</td><td>tapis de bain</td></tr><tr><td>Linges de bain</td><td>Peignoir</td><td>peignoir, poncho de bain</td></tr><tr><td>Linges de bain</td><td>Lingette</td><td>Lingette, démaquillant</td></tr><tr><td>Linges de bain</td><td>Gant de toilette</td><td>Gant de toilette, gant exfoliant</td></tr><tr><td>Linges de bébé</td><td>Bavoire</td><td>Bavoire</td></tr><tr><td>Linges de bébé</td><td>Gigoteuse</td><td>Nid d’ange, gigoteuse, turbulette</td></tr><tr><td>Linges de bébé</td><td>Lange</td><td>Lange</td></tr><tr><td>Linges de cuisine / d'entretien</td><td>Nappe</td><td>Nappe textile (non jetable), nappe enduite, chemin de table, set de table</td></tr><tr><td>Linges de cuisine / d'entretien</td><td>Tablier</td><td>Tablier</td></tr><tr><td>Linges de cuisine / d'entretien</td><td>Serviette de table</td><td>Serviette de table</td></tr><tr><td>Linges de cuisine / d'entretien</td><td>Torchon</td><td>Torchon, lavette, mopette, lingette, chiffon</td></tr><tr><td>Linges de cuisine / d'entretien</td><td>Serpillère</td><td>Serpillère</td></tr><tr><td>Linges de lit</td><td>Couverture</td><td>Couverture, plaid, couvre-lit, jeté de canapé</td></tr><tr><td>Linges de lit</td><td>Drap</td><td>Drap plat, drap housse</td></tr><tr><td>Linges de lit</td><td>Housse de couette</td><td>Housse de couette</td></tr><tr><td>Linges de lit</td><td>Taie d'oreiller</td><td>Taie d’oreiller, taie de traversin</td></tr><tr><td>Linges de lit</td><td>Protège matelas</td><td>Alèse, protège-matelas, protège oreiller</td></tr><tr><td>Articles de literie</td><td>Couette</td><td>Couette, Edredon</td></tr><tr><td>Articles de literie</td><td>Oreiller</td><td>Oreiller, traversin</td></tr></tbody></table>
+<table><thead><tr><th width="197">Catégorie</th><th width="156">Produit</th><th width="557">Périmètre</th></tr></thead><tbody><tr><td>Décoration</td><td>Tapis de décoration</td><td>Tapis de décoration</td></tr><tr><td>Décoration</td><td>Rideau</td><td>Rideau, voilage</td></tr><tr><td>Linges de bain</td><td>Serviette</td><td>Serviette de bain, drap de bain, drap de douche, cape de bain, serviette de plage, fouta</td></tr><tr><td>Linges de bain</td><td>Tapis de bain</td><td>tapis de bain</td></tr><tr><td>Linges de bain</td><td>Peignoir</td><td>peignoir, poncho de bain</td></tr><tr><td>Linges de bain</td><td>Lingette</td><td>Lingette, démaquillant</td></tr><tr><td>Linges de bain</td><td>Gant de toilette</td><td>Gant de toilette, gant exfoliant</td></tr><tr><td>Linges de bébé</td><td>Bavoir</td><td>Bavoir</td></tr><tr><td>Linges de bébé</td><td>Gigoteuse</td><td>Nid d’ange, gigoteuse, turbulette</td></tr><tr><td>Linges de bébé</td><td>Lange</td><td>Lange</td></tr><tr><td>Linges de cuisine / d'entretien</td><td>Nappe</td><td>Nappe textile (non jetable), nappe enduite, chemin de table, set de table</td></tr><tr><td>Linges de cuisine / d'entretien</td><td>Tablier</td><td>Tablier</td></tr><tr><td>Linges de cuisine / d'entretien</td><td>Serviette de table</td><td>Serviette de table</td></tr><tr><td>Linges de cuisine / d'entretien</td><td>Torchon</td><td>Torchon, lavette, mopette, lingette, chiffon</td></tr><tr><td>Linges de cuisine / d'entretien</td><td>Serpillère</td><td>Serpillère</td></tr><tr><td>Linges de lit</td><td>Couverture</td><td>Couverture, plaid, couvre-lit, jeté de canapé</td></tr><tr><td>Linges de lit</td><td>Drap</td><td>Drap plat, drap housse</td></tr><tr><td>Linges de lit</td><td>Housse de couette</td><td>Housse de couette</td></tr><tr><td>Linges de lit</td><td>Taie d'oreiller</td><td>Taie d’oreiller, taie de traversin</td></tr><tr><td>Linges de lit</td><td>Protège matelas</td><td>Alèse, protège-matelas, protège oreiller</td></tr><tr><td>Articles de literie</td><td>Couette</td><td>Couette, Edredon</td></tr><tr><td>Articles de literie</td><td>Oreiller</td><td>Oreiller, traversin</td></tr></tbody></table>
 
 ### Produits exclus
 
@@ -30,6 +30,7 @@ Les sous-catégories retenues sont :
 * Housses (chaise, canapé, coussins ...)
 * Coussins (ne sont retenus que les oreillers)
 * Coussins type pouf, poire ...
+* Matelas
 * Dessous de verre
 * Boudins de porte
 * Galette de chaise
@@ -42,9 +43,9 @@ Les sous-catégories retenues sont :
 
 Parmi les différentes catégories des linges de maison, des tailles de référence sont définies seulement pour les articles de literie.
 
-Pour les produits suivants, les tailles de référence définies dans la catégorie habillement sont à suivre : peignoir, poncho de bain, nid d'ange, gigoteuse, turbulette.&#x20;
+Pour les produits suivants, les tailles de référence définies dans la catégorie habillement sont à suivre : peignoir, poncho de bain, nid d'ange, gigoteuse, turbulette. <mark style="color:$warning;">Ajouter règle de correspondance de taille pour les marques ayant des tailles particulières. Dans l'optique de donner une info consommateur sur le coût environnemental, on peut demander un calcul par taille. Ensuite deuxième indication à donner selon l'unit fonctionnelle : coût/100g, coût/m2, coût/place.</mark>
 
-<figure><img src="../.gitbook/assets/image (405).png" alt=""><figcaption></figcaption></figure>
+<figure><img src="../.gitbook/assets/image (476).png" alt=""><figcaption></figcaption></figure>
 
 Tous les produits non cités ci-dessus pour les linges de lit et articles de literie n'ont pas de taille de référence (ex : édredon, plaid, couvre-lit, jetée de canapé, …).
 
@@ -55,6 +56,8 @@ Il y a un problème sur la définition des volumes par catégorie de produits : 
 Niveau 2 : possibilité d'ajuster le volume à la main si connu ?
 
 ## Phase de fabrication
+
+Ajouter choix des tailles de fils, des fils.cm, tissage/tricotage/temps de confection/
 
 #### Linges de lit
 

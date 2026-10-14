@@ -130,7 +130,7 @@ $$
 
 * `t` = 25% ; `a` = 0% ; `f` = 0%
 
-<figure><img src="../../.gitbook/assets/image (376).png" alt=""><figcaption></figcaption></figure>
+<figure><img src="../../.gitbook/assets/image (429).png" alt=""><figcaption></figcaption></figure>
 
 $$
 I_{transport}=a*I_{air}+(1-a)*( t∗I_{terre}+(1−t)∗I_{mer})
@@ -144,7 +144,7 @@ $$
 
 * `t` = 25% ; `a` = 20% ; `f` = 0%
 
-<figure><img src="../../.gitbook/assets/image (377).png" alt=""><figcaption></figcaption></figure>
+<figure><img src="../../.gitbook/assets/image (430).png" alt=""><figcaption></figcaption></figure>
 
 $$
 I_{transport}=36.3+0.8*29.0=59.5Pts

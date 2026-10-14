@@ -122,7 +122,7 @@ Ecobalyse ne permet pas de préciser ce paramètre car il n'est pas discriminant
 
 _Illustration de l'impact du peignage dans le cadre de la filature d'un fil :_&#x20;
 
-![](<../../.gitbook/assets/image (141).png>)
+![](<../../.gitbook/assets/image (162).png>)
 
 </details>
 
@@ -215,7 +215,7 @@ La consommation d'électricité de la fabrication d'un fil, exprimée en kWh / k
 
 **Etape 1 = valeurs par défaut  (kWh / kg de fil)**&#x20;
 
-![](<../../.gitbook/assets/image (194).png>)
+![](<../../.gitbook/assets/image (215).png>)
 
 Ces valeurs par défaut se basent sur des données industrielles (plus d'info [ici](https://docs.google.com/presentation/d/1NKjkK9IiWRp7aMC_lmG6cju2XWMgExHR5t-_GTsq_jY/edit?usp=sharing)).&#x20;
 
@@ -227,7 +227,7 @@ Une corrélation linéraire est appliquée par défaut entre le titrage du fil (
 Par défaut, Ecobalyse considère un fil moyen dont le titrage est de 50nm / 200 Dtex.&#x20;
 
 _Illustration de la corrélation linéaire entre la conso. élec. et le titrage du fil :_ \
-![](<../../.gitbook/assets/image (190).png>)
+![](<../../.gitbook/assets/image (211).png>)
 
 
 
@@ -250,7 +250,7 @@ Dans le cas où le vêtement est composé de fibres de différentes natures (ex 
 
 _Illustration pour un T-shirt composé à 50/50 de fils de polyester/coton :_&#x20;
 
-![](<../../.gitbook/assets/image (153).png>)
+![](<../../.gitbook/assets/image (174).png>)
 
 </details>
 

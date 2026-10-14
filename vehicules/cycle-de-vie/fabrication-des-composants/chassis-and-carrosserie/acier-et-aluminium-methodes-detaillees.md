@@ -77,4 +77,4 @@ Dans Ecoinvent, les pertes lors des étapes de transformation finale de l'alumin
 
 Les schémas ci-dessous illustre cette modélisation :&#x20;
 
-<figure><img src="../../../../.gitbook/assets/image (327).png" alt=""><figcaption><p>Procédés ecoinvent mis en œuvre pour modéliser 1kg d'aluminium </p></figcaption></figure>
+<figure><img src="../../../../.gitbook/assets/image (348).png" alt=""><figcaption><p>Procédés ecoinvent mis en œuvre pour modéliser 1kg d'aluminium </p></figcaption></figure>

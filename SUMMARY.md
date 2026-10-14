@@ -22,7 +22,7 @@
   * [Correction de la caractérisation de la ressource en Uranium](def-cout-environnemental/categories-dimpact-acv/correction-de-la-caracterisation-de-la-ressource-en-uranium.md)
 * [🏷️ Durabilité](def-cout-environnemental/durabilite.md)
 * [📚 Source des procédés](def-cout-environnemental/source-des-procedes.md)
-* [Aide API](textile/aide-api.md)
+* [Aide API](def-cout-environnemental/aide-api.md)
 * [Vocabulaire et définitions](def-cout-environnemental/vocabulaire-et-definitions.md)
 
 ***
@@ -138,8 +138,8 @@
     * [💦 Inventaires enrichis](textile/cycle-de-vie-des-produits-textiles/ennoblissement/inventaires-enrichis.md)
   * [🌈 Etape 4 - Ennoblissement](textile/cycle-de-vie-des-produits-textiles/ennoblissement-1/README.md)
     * [🧪 Inventaires enrichis](textile/cycle-de-vie-des-produits-textiles/ennoblissement-1/inventaires-enrichis.md)
-  * [👗 Etape 5 - Confection](textile/cycle-de-vie-des-produits-textiles/confection.md)
-    * [🤐 Accessoires](textile/precisions-methodologiques/accessoires.md)
+  * [👗 Etape 5 - Confection](textile/cycle-de-vie-des-produits-textiles/confection/README.md)
+    * [🤐 Accessoires](textile/cycle-de-vie-des-produits-textiles/confection/accessoires.md)
   * [🚚 Etape 6 - Distribution - old - archive](textile/cycle-de-vie-des-produits-textiles/etape-6-distribution-old-archive.md)
   * [🚚 Etape 6 - Distribution](textile/cycle-de-vie-des-produits-textiles/etape-6-distribution.md)
   * [🌀 Etape 7 - Utilisation (old) - archive](textile/cycle-de-vie-des-produits-textiles/etape-6-utilisation.md)
@@ -299,7 +299,7 @@
   * [⚡ Utilisation du véhicule](vehicules/cycle-de-vie/utilisation-du-vehicule/README.md)
     * [Vehicules légers actifs ou équipés de panneaux photovoltaïques](vehicules/cycle-de-vie/utilisation-du-vehicule/vehicules-legers-actifs-ou-equipes-de-panneaux-photovoltaiques/README.md)
       * [🚴 Energie apportée par pédalage](vehicules/cycle-de-vie/utilisation-du-vehicule/vehicules-legers-actifs-ou-equipes-de-panneaux-photovoltaiques/energie-apportee-par-pedalage.md)
-      * [☀️ Energie apportée par des panneaux solaires photovoltaïque](vehicules/cycle-de-vie/utilisation-du-vehicule/vehicules-legers-actifs-ou-equipes-de-panneaux-photovoltaiques/energie-apportee-par-des-panneaux-solaires-photovoltaique-en-developpement.md)
+      * [☀️ Energie apportée par des panneaux solaires photovoltaïque](vehicules/cycle-de-vie/utilisation-du-vehicule/vehicules-legers-actifs-ou-equipes-de-panneaux-photovoltaiques/energie-apportee-par-des-panneaux-solaires-photovoltaique.md)
     * [📝 Construction des procédés carburant](vehicules/cycle-de-vie/utilisation-du-vehicule/construction-des-procedes-carburant.md)
   * [🛣️ Utilisation des infrastructures](vehicules/cycle-de-vie/utilisation-des-infrastructures.md)
   * [🛞 Usures des pneus et freins](vehicules/cycle-de-vie/usures-des-pneus-et-freins.md)

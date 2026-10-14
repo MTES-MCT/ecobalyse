@@ -36,9 +36,9 @@ Ce raisonnement est discutable pour l’énergie nucléaire en particulier : le 
 
 Les tests montrent qu'au final le FRU, contrairement à ce que son nom laisse penser,  reflète avant tout "l'efficacité" de conversion entre les ressources fossiles et l'usage, et non pas la rareté et la pression sur la ressource.  Ceci est frappant quand on met en parallèle le graphique ci-dessous et les scénarios présentant la tension actuelle sur les ressources.
 
-<figure><img src="../../.gitbook/assets/image (346).png" alt=""><figcaption><p>Impact "Fossil Ressource Use" (en MJ) de l'électricité opur plusieurs zones géographiques et moyens de production</p></figcaption></figure>
+<figure><img src="../../.gitbook/assets/image (399).png" alt=""><figcaption><p>Impact "Fossil Ressource Use" (en MJ) de l'électricité opur plusieurs zones géographiques et moyens de production</p></figcaption></figure>
 
-<figure><img src="../../.gitbook/assets/image (345).png" alt=""><figcaption><p><a href="https://fr.wikipedia.org/wiki/Ressources_et_consommation_%C3%A9nerg%C3%A9tiques_mondiales">https://fr.wikipedia.org/wiki/Ressources_et_consommation_%C3%A9nerg%C3%A9tiques_mondiales</a></p></figcaption></figure>
+<figure><img src="../../.gitbook/assets/image (398).png" alt=""><figcaption><p><a href="https://fr.wikipedia.org/wiki/Ressources_et_consommation_%C3%A9nerg%C3%A9tiques_mondiales">https://fr.wikipedia.org/wiki/Ressources_et_consommation_%C3%A9nerg%C3%A9tiques_mondiales</a></p></figcaption></figure>
 
 L'uranium a le FRU le plus élevé, alors que c'est bien le pétrole et le gaz qui sont les ressources les plus critiques actuellement.&#x20;
 
@@ -70,18 +70,18 @@ Ecobalyse réduit le facteur de caractérisation de l’Uranium de 40% pour plac
 
 Illustration du cumul en points d'impact des catégories d'impact raréfaction des ressources énergétiques et raréfaction des ressources minérales et métalliques :&#x20;
 
-<figure><img src="../../.gitbook/assets/image (334).png" alt=""><figcaption></figcaption></figure>
+<figure><img src="../../.gitbook/assets/image (387).png" alt=""><figcaption></figcaption></figure>
 
 Données sources :&#x20;
 
 * _electricity production, nuclear, pressure water reactor, FR_, ecoinvent 3.9.1
 * _electricity production, natural gas, combined cycle power plant, FR_ ecoinvent 3.9.1
 
-<figure><img src="../../.gitbook/assets/image (335).png" alt=""><figcaption></figcaption></figure>
+<figure><img src="../../.gitbook/assets/image (388).png" alt=""><figcaption></figcaption></figure>
 
 Au final, voici le coût environnemental par kWh pour 1 kWh d'électricité en France, en fonction de la source de production :&#x20;
 
-<figure><img src="../../.gitbook/assets/image (353).png" alt=""><figcaption></figcaption></figure>
+<figure><img src="../../.gitbook/assets/image (406).png" alt=""><figcaption></figcaption></figure>
 
 
 

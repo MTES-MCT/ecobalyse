@@ -10,7 +10,7 @@ Tant que l'utilisateur se limite a utiliser l'outil pour modéliser le coût env
 
 Si un utilisateur souhaite accéder au détail des catégories d'impacts qui construisent le coût environnemental, il peut alors accéder à des données de la base empreinte, rassemblées par exemple dans le cadre d'un accord entre l'Ademe et l'association Ecoinvent, qui font l'objet des conditions générales d'utilisation détaillées dans le document ci-après :&#x20;
 
-{% file src="../../../.gitbook/assets/Base EMPREINTE_Conditions Générales_réunion 08042024_CT_DAJ.pdf" %}
+{% file src="../../.gitbook/assets/Base EMPREINTE_Conditions Générales_réunion 08042024_CT_DAJ.pdf" %}
 Condition générales d'utilisation des données de la base empreinte rendues accessible via l'outil Ecobalyse
 {% endfile %}
 

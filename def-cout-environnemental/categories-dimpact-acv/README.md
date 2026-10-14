@@ -28,7 +28,7 @@ Pour l'affichage des résultats par "sous-scores", les impacts sont ensuite agr�
 
 
 
-<figure><img src="../../.gitbook/assets/image (358).png" alt=""><figcaption><p>Répartition des catégories suivant la règle de l'affectation unique</p></figcaption></figure>
+<figure><img src="../../.gitbook/assets/image (411).png" alt=""><figcaption><p>Répartition des catégories suivant la règle de l'affectation unique</p></figcaption></figure>
 
 
 
@@ -59,4 +59,4 @@ L'illustration ci-après montre les principales évolutions des coefficients de 
 
 
 
-<figure><img src="../../.gitbook/assets/image (388).png" alt=""><figcaption></figcaption></figure>
+<figure><img src="../../.gitbook/assets/image.png" alt=""><figcaption></figcaption></figure>

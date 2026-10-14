@@ -63,7 +63,7 @@ Dès lors, Ecobalyse se concentre sur la mise à disposition de "procédés gén
 **Vous souhaitez contribuer** sur la création/enrichissement de tels procédés ?   N'hésitez pas à partager vos retours :&#x20;
 
 * sur la plateforme [Mattermost](https://fabrique-numerique.gitbook.io/ecobalyse/communaute),
-* directement par mail[^2].&#x20;
+* directement par mail[^1].&#x20;
 
 </details>
 
@@ -221,8 +221,7 @@ Procédé créé à partir de 2 procédés Ecoinvent : &#x20;
   Unité : kg\
   Quantité : 1,02\
   Pertes : non applicable
-
-- Etape de transformation additionnelle\
+* Etape de transformation additionnelle\
   Procédé Ecoinvent : _Extrusion, plastic pipes, RER_\
   Unité : kg\
   Quantité : 1kg\
@@ -291,10 +290,8 @@ cf. l'Explorateur pour accéder à la liste des composant en bois disponibles da
 
 
 
-<figure><img src="../../../../.gitbook/assets/Coût environnemental (uPts _ kg) (1).png" alt=""><figcaption></figcaption></figure>
+<figure><img src="../../../.gitbook/assets/Coût environnemental (uPts _ kg) (1).png" alt=""><figcaption></figcaption></figure>
 
 <mark style="color:red;">**A actualiser**</mark>
 
 [^1]: alban.fournier@beta.gouv.fr
-
-[^2]: alban.fournier@beta.gouv.fr

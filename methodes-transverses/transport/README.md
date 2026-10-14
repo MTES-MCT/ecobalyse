@@ -33,7 +33,7 @@ Ecobalyse modélise chaque étape de transport sous la forme de trois phases dis
 
 _A titre d'exemple, un transport par voie maritime se décompose comme suit, avec deux modes de transport (bateau et camion) :_&#x20;
 
-<figure><img src="../../.gitbook/assets/image (372).png" alt=""><figcaption></figcaption></figure>
+<figure><img src="../../.gitbook/assets/image (425).png" alt=""><figcaption></figcaption></figure>
 
 ### Voies et modes de transports
 

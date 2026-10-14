@@ -95,7 +95,7 @@ Ces procédés sont mis à disposition dans l'explorateur de chaque secteur.
 
 **Cout environnemental des matériaux d'emballage (en Pts/kg) :**
 
-<figure><img src="../.gitbook/assets/image (395).png" alt=""><figcaption></figcaption></figure>
+<figure><img src="../.gitbook/assets/image (466).png" alt=""><figcaption></figcaption></figure>
 
 ## Exemple d'application
 

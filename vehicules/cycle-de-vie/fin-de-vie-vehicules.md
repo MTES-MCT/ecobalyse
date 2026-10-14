@@ -40,7 +40,7 @@ Exemple pour un véhicule très simplifié de 100kg constitué à 50% d'acier, 3
 
 L'essentiel de cette réduction est permise par les 14kg de cellules de batterie, car les matériaux récupérés ont un fort impact en termes de raréfactions de ressources métalliques.
 
-<figure><img src="../../.gitbook/assets/image (406).png" alt=""><figcaption></figcaption></figure>
+<figure><img src="../../.gitbook/assets/image (477).png" alt=""><figcaption></figcaption></figure>
 
 Sur les cellules de batteries spécifiquement, le traitement en fin de vie permet de réduire de 15% à 20% l'impact liée à la fabrication des cellules (hors assemblage et transport) :
 

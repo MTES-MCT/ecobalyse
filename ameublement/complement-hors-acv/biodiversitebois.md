@@ -158,7 +158,7 @@ Forest Stewardship Council (FSC®) est une organisation non gouvernementale cré
 
 Dans la base de données ecoinvent, différents ICV de bois sont disponibles aujourd'hui. Des bois européens (Allemagne, Scandinavie ...) sont disponibles mais pas de bois issus des forêts françaises.  Des bois tropicaux sont également fournis par ecoinvent. A noter que par défaut, ecoinvent considère que la foret européenne bénéficie d'une "gestion durable".   <mark style="color:$warning;">(liste complète des bois reste à extraire )</mark>
 
-<figure><img src="../../.gitbook/assets/image (6).png" alt="" width="375"><figcaption><p>Comparaison des impacts ACV entre pin sylvestre, épicéa et chêne d'Allemagne </p></figcaption></figure>
+<figure><img src="../../.gitbook/assets/image (450).png" alt="" width="375"><figcaption><p>Comparaison des impacts ACV entre pin sylvestre, épicéa et chêne d'Allemagne </p></figcaption></figure>
 
 En l'absence de données relatives au bois français dans la base ecoinvent, nous nous appuyons sur les données disponibles pour le bois allemand, dont les conditions sylvicoles sont comparables. L'analyse révèle que c'est l'indicateur [Land Use - LANCA](https://eplca.jrc.ec.europa.eu/uploads/QMS_H08_MonscenReff_del-land-use_FINAL.pdf)  — correspondant à l'occupation des sols et à une forme d'artificialisation des écosystèmes évaluée à partir de la qualité physico-chimique des sols sur une durée donnée — qui constitue la catégorie d'impact dominante. Ce résultat est cohérent avec les caractéristiques propres à la sylviculture : faible recours aux intrants (engrais, pesticides) et consommation limitée de carburant pour les opérations mécanisées. Dans ce contexte, c'est bien l'emprise spatiale dans le temps qui concentre l'essentiel des impacts.
 
@@ -174,9 +174,9 @@ A titre exploratoire, l'équipe ecobalyse propose d'introduire un complément "f
 
 Ainsi, dans le cas d'une "foret diversifiée", à priori favorable en terme de biodiversité (ex : foret de chênes français avec des strates diversifiées, hêtraie-sapinière ) ; l'introduction du complément "forêt" aurait pour effet une réduction de l'impact global correspondant à 25% du LANCA. A contrario, un bois venant d'un système de plantations intensives (ex ecalyptus du Brésil) , reconnu comme néfaste pour la biodiversité verrait son impact augmenter d'une valeur correspondant à 25% du Lanca.  Ainsi on pourrait avoir ce type de résultats :&#x20;
 
-<figure><img src="../../.gitbook/assets/image (12).png" alt="" width="563"><figcaption></figcaption></figure>
+<figure><img src="../../.gitbook/assets/image (456).png" alt="" width="563"><figcaption></figcaption></figure>
 
-<figure><img src="../../.gitbook/assets/image (13).png" alt="" width="563"><figcaption></figcaption></figure>
+<figure><img src="../../.gitbook/assets/image (457).png" alt="" width="563"><figcaption></figcaption></figure>
 
 {% hint style="warning" %}
 A nouveau, cette approche et ces coefficients sont surtout une illustration du principe d'un complément forêt pour lequel des contributions sont attendues dans le cadre de la concertation.&#x20;

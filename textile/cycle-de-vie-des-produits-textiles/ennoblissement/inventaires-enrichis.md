@@ -62,7 +62,7 @@ Ainsi, les enjeux de Toxicité/Ecotoxicité ne sont pas pleinement reflétés da
 
 _Extrait du rapport publié par le_ [_JRC_](#user-content-fn-2)[^2] _en 2018 (p. 9/146)_ &#x20;
 
-![](<../../../.gitbook/assets/image (122).png>)
+![](<../../../.gitbook/assets/image (143).png>)
 
 </details>
 
@@ -84,7 +84,7 @@ Parmi elles, près 1/4 (c. 22,600) sont utilisées en quantité significative au
 
 **Illustration**
 
-![](<../../../.gitbook/assets/image (267).png>)
+![](<../../../.gitbook/assets/image (288).png>)
 
 </details>
 
@@ -112,7 +112,7 @@ $$
 ImpactInventaireEnrichi= MasseSortante(kg) * CoefImpactInventaireEnrichi
 $$
 
-<figure><img src="../../../.gitbook/assets/image (281).png" alt=""><figcaption></figcaption></figure>
+<figure><img src="../../../.gitbook/assets/image (302).png" alt=""><figcaption></figcaption></figure>
 
 ### Hypothèses par défaut
 
@@ -209,35 +209,35 @@ Blanchiment effectué au peroxyde d'hydrogène en discontinu.&#x20;
   (2 paramètres = taux raccordement & efficacité centre traitement eaux usées)&#x20;
 * modèle d'émission spécifique au procédé
 
-<figure><img src="../../../.gitbook/assets/image (29).png" alt=""><figcaption><p>Paramètres clés mobilisés</p></figcaption></figure>
+<figure><img src="../../../.gitbook/assets/image (50).png" alt=""><figcaption><p>Paramètres clés mobilisés</p></figcaption></figure>
 {% endtab %}
 
 {% tab title="Substances / Emissions (Average scenario)" %}
 **Flux entrants et sortants d'émissions**&#x20;
 
-<figure><img src="../../../.gitbook/assets/image (258).png" alt=""><figcaption><p>Produits chimiques utilisés</p></figcaption></figure>
+<figure><img src="../../../.gitbook/assets/image (279).png" alt=""><figcaption><p>Produits chimiques utilisés</p></figcaption></figure>
 
-<figure><img src="../../../.gitbook/assets/image (37).png" alt=""><figcaption><p>Flux sortant d'émissions </p></figcaption></figure>
+<figure><img src="../../../.gitbook/assets/image (58).png" alt=""><figcaption><p>Flux sortant d'émissions </p></figcaption></figure>
 
-<figure><img src="../../../.gitbook/assets/image (62).png" alt=""><figcaption><p>Flux sortant d'émissions </p></figcaption></figure>
+<figure><img src="../../../.gitbook/assets/image (83).png" alt=""><figcaption><p>Flux sortant d'émissions </p></figcaption></figure>
 
 **Flux sortants d'émissions (approche time-integrated) = émissions prise en compte dans le calcul d'impact**
 
-<figure><img src="../../../.gitbook/assets/image (38).png" alt=""><figcaption><p>Flux sortant d'émissions (approche "time-integrated")</p></figcaption></figure>
+<figure><img src="../../../.gitbook/assets/image (59).png" alt=""><figcaption><p>Flux sortant d'émissions (approche "time-integrated")</p></figcaption></figure>
 
-<figure><img src="../../../.gitbook/assets/image (64).png" alt=""><figcaption><p>Flux sortant d'émissions (approche "time-integrated")</p></figcaption></figure>
+<figure><img src="../../../.gitbook/assets/image (85).png" alt=""><figcaption><p>Flux sortant d'émissions (approche "time-integrated")</p></figcaption></figure>
 {% endtab %}
 
 {% tab title="Impacts" %}
 
 
-<figure><img src="../../../.gitbook/assets/image (67).png" alt=""><figcaption><p>Illustration des résultats</p></figcaption></figure>
+<figure><img src="../../../.gitbook/assets/image (88).png" alt=""><figcaption><p>Illustration des résultats</p></figcaption></figure>
 
-<figure><img src="../../../.gitbook/assets/image (68).png" alt=""><figcaption><p>Scénario "Average" détaillé</p></figcaption></figure>
+<figure><img src="../../../.gitbook/assets/image (89).png" alt=""><figcaption><p>Scénario "Average" détaillé</p></figcaption></figure>
 
-<figure><img src="../../../.gitbook/assets/image (69).png" alt=""><figcaption><p>Décomposition de l'impact par compartiment (air, eau, non émises)</p></figcaption></figure>
+<figure><img src="../../../.gitbook/assets/image (90).png" alt=""><figcaption><p>Décomposition de l'impact par compartiment (air, eau, non émises)</p></figcaption></figure>
 
-<figure><img src="../../../.gitbook/assets/image (25).png" alt=""><figcaption><p>Décomposition de l'impact par substances/produits chimiques</p></figcaption></figure>
+<figure><img src="../../../.gitbook/assets/image (46).png" alt=""><figcaption><p>Décomposition de l'impact par substances/produits chimiques</p></figcaption></figure>
 {% endtab %}
 {% endtabs %}
 
@@ -262,33 +262,33 @@ Les fibres cellulosiques peuvent être teintes avec différents types de coloran
   (2 paramètres = taux raccordement & efficacité centre traitement eaux usées)&#x20;
 * modèle d'émission spécifique au procédé
 
-<figure><img src="../../../.gitbook/assets/image (30).png" alt=""><figcaption><p>Paramètres clés mobilisés</p></figcaption></figure>
+<figure><img src="../../../.gitbook/assets/image (51).png" alt=""><figcaption><p>Paramètres clés mobilisés</p></figcaption></figure>
 {% endtab %}
 
 {% tab title="Substances / Emissions (Average scenario)" %}
 **Flux entrants et sortants d'émissions** &#x20;
 
-<figure><img src="../../../.gitbook/assets/image (256).png" alt=""><figcaption><p>Produits chimiques utilisés</p></figcaption></figure>
+<figure><img src="../../../.gitbook/assets/image (277).png" alt=""><figcaption><p>Produits chimiques utilisés</p></figcaption></figure>
 
-<figure><img src="../../../.gitbook/assets/image (33).png" alt=""><figcaption><p>Flux sortant d'émissions </p></figcaption></figure>
+<figure><img src="../../../.gitbook/assets/image (54).png" alt=""><figcaption><p>Flux sortant d'émissions </p></figcaption></figure>
 
-<figure><img src="../../../.gitbook/assets/image (246).png" alt=""><figcaption><p>Flux sortant d'émissions </p></figcaption></figure>
+<figure><img src="../../../.gitbook/assets/image (267).png" alt=""><figcaption><p>Flux sortant d'émissions </p></figcaption></figure>
 
 **Flux sortants d'émissions (approche time-integrated) = émissions prise en compte dans le calcul d'impact**
 
-<figure><img src="../../../.gitbook/assets/image (34).png" alt=""><figcaption><p>Flux sortant d'émissions (approche "time-integrated")</p></figcaption></figure>
+<figure><img src="../../../.gitbook/assets/image (55).png" alt=""><figcaption><p>Flux sortant d'émissions (approche "time-integrated")</p></figcaption></figure>
 
-<figure><img src="../../../.gitbook/assets/image (245).png" alt=""><figcaption><p>Flux sortant d'émissions (approche "time-integrated")</p></figcaption></figure>
+<figure><img src="../../../.gitbook/assets/image (266).png" alt=""><figcaption><p>Flux sortant d'émissions (approche "time-integrated")</p></figcaption></figure>
 {% endtab %}
 
 {% tab title="Impacts" %}
-<figure><img src="../../../.gitbook/assets/image (20).png" alt=""><figcaption><p>Illustration des résultats</p></figcaption></figure>
+<figure><img src="../../../.gitbook/assets/image (41).png" alt=""><figcaption><p>Illustration des résultats</p></figcaption></figure>
 
-<figure><img src="../../../.gitbook/assets/image (21).png" alt=""><figcaption><p>Scénario "Average" détaillé</p></figcaption></figure>
+<figure><img src="../../../.gitbook/assets/image (42).png" alt=""><figcaption><p>Scénario "Average" détaillé</p></figcaption></figure>
 
-<figure><img src="../../../.gitbook/assets/image (22).png" alt=""><figcaption><p>Décomposition de l'impact par compartiment (air, eau, non émises)</p></figcaption></figure>
+<figure><img src="../../../.gitbook/assets/image (43).png" alt=""><figcaption><p>Décomposition de l'impact par compartiment (air, eau, non émises)</p></figcaption></figure>
 
-<figure><img src="../../../.gitbook/assets/image (24).png" alt=""><figcaption><p>Décomposition de l'impact par substances/produits chimiques</p></figcaption></figure>
+<figure><img src="../../../.gitbook/assets/image (45).png" alt=""><figcaption><p>Décomposition de l'impact par substances/produits chimiques</p></figcaption></figure>
 {% endtab %}
 {% endtabs %}
 
@@ -311,33 +311,33 @@ Teinture en discontinue utilisant des colorants dispersés (Disperse _dyes_). De
   (2 paramètres = taux raccordement & efficacité centre traitement eaux usées)&#x20;
 * modèle d'émission spécifique au procédé
 
-<figure><img src="../../../.gitbook/assets/image (41).png" alt=""><figcaption><p>Paramètres clés mobilisés</p></figcaption></figure>
+<figure><img src="../../../.gitbook/assets/image (62).png" alt=""><figcaption><p>Paramètres clés mobilisés</p></figcaption></figure>
 {% endtab %}
 
 {% tab title="Substances / Emissions (Average scenario)" %}
 **Flux entrants et sortants d'émissions** &#x20;
 
-<figure><img src="../../../.gitbook/assets/image (255).png" alt=""><figcaption><p>Produits chimiques utilisés</p></figcaption></figure>
+<figure><img src="../../../.gitbook/assets/image (276).png" alt=""><figcaption><p>Produits chimiques utilisés</p></figcaption></figure>
 
-<figure><img src="../../../.gitbook/assets/image (35).png" alt=""><figcaption><p>Flux entrant d'émissions</p></figcaption></figure>
+<figure><img src="../../../.gitbook/assets/image (56).png" alt=""><figcaption><p>Flux entrant d'émissions</p></figcaption></figure>
 
-<figure><img src="../../../.gitbook/assets/image (42).png" alt=""><figcaption><p>Flux sortant d'émissions </p></figcaption></figure>
+<figure><img src="../../../.gitbook/assets/image (63).png" alt=""><figcaption><p>Flux sortant d'émissions </p></figcaption></figure>
 
 **Flux sortants d'émissions (approche time-integrated) = émissions prise en compte dans le calcul d'impact**
 
-<figure><img src="../../../.gitbook/assets/image (36).png" alt=""><figcaption><p>Flux sortant d'émissions (approche "time-integrated")</p></figcaption></figure>
+<figure><img src="../../../.gitbook/assets/image (57).png" alt=""><figcaption><p>Flux sortant d'émissions (approche "time-integrated")</p></figcaption></figure>
 
-<figure><img src="../../../.gitbook/assets/image (44).png" alt=""><figcaption><p>Flux sortant d'émissions (approche "time-integrated")</p></figcaption></figure>
+<figure><img src="../../../.gitbook/assets/image (65).png" alt=""><figcaption><p>Flux sortant d'émissions (approche "time-integrated")</p></figcaption></figure>
 {% endtab %}
 
 {% tab title="Impacts" %}
-<figure><img src="../../../.gitbook/assets/image (45).png" alt=""><figcaption><p>Illustration des résultats</p></figcaption></figure>
+<figure><img src="../../../.gitbook/assets/image (66).png" alt=""><figcaption><p>Illustration des résultats</p></figcaption></figure>
 
-<figure><img src="../../../.gitbook/assets/image (46).png" alt=""><figcaption><p>Scénario "Average" détaillé</p></figcaption></figure>
+<figure><img src="../../../.gitbook/assets/image (67).png" alt=""><figcaption><p>Scénario "Average" détaillé</p></figcaption></figure>
 
-<figure><img src="../../../.gitbook/assets/image (48).png" alt=""><figcaption><p>Décomposition de l'impact par compartiment (air, eau, non émises)</p></figcaption></figure>
+<figure><img src="../../../.gitbook/assets/image (69).png" alt=""><figcaption><p>Décomposition de l'impact par compartiment (air, eau, non émises)</p></figcaption></figure>
 
-<figure><img src="../../../.gitbook/assets/image (26).png" alt=""><figcaption><p>Décomposition de l'impact par substances/produits chimiques</p></figcaption></figure>
+<figure><img src="../../../.gitbook/assets/image (47).png" alt=""><figcaption><p>Décomposition de l'impact par substances/produits chimiques</p></figcaption></figure>
 {% endtab %}
 {% endtabs %}
 
@@ -361,33 +361,33 @@ Impression pigmentaire.
   (2 paramètres = taux raccordement & efficacité centre traitement eaux usées)&#x20;
 * modèle d'émission spécifique au procédé
 
-<figure><img src="../../../.gitbook/assets/image (250).png" alt=""><figcaption><p>Paramètres clés mobilisés</p></figcaption></figure>
+<figure><img src="../../../.gitbook/assets/image (271).png" alt=""><figcaption><p>Paramètres clés mobilisés</p></figcaption></figure>
 {% endtab %}
 
 {% tab title="Substances / Emissions (Average scenario)" %}
 **Flux entrants et sortants d'émissions**&#x20;
 
-<figure><img src="../../../.gitbook/assets/image (251).png" alt=""><figcaption><p>Produits chimiques utilisés</p></figcaption></figure>
+<figure><img src="../../../.gitbook/assets/image (272).png" alt=""><figcaption><p>Produits chimiques utilisés</p></figcaption></figure>
 
-<figure><img src="../../../.gitbook/assets/image (260).png" alt=""><figcaption><p>Flux sortant d'émissions </p></figcaption></figure>
+<figure><img src="../../../.gitbook/assets/image (281).png" alt=""><figcaption><p>Flux sortant d'émissions </p></figcaption></figure>
 
-<figure><img src="../../../.gitbook/assets/image (72).png" alt=""><figcaption><p>Flux sortant d'émissions </p></figcaption></figure>
+<figure><img src="../../../.gitbook/assets/image (93).png" alt=""><figcaption><p>Flux sortant d'émissions </p></figcaption></figure>
 
 **Flux sortants d'émissions (approche time-integrated) = émissions prise en compte dans le calcul d'impact**
 
-<figure><img src="../../../.gitbook/assets/image (259).png" alt=""><figcaption><p>Flux sortant d'émissions (approche "time-integrated")</p></figcaption></figure>
+<figure><img src="../../../.gitbook/assets/image (280).png" alt=""><figcaption><p>Flux sortant d'émissions (approche "time-integrated")</p></figcaption></figure>
 
-<figure><img src="../../../.gitbook/assets/image (74).png" alt=""><figcaption><p>Flux sortant d'émissions (approche "time-integrated")</p></figcaption></figure>
+<figure><img src="../../../.gitbook/assets/image (95).png" alt=""><figcaption><p>Flux sortant d'émissions (approche "time-integrated")</p></figcaption></figure>
 {% endtab %}
 
 {% tab title="Impacts" %}
-<figure><img src="../../../.gitbook/assets/image (265).png" alt=""><figcaption><p>Illustration des résultats (impression de 25% du vêtement)</p></figcaption></figure>
+<figure><img src="../../../.gitbook/assets/image (286).png" alt=""><figcaption><p>Illustration des résultats (impression de 25% du vêtement)</p></figcaption></figure>
 
-<figure><img src="../../../.gitbook/assets/image (79).png" alt=""><figcaption><p>Scénario "Average" détaillé</p></figcaption></figure>
+<figure><img src="../../../.gitbook/assets/image (100).png" alt=""><figcaption><p>Scénario "Average" détaillé</p></figcaption></figure>
 
-<figure><img src="../../../.gitbook/assets/image (58).png" alt=""><figcaption><p>Décomposition de l'impact par compartiment (air, eau, non émises)</p></figcaption></figure>
+<figure><img src="../../../.gitbook/assets/image (79).png" alt=""><figcaption><p>Décomposition de l'impact par compartiment (air, eau, non émises)</p></figcaption></figure>
 
-<figure><img src="../../../.gitbook/assets/image (27).png" alt=""><figcaption><p>Décomposition de l'impact par substances/produits chimiques</p></figcaption></figure>
+<figure><img src="../../../.gitbook/assets/image (48).png" alt=""><figcaption><p>Décomposition de l'impact par substances/produits chimiques</p></figcaption></figure>
 {% endtab %}
 {% endtabs %}
 
@@ -411,33 +411,33 @@ Impression avec des colorants dispersés.
   (2 paramètres = taux raccordement & efficacité centre traitement eaux usées)&#x20;
 * modèle d'émission spécifique au procédé
 
-<figure><img src="../../../.gitbook/assets/image (252).png" alt=""><figcaption><p>Paramètres clés mobilisés</p></figcaption></figure>
+<figure><img src="../../../.gitbook/assets/image (273).png" alt=""><figcaption><p>Paramètres clés mobilisés</p></figcaption></figure>
 {% endtab %}
 
 {% tab title="Substances / Emissions (Average scenario)" %}
 **Flux entrants et sortants d'émissions**&#x20;
 
-<figure><img src="../../../.gitbook/assets/image (253).png" alt=""><figcaption><p>Produits chimiques utilisés</p></figcaption></figure>
+<figure><img src="../../../.gitbook/assets/image (274).png" alt=""><figcaption><p>Produits chimiques utilisés</p></figcaption></figure>
 
-<figure><img src="../../../.gitbook/assets/image (262).png" alt=""><figcaption><p>Flux sortant d'émissions </p></figcaption></figure>
+<figure><img src="../../../.gitbook/assets/image (283).png" alt=""><figcaption><p>Flux sortant d'émissions </p></figcaption></figure>
 
-<figure><img src="../../../.gitbook/assets/image (53).png" alt=""><figcaption><p>Flux sortant d'émissions </p></figcaption></figure>
+<figure><img src="../../../.gitbook/assets/image (74).png" alt=""><figcaption><p>Flux sortant d'émissions </p></figcaption></figure>
 
 **Flux sortants d'émissions (approche time-integrated) = émissions prise en compte dans le calcul d'impact**
 
-<figure><img src="../../../.gitbook/assets/image (261).png" alt=""><figcaption><p>Flux sortant d'émissions (approche "time-integrated")</p></figcaption></figure>
+<figure><img src="../../../.gitbook/assets/image (282).png" alt=""><figcaption><p>Flux sortant d'émissions (approche "time-integrated")</p></figcaption></figure>
 
-<figure><img src="../../../.gitbook/assets/image (52).png" alt=""><figcaption><p>Flux sortant d'émissions (approche "time-integrated")</p></figcaption></figure>
+<figure><img src="../../../.gitbook/assets/image (73).png" alt=""><figcaption><p>Flux sortant d'émissions (approche "time-integrated")</p></figcaption></figure>
 {% endtab %}
 
 {% tab title="Impacts" %}
-<figure><img src="../../../.gitbook/assets/image (266).png" alt=""><figcaption><p>Illustration des résultats (impression de 25% du vêtement)</p></figcaption></figure>
+<figure><img src="../../../.gitbook/assets/image (287).png" alt=""><figcaption><p>Illustration des résultats (impression de 25% du vêtement)</p></figcaption></figure>
 
-<figure><img src="../../../.gitbook/assets/image (56).png" alt=""><figcaption><p>Scénario "Average" détaillé</p></figcaption></figure>
+<figure><img src="../../../.gitbook/assets/image (77).png" alt=""><figcaption><p>Scénario "Average" détaillé</p></figcaption></figure>
 
-<figure><img src="../../../.gitbook/assets/image (57).png" alt=""><figcaption><p>Décomposition de l'impact par compartiment (air, eau, non émises)</p></figcaption></figure>
+<figure><img src="../../../.gitbook/assets/image (78).png" alt=""><figcaption><p>Décomposition de l'impact par compartiment (air, eau, non émises)</p></figcaption></figure>
 
-<figure><img src="../../../.gitbook/assets/image (263).png" alt=""><figcaption><p>Décomposition de l'impact par substances/produits chimiques</p></figcaption></figure>
+<figure><img src="../../../.gitbook/assets/image (284).png" alt=""><figcaption><p>Décomposition de l'impact par substances/produits chimiques</p></figcaption></figure>
 {% endtab %}
 {% endtabs %}
 
@@ -447,9 +447,9 @@ Impression avec des colorants dispersés.
 
 L'introduction d'inventaires enrichis (scénario **moyen/average**) impacte peu l'impact environnemental global de différents t-shirts : entre +3% et +5% selon les configurations (cf. ci-dessous).&#x20;
 
-![](<../../../.gitbook/assets/image (18) (1).png>)
+![](<../../../.gitbook/assets/image (39).png>)
 
-![](<../../../.gitbook/assets/image (17) (1).png>)
+![](<../../../.gitbook/assets/image (38).png>)
 
 
 

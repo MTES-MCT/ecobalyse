@@ -2,7 +2,7 @@
 
 Un ingrédient peut perdre de la masse à la cuisson (ex. : courgettes) ou en gagner (ex. : riz). Pour prendre en compte cette variation de masse, on associe à chaque ingrédient un rapport cru/cuit selon le tableau ci-dessous (provenant de la [documentation Agribalyse](https://3613321239-files.gitbook.io/~/files/v0/b/gitbook-x-prod.appspot.com/o/spaces%2F-LpO7Agg1DbhEBNAvmHP%2Fuploads%2FwE46PsDpfPPo7qd486O6%2FM%C3%A9thodologie%20AGB%203.1_Alimentation.pdf?alt=media\&token=0da7c4e0-4332-4bc3-9c86-83b7a6325971)).
 
-<figure><img src="../../.gitbook/assets/image (189).png" alt=""><figcaption></figcaption></figure>
+<figure><img src="../../.gitbook/assets/image (210).png" alt=""><figcaption></figcaption></figure>
 
 <figure><img src="../../.gitbook/assets/Screenshot 2023-01-19 at 23.40.38.png" alt=""><figcaption></figcaption></figure>
 

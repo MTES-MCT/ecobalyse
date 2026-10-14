@@ -24,7 +24,7 @@ C'est pourquoi un complément hors ACV "Export hors Eurpoe" a été introduit pa
 
 ### **Scénarios** PEFCR Apparel & Footwear
 
-<figure><img src="../../.gitbook/assets/image (379).png" alt=""><figcaption></figcaption></figure>
+<figure><img src="../../.gitbook/assets/image (432).png" alt=""><figcaption></figcaption></figure>
 
 Le recyclage consiste essentiellement en du recyclage en chiffons (_wipers_) et en matériaux d'isolation (_insulation_). La prise en compte de ce recyclage se fait via la Circular Footprint Formula (CFF). [Nous avons estimé l'impact de ces circuits de recyclage et trouvé qu'il était négligeable sur cette page.](https://fabrique-numerique.gitbook.io/ecobalyse/textile/cycle-de-vie-des-produits-textiles/etape-1-matieres/circular-footprint-formula-cff-matiere-1)
 
@@ -114,7 +114,7 @@ Ces données sont directement issues du PEFCR Apparel & Footwear 3.1, Table 44 (
 
 Le rapport des deux correspond à la part du coffre occupée par le vêtement. Ce ratio est fourni dans la Table 44 ci-dessous, colonne _Allocation_).
 
-<figure><img src="../../.gitbook/assets/image (378).png" alt=""><figcaption></figcaption></figure>
+<figure><img src="../../.gitbook/assets/image (431).png" alt=""><figcaption></figcaption></figure>
 
 ## Procédés utilisés pour le coût environnemental
 

@@ -122,7 +122,7 @@ A partir du [fichier d'ICV candidats](https://ademecloud.sharepoint.com/:x:/s/C-
 2. À défaut, inventaires localisés en Europe hors UE + France
 3. En dernier recours, inventaires du reste du monde
 
-<figure><img src="../../../.gitbook/assets/image (386).png" alt=""><figcaption></figcaption></figure>
+<figure><img src="../../../.gitbook/assets/image (439).png" alt=""><figcaption></figcaption></figure>
 
 Cette priorisation garantit que, lorsque cela est possible, l’inventaire retenu reflète effectivement les conditions européennes de production.
 
@@ -228,7 +228,7 @@ La sélection s’effectue selon une règle simple :
 1. **Si au moins un candidat hors UE est disponible**, seuls ces candidats sont retenus pour la suite du calcul.
 2. **Si aucun candidat hors UE n’est disponible**, la sélection bascule en mode « fallback UE » et s’appuie alors sur les inventaires européens disponibles.
 
-<figure><img src="../../../.gitbook/assets/image (387).png" alt=""><figcaption></figcaption></figure>
+<figure><img src="../../../.gitbook/assets/image (441).png" alt=""><figcaption></figcaption></figure>
 
 Cette hiérarchisation garantit que la variante « Production hors UE » reflète autant que possible des conditions de production réellement extra-européennes.
 
@@ -384,7 +384,7 @@ Quelques données sous labels sont déjà disponibles dans Agribalyse et ont pu 
 
 L’ensemble des appariements entre ingrédients et ICV est visible dans l’explorateur, et via le bouton "?" disponible à côté du nom de l'ingrédient.
 
-<figure><img src="../../../.gitbook/assets/image (352).png" alt=""><figcaption></figcaption></figure>
+<figure><img src="../../../.gitbook/assets/image (405).png" alt=""><figcaption></figcaption></figure>
 
 
 

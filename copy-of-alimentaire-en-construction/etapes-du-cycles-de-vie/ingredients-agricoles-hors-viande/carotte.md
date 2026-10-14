@@ -39,9 +39,9 @@ La base Agribalyse permet de distinguer 14 inventaires de cycle de vie pour la c
 
 L'analyse comparée des impacts donne :&#x20;
 
-<figure><img src="../../../.gitbook/assets/image (175).png" alt=""><figcaption><p>Conventionnel vs bio - source: AGB3.0 via Simapro, EF3.0 (adapted)</p></figcaption></figure>
+<figure><img src="../../../.gitbook/assets/image (196).png" alt=""><figcaption><p>Conventionnel vs bio - source: AGB3.0 via Simapro, EF3.0 (adapted)</p></figcaption></figure>
 
-<figure><img src="../../../.gitbook/assets/image (145).png" alt=""><figcaption><p>source: AGB3.0 via Simapro, EF3.0 (adapted)</p></figcaption></figure>
+<figure><img src="../../../.gitbook/assets/image (166).png" alt=""><figcaption><p>source: AGB3.0 via Simapro, EF3.0 (adapted)</p></figcaption></figure>
 
 {% hint style="info" %}
 **Axes de progrès ?**
