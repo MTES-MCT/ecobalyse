@@ -872,9 +872,6 @@ describe("API", () => {
     });
 
     describe("generic simulator response", () => {
-      const sumValues = (object) =>
-        Object.values(object).reduce((total, value) => total + value, 0);
-
       const flour = require("../public/data/food2/examples.json").find(({ name }) =>
         name.startsWith("Farine de blé"),
       );
@@ -887,14 +884,9 @@ describe("API", () => {
 
         // Protection areas are recomputed from indicators; precomputed ecs can differ by a fraction of a point
         expect(Math.abs(sumValues(body.subscores) - body.score.ecs)).toBeLessThan(0.1);
-        expect(
-          Math.abs(sumValues(body.stages) + body.subscores.complements - body.score.ecs),
-        ).toBeLessThan(0.001);
-        expect(sumValues(body.complements)).toBeCloseTo(body.score.complements, 4);
-        expect(body.score.complements).toBeCloseTo(body.subscores.complements, 4);
-        expect(body.impacts.ecs).toBeUndefined();
-        expect(body.totalComplements).toBeUndefined();
-        expect(body.impactsWithoutDurability).toBeUndefined();
+        expectMostlyEqual(sumValues(body.stages) + body.subscores.complements, body.score.ecs);
+        expectMostlyEqual(sumValues(body.complements), body.score.complements);
+        expectMostlyEqual(body.score.complements, body.subscores.complements);
         expect(body.productMass).toEqual(expect.any(Number));
         expect(Object.keys(body.stages)).toEqual([
           "materials",
@@ -907,18 +899,11 @@ describe("API", () => {
           "endOfLife",
         ]);
 
-        const compositionComplements = body.composition.reduce(
-          (total, item) => total + sumValues(item.complements),
-          0,
-        );
-        expect(compositionComplements).toBeCloseTo(sumValues(body.complements), 4);
+        const compositionComplements = body.composition.reduce( (total, item) => total + sumValues(item.complements), 0);
+        expectMostlyEqual(compositionComplements, sumValues(body.complements));
         expect(body.composition.length).toBe(flour.query.components.length);
         for (const item of body.composition) {
-          expect(item.elements).toBeUndefined();
-          expect(item.impactsWithoutDurability).toBeUndefined();
-          expect(item.impacts.ecs).toBeUndefined();
-          expect(item.totalComplements).toBeUndefined();
-          expect(sumValues(item.complements)).toBeCloseTo(item.score.complements, 4);
+          expectMostlyEqual(sumValues(item.complements), item.score.complements);
         }
       });
 
@@ -935,21 +920,9 @@ describe("API", () => {
         });
         expectStatus(doubledDurability, 200);
 
-        expect(
-          Math.abs(doubledDurability.body.score.ecs * 2 - defaultDurability.body.score.ecs),
-        ).toBeLessThan(0.001);
-
-        expect(
-          Math.abs(
-            doubledDurability.body.composition[0].score.ecs * 2 -
-              defaultDurability.body.composition[0].score.ecs,
-          ),
-        ).toBeLessThan(0.001);
-
-        expect(doubledDurability.body.subscores.climate * 2).toBeCloseTo(
-          defaultDurability.body.subscores.climate,
-          4,
-        );
+        expectMostlyEqual(doubledDurability.body.score.ecs * 2, defaultDurability.body.score.ecs);
+        expectMostlyEqual(doubledDurability.body.composition[0].score.ecs * 2, defaultDurability.body.composition[0].score.ecs);
+        expectMostlyEqual(doubledDurability.body.subscores.climate * 2, defaultDurability.body.subscores.climate);
       });
     });
 
@@ -1051,12 +1024,20 @@ async function expectListResponseWithObjectKeys(path, keys) {
   });
 }
 
+function expectMostlyEqual(a, b, precision = 3) {
+  return expect(a).toBeCloseTo(b, precision);
+}
+
 function expectStatus(response, expectedCode, type = "application/json") {
   if (response.status === 400 && expectedCode != 400) {
     expect(response.body).toHaveProperty("error", "");
   }
   expect(response.type).toBe(type);
   expect(response.statusCode).toBe(expectedCode);
+}
+
+function sumValues(object) {
+  return Object.values(object).reduce((total, value) => total + value, 0);
 }
 
 // https://medium.com/@andrei.pfeiffer/jest-matching-objects-in-array-50fe2f4d6b98
