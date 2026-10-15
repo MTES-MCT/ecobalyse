@@ -1,5 +1,6 @@
 ---
 description: Présentation de la méthode de calcul du complément Biodiversité x Forêt .
+hidden: true
 ---
 
 # 🌍 Biodiversité x Forêt (draft)

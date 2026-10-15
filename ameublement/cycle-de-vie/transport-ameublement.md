@@ -3,6 +3,7 @@ description: >-
   Cette page porte sur les spécificités du transport des meubles. Les
   informations relatives au transport de manière générale sont détaillées dans
   la documentation transverse d'Ecobalyse.
+hidden: true
 ---
 
 # 🪚 Transport Ameublement
@@ -18,7 +19,7 @@ Les étapes de transport se déclinent de la façon suivante :
 3. Transport du meuble entre l'usine d'assemblage et un entrepôt de stockage en France,
 4. Transport entre le site de stockage en France et un magasin ou centre de distribution ou le client final s'il est livré directement.
 
-## 1. Transport des matériaux constitutifs des composants&#x20;
+## 1. Transport des matériaux constitutifs des composants
 
 Le transports des matériaux constitutifs des composants (étape 1) n'est pas calculé de façon spécifique. Il est intégré dans les procédés modélisant ces matériaux.
 
