@@ -1209,7 +1209,7 @@ suite =
                                             Err error ->
                                                 Err error
                                     )
-                                |> expectResultErrorContains "ne peut pas être appliquée"
+                                |> expectResultErrorContains "Impossible de spécifier la masse unitaire"
                             )
                          , itFromResult "should update effective amounts and clear unitaryMass when an element amount changes"
                             (twoKilogramElements (Just 0.5) 1
