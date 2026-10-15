@@ -56,5 +56,20 @@
     "id": "d3b8adda-9cc5-484a-8dcc-d04a4a990639",
     "name": "Farine de blé (1 kg)",
     "scopes": ["food2"]
+  },
+  {
+    "comment": "1 kg = 3.43 kg de cow-milk-fr + transformation. À comparer au procédé Agribalyse agrégé 'Mozzarella cheese, from cow's milk, at plant {FR} U'.",
+    "elements": [
+      {
+        "amount": 1,
+        "material": { "id": "b757094f-7cb1-58ea-9d3d-b6d7e0e0d471" },
+        "transforms": [
+          { "country": "FR", "id": "0621ae59-4f45-5a2b-b388-e0dc9efba27b" }
+        ]
+      }
+    ],
+    "id": "f0d11e46-fdc4-56f9-8f99-c147460377e9",
+    "name": "Mozzarella FR (1 kg)",
+    "scopes": ["food2"]
   }
 ]
