@@ -8,7 +8,7 @@
       "alias": "rapeseed-oil-2025",
       "cropGroup": "COLZA",
       "defaultOrigin": "OutOfEuropeAndMaghreb",
-      "displayName": "Huile de colza par défaut (2025)",
+      "displayName": "Huile de colza par défaut agrégé (2025)",
       "id": "96b301d9-d21b-4cea-8903-bd7917e95a30",
       "inediblePart": 0,
       "ingredientCategories": ["nut_oilseed_processed"],
