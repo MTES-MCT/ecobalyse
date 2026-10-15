@@ -1,6 +1,5 @@
 module Views.Component exposing
     ( Config
-    , Context(..)
     , editorView
     , itemEditorView
     , productCategorySelectorView
@@ -46,6 +45,7 @@ import Views.Alert as Alert
 import Views.Button as Button
 import Views.Component.AmountInput as AmountInput
 import Views.Component.CompositionModal as CompositionModal
+import Views.Component.Context as Context exposing (Context)
 import Views.Component.DownArrow as DownArrow
 import Views.Component.ProductionTable as ProductionTable
 import Views.Component.RegionSelector as RegionSelector
@@ -96,11 +96,6 @@ type alias Config db msg =
     }
 
 
-type Context
-    = GenericContext
-    | TextileTrimsContext
-
-
 {-| Extract the requirements from the config
 
 FIXME: maybe the config should use Requirements directly instead
@@ -138,7 +133,7 @@ FIXME: we should make these configurable in components/config.json
 scopeLabels : Context -> Scope -> Labels
 scopeLabels context scope =
     case context of
-        GenericContext ->
+        Context.Generic ->
             case scope of
                 Scope.Generic Scope.Food2 ->
                     { add = "Ajouter un ingrédient"
@@ -170,7 +165,7 @@ scopeLabels context scope =
                     , select = "Sélectionnez un matériau"
                     }
 
-        TextileTrimsContext ->
+        Context.TextileTrims ->
             -- Note: in Textile context, raw element handling is not available
             { add = "Ajouter un accessoire"
             , addElement = "Ajouter un élément"
@@ -262,7 +257,7 @@ lifeCycleView : Config db msg -> LifeCycle -> Html msg
 lifeCycleView ({ impact, query, scope } as config) lifeCycle =
     div [ class "d-flex flex-column" ]
         [ ProductionTable.view
-            { canEditItemComposition = config.context /= TextileTrimsContext
+            { context = config.context
             , db = config.db
             , detailed = config.detailed
             , docsUrl = config.docsUrl
@@ -302,7 +297,7 @@ lifeCycleView ({ impact, query, scope } as config) lifeCycle =
 
           else
             text ""
-        , if config.context == GenericContext && not (List.isEmpty query.items) then
+        , if config.context == Context.Generic && not (List.isEmpty query.items) then
             genericContextStagesView config lifeCycle
 
           else
