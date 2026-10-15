@@ -14,6 +14,7 @@ import Data.Component as Component
         , Results
         , TargetItem
         )
+import Data.Component.Amount as Amount exposing (Amount)
 import Data.Impact.Definition exposing (Definition)
 import Data.Process as Process
 import Data.Process.Category as Category
@@ -22,9 +23,11 @@ import Html exposing (..)
 import Html.Attributes as Attr exposing (..)
 import Html.Events exposing (..)
 import List.Extra as LE
+import Mass
 import Route exposing (Route)
 import Views.Alert as Alert
 import Views.Button as Button
+import Views.Component.AmountInput as AmountInput
 import Views.Component.Context as Context exposing (Context)
 import Views.Component.ItemRow as ItemRow exposing (emptyItemRow)
 import Views.Format as Format
@@ -53,7 +56,11 @@ type alias Config db msg =
     , removeItem : Index -> msg
     , scope : Scope
     , setDetailed : List Index -> msg
+    , unitMassLocked : Bool
     , updateItemQuantity : Index -> Quantity -> msg
+
+    -- FIXME: investigate why this doesn't send a Maybe Mass?
+    , updateItemUnitaryMass : Index -> Maybe Amount -> msg
     }
 
 
@@ -102,7 +109,7 @@ addProductionItemButton ({ db } as config) =
 {-| Renders elements summary when an item is expanded
 -}
 elementSummaryRow : Config db msg -> Results -> ExpandedElement -> Results -> Html msg
-elementSummaryRow config itemResults { amount, material, transforms } elementResults =
+elementSummaryRow config itemResults { material, transforms } elementResults =
     let
         elementMass =
             Component.extractMass elementResults
@@ -113,10 +120,13 @@ elementSummaryRow config itemResults { amount, material, transforms } elementRes
                 , "(" ++ (country |> Maybe.map .name |> Maybe.withDefault "Inconnu") ++ ")"
                 ]
 
+        effectiveAmount =
+            Component.extractAmount elementResults
+
         amountInfo =
             span [ class "d-flex text-muted fs-8" ]
                 [ if material.process.unit /= Process.Kilogram then
-                    span [] [ text "(", Format.amount material.process amount, text ")\u{00A0}" ]
+                    span [] [ text "(", Format.amount material.process effectiveAmount, text ")\u{00A0}" ]
 
                   else
                     text ""
@@ -296,13 +306,52 @@ itemView config itemIndex { component, elements, quantity } itemResults =
                 Component.extractMass itemResults
                     |> Format.kg
             , unitMass =
-                Component.extractUnitMass itemResults
-                    |> Format.kg
+                if config.context == Context.TextileTrims then
+                    Component.extractUnitMass itemResults
+                        |> Format.kg
+
+                else
+                    unitaryMassInput config itemIndex elements itemResults
             }
         ]
     , itemDetailedRows config elements itemResults
         |> tbody [ class "table-light", id <| itemDetailsId itemIndex, hidden collapsed ]
     ]
+
+
+unitaryMassInput : Config db msg -> Index -> List Component.ExpandedElement -> Results -> Html msg
+unitaryMassInput config itemIndex elements itemResults =
+    let
+        mass =
+            config.query.items
+                |> LE.getAt itemIndex
+                |> Maybe.andThen .unitaryMass
+                |> Maybe.withDefault (Component.extractUnitMass itemResults)
+
+        -- check if any element has an unknown massPerUnit in its material process; if so, the item unitary mass cannot be edited!
+        unknownMassPerUnit =
+            elements
+                |> List.any
+                    (\{ material } ->
+                        -- FIXME: move this as a `knownMassPerUnit` helper in Data.Process
+                        (material.process.unit /= Process.Kilogram)
+                            && (material.process.massPerUnit == Nothing)
+                    )
+    in
+    mass
+        |> Mass.inKilograms
+        |> Amount.fromFloat
+        |> AmountInput.view
+            { event = config.updateItemUnitaryMass itemIndex
+            , readonly = config.unitMassLocked || mass == Mass.kilograms 0
+            , readonlyTitle =
+                if unknownMassPerUnit then
+                    Just "Masse par unité (massPerUnit) du procédé inconnue, édition impossible"
+
+                else
+                    Nothing
+            , unit = Process.Kilogram
+            }
 
 
 quantityInput : Config db msg -> Index -> Quantity -> Html msg

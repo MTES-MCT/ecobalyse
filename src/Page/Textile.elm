@@ -1039,6 +1039,7 @@ simulatorFormView session model ({ inputs } as simulator) =
         , scope = Scope.Textile
         , setDetailed = \_ -> NoOp
         , toggleTransportByAir = \_ -> NoOp
+        , unitMassLocked = False
         , toggleTransportCooling = \_ -> NoOp
         , updateAssemblyCountry = \_ -> NoOp
         , updateConsumptionAmount = \_ _ -> NoOp
@@ -1048,6 +1049,7 @@ simulatorFormView session model ({ inputs } as simulator) =
         , updateElementTransformCountry = \_ _ _ -> NoOp
         , updateItemName = \_ _ -> NoOp
         , updateItemQuantity = UpdateTrimQuantity
+        , updateItemUnitaryMass = \_ _ -> NoOp
         , updatePackagingAmount = \_ _ -> NoOp
         , updateRecyclable = \_ -> NoOp
         }

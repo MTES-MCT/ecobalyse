@@ -10,12 +10,13 @@ import Html.Events exposing (..)
 type alias Config msg =
     { event : Maybe Amount -> msg
     , readonly : Bool
+    , readonlyTitle : Maybe String
     , unit : Process.Unit
     }
 
 
 view : Config msg -> Amount -> Html msg
-view { event, readonly, unit } amount =
+view { event, readonly, readonlyTitle, unit } amount =
     let
         stringAmount =
             Amount.toString amount
@@ -45,7 +46,7 @@ view { event, readonly, unit } amount =
              ]
                 ++ (if readonly then
                         [ Attr.readonly readonly
-                        , title "Cette quantité n'est pas modifiable"
+                        , title (readonlyTitle |> Maybe.withDefault "Cette quantité n’est pas modifiable")
                         , class "cursor-not-allowed"
                         ]
 

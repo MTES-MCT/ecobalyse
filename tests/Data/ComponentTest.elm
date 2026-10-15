@@ -902,6 +902,24 @@ suite =
                                 decodeJsonThen Component.decodeItem
                                     (Component.computeItemResults requirements defaultTransportOptions)
 
+                            twoKilogramElements maybeUnitaryMass quantity =
+                                let
+                                    unitaryMassField =
+                                        case maybeUnitaryMass of
+                                            Nothing ->
+                                                ""
+
+                                            Just kilograms ->
+                                                ", \"unitaryMass\": " ++ String.fromFloat kilograms
+                                in
+                                "{ \"quantity\": "
+                                    ++ String.fromInt quantity
+                                    ++ unitaryMassField
+                                    ++ """, "elements": [
+                                      { "amount": 1, "material": "6527710e-2434-5347-9bef-2205e0aa4f66" },
+                                      { "amount": 1, "material": "59b42284-3e45-5343-8a20-1d7d66137461" }
+                                    ]}"""
+
                             combineMapBoth_ fn =
                                 -- RE.combineMapBoth with fn applied to the two tuple members
                                 RE.combineMapBoth fn fn
@@ -1061,6 +1079,211 @@ suite =
                                     , Component.extractUnitMass doubledResults
                                         |> Mass.inKilograms
                                         |> expectFloatMostlyEqual (Component.extractUnitMass unitResults |> Mass.inKilograms)
+                                    ]
+                            )
+                         , itFromResult2 "should scale element masses to unitaryMass without rewriting stored amounts"
+                            (twoKilogramElements Nothing 1 |> toComputedResults)
+                            (twoKilogramElements (Just 0.5) 1 |> toComputedResults)
+                            (\unscaled scaled ->
+                                let
+                                    elementMasses results =
+                                        Component.extractItems results
+                                            |> List.map (Component.extractMass >> Mass.inKilograms)
+
+                                    shares results =
+                                        Component.extractItems results
+                                            |> List.map
+                                                (\elementResults ->
+                                                    Component.extractUnitMass results
+                                                        |> Component.elementMassShare (Component.extractMass elementResults)
+                                                )
+                                in
+                                expectAllSucceed
+                                    [ Component.extractUnitMass scaled
+                                        |> Mass.inKilograms
+                                        |> expectFloatMostlyEqual 0.5
+                                    , case elementMasses scaled of
+                                        [ first, second ] ->
+                                            expectAllSucceed
+                                                [ first |> expectFloatMostlyEqual 0.25
+                                                , second |> expectFloatMostlyEqual 0.25
+                                                ]
+
+                                        _ ->
+                                            Expect.fail "two element masses were expected"
+                                    , shares scaled
+                                        |> Expect.equal [ Split.half, Split.half ]
+                                    , Component.extractMass scaled
+                                        |> Mass.inKilograms
+                                        |> expectFloatMostlyEqual (Component.extractUnitMass scaled |> Mass.inKilograms)
+                                    , extractEcsImpact scaled
+                                        |> expectFloatMostlyEqual (extractEcsImpact unscaled * 0.25)
+                                    , twoKilogramElements (Just 0.5) 1
+                                        |> decodeJson Component.decodeItem
+                                        |> Result.map
+                                            (\item ->
+                                                ( item.unitaryMass |> Maybe.map Mass.inKilograms
+                                                , item.custom
+                                                    |> Maybe.map (.elements >> List.map (.amount >> Amount.toFloat))
+                                                )
+                                            )
+                                        |> Expect.equal (Ok ( Just 0.5, Just [ 1, 1 ] ))
+                                    ]
+                            )
+                         , itFromResult "should multiply total mass by quantity while keeping unitaryMass"
+                            (twoKilogramElements (Just 0.5) 2 |> toComputedResults)
+                            (\results ->
+                                expectAllSucceed
+                                    [ Component.extractUnitMass results
+                                        |> Mass.inKilograms
+                                        |> expectFloatMostlyEqual 0.5
+                                    , Component.extractMass results
+                                        |> Mass.inKilograms
+                                        |> expectFloatMostlyEqual 1
+                                    ]
+                            )
+                         , itFromResult "should keep unitary mass equal to the requested value when a transform wastes half the amount"
+                            ("""{ "quantity": 1, "elements": [
+                                   { "amount": 1,
+                                     "material": "17431e06-2973-516e-b043-be9ad405e4fb",
+                                     "transforms": ["c172d131-b5d1-5d9b-822b-5762afb91c66"] }
+                                 ]}"""
+                                |> decodeJsonThen Component.decodeItem
+                                    (\item ->
+                                        item
+                                            |> Component.computeItemResults requirements defaultTransportOptions
+                                            |> Result.andThen
+                                                (\unscaled ->
+                                                    let
+                                                        half =
+                                                            Mass.inKilograms (Component.extractMass unscaled) / 2
+                                                    in
+                                                    { item | unitaryMass = Just (Mass.kilograms half) }
+                                                        |> Component.computeItemResults requirements defaultTransportOptions
+                                                        |> Result.map
+                                                            (\halved ->
+                                                                ( Mass.inKilograms (Component.extractMass unscaled)
+                                                                , Mass.inKilograms (Component.extractUnitMass halved)
+                                                                , Component.extractItems halved
+                                                                    |> List.head
+                                                                    |> Maybe.map (Component.extractAmount >> Amount.toFloat)
+                                                                )
+                                                            )
+                                                )
+                                    )
+                            )
+                            (\( unscaledKg, halvedKg, maybeAmount ) ->
+                                expectAllSucceed
+                                    [ halvedKg |> expectFloatMostlyEqual (unscaledKg / 2)
+                                    , case maybeAmount of
+                                        Just amount ->
+                                            amount |> expectFloatMostlyEqual (halvedKg / unscaledKg)
+
+                                        Nothing ->
+                                            Expect.fail "La quantité effective de l'élément est absente"
+                                    ]
+                            )
+                         , it "should reject a zero unitaryMass"
+                            ("""{"quantity": 1, "unitaryMass": 0}"""
+                                |> decodeJson Component.decodeItem
+                                |> expectResultErrorContains "strictement positive"
+                            )
+                         , it "should reject a negative unitaryMass"
+                            ("""{"quantity": 1, "unitaryMass": -1}"""
+                                |> decodeJson Component.decodeItem
+                                |> expectResultErrorContains "strictement positive"
+                            )
+                         , it "should fail to apply unitaryMass when element mass is zero"
+                            ("""{ "quantity": 1, "unitaryMass": 1, "elements": [
+                                  { "amount": 1, "material": "17431e06-2973-516e-b043-be9ad405e4fb" }
+                                ]}"""
+                                |> decodeJsonThen Component.decodeItem
+                                    (\item ->
+                                        case wood of
+                                            Ok woodProcess ->
+                                                item
+                                                    |> Component.computeItemResults
+                                                        (updateRequirementsProcess woodProcess (\process -> { process | massPerUnit = Nothing }) requirements)
+                                                        defaultTransportOptions
+
+                                            Err error ->
+                                                Err error
+                                    )
+                                |> expectResultErrorContains "ne peut pas être appliquée"
+                            )
+                         , itFromResult "should update effective amounts and clear unitaryMass when an element amount changes"
+                            (twoKilogramElements (Just 0.5) 1
+                                |> decodeJsonThen Component.decodeItem
+                                    (\item ->
+                                        [ item ]
+                                            |> Component.updateElementAmount requirements.db
+                                                ( ( Component.emptyComponent, 0 ), 0 )
+                                                (Amount.fromFloat 0.4)
+                                            |> Result.andThen
+                                                (\items ->
+                                                    LE.getAt 0 items
+                                                        |> Result.fromMaybe "Élément introuvable"
+                                                        |> Result.andThen
+                                                            (\updated ->
+                                                                updated
+                                                                    |> Component.computeItemResults requirements defaultTransportOptions
+                                                                    |> Result.map (\results -> ( updated, results ))
+                                                            )
+                                                )
+                                    )
+                            )
+                            (\( updated, results ) ->
+                                expectAllSucceed
+                                    [ updated.unitaryMass |> Expect.equal Nothing
+                                    , case updated.custom |> Maybe.map (.elements >> List.map (.amount >> Amount.toFloat)) of
+                                        Just [ first, second ] ->
+                                            expectAllSucceed
+                                                [ first |> expectFloatMostlyEqual 0.4
+                                                , second |> expectFloatMostlyEqual 0.25
+                                                ]
+
+                                        _ ->
+                                            Expect.fail "two updated amounts were expected"
+                                    , Component.extractUnitMass results
+                                        |> Mass.inKilograms
+                                        -- FIXME: detail the arithmetic operations to easily understand and check the result
+                                        |> expectFloatMostlyEqual 0.65
+                                    ]
+                            )
+                         , itFromResult "should keep unitaryMass and the summed mass when an element is added"
+                            (Process.idFromString "59b42284-3e45-5343-8a20-1d7d66137461"
+                                |> Result.andThen (\id -> Process.findById id requirements.db.processes)
+                                |> Result.andThen
+                                    (\addedMaterial ->
+                                        """{ "quantity": 1, "unitaryMass": 1, "elements": [
+                                             { "amount": 1, "material": "6527710e-2434-5347-9bef-2205e0aa4f66" }
+                                           ]}"""
+                                            |> decodeJsonThen Component.decodeItem
+                                                (\item ->
+                                                    [ item ]
+                                                        |> Component.addElement ( Component.emptyComponent, 0 ) addedMaterial
+                                                        |> Result.andThen (LE.getAt 0 >> Result.fromMaybe "Élément introuvable")
+                                                        |> Result.andThen
+                                                            (\withExtra ->
+                                                                withExtra
+                                                                    |> Component.computeItemResults requirements defaultTransportOptions
+                                                                    |> Result.map (\results -> ( withExtra, results ))
+                                                            )
+                                                )
+                                    )
+                            )
+                            (\( withExtra, results ) ->
+                                expectAllSucceed
+                                    [ withExtra.unitaryMass
+                                        |> Maybe.map Mass.inKilograms
+                                        |> Expect.equal (Just 1)
+                                    , Component.extractUnitMass results
+                                        |> Mass.inKilograms
+                                        |> expectFloatMostlyEqual 1
+                                    , Component.extractItems results
+                                        |> List.map (Component.extractMass >> Mass.inKilograms)
+                                        |> List.sum
+                                        |> expectFloatMostlyEqual 1
                                     ]
                             )
                          ]
@@ -1983,6 +2206,28 @@ suite =
                                 , String.contains "\"name\":\"Test\"" >> Expect.equal True
                                 ]
                             )
+                        , itFromResult "should omit unitaryMass when absent"
+                            ("""{"quantity": 1}"""
+                                |> decodeJsonThen Component.decodeItem
+                                    (\item ->
+                                        Ok
+                                            ( item.unitaryMass
+                                            , Component.encodeItem item |> Encode.encode 0
+                                            )
+                                    )
+                            )
+                            (\( unitaryMass, encoded ) ->
+                                expectAllSucceed
+                                    [ unitaryMass |> Expect.equal Nothing
+                                    , encoded |> String.contains "unitaryMass" |> Expect.equal False
+                                    ]
+                            )
+                        , itFromResult "should encode unitaryMass in kilograms when set"
+                            ("""{"quantity": 1, "unitaryMass": 0.5}"""
+                                |> decodeJsonThen Component.decodeItem
+                                    (Component.encodeItem >> Encode.encode 0 >> Ok)
+                            )
+                            (String.contains "\"unitaryMass\":0.5" >> Expect.equal True)
                         ]
                     , describe "getDocLink"
                         [ it "should retrieve a scoped documentation link"
@@ -2291,6 +2536,7 @@ suite =
                                         { custom = Nothing
                                         , id = testComponent.id
                                         , quantity = Component.quantityFromInt 1
+                                        , unitaryMass = Nothing
                                         }
                                     )
                                 )

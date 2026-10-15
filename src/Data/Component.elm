@@ -252,6 +252,7 @@ type alias Item =
     { custom : Maybe Custom
     , id : Maybe Id
     , quantity : Quantity
+    , unitaryMass : Maybe Mass
     }
 
 
@@ -988,7 +989,7 @@ computeImpacts requirements transportOptions =
 
 
 computeItemResults : Requirements db -> TransportOptions -> Item -> Result String Results
-computeItemResults requirements transportOptions { custom, id, quantity } =
+computeItemResults requirements transportOptions { custom, id, quantity, unitaryMass } =
     let
         component_ =
             case id of
@@ -1003,8 +1004,11 @@ computeItemResults requirements transportOptions { custom, id, quantity } =
             (\component ->
                 custom
                     |> customElements component
-                    |> List.map (computeElementResults requirements transportOptions)
-                    |> RE.combine
+                    |> scaleElementsToUnitaryMass requirements.db unitaryMass
+                    |> Result.andThen
+                        (List.map (computeElementResults requirements transportOptions)
+                            >> RE.combine
+                        )
             )
         |> Result.map (List.foldr addResults emptyResults)
         |> Result.map
@@ -1359,6 +1363,7 @@ createItem maybeId =
     { custom = Nothing
     , id = maybeId
     , quantity = quantityFromInt 1
+    , unitaryMass = Nothing
     }
 
 
@@ -1464,12 +1469,26 @@ decodeTransforms =
         ]
 
 
+decodeUnitaryMass : Decoder Mass
+decodeUnitaryMass =
+    Decode.float
+        |> Decode.andThen
+            (\kilograms ->
+                if kilograms > 0 then
+                    Decode.succeed (Mass.kilograms kilograms)
+
+                else
+                    Decode.fail "La masse unitaire doit être strictement positive"
+            )
+
+
 decodeItem : Decoder Item
 decodeItem =
     Decode.succeed Item
         |> Decode.custom decodeItemCustom
         |> DU.strictOptional "id" (Decode.map Id Uuid.decoder)
         |> Decode.required "quantity" decodeQuantity
+        |> DU.strictOptional "unitaryMass" decodeUnitaryMass
 
 
 decodeItemCustom : Decoder (Maybe Custom)
@@ -1880,6 +1899,7 @@ encodeItem item =
     EU.optionalPropertiesObject
         ([ ( "id", item.id |> Maybe.map (idToString >> Encode.string) )
          , ( "quantity", item.quantity |> quantityToInt |> Encode.int |> Just )
+         , ( "unitaryMass", item.unitaryMass |> Maybe.map (Mass.inKilograms >> Encode.float) )
          ]
             ++ (case item.custom of
                     Just custom ->
@@ -2369,6 +2389,14 @@ getDistributionProcess ({ db, scope } as requirements) query =
 
         Nothing ->
             Err DistributionNothingAvailable
+
+
+{-| Compute the mass of an element, as implied by its amount and process
+-}
+getElementMass : DataContainer db -> Element -> Result String Mass
+getElementMass db element =
+    expandElement db element
+        |> Result.map (\{ amount, material } -> massFromProcess amount material.process)
 
 
 {-| Get an element's results at a given location in the results tree.
@@ -2946,6 +2974,33 @@ removePackaging index query =
     { query | packagings = query.packagings |> LE.removeAt index }
 
 
+{-| Scale the amounts of a list of elements against a ratio
+-}
+scaleElementAmounts : Float -> List Element -> List Element
+scaleElementAmounts ratio =
+    List.map
+        (\element ->
+            { element
+                | amount =
+                    element.amount |> Amount.map ((*) ratio)
+            }
+        )
+
+
+{-| Scale the amounts of a list of elements against a unitary mass
+-}
+scaleElementsToUnitaryMass : DataContainer db -> Maybe Mass -> List Element -> Result String (List Element)
+scaleElementsToUnitaryMass db maybeUnitaryMass elements =
+    case maybeUnitaryMass of
+        Just _ ->
+            maybeUnitaryMass
+                |> unitaryMassRatio db elements
+                |> Result.map (\ratio -> elements |> scaleElementAmounts ratio)
+
+        Nothing ->
+            Ok elements
+
+
 setCustomScope : Component -> Scope -> Item -> Item
 setCustomScope component scope item =
     { item
@@ -3113,6 +3168,35 @@ sumLifeCycleImpacts lifeCycle =
         ]
 
 
+{-| Compute the ratio between a mass (usually a unitary mass) and the total mass of a
+list of elements (a component elements)
+
+TODO: use Unit.Ratio?
+
+-}
+unitaryMassRatio : DataContainer db -> List Element -> Maybe Mass -> Result String Float
+unitaryMassRatio db elements maybeUnitaryMass =
+    case maybeUnitaryMass of
+        Just unitaryMass ->
+            elements
+                |> List.map (getElementMass db)
+                |> RE.combine
+                |> Result.map (List.foldl Quantity.plus Quantity.zero)
+                |> Result.andThen
+                    (\unscaledMass ->
+                        if unscaledMass == Quantity.zero then
+                            Err <|
+                                "Impossible de spécifier la masse unitaire d’un composant lorsque "
+                                    ++ "la masse des éléments qui le constituent est nulle"
+
+                        else
+                            Ok (Mass.inKilograms unitaryMass / Mass.inKilograms unscaledMass)
+                    )
+
+        Nothing ->
+            Ok 1
+
+
 targetElementToString : TargetElement -> String
 targetElementToString ( ( _, index ), elementIndex ) =
     String.join "-" [ String.fromInt index, String.fromInt elementIndex ]
@@ -3261,10 +3345,52 @@ updateElement ( ( component, itemIndex ), elementIndex ) update =
             }
 
 
-updateElementAmount : TargetElement -> Amount -> List Item -> List Item
-updateElementAmount targetElement amount =
-    updateElement targetElement <|
-        \el -> { el | amount = amount }
+updateElementAmount : DataContainer db -> TargetElement -> Amount -> List Item -> Result String (List Item)
+updateElementAmount db ( ( component, itemIndex ), elementIndex ) newAmount items =
+    case LE.getAt itemIndex items of
+        Just item ->
+            let
+                elements =
+                    item.custom |> customElements component
+            in
+            if elementIndex < 0 || elementIndex >= List.length elements then
+                Ok items
+
+            else
+                item.unitaryMass
+                    |> unitaryMassRatio db elements
+                    |> Result.map
+                        (\ratio ->
+                            let
+                                updatedElements =
+                                    elements
+                                        |> List.indexedMap
+                                            (\index element ->
+                                                if index == elementIndex then
+                                                    { element | amount = newAmount }
+
+                                                else
+                                                    { element | amount = Amount.map ((*) ratio) element.amount }
+                                            )
+                            in
+                            items
+                                |> updateItem itemIndex
+                                    (\current ->
+                                        { current
+                                            | custom =
+                                                -- write updated custom elements back to the item
+                                                current.custom
+                                                    |> updateCustom component
+                                                        (\custom -> { custom | elements = updatedElements })
+
+                                            -- clear unitary mass value as it's no longer valid
+                                            , unitaryMass = Nothing
+                                        }
+                                    )
+                        )
+
+        Nothing ->
+            Ok items
 
 
 updateElementMaterialCountry : TargetElement -> Maybe CountryCode.Code -> List Item -> List Item

@@ -37,6 +37,7 @@ import Html exposing (..)
 import Html.Attributes as Attr exposing (..)
 import Html.Events exposing (..)
 import List.Extra as LE
+import Mass
 import Ports
 import RemoteData
 import Request.BackendHttp exposing (WebData)
@@ -152,6 +153,7 @@ type Msg
     | UpdateElementAmount TargetElement (Maybe Amount)
     | UpdateElementMaterialCountry TargetElement (Maybe CountryCode.Code)
     | UpdateElementTransformCountry TargetElement Index (Maybe CountryCode.Code)
+    | UpdateItemUnitaryMass Index (Maybe Amount)
     | UpdatePackagingAmount Index (Maybe Amount)
     | UpdateProduct (Maybe Product.Id)
     | UpdateRecyclability Bool
@@ -369,6 +371,45 @@ updateQuery query ({ model, session } as pageUpdate) =
             }
         , session = session |> Session.updateGenericQuery model.genericScope query
     }
+
+
+applyElementAmount : Session -> Model -> Component.Query -> TargetElement -> Amount -> PageUpdate Model Msg
+applyElementAmount session model query targetElement amount =
+    case Component.updateElementAmount session.db targetElement amount query.items of
+        Err error ->
+            createPageUpdate session model
+                |> App.notifyError "Erreur de mise à jour de la quantité" error
+
+        Ok items ->
+            createPageUpdate session model
+                |> updateQuery (Component.setQueryItems items query)
+
+
+applyItemUnitaryMass : Session -> Model -> Component.Query -> Index -> Amount -> PageUpdate Model Msg
+applyItemUnitaryMass session model query itemIndex amount =
+    let
+        kilograms =
+            Amount.toFloat amount
+
+        currentUnitMassAllowsEdit =
+            model.lifeCycle
+                |> Result.toMaybe
+                |> Maybe.andThen (\lifeCycle -> LE.getAt itemIndex (Component.extractItems lifeCycle.production))
+                |> Maybe.map (\itemResults -> Mass.inKilograms (Component.extractUnitMass itemResults) > 0)
+                |> Maybe.withDefault True
+    in
+    if kilograms > 0 && currentUnitMassAllowsEdit then
+        createPageUpdate session model
+            |> updateQuery
+                (query
+                    |> Component.mapItems
+                        (Component.updateItem itemIndex
+                            (\item -> { item | unitaryMass = Just (Mass.kilograms kilograms) })
+                        )
+                )
+
+    else
+        createPageUpdate session model
 
 
 update : Session -> Msg -> Model -> PageUpdate Model Msg
@@ -788,8 +829,13 @@ update ({ navKey } as session) msg model =
             createPageUpdate session model
 
         ( UpdateElementAmount targetElement (Just amount), _ ) ->
+            applyElementAmount session model query targetElement amount
+
+        ( UpdateItemUnitaryMass itemIndex (Just amount), _ ) ->
+            applyItemUnitaryMass session model query itemIndex amount
+
+        ( UpdateItemUnitaryMass _ Nothing, _ ) ->
             createPageUpdate session model
-                |> updateQuery (query |> Component.mapItems (Component.updateElementAmount targetElement amount))
 
         ( UpdateElementMaterialCountry targetElement maybeCountryCode, _ ) ->
             createPageUpdate session model
@@ -889,6 +935,19 @@ isAutocompleteModal modal =
             False
 
 
+isItemEditModalOpen : List Modal -> Bool
+isItemEditModalOpen =
+    List.any
+        (\modal ->
+            case modal of
+                ItemEditModal _ ->
+                    True
+
+                _ ->
+                    False
+        )
+
+
 selectExample : Autocomplete Component.Query -> PageUpdate Model Msg -> PageUpdate Model Msg
 selectExample autocompleteState ({ model } as pageUpdate) =
     let
@@ -924,6 +983,7 @@ selectProductionItem query autocompleteState ({ model, session } as pageUpdate) 
                     { custom = Nothing
                     , id = Nothing
                     , quantity = Component.quantityFromInt 1
+                    , unitaryMass = Nothing
                     }
 
                 targetItem =
@@ -1056,6 +1116,7 @@ editorConfig session ({ genericScope } as model) =
     , scope = scope
     , setDetailed = SetDetailedComponents
     , toggleTransportByAir = ToggleTransportByAir
+    , unitMassLocked = isItemEditModalOpen model.modals
     , toggleTransportCooling = ToggleTransportCooling
     , updateAssemblyCountry = UpdateAssemblyCountry
     , updateConsumptionAmount = UpdateConsumptionAmount
@@ -1065,6 +1126,7 @@ editorConfig session ({ genericScope } as model) =
     , updateElementTransformCountry = UpdateElementTransformCountry
     , updateItemName = UpdateComponentItemName
     , updateItemQuantity = UpdateComponentItemQuantity
+    , updateItemUnitaryMass = UpdateItemUnitaryMass
     , updatePackagingAmount = UpdatePackagingAmount
     , updateRecyclable = UpdateRecyclability
     }

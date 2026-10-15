@@ -1809,6 +1809,12 @@ components:
           type: integer
           minimum: 1
           description: Nombre d'exemplaires de ce composant.
+        unitaryMass:
+          type: number
+          exclusiveMinimum: 0 # FIXME: incorrect type, expected bool :/
+          description: |
+            Masse unitaire du composant, en kilogrammes (optionnel). Si le champ n'est pas fourni,
+            la masse totale de ses éléments est utilisée.
         name:
           type: string
           description: Nom du composant personnalisé.

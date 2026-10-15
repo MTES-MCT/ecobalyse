@@ -83,6 +83,7 @@ type alias Config db msg =
     , setDetailed : List Index -> msg
     , toggleTransportByAir : Split -> msg
     , toggleTransportCooling : Bool -> msg
+    , unitMassLocked : Bool
     , updateAssemblyCountry : Maybe CountryCode.Code -> msg
     , updateConsumptionAmount : Index -> Maybe Amount -> msg
     , updateDistribution : Result String Process.Id -> msg
@@ -91,6 +92,7 @@ type alias Config db msg =
     , updateElementTransformCountry : TargetElement -> Index -> Maybe CountryCode.Code -> msg
     , updateItemName : TargetItem -> String -> msg
     , updateItemQuantity : Index -> Quantity -> msg
+    , updateItemUnitaryMass : Index -> Maybe Amount -> msg
     , updatePackagingAmount : Index -> Maybe Amount -> msg
     , updateRecyclable : Bool -> msg
     }
@@ -277,7 +279,9 @@ lifeCycleView ({ impact, query, scope } as config) lifeCycle =
             , removeItem = config.removeItem
             , scope = config.scope
             , setDetailed = config.setDetailed
+            , unitMassLocked = config.unitMassLocked
             , updateItemQuantity = config.updateItemQuantity
+            , updateItemUnitaryMass = config.updateItemUnitaryMass
             }
             lifeCycle.production
         , if Scope.isGeneric scope && not (List.isEmpty query.items) then
@@ -405,6 +409,7 @@ quantifiedProcessList { db, impact } lifeCycle listConfig quantifiedProcesses =
                                             [ AmountInput.view
                                                 { event = listConfig.updateAmount index
                                                 , readonly = List.member Category.ProductMassDependent process.categories
+                                                , readonlyTitle = Nothing
                                                 , unit = process.unit
                                                 }
                                                 (Component.useProcessAmount lifeCycle process amount)
