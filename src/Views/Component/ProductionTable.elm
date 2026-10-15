@@ -14,7 +14,7 @@ import Data.Component as Component
         , Results
         , TargetItem
         )
-import Data.Component.Amount as Amount exposing (Amount)
+import Data.Component.Amount as Amount
 import Data.Impact.Definition exposing (Definition)
 import Data.Process as Process
 import Data.Process.Category as Category
@@ -23,7 +23,7 @@ import Html exposing (..)
 import Html.Attributes as Attr exposing (..)
 import Html.Events exposing (..)
 import List.Extra as LE
-import Mass
+import Mass exposing (Mass)
 import Route exposing (Route)
 import Views.Alert as Alert
 import Views.Button as Button
@@ -58,9 +58,7 @@ type alias Config db msg =
     , setDetailed : List Index -> msg
     , unitMassLocked : Bool
     , updateItemQuantity : Index -> Quantity -> msg
-
-    -- FIXME: investigate why this doesn't send a Maybe Mass?
-    , updateItemUnitaryMass : Index -> Maybe Amount -> msg
+    , updateItemUnitaryMass : Index -> Maybe Mass -> msg
     }
 
 
@@ -342,7 +340,10 @@ unitaryMassInput config itemIndex elements itemResults =
         |> Mass.inKilograms
         |> Amount.fromFloat
         |> AmountInput.view
-            { event = config.updateItemUnitaryMass itemIndex
+            { event =
+                -- Send unitary mass… as a Mass!
+                Maybe.map (Amount.toFloat >> Mass.kilograms)
+                    >> config.updateItemUnitaryMass itemIndex
             , readonly = config.unitMassLocked || mass == Mass.kilograms 0
             , readonlyTitle =
                 if unknownMassPerUnit then

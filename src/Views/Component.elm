@@ -92,7 +92,7 @@ type alias Config db msg =
     , updateElementTransformCountry : TargetElement -> Index -> Maybe CountryCode.Code -> msg
     , updateItemName : TargetItem -> String -> msg
     , updateItemQuantity : Index -> Quantity -> msg
-    , updateItemUnitaryMass : Index -> Maybe Amount -> msg
+    , updateItemUnitaryMass : Index -> Maybe Mass -> msg
     , updatePackagingAmount : Index -> Maybe Amount -> msg
     , updateRecyclable : Bool -> msg
     }

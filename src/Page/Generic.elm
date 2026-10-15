@@ -37,8 +37,9 @@ import Html exposing (..)
 import Html.Attributes as Attr exposing (..)
 import Html.Events exposing (..)
 import List.Extra as LE
-import Mass
+import Mass exposing (Mass)
 import Ports
+import Quantity
 import RemoteData
 import Request.BackendHttp exposing (WebData)
 import Request.BackendHttp.Error as BackendHttpError
@@ -153,7 +154,7 @@ type Msg
     | UpdateElementAmount TargetElement (Maybe Amount)
     | UpdateElementMaterialCountry TargetElement (Maybe CountryCode.Code)
     | UpdateElementTransformCountry TargetElement Index (Maybe CountryCode.Code)
-    | UpdateItemUnitaryMass Index (Maybe Amount)
+    | UpdateItemUnitaryMass Index (Maybe Mass)
     | UpdatePackagingAmount Index (Maybe Amount)
     | UpdateProduct (Maybe Product.Id)
     | UpdateRecyclability Bool
@@ -385,12 +386,9 @@ applyElementAmount session model query targetElement amount =
                 |> updateQuery (Component.setQueryItems items query)
 
 
-applyItemUnitaryMass : Session -> Model -> Component.Query -> Index -> Amount -> PageUpdate Model Msg
-applyItemUnitaryMass session model query itemIndex amount =
+applyItemUnitaryMass : Session -> Model -> Component.Query -> Index -> Mass -> PageUpdate Model Msg
+applyItemUnitaryMass session model query itemIndex mass =
     let
-        kilograms =
-            Amount.toFloat amount
-
         currentUnitMassAllowsEdit =
             model.lifeCycle
                 |> Result.toMaybe
@@ -398,13 +396,13 @@ applyItemUnitaryMass session model query itemIndex amount =
                 |> Maybe.map (\itemResults -> Mass.inKilograms (Component.extractUnitMass itemResults) > 0)
                 |> Maybe.withDefault True
     in
-    if kilograms > 0 && currentUnitMassAllowsEdit then
+    if (mass |> Quantity.greaterThan Quantity.zero) && currentUnitMassAllowsEdit then
         createPageUpdate session model
             |> updateQuery
                 (query
                     |> Component.mapItems
                         (Component.updateItem itemIndex
-                            (\item -> { item | unitaryMass = Just (Mass.kilograms kilograms) })
+                            (\item -> { item | unitaryMass = Just mass })
                         )
                 )
 
@@ -831,8 +829,8 @@ update ({ navKey } as session) msg model =
         ( UpdateElementAmount targetElement (Just amount), _ ) ->
             applyElementAmount session model query targetElement amount
 
-        ( UpdateItemUnitaryMass itemIndex (Just amount), _ ) ->
-            applyItemUnitaryMass session model query itemIndex amount
+        ( UpdateItemUnitaryMass itemIndex (Just mass), _ ) ->
+            applyItemUnitaryMass session model query itemIndex mass
 
         ( UpdateItemUnitaryMass _ Nothing, _ ) ->
             createPageUpdate session model
