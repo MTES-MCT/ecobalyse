@@ -4,9 +4,8 @@ heat, water and waste, by walking the Agribalyse supply chain in Brightway.
 The walk starts from a product activity and follows the technosphere inputs of every
 activity classed as a food transformation step. It stops on the activities classed as
 raw material (farm gate, primary production, catalog ingredient), energy, water, waste
-or transport and accumulates their quantity per kg of product. Quantities are divided by
-the production amount of each activity, which already carries the SimaPro allocation
-(bw2io inflates the production amount of a co-product by its allocation share at import).
+or transport and accumulates their quantity per kg of product: every input amount is
+divided by the production amount of the activity that consumes it.
 
 No impact is computed. The graph is abstracted behind `Graph` so that the traversal and
 the classification can be tested on an in-memory graph without Brightway.
@@ -475,8 +474,7 @@ class BrightwayGraph:
         return self._node_of(activity) if activity is not None else None
 
     def food_activity_names(self) -> list[str]:
-        """Names of every activity under the `Agricultural / Food` category, the
-        scope of the ecolysis workbook."""
+        """Names of every activity under the `Agricultural / Food` category."""
         return sorted(
             name
             for name, activity in self._index().items()

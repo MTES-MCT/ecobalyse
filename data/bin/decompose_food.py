@@ -8,10 +8,13 @@ create the food2 components.
 
 `decompose` writes `output/decompose_food/decomposition.json` at the repo root
 (gitignored): per product, the raw materials, electricity, heat, water, waste and other
-inputs per kg, and the transformation steps walked. It takes the catalog ingredients by default, `--activity`
-adds Agribalyse activities that are not in the catalog and `--all-food` takes every
-`Agricultural / Food` activity of the database. Products outside the catalog are keyed on
-their activity name and `components` ignores them.
+inputs per kg, and the transformation steps walked. It takes the catalog ingredients by
+default, `--activity` adds Agribalyse activities that are not in the catalog and
+`--all-food` takes every `Agricultural / Food` activity of the database. Products outside
+the catalog are keyed on their activity name and `components` ignores them.
+
+`components` writes its JSON files in the repo format (bin/json_formatter.py), so a rerun on
+unchanged data leaves them unchanged.
 
 `components` writes one transformation process in `lci_catalog/ecobalyse_manual_lcia/`
 and one component in `public/data/food2/components.json` per product whose main raw
@@ -27,12 +30,12 @@ import json
 import re
 import unicodedata
 import uuid
-from datetime import UTC, datetime
 from pathlib import Path
 from typing import Annotated
 
 import bw2data
 import typer
+from ecobalyse.json import CompactJSONEncoder
 
 from common.infer_metadata import infer_material_type_for_alias
 from config import DATA_ROOT_DIR, settings
@@ -103,8 +106,9 @@ def decompose(
     all_food: Annotated[
         bool,
         typer.Option(
-            help="Decompose every `Agricultural / Food` activity of the database, the "
-            "scope of the ecolysis workbook, instead of the catalog ingredients."
+            help="Decompose every `Agricultural / Food` activity of the database "
+            "instead of the catalog ingredients. Not combinable with --only or "
+            "--activity."
         ),
     ] = False,
     stop_at_catalog: Annotated[
@@ -117,6 +121,10 @@ def decompose(
 ):
     """Decompose the Agribalyse food ingredients of the catalog (or the aliases of --only),
     the activities of --activity, or every food activity with --all-food."""
+    if all_food and (only or activity):
+        raise typer.BadParameter(
+            "--all-food cannot be combined with --only or --activity"
+        )
     catalog = load_catalog_ingredients(LCI_CATALOG_DIR)
     catalog_names = set(catalog)
     graph = open_graph()
@@ -187,7 +195,11 @@ def clean_display_name(display_name: str) -> str:
 
 
 def write_json(path: Path, content) -> None:
-    path.write_text(json.dumps(content, ensure_ascii=False, indent=2) + "\n")
+    """Write in the format of bin/json_formatter.py, the repo's JSON formatter."""
+    formatted = json.dumps(
+        content, ensure_ascii=False, sort_keys=True, indent=2, cls=CompactJSONEncoder
+    )
+    path.write_text(formatted + "\n")
 
 
 def skip_reason(result: dict, catalog_names: set[str], min_share: float) -> str | None:
@@ -220,7 +232,7 @@ def build_entries(
         "comment": (
             f"Elec et chaleur de '{result['product']}' ({settings.bw.agribalyse}), ramenées "
             f"au kg de '{raw.activity_name}'. {raw_kg:.2f} kg par kg de produit. "
-            f"Généré par bin/decompose_food.py le {datetime.now(tz=UTC).date().isoformat()}."
+            "Généré par data/bin/decompose_food.py."
         ),
         "displayName": f"Transformation : {product_name}",
         "elecKwh": round_param(result["elec_kwh"] / raw_kg),
@@ -313,6 +325,9 @@ def components(
         result = results.get(alias)
         if result is None:
             logger.warning(f"{alias}: not in {json_in}, run decompose first")
+            continue
+        if alias not in by_alias:
+            print(f"{alias}: skipped, not a catalog alias")
             continue
         reason = skip_reason(result, catalog_names, min_share)
         if reason:
