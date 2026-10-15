@@ -59,6 +59,7 @@ module Data.Component exposing
     , emptyLifeCycle
     , emptyQuery
     , emptyResults
+    , encodeApiResponse
     , encodeBase64Query
     , encodeId
     , encodeItem
@@ -280,6 +281,7 @@ type alias DataContainer db =
     { db
         | components : List Component
         , countries : List Country
+        , definitions : Definitions
         , distances : Transport.Distances
         , processes : List Process
         , products : List ProductCategory
@@ -652,13 +654,38 @@ applyDefaultOrigins processes component =
 applyDurability : Maybe Unit.Ratio -> LifeCycle -> Impacts
 applyDurability maybeDurability =
     sumLifeCycleImpacts
-        >> (case maybeDurability of
-                Just durability ->
-                    Impact.divideBy (Unit.ratioToFloat durability)
+        >> applyDurabilityToImpacts maybeDurability
 
-                Nothing ->
-                    identity
-           )
+
+applyDurabilityToComplements : Maybe Unit.Ratio -> ComplementsResultsImpacts -> ComplementsResultsImpacts
+applyDurabilityToComplements maybeDurability complements =
+    case maybeDurability of
+        Just durability ->
+            complements
+                |> Complement.mapComplements (Maybe.map (Impact.divideBy (Unit.ratioToFloat durability)))
+
+        Nothing ->
+            complements
+
+
+applyDurabilityToImpact : Maybe Unit.Ratio -> Unit.Impact -> Unit.Impact
+applyDurabilityToImpact maybeDurability impact =
+    case maybeDurability of
+        Just durability ->
+            impact |> Quantity.divideBy (Unit.ratioToFloat durability)
+
+        Nothing ->
+            impact
+
+
+applyDurabilityToImpacts : Maybe Unit.Ratio -> Impacts -> Impacts
+applyDurabilityToImpacts maybeDurability impacts =
+    case maybeDurability of
+        Just durability ->
+            impacts |> Impact.divideBy (Unit.ratioToFloat durability)
+
+        Nothing ->
+            impacts
 
 
 {-| Apply a process step to a results, computing its impacts and updating the results accordingly
@@ -779,6 +806,12 @@ assemblyResultsFromMass mass =
         , quantity = 1
         , stage = Nothing
         }
+
+
+complementPoints : ComplementsResultsImpacts -> Unit.Impact
+complementPoints =
+    Complement.mergeComplementsResultsImpacts
+        >> Impact.getImpact Definition.Ecs
 
 
 {-| Create a component from a custom definition
@@ -1709,6 +1742,132 @@ encodeQuantifiedProcess v =
 encodeTransform : LocalizedProcess -> Encode.Value
 encodeTransform transform =
     encodeLocalizedProcess transform
+
+
+encodeApiComposition : Maybe Unit.Ratio -> Query -> LifeCycle -> Encode.Value
+encodeApiComposition maybeDurability query lifeCycle =
+    List.map2 (encodeApiCompositionItem maybeDurability)
+        query.items
+        (extractItems lifeCycle.production)
+        |> Encode.list identity
+
+
+encodeApiCompositionItem : Maybe Unit.Ratio -> Item -> Results -> Encode.Value
+encodeApiCompositionItem maybeDurability item (Results results) =
+    let
+        impacts =
+            getTotalImpacts (Results results)
+                |> applyDurabilityToImpacts maybeDurability
+
+        complements =
+            results.complementsImpacts
+                |> applyDurabilityToComplements maybeDurability
+    in
+    EU.optionalPropertiesObject
+        [ ( "id", item.id |> Maybe.map encodeId )
+        , ( "name", results.label |> Maybe.map Encode.string )
+        , ( "quantity", results.quantity |> Encode.int |> Just )
+        , ( "mass", results.mass |> Mass.inKilograms |> Encode.float |> Just )
+        , ( "score"
+          , complementPoints complements
+                |> encodeApiScore (Impact.getImpact Definition.Ecs impacts)
+                |> Just
+          )
+        , ( "impacts", impacts |> Impact.encodeExcept [ Definition.Ecs ] |> Just )
+        , ( "complements"
+          , complements
+                |> Complement.encodeComplementsResultsAs Definition.Ecs
+                |> Just
+          )
+        ]
+
+
+encodeApiResponse : Definitions -> Query -> LifeCycle -> List ( String, Encode.Value )
+encodeApiResponse definitions query lifeCycle =
+    let
+        lifeCycleImpacts =
+            sumLifeCycleImpacts lifeCycle
+
+        impacts =
+            lifeCycleImpacts
+                |> applyDurabilityToImpacts query.durability
+
+        complements =
+            extractComplementsImpacts lifeCycle.production
+                |> applyDurabilityToComplements query.durability
+    in
+    [ ( "productMass"
+      , lifeCycle.productMass
+            |> Mass.inKilograms
+            |> Encode.float
+      )
+    , ( "score"
+      , complementPoints complements
+            |> encodeApiScore (Impact.getImpact Definition.Ecs impacts)
+      )
+    , ( "impacts", impacts |> Impact.encodeExcept [ Definition.Ecs ] )
+    , ( "complements", complements |> Complement.encodeComplementsResultsAs Definition.Ecs )
+    , ( "subscores", lifeCycle |> encodeApiSubscores definitions query.durability lifeCycleImpacts )
+    , ( "stages", lifeCycle |> encodeApiStages query.durability )
+    , ( "composition", lifeCycle |> encodeApiComposition query.durability query )
+    ]
+
+
+encodeApiScore : Unit.Impact -> Unit.Impact -> Encode.Value
+encodeApiScore ecs complements =
+    Encode.object
+        [ ( "ecs", Unit.encodeImpact ecs )
+        , ( "complements", Unit.encodeImpact complements )
+        ]
+
+
+encodeApiStages : Maybe Unit.Ratio -> LifeCycle -> Encode.Value
+encodeApiStages maybeDurability lifeCycle =
+    let
+        stages =
+            stagesImpacts lifeCycle
+
+        getEcs =
+            Maybe.withDefault Impact.empty
+                >> applyDurabilityToImpacts maybeDurability
+                >> Impact.getImpact Definition.Ecs
+                >> Unit.encodeImpact
+    in
+    Encode.object
+        [ ( "materials", getEcs stages.materials )
+        , ( "transform", getEcs stages.transform )
+        , ( "assembly", getEcs stages.assembly )
+        , ( "packaging", getEcs stages.packaging )
+        , ( "transports", getEcs stages.transports )
+        , ( "distribution", getEcs stages.distribution )
+        , ( "usage", getEcs stages.usage )
+        , ( "endOfLife", getEcs stages.endOfLife )
+        ]
+
+
+encodeApiSubscores : Definitions -> Maybe Unit.Ratio -> Impacts -> LifeCycle -> Encode.Value
+encodeApiSubscores definitions maybeDurability lifeCycleImpacts lifeCycle =
+    let
+        areas =
+            Impact.toProtectionAreas definitions lifeCycleImpacts
+
+        complements =
+            extractComplementsImpacts lifeCycle.production
+                |> Complement.mergeComplementsResultsImpacts
+                |> Impact.getImpact Definition.Ecs
+
+        getEcs impact =
+            impact
+                |> applyDurabilityToImpact maybeDurability
+                |> Unit.encodeImpact
+    in
+    Encode.object
+        [ ( "biodiversity", getEcs areas.biodiversity )
+        , ( "climate", getEcs areas.climate )
+        , ( "health", getEcs areas.health )
+        , ( "resources", getEcs areas.resources )
+        , ( "complements", getEcs complements )
+        ]
 
 
 encodeId : Id -> Encode.Value

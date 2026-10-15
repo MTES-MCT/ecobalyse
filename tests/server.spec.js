@@ -871,6 +871,71 @@ describe("API", () => {
       });
     });
 
+    describe("generic simulator response", () => {
+      const compote = require("../public/data/food2/examples.json").find(
+        ({ name }) => name === "Lot de 4 pots de compote pomme banane",
+      );
+
+      it("should break the score down into subscores, stages, complements and composition", async () => {
+        const response = await makePostRequest("/api/food2/simulator", compote.query);
+
+        expectStatus(response, 200);
+        const { body } = response;
+
+        // Protection areas are recomputed from indicators; precomputed ecs can differ by a fraction of a point
+        expect(Math.abs(sumValues(body.subscores) - body.score.ecs)).toBeLessThan(0.1);
+        expectMostlyEqual(sumValues(body.stages) + body.subscores.complements, body.score.ecs);
+        expectMostlyEqual(sumValues(body.complements), body.score.complements);
+        expectMostlyEqual(body.score.complements, body.subscores.complements);
+        expect(body.productMass).toEqual(expect.any(Number));
+        expect(Object.keys(body.stages)).toEqual([
+          "materials",
+          "transform",
+          "assembly",
+          "packaging",
+          "transports",
+          "distribution",
+          "usage",
+          "endOfLife",
+        ]);
+
+        const compositionComplements = body.composition.reduce(
+          (total, item) => total + sumValues(item.complements),
+          0,
+        );
+        expectMostlyEqual(compositionComplements, sumValues(body.complements));
+        expect(body.composition.length).toBe(compote.query.components.length);
+        for (const item of body.composition) {
+          expectMostlyEqual(sumValues(item.complements), item.score.complements);
+        }
+      });
+
+      it("should divide impacts by the durability coefficient", async () => {
+        const query = {
+          components: [{ id: "c5d86519-e56a-4ad7-aada-d4f7fffd5628", quantity: 1 }],
+        };
+        const defaultDurability = await makePostRequest("/api/object/simulator", query);
+        expectStatus(defaultDurability, 200);
+
+        const doubledDurability = await makePostRequest("/api/object/simulator", {
+          ...query,
+          durability: 2,
+        });
+        expectStatus(doubledDurability, 200);
+
+        // note: doubled durability = half the impacts
+        expectMostlyEqual(doubledDurability.body.score.ecs * 2, defaultDurability.body.score.ecs);
+        expectMostlyEqual(
+          doubledDurability.body.composition[0].score.ecs * 2,
+          defaultDurability.body.composition[0].score.ecs,
+        );
+        expectMostlyEqual(
+          doubledDurability.body.subscores.climate * 2,
+          defaultDurability.body.subscores.climate,
+        );
+      });
+    });
+
     for (const scope of ["food2", "object", "veli"]) {
       describe(`/${scope}/simulator`, () => {
         it("should accept an empty query", async () => {
@@ -969,12 +1034,20 @@ async function expectListResponseWithObjectKeys(path, keys) {
   });
 }
 
+function expectMostlyEqual(a, b, precision = 3) {
+  return expect(a).toBeCloseTo(b, precision);
+}
+
 function expectStatus(response, expectedCode, type = "application/json") {
   if (response.status === 400 && expectedCode != 400) {
     expect(response.body).toHaveProperty("error", "");
   }
   expect(response.type).toBe(type);
   expect(response.statusCode).toBe(expectedCode);
+}
+
+function sumValues(object) {
+  return Object.values(object).reduce((total, value) => total + value, 0);
 }
 
 // https://medium.com/@andrei.pfeiffer/jest-matching-objects-in-array-50fe2f4d6b98

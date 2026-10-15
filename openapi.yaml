@@ -111,7 +111,7 @@ paths:
           content:
             application/json:
               schema:
-                $ref: "#/components/schemas/GenericImpactsResponse"
+                $ref: "#/components/schemas/TextileSimulatorResponse"
         400:
           description: Paramètres invalides
           content:
@@ -143,7 +143,7 @@ paths:
           content:
             application/json:
               schema:
-                $ref: "#/components/schemas/GenericImpactsResponse"
+                $ref: "#/components/schemas/SingleImpactResponse"
         400:
           description: Paramètres invalides
           content:
@@ -196,7 +196,7 @@ paths:
     get:
       tags:
         - Alimentaire
-      summary: Liste des pays utilisables pour les simulations alimentairess.
+      summary: Liste des pays utilisables pour les simulations alimentaires.
       responses:
         200:
           description: Opération réussie
@@ -342,9 +342,11 @@ paths:
               schema:
                 $ref: "#/components/schemas/GenericScopeListResponse"
         401:
-          description: Jeton d’API manquant ou invalide
+          $ref: "#/components/responses/AuthenticationError"
         403:
-          description: Compte non autorisé pour l’API générique (accès réservé aux bêta-testeurs)
+          $ref: "#/components/responses/ForbiddenAccessError"
+        500:
+          $ref: "#/components/responses/ServerError"
   /{scope}/countries:
     get:
       tags:
@@ -360,6 +362,12 @@ paths:
             application/json:
               schema:
                 $ref: "#/components/schemas/CountryListResponse"
+        401:
+          $ref: "#/components/responses/AuthenticationError"
+        403:
+          $ref: "#/components/responses/ForbiddenAccessError"
+        500:
+          $ref: "#/components/responses/ServerError"
   /{scope}/catalog:
     get:
       tags:
@@ -378,6 +386,12 @@ paths:
             application/json:
               schema:
                 $ref: "#/components/schemas/GenericComponentListResponse"
+        401:
+          $ref: "#/components/responses/AuthenticationError"
+        403:
+          $ref: "#/components/responses/ForbiddenAccessError"
+        500:
+          $ref: "#/components/responses/ServerError"
   /{scope}/categories:
     get:
       tags:
@@ -395,6 +409,12 @@ paths:
             application/json:
               schema:
                 $ref: "#/components/schemas/GenericCategoryListResponse"
+        401:
+          $ref: "#/components/responses/AuthenticationError"
+        403:
+          $ref: "#/components/responses/ForbiddenAccessError"
+        500:
+          $ref: "#/components/responses/ServerError"
   /{scope}/processes/material:
     get:
       tags:
@@ -414,6 +434,12 @@ paths:
             application/json:
               schema:
                 $ref: "#/components/schemas/GenericProcessListResponse"
+        401:
+          $ref: "#/components/responses/AuthenticationError"
+        403:
+          $ref: "#/components/responses/ForbiddenAccessError"
+        500:
+          $ref: "#/components/responses/ServerError"
   /{scope}/processes/transform/{materialType}:
     get:
       tags:
@@ -443,6 +469,12 @@ paths:
             application/json:
               schema:
                 $ref: "#/components/schemas/InvalidParametersError"
+        401:
+          $ref: "#/components/responses/AuthenticationError"
+        403:
+          $ref: "#/components/responses/ForbiddenAccessError"
+        500:
+          $ref: "#/components/responses/ServerError"
   /{scope}/processes/assembly:
     get:
       tags:
@@ -458,6 +490,12 @@ paths:
             application/json:
               schema:
                 $ref: "#/components/schemas/GenericProcessListResponse"
+        401:
+          $ref: "#/components/responses/AuthenticationError"
+        403:
+          $ref: "#/components/responses/ForbiddenAccessError"
+        500:
+          $ref: "#/components/responses/ServerError"
   /{scope}/processes/distribution:
     get:
       tags:
@@ -475,6 +513,12 @@ paths:
             application/json:
               schema:
                 $ref: "#/components/schemas/GenericProcessListResponse"
+        401:
+          $ref: "#/components/responses/AuthenticationError"
+        403:
+          $ref: "#/components/responses/ForbiddenAccessError"
+        500:
+          $ref: "#/components/responses/ServerError"
   /{scope}/processes/packaging:
     get:
       tags:
@@ -490,6 +534,12 @@ paths:
             application/json:
               schema:
                 $ref: "#/components/schemas/GenericProcessListResponse"
+        401:
+          $ref: "#/components/responses/AuthenticationError"
+        403:
+          $ref: "#/components/responses/ForbiddenAccessError"
+        500:
+          $ref: "#/components/responses/ServerError"
   /{scope}/processes/consumption:
     get:
       tags:
@@ -508,6 +558,12 @@ paths:
             application/json:
               schema:
                 $ref: "#/components/schemas/GenericProcessListResponse"
+        401:
+          $ref: "#/components/responses/AuthenticationError"
+        403:
+          $ref: "#/components/responses/ForbiddenAccessError"
+        500:
+          $ref: "#/components/responses/ServerError"
   /{scope}/simulator:
     post:
       tags:
@@ -527,8 +583,8 @@ paths:
             schema:
               $ref: "#/components/schemas/GenericQuery"
             examples:
-              genericExampleFarine:
-                $ref: "#/components/examples/genericExampleFarine"
+              genericExampleCompote:
+                $ref: "#/components/examples/genericExampleCompote"
               genericExampleJardiniere:
                 $ref: "#/components/examples/genericExampleJardiniere"
               genericExampleVeloDeVille:
@@ -539,13 +595,19 @@ paths:
           content:
             application/json:
               schema:
-                $ref: "#/components/schemas/GenericImpactsResponse"
+                $ref: "#/components/schemas/GenericSimulatorResponse"
         400:
           description: Paramètres invalides
           content:
             application/json:
               schema:
                 $ref: "#/components/schemas/InvalidParametersError"
+        401:
+          $ref: "#/components/responses/AuthenticationError"
+        403:
+          $ref: "#/components/responses/ForbiddenAccessError"
+        500:
+          $ref: "#/components/responses/ServerError"
 components:
   securitySchemes:
     token:
@@ -591,22 +653,38 @@ components:
         fabricProcess: "knitting-mix"
         disabledSteps:
         - use
-    genericExampleFarine:
-      summary: "Farine de blé FR (1kg)"
+    genericExampleCompote:
+      summary: "Lot de 4 pots de compote pomme banane"
       value:
         assembly:
           country: FR
         components:
         - elements:
-          - amount: 1
+          - amount: 0.2
             material:
               country: FR
-              id: d57e50ef-b40e-4abf-ab50-1edf4916a3e4
-          name: "Farine de blé FR"
+              id: d9519b9d-d166-4bb0-8f34-27bb874b104a
+            transforms:
+            - country: FR
+              id: de307fb4-99d3-4a01-962b-242ace7b2739
+          name: "Compote de pomme (200g)"
           quantity: 1
+        - elements:
+          - amount: 0.2
+            material:
+              country: ROF
+              id: ed59e002-178b-5132-9df5-6883261dfa1c
+            transforms:
+            - country: ROF
+              id: de307fb4-99d3-4a01-962b-242ace7b2739
+          name: "Compote de banane (200g)"
+          quantity: 1
+        consumptions:
+        - b4642cec-b72e-4116-81c5-5dbfccb46055
+        distribution: be66b80b-1500-4e3b-bfd2-87a89ff54031
         packagings:
         - amount: 1
-          processId: 4f441c18-5f86-4a6b-945d-d559ac0780d3
+          processId: d64edb92-6adc-4a06-a0d0-250cf57c54bd
         recyclable: true
         transportOptions:
           cooling: true
@@ -676,18 +754,20 @@ components:
       schema:
         type: string
         minLength: 3
-        maxLength: 3
+        maxLength: 5
         default: "cch"
         enum:
           - "acd"
-          - "bvi"
           - "cch"
           - "ecs"
           - "etf"
+          - "etf-c"
           - "fru"
           - "fwe"
           - "htc"
+          - "htc-c"
           - "htn"
+          - "htn-c"
           - "ior"
           - "ldu"
           - "mru"
@@ -697,25 +777,57 @@ components:
           - "swe"
           - "tre"
           - "wtu"
+  responses:
+    AuthenticationError:
+      description: Jeton d’API manquant ou invalide
+      content:
+        application/json:
+          schema:
+            $ref: "#/components/schemas/InvalidParametersError"
+    ForbiddenAccessError:
+      description: |
+        Accès refusé ; cela peut être dû à un scope désactivé sur cette instance,
+        ou à un compte non autorisé (par exemple, accès réservé aux bêta-testeurs
+        et superutilisateurs)
+      content:
+        application/json:
+          schema:
+            $ref: "#/components/schemas/InvalidParametersError"
+    ServerError:
+      description: Erreur irrécupérable du serveur
+      content:
+        application/json:
+          schema:
+            $ref: "#/components/schemas/InvalidParametersError"
   schemas:
     Impacts:
+      description: |
+        Tous les impacts, individuels comme agrégés.
+      allOf:
+        - $ref: "#/components/schemas/PhysicalImpacts"
+        - type: object
+          properties:
+            ecs:
+              type: number
+              description: "Coût environnemental (Pts d'impact)"
+    PhysicalImpacts:
       type: object
+      description: |
+        Catégories d'impacts physiques, dans leurs unités respectives.
+        Ne contient pas de coûts agrégés comme `ecs`.
       properties:
         acd:
           type: number
           description: "Acidification (mol éq. H+)"
-        bvi:
-          type: number
-          description: "Biodiversité locale (BVI)"
         cch:
           type: number
           description: "Changement climatique (kg éq. CO2)"
-        ecs:
-          type: number
-          description: "Score d'impacts (Pts d'impact)"
         etf:
           type: number
           description: "Écotoxicité de l'eau douce (CTUe)"
+        etf-c:
+          type: number
+          description: "Écotoxicité de l'eau douce, corrigée (CTUe)"
         fru:
           type: number
           description: "Utilisation de ressources fossiles (MJ)"
@@ -725,9 +837,15 @@ components:
         htc:
           type: number
           description: "Toxicité humaine - cancer (CTUh)"
+        htc-c:
+          type: number
+          description: "Toxicité humaine - cancer, corrigée (CTUh)"
         htn:
           type: number
           description: "Toxicité humaine - non-cancer (CTUh)"
+        htn-c:
+          type: number
+          description: "Toxicité humaine - non-cancer, corrigée (CTUh)"
         ior:
           type: number
           description: "Radiations ionisantes (éq. kBq U235)"
@@ -1174,6 +1292,15 @@ components:
             materialType:
               type: string
               description: Type de matière invalide
+            authorization:
+              type: string
+              description: Jeton/token absent ou invalide
+            scope:
+              type: string
+              description: Scope inactif sur cette instance
+            server:
+              type: string
+              description: Erreur du serveur d’authentification
           additionalProperties:
             type: string
             description: Une erreur particulière pour un champ spécifique
@@ -1240,23 +1367,227 @@ components:
         query:
           type: object
           description: Le jeu de paramètres utilisé pour effectuer la simulation.
-    GenericImpactsResponse:
+    GenericSimulatorResponse:
       type: object
       description: |
-        Impacts environnementaux exprimés dans leurs unités respectives, dont
-        [la documentation est disponible ici](https://fabrique-numerique.gitbook.io/ecobalyse/methodologie/impacts-consideres).
+        Réponse du simulateur pour un périmètre générique.
       properties:
         webUrl:
           type: string
           description: URL vers la simulation dans l'interface web.
+        score:
+          allOf:
+            - $ref: "#/components/schemas/GenericScore"
+          description: |
+            Score en Pts d'impact du produit. Si un coefficient de durabilité est supporté pour
+            le scope sélectionné et spécifié dans la requête, il est appliqué à ce score.
         impacts:
-          $ref: "#/components/schemas/Impacts"
+          allOf:
+            - $ref: "#/components/schemas/PhysicalImpacts"
+          description: |
+            Catégories d'impacts physiques du produit, dans leurs unités respectives, après application
+            du coefficient de durabilité.
+        productMass:
+          type: number
+          description: Masse du produit fini, en kilogrammes.
+        complements:
+          allOf:
+            - $ref: "#/components/schemas/GenericComplementPoints"
+          description: |
+            Détail des compléments hors ACV, en Pts d'impact, après application de la durabilité.
+            La somme de ces valeurs est égale à `score.complements`.
+        subscores:
+          allOf:
+            - $ref: "#/components/schemas/GenericSubscores"
+          description: |
+            Détail du score d'impact (`ecs`) par sous-score, après application de la durabilité.
+        stages:
+          allOf:
+            - $ref: "#/components/schemas/GenericStages"
+          description: |
+            Détail du score d'impact (`ecs`) par étape du cycle de vie, après application de la durabilité.
+        composition:
+          type: array
+          description: |
+            Impacts de composition du produit à **l'étape de production** uniquement, après application de la durabilité.
+          items:
+            $ref: "#/components/schemas/GenericCompositionItem"
         description:
           type: string
           description: Une description de la simulation.
         query:
-          type: object
+          allOf:
+            - $ref: "#/components/schemas/GenericQuery"
           description: Le jeu de paramètres utilisé pour effectuer la simulation.
+      required:
+        - complements
+        - composition
+        - impacts
+        - productMass
+        - query
+        - score
+        - stages
+        - subscores
+        - webUrl
+    GenericScore:
+      type: object
+      additionalProperties: false
+      description: |
+        Éléments du score en Pts d'impact :
+        - `ecs` est le coût environnemental total en Pts d'impact, compléments hors ACV inclus
+        - `complements` est la somme en Pts d'impact de tous les compléments hors ACV
+      required:
+        - complements
+        - ecs
+      properties:
+        ecs:
+          type: number
+          description: Score d'impact (Pts), compléments inclus
+        complements:
+          type: number
+          description: |
+            Somme des compléments hors ACV (en Pts).
+            Une valeur négative **diminue** le coût environnemental.
+    GenericComplementPoints:
+      type: object
+      additionalProperties: false
+      description: |
+        Points d'impact (`ecs`) par complément, après application de la durabilité.
+        Une clé absente signifie que ce complément ne s'applique pas.
+        Une valeur négative **diminue** le coût environnemental.
+      properties:
+        cropDiversity:
+          type: number
+          description: Diversité culturale (Pts d'impact)
+        forest:
+          type: number
+          description: Forêt (Pts d'impact)
+        hedges:
+          type: number
+          description: Haies (Pts d'impact)
+        microfibers:
+          type: number
+          description: Microfibres (Pts d'impact)
+        outOfEuropeEOL:
+          type: number
+          description: Export hors Europe (Pts d'impact)
+        permanentPasture:
+          type: number
+          description: Prairies permanentes (Pts d'impact)
+        plotSize:
+          type: number
+          description: Taille des parcelles (Pts d'impact)
+    GenericCompositionItem:
+      type: object
+      additionalProperties: false
+      required:
+        - complements
+        - impacts
+        - mass
+        - quantity
+        - score
+      properties:
+        id:
+          type: string
+          format: uuid
+          description: Identifiant du composant catalogue. Absent pour un composant personnalisé
+        name:
+          type: string
+          description: Nom du composant.
+        quantity:
+          type: integer
+          description: Quantité demandée pour ce composant.
+        mass:
+          type: number
+          description: |
+            Masse de la ligne, en kilogrammes. La quantité est déjà appliquée :
+            ne pas multiplier `mass` par `quantity`.
+        score:
+          allOf:
+            - $ref: "#/components/schemas/GenericScore"
+          description: |
+            Score de ce composant, après application de la durabilité.
+            Le coût environnemental (`ecs`) inclut les compléments.
+        impacts:
+          allOf:
+            - $ref: "#/components/schemas/PhysicalImpacts"
+          description: |
+            Catégories d'impacts physiques de ce composant, dans leurs unités respectives, après application
+            du coefficient de durabilité.
+        complements:
+          allOf:
+            - $ref: "#/components/schemas/GenericComplementPoints"
+          description: |
+            Compléments des éléments de ce composant, en Pts d'impact, après application de la durabilité.
+            La somme de ces valeurs est égale à `score.complements`.
+    GenericStages:
+      type: object
+      additionalProperties: false
+      description: |
+        Coût environnemental en Pts d'impact (`ecs`) de chaque étape, après durabilité. Une étape sans impact vaut 0.
+      required:
+        - assembly
+        - distribution
+        - endOfLife
+        - materials
+        - packaging
+        - transform
+        - transports
+        - usage
+      properties:
+        materials:
+          type: number
+          description: Matières premières (Pts d'impact), hors compléments
+        transform:
+          type: number
+          description: Transformation (Pts d'impact)
+        assembly:
+          type: number
+          description: Assemblage (Pts d'impact)
+        packaging:
+          type: number
+          description: Emballage (Pts d'impact)
+        transports:
+          type: number
+          description: Transports (Pts d'impact)
+        distribution:
+          type: number
+          description: Distribution (Pts d'impact)
+        usage:
+          type: number
+          description: Utilisation (Pts d'impact)
+        endOfLife:
+          type: number
+          description: Fin de vie (Pts d'impact)
+    GenericSubscores:
+      type: object
+      additionalProperties: false
+      description: |
+        Points d'impact (`ecs`) par sous-score, **après** application de la durabilité.
+        Ces sous-scores sont recalculés à partir des indicateurs physiques.
+        Leur somme peut différer de `score.ecs` d'une fraction de point.
+      required:
+        - biodiversity
+        - climate
+        - complements
+        - health
+        - resources
+      properties:
+        biodiversity:
+          type: number
+          description: Biodiversité (Pts d'impact)
+        climate:
+          type: number
+          description: Climat (Pts d'impact)
+        health:
+          type: number
+          description: Santé environnementale (Pts d'impact)
+        resources:
+          type: number
+          description: Ressources (Pts d'impact)
+        complements:
+          type: number
+          description: Compléments (en Pts d'impact, une valeur négative **diminue** le score)
     GenericScopeListResponse:
       type: array
       description: |
@@ -1295,6 +1626,23 @@ components:
         query:
           type: object
           description: Le jeu de paramètres utilisé pour effectuer la simulation.
+    TextileSimulatorResponse:
+      type: object
+      description: |
+        Impacts environnementaux d'un produit textile, exprimés dans leurs unités respectives, dont
+        [la documentation est disponible ici](https://fabrique-numerique.gitbook.io/ecobalyse/methodologie/impacts-consideres).
+      properties:
+        webUrl:
+          type: string
+          description: URL vers la simulation dans l'interface web.
+        impacts:
+          $ref: "#/components/schemas/Impacts"
+        description:
+          type: string
+          description: Une description de la simulation.
+        query:
+          type: object
+          description: Le jeu de paramètres utilisé pour effectuer la simulation.
     DetailedTextileResponse:
       type: object
       description: |
@@ -1309,7 +1657,10 @@ components:
           $ref: "#/components/schemas/Impacts"
         complementsImpacts:
           type: object
-          description: Impact des compléments avec application du coefficient de durabilité (microfibres, export hors europe, etc.)
+          description: |
+            Impact des compléments hors-ACV (microfibres, export hors europe, etc.).
+            Si un coefficient de durabilité est supporté pour le scope sélectionné et spécifié
+            dans la requête, les impacts sont calculés après application de ce coefficient.
         daysOfWear:
           type: integer
           description: Nombre de jours d'usage du produit
@@ -1398,11 +1749,11 @@ components:
         consumptions:
           type: array
           description: |
-            List des procédés de consommation à l'étape d'utilisation (liste disponible sur `/{scope}/processes/consumption`).
+            Liste des procédés de consommation à l'étape d'utilisation (liste disponible sur `/{scope}/processes/consumption`).
             Si omis, les consommations de la catégorie de produit sélectionnée s'appliquent.
             Un procédé dont l'entrée sera la masse du produit (catégorisé `productmassdependent`)
             s'identifie par un simple UUID (celui du procédé en question), sans quantité associée.
-            Les autres types de procédés procédés exigent que la quantité soit spécifiée (`{ "amount", "processId" }`).
+            Les autres types de procédés exigent que la quantité soit spécifiée (`{ "amount", "processId" }`).
           items:
             $ref: "#/components/schemas/GenericQueryConsumption"
         distribution:
@@ -1465,6 +1816,11 @@ components:
           type: array
           items:
             $ref: "#/components/schemas/GenericQueryElement"
+        scopes:
+          type: array
+          description: Scopes associés.
+          items:
+            type: string
     GenericQueryCustom:
       type: object
       additionalProperties: false
@@ -1478,6 +1834,11 @@ components:
           type: array
           items:
             $ref: "#/components/schemas/GenericQueryElement"
+        scopes:
+          type: array
+          description: Scopes associés.
+          items:
+            type: string
     GenericQueryElement:
       type: object
       additionalProperties: false
