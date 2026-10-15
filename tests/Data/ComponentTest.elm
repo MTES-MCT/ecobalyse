@@ -456,7 +456,7 @@ suite =
                                     [ fading |> setProcessEcsImpact (Unit.impact 10)
                                     , fading |> setProcessEcsImpact (Unit.impact 20)
                                     ]
-                                    |> Expect.within (Expect.Absolute 1) 1020
+                                    |> Expect.within (Expect.Absolute 1) 1021
                                 )
                             ]
                         , suiteFromResult "unit mismatch"
@@ -523,7 +523,7 @@ suite =
                                   it "should handle impacts+qtyVariationRatio when applying transforms: impacts"
                                     (noElecAndNoHeat
                                         |> extractEcsImpact
-                                        |> Expect.within (Expect.Absolute 1) 247
+                                        |> Expect.within (Expect.Absolute 1) 248
                                     )
 
                                 -- (1kg * 0.5) * 0.5 == 0.25
@@ -549,7 +549,7 @@ suite =
                                 [ it "should handle impacts+qtyVariationRatio when applying transforms: impacts"
                                     (withElecAndHeat
                                         |> extractEcsImpact
-                                        |> Expect.within (Expect.Absolute 1) 862
+                                        |> Expect.within (Expect.Absolute 1) 863
                                     )
                                 , it "should handle impacts+qtyVariationRatio when applying transforms: mass"
                                     (withElecAndHeat
@@ -799,7 +799,7 @@ suite =
                                 [ it "should compute element impacts"
                                     (elementResults
                                         |> extractEcsImpact
-                                        |> Expect.within (Expect.Absolute 1) 2389
+                                        |> Expect.within (Expect.Absolute 1) 2391
                                     )
                                 , it "should compute element mass"
                                     (elementResults
@@ -825,7 +825,7 @@ suite =
                                     (results
                                         |> Result.map extractEcsImpact
                                         |> Result.withDefault 0
-                                        |> Expect.within (Expect.Absolute 1) 150882
+                                        |> Expect.within (Expect.Absolute 1) 151118
                                     )
                                 , it "should compute mass according on material unit"
                                     (results

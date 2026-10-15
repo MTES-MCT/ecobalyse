@@ -11,7 +11,6 @@ from common.import_ import (
 )
 from config import settings
 from ecobalyse_data.bw.migration import (
-    AGRIBALYSE_MIGRATIONS,
     GINKO_MIGRATIONS,
     PASTOECO_MIGRATIONS,
 )
@@ -82,7 +81,6 @@ if __name__ == "__main__":
             settings.dbfiles.AGRIBALYSE,
             settings.dbfiles.AGRIBALYSE_MD5,
             db,
-            migrations=AGRIBALYSE_MIGRATIONS,
             strategies=[lower_formula_parameters] + STRATEGIES + AGB_STRATEGIES,
         )
     else:
@@ -109,7 +107,7 @@ if __name__ == "__main__":
             db,
             external_db=settings.bw.AGRIBALYSE,
             strategies=STRATEGIES + GINKO_STRATEGIES,
-            migrations=GINKO_MIGRATIONS + AGRIBALYSE_MIGRATIONS,
+            migrations=GINKO_MIGRATIONS,
         )
     else:
         logger.info(f"{db} already imported")
