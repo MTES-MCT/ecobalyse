@@ -25,6 +25,7 @@ import List.Extra as LE
 import Route exposing (Route)
 import Views.Alert as Alert
 import Views.Button as Button
+import Views.Component.Context as Context exposing (Context)
 import Views.Component.ItemRow as ItemRow exposing (emptyItemRow)
 import Views.Format as Format
 import Views.Icon as Icon
@@ -32,7 +33,7 @@ import Views.Link as Link
 
 
 type alias Config db msg =
-    { canEditItemComposition : Bool
+    { context : Context
     , db : Component.DataContainer db
     , detailed : List Index
     , docsUrl : Maybe String
@@ -66,11 +67,16 @@ addProductionItemButton ({ db } as config) =
                 |> List.map ComponentItem
 
         availableMaterials =
-            db.processes
-                |> Process.listAvailableByCategory config.scope Category.Material
-                -- Exclude packaging materials as they're available in a dedicated section
-                |> List.filter (\{ categories } -> not <| List.member Category.Packaging categories)
-                |> List.map MaterialItem
+            case config.context of
+                Context.TextileTrims ->
+                    []
+
+                _ ->
+                    db.processes
+                        |> Process.listAvailableByCategory config.scope Category.Material
+                        -- Exclude packaging materials as they're available in a dedicated section
+                        |> List.filter (\{ categories } -> not <| List.member Category.Packaging categories)
+                        |> List.map MaterialItem
 
         availableProductionItems =
             availableComponents ++ availableMaterials
@@ -150,45 +156,41 @@ elementSummaryRow config itemResults { amount, material, transforms } elementRes
 
 expandToggler : Config db msg -> Index -> Bool -> Html msg
 expandToggler config itemIndex collapsed =
-    if not config.canEditItemComposition then
-        text ""
+    let
+        label =
+            if collapsed then
+                "Déplier les détails"
 
-    else
-        let
-            label =
+            else
+                "Replier les détails"
+    in
+    button
+        [ type_ "button"
+        , class "btn btn-link text-muted text-decoration-none font-monospace fs-6 p-0 m-0"
+        , title label
+        , attribute "aria-label" label
+        , attribute "aria-expanded"
+            (if collapsed then
+                "false"
+
+             else
+                "true"
+            )
+        , attribute "aria-controls" <| itemDetailsId itemIndex
+        , onClick <|
+            config.setDetailed <|
                 if collapsed then
-                    "Déplier les détails"
+                    LE.unique <| itemIndex :: config.detailed
 
                 else
-                    "Replier les détails"
-        in
-        button
-            [ type_ "button"
-            , class "btn btn-link text-muted text-decoration-none font-monospace fs-6 p-0 m-0"
-            , title label
-            , attribute "aria-label" label
-            , attribute "aria-expanded"
-                (if collapsed then
-                    "false"
+                    List.filter ((/=) itemIndex) config.detailed
+        ]
+        [ if collapsed then
+            text "▶"
 
-                 else
-                    "true"
-                )
-            , attribute "aria-controls" <| itemDetailsId itemIndex
-            , onClick <|
-                config.setDetailed <|
-                    if collapsed then
-                        LE.unique <| itemIndex :: config.detailed
-
-                    else
-                        List.filter ((/=) itemIndex) config.detailed
-            ]
-            [ if collapsed then
-                text "▶"
-
-              else
-                text "▼"
-            ]
+          else
+            text "▼"
+        ]
 
 
 itemActions : Config db msg -> Index -> Component -> Html msg
@@ -213,7 +215,7 @@ itemActions config itemIndex component =
                 [ Icon.pencil ]
     in
     div [ class "btn-group" ]
-        (if config.canEditItemComposition then
+        (if config.context /= Context.TextileTrims then
             [ editButton, deleteButton ]
 
          else
@@ -279,7 +281,12 @@ itemView config itemIndex { component, elements, quantity } itemResults =
         )
         [ ItemRow.view [ class "border-bottom", classList [ ( "table-info", not collapsed ) ] ]
             { actions = itemActions config itemIndex component
-            , expander = expandToggler config itemIndex collapsed
+            , expander =
+                if config.context == Context.TextileTrims then
+                    text ""
+
+                else
+                    expandToggler config itemIndex collapsed
             , impacts =
                 Component.getTotalImpacts itemResults
                     |> Format.formatImpact config.impact

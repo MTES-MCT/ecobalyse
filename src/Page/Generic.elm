@@ -51,6 +51,7 @@ import Views.Bookmark as BookmarkView
 import Views.Button as Button
 import Views.Comparator as ComparatorView
 import Views.Component as ComponentView
+import Views.Component.Context as Context
 import Views.Container as Container
 import Views.Example as ExampleView
 import Views.Format as Format
@@ -1029,14 +1030,14 @@ editorConfig session ({ genericScope } as model) =
             Scope.Generic genericScope
     in
     { componentConfig = session.componentConfig
-    , context = ComponentView.GenericContext
+    , context = Context.Generic
     , db = session.db
     , debug = True
     , detailed = model.detailedComponents
     , docsUrl = Nothing
     , explorerRoute = Just (Route.Explore scope (Dataset.Components scope Nothing))
     , impact = model.impact
-    , labels = ComponentView.scopeLabels ComponentView.GenericContext scope
+    , labels = ComponentView.scopeLabels Context.Generic scope
     , noOp = NoOp
     , openItemEditModal = \targetItem -> AppendModal (ItemEditModal targetItem)
     , openSelectAssemblyOperationModal = SelectAssemblyOperationModal >> List.singleton >> SetModals
@@ -1263,7 +1264,7 @@ modalView : Session -> Model -> Modal -> Html Msg
 modalView session ({ modals } as model) modal =
     let
         scopeLabels =
-            ComponentView.scopeLabels ComponentView.GenericContext (Scope.Generic model.genericScope)
+            ComponentView.scopeLabels Context.Generic (Scope.Generic model.genericScope)
     in
     case modal of
         AddProductionItemModal autocompleteState ->

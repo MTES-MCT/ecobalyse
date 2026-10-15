@@ -63,6 +63,7 @@ import Views.Button as Button
 import Views.CardTabs as CardTabs
 import Views.Comparator as ComparatorView
 import Views.Component as ComponentView
+import Views.Component.Context as Context
 import Views.Component.DownArrow as DownArrow
 import Views.Container as Container
 import Views.Example as ExampleView
@@ -1005,14 +1006,14 @@ simulatorFormView session model ({ inputs } as simulator) =
         ]
     , ComponentView.editorView
         { componentConfig = session.componentConfig
-        , context = ComponentView.TextileTrimsContext
+        , context = Context.TextileTrims
         , db = session.db
         , debug = False
         , detailed = []
         , docsUrl = Just <| Gitbook.publicUrlFromPath Gitbook.TextileTrims
         , explorerRoute = Just (Route.Explore Scope.Textile (Dataset.Components Scope.Textile Nothing))
         , impact = model.impact
-        , labels = ComponentView.scopeLabels ComponentView.TextileTrimsContext Scope.Textile
+        , labels = ComponentView.scopeLabels Context.TextileTrims Scope.Textile
         , lifeCycle =
             Component.emptyQuery
                 |> Component.setQueryItems inputs.trims
