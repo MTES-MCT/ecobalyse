@@ -326,15 +326,9 @@ unitaryMassInput config itemIndex elements itemResults =
                 |> Maybe.andThen .unitaryMass
                 |> Maybe.withDefault (Component.extractUnitMass itemResults)
 
-        -- check if any element has an unknown massPerUnit in its material process; if so, the item unitary mass cannot be edited!
+        -- An element whose material process has no known mass per unit makes the item unitary mass uneditable.
         unknownMassPerUnit =
-            elements
-                |> List.any
-                    (\{ material } ->
-                        -- FIXME: move this as a `knownMassPerUnit` helper in Data.Process
-                        (material.process.unit /= Process.Kilogram)
-                            && (material.process.massPerUnit == Nothing)
-                    )
+            elements |> List.any (.material >> .process >> Process.hasValidMassPerUnit >> not)
     in
     mass
         |> Mass.inKilograms

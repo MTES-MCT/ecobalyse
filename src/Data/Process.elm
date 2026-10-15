@@ -17,6 +17,7 @@ module Data.Process exposing
     , getMaterialTypes
     , getTechnicalName
     , hasCategory
+    , hasValidMassPerUnit
     , idFromString
     , idToString
     , impactsPerUnit
@@ -278,6 +279,11 @@ impactsPerUnit { electricityProcess, heatProcess } { elec, heat, impacts } =
 isTransportedCooled : Process -> Bool
 isTransportedCooled =
     hasCategory Category.TransportedCooled
+
+
+hasValidMassPerUnit : Process -> Bool
+hasValidMassPerUnit process =
+    process.unit == Kilogram || process.massPerUnit /= Nothing
 
 
 listAvailableByCategory : Scope -> Category -> List Process -> List Process
