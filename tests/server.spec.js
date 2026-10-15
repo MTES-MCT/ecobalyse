@@ -936,6 +936,123 @@ describe("API", () => {
       });
     });
 
+    describe("unitary mass", () => {
+      const filmId = "c5e8e39e-276f-4a31-8289-1265af9c9a9e";
+      const cardboardId = "e1631a47-95b0-46e8-bde3-0f77850fa1d1";
+
+      function twoKilogramElements(unitaryMass, quantity = 1) {
+        const item = {
+          quantity,
+          elements: [
+            { amount: 1, material: filmId },
+            { amount: 1, material: cardboardId },
+          ],
+        };
+
+        if (unitaryMass !== undefined) {
+          item.unitaryMass = unitaryMass;
+        }
+
+        return { components: [item] };
+      }
+
+      it("should use the sum of element amounts when unitaryMass is omitted", async () => {
+        const response = await makePostRequest("/api/object/simulator", twoKilogramElements());
+
+        expectStatus(response, 200);
+        expectMostlyEqual(response.body.composition[0].mass, 2);
+        expectMostlyEqual(response.body.productMass, 2);
+      });
+
+      it("should scale masses and impacts to a unitaryMass that differs from the element amounts", async () => {
+        const unscaled = await makePostRequest("/api/object/simulator", twoKilogramElements());
+        const scaled = await makePostRequest("/api/object/simulator", twoKilogramElements(0.5));
+
+        expectStatus(scaled, 200);
+        expectMostlyEqual(scaled.body.composition[0].mass, 0.5);
+        expectMostlyEqual(scaled.body.productMass, 0.5);
+        expectMostlyEqual(
+          scaled.body.composition[0].score.ecs,
+          unscaled.body.composition[0].score.ecs * 0.25,
+        );
+      });
+
+      it("should multiply the unitary mass by quantity", async () => {
+        const response = await makePostRequest(
+          "/api/object/simulator",
+          twoKilogramElements(0.5, 2),
+        );
+
+        expectStatus(response, 200);
+        expectMostlyEqual(response.body.composition[0].mass, 1);
+        expectMostlyEqual(response.body.productMass, 1);
+      });
+
+      it("should scale a catalog component addressed only by id", async () => {
+        const componentId = "c5d86519-e56a-4ad7-aada-d4f7fffd5628";
+        const unscaled = await makePostRequest("/api/object/simulator", {
+          components: [{ id: componentId, quantity: 1 }],
+        });
+
+        expectStatus(unscaled, 200);
+
+        const half = unscaled.body.composition[0].mass / 2;
+        const scaled = await makePostRequest("/api/object/simulator", {
+          components: [{ id: componentId, quantity: 1, unitaryMass: half }],
+        });
+
+        expectStatus(scaled, 200);
+        expectMostlyEqual(scaled.body.composition[0].mass, half);
+        expectMostlyEqual(scaled.body.productMass, half);
+        expectMostlyEqual(
+          scaled.body.composition[0].score.ecs,
+          unscaled.body.composition[0].score.ecs / 2,
+        );
+      });
+
+      it("should reject a zero unitaryMass", async () => {
+        expectFieldErrorMessage(
+          await makePostRequest("/api/object/simulator", twoKilogramElements(0)),
+          "decoding",
+          /strictement positive/,
+        );
+      });
+
+      it("should reject a negative unitaryMass", async () => {
+        expectFieldErrorMessage(
+          await makePostRequest("/api/object/simulator", twoKilogramElements(-1)),
+          "decoding",
+          /strictement positive/,
+        );
+      });
+
+      it("should treat a null unitaryMass as an omitted one", async () => {
+        const response = await makePostRequest("/api/object/simulator", twoKilogramElements(null));
+
+        expectStatus(response, 200);
+        expectMostlyEqual(response.body.composition[0].mass, 2);
+        expectMostlyEqual(response.body.productMass, 2);
+      });
+
+      it("should fail to apply unitaryMass when the element mass is zero", async () => {
+        const response = await makePostRequest("/api/object/simulator", {
+          components: [
+            {
+              quantity: 1,
+              unitaryMass: 1,
+              elements: [{ amount: 1, material: "a8a6df0f-483f-4690-b21f-01a0b6993637" }],
+            },
+          ],
+        });
+
+        expectFieldErrorMessage(
+          response,
+          "general",
+          /masse des éléments qui le constituent est nulle/,
+        );
+      });
+    });
+
     for (const scope of ["food2", "object", "veli"]) {
       describe(`/${scope}/simulator`, () => {
         it("should accept an empty query", async () => {
