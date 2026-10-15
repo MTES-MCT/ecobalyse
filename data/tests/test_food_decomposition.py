@@ -7,6 +7,9 @@ amount divided by the production amount of the activity that consumes it, multip
 along the chain.
 """
 
+from types import SimpleNamespace
+
+from bin import decompose_food
 from ecobalyse_data.food_decomposition import (
     CatalogIngredient,
     Decomposer,
@@ -371,3 +374,55 @@ def test_heat_labelled_kwh_is_heat_and_only_native_kwh_is_converted():
     )
     assert totals.heat_detail == {HEAT_KWH_STUB: 1.5, LPG_KWH: 3.6}
     assert totals.elec_kwh == 2.0
+
+
+def test_build_entries_derives_file_name_ids_and_names_from_the_key_and_product_name(
+    monkeypatch,
+):
+    """`components` builds catalog products and `--activity` products the same way: only
+    the key and the French name differ. For 1 kg of cheese made from 4 kg of milk with
+    0.4 kWh and 2 MJ, the transformation is per kg of milk:
+
+    | Field               | Value                             |
+    |---------------------|-----------------------------------|
+    | file name           | abondance-fr-transformation       |
+    | elecKwh             | 0.4 / 4 = 0.1                     |
+    | heatMJ              | 2 / 4 = 0.5                       |
+    | qtyVariationRatio   | 1 / 4 = 0.25                      |
+    | component           | Abondance FR (1 kg), 1 kg of milk |
+    """
+    # The testing settings have no Agribalyse database, which the comment names
+    agribalyse_settings = SimpleNamespace(
+        bw=SimpleNamespace(agribalyse="Agribalyse 3.2")
+    )
+    monkeypatch.setattr(decompose_food, "settings", agribalyse_settings)
+    raw_milk = CatalogIngredient(
+        alias="cow-milk-fr",
+        metadata_id="milk-metadata-id",
+        activity_name=MILK,
+        source="Agribalyse 3.2",
+        display_name="Lait de vache FR",
+        scopes=("food2",),
+        scenario=None,
+        default_origin=None,
+    )
+    result = {
+        "product": "Abondance cheese, at plant {FR} U",
+        "main_raw_kg": 4.0,
+        "elec_kwh": 0.4,
+        "heat_mj": 2.0,
+    }
+    entries = decompose_food.build_entries(
+        decompose_food.slugify("Abondance FR"), "Abondance FR", raw_milk, result
+    )
+    transform, component = entries["transform"], entries["component"]
+    assert entries["slug"] == "abondance-fr-transformation"
+    assert transform["displayName"] == "Transformation : Abondance FR"
+    assert (transform["elecKwh"], transform["heatMJ"]) == (0.1, 0.5)
+    assert transform["qtyVariationRatio"] == 0.25
+    assert component["name"] == "Abondance FR (1 kg)"
+    assert component["elements"][0]["material"]["id"] == "milk-metadata-id"
+    assert (
+        component["elements"][0]["transforms"][0]["id"]
+        == transform["metadata"][0]["id"]
+    )

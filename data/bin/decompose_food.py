@@ -5,13 +5,15 @@ create the food2 components.
     uv run python data/bin/decompose_food.py decompose --activity "Lemon juice, pure juice, at plant {IT} U"
     uv run python data/bin/decompose_food.py decompose --all-food
     uv run python data/bin/decompose_food.py components [--only ...] [--dry-run]
+    uv run python data/bin/decompose_food.py components --activity "<activity name>" --name "Abondance FR"
 
 `decompose` writes `output/decompose_food/decomposition.json` at the repo root
 (gitignored): per product, the raw materials, electricity, heat, water, waste and other
 inputs per kg, and the transformation steps walked. It takes the catalog ingredients by
 default, `--activity` adds Agribalyse activities that are not in the catalog and
 `--all-food` takes every `Agricultural / Food` activity of the database. Products outside
-the catalog are keyed on their activity name and `components` ignores them.
+the catalog are keyed on their activity name. `components` ignores them, unless one is
+named with `--activity` and `--name`.
 
 `components` writes its JSON files in the repo format (bin/json_formatter.py), so a rerun on
 unchanged data leaves them unchanged.
@@ -21,6 +23,12 @@ and one component in `public/data/food2/components.json` per product whose main 
 material is a catalog ingredient, and marks the aggregated ingredient's display name with
 " agrégé". Ids are uuid5 of the product alias, so a rerun rewrites the same entries and an
 Agribalyse rename does not change them.
+
+`components --activity "<name>" --name "<French name>"` does the same for one product
+outside the catalog, decomposed beforehand with `decompose --activity`. Its main raw
+material must still be a catalog ingredient. Ids and the file name derive from the French
+name, and there is no aggregated ingredient to mark. Prefer the "at plant" activity over
+the consumption mix when both exist, as the app handles transport separately.
 
 Run from the repo root, with `BRIGHTWAY2_DIR` (in `.env`) pointing at the Brightway env
 holding the project.
@@ -218,11 +226,12 @@ def skip_reason(result: dict, catalog_names: set[str], min_share: float) -> str 
 
 
 def build_entries(
-    alias: str, product: CatalogIngredient, raw: CatalogIngredient, result: dict
+    key: str, product_name: str, raw: CatalogIngredient, result: dict
 ) -> dict:
-    slug = f"{slugify(base_alias(alias))}-transformation"
+    """`key` names the transformation file and seeds the ids, `product_name` is the French
+    name of the transformed product."""
+    slug = f"{key}-transformation"
     raw_kg = result["main_raw_kg"]
-    product_name = clean_display_name(product.display_name) or product.activity_name
     material_type = infer_material_type_for_alias(raw.alias)
     transform_metadata_id = deterministic_id(
         "food-decomposition-transform-metadata", slug
@@ -300,6 +309,17 @@ def components(
         str | None,
         typer.Option(help="Comma separated catalog aliases to restrict the run"),
     ] = None,
+    activity: Annotated[
+        str | None,
+        typer.Option(
+            help="Agribalyse activity outside the catalog, decomposed with "
+            "`decompose --activity`. Needs --name."
+        ),
+    ] = None,
+    name: Annotated[
+        str | None,
+        typer.Option(help="French name of the --activity product, e.g. 'Abondance FR'"),
+    ] = None,
     json_in: Path = DEFAULT_JSON,
     min_share: float = 0.6,
     dry_run: bool = False,
@@ -314,42 +334,72 @@ def components(
         for activity_name, variants in catalog.items()
         for variant in variants
     }
-    wanted = (
-        {alias.strip() for alias in only.split(",")}
-        if only
-        else set(results) & set(by_alias)
-    )
+    # (label, result, key, product name, metadata id of the aggregated ingredient to mark)
+    targets: list[tuple[str, dict, str, str, str | None]] = []
+    if activity or name:
+        if not (activity and name):
+            raise typer.BadParameter("--activity and --name go together")
+        if only:
+            raise typer.BadParameter("--activity cannot be combined with --only")
+        if activity in catalog_names:
+            aliases = ", ".join(variant.alias for variant in catalog[activity])
+            raise typer.BadParameter(
+                f"{activity} is a catalog ingredient, use --only {aliases}"
+            )
+        key = slugify(name)
+        if key in {slugify(base_alias(alias)) for alias in by_alias}:
+            raise typer.BadParameter(
+                f"--name {name!r} gives the key of a catalog product: {key}"
+            )
+        if activity not in results:
+            raise typer.BadParameter(
+                f"{activity} not in {json_in}, run decompose --activity first"
+            )
+        targets.append((activity, results[activity], key, name, None))
+    else:
+        wanted = (
+            {alias.strip() for alias in only.split(",")}
+            if only
+            else set(results) & set(by_alias)
+        )
+        for alias in sorted(wanted):
+            result = results.get(alias)
+            if result is None:
+                logger.warning(f"{alias}: not in {json_in}, run decompose first")
+                continue
+            if alias not in by_alias:
+                print(f"{alias}: skipped, not a catalog alias")
+                continue
+            product = preferred_ingredient(by_alias[alias][1])
+            product_name = (
+                clean_display_name(product.display_name) or product.activity_name
+            )
+            key = slugify(base_alias(alias))
+            targets.append((alias, result, key, product_name, product.metadata_id))
+
     components_list = json.loads(FOOD2_COMPONENTS_PATH.read_text())
     created = 0
-    for alias in sorted(wanted):
-        result = results.get(alias)
-        if result is None:
-            logger.warning(f"{alias}: not in {json_in}, run decompose first")
-            continue
-        if alias not in by_alias:
-            print(f"{alias}: skipped, not a catalog alias")
-            continue
+    for label, result, key, product_name, aggregated_metadata_id in targets:
         reason = skip_reason(result, catalog_names, min_share)
         if reason:
-            print(f"{alias}: skipped, {reason}")
+            print(f"{label}: skipped, {reason}")
             continue
-        product = preferred_ingredient(by_alias[alias][1])
         raw = preferred_ingredient(catalog[result["main_raw"]])
-        entries = build_entries(alias, product, raw, result)
+        entries = build_entries(key, product_name, raw, result)
         if dry_run:
-            print(f"--- {alias}")
+            print(f"--- {label}")
             print(json.dumps(entries["transform"], ensure_ascii=False, indent=2))
             print(json.dumps(entries["component"], ensure_ascii=False, indent=2))
             continue
         write_json(MANUAL_LCIA_DIR / f"{entries['slug']}.json", entries["transform"])
         upsert_component(components_list, entries["component"])
-        if not no_rename:
-            renamed = mark_aggregated(product.metadata_id)
+        if aggregated_metadata_id and not no_rename:
+            renamed = mark_aggregated(aggregated_metadata_id)
             if renamed:
-                logger.info(f"{alias}: aggregated ingredient marked in {renamed}")
+                logger.info(f"{label}: aggregated ingredient marked in {renamed}")
         created += 1
         print(
-            f"{alias}: {entries['component']['name']} = {result['main_raw_kg']:.2f} kg "
+            f"{label}: {entries['component']['name']} = {result['main_raw_kg']:.2f} kg "
             f"{raw.alias} + {entries['slug']}"
         )
     if not dry_run:
