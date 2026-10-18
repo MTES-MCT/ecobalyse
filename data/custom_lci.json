@@ -1170,19 +1170,22 @@
     "activityCreationType": "from_existing",
     "alias": "zinc-coat-wo-energy-per-m2",
     "comment": "Adapted from 'zinc coating, pieces, RER', Ecoinvent. Heat and electricity consumptions are excluded.",
-    "database": "BAFU",
+    "database": "BAFU 2025v2",
     "delete": [
       {
-        "name": "heat, district or industrial, natural gas//[RER] market group for heat, district or industrial, natural gas"
+        "name": "Electricity, medium voltage, production ENTSO-E, at grid {ENTSO-E} U"
       },
       {
-        "name": "heat, district or industrial, other than natural gas//[RER] market group for heat, district or industrial, other than natural gas"
+        "name": "Heat, unspecific, in chemical plant {RER} U"
       },
       {
-        "name": "electricity, medium voltage//[RER] market group for electricity, medium voltage"
+        "name": "Heat, light fuel oil, at industrial furnace 1MW {RER} U"
+      },
+      {
+        "name": "Natural gas, burned in industrial furnace 1MWth {CH} U"
       }
     ],
-    "existingActivity": { "name": "zinc coat, pieces//[RER] zinc coating, pieces" },
+    "existingActivity": { "name": "Zinc coating, pieces {RER} U" },
     "newName": "zinc coat, pieces, without energy, per m2, RER"
   },
   {
