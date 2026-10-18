@@ -51,6 +51,15 @@
   },
   {
     "category": "",
+    "id": "51e7c972-1cb9-46bc-af3e-900a708fc51d",
+    "name": "Pile AAA",
+    "query": { "components": [
+      { "id": "329b27b1-9f4b-47fd-a009-52ee4ed1e8d1", "quantity": 1 }
+    ] },
+    "scope": "object"
+  },
+  {
+    "category": "",
     "id": "6ab8769d-24d9-4990-8f00-ae1b5823946e",
     "name": "Boite plastique 45L (France)",
     "query": {
@@ -71,15 +80,6 @@
         }
       ]
     },
-    "scope": "object"
-  },
-  {
-    "category": "",
-    "id": "51e7c972-1cb9-46bc-af3e-900a708fc51d",
-    "name": "Pile AAA",
-    "query": { "components": [
-      { "id": "329b27b1-9f4b-47fd-a009-52ee4ed1e8d1", "quantity": 1 }
-    ] },
     "scope": "object"
   },
   {
