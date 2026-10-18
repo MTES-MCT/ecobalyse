@@ -1188,7 +1188,7 @@
     "exchanges": [
       { "amount": 0.048, "name": "zinc coat, pieces, without energy, per m2, RER" }
     ],
-    "newName": "zinc coating, adapted from Ecoinvent"
+    "newName": "zinc coating, adapted from BAFU"
   },
   {
     "activityCreationType": "from_scratch",
