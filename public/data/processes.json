@@ -41377,7 +41377,7 @@
     "alias": null,
     "categories": ["material", "material_type:battery_alkaline"],
     "comment": "For one gram battery. Based on https://www.epbaeurope.net/assets/resources/NEMA_alkalinelca2011.pdf",
-    "displayName": "Pile Alcaline",
+    "displayName": "Pile Alcaline, 1g",
     "elecKwh": 0,
     "heatMJ": 0,
     "id": "9e53b447-9494-479f-9e73-4e40dca2b0b3",
@@ -41389,7 +41389,7 @@
     "qtyVariationRatio": 1.0,
     "scopes": ["object"],
     "source": "Ecobalyse_custom_lci",
-    "unit": "kg",
+    "unit": "item",
     "visible": true
   },
   {
