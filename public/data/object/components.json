@@ -1297,6 +1297,19 @@
     "scopes": ["object"]
   },
   {
+    "comment": "pile AAA de 23g, 1.5V, alcaline, hors emballage",
+    "elements": [
+      {
+        "amount": 23,
+        "material": "9e53b447-9494-479f-9e73-4e40dca2b0b3",
+        "transforms": null
+      }
+    ],
+    "id": "329b27b1-9f4b-47fd-a009-52ee4ed1e8d1",
+    "name": "Pile AAA",
+    "scopes": ["object"]
+  },
+  {
     "comment": "Câble électrique de type H05VVF 3G1.5mm², section 7.4mm, 110g/m (isolant PVC). Adapté pour une puissance jusqu'à 2.5kW pour 20m max",
     "elements": [
       {

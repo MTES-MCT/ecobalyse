@@ -179,5 +179,580 @@
       ]
     },
     "scope": "object"
+  },
+  {
+    "category": "",
+    "id": "51e7c972-1cb9-46bc-af3e-900a708fc51d",
+    "name": "Pile AAA",
+    "query": {
+      "components": [
+        { "id": "9e53b447-9494-479f-9e73-4e40dca2b0b3", "quantity": 1 }
+      ]
+    },
+    "scope": "object"
+  },
+  {
+    "category": "",
+    "id": "a2b7e249-6323-46e6-82c9-d9ae29fe9936",
+    "name": "Petit train type Brio, avec deux rails, locomotive sans wagon",
+    "query": {
+      "assembly": {
+        "country": "REE"
+      },
+      "components": [
+        {
+          "quantity": 1,
+          "name": "Rail - Bois d'oeuvre (Feuillus / Hêtre) forêt diversifiée certifiée",
+          "elements": [
+            {
+              "amount": 0.00013,
+              "material": {
+                "country": "PL",
+                "id": "a638fe22-3050-4fc2-817d-0fb3be0730ad"
+              },
+              "transforms": [
+                {
+                  "country": "PL",
+                  "id": "e232270f-3a08-4536-8d8d-dcb4a2031e7b"
+                }
+              ]
+            }
+          ]
+        },
+        {
+          "quantity": 1,
+          "name": "Chassis - Aluminium, lingot, mix marché, Europe",
+          "elements": [
+            {
+              "amount": 0.029,
+              "material": {
+                "country": "REE",
+                "id": "4b4e1204-48ac-48ac-a0e2-ee2176202a5a"
+              },
+              "transforms": [
+                {
+                  "country": "REE",
+                  "id": "971df5fa-c32e-4a7e-b1aa-14ce9f240b5c"
+                },
+                {
+                  "country": "REE",
+                  "id": "7319ac9c-5796-412f-a1eb-58e01afa7708"
+                }
+              ]
+            }
+          ]
+        },
+        {
+          "quantity": 1,
+          "name": "Vis - Acier, lingot, mix marché, Europe",
+          "elements": [
+            {
+              "amount": 0.002,
+              "material": {
+                "country": "REE",
+                "id": "21a0d5b0-861e-4bed-98a9-46c61d2a0618"
+              },
+              "transforms": [
+                {
+                  "country": "REE",
+                  "id": "7da5ea9a-8b04-462d-bd02-19ce266dd265"
+                },
+                {
+                  "country": "REE",
+                  "id": "7319ac9c-5796-412f-a1eb-58e01afa7708"
+                }
+              ]
+            }
+          ]
+        },
+        {
+          "id": "190276e9-5b90-42d6-8fbd-bc7ddfd4c960",
+          "quantity": 1,
+          "name": "Habillage - Plastique PP vierge, moulé",
+          "elements": [
+            {
+              "amount": 0.025,
+              "material": {
+                "country": "REE",
+                "id": "01d21ed5-9fc6-4d36-a0ea-cfea8035385b"
+              },
+              "transforms": [
+                {
+                  "country": "REE",
+                  "id": "85b74ce2-2cbc-4d73-a5a2-5c5ffde16319"
+                }
+              ]
+            }
+          ]
+        },
+        {
+          "id": "190276e9-5b90-42d6-8fbd-bc7ddfd4c960",
+          "quantity": 1,
+          "name": "Roues - Plastique PP vierge, moulé",
+          "elements": [
+            {
+              "amount": 0.005,
+              "material": {
+                "country": "REE",
+                "id": "01d21ed5-9fc6-4d36-a0ea-cfea8035385b"
+              },
+              "transforms": [
+                {
+                  "country": "REE",
+                  "id": "85b74ce2-2cbc-4d73-a5a2-5c5ffde16319"
+                }
+              ]
+            }
+          ]
+        },
+        {
+          "quantity": 1,
+          "name": "Essieux - Aluminium, lingot, mix marché, Europe",
+          "elements": [
+            {
+              "amount": 0.006,
+              "material": {
+                "country": "REE",
+                "id": "4b4e1204-48ac-48ac-a0e2-ee2176202a5a"
+              },
+              "transforms": [
+                {
+                  "country": "REE",
+                  "id": "d693bd0d-88d4-4370-81ee-597956bb58f0"
+                },
+                {
+                  "country": "REE",
+                  "id": "7319ac9c-5796-412f-a1eb-58e01afa7708"
+                }
+              ]
+            }
+          ]
+        },
+        {
+          "quantity": 1,
+          "name": "Engrenage essieu - Laiton",
+          "elements": [
+            {
+              "amount": 0.003,
+              "material": {
+                "country": "REE",
+                "id": "b87b7c27-6d51-4890-bc41-604586feda5e"
+              },
+              "transforms": [
+                {
+                  "country": "REE",
+                  "id": "7319ac9c-5796-412f-a1eb-58e01afa7708"
+                }
+              ]
+            }
+          ]
+        },
+        {
+          "quantity": 1,
+          "name": "Pile AAA",
+          "elements": [
+            {
+              "amount": 1,
+              "material": "5d007d71-50e9-4636-bceb-2d99133ecbf8"
+            }
+          ]
+        },
+        {
+          "quantity": 1,
+          "name": "Moteur électrique",
+          "elements": [
+            {
+              "amount": 0.024,
+              "material": "97a70d45-d7d5-4ee5-86b4-ee506300cdaa"
+            }
+          ]
+        }
+      ],
+      "packagings": [
+        {
+          "amount": 0.02,
+          "processId": "1421dfdc-0168-4e6c-bbb4-c724785d61d6"
+        }
+      ],
+      "recyclable": true
+    },
+    "scope": "object"
+  },
+  {
+    "category": "",
+    "id": "acfd3696-e3e3-4c2f-8bcf-0a16554d484c",
+    "name": "Vélo de ville, 28 pouces, cadre aluminium, fabriqué en Asie",
+    "query": {
+      "assembly": {
+        "country": "RAS",
+        "operations": [
+          "c51ab87d-f368-4704-a5ec-7ea17ba87d46"
+        ]
+      },
+      "components": [
+        {
+          "id": "658611b7-4b76-4f1d-aed7-55ec11f299e3",
+          "quantity": 1,
+          "name": "Cadre aluminium",
+          "elements": [
+            {
+              "amount": 2,
+              "material": {
+                "country": "RAS",
+                "id": "cc8e1090-e90a-4dcb-89a2-4b45daac88af"
+              },
+              "transforms": [
+                {
+                  "country": "RAS",
+                  "id": "d693bd0d-88d4-4370-81ee-597956bb58f0"
+                },
+                {
+                  "country": "RAS",
+                  "id": "7319ac9c-5796-412f-a1eb-58e01afa7708"
+                },
+                {
+                  "country": "RAS",
+                  "id": "d935e937-35e7-471d-8d78-f5c6c1685adf"
+                }
+              ]
+            }
+          ]
+        },
+        {
+          "id": "1bd0f5c3-c368-4a2f-b404-2214a6c9b677",
+          "quantity": 1,
+          "name": "Fourche aluminium",
+          "elements": [
+            {
+              "amount": 0.5,
+              "material": {
+                "country": "RAS",
+                "id": "cc8e1090-e90a-4dcb-89a2-4b45daac88af"
+              },
+              "transforms": [
+                {
+                  "country": "RAS",
+                  "id": "d693bd0d-88d4-4370-81ee-597956bb58f0"
+                },
+                {
+                  "country": "RAS",
+                  "id": "7319ac9c-5796-412f-a1eb-58e01afa7708"
+                },
+                {
+                  "country": "RAS",
+                  "id": "d935e937-35e7-471d-8d78-f5c6c1685adf"
+                }
+              ]
+            }
+          ]
+        },
+        {
+          "id": "8e38b6a5-1c95-43f6-987f-2e368fc74edc",
+          "quantity": 2,
+          "name": "Pneu + chambre à air",
+          "elements": [
+            {
+              "amount": 0.8,
+              "material": {
+                "country": "RAS",
+                "id": "5f837a69-839d-4a49-9a30-19e1501ad51e"
+              }
+            }
+          ]
+        },
+        {
+          "id": "a94918a7-8915-4841-9cdc-deec0536c724",
+          "quantity": 2,
+          "name": "Roue 28'",
+          "elements": [
+            {
+              "amount": 0.6,
+              "material": {
+                "country": "RAS",
+                "id": "2bd832fa-3376-4ebd-b699-2a7f0f32ce84"
+              },
+              "transforms": [
+                {
+                  "country": "RAS",
+                  "id": "d693bd0d-88d4-4370-81ee-597956bb58f0"
+                },
+                {
+                  "country": "RAS",
+                  "id": "7319ac9c-5796-412f-a1eb-58e01afa7708"
+                }
+              ]
+            },
+            {
+              "amount": 0.5,
+              "material": {
+                "country": "RAS",
+                "id": "2bd832fa-3376-4ebd-b699-2a7f0f32ce84"
+              },
+              "transforms": [
+                {
+                  "country": "RAS",
+                  "id": "971df5fa-c32e-4a7e-b1aa-14ce9f240b5c"
+                },
+                {
+                  "country": "RAS",
+                  "id": "7319ac9c-5796-412f-a1eb-58e01afa7708"
+                },
+                {
+                  "country": "RAS",
+                  "id": "d935e937-35e7-471d-8d78-f5c6c1685adf"
+                }
+              ]
+            }
+          ]
+        },
+        {
+          "id": "6ab7bcdf-7648-43b5-beb6-b4fa11c2d5d3",
+          "quantity": 1,
+          "name": "Guidon",
+          "elements": [
+            {
+              "amount": 0.3,
+              "material": {
+                "country": "RAS",
+                "id": "cc8e1090-e90a-4dcb-89a2-4b45daac88af"
+              },
+              "transforms": [
+                {
+                  "country": "RAS",
+                  "id": "d693bd0d-88d4-4370-81ee-597956bb58f0"
+                },
+                {
+                  "country": "RAS",
+                  "id": "7319ac9c-5796-412f-a1eb-58e01afa7708"
+                },
+                {
+                  "country": "RAS",
+                  "id": "d935e937-35e7-471d-8d78-f5c6c1685adf"
+                }
+              ]
+            },
+            {
+              "amount": 0.03,
+              "material": {
+                "country": "RAS",
+                "id": "20f5db04-a4c7-48ab-9903-38c65cd70be0"
+              }
+            }
+          ]
+        },
+        {
+          "id": "c4a8eb8f-b4c6-42b8-bd04-0f68e9083424",
+          "quantity": 1,
+          "name": "Selle (dont tige, 60°)",
+          "elements": [
+            {
+              "amount": 0.06,
+              "material": {
+                "country": "RAS",
+                "id": "c5295f47-0307-48a6-8552-3705063af767"
+              },
+              "transforms": [
+                {
+                  "country": "RAS",
+                  "id": "85b74ce2-2cbc-4d73-a5a2-5c5ffde16319"
+                }
+              ]
+            },
+            {
+              "amount": 0.4,
+              "material": {
+                "country": "RAS",
+                "id": "ac028973-5dfa-47bc-868c-e49be116f53e"
+              },
+              "transforms": [
+                {
+                  "country": "RAS",
+                  "id": "ea284007-49a8-4be1-95fc-452ea180285a"
+                },
+                {
+                  "country": "RAS",
+                  "id": "7319ac9c-5796-412f-a1eb-58e01afa7708"
+                }
+              ]
+            },
+            {
+              "amount": 0.5,
+              "material": {
+                "country": "RAS",
+                "id": "20f5db04-a4c7-48ab-9903-38c65cd70be0"
+              }
+            }
+          ]
+        },
+        {
+          "id": "892ba9b4-e6d4-408c-87b9-5eef455f5b4f",
+          "quantity": 1,
+          "name": "Porte bagage AR 25kg",
+          "elements": [
+            {
+              "amount": 0.8,
+              "material": {
+                "country": "RAS",
+                "id": "2bd832fa-3376-4ebd-b699-2a7f0f32ce84"
+              },
+              "transforms": [
+                {
+                  "country": "RAS",
+                  "id": "d693bd0d-88d4-4370-81ee-597956bb58f0"
+                },
+                {
+                  "country": "RAS",
+                  "id": "7319ac9c-5796-412f-a1eb-58e01afa7708"
+                },
+                {
+                  "country": "RAS",
+                  "id": "d935e937-35e7-471d-8d78-f5c6c1685adf"
+                }
+              ]
+            }
+          ]
+        },
+        {
+          "id": "347629ff-e7e9-4822-a948-d8c7757b2a9a",
+          "quantity": 1,
+          "name": "Freins à patins - kit complet",
+          "elements": [
+            {
+              "amount": 0.19,
+              "material": {
+                "country": "RAS",
+                "id": "2bd832fa-3376-4ebd-b699-2a7f0f32ce84"
+              },
+              "transforms": [
+                {
+                  "country": "RAS",
+                  "id": "d693bd0d-88d4-4370-81ee-597956bb58f0"
+                },
+                {
+                  "country": "RAS",
+                  "id": "7319ac9c-5796-412f-a1eb-58e01afa7708"
+                },
+                {
+                  "country": "RAS",
+                  "id": "d935e937-35e7-471d-8d78-f5c6c1685adf"
+                }
+              ]
+            },
+            {
+              "amount": 0.28,
+              "material": {
+                "country": "RAS",
+                "id": "3e514eac-185c-449e-bdc2-e1082ca0576d"
+              },
+              "transforms": [
+                {
+                  "country": "RAS",
+                  "id": "ea284007-49a8-4be1-95fc-452ea180285a"
+                },
+                {
+                  "country": "RAS",
+                  "id": "7319ac9c-5796-412f-a1eb-58e01afa7708"
+                }
+              ]
+            },
+            {
+              "amount": 0.14,
+              "material": {
+                "country": "RAS",
+                "id": "c5295f47-0307-48a6-8552-3705063af767"
+              },
+              "transforms": [
+                {
+                  "country": "RAS",
+                  "id": "4a08bcab-5c25-4dec-961a-0f7208f40084"
+                }
+              ]
+            },
+            {
+              "amount": 0.045,
+              "material": {
+                "country": "RAS",
+                "id": "9c5a7a8e-6483-4da8-9cc2-0a90a30cb93a"
+              }
+            }
+          ]
+        },
+        {
+          "id": "d2228b50-8187-4940-92a5-6dffe2a2ba85",
+          "quantity": 1,
+          "name": "Transmissions - kit complet AV+AR",
+          "elements": [
+            {
+              "amount": 1.1,
+              "material": {
+                "country": "RAS",
+                "id": "2bd832fa-3376-4ebd-b699-2a7f0f32ce84"
+              },
+              "transforms": [
+                {
+                  "country": "RAS",
+                  "id": "d693bd0d-88d4-4370-81ee-597956bb58f0"
+                },
+                {
+                  "country": "RAS",
+                  "id": "7319ac9c-5796-412f-a1eb-58e01afa7708"
+                },
+                {
+                  "country": "RAS",
+                  "id": "d935e937-35e7-471d-8d78-f5c6c1685adf"
+                }
+              ]
+            },
+            {
+              "amount": 1.2,
+              "material": {
+                "country": "RAS",
+                "id": "3e514eac-185c-449e-bdc2-e1082ca0576d"
+              },
+              "transforms": [
+                {
+                  "country": "RAS",
+                  "id": "ea284007-49a8-4be1-95fc-452ea180285a"
+                },
+                {
+                  "country": "RAS",
+                  "id": "7319ac9c-5796-412f-a1eb-58e01afa7708"
+                }
+              ]
+            },
+            {
+              "amount": 0.3,
+              "material": {
+                "country": "RAS",
+                "id": "c5295f47-0307-48a6-8552-3705063af767"
+              },
+              "transforms": [
+                {
+                  "country": "RAS",
+                  "id": "4a08bcab-5c25-4dec-961a-0f7208f40084"
+                }
+              ]
+            }
+          ]
+        },
+        {
+          "quantity": 1,
+          "name": "Chambre à air",
+          "elements": [
+            {
+              "amount": 1,
+              "material": {
+                "country": "RAS",
+                "id": "9c5a7a8e-6483-4da8-9cc2-0a90a30cb93a"
+              }
+            }
+          ]
+        }
+      ],
+      "consumptions": [],
+      "product": "b87cbaf5-4ad5-4bc6-84b6-b63c934e1d60",
+      "recyclable": true
+    },
+    "scope": "object"
   }
 ]
