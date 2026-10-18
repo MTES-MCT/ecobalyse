@@ -348,14 +348,8 @@
           ]
         },
         {
-          "quantity": 1,
-          "name": "Pile AAA",
-          "elements": [
-            {
-              "amount": 1,
-              "material": "5d007d71-50e9-4636-bceb-2d99133ecbf8"
-            }
-          ]
+          "id": "9e53b447-9494-479f-9e73-4e40dca2b0b3",
+          "quantity": 1
         },
         {
           "quantity": 1,
