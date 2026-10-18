@@ -55532,7 +55532,7 @@
     "elecKwh": 0.0167,
     "heatMJ": 1.22,
     "id": "1011f3e6-cc7c-4683-89c5-fe48fb59a6a8",
-    "impacts": { "ecs": 130.6 },
+    "impacts": { "ecs": 47.3 },
     "landOccupation": null,
     "location": null,
     "massPerUnit": null,
