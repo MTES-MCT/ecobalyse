@@ -1,10 +1,10 @@
 {
   "categories": ["productmassdependent", "assembly"],
-  "comment": "Les données retenues pour les véhicules sont utilisées à titre provisoire pour l'ensemble des produit. détails : https://fabrique-numerique.gitbook.io/ecobalyse/vehicules/cycle-de-vie/assemblage",
+  "comment": "Les données retenues pour les véhicules sont utilisées à titre provisoire pour l'ensemble des produits. détails : https://fabrique-numerique.gitbook.io/ecobalyse/vehicules/cycle-de-vie/assemblage",
   "displayName": "Assemblage",
   "elecKwh": 1.5,
   "heatMJ": 3,
-  "id": "623bb408-9453-4e0c-a9cc-814b5c0ca938",
+  "id": "f7c7e44a-c11e-4c8e-afc1-8a96fac85e3b",
   "impacts": {
     "acd": 0,
     "cch": 0,
@@ -27,10 +27,10 @@
     "wtu": 0
   },
   "metadata": [
-    { "id": "a60ea45b-1c54-4016-b244-c0f1a718b07f", "scopes": ["object"] }
+    { "id": "c51ab87d-f368-4704-a5ec-7ea17ba87d46", "scopes": ["veli", "object"] }
   ],
   "qtyVariationRatio": 1,
-  "scopes": ["object"],
+  "scopes": ["veli", "object"],
   "source": "Ecobalyse_manual_lcia",
   "unit": "kg"
 }
