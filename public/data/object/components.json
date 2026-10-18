@@ -1297,10 +1297,10 @@
     "scopes": ["object"]
   },
   {
-    "comment": "pile AAA de 23g, 1.5V, alcaline, hors emballage",
+    "comment": "pile alcaline AAA de 11g, hors emballage",
     "elements": [
       {
-        "amount": 23,
+        "amount": 11,
         "material": "9e53b447-9494-479f-9e73-4e40dca2b0b3",
         "transforms": null
       }
