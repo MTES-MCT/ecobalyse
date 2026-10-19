@@ -24,6 +24,7 @@ import Html.Attributes as Attr exposing (..)
 import Html.Events exposing (..)
 import List.Extra as LE
 import Mass exposing (Mass)
+import Quantity
 import Route exposing (Route)
 import Views.Alert as Alert
 import Views.Button as Button
@@ -309,7 +310,8 @@ itemView config itemIndex { component, elements, quantity } itemResults =
                         |> Format.kg
 
                 else
-                    unitaryMassInput config itemIndex elements itemResults
+                    itemResults
+                        |> unitaryMassInput config itemIndex elements
             }
         ]
     , itemDetailedRows config elements itemResults
@@ -326,15 +328,12 @@ unitaryMassInput config itemIndex elements itemResults =
                 |> Maybe.andThen .unitaryMass
                 |> Maybe.withDefault (Component.extractUnitMass itemResults)
 
-        -- An element whose material process has no known mass per unit makes the item unitary mass uneditable.
-        unknownMassPerUnit =
-            elements |> List.any (.material >> .process >> Process.hasValidMassPerUnit >> not)
-
         writeAccess =
-            if unknownMassPerUnit then
+            -- An element whose material process has no known mass per unit makes the item unitary mass uneditable.
+            if elements |> List.any (.material >> .process >> Process.hasValidMassPerUnit >> not) then
                 AmountInput.ReadOnly "La masse par unité du procédé mobilisé n’est pas connue à ce jour"
 
-            else if mass == Mass.kilograms 0 then
+            else if mass == Quantity.zero then
                 AmountInput.ReadOnly "La masse des éléments du composant est nulle, édition impossible"
 
             else if config.unitMassLocked then
@@ -343,8 +342,7 @@ unitaryMassInput config itemIndex elements itemResults =
             else
                 AmountInput.Writeable
     in
-    mass
-        |> Mass.inKilograms
+    Mass.inKilograms mass
         |> Amount.fromFloat
         |> AmountInput.view
             { event =

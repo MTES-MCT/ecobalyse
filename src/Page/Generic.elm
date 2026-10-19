@@ -390,13 +390,15 @@ applyItemUnitaryMass : Session -> Model -> Component.Query -> Index -> Mass -> P
 applyItemUnitaryMass session model query itemIndex mass =
     let
         currentUnitMassAllowsEdit =
-            model.lifeCycle
-                |> Result.toMaybe
-                |> Maybe.andThen (\lifeCycle -> LE.getAt itemIndex (Component.extractItems lifeCycle.production))
+            Result.toMaybe model.lifeCycle
+                |> Maybe.andThen (.production >> Component.extractItems >> LE.getAt itemIndex)
                 |> Maybe.map (\itemResults -> Mass.inKilograms (Component.extractUnitMass itemResults) > 0)
                 |> Maybe.withDefault True
+
+        hasMass =
+            mass |> Quantity.greaterThan Quantity.zero
     in
-    if (mass |> Quantity.greaterThan Quantity.zero) && currentUnitMassAllowsEdit then
+    if hasMass && currentUnitMassAllowsEdit then
         createPageUpdate session model
             |> updateQuery
                 (query

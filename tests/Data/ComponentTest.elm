@@ -1183,7 +1183,7 @@ suite =
                                             amount |> expectFloatMostlyEqual (halvedKg / unscaledKg)
 
                                         Nothing ->
-                                            Expect.fail "La quantité effective de l'élément est absente"
+                                            Expect.fail "missing element effective amount"
                                     ]
                             )
                          , it "should reject a zero unitaryMass"

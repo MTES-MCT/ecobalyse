@@ -406,7 +406,8 @@ quantifiedProcessList { db, impact } lifeCycle listConfig quantifiedProcesses =
                                 (\index { amount, process } ->
                                     tr []
                                         [ td [ class "ps-3 align-middle text-nowrap", style "min-width" "160px" ]
-                                            [ Component.useProcessAmount lifeCycle process amount
+                                            [ amount
+                                                |> Component.useProcessAmount lifeCycle process
                                                 |> AmountInput.view
                                                     { event = listConfig.updateAmount index
                                                     , unit = process.unit
