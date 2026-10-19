@@ -1814,8 +1814,9 @@ components:
           minimum: 0
           exclusiveMinimum: true
           description: |
-            Masse unitaire finale du composant, en kilogrammes (optionnel). Si le champ est omis,
-            la masse cumulée des éléments du composant est utilisée.
+            Masse unitaire finale du composant, en kilogrammes (optionnel) :
+            - Si le champ est fourni, il est prioritaire sur la masse cumulée des éléments du composant ;
+            - Si le champ est omis, la masse cumulée des éléments du composant est utilisée.
         name:
           type: string
           description: Nom du composant personnalisé.
