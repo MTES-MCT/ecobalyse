@@ -62,6 +62,8 @@ MJ_PER_KWH = 3.6
 HEAT_NAME = re.compile(r"^Heat\b|\bburned\b")
 # A dataset copied from ecoinvent: "Name {geography}| activity | Cut-off, S - Copied ..."
 ECOINVENT_DATASET_NAME = re.compile(r"\}\| ")
+# The end of the ingredient part of an activity name, see `ingredient_key`
+INGREDIENT_NAME_END = re.compile(r"[,{|]")
 COPRODUCT_PATTERN = re.compile(r"^(?P<prefix>.*), 1 (?:kg|L|l) of (?P<product>.*?) \{")
 
 
@@ -229,6 +231,13 @@ def classify(
     return InputClass.other
 
 
+def ingredient_key(activity_name: str) -> str:
+    """The ingredient of a raw activity: its name up to the first `,`, `{` or `|`,
+    lowercased. "Banana, at farm {GLO}" and "Banana {CO}| banana production" are both
+    "banana", so the origins and farming systems of one ingredient add up."""
+    return INGREDIENT_NAME_END.split(activity_name, maxsplit=1)[0].strip().lower()
+
+
 @dataclass
 class Totals:
     """Quantities per kg of the product that owns them."""
@@ -268,21 +277,35 @@ class Totals:
         self.truncated |= other.truncated
 
     @property
-    def raw_kg(self) -> float:
-        return sum(self.raw.values())
-
-    @property
-    def main_raw(self) -> tuple[str, float] | None:
+    def main_raw_activity(self) -> tuple[str, float] | None:
+        """The largest raw activity and its kg, e.g. the main origin of a banana mix."""
         if not self.raw:
             return None
         return max(self.raw.items(), key=lambda raw_item: raw_item[1])
 
     @property
-    def main_raw_share(self) -> float | None:
-        main = self.main_raw
-        if main is None or self.raw_kg == 0:
+    def main_ingredient(self) -> tuple[str, float] | None:
+        """The ingredient of the main raw activity and its kg, all its raw activities
+        together: every origin of the bananas, not only the largest."""
+        main_raw_activity = self.main_raw_activity
+        if main_raw_activity is None:
             return None
-        return main[1] / self.raw_kg
+        main_key = ingredient_key(main_raw_activity[0])
+        main_ingredient_kg = sum(
+            quantity
+            for name, quantity in self.raw.items()
+            if ingredient_key(name) == main_key
+        )
+        return main_key, main_ingredient_kg
+
+    @property
+    def main_ingredient_share(self) -> float | None:
+        """Share of the main ingredient in all the raw inputs (bananas + salt)."""
+        main_ingredient = self.main_ingredient
+        all_raw_kg = sum(self.raw.values())
+        if main_ingredient is None or all_raw_kg == 0:
+            return None
+        return main_ingredient[1] / all_raw_kg
 
 
 @dataclass
@@ -294,14 +317,17 @@ class Decomposition:
 
     def to_dict(self) -> dict:
         totals = self.totals
+        main_raw_activity = totals.main_raw_activity or (None, None)
+        main_ingredient = totals.main_ingredient or (None, None)
         return {
             "product": self.product,
             "unit": self.unit,
             "raw": totals.raw,
-            "raw_kg": totals.raw_kg,
-            "main_raw": totals.main_raw[0] if totals.main_raw else None,
-            "main_raw_kg": totals.main_raw[1] if totals.main_raw else None,
-            "main_raw_share": totals.main_raw_share,
+            "main_raw_activity": main_raw_activity[0],
+            "main_raw_activity_kg": main_raw_activity[1],
+            "main_ingredient": main_ingredient[0],
+            "main_ingredient_kg": main_ingredient[1],
+            "main_ingredient_share": totals.main_ingredient_share,
             "elec_kwh": totals.elec_kwh,
             "elec_detail": totals.elec_detail,
             "heat_mj": totals.heat_mj,
