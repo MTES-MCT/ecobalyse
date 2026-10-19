@@ -9696,6 +9696,69 @@
   },
   {
     "activityCreationType": "from_scratch",
+    "alias": "battery-alkaline-33g",
+    "comment": "For 33g battery. Based on https://www.epbaeurope.net/assets/resources/NEMA_alkalinelca2011.pdf",
+    "database": "Ecoinvent 3.9.1",
+    "exchanges": [
+      {
+        "amount": 0.0134,
+        "name": "manganese dioxide//[GLO] manganese dioxide production"
+      },
+      {
+        "amount": 0.0037,
+        "name": "potassium hydroxide//[GLO] market for potassium hydroxide"
+      },
+      {
+        "amount": 0.0012,
+        "database": "Ecobalyse_custom_lci",
+        "name": "Graphite production for battery cell, CN"
+      },
+      {
+        "amount": 0.0069,
+        "database": "Ecobalyse_custom_lci",
+        "name": "steel, low-alloyed, market, CN"
+      },
+      { "amount": 0.00014, "name": "nickel sulfate//[GLO] nickel sulfate production" },
+      { "amount": 0.0058, "name": "zinc//[RoW] primary zinc production from concentrate" },
+      { "amount": 0.00103, "name": "brass//[RoW] market for brass" },
+      {
+        "amount": 0.000558,
+        "name": "steel, chromium steel 18/8//[GLO] market for steel, chromium steel 18/8"
+      },
+      {
+        "amount": 0.00055,
+        "name": "polyvinylchloride, suspension polymerised//[GLO] market for polyvinylchloride, suspension polymerised"
+      },
+      {
+        "amount": 0.00055,
+        "name": "potassium hydroxide//[GLO] market for potassium hydroxide"
+      },
+      {
+        "amount": 0.02,
+        "name": "electricity, medium voltage//[RER] market group for electricity, medium voltage"
+      },
+      {
+        "amount": 0.0343,
+        "database": "Ecobalyse_custom_lci",
+        "name": "heat, industrial, market, RER"
+      }
+    ],
+    "location": "RER",
+    "newName": "Alkaline battery production, 33g, RER"
+  },
+  {
+    "activityCreationType": "from_scratch",
+    "alias": "battery-alkaline-1g",
+    "comment": "For one gram battery. Based on https://www.epbaeurope.net/assets/resources/NEMA_alkalinelca2011.pdf",
+    "database": "Ecobalyse_custom_lci",
+    "exchanges": [
+      { "amount": 0.03, "name": "Alkaline battery production, 33g, RER" }
+    ],
+    "location": "RER",
+    "newName": "Alkaline battery production, 1g, RER"
+  },
+  {
+    "activityCreationType": "from_scratch",
     "alias": "battery-aaa",
     "comment": "For one 11g battery. Based on https://www.epbaeurope.net/assets/resources/NEMA_alkalinelca2011.pdf",
     "database": "Ecoinvent 3.9.1",
