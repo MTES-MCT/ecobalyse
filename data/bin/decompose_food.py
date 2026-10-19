@@ -6,14 +6,16 @@ create the food2 components.
     uv run python data/bin/decompose_food.py decompose --all-food
     uv run python data/bin/decompose_food.py components [--only ...] [--dry-run]
     uv run python data/bin/decompose_food.py components --activity "<activity name>" --name "Abondance FR"
+    uv run python data/bin/decompose_food.py components --all-products [--dry-run]
 
 `decompose` writes `output/decompose_food/decomposition.json` at the repo root
 (gitignored): per product, the raw materials, electricity, heat, water, waste and other
 inputs per kg, and the transformation steps walked. It takes the catalog ingredients by
 default, `--activity` adds Agribalyse activities that are not in the catalog and
-`--all-food` takes every `Agricultural / Food` activity of the database. Products outside
-the catalog are keyed on their activity name. `components` ignores them, unless one is
-named with `--activity` and `--name`.
+`--all-food` takes the catalog ingredients plus every `Agricultural / Food` activity of
+the database. Catalog products are keyed on their alias, the others on their activity
+name. `components` ignores the
+latter, unless one is named with `--activity` and `--name`, or with `--all-products`.
 
 `components` writes its JSON files in the repo format (bin/json_formatter.py), so a rerun on
 unchanged data leaves them unchanged.
@@ -30,10 +32,17 @@ material must still be a catalog ingredient. Ids and the file name derive from t
 name, and there is no aggregated ingredient to mark. Prefer the "at plant" activity over
 the consumption mix when both exist, as the app handles transport separately.
 
+`components --all-products`, after `decompose --all-food`, also builds every product
+outside the catalog whose main raw material is a catalog ingredient, named after its
+Agribalyse activity. Variants after the plant (packed, at supermarket, at consumer) are
+left out: they repeat the transformation of their product and add packaging and
+transport, which the app models.
+
 Run from the repo root, with `BRIGHTWAY2_DIR` (in `.env`) pointing at the Brightway env
 holding the project.
 """
 
+import hashlib
 import json
 import re
 import unicodedata
@@ -74,6 +83,13 @@ AGGREGATED_MARKER = " agrégé"
 OLD_SUFFIX = " (2025)"
 OLD_ALIAS_SUFFIX = "-2025"
 TRIVIAL_RATIO_TOLERANCE = 0.01
+# Keys of products outside the catalog are slugs of long activity names. Longer keys are
+# cut and suffixed with a hash of the name, to keep file names short and unique.
+MAX_KEY_LENGTH = 80
+# Agribalyse variants after the plant: "… | Chilled | Pack | at supermarket {FR} U"
+AFTER_PLANT_NAME = re.compile(
+    r"\| at (consumer|supermarket|packaging|distribution)\b|\bat consumer\b"
+)
 
 
 def catalog_products(
@@ -140,7 +156,15 @@ def decompose(
     # (activity name, catalog ingredient), the ingredient is None outside the catalog
     products: list[tuple[str, CatalogIngredient | None]]
     if all_food:
-        products = [(name, None) for name in graph.food_activity_names()]
+        # Every catalog product, keyed on its alias, plus every other food activity
+        products = [
+            *catalog_products(catalog, None, settings.bw.agribalyse),
+            *(
+                (name, None)
+                for name in graph.food_activity_names()
+                if name not in catalog
+            ),
+        ]
     else:
         products = [
             *catalog_products(catalog, only, settings.bw.agribalyse),
@@ -307,6 +331,44 @@ def mark_aggregated(metadata_id: str) -> str | None:
     return None
 
 
+def activity_key(activity_name: str) -> str:
+    """The key of a product outside the catalog: the slug of its activity name, cut to
+    `MAX_KEY_LENGTH` with a hash of the full name when longer."""
+    key = slugify(activity_name)
+    if len(key) <= MAX_KEY_LENGTH:
+        return key
+    name_hash = hashlib.sha1(activity_name.encode()).hexdigest()[:8]
+    return f"{key[:MAX_KEY_LENGTH].rstrip('-')}-{name_hash}"
+
+
+def is_after_plant(activity_name: str) -> bool:
+    return bool(AFTER_PLANT_NAME.search(activity_name))
+
+
+def all_products_targets(
+    results: dict, catalog_names: set[str], catalog_keys: set[str], min_share: float
+) -> list[tuple[str, dict, str, str, None]]:
+    """The products of `results` outside the catalog that `components` can build, as
+    (label, result, key, product name, None): keyed on their activity name, not after
+    the plant, and passing `skip_reason`. They are named after their Agribalyse
+    activity. A key equal to a catalog product's key is skipped, as it would overwrite
+    its transformation."""
+    targets = []
+    for activity_name, result in sorted(results.items()):
+        if activity_name != result["product"] or activity_name in catalog_names:
+            continue
+        if is_after_plant(activity_name):
+            continue
+        if skip_reason(result, catalog_names, min_share):
+            continue
+        key = activity_key(activity_name)
+        if key in catalog_keys:
+            print(f"{activity_name}: skipped, its key is a catalog product's: {key}")
+            continue
+        targets.append((activity_name, result, key, activity_name, None))
+    return targets
+
+
 @app.command()
 def components(
     only: Annotated[
@@ -324,6 +386,14 @@ def components(
         str | None,
         typer.Option(help="French name of the --activity product, e.g. 'Abondance FR'"),
     ] = None,
+    all_products: Annotated[
+        bool,
+        typer.Option(
+            help="Also build every product outside the catalog whose main raw material "
+            "is a catalog ingredient, named after its Agribalyse activity. Needs "
+            "`decompose --all-food`."
+        ),
+    ] = False,
     json_in: Path = DEFAULT_JSON,
     min_share: float = 0.6,
     dry_run: bool = False,
@@ -340,6 +410,8 @@ def components(
     }
     # (label, result, key, product name, metadata id of the aggregated ingredient to mark)
     targets: list[tuple[str, dict, str, str, str | None]] = []
+    if (activity or name) and all_products:
+        raise typer.BadParameter("--activity cannot be combined with --all-products")
     if activity or name:
         if not (activity and name):
             raise typer.BadParameter("--activity and --name go together")
@@ -380,6 +452,13 @@ def components(
             )
             key = slugify(base_alias(alias))
             targets.append((alias, result, key, product_name, product.metadata_id))
+    if all_products:
+        catalog_keys = {slugify(base_alias(alias)) for alias in by_alias}
+        extra_targets = all_products_targets(
+            results, catalog_names, catalog_keys, min_share
+        )
+        print(f"--all-products: {len(extra_targets)} product(s) outside the catalog")
+        targets += extra_targets
 
     components_list = json.loads(FOOD2_COMPONENTS_PATH.read_text())
     created = 0
