@@ -1078,7 +1078,7 @@
     ],
     "id": "2ca21a17-7090-4ad0-ab7f-e83e9f48020b",
     "name": "Acier inoxidable laminé, usiné",
-    "scopes": ["veli"]
+    "scopes": ["veli", "object"]
   },
   {
     "comment": null,
@@ -1094,7 +1094,7 @@
     ],
     "id": "2285d4ab-9fc6-4aa1-a2b7-2db38fa4e2d1",
     "name": "Acier laminé, usiné, mix marché Europe",
-    "scopes": ["veli"]
+    "scopes": ["veli", "object"]
   },
   {
     "comment": null,
@@ -1110,7 +1110,7 @@
     ],
     "id": "bd0d3f86-996a-4957-bfaf-cafaa1d9e2aa",
     "name": "Acier laminé, usiné, mix marché hors Europe",
-    "scopes": ["veli"]
+    "scopes": ["veli", "object"]
   },
   {
     "comment": null,
