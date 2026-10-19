@@ -2976,13 +2976,13 @@ removePackaging index query =
 
 {-| Scale the amounts of a list of elements against a ratio
 -}
-scaleElementAmounts : Float -> List Element -> List Element
+scaleElementAmounts : Unit.Ratio -> List Element -> List Element
 scaleElementAmounts ratio =
     List.map
         (\element ->
             { element
                 | amount =
-                    element.amount |> Amount.map ((*) ratio)
+                    element.amount |> Amount.map ((*) (Unit.ratioToFloat ratio))
             }
         )
 
@@ -3174,7 +3174,7 @@ list of elements (a component elements)
 TODO: use Unit.Ratio?
 
 -}
-unitaryMassRatio : DataContainer db -> List Element -> Maybe Mass -> Result String Float
+unitaryMassRatio : DataContainer db -> List Element -> Maybe Mass -> Result String Unit.Ratio
 unitaryMassRatio db elements maybeUnitaryMass =
     case maybeUnitaryMass of
         Just unitaryMass ->
@@ -3190,11 +3190,11 @@ unitaryMassRatio db elements maybeUnitaryMass =
                                     ++ "la masse des éléments qui le constituent est nulle"
 
                         else
-                            Ok (Mass.inKilograms unitaryMass / Mass.inKilograms unscaledMass)
+                            Ok <| Unit.ratio (Mass.inKilograms unitaryMass / Mass.inKilograms unscaledMass)
                     )
 
         Nothing ->
-            Ok 1
+            Ok (Unit.ratio 1)
 
 
 targetElementToString : TargetElement -> String
@@ -3370,7 +3370,7 @@ updateElementAmount db ( ( component, itemIndex ), elementIndex ) newAmount item
                                                     { element | amount = newAmount }
 
                                                 else
-                                                    { element | amount = Amount.map ((*) ratio) element.amount }
+                                                    { element | amount = Amount.map ((*) (Unit.ratioToFloat ratio)) element.amount }
                                             )
                             in
                             items
