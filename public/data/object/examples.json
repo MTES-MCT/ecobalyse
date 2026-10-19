@@ -86,100 +86,63 @@
     "category": "",
     "id": "783bf689-f513-4920-b402-272dceee5491",
     "name": "Battery pour outil électroportatif, 8Wh",
-    "query": { "components": [
-      {
-        "quantity": 1,
-        "name": "Batterie Li-ion 144Wh, NMC622, casing plastique, Chine",
-        "elements": [
-          {
-            "amount": 0.46,
-            "material": {
-              "country": "CN",
-              "id": "6a1d18fa-f0fd-483a-ac7f-546b15476627"
+    "query": {
+      "components": [
+        {
+          "elements": [
+            {
+              "amount": 0.46,
+              "material": { "country": "CN", "id": "6a1d18fa-f0fd-483a-ac7f-546b15476627" },
+              "transforms": [
+                { "country": "CN", "id": "7f217ecc-5de8-4ce1-b2c2-b5d192c6cdb9" }
+              ]
             },
-            "transforms": [
-              {
-                "country": "CN",
-                "id": "7f217ecc-5de8-4ce1-b2c2-b5d192c6cdb9"
-              }
-            ]
-          },
-          {
-            "amount": 0.07,
-            "material": {
-              "country": "CN",
-              "id": "cc8e1090-e90a-4dcb-89a2-4b45daac88af"
+            {
+              "amount": 0.07,
+              "material": { "country": "CN", "id": "cc8e1090-e90a-4dcb-89a2-4b45daac88af" },
+              "transforms": [
+                { "country": "CN", "id": "971df5fa-c32e-4a7e-b1aa-14ce9f240b5c" }
+              ]
             },
-            "transforms": [
-              {
-                "country": "CN",
-                "id": "971df5fa-c32e-4a7e-b1aa-14ce9f240b5c"
-              }
-            ]
-          },
-          {
-            "amount": 0.01,
-            "material": {
-              "country": "CN",
-              "id": "a363f079-bc3f-424a-a2e1-06b9c76b4fc3"
+            {
+              "amount": 0.01,
+              "material": { "country": "CN", "id": "a363f079-bc3f-424a-a2e1-06b9c76b4fc3" },
+              "transforms": [
+                { "country": "CN", "id": "d077f06e-4ae9-48b7-8019-64523e577b95" }
+              ]
             },
-            "transforms": [
-              {
-                "country": "CN",
-                "id": "d077f06e-4ae9-48b7-8019-64523e577b95"
-              }
-            ]
-          },
-          {
-            "amount": 0.03,
-            "material": {
-              "country": "CN",
-              "id": "30212fbf-5912-40eb-b2ab-87837361c462"
+            {
+              "amount": 0.03,
+              "material": { "country": "CN", "id": "30212fbf-5912-40eb-b2ab-87837361c462" },
+              "transforms": [
+                { "country": "CN", "id": "981e74ea-ef7d-40d1-b25e-c5534446474e" }
+              ]
             },
-            "transforms": [
-              {
-                "country": "CN",
-                "id": "981e74ea-ef7d-40d1-b25e-c5534446474e"
-              }
-            ]
-          },
-          {
-            "amount": 0.06,
-            "material": {
-              "country": "CN",
-              "id": "90844e0a-42b3-4748-8cf0-4abf3fd62977"
+            {
+              "amount": 0.06,
+              "material": { "country": "CN", "id": "90844e0a-42b3-4748-8cf0-4abf3fd62977" },
+              "transforms": [
+                { "country": "CN", "id": "85b74ce2-2cbc-4d73-a5a2-5c5ffde16319" }
+              ]
             },
-            "transforms": [
-              {
-                "country": "CN",
-                "id": "85b74ce2-2cbc-4d73-a5a2-5c5ffde16319"
-              }
-            ]
-          },
-          {
-            "amount": 0.21,
-            "material": {
-              "country": "CN",
-              "id": "6445c1fa-13a6-4058-8978-bcf2be63cd56"
+            {
+              "amount": 0.21,
+              "material": { "country": "CN", "id": "6445c1fa-13a6-4058-8978-bcf2be63cd56" }
+            },
+            {
+              "amount": 0.07,
+              "material": { "country": "CN", "id": "096588a4-036b-4d66-a5d0-f5073b363a44" }
+            },
+            {
+              "amount": 0.05,
+              "material": { "country": "CN", "id": "51956fb2-304d-4e63-a3ef-b3eed44fde38" }
             }
-          },
-          {
-            "amount": 0.07,
-            "material": {
-              "country": "CN",
-              "id": "096588a4-036b-4d66-a5d0-f5073b363a44"
-            }
-          },
-          {
-            "amount": 0.05,
-            "material": {
-              "country": "CN",
-              "id": "51956fb2-304d-4e63-a3ef-b3eed44fde38"
-            }
-          }
-        ]
-      }
-    ] },
+          ],
+          "name": "Batterie Li-ion 144Wh, NMC622, casing plastique, Chine",
+          "quantity": 1
+        }
+      ]
+    },
     "scope": "object"
   },
   {
