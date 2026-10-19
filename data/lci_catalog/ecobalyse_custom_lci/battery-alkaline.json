@@ -1,0 +1,17 @@
+{
+  "activityName": "Alkaline battery production, 1g, RER",
+  "categories": ["material", "material_type:battery_alkaline"],
+  "comment": "For one gram battery. Based on https://www.epbaeurope.net/assets/resources/NEMA_alkalinelca2011.pdf",
+  "displayName": "Pile Alcaline, 1g",
+  "elecMJ": 0,
+  "heatMJ": 0,
+  "id": "cde5ff1f-fab4-4a99-920d-5bc3bebc48bc",
+  "massPerUnit": 0.001,
+  "metadata": [
+    { "id": "9e53b447-9494-479f-9e73-4e40dca2b0b3", "scopes": ["object"] }
+  ],
+  "qtyVariationRatio": 1,
+  "scopes": ["object"],
+  "source": "Ecobalyse_custom_lci",
+  "unit": "item"
+}
