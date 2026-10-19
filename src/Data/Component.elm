@@ -3163,11 +3163,8 @@ sumLifeCycleImpacts lifeCycle =
         ]
 
 
-{-| Compute the ratio between a mass (usually a unitary mass) and the total mass of a
+{-| Compute the ratio between a mass (usually an unitary mass) and the total mass of a
 list of elements (a component elements)
-
-TODO: use Unit.Ratio?
-
 -}
 unitaryMassRatio : DataContainer db -> List Element -> Maybe Mass -> Result String Unit.Ratio
 unitaryMassRatio db elements maybeUnitaryMass =
