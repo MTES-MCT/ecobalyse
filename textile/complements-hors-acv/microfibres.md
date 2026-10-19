@@ -208,6 +208,12 @@ Dans le cas théorique d'un t-shirt (poids 170g), l'ajout du complément microfi
 
 </details>
 
+### 🚧​ Adaptation du calcul dans le modèle générique Ecobalyse
+
+Le passage de la calculette Ecobalyse textile sur le modèle générique, permettant de modéliser plusieurs composants, demande une adaptation de la méthode actuelle du complément microfibre. En l'attente de résultats d'un étude menée par l'ADEME, actuellement en cours, sur l'amélioration du complément microfibre, une version transitoire du complément est présente dans le modèle générique.&#x20;
+
+Dans celle-ci, le calcul du complément microfibre ne s'applique pas en fonction de la masse finale du vêtement, mais en fonction de la masse de matière première mobilisée avant la filature. La masse de matière première étant plus importante que la masse finale du vêtement à cause des pertes de la filature à la confection, le coefficient micro-points a été baissé de 30%, correspondant un un taux de perte usuel. Ce coefficient est donc égal dans le modèle générique à 700 micro-points.
+
 ## Affichage du complément "Microfibres"
 
 A l'instar des autres compléments à l'analyse de cycle de vie, le complément "Microfibres" vient s'ajouter directement au coût environnemental exprimé en points.
