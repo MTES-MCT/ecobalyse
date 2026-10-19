@@ -1246,7 +1246,10 @@ suite =
                                             Expect.fail "two updated amounts were expected"
                                     , Component.extractUnitMass results
                                         |> Mass.inKilograms
-                                        -- FIXME: detail the arithmetic operations to easily understand and check the result
+                                        -- Unscaled mass is 1 + 1 = 2 kg, so the 0.5 kg override applies a ratio of 0.5 / 2 = 0.25;
+                                        -- Edited amount replaces the first element (0.4 kg);
+                                        -- The other element is rebased: 1 × 0.25 = 0.25 kg;
+                                        -- With the override cleared, unit mass is 0.4 + 0.25 = 0.65 kg.
                                         |> expectFloatMostlyEqual 0.65
                                     ]
                             )
