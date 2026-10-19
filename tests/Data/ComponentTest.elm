@@ -1143,11 +1143,14 @@ suite =
                                     ]
                             )
                          , itFromResult "should keep unitary mass equal to the requested value when a transform wastes half the amount"
-                            ("""{ "quantity": 1, "elements": [
-                                   { "amount": 1,
-                                     "material": "17431e06-2973-516e-b043-be9ad405e4fb",
-                                     "transforms": ["c172d131-b5d1-5d9b-822b-5762afb91c66"] }
-                                 ]}"""
+                            ("""{ "quantity": 1,
+                                  "elements": [
+                                     { "amount": 1,
+                                       "material": "17431e06-2973-516e-b043-be9ad405e4fb",
+                                       "transforms": ["c172d131-b5d1-5d9b-822b-5762afb91c66"]
+                                     }
+                                  ]
+                                }"""
                                 |> decodeJsonThen Component.decodeItem
                                     (\item ->
                                         item
@@ -1194,16 +1197,22 @@ suite =
                                 |> expectResultErrorContains "strictement positive"
                             )
                          , it "should fail to apply unitaryMass when element mass is zero"
-                            ("""{ "quantity": 1, "unitaryMass": 1, "elements": [
-                                  { "amount": 1, "material": "17431e06-2973-516e-b043-be9ad405e4fb" }
-                                ]}"""
+                            ("""{ "quantity": 1,
+                                  "unitaryMass": 1,
+                                  "elements": [
+                                    { "amount": 1, "material": "17431e06-2973-516e-b043-be9ad405e4fb" }
+                                  ]
+                                }"""
                                 |> decodeJsonThen Component.decodeItem
                                     (\item ->
                                         case wood of
                                             Ok woodProcess ->
                                                 item
                                                     |> Component.computeItemResults
-                                                        (updateRequirementsProcess woodProcess (\process -> { process | massPerUnit = Nothing }) requirements)
+                                                        (requirements
+                                                            |> updateRequirementsProcess woodProcess
+                                                                (\process -> { process | massPerUnit = Nothing })
+                                                        )
                                                         defaultTransportOptions
 
                                             Err error ->
@@ -1233,6 +1242,10 @@ suite =
                                     )
                             )
                             (\( updated, results ) ->
+                                -- Unscaled mass is 1 + 1 = 2 kg, so the 0.5 kg override applies a ratio of 0.5 / 2 = 0.25;
+                                -- Edited amount replaces the first element (0.4 kg);
+                                -- The other element is rebased: 1 × 0.25 = 0.25 kg;
+                                -- With the override cleared, unit mass is 0.4 + 0.25 = 0.65 kg.
                                 expectAllSucceed
                                     [ updated.unitaryMass |> Expect.equal Nothing
                                     , case updated.custom |> Maybe.map (.elements >> List.map (.amount >> Amount.toFloat)) of
@@ -1246,10 +1259,6 @@ suite =
                                             Expect.fail "two updated amounts were expected"
                                     , Component.extractUnitMass results
                                         |> Mass.inKilograms
-                                        -- Unscaled mass is 1 + 1 = 2 kg, so the 0.5 kg override applies a ratio of 0.5 / 2 = 0.25;
-                                        -- Edited amount replaces the first element (0.4 kg);
-                                        -- The other element is rebased: 1 × 0.25 = 0.25 kg;
-                                        -- With the override cleared, unit mass is 0.4 + 0.25 = 0.65 kg.
                                         |> expectFloatMostlyEqual 0.65
                                     ]
                             )
@@ -1258,9 +1267,12 @@ suite =
                                 |> Result.andThen (\id -> Process.findById id requirements.db.processes)
                                 |> Result.andThen
                                     (\addedMaterial ->
-                                        """{ "quantity": 1, "unitaryMass": 1, "elements": [
-                                             { "amount": 1, "material": "6527710e-2434-5347-9bef-2205e0aa4f66" }
-                                           ]}"""
+                                        """{ "quantity": 1,
+                                             "unitaryMass": 1,
+                                             "elements": [
+                                               { "amount": 1, "material": "6527710e-2434-5347-9bef-2205e0aa4f66" }
+                                             ]
+                                           }"""
                                             |> decodeJsonThen Component.decodeItem
                                                 (\item ->
                                                     [ item ]
@@ -1442,24 +1454,24 @@ suite =
                         , itFromResult2 "should localize energy mixes to the assembly country when it is set"
                             (computeAssemblyEcsImpact requirements
                                 """{
-                                      "assembly": {
-                                        "country": "FR",
-                                        "operations": [
-                                          "b8d0dc25-170d-4c6a-93e5-ee31347316cc"
-                                        ]
-                                      },
-                                      "components": [{ "id": "64fa65b3-c2df-4fd0-958b-83965bd6aa08", "quantity": 1 }]
-                                    }"""
+                                     "assembly": {
+                                       "country": "FR",
+                                       "operations": [
+                                         "b8d0dc25-170d-4c6a-93e5-ee31347316cc"
+                                       ]
+                                     },
+                                     "components": [{ "id": "64fa65b3-c2df-4fd0-958b-83965bd6aa08", "quantity": 1 }]
+                                   }"""
                             )
                             (computeAssemblyEcsImpact requirements
                                 """{
-                                      "assembly": {
-                                        "operations": [
-                                          "b8d0dc25-170d-4c6a-93e5-ee31347316cc"
-                                        ]
-                                      },
-                                      "components": [{ "id": "64fa65b3-c2df-4fd0-958b-83965bd6aa08", "quantity": 1 }]
-                                    }"""
+                                     "assembly": {
+                                       "operations": [
+                                         "b8d0dc25-170d-4c6a-93e5-ee31347316cc"
+                                       ]
+                                     },
+                                     "components": [{ "id": "64fa65b3-c2df-4fd0-958b-83965bd6aa08", "quantity": 1 }]
+                                   }"""
                             )
                             (\frAssemblyImpact defaultEnergyMixImpact ->
                                 expectFloatDifferent frAssemblyImpact defaultEnergyMixImpact
