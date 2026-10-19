@@ -704,7 +704,7 @@ applyProcessStep stage process { elec, heat } (Results { amount, label, impacts,
                 |> Impact.multiplyBy (Amount.toFloat amount)
 
         outputAmount =
-            amount |> Amount.map ((*) (Unit.qtyVariationRatioToFloat process.qtyVariationRatio))
+            amount |> Amount.multiplyBy (Unit.qtyVariationRatioToFloat process.qtyVariationRatio)
 
         outputMass =
             mass |> Unit.applyQtyVariationRatioToMass process.qtyVariationRatio
@@ -970,11 +970,7 @@ computeInitialAmount qtyVariationRatios amount =
 
     else
         qtyVariationRatios
-            |> List.foldr
-                (\qtyVariationRatio ->
-                    Amount.map (\float -> float / Unit.qtyVariationRatioToFloat qtyVariationRatio)
-                )
-                amount
+            |> List.foldr (Unit.qtyVariationRatioToFloat >> Amount.divideBy) amount
             |> Ok
 
 
@@ -2981,8 +2977,7 @@ scaleElementAmounts ratio =
     List.map
         (\element ->
             { element
-                | amount =
-                    element.amount |> Amount.map ((*) (Unit.ratioToFloat ratio))
+                | amount = element.amount |> Amount.applyRatio ratio
             }
         )
 
@@ -3370,7 +3365,9 @@ updateElementAmount db ( ( component, itemIndex ), elementIndex ) newAmount item
                                                     { element | amount = newAmount }
 
                                                 else
-                                                    { element | amount = Amount.map ((*) (Unit.ratioToFloat ratio)) element.amount }
+                                                    { element
+                                                        | amount = element.amount |> Amount.applyRatio ratio
+                                                    }
                                             )
                             in
                             items
