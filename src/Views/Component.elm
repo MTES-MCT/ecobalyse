@@ -92,7 +92,7 @@ type alias Config db msg =
     , updateElementTransformCountry : TargetElement -> Index -> Maybe CountryCode.Code -> msg
     , updateItemName : TargetItem -> String -> msg
     , updateItemQuantity : Index -> Quantity -> msg
-    , updateItemUnitaryMass : Index -> Maybe Mass -> msg
+    , updateItemUnitMass : Index -> Maybe Mass -> msg
     , updatePackagingAmount : Index -> Maybe Amount -> msg
     , updateRecyclable : Bool -> msg
     }
@@ -281,7 +281,7 @@ lifeCycleView ({ impact, query, scope } as config) lifeCycle =
             , setDetailed = config.setDetailed
             , unitMassLocked = config.unitMassLocked
             , updateItemQuantity = config.updateItemQuantity
-            , updateItemUnitaryMass = config.updateItemUnitaryMass
+            , updateItemUnitMass = config.updateItemUnitMass
             }
             lifeCycle.production
         , if Scope.isGeneric scope && not (List.isEmpty query.items) then

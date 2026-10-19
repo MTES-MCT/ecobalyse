@@ -1809,7 +1809,7 @@ components:
           type: integer
           minimum: 1
           description: Nombre d'exemplaires de ce composant.
-        unitaryMass:
+        unitMass:
           type: number
           minimum: 0
           exclusiveMinimum: true

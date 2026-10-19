@@ -59,7 +59,7 @@ type alias Config db msg =
     , setDetailed : List Index -> msg
     , unitMassLocked : Bool
     , updateItemQuantity : Index -> Quantity -> msg
-    , updateItemUnitaryMass : Index -> Maybe Mass -> msg
+    , updateItemUnitMass : Index -> Maybe Mass -> msg
     }
 
 
@@ -311,7 +311,7 @@ itemView config itemIndex { component, elements, quantity } itemResults =
 
                 else
                     itemResults
-                        |> unitaryMassInput config itemIndex elements
+                        |> unitMassInput config itemIndex elements
             }
         ]
     , itemDetailedRows config elements itemResults
@@ -319,17 +319,17 @@ itemView config itemIndex { component, elements, quantity } itemResults =
     ]
 
 
-unitaryMassInput : Config db msg -> Index -> List Component.ExpandedElement -> Results -> Html msg
-unitaryMassInput config itemIndex elements itemResults =
+unitMassInput : Config db msg -> Index -> List Component.ExpandedElement -> Results -> Html msg
+unitMassInput config itemIndex elements itemResults =
     let
         mass =
             config.query.items
                 |> LE.getAt itemIndex
-                |> Maybe.andThen .unitaryMass
+                |> Maybe.andThen .unitMass
                 |> Maybe.withDefault (Component.extractUnitMass itemResults)
 
         writeAccess =
-            -- An element whose material process has no known mass per unit makes the item unitary mass uneditable.
+            -- An element whose material process has no known mass per unit makes the item unit mass uneditable.
             if elements |> List.any (.material >> .process >> Process.hasValidMassPerUnit >> not) then
                 AmountInput.ReadOnly "La masse par unité du procédé mobilisé n’est pas connue à ce jour"
 
@@ -346,9 +346,9 @@ unitaryMassInput config itemIndex elements itemResults =
         |> Amount.fromFloat
         |> AmountInput.view
             { event =
-                -- Send unitary mass… as a Mass!
+                -- Send unit mass… as a Mass!
                 Maybe.map (Amount.toFloat >> Mass.kilograms)
-                    >> config.updateItemUnitaryMass itemIndex
+                    >> config.updateItemUnitMass itemIndex
             , unit = Process.Kilogram
             , writeAccess = writeAccess
             }

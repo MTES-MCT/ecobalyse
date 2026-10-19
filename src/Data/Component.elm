@@ -252,7 +252,7 @@ type alias Item =
     { custom : Maybe Custom
     , id : Maybe Id
     , quantity : Quantity
-    , unitaryMass : Maybe Mass
+    , unitMass : Maybe Mass
     }
 
 
@@ -985,7 +985,7 @@ computeImpacts requirements transportOptions =
 
 
 computeItemResults : Requirements db -> TransportOptions -> Item -> Result String Results
-computeItemResults requirements transportOptions { custom, id, quantity, unitaryMass } =
+computeItemResults requirements transportOptions { custom, id, quantity, unitMass } =
     let
         component_ =
             case id of
@@ -1000,7 +1000,7 @@ computeItemResults requirements transportOptions { custom, id, quantity, unitary
             (\component ->
                 custom
                     |> customElements component
-                    |> scaleElementsToUnitaryMass requirements.db unitaryMass
+                    |> scaleElementsToUnitMass requirements.db unitMass
                     |> Result.andThen
                         (List.map (computeElementResults requirements transportOptions)
                             >> RE.combine
@@ -1359,7 +1359,7 @@ createItem maybeId =
     { custom = Nothing
     , id = maybeId
     , quantity = quantityFromInt 1
-    , unitaryMass = Nothing
+    , unitMass = Nothing
     }
 
 
@@ -1465,8 +1465,8 @@ decodeTransforms =
         ]
 
 
-decodeUnitaryMass : Decoder Mass
-decodeUnitaryMass =
+decodeUnitMass : Decoder Mass
+decodeUnitMass =
     Decode.float
         |> Decode.andThen
             (\kilograms ->
@@ -1484,7 +1484,7 @@ decodeItem =
         |> Decode.custom decodeItemCustom
         |> DU.strictOptional "id" (Decode.map Id Uuid.decoder)
         |> Decode.required "quantity" decodeQuantity
-        |> DU.strictOptional "unitaryMass" decodeUnitaryMass
+        |> DU.strictOptional "unitMass" decodeUnitMass
 
 
 decodeItemCustom : Decoder (Maybe Custom)
@@ -1895,7 +1895,7 @@ encodeItem item =
     EU.optionalPropertiesObject
         ([ ( "id", item.id |> Maybe.map (idToString >> Encode.string) )
          , ( "quantity", item.quantity |> quantityToInt |> Encode.int |> Just )
-         , ( "unitaryMass", item.unitaryMass |> Maybe.map (Mass.inKilograms >> Encode.float) )
+         , ( "unitMass", item.unitMass |> Maybe.map (Mass.inKilograms >> Encode.float) )
          ]
             ++ (case item.custom of
                     Just custom ->
@@ -2982,14 +2982,14 @@ scaleElementAmounts ratio =
         )
 
 
-{-| Scale the amounts of a list of elements against a unitary mass
+{-| Scale the amounts of a list of elements against a unit mass
 -}
-scaleElementsToUnitaryMass : DataContainer db -> Maybe Mass -> List Element -> Result String (List Element)
-scaleElementsToUnitaryMass db maybeUnitaryMass elements =
-    case maybeUnitaryMass of
+scaleElementsToUnitMass : DataContainer db -> Maybe Mass -> List Element -> Result String (List Element)
+scaleElementsToUnitMass db maybeUnitMass elements =
+    case maybeUnitMass of
         Just _ ->
-            maybeUnitaryMass
-                |> unitaryMassRatio db elements
+            maybeUnitMass
+                |> unitMassRatio db elements
                 |> Result.map (\ratio -> elements |> scaleElementAmounts ratio)
 
         Nothing ->
@@ -3163,13 +3163,13 @@ sumLifeCycleImpacts lifeCycle =
         ]
 
 
-{-| Compute the ratio between a mass (usually an unitary mass) and the total mass of a
+{-| Compute the ratio between a mass (usually a unit mass) and the total mass of a
 list of elements (a component elements)
 -}
-unitaryMassRatio : DataContainer db -> List Element -> Maybe Mass -> Result String Unit.Ratio
-unitaryMassRatio db elements maybeUnitaryMass =
-    case maybeUnitaryMass of
-        Just unitaryMass ->
+unitMassRatio : DataContainer db -> List Element -> Maybe Mass -> Result String Unit.Ratio
+unitMassRatio db elements maybeUnitMass =
+    case maybeUnitMass of
+        Just unitMass ->
             elements
                 |> List.map (getElementMass db)
                 |> RE.combine
@@ -3182,7 +3182,7 @@ unitaryMassRatio db elements maybeUnitaryMass =
                                     ++ "la masse des éléments qui le constituent est nulle"
 
                         else
-                            Ok <| Unit.ratio (Mass.inKilograms unitaryMass / Mass.inKilograms unscaledMass)
+                            Ok <| Unit.ratio (Mass.inKilograms unitMass / Mass.inKilograms unscaledMass)
                     )
 
         Nothing ->
@@ -3337,9 +3337,9 @@ updateElement ( ( component, itemIndex ), elementIndex ) update =
             }
 
 
-{-| Update the amount of a target element in an Item. If the component's unitary mass is known, apply
+{-| Update the amount of a target element in an Item. If the component's unit mass is known, apply
 the ratio to all elements except the one being edited, so that those elements keep the effective mass
-they had under that unitary mass once it is cleared.
+they had under that unit mass once it is cleared.
 -}
 updateElementAmount : DataContainer db -> TargetElement -> Amount -> List Item -> Result String (List Item)
 updateElementAmount db ( ( component, itemIndex ), elementIndex ) newAmount items =
@@ -3353,8 +3353,8 @@ updateElementAmount db ( ( component, itemIndex ), elementIndex ) newAmount item
                 Ok items
 
             else
-                item.unitaryMass
-                    |> unitaryMassRatio db elements
+                item.unitMass
+                    |> unitMassRatio db elements
                     |> Result.map
                         (\ratio ->
                             let
@@ -3382,8 +3382,8 @@ updateElementAmount db ( ( component, itemIndex ), elementIndex ) newAmount item
                                                     |> updateCustom component
                                                         (\custom -> { custom | elements = updatedElements })
 
-                                            -- clear unitary mass value as it's no longer valid
-                                            , unitaryMass = Nothing
+                                            -- clear unit mass value as it's no longer valid
+                                            , unitMass = Nothing
                                         }
                                     )
                         )

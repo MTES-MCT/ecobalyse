@@ -936,11 +936,11 @@ describe("API", () => {
       });
     });
 
-    describe("unitary mass", () => {
+    describe("unit mass", () => {
       const filmId = "c5e8e39e-276f-4a31-8289-1265af9c9a9e";
       const cardboardId = "e1631a47-95b0-46e8-bde3-0f77850fa1d1";
 
-      function twoKilogramElements(unitaryMass, quantity = 1) {
+      function twoKilogramElements(unitMass, quantity = 1) {
         const item = {
           quantity,
           elements: [
@@ -949,14 +949,14 @@ describe("API", () => {
           ],
         };
 
-        if (unitaryMass !== undefined) {
-          item.unitaryMass = unitaryMass;
+        if (unitMass !== undefined) {
+          item.unitMass = unitMass;
         }
 
         return { components: [item] };
       }
 
-      it("should use the sum of element amounts when unitaryMass is omitted", async () => {
+      it("should use the sum of element amounts when unitMass is omitted", async () => {
         const response = await makePostRequest("/api/object/simulator", twoKilogramElements());
 
         expectStatus(response, 200);
@@ -964,7 +964,7 @@ describe("API", () => {
         expectMostlyEqual(response.body.productMass, 2);
       });
 
-      it("should scale masses and impacts to a unitaryMass that differs from the element amounts", async () => {
+      it("should scale masses and impacts to a unitMass that differs from the element amounts", async () => {
         const unscaled = await makePostRequest("/api/object/simulator", twoKilogramElements());
         const scaled = await makePostRequest("/api/object/simulator", twoKilogramElements(0.5));
 
@@ -977,7 +977,7 @@ describe("API", () => {
         );
       });
 
-      it("should multiply the unitary mass by quantity", async () => {
+      it("should multiply the unit mass by quantity", async () => {
         const response = await makePostRequest(
           "/api/object/simulator",
           twoKilogramElements(0.5, 2),
@@ -998,7 +998,7 @@ describe("API", () => {
 
         const half = unscaled.body.composition[0].mass / 2;
         const scaled = await makePostRequest("/api/object/simulator", {
-          components: [{ id: componentId, quantity: 1, unitaryMass: half }],
+          components: [{ id: componentId, quantity: 1, unitMass: half }],
         });
 
         expectStatus(scaled, 200);
@@ -1010,7 +1010,7 @@ describe("API", () => {
         );
       });
 
-      it("should reject a zero unitaryMass", async () => {
+      it("should reject a zero unitMass", async () => {
         expectFieldErrorMessage(
           await makePostRequest("/api/object/simulator", twoKilogramElements(0)),
           "decoding",
@@ -1018,7 +1018,7 @@ describe("API", () => {
         );
       });
 
-      it("should reject a negative unitaryMass", async () => {
+      it("should reject a negative unitMass", async () => {
         expectFieldErrorMessage(
           await makePostRequest("/api/object/simulator", twoKilogramElements(-1)),
           "decoding",
@@ -1026,7 +1026,7 @@ describe("API", () => {
         );
       });
 
-      it("should treat a null unitaryMass as an omitted one", async () => {
+      it("should treat a null unitMass as an omitted one", async () => {
         const response = await makePostRequest("/api/object/simulator", twoKilogramElements(null));
 
         expectStatus(response, 200);
@@ -1034,12 +1034,12 @@ describe("API", () => {
         expectMostlyEqual(response.body.productMass, 2);
       });
 
-      it("should fail to apply unitaryMass when the element mass is zero", async () => {
+      it("should fail to apply unitMass when the element mass is zero", async () => {
         const response = await makePostRequest("/api/object/simulator", {
           components: [
             {
               quantity: 1,
-              unitaryMass: 1,
+              unitMass: 1,
               elements: [{ amount: 1, material: "a8a6df0f-483f-4690-b21f-01a0b6993637" }],
             },
           ],

@@ -154,7 +154,7 @@ type Msg
     | UpdateElementAmount TargetElement (Maybe Amount)
     | UpdateElementMaterialCountry TargetElement (Maybe CountryCode.Code)
     | UpdateElementTransformCountry TargetElement Index (Maybe CountryCode.Code)
-    | UpdateItemUnitaryMass Index (Maybe Mass)
+    | UpdateItemUnitMass Index (Maybe Mass)
     | UpdatePackagingAmount Index (Maybe Amount)
     | UpdateProduct (Maybe Product.Id)
     | UpdateRecyclability Bool
@@ -386,8 +386,8 @@ applyElementAmount session model query targetElement amount =
                 |> updateQuery (Component.setQueryItems items query)
 
 
-applyItemUnitaryMass : Session -> Model -> Component.Query -> Index -> Mass -> PageUpdate Model Msg
-applyItemUnitaryMass session model query itemIndex mass =
+applyItemUnitMass : Session -> Model -> Component.Query -> Index -> Mass -> PageUpdate Model Msg
+applyItemUnitMass session model query itemIndex mass =
     let
         currentUnitMassAllowsEdit =
             Result.toMaybe model.lifeCycle
@@ -404,7 +404,7 @@ applyItemUnitaryMass session model query itemIndex mass =
                 (query
                     |> Component.mapItems
                         (Component.updateItem itemIndex
-                            (\item -> { item | unitaryMass = Just mass })
+                            (\item -> { item | unitMass = Just mass })
                         )
                 )
 
@@ -831,10 +831,10 @@ update ({ navKey } as session) msg model =
         ( UpdateElementAmount targetElement (Just amount), _ ) ->
             applyElementAmount session model query targetElement amount
 
-        ( UpdateItemUnitaryMass itemIndex (Just mass), _ ) ->
-            applyItemUnitaryMass session model query itemIndex mass
+        ( UpdateItemUnitMass itemIndex (Just mass), _ ) ->
+            applyItemUnitMass session model query itemIndex mass
 
-        ( UpdateItemUnitaryMass _ Nothing, _ ) ->
+        ( UpdateItemUnitMass _ Nothing, _ ) ->
             createPageUpdate session model
 
         ( UpdateElementMaterialCountry targetElement maybeCountryCode, _ ) ->
@@ -983,7 +983,7 @@ selectProductionItem query autocompleteState ({ model, session } as pageUpdate) 
                     { custom = Nothing
                     , id = Nothing
                     , quantity = Component.quantityFromInt 1
-                    , unitaryMass = Nothing
+                    , unitMass = Nothing
                     }
 
                 targetItem =
@@ -1126,7 +1126,7 @@ editorConfig session ({ genericScope } as model) =
     , updateElementTransformCountry = UpdateElementTransformCountry
     , updateItemName = UpdateComponentItemName
     , updateItemQuantity = UpdateComponentItemQuantity
-    , updateItemUnitaryMass = UpdateItemUnitaryMass
+    , updateItemUnitMass = UpdateItemUnitMass
     , updatePackagingAmount = UpdatePackagingAmount
     , updateRecyclable = UpdateRecyclability
     }

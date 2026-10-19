@@ -1066,13 +1066,13 @@ suite =
                             )
                          ]
                         )
-                    , describe "Unitary mass handling" <|
+                    , describe "Unit mass handling" <|
                         let
                             toComputedResults =
                                 decodeJsonThen Component.decodeItem
                                     (Component.computeItemResults requirements defaultTransportOptions)
 
-                            twoKilogramElements maybeUnitaryMass quantity =
+                            twoKilogramElements maybeUnitMass quantity =
                                 let
                                     kilogramElement materialId =
                                         Encode.object
@@ -1092,11 +1092,11 @@ suite =
                                             |> Just
                                       )
                                     , ( "quantity", Encode.int quantity |> Just )
-                                    , ( "unitaryMass", maybeUnitaryMass |> Maybe.map Encode.float )
+                                    , ( "unitMass", maybeUnitMass |> Maybe.map Encode.float )
                                     ]
                                     |> Encode.encode 0
                         in
-                        [ itFromResult2 "should scale element masses to unitaryMass without rewriting stored amounts"
+                        [ itFromResult2 "should scale element masses to unitMass without rewriting stored amounts"
                             (twoKilogramElements Nothing 1 |> toComputedResults)
                             (twoKilogramElements (Just 0.5) 1 |> toComputedResults)
                             (\unscaled scaled ->
@@ -1137,7 +1137,7 @@ suite =
                                         |> decodeJson Component.decodeItem
                                         |> Result.map
                                             (\item ->
-                                                ( item.unitaryMass |> Maybe.map Mass.inKilograms
+                                                ( item.unitMass |> Maybe.map Mass.inKilograms
                                                 , item.custom
                                                     |> Maybe.map (.elements >> List.map (.amount >> Amount.toFloat))
                                                 )
@@ -1145,7 +1145,7 @@ suite =
                                         |> Expect.equal (Ok ( Just 0.5, Just [ 1, 1 ] ))
                                     ]
                             )
-                        , itFromResult "should multiply total mass by quantity while keeping unitaryMass"
+                        , itFromResult "should multiply total mass by quantity while keeping unitMass"
                             (twoKilogramElements (Just 0.5) 2 |> toComputedResults)
                             (\results ->
                                 expectAllSucceed
@@ -1157,7 +1157,7 @@ suite =
                                         |> expectFloatMostlyEqual 1
                                     ]
                             )
-                        , itFromResult "should keep unitary mass equal to the requested value when a transform wastes half the amount"
+                        , itFromResult "should keep unit mass equal to the requested value when a transform wastes half the amount"
                             ("""{ "quantity": 1,
                                   "elements": [
                                      { "amount": 1,
@@ -1176,7 +1176,7 @@ suite =
                                                         half =
                                                             Mass.inKilograms (Component.extractMass unscaled) / 2
                                                     in
-                                                    { item | unitaryMass = Just (Mass.kilograms half) }
+                                                    { item | unitMass = Just (Mass.kilograms half) }
                                                         |> Component.computeItemResults requirements defaultTransportOptions
                                                         |> Result.map
                                                             (\halved ->
@@ -1201,19 +1201,19 @@ suite =
                                             Expect.fail "missing element effective amount"
                                     ]
                             )
-                        , it "should reject a zero unitaryMass"
-                            ("""{"quantity": 1, "unitaryMass": 0}"""
+                        , it "should reject a zero unitMass"
+                            ("""{"quantity": 1, "unitMass": 0}"""
                                 |> decodeJson Component.decodeItem
                                 |> expectResultErrorContains "strictement positive"
                             )
-                        , it "should reject a negative unitaryMass"
-                            ("""{"quantity": 1, "unitaryMass": -1}"""
+                        , it "should reject a negative unitMass"
+                            ("""{"quantity": 1, "unitMass": -1}"""
                                 |> decodeJson Component.decodeItem
                                 |> expectResultErrorContains "strictement positive"
                             )
-                        , it "should fail to apply unitaryMass when element mass is zero"
+                        , it "should fail to apply unitMass when element mass is zero"
                             ("""{ "quantity": 1,
-                                  "unitaryMass": 1,
+                                  "unitMass": 1,
                                   "elements": [
                                     { "amount": 1, "material": "17431e06-2973-516e-b043-be9ad405e4fb" }
                                   ]
@@ -1235,7 +1235,7 @@ suite =
                                     )
                                 |> expectResultErrorContains "Impossible de spécifier la masse unitaire"
                             )
-                        , itFromResult "should update effective amounts and clear unitaryMass when an element amount changes"
+                        , itFromResult "should update effective amounts and clear unitMass when an element amount changes"
                             (twoKilogramElements (Just 0.5) 1
                                 |> decodeJsonThen Component.decodeItem
                                     (\item ->
@@ -1262,7 +1262,7 @@ suite =
                                 -- The other element is rebased: 1 × 0.25 = 0.25 kg;
                                 -- With the override cleared, unit mass is 0.4 + 0.25 = 0.65 kg.
                                 expectAllSucceed
-                                    [ updated.unitaryMass |> Expect.equal Nothing
+                                    [ updated.unitMass |> Expect.equal Nothing
                                     , case updated.custom |> Maybe.map (.elements >> List.map (.amount >> Amount.toFloat)) of
                                         Just [ first, second ] ->
                                             expectAllSucceed
@@ -1277,13 +1277,13 @@ suite =
                                         |> expectFloatMostlyEqual 0.65
                                     ]
                             )
-                        , itFromResult "should keep unitaryMass and the summed mass when an element is added"
+                        , itFromResult "should keep unitMass and the summed mass when an element is added"
                             (Process.idFromString "59b42284-3e45-5343-8a20-1d7d66137461"
                                 |> Result.andThen (\id -> Process.findById id requirements.db.processes)
                                 |> Result.andThen
                                     (\addedMaterial ->
                                         """{ "quantity": 1,
-                                             "unitaryMass": 1,
+                                             "unitMass": 1,
                                              "elements": [
                                                { "amount": 1, "material": "6527710e-2434-5347-9bef-2205e0aa4f66" }
                                              ]
@@ -1304,7 +1304,7 @@ suite =
                             )
                             (\( withExtra, results ) ->
                                 expectAllSucceed
-                                    [ withExtra.unitaryMass
+                                    [ withExtra.unitMass
                                         |> Maybe.map Mass.inKilograms
                                         |> Expect.equal (Just 1)
                                     , Component.extractUnitMass results
@@ -1316,28 +1316,28 @@ suite =
                                         |> expectFloatMostlyEqual 1
                                     ]
                             )
-                        , itFromResult "should omit unitaryMass when absent"
+                        , itFromResult "should omit unitMass when absent"
                             ("""{"quantity": 1}"""
                                 |> decodeJsonThen Component.decodeItem
                                     (\item ->
                                         Ok
-                                            ( item.unitaryMass
+                                            ( item.unitMass
                                             , Component.encodeItem item |> Encode.encode 0
                                             )
                                     )
                             )
-                            (\( unitaryMass, encoded ) ->
+                            (\( unitMass, encoded ) ->
                                 expectAllSucceed
-                                    [ unitaryMass |> Expect.equal Nothing
-                                    , encoded |> String.contains "unitaryMass" |> Expect.equal False
+                                    [ unitMass |> Expect.equal Nothing
+                                    , encoded |> String.contains "unitMass" |> Expect.equal False
                                     ]
                             )
-                        , itFromResult "should encode unitaryMass in kilograms when set"
-                            ("""{"quantity": 1, "unitaryMass": 0.5}"""
+                        , itFromResult "should encode unitMass in kilograms when set"
+                            ("""{"quantity": 1, "unitMass": 0.5}"""
                                 |> decodeJsonThen Component.decodeItem
                                     (Component.encodeItem >> Encode.encode 0 >> Ok)
                             )
-                            (String.contains "\"unitaryMass\":0.5" >> Expect.equal True)
+                            (String.contains "\"unitMass\":0.5" >> Expect.equal True)
                         ]
                     , describe "elementMassShare"
                         [ it "should be 50% when element mass is half of unit mass"
@@ -2565,7 +2565,7 @@ suite =
                                         { custom = Nothing
                                         , id = testComponent.id
                                         , quantity = Component.quantityFromInt 1
-                                        , unitaryMass = Nothing
+                                        , unitMass = Nothing
                                         }
                                     )
                                 )

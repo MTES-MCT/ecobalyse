@@ -353,7 +353,7 @@ textileEndpoints db =
                                             [ { custom = Nothing
                                               , id = Just nonExistentId
                                               , quantity = Component.quantityFromInt 1
-                                              , unitaryMass = Nothing
+                                              , unitMass = Nothing
                                               }
                                             ]
                                 }
@@ -377,7 +377,7 @@ textileEndpoints db =
                                             [ { custom = Nothing
                                               , id = Just id
                                               , quantity = Component.quantityFromInt -1
-                                              , unitaryMass = Nothing
+                                              , unitMass = Nothing
                                               }
                                             ]
                                 }

@@ -1049,7 +1049,7 @@ simulatorFormView session model ({ inputs } as simulator) =
         , updateElementTransformCountry = \_ _ _ -> NoOp
         , updateItemName = \_ _ -> NoOp
         , updateItemQuantity = UpdateTrimQuantity
-        , updateItemUnitaryMass = \_ _ -> NoOp
+        , updateItemUnitMass = \_ _ -> NoOp
         , updatePackagingAmount = \_ _ -> NoOp
         , updateRecyclable = \_ -> NoOp
         }
