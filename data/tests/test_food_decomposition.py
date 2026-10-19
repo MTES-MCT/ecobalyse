@@ -17,6 +17,7 @@ from ecobalyse_data.food_decomposition import (
     InputClass,
     Node,
     classify,
+    ingredient_key,
     is_farm_gate,
     preferred_ingredient,
 )
@@ -191,7 +192,7 @@ def test_multi_output_product_is_normalised_by_allocated_production_amount():
     assert totals.heat_detail == {HEAT: 1.5, PROPANE: 0.25}
     assert totals.water_kg == 3.5
     assert totals.other == {SALT: 0.005}
-    assert totals.main_raw_share == 1.0
+    assert totals.main_ingredient_share == 1.0
 
 
 def test_shared_unit_operation_is_multiplied_along_the_chain():
@@ -376,6 +377,40 @@ def test_heat_labelled_kwh_is_heat_and_only_native_kwh_is_converted():
     assert totals.elec_kwh == 2.0
 
 
+def test_ingredient_key_is_the_name_before_the_first_comma_brace_or_pipe():
+    assert ingredient_key("Banana, at farm {GLO} - Adapted from WFLDB U") == "banana"
+    assert ingredient_key("Banana {CO}| banana production | Cut-off, U") == "banana"
+    assert ingredient_key(OLIVE) == "olive"
+    assert ingredient_key(MILK) == "cow milk"
+
+
+def test_main_ingredient_adds_up_the_origins_of_the_main_raw_material():
+    """1 kg of oil takes olives from two origins and a little salt. The main raw activity
+    is the largest origin. The main ingredient is all the olives, which is what the
+    component uses. Salt is a catalog ingredient, so a raw material, but not olive.
+
+    | Input           | kg   | Ingredient      |
+    |-----------------|------|-----------------|
+    | Olive {ES}      | 3.0  | olive           |
+    | Olive {IT}      | 2.0  | olive           |
+    | Sodium chloride | 0.05 | sodium chloride |
+
+    Main raw activity: Olive {ES}, 3 kg. Main ingredient: olive, 5 kg, 5 / 5.05 of the
+    raw inputs."""
+    olive_italy = "Olive {IT}| olive production | Cut-off, U - Adapted from Ecoinvent U"
+    nodes = {
+        **NODES,
+        olive_italy: node(olive_italy, path=("Others", "Adapted from Ecoinvent")),
+        "oil": node("oil", path=("Agricultural", "Plant oils", "Transformation")),
+    }
+    inputs = {**INPUTS, "oil": [(OLIVE, 3.0), (olive_italy, 2.0), (SALT, 0.05)]}
+    catalog = CATALOG | {olive_italy, SALT}
+    totals = Decomposer(InMemoryGraph(nodes, inputs), catalog).decompose("oil").totals
+    assert totals.main_raw_activity == (OLIVE, 3.0)
+    assert totals.main_ingredient == ("olive", 5.0)
+    assert totals.main_ingredient_share == 5.0 / 5.05
+
+
 def test_build_entries_derives_file_name_ids_and_names_from_the_key_and_product_name(
     monkeypatch,
 ):
@@ -408,7 +443,7 @@ def test_build_entries_derives_file_name_ids_and_names_from_the_key_and_product_
     )
     result = {
         "product": "Abondance cheese, at plant {FR} U",
-        "main_raw_kg": 4.0,
+        "main_ingredient_kg": 4.0,
         "elec_kwh": 0.4,
         "heat_mj": 2.0,
     }

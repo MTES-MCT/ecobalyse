@@ -161,8 +161,10 @@ def decompose(
         decomposition = decomposer.decompose(activity_name)
         results[key] = decomposition.to_dict()
         totals = decomposition.totals
+        main_ingredient_kg = totals.main_ingredient[1] if totals.main_ingredient else 0
         logger.info(
-            f"{key}: raw {totals.raw_kg:.3f} kg, elec {totals.elec_kwh:.4f} kWh, "
+            f"{key}: main ingredient {main_ingredient_kg:.3f} kg, "
+            f"elec {totals.elec_kwh:.4f} kWh, "
             f"heat {totals.heat_mj:.4f} MJ, {len(totals.raw)} raw material(s)"
         )
     json_out.parent.mkdir(parents=True, exist_ok=True)
@@ -215,11 +217,12 @@ def skip_reason(result: dict, catalog_names: set[str], min_share: float) -> str 
         return f"unit is {result['unit']}, not kg"
     if not result["raw"]:
         return "no raw material found"
-    if result["main_raw"] not in catalog_names:
-        return f"main raw material not in catalog: {result['main_raw']}"
-    if result["main_raw_share"] < min_share:
-        return f"main raw material is {result['main_raw_share']:.0%} of the raw inputs"
-    trivial_ratio = abs(result["main_raw_kg"] - 1) <= TRIVIAL_RATIO_TOLERANCE
+    if result["main_raw_activity"] not in catalog_names:
+        return f"main raw material not in catalog: {result['main_raw_activity']}"
+    if result["main_ingredient_share"] < min_share:
+        share = result["main_ingredient_share"]
+        return f"main ingredient is {share:.0%} of the raw inputs"
+    trivial_ratio = abs(result["main_ingredient_kg"] - 1) <= TRIVIAL_RATIO_TOLERANCE
     if trivial_ratio and result["elec_kwh"] == 0 and result["heat_mj"] == 0:
         return "no transformation (ratio 1, no energy)"
     return None
@@ -229,9 +232,10 @@ def build_entries(
     key: str, product_name: str, raw: CatalogIngredient, result: dict
 ) -> dict:
     """`key` names the transformation file and seeds the ids, `product_name` is the French
-    name of the transformed product."""
+    name of the transformed product. The component takes all of the main ingredient (every
+    origin of the bananas), as the catalog ingredient `raw` replaces all of it."""
     slug = f"{key}-transformation"
-    raw_kg = result["main_raw_kg"]
+    main_ingredient_kg = result["main_ingredient_kg"]
     material_type = infer_material_type_for_alias(raw.alias)
     transform_metadata_id = deterministic_id(
         "food-decomposition-transform-metadata", slug
@@ -240,23 +244,23 @@ def build_entries(
         "categories": ["transformation", f"material_type:{material_type}"],
         "comment": (
             f"Elec et chaleur de '{result['product']}' ({settings.bw.agribalyse}), ramenées "
-            f"au kg de '{raw.activity_name}'. {raw_kg:.2f} kg par kg de produit. "
+            f"au kg de '{raw.activity_name}'. {main_ingredient_kg:.2f} kg par kg de produit. "
             "Généré par data/bin/decompose_food.py."
         ),
         "displayName": f"Transformation : {product_name}",
-        "elecKwh": round_param(result["elec_kwh"] / raw_kg),
-        "heatMJ": round_param(result["heat_mj"] / raw_kg),
+        "elecKwh": round_param(result["elec_kwh"] / main_ingredient_kg),
+        "heatMJ": round_param(result["heat_mj"] / main_ingredient_kg),
         "id": deterministic_id("food-decomposition-transform", slug),
         "impacts": {key: 0 for key in IMPACT_KEYS},
         "metadata": [{"id": transform_metadata_id, "scopes": ["food2"]}],
-        "qtyVariationRatio": round_param(1 / raw_kg),
+        "qtyVariationRatio": round_param(1 / main_ingredient_kg),
         "scopes": ["food2"],
         "source": "Ecobalyse_manual_lcia",
         "unit": "kg",
     }
     component = {
         "comment": (
-            f"1 kg = {raw_kg:.2f} kg de {raw.alias} + transformation. "
+            f"1 kg = {main_ingredient_kg:.2f} kg de {raw.alias} + transformation. "
             f"À comparer au procédé Agribalyse agrégé '{result['product']}'."
         ),
         "elements": [
@@ -384,7 +388,7 @@ def components(
         if reason:
             print(f"{label}: skipped, {reason}")
             continue
-        raw = preferred_ingredient(catalog[result["main_raw"]])
+        raw = preferred_ingredient(catalog[result["main_raw_activity"]])
         entries = build_entries(key, product_name, raw, result)
         if dry_run:
             print(f"--- {label}")
@@ -399,7 +403,7 @@ def components(
                 logger.info(f"{label}: aggregated ingredient marked in {renamed}")
         created += 1
         print(
-            f"{label}: {entries['component']['name']} = {result['main_raw_kg']:.2f} kg "
+            f"{label}: {entries['component']['name']} = {result['main_ingredient_kg']:.2f} kg "
             f"{raw.alias} + {entries['slug']}"
         )
     if not dry_run:
