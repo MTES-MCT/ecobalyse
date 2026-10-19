@@ -85,8 +85,9 @@
   {
     "category": "",
     "id": "783bf689-f513-4920-b402-272dceee5491",
-    "name": "Battery pour outil électroportatif, 8Wh",
+    "name": "Batterie pour outil électroportatif, 8Wh",
     "query": {
+      "assembly": { "country": "DE" },
       "components": [
         {
           "elements": [
