@@ -73,7 +73,7 @@
     "express-body-parser-error-handler": "^1.0.9",
     "express-rate-limit": "^8.7.0",
     "helmet": "^8.3.0",
-    "js-yaml": "^5.4.3",
+    "js-yaml": "^5.5.0",
     "piwik": "^1.0.10"
   },
   "devDependencies": {
@@ -84,7 +84,7 @@
     "@playwright/test": "^1.63.0",
     "@types/node": "^26.1.1",
     "bootstrap": "^5.3.8",
-    "concurrently": "^10.0.5",
+    "concurrently": "^10.0.6",
     "cpx2": "^9.0.3",
     "elm": "^0.19.1-6",
     "elm-format": "^0.8.8",
