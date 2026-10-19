@@ -60,13 +60,14 @@ expectAllSucceed expectations =
 expectFloatDifferent : Float -> Float -> Expectation
 expectFloatDifferent expected actual =
     abs (expected - actual)
-        |> Expect.greaterThan 0.000000000000001
+        |> Expect.greaterThan 1.0e-15
 
 
 expectFloatMostlyEqual : Float -> Float -> Expectation
 expectFloatMostlyEqual expected actual =
-    abs (expected - actual)
-        |> Expect.lessThan 0.000000000000001
+    -- relative too: two sums of the same floats around 1000 can differ by one ulp (~1e-13)
+    actual
+        |> Expect.within (Expect.AbsoluteOrRelative 1.0e-15 1.0e-12) expected
 
 
 expectStringContains : String -> String -> Expectation
