@@ -1,5 +1,5 @@
 {
-  "activityName": "zinc coating, adapted from Ecoinvent",
+  "activityName": "zinc coating, adapted from BAFU",
   "categories": ["transformation", "material_type:ferrous_metals"],
   "comment": "50µm Zn, 2mm Fe (62.5m²/t Fe). Adapted from 'zinc coating, pieces, RER', Ecoinvent (65µm Zn).",
   "displayName": "Galvanization de l'acier",
