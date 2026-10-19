@@ -1,4 +1,8 @@
-module Views.Component.AmountInput exposing (Config, view)
+module Views.Component.AmountInput exposing
+    ( Config
+    , WriteAccess(..)
+    , view
+    )
 
 import Data.Component.Amount as Amount exposing (Amount)
 import Data.Process as Process
@@ -9,14 +13,18 @@ import Html.Events exposing (..)
 
 type alias Config msg =
     { event : Maybe Amount -> msg
-    , readonly : Bool
-    , readonlyTitle : Maybe String
     , unit : Process.Unit
+    , writeAccess : WriteAccess
     }
 
 
+type WriteAccess
+    = ReadOnly String
+    | Writeable
+
+
 view : Config msg -> Amount -> Html msg
-view { event, readonly, readonlyTitle, unit } amount =
+view { event, unit, writeAccess } amount =
     let
         stringAmount =
             Amount.toString amount
@@ -44,14 +52,15 @@ view { event, readonly, readonlyTitle, unit } amount =
              , step stepValue
              , onInput <| Amount.fromString >> event
              ]
-                ++ (if readonly then
-                        [ Attr.readonly readonly
-                        , title (readonlyTitle |> Maybe.withDefault "Cette quantité n’est pas modifiable")
-                        , class "cursor-not-allowed"
-                        ]
+                ++ (case writeAccess of
+                        ReadOnly readonlyTitle ->
+                            [ Attr.readonly True
+                            , title readonlyTitle
+                            , class "cursor-not-allowed"
+                            ]
 
-                    else
-                        []
+                        Writeable ->
+                            []
                    )
             )
             []

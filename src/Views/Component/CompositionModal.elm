@@ -151,13 +151,12 @@ elementAmountInput config targetElement process amount =
         Format.amount process amount
 
     else
-        AmountInput.view
-            { event = config.updateElementAmount targetElement
-            , readonly = False
-            , readonlyTitle = Nothing
-            , unit = process.unit
-            }
-            amount
+        amount
+            |> AmountInput.view
+                { event = config.updateElementAmount targetElement
+                , unit = process.unit
+                , writeAccess = AmountInput.Writeable
+                }
 
 
 {-| Renders a single item element's composition rows (header, summary, raw material, transforms, transport)

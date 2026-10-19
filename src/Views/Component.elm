@@ -406,13 +406,17 @@ quantifiedProcessList { db, impact } lifeCycle listConfig quantifiedProcesses =
                                 (\index { amount, process } ->
                                     tr []
                                         [ td [ class "ps-3 align-middle text-nowrap", style "min-width" "160px" ]
-                                            [ AmountInput.view
-                                                { event = listConfig.updateAmount index
-                                                , readonly = List.member Category.ProductMassDependent process.categories
-                                                , readonlyTitle = Nothing
-                                                , unit = process.unit
-                                                }
-                                                (Component.useProcessAmount lifeCycle process amount)
+                                            [ Component.useProcessAmount lifeCycle process amount
+                                                |> AmountInput.view
+                                                    { event = listConfig.updateAmount index
+                                                    , unit = process.unit
+                                                    , writeAccess =
+                                                        if List.member Category.ProductMassDependent process.categories then
+                                                            AmountInput.ReadOnly "Cette quantité n’est pas modifiable"
+
+                                                        else
+                                                            AmountInput.Writeable
+                                                    }
                                             ]
                                         , td
                                             [ class "align-middle text-truncate w-66 cursor-help "
