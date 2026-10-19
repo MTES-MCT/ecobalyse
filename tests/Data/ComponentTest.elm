@@ -1,5 +1,6 @@
 module Data.ComponentTest exposing (..)
 
+import Data.Common.EncodeUtils as EU
 import Data.Complement as Complement
 import Data.Component as Component
     exposing
@@ -1073,21 +1074,27 @@ suite =
 
                             twoKilogramElements maybeUnitaryMass quantity =
                                 let
-                                    unitaryMassField =
-                                        case maybeUnitaryMass of
-                                            Nothing ->
-                                                ""
-
-                                            Just kilograms ->
-                                                ", \"unitaryMass\": " ++ String.fromFloat kilograms
+                                    kilogramElement materialId =
+                                        Encode.object
+                                            [ ( "amount", Encode.float 1 )
+                                            , ( "material", Encode.string materialId )
+                                            ]
                                 in
-                                "{ \"quantity\": "
-                                    ++ String.fromInt quantity
-                                    ++ unitaryMassField
-                                    ++ """, "elements": [
-                                      { "amount": 1, "material": "6527710e-2434-5347-9bef-2205e0aa4f66" },
-                                      { "amount": 1, "material": "59b42284-3e45-5343-8a20-1d7d66137461" }
-                                    ]}"""
+                                EU.optionalPropertiesObject
+                                    [ ( "elements"
+                                      , Encode.list kilogramElement
+                                            [ -- Acier
+                                              "6527710e-2434-5347-9bef-2205e0aa4f66"
+
+                                            -- Plastique
+                                            , "59b42284-3e45-5343-8a20-1d7d66137461"
+                                            ]
+                                            |> Just
+                                      )
+                                    , ( "quantity", Encode.int quantity |> Just )
+                                    , ( "unitaryMass", maybeUnitaryMass |> Maybe.map Encode.float )
+                                    ]
+                                    |> Encode.encode 0
                         in
                         [ itFromResult2 "should scale element masses to unitaryMass without rewriting stored amounts"
                             (twoKilogramElements Nothing 1 |> toComputedResults)
