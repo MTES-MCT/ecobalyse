@@ -341,7 +341,13 @@ unitaryMassInput config itemIndex elements itemResults =
             , readonly = config.unitMassLocked || mass == Mass.kilograms 0
             , readonlyTitle =
                 if unknownMassPerUnit then
-                    Just "Masse par unité (massPerUnit) du procédé inconnue, édition impossible"
+                    Just "La masse par unité du procédé mobilisé n’est pas connue à ce jour"
+
+                else if mass == Mass.kilograms 0 then
+                    Just "La masse des éléments du composant est nulle, édition impossible"
+
+                else if config.unitMassLocked then
+                    Just "La masse unitaire n’est pas modifiable tant que la modale d’édition du composant est ouverte"
 
                 else
                     Nothing
