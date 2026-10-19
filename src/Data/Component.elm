@@ -3337,6 +3337,10 @@ updateElement ( ( component, itemIndex ), elementIndex ) update =
             }
 
 
+{-| Update the amount of a target element in an Item. If the component's unitary mass is known, apply
+the ratio to all elements except the one being edited, so that those elements keep the effective mass
+they had under that unitary mass once it is cleared.
+-}
 updateElementAmount : DataContainer db -> TargetElement -> Amount -> List Item -> Result String (List Item)
 updateElementAmount db ( ( component, itemIndex ), elementIndex ) newAmount items =
     case LE.getAt itemIndex items of
@@ -3354,6 +3358,7 @@ updateElementAmount db ( ( component, itemIndex ), elementIndex ) newAmount item
                     |> Result.map
                         (\ratio ->
                             let
+                                -- apply the ratio to all elements except the one being edited
                                 updatedElements =
                                     elements
                                         |> List.indexedMap
