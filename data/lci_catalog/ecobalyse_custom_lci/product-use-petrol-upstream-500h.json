@@ -1,0 +1,16 @@
+{
+  "activityName": "Petrol E10, upstream, 500h",
+  "categories": ["use"],
+  "comment": "Impacts de la production de carburant sur la durée de vie, pour une consommation de 1L/h et une durée de vie de 500h.",
+  "displayName": "Essence E10, pour 1h, partie amont - durée de vie de 500h",
+  "elecKwh": 0.0,
+  "heatMJ": 0,
+  "id": "b40f4123-d0d7-4fb5-baef-7956fddf2234",
+  "metadata": [
+    { "id": "ac222134-a50b-4313-b780-24eea29af4c9", "scopes": ["object"] }
+  ],
+  "qtyVariationRatio": 1,
+  "scopes": ["object"],
+  "source": "Ecobalyse_custom_lci",
+  "unit": "L"
+}
