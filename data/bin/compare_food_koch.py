@@ -19,8 +19,9 @@ written has two sheets:
   totals, as our decomposition keeps no detail for them.
 
 The category is read from Brightway, so `BRIGHTWAY2_DIR` must be set as for
-`decompose_food.py`. The workbook received from Koch is versioned in `data/food/koch/`.
-Run from the repo root. Reads and writes in the gitignored `output/decompose_food/`.
+`decompose_food.py`. Koch's workbook and the comparison written from it are versioned
+in `data/food/koch/`. Run from the repo root. Reads `decomposition.json` from the
+gitignored `output/decompose_food/`.
 """
 
 import json
@@ -35,7 +36,8 @@ from config import DATA_ROOT_DIR, settings
 from ecobalyse_data.food_decomposition import BrightwayGraph, Totals
 
 OUTPUT_DIR = DATA_ROOT_DIR.parent / "output" / "decompose_food"
-KOCH_WORKBOOK = DATA_ROOT_DIR / "food/koch/194-p09-ResultatsAnalyse10092026.xlsx"
+KOCH_DIR = DATA_ROOT_DIR / "food" / "koch"
+KOCH_WORKBOOK = KOCH_DIR / "194-p09-ResultatsAnalyse10092026.xlsx"
 
 QUANTITIES = (
     "main_raw_activity_kg",
@@ -351,7 +353,7 @@ def write_sheet(report, title: str, columns: list[str], rows: list[dict]) -> Non
 def main(
     koch_workbook: Path = KOCH_WORKBOOK,
     ours_json: Path = OUTPUT_DIR / "decomposition.json",
-    out: Path = OUTPUT_DIR / "ours_vs_koch.xlsx",
+    out: Path = KOCH_DIR / "ours_vs_koch.xlsx",
     tolerance: float = 0.01,
 ):
     """Compare decomposition.json (ours) with the ecolysis workbook (koch)."""
