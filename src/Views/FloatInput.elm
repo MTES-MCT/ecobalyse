@@ -114,8 +114,7 @@ fromInput { allowNegative, current, id, max, min, text } =
             { draft = Just text
             , id = id
             , value =
-                text
-                    |> parse
+                parse text
                     |> Maybe.andThen
                         (\float ->
                             if inRange min max float && float /= current then
@@ -132,14 +131,11 @@ fromInput { allowNegative, current, id, max, min, text } =
 
 inRange : Maybe Float -> Maybe Float -> Float -> Bool
 inRange min max float =
-    (min
-        |> Maybe.map (\lower -> float >= lower)
-        |> Maybe.withDefault True
-    )
-        && (max
-                |> Maybe.map (\upper -> float <= upper)
-                |> Maybe.withDefault True
-           )
+    Maybe.withDefault True <|
+        Maybe.map2
+            (\lower upper -> float >= lower && float <= upper)
+            min
+            max
 
 
 isLegalPrefix : Bool -> String -> Bool
@@ -211,13 +207,13 @@ view : Config msg -> Html msg
 view config =
     input
         (boundAttributes config
-            ++ [ attribute "aria-label" config.label
-               , attribute "autocomplete" "off"
+            ++ [ type_ "text"
                , class "form-control form-control-sm text-end"
                , id config.id
+               , attribute "aria-label" config.label
+               , attribute "autocomplete" "off"
                , attribute "inputmode" "decimal"
                , spellcheck False
-               , type_ "text"
                , value (displayText config)
                , onInput
                     (\text ->
