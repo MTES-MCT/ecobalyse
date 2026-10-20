@@ -1,5 +1,6 @@
 module Data.Common.DecodeUtils exposing
     ( betterErrorToString
+    , decodeAtWithDefault
     , decodeExpected
     , decodeNonEmptyString
     , isEmptyObject
@@ -10,6 +11,14 @@ module Data.Common.DecodeUtils exposing
 import Dict
 import Json.Decode as Decode exposing (Decoder, Error)
 import Json.Decode.Extra as DE
+
+
+{-| Decode a value at a given path and return a default value if the value is null
+-}
+decodeAtWithDefault : List String -> Decoder a -> a -> Decoder a
+decodeAtWithDefault path decoder defaultValue =
+    Decode.at path (Decode.nullable decoder)
+        |> Decode.map (Maybe.withDefault defaultValue)
 
 
 decodeNonEmptyString : Decoder String

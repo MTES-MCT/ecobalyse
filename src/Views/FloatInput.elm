@@ -8,10 +8,12 @@ module Views.FloatInput exposing
     , view
     )
 
+import Data.Common.DecodeUtils as DU
 import Html exposing (..)
 import Html.Attributes as Attr exposing (..)
 import Html.Events as Events exposing (..)
 import Json.Decode as Decode
+import Json.Decode.Extra as DE
 
 
 type alias Config msg =
@@ -164,29 +166,31 @@ isUnsignedPrefix text =
     (List.length separators <= 1) && List.all Char.isDigit otherCharacters
 
 
+{-| Listen to the beforeinput event to intercept and validate text insertions
+@see <https://developer.mozilla.org/en-US/docs/Web/API/Element/beforeinput_event>
+-}
 onBeforeInput : Bool -> msg -> Attribute msg
 onBeforeInput allowNegative noOp =
-    Events.preventDefaultOn "beforeinput"
-        (Decode.map5
-            (\inputType data value start end ->
-                ( inputType
-                , String.left start value ++ data ++ String.dropLeft end value
-                )
+    Decode.succeed
+        (\inputType data value start end ->
+            ( inputType
+            , String.left start value ++ data ++ String.dropLeft end value
             )
-            (Decode.field "inputType" Decode.string)
-            (Decode.map (Maybe.withDefault "") (Decode.field "data" (Decode.nullable Decode.string)))
-            (Decode.at [ "target", "value" ] Decode.string)
-            (Decode.map (Maybe.withDefault 0) (Decode.at [ "target", "selectionStart" ] (Decode.nullable Decode.int)))
-            (Decode.map (Maybe.withDefault 0) (Decode.at [ "target", "selectionEnd" ] (Decode.nullable Decode.int)))
-            |> Decode.andThen
-                (\( inputType, next ) ->
-                    if (inputType == "insertText" || inputType == "insertFromPaste") && not (isLegalPrefix allowNegative next) then
-                        Decode.succeed ( noOp, True )
-
-                    else
-                        Decode.fail "accepted"
-                )
         )
+        |> DE.andMap (Decode.field "inputType" Decode.string)
+        |> DE.andMap (DU.decodeAtWithDefault [ "data" ] Decode.string "")
+        |> DE.andMap (Decode.at [ "target", "value" ] Decode.string)
+        |> DE.andMap (DU.decodeAtWithDefault [ "target", "selectionStart" ] Decode.int 0)
+        |> DE.andMap (DU.decodeAtWithDefault [ "target", "selectionEnd" ] Decode.int 0)
+        |> Decode.andThen
+            (\( inputType, next ) ->
+                if (inputType == "insertText" || inputType == "insertFromPaste") && not (isLegalPrefix allowNegative next) then
+                    Decode.succeed ( noOp, True )
+
+                else
+                    Decode.fail "invalid input"
+            )
+        |> Events.preventDefaultOn "beforeinput"
 
 
 parse : String -> Maybe Float
