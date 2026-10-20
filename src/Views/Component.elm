@@ -63,7 +63,7 @@ type alias Config db msg =
     , detailed : List Index
     , docsUrl : Maybe String
     , explorerRoute : Maybe Route
-    , floatDraft : Maybe FloatInput.Draft
+    , floatDraft : Maybe FloatInput.Edit
     , impact : Definition
     , labels : Labels
     , lifeCycle : Result String LifeCycle

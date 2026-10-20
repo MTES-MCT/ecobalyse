@@ -33,28 +33,52 @@ suite =
                 |> Expect.equal "1.5"
                 |> asTest "can display a dot separator"
             ]
-        , describe "applyDraft"
-            [ FloatInput.applyDraft Nothing
+        , describe "applyEdit"
+            [ FloatInput.applyEdit Nothing
                 { draft = Just "1,"
                 , id = "unit-mass-0"
                 , value = Nothing
                 }
-                |> Expect.equal (Just { id = "unit-mass-0", text = "1," })
-                |> asTest "stores the draft while typing"
-            , FloatInput.applyDraft (Just { id = "unit-mass-0", text = "1,0" })
+                |> Expect.equal
+                    (Just
+                        { draft = Just "1,"
+                        , id = "unit-mass-0"
+                        , value = Nothing
+                        }
+                    )
+                |> asTest "stores the edit while typing"
+            , FloatInput.applyEdit
+                (Just
+                    { draft = Just "1,0"
+                    , id = "unit-mass-0"
+                    , value = Nothing
+                    }
+                )
                 { draft = Nothing
                 , id = "unit-mass-0"
                 , value = Nothing
                 }
                 |> Expect.equal Nothing
-                |> asTest "clears the draft of the blurred field"
-            , FloatInput.applyDraft (Just { id = "unit-mass-0", text = "1,0" })
+                |> asTest "clears the edit of the blurred field"
+            , FloatInput.applyEdit
+                (Just
+                    { draft = Just "1,0"
+                    , id = "unit-mass-0"
+                    , value = Nothing
+                    }
+                )
                 { draft = Nothing
                 , id = "unit-mass-1"
                 , value = Nothing
                 }
-                |> Expect.equal (Just { id = "unit-mass-0", text = "1,0" })
-                |> asTest "keeps the draft of another field"
+                |> Expect.equal
+                    (Just
+                        { draft = Just "1,0"
+                        , id = "unit-mass-0"
+                        , value = Nothing
+                        }
+                    )
+                |> asTest "keeps the edit of another field"
             ]
         , describe "fromInput"
             [ sample

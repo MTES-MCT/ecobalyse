@@ -1,8 +1,7 @@
 module Views.FloatInput exposing
     ( Config
-    , Draft
     , Edit
-    , applyDraft
+    , applyEdit
     , format
     , fromInput
     , view
@@ -19,7 +18,7 @@ import Json.Decode.Pipeline as JDP
 type alias Config msg =
     { allowNegative : Bool
     , decimalSeparator : Char
-    , draft : Maybe Draft
+    , draft : Maybe Edit
     , id : String
     , label : String
     , max : Maybe Float
@@ -28,12 +27,6 @@ type alias Config msg =
     , onInput : Edit -> msg
     , step : Maybe Float
     , value : Float
-    }
-
-
-type alias Draft =
-    { id : String
-    , text : String
     }
 
 
@@ -54,11 +47,11 @@ type alias Input =
     }
 
 
-applyDraft : Maybe Draft -> Edit -> Maybe Draft
-applyDraft current { draft, id } =
+applyEdit : Maybe Edit -> Edit -> Maybe Edit
+applyEdit current ({ draft, id } as edit) =
     case draft of
-        Just next ->
-            Just { id = id, text = next }
+        Just _ ->
+            Just edit
 
         Nothing ->
             current
@@ -84,9 +77,10 @@ boundAttributes config =
 displayText : Config msg -> String
 displayText ({ decimalSeparator, id, value } as config) =
     case config.draft of
-        Just draft ->
-            if draft.id == id then
-                draft.text
+        Just edit ->
+            if edit.id == id then
+                edit.draft
+                    |> Maybe.withDefault (format decimalSeparator value)
 
             else
                 format decimalSeparator value

@@ -44,7 +44,7 @@ type alias Config db msg =
     , docsUrl : Maybe String
     , documentationLink : Html msg
     , explorerRoute : Maybe Route
-    , floatDraft : Maybe FloatInput.Draft
+    , floatDraft : Maybe FloatInput.Edit
     , impact : Definition
     , labels :
         { add : String

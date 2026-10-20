@@ -78,7 +78,7 @@ type alias Model =
     , contributionRequestPending : Bool
     , detailedComponents : List Index
     , examples : List (Example Component.Query)
-    , floatDraft : Maybe FloatInput.Draft
+    , floatDraft : Maybe FloatInput.Edit
     , impact : Definition
     , initialQuery : Component.Query
     , modals : List Modal
@@ -420,7 +420,7 @@ applyUnitMassInput : Session -> Model -> Component.Query -> Index -> FloatInput.
 applyUnitMassInput session model query itemIndex edit =
     let
         drafted =
-            { model | floatDraft = FloatInput.applyDraft model.floatDraft edit }
+            { model | floatDraft = FloatInput.applyEdit model.floatDraft edit }
     in
     case edit.value of
         Just kilograms ->
