@@ -16,8 +16,8 @@ Des objectifs de collecte, de réemploi, de recyclage et de valorisation sont fi
 
 Voir page transverse :
 
-{% content-ref url="../../methodes-transverses/fin-de-vie.md" %}
-[fin-de-vie.md](../../methodes-transverses/fin-de-vie.md)
+{% content-ref url="../../tous-secteurs/fin-de-vie.md" %}
+[fin-de-vie.md](../../tous-secteurs/fin-de-vie.md)
 {% endcontent-ref %}
 
 ## Paramètres retenus pour le coût environnemental
