@@ -1005,8 +1005,7 @@ simulatorFormView session model ({ inputs } as simulator) =
             ]
         ]
     , ComponentView.editorView
-        { blurUnitMass = NoOp
-        , componentConfig = session.componentConfig
+        { componentConfig = session.componentConfig
         , context = Context.TextileTrims
         , db = session.db
         , debug = False

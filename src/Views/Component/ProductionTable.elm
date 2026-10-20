@@ -38,8 +38,7 @@ import Views.Link as Link
 
 
 type alias Config db msg =
-    { blurUnitMass : msg
-    , context : Context
+    { context : Context
     , db : Component.DataContainer db
     , detailed : List Index
     , docsUrl : Maybe String
@@ -369,7 +368,6 @@ unitMassInput config itemIndex elements itemResults =
                     , max = Nothing
                     , min = Just 0
                     , noOp = config.noOp
-                    , onBlur = config.blurUnitMass
                     , onInput = config.updateItemUnitMass itemIndex
                     , step = Just (unitMassStep kilograms)
                     , value = kilograms

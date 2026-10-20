@@ -56,8 +56,7 @@ import Views.Transport as TransportView
 
 
 type alias Config db msg =
-    { blurUnitMass : msg
-    , componentConfig : Component.Config
+    { componentConfig : Component.Config
     , context : Context
     , db : Component.DataContainer db
     , debug : Bool
@@ -262,8 +261,7 @@ lifeCycleView : Config db msg -> LifeCycle -> Html msg
 lifeCycleView ({ impact, query, scope } as config) lifeCycle =
     div [ class "d-flex flex-column" ]
         [ ProductionTable.view
-            { blurUnitMass = config.blurUnitMass
-            , context = config.context
+            { context = config.context
             , db = config.db
             , detailed = config.detailed
             , docsUrl = config.docsUrl

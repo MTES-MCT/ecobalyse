@@ -100,7 +100,6 @@ type Modal
 
 type Msg
     = AppendModal Modal
-    | BlurFloatDraft
     | CopyToClipBoard String
     | CreateExampleContrib
     | DeleteBookmark Bookmark
@@ -421,7 +420,7 @@ applyUnitMassInput : Session -> Model -> Component.Query -> Index -> FloatInput.
 applyUnitMassInput session model query itemIndex edit =
     let
         drafted =
-            { model | floatDraft = edit.draft }
+            { model | floatDraft = FloatInput.applyDraft model.floatDraft edit }
     in
     case edit.value of
         Just kilograms ->
@@ -451,10 +450,6 @@ update ({ navKey } as session) msg model =
     case ( msg, model.modals ) of
         ( AppendModal modal, modals ) ->
             { model | modals = modal :: modals }
-                |> createPageUpdate session
-
-        ( BlurFloatDraft, _ ) ->
-            { model | floatDraft = Nothing }
                 |> createPageUpdate session
 
         ( CopyToClipBoard shareableLink, _ ) ->
@@ -1110,8 +1105,7 @@ editorConfig session ({ genericScope } as model) =
         scope =
             Scope.Generic genericScope
     in
-    { blurUnitMass = BlurFloatDraft
-    , componentConfig = session.componentConfig
+    { componentConfig = session.componentConfig
     , context = Context.Generic
     , db = session.db
     , debug = True

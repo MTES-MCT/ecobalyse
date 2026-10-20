@@ -33,6 +33,29 @@ suite =
                 |> Expect.equal "1.5"
                 |> asTest "can display a dot separator"
             ]
+        , describe "applyDraft"
+            [ FloatInput.applyDraft Nothing
+                { draft = Just { id = "unit-mass-0", text = "1," }
+                , id = "unit-mass-0"
+                , value = Nothing
+                }
+                |> Expect.equal (Just { id = "unit-mass-0", text = "1," })
+                |> asTest "stores the draft while typing"
+            , FloatInput.applyDraft (Just { id = "unit-mass-0", text = "1,0" })
+                { draft = Nothing
+                , id = "unit-mass-0"
+                , value = Nothing
+                }
+                |> Expect.equal Nothing
+                |> asTest "clears the draft of the blurred field"
+            , FloatInput.applyDraft (Just { id = "unit-mass-0", text = "1,0" })
+                { draft = Nothing
+                , id = "unit-mass-1"
+                , value = Nothing
+                }
+                |> Expect.equal (Just { id = "unit-mass-0", text = "1,0" })
+                |> asTest "keeps the draft of another field"
+            ]
         , describe "fromInput"
             [ sample
                 |> FloatInput.fromInput
@@ -86,8 +109,8 @@ expectEdit text expectedValue maybeEdit =
 
         Just edit ->
             Expect.all
-                [ .draft
-                    >> Expect.equal (Just { id = sample.id, text = text })
+                [ .draft >> Expect.equal (Just { id = sample.id, text = text })
+                , .id >> Expect.equal sample.id
                 , .value
                     >> (\actual ->
                             case ( expectedValue, actual ) of

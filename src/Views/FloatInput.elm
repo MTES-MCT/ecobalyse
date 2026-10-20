@@ -2,6 +2,7 @@ module Views.FloatInput exposing
     ( Config
     , Draft
     , Edit
+    , applyDraft
     , format
     , fromInput
     , view
@@ -22,7 +23,6 @@ type alias Config msg =
     , max : Maybe Float
     , min : Maybe Float
     , noOp : msg
-    , onBlur : msg
     , onInput : Edit -> msg
     , step : Maybe Float
     , value : Float
@@ -37,7 +37,34 @@ type alias Draft =
 
 type alias Edit =
     { draft : Maybe Draft
+    , id : String
     , value : Maybe Float
+    }
+
+
+applyDraft : Maybe Draft -> Edit -> Maybe Draft
+applyDraft current { draft, id } =
+    case draft of
+        Just next ->
+            Just next
+
+        Nothing ->
+            current
+                |> Maybe.andThen
+                    (\stored ->
+                        if stored.id == id then
+                            Nothing
+
+                        else
+                            Just stored
+                    )
+
+
+blurEdit : Config msg -> Edit
+blurEdit config =
+    { draft = Nothing
+    , id = config.id
+    , value = Nothing
     }
 
 
@@ -51,17 +78,17 @@ boundAttributes config =
 
 
 displayText : Config msg -> String
-displayText config =
+displayText ({ decimalSeparator, id, value } as config) =
     case config.draft of
         Just draft ->
-            if draft.id == config.id then
+            if draft.id == id then
                 draft.text
 
             else
-                format config.decimalSeparator config.value
+                format decimalSeparator value
 
         Nothing ->
-            format config.decimalSeparator config.value
+            format decimalSeparator value
 
 
 format : Char -> Float -> String
@@ -83,6 +110,7 @@ fromInput { allowNegative, current, id, max, min, text } =
     if isLegalPrefix allowNegative text then
         Just
             { draft = Just { id = id, text = text }
+            , id = id
             , value =
                 text
                     |> parse
@@ -197,7 +225,7 @@ view config =
                             |> Maybe.map config.onInput
                             |> Maybe.withDefault config.noOp
                     )
-               , onBlur config.onBlur
+               , onBlur (config.onInput (blurEdit config))
                , onBeforeInput config.allowNegative config.noOp
                ]
         )
