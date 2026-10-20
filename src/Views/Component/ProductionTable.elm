@@ -371,25 +371,11 @@ unitMassInput config itemIndex elements itemResults =
                     , noOp = config.noOp
                     , onInput = config.updateItemUnitMass itemIndex
                     , state = config.floatInputState
-                    , step = Just (unitMassStep kilograms)
                     , value = kilograms
                     }
                 , small [ class "input-group-text fs-8" ]
                     [ text <| Process.unitToString Process.Kilogram ]
                 ]
-
-
-unitMassStep : Float -> Float
-unitMassStep kilograms =
-    case String.split "." (String.fromFloat kilograms) of
-        [ _, decimals ] ->
-            "0."
-                ++ String.padLeft (String.length decimals) '0' "1"
-                |> String.toFloat
-                |> Maybe.withDefault 0.1
-
-        _ ->
-            0.1
 
 
 quantityInput : Config db msg -> Index -> Quantity -> Html msg

@@ -25,7 +25,6 @@ type alias Config msg =
     , noOp : msg
     , onInput : State -> msg
     , state : Maybe State
-    , step : Maybe Float
     , value : Float
     }
 
@@ -70,7 +69,6 @@ boundAttributes config =
     List.filterMap identity
         [ config.max |> Maybe.map (String.fromFloat >> Attr.max)
         , config.min |> Maybe.map (String.fromFloat >> Attr.min)
-        , config.step |> Maybe.map (String.fromFloat >> step)
         ]
 
 
