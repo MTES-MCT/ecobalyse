@@ -1,5 +1,6 @@
 module Data.Text exposing
     ( buildCurlCommand
+    , isDigitsOnly
     , search
     , sortI18nStrings
     , toWords
@@ -29,6 +30,11 @@ buildCurlCommand maybeToken json apiUrl =
         |> String.join " \\\n"
         |> String.replace "%apiUrl%" apiUrl
         |> String.replace "%json%" json
+
+
+isDigitsOnly : String -> Bool
+isDigitsOnly =
+    String.all Char.isDigit
 
 
 {-| Filter a list of stringifyable items against provided search terms:

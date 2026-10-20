@@ -8,6 +8,7 @@ module Views.FloatInput exposing
     , view
     )
 
+import Data.Text as Text
 import Html exposing (..)
 import Html.Attributes as Attr exposing (..)
 import Html.Events exposing (..)
@@ -43,6 +44,16 @@ type alias Edit =
     }
 
 
+type alias Input =
+    { allowNegative : Bool
+    , current : Float
+    , id : String
+    , max : Maybe Float
+    , min : Maybe Float
+    , text : String
+    }
+
+
 applyDraft : Maybe Draft -> Edit -> Maybe Draft
 applyDraft current { draft, id } =
     case draft of
@@ -59,14 +70,6 @@ applyDraft current { draft, id } =
                         else
                             Just stored
                     )
-
-
-blurEdit : Config msg -> Edit
-blurEdit config =
-    { draft = Nothing
-    , id = config.id
-    , value = Nothing
-    }
 
 
 boundAttributes : Config msg -> List (Attribute msg)
@@ -98,15 +101,7 @@ format separator float =
         |> String.replace "." (String.fromChar separator)
 
 
-fromInput :
-    { allowNegative : Bool
-    , current : Float
-    , id : String
-    , max : Maybe Float
-    , min : Maybe Float
-    , text : String
-    }
-    -> Maybe Edit
+fromInput : Input -> Maybe Edit
 fromInput { allowNegative, current, id, max, min, text } =
     if isLegalPrefix allowNegative text then
         Just
@@ -152,13 +147,15 @@ isLegalPrefix allowNegative text =
 
 isUnsignedPrefix : String -> Bool
 isUnsignedPrefix text =
-    let
-        ( separators, otherCharacters ) =
-            text
-                |> String.toList
-                |> List.partition (\char -> char == ',' || char == '.')
-    in
-    (List.length separators <= 1) && List.all Char.isDigit otherCharacters
+    case text |> String.replace "," "." |> String.split "." of
+        [ int ] ->
+            Text.isDigitsOnly int
+
+        [ int, decimals ] ->
+            Text.isDigitsOnly int && Text.isDigitsOnly decimals
+
+        _ ->
+            False
 
 
 decodeBeforeInputEvent : Config msg -> Decoder ( msg, Bool )
@@ -177,7 +174,10 @@ decodeBeforeInputEvent { allowNegative, noOp } =
         |> JDP.optionalAt [ "target", "selectionEnd" ] Decode.int 0
         |> Decode.andThen
             (\( inputType, next ) ->
-                if (inputType == "insertText" || inputType == "insertFromPaste") && not (isLegalPrefix allowNegative next) then
+                if
+                    (inputType == "insertText" || inputType == "insertFromPaste")
+                        && not (isLegalPrefix allowNegative next)
+                then
                     Decode.succeed ( noOp, True )
 
                 else
@@ -185,11 +185,17 @@ decodeBeforeInputEvent { allowNegative, noOp } =
             )
 
 
+{-| Float number parser, handling `,` as a decimal separator, `-` as negative sign and
+intermediary typing states.
+-}
 parse : String -> Maybe Float
 parse text =
     if
+        -- empty field
         String.isEmpty text
+            -- user started to type a negative number
             || (text == "-")
+            -- user is about to enter a decimal
             || String.endsWith "," text
             || String.endsWith "." text
     then
@@ -223,8 +229,14 @@ view config =
                             }
                             |> Maybe.map config.onInput
                             |> Maybe.withDefault config.noOp
-               , onBlur <| config.onInput (blurEdit config)
-               , preventDefaultOn "beforeinput" <| decodeBeforeInputEvent config
+
+               -- reset state when input loses focus
+               , onBlur <|
+                    config.onInput { draft = Nothing, id = config.id, value = Nothing }
+
+               -- catch and validate text insertions
+               , preventDefaultOn "beforeinput" <|
+                    decodeBeforeInputEvent config
                ]
         )
         []
