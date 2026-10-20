@@ -84,6 +84,70 @@
   },
   {
     "category": "",
+    "id": "783bf689-f513-4920-b402-272dceee5491",
+    "name": "Batterie pour outil électroportatif, 8Wh",
+    "query": {
+      "assembly": { "country": "DE" },
+      "components": [
+        {
+          "elements": [
+            {
+              "amount": 0.46,
+              "material": { "country": "CN", "id": "6a1d18fa-f0fd-483a-ac7f-546b15476627" },
+              "transforms": [
+                { "country": "CN", "id": "7f217ecc-5de8-4ce1-b2c2-b5d192c6cdb9" }
+              ]
+            },
+            {
+              "amount": 0.07,
+              "material": { "country": "CN", "id": "cc8e1090-e90a-4dcb-89a2-4b45daac88af" },
+              "transforms": [
+                { "country": "CN", "id": "971df5fa-c32e-4a7e-b1aa-14ce9f240b5c" }
+              ]
+            },
+            {
+              "amount": 0.01,
+              "material": { "country": "CN", "id": "a363f079-bc3f-424a-a2e1-06b9c76b4fc3" },
+              "transforms": [
+                { "country": "CN", "id": "d077f06e-4ae9-48b7-8019-64523e577b95" }
+              ]
+            },
+            {
+              "amount": 0.03,
+              "material": { "country": "CN", "id": "30212fbf-5912-40eb-b2ab-87837361c462" },
+              "transforms": [
+                { "country": "CN", "id": "981e74ea-ef7d-40d1-b25e-c5534446474e" }
+              ]
+            },
+            {
+              "amount": 0.06,
+              "material": { "country": "CN", "id": "90844e0a-42b3-4748-8cf0-4abf3fd62977" },
+              "transforms": [
+                { "country": "CN", "id": "85b74ce2-2cbc-4d73-a5a2-5c5ffde16319" }
+              ]
+            },
+            {
+              "amount": 0.21,
+              "material": { "country": "CN", "id": "6445c1fa-13a6-4058-8978-bcf2be63cd56" }
+            },
+            {
+              "amount": 0.07,
+              "material": { "country": "CN", "id": "096588a4-036b-4d66-a5d0-f5073b363a44" }
+            },
+            {
+              "amount": 0.05,
+              "material": { "country": "CN", "id": "51956fb2-304d-4e63-a3ef-b3eed44fde38" }
+            }
+          ],
+          "name": "Batterie Li-ion 144Wh, NMC622, casing plastique, Chine",
+          "quantity": 1
+        }
+      ]
+    },
+    "scope": "object"
+  },
+  {
+    "category": "",
     "id": "78dfebcb-9eab-4f83-a260-5c5dd24d4fac",
     "name": "Table 4p chêne et acier (250 x 100)",
     "query": {
@@ -91,6 +155,140 @@
         { "id": "ad9d7f23-076b-49c5-93a4-ee1cd7b53973", "quantity": 4 },
         { "id": "260bdfe2-1bef-4fd6-bf68-6e6174686d0d", "quantity": 1 }
       ]
+    },
+    "scope": "object"
+  },
+  {
+    "category": "",
+    "id": "95e6ec8b-7e54-4ac6-b83a-2f4e87fec41c",
+    "name": "Tondeuse à gazon, autotractée, moteur thermique 190cm3, fabrication en France",
+    "query": {
+      "assembly": { "country": "FR" },
+      "components": [
+        {
+          "elements": [
+            {
+              "amount": 14,
+              "material": { "country": "FR", "id": "21a0d5b0-861e-4bed-98a9-46c61d2a0618" },
+              "transforms": [
+                { "country": "FR", "id": "ea284007-49a8-4be1-95fc-452ea180285a" },
+                { "country": "FR", "id": "7319ac9c-5796-412f-a1eb-58e01afa7708" },
+                { "country": "FR", "id": "1011f3e6-cc7c-4683-89c5-fe48fb59a6a8" }
+              ]
+            }
+          ],
+          "id": "10e199b6-7e5f-47d9-bc85-9959c4e9ee62",
+          "name": "Chassis - Acier galvanisé",
+          "quantity": 1
+        },
+        {
+          "elements": [
+            {
+              "amount": 5,
+              "material": { "country": "FR", "id": "01d21ed5-9fc6-4d36-a0ea-cfea8035385b" },
+              "transforms": [
+                { "country": "FR", "id": "85b74ce2-2cbc-4d73-a5a2-5c5ffde16319" }
+              ]
+            }
+          ],
+          "id": "190276e9-5b90-42d6-8fbd-bc7ddfd4c960",
+          "name": "Chassis - Plastique PP vierge, moulé",
+          "quantity": 1
+        },
+        {
+          "elements": [
+            {
+              "amount": 6,
+              "material": { "country": "FR", "id": "21a0d5b0-861e-4bed-98a9-46c61d2a0618" },
+              "transforms": [
+                { "country": "FR", "id": "ea284007-49a8-4be1-95fc-452ea180285a" },
+                { "country": "FR", "id": "7319ac9c-5796-412f-a1eb-58e01afa7708" }
+              ]
+            }
+          ],
+          "name": "Manche - Acier",
+          "quantity": 1
+        },
+        {
+          "elements": [
+            {
+              "amount": 10,
+              "material": { "country": "FR", "id": "97a70d45-d7d5-4ee5-86b4-ee506300cdaa" }
+            }
+          ],
+          "name": "Motorisation",
+          "quantity": 1
+        },
+        {
+          "elements": [
+            {
+              "amount": 3,
+              "material": { "country": "FR", "id": "30212fbf-5912-40eb-b2ab-87837361c462" },
+              "transforms": [
+                { "country": "FR", "id": "981e74ea-ef7d-40d1-b25e-c5534446474e" },
+                { "country": "FR", "id": "7319ac9c-5796-412f-a1eb-58e01afa7708" }
+              ]
+            }
+          ],
+          "name": "Carosserie - Acier inoxydable",
+          "quantity": 1
+        },
+        {
+          "elements": [
+            {
+              "amount": 0.2,
+              "material": { "country": "RAS", "id": "01d21ed5-9fc6-4d36-a0ea-cfea8035385b" },
+              "transforms": [
+                { "country": "RAS", "id": "85b74ce2-2cbc-4d73-a5a2-5c5ffde16319" }
+              ]
+            },
+            {
+              "amount": 0.2,
+              "material": { "country": "RAS", "id": "9c5a7a8e-6483-4da8-9cc2-0a90a30cb93a" }
+            }
+          ],
+          "id": "190276e9-5b90-42d6-8fbd-bc7ddfd4c960",
+          "name": "Roues - Plastique",
+          "quantity": 4
+        },
+        {
+          "elements": [
+            {
+              "amount": 0.5,
+              "material": { "country": "FR", "id": "30212fbf-5912-40eb-b2ab-87837361c462" },
+              "transforms": [
+                { "country": "FR", "id": "981e74ea-ef7d-40d1-b25e-c5534446474e" },
+                { "country": "FR", "id": "7319ac9c-5796-412f-a1eb-58e01afa7708" }
+              ]
+            }
+          ],
+          "name": "Lame - Acier inoxydable",
+          "quantity": 1
+        },
+        {
+          "elements": [
+            {
+              "amount": 3,
+              "material": { "country": "FR", "id": "01d21ed5-9fc6-4d36-a0ea-cfea8035385b" },
+              "transforms": [
+                { "country": "FR", "id": "85b74ce2-2cbc-4d73-a5a2-5c5ffde16319" }
+              ]
+            }
+          ],
+          "id": "190276e9-5b90-42d6-8fbd-bc7ddfd4c960",
+          "name": "Carosserie - Plastique PP vierge, moulé",
+          "quantity": 1
+        }
+      ],
+      "consumptions": [
+        { "amount": 500, "processId": "ac222134-a50b-4313-b780-24eea29af4c9" },
+        { "amount": 500, "processId": "eeb57cd3-9ff6-48e0-a27d-199543fdc5ba" }
+      ],
+      "packagings": [
+        { "amount": 5.5, "processId": "1421dfdc-0168-4e6c-bbb4-c724785d61d6" },
+        { "amount": 0.2, "processId": "de82faa9-0d87-48fe-8ddc-b0a5254be3d8" }
+      ],
+      "recyclable": true
     },
     "scope": "object"
   },
