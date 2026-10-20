@@ -9898,7 +9898,7 @@
   },
   {
     "activityCreationType": "from_scratch",
-    "alias": "product-use-petrol-upstream-1L",
+    "alias": "product-use-petrol-upstream",
     "comment": "see https://fabrique-numerique.gitbook.io/ecobalyse/vehicules/cycle-de-vie/utilisation-du-vehicule/construction-des-procedes-carburant",
     "database": "Ecoinvent 3.9.1",
     "exchanges": [
@@ -9930,7 +9930,7 @@
   },
   {
     "activityCreationType": "from_scratch",
-    "alias": "product-use-petrol-direct-co2-emissions-1L",
+    "alias": "product-use-petrol-direct-co2-emissions",
     "comment": "see https://fabrique-numerique.gitbook.io/ecobalyse/vehicules/cycle-de-vie/utilisation-du-vehicule/construction-des-procedes-carburant",
     "database": "Ecoinvent 3.9.1",
     "exchanges": [
