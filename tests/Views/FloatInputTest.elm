@@ -35,7 +35,7 @@ suite =
             ]
         , describe "applyDraft"
             [ FloatInput.applyDraft Nothing
-                { draft = Just { id = "unit-mass-0", text = "1," }
+                { draft = Just "1,"
                 , id = "unit-mass-0"
                 , value = Nothing
                 }
@@ -109,7 +109,7 @@ expectEdit text expectedValue maybeEdit =
 
         Just edit ->
             Expect.all
-                [ .draft >> Expect.equal (Just { id = sample.id, text = text })
+                [ .draft >> Expect.equal (Just text)
                 , .id >> Expect.equal sample.id
                 , .value
                     >> (\actual ->

@@ -38,7 +38,7 @@ type alias Draft =
 
 
 type alias Edit =
-    { draft : Maybe Draft
+    { draft : Maybe String
     , id : String
     , value : Maybe Float
     }
@@ -48,7 +48,7 @@ applyDraft : Maybe Draft -> Edit -> Maybe Draft
 applyDraft current { draft, id } =
     case draft of
         Just next ->
-            Just next
+            Just { id = id, text = next }
 
         Nothing ->
             current
@@ -111,7 +111,7 @@ fromInput :
 fromInput { allowNegative, current, id, max, min, text } =
     if isLegalPrefix allowNegative text then
         Just
-            { draft = Just { id = id, text = text }
+            { draft = Just text
             , id = id
             , value =
                 text
