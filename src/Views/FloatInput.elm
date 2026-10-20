@@ -11,7 +11,7 @@ import Data.Text as Text
 import Html exposing (..)
 import Html.Attributes as Attr exposing (..)
 import Html.Events exposing (..)
-import Json.Decode as Decode exposing (Decoder)
+import Json.Decode as Decode
 import Json.Decode.Pipeline as JDP
 
 
@@ -72,6 +72,39 @@ boundAttributes config =
         , config.min |> Maybe.map (String.fromFloat >> Attr.min)
         , config.step |> Maybe.map (String.fromFloat >> step)
         ]
+
+
+onBeforeInput : Config msg -> Attribute msg
+onBeforeInput { allowNegative, noOp } =
+    preventDefaultOn "beforeinput" <|
+        -- https://developer.mozilla.org/en-US/docs/Web/API/Element/beforeinput_event
+        (Decode.succeed
+            (\inputType data value start end ->
+                ( inputType
+                , String.left start value ++ data ++ String.dropLeft end value
+                )
+            )
+            |> JDP.required "inputType" Decode.string
+            |> JDP.optional "data" Decode.string ""
+            |> JDP.requiredAt [ "target", "value" ] Decode.string
+            |> JDP.optionalAt [ "target", "selectionStart" ] Decode.int 0
+            |> JDP.optionalAt [ "target", "selectionEnd" ] Decode.int 0
+            |> Decode.andThen
+                (\( inputType, next ) ->
+                    if
+                        -- user typed a character or pasted text
+                        (inputType == "insertText" || inputType == "insertFromPaste")
+                            -- the field would no longer be a number they are allowed to enter
+                            && not (isLegalPrefix allowNegative next)
+                    then
+                        -- drop the keystroke or paste, so the field stays unchanged
+                        Decode.succeed ( noOp, True )
+
+                    else
+                        -- note: failing on preventDefault *keeps* the edit
+                        Decode.fail "accepted input"
+                )
+        )
 
 
 displayText : Config msg -> String
@@ -152,33 +185,6 @@ isUnsignedPrefix text =
             False
 
 
-decodeBeforeInputEvent : Config msg -> Decoder ( msg, Bool )
-decodeBeforeInputEvent { allowNegative, noOp } =
-    -- https://developer.mozilla.org/en-US/docs/Web/API/Element/beforeinput_event
-    Decode.succeed
-        (\inputType data value start end ->
-            ( inputType
-            , String.left start value ++ data ++ String.dropLeft end value
-            )
-        )
-        |> JDP.required "inputType" Decode.string
-        |> JDP.optional "data" Decode.string ""
-        |> JDP.requiredAt [ "target", "value" ] Decode.string
-        |> JDP.optionalAt [ "target", "selectionStart" ] Decode.int 0
-        |> JDP.optionalAt [ "target", "selectionEnd" ] Decode.int 0
-        |> Decode.andThen
-            (\( inputType, next ) ->
-                if
-                    (inputType == "insertText" || inputType == "insertFromPaste")
-                        && not (isLegalPrefix allowNegative next)
-                then
-                    Decode.succeed ( noOp, True )
-
-                else
-                    Decode.fail "invalid input"
-            )
-
-
 {-| Float number parser, handling `,` as a decimal separator, `-` as negative sign and
 intermediary typing states.
 -}
@@ -229,8 +235,7 @@ view config =
                     config.onInput { draft = Nothing, id = config.id, value = Nothing }
 
                -- catch and validate text insertions
-               , preventDefaultOn "beforeinput" <|
-                    decodeBeforeInputEvent config
+               , onBeforeInput config
                ]
         )
         []
