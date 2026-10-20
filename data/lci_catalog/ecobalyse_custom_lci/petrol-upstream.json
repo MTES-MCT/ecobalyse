@@ -1,0 +1,16 @@
+{
+  "activityName": "Petrol E10, upstream, 1L",
+  "categories": ["use"],
+  "comment": "Impacts de la production de carburant, pour 1L.",
+  "displayName": "Essence E10, partie amont",
+  "elecKwh": 0.0,
+  "heatMJ": 0,
+  "id": "b40f4123-d0d7-4fb5-baef-7956fddf2234",
+  "metadata": [
+    { "id": "ac222134-a50b-4313-b780-24eea29af4c9", "scopes": ["object"] }
+  ],
+  "qtyVariationRatio": 1,
+  "scopes": ["object"],
+  "source": "Ecobalyse_custom_lci",
+  "unit": "L"
+}
