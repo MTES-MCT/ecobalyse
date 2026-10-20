@@ -63,7 +63,7 @@ type alias Config db msg =
     , detailed : List Index
     , docsUrl : Maybe String
     , explorerRoute : Maybe Route
-    , floatDraft : Maybe FloatInput.State
+    , floatInputState : Maybe FloatInput.State
     , impact : Definition
     , labels : Labels
     , lifeCycle : Result String LifeCycle
@@ -267,7 +267,7 @@ lifeCycleView ({ impact, query, scope } as config) lifeCycle =
             , docsUrl = config.docsUrl
             , documentationLink = documentationLink config "production"
             , explorerRoute = config.explorerRoute
-            , floatDraft = config.floatDraft
+            , floatInputState = config.floatInputState
             , impact = config.impact
             , labels =
                 { add = config.labels.add

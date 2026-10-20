@@ -18,13 +18,13 @@ import Json.Decode.Pipeline as JDP
 type alias Config msg =
     { allowNegative : Bool
     , decimalSeparator : Char
-    , draft : Maybe State
     , id : String
     , label : String
     , max : Maybe Float
     , min : Maybe Float
     , noOp : msg
     , onInput : State -> msg
+    , state : Maybe State
     , step : Maybe Float
     , value : Float
     }
@@ -47,14 +47,14 @@ type alias State =
     }
 
 
-applyState : Maybe State -> State -> Maybe State
-applyState current ({ draft, id } as state) =
+applyState : State -> Maybe State -> Maybe State
+applyState ({ draft, id } as newState) currentState =
     case draft of
         Just _ ->
-            Just state
+            Just newState
 
         Nothing ->
-            current
+            currentState
                 |> Maybe.andThen
                     (\stored ->
                         if stored.id == id then
@@ -109,10 +109,10 @@ onBeforeInput { allowNegative, noOp } =
 
 displayText : Config msg -> String
 displayText ({ decimalSeparator, id, value } as config) =
-    case config.draft of
-        Just edit ->
-            if edit.id == id then
-                edit.draft
+    case config.state of
+        Just state ->
+            if state.id == id then
+                state.draft
                     |> Maybe.withDefault (format decimalSeparator value)
 
             else

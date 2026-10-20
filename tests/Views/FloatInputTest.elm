@@ -37,22 +37,19 @@ suite =
                 )
             ]
         , describe "applyEdit"
-            [ it "stores the edit while typing"
-                (FloatInput.applyState
-                    Nothing
-                    { draft = Just "1,", id = "unit-mass-0", value = Nothing }
+            [ it "stores the state while typing"
+                (Nothing
+                    |> FloatInput.applyState { draft = Just "1,", id = "unit-mass-0", value = Nothing }
                     |> Expect.equal (Just { draft = Just "1,", id = "unit-mass-0", value = Nothing })
                 )
-            , it "clears the edit of the blurred field"
-                (FloatInput.applyState
-                    (Just { draft = Just "1,0", id = "unit-mass-0", value = Nothing })
-                    { draft = Nothing, id = "unit-mass-0", value = Nothing }
+            , it "clears the state of the blurred field"
+                (Just { draft = Just "1,0", id = "unit-mass-0", value = Nothing }
+                    |> FloatInput.applyState { draft = Nothing, id = "unit-mass-0", value = Nothing }
                     |> Expect.equal Nothing
                 )
-            , it "keeps the edit of another field"
-                (FloatInput.applyState
-                    (Just { draft = Just "1,0", id = "unit-mass-0", value = Nothing })
-                    { draft = Nothing, id = "unit-mass-1", value = Nothing }
+            , it "keeps the state of another field"
+                (Just { draft = Just "1,0", id = "unit-mass-0", value = Nothing }
+                    |> FloatInput.applyState { draft = Nothing, id = "unit-mass-1", value = Nothing }
                     |> Expect.equal (Just { draft = Just "1,0", id = "unit-mass-0", value = Nothing })
                 )
             ]
@@ -116,8 +113,8 @@ expectState text expectedValue maybeState =
         Nothing ->
             Expect.fail "no available state"
 
-        Just edit ->
-            edit
+        Just state ->
+            state
                 |> Expect.all
                     [ .draft >> Expect.equal (Just text)
                     , .id >> Expect.equal sample.id

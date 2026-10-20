@@ -44,7 +44,7 @@ type alias Config db msg =
     , docsUrl : Maybe String
     , documentationLink : Html msg
     , explorerRoute : Maybe Route
-    , floatDraft : Maybe FloatInput.State
+    , floatInputState : Maybe FloatInput.State
     , impact : Definition
     , labels :
         { add : String
@@ -362,13 +362,13 @@ unitMassInput config itemIndex elements itemResults =
                 [ FloatInput.view
                     { allowNegative = False
                     , decimalSeparator = ','
-                    , draft = config.floatDraft
                     , id = "unit-mass-" ++ String.fromInt itemIndex
                     , label = "Masse unitaire"
                     , max = Nothing
                     , min = Just 0
                     , noOp = config.noOp
                     , onInput = config.updateItemUnitMass itemIndex
+                    , state = config.floatInputState
                     , step = Just (unitMassStep kilograms)
                     , value = kilograms
                     }

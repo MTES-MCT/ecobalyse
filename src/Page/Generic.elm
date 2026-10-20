@@ -416,11 +416,11 @@ applyItemUnitMass session model query itemIndex mass =
         createPageUpdate session model
 
 
-applyUnitMassInput : Session -> Model -> Component.Query -> Index -> FloatInput.State -> PageUpdate Model Msg
-applyUnitMassInput session model query itemIndex state =
+applyUnitMassInputState : Session -> Model -> Component.Query -> Index -> FloatInput.State -> PageUpdate Model Msg
+applyUnitMassInputState session model query itemIndex state =
     let
         drafted =
-            { model | floatInputState = FloatInput.applyState model.floatInputState state }
+            { model | floatInputState = model.floatInputState |> FloatInput.applyState state }
     in
     case state.value of
         Just kilograms ->
@@ -850,8 +850,8 @@ update ({ navKey } as session) msg model =
         ( UpdateElementAmount targetElement (Just amount), _ ) ->
             applyElementAmount session model query targetElement amount
 
-        ( UpdateItemUnitMass itemIndex edit, _ ) ->
-            applyUnitMassInput session model query itemIndex edit
+        ( UpdateItemUnitMass itemIndex state, _ ) ->
+            applyUnitMassInputState session model query itemIndex state
 
         ( UpdateElementMaterialCountry targetElement maybeCountryCode, _ ) ->
             createPageUpdate session model
@@ -1112,7 +1112,7 @@ editorConfig session ({ genericScope } as model) =
     , detailed = model.detailedComponents
     , docsUrl = Nothing
     , explorerRoute = Just (Route.Explore scope (Dataset.Components scope Nothing))
-    , floatDraft = model.floatInputState
+    , floatInputState = model.floatInputState
     , impact = model.impact
     , labels = ComponentView.scopeLabels Context.Generic scope
     , noOp = NoOp
