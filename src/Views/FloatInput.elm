@@ -28,15 +28,6 @@ type alias Config msg =
     }
 
 
-type alias Input =
-    { current : Float
-    , id : String
-    , max : Maybe Float
-    , min : Maybe Float
-    , text : String
-    }
-
-
 type alias State =
     { draft : Maybe String
     , id : String
@@ -124,8 +115,8 @@ format float =
         |> String.replace "." ","
 
 
-fromInput : Input -> Maybe State
-fromInput { current, id, max, min, text } =
+fromInput : Config msg -> String -> Maybe State
+fromInput { id, max, min, value } text =
     if isLegalPrefix text then
         Just
             { draft = Just text
@@ -134,7 +125,7 @@ fromInput { current, id, max, min, text } =
                 parse text
                     |> Maybe.andThen
                         (\float ->
-                            if inRange min max float && float /= current then
+                            if inRange min max float && float /= value then
                                 Just float
 
                             else
@@ -219,13 +210,7 @@ view config =
                , value (displayText config)
                , onInput <|
                     \text ->
-                        fromInput
-                            { current = config.value
-                            , id = config.id
-                            , max = config.max
-                            , min = config.min
-                            , text = text
-                            }
+                        fromInput config text
                             |> Maybe.map config.onInput
                             |> Maybe.withDefault config.noOp
 

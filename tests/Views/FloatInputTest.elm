@@ -7,11 +7,14 @@ import Views.FloatInput as FloatInput
 
 
 sample =
-    { current = 1
-    , id = "unit-mass-0"
+    { id = "unit-mass-0"
+    , label = "Masse unitaire"
     , max = Nothing
     , min = Just 0
-    , text = ""
+    , noOp = ()
+    , onInput = \_ -> ()
+    , state = Nothing
+    , value = 1
     }
 
 
@@ -49,100 +52,78 @@ suite =
             ]
         , describe "fromInput"
             [ it "keeps an empty field without resolving a value"
-                (FloatInput.fromInput sample
+                (FloatInput.fromInput sample ""
                     |> expectState "" Nothing
                 )
             , it "keeps a trailing separator"
-                ({ sample | text = "1," }
-                    |> FloatInput.fromInput
+                (FloatInput.fromInput sample "1,"
                     |> expectState "1," Nothing
                 )
             , it "keeps a trailing zero when the float is unchanged"
-                ({ sample | text = "1,0" }
-                    |> FloatInput.fromInput
+                (FloatInput.fromInput sample "1,0"
                     |> expectState "1,0" Nothing
                 )
             , it "resolves a complete decimal"
-                ({ sample | text = "1,01" }
-                    |> FloatInput.fromInput
+                (FloatInput.fromInput sample "1,01"
                     |> expectState "1,01" (Just 1.01)
                 )
             , it "resolves a complete decimal with a dot separator"
-                ({ sample | text = "1.01" }
-                    |> FloatInput.fromInput
+                (FloatInput.fromInput sample "1.01"
                     |> expectState "1.01" (Just 1.01)
                 )
             , it "rejects a letter"
-                ({ sample | text = "1a" }
-                    |> FloatInput.fromInput
+                (FloatInput.fromInput sample "1a"
                     |> Expect.equal Nothing
                 )
             , it "rejects a negative number"
-                ({ sample | text = "-1" }
-                    |> FloatInput.fromInput
+                (FloatInput.fromInput sample "-1"
                     |> Expect.equal Nothing
                 )
             , it "does not resolve a number above max"
-                ({ sample | max = Just 10, text = "11" }
-                    |> FloatInput.fromInput
+                (FloatInput.fromInput { sample | max = Just 10 } "11"
                     |> expectState "11" Nothing
                 )
             , it "does not resolve zero when it is not above the minimum"
-                ({ sample | text = "0" }
-                    |> FloatInput.fromInput
+                (FloatInput.fromInput sample "0"
                     |> expectState "0" Nothing
                 )
             ]
-        , let
-            inputConfig state =
-                { id = sample.id
-                , label = "Masse unitaire"
-                , max = Nothing
-                , min = Just 0
-                , noOp = ()
-                , onInput = \_ -> ()
-                , state = state
-                , value = sample.current
-                }
-          in
-          describe "isValidDraft"
+        , describe "isValidDraft"
             [ it "is true when the field is not being edited"
-                (inputConfig Nothing
-                    |> FloatInput.isValidDraft
+                (FloatInput.isValidDraft sample
                     |> Expect.equal True
                 )
             , it "is true when another field is being edited"
-                (inputConfig (Just { draft = Just "1,", id = "other", value = Nothing })
-                    |> FloatInput.isValidDraft
+                (FloatInput.isValidDraft
+                    { sample | state = Just { draft = Just "1,", id = "other", value = Nothing } }
                     |> Expect.equal True
                 )
             , it "is false when the draft is not a complete number"
-                (inputConfig (Just { draft = Just "1,", id = sample.id, value = Nothing })
-                    |> FloatInput.isValidDraft
+                (FloatInput.isValidDraft
+                    { sample | state = Just { draft = Just "1,", id = sample.id, value = Nothing } }
                     |> Expect.equal False
                 )
             , it "is true when the draft resolves to the current value"
-                (inputConfig (Just { draft = Just "1,0", id = sample.id, value = Nothing })
-                    |> FloatInput.isValidDraft
+                (FloatInput.isValidDraft
+                    { sample | state = Just { draft = Just "1,0", id = sample.id, value = Nothing } }
                     |> Expect.equal True
                 )
             , it "is true when the draft resolves to a new value"
-                (inputConfig (Just { draft = Just "1,5", id = sample.id, value = Just 1.5 })
-                    |> FloatInput.isValidDraft
+                (FloatInput.isValidDraft
+                    { sample | state = Just { draft = Just "1,5", id = sample.id, value = Just 1.5 } }
                     |> Expect.equal True
                 )
             , it "is false when the draft is not above the minimum"
-                (inputConfig (Just { draft = Just "0", id = sample.id, value = Nothing })
-                    |> FloatInput.isValidDraft
+                (FloatInput.isValidDraft
+                    { sample | state = Just { draft = Just "0", id = sample.id, value = Nothing } }
                     |> Expect.equal False
                 )
             , it "is false when the draft is outside the allowed range"
-                (let
-                    config =
-                        inputConfig (Just { draft = Just "11", id = sample.id, value = Nothing })
-                 in
-                 { config | max = Just 10 }
-                    |> FloatInput.isValidDraft
+                (FloatInput.isValidDraft
+                    { sample
+                        | max = Just 10
+                        , state = Just { draft = Just "11", id = sample.id, value = Nothing }
+                    }
                     |> Expect.equal False
                 )
             ]
