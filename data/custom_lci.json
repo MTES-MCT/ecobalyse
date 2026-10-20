@@ -9898,20 +9898,20 @@
   },
   {
     "activityCreationType": "from_scratch",
-    "alias": "product-use-petrol-upstream-500",
+    "alias": "product-use-petrol-upstream-1L",
     "comment": "see https://fabrique-numerique.gitbook.io/ecobalyse/vehicules/cycle-de-vie/utilisation-du-vehicule/construction-des-procedes-carburant",
     "database": "Ecoinvent 3.9.1",
     "exchanges": [
       {
-        "amount": 340,
+        "amount": 0.68,
         "name": "petrol, low-sulfur//[Europe without Switzerland] market for petrol, low-sulfur"
       },
       {
-        "amount": 38,
+        "amount": 0.075,
         "name": "ethyl tert-butyl ether//[RER] ethyl tert-butyl ether production, from bioethanol"
       }
     ],
-    "newName": "Petrol E10, upstream, 500h"
+    "newName": "Petrol E10, upstream, 1L"
   },
   {
     "activityCreationType": "from_scratch",
@@ -9930,18 +9930,18 @@
   },
   {
     "activityCreationType": "from_scratch",
-    "alias": "product-use-petrol-direct-co2-emissions-500h",
+    "alias": "product-use-petrol-direct-co2-emissions-1L",
     "comment": "see https://fabrique-numerique.gitbook.io/ecobalyse/vehicules/cycle-de-vie/utilisation-du-vehicule/construction-des-procedes-carburant",
     "database": "Ecoinvent 3.9.1",
     "exchanges": [
       {
-        "amount": 1095,
+        "amount": 2.19,
         "code": "349b29d1-3e58-4c66-98b9-9d1a076efd2e",
         "database": "biosphere3",
         "name": "Carbon dioxide, fossil"
       }
     ],
-    "newName": "Petrol E10, direct CO2 emissions, 500h"
+    "newName": "Petrol E10, direct CO2 emissions, 1L"
   },
   {
     "activityCreationType": "from_scratch",
