@@ -419,16 +419,20 @@ applyItemUnitMass session model query itemIndex mass =
 applyUnitMassInputState : Session -> Model -> Component.Query -> Index -> FloatInput.State -> PageUpdate Model Msg
 applyUnitMassInputState session model query itemIndex state =
     let
-        drafted =
-            { model | floatInputState = model.floatInputState |> FloatInput.applyState state }
+        newModel =
+            { model
+                | floatInputState =
+                    model.floatInputState
+                        |> FloatInput.applyState state
+            }
     in
     case state.value of
         Just kilograms ->
             Mass.kilograms kilograms
-                |> applyItemUnitMass session drafted query itemIndex
+                |> applyItemUnitMass session newModel query itemIndex
 
         Nothing ->
-            createPageUpdate session drafted
+            createPageUpdate session newModel
 
 
 update : Session -> Msg -> Model -> PageUpdate Model Msg
