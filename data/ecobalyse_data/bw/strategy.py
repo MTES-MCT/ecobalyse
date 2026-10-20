@@ -1,6 +1,7 @@
 import copy
 import re
 
+from bw2io.utils import rescale_exchange
 from tqdm import tqdm
 
 from . import agribalyse
@@ -83,24 +84,95 @@ def remove_some_processes(db):
     return new_db
 
 
+# What remove_creosote drops: from any dataset whose name holds one of these words,
+# the preservative itself (unit trellis) and what it is flattened into (system trellis)
+TRELLIS_WORDS = ("treillis", "trellis")
+CREOSOTE = "creosote"
+CREOSOTE_FLOWS = ("Pyrene", "Fluoranthene", "Phenanthrene", "Naphtalene", "Naphthalene")
+
+
 def remove_creosote(db):
     """Remove creosote flows from flattened system trellis (AGB, WFLDB)"""
     new_db = []
     for ds in tqdm(db):
         new_ds = copy.deepcopy(ds)
         name = ds["name"].lower()
-        if "treillis" in name or "trellis" in name:
+        if any(word in name for word in TRELLIS_WORDS):
             new_ds["exchanges"] = [
                 exc
                 for exc in ds["exchanges"]
-                # this is for system trellis
-                if exc.get("name", "")
-                not in ("Pyrene", "Fluoranthene", "Phenanthrene", "Naphtalene")
-                # this is for unit trellis
-                and "creosote" not in exc.get("name", "").lower()
+                if exc.get("name", "") not in CREOSOTE_FLOWS
+                and CREOSOTE not in exc.get("name", "").lower()
             ]
         new_db.append(new_ds)
     return new_db
+
+
+UNIT_CONVERSIONS = {
+    ("litre", "cubic meter"): 1e-3,
+    ("kilowatt hour", "megajoule"): 3.6,
+    ("megajoule", "kilowatt hour"): 1 / 3.6,
+    ("square meter", "hectare"): 1e-4,
+}
+
+# Units the method characterizes elementary flows in (water per m3, never per litre).
+# Regional water flows are absent from ecoinvent's biosphere, so it cannot tell us.
+BIOSPHERE_REFERENCE_UNITS = {"cubic meter"}
+
+
+def declared_units(nodes, key):
+    """Gather the units each node is declared in."""
+    units = {}
+    for node in nodes:
+        units.setdefault(key(node), set()).add(node["unit"])
+    return units
+
+
+def convert_to_linked_units(db, products):
+    """Write each exchange in the unit of what it links to, where a source writes another."""
+
+    def single(units):
+        return next(iter(units)) if len(units) == 1 else None
+
+    def linked_unit(exc):
+        match exc["type"]:
+            case "biosphere":
+                return next(
+                    (
+                        to
+                        for (written, to) in UNIT_CONVERSIONS
+                        if written == exc["unit"] and to in BIOSPHERE_REFERENCE_UNITS
+                    ),
+                    exc["unit"],
+                )
+            case "technosphere" | "substitution":
+                return single(products.get(exc["name"], set())) or exc["unit"]
+            case "production":
+                return exc["unit"]
+            case other:
+                raise ValueError(f"No unit rule for an exchange of type {other}")
+
+    def converted(ds, exc):
+        unit = linked_unit(exc)
+        if unit == exc["unit"]:
+            return exc
+        if (exc["unit"], unit) not in UNIT_CONVERSIONS:
+            raise ValueError(
+                f"{ds['name']} takes {exc['name']} in {exc['unit']}, "
+                f"which is linked in {unit}, and no conversion between them is known"
+            )
+        converted_exc = {**exc, "unit": unit}
+        return rescale_exchange(converted_exc, UNIT_CONVERSIONS[(exc["unit"], unit)])
+
+    return [
+        {**ds, "exchanges": [converted(ds, exc) for exc in ds["exchanges"]]}
+        for ds in db
+    ]
+
+
+# What remove_acetamiprid drops: this flow, from datasets in this location
+ACETAMIPRID = "Acetamiprid"
+ACETAMIPRID_LOCATION = "FR"
 
 
 def remove_acetamiprid(db):
@@ -108,9 +180,9 @@ def remove_acetamiprid(db):
     new_db = []
     for ds in tqdm(db):
         new_ds = copy.deepcopy(ds)
-        if ds.get("location") == "FR":
+        if ds.get("location") == ACETAMIPRID_LOCATION:
             new_ds["exchanges"] = [
-                exc for exc in ds["exchanges"] if exc.get("name", "") != "Acetamiprid"
+                exc for exc in ds["exchanges"] if exc.get("name", "") != ACETAMIPRID
             ]
         new_db.append(new_ds)
     return new_db
