@@ -44,7 +44,7 @@ type alias Config db msg =
     , docsUrl : Maybe String
     , documentationLink : Html msg
     , explorerRoute : Maybe Route
-    , floatDraft : Maybe FloatInput.Edit
+    , floatDraft : Maybe FloatInput.State
     , impact : Definition
     , labels :
         { add : String
@@ -61,7 +61,7 @@ type alias Config db msg =
     , setDetailed : List Index -> msg
     , unitMassLocked : Bool
     , updateItemQuantity : Index -> Quantity -> msg
-    , updateItemUnitMass : Index -> FloatInput.Edit -> msg
+    , updateItemUnitMass : Index -> FloatInput.State -> msg
     }
 
 

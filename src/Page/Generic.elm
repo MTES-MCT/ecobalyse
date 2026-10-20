@@ -78,7 +78,7 @@ type alias Model =
     , contributionRequestPending : Bool
     , detailedComponents : List Index
     , examples : List (Example Component.Query)
-    , floatDraft : Maybe FloatInput.Edit
+    , floatInputState : Maybe FloatInput.State
     , impact : Definition
     , initialQuery : Component.Query
     , modals : List Modal
@@ -156,7 +156,7 @@ type Msg
     | UpdateElementAmount TargetElement (Maybe Amount)
     | UpdateElementMaterialCountry TargetElement (Maybe CountryCode.Code)
     | UpdateElementTransformCountry TargetElement Index (Maybe CountryCode.Code)
-    | UpdateItemUnitMass Index FloatInput.Edit
+    | UpdateItemUnitMass Index FloatInput.State
     | UpdatePackagingAmount Index (Maybe Amount)
     | UpdateProduct (Maybe Product.Id)
     | UpdateRecyclability Bool
@@ -190,7 +190,7 @@ init genericScope trigram maybeUrlQuery session =
     , bookmarkBeingOvered = Nothing
     , bookmarkBeingRenamed = Nothing
     , examples = examples
-    , floatDraft = Nothing
+    , floatInputState = Nothing
     , impact = Definition.get trigram session.db.definitions
     , initialQuery = initialQuery
     , modals = []
@@ -249,7 +249,7 @@ initFromExample session genericScope uuid =
     , bookmarkBeingOvered = Nothing
     , bookmarkBeingRenamed = Nothing
     , examples = examples
-    , floatDraft = Nothing
+    , floatInputState = Nothing
     , impact = Definition.get Definition.Ecs session.db.definitions
     , initialQuery = exampleQuery
     , modals = []
@@ -416,13 +416,13 @@ applyItemUnitMass session model query itemIndex mass =
         createPageUpdate session model
 
 
-applyUnitMassInput : Session -> Model -> Component.Query -> Index -> FloatInput.Edit -> PageUpdate Model Msg
-applyUnitMassInput session model query itemIndex edit =
+applyUnitMassInput : Session -> Model -> Component.Query -> Index -> FloatInput.State -> PageUpdate Model Msg
+applyUnitMassInput session model query itemIndex state =
     let
         drafted =
-            { model | floatDraft = FloatInput.applyEdit model.floatDraft edit }
+            { model | floatInputState = FloatInput.applyState model.floatInputState state }
     in
-    case edit.value of
+    case state.value of
         Just kilograms ->
             Mass.kilograms kilograms
                 |> applyItemUnitMass session drafted query itemIndex
@@ -1112,7 +1112,7 @@ editorConfig session ({ genericScope } as model) =
     , detailed = model.detailedComponents
     , docsUrl = Nothing
     , explorerRoute = Just (Route.Explore scope (Dataset.Components scope Nothing))
-    , floatDraft = model.floatDraft
+    , floatDraft = model.floatInputState
     , impact = model.impact
     , labels = ComponentView.scopeLabels Context.Generic scope
     , noOp = NoOp

@@ -1,7 +1,7 @@
 module Views.FloatInput exposing
     ( Config
-    , Edit
-    , applyEdit
+    , State
+    , applyState
     , format
     , fromInput
     , view
@@ -18,22 +18,15 @@ import Json.Decode.Pipeline as JDP
 type alias Config msg =
     { allowNegative : Bool
     , decimalSeparator : Char
-    , draft : Maybe Edit
+    , draft : Maybe State
     , id : String
     , label : String
     , max : Maybe Float
     , min : Maybe Float
     , noOp : msg
-    , onInput : Edit -> msg
+    , onInput : State -> msg
     , step : Maybe Float
     , value : Float
-    }
-
-
-type alias Edit =
-    { draft : Maybe String
-    , id : String
-    , value : Maybe Float
     }
 
 
@@ -47,11 +40,18 @@ type alias Input =
     }
 
 
-applyEdit : Maybe Edit -> Edit -> Maybe Edit
-applyEdit current ({ draft, id } as edit) =
+type alias State =
+    { draft : Maybe String
+    , id : String
+    , value : Maybe Float
+    }
+
+
+applyState : Maybe State -> State -> Maybe State
+applyState current ({ draft, id } as state) =
     case draft of
         Just _ ->
-            Just edit
+            Just state
 
         Nothing ->
             current
@@ -95,7 +95,7 @@ format separator float =
         |> String.replace "." (String.fromChar separator)
 
 
-fromInput : Input -> Maybe Edit
+fromInput : Input -> Maybe State
 fromInput { allowNegative, current, id, max, min, text } =
     if isLegalPrefix allowNegative text then
         Just

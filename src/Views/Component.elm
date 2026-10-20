@@ -63,7 +63,7 @@ type alias Config db msg =
     , detailed : List Index
     , docsUrl : Maybe String
     , explorerRoute : Maybe Route
-    , floatDraft : Maybe FloatInput.Edit
+    , floatDraft : Maybe FloatInput.State
     , impact : Definition
     , labels : Labels
     , lifeCycle : Result String LifeCycle
@@ -94,7 +94,7 @@ type alias Config db msg =
     , updateElementTransformCountry : TargetElement -> Index -> Maybe CountryCode.Code -> msg
     , updateItemName : TargetItem -> String -> msg
     , updateItemQuantity : Index -> Quantity -> msg
-    , updateItemUnitMass : Index -> FloatInput.Edit -> msg
+    , updateItemUnitMass : Index -> FloatInput.State -> msg
     , updatePackagingAmount : Index -> Maybe Amount -> msg
     , updateRecyclable : Bool -> msg
     }
