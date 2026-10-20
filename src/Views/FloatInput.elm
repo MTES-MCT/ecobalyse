@@ -10,8 +10,8 @@ module Views.FloatInput exposing
 
 import Html exposing (..)
 import Html.Attributes as Attr exposing (..)
-import Html.Events as Events exposing (..)
-import Json.Decode as Decode
+import Html.Events exposing (..)
+import Json.Decode as Decode exposing (Decoder)
 import Json.Decode.Pipeline as JDP
 
 
@@ -161,11 +161,9 @@ isUnsignedPrefix text =
     (List.length separators <= 1) && List.all Char.isDigit otherCharacters
 
 
-{-| Listen to the beforeinput event to intercept and validate text insertions
-@see <https://developer.mozilla.org/en-US/docs/Web/API/Element/beforeinput_event>
--}
-onBeforeInput : Bool -> msg -> Attribute msg
-onBeforeInput allowNegative noOp =
+decodeBeforeInputEvent : Config msg -> Decoder ( msg, Bool )
+decodeBeforeInputEvent { allowNegative, noOp } =
+    -- https://developer.mozilla.org/en-US/docs/Web/API/Element/beforeinput_event
     Decode.succeed
         (\inputType data value start end ->
             ( inputType
@@ -185,7 +183,6 @@ onBeforeInput allowNegative noOp =
                 else
                     Decode.fail "invalid input"
             )
-        |> Events.preventDefaultOn "beforeinput"
 
 
 parse : String -> Maybe Float
@@ -214,8 +211,8 @@ view config =
                , attribute "inputmode" "decimal"
                , spellcheck False
                , value (displayText config)
-               , onInput
-                    (\text ->
+               , onInput <|
+                    \text ->
                         fromInput
                             { allowNegative = config.allowNegative
                             , current = config.value
@@ -226,9 +223,8 @@ view config =
                             }
                             |> Maybe.map config.onInput
                             |> Maybe.withDefault config.noOp
-                    )
-               , onBlur (config.onInput (blurEdit config))
-               , onBeforeInput config.allowNegative config.noOp
+               , onBlur <| config.onInput (blurEdit config)
+               , preventDefaultOn "beforeinput" <| decodeBeforeInputEvent config
                ]
         )
         []
