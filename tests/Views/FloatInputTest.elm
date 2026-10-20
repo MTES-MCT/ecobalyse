@@ -19,20 +19,15 @@ suite : Test
 suite =
     describe "Views.FloatInput"
         [ describe "format"
-            [ it "uses the configured separator"
+            [ it "displays a comma as the decimal separator"
                 (1.25
-                    |> FloatInput.format ','
+                    |> FloatInput.format
                     |> Expect.equal "1,25"
                 )
             , it "keeps an integer without a decimal part"
                 (1
-                    |> FloatInput.format ','
+                    |> FloatInput.format
                     |> Expect.equal "1"
-                )
-            , it "can display a dot separator"
-                (1.5
-                    |> FloatInput.format '.'
-                    |> Expect.equal "1.5"
                 )
             ]
         , describe "applyEdit"
@@ -100,8 +95,7 @@ suite =
             ]
         , let
             inputConfig state =
-                { decimalSeparator = ','
-                , id = sample.id
+                { id = sample.id
                 , label = "Masse unitaire"
                 , max = Nothing
                 , min = Just 0

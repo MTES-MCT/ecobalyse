@@ -17,8 +17,7 @@ import Json.Decode.Pipeline as JDP
 
 
 type alias Config msg =
-    { decimalSeparator : Char
-    , id : String
+    { id : String
     , label : String
     , max : Maybe Float
     , min : Maybe Float
@@ -105,24 +104,24 @@ onBeforeInput { noOp } =
 
 
 displayText : Config msg -> String
-displayText ({ decimalSeparator, id, value } as config) =
+displayText ({ id, value } as config) =
     case config.state of
         Just state ->
             if state.id == id then
                 state.draft
-                    |> Maybe.withDefault (format decimalSeparator value)
+                    |> Maybe.withDefault (format value)
 
             else
-                format decimalSeparator value
+                format value
 
         Nothing ->
-            format decimalSeparator value
+            format value
 
 
-format : Char -> Float -> String
-format separator float =
+format : Float -> String
+format float =
     String.fromFloat float
-        |> String.replace "." (String.fromChar separator)
+        |> String.replace "." ","
 
 
 fromInput : Input -> Maybe State
@@ -190,8 +189,6 @@ isLegalPrefix text =
             False
 
 
-{-| Float number parser, handling `,` as a decimal separator and intermediary typing states.
--}
 parse : String -> Maybe Float
 parse text =
     if

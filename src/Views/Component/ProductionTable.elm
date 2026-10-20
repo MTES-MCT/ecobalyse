@@ -362,8 +362,7 @@ unitMassInput config itemIndex elements itemResults =
         AmountInput.Writeable ->
             div [ class "AmountInput input-group" ]
                 [ FloatInput.view
-                    { decimalSeparator = ','
-                    , id = "unit-mass-" ++ String.fromInt itemIndex
+                    { id = "unit-mass-" ++ String.fromInt itemIndex
                     , label = "Masse unitaire"
                     , max = Nothing
                     , min = Just 0
