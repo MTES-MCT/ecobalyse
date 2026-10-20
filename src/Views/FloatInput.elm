@@ -195,13 +195,16 @@ onBeforeInput allowNegative noOp =
 
 parse : String -> Maybe Float
 parse text =
-    if String.isEmpty text || text == "-" || String.endsWith "," text || String.endsWith "." text then
+    if
+        String.isEmpty text
+            || (text == "-")
+            || String.endsWith "," text
+            || String.endsWith "." text
+    then
         Nothing
 
     else
-        text
-            |> String.replace "," "."
-            |> String.toFloat
+        text |> String.replace "," "." |> String.toFloat
 
 
 view : Config msg -> Html msg
