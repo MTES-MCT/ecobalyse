@@ -1809,6 +1809,14 @@ components:
           type: integer
           minimum: 1
           description: Nombre d'exemplaires de ce composant.
+        unitMass:
+          type: number
+          minimum: 0
+          exclusiveMinimum: true
+          description: |
+            Masse unitaire finale du composant, en kilogrammes (optionnel) :
+            - Si le champ est fourni, il est prioritaire sur la masse cumulée des éléments du composant ;
+            - Si le champ est omis, la masse cumulée des éléments du composant est utilisée.
         name:
           type: string
           description: Nom du composant personnalisé.

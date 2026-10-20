@@ -14,6 +14,7 @@ import Data.Component as Component
         , Results
         , TargetItem
         )
+import Data.Component.Amount as Amount
 import Data.Impact.Definition exposing (Definition)
 import Data.Process as Process
 import Data.Process.Category as Category
@@ -22,9 +23,12 @@ import Html exposing (..)
 import Html.Attributes as Attr exposing (..)
 import Html.Events exposing (..)
 import List.Extra as LE
+import Mass exposing (Mass)
+import Quantity
 import Route exposing (Route)
 import Views.Alert as Alert
 import Views.Button as Button
+import Views.Component.AmountInput as AmountInput
 import Views.Component.Context as Context exposing (Context)
 import Views.Component.ItemRow as ItemRow exposing (emptyItemRow)
 import Views.Format as Format
@@ -53,7 +57,9 @@ type alias Config db msg =
     , removeItem : Index -> msg
     , scope : Scope
     , setDetailed : List Index -> msg
+    , unitMassLocked : Bool
     , updateItemQuantity : Index -> Quantity -> msg
+    , updateItemUnitMass : Index -> Maybe Mass -> msg
     }
 
 
@@ -102,7 +108,7 @@ addProductionItemButton ({ db } as config) =
 {-| Renders elements summary when an item is expanded
 -}
 elementSummaryRow : Config db msg -> Results -> ExpandedElement -> Results -> Html msg
-elementSummaryRow config itemResults { amount, material, transforms } elementResults =
+elementSummaryRow config itemResults { material, transforms } elementResults =
     let
         elementMass =
             Component.extractMass elementResults
@@ -113,10 +119,13 @@ elementSummaryRow config itemResults { amount, material, transforms } elementRes
                 , "(" ++ (country |> Maybe.map .name |> Maybe.withDefault "Inconnu") ++ ")"
                 ]
 
+        effectiveAmount =
+            Component.extractAmount elementResults
+
         amountInfo =
             span [ class "d-flex text-muted fs-8" ]
                 [ if material.process.unit /= Process.Kilogram then
-                    span [] [ text "(", Format.amount material.process amount, text ")\u{00A0}" ]
+                    span [] [ text "(", Format.amount material.process effectiveAmount, text ")\u{00A0}" ]
 
                   else
                     text ""
@@ -296,13 +305,53 @@ itemView config itemIndex { component, elements, quantity } itemResults =
                 Component.extractMass itemResults
                     |> Format.kg
             , unitMass =
-                Component.extractUnitMass itemResults
-                    |> Format.kg
+                if config.context == Context.TextileTrims then
+                    Component.extractUnitMass itemResults
+                        |> Format.kg
+
+                else
+                    itemResults
+                        |> unitMassInput config itemIndex elements
             }
         ]
     , itemDetailedRows config elements itemResults
         |> tbody [ class "table-light", id <| itemDetailsId itemIndex, hidden collapsed ]
     ]
+
+
+unitMassInput : Config db msg -> Index -> List Component.ExpandedElement -> Results -> Html msg
+unitMassInput config itemIndex elements itemResults =
+    let
+        mass =
+            config.query.items
+                |> LE.getAt itemIndex
+                |> Maybe.andThen .unitMass
+                |> Maybe.withDefault (Component.extractUnitMass itemResults)
+
+        writeAccess =
+            -- An element whose material process has no known mass per unit makes the item unit mass uneditable.
+            if elements |> List.any (.material >> .process >> Process.hasValidMassPerUnit >> not) then
+                AmountInput.ReadOnly "La masse par unité du procédé mobilisé n’est pas connue à ce jour"
+
+            else if mass == Quantity.zero then
+                AmountInput.ReadOnly "La masse des éléments du composant est nulle, édition impossible"
+
+            else if config.unitMassLocked then
+                AmountInput.ReadOnly "La masse unitaire n’est pas modifiable tant que la modale d’édition du composant est ouverte"
+
+            else
+                AmountInput.Writeable
+    in
+    Mass.inKilograms mass
+        |> Amount.fromFloat
+        |> AmountInput.view
+            { event =
+                -- Send unit mass… as a Mass!
+                Maybe.map (Amount.toFloat >> Mass.kilograms)
+                    >> config.updateItemUnitMass itemIndex
+            , unit = Process.Kilogram
+            , writeAccess = writeAccess
+            }
 
 
 quantityInput : Config db msg -> Index -> Quantity -> Html msg

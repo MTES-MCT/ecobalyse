@@ -83,6 +83,7 @@ type alias Config db msg =
     , setDetailed : List Index -> msg
     , toggleTransportByAir : Split -> msg
     , toggleTransportCooling : Bool -> msg
+    , unitMassLocked : Bool
     , updateAssemblyCountry : Maybe CountryCode.Code -> msg
     , updateConsumptionAmount : Index -> Maybe Amount -> msg
     , updateDistribution : Result String Process.Id -> msg
@@ -91,6 +92,7 @@ type alias Config db msg =
     , updateElementTransformCountry : TargetElement -> Index -> Maybe CountryCode.Code -> msg
     , updateItemName : TargetItem -> String -> msg
     , updateItemQuantity : Index -> Quantity -> msg
+    , updateItemUnitMass : Index -> Maybe Mass -> msg
     , updatePackagingAmount : Index -> Maybe Amount -> msg
     , updateRecyclable : Bool -> msg
     }
@@ -277,7 +279,9 @@ lifeCycleView ({ impact, query, scope } as config) lifeCycle =
             , removeItem = config.removeItem
             , scope = config.scope
             , setDetailed = config.setDetailed
+            , unitMassLocked = config.unitMassLocked
             , updateItemQuantity = config.updateItemQuantity
+            , updateItemUnitMass = config.updateItemUnitMass
             }
             lifeCycle.production
         , if Scope.isGeneric scope && not (List.isEmpty query.items) then
@@ -402,12 +406,18 @@ quantifiedProcessList { db, impact } lifeCycle listConfig quantifiedProcesses =
                                 (\index { amount, process } ->
                                     tr []
                                         [ td [ class "ps-3 align-middle text-nowrap", style "min-width" "160px" ]
-                                            [ AmountInput.view
-                                                { event = listConfig.updateAmount index
-                                                , readonly = List.member Category.ProductMassDependent process.categories
-                                                , unit = process.unit
-                                                }
-                                                (Component.useProcessAmount lifeCycle process amount)
+                                            [ amount
+                                                |> Component.useProcessAmount lifeCycle process
+                                                |> AmountInput.view
+                                                    { event = listConfig.updateAmount index
+                                                    , unit = process.unit
+                                                    , writeAccess =
+                                                        if List.member Category.ProductMassDependent process.categories then
+                                                            AmountInput.ReadOnly "Cette quantité n’est pas modifiable"
+
+                                                        else
+                                                            AmountInput.Writeable
+                                                    }
                                             ]
                                         , td
                                             [ class "align-middle text-truncate w-66 cursor-help "

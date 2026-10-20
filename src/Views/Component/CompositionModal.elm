@@ -151,18 +151,18 @@ elementAmountInput config targetElement process amount =
         Format.amount process amount
 
     else
-        AmountInput.view
-            { event = config.updateElementAmount targetElement
-            , readonly = False
-            , unit = process.unit
-            }
-            amount
+        amount
+            |> AmountInput.view
+                { event = config.updateElementAmount targetElement
+                , unit = process.unit
+                , writeAccess = AmountInput.Writeable
+                }
 
 
 {-| Renders a single item element's composition rows (header, summary, raw material, transforms, transport)
 -}
 elementCompositionRows : Config db msg -> TargetElement -> ExpandedElement -> Results -> Results -> List (Html msg)
-elementCompositionRows config targetElement ({ amount, material, transforms } as expandedElement) itemResults elementResults =
+elementCompositionRows config targetElement ({ material, transforms } as expandedElement) itemResults elementResults =
     let
         elementCooling =
             Process.isTransportedCooled material.process
@@ -200,7 +200,8 @@ elementCompositionRows config targetElement ({ amount, material, transforms } as
             ProcessRow.view [ class "fs-7" ]
                 { emptyProcessRow
                     | amount =
-                        amount |> elementAmountInput config targetElement material.process
+                        Component.extractAmount elementResults
+                            |> elementAmountInput config targetElement material.process
                     , impact =
                         if transportImpacts == Impact.empty then
                             totalImpact
@@ -406,7 +407,7 @@ itemCompositionModalBody config targetItem { component, elements } itemResults =
                         config.labels.elementNounPlural
                 )
                 [ text <| String.fromInt elementCount ]
-            , compositionStat "poids total"
+            , compositionStat "masse unitaire"
                 [ Component.extractUnitMass itemResults
                     |> Format.kg
                 ]
