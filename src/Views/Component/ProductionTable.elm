@@ -349,6 +349,8 @@ unitMassInput config itemIndex elements itemResults =
     in
     case writeAccess of
         AmountInput.ReadOnly readonlyTitle ->
+            -- TODO: update AmountInput to use FloatInput as well. We need to first validate the FloatInput implementation
+            --       in production for a little while before generalizing to other float inputs
             kilograms
                 |> Amount.fromFloat
                 |> AmountInput.view
