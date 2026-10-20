@@ -23,7 +23,7 @@ import Html exposing (..)
 import Html.Attributes as Attr exposing (..)
 import Html.Events exposing (..)
 import List.Extra as LE
-import Mass exposing (Mass)
+import Mass
 import Quantity
 import Route exposing (Route)
 import Views.Alert as Alert
@@ -31,18 +31,21 @@ import Views.Button as Button
 import Views.Component.AmountInput as AmountInput
 import Views.Component.Context as Context exposing (Context)
 import Views.Component.ItemRow as ItemRow exposing (emptyItemRow)
+import Views.FloatInput as FloatInput
 import Views.Format as Format
 import Views.Icon as Icon
 import Views.Link as Link
 
 
 type alias Config db msg =
-    { context : Context
+    { blurUnitMass : msg
+    , context : Context
     , db : Component.DataContainer db
     , detailed : List Index
     , docsUrl : Maybe String
     , documentationLink : Html msg
     , explorerRoute : Maybe Route
+    , floatDraft : Maybe FloatInput.Draft
     , impact : Definition
     , labels :
         { add : String
@@ -59,7 +62,7 @@ type alias Config db msg =
     , setDetailed : List Index -> msg
     , unitMassLocked : Bool
     , updateItemQuantity : Index -> Quantity -> msg
-    , updateItemUnitMass : Index -> Maybe Mass -> msg
+    , updateItemUnitMass : Index -> FloatInput.Edit -> msg
     }
 
 
@@ -328,6 +331,9 @@ unitMassInput config itemIndex elements itemResults =
                 |> Maybe.andThen .unitMass
                 |> Maybe.withDefault (Component.extractUnitMass itemResults)
 
+        kilograms =
+            Mass.inKilograms mass
+
         writeAccess =
             -- An element whose material process has no known mass per unit makes the item unit mass uneditable.
             if elements |> List.any (.material >> .process >> Process.hasValidMassPerUnit >> not) then
@@ -342,16 +348,48 @@ unitMassInput config itemIndex elements itemResults =
             else
                 AmountInput.Writeable
     in
-    Mass.inKilograms mass
-        |> Amount.fromFloat
-        |> AmountInput.view
-            { event =
-                -- Send unit mass… as a Mass!
-                Maybe.map (Amount.toFloat >> Mass.kilograms)
-                    >> config.updateItemUnitMass itemIndex
-            , unit = Process.Kilogram
-            , writeAccess = writeAccess
-            }
+    case writeAccess of
+        AmountInput.ReadOnly readonlyTitle ->
+            kilograms
+                |> Amount.fromFloat
+                |> AmountInput.view
+                    { event = \_ -> config.noOp
+                    , unit = Process.Kilogram
+                    , writeAccess = AmountInput.ReadOnly readonlyTitle
+                    }
+
+        AmountInput.Writeable ->
+            div [ class "AmountInput input-group" ]
+                [ FloatInput.view
+                    { allowNegative = False
+                    , decimalSeparator = ','
+                    , draft = config.floatDraft
+                    , id = "unit-mass-" ++ String.fromInt itemIndex
+                    , label = "Masse unitaire"
+                    , max = Nothing
+                    , min = Just 0
+                    , noOp = config.noOp
+                    , onBlur = config.blurUnitMass
+                    , onInput = config.updateItemUnitMass itemIndex
+                    , step = Just (unitMassStep kilograms)
+                    , value = kilograms
+                    }
+                , small [ class "input-group-text fs-8" ]
+                    [ text <| Process.unitToString Process.Kilogram ]
+                ]
+
+
+unitMassStep : Float -> Float
+unitMassStep kilograms =
+    case String.split "." (String.fromFloat kilograms) of
+        [ _, decimals ] ->
+            "0."
+                ++ String.padLeft (String.length decimals) '0' "1"
+                |> String.toFloat
+                |> Maybe.withDefault 0.1
+
+        _ ->
+            0.1
 
 
 quantityInput : Config db msg -> Index -> Quantity -> Html msg

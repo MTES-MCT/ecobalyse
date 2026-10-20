@@ -49,19 +49,22 @@ import Views.Component.Context as Context exposing (Context)
 import Views.Component.DownArrow as DownArrow
 import Views.Component.ProductionTable as ProductionTable
 import Views.Component.RegionSelector as RegionSelector
+import Views.FloatInput as FloatInput
 import Views.Format as Format
 import Views.Icon as Icon
 import Views.Transport as TransportView
 
 
 type alias Config db msg =
-    { componentConfig : Component.Config
+    { blurUnitMass : msg
+    , componentConfig : Component.Config
     , context : Context
     , db : Component.DataContainer db
     , debug : Bool
     , detailed : List Index
     , docsUrl : Maybe String
     , explorerRoute : Maybe Route
+    , floatDraft : Maybe FloatInput.Draft
     , impact : Definition
     , labels : Labels
     , lifeCycle : Result String LifeCycle
@@ -92,7 +95,7 @@ type alias Config db msg =
     , updateElementTransformCountry : TargetElement -> Index -> Maybe CountryCode.Code -> msg
     , updateItemName : TargetItem -> String -> msg
     , updateItemQuantity : Index -> Quantity -> msg
-    , updateItemUnitMass : Index -> Maybe Mass -> msg
+    , updateItemUnitMass : Index -> FloatInput.Edit -> msg
     , updatePackagingAmount : Index -> Maybe Amount -> msg
     , updateRecyclable : Bool -> msg
     }
@@ -259,12 +262,14 @@ lifeCycleView : Config db msg -> LifeCycle -> Html msg
 lifeCycleView ({ impact, query, scope } as config) lifeCycle =
     div [ class "d-flex flex-column" ]
         [ ProductionTable.view
-            { context = config.context
+            { blurUnitMass = config.blurUnitMass
+            , context = config.context
             , db = config.db
             , detailed = config.detailed
             , docsUrl = config.docsUrl
             , documentationLink = documentationLink config "production"
             , explorerRoute = config.explorerRoute
+            , floatDraft = config.floatDraft
             , impact = config.impact
             , labels =
                 { add = config.labels.add

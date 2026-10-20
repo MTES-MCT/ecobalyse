@@ -56,6 +56,7 @@ import Views.Component as ComponentView
 import Views.Component.Context as Context
 import Views.Container as Container
 import Views.Example as ExampleView
+import Views.FloatInput as FloatInput
 import Views.Format as Format
 import Views.Icon as Icon
 import Views.ImpactTabs as ImpactTabs
@@ -77,6 +78,7 @@ type alias Model =
     , contributionRequestPending : Bool
     , detailedComponents : List Index
     , examples : List (Example Component.Query)
+    , floatDraft : Maybe FloatInput.Draft
     , impact : Definition
     , initialQuery : Component.Query
     , modals : List Modal
@@ -98,6 +100,7 @@ type Modal
 
 type Msg
     = AppendModal Modal
+    | BlurFloatDraft
     | CopyToClipBoard String
     | CreateExampleContrib
     | DeleteBookmark Bookmark
@@ -154,7 +157,7 @@ type Msg
     | UpdateElementAmount TargetElement (Maybe Amount)
     | UpdateElementMaterialCountry TargetElement (Maybe CountryCode.Code)
     | UpdateElementTransformCountry TargetElement Index (Maybe CountryCode.Code)
-    | UpdateItemUnitMass Index (Maybe Mass)
+    | UpdateItemUnitMass Index FloatInput.Edit
     | UpdatePackagingAmount Index (Maybe Amount)
     | UpdateProduct (Maybe Product.Id)
     | UpdateRecyclability Bool
@@ -188,6 +191,7 @@ init genericScope trigram maybeUrlQuery session =
     , bookmarkBeingOvered = Nothing
     , bookmarkBeingRenamed = Nothing
     , examples = examples
+    , floatDraft = Nothing
     , impact = Definition.get trigram session.db.definitions
     , initialQuery = initialQuery
     , modals = []
@@ -246,6 +250,7 @@ initFromExample session genericScope uuid =
     , bookmarkBeingOvered = Nothing
     , bookmarkBeingRenamed = Nothing
     , examples = examples
+    , floatDraft = Nothing
     , impact = Definition.get Definition.Ecs session.db.definitions
     , initialQuery = exampleQuery
     , modals = []
@@ -412,6 +417,21 @@ applyItemUnitMass session model query itemIndex mass =
         createPageUpdate session model
 
 
+applyUnitMassInput : Session -> Model -> Component.Query -> Index -> FloatInput.Edit -> PageUpdate Model Msg
+applyUnitMassInput session model query itemIndex edit =
+    let
+        drafted =
+            { model | floatDraft = edit.draft }
+    in
+    case edit.value of
+        Just kilograms ->
+            Mass.kilograms kilograms
+                |> applyItemUnitMass session drafted query itemIndex
+
+        Nothing ->
+            createPageUpdate session drafted
+
+
 update : Session -> Msg -> Model -> PageUpdate Model Msg
 update ({ navKey } as session) msg model =
     let
@@ -431,6 +451,10 @@ update ({ navKey } as session) msg model =
     case ( msg, model.modals ) of
         ( AppendModal modal, modals ) ->
             { model | modals = modal :: modals }
+                |> createPageUpdate session
+
+        ( BlurFloatDraft, _ ) ->
+            { model | floatDraft = Nothing }
                 |> createPageUpdate session
 
         ( CopyToClipBoard shareableLink, _ ) ->
@@ -831,11 +855,8 @@ update ({ navKey } as session) msg model =
         ( UpdateElementAmount targetElement (Just amount), _ ) ->
             applyElementAmount session model query targetElement amount
 
-        ( UpdateItemUnitMass itemIndex (Just mass), _ ) ->
-            applyItemUnitMass session model query itemIndex mass
-
-        ( UpdateItemUnitMass _ Nothing, _ ) ->
-            createPageUpdate session model
+        ( UpdateItemUnitMass itemIndex edit, _ ) ->
+            applyUnitMassInput session model query itemIndex edit
 
         ( UpdateElementMaterialCountry targetElement maybeCountryCode, _ ) ->
             createPageUpdate session model
@@ -1089,13 +1110,15 @@ editorConfig session ({ genericScope } as model) =
         scope =
             Scope.Generic genericScope
     in
-    { componentConfig = session.componentConfig
+    { blurUnitMass = BlurFloatDraft
+    , componentConfig = session.componentConfig
     , context = Context.Generic
     , db = session.db
     , debug = True
     , detailed = model.detailedComponents
     , docsUrl = Nothing
     , explorerRoute = Just (Route.Explore scope (Dataset.Components scope Nothing))
+    , floatDraft = model.floatDraft
     , impact = model.impact
     , labels = ComponentView.scopeLabels Context.Generic scope
     , noOp = NoOp

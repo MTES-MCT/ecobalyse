@@ -1005,13 +1005,15 @@ simulatorFormView session model ({ inputs } as simulator) =
             ]
         ]
     , ComponentView.editorView
-        { componentConfig = session.componentConfig
+        { blurUnitMass = NoOp
+        , componentConfig = session.componentConfig
         , context = Context.TextileTrims
         , db = session.db
         , debug = False
         , detailed = []
         , docsUrl = Just <| Gitbook.publicUrlFromPath Gitbook.TextileTrims
         , explorerRoute = Just (Route.Explore Scope.Textile (Dataset.Components Scope.Textile Nothing))
+        , floatDraft = Nothing
         , impact = model.impact
         , labels = ComponentView.scopeLabels Context.TextileTrims Scope.Textile
         , lifeCycle =
