@@ -4,6 +4,7 @@ module Views.FloatInput exposing
     , applyState
     , format
     , fromInput
+    , isValidDraft
     , view
     )
 
@@ -150,11 +151,32 @@ fromInput { allowNegative, current, id, max, min, text } =
 
 inRange : Maybe Float -> Maybe Float -> Float -> Bool
 inRange min max float =
-    Maybe.withDefault True <|
-        Maybe.map2
-            (\lower upper -> float >= lower && float <= upper)
-            min
-            max
+    (min |> Maybe.map (\lower -> float > lower) |> Maybe.withDefault True)
+        && (max |> Maybe.map (\upper -> float <= upper) |> Maybe.withDefault True)
+
+
+isValidDraft : Config msg -> Bool
+isValidDraft ({ id, max, min } as config) =
+    case config.state of
+        Just state ->
+            if state.id == id then
+                case state.draft of
+                    Just text ->
+                        case parse text of
+                            Just float ->
+                                inRange min max float
+
+                            Nothing ->
+                                False
+
+                    Nothing ->
+                        True
+
+            else
+                True
+
+        Nothing ->
+            True
 
 
 isLegalPrefix : Bool -> String -> Bool
@@ -209,6 +231,7 @@ view config =
         (boundAttributes config
             ++ [ type_ "text"
                , class "form-control form-control-sm text-end"
+               , classList [ ( "bg-warning", not <| isValidDraft config ) ]
                , id config.id
                , attribute "aria-label" config.label
                , attribute "autocomplete" "off"

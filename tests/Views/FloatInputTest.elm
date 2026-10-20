@@ -98,10 +98,65 @@ suite =
                     |> FloatInput.fromInput
                     |> expectState "11" Nothing
                 )
-            , it "resolves zero when min is zero"
+            , it "does not resolve zero when it is not above the minimum"
                 ({ sample | text = "0" }
                     |> FloatInput.fromInput
-                    |> expectState "0" (Just 0)
+                    |> expectState "0" Nothing
+                )
+            ]
+        , let
+            inputConfig state =
+                { allowNegative = False
+                , decimalSeparator = ','
+                , id = sample.id
+                , label = "Masse unitaire"
+                , max = Nothing
+                , min = Just 0
+                , noOp = ()
+                , onInput = \_ -> ()
+                , state = state
+                , value = sample.current
+                }
+          in
+          describe "isValidDraft"
+            [ it "is true when the field is not being edited"
+                (inputConfig Nothing
+                    |> FloatInput.isValidDraft
+                    |> Expect.equal True
+                )
+            , it "is true when another field is being edited"
+                (inputConfig (Just { draft = Just "1,", id = "other", value = Nothing })
+                    |> FloatInput.isValidDraft
+                    |> Expect.equal True
+                )
+            , it "is false when the draft is not a complete number"
+                (inputConfig (Just { draft = Just "1,", id = sample.id, value = Nothing })
+                    |> FloatInput.isValidDraft
+                    |> Expect.equal False
+                )
+            , it "is true when the draft resolves to the current value"
+                (inputConfig (Just { draft = Just "1,0", id = sample.id, value = Nothing })
+                    |> FloatInput.isValidDraft
+                    |> Expect.equal True
+                )
+            , it "is true when the draft resolves to a new value"
+                (inputConfig (Just { draft = Just "1,5", id = sample.id, value = Just 1.5 })
+                    |> FloatInput.isValidDraft
+                    |> Expect.equal True
+                )
+            , it "is false when the draft is not above the minimum"
+                (inputConfig (Just { draft = Just "0", id = sample.id, value = Nothing })
+                    |> FloatInput.isValidDraft
+                    |> Expect.equal False
+                )
+            , it "is false when the draft is outside the allowed range"
+                (let
+                    config =
+                        inputConfig (Just { draft = Just "11", id = sample.id, value = Nothing })
+                 in
+                 { config | max = Just 10 }
+                    |> FloatInput.isValidDraft
+                    |> Expect.equal False
                 )
             ]
         ]
