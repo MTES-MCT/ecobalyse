@@ -8,12 +8,11 @@ module Views.FloatInput exposing
     , view
     )
 
-import Data.Common.DecodeUtils as DU
 import Html exposing (..)
 import Html.Attributes as Attr exposing (..)
 import Html.Events as Events exposing (..)
 import Json.Decode as Decode
-import Json.Decode.Extra as DE
+import Json.Decode.Pipeline as JDP
 
 
 type alias Config msg =
@@ -173,11 +172,11 @@ onBeforeInput allowNegative noOp =
             , String.left start value ++ data ++ String.dropLeft end value
             )
         )
-        |> DE.andMap (Decode.field "inputType" Decode.string)
-        |> DE.andMap (DU.decodeAtWithDefault [ "data" ] Decode.string "")
-        |> DE.andMap (Decode.at [ "target", "value" ] Decode.string)
-        |> DE.andMap (DU.decodeAtWithDefault [ "target", "selectionStart" ] Decode.int 0)
-        |> DE.andMap (DU.decodeAtWithDefault [ "target", "selectionEnd" ] Decode.int 0)
+        |> JDP.required "inputType" Decode.string
+        |> JDP.optional "data" Decode.string ""
+        |> JDP.requiredAt [ "target", "value" ] Decode.string
+        |> JDP.optionalAt [ "target", "selectionStart" ] Decode.int 0
+        |> JDP.optionalAt [ "target", "selectionEnd" ] Decode.int 0
         |> Decode.andThen
             (\( inputType, next ) ->
                 if (inputType == "insertText" || inputType == "insertFromPaste") && not (isLegalPrefix allowNegative next) then
