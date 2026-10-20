@@ -17,8 +17,7 @@ import Json.Decode.Pipeline as JDP
 
 
 type alias Config msg =
-    { allowNegative : Bool
-    , decimalSeparator : Char
+    { decimalSeparator : Char
     , id : String
     , label : String
     , max : Maybe Float
@@ -31,8 +30,7 @@ type alias Config msg =
 
 
 type alias Input =
-    { allowNegative : Bool
-    , current : Float
+    { current : Float
     , id : String
     , max : Maybe Float
     , min : Maybe Float
@@ -74,7 +72,7 @@ boundAttributes config =
 
 
 onBeforeInput : Config msg -> Attribute msg
-onBeforeInput { allowNegative, noOp } =
+onBeforeInput { noOp } =
     preventDefaultOn "beforeinput" <|
         -- https://developer.mozilla.org/en-US/docs/Web/API/Element/beforeinput_event
         (Decode.succeed
@@ -94,7 +92,7 @@ onBeforeInput { allowNegative, noOp } =
                         -- user typed a character or pasted text
                         (inputType == "insertText" || inputType == "insertFromPaste")
                             -- the field would no longer be a number they are allowed to enter
-                            && not (isLegalPrefix allowNegative next)
+                            && not (isLegalPrefix next)
                     then
                         -- drop the keystroke or paste, so the field stays unchanged
                         Decode.succeed ( noOp, True )
@@ -128,8 +126,8 @@ format separator float =
 
 
 fromInput : Input -> Maybe State
-fromInput { allowNegative, current, id, max, min, text } =
-    if isLegalPrefix allowNegative text then
+fromInput { current, id, max, min, text } =
+    if isLegalPrefix text then
         Just
             { draft = Just text
             , id = id
@@ -179,21 +177,8 @@ isValidDraft ({ id, max, min } as config) =
             True
 
 
-isLegalPrefix : Bool -> String -> Bool
-isLegalPrefix allowNegative text =
-    case String.uncons text of
-        Just ( '-', rest ) ->
-            allowNegative && isUnsignedPrefix rest
-
-        Just _ ->
-            isUnsignedPrefix text
-
-        Nothing ->
-            True
-
-
-isUnsignedPrefix : String -> Bool
-isUnsignedPrefix text =
+isLegalPrefix : String -> Bool
+isLegalPrefix text =
     case text |> String.replace "," "." |> String.split "." of
         [ int ] ->
             Text.isDigitsOnly int
@@ -205,16 +190,13 @@ isUnsignedPrefix text =
             False
 
 
-{-| Float number parser, handling `,` as a decimal separator, `-` as negative sign and
-intermediary typing states.
+{-| Float number parser, handling `,` as a decimal separator and intermediary typing states.
 -}
 parse : String -> Maybe Float
 parse text =
     if
         -- empty field
         String.isEmpty text
-            -- user started to type a negative number
-            || (text == "-")
             -- user is about to enter a decimal
             || String.endsWith "," text
             || String.endsWith "." text
@@ -241,8 +223,7 @@ view config =
                , onInput <|
                     \text ->
                         fromInput
-                            { allowNegative = config.allowNegative
-                            , current = config.value
+                            { current = config.value
                             , id = config.id
                             , max = config.max
                             , min = config.min

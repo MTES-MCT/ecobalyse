@@ -7,8 +7,7 @@ import Views.FloatInput as FloatInput
 
 
 sample =
-    { allowNegative = False
-    , current = 1
+    { current = 1
     , id = "unit-mass-0"
     , max = Nothing
     , min = Just 0
@@ -83,15 +82,10 @@ suite =
                     |> FloatInput.fromInput
                     |> Expect.equal Nothing
                 )
-            , it "rejects a negative number when they are disabled"
+            , it "rejects a negative number"
                 ({ sample | text = "-1" }
                     |> FloatInput.fromInput
                     |> Expect.equal Nothing
-                )
-            , it "resolves a negative number when they are enabled"
-                ({ sample | allowNegative = True, min = Nothing, text = "-1,5" }
-                    |> FloatInput.fromInput
-                    |> expectState "-1,5" (Just -1.5)
                 )
             , it "does not resolve a number above max"
                 ({ sample | max = Just 10, text = "11" }
@@ -106,8 +100,7 @@ suite =
             ]
         , let
             inputConfig state =
-                { allowNegative = False
-                , decimalSeparator = ','
+                { decimalSeparator = ','
                 , id = sample.id
                 , label = "Masse unitaire"
                 , max = Nothing
