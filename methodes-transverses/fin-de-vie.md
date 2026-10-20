@@ -1,15 +1,7 @@
 # 🗑️ Fin de vie des produits
 
-{% hint style="warning" %}
-Cette section concerne les secteurs objets et véhicules, et dans un futur proche le textile.
-
-Le secteur Alimentaire n'inclut pas de phase de fin de vie.
-
+{% hint style="info" %}
 Pour les emballages, la fin de vie est inclue dans les procédés Emballage proposés (voir [page de documentation dédiée](https://fabrique-numerique.gitbook.io/ecobalyse/methodes-transverses-specifiques/emballages)).
-{% endhint %}
-
-{% hint style="warning" %}
-Ce modèle est en cours de déploiement. Les éléments non intégrés à ce jour sont clairement indiqués.
 {% endhint %}
 
 ## Contexte
