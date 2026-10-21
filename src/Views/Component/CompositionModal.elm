@@ -156,10 +156,7 @@ elementAmountInput config (( ( _, itemIndex ), elementIndex ) as targetElement) 
     else
         amount
             |> AmountInput.view
-                { id =
-                    "element-{itemIndex}-{elementIndex}"
-                        |> String.replace "{itemIndex}" (String.fromInt itemIndex)
-                        |> String.replace "{elementIndex}" (String.fromInt elementIndex)
+                { id = "element-" ++ String.fromInt itemIndex ++ "-" ++ String.fromInt elementIndex
                 , label = "Quantité"
                 , max = Nothing
                 , min = Nothing

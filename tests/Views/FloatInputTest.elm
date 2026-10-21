@@ -34,7 +34,7 @@ suite =
                     |> Expect.equal "1"
                 )
             ]
-        , describe "applyEdit"
+        , describe "applyState"
             [ it "stores the state while typing"
                 (Nothing
                     |> FloatInput.applyState { draft = Just "1,", id = "unit-mass-0", value = Nothing }

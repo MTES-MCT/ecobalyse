@@ -9,6 +9,10 @@ module Views.FloatInput exposing
     , view
     )
 
+{-| A controlled text input to handle positive, greater than zero floating point numbers.
+Accepts either `,` or `.` as decimal separator.
+-}
+
 import Data.Text as Text
 import Html exposing (..)
 import Html.Attributes exposing (..)
