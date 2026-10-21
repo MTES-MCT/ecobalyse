@@ -25,6 +25,7 @@ import Set exposing (Set)
 import String.Normalize as Normalize
 import Table as SortableTable
 import Views.Alert as Alert
+import Views.Markdown as Markdown
 import Views.Table as TableView
 
 
@@ -194,14 +195,10 @@ viewList dataToMsg defaultConfig tableState scope createTable items =
         div [ class "row g-3" ]
             [ div [ classList [ ( "col-xxl-10 col-xl-9 col-lg-9 col-md-12 col-sm-12", facetsEnabled ) ] ]
                 [ if resultCount > Env.explorerTableMaxDisplayedRows then
-                    p [ class "text-muted" ]
-                        [ text <|
-                            "Affichage des "
-                                ++ String.fromInt Env.explorerTableMaxDisplayedRows
-                                ++ " premiers résultats sur "
-                                ++ String.fromInt resultCount
-                                ++ " résultats"
-                        ]
+                    "Affichage des {maxRows} premiers résultats sur {resultCount} résultats"
+                        |> String.replace "{maxRows}" (String.fromInt Env.explorerTableMaxDisplayedRows)
+                        |> String.replace "{resultCount}" (String.fromInt resultCount)
+                        |> Markdown.simple [ class "text-muted fs-7 mb-2" ]
 
                   else
                     text ""
