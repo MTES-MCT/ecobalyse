@@ -71,6 +71,14 @@ suite =
                 (FloatInput.fromInput sample "1.01"
                     |> expectState "1.01" (Just 1.01)
                 )
+            , it "does not resolve a decimal without an integer part"
+                (FloatInput.fromInput sample ",2"
+                    |> expectState ",2" Nothing
+                )
+            , it "does not resolve a dot decimal without an integer part"
+                (FloatInput.fromInput sample ".2"
+                    |> expectState ".2" Nothing
+                )
             , it "rejects a letter"
                 (FloatInput.fromInput sample "1a"
                     |> Expect.equal Nothing
@@ -88,7 +96,11 @@ suite =
                     |> expectState "0" Nothing
                 )
             ]
-        , describe "isValidDraft"
+        , let
+            setSampleText text =
+                { sample | state = Just { draft = Just text, id = sample.id, value = Nothing } }
+          in
+          describe "isValidDraft"
             [ it "is true when the field is not being edited"
                 (FloatInput.isValidDraft sample
                     |> Expect.equal True
@@ -99,23 +111,23 @@ suite =
                     |> Expect.equal True
                 )
             , it "is false when the draft is not a complete number"
-                (FloatInput.isValidDraft
-                    { sample | state = Just { draft = Just "1,", id = sample.id, value = Nothing } }
+                (FloatInput.isValidDraft (setSampleText "1,")
+                    |> Expect.equal False
+                )
+            , it "is false when the draft has no integer part"
+                (FloatInput.isValidDraft (setSampleText ",2")
                     |> Expect.equal False
                 )
             , it "is true when the draft resolves to the current value"
-                (FloatInput.isValidDraft
-                    { sample | state = Just { draft = Just "1,0", id = sample.id, value = Nothing } }
+                (FloatInput.isValidDraft (setSampleText "1,0")
                     |> Expect.equal True
                 )
             , it "is true when the draft resolves to a new value"
-                (FloatInput.isValidDraft
-                    { sample | state = Just { draft = Just "1,5", id = sample.id, value = Just 1.5 } }
+                (FloatInput.isValidDraft (setSampleText "1,5")
                     |> Expect.equal True
                 )
             , it "is false when the draft is not above the minimum"
-                (FloatInput.isValidDraft
-                    { sample | state = Just { draft = Just "0", id = sample.id, value = Nothing } }
+                (FloatInput.isValidDraft (setSampleText "0")
                     |> Expect.equal False
                 )
             , it "is false when the draft is outside the allowed range"

@@ -174,17 +174,22 @@ onBeforeInput { noOp } =
 
 parse : String -> Maybe Float
 parse text =
+    let
+        normalized =
+            String.replace "," "." text
+    in
     if
         -- empty field
-        String.isEmpty text
+        String.isEmpty normalized
             -- user is about to enter a decimal
-            || String.endsWith "," text
-            || String.endsWith "." text
+            || String.endsWith "." normalized
+            -- missing integer part
+            || String.startsWith "." normalized
     then
         Nothing
 
     else
-        text |> String.replace "," "." |> String.toFloat
+        String.toFloat normalized
 
 
 resetState : String -> State
