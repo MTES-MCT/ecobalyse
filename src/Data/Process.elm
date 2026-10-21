@@ -69,7 +69,7 @@ type alias Process =
     , metadata : Maybe Metadata
     , qtyVariationRatio : Unit.QuantityVariationRatio
     , scopes : List Scope
-    , searchableWords : List String
+    , searchableText : String
     , source : String
     , unit : Unit
     , visible : Bool
@@ -136,9 +136,9 @@ computeImpacts { elec, heat } process =
         |> Impact.sumImpacts
 
 
-computeSearchableWords : Process -> Process
-computeSearchableWords process =
-    { process | searchableWords = toSearchableWords process }
+computeSearchableText : Process -> Process
+computeSearchableText process =
+    { process | searchableText = toSearchableText process }
 
 
 decode : Decoder Impact.Impacts -> Decoder Process
@@ -159,12 +159,12 @@ decode impactsDecoder =
         |> DU.strictOptional "metadata" Metadata.decode
         |> Pipe.required "qtyVariationRatio" Unit.decodeQuantityVariationRatio
         |> Pipe.required "scopes" (Decode.list Scope.decode)
-        |> Pipe.hardcoded []
+        |> Pipe.hardcoded ""
         |> Pipe.required "source" Decode.string
         |> Pipe.required "unit" (Decode.string |> Decode.andThen (DE.fromResult << unitFromString))
         |> Pipe.optional "visible" Decode.bool True
         |> Decode.andThen (validate >> DE.fromResult)
-        |> Decode.map computeSearchableWords
+        |> Decode.map computeSearchableText
 
 
 encode : Process -> Encode.Value
@@ -345,9 +345,9 @@ toSearchableString process =
         ]
 
 
-toSearchableWords : Process -> List String
-toSearchableWords =
-    toSearchableString >> Text.toWords
+toSearchableText : Process -> String
+toSearchableText =
+    toSearchableString >> Text.toSearchable
 
 
 unitToString : Unit -> String

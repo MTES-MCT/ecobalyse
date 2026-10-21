@@ -50,7 +50,7 @@ table db { detailed, scope } =
     { filename = "materials"
     , toId = .id >> Material.idToString
     , toRoute = .id >> Just >> Dataset.TextileMaterials >> Route.Explore scope
-    , toSearchableWords = Material.toSearchableString db.countries >> Text.toWords
+    , toSearchableText = Material.toSearchableString db.countries >> Text.toSearchable
     , facets =
         [ Table.Facet "Origine de la matière" (.origin >> Origin.toLabel >> List.singleton)
         , Table.Facet "Origine géographique" (.geographicOrigin >> List.singleton)
