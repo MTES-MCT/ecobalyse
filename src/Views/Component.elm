@@ -21,7 +21,6 @@ import Data.Component as Component
         , TargetElement
         , TargetItem
         )
-import Data.Component.Amount exposing (Amount)
 import Data.Component.Config as Config
 import Data.Component.ProductCategory as ProductCategory exposing (ProductCategory)
 import Data.Country.Code as CountryCode
@@ -49,6 +48,7 @@ import Views.Component.Context as Context exposing (Context)
 import Views.Component.DownArrow as DownArrow
 import Views.Component.ProductionTable as ProductionTable
 import Views.Component.RegionSelector as RegionSelector
+import Views.FloatInput as FloatInput
 import Views.Format as Format
 import Views.Icon as Icon
 import Views.Transport as TransportView
@@ -62,6 +62,7 @@ type alias Config db msg =
     , detailed : List Index
     , docsUrl : Maybe String
     , explorerRoute : Maybe Route
+    , floatInputState : Maybe FloatInput.State
     , impact : Definition
     , labels : Labels
     , lifeCycle : Result String LifeCycle
@@ -85,15 +86,15 @@ type alias Config db msg =
     , toggleTransportCooling : Bool -> msg
     , unitMassLocked : Bool
     , updateAssemblyCountry : Maybe CountryCode.Code -> msg
-    , updateConsumptionAmount : Index -> Maybe Amount -> msg
+    , updateConsumptionAmount : Index -> FloatInput.State -> msg
     , updateDistribution : Result String Process.Id -> msg
-    , updateElementAmount : TargetElement -> Maybe Amount -> msg
+    , updateElementAmount : TargetElement -> FloatInput.State -> msg
     , updateElementMaterialCountry : TargetElement -> Maybe CountryCode.Code -> msg
     , updateElementTransformCountry : TargetElement -> Index -> Maybe CountryCode.Code -> msg
     , updateItemName : TargetItem -> String -> msg
     , updateItemQuantity : Index -> Quantity -> msg
-    , updateItemUnitMass : Index -> Maybe Mass -> msg
-    , updatePackagingAmount : Index -> Maybe Amount -> msg
+    , updateItemUnitMass : Index -> FloatInput.State -> msg
+    , updatePackagingAmount : Index -> FloatInput.State -> msg
     , updateRecyclable : Bool -> msg
     }
 
@@ -265,6 +266,7 @@ lifeCycleView ({ impact, query, scope } as config) lifeCycle =
             , docsUrl = config.docsUrl
             , documentationLink = documentationLink config "production"
             , explorerRoute = config.explorerRoute
+            , floatInputState = config.floatInputState
             , impact = config.impact
             , labels =
                 { add = config.labels.add
@@ -366,6 +368,7 @@ packagingView ({ query } as config) lifeCycle =
                 { deletionLabel = "Supprimer cet emballage"
                 , emptyListLabel = "Aucun emballage"
                 , expandFn = Component.expandPackagings
+                , idPrefix = "packaging"
                 , impactsList = lifeCycle.packaging
                 , removeFn = config.removePackaging
                 , updateAmount = config.updatePackagingAmount
@@ -381,14 +384,15 @@ type alias QuantifiedProcessListConfig quantified msg =
     { deletionLabel : String
     , emptyListLabel : String
     , expandFn : List Process -> List quantified -> Result String (List ExpandedQuantifiedProcess)
+    , idPrefix : String
     , impactsList : List Impacts
     , removeFn : Index -> msg
-    , updateAmount : Index -> Maybe Amount -> msg
+    , updateAmount : Index -> FloatInput.State -> msg
     }
 
 
 quantifiedProcessList : Config db msg -> LifeCycle -> QuantifiedProcessListConfig quantified msg -> List quantified -> Html msg
-quantifiedProcessList { db, impact } lifeCycle listConfig quantifiedProcesses =
+quantifiedProcessList { db, floatInputState, impact, noOp } lifeCycle listConfig quantifiedProcesses =
     if List.isEmpty quantifiedProcesses then
         div [ class "card-body" ]
             [ text listConfig.emptyListLabel ]
@@ -409,14 +413,18 @@ quantifiedProcessList { db, impact } lifeCycle listConfig quantifiedProcesses =
                                             [ amount
                                                 |> Component.useProcessAmount lifeCycle process
                                                 |> AmountInput.view
-                                                    { event = listConfig.updateAmount index
+                                                    { id = listConfig.idPrefix ++ "-" ++ String.fromInt index
+                                                    , label = "Quantité"
+                                                    , noOp = noOp
+                                                    , onInput = listConfig.updateAmount index
+                                                    , state = floatInputState
                                                     , unit = process.unit
                                                     , writeAccess =
                                                         if List.member Category.ProductMassDependent process.categories then
-                                                            AmountInput.ReadOnly "Cette quantité n’est pas modifiable"
+                                                            FloatInput.ReadOnly "Cette quantité n’est pas modifiable"
 
                                                         else
-                                                            AmountInput.Writeable
+                                                            FloatInput.Writeable
                                                     }
                                             ]
                                         , td
@@ -568,6 +576,7 @@ itemEditorView config targetItem =
             CompositionModal.view
                 { componentConfig = config.componentConfig
                 , db = config.db
+                , floatInputState = config.floatInputState
                 , impact = config.impact
                 , labels =
                     { addElement = config.labels.addElement
@@ -577,6 +586,7 @@ itemEditorView config targetItem =
                     , itemName = config.labels.itemName
                     }
                 , lifeCycle = lifeCycle
+                , noOp = config.noOp
                 , openSelectProcessModal = config.openSelectProcessModal
                 , query = config.query
                 , removeElement = config.removeElement
@@ -794,6 +804,7 @@ useStageView ({ impact, query } as config) lifeCycle =
                     { deletionLabel = "Supprimer cette consommation"
                     , emptyListLabel = "Aucune consommation"
                     , expandFn = Component.expandConsumptions
+                    , idPrefix = "consumption"
                     , impactsList = lifeCycle.use
                     , removeFn = config.removeConsumption
                     , updateAmount = config.updateConsumptionAmount

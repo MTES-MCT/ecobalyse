@@ -34,6 +34,7 @@ import Views.Alert as Alert
 import Views.Component.AmountInput as AmountInput
 import Views.Component.ProcessRow as ProcessRow exposing (emptyProcessRow)
 import Views.Component.RegionSelector as RegionSelector
+import Views.FloatInput as FloatInput
 import Views.Format as Format
 import Views.Icon as Icon
 
@@ -43,6 +44,7 @@ import Views.Icon as Icon
 type alias Config db msg =
     { componentConfig : Component.Config
     , db : Component.DataContainer db
+    , floatInputState : Maybe FloatInput.State
     , impact : Definition
     , labels :
         { addElement : String
@@ -52,12 +54,13 @@ type alias Config db msg =
         , itemName : String
         }
     , lifeCycle : LifeCycle
+    , noOp : msg
     , openSelectProcessModal : Category -> TargetItem -> Maybe Index -> Autocomplete Process -> msg
     , query : Query
     , removeElement : TargetElement -> msg
     , removeElementTransform : TargetElement -> Index -> msg
     , scope : Scope
-    , updateElementAmount : TargetElement -> Maybe Amount -> msg
+    , updateElementAmount : TargetElement -> FloatInput.State -> msg
     , updateElementMaterialCountry : TargetElement -> Maybe CountryCode.Code -> msg
     , updateElementTransformCountry : TargetElement -> Index -> Maybe CountryCode.Code -> msg
     , updateItemName : TargetItem -> String -> msg
@@ -146,16 +149,20 @@ deleteElementButton config targetElement =
 
 
 elementAmountInput : Config db msg -> TargetElement -> Process -> Amount -> Html msg
-elementAmountInput config targetElement process amount =
+elementAmountInput config (( ( _, itemIndex ), elementIndex ) as targetElement) process amount =
     if config.scope == Scope.Textile then
         Format.amount process amount
 
     else
         amount
             |> AmountInput.view
-                { event = config.updateElementAmount targetElement
+                { id = "element-" ++ String.fromInt itemIndex ++ "-" ++ String.fromInt elementIndex
+                , label = "Quantité"
+                , noOp = config.noOp
+                , onInput = config.updateElementAmount targetElement
+                , state = config.floatInputState
                 , unit = process.unit
-                , writeAccess = AmountInput.Writeable
+                , writeAccess = FloatInput.Writeable
                 }
 
 

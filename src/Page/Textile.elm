@@ -1012,6 +1012,7 @@ simulatorFormView session model ({ inputs } as simulator) =
         , detailed = []
         , docsUrl = Just <| Gitbook.publicUrlFromPath Gitbook.TextileTrims
         , explorerRoute = Just (Route.Explore Scope.Textile (Dataset.Components Scope.Textile Nothing))
+        , floatInputState = Nothing
         , impact = model.impact
         , labels = ComponentView.scopeLabels Context.TextileTrims Scope.Textile
         , lifeCycle =

@@ -23,7 +23,7 @@ import Html exposing (..)
 import Html.Attributes as Attr exposing (..)
 import Html.Events exposing (..)
 import List.Extra as LE
-import Mass exposing (Mass)
+import Mass
 import Quantity
 import Route exposing (Route)
 import Views.Alert as Alert
@@ -31,6 +31,7 @@ import Views.Button as Button
 import Views.Component.AmountInput as AmountInput
 import Views.Component.Context as Context exposing (Context)
 import Views.Component.ItemRow as ItemRow exposing (emptyItemRow)
+import Views.FloatInput as FloatInput
 import Views.Format as Format
 import Views.Icon as Icon
 import Views.Link as Link
@@ -43,6 +44,7 @@ type alias Config db msg =
     , docsUrl : Maybe String
     , documentationLink : Html msg
     , explorerRoute : Maybe Route
+    , floatInputState : Maybe FloatInput.State
     , impact : Definition
     , labels :
         { add : String
@@ -59,7 +61,7 @@ type alias Config db msg =
     , setDetailed : List Index -> msg
     , unitMassLocked : Bool
     , updateItemQuantity : Index -> Quantity -> msg
-    , updateItemUnitMass : Index -> Maybe Mass -> msg
+    , updateItemUnitMass : Index -> FloatInput.State -> msg
     }
 
 
@@ -331,24 +333,25 @@ unitMassInput config itemIndex elements itemResults =
         writeAccess =
             -- An element whose material process has no known mass per unit makes the item unit mass uneditable.
             if elements |> List.any (.material >> .process >> Process.hasValidMassPerUnit >> not) then
-                AmountInput.ReadOnly "La masse par unité du procédé mobilisé n’est pas connue à ce jour"
+                FloatInput.ReadOnly "La masse par unité du procédé mobilisé n’est pas connue à ce jour"
 
             else if mass == Quantity.zero then
-                AmountInput.ReadOnly "La masse des éléments du composant est nulle, édition impossible"
+                FloatInput.ReadOnly "La masse des éléments du composant est nulle, édition impossible"
 
             else if config.unitMassLocked then
-                AmountInput.ReadOnly "La masse unitaire n’est pas modifiable tant que la modale d’édition du composant est ouverte"
+                FloatInput.ReadOnly "La masse unitaire n’est pas modifiable tant que la modale d’édition du composant est ouverte"
 
             else
-                AmountInput.Writeable
+                FloatInput.Writeable
     in
     Mass.inKilograms mass
         |> Amount.fromFloat
         |> AmountInput.view
-            { event =
-                -- Send unit mass… as a Mass!
-                Maybe.map (Amount.toFloat >> Mass.kilograms)
-                    >> config.updateItemUnitMass itemIndex
+            { id = "unit-mass-" ++ String.fromInt itemIndex
+            , label = "Masse unitaire"
+            , noOp = config.noOp
+            , onInput = config.updateItemUnitMass itemIndex
+            , state = config.floatInputState
             , unit = Process.Kilogram
             , writeAccess = writeAccess
             }
