@@ -9,8 +9,6 @@ import Views.FloatInput as FloatInput
 sample =
     { id = "unit-mass-0"
     , label = "Masse unitaire"
-    , max = Nothing
-    , min = Just 0
     , noOp = ()
     , onInput = \_ -> ()
     , state = Nothing
@@ -88,11 +86,7 @@ suite =
                 (FloatInput.fromInput sample "-1"
                     |> Expect.equal Nothing
                 )
-            , it "does not resolve a number above max"
-                (FloatInput.fromInput { sample | max = Just 10 } "11"
-                    |> expectState "11" Nothing
-                )
-            , it "does not resolve zero when it is not above the minimum"
+            , it "does not resolve zero"
                 (FloatInput.fromInput sample "0"
                     |> expectState "0" Nothing
                 )
@@ -127,16 +121,8 @@ suite =
                 (FloatInput.isValidDraft (setSampleText "1,5")
                     |> Expect.equal True
                 )
-            , it "is false when the draft is not above the minimum"
+            , it "is false when the draft is zero"
                 (FloatInput.isValidDraft (setSampleText "0")
-                    |> Expect.equal False
-                )
-            , it "is false when the draft is outside the allowed range"
-                (FloatInput.isValidDraft
-                    { sample
-                        | max = Just 10
-                        , state = Just { draft = Just "11", id = sample.id, value = Nothing }
-                    }
                     |> Expect.equal False
                 )
             ]

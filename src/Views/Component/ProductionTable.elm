@@ -349,8 +349,6 @@ unitMassInput config itemIndex elements itemResults =
         |> AmountInput.view
             { id = "unit-mass-" ++ String.fromInt itemIndex
             , label = "Masse unitaire"
-            , max = Nothing
-            , min = Just 0
             , noOp = config.noOp
             , onInput = config.updateItemUnitMass itemIndex
             , state = config.floatInputState

@@ -415,8 +415,6 @@ quantifiedProcessList { db, floatInputState, impact, noOp } lifeCycle listConfig
                                                 |> AmountInput.view
                                                     { id = listConfig.idPrefix ++ "-" ++ String.fromInt index
                                                     , label = "Quantité"
-                                                    , max = Nothing
-                                                    , min = Nothing
                                                     , noOp = noOp
                                                     , onInput = listConfig.updateAmount index
                                                     , state = floatInputState

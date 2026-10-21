@@ -13,8 +13,6 @@ import Views.FloatInput as FloatInput exposing (WriteAccess)
 type alias Config msg =
     { id : String
     , label : String
-    , max : Maybe Float
-    , min : Maybe Float
     , noOp : msg
     , onInput : FloatInput.State -> msg
     , state : Maybe FloatInput.State
@@ -29,8 +27,6 @@ view config amount =
         [ FloatInput.view
             { id = config.id
             , label = config.label
-            , max = config.max
-            , min = config.min
             , noOp = config.noOp
             , onInput = config.onInput
             , state = config.state

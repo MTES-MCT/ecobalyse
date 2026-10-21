@@ -158,8 +158,6 @@ elementAmountInput config (( ( _, itemIndex ), elementIndex ) as targetElement) 
             |> AmountInput.view
                 { id = "element-" ++ String.fromInt itemIndex ++ "-" ++ String.fromInt elementIndex
                 , label = "Quantité"
-                , max = Nothing
-                , min = Nothing
                 , noOp = config.noOp
                 , onInput = config.updateElementAmount targetElement
                 , state = config.floatInputState

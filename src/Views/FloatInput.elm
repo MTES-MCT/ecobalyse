@@ -24,8 +24,6 @@ import Json.Decode.Pipeline as JDP
 type alias Config msg =
     { id : String
     , label : String
-    , max : Maybe Float
-    , min : Maybe Float
     , noOp : msg
     , onInput : State -> msg
     , state : Maybe State
@@ -86,7 +84,7 @@ format float =
 
 
 fromInput : Config msg -> String -> Maybe State
-fromInput { id, max, min, value } text =
+fromInput { id, value } text =
     if isLegalPrefix text then
         Just
             { draft = Just text
@@ -95,7 +93,7 @@ fromInput { id, max, min, value } text =
                 parse text
                     |> Maybe.andThen
                         (\float ->
-                            if inRange min max float && float /= value then
+                            if float > 0 && float /= value then
                                 Just float
 
                             else
@@ -134,22 +132,16 @@ getAttributes config =
             ]
 
 
-inRange : Maybe Float -> Maybe Float -> Float -> Bool
-inRange min max float =
-    (min |> Maybe.map (\lower -> float > lower) |> Maybe.withDefault True)
-        && (max |> Maybe.map (\upper -> float <= upper) |> Maybe.withDefault True)
-
-
 isValidDraft : Config msg -> Bool
-isValidDraft ({ id, max, min } as config) =
+isValidDraft config =
     case config.state of
         Just state ->
-            if state.id == id then
+            if state.id == config.id then
                 case state.draft of
                     Just text ->
                         case parse text of
                             Just float ->
-                                inRange min max float
+                                float > 0
 
                             Nothing ->
                                 False
