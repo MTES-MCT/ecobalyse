@@ -72,13 +72,16 @@ jobs:
           sudo apt-get update
           sudo apt-get install -y gettext
 
-
       - name: Install dependencies
         run: uv sync --group score_history
 
-
-      - name: Add scalingo to know hosts
-        run: echo "KNOWN_HOSTS=$(ssh-keyscan -H ssh.osc-fr1.scalingo.com)" >> $GITHUB_ENV
+      - name: Add scalingo to known hosts
+        run: |
+          {
+            echo "KNOWN_HOSTS<<EOF"
+            ssh-keyscan -H ssh.osc-fr1.scalingo.com 2>/dev/null | grep -v '^#'
+            echo "EOF"
+          } >> "$GITHUB_ENV"
 
       - name: Install SSH key
         uses: shimataro/ssh-key-action@v2
