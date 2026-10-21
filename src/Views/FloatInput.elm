@@ -10,7 +10,7 @@ module Views.FloatInput exposing
 
 import Data.Text as Text
 import Html exposing (..)
-import Html.Attributes as Attr exposing (..)
+import Html.Attributes exposing (..)
 import Html.Events exposing (..)
 import Json.Decode as Decode
 import Json.Decode.Pipeline as JDP
@@ -51,47 +51,6 @@ applyState ({ draft, id } as newState) currentState =
                         else
                             Just stored
                     )
-
-
-boundAttributes : Config msg -> List (Attribute msg)
-boundAttributes config =
-    List.filterMap identity
-        [ config.max |> Maybe.map (String.fromFloat >> Attr.max)
-        , config.min |> Maybe.map (String.fromFloat >> Attr.min)
-        ]
-
-
-onBeforeInput : Config msg -> Attribute msg
-onBeforeInput { noOp } =
-    preventDefaultOn "beforeinput" <|
-        -- https://developer.mozilla.org/en-US/docs/Web/API/Element/beforeinput_event
-        (Decode.succeed
-            (\inputType data value start end ->
-                ( inputType
-                , String.left start value ++ data ++ String.dropLeft end value
-                )
-            )
-            |> JDP.required "inputType" Decode.string
-            |> JDP.optional "data" Decode.string ""
-            |> JDP.requiredAt [ "target", "value" ] Decode.string
-            |> JDP.optionalAt [ "target", "selectionStart" ] Decode.int 0
-            |> JDP.optionalAt [ "target", "selectionEnd" ] Decode.int 0
-            |> Decode.andThen
-                (\( inputType, next ) ->
-                    if
-                        -- user typed a character or pasted text
-                        (inputType == "insertText" || inputType == "insertFromPaste")
-                            -- the field would no longer be a number they are allowed to enter
-                            && not (isLegalPrefix next)
-                    then
-                        -- drop the keystroke or paste, so the field stays unchanged
-                        Decode.succeed ( noOp, True )
-
-                    else
-                        -- note: failing on preventDefault *keeps* the edit
-                        Decode.fail "accepted input"
-                )
-        )
 
 
 displayText : Config msg -> String
@@ -180,6 +139,39 @@ isLegalPrefix text =
             False
 
 
+onBeforeInput : Config msg -> Attribute msg
+onBeforeInput { noOp } =
+    preventDefaultOn "beforeinput" <|
+        -- https://developer.mozilla.org/en-US/docs/Web/API/Element/beforeinput_event
+        (Decode.succeed
+            (\inputType data value start end ->
+                ( inputType
+                , String.left start value ++ data ++ String.dropLeft end value
+                )
+            )
+            |> JDP.required "inputType" Decode.string
+            |> JDP.optional "data" Decode.string ""
+            |> JDP.requiredAt [ "target", "value" ] Decode.string
+            |> JDP.optionalAt [ "target", "selectionStart" ] Decode.int 0
+            |> JDP.optionalAt [ "target", "selectionEnd" ] Decode.int 0
+            |> Decode.andThen
+                (\( inputType, next ) ->
+                    if
+                        -- user typed a character or pasted text
+                        (inputType == "insertText" || inputType == "insertFromPaste")
+                            -- the field would no longer be a number they are allowed to enter
+                            && not (isLegalPrefix next)
+                    then
+                        -- drop the keystroke or paste, so the field stays unchanged
+                        Decode.succeed ( noOp, True )
+
+                    else
+                        -- note: failing on preventDefault *keeps* the edit
+                        Decode.fail "accepted input"
+                )
+        )
+
+
 parse : String -> Maybe Float
 parse text =
     if
@@ -195,31 +187,36 @@ parse text =
         text |> String.replace "," "." |> String.toFloat
 
 
+resetState : String -> State
+resetState id =
+    { draft = Nothing
+    , id = id
+    , value = Nothing
+    }
+
+
 view : Config msg -> Html msg
 view config =
     input
-        (boundAttributes config
-            ++ [ type_ "text"
-               , class "form-control form-control-sm text-end"
-               , classList [ ( "bg-warning", not <| isValidDraft config ) ]
-               , id config.id
-               , attribute "aria-label" config.label
-               , attribute "autocomplete" "off"
-               , attribute "inputmode" "decimal"
-               , spellcheck False
-               , value (displayText config)
-               , onInput <|
-                    \text ->
-                        fromInput config text
-                            |> Maybe.map config.onInput
-                            |> Maybe.withDefault config.noOp
+        [ type_ "text"
+        , class "form-control form-control-sm text-end"
+        , classList [ ( "bg-warning", not <| isValidDraft config ) ]
+        , id config.id
+        , attribute "aria-label" config.label
+        , attribute "autocomplete" "off"
+        , attribute "inputmode" "decimal"
+        , spellcheck False
+        , value (displayText config)
+        , onInput <|
+            \text ->
+                fromInput config text
+                    |> Maybe.map config.onInput
+                    |> Maybe.withDefault config.noOp
 
-               -- reset state when input loses focus
-               , onBlur <|
-                    config.onInput { draft = Nothing, id = config.id, value = Nothing }
+        -- reset state when input loses focus
+        , onBlur <| config.onInput (resetState config.id)
 
-               -- catch and validate text insertions
-               , onBeforeInput config
-               ]
-        )
+        -- catch and validate text insertions
+        , onBeforeInput config
+        ]
         []
