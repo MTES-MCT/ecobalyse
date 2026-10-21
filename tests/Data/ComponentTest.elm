@@ -2717,49 +2717,6 @@ suite =
                                 )
                             ]
                         )
-                    , suiteFromResult "setCustomScope"
-                        -- setup
-                        ("""{ "id": "8ca2ca05-8aec-4121-acaa-7cdcc03150a9", "quantity": 1 }"""
-                            |> decodeJson Component.decodeItem
-                            |> Result.andThen
-                                (\item ->
-                                    item
-                                        |> Component.itemToComponent db
-                                        |> Result.map (\component -> ( component, item ))
-                                )
-                        )
-                        (\( sofaFabricComponent, sofaFabricItem ) ->
-                            [ it "should have the expected initial component scope"
-                                (sofaFabricComponent.scope
-                                    |> Expect.equal (Scope.Generic Scope.Object)
-                                )
-                            , it "should have no custom scopes by default"
-                                (sofaFabricItem.custom
-                                    |> Expect.equal Nothing
-                                )
-                            , it "should set a custom scope"
-                                (sofaFabricItem
-                                    |> Component.setCustomScope sofaFabricComponent Scope.Textile
-                                    |> .custom
-                                    |> Maybe.andThen .scope
-                                    |> Expect.equal (Just Scope.Textile)
-                                )
-                            , it "should reset custom scopes when they match initial component ones"
-                                (sofaFabricItem
-                                    |> Component.setCustomScope sofaFabricComponent (Scope.Generic Scope.Object)
-                                    |> .custom
-                                    |> Maybe.andThen .scope
-                                    |> Expect.equal Nothing
-                                )
-                            , it "should export custom scopes to component"
-                                (sofaFabricItem
-                                    |> Component.setCustomScope sofaFabricComponent Scope.Textile
-                                    |> Component.itemToComponent db
-                                    |> Result.map .scope
-                                    |> Expect.equal (Ok Scope.Textile)
-                                )
-                            ]
-                        )
                     , suiteFromResult "updateItemCustomName"
                         -- setup
                         sofaFabric

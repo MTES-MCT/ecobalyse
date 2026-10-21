@@ -378,7 +378,7 @@ handleConfiguredRequest db config request =
         Just (Route.GenericGetCatalogList genericScope) ->
             db.components
                 |> List.filter (not << Component.isEmpty)
-                |> List.filter (.scope >> (==) (Scope.Generic genericScope))
+                |> List.filter (.scopes >> List.member (Scope.Generic genericScope))
                 |> Encode.list encodeComponent
                 |> respondWith 200
 
@@ -448,7 +448,7 @@ handleConfiguredRequest db config request =
 
         Just Route.TextileGetTrimList ->
             db.components
-                |> List.filter (.scope >> (==) Scope.Textile)
+                |> List.filter (.scopes >> List.member Scope.Textile)
                 |> Encode.list encodeComponent
                 |> respondWith 200
 

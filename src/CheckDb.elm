@@ -122,7 +122,7 @@ checkComponentItemId knownComponentStringIds item =
 checkComponentsProcessIds : Set String -> Db -> List Error
 checkComponentsProcessIds knownProcessStringIds db =
     db.components
-        |> List.filter (.scope >> Scope.isGeneric)
+        |> List.filter (.scopes >> List.any Scope.isGeneric)
         |> List.concatMap
             (\component ->
                 component.elements
@@ -151,13 +151,18 @@ checkComponentProcessScope processes component example fieldName processId =
     in
     case processes |> Dict.get processIdString of
         Just process ->
-            if List.member component.scope process.scopes then
+            let
+                missingScopes =
+                    component.scopes
+                        |> List.filter (\scope -> List.member scope process.scopes |> not)
+            in
+            if List.isEmpty missingScopes then
                 []
 
             else
                 formatError
                     [ "Process " ++ processLabel process
-                    , "is not scoped for " ++ backtick (Scope.toString component.scope)
+                    , "is not scoped for " ++ backtick (missingScopes |> List.map Scope.toString |> String.join ", ")
                     , "but is referenced in " ++ backtick fieldName
                     , "by component " ++ componentLabel component
                     , "used by example " ++ exampleLabel example
@@ -173,7 +178,7 @@ checkComponentScopeMismatch : Dict String Process -> Example query -> Component 
 checkComponentScopeMismatch processes example component =
     let
         scopeMismatchErrors =
-            if component.scope == example.scope then
+            if List.member example.scope component.scopes then
                 []
 
             else
@@ -463,7 +468,7 @@ componentLabel : Component -> String
 componentLabel component =
     quote component.name
         ++ " ("
-        ++ backtick (Scope.toString component.scope)
+        ++ backtick (component.scopes |> List.map Scope.toString |> String.join ", ")
         ++ ", "
         ++ (component.id
                 |> Maybe.map Component.idToString

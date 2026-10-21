@@ -112,7 +112,6 @@ module Data.Component exposing
     , removeElement
     , removeElementTransform
     , removePackaging
-    , setCustomScope
     , setElementMaterial
     , setQueryItems
     , setTransportByAir
@@ -188,7 +187,7 @@ type alias Component =
     , id : Maybe Id
     , name : String
     , published : Bool
-    , scope : Scope
+    , scopes : List Scope
     }
 
 
@@ -272,7 +271,6 @@ It is also used to override the component name in the production tbale as well a
 type alias Custom =
     { elements : List Element
     , name : Maybe String
-    , scope : Maybe Scope
     }
 
 
@@ -824,11 +822,10 @@ componentFromCustom maybeComponent maybeCustom =
             maybeComponent |> Maybe.withDefault emptyComponent
     in
     case maybeCustom of
-        Just { elements, name, scope } ->
+        Just { elements, name } ->
             { component
                 | elements = elements
                 , name = name |> Maybe.withDefault component.name
-                , scope = scope |> Maybe.withDefault component.scope
             }
 
         Nothing ->
@@ -1380,10 +1377,16 @@ decode =
         -- be considered as published
         |> Decode.optional "published" Decode.bool True
         |> Decode.required "scopes"
-            -- Note: the backend exposes multiple scopes per component, though it's been decided
-            -- a component should only allow one, so here we take the first declared scope.
             (Decode.list Scope.decode
-                |> Decode.map (List.head >> Maybe.withDefault (Scope.Generic Scope.Object))
+                |> Decode.map
+                    (\scopes ->
+                        if List.isEmpty scopes then
+                            -- Always ensure at least one scope is present
+                            [ Scope.Generic Scope.Object ]
+
+                        else
+                            scopes
+                    )
             )
 
 
@@ -1412,9 +1415,6 @@ decodeCustom =
     Decode.succeed Custom
         |> Decode.required "elements" (Decode.list decodeElement)
         |> DU.strictOptional "name" Decode.string
-        |> DU.strictOptionalWithDefault "scopes"
-            (Decode.list Scope.decode |> Decode.map List.head)
-            Nothing
 
 
 decodeElement : Decoder Element
@@ -1647,7 +1647,7 @@ emptyComponent =
     , id = Nothing
     , name = ""
     , published = False
-    , scope = Scope.Generic Scope.Object
+    , scopes = [ Scope.Generic Scope.Object ]
     }
 
 
@@ -1899,8 +1899,6 @@ encodeItem item =
          ]
             ++ (case item.custom of
                     Just custom ->
-                        -- Custom scopes are never serialized nor exported as JSON, they are
-                        -- only used by itemToComponent in the admin
                         [ ( "name"
                           , custom.name
                                 |> Maybe.map String.trim
@@ -2666,7 +2664,6 @@ isCustomized component custom =
             List.any identity
                 [ custom.elements /= component.elements
                 , custom.name /= Nothing && custom.name /= Just component.name
-                , custom.scope /= Nothing && custom.scope /= Just component.scope
                 ]
 
         -- New component are always customized
@@ -2996,25 +2993,6 @@ scaleElementsToUnitMass db maybeUnitMass elements =
             Ok elements
 
 
-setCustomScope : Component -> Scope -> Item -> Item
-setCustomScope component scope item =
-    { item
-        | custom =
-            item.custom
-                |> updateCustom component
-                    (\custom ->
-                        { custom
-                            | scope =
-                                if scope == component.scope then
-                                    Nothing
-
-                                else
-                                    Just scope
-                        }
-                    )
-    }
-
-
 setElementMaterial : DataContainer db -> TargetElement -> Process -> List Item -> Result String (List Item)
 setElementMaterial db targetElement material items =
     if not <| List.member Category.Material material.categories then
@@ -3267,13 +3245,7 @@ updateCustom component fn maybeCustom =
                 Nothing
 
         Nothing ->
-            Just
-                (fn
-                    { elements = component.elements
-                    , name = Nothing
-                    , scope = Nothing
-                    }
-                )
+            Just <| fn { elements = component.elements, name = Nothing }
 
 
 updateDistribution : Maybe Process.Id -> Query -> Query
