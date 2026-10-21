@@ -50,7 +50,7 @@ explorerCommentExcerptLength =
 -}
 explorerTableMaxDisplayedRows : Int
 explorerTableMaxDisplayedRows =
-    200
+    100
 
 
 gitbookUrl : String
