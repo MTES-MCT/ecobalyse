@@ -114,7 +114,7 @@ getAttributes config =
             ]
 
         Writeable ->
-            [ classList [ ( "bg-warning", not <| isValidDraft config ) ]
+            [ classList [ ( "bg-warning-subtle", not <| isValidDraft config ) ]
             , value (displayText config)
             , onInput <|
                 \text ->
