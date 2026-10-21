@@ -165,16 +165,14 @@ viewList dataToMsg defaultConfig tableState scope createTable items =
             items |> applyFiltersAndSearch defaultConfig facets toSearchableText
 
         displayedItems =
-            List.take Env.explorerTableMaxDisplayedRows resultItems
+            resultItems |> List.take Env.explorerTableMaxDisplayedRows
 
         resultCount =
             List.length resultItems
 
         csv =
             { filename = "ecobalyse-" ++ Scope.toString scope ++ "-" ++ filename ++ ".csv"
-            , content =
-                resultItems
-                    |> toCSV table
+            , content = resultItems |> toCSV table
             }
 
         facetsEnabled =

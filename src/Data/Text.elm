@@ -33,11 +33,6 @@ buildCurlCommand maybeToken json apiUrl =
         |> String.replace "%json%" json
 
 
-isDigitsOnly : String -> Bool
-isDigitsOnly =
-    String.all Char.isDigit
-
-
 containsEveryWord : (String -> String -> Bool) -> List String -> String -> Bool
 containsEveryWord contains searchWords searchableText =
     searchWords
@@ -46,12 +41,14 @@ containsEveryWord contains searchWords searchableText =
 
 containsWholeWord : String -> String -> Bool
 containsWholeWord word searchableText =
-    String.contains (" " ++ word ++ " ") (" " ++ searchableText ++ " ")
-
-
-containsWord : String -> String -> Bool
-containsWord =
     String.contains
+        (" " ++ word ++ " ")
+        (" " ++ searchableText ++ " ")
+
+
+isDigitsOnly : String -> Bool
+isDigitsOnly =
+    String.all Char.isDigit
 
 
 nonWord : Regex.Regex
@@ -78,8 +75,7 @@ search { minQueryLength, query, toSearchableText } elements =
     else
         let
             searchWords =
-                trimmedQuery
-                    |> toWords
+                toWords trimmedQuery
                     |> List.filter (String.isEmpty >> not)
 
             ( exactMatches, rest ) =
@@ -89,7 +85,7 @@ search { minQueryLength, query, toSearchableText } elements =
 
             ( partialMatches, _ ) =
                 rest
-                    |> List.partition (Tuple.first >> containsEveryWord containsWord searchWords)
+                    |> List.partition (Tuple.first >> containsEveryWord String.contains searchWords)
         in
         List.map Tuple.second exactMatches ++ List.map Tuple.second partialMatches
 
