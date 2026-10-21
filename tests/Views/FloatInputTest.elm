@@ -15,6 +15,7 @@ sample =
     , onInput = \_ -> ()
     , state = Nothing
     , value = 1
+    , writeAccess = FloatInput.Writeable
     }
 
 

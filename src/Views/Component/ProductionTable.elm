@@ -330,50 +330,33 @@ unitMassInput config itemIndex elements itemResults =
                 |> Maybe.andThen .unitMass
                 |> Maybe.withDefault (Component.extractUnitMass itemResults)
 
-        kilograms =
-            Mass.inKilograms mass
-
         writeAccess =
             -- An element whose material process has no known mass per unit makes the item unit mass uneditable.
             if elements |> List.any (.material >> .process >> Process.hasValidMassPerUnit >> not) then
-                AmountInput.ReadOnly "La masse par unité du procédé mobilisé n’est pas connue à ce jour"
+                FloatInput.ReadOnly "La masse par unité du procédé mobilisé n’est pas connue à ce jour"
 
             else if mass == Quantity.zero then
-                AmountInput.ReadOnly "La masse des éléments du composant est nulle, édition impossible"
+                FloatInput.ReadOnly "La masse des éléments du composant est nulle, édition impossible"
 
             else if config.unitMassLocked then
-                AmountInput.ReadOnly "La masse unitaire n’est pas modifiable tant que la modale d’édition du composant est ouverte"
+                FloatInput.ReadOnly "La masse unitaire n’est pas modifiable tant que la modale d’édition du composant est ouverte"
 
             else
-                AmountInput.Writeable
+                FloatInput.Writeable
     in
-    case writeAccess of
-        AmountInput.ReadOnly readonlyTitle ->
-            -- TODO: update AmountInput to use FloatInput as well. We need to first validate the FloatInput implementation
-            --       in production for a little while before generalizing to other float inputs
-            kilograms
-                |> Amount.fromFloat
-                |> AmountInput.view
-                    { event = \_ -> config.noOp
-                    , unit = Process.Kilogram
-                    , writeAccess = AmountInput.ReadOnly readonlyTitle
-                    }
-
-        AmountInput.Writeable ->
-            div [ class "AmountInput input-group" ]
-                [ FloatInput.view
-                    { id = "unit-mass-" ++ String.fromInt itemIndex
-                    , label = "Masse unitaire"
-                    , max = Nothing
-                    , min = Just 0
-                    , noOp = config.noOp
-                    , onInput = config.updateItemUnitMass itemIndex
-                    , state = config.floatInputState
-                    , value = kilograms
-                    }
-                , small [ class "input-group-text fs-8" ]
-                    [ text <| Process.unitToString Process.Kilogram ]
-                ]
+    Mass.inKilograms mass
+        |> Amount.fromFloat
+        |> AmountInput.view
+            { id = "unit-mass-" ++ String.fromInt itemIndex
+            , label = "Masse unitaire"
+            , max = Nothing
+            , min = Just 0
+            , noOp = config.noOp
+            , onInput = config.updateItemUnitMass itemIndex
+            , state = config.floatInputState
+            , unit = Process.Kilogram
+            , writeAccess = writeAccess
+            }
 
 
 quantityInput : Config db msg -> Index -> Quantity -> Html msg

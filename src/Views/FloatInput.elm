@@ -1,6 +1,7 @@
 module Views.FloatInput exposing
     ( Config
     , State
+    , WriteAccess(..)
     , applyState
     , format
     , fromInput
@@ -25,6 +26,7 @@ type alias Config msg =
     , onInput : State -> msg
     , state : Maybe State
     , value : Float
+    , writeAccess : WriteAccess
     }
 
 
@@ -33,6 +35,11 @@ type alias State =
     , id : String
     , value : Maybe Float
     }
+
+
+type WriteAccess
+    = ReadOnly String
+    | Writeable
 
 
 applyState : State -> Maybe State -> Maybe State
@@ -94,6 +101,33 @@ fromInput { id, max, min, value } text =
 
     else
         Nothing
+
+
+getAttributes : Config msg -> List (Attribute msg)
+getAttributes config =
+    case config.writeAccess of
+        ReadOnly readonlyTitle ->
+            [ class "cursor-not-allowed"
+            , readonly True
+            , title readonlyTitle
+            , value (format config.value)
+            ]
+
+        Writeable ->
+            [ classList [ ( "bg-warning", not <| isValidDraft config ) ]
+            , value (displayText config)
+            , onInput <|
+                \text ->
+                    fromInput config text
+                        |> Maybe.map config.onInput
+                        |> Maybe.withDefault config.noOp
+
+            -- reset state when input loses focus
+            , onBlur <| config.onInput (resetState config.id)
+
+            -- catch and validate text insertions
+            , onBeforeInput config
+            ]
 
 
 inRange : Maybe Float -> Maybe Float -> Float -> Bool
@@ -203,25 +237,14 @@ resetState id =
 view : Config msg -> Html msg
 view config =
     input
-        [ type_ "text"
-        , class "form-control form-control-sm text-end"
-        , classList [ ( "bg-warning", not <| isValidDraft config ) ]
-        , id config.id
-        , attribute "aria-label" config.label
-        , attribute "autocomplete" "off"
-        , attribute "inputmode" "decimal"
-        , spellcheck False
-        , value (displayText config)
-        , onInput <|
-            \text ->
-                fromInput config text
-                    |> Maybe.map config.onInput
-                    |> Maybe.withDefault config.noOp
-
-        -- reset state when input loses focus
-        , onBlur <| config.onInput (resetState config.id)
-
-        -- catch and validate text insertions
-        , onBeforeInput config
-        ]
+        (getAttributes config
+            ++ [ type_ "text"
+               , class "form-control form-control-sm text-end"
+               , id config.id
+               , attribute "aria-label" config.label
+               , attribute "autocomplete" "off"
+               , attribute "inputmode" "decimal"
+               , spellcheck False
+               ]
+        )
         []

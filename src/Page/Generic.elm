@@ -14,7 +14,7 @@ import Autocomplete exposing (Autocomplete)
 import Browser.Events
 import Browser.Navigation as Navigation
 import Data.Bookmark as Bookmark exposing (Bookmark)
-import Data.Component as Component exposing (Index, TargetElement, TargetItem)
+import Data.Component as Component exposing (Index, Query, TargetElement, TargetItem)
 import Data.Component.Amount as Amount exposing (Amount)
 import Data.Component.Config as Config
 import Data.Component.ProductCategory as Product
@@ -77,10 +77,10 @@ type alias Model =
     , contributionName : String
     , contributionRequestPending : Bool
     , detailedComponents : List Index
-    , examples : List (Example Component.Query)
+    , examples : List (Example Query)
     , floatInputState : Maybe FloatInput.State
     , impact : Definition
-    , initialQuery : Component.Query
+    , initialQuery : Query
     , modals : List Modal
     , lifeCycle : Result String Component.LifeCycle
     , genericScope : GenericScope
@@ -93,7 +93,7 @@ type Modal
     | ItemEditModal TargetItem
     | SelectAssemblyOperationModal (Autocomplete Process)
     | SelectConsumptionModal (Autocomplete Process)
-    | SelectExampleModal (Autocomplete Component.Query)
+    | SelectExampleModal (Autocomplete Query)
     | SelectPackagingModal (Autocomplete Process)
     | SelectProcessModal Category TargetItem (Maybe Index) (Autocomplete Process)
 
@@ -111,7 +111,7 @@ type Msg
     | OnAutocompleteAddConsumption (Autocomplete.Msg Process)
     | OnAutocompleteAddProcess Category TargetItem (Maybe Index) (Autocomplete.Msg Process)
     | OnAutocompleteAddProductionItem (Autocomplete.Msg Component.ProductionItem)
-    | OnAutocompleteExample (Autocomplete.Msg Component.Query)
+    | OnAutocompleteExample (Autocomplete.Msg Query)
     | OnAutocompletePackaging (Autocomplete.Msg Process)
     | OnAutocompleteSelectAssemblyOperation
     | OnAutocompleteSelectConsumption
@@ -148,22 +148,22 @@ type Msg
     | UpdateBookmarkName String
     | UpdateComponentItemName TargetItem String
     | UpdateComponentItemQuantity Index Component.Quantity
-    | UpdateConsumptionAmount Index (Maybe Amount)
+    | UpdateConsumptionAmount Index FloatInput.State
     | UpdateContributionDescription String
     | UpdateContributionName String
     | UpdateDistribution (Result String Process.Id)
     | UpdateDurability (Result String Unit.Ratio)
-    | UpdateElementAmount TargetElement (Maybe Amount)
+    | UpdateElementAmount TargetElement FloatInput.State
     | UpdateElementMaterialCountry TargetElement (Maybe CountryCode.Code)
     | UpdateElementTransformCountry TargetElement Index (Maybe CountryCode.Code)
     | UpdateItemUnitMass Index FloatInput.State
-    | UpdatePackagingAmount Index (Maybe Amount)
+    | UpdatePackagingAmount Index FloatInput.State
     | UpdateProduct (Maybe Product.Id)
     | UpdateRecyclability Bool
     | UpdateRenamedBookmarkName Bookmark String
 
 
-init : GenericScope -> Definition.Trigram -> Maybe Component.Query -> Session -> PageUpdate Model Msg
+init : GenericScope -> Definition.Trigram -> Maybe Query -> Session -> PageUpdate Model Msg
 init genericScope trigram maybeUrlQuery session =
     let
         initialQuery =
@@ -274,7 +274,7 @@ initFromExample session genericScope uuid =
   - an empty query
 
 -}
-initQuery : Session -> GenericScope -> Maybe Component.Query -> Component.Query
+initQuery : Session -> GenericScope -> Maybe Query -> Query
 initQuery session genericScope =
     Maybe.withDefault <|
         let
@@ -297,7 +297,7 @@ initQuery session genericScope =
             sessionQuery
 
 
-selectProductCategory : Session -> Component.Query -> Maybe Product.Id -> PageUpdate Model Msg -> PageUpdate Model Msg
+selectProductCategory : Session -> Query -> Maybe Product.Id -> PageUpdate Model Msg -> PageUpdate Model Msg
 selectProductCategory session query maybeProductId =
     case maybeProductId of
         Just productId ->
@@ -328,7 +328,7 @@ refreshResults session model =
     }
 
 
-suggestBookmarkName : Session -> GenericScope -> List (Example Component.Query) -> Component.Query -> String
+suggestBookmarkName : Session -> GenericScope -> List (Example Query) -> Query -> String
 suggestBookmarkName { db, store } genericScope examples query =
     let
         -- Existing user bookmark?
@@ -355,7 +355,7 @@ suggestBookmarkName { db, store } genericScope examples query =
                 |> Result.withDefault "N/A"
 
 
-updateQuery : Component.Query -> PageUpdate Model Msg -> PageUpdate Model Msg
+updateQuery : Query -> PageUpdate Model Msg -> PageUpdate Model Msg
 updateQuery query ({ model, session } as pageUpdate) =
     let
         scope =
@@ -378,7 +378,21 @@ updateQuery query ({ model, session } as pageUpdate) =
     }
 
 
-applyElementAmount : Session -> Model -> Component.Query -> TargetElement -> Amount -> PageUpdate Model Msg
+applyAmountInputState : FloatInput.State -> (Model -> Amount -> PageUpdate Model Msg) -> ( Session, Model ) -> PageUpdate Model Msg
+applyAmountInputState state applyAmount ( session, model ) =
+    let
+        newModel =
+            model |> applyFloatInputState state
+    in
+    case state.value of
+        Just float ->
+            applyAmount newModel (Amount.fromFloat float)
+
+        Nothing ->
+            createPageUpdate session newModel
+
+
+applyElementAmount : Session -> Model -> Query -> TargetElement -> Amount -> PageUpdate Model Msg
 applyElementAmount session model query targetElement amount =
     case Component.updateElementAmount session.db targetElement amount query.items of
         Err error ->
@@ -390,7 +404,16 @@ applyElementAmount session model query targetElement amount =
                 |> updateQuery (Component.setQueryItems items query)
 
 
-applyItemUnitMass : Session -> Model -> Component.Query -> Index -> Mass -> PageUpdate Model Msg
+applyFloatInputState : FloatInput.State -> Model -> Model
+applyFloatInputState state model =
+    { model
+        | floatInputState =
+            model.floatInputState
+                |> FloatInput.applyState state
+    }
+
+
+applyItemUnitMass : Session -> Model -> Query -> Index -> Mass -> PageUpdate Model Msg
 applyItemUnitMass session model query itemIndex mass =
     let
         currentUnitMassAllowsEdit =
@@ -416,15 +439,11 @@ applyItemUnitMass session model query itemIndex mass =
         createPageUpdate session model
 
 
-applyUnitMassInputState : Session -> Model -> Component.Query -> Index -> FloatInput.State -> PageUpdate Model Msg
+applyUnitMassInputState : Session -> Model -> Query -> Index -> FloatInput.State -> PageUpdate Model Msg
 applyUnitMassInputState session model query itemIndex state =
     let
         newModel =
-            { model
-                | floatInputState =
-                    model.floatInputState
-                        |> FloatInput.applyState state
-            }
+            model |> applyFloatInputState state
     in
     case state.value of
         Just kilograms ->
@@ -817,12 +836,13 @@ update ({ navKey } as session) msg model =
                     )
                 |> App.withCmds [ Plausible.send session <| Plausible.ComponentUpdated globalScope ]
 
-        ( UpdateConsumptionAmount index (Just amount), _ ) ->
-            createPageUpdate session model
-                |> updateQuery (query |> Component.updateConsumptionAmount requirements index amount)
-
-        ( UpdateConsumptionAmount _ Nothing, _ ) ->
-            createPageUpdate session model
+        ( UpdateConsumptionAmount index state, _ ) ->
+            ( session, model )
+                |> applyAmountInputState state
+                    (\newModel amount ->
+                        createPageUpdate session newModel
+                            |> updateQuery (query |> Component.updateConsumptionAmount requirements index amount)
+                    )
 
         ( UpdateContributionDescription description, _ ) ->
             { model | contributionDescription = description }
@@ -848,11 +868,10 @@ update ({ navKey } as session) msg model =
             createPageUpdate session model
                 |> App.notifyError "Erreur de durabilité" error
 
-        ( UpdateElementAmount _ Nothing, _ ) ->
-            createPageUpdate session model
-
-        ( UpdateElementAmount targetElement (Just amount), _ ) ->
-            applyElementAmount session model query targetElement amount
+        ( UpdateElementAmount targetElement state, _ ) ->
+            ( session, model )
+                |> applyAmountInputState state
+                    (\newModel -> applyElementAmount session newModel query targetElement)
 
         ( UpdateItemUnitMass itemIndex state, _ ) ->
             applyUnitMassInputState session model query itemIndex state
@@ -875,16 +894,17 @@ update ({ navKey } as session) msg model =
                     )
                 |> App.withCmds [ Plausible.send session <| Plausible.ComponentUpdated globalScope ]
 
-        ( UpdatePackagingAmount index (Just amount), _ ) ->
-            createPageUpdate session model
-                |> updateQuery (query |> Component.updatePackagingAmount index amount)
+        ( UpdatePackagingAmount index state, _ ) ->
+            ( session, model )
+                |> applyAmountInputState state
+                    (\newModel amount ->
+                        createPageUpdate session newModel
+                            |> updateQuery (query |> Component.updatePackagingAmount index amount)
+                    )
 
         ( UpdateProduct maybeProductId, _ ) ->
             createPageUpdate session model
                 |> selectProductCategory session query maybeProductId
-
-        ( UpdatePackagingAmount _ Nothing, _ ) ->
-            createPageUpdate session model
 
         ( UpdateRecyclability recyclable, _ ) ->
             createPageUpdate session model
@@ -968,7 +988,7 @@ isItemEditModalOpen =
         )
 
 
-selectExample : Autocomplete Component.Query -> PageUpdate Model Msg -> PageUpdate Model Msg
+selectExample : Autocomplete Query -> PageUpdate Model Msg -> PageUpdate Model Msg
 selectExample autocompleteState ({ model } as pageUpdate) =
     let
         exampleQuery =
@@ -981,7 +1001,7 @@ selectExample autocompleteState ({ model } as pageUpdate) =
         |> App.withCmds [ Plausible.send pageUpdate.session <| Plausible.ExampleSelected (Scope.Generic model.genericScope) ]
 
 
-selectProductionItem : Component.Query -> Autocomplete Component.ProductionItem -> PageUpdate Model Msg -> PageUpdate Model Msg
+selectProductionItem : Query -> Autocomplete Component.ProductionItem -> PageUpdate Model Msg -> PageUpdate Model Msg
 selectProductionItem query autocompleteState ({ model, session } as pageUpdate) =
     let
         plausibleCommand =
@@ -1027,7 +1047,7 @@ selectProductionItem query autocompleteState ({ model, session } as pageUpdate) 
             pageUpdate |> App.notifyWarning "Aucun composant sélectionné"
 
 
-selectAssemblyOperation : Component.Requirements Db -> Component.Query -> Autocomplete Process -> PageUpdate Model Msg -> PageUpdate Model Msg
+selectAssemblyOperation : Component.Requirements Db -> Query -> Autocomplete Process -> PageUpdate Model Msg -> PageUpdate Model Msg
 selectAssemblyOperation requirements query autocompleteState pageUpdate =
     case Autocomplete.selectedValue autocompleteState of
         Just process ->
@@ -1041,7 +1061,7 @@ selectAssemblyOperation requirements query autocompleteState pageUpdate =
 
 selectConsumption :
     Component.Requirements db
-    -> Component.Query
+    -> Query
     -> Autocomplete Process
     -> PageUpdate Model Msg
     -> PageUpdate Model Msg
@@ -1057,7 +1077,7 @@ selectConsumption requirements query autocompleteState ({ model } as pageUpdate)
             pageUpdate |> App.notifyWarning "Aucun composant sélectionné"
 
 
-addPackaging : Component.Query -> Autocomplete Process -> PageUpdate Model Msg -> PageUpdate Model Msg
+addPackaging : Query -> Autocomplete Process -> PageUpdate Model Msg -> PageUpdate Model Msg
 addPackaging query autocompleteState pageUpdate =
     case Autocomplete.selectedValue autocompleteState of
         Just process ->
@@ -1079,7 +1099,7 @@ selectProcess :
     -> TargetItem
     -> Maybe Index
     -> Autocomplete Process
-    -> Component.Query
+    -> Query
     -> PageUpdate Model Msg
     -> PageUpdate Model Msg
 selectProcess category targetItem maybeElementIndex autocompleteState query ({ model, session } as pageUpdate) =

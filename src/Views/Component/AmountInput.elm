@@ -1,69 +1,42 @@
 module Views.Component.AmountInput exposing
     ( Config
-    , WriteAccess(..)
     , view
     )
 
 import Data.Component.Amount as Amount exposing (Amount)
 import Data.Process as Process
 import Html exposing (..)
-import Html.Attributes as Attr exposing (..)
-import Html.Events exposing (..)
+import Html.Attributes exposing (..)
+import Views.FloatInput as FloatInput exposing (WriteAccess)
 
 
 type alias Config msg =
-    { event : Maybe Amount -> msg
+    { id : String
+    , label : String
+    , max : Maybe Float
+    , min : Maybe Float
+    , noOp : msg
+    , onInput : FloatInput.State -> msg
+    , state : Maybe FloatInput.State
     , unit : Process.Unit
     , writeAccess : WriteAccess
     }
 
 
-type WriteAccess
-    = ReadOnly String
-    | Writeable
-
-
 view : Config msg -> Amount -> Html msg
-view { event, unit, writeAccess } amount =
-    let
-        stringAmount =
-            Amount.toString amount
-
-        stepValue =
-            case String.split "." stringAmount of
-                -- This is an integer, increment by .1 for convenience
-                [ _ ] ->
-                    "0.1"
-
-                -- This is a float, increment at the precision of the float
-                [ _, decimals ] ->
-                    "0." ++ String.padLeft (String.length decimals) '0' "1"
-
-                -- Should not happen, but who knows?
-                _ ->
-                    "0.01"
-    in
+view config amount =
     div [ class "AmountInput input-group" ]
-        [ input
-            ([ type_ "number"
-             , class "form-control form-control-sm text-end incdec-arrows-left"
-             , value stringAmount
-             , Attr.min "0"
-             , step stepValue
-             , onInput <| Amount.fromString >> event
-             ]
-                ++ (case writeAccess of
-                        ReadOnly readonlyTitle ->
-                            [ Attr.readonly True
-                            , title readonlyTitle
-                            , class "cursor-not-allowed"
-                            ]
-
-                        Writeable ->
-                            []
-                   )
-            )
-            []
+        [ FloatInput.view
+            { id = config.id
+            , label = config.label
+            , max = config.max
+            , min = config.min
+            , noOp = config.noOp
+            , onInput = config.onInput
+            , state = config.state
+            , value = Amount.toFloat amount
+            , writeAccess = config.writeAccess
+            }
         , small [ class "input-group-text fs-8" ]
-            [ text <| Process.unitToString unit ]
+            [ text <| Process.unitToString config.unit ]
         ]
