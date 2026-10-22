@@ -20,7 +20,7 @@ dependencies = [
     "pygithub>=2.6.1",
     "typer~=0.26",
     "pytest-mock>=3.14.1",
-    "sentry-sdk[litestar]>=2.66.1",
+    "sentry-sdk[litestar]>=2.73.0",
     "pwdlib[argon2]>=0.3.0",
     "pydantic>=2.13.4",
     "aiofiles>=25.1.0",
@@ -122,4 +122,4 @@ include = ["data/bin/compare_volca.py"]
 rules = { unresolved-import = "ignore" }
 
 [tool.uv]
-required-version =  ">=0.12"
+required-version =  ">=0.13.4"
