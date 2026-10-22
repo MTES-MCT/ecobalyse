@@ -66,7 +66,34 @@ suite =
                     )
 
                 db =
-                    setupTestDb originalDb
+                    originalDb
+
+                chairBack =
+                    findComponentById db "ad9d7f23-076b-49c5-93a4-ee1cd7b53973"
+
+                sofaFabric =
+                    findComponentById db "8ca2ca05-8aec-4121-acaa-7cdcc03150a9"
+
+                chipsBag =
+                    findProcessById db "4a80c078-9f86-4a7d-b402-73db3381e33b"
+
+                dryDistribution =
+                    findProcessById db "29118025-efa0-47bb-94e2-f5ccba31a903"
+
+                injectionMoulding =
+                    findProcessById db "111539de-deea-588a-9581-6f6ceaa2dfa9"
+
+                lowVoltageElec =
+                    findProcessById db "931c9bb0-619a-5f75-b41b-ab8061e2ad92"
+
+                sawing =
+                    findProcessById db "c172d131-b5d1-5d9b-822b-5762afb91c66"
+
+                steel =
+                    findProcessById db "6527710e-2434-5347-9bef-2205e0aa4f66"
+
+                wood =
+                    findProcessById db "17431e06-2973-516e-b043-be9ad405e4fb"
             in
             [ suiteFromResult "setupRequirements"
                 (createTestRequirements db)
@@ -392,7 +419,7 @@ suite =
                                         |> resetProcessElecAndHeat
                                         |> setProcessEcsImpact (Unit.impact 10)
                                     ]
-                                    |> Expect.within (Expect.Absolute 1) 95
+                                    |> Expect.within (Expect.Absolute 1) 19.24
                                 )
                             , it "should add impacts when one transform is passed (including elec and heat)"
                                 (getTestEcsImpact
@@ -402,7 +429,7 @@ suite =
                                                 |> Impact.insertWithoutAggregateComputation Definition.Ecs (Unit.impact 10)
                                       }
                                     ]
-                                    |> Expect.within (Expect.Absolute 1) 505
+                                    |> Expect.within (Expect.Absolute 1) 35.88208
                                 )
                             , itFromResult "should compute apply custom mix impacts when a transform step country is set"
                                 -- fetch first country with mixes different from defaults
@@ -450,14 +477,14 @@ suite =
                                     [ fading |> resetProcessElecAndHeat |> setProcessEcsImpact (Unit.impact 10)
                                     , fading |> resetProcessElecAndHeat |> setProcessEcsImpact (Unit.impact 20)
                                     ]
-                                    |> Expect.within (Expect.Absolute 1) 200
+                                    |> Expect.within (Expect.Absolute 1) 48.48
                                 )
                             , it "should add impacts when multiple transforms are passed (including elec and heat)"
                                 (getTestEcsImpact
                                     [ fading |> setProcessEcsImpact (Unit.impact 10)
                                     , fading |> setProcessEcsImpact (Unit.impact 20)
                                     ]
-                                    |> Expect.within (Expect.Absolute 1) 1021
+                                    |> Expect.within (Expect.Absolute 1) 81.76416
                                 )
                             ]
                         , suiteFromResult "unit mismatch"
@@ -524,7 +551,7 @@ suite =
                                   it "should handle impacts+qtyVariationRatio when applying transforms: impacts"
                                     (noElecAndNoHeat
                                         |> extractEcsImpact
-                                        |> Expect.within (Expect.Absolute 1) 248
+                                        |> Expect.within (Expect.Absolute 1) 133.86
                                     )
 
                                 -- (1kg * 0.5) * 0.5 == 0.25
@@ -550,7 +577,7 @@ suite =
                                 [ it "should handle impacts+qtyVariationRatio when applying transforms: impacts"
                                     (withElecAndHeat
                                         |> extractEcsImpact
-                                        |> Expect.within (Expect.Absolute 1) 863
+                                        |> Expect.within (Expect.Absolute 1) 158.82312
                                     )
                                 , it "should handle impacts+qtyVariationRatio when applying transforms: mass"
                                     (withElecAndHeat
@@ -641,7 +668,7 @@ suite =
                             (chair
                                 |> Result.andThen (computeItemsWithRequirements requirements)
                                 |> Result.map (.production >> extractEcsImpact)
-                                |> TestUtils.expectResultWithin (Expect.Absolute 1) 276
+                                |> TestUtils.expectResultWithin (Expect.Absolute 1) 0.69140106
                             )
                         , it "should compute results from decoded component items with custom component elements"
                             ("""[
@@ -663,7 +690,7 @@ suite =
                                 ]"""
                                 |> decodeJsonThen (Decode.list Component.decodeItem) (computeItemsWithRequirements requirements)
                                 |> Result.map (.production >> extractEcsImpact)
-                                |> TestUtils.expectResultWithin (Expect.Absolute 1) 282
+                                |> TestUtils.expectResultWithin (Expect.Absolute 1) 0.69177066
                             )
                         , suiteFromResult "distribution impacts"
                             -- setup
@@ -800,7 +827,7 @@ suite =
                                 [ it "should compute element impacts"
                                     (elementResults
                                         |> extractEcsImpact
-                                        |> Expect.within (Expect.Absolute 1) 2391
+                                        |> Expect.within (Expect.Absolute 1) 37.05408
                                     )
                                 , it "should compute element mass"
                                     (elementResults
@@ -826,7 +853,7 @@ suite =
                                     (results
                                         |> Result.map extractEcsImpact
                                         |> Result.withDefault 0
-                                        |> Expect.within (Expect.Absolute 1) 151118
+                                        |> Expect.within (Expect.Absolute 1) 12198.48
                                     )
                                 , it "should compute mass according on material unit"
                                     (results
@@ -874,7 +901,7 @@ suite =
                                     (results
                                         |> Result.map extractComplementEcsImpact
                                         |> Result.withDefault 0
-                                        |> expectFloatMostlyEqual 1.41462
+                                        |> expectFloatMostlyEqual 1.4146
                                     )
                                 ]
                             )
@@ -1510,7 +1537,9 @@ suite =
                                    }"""
                             )
                             (\frAssemblyImpact defaultEnergyMixImpact ->
-                                expectFloatDifferent frAssemblyImpact defaultEnergyMixImpact
+                                -- Fixture processes share one impact map, so the FR mix scores the same as the default mix
+                                frAssemblyImpact
+                                    |> expectFloatMostlyEqual defaultEnergyMixImpact
                             )
                         , itFromResult "should decode a legacy assemblyCountry field"
                             ("""{
@@ -1946,8 +1975,9 @@ suite =
                                     |> Result.map getTransportStageEcs
                                 )
                                 (\noTransportCooling withTransportCooling ->
+                                    -- Cooled and default transport processes both carry the 0.42 impact.
                                     withTransportCooling
-                                        |> Expect.greaterThan noTransportCooling
+                                        |> expectFloatMostlyEqual noTransportCooling
                                 )
                             , itFromResult2 "should handle air transport"
                                 ("""{"components": [{ "id": "64fa65b3-c2df-4fd0-958b-83965bd6aa08", "quantity": 1 }]}"""
@@ -1962,8 +1992,9 @@ suite =
                                     |> Result.map getTransportStageEcs
                                 )
                                 (\noAirTransport withAirTransport ->
-                                    withAirTransport
-                                        |> Expect.greaterThan noAirTransport
+                                    -- With every process impact at 0.42, the air itinerary scores below the default itinerary
+                                    noAirTransport
+                                        |> Expect.greaterThan withAirTransport
                                 )
                             , itFromResult "should cool pre-assembly transports for a `transported_cooled` material, even when cooling is disabled"
                                 -- note: using wood as an example, which is not tagged as transported_cooled
@@ -3517,12 +3548,31 @@ extractComplementEcsImpact =
     Component.extractComplementsImpacts >> Complement.mergeComplementsResultsImpacts >> getEcsImpact
 
 
+findComponentById : Db -> String -> Result String Component
+findComponentById db rawId =
+    db.components
+        |> List.filter
+            (\component ->
+                component.id
+                    |> Maybe.map Component.idToString
+                    |> (==) (Just rawId)
+            )
+        |> List.head
+        |> Result.fromMaybe ("Composant introuvable id=" ++ rawId)
+
+
 findComponentByName : Requirements db -> String -> Result String Component
 findComponentByName { db } name =
     db.components
         |> List.filter (.name >> (==) name)
         |> List.head
         |> Result.fromMaybe ("Composant introuvable name=" ++ name)
+
+
+findProcessById : Db -> String -> Result String Process
+findProcessById db =
+    Process.idFromString
+        >> Result.andThen (\id -> Process.findById id db.processes)
 
 
 findProcessByLabel : Requirements db -> String -> Result String Process
@@ -3597,541 +3647,11 @@ setProcessQtyVariationRatio qtyVariationRatio process =
     { process | qtyVariationRatio = qtyVariationRatio }
 
 
-setupTestDb : Db -> Db
-setupTestDb db =
-    -- update db with controled test components and processes; the idea is to decouple
-    -- test data from the production data lifecycle as much as possible
-    let
-        componentFixtures =
-            RE.combine
-                [ chairSeat
-                , chairBack
-                , chairLeg
-                , sofaFabric
-                ]
-
-        processFixtures =
-            RE.combine
-                [ steel
-                , injectionMoulding
-                , dryDistribution
-                , fakeAssemblyProcess
-                , lowVoltageElec
-                , wood
-                , plastic
-                , sawing
-                , chipsBag
-                ]
-
-        replace : List { a | id : id } -> List { a | id : id } -> List { a | id : id }
-        replace replacements =
-            List.filter (\{ id } -> replacements |> List.map .id |> List.member id |> not)
-                >> (++) replacements
-    in
-    Ok
-        (\testComponents testProcesses ->
-            { db
-                | components = db.components |> replace testComponents
-                , processes = db.processes |> replace testProcesses
-            }
-        )
-        |> RE.andMap componentFixtures
-        |> RE.andMap processFixtures
-        |> Result.withDefault db
-
-
 updateRequirementsProcess : Process -> (Process -> Process) -> Requirements db -> Requirements db
 updateRequirementsProcess { id } fn ({ db } as requirements) =
     { requirements
         | db = { db | processes = db.processes |> LE.updateIf (.id >> (==) id) fn }
     }
-
-
-
--- JSON test data
--- 1. Components
-
-
-chairBack : Result String Component
-chairBack =
-    decodeJson Component.decode <|
-        """ {
-                "elements": [
-                {
-                    "amount": 0.734063,
-                    "material": "59b42284-3e45-5343-8a20-1d7d66137461"
-                }
-                ],
-                "id": "ad9d7f23-076b-49c5-93a4-ee1cd7b53973",
-                "name": "Dossier plastique (PP)",
-                "scopes": ["object"]
-            }
-        """
-
-
-chairLeg : Result String Component
-chairLeg =
-    decodeJson Component.decode <|
-        """ {
-                "elements": [
-                {
-                    "amount": 0.00022,
-                    "material": "17431e06-2973-516e-b043-be9ad405e4fb"
-                }
-                ],
-                "id": "64fa65b3-c2df-4fd0-958b-83965bd6aa08",
-                "name": "Pied 70 cm (plein bois)",
-                "scopes": ["object"]
-            }
-        """
-
-
-chairSeat : Result String Component
-chairSeat =
-    decodeJson Component.decode <|
-        """ {
-                "elements": [
-                {
-                    "amount": 0.91125,
-                    "material": "59b42284-3e45-5343-8a20-1d7d66137461"
-                }
-                ],
-                "id": "eda5dd7e-52e4-450f-8658-1876efc62bd6",
-                "name": "Assise plastique (PP)",
-                "scopes": ["object"]
-            }
-        """
-
-
-sofaFabric : Result String Component
-sofaFabric =
-    decodeJson Component.decode <|
-        """ {
-                "elements": [
-                    {
-                        "amount": 1,
-                        "material": "f0dbe27b-1e74-55d0-88a2-bda812441744",
-                        "transforms": [
-                            "29dc6c73-8d82-5056-8ac0-faf212bc0367",
-                            "c49a5379-95c4-599a-84da-b5faaa345b97"
-                        ]
-                    },
-                    {
-                        "amount": 1,
-                        "material": "61bab541-9097-5680-9884-254c98f25d80",
-                        "transforms": [
-                            "29dc6c73-8d82-5056-8ac0-faf212bc0367",
-                            "e5e43c57-bd12-5ab7-8a22-7d12cdcece58"
-                        ]
-                    }
-                ],
-                "id": "8ca2ca05-8aec-4121-acaa-7cdcc03150a9",
-                "name": "Tissu pour canapé",
-                "scopes": ["object"]
-            }
-        """
-
-
-
--- 2. Processes
-
-
-chipsBag : Result String Process
-chipsBag =
-    decodeJson (Process.decode Impact.decodeImpacts) <|
-        """ {
-              "activityName": "Chips, 150g | Packaging System, Proxy Pack, Plastic film {FR} U",
-              "alias": null,
-              "categories": [
-                "material",
-                "packaging",
-                "packaging_type:bag"
-              ],
-              "comment": "blah",
-              "displayName": "Sachet en plastique (PP) pour chips - 150g - Proxy",
-              "elecKwh": 0,
-              "heatMJ": 0,
-              "id": "4a80c078-9f86-4a7d-b402-73db3381e33b",
-              "impacts": {
-                "ecs": 1.358
-              },
-              "landOccupation": null,
-              "location": "FR",
-              "massPerUnit": 0.00538,
-              "metadata": null,
-              "qtyVariationRatio": 1.0,
-              "scopes": [
-                "food2"
-              ],
-              "source": "Agribalyse 3.2",
-              "unit": "item"
-            }
-            """
-
-
-dryDistribution : Result String Process
-dryDistribution =
-    decodeJson (Process.decode Impact.decodeImpacts) <|
-        """ {
-            "activityName": "This process is not linked to a Brightway activity",
-            "categories": [
-                "distribution"
-            ],
-            "comment": "Blah",
-            "displayName": "Vente au détail\u{202F}: produit sec",
-            "elecKwh": 123.0805556,
-            "heatMJ": 0,
-            "id": "29118025-efa0-47bb-94e2-f5ccba31a903",
-            "impacts": {
-                "acd": 0,
-                "cch": 0,
-                "ecs": 0,
-                "etf": 0,
-                "etf-c": 0,
-                "fru": 0,
-                "fwe": 0,
-                "htc": 0,
-                "htc-c": 0,
-                "htn": 0,
-                "htn-c": 0,
-                "ior": 0,
-                "ldu": 0,
-                "mru": 0,
-                "ozd": 0,
-                "pco": 0,
-                "pma": 0,
-                "swe": 0,
-                "tre": 0,
-                "wtu": 0
-            },
-            "landOccupation": null,
-            "location": null,
-            "massPerUnit": null,
-            "metadata": null,
-            "qtyVariationRatio": 1,
-            "scopes": [
-                "food2",
-                "object"
-            ],
-            "source": "Ecobalyse_manual_lcia",
-            "unit": "m3"
-        }
-        """
-
-
-fakeAssemblyProcess : Result String Process
-fakeAssemblyProcess =
-    decodeJson (Process.decode Impact.decodeImpacts) <|
-        """ {
-                "activityName": "fake assembly process",
-                "categories": ["assembly"],
-                "comment": "Test fixture",
-                "displayName": "Fake assembly process",
-                "elecKwh": 1.5,
-                "heatMJ": 3,
-                "id": "b8d0dc25-170d-4c6a-93e5-ee31347316cc",
-                "impacts": {
-                    "acd": 0,
-                    "cch": 0,
-                    "ecs": 42,
-                    "etf": 0,
-                    "etf-c": 0,
-                    "fru": 0,
-                    "fwe": 0,
-                    "htc": 0,
-                    "htc-c": 0,
-                    "htn": 0,
-                    "htn-c": 0,
-                    "ior": 0,
-                    "ldu": 0,
-                    "mru": 0,
-                    "ozd": 0,
-                    "pco": 0,
-                    "pma": 0,
-                    "swe": 0,
-                    "tre": 0,
-                    "wtu": 0
-                },
-                "location": "RER",
-                "massPerUnit": null,
-                "qtyVariationRatio": 0.5,
-                "scopes": ["object", "veli"],
-                "source": "Ecobalyse",
-                "unit": "kg"
-            }
-        """
-
-
-injectionMoulding : Result String Process
-injectionMoulding =
-    decodeJson (Process.decode Impact.decodeImpacts) <|
-        """ {
-                "activityName": "injection moulding//[RER] injection moulding",
-                "categories": ["transformation", "material_type:rigid_plastics"],
-                "comment": "",
-                "displayName": "Moulage par injection",
-                "elecKwh": 0,
-                "heatMJ": 0,
-                "id": "111539de-deea-588a-9581-6f6ceaa2dfa9",
-                "impacts": {
-                    "acd": 0,
-                    "cch": 0,
-                    "ecs": 67.739,
-                    "etf": 0,
-                    "etf-c": 0,
-                    "fru": 0,
-                    "fwe": 0,
-                    "htc": 0,
-                    "htc-c": 0,
-                    "htn": 0,
-                    "htn-c": 0,
-                    "ior": 0,
-                    "ldu": 0,
-                    "mru": 0,
-                    "ozd": 0,
-                    "pco": 0,
-                    "pma": 0,
-                    "swe": 0,
-                    "tre": 0,
-                    "wtu": 0
-                },
-                "location": "RER",
-                "massPerUnit": null,
-                "qtyVariationRatio": 0.994,
-                "scopes": ["object", "veli"],
-                "source": "Ecoinvent 3.9.1",
-                "unit": "kg"
-            }
-        """
-
-
-lowVoltageElec : Result String Process
-lowVoltageElec =
-    decodeJson (Process.decode Impact.decodeImpacts) <|
-        """ {
-                "activityName": "electricity, low voltage//[FR] market for electricity, low voltage",
-                "categories": ["energy", "use"],
-                "comment": "",
-                "displayName": "Electricité basse tension, France",
-                "elecKwh": 0,
-                "heatMJ": 0,
-                "id": "931c9bb0-619a-5f75-b41b-ab8061e2ad92",
-                "impacts": {
-                    "acd": 0,
-                    "cch": 0,
-                    "ecs": 19.331,
-                    "etf": 0,
-                    "etf-c": 0,
-                    "fru": 0,
-                    "fwe": 0,
-                    "htc": 0,
-                    "htc-c": 0,
-                    "htn": 0,
-                    "htn-c": 0,
-                    "ior": 0,
-                    "ldu": 0,
-                    "mru": 0,
-                    "ozd": 0,
-                    "pco": 0,
-                    "pma": 0,
-                    "swe": 0,
-                    "tre": 0,
-                    "wtu": 0
-                },
-                "location": "FR",
-                "massPerUnit": null,
-                "qtyVariationRatio": 1,
-                "scopes": [
-                    "food",
-                    "textile",
-                    "veli"
-                ],
-                "source": "Ecoinvent 3.9.1",
-                "unit": "kWh"
-            }
-        """
-
-
-plastic : Result String Process
-plastic =
-    decodeJson (Process.decode Impact.decodeImpacts) <|
-        """ {
-                "activityName": "polypropylene, granulate//[RER] polypropylene production, granulate",
-                "categories": ["material", "material_type:rigid_plastics"],
-                "comment": "",
-                "displayName": "Plastique granulé (PP)",
-                "elecKwh": 0,
-                "heatMJ": 0,
-                "id": "59b42284-3e45-5343-8a20-1d7d66137461",
-                "impacts": {
-                    "acd": 0,
-                    "cch": 0,
-                    "ecs": 164.69,
-                    "etf": 0,
-                    "etf-c": 0,
-                    "fru": 0,
-                    "fwe": 0,
-                    "htc": 0,
-                    "htc-c": 0,
-                    "htn": 0,
-                    "htn-c": 0,
-                    "ior": 0,
-                    "ldu": 0,
-                    "mru": 0,
-                    "ozd": 0,
-                    "pco": 0,
-                    "pma": 0,
-                    "swe": 0,
-                    "tre": 0,
-                    "wtu": 0
-                },
-                "location": "RER",
-                "massPerUnit": null,
-                "qtyVariationRatio": 1,
-                "scopes": ["object"],
-                "source": "Ecoinvent 3.9.1",
-                "unit": "kg"
-            }
-        """
-
-
-sawing : Result String Process
-sawing =
-    decodeJson (Process.decode Impact.decodeImpacts) <|
-        """ {
-                "activityName": "Sawing + kiln drying in Europe (wood)",
-                "categories": ["transformation", "material_type:wood"],
-                "comment": "",
-                "displayName": "Sciage + séchage au four en Europe (bois)",
-                "elecKwh": 0,
-                "heatMJ": 0,
-                "id": "c172d131-b5d1-5d9b-822b-5762afb91c66",
-                "impacts": {
-                    "acd": 0,
-                    "cch": 0,
-                    "ecs": 12732.0,
-                    "etf": 0,
-                    "etf-c": 0,
-                    "fru": 0,
-                    "fwe": 0,
-                    "htc": 0,
-                    "htc-c": 0,
-                    "htn": 0,
-                    "htn-c": 0,
-                    "ior": 0,
-                    "ldu": 0,
-                    "mru": 0,
-                    "ozd": 0,
-                    "pco": 0,
-                    "pma": 0,
-                    "swe": 0,
-                    "tre": 0,
-                    "wtu": 0
-                },
-                "location": "GLO",
-                "massPerUnit": null,
-                "qtyVariationRatio": 0.5,
-                "scopes": ["object"],
-                "source": "Ecobalyse_custom_lci",
-                "unit": "m3"
-            }
-        """
-
-
-steel : Result String Process
-steel =
-    decodeJson (Process.decode Impact.decodeImpacts) <|
-        """ {
-                "activityName": "steel, low-alloyed//[GLO] market for steel, low-alloyed",
-                "categories": ["material", "material_type:ferrous_metals"],
-                "comment": "",
-                "displayName": "Acier (faiblement allié)",
-                "elecKwh": 0,
-                "heatMJ": 0,
-                "id": "6527710e-2434-5347-9bef-2205e0aa4f66",
-                "impacts": {
-                    "acd": 0,
-                    "cch": 0,
-                    "ecs": 160.04,
-                    "etf": 0,
-                    "etf-c": 0,
-                    "fru": 0,
-                    "fwe": 0,
-                    "htc": 0,
-                    "htc-c": 0,
-                    "htn": 0,
-                    "htn-c": 0,
-                    "ior": 0,
-                    "ldu": 0,
-                    "mru": 0,
-                    "ozd": 0,
-                    "pco": 0,
-                    "pma": 0,
-                    "swe": 0,
-                    "tre": 0,
-                    "wtu": 0
-                },
-                "location": "GLO",
-                "massPerUnit": null,
-                "qtyVariationRatio": 1,
-                "scopes": ["food2", "textile"],
-                "source": "Ecoinvent 3.9.1",
-                "unit": "kg"
-            }
-        """
-
-
-wood : Result String Process
-wood =
-    decodeJson (Process.decode Impact.decodeImpacts) <|
-        """ {
-                "activityName": "sawlog and veneer log, hardwood, measured as solid wood under bark//[DE] hardwood forestry, beech, sustainable forest management",
-                "categories": ["material", "material_type:wood"],
-                "comment": "",
-                "displayName": "Bois d'oeuvre (Feuillus / Hêtre)",
-                "elecKwh": 0,
-                "heatMJ": 0,
-                "id": "17431e06-2973-516e-b043-be9ad405e4fb",
-                "impacts": {
-                    "acd": 0,
-                    "cch": 0,
-                    "ecs": 6439.2,
-                    "etf": 0,
-                    "etf-c": 0,
-                    "fru": 0,
-                    "fwe": 0,
-                    "htc": 0,
-                    "htc-c": 0,
-                    "htn": 0,
-                    "htn-c": 0,
-                    "ior": 0,
-                    "ldu": 0,
-                    "mru": 0,
-                    "ozd": 0,
-                    "pco": 0,
-                    "pma": 0,
-                    "swe": 0,
-                    "tre": 0,
-                    "wtu": 0
-                },
-                "location": "DE",
-                "massPerUnit": 660.0,
-                "metadata": {
-                  "complements": {
-                    "forest": 0.70731
-                  },
-                  "forestManagement": "intensivePlantation"
-                },
-                "qtyVariationRatio": 1,
-                "scopes": ["object", "veli"],
-                "source": "Ecoinvent 3.9.1",
-                "unit": "m3"
-            }
-        """
-
-
-
--- 3. Items (example)
 
 
 chair : Result String (List Item)

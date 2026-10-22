@@ -342,9 +342,12 @@ buildFromJson flowersExamplesJson food2ExamplesJson objectExamplesJson veliExamp
 
 #### Static.Db et template JSON
 
-Le module [`Static.Json`](../src/Static/Json.elm) est particulier, car il est généré. Il sert notamment au serveur d'API, puisque Elm ne dispose pas d'API système pour interroger le système de fichiers et récupérer directement le contenu de fichiers s'y trouvant ; c'est pour cela que ces contenus sont encapsulés dans ce fichier généré, qui est chargé d'un bloc en RAM par l'app serveur. Les tests unitaires passent par [`Fixture.Db`](../tests/Fixture/Db.elm) plutôt que par ce module. Le jeu de données réduit qui leur est destiné est [`tests/fixtures`](../tests/fixtures).
+Le module [`Static.Json`](../src/Static/Json.elm) est particulier, car il est généré. Il sert notamment au serveur d'API, puisque Elm ne dispose pas d'API système pour interroger le système de fichiers et récupérer directement le contenu de fichiers s'y trouvant ; c'est pour cela que ces contenus sont encapsulés dans ce fichier généré, qui est chargé d'un bloc en RAM par l'app serveur.
 
-> ⚠️ Notez que l'application Web Elm, elle, charge les données JSON à travers HTTP, réduisant ainsi le poids applicatif et les temps de chargement initiaux.
+> ℹ️ Notes :
+>
+> - L'application Web Elm, elle, charge les données JSON à travers HTTP, réduisant ainsi le poids applicatif et les temps de chargement initiaux
+> - Les tests unitaires et d'intégration utilisent un jeu de données restreint situé dans le répertoire [`tests/fixtures`](../tests/fixtures) et compilé dans [`Fixture.Db`](../src/Fixture/Db.elm)
 
 On modifie le template en question dans le fichier [`src/Static/Json.elm-template`](../src/Static/Json.elm-template), ainsi que le script de génération situé dans [`bin/build-db`](../bin/build-db). Exposer les trois chaînes en question :
 
