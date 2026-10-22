@@ -47,7 +47,7 @@ jobs:
         python-version: [3.12]
 
     steps:
-    - uses: actions/checkout@v4
+    - uses: actions/checkout@v7
 
     - name: Install transcrypt
       run: |
@@ -57,21 +57,21 @@ jobs:
         chmod +x "$HOME/.local/bin/transcrypt"
 
     - name: Use Node.js ${{ matrix.node-version }}
-      uses: actions/setup-node@v4
+      uses: actions/setup-node@v7
       with:
         node-version: ${{ matrix.node-version }}
         cache: 'npm'
 
     - name: Cache node_modules
       id: cache-node_modules
-      uses: actions/cache@v4
+      uses: actions/cache@v6
       with:
         path: node_modules
         key: node_modules-${{ hashFiles('package.json', 'package-lock.json') }}
 
     - name: Cache ~/.elm
       # see https://docs.microsoft.com/en-us/answers/questions/510640/deploy-elm-app-to-azure-static-website-from-github.html
-      uses: actions/cache@v4
+      uses: actions/cache@v6
       with:
         path: ~/.elm
         key: elm-cache-${{ hashFiles('elm.json') }}
@@ -89,7 +89,7 @@ jobs:
         sudo apt-get install -y gettext
 
     - name: Install the latest version of uv
-      uses: astral-sh/setup-uv@v4
+      uses: astral-sh/setup-uv@v7
       with:
         version: "latest"
         python-version: ${{ matrix.python-version }}
@@ -120,7 +120,7 @@ jobs:
       run: NODE_ENV=test npm run test:e2e
 
     - name: Upload Playwright test artifacts
-      uses: actions/upload-artifact@v4
+      uses: actions/upload-artifact@v7
       if: ${{ !cancelled() }}
       with:
         name: playwright-report
