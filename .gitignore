@@ -37,6 +37,7 @@ node_modules
 /public/main.css
 /public/main.css.map
 /server-app.js
+/server-app.test.js
 /src/Static/Json.elm
 /src/Fixture/Json.elm
 /xls

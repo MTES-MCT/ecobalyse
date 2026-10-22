@@ -6,7 +6,7 @@ const bodyParserErrorHandler = require("express-body-parser-error-handler");
 const cors = require("cors");
 const yaml = require("js-yaml");
 const helmet = require("helmet");
-const { Elm } = require("./server-app");
+const { Elm } = require(process.env.SERVER_APP || "./server-app");
 const jsonUtils = require("./lib/json");
 const rateLimit = require("express-rate-limit");
 const {
