@@ -45,7 +45,7 @@
       "scenario": "import",
       "scopes": ["food", "food2"],
       "transportCooling": "always",
-      "visible": true
+      "visible": false
     },
     {
       "alias": "carrot-eu",

@@ -76,7 +76,7 @@
       "scenario": "import",
       "scopes": ["food", "food2"],
       "transportCooling": "always",
-      "visible": true
+      "visible": false
     },
     {
       "alias": "squash-eu-2025",
@@ -90,7 +90,7 @@
       "scenario": "import",
       "scopes": ["food", "food2"],
       "transportCooling": "always",
-      "visible": true
+      "visible": false
     },
     {
       "alias": "eggplant-fr",

@@ -151,7 +151,7 @@
       "scenario": "reference",
       "scopes": ["food", "food2"],
       "transportCooling": "once_transformed",
-      "visible": true
+      "visible": false
     },
     {
       "alias": "beetroot-fr-2025",
@@ -165,7 +165,7 @@
       "scenario": "reference",
       "scopes": ["food", "food2"],
       "transportCooling": "always",
-      "visible": true
+      "visible": false
     }
   ],
   "scopes": ["food", "food2"],

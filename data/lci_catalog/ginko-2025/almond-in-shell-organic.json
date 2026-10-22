@@ -19,7 +19,7 @@
       "scenario": "organic",
       "scopes": ["food", "food2"],
       "transportCooling": "none",
-      "visible": true
+      "visible": false
     },
     {
       "alias": "almond-in-shell-organic",

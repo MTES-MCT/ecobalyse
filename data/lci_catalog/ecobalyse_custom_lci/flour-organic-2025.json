@@ -17,7 +17,7 @@
       "scenario": "organic",
       "scopes": ["food", "food2"],
       "transportCooling": "once_transformed",
-      "visible": true
+      "visible": false
     }
   ],
   "scopes": ["food", "food2"],

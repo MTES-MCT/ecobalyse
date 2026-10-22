@@ -34,7 +34,7 @@
       "scenario": "import",
       "scopes": ["food", "food2"],
       "transportCooling": "none",
-      "visible": true
+      "visible": false
     },
     {
       "alias": "almond-in-shell-non-ue-2025",
@@ -50,7 +50,7 @@
       "scenario": "import",
       "scopes": ["food", "food2"],
       "transportCooling": "none",
-      "visible": true
+      "visible": false
     }
   ],
   "scopes": ["food", "food2"],

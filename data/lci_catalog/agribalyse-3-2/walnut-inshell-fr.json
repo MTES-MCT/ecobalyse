@@ -90,7 +90,7 @@
       "scenario": "reference",
       "scopes": ["food", "food2"],
       "transportCooling": "none",
-      "visible": true
+      "visible": false
     },
     {
       "alias": "chestnut-inshell-fr-2025",
@@ -106,7 +106,7 @@
       "scenario": "reference",
       "scopes": ["food", "food2"],
       "transportCooling": "none",
-      "visible": true
+      "visible": false
     },
     {
       "alias": "walnut-inshell-eu-2025",
@@ -121,7 +121,7 @@
       "scenario": "import",
       "scopes": ["food", "food2"],
       "transportCooling": "none",
-      "visible": true
+      "visible": false
     },
     {
       "alias": "walnut-inshell-non-eu-2025",
@@ -136,7 +136,7 @@
       "scenario": "import",
       "scopes": ["food", "food2"],
       "transportCooling": "none",
-      "visible": true
+      "visible": false
     },
     {
       "alias": "chestnut-eu",

@@ -79,7 +79,7 @@
       "scenario": "reference",
       "scopes": ["food", "food2"],
       "transportCooling": "always",
-      "visible": true
+      "visible": false
     },
     {
       "alias": "artichoke-eu-2025",
@@ -93,7 +93,7 @@
       "scenario": "import",
       "scopes": ["food", "food2"],
       "transportCooling": "always",
-      "visible": true
+      "visible": false
     },
     {
       "alias": "artichoke-non-eu-2025",
@@ -107,7 +107,7 @@
       "scenario": "import",
       "scopes": ["food", "food2"],
       "transportCooling": "always",
-      "visible": true
+      "visible": false
     },
     {
       "alias": "brussels-sprout-fr",
