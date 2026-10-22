@@ -17,7 +17,7 @@
       "scenario": "organic",
       "scopes": ["food", "food2"],
       "transportCooling": "always",
-      "visible": true
+      "visible": false
     },
     {
       "alias": "squash-organic-2025",
@@ -32,7 +32,7 @@
       "scenario": "organic",
       "scopes": ["food", "food2"],
       "transportCooling": "none",
-      "visible": true
+      "visible": false
     }
   ],
   "scopes": ["food", "food2"],
