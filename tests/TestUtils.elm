@@ -34,11 +34,10 @@ import Data.Textile.Product as Product
 import Data.Textile.Query as TextileQuery
 import Data.Unit as Unit
 import Expect exposing (Expectation, FloatingPointTolerance)
+import Fixtures.Db as FixturesDb
 import Json.Encode as Encode
 import Mass
 import Server.Request exposing (Request)
-import Static.Db as StaticDb
-import Static.Json as StaticJson
 import Test exposing (..)
 
 
@@ -49,7 +48,7 @@ asTest =
 
 componentConfig : Db -> Result String Component.Config
 componentConfig db =
-    Component.parseConfig db StaticJson.componentConfigJson
+    Component.parseConfig db FixturesDb.componentConfigJson
 
 
 expectAllSucceed : List Expectation -> Expectation
@@ -134,7 +133,7 @@ suiteFromResult4 testName res1 res2 res3 res4 fn =
 
 suiteWithDb : String -> (Db -> List Test) -> Test
 suiteWithDb name suite =
-    case StaticDb.dbFromStaticFiles StaticJson.processesJson of
+    case FixturesDb.db of
         Ok db ->
             describe name (suite db)
 
