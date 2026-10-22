@@ -56,18 +56,18 @@
     "express-body-parser-error-handler": "^1.0.9",
     "express-rate-limit": "^8.7.1",
     "helmet": "^8.3.0",
-    "js-yaml": "^5.4.3",
+    "js-yaml": "^5.5.0",
     "piwik": "^1.0.10",
-    "posthog-js": "^1.438.7",
-    "posthog-node": "^5.55.2"
+    "posthog-js": "^1.438.15",
+    "posthog-node": "^5.56.4"
   },
   "devDependencies": {
     "@apidevtools/swagger-cli": "^4.0.4",
     "@parcel/transformer-elm": "^2.16.4",
     "@parcel/transformer-image": "^2.16.4",
     "@parcel/transformer-sass": "^2.16.4",
-    "@playwright/test": "^1.64.0",
-    "@types/node": "^26.1.1",
+    "@playwright/test": "^1.64.1",
+    "@types/node": "^26.6.5",
     "ajv-cli": "^5.0.0",
     "ajv-formats": "^3.0.1",
     "bootstrap": "^5.3.8",
