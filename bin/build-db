@@ -16,7 +16,61 @@ const path = require("path");
 // Elm static db file template, used to build both prod and test dbs
 const templateFile = "src/Static/Json.elm-template";
 
-function parseAndValidate(relativePath, idKeyName = "id", pathsToMerge = []) {
+function buildDatabase({ dataDir, label, moduleName, outFile, processesFileName }) {
+  console.log(`Building the ${label} database…`);
+  const elmTemplate = fs.readFileSync(templateFile).toString();
+  const elmModuleContents = elmTemplate
+    .replaceAll("%moduleName%", moduleName)
+    // Transverse JSON data
+    .replace("%componentConfigJson%", parseAndValidate(dataDir, "components/config.json", null))
+    .replace("%countriesJson%", parseAndValidate(dataDir, "countries.json", "code"))
+    .replace("%impactsJson%", parseAndValidate(dataDir, "impacts.json"))
+    .replace("%processesJson%", parseAndValidate(dataDir, processesFileName, "id"))
+    .replace("%transportsJson%", parseAndValidate(dataDir, "transports.json"))
+    // Food JSON data
+    .replace("%foodIngredientsJson%", parseAndValidate(dataDir, "food/ingredients.json", "id"))
+    .replace("%foodProductExamplesJson%", parseAndValidate(dataDir, "food/examples.json", "id"))
+    // Food2 JSON data
+    .replace("%food2ComponentsJson%", parseAndValidate(dataDir, "food2/components.json", "id"))
+    .replace(
+      "%food2ProductCategoriesJson%",
+      parseAndValidate(dataDir, "food2/categories.json", "id"),
+    )
+    .replace("%food2ExamplesJson%", parseAndValidate(dataDir, "food2/examples.json", "id"))
+    // Object JSON data
+    .replace("%objectComponentsJson%", parseAndValidate(dataDir, "object/components.json", "id"))
+    .replace(
+      "%objectProductCategoriesJson%",
+      parseAndValidate(dataDir, "object/categories.json", "id"),
+    )
+    .replace("%objectExamplesJson%", parseAndValidate(dataDir, "object/examples.json", "id"))
+    // Textile JSON data
+    .replace("%textileMaterialsJson%", parseAndValidate(dataDir, "textile/materials.json", "id"))
+    .replace("%textileComponentsJson%", parseAndValidate(dataDir, "textile/components.json", "id"))
+    .replace(
+      "%textileProductExamplesJson%",
+      parseAndValidate(dataDir, "textile/examples.json", "id"),
+    )
+    .replace("%textileProductsJson%", parseAndValidate(dataDir, "textile/products.json", "id"))
+    // VeLi JSON data
+    .replace("%veliComponentsJson%", parseAndValidate(dataDir, "veli/components.json", "id"))
+    .replace("%veliProductCategoriesJson%", parseAndValidate(dataDir, "veli/categories.json", "id"))
+    .replace("%veliExamplesJson%", parseAndValidate(dataDir, "veli/examples.json", "id"));
+
+  const header =
+    "---- THIS FILE WAS GENERATED FROM THE FILE `Json.elm-template` BY THE `/bin/build-db` SCRIPT";
+
+  try {
+    fs.mkdirSync(path.dirname(outFile), { recursive: true });
+    fs.writeFileSync(outFile, `${header}\n\n${elmModuleContents}`);
+    const fileSizeInKB = Math.ceil(fs.statSync(outFile).size / 1024);
+    console.log(`Successfully generated Elm static database at ${outFile} (${fileSizeInKB} KB)`);
+  } catch (err) {
+    throw new Error(`Unable to generate Elm static database: ${err}`);
+  }
+}
+
+function parseAndValidate(dataDir, relativePath, idKeyName = "id", pathsToMerge = []) {
   const filePath = path.join(dataDir, relativePath);
   let raw = JSON.parse(fs.readFileSync(filePath).toString());
 
@@ -76,46 +130,9 @@ function validatePrimaryKeys(records, idKeyName) {
   }
 }
 
-const { dataDir, moduleName, outFile, processesFileName } = parseTarget(process.argv.slice(2));
-console.log(`Building the ${process.argv[2]} database…`);
-const elmTemplate = fs.readFileSync(templateFile).toString();
-const elmModuleContents = elmTemplate
-  .replaceAll("%moduleName%", moduleName)
-  // Transverse JSON data
-  .replace("%componentConfigJson%", parseAndValidate("components/config.json", null))
-  .replace("%countriesJson%", parseAndValidate("countries.json", "code"))
-  .replace("%impactsJson%", parseAndValidate("impacts.json"))
-  .replace("%processesJson%", parseAndValidate(processesFileName, "id"))
-  .replace("%transportsJson%", parseAndValidate("transports.json"))
-  // Food JSON data
-  .replace("%foodIngredientsJson%", parseAndValidate("food/ingredients.json", "id"))
-  .replace("%foodProductExamplesJson%", parseAndValidate("food/examples.json", "id"))
-  // Food2 JSON data
-  .replace("%food2ComponentsJson%", parseAndValidate("food2/components.json", "id"))
-  .replace("%food2ProductCategoriesJson%", parseAndValidate("food2/categories.json", "id"))
-  .replace("%food2ExamplesJson%", parseAndValidate("food2/examples.json", "id"))
-  // Object JSON data
-  .replace("%objectComponentsJson%", parseAndValidate("object/components.json", "id"))
-  .replace("%objectProductCategoriesJson%", parseAndValidate("object/categories.json", "id"))
-  .replace("%objectExamplesJson%", parseAndValidate("object/examples.json", "id"))
-  // Textile JSON data
-  .replace("%textileMaterialsJson%", parseAndValidate("textile/materials.json", "id"))
-  .replace("%textileComponentsJson%", parseAndValidate("textile/components.json", "id"))
-  .replace("%textileProductExamplesJson%", parseAndValidate("textile/examples.json", "id"))
-  .replace("%textileProductsJson%", parseAndValidate("textile/products.json", "id"))
-  // VeLi JSON data
-  .replace("%veliComponentsJson%", parseAndValidate("veli/components.json", "id"))
-  .replace("%veliProductCategoriesJson%", parseAndValidate("veli/categories.json", "id"))
-  .replace("%veliExamplesJson%", parseAndValidate("veli/examples.json", "id"));
-
-const header =
-  "---- THIS FILE WAS GENERATED FROM THE FILE `Json.elm-template` BY THE `/bin/build-db` SCRIPT";
-
-try {
-  fs.mkdirSync(path.dirname(outFile), { recursive: true });
-  fs.writeFileSync(outFile, `${header}\n\n${elmModuleContents}`);
-  const fileSizeInKB = Math.ceil(fs.statSync(outFile).size / 1024);
-  console.log(`Successfully generated Elm static database at ${outFile} (${fileSizeInKB} KB)`);
-} catch (err) {
-  throw new Error(`Unable to generate Elm static database: ${err}`);
+if (require.main === module) {
+  const target = parseTarget(process.argv.slice(2));
+  buildDatabase({ ...target, label: process.argv[2] });
 }
+
+module.exports = { buildDatabase };

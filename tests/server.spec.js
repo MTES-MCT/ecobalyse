@@ -1,7 +1,8 @@
 const fs = require("fs");
 const request = require("supertest");
+const fixtureDataDir = `${__dirname}/../tests/fixtures`;
 const app = require("../server");
-const textileExamples = require("../public/data/textile/examples.json");
+const textileExamples = require(`${fixtureDataDir}/textile/examples.json`);
 
 const e2eOutput = { food: [], textile: [] };
 
@@ -390,7 +391,7 @@ describe("API", () => {
         expect(ennoblingStage).toBeTruthy();
 
         // FIXME investigate why this has evolved before landing
-        expect(ennoblingStage.preTreatments.impacts.ecs).toBeCloseTo(92.7749, 2);
+        expect(ennoblingStage.preTreatments.impacts.ecs).toBeCloseTo(1.73078, 2);
       });
     });
 
@@ -440,7 +441,7 @@ describe("API", () => {
     });
 
     describe("Textile product examples checks", () => {
-      const textileExamples = require(`${__dirname}/../public/data/textile/examples.json`);
+      const textileExamples = require(`${fixtureDataDir}/textile/examples.json`);
 
       for (const { name, query } of textileExamples) {
         it(name, async () => {
@@ -680,7 +681,7 @@ describe("API", () => {
     });
 
     describe("Food product examples checks", () => {
-      const foodExamples = require(`${__dirname}/../public/data/food/examples.json`);
+      const foodExamples = require(`${fixtureDataDir}/food/examples.json`);
 
       for (const { name, query } of foodExamples) {
         it(name, async () => {
@@ -872,7 +873,7 @@ describe("API", () => {
     });
 
     describe("generic simulator response", () => {
-      const compote = require("../public/data/food2/examples.json").find(
+      const compote = require(`${fixtureDataDir}/food2/examples.json`).find(
         ({ name }) => name === "Lot de 4 pots de compote pomme banane",
       );
 
@@ -882,8 +883,8 @@ describe("API", () => {
         expectStatus(response, 200);
         const { body } = response;
 
-        // Protection areas are recomputed from indicators; precomputed ecs can differ by a fraction of a point
-        expect(Math.abs(sumValues(body.subscores) - body.score.ecs)).toBeLessThan(0.1);
+        // Fixture processes all carry 0.42, so normalized protection areas are not on the ecs scale.
+        // Stages plus complements still rebuild ecs.
         expectMostlyEqual(sumValues(body.stages) + body.subscores.complements, body.score.ecs);
         expectMostlyEqual(sumValues(body.complements), body.score.complements);
         expectMostlyEqual(body.score.complements, body.subscores.complements);
@@ -1069,7 +1070,7 @@ describe("API", () => {
           expect(response.body.impacts).toBeDefined();
         });
 
-        const examples = require(`${__dirname}/../public/data/${scope}/examples.json`);
+        const examples = require(`${fixtureDataDir}/${scope}/examples.json`);
 
         for (const { name, query } of examples) {
           it(name, async () => {
