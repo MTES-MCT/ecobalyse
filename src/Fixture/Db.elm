@@ -11,7 +11,7 @@ componentConfigJson =
     FixtureJson.componentConfigJson
 
 
-{-| Test dedicated database, built from `tests/Fixture/Json.elm`
+{-| Test dedicated database, built from `src/Fixture/Json.elm`
 -}
 db : Result String Db
 db =

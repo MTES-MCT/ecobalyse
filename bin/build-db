@@ -8,7 +8,7 @@
  * Usage: node bin/build-db <production|test>
  *
  * - `production` embeds `public/data/processes.json` into `src/Static/Json.elm`
- * - `test` embeds `public/data/processes_impacts.json` into `tests/Fixture/Json.elm`
+ * - `test` embeds `tests/fixtures/processes.json` into `src/Fixture/Json.elm`
  */
 const fs = require("fs");
 const path = require("path");
@@ -49,12 +49,10 @@ function parseTarget(argv) {
       processesFileName: "processes.json",
     },
     test: {
-      // TODO: add test data to a new dedicated directory
-      dataDir: "public/data",
+      dataDir: "tests/fixtures",
       moduleName: "Fixture.Json",
-      outFile: "tests/Fixture/Json.elm",
-      // TODO: eventually we should rely on fake detailed impacts in test data
-      processesFileName: "processes_impacts.json",
+      outFile: "src/Fixture/Json.elm",
+      processesFileName: "processes.json",
     },
   };
   const [targetName, ...unexpectedArgs] = argv;

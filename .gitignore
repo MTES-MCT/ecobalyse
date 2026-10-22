@@ -38,7 +38,7 @@ node_modules
 /public/main.css.map
 /server-app.js
 /src/Static/Json.elm
-/tests/Fixture/Json.elm
+/src/Fixture/Json.elm
 /xls
 /public/version.json
 /.parcel-cache/
