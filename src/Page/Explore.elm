@@ -487,7 +487,7 @@ componentsExplorer :
 componentsExplorer session scope tableConfig tableState maybeId =
     let
         scopedComponents =
-            session.db.components |> List.filter (.scope >> (==) scope)
+            session.db.components |> List.filter (.scopes >> List.member scope)
     in
     [ scopedComponents
         |> List.sortBy .name

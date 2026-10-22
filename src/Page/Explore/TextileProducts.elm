@@ -34,7 +34,7 @@ table { db } { detailed, scope } =
     { filename = "products"
     , toId = .id >> Product.idToString
     , toRoute = .id >> Just >> Dataset.TextileProducts >> Route.Explore scope
-    , toSearchableWords = Product.toSearchableString >> Text.toWords
+    , toSearchableText = Product.toSearchableString >> Text.toSearchable
     , facets =
         [ Table.Facet "Confection (complexité)" (.making >> .complexity >> MakingComplexity.toLabel >> List.singleton)
         , Table.Facet "Étoffe" (.fabric >> Fabric.toLabel >> List.singleton)

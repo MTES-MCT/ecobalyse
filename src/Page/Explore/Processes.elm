@@ -4,6 +4,7 @@ import Data.Complement as Complement
 import Data.Country as Country
 import Data.Country.Code as CountryCode
 import Data.Dataset as Dataset
+import Data.Env as Env
 import Data.Impact as Impact
 import Data.Impact.Definition as Definition exposing (Definitions)
 import Data.Process as Process exposing (Process)
@@ -20,11 +21,11 @@ import Views.Format as Format
 
 
 table : Session -> { detailed : Bool, scope : Scope } -> Table Process String msg
-table session { scope } =
+table session { detailed, scope } =
     { filename = "processes"
     , toId = .id >> Process.idToString
     , toRoute = .id >> Just >> Dataset.Processes scope >> Route.Explore scope
-    , toSearchableWords = .searchableWords
+    , toSearchableText = .searchableText
     , facets =
         [ Table.Facet "Catégories" (.categories >> List.map ProcessCategory.toLabel)
         , Table.Facet "Unités" (.unit >> Process.unitToString >> List.singleton)
@@ -36,12 +37,12 @@ table session { scope } =
             )
         ]
     , legend = []
-    , columns = baseColumns session ++ impactsColumns session ++ complementsColumns session
+    , columns = baseColumns session detailed ++ impactsColumns session ++ complementsColumns session
     }
 
 
-baseColumns : Session -> List (Column Process String msg)
-baseColumns session =
+baseColumns : Session -> Bool -> List (Column Process String msg)
+baseColumns session detailed =
     [ { label = "Identifiant"
       , toValue = Table.StringValue <| .id >> Process.idToString
       , toCell =
@@ -104,9 +105,18 @@ baseColumns session =
       }
     , { label = "Commentaire"
       , toValue = Table.StringValue .comment
-      , toCell = .comment >> text
+      , toCell = .comment >> commentCell detailed
       }
     ]
+
+
+commentCell : Bool -> String -> Html msg
+commentCell detailed comment =
+    if detailed || String.length comment <= Env.explorerCommentExcerptLength then
+        text comment
+
+    else
+        text (String.left Env.explorerCommentExcerptLength comment ++ "…")
 
 
 complementsColumns : Session -> List (Column Process String msg)
