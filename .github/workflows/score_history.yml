@@ -20,7 +20,7 @@ jobs:
     runs-on: ubuntu-latest
     strategy:
       matrix:
-        node-version: [20.x]
+        node-version: [22.x]
         python-version: [3.12]
 
     steps:
@@ -58,10 +58,10 @@ jobs:
           key: elm-cache-${{ hashFiles('elm.json') }}
           restore-keys: elm-cache-
 
-      - name: Install the latest version of uv
-        uses: astral-sh/setup-uv@v4
+      - name: Install uv
+        uses: astral-sh/setup-uv@07a047e608db84b3d8c06cd9a7c7dcc9c355c18e # v10.3.2
         with:
-          version: "latest"
+          version: ">=0.13.4"
           python-version: ${{ matrix.python-version }}
 
       - name: Install Node dependencies
