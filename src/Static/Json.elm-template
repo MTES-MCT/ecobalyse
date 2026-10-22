@@ -1,4 +1,4 @@
-module Static.Json exposing
+module %moduleName% exposing
     ( RawJsonComponents
     , componentConfigJson
     , countriesJson
