@@ -4,7 +4,7 @@ import Data.Component as Component exposing (Component)
 import Data.Component.Config as ComponentConfig
 import Data.Component.Consumption as Consumption exposing (Consumption)
 import Data.Component.ProductCategory as ProductCategory exposing (ProductCategory)
-import Data.Db exposing (Db)
+import Data.Db as Db exposing (Db)
 import Data.Example as Example exposing (Example)
 import Data.Process as Process exposing (Process)
 import Data.Process.Category as ProcessCategory
@@ -17,9 +17,21 @@ import Set exposing (Set)
 import Static.Db as StaticDb
 
 
+{-| JSON fixtures read from `tests/fixtures`
+
+Note: `elm make` only compiles `src/`, so this script _cannot_ import `Fixture.Db`
+
+-}
+type alias FixtureFiles =
+    { componentConfigJson : String
+    , files : Db.Properties String
+    }
+
+
 type alias Flags =
     { componentConfigJson : String
     , detailedProcessesJson : Maybe String
+    , fixtureDb : Maybe FixtureFiles
     , nonDetailedProcessesJson : String
     }
 
@@ -439,29 +451,61 @@ checkStaticDatabase config dbName dbResult =
 
 
 {-| Decodes the public database, and the detailed one when it is available.
+
+When fixture files are passed, also checks the single detailed fixture database.
+
 -}
 checkStaticDatabases : Flags -> Result (List Error) ()
-checkStaticDatabases { componentConfigJson, detailedProcessesJson, nonDetailedProcessesJson } =
+checkStaticDatabases { componentConfigJson, detailedProcessesJson, fixtureDb, nonDetailedProcessesJson } =
     let
         detailedDb =
             case detailedProcessesJson of
                 Just detailedJson ->
-                    [ ( "Detailed Db", StaticDb.dbFromStaticFiles detailedJson ) ]
+                    [ ( "Detailed Db"
+                      , componentConfigJson
+                      , StaticDb.dbFromStaticFiles detailedJson
+                      )
+                    ]
+
+                Nothing ->
+                    []
+
+        nonDetailedDb =
+            [ ( "Non-detailed Db"
+              , componentConfigJson
+              , StaticDb.dbFromStaticFiles nonDetailedProcessesJson
+              )
+            ]
+
+        fixtureCheck =
+            case fixtureDb of
+                Just files ->
+                    [ ( "Fixture Db"
+                      , files.componentConfigJson
+                      , dbFromFixtureFiles files
+                      )
+                    ]
 
                 Nothing ->
                     []
     in
     case
-        List.concatMap (\( dbName, dbResult ) -> checkStaticDatabase componentConfigJson dbName dbResult)
-            (detailedDb
-                ++ [ ( "Non-detailed Db", StaticDb.dbFromStaticFiles nonDetailedProcessesJson ) ]
-            )
+        List.concat [ detailedDb, nonDetailedDb, fixtureCheck ]
+            |> List.concatMap
+                (\( dbName, config, dbResult ) ->
+                    checkStaticDatabase config dbName dbResult
+                )
     of
         [] ->
             Ok ()
 
         errors ->
             Err errors
+
+
+dbFromFixtureFiles : FixtureFiles -> Result String Db
+dbFromFixtureFiles { files } =
+    Db.buildFromStrings files
 
 
 componentLabel : Component -> String

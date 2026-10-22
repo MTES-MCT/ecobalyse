@@ -342,7 +342,7 @@ buildFromJson flowersExamplesJson food2ExamplesJson objectExamplesJson veliExamp
 
 #### Static.Db et template JSON
 
-Le module [`Static.Json`](../src/Static/Json.elm) est particulier, car il est généré. Il sert notamment au serveur d'API, puisque Elm ne dispose pas d'API système pour interroger le système de fichiers et récupérer directement le contenu de fichiers s'y trouvant ; c'est pour cela que ces contenus sont encapsulés dans ce fichier généré, qui est chargé d'un bloc en RAM par l'app serveur. Les tests unitaires se servent également de ce module, puisque cet environnement ne dispose pas non plus d'accès direct au système de fichiers.
+Le module [`Static.Json`](../src/Static/Json.elm) est particulier, car il est généré. Il sert notamment au serveur d'API, puisque Elm ne dispose pas d'API système pour interroger le système de fichiers et récupérer directement le contenu de fichiers s'y trouvant ; c'est pour cela que ces contenus sont encapsulés dans ce fichier généré, qui est chargé d'un bloc en RAM par l'app serveur. Les tests unitaires passent par [`Fixture.Db`](../tests/Fixture/Db.elm) plutôt que par ce module. Le jeu de données réduit qui leur est destiné est [`tests/fixtures`](../tests/fixtures).
 
 > ⚠️ Notez que l'application Web Elm, elle, charge les données JSON à travers HTTP, réduisant ainsi le poids applicatif et les temps de chargement initiaux.
 

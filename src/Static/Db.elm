@@ -8,29 +8,29 @@ import Static.Json as StaticJson
 
 IMPORTANT NOTE: this module should _never_ be imported by the Main module (the Web app), as it imports
 all the db JSON strings statically, which bloats the js build for no added value. The intended use of
-this function is for the API Server (tests load Fixtures.Db instead)
+this function is for the API Server (tests load Fixture.Db instead)
 
 -}
 dbFromStaticFiles : String -> Result String Db
 dbFromStaticFiles processesJson =
-    Db.build
-        { countries = Db.rawJsonString StaticJson.countriesJson
-        , definitions = Db.rawJsonString StaticJson.impactsJson
-        , food2Components = Db.rawJsonString StaticJson.food2ComponentsJson
-        , food2Examples = Db.rawJsonString StaticJson.food2ExamplesJson
-        , food2ProductCategories = Db.rawJsonString StaticJson.food2ProductCategoriesJson
-        , foodIngredients = Db.rawJsonString StaticJson.foodIngredientsJson
-        , foodProductExamples = Db.rawJsonString StaticJson.foodProductExamplesJson
-        , objectComponents = Db.rawJsonString StaticJson.rawJsonComponents.objectComponents
-        , objectExamples = Db.rawJsonString StaticJson.objectExamplesJson
-        , objectProductCategories = Db.rawJsonString StaticJson.objectProductCategoriesJson
-        , processes = Db.rawJsonString processesJson
-        , textileComponents = Db.rawJsonString StaticJson.rawJsonComponents.textileComponents
-        , textileMaterials = Db.rawJsonString StaticJson.textileMaterialsJson
-        , textileProductExamples = Db.rawJsonString StaticJson.textileProductExamplesJson
-        , textileProducts = Db.rawJsonString StaticJson.textileProductsJson
-        , transports = Db.rawJsonString StaticJson.transportsJson
-        , veliComponents = Db.rawJsonString StaticJson.rawJsonComponents.veliComponents
-        , veliExamples = Db.rawJsonString StaticJson.veliExamplesJson
-        , veliProductCategories = Db.rawJsonString StaticJson.veliProductCategoriesJson
+    Db.buildFromStrings
+        { countries = StaticJson.countriesJson
+        , definitions = StaticJson.impactsJson
+        , food2Components = StaticJson.food2ComponentsJson
+        , food2Examples = StaticJson.food2ExamplesJson
+        , food2ProductCategories = StaticJson.food2ProductCategoriesJson
+        , foodIngredients = StaticJson.foodIngredientsJson
+        , foodProductExamples = StaticJson.foodProductExamplesJson
+        , objectComponents = StaticJson.rawJsonComponents.objectComponents
+        , objectExamples = StaticJson.objectExamplesJson
+        , objectProductCategories = StaticJson.objectProductCategoriesJson
+        , processes = processesJson
+        , textileComponents = StaticJson.rawJsonComponents.textileComponents
+        , textileMaterials = StaticJson.textileMaterialsJson
+        , textileProductExamples = StaticJson.textileProductExamplesJson
+        , textileProducts = StaticJson.textileProductsJson
+        , transports = StaticJson.transportsJson
+        , veliComponents = StaticJson.rawJsonComponents.veliComponents
+        , veliExamples = StaticJson.veliExamplesJson
+        , veliProductCategories = StaticJson.veliProductCategoriesJson
         }
