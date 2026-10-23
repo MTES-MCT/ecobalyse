@@ -25,7 +25,7 @@ jobs:
 
     steps:
 
-      - uses: actions/checkout@v4
+      - uses: actions/checkout@v7
 
       - name: Install Transcrypt
         uses: ./.github/actions/transcrypt-cli
@@ -37,7 +37,7 @@ jobs:
         uses: ./.github/actions/scalingo-cli
 
       - name: Use Node.js ${{ matrix.node-version }}
-        uses: actions/setup-node@v4
+        uses: actions/setup-node@v7
         with:
           node-version: ${{ matrix.node-version }}
           cache: 'npm'
@@ -45,14 +45,14 @@ jobs:
 
       - name: Cache node_modules
         id: cache-node_modules
-        uses: actions/cache@v4
+        uses: actions/cache@v6
         with:
           path: node_modules
           key: node_modules-${{ hashFiles('package.json', 'package-lock.json') }}
 
       - name: Cache ~/.elm
         # see https://docs.microsoft.com/en-us/answers/questions/510640/deploy-elm-app-to-azure-static-website-from-github.html
-        uses: actions/cache@v4
+        uses: actions/cache@v6
         with:
           path: ~/.elm
           key: elm-cache-${{ hashFiles('elm.json') }}
