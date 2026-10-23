@@ -80,7 +80,7 @@
       "scenario": "import",
       "scopes": ["food", "food2"],
       "transportCooling": "none",
-      "visible": true
+      "visible": false
     }
   ],
   "scopes": ["food", "food2"],
