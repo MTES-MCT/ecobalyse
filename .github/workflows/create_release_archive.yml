@@ -37,6 +37,12 @@ jobs:
       - name: Install Node dependencies
         run: npm ci --prefer-offline --no-audit --ignore-scripts
 
+      - name: Install the latest version of uv
+        uses: astral-sh/setup-uv@v4
+        with:
+          version: "latest"
+          python-version: "3.12"
+
       - name: Create the dist archive for this release
         id: create-release
         uses: ./.github/actions/create-release
