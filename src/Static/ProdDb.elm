@@ -1,4 +1,4 @@
-module Static.ProdDb exposing (dbFromStaticFiles)
+module Static.ProdDb exposing (dbFromJsonStrings)
 
 import Data.Db as Db exposing (Db)
 import Static.ProdJson as ProdJson
@@ -11,8 +11,8 @@ all the db JSON strings statically, which bloats the js build for no added value
 this function is for the API Server (tests load Static.TestDb instead)
 
 -}
-dbFromStaticFiles : String -> Result String Db
-dbFromStaticFiles processesJson =
+dbFromJsonStrings : String -> Result String Db
+dbFromJsonStrings processesJson =
     Db.buildFromStrings
         { countries = ProdJson.countriesJson
         , definitions = ProdJson.impactsJson

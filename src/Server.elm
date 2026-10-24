@@ -521,7 +521,7 @@ in the model to avoid loading it from the static files every time we receive a r
 -}
 loadAndCacheDb : Model -> Request -> ( Model, Cmd Msg )
 loadAndCacheDb model request =
-    case ProdDb.dbFromStaticFiles request.processes of
+    case ProdDb.dbFromJsonStrings request.processes of
         Err error ->
             ( model
             , error
