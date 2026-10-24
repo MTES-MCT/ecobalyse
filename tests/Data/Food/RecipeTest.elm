@@ -146,7 +146,7 @@ suite =
 
                                     Ok result ->
                                         Unit.impactToFloat result
-                                            |> Expect.within (Expect.Absolute 0.1) 1.07
+                                            |> Expect.within (Expect.Absolute 0.1) 128.4163
                                 )
                              , asTest "should have the ingredients' total ecs impact with the complement taken into account"
                                 (case royalPizzaResults |> Result.map (Tuple.second >> .recipe >> .ingredientsTotal >> Impact.getImpact Definition.Ecs) of
@@ -155,7 +155,7 @@ suite =
 
                                     Ok result ->
                                         Unit.impactToFloat result
-                                            |> Expect.within (Expect.Absolute 0.1) -0.24
+                                            |> Expect.within (Expect.Absolute 0.1) 113.1022
                                 )
                              , describe "Scoring"
                                 (case royalPizzaResults |> Result.map (Tuple.second >> .scoring) of
@@ -166,10 +166,10 @@ suite =
 
                                     Ok scoring ->
                                         [ Unit.impactToFloat scoring.all
-                                            |> Expect.within (Expect.Absolute 0.01) 4.38
+                                            |> Expect.within (Expect.Absolute 0.01) 398.2726
                                             |> asTest "should properly score total impact"
                                         , Unit.impactToFloat scoring.allWithoutComplements
-                                            |> Expect.within (Expect.Absolute 0.01) 5.52
+                                            |> Expect.within (Expect.Absolute 0.01) 399.4093
                                             |> asTest "should properly score total impact without complements"
                                         , Unit.impactToFloat scoring.complements
                                             |> Expect.within (Expect.Absolute 0.01) -1.136
@@ -178,16 +178,16 @@ suite =
                                             |> Expect.within (Expect.Absolute 0.0001) (Unit.impactToFloat scoring.all)
                                             |> asTest "should expose coherent scoring"
                                         , Unit.impactToFloat scoring.biodiversity
-                                            |> Expect.within (Expect.Absolute 0.01) 88692.73
+                                            |> Expect.within (Expect.Absolute 0.01) 60114.2248
                                             |> asTest "should properly score impact on biodiversity protected area"
                                         , Unit.impactToFloat scoring.climate
-                                            |> Expect.within (Expect.Absolute 0.01) 153.89
+                                            |> Expect.within (Expect.Absolute 0.01) 188.3162
                                             |> asTest "should properly score impact on climate protected area"
                                         , Unit.impactToFloat scoring.health
-                                            |> Expect.within (Expect.Absolute 0.01) 663317202.23
+                                            |> Expect.within (Expect.Absolute 0.01) 448132406.0268
                                             |> asTest "should properly score impact on health protected area"
                                         , Unit.impactToFloat scoring.resources
-                                            |> Expect.within (Expect.Absolute 0.01) 5187478.55
+                                            |> Expect.within (Expect.Absolute 0.01) 3504703.8195
                                             |> asTest "should properly score impact on resources protected area"
                                         ]
                                 )

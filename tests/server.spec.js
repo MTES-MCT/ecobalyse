@@ -390,8 +390,7 @@ describe("API", () => {
         )[0];
         expect(ennoblingStage).toBeTruthy();
 
-        // FIXME investigate why this has evolved before landing
-        expect(ennoblingStage.preTreatments.impacts.ecs).toBeCloseTo(1.73078, 2);
+        expect(ennoblingStage.preTreatments.impacts.ecs).toBeCloseTo(84.7971, 2);
       });
     });
 
@@ -883,7 +882,7 @@ describe("API", () => {
         expectStatus(response, 200);
         const { body } = response;
 
-        // Fixture processes all carry 0.42, so normalized protection areas are not on the ecs scale.
+        // Ecoinvent processes carry 0.42, so normalized protection areas are not on the ecs scale.
         // Stages plus complements still rebuild ecs.
         expectMostlyEqual(sumValues(body.stages) + body.subscores.complements, body.score.ecs);
         expectMostlyEqual(sumValues(body.complements), body.score.complements);

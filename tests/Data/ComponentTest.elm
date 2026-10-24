@@ -429,7 +429,7 @@ suite =
                                                 |> Impact.insertWithoutAggregateComputation Definition.Ecs (Unit.impact 10)
                                       }
                                     ]
-                                    |> Expect.within (Expect.Absolute 1) 35.88208
+                                    |> Expect.within (Expect.Absolute 1) 287.81011
                                 )
                             , itFromResult "should compute apply custom mix impacts when a transform step country is set"
                                 -- fetch first country with mixes different from defaults
@@ -484,7 +484,7 @@ suite =
                                     [ fading |> setProcessEcsImpact (Unit.impact 10)
                                     , fading |> setProcessEcsImpact (Unit.impact 20)
                                     ]
-                                    |> Expect.within (Expect.Absolute 1) 81.76416
+                                    |> Expect.within (Expect.Absolute 1) 585.62022
                                 )
                             ]
                         , suiteFromResult "unit mismatch"
@@ -577,7 +577,7 @@ suite =
                                 [ it "should handle impacts+qtyVariationRatio when applying transforms: impacts"
                                     (withElecAndHeat
                                         |> extractEcsImpact
-                                        |> Expect.within (Expect.Absolute 1) 158.82312
+                                        |> Expect.within (Expect.Absolute 1) 536.715165
                                     )
                                 , it "should handle impacts+qtyVariationRatio when applying transforms: mass"
                                     (withElecAndHeat
@@ -827,7 +827,7 @@ suite =
                                 [ it "should compute element impacts"
                                     (elementResults
                                         |> extractEcsImpact
-                                        |> Expect.within (Expect.Absolute 1) 37.05408
+                                        |> Expect.within (Expect.Absolute 1) 307.14411
                                     )
                                 , it "should compute element mass"
                                     (elementResults
@@ -1537,9 +1537,9 @@ suite =
                                    }"""
                             )
                             (\frAssemblyImpact defaultEnergyMixImpact ->
-                                -- Fixture processes share one impact map, so the FR mix scores the same as the default mix
+                                -- The FR electricity mix and the default mix are different processes.
                                 frAssemblyImpact
-                                    |> expectFloatMostlyEqual defaultEnergyMixImpact
+                                    |> expectFloatDifferent defaultEnergyMixImpact
                             )
                         , itFromResult "should decode a legacy assemblyCountry field"
                             ("""{
@@ -1975,9 +1975,9 @@ suite =
                                     |> Result.map getTransportStageEcs
                                 )
                                 (\noTransportCooling withTransportCooling ->
-                                    -- Cooled and default transport processes both carry the 0.42 impact.
+                                    -- Cooled transport uses Agribalyse processes, which score above the Ecoinvent defaults.
                                     withTransportCooling
-                                        |> expectFloatMostlyEqual noTransportCooling
+                                        |> Expect.greaterThan noTransportCooling
                                 )
                             , itFromResult2 "should handle air transport"
                                 ("""{"components": [{ "id": "64fa65b3-c2df-4fd0-958b-83965bd6aa08", "quantity": 1 }]}"""
@@ -1992,9 +1992,9 @@ suite =
                                     |> Result.map getTransportStageEcs
                                 )
                                 (\noAirTransport withAirTransport ->
-                                    -- With every process impact at 0.42, the air itinerary scores below the default itinerary
-                                    noAirTransport
-                                        |> Expect.greaterThan withAirTransport
+                                    -- Long-haul air scores above the default sea itinerary.
+                                    withAirTransport
+                                        |> Expect.greaterThan noAirTransport
                                 )
                             , itFromResult "should cool pre-assembly transports for a `transported_cooled` material, even when cooling is disabled"
                                 -- note: using wood as an example, which is not tagged as transported_cooled
