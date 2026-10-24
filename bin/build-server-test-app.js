@@ -3,7 +3,6 @@
 /**
  * Compile server-app.test.js from tests/fixtures, then restore the production
  * src/Static/ProdJson.elm without compiling server-app.js.
- * FIXME: try to do all this directly from package.json
  */
 const { execFileSync } = require("child_process");
 const { buildDatabase } = require("./build-db");
@@ -21,5 +20,10 @@ try {
     stdio: "inherit",
   });
 } finally {
+  // As the Elm Server.elm module imports Static.ProdJson, the elm-make call above
+  // overwrites src/Static/ProdJson.elm with tests/fixtures data, so we can test
+  // the app against test data.
+  // Once done, we restore the production db.
+  // FIXME: we should find a better/cleaner way to achieve the same, but how? :/
   execFileSync(process.execPath, ["bin/build-db", "production"], { stdio: "inherit" });
 }
