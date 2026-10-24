@@ -385,39 +385,45 @@ rawJsonComponents =
 
 > 💡 Seuls les données JSON des composants transitent par `RawJsonComponents` ; les exemples et catégories de produit conservent leurs propres constantes `*Json` (comme `flowersExamplesJson`).
 
-Mobiliser ces nouveaux contenus JSON dans la fonction `dbFromStaticFiles` du module [`Static.ProdDb`](../src/Static/ProdDb.elm) ; encore une fois, l'ordre alphabétique est primordial :
+Mobiliser ces nouveaux contenus JSON dans `dbFromJsonStrings`, dans [`Static.ProdDb`](../src/Static/ProdDb.elm) et [`Static.TestDb`](../src/Static/TestDb.elm). Ces fonctions passent des chaînes JSON brutes à `Db.buildFromStrings` :
 
 ```elm
-    , flowersComponents = Db.rawJsonString ProdJson.rawJsonComponents.flowersComponents
-    , flowersExamples = Db.rawJsonString ProdJson.flowersExamplesJson
-    , flowersProductCategories = Db.rawJsonString ProdJson.flowersProductCategoriesJson
-    , food2Components = Db.rawJsonString ProdJson.food2ComponentsJson
+    , flowersComponents = ProdJson.rawJsonComponents.flowersComponents
+    , flowersExamples = ProdJson.flowersExamplesJson
+    , flowersProductCategories = ProdJson.flowersProductCategoriesJson
+    , food2Components = ProdJson.food2ComponentsJson
 ```
 
-Dans le script [`bin/build-db`](../bin/build-db), il faut maintenant ajouter les substitutions de chaînes requises pour générer le module de données statiques JSON Elm à partir du template :
+> ⚠️ Attention
+>
+> - Dans le module [`Static.TestDb`](../src/Static/TestDb.elm), les mêmes champs sont lus mais ils utilisent l'alias `TestJson` au lieu de `ProdJson`
+> - Les fichiers JSON du dossier `public/data` doivent également exister dans `tests/fixtures`
+> - Quand aucun test unitaire ou d'API n'utilise ces données, le fichier de fixtures peut être une simple liste vide (`[]`)
+
+Dans le script [`bin/build-db`](../bin/build-db), il faut maintenant ajouter les substitutions de chaînes requises pour générer les modules de données statiques JSON Elm à partir du template :
 
 ```js
   .replace(
     "%flowersComponentsJson%",
-    parseAndValidate("public/data/flowers/components.json", "id")
+    parseAndValidate(dataDir, "flowers/components.json", "id"),
   )
   .replace(
     "%flowersProductCategoriesJson%",
-    parseAndValidate("public/data/flowers/categories.json", "id"),
+    parseAndValidate(dataDir, "flowers/categories.json", "id"),
   )
   .replace(
     "%flowersExamplesJson%",
-    parseAndValidate("public/data/flowers/examples.json", "id")
+    parseAndValidate(dataDir, "flowers/examples.json", "id"),
   )
 ```
 
-Pour construire la base statique à partir de ce script et générer le fichier résultant `Static/ProdJson.elm`, on lance :
+Pour construire les bases statiques à partir de ce script et générer `Static/ProdJson.elm` et `Static/TestJson.elm`, on lance :
 
 ```bash
 npm run db:build
 ```
 
-Cette commande (re)génère le fichier et effectue les vérifications de cohérence et d'intégrité des données. Si vous vous êtes trompé dans les manipulations décrites précédemment, c'est à ce stade que vous ne pourrez plus l'ignorer !
+Cette commande (re)génère les fichiers et effectue les vérifications de cohérence et d'intégrité des données. Si vous vous êtes trompé dans les manipulations décrites précédemment, c'est à ce stade que vous ne pourrez plus l'ignorer !
 
 ### Menus et accueil
 
