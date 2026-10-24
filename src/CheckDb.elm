@@ -470,7 +470,7 @@ checkStaticDatabases { componentConfigJson, detailedProcessesJson } =
         fixturesDb =
             [ ( "Fixture Db"
               , TestJson.componentConfigJson
-              , TestDb.db
+              , TestDb.dbFromJsonStrings
               )
             ]
     in
