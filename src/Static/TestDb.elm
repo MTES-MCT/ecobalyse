@@ -1,14 +1,7 @@
-module Static.TestDb exposing (componentConfigJson, db)
+module Static.TestDb exposing (db)
 
 import Data.Db as Db exposing (Db)
 import Static.TestJson as TestJson
-
-
-{-| Proxified for readability
--}
-componentConfigJson : String
-componentConfigJson =
-    TestJson.componentConfigJson
 
 
 {-| Test dedicated database, built from `src/Static/TestJson.elm`
