@@ -38,8 +38,8 @@ node_modules
 /public/main.css.map
 /server-app.js
 /server-app.test.js
-/src/Static/Json.elm
-/src/Fixture/Json.elm
+/src/Static/ProdJson.elm
+/src/Static/TestJson.elm
 /xls
 /public/version.json
 /.parcel-cache/

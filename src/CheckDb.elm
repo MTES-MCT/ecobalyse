@@ -12,11 +12,11 @@ import Data.Scope as Scope
 import Data.Uuid as Uuid
 import Dict exposing (Dict)
 import Dict.Any as AnyDict
-import Fixture.Db as FixtureDb
 import List.Extra as LE
 import Set exposing (Set)
-import Static.Db as StaticDb
-import Static.Json as StaticJson
+import Static.ProdDb as ProdDb
+import Static.ProdJson as ProdJson
+import Static.TestDb as TestDb
 
 
 type alias Flags =
@@ -452,7 +452,7 @@ checkStaticDatabases { componentConfigJson, detailedProcessesJson } =
                 Just detailedJson ->
                     [ ( "Detailed Db"
                       , componentConfigJson
-                      , StaticDb.dbFromStaticFiles detailedJson
+                      , ProdDb.dbFromStaticFiles detailedJson
                       )
                     ]
 
@@ -462,14 +462,14 @@ checkStaticDatabases { componentConfigJson, detailedProcessesJson } =
         nonDetailedDb =
             [ ( "Non-detailed Db"
               , componentConfigJson
-              , StaticDb.dbFromStaticFiles StaticJson.processesJson
+              , ProdDb.dbFromStaticFiles ProdJson.processesJson
               )
             ]
 
         fixturesDb =
             [ ( "Fixture Db"
-              , FixtureDb.componentConfigJson
-              , FixtureDb.db
+              , TestDb.componentConfigJson
+              , TestDb.db
               )
             ]
     in

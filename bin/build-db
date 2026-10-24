@@ -7,8 +7,8 @@
  *
  * Usage: node bin/build-db <production|test>
  *
- * - `production` embeds `public/data/processes.json` into `src/Static/Json.elm`
- * - `test` embeds `tests/fixtures/processes.json` into `src/Fixture/Json.elm`
+ * - `production` embeds `public/data` into `src/Static/ProdJson.elm`
+ * - `test` embeds `tests/fixtures` into `src/Static/TestJson.elm`
  */
 const fs = require("fs");
 const path = require("path");
@@ -98,14 +98,14 @@ function parseTarget(argv) {
   const targets = {
     production: {
       dataDir: "public/data",
-      moduleName: "Static.Json",
-      outFile: "src/Static/Json.elm",
+      moduleName: "Static.ProdJson",
+      outFile: "src/Static/ProdJson.elm",
       processesFileName: "processes.json",
     },
     test: {
       dataDir: "tests/fixtures",
-      moduleName: "Fixture.Json",
-      outFile: "src/Fixture/Json.elm",
+      moduleName: "Static.TestJson",
+      outFile: "src/Static/TestJson.elm",
       processesFileName: "processes.json",
     },
   };
