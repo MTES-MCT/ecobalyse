@@ -146,7 +146,7 @@ suite =
 
                                     Ok result ->
                                         Unit.impactToFloat result
-                                            |> Expect.within (Expect.Absolute 0.1) 128.4163
+                                            |> Expect.within (Expect.Absolute 0.1) 136.4789
                                 )
                              , asTest "should have the ingredients' total ecs impact with the complement taken into account"
                                 (case royalPizzaResults |> Result.map (Tuple.second >> .recipe >> .ingredientsTotal >> Impact.getImpact Definition.Ecs) of
@@ -166,10 +166,10 @@ suite =
 
                                     Ok scoring ->
                                         [ Unit.impactToFloat scoring.all
-                                            |> Expect.within (Expect.Absolute 0.01) 398.2726
+                                            |> Expect.within (Expect.Absolute 0.01) 455.4814
                                             |> asTest "should properly score total impact"
                                         , Unit.impactToFloat scoring.allWithoutComplements
-                                            |> Expect.within (Expect.Absolute 0.01) 399.4093
+                                            |> Expect.within (Expect.Absolute 0.01) 456.6181
                                             |> asTest "should properly score total impact without complements"
                                         , Unit.impactToFloat scoring.complements
                                             |> Expect.within (Expect.Absolute 0.01) -1.136

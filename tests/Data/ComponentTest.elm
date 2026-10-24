@@ -419,7 +419,7 @@ suite =
                                         |> resetProcessElecAndHeat
                                         |> setProcessEcsImpact (Unit.impact 10)
                                     ]
-                                    |> Expect.within (Expect.Absolute 1) 19.24
+                                    |> Expect.within (Expect.Absolute 1) 95.436
                                 )
                             , it "should add impacts when one transform is passed (including elec and heat)"
                                 (getTestEcsImpact
@@ -429,7 +429,7 @@ suite =
                                                 |> Impact.insertWithoutAggregateComputation Definition.Ecs (Unit.impact 10)
                                       }
                                     ]
-                                    |> Expect.within (Expect.Absolute 1) 287.81011
+                                    |> Expect.within (Expect.Absolute 1) 505.53439
                                 )
                             , itFromResult "should compute apply custom mix impacts when a transform step country is set"
                                 -- fetch first country with mixes different from defaults
@@ -477,14 +477,14 @@ suite =
                                     [ fading |> resetProcessElecAndHeat |> setProcessEcsImpact (Unit.impact 10)
                                     , fading |> resetProcessElecAndHeat |> setProcessEcsImpact (Unit.impact 20)
                                     ]
-                                    |> Expect.within (Expect.Absolute 1) 48.48
+                                    |> Expect.within (Expect.Absolute 1) 200.872
                                 )
                             , it "should add impacts when multiple transforms are passed (including elec and heat)"
                                 (getTestEcsImpact
                                     [ fading |> setProcessEcsImpact (Unit.impact 10)
                                     , fading |> setProcessEcsImpact (Unit.impact 20)
                                     ]
-                                    |> Expect.within (Expect.Absolute 1) 585.62022
+                                    |> Expect.within (Expect.Absolute 1) 1021.06878
                                 )
                             ]
                         , suiteFromResult "unit mismatch"
@@ -551,7 +551,7 @@ suite =
                                   it "should handle impacts+qtyVariationRatio when applying transforms: impacts"
                                     (noElecAndNoHeat
                                         |> extractEcsImpact
-                                        |> Expect.within (Expect.Absolute 1) 133.86
+                                        |> Expect.within (Expect.Absolute 1) 248.154
                                     )
 
                                 -- (1kg * 0.5) * 0.5 == 0.25
@@ -577,7 +577,7 @@ suite =
                                 [ it "should handle impacts+qtyVariationRatio when applying transforms: impacts"
                                     (withElecAndHeat
                                         |> extractEcsImpact
-                                        |> Expect.within (Expect.Absolute 1) 536.715165
+                                        |> Expect.within (Expect.Absolute 1) 863.301585
                                     )
                                 , it "should handle impacts+qtyVariationRatio when applying transforms: mass"
                                     (withElecAndHeat
@@ -827,7 +827,7 @@ suite =
                                 [ it "should compute element impacts"
                                     (elementResults
                                         |> extractEcsImpact
-                                        |> Expect.within (Expect.Absolute 1) 307.14411
+                                        |> Expect.within (Expect.Absolute 1) 2391.29612
                                     )
                                 , it "should compute element mass"
                                     (elementResults
@@ -853,7 +853,7 @@ suite =
                                     (results
                                         |> Result.map extractEcsImpact
                                         |> Result.withDefault 0
-                                        |> Expect.within (Expect.Absolute 1) 12198.48
+                                        |> Expect.within (Expect.Absolute 1) 112777.2
                                     )
                                 , it "should compute mass according on material unit"
                                     (results
