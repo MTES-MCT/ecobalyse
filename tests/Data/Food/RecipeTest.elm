@@ -146,7 +146,7 @@ suite =
 
                                     Ok result ->
                                         Unit.impactToFloat result
-                                            |> Expect.within (Expect.Absolute 0.1) 136.4789
+                                            |> Expect.within (Expect.Absolute 0.1) 136.48
                                 )
                              , asTest "should have the ingredients' total ecs impact with the complement taken into account"
                                 (case royalPizzaResults |> Result.map (Tuple.second >> .recipe >> .ingredientsTotal >> Impact.getImpact Definition.Ecs) of
@@ -155,7 +155,7 @@ suite =
 
                                     Ok result ->
                                         Unit.impactToFloat result
-                                            |> Expect.within (Expect.Absolute 0.1) 113.1022
+                                            |> Expect.within (Expect.Absolute 0.1) 113.1
                                 )
                              , describe "Scoring"
                                 (case royalPizzaResults |> Result.map (Tuple.second >> .scoring) of
@@ -166,10 +166,10 @@ suite =
 
                                     Ok scoring ->
                                         [ Unit.impactToFloat scoring.all
-                                            |> Expect.within (Expect.Absolute 0.01) 455.4814
+                                            |> Expect.within (Expect.Absolute 0.01) 455.48
                                             |> asTest "should properly score total impact"
                                         , Unit.impactToFloat scoring.allWithoutComplements
-                                            |> Expect.within (Expect.Absolute 0.01) 456.6181
+                                            |> Expect.within (Expect.Absolute 0.01) 456.62
                                             |> asTest "should properly score total impact without complements"
                                         , Unit.impactToFloat scoring.complements
                                             |> Expect.within (Expect.Absolute 0.01) -1.136

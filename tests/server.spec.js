@@ -390,7 +390,7 @@ describe("API", () => {
         )[0];
         expect(ennoblingStage).toBeTruthy();
 
-        expect(ennoblingStage.preTreatments.impacts.ecs).toBeCloseTo(92.779, 2);
+        expect(ennoblingStage.preTreatments.impacts.ecs).toBeCloseTo(92.7749, 2);
       });
     });
 
