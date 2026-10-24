@@ -1,19 +1,5 @@
 [
   {
-    "elements": [],
-    "id": "28f2f107-ce9c-4760-9a74-0187ab067d09",
-    "name": "Composant vide",
-    "scopes": ["textile"]
-  },
-  {
-    "elements": [
-      { "amount": 0.05, "material": "dc44ae3c-8552-5822-a76d-f95ef68682da" }
-    ],
-    "id": "86b877ff-0d59-482f-bb34-3ff306b07496",
-    "name": "Zip long",
-    "scopes": ["textile"]
-  },
-  {
     "elements": [
       { "amount": 0.01, "material": "dc44ae3c-8552-5822-a76d-f95ef68682da" }
     ],
