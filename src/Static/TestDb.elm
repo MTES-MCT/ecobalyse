@@ -1,4 +1,4 @@
-module Static.TestDb exposing (db)
+module Static.TestDb exposing (dbFromJsonStrings)
 
 import Data.Db as Db exposing (Db)
 import Static.TestJson as TestJson
@@ -11,8 +11,8 @@ all test db JSON strings statically, which may bloat the js build for no added v
 this function is for tests only.
 
 -}
-db : Result String Db
-db =
+dbFromJsonStrings : Result String Db
+dbFromJsonStrings =
     Db.buildFromStrings
         { countries = TestJson.countriesJson
         , definitions = TestJson.impactsJson

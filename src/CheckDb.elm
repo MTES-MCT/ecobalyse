@@ -453,7 +453,7 @@ checkStaticDatabases { componentConfigJson, detailedProcessesJson } =
                 Just detailedJson ->
                     [ ( "Detailed Db"
                       , componentConfigJson
-                      , ProdDb.dbFromStaticFiles detailedJson
+                      , ProdDb.dbFromJsonStrings detailedJson
                       )
                     ]
 
@@ -463,7 +463,7 @@ checkStaticDatabases { componentConfigJson, detailedProcessesJson } =
         nonDetailedDb =
             [ ( "Non-detailed Db"
               , componentConfigJson
-              , ProdDb.dbFromStaticFiles ProdJson.processesJson
+              , ProdDb.dbFromJsonStrings ProdJson.processesJson
               )
             ]
 
