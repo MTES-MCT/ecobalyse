@@ -37,7 +37,9 @@ node_modules
 /public/main.css
 /public/main.css.map
 /server-app.js
-/src/Static/Json.elm
+/server-app.test.js
+/src/Static/ProdJson.elm
+/src/Static/TestJson.elm
 /xls
 /public/version.json
 /.parcel-cache/

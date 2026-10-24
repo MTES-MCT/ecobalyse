@@ -1,8 +1,10 @@
-port module Server exposing
-    ( handleRequest
+port module Server.Worker exposing
+    ( Model
+    , Msg
+    , handleRequest
     , input
-    , main
     , output
+    , worker
     )
 
 import Data.Common.EncodeUtils as EU
@@ -33,8 +35,6 @@ import Json.Encode as Encode
 import Route as WebRoute
 import Server.Request exposing (Request)
 import Server.Route as Route
-import Static.Db as StaticDb
-import Static.Json as StaticJson
 
 
 {-| The model is a list of cached databases; each cached database knows about
@@ -331,9 +331,9 @@ respondWith =
     Tuple.pair
 
 
-handleRequest : Db -> Request -> JsonResponse
-handleRequest db request =
-    case Component.parseConfig db StaticJson.componentConfigJson of
+handleRequest : String -> Db -> Request -> JsonResponse
+handleRequest componentConfigJson db request =
+    case Component.parseConfig db componentConfigJson of
         Err error ->
             ( 500, invalidServerConfigurationError error )
 
@@ -519,9 +519,9 @@ findCachedDb processes =
 {-| Load the database from the static files and cache it in the model. Database is cached
 in the model to avoid loading it from the static files every time we receive a request.
 -}
-loadAndCacheDb : Model -> Request -> ( Model, Cmd Msg )
-loadAndCacheDb model request =
-    case StaticDb.dbFromStaticFiles request.processes of
+loadAndCacheDb : (String -> Result String Db) -> String -> Model -> Request -> ( Model, Cmd Msg )
+loadAndCacheDb dbFromProcesses componentConfigJson model request =
+    case dbFromProcesses request.processes of
         Err error ->
             ( model
             , error
@@ -531,7 +531,7 @@ loadAndCacheDb model request =
             )
 
         Ok db ->
-            case Component.parseConfig db StaticJson.componentConfigJson of
+            case Component.parseConfig db componentConfigJson of
                 Err error ->
                     ( model
                     , invalidServerConfigurationError error |> sendResponse 500 request
@@ -548,8 +548,8 @@ loadAndCacheDb model request =
                     ( cached :: model, cmdRequest cached request )
 
 
-update : Msg -> Model -> ( Model, Cmd Msg )
-update msg model =
+update : (String -> Result String Db) -> String -> Msg -> Model -> ( Model, Cmd Msg )
+update dbFromProcesses componentConfigJson msg model =
     case msg of
         Received request ->
             case findCachedDb request.processes model of
@@ -557,15 +557,17 @@ update msg model =
                     ( model, cmdRequest cached request )
 
                 Nothing ->
-                    loadAndCacheDb model request
+                    loadAndCacheDb dbFromProcesses componentConfigJson model request
 
 
-main : Program () Model Msg
-main =
+{-| A server worker. Requires a JSON database resolver and a component config JSON string to initialize.
+-}
+worker : (String -> Result String Db) -> String -> Program () Model Msg
+worker dbFromProcesses componentConfigJson =
     Platform.worker
         { init = always ( [], Cmd.none )
         , subscriptions = always (input Received)
-        , update = update
+        , update = update dbFromProcesses componentConfigJson
         }
 
 

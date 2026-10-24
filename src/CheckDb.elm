@@ -14,13 +14,15 @@ import Dict exposing (Dict)
 import Dict.Any as AnyDict
 import List.Extra as LE
 import Set exposing (Set)
-import Static.Db as StaticDb
+import Static.ProdDb as ProdDb
+import Static.ProdJson as ProdJson
+import Static.TestDb as TestDb
+import Static.TestJson as TestJson
 
 
 type alias Flags =
     { componentConfigJson : String
     , detailedProcessesJson : Maybe String
-    , nonDetailedProcessesJson : String
     }
 
 
@@ -413,7 +415,7 @@ checkProcessId knownProcessStringIds component fieldName processId =
 {-| Checks a static database and config comformity, then returns a list of errors.
 -}
 checkStaticDatabase : String -> String -> Result String Db -> List Error
-checkStaticDatabase config dbName dbResult =
+checkStaticDatabase dbName config dbResult =
     let
         section title =
             dbName ++ " - " ++ title
@@ -438,24 +440,46 @@ checkStaticDatabase config dbName dbResult =
                 |> addGroupedErrors (section "Component config checks") (checkComponentConfig db config)
 
 
-{-| Decodes the public database, and the detailed one when it is available.
+{-| Decodes the public databases and the fixture database.
+
+Note: the detailed public database is checked when its process file is available and readable.
+
 -}
 checkStaticDatabases : Flags -> Result (List Error) ()
-checkStaticDatabases { componentConfigJson, detailedProcessesJson, nonDetailedProcessesJson } =
+checkStaticDatabases { componentConfigJson, detailedProcessesJson } =
     let
         detailedDb =
             case detailedProcessesJson of
                 Just detailedJson ->
-                    [ ( "Detailed Db", StaticDb.dbFromStaticFiles detailedJson ) ]
+                    [ ( "Detailed Db"
+                      , componentConfigJson
+                      , ProdDb.dbFromJsonStrings detailedJson
+                      )
+                    ]
 
                 Nothing ->
                     []
+
+        nonDetailedDb =
+            [ ( "Non-detailed Db"
+              , componentConfigJson
+              , ProdDb.dbFromJsonStrings ProdJson.processesJson
+              )
+            ]
+
+        fixturesDb =
+            [ ( "Fixture Db"
+              , TestJson.componentConfigJson
+              , TestDb.dbFromJsonStrings TestJson.processesJson
+              )
+            ]
     in
     case
-        List.concatMap (\( dbName, dbResult ) -> checkStaticDatabase componentConfigJson dbName dbResult)
-            (detailedDb
-                ++ [ ( "Non-detailed Db", StaticDb.dbFromStaticFiles nonDetailedProcessesJson ) ]
-            )
+        List.concat [ detailedDb, nonDetailedDb, fixturesDb ]
+            |> List.concatMap
+                (\( dbName, config, dbResult ) ->
+                    checkStaticDatabase dbName config dbResult
+                )
     of
         [] ->
             Ok ()

@@ -6,7 +6,7 @@ const bodyParserErrorHandler = require("express-body-parser-error-handler");
 const cors = require("cors");
 const yaml = require("js-yaml");
 const helmet = require("helmet");
-const { Elm } = require("./server-app");
+const { Elm } = require(process.env.SERVER_APP || "./server-app");
 const jsonUtils = require("./lib/json");
 const rateLimit = require("express-rate-limit");
 const {
@@ -206,7 +206,24 @@ app.get("/processes/processes.json", async (req, res) => {
     .send(JSON.stringify(await getProcesses(req.headers)));
 });
 
-const elmApp = Elm.Server.init();
+/**
+ * Starts the Elm server worker.
+ *
+ * Note: This process loads the bundle optionnaly set by `SERVER_APP` or the one from
+ * `server-app.js` by default. `elm make` only ever compiles a single entry module into
+ * that file, so the bundle contains either `ServerProd` or `ServerTest`, never *both*.
+ */
+function startElmServer(Elm) {
+  if (Elm.ServerProd) {
+    return Elm.ServerProd.init();
+  } else if (Elm.ServerTest) {
+    return Elm.ServerTest.init();
+  } else {
+    throw new Error("The Elm bundle has no ServerProd or ServerTest entry point.");
+  }
+}
+
+const elmApp = startElmServer(Elm);
 
 elmApp.ports.output.subscribe(({ status, body, jsResponseHandler }) => {
   return jsResponseHandler({ status, body });

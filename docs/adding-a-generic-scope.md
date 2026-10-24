@@ -340,11 +340,14 @@ buildFromJson flowersExamplesJson food2ExamplesJson objectExamplesJson veliExamp
         |> Result.map (List.concat >> Db)
 ```
 
-#### Static.Db et template JSON
+#### Static.ProdDb et template JSON
 
-Le module [`Static.Json`](../src/Static/Json.elm) est particulier, car il est généré. Il sert notamment au serveur d'API, puisque Elm ne dispose pas d'API système pour interroger le système de fichiers et récupérer directement le contenu de fichiers s'y trouvant ; c'est pour cela que ces contenus sont encapsulés dans ce fichier généré, qui est chargé d'un bloc en RAM par l'app serveur. Les tests unitaires se servent également de ce module, puisque cet environnement ne dispose pas non plus d'accès direct au système de fichiers.
+Le module [`Static.ProdJson`](../src/Static/ProdJson.elm) est particulier, car il est généré. Il sert notamment au serveur d'API, puisque Elm ne dispose pas d'API système pour interroger le système de fichiers et récupérer directement le contenu de fichiers s'y trouvant ; c'est pour cela que ces contenus sont encapsulés dans ce fichier généré, qui est chargé d'un bloc en RAM par l'app serveur.
 
-> ⚠️ Notez que l'application Web Elm, elle, charge les données JSON à travers HTTP, réduisant ainsi le poids applicatif et les temps de chargement initiaux.
+> ℹ️ Notes :
+>
+> - L'application Web Elm, elle, charge les données JSON à travers HTTP, réduisant ainsi le poids applicatif et les temps de chargement initiaux
+> - Les tests unitaires et d'intégration utilisent un jeu de données restreint situé dans le répertoire [`tests/fixtures`](../tests/fixtures), compilé dans [`Static.TestJson`](../src/Static/TestJson.elm) et exposé par [`Static.TestDb`](../src/Static/TestDb.elm)
 
 On modifie le template en question dans le fichier [`src/Static/Json.elm-template`](../src/Static/Json.elm-template), ainsi que le script de génération situé dans [`bin/build-db`](../bin/build-db). Exposer les trois chaînes en question :
 
@@ -382,13 +385,13 @@ rawJsonComponents =
 
 > 💡 Seuls les données JSON des composants transitent par `RawJsonComponents` ; les exemples et catégories de produit conservent leurs propres constantes `*Json` (comme `flowersExamplesJson`).
 
-Mobiliser ces nouveaux contenus JSON dans la fonction `dbFromStaticFiles` du module [`Static.Db`](../src/Static/Db.elm) ; encore une fois, l'ordre alphabétique est primordial :
+Mobiliser ces nouveaux contenus JSON dans la fonction `dbFromStaticFiles` du module [`Static.ProdDb`](../src/Static/ProdDb.elm) ; encore une fois, l'ordre alphabétique est primordial :
 
 ```elm
-    , flowersComponents = Db.rawJsonString StaticJson.rawJsonComponents.flowersComponents
-    , flowersExamples = Db.rawJsonString StaticJson.flowersExamplesJson
-    , flowersProductCategories = Db.rawJsonString StaticJson.flowersProductCategoriesJson
-    , food2Components = Db.rawJsonString StaticJson.food2ComponentsJson
+    , flowersComponents = Db.rawJsonString ProdJson.rawJsonComponents.flowersComponents
+    , flowersExamples = Db.rawJsonString ProdJson.flowersExamplesJson
+    , flowersProductCategories = Db.rawJsonString ProdJson.flowersProductCategoriesJson
+    , food2Components = Db.rawJsonString ProdJson.food2ComponentsJson
 ```
 
 Dans le script [`bin/build-db`](../bin/build-db), il faut maintenant ajouter les substitutions de chaînes requises pour générer le module de données statiques JSON Elm à partir du template :
@@ -408,7 +411,7 @@ Dans le script [`bin/build-db`](../bin/build-db), il faut maintenant ajouter les
   )
 ```
 
-Pour construire la base statique à partir de ce script et générer le fichier résultant `Static/Json.elm`, on lance :
+Pour construire la base statique à partir de ce script et générer le fichier résultant `Static/ProdJson.elm`, on lance :
 
 ```bash
 npm run db:build
