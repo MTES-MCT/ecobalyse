@@ -33,8 +33,8 @@ import Json.Encode as Encode
 import Route as WebRoute
 import Server.Request exposing (Request)
 import Server.Route as Route
-import Static.Db as StaticDb
-import Static.Json as StaticJson
+import Static.ProdDb as ProdDb
+import Static.ProdJson as ProdJson
 
 
 {-| The model is a list of cached databases; each cached database knows about
@@ -333,7 +333,7 @@ respondWith =
 
 handleRequest : Db -> Request -> JsonResponse
 handleRequest db request =
-    case Component.parseConfig db StaticJson.componentConfigJson of
+    case Component.parseConfig db ProdJson.componentConfigJson of
         Err error ->
             ( 500, invalidServerConfigurationError error )
 
@@ -521,7 +521,7 @@ in the model to avoid loading it from the static files every time we receive a r
 -}
 loadAndCacheDb : Model -> Request -> ( Model, Cmd Msg )
 loadAndCacheDb model request =
-    case StaticDb.dbFromStaticFiles request.processes of
+    case ProdDb.dbFromStaticFiles request.processes of
         Err error ->
             ( model
             , error
@@ -531,7 +531,7 @@ loadAndCacheDb model request =
             )
 
         Ok db ->
-            case Component.parseConfig db StaticJson.componentConfigJson of
+            case Component.parseConfig db ProdJson.componentConfigJson of
                 Err error ->
                     ( model
                     , invalidServerConfigurationError error |> sendResponse 500 request

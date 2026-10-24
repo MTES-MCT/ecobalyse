@@ -2,7 +2,7 @@
 
 /**
  * Compile server-app.test.js from tests/fixtures, then restore the production
- * src/Static/Json.elm without compiling server-app.js.
+ * src/Static/ProdJson.elm without compiling server-app.js.
  * FIXME: try to do all this directly from package.json
  */
 const { execFileSync } = require("child_process");
@@ -11,8 +11,8 @@ const { buildDatabase } = require("./build-db");
 buildDatabase({
   dataDir: "tests/fixtures",
   label: "API test",
-  moduleName: "Static.Json",
-  outFile: "src/Static/Json.elm",
+  moduleName: "Static.ProdJson",
+  outFile: "src/Static/ProdJson.elm",
   processesFileName: "processes.json",
 });
 
