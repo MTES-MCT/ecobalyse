@@ -68,32 +68,26 @@ suite =
                 db =
                     originalDb
 
-                chairBack =
-                    findComponentById db "ad9d7f23-076b-49c5-93a4-ee1cd7b53973"
-
-                sofaFabric =
-                    findComponentById db "8ca2ca05-8aec-4121-acaa-7cdcc03150a9"
-
-                chipsBag =
-                    findProcessById db "4a80c078-9f86-4a7d-b402-73db3381e33b"
-
-                dryDistribution =
-                    findProcessById db "29118025-efa0-47bb-94e2-f5ccba31a903"
-
-                injectionMoulding =
-                    findProcessById db "111539de-deea-588a-9581-6f6ceaa2dfa9"
-
-                lowVoltageElec =
-                    findProcessById db "931c9bb0-619a-5f75-b41b-ab8061e2ad92"
-
-                sawing =
-                    findProcessById db "c172d131-b5d1-5d9b-822b-5762afb91c66"
-
-                steel =
-                    findProcessById db "6527710e-2434-5347-9bef-2205e0aa4f66"
-
-                wood =
-                    findProcessById db "17431e06-2973-516e-b043-be9ad405e4fb"
+                fixtures =
+                    { chairBack =
+                        findComponentById db "ad9d7f23-076b-49c5-93a4-ee1cd7b53973"
+                    , chipsBag =
+                        findProcessById db "4a80c078-9f86-4a7d-b402-73db3381e33b"
+                    , dryDistribution =
+                        findProcessById db "29118025-efa0-47bb-94e2-f5ccba31a903"
+                    , injectionMoulding =
+                        findProcessById db "111539de-deea-588a-9581-6f6ceaa2dfa9"
+                    , lowVoltageElec =
+                        findProcessById db "931c9bb0-619a-5f75-b41b-ab8061e2ad92"
+                    , sawing =
+                        findProcessById db "c172d131-b5d1-5d9b-822b-5762afb91c66"
+                    , sofaFabric =
+                        findComponentById db "8ca2ca05-8aec-4121-acaa-7cdcc03150a9"
+                    , steel =
+                        findProcessById db "6527710e-2434-5347-9bef-2205e0aa4f66"
+                    , wood =
+                        findProcessById db "17431e06-2973-516e-b043-be9ad405e4fb"
+                    }
             in
             [ suiteFromResult "setupRequirements"
                 (createTestRequirements db)
@@ -213,9 +207,9 @@ suite =
                         ]
                     , suiteFromResult3 "addElement"
                         -- setup
-                        chairBack
-                        steel
-                        injectionMoulding
+                        fixtures.chairBack
+                        fixtures.steel
+                        fixtures.injectionMoulding
                         -- tests
                         (\testComponent validMaterial invalidMaterial ->
                             [ itFromResult "should add a new element using a valid material"
@@ -265,9 +259,9 @@ suite =
                         )
                     , suiteFromResult3 "addElementTransform"
                         -- setup
-                        chairBack
-                        injectionMoulding
-                        wood
+                        fixtures.chairBack
+                        fixtures.injectionMoulding
+                        fixtures.wood
                         -- tests
                         (\testComponent validTransformProcess invalidTransformProcess ->
                             [ itFromResult "should add a valid transformation process to a component element"
@@ -295,9 +289,9 @@ suite =
                             ]
                         )
                     , suiteFromResult3 "addOrSetProcess transform default country"
-                        chairBack
-                        injectionMoulding
-                        sawing
+                        fixtures.chairBack
+                        fixtures.injectionMoulding
+                        fixtures.sawing
                         (\testComponent firstTransform secondTransform ->
                             let
                                 targetItem =
@@ -332,7 +326,7 @@ suite =
                             ]
                         )
                     , suiteFromResult "addItem"
-                        chairBack
+                        fixtures.chairBack
                         (\testComponent ->
                             [ it "should allow adding the same component twice"
                                 ([]
@@ -488,7 +482,7 @@ suite =
                                 )
                             ]
                         , suiteFromResult "unit mismatch"
-                            injectionMoulding
+                            fixtures.injectionMoulding
                             (\transformInKg ->
                                 [ it "should reject when the unit of the material and the transforms do not match"
                                     (Component.Results
@@ -838,8 +832,8 @@ suite =
                                 ]
                             )
                         , suiteFromResult2 "unit preservation"
-                            wood
-                            sawing
+                            fixtures.wood
+                            fixtures.sawing
                             (\materialInCubicMeters transformInCubicMeters ->
                                 let
                                     results =
@@ -864,7 +858,7 @@ suite =
                                 ]
                             )
                         , suiteFromResult "missing massPerUnit defaults to 0"
-                            (wood
+                            (fixtures.wood
                                 |> Result.andThen
                                     (\woodProcess ->
                                         { amount = Amount.fromFloat 1
@@ -886,8 +880,8 @@ suite =
                                 ]
                             )
                         , suiteFromResult2 "compute metadata complements"
-                            wood
-                            sawing
+                            fixtures.wood
+                            fixtures.sawing
                             (\materialInCubicMeters transformInCubicMeters ->
                                 let
                                     results =
@@ -1247,7 +1241,7 @@ suite =
                                 }"""
                                 |> decodeJsonThen Component.decodeItem
                                     (\item ->
-                                        case wood of
+                                        case fixtures.wood of
                                             Ok woodProcess ->
                                                 item
                                                     |> Component.computeItemResults
@@ -1396,10 +1390,10 @@ suite =
                             (computePackagingEcsImpacts [])
                             (Expect.equal [])
                          , itFromResult2 "should compute packaging impacts from their amount"
-                            (chipsBag
+                            (fixtures.chipsBag
                                 |> Result.map (.impacts >> Impact.getImpact Definition.Ecs >> Unit.impactToFloat)
                             )
-                            (chipsBag
+                            (fixtures.chipsBag
                                 |> Result.andThen
                                     (\chipsBagProcess ->
                                         computePackagingEcsImpacts
@@ -1998,7 +1992,7 @@ suite =
                                 )
                             , itFromResult "should cool pre-assembly transports for a `transported_cooled` material, even when cooling is disabled"
                                 -- note: using wood as an example, which is not tagged as transported_cooled
-                                wood
+                                fixtures.wood
                                 (\woodProcess ->
                                     let
                                         testSpecificReqs =
@@ -2556,8 +2550,8 @@ suite =
                         ]
                     , suiteFromResult2 "removeElement"
                         -- setup
-                        sofaFabric
-                        steel
+                        fixtures.sofaFabric
+                        fixtures.steel
                         -- tests
                         (\testComponent material ->
                             [ itFromResult "should remove an item element"
@@ -2581,8 +2575,8 @@ suite =
                             ]
                         )
                     , suiteFromResult2 "removeElementTransform"
-                        chairBack
-                        injectionMoulding
+                        fixtures.chairBack
+                        fixtures.injectionMoulding
                         -- tests
                         (\testComponent testProcess ->
                             [ itFromResult "should remove an element transform"
@@ -2604,9 +2598,9 @@ suite =
                         )
                     , suiteFromResult3 "setElementMaterial"
                         -- setup
-                        chairBack
-                        steel
-                        injectionMoulding
+                        fixtures.chairBack
+                        fixtures.steel
+                        fixtures.injectionMoulding
                         -- tests
                         (\testComponent validTestProcess invalidTestProcess ->
                             [ itFromResult "should set a valid element material"
@@ -2750,7 +2744,7 @@ suite =
                         )
                     , suiteFromResult "updateItemCustomName"
                         -- setup
-                        sofaFabric
+                        fixtures.sofaFabric
                         -- tests
                         (\testComponent ->
                             [ itFromResult "should set a custom name to a component item"
@@ -2785,7 +2779,7 @@ suite =
                         )
                     , suiteFromResult2 "useProcessAmount"
                         (chair |> Result.andThen (computeItemsWithRequirements requirements))
-                        lowVoltageElec
+                        fixtures.lowVoltageElec
                         (\lifeCycle lowVoltageElecProcess ->
                             let
                                 productMassInKg =
@@ -2827,11 +2821,11 @@ suite =
                         -- Non-existing process
                         (Process.idFromString nonExistentUuid)
                         -- Steel process
-                        steel
+                        fixtures.steel
                         -- Sawing process
-                        sawing
+                        fixtures.sawing
                         -- Dry distribution process
-                        dryDistribution
+                        fixtures.dryDistribution
                         -- Tests
                         (\nonExistingProcessId steelProcess sawingProcess dryDistributionProcess ->
                             [ describe "amount validation"
