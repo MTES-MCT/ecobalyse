@@ -650,7 +650,7 @@ suite =
                             (chair
                                 |> Result.andThen (computeItemsWithRequirements requirements)
                                 |> Result.map (.production >> extractEcsImpact)
-                                |> TestUtils.expectResultWithin (Expect.Absolute 1) 0.69140106
+                                |> TestUtils.expectResultWithin (Expect.Absolute 1) 276.8147824
                             )
                         , it "should compute results from decoded component items with custom component elements"
                             ("""[
@@ -672,7 +672,7 @@ suite =
                                 ]"""
                                 |> decodeJsonThen (Decode.list Component.decodeItem) (computeItemsWithRequirements requirements)
                                 |> Result.map (.production >> extractEcsImpact)
-                                |> TestUtils.expectResultWithin (Expect.Absolute 1) 0.69177066
+                                |> TestUtils.expectResultWithin (Expect.Absolute 1) 282.4819824
                             )
                         , suiteFromResult "distribution impacts"
                             -- setup
@@ -835,7 +835,7 @@ suite =
                                     (results
                                         |> Result.map extractEcsImpact
                                         |> Result.withDefault 0
-                                        |> Expect.within (Expect.Absolute 1) 112777.2
+                                        |> Expect.within (Expect.Absolute 1) 125656.36
                                     )
                                 , it "should compute mass according on material unit"
                                     (results

@@ -209,7 +209,7 @@ app.get("/processes/processes.json", async (req, res) => {
 /**
  * Initialize the Elm server worker app.
  *
- * Note: This process loads the bundle optionnaly set by `SERVER_APP` or the one from
+ * Note: This process loads the bundle optionally set by `SERVER_APP` or the one from
  * `server-app.js` by default. `elm make` only ever compiles a single entry module into
  * that file, so the bundle contains either `ServerProd` or `ServerTest`, never *both*.
  */

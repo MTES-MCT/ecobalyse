@@ -18,7 +18,7 @@
     "decrypt": "./bin/decrypt",
     "encrypt": "./bin/encrypt",
     "db:build": "./bin/build-db production && npm run db:check && npx elm-format --yes src/Static/ProdJson.elm",
-    "db:check": "./bin/build-db test && npx elm-format --yes src/Static/TestJson.elm && elm make src/CheckDb.elm --optimize --output=check-db-app.js 1> /dev/null && node check-db.js",
+    "db:check": "(test -f src/Static/ProdJson.elm || ./bin/build-db production) && ./bin/build-db test && npx elm-format --yes src/Static/TestJson.elm && elm make src/CheckDb.elm --optimize --output=check-db-app.js 1> /dev/null && node check-db.js",
     "db:validate": "uv run --group data check-jsonschema --schemafile schemas/processes-schema.json public/data/processes*.json tests/fixtures/processes.json",
     "lint:openapi": "npx swagger-cli validate openapi.yaml",
     "lint:elm": "npx elm-format src review/src --validate",
