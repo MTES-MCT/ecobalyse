@@ -447,39 +447,14 @@ Note: the detailed public database is checked when its process file is available
 -}
 checkStaticDatabases : Flags -> Result (List Error) ()
 checkStaticDatabases { componentConfigJson, detailedProcessesJson } =
-    let
-        detailedDb =
-            case detailedProcessesJson of
-                Just detailedJson ->
-                    [ ( "Detailed Db"
-                      , componentConfigJson
-                      , ProdDb.dbFromJsonStrings detailedJson
-                      )
-                    ]
-
-                Nothing ->
-                    []
-
-        nonDetailedDb =
-            [ ( "Non-detailed Db"
-              , componentConfigJson
-              , ProdDb.dbFromJsonStrings ProdJson.processesJson
-              )
-            ]
-
-        fixturesDb =
-            [ ( "Fixture Db"
-              , TestJson.componentConfigJson
-              , TestDb.dbFromJsonStrings TestJson.processesJson
-              )
-            ]
-    in
     case
-        List.concat [ detailedDb, nonDetailedDb, fixturesDb ]
-            |> List.concatMap
-                (\( dbName, config, dbResult ) ->
-                    checkStaticDatabase dbName config dbResult
-                )
+        [ detailedProcessesJson
+            |> Maybe.map (\detailedJson -> ( "Detailed Db", componentConfigJson, ProdDb.dbFromJsonStrings detailedJson ))
+        , Just ( "Non-detailed Db", componentConfigJson, ProdDb.dbFromJsonStrings ProdJson.processesJson )
+        , Just ( "Fixtures Db", TestJson.componentConfigJson, TestDb.dbFromJsonStrings TestJson.processesJson )
+        ]
+            |> List.filterMap identity
+            |> List.concatMap (\( dbName, config, dbResult ) -> checkStaticDatabase dbName config dbResult)
     of
         [] ->
             Ok ()
