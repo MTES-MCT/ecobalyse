@@ -38,6 +38,7 @@ import Json.Encode as Encode
 import Mass
 import Server.Request exposing (Request)
 import Static.TestDb as TestDb
+import Static.TestJson as TestJson
 import Test exposing (..)
 
 
@@ -48,7 +49,7 @@ asTest =
 
 componentConfig : Db -> Result String Component.Config
 componentConfig db =
-    Component.parseConfig db TestDb.componentConfigJson
+    Component.parseConfig db TestJson.componentConfigJson
 
 
 expectAllSucceed : List Expectation -> Expectation

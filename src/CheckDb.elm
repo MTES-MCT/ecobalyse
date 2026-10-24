@@ -17,6 +17,7 @@ import Set exposing (Set)
 import Static.ProdDb as ProdDb
 import Static.ProdJson as ProdJson
 import Static.TestDb as TestDb
+import Static.TestJson as TestJson
 
 
 type alias Flags =
@@ -468,7 +469,7 @@ checkStaticDatabases { componentConfigJson, detailedProcessesJson } =
 
         fixturesDb =
             [ ( "Fixture Db"
-              , TestDb.componentConfigJson
+              , TestJson.componentConfigJson
               , TestDb.db
               )
             ]
