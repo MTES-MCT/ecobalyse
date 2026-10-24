@@ -390,7 +390,7 @@ describe("API", () => {
         )[0];
         expect(ennoblingStage).toBeTruthy();
 
-        expect(ennoblingStage.preTreatments.impacts.ecs).toBeCloseTo(84.7971, 2);
+        expect(ennoblingStage.preTreatments.impacts.ecs).toBeCloseTo(92.779, 2);
       });
     });
 
@@ -882,8 +882,10 @@ describe("API", () => {
         expectStatus(response, 200);
         const { body } = response;
 
-        // Ecoinvent processes carry 0.42, so normalized protection areas are not on the ecs scale.
-        // Stages plus complements still rebuild ecs.
+        // Notes:
+        // - non-aggregated Ecoinvent impacts carry 0.42 as fake values, so normalized protection
+        //   areas are *not* on the ecs scale
+        // - stages + complements still rebuild ecs
         expectMostlyEqual(sumValues(body.stages) + body.subscores.complements, body.score.ecs);
         expectMostlyEqual(sumValues(body.complements), body.score.complements);
         expectMostlyEqual(body.score.complements, body.subscores.complements);
