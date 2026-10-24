@@ -57,36 +57,24 @@ import Volume
 suite : Test
 suite =
     suiteWithDb "Data.Component" <|
-        \originalDb ->
+        \db ->
             let
                 -- these will be adapted and used as test transform processes
                 ( fading, weaving ) =
-                    ( originalDb.textile.wellKnown.fading
-                    , originalDb.textile.wellKnown.weaving
+                    ( db.textile.wellKnown.fading
+                    , db.textile.wellKnown.weaving
                     )
 
-                db =
-                    originalDb
-
                 fixtures =
-                    { chairBack =
-                        findComponentById db "ad9d7f23-076b-49c5-93a4-ee1cd7b53973"
-                    , chipsBag =
-                        findProcessById db "4a80c078-9f86-4a7d-b402-73db3381e33b"
-                    , dryDistribution =
-                        findProcessById db "29118025-efa0-47bb-94e2-f5ccba31a903"
-                    , injectionMoulding =
-                        findProcessById db "111539de-deea-588a-9581-6f6ceaa2dfa9"
-                    , lowVoltageElec =
-                        findProcessById db "931c9bb0-619a-5f75-b41b-ab8061e2ad92"
-                    , sawing =
-                        findProcessById db "c172d131-b5d1-5d9b-822b-5762afb91c66"
-                    , sofaFabric =
-                        findComponentById db "8ca2ca05-8aec-4121-acaa-7cdcc03150a9"
-                    , steel =
-                        findProcessById db "6527710e-2434-5347-9bef-2205e0aa4f66"
-                    , wood =
-                        findProcessById db "17431e06-2973-516e-b043-be9ad405e4fb"
+                    { chairBack = findComponentById db "ad9d7f23-076b-49c5-93a4-ee1cd7b53973"
+                    , chipsBag = findProcessById db "4a80c078-9f86-4a7d-b402-73db3381e33b"
+                    , dryDistribution = findProcessById db "29118025-efa0-47bb-94e2-f5ccba31a903"
+                    , injectionMoulding = findProcessById db "111539de-deea-588a-9581-6f6ceaa2dfa9"
+                    , lowVoltageElec = findProcessById db "931c9bb0-619a-5f75-b41b-ab8061e2ad92"
+                    , sawing = findProcessById db "c172d131-b5d1-5d9b-822b-5762afb91c66"
+                    , sofaFabric = findComponentById db "8ca2ca05-8aec-4121-acaa-7cdcc03150a9"
+                    , steel = findProcessById db "6527710e-2434-5347-9bef-2205e0aa4f66"
+                    , wood = findProcessById db "17431e06-2973-516e-b043-be9ad405e4fb"
                     }
             in
             [ suiteFromResult "setupRequirements"
