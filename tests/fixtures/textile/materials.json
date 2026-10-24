@@ -1,17 +1,5 @@
 [
   {
-    "alias": "ei-chanvre",
-    "cff": null,
-    "defaultCountry": "CN",
-    "geographicOrigin": "Asie - Pacifique",
-    "id": "0c1a4654-b030-4fe1-86b7-d96ce0b85bb8",
-    "name": "Chanvre",
-    "origin": "NaturalFromVegetal",
-    "primary": true,
-    "processId": "82aab465-3b46-52d2-9625-a68625a3f9fc",
-    "recycledFrom": null
-  },
-  {
     "alias": "ei-laine-par-defaut",
     "cff": null,
     "defaultCountry": "CN",
@@ -21,18 +9,6 @@
     "origin": "NaturalFromAnimal",
     "primary": false,
     "processId": "3b45f504-83ac-5d0d-ab96-388850f3ef6f",
-    "recycledFrom": null
-  },
-  {
-    "alias": "nonwoven-polyester",
-    "cff": null,
-    "defaultCountry": "CN",
-    "geographicOrigin": "Asie - Pacifique",
-    "id": "3403257d-a13b-4dc0-b72b-e85c24617ed9",
-    "name": "Polyester non-tissé",
-    "origin": "Synthetic",
-    "primary": false,
-    "processId": "f57e98d9-524c-4bf8-beaf-7422abcae5f2",
     "recycledFrom": null
   },
   {
@@ -72,18 +48,6 @@
     "recycledFrom": null
   },
   {
-    "alias": "ei-laine-nouvelle-filiere",
-    "cff": null,
-    "defaultCountry": "CN",
-    "geographicOrigin": "Asie - Pacifique",
-    "id": "72e29a61-52a9-4eb5-b3fc-5fb87edea041",
-    "name": "Laine nouvelle filière",
-    "origin": "NaturalFromAnimal",
-    "primary": true,
-    "processId": "40ec17ee-6b44-5ee2-8fbc-559aed52764f",
-    "recycledFrom": null
-  },
-  {
     "alias": "ei-pp",
     "cff": null,
     "defaultCountry": "FR",
@@ -94,18 +58,6 @@
     "primary": false,
     "processId": "28a36af2-cca9-5baa-a83e-d01b2e52ced6",
     "recycledFrom": null
-  },
-  {
-    "alias": "ei-pet-r",
-    "cff": { "manufacturerAllocation": 0.5, "recycledQualityRatio": 1.0 },
-    "defaultCountry": "CN",
-    "geographicOrigin": "Asie - Pacifique",
-    "id": "8f44c680-1263-4588-b79b-a9e4dc3d8de4",
-    "name": "Polyester recyclé",
-    "origin": "Synthetic",
-    "primary": true,
-    "processId": "994efc14-cc89-526c-b9d0-0d6a99adbd4f",
-    "recycledFrom": "9dba0e95-0c35-4f8b-9267-62ddf47d4984"
   },
   {
     "alias": "elasthane",
@@ -130,77 +82,5 @@
     "primary": true,
     "processId": "61bab541-9097-5680-9884-254c98f25d80",
     "recycledFrom": null
-  },
-  {
-    "alias": "ei-jute-kenaf",
-    "cff": null,
-    "defaultCountry": "CN",
-    "geographicOrigin": "Asie - Pacifique",
-    "id": "a09b2677-2900-4417-a202-e5f9a1abcce1",
-    "name": "Jute",
-    "origin": "NaturalFromVegetal",
-    "primary": false,
-    "processId": "8782714f-1332-589a-85ca-885c47f5e58b",
-    "recycledFrom": null
-  },
-  {
-    "alias": "ei-coton-organic",
-    "cff": null,
-    "defaultCountry": "CN",
-    "geographicOrigin": "Asie - Pacifique",
-    "id": "a1c1c2ec-33b1-49d6-bf8e-139e2eb7f097",
-    "name": "Coton biologique",
-    "origin": "NaturalFromVegetal",
-    "primary": true,
-    "processId": "ae34a9bc-36c5-5ffa-8520-150e219569fe",
-    "recycledFrom": null
-  },
-  {
-    "alias": "ei-lin",
-    "cff": null,
-    "defaultCountry": "FR",
-    "geographicOrigin": "Europe",
-    "id": "a52e486c-b67e-40af-8337-e8143cbf9076",
-    "name": "Lin",
-    "origin": "NaturalFromVegetal",
-    "primary": true,
-    "processId": "b4e7353b-7963-5d88-b4bc-84bd925f5a86",
-    "recycledFrom": null
-  },
-  {
-    "alias": "ei-viscose",
-    "cff": null,
-    "defaultCountry": "CN",
-    "geographicOrigin": "Asie - Pacifique",
-    "id": "c087d394-5901-4b03-ba7a-7d4b0db0490c",
-    "name": "Viscose",
-    "origin": "ArtificialFromOrganic",
-    "primary": true,
-    "processId": "d60beb93-af80-56f5-84bf-71f5c76fd4a8",
-    "recycledFrom": null
-  },
-  {
-    "alias": "ei-pa",
-    "cff": null,
-    "defaultCountry": "FR",
-    "geographicOrigin": "Europe",
-    "id": "c84280ff-e921-4d5c-92d6-51030bf4f74e",
-    "name": "Nylon",
-    "origin": "Synthetic",
-    "primary": true,
-    "processId": "b2318c3f-6d7b-5d95-b201-6b95470db3b7",
-    "recycledFrom": null
-  },
-  {
-    "alias": "coton-rdp",
-    "cff": { "manufacturerAllocation": 0.8, "recycledQualityRatio": 0.5 },
-    "defaultCountry": "FR",
-    "geographicOrigin": "Espagne & France",
-    "id": "d3d20384-88fb-4c75-ac12-c647365ac6c5",
-    "name": "Coton recyclé (déchets de production)",
-    "origin": "NaturalFromVegetal",
-    "primary": true,
-    "processId": "7c1986fd-fb5c-53b9-8a7a-aea3650145eb",
-    "recycledFrom": "62a4d6fb-3276-4ba5-93a3-889ecd3bff84"
   }
 ]
