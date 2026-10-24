@@ -11,8 +11,8 @@ all test db JSON strings statically, which may bloat the js build for no added v
 this function is for tests only.
 
 -}
-dbFromJsonStrings : Result String Db
-dbFromJsonStrings =
+dbFromJsonStrings : String -> Result String Db
+dbFromJsonStrings processesJson =
     Db.buildFromStrings
         { countries = TestJson.countriesJson
         , definitions = TestJson.impactsJson
@@ -24,7 +24,7 @@ dbFromJsonStrings =
         , objectComponents = TestJson.rawJsonComponents.objectComponents
         , objectExamples = TestJson.objectExamplesJson
         , objectProductCategories = TestJson.objectProductCategoriesJson
-        , processes = TestJson.processesJson
+        , processes = processesJson
         , textileComponents = TestJson.rawJsonComponents.textileComponents
         , textileMaterials = TestJson.textileMaterialsJson
         , textileProductExamples = TestJson.textileProductExamplesJson

@@ -206,7 +206,24 @@ app.get("/processes/processes.json", async (req, res) => {
     .send(JSON.stringify(await getProcesses(req.headers)));
 });
 
-const elmApp = Elm.Server.init();
+/**
+ * Starts the Elm server worker.
+ *
+ * Note: This process loads the bundle optionnaly set by `SERVER_APP` or the one from
+ * `server-app.js` by default. `elm make` only ever compiles a single entry module into
+ * that file, so the bundle contains either `ServerProd` or `ServerTest`, never *both*.
+ */
+function startElmServer(Elm) {
+  if (Elm.ServerProd) {
+    return Elm.ServerProd.init();
+  } else if (Elm.ServerTest) {
+    return Elm.ServerTest.init();
+  } else {
+    throw new Error("The Elm bundle has no ServerProd or ServerTest entry point.");
+  }
+}
+
+const elmApp = startElmServer(Elm);
 
 elmApp.ports.output.subscribe(({ status, body, jsResponseHandler }) => {
   return jsResponseHandler({ status, body });
