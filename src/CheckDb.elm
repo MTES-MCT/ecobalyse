@@ -414,7 +414,7 @@ checkProcessId knownProcessStringIds component fieldName processId =
 {-| Checks a static database and config comformity, then returns a list of errors.
 -}
 checkStaticDatabase : String -> String -> Result String Db -> List Error
-checkStaticDatabase config dbName dbResult =
+checkStaticDatabase dbName config dbResult =
     let
         section title =
             dbName ++ " - " ++ title
@@ -466,7 +466,7 @@ checkStaticDatabases { componentConfigJson, detailedProcessesJson } =
               )
             ]
 
-        fixtureCheck =
+        fixturesDb =
             [ ( "Fixture Db"
               , FixtureDb.componentConfigJson
               , FixtureDb.db
@@ -474,10 +474,10 @@ checkStaticDatabases { componentConfigJson, detailedProcessesJson } =
             ]
     in
     case
-        List.concat [ detailedDb, nonDetailedDb, fixtureCheck ]
+        List.concat [ detailedDb, nonDetailedDb, fixturesDb ]
             |> List.concatMap
                 (\( dbName, config, dbResult ) ->
-                    checkStaticDatabase config dbName dbResult
+                    checkStaticDatabase dbName config dbResult
                 )
     of
         [] ->
