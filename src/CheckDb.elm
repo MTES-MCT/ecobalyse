@@ -37,8 +37,8 @@ init flags =
         Err errors ->
             logAndExit { message = formatErrors errors, status = 1 }
 
-        Ok _ ->
-            logAndExit { message = "Dbs look fine", status = 0 }
+        Ok message ->
+            logAndExit { message = message, status = 0 }
     )
 
 
@@ -445,19 +445,33 @@ checkStaticDatabase dbName config dbResult =
 Note: the detailed public database is checked when its process file is available and readable.
 
 -}
-checkStaticDatabases : Flags -> Result (List Error) ()
+checkStaticDatabases : Flags -> Result (List Error) String
 checkStaticDatabases { componentConfigJson, detailedProcessesJson } =
+    let
+        dbsToCheck =
+            List.filterMap identity
+                [ detailedProcessesJson
+                    |> Maybe.map (\detailedJson -> ( "Detailed Db", componentConfigJson, ProdDb.dbFromJsonStrings detailedJson ))
+                , Just ( "Non-detailed Db", componentConfigJson, ProdDb.dbFromJsonStrings ProdJson.processesJson )
+                , Just ( "Fixtures Db", TestJson.componentConfigJson, TestDb.dbFromJsonStrings TestJson.processesJson )
+                ]
+
+        dbNames =
+            dbsToCheck
+                |> List.map (\( dbName, _, _ ) -> dbName)
+    in
     case
-        [ detailedProcessesJson
-            |> Maybe.map (\detailedJson -> ( "Detailed Db", componentConfigJson, ProdDb.dbFromJsonStrings detailedJson ))
-        , Just ( "Non-detailed Db", componentConfigJson, ProdDb.dbFromJsonStrings ProdJson.processesJson )
-        , Just ( "Fixtures Db", TestJson.componentConfigJson, TestDb.dbFromJsonStrings TestJson.processesJson )
-        ]
-            |> List.filterMap identity
-            |> List.concatMap (\( dbName, config, dbResult ) -> checkStaticDatabase dbName config dbResult)
+        dbsToCheck
+            |> List.concatMap
+                (\( dbName, config, dbResult ) ->
+                    checkStaticDatabase dbName config dbResult
+                )
     of
         [] ->
-            Ok ()
+            dbNames
+                |> List.map (\dbName -> "✅ " ++ dbName ++ " looks fine")
+                |> String.join "\n"
+                |> Ok
 
         errors ->
             Err errors

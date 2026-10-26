@@ -22,7 +22,7 @@
     "db:build": "npm run db:build:prod && npm run db:check",
     "db:build:prod": "./bin/build-db production && npx elm-format --yes src/Static/ProdJson.elm",
     "db:build:test": "./bin/build-db test && npx elm-format --yes src/Static/TestJson.elm",
-    "db:check": "(test -f src/Static/ProdJson.elm || npm run db:build:prod) && npm run db:build:test && npm run build:db-check && node check-db.js",
+    "db:check": "npm run db:build:prod && npm run db:build:test && npm run build:db-check && node check-db.js",
     "db:validate": "uv run --group data check-jsonschema --schemafile schemas/processes-schema.json public/data/processes*.json tests/fixtures/processes.json",
     "lint:openapi": "npx swagger-cli validate openapi.yaml",
     "lint:elm": "npx elm-format src review/src --validate",
