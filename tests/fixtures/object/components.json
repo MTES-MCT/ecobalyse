@@ -1,0 +1,120 @@
+[
+  {
+    "comment": "Exemple de batterie pour vélo à assistance électrique ou trottinette.",
+    "elements": [
+      {
+        "amount": 1.27,
+        "material": { "country": "CN", "id": "6a1d18fa-f0fd-483a-ac7f-546b15476627" },
+        "transforms": [
+          { "country": "CN", "id": "7f217ecc-5de8-4ce1-b2c2-b5d192c6cdb9" }
+        ]
+      },
+      {
+        "amount": 0.53,
+        "material": { "country": "CN", "id": "cc8e1090-e90a-4dcb-89a2-4b45daac88af" },
+        "transforms": [
+          { "country": "CN", "id": "971df5fa-c32e-4a7e-b1aa-14ce9f240b5c" }
+        ]
+      },
+      {
+        "amount": 0.013,
+        "material": { "country": "CN", "id": "a363f079-bc3f-424a-a2e1-06b9c76b4fc3" },
+        "transforms": [
+          { "country": "CN", "id": "d077f06e-4ae9-48b7-8019-64523e577b95" }
+        ]
+      },
+      {
+        "amount": 0.02,
+        "material": { "country": "CN", "id": "30212fbf-5912-40eb-b2ab-87837361c462" },
+        "transforms": [
+          { "country": "CN", "id": "981e74ea-ef7d-40d1-b25e-c5534446474e" }
+        ]
+      },
+      {
+        "amount": 0.1,
+        "material": { "country": "CN", "id": "90844e0a-42b3-4748-8cf0-4abf3fd62977" },
+        "transforms": [
+          { "country": "CN", "id": "85b74ce2-2cbc-4d73-a5a2-5c5ffde16319" }
+        ]
+      },
+      {
+        "amount": 0.22,
+        "material": { "country": "CN", "id": "6445c1fa-13a6-4058-8978-bcf2be63cd56" }
+      },
+      {
+        "amount": 0.05,
+        "material": { "country": "CN", "id": "51956fb2-304d-4e63-a3ef-b3eed44fde38" }
+      }
+    ],
+    "id": "9178fe2e-6944-41d5-ad1b-7abbe8905c48",
+    "name": "[Composant] Batterie Li-ion 400Wh, NMC622, casing aluminium, Chine",
+    "scopes": ["veli"]
+  },
+  {
+    "comment": null,
+    "elements": [
+      {
+        "amount": 1.26,
+        "material": "01d21ed5-9fc6-4d36-a0ea-cfea8035385b",
+        "transforms": ["85b74ce2-2cbc-4d73-a5a2-5c5ffde16319"]
+      }
+    ],
+    "id": "10e199b6-7e5f-47d9-bc85-9959c4e9ee62",
+    "name": "Boite plastique PP 45L (55 * 45 * 39)",
+    "scopes": ["object"]
+  },
+  {
+    "elements": [
+      { "amount": 0.734063, "material": "59b42284-3e45-5343-8a20-1d7d66137461" }
+    ],
+    "id": "ad9d7f23-076b-49c5-93a4-ee1cd7b53973",
+    "name": "Dossier plastique (PP)",
+    "scopes": ["object"]
+  },
+  {
+    "comment": null,
+    "elements": [
+      {
+        "amount": 0.11,
+        "material": "01d21ed5-9fc6-4d36-a0ea-cfea8035385b",
+        "transforms": ["85b74ce2-2cbc-4d73-a5a2-5c5ffde16319"]
+      }
+    ],
+    "id": "c5d86519-e56a-4ad7-aada-d4f7fffd5628",
+    "name": "Toile protection PP (jardinière pin 80 * 40 * 28)",
+    "scopes": ["object"]
+  },
+  {
+    "elements": [
+      { "amount": 0.00022, "material": "17431e06-2973-516e-b043-be9ad405e4fb" }
+    ],
+    "id": "64fa65b3-c2df-4fd0-958b-83965bd6aa08",
+    "name": "Pied 70 cm (plein bois)",
+    "scopes": ["object"]
+  },
+  {
+    "elements": [
+      { "amount": 0.91125, "material": "59b42284-3e45-5343-8a20-1d7d66137461" }
+    ],
+    "id": "eda5dd7e-52e4-450f-8658-1876efc62bd6",
+    "name": "Assise plastique (PP)",
+    "scopes": ["object"]
+  },
+  {
+    "elements": [
+      {
+        "amount": 1,
+        "material": "f0dbe27b-1e74-55d0-88a2-bda812441744",
+        "transforms": ["29dc6c73-8d82-5056-8ac0-faf212bc0367", "c49a5379-95c4-599a-84da-b5faaa345b97"]
+      },
+      {
+        "amount": 1,
+        "material": "61bab541-9097-5680-9884-254c98f25d80",
+        "transforms": ["29dc6c73-8d82-5056-8ac0-faf212bc0367", "e5e43c57-bd12-5ab7-8a22-7d12cdcece58"]
+      }
+    ],
+    "id": "8ca2ca05-8aec-4121-acaa-7cdcc03150a9",
+    "name": "Tissu pour canapé",
+    "scopes": ["object"]
+  }
+]

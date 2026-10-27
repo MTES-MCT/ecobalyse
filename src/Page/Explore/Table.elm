@@ -12,6 +12,7 @@ module Page.Explore.Table exposing
     )
 
 import Csv.Encode exposing (Csv)
+import Data.Env as Env
 import Data.Scope as Scope exposing (Scope)
 import Data.Text as Text
 import Dict exposing (Dict)
@@ -24,6 +25,7 @@ import Set exposing (Set)
 import String.Normalize as Normalize
 import Table as SortableTable
 import Views.Alert as Alert
+import Views.Markdown as Markdown
 import Views.Table as TableView
 
 
@@ -31,7 +33,7 @@ type alias Table data comparable msg =
     { filename : String
     , toId : data -> String
     , toRoute : data -> Route
-    , toSearchableWords : data -> List String
+    , toSearchableText : data -> String
     , facets : List (Facet data)
     , columns : List (Column data comparable msg)
     , legend : List (Html msg)
@@ -110,7 +112,7 @@ viewList :
     -> Html msg
 viewList dataToMsg defaultConfig tableState scope createTable items =
     let
-        ({ filename, toId, toSearchableWords, facets, columns, legend } as table) =
+        ({ filename, toId, toSearchableText, facets, columns, legend } as table) =
             createTable { detailed = False, scope = scope }
 
         { customizations } =
@@ -161,13 +163,17 @@ viewList dataToMsg defaultConfig tableState scope createTable items =
                 }
 
         resultItems =
-            items |> applyFiltersAndSearch defaultConfig facets toSearchableWords
+            items |> applyFiltersAndSearch defaultConfig facets toSearchableText
+
+        displayedItems =
+            resultItems |> List.take Env.explorerTableMaxDisplayedRows
+
+        resultCount =
+            List.length resultItems
 
         csv =
             { filename = "ecobalyse-" ++ Scope.toString scope ++ "-" ++ filename ++ ".csv"
-            , content =
-                resultItems
-                    |> toCSV table
+            , content = resultItems |> toCSV table
             }
 
         facetsEnabled =
@@ -188,7 +194,15 @@ viewList dataToMsg defaultConfig tableState scope createTable items =
     else
         div [ class "row g-3" ]
             [ div [ classList [ ( "col-xxl-10 col-xl-9 col-lg-9 col-md-12 col-sm-12", facetsEnabled ) ] ]
-                [ div [ class "DatasetTable table-responsive table-scroll position-relative" ]
+                [ if resultCount > Env.explorerTableMaxDisplayedRows then
+                    "Affichage des {maxRows} premiers résultats sur {resultCount} résultats"
+                        |> String.replace "{maxRows}" (String.fromInt Env.explorerTableMaxDisplayedRows)
+                        |> String.replace "{resultCount}" (String.fromInt resultCount)
+                        |> Markdown.simple [ class "text-muted fs-7 mb-2" ]
+
+                  else
+                    text ""
+                , div [ class "DatasetTable table-responsive table-scroll position-relative" ]
                     [ if List.isEmpty resultItems then
                         Alert.simple
                             { attributes = []
@@ -199,7 +213,7 @@ viewList dataToMsg defaultConfig tableState scope createTable items =
                             }
 
                       else
-                        resultItems |> SortableTable.view config tableState
+                        displayedItems |> SortableTable.view config tableState
                     , div [ class "text-muted fs-7" ] legend
                     ]
                 , div [ class "text-end pt-3" ]
@@ -218,10 +232,10 @@ viewList dataToMsg defaultConfig tableState scope createTable items =
             ]
 
 
-applyFiltersAndSearch : Config data msg -> List (Facet data) -> (data -> List String) -> List data -> List data
-applyFiltersAndSearch config facets toSearchableWords =
+applyFiltersAndSearch : Config data msg -> List (Facet data) -> (data -> String) -> List data -> List data
+applyFiltersAndSearch config facets toSearchableText =
     filterItems config facets
-        >> searchItems config toSearchableWords
+        >> searchItems config toSearchableText
 
 
 emptyLabel : String
@@ -328,12 +342,12 @@ filterItems { selectedFacets } facets =
         )
 
 
-searchItems : Config data msg -> (data -> List String) -> List data -> List data
-searchItems { search } toSearchableWords =
+searchItems : Config data msg -> (data -> String) -> List data -> List data
+searchItems { search } toSearchableText =
     Text.search
         { minQueryLength = 2
         , query = search
-        , toSearchableWords = toSearchableWords
+        , toSearchableText = toSearchableText
         }
 
 

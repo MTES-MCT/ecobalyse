@@ -1,0 +1,26 @@
+[
+  {
+    "consumptions": ["b4642cec-b72e-4116-81c5-5dbfccb46055"],
+    "cooling": true,
+    "distribution": "be66b80b-1500-4e3b-bfd2-87a89ff54031",
+    "id": "2ab49980-2bc8-40b9-8db2-010d0d14ce50",
+    "label": "Charcuterie",
+    "scope": "food2"
+  },
+  {
+    "consumptions": ["21e4283e-6bbf-4b2a-b52b-4440022525ad"],
+    "cooling": false,
+    "distribution": "29118025-efa0-47bb-94e2-f5ccba31a903",
+    "id": "ed82925c-7f21-4101-b9be-056e3c185749",
+    "label": "Céréales brutes",
+    "scope": "food2"
+  },
+  {
+    "consumptions": ["0048f6f5-5f8f-4a34-acde-4e0d909883d4", "a49670fc-0642-43f6-a673-fe15dc7d88da"],
+    "cooling": true,
+    "distribution": "a7b3d399-4c7b-4556-9826-a79f952feb7f",
+    "id": "1eacb555-5f0c-498e-8e97-f4c9104642e4",
+    "label": "Produits congelés",
+    "scope": "food2"
+  }
+]

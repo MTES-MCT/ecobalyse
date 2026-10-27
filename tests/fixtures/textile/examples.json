@@ -1,0 +1,19 @@
+[
+  {
+    "category": "Tshirt / Polo",
+    "id": "f48d7a6b-68db-4d1c-9623-6ec0ab89cbdb",
+    "name": "Tshirt coton (150g) - Majorant par défaut",
+    "query": {
+      "business": "large-business-without-services",
+      "countrySpinning": "CN",
+      "mass": 0.15,
+      "materials": [
+        { "id": "62a4d6fb-3276-4ba5-93a3-889ecd3bff84", "share": 1 }
+      ],
+      "numberOfReferences": 100000,
+      "price": 10,
+      "product": "tshirt"
+    },
+    "scope": "textile"
+  }
+]

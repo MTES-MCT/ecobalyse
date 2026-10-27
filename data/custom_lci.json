@@ -1168,135 +1168,27 @@
   },
   {
     "activityCreationType": "from_existing",
-    "alias": "aluminium-working-average",
-    "comment": "",
-    "database": "Ecoinvent 3.9.1",
-    "delete": [
-      { "name": "aluminium, cast alloy//[GLO] market for aluminium, cast alloy" },
-      { "name": "aluminium, wrought alloy//[GLO] market for aluminium, wrought alloy" }
-    ],
-    "existingActivity": {
-      "name": "metal working, average for aluminium product manufacturing//[RER] metal working, average for aluminium product manufacturing"
-    },
-    "newName": "Aluminium working, average"
-  },
-  {
-    "activityCreationType": "from_existing",
-    "alias": "aluminium-extrusion",
-    "comment": "",
-    "database": "Ecoinvent 3.9.1",
-    "delete": [
-      { "name": "aluminium, wrought alloy//[GLO] market for aluminium, wrought alloy" }
-    ],
-    "existingActivity": {
-      "name": "section bar extrusion, aluminium//[RER] section bar extrusion, aluminium"
-    },
-    "newName": "Aluminium extrusion"
-  },
-  {
-    "activityCreationType": "from_existing",
-    "alias": "aluminium-sheeet-rolling",
-    "comment": "",
-    "database": "Ecoinvent 3.9.1",
-    "delete": [
-      { "name": "aluminium, wrought alloy//[GLO] market for aluminium, wrought alloy" }
-    ],
-    "existingActivity": { "name": "sheet rolling, aluminium//[RER] sheet rolling, aluminium" },
-    "newName": "Aluminium sheeet rolling"
-  },
-  {
-    "activityCreationType": "from_existing",
-    "alias": "chromium-steel-working",
-    "comment": "",
-    "database": "Ecoinvent 3.9.1",
-    "delete": [
-      {
-        "name": "steel, chromium steel 18/8, hot rolled//[GLO] market for steel, chromium steel 18/8, hot rolled"
-      }
-    ],
-    "existingActivity": {
-      "name": "metal working, average for chromium steel product manufacturing//[RER] metal working, average for chromium steel product manufacturing"
-    },
-    "newName": "chromium steel working"
-  },
-  {
-    "activityCreationType": "from_existing",
-    "alias": "steel-working",
-    "comment": "",
-    "database": "Ecoinvent 3.9.1",
-    "delete": [
-      {
-        "name": "steel, low-alloyed, hot rolled//[GLO] market for steel, low-alloyed, hot rolled"
-      }
-    ],
-    "existingActivity": {
-      "name": "metal working, average for steel product manufacturing//[RER] metal working, average for steel product manufacturing"
-    },
-    "newName": "steel working"
-  },
-  {
-    "activityCreationType": "from_existing",
-    "alias": "chromium-steel-sheet-rolling",
-    "comment": "",
-    "database": "Ecoinvent 3.9.1",
-    "delete": [
-      {
-        "name": "steel, chromium steel 18/8, hot rolled//[GLO] market for steel, chromium steel 18/8, hot rolled"
-      }
-    ],
-    "existingActivity": { "name": "sheet rolling, chromium steel//[RER] sheet rolling, chromium steel" },
-    "newName": "chromium steel sheet rolling"
-  },
-  {
-    "activityCreationType": "from_existing",
-    "alias": "steel-sheet-rolling",
-    "comment": "",
-    "database": "Ecoinvent 3.9.1",
-    "delete": [
-      { "name": "steel, unalloyed//[GLO] market for steel, unalloyed" }
-    ],
-    "existingActivity": { "name": "sheet rolling, steel//[RER] sheet rolling, steel" },
-    "newName": "steel sheet rolling"
-  },
-  {
-    "activityCreationType": "from_existing",
-    "alias": "steel-section-bar-rolling",
-    "comment": "",
-    "database": "Ecoinvent 3.9.1",
-    "delete": [
-      { "name": "wire drawing, steel//[RER] wire drawing, steel" }
-    ],
-    "existingActivity": { "name": "section bar rolling, steel//[RER] section bar rolling, steel" },
-    "newName": "steel section bar rolling"
-  },
-  {
-    "activityCreationType": "from_existing",
     "alias": "zinc-coat-wo-energy-per-m2",
-    "comment": "Adapted from 'zinc coating, pieces, RER', Ecoinvent. Heat and electricity consumptions are excluded.",
-    "database": "Ecoinvent 3.9.1",
+    "comment": "Adapted from 'zinc coating, pieces, RER', BAFU:2026. Heat and electricity consumptions are excluded.",
+    "database": "BAFU 2025v2",
     "delete": [
-      {
-        "name": "heat, district or industrial, natural gas//[RER] market group for heat, district or industrial, natural gas"
-      },
-      {
-        "name": "heat, district or industrial, other than natural gas//[RER] market group for heat, district or industrial, other than natural gas"
-      },
-      {
-        "name": "electricity, medium voltage//[RER] market group for electricity, medium voltage"
-      }
+      { "name": "Electricity, medium voltage, production ENTSO-E, at grid {ENTSO-E} U" },
+      { "name": "Heat, unspecific, in chemical plant {RER} U" },
+      { "name": "Heat, light fuel oil, at industrial furnace 1MW {RER} U" },
+      { "name": "Natural gas, burned in industrial furnace 1MWth {CH} U" }
     ],
-    "existingActivity": { "name": "zinc coat, pieces//[RER] zinc coating, pieces" },
+    "existingActivity": { "name": "Zinc coating, pieces {RER} U" },
     "newName": "zinc coat, pieces, without energy, per m2, RER"
   },
   {
     "activityCreationType": "from_scratch",
     "alias": "zinc-coating-wo-energy",
-    "comment": "50µm Zn, 2mm Fe (62.5m²/t Fe). Adapted from 'zinc coating, pieces, RER', Ecoinvent (65µm Zn). Heat and electricity consumptions are not included.",
+    "comment": "50µm Zn, 2mm Fe (62.5m²/t Fe). Adapted from 'zinc coating, pieces, RER', BAFU:2026 (65µm Zn). Heat and electricity consumptions are not included.",
     "database": "Ecobalyse_custom_lci",
     "exchanges": [
       { "amount": 0.048, "name": "zinc coat, pieces, without energy, per m2, RER" }
     ],
-    "newName": "zinc coating, adapted from Ecoinvent"
+    "newName": "zinc coating, adapted from BAFU"
   },
   {
     "activityCreationType": "from_scratch",
@@ -9696,6 +9588,69 @@
   },
   {
     "activityCreationType": "from_scratch",
+    "alias": "battery-alkaline-33g",
+    "comment": "For 33g battery. Based on https://www.epbaeurope.net/assets/resources/NEMA_alkalinelca2011.pdf",
+    "database": "Ecoinvent 3.9.1",
+    "exchanges": [
+      {
+        "amount": 0.0134,
+        "name": "manganese dioxide//[GLO] manganese dioxide production"
+      },
+      {
+        "amount": 0.0037,
+        "name": "potassium hydroxide//[GLO] market for potassium hydroxide"
+      },
+      {
+        "amount": 0.0012,
+        "database": "Ecobalyse_custom_lci",
+        "name": "Graphite production for battery cell, CN"
+      },
+      {
+        "amount": 0.0069,
+        "database": "Ecobalyse_custom_lci",
+        "name": "steel, low-alloyed, market, CN"
+      },
+      { "amount": 0.00014, "name": "nickel sulfate//[GLO] nickel sulfate production" },
+      { "amount": 0.0058, "name": "zinc//[RoW] primary zinc production from concentrate" },
+      { "amount": 0.00103, "name": "brass//[RoW] market for brass" },
+      {
+        "amount": 0.000558,
+        "name": "steel, chromium steel 18/8//[GLO] market for steel, chromium steel 18/8"
+      },
+      {
+        "amount": 0.00055,
+        "name": "polyvinylchloride, suspension polymerised//[GLO] market for polyvinylchloride, suspension polymerised"
+      },
+      {
+        "amount": 0.00055,
+        "name": "potassium hydroxide//[GLO] market for potassium hydroxide"
+      },
+      {
+        "amount": 0.02,
+        "name": "electricity, medium voltage//[RER] market group for electricity, medium voltage"
+      },
+      {
+        "amount": 0.0343,
+        "database": "Ecobalyse_custom_lci",
+        "name": "heat, industrial, market, RER"
+      }
+    ],
+    "location": "RER",
+    "newName": "Alkaline battery production, 33g, RER"
+  },
+  {
+    "activityCreationType": "from_scratch",
+    "alias": "battery-alkaline-1g",
+    "comment": "For one gram battery. Based on https://www.epbaeurope.net/assets/resources/NEMA_alkalinelca2011.pdf",
+    "database": "Ecobalyse_custom_lci",
+    "exchanges": [
+      { "amount": 0.03, "name": "Alkaline battery production, 33g, RER" }
+    ],
+    "location": "RER",
+    "newName": "Alkaline battery production, 1g, RER"
+  },
+  {
+    "activityCreationType": "from_scratch",
     "alias": "battery-aaa",
     "comment": "For one 11g battery. Based on https://www.epbaeurope.net/assets/resources/NEMA_alkalinelca2011.pdf",
     "database": "Ecoinvent 3.9.1",
@@ -9943,6 +9898,23 @@
   },
   {
     "activityCreationType": "from_scratch",
+    "alias": "product-use-petrol-upstream",
+    "comment": "see https://fabrique-numerique.gitbook.io/ecobalyse/vehicules/cycle-de-vie/utilisation-du-vehicule/construction-des-procedes-carburant",
+    "database": "Ecoinvent 3.9.1",
+    "exchanges": [
+      {
+        "amount": 0.68,
+        "name": "petrol, low-sulfur//[Europe without Switzerland] market for petrol, low-sulfur"
+      },
+      {
+        "amount": 0.075,
+        "name": "ethyl tert-butyl ether//[RER] ethyl tert-butyl ether production, from bioethanol"
+      }
+    ],
+    "newName": "Petrol E10, upstream, 1L"
+  },
+  {
+    "activityCreationType": "from_scratch",
     "alias": "vehicle-use-petrol-direct-co2-emissions-200kkm",
     "comment": "see https://fabrique-numerique.gitbook.io/ecobalyse/vehicules/cycle-de-vie/utilisation-du-vehicule/construction-des-procedes-carburant",
     "database": "Ecoinvent 3.9.1",
@@ -9955,6 +9927,21 @@
       }
     ],
     "newName": "Petrol E10, direct CO2 emissions, 200 000 km"
+  },
+  {
+    "activityCreationType": "from_scratch",
+    "alias": "product-use-petrol-direct-co2-emissions",
+    "comment": "see https://fabrique-numerique.gitbook.io/ecobalyse/vehicules/cycle-de-vie/utilisation-du-vehicule/construction-des-procedes-carburant",
+    "database": "Ecoinvent 3.9.1",
+    "exchanges": [
+      {
+        "amount": 2.19,
+        "code": "349b29d1-3e58-4c66-98b9-9d1a076efd2e",
+        "database": "biosphere3",
+        "name": "Carbon dioxide, fossil"
+      }
+    ],
+    "newName": "Petrol E10, direct CO2 emissions, 1L"
   },
   {
     "activityCreationType": "from_scratch",

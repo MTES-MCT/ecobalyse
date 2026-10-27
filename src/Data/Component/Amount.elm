@@ -1,15 +1,17 @@
 module Data.Component.Amount exposing
     ( Amount
+    , applyRatio
     , decode
+    , divideBy
     , encode
     , fromFloat
-    , fromString
-    , map
+    , multiplyBy
     , toFloat
     , toString
     , validate
     )
 
+import Data.Unit as Unit
 import Json.Decode as Decode exposing (Decoder)
 import Json.Encode as Encode
 
@@ -20,9 +22,19 @@ type Amount
     = Amount Float
 
 
+applyRatio : Unit.Ratio -> Amount -> Amount
+applyRatio ratio (Amount amount) =
+    Amount (amount * Unit.ratioToFloat ratio)
+
+
 decode : Decoder Amount
 decode =
     Decode.map Amount Decode.float
+
+
+divideBy : Float -> Amount -> Amount
+divideBy float (Amount amount) =
+    Amount (amount / float)
 
 
 encode : Amount -> Encode.Value
@@ -35,14 +47,9 @@ fromFloat =
     Amount
 
 
-fromString : String -> Maybe Amount
-fromString =
-    String.toFloat >> Maybe.map Amount
-
-
-map : (Float -> Float) -> Amount -> Amount
-map fn (Amount float) =
-    Amount <| fn float
+multiplyBy : Float -> Amount -> Amount
+multiplyBy float (Amount amount) =
+    Amount (amount * float)
 
 
 toFloat : Amount -> Float

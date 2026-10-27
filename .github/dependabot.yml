@@ -26,6 +26,17 @@ updates:
         patterns: ["*"]
         update-types: ["minor", "patch"]
 
+  - package-ecosystem: "github-actions"
+    directories:
+      - "/"
+      - "/.github/actions/*"
+    target-branch: "main"
+    schedule:
+      interval: "monthly"
+    groups:
+      github-actions:
+        patterns: ["*"]
+
   # stable/textile (regulatory version)
   - package-ecosystem: "npm"
     directory: "/"
@@ -38,3 +49,15 @@ updates:
       minor-patch:
         patterns: ["*"]
         update-types: ["minor", "patch"]
+
+
+  - package-ecosystem: "github-actions"
+    directories:
+      - "/"
+      - "/.github/actions/*"
+    target-branch: "stable/textile"
+    schedule:
+      interval: "monthly"
+    groups:
+      github-actions:
+        patterns: ["*"]

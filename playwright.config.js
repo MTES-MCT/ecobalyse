@@ -1,5 +1,4 @@
 // @ts-check
-import { execFileSync } from "node:child_process";
 import { defineConfig, devices } from "@playwright/test";
 
 /**
@@ -9,32 +8,6 @@ import { defineConfig, devices } from "@playwright/test";
 import dotenv from "dotenv";
 import path from "path";
 dotenv.config({ path: path.resolve(__dirname, ".env") });
-
-const devServerUrl = "http://localhost:1234";
-
-// Skip running tests if a local dev server is found running before tests start. Playwright
-// reimports this file in each worker after its own server is listening; TEST_WORKER_INDEX
-// is set only in those processes, so the guard is skipped there
-// @see https://playwright.dev/docs/api/class-workerinfo#worker-info-worker-index
-if (process.env.TEST_WORKER_INDEX === undefined) {
-  let devServerIsRunning = false;
-
-  try {
-    execFileSync("curl", ["--silent", "--output", "/dev/null", "--max-time", "1", devServerUrl], {
-      stdio: "ignore",
-    });
-    devServerIsRunning = true;
-  } catch {
-    devServerIsRunning = false;
-  }
-
-  if (devServerIsRunning) {
-    console.error(
-      `A server is already running on ${devServerUrl}. Stop it before running the e2e tests.`,
-    );
-    process.exit(1);
-  }
-}
 
 /**
  * @see https://playwright.dev/docs/test-configuration
@@ -90,6 +63,7 @@ export default defineConfig({
       NODE_ENV: "test",
     },
     url: "http://localhost:1234",
+    // Rejects the run when :1234 is already taken (eg. by the local dev server)
     reuseExistingServer: false,
   },
 

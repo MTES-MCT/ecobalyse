@@ -59,6 +59,7 @@ module Data.Component exposing
     , emptyLifeCycle
     , emptyQuery
     , emptyResults
+    , encodeApiResponse
     , encodeBase64Query
     , encodeId
     , encodeItem
@@ -111,7 +112,6 @@ module Data.Component exposing
     , removeElement
     , removeElementTransform
     , removePackaging
-    , setCustomScope
     , setElementMaterial
     , setQueryItems
     , setTransportByAir
@@ -187,7 +187,7 @@ type alias Component =
     , id : Maybe Id
     , name : String
     , published : Bool
-    , scope : Scope
+    , scopes : List Scope
     }
 
 
@@ -251,6 +251,7 @@ type alias Item =
     { custom : Maybe Custom
     , id : Maybe Id
     , quantity : Quantity
+    , unitMass : Maybe Mass
     }
 
 
@@ -270,7 +271,6 @@ It is also used to override the component name in the production tbale as well a
 type alias Custom =
     { elements : List Element
     , name : Maybe String
-    , scope : Maybe Scope
     }
 
 
@@ -280,6 +280,7 @@ type alias DataContainer db =
     { db
         | components : List Component
         , countries : List Country
+        , definitions : Definitions
         , distances : Transport.Distances
         , processes : List Process
         , products : List ProductCategory
@@ -652,13 +653,38 @@ applyDefaultOrigins processes component =
 applyDurability : Maybe Unit.Ratio -> LifeCycle -> Impacts
 applyDurability maybeDurability =
     sumLifeCycleImpacts
-        >> (case maybeDurability of
-                Just durability ->
-                    Impact.divideBy (Unit.ratioToFloat durability)
+        >> applyDurabilityToImpacts maybeDurability
 
-                Nothing ->
-                    identity
-           )
+
+applyDurabilityToComplements : Maybe Unit.Ratio -> ComplementsResultsImpacts -> ComplementsResultsImpacts
+applyDurabilityToComplements maybeDurability complements =
+    case maybeDurability of
+        Just durability ->
+            complements
+                |> Complement.mapComplements (Maybe.map (Impact.divideBy (Unit.ratioToFloat durability)))
+
+        Nothing ->
+            complements
+
+
+applyDurabilityToImpact : Maybe Unit.Ratio -> Unit.Impact -> Unit.Impact
+applyDurabilityToImpact maybeDurability impact =
+    case maybeDurability of
+        Just durability ->
+            impact |> Quantity.divideBy (Unit.ratioToFloat durability)
+
+        Nothing ->
+            impact
+
+
+applyDurabilityToImpacts : Maybe Unit.Ratio -> Impacts -> Impacts
+applyDurabilityToImpacts maybeDurability impacts =
+    case maybeDurability of
+        Just durability ->
+            impacts |> Impact.divideBy (Unit.ratioToFloat durability)
+
+        Nothing ->
+            impacts
 
 
 {-| Apply a process step to a results, computing its impacts and updating the results accordingly
@@ -676,7 +702,7 @@ applyProcessStep stage process { elec, heat } (Results { amount, label, impacts,
                 |> Impact.multiplyBy (Amount.toFloat amount)
 
         outputAmount =
-            amount |> Amount.map ((*) (Unit.qtyVariationRatioToFloat process.qtyVariationRatio))
+            amount |> Amount.multiplyBy (Unit.qtyVariationRatioToFloat process.qtyVariationRatio)
 
         outputMass =
             mass |> Unit.applyQtyVariationRatioToMass process.qtyVariationRatio
@@ -781,6 +807,12 @@ assemblyResultsFromMass mass =
         }
 
 
+complementPoints : ComplementsResultsImpacts -> Unit.Impact
+complementPoints =
+    Complement.mergeComplementsResultsImpacts
+        >> Impact.getImpact Definition.Ecs
+
+
 {-| Create a component from a custom definition
 -}
 componentFromCustom : Maybe Component -> Maybe Custom -> Component
@@ -790,11 +822,10 @@ componentFromCustom maybeComponent maybeCustom =
             maybeComponent |> Maybe.withDefault emptyComponent
     in
     case maybeCustom of
-        Just { elements, name, scope } ->
+        Just { elements, name } ->
             { component
                 | elements = elements
                 , name = name |> Maybe.withDefault component.name
-                , scope = scope |> Maybe.withDefault component.scope
             }
 
         Nothing ->
@@ -936,11 +967,7 @@ computeInitialAmount qtyVariationRatios amount =
 
     else
         qtyVariationRatios
-            |> List.foldr
-                (\qtyVariationRatio ->
-                    Amount.map (\float -> float / Unit.qtyVariationRatioToFloat qtyVariationRatio)
-                )
-                amount
+            |> List.foldr (Unit.qtyVariationRatioToFloat >> Amount.divideBy) amount
             |> Ok
 
 
@@ -955,7 +982,7 @@ computeImpacts requirements transportOptions =
 
 
 computeItemResults : Requirements db -> TransportOptions -> Item -> Result String Results
-computeItemResults requirements transportOptions { custom, id, quantity } =
+computeItemResults requirements transportOptions { custom, id, quantity, unitMass } =
     let
         component_ =
             case id of
@@ -970,8 +997,11 @@ computeItemResults requirements transportOptions { custom, id, quantity } =
             (\component ->
                 custom
                     |> customElements component
-                    |> List.map (computeElementResults requirements transportOptions)
-                    |> RE.combine
+                    |> scaleElementsToUnitMass requirements.db unitMass
+                    |> Result.andThen
+                        (List.map (computeElementResults requirements transportOptions)
+                            >> RE.combine
+                        )
             )
         |> Result.map (List.foldr addResults emptyResults)
         |> Result.map
@@ -1326,6 +1356,7 @@ createItem maybeId =
     { custom = Nothing
     , id = maybeId
     , quantity = quantityFromInt 1
+    , unitMass = Nothing
     }
 
 
@@ -1346,10 +1377,16 @@ decode =
         -- be considered as published
         |> Decode.optional "published" Decode.bool True
         |> Decode.required "scopes"
-            -- Note: the backend exposes multiple scopes per component, though it's been decided
-            -- a component should only allow one, so here we take the first declared scope.
             (Decode.list Scope.decode
-                |> Decode.map (List.head >> Maybe.withDefault (Scope.Generic Scope.Object))
+                |> Decode.map
+                    (\scopes ->
+                        if List.isEmpty scopes then
+                            -- Always ensure at least one scope is present
+                            [ Scope.Generic Scope.Object ]
+
+                        else
+                            scopes
+                    )
             )
 
 
@@ -1378,9 +1415,6 @@ decodeCustom =
     Decode.succeed Custom
         |> Decode.required "elements" (Decode.list decodeElement)
         |> DU.strictOptional "name" Decode.string
-        |> DU.strictOptionalWithDefault "scopes"
-            (Decode.list Scope.decode |> Decode.map List.head)
-            Nothing
 
 
 decodeElement : Decoder Element
@@ -1431,12 +1465,26 @@ decodeTransforms =
         ]
 
 
+decodeUnitMass : Decoder Mass
+decodeUnitMass =
+    Decode.float
+        |> Decode.andThen
+            (\kilograms ->
+                if kilograms > 0 then
+                    Decode.succeed (Mass.kilograms kilograms)
+
+                else
+                    Decode.fail "La masse unitaire doit être strictement positive"
+            )
+
+
 decodeItem : Decoder Item
 decodeItem =
     Decode.succeed Item
         |> Decode.custom decodeItemCustom
         |> DU.strictOptional "id" (Decode.map Id Uuid.decoder)
         |> Decode.required "quantity" decodeQuantity
+        |> DU.strictOptional "unitMass" decodeUnitMass
 
 
 decodeItemCustom : Decoder (Maybe Custom)
@@ -1599,7 +1647,7 @@ emptyComponent =
     , id = Nothing
     , name = ""
     , published = False
-    , scope = Scope.Generic Scope.Object
+    , scopes = [ Scope.Generic Scope.Object ]
     }
 
 
@@ -1711,6 +1759,132 @@ encodeTransform transform =
     encodeLocalizedProcess transform
 
 
+encodeApiComposition : Maybe Unit.Ratio -> Query -> LifeCycle -> Encode.Value
+encodeApiComposition maybeDurability query lifeCycle =
+    List.map2 (encodeApiCompositionItem maybeDurability)
+        query.items
+        (extractItems lifeCycle.production)
+        |> Encode.list identity
+
+
+encodeApiCompositionItem : Maybe Unit.Ratio -> Item -> Results -> Encode.Value
+encodeApiCompositionItem maybeDurability item (Results results) =
+    let
+        impacts =
+            getTotalImpacts (Results results)
+                |> applyDurabilityToImpacts maybeDurability
+
+        complements =
+            results.complementsImpacts
+                |> applyDurabilityToComplements maybeDurability
+    in
+    EU.optionalPropertiesObject
+        [ ( "id", item.id |> Maybe.map encodeId )
+        , ( "name", results.label |> Maybe.map Encode.string )
+        , ( "quantity", results.quantity |> Encode.int |> Just )
+        , ( "mass", results.mass |> Mass.inKilograms |> Encode.float |> Just )
+        , ( "score"
+          , complementPoints complements
+                |> encodeApiScore (Impact.getImpact Definition.Ecs impacts)
+                |> Just
+          )
+        , ( "impacts", impacts |> Impact.encodeExcept [ Definition.Ecs ] |> Just )
+        , ( "complements"
+          , complements
+                |> Complement.encodeComplementsResultsAs Definition.Ecs
+                |> Just
+          )
+        ]
+
+
+encodeApiResponse : Definitions -> Query -> LifeCycle -> List ( String, Encode.Value )
+encodeApiResponse definitions query lifeCycle =
+    let
+        lifeCycleImpacts =
+            sumLifeCycleImpacts lifeCycle
+
+        impacts =
+            lifeCycleImpacts
+                |> applyDurabilityToImpacts query.durability
+
+        complements =
+            extractComplementsImpacts lifeCycle.production
+                |> applyDurabilityToComplements query.durability
+    in
+    [ ( "productMass"
+      , lifeCycle.productMass
+            |> Mass.inKilograms
+            |> Encode.float
+      )
+    , ( "score"
+      , complementPoints complements
+            |> encodeApiScore (Impact.getImpact Definition.Ecs impacts)
+      )
+    , ( "impacts", impacts |> Impact.encodeExcept [ Definition.Ecs ] )
+    , ( "complements", complements |> Complement.encodeComplementsResultsAs Definition.Ecs )
+    , ( "subscores", lifeCycle |> encodeApiSubscores definitions query.durability lifeCycleImpacts )
+    , ( "stages", lifeCycle |> encodeApiStages query.durability )
+    , ( "composition", lifeCycle |> encodeApiComposition query.durability query )
+    ]
+
+
+encodeApiScore : Unit.Impact -> Unit.Impact -> Encode.Value
+encodeApiScore ecs complements =
+    Encode.object
+        [ ( "ecs", Unit.encodeImpact ecs )
+        , ( "complements", Unit.encodeImpact complements )
+        ]
+
+
+encodeApiStages : Maybe Unit.Ratio -> LifeCycle -> Encode.Value
+encodeApiStages maybeDurability lifeCycle =
+    let
+        stages =
+            stagesImpacts lifeCycle
+
+        getEcs =
+            Maybe.withDefault Impact.empty
+                >> applyDurabilityToImpacts maybeDurability
+                >> Impact.getImpact Definition.Ecs
+                >> Unit.encodeImpact
+    in
+    Encode.object
+        [ ( "materials", getEcs stages.materials )
+        , ( "transform", getEcs stages.transform )
+        , ( "assembly", getEcs stages.assembly )
+        , ( "packaging", getEcs stages.packaging )
+        , ( "transports", getEcs stages.transports )
+        , ( "distribution", getEcs stages.distribution )
+        , ( "usage", getEcs stages.usage )
+        , ( "endOfLife", getEcs stages.endOfLife )
+        ]
+
+
+encodeApiSubscores : Definitions -> Maybe Unit.Ratio -> Impacts -> LifeCycle -> Encode.Value
+encodeApiSubscores definitions maybeDurability lifeCycleImpacts lifeCycle =
+    let
+        areas =
+            Impact.toProtectionAreas definitions lifeCycleImpacts
+
+        complements =
+            extractComplementsImpacts lifeCycle.production
+                |> Complement.mergeComplementsResultsImpacts
+                |> Impact.getImpact Definition.Ecs
+
+        getEcs impact =
+            impact
+                |> applyDurabilityToImpact maybeDurability
+                |> Unit.encodeImpact
+    in
+    Encode.object
+        [ ( "biodiversity", getEcs areas.biodiversity )
+        , ( "climate", getEcs areas.climate )
+        , ( "health", getEcs areas.health )
+        , ( "resources", getEcs areas.resources )
+        , ( "complements", getEcs complements )
+        ]
+
+
 encodeId : Id -> Encode.Value
 encodeId =
     idToString >> Encode.string
@@ -1721,11 +1895,10 @@ encodeItem item =
     EU.optionalPropertiesObject
         ([ ( "id", item.id |> Maybe.map (idToString >> Encode.string) )
          , ( "quantity", item.quantity |> quantityToInt |> Encode.int |> Just )
+         , ( "unitMass", item.unitMass |> Maybe.map (Mass.inKilograms >> Encode.float) )
          ]
             ++ (case item.custom of
                     Just custom ->
-                        -- Custom scopes are never serialized nor exported as JSON, they are
-                        -- only used by itemToComponent in the admin
                         [ ( "name"
                           , custom.name
                                 |> Maybe.map String.trim
@@ -2212,6 +2385,14 @@ getDistributionProcess ({ db, scope } as requirements) query =
             Err DistributionNothingAvailable
 
 
+{-| Compute the mass of an element, as implied by its amount and process
+-}
+getElementMass : DataContainer db -> Element -> Result String Mass
+getElementMass db element =
+    expandElement db element
+        |> Result.map (\{ amount, material } -> massFromProcess amount material.process)
+
+
 {-| Get an element's results at a given location in the results tree.
 -}
 getElementResult : ( Index, Index ) -> Results -> Result String Results
@@ -2483,7 +2664,6 @@ isCustomized component custom =
             List.any identity
                 [ custom.elements /= component.elements
                 , custom.name /= Nothing && custom.name /= Just component.name
-                , custom.scope /= Nothing && custom.scope /= Just component.scope
                 ]
 
         -- New component are always customized
@@ -2787,23 +2967,30 @@ removePackaging index query =
     { query | packagings = query.packagings |> LE.removeAt index }
 
 
-setCustomScope : Component -> Scope -> Item -> Item
-setCustomScope component scope item =
-    { item
-        | custom =
-            item.custom
-                |> updateCustom component
-                    (\custom ->
-                        { custom
-                            | scope =
-                                if scope == component.scope then
-                                    Nothing
+{-| Scale the amounts of a list of elements against a ratio
+-}
+scaleElementAmounts : Unit.Ratio -> List Element -> List Element
+scaleElementAmounts ratio =
+    List.map
+        (\element ->
+            { element
+                | amount = element.amount |> Amount.applyRatio ratio
+            }
+        )
 
-                                else
-                                    Just scope
-                        }
-                    )
-    }
+
+{-| Scale the amounts of a list of elements against a unit mass
+-}
+scaleElementsToUnitMass : DataContainer db -> Maybe Mass -> List Element -> Result String (List Element)
+scaleElementsToUnitMass db maybeUnitMass elements =
+    case maybeUnitMass of
+        Just _ ->
+            maybeUnitMass
+                |> unitMassRatio db elements
+                |> Result.map (\ratio -> elements |> scaleElementAmounts ratio)
+
+        Nothing ->
+            Ok elements
 
 
 setElementMaterial : DataContainer db -> TargetElement -> Process -> List Item -> Result String (List Item)
@@ -2954,6 +3141,32 @@ sumLifeCycleImpacts lifeCycle =
         ]
 
 
+{-| Compute the ratio between a mass (usually a unit mass) and the total mass of a
+list of elements (a component elements)
+-}
+unitMassRatio : DataContainer db -> List Element -> Maybe Mass -> Result String Unit.Ratio
+unitMassRatio db elements maybeUnitMass =
+    case maybeUnitMass of
+        Just unitMass ->
+            elements
+                |> List.map (getElementMass db)
+                |> RE.combine
+                |> Result.map (List.foldl Quantity.plus Quantity.zero)
+                |> Result.andThen
+                    (\unscaledMass ->
+                        if unscaledMass == Quantity.zero then
+                            Err <|
+                                "Impossible de spécifier la masse unitaire d’un composant lorsque "
+                                    ++ "la masse des éléments qui le constituent est nulle"
+
+                        else
+                            Ok <| Unit.ratio (Mass.inKilograms unitMass / Mass.inKilograms unscaledMass)
+                    )
+
+        Nothing ->
+            Ok (Unit.ratio 1)
+
+
 targetElementToString : TargetElement -> String
 targetElementToString ( ( _, index ), elementIndex ) =
     String.join "-" [ String.fromInt index, String.fromInt elementIndex ]
@@ -3032,13 +3245,7 @@ updateCustom component fn maybeCustom =
                 Nothing
 
         Nothing ->
-            Just
-                (fn
-                    { elements = component.elements
-                    , name = Nothing
-                    , scope = Nothing
-                    }
-                )
+            Just <| fn { elements = component.elements, name = Nothing }
 
 
 updateDistribution : Maybe Process.Id -> Query -> Query
@@ -3102,10 +3309,59 @@ updateElement ( ( component, itemIndex ), elementIndex ) update =
             }
 
 
-updateElementAmount : TargetElement -> Amount -> List Item -> List Item
-updateElementAmount targetElement amount =
-    updateElement targetElement <|
-        \el -> { el | amount = amount }
+{-| Update the amount of a target element in an Item. If the component's unit mass is known, apply
+the ratio to all elements except the one being edited, so that those elements keep the effective mass
+they had under that unit mass once it is cleared.
+-}
+updateElementAmount : DataContainer db -> TargetElement -> Amount -> List Item -> Result String (List Item)
+updateElementAmount db ( ( component, itemIndex ), elementIndex ) newAmount items =
+    case LE.getAt itemIndex items of
+        Just item ->
+            let
+                elements =
+                    item.custom |> customElements component
+            in
+            if elementIndex < 0 || elementIndex >= List.length elements then
+                Ok items
+
+            else
+                item.unitMass
+                    |> unitMassRatio db elements
+                    |> Result.map
+                        (\ratio ->
+                            let
+                                -- apply the ratio to all elements except the one being edited
+                                updatedElements =
+                                    elements
+                                        |> List.indexedMap
+                                            (\index element ->
+                                                if index == elementIndex then
+                                                    { element | amount = newAmount }
+
+                                                else
+                                                    { element
+                                                        | amount = element.amount |> Amount.applyRatio ratio
+                                                    }
+                                            )
+                            in
+                            items
+                                |> updateItem itemIndex
+                                    (\current ->
+                                        { current
+                                            | custom =
+                                                -- write updated custom elements back to the item
+                                                current.custom
+                                                    |> updateCustom component
+                                                        (\custom -> { custom | elements = updatedElements })
+
+                                            -- clear unit mass value as it's no longer valid
+                                            , unitMass = Nothing
+                                        }
+                                    )
+                        )
+
+        Nothing ->
+            Ok items
 
 
 updateElementMaterialCountry : TargetElement -> Maybe CountryCode.Code -> List Item -> List Item

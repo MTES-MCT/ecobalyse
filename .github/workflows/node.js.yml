@@ -50,7 +50,7 @@ jobs:
         python-version: [3.12]
 
     steps:
-    - uses: actions/checkout@v4
+    - uses: actions/checkout@v7
 
     - name: Install Transcrypt
       uses: ./.github/actions/transcrypt-cli
@@ -59,21 +59,21 @@ jobs:
       run: ./bin/run-transcrypt.sh
 
     - name: Use Node.js ${{ matrix.node-version }}
-      uses: actions/setup-node@v4
+      uses: actions/setup-node@v7
       with:
         node-version: ${{ matrix.node-version }}
         cache: 'npm'
 
     - name: Cache node_modules
       id: cache-node_modules
-      uses: actions/cache@v4
+      uses: actions/cache@v6
       with:
         path: node_modules
         key: node_modules-${{ hashFiles('package.json', 'package-lock.json') }}
 
     - name: Cache ~/.elm
       # see https://docs.microsoft.com/en-us/answers/questions/510640/deploy-elm-app-to-azure-static-website-from-github.html
-      uses: actions/cache@v4
+      uses: actions/cache@v6
       with:
         path: ~/.elm
         key: elm-cache-${{ hashFiles('elm.json') }}
@@ -87,10 +87,10 @@ jobs:
         sudo apt-get update
         sudo apt-get install -y just
 
-    - name: Install the latest version of uv
-      uses: astral-sh/setup-uv@v4
+    - name: Install uv
+      uses: astral-sh/setup-uv@07a047e608db84b3d8c06cd9a7c7dcc9c355c18e # v10.3.2
       with:
-        version: "latest"
+        version: ">=0.13.4"
         python-version: ${{ matrix.python-version }}
 
     - name: Check JSON db formating

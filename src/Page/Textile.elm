@@ -63,6 +63,7 @@ import Views.Button as Button
 import Views.CardTabs as CardTabs
 import Views.Comparator as ComparatorView
 import Views.Component as ComponentView
+import Views.Component.Context as Context
 import Views.Component.DownArrow as DownArrow
 import Views.Container as Container
 import Views.Example as ExampleView
@@ -1005,14 +1006,15 @@ simulatorFormView session model ({ inputs } as simulator) =
         ]
     , ComponentView.editorView
         { componentConfig = session.componentConfig
-        , context = ComponentView.TextileTrimsContext
+        , context = Context.TextileTrims
         , db = session.db
         , debug = False
         , detailed = []
         , docsUrl = Just <| Gitbook.publicUrlFromPath Gitbook.TextileTrims
         , explorerRoute = Just (Route.Explore Scope.Textile (Dataset.Components Scope.Textile Nothing))
+        , floatInputState = Nothing
         , impact = model.impact
-        , labels = ComponentView.scopeLabels ComponentView.TextileTrimsContext Scope.Textile
+        , labels = ComponentView.scopeLabels Context.TextileTrims Scope.Textile
         , lifeCycle =
             Component.emptyQuery
                 |> Component.setQueryItems inputs.trims
@@ -1038,6 +1040,7 @@ simulatorFormView session model ({ inputs } as simulator) =
         , scope = Scope.Textile
         , setDetailed = \_ -> NoOp
         , toggleTransportByAir = \_ -> NoOp
+        , unitMassLocked = False
         , toggleTransportCooling = \_ -> NoOp
         , updateAssemblyCountry = \_ -> NoOp
         , updateConsumptionAmount = \_ _ -> NoOp
@@ -1047,6 +1050,7 @@ simulatorFormView session model ({ inputs } as simulator) =
         , updateElementTransformCountry = \_ _ _ -> NoOp
         , updateItemName = \_ _ -> NoOp
         , updateItemQuantity = UpdateTrimQuantity
+        , updateItemUnitMass = \_ _ -> NoOp
         , updatePackagingAmount = \_ _ -> NoOp
         , updateRecyclable = \_ -> NoOp
         }

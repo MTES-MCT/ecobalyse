@@ -7,8 +7,9 @@ starts a server on a free port, loads the seven databases, resolves every publis
 that has a source file behind it, scores each database in one batch, draws, and says what
 each phase cost.
 
-It needs an engine that carries its own reference data, so VoLCA v0.12.0 or later.
-VOLCA_BINARY points it at a local build instead of the release pyvolca installs.
+It needs an engine that carries its own reference data.
+VOLCA_BINARY points it at a local build instead of the release pyvolca installs,
+and VOLCA_DATA_DIR at the reference data that build carries.
 """
 
 import csv
@@ -21,7 +22,7 @@ import tempfile
 import time
 from collections.abc import Callable, Iterator, Sequence
 from contextlib import contextmanager, redirect_stderr
-from math import copysign, log
+from math import log
 from pathlib import Path
 from typing import NamedTuple, TypedDict
 
@@ -43,7 +44,18 @@ from ecobalyse_data.bw.migration import (
     PASTOECO_MIGRATIONS,
     WOOLMARK_MIGRATIONS,
 )
-from ecobalyse_data.bw.strategy import use_unit_processes
+from ecobalyse_data.bw.strategy import (
+    ACETAMIPRID,
+    ACETAMIPRID_LOCATION,
+    CREOSOTE,
+    CREOSOTE_FLOWS,
+    TRELLIS_WORDS,
+    remove_acetamiprid,
+    remove_creosote,
+    use_unit_processes,
+)
+from import_ecoinvent import ECOINVENT_STRATEGIES, WOOLMARK_STRATEGIES
+from import_food import AGB_STRATEGIES, GINKO_STRATEGIES, WFLDB_STRATEGIES
 
 
 def db_name(file: str) -> str:
@@ -55,7 +67,7 @@ class Source(NamedTuple):
     file: str  # settings.dbfiles key
     dep: str | None = None  # the file its inputs link to, as in Ecobalyse's import
     migrations: Sequence[dict] = ()  # Ecobalyse's renames, handed to VoLCA as aliases
-    unit_processes: bool = False  # also rename what strategy.use_unit_processes renames
+    strategies: Sequence[Callable] = ()  # Ecobalyse's own, mirrored by STRATEGY_PATCHES
 
     @property
     def db(self) -> str:
@@ -63,13 +75,13 @@ class Source(NamedTuple):
 
 
 SOURCES = {  # "source" in processes_impacts.json -> where VoLCA reads it
-    "Agribalyse 3.2": Source("AGRIBALYSE"),
-    "Ecoinvent 3.9.1": Source("EI391"),
-    "Ecoinvent 3.11": Source("EI311"),
-    "WFLDB": Source("WFLDB"),
-    "Ginko 2025": Source("GINKO", "AGRIBALYSE", GINKO_MIGRATIONS),
+    "Agribalyse 3.2": Source("AGRIBALYSE", strategies=AGB_STRATEGIES),
+    "Ecoinvent 3.9.1": Source("EI391", strategies=ECOINVENT_STRATEGIES),
+    "Ecoinvent 3.11": Source("EI311", strategies=ECOINVENT_STRATEGIES),
+    "WFLDB": Source("WFLDB", strategies=WFLDB_STRATEGIES),
+    "Ginko 2025": Source("GINKO", "AGRIBALYSE", GINKO_MIGRATIONS, GINKO_STRATEGIES),
     "PastoEco": Source("PASTOECO", "AGRIBALYSE", PASTOECO_MIGRATIONS),
-    "Woolmark": Source("WOOL", "EI391", WOOLMARK_MIGRATIONS, True),
+    "Woolmark": Source("WOOL", "EI391", WOOLMARK_MIGRATIONS, WOOLMARK_STRATEGIES),
 }
 
 
@@ -85,11 +97,10 @@ class Process(TypedDict):
 
 # what a whole database looks like once listed: product name, lowercased, -> its activities
 Catalogue = dict[str, list[volca.Activity]]
-# what the engine's units.csv says: unit name, lowercased -> (dimension, factor)
+# what the engine's units.csv says: unit name as the table spells it -> (dimension, factor)
 UnitTable = dict[str, tuple[str, float]]
 # what a phase says of itself, before it starts and once it is over
 Phase = Callable[[str], None]
-UNITS = {"t⋅km": "tkm"}  # Ecobalyse unit -> the unit VoLCA reads in the file
 TRIGRAMS = {category: trigram for trigram, (_, category) in impacts.items()}
 CORRECTIONS = {k: v["correction"] for k, v in IMPACTS_JSON.items() if "correction" in v}
 FACTORS = get_normalization_weighting_factors(IMPACTS_JSON)
@@ -101,14 +112,70 @@ TABLE_ROWS = 30  # how many lines the deviation table holds
 OUTPUT = DATA_ROOT_DIR.parent / "output"
 
 
+def zeroed(description: str, match: str) -> str:
+    """One engine patch that zeroes what it matches.
+
+    Takes what the patch is for and the inside of its TOML match table. Returns the
+    TOML text.
+    """
+    return (
+        f"\n[[databases.patches]]\ndescription = {json.dumps(description)}\n"
+        f"match = {{ {match} }}\nset-value = 0.0\n"
+    )
+
+
+# The data-changing strategies of strategy.py, made of the same constants. The name a
+# strategy reads is the product name in the engine; both tests ignore case.
+STRATEGY_PATCHES = {
+    remove_creosote: "".join(
+        [
+            zeroed(
+                f"remove_creosote: {flow} in a {word}",
+                f'product-name-contains = "{word}", flow-name = {json.dumps(flow)}',
+            )
+            for word in TRELLIS_WORDS
+            for flow in CREOSOTE_FLOWS
+        ]
+        + [
+            zeroed(
+                f"remove_creosote: the preservative of a {word}",
+                f'product-name-contains = "{word}", flow-name-contains = "{CREOSOTE}"',
+            )
+            for word in TRELLIS_WORDS
+        ]
+    ),
+    remove_acetamiprid: zeroed(
+        "remove_acetamiprid",
+        f'location = "{ACETAMIPRID_LOCATION}", flow-name = "{ACETAMIPRID}"',
+    ),
+}
+
+# Ginko 2025 calls a lentil market its file does not ship; Ecobalyse's import links that
+# input to an empty dataset, so it counts for nothing there and must here too
+GINKO_PATCHES = zeroed(
+    "the lentil market Ginko 2025 calls but does not ship",
+    'flow-name = "Lentil, organic 2025 {GLO}| market for lentil | Cut-off, U"',
+)
+
+
+def patches(source: Source) -> str:
+    """What the engine must change in one source to match Ecobalyse's import.
+
+    Takes the source. Returns the TOML text of its patches, empty when it has none.
+    """
+    mirrored = "".join(STRATEGY_PATCHES.get(s, "") for s in source.strategies)
+    return mirrored + (GINKO_PATCHES if source.file == "GINKO" else "")
+
+
 def config_toml(files: dict[str, Path]) -> str:
-    """Build the engine configuration: the seven databases, the method and its uranium patch.
+    """Build the engine configuration: the seven databases and what Ecobalyse drops
+    from them, the method and its uranium patch.
 
     Takes each source file's local path, by settings.dbfiles key. Returns the TOML text.
     """
     databases = "\n".join(
         f"[[databases]]\nname = {json.dumps(source.db)}\n"
-        f"path = {json.dumps(str(files[source.file]))}\n"
+        f"path = {json.dumps(str(files[source.file]))}\n" + patches(source)
         for source in SOURCES.values()
     )
     return f"""[server]
@@ -127,9 +194,11 @@ scale = 0.6
 
 
 def unit_factors(table: str) -> UnitTable:
-    """Read the engine's unit table: units.csv text in, unit name -> (dimension, factor) out."""
+    """Read the engine's unit table: units.csv text in, unit name -> (dimension, factor) out.
+    The name keeps its case, to avoid confusing a megajoule (MJ) with a millijoule (mJ)
+    """
     return {
-        row["name"].lower(): (row["dimension"], float(row["factor"]))
+        row["name"]: (row["dimension"], float(row["factor"]))
         for row in csv.DictReader(io.StringIO(table))
         if row["name"] and not row["name"].startswith("#")
     }
@@ -146,7 +215,7 @@ def alias_csv(source: Source, missing: list[str], dep: Catalogue) -> str:
         if tuple(migration["data"]["fields"]) == ("name",)
         for old, new in migration["data"]["data"]
     ]
-    if source.unit_processes:
+    if use_unit_processes in source.strategies:
         # the strategy works on datasets: hand it the missing names as one, and swallow the
         # progress bar it draws over that single dataset
         with redirect_stderr(io.StringIO()):
@@ -210,18 +279,17 @@ def resolve(
 def scale(p: Process, a: volca.Activity, units: UnitTable) -> float | None:
     """What multiplies VoLCA's score to put it on Ecobalyse's functional unit.
 
-    VoLCA scores 1 reference unit of the product's dimension (kg, m3, kgm, mj...), Ecobalyse
-    1 declared unit (kg, L, t⋅km, kWh...). Takes the published process, its VoLCA activity
-    and the unit table. Returns the factor, or None when the units measure different things.
+    Takes the published process, its VoLCA activity and the unit table.
+    Returns the factor, or None when the units measure different things.
     """
     # packaging is scored for the amount the process produces, as computation.py does
     if p["unit"] == "item":
         return a.product_amount
-    dim, factor = units[UNITS.get(p["unit"], p["unit"]).lower()]
-    product_dim, product_factor = units[a.product_unit.lower()]
+    dim, factor = units[p["unit"]]
+    product_dim, product_factor = units[a.product_unit]
     if dim != product_dim:
         return None
-    return copysign(factor / product_factor, a.product_amount)
+    return factor / product_factor
 
 
 def volca_impacts(scored: volca.ScoredActivity, factor: float) -> dict[str, float]:
@@ -386,7 +454,10 @@ def score(client: Client, found: list[tuple[Process, volca.Activity]]) -> dict:
     process id -> its scores. Stops the run if the engine leaves any of them unanswered.
     """
     scores = client.score_activities(
-        [a.process_id for _, a in found], top_flows=0, exclude_long_term=True
+        [a.process_id for _, a in found],
+        collection=settings.bw.method,
+        top_flows=0,
+        exclude_long_term=True,
     )
     by_pid = {s.process_id: s for s in scores.results}
     unscored = (
@@ -532,7 +603,8 @@ def main() -> None:
     """Run the whole comparison: install the engine, load, link, score, report, draw."""
     doing, done, spent = stopwatch()
     installed = volca.download()
-    units = unit_factors((installed.data_dir / "units.csv").read_text())
+    data_dir = Path(os.environ.get("VOLCA_DATA_DIR", installed.data_dir))
+    units = unit_factors((data_dir / "units.csv").read_text())
     processes: list[Process] = json.loads(PROCESSES.read_text())
     wanted = to_compare(processes)
     aside = sum(p["source"] not in SOURCES for p in processes)

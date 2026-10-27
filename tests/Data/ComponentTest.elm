@@ -1,5 +1,6 @@
 module Data.ComponentTest exposing (..)
 
+import Data.Common.EncodeUtils as EU
 import Data.Complement as Complement
 import Data.Component as Component
     exposing
@@ -56,16 +57,25 @@ import Volume
 suite : Test
 suite =
     suiteWithDb "Data.Component" <|
-        \originalDb ->
+        \db ->
             let
                 -- these will be adapted and used as test transform processes
                 ( fading, weaving ) =
-                    ( originalDb.textile.wellKnown.fading
-                    , originalDb.textile.wellKnown.weaving
+                    ( db.textile.wellKnown.fading
+                    , db.textile.wellKnown.weaving
                     )
 
-                db =
-                    setupTestDb originalDb
+                fixtures =
+                    { chairBack = findComponentById db "ad9d7f23-076b-49c5-93a4-ee1cd7b53973"
+                    , chipsBag = findProcessById db "4a80c078-9f86-4a7d-b402-73db3381e33b"
+                    , dryDistribution = findProcessById db "29118025-efa0-47bb-94e2-f5ccba31a903"
+                    , injectionMoulding = findProcessById db "111539de-deea-588a-9581-6f6ceaa2dfa9"
+                    , lowVoltageElec = findProcessById db "931c9bb0-619a-5f75-b41b-ab8061e2ad92"
+                    , sawing = findProcessById db "c172d131-b5d1-5d9b-822b-5762afb91c66"
+                    , sofaFabric = findComponentById db "8ca2ca05-8aec-4121-acaa-7cdcc03150a9"
+                    , steel = findProcessById db "6527710e-2434-5347-9bef-2205e0aa4f66"
+                    , wood = findProcessById db "17431e06-2973-516e-b043-be9ad405e4fb"
+                    }
             in
             [ suiteFromResult "setupRequirements"
                 (createTestRequirements db)
@@ -185,9 +195,9 @@ suite =
                         ]
                     , suiteFromResult3 "addElement"
                         -- setup
-                        chairBack
-                        steel
-                        injectionMoulding
+                        fixtures.chairBack
+                        fixtures.steel
+                        fixtures.injectionMoulding
                         -- tests
                         (\testComponent validMaterial invalidMaterial ->
                             [ itFromResult "should add a new element using a valid material"
@@ -237,9 +247,9 @@ suite =
                         )
                     , suiteFromResult3 "addElementTransform"
                         -- setup
-                        chairBack
-                        injectionMoulding
-                        wood
+                        fixtures.chairBack
+                        fixtures.injectionMoulding
+                        fixtures.wood
                         -- tests
                         (\testComponent validTransformProcess invalidTransformProcess ->
                             [ itFromResult "should add a valid transformation process to a component element"
@@ -267,9 +277,9 @@ suite =
                             ]
                         )
                     , suiteFromResult3 "addOrSetProcess transform default country"
-                        chairBack
-                        injectionMoulding
-                        sawing
+                        fixtures.chairBack
+                        fixtures.injectionMoulding
+                        fixtures.sawing
                         (\testComponent firstTransform secondTransform ->
                             let
                                 targetItem =
@@ -304,7 +314,7 @@ suite =
                             ]
                         )
                     , suiteFromResult "addItem"
-                        chairBack
+                        fixtures.chairBack
                         (\testComponent ->
                             [ it "should allow adding the same component twice"
                                 ([]
@@ -456,11 +466,11 @@ suite =
                                     [ fading |> setProcessEcsImpact (Unit.impact 10)
                                     , fading |> setProcessEcsImpact (Unit.impact 20)
                                     ]
-                                    |> Expect.within (Expect.Absolute 1) 1020
+                                    |> Expect.within (Expect.Absolute 1) 1021
                                 )
                             ]
                         , suiteFromResult "unit mismatch"
-                            injectionMoulding
+                            fixtures.injectionMoulding
                             (\transformInKg ->
                                 [ it "should reject when the unit of the material and the transforms do not match"
                                     (Component.Results
@@ -523,7 +533,7 @@ suite =
                                   it "should handle impacts+qtyVariationRatio when applying transforms: impacts"
                                     (noElecAndNoHeat
                                         |> extractEcsImpact
-                                        |> Expect.within (Expect.Absolute 1) 247
+                                        |> Expect.within (Expect.Absolute 1) 248
                                     )
 
                                 -- (1kg * 0.5) * 0.5 == 0.25
@@ -549,7 +559,7 @@ suite =
                                 [ it "should handle impacts+qtyVariationRatio when applying transforms: impacts"
                                     (withElecAndHeat
                                         |> extractEcsImpact
-                                        |> Expect.within (Expect.Absolute 1) 862
+                                        |> Expect.within (Expect.Absolute 1) 863
                                     )
                                 , it "should handle impacts+qtyVariationRatio when applying transforms: mass"
                                     (withElecAndHeat
@@ -640,7 +650,7 @@ suite =
                             (chair
                                 |> Result.andThen (computeItemsWithRequirements requirements)
                                 |> Result.map (.production >> extractEcsImpact)
-                                |> TestUtils.expectResultWithin (Expect.Absolute 1) 276
+                                |> TestUtils.expectResultWithin (Expect.Absolute 1) 276.8147824
                             )
                         , it "should compute results from decoded component items with custom component elements"
                             ("""[
@@ -662,7 +672,7 @@ suite =
                                 ]"""
                                 |> decodeJsonThen (Decode.list Component.decodeItem) (computeItemsWithRequirements requirements)
                                 |> Result.map (.production >> extractEcsImpact)
-                                |> TestUtils.expectResultWithin (Expect.Absolute 1) 282
+                                |> TestUtils.expectResultWithin (Expect.Absolute 1) 282.4819824
                             )
                         , suiteFromResult "distribution impacts"
                             -- setup
@@ -799,7 +809,7 @@ suite =
                                 [ it "should compute element impacts"
                                     (elementResults
                                         |> extractEcsImpact
-                                        |> Expect.within (Expect.Absolute 1) 2389
+                                        |> Expect.within (Expect.Absolute 1) 2391
                                     )
                                 , it "should compute element mass"
                                     (elementResults
@@ -810,8 +820,8 @@ suite =
                                 ]
                             )
                         , suiteFromResult2 "unit preservation"
-                            wood
-                            sawing
+                            fixtures.wood
+                            fixtures.sawing
                             (\materialInCubicMeters transformInCubicMeters ->
                                 let
                                     results =
@@ -825,7 +835,7 @@ suite =
                                     (results
                                         |> Result.map extractEcsImpact
                                         |> Result.withDefault 0
-                                        |> Expect.within (Expect.Absolute 1) 150882
+                                        |> Expect.within (Expect.Absolute 1) 125656.36
                                     )
                                 , it "should compute mass according on material unit"
                                     (results
@@ -836,7 +846,7 @@ suite =
                                 ]
                             )
                         , suiteFromResult "missing massPerUnit defaults to 0"
-                            (wood
+                            (fixtures.wood
                                 |> Result.andThen
                                     (\woodProcess ->
                                         { amount = Amount.fromFloat 1
@@ -858,8 +868,8 @@ suite =
                                 ]
                             )
                         , suiteFromResult2 "compute metadata complements"
-                            wood
-                            sawing
+                            fixtures.wood
+                            fixtures.sawing
                             (\materialInCubicMeters transformInCubicMeters ->
                                 let
                                     results =
@@ -873,7 +883,7 @@ suite =
                                     (results
                                         |> Result.map extractComplementEcsImpact
                                         |> Result.withDefault 0
-                                        |> expectFloatMostlyEqual 1.41462
+                                        |> expectFloatMostlyEqual 1.4146
                                     )
                                 ]
                             )
@@ -1065,6 +1075,279 @@ suite =
                             )
                          ]
                         )
+                    , describe "Unit mass handling" <|
+                        let
+                            toComputedResults =
+                                decodeJsonThen Component.decodeItem
+                                    (Component.computeItemResults requirements defaultTransportOptions)
+
+                            twoKilogramElements maybeUnitMass quantity =
+                                let
+                                    kilogramElement materialId =
+                                        Encode.object
+                                            [ ( "amount", Encode.float 1 )
+                                            , ( "material", Encode.string materialId )
+                                            ]
+                                in
+                                EU.optionalPropertiesObject
+                                    [ ( "elements"
+                                      , Encode.list kilogramElement
+                                            [ -- Acier
+                                              "6527710e-2434-5347-9bef-2205e0aa4f66"
+
+                                            -- Plastique
+                                            , "59b42284-3e45-5343-8a20-1d7d66137461"
+                                            ]
+                                            |> Just
+                                      )
+                                    , ( "quantity", Encode.int quantity |> Just )
+                                    , ( "unitMass", maybeUnitMass |> Maybe.map Encode.float )
+                                    ]
+                                    |> Encode.encode 0
+                        in
+                        [ itFromResult2 "should scale element masses to unitMass without rewriting stored amounts"
+                            (twoKilogramElements Nothing 1 |> toComputedResults)
+                            (twoKilogramElements (Just 0.5) 1 |> toComputedResults)
+                            (\unscaled scaled ->
+                                let
+                                    elementMasses results =
+                                        Component.extractItems results
+                                            |> List.map (Component.extractMass >> Mass.inKilograms)
+
+                                    shares results =
+                                        Component.extractItems results
+                                            |> List.map
+                                                (\elementResults ->
+                                                    Component.extractUnitMass results
+                                                        |> Component.elementMassShare (Component.extractMass elementResults)
+                                                )
+                                in
+                                expectAllSucceed
+                                    [ Component.extractUnitMass scaled
+                                        |> Mass.inKilograms
+                                        |> expectFloatMostlyEqual 0.5
+                                    , case elementMasses scaled of
+                                        [ first, second ] ->
+                                            expectAllSucceed
+                                                [ first |> expectFloatMostlyEqual 0.25
+                                                , second |> expectFloatMostlyEqual 0.25
+                                                ]
+
+                                        _ ->
+                                            Expect.fail "two element masses were expected"
+                                    , shares scaled
+                                        |> Expect.equal [ Split.half, Split.half ]
+                                    , Component.extractMass scaled
+                                        |> Mass.inKilograms
+                                        |> expectFloatMostlyEqual (Component.extractUnitMass scaled |> Mass.inKilograms)
+                                    , extractEcsImpact scaled
+                                        |> expectFloatMostlyEqual (extractEcsImpact unscaled * 0.25)
+                                    , twoKilogramElements (Just 0.5) 1
+                                        |> decodeJson Component.decodeItem
+                                        |> Result.map
+                                            (\item ->
+                                                ( item.unitMass |> Maybe.map Mass.inKilograms
+                                                , item.custom
+                                                    |> Maybe.map (.elements >> List.map (.amount >> Amount.toFloat))
+                                                )
+                                            )
+                                        |> Expect.equal (Ok ( Just 0.5, Just [ 1, 1 ] ))
+                                    ]
+                            )
+                        , itFromResult "should multiply total mass by quantity while keeping unitMass"
+                            (twoKilogramElements (Just 0.5) 2 |> toComputedResults)
+                            (\results ->
+                                expectAllSucceed
+                                    [ Component.extractUnitMass results
+                                        |> Mass.inKilograms
+                                        |> expectFloatMostlyEqual 0.5
+                                    , Component.extractMass results
+                                        |> Mass.inKilograms
+                                        |> expectFloatMostlyEqual 1
+                                    ]
+                            )
+                        , itFromResult "should keep unit mass equal to the requested value when a transform wastes half the amount"
+                            ("""{ "quantity": 1,
+                                  "elements": [
+                                     { "amount": 1,
+                                       "material": "17431e06-2973-516e-b043-be9ad405e4fb",
+                                       "transforms": ["c172d131-b5d1-5d9b-822b-5762afb91c66"]
+                                     }
+                                  ]
+                                }"""
+                                |> decodeJsonThen Component.decodeItem
+                                    (\item ->
+                                        item
+                                            |> Component.computeItemResults requirements defaultTransportOptions
+                                            |> Result.andThen
+                                                (\unscaled ->
+                                                    let
+                                                        half =
+                                                            Mass.inKilograms (Component.extractMass unscaled) / 2
+                                                    in
+                                                    { item | unitMass = Just (Mass.kilograms half) }
+                                                        |> Component.computeItemResults requirements defaultTransportOptions
+                                                        |> Result.map
+                                                            (\halved ->
+                                                                ( Mass.inKilograms (Component.extractMass unscaled)
+                                                                , Mass.inKilograms (Component.extractUnitMass halved)
+                                                                , Component.extractItems halved
+                                                                    |> List.head
+                                                                    |> Maybe.map (Component.extractAmount >> Amount.toFloat)
+                                                                )
+                                                            )
+                                                )
+                                    )
+                            )
+                            (\( unscaledKg, halvedKg, maybeAmount ) ->
+                                expectAllSucceed
+                                    [ halvedKg |> expectFloatMostlyEqual (unscaledKg / 2)
+                                    , case maybeAmount of
+                                        Just amount ->
+                                            amount |> expectFloatMostlyEqual (halvedKg / unscaledKg)
+
+                                        Nothing ->
+                                            Expect.fail "missing element effective amount"
+                                    ]
+                            )
+                        , it "should reject a zero unitMass"
+                            ("""{"quantity": 1, "unitMass": 0}"""
+                                |> decodeJson Component.decodeItem
+                                |> expectResultErrorContains "strictement positive"
+                            )
+                        , it "should reject a negative unitMass"
+                            ("""{"quantity": 1, "unitMass": -1}"""
+                                |> decodeJson Component.decodeItem
+                                |> expectResultErrorContains "strictement positive"
+                            )
+                        , it "should fail to apply unitMass when element mass is zero"
+                            ("""{ "quantity": 1,
+                                  "unitMass": 1,
+                                  "elements": [
+                                    { "amount": 1, "material": "17431e06-2973-516e-b043-be9ad405e4fb" }
+                                  ]
+                                }"""
+                                |> decodeJsonThen Component.decodeItem
+                                    (\item ->
+                                        case fixtures.wood of
+                                            Ok woodProcess ->
+                                                item
+                                                    |> Component.computeItemResults
+                                                        (requirements
+                                                            |> updateRequirementsProcess woodProcess
+                                                                (\process -> { process | massPerUnit = Nothing })
+                                                        )
+                                                        defaultTransportOptions
+
+                                            Err error ->
+                                                Err error
+                                    )
+                                |> expectResultErrorContains "Impossible de spécifier la masse unitaire"
+                            )
+                        , itFromResult "should update effective amounts and clear unitMass when an element amount changes"
+                            (twoKilogramElements (Just 0.5) 1
+                                |> decodeJsonThen Component.decodeItem
+                                    (\item ->
+                                        [ item ]
+                                            |> Component.updateElementAmount requirements.db
+                                                ( ( Component.emptyComponent, 0 ), 0 )
+                                                (Amount.fromFloat 0.4)
+                                            |> Result.andThen
+                                                (\items ->
+                                                    LE.getAt 0 items
+                                                        |> Result.fromMaybe "Élément introuvable"
+                                                        |> Result.andThen
+                                                            (\updated ->
+                                                                updated
+                                                                    |> Component.computeItemResults requirements defaultTransportOptions
+                                                                    |> Result.map (\results -> ( updated, results ))
+                                                            )
+                                                )
+                                    )
+                            )
+                            (\( updated, results ) ->
+                                -- Unscaled mass is 1 + 1 = 2 kg, so the 0.5 kg override applies a ratio of 0.5 / 2 = 0.25;
+                                -- Edited amount replaces the first element (0.4 kg);
+                                -- The other element is rebased: 1 × 0.25 = 0.25 kg;
+                                -- With the override cleared, unit mass is 0.4 + 0.25 = 0.65 kg.
+                                expectAllSucceed
+                                    [ updated.unitMass |> Expect.equal Nothing
+                                    , case updated.custom |> Maybe.map (.elements >> List.map (.amount >> Amount.toFloat)) of
+                                        Just [ first, second ] ->
+                                            expectAllSucceed
+                                                [ first |> expectFloatMostlyEqual 0.4
+                                                , second |> expectFloatMostlyEqual 0.25
+                                                ]
+
+                                        _ ->
+                                            Expect.fail "two updated amounts were expected"
+                                    , Component.extractUnitMass results
+                                        |> Mass.inKilograms
+                                        |> expectFloatMostlyEqual 0.65
+                                    ]
+                            )
+                        , itFromResult "should keep unitMass and the summed mass when an element is added"
+                            (Process.idFromString "59b42284-3e45-5343-8a20-1d7d66137461"
+                                |> Result.andThen (\id -> Process.findById id requirements.db.processes)
+                                |> Result.andThen
+                                    (\addedMaterial ->
+                                        """{ "quantity": 1,
+                                             "unitMass": 1,
+                                             "elements": [
+                                               { "amount": 1, "material": "6527710e-2434-5347-9bef-2205e0aa4f66" }
+                                             ]
+                                           }"""
+                                            |> decodeJsonThen Component.decodeItem
+                                                (\item ->
+                                                    [ item ]
+                                                        |> Component.addElement ( Component.emptyComponent, 0 ) addedMaterial
+                                                        |> Result.andThen (LE.getAt 0 >> Result.fromMaybe "Élément introuvable")
+                                                        |> Result.andThen
+                                                            (\withExtra ->
+                                                                withExtra
+                                                                    |> Component.computeItemResults requirements defaultTransportOptions
+                                                                    |> Result.map (\results -> ( withExtra, results ))
+                                                            )
+                                                )
+                                    )
+                            )
+                            (\( withExtra, results ) ->
+                                expectAllSucceed
+                                    [ withExtra.unitMass
+                                        |> Maybe.map Mass.inKilograms
+                                        |> Expect.equal (Just 1)
+                                    , Component.extractUnitMass results
+                                        |> Mass.inKilograms
+                                        |> expectFloatMostlyEqual 1
+                                    , Component.extractItems results
+                                        |> List.map (Component.extractMass >> Mass.inKilograms)
+                                        |> List.sum
+                                        |> expectFloatMostlyEqual 1
+                                    ]
+                            )
+                        , itFromResult "should omit unitMass when absent"
+                            ("""{"quantity": 1}"""
+                                |> decodeJsonThen Component.decodeItem
+                                    (\item ->
+                                        Ok
+                                            ( item.unitMass
+                                            , Component.encodeItem item |> Encode.encode 0
+                                            )
+                                    )
+                            )
+                            (\( unitMass, encoded ) ->
+                                expectAllSucceed
+                                    [ unitMass |> Expect.equal Nothing
+                                    , encoded |> String.contains "unitMass" |> Expect.equal False
+                                    ]
+                            )
+                        , itFromResult "should encode unitMass in kilograms when set"
+                            ("""{"quantity": 1, "unitMass": 0.5}"""
+                                |> decodeJsonThen Component.decodeItem
+                                    (Component.encodeItem >> Encode.encode 0 >> Ok)
+                            )
+                            (String.contains "\"unitMass\":0.5" >> Expect.equal True)
+                        ]
                     , describe "elementMassShare"
                         [ it "should be 50% when element mass is half of unit mass"
                             (Component.elementMassShare (Mass.kilograms 1) (Mass.kilograms 2)
@@ -1095,10 +1378,10 @@ suite =
                             (computePackagingEcsImpacts [])
                             (Expect.equal [])
                          , itFromResult2 "should compute packaging impacts from their amount"
-                            (chipsBag
+                            (fixtures.chipsBag
                                 |> Result.map (.impacts >> Impact.getImpact Definition.Ecs >> Unit.impactToFloat)
                             )
-                            (chipsBag
+                            (fixtures.chipsBag
                                 |> Result.andThen
                                     (\chipsBagProcess ->
                                         computePackagingEcsImpacts
@@ -1216,27 +1499,29 @@ suite =
                         , itFromResult2 "should localize energy mixes to the assembly country when it is set"
                             (computeAssemblyEcsImpact requirements
                                 """{
-                                      "assembly": {
-                                        "country": "FR",
-                                        "operations": [
-                                          "b8d0dc25-170d-4c6a-93e5-ee31347316cc"
-                                        ]
-                                      },
-                                      "components": [{ "id": "64fa65b3-c2df-4fd0-958b-83965bd6aa08", "quantity": 1 }]
-                                    }"""
+                                     "assembly": {
+                                       "country": "FR",
+                                       "operations": [
+                                         "b8d0dc25-170d-4c6a-93e5-ee31347316cc"
+                                       ]
+                                     },
+                                     "components": [{ "id": "64fa65b3-c2df-4fd0-958b-83965bd6aa08", "quantity": 1 }]
+                                   }"""
                             )
                             (computeAssemblyEcsImpact requirements
                                 """{
-                                      "assembly": {
-                                        "operations": [
-                                          "b8d0dc25-170d-4c6a-93e5-ee31347316cc"
-                                        ]
-                                      },
-                                      "components": [{ "id": "64fa65b3-c2df-4fd0-958b-83965bd6aa08", "quantity": 1 }]
-                                    }"""
+                                     "assembly": {
+                                       "operations": [
+                                         "b8d0dc25-170d-4c6a-93e5-ee31347316cc"
+                                       ]
+                                     },
+                                     "components": [{ "id": "64fa65b3-c2df-4fd0-958b-83965bd6aa08", "quantity": 1 }]
+                                   }"""
                             )
                             (\frAssemblyImpact defaultEnergyMixImpact ->
-                                expectFloatDifferent frAssemblyImpact defaultEnergyMixImpact
+                                -- The FR electricity mix and the default mix are different processes.
+                                frAssemblyImpact
+                                    |> expectFloatDifferent defaultEnergyMixImpact
                             )
                         , itFromResult "should decode a legacy assemblyCountry field"
                             ("""{
@@ -1672,6 +1957,7 @@ suite =
                                     |> Result.map getTransportStageEcs
                                 )
                                 (\noTransportCooling withTransportCooling ->
+                                    -- Cooled transport uses Agribalyse processes, which score above the Ecoinvent defaults.
                                     withTransportCooling
                                         |> Expect.greaterThan noTransportCooling
                                 )
@@ -1688,12 +1974,13 @@ suite =
                                     |> Result.map getTransportStageEcs
                                 )
                                 (\noAirTransport withAirTransport ->
+                                    -- Long-haul air scores above the default sea itinerary.
                                     withAirTransport
                                         |> Expect.greaterThan noAirTransport
                                 )
                             , itFromResult "should cool pre-assembly transports for a `transported_cooled` material, even when cooling is disabled"
                                 -- note: using wood as an example, which is not tagged as transported_cooled
-                                wood
+                                fixtures.wood
                                 (\woodProcess ->
                                     let
                                         testSpecificReqs =
@@ -2251,8 +2538,8 @@ suite =
                         ]
                     , suiteFromResult2 "removeElement"
                         -- setup
-                        sofaFabric
-                        steel
+                        fixtures.sofaFabric
+                        fixtures.steel
                         -- tests
                         (\testComponent material ->
                             [ itFromResult "should remove an item element"
@@ -2276,8 +2563,8 @@ suite =
                             ]
                         )
                     , suiteFromResult2 "removeElementTransform"
-                        chairBack
-                        injectionMoulding
+                        fixtures.chairBack
+                        fixtures.injectionMoulding
                         -- tests
                         (\testComponent testProcess ->
                             [ itFromResult "should remove an element transform"
@@ -2291,6 +2578,7 @@ suite =
                                         { custom = Nothing
                                         , id = testComponent.id
                                         , quantity = Component.quantityFromInt 1
+                                        , unitMass = Nothing
                                         }
                                     )
                                 )
@@ -2298,9 +2586,9 @@ suite =
                         )
                     , suiteFromResult3 "setElementMaterial"
                         -- setup
-                        chairBack
-                        steel
-                        injectionMoulding
+                        fixtures.chairBack
+                        fixtures.steel
+                        fixtures.injectionMoulding
                         -- tests
                         (\testComponent validTestProcess invalidTestProcess ->
                             [ itFromResult "should set a valid element material"
@@ -2442,52 +2730,9 @@ suite =
                                 )
                             ]
                         )
-                    , suiteFromResult "setCustomScope"
-                        -- setup
-                        ("""{ "id": "8ca2ca05-8aec-4121-acaa-7cdcc03150a9", "quantity": 1 }"""
-                            |> decodeJson Component.decodeItem
-                            |> Result.andThen
-                                (\item ->
-                                    item
-                                        |> Component.itemToComponent db
-                                        |> Result.map (\component -> ( component, item ))
-                                )
-                        )
-                        (\( sofaFabricComponent, sofaFabricItem ) ->
-                            [ it "should have the expected initial component scope"
-                                (sofaFabricComponent.scope
-                                    |> Expect.equal (Scope.Generic Scope.Object)
-                                )
-                            , it "should have no custom scopes by default"
-                                (sofaFabricItem.custom
-                                    |> Expect.equal Nothing
-                                )
-                            , it "should set a custom scope"
-                                (sofaFabricItem
-                                    |> Component.setCustomScope sofaFabricComponent Scope.Textile
-                                    |> .custom
-                                    |> Maybe.andThen .scope
-                                    |> Expect.equal (Just Scope.Textile)
-                                )
-                            , it "should reset custom scopes when they match initial component ones"
-                                (sofaFabricItem
-                                    |> Component.setCustomScope sofaFabricComponent (Scope.Generic Scope.Object)
-                                    |> .custom
-                                    |> Maybe.andThen .scope
-                                    |> Expect.equal Nothing
-                                )
-                            , it "should export custom scopes to component"
-                                (sofaFabricItem
-                                    |> Component.setCustomScope sofaFabricComponent Scope.Textile
-                                    |> Component.itemToComponent db
-                                    |> Result.map .scope
-                                    |> Expect.equal (Ok Scope.Textile)
-                                )
-                            ]
-                        )
                     , suiteFromResult "updateItemCustomName"
                         -- setup
-                        sofaFabric
+                        fixtures.sofaFabric
                         -- tests
                         (\testComponent ->
                             [ itFromResult "should set a custom name to a component item"
@@ -2522,7 +2767,7 @@ suite =
                         )
                     , suiteFromResult2 "useProcessAmount"
                         (chair |> Result.andThen (computeItemsWithRequirements requirements))
-                        lowVoltageElec
+                        fixtures.lowVoltageElec
                         (\lifeCycle lowVoltageElecProcess ->
                             let
                                 productMassInKg =
@@ -2564,11 +2809,11 @@ suite =
                         -- Non-existing process
                         (Process.idFromString nonExistentUuid)
                         -- Steel process
-                        steel
+                        fixtures.steel
                         -- Sawing process
-                        sawing
+                        fixtures.sawing
                         -- Dry distribution process
-                        dryDistribution
+                        fixtures.dryDistribution
                         -- Tests
                         (\nonExistingProcessId steelProcess sawingProcess dryDistributionProcess ->
                             [ describe "amount validation"
@@ -3285,12 +3530,31 @@ extractComplementEcsImpact =
     Component.extractComplementsImpacts >> Complement.mergeComplementsResultsImpacts >> getEcsImpact
 
 
+findComponentById : Db -> String -> Result String Component
+findComponentById db rawId =
+    db.components
+        |> List.filter
+            (\component ->
+                component.id
+                    |> Maybe.map Component.idToString
+                    |> (==) (Just rawId)
+            )
+        |> List.head
+        |> Result.fromMaybe ("Composant introuvable id=" ++ rawId)
+
+
 findComponentByName : Requirements db -> String -> Result String Component
 findComponentByName { db } name =
     db.components
         |> List.filter (.name >> (==) name)
         |> List.head
         |> Result.fromMaybe ("Composant introuvable name=" ++ name)
+
+
+findProcessById : Db -> String -> Result String Process
+findProcessById db =
+    Process.idFromString
+        >> Result.andThen (\id -> Process.findById id db.processes)
 
 
 findProcessByLabel : Requirements db -> String -> Result String Process
@@ -3365,541 +3629,11 @@ setProcessQtyVariationRatio qtyVariationRatio process =
     { process | qtyVariationRatio = qtyVariationRatio }
 
 
-setupTestDb : Db -> Db
-setupTestDb db =
-    -- update db with controled test components and processes; the idea is to decouple
-    -- test data from the production data lifecycle as much as possible
-    let
-        componentFixtures =
-            RE.combine
-                [ chairSeat
-                , chairBack
-                , chairLeg
-                , sofaFabric
-                ]
-
-        processFixtures =
-            RE.combine
-                [ steel
-                , injectionMoulding
-                , dryDistribution
-                , fakeAssemblyProcess
-                , lowVoltageElec
-                , wood
-                , plastic
-                , sawing
-                , chipsBag
-                ]
-
-        replace : List { a | id : id } -> List { a | id : id } -> List { a | id : id }
-        replace replacements =
-            List.filter (\{ id } -> replacements |> List.map .id |> List.member id |> not)
-                >> (++) replacements
-    in
-    Ok
-        (\testComponents testProcesses ->
-            { db
-                | components = db.components |> replace testComponents
-                , processes = db.processes |> replace testProcesses
-            }
-        )
-        |> RE.andMap componentFixtures
-        |> RE.andMap processFixtures
-        |> Result.withDefault db
-
-
 updateRequirementsProcess : Process -> (Process -> Process) -> Requirements db -> Requirements db
 updateRequirementsProcess { id } fn ({ db } as requirements) =
     { requirements
         | db = { db | processes = db.processes |> LE.updateIf (.id >> (==) id) fn }
     }
-
-
-
--- JSON test data
--- 1. Components
-
-
-chairBack : Result String Component
-chairBack =
-    decodeJson Component.decode <|
-        """ {
-                "elements": [
-                {
-                    "amount": 0.734063,
-                    "material": "59b42284-3e45-5343-8a20-1d7d66137461"
-                }
-                ],
-                "id": "ad9d7f23-076b-49c5-93a4-ee1cd7b53973",
-                "name": "Dossier plastique (PP)",
-                "scopes": ["object"]
-            }
-        """
-
-
-chairLeg : Result String Component
-chairLeg =
-    decodeJson Component.decode <|
-        """ {
-                "elements": [
-                {
-                    "amount": 0.00022,
-                    "material": "17431e06-2973-516e-b043-be9ad405e4fb"
-                }
-                ],
-                "id": "64fa65b3-c2df-4fd0-958b-83965bd6aa08",
-                "name": "Pied 70 cm (plein bois)",
-                "scopes": ["object"]
-            }
-        """
-
-
-chairSeat : Result String Component
-chairSeat =
-    decodeJson Component.decode <|
-        """ {
-                "elements": [
-                {
-                    "amount": 0.91125,
-                    "material": "59b42284-3e45-5343-8a20-1d7d66137461"
-                }
-                ],
-                "id": "eda5dd7e-52e4-450f-8658-1876efc62bd6",
-                "name": "Assise plastique (PP)",
-                "scopes": ["object"]
-            }
-        """
-
-
-sofaFabric : Result String Component
-sofaFabric =
-    decodeJson Component.decode <|
-        """ {
-                "elements": [
-                    {
-                        "amount": 1,
-                        "material": "f0dbe27b-1e74-55d0-88a2-bda812441744",
-                        "transforms": [
-                            "29dc6c73-8d82-5056-8ac0-faf212bc0367",
-                            "c49a5379-95c4-599a-84da-b5faaa345b97"
-                        ]
-                    },
-                    {
-                        "amount": 1,
-                        "material": "61bab541-9097-5680-9884-254c98f25d80",
-                        "transforms": [
-                            "29dc6c73-8d82-5056-8ac0-faf212bc0367",
-                            "e5e43c57-bd12-5ab7-8a22-7d12cdcece58"
-                        ]
-                    }
-                ],
-                "id": "8ca2ca05-8aec-4121-acaa-7cdcc03150a9",
-                "name": "Tissu pour canapé",
-                "scopes": ["object"]
-            }
-        """
-
-
-
--- 2. Processes
-
-
-chipsBag : Result String Process
-chipsBag =
-    decodeJson (Process.decode Impact.decodeImpacts) <|
-        """ {
-              "activityName": "Chips, 150g | Packaging System, Proxy Pack, Plastic film {FR} U",
-              "alias": null,
-              "categories": [
-                "material",
-                "packaging",
-                "packaging_type:bag"
-              ],
-              "comment": "blah",
-              "displayName": "Sachet en plastique (PP) pour chips - 150g - Proxy",
-              "elecKwh": 0,
-              "heatMJ": 0,
-              "id": "4a80c078-9f86-4a7d-b402-73db3381e33b",
-              "impacts": {
-                "ecs": 1.358
-              },
-              "landOccupation": null,
-              "location": "FR",
-              "massPerUnit": 0.00538,
-              "metadata": null,
-              "qtyVariationRatio": 1.0,
-              "scopes": [
-                "food2"
-              ],
-              "source": "Agribalyse 3.2",
-              "unit": "item"
-            }
-            """
-
-
-dryDistribution : Result String Process
-dryDistribution =
-    decodeJson (Process.decode Impact.decodeImpacts) <|
-        """ {
-            "activityName": "This process is not linked to a Brightway activity",
-            "categories": [
-                "distribution"
-            ],
-            "comment": "Blah",
-            "displayName": "Vente au détail\u{202F}: produit sec",
-            "elecKwh": 123.0805556,
-            "heatMJ": 0,
-            "id": "29118025-efa0-47bb-94e2-f5ccba31a903",
-            "impacts": {
-                "acd": 0,
-                "cch": 0,
-                "ecs": 0,
-                "etf": 0,
-                "etf-c": 0,
-                "fru": 0,
-                "fwe": 0,
-                "htc": 0,
-                "htc-c": 0,
-                "htn": 0,
-                "htn-c": 0,
-                "ior": 0,
-                "ldu": 0,
-                "mru": 0,
-                "ozd": 0,
-                "pco": 0,
-                "pma": 0,
-                "swe": 0,
-                "tre": 0,
-                "wtu": 0
-            },
-            "landOccupation": null,
-            "location": null,
-            "massPerUnit": null,
-            "metadata": null,
-            "qtyVariationRatio": 1,
-            "scopes": [
-                "food2",
-                "object"
-            ],
-            "source": "Ecobalyse_manual_lcia",
-            "unit": "m3"
-        }
-        """
-
-
-fakeAssemblyProcess : Result String Process
-fakeAssemblyProcess =
-    decodeJson (Process.decode Impact.decodeImpacts) <|
-        """ {
-                "activityName": "fake assembly process",
-                "categories": ["assembly"],
-                "comment": "Test fixture",
-                "displayName": "Fake assembly process",
-                "elecKwh": 1.5,
-                "heatMJ": 3,
-                "id": "b8d0dc25-170d-4c6a-93e5-ee31347316cc",
-                "impacts": {
-                    "acd": 0,
-                    "cch": 0,
-                    "ecs": 42,
-                    "etf": 0,
-                    "etf-c": 0,
-                    "fru": 0,
-                    "fwe": 0,
-                    "htc": 0,
-                    "htc-c": 0,
-                    "htn": 0,
-                    "htn-c": 0,
-                    "ior": 0,
-                    "ldu": 0,
-                    "mru": 0,
-                    "ozd": 0,
-                    "pco": 0,
-                    "pma": 0,
-                    "swe": 0,
-                    "tre": 0,
-                    "wtu": 0
-                },
-                "location": "RER",
-                "massPerUnit": null,
-                "qtyVariationRatio": 0.5,
-                "scopes": ["object", "veli"],
-                "source": "Ecobalyse",
-                "unit": "kg"
-            }
-        """
-
-
-injectionMoulding : Result String Process
-injectionMoulding =
-    decodeJson (Process.decode Impact.decodeImpacts) <|
-        """ {
-                "activityName": "injection moulding//[RER] injection moulding",
-                "categories": ["transformation", "material_type:rigid_plastics"],
-                "comment": "",
-                "displayName": "Moulage par injection",
-                "elecKwh": 0,
-                "heatMJ": 0,
-                "id": "111539de-deea-588a-9581-6f6ceaa2dfa9",
-                "impacts": {
-                    "acd": 0,
-                    "cch": 0,
-                    "ecs": 67.739,
-                    "etf": 0,
-                    "etf-c": 0,
-                    "fru": 0,
-                    "fwe": 0,
-                    "htc": 0,
-                    "htc-c": 0,
-                    "htn": 0,
-                    "htn-c": 0,
-                    "ior": 0,
-                    "ldu": 0,
-                    "mru": 0,
-                    "ozd": 0,
-                    "pco": 0,
-                    "pma": 0,
-                    "swe": 0,
-                    "tre": 0,
-                    "wtu": 0
-                },
-                "location": "RER",
-                "massPerUnit": null,
-                "qtyVariationRatio": 0.994,
-                "scopes": ["object", "veli"],
-                "source": "Ecoinvent 3.9.1",
-                "unit": "kg"
-            }
-        """
-
-
-lowVoltageElec : Result String Process
-lowVoltageElec =
-    decodeJson (Process.decode Impact.decodeImpacts) <|
-        """ {
-                "activityName": "electricity, low voltage//[FR] market for electricity, low voltage",
-                "categories": ["energy", "use"],
-                "comment": "",
-                "displayName": "Electricité basse tension, France",
-                "elecKwh": 0,
-                "heatMJ": 0,
-                "id": "931c9bb0-619a-5f75-b41b-ab8061e2ad92",
-                "impacts": {
-                    "acd": 0,
-                    "cch": 0,
-                    "ecs": 19.331,
-                    "etf": 0,
-                    "etf-c": 0,
-                    "fru": 0,
-                    "fwe": 0,
-                    "htc": 0,
-                    "htc-c": 0,
-                    "htn": 0,
-                    "htn-c": 0,
-                    "ior": 0,
-                    "ldu": 0,
-                    "mru": 0,
-                    "ozd": 0,
-                    "pco": 0,
-                    "pma": 0,
-                    "swe": 0,
-                    "tre": 0,
-                    "wtu": 0
-                },
-                "location": "FR",
-                "massPerUnit": null,
-                "qtyVariationRatio": 1,
-                "scopes": [
-                    "food",
-                    "textile",
-                    "veli"
-                ],
-                "source": "Ecoinvent 3.9.1",
-                "unit": "kWh"
-            }
-        """
-
-
-plastic : Result String Process
-plastic =
-    decodeJson (Process.decode Impact.decodeImpacts) <|
-        """ {
-                "activityName": "polypropylene, granulate//[RER] polypropylene production, granulate",
-                "categories": ["material", "material_type:rigid_plastics"],
-                "comment": "",
-                "displayName": "Plastique granulé (PP)",
-                "elecKwh": 0,
-                "heatMJ": 0,
-                "id": "59b42284-3e45-5343-8a20-1d7d66137461",
-                "impacts": {
-                    "acd": 0,
-                    "cch": 0,
-                    "ecs": 164.69,
-                    "etf": 0,
-                    "etf-c": 0,
-                    "fru": 0,
-                    "fwe": 0,
-                    "htc": 0,
-                    "htc-c": 0,
-                    "htn": 0,
-                    "htn-c": 0,
-                    "ior": 0,
-                    "ldu": 0,
-                    "mru": 0,
-                    "ozd": 0,
-                    "pco": 0,
-                    "pma": 0,
-                    "swe": 0,
-                    "tre": 0,
-                    "wtu": 0
-                },
-                "location": "RER",
-                "massPerUnit": null,
-                "qtyVariationRatio": 1,
-                "scopes": ["object"],
-                "source": "Ecoinvent 3.9.1",
-                "unit": "kg"
-            }
-        """
-
-
-sawing : Result String Process
-sawing =
-    decodeJson (Process.decode Impact.decodeImpacts) <|
-        """ {
-                "activityName": "Sawing + kiln drying in Europe (wood)",
-                "categories": ["transformation", "material_type:wood"],
-                "comment": "",
-                "displayName": "Sciage + séchage au four en Europe (bois)",
-                "elecKwh": 0,
-                "heatMJ": 0,
-                "id": "c172d131-b5d1-5d9b-822b-5762afb91c66",
-                "impacts": {
-                    "acd": 0,
-                    "cch": 0,
-                    "ecs": 12732.0,
-                    "etf": 0,
-                    "etf-c": 0,
-                    "fru": 0,
-                    "fwe": 0,
-                    "htc": 0,
-                    "htc-c": 0,
-                    "htn": 0,
-                    "htn-c": 0,
-                    "ior": 0,
-                    "ldu": 0,
-                    "mru": 0,
-                    "ozd": 0,
-                    "pco": 0,
-                    "pma": 0,
-                    "swe": 0,
-                    "tre": 0,
-                    "wtu": 0
-                },
-                "location": "GLO",
-                "massPerUnit": null,
-                "qtyVariationRatio": 0.5,
-                "scopes": ["object"],
-                "source": "Ecobalyse_custom_lci",
-                "unit": "m3"
-            }
-        """
-
-
-steel : Result String Process
-steel =
-    decodeJson (Process.decode Impact.decodeImpacts) <|
-        """ {
-                "activityName": "steel, low-alloyed//[GLO] market for steel, low-alloyed",
-                "categories": ["material", "material_type:ferrous_metals"],
-                "comment": "",
-                "displayName": "Acier (faiblement allié)",
-                "elecKwh": 0,
-                "heatMJ": 0,
-                "id": "6527710e-2434-5347-9bef-2205e0aa4f66",
-                "impacts": {
-                    "acd": 0,
-                    "cch": 0,
-                    "ecs": 160.04,
-                    "etf": 0,
-                    "etf-c": 0,
-                    "fru": 0,
-                    "fwe": 0,
-                    "htc": 0,
-                    "htc-c": 0,
-                    "htn": 0,
-                    "htn-c": 0,
-                    "ior": 0,
-                    "ldu": 0,
-                    "mru": 0,
-                    "ozd": 0,
-                    "pco": 0,
-                    "pma": 0,
-                    "swe": 0,
-                    "tre": 0,
-                    "wtu": 0
-                },
-                "location": "GLO",
-                "massPerUnit": null,
-                "qtyVariationRatio": 1,
-                "scopes": ["food2", "textile"],
-                "source": "Ecoinvent 3.9.1",
-                "unit": "kg"
-            }
-        """
-
-
-wood : Result String Process
-wood =
-    decodeJson (Process.decode Impact.decodeImpacts) <|
-        """ {
-                "activityName": "sawlog and veneer log, hardwood, measured as solid wood under bark//[DE] hardwood forestry, beech, sustainable forest management",
-                "categories": ["material", "material_type:wood"],
-                "comment": "",
-                "displayName": "Bois d'oeuvre (Feuillus / Hêtre)",
-                "elecKwh": 0,
-                "heatMJ": 0,
-                "id": "17431e06-2973-516e-b043-be9ad405e4fb",
-                "impacts": {
-                    "acd": 0,
-                    "cch": 0,
-                    "ecs": 6439.2,
-                    "etf": 0,
-                    "etf-c": 0,
-                    "fru": 0,
-                    "fwe": 0,
-                    "htc": 0,
-                    "htc-c": 0,
-                    "htn": 0,
-                    "htn-c": 0,
-                    "ior": 0,
-                    "ldu": 0,
-                    "mru": 0,
-                    "ozd": 0,
-                    "pco": 0,
-                    "pma": 0,
-                    "swe": 0,
-                    "tre": 0,
-                    "wtu": 0
-                },
-                "location": "DE",
-                "massPerUnit": 660.0,
-                "metadata": {
-                  "complements": {
-                    "forest": 0.70731
-                  },
-                  "forestManagement": "intensivePlantation"
-                },
-                "qtyVariationRatio": 1,
-                "scopes": ["object", "veli"],
-                "source": "Ecoinvent 3.9.1",
-                "unit": "m3"
-            }
-        """
-
-
-
--- 3. Items (example)
 
 
 chair : Result String (List Item)

@@ -14,6 +14,7 @@ import Data.Component as Component
         , Results
         , TargetItem
         )
+import Data.Component.Amount as Amount
 import Data.Impact.Definition exposing (Definition)
 import Data.Process as Process
 import Data.Process.Category as Category
@@ -22,22 +23,28 @@ import Html exposing (..)
 import Html.Attributes as Attr exposing (..)
 import Html.Events exposing (..)
 import List.Extra as LE
+import Mass
+import Quantity
 import Route exposing (Route)
 import Views.Alert as Alert
 import Views.Button as Button
+import Views.Component.AmountInput as AmountInput
+import Views.Component.Context as Context exposing (Context)
 import Views.Component.ItemRow as ItemRow exposing (emptyItemRow)
+import Views.FloatInput as FloatInput
 import Views.Format as Format
 import Views.Icon as Icon
 import Views.Link as Link
 
 
 type alias Config db msg =
-    { canEditItemComposition : Bool
+    { context : Context
     , db : Component.DataContainer db
     , detailed : List Index
     , docsUrl : Maybe String
     , documentationLink : Html msg
     , explorerRoute : Maybe Route
+    , floatInputState : Maybe FloatInput.State
     , impact : Definition
     , labels :
         { add : String
@@ -52,7 +59,9 @@ type alias Config db msg =
     , removeItem : Index -> msg
     , scope : Scope
     , setDetailed : List Index -> msg
+    , unitMassLocked : Bool
     , updateItemQuantity : Index -> Quantity -> msg
+    , updateItemUnitMass : Index -> FloatInput.State -> msg
     }
 
 
@@ -62,15 +71,20 @@ addProductionItemButton ({ db } as config) =
         availableComponents =
             db.components
                 |> List.filter (not << Component.isEmpty)
-                |> List.filter (.scope >> (==) config.scope)
+                |> List.filter (.scopes >> List.member config.scope)
                 |> List.map ComponentItem
 
         availableMaterials =
-            db.processes
-                |> Process.listAvailableByCategory config.scope Category.Material
-                -- Exclude packaging materials as they're available in a dedicated section
-                |> List.filter (\{ categories } -> not <| List.member Category.Packaging categories)
-                |> List.map MaterialItem
+            case config.context of
+                Context.TextileTrims ->
+                    []
+
+                _ ->
+                    db.processes
+                        |> Process.listAvailableByCategory config.scope Category.Material
+                        -- Exclude packaging materials as they're available in a dedicated section
+                        |> List.filter (\{ categories } -> not <| List.member Category.Packaging categories)
+                        |> List.map MaterialItem
 
         availableProductionItems =
             availableComponents ++ availableMaterials
@@ -96,7 +110,7 @@ addProductionItemButton ({ db } as config) =
 {-| Renders elements summary when an item is expanded
 -}
 elementSummaryRow : Config db msg -> Results -> ExpandedElement -> Results -> Html msg
-elementSummaryRow config itemResults { amount, material, transforms } elementResults =
+elementSummaryRow config itemResults { material, transforms } elementResults =
     let
         elementMass =
             Component.extractMass elementResults
@@ -107,10 +121,13 @@ elementSummaryRow config itemResults { amount, material, transforms } elementRes
                 , "(" ++ (country |> Maybe.map .name |> Maybe.withDefault "Inconnu") ++ ")"
                 ]
 
+        effectiveAmount =
+            Component.extractAmount elementResults
+
         amountInfo =
             span [ class "d-flex text-muted fs-8" ]
                 [ if material.process.unit /= Process.Kilogram then
-                    span [] [ text "(", Format.amount material.process amount, text ")\u{00A0}" ]
+                    span [] [ text "(", Format.amount material.process effectiveAmount, text ")\u{00A0}" ]
 
                   else
                     text ""
@@ -150,45 +167,41 @@ elementSummaryRow config itemResults { amount, material, transforms } elementRes
 
 expandToggler : Config db msg -> Index -> Bool -> Html msg
 expandToggler config itemIndex collapsed =
-    if not config.canEditItemComposition then
-        text ""
+    let
+        label =
+            if collapsed then
+                "Déplier les détails"
 
-    else
-        let
-            label =
+            else
+                "Replier les détails"
+    in
+    button
+        [ type_ "button"
+        , class "btn btn-link text-muted text-decoration-none font-monospace fs-6 p-0 m-0"
+        , title label
+        , attribute "aria-label" label
+        , attribute "aria-expanded"
+            (if collapsed then
+                "false"
+
+             else
+                "true"
+            )
+        , attribute "aria-controls" <| itemDetailsId itemIndex
+        , onClick <|
+            config.setDetailed <|
                 if collapsed then
-                    "Déplier les détails"
+                    LE.unique <| itemIndex :: config.detailed
 
                 else
-                    "Replier les détails"
-        in
-        button
-            [ type_ "button"
-            , class "btn btn-link text-muted text-decoration-none font-monospace fs-6 p-0 m-0"
-            , title label
-            , attribute "aria-label" label
-            , attribute "aria-expanded"
-                (if collapsed then
-                    "false"
+                    List.filter ((/=) itemIndex) config.detailed
+        ]
+        [ if collapsed then
+            text "▶"
 
-                 else
-                    "true"
-                )
-            , attribute "aria-controls" <| itemDetailsId itemIndex
-            , onClick <|
-                config.setDetailed <|
-                    if collapsed then
-                        LE.unique <| itemIndex :: config.detailed
-
-                    else
-                        List.filter ((/=) itemIndex) config.detailed
-            ]
-            [ if collapsed then
-                text "▶"
-
-              else
-                text "▼"
-            ]
+          else
+            text "▼"
+        ]
 
 
 itemActions : Config db msg -> Index -> Component -> Html msg
@@ -213,7 +226,7 @@ itemActions config itemIndex component =
                 [ Icon.pencil ]
     in
     div [ class "btn-group" ]
-        (if config.canEditItemComposition then
+        (if config.context /= Context.TextileTrims then
             [ editButton, deleteButton ]
 
          else
@@ -279,7 +292,12 @@ itemView config itemIndex { component, elements, quantity } itemResults =
         )
         [ ItemRow.view [ class "border-bottom", classList [ ( "table-info", not collapsed ) ] ]
             { actions = itemActions config itemIndex component
-            , expander = expandToggler config itemIndex collapsed
+            , expander =
+                if config.context == Context.TextileTrims then
+                    text ""
+
+                else
+                    expandToggler config itemIndex collapsed
             , impacts =
                 Component.getTotalImpacts itemResults
                     |> Format.formatImpact config.impact
@@ -289,13 +307,54 @@ itemView config itemIndex { component, elements, quantity } itemResults =
                 Component.extractMass itemResults
                     |> Format.kg
             , unitMass =
-                Component.extractUnitMass itemResults
-                    |> Format.kg
+                if config.context == Context.TextileTrims then
+                    Component.extractUnitMass itemResults
+                        |> Format.kg
+
+                else
+                    itemResults
+                        |> unitMassInput config itemIndex elements
             }
         ]
     , itemDetailedRows config elements itemResults
         |> tbody [ class "table-light", id <| itemDetailsId itemIndex, hidden collapsed ]
     ]
+
+
+unitMassInput : Config db msg -> Index -> List Component.ExpandedElement -> Results -> Html msg
+unitMassInput config itemIndex elements itemResults =
+    let
+        mass =
+            config.query.items
+                |> LE.getAt itemIndex
+                |> Maybe.andThen .unitMass
+                |> Maybe.withDefault (Component.extractUnitMass itemResults)
+
+        writeAccess =
+            -- An element whose material process has no known mass per unit makes the item unit mass uneditable.
+            if elements |> List.any (.material >> .process >> Process.hasValidMassPerUnit >> not) then
+                FloatInput.ReadOnly "La masse par unité du procédé mobilisé n’est pas connue à ce jour"
+
+            else if mass == Quantity.zero then
+                FloatInput.ReadOnly "La masse des éléments du composant est nulle, édition impossible"
+
+            else if config.unitMassLocked then
+                FloatInput.ReadOnly "La masse unitaire n’est pas modifiable tant que la modale d’édition du composant est ouverte"
+
+            else
+                FloatInput.Writeable
+    in
+    Mass.inKilograms mass
+        |> Amount.fromFloat
+        |> AmountInput.view
+            { id = "unit-mass-" ++ String.fromInt itemIndex
+            , label = "Masse unitaire"
+            , noOp = config.noOp
+            , onInput = config.updateItemUnitMass itemIndex
+            , state = config.floatInputState
+            , unit = Process.Kilogram
+            , writeAccess = writeAccess
+            }
 
 
 quantityInput : Config db msg -> Index -> Quantity -> Html msg

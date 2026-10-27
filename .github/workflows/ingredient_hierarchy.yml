@@ -23,7 +23,7 @@ jobs:
     runs-on: ubuntu-latest
 
     steps:
-      - uses: actions/checkout@v4
+      - uses: actions/checkout@v7
 
       - name: Install Transcrypt
         uses: ./.github/actions/transcrypt-cli
@@ -31,17 +31,18 @@ jobs:
       - name: Decrypt impact files
         run: ./bin/run-transcrypt.sh
 
-      - name: Install the latest version of uv
-        uses: astral-sh/setup-uv@v4
+      - name: Install uv
+        uses: astral-sh/setup-uv@07a047e608db84b3d8c06cd9a7c7dcc9c355c18e # v10.3.2
         with:
-          version: "latest"
-          python-version: "3.12"
+          version: ">=0.13.4"
+          python-version: 3.12
+
 
       - name: Run ingredient hierarchy check
         run: uv run bin/check_ingredient_hierarchy.py
 
       - name: Upload report and plots
-        uses: actions/upload-artifact@v4
+        uses: actions/upload-artifact@v7
         if: always()
         with:
           name: ingredient-hierarchy-report

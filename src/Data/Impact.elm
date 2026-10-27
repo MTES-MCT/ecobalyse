@@ -8,6 +8,7 @@ module Data.Impact exposing
     , empty
     , encode
     , encodeAggregatedScoreChartEntry
+    , encodeExcept
     , encodeSingleImpact
     , getAggregatedScoreData
     , getImpact
@@ -290,6 +291,21 @@ encode : Impacts -> Encode.Value
 encode (Impacts impacts) =
     impacts
         |> Definition.encodeBase Unit.encodeImpact
+
+
+{-| Encode the impacts except the given trigram
+-}
+encodeExcept : List Trigram -> Impacts -> Encode.Value
+encodeExcept excluded (Impacts impacts) =
+    Definition.trigrams
+        |> List.filter (\trigram -> not (List.member trigram excluded))
+        |> List.map
+            (\trigram ->
+                ( Definition.toString trigram
+                , Unit.encodeImpact (Definition.get trigram impacts)
+                )
+            )
+        |> Encode.object
 
 
 encodeSingleImpact : Impacts -> Trigram -> Encode.Value
