@@ -4,6 +4,7 @@ module Data.Db exposing
     , RawJsonString
     , RawJsonStrings
     , build
+    , buildFromStrings
     , propGetters
     , rawJsonString
     )
@@ -134,6 +135,31 @@ build json =
                                 (extractJsonString json.textileProducts)
                         )
             )
+
+
+buildFromStrings : Properties String -> Result String Db
+buildFromStrings strings =
+    build
+        { countries = rawJsonString strings.countries
+        , definitions = rawJsonString strings.definitions
+        , food2Components = rawJsonString strings.food2Components
+        , food2Examples = rawJsonString strings.food2Examples
+        , food2ProductCategories = rawJsonString strings.food2ProductCategories
+        , foodIngredients = rawJsonString strings.foodIngredients
+        , foodProductExamples = rawJsonString strings.foodProductExamples
+        , objectComponents = rawJsonString strings.objectComponents
+        , objectExamples = rawJsonString strings.objectExamples
+        , objectProductCategories = rawJsonString strings.objectProductCategories
+        , processes = rawJsonString strings.processes
+        , textileComponents = rawJsonString strings.textileComponents
+        , textileMaterials = rawJsonString strings.textileMaterials
+        , textileProductExamples = rawJsonString strings.textileProductExamples
+        , textileProducts = rawJsonString strings.textileProducts
+        , transports = rawJsonString strings.transports
+        , veliComponents = rawJsonString strings.veliComponents
+        , veliExamples = rawJsonString strings.veliExamples
+        , veliProductCategories = rawJsonString strings.veliProductCategories
+        }
 
 
 extractJsonString : RawJsonString -> String

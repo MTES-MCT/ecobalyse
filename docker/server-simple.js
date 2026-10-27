@@ -101,7 +101,7 @@ app.get("/processes/processes.json", async (req, res) => {
     .send(JSON.stringify(await getProcesses(req.headers)));
 });
 
-const elmApp = Elm.Server.init();
+const elmApp = Elm.ServerProd.init();
 
 elmApp.ports.output.subscribe(({ status, body, jsResponseHandler }) => {
   return jsResponseHandler({ status, body });

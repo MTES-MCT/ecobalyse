@@ -7,7 +7,8 @@ import Data.Food.Query as FoodQuery
 import Expect
 import Json.Encode as Encode
 import Mass
-import Server
+import Server.Worker as Worker
+import Static.TestJson as TestJson
 import Test exposing (..)
 import TestUtils
     exposing
@@ -22,31 +23,35 @@ suite : Test
 suite =
     suiteWithDb "Server"
         (\dbs ->
+            let
+                handleRequest =
+                    Worker.handleRequest TestJson.componentConfigJson dbs
+            in
             [ describe "ports"
                 -- Note: these prevent false elm-review reports
-                [ Server.input (always Sub.none)
+                [ Worker.input (always Sub.none)
                     |> Expect.notEqual Sub.none
                     |> asTest "should apply input subscription"
-                , Server.output Encode.null
+                , Worker.output Encode.null
                     |> Expect.notEqual Cmd.none
                     |> asTest "should apply output command"
                 ]
             , describe "handleRequest"
                 [ Encode.null
                     |> createServerRequest dbs "GET" "/invalid"
-                    |> Server.handleRequest dbs
+                    |> handleRequest
                     |> Tuple.first
                     |> Expect.equal 404
                     |> asTest "should catch invalid endpoints"
                 , Encode.null
                     |> createServerRequest dbs "GET" "/object/processes/transform/invalid-material-type"
-                    |> Server.handleRequest dbs
+                    |> handleRequest
                     |> Tuple.first
                     |> Expect.equal 400
                     |> asTest "should reject an invalid materialType"
                 , Encode.null
                     |> createServerRequest dbs "GET" "/object/processes/transform/pp"
-                    |> Server.handleRequest dbs
+                    |> handleRequest
                     |> Tuple.first
                     |> Expect.equal 200
                     |> asTest "should accept a valid materialType"
@@ -54,7 +59,7 @@ suite =
                 -- POST queries
                 , Encode.null
                     |> createServerRequest dbs "POST" "/food"
-                    |> Server.handleRequest dbs
+                    |> handleRequest
                     |> Tuple.first
                     |> Expect.equal 400
                     |> asTest "should reject an invalid POST query"
@@ -78,7 +83,7 @@ suite =
                             , transform = Nothing
                             }
                             |> createServerRequest dbs "POST" "/food"
-                            |> Server.handleRequest dbs
+                            |> handleRequest
                             |> Tuple.first
                             |> Expect.equal 200
                     )
@@ -89,7 +94,7 @@ suite =
                     (\{ query } ->
                         Component.encodeQuery query
                             |> createServerRequest dbs "POST" "/object/simulator"
-                            |> Server.handleRequest dbs
+                            |> handleRequest
                             |> Tuple.first
                             |> Expect.equal 200
                     )

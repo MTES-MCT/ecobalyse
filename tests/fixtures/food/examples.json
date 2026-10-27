@@ -1,0 +1,27 @@
+[
+  {
+    "category": "Produit surgelé",
+    "id": "4ce49252-07c4-4e2a-a451-dc26f1550889",
+    "name": "Pizza royale (350g) - 6",
+    "query": {
+      "distribution": "frozen",
+      "ingredients": [
+        { "id": "a2e25aca-1f42-4bc8-bc0e-4d7c751775aa", "mass": 97 },
+        { "id": "6523c72b-2c28-474d-9bf8-45e018bbd0be", "mass": 89 },
+        { "id": "faa513ae-9c32-4e6c-874e-58c13309339e", "mass": 70 },
+        { "id": "755225f1-f0c5-497f-b8a9-263828a84a22", "mass": 16 },
+        { "id": "5fc8032f-ca1c-4497-844b-f9213075eab3", "mass": 5 },
+        { "id": "5d22559d-c16d-4545-94b9-be2ff51e2879", "mass": 31 },
+        { "id": "96b301d9-d21b-4cea-8903-bd7917e95a30", "mass": 16 },
+        { "id": "47b15759-416e-4c86-9127-4c75a55b7b8f", "mass": 1 },
+        { "id": "36b3ffec-51e7-4e26-b1b5-7d52554e0aa6", "mass": 22 }
+      ],
+      "packaging": [
+        { "amount": 0.1, "id": "09bf8c91-b95e-4bd3-aaf3-4c5450f74ae7" }
+      ],
+      "preparation": ["freezing", "oven"],
+      "transform": { "id": "a2836bb8-7f45-5cfa-bb00-8b38046291cf", "mass": 363 }
+    },
+    "scope": "food"
+  }
+]

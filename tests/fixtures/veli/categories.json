@@ -1,0 +1,12 @@
+[
+  {
+    "assembly": ["c51ab87d-f368-4704-a5ec-7ea17ba87d46"],
+    "consumptions": [
+      { "amount": 150, "processId": "eec31f13-d00a-4741-a84f-85d887026f8c" }
+    ],
+    "cooling": false,
+    "id": "b87cbaf5-4ad5-4bc6-84b6-b63c934e1d60",
+    "label": "VAEs de moins de 100kg",
+    "scope": "veli"
+  }
+]

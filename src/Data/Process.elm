@@ -4,7 +4,6 @@ module Data.Process exposing
     , Unit(..)
     , available
     , computeImpacts
-    , decode
     , decodeFromId
     , decodeId
     , decodeList

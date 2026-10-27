@@ -37,8 +37,8 @@ import Expect exposing (Expectation, FloatingPointTolerance)
 import Json.Encode as Encode
 import Mass
 import Server.Request exposing (Request)
-import Static.Db as StaticDb
-import Static.Json as StaticJson
+import Static.TestDb as TestDb
+import Static.TestJson as TestJson
 import Test exposing (..)
 
 
@@ -49,7 +49,7 @@ asTest =
 
 componentConfig : Db -> Result String Component.Config
 componentConfig db =
-    Component.parseConfig db StaticJson.componentConfigJson
+    Component.parseConfig db TestJson.componentConfigJson
 
 
 expectAllSucceed : List Expectation -> Expectation
@@ -134,7 +134,7 @@ suiteFromResult4 testName res1 res2 res3 res4 fn =
 
 suiteWithDb : String -> (Db -> List Test) -> Test
 suiteWithDb name suite =
-    case StaticDb.dbFromStaticFiles StaticJson.processesJson of
+    case TestDb.dbFromJsonStrings TestJson.processesJson of
         Ok db ->
             describe name (suite db)
 
