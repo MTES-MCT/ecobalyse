@@ -71,6 +71,7 @@ type alias Session =
     , matomo : { host : String, siteId : String }
     , navKey : Nav.Key
     , notifications : List Notification
+    , plausible : { host : Maybe String }
     , queries : Queries
     , scalingoAppName : Maybe String
     , store : Store
