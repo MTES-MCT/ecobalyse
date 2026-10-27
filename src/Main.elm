@@ -41,6 +41,7 @@ type alias Flags =
     { clientUrl : String
     , enabledSections : Session.EnabledSections
     , matomo : { host : String, siteId : String }
+    , plausible : { host : Maybe String }
     , rawStore : String
     , scalingoAppName : Maybe String
     , versionPollSeconds : Int
@@ -171,6 +172,7 @@ setupSession { flags, navKey } dbLoadingState db componentConfig =
         , matomo = flags.matomo
         , navKey = navKey
         , notifications = []
+        , plausible = flags.plausible
         , queries =
             { food = FoodQuery.empty
             , food2 = Component.emptyQuery
