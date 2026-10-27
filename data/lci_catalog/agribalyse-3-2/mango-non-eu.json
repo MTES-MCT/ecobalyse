@@ -76,7 +76,7 @@
       "scenario": "import",
       "scopes": ["food", "food2"],
       "transportCooling": "always",
-      "visible": true
+      "visible": false
     },
     {
       "alias": "lychee-non-eu-2025",
@@ -91,7 +91,7 @@
       "scenario": "import",
       "scopes": ["food", "food2"],
       "transportCooling": "always",
-      "visible": true
+      "visible": false
     },
     {
       "alias": "breadfruit-fr",

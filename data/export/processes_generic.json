@@ -31,7 +31,7 @@
     "scopes": ["food2"],
     "source": "Agribalyse 3.2",
     "unit": "kg",
-    "visible": true
+    "visible": false
   },
   {
     "activityName": "Agaricus bisporus mushroom, fresh, at plant {NL} - Adapted from WFLDB U",
@@ -65,7 +65,7 @@
     "scopes": ["food2"],
     "source": "Agribalyse 3.2",
     "unit": "kg",
-    "visible": true
+    "visible": false
   },
   {
     "activityName": "Agaricus bisporus mushroom, fresh, at plant {NL} - Adapted from WFLDB U",
@@ -463,7 +463,7 @@
     "scopes": ["food2"],
     "source": "Agribalyse 3.2",
     "unit": "kg",
-    "visible": true
+    "visible": false
   },
   {
     "activityName": "Almond, consumption mix {FR} U",
@@ -492,7 +492,7 @@
     "scopes": ["food2"],
     "source": "Agribalyse 3.2",
     "unit": "kg",
-    "visible": true
+    "visible": false
   },
   {
     "activityName": "Almonds, in shell, at farm {CN} - Adapted from WFLDB U",
@@ -736,7 +736,7 @@
     "scopes": ["food2"],
     "source": "Agribalyse 3.2",
     "unit": "kg",
-    "visible": true
+    "visible": false
   },
   {
     "activityName": "Annual vining pea for industry, Conventional, National average, at farm gate {FR} U",
@@ -765,7 +765,7 @@
     "scopes": ["food2"],
     "source": "Agribalyse 3.2",
     "unit": "kg",
-    "visible": true
+    "visible": false
   },
   {
     "activityName": "Apple compote, recipe, at plant {FR} U",
@@ -989,7 +989,7 @@
     "scopes": ["food2"],
     "source": "Agribalyse 3.2",
     "unit": "kg",
-    "visible": true
+    "visible": false
   },
   {
     "activityName": "Apricot, conventional, national average, at orchard {FR} U",
@@ -1102,7 +1102,7 @@
     "scopes": ["food2"],
     "source": "Agribalyse 3.2",
     "unit": "kg",
-    "visible": true
+    "visible": false
   },
   {
     "activityName": "Avocado {GLO}| production | Cut-off, U - Adapted from Ecoinvent U",
@@ -1136,7 +1136,7 @@
     "scopes": ["food2"],
     "source": "Agribalyse 3.2",
     "unit": "kg",
-    "visible": true
+    "visible": false
   },
   {
     "activityName": "Baby biscuits and cereals, 340g | Packaging System, Proxy Pack, Rigid plastic, other than bottles {FR} U",
@@ -1352,7 +1352,7 @@
     "scopes": ["food2"],
     "source": "Agribalyse 3.2",
     "unit": "kg",
-    "visible": true
+    "visible": false
   },
   {
     "activityName": "Banana, mixed production, West Indies, at farm gate {WI} U",
@@ -1668,7 +1668,7 @@
     "scopes": ["food2"],
     "source": "Agribalyse 3.2",
     "unit": "kg",
-    "visible": true
+    "visible": false
   },
   {
     "activityName": "Barley, feed grain, conventional, national average, animal feed, at farm gate {FR} U",
@@ -1760,7 +1760,7 @@
     "scopes": ["food2"],
     "source": "Agribalyse 3.2",
     "unit": "kg",
-    "visible": true
+    "visible": false
   },
   {
     "activityName": "Beef and veal, 244g | Packaging System, N0, All, Tray in a metallic plastic bag {FR} U",
@@ -2187,7 +2187,7 @@
     "scopes": ["food2"],
     "source": "Agribalyse 3.2",
     "unit": "kg",
-    "visible": true
+    "visible": false
   },
   {
     "activityName": "Bell pepper {FR}| bell pepper production, in unheated greenhouse | Cut-off, U - Adapted from Ecoinvent U",
@@ -2226,7 +2226,7 @@
     "scopes": ["food2"],
     "source": "Agribalyse 3.2",
     "unit": "kg",
-    "visible": true
+    "visible": false
   },
   {
     "activityName": "Bell pepper {FR}| bell pepper production, in unheated greenhouse | Cut-off, U - Adapted from Ecoinvent U",
@@ -2260,7 +2260,7 @@
     "scopes": ["food2"],
     "source": "Agribalyse 3.2",
     "unit": "kg",
-    "visible": true
+    "visible": false
   },
   {
     "activityName": "Bell pepper {FR}| bell pepper production, in unheated greenhouse | Cut-off, U - Adapted from Ecoinvent U",
@@ -2654,7 +2654,7 @@
     "scopes": ["food2"],
     "source": "Agribalyse 3.2",
     "unit": "kg",
-    "visible": true
+    "visible": false
   },
   {
     "activityName": "Blackberry, at farm {RS} - Adapted from WFLDB U",
@@ -2938,7 +2938,7 @@
     "scopes": ["food2"],
     "source": "Agribalyse 3.2",
     "unit": "kg",
-    "visible": true
+    "visible": false
   },
   {
     "activityName": "Blueberry, at farm {CA} - Adapted from WFLDB U",
@@ -3045,7 +3045,7 @@
     "scopes": ["food2"],
     "source": "Agribalyse 3.2",
     "unit": "kg",
-    "visible": true
+    "visible": false
   },
   {
     "activityName": "Box, 500g | Packaging System, Proxy Pack, Rigid plastic, other than bottles {FR} U",
@@ -3304,7 +3304,7 @@
     "scopes": ["food2"],
     "source": "Agribalyse 3.2",
     "unit": "kg",
-    "visible": true
+    "visible": false
   },
   {
     "activityName": "Broccoli {GLO}| production | Cut-off, U - Adapted from Ecoinvent U",
@@ -3411,7 +3411,7 @@
     "scopes": ["food2"],
     "source": "Agribalyse 3.2",
     "unit": "kg",
-    "visible": true
+    "visible": false
   },
   {
     "activityName": "Broiler, conventional, at farm gate {FR} U",
@@ -3986,7 +3986,7 @@
     "scopes": ["food2"],
     "source": "Agribalyse 3.2",
     "unit": "kg",
-    "visible": true
+    "visible": false
   },
   {
     "activityName": "Cabbage white {RoW}| cabbage white production | Cut-off, U - Adapted from Ecoinvent U",
@@ -4059,7 +4059,7 @@
     "scopes": ["food2"],
     "source": "Agribalyse 3.2",
     "unit": "kg",
-    "visible": true
+    "visible": false
   },
   {
     "activityName": "Cakes to be shared (cake shelf), 200g | Packaging System, Proxy Pack, Plastic film {FR} U",
@@ -4349,7 +4349,7 @@
     "scopes": ["food2"],
     "source": "Agribalyse 3.2",
     "unit": "kg",
-    "visible": true
+    "visible": false
   },
   {
     "activityName": "Carrot {NL}| carrot production | Cut-off, U - Adapted from Ecoinvent U",
@@ -4723,7 +4723,7 @@
     "scopes": ["food2"],
     "source": "Agribalyse 3.2",
     "unit": "kg",
-    "visible": true
+    "visible": false
   },
   {
     "activityName": "Carrot {RoW}| carrot production | Cut-off, U - Copied from Ecoinvent U",
@@ -5063,7 +5063,7 @@
     "scopes": ["food2"],
     "source": "Agribalyse 3.2",
     "unit": "kg",
-    "visible": true
+    "visible": false
   },
   {
     "activityName": "Carrot, conventional, national average, at farm gate {FR} U",
@@ -5141,7 +5141,7 @@
     "scopes": ["food2"],
     "source": "Agribalyse 3.2",
     "unit": "kg",
-    "visible": true
+    "visible": false
   },
   {
     "activityName": "Carrot, conventional, national average, at farm gate {FR} U",
@@ -5414,7 +5414,7 @@
     "scopes": ["food2"],
     "source": "Agribalyse 3.2",
     "unit": "kg",
-    "visible": true
+    "visible": false
   },
   {
     "activityName": "Cauliflower, conventional, national average, at farm gate {FR} U",
@@ -5482,7 +5482,7 @@
     "scopes": ["food2"],
     "source": "Agribalyse 3.2",
     "unit": "kg",
-    "visible": true
+    "visible": false
   },
   {
     "activityName": "Cauliflower, conventional, national average, at farm gate {FR} U",
@@ -5560,7 +5560,7 @@
     "scopes": ["food2"],
     "source": "Agribalyse 3.2",
     "unit": "kg",
-    "visible": true
+    "visible": false
   },
   {
     "activityName": "Cauliflower, conventional, national average, at farm gate {FR} U",
@@ -5594,7 +5594,7 @@
     "scopes": ["food2"],
     "source": "Agribalyse 3.2",
     "unit": "kg",
-    "visible": true
+    "visible": false
   },
   {
     "activityName": "Cauliflower, conventional, national average, at farm gate {FR} U",
@@ -6173,7 +6173,7 @@
     "scopes": ["food2"],
     "source": "Agribalyse 3.2",
     "unit": "kg",
-    "visible": true
+    "visible": false
   },
   {
     "activityName": "Cauliflower, winter, conventional, at farm gate {FR} U",
@@ -6207,7 +6207,7 @@
     "scopes": ["food2"],
     "source": "Agribalyse 3.2",
     "unit": "kg",
-    "visible": true
+    "visible": false
   },
   {
     "activityName": "Cauliflower, winter, conventional, at farm gate {FR} U",
@@ -6353,7 +6353,7 @@
     "scopes": ["food2"],
     "source": "Agribalyse 3.2",
     "unit": "kg",
-    "visible": true
+    "visible": false
   },
   {
     "activityName": "Cauliflower, winter, organic, at farm gate {FR} U",
@@ -6392,7 +6392,7 @@
     "scopes": ["food2"],
     "source": "Agribalyse 3.2",
     "unit": "kg",
-    "visible": true
+    "visible": false
   },
   {
     "activityName": "Cauliflower, winter, organic, at farm gate {FR} U",
@@ -6431,7 +6431,7 @@
     "scopes": ["food2"],
     "source": "Agribalyse 3.2",
     "unit": "kg",
-    "visible": true
+    "visible": false
   },
   {
     "activityName": "Cauliflower, winter, organic, at farm gate {FR} U",
@@ -6470,7 +6470,7 @@
     "scopes": ["food2"],
     "source": "Agribalyse 3.2",
     "unit": "kg",
-    "visible": true
+    "visible": false
   },
   {
     "activityName": "Celery {GLO}| 675 production | Cut-off, U - Adapted from Ecoinvent U",
@@ -6572,7 +6572,7 @@
     "scopes": ["food2"],
     "source": "Agribalyse 3.2",
     "unit": "kg",
-    "visible": true
+    "visible": false
   },
   {
     "activityName": "Celery {GLO}| 675 production | Cut-off, U - Adapted from Ecoinvent U",
@@ -6650,7 +6650,7 @@
     "scopes": ["food2"],
     "source": "Agribalyse 3.2",
     "unit": "kg",
-    "visible": true
+    "visible": false
   },
   {
     "activityName": "Celery {GLO}| 675 production | Cut-off, U - Adapted from Ecoinvent U",
@@ -6718,7 +6718,7 @@
     "scopes": ["food2"],
     "source": "Agribalyse 3.2",
     "unit": "kg",
-    "visible": true
+    "visible": false
   },
   {
     "activityName": "Cereal bars, 126g | Packaging System, Proxy Pack, Plastic film {FR} U",
@@ -6906,7 +6906,7 @@
     "scopes": ["food2"],
     "source": "Agribalyse 3.2",
     "unit": "kg",
-    "visible": true
+    "visible": false
   },
   {
     "activityName": "Cherry, conventional, national average, at orchard {FR} U",
@@ -7062,7 +7062,7 @@
     "scopes": ["food2"],
     "source": "Agribalyse 3.2",
     "unit": "kg",
-    "visible": true
+    "visible": false
   },
   {
     "activityName": "Chestnut cream or canned, 370g | Packaging System, Proxy Pack, Glass {FR} U",
@@ -7659,7 +7659,7 @@
     "scopes": ["food2"],
     "source": "Agribalyse 3.2",
     "unit": "kg",
-    "visible": true
+    "visible": false
   },
   {
     "activityName": "Clementine, export quality, Souss, at orchard {MA} U",
@@ -8159,7 +8159,7 @@
     "scopes": ["food2"],
     "source": "Agribalyse 3.2",
     "unit": "kg",
-    "visible": true
+    "visible": false
   },
   {
     "activityName": "Condiment sauces, 250g | Packaging System, Proxy Pack, Glass {FR} U",
@@ -8433,7 +8433,7 @@
     "scopes": ["food2"],
     "source": "Agribalyse 3.2",
     "unit": "kg",
-    "visible": true
+    "visible": false
   },
   {
     "activityName": "Cow milk, conventional, national average, at farm gate {FR} U",
@@ -8529,7 +8529,7 @@
     "scopes": ["food2"],
     "source": "Agribalyse 3.2",
     "unit": "kg",
-    "visible": true
+    "visible": false
   },
   {
     "activityName": "Crackers, 100g | Packaging System, Proxy Pack, Plastic film {FR} U",
@@ -8776,7 +8776,7 @@
     "scopes": ["food2"],
     "source": "Agribalyse 3.2",
     "unit": "kg",
-    "visible": true
+    "visible": false
   },
   {
     "activityName": "Cucumber {GLO}| cucumber production, in heated greenhouse | Cut-off, U - Adapted from Ecoinvent U",
@@ -8849,7 +8849,7 @@
     "scopes": ["food2"],
     "source": "Agribalyse 3.2",
     "unit": "kg",
-    "visible": true
+    "visible": false
   },
   {
     "activityName": "Cucumber {GLO}| cucumber production, in heated greenhouse | Cut-off, U - Adapted from Ecoinvent U",
@@ -9523,7 +9523,7 @@
     "scopes": ["food2"],
     "source": "Agribalyse 3.2",
     "unit": "kg",
-    "visible": true
+    "visible": false
   },
   {
     "activityName": "Durum wheat grain, at farm {AU} - Adapted from WFLDB U",
@@ -9755,7 +9755,7 @@
     "scopes": ["food2"],
     "source": "Agribalyse 3.2",
     "unit": "kg",
-    "visible": true
+    "visible": false
   },
   {
     "activityName": "Durum wheat grain, at farm {GR} - Adapted from WFLDB U",
@@ -10106,7 +10106,7 @@
     "scopes": ["food2"],
     "source": "Agribalyse 3.2",
     "unit": "kg",
-    "visible": true
+    "visible": false
   },
   {
     "activityName": "Egg, conventional, outdoor system, at farm gate {FR} U",
@@ -10231,7 +10231,7 @@
     "scopes": ["food2"],
     "source": "Agribalyse 3.2",
     "unit": "kg",
-    "visible": true
+    "visible": false
   },
   {
     "activityName": "Eggs, powder, 800g | Packaging System, Proxy Pack, Steel {FR} U",
@@ -10440,7 +10440,7 @@
     "scopes": ["food2"],
     "source": "Agribalyse 3.2",
     "unit": "kg",
-    "visible": true
+    "visible": false
   },
   {
     "activityName": "Emmental cheese, grated, cheese production, from cow's milk, hard cheese, French production mix, at plant, 1 kg of Emmental, grated cheese (PGi) {FR} U",
@@ -10668,7 +10668,7 @@
     "scopes": ["food2"],
     "source": "Agribalyse 3.2",
     "unit": "kg",
-    "visible": true
+    "visible": false
   },
   {
     "activityName": "Fava bean, Swiss integrated production {CH}| fava bean production, Swiss integrated production, at farm | Cut-off, U - Adapted from Ecoinvent U",
@@ -10755,7 +10755,7 @@
     "scopes": ["food2"],
     "source": "Agribalyse 3.2",
     "unit": "kg",
-    "visible": true
+    "visible": false
   },
   {
     "activityName": "Fava bean, Swiss integrated production {CH}| fava bean production, Swiss integrated production, at farm | Cut-off, U - Adapted from Ecoinvent U",
@@ -11137,7 +11137,7 @@
     "scopes": ["food2"],
     "source": "Agribalyse 3.2",
     "unit": "kg",
-    "visible": true
+    "visible": false
   },
   {
     "activityName": "Fennel {GLO}| production | Cut-off, U - Adapted from Ecoinvent U",
@@ -12153,7 +12153,7 @@
     "scopes": ["food2"],
     "source": "Agribalyse 3.2",
     "unit": "kg",
-    "visible": true
+    "visible": false
   },
   {
     "activityName": "French bean, conventional, national average, at farm gate {FR} U",
@@ -12221,7 +12221,7 @@
     "scopes": ["food2"],
     "source": "Agribalyse 3.2",
     "unit": "kg",
-    "visible": true
+    "visible": false
   },
   {
     "activityName": "French bean, conventional, national average, at farm gate {FR} U",
@@ -12289,7 +12289,7 @@
     "scopes": ["food2"],
     "source": "Agribalyse 3.2",
     "unit": "kg",
-    "visible": true
+    "visible": false
   },
   {
     "activityName": "French bean, conventional, national average, at farm gate {FR} U",
@@ -12907,7 +12907,7 @@
     "scopes": ["food2"],
     "source": "Agribalyse 3.2",
     "unit": "kg",
-    "visible": true
+    "visible": false
   },
   {
     "activityName": "Grape, full production (phase), integrated, variety mix, Languedoc-Roussillon, at vineyard {FR} U",
@@ -13275,7 +13275,7 @@
     "scopes": ["food2"],
     "source": "Agribalyse 3.2",
     "unit": "kg",
-    "visible": true
+    "visible": false
   },
   {
     "activityName": "Hazelnut, in shell, at farm {IT} - Adapted from WFLDB U",
@@ -13420,7 +13420,7 @@
     "scopes": ["food2"],
     "source": "Agribalyse 3.2",
     "unit": "kg",
-    "visible": true
+    "visible": false
   },
   {
     "activityName": "Hazelnut, unshelled, at plant {TR} U",
@@ -13507,7 +13507,7 @@
     "scopes": ["food2"],
     "source": "Agribalyse 3.2",
     "unit": "kg",
-    "visible": true
+    "visible": false
   },
   {
     "activityName": "Heat, central or small-scale, natural gas {Europe without Switzerland}| market for heat, central or small-scale, natural gas | Cut-off, S - Copied from Ecoinvent U",
@@ -13909,7 +13909,7 @@
     "scopes": ["food2"],
     "source": "Agribalyse 3.2",
     "unit": "kg",
-    "visible": true
+    "visible": false
   },
   {
     "activityName": "Iceberg lettuce {GLO}| production | Cut-off, U - Adapted from Ecoinvent U",
@@ -14562,7 +14562,7 @@
     "scopes": ["food2"],
     "source": "Agribalyse 3.2",
     "unit": "kg",
-    "visible": true
+    "visible": false
   },
   {
     "activityName": "Kiwi {GLO}| production | Cut-off, U - Adapted from Ecoinvent U",
@@ -14861,7 +14861,7 @@
     "scopes": ["food2"],
     "source": "Agribalyse 3.2",
     "unit": "kg",
-    "visible": true
+    "visible": false
   },
   {
     "activityName": "Leek, consumption mix {FR} U",
@@ -14895,7 +14895,7 @@
     "scopes": ["food2"],
     "source": "Agribalyse 3.2",
     "unit": "kg",
-    "visible": true
+    "visible": false
   },
   {
     "activityName": "Leek, conventional, national average, at plant {FR} U",
@@ -15173,7 +15173,7 @@
     "scopes": ["food2"],
     "source": "Agribalyse 3.2",
     "unit": "kg",
-    "visible": true
+    "visible": false
   },
   {
     "activityName": "Lemon {ES}| lemon production | Cut-off, U - Adapted from Ecoinvent U",
@@ -15357,7 +15357,7 @@
     "scopes": ["food2"],
     "source": "Agribalyse 3.2",
     "unit": "kg",
-    "visible": true
+    "visible": false
   },
   {
     "activityName": "Lettuce, conventional, national average, at farm gate {FR} U",
@@ -16503,7 +16503,7 @@
     "scopes": ["food2"],
     "source": "Agribalyse 3.2",
     "unit": "kg",
-    "visible": true
+    "visible": false
   },
   {
     "activityName": "Maize grain, non-irrigated, at farm {BR} - Adapted from WFLDB U",
@@ -16532,7 +16532,7 @@
     "scopes": ["food2"],
     "source": "Agribalyse 3.2",
     "unit": "kg",
-    "visible": true
+    "visible": false
   },
   {
     "activityName": "Maize/corn oil, 3L | Packaging System, N0, All, Plastic bottle (clear) {FR} U",
@@ -16776,7 +16776,7 @@
     "scopes": ["food2"],
     "source": "Agribalyse 3.2",
     "unit": "kg",
-    "visible": true
+    "visible": false
   },
   {
     "activityName": "Mango, conventional, Val de San Francisco, at orchard {BR} U",
@@ -16888,7 +16888,7 @@
     "scopes": ["food2"],
     "source": "Agribalyse 3.2",
     "unit": "kg",
-    "visible": true
+    "visible": false
   },
   {
     "activityName": "Margarines, 250g | Packaging System, N0, All, Plastic tub (injected) {FR} U",
@@ -17225,7 +17225,7 @@
     "scopes": ["food2"],
     "source": "Agribalyse 3.2",
     "unit": "kg",
-    "visible": true
+    "visible": false
   },
   {
     "activityName": "Meat without bone, lamb {FR} U",
@@ -17355,7 +17355,7 @@
     "scopes": ["food2"],
     "source": "Agribalyse 3.2",
     "unit": "kg",
-    "visible": true
+    "visible": false
   },
   {
     "activityName": "Melon, conventional, national average, at farm gate {FR} U",
@@ -17423,7 +17423,7 @@
     "scopes": ["food2"],
     "source": "Agribalyse 3.2",
     "unit": "kg",
-    "visible": true
+    "visible": false
   },
   {
     "activityName": "Melon, conventional, national average, at farm gate {FR} U",
@@ -17457,7 +17457,7 @@
     "scopes": ["food2"],
     "source": "Agribalyse 3.2",
     "unit": "kg",
-    "visible": true
+    "visible": false
   },
   {
     "activityName": "Melon, conventional, national average, at farm gate {FR} U",
@@ -17564,7 +17564,7 @@
     "scopes": ["food2"],
     "source": "Agribalyse 3.2",
     "unit": "kg",
-    "visible": true
+    "visible": false
   },
   {
     "activityName": "Melon, under low tunnel, conventional, at farm gate {FR} U",
@@ -18197,7 +18197,7 @@
     "scopes": ["food2"],
     "source": "Agribalyse 3.2",
     "unit": "kg",
-    "visible": true
+    "visible": false
   },
   {
     "activityName": "Muesli, 500g | Packaging System, Proxy Pack, Plastic film {FR} U",
@@ -18744,7 +18744,7 @@
     "scopes": ["food2"],
     "source": "Agribalyse 3.2",
     "unit": "kg",
-    "visible": true
+    "visible": false
   },
   {
     "activityName": "Olive {IT}| olive production | Cut-off, U - Copied from Ecoinvent U",
@@ -18900,7 +18900,7 @@
     "scopes": ["food2"],
     "source": "Agribalyse 3.2",
     "unit": "kg",
-    "visible": true
+    "visible": false
   },
   {
     "activityName": "Onion {NL}| onion production | Cut-off, U - Adapted from Ecoinvent U",
@@ -19036,7 +19036,7 @@
     "scopes": ["food2"],
     "source": "Agribalyse 3.2",
     "unit": "kg",
-    "visible": true
+    "visible": false
   },
   {
     "activityName": "Onion {RoW}| onion production | Cut-off, U - Copied from Ecoinvent U",
@@ -19226,7 +19226,7 @@
     "scopes": ["food2"],
     "source": "Agribalyse 3.2",
     "unit": "kg",
-    "visible": true
+    "visible": false
   },
   {
     "activityName": "Onion, conventional, national average, at farm {FR} U",
@@ -19396,7 +19396,7 @@
     "scopes": ["food2"],
     "source": "Agribalyse 3.2",
     "unit": "kg",
-    "visible": true
+    "visible": false
   },
   {
     "activityName": "Orange, fresh grade {ES}| orange production, fresh grade | Cut-off, U - Adapted from Ecoinvent U",
@@ -19537,7 +19537,7 @@
     "scopes": ["food2"],
     "source": "Agribalyse 3.2",
     "unit": "kg",
-    "visible": true
+    "visible": false
   },
   {
     "activityName": "Orange, fresh grade {ES}| orange production, fresh grade | Cut-off, U - Adapted from Ecoinvent U",
@@ -19751,7 +19751,7 @@
     "scopes": ["food2"],
     "source": "Agribalyse 3.2",
     "unit": "kg",
-    "visible": true
+    "visible": false
   },
   {
     "activityName": "Orange, fresh grade, at farm {ES} - Adapted from WFLDB U",
@@ -19924,7 +19924,7 @@
     "scopes": ["food2"],
     "source": "Agribalyse 3.2",
     "unit": "kg",
-    "visible": true
+    "visible": false
   },
   {
     "activityName": "Palm fruit bunch {ID}| palm fruit bunch production | Cut-off, U - Adapted from Ecoinvent U",
@@ -20754,7 +20754,7 @@
     "scopes": ["food2"],
     "source": "Agribalyse 3.2",
     "unit": "kg",
-    "visible": true
+    "visible": false
   },
   {
     "activityName": "Peach {ES}| peach production | Cut-off, U - Adapted from Ecoinvent U",
@@ -20788,7 +20788,7 @@
     "scopes": ["food2"],
     "source": "Agribalyse 3.2",
     "unit": "kg",
-    "visible": true
+    "visible": false
   },
   {
     "activityName": "Peach, at farm {ES} - Adapted from WFLDB U",
@@ -21046,7 +21046,7 @@
     "scopes": ["food2"],
     "source": "Agribalyse 3.2",
     "unit": "kg",
-    "visible": true
+    "visible": false
   },
   {
     "activityName": "Peanut butter, 350g | Packaging System, Proxy Pack, Glass {FR} U",
@@ -21124,7 +21124,7 @@
     "scopes": ["food2"],
     "source": "Agribalyse 3.2",
     "unit": "kg",
-    "visible": true
+    "visible": false
   },
   {
     "activityName": "Peanut {IN}| peanut production | Cut-off, U - Adapted from Ecoinvent U",
@@ -21153,7 +21153,7 @@
     "scopes": ["food2"],
     "source": "Agribalyse 3.2",
     "unit": "kg",
-    "visible": true
+    "visible": false
   },
   {
     "activityName": "Peanut {IN}| peanut production | Cut-off, U - Adapted from Ecoinvent U",
@@ -21245,7 +21245,7 @@
     "scopes": ["food2"],
     "source": "Agribalyse 3.2",
     "unit": "kg",
-    "visible": true
+    "visible": false
   },
   {
     "activityName": "Pear, at farm {BE} - Adapted from WFLDB U",
@@ -21391,7 +21391,7 @@
     "scopes": ["food2"],
     "source": "Agribalyse 3.2",
     "unit": "kg",
-    "visible": true
+    "visible": false
   },
   {
     "activityName": "Pear, conventional, national average, at orchard {FR} U",
@@ -21576,7 +21576,7 @@
     "scopes": ["food2"],
     "source": "Agribalyse 3.2",
     "unit": "kg",
-    "visible": true
+    "visible": false
   },
   {
     "activityName": "Pineapple, at farm {CR} - Adapted from WFLDB U",
@@ -22377,7 +22377,7 @@
     "scopes": ["food2"],
     "source": "Agribalyse 3.2",
     "unit": "kg",
-    "visible": true
+    "visible": false
   },
   {
     "activityName": "Radish {FR}| radish production, in unheated greenhouse | Cut-off, U - Adapted from Ecoinvent U",
@@ -22790,7 +22790,7 @@
     "scopes": ["food2"],
     "source": "Agribalyse 3.2",
     "unit": "kg",
-    "visible": true
+    "visible": false
   },
   {
     "activityName": "Raspberry, at farm {RS} - Adapted from WFLDB U",
@@ -22911,7 +22911,7 @@
     "scopes": ["food2"],
     "source": "Agribalyse 3.2",
     "unit": "kg",
-    "visible": true
+    "visible": false
   },
   {
     "activityName": "Red Wine, from grape, in a cooperative cellar, packaged, French production mix, at plant, 1 L of red wine (PGi) {FR} U",
@@ -23018,7 +23018,7 @@
     "scopes": ["food2"],
     "source": "Agribalyse 3.2",
     "unit": "kg",
-    "visible": true
+    "visible": false
   },
   {
     "activityName": "Rice, basmati {IN}| rice production, basmati | Cut-off, U - Adapted from Ecoinvent U",
@@ -23529,7 +23529,7 @@
     "scopes": ["food2"],
     "source": "Agribalyse 3.2",
     "unit": "kg",
-    "visible": true
+    "visible": false
   },
   {
     "activityName": "Salts, 125g | Packaging System, Proxy Pack, Cardboard {FR} U",
@@ -25728,7 +25728,7 @@
     "scopes": ["food2"],
     "source": "Agribalyse 3.2",
     "unit": "kg",
-    "visible": true
+    "visible": false
   },
   {
     "activityName": "Spinach {GLO}| production | Cut-off, U - Adapted from Ecoinvent U",
@@ -25835,7 +25835,7 @@
     "scopes": ["food2"],
     "source": "Agribalyse 3.2",
     "unit": "kg",
-    "visible": true
+    "visible": false
   },
   {
     "activityName": "Spring faba bean, conventional, national average, at farm gate {FR} U",
@@ -26068,7 +26068,7 @@
     "scopes": ["food2"],
     "source": "Agribalyse 3.2",
     "unit": "kg",
-    "visible": true
+    "visible": false
   },
   {
     "activityName": "Spring pea, conventional, 15% moisture, animal feed, at farm gate, production {FR} U",
@@ -26491,7 +26491,7 @@
     "scopes": ["food2"],
     "source": "Agribalyse 3.2",
     "unit": "kg",
-    "visible": true
+    "visible": false
   },
   {
     "activityName": "Strawberry for processing, open field, conventional, at farm gate {MA} U",
@@ -26525,7 +26525,7 @@
     "scopes": ["food2"],
     "source": "Agribalyse 3.2",
     "unit": "kg",
-    "visible": true
+    "visible": false
   },
   {
     "activityName": "Strawberry, conventional, national average, at farm gate {FR} U",
@@ -27544,7 +27544,7 @@
     "scopes": ["food2"],
     "source": "Agribalyse 3.2",
     "unit": "kg",
-    "visible": true
+    "visible": false
   },
   {
     "activityName": "Tea, dried {KE}| tea production, dried | Cut-off, U - Adapted from Ecoinvent U",
@@ -28987,7 +28987,7 @@
     "scopes": ["food2"],
     "source": "Agribalyse 3.2",
     "unit": "kg",
-    "visible": true
+    "visible": false
   },
   {
     "activityName": "Walnut, dried inshell, conventional, national average, at farm gate {FR} U",
@@ -29103,7 +29103,7 @@
     "scopes": ["food2"],
     "source": "Agribalyse 3.2",
     "unit": "kg",
-    "visible": true
+    "visible": false
   },
   {
     "activityName": "Walnut, dried inshell, conventional, national average, at farm gate {FR} U",
@@ -29132,7 +29132,7 @@
     "scopes": ["food2"],
     "source": "Agribalyse 3.2",
     "unit": "kg",
-    "visible": true
+    "visible": false
   },
   {
     "activityName": "Walnut, dried inshell, conventional, national average, at farm gate {FR} U",
@@ -29161,7 +29161,7 @@
     "scopes": ["food2"],
     "source": "Agribalyse 3.2",
     "unit": "kg",
-    "visible": true
+    "visible": false
   },
   {
     "activityName": "Walnut, dried inshell, traditional varieties, organic, at farm gate {FR} U",
@@ -29190,7 +29190,7 @@
     "scopes": ["food2"],
     "source": "Agribalyse 3.2",
     "unit": "kg",
-    "visible": true
+    "visible": false
   },
   {
     "activityName": "Walnut, dried inshell, traditional varieties, organic, at farm gate {FR} U",
@@ -29219,7 +29219,7 @@
     "scopes": ["food2"],
     "source": "Agribalyse 3.2",
     "unit": "kg",
-    "visible": true
+    "visible": false
   },
   {
     "activityName": "Walnut, dried, husked, processed in FR | Ambient (long) | Pack proxy | at packaging {FR} U",
@@ -29248,7 +29248,7 @@
     "scopes": ["food2"],
     "source": "Agribalyse 3.2",
     "unit": "kg",
-    "visible": true
+    "visible": false
   },
   {
     "activityName": "Walnut, dried, husked, processed in FR | Ambient (long) | Pack proxy | at packaging {FR} U",
@@ -29277,7 +29277,7 @@
     "scopes": ["food2"],
     "source": "Agribalyse 3.2",
     "unit": "kg",
-    "visible": true
+    "visible": false
   },
   {
     "activityName": "Ware potato, conventional, for fresh market, firm flesh varieties, at farm gate {FR} U",
@@ -29350,7 +29350,7 @@
     "scopes": ["food2"],
     "source": "Agribalyse 3.2",
     "unit": "kg",
-    "visible": true
+    "visible": false
   },
   {
     "activityName": "Ware potato, conventional, for industrial use, at farm gate {FR} U",
@@ -29389,7 +29389,7 @@
     "scopes": ["food2"],
     "source": "Agribalyse 3.2",
     "unit": "kg",
-    "visible": true
+    "visible": false
   },
   {
     "activityName": "Ware potato, conventional, variety mix, national average, at farm gate {FR} U",
@@ -29865,7 +29865,7 @@
     "scopes": ["food2"],
     "source": "Agribalyse 3.2",
     "unit": "kg",
-    "visible": true
+    "visible": false
   },
   {
     "activityName": "Wheat grain, at farm {GLO} - Adapted from WFLDB U",
@@ -29894,7 +29894,7 @@
     "scopes": ["food2"],
     "source": "Agribalyse 3.2",
     "unit": "kg",
-    "visible": true
+    "visible": false
   },
   {
     "activityName": "Whey, at plant {FR} U",
@@ -30093,7 +30093,7 @@
     "scopes": ["food2"],
     "source": "Agribalyse 3.2",
     "unit": "kg",
-    "visible": true
+    "visible": false
   },
   {
     "activityName": "Winter pea, conventional, 15% moisture, at farm gate {FR} U",
@@ -30533,7 +30533,7 @@
     "scopes": ["food2"],
     "source": "Agribalyse 3.2",
     "unit": "kg",
-    "visible": true
+    "visible": false
   },
   {
     "activityName": "Yoghurts, 1000g | Packaging System, N0, All, Plastic pot {FR} U",
@@ -30641,7 +30641,7 @@
     "scopes": ["food2"],
     "source": "Agribalyse 3.2",
     "unit": "kg",
-    "visible": true
+    "visible": false
   },
   {
     "activityName": "Zucchini, autumn, under tunnel, conventional, at farm gate {FR} U",
@@ -30957,7 +30957,7 @@
     "scopes": ["food2"],
     "source": "Agribalyse 3.2",
     "unit": "kg",
-    "visible": true
+    "visible": false
   },
   {
     "activityName": "Zucchini, conventional, national average, at farm gate {FR} U",
@@ -31098,7 +31098,7 @@
     "scopes": ["food2"],
     "source": "Agribalyse 3.2",
     "unit": "kg",
-    "visible": true
+    "visible": false
   },
   {
     "activityName": "Zucchini, conventional, national average, at farm gate {FR} U",
@@ -31171,7 +31171,7 @@
     "scopes": ["food2"],
     "source": "Agribalyse 3.2",
     "unit": "kg",
-    "visible": true
+    "visible": false
   },
   {
     "activityName": "Zucchini, springtime, under tunnel, conventionel, at farm gate {FR} U",
@@ -31210,7 +31210,7 @@
     "scopes": ["food2"],
     "source": "Agribalyse 3.2",
     "unit": "kg",
-    "visible": true
+    "visible": false
   },
   {
     "activityName": "Zucchini, springtime, under tunnel, conventionel, at farm gate {FR} U",
@@ -31249,7 +31249,7 @@
     "scopes": ["food2"],
     "source": "Agribalyse 3.2",
     "unit": "kg",
-    "visible": true
+    "visible": false
   },
   {
     "activityName": "Zucchini, springtime, under tunnel, organic, at farm gate {FR} U",
@@ -31288,7 +31288,7 @@
     "scopes": ["food2"],
     "source": "Agribalyse 3.2",
     "unit": "kg",
-    "visible": true
+    "visible": false
   },
   {
     "activityName": "Zucchini, springtime, under tunnel, organic, at farm gate {FR} U",
@@ -31327,7 +31327,7 @@
     "scopes": ["food2"],
     "source": "Agribalyse 3.2",
     "unit": "kg",
-    "visible": true
+    "visible": false
   },
   {
     "activityName": "[Dummy] Mixing, processing, at plant {FR} U",
@@ -36616,7 +36616,7 @@
     "scopes": ["food2"],
     "source": "Ecobalyse_custom_lci",
     "unit": "kg",
-    "visible": true
+    "visible": false
   },
   {
     "activityName": "Meat without bone, beef for direct consumption {{beef-without-bone-feedlot-2025}}",
@@ -40465,7 +40465,7 @@
     "scopes": ["food2"],
     "source": "Ecobalyse_custom_lci",
     "unit": "kg",
-    "visible": true
+    "visible": false
   },
   {
     "activityName": "White bean, canned drained, CMAPS {GLO} U",
@@ -45973,7 +45973,7 @@
     "scopes": ["food2"],
     "source": "Ecoinvent 3.11",
     "unit": "kg",
-    "visible": true
+    "visible": false
   },
   {
     "activityName": "White asparagus {CN}| white asparagus production | Cut-off, U",
@@ -46368,7 +46368,7 @@
     "scopes": ["food2"],
     "source": "Ecoinvent 3.9.1",
     "unit": "kg",
-    "visible": true
+    "visible": false
   },
   {
     "activityName": "coating, with melamine impregnated paper//[RER] coating service, melamine impregnated paper, double-sided",
@@ -47643,7 +47643,7 @@
     "scopes": ["food2"],
     "source": "Ecoinvent 3.9.1",
     "unit": "kg",
-    "visible": true
+    "visible": false
   },
   {
     "activityName": "protein pea//[GLO] market for protein pea",
@@ -47672,7 +47672,7 @@
     "scopes": ["food2"],
     "source": "Ecoinvent 3.9.1",
     "unit": "kg",
-    "visible": true
+    "visible": false
   },
   {
     "activityName": "sawlog and veneer log, hardwood, measured as solid wood under bark//[DE] hardwood forestry, beech, sustainable forest management",
@@ -48493,7 +48493,7 @@
     "scopes": ["food2"],
     "source": "Ginko 2025",
     "unit": "kg",
-    "visible": true
+    "visible": false
   },
   {
     "activityName": "Apple, organic 2025, national average, at orchard {FR} U",
@@ -48961,7 +48961,7 @@
     "scopes": ["food2"],
     "source": "Ginko 2025",
     "unit": "kg",
-    "visible": true
+    "visible": false
   },
   {
     "activityName": "Broccoli, organic 2025 {GLO}| production | Cut-off, U",
@@ -49078,7 +49078,7 @@
     "scopes": ["food2"],
     "source": "Ginko 2025",
     "unit": "kg",
-    "visible": true
+    "visible": false
   },
   {
     "activityName": "Carrot, organic 2025 {RoW}| carrot production | Cut-off, U",
@@ -49234,7 +49234,7 @@
     "scopes": ["food2"],
     "source": "Ginko 2025",
     "unit": "kg",
-    "visible": true
+    "visible": false
   },
   {
     "activityName": "Carrot, organic 2025, national average, at farm gate {FR} U",
@@ -49312,7 +49312,7 @@
     "scopes": ["food2"],
     "source": "Ginko 2025",
     "unit": "kg",
-    "visible": true
+    "visible": false
   },
   {
     "activityName": "Carrot, organic 2025, national average, at farm gate {FR} U",
@@ -49390,7 +49390,7 @@
     "scopes": ["food2"],
     "source": "Ginko 2025",
     "unit": "kg",
-    "visible": true
+    "visible": false
   },
   {
     "activityName": "Carrot, organic 2025, national average, at farm gate {FR} U",
@@ -49663,7 +49663,7 @@
     "scopes": ["food2"],
     "source": "Ginko 2025",
     "unit": "kg",
-    "visible": true
+    "visible": false
   },
   {
     "activityName": "Cauliflower, organic 2025, national average, at farm gate {FR} U",
@@ -50053,7 +50053,7 @@
     "scopes": ["food2"],
     "source": "Ginko 2025",
     "unit": "kg",
-    "visible": true
+    "visible": false
   },
   {
     "activityName": "Cherry, organic 2025, national average, at orchard {FR} U",
@@ -50209,7 +50209,7 @@
     "scopes": ["food2"],
     "source": "Ginko 2025",
     "unit": "kg",
-    "visible": true
+    "visible": false
   },
   {
     "activityName": "Chicory roots, organic 2025, at farm gate {FR} U",
@@ -51060,7 +51060,7 @@
     "scopes": ["food2"],
     "source": "Ginko 2025",
     "unit": "kg",
-    "visible": true
+    "visible": false
   },
   {
     "activityName": "Grape, integrated, variety mix, Languedoc-Roussillon, at vineyard, organic 2025 {FR} U",
@@ -51191,7 +51191,7 @@
     "scopes": ["food2"],
     "source": "Ginko 2025",
     "unit": "kg",
-    "visible": true
+    "visible": false
   },
   {
     "activityName": "Hazelnut, unshelled, consumption mix, organic 2025 {FR} U",
@@ -51225,7 +51225,7 @@
     "scopes": ["food2"],
     "source": "Ginko 2025",
     "unit": "kg",
-    "visible": true
+    "visible": false
   },
   {
     "activityName": "Hemp, grain, Champagne, at farm gate, organic 2025 {FR} U",
@@ -51488,7 +51488,7 @@
     "scopes": ["food2"],
     "source": "Ginko 2025",
     "unit": "kg",
-    "visible": true
+    "visible": false
   },
   {
     "activityName": "Lemon, at farm, organic 2025 {IT} U",
@@ -51595,7 +51595,7 @@
     "scopes": ["food2"],
     "source": "Ginko 2025",
     "unit": "kg",
-    "visible": true
+    "visible": false
   },
   {
     "activityName": "Lettuce, organic 2025, national average, at farm gate {FR} U",
@@ -51673,7 +51673,7 @@
     "scopes": ["food2"],
     "source": "Ginko 2025",
     "unit": "kg",
-    "visible": true
+    "visible": false
   },
   {
     "activityName": "Lettuce, organic 2025, national average, at farm gate {FR} U",
@@ -52296,7 +52296,7 @@
     "scopes": ["food2"],
     "source": "Ginko 2025",
     "unit": "kg",
-    "visible": true
+    "visible": false
   },
   {
     "activityName": "Oat grain, organic 2025 {RoW}| oat production | Cut-off, U",
@@ -52588,7 +52588,7 @@
     "scopes": ["food2"],
     "source": "Ginko 2025",
     "unit": "kg",
-    "visible": true
+    "visible": false
   },
   {
     "activityName": "Onion, organic 2025, national average, at farm {FR} U",
@@ -53041,7 +53041,7 @@
     "scopes": ["food2"],
     "source": "Ginko 2025",
     "unit": "kg",
-    "visible": true
+    "visible": false
   },
   {
     "activityName": "Peanut, organic 2025 {AR}| peanut production | Cut-off, U",
@@ -53215,7 +53215,7 @@
     "scopes": ["food2"],
     "source": "Ginko 2025",
     "unit": "kg",
-    "visible": true
+    "visible": false
   },
   {
     "activityName": "Peanut, organic 2025 {RoW}| peanut production | Cut-off, U",
@@ -53434,7 +53434,7 @@
     "scopes": ["food2"],
     "source": "Ginko 2025",
     "unit": "kg",
-    "visible": true
+    "visible": false
   },
   {
     "activityName": "Rapeseed, organic 2025, 9% moisture, national average, animal feed, at farm gate, production {FR} U",
@@ -53546,7 +53546,7 @@
     "scopes": ["food2"],
     "source": "Ginko 2025",
     "unit": "kg",
-    "visible": true
+    "visible": false
   },
   {
     "activityName": "Red Cabbage, consumption mix, organic 2025 {FR} U",
@@ -53672,7 +53672,7 @@
     "scopes": ["food2"],
     "source": "Ginko 2025",
     "unit": "kg",
-    "visible": true
+    "visible": false
   },
   {
     "activityName": "Soft wheat grain, organic 2025, breadmaking quality, 15% moisture, at farm gate {FR} U",
@@ -53745,7 +53745,7 @@
     "scopes": ["food2"],
     "source": "Ginko 2025",
     "unit": "kg",
-    "visible": true
+    "visible": false
   },
   {
     "activityName": "Spinach, organic 2025 {GLO}| production | Cut-off, U",
@@ -54553,7 +54553,7 @@
     "scopes": ["food2"],
     "source": "Ginko 2025",
     "unit": "kg",
-    "visible": true
+    "visible": false
   },
   {
     "activityName": "Ware potato, organic 2025, variety mix, national average, at farm gate {FR} U",
@@ -54631,7 +54631,7 @@
     "scopes": ["food2"],
     "source": "Ginko 2025",
     "unit": "kg",
-    "visible": true
+    "visible": false
   },
   {
     "activityName": "Ware potato, organic 2025, variety mix, national average, at farm gate {FR} U",
@@ -55176,7 +55176,7 @@
     "scopes": ["food2"],
     "source": "WFLDB",
     "unit": "kg",
-    "visible": true
+    "visible": false
   },
   {
     "activityName": "Apple, at farm (WFLDB)",
@@ -55278,7 +55278,7 @@
     "scopes": ["food2"],
     "source": "WFLDB",
     "unit": "kg",
-    "visible": true
+    "visible": false
   },
   {
     "activityName": "Asparagus, at farm (WFLDB)",
@@ -56210,7 +56210,7 @@
     "scopes": ["food2"],
     "source": "WFLDB",
     "unit": "kg",
-    "visible": true
+    "visible": false
   },
   {
     "activityName": "Cherry, at farm (WFLDB)",
@@ -56761,7 +56761,7 @@
     "scopes": ["food2"],
     "source": "WFLDB",
     "unit": "kg",
-    "visible": true
+    "visible": false
   },
   {
     "activityName": "Lentils, dry, at farm (WFLDB)",
@@ -56790,7 +56790,7 @@
     "scopes": ["food2"],
     "source": "WFLDB",
     "unit": "kg",
-    "visible": true
+    "visible": false
   },
   {
     "activityName": "Mandarin, at farm (WFLDB)",
@@ -57998,7 +57998,7 @@
     "scopes": ["food2"],
     "source": "WFLDB",
     "unit": "kg",
-    "visible": true
+    "visible": false
   },
   {
     "activityName": "Potato, at farm (WFLDB)",
@@ -58032,7 +58032,7 @@
     "scopes": ["food2"],
     "source": "WFLDB",
     "unit": "kg",
-    "visible": true
+    "visible": false
   },
   {
     "activityName": "Raw cow milk archetype, feed mix IT-154, at farm (WFLDB)",

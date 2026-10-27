@@ -147,7 +147,7 @@
     "rawToCookedRatio": 1.0,
     "scenario": "import",
     "transportCooling": "none",
-    "visible": true
+    "visible": false
   },
   {
     "activityName": "Garlic, fresh, at farm (WFLDB)",
@@ -382,7 +382,7 @@
     "rawToCookedRatio": 2.33,
     "scenario": "organic",
     "transportCooling": "none",
-    "visible": true
+    "visible": false
   },
   {
     "activityName": "Coffee, green bean, organic 2025 {RoW}| coffee green bean production, robusta | Cut-off, U",
@@ -767,7 +767,7 @@
     "rawToCookedRatio": 2.33,
     "scenario": "reference",
     "transportCooling": "always",
-    "visible": true
+    "visible": false
   },
   {
     "activityName": "Raclette cheese, variant 1, CMAPS {GLO} U",
@@ -972,7 +972,7 @@
     "rawToCookedRatio": 0.856,
     "scenario": "import",
     "transportCooling": "none",
-    "visible": true
+    "visible": false
   },
   {
     "activityName": "Grape, integrated, french mix {FR} U",
@@ -1062,7 +1062,7 @@
     "rawToCookedRatio": 1.0,
     "scenario": "organic",
     "transportCooling": "always",
-    "visible": true
+    "visible": false
   },
   {
     "activityName": "Mango, at farm (WFLDB)",
@@ -1162,7 +1162,7 @@
     "rawToCookedRatio": 0.856,
     "scenario": "import",
     "transportCooling": "always",
-    "visible": true
+    "visible": false
   },
   {
     "activityName": "Rice flour, CMAPS {GLO} U",
@@ -1247,7 +1247,7 @@
     "rawToCookedRatio": 0.856,
     "scenario": "organic",
     "transportCooling": "always",
-    "visible": true
+    "visible": false
   },
   {
     "activityName": "Soy flour, CMAPS {GLO} U",
@@ -1567,7 +1567,7 @@
     "rawToCookedRatio": 0.856,
     "scenario": "import",
     "transportCooling": "always",
-    "visible": true
+    "visible": false
   },
   {
     "activityName": "Peanut, organic 2025 {RoW}| peanut production | Cut-off, U",
@@ -1627,7 +1627,7 @@
     "rawToCookedRatio": 0.856,
     "scenario": "import",
     "transportCooling": "always",
-    "visible": true
+    "visible": false
   },
   {
     "activityName": "Durum wheat grain, at farm {ES} - Adapted from WFLDB U",
@@ -1767,7 +1767,7 @@
     "rawToCookedRatio": 2.259,
     "scenario": "import",
     "transportCooling": "none",
-    "visible": true
+    "visible": false
   },
   {
     "activityName": "Almond, consumption mix {FR} U",
@@ -1787,7 +1787,7 @@
     "rawToCookedRatio": 1.0,
     "scenario": "import",
     "transportCooling": "none",
-    "visible": true
+    "visible": false
   },
   {
     "activityName": "Gruyere cheese, variant 1, CMAPS {GLO} U",
@@ -1907,7 +1907,7 @@
     "rawToCookedRatio": 1.0,
     "scenario": "reference",
     "transportCooling": "always",
-    "visible": true
+    "visible": false
   },
   {
     "activityName": "Linseed {RoW}| linseed production | Cut-off, U - Adapted from Ecoinvent U",
@@ -2022,7 +2022,7 @@
     "rawToCookedRatio": 0.856,
     "scenario": "organic",
     "transportCooling": "always",
-    "visible": true
+    "visible": false
   },
   {
     "activityName": "Chicory witloof, season, conventional, root production, at farm gate {FR} U",
@@ -2107,7 +2107,7 @@
     "rawToCookedRatio": 2.33,
     "scenario": "import",
     "transportCooling": "none",
-    "visible": true
+    "visible": false
   },
   {
     "activityName": "Leek, conventional, national average, at plant {FR} U",
@@ -2197,7 +2197,7 @@
     "rawToCookedRatio": 0.856,
     "scenario": "organic",
     "transportCooling": "none",
-    "visible": true
+    "visible": false
   },
   {
     "activityName": "Plum puree, CMAPS {GLO} U",
@@ -2282,7 +2282,7 @@
     "rawToCookedRatio": 1.0,
     "scenario": "organic",
     "transportCooling": "none",
-    "visible": true
+    "visible": false
   },
   {
     "activityName": "Spinach, organic 2025 {GLO}| production | Cut-off, U",
@@ -2427,7 +2427,7 @@
     "rawToCookedRatio": 0.856,
     "scenario": "import",
     "transportCooling": "none",
-    "visible": true
+    "visible": false
   },
   {
     "activityName": "Pear, at farm {BE} - Adapted from WFLDB U",
@@ -2572,7 +2572,7 @@
     "rawToCookedRatio": 2.33,
     "scenario": "import",
     "transportCooling": "none",
-    "visible": true
+    "visible": false
   },
   {
     "activityName": "White asparagus, organic 2025 {FR}| white asparagus production | Cut-off, U",
@@ -2672,7 +2672,7 @@
     "rawToCookedRatio": 0.856,
     "scenario": "import",
     "transportCooling": "always",
-    "visible": true
+    "visible": false
   },
   {
     "activityName": "Winter pea, conventional, 15% moisture, at farm gate {FR} U",
@@ -3017,7 +3017,7 @@
     "rawToCookedRatio": 0.856,
     "scenario": "organic",
     "transportCooling": "always",
-    "visible": true
+    "visible": false
   },
   {
     "activityName": "Lobster, 1 kg of product, at landing {GB} U",
@@ -3137,7 +3137,7 @@
     "rawToCookedRatio": 1.0,
     "scenario": "organic",
     "transportCooling": "none",
-    "visible": true
+    "visible": false
   },
   {
     "activityName": "Flaxseed, national average, animal feed, at farm gate {FR} U",
@@ -3177,7 +3177,7 @@
     "rawToCookedRatio": 1.0,
     "scenario": "import",
     "transportCooling": "always",
-    "visible": true
+    "visible": false
   },
   {
     "activityName": "Cauliflower {GLO}| cauliflower production | Cut-off, U",
@@ -3627,7 +3627,7 @@
     "rawToCookedRatio": 0.856,
     "scenario": "reference",
     "transportCooling": "always",
-    "visible": true
+    "visible": false
   },
   {
     "activityName": "Tap water {Europe without Switzerland}| market for | Cut-off, S - Copied from Ecoinvent U",
@@ -3942,7 +3942,7 @@
     "rawToCookedRatio": 0.856,
     "scenario": "organic",
     "transportCooling": "always",
-    "visible": true
+    "visible": false
   },
   {
     "activityName": "Honey, raw, large-scale production, unpackaged, at farm {US} - Adapted from WFLDB U",
@@ -4022,7 +4022,7 @@
     "rawToCookedRatio": 0.856,
     "scenario": "import",
     "transportCooling": "always",
-    "visible": true
+    "visible": false
   },
   {
     "activityName": "Spring faba bean, conventional, reduced protection, at farm gate {FR} U",
@@ -4222,7 +4222,7 @@
     "rawToCookedRatio": 2.33,
     "scenario": "organic",
     "transportCooling": "none",
-    "visible": true
+    "visible": false
   },
   {
     "activityName": "Onion {RoW}| onion production | Cut-off, U - Copied from Ecoinvent U",
@@ -4242,7 +4242,7 @@
     "rawToCookedRatio": 0.856,
     "scenario": "import",
     "transportCooling": "none",
-    "visible": true
+    "visible": false
   },
   {
     "activityName": "Sweet corn, at farm (WFLDB)",
@@ -4407,7 +4407,7 @@
     "rawToCookedRatio": 2.33,
     "scenario": "import",
     "transportCooling": "none",
-    "visible": true
+    "visible": false
   },
   {
     "activityName": "Black pepper, conventional, at farm gate {VN} U",
@@ -5222,7 +5222,7 @@
     "rawToCookedRatio": 0.856,
     "scenario": "import",
     "transportCooling": "always",
-    "visible": true
+    "visible": false
   },
   {
     "activityName": "Mint, at farm (WFLDB)",
@@ -5342,7 +5342,7 @@
     "rawToCookedRatio": 0.856,
     "scenario": "import",
     "transportCooling": "always",
-    "visible": true
+    "visible": false
   },
   {
     "activityName": "Iceberg lettuce {GLO}| production | Cut-off, U - Adapted from Ecoinvent U",
@@ -5687,7 +5687,7 @@
     "rawToCookedRatio": 0.856,
     "scenario": "organic",
     "transportCooling": "always",
-    "visible": true
+    "visible": false
   },
   {
     "activityName": "Durum wheat grain, at farm {AU} - Adapted from WFLDB U",
@@ -5707,7 +5707,7 @@
     "rawToCookedRatio": 2.259,
     "scenario": "import",
     "transportCooling": "none",
-    "visible": true
+    "visible": false
   },
   {
     "activityName": "Beaufort cheese, variant 1, CMAPS {GLO} U",
@@ -5932,7 +5932,7 @@
     "rawToCookedRatio": 0.856,
     "scenario": "import",
     "transportCooling": "always",
-    "visible": true
+    "visible": false
   },
   {
     "activityName": "Celery {GLO}| 675 production | Cut-off, U - Adapted from Ecoinvent U",
@@ -6137,7 +6137,7 @@
     "rawToCookedRatio": 2.259,
     "scenario": "import",
     "transportCooling": "none",
-    "visible": true
+    "visible": false
   },
   {
     "activityName": "Sugar beet, at farm, organic 2025 {DE}",
@@ -6267,7 +6267,7 @@
     "rawToCookedRatio": 0.856,
     "scenario": "import",
     "transportCooling": "always",
-    "visible": true
+    "visible": false
   },
   {
     "activityName": "Whey, at plant {FR} U",
@@ -6497,7 +6497,7 @@
     "rawToCookedRatio": 0.856,
     "scenario": "organic",
     "transportCooling": "always",
-    "visible": true
+    "visible": false
   },
   {
     "activityName": "Cocoa bean {GH}| cocoa bean production, sun-dried | Cut-off, U",
@@ -6577,7 +6577,7 @@
     "rawToCookedRatio": 0.856,
     "scenario": "reference",
     "transportCooling": "none",
-    "visible": true
+    "visible": false
   },
   {
     "activityName": "Palm oil, refined, processed in EU, at plant {RER} U",
@@ -6762,7 +6762,7 @@
     "rawToCookedRatio": 0.856,
     "scenario": "reference",
     "transportCooling": "always",
-    "visible": true
+    "visible": false
   },
   {
     "activityName": "Grape, wine grape, at farm {IT} - Adapted from WFLDB U",
@@ -6892,7 +6892,7 @@
     "rawToCookedRatio": 0.856,
     "scenario": "import",
     "transportCooling": "always",
-    "visible": true
+    "visible": false
   },
   {
     "activityName": "Leek, organic 2025, national average, at plant {FR} U",
@@ -7207,7 +7207,7 @@
     "rawToCookedRatio": 1.0,
     "scenario": "import",
     "transportCooling": "none",
-    "visible": true
+    "visible": false
   },
   {
     "activityName": "Spinach {GLO}| production | Cut-off, U - Adapted from Ecoinvent U",
@@ -7372,7 +7372,7 @@
     "rawToCookedRatio": 0.856,
     "scenario": "import",
     "transportCooling": "always",
-    "visible": true
+    "visible": false
   },
   {
     "activityName": "Kiwi, organic 2025 {GLO}| production | Cut-off, U",
@@ -7587,7 +7587,7 @@
     "rawToCookedRatio": 2.33,
     "scenario": "import",
     "transportCooling": "none",
-    "visible": true
+    "visible": false
   },
   {
     "activityName": "Gouda cheese, variant 2, CMAPS {GLO} U",
@@ -7887,7 +7887,7 @@
     "rawToCookedRatio": 1.0,
     "scenario": "reference",
     "transportCooling": "none",
-    "visible": true
+    "visible": false
   },
   {
     "activityName": "Sweet corn, frozen raw, variant 1, CMAPS {GLO} U",
@@ -8072,7 +8072,7 @@
     "rawToCookedRatio": 1.0,
     "scenario": "import",
     "transportCooling": "always",
-    "visible": true
+    "visible": false
   },
   {
     "activityName": "Zucchini, organic 2025, national average, at farm gate {FR} U",
@@ -8252,7 +8252,7 @@
     "rawToCookedRatio": 0.856,
     "scenario": "reference",
     "transportCooling": "always",
-    "visible": true
+    "visible": false
   },
   {
     "activityName": "Hazelnut, unshelled, consumption mix, organic 2025 {FR} U",
@@ -8272,7 +8272,7 @@
     "rawToCookedRatio": 1.0,
     "scenario": "organic",
     "transportCooling": "none",
-    "visible": true
+    "visible": false
   },
   {
     "activityName": "Fig puree, import WFLDB, CMAPS {FR} U",
@@ -8552,7 +8552,7 @@
     "rawToCookedRatio": 1.0,
     "scenario": "import",
     "transportCooling": "none",
-    "visible": true
+    "visible": false
   },
   {
     "activityName": "Soup, mixed vegetables, dehydrated, at plant {BE} U",
@@ -8617,7 +8617,7 @@
     "rawToCookedRatio": 2.259,
     "scenario": "import",
     "transportCooling": "none",
-    "visible": true
+    "visible": false
   },
   {
     "activityName": "Green olive, pitted, CMAPS {GLO} U",
@@ -8677,7 +8677,7 @@
     "rawToCookedRatio": 0.856,
     "scenario": "import",
     "transportCooling": "always",
-    "visible": true
+    "visible": false
   },
   {
     "activityName": "Spinach, organic 2025 {GLO}| production | Cut-off, U",
@@ -8937,7 +8937,7 @@
     "rawToCookedRatio": 1.0,
     "scenario": "import",
     "transportCooling": "none",
-    "visible": true
+    "visible": false
   },
   {
     "activityName": "Gruyere cheese, variant 2, CMAPS {GLO} U",
@@ -8997,7 +8997,7 @@
     "rawToCookedRatio": 0.856,
     "scenario": "reference",
     "transportCooling": "once_transformed",
-    "visible": true
+    "visible": false
   },
   {
     "activityName": "Hazelnut, unshelled, at plant {TR} U",
@@ -9442,7 +9442,7 @@
     "rawToCookedRatio": 0.856,
     "scenario": "import",
     "transportCooling": "always",
-    "visible": true
+    "visible": false
   },
   {
     "activityName": "Peanut, in shell, at farm (WFLDB)",
@@ -9482,7 +9482,7 @@
     "rawToCookedRatio": 0.856,
     "scenario": "import",
     "transportCooling": "none",
-    "visible": true
+    "visible": false
   },
   {
     "activityName": "Zucchini, autumn, under tunnel, conventional, at farm gate {FR} U",
@@ -9592,7 +9592,7 @@
     "rawToCookedRatio": 0.856,
     "scenario": "import",
     "transportCooling": "always",
-    "visible": true
+    "visible": false
   },
   {
     "activityName": "Carrot {RoW}| carrot production | Cut-off, U - Copied from Ecoinvent U",
@@ -9692,7 +9692,7 @@
     "rawToCookedRatio": 0.856,
     "scenario": "reference",
     "transportCooling": "always",
-    "visible": true
+    "visible": false
   },
   {
     "activityName": "Rapeseed oil, at oil mill {GLO} - Adapted from WFLDB U {{rapeseed-oil-organic-2025}}",
@@ -9777,7 +9777,7 @@
     "rawToCookedRatio": 0.856,
     "scenario": "import",
     "transportCooling": "always",
-    "visible": true
+    "visible": false
   },
   {
     "activityName": "Feta type cheese, cow milk, variant 2, CMAPS {GLO} U",
@@ -9942,7 +9942,7 @@
     "rawToCookedRatio": 0.856,
     "scenario": "import",
     "transportCooling": "always",
-    "visible": true
+    "visible": false
   },
   {
     "activityName": "Cherry, at farm (WFLDB)",
@@ -10257,7 +10257,7 @@
     "rawToCookedRatio": 0.856,
     "scenario": "organic",
     "transportCooling": "always",
-    "visible": true
+    "visible": false
   },
   {
     "activityName": "Plant-based sausage with tofu (vegan), recipe, at plant {FR} U",
@@ -10502,7 +10502,7 @@
     "rawToCookedRatio": 0.856,
     "scenario": "organic",
     "transportCooling": "always",
-    "visible": true
+    "visible": false
   },
   {
     "activityName": "Mango, conventional, Val de San Francisco, at orchard {BR} U",
@@ -10772,7 +10772,7 @@
     "rawToCookedRatio": 0.856,
     "scenario": "organic",
     "transportCooling": "always",
-    "visible": true
+    "visible": false
   },
   {
     "activityName": "Cauliflower {GLO}| cauliflower production | Cut-off, U",
@@ -10977,7 +10977,7 @@
     "rawToCookedRatio": 0.856,
     "scenario": "import",
     "transportCooling": "always",
-    "visible": true
+    "visible": false
   },
   {
     "activityName": "Mango, conventional, Val de San Francisco, at orchard {BR} U",
@@ -11182,7 +11182,7 @@
     "rawToCookedRatio": 0.856,
     "scenario": "import",
     "transportCooling": "always",
-    "visible": true
+    "visible": false
   },
   {
     "activityName": "Broiler, conventional, at farm gate {FR} U {{chicken-breast-br-max-2025}}",
@@ -11307,7 +11307,7 @@
     "rawToCookedRatio": 1.0,
     "scenario": "reference",
     "transportCooling": "none",
-    "visible": true
+    "visible": false
   },
   {
     "activityName": "Cauliflower {GLO}| cauliflower production | Cut-off, U",
@@ -11567,7 +11567,7 @@
     "rawToCookedRatio": 1.0,
     "scenario": "reference",
     "transportCooling": "none",
-    "visible": true
+    "visible": false
   },
   {
     "activityName": "Soup, mixed vegetables, prepacked, to be reheated, at plant {DE} U",
@@ -11887,7 +11887,7 @@
     "rawToCookedRatio": 0.856,
     "scenario": "organic",
     "transportCooling": "always",
-    "visible": true
+    "visible": false
   },
   {
     "activityName": "Grape, wine grape, at farm {IT} - Adapted from WFLDB U",
@@ -12112,7 +12112,7 @@
     "rawToCookedRatio": 0.856,
     "scenario": "reference",
     "transportCooling": "none",
-    "visible": true
+    "visible": false
   },
   {
     "activityName": "Apricot {RoW}| apricot production | Cut-off, U",
@@ -12177,7 +12177,7 @@
     "rawToCookedRatio": 0.856,
     "scenario": "organic",
     "transportCooling": "always",
-    "visible": true
+    "visible": false
   },
   {
     "activityName": "Sweet corn, canned drained, variant 2, CMAPS {GLO} U",
@@ -12352,7 +12352,7 @@
     "rawToCookedRatio": 0.856,
     "scenario": "organic",
     "transportCooling": "always",
-    "visible": true
+    "visible": false
   },
   {
     "activityName": "Brown crab, 1 kg of product, at landing {FR} U",
@@ -12482,7 +12482,7 @@
     "rawToCookedRatio": 1.0,
     "scenario": "import",
     "transportCooling": "none",
-    "visible": true
+    "visible": false
   },
   {
     "activityName": "White cabbage {CH}| white cabbage production, conventional, plain region | Cut-off, U",
@@ -12562,7 +12562,7 @@
     "rawToCookedRatio": 1.0,
     "scenario": "reference",
     "transportCooling": "none",
-    "visible": true
+    "visible": false
   },
   {
     "activityName": "Walnut, in shell, dried, at farm (WFLDB)",
@@ -12872,7 +12872,7 @@
     "rawToCookedRatio": 0.856,
     "scenario": "import",
     "transportCooling": "always",
-    "visible": true
+    "visible": false
   },
   {
     "activityName": "Chicken egg, poultry industrial laying systems, at farm (WFLDB)",
@@ -13447,7 +13447,7 @@
     "rawToCookedRatio": 0.856,
     "scenario": "import",
     "transportCooling": "always",
-    "visible": true
+    "visible": false
   },
   {
     "activityName": "Grain maize, organic, animal feed, at farm gate {FR} U",
@@ -13467,7 +13467,7 @@
     "rawToCookedRatio": 1.0,
     "scenario": "organic",
     "transportCooling": "none",
-    "visible": true
+    "visible": false
   },
   {
     "activityName": "Banana, pulp raw, import WFLDB, CMAPS {GLO} U",
@@ -13507,7 +13507,7 @@
     "rawToCookedRatio": 1.0,
     "scenario": "reference",
     "transportCooling": "always",
-    "visible": true
+    "visible": false
   },
   {
     "activityName": "Apricot {RoW}| apricot production | Cut-off, U",
@@ -13592,7 +13592,7 @@
     "rawToCookedRatio": 2.33,
     "scenario": "organic",
     "transportCooling": "always",
-    "visible": true
+    "visible": false
   },
   {
     "activityName": "Fresh shrimps, China production {FR} U",
@@ -13722,7 +13722,7 @@
     "rawToCookedRatio": 0.856,
     "scenario": "organic",
     "transportCooling": "none",
-    "visible": true
+    "visible": false
   },
   {
     "activityName": "Broiler, organic, at farm gate {FR} U",
@@ -14117,7 +14117,7 @@
     "rawToCookedRatio": 1.0,
     "scenario": "reference",
     "transportCooling": "none",
-    "visible": true
+    "visible": false
   },
   {
     "activityName": "Petit suisse, 10pct fat, variant 1, CMAPS {GLO} U",
@@ -14162,7 +14162,7 @@
     "rawToCookedRatio": 0.856,
     "scenario": "reference",
     "transportCooling": "none",
-    "visible": true
+    "visible": false
   },
   {
     "activityName": "Mango, organic 2025, Val de San Francisco, at orchard {BR} U",
@@ -14432,7 +14432,7 @@
     "rawToCookedRatio": 0.856,
     "scenario": "import",
     "transportCooling": "always",
-    "visible": true
+    "visible": false
   },
   {
     "activityName": "Melon, conventional, national average, at farm gate {FR} U",
@@ -14452,7 +14452,7 @@
     "rawToCookedRatio": 0.856,
     "scenario": "import",
     "transportCooling": "none",
-    "visible": true
+    "visible": false
   },
   {
     "activityName": "Hazelnut, in shell, at farm {IT} - Adapted from WFLDB U",
@@ -14867,7 +14867,7 @@
     "rawToCookedRatio": 0.856,
     "scenario": "organic",
     "transportCooling": "always",
-    "visible": true
+    "visible": false
   },
   {
     "activityName": "Melon, under low tunnel, conventional, at farm gate {FR} U",
@@ -14932,7 +14932,7 @@
     "rawToCookedRatio": 0.856,
     "scenario": "organic",
     "transportCooling": "always",
-    "visible": true
+    "visible": false
   },
   {
     "activityName": "Onion, conventional, national average, at farm {FR} U",
@@ -15742,7 +15742,7 @@
     "rawToCookedRatio": 0.856,
     "scenario": "import",
     "transportCooling": "always",
-    "visible": true
+    "visible": false
   },
   {
     "activityName": "Flageolet bean, frozen, variant 1, CMAPS {GLO} U",
@@ -16162,7 +16162,7 @@
     "rawToCookedRatio": 2.33,
     "scenario": "reference",
     "transportCooling": "none",
-    "visible": true
+    "visible": false
   },
   {
     "activityName": "Honey, raw, large-scale production, unpackaged, at farm {US} - Adapted from WFLDB U",
@@ -16427,7 +16427,7 @@
     "rawToCookedRatio": 0.856,
     "scenario": "import",
     "transportCooling": "always",
-    "visible": true
+    "visible": false
   },
   {
     "activityName": "French bean, organic 2025, national average, at farm gate {FR} U",
@@ -16477,7 +16477,7 @@
     "rawToCookedRatio": 2.33,
     "scenario": "organic",
     "transportCooling": "none",
-    "visible": true
+    "visible": false
   },
   {
     "activityName": "Broiler, conventional, at farm gate {FR} U",
@@ -16747,7 +16747,7 @@
     "rawToCookedRatio": 1.0,
     "scenario": "reference",
     "transportCooling": "always",
-    "visible": true
+    "visible": false
   },
   {
     "activityName": "Peanut {RoW}| peanut production | Cut-off, U - Adapted from Ecoinvent U",
@@ -16837,7 +16837,7 @@
     "rawToCookedRatio": 0.856,
     "scenario": "organic",
     "transportCooling": "always",
-    "visible": true
+    "visible": false
   },
   {
     "activityName": "Broiler, conventional, at farm gate {FR} U {{meat-without-bone-chicken-direct-consumption-only-soybean-max}}",
@@ -17212,7 +17212,7 @@
     "rawToCookedRatio": 0.856,
     "scenario": "import",
     "transportCooling": "always",
-    "visible": true
+    "visible": false
   },
   {
     "activityName": "Winter pea, conventional, 15% moisture, at farm gate {FR} U",
@@ -17462,7 +17462,7 @@
     "rawToCookedRatio": 0.856,
     "scenario": "reference",
     "transportCooling": "always",
-    "visible": true
+    "visible": false
   },
   {
     "activityName": "Walnut, dried inshell, conventional, national average, at farm gate {FR} U",
@@ -17727,7 +17727,7 @@
     "rawToCookedRatio": 0.856,
     "scenario": "reference",
     "transportCooling": "none",
-    "visible": true
+    "visible": false
   },
   {
     "activityName": "Tea, dried {KE}| tea production, dried | Cut-off, U - Adapted from Ecoinvent U",
@@ -17747,7 +17747,7 @@
     "rawToCookedRatio": 1.0,
     "scenario": "import",
     "transportCooling": "none",
-    "visible": true
+    "visible": false
   },
   {
     "activityName": "Chicory roots, conventional, at farm gate {FR} U",
@@ -17937,7 +17937,7 @@
     "rawToCookedRatio": 1.0,
     "scenario": "import",
     "transportCooling": "none",
-    "visible": true
+    "visible": false
   },
   {
     "activityName": "Cabbage white {RoW}| cabbage white production | Cut-off, U - Adapted from Ecoinvent U",
@@ -18097,7 +18097,7 @@
     "rawToCookedRatio": 0.856,
     "scenario": "import",
     "transportCooling": "always",
-    "visible": true
+    "visible": false
   },
   {
     "activityName": "Orange, fresh grade {US}| orange production, fresh grade | Cut-off, U",
@@ -18357,7 +18357,7 @@
     "rawToCookedRatio": 1.0,
     "scenario": "organic",
     "transportCooling": "none",
-    "visible": true
+    "visible": false
   },
   {
     "activityName": "Sodium chloride, powder {GLO}| market for | Cut-off, S - Copied from Ecoinvent U",
@@ -18417,7 +18417,7 @@
     "rawToCookedRatio": 0.856,
     "scenario": "import",
     "transportCooling": "always",
-    "visible": true
+    "visible": false
   },
   {
     "activityName": "Cow milk {RoW}| milk production, from cow | Cut-off, U",
@@ -18582,7 +18582,7 @@
     "rawToCookedRatio": 0.856,
     "scenario": "reference",
     "transportCooling": "none",
-    "visible": true
+    "visible": false
   },
   {
     "activityName": "Melon, conventional, national average, at farm gate {FR} U",
@@ -18887,7 +18887,7 @@
     "rawToCookedRatio": 0.755,
     "scenario": "reference",
     "transportCooling": "always",
-    "visible": true
+    "visible": false
   },
   {
     "activityName": "French bean, conventional, national average, at farm gate {FR} U",
@@ -18907,7 +18907,7 @@
     "rawToCookedRatio": 0.856,
     "scenario": "import",
     "transportCooling": "always",
-    "visible": true
+    "visible": false
   },
   {
     "activityName": "Lemon, at farm (WFLDB)",
@@ -18967,7 +18967,7 @@
     "rawToCookedRatio": 0.856,
     "scenario": "import",
     "transportCooling": "always",
-    "visible": true
+    "visible": false
   },
   {
     "activityName": "Cheddar cheese, variant 1, CMAPS {GLO} U",
@@ -19302,7 +19302,7 @@
     "rawToCookedRatio": 0.856,
     "scenario": "reference",
     "transportCooling": "always",
-    "visible": true
+    "visible": false
   },
   {
     "activityName": "Cucumber, pulp raw, CMAPS {GLO} U",
@@ -19952,7 +19952,7 @@
     "rawToCookedRatio": 1.0,
     "scenario": "reference",
     "transportCooling": "none",
-    "visible": true
+    "visible": false
   },
   {
     "activityName": "Wheat grain, at farm {GLO} - Adapted from WFLDB U",
@@ -19972,7 +19972,7 @@
     "rawToCookedRatio": 2.259,
     "scenario": "import",
     "transportCooling": "none",
-    "visible": true
+    "visible": false
   },
   {
     "activityName": "Butter, 82% fat, unsalted, at dairy {FR} U {{butter-organic-2025}}",
@@ -20017,7 +20017,7 @@
     "rawToCookedRatio": 0.856,
     "scenario": "organic",
     "transportCooling": "always",
-    "visible": true
+    "visible": false
   },
   {
     "activityName": "Zucchini, autumn, under tunnel, conventional, at farm gate {FR} U",
@@ -20077,7 +20077,7 @@
     "rawToCookedRatio": 0.856,
     "scenario": "import",
     "transportCooling": "always",
-    "visible": true
+    "visible": false
   },
   {
     "activityName": "Celery, organic 2025 {GLO}| 675 production | Cut-off, U",
@@ -20472,7 +20472,7 @@
     "rawToCookedRatio": 0.856,
     "scenario": "import",
     "transportCooling": "always",
-    "visible": true
+    "visible": false
   },
   {
     "activityName": "Meat without bone chicken for direct consumption {{chicken-breast-organic-2025}}",
@@ -20492,7 +20492,7 @@
     "rawToCookedRatio": 0.755,
     "scenario": "organic",
     "transportCooling": "always",
-    "visible": true
+    "visible": false
   },
   {
     "activityName": "Tomato, fresh grade {RoW}| tomato production, fresh grade, in unheated greenhouse | Cut-off, U",
@@ -20597,7 +20597,7 @@
     "rawToCookedRatio": 0.856,
     "scenario": "import",
     "transportCooling": "none",
-    "visible": true
+    "visible": false
   },
   {
     "activityName": "Tomato, peeled canned drained, CMAPS {GLO} U",
@@ -21052,7 +21052,7 @@
     "rawToCookedRatio": 2.33,
     "scenario": "reference",
     "transportCooling": "none",
-    "visible": true
+    "visible": false
   },
   {
     "activityName": "Walnut, dried inshell, organic 2025, national average, at farm gate {FR} U",
@@ -21437,7 +21437,7 @@
     "rawToCookedRatio": 1.0,
     "scenario": "organic",
     "transportCooling": "none",
-    "visible": true
+    "visible": false
   },
   {
     "activityName": "Red Cabbage, consumption mix, organic 2025 {FR} U",
@@ -21562,7 +21562,7 @@
     "rawToCookedRatio": 0.856,
     "scenario": "import",
     "transportCooling": "none",
-    "visible": true
+    "visible": false
   },
   {
     "activityName": "Quinoa FR, conventional, at farm gate {FR} U",
@@ -21622,7 +21622,7 @@
     "rawToCookedRatio": 0.856,
     "scenario": "import",
     "transportCooling": "always",
-    "visible": true
+    "visible": false
   },
   {
     "activityName": "Cauliflower {GLO}| cauliflower production | Cut-off, U",
@@ -21662,7 +21662,7 @@
     "rawToCookedRatio": 1.0,
     "scenario": "import",
     "transportCooling": "always",
-    "visible": true
+    "visible": false
   },
   {
     "activityName": "Dairy spread, 20pct fat, variant 2, CMAPS {GLO} U",
@@ -21767,7 +21767,7 @@
     "rawToCookedRatio": 0.856,
     "scenario": "organic",
     "transportCooling": "none",
-    "visible": true
+    "visible": false
   },
   {
     "activityName": "Fava bean {CA-SK}| fava bean production | Cut-off, U",
@@ -21987,7 +21987,7 @@
     "rawToCookedRatio": 1.0,
     "scenario": "import",
     "transportCooling": "none",
-    "visible": true
+    "visible": false
   },
   {
     "activityName": "Beaufort cheese, variant 2, CMAPS {GLO} U",
@@ -22092,7 +22092,7 @@
     "rawToCookedRatio": 2.259,
     "scenario": "reference",
     "transportCooling": "none",
-    "visible": true
+    "visible": false
   },
   {
     "activityName": "Lentil {CA-SK}| lentil production | Cut-off, U - Adapted from Ecoinvent U",
@@ -22112,7 +22112,7 @@
     "rawToCookedRatio": 2.33,
     "scenario": "import",
     "transportCooling": "none",
-    "visible": true
+    "visible": false
   },
   {
     "activityName": "Peach, at farm {ES} - Adapted from WFLDB U",
@@ -22277,7 +22277,7 @@
     "rawToCookedRatio": 0.856,
     "scenario": "import",
     "transportCooling": "always",
-    "visible": true
+    "visible": false
   },
   {
     "activityName": "Fennel {GLO}| production | Cut-off, U - Adapted from Ecoinvent U",
@@ -22687,7 +22687,7 @@
     "rawToCookedRatio": 0.856,
     "scenario": "import",
     "transportCooling": "none",
-    "visible": true
+    "visible": false
   },
   {
     "activityName": "Soybean, national average, animal feed, at farm gate {FR} U",
@@ -23752,7 +23752,7 @@
     "rawToCookedRatio": 2.259,
     "scenario": "import",
     "transportCooling": "none",
-    "visible": true
+    "visible": false
   },
   {
     "activityName": "Cabbage white {RoW}| cabbage white production | Cut-off, U - Adapted from Ecoinvent U",
@@ -23772,7 +23772,7 @@
     "rawToCookedRatio": 0.856,
     "scenario": "import",
     "transportCooling": "always",
-    "visible": true
+    "visible": false
   },
   {
     "activityName": "Peanut, organic 2025 {CN}| peanut production | Cut-off, U",
@@ -23892,7 +23892,7 @@
     "rawToCookedRatio": 0.856,
     "scenario": "import",
     "transportCooling": "always",
-    "visible": true
+    "visible": false
   },
   {
     "activityName": "Soy flour, organic, CMAPS {FR} U",
@@ -24047,7 +24047,7 @@
     "rawToCookedRatio": 0.974,
     "scenario": "reference",
     "transportCooling": "none",
-    "visible": true
+    "visible": false
   },
   {
     "activityName": "Kiwi {GLO}| production | Cut-off, U - Adapted from Ecoinvent U",
@@ -24067,7 +24067,7 @@
     "rawToCookedRatio": 0.856,
     "scenario": "import",
     "transportCooling": "always",
-    "visible": true
+    "visible": false
   },
   {
     "activityName": "Fennel {GLO}| production | Cut-off, U - Adapted from Ecoinvent U",
@@ -24152,7 +24152,7 @@
     "rawToCookedRatio": 0.856,
     "scenario": "import",
     "transportCooling": "none",
-    "visible": true
+    "visible": false
   },
   {
     "activityName": "Winter pea, organic 2025, 15% moisture, at farm gate {FR} U",
@@ -24237,7 +24237,7 @@
     "rawToCookedRatio": 0.974,
     "scenario": "organic",
     "transportCooling": "none",
-    "visible": true
+    "visible": false
   },
   {
     "activityName": "Turmeric, consumption mix {FR} U",
@@ -24297,7 +24297,7 @@
     "rawToCookedRatio": 0.856,
     "scenario": "import",
     "transportCooling": "none",
-    "visible": true
+    "visible": false
   },
   {
     "activityName": "Fennel {GLO}| production | Cut-off, U - Adapted from Ecoinvent U",
@@ -24337,7 +24337,7 @@
     "rawToCookedRatio": 2.33,
     "scenario": "import",
     "transportCooling": "none",
-    "visible": true
+    "visible": false
   },
   {
     "activityName": "Onion {NL}| onion production | Cut-off, U - Adapted from Ecoinvent U",
@@ -24502,7 +24502,7 @@
     "rawToCookedRatio": 0.856,
     "scenario": "reference",
     "transportCooling": "always",
-    "visible": true
+    "visible": false
   },
   {
     "activityName": "Petit suisse, 4pct fat, variant 2, CMAPS {GLO} U",
@@ -24812,7 +24812,7 @@
     "rawToCookedRatio": 0.856,
     "scenario": "organic",
     "transportCooling": "always",
-    "visible": true
+    "visible": false
   },
   {
     "activityName": "Spinach {GLO}| production | Cut-off, U - Adapted from Ecoinvent U",
@@ -24832,7 +24832,7 @@
     "rawToCookedRatio": 0.856,
     "scenario": "import",
     "transportCooling": "always",
-    "visible": true
+    "visible": false
   },
   {
     "activityName": "Live broiler, for direct consumption, consumption mix {FR} U",
@@ -24932,7 +24932,7 @@
     "rawToCookedRatio": 0.856,
     "scenario": "import",
     "transportCooling": "always",
-    "visible": true
+    "visible": false
   },
   {
     "activityName": "Mint {IN}| mint production | Cut-off, U",
@@ -25077,7 +25077,7 @@
     "rawToCookedRatio": 0.856,
     "scenario": "organic",
     "transportCooling": "always",
-    "visible": true
+    "visible": false
   },
   {
     "activityName": "Lamb, conventional, indoor production system, at farm gate {FR} U",
@@ -25242,7 +25242,7 @@
     "rawToCookedRatio": 1.0,
     "scenario": "reference",
     "transportCooling": "always",
-    "visible": true
+    "visible": false
   },
   {
     "activityName": "Sweet sorghum grain {CN}| sweet sorghum production | Cut-off, U",
@@ -25347,7 +25347,7 @@
     "rawToCookedRatio": 2.259,
     "scenario": "import",
     "transportCooling": "none",
-    "visible": true
+    "visible": false
   },
   {
     "activityName": "Garlic, fresh, at farm (WFLDB)",
@@ -25512,7 +25512,7 @@
     "rawToCookedRatio": 1.0,
     "scenario": "reference",
     "transportCooling": "always",
-    "visible": true
+    "visible": false
   },
   {
     "activityName": "Apple, conventional, national average, at orchard {FR} U",
@@ -25602,7 +25602,7 @@
     "rawToCookedRatio": 0.856,
     "scenario": "import",
     "transportCooling": "none",
-    "visible": true
+    "visible": false
   },
   {
     "activityName": "Dry goat cheese, chabichou type, CMAPS {GLO} U",
@@ -25707,7 +25707,7 @@
     "rawToCookedRatio": 0.856,
     "scenario": "import",
     "transportCooling": "always",
-    "visible": true
+    "visible": false
   },
   {
     "activityName": "Seed-cotton {IN-GJ}| seed-cotton production, conventional | Cut-off, U - Adapted from Ecoinvent U",
@@ -25752,7 +25752,7 @@
     "rawToCookedRatio": 1.0,
     "scenario": "organic",
     "transportCooling": "once_transformed",
-    "visible": true
+    "visible": false
   },
   {
     "activityName": "Dry goat cheese, CMAPS {GLO} U",
@@ -25877,7 +25877,7 @@
     "rawToCookedRatio": 0.856,
     "scenario": "reference",
     "transportCooling": "none",
-    "visible": true
+    "visible": false
   },
   {
     "activityName": "Lentil {CA-SK}| lentil production | Cut-off, U - Adapted from Ecoinvent U",
@@ -25957,7 +25957,7 @@
     "rawToCookedRatio": 2.259,
     "scenario": "organic",
     "transportCooling": "none",
-    "visible": true
+    "visible": false
   },
   {
     "activityName": "White asparagus {FR}| white asparagus production | Cut-off, U - Copied from Ecoinvent U",
@@ -26017,7 +26017,7 @@
     "rawToCookedRatio": 1.0,
     "scenario": "import",
     "transportCooling": "none",
-    "visible": true
+    "visible": false
   },
   {
     "activityName": "Strawberry, coulis, recipe, at plant {FR} U",
@@ -26077,7 +26077,7 @@
     "rawToCookedRatio": 0.856,
     "scenario": "import",
     "transportCooling": "always",
-    "visible": true
+    "visible": false
   },
   {
     "activityName": "Cauliflower, conventional, national average, at farm gate {FR} U",
@@ -26202,7 +26202,7 @@
     "rawToCookedRatio": 2.259,
     "scenario": "import",
     "transportCooling": "none",
-    "visible": true
+    "visible": false
   },
   {
     "activityName": "Walnut, dried, husked, processed in FR | Ambient (long) | Pack proxy | at packaging {FR} U",
@@ -26222,7 +26222,7 @@
     "rawToCookedRatio": 1.0,
     "scenario": "reference",
     "transportCooling": "none",
-    "visible": true
+    "visible": false
   },
   {
     "activityName": "Walnut, dried inshell, conventional, national average, at farm gate {FR} U",
@@ -26307,7 +26307,7 @@
     "rawToCookedRatio": 0.856,
     "scenario": "organic",
     "transportCooling": "always",
-    "visible": true
+    "visible": false
   },
   {
     "activityName": "Garlic, fresh, at farm (WFLDB)",
@@ -26347,7 +26347,7 @@
     "rawToCookedRatio": 1.0,
     "scenario": "import",
     "transportCooling": "none",
-    "visible": true
+    "visible": false
   },
   {
     "activityName": "Sunflower, at farm, organic 2025 {FR}",
@@ -26392,7 +26392,7 @@
     "rawToCookedRatio": 1.0,
     "scenario": "organic",
     "transportCooling": "none",
-    "visible": true
+    "visible": false
   },
   {
     "activityName": "Linseed, organic 2025 {RoW}| linseed production | Cut-off, U",
@@ -26822,7 +26822,7 @@
     "rawToCookedRatio": 0.856,
     "scenario": "reference",
     "transportCooling": "always",
-    "visible": true
+    "visible": false
   },
   {
     "activityName": "Linseed, at farm {CA} - Adapted from WFLDB U",
@@ -26972,7 +26972,7 @@
     "rawToCookedRatio": 2.33,
     "scenario": "reference",
     "transportCooling": "none",
-    "visible": true
+    "visible": false
   },
   {
     "activityName": "Apricot, conventional, national average, at orchard {FR} U",
@@ -27017,7 +27017,7 @@
     "rawToCookedRatio": 1.0,
     "scenario": "organic",
     "transportCooling": "none",
-    "visible": true
+    "visible": false
   },
   {
     "activityName": "Tomato, fresh grade {RoW}| tomato production, fresh grade, in unheated greenhouse | Cut-off, U",
@@ -27062,7 +27062,7 @@
     "rawToCookedRatio": 0.856,
     "scenario": "reference",
     "transportCooling": "always",
-    "visible": true
+    "visible": false
   },
   {
     "activityName": "Cherry, at farm (WFLDB)",
@@ -27267,7 +27267,7 @@
     "rawToCookedRatio": 0.856,
     "scenario": "import",
     "transportCooling": "always",
-    "visible": true
+    "visible": false
   },
   {
     "activityName": "Carrot, conventional, national average, at farm gate {FR} U",
@@ -27757,7 +27757,7 @@
     "rawToCookedRatio": 0.856,
     "scenario": "import",
     "transportCooling": "always",
-    "visible": true
+    "visible": false
   },
   {
     "activityName": "Butter, 60-62pct fat reduced, variant 1, CMAPS {GLO} U",
@@ -27842,7 +27842,7 @@
     "rawToCookedRatio": 0.856,
     "scenario": "reference",
     "transportCooling": "none",
-    "visible": true
+    "visible": false
   },
   {
     "activityName": "Cucumber, pulp raw, organic, CMAPS {GLO} U",
@@ -28222,7 +28222,7 @@
     "rawToCookedRatio": 2.33,
     "scenario": "import",
     "transportCooling": "none",
-    "visible": true
+    "visible": false
   },
   {
     "activityName": "Broiler, conventional, at farm gate {FR} U {{meat-without-bone-chicken-direct-consumption-only-soybean-max}}",
@@ -28782,7 +28782,7 @@
     "rawToCookedRatio": 0.856,
     "scenario": "import",
     "transportCooling": "always",
-    "visible": true
+    "visible": false
   },
   {
     "activityName": "Soy drink, plain, recipe, at plant {FR} U",
@@ -28972,7 +28972,7 @@
     "rawToCookedRatio": 0.856,
     "scenario": "organic",
     "transportCooling": "always",
-    "visible": true
+    "visible": false
   },
   {
     "activityName": "Mango, pulp raw, import WFLDB, CMAPS {GLO} U",
@@ -29542,7 +29542,7 @@
     "rawToCookedRatio": 0.856,
     "scenario": "import",
     "transportCooling": "always",
-    "visible": true
+    "visible": false
   },
   {
     "activityName": "Mint {IN}| mint production | Cut-off, U",
@@ -29602,7 +29602,7 @@
     "rawToCookedRatio": 1.0,
     "scenario": "reference",
     "transportCooling": "always",
-    "visible": true
+    "visible": false
   },
   {
     "activityName": "Coconut, dehusked {ID}| coconut production, dehusked | Cut-off, U - Adapted from Ecoinvent U",
@@ -29642,7 +29642,7 @@
     "rawToCookedRatio": 0.856,
     "scenario": "organic",
     "transportCooling": "always",
-    "visible": true
+    "visible": false
   },
   {
     "activityName": "Onion, conventional, national average, at farm {FR} U",
@@ -29722,7 +29722,7 @@
     "rawToCookedRatio": 0.856,
     "scenario": "reference",
     "transportCooling": "none",
-    "visible": true
+    "visible": false
   },
   {
     "activityName": "Winter pea, conventional, 15% moisture, at farm gate {FR} U",
@@ -29937,7 +29937,7 @@
     "rawToCookedRatio": 0.856,
     "scenario": "import",
     "transportCooling": "always",
-    "visible": true
+    "visible": false
   },
   {
     "activityName": "Peach {ES}| peach production | Cut-off, U - Adapted from Ecoinvent U",
@@ -29957,7 +29957,7 @@
     "rawToCookedRatio": 0.856,
     "scenario": "import",
     "transportCooling": "none",
-    "visible": true
+    "visible": false
   },
   {
     "activityName": "Mozzarella cheese, from cow's milk, at plant {FR} U",
@@ -29977,7 +29977,7 @@
     "rawToCookedRatio": 1.0,
     "scenario": "reference",
     "transportCooling": "always",
-    "visible": true
+    "visible": false
   },
   {
     "activityName": "Hemp, grain, Champagne, at farm gate {FR} U",

@@ -16,7 +16,7 @@
       "scenario": "reference",
       "scopes": ["food", "food2"],
       "transportCooling": "none",
-      "visible": true
+      "visible": false
     },
     {
       "alias": "lentils-uncooked-eu-2025",
@@ -30,7 +30,7 @@
       "scenario": "import",
       "scopes": ["food", "food2"],
       "transportCooling": "none",
-      "visible": true
+      "visible": false
     }
   ],
   "scopes": ["food", "food2"],

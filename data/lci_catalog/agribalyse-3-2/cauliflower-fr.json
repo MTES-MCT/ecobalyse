@@ -58,7 +58,7 @@
       "scenario": "import",
       "scopes": ["food", "food2"],
       "transportCooling": "always",
-      "visible": true
+      "visible": false
     },
     {
       "alias": "brussels-sprout-non-ue-2025",
@@ -72,7 +72,7 @@
       "scenario": "import",
       "scopes": ["food", "food2"],
       "transportCooling": "always",
-      "visible": true
+      "visible": false
     }
   ],
   "scopes": ["food", "food2"],
