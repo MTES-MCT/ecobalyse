@@ -16,5 +16,5 @@
       "value": "true"
     }
   },
-  "stack": "scalingo-24-minimal"
+  "stack": "scalingo-26-minimal"
 }
