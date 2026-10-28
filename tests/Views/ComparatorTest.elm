@@ -68,7 +68,8 @@ suite =
                                         |> chartEntryValue "Compléments"
                                         |> expectResultMostlyEqual expected
                                 , \_ ->
-                                    expectComplementsCountedOnce series
+                                    series
+                                        |> expectComplementsCountedOnce
                                 ]
                                 ()
                         )
@@ -77,7 +78,7 @@ suite =
             ]
 
 
-chartEntryValue : String -> List { name : String, value : Float } -> Result String Float
+chartEntryValue : String -> List Comparator.ChartEntry -> Result String Float
 chartEntryValue name entries =
     case List.filter (\entry -> entry.name == name) entries of
         [ entry ] ->
@@ -128,19 +129,18 @@ cookedHamComplements db =
     Process.idFromString cookedHamProcessId
         |> Result.andThen (\id -> Process.findById id db.processes)
         |> Result.andThen
-            (\process ->
-                process.metadata
-                    |> Maybe.andThen .complements
-                    |> Result.fromMaybe "Missing expected complements"
-                    |> Result.map (Complement.getTotalComplementsImpacts >> Unit.impactToFloat)
+            (.metadata
+                >> Maybe.andThen .complements
+                >> Result.fromMaybe "Missing expected complements"
+                >> Result.map (Complement.getTotalComplementsImpacts >> Unit.impactToFloat)
             )
 
 
 expectComplementsCountedOnce :
     { a
-        | stages : List { name : String, value : Float }
-        , subscores : List { name : String, value : Float }
-        , total : List { name : String, value : Float }
+        | stages : List Comparator.ChartEntry
+        , subscores : List Comparator.ChartEntry
+        , total : List Comparator.ChartEntry
     }
     -> Expectation
 expectComplementsCountedOnce { stages, subscores, total } =

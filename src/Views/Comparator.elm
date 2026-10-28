@@ -1,5 +1,6 @@
 module Views.Comparator exposing
-    ( ComparisonType(..)
+    ( ChartEntry
+    , ComparisonType(..)
     , chartSeries
     , comparisonTypeToString
     , view
@@ -57,6 +58,13 @@ type alias ChartsData =
     , impacts : Impact.Impacts
     , label : String
     , stagesImpacts : Impact.StagesImpacts
+    }
+
+
+type alias ChartEntry =
+    { color : String
+    , name : String
+    , value : Float
     }
 
 
@@ -182,30 +190,10 @@ addToComparison { componentConfig, db } { name, query } =
                     )
 
 
-chartSeries : Requirements -> ComparisonType -> Bookmark -> Result String (List { name : String, value : Float })
-chartSeries ({ db } as reqs) comparisonType bookmark =
-    bookmark
-        |> addToComparison reqs
-        |> Result.map
-            (\chartsData ->
-                let
-                    entries =
-                        case comparisonType of
-                            IndividualImpacts ->
-                                entriesForIndividualImpacts db.definitions chartsData
-
-                            Stages ->
-                                entriesForStages chartsData
-
-                            Subscores ->
-                                entriesForSubscores db.definitions chartsData
-
-                            Total ->
-                                entriesForTotal chartsData
-                in
-                entries
-                    |> List.map (\{ name, value } -> { name = name, value = value })
-            )
+chartSeries : Requirements -> ComparisonType -> Bookmark -> Result String (List ChartEntry)
+chartSeries ({ db } as reqs) comparisonType =
+    addToComparison reqs
+        >> Result.map (entriesFor comparisonType db.definitions)
 
 
 comparatorView : Config msg -> List (Html msg)
@@ -216,7 +204,9 @@ comparatorView ({ session } as config) =
                 |> List.filterMap
                     (\bookmark ->
                         if Set.member (Bookmark.toId bookmark) session.store.comparedSimulations then
-                            Just (addToComparison { componentConfig = session.componentConfig, db = session.db } bookmark)
+                            bookmark
+                                |> addToComparison (toRequirements session)
+                                |> Just
 
                         else
                             Nothing
@@ -262,67 +252,49 @@ comparatorView ({ session } as config) =
                 [ text "Sélectionnez une ou plusieurs simulations pour les comparer" ]
 
         Ok chartsData ->
-            let
-                ( class, data ) =
-                    case config.comparisonType of
-                        IndividualImpacts ->
-                            ( "individual-impacts", dataForIndividualImpacts session.db.definitions chartsData )
-
-                        Stages ->
-                            ( "stages-impacts", dataForStages chartsData )
-
-                        Subscores ->
-                            ( "grouped-impacts", dataForSubscoresImpacts session.db.definitions chartsData )
-
-                        Total ->
-                            ( "total-impacts", dataForTotalImpacts chartsData )
-            in
-            div [ Attr.class <| "h-100 " ++ class ]
-                [ node "chart-food-comparator" [ attribute "data" data ] [] ]
+            div [ Attr.class <| "h-100 " ++ comparisonTypeToClass config.comparisonType ]
+                [ node "chart-food-comparator"
+                    [ chartsData
+                        |> encodeChartSeries (entriesFor config.comparisonType session.db.definitions)
+                        |> attribute "data"
+                    ]
+                    []
+                ]
     ]
 
 
-dataForIndividualImpacts : Definitions -> List ChartsData -> String
-dataForIndividualImpacts definitions =
-    encodeChartSeries <|
-        entriesForIndividualImpacts definitions
-            >> Encode.list Impact.encodeAggregatedScoreChartEntry
-
-
-dataForStages : List ChartsData -> String
-dataForStages =
-    encodeChartSeries <|
-        entriesForStages
-            >> Encode.list Impact.encodeAggregatedScoreChartEntry
-
-
-dataForSubscoresImpacts : Definitions -> List ChartsData -> String
-dataForSubscoresImpacts definitions =
-    encodeChartSeries <|
-        entriesForSubscores definitions
-            >> Encode.list Impact.encodeAggregatedScoreChartEntry
-
-
-dataForTotalImpacts : List ChartsData -> String
-dataForTotalImpacts =
-    encodeChartSeries <|
-        entriesForTotal
-            >> Encode.list Impact.encodeAggregatedScoreChartEntry
-
-
-encodeChartSeries : (ChartsData -> Encode.Value) -> List ChartsData -> String
-encodeChartSeries encodeChartsData =
+encodeChartSeries : (ChartsData -> List ChartEntry) -> List ChartsData -> String
+encodeChartSeries toEntries =
     Encode.list
-        (\chartsDatum ->
+        (\chartEntry ->
             Encode.object
-                [ ( "label", Encode.string chartsDatum.label )
-                , ( "data", encodeChartsData chartsDatum )
+                [ ( "label", Encode.string chartEntry.label )
+                , ( "data"
+                  , toEntries chartEntry
+                        |> Encode.list Impact.encodeAggregatedScoreChartEntry
+                  )
                 ]
         )
         >> Encode.encode 0
 
 
-entriesForIndividualImpacts : Definitions -> ChartsData -> List { color : String, name : String, value : Float }
+entriesFor : ComparisonType -> Definitions -> ChartsData -> List ChartEntry
+entriesFor comparisonType definitions =
+    case comparisonType of
+        IndividualImpacts ->
+            entriesForIndividualImpacts definitions
+
+        Stages ->
+            entriesForStages
+
+        Subscores ->
+            entriesForSubscores definitions
+
+        Total ->
+            entriesForTotal
+
+
+entriesForIndividualImpacts : Definitions -> ChartsData -> List ChartEntry
 entriesForIndividualImpacts definitions { complementsImpact, impacts } =
     let
         labelToOrder =
@@ -377,14 +349,14 @@ entriesForIndividualImpacts definitions { complementsImpact, impacts } =
         |> List.reverse
 
 
-entriesForStages : ChartsData -> List { color : String, name : String, value : Float }
+entriesForStages : ChartsData -> List ChartEntry
 entriesForStages { stagesImpacts } =
     stagesImpacts
         |> Impact.stagesImpactsAsChartEntries
         |> List.reverse
 
 
-entriesForSubscores : Definitions -> ChartsData -> List { color : String, name : String, value : Float }
+entriesForSubscores : Definitions -> ChartsData -> List ChartEntry
 entriesForSubscores definitions { complementsImpact, impacts } =
     impacts
         |> Impact.toProtectionAreas definitions
@@ -399,7 +371,7 @@ entriesForSubscores definitions { complementsImpact, impacts } =
            )
 
 
-entriesForTotal : ChartsData -> List { color : String, name : String, value : Float }
+entriesForTotal : ChartsData -> List ChartEntry
 entriesForTotal { impacts } =
     [ { color = "#333333"
       , name = "Impact total"
@@ -409,6 +381,22 @@ entriesForTotal { impacts } =
                 |> Unit.impactToFloat
       }
     ]
+
+
+comparisonTypeToClass : ComparisonType -> String
+comparisonTypeToClass comparisonType =
+    case comparisonType of
+        IndividualImpacts ->
+            "individual-impacts"
+
+        Stages ->
+            "stages-impacts"
+
+        Subscores ->
+            "grouped-impacts"
+
+        Total ->
+            "total-impacts"
 
 
 comparisonTypeToString : ComparisonType -> String
@@ -425,3 +413,10 @@ comparisonTypeToString comparisonType =
 
         Total ->
             "Total"
+
+
+toRequirements : Session -> Requirements
+toRequirements session =
+    { componentConfig = session.componentConfig
+    , db = session.db
+    }
