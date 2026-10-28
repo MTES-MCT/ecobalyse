@@ -15140,22 +15140,6 @@
     "unit": "kg"
   },
   {
-    "activityName": "Mint {IN}| mint production | Cut-off, U",
-    "categories": ["ingredient", "material"],
-    "comment": "This dataset represents the production of 1 kg mint. The average yield from 1999 is 16.5 t/ha. The data are representative for mint production in India, Uttar Pradesh, used for the export market. Mineral NPK fertiliser input is 160-50-50 kg/ha. No organic fertilisers are applied. Total active ingredients (a.i.) applied as pesticides amount to 0.74 kg a.i./ha.\n\nThe dataset was modelled within the project 'World Food LCA database (WFLDB)'. The aim of this project was to provide inventories of a broad variety of agricultural products and processes and to cover for each product at least 50% of the global export market. The production system regarded in this dataset aimed at representing mint produced in India for the export market.\n\nPEF-Quality: data quality rating (DQR) = 2.7 (i.e. good quality). This dataset refers to an average situation; for specific situations exchanges might differ substantially due to site specific parameters\n\nProduction volume: 6.0E9 kg\nIncluded activities start: This activity starts with the nursery producing seedlings, i.e. seedlings from roots.\nIncluded activities end: This activity ends with the clearing of the field (removing of mint plants). The dataset includes all activities of a year in the productive phase of the field including the establishment phase per year of lifetime (4 years), and the clearing of the field. \nThe establishment phase of the field includes seedlings nursery, soil cultivation, planting, herbicide use and irrigation.\nThe productive phase of the field includes machine operations, fuel use and sheds. Machine operations in the productive phase are: soil cultivation, fertiliser and pesticide application, harvesting, transport on farm and irrigation. Further, direct field emissions and land use change are included. At the end of the productive phase the field is cleared by removing the mint plants.\nHeavy metal uptake by the crop is considered. The inputs of seedlings, fertilisers and pesticides as well as packaging of fertilisers and pesticides are considered. The dataset doesn't include drying.\nGeography: The inventory is modelled for India\nTechnology level: Current\nTechnology: Conventional production\nStart date: 01/01/1999\nEnd date: 31/12/2024\nIs data valid for entire period: True\nTime period: Time period referring to the data source: 1999-1999. Based on expert opinion data is considered to be valid at least up to 2012.\nMacro-economic scenario name: Business-as-Usual\n\nVersion: 6.3.0.0\nCreated: 5/30/16 11:12:22\nSource: 7e54afa2-edf3-51b7-9af9-7423b560d953_e4ba6d0a-c36e-47d3-8806-60337363393b.spold\nUUID: 7e54afa2-edf3-51b7-9af9-7423b560d953",
-    "displayName": "Mint (IN)",
-    "elecKwh": 0,
-    "heatMJ": 0,
-    "id": "e589703f-8c56-5adb-9b23-b5aff1fcd0a5",
-    "impacts": { "ecs": 55.03 },
-    "location": "IN",
-    "massPerUnit": null,
-    "qtyVariationRatio": 1.0,
-    "scopes": ["food"],
-    "source": "Ecoinvent 3.11",
-    "unit": "kg"
-  },
-  {
     "activityName": "Olive {ES}| olive production | Cut-off, U",
     "categories": ["ingredient", "material"],
     "comment": "This dataset represents the production of 1 kg of olives. The average yield from 2009 - 2012 is 5 t/ha. The data are representative for olive production in Spain (Andalusia) used for the export market. Mineral NPK fertiliser input is 60-60-60 kg/ha. No organic fertilisers are applied. Total active ingredients (a.i.) applied as pesticides amount to 2.15 kg a.i./ha.\n\nThe dataset was modelled within the project 'World Food LCA database (WFLDB)'. The aim of this project was to provide inventories of a broad variety of agricultural products and processes and to cover for each product at least 50% of the global export market. The share of olives produced in Spain amounts to 37% of the global production (tonnage produced in 2010). The production system regarded in this dataset aimed at representing olives produced in Spain for the export market.\n\nPEF-Quality: data quality rating (DQR) = 1.5 (i.e. excellent quality). This dataset refers to an average situation; for specific situations exchanges might differ substantially due to site specific parameters\n\nProduction volume: 6.45975425E9 kg\nIncluded activities start: This activity starts with the nursery producing fruit tree seedlings, i.e. grafted young trees to be planted.\nIncluded activities end: This activity ends with the waste treatment after the clearing of the orchard (rooting up the trees). The dataset includes all activities of a year in a year in the productive phase of the orchard including the establishment phase per year of lifetime (40 years, 250 trees/ha planted), the clearing of the orchard including waste treatment. \nThe establishment phase of the orchard includes tree nursery, soil cultivation, planting trees, sowing grass, and irrigation. Fertiliser and pesticide use in a year of the establishment phase is assumed to be half of the amount of a year in the productive phase.\nThe productive phase of the orchard includes machine operations, corresponding infrastructure, fuel use and sheds. Machine operations in the productive phase are: soil cultivation (mulching, mowing), fertiliser and pesticide application, harvesting and irrigation. Further, direct field emissions and land use change are included. At the end of the productive phase the orchard is cleared by rooting up the trees.\nHeavy metal uptake by the crop is considered. The inputs of seedlings, fertilisers and pesticides as well as packaging of fertilisers and pesticides are considered.\nGeography: The inventory is modelled for Spain\nTechnology level: Current\nTechnology: Conventional production\nStart date: 01/01/2009\nEnd date: 31/12/2024\nIs data valid for entire period: True\nMacro-economic scenario name: Business-as-Usual\n\nVersion: 8.3.0.0\nCreated: 5/30/16 11:12:22\nSource: 5b088c7b-f181-55a9-9323-f811ff25a028_e580a34c-42e2-460d-ac2e-a49bcf0583f2.spold\nUUID: 5b088c7b-f181-55a9-9323-f811ff25a028",
@@ -17188,26 +17172,10 @@
     "unit": "kg"
   },
   {
-    "activityName": "Peach, at farm, organic 2025 {ES}",
-    "categories": ["ingredient", "material"],
-    "comment": "This dataset has been extrapolated from the dataset Peach, at farm {ES} - Adapted from WFLDB U from the database WFLDB and version 3.5.\nFor further information, please consult the ADEME report \"Construction of LCIs for organic agricultural products based on extrapolations of conventional LCIs for the French food market and environmental labelling\"",
-    "displayName": "Pêches Bio",
-    "elecKwh": 0,
-    "heatMJ": 0,
-    "id": "5e66fd3b-87ae-5113-b33a-36b1c8c36df6",
-    "impacts": { "ecs": 148.1 },
-    "location": "ES",
-    "massPerUnit": null,
-    "qtyVariationRatio": 1.0,
-    "scopes": ["food"],
-    "source": "Ginko 2025",
-    "unit": "kg"
-  },
-  {
     "activityName": "Peach, organic 2025, national average, at orchard {FR} U",
     "categories": ["ingredient", "material"],
     "comment": "This dataset has been extrapolated from the dataset Peach, conventional, national average, at orchard {FR} U.\nFor further information, please consult the ADEME report \"Construction of LCIs for organic agricultural products based on extrapolations of conventional LCIs for the French food market and environmental labelling\"",
-    "displayName": "Figue Bio",
+    "displayName": "Pêches Bio",
     "elecKwh": 0,
     "heatMJ": 0,
     "id": "c9cd32a1-9366-582c-8f50-cd4d48e3759e",
