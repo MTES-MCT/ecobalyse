@@ -1487,7 +1487,7 @@ modalView session ({ modals } as model) modal =
                 ( placeholderText, title ) =
                     case category of
                         Category.Material ->
-                            ( scopeLabels.search
+                            ( "tapez ici le nom d'une matière première pour la rechercher"
                             , "Sélectionnez une matière première"
                             )
 
