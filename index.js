@@ -65,6 +65,10 @@ const app = Elm.Main.init({
       host: process.env.MATOMO_HOST || "",
       siteId: process.env.MATOMO_SITE_ID || "",
     },
+    plausible: {
+      // note: used to render the public stats page, not enable tracking
+      host: process.env.PLAUSIBLE_HOST || null,
+    },
     scalingoAppName: process.env.APP || null,
     versionPollSeconds: parseInt(process.env.VERSION_POLL_SECONDS) || 300,
   },

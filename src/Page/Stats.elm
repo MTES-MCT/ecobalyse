@@ -12,6 +12,7 @@ import Html exposing (..)
 import Html.Attributes exposing (..)
 import Ports
 import Views.Container as Container
+import Views.Markdown as Markdown
 
 
 type alias Model =
@@ -36,41 +37,41 @@ update session msg model =
 
 
 view : Session -> Model -> ( String, List (Html Msg) )
-view _ _ =
+view { plausible } _ =
     ( "Statistiques"
     , [ Container.centered [ class "pb-5" ]
             [ h1 [ class "mb-3" ] [ text "Statistiques" ]
-            , div [ class "border border-top-0 rounded p-2" ]
-                [ iframe
-                    [ attribute "plausible-embed" ""
-                    , src "https://s.ecobalyse.incubateur.net/share/ecobalyse.beta.gouv.fr?auth=aXIS5ZeXacdSbZuetgS6W&embed=true&theme=light&background=%23ffffff"
-                    , attribute "scrolling" "no"
-                    , attribute "frameborder" "0"
-                    , attribute "loading" "lazy"
-                    , style "width" "1px"
-                    , style "min-width" "100%"
-                    , style "height" "1600px"
-                    ]
-                    []
-                , div
-                    [ style "font-size" "14px"
-                    , style "padding-bottom" "14px"
-                    ]
-                    [ text "Stats powered by "
-                    , a
-                        [ target "_blank"
-                        , style "color" "#4F46E5"
-                        , style "text-decoration" "underline"
-                        , href "https://plausible.io"
+            , div [ class "border rounded p-2" ] <|
+                case plausible.host of
+                    Just plausibleHost ->
+                        [ iframe
+                            [ attribute "plausible-embed" ""
+                            , src <| "https://" ++ plausibleHost ++ "/share/ecobalyse.beta.gouv.fr?auth=x5YPtaLjZQymaV_F4p8NF&embed=true&theme=light"
+                            , attribute "scrolling" "no"
+                            , attribute "frameborder" "0"
+                            , attribute "loading" "lazy"
+                            , style "width" "1px"
+                            , style "min-width" "100%"
+                            , style "height" "2000px"
+                            ]
+                            [ div [ class "alert alert-info" ]
+                                [ "Votre adblocker est activé. Veuillez le désactiver ou whitelister *https://"
+                                    ++ plausibleHost
+                                    ++ "* pour voir les statistiques."
+                                    |> Markdown.simple []
+                                ]
+                            ]
+                        , node "script"
+                            [ attribute "async" ""
+                            , src <| plausibleHost ++ "/js/embed.host.js"
+                            ]
+                            []
                         ]
-                        [ text "Plausible Analytics" ]
-                    ]
-                , node "script"
-                    [ attribute "async" ""
-                    , src "https://s.ecobalyse.incubateur.net/js/embed.host.js"
-                    ]
-                    []
-                ]
+
+                    Nothing ->
+                        [ div [ class "alert alert-info" ]
+                            [ text "⚠️ Le service de statistiques n’est pas configuré, affichage impossible." ]
+                        ]
             ]
       ]
     )
