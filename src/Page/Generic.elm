@@ -1488,7 +1488,7 @@ modalView session ({ modals } as model) modal =
                     case category of
                         Category.Material ->
                             ( scopeLabels.search
-                            , scopeLabels.select
+                            , "Sélectionnez une matière première"
                             )
 
                         Category.Transform ->
