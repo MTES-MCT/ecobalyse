@@ -1,5 +1,6 @@
 module Views.Comparator exposing
     ( ComparisonType(..)
+    , chartSeries
     , comparisonTypeToString
     , view
     )
@@ -7,6 +8,7 @@ module Views.Comparator exposing
 import Data.Bookmark as Bookmark exposing (Bookmark)
 import Data.Complement as Complement
 import Data.Component as Component
+import Data.Db exposing (Db)
 import Data.Food.Recipe as Recipe
 import Data.Generic.Simulator as GenericSimulator
 import Data.Impact as Impact
@@ -55,6 +57,12 @@ type alias ChartsData =
     , impacts : Impact.Impacts
     , label : String
     , stagesImpacts : Impact.StagesImpacts
+    }
+
+
+type alias Requirements =
+    { componentConfig : Component.Config
+    , db : Db
     }
 
 
@@ -121,12 +129,12 @@ sidebarView config =
     ]
 
 
-addToComparison : Session -> Bookmark -> Result String ChartsData
-addToComparison session { name, query } =
+addToComparison : Requirements -> Bookmark -> Result String ChartsData
+addToComparison { componentConfig, db } { name, query } =
     case query of
         Bookmark.Food foodQuery ->
             foodQuery
-                |> Recipe.compute session.db
+                |> Recipe.compute db
                 |> Result.map
                     (\( _, { recipe, total } as results ) ->
                         { complementsImpact = recipe.totalComplementsImpact
@@ -141,8 +149,8 @@ addToComparison session { name, query } =
         Bookmark.Generic genericScope genericQuery ->
             genericQuery
                 |> GenericSimulator.compute
-                    { config = session.componentConfig
-                    , db = session.db
+                    { config = componentConfig
+                    , db = db
                     , scope = Scope.Generic genericScope
                     }
                 |> Result.map
@@ -161,7 +169,7 @@ addToComparison session { name, query } =
 
         Bookmark.Textile textileQuery ->
             textileQuery
-                |> TextileSimulator.compute session.db session.componentConfig
+                |> TextileSimulator.compute db componentConfig
                 |> Result.map
                     (\simulator ->
                         { complementsImpact = simulator.complementsImpacts
@@ -174,6 +182,32 @@ addToComparison session { name, query } =
                     )
 
 
+chartSeries : Requirements -> ComparisonType -> Bookmark -> Result String (List { name : String, value : Float })
+chartSeries ({ db } as reqs) comparisonType bookmark =
+    bookmark
+        |> addToComparison reqs
+        |> Result.map
+            (\chartsData ->
+                let
+                    entries =
+                        case comparisonType of
+                            IndividualImpacts ->
+                                entriesForIndividualImpacts db.definitions chartsData
+
+                            Stages ->
+                                entriesForStages chartsData
+
+                            Subscores ->
+                                entriesForSubscores db.definitions chartsData
+
+                            Total ->
+                                entriesForTotal chartsData
+                in
+                entries
+                    |> List.map (\{ name, value } -> { name = name, value = value })
+            )
+
+
 comparatorView : Config msg -> List (Html msg)
 comparatorView ({ session } as config) =
     let
@@ -182,7 +216,7 @@ comparatorView ({ session } as config) =
                 |> List.filterMap
                     (\bookmark ->
                         if Set.member (Bookmark.toId bookmark) session.store.comparedSimulations then
-                            Just (addToComparison session bookmark)
+                            Just (addToComparison { componentConfig = session.componentConfig, db = session.db } bookmark)
 
                         else
                             Nothing
@@ -249,7 +283,47 @@ comparatorView ({ session } as config) =
 
 
 dataForIndividualImpacts : Definitions -> List ChartsData -> String
-dataForIndividualImpacts definitions chartsData =
+dataForIndividualImpacts definitions =
+    encodeChartSeries <|
+        entriesForIndividualImpacts definitions
+            >> Encode.list Impact.encodeAggregatedScoreChartEntry
+
+
+dataForStages : List ChartsData -> String
+dataForStages =
+    encodeChartSeries <|
+        entriesForStages
+            >> Encode.list Impact.encodeAggregatedScoreChartEntry
+
+
+dataForSubscoresImpacts : Definitions -> List ChartsData -> String
+dataForSubscoresImpacts definitions =
+    encodeChartSeries <|
+        entriesForSubscores definitions
+            >> Encode.list Impact.encodeAggregatedScoreChartEntry
+
+
+dataForTotalImpacts : List ChartsData -> String
+dataForTotalImpacts =
+    encodeChartSeries <|
+        entriesForTotal
+            >> Encode.list Impact.encodeAggregatedScoreChartEntry
+
+
+encodeChartSeries : (ChartsData -> Encode.Value) -> List ChartsData -> String
+encodeChartSeries encodeChartsData =
+    Encode.list
+        (\chartsDatum ->
+            Encode.object
+                [ ( "label", Encode.string chartsDatum.label )
+                , ( "data", encodeChartsData chartsDatum )
+                ]
+        )
+        >> Encode.encode 0
+
+
+entriesForIndividualImpacts : Definitions -> ChartsData -> List { color : String, name : String, value : Float }
+entriesForIndividualImpacts definitions { complementsImpact, impacts } =
     let
         labelToOrder =
             [ "Changement climatique"
@@ -295,100 +369,46 @@ dataForIndividualImpacts definitions chartsData =
                 _ ->
                     EQ
     in
-    chartsData
-        |> Encode.list
-            (\{ complementsImpact, impacts, label } ->
-                let
-                    complementImpacts =
-                        Complement.complementsImpactAsChartEntries complementsImpact
+    Complement.complementsImpactAsChartEntries complementsImpact
+        ++ (impacts
+                |> Impact.getAggregatedScoreData definitions .ecoscoreData
+                |> List.sortWith labelComparison
+           )
+        |> List.reverse
 
-                    entries =
-                        impacts
-                            |> Impact.getAggregatedScoreData definitions .ecoscoreData
-                            |> List.sortWith labelComparison
 
-                    reversed =
-                        complementImpacts
-                            ++ entries
-                            |> List.reverse
-                in
-                Encode.object
-                    [ ( "label", Encode.string label )
-                    , ( "data", Encode.list Impact.encodeAggregatedScoreChartEntry reversed )
+entriesForStages : ChartsData -> List { color : String, name : String, value : Float }
+entriesForStages { stagesImpacts } =
+    stagesImpacts
+        |> Impact.stagesImpactsAsChartEntries
+        |> List.reverse
+
+
+entriesForSubscores : Definitions -> ChartsData -> List { color : String, name : String, value : Float }
+entriesForSubscores definitions { complementsImpact, impacts } =
+    impacts
+        |> Impact.toProtectionAreas definitions
+        |> (\{ biodiversity, climate, health, resources } ->
+                List.reverse
+                    [ Complement.totalComplementsImpactAsChartEntry complementsImpact
+                    , { color = "#9025be", name = "Climat", value = Unit.impactToFloat climate }
+                    , { color = "#00b050", name = "Biodiversité", value = Unit.impactToFloat biodiversity }
+                    , { color = "#ffc000", name = "Santé environnementale", value = Unit.impactToFloat health }
+                    , { color = "#0070c0", name = "Ressource", value = Unit.impactToFloat resources }
                     ]
-            )
-        |> Encode.encode 0
+           )
 
 
-dataForSubscoresImpacts : Definitions -> List ChartsData -> String
-dataForSubscoresImpacts definitions chartsData =
-    chartsData
-        |> Encode.list
-            (\{ complementsImpact, impacts, label } ->
-                let
-                    complementImpacts =
-                        Complement.totalComplementsImpactAsChartEntry complementsImpact
-
-                    entries =
-                        impacts
-                            |> Impact.toProtectionAreas definitions
-                            |> (\{ biodiversity, climate, health, resources } ->
-                                    List.reverse
-                                        [ complementImpacts
-                                        , { color = "#9025be", name = "Climat", value = Unit.impactToFloat climate }
-                                        , { color = "#00b050", name = "Biodiversité", value = Unit.impactToFloat biodiversity }
-                                        , { color = "#ffc000", name = "Santé environnementale", value = Unit.impactToFloat health }
-                                        , { color = "#0070c0", name = "Ressource", value = Unit.impactToFloat resources }
-                                        ]
-                               )
-                in
-                Encode.object
-                    [ ( "label", Encode.string label )
-                    , ( "data", Encode.list Impact.encodeAggregatedScoreChartEntry entries )
-                    ]
-            )
-        |> Encode.encode 0
-
-
-dataForStages : List ChartsData -> String
-dataForStages chartsData =
-    chartsData
-        |> Encode.list
-            (\{ label, stagesImpacts } ->
-                Encode.object
-                    [ ( "label", Encode.string label )
-                    , ( "data"
-                      , stagesImpacts
-                            |> Impact.stagesImpactsAsChartEntries
-                            |> List.reverse
-                            |> Encode.list Impact.encodeAggregatedScoreChartEntry
-                      )
-                    ]
-            )
-        |> Encode.encode 0
-
-
-dataForTotalImpacts : List ChartsData -> String
-dataForTotalImpacts chartsData =
-    chartsData
-        |> Encode.list
-            (\{ impacts, label } ->
-                Encode.object
-                    [ ( "label", Encode.string label )
-                    , ( "data"
-                      , Encode.list Impact.encodeAggregatedScoreChartEntry
-                            [ { color = "#333333"
-                              , name = "Impact total"
-                              , value =
-                                    impacts
-                                        |> Impact.getImpact Definition.Ecs
-                                        |> Unit.impactToFloat
-                              }
-                            ]
-                      )
-                    ]
-            )
-        |> Encode.encode 0
+entriesForTotal : ChartsData -> List { color : String, name : String, value : Float }
+entriesForTotal { impacts } =
+    [ { color = "#333333"
+      , name = "Impact total"
+      , value =
+            impacts
+                |> Impact.getImpact Definition.Ecs
+                |> Unit.impactToFloat
+      }
+    ]
 
 
 comparisonTypeToString : ComparisonType -> String
