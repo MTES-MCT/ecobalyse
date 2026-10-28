@@ -147,7 +147,10 @@ addToComparison session { name, query } =
                     }
                 |> Result.map
                     (\lifeCycle ->
-                        { complementsImpact = Complement.noComplementsImpacts
+                        { complementsImpact =
+                            lifeCycle.production
+                                |> Component.extractComplementsImpacts
+                                |> Complement.mapComplements (Maybe.map (Impact.getImpact Definition.Ecs))
                         , impacts = Component.sumLifeCycleImpacts lifeCycle
                         , label = name
                         , stagesImpacts =
