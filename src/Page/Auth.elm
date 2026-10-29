@@ -156,6 +156,11 @@ redirectToAccount session =
         >> App.withCmds [ Nav.pushUrl session.navKey <| Route.toString Route.Auth ]
 
 
+cguNotAcceptedMessage : String
+cguNotAcceptedMessage =
+    "Vous devez valider les CGU Ecoinvent/Base Empreinte pour avoir accès aux impacts détaillés"
+
+
 update : Session -> Msg -> Model -> PageUpdate Model Msg
 update session msg model =
     case msg of
@@ -187,7 +192,7 @@ update session msg model =
                         "Vous avez désormais accès aux impacts détaillés"
 
                      else
-                        "Vous devez valider les CGU Ecoinvent/Base Empreinte pour avoir accès aux impacts détaillés"
+                        cguNotAcceptedMessage
                     )
                 |> App.withCmds [ Plausible.send session Plausible.AuthLoginOK ]
 
@@ -266,6 +271,13 @@ updateAccountTab session currentAuth profileForm msg model =
                 |> App.withCmds
                     [ if updated then
                         Plausible.send session Plausible.AuthProfileUpdated
+
+                      else
+                        Cmd.none
+
+                    -- `session` still has the previous profile; `user` is the one just received
+                    , if not (Session.hasAccessToDetailedImpacts session) && user.profile.termsAccepted then
+                        Auth.processes session DetailedProcessesResponse
 
                       else
                         Cmd.none
@@ -423,15 +435,26 @@ updateMagicLinkLoginTab session email token msg model =
             let
                 newSession =
                     session |> Session.setAuth (Just { accessTokenData = accessTokenData, user = user })
+
+                hasAccessToDetailedImpacts =
+                    Session.hasAccessToDetailedImpacts newSession
             in
             { model
-                | tab =
+                | skipNextAuthInit = not hasAccessToDetailedImpacts
+                , tab =
                     Account { accessTokenData = accessTokenData, user = user }
                         (User.profileFormFromUser user)
                         Dict.empty
             }
                 |> App.createUpdate newSession
-                |> App.withCmds [ Auth.processes newSession DetailedProcessesResponse ]
+                |> App.notifyInfoIf (not hasAccessToDetailedImpacts) cguNotAcceptedMessage
+                |> App.withCmds
+                    [ if hasAccessToDetailedImpacts then
+                        Auth.processes newSession DetailedProcessesResponse
+
+                      else
+                        Nav.pushUrl newSession.navKey <| Route.toString Route.Auth
+                    ]
 
         ProfileResponse _ _ (RemoteData.Failure error) ->
             model

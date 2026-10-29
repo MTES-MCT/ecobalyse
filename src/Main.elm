@@ -349,7 +349,7 @@ updateInitializing initMsg model =
             setRoute sessionConfig.url
                 ( { model | state = Loaded session LoadingPage }
                 , Cmd.batch
-                    [ if Session.isAuthenticated session then
+                    [ if Session.hasAccessToDetailedImpacts session then
                         Request.Auth.processes session (DetailedProcessesReceived sessionConfig)
 
                       else
