@@ -299,7 +299,7 @@ api.all(/(.*)/, bodyParser.json(), jsonErrorHandler, async (req, res) => {
 
   // retrieve detailed impacts; if for whatever reason they're not available, use non-detailed ones
   const detailsRes = await resolveProcesses(req.headers);
-  const processes = detailsRes.status === 200 ? detailsRes.body : processes;
+  const finalProcesses = detailsRes?.status === 200 ? detailsRes.body : processes;
 
   elmApp.ports.input.send({
     method: req.method,
@@ -308,7 +308,7 @@ api.all(/(.*)/, bodyParser.json(), jsonErrorHandler, async (req, res) => {
     url: req.url,
     version: null, // note: no way to infer a version number from the request containing none
     body: req.body,
-    processes,
+    processes: finalProcesses,
     jsResponseHandler: async ({ status, body }) => {
       matomoTracker.track(status, req);
       await plausibleTracker.captureEvent(status, req);
