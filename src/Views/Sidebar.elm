@@ -4,7 +4,7 @@ import Data.Bookmark exposing (Bookmark)
 import Data.Impact exposing (Impacts)
 import Data.Impact.Definition exposing (Definition, Trigram)
 import Data.Scope exposing (Scope)
-import Data.Session as Session exposing (Session)
+import Data.Session exposing (Session)
 import Html exposing (..)
 import Html.Attributes exposing (..)
 import Mass exposing (Mass)
@@ -57,7 +57,7 @@ view config =
         [ class "d-flex flex-column gap-3 mb-3 sticky-md-top"
         , style "top" "7px"
         ]
-        [ if Session.hasAccessToDetailedImpacts config.session then
+        [ if config.session.detailedImpacts then
             ImpactView.selector
                 db.definitions
                 { selectedImpact = config.selectedImpact.trigram

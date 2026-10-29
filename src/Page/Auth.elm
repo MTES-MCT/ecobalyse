@@ -54,7 +54,7 @@ type alias Email =
 
 type Msg
     = ApiTokensResponse (WebData (List CreatedToken))
-    | ComponentConfigReceived (RemoteData.WebData ComponentConfig.Config)
+    | ComponentConfigReceived (RemoteData.WebData ( String, ComponentConfig.Config ))
     | CopyToClipboard String
     | CreateToken
     | CreateTokenResponse (WebData Token)
@@ -165,8 +165,16 @@ update : Session -> Msg -> Model -> PageUpdate Model Msg
 update session msg model =
     case msg of
         -- Generic page updates
-        ComponentConfigReceived (RemoteData.Success componentConfig) ->
-            App.createUpdate { session | componentConfig = componentConfig } model
+        ComponentConfigReceived (RemoteData.Success ( componentRawConfig, componentConfig )) ->
+            App.createUpdate
+                { session
+                    | componentConfig = componentConfig
+                    , rawData =
+                        { config = Just componentRawConfig
+                        , db = session.rawData.db
+                        }
+                }
+                model
 
         CopyToClipboard accessToken ->
             App.createUpdate session model
@@ -184,7 +192,7 @@ update session msg model =
                 |> App.createUpdate newSession
                 |> App.withCmds
                     [ Nav.pushUrl newSession.navKey <| Route.toString Route.Auth
-                    , ComponentConfig.decode newSession.db
+                    , ComponentConfig.decodeWithSource newSession.db
                         |> Http.get "/data/components/config.json" ComponentConfigReceived
                     ]
                 |> App.notifyInfo
