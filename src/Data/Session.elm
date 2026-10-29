@@ -72,6 +72,9 @@ type alias Session =
     { clientUrl : String
     , componentConfig : Component.Config
     , currentVersion : Version
+
+    -- FIXME: db and detailedImpacts may be desynced; we should rather use a type
+    --        to distinguish a detailed db from non-detailed one
     , db : Db
     , detailedImpacts : Bool
     , enabledSections : EnabledSections
