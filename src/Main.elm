@@ -92,7 +92,7 @@ type Msg
     = ApiMsg Api.Msg
     | AppMsg App.Msg
     | AuthMsg Auth.Msg
-    | ComponentConfigReceived Db SessionConfig (WebData Component.Config)
+    | ComponentConfigReceived Db SessionConfig (WebData ( String, Component.Config ))
     | DetailedProcessesReceived SessionConfig (BackendHttp.WebData String)
     | EditorialMsg Editorial.Msg
     | ExploreMsg Explore.Msg
@@ -160,14 +160,14 @@ loadData sessionConfig =
         |> Cmd.batch
 
 
-setupSession : SessionConfig -> LoadingState -> Db -> Component.Config -> Session
-setupSession { flags, navKey } dbLoadingState db componentConfig =
+setupSession : SessionConfig -> LoadingState -> Db -> String -> Component.Config -> Session
+setupSession { flags, navKey } dbLoadingState db componentRawConfig componentConfig =
     Session.decodeRawStore flags.rawStore
         { clientUrl = flags.clientUrl
         , componentConfig = componentConfig
         , currentVersion = Version.Unknown
         , db = db
-        , dbRawJson = RequestDb.toRawJsonStrings dbLoadingState
+        , detailedImpacts = False
         , enabledSections = flags.enabledSections
         , matomo = flags.matomo
         , navKey = navKey
@@ -183,6 +183,10 @@ setupSession { flags, navKey } dbLoadingState db componentConfig =
                     |> Result.map .query
                     |> Result.withDefault TextileQuery.default
             , veli = Component.emptyQuery
+            }
+        , rawData =
+            { config = Just componentRawConfig
+            , db = RequestDb.toRawJsonStrings dbLoadingState
             }
         , scalingoAppName = flags.scalingoAppName
         , store = Session.defaultStore
@@ -341,10 +345,10 @@ updateInitializing : Msg -> Model -> ( Model, Cmd Msg )
 updateInitializing initMsg model =
     case initMsg of
         -- Components
-        ComponentConfigReceived db sessionConfig (RemoteData.Success componentConfig) ->
+        ComponentConfigReceived db sessionConfig (RemoteData.Success ( componentRawConfig, componentConfig )) ->
             let
                 session =
-                    setupSession sessionConfig model.dbLoadingState db componentConfig
+                    setupSession sessionConfig model.dbLoadingState db componentRawConfig componentConfig
             in
             setRoute sessionConfig.url
                 ( { model | state = Loaded session LoadingPage }
@@ -374,7 +378,7 @@ updateInitializing initMsg model =
                 ( rawJsonData, Just (Ok db) ) ->
                     ( { model | dbLoadingState = rawJsonData }
                       -- trigger loading the json config over http
-                    , ComponentConfig.decode db
+                    , ComponentConfig.decodeWithSource db
                         |> Http.get "/data/components/config.json" (ComponentConfigReceived db sessionConfig)
                     )
 
@@ -471,10 +475,16 @@ update rawMsg ({ state } as model) =
                     ( { model | tray = newTray }, Cmd.map (AppMsg << App.ToastMsg) newToastMsg )
 
                 -- Component config reloaded after detailed processes are received
-                ( ComponentConfigReceived _ _ (RemoteData.Success componentConfig), currentPage ) ->
+                ( ComponentConfigReceived _ _ (RemoteData.Success ( componentRawConfig, componentConfig )), currentPage ) ->
                     let
                         updatedSession =
-                            { session | componentConfig = componentConfig }
+                            { session
+                                | componentConfig = componentConfig
+                                , rawData =
+                                    { config = Just componentRawConfig
+                                    , db = session.rawData.db
+                                    }
+                            }
                     in
                     ( { model
                         | state =
@@ -500,7 +510,7 @@ update rawMsg ({ state } as model) =
                                 |> Session.updateDbProcesses rawDetailedProcessesJson
                     in
                     ( { model | state = Loaded newSession currentPage }
-                    , ComponentConfig.decode newSession.db
+                    , ComponentConfig.decodeWithSource newSession.db
                         |> Http.get "/data/components/config.json" (ComponentConfigReceived newSession.db sessionConfig)
                     )
 
@@ -547,11 +557,18 @@ update rawMsg ({ state } as model) =
 
                 -- Store
                 ( StoreChanged json, currentPage ) ->
-                    ( { model
-                        | state =
-                            currentPage
-                                |> Loaded (session |> Session.decodeRawStore json)
-                      }
+                    let
+                        newSession =
+                            session |> Session.decodeRawStore json
+
+                        newPage =
+                            if session.detailedImpacts /= newSession.detailedImpacts then
+                                currentPage |> refreshCachedResults newSession
+
+                            else
+                                currentPage
+                    in
+                    ( { model | state = Loaded newSession newPage }
                     , Cmd.none
                     )
 
@@ -642,8 +659,8 @@ view { dbLoadingState, flags, mobileNavigationOpened, state, tray } =
             { activePage = Page.Other
             , clientUrl = flags.clientUrl
             , currentVersion = Version.Unknown
+            , detailedImpacts = False
             , enabledSections = flags.enabledSections
-            , hasAccessToDetailedImpacts = False
             , isAuthenticated = False
             , isSuperuser = False
             , mobileNavigationOpened = mobileNavigationOpened
@@ -673,7 +690,7 @@ view { dbLoadingState, flags, mobileNavigationOpened, state, tray } =
                         { defaultPageConfig
                             | activePage = activePage
                             , currentVersion = session.currentVersion
-                            , hasAccessToDetailedImpacts = Session.hasAccessToDetailedImpacts session
+                            , detailedImpacts = session.detailedImpacts
                             , isAuthenticated = Session.isAuthenticated session
                             , isSuperuser = Session.isSuperuser session
                             , notifications = session.notifications
