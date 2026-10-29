@@ -7,7 +7,7 @@ module TestUtils exposing
     , expectFloatMostlyEqual
     , expectImpactsEqual
     , expectResultErrorContains
-    , expectResultWithin
+    , expectResultMostlyEqual
     , expectStringContains
     , it
     , itFromResult
@@ -33,7 +33,7 @@ import Data.Textile.Material as Material
 import Data.Textile.Product as Product
 import Data.Textile.Query as TextileQuery
 import Data.Unit as Unit
-import Expect exposing (Expectation, FloatingPointTolerance)
+import Expect exposing (Expectation)
 import Json.Encode as Encode
 import Mass
 import Server.Request exposing (Request)
@@ -171,11 +171,11 @@ expectResultErrorContains str result =
                 Expect.fail <| "result string error\n\n" ++ err ++ "\n\ndoes not contain `" ++ str ++ "`"
 
 
-expectResultWithin : FloatingPointTolerance -> Float -> Result String Float -> Expectation
-expectResultWithin precision target result =
+expectResultMostlyEqual : Float -> Result String Float -> Expectation
+expectResultMostlyEqual target result =
     case result of
         Ok float ->
-            float |> Expect.within precision target
+            float |> Expect.within (Expect.AbsoluteOrRelative 1.0e-15 1.0e-12) target
 
         Err err ->
             Expect.fail err

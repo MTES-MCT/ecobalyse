@@ -650,7 +650,7 @@ suite =
                             (chair
                                 |> Result.andThen (computeItemsWithRequirements requirements)
                                 |> Result.map (.production >> extractEcsImpact)
-                                |> TestUtils.expectResultWithin (Expect.Absolute 1) 276.8147824
+                                |> TestUtils.expectResultMostlyEqual 276.8147824
                             )
                         , it "should compute results from decoded component items with custom component elements"
                             ("""[
@@ -672,7 +672,7 @@ suite =
                                 ]"""
                                 |> decodeJsonThen (Decode.list Component.decodeItem) (computeItemsWithRequirements requirements)
                                 |> Result.map (.production >> extractEcsImpact)
-                                |> TestUtils.expectResultWithin (Expect.Absolute 1) 282.4819824
+                                |> TestUtils.expectResultMostlyEqual 282.4819824
                             )
                         , suiteFromResult "distribution impacts"
                             -- setup
