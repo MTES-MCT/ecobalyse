@@ -170,7 +170,7 @@ update session msg model =
                 { session
                     | componentConfig = componentConfig
                     , rawData =
-                        { config = Just componentRawConfig
+                        { config = componentRawConfig
                         , db = session.rawData.db
                         }
                 }
