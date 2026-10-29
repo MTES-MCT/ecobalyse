@@ -92,8 +92,8 @@ type Msg
     = ApiMsg Api.Msg
     | AppMsg App.Msg
     | AuthMsg Auth.Msg
-    | ComponentConfigReceived Db SessionConfig (WebData Component.Config)
-    | DetailedProcessesReceived SessionConfig (BackendHttp.WebData String)
+    | ComponentConfigReceived Db SessionConfig (WebData ( String, Component.Config ))
+    | DetailedProcessesReceived (BackendHttp.WebData String)
     | EditorialMsg Editorial.Msg
     | ExploreMsg Explore.Msg
     | FoodBuilderMsg FoodBuilder.Msg
@@ -160,14 +160,14 @@ loadData sessionConfig =
         |> Cmd.batch
 
 
-setupSession : SessionConfig -> LoadingState -> Db -> Component.Config -> Session
-setupSession { flags, navKey } dbLoadingState db componentConfig =
+setupSession : SessionConfig -> LoadingState -> Db -> String -> Component.Config -> Session
+setupSession { flags, navKey } dbLoadingState db componentRawConfig componentConfig =
     Session.decodeRawStore flags.rawStore
         { clientUrl = flags.clientUrl
         , componentConfig = componentConfig
         , currentVersion = Version.Unknown
         , db = db
-        , dbRawJson = RequestDb.toRawJsonStrings dbLoadingState
+        , detailedImpacts = False
         , enabledSections = flags.enabledSections
         , matomo = flags.matomo
         , navKey = navKey
@@ -183,6 +183,10 @@ setupSession { flags, navKey } dbLoadingState db componentConfig =
                     |> Result.map .query
                     |> Result.withDefault TextileQuery.default
             , veli = Component.emptyQuery
+            }
+        , rawData =
+            { config = componentRawConfig
+            , db = RequestDb.toRawJsonStrings dbLoadingState
             }
         , scalingoAppName = flags.scalingoAppName
         , store = Session.defaultStore
@@ -341,16 +345,16 @@ updateInitializing : Msg -> Model -> ( Model, Cmd Msg )
 updateInitializing initMsg model =
     case initMsg of
         -- Components
-        ComponentConfigReceived db sessionConfig (RemoteData.Success componentConfig) ->
+        ComponentConfigReceived db sessionConfig (RemoteData.Success ( componentRawConfig, componentConfig )) ->
             let
                 session =
-                    setupSession sessionConfig model.dbLoadingState db componentConfig
+                    setupSession sessionConfig model.dbLoadingState db componentRawConfig componentConfig
             in
             setRoute sessionConfig.url
                 ( { model | state = Loaded session LoadingPage }
                 , Cmd.batch
-                    [ if Session.isAuthenticated session then
-                        Request.Auth.processes session (DetailedProcessesReceived sessionConfig)
+                    [ if Session.hasAccessToDetailedImpacts session then
+                        Request.Auth.processes session DetailedProcessesReceived
 
                       else
                         Cmd.none
@@ -374,7 +378,7 @@ updateInitializing initMsg model =
                 ( rawJsonData, Just (Ok db) ) ->
                     ( { model | dbLoadingState = rawJsonData }
                       -- trigger loading the json config over http
-                    , ComponentConfig.decode db
+                    , ComponentConfig.decodeWithSource db
                         |> Http.get "/data/components/config.json" (ComponentConfigReceived db sessionConfig)
                     )
 
@@ -470,41 +474,26 @@ update rawMsg ({ state } as model) =
                     in
                     ( { model | tray = newTray }, Cmd.map (AppMsg << App.ToastMsg) newToastMsg )
 
-                -- Component config reloaded after detailed processes are received
-                ( ComponentConfigReceived _ _ (RemoteData.Success componentConfig), currentPage ) ->
+                -- Initial config response is handled while `Initializing`
+                ( ComponentConfigReceived _ _ _, _ ) ->
+                    ( model, Cmd.none )
+
+                -- Detailed processes
+                ( DetailedProcessesReceived (RemoteData.Success rawDetailedProcessesJson), currentPage ) ->
                     let
-                        updatedSession =
-                            { session | componentConfig = componentConfig }
+                        newSession =
+                            session |> Session.updateDbProcesses rawDetailedProcessesJson
                     in
                     ( { model
                         | state =
-                            -- refresh simulator results cached from the previous config and db
                             currentPage
-                                |> refreshCachedResults updatedSession
-                                |> Loaded updatedSession
+                                |> refreshCachedResults newSession
+                                |> Loaded newSession
                       }
                     , Cmd.none
                     )
 
-                ( ComponentConfigReceived _ _ (RemoteData.Failure error), _ ) ->
-                    notifyError model "Erreur" <|
-                        "Impossible de recharger la configuration des composants\u{00A0}: "
-                            ++ RequestCommon.errorToString error
-
-                -- Detailed processes
-                ( DetailedProcessesReceived sessionConfig (RemoteData.Success rawDetailedProcessesJson), currentPage ) ->
-                    let
-                        newSession =
-                            -- When detailed processes are received, rebuild the entire Db using them
-                            session
-                                |> Session.updateDbProcesses rawDetailedProcessesJson
-                    in
-                    ( { model | state = Loaded newSession currentPage }
-                    , ComponentConfig.decode newSession.db
-                        |> Http.get "/data/components/config.json" (ComponentConfigReceived newSession.db sessionConfig)
-                    )
-
-                ( DetailedProcessesReceived _ (RemoteData.Failure _), _ ) ->
+                ( DetailedProcessesReceived (RemoteData.Failure _), _ ) ->
                     notifyError model "Erreur" <|
                         "Impossible de charger les impacts détaillés; les impacts agrégés seront utilisés."
 
@@ -547,11 +536,18 @@ update rawMsg ({ state } as model) =
 
                 -- Store
                 ( StoreChanged json, currentPage ) ->
-                    ( { model
-                        | state =
-                            currentPage
-                                |> Loaded (session |> Session.decodeRawStore json)
-                      }
+                    let
+                        newSession =
+                            session |> Session.decodeRawStore json
+
+                        newPage =
+                            if session.detailedImpacts /= newSession.detailedImpacts then
+                                currentPage |> refreshCachedResults newSession
+
+                            else
+                                currentPage
+                    in
+                    ( { model | state = Loaded newSession newPage }
                     , Cmd.none
                     )
 
@@ -642,8 +638,8 @@ view { dbLoadingState, flags, mobileNavigationOpened, state, tray } =
             { activePage = Page.Other
             , clientUrl = flags.clientUrl
             , currentVersion = Version.Unknown
+            , detailedImpacts = False
             , enabledSections = flags.enabledSections
-            , hasAccessToDetailedImpacts = False
             , isAuthenticated = False
             , isSuperuser = False
             , mobileNavigationOpened = mobileNavigationOpened
@@ -673,7 +669,7 @@ view { dbLoadingState, flags, mobileNavigationOpened, state, tray } =
                         { defaultPageConfig
                             | activePage = activePage
                             , currentVersion = session.currentVersion
-                            , hasAccessToDetailedImpacts = Session.hasAccessToDetailedImpacts session
+                            , detailedImpacts = session.detailedImpacts
                             , isAuthenticated = Session.isAuthenticated session
                             , isSuperuser = Session.isSuperuser session
                             , notifications = session.notifications
