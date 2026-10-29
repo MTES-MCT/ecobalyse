@@ -2,7 +2,9 @@ const {
   API_DOCS_URL,
   createCSPDirectives,
   extractTokenFromHeaders,
+  detailedImpactsErrors,
   grantGenericApiAccess,
+  handleDetailedImpactsRequest,
 } = require("../../lib/http");
 
 describe("lib.http", () => {
@@ -81,6 +83,40 @@ describe("lib.http", () => {
           error: { authorization: "Un token valide est requis pour utiliser l’API" },
           documentation: API_DOCS_URL,
         },
+      });
+    });
+  });
+
+  describe("handleDetailedImpactsRequest", () => {
+    test("returns detailed impacts when validation succeeded", () => {
+      expect(handleDetailedImpactsRequest(201, "detailed")).toEqual({
+        status: 200,
+        body: "detailed",
+      });
+    });
+
+    test.each([
+      [403, 403, detailedImpactsErrors.termsRequired],
+      [401, 401, detailedImpactsErrors.invalidToken],
+      [500, 503, detailedImpactsErrors.authServerUnavailable],
+    ])("does not return the public file for status %s", (validationStatus, status, detail) => {
+      expect(handleDetailedImpactsRequest(validationStatus, "detailed")).toEqual({
+        status,
+        body: { status, detail },
+      });
+    });
+
+    test("reports auth server unavailable when it could not be reached", () => {
+      expect(handleDetailedImpactsRequest(500)).toEqual({
+        status: 503,
+        body: { status: 503, detail: detailedImpactsErrors.authServerUnavailable },
+      });
+    });
+
+    test("reports a missing detailed impacts data", () => {
+      expect(handleDetailedImpactsRequest(201, "")).toEqual({
+        status: 503,
+        body: { status: 503, detail: detailedImpactsErrors.missingData },
       });
     });
   });

@@ -14,6 +14,7 @@ const {
   createCSPDirectives,
   grantGenericApiAccess,
   extractTokenFromHeaders,
+  handleDetailedImpactsRequest,
 } = require("./lib/http");
 // monitoring
 const { setupSentry } = require("./lib/sentry"); // MUST be required BEFORE express
@@ -146,27 +147,28 @@ const processesImpacts = getDetailedProcessesAsString();
 
 const processes = getProcessesAsString();
 
-const getProcesses = async (headers) => {
-  let isValidToken = false;
+const resolveProcesses = async (headers) => {
   const token = extractTokenFromHeaders(headers);
 
-  if (NODE_ENV !== "test" && token) {
+  if (NODE_ENV === "test") {
+    // bypass validation in test env
+    return { status: 200, body: processesImpacts || processes };
+  } else if (!token) {
+    // no token passed: serve public file
+    return { status: 200, body: processes };
+  } else {
+    // validate token
     try {
-      const tokenRes = await fetch(`${INTERNAL_BACKEND_URL}/api/tokens/validate`, {
+      const { status } = await fetch(`${INTERNAL_BACKEND_URL}/api/tokens/validate`, {
         method: "POST",
+        headers: { "Content-Type": "application/json" },
         body: JSON.stringify({ token }),
       });
-      isValidToken = tokenRes.status == 201;
+      return handleDetailedImpactsRequest(status, processesImpacts);
     } catch (error) {
       console.error("Error validating token from the auth backend", error);
-      isValidToken = false;
+      return handleDetailedImpactsRequest(500);
     }
-  }
-
-  if ((NODE_ENV === "test" || isValidToken) && processesImpacts) {
-    return processesImpacts;
-  } else {
-    return processes;
   }
 };
 
@@ -199,11 +201,14 @@ async function checkGenericApiAccess(token) {
 }
 
 app.get("/processes/processes.json", async (req, res) => {
-  // Note: JSON parsing is done in Elm land
-  return res
-    .status(200)
-    .contentType("text/plain")
-    .send(JSON.stringify(await getProcesses(req.headers)));
+  const selected = await resolveProcesses(req.headers);
+
+  if (selected.status === 200) {
+    // Note: JSON parsing is done in Elm land
+    return res.status(200).contentType("text/plain").send(JSON.stringify(selected.body));
+  } else {
+    return res.status(selected.status).json(selected.body);
+  }
 });
 
 /**
@@ -292,7 +297,9 @@ api.all(/(.*)/, bodyParser.json(), jsonErrorHandler, async (req, res) => {
     }
   }
 
-  const processes = await getProcesses(req.headers);
+  // retrieve detailed impacts; if for whatever reason they're not available, use non-detailed ones
+  const detailsRes = await resolveProcesses(req.headers);
+  const processes = detailsRes.status === 200 ? detailsRes.body : processes;
 
   elmApp.ports.input.send({
     method: req.method,
