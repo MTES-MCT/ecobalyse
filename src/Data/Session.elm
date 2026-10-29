@@ -368,6 +368,22 @@ logout =
     setAuth Nothing
 
 
+{-| Rebuild a Db and a Config from public raw data.
+-}
+loadDb : Session -> { detailedImpacts : Bool } -> Db -> Result String Session
+loadDb session { detailedImpacts } db =
+    session.rawData.config
+        |> ComponentConfig.parse db
+        |> Result.map
+            (\componentConfig ->
+                { session
+                    | componentConfig = componentConfig
+                    , db = db
+                    , detailedImpacts = detailedImpacts
+                }
+            )
+
+
 {-| Rebuild a Db and a Config from public raw data
 -}
 usePublicDb : Session -> Result String Session
@@ -375,19 +391,7 @@ usePublicDb session =
     session.rawData.db
         |> Result.fromMaybe "Aucune donnée brute disponible en session pour reconstruire la base de données"
         |> Result.andThen Db.build
-        |> Result.andThen
-            (\db ->
-                session.rawData.config
-                    |> ComponentConfig.parse db
-                    |> Result.map
-                        (\componentConfig ->
-                            { session
-                                | componentConfig = componentConfig
-                                , db = db
-                                , detailedImpacts = False
-                            }
-                        )
-            )
+        |> Result.andThen (loadDb session { detailedImpacts = False })
 
 
 setAuth : Maybe Auth -> Session -> Session
@@ -474,12 +478,13 @@ updateDbProcesses rawDetailedProcessesJson session =
         session.rawData.db
             |> Result.fromMaybe "Aucune donnée brute disponible en session pour reconstruire la base de données"
             |> Result.andThen (\dbRawJson -> Db.build { dbRawJson | processes = Db.rawJsonString rawDetailedProcessesJson })
+            |> Result.andThen (loadDb session { detailedImpacts = True })
     of
         Err err ->
             session |> notifyError "Impossible de recharger la db avec les nouveaux procédés" err
 
-        Ok newDb ->
-            { session | db = newDb, detailedImpacts = True }
+        Ok newSession ->
+            newSession
 
 
 updateStore : (Store -> Store) -> Session -> Session

@@ -93,7 +93,7 @@ type Msg
     | AppMsg App.Msg
     | AuthMsg Auth.Msg
     | ComponentConfigReceived Db SessionConfig (WebData ( String, Component.Config ))
-    | DetailedProcessesReceived SessionConfig (BackendHttp.WebData String)
+    | DetailedProcessesReceived (BackendHttp.WebData String)
     | EditorialMsg Editorial.Msg
     | ExploreMsg Explore.Msg
     | FoodBuilderMsg FoodBuilder.Msg
@@ -354,7 +354,7 @@ updateInitializing initMsg model =
                 ( { model | state = Loaded session LoadingPage }
                 , Cmd.batch
                     [ if Session.hasAccessToDetailedImpacts session then
-                        Request.Auth.processes session (DetailedProcessesReceived sessionConfig)
+                        Request.Auth.processes session DetailedProcessesReceived
 
                       else
                         Cmd.none
@@ -474,47 +474,26 @@ update rawMsg ({ state } as model) =
                     in
                     ( { model | tray = newTray }, Cmd.map (AppMsg << App.ToastMsg) newToastMsg )
 
-                -- Component config reloaded after detailed processes are received
-                ( ComponentConfigReceived _ _ (RemoteData.Success ( componentRawConfig, componentConfig )), currentPage ) ->
+                -- Initial config response is handled while `Initializing`
+                ( ComponentConfigReceived _ _ _, _ ) ->
+                    ( model, Cmd.none )
+
+                -- Detailed processes
+                ( DetailedProcessesReceived (RemoteData.Success rawDetailedProcessesJson), currentPage ) ->
                     let
-                        updatedSession =
-                            { session
-                                | componentConfig = componentConfig
-                                , rawData =
-                                    { config = componentRawConfig
-                                    , db = session.rawData.db
-                                    }
-                            }
+                        newSession =
+                            session |> Session.updateDbProcesses rawDetailedProcessesJson
                     in
                     ( { model
                         | state =
-                            -- refresh simulator results cached from the previous config and db
                             currentPage
-                                |> refreshCachedResults updatedSession
-                                |> Loaded updatedSession
+                                |> refreshCachedResults newSession
+                                |> Loaded newSession
                       }
                     , Cmd.none
                     )
 
-                ( ComponentConfigReceived _ _ (RemoteData.Failure error), _ ) ->
-                    notifyError model "Erreur" <|
-                        "Impossible de recharger la configuration des composants\u{00A0}: "
-                            ++ RequestCommon.errorToString error
-
-                -- Detailed processes
-                ( DetailedProcessesReceived sessionConfig (RemoteData.Success rawDetailedProcessesJson), currentPage ) ->
-                    let
-                        newSession =
-                            -- When detailed processes are received, rebuild the entire Db using them
-                            session
-                                |> Session.updateDbProcesses rawDetailedProcessesJson
-                    in
-                    ( { model | state = Loaded newSession currentPage }
-                    , ComponentConfig.decodeWithSource newSession.db
-                        |> Http.get "/data/components/config.json" (ComponentConfigReceived newSession.db sessionConfig)
-                    )
-
-                ( DetailedProcessesReceived _ (RemoteData.Failure _), _ ) ->
+                ( DetailedProcessesReceived (RemoteData.Failure _), _ ) ->
                     notifyError model "Erreur" <|
                         "Impossible de charger les impacts détaillés; les impacts agrégés seront utilisés."
 
