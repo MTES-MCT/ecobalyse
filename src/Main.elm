@@ -185,7 +185,7 @@ setupSession { flags, navKey } dbLoadingState db componentRawConfig componentCon
             , veli = Component.emptyQuery
             }
         , rawData =
-            { config = Just componentRawConfig
+            { config = componentRawConfig
             , db = RequestDb.toRawJsonStrings dbLoadingState
             }
         , scalingoAppName = flags.scalingoAppName
@@ -481,7 +481,7 @@ update rawMsg ({ state } as model) =
                             { session
                                 | componentConfig = componentConfig
                                 , rawData =
-                                    { config = Just componentRawConfig
+                                    { config = componentRawConfig
                                     , db = session.rawData.db
                                     }
                             }

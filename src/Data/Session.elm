@@ -63,7 +63,7 @@ type alias Queries =
 
 
 type alias RawData =
-    { config : Maybe String
+    { config : String
     , db : Maybe Db.RawJsonStrings
     }
 
@@ -73,8 +73,6 @@ type alias Session =
     , componentConfig : Component.Config
     , currentVersion : Version
     , db : Db
-
-    -- FIXME: we should eventually use a type to distinguish a detailed db from non-detailed one
     , detailedImpacts : Bool
     , enabledSections : EnabledSections
     , matomo : { host : String, siteId : String }
@@ -377,8 +375,7 @@ usePublicDb session =
         |> Result.andThen
             (\db ->
                 session.rawData.config
-                    |> Result.fromMaybe "Aucune configuration brute disponible en session pour reconstruire la base de données"
-                    |> Result.andThen (ComponentConfig.parse db)
+                    |> ComponentConfig.parse db
                     |> Result.map
                         (\componentConfig ->
                             { session
@@ -468,8 +465,6 @@ serializeStore =
     encodeStore >> Encode.encode 0
 
 
-{-| Detailed processes data were received, update session
--}
 updateDbProcesses : String -> Session -> Session
 updateDbProcesses rawDetailedProcessesJson session =
     case
