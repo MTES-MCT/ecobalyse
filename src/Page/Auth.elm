@@ -11,7 +11,6 @@ module Page.Auth exposing
 import App exposing (PageUpdate)
 import Browser.Navigation as Nav
 import Data.ApiToken as ApiToken exposing (CreatedToken, Token)
-import Data.Component.Config as ComponentConfig
 import Data.Env as Env
 import Data.Plausible as Plausible
 import Data.Scope as Scope
@@ -23,7 +22,6 @@ import Html.Attributes exposing (..)
 import Html.Events exposing (..)
 import Ports
 import RemoteData
-import RemoteData.Http as Http
 import Request.ApiToken as ApiTokenHttp
 import Request.Auth as Auth
 import Request.BackendHttp exposing (WebData)
@@ -54,7 +52,6 @@ type alias Email =
 
 type Msg
     = ApiTokensResponse (WebData (List CreatedToken))
-    | ComponentConfigReceived (RemoteData.WebData ( String, ComponentConfig.Config ))
     | CopyToClipboard String
     | CreateToken
     | CreateTokenResponse (WebData Token)
@@ -164,18 +161,6 @@ cguNotAcceptedMessage =
 update : Session -> Msg -> Model -> PageUpdate Model Msg
 update session msg model =
     case msg of
-        -- Generic page updates
-        ComponentConfigReceived (RemoteData.Success ( componentRawConfig, componentConfig )) ->
-            App.createUpdate
-                { session
-                    | componentConfig = componentConfig
-                    , rawData =
-                        { config = componentRawConfig
-                        , db = session.rawData.db
-                        }
-                }
-                model
-
         CopyToClipboard accessToken ->
             App.createUpdate session model
                 |> App.withCmds [ Ports.copyToClipboard accessToken ]
@@ -190,11 +175,7 @@ update session msg model =
             -- Skip next auth page init to avoid reinitializing the account tab
             { model | skipNextAuthInit = True }
                 |> App.createUpdate newSession
-                |> App.withCmds
-                    [ Nav.pushUrl newSession.navKey <| Route.toString Route.Auth
-                    , ComponentConfig.decodeWithSource newSession.db
-                        |> Http.get "/data/components/config.json" ComponentConfigReceived
-                    ]
+                |> App.withCmds [ Nav.pushUrl newSession.navKey <| Route.toString Route.Auth ]
                 |> App.notifyInfo
                     (if Session.hasAccessToDetailedImpacts session then
                         "Vous avez désormais accès aux impacts détaillés"
