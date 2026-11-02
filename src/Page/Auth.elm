@@ -248,14 +248,17 @@ updateAccountTab session currentAuth profileForm msg model =
                 |> App.withCmds [ Nav.load <| Route.toString Route.Auth ]
 
         ProfileResponse { updated } _ (RemoteData.Success user) ->
-            App.createUpdate session
+            let
+                newSession =
+                    session |> Session.updateAuth (\auth -> { auth | user = user })
+            in
+            App.createUpdate newSession
                 { model
                     | tab =
                         Account { currentAuth | user = user }
                             (User.profileFormFromUser user)
                             Dict.empty
                 }
-                |> App.mapSession (Session.updateAuth (\auth -> { auth | user = user }))
                 |> App.notifyInfoIf updated "Votre profil a été mis à jour avec succès"
                 |> App.withCmds
                     [ if updated then
@@ -263,10 +266,8 @@ updateAccountTab session currentAuth profileForm msg model =
 
                       else
                         Cmd.none
-
-                    -- `session` still has the previous profile; `user` is the one just received
-                    , if not (Session.hasAccessToDetailedImpacts session) && user.profile.termsAccepted then
-                        Auth.processes session DetailedProcessesResponse
+                    , if user.profile.termsAccepted && not newSession.detailedImpacts then
+                        Auth.processes newSession DetailedProcessesResponse
 
                       else
                         Cmd.none
