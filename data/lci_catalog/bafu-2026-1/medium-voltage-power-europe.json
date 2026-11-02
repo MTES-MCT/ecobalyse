@@ -8,7 +8,16 @@
   "heatMJ": 0,
   "id": "ee114bf1-8c51-5c1e-8065-d762400447e2",
   "metadata": [
-    { "id": "2f96d0f4-6b72-45ed-9266-bec5951e0847", "scopes": ["object", "food2"] }
+    {
+      "displayName": "Électricité moyenne tension, Europe",
+      "id": "2f96d0f4-6b72-45ed-9266-bec5951e0847",
+      "scopes": ["object", "food2"]
+    },
+    {
+      "displayName": "Électricité moyenne tension, Albanie",
+      "id": "ac850be0-f09e-58eb-b334-3eb9fcd599d8",
+      "scopes": ["textile"]
+    }
   ],
   "qtyVariationRatio": 1,
   "scopes": ["textile", "object", "veli", "food2"],
