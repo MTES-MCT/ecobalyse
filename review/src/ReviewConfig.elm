@@ -27,7 +27,6 @@ config =
     -- NoDebug
     , NoDebug.TodoOrToString.rule
         |> Rule.ignoreErrorsForDirectories [ "tests/" ]
-        |> Rule.ignoreErrorsForFiles [ "src/Views/Debug.elm" ]
 
     -- Common
     , NoExposingEverything.rule
@@ -69,10 +68,7 @@ config =
             ]
     , NoUnused.Dependencies.rule
     , NoUnused.Exports.rule
-        |> Rule.ignoreErrorsForFiles
-            [ "src/Views/Button.elm"
-            , "src/Views/Debug.elm"
-            ]
+        |> Rule.ignoreErrorsForFiles [ "src/Views/Button.elm" ]
     , NoUnused.Parameters.rule
         |> Rule.ignoreErrorsForFiles [ "src/Page/Stats.elm" ]
     , NoUnused.Patterns.rule
