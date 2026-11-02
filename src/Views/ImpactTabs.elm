@@ -47,12 +47,11 @@ type alias Config msg =
     }
 
 
-detailedAccessNotice : Html msg
-detailedAccessNotice =
+detailedAccessNotice : Session -> String -> Html msg
+detailedAccessNotice session notice =
     div [ class "card-body fs-7" ]
         [ p [ class "text-muted" ]
-            -- FIXME: this should mention "impacts détaillés" for the Impacts tab
-            [ text "Les sous-scores ne sont pas accessibles." ]
+            [ text notice ]
         , p [ class "fw-bold" ]
             [ text "Comment y accéder\u{00A0}?" ]
         , ol [ class "ps-3" ]
@@ -60,9 +59,13 @@ detailedAccessNotice =
             , li [] [ text "Depuis votre compte, accepter les conditions d’utilisation des données Base empreinte et Ecoinvent." ]
             , li [] [ text "Revenir sur votre simulation en étant connecté et avec les conditions d’utilisation acceptées." ]
             ]
+        , div [ class "text-center" ]
+            [ if Session.isAuthenticated session then
+                a [ class "btn btn-sm btn-outline-primary", Route.href Route.Auth ] [ text "Accéder à mon compte" ]
 
-        -- FIXME: this should offer to sign up if the user is not logged in
-        , a [ Route.href Route.Auth ] [ text "Mon compte" ]
+              else
+                a [ class "btn btn-sm btn-outline-primary", Route.href Route.AuthSignup ] [ text "Créer un compte" ]
+            ]
         ]
 
 
@@ -86,7 +89,7 @@ view definitions { activeImpactsTab, complementsImpact, impactDefinition, onStag
             [ case activeImpactsTab of
                 DetailedImpactsTab ->
                     if not <| Session.hasAccessToDetailedImpacts session then
-                        detailedAccessNotice
+                        detailedAccessNotice session "Les impacts détaillés ne sont pas accessibles."
 
                     else
                         total
@@ -205,7 +208,7 @@ view definitions { activeImpactsTab, complementsImpact, impactDefinition, onStag
 
                 SubscoresTab ->
                     if not <| Session.hasAccessToDetailedImpacts session then
-                        detailedAccessNotice
+                        detailedAccessNotice session "Les sous-scores ne sont pas accessibles."
 
                     else
                         Table.percentageTable impactDefinition
