@@ -121,7 +121,12 @@ def source_path_consistency(activity: dict, activity_path: Path):
     Check that the activities are in the directory corresponding to their source
     """
     source = activity["source"]
-    expected_parent = re.sub(r" |\.", "-", source.lower())
+    # FIXME the currently loaded DB has the wrong name ; this will be fixed on
+    # the next BAFU update
+    if source == "BAFU 2025v2":
+        expected_parent = "bafu-2026-1"
+    else:
+        expected_parent = re.sub(r" |\.", "-", source.lower())
     actual_parent = str(activity_path.parent)
     if actual_parent != expected_parent:
         raise AssertionError(

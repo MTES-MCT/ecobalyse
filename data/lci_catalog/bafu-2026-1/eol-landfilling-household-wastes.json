@@ -1,0 +1,29 @@
+{
+  "activityName": "Disposal, municipal solid waste, 22.9% water, to sanitary landfill {CH} U",
+  "activityNameEI": "municipal solid waste//[CH] treatment of municipal solid waste, sanitary landfill",
+  "categories": [
+    "end-of-life",
+    "material_type:rubber",
+    "material_type:composites",
+    "material_type:synthetic_fibers",
+    "material_type:organic_fibers",
+    "material_type:pwb",
+    "material_type:battery_cell_nmc811",
+    "material_type:battery_cell_nmc622",
+    "material_type:battery_cell_lfp",
+    "material_type:battery_alkaline",
+    "material_type:other"
+  ],
+  "comment": "",
+  "displayName": "Enfouissement d'ordures ménagères",
+  "elecKwh": 0.0,
+  "heatMJ": 0,
+  "id": "d4954f69-e647-531d-aa32-c34be5556736",
+  "metadata": [
+    { "id": "63db8dee-78a5-4979-ae9b-fcc76d66ee4f", "scopes": ["object", "veli"] }
+  ],
+  "qtyVariationRatio": 1,
+  "scopes": ["object", "veli"],
+  "source": "BAFU 2025v2",
+  "unit": "kg"
+}

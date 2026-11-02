@@ -1,0 +1,17 @@
+{
+  "activityName": "Disposal, packaging cardboard, 19.6% water, to sanitary landfill {CH} U",
+  "activityNameEI": "waste paperboard//[CH] treatment of waste paperboard, sanitary landfill",
+  "categories": ["end-of-life", "material_type:containerboard"],
+  "comment": "",
+  "displayName": "Enfouissement du carton",
+  "elecKwh": 0.0,
+  "heatMJ": 0,
+  "id": "f1c884d2-7088-4274-8af0-cd86692e8e6b",
+  "metadata": [
+    { "id": "1b5bb8c7-162b-4518-84db-7cf14d02c3be", "scopes": ["object", "veli"] }
+  ],
+  "qtyVariationRatio": 1,
+  "scopes": ["object", "veli"],
+  "source": "BAFU 2025v2",
+  "unit": "kg"
+}

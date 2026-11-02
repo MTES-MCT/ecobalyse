@@ -1,0 +1,17 @@
+{
+  "activityName": "Disposal, steel, 0% water, to municipal incineration {CH} U",
+  "activityNameEI": "scrap steel//[CH] treatment of scrap steel, municipal incineration with fly ash extraction",
+  "categories": ["end-of-life", "material_type:ferrous_metals"],
+  "comment": "",
+  "displayName": "Incinération de métaux ferreux",
+  "elecKwh": 0.0,
+  "heatMJ": 0,
+  "id": "5719f399-c2a3-5268-84e2-894aba588f1b",
+  "metadata": [
+    { "id": "aea851ac-8f25-413a-82ba-5efd4630ea1f", "scopes": ["object", "veli"] }
+  ],
+  "qtyVariationRatio": 1,
+  "scopes": ["object", "veli"],
+  "source": "BAFU 2025v2",
+  "unit": "kg"
+}
