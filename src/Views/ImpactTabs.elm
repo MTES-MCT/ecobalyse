@@ -22,6 +22,7 @@ import Data.Unit as Unit
 import Html exposing (..)
 import Html.Attributes exposing (..)
 import Html.Events exposing (..)
+import Route
 import Views.CardTabs as CardTabs
 import Views.Component.StagesBorder as StagesBorder
 import Views.Table as Table
@@ -46,6 +47,37 @@ type alias Config msg =
     }
 
 
+detailedAccessNotice : Html msg
+detailedAccessNotice =
+    div [ class "card-body fs-7" ]
+        [ p [ class "text-muted" ]
+            -- FIXME: this should mention "impacts détaillés" for the Impacts tab
+            [ text "Les sous-scores ne sont pas accessibles." ]
+        , p [ class "fw-bold" ]
+            [ text "Comment y accéder\u{00A0}?" ]
+        , ol [ class "ps-3" ]
+            [ li [] [ text "S’identifier ou se créer un compte." ]
+            , li [] [ text "Depuis votre compte, accepter les conditions d’utilisation des données Base empreinte et Ecoinvent." ]
+            , li [] [ text "Revenir sur votre simulation en étant connecté et avec les conditions d’utilisation acceptées." ]
+            ]
+
+        -- FIXME: this should offer to sign up if the user is not logged in
+        , a [ Route.href Route.Auth ] [ text "Mon compte" ]
+        ]
+
+
+visibleTabs : Definition -> List Tab
+visibleTabs impactDefinition =
+    if impactDefinition.trigram == Definition.Ecs then
+        [ StagesImpactsTab
+        , SubscoresTab
+        , DetailedImpactsTab
+        ]
+
+    else
+        [ StagesImpactsTab ]
+
+
 view : Definitions -> Config msg -> Html msg
 view definitions { activeImpactsTab, complementsImpact, impactDefinition, onStageClick, scoring, session, stagesImpacts, switchImpactsTab, total } =
     CardTabs.view
@@ -53,42 +85,46 @@ view definitions { activeImpactsTab, complementsImpact, impactDefinition, onStag
         , content =
             [ case activeImpactsTab of
                 DetailedImpactsTab ->
-                    total
-                        |> Impact.getAggregatedScoreData definitions .ecoscoreData
-                        |> List.map (\{ name, value } -> { entryAttributes = [], name = name, value = value })
-                        |> (++)
-                            [ -- Food ecosystemic services
-                              { entryAttributes = []
-                              , name = "Services écosystémiques"
-                              , value = Unit.impactToFloat (Complement.sumEcosystemicImpacts complementsImpact)
-                              }
+                    if not <| Session.hasAccessToDetailedImpacts session then
+                        detailedAccessNotice
 
-                            -- Textile complements
-                            , { entryAttributes = []
-                              , name = "Complément " ++ String.toLower Complement.labels.outOfEuropeEOL
-                              , value =
-                                    complementsImpact.outOfEuropeEOL
-                                        |> Maybe.withDefault Unit.noImpacts
-                                        |> Unit.impactToFloat
-                              }
-                            , { entryAttributes = []
-                              , name = "Complément " ++ String.toLower Complement.labels.microfibers
-                              , value =
-                                    complementsImpact.microfibers
-                                        |> Maybe.withDefault Unit.noImpacts
-                                        |> Unit.impactToFloat
-                              }
-                            , { entryAttributes = []
-                              , name = "Complément " ++ String.toLower Complement.labels.forest
-                              , value =
-                                    complementsImpact.forest
-                                        |> Maybe.withDefault Unit.noImpacts
-                                        |> Unit.impactToFloat
-                              }
-                            ]
-                        |> List.sortBy .value
-                        |> List.reverse
-                        |> Table.percentageTable impactDefinition
+                    else
+                        total
+                            |> Impact.getAggregatedScoreData definitions .ecoscoreData
+                            |> List.map (\{ name, value } -> { entryAttributes = [], name = name, value = value })
+                            |> (++)
+                                [ -- Food ecosystemic services
+                                  { entryAttributes = []
+                                  , name = "Services écosystémiques"
+                                  , value = Unit.impactToFloat (Complement.sumEcosystemicImpacts complementsImpact)
+                                  }
+
+                                -- Textile complements
+                                , { entryAttributes = []
+                                  , name = "Complément " ++ String.toLower Complement.labels.outOfEuropeEOL
+                                  , value =
+                                        complementsImpact.outOfEuropeEOL
+                                            |> Maybe.withDefault Unit.noImpacts
+                                            |> Unit.impactToFloat
+                                  }
+                                , { entryAttributes = []
+                                  , name = "Complément " ++ String.toLower Complement.labels.microfibers
+                                  , value =
+                                        complementsImpact.microfibers
+                                            |> Maybe.withDefault Unit.noImpacts
+                                            |> Unit.impactToFloat
+                                  }
+                                , { entryAttributes = []
+                                  , name = "Complément " ++ String.toLower Complement.labels.forest
+                                  , value =
+                                        complementsImpact.forest
+                                            |> Maybe.withDefault Unit.noImpacts
+                                            |> Unit.impactToFloat
+                                  }
+                                ]
+                            |> List.sortBy .value
+                            |> List.reverse
+                            |> Table.percentageTable impactDefinition
 
                 StagesImpactsTab ->
                     [ { entryAttributes =
@@ -168,27 +204,23 @@ view definitions { activeImpactsTab, complementsImpact, impactDefinition, onStag
                         |> Table.percentageTable impactDefinition
 
                 SubscoresTab ->
-                    Table.percentageTable impactDefinition
-                        [ { entryAttributes = [], name = "Climat", value = Unit.impactToFloat scoring.climate }
-                        , { entryAttributes = [], name = "Biodiversité", value = Unit.impactToFloat scoring.biodiversity }
-                        , { entryAttributes = [], name = "Santé environnementale", value = Unit.impactToFloat scoring.health }
-                        , { entryAttributes = [], name = "Ressource", value = Unit.impactToFloat scoring.resources }
-                        , { entryAttributes = []
-                          , name = "Compléments"
-                          , value = Unit.impactToFloat scoring.complements
-                          }
-                        ]
+                    if not <| Session.hasAccessToDetailedImpacts session then
+                        detailedAccessNotice
+
+                    else
+                        Table.percentageTable impactDefinition
+                            [ { entryAttributes = [], name = "Climat", value = Unit.impactToFloat scoring.climate }
+                            , { entryAttributes = [], name = "Biodiversité", value = Unit.impactToFloat scoring.biodiversity }
+                            , { entryAttributes = [], name = "Santé environnementale", value = Unit.impactToFloat scoring.health }
+                            , { entryAttributes = [], name = "Ressource", value = Unit.impactToFloat scoring.resources }
+                            , { entryAttributes = []
+                              , name = "Compléments"
+                              , value = Unit.impactToFloat scoring.complements
+                              }
+                            ]
             ]
         , tabs =
-            (if impactDefinition.trigram == Definition.Ecs && Session.isAuthenticated session then
-                [ StagesImpactsTab
-                , SubscoresTab
-                , DetailedImpactsTab
-                ]
-
-             else
-                [ StagesImpactsTab ]
-            )
+            visibleTabs impactDefinition
                 |> List.map
                     (\tab ->
                         { active = activeImpactsTab == tab
