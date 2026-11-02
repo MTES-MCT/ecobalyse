@@ -116,6 +116,19 @@ def custom_source_consistency(filename, activities):
             )
 
 
+def source_path_consistency(activity, activity_path):
+    """
+    Check that the activities are in the directory corresponding to their source
+    """
+    source = activity["source"]
+    expected_parent = re.sub(r" |\.", "-", source.lower())
+    actual_parent = str(activity_path.parent)
+    if actual_parent != expected_parent:
+        raise AssertionError(
+            f"LCI source/path inconsistency: {activity_path} has source = '{source}' but is in the '{actual_parent}' folder"
+        )
+
+
 def invalid_uuid(filename, content, key):
     "Invalid UUID check"
     invalid_uuids = []
@@ -302,10 +315,11 @@ def _concat_lci(activities_file_path: Path):
 
 
 def test():
+    LCI_DIR = DATA_ROOT_DIR / "lci_catalog"
     with tempfile.NamedTemporaryFile(
         mode="w+", prefix="activities-"
     ) as activities_temp:
-        json.dump(_concat_lci(DATA_ROOT_DIR / "lci_catalog"), activities_temp)
+        json.dump(_concat_lci(LCI_DIR), activities_temp)
         activities_temp.seek(0)
 
         with tempfile.NamedTemporaryFile(
@@ -375,6 +389,17 @@ def test():
 
             check_all(CHECKS, CONTENT_CHECKS)
             creation_alias_matches_export_alias(activities_temp)
+
+    # FIXME Plan some refactorization here; tests until now were run on an aggregation
+    # of all activity files (which is mainly a remnant of the time when they
+    # were all stored in a unique file).
+    # For this particular test, though, we need to check the path of the real file
+
+    for lci in LCI_DIR.glob("*/*.json"):
+        activity_relative_path = lci.relative_to(LCI_DIR)
+        with open(lci) as fd:
+            activity = json.load(fd)
+            source_path_consistency(activity, activity_relative_path)
 
 
 if __name__ == "__main__":
