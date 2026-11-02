@@ -153,11 +153,6 @@ redirectToAccount session =
         >> App.withCmds [ Nav.pushUrl session.navKey <| Route.toString Route.Auth ]
 
 
-cguNotAcceptedMessage : String
-cguNotAcceptedMessage =
-    "Vous devez valider les CGU Ecoinvent/Base Empreinte pour avoir accès aux impacts détaillés"
-
-
 update : Session -> Msg -> Model -> PageUpdate Model Msg
 update session msg model =
     case msg of
@@ -432,7 +427,8 @@ updateMagicLinkLoginTab session email token msg model =
                         Dict.empty
             }
                 |> App.createUpdate newSession
-                |> App.notifyInfoIf (not hasAccessToDetailedImpacts) cguNotAcceptedMessage
+                |> App.notifyInfoIf (not hasAccessToDetailedImpacts)
+                    "Vous devez valider les CGU Ecoinvent/Base Empreinte pour avoir accès aux impacts détaillés"
                 |> App.withCmds
                     [ if hasAccessToDetailedImpacts then
                         Auth.processes newSession DetailedProcessesResponse
