@@ -100,9 +100,9 @@ Le framework utilisé est [Litestar](https://litestar.dev/).
 
 ### Lancer le serveur de développement
 
-Le serveur local de développement se lance au moyen des deux commandes suivantes :
+Le serveur local de développement se lance au moyen de la commande suivante :
 
-    npm start:dev
+    npm run start:dev
 
 Trois instances de développement sont alors accessibles :
 
