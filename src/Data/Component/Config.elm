@@ -4,7 +4,6 @@ module Data.Component.Config exposing
     , EndOfLifeStrategies
     , EndOfLifeStrategiesConfig
     , EndOfLifeStrategy
-    , decodeWithSource
     , getDocLink
     , parse
     , scopeEnabled
@@ -23,7 +22,6 @@ import Dict exposing (Dict)
 import Dict.Any as AnyDict
 import Json.Decode as Decode exposing (Decoder)
 import Json.Decode.Pipeline as Decode
-import Json.Encode as Encode
 
 
 type alias Config =
@@ -120,20 +118,6 @@ decode { countries, processes } =
         |> Decode.required "production" (decodeProductionConfig processes)
         |> Decode.required "transports" (decodeTransportConfig processes)
         |> Decode.required "use" (decodeUseConfig processes)
-
-
-decodeWithSource : { db | countries : List Country, processes : List Process } -> Decoder ( String, Config )
-decodeWithSource db =
-    Decode.value
-        |> Decode.andThen
-            (\value ->
-                case Decode.decodeValue (decode db) value of
-                    Err error ->
-                        Decode.fail (Decode.errorToString error)
-
-                    Ok config ->
-                        Decode.succeed ( Encode.encode 0 value, config )
-            )
 
 
 decodeDistributionConfig : List Process -> List Country -> Decoder DistributionConfig

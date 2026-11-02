@@ -14,6 +14,7 @@ import Data.Plausible as Plausible
 import Data.Session as Session exposing (Session)
 import Data.Textile.Query as TextileQuery
 import Html
+import Http
 import Page.Api as Api
 import Page.Auth as Auth
 import Page.Editorial as Editorial
@@ -25,7 +26,6 @@ import Page.Stats as Stats
 import Page.Textile as TextileSimulator
 import Ports
 import RemoteData exposing (WebData)
-import RemoteData.Http as Http
 import Request.Auth
 import Request.BackendHttp as BackendHttp
 import Request.Common as RequestCommon
@@ -92,7 +92,7 @@ type Msg
     = ApiMsg Api.Msg
     | AppMsg App.Msg
     | AuthMsg Auth.Msg
-    | ComponentConfigReceived Db SessionConfig (WebData ( String, Component.Config ))
+    | ComponentConfigReceived Db SessionConfig (WebData String)
     | DetailedProcessesReceived (BackendHttp.WebData String)
     | EditorialMsg Editorial.Msg
     | ExploreMsg Explore.Msg
@@ -343,31 +343,43 @@ refreshCachedResults session currentPage =
 
 updateInitializing : Msg -> Model -> ( Model, Cmd Msg )
 updateInitializing initMsg model =
+    let
+        configLoadingError err =
+            "Impossible de charger la configuration des composants: " ++ err
+    in
     case initMsg of
         -- Components
-        ComponentConfigReceived db sessionConfig (RemoteData.Success ( componentRawConfig, componentConfig )) ->
-            let
-                session =
-                    setupSession sessionConfig model.dbLoadingState db componentRawConfig componentConfig
-            in
-            setRoute sessionConfig.url
-                ( { model | state = Loaded session LoadingPage }
-                , Cmd.batch
-                    [ if Session.hasAccessToDetailedImpacts session then
-                        Request.Auth.processes session DetailedProcessesReceived
+        ComponentConfigReceived db sessionConfig (RemoteData.Success componentRawConfig) ->
+            case ComponentConfig.parse db componentRawConfig of
+                Err error ->
+                    ( { model | state = Errored <| configLoadingError error }
+                    , Cmd.none
+                    )
 
-                      else
-                        Cmd.none
-                    , Plausible.send session <| Plausible.PageViewed sessionConfig.url
-                    ]
-                )
+                Ok componentConfig ->
+                    let
+                        session =
+                            componentConfig
+                                |> setupSession sessionConfig model.dbLoadingState db componentRawConfig
+                    in
+                    setRoute sessionConfig.url
+                        ( { model | state = Loaded session LoadingPage }
+                        , Cmd.batch
+                            [ if Session.hasAccessToDetailedImpacts session then
+                                Request.Auth.processes session DetailedProcessesReceived
+
+                              else
+                                Cmd.none
+                            , Plausible.send session <| Plausible.PageViewed sessionConfig.url
+                            ]
+                        )
 
         ComponentConfigReceived _ _ (RemoteData.Failure error) ->
             ( { model
                 | state =
-                    Errored <|
-                        "Impossible de charger la configuration des composants: "
-                            ++ RequestCommon.errorToString error
+                    RequestCommon.errorToString error
+                        |> configLoadingError
+                        |> Errored
               }
             , Cmd.none
             )
@@ -378,8 +390,10 @@ updateInitializing initMsg model =
                 ( rawJsonData, Just (Ok db) ) ->
                     ( { model | dbLoadingState = rawJsonData }
                       -- trigger loading the json config over http
-                    , ComponentConfig.decodeWithSource db
-                        |> Http.get "/data/components/config.json" (ComponentConfigReceived db sessionConfig)
+                    , Http.get
+                        { expect = Http.expectString (RemoteData.fromResult >> ComponentConfigReceived db sessionConfig)
+                        , url = "/data/components/config.json"
+                        }
                     )
 
                 ( rawJsonData, Just (Err err) ) ->
