@@ -652,12 +652,12 @@ view { dbLoadingState, flags, mobileNavigationOpened, state, tray } =
             { activePage = Page.Other
             , clientUrl = flags.clientUrl
             , currentVersion = Version.Unknown
-            , detailedImpacts = False
             , enabledSections = flags.enabledSections
             , isAuthenticated = False
             , isSuperuser = False
             , mobileNavigationOpened = mobileNavigationOpened
             , notifications = []
+            , termsAccepted = False
             , toMsg = AppMsg
             , tray = tray
             }
@@ -683,10 +683,10 @@ view { dbLoadingState, flags, mobileNavigationOpened, state, tray } =
                         { defaultPageConfig
                             | activePage = activePage
                             , currentVersion = session.currentVersion
-                            , detailedImpacts = session.detailedImpacts
                             , isAuthenticated = Session.isAuthenticated session
                             , isSuperuser = Session.isSuperuser session
                             , notifications = session.notifications
+                            , termsAccepted = Session.hasAccessToDetailedImpacts session
                             , tray = tray
                         }
 

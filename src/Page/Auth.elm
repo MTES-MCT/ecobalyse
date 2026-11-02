@@ -175,15 +175,10 @@ update session msg model =
             -- Skip next auth page init to avoid reinitializing the account tab
             { model | skipNextAuthInit = True }
                 |> App.createUpdate newSession
-                |> App.withCmds [ Nav.pushUrl newSession.navKey <| Route.toString Route.Auth ]
-                |> App.notifyInfo
-                    (if Session.hasAccessToDetailedImpacts session then
-                        "Vous avez désormais accès aux impacts détaillés"
-
-                     else
-                        cguNotAcceptedMessage
-                    )
-                |> App.withCmds [ Plausible.send session Plausible.AuthLoginOK ]
+                |> App.withCmds
+                    [ Nav.pushUrl newSession.navKey <| Route.toString Route.Auth
+                    , Plausible.send session Plausible.AuthLoginOK
+                    ]
 
         DetailedProcessesResponse (RemoteData.Failure error) ->
             model
