@@ -28,22 +28,23 @@
 * [📝 Le coût environnemental : approche méthodologique globale (old)](impacts-consideres.md)
 * [Compléments hors ACV - old](complements-hors-acv.md)
 
-## ⚙️ Tous secteurs
+## ⚙️ Méthodes tous secteurs
 
-* [⚠️ Précisions sur les méthodes "Tous secteurs"](tous-secteurs/precisions-sur-les-methodes-transverses.md)
-* [🧩 Production des matériaux (ou ingrédients)](tous-secteurs/production/README.md)
-  * [◻️ Procédés Acier et Aluminium](tous-secteurs/production/procedes-acier-et-aluminium.md)
-* [🪛 Assemblage](tous-secteurs/assemblage.md)
-* [📦 Emballages](tous-secteurs/emballages.md)
-* [🚚 Transport](tous-secteurs/transport/README.md)
-  * [Coût environnemental par voie de transport](tous-secteurs/transport/cout-environnemental-par-voie-de-transport.md)
-  * [Choix des voies de transport](tous-secteurs/transport/choix-des-voies-de-transport.md)
-  * [✈️ Transport par avion - prise en compte des trainées](tous-secteurs/transport/modelisation-fret-aerien.md)
-* [🏪 Distribution](tous-secteurs/distribution.md)
-* [💡 Electricité à l'utilisation](tous-secteurs/electricite-a-lutilisation.md)
-* [⌛ Utilisation](tous-secteurs/utilisation.md)
-* [🗑️ Fin de vie des produits](tous-secteurs/fin-de-vie.md)
-* [⚡ Modélisation de la consommation d'énergie](tous-secteurs/modelisation-de-la-consommation-denergie.md)
+* [⚠️ Précisions sur les méthodes "Tous secteurs"](methodes-tous-secteurs/precisions-sur-les-methodes-transverses.md)
+* [🧩 Production des matériaux (ou ingrédients)](methodes-tous-secteurs/production/README.md)
+  * [◻️ Procédés Acier et Aluminium](methodes-tous-secteurs/production/procedes-acier-et-aluminium.md)
+* [🪛 Assemblage](methodes-tous-secteurs/assemblage.md)
+* [📦 Emballages](methodes-tous-secteurs/emballages.md)
+* [🚚 Transport](methodes-tous-secteurs/transport/README.md)
+  * [Coût environnemental par voie de transport](methodes-tous-secteurs/transport/cout-environnemental-par-voie-de-transport.md)
+  * [Choix des voies de transport](methodes-tous-secteurs/transport/choix-des-voies-de-transport.md)
+  * [✈️ Transport par avion - prise en compte des trainées](methodes-tous-secteurs/transport/modelisation-fret-aerien.md)
+* [🏪 Distribution](methodes-tous-secteurs/distribution.md)
+* [💡 Electricité à l'utilisation](methodes-tous-secteurs/electricite-a-lutilisation.md)
+* [⌛ Utilisation](methodes-tous-secteurs/utilisation.md)
+* [🗑️ Fin de vie des produits](methodes-tous-secteurs/fin-de-vie.md)
+* [⚡ Modélisation de la consommation d'énergie](methodes-tous-secteurs/modelisation-de-la-consommation-denergie.md)
+* [🧥 Upcycling / Remanufacturage](methodes-tous-secteurs/surcyclage-upcycling.md)
 
 ## 🍕 Alimentaire
 
