@@ -86,50 +86,49 @@ view definitions { activeImpactsTab, complementsImpact, impactDefinition, onStag
     CardTabs.view
         { attrs = []
         , content =
-            [ case activeImpactsTab of
-                DetailedImpactsTab ->
-                    if not <| Session.hasAccessToDetailedImpacts session then
-                        detailedAccessNotice session "Les impacts détaillés ne sont pas accessibles."
+            [ case ( activeImpactsTab, Session.hasAccessToDetailedImpacts session ) of
+                ( DetailedImpactsTab, True ) ->
+                    total
+                        |> Impact.getAggregatedScoreData definitions .ecoscoreData
+                        |> List.map (\{ name, value } -> { entryAttributes = [], name = name, value = value })
+                        |> (++)
+                            [ -- Food ecosystemic services
+                              { entryAttributes = []
+                              , name = "Services écosystémiques"
+                              , value = Unit.impactToFloat (Complement.sumEcosystemicImpacts complementsImpact)
+                              }
 
-                    else
-                        total
-                            |> Impact.getAggregatedScoreData definitions .ecoscoreData
-                            |> List.map (\{ name, value } -> { entryAttributes = [], name = name, value = value })
-                            |> (++)
-                                [ -- Food ecosystemic services
-                                  { entryAttributes = []
-                                  , name = "Services écosystémiques"
-                                  , value = Unit.impactToFloat (Complement.sumEcosystemicImpacts complementsImpact)
-                                  }
+                            -- Textile complements
+                            , { entryAttributes = []
+                              , name = "Complément " ++ String.toLower Complement.labels.outOfEuropeEOL
+                              , value =
+                                    complementsImpact.outOfEuropeEOL
+                                        |> Maybe.withDefault Unit.noImpacts
+                                        |> Unit.impactToFloat
+                              }
+                            , { entryAttributes = []
+                              , name = "Complément " ++ String.toLower Complement.labels.microfibers
+                              , value =
+                                    complementsImpact.microfibers
+                                        |> Maybe.withDefault Unit.noImpacts
+                                        |> Unit.impactToFloat
+                              }
+                            , { entryAttributes = []
+                              , name = "Complément " ++ String.toLower Complement.labels.forest
+                              , value =
+                                    complementsImpact.forest
+                                        |> Maybe.withDefault Unit.noImpacts
+                                        |> Unit.impactToFloat
+                              }
+                            ]
+                        |> List.sortBy .value
+                        |> List.reverse
+                        |> Table.percentageTable impactDefinition
 
-                                -- Textile complements
-                                , { entryAttributes = []
-                                  , name = "Complément " ++ String.toLower Complement.labels.outOfEuropeEOL
-                                  , value =
-                                        complementsImpact.outOfEuropeEOL
-                                            |> Maybe.withDefault Unit.noImpacts
-                                            |> Unit.impactToFloat
-                                  }
-                                , { entryAttributes = []
-                                  , name = "Complément " ++ String.toLower Complement.labels.microfibers
-                                  , value =
-                                        complementsImpact.microfibers
-                                            |> Maybe.withDefault Unit.noImpacts
-                                            |> Unit.impactToFloat
-                                  }
-                                , { entryAttributes = []
-                                  , name = "Complément " ++ String.toLower Complement.labels.forest
-                                  , value =
-                                        complementsImpact.forest
-                                            |> Maybe.withDefault Unit.noImpacts
-                                            |> Unit.impactToFloat
-                                  }
-                                ]
-                            |> List.sortBy .value
-                            |> List.reverse
-                            |> Table.percentageTable impactDefinition
+                ( DetailedImpactsTab, False ) ->
+                    detailedAccessNotice session "Les impacts détaillés ne sont pas accessibles."
 
-                StagesImpactsTab ->
+                ( StagesImpactsTab, _ ) ->
                     [ { entryAttributes =
                             [ StagesBorder.style Impact.stagesColors.trims
                             , onClick <| onStageClick "trims-stage"
@@ -206,21 +205,20 @@ view definitions { activeImpactsTab, complementsImpact, impactDefinition, onStag
                             )
                         |> Table.percentageTable impactDefinition
 
-                SubscoresTab ->
-                    if not <| Session.hasAccessToDetailedImpacts session then
-                        detailedAccessNotice session "Les sous-scores ne sont pas accessibles."
+                ( SubscoresTab, True ) ->
+                    Table.percentageTable impactDefinition
+                        [ { entryAttributes = [], name = "Climat", value = Unit.impactToFloat scoring.climate }
+                        , { entryAttributes = [], name = "Biodiversité", value = Unit.impactToFloat scoring.biodiversity }
+                        , { entryAttributes = [], name = "Santé environnementale", value = Unit.impactToFloat scoring.health }
+                        , { entryAttributes = [], name = "Ressource", value = Unit.impactToFloat scoring.resources }
+                        , { entryAttributes = []
+                          , name = "Compléments"
+                          , value = Unit.impactToFloat scoring.complements
+                          }
+                        ]
 
-                    else
-                        Table.percentageTable impactDefinition
-                            [ { entryAttributes = [], name = "Climat", value = Unit.impactToFloat scoring.climate }
-                            , { entryAttributes = [], name = "Biodiversité", value = Unit.impactToFloat scoring.biodiversity }
-                            , { entryAttributes = [], name = "Santé environnementale", value = Unit.impactToFloat scoring.health }
-                            , { entryAttributes = [], name = "Ressource", value = Unit.impactToFloat scoring.resources }
-                            , { entryAttributes = []
-                              , name = "Compléments"
-                              , value = Unit.impactToFloat scoring.complements
-                              }
-                            ]
+                ( SubscoresTab, False ) ->
+                    detailedAccessNotice session "Les sous-scores ne sont pas accessibles."
             ]
         , tabs =
             visibleTabs impactDefinition
