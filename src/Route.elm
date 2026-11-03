@@ -61,10 +61,7 @@ parser =
             (Parser.s "explore" </> Scope.parse </> Dataset.parseSlug)
 
         -- Generic simulator routes
-        , parseGenericSimulatorRoutes Scope.Apparel "apparel"
-        , parseGenericSimulatorRoutes Scope.Food2 "food2"
-        , parseGenericSimulatorRoutes Scope.Object "object"
-        , parseGenericSimulatorRoutes Scope.Veli "veli"
+        , parseGenericSimulatorRoutes
 
         --
         -- Food specific routes
@@ -93,22 +90,30 @@ parser =
         ]
 
 
-parseGenericSimulatorRoutes : Scope.GenericScope -> String -> Parser (Route -> a) a
-parseGenericSimulatorRoutes genericScope path =
+parseGenericSimulatorRoutes : Parser (Route -> a) a
+parseGenericSimulatorRoutes =
     Parser.oneOf
-        [ Parser.map (GenericSimulatorHome genericScope)
-            (Parser.s path </> Parser.s "simulator")
-        , Parser.map (GenericSimulator genericScope) <|
-            Parser.s path
+        [ Parser.map GenericSimulatorHome
+            (scopeParser </> Parser.s "simulator")
+        , Parser.map GenericSimulator <|
+            scopeParser
                 </> Parser.s "simulator"
                 </> Impact.parseTrigram
                 </> Component.parseBase64Query
-        , Parser.map (GenericSimulatorExample genericScope)
-            (Parser.s path
+        , Parser.map GenericSimulatorExample
+            (scopeParser
                 </> Parser.s "edit-example"
                 </> Example.parseUuid
             )
         ]
+
+
+scopeParser : Parser (Scope.GenericScope -> a) a
+scopeParser =
+    List.map
+        (\scope -> Parser.s (Scope.toStringGeneric scope) |> Parser.map scope)
+        Scope.allGeneric
+        |> Parser.oneOf
 
 
 parseTextileSimulator : Parser (Route -> a) a

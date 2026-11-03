@@ -184,22 +184,10 @@ Dans le module [`Views.Page`](../src/Views/Page.elm), la fonction `commonNotices
 
 ## 3. Mises à jour manuelles spécifiques
 
-Le compilateur Elm est un outil précieux mais certains fichiers compilent encore si on oublie d'opérer certaines modifications manuellement, et ce à trois niveaux principalement :
+Le compilateur Elm est un outil précieux mais certains fichiers compilent encore si on oublie d'opérer certaines modifications manuellement, et ce à deux niveaux principalement :
 
-- le routing et les urls (chemins, segments, etc.)
 - les sources de données à charger pour le nouveau scope (composants, catégories de produits et exemples)
 - les menus de navigation et certains affichages dans l'interface utilisateur
-
-### Routes
-
-Dans le module [`Route`](../src/Route.elm), enregistrer le simulateur à côté des autres parsers de routes génériques :
-
-```elm
-        , parseGenericSimulatorRoutes Scope.Flowers "flowers"
-        , parseGenericSimulatorRoutes Scope.Food2 "food2"
-        , parseGenericSimulatorRoutes Scope.Object "object"
-        , parseGenericSimulatorRoutes Scope.Veli "veli"
-```
 
 Les URL d'accès à la calculatrice seront donc préfixées par `flowers`, comme `#/flowers/simulator`.
 
