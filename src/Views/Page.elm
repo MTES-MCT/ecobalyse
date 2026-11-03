@@ -131,32 +131,8 @@ commonNotices msg activePage =
                 , Markdown.simple [] "**Méthodologie stabilisée.** Calculette en cours de développement"
                 ]
 
-        Generic Scope.Apparel ->
-            Notice.info
-                [ Icon.info
-                , Markdown.simple [] "**Cette version est en cours de développement.** Elle est réservée à des beta-testeurs."
-                ]
-
-        Generic Scope.Food2 ->
-            Notice.info
-                [ Icon.info
-                , Markdown.simple [] "**Méthodologie stabilisée. Cette version de la calculette remplacera à terme la version initiale.**"
-                , """Contribuez via notre [forum utilisateur](https://chat.ecobalyse.fr/ecobalyse/channels/02_alimentaire_general).""" |> Markdown.simple []
-                ]
-
-        Generic Scope.Object ->
-            Notice.info
-                [ Icon.info
-                , Markdown.simple [] "**Cette version est en cours de développement.**"
-                , """Contribuez via notre [forum utilisateur](https://chat.ecobalyse.fr/ecobalyse/channels/41_ameublement)"""
-                    |> Markdown.simple []
-                ]
-
-        Generic Scope.Veli ->
-            Notice.info
-                [ Icon.info
-                , Markdown.simple [] "**Cette version est en cours de développement.** Elle est réservée à des beta-testeurs."
-                ]
+        Generic genericPage ->
+            commonNoticesForGeneric genericPage
 
         TextileSimulator ->
             Notice.info
@@ -177,6 +153,37 @@ commonNotices msg activePage =
 
         _ ->
             text ""
+
+
+commonNoticesForGeneric : GenericScope -> Html msg
+commonNoticesForGeneric genericPage =
+    case genericPage of
+        Scope.Apparel ->
+            Notice.info
+                [ Icon.info
+                , Markdown.simple [] "**Cette version est en cours de développement.** Elle est réservée à des beta-testeurs."
+                ]
+
+        Scope.Food2 ->
+            Notice.info
+                [ Icon.info
+                , Markdown.simple [] "**Méthodologie stabilisée. Cette version de la calculette remplacera à terme la version initiale.**"
+                , """Contribuez via notre [forum utilisateur](https://chat.ecobalyse.fr/ecobalyse/channels/02_alimentaire_general).""" |> Markdown.simple []
+                ]
+
+        Scope.Object ->
+            Notice.info
+                [ Icon.info
+                , Markdown.simple [] "**Cette version est en cours de développement.**"
+                , """Contribuez via notre [forum utilisateur](https://chat.ecobalyse.fr/ecobalyse/channels/41_ameublement)"""
+                    |> Markdown.simple []
+                ]
+
+        Scope.Veli ->
+            Notice.info
+                [ Icon.info
+                , Markdown.simple [] "**Cette version est en cours de développement.** Elle est réservée à des beta-testeurs."
+                ]
 
 
 toastListView : Config msg -> Html msg

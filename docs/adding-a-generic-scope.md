@@ -169,6 +169,19 @@ Ajouter également les slugs attendus pour les URLs de l'explorateur du nouveau 
         ProductCategory Scope.Flowers Nothing
 ```
 
+### Éléments de vue génériques
+
+Dans le module [`Views.Page`](../src/Views/Page.elm), la fonction `commonNoticesForGeneric` permet d'afficher un bandeau informatif dans l'entête de la page d'une calculette ; on peut décider d'en ajouter un spécifique à notre nouveau scope :
+
+```elm
+    Scope.Flowers ->
+        Notice.info
+            [ Icon.info
+            , Markdown.simple [] "**Cette verticale sent particulièrement bon.**"
+            ]
+```
+
+
 ## 3. Mises à jour manuelles spécifiques
 
 Le compilateur Elm est un outil précieux mais certains fichiers compilent encore si on oublie d'opérer certaines modifications manuellement, et ce à trois niveaux principalement :
@@ -176,18 +189,6 @@ Le compilateur Elm est un outil précieux mais certains fichiers compilent encor
 - le routing et les urls (chemins, segments, etc.)
 - les sources de données à charger pour le nouveau scope (composants, catégories de produits et exemples)
 - les menus de navigation et certains affichages dans l'interface utilisateur
-
-### Éléments de vue génériques
-
-Dans le module [`Views.Page`](../src/Views/Page.elm), la fonction `commonNotices` permet d'afficher un bandeau informatif dans l'entête de la page d'une calculette ; on peut décider d'en ajouter un spécifique à notre nouveau scope :
-
-```elm
-    Generic Scope.Flowers ->
-        Notice.info
-            [ Icon.info
-            , Markdown.simple [] "**Cette verticale sent particulièrement bon.**"
-            ]
-```
 
 ### Routes
 
