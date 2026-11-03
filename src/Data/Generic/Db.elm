@@ -17,9 +17,10 @@ type alias Db =
     }
 
 
-buildFromJson : String -> String -> String -> List Process -> Result String Db
-buildFromJson food2ExamplesJson objectExamplesJson veliExamplesJson processes =
-    [ food2ExamplesJson
+buildFromJson : String -> String -> String -> String -> List Process -> Result String Db
+buildFromJson apparelExamplesJson food2ExamplesJson objectExamplesJson veliExamplesJson processes =
+    [ apparelExamplesJson
+    , food2ExamplesJson
     , objectExamplesJson
     , veliExamplesJson
     ]

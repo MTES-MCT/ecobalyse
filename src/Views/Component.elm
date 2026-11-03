@@ -138,6 +138,21 @@ scopeLabels context scope =
     case context of
         Context.Generic ->
             case scope of
+                Scope.Generic Scope.Apparel ->
+                    { add = "Ajouter un accessoire"
+                    , addElement = "Ajouter un élément"
+                    , elementNoun = "Élément"
+                    , elementNounPlural = "Éléments"
+                    , empty = "Aucun accessoire"
+                    , itemLabelCaption = "Libellé de l'accessoire"
+                    , itemName = "Nom de l'accessoire"
+                    , noun = "Accessoire"
+                    , nounPlural = "Accessoires"
+                    , productionHeading = "Accessoires"
+                    , search = "tapez ici le nom de l’accessoire pour le rechercher"
+                    , select = "Sélectionnez un accessoire"
+                    }
+
                 Scope.Generic Scope.Food2 ->
                     { add = "Ajouter un ingrédient"
                     , addElement = "Ajouter un sous-ingrédient"

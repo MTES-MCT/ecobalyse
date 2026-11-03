@@ -132,7 +132,10 @@ init flags requestedUrl navKey =
 -}
 loadData : SessionConfig -> Cmd Msg
 loadData sessionConfig =
-    [ ( "/data/countries.json", \data raw -> { raw | countries = data } )
+    [ ( "/data/apparel/categories.json", \data raw -> { raw | apparelProductCategories = data } )
+    , ( "/data/apparel/components.json", \data raw -> { raw | apparelComponents = data } )
+    , ( "/data/apparel/examples.json", \data raw -> { raw | apparelExamples = data } )
+    , ( "/data/countries.json", \data raw -> { raw | countries = data } )
     , ( "/data/impacts.json", \data raw -> { raw | definitions = data } )
     , ( "/data/food2/components.json", \data raw -> { raw | food2Components = data } )
     , ( "/data/food2/categories.json", \data raw -> { raw | food2ProductCategories = data } )
@@ -173,7 +176,8 @@ setupSession { flags, navKey } dbLoadingState db componentRawConfig componentCon
         , notifications = []
         , plausible = flags.plausible
         , queries =
-            { food = FoodQuery.empty
+            { apparel = Component.emptyQuery
+            , food = FoodQuery.empty
             , food2 = Component.emptyQuery
             , object = Component.emptyQuery
             , textile =

@@ -54,7 +54,8 @@ import Set exposing (Set)
 
 
 type alias Queries =
-    { food : FoodQuery.Query
+    { apparel : Component.Query
+    , food : FoodQuery.Query
     , food2 : Component.Query
     , object : Component.Query
     , textile : TextileQuery.Query
@@ -91,7 +92,8 @@ type alias Session =
 
 
 type alias EnabledSections =
-    { food : Bool
+    { apparel : Bool
+    , food : Bool
     , food2 : Bool
     , objects : Bool
     , textile : Bool
@@ -204,6 +206,9 @@ saveBookmark bookmark =
 genericQuery : GenericScope -> Session -> Component.Query
 genericQuery genericScope session =
     case genericScope of
+        Scope.Apparel ->
+            session.queries.apparel
+
         Scope.Food2 ->
             session.queries.food2
 
@@ -222,6 +227,9 @@ updateFoodQuery foodQuery ({ queries } as session) =
 updateGenericQuery : GenericScope -> Component.Query -> Session -> Session
 updateGenericQuery genericScope query ({ queries } as session) =
     case genericScope of
+        Scope.Apparel ->
+            { session | queries = { queries | apparel = query } }
+
         Scope.Food2 ->
             { session | queries = { queries | food2 = query } }
 

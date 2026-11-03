@@ -61,6 +61,7 @@ parser =
             (Parser.s "explore" </> Scope.parse </> Dataset.parseSlug)
 
         -- Generic simulator routes
+        , parseGenericSimulatorRoutes Scope.Apparel "apparel"
         , parseGenericSimulatorRoutes Scope.Food2 "food2"
         , parseGenericSimulatorRoutes Scope.Object "object"
         , parseGenericSimulatorRoutes Scope.Veli "veli"

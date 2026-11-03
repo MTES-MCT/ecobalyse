@@ -10,7 +10,7 @@ from pathlib import Path
 
 from app.lib.json import format_json
 
-SCOPES = ("food2", "object", "veli")
+SCOPES = ("apparel", "food2", "object", "veli")
 
 
 def sort_examples_file(path):

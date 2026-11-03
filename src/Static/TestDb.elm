@@ -14,7 +14,10 @@ this function is for tests only.
 dbFromJsonStrings : String -> Result String Db
 dbFromJsonStrings processesJson =
     Db.buildFromStrings
-        { countries = TestJson.countriesJson
+        { apparelComponents = TestJson.rawJsonComponents.apparelComponents
+        , apparelExamples = TestJson.apparelExamplesJson
+        , apparelProductCategories = TestJson.apparelProductCategoriesJson
+        , countries = TestJson.countriesJson
         , definitions = TestJson.impactsJson
         , food2Components = TestJson.food2ComponentsJson
         , food2Examples = TestJson.food2ExamplesJson

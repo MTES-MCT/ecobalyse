@@ -19,7 +19,10 @@
         },
         "id": { "format": "uuid", "type": "string" },
         "scopes": {
-          "items": { "enum": ["food", "food2", "textile", "object", "veli"], "type": "string" },
+          "items": {
+            "enum": ["apparel", "food", "food2", "textile", "object", "veli"],
+            "type": "string"
+          },
           "type": "array"
         }
       },
@@ -33,7 +36,10 @@
     "displayName": { "type": ["string", "null"] },
     "id": { "format": "uuid", "type": "string" },
     "scopes": {
-      "items": { "enum": ["food", "food2", "textile", "object", "veli"], "type": "string" },
+      "items": {
+        "enum": ["apparel", "food", "food2", "textile", "object", "veli"],
+        "type": "string"
+      },
       "type": "array"
     },
     "source": {
