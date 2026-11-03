@@ -493,15 +493,15 @@ updateDbProcesses rawDetailedProcessesJson session =
             newSession
 
 
-registerSimulatorAction : Session -> { openPrompt : Bool, session : Session }
+registerSimulatorAction : Session -> ( Bool, Session )
 registerSimulatorAction ({ store } as session) =
     let
         { openPrompt, persist } =
             Feedback.registerAction store.feedback
     in
-    { openPrompt = openPrompt
-    , session = session |> updateStore (\s -> { s | feedback = persist })
-    }
+    ( openPrompt
+    , session |> updateStore (\s -> { s | feedback = persist })
+    )
 
 
 updateStore : (Store -> Store) -> Session -> Session

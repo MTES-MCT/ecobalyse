@@ -246,16 +246,16 @@ trackCalculatorUsage shouldCount ( model, cmds ) =
 
         Loaded session currentPage ->
             let
-                registered =
+                ( openPrompt, newSession ) =
                     if shouldCount then
                         Session.registerSimulatorAction session
 
                     else
-                        { openPrompt = False, session = session }
+                        ( False, session )
             in
             ( { model
-                | feedbackModalOpen = model.feedbackModalOpen || registered.openPrompt
-                , state = Loaded registered.session currentPage
+                | feedbackModalOpen = model.feedbackModalOpen || openPrompt
+                , state = Loaded newSession currentPage
               }
             , cmds
             )
