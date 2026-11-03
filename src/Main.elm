@@ -248,7 +248,7 @@ trackCalculatorUsage shouldCount ( model, cmds ) =
             let
                 ( openPrompt, newSession ) =
                     if shouldCount then
-                        Session.registerSimulatorAction session
+                        Session.countSimulatorAction session
 
                     else
                         ( False, session )

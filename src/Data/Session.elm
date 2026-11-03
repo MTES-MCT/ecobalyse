@@ -7,6 +7,7 @@ module Data.Session exposing
     , checkComparedSimulations
     , clearNotifications
     , closeNotification
+    , countSimulatorAction
     , decodeRawStore
     , defaultStore
     , deleteBookmark
@@ -20,7 +21,6 @@ module Data.Session exposing
     , moveBookmark
     , moveListElement
     , notifyBackendError
-    , registerSimulatorAction
     , replaceBookmark
     , saveBookmark
     , selectAllBookmarks
@@ -41,7 +41,7 @@ import Data.Common.DecodeUtils as DU
 import Data.Component as Component
 import Data.Component.Config as ComponentConfig
 import Data.Db as Db exposing (Db)
-import Data.Feedback as Feedback
+import Data.Env as Env
 import Data.Food.Query as FoodQuery
 import Data.Scope as Scope exposing (GenericScope)
 import Data.Textile.Query as TextileQuery
@@ -412,38 +412,38 @@ updateAuth fn session =
 across browser restarts, typically in localStorage.
 -}
 type alias Store =
-    { auth : Maybe Auth
+    { actionCount : Int
+    , auth : Maybe Auth
     , bookmarks : List Bookmark
     , comparedSimulations : Set String
-    , feedback : Feedback.Persist
     }
 
 
 defaultStore : Store
 defaultStore =
-    { auth = Nothing
+    { actionCount = 0
+    , auth = Nothing
     , bookmarks = []
     , comparedSimulations = Set.empty
-    , feedback = Feedback.default
     }
 
 
 decodeStore : Decoder Store
 decodeStore =
     Decode.succeed Store
+        |> JDP.optional "actionCount" Decode.int 0
         |> DU.strictOptional "auth" decodeAuth
         |> JDP.optional "bookmarks" Bookmark.decodeJsonList []
         |> JDP.optional "comparedSimulations" (Decode.map Set.fromList (Decode.list Decode.string)) Set.empty
-        |> DU.strictOptionalWithDefault "feedback" Feedback.decode Feedback.default
 
 
 encodeStore : Store -> Encode.Value
 encodeStore store =
     Encode.object
-        [ ( "comparedSimulations", store.comparedSimulations |> Encode.set Encode.string )
+        [ ( "actionCount", Encode.int store.actionCount )
+        , ( "comparedSimulations", store.comparedSimulations |> Encode.set Encode.string )
         , ( "bookmarks", store.bookmarks |> Bookmark.encodeJsonList )
         , ( "auth", store.auth |> Maybe.map encodeAuth |> Maybe.withDefault Encode.null )
-        , ( "feedback", Feedback.encode store.feedback )
         ]
 
 
@@ -457,14 +457,21 @@ decodeRawStore rawStore session =
             syncDetailedDb session { session | store = store }
 
 
-registerSimulatorAction : Session -> ( Bool, Session )
-registerSimulatorAction ({ store } as session) =
-    store.feedback
-        |> Feedback.registerAction
-        |> Tuple.mapSecond
-            (\persist ->
-                session |> updateStore (\s -> { s | feedback = persist })
-            )
+{-| Count simulator actions, trigger prompting for feedback when threshold is reached
+-}
+countSimulatorAction : Session -> ( Bool, Session )
+countSimulatorAction ({ store } as session) =
+    if store.actionCount >= Env.actionThreshold then
+        ( False, session )
+
+    else
+        let
+            actionCount =
+                store.actionCount + 1
+        in
+        ( actionCount >= Env.actionThreshold
+        , session |> updateStore (\s -> { s | actionCount = actionCount })
+        )
 
 
 {-| Handle session auth status transition wrt detailed impacts data access

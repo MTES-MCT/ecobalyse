@@ -1,5 +1,6 @@
 module Data.Env exposing
-    ( betagouvUrl
+    ( actionThreshold
+    , betagouvUrl
     , cguUrl
     , communityUrl
     , contactEmail
@@ -17,6 +18,13 @@ module Data.Env exposing
     )
 
 import Data.Split as Split exposing (Split)
+
+
+{-| Number of simulator actions after which a feedback prompt modal is shown
+-}
+actionThreshold : Int
+actionThreshold =
+    30
 
 
 betagouvUrl : String
