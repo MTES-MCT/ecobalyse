@@ -189,7 +189,8 @@ def compute_processes_generic(
                 activity_name=process["activityName"],
                 alias=variant.get("alias"),
                 categories=infer_variant_material_type(
-                    process["categories"], variant.get("alias")
+                    variant.get("categories", process["categories"]),
+                    variant.get("alias"),
                 ),
                 comment=process.get("comment", ""),
                 display_name=variant.get(

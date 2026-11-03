@@ -33209,12 +33209,7 @@
   {
     "activityName": "Polyethylene terephthalate, granulate, amorphous, at plant {RER} U",
     "alias": "pet",
-    "categories": [
-      "material",
-      "textile_material",
-      "material_type:synthetic_fibers",
-      "material_type:pet"
-    ],
+    "categories": ["material", "textile_material", "material_type:synthetic_fibers"],
     "comment": "Ancien identifiant (12/2024): f32024fc5e736e01fa14321363900581.",
     "displayName": "PET, pour fibre synthétique, granulé, amorphe",
     "elecKwh": 0,
@@ -33234,12 +33229,7 @@
   {
     "activityName": "Polyethylene terephthalate, granulate, amorphous, at plant {RER} U",
     "alias": "plastic-pellets-pet",
-    "categories": [
-      "material",
-      "textile_material",
-      "material_type:synthetic_fibers",
-      "material_type:pet"
-    ],
+    "categories": ["material", "material_type:pet"],
     "comment": "Ancien identifiant (12/2024): f32024fc5e736e01fa14321363900581.",
     "displayName": "Plastique PET, granulés",
     "elecKwh": 0,
@@ -33319,7 +33309,7 @@
   {
     "activityName": "Polypropylene, granulate, at plant {RER} U",
     "alias": "granulated-plastic-pp",
-    "categories": ["material", "textile_material", "material_type:pp"],
+    "categories": ["material", "material_type:pp"],
     "comment": "Ancien identifiant (12/2024): 6e442b958af0d26f85ecacce2eeb23d0.",
     "displayName": "Plastique PP, granulé",
     "elecKwh": 0,
@@ -33339,7 +33329,7 @@
   {
     "activityName": "Polypropylene, granulate, at plant {RER} U",
     "alias": "plastic-pellets-various",
-    "categories": ["material", "textile_material", "material_type:pp"],
+    "categories": ["material", "material_type:pp"],
     "comment": "Ancien identifiant (12/2024): 6e442b958af0d26f85ecacce2eeb23d0.",
     "displayName": "Plastique divers, granulé",
     "elecKwh": 0,
@@ -33359,7 +33349,7 @@
   {
     "activityName": "Polypropylene, granulate, at plant {RER} U",
     "alias": "pp",
-    "categories": ["material", "textile_material", "material_type:pp"],
+    "categories": ["material", "textile_material"],
     "comment": "Ancien identifiant (12/2024): 6e442b958af0d26f85ecacce2eeb23d0.",
     "displayName": "Polypropylène, granulés",
     "elecKwh": 0,

@@ -118,8 +118,9 @@ class IngredientMetadata(EcoModel):
 
 
 class ProcessGenericMetadata(EcoModel):
-    forest_management: ForestManagement | None = None
+    categories: list[str] | None
     complements: Complements | None = None
+    forest_management: ForestManagement | None = None
     ingredient: IngredientMetadata | None = None
     default_origin: str | None = None
 
@@ -127,7 +128,7 @@ class ProcessGenericMetadata(EcoModel):
 class ProcessGeneric(EcoModel):
     activity_name: str
     alias: Annotated[str, AfterValidator(validate_id)] | None = None
-    categories: list[str]
+    categories: list[str] | None
     comment: str
     display_name: str
     elec_kwh: Annotated[float, Field(serialization_alias="elecKwh")]

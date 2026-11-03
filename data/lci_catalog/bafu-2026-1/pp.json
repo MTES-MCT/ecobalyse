@@ -1,7 +1,7 @@
 {
   "activityName": "Polypropylene, granulate, at plant {RER} U",
   "activityNameEI": "polypropylene, granulate//[RoW] polypropylene production, granulate",
-  "categories": ["material", "textile_material", "material_type:pp"],
+  "categories": ["material", "textile_material"],
   "comment": "Ancien identifiant (12/2024): 6e442b958af0d26f85ecacce2eeb23d0.",
   "displayName": "Polypropylène, granulés",
   "elecKwh": 0.0,
@@ -10,6 +10,7 @@
   "metadata": [
     {
       "alias": "pp",
+      "categories": ["material", "textile_material"],
       "defaultCountry": "FR",
       "displayName": "Polypropylène, granulés",
       "geographicOrigin": "Europe",
@@ -21,12 +22,14 @@
     },
     {
       "alias": "granulated-plastic-pp",
+      "categories": ["material", "material_type:pp"],
       "displayName": "Plastique PP, granulé",
       "id": "01d21ed5-9fc6-4d36-a0ea-cfea8035385b",
       "scopes": ["object", "veli"]
     },
     {
       "alias": "plastic-pellets-various",
+      "categories": ["material", "material_type:pp"],
       "displayName": "Plastique divers, granulé",
       "id": "c5295f47-0307-48a6-8552-3705063af767",
       "scopes": ["object", "veli"]
