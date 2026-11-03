@@ -13,9 +13,9 @@ const {
 describe("lib.scopes", () => {
   describe("ALL_SCOPES", () => {
     test("should list legacy and generic scopes", () => {
-      expect(ALL_SCOPES).toEqual(["food", "food2", "object", "textile", "veli"]);
+      expect(ALL_SCOPES).toEqual(["apparel", "food", "food2", "object", "textile", "veli"]);
       expect(LEGACY_SCOPES).toEqual(["food", "textile"]);
-      expect(GENERIC_SCOPES).toEqual(["food2", "object", "veli"]);
+      expect(GENERIC_SCOPES).toEqual(["apparel", "food2", "object", "veli"]);
     });
   });
 
@@ -35,6 +35,7 @@ describe("lib.scopes", () => {
 
   describe("parseGenericScopeFromUrl", () => {
     test.each([
+      ["/apparel/countries", "apparel"],
       ["/food2/countries", "food2"],
       ["/object/simulator", "object"],
       ["/veli/processes/assembly", "veli"],
