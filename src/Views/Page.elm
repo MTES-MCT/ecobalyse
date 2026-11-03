@@ -253,10 +253,10 @@ newVersionAlert { currentVersion, toMsg } =
             text ""
 
 
-addRouteIf : Bool -> MenuLink msg -> Maybe (MenuLink msg)
+addRouteIf : Bool -> (() -> MenuLink msg) -> Maybe (MenuLink msg)
 addRouteIf flag route =
     if flag then
-        Just route
+        Just (route ())
 
     else
         Nothing
@@ -266,18 +266,18 @@ mainMenuLinks : Session.EnabledSections -> List (MenuLink msg)
 mainMenuLinks enabledSections =
     List.filterMap identity
         [ Just <| Internal [ text "Accueil" ] Route.Home Home
-        , addRouteIf enabledSections.textile <|
-            Internal [ text "Textile" ] Route.TextileSimulatorHome TextileSimulator
-        , addRouteIf enabledSections.food <|
-            Internal [ text "Alimentaire" ] Route.FoodBuilderHome Food
-        , addRouteIf enabledSections.food2 <|
-            Internal [ text "Alimentaire", sup [] [ text "BÉTA" ] ] (Route.GenericSimulatorHome Scope.Food2) (Generic Scope.Food2)
-        , addRouteIf enabledSections.objects <|
-            Internal [ text "Objets" ] (Route.GenericSimulatorHome Scope.Object) (Generic Scope.Object)
-        , addRouteIf enabledSections.veli <|
-            Internal [ text "Véhicules" ] (Route.GenericSimulatorHome Scope.Veli) (Generic Scope.Veli)
-        , addRouteIf enabledSections.apparel <|
-            Internal [ text "Habillement" ] (Route.GenericSimulatorHome Scope.Apparel) (Generic Scope.Apparel)
+        , addRouteIf enabledSections.textile
+            (\() -> Internal [ text "Textile" ] Route.TextileSimulatorHome TextileSimulator)
+        , addRouteIf enabledSections.food
+            (\() -> Internal [ text "Alimentaire" ] Route.FoodBuilderHome Food)
+        , addRouteIf enabledSections.food2
+            (\() -> Internal [ text "Alimentaire", sup [] [ text "BÉTA" ] ] (Route.GenericSimulatorHome Scope.Food2) (Generic Scope.Food2))
+        , addRouteIf enabledSections.objects
+            (\() -> Internal [ text "Objets" ] (Route.GenericSimulatorHome Scope.Object) (Generic Scope.Object))
+        , addRouteIf enabledSections.veli
+            (\() -> Internal [ text "Véhicules" ] (Route.GenericSimulatorHome Scope.Veli) (Generic Scope.Veli))
+        , addRouteIf enabledSections.apparel
+            (\() -> Internal [ text "Habillement" ] (Route.GenericSimulatorHome Scope.Apparel) (Generic Scope.Apparel))
         , Just <| Internal [ text "Explorateur" ] (Route.Explore Scope.Textile (Dataset.TextileExamples Nothing)) Explore
         , Just <| Internal [ text "API" ] Route.Api Api
         , Just <| MailTo "Contact" Env.contactEmail
@@ -293,8 +293,8 @@ secondaryMenuLinks enabledSections =
         , Just <| External "Communauté" Env.communityUrl
         , Just <| External "Code source" Env.githubUrl
         , Just <| External "CGU" Env.cguUrl
-        , addRouteIf enabledSections.food2 <|
-            Internal [ text "Alimentaire²" ] (Route.GenericSimulatorHome Scope.Food2) (Generic Scope.Food2)
+        , addRouteIf enabledSections.food2
+            (\() -> Internal [ text "Alimentaire²" ] (Route.GenericSimulatorHome Scope.Food2) (Generic Scope.Food2))
         ]
 
 
