@@ -351,6 +351,22 @@ updateInitializing initMsg model =
         -- Components
         ComponentConfigReceived db sessionConfig remoteData ->
             case remoteData of
+                RemoteData.Failure error ->
+                    ( { model
+                        | state =
+                            RequestCommon.errorToString error
+                                |> configLoadingError
+                                |> Errored
+                      }
+                    , Cmd.none
+                    )
+
+                RemoteData.Loading ->
+                    ( model, Cmd.none )
+
+                RemoteData.NotAsked ->
+                    ( model, Cmd.none )
+
                 RemoteData.Success componentRawConfig ->
                     case ComponentConfig.parse db componentRawConfig of
                         Err error ->
@@ -375,22 +391,6 @@ updateInitializing initMsg model =
                                     , Plausible.send session <| Plausible.PageViewed sessionConfig.url
                                     ]
                                 )
-
-                RemoteData.Failure error ->
-                    ( { model
-                        | state =
-                            RequestCommon.errorToString error
-                                |> configLoadingError
-                                |> Errored
-                      }
-                    , Cmd.none
-                    )
-
-                RemoteData.Loading ->
-                    ( model, Cmd.none )
-
-                RemoteData.NotAsked ->
-                    ( model, Cmd.none )
 
         -- Raw Json Db data received over HTTP
         RawDataReceived sessionConfig updateRaw data ->
@@ -434,9 +434,27 @@ update msg ({ state } as model) =
 updateLoaded : Session -> Page -> Msg -> Model -> ( Model, Cmd Msg )
 updateLoaded session page msg model =
     case msg of
+        ApiMsg apiMsg ->
+            case page of
+                ApiPage apiModel ->
+                    Api.update session apiMsg apiModel
+                        |> toPage session model Cmd.none ApiPage ApiMsg
+
+                _ ->
+                    ( model, Cmd.none )
+
         -- Global app messages
         AppMsg appMsg ->
             updateGlobalApp session page appMsg model
+
+        AuthMsg authMsg ->
+            case page of
+                AuthPage authModel ->
+                    Auth.update session authMsg authModel
+                        |> toPage session model Cmd.none AuthPage AuthMsg
+
+                _ ->
+                    ( model, Cmd.none )
 
         -- Initial config response is handled while `Initializing`
         ComponentConfigReceived _ _ _ ->
@@ -445,6 +463,16 @@ updateLoaded session page msg model =
         -- Detailed processes
         DetailedProcessesReceived remoteData ->
             case remoteData of
+                RemoteData.Failure _ ->
+                    notifyError model "Erreur" <|
+                        "Impossible de charger les impacts détaillés; les impacts agrégés seront utilisés."
+
+                RemoteData.Loading ->
+                    ( model, Cmd.none )
+
+                RemoteData.NotAsked ->
+                    ( model, Cmd.none )
+
                 RemoteData.Success rawDetailedProcessesJson ->
                     let
                         newSession =
@@ -458,35 +486,6 @@ updateLoaded session page msg model =
                       }
                     , Cmd.none
                     )
-
-                RemoteData.Failure _ ->
-                    notifyError model "Erreur" <|
-                        "Impossible de charger les impacts détaillés; les impacts agrégés seront utilisés."
-
-                RemoteData.Loading ->
-                    ( model, Cmd.none )
-
-                RemoteData.NotAsked ->
-                    ( model, Cmd.none )
-
-        -- Pages
-        ApiMsg apiMsg ->
-            case page of
-                ApiPage apiModel ->
-                    Api.update session apiMsg apiModel
-                        |> toPage session model Cmd.none ApiPage ApiMsg
-
-                _ ->
-                    ( model, Cmd.none )
-
-        AuthMsg authMsg ->
-            case page of
-                AuthPage authModel ->
-                    Auth.update session authMsg authModel
-                        |> toPage session model Cmd.none AuthPage AuthMsg
-
-                _ ->
-                    ( model, Cmd.none )
 
         EditorialMsg editorialMsg ->
             case page of
@@ -516,6 +515,16 @@ updateLoaded session page msg model =
                 _ ->
                     ( model, Cmd.none )
 
+        -- Generic simulator
+        GenericSimulatorMsg genericMsg ->
+            case page of
+                GenericSimulatorPage genericModel ->
+                    GenericSimulator.update session genericMsg genericModel
+                        |> toPage session model Cmd.none GenericSimulatorPage GenericSimulatorMsg
+
+                _ ->
+                    ( model, Cmd.none )
+
         -- Home
         HomeMsg homeMsg ->
             case page of
@@ -526,15 +535,8 @@ updateLoaded session page msg model =
                 _ ->
                     ( model, Cmd.none )
 
-        -- Generic simulator
-        GenericSimulatorMsg genericMsg ->
-            case page of
-                GenericSimulatorPage genericModel ->
-                    GenericSimulator.update session genericMsg genericModel
-                        |> toPage session model Cmd.none GenericSimulatorPage GenericSimulatorMsg
-
-                _ ->
-                    ( model, Cmd.none )
+        RawDataReceived _ _ _ ->
+            ( model, Cmd.none )
 
         -- Stats
         StatsMsg statsMsg ->
@@ -585,6 +587,9 @@ updateLoaded session page msg model =
         UrlRequested (Browser.External href) ->
             ( model, Nav.load href )
 
+        VersionPoll ->
+            ( model, Version.loadVersion VersionReceived )
+
         -- Version check
         VersionReceived webData ->
             ( { model
@@ -594,12 +599,6 @@ updateLoaded session page msg model =
               }
             , Cmd.none
             )
-
-        VersionPoll ->
-            ( model, Version.loadVersion VersionReceived )
-
-        RawDataReceived _ _ _ ->
-            ( model, Cmd.none )
 
 
 updateGlobalApp : Session -> Page -> App.Msg -> Model -> ( Model, Cmd Msg )
