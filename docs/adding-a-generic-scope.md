@@ -171,23 +171,11 @@ Ajouter également les slugs attendus pour les URLs de l'explorateur du nouveau 
 
 ## 3. Mises à jour manuelles spécifiques
 
-Le compilateur Elm est un outil précieux mais certains fichiers compilent encore si on oublie d'opérer certaines modifications manuellement, et ce à quatre niveaux principalement :
+Le compilateur Elm est un outil précieux mais certains fichiers compilent encore si on oublie d'opérer certaines modifications manuellement, et ce à trois niveaux principalement :
 
-- le parsing et le mapping des chaînes de caractères arbitraires vers des types, par nature incertaine
 - le routing et les urls (chemins, segments, etc.)
 - les sources de données à charger pour le nouveau scope (composants, catégories de produits et exemples)
 - les menus de navigation et certains affichages dans l'interface utilisateur
-
-### Parsing
-
-Dans le module [`Data.Scope`](../src/Data/Scope.elm), mettre à jour la résolution des chaînes de caractères vers le nouveau type `Flowers`, que par nature le compilateur ne peut pas signaler. En effet, le code traite explicitement une liste blanche de chaînes de caractères acceptables en entrée, toute chaîne inconnue étant par défaut rejetée — dont `"flowers"`.
-
-Il convient donc de modifier la fonction `fromStringGeneric` pour mapper le nouvel identifiant textuel `"flowers"` :
-
-```elm
-    "flowers" ->
-        Ok Flowers
-```
 
 ### Éléments de vue génériques
 
