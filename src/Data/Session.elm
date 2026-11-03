@@ -38,6 +38,7 @@ import Browser.Navigation as Nav
 import Data.Bookmark as Bookmark exposing (Bookmark)
 import Data.Common.DecodeUtils as DU
 import Data.Component as Component
+import Data.Component.Config as ComponentConfig
 import Data.Db as Db exposing (Db)
 import Data.Food.Query as FoodQuery
 import Data.Scope as Scope exposing (GenericScope)
@@ -61,18 +62,28 @@ type alias Queries =
     }
 
 
+type alias RawData =
+    { config : String
+    , db : Maybe Db.RawJsonStrings
+    }
+
+
 type alias Session =
     { clientUrl : String
     , componentConfig : Component.Config
     , currentVersion : Version
+
+    -- FIXME: db and detailedImpacts may be desynced; we should rather use a type
+    --        to distinguish a detailed db from non-detailed one
     , db : Db
-    , dbRawJson : Maybe Db.RawJsonStrings
+    , detailedImpacts : Bool
     , enabledSections : EnabledSections
     , matomo : { host : String, siteId : String }
     , navKey : Nav.Key
     , notifications : List Notification
     , plausible : { host : Maybe String }
     , queries : Queries
+    , rawData : RawData
     , scalingoAppName : Maybe String
     , store : Store
     , versionPollSeconds : Int
@@ -353,25 +364,46 @@ isSuperuser =
 
 
 logout : Session -> Session
-logout session =
-    setAuth Nothing <|
-        -- reinit Db in its pristine, non-detailed state
-        case session.dbRawJson |> Maybe.map Db.build of
-            Just (Ok db) ->
-                { session | db = db }
+logout =
+    setAuth Nothing
 
-            _ ->
-                session
+
+{-| Rebuild a Db and a Config from public raw data.
+-}
+loadDb : Session -> { detailedImpacts : Bool } -> Db -> Result String Session
+loadDb session { detailedImpacts } db =
+    session.rawData.config
+        |> ComponentConfig.parse db
+        |> Result.map
+            (\componentConfig ->
+                { session
+                    | componentConfig = componentConfig
+                    , db = db
+                    , detailedImpacts = detailedImpacts
+                }
+            )
+
+
+{-| Rebuild a Db and a Config from public raw data
+-}
+usePublicDb : Session -> Result String Session
+usePublicDb session =
+    session.rawData.db
+        |> Result.fromMaybe "Aucune donnée brute disponible en session pour reconstruire la base de données"
+        |> Result.andThen Db.build
+        |> Result.andThen (loadDb session { detailedImpacts = False })
 
 
 setAuth : Maybe Auth -> Session -> Session
-setAuth auth =
-    updateStore (\store -> { store | auth = auth })
+setAuth auth session =
+    syncDetailedDb session
+        (updateStore (\store -> { store | auth = auth }) session)
 
 
 updateAuth : (Auth -> Auth) -> Session -> Session
-updateAuth fn =
-    updateStore (\store -> { store | auth = store.auth |> Maybe.map fn })
+updateAuth fn session =
+    syncDetailedDb session
+        (updateStore (\store -> { store | auth = Maybe.map fn store.auth }) session)
 
 
 {-| A serializable data structure holding session information you want to share
@@ -416,7 +448,23 @@ decodeRawStore rawStore session =
             session |> notifyStoreDecodingError error
 
         Ok store ->
-            { session | store = store }
+            syncDetailedDb session { session | store = store }
+
+
+{-| Handle session auth status transition wrt detailed impacts data access
+-}
+syncDetailedDb : Session -> Session -> Session
+syncDetailedDb previous next =
+    if hasAccessToDetailedImpacts previous && not (hasAccessToDetailedImpacts next) then
+        case usePublicDb next of
+            Err error ->
+                next |> notifyError "Impossible de recharger la base avec les données publiques" error
+
+            Ok publicSession ->
+                publicSession
+
+    else
+        next
 
 
 serializeStore : Store -> String
@@ -427,15 +475,16 @@ serializeStore =
 updateDbProcesses : String -> Session -> Session
 updateDbProcesses rawDetailedProcessesJson session =
     case
-        session.dbRawJson
+        session.rawData.db
             |> Result.fromMaybe "Aucune donnée brute disponible en session pour reconstruire la base de données"
             |> Result.andThen (\dbRawJson -> Db.build { dbRawJson | processes = Db.rawJsonString rawDetailedProcessesJson })
+            |> Result.andThen (loadDb session { detailedImpacts = True })
     of
         Err err ->
             session |> notifyError "Impossible de recharger la db avec les nouveaux procédés" err
 
-        Ok newDb ->
-            { session | db = newDb }
+        Ok newSession ->
+            newSession
 
 
 updateStore : (Store -> Store) -> Session -> Session

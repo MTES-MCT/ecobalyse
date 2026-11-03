@@ -55,11 +55,11 @@ type alias Config msg =
     , clientUrl : String
     , currentVersion : Version
     , enabledSections : Session.EnabledSections
-    , hasAccessToDetailedImpacts : Bool
     , isAuthenticated : Bool
     , isSuperuser : Bool
     , mobileNavigationOpened : Bool
     , notifications : List Session.Notification
+    , termsAccepted : Bool
     , toMsg : App.Msg -> msg
     , tray : Toast.Tray Notification
     }
@@ -100,8 +100,8 @@ frame ({ activePage } as config) ( title, content ) =
 
 
 termsNotice : Config msg -> Html msg
-termsNotice { hasAccessToDetailedImpacts, isAuthenticated } =
-    if isAuthenticated && not hasAccessToDetailedImpacts then
+termsNotice config =
+    if config.isAuthenticated && not config.termsAccepted then
         Notice.warn
             [ """Attention, vous êtes connecté mais n’avez pas accepté les conditions d’utilisation ecoinvent, vous privant ainsi
                  de **l’accès aux impacts détaillés** (changement climatique, consommation d'eau, etc). **Vous pouvez

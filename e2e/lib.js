@@ -54,7 +54,7 @@ export async function loginUser(page, email) {
 
   await page.getByTestId("auth-login-confirm").click();
 
-  await expectNotification(page, "Vous avez désormais accès aux impacts détaillés");
+  await expect(page.getByRole("heading", { name: "Mon compte" })).toBeVisible();
 }
 
 export async function registerAndLoginUser(
@@ -94,7 +94,7 @@ export async function registerAndLoginUser(
 
   await page.getByTestId("auth-login-confirm").click();
 
-  await expectNotification(page, "Vous avez désormais accès aux impacts détaillés");
+  await expect(page.getByRole("heading", { name: "Mon compte" })).toBeVisible();
 }
 
 export async function waitFor(conditionFn, pollInterval = 50, timeoutAfter) {

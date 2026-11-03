@@ -4,7 +4,6 @@ module Data.Component.Config exposing
     , EndOfLifeStrategies
     , EndOfLifeStrategiesConfig
     , EndOfLifeStrategy
-    , decode
     , getDocLink
     , parse
     , scopeEnabled

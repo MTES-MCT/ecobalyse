@@ -22,6 +22,7 @@ import Data.Unit as Unit
 import Html exposing (..)
 import Html.Attributes exposing (..)
 import Html.Events exposing (..)
+import Route
 import Views.CardTabs as CardTabs
 import Views.Component.StagesBorder as StagesBorder
 import Views.Table as Table
@@ -46,13 +47,47 @@ type alias Config msg =
     }
 
 
+detailedAccessNotice : Session -> String -> Html msg
+detailedAccessNotice session notice =
+    div [ class "card-body fs-7" ]
+        [ p [ class "text-muted" ]
+            [ text notice ]
+        , p [ class "fw-bold" ]
+            [ text "Comment y accéder\u{00A0}?" ]
+        , ol [ class "ps-3" ]
+            [ li [] [ text "S’identifier ou se créer un compte." ]
+            , li [] [ text "Depuis votre compte, accepter les conditions d’utilisation des données Base empreinte et Ecoinvent." ]
+            , li [] [ text "Revenir sur votre simulation en étant connecté et avec les conditions d’utilisation acceptées." ]
+            ]
+        , div [ class "text-center" ]
+            [ if Session.isAuthenticated session then
+                a [ class "btn btn-sm btn-outline-primary", Route.href Route.Auth ] [ text "Accéder à mon compte" ]
+
+              else
+                a [ class "btn btn-sm btn-outline-primary", Route.href Route.AuthSignup ] [ text "Créer un compte" ]
+            ]
+        ]
+
+
+visibleTabs : Definition -> List Tab
+visibleTabs impactDefinition =
+    if impactDefinition.trigram == Definition.Ecs then
+        [ StagesImpactsTab
+        , SubscoresTab
+        , DetailedImpactsTab
+        ]
+
+    else
+        [ StagesImpactsTab ]
+
+
 view : Definitions -> Config msg -> Html msg
 view definitions { activeImpactsTab, complementsImpact, impactDefinition, onStageClick, scoring, session, stagesImpacts, switchImpactsTab, total } =
     CardTabs.view
         { attrs = []
         , content =
-            [ case activeImpactsTab of
-                DetailedImpactsTab ->
+            [ case ( activeImpactsTab, Session.hasAccessToDetailedImpacts session ) of
+                ( DetailedImpactsTab, True ) ->
                     total
                         |> Impact.getAggregatedScoreData definitions .ecoscoreData
                         |> List.map (\{ name, value } -> { entryAttributes = [], name = name, value = value })
@@ -90,7 +125,10 @@ view definitions { activeImpactsTab, complementsImpact, impactDefinition, onStag
                         |> List.reverse
                         |> Table.percentageTable impactDefinition
 
-                StagesImpactsTab ->
+                ( DetailedImpactsTab, False ) ->
+                    detailedAccessNotice session "Les impacts détaillés ne sont pas accessibles."
+
+                ( StagesImpactsTab, _ ) ->
                     [ { entryAttributes =
                             [ StagesBorder.style Impact.stagesColors.trims
                             , onClick <| onStageClick "trims-stage"
@@ -167,7 +205,7 @@ view definitions { activeImpactsTab, complementsImpact, impactDefinition, onStag
                             )
                         |> Table.percentageTable impactDefinition
 
-                SubscoresTab ->
+                ( SubscoresTab, True ) ->
                     Table.percentageTable impactDefinition
                         [ { entryAttributes = [], name = "Climat", value = Unit.impactToFloat scoring.climate }
                         , { entryAttributes = [], name = "Biodiversité", value = Unit.impactToFloat scoring.biodiversity }
@@ -178,17 +216,12 @@ view definitions { activeImpactsTab, complementsImpact, impactDefinition, onStag
                           , value = Unit.impactToFloat scoring.complements
                           }
                         ]
+
+                ( SubscoresTab, False ) ->
+                    detailedAccessNotice session "Les sous-scores ne sont pas accessibles."
             ]
         , tabs =
-            (if impactDefinition.trigram == Definition.Ecs && Session.isAuthenticated session then
-                [ StagesImpactsTab
-                , SubscoresTab
-                , DetailedImpactsTab
-                ]
-
-             else
-                [ StagesImpactsTab ]
-            )
+            visibleTabs impactDefinition
                 |> List.map
                     (\tab ->
                         { active = activeImpactsTab == tab

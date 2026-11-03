@@ -11,7 +11,6 @@ module Page.Auth exposing
 import App exposing (PageUpdate)
 import Browser.Navigation as Nav
 import Data.ApiToken as ApiToken exposing (CreatedToken, Token)
-import Data.Component.Config as ComponentConfig
 import Data.Env as Env
 import Data.Plausible as Plausible
 import Data.Scope as Scope
@@ -23,7 +22,6 @@ import Html.Attributes exposing (..)
 import Html.Events exposing (..)
 import Ports
 import RemoteData
-import RemoteData.Http as Http
 import Request.ApiToken as ApiTokenHttp
 import Request.Auth as Auth
 import Request.BackendHttp exposing (WebData)
@@ -54,7 +52,6 @@ type alias Email =
 
 type Msg
     = ApiTokensResponse (WebData (List CreatedToken))
-    | ComponentConfigReceived (RemoteData.WebData ComponentConfig.Config)
     | CopyToClipboard String
     | CreateToken
     | CreateTokenResponse (WebData Token)
@@ -159,10 +156,6 @@ redirectToAccount session =
 update : Session -> Msg -> Model -> PageUpdate Model Msg
 update session msg model =
     case msg of
-        -- Generic page updates
-        ComponentConfigReceived (RemoteData.Success componentConfig) ->
-            App.createUpdate { session | componentConfig = componentConfig } model
-
         CopyToClipboard accessToken ->
             App.createUpdate session model
                 |> App.withCmds [ Ports.copyToClipboard accessToken ]
@@ -179,17 +172,8 @@ update session msg model =
                 |> App.createUpdate newSession
                 |> App.withCmds
                     [ Nav.pushUrl newSession.navKey <| Route.toString Route.Auth
-                    , ComponentConfig.decode newSession.db
-                        |> Http.get "/data/components/config.json" ComponentConfigReceived
+                    , Plausible.send session Plausible.AuthLoginOK
                     ]
-                |> App.notifyInfo
-                    (if Session.hasAccessToDetailedImpacts session then
-                        "Vous avez désormais accès aux impacts détaillés"
-
-                     else
-                        "Vous devez valider les CGU Ecoinvent/Base Empreinte pour avoir accès aux impacts détaillés"
-                    )
-                |> App.withCmds [ Plausible.send session Plausible.AuthLoginOK ]
 
         DetailedProcessesResponse (RemoteData.Failure error) ->
             model
@@ -254,18 +238,26 @@ updateAccountTab session currentAuth profileForm msg model =
                 |> App.withCmds [ Nav.load <| Route.toString Route.Auth ]
 
         ProfileResponse { updated } _ (RemoteData.Success user) ->
-            App.createUpdate session
+            let
+                newSession =
+                    session |> Session.updateAuth (\auth -> { auth | user = user })
+            in
+            App.createUpdate newSession
                 { model
                     | tab =
                         Account { currentAuth | user = user }
                             (User.profileFormFromUser user)
                             Dict.empty
                 }
-                |> App.mapSession (Session.updateAuth (\auth -> { auth | user = user }))
                 |> App.notifyInfoIf updated "Votre profil a été mis à jour avec succès"
                 |> App.withCmds
                     [ if updated then
                         Plausible.send session Plausible.AuthProfileUpdated
+
+                      else
+                        Cmd.none
+                    , if user.profile.termsAccepted && not newSession.detailedImpacts then
+                        Auth.processes newSession DetailedProcessesResponse
 
                       else
                         Cmd.none
@@ -423,15 +415,27 @@ updateMagicLinkLoginTab session email token msg model =
             let
                 newSession =
                     session |> Session.setAuth (Just { accessTokenData = accessTokenData, user = user })
+
+                hasAccessToDetailedImpacts =
+                    Session.hasAccessToDetailedImpacts newSession
             in
             { model
-                | tab =
+                | skipNextAuthInit = not hasAccessToDetailedImpacts
+                , tab =
                     Account { accessTokenData = accessTokenData, user = user }
                         (User.profileFormFromUser user)
                         Dict.empty
             }
                 |> App.createUpdate newSession
-                |> App.withCmds [ Auth.processes newSession DetailedProcessesResponse ]
+                |> App.notifyInfoIf (not hasAccessToDetailedImpacts)
+                    "Vous devez valider les CGU Ecoinvent/Base Empreinte pour avoir accès aux impacts détaillés"
+                |> App.withCmds
+                    [ if hasAccessToDetailedImpacts then
+                        Auth.processes newSession DetailedProcessesResponse
+
+                      else
+                        Nav.pushUrl newSession.navKey <| Route.toString Route.Auth
+                    ]
 
         ProfileResponse _ _ (RemoteData.Failure error) ->
             model
