@@ -9,16 +9,19 @@
   "id": "a2129ece-5dd9-5e66-969c-2603b3c97244",
   "metadata": [
     {
+      "alias": "medium-voltage-power-asia",
       "displayName": "Électricité moyenne tension, Asie",
       "id": "56d90bbb-7960-4c61-a62e-b533294ee85c",
       "scopes": ["object", "food2", "veli"]
     },
     {
+      "alias": "medium-voltage-power-cambodia",
       "displayName": "Électricité moyenne tension, Cambodge",
       "id": "bf039624-c433-4ecf-93b4-4a34267cbb22",
       "scopes": ["object"]
     },
     {
+      "alias": "medium-voltage-power-myanmar",
       "displayName": "Électricité moyenne tension, Myanmar",
       "id": "a951d11a-94a2-44d0-9c0f-c64f3c6e1d4e",
       "scopes": ["object"]

@@ -9,7 +9,7 @@
   "id": "28a36af2-cca9-5baa-a83e-d01b2e52ced6",
   "metadata": [
     {
-      "alias": "ei-pp",
+      "alias": "pp",
       "defaultCountry": "FR",
       "displayName": "Polypropylène, granulés",
       "geographicOrigin": "Europe",
@@ -20,11 +20,13 @@
       "scopes": ["textile"]
     },
     {
+      "alias": "granulated-plastic-pp",
       "displayName": "Plastique PP, granulé",
       "id": "01d21ed5-9fc6-4d36-a0ea-cfea8035385b",
       "scopes": ["object", "veli"]
     },
     {
+      "alias": "plastic-pellets-various",
       "displayName": "Plastique divers, granulé",
       "id": "c5295f47-0307-48a6-8552-3705063af767",
       "scopes": ["object", "veli"]
