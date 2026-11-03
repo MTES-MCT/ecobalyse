@@ -54,40 +54,8 @@ datasets scope =
             , Processes Scope.Food Nothing
             ]
 
-        Scope.Generic Scope.Apparel ->
-            [ GenericExamples Scope.Apparel Nothing
-            , Components (Scope.Generic Scope.Apparel) Nothing
-            , Countries Nothing
-            , Processes (Scope.Generic Scope.Apparel) Nothing
-            , Impacts Nothing
-            , ProductCategory Scope.Apparel Nothing
-            ]
-
-        Scope.Generic Scope.Food2 ->
-            [ GenericExamples Scope.Food2 Nothing
-            , Impacts Nothing
-            , Countries Nothing
-            , Processes (Scope.Generic Scope.Food2) Nothing
-            , ProductCategory Scope.Food2 Nothing
-            ]
-
-        Scope.Generic Scope.Object ->
-            [ GenericExamples Scope.Object Nothing
-            , Components (Scope.Generic Scope.Object) Nothing
-            , Countries Nothing
-            , Processes (Scope.Generic Scope.Object) Nothing
-            , Impacts Nothing
-            , ProductCategory Scope.Object Nothing
-            ]
-
-        Scope.Generic Scope.Veli ->
-            [ GenericExamples Scope.Veli Nothing
-            , Components (Scope.Generic Scope.Veli) Nothing
-            , Countries Nothing
-            , Impacts Nothing
-            , Processes (Scope.Generic Scope.Veli) Nothing
-            , ProductCategory Scope.Veli Nothing
-            ]
+        Scope.Generic genericScope ->
+            dataSetsGeneric genericScope
 
         Scope.Textile ->
             [ TextileExamples Nothing
@@ -97,6 +65,45 @@ datasets scope =
             , Countries Nothing
             , Processes Scope.Textile Nothing
             , TextileProducts Nothing
+            ]
+
+
+dataSetsGeneric : Scope.GenericScope -> List Dataset
+dataSetsGeneric scope =
+    case scope of
+        Scope.Apparel ->
+            [ GenericExamples Scope.Apparel Nothing
+            , Components (Scope.Generic Scope.Apparel) Nothing
+            , Countries Nothing
+            , Processes (Scope.Generic Scope.Apparel) Nothing
+            , Impacts Nothing
+            , ProductCategory Scope.Apparel Nothing
+            ]
+
+        Scope.Food2 ->
+            [ GenericExamples Scope.Food2 Nothing
+            , Impacts Nothing
+            , Countries Nothing
+            , Processes (Scope.Generic Scope.Food2) Nothing
+            , ProductCategory Scope.Food2 Nothing
+            ]
+
+        Scope.Object ->
+            [ GenericExamples Scope.Object Nothing
+            , Components (Scope.Generic Scope.Object) Nothing
+            , Countries Nothing
+            , Processes (Scope.Generic Scope.Object) Nothing
+            , Impacts Nothing
+            , ProductCategory Scope.Object Nothing
+            ]
+
+        Scope.Veli ->
+            [ GenericExamples Scope.Veli Nothing
+            , Components (Scope.Generic Scope.Veli) Nothing
+            , Countries Nothing
+            , Impacts Nothing
+            , Processes (Scope.Generic Scope.Veli) Nothing
+            , ProductCategory Scope.Veli Nothing
             ]
 
 
