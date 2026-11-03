@@ -63,7 +63,7 @@ Les variables d’environnement décrites ci-dessous doivent être définies. En
 
 ### Déploiement
 
-- `BACKEND_ADMINS` : la liste des emails, le prénome et le nom des administrateurs initiaux, utilisés pour charger les utilisateurs par défaut lors du déploiement Scalingo. Le format doit être de ce type : `email1@test.com/Prénom1/Nom1,email2@test.com/Prénom2/Nom2`.
+- `BACKEND_ADMINS` : la liste des emails, le prénom et le nom des administrateurs initiaux, utilisés pour charger les utilisateurs par défaut lors du déploiement Scalingo. Le format doit être de ce type : `email1@test.com/Prénom1/Nom1,email2@test.com/Prénom2/Nom2`.
 
 
 ## Installation
@@ -100,9 +100,9 @@ Le framework utilisé est [Litestar](https://litestar.dev/).
 
 ### Lancer le serveur de développement
 
-Le serveur local de développement se lance au moyen des deux commandes suivantes :
+Le serveur local de développement se lance au moyen de la commande suivante :
 
-    npm start:dev
+    npm run start:dev
 
 Trois instances de développement sont alors accessibles :
 
