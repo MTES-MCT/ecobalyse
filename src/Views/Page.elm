@@ -164,6 +164,14 @@ commonNoticesForGeneric genericPage =
                 , Markdown.simple [] "**Cette version est en cours de développement.** Elle est réservée à des beta-testeurs."
                 ]
 
+        Scope.Flowers ->
+            Notice.info
+                [ Icon.info
+                , Markdown.simple [] "**Cette version est en cours de développement.**"
+                , """Contribuez via notre [forum utilisateur](https://chat.ecobalyse.fr/ecobalyse/channels/???_flowers)"""
+                    |> Markdown.simple []
+                ]
+
         Scope.Food2 ->
             Notice.info
                 [ Icon.info

@@ -43,6 +43,9 @@ type alias Properties a =
     , apparelProductCategories : a
     , countries : a
     , definitions : a
+    , flowerComponents : a
+    , flowerExamples : a
+    , flowerProductCategories : a
     , food2Components : a
     , food2Examples : a
     , food2ProductCategories : a
@@ -147,6 +150,9 @@ scopeToComponent json scope =
                 Scope.Apparel ->
                     Just json.apparelComponents
 
+                Scope.Flowers ->
+                    Just json.flowerComponents
+
                 Scope.Food2 ->
                     Just json.food2Components
 
@@ -166,6 +172,9 @@ scopeToExamples json scope =
         Scope.Apparel ->
             json.apparelExamples
 
+        Scope.Flowers ->
+            json.flowerComponents
+
         Scope.Food2 ->
             json.food2Examples
 
@@ -184,6 +193,9 @@ buildFromStrings strings =
         , apparelProductCategories = rawJsonString strings.apparelProductCategories
         , countries = rawJsonString strings.countries
         , definitions = rawJsonString strings.definitions
+        , flowerComponents = rawJsonString strings.flowerComponents
+        , flowerExamples = rawJsonString strings.flowerExamples
+        , flowerProductCategories = rawJsonString strings.flowerProductCategories
         , food2Components = rawJsonString strings.food2Components
         , food2Examples = rawJsonString strings.food2Examples
         , food2ProductCategories = rawJsonString strings.food2ProductCategories
@@ -230,6 +242,11 @@ scopePropGetters scope =
             [ .apparelProductCategories
             , .apparelComponents
             , .apparelExamples
+            ]
+
+        Scope.Generic Scope.Flowers ->
+            [ .flowerComponents
+            , .flowerExamples
             ]
 
         Scope.Generic Scope.Food2 ->

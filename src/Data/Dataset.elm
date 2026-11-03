@@ -81,6 +81,15 @@ datasetsGeneric scope =
             , ProductCategory scope Nothing
             ]
 
+        Scope.Flowers ->
+            [ GenericExamples scope Nothing
+            , Components (Scope.Generic scope) Nothing
+            , Impacts Nothing
+            , Countries Nothing
+            , Processes (Scope.Generic scope) Nothing
+            , ProductCategory scope Nothing
+            ]
+
         Scope.Food2 ->
             [ GenericExamples scope Nothing
             , Impacts Nothing
@@ -197,6 +206,9 @@ componentDatasetToString scope =
         Scope.Generic Scope.Apparel ->
             "apparel-components"
 
+        Scope.Generic Scope.Flowers ->
+            "flowers-components"
+
         Scope.Generic Scope.Food2 ->
             "food2-components"
 
@@ -219,6 +231,9 @@ processesDatasetToString scope =
         Scope.Generic Scope.Apparel ->
             "apparel-processes"
 
+        Scope.Generic Scope.Flowers ->
+            "flowers-processes"
+
         Scope.Generic Scope.Food2 ->
             "food2-processes"
 
@@ -238,6 +253,9 @@ examplesDatasetToString scope =
         Scope.Apparel ->
             "apparel-examples"
 
+        Scope.Flowers ->
+            "flowers-examples"
+
         Scope.Food2 ->
             "food2-examples"
 
@@ -253,6 +271,9 @@ productCategoryDatasetToString scope =
     case scope of
         Scope.Apparel ->
             "apparel-product-categories"
+
+        Scope.Flowers ->
+            "flowers-product-categories"
 
         Scope.Food2 ->
             "food2-product-categories"

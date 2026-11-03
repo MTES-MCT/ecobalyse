@@ -38,6 +38,7 @@ type Scope
 
 type GenericScope
     = Apparel
+    | Flowers
     | Food2
     | Object
     | Veli
@@ -60,6 +61,7 @@ all =
 allGeneric : List GenericScope
 allGeneric =
     [ Apparel
+    , Flowers
     , Food2
     , Object
     , Veli
@@ -203,6 +205,9 @@ toLabelGeneric genericScope =
         Apparel ->
             "Habillement"
 
+        Flowers ->
+            "Fleurs"
+
         Food2 ->
             "Alimentaire BÉTA"
 
@@ -231,6 +236,9 @@ toStringGeneric genericScope =
     case genericScope of
         Apparel ->
             "apparel"
+
+        Flowers ->
+            "flowers"
 
         Food2 ->
             "food2"
