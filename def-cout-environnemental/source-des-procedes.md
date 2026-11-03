@@ -5,7 +5,9 @@ Le champs `Source` visible dans l'[explorateur des procédés](https://ecobalyse
 \
 Ce champs peut faire référence a des bases de données reconnues telles que :
 
-* Ecoinvent 3.9.1
+*
+* BAFU 2025v2 (en cours d'implémentation, prochainement remplacé par BAFU:2026v2
+* Ecoinvent 3.9.1 (en cours de remplacement par BAFU)
 * Agribalyse 3.1
 * Base Impacts 2.01
 * D'autres bases de données d'inventaires de cycle de vie (ICV)
