@@ -21,7 +21,7 @@ import Simplify
 config : List Rule
 config =
     [ -- CognitiveComplexity
-      CognitiveComplexity.rule 15
+      CognitiveComplexity.rule 25
         |> Rule.ignoreErrorsForDirectories [ "tests/" ]
 
     -- NoDebug

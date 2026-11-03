@@ -115,25 +115,19 @@ toRawJsonStrings state =
             Nothing
 
 
-updateRawJson : (LoadingState -> LoadingState) -> LoadingState -> ( LoadingState, Maybe (Result DbError Db) )
-updateRawJson update loadingState =
-    let
-        updated =
-            update loadingState
-    in
+updateRawJson : LoadingState -> Maybe (Result DbError Db)
+updateRawJson updated =
     case resolve updated of
         RemoteData.Failure error ->
-            ( updated, Just <| Err (FetchError error) )
+            Just <| Err (FetchError error)
 
         RemoteData.Loading ->
-            ( updated, Nothing )
+            Nothing
 
         RemoteData.NotAsked ->
-            ( updated, Nothing )
+            Nothing
 
         RemoteData.Success json ->
-            ( updated
-            , Db.build json
+            Db.build json
                 |> Result.mapError ParseError
                 |> Just
-            )
