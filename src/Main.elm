@@ -649,8 +649,12 @@ updateDetailedProcess : BackendHttp.WebData String -> Session -> Page -> Model -
 updateDetailedProcess remoteData session page model =
     case remoteData of
         RemoteData.Failure _ ->
-            notifyError model "Erreur" <|
+            ( model
+            , Notification.error "Erreur"
                 "Impossible de charger les impacts détaillés; les impacts agrégés seront utilisés."
+                |> App.AddToast
+                |> App.toCmd AppMsg
+            )
 
         RemoteData.Loading ->
             ( model, Cmd.none )
@@ -671,15 +675,6 @@ updateDetailedProcess remoteData session page model =
               }
             , Cmd.none
             )
-
-
-notifyError : Model -> String -> String -> ( Model, Cmd Msg )
-notifyError model title message =
-    ( model
-    , Notification.error title message
-        |> App.AddToast
-        |> App.toCmd AppMsg
-    )
 
 
 subscriptions : Model -> Sub Msg
