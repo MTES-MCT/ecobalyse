@@ -1,6 +1,7 @@
 module Page.Generic exposing
     ( Model
     , Msg
+    , countsAsUsage
     , init
     , initFromExample
     , refreshResults
@@ -295,6 +296,45 @@ initQuery session genericScope =
 
         else
             sessionQuery
+
+
+{-| User actions to count as usage
+-}
+countsAsUsage : Msg -> Bool
+countsAsUsage msg =
+    case msg of
+        ExampleContribCreated _ ->
+            False
+
+        NoOp ->
+            False
+
+        OnAutocompleteAddAssemblyOperation _ ->
+            False
+
+        OnAutocompleteAddConsumption _ ->
+            False
+
+        OnAutocompleteAddProcess _ _ _ _ ->
+            False
+
+        OnAutocompleteAddProductionItem _ ->
+            False
+
+        OnAutocompleteExample _ ->
+            False
+
+        OnAutocompletePackaging _ ->
+            False
+
+        OnDragLeaveBookmark ->
+            False
+
+        OnDragOverBookmark _ ->
+            False
+
+        _ ->
+            True
 
 
 selectProductCategory : Session -> Query -> Maybe Product.Id -> PageUpdate Model Msg -> PageUpdate Model Msg

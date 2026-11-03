@@ -2,6 +2,7 @@ module Main exposing (main)
 
 import App exposing (PageUpdate)
 import Browser exposing (Document)
+import Browser.Events
 import Browser.Navigation as Nav
 import Data.Component as Component
 import Data.Component.Config as ComponentConfig
@@ -9,6 +10,7 @@ import Data.Db exposing (Db, RawJsonString)
 import Data.Example as Example
 import Data.Food.Query as FoodQuery
 import Data.Impact as Impact
+import Data.Key as Key
 import Data.Notification as Notification exposing (Notification)
 import Data.Plausible as Plausible
 import Data.Session as Session exposing (Session)
@@ -34,6 +36,7 @@ import Request.Version as Version exposing (VersionData)
 import Route
 import Toast
 import Url exposing (Url)
+import Views.Feedback as FeedbackView
 import Views.Page as Page
 
 
@@ -77,6 +80,7 @@ type State
 
 type alias Model =
     { dbLoadingState : LoadingState
+    , feedbackModalOpen : Bool
     , flags : Flags
     , mobileNavigationOpened : Bool
 
@@ -92,6 +96,7 @@ type Msg
     = ApiMsg Api.Msg
     | AppMsg App.Msg
     | AuthMsg Auth.Msg
+    | CloseFeedbackModal
     | ComponentConfigReceived Db SessionConfig (WebData String)
     | DetailedProcessesReceived (BackendHttp.WebData String)
     | EditorialMsg Editorial.Msg
@@ -112,6 +117,7 @@ type Msg
 init : Flags -> Url -> Nav.Key -> ( Model, Cmd Msg )
 init flags requestedUrl navKey =
     ( { dbLoadingState = RequestDb.initLoadingState
+      , feedbackModalOpen = False
       , flags = flags
       , mobileNavigationOpened = False
       , navKey = navKey
@@ -193,31 +199,66 @@ setupSession { flags, navKey } dbLoadingState db componentRawConfig componentCon
         }
 
 
+saveStore : Session -> ( Model, Cmd Msg ) -> ( Model, Cmd Msg )
+saveStore previousSession ( model, cmds ) =
+    case model.state of
+        Loaded session _ ->
+            if previousSession.store /= session.store then
+                ( model
+                , Cmd.batch
+                    [ cmds
+                    , session.store |> Session.serializeStore |> Ports.saveStore
+                    ]
+                )
+
+            else
+                ( model, cmds )
+
+        _ ->
+            ( model, cmds )
+
+
 toPage :
-    Session
-    -> Model
+    Model
     -> Cmd Msg
     -> (pageModel -> Page)
     -> (pageMsg -> Msg)
     -> PageUpdate pageModel pageMsg
     -> ( Model, Cmd Msg )
-toPage session model cmds toModel toMsg pageUpdate =
-    let
-        storeCmd =
-            if session.store /= pageUpdate.session.store then
-                pageUpdate.session.store |> Session.serializeStore |> Ports.saveStore
-
-            else
-                Cmd.none
-    in
+toPage model cmds toModel toMsg pageUpdate =
     ( { model | state = Loaded pageUpdate.session (toModel pageUpdate.model) }
     , Cmd.batch
         [ cmds
         , Cmd.map toMsg pageUpdate.cmd
-        , storeCmd
         , pageUpdate |> App.mapToCmd AppMsg
         ]
     )
+
+
+trackCalculatorUsage : Bool -> ( Model, Cmd Msg ) -> ( Model, Cmd Msg )
+trackCalculatorUsage shouldCount ( model, cmds ) =
+    case model.state of
+        Errored _ ->
+            ( model, cmds )
+
+        Initializing ->
+            ( model, cmds )
+
+        Loaded session currentPage ->
+            let
+                registered =
+                    if shouldCount then
+                        Session.registerSimulatorAction session
+
+                    else
+                        { openPrompt = False, session = session }
+            in
+            ( { model
+                | feedbackModalOpen = model.feedbackModalOpen || registered.openPrompt
+                , state = Loaded registered.session currentPage
+              }
+            , cmds
+            )
 
 
 setRoute : Url -> Session -> Page -> ( Model, Cmd Msg ) -> ( Model, Cmd Msg )
@@ -225,13 +266,15 @@ setRoute url session currentPage ( model, cmds ) =
     case Route.fromUrl url of
         Just Route.Api ->
             Api.init session
-                |> toPage session model cmds ApiPage ApiMsg
+                |> toPage model cmds ApiPage ApiMsg
+                |> saveStore session
 
         Just Route.Auth ->
             let
                 authInit =
                     Auth.init session
-                        |> toPage session model cmds AuthPage AuthMsg
+                        |> toPage model cmds AuthPage AuthMsg
+                        |> saveStore session
             in
             case currentPage of
                 AuthPage ({ skipNextAuthInit } as authModel) ->
@@ -248,63 +291,78 @@ setRoute url session currentPage ( model, cmds ) =
 
         Just (Route.AuthLogin email token) ->
             Auth.initLogin session email token
-                |> toPage session model cmds AuthPage AuthMsg
+                |> toPage model cmds AuthPage AuthMsg
+                |> saveStore session
 
         Just Route.AuthSignup ->
             Auth.initSignup session
-                |> toPage session model cmds AuthPage AuthMsg
+                |> toPage model cmds AuthPage AuthMsg
+                |> saveStore session
 
         Just (Route.Editorial slug) ->
             Editorial.init slug session
-                |> toPage session model cmds EditorialPage EditorialMsg
+                |> toPage model cmds EditorialPage EditorialMsg
+                |> saveStore session
 
         Just (Route.Explore scope dataset) ->
             Explore.init scope dataset session
-                |> toPage session model cmds ExplorePage ExploreMsg
+                |> toPage model cmds ExplorePage ExploreMsg
+                |> saveStore session
 
         Just (Route.FoodBuilder trigram maybeQuery) ->
             FoodBuilder.init session trigram maybeQuery
-                |> toPage session model cmds FoodBuilderPage FoodBuilderMsg
+                |> toPage model cmds FoodBuilderPage FoodBuilderMsg
+                |> saveStore session
 
         Just (Route.FoodBuilderExample uuid) ->
             FoodBuilder.initFromExample session uuid
-                |> toPage session model cmds FoodBuilderPage FoodBuilderMsg
+                |> toPage model cmds FoodBuilderPage FoodBuilderMsg
+                |> saveStore session
 
         Just Route.FoodBuilderHome ->
             FoodBuilder.init session Impact.default Nothing
-                |> toPage session model cmds FoodBuilderPage FoodBuilderMsg
+                |> toPage model cmds FoodBuilderPage FoodBuilderMsg
+                |> saveStore session
 
         Just (Route.GenericSimulator genericScope trigram maybeQuery) ->
             GenericSimulator.init genericScope trigram maybeQuery session
-                |> toPage session model cmds GenericSimulatorPage GenericSimulatorMsg
+                |> toPage model cmds GenericSimulatorPage GenericSimulatorMsg
+                |> saveStore session
 
         Just (Route.GenericSimulatorExample genericScope uuid) ->
             GenericSimulator.initFromExample session genericScope uuid
-                |> toPage session model cmds GenericSimulatorPage GenericSimulatorMsg
+                |> toPage model cmds GenericSimulatorPage GenericSimulatorMsg
+                |> saveStore session
 
         Just Route.Home ->
             Home.init session
-                |> toPage session model cmds HomePage HomeMsg
+                |> toPage model cmds HomePage HomeMsg
+                |> saveStore session
 
         Just (Route.GenericSimulatorHome genericScope) ->
             GenericSimulator.init genericScope Impact.default Nothing session
-                |> toPage session model cmds GenericSimulatorPage GenericSimulatorMsg
+                |> toPage model cmds GenericSimulatorPage GenericSimulatorMsg
+                |> saveStore session
 
         Just Route.Stats ->
             Stats.init session
-                |> toPage session model cmds StatsPage StatsMsg
+                |> toPage model cmds StatsPage StatsMsg
+                |> saveStore session
 
         Just (Route.TextileSimulator trigram maybeQuery) ->
             TextileSimulator.init trigram maybeQuery session
-                |> toPage session model cmds TextileSimulatorPage TextileSimulatorMsg
+                |> toPage model cmds TextileSimulatorPage TextileSimulatorMsg
+                |> saveStore session
 
         Just (Route.TextileSimulatorExample uuid) ->
             TextileSimulator.initFromExample session uuid
-                |> toPage session model cmds TextileSimulatorPage TextileSimulatorMsg
+                |> toPage model cmds TextileSimulatorPage TextileSimulatorMsg
+                |> saveStore session
 
         Just Route.TextileSimulatorHome ->
             TextileSimulator.init Impact.default Nothing session
-                |> toPage session model cmds TextileSimulatorPage TextileSimulatorMsg
+                |> toPage model cmds TextileSimulatorPage TextileSimulatorMsg
+                |> saveStore session
 
         Nothing ->
             ( { model | state = Loaded session NotFoundPage }
@@ -435,7 +493,8 @@ updateLoaded session page msg model =
             case page of
                 ApiPage apiModel ->
                     Api.update session apiMsg apiModel
-                        |> toPage session model Cmd.none ApiPage ApiMsg
+                        |> toPage model Cmd.none ApiPage ApiMsg
+                        |> saveStore session
 
                 _ ->
                     ( model, Cmd.none )
@@ -448,10 +507,14 @@ updateLoaded session page msg model =
             case page of
                 AuthPage authModel ->
                     Auth.update session authMsg authModel
-                        |> toPage session model Cmd.none AuthPage AuthMsg
+                        |> toPage model Cmd.none AuthPage AuthMsg
+                        |> saveStore session
 
                 _ ->
                     ( model, Cmd.none )
+
+        CloseFeedbackModal ->
+            ( { model | feedbackModalOpen = False }, Cmd.none )
 
         -- Initial config response is handled while `Initializing`
         ComponentConfigReceived _ _ _ ->
@@ -465,7 +528,8 @@ updateLoaded session page msg model =
             case page of
                 EditorialPage editorialModel ->
                     Editorial.update session editorialMsg editorialModel
-                        |> toPage session model Cmd.none EditorialPage EditorialMsg
+                        |> toPage model Cmd.none EditorialPage EditorialMsg
+                        |> saveStore session
 
                 _ ->
                     ( model, Cmd.none )
@@ -474,7 +538,8 @@ updateLoaded session page msg model =
             case page of
                 ExplorePage examplesModel ->
                     Explore.update session examplesMsg examplesModel
-                        |> toPage session model Cmd.none ExplorePage ExploreMsg
+                        |> toPage model Cmd.none ExplorePage ExploreMsg
+                        |> saveStore session
 
                 _ ->
                     ( model, Cmd.none )
@@ -484,7 +549,9 @@ updateLoaded session page msg model =
             case page of
                 FoodBuilderPage foodModel ->
                     FoodBuilder.update session foodMsg foodModel
-                        |> toPage session model Cmd.none FoodBuilderPage FoodBuilderMsg
+                        |> toPage model Cmd.none FoodBuilderPage FoodBuilderMsg
+                        |> trackCalculatorUsage (FoodBuilder.countsAsUsage foodMsg)
+                        |> saveStore session
 
                 _ ->
                     ( model, Cmd.none )
@@ -494,7 +561,9 @@ updateLoaded session page msg model =
             case page of
                 GenericSimulatorPage genericModel ->
                     GenericSimulator.update session genericMsg genericModel
-                        |> toPage session model Cmd.none GenericSimulatorPage GenericSimulatorMsg
+                        |> toPage model Cmd.none GenericSimulatorPage GenericSimulatorMsg
+                        |> trackCalculatorUsage (GenericSimulator.countsAsUsage genericMsg)
+                        |> saveStore session
 
                 _ ->
                     ( model, Cmd.none )
@@ -504,7 +573,8 @@ updateLoaded session page msg model =
             case page of
                 HomePage homeModel ->
                     Home.update session homeMsg homeModel
-                        |> toPage session model Cmd.none HomePage HomeMsg
+                        |> toPage model Cmd.none HomePage HomeMsg
+                        |> saveStore session
 
                 _ ->
                     ( model, Cmd.none )
@@ -517,7 +587,8 @@ updateLoaded session page msg model =
             case page of
                 StatsPage statsModel ->
                     Stats.update session statsMsg statsModel
-                        |> toPage session model Cmd.none StatsPage StatsMsg
+                        |> toPage model Cmd.none StatsPage StatsMsg
+                        |> saveStore session
 
                 _ ->
                     ( model, Cmd.none )
@@ -544,7 +615,9 @@ updateLoaded session page msg model =
             case page of
                 TextileSimulatorPage textileModel ->
                     TextileSimulator.update session textileMsg textileModel
-                        |> toPage session model Cmd.none TextileSimulatorPage TextileSimulatorMsg
+                        |> toPage model Cmd.none TextileSimulatorPage TextileSimulatorMsg
+                        |> trackCalculatorUsage (TextileSimulator.countsAsUsage textileMsg)
+                        |> saveStore session
 
                 _ ->
                     ( model, Cmd.none )
@@ -618,14 +691,15 @@ updateGlobalApp session page msg model =
                     -- FIXME: remove notifications from session
                     { session | notifications = [], store = Session.defaultStore }
             in
-            ( { model | state = page |> Loaded newSession }
-            , Cmd.batch
-                [ newSession.store |> Session.serializeStore |> Ports.saveStore
-                , Notification.info "La session a été réinitialisée."
-                    |> App.AddToast
-                    |> App.toCmd AppMsg
-                ]
+            ( { model
+                | feedbackModalOpen = False
+                , state = page |> Loaded newSession
+              }
+            , Notification.info "La session a été réinitialisée."
+                |> App.AddToast
+                |> App.toCmd AppMsg
             )
+                |> saveStore session
 
         App.SwitchVersion version ->
             ( model
@@ -678,9 +752,14 @@ updateDetailedProcess remoteData session page model =
 
 
 subscriptions : Model -> Sub Msg
-subscriptions { state } =
+subscriptions { feedbackModalOpen, state } =
     Sub.batch
         [ Ports.storeChanged StoreChanged
+        , if feedbackModalOpen then
+            Browser.Events.onKeyDown (Key.escape CloseFeedbackModal)
+
+          else
+            Sub.none
         , case state of
             Loaded { versionPollSeconds } _ ->
                 Version.pollVersion versionPollSeconds VersionPoll
@@ -710,7 +789,13 @@ subscriptions { state } =
 
 
 view : Model -> Document Msg
-view { dbLoadingState, flags, mobileNavigationOpened, state, tray } =
+view model =
+    viewPage model
+        |> withFeedbackModal model
+
+
+viewPage : Model -> Document Msg
+viewPage { dbLoadingState, flags, mobileNavigationOpened, state, tray } =
     let
         defaultPageConfig =
             { activePage = Page.Other
@@ -810,6 +895,15 @@ view { dbLoadingState, flags, mobileNavigationOpened, state, tray } =
                     TextileSimulator.view session simulatorModel
                         |> mapMsg TextileSimulatorMsg
                         |> frame Page.TextileSimulator
+
+
+withFeedbackModal : Model -> Document Msg -> Document Msg
+withFeedbackModal model document =
+    if model.feedbackModalOpen then
+        { document | body = document.body ++ [ FeedbackView.view CloseFeedbackModal ] }
+
+    else
+        document
 
 
 main : Program Flags Model Msg

@@ -1,6 +1,7 @@
 module Page.Food exposing
     ( Model
     , Msg
+    , countsAsUsage
     , init
     , initFromExample
     , subscriptions
@@ -198,6 +199,33 @@ initFromExample session uuid =
     }
         |> createPageUpdate (session |> Session.updateFoodQuery query)
         |> App.withCmds [ Ports.scrollTo { x = 0, y = 0 } ]
+
+
+{-| User actions to count as usage
+-}
+countsAsUsage : Msg -> Bool
+countsAsUsage msg =
+    case msg of
+        NoOp ->
+            False
+
+        OnAutocompleteExample _ ->
+            False
+
+        OnAutocompleteIngredient _ ->
+            False
+
+        OnAutocompletePackaging _ ->
+            False
+
+        OnDragLeaveBookmark ->
+            False
+
+        OnDragOverBookmark _ ->
+            False
+
+        _ ->
+            True
 
 
 update : Session -> Msg -> Model -> PageUpdate Model Msg

@@ -1,6 +1,7 @@
 module Page.Textile exposing
     ( Model
     , Msg
+    , countsAsUsage
     , init
     , initFromExample
     , refreshResults
@@ -254,6 +255,36 @@ initFromExample session uuid =
     }
         |> createPageUpdate (session |> Session.updateTextileQuery exampleQuery)
         |> App.withCmds [ Ports.scrollTo { x = 0, y = 0 } ]
+
+
+{-| User actions to count as usage
+-}
+countsAsUsage : Msg -> Bool
+countsAsUsage msg =
+    case msg of
+        NoOp ->
+            False
+
+        OnAutocompleteExample _ ->
+            False
+
+        OnAutocompleteMaterial _ ->
+            False
+
+        OnAutocompleteProduct _ ->
+            False
+
+        OnAutocompleteTrim _ ->
+            False
+
+        OnDragLeaveBookmark ->
+            False
+
+        OnDragOverBookmark _ ->
+            False
+
+        _ ->
+            True
 
 
 {-| Recomputes results after detailed processes have been loaded and session updated

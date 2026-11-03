@@ -20,6 +20,7 @@ module Data.Session exposing
     , moveBookmark
     , moveListElement
     , notifyBackendError
+    , registerSimulatorAction
     , replaceBookmark
     , saveBookmark
     , selectAllBookmarks
@@ -40,6 +41,7 @@ import Data.Common.DecodeUtils as DU
 import Data.Component as Component
 import Data.Component.Config as ComponentConfig
 import Data.Db as Db exposing (Db)
+import Data.Feedback as Feedback
 import Data.Food.Query as FoodQuery
 import Data.Scope as Scope exposing (GenericScope)
 import Data.Textile.Query as TextileQuery
@@ -413,6 +415,7 @@ type alias Store =
     { auth : Maybe Auth
     , bookmarks : List Bookmark
     , comparedSimulations : Set String
+    , feedback : Feedback.Persist
     }
 
 
@@ -421,6 +424,7 @@ defaultStore =
     { auth = Nothing
     , bookmarks = []
     , comparedSimulations = Set.empty
+    , feedback = Feedback.default
     }
 
 
@@ -430,6 +434,7 @@ decodeStore =
         |> DU.strictOptional "auth" decodeAuth
         |> JDP.optional "bookmarks" Bookmark.decodeJsonList []
         |> JDP.optional "comparedSimulations" (Decode.map Set.fromList (Decode.list Decode.string)) Set.empty
+        |> DU.strictOptionalWithDefault "feedback" Feedback.decode Feedback.default
 
 
 encodeStore : Store -> Encode.Value
@@ -438,6 +443,7 @@ encodeStore store =
         [ ( "comparedSimulations", store.comparedSimulations |> Encode.set Encode.string )
         , ( "bookmarks", store.bookmarks |> Bookmark.encodeJsonList )
         , ( "auth", store.auth |> Maybe.map encodeAuth |> Maybe.withDefault Encode.null )
+        , ( "feedback", Feedback.encode store.feedback )
         ]
 
 
@@ -485,6 +491,17 @@ updateDbProcesses rawDetailedProcessesJson session =
 
         Ok newSession ->
             newSession
+
+
+registerSimulatorAction : Session -> { openPrompt : Bool, session : Session }
+registerSimulatorAction ({ store } as session) =
+    let
+        { openPrompt, persist } =
+            Feedback.registerAction store.feedback
+    in
+    { openPrompt = openPrompt
+    , session = session |> updateStore (\s -> { s | feedback = persist })
+    }
 
 
 updateStore : (Store -> Store) -> Session -> Session
