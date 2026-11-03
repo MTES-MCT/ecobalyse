@@ -55,19 +55,13 @@ encode persist =
         ]
 
 
-{-| Register one simulator action and update state.
--}
-registerAction : Persist -> { openPrompt : Bool, persist : Persist }
+registerAction : Persist -> ( Bool, Persist )
 registerAction persist =
     if persist.shown then
-        { openPrompt = False, persist = persist }
+        ( False, persist )
 
     else if persist.actionCount + 1 >= actionThreshold then
-        { openPrompt = True
-        , persist = { actionCount = persist.actionCount + 1, shown = True }
-        }
+        ( True, { actionCount = persist.actionCount + 1, shown = True } )
 
     else
-        { openPrompt = False
-        , persist = { persist | actionCount = persist.actionCount + 1 }
-        }
+        ( False, { persist | actionCount = persist.actionCount + 1 } )

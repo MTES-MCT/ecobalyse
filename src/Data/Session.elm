@@ -457,6 +457,16 @@ decodeRawStore rawStore session =
             syncDetailedDb session { session | store = store }
 
 
+registerSimulatorAction : Session -> ( Bool, Session )
+registerSimulatorAction ({ store } as session) =
+    store.feedback
+        |> Feedback.registerAction
+        |> Tuple.mapSecond
+            (\persist ->
+                session |> updateStore (\s -> { s | feedback = persist })
+            )
+
+
 {-| Handle session auth status transition wrt detailed impacts data access
 -}
 syncDetailedDb : Session -> Session -> Session
@@ -491,17 +501,6 @@ updateDbProcesses rawDetailedProcessesJson session =
 
         Ok newSession ->
             newSession
-
-
-registerSimulatorAction : Session -> ( Bool, Session )
-registerSimulatorAction ({ store } as session) =
-    let
-        { openPrompt, persist } =
-            Feedback.registerAction store.feedback
-    in
-    ( openPrompt
-    , session |> updateStore (\s -> { s | feedback = persist })
-    )
 
 
 updateStore : (Store -> Store) -> Session -> Session
