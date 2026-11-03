@@ -116,7 +116,7 @@ def custom_source_consistency(filename, activities):
             )
 
 
-def source_path_consistency(activity, activity_path):
+def source_path_consistency(activity: dict, activity_path: Path):
     """
     Check that the activities are in the directory corresponding to their source
     """
