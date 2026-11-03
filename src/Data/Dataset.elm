@@ -55,7 +55,7 @@ datasets scope =
             ]
 
         Scope.Generic genericScope ->
-            dataSetsGeneric genericScope
+            datasetsGeneric genericScope
 
         Scope.Textile ->
             [ TextileExamples Nothing
@@ -68,42 +68,42 @@ datasets scope =
             ]
 
 
-dataSetsGeneric : Scope.GenericScope -> List Dataset
-dataSetsGeneric scope =
+datasetsGeneric : Scope.GenericScope -> List Dataset
+datasetsGeneric scope =
     case scope of
         Scope.Apparel ->
-            [ GenericExamples Scope.Apparel Nothing
-            , Components (Scope.Generic Scope.Apparel) Nothing
+            [ GenericExamples scope Nothing
+            , Components (Scope.Generic scope) Nothing
             , Countries Nothing
-            , Processes (Scope.Generic Scope.Apparel) Nothing
+            , Processes (Scope.Generic scope) Nothing
             , Impacts Nothing
-            , ProductCategory Scope.Apparel Nothing
+            , ProductCategory scope Nothing
             ]
 
         Scope.Food2 ->
-            [ GenericExamples Scope.Food2 Nothing
+            [ GenericExamples scope Nothing
             , Impacts Nothing
             , Countries Nothing
-            , Processes (Scope.Generic Scope.Food2) Nothing
-            , ProductCategory Scope.Food2 Nothing
+            , Processes (Scope.Generic scope) Nothing
+            , ProductCategory scope Nothing
             ]
 
         Scope.Object ->
-            [ GenericExamples Scope.Object Nothing
-            , Components (Scope.Generic Scope.Object) Nothing
+            [ GenericExamples scope Nothing
+            , Components (Scope.Generic scope) Nothing
             , Countries Nothing
-            , Processes (Scope.Generic Scope.Object) Nothing
+            , Processes (Scope.Generic scope) Nothing
             , Impacts Nothing
-            , ProductCategory Scope.Object Nothing
+            , ProductCategory scope Nothing
             ]
 
         Scope.Veli ->
-            [ GenericExamples Scope.Veli Nothing
-            , Components (Scope.Generic Scope.Veli) Nothing
+            [ GenericExamples scope Nothing
+            , Components (Scope.Generic scope) Nothing
             , Countries Nothing
             , Impacts Nothing
-            , Processes (Scope.Generic Scope.Veli) Nothing
-            , ProductCategory Scope.Veli Nothing
+            , Processes (Scope.Generic scope) Nothing
+            , ProductCategory scope Nothing
             ]
 
 
@@ -113,17 +113,8 @@ defaultDatasetFor scope =
         Scope.Food ->
             FoodExamples Nothing
 
-        Scope.Generic Scope.Apparel ->
-            GenericExamples Scope.Apparel Nothing
-
-        Scope.Generic Scope.Food2 ->
-            GenericExamples Scope.Food2 Nothing
-
-        Scope.Generic Scope.Object ->
-            GenericExamples Scope.Object Nothing
-
-        Scope.Generic Scope.Veli ->
-            GenericExamples Scope.Veli Nothing
+        Scope.Generic genericScope ->
+            GenericExamples genericScope Nothing
 
         Scope.Textile ->
             TextileExamples Nothing

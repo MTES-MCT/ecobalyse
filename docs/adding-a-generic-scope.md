@@ -140,24 +140,17 @@ ou `updateGenericQuery` :
 
 Le type `Dataset` du module [`Data.Dataset`](../src/Data/Dataset.elm) décrit le type de données de l'[Explorateur](/#/explore/food2).
 
-Ajouter les jeux de données de `datasets` et `defaultDatasetFor` pour `Scope.Generic Scope.Flowers`. Par exemple pour `datasets` :
+Ajouter les jeux de données de `datasetsGeneric` pour `Scope.Generic Scope.Flowers`. Par exemple pour :
 
 ```elm
-    Scope.Generic Scope.Flowers ->
-        [ GenericExamples Scope.Flowers Nothing
-        , Components (Scope.Generic Scope.Flowers) Nothing
+    Scope.Flowers ->
+        [ GenericExamples scope Nothing
+        , Components (Scope.Generic scope) Nothing
         , Countries Nothing
-        , Processes (Scope.Generic Scope.Flowers) Nothing
+        , Processes (Scope.Generic scope) Nothing
         , Impacts Nothing
-        , ProductCategory Scope.Flowers Nothing
+        , ProductCategory scope Nothing
         ]
-```
-
-Et dans la fonction `defaultDatasetFor`, pointer par défaut vers les exemples du scope :
-
-```elm
-    Scope.Generic Scope.Flowers ->
-        GenericExamples Scope.Flowers Nothing
 ```
 
 Ajouter également les slugs attendus pour les URLs de l'explorateur du nouveau scope `flowers` aux branches gérées par la fonction `fromSlug`. Le compilateur ne les réclamera pas, et sans eux l'explorateur ne pourra pas les résoudre ni fonctionner correctement ; par exemple, ajouter ces branches pour gérer les nouveaux slugs vers les datasets à explorer correspondants :
