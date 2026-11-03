@@ -459,30 +459,7 @@ updateLoaded session page msg model =
 
         -- Detailed processes
         DetailedProcessesReceived remoteData ->
-            case remoteData of
-                RemoteData.Failure _ ->
-                    notifyError model "Erreur" <|
-                        "Impossible de charger les impacts détaillés; les impacts agrégés seront utilisés."
-
-                RemoteData.Loading ->
-                    ( model, Cmd.none )
-
-                RemoteData.NotAsked ->
-                    ( model, Cmd.none )
-
-                RemoteData.Success rawDetailedProcessesJson ->
-                    let
-                        newSession =
-                            session |> Session.updateDbProcesses rawDetailedProcessesJson
-                    in
-                    ( { model
-                        | state =
-                            page
-                                |> refreshCachedResults newSession
-                                |> Loaded newSession
-                      }
-                    , Cmd.none
-                    )
+            updateDetailedProcess remoteData session page model
 
         EditorialMsg editorialMsg ->
             case page of
@@ -666,6 +643,34 @@ updateGlobalApp session page msg model =
                     Toast.update toastMsg model.tray
             in
             ( { model | tray = newTray }, Cmd.map (AppMsg << App.ToastMsg) newToastMsg )
+
+
+updateDetailedProcess : BackendHttp.WebData String -> Session -> Page -> Model -> ( Model, Cmd Msg )
+updateDetailedProcess remoteData session page model =
+    case remoteData of
+        RemoteData.Failure _ ->
+            notifyError model "Erreur" <|
+                "Impossible de charger les impacts détaillés; les impacts agrégés seront utilisés."
+
+        RemoteData.Loading ->
+            ( model, Cmd.none )
+
+        RemoteData.NotAsked ->
+            ( model, Cmd.none )
+
+        RemoteData.Success rawDetailedProcessesJson ->
+            let
+                newSession =
+                    session |> Session.updateDbProcesses rawDetailedProcessesJson
+            in
+            ( { model
+                | state =
+                    page
+                        |> refreshCachedResults newSession
+                        |> Loaded newSession
+              }
+            , Cmd.none
+            )
 
 
 notifyError : Model -> String -> String -> ( Model, Cmd Msg )
