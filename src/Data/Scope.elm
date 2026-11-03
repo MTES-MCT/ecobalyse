@@ -92,8 +92,8 @@ decodeGeneric =
 
 
 dictGet : Scope -> Dict a -> Maybe a
-dictGet scope =
-    AnyDict.get scope
+dictGet =
+    AnyDict.get
 
 
 dictGetMaybe : Scope -> Dict (Maybe a) -> Maybe a
