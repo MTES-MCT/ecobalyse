@@ -32667,7 +32667,7 @@
     "massPerUnit": null,
     "metadata": { "defaultOrigin": null },
     "qtyVariationRatio": 1.0,
-    "scopes": ["object", "food2"],
+    "scopes": ["object", "food2", "veli"],
     "source": "BAFU 2025v2",
     "unit": "kWh",
     "visible": true
@@ -32687,7 +32687,7 @@
     "massPerUnit": null,
     "metadata": { "defaultOrigin": null },
     "qtyVariationRatio": 1.0,
-    "scopes": ["object", "veli"],
+    "scopes": ["object"],
     "source": "BAFU 2025v2",
     "unit": "kWh",
     "visible": true
@@ -32707,7 +32707,7 @@
     "massPerUnit": null,
     "metadata": { "defaultOrigin": null },
     "qtyVariationRatio": 1.0,
-    "scopes": ["object", "veli"],
+    "scopes": ["object"],
     "source": "BAFU 2025v2",
     "unit": "kWh",
     "visible": true
