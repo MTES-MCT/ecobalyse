@@ -99,10 +99,10 @@ dictGet =
 dictGetMaybe : Scope -> Dict (Maybe a) -> Maybe a
 dictGetMaybe scope dict =
     case dictGet scope dict of
-        Just (Just value) ->
-            Just value
+        Just maybe ->
+            maybe
 
-        _ ->
+        Nothing ->
             Nothing
 
 
