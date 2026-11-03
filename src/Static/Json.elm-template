@@ -1,6 +1,5 @@
 module %moduleName% exposing
     ( RawJsonComponents
-    , apparelComponentsJson
     , apparelProductCategoriesJson
     , apparelExamplesJson
     , componentConfigJson
