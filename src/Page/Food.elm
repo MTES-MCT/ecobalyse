@@ -224,6 +224,15 @@ countsAsUsage msg =
         OnDragOverBookmark _ ->
             False
 
+        OpenComparator ->
+            False
+
+        SetModal NoModal ->
+            True
+
+        SetModal _ ->
+            False
+
         _ ->
             True
 

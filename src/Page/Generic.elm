@@ -303,6 +303,9 @@ initQuery session genericScope =
 countsAsUsage : Msg -> Bool
 countsAsUsage msg =
     case msg of
+        AppendModal _ ->
+            False
+
         ExampleContribCreated _ ->
             False
 
@@ -331,6 +334,9 @@ countsAsUsage msg =
             False
 
         OnDragOverBookmark _ ->
+            False
+
+        OpenComparator ->
             False
 
         _ ->

@@ -283,6 +283,18 @@ countsAsUsage msg =
         OnDragOverBookmark _ ->
             False
 
+        OpenComparator ->
+            False
+
+        SetModal NoModal ->
+            True
+
+        SetModal _ ->
+            False
+
+        SwitchTab RegulatoryTab ->
+            False
+
         _ ->
             True
 
