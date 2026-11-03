@@ -1,7 +1,3 @@
----
-hidden: true
----
-
 # 🧥 Upcycling / Remanufacturage
 
 ## Contexte
@@ -24,7 +20,7 @@ Extrait de l'[étude préalable publiée en 2022](https://librairie.ademe.fr/eco
 
 ## Méthodes de calcul
 
-Si la matière utilisée peut être considérée comme n'ayant plus de valeur économique, le produit remanufacturé peut être modélisé en supprimant tout impact relatif à la fabrication de ces matières premières.
+**Si la matière utilisée peut être considérée comme n'ayant plus de valeur économique**, le produit remanufacturé peut être modélisé en supprimant tout impact relatif à la fabrication de ces matières premières.
 
 Les paramètres de modélisation (coefficient de durabilité, choix des procédés de fabrication etc), doivent correspondre au nouveau produit fabriqué, et non à la matière utilisée.
 
