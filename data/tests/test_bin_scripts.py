@@ -8,7 +8,7 @@ from pytest import approx
 
 from bin import export_bw_db, export_lcia, lcia_info
 from config import settings
-from ecobalyse_data.bw import ecospold_export, simapro_export
+from ecobalyse_data.bw import ecospold_export
 from models.process import ComputedBy, Impacts
 
 
@@ -60,11 +60,7 @@ def test_export_icv_forwast(forwast, forwast_json_icv):
 def test_export_bw_db(mocker):
     # Just check that the imports are ok
 
-    mocker.patch("ecobalyse_data.bw.simapro_export.export_db_to_simapro")
     mocker.patch("ecobalyse_data.bw.ecospold_export.export_db_to_ecospold")
-    with tempfile.NamedTemporaryFile(delete=False) as fp:
-        export_bw_db.simapro(Path(fp.name), "")
-        simapro_export.export_db_to_simapro.assert_called_once()  # ty: ignore[unresolved-attribute]
     with tempfile.NamedTemporaryFile(delete=False) as fp:
         export_bw_db.ecospold1(["Ecobalyse_custom_lci"], Path(fp.name))
         ecospold_export.export_db_to_ecospold.assert_called_once()  # ty: ignore[unresolved-attribute]
