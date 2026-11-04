@@ -705,12 +705,6 @@ shouldTrackUsage msg =
         AddDistribution ->
             True
 
-        AddIngredient _ ->
-            True
-
-        AddPackaging _ ->
-            True
-
         AddPreparation ->
             True
 
@@ -726,7 +720,7 @@ shouldTrackUsage msg =
         DeletePreparation _ ->
             True
 
-        LoadQuery _ ->
+        OnAutocompleteSelect ->
             True
 
         ResetDistribution ->
@@ -735,13 +729,13 @@ shouldTrackUsage msg =
         ResetTransform ->
             True
 
-        SwitchBookmarksTab _ ->
-            True
-
         SwitchComparisonType _ ->
             True
 
         SwitchImpact _ ->
+            True
+
+        SwitchImpactsTab _ ->
             True
 
         ToggleComparedSimulation _ _ ->

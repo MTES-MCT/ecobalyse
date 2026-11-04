@@ -1129,6 +1129,24 @@ selectProcess category targetItem maybeElementIndex autocompleteState query ({ m
 shouldTrackUsage : Msg -> Bool
 shouldTrackUsage msg =
     case msg of
+        OnAutocompleteSelectAssemblyOperation ->
+            True
+
+        OnAutocompleteSelectConsumption ->
+            True
+
+        OnAutocompleteSelectExample ->
+            True
+
+        OnAutocompleteSelectPackaging ->
+            True
+
+        OnAutocompleteSelectProcess _ _ _ ->
+            True
+
+        OnAutocompleteSelectProductionItem ->
+            True
+
         RemoveAssemblyOperation _ ->
             True
 

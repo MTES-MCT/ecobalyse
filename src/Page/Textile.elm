@@ -1264,6 +1264,9 @@ simulatorView session model ({ inputs, impacts } as simulator) =
 shouldTrackUsage : Msg -> Bool
 shouldTrackUsage msg =
     case msg of
+        OnAutocompleteSelect ->
+            True
+
         RemoveMaterial _ ->
             True
 
