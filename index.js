@@ -16,7 +16,7 @@ const plausibleEnabled =
 
 // Sentry
 if (NODE_ENV === "production" && SENTRY_DSN) {
-  const Sentry = { init, setTag};
+  const Sentry = { init, setTag };
   Sentry.init({
     dsn: SENTRY_DSN,
     allowUrls: [
