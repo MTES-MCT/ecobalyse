@@ -229,6 +229,12 @@ datasetToString string =
         TextileExamples _ ->
             "textile-examples"
 
+        Components Scope.Food _ ->
+            "food-components"
+
+        Components (Scope.Generic Scope.Food2) _ ->
+            "food2-components"
+
 
 isDetailed : Dataset -> Bool
 isDetailed dataset =
