@@ -243,19 +243,6 @@ type alias Properties a =
 
 > 🚨 Ordonner les noms des propriétés par ordre alphabétique, ça n'est pas que cosmétique : les constructeurs de type Elm sont des fonctions qui prennent leurs arguments dans un ordre déterministe !
 
-Puis les inclure dans la phase d'assemblage dans la fonction `build` :
-
-```elm
-build : RawJsonStrings -> Result String Db
-    …
-    ([ json.flowersComponents
-     , json.food2Components
-     , json.objectComponents
-     , json.textileComponents
-     , json.veliComponents
-     ]
-```
-
 Et enfin passer le contenu JSON des exemples à la fonction `GenericDb.buildFromJson` :
 
 ```elm

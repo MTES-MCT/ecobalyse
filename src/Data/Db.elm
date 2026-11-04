@@ -17,6 +17,7 @@ import Data.Generic.Db as GenericDb
 import Data.Impact as Impact
 import Data.Impact.Definition as Definition exposing (Definitions)
 import Data.Process as Process exposing (Process)
+import Data.Scope as Scope exposing (Scope)
 import Data.Textile.Db as TextileDb
 import Data.Transport as Transport exposing (Distances)
 import Json.Decode as Decode
@@ -79,12 +80,8 @@ build json =
             (\processes ->
                 Ok Db
                     |> RE.andMap
-                        ([ json.apparelComponents
-                         , json.food2Components
-                         , json.objectComponents
-                         , json.textileComponents
-                         , json.veliComponents
-                         ]
+                        (Scope.all
+                            |> List.filterMap (scopeToComponent json)
                             |> List.map (extractJsonString >> Component.decodeListFromJsonString)
                             |> RE.combine
                             -- A missing country inherits the process default origin. Resolve it once here at build
@@ -140,6 +137,30 @@ build json =
                                 (extractJsonString json.textileProducts)
                         )
             )
+
+
+scopeToComponent : RawJsonStrings -> Scope -> Maybe RawJsonString
+scopeToComponent json scope =
+    case scope of
+        Scope.Food ->
+            Nothing
+
+        Scope.Generic genericScope ->
+            case genericScope of
+                Scope.Apparel ->
+                    Just json.apparelComponents
+
+                Scope.Food2 ->
+                    Just json.food2Components
+
+                Scope.Object ->
+                    Just json.objectComponents
+
+                Scope.Veli ->
+                    Just json.veliComponents
+
+        Scope.Textile ->
+            Just json.textileComponents
 
 
 buildFromStrings : Properties String -> Result String Db
