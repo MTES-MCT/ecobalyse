@@ -267,14 +267,12 @@ setRoute url session currentPage ( model, cmds ) =
         Just Route.Api ->
             Api.init session
                 |> toPage model cmds ApiPage ApiMsg
-                |> saveStore session
 
         Just Route.Auth ->
             let
                 authInit =
                     Auth.init session
                         |> toPage model cmds AuthPage AuthMsg
-                        |> saveStore session
             in
             case currentPage of
                 AuthPage ({ skipNextAuthInit } as authModel) ->
@@ -292,77 +290,62 @@ setRoute url session currentPage ( model, cmds ) =
         Just (Route.AuthLogin email token) ->
             Auth.initLogin session email token
                 |> toPage model cmds AuthPage AuthMsg
-                |> saveStore session
 
         Just Route.AuthSignup ->
             Auth.initSignup session
                 |> toPage model cmds AuthPage AuthMsg
-                |> saveStore session
 
         Just (Route.Editorial slug) ->
             Editorial.init slug session
                 |> toPage model cmds EditorialPage EditorialMsg
-                |> saveStore session
 
         Just (Route.Explore scope dataset) ->
             Explore.init scope dataset session
                 |> toPage model cmds ExplorePage ExploreMsg
-                |> saveStore session
 
         Just (Route.FoodBuilder trigram maybeQuery) ->
             FoodBuilder.init session trigram maybeQuery
                 |> toPage model cmds FoodBuilderPage FoodBuilderMsg
-                |> saveStore session
 
         Just (Route.FoodBuilderExample uuid) ->
             FoodBuilder.initFromExample session uuid
                 |> toPage model cmds FoodBuilderPage FoodBuilderMsg
-                |> saveStore session
 
         Just Route.FoodBuilderHome ->
             FoodBuilder.init session Impact.default Nothing
                 |> toPage model cmds FoodBuilderPage FoodBuilderMsg
-                |> saveStore session
 
         Just (Route.GenericSimulator genericScope trigram maybeQuery) ->
             GenericSimulator.init genericScope trigram maybeQuery session
                 |> toPage model cmds GenericSimulatorPage GenericSimulatorMsg
-                |> saveStore session
 
         Just (Route.GenericSimulatorExample genericScope uuid) ->
             GenericSimulator.initFromExample session genericScope uuid
                 |> toPage model cmds GenericSimulatorPage GenericSimulatorMsg
-                |> saveStore session
 
         Just Route.Home ->
             Home.init session
                 |> toPage model cmds HomePage HomeMsg
-                |> saveStore session
 
         Just (Route.GenericSimulatorHome genericScope) ->
             GenericSimulator.init genericScope Impact.default Nothing session
                 |> toPage model cmds GenericSimulatorPage GenericSimulatorMsg
-                |> saveStore session
 
         Just Route.Stats ->
             Stats.init session
                 |> toPage model cmds StatsPage StatsMsg
-                |> saveStore session
 
         Just (Route.TextileSimulator trigram maybeQuery) ->
             TextileSimulator.init trigram maybeQuery session
                 |> toPage model cmds TextileSimulatorPage TextileSimulatorMsg
-                |> saveStore session
 
         Just (Route.TextileSimulatorExample uuid) ->
             TextileSimulator.initFromExample session uuid
                 |> toPage model cmds TextileSimulatorPage TextileSimulatorMsg
-                |> saveStore session
 
         Just Route.TextileSimulatorHome ->
             TextileSimulator.init Impact.default Nothing session
                 |> toPage model cmds TextileSimulatorPage TextileSimulatorMsg
-                |> saveStore session
 
         Nothing ->
             ( { model | state = Loaded session NotFoundPage }
@@ -428,19 +411,17 @@ updateInitializing initMsg model =
                                     componentConfig
                                         |> setupSession sessionConfig model.dbLoadingState db componentRawConfig
                             in
-                            setRoute sessionConfig.url
-                                session
-                                LoadingPage
-                                ( { model | state = Loaded session LoadingPage }
-                                , Cmd.batch
-                                    [ if Session.hasAccessToDetailedImpacts session then
-                                        Request.Auth.processes session DetailedProcessesReceived
+                            ( { model | state = Loaded session LoadingPage }
+                            , Cmd.batch
+                                [ if Session.hasAccessToDetailedImpacts session then
+                                    Request.Auth.processes session DetailedProcessesReceived
 
-                                      else
-                                        Cmd.none
-                                    , Plausible.send session <| Plausible.PageViewed sessionConfig.url
-                                    ]
-                                )
+                                  else
+                                    Cmd.none
+                                , Plausible.send session <| Plausible.PageViewed sessionConfig.url
+                                ]
+                            )
+                                |> setRoute sessionConfig.url session LoadingPage
 
         -- Raw Json Db data received over HTTP
         RawDataReceived sessionConfig updateRaw data ->
@@ -484,6 +465,7 @@ update msg ({ state } as model) =
 
         Loaded session page ->
             updateLoaded session page msg model
+                |> saveStore session
 
 
 updateLoaded : Session -> Page -> Msg -> Model -> ( Model, Cmd Msg )
@@ -494,7 +476,6 @@ updateLoaded session page msg model =
                 ApiPage apiModel ->
                     Api.update session apiMsg apiModel
                         |> toPage model Cmd.none ApiPage ApiMsg
-                        |> saveStore session
 
                 _ ->
                     ( model, Cmd.none )
@@ -508,7 +489,6 @@ updateLoaded session page msg model =
                 AuthPage authModel ->
                     Auth.update session authMsg authModel
                         |> toPage model Cmd.none AuthPage AuthMsg
-                        |> saveStore session
 
                 _ ->
                     ( model, Cmd.none )
@@ -529,7 +509,6 @@ updateLoaded session page msg model =
                 EditorialPage editorialModel ->
                     Editorial.update session editorialMsg editorialModel
                         |> toPage model Cmd.none EditorialPage EditorialMsg
-                        |> saveStore session
 
                 _ ->
                     ( model, Cmd.none )
@@ -539,7 +518,6 @@ updateLoaded session page msg model =
                 ExplorePage examplesModel ->
                     Explore.update session examplesMsg examplesModel
                         |> toPage model Cmd.none ExplorePage ExploreMsg
-                        |> saveStore session
 
                 _ ->
                     ( model, Cmd.none )
@@ -551,7 +529,6 @@ updateLoaded session page msg model =
                     FoodBuilder.update session foodMsg foodModel
                         |> toPage model Cmd.none FoodBuilderPage FoodBuilderMsg
                         |> trackCalculatorUsage (FoodBuilder.countsAsUsage foodMsg)
-                        |> saveStore session
 
                 _ ->
                     ( model, Cmd.none )
@@ -563,7 +540,6 @@ updateLoaded session page msg model =
                     GenericSimulator.update session genericMsg genericModel
                         |> toPage model Cmd.none GenericSimulatorPage GenericSimulatorMsg
                         |> trackCalculatorUsage (GenericSimulator.countsAsUsage genericMsg)
-                        |> saveStore session
 
                 _ ->
                     ( model, Cmd.none )
@@ -574,7 +550,6 @@ updateLoaded session page msg model =
                 HomePage homeModel ->
                     Home.update session homeMsg homeModel
                         |> toPage model Cmd.none HomePage HomeMsg
-                        |> saveStore session
 
                 _ ->
                     ( model, Cmd.none )
@@ -588,7 +563,6 @@ updateLoaded session page msg model =
                 StatsPage statsModel ->
                     Stats.update session statsMsg statsModel
                         |> toPage model Cmd.none StatsPage StatsMsg
-                        |> saveStore session
 
                 _ ->
                     ( model, Cmd.none )
@@ -617,7 +591,6 @@ updateLoaded session page msg model =
                     TextileSimulator.update session textileMsg textileModel
                         |> toPage model Cmd.none TextileSimulatorPage TextileSimulatorMsg
                         |> trackCalculatorUsage (TextileSimulator.countsAsUsage textileMsg)
-                        |> saveStore session
 
                 _ ->
                     ( model, Cmd.none )
@@ -699,7 +672,6 @@ updateGlobalApp session page msg model =
                 |> App.AddToast
                 |> App.toCmd AppMsg
             )
-                |> saveStore session
 
         App.SwitchVersion version ->
             ( model
