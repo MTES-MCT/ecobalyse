@@ -1264,14 +1264,86 @@ simulatorView session model ({ inputs, impacts } as simulator) =
 shouldTrackUsage : Msg -> Bool
 shouldTrackUsage msg =
     case msg of
+        ConfirmSwitchToRegulatory ->
+            False
+
+        CopyToClipBoard _ ->
+            False
+
+        DeleteBookmark _ ->
+            False
+
+        ExportBookmarks ->
+            False
+
+        ImportBookmarks ->
+            False
+
+        NoOp ->
+            False
+
+        OnAutocompleteExample _ ->
+            False
+
+        OnAutocompleteMaterial _ ->
+            False
+
+        OnAutocompleteProduct _ ->
+            False
+
         OnAutocompleteSelect ->
             True
+
+        OnAutocompleteTrim _ ->
+            False
+
+        OnDragLeaveBookmark ->
+            False
+
+        OnDragOverBookmark _ ->
+            False
+
+        OnDragStartBookmark _ ->
+            False
+
+        OnDropBookmark _ ->
+            False
+
+        OnStageClick _ ->
+            False
+
+        OpenComparator ->
+            False
 
         RemoveMaterial _ ->
             True
 
         RemoveTrim _ ->
             True
+
+        RenameBookmark ->
+            False
+
+        Reset ->
+            False
+
+        SaveBookmark ->
+            False
+
+        SaveBookmarkWithTime _ _ _ ->
+            False
+
+        SelectAllBookmarks ->
+            False
+
+        SelectNoBookmarks ->
+            False
+
+        SetModal _ ->
+            False
+
+        SwitchBookmarksTab _ ->
+            False
 
         SwitchComparisonType _ ->
             True
@@ -1282,6 +1354,9 @@ shouldTrackUsage msg =
         SwitchImpactsTab _ ->
             True
 
+        SwitchTab _ ->
+            False
+
         ToggleComparedSimulation _ _ ->
             True
 
@@ -1290,6 +1365,12 @@ shouldTrackUsage msg =
 
         ToggleStage _ ->
             True
+
+        UpdateAirTransportRatio _ ->
+            False
+
+        UpdateBookmarkName _ ->
+            False
 
         UpdateBusiness _ ->
             True
@@ -1309,6 +1390,9 @@ shouldTrackUsage msg =
         UpdateMakingWaste _ ->
             True
 
+        UpdateMassInput _ ->
+            False
+
         UpdateMaterial _ _ ->
             True
 
@@ -1327,6 +1411,9 @@ shouldTrackUsage msg =
         UpdatePrinting _ ->
             True
 
+        UpdateRenamedBookmarkName _ _ ->
+            False
+
         UpdateStageCountry _ _ ->
             True
 
@@ -1341,9 +1428,6 @@ shouldTrackUsage msg =
 
         UpdateYarnSize _ ->
             True
-
-        _ ->
-            False
 
 
 view : Session -> Model -> ( String, List (Html Msg) )

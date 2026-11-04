@@ -705,11 +705,23 @@ shouldTrackUsage msg =
         AddDistribution ->
             True
 
+        AddIngredient _ ->
+            False
+
+        AddPackaging _ ->
+            False
+
         AddPreparation ->
             True
 
         AddTransform ->
             True
+
+        CopyToClipBoard _ ->
+            False
+
+        DeleteBookmark _ ->
+            False
 
         DeleteIngredient _ ->
             True
@@ -720,14 +732,77 @@ shouldTrackUsage msg =
         DeletePreparation _ ->
             True
 
+        ExportBookmarks ->
+            False
+
+        ImportBookmarks ->
+            False
+
+        LoadQuery _ ->
+            False
+
+        NoOp ->
+            False
+
+        OnAutocompleteExample _ ->
+            False
+
+        OnAutocompleteIngredient _ ->
+            False
+
+        OnAutocompletePackaging _ ->
+            False
+
         OnAutocompleteSelect ->
             True
+
+        OnDragLeaveBookmark ->
+            False
+
+        OnDragOverBookmark _ ->
+            False
+
+        OnDragStartBookmark _ ->
+            False
+
+        OnDropBookmark _ ->
+            False
+
+        OnStageClick _ ->
+            False
+
+        OpenComparator ->
+            False
+
+        RenameBookmark ->
+            False
+
+        Reset ->
+            False
 
         ResetDistribution ->
             True
 
         ResetTransform ->
             True
+
+        SaveBookmark ->
+            False
+
+        SaveBookmarkWithTime _ _ _ ->
+            False
+
+        SelectAllBookmarks ->
+            False
+
+        SelectNoBookmarks ->
+            False
+
+        SetModal _ ->
+            False
+
+        SwitchBookmarksTab _ ->
+            False
 
         SwitchComparisonType _ ->
             True
@@ -741,6 +816,9 @@ shouldTrackUsage msg =
         ToggleComparedSimulation _ _ ->
             True
 
+        UpdateBookmarkName _ ->
+            False
+
         UpdateDistribution _ ->
             True
 
@@ -753,11 +831,11 @@ shouldTrackUsage msg =
         UpdatePreparation _ _ ->
             True
 
+        UpdateRenamedBookmarkName _ _ ->
+            False
+
         UpdateTransform _ ->
             True
-
-        _ ->
-            False
 
 
 

@@ -1129,6 +1129,48 @@ selectProcess category targetItem maybeElementIndex autocompleteState query ({ m
 shouldTrackUsage : Msg -> Bool
 shouldTrackUsage msg =
     case msg of
+        AppendModal _ ->
+            False
+
+        CopyToClipBoard _ ->
+            False
+
+        CreateExampleContrib ->
+            False
+
+        DeleteBookmark _ ->
+            False
+
+        ExampleContribCreated _ ->
+            False
+
+        ExportBookmarks ->
+            False
+
+        ImportBookmarks ->
+            False
+
+        NoOp ->
+            False
+
+        OnAutocompleteAddAssemblyOperation _ ->
+            False
+
+        OnAutocompleteAddConsumption _ ->
+            False
+
+        OnAutocompleteAddProcess _ _ _ _ ->
+            False
+
+        OnAutocompleteAddProductionItem _ ->
+            False
+
+        OnAutocompleteExample _ ->
+            False
+
+        OnAutocompletePackaging _ ->
+            False
+
         OnAutocompleteSelectAssemblyOperation ->
             True
 
@@ -1147,6 +1189,21 @@ shouldTrackUsage msg =
         OnAutocompleteSelectProductionItem ->
             True
 
+        OnDragLeaveBookmark ->
+            False
+
+        OnDragOverBookmark _ ->
+            False
+
+        OnDragStartBookmark _ ->
+            False
+
+        OnDropBookmark _ ->
+            False
+
+        OpenComparator ->
+            False
+
         RemoveAssemblyOperation _ ->
             True
 
@@ -1164,6 +1221,30 @@ shouldTrackUsage msg =
 
         RemovePackaging _ ->
             True
+
+        RenameBookmark ->
+            False
+
+        SaveBookmark ->
+            False
+
+        SaveBookmarkWithTime _ _ _ ->
+            False
+
+        SelectAllBookmarks ->
+            False
+
+        SelectNoBookmarks ->
+            False
+
+        SetDetailedComponents _ ->
+            False
+
+        SetModals _ ->
+            False
+
+        SwitchBookmarksTab _ ->
+            False
 
         SwitchComparisonType _ ->
             True
@@ -1186,14 +1267,29 @@ shouldTrackUsage msg =
         UpdateAssemblyCountry _ ->
             True
 
+        UpdateBookmarkName _ ->
+            False
+
+        UpdateComponentItemName _ _ ->
+            False
+
         UpdateComponentItemQuantity _ _ ->
             True
 
         UpdateConsumptionAmount _ _ ->
             True
 
+        UpdateContributionDescription _ ->
+            False
+
+        UpdateContributionName _ ->
+            False
+
         UpdateDistribution _ ->
             True
+
+        UpdateDurability _ ->
+            False
 
         UpdateElementAmount _ _ ->
             True
@@ -1216,7 +1312,7 @@ shouldTrackUsage msg =
         UpdateRecyclability _ ->
             True
 
-        _ ->
+        UpdateRenamedBookmarkName _ _ ->
             False
 
 
