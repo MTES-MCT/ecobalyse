@@ -11,6 +11,7 @@ module Request.Db exposing
 
 import Data.Db as Db exposing (Db)
 import Http
+import List.Extra as LE
 import RemoteData exposing (WebData)
 import Request.Common as RequestCommon
 
@@ -51,8 +52,7 @@ getProgress : LoadingState -> { loaded : Int, total : Int }
 getProgress state =
     { loaded =
         Db.propGetters
-            |> List.filter (\getter -> getter state |> RemoteData.isSuccess)
-            |> List.length
+            |> LE.count (\getter -> getter state |> RemoteData.isSuccess)
     , total = List.length Db.propGetters
     }
 
