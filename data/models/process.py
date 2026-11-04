@@ -118,8 +118,9 @@ class IngredientMetadata(EcoModel):
 
 
 class ProcessGenericMetadata(EcoModel):
-    forest_management: ForestManagement | None = None
+    categories: list[str] | None
     complements: Complements | None = None
+    forest_management: ForestManagement | None = None
     ingredient: IngredientMetadata | None = None
     default_origin: str | None = None
 
