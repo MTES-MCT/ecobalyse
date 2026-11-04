@@ -11,7 +11,7 @@
     { "id": "0e434f9e-998f-4156-9c59-3411c800f7e7", "scopes": ["object", "veli"] }
   ],
   "qtyVariationRatio": 1,
-  "scopes": ["textile", "object", "veli"],
+  "scopes": ["apparel", "textile", "object", "veli"],
   "source": "BAFU 2025v2",
   "unit": "t⋅km"
 }

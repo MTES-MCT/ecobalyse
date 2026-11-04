@@ -11,7 +11,7 @@
     { "id": "b87b7c27-6d51-4890-bc41-604586feda5e", "scopes": ["object"] }
   ],
   "qtyVariationRatio": 1,
-  "scopes": ["textile", "object"],
+  "scopes": ["apparel", "textile", "object"],
   "source": "BAFU 2025v2",
   "unit": "kg"
 }

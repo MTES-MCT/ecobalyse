@@ -19,11 +19,11 @@
       "origin": "Synthetic",
       "primary": true,
       "recycledFrom": "9dba0e95-0c35-4f8b-9267-62ddf47d4984",
-      "scopes": ["textile"]
+      "scopes": ["apparel", "textile"]
     }
   ],
   "qtyVariationRatio": 1,
-  "scopes": ["textile"],
+  "scopes": ["apparel", "textile"],
   "source": "BAFU 2025v2",
   "unit": "kg"
 }

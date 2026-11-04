@@ -22,7 +22,7 @@
     }
   ],
   "qtyVariationRatio": 1,
-  "scopes": ["textile", "food2"],
+  "scopes": ["apparel", "textile", "food2"],
   "source": "BAFU 2025v2",
   "unit": "kWh"
 }

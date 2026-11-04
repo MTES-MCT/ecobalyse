@@ -10,6 +10,6 @@
       "scopes": ["veli", "food2", "object"]
     }
   ],
-  "scopes": ["food", "textile", "veli", "food2", "object"],
+  "scopes": ["food", "apparel", "textile", "veli", "food2", "object"],
   "source": "BAFU 2025v2"
 }

@@ -16,11 +16,11 @@
       "name": "Coton biologique",
       "origin": "NaturalFromVegetal",
       "primary": true,
-      "scopes": ["textile"]
+      "scopes": ["apparel", "textile"]
     }
   ],
   "qtyVariationRatio": 1,
-  "scopes": ["textile", "object"],
+  "scopes": ["apparel", "object", "textile"],
   "source": "Ecobalyse_custom_lci",
   "unit": "kg"
 }

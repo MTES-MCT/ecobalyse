@@ -30,7 +30,7 @@
     { "id": "b9db938c-725f-4c14-a313-d73a8aa7391f", "scopes": ["object", "veli"] }
   ],
   "qtyVariationRatio": 1,
-  "scopes": ["object", "textile", "veli"],
+  "scopes": ["apparel", "object", "textile", "veli"],
   "source": "Ecobalyse_manual_lcia",
   "unit": "kg"
 }

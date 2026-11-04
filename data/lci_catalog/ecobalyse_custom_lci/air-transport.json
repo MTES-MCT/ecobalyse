@@ -10,7 +10,7 @@
     { "id": "6e9035eb-0632-43a9-92be-e77e6d3f1c1f", "scopes": ["food2"] }
   ],
   "qtyVariationRatio": 1,
-  "scopes": ["textile", "food", "food2"],
+  "scopes": ["apparel", "food", "food2", "textile"],
   "source": "Ecobalyse_custom_lci",
   "unit": "t⋅km"
 }

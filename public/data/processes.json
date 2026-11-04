@@ -41717,7 +41717,7 @@
     "location": null,
     "massPerUnit": null,
     "qtyVariationRatio": 1.0,
-    "scopes": ["textile"],
+    "scopes": ["apparel", "textile"],
     "source": "BAFU 2025v2",
     "unit": "kg"
   },
@@ -41813,7 +41813,7 @@
     "location": null,
     "massPerUnit": null,
     "qtyVariationRatio": 1.0,
-    "scopes": ["textile"],
+    "scopes": ["apparel", "textile"],
     "source": "BAFU 2025v2",
     "unit": "kg"
   },
@@ -42284,7 +42284,7 @@
     "location": null,
     "massPerUnit": null,
     "qtyVariationRatio": 1.0,
-    "scopes": ["food", "textile"],
+    "scopes": ["food", "apparel", "textile"],
     "source": "BAFU 2025v2",
     "unit": "kWh"
   },
@@ -42320,7 +42320,7 @@
     "location": null,
     "massPerUnit": null,
     "qtyVariationRatio": 1.0,
-    "scopes": ["textile"],
+    "scopes": ["apparel", "textile"],
     "source": "BAFU 2025v2",
     "unit": "kWh"
   },
@@ -42356,7 +42356,7 @@
     "location": null,
     "massPerUnit": null,
     "qtyVariationRatio": 1.0,
-    "scopes": ["textile"],
+    "scopes": ["apparel", "textile"],
     "source": "BAFU 2025v2",
     "unit": "kWh"
   },
@@ -42392,7 +42392,7 @@
     "location": null,
     "massPerUnit": null,
     "qtyVariationRatio": 1.0,
-    "scopes": ["textile"],
+    "scopes": ["apparel", "textile"],
     "source": "BAFU 2025v2",
     "unit": "kWh"
   },
@@ -42428,7 +42428,7 @@
     "location": null,
     "massPerUnit": null,
     "qtyVariationRatio": 1.0,
-    "scopes": ["textile"],
+    "scopes": ["apparel", "textile"],
     "source": "BAFU 2025v2",
     "unit": "kWh"
   },
@@ -42464,7 +42464,7 @@
     "location": null,
     "massPerUnit": null,
     "qtyVariationRatio": 1.0,
-    "scopes": ["textile"],
+    "scopes": ["apparel", "textile"],
     "source": "BAFU 2025v2",
     "unit": "kWh"
   },
@@ -42520,7 +42520,7 @@
     "location": null,
     "massPerUnit": null,
     "qtyVariationRatio": 1.0,
-    "scopes": ["textile"],
+    "scopes": ["apparel", "textile"],
     "source": "BAFU 2025v2",
     "unit": "kWh"
   },
@@ -42536,7 +42536,7 @@
     "location": null,
     "massPerUnit": null,
     "qtyVariationRatio": 1.0,
-    "scopes": ["textile"],
+    "scopes": ["apparel", "textile"],
     "source": "BAFU 2025v2",
     "unit": "kWh"
   },
@@ -42552,7 +42552,7 @@
     "location": null,
     "massPerUnit": null,
     "qtyVariationRatio": 1.0,
-    "scopes": ["food", "textile"],
+    "scopes": ["apparel", "food", "textile"],
     "source": "BAFU 2025v2",
     "unit": "kWh"
   },
@@ -42588,7 +42588,7 @@
     "location": null,
     "massPerUnit": null,
     "qtyVariationRatio": 1.0,
-    "scopes": ["textile"],
+    "scopes": ["apparel", "textile"],
     "source": "BAFU 2025v2",
     "unit": "kWh"
   },
@@ -42624,7 +42624,7 @@
     "location": null,
     "massPerUnit": null,
     "qtyVariationRatio": 1.0,
-    "scopes": ["textile"],
+    "scopes": ["apparel", "textile"],
     "source": "BAFU 2025v2",
     "unit": "kWh"
   },
@@ -42660,7 +42660,7 @@
     "location": null,
     "massPerUnit": null,
     "qtyVariationRatio": 1.0,
-    "scopes": ["textile"],
+    "scopes": ["apparel", "textile"],
     "source": "BAFU 2025v2",
     "unit": "kWh"
   },
@@ -42716,7 +42716,7 @@
     "location": null,
     "massPerUnit": null,
     "qtyVariationRatio": 1.0,
-    "scopes": ["textile"],
+    "scopes": ["apparel", "textile"],
     "source": "BAFU 2025v2",
     "unit": "kWh"
   },
@@ -42772,7 +42772,7 @@
     "location": null,
     "massPerUnit": null,
     "qtyVariationRatio": 1.0,
-    "scopes": ["textile"],
+    "scopes": ["apparel", "textile"],
     "source": "BAFU 2025v2",
     "unit": "kWh"
   },
@@ -42808,7 +42808,7 @@
     "location": null,
     "massPerUnit": null,
     "qtyVariationRatio": 1.0,
-    "scopes": ["textile"],
+    "scopes": ["apparel", "textile"],
     "source": "BAFU 2025v2",
     "unit": "kWh"
   },
@@ -42884,7 +42884,7 @@
     "location": null,
     "massPerUnit": null,
     "qtyVariationRatio": 1.0,
-    "scopes": ["textile"],
+    "scopes": ["apparel", "textile"],
     "source": "BAFU 2025v2",
     "unit": "kWh"
   },
@@ -42920,7 +42920,7 @@
     "location": null,
     "massPerUnit": null,
     "qtyVariationRatio": 1.0,
-    "scopes": ["textile"],
+    "scopes": ["apparel", "textile"],
     "source": "BAFU 2025v2",
     "unit": "kWh"
   },
@@ -42996,7 +42996,7 @@
     "location": null,
     "massPerUnit": null,
     "qtyVariationRatio": 1.0,
-    "scopes": ["textile"],
+    "scopes": ["apparel", "textile"],
     "source": "BAFU 2025v2",
     "unit": "kWh"
   },
@@ -43052,7 +43052,7 @@
     "location": null,
     "massPerUnit": null,
     "qtyVariationRatio": 1.0,
-    "scopes": ["textile"],
+    "scopes": ["apparel", "textile"],
     "source": "BAFU 2025v2",
     "unit": "kWh"
   },
@@ -43088,7 +43088,7 @@
     "location": null,
     "massPerUnit": null,
     "qtyVariationRatio": 1.0,
-    "scopes": ["textile"],
+    "scopes": ["apparel", "textile"],
     "source": "BAFU 2025v2",
     "unit": "kWh"
   },
@@ -43124,7 +43124,7 @@
     "location": null,
     "massPerUnit": null,
     "qtyVariationRatio": 1.0,
-    "scopes": ["textile"],
+    "scopes": ["apparel", "textile"],
     "source": "BAFU 2025v2",
     "unit": "kWh"
   },
@@ -43160,7 +43160,7 @@
     "location": null,
     "massPerUnit": null,
     "qtyVariationRatio": 1.0,
-    "scopes": ["textile"],
+    "scopes": ["apparel", "textile"],
     "source": "BAFU 2025v2",
     "unit": "kWh"
   },
@@ -43176,7 +43176,7 @@
     "location": null,
     "massPerUnit": null,
     "qtyVariationRatio": 1.0,
-    "scopes": ["textile"],
+    "scopes": ["apparel", "textile"],
     "source": "BAFU 2025v2",
     "unit": "kWh"
   },
@@ -43212,7 +43212,7 @@
     "location": null,
     "massPerUnit": null,
     "qtyVariationRatio": 1.0,
-    "scopes": ["textile"],
+    "scopes": ["apparel", "textile"],
     "source": "BAFU 2025v2",
     "unit": "kWh"
   },
@@ -43248,7 +43248,7 @@
     "location": null,
     "massPerUnit": null,
     "qtyVariationRatio": 1.0,
-    "scopes": ["textile"],
+    "scopes": ["apparel", "textile"],
     "source": "BAFU 2025v2",
     "unit": "kWh"
   },
@@ -43284,7 +43284,7 @@
     "location": null,
     "massPerUnit": null,
     "qtyVariationRatio": 1.0,
-    "scopes": ["textile"],
+    "scopes": ["apparel", "textile"],
     "source": "BAFU 2025v2",
     "unit": "kWh"
   },
@@ -43407,7 +43407,7 @@
     "location": null,
     "massPerUnit": null,
     "qtyVariationRatio": 1.0,
-    "scopes": ["textile"],
+    "scopes": ["apparel", "textile"],
     "source": "BAFU 2025v2",
     "unit": "kg"
   },
@@ -43423,7 +43423,7 @@
     "location": null,
     "massPerUnit": null,
     "qtyVariationRatio": 1.0,
-    "scopes": ["textile"],
+    "scopes": ["apparel", "textile"],
     "source": "BAFU 2025v2",
     "unit": "kg"
   },
@@ -43486,7 +43486,7 @@
     "location": null,
     "massPerUnit": null,
     "qtyVariationRatio": 1.0,
-    "scopes": ["textile"],
+    "scopes": ["apparel", "textile"],
     "source": "BAFU 2025v2",
     "unit": "kg"
   },
@@ -43542,7 +43542,7 @@
     "location": null,
     "massPerUnit": null,
     "qtyVariationRatio": 1.0,
-    "scopes": ["textile"],
+    "scopes": ["apparel", "textile"],
     "source": "BAFU 2025v2",
     "unit": "kg"
   },
@@ -43698,7 +43698,7 @@
     "location": null,
     "massPerUnit": null,
     "qtyVariationRatio": 1.0,
-    "scopes": ["textile"],
+    "scopes": ["apparel", "textile"],
     "source": "BAFU 2025v2",
     "unit": "kg"
   },
@@ -43754,7 +43754,7 @@
     "location": null,
     "massPerUnit": null,
     "qtyVariationRatio": 1.0,
-    "scopes": ["textile"],
+    "scopes": ["apparel", "textile"],
     "source": "BAFU 2025v2",
     "unit": "kg"
   },
@@ -43830,7 +43830,7 @@
     "location": null,
     "massPerUnit": null,
     "qtyVariationRatio": 1.0,
-    "scopes": ["textile"],
+    "scopes": ["apparel", "textile"],
     "source": "BAFU 2025v2",
     "unit": "kg"
   },
@@ -44266,7 +44266,7 @@
     "location": null,
     "massPerUnit": null,
     "qtyVariationRatio": 1.0,
-    "scopes": ["textile"],
+    "scopes": ["apparel", "textile"],
     "source": "BAFU 2025v2",
     "unit": "kg"
   },
@@ -44302,7 +44302,7 @@
     "location": null,
     "massPerUnit": null,
     "qtyVariationRatio": 1.0,
-    "scopes": ["textile", "food"],
+    "scopes": ["apparel", "textile", "food"],
     "source": "BAFU 2025v2",
     "unit": "t⋅km"
   },
@@ -44338,7 +44338,7 @@
     "location": null,
     "massPerUnit": null,
     "qtyVariationRatio": 1.0,
-    "scopes": ["textile"],
+    "scopes": ["apparel", "textile"],
     "source": "BAFU 2025v2",
     "unit": "t⋅km"
   },
@@ -44374,7 +44374,7 @@
     "location": null,
     "massPerUnit": null,
     "qtyVariationRatio": 1.0,
-    "scopes": ["textile", "food"],
+    "scopes": ["apparel", "textile", "food"],
     "source": "BAFU 2025v2",
     "unit": "t⋅km"
   },
@@ -44430,7 +44430,7 @@
     "location": null,
     "massPerUnit": null,
     "qtyVariationRatio": 1.0,
-    "scopes": ["textile"],
+    "scopes": ["apparel", "textile"],
     "source": "BAFU 2025v2",
     "unit": "kg"
   },
@@ -44446,7 +44446,7 @@
     "location": null,
     "massPerUnit": null,
     "qtyVariationRatio": 1.0,
-    "scopes": ["textile"],
+    "scopes": ["apparel", "textile"],
     "source": "BAFU 2025v2",
     "unit": "kg"
   },
@@ -58195,7 +58195,7 @@
     "location": "RoW",
     "massPerUnit": null,
     "qtyVariationRatio": 1.0,
-    "scopes": ["textile"],
+    "scopes": ["apparel", "textile"],
     "source": "Ecobalyse_custom_lci",
     "unit": "kg"
   },
@@ -58341,7 +58341,7 @@
     "location": "GLO",
     "massPerUnit": null,
     "qtyVariationRatio": 1.0,
-    "scopes": ["textile", "food"],
+    "scopes": ["apparel", "food", "textile"],
     "source": "Ecobalyse_custom_lci",
     "unit": "t⋅km"
   },
@@ -58643,7 +58643,7 @@
     "location": null,
     "massPerUnit": null,
     "qtyVariationRatio": 1.0,
-    "scopes": ["textile"],
+    "scopes": ["apparel", "textile"],
     "source": "Ecobalyse_manual_lcia",
     "unit": "kg"
   },
@@ -58764,7 +58764,7 @@
     "location": null,
     "massPerUnit": null,
     "qtyVariationRatio": 1.0,
-    "scopes": ["textile"],
+    "scopes": ["apparel", "textile"],
     "source": "Ecobalyse_manual_lcia",
     "unit": "kg"
   },
@@ -59060,7 +59060,7 @@
     "location": null,
     "massPerUnit": null,
     "qtyVariationRatio": 1.0,
-    "scopes": ["textile"],
+    "scopes": ["apparel", "textile"],
     "source": "Ecobalyse_manual_lcia",
     "unit": "kg"
   },
@@ -59096,7 +59096,7 @@
     "location": null,
     "massPerUnit": null,
     "qtyVariationRatio": 1.0,
-    "scopes": ["textile"],
+    "scopes": ["apparel", "textile"],
     "source": "Ecobalyse_manual_lcia",
     "unit": "kg"
   },
@@ -59112,7 +59112,7 @@
     "location": null,
     "massPerUnit": null,
     "qtyVariationRatio": 1.0,
-    "scopes": ["textile"],
+    "scopes": ["apparel", "textile"],
     "source": "Ecobalyse_manual_lcia",
     "unit": "kg"
   },
@@ -59128,7 +59128,7 @@
     "location": null,
     "massPerUnit": null,
     "qtyVariationRatio": 1.0,
-    "scopes": ["textile"],
+    "scopes": ["apparel", "textile"],
     "source": "Ecobalyse_manual_lcia",
     "unit": "kg"
   },
@@ -59304,7 +59304,7 @@
     "location": null,
     "massPerUnit": null,
     "qtyVariationRatio": 0.97,
-    "scopes": ["textile"],
+    "scopes": ["apparel", "textile"],
     "source": "Ecobalyse_manual_lcia",
     "unit": "kg"
   },
@@ -59340,7 +59340,7 @@
     "location": null,
     "massPerUnit": null,
     "qtyVariationRatio": 0.88,
-    "scopes": ["textile"],
+    "scopes": ["apparel", "textile"],
     "source": "Ecobalyse_manual_lcia",
     "unit": "kg"
   },
@@ -59376,7 +59376,7 @@
     "location": null,
     "massPerUnit": null,
     "qtyVariationRatio": 0.88,
-    "scopes": ["textile"],
+    "scopes": ["apparel", "textile"],
     "source": "Ecobalyse_manual_lcia",
     "unit": "kg"
   },
@@ -59412,7 +59412,7 @@
     "location": null,
     "massPerUnit": null,
     "qtyVariationRatio": 1.0,
-    "scopes": ["textile"],
+    "scopes": ["apparel", "textile"],
     "source": "Ecobalyse_manual_lcia",
     "unit": "kg"
   },
@@ -59448,7 +59448,7 @@
     "location": null,
     "massPerUnit": null,
     "qtyVariationRatio": 1.0,
-    "scopes": ["textile"],
+    "scopes": ["apparel", "textile"],
     "source": "Ecobalyse_manual_lcia",
     "unit": "m2"
   },
@@ -59464,7 +59464,7 @@
     "location": null,
     "massPerUnit": null,
     "qtyVariationRatio": 1.0,
-    "scopes": ["textile"],
+    "scopes": ["apparel", "textile"],
     "source": "Ecobalyse_manual_lcia",
     "unit": "m2"
   },
@@ -59480,7 +59480,7 @@
     "location": null,
     "massPerUnit": null,
     "qtyVariationRatio": 1.0,
-    "scopes": ["textile"],
+    "scopes": ["apparel", "textile"],
     "source": "Ecobalyse_manual_lcia",
     "unit": "m2"
   },
@@ -59496,7 +59496,7 @@
     "location": null,
     "massPerUnit": null,
     "qtyVariationRatio": 1.0,
-    "scopes": ["textile"],
+    "scopes": ["apparel", "textile"],
     "source": "Ecobalyse_manual_lcia",
     "unit": "m2"
   },
@@ -59512,7 +59512,7 @@
     "location": null,
     "massPerUnit": null,
     "qtyVariationRatio": 1.0,
-    "scopes": ["textile"],
+    "scopes": ["apparel", "textile"],
     "source": "Ecobalyse_manual_lcia",
     "unit": "kg"
   },
@@ -59608,7 +59608,7 @@
     "location": null,
     "massPerUnit": null,
     "qtyVariationRatio": 1.0,
-    "scopes": ["textile"],
+    "scopes": ["apparel", "textile"],
     "source": "Ecobalyse_manual_lcia",
     "unit": "kg"
   },
@@ -59644,7 +59644,7 @@
     "location": null,
     "massPerUnit": null,
     "qtyVariationRatio": 1.0,
-    "scopes": ["textile"],
+    "scopes": ["apparel", "textile"],
     "source": "Ecobalyse_manual_lcia",
     "unit": "kg"
   },
@@ -59660,7 +59660,7 @@
     "location": null,
     "massPerUnit": null,
     "qtyVariationRatio": 1.0,
-    "scopes": ["textile"],
+    "scopes": ["apparel", "textile"],
     "source": "Ecobalyse_manual_lcia",
     "unit": "MJ"
   },
@@ -59696,7 +59696,7 @@
     "location": null,
     "massPerUnit": null,
     "qtyVariationRatio": 1.0,
-    "scopes": ["textile"],
+    "scopes": ["apparel", "textile"],
     "source": "Ecobalyse_manual_lcia",
     "unit": "MJ"
   },
@@ -59892,7 +59892,7 @@
     "location": null,
     "massPerUnit": null,
     "qtyVariationRatio": 1.0,
-    "scopes": ["textile"],
+    "scopes": ["apparel", "textile"],
     "source": "Ecobalyse_manual_lcia",
     "unit": "kg"
   },
@@ -59908,7 +59908,7 @@
     "location": null,
     "massPerUnit": null,
     "qtyVariationRatio": 1.0,
-    "scopes": ["textile"],
+    "scopes": ["apparel", "textile"],
     "source": "Ecobalyse_manual_lcia",
     "unit": "kg"
   },
@@ -60004,7 +60004,7 @@
     "location": null,
     "massPerUnit": null,
     "qtyVariationRatio": 1.0,
-    "scopes": ["textile"],
+    "scopes": ["apparel", "textile"],
     "source": "Ecobalyse_manual_lcia",
     "unit": "kg"
   },
@@ -60020,7 +60020,7 @@
     "location": null,
     "massPerUnit": null,
     "qtyVariationRatio": 1.0,
-    "scopes": ["textile"],
+    "scopes": ["apparel", "textile"],
     "source": "Ecobalyse_manual_lcia",
     "unit": "kg"
   },
@@ -60036,7 +60036,7 @@
     "location": null,
     "massPerUnit": null,
     "qtyVariationRatio": 1.0,
-    "scopes": ["textile"],
+    "scopes": ["apparel", "textile"],
     "source": "Ecobalyse_manual_lcia",
     "unit": "kg"
   },
@@ -60052,7 +60052,7 @@
     "location": null,
     "massPerUnit": null,
     "qtyVariationRatio": 1.0,
-    "scopes": ["textile"],
+    "scopes": ["apparel", "textile"],
     "source": "Ecobalyse_manual_lcia",
     "unit": "kg"
   },
@@ -60068,7 +60068,7 @@
     "location": null,
     "massPerUnit": null,
     "qtyVariationRatio": 1.0,
-    "scopes": ["textile"],
+    "scopes": ["apparel", "textile"],
     "source": "Ecobalyse_manual_lcia",
     "unit": "kg"
   },
@@ -60128,7 +60128,7 @@
     "location": null,
     "massPerUnit": null,
     "qtyVariationRatio": 0.9375,
-    "scopes": ["textile"],
+    "scopes": ["apparel", "textile"],
     "source": "Ecobalyse_manual_lcia",
     "unit": "kg"
   },
@@ -60168,7 +60168,7 @@
     "location": null,
     "massPerUnit": null,
     "qtyVariationRatio": 0.9375,
-    "scopes": ["textile"],
+    "scopes": ["apparel", "textile"],
     "source": "Ecobalyse_manual_lcia",
     "unit": "kg"
   },
@@ -60229,7 +60229,7 @@
     "location": null,
     "massPerUnit": null,
     "qtyVariationRatio": 1.0,
-    "scopes": ["textile"],
+    "scopes": ["apparel", "textile"],
     "source": "Ecobalyse_manual_lcia",
     "unit": "t⋅km"
   },
@@ -60245,7 +60245,7 @@
     "location": null,
     "massPerUnit": null,
     "qtyVariationRatio": 1.0,
-    "scopes": ["textile"],
+    "scopes": ["apparel", "textile"],
     "source": "Ecobalyse_manual_lcia",
     "unit": "item"
   },
@@ -60261,7 +60261,7 @@
     "location": null,
     "massPerUnit": null,
     "qtyVariationRatio": 0.966,
-    "scopes": ["textile"],
+    "scopes": ["apparel", "textile"],
     "source": "Ecobalyse_manual_lcia",
     "unit": "kg"
   },
@@ -60277,7 +60277,7 @@
     "location": null,
     "massPerUnit": null,
     "qtyVariationRatio": 0.995,
-    "scopes": ["textile"],
+    "scopes": ["apparel", "textile"],
     "source": "Ecobalyse_manual_lcia",
     "unit": "kg"
   },
@@ -60293,7 +60293,7 @@
     "location": null,
     "massPerUnit": null,
     "qtyVariationRatio": 0.9455,
-    "scopes": ["textile"],
+    "scopes": ["apparel", "textile"],
     "source": "Ecobalyse_manual_lcia",
     "unit": "kg"
   },
@@ -60309,7 +60309,7 @@
     "location": null,
     "massPerUnit": null,
     "qtyVariationRatio": 0.96,
-    "scopes": ["textile"],
+    "scopes": ["apparel", "textile"],
     "source": "Ecobalyse_manual_lcia",
     "unit": "kg"
   },
@@ -60325,7 +60325,7 @@
     "location": null,
     "massPerUnit": null,
     "qtyVariationRatio": 0.995,
-    "scopes": ["textile"],
+    "scopes": ["apparel", "textile"],
     "source": "Ecobalyse_manual_lcia",
     "unit": "kg"
   },
@@ -60406,7 +60406,7 @@
     "location": null,
     "massPerUnit": null,
     "qtyVariationRatio": 1.0,
-    "scopes": ["textile"],
+    "scopes": ["apparel", "textile"],
     "source": "Ecobalyse_manual_lcia",
     "unit": "kg"
   },
@@ -60422,7 +60422,7 @@
     "location": null,
     "massPerUnit": null,
     "qtyVariationRatio": 1.0,
-    "scopes": ["textile"],
+    "scopes": ["apparel", "textile"],
     "source": "Ecobalyse_manual_lcia",
     "unit": "kg"
   },
@@ -60438,7 +60438,7 @@
     "location": null,
     "massPerUnit": null,
     "qtyVariationRatio": 1.0,
-    "scopes": ["textile"],
+    "scopes": ["apparel", "textile"],
     "source": "Ecobalyse_manual_lcia",
     "unit": "kg"
   },
@@ -60454,7 +60454,7 @@
     "location": null,
     "massPerUnit": null,
     "qtyVariationRatio": 1.0,
-    "scopes": ["textile"],
+    "scopes": ["apparel", "textile"],
     "source": "Ecobalyse_manual_lcia",
     "unit": "kg"
   },
@@ -60470,7 +60470,7 @@
     "location": null,
     "massPerUnit": null,
     "qtyVariationRatio": 1.0,
-    "scopes": ["textile"],
+    "scopes": ["apparel", "textile"],
     "source": "Ecobalyse_manual_lcia",
     "unit": "kg"
   },
@@ -60486,7 +60486,7 @@
     "location": null,
     "massPerUnit": null,
     "qtyVariationRatio": 1.0,
-    "scopes": ["textile"],
+    "scopes": ["apparel", "textile"],
     "source": "Ecobalyse_manual_lcia",
     "unit": "kg"
   },
@@ -60502,7 +60502,7 @@
     "location": null,
     "massPerUnit": null,
     "qtyVariationRatio": 1.0,
-    "scopes": ["textile"],
+    "scopes": ["apparel", "textile"],
     "source": "Ecobalyse_manual_lcia",
     "unit": "kg"
   },
@@ -60518,7 +60518,7 @@
     "location": null,
     "massPerUnit": null,
     "qtyVariationRatio": 1.0,
-    "scopes": ["textile"],
+    "scopes": ["apparel", "textile"],
     "source": "Ecobalyse_manual_lcia",
     "unit": "kg"
   },
@@ -76908,7 +76908,7 @@
     "location": null,
     "massPerUnit": null,
     "qtyVariationRatio": 1.0,
-    "scopes": ["textile"],
+    "scopes": ["apparel", "textile"],
     "source": "Woolmark",
     "unit": "kg"
   },

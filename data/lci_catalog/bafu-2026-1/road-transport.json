@@ -11,7 +11,7 @@
     { "id": "805042e2-fefa-4ad7-b215-2a3da719aadb", "scopes": ["object", "food2"] }
   ],
   "qtyVariationRatio": 1,
-  "scopes": ["textile", "veli", "object", "food", "food2"],
+  "scopes": ["apparel", "textile", "veli", "object", "food", "food2"],
   "source": "BAFU 2025v2",
   "unit": "t⋅km"
 }
