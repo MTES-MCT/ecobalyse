@@ -153,20 +153,20 @@ Ajouter les jeux de données de `datasetsGeneric` pour `Scope.Generic Scope.Flow
         ]
 ```
 
-Ajouter également les slugs attendus pour les URLs de l'explorateur du nouveau scope `flowers` aux branches gérées par la fonction `fromSlug`. Le compilateur ne les réclamera pas, et sans eux l'explorateur ne pourra pas les résoudre ni fonctionner correctement ; par exemple, ajouter ces branches pour gérer les nouveaux slugs vers les datasets à explorer correspondants :
+Ajouter également les slugs attendus pour les URLs de l'explorateur du nouveau scope `flowers` aux branches gérées par la fonction `datasetToString`, ce qui permettra à l'explorateur de les résoudre ; par exemple, ajouter ces branches pour gérer les nouveaux slugs vers les datasets à explorer correspondants :
 
 ```elm
-    "flowers-components" ->
-        Components (Scope.Generic Scope.Flowers) Nothing
+    Components (Scope.Generic Scope.Flowers) _ ->
+        "flowers-components"
 
-    "flowers-examples" ->
-        GenericExamples Scope.Flowers Nothing
+    GenericExamples Scope.Flowers _ ->
+        "flowers-examples"
 
-    "flowers-processes" ->
-        Processes (Scope.Generic Scope.Flowers) Nothing
+    Processes (Scope.Generic Scope.Flowers) _ ->
+        "flowers-processes"
 
-    "flowers-product-categories" ->
-        ProductCategory Scope.Flowers Nothing
+    ProductCategory Scope.Flowers _ ->
+        "flowers-product-categories"
 ```
 
 ### Éléments de vue génériques
