@@ -111,7 +111,12 @@ parseGenericSimulatorRoutes =
 scopeParser : Parser (Scope.GenericScope -> a) a
 scopeParser =
     List.map
-        (\scope -> Parser.s (Scope.toStringGeneric scope) |> Parser.map scope)
+        (\scope ->
+            scope
+                |> Scope.toStringGeneric
+                |> Parser.s
+                |> Parser.map scope
+        )
         Scope.allGeneric
         |> Parser.oneOf
 
