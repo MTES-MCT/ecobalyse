@@ -211,28 +211,50 @@ extractJsonString (RawJsonString string) =
 
 propGetters : List (Properties a -> a)
 propGetters =
-    [ .apparelProductCategories
-    , .apparelComponents
-    , .apparelExamples
-    , .countries
-    , .definitions
-    , .food2ProductCategories
-    , .food2Examples
-    , .foodIngredients
-    , .foodProductExamples
-    , .objectProductCategories
-    , .objectComponents
-    , .objectExamples
-    , .processes
-    , .textileComponents
-    , .textileMaterials
-    , .textileProductExamples
-    , .textileProducts
-    , .transports
-    , .veliProductCategories
-    , .veliComponents
-    , .veliExamples
-    ]
+    .countries
+        :: .definitions
+        :: .transports
+        :: .processes
+        :: List.concatMap scopePropGetters Scope.all
+
+
+scopePropGetters : Scope -> List (Properties a -> a)
+scopePropGetters scope =
+    case scope of
+        Scope.Food ->
+            [ .foodIngredients
+            , .foodProductExamples
+            ]
+
+        Scope.Generic Scope.Apparel ->
+            [ .apparelProductCategories
+            , .apparelComponents
+            , .apparelExamples
+            ]
+
+        Scope.Generic Scope.Food2 ->
+            [ .food2ProductCategories
+            , .food2Examples
+            ]
+
+        Scope.Generic Scope.Object ->
+            [ .objectProductCategories
+            , .objectComponents
+            , .objectExamples
+            ]
+
+        Scope.Generic Scope.Veli ->
+            [ .veliProductCategories
+            , .veliComponents
+            , .veliExamples
+            ]
+
+        Scope.Textile ->
+            [ .textileComponents
+            , .textileMaterials
+            , .textileProductExamples
+            , .textileProducts
+            ]
 
 
 rawJsonString : String -> RawJsonString

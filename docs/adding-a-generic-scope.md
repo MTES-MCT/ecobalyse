@@ -194,11 +194,9 @@ type alias Properties a =
     , food2Components : a
 ```
 
-ce qui permet d'implémenter les fonctions `scopeToComponent` et `scopeToExamples` que le compilateur vous demandera de compléter.
+ce qui permet d'implémenter les fonctions `scopeToComponent`, `scopeToExamples`, et `scopePropGetters` que le compilateur vous demandera de compléter.
 
 > 🚨 Ordonner les noms des propriétés par ordre alphabétique, ça n'est pas que cosmétique : les constructeurs de type Elm sont des fonctions qui prennent leurs arguments dans un ordre déterministe !
-
-> 💡 Ajouter aussi les accesseurs correspondants à la liste `propGetters` du même module : elle sert notamment au suivi de progression du chargement dans `Request.Db`.
 
 ## 3. Mises à jour manuelles spécifiques
 
