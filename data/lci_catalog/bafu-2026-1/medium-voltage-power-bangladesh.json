@@ -11,7 +11,7 @@
     { "id": "667831a6-ab17-408f-9207-b4525a2f4405", "scopes": ["object", "veli"] }
   ],
   "qtyVariationRatio": 1,
-  "scopes": ["object", "textile", "veli"],
+  "scopes": ["apparel", "object", "textile", "veli"],
   "source": "BAFU 2025v2",
   "unit": "kWh"
 }

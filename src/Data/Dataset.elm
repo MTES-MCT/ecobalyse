@@ -54,6 +54,15 @@ datasets scope =
             , Processes Scope.Food Nothing
             ]
 
+        Scope.Generic Scope.Apparel ->
+            [ GenericExamples Scope.Apparel Nothing
+            , Components (Scope.Generic Scope.Apparel) Nothing
+            , Countries Nothing
+            , Processes (Scope.Generic Scope.Apparel) Nothing
+            , Impacts Nothing
+            , ProductCategory Scope.Apparel Nothing
+            ]
+
         Scope.Generic Scope.Food2 ->
             [ GenericExamples Scope.Food2 Nothing
             , Impacts Nothing
@@ -97,6 +106,9 @@ defaultDatasetFor scope =
         Scope.Food ->
             FoodExamples Nothing
 
+        Scope.Generic Scope.Apparel ->
+            GenericExamples Scope.Apparel Nothing
+
         Scope.Generic Scope.Food2 ->
             GenericExamples Scope.Food2 Nothing
 
@@ -113,6 +125,18 @@ defaultDatasetFor scope =
 fromSlug : String -> Dataset
 fromSlug string =
     case string of
+        "apparel-components" ->
+            Components (Scope.Generic Scope.Apparel) Nothing
+
+        "apparel-examples" ->
+            GenericExamples Scope.Apparel Nothing
+
+        "apparel-processes" ->
+            Processes (Scope.Generic Scope.Apparel) Nothing
+
+        "apparel-product-categories" ->
+            ProductCategory Scope.Apparel Nothing
+
         "countries" ->
             Countries Nothing
 

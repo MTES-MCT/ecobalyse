@@ -1,5 +1,6 @@
 {
   "defaultExamples": {
+    "apparel": "dcee53f2-7899-4fc8-ac79-b308ffbdbb67",
     "food2": "8db95001-4a1a-4036-a12a-bfa511f3ed20",
     "object": "40158dac-ed21-4415-a9ee-b46049709656",
     "veli": "48545a07-026b-46ca-8440-4bfaa036cce6"
@@ -32,10 +33,10 @@
       }
     }
   },
-  "durability": { "enabled": { "food2": false, "object": true, "veli": true } },
+  "durability": { "enabled": { "apparel": true, "food2": false, "object": true, "veli": true } },
   "endOfLife": {
-    "enabled": { "food2": false, "object": true, "veli": true },
-    "scopeCollectionRates": { "object": 70, "veli": 70 },
+    "enabled": { "apparel": true, "food2": false, "object": true, "veli": true },
+    "scopeCollectionRates": { "apparel": 70, "object": 70, "veli": 70 },
     "strategies": {
       "collected": {
         "aluminium": {

@@ -59,7 +59,10 @@ getProgress state =
 
 initLoadingState : LoadingState
 initLoadingState =
-    { countries = RemoteData.NotAsked
+    { apparelComponents = RemoteData.NotAsked
+    , apparelExamples = RemoteData.NotAsked
+    , apparelProductCategories = RemoteData.NotAsked
+    , countries = RemoteData.NotAsked
     , definitions = RemoteData.NotAsked
     , food2Components = RemoteData.NotAsked
     , food2Examples = RemoteData.NotAsked
@@ -84,6 +87,9 @@ initLoadingState =
 resolve : LoadingState -> WebData Db.RawJsonStrings
 resolve data =
     RemoteData.succeed Db.Properties
+        |> RemoteData.andMap data.apparelComponents
+        |> RemoteData.andMap data.apparelExamples
+        |> RemoteData.andMap data.apparelProductCategories
         |> RemoteData.andMap data.countries
         |> RemoteData.andMap data.definitions
         |> RemoteData.andMap data.food2Components

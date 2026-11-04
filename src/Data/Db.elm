@@ -37,7 +37,10 @@ type alias Db =
 
 
 type alias Properties a =
-    { countries : a
+    { apparelComponents : a
+    , apparelExamples : a
+    , apparelProductCategories : a
+    , countries : a
     , definitions : a
     , food2Components : a
     , food2Examples : a
@@ -76,7 +79,8 @@ build json =
             (\processes ->
                 Ok Db
                     |> RE.andMap
-                        ([ json.food2Components
+                        ([ json.apparelComponents
+                         , json.food2Components
                          , json.objectComponents
                          , json.textileComponents
                          , json.veliComponents
@@ -113,6 +117,7 @@ build json =
                     |> RE.andMap
                         (processes
                             |> GenericDb.buildFromJson
+                                (extractJsonString json.apparelExamples)
                                 (extractJsonString json.food2Examples)
                                 (extractJsonString json.objectExamples)
                                 (extractJsonString json.veliExamples)
@@ -140,7 +145,10 @@ build json =
 buildFromStrings : Properties String -> Result String Db
 buildFromStrings strings =
     build
-        { countries = rawJsonString strings.countries
+        { apparelComponents = rawJsonString strings.apparelComponents
+        , apparelExamples = rawJsonString strings.apparelExamples
+        , apparelProductCategories = rawJsonString strings.apparelProductCategories
+        , countries = rawJsonString strings.countries
         , definitions = rawJsonString strings.definitions
         , food2Components = rawJsonString strings.food2Components
         , food2Examples = rawJsonString strings.food2Examples
@@ -169,7 +177,10 @@ extractJsonString (RawJsonString string) =
 
 propGetters : List (Properties a -> a)
 propGetters =
-    [ .countries
+    [ .apparelProductCategories
+    , .apparelComponents
+    , .apparelExamples
+    , .countries
     , .definitions
     , .food2ProductCategories
     , .food2Examples

@@ -17,11 +17,11 @@
       "name": "Jute",
       "origin": "NaturalFromVegetal",
       "primary": false,
-      "scopes": ["textile"]
+      "scopes": ["apparel", "textile"]
     }
   ],
   "qtyVariationRatio": 1,
-  "scopes": ["textile"],
+  "scopes": ["apparel", "textile"],
   "source": "BAFU 2025v2",
   "unit": "kg"
 }

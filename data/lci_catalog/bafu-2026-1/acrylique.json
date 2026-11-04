@@ -17,7 +17,7 @@
       "name": "Acrylique",
       "origin": "Synthetic",
       "primary": false,
-      "scopes": ["textile"]
+      "scopes": ["apparel", "textile"]
     },
     {
       "displayName": "Polyacrylonitrile (PAN)",
@@ -26,7 +26,7 @@
     }
   ],
   "qtyVariationRatio": 1,
-  "scopes": ["textile", "veli"],
+  "scopes": ["apparel", "textile", "veli"],
   "source": "BAFU 2025v2",
   "unit": "kg"
 }

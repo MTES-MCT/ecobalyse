@@ -38,11 +38,11 @@
       "origin": "NaturalFromVegetal",
       "primary": true,
       "recycledFrom": "62a4d6fb-3276-4ba5-93a3-889ecd3bff84",
-      "scopes": ["textile"]
+      "scopes": ["apparel", "textile"]
     }
   ],
   "qtyVariationRatio": 1,
-  "scopes": ["textile"],
+  "scopes": ["apparel", "textile"],
   "source": "Ecobalyse_manual_lcia",
   "unit": "kg"
 }

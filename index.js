@@ -54,6 +54,7 @@ const app = Elm.Main.init({
   flags: {
     clientUrl,
     enabledSections: {
+      apparel: process.env.ENABLE_APPAREL_SECTION === "True",
       food: process.env.ENABLE_FOOD_SECTION === "True",
       food2: process.env.ENABLE_FOOD2_SECTION === "True",
       objects: process.env.ENABLE_OBJECTS_SECTION === "True",

@@ -16,11 +16,11 @@
       "name": "Laine par défaut",
       "origin": "NaturalFromAnimal",
       "primary": false,
-      "scopes": ["object", "textile"]
+      "scopes": ["apparel", "object", "textile"]
     }
   ],
   "qtyVariationRatio": 1,
-  "scopes": ["textile", "object"],
+  "scopes": ["apparel", "object", "textile"],
   "source": "Woolmark",
   "unit": "kg"
 }

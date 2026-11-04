@@ -22,6 +22,7 @@ Les variables d’environnement décrites ci-dessous doivent être définies. En
 
 ### Frontend (npm & node)
 
+- `ENABLE_APPAREL_SECTION` : affichage ou non de la section dédiée à l’habillement (valeur `True` ou `False`, par défaut `False`)
 - `ENABLE_FOOD_SECTION` : affichage ou non de la section dédiée à l’alimentaire (valeur `True` ou `False`, par défaut `False`)
 - `ENABLE_FOOD1_API_DOCS`: affichage ou non de la documentation de l'API alimentaire historique (valeur `True` ou `False`, par défaut `False`; forcé à `False` si `ENABLE_FOOD_SECTION` l'est également)
 - `ENABLE_FOOD2_SECTION` : affichage de la section “Alimentaire BÉTA” (moteur générique) et activation de l'api associée (valeur `True` ou `False`, par défaut `False`)

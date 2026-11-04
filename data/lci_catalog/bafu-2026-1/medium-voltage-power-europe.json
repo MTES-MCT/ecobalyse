@@ -18,11 +18,11 @@
       "alias": "medium-voltage-power-albania",
       "displayName": "Électricité moyenne tension, Albanie",
       "id": "ac850be0-f09e-58eb-b334-3eb9fcd599d8",
-      "scopes": ["textile"]
+      "scopes": ["apparel", "textile"]
     }
   ],
   "qtyVariationRatio": 1,
-  "scopes": ["textile", "object", "veli", "food2"],
+  "scopes": ["apparel", "textile", "object", "veli", "food2"],
   "source": "BAFU 2025v2",
   "unit": "kWh"
 }

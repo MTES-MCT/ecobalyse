@@ -81,6 +81,12 @@ const elmTemplate = fs.readFileSync(templateFile).toString();
 const elmModuleContents = elmTemplate
   .replaceAll("%moduleName%", moduleName)
   // Transverse JSON data
+  .replace("%apparelComponentsJson%", parseAndValidate(dataDir, "apparel/components.json", "id"))
+  .replace(
+    "%apparelProductCategoriesJson%",
+    parseAndValidate(dataDir, "apparel/categories.json", "id"),
+  )
+  .replace("%apparelExamplesJson%", parseAndValidate(dataDir, "apparel/examples.json", "id"))
   .replace("%componentConfigJson%", parseAndValidate(dataDir, "components/config.json", null))
   .replace("%countriesJson%", parseAndValidate(dataDir, "countries.json", "code"))
   .replace("%impactsJson%", parseAndValidate(dataDir, "impacts.json"))

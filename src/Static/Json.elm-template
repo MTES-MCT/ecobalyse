@@ -1,5 +1,7 @@
 module %moduleName% exposing
     ( RawJsonComponents
+    , apparelProductCategoriesJson
+    , apparelExamplesJson
     , componentConfigJson
     , countriesJson
     , food2ComponentsJson
@@ -22,12 +24,27 @@ module %moduleName% exposing
 
 
 type alias RawJsonComponents =
-    { food2Components : String
+    { apparelComponents: String
+    , food2Components : String
     , objectComponents : String
     , textileComponents : String
     , veliComponents : String
     }
 
+
+apparelProductCategoriesJson : String
+apparelProductCategoriesJson =
+   """%apparelProductCategoriesJson%"""
+
+
+apparelComponentsJson : String
+apparelComponentsJson =
+   """%apparelComponentsJson%"""
+
+
+apparelExamplesJson : String
+apparelExamplesJson =
+   """%apparelExamplesJson%"""
 
 componentConfigJson : String
 componentConfigJson =
@@ -91,7 +108,8 @@ processesJson =
 
 rawJsonComponents : RawJsonComponents
 rawJsonComponents =
-    { food2Components = food2ComponentsJson
+    { apparelComponents = apparelComponentsJson
+    , food2Components = food2ComponentsJson
     , objectComponents = objectComponentsJson
     , textileComponents = textileComponentsJson
     , veliComponents = veliComponentsJson

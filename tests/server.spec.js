@@ -736,6 +736,7 @@ describe("API", () => {
 
         expectStatus(response, 200);
         expect(response.body).toEqual([
+          { id: "apparel", name: "Habillement" },
           { id: "food2", name: "Alimentaire BÉTA" },
           { id: "veli", name: "Véhicules" },
         ]);
