@@ -154,35 +154,20 @@ datasetSlugDict =
 datasetToString : Dataset -> String
 datasetToString string =
     case string of
-        Components (Scope.Generic Scope.Apparel) _ ->
-            "apparel-components"
-
-        GenericExamples Scope.Apparel _ ->
-            "apparel-examples"
-
-        Processes (Scope.Generic Scope.Apparel) _ ->
-            "apparel-processes"
-
-        ProductCategory Scope.Apparel _ ->
-            "apparel-product-categories"
-
         Countries _ ->
             "countries"
 
         FoodExamples _ ->
             "food-examples"
 
-        Processes Scope.Food _ ->
-            "food-processes"
+        Processes scope _ ->
+            processesDatasetToString scope
 
-        GenericExamples Scope.Food2 _ ->
-            "food2-examples"
+        GenericExamples scope _ ->
+            examplesDatasetToString scope
 
-        Processes (Scope.Generic Scope.Food2) _ ->
-            "food2-processes"
-
-        ProductCategory Scope.Food2 _ ->
-            "food2-product-categories"
+        ProductCategory scope _ ->
+            productCategoryDatasetToString scope
 
         Impacts _ ->
             "impacts"
@@ -193,47 +178,90 @@ datasetToString string =
         TextileMaterials _ ->
             "materials"
 
-        Components (Scope.Generic Scope.Object) _ ->
-            "object-components"
-
-        GenericExamples Scope.Object _ ->
-            "object-examples"
-
-        Processes (Scope.Generic Scope.Object) _ ->
-            "object-processes"
-
-        ProductCategory Scope.Object _ ->
-            "object-product-categories"
-
-        Processes Scope.Textile _ ->
-            "processes"
+        Components scope _ ->
+            componentDatasetToString scope
 
         TextileProducts _ ->
             "products"
 
-        Components Scope.Textile _ ->
-            "textile-components"
-
-        Components (Scope.Generic Scope.Veli) _ ->
-            "veli-components"
-
-        GenericExamples Scope.Veli _ ->
-            "veli-examples"
-
-        Processes (Scope.Generic Scope.Veli) _ ->
-            "veli-processes"
-
-        ProductCategory Scope.Veli _ ->
-            "veli-product-categories"
-
         TextileExamples _ ->
             "textile-examples"
 
-        Components Scope.Food _ ->
+
+componentDatasetToString : Scope -> String
+componentDatasetToString scope =
+    case scope of
+        Scope.Generic Scope.Apparel ->
+            "apparel-components"
+
+        Scope.Textile ->
+            "textile-components"
+
+        Scope.Food ->
             "food-components"
 
-        Components (Scope.Generic Scope.Food2) _ ->
+        Scope.Generic Scope.Object ->
+            "object-components"
+
+        Scope.Generic Scope.Veli ->
+            "veli-components"
+
+        Scope.Generic Scope.Food2 ->
             "food2-components"
+
+
+processesDatasetToString : Scope -> String
+processesDatasetToString scope =
+    case scope of
+        Scope.Food ->
+            "food-processes"
+
+        Scope.Generic Scope.Apparel ->
+            "apparel-processes"
+
+        Scope.Generic Scope.Food2 ->
+            "food2-processes"
+
+        Scope.Generic Scope.Object ->
+            "object-processes"
+
+        Scope.Textile ->
+            "processes"
+
+        Scope.Generic Scope.Veli ->
+            "veli-processes"
+
+
+examplesDatasetToString : Scope.GenericScope -> String
+examplesDatasetToString scope =
+    case scope of
+        Scope.Apparel ->
+            "apparel-examples"
+
+        Scope.Food2 ->
+            "food2-examples"
+
+        Scope.Object ->
+            "object-examples"
+
+        Scope.Veli ->
+            "veli-examples"
+
+
+productCategoryDatasetToString : Scope.GenericScope -> String
+productCategoryDatasetToString scope =
+    case scope of
+        Scope.Apparel ->
+            "apparel-product-categories"
+
+        Scope.Food2 ->
+            "food2-product-categories"
+
+        Scope.Object ->
+            "object-product-categories"
+
+        Scope.Veli ->
+            "veli-product-categories"
 
 
 isDetailed : Dataset -> Bool
