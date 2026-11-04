@@ -229,11 +229,8 @@ removeMaterial materialId query =
         |> (\newQuery ->
                 -- set share to 100% when a single material remains
                 case newQuery.materials of
-                    [ _ ] ->
-                        newQuery.materials
-                            |> List.head
-                            |> Maybe.map (\m -> updateMaterialShare m.id Split.full newQuery)
-                            |> Maybe.withDefault newQuery
+                    [ material ] ->
+                        updateMaterialShare material.id Split.full newQuery
 
                     _ ->
                         newQuery
