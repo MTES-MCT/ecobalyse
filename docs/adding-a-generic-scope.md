@@ -198,6 +198,18 @@ ce qui permet d'implémenter les fonctions `scopeToComponent`, `scopeToExamples`
 
 > 🚨 Ordonner les noms des propriétés par ordre alphabétique, ça n'est pas que cosmétique : les constructeurs de type Elm sont des fonctions qui prennent leurs arguments dans un ordre déterministe !
 
+#### Main
+
+Compléter la fonction `loadDataForScope` du module [`Main`](../src/Main.elm) en ajoutant les trois URLs des fichiers JSON correspondant à charger :
+
+```elm
+    Scope.Generic Scope.Flowers ->
+        [ ( "/data/flowers/components.json", \data raw -> { raw | flowersComponents = data } )
+        , ( "/data/flowers/categories.json", \data raw -> { raw | flowersProductCategories = data } )
+        , ( "/data/flowers/examples.json", \data raw -> { raw | flowersExamples = data } )
+        ]
+```
+
 ## 3. Mises à jour manuelles spécifiques
 
 Le compilateur Elm est un outil précieux mais certains fichiers compilent encore si on oublie d'opérer certaines modifications manuellement, et ce à deux niveaux principalement :
@@ -254,17 +266,6 @@ Dans le module [`Request.Db`](../src/Request/Db.elm), initialiser l'état de cha
     , flowersExamples = RemoteData.NotAsked
     , flowersProductCategories = RemoteData.NotAsked
     , food2Components = RemoteData.NotAsked
-```
-
-#### Main
-
-Dans la fonction `loadData` du module [`Main`](../src/Main.elm), ajouter les trois URLs des fichiers JSON correspondant à charger :
-
-```elm
-    , ( "/data/flowers/categories.json", \data raw -> { raw | flowersProductCategories = data } )
-    , ( "/data/flowers/components.json", \data raw -> { raw | flowersComponents = data } )
-    , ( "/data/flowers/examples.json", \data raw -> { raw | flowersExamples = data } )
-    , ( "/data/food2/examples.json", \data raw -> { raw | food2Examples = data } )
 ```
 
 > ⚠️ Encore une fois, l'ordre doit scrupuleusement suivre celui du type `Properties`, comme évoqué plus haut.
