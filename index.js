@@ -1,6 +1,5 @@
 import { Elm } from "./src/Main.elm";
 import * as Sentry from "@sentry/browser";
-import Charts from "./lib/charts";
 import store from "./lib/store";
 
 // The localStorage key to use to store serialized session data
@@ -125,6 +124,14 @@ app.ports.loadRapidoc.subscribe(() => {
   }
 });
 
+app.ports.loadCharts.subscribe(() => {
+  if (!customElements.get("ecobalyse-comparator")) {
+    import("./lib/charts").then((charts) => {
+      charts.default.registerElements();
+    });
+  }
+});
+
 app.ports.loadJeDonneMonAvis.subscribe(() => {
   loadScript("https://jedonnemonavis.numerique.gouv.fr/static/jdma-modal-widget.js", {
     "data-jdma-form-url":
@@ -199,6 +206,3 @@ window.addEventListener(
   },
   false,
 );
-
-// Register custom chart elements
-Charts.registerElements();

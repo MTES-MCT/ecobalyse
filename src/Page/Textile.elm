@@ -342,7 +342,10 @@ update ({ db, queries, navKey } as session) msg model =
         ( OpenComparator, _ ) ->
             { model | modal = ComparatorModal }
                 |> createPageUpdate (session |> Session.checkComparedSimulations)
-                |> App.withCmds [ Plausible.send session <| Plausible.ComparatorOpened Scope.Textile ]
+                |> App.withCmds
+                    [ Plausible.send session <| Plausible.ComparatorOpened Scope.Textile
+                    , Ports.loadCharts ()
+                    ]
 
         ( OnAutocompleteTrim autocompleteMsg, AddTrimModal autocompleteState ) ->
             let
