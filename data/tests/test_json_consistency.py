@@ -9,6 +9,9 @@ To add a new check define a new function and set it in the CHECKS dict
 BAFU_BW_DB_NAME = "BAFU 2025v2"
 BAFU_LCI_CAT_DIR_NAME = "bafu-2026-1"
 
+# FIXME (20261104) we need to create or improve schemas for all json files
+# and enforce validity
+
 import json
 import re
 import sys
@@ -102,6 +105,27 @@ def metadata_consistency(filename, activities):
                 raise AssertionError(
                     f"Inconsistent metadata-scopes for object {activity['displayName']} in {filename}: metadata item scopes {extra} not in activity scopes {activity_scopes}"
                 )
+
+
+def material_types_consistency(filename, content):
+    """If an activity is a material, it should have only one material_types."""
+
+    def check_material_types(categories: list[str]) -> None:
+        if "material" in categories:
+            material_types = [
+                cat for cat in categories if cat.startswith("material_type:")
+            ]
+            if len(material_types) > 1:
+                raise AssertionError(
+                    f"Several material_types defined in material `{activity['alias']}` ({activity['id']})"
+                )
+
+    for activity in content:
+        categories = activity.get("categories", [])
+        check_material_types(categories)
+        for metadata in activity.get("metadata", []):
+            categories = metadata.get("categories", [])
+            check_material_types(categories)
 
 
 def custom_source_consistency(filename, activities):
@@ -391,6 +415,7 @@ def test():
             CONTENT_CHECKS = {
                 activities_temp.name: (
                     metadata_consistency,
+                    material_types_consistency,
                     custom_source_consistency,
                     duplicate_alias_in_metadata,
                 ),
