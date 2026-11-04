@@ -181,6 +181,24 @@ Dans le module [`Views.Page`](../src/Views/Page.elm), la fonction `commonNotices
             ]
 ```
 
+#### Data.Db
+
+Dans le module [`Data.Db`](../src/Data/Db.elm), ajouter les nouveaux champs de données au type `Properties`.
+
+```elm
+type alias Properties a =
+    …
+    , flowersComponents : a
+    , flowersExamples : a
+    , flowersProductCategories : a
+    , food2Components : a
+```
+
+ce qui permet d'implémenter les fonctions `scopeToComponent` et `scopeToExamples` que le compilateur vous demandera de compléter.
+
+> 🚨 Ordonner les noms des propriétés par ordre alphabétique, ça n'est pas que cosmétique : les constructeurs de type Elm sont des fonctions qui prennent leurs arguments dans un ordre déterministe !
+
+> 💡 Ajouter aussi les accesseurs correspondants à la liste `propGetters` du même module : elle sert notamment au suivi de progression du chargement dans `Request.Db`.
 
 ## 3. Mises à jour manuelles spécifiques
 
@@ -228,32 +246,6 @@ Si vous décidez d'ajouter des catégories ou des composants à ce stade, vérif
 - pour `components.json`, que chaque composant ait une propriété `"scopes": ["flowers"]`
 - pour `categories.json`, que chaque catégorie ait au minimum les propriétés requises `"cooling"`, `"id"`, `"label"` et `"scope": "flowers"`
 
-#### Data.Db
-
-Dans le module [`Data.Db`](../src/Data/Db.elm), ajouter les nouveaux champs de données au type `Properties`.
-
-```elm
-type alias Properties a =
-    …
-    , flowersComponents : a
-    , flowersExamples : a
-    , flowersProductCategories : a
-    , food2Components : a
-```
-
-> 🚨 Ordonner les noms des propriétés par ordre alphabétique, ça n'est pas que cosmétique : les constructeurs de type Elm sont des fonctions qui prennent leurs arguments dans un ordre déterministe !
-
-Et enfin passer le contenu JSON des exemples à la fonction `GenericDb.buildFromJson` :
-
-```elm
-    |> GenericDb.buildFromJson
-        (extractJsonString json.flowersExamples)
-        (extractJsonString json.food2Examples)
-        (extractJsonString json.objectExamples)
-        (extractJsonString json.veliExamples)
-```
-
-> 💡 Ajouter aussi les accesseurs correspondants à la liste `propGetters` du même module : elle sert notamment au suivi de progression du chargement dans `Request.Db`.
 
 #### Request.Db
 
@@ -278,24 +270,6 @@ Dans la fonction `loadData` du module [`Main`](../src/Main.elm), ajouter les tro
 ```
 
 > ⚠️ Encore une fois, l'ordre doit scrupuleusement suivre celui du type `Properties`, comme évoqué plus haut.
-
-#### Data.Generic.Db
-
-Dans le module [`Data.Generic.Db`](../src/Data/Generic/Db.elm), `buildFromJson` décode et concatène le contenu JSON des exemples pour chaque scope générique. On y ajoute la chaîne JSON du nouveau scope, contenue dans l'argument `flowersExamplesJson`, à la liste :
-
-```elm
-buildFromJson flowersExamplesJson food2ExamplesJson objectExamplesJson veliExamplesJson processes =
-    [ flowersExamplesJson
-    , food2ExamplesJson
-    , objectExamplesJson
-    , veliExamplesJson
-    ]
-        |> RE.combineMap
-            (Example.decodeListFromJsonString <|
-                Component.decodeQuery processes
-            )
-        |> Result.map (List.concat >> Db)
-```
 
 #### Static.ProdDb et template JSON
 

@@ -17,13 +17,9 @@ type alias Db =
     }
 
 
-buildFromJson : String -> String -> String -> String -> List Process -> Result String Db
-buildFromJson apparelExamplesJson food2ExamplesJson objectExamplesJson veliExamplesJson processes =
-    [ apparelExamplesJson
-    , food2ExamplesJson
-    , objectExamplesJson
-    , veliExamplesJson
-    ]
+buildFromJson : List String -> List Process -> Result String Db
+buildFromJson examplesJson processes =
+    examplesJson
         |> RE.combineMap
             (Example.decodeListFromJsonString <|
                 Component.decodeQuery processes

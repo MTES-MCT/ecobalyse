@@ -112,12 +112,9 @@ build json =
                                 (extractJsonString json.foodIngredients)
                         )
                     |> RE.andMap
-                        (processes
-                            |> GenericDb.buildFromJson
-                                (extractJsonString json.apparelExamples)
-                                (extractJsonString json.food2Examples)
-                                (extractJsonString json.objectExamples)
-                                (extractJsonString json.veliExamples)
+                        (GenericDb.buildFromJson
+                            (List.map (\scope -> extractJsonString (scopeToExamples json scope)) Scope.allGeneric)
+                            processes
                         )
                     |> RE.andMap (Ok processes)
                     |> RE.andMap
@@ -161,6 +158,22 @@ scopeToComponent json scope =
 
         Scope.Textile ->
             Just json.textileComponents
+
+
+scopeToExamples : RawJsonStrings -> Scope.GenericScope -> RawJsonString
+scopeToExamples json scope =
+    case scope of
+        Scope.Apparel ->
+            json.apparelExamples
+
+        Scope.Food2 ->
+            json.food2Examples
+
+        Scope.Object ->
+            json.objectExamples
+
+        Scope.Veli ->
+            json.veliExamples
 
 
 buildFromStrings : Properties String -> Result String Db
