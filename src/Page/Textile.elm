@@ -1259,46 +1259,88 @@ simulatorView session model ({ inputs, impacts } as simulator) =
         ]
 
 
-{-| User actions to count as usage
+{-| Simulator actions that count as usage.
 -}
 shouldTrackUsage : Msg -> Bool
 shouldTrackUsage msg =
     case msg of
-        NoOp ->
-            False
-
-        OnAutocompleteExample _ ->
-            False
-
-        OnAutocompleteMaterial _ ->
-            False
-
-        OnAutocompleteProduct _ ->
-            False
-
-        OnAutocompleteTrim _ ->
-            False
-
-        OnDragLeaveBookmark ->
-            False
-
-        OnDragOverBookmark _ ->
-            False
-
-        OpenComparator ->
-            False
-
-        SetModal NoModal ->
+        RemoveMaterial _ ->
             True
 
-        SetModal _ ->
-            False
+        RemoveTrim _ ->
+            True
 
-        SwitchTab RegulatoryTab ->
-            False
+        SwitchComparisonType _ ->
+            True
+
+        SwitchImpact _ ->
+            True
+
+        SwitchImpactsTab _ ->
+            True
+
+        ToggleComparedSimulation _ _ ->
+            True
+
+        ToggleFading _ ->
+            True
+
+        ToggleStage _ ->
+            True
+
+        UpdateBusiness _ ->
+            True
+
+        UpdateDyeingProcessType _ ->
+            True
+
+        UpdateFabricProcess _ ->
+            True
+
+        UpdateMakingComplexity _ ->
+            True
+
+        UpdateMakingDeadStock _ ->
+            True
+
+        UpdateMakingWaste _ ->
+            True
+
+        UpdateMaterial _ _ ->
+            True
+
+        UpdateMaterialSpinning _ _ ->
+            True
+
+        UpdateNumberOfReferences _ ->
+            True
+
+        UpdatePhysicalDurability _ ->
+            True
+
+        UpdatePrice _ ->
+            True
+
+        UpdatePrinting _ ->
+            True
+
+        UpdateStageCountry _ _ ->
+            True
+
+        UpdateSurfaceMass _ ->
+            True
+
+        UpdateTrimQuantity _ _ ->
+            True
+
+        UpdateUpcycled _ ->
+            True
+
+        UpdateYarnSize _ ->
+            True
 
         _ ->
-            True
+            False
 
 
 view : Session -> Model -> ( String, List (Html Msg) )

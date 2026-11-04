@@ -1124,49 +1124,82 @@ selectProcess category targetItem maybeElementIndex autocompleteState query ({ m
             pageUpdate |> App.notifyWarning "Aucun composant sélectionné"
 
 
-{-| User actions to count as usage
+{-| Simulator actions that count as usage.
 -}
 shouldTrackUsage : Msg -> Bool
 shouldTrackUsage msg =
     case msg of
-        AppendModal _ ->
-            False
+        RemoveAssemblyOperation _ ->
+            True
 
-        ExampleContribCreated _ ->
-            False
+        RemoveComponentItem _ ->
+            True
 
-        NoOp ->
-            False
+        RemoveConsumption _ ->
+            True
 
-        OnAutocompleteAddAssemblyOperation _ ->
-            False
+        RemoveElement _ ->
+            True
 
-        OnAutocompleteAddConsumption _ ->
-            False
+        RemoveElementTransform _ _ ->
+            True
 
-        OnAutocompleteAddProcess _ _ _ _ ->
-            False
+        RemovePackaging _ ->
+            True
 
-        OnAutocompleteAddProductionItem _ ->
-            False
+        SwitchComparisonType _ ->
+            True
 
-        OnAutocompleteExample _ ->
-            False
+        SwitchImpact _ ->
+            True
 
-        OnAutocompletePackaging _ ->
-            False
+        SwitchImpactsTab _ ->
+            True
 
-        OnDragLeaveBookmark ->
-            False
+        ToggleComparedSimulation _ _ ->
+            True
 
-        OnDragOverBookmark _ ->
-            False
+        ToggleTransportByAir _ ->
+            True
 
-        OpenComparator ->
-            False
+        ToggleTransportCooling _ ->
+            True
+
+        UpdateAssemblyCountry _ ->
+            True
+
+        UpdateComponentItemQuantity _ _ ->
+            True
+
+        UpdateConsumptionAmount _ _ ->
+            True
+
+        UpdateDistribution _ ->
+            True
+
+        UpdateElementAmount _ _ ->
+            True
+
+        UpdateElementMaterialCountry _ _ ->
+            True
+
+        UpdateElementTransformCountry _ _ _ ->
+            True
+
+        UpdateItemUnitMass _ _ ->
+            True
+
+        UpdatePackagingAmount _ _ ->
+            True
+
+        UpdateProduct _ ->
+            True
+
+        UpdateRecyclability _ ->
+            True
 
         _ ->
-            True
+            False
 
 
 editorConfig : Session -> Model -> ComponentView.Config Db Msg

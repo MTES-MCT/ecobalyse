@@ -697,40 +697,73 @@ selectExample autocompleteState pageUpdate =
         |> App.withCmds [ Plausible.send pageUpdate.session <| Plausible.ExampleSelected Scope.Food ]
 
 
-{-| User actions to count as usage
+{-| Simulator actions that count as usage.
 -}
 shouldTrackUsage : Msg -> Bool
 shouldTrackUsage msg =
     case msg of
-        NoOp ->
-            False
-
-        OnAutocompleteExample _ ->
-            False
-
-        OnAutocompleteIngredient _ ->
-            False
-
-        OnAutocompletePackaging _ ->
-            False
-
-        OnDragLeaveBookmark ->
-            False
-
-        OnDragOverBookmark _ ->
-            False
-
-        OpenComparator ->
-            False
-
-        SetModal NoModal ->
+        AddDistribution ->
             True
 
-        SetModal _ ->
-            False
+        AddIngredient _ ->
+            True
+
+        AddPackaging _ ->
+            True
+
+        AddPreparation ->
+            True
+
+        AddTransform ->
+            True
+
+        DeleteIngredient _ ->
+            True
+
+        DeletePackaging _ ->
+            True
+
+        DeletePreparation _ ->
+            True
+
+        LoadQuery _ ->
+            True
+
+        ResetDistribution ->
+            True
+
+        ResetTransform ->
+            True
+
+        SwitchBookmarksTab _ ->
+            True
+
+        SwitchComparisonType _ ->
+            True
+
+        SwitchImpact _ ->
+            True
+
+        ToggleComparedSimulation _ _ ->
+            True
+
+        UpdateDistribution _ ->
+            True
+
+        UpdateIngredient _ _ ->
+            True
+
+        UpdatePackaging _ _ ->
+            True
+
+        UpdatePreparation _ _ ->
+            True
+
+        UpdateTransform _ ->
+            True
 
         _ ->
-            True
+            False
 
 
 
