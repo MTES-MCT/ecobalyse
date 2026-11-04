@@ -32,6 +32,7 @@ import Data.Textile.WellKnown exposing (WellKnown)
 import Data.Validation as Validation
 import Dict
 import Json.Encode as Encode
+import List.Extra as LE
 import Route as WebRoute
 import Server.Request exposing (Request)
 import Server.Route as Route
@@ -512,8 +513,7 @@ invalidServerConfigurationError error =
 -}
 findCachedDb : String -> Model -> Maybe CachedDb
 findCachedDb processes =
-    List.filter (.processes >> (==) processes)
-        >> List.head
+    LE.find (.processes >> (==) processes)
 
 
 {-| Load the database from the static files and cache it in the model. Database is cached

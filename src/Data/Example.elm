@@ -16,6 +16,7 @@ import Data.Scope as Scope exposing (Scope)
 import Data.Uuid as Uuid exposing (Uuid)
 import Json.Decode as Decode exposing (Decoder)
 import Json.Decode.Pipeline as Pipe
+import List.Extra as LE
 import Url.Parser as Parser exposing (Parser)
 
 
@@ -49,22 +50,19 @@ decodeListFromJsonString decodeQuery =
 
 findByName : String -> List (Example query) -> Result String (Example query)
 findByName name =
-    List.filter (.name >> (==) name)
-        >> List.head
+    LE.find (.name >> (==) name)
         >> Result.fromMaybe ("Exemple introuvable avec le nom " ++ name)
 
 
 findByUuid : Uuid -> List (Example query) -> Result String (Example query)
 findByUuid id =
-    List.filter (.id >> (==) id)
-        >> List.head
+    LE.find (.id >> (==) id)
         >> Result.fromMaybe ("Exemple introuvable pour l'uuid " ++ Uuid.toString id)
 
 
 findByQuery : query -> List (Example query) -> Result String (Example query)
 findByQuery query =
-    List.filter (.query >> (==) query)
-        >> List.head
+    LE.find (.query >> (==) query)
         >> Result.fromMaybe "Exemple introuvable"
 
 

@@ -36,6 +36,7 @@ import Json.Decode.Extra as DE
 import Json.Decode.Pipeline as Pipe
 import Json.Encode as Encode
 import Length
+import List.Extra as LE
 
 
 type alias Ingredient =
@@ -182,8 +183,7 @@ decodeTransportCooling =
 findById : Id -> List Ingredient -> Result String Ingredient
 findById id ingredients =
     ingredients
-        |> List.filter (.id >> (==) id)
-        |> List.head
+        |> LE.find (.id >> (==) id)
         |> Result.fromMaybe ("Ingrédient introuvable par id : " ++ idToString id)
 
 

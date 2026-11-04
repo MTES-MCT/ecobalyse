@@ -2265,8 +2265,7 @@ extractUnitMass (Results { mass, quantity }) =
 -}
 findById : Id -> List Component -> Result String Component
 findById id =
-    List.filter (.id >> (==) (Just id))
-        >> List.head
+    LE.find (.id >> (==) (Just id))
         >> Result.fromMaybe ("Aucun composant avec id=" ++ idToString id)
 
 

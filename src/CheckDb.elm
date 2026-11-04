@@ -130,9 +130,8 @@ checkComponentsProcessIds knownProcessStringIds db =
                 component.elements
                     |> List.concatMap
                         (\{ material, transforms } ->
-                            []
-                                |> (++) (material.id |> checkProcessId knownProcessStringIds component "element.material")
-                                |> (++) (transforms |> List.map .id |> List.concatMap (checkProcessId knownProcessStringIds component "element.transforms"))
+                            (material.id |> checkProcessId knownProcessStringIds component "element.material")
+                                ++ (transforms |> List.map .id |> List.concatMap (checkProcessId knownProcessStringIds component "element.transforms"))
                         )
             )
 
