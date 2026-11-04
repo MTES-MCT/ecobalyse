@@ -43,7 +43,7 @@ decodeExpected decoder expected =
 
 isEmptyObject : Decode.Value -> Bool
 isEmptyObject =
-    Decode.decodeValue (Decode.dict Decode.value)
+    Decode.decodeValue (Decode.map Dict.fromList (Decode.keyValuePairs Decode.value))
         >> Result.map Dict.isEmpty
         >> Result.withDefault False
 
