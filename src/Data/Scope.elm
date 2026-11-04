@@ -147,10 +147,12 @@ fromStringGeneric string =
 
 genericNameDict : Dict.Dict String GenericScope
 genericNameDict =
-    List.foldl
-        (\scope dict -> Dict.insert (toStringGeneric scope) scope dict)
-        Dict.empty
-        allGeneric
+    allGeneric
+        |> List.foldl
+            (\scope dict ->
+                Dict.insert (toStringGeneric scope) scope dict
+            )
+            Dict.empty
 
 
 isGeneric : Scope -> Bool
