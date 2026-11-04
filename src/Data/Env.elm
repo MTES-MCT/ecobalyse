@@ -1,6 +1,5 @@
 module Data.Env exposing
-    ( actionThreshold
-    , betagouvUrl
+    ( betagouvUrl
     , cguUrl
     , communityUrl
     , contactEmail
@@ -16,16 +15,10 @@ module Data.Env exposing
     , minMakingDeadStockRatio
     , minMakingWasteRatio
     , stableTextileVersionPath
+    , usageThreshold
     )
 
 import Data.Split as Split exposing (Split)
-
-
-{-| Number of simulator actions after which a feedback prompt modal is shown
--}
-actionThreshold : Int
-actionThreshold =
-    30
 
 
 betagouvUrl : String
@@ -115,3 +108,10 @@ defaultDeadStock =
 maxMaterials : Int
 maxMaterials =
     5
+
+
+{-| Number of simulator actions after which a feedback prompt modal is shown
+-}
+usageThreshold : Int
+usageThreshold =
+    30

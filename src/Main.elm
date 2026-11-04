@@ -714,15 +714,15 @@ trackUsage shouldTrack ( model, cmds ) =
             Loaded session currentPage ->
                 let
                     ( openPrompt, newSession ) =
-                        if session.store.actionCount < Env.actionThreshold then
+                        if session.store.usageCount < Env.usageThreshold then
                             let
-                                actionCount =
-                                    session.store.actionCount + 1
+                                usageCount =
+                                    session.store.usageCount + 1
                             in
-                            ( actionCount == Env.actionThreshold
+                            ( usageCount == Env.usageThreshold
                             , session
                                 |> Session.updateStore
-                                    (\store -> { store | actionCount = actionCount })
+                                    (\store -> { store | usageCount = usageCount })
                             )
 
                         else

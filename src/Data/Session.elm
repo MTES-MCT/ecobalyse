@@ -411,7 +411,7 @@ updateAuth fn session =
 across browser restarts, typically in localStorage.
 -}
 type alias Store =
-    { actionCount : Int
+    { usageCount : Int
     , auth : Maybe Auth
     , bookmarks : List Bookmark
     , comparedSimulations : Set String
@@ -420,7 +420,7 @@ type alias Store =
 
 defaultStore : Store
 defaultStore =
-    { actionCount = 0
+    { usageCount = 0
     , auth = Nothing
     , bookmarks = []
     , comparedSimulations = Set.empty
@@ -430,7 +430,7 @@ defaultStore =
 decodeStore : Decoder Store
 decodeStore =
     Decode.succeed Store
-        |> JDP.optional "actionCount" Decode.int 0
+        |> JDP.optional "usageCount" Decode.int 0
         |> DU.strictOptional "auth" decodeAuth
         |> JDP.optional "bookmarks" Bookmark.decodeJsonList []
         |> JDP.optional "comparedSimulations" (Decode.map Set.fromList (Decode.list Decode.string)) Set.empty
@@ -439,7 +439,7 @@ decodeStore =
 encodeStore : Store -> Encode.Value
 encodeStore store =
     Encode.object
-        [ ( "actionCount", Encode.int store.actionCount )
+        [ ( "usageCount", Encode.int store.usageCount )
         , ( "comparedSimulations", store.comparedSimulations |> Encode.set Encode.string )
         , ( "bookmarks", store.bookmarks |> Bookmark.encodeJsonList )
         , ( "auth", store.auth |> Maybe.map encodeAuth |> Maybe.withDefault Encode.null )
