@@ -720,9 +720,7 @@ trackUsage shouldTrack ( model, cmds ) =
                                     session.store.usageCount + 1
                             in
                             ( usageCount == Env.usageThreshold
-                            , session
-                                |> Session.updateStore
-                                    (\store -> { store | usageCount = usageCount })
+                            , session |> Session.updateStore (\store -> { store | usageCount = usageCount })
                             )
 
                         else
