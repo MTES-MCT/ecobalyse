@@ -253,7 +253,7 @@ comparatorView ({ session } as config) =
 
         Ok chartsData ->
             div [ Attr.class <| "h-100 " ++ comparisonTypeToClass config.comparisonType ]
-                [ node "chart-food-comparator"
+                [ node "ecobalyse-comparator"
                     [ chartsData
                         |> encodeChartSeries (entriesFor config.comparisonType session.db.definitions)
                         |> attribute "data"
