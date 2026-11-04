@@ -1,0 +1,17 @@
+{
+  "activityName": "Electronics for control units {RER} U",
+  "activityNameEI": "electronics, for control units//[RoW] electronics production, for control units",
+  "categories": ["material", "material_type:pwb"],
+  "comment": "",
+  "displayName": "Composants électroniques",
+  "elecKwh": 0.0,
+  "heatMJ": 0,
+  "id": "6d72fe4f-bc8a-5d8a-948f-b137763ccc7f",
+  "metadata": [
+    { "id": "51956fb2-304d-4e63-a3ef-b3eed44fde38", "scopes": ["veli", "object"] }
+  ],
+  "qtyVariationRatio": 1,
+  "scopes": ["veli", "object"],
+  "source": "BAFU 2025v2",
+  "unit": "kg"
+}

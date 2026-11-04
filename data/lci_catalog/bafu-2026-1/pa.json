@@ -1,0 +1,32 @@
+{
+  "activityName": "Nylon 66, at plant {RER} U",
+  "activityNameEI": "nylon 6-6//[RoW] nylon 6-6 production",
+  "categories": ["material", "textile_material", "material_type:rigid_plastics"],
+  "comment": "Ancien identifiant (12/2024): 88a1395a1c61be31b0bc692e977dd10b.",
+  "displayName": "PA (nylon 6-6), pour fibre synthétique",
+  "elecKwh": 0.0,
+  "heatMJ": 0,
+  "id": "b2318c3f-6d7b-5d95-b201-6b95470db3b7",
+  "metadata": [
+    {
+      "alias": "pa",
+      "defaultCountry": "FR",
+      "displayName": "PA (nylon 6-6), pour fibre synthétique",
+      "geographicOrigin": "Europe",
+      "id": "c84280ff-e921-4d5c-92d6-51030bf4f74e",
+      "name": "Nylon",
+      "origin": "Synthetic",
+      "primary": true,
+      "scopes": ["textile"]
+    },
+    {
+      "displayName": "Plastique PA (nylon 6-6)",
+      "id": "90844e0a-42b3-4748-8cf0-4abf3fd62977",
+      "scopes": ["veli"]
+    }
+  ],
+  "qtyVariationRatio": 1,
+  "scopes": ["textile", "veli"],
+  "source": "BAFU 2025v2",
+  "unit": "kg"
+}

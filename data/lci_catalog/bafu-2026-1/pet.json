@@ -1,0 +1,38 @@
+{
+  "activityName": "Polyethylene terephthalate, granulate, amorphous, at plant {RER} U",
+  "activityNameEI": "polyethylene terephthalate, granulate, amorphous//[RoW] polyethylene terephthalate production, granulate, amorphous",
+  "categories": [
+    "material",
+    "textile_material",
+    "material_type:synthetic_fibers",
+    "material_type:pet"
+  ],
+  "comment": "Ancien identifiant (12/2024): f32024fc5e736e01fa14321363900581.",
+  "displayName": "PET, pour fibre synthétique, granulé, amorphe",
+  "elecKwh": 0.0,
+  "heatMJ": 0,
+  "id": "61bab541-9097-5680-9884-254c98f25d80",
+  "metadata": [
+    {
+      "alias": "pet",
+      "defaultCountry": "CN",
+      "displayName": "PET, pour fibre synthétique, granulé, amorphe",
+      "geographicOrigin": "Asie - Pacifique",
+      "id": "9dba0e95-0c35-4f8b-9267-62ddf47d4984",
+      "name": "Polyester",
+      "origin": "Synthetic",
+      "primary": true,
+      "scopes": ["object", "textile"]
+    },
+    {
+      "alias": "plastic-pellets-pet",
+      "displayName": "Plastique PET, granulés",
+      "id": "0e4122f6-f1ce-4d80-afbb-5e366402d8e6",
+      "scopes": ["object", "veli"]
+    }
+  ],
+  "qtyVariationRatio": 1,
+  "scopes": ["textile", "object", "veli"],
+  "source": "BAFU 2025v2",
+  "unit": "kg"
+}

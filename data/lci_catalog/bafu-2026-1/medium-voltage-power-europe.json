@@ -1,0 +1,28 @@
+{
+  "activityName": "Electricity, medium voltage, at grid {RER} U",
+  "activityNameEI": "electricity, medium voltage//[RER] market group for electricity, medium voltage",
+  "categories": ["energy"],
+  "comment": "Ancien identifiant (12/2024): region-elec-west-europe.",
+  "displayName": "Électricité moyenne tension, Europe",
+  "elecKwh": 0.0,
+  "heatMJ": 0,
+  "id": "ee114bf1-8c51-5c1e-8065-d762400447e2",
+  "metadata": [
+    {
+      "alias": "medium-voltage-power-europe",
+      "displayName": "Électricité moyenne tension, Europe",
+      "id": "2f96d0f4-6b72-45ed-9266-bec5951e0847",
+      "scopes": ["object", "food2"]
+    },
+    {
+      "alias": "medium-voltage-power-albania",
+      "displayName": "Électricité moyenne tension, Albanie",
+      "id": "ac850be0-f09e-58eb-b334-3eb9fcd599d8",
+      "scopes": ["textile"]
+    }
+  ],
+  "qtyVariationRatio": 1,
+  "scopes": ["textile", "object", "veli", "food2"],
+  "source": "BAFU 2025v2",
+  "unit": "kWh"
+}

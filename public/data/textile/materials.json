@@ -1,6 +1,6 @@
 [
   {
-    "alias": "ei-chanvre",
+    "alias": "chanvre",
     "cff": null,
     "defaultCountry": "CN",
     "geographicOrigin": "Asie - Pacifique",
@@ -12,7 +12,7 @@
     "recycledFrom": null
   },
   {
-    "alias": "ei-laine-par-defaut",
+    "alias": "laine-par-defaut",
     "cff": null,
     "defaultCountry": "CN",
     "geographicOrigin": "Asie - Pacifique",
@@ -21,18 +21,6 @@
     "origin": "NaturalFromAnimal",
     "primary": false,
     "processId": "3b45f504-83ac-5d0d-ab96-388850f3ef6f",
-    "recycledFrom": null
-  },
-  {
-    "alias": "nonwoven-polyester",
-    "cff": null,
-    "defaultCountry": "CN",
-    "geographicOrigin": "Asie - Pacifique",
-    "id": "3403257d-a13b-4dc0-b72b-e85c24617ed9",
-    "name": "Polyester non-tissé",
-    "origin": "Synthetic",
-    "primary": false,
-    "processId": "f57e98d9-524c-4bf8-beaf-7422abcae5f2",
     "recycledFrom": null
   },
   {
@@ -48,7 +36,7 @@
     "recycledFrom": "62a4d6fb-3276-4ba5-93a3-889ecd3bff84"
   },
   {
-    "alias": "ei-acrylique",
+    "alias": "acrylique",
     "cff": null,
     "defaultCountry": "CN",
     "geographicOrigin": "Asie - Pacifique",
@@ -60,7 +48,7 @@
     "recycledFrom": null
   },
   {
-    "alias": "ei-coton",
+    "alias": "coton",
     "cff": null,
     "defaultCountry": "CN",
     "geographicOrigin": "Asie - Pacifique",
@@ -72,7 +60,7 @@
     "recycledFrom": null
   },
   {
-    "alias": "ei-laine-nouvelle-filiere",
+    "alias": "laine-nouvelle-filiere",
     "cff": null,
     "defaultCountry": "CN",
     "geographicOrigin": "Asie - Pacifique",
@@ -84,7 +72,7 @@
     "recycledFrom": null
   },
   {
-    "alias": "ei-pp",
+    "alias": "pp",
     "cff": null,
     "defaultCountry": "FR",
     "geographicOrigin": "Europe",
@@ -96,7 +84,7 @@
     "recycledFrom": null
   },
   {
-    "alias": "ei-pet-r",
+    "alias": "pet-r",
     "cff": { "manufacturerAllocation": 0.5, "recycledQualityRatio": 1.0 },
     "defaultCountry": "CN",
     "geographicOrigin": "Asie - Pacifique",
@@ -120,7 +108,7 @@
     "recycledFrom": null
   },
   {
-    "alias": "ei-pet",
+    "alias": "pet",
     "cff": null,
     "defaultCountry": "CN",
     "geographicOrigin": "Asie - Pacifique",
@@ -132,7 +120,7 @@
     "recycledFrom": null
   },
   {
-    "alias": "ei-jute-kenaf",
+    "alias": "jute-kenaf",
     "cff": null,
     "defaultCountry": "CN",
     "geographicOrigin": "Asie - Pacifique",
@@ -144,7 +132,7 @@
     "recycledFrom": null
   },
   {
-    "alias": "ei-coton-organic",
+    "alias": "coton-organic",
     "cff": null,
     "defaultCountry": "CN",
     "geographicOrigin": "Asie - Pacifique",
@@ -156,7 +144,7 @@
     "recycledFrom": null
   },
   {
-    "alias": "ei-lin",
+    "alias": "lin",
     "cff": null,
     "defaultCountry": "FR",
     "geographicOrigin": "Europe",
@@ -168,7 +156,7 @@
     "recycledFrom": null
   },
   {
-    "alias": "ei-viscose",
+    "alias": "viscose",
     "cff": null,
     "defaultCountry": "CN",
     "geographicOrigin": "Asie - Pacifique",
@@ -180,7 +168,7 @@
     "recycledFrom": null
   },
   {
-    "alias": "ei-pa",
+    "alias": "pa",
     "cff": null,
     "defaultCountry": "FR",
     "geographicOrigin": "Europe",

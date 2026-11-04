@@ -1,0 +1,17 @@
+{
+  "activityName": "Disposal, polyurethane, 0.2% water, to sanitary landfill {CH} U",
+  "activityNameEI": "waste polyurethane//[CH] treatment of waste polyurethane, sanitary landfill",
+  "categories": ["end-of-life", "material_type:pur_foam"],
+  "comment": "",
+  "displayName": "Enfouissement de mousse PUR",
+  "elecKwh": 0.0,
+  "heatMJ": 0,
+  "id": "aa435c8d-70ef-4173-bf5a-240ecf1f81ab",
+  "metadata": [
+    { "id": "6194fdb0-0b67-4101-8d6a-1e55924b7462", "scopes": ["object", "veli"] }
+  ],
+  "qtyVariationRatio": 1,
+  "scopes": ["object", "veli"],
+  "source": "BAFU 2025v2",
+  "unit": "kg"
+}

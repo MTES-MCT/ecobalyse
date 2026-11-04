@@ -1,0 +1,17 @@
+{
+  "activityName": "Copper, at regional storage {RER} U",
+  "activityNameEI": "copper, cathode//[GLO] market for copper, cathode",
+  "categories": ["material", "material_type:copper"],
+  "comment": "",
+  "displayName": "Cuivre",
+  "elecKwh": 0.0,
+  "heatMJ": 0,
+  "id": "3c56d00b-f96c-4be8-9efa-12f6fa57b496",
+  "metadata": [
+    { "id": "a363f079-bc3f-424a-a2e1-06b9c76b4fc3", "scopes": ["object", "veli"] }
+  ],
+  "qtyVariationRatio": 1,
+  "scopes": ["object", "veli"],
+  "source": "BAFU 2025v2",
+  "unit": "kg"
+}
