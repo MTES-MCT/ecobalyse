@@ -7,7 +7,6 @@ module Data.Common.DecodeUtils exposing
     , strictOptionalWithDefault
     )
 
-import Dict
 import Json.Decode as Decode exposing (Decoder, Error)
 import Json.Decode.Extra as DE
 
@@ -43,8 +42,7 @@ decodeExpected decoder expected =
 
 isEmptyObject : Decode.Value -> Bool
 isEmptyObject =
-    Decode.decodeValue (Decode.map Dict.fromList (Decode.keyValuePairs Decode.value))
-        >> Result.map Dict.isEmpty
+    Decode.decodeValue (Decode.map List.isEmpty (Decode.keyValuePairs Decode.value))
         >> Result.withDefault False
 
 
