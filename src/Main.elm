@@ -167,12 +167,6 @@ loadDataForScope scope =
             , ( "/data/apparel/examples.json", \data raw -> { raw | apparelExamples = data } )
             ]
 
-        Scope.Generic Scope.Flowers ->
-            [ ( "/data/flower/components.json", \data raw -> { raw | flowerComponents = data } )
-            , ( "/data/flower/categories.json", \data raw -> { raw | flowerProductCategories = data } )
-            , ( "/data/flower/examples.json", \data raw -> { raw | flowerExamples = data } )
-            ]
-
         Scope.Generic Scope.Food2 ->
             [ ( "/data/food2/components.json", \data raw -> { raw | food2Components = data } )
             , ( "/data/food2/categories.json", \data raw -> { raw | food2ProductCategories = data } )
@@ -214,7 +208,6 @@ setupSession { flags, navKey } dbLoadingState db componentRawConfig componentCon
         , plausible = flags.plausible
         , queries =
             { apparel = Component.emptyQuery
-            , flowers = Component.emptyQuery
             , food = FoodQuery.empty
             , food2 = Component.emptyQuery
             , object = Component.emptyQuery

@@ -64,9 +64,6 @@ initLoadingState =
     , apparelProductCategories = RemoteData.NotAsked
     , countries = RemoteData.NotAsked
     , definitions = RemoteData.NotAsked
-    , flowerComponents = RemoteData.NotAsked
-    , flowerExamples = RemoteData.NotAsked
-    , flowerProductCategories = RemoteData.NotAsked
     , food2Components = RemoteData.NotAsked
     , food2Examples = RemoteData.NotAsked
     , food2ProductCategories = RemoteData.NotAsked
@@ -95,9 +92,6 @@ resolve data =
         |> RemoteData.andMap data.apparelProductCategories
         |> RemoteData.andMap data.countries
         |> RemoteData.andMap data.definitions
-        |> RemoteData.andMap data.flowerComponents
-        |> RemoteData.andMap data.flowerExamples
-        |> RemoteData.andMap data.flowerProductCategories
         |> RemoteData.andMap data.food2Components
         |> RemoteData.andMap data.food2Examples
         |> RemoteData.andMap data.food2ProductCategories

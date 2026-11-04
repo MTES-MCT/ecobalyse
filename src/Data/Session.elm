@@ -56,7 +56,6 @@ import Set exposing (Set)
 
 type alias Queries =
     { apparel : Component.Query
-    , flowers : Component.Query
     , food : FoodQuery.Query
     , food2 : Component.Query
     , object : Component.Query
@@ -211,9 +210,6 @@ genericQuery genericScope session =
         Scope.Apparel ->
             session.queries.apparel
 
-        Scope.Flowers ->
-            session.queries.flowers
-
         Scope.Food2 ->
             session.queries.food2
 
@@ -234,9 +230,6 @@ updateGenericQuery genericScope query ({ queries } as session) =
     case genericScope of
         Scope.Apparel ->
             { session | queries = { queries | apparel = query } }
-
-        Scope.Flowers ->
-            { session | queries = { queries | flowers = query } }
 
         Scope.Food2 ->
             { session | queries = { queries | food2 = query } }
