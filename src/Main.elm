@@ -37,7 +37,6 @@ import Request.Version as Version exposing (VersionData)
 import Route
 import Toast
 import Url exposing (Url)
-import Views.Feedback as FeedbackView
 import Views.Page as Page
 
 
@@ -772,19 +771,15 @@ subscriptions { feedbackModalOpen, state } =
 
 
 view : Model -> Document Msg
-view model =
-    viewPage model
-        |> withFeedbackModal model
-
-
-viewPage : Model -> Document Msg
-viewPage { dbLoadingState, flags, mobileNavigationOpened, state, tray } =
+view { dbLoadingState, feedbackModalOpen, flags, mobileNavigationOpened, state, tray } =
     let
         defaultPageConfig =
             { activePage = Page.Other
             , clientUrl = flags.clientUrl
+            , closeFeedbackModal = CloseFeedbackModal
             , currentVersion = Version.Unknown
             , enabledSections = flags.enabledSections
+            , feedbackModalOpen = feedbackModalOpen
             , isAuthenticated = False
             , isSuperuser = False
             , mobileNavigationOpened = mobileNavigationOpened
@@ -878,15 +873,6 @@ viewPage { dbLoadingState, flags, mobileNavigationOpened, state, tray } =
                     TextileSimulator.view session simulatorModel
                         |> mapMsg TextileSimulatorMsg
                         |> frame Page.TextileSimulator
-
-
-withFeedbackModal : Model -> Document Msg -> Document Msg
-withFeedbackModal model document =
-    if model.feedbackModalOpen then
-        { document | body = document.body ++ [ FeedbackView.view CloseFeedbackModal ] }
-
-    else
-        document
 
 
 main : Program Flags Model Msg
