@@ -25,7 +25,7 @@ def migrate_lci_catalog(mappings):
                     activity = json.load(src_fd)
                     scopes = activity["scopes"]
                     if "object" in scopes or "veli" in scopes or "textile" in scopes:
-                        print("Migrating", lci_path)
+                        logger.debug(f"Migrating {lci_path}")
                         activity["source"] = settings.bw.BAFU
                         activity["activityNameEI"] = activity["activityName"]
                         if source_dir.name.endswith("ecoinvent-3-11"):
@@ -41,7 +41,7 @@ def migrate_lci_catalog(mappings):
                         except KeyError:
                             # let’s just ignore unmapped ones for now
                             # they are probably in custom_lci.json
-                            print("⚠️ unmapped", lci_path)
+                            logger.debug(f"⚠️ unmapped {lci_path}")
                         lci_path.unlink()
 
 

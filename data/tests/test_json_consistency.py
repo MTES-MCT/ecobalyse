@@ -4,6 +4,11 @@ Consistency checks on json files.
 To add a new check define a new function and set it in the CHECKS dict
 """
 
+# FIXME the currently loaded BAFU DB in Brightway has an incorrect name.
+# This will be fixed with the next BAFU update
+BAFU_BW_DB_NAME = "BAFU 2025v2"
+BAFU_LCI_CAT_DIR_NAME = "bafu-2026-1"
+
 import json
 import re
 import sys
@@ -121,10 +126,9 @@ def source_path_consistency(activity: dict, activity_path: Path):
     Check that the activities are in the directory corresponding to their source
     """
     source = activity["source"]
-    # FIXME the currently loaded DB has the wrong name ; this will be fixed on
-    # the next BAFU update
-    if source == "BAFU 2025v2":
-        expected_parent = "bafu-2026-1"
+    # FIXME this won’t be necessary when BAFU gets next updated.
+    if source == BAFU_BW_DB_NAME:
+        expected_parent = BAFU_LCI_CAT_DIR_NAME
     else:
         expected_parent = re.sub(r" |\.", "-", source.lower())
     actual_parent = str(activity_path.parent)
