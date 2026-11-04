@@ -128,7 +128,7 @@ class ProcessGenericMetadata(EcoModel):
 class ProcessGeneric(EcoModel):
     activity_name: str
     alias: Annotated[str, AfterValidator(validate_id)] | None = None
-    categories: list[str] | None
+    categories: list[str]
     comment: str
     display_name: str
     elec_kwh: Annotated[float, Field(serialization_alias="elecKwh")]

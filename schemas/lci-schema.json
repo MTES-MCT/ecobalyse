@@ -5,6 +5,7 @@
     "items": {
       "properties": {
         "alias": { "type": "string" },
+        "categories": { "items": { "type": "string" }, "type": "array" },
         "displayName": { "type": "string" },
         "forestManagement": {
           "enum": [
@@ -22,7 +23,7 @@
           "type": "array"
         }
       },
-      "required": ["scopes"],
+      "required": ["scopes", "id"],
       "type": "object"
     },
     "type": ["array", "null"]
