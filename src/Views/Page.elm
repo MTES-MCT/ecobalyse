@@ -71,6 +71,7 @@ frame ({ activePage } as config) ( title, content ) =
 
           else
             text ""
+        , commonNotices activePage
         , main_ [ class "PageContent bg-white" ]
             [ -- general static notifications
               notificationListView config
@@ -90,6 +91,28 @@ frame ({ activePage } as config) ( title, content ) =
         ]
     , title = title ++ " | Ecobalyse"
     }
+
+
+commonNotices : ActivePage -> Html msg
+commonNotices activePage =
+    case activePage of
+        TextileSimulator ->
+            div [ class "page-notice page-notice-info shadow-inner-top", attribute "role" "notice" ]
+                [ div [ class "container px-4" ]
+                    [ span [ class "d-flex align-items-center gap-1" ]
+                        [ Icon.question
+                        , strong [] [ text "Êtes-vous satisfait de l'utilisation de l'outil ?" ]
+                        , a
+                            [ href "https://jedonnemonavis.numerique.gouv.fr/Demarches/4223?button=4972"
+                            , target "_blank"
+                            ]
+                            [ text "Donnez-nous votre avis" ]
+                        ]
+                    ]
+                ]
+
+        _ ->
+            text ""
 
 
 toastListView : Config msg -> Html msg
