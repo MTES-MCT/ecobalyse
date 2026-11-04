@@ -7,6 +7,7 @@ import Browser.Navigation as Nav
 import Data.Component as Component
 import Data.Component.Config as ComponentConfig
 import Data.Db exposing (Db, RawJsonString)
+import Data.Env as Env
 import Data.Example as Example
 import Data.Food.Query as FoodQuery
 import Data.Impact as Impact
@@ -233,32 +234,6 @@ toPage model cmds toModel toMsg pageUpdate =
         , pageUpdate |> App.mapToCmd AppMsg
         ]
     )
-
-
-trackCalculatorUsage : Bool -> ( Model, Cmd Msg ) -> ( Model, Cmd Msg )
-trackCalculatorUsage shouldCount ( model, cmds ) =
-    case model.state of
-        Errored _ ->
-            ( model, cmds )
-
-        Initializing ->
-            ( model, cmds )
-
-        Loaded session currentPage ->
-            let
-                ( openPrompt, newSession ) =
-                    if shouldCount then
-                        Session.countSimulatorAction session
-
-                    else
-                        ( False, session )
-            in
-            ( { model
-                | feedbackModalOpen = model.feedbackModalOpen || openPrompt
-                , state = Loaded newSession currentPage
-              }
-            , cmds
-            )
 
 
 setRoute : Url -> Session -> Page -> ( Model, Cmd Msg ) -> ( Model, Cmd Msg )
@@ -528,7 +503,7 @@ updateLoaded session page msg model =
                 FoodBuilderPage foodModel ->
                     FoodBuilder.update session foodMsg foodModel
                         |> toPage model Cmd.none FoodBuilderPage FoodBuilderMsg
-                        |> trackCalculatorUsage (FoodBuilder.countsAsUsage foodMsg)
+                        |> trackUsage (FoodBuilder.shouldTrackUsage foodMsg)
 
                 _ ->
                     ( model, Cmd.none )
@@ -539,7 +514,7 @@ updateLoaded session page msg model =
                 GenericSimulatorPage genericModel ->
                     GenericSimulator.update session genericMsg genericModel
                         |> toPage model Cmd.none GenericSimulatorPage GenericSimulatorMsg
-                        |> trackCalculatorUsage (GenericSimulator.countsAsUsage genericMsg)
+                        |> trackUsage (GenericSimulator.shouldTrackUsage genericMsg)
 
                 _ ->
                     ( model, Cmd.none )
@@ -590,7 +565,7 @@ updateLoaded session page msg model =
                 TextileSimulatorPage textileModel ->
                     TextileSimulator.update session textileMsg textileModel
                         |> toPage model Cmd.none TextileSimulatorPage TextileSimulatorMsg
-                        |> trackCalculatorUsage (TextileSimulator.countsAsUsage textileMsg)
+                        |> trackUsage (TextileSimulator.shouldTrackUsage textileMsg)
 
                 _ ->
                     ( model, Cmd.none )
@@ -721,6 +696,44 @@ updateDetailedProcess remoteData session page model =
               }
             , Cmd.none
             )
+
+
+trackUsage : Bool -> ( Model, Cmd Msg ) -> ( Model, Cmd Msg )
+trackUsage shouldTrack ( model, cmds ) =
+    if not shouldTrack then
+        ( model, cmds )
+
+    else
+        case model.state of
+            Errored _ ->
+                ( model, cmds )
+
+            Initializing ->
+                ( model, cmds )
+
+            Loaded session currentPage ->
+                let
+                    ( openPrompt, newSession ) =
+                        if session.store.actionCount < Env.actionThreshold then
+                            let
+                                actionCount =
+                                    session.store.actionCount + 1
+                            in
+                            ( actionCount == Env.actionThreshold
+                            , session
+                                |> Session.updateStore
+                                    (\store -> { store | actionCount = actionCount })
+                            )
+
+                        else
+                            ( False, session )
+                in
+                ( { model
+                    | feedbackModalOpen = model.feedbackModalOpen || openPrompt
+                    , state = Loaded newSession currentPage
+                  }
+                , cmds
+                )
 
 
 subscriptions : Model -> Sub Msg

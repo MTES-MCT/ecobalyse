@@ -1,10 +1,10 @@
 module Page.Textile exposing
     ( Model
     , Msg
-    , countsAsUsage
     , init
     , initFromExample
     , refreshResults
+    , shouldTrackUsage
     , subscriptions
     , update
     , view
@@ -255,48 +255,6 @@ initFromExample session uuid =
     }
         |> createPageUpdate (session |> Session.updateTextileQuery exampleQuery)
         |> App.withCmds [ Ports.scrollTo { x = 0, y = 0 } ]
-
-
-{-| User actions to count as usage
--}
-countsAsUsage : Msg -> Bool
-countsAsUsage msg =
-    case msg of
-        NoOp ->
-            False
-
-        OnAutocompleteExample _ ->
-            False
-
-        OnAutocompleteMaterial _ ->
-            False
-
-        OnAutocompleteProduct _ ->
-            False
-
-        OnAutocompleteTrim _ ->
-            False
-
-        OnDragLeaveBookmark ->
-            False
-
-        OnDragOverBookmark _ ->
-            False
-
-        OpenComparator ->
-            False
-
-        SetModal NoModal ->
-            True
-
-        SetModal _ ->
-            False
-
-        SwitchTab RegulatoryTab ->
-            False
-
-        _ ->
-            True
 
 
 {-| Recomputes results after detailed processes have been loaded and session updated
@@ -1299,6 +1257,48 @@ simulatorView session model ({ inputs, impacts } as simulator) =
                 }
             ]
         ]
+
+
+{-| User actions to count as usage
+-}
+shouldTrackUsage : Msg -> Bool
+shouldTrackUsage msg =
+    case msg of
+        NoOp ->
+            False
+
+        OnAutocompleteExample _ ->
+            False
+
+        OnAutocompleteMaterial _ ->
+            False
+
+        OnAutocompleteProduct _ ->
+            False
+
+        OnAutocompleteTrim _ ->
+            False
+
+        OnDragLeaveBookmark ->
+            False
+
+        OnDragOverBookmark _ ->
+            False
+
+        OpenComparator ->
+            False
+
+        SetModal NoModal ->
+            True
+
+        SetModal _ ->
+            False
+
+        SwitchTab RegulatoryTab ->
+            False
+
+        _ ->
+            True
 
 
 view : Session -> Model -> ( String, List (Html Msg) )

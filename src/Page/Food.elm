@@ -1,9 +1,9 @@
 module Page.Food exposing
     ( Model
     , Msg
-    , countsAsUsage
     , init
     , initFromExample
+    , shouldTrackUsage
     , subscriptions
     , update
     , view
@@ -199,42 +199,6 @@ initFromExample session uuid =
     }
         |> createPageUpdate (session |> Session.updateFoodQuery query)
         |> App.withCmds [ Ports.scrollTo { x = 0, y = 0 } ]
-
-
-{-| User actions to count as usage
--}
-countsAsUsage : Msg -> Bool
-countsAsUsage msg =
-    case msg of
-        NoOp ->
-            False
-
-        OnAutocompleteExample _ ->
-            False
-
-        OnAutocompleteIngredient _ ->
-            False
-
-        OnAutocompletePackaging _ ->
-            False
-
-        OnDragLeaveBookmark ->
-            False
-
-        OnDragOverBookmark _ ->
-            False
-
-        OpenComparator ->
-            False
-
-        SetModal NoModal ->
-            True
-
-        SetModal _ ->
-            False
-
-        _ ->
-            True
 
 
 update : Session -> Msg -> Model -> PageUpdate Model Msg
@@ -731,6 +695,42 @@ selectExample autocompleteState pageUpdate =
     in
     update pageUpdate.session msg pageUpdate.model
         |> App.withCmds [ Plausible.send pageUpdate.session <| Plausible.ExampleSelected Scope.Food ]
+
+
+{-| User actions to count as usage
+-}
+shouldTrackUsage : Msg -> Bool
+shouldTrackUsage msg =
+    case msg of
+        NoOp ->
+            False
+
+        OnAutocompleteExample _ ->
+            False
+
+        OnAutocompleteIngredient _ ->
+            False
+
+        OnAutocompletePackaging _ ->
+            False
+
+        OnDragLeaveBookmark ->
+            False
+
+        OnDragOverBookmark _ ->
+            False
+
+        OpenComparator ->
+            False
+
+        SetModal NoModal ->
+            True
+
+        SetModal _ ->
+            False
+
+        _ ->
+            True
 
 
 

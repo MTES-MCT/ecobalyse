@@ -7,7 +7,6 @@ module Data.Session exposing
     , checkComparedSimulations
     , clearNotifications
     , closeNotification
-    , countSimulatorAction
     , decodeRawStore
     , defaultStore
     , deleteBookmark
@@ -32,6 +31,7 @@ module Data.Session exposing
     , updateDbProcesses
     , updateFoodQuery
     , updateGenericQuery
+    , updateStore
     , updateTextileQuery
     )
 
@@ -41,7 +41,6 @@ import Data.Common.DecodeUtils as DU
 import Data.Component as Component
 import Data.Component.Config as ComponentConfig
 import Data.Db as Db exposing (Db)
-import Data.Env as Env
 import Data.Food.Query as FoodQuery
 import Data.Scope as Scope exposing (GenericScope)
 import Data.Textile.Query as TextileQuery
@@ -455,23 +454,6 @@ decodeRawStore rawStore session =
 
         Ok store ->
             syncDetailedDb session { session | store = store }
-
-
-{-| Count simulator actions, trigger prompting for feedback when threshold is reached
--}
-countSimulatorAction : Session -> ( Bool, Session )
-countSimulatorAction ({ store } as session) =
-    if store.actionCount >= Env.actionThreshold then
-        ( False, session )
-
-    else
-        let
-            actionCount =
-                store.actionCount + 1
-        in
-        ( actionCount >= Env.actionThreshold
-        , session |> updateStore (\s -> { s | actionCount = actionCount })
-        )
 
 
 {-| Handle session auth status transition wrt detailed impacts data access

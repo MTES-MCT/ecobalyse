@@ -7,6 +7,7 @@ module Data.Env exposing
     , defaultDeadStock
     , explorerCommentExcerptLength
     , explorerTableMaxDisplayedRows
+    , feedbackUrl
     , gitbookUrl
     , githubUrl
     , maxMakingDeadStockRatio
@@ -59,6 +60,11 @@ explorerCommentExcerptLength =
 explorerTableMaxDisplayedRows : Int
 explorerTableMaxDisplayedRows =
     100
+
+
+feedbackUrl : String
+feedbackUrl =
+    "https://jedonnemonavis.numerique.gouv.fr/Demarches/4223?button=4973"
 
 
 gitbookUrl : String
