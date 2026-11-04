@@ -154,51 +154,51 @@ datasetSlugDict =
 datasetToString : Dataset -> String
 datasetToString string =
     case string of
+        Components scope _ ->
+            componentDatasetToString scope
+
         Countries _ ->
             "countries"
 
         FoodExamples _ ->
             "food-examples"
 
-        Processes scope _ ->
-            processesDatasetToString scope
+        FoodIngredients _ ->
+            "ingredients"
 
         GenericExamples scope _ ->
             examplesDatasetToString scope
 
-        ProductCategory scope _ ->
-            productCategoryDatasetToString scope
-
         Impacts _ ->
             "impacts"
 
-        FoodIngredients _ ->
-            "ingredients"
+        Processes scope _ ->
+            processesDatasetToString scope
+
+        ProductCategory scope _ ->
+            productCategoryDatasetToString scope
+
+        TextileExamples _ ->
+            "textile-examples"
 
         TextileMaterials _ ->
             "materials"
 
-        Components scope _ ->
-            componentDatasetToString scope
-
         TextileProducts _ ->
             "products"
-
-        TextileExamples _ ->
-            "textile-examples"
 
 
 componentDatasetToString : Scope -> String
 componentDatasetToString scope =
     case scope of
+        Scope.Food ->
+            "food-components"
+
         Scope.Generic Scope.Apparel ->
             "apparel-components"
 
-        Scope.Textile ->
-            "textile-components"
-
-        Scope.Food ->
-            "food-components"
+        Scope.Generic Scope.Food2 ->
+            "food2-components"
 
         Scope.Generic Scope.Object ->
             "object-components"
@@ -206,8 +206,8 @@ componentDatasetToString scope =
         Scope.Generic Scope.Veli ->
             "veli-components"
 
-        Scope.Generic Scope.Food2 ->
-            "food2-components"
+        Scope.Textile ->
+            "textile-components"
 
 
 processesDatasetToString : Scope -> String
@@ -225,11 +225,11 @@ processesDatasetToString scope =
         Scope.Generic Scope.Object ->
             "object-processes"
 
-        Scope.Textile ->
-            "processes"
-
         Scope.Generic Scope.Veli ->
             "veli-processes"
+
+        Scope.Textile ->
+            "processes"
 
 
 examplesDatasetToString : Scope.GenericScope -> String
