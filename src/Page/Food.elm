@@ -371,7 +371,10 @@ update ({ db, queries } as session) msg model =
         OpenComparator ->
             { model | modal = ComparatorModal }
                 |> createPageUpdate (session |> Session.checkComparedSimulations)
-                |> App.withCmds [ Plausible.send session <| Plausible.ComparatorOpened Scope.Food ]
+                |> App.withCmds
+                    [ Plausible.send session <| Plausible.ComparatorOpened Scope.Food
+                    , Ports.loadCharts ()
+                    ]
 
         RenameBookmark ->
             case model.bookmarkBeingRenamed of

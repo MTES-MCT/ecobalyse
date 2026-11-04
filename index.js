@@ -1,6 +1,5 @@
 import { Elm } from "./src/Main.elm";
-import * as Sentry from "@sentry/browser";
-import Charts from "./lib/charts";
+import { init, setTag } from "@sentry/browser"; // force tree shaking
 import store from "./lib/store";
 
 // The localStorage key to use to store serialized session data
@@ -17,10 +16,9 @@ const plausibleEnabled =
 
 // Sentry
 if (NODE_ENV === "production" && SENTRY_DSN) {
+  const Sentry = { init, setTag };
   Sentry.init({
     dsn: SENTRY_DSN,
-    integrations: [Sentry.browserTracingIntegration()],
-    tracesSampleRate: 0,
     allowUrls: [
       /^https:\/\/ecobalyse\.beta\.gouv\.fr/,
       /^https:\/\/staging-ecobalyse\.incubateur\.net/,
@@ -125,6 +123,14 @@ app.ports.loadRapidoc.subscribe(() => {
   }
 });
 
+app.ports.loadCharts.subscribe(() => {
+  if (!customElements.get("ecobalyse-comparator")) {
+    import("./lib/charts").then((charts) => {
+      charts.default.registerElements();
+    });
+  }
+});
+
 app.ports.loadJeDonneMonAvis.subscribe(() => {
   loadScript("https://jedonnemonavis.numerique.gouv.fr/static/jdma-modal-widget.js", {
     "data-jdma-form-url":
@@ -199,6 +205,3 @@ window.addEventListener(
   },
   false,
 );
-
-// Register custom chart elements
-Charts.registerElements();

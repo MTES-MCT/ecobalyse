@@ -671,7 +671,10 @@ update ({ navKey } as session) msg model =
         ( OpenComparator, _ ) ->
             { model | modals = [ ComparatorModal ] }
                 |> createPageUpdate (session |> Session.checkComparedSimulations)
-                |> App.withCmds [ Plausible.send session <| Plausible.ComparatorOpened globalScope ]
+                |> App.withCmds
+                    [ Plausible.send session <| Plausible.ComparatorOpened globalScope
+                    , Ports.loadCharts ()
+                    ]
 
         ( RemoveComponentItem itemIndex, _ ) ->
             { model
