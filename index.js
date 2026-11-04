@@ -1,5 +1,5 @@
 import { Elm } from "./src/Main.elm";
-import * as Sentry from "@sentry/browser";
+import { init, setTag } from "@sentry/browser"; // force tree shaking
 import store from "./lib/store";
 
 // The localStorage key to use to store serialized session data
@@ -16,10 +16,9 @@ const plausibleEnabled =
 
 // Sentry
 if (NODE_ENV === "production" && SENTRY_DSN) {
+  const Sentry = { init, setTag};
   Sentry.init({
     dsn: SENTRY_DSN,
-    integrations: [Sentry.browserTracingIntegration()],
-    tracesSampleRate: 0,
     allowUrls: [
       /^https:\/\/ecobalyse\.beta\.gouv\.fr/,
       /^https:\/\/staging-ecobalyse\.incubateur\.net/,
