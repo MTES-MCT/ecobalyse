@@ -115,8 +115,13 @@ view ({ baseElement, db, impact } as config) =
         [ impact
             |> Format.formatImpact config.selectedImpact
         ]
-    , deleteItemButton { disabled = List.length config.excluded == 1 && not config.allowEmptyList } deleteEvent
+    , deleteItemButton { disabled = canDeleteItem config } deleteEvent
     ]
+
+
+canDeleteItem : Config element quantity msg -> Bool
+canDeleteItem config =
+    List.length config.excluded == 1 && not config.allowEmptyList
 
 
 deleteItemButton : { disabled : Bool } -> msg -> Html msg
