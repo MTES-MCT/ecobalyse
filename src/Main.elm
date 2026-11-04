@@ -202,21 +202,21 @@ setupSession { flags, navKey } dbLoadingState db componentRawConfig componentCon
 
 saveStore : Session -> ( Model, Cmd Msg ) -> ( Model, Cmd Msg )
 saveStore previousSession ( model, cmds ) =
-    case model.state of
+    ( model
+    , case model.state of
         Loaded session _ ->
             if previousSession.store /= session.store then
-                ( model
-                , Cmd.batch
+                Cmd.batch
                     [ cmds
                     , session.store |> Session.serializeStore |> Ports.saveStore
                     ]
-                )
 
             else
-                ( model, cmds )
+                cmds
 
         _ ->
-            ( model, cmds )
+            cmds
+    )
 
 
 toPage :
