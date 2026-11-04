@@ -384,9 +384,8 @@ Dans [`index.js`](../index.js), on ajoute donc le flag `flowers` à `enabledSect
 Dans la fonction `mainMenuLinks` du module [`Views.Page`](../src/Views/Page.elm), conditionner l'affichage de la nouvelle entrée de menu sectorielle en vérifiant le flag `enabledSections.flowers` :
 
 ```elm
-    , addRouteIf enabledSections.flowers <|
-        Internal [ text "Fleurs" ]
-          (Route.GenericSimulatorHome Scope.Flowers) (Generic Scope.Flowers)
+    , addRouteIf enabledSections.flowers
+        (\() -> Internal [ text "Fleurs" ] (Route.GenericSimulatorHome Scope.Flowers) (Generic Scope.Flowers))
 ```
 
 > 💡 Un bouton d'appel sur la page d'accueil est totalement optionnel. S'il est ajouté, le filtrer dans [`Page.Home`](../src/Page/Home.elm) avec le même flag.
