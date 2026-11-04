@@ -24,6 +24,7 @@ import Route
 import Toast
 import Views.Alert as Alert
 import Views.Container as Container
+import Views.Feedback as FeedbackView
 import Views.Icon as Icon
 import Views.Link as Link
 import Views.Markdown as Markdown
@@ -53,8 +54,10 @@ type MenuLink msg
 type alias Config msg =
     { activePage : ActivePage
     , clientUrl : String
+    , closeFeedbackModal : msg
     , currentVersion : Version
     , enabledSections : Session.EnabledSections
+    , feedbackModalOpen : Bool
     , isAuthenticated : Bool
     , isSuperuser : Bool
     , mobileNavigationOpened : Bool
@@ -65,38 +68,43 @@ type alias Config msg =
     }
 
 
-frame : Config msg -> ( String, List (Html msg) ) -> Document msg
-frame ({ activePage } as config) ( title, content ) =
-    { body =
-        [ stagingAlert config
-        , newVersionAlert config
-        , pageHeader config
-        , commonNotices config.toMsg activePage
-        , termsNotice config
-        , if config.mobileNavigationOpened then
-            mobileNavigation config
+getPageBody : Config msg -> List (Html msg) -> List (Html msg)
+getPageBody ({ activePage } as config) content =
+    [ stagingAlert config
+    , newVersionAlert config
+    , pageHeader config
+    , commonNotices config.toMsg activePage
+    , termsNotice config
+    , if config.mobileNavigationOpened then
+        mobileNavigation config
 
-          else
-            text ""
-        , main_ [ class "PageContent bg-white highcharts-light" ]
-            [ -- general static notifications
-              notificationListView config
+      else
+        text ""
+    , main_ [ class "PageContent bg-white highcharts-light" ]
+        [ -- general static notifications
+          notificationListView config
 
-            -- pop up notifications
-            , toastListView config
-            , div
-                [ if activePage == Home then
-                    class ""
+        -- pop up notifications
+        , toastListView config
+        , div
+            [ if activePage == Home then
+                class ""
 
-                  else
-                    class "pt-2 pt-sm-5"
-                ]
-                content
+              else
+                class "pt-2 pt-sm-5"
             ]
-        , pageFooter config
+            content
         ]
+    , pageFooter config
+    ]
+
+
+frame : Config msg -> ( String, List (Html msg) ) -> Document msg
+frame config ( title, content ) =
+    { body = getPageBody config content
     , title = title ++ " | Ecobalyse"
     }
+        |> withFeedbackModal config
 
 
 termsNotice : Config msg -> Html msg
@@ -677,3 +685,17 @@ mobileNavigation ({ activePage, toMsg } as config) =
             ]
         , div [ class "offcanvas-backdrop fade show" ] []
         ]
+
+
+withFeedbackModal : Config msg -> Document msg -> Document msg
+withFeedbackModal config ({ body } as document) =
+    { document
+        | body =
+            body
+                ++ (if config.feedbackModalOpen then
+                        [ FeedbackView.view config.closeFeedbackModal ]
+
+                    else
+                        []
+                   )
+    }

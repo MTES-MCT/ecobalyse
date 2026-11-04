@@ -4,6 +4,7 @@ module Page.Generic exposing
     , init
     , initFromExample
     , refreshResults
+    , shouldTrackUsage
     , subscriptions
     , update
     , view
@@ -1123,6 +1124,198 @@ selectProcess category targetItem maybeElementIndex autocompleteState query ({ m
             pageUpdate |> App.notifyWarning "Aucun composant sélectionné"
 
 
+{-| Simulator actions that count as usage.
+-}
+shouldTrackUsage : Msg -> Bool
+shouldTrackUsage msg =
+    case msg of
+        AppendModal _ ->
+            False
+
+        CopyToClipBoard _ ->
+            False
+
+        CreateExampleContrib ->
+            False
+
+        DeleteBookmark _ ->
+            False
+
+        ExampleContribCreated _ ->
+            False
+
+        ExportBookmarks ->
+            False
+
+        ImportBookmarks ->
+            False
+
+        NoOp ->
+            False
+
+        OnAutocompleteAddAssemblyOperation _ ->
+            False
+
+        OnAutocompleteAddConsumption _ ->
+            False
+
+        OnAutocompleteAddProcess _ _ _ _ ->
+            False
+
+        OnAutocompleteAddProductionItem _ ->
+            False
+
+        OnAutocompleteExample _ ->
+            False
+
+        OnAutocompletePackaging _ ->
+            False
+
+        OnAutocompleteSelectAssemblyOperation ->
+            True
+
+        OnAutocompleteSelectConsumption ->
+            True
+
+        OnAutocompleteSelectExample ->
+            True
+
+        OnAutocompleteSelectPackaging ->
+            True
+
+        OnAutocompleteSelectProcess _ _ _ ->
+            True
+
+        OnAutocompleteSelectProductionItem ->
+            True
+
+        OnDragLeaveBookmark ->
+            False
+
+        OnDragOverBookmark _ ->
+            False
+
+        OnDragStartBookmark _ ->
+            False
+
+        OnDropBookmark _ ->
+            False
+
+        OpenComparator ->
+            False
+
+        RemoveAssemblyOperation _ ->
+            True
+
+        RemoveComponentItem _ ->
+            True
+
+        RemoveConsumption _ ->
+            True
+
+        RemoveElement _ ->
+            True
+
+        RemoveElementTransform _ _ ->
+            True
+
+        RemovePackaging _ ->
+            True
+
+        RenameBookmark ->
+            False
+
+        SaveBookmark ->
+            False
+
+        SaveBookmarkWithTime _ _ _ ->
+            False
+
+        SelectAllBookmarks ->
+            False
+
+        SelectNoBookmarks ->
+            False
+
+        SetDetailedComponents _ ->
+            False
+
+        SetModals _ ->
+            False
+
+        SwitchBookmarksTab _ ->
+            False
+
+        SwitchComparisonType _ ->
+            True
+
+        SwitchImpact _ ->
+            True
+
+        SwitchImpactsTab _ ->
+            True
+
+        ToggleComparedSimulation _ _ ->
+            True
+
+        ToggleTransportByAir _ ->
+            True
+
+        ToggleTransportCooling _ ->
+            True
+
+        UpdateAssemblyCountry _ ->
+            True
+
+        UpdateBookmarkName _ ->
+            False
+
+        UpdateComponentItemName _ _ ->
+            False
+
+        UpdateComponentItemQuantity _ _ ->
+            True
+
+        UpdateConsumptionAmount _ _ ->
+            True
+
+        UpdateContributionDescription _ ->
+            False
+
+        UpdateContributionName _ ->
+            False
+
+        UpdateDistribution _ ->
+            True
+
+        UpdateDurability _ ->
+            False
+
+        UpdateElementAmount _ _ ->
+            True
+
+        UpdateElementMaterialCountry _ _ ->
+            True
+
+        UpdateElementTransformCountry _ _ _ ->
+            True
+
+        UpdateItemUnitMass _ _ ->
+            True
+
+        UpdatePackagingAmount _ _ ->
+            True
+
+        UpdateProduct _ ->
+            True
+
+        UpdateRecyclability _ ->
+            True
+
+        UpdateRenamedBookmarkName _ _ ->
+            False
+
+
 editorConfig : Session -> Model -> ComponentView.Config Db Msg
 editorConfig session ({ genericScope } as model) =
     let
@@ -1141,11 +1334,11 @@ editorConfig session ({ genericScope } as model) =
     , labels = ComponentView.scopeLabels Context.Generic scope
     , noOp = NoOp
     , openItemEditModal = \targetItem -> AppendModal (ItemEditModal targetItem)
-    , openSelectAssemblyOperationModal = SelectAssemblyOperationModal >> List.singleton >> SetModals
-    , openSelectConsumptionModal = SelectConsumptionModal >> List.singleton >> SetModals
-    , openSelectPackagingModal = SelectPackagingModal >> List.singleton >> SetModals
+    , openSelectAssemblyOperationModal = SelectAssemblyOperationModal >> AppendModal
+    , openSelectConsumptionModal = SelectConsumptionModal >> AppendModal
+    , openSelectPackagingModal = SelectPackagingModal >> AppendModal
     , openSelectProcessModal = \c ti mi ac -> AppendModal (SelectProcessModal c ti mi ac)
-    , openSelectProductionItem = AddProductionItemModal >> List.singleton >> SetModals
+    , openSelectProductionItem = AddProductionItemModal >> AppendModal
     , query = session |> Session.genericQuery genericScope
     , removeAssemblyOperation = RemoveAssemblyOperation
     , removeConsumption = RemoveConsumption
@@ -1191,7 +1384,7 @@ simulatorView ({ componentConfig } as session) ({ genericScope } as model) =
                     , emptyQuery = Component.emptyQuery
                     , examples = model.examples
                     , helpUrl = Nothing
-                    , onOpen = SelectExampleModal >> List.singleton >> SetModals
+                    , onOpen = SelectExampleModal >> AppendModal
                     , routes =
                         { explore = Route.Explore scope (Dataset.GenericExamples genericScope Nothing)
                         , load = Route.GenericSimulatorExample genericScope

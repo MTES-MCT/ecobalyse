@@ -4,6 +4,7 @@ module Page.Textile exposing
     , init
     , initFromExample
     , refreshResults
+    , shouldTrackUsage
     , subscriptions
     , update
     , view
@@ -1256,6 +1257,177 @@ simulatorView session model ({ inputs, impacts } as simulator) =
                 }
             ]
         ]
+
+
+{-| Simulator actions that count as usage.
+-}
+shouldTrackUsage : Msg -> Bool
+shouldTrackUsage msg =
+    case msg of
+        ConfirmSwitchToRegulatory ->
+            False
+
+        CopyToClipBoard _ ->
+            False
+
+        DeleteBookmark _ ->
+            False
+
+        ExportBookmarks ->
+            False
+
+        ImportBookmarks ->
+            False
+
+        NoOp ->
+            False
+
+        OnAutocompleteExample _ ->
+            False
+
+        OnAutocompleteMaterial _ ->
+            False
+
+        OnAutocompleteProduct _ ->
+            False
+
+        OnAutocompleteSelect ->
+            True
+
+        OnAutocompleteTrim _ ->
+            False
+
+        OnDragLeaveBookmark ->
+            False
+
+        OnDragOverBookmark _ ->
+            False
+
+        OnDragStartBookmark _ ->
+            False
+
+        OnDropBookmark _ ->
+            False
+
+        OnStageClick _ ->
+            False
+
+        OpenComparator ->
+            False
+
+        RemoveMaterial _ ->
+            True
+
+        RemoveTrim _ ->
+            True
+
+        RenameBookmark ->
+            False
+
+        Reset ->
+            False
+
+        SaveBookmark ->
+            False
+
+        SaveBookmarkWithTime _ _ _ ->
+            False
+
+        SelectAllBookmarks ->
+            False
+
+        SelectNoBookmarks ->
+            False
+
+        SetModal _ ->
+            False
+
+        SwitchBookmarksTab _ ->
+            False
+
+        SwitchComparisonType _ ->
+            True
+
+        SwitchImpact _ ->
+            True
+
+        SwitchImpactsTab _ ->
+            True
+
+        SwitchTab _ ->
+            False
+
+        ToggleComparedSimulation _ _ ->
+            True
+
+        ToggleFading _ ->
+            True
+
+        ToggleStage _ ->
+            True
+
+        UpdateAirTransportRatio _ ->
+            False
+
+        UpdateBookmarkName _ ->
+            False
+
+        UpdateBusiness _ ->
+            True
+
+        UpdateDyeingProcessType _ ->
+            True
+
+        UpdateFabricProcess _ ->
+            True
+
+        UpdateMakingComplexity _ ->
+            True
+
+        UpdateMakingDeadStock _ ->
+            True
+
+        UpdateMakingWaste _ ->
+            True
+
+        UpdateMassInput _ ->
+            False
+
+        UpdateMaterial _ _ ->
+            True
+
+        UpdateMaterialSpinning _ _ ->
+            True
+
+        UpdateNumberOfReferences _ ->
+            True
+
+        UpdatePhysicalDurability _ ->
+            True
+
+        UpdatePrice _ ->
+            True
+
+        UpdatePrinting _ ->
+            True
+
+        UpdateRenamedBookmarkName _ _ ->
+            False
+
+        UpdateStageCountry _ _ ->
+            True
+
+        UpdateSurfaceMass _ ->
+            True
+
+        UpdateTrimQuantity _ _ ->
+            True
+
+        UpdateUpcycled _ ->
+            True
+
+        UpdateYarnSize _ ->
+            True
 
 
 view : Session -> Model -> ( String, List (Html Msg) )

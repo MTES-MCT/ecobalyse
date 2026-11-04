@@ -6,6 +6,7 @@ module Data.Env exposing
     , defaultDeadStock
     , explorerCommentExcerptLength
     , explorerTableMaxDisplayedRows
+    , feedbackUrl
     , gitbookUrl
     , githubUrl
     , maxMakingDeadStockRatio
@@ -14,6 +15,7 @@ module Data.Env exposing
     , minMakingDeadStockRatio
     , minMakingWasteRatio
     , stableTextileVersionPath
+    , usageThreshold
     )
 
 import Data.Split as Split exposing (Split)
@@ -51,6 +53,11 @@ explorerCommentExcerptLength =
 explorerTableMaxDisplayedRows : Int
 explorerTableMaxDisplayedRows =
     100
+
+
+feedbackUrl : String
+feedbackUrl =
+    "https://jedonnemonavis.numerique.gouv.fr/Demarches/4223?button=4973"
 
 
 gitbookUrl : String
@@ -101,3 +108,10 @@ defaultDeadStock =
 maxMaterials : Int
 maxMaterials =
     5
+
+
+{-| Number of simulator actions after which a feedback prompt modal is shown
+-}
+usageThreshold : Int
+usageThreshold =
+    100

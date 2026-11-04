@@ -31,6 +31,7 @@ module Data.Session exposing
     , updateDbProcesses
     , updateFoodQuery
     , updateGenericQuery
+    , updateStore
     , updateTextileQuery
     )
 
@@ -413,6 +414,7 @@ type alias Store =
     { auth : Maybe Auth
     , bookmarks : List Bookmark
     , comparedSimulations : Set String
+    , usageCount : Int
     }
 
 
@@ -421,6 +423,7 @@ defaultStore =
     { auth = Nothing
     , bookmarks = []
     , comparedSimulations = Set.empty
+    , usageCount = 0
     }
 
 
@@ -430,6 +433,7 @@ decodeStore =
         |> DU.strictOptional "auth" decodeAuth
         |> JDP.optional "bookmarks" Bookmark.decodeJsonList []
         |> JDP.optional "comparedSimulations" (Decode.map Set.fromList (Decode.list Decode.string)) Set.empty
+        |> JDP.optional "usageCount" Decode.int 0
 
 
 encodeStore : Store -> Encode.Value
@@ -438,6 +442,7 @@ encodeStore store =
         [ ( "comparedSimulations", store.comparedSimulations |> Encode.set Encode.string )
         , ( "bookmarks", store.bookmarks |> Bookmark.encodeJsonList )
         , ( "auth", store.auth |> Maybe.map encodeAuth |> Maybe.withDefault Encode.null )
+        , ( "usageCount", Encode.int store.usageCount )
         ]
 
 
