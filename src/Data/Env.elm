@@ -114,4 +114,4 @@ maxMaterials =
 -}
 usageThreshold : Int
 usageThreshold =
-    30
+    100
