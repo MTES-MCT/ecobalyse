@@ -14,8 +14,8 @@ view close =
         , content =
             [ div [ class "d-flex flex-column align-items-center gap-3 p-4 text-center" ]
                 [ p [ class "mb-0" ]
-                    [ text """Nous serions ravis que vous preniez un moment pour nous dire ce que
-                              vous pensez du service. Pour cela, cliquez sur le bouton ci-dessous.""" ]
+                    [ text """Vous avez réalisé vos premiers calculs de coût environnemental.
+                              Dites-nous comment cela s’est passé en cliquant sur le bouton ci-dessous.""" ]
                 , a
                     [ class "d-inline-block"
                     , href Env.feedbackUrl
