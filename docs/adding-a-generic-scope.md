@@ -353,7 +353,7 @@ rawJsonComponents =
     }
 ```
 
-> 💡 Seuls les données JSON des composants transitent par `RawJsonComponents` ; les exemples et catégories de produit conservent leurs propres constantes `*Json` (comme `flowersExamplesJson`).
+> 💡 Seules les données JSON des composants transitent par `RawJsonComponents` ; les exemples et catégories de produit conservent leurs propres constantes `*Json` (comme `flowersExamplesJson`).
 
 Mobiliser ces nouveaux contenus JSON dans `dbFromJsonStrings`, dans [`Static.ProdDb`](../src/Static/ProdDb.elm) et [`Static.TestDb`](../src/Static/TestDb.elm). Ces fonctions passent des chaînes JSON brutes à `Db.buildFromStrings` :
 

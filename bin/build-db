@@ -21,7 +21,7 @@ function parseAndValidate(dataDir, relativePath, idKeyName = "id", pathsToMerge 
   let raw = JSON.parse(fs.readFileSync(filePath).toString());
 
   // Allow to pass multiple JSON files to this function, the arrays contained in the files
-  // will be merge into one, as if they was only on file in input
+  // will be merged into one, as if they were only one input file
   pathsToMerge.forEach((pathToMerge) => {
     const mergedPath = path.join(dataDir, pathToMerge);
     raw = raw.concat(JSON.parse(fs.readFileSync(mergedPath).toString()));
