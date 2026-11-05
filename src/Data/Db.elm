@@ -118,11 +118,14 @@ build json =
                         )
                     |> RE.andMap (Ok processes)
                     |> RE.andMap
-                        ([ json.food2ProductCategories
-                         , json.objectProductCategories
-                         , json.veliProductCategories
-                         ]
-                            |> List.map (extractJsonString >> ProductCategory.decodeListFromJsonString)
+                        (Scope.allGeneric
+                            |> List.map
+                                (\scope ->
+                                    scope
+                                        |> scopeGenericProductCategories json
+                                        |> extractJsonString
+                                        |> ProductCategory.decodeListFromJsonString
+                                )
                             |> RE.combine
                             |> Result.map List.concat
                         )
@@ -179,6 +182,22 @@ scopeGenericExamples json scope =
 
         Scope.Veli ->
             json.veliExamples
+
+
+scopeGenericProductCategories : RawJsonStrings -> Scope.GenericScope -> RawJsonString
+scopeGenericProductCategories json scope =
+    case scope of
+        Scope.Apparel ->
+            json.apparelProductCategories
+
+        Scope.Food2 ->
+            json.food2ProductCategories
+
+        Scope.Object ->
+            json.objectProductCategories
+
+        Scope.Veli ->
+            json.veliProductCategories
 
 
 buildFromStrings : Properties String -> Result String Db
