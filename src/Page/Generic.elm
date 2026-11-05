@@ -481,21 +481,22 @@ update ({ navKey } as session) msg model =
                 |> App.withCmds [ Ports.copyToClipboard shareableLink ]
 
         CreateExampleContrib ->
-            case ( Session.isAuthenticated session, createExampleContribData model ) of
-                ( True, Ok contribData ) ->
-                    { model | contributionRequestPending = True }
-                        |> createPageUpdate session
-                        |> App.withCmds [ Contrib.createExampleContrib session contribData ExampleContribCreated ]
+            if Session.isAuthenticated session then
+                case createExampleContribData model of
+                    Ok contribData ->
+                        { model | contributionRequestPending = True }
+                            |> createPageUpdate session
+                            |> App.withCmds [ Contrib.createExampleContrib session contribData ExampleContribCreated ]
 
-                ( True, Err errors ) ->
-                    { model | contributionRequestPending = False }
-                        |> createPageUpdate session
-                        |> App.notifyError "Erreur lors de la création de votre contribution" (String.join ", " errors)
+                    Err errors ->
+                        { model | contributionRequestPending = False }
+                            |> createPageUpdate session
+                            |> App.notifyError "Erreur lors de la création de votre contribution" (String.join ", " errors)
 
-                ( False, _ ) ->
-                    { model | contributionRequestPending = False }
-                        |> createPageUpdate session
-                        |> App.notifyWarning "Vous devez être authentifié pour soumettre une contribution"
+            else
+                { model | contributionRequestPending = False }
+                    |> createPageUpdate session
+                    |> App.notifyWarning "Vous devez être authentifié pour soumettre une contribution"
 
         DeleteBookmark bookmark ->
             model
