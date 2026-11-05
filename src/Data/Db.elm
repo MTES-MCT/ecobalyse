@@ -81,7 +81,7 @@ build json =
                 Ok Db
                     |> RE.andMap
                         (Scope.all
-                            |> List.filterMap (scopeToComponent json)
+                            |> List.filterMap (scopeComponents json)
                             |> List.map (extractJsonString >> Component.decodeListFromJsonString)
                             |> RE.combine
                             -- A missing country inherits the process default origin. Resolve it once here at build
@@ -113,7 +113,7 @@ build json =
                         )
                     |> RE.andMap
                         (GenericDb.buildFromJson
-                            (List.map (\scope -> extractJsonString (scopeToExamples json scope)) Scope.allGeneric)
+                            (List.map (\scope -> extractJsonString (scopeGenericExamples json scope)) Scope.allGeneric)
                             processes
                         )
                     |> RE.andMap (Ok processes)
@@ -136,8 +136,8 @@ build json =
             )
 
 
-scopeToComponent : RawJsonStrings -> Scope -> Maybe RawJsonString
-scopeToComponent json scope =
+scopeComponents : RawJsonStrings -> Scope -> Maybe RawJsonString
+scopeComponents json scope =
     case scope of
         Scope.Food ->
             Nothing
@@ -160,8 +160,8 @@ scopeToComponent json scope =
             Just json.textileComponents
 
 
-scopeToExamples : RawJsonStrings -> Scope.GenericScope -> RawJsonString
-scopeToExamples json scope =
+scopeGenericExamples : RawJsonStrings -> Scope.GenericScope -> RawJsonString
+scopeGenericExamples json scope =
     case scope of
         Scope.Apparel ->
             json.apparelExamples

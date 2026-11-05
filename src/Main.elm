@@ -144,7 +144,7 @@ loadData sessionConfig =
      , ( "/data/transports.json", \data raw -> { raw | transports = data } )
      , ( "/data/processes.json", \data raw -> { raw | processes = data } )
      ]
-        ++ List.concatMap loadDataForScope Scope.all
+        ++ List.concatMap scopeLoadData Scope.all
     )
         |> List.map
             (\( path, onLoaded ) ->
@@ -153,8 +153,8 @@ loadData sessionConfig =
         |> Cmd.batch
 
 
-loadDataForScope : Scope -> List ( String, WebData RawJsonString -> LoadingState -> LoadingState )
-loadDataForScope scope =
+scopeLoadData : Scope -> List ( String, WebData RawJsonString -> LoadingState -> LoadingState )
+scopeLoadData scope =
     case scope of
         Scope.Food ->
             [ ( "/data/food/ingredients.json", \data raw -> { raw | foodIngredients = data } )
