@@ -1,16 +1,16 @@
 {
   "activityName": "heat, industrial, market, RoW",
   "categories": ["energy"],
-  "comment": "23% natural gas and 77% other, see detail here: https://fabrique-numerique.gitbook.io/ecobalyse/methodes-transverses-specifiques/energies-des-etapes-de-transformation",
-  "displayName": "Mix chaleur, World, v2",
+  "comment": "23% natural gas and 77% other (modelled as coal, China, which is the main contributor), see details here: https://fabrique-numerique.gitbook.io/ecobalyse/methodes-transverses-specifiques/energies-des-etapes-de-transformation",
+  "displayName": "Mix chaleur (Monde)",
   "elecKwh": 0.0,
   "heatMJ": 0,
-  "id": "f2116343-71e2-4c15-b093-de186f356971",
+  "id": "3561ace1-f710-50ce-a69c-9cf842e729e4",
   "metadata": [
-    { "id": "6ba085ec-9b21-40d4-94b3-949703a2d721", "scopes": ["object", "veli"] }
+    { "id": "f3b295ad-b7fe-4c15-9588-5d959a327440", "scopes": ["object", "food2"] }
   ],
   "qtyVariationRatio": 1,
-  "scopes": ["object", "veli"],
+  "scopes": ["apparel", "food2", "object", "textile", "veli"],
   "source": "Ecobalyse_custom_lci",
-  "unit": "kg"
+  "unit": "MJ"
 }
