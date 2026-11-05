@@ -17,6 +17,7 @@ import Data.Generic.Db as GenericDb
 import Data.Impact as Impact
 import Data.Impact.Definition as Definition exposing (Definitions)
 import Data.Process as Process exposing (Process)
+import Data.Scope as Scope exposing (Scope)
 import Data.Textile.Db as TextileDb
 import Data.Transport as Transport exposing (Distances)
 import Json.Decode as Decode
@@ -79,12 +80,8 @@ build json =
             (\processes ->
                 Ok Db
                     |> RE.andMap
-                        ([ json.apparelComponents
-                         , json.food2Components
-                         , json.objectComponents
-                         , json.textileComponents
-                         , json.veliComponents
-                         ]
+                        (Scope.all
+                            |> List.filterMap (scopeComponents json)
                             |> List.map (extractJsonString >> Component.decodeListFromJsonString)
                             |> RE.combine
                             -- A missing country inherits the process default origin. Resolve it once here at build
@@ -115,20 +112,20 @@ build json =
                                 (extractJsonString json.foodIngredients)
                         )
                     |> RE.andMap
-                        (processes
-                            |> GenericDb.buildFromJson
-                                (extractJsonString json.apparelExamples)
-                                (extractJsonString json.food2Examples)
-                                (extractJsonString json.objectExamples)
-                                (extractJsonString json.veliExamples)
+                        (Scope.allGeneric
+                            |> List.map (\scope -> extractJsonString (scopeGenericExamples json scope))
+                            |> GenericDb.buildFromJson processes
                         )
                     |> RE.andMap (Ok processes)
                     |> RE.andMap
-                        ([ json.food2ProductCategories
-                         , json.objectProductCategories
-                         , json.veliProductCategories
-                         ]
-                            |> List.map (extractJsonString >> ProductCategory.decodeListFromJsonString)
+                        (Scope.allGeneric
+                            |> List.map
+                                (\scope ->
+                                    scope
+                                        |> scopeGenericProductCategories json
+                                        |> extractJsonString
+                                        |> ProductCategory.decodeListFromJsonString
+                                )
                             |> RE.combine
                             |> Result.map List.concat
                         )
@@ -140,6 +137,67 @@ build json =
                                 (extractJsonString json.textileProducts)
                         )
             )
+
+
+scopeComponents : RawJsonStrings -> Scope -> Maybe RawJsonString
+scopeComponents json scope =
+    case scope of
+        Scope.Food ->
+            Nothing
+
+        Scope.Generic genericScope ->
+            Just (scopeGenericComponents json genericScope)
+
+        Scope.Textile ->
+            Just json.textileComponents
+
+
+scopeGenericComponents : RawJsonStrings -> Scope.GenericScope -> RawJsonString
+scopeGenericComponents json scope =
+    case scope of
+        Scope.Apparel ->
+            json.apparelComponents
+
+        Scope.Food2 ->
+            json.food2Components
+
+        Scope.Object ->
+            json.objectComponents
+
+        Scope.Veli ->
+            json.veliComponents
+
+
+scopeGenericExamples : RawJsonStrings -> Scope.GenericScope -> RawJsonString
+scopeGenericExamples json scope =
+    case scope of
+        Scope.Apparel ->
+            json.apparelExamples
+
+        Scope.Food2 ->
+            json.food2Examples
+
+        Scope.Object ->
+            json.objectExamples
+
+        Scope.Veli ->
+            json.veliExamples
+
+
+scopeGenericProductCategories : RawJsonStrings -> Scope.GenericScope -> RawJsonString
+scopeGenericProductCategories json scope =
+    case scope of
+        Scope.Apparel ->
+            json.apparelProductCategories
+
+        Scope.Food2 ->
+            json.food2ProductCategories
+
+        Scope.Object ->
+            json.objectProductCategories
+
+        Scope.Veli ->
+            json.veliProductCategories
 
 
 buildFromStrings : Properties String -> Result String Db
@@ -177,28 +235,58 @@ extractJsonString (RawJsonString string) =
 
 propGetters : List (Properties a -> a)
 propGetters =
-    [ .apparelProductCategories
-    , .apparelComponents
-    , .apparelExamples
-    , .countries
-    , .definitions
-    , .food2ProductCategories
-    , .food2Examples
-    , .foodIngredients
-    , .foodProductExamples
-    , .objectProductCategories
-    , .objectComponents
-    , .objectExamples
-    , .processes
-    , .textileComponents
-    , .textileMaterials
-    , .textileProductExamples
-    , .textileProducts
-    , .transports
-    , .veliProductCategories
-    , .veliComponents
-    , .veliExamples
-    ]
+    .countries
+        :: .definitions
+        :: .transports
+        :: .processes
+        :: List.concatMap scopePropGetters Scope.all
+
+
+scopePropGetters : Scope -> List (Properties a -> a)
+scopePropGetters scope =
+    case scope of
+        Scope.Food ->
+            [ .foodIngredients
+            , .foodProductExamples
+            ]
+
+        Scope.Generic genericScope ->
+            scopeGenericPropGetters genericScope
+
+        Scope.Textile ->
+            [ .textileComponents
+            , .textileMaterials
+            , .textileProductExamples
+            , .textileProducts
+            ]
+
+
+scopeGenericPropGetters : Scope.GenericScope -> List (Properties a -> a)
+scopeGenericPropGetters scope =
+    case scope of
+        Scope.Apparel ->
+            [ .apparelProductCategories
+            , .apparelComponents
+            , .apparelExamples
+            ]
+
+        Scope.Food2 ->
+            [ .food2ProductCategories
+            , .food2Components
+            , .food2Examples
+            ]
+
+        Scope.Object ->
+            [ .objectProductCategories
+            , .objectComponents
+            , .objectExamples
+            ]
+
+        Scope.Veli ->
+            [ .veliProductCategories
+            , .veliComponents
+            , .veliExamples
+            ]
 
 
 rawJsonString : String -> RawJsonString

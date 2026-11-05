@@ -22,6 +22,7 @@ module Data.Scope exposing
     , toStringGeneric
     )
 
+import Dict
 import Dict.Any as AnyDict exposing (AnyDict)
 import Json.Decode as Decode exposing (Decoder)
 import Json.Decode.Extra as DE
@@ -136,21 +137,22 @@ fromString string =
 
 fromStringGeneric : String -> Result String GenericScope
 fromStringGeneric string =
-    case string of
-        "apparel" ->
-            Ok Apparel
+    case Dict.get string genericNameDict of
+        Just scope ->
+            Ok scope
 
-        "food2" ->
-            Ok Food2
-
-        "object" ->
-            Ok Object
-
-        "veli" ->
-            Ok Veli
-
-        _ ->
+        Nothing ->
             Err <| "Couldn't decode unknown generic scope " ++ string
+
+
+genericNameDict : Dict.Dict String GenericScope
+genericNameDict =
+    allGeneric
+        |> List.foldl
+            (\scope dict ->
+                Dict.insert (toStringGeneric scope) scope dict
+            )
+            Dict.empty
 
 
 isGeneric : Scope -> Bool

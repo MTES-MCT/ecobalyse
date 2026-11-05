@@ -21,6 +21,7 @@ import Data.Scope as Scope exposing (Scope)
 import Data.Textile.Material as Material
 import Data.Textile.Product as Product
 import Data.Uuid as Uuid exposing (Uuid)
+import Dict exposing (Dict)
 import Url.Parser as Parser exposing (Parser)
 
 
@@ -54,40 +55,8 @@ datasets scope =
             , Processes Scope.Food Nothing
             ]
 
-        Scope.Generic Scope.Apparel ->
-            [ GenericExamples Scope.Apparel Nothing
-            , Components (Scope.Generic Scope.Apparel) Nothing
-            , Countries Nothing
-            , Processes (Scope.Generic Scope.Apparel) Nothing
-            , Impacts Nothing
-            , ProductCategory Scope.Apparel Nothing
-            ]
-
-        Scope.Generic Scope.Food2 ->
-            [ GenericExamples Scope.Food2 Nothing
-            , Impacts Nothing
-            , Countries Nothing
-            , Processes (Scope.Generic Scope.Food2) Nothing
-            , ProductCategory Scope.Food2 Nothing
-            ]
-
-        Scope.Generic Scope.Object ->
-            [ GenericExamples Scope.Object Nothing
-            , Components (Scope.Generic Scope.Object) Nothing
-            , Countries Nothing
-            , Processes (Scope.Generic Scope.Object) Nothing
-            , Impacts Nothing
-            , ProductCategory Scope.Object Nothing
-            ]
-
-        Scope.Generic Scope.Veli ->
-            [ GenericExamples Scope.Veli Nothing
-            , Components (Scope.Generic Scope.Veli) Nothing
-            , Countries Nothing
-            , Impacts Nothing
-            , Processes (Scope.Generic Scope.Veli) Nothing
-            , ProductCategory Scope.Veli Nothing
-            ]
+        Scope.Generic genericScope ->
+            datasetsGeneric genericScope
 
         Scope.Textile ->
             [ TextileExamples Nothing
@@ -100,23 +69,53 @@ datasets scope =
             ]
 
 
+datasetsGeneric : Scope.GenericScope -> List Dataset
+datasetsGeneric scope =
+    case scope of
+        Scope.Apparel ->
+            [ GenericExamples scope Nothing
+            , Components (Scope.Generic scope) Nothing
+            , Countries Nothing
+            , Processes (Scope.Generic scope) Nothing
+            , Impacts Nothing
+            , ProductCategory scope Nothing
+            ]
+
+        Scope.Food2 ->
+            [ GenericExamples scope Nothing
+            , Impacts Nothing
+            , Countries Nothing
+            , Processes (Scope.Generic scope) Nothing
+            , ProductCategory scope Nothing
+            ]
+
+        Scope.Object ->
+            [ GenericExamples scope Nothing
+            , Components (Scope.Generic scope) Nothing
+            , Countries Nothing
+            , Processes (Scope.Generic scope) Nothing
+            , Impacts Nothing
+            , ProductCategory scope Nothing
+            ]
+
+        Scope.Veli ->
+            [ GenericExamples scope Nothing
+            , Components (Scope.Generic scope) Nothing
+            , Countries Nothing
+            , Impacts Nothing
+            , Processes (Scope.Generic scope) Nothing
+            , ProductCategory scope Nothing
+            ]
+
+
 defaultDatasetFor : Scope -> Dataset
 defaultDatasetFor scope =
     case scope of
         Scope.Food ->
             FoodExamples Nothing
 
-        Scope.Generic Scope.Apparel ->
-            GenericExamples Scope.Apparel Nothing
-
-        Scope.Generic Scope.Food2 ->
-            GenericExamples Scope.Food2 Nothing
-
-        Scope.Generic Scope.Object ->
-            GenericExamples Scope.Object Nothing
-
-        Scope.Generic Scope.Veli ->
-            GenericExamples Scope.Veli Nothing
+        Scope.Generic genericScope ->
+            GenericExamples genericScope Nothing
 
         Scope.Textile ->
             TextileExamples Nothing
@@ -124,84 +123,159 @@ defaultDatasetFor scope =
 
 fromSlug : String -> Dataset
 fromSlug string =
-    case string of
-        "apparel-components" ->
-            Components (Scope.Generic Scope.Apparel) Nothing
+    case Dict.get string datasetSlugDict of
+        Just dataset ->
+            dataset
 
-        "apparel-examples" ->
-            GenericExamples Scope.Apparel Nothing
-
-        "apparel-processes" ->
-            Processes (Scope.Generic Scope.Apparel) Nothing
-
-        "apparel-product-categories" ->
-            ProductCategory Scope.Apparel Nothing
-
-        "countries" ->
-            Countries Nothing
-
-        "food-examples" ->
-            FoodExamples Nothing
-
-        "food-processes" ->
-            Processes Scope.Food Nothing
-
-        "food2-examples" ->
-            GenericExamples Scope.Food2 Nothing
-
-        "food2-processes" ->
-            Processes (Scope.Generic Scope.Food2) Nothing
-
-        "food2-product-categories" ->
-            ProductCategory Scope.Food2 Nothing
-
-        "impacts" ->
-            Impacts Nothing
-
-        "ingredients" ->
-            FoodIngredients Nothing
-
-        "materials" ->
-            TextileMaterials Nothing
-
-        "object-components" ->
-            Components (Scope.Generic Scope.Object) Nothing
-
-        "object-examples" ->
-            GenericExamples Scope.Object Nothing
-
-        "object-processes" ->
-            Processes (Scope.Generic Scope.Object) Nothing
-
-        "object-product-categories" ->
-            ProductCategory Scope.Object Nothing
-
-        "processes" ->
-            Processes Scope.Textile Nothing
-
-        "products" ->
-            TextileProducts Nothing
-
-        "textile-components" ->
-            Components Scope.Textile Nothing
-
-        "textile-processes" ->
-            Processes Scope.Textile Nothing
-
-        "veli-components" ->
-            Components (Scope.Generic Scope.Veli) Nothing
-
-        "veli-examples" ->
-            GenericExamples Scope.Veli Nothing
-
-        "veli-processes" ->
-            Processes (Scope.Generic Scope.Veli) Nothing
-
-        "veli-product-categories" ->
-            ProductCategory Scope.Veli Nothing
-
-        _ ->
+        Nothing ->
             TextileExamples Nothing
+
+
+datasetSlugDict : Dict String Dataset
+datasetSlugDict =
+    List.concat
+        [ [ Countries Nothing
+          , FoodExamples Nothing
+          , FoodIngredients Nothing
+          , Impacts Nothing
+          , TextileExamples Nothing
+          , TextileMaterials Nothing
+          , TextileProducts Nothing
+          ]
+        , List.map (\s -> Components s Nothing) Scope.all
+        , List.map (\s -> Processes s Nothing) Scope.all
+        , List.map (\s -> GenericExamples s Nothing) Scope.allGeneric
+        , List.map (\s -> ProductCategory s Nothing) Scope.allGeneric
+        ]
+        |> List.foldl (\dataset dict -> Dict.insert (datasetToString dataset) dataset dict) Dict.empty
+        |> Dict.insert "textile-processes" (Processes Scope.Textile Nothing)
+
+
+datasetToString : Dataset -> String
+datasetToString string =
+    case string of
+        Components scope _ ->
+            componentDatasetToString scope
+
+        Countries _ ->
+            "countries"
+
+        FoodExamples _ ->
+            "food-examples"
+
+        FoodIngredients _ ->
+            "ingredients"
+
+        GenericExamples scope _ ->
+            examplesDatasetToString scope
+
+        Impacts _ ->
+            "impacts"
+
+        Processes scope _ ->
+            processesDatasetToString scope
+
+        ProductCategory scope _ ->
+            productCategoryDatasetToString scope
+
+        TextileExamples _ ->
+            "textile-examples"
+
+        TextileMaterials _ ->
+            "materials"
+
+        TextileProducts _ ->
+            "products"
+
+
+componentDatasetToString : Scope -> String
+componentDatasetToString scope =
+    case scope of
+        Scope.Food ->
+            "food-components"
+
+        Scope.Generic genericScope ->
+            componentGenericDatasetToString genericScope
+
+        Scope.Textile ->
+            "textile-components"
+
+
+componentGenericDatasetToString : Scope.GenericScope -> String
+componentGenericDatasetToString scope =
+    case scope of
+        Scope.Apparel ->
+            "apparel-components"
+
+        Scope.Food2 ->
+            "food2-components"
+
+        Scope.Object ->
+            "object-components"
+
+        Scope.Veli ->
+            "veli-components"
+
+
+processesDatasetToString : Scope -> String
+processesDatasetToString scope =
+    case scope of
+        Scope.Food ->
+            "food-processes"
+
+        Scope.Generic genericScope ->
+            processesDatasetGenericToString genericScope
+
+        Scope.Textile ->
+            "processes"
+
+
+processesDatasetGenericToString : Scope.GenericScope -> String
+processesDatasetGenericToString scope =
+    case scope of
+        Scope.Apparel ->
+            "apparel-processes"
+
+        Scope.Food2 ->
+            "food2-processes"
+
+        Scope.Object ->
+            "object-processes"
+
+        Scope.Veli ->
+            "veli-processes"
+
+
+examplesDatasetToString : Scope.GenericScope -> String
+examplesDatasetToString scope =
+    case scope of
+        Scope.Apparel ->
+            "apparel-examples"
+
+        Scope.Food2 ->
+            "food2-examples"
+
+        Scope.Object ->
+            "object-examples"
+
+        Scope.Veli ->
+            "veli-examples"
+
+
+productCategoryDatasetToString : Scope.GenericScope -> String
+productCategoryDatasetToString scope =
+    case scope of
+        Scope.Apparel ->
+            "apparel-product-categories"
+
+        Scope.Food2 ->
+            "food2-product-categories"
+
+        Scope.Object ->
+            "object-product-categories"
+
+        Scope.Veli ->
+            "veli-product-categories"
 
 
 isDetailed : Dataset -> Bool

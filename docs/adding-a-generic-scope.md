@@ -140,84 +140,72 @@ ou `updateGenericQuery` :
 
 Le type `Dataset` du module [`Data.Dataset`](../src/Data/Dataset.elm) décrit le type de données de l'[Explorateur](/#/explore/food2).
 
-Ajouter les jeux de données de `datasets` et `defaultDatasetFor` pour `Scope.Generic Scope.Flowers`. Par exemple pour `datasets` :
+Ajouter les jeux de données de `datasetsGeneric` pour `Scope.Flowers`. Par exemple pour :
 
 ```elm
-    Scope.Generic Scope.Flowers ->
-        [ GenericExamples Scope.Flowers Nothing
-        , Components (Scope.Generic Scope.Flowers) Nothing
+    Scope.Flowers ->
+        [ GenericExamples scope Nothing
+        , Components (Scope.Generic scope) Nothing
         , Countries Nothing
-        , Processes (Scope.Generic Scope.Flowers) Nothing
+        , Processes (Scope.Generic scope) Nothing
         , Impacts Nothing
-        , ProductCategory Scope.Flowers Nothing
+        , ProductCategory scope Nothing
         ]
 ```
 
-Et dans la fonction `defaultDatasetFor`, pointer par défaut vers les exemples du scope :
-
-```elm
-    Scope.Generic Scope.Flowers ->
-        GenericExamples Scope.Flowers Nothing
-```
-
-Ajouter également les slugs attendus pour les URLs de l'explorateur du nouveau scope `flowers` aux branches gérées par la fonction `fromSlug`. Le compilateur ne les réclamera pas, et sans eux l'explorateur ne pourra pas les résoudre ni fonctionner correctement ; par exemple, ajouter ces branches pour gérer les nouveaux slugs vers les datasets à explorer correspondants :
-
-```elm
-    "flowers-components" ->
-        Components (Scope.Generic Scope.Flowers) Nothing
-
-    "flowers-examples" ->
-        GenericExamples Scope.Flowers Nothing
-
-    "flowers-processes" ->
-        Processes (Scope.Generic Scope.Flowers) Nothing
-
-    "flowers-product-categories" ->
-        ProductCategory Scope.Flowers Nothing
-```
-
-## 3. Mises à jour manuelles spécifiques
-
-Le compilateur Elm est un outil précieux mais certains fichiers compilent encore si on oublie d'opérer certaines modifications manuellement, et ce à quatre niveaux principalement :
-
-- le parsing et le mapping des chaînes de caractères arbitraires vers des types, par nature incertaine
-- le routing et les urls (chemins, segments, etc.)
-- les sources de données à charger pour le nouveau scope (composants, catégories de produits et exemples)
-- les menus de navigation et certains affichages dans l'interface utilisateur
-
-### Parsing
-
-Dans le module [`Data.Scope`](../src/Data/Scope.elm), mettre à jour la résolution des chaînes de caractères vers le nouveau type `Flowers`, que par nature le compilateur ne peut pas signaler. En effet, le code traite explicitement une liste blanche de chaînes de caractères acceptables en entrée, toute chaîne inconnue étant par défaut rejetée — dont `"flowers"`.
-
-Il convient donc de modifier la fonction `fromStringGeneric` pour mapper le nouvel identifiant textuel `"flowers"` :
-
-```elm
-    "flowers" ->
-        Ok Flowers
-```
+Ajouter également les slugs attendus pour les URLs de l'explorateur du nouveau scope `flowers` dans les fonctions suivantes :
+- `componentGenericDatasetToString`
+- `processesDatasetGenericToString`
+- `examplesDatasetToString`
+- `productCategoryDatasetToString`
 
 ### Éléments de vue génériques
 
-Dans le module [`Views.Page`](../src/Views/Page.elm), la fonction `commonNotices` permet d'afficher un bandeau informatif dans l'entête de la page d'une calculette ; on peut décider d'en ajouter un spécifique à notre nouveau scope :
+Dans le module [`Views.Page`](../src/Views/Page.elm), la fonction `commonNoticesForGeneric` permet d'afficher un bandeau informatif dans l'entête de la page d'une calculette ; on peut décider d'en ajouter un spécifique à notre nouveau scope :
 
 ```elm
-    Generic Scope.Flowers ->
+    Scope.Flowers ->
         Notice.info
             [ Icon.info
             , Markdown.simple [] "**Cette verticale sent particulièrement bon.**"
             ]
 ```
 
-### Routes
+#### Data.Db
 
-Dans le module [`Route`](../src/Route.elm), enregistrer le simulateur à côté des autres parsers de routes génériques :
+Dans le module [`Data.Db`](../src/Data/Db.elm), ajouter les nouveaux champs de données au type `Properties`.
 
 ```elm
-        , parseGenericSimulatorRoutes Scope.Flowers "flowers"
-        , parseGenericSimulatorRoutes Scope.Food2 "food2"
-        , parseGenericSimulatorRoutes Scope.Object "object"
-        , parseGenericSimulatorRoutes Scope.Veli "veli"
+type alias Properties a =
+    …
+    , flowersComponents : a
+    , flowersExamples : a
+    , flowersProductCategories : a
+    , food2Components : a
 ```
+
+ce qui permet d'implémenter les fonctions `scopeToComponent`, `scopeToExamples`, et `scopePropGetters` que le compilateur vous demandera de compléter.
+
+> 🚨 Ordonner les noms des propriétés par ordre alphabétique, ça n'est pas que cosmétique : les constructeurs de type Elm sont des fonctions qui prennent leurs arguments dans un ordre déterministe !
+
+#### Main
+
+Compléter la fonction `loadDataForScope` du module [`Main`](../src/Main.elm) en ajoutant les trois URLs des fichiers JSON correspondant à charger :
+
+```elm
+    Scope.Generic Scope.Flowers ->
+        [ ( "/data/flowers/components.json", \data raw -> { raw | flowersComponents = data } )
+        , ( "/data/flowers/categories.json", \data raw -> { raw | flowersProductCategories = data } )
+        , ( "/data/flowers/examples.json", \data raw -> { raw | flowersExamples = data } )
+        ]
+```
+
+## 3. Mises à jour manuelles spécifiques
+
+Le compilateur Elm est un outil précieux mais certains fichiers compilent encore si on oublie d'opérer certaines modifications manuellement, et ce à deux niveaux principalement :
+
+- les sources de données à charger pour le nouveau scope (composants, catégories de produits et exemples)
+- les menus de navigation et certains affichages dans l'interface utilisateur
 
 Les URL d'accès à la calculatrice seront donc préfixées par `flowers`, comme `#/flowers/simulator`.
 
@@ -258,45 +246,6 @@ Si vous décidez d'ajouter des catégories ou des composants à ce stade, vérif
 - pour `components.json`, que chaque composant ait une propriété `"scopes": ["flowers"]`
 - pour `categories.json`, que chaque catégorie ait au minimum les propriétés requises `"cooling"`, `"id"`, `"label"` et `"scope": "flowers"`
 
-#### Data.Db
-
-Dans le module [`Data.Db`](../src/Data/Db.elm), ajouter les nouveaux champs de données au type `Properties`.
-
-```elm
-type alias Properties a =
-    …
-    , flowersComponents : a
-    , flowersExamples : a
-    , flowersProductCategories : a
-    , food2Components : a
-```
-
-> 🚨 Ordonner les noms des propriétés par ordre alphabétique, ça n'est pas que cosmétique : les constructeurs de type Elm sont des fonctions qui prennent leurs arguments dans un ordre déterministe !
-
-Puis les inclure dans la phase d'assemblage dans la fonction `build` :
-
-```elm
-build : RawJsonStrings -> Result String Db
-    …
-    ([ json.flowersComponents
-     , json.food2Components
-     , json.objectComponents
-     , json.textileComponents
-     , json.veliComponents
-     ]
-```
-
-Et enfin passer le contenu JSON des exemples à la fonction `GenericDb.buildFromJson` :
-
-```elm
-    |> GenericDb.buildFromJson
-        (extractJsonString json.flowersExamples)
-        (extractJsonString json.food2Examples)
-        (extractJsonString json.objectExamples)
-        (extractJsonString json.veliExamples)
-```
-
-> 💡 Ajouter aussi les accesseurs correspondants à la liste `propGetters` du même module : elle sert notamment au suivi de progression du chargement dans `Request.Db`.
 
 #### Request.Db
 
@@ -309,36 +258,7 @@ Dans le module [`Request.Db`](../src/Request/Db.elm), initialiser l'état de cha
     , food2Components = RemoteData.NotAsked
 ```
 
-#### Main
-
-Dans la fonction `loadData` du module [`Main`](../src/Main.elm), ajouter les trois URLs des fichiers JSON correspondant à charger :
-
-```elm
-    , ( "/data/flowers/categories.json", \data raw -> { raw | flowersProductCategories = data } )
-    , ( "/data/flowers/components.json", \data raw -> { raw | flowersComponents = data } )
-    , ( "/data/flowers/examples.json", \data raw -> { raw | flowersExamples = data } )
-    , ( "/data/food2/examples.json", \data raw -> { raw | food2Examples = data } )
-```
-
 > ⚠️ Encore une fois, l'ordre doit scrupuleusement suivre celui du type `Properties`, comme évoqué plus haut.
-
-#### Data.Generic.Db
-
-Dans le module [`Data.Generic.Db`](../src/Data/Generic/Db.elm), `buildFromJson` décode et concatène le contenu JSON des exemples pour chaque scope générique. On y ajoute la chaîne JSON du nouveau scope, contenue dans l'argument `flowersExamplesJson`, à la liste :
-
-```elm
-buildFromJson flowersExamplesJson food2ExamplesJson objectExamplesJson veliExamplesJson processes =
-    [ flowersExamplesJson
-    , food2ExamplesJson
-    , objectExamplesJson
-    , veliExamplesJson
-    ]
-        |> RE.combineMap
-            (Example.decodeListFromJsonString <|
-                Component.decodeQuery processes
-            )
-        |> Result.map (List.concat >> Db)
-```
 
 #### Static.ProdDb et template JSON
 
@@ -383,7 +303,7 @@ rawJsonComponents =
     }
 ```
 
-> 💡 Seuls les données JSON des composants transitent par `RawJsonComponents` ; les exemples et catégories de produit conservent leurs propres constantes `*Json` (comme `flowersExamplesJson`).
+> 💡 Seules les données JSON des composants transitent par `RawJsonComponents` ; les exemples et catégories de produit conservent leurs propres constantes `*Json` (comme `flowersExamplesJson`).
 
 Mobiliser ces nouveaux contenus JSON dans `dbFromJsonStrings`, dans [`Static.ProdDb`](../src/Static/ProdDb.elm) et [`Static.TestDb`](../src/Static/TestDb.elm). Ces fonctions passent des chaînes JSON brutes à `Db.buildFromStrings` :
 
@@ -454,9 +374,8 @@ Dans [`index.js`](../index.js), on ajoute donc le flag `flowers` à `enabledSect
 Dans la fonction `mainMenuLinks` du module [`Views.Page`](../src/Views/Page.elm), conditionner l'affichage de la nouvelle entrée de menu sectorielle en vérifiant le flag `enabledSections.flowers` :
 
 ```elm
-    , addRouteIf enabledSections.flowers <|
-        Internal [ text "Fleurs" ]
-          (Route.GenericSimulatorHome Scope.Flowers) (Generic Scope.Flowers)
+    , addRouteIf enabledSections.flowers
+        (\() -> Internal [ text "Fleurs" ] (Route.GenericSimulatorHome Scope.Flowers) (Generic Scope.Flowers))
 ```
 
 > 💡 Un bouton d'appel sur la page d'accueil est totalement optionnel. S'il est ajouté, le filtrer dans [`Page.Home`](../src/Page/Home.elm) avec le même flag.
