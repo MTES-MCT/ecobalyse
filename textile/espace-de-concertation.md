@@ -3,7 +3,6 @@ description: >-
   Cette page est le point d'entrée de la co-construction méthodologique du
   secteur Textile. Elle centralise les travaux en cours, les échéances à venir
   et les questions ouvertes.
-hidden: true
 ---
 
 # 🧭 Espace de concertation
@@ -173,8 +172,8 @@ A compléter
 
 Cette section regroupe les **questions ouvertes** pour lesquelles l'expertise des parties prenantes est activement sollicitée. Merci de contribuer avant les dates de clôture indiquées.
 
-\=⇒  Aucun sondage n'est actuellement démarré
+⇒  Aucun sondage n'est actuellement démarré.
 
 ### 📅 Agenda et jalons à venir
 
-<table><thead><tr><th>Date</th><th>Événement</th><th width="205.6666259765625">Type</th><th width="71">Lien</th></tr></thead><tbody><tr><td>[Date]</td><td>[Nom de l'atelier ou réunion]</td><td>Atelier / Webinaire / Clôture consultation</td><td></td></tr><tr><td>[Date]</td><td>[Publication d'un document]</td><td>Document</td><td></td></tr><tr><td>[Date]</td><td>[Clôture d'un sondage]</td><td>Consultation</td><td></td></tr><tr><td>[Date]</td><td>[Mise à jour de la méthode]</td><td>Livrable</td><td></td></tr></tbody></table>
+<table><thead><tr><th>Date</th><th>Événement</th><th width="205.6666259765625">Type</th></tr></thead><tbody><tr><td>[Date]</td><td>[Nom de la réunion]</td><td>Atelier / Webinaire</td></tr><tr><td>[Date]</td><td>[Publication d'un document]</td><td>Document</td></tr><tr><td>[Date]</td><td>[Clôture d'un sondage]</td><td>Consultation</td></tr><tr><td>[Date]</td><td>[Mise à jour de la méthode]</td><td>Livrable</td></tr></tbody></table>
