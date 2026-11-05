@@ -153,21 +153,11 @@ Ajouter les jeux de données de `datasetsGeneric` pour `Scope.Generic Scope.Flow
         ]
 ```
 
-Ajouter également les slugs attendus pour les URLs de l'explorateur du nouveau scope `flowers` aux branches gérées par la fonction `datasetToString`, ce qui permettra à l'explorateur de les résoudre ; par exemple, ajouter ces branches pour gérer les nouveaux slugs vers les datasets à explorer correspondants :
-
-```elm
-    Components (Scope.Generic Scope.Flowers) _ ->
-        "flowers-components"
-
-    GenericExamples Scope.Flowers _ ->
-        "flowers-examples"
-
-    Processes (Scope.Generic Scope.Flowers) _ ->
-        "flowers-processes"
-
-    ProductCategory Scope.Flowers _ ->
-        "flowers-product-categories"
-```
+Ajouter également les slugs attendus pour les URLs de l'explorateur du nouveau scope `flowers` dans les fonctions suivantes :
+- `componentGenericDatasetToString`
+- `processesDatasetGenericToString`
+- `examplesDatasetToString`
+- `productCategoryDatasetToString`
 
 ### Éléments de vue génériques
 

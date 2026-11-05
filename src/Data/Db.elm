@@ -143,21 +143,26 @@ scopeComponents json scope =
             Nothing
 
         Scope.Generic genericScope ->
-            case genericScope of
-                Scope.Apparel ->
-                    Just json.apparelComponents
-
-                Scope.Food2 ->
-                    Just json.food2Components
-
-                Scope.Object ->
-                    Just json.objectComponents
-
-                Scope.Veli ->
-                    Just json.veliComponents
+            Just (scopeGenericComponents json genericScope)
 
         Scope.Textile ->
             Just json.textileComponents
+
+
+scopeGenericComponents : RawJsonStrings -> Scope.GenericScope -> RawJsonString
+scopeGenericComponents json scope =
+    case scope of
+        Scope.Apparel ->
+            json.apparelComponents
+
+        Scope.Food2 ->
+            json.food2Components
+
+        Scope.Object ->
+            json.objectComponents
+
+        Scope.Veli ->
+            json.veliComponents
 
 
 scopeGenericExamples : RawJsonStrings -> Scope.GenericScope -> RawJsonString
@@ -226,34 +231,41 @@ scopePropGetters scope =
             , .foodProductExamples
             ]
 
-        Scope.Generic Scope.Apparel ->
-            [ .apparelProductCategories
-            , .apparelComponents
-            , .apparelExamples
-            ]
-
-        Scope.Generic Scope.Food2 ->
-            [ .food2ProductCategories
-            , .food2Examples
-            ]
-
-        Scope.Generic Scope.Object ->
-            [ .objectProductCategories
-            , .objectComponents
-            , .objectExamples
-            ]
-
-        Scope.Generic Scope.Veli ->
-            [ .veliProductCategories
-            , .veliComponents
-            , .veliExamples
-            ]
+        Scope.Generic genericScope ->
+            scopeGenericPropGetters genericScope
 
         Scope.Textile ->
             [ .textileComponents
             , .textileMaterials
             , .textileProductExamples
             , .textileProducts
+            ]
+
+
+scopeGenericPropGetters : Scope.GenericScope -> List (Properties a -> a)
+scopeGenericPropGetters scope =
+    case scope of
+        Scope.Apparel ->
+            [ .apparelProductCategories
+            , .apparelComponents
+            , .apparelExamples
+            ]
+
+        Scope.Food2 ->
+            [ .food2ProductCategories
+            , .food2Examples
+            ]
+
+        Scope.Object ->
+            [ .objectProductCategories
+            , .objectComponents
+            , .objectExamples
+            ]
+
+        Scope.Veli ->
+            [ .veliProductCategories
+            , .veliComponents
+            , .veliExamples
             ]
 
 

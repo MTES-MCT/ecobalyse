@@ -194,20 +194,27 @@ componentDatasetToString scope =
         Scope.Food ->
             "food-components"
 
-        Scope.Generic Scope.Apparel ->
-            "apparel-components"
-
-        Scope.Generic Scope.Food2 ->
-            "food2-components"
-
-        Scope.Generic Scope.Object ->
-            "object-components"
-
-        Scope.Generic Scope.Veli ->
-            "veli-components"
+        Scope.Generic genericScope ->
+            componentGenericDatasetToString genericScope
 
         Scope.Textile ->
             "textile-components"
+
+
+componentGenericDatasetToString : Scope.GenericScope -> String
+componentGenericDatasetToString scope =
+    case scope of
+        Scope.Apparel ->
+            "apparel-components"
+
+        Scope.Food2 ->
+            "food2-components"
+
+        Scope.Object ->
+            "object-components"
+
+        Scope.Veli ->
+            "veli-components"
 
 
 processesDatasetToString : Scope -> String
@@ -216,20 +223,27 @@ processesDatasetToString scope =
         Scope.Food ->
             "food-processes"
 
-        Scope.Generic Scope.Apparel ->
-            "apparel-processes"
-
-        Scope.Generic Scope.Food2 ->
-            "food2-processes"
-
-        Scope.Generic Scope.Object ->
-            "object-processes"
-
-        Scope.Generic Scope.Veli ->
-            "veli-processes"
+        Scope.Generic genericScope ->
+            processesDatasetGenericToString genericScope
 
         Scope.Textile ->
             "processes"
+
+
+processesDatasetGenericToString : Scope.GenericScope -> String
+processesDatasetGenericToString scope =
+    case scope of
+        Scope.Apparel ->
+            "apparel-processes"
+
+        Scope.Food2 ->
+            "food2-processes"
+
+        Scope.Object ->
+            "object-processes"
+
+        Scope.Veli ->
+            "veli-processes"
 
 
 examplesDatasetToString : Scope.GenericScope -> String
