@@ -530,119 +530,143 @@ update ({ navKey } as session) msg model =
         ( NoOp, _ ) ->
             createPageUpdate session model
 
-        ( OnAutocompleteAddProductionItem autocompleteMsg, (AddProductionItemModal autocompleteState) :: otherModals ) ->
-            let
-                ( newAutocompleteState, autoCompleteCmd ) =
-                    Autocomplete.update autocompleteMsg autocompleteState
-            in
-            { model | modals = AddProductionItemModal newAutocompleteState :: otherModals }
-                |> createPageUpdate session
-                |> App.withCmds [ Cmd.map OnAutocompleteAddProductionItem autoCompleteCmd ]
+        ( OnAutocompleteAddProductionItem autocompleteMsg, _ ) ->
+            case model.modals of
+                (AddProductionItemModal autocompleteState) :: otherModals ->
+                    let
+                        ( newAutocompleteState, autoCompleteCmd ) =
+                            Autocomplete.update autocompleteMsg autocompleteState
+                    in
+                    { model | modals = AddProductionItemModal newAutocompleteState :: otherModals }
+                        |> createPageUpdate session
+                        |> App.withCmds [ Cmd.map OnAutocompleteAddProductionItem autoCompleteCmd ]
 
-        ( OnAutocompleteAddProductionItem _, _ ) ->
-            createPageUpdate session model
+                _ ->
+                    createPageUpdate session model
 
-        ( OnAutocompleteAddAssemblyOperation autocompleteMsg, (SelectAssemblyOperationModal autocompleteState) :: otherModals ) ->
-            let
-                ( newAutocompleteState, autoCompleteCmd ) =
-                    Autocomplete.update autocompleteMsg autocompleteState
-            in
-            { model | modals = SelectAssemblyOperationModal newAutocompleteState :: otherModals }
-                |> createPageUpdate session
-                |> App.withCmds [ Cmd.map OnAutocompleteAddAssemblyOperation autoCompleteCmd ]
+        ( OnAutocompleteAddAssemblyOperation autocompleteMsg, _ ) ->
+            case model.modals of
+                (SelectAssemblyOperationModal autocompleteState) :: otherModals ->
+                    let
+                        ( newAutocompleteState, autoCompleteCmd ) =
+                            Autocomplete.update autocompleteMsg autocompleteState
+                    in
+                    { model | modals = SelectAssemblyOperationModal newAutocompleteState :: otherModals }
+                        |> createPageUpdate session
+                        |> App.withCmds [ Cmd.map OnAutocompleteAddAssemblyOperation autoCompleteCmd ]
 
-        ( OnAutocompleteAddAssemblyOperation _, _ ) ->
-            createPageUpdate session model
+                _ ->
+                    createPageUpdate session model
 
-        ( OnAutocompleteAddConsumption autocompleteMsg, (SelectConsumptionModal autocompleteState) :: otherModals ) ->
-            let
-                ( newAutocompleteState, autoCompleteCmd ) =
-                    Autocomplete.update autocompleteMsg autocompleteState
-            in
-            { model | modals = SelectConsumptionModal newAutocompleteState :: otherModals }
-                |> createPageUpdate session
-                |> App.withCmds [ Cmd.map OnAutocompleteAddConsumption autoCompleteCmd ]
+        ( OnAutocompleteAddConsumption autocompleteMsg, _ ) ->
+            case model.modals of
+                (SelectConsumptionModal autocompleteState) :: otherModals ->
+                    let
+                        ( newAutocompleteState, autoCompleteCmd ) =
+                            Autocomplete.update autocompleteMsg autocompleteState
+                    in
+                    { model | modals = SelectConsumptionModal newAutocompleteState :: otherModals }
+                        |> createPageUpdate session
+                        |> App.withCmds [ Cmd.map OnAutocompleteAddConsumption autoCompleteCmd ]
 
-        ( OnAutocompleteAddConsumption _, _ ) ->
-            createPageUpdate session model
+                _ ->
+                    createPageUpdate session model
 
-        ( OnAutocompleteAddProcess category targetItem maybeIndex autocompleteMsg, (SelectProcessModal _ _ _ autocompleteState) :: otherModals ) ->
-            let
-                ( newAutocompleteState, autoCompleteCmd ) =
-                    Autocomplete.update autocompleteMsg autocompleteState
-            in
-            { model | modals = SelectProcessModal category targetItem maybeIndex newAutocompleteState :: otherModals }
-                |> createPageUpdate session
-                |> App.withCmds [ Cmd.map (OnAutocompleteAddProcess category targetItem maybeIndex) autoCompleteCmd ]
+        ( OnAutocompleteAddProcess category targetItem maybeIndex autocompleteMsg, _ ) ->
+            case model.modals of
+                (SelectProcessModal _ _ _ autocompleteState) :: otherModals ->
+                    let
+                        ( newAutocompleteState, autoCompleteCmd ) =
+                            Autocomplete.update autocompleteMsg autocompleteState
+                    in
+                    { model | modals = SelectProcessModal category targetItem maybeIndex newAutocompleteState :: otherModals }
+                        |> createPageUpdate session
+                        |> App.withCmds [ Cmd.map (OnAutocompleteAddProcess category targetItem maybeIndex) autoCompleteCmd ]
 
-        ( OnAutocompleteAddProcess _ _ _ _, _ ) ->
-            createPageUpdate session model
+                _ ->
+                    createPageUpdate session model
 
-        ( OnAutocompleteExample autocompleteMsg, (SelectExampleModal autocompleteState) :: otherModals ) ->
-            let
-                ( newAutocompleteState, autoCompleteCmd ) =
-                    Autocomplete.update autocompleteMsg autocompleteState
-            in
-            { model | modals = SelectExampleModal newAutocompleteState :: otherModals }
-                |> createPageUpdate session
-                |> App.withCmds [ Cmd.map OnAutocompleteExample autoCompleteCmd ]
+        ( OnAutocompleteExample autocompleteMsg, _ ) ->
+            case model.modals of
+                (SelectExampleModal autocompleteState) :: otherModals ->
+                    let
+                        ( newAutocompleteState, autoCompleteCmd ) =
+                            Autocomplete.update autocompleteMsg autocompleteState
+                    in
+                    { model | modals = SelectExampleModal newAutocompleteState :: otherModals }
+                        |> createPageUpdate session
+                        |> App.withCmds [ Cmd.map OnAutocompleteExample autoCompleteCmd ]
 
-        ( OnAutocompleteExample _, _ ) ->
-            createPageUpdate session model
+                _ ->
+                    createPageUpdate session model
 
-        ( OnAutocompletePackaging autocompleteMsg, (SelectPackagingModal autocompleteState) :: otherModals ) ->
-            let
-                ( newAutocompleteState, autoCompleteCmd ) =
-                    Autocomplete.update autocompleteMsg autocompleteState
-            in
-            { model | modals = SelectPackagingModal newAutocompleteState :: otherModals }
-                |> createPageUpdate session
-                |> App.withCmds [ Cmd.map OnAutocompletePackaging autoCompleteCmd ]
+        ( OnAutocompletePackaging autocompleteMsg, _ ) ->
+            case model.modals of
+                (SelectPackagingModal autocompleteState) :: otherModals ->
+                    let
+                        ( newAutocompleteState, autoCompleteCmd ) =
+                            Autocomplete.update autocompleteMsg autocompleteState
+                    in
+                    { model | modals = SelectPackagingModal newAutocompleteState :: otherModals }
+                        |> createPageUpdate session
+                        |> App.withCmds [ Cmd.map OnAutocompletePackaging autoCompleteCmd ]
 
-        ( OnAutocompletePackaging _, _ ) ->
-            createPageUpdate session model
-
-        ( OnAutocompleteSelectProductionItem, (AddProductionItemModal autocompleteState) :: _ ) ->
-            createPageUpdate session model
-                |> selectProductionItem query autocompleteState
+                _ ->
+                    createPageUpdate session model
 
         ( OnAutocompleteSelectProductionItem, _ ) ->
-            createPageUpdate session model
+            case model.modals of
+                (AddProductionItemModal autocompleteState) :: _ ->
+                    createPageUpdate session model
+                        |> selectProductionItem query autocompleteState
 
-        ( OnAutocompleteSelectAssemblyOperation, (SelectAssemblyOperationModal autocompleteState) :: _ ) ->
-            createPageUpdate session model
-                |> selectAssemblyOperation requirements query autocompleteState
+                _ ->
+                    createPageUpdate session model
 
         ( OnAutocompleteSelectAssemblyOperation, _ ) ->
-            createPageUpdate session model
+            case model.modals of
+                (SelectAssemblyOperationModal autocompleteState) :: _ ->
+                    createPageUpdate session model
+                        |> selectAssemblyOperation requirements query autocompleteState
 
-        ( OnAutocompleteSelectConsumption, (SelectConsumptionModal autocompleteState) :: _ ) ->
-            createPageUpdate session model
-                |> selectConsumption requirements query autocompleteState
+                _ ->
+                    createPageUpdate session model
 
         ( OnAutocompleteSelectConsumption, _ ) ->
-            createPageUpdate session model
+            case model.modals of
+                (SelectConsumptionModal autocompleteState) :: _ ->
+                    createPageUpdate session model
+                        |> selectConsumption requirements query autocompleteState
 
-        ( OnAutocompleteSelectExample, (SelectExampleModal autocompleteState) :: _ ) ->
-            createPageUpdate session model
-                |> selectExample autocompleteState
+                _ ->
+                    createPageUpdate session model
 
         ( OnAutocompleteSelectExample, _ ) ->
-            createPageUpdate session model
+            case model.modals of
+                (SelectExampleModal autocompleteState) :: _ ->
+                    createPageUpdate session model
+                        |> selectExample autocompleteState
 
-        ( OnAutocompleteSelectPackaging, (SelectPackagingModal autocompleteState) :: _ ) ->
-            createPageUpdate session model
-                |> addPackaging query autocompleteState
+                _ ->
+                    createPageUpdate session model
 
         ( OnAutocompleteSelectPackaging, _ ) ->
-            createPageUpdate session model
+            case model.modals of
+                (SelectPackagingModal autocompleteState) :: _ ->
+                    createPageUpdate session model
+                        |> addPackaging query autocompleteState
 
-        ( OnAutocompleteSelectProcess category targetItem elementIndex, (SelectProcessModal _ _ _ autocompleteState) :: _ ) ->
-            createPageUpdate session model
-                |> selectProcess category targetItem elementIndex autocompleteState query
+                _ ->
+                    createPageUpdate session model
 
-        ( OnAutocompleteSelectProcess _ _ _, _ ) ->
-            createPageUpdate session model
+        ( OnAutocompleteSelectProcess category targetItem elementIndex, _ ) ->
+            case model.modals of
+                (SelectProcessModal _ _ _ autocompleteState) :: _ ->
+                    createPageUpdate session model
+                        |> selectProcess category targetItem elementIndex autocompleteState query
+
+                _ ->
+                    createPageUpdate session model
 
         ( OnDragLeaveBookmark, _ ) ->
             { model | bookmarkBeingOvered = Nothing }
