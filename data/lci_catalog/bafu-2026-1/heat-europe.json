@@ -1,0 +1,16 @@
+{
+  "activityName": "District heat, at consumer, swiss average, allocation exergy {CH} U",
+  "categories": ["energy"],
+  "comment": "",
+  "displayName": "Mix chaleur (Europe)",
+  "elecKwh": 0.0,
+  "heatMJ": 0,
+  "id": "f6ea2983-e024-5de2-b323-273f2436deba",
+  "metadata": [
+    { "id": "27adfc6e-bbf2-4d94-bea4-a5e0ad1fe074", "scopes": ["apparel", "object", "food2", "veli"] }
+  ],
+  "qtyVariationRatio": 1,
+  "scopes": ["apparel", "food2", "object", "textile", "veli"],
+  "source": "BAFU 2025v2",
+  "unit": "MJ"
+}
