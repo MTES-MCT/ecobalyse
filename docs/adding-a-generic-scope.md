@@ -140,7 +140,7 @@ ou `updateGenericQuery` :
 
 Le type `Dataset` du module [`Data.Dataset`](../src/Data/Dataset.elm) décrit le type de données de l'[Explorateur](/#/explore/food2).
 
-Ajouter les jeux de données de `datasetsGeneric` pour `Scope.Generic Scope.Flowers`. Par exemple pour :
+Ajouter les jeux de données de `datasetsGeneric` pour `Scope.Flowers`. Par exemple pour :
 
 ```elm
     Scope.Flowers ->
