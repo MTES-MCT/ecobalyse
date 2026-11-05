@@ -347,72 +347,82 @@ update ({ db, queries, navKey } as session) msg model =
                     , Ports.loadCharts ()
                     ]
 
-        ( OnAutocompleteTrim autocompleteMsg, AddTrimModal autocompleteState ) ->
-            let
-                ( newAutocompleteState, autoCompleteCmd ) =
-                    Autocomplete.update autocompleteMsg autocompleteState
-            in
-            { model | modal = AddTrimModal newAutocompleteState }
-                |> createPageUpdate session
-                |> App.withCmds [ Cmd.map OnAutocompleteTrim autoCompleteCmd ]
+        ( OnAutocompleteTrim autocompleteMsg, _ ) ->
+            case model.modal of
+                AddTrimModal autocompleteState ->
+                    let
+                        ( newAutocompleteState, autoCompleteCmd ) =
+                            Autocomplete.update autocompleteMsg autocompleteState
+                    in
+                    { model | modal = AddTrimModal newAutocompleteState }
+                        |> createPageUpdate session
+                        |> App.withCmds [ Cmd.map OnAutocompleteTrim autoCompleteCmd ]
 
-        ( OnAutocompleteTrim _, _ ) ->
-            createPageUpdate session model
+                _ ->
+                    createPageUpdate session model
 
-        ( OnAutocompleteExample autocompleteMsg, SelectExampleModal autocompleteState ) ->
-            let
-                ( newAutocompleteState, autoCompleteCmd ) =
-                    Autocomplete.update autocompleteMsg autocompleteState
-            in
-            { model | modal = SelectExampleModal newAutocompleteState }
-                |> createPageUpdate session
-                |> App.withCmds [ Cmd.map OnAutocompleteExample autoCompleteCmd ]
+        ( OnAutocompleteExample autocompleteMsg, _ ) ->
+            case model.modal of
+                SelectExampleModal autocompleteState ->
+                    let
+                        ( newAutocompleteState, autoCompleteCmd ) =
+                            Autocomplete.update autocompleteMsg autocompleteState
+                    in
+                    { model | modal = SelectExampleModal newAutocompleteState }
+                        |> createPageUpdate session
+                        |> App.withCmds [ Cmd.map OnAutocompleteExample autoCompleteCmd ]
 
-        ( OnAutocompleteExample _, _ ) ->
-            createPageUpdate session model
+                _ ->
+                    createPageUpdate session model
 
-        ( OnAutocompleteProduct autocompleteMsg, SelectProductModal autocompleteState ) ->
-            let
-                ( newAutocompleteState, autoCompleteCmd ) =
-                    Autocomplete.update autocompleteMsg autocompleteState
-            in
-            { model | modal = SelectProductModal newAutocompleteState }
-                |> createPageUpdate session
-                |> App.withCmds [ Cmd.map OnAutocompleteProduct autoCompleteCmd ]
+        ( OnAutocompleteProduct autocompleteMsg, _ ) ->
+            case model.modal of
+                SelectProductModal autocompleteState ->
+                    let
+                        ( newAutocompleteState, autoCompleteCmd ) =
+                            Autocomplete.update autocompleteMsg autocompleteState
+                    in
+                    { model | modal = SelectProductModal newAutocompleteState }
+                        |> createPageUpdate session
+                        |> App.withCmds [ Cmd.map OnAutocompleteProduct autoCompleteCmd ]
 
-        ( OnAutocompleteProduct _, _ ) ->
-            createPageUpdate session model
+                _ ->
+                    createPageUpdate session model
 
-        ( OnAutocompleteMaterial autocompleteMsg, AddMaterialModal maybeOldMaterial autocompleteState ) ->
-            let
-                ( newAutocompleteState, autoCompleteCmd ) =
-                    Autocomplete.update autocompleteMsg autocompleteState
-            in
-            { model | modal = AddMaterialModal maybeOldMaterial newAutocompleteState }
-                |> createPageUpdate session
-                |> App.withCmds [ Cmd.map OnAutocompleteMaterial autoCompleteCmd ]
+        ( OnAutocompleteMaterial autocompleteMsg, _ ) ->
+            case model.modal of
+                AddMaterialModal maybeOldMaterial autocompleteState ->
+                    let
+                        ( newAutocompleteState, autoCompleteCmd ) =
+                            Autocomplete.update autocompleteMsg autocompleteState
+                    in
+                    { model | modal = AddMaterialModal maybeOldMaterial newAutocompleteState }
+                        |> createPageUpdate session
+                        |> App.withCmds [ Cmd.map OnAutocompleteMaterial autoCompleteCmd ]
 
-        ( OnAutocompleteMaterial _, _ ) ->
-            createPageUpdate session model
-
-        ( OnAutocompleteSelect, AddMaterialModal maybeOldMaterial autocompleteState ) ->
-            createPageUpdate session model
-                |> updateMaterial query maybeOldMaterial autocompleteState
-
-        ( OnAutocompleteSelect, AddTrimModal autocompleteState ) ->
-            createPageUpdate session model
-                |> selectTrim autocompleteState
-
-        ( OnAutocompleteSelect, SelectExampleModal autocompleteState ) ->
-            createPageUpdate session model
-                |> selectExample autocompleteState
-
-        ( OnAutocompleteSelect, SelectProductModal autocompleteState ) ->
-            createPageUpdate session model
-                |> selectProduct autocompleteState
+                _ ->
+                    createPageUpdate session model
 
         ( OnAutocompleteSelect, _ ) ->
-            createPageUpdate session model
+            case model.modal of
+                AddMaterialModal maybeOldMaterial autocompleteState ->
+                    createPageUpdate session model
+                        |> updateMaterial query maybeOldMaterial autocompleteState
+
+                AddTrimModal autocompleteState ->
+                    createPageUpdate session model
+                        |> selectTrim autocompleteState
+
+                SelectExampleModal autocompleteState ->
+                    createPageUpdate session model
+                        |> selectExample autocompleteState
+
+                SelectProductModal autocompleteState ->
+                    createPageUpdate session model
+                        |> selectProduct autocompleteState
+
+                _ ->
+                    createPageUpdate session model
 
         ( OnDragLeaveBookmark, _ ) ->
             { model | bookmarkBeingOvered = Nothing }
