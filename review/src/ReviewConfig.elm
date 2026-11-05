@@ -57,10 +57,7 @@ config =
 
     -- NoUnused
     , NoUnused.CustomTypeConstructors.rule []
-        |> Rule.ignoreErrorsForFiles
-            [ "src/Views/Modal.elm"
-            , "src/Page/Home.elm"
-            ]
+        |> Rule.ignoreErrorsForFiles [ "src/Views/Modal.elm" ]
     , NoUnused.CustomTypeConstructorArgs.rule
         |> Rule.ignoreErrorsForFiles
             [ "src/Server/Route.elm"

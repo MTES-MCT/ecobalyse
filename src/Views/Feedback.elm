@@ -35,7 +35,6 @@ view close =
             ]
         , footer = []
         , formAction = Nothing
-        , noOp = close
         , size = Modal.Standard
         , subTitle = Nothing
         , title = "Donnez-nous votre avis !"

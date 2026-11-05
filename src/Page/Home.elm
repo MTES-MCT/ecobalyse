@@ -28,8 +28,7 @@ type alias Model =
 
 
 type Msg
-    = NoOp
-    | ProcessLink Link
+    = ProcessLink Link
 
 
 type Link
@@ -55,9 +54,6 @@ init session =
 update : Session -> Msg -> Model -> PageUpdate Model Msg
 update session msg model =
     case msg of
-        NoOp ->
-            App.createUpdate session model
-
         ProcessLink (ExternalLink url) ->
             App.createUpdate session model
                 |> App.withCmds [ Nav.load url ]
