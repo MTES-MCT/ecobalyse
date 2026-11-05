@@ -740,16 +740,20 @@ updateMaterial query maybeOldMaterial autocompleteState pageUpdate =
         maybeSelectedValue =
             Autocomplete.selectedValue autocompleteState
     in
-    Maybe.map2
-        (updateExistingMaterial query pageUpdate)
-        maybeOldMaterial
-        maybeSelectedValue
-        |> Maybe.withDefault
+    case
+        Maybe.map2
+            (updateExistingMaterial query pageUpdate)
+            maybeOldMaterial
+            maybeSelectedValue
+    of
+        Just newPageUpdate ->
+            newPageUpdate
+
+        Nothing ->
             -- Add a new Material
-            (pageUpdate
+            pageUpdate
                 |> App.apply update (SetModal NoModal)
                 |> selectMaterial autocompleteState
-            )
 
 
 selectExample : Autocomplete Query -> PageUpdate Model Msg -> PageUpdate Model Msg
