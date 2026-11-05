@@ -17,8 +17,8 @@ type alias Db =
     }
 
 
-buildFromJson : List String -> List Process -> Result String Db
-buildFromJson examplesJson processes =
+buildFromJson : List Process -> List String -> Result String Db
+buildFromJson processes examplesJson =
     examplesJson
         |> RE.combineMap
             (Example.decodeListFromJsonString <|

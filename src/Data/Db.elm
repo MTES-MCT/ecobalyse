@@ -112,9 +112,9 @@ build json =
                                 (extractJsonString json.foodIngredients)
                         )
                     |> RE.andMap
-                        (GenericDb.buildFromJson
-                            (List.map (\scope -> extractJsonString (scopeGenericExamples json scope)) Scope.allGeneric)
-                            processes
+                        (Scope.allGeneric
+                            |> List.map (\scope -> extractJsonString (scopeGenericExamples json scope))
+                            |> GenericDb.buildFromJson processes
                         )
                     |> RE.andMap (Ok processes)
                     |> RE.andMap
