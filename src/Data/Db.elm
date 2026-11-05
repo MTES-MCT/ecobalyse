@@ -272,6 +272,7 @@ scopeGenericPropGetters scope =
 
         Scope.Food2 ->
             [ .food2ProductCategories
+            , .food2Components
             , .food2Examples
             ]
 
