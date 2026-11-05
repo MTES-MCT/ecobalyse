@@ -29,16 +29,16 @@ Les chantiers méthodologiques actuellement ouverts sont listés ci-dessous, ave
 
 <summary>📁 Bascule vers le modèle générique d'Ecobalyse</summary>
 
-|              |                                                                  |
-| ------------ | ---------------------------------------------------------------- |
-| **Statut**   | 🟡 En cours / 🟢 Ouvert à consultation / 🔴 Arbitrage en attente |
-| **Échéance** | \[Date ou trimestre cible]                                       |
+|              |                              |
+| ------------ | ---------------------------- |
+| **Statut**   | 🟡 En cours de développement |
+| **Échéance** | 1er semestre 2027            |
 
-**Description :** \[Quelques lignes décrivant l'objet du chantier, pourquoi il est ouvert, ce qu'il vise à modifier ou préciser dans la méthode.]
+**Enjeu :** La méthode textile actuelle repose sur un modèle spécifique à l'habillement, monocomposant et peu flexible. L'objectif est de basculer vers un **modèle générique multicomposant**, permettant de représenter plus précisément la composition des articles textiles : plusieurs composants dans un même produit, distinction entre composants principaux et secondaires, doublures, rembourrages, éléments constitutifs complexes.
 
-**Où en sommes-nous ?** \[Description de l'étape actuelle : analyse en cours, premier draft soumis, retours en cours de consolidation…]
+**Où en sommes-nous ?** Les travaux de développement et de transposition des modèles sont en cours. Le développement n'est pas encore achevé.
 
-**Prochaine étape :** \[Ce qui est prévu : atelier, publication d'un document, clôture du sondage…]
+**Pourquoi c'est structurant ?** Ce chantier est un **prérequis à la quasi-totalité des autres évolutions** : intégration de la lingerie, nouvelles catégories de produits complexes, évolution des paramètres de calcul, intégration des nouvelles données matières premières et procédés.
 
 </details>
 
@@ -46,18 +46,126 @@ Les chantiers méthodologiques actuellement ouverts sont listés ci-dessous, ave
 
 <details>
 
-<summary>📁 [Titre du chantier n°2]</summary>
+<summary>📁 Enrichissement des données — Matières premières</summary>
 
-|              |                                                                  |
-| ------------ | ---------------------------------------------------------------- |
-| **Statut**   | 🟡 En cours / 🟢 Ouvert à consultation / 🔴 Arbitrage en attente |
-| **Échéance** | \[Date ou trimestre cible]                                       |
+| **Statut**   | 🟡 En cours                                                          |
+| ------------ | -------------------------------------------------------------------- |
+| **Échéance** | Fin 2026 (première vague), puis intégration dans le modèle générique |
 
-**Description :** \[Quelques lignes décrivant l'objet du chantier, pourquoi il est ouvert, ce qu'il vise à modifier ou préciser dans la méthode.]
+**Enjeu** L'objectif est de remplacer progressivement les données génériques ou les proxys actuellement utilisés par des **jeux de données plus précis et mieux représentatifs.** Ces nouvelles données seront intégrées dans la future version reposant sur le modèle générique et BAFU — elles ne seront pas intégrées dans une simple mise à jour du modèle réglementaire actuel.
 
-**Où en sommes-nous ?** \[Description de l'étape actuelle : analyse en cours, premier draft soumis, retours en cours de consolidation…]
+En parallèle, le tableau des proxys doit être fortement amélioré pour mieux différencier les matières et les filières.
 
-**Prochaine étape :** \[Ce qui est prévu : atelier, publication d'un document, clôture du sondage…]
+Données concernées :&#x20;
+
+* Coton régionalisé, conventionnel, biologique, régénératif (Textile Exchange)
+* Cachemire (Textile Exchange)
+* Polyester vierge, recyclé (Textile Exchange)
+* Plume FR
+* Laine FR (Wisewool)
+* Soie
+
+</details>
+
+
+
+<details>
+
+<summary>📁 Enrichissement des données — Procédés textiles</summary>
+
+| **Statut**                  | 🟡 Revue critique à lancer (décembre 2026) |
+| --------------------------- | ------------------------------------------ |
+| **Échéance revue critique** | Fin février 2027                           |
+
+**Enjeu** : Un partenariat avec **Carbonfact** a été engagé pour mobiliser plus de 300 jeux de données relatifs aux procédés textiles.
+
+**Où en sommes-nous ?**
+
+* La revue critique des \~300 jeux de données est prévue à partir de **décembre 2026**.
+* Elle vise à vérifier la cohérence méthodologique, la compatibilité avec BAFU et la représentativité des données.
+* Les résultats sont attendus pour **fin février 2027**, avec un objectif d'intégration à cette même échéance.
+
+**Prochaines étapes** Un travail de co-construction avec les acteurs de la filière permettra de définir les **données retenues par défaut** pour chaque catégorie de produit). Ces travaux serviront également à identifier les données de procédés qui pourront être rendues paramétrables dans le cadre du niveau 2.
+
+</details>
+
+
+
+<details>
+
+<summary>📁 Niveau 2 — Paramétrage avancé</summary>
+
+A compléter
+
+</details>
+
+
+
+<details>
+
+<summary>📁 Linge de maison</summary>
+
+
+
+</details>
+
+
+
+<details>
+
+<summary>📁 Accessoires textiles</summary>
+
+
+
+</details>
+
+
+
+<details>
+
+<summary>📁 Lingerie</summary>
+
+
+
+</details>
+
+
+
+<details>
+
+<summary>📁 Durabilité intrinsèque</summary>
+
+
+
+</details>
+
+
+
+<details>
+
+<summary>📁 Durabilité extrinsèque</summary>
+
+
+
+</details>
+
+
+
+<details>
+
+<summary>📁 Labels environnementaux</summary>
+
+
+
+</details>
+
+
+
+<details>
+
+<summary>📁 Autres sujets </summary>
+
+
 
 </details>
 
@@ -69,9 +177,4 @@ Cette section regroupe les **questions ouvertes** pour lesquelles l'expertise de
 
 ### 📅 Agenda et jalons à venir
 
-| Date    | Événement                      | Type                                       |
-| ------- | ------------------------------ | ------------------------------------------ |
-| \[Date] | \[Nom de l'atelier ou réunion] | Atelier / Webinaire / Clôture consultation |
-| \[Date] | \[Publication d'un document]   | Document                                   |
-| \[Date] | \[Clôture d'un sondage]        | Consultation                               |
-| \[Date] | \[Mise à jour de la méthode]   | Livrable                                   |
+<table><thead><tr><th>Date</th><th>Événement</th><th width="205.6666259765625">Type</th><th width="71">Lien</th></tr></thead><tbody><tr><td>[Date]</td><td>[Nom de l'atelier ou réunion]</td><td>Atelier / Webinaire / Clôture consultation</td><td></td></tr><tr><td>[Date]</td><td>[Publication d'un document]</td><td>Document</td><td></td></tr><tr><td>[Date]</td><td>[Clôture d'un sondage]</td><td>Consultation</td><td></td></tr><tr><td>[Date]</td><td>[Mise à jour de la méthode]</td><td>Livrable</td><td></td></tr></tbody></table>
