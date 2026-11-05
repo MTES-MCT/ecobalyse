@@ -705,7 +705,16 @@ isAutocompleteModal modal =
         SelectProductModal _ ->
             True
 
-        _ ->
+        ComparatorModal ->
+            False
+
+        ConfirmSwitchToRegulatoryModal ->
+            False
+
+        ExplorerDetailsTab _ ->
+            False
+
+        NoModal ->
             False
 
 
