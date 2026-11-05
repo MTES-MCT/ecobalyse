@@ -164,6 +164,7 @@
 * [🟡 Périmètre](textile/perimetre.md)
 * [🔵 Paramétrage](textile/parametrage.md)
 * [🚧 Linges de maison](textile/linges-de-maison.md)
+* [🧭 Espace de concertation](textile/espace-de-concertation.md)
 * [Correctifs données](textile/correctifs-donnees/README.md)
   * [corr1 : Coton recyclé](textile/correctifs-donnees/corr1-coton-recycle.md)
   * [corr2: Inventaires enrichis](textile/correctifs-donnees/corr2-inventaires-enrichis.md)
