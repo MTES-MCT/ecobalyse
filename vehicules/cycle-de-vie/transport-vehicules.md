@@ -3,10 +3,9 @@ description: >-
   Cette page porte sur les spécificités du transport du véhicules. Les
   informations relatives au transport de manière générale sont détaillées dans
   la documentation transverse d'Ecobalyse.
-hidden: true
 ---
 
-# 🛺 Transport Véhicules
+# 🛺 EN PROGRESSION Transport Véhicules
 
 ## Déclinaison des étapes de transport sur ce secteur
 
@@ -17,7 +16,7 @@ Les étapes de transport se déclinent de la façon suivante :
 3. Transport du véhicule entre l'usine d'assemblage et un entrepôt de stockage en France,
 4. Transport entre le site de stockage en France et un concessionnaire ou le client final s'il est livré directement.
 
-## 1. Transport des matériaux constitutifs des composants&#x20;
+## 1. Transport des matériaux constitutifs des composants
 
 Le transports des matériaux constitutifs des composants (étape 1) n'est pas calculé de façon spécifique. Il est intégré dans les procédés modélisant ces matériaux.
 
@@ -33,7 +32,7 @@ Le transport se modélise avec une part de voie ferroviaire `f`. Cette part de v
 
 ### Modification de la modélisation du mode de transport
 
-Le transport de véhicules assemblés est spécifique à ce secteur. En effet, dans la plupart des cas, le volume à transporter est conséquent par rapport au poids, ce qui implique un transport fortement sous-capacitaire en termes de poids transporté.&#x20;
+Le transport de véhicules assemblés est spécifique à ce secteur. En effet, dans la plupart des cas, le volume à transporter est conséquent par rapport au poids, ce qui implique un transport fortement sous-capacitaire en termes de poids transporté.
 
 Les véhicules les plus grands, à l'instar des voitures, sont transportés dans des moyens de transports spécifiques.
 
@@ -56,4 +55,3 @@ Les méthodes relatives au transport s'applique au transport de véhicules, exce
 Chaque mode de transport possible est modélisé sur la base du procédé indiqué dans la documentation transversale, et multiplié par un facteur multiplicatif permettant de rendre compte du caractère faiblement capacitaire voire spécifique du transport de véhicules.
 
 <table><thead><tr><th width="349">Mode de transport</th><th>Facteur multiplicatif</th></tr></thead><tbody><tr><td>Camion</td><td>2.0</td></tr><tr><td>Bateau</td><td>5.0</td></tr><tr><td>Train</td><td>2.0</td></tr></tbody></table>
-

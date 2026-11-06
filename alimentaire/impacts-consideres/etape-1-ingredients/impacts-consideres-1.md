@@ -50,7 +50,7 @@ Les procédés construits par Ecobalyse font l'objet d'une [page dédiée](../..
 
 * **Autres labels**
 
-Quelques données sous labels sont déjà disponibles dans Agribalyse et ont pu être intégrées dans Ecobalyse, c'est le cas pour les oeufs "Bleu Blanc Coeur" par exemple. Il est tout à fait possible de rajouter dans Ecobalyse d'autres labels à l'avenir. Pour cela, les porteurs de labels sont invités à se [rapprocher de l'ADEME et des travaux Agribalyse](../../../impacts-consideres.md).
+Quelques données sous labels sont déjà disponibles dans Agribalyse et ont pu être intégrées dans Ecobalyse, c'est le cas pour les oeufs "Bleu Blanc Coeur" par exemple. Il est tout à fait possible de rajouter dans Ecobalyse d'autres labels à l'avenir. Pour cela, les porteurs de labels sont invités à se [rapprocher de l'ADEME et des travaux Agribalyse](../../../archives/pages-generiques/impacts-consideres/).
 
 L’ensemble des appariements entre ingrédients et ICV est visible dans l’explorateur, et via le bouton "?" disponible à côté du nom de l'ingrédient.
 

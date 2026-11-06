@@ -6,7 +6,7 @@
 * [🤝 Communauté](ecobalyse-info/communaute.md)
 * [🫴 Contribuer avec vos données](ecobalyse-info/contribuer.md)
 * [Conditions d'utilisation](ecobalyse-info/conditions-dutilisation.md)
-* [ℹ️ Comment lire cette documentation](ecobalyse-info/comment-lire-cette-documentation.md)
+* [ℹ️ EN PROGRESSION Comment lire cette documentation](ecobalyse-info/comment-lire-cette-documentation.md)
 * [Politique de confidentialité de données personnelles](ecobalyse-info/politique-de-confidentialite-de-donnees-personnelles.md)
 * [L'équipe Ecobalyse](ecobalyse-info/lequipe-ecobalyse.md)
 * [Nous contacter](ecobalyse-info/nous-contacter.md)
@@ -21,12 +21,7 @@
 * [🏷️ Durabilité](def-cout-environnemental/durabilite.md)
 * [📚 Source des procédés](def-cout-environnemental/source-des-procedes.md)
 * [Aide API](def-cout-environnemental/aide-api.md)
-* [Vocabulaire et définitions](def-cout-environnemental/vocabulaire-et-definitions.md)
-
-***
-
-* [📝 Le coût environnemental : approche méthodologique globale (old)](impacts-consideres.md)
-* [Compléments hors ACV - old](complements-hors-acv.md)
+* [EN PROGRESSION Vocabulaire et définitions](def-cout-environnemental/vocabulaire-et-definitions.md)
 
 ## ⚙️ Méthodes tous secteurs
 
@@ -40,7 +35,7 @@
   * [Choix des voies de transport](methodes-tous-secteurs/transport/choix-des-voies-de-transport.md)
   * [✈️ Transport par avion - prise en compte des trainées](methodes-tous-secteurs/transport/modelisation-fret-aerien.md)
 * [🏪 Distribution](methodes-tous-secteurs/distribution.md)
-* [💡 Electricité à l'utilisation](methodes-tous-secteurs/electricite-a-lutilisation.md)
+* [💡 EN PROGRESSION Electricité à l'utilisation](methodes-tous-secteurs/electricite-a-lutilisation.md)
 * [⌛ Utilisation](methodes-tous-secteurs/utilisation.md)
 * [🗑️ Fin de vie des produits](methodes-tous-secteurs/fin-de-vie.md)
 * [⚡ Modélisation de la consommation d'énergie](methodes-tous-secteurs/modelisation-de-la-consommation-denergie.md)
@@ -300,21 +295,29 @@
       * [🚴 Energie apportée par pédalage](vehicules/cycle-de-vie/utilisation-du-vehicule/vehicules-legers-actifs-ou-equipes-de-panneaux-photovoltaiques/energie-apportee-par-pedalage.md)
       * [☀️ Energie apportée par des panneaux solaires photovoltaïque](vehicules/cycle-de-vie/utilisation-du-vehicule/vehicules-legers-actifs-ou-equipes-de-panneaux-photovoltaiques/energie-apportee-par-des-panneaux-solaires-photovoltaique.md)
     * [📝 Construction des procédés carburant](vehicules/cycle-de-vie/utilisation-du-vehicule/construction-des-procedes-carburant.md)
-  * [🛣️ Utilisation des infrastructures](vehicules/cycle-de-vie/utilisation-des-infrastructures.md)
-  * [🛞 Usures des pneus et freins](vehicules/cycle-de-vie/usures-des-pneus-et-freins.md)
-  * [🔧 Maintenance et remplacement de pièces](vehicules/cycle-de-vie/maintenance-et-remplacement-de-pieces.md)
-  * [🛺 Transport Véhicules](vehicules/cycle-de-vie/transport-vehicules.md)
+  * [🛣️ EN PROGRESSION Utilisation des infrastructures](vehicules/cycle-de-vie/utilisation-des-infrastructures.md)
+  * [🛞 EN PROGRESSION Usures des pneus et freins](vehicules/cycle-de-vie/usures-des-pneus-et-freins.md)
+  * [🔧 EN PROGRESSION Maintenance et remplacement de pièces](vehicules/cycle-de-vie/maintenance-et-remplacement-de-pieces.md)
+  * [🛺 EN PROGRESSION Transport Véhicules](vehicules/cycle-de-vie/transport-vehicules.md)
   * [♻️ Fin de vie Véhicules](vehicules/cycle-de-vie/fin-de-vie-vehicules.md)
-* [🏙️ Complément : santé humaine en zone très dense](vehicules/complement-sante-humaine-en-zone-tres-dense.md)
-* [Draft - Paramétrage](vehicules/parametrage/README.md)
+* [🏙️ EN PROGRESSION Complément : santé humaine en zone très dense](vehicules/complement-sante-humaine-en-zone-tres-dense.md)
+* [EN PROGRESSION Paramétrage](vehicules/parametrage/README.md)
   * [Caractéristiques du véhicule](vehicules/parametrage/caracteristiques-du-vehicule.md)
 * [Séminaire Veli 06/05/2026](vehicules/seminaire-veli-06-05-2026.md)
-* [Exemples](vehicules/exemples.md)
+* [EN PROGRESSION Exemples](vehicules/exemples.md)
 
 ## Pages en cours de revue
 
 * [📌 Modèle de page](pages-en-cours-de-revue/modele-de-page.md)
-* [♻️ OLD - Modèle d'impact de la fin de vie](pages-en-cours-de-revue/old-modele-dimpact-de-la-fin-de-vie.md)
-* [🚚 OLD Transport](pages-en-cours-de-revue/old-transport.md)
 * [👕 Transport Textile](pages-en-cours-de-revue/transport-textile.md)
 * [🍕 Transport Alimentaire](pages-en-cours-de-revue/transport-alimentaire.md)
+
+## Archives
+
+* [Pages génériques](archives/pages-generiques/README.md)
+  * [📝 Le coût environnemental : approche méthodologique globale (old)](archives/pages-generiques/impacts-consideres/README.md)
+    * [Compléments hors ACV - old](archives/pages-generiques/impacts-consideres/complements-hors-acv.md)
+    * [♻️ OLD - Modèle d'impact de la fin de vie](archives/pages-generiques/impacts-consideres/old-modele-dimpact-de-la-fin-de-vie.md)
+    * [🚚 OLD Transport](archives/pages-generiques/impacts-consideres/old-transport.md)
+* [Textile](archives/textile.md)
+* [Alimentaire](archives/alimentaire.md)

@@ -162,7 +162,7 @@ Sauf indication contraire spécifique, les modes de transport sont modélisés p
 
 Il est résulte les coûts environnementaux par mode de transport suivant (correspondant aux valeurs CE\[m1] ou CE\[m2] ci-dessus) :
 
-<figure><img src="../.gitbook/assets/image (315).png" alt=""><figcaption></figcaption></figure>
+<figure><img src="../../../.gitbook/assets/image (315).png" alt=""><figcaption></figcaption></figure>
 
 ## Transport international : mix des voies de transport
 

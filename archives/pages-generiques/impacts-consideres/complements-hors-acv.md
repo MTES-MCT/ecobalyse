@@ -10,13 +10,13 @@ Ces compléments hors ACV visent à prendre en compte les **externalités enviro
 
 Les services écosystémiques sont attachées à la production agricole. Ils sont donc intégrés à l'étape "Ingrédients" du cycle de vie.
 
-Pour chaque ingrédient, le coût environnemental est la somme de la composante ACV du coût environnemental (cf. [page dédiée](impacts-consideres.md)) et de chacun des 5 services écosystémiques introduits ci-après :&#x20;
+Pour chaque ingrédient, le coût environnemental est la somme de la composante ACV du coût environnemental (cf. [page dédiée](./)) et de chacun des 5 services écosystémiques introduits ci-après :
 
 $$
 CoûtEnvironnemental = ComposanteACV + \sum_{1}^{5}ServicesEcosystémiques
 $$
 
-2 types de services écosystémiques sont à distinguer :&#x20;
+2 types de services écosystémiques sont à distinguer :
 
 * Les services écosystémiques "cultures", qui qualifient les productions végétales. Ces services écosystémiques s'appliquent également aux productions animales via les végétaux composant les rations (en intégrant également les prairies).
 * Les services écosystémiques "élevages" qui ne s'appliquent qu'aux productions animales
@@ -39,7 +39,7 @@ La modélisation des compléments hors ACV proposée (en "niveau 1") dans l'outi
 
 Pour caractériser au mieux les différents ingrédients proposés dans Ecobalyse, chacun est rattaché à un **groupe de culture**.
 
-Les 28 groupes de culture considérés sont ceux du [Registre Parcellaire Graphique](https://geoservices.ign.fr/ressource/194788) niveau 1 (parcelles totales, cultures principales par parcelle, France métropolitaine, millésime 2021) :&#x20;
+Les 28 groupes de culture considérés sont ceux du [Registre Parcellaire Graphique](https://geoservices.ign.fr/ressource/194788) niveau 1 (parcelles totales, cultures principales par parcelle, France métropolitaine, millésime 2021) :
 
 <table><thead><tr><th width="270">Groupes de culture</th></tr></thead><tbody><tr><td>BLE TENDRE</td></tr><tr><td>MAIS GRAIN ET ENSILAGE</td></tr><tr><td>ORGE</td></tr><tr><td>AUTRES CEREALES</td></tr><tr><td>COLZA</td></tr><tr><td>TOURNESOL</td></tr><tr><td>AUTRES OLEAGINEUX</td></tr><tr><td>PROTEAGINEUX</td></tr><tr><td>PLANTES A FIBRES</td></tr><tr><td>SEMENCES</td></tr><tr><td>GEL (surfaces gelées sans production)</td></tr><tr><td>GEL INDUSTRIEL</td></tr><tr><td>AUTRES GELS</td></tr><tr><td>RIZ</td></tr><tr><td>LEGUMINEUSES A GRAIN</td></tr><tr><td>FOURRAGE</td></tr><tr><td>ESTIVES LANDES</td></tr><tr><td>PRAIRIES PERMANENTES</td></tr><tr><td>PRAIRIES TEMPORAIRES</td></tr><tr><td>VERGERS</td></tr><tr><td>VIGNES</td></tr><tr><td>FRUITS A COQUES</td></tr><tr><td>OLIVIERS</td></tr><tr><td>AUTRES CULTURES INDUSTRIELLES</td></tr><tr><td>LEGUMES-FLEURS</td></tr><tr><td>CANNE A SUCRE</td></tr><tr><td>ARBORICULTURE</td></tr><tr><td>DIVERS</td></tr></tbody></table>
 
@@ -57,25 +57,25 @@ Les données mobilisées par l'OFB ou le service statistique du ministère de l'
 
 ### Services écosystémiques "cultures" / application aux productions animales
 
-Pour appliquer les services écosystémiques "cultures" (haies, tailles de parcelle et diversité culturale) aux ingrédients issus de l'élevage (produits laitiers ou viandes), une logique d'affectation similaire à celle appliquée pour les catégories d'impacts en ACV est appliquée :&#x20;
+Pour appliquer les services écosystémiques "cultures" (haies, tailles de parcelle et diversité culturale) aux ingrédients issus de l'élevage (produits laitiers ou viandes), une logique d'affectation similaire à celle appliquée pour les catégories d'impacts en ACV est appliquée :
 
 * L'élevage nécessite des cultures et des prairies pour l'alimentation animale
 * Chaque culture (et prairie) mobilisée génère des services écosystémiques dont la modélisation est détaillé ci-après
 
 ### Formules de calcul
 
-L'ensemble des formules de calcul implémentées pour le calcul de chacun des 5 services écosystémiques, en distinguant les services écosystémiques "cultures" et les services écosystémiques "élevages" sont détaillés dans le tableur suivant :&#x20;
+L'ensemble des formules de calcul implémentées pour le calcul de chacun des 5 services écosystémiques, en distinguant les services écosystémiques "cultures" et les services écosystémiques "élevages" sont détaillés dans le tableur suivant :
 
 [https://docs.google.com/spreadsheets/d/1wkwTva7ofeIHJorrlwmJuv-x0uB2jud4r6pqb7aJOwc/edit?usp=sharing](https://docs.google.com/spreadsheets/d/1wkwTva7ofeIHJorrlwmJuv-x0uB2jud4r6pqb7aJOwc/edit?usp=sharing)
 
-## Complément "haies"&#x20;
+## Complément "haies"
 
 ### Approche globale
 
 En l'absence de données de quantification des externalités positives liées aux haies, Ecobalyse approxime les externalités positives des haies par la quantité de haies (ml/ha)
 
 * Niveau 1 ⇒ complément fonction du label x type de productions
-* Label bio dans un premier temps, mais il est possible d'intégrer d'autres labels dès que des données sont disponibles&#x20;
+* Label bio dans un premier temps, mais il est possible d'intégrer d'autres labels dès que des données sont disponibles
 
 ⇒ Objectif : différencier le bio et le conventionnel selon la quantité de haies qui caractérise chacun de ces systèmes
 
@@ -97,20 +97,20 @@ Par défaut on considère que RPG conventionnel = RPG (IGN) - RPG Bio (Agence Bi
 * Déclinaison des calculs : nationale (France métropolitaine), régionale, départementale (+ données détaillées par parcelle disponibles également)
 * Millésime RPG : 2021
 
-#### Sources des données mobilisées :&#x20;
+#### Sources des données mobilisées :
 
 * RPG niveau 1 (parcelles totales, cultures principales par parcelle, France métropolitaine, millésime 2021) :[ https://geoservices.ign.fr/ressource/194788](https://geoservices.ign.fr/ressource/194788)
-* Agence bio (parcelles en AB) :[  https://www.data.gouv.fr/fr/datasets/616d6531c2951bbe8bd97771/](https://www.data.gouv.fr/fr/datasets/616d6531c2951bbe8bd97771/)  (National - année 2021)
+* Agence bio (parcelles en AB) :[ https://www.data.gouv.fr/fr/datasets/616d6531c2951bbe8bd97771/](https://www.data.gouv.fr/fr/datasets/616d6531c2951bbe8bd97771/) (National - année 2021)
 * Dispositif de suivi des bocages - DSB de l'IGN/OFB (haies) :[ https://geoservices.ign.fr/bdtopo#telechargementshpreg](https://geoservices.ign.fr/bdtopo) (la BD HAIE est contenue dans la BD TOPO, dossier « Occupation du Sol »)
 
 ### Synthèse des résultats obtenus
 
 <figure><img src="https://lh7-us.googleusercontent.com/slidesz/AGV_vUenk1JYQpMdM3wpNT0e201j0oWG7lM2KeZc3qJyrFki2cVgY5JeDcr2067QL16IRVT5S0ADGb9nsuKF_UKrfF8NPJl02vc95wJ-Ej1UWTo4m4k5iCth13E-rcIyRup1uv1GqdFIzqJ9FvbV_BonEE92DFDJ0ug=s2048?key=EL5kZ_dddkIc8Ka_PGQ4sg" alt=""><figcaption></figcaption></figure>
 
-&#x20;Par rapport aux parcelles Non bio , les parcelles Bio présentent en moyenne :
+Par rapport aux parcelles Non bio , les parcelles Bio présentent en moyenne :
 
 * \+ de haies pour 15/20 groupes de cultures
-* autant de haies  (- de 10% de différence) pour 5/20 gpes de cultures (Fourrage, Prairies permanentes, Prairies temporaires, Fruits à coque, Oliviers)
+* autant de haies (- de 10% de différence) pour 5/20 gpes de cultures (Fourrage, Prairies permanentes, Prairies temporaires, Fruits à coque, Oliviers)
 
 Quel que soit le mode de production, les groupes de cultures avec :
 
@@ -152,13 +152,13 @@ Par défaut on considère que RPG conventionnel = RPG (IGN) - RPG Bio (Agence Bi
 #### Sources des données mobilisées :
 
 * RPG niveau 1 (parcelles totales, cultures principales par parcelle, France métropolitaine, millésime 2021) :[ https://geoservices.ign.fr/ressource/194788](https://geoservices.ign.fr/ressource/194788)
-* Agence bio (parcelles en AB) :[  https://www.data.gouv.fr/fr/datasets/616d6531c2951bbe8bd97771/](https://www.data.gouv.fr/fr/datasets/616d6531c2951bbe8bd97771/)  (National - année 2021)
+* Agence bio (parcelles en AB) :[ https://www.data.gouv.fr/fr/datasets/616d6531c2951bbe8bd97771/](https://www.data.gouv.fr/fr/datasets/616d6531c2951bbe8bd97771/) (National - année 2021)
 
 ### Synthèse des résultats obtenus
 
 <figure><img src="https://lh7-us.googleusercontent.com/slidesz/AGV_vUd4bXE1OC1ZdqTv9ScUZO962BbhD8DGwu_hpRzn7jXCE1UsUgv_QofwlhKFi21n_hVPM6W5PqLcP1zuOZMkAihEyW0xTtOFSbP5zI8pTcGP2fGGGRrRcPyiBLcRQKNfu-vmNbHEi1981n10XSVk3Fz5nniTN6lK=s2048?key=EL5kZ_dddkIc8Ka_PGQ4sg" alt=""><figcaption></figcaption></figure>
 
-&#x20;Par rapport aux parcelles Non bio , les parcelles Bio sont en moyenne :
+Par rapport aux parcelles Non bio , les parcelles Bio sont en moyenne :
 
 * \+ petites pour 10/21 groupes de cultures (Blé tendre, Orge, Colza, Protéagineux, Riz, Estives et landes, Vergers, Fruits à coque, Autres cultures industrielles, Légumes ou fleurs)
 * de même taille (- de 10% de différence) pour 6/21 groupes de cultures (Maïs grain et ensilage, Autres céréales, Tournesol, Prairies permanentes, Prairies temporaires, Vignes)
@@ -212,8 +212,6 @@ Ce complément vise à prendre en compte les externalités positives produites p
 
 ## Exemples de calcul des compléments
 
-
-
 <details>
 
 <summary>Analyse numérique</summary>
@@ -248,4 +246,3 @@ Score d'impacts après bonus = 83.74 µPts d'impact
 ```
 
 </details>
-
