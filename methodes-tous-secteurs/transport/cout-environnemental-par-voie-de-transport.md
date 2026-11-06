@@ -67,7 +67,7 @@ Le tableau suivant décrit les sources de données et le mode de calcul des dist
 
 <table><thead><tr><th width="170">Distances</th><th>Source</th></tr></thead><tbody><tr><td>D_terre (camion)</td><td>Distance calculée avec <a href="https://www.searates.com/services/distances-time/">https://www.searates.com/services/distances-time</a> (calculateur recommandé par le PEF, <a href="https://eplca.jrc.ec.europa.eu/permalink/PEFCR_guidance_v6.3-2.pdf">Product Environmental Footprint Category Rules Guidance</a>, 7.14.3 From factory to final client)</td></tr><tr><td>D_mer (bateau)</td><td>Distance calculée avec <a href="https://www.searates.com/services/distances-time/">https://www.searates.com/services/distances-time</a> (calculateur recommandé par la méthode PEF)</td></tr><tr><td>D_air (avion)</td><td>Distance à vol d'oiseau calculée avec geopy.distance, entre le centre de chaque pays.</td></tr><tr><td>D_fer (train)</td><td>Distance calculée avec <a href="https://www.searates.com/services/distances-time/">https://www.searates.com/services/distances-time</a> (calculateur recommandé par la méthode PEF)</td></tr></tbody></table>
 
-[Toutes les distances entre pays (identifiés par leurs code alpha-2) sont visibles sur cette page](https://github.com/MTES-MCT/wikicarbone/blob/master/public/data/transports.json) (hors distances vers et depuis les ports et aéroports).
+[Toutes les distances entre pays (identifiés par leurs code alpha-2) sont visibles sur cette page](https://github.com/MTES-MCT/ecobalyse/blob/42aacd844ae493ee9e305e982fcf20dfa1e65799/public/data/transports.json) (hors distances vers et depuis les ports et aéroports).
 
 ### Distances `D_ToHub`
 
@@ -129,12 +129,12 @@ Il en résulte les coûts environnementaux par mode de transport suivant (corres
 
 ### Exemple 1 : Transport depuis l'Inde vers la France, par voie maritime
 
-* `D_mer, bateau` = 11 961 km (voir [cette page](https://github.com/MTES-MCT/wikicarbone/blob/master/public/data/transports.json), FR-IN)
+* `D_mer, bateau` = 11 104 km (voir [cette page](https://github.com/MTES-MCT/wikicarbone/blob/master/public/data/transports.json), FR-IN)
 * `D_intrazone,départ` = 500km
 * `D_intrazone,arrivée`= 500km
   * Correspondant par exemple à 500km en Inde + 500km en France, voir schéma ci-dessous
 
-<figure><img src="../../.gitbook/assets/image (393).png" alt=""><figcaption></figcaption></figure>
+<figure><img src="../../.gitbook/assets/image (448).png" alt=""><figcaption></figcaption></figure>
 
 Pour 1 kg transporté par voie maritime, le coût environnemental est calculé comme suit :
 
@@ -143,7 +143,7 @@ I_{v.mer}=\frac{m}{1000}*(D_{intrazone, Inde}∗I_{camion}+D_{mer}∗I_{bateau}+
 $$
 
 $$
-I_{v.mer}=\frac{1}{1000}*(11961∗1.3+1000∗15.5)=31.0 Pts
+I_{v.mer}=\frac{1}{1000}*(11104∗1.3+1000∗15.5)=31.0 Pts
 $$
 
 ### Exemple 3 : Transport interne à la France

@@ -4,10 +4,6 @@
 Ces méthodes s'appliquent pour la version courante d'Ecobalyse, pas pour la version réglementaire Textile.
 {% endhint %}
 
-{% hint style="warning" %}
-Le calcul du transport est en cours de développement. Une partie des méthodes décrites ci-dessous ne sont pas encore implémentées.
-{% endhint %}
-
 ## Principales étapes de transport <a href="#distribution" id="distribution"></a>
 
 Le transport est modélisé en prenant en compte les étapes suivantes :

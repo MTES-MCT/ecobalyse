@@ -13,6 +13,7 @@
 
 ## 📊 Le coût environnemental <a href="#def-cout-environnemental" id="def-cout-environnemental"></a>
 
+* [⚠️ Changement de base de données source](def-cout-environnemental/changement-de-base-de-donnees-source.md)
 * [Principes clés](def-cout-environnemental/principes-cles.md)
 * [Catégories d'impact ACV](def-cout-environnemental/categories-dimpact-acv/README.md)
   * [Correctifs sur la toxicité et l'écotoxicité](def-cout-environnemental/categories-dimpact-acv/correctifs-sur-la-toxicite-et-lecotoxicite.md)
