@@ -32253,6 +32253,26 @@
     "visible": true
   },
   {
+    "activityName": "District heat, at consumer, swiss average, allocation exergy {CH} U",
+    "alias": null,
+    "categories": ["energy"],
+    "comment": "Translated name: Fernw rme, an Abnehmer, Schweizer Durchschnitt, Allokation Exergie\nIncluded processes: Included is the infrastructure of the deliverysystem for district heat, the losses and the different energy sources.\nRemark: Inventory is valid for the average district heat mix in Switzerland (2.4% light fuel oil from heating plant, 11.3% natural gas from heating plant, 11.3% natural gas from cogen, 23.0% wood in heating plant, 7.3% wood in cogen, 5.6% heat pump, 32.2% heat from municipal incineration and 6.9 % heat from nuclear power plant) including 11% of heat loss while heat transportation. For heat from cogeneration allocation exergy was used.;\nUUID: 05bc9e52-5649-3fa0-8e18-1876d1bc8e59 This inventory is part of the BAFU:2025 database. Its use is permitted under the database s terms and conditions.; Geography: Data apply to the supply in Switzerland.\nTechnology: average technology\nTime period: Time of publications.\nVersion: 2023\nEnergy values: Undefined\nProduction volume: na\nLocal category: heat\nLocal subcategory: district heat\nSource file: process_05bc9e52-5649-3fa0-8e18-1876d1bc8e59.xml",
+    "displayName": "Mix chaleur (Europe)",
+    "elecKwh": 0,
+    "heatMJ": 0,
+    "id": "27adfc6e-bbf2-4d94-bea4-a5e0ad1fe074",
+    "impacts": { "ecs": 1.827 },
+    "landOccupation": null,
+    "location": null,
+    "massPerUnit": null,
+    "metadata": { "defaultOrigin": null },
+    "qtyVariationRatio": 1.0,
+    "scopes": ["object", "food2", "veli"],
+    "source": "BAFU 2025v2",
+    "unit": "MJ",
+    "visible": true
+  },
+  {
     "activityName": "Electric motor, for electric passenger car {RER} U",
     "alias": null,
     "categories": ["material", "material_type:ferrous_metals"],
@@ -44526,26 +44546,6 @@
     "scopes": ["object", "veli"],
     "source": "Ecobalyse_manual_lcia",
     "unit": "kg",
-    "visible": true
-  },
-  {
-    "activityName": "This process is not linked to a Brightway activity",
-    "alias": null,
-    "categories": ["energy"],
-    "comment": "Reconstitution du mix depuis Ecoinvent 3.9.1\nAncien identifiant (12/2024): heat-europe.",
-    "displayName": "Mix chaleur (Europe)",
-    "elecKwh": 0,
-    "heatMJ": 0,
-    "id": "27adfc6e-bbf2-4d94-bea4-a5e0ad1fe074",
-    "impacts": { "ecs": 4.084 },
-    "landOccupation": null,
-    "location": null,
-    "massPerUnit": null,
-    "metadata": { "defaultOrigin": null },
-    "qtyVariationRatio": 1.0,
-    "scopes": ["object", "food2"],
-    "source": "Ecobalyse_manual_lcia",
-    "unit": "MJ",
     "visible": true
   },
   {
