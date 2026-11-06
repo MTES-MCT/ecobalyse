@@ -5436,21 +5436,15 @@
     "activityCreationType": "from_scratch",
     "alias": "flageolet-bean-frozen-v2",
     "comment": "CMAPS transformed ingredient",
-    "database": "Agribalyse 3.2",
+    "database": "Ecoinvent 3.9.1",
     "exchanges": [
-      {
-        "amount": 1.0,
-        "database": "Ecoinvent 3.9.1",
-        "name": "fava bean//[CA-AB] fava bean production"
-      },
+      { "amount": 1.0, "name": "fava bean//[CA-AB] fava bean production" },
       {
         "amount": 0.277778,
-        "database": "Ecoinvent 3.9.1",
         "name": "electricity, high voltage//[GLO] market group for electricity, high voltage"
       },
       {
         "amount": 0.81,
-        "database": "Ecoinvent 3.9.1",
         "name": "heat, district or industrial, natural gas//[RoW] heat production, natural gas, at industrial furnace low-NOx >100kW"
       }
     ],
@@ -6315,28 +6309,21 @@
     "activityCreationType": "from_scratch",
     "alias": "lettuce-cut-washed-raw-v2",
     "comment": "CMAPS transformed ingredient",
-    "database": "Agribalyse 3.2",
+    "database": "Ecoinvent 3.9.1",
     "exchanges": [
       {
         "amount": 2.0,
-        "database": "Ecoinvent 3.9.1",
         "name": "lettuce//[GLO] lettuce360 production, in heated greenhouse"
       },
       {
         "amount": 0.011111,
-        "database": "Ecoinvent 3.9.1",
         "name": "electricity, high voltage//[GLO] market group for electricity, high voltage"
       },
       {
         "amount": 0.17,
-        "database": "Ecoinvent 3.9.1",
         "name": "heat, district or industrial, natural gas//[RoW] heat production, natural gas, at industrial furnace low-NOx >100kW"
       },
-      {
-        "amount": 1.0,
-        "database": "Ecoinvent 3.9.1",
-        "name": "biowaste//[RoW] market for biowaste"
-      }
+      { "amount": 1.0, "name": "biowaste//[RoW] market for biowaste" }
     ],
     "location": "GLO",
     "newName": "Lettuce, cut washed raw, variant 2, CMAPS {GLO} U"
@@ -7920,12 +7907,10 @@
     "exchanges": [
       {
         "amount": 1.19,
-        "database": "Agribalyse 3.2",
         "name": "Rice, basmati {IN}| rice production, basmati | Cut-off, U - Adapted from Ecoinvent U"
       },
       {
         "amount": 0.105556,
-        "database": "Agribalyse 3.2",
         "name": "Electricity, high voltage {FR}| production mix | Cut-off, S - Copied from Ecoinvent U"
       }
     ],
@@ -8085,17 +8070,14 @@
     "exchanges": [
       {
         "amount": 1.15,
-        "database": "Agribalyse 3.2",
         "name": "Wheat grain {US}| wheat production | Cut-off, U - Adapted from Ecoinvent U"
       },
       {
         "amount": 0.080556,
-        "database": "Agribalyse 3.2",
         "name": "Electricity, high voltage {FR}| production mix | Cut-off, S - Copied from Ecoinvent U"
       },
       {
         "amount": 0.01,
-        "database": "Agribalyse 3.2",
         "name": "Heat, district or industrial, natural gas {FR}| heat and power co-generation, natural gas, conventional power plant, 100MW electrical | Cut-off, S - Copied from Ecoinvent U"
       }
     ],
@@ -8155,12 +8137,10 @@
     "exchanges": [
       {
         "amount": 1.19,
-        "database": "Agribalyse 3.2",
         "name": "Soybean {BR-RS}| soybean production | Cut-off, U - Adapted from Ecoinvent U"
       },
       {
         "amount": 0.105556,
-        "database": "Agribalyse 3.2",
         "name": "Electricity, high voltage {FR}| production mix | Cut-off, S - Copied from Ecoinvent U"
       }
     ],
@@ -8367,23 +8347,14 @@
     "activityCreationType": "from_scratch",
     "alias": "sweet-corn-canned-drained-v2",
     "comment": "CMAPS transformed ingredient",
-    "database": "Agribalyse 3.2",
+    "database": "Ecoinvent 3.9.1",
     "exchanges": [
-      {
-        "amount": 1.0,
-        "database": "Ecoinvent 3.9.1",
-        "name": "sweet corn//[US] sweet corn production"
-      },
+      { "amount": 1.0, "name": "sweet corn//[US] sweet corn production" },
       {
         "amount": 2.258333,
-        "database": "Ecoinvent 3.9.1",
         "name": "electricity, high voltage//[GLO] market group for electricity, high voltage"
       },
-      {
-        "amount": 0.01,
-        "database": "Ecoinvent 3.9.1",
-        "name": "biowaste//[RoW] market for biowaste"
-      }
+      { "amount": 0.01, "name": "biowaste//[RoW] market for biowaste" }
     ],
     "location": "GLO",
     "newName": "Sweet corn, canned drained, variant 2, CMAPS {GLO} U"
@@ -8442,21 +8413,15 @@
     "activityCreationType": "from_scratch",
     "alias": "sweet-corn-frozen-raw-v2",
     "comment": "CMAPS transformed ingredient",
-    "database": "Agribalyse 3.2",
+    "database": "Ecoinvent 3.9.1",
     "exchanges": [
-      {
-        "amount": 1.0,
-        "database": "Ecoinvent 3.9.1",
-        "name": "sweet corn//[US] sweet corn production"
-      },
+      { "amount": 1.0, "name": "sweet corn//[US] sweet corn production" },
       {
         "amount": 0.277778,
-        "database": "Ecoinvent 3.9.1",
         "name": "electricity, high voltage//[GLO] market group for electricity, high voltage"
       },
       {
         "amount": 0.81,
-        "database": "Ecoinvent 3.9.1",
         "name": "heat, district or industrial, natural gas//[RoW] heat production, natural gas, at industrial furnace low-NOx >100kW"
       }
     ],
@@ -9802,12 +9767,11 @@
     "activityCreationType": "from_scratch",
     "alias": "vehicle-use-diesel-direct-co2-emissions-200kkm",
     "comment": "see https://fabrique-numerique.gitbook.io/ecobalyse/vehicules/cycle-de-vie/utilisation-du-vehicule/construction-des-procedes-carburant",
-    "database": "Ecoinvent 3.9.1",
+    "database": "biosphere3",
     "exchanges": [
       {
         "amount": 4980,
         "code": "349b29d1-3e58-4c66-98b9-9d1a076efd2e",
-        "database": "biosphere3",
         "name": "Carbon dioxide, fossil"
       }
     ],
@@ -9817,30 +9781,26 @@
     "activityCreationType": "from_scratch",
     "alias": "vehicle-use-diesel-euro4-200kkm",
     "comment": "see https://fabrique-numerique.gitbook.io/ecobalyse/vehicules/cycle-de-vie/utilisation-du-vehicule/construction-des-procedes-carburant",
-    "database": "Ecoinvent 3.9.1",
+    "database": "biosphere3",
     "exchanges": [
       {
         "amount": 100,
         "code": "6edcc2df-88a3-48e1-83d8-ffc38d31c35b",
-        "database": "biosphere3",
         "name": "Carbon monoxide, fossil"
       },
       {
         "amount": 20,
         "code": "175baa64-d985-4c5e-84ef-67cc3a1cf952",
-        "database": "biosphere3",
         "name": "NMVOC, non-methane volatile organic compounds"
       },
       {
         "amount": 50,
         "code": "d068f3e2-b033-417b-a359-ca4f25da9731",
-        "database": "biosphere3",
         "name": "Nitrogen oxides"
       },
       {
         "amount": 5,
         "code": "230d8a0a-517c-43fe-8357-1818dd12997a",
-        "database": "biosphere3",
         "name": "Particulate Matter, < 2.5 um"
       }
     ],
@@ -9850,30 +9810,26 @@
     "activityCreationType": "from_scratch",
     "alias": "vehicle-use-diesel-euro6-200kkm",
     "comment": "see https://fabrique-numerique.gitbook.io/ecobalyse/vehicules/cycle-de-vie/utilisation-du-vehicule/construction-des-procedes-carburant",
-    "database": "Ecoinvent 3.9.1",
+    "database": "biosphere3",
     "exchanges": [
       {
         "amount": 100,
         "code": "6edcc2df-88a3-48e1-83d8-ffc38d31c35b",
-        "database": "biosphere3",
         "name": "Carbon monoxide, fossil"
       },
       {
         "amount": 10,
         "code": "175baa64-d985-4c5e-84ef-67cc3a1cf952",
-        "database": "biosphere3",
         "name": "NMVOC, non-methane volatile organic compounds"
       },
       {
         "amount": 16,
         "code": "d068f3e2-b033-417b-a359-ca4f25da9731",
-        "database": "biosphere3",
         "name": "Nitrogen oxides"
       },
       {
         "amount": 0.9,
         "code": "230d8a0a-517c-43fe-8357-1818dd12997a",
-        "database": "biosphere3",
         "name": "Particulate Matter, < 2.5 um"
       }
     ],
@@ -9917,12 +9873,11 @@
     "activityCreationType": "from_scratch",
     "alias": "vehicle-use-petrol-direct-co2-emissions-200kkm",
     "comment": "see https://fabrique-numerique.gitbook.io/ecobalyse/vehicules/cycle-de-vie/utilisation-du-vehicule/construction-des-procedes-carburant",
-    "database": "Ecoinvent 3.9.1",
+    "database": "biosphere3",
     "exchanges": [
       {
         "amount": 4380,
         "code": "349b29d1-3e58-4c66-98b9-9d1a076efd2e",
-        "database": "biosphere3",
         "name": "Carbon dioxide, fossil"
       }
     ],
@@ -9932,12 +9887,11 @@
     "activityCreationType": "from_scratch",
     "alias": "product-use-petrol-direct-co2-emissions",
     "comment": "see https://fabrique-numerique.gitbook.io/ecobalyse/vehicules/cycle-de-vie/utilisation-du-vehicule/construction-des-procedes-carburant",
-    "database": "Ecoinvent 3.9.1",
+    "database": "biosphere3",
     "exchanges": [
       {
         "amount": 2.19,
         "code": "349b29d1-3e58-4c66-98b9-9d1a076efd2e",
-        "database": "biosphere3",
         "name": "Carbon dioxide, fossil"
       }
     ],
@@ -9947,30 +9901,26 @@
     "activityCreationType": "from_scratch",
     "alias": "vehicle-use-petrol-euro6-200kkm",
     "comment": "see https://fabrique-numerique.gitbook.io/ecobalyse/vehicules/cycle-de-vie/utilisation-du-vehicule/construction-des-procedes-carburant",
-    "database": "Ecoinvent 3.9.1",
+    "database": "biosphere3",
     "exchanges": [
       {
         "amount": 200,
         "code": "6edcc2df-88a3-48e1-83d8-ffc38d31c35b",
-        "database": "biosphere3",
         "name": "Carbon monoxide, fossil"
       },
       {
         "amount": 13.6,
         "code": "175baa64-d985-4c5e-84ef-67cc3a1cf952",
-        "database": "biosphere3",
         "name": "NMVOC, non-methane volatile organic compounds"
       },
       {
         "amount": 12,
         "code": "d068f3e2-b033-417b-a359-ca4f25da9731",
-        "database": "biosphere3",
         "name": "Nitrogen oxides"
       },
       {
         "amount": 0.9,
         "code": "230d8a0a-517c-43fe-8357-1818dd12997a",
-        "database": "biosphere3",
         "name": "Particulate Matter, < 2.5 um"
       }
     ],
