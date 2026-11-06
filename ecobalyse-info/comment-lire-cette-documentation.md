@@ -2,11 +2,15 @@
 hidden: true
 ---
 
-# ℹ️ Comment lire cette documentation
+# ℹ️ EN PROGRESSION Comment lire cette documentation
+
+{% hint style="warning" %}
+Page masquée : intérêt à confirmer
+{% endhint %}
 
 ## Organisation de la documentation
 
-La documentation Ecobalyse est organisée comme suit :&#x20;
+La documentation Ecobalyse est organisée comme suit :
 
 * Présentation et informations diverses
 * Le coût environnemental : principes, impacts évalués, correctifs spécifiques

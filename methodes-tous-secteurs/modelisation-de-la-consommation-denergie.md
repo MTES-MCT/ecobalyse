@@ -23,7 +23,7 @@ Deux scénarios existent pour modéliser la consommation d'énergie des processu
 * **Etapes de transformation** : la transformation d'un matériau nécessite 10MJ de chaleur par kg de matériau transformé. Ces 10MJ/kg sont modélisés comme flux externe, de façon à y appliquer le mix énergétique du pays ou de la région où a lieu de processus
 * **Assemblage** : l'assemblage d'un produit nécessite 2kWh d'électricité par kg de produit. Ces 10MJ/kg sont modélisés comme flux externe, de façon à y appliquer le mix énergétique du pays ou de la région d'assemblage
 * **Distribution** : la transformation d'un matériau nécessite 200kWh d'électricité par m3 de produit. Ces 200kWh/m3 sont modélisés comme flux externe, de façon à y appliquer le mix énergétique retenu pour la distribution
-* **Utilisation** : l'utilisation d'un produit nécessite 3MJ de chaleur. Ces 3MJ/kg sont modélisés comme flux externe, de façon à y appliquer le mix énergétique du pays d'utilisation.
+* **Utilisation** : l'utilisation d'un produit nécessite 3MJ de chaleur et 1kWh d'électricité par kg de produit. Ces 3MJ/kg +1kWh/kg sont modélisés comme flux externe, de façon à y appliquer le mix énergétique à l'utilisation du pays d'utilisation.
 
 ### Calcul de l'impact du processus
 
