@@ -18,6 +18,14 @@ Cet espace a deux vocation :
 
 > 💬 Pour échanger de manière plus libre et continue, rejoignez également la [communauté Ecobalyse](https://chat.ecobalyse.fr/ecobalyse/channels/00_bienvenue) sur le forum dédié.
 
+
+
+### 📅 Agenda et jalons à venir
+
+<table><thead><tr><th>Date</th><th>Événement</th><th width="205.6666259765625">Type</th></tr></thead><tbody><tr><td>Jeudi 26/11/2026</td><td><a href="https://events.teams.microsoft.com/event/0de6a065-059d-4d1b-9364-e593d78bb4b6@cb6c2492-4a85-4b15-85a1-ed94d47e5849">webinaire méthode linge de maison et accessoires</a></td><td>Atelier / Webinaire</td></tr><tr><td>[Date]</td><td>[Objet]</td><td>[Type]</td></tr></tbody></table>
+
+
+
 ### 🗂️ Travaux en cours
 
 Les chantiers méthodologiques actuellement ouverts sont listés ci-dessous, avec leur état d'avancement et leur calendrier prévisionnel.
@@ -168,12 +176,10 @@ A compléter
 
 </details>
 
+
+
 ### 🗳️ Vos avis sont attendus
 
 Cette section regroupe les **questions ouvertes** pour lesquelles l'expertise des parties prenantes est activement sollicitée. Merci de contribuer avant les dates de clôture indiquées.
 
-⇒  Aucun sondage n'est actuellement démarré.
-
-### 📅 Agenda et jalons à venir
-
-<table><thead><tr><th>Date</th><th>Événement</th><th width="205.6666259765625">Type</th></tr></thead><tbody><tr><td>[Date]</td><td>[Nom de la réunion]</td><td>Atelier / Webinaire</td></tr><tr><td>[Date]</td><td>[Publication d'un document]</td><td>Document</td></tr><tr><td>[Date]</td><td>[Clôture d'un sondage]</td><td>Consultation</td></tr><tr><td>[Date]</td><td>[Mise à jour de la méthode]</td><td>Livrable</td></tr></tbody></table>
+⇒  Aucun sondage n'est actuellement en cours.
