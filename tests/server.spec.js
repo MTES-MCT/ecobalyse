@@ -1056,31 +1056,31 @@ describe("API", () => {
       });
     });
 
-    for (const scope of ["food2", "object", "veli"]) {
-      describe(`/${scope}/simulator`, () => {
+    for (const sector of ["food2", "object", "veli"]) {
+      describe(`/${sector}/simulator`, () => {
         it("should accept an empty query", async () => {
-          const response = await makePostRequest(`/api/${scope}/simulator`, {});
+          const response = await makePostRequest(`/api/${sector}/simulator`, {});
           expect(response.body.error).toBeUndefined();
           expectStatus(response, 200);
           expect(response.body.impacts).toBeDefined();
         });
 
         it("should accept an empty components list", async () => {
-          const response = await makePostRequest(`/api/${scope}/simulator`, { components: [] });
+          const response = await makePostRequest(`/api/${sector}/simulator`, { components: [] });
           expect(response.body.error).toBeUndefined();
           expectStatus(response, 200);
           expect(response.body.impacts).toBeDefined();
         });
 
-        const examples = require(`${fixtureDataDir}/${scope}/examples.json`);
+        const examples = require(`${fixtureDataDir}/${sector}/examples.json`);
 
         for (const { name, query } of examples) {
           it(name, async () => {
-            const response = await makePostRequest(`/api/${scope}/simulator`, query);
+            const response = await makePostRequest(`/api/${sector}/simulator`, query);
             expect(response.body.error).toBeUndefined();
             expectStatus(response, 200);
             expect(response.body.impacts).toBeDefined();
-            expect(response.body.webUrl).toContain(`/${scope}/simulator/`);
+            expect(response.body.webUrl).toContain(`/${sector}/simulator/`);
           });
         }
       });

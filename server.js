@@ -282,11 +282,11 @@ api.all(/(.*)/, bodyParser.json(), jsonErrorHandler, async (req, res) => {
     });
   }
 
-  const scope = parseGenericSectorFromUrl(req.url);
-  if (scope) {
-    if (!isGenericSectorEnabled(scope)) {
+  const sector = parseGenericSectorFromUrl(req.url);
+  if (sector) {
+    if (!isGenericSectorEnabled(sector)) {
       return res.status(403).send({
-        error: { scope: `Le périmètre "${scope}" n'est pas activé sur cette instance.` },
+        error: { scope: `Le périmètre "${sector}" n'est pas activé sur cette instance.` },
         documentation: API_DOCS_URL,
       });
     }
