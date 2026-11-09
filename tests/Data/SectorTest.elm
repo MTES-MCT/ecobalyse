@@ -8,8 +8,8 @@ import TestUtils exposing (asTest)
 
 suite : Test
 suite =
-    describe "Data.Scope"
-        [ describe "anyOf should filter records against any of passed scopes"
+    describe "Data.Sector"
+        [ describe "anyOf should filter records against any of passed sectors"
             [ asTest "test1"
                 ([ { sectors = [ Sector.Food ] }, { sectors = [ Sector.Food, Sector.Textile ] } ]
                     |> Sector.anyOf [ Sector.Food ]

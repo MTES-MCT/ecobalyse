@@ -81,7 +81,7 @@ suite =
                     |> Encode.encode 0
                     |> expectQueryDecoded (Bookmark.Generic Sector.Veli Component.emptyQuery)
                 )
-            , it "should encode and decode generic bookmarks when genericScope field is missing"
+            , it "should encode and decode generic bookmarks when genericSector field is missing"
                 ([ { created = Time.millisToPosix 1
                    , genericSector = Nothing
                    , name = "food2 bookmark"
@@ -92,7 +92,7 @@ suite =
                     |> Encode.encode 0
                     |> expectQueryDecoded (Bookmark.Generic Sector.Food2 Component.emptyQuery)
                 )
-            , it "should decode a scoped generic bookmark"
+            , it "should decode a sectored generic bookmark"
                 ("""
                  [{
                      "created": 1,
@@ -105,7 +105,7 @@ suite =
                 )
             ]
         , describe "findByGenericQuery"
-            [ it "should find a bookmark for the matching generic scope"
+            [ it "should find a bookmark for the matching generic sector"
                 (let
                     food2Bookmark =
                         { created = Time.millisToPosix 1
@@ -125,7 +125,7 @@ suite =
                     |> Bookmark.findByGenericQuery Sector.Food2 Component.emptyQuery
                     |> Expect.equal (Just food2Bookmark)
                 )
-            , it "should not match a bookmark from another generic scope"
+            , it "should not match a bookmark from another generic sector"
                 ([ { created = Time.millisToPosix 1
                    , genericSector = Just Sector.Object
                    , name = "object bookmark"

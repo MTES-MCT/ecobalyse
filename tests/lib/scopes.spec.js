@@ -10,16 +10,16 @@ const {
   parseScopeFromUrl,
 } = require("../../lib/scopes");
 
-describe("lib.scopes", () => {
-  describe("ALL_SCOPES", () => {
-    test("should list legacy and generic scopes", () => {
+describe("lib.sectors", () => {
+  describe("ALL_SECTORS", () => {
+    test("should list legacy and generic sectors", () => {
       expect(ALL_SCOPES).toEqual(["apparel", "food", "food2", "object", "textile", "veli"]);
       expect(LEGACY_SCOPES).toEqual(["food", "textile"]);
       expect(GENERIC_SCOPES).toEqual(["apparel", "food2", "object", "veli"]);
     });
   });
 
-  describe("parseScopeFromUrl", () => {
+  describe("parseSectorFromUrl", () => {
     test.each([
       ["/food/countries", "food"],
       ["/food2/countries", "food2"],
@@ -81,7 +81,7 @@ describe("lib.scopes", () => {
   });
 
   describe("getEnabledGenericScopeEntries", () => {
-    test("should return id/name entries for enabled scopes", () => {
+    test("should return id/name entries for enabled sectors", () => {
       expect(
         getEnabledGenericScopeEntries({
           ENABLE_FOOD2_SECTION: "True",
@@ -104,7 +104,7 @@ describe("lib.scopes", () => {
       },
     });
 
-    test("should keep generic paths when at least one scope is enabled", () => {
+    test("should keep generic paths when at least one sector is enabled", () => {
       const doc = baseDoc();
       const pathsBefore = { ...doc.paths };
       applyGenericScopesToOpenApi(doc, {
@@ -113,7 +113,7 @@ describe("lib.scopes", () => {
       expect(doc.paths).toEqual(pathsBefore);
     });
 
-    test("should strip generic paths when no generic scope is enabled", () => {
+    test("should strip generic paths when no generic sector is enabled", () => {
       const doc = baseDoc();
       applyGenericScopesToOpenApi(doc, {});
       expect(doc.paths).toEqual({

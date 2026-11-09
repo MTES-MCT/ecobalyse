@@ -158,7 +158,7 @@ genericEndpoints db =
                                 (Err "Type de matière non supporté: not-a-type")
                             )
                         )
-                    |> asTest "map GET /{scope}/processes/transform with an invalid materialType"
+                    |> asTest "map GET /{sector}/processes/transform with an invalid materialType"
                 , Encode.null
                     |> testEndpoint db "GET" "/object/processes/transform"
                     |> Expect.equal Nothing
@@ -327,7 +327,7 @@ textileEndpoints db =
                     |> asTest "validate a material country code"
                 ]
             )
-        , suiteFromResult "should validate that an ingredient country scope is valid"
+        , suiteFromResult "should validate that an ingredient country sector is valid"
             tShirtCotonFrance
             (\query ->
                 [ TextileQuery.encode
@@ -336,7 +336,7 @@ textileEndpoints db =
                     }
                     |> testTextileEndpoint db
                     |> expectTextileValidationError "countryDyeing" "Le code pays US n’est pas utilisable dans un contexte Textile."
-                    |> asTest "validate that an ingredient country scope is valid"
+                    |> asTest "validate that an ingredient country sector is valid"
                 ]
             )
         , suiteFromResult "should validate that a trim item id is valid"

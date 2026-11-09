@@ -725,7 +725,7 @@ describe("API", () => {
         process.env.ENABLE_VELI_SECTION = previous.veli;
       });
 
-      it("should list enabled generic scopes", async () => {
+      it("should list enabled generic sectors", async () => {
         process.env.ENABLE_FOOD2_SECTION = "True";
         process.env.ENABLE_OBJECTS_SECTION = "False";
         process.env.ENABLE_VELI_SECTION = "True";
@@ -742,7 +742,7 @@ describe("API", () => {
         ]);
       });
 
-      it("should reject a disabled generic scope with 403", async () => {
+      it("should reject a disabled generic sector with 403", async () => {
         process.env.ENABLE_FOOD2_SECTION = "False";
 
         const response = await request(app)

@@ -30,12 +30,12 @@ suite =
                         |> expectResultErrorContains "Code pays invalide"
                     )
                 ]
-            , describe "validateForScope"
-                [ it "should accept a country available in the scope"
+            , describe "validateForSector"
+                [ it "should accept a country available in the sector"
                     (Country.validateForSector Sector.Textile db.countries CountryCode.france
                         |> Expect.equal (Ok CountryCode.france)
                     )
-                , it "should reject a country unavailable in the scope"
+                , it "should reject a country unavailable in the sector"
                     (Country.validateForSector Sector.Textile db.countries (CountryCode.fromString "RMA")
                         |> expectResultErrorContains "n’est pas utilisable dans un contexte Textile"
                     )

@@ -1920,7 +1920,7 @@ suite =
                             (requirements.db.countries
                                 |> Sector.anyOf [ requirements.sector ]
                                 |> List.head
-                                |> Result.fromMaybe ("No test country available scoped " ++ Sector.toString requirements.sector)
+                                |> Result.fromMaybe ("No test country available sectored " ++ Sector.toString requirements.sector)
                             )
                             -- cotton
                             (findProcessByLabel requirements "Production de fibres de coton")
@@ -2272,12 +2272,12 @@ suite =
                             )
                         ]
                     , describe "getDocLink"
-                        [ it "should retrieve a scoped documentation link"
+                        [ it "should retrieve a sectored documentation link"
                             ("assembly"
                                 |> Component.getDocLink requirements.config (Sector.Generic Sector.Veli)
                                 |> Expect.equal (Just "https://fabrique-numerique.gitbook.io/ecobalyse/vehicules/cycle-de-vie/assemblage")
                             )
-                        , it "should fallback to a default documentation link when no scoped link exists"
+                        , it "should fallback to a default documentation link when no sectored link exists"
                             ("assembly"
                                 |> Component.getDocLink requirements.config (Sector.Generic Sector.Object)
                                 |> Expect.equal (Just "https://fabrique-numerique.gitbook.io/ecobalyse/methodes-transverses/assemblage")
@@ -2855,7 +2855,7 @@ suite =
                                             )
                                         |> expectResultErrorContains "Le procédé de distribution doit accepter un volume"
                                     )
-                                , it "should reject a distribution referencing a process with the wrong scope" <|
+                                , it "should reject a distribution referencing a process with the wrong sector" <|
                                     (emptyQuery
                                         |> Component.updateDistribution (Just dryDistributionProcess.id)
                                         |> Component.validateQuery
@@ -2894,7 +2894,7 @@ suite =
                                         |> Component.validateQuery requirements
                                         |> expectResultErrorContains ("Aucun procédé scopé Objets avec cet id: " ++ Process.idToString nonExistingProcessId)
                                     )
-                                , it "should reject a consumption referencing a process with the wrong scope" <|
+                                , it "should reject a consumption referencing a process with the wrong sector" <|
                                     ({ emptyQuery
                                         | consumptions =
                                             -- Note: the sawing process isn't sectored for Food2
@@ -2932,7 +2932,7 @@ suite =
                                         |> Component.validateQuery requirements
                                         |> expectResultErrorContains ("Aucun procédé scopé Objets avec cet id: " ++ Process.idToString nonExistingProcessId)
                                     )
-                                , it "should reject a packaging referencing a process with the wrong scope" <|
+                                , it "should reject a packaging referencing a process with the wrong sector" <|
                                     ({ emptyQuery
                                         | packagings =
                                             -- Note: the sawing process isn't sectored for Food2
@@ -3433,7 +3433,7 @@ suite =
                                 |> decodeJson (Component.decodeQuery db.processes)
                                 |> Expect.err
                             )
-                        , it "should fall back to the scoped default distribution process when product is unset" <|
+                        , it "should fall back to the sectored default distribution process when product is unset" <|
                             (emptyQuery
                                 |> Component.getDistributionProcessId { requirements | sector = Sector.Generic Sector.Food2 }
                                 |> Expect.equal
@@ -3442,7 +3442,7 @@ suite =
                                         |> Maybe.map .id
                                     )
                             )
-                        , it "should not fall back to a scoped default distribution process from another scope" <|
+                        , it "should not fall back to a sectored default distribution process from another sector" <|
                             (emptyQuery
                                 |> Component.getDistributionProcessId requirements
                                 |> Expect.equal Nothing
