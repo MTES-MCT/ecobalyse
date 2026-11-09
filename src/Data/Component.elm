@@ -871,7 +871,7 @@ computeAssemblyImpacts requirements ({ assembly } as query) lifeCycle =
 
     else
         operations
-            |> expandAssembly requirements.db
+            |> expandAssembly requirements.db.processes
             |> Result.andThen
                 (\expandedProcesses ->
                     assemblyResultsFromMass productionMass
@@ -2081,8 +2081,8 @@ errors =
 
 {-| Map assembly operations to their Process.
 -}
-expandAssembly : DataContainer db -> List Process.Id -> Result String (List Process)
-expandAssembly { countries, processes } operations =
+expandAssembly : List Process -> List Process.Id -> Result String (List Process)
+expandAssembly processes operations =
     operations
         |> RE.combineMap (\id -> processes |> Process.findById id)
 
