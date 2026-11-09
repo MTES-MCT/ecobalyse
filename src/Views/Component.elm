@@ -672,7 +672,7 @@ assemblyView ({ db, impact, query, scope } as config) lifeCycle =
                             , tbody []
                                 (expandedOperations
                                     |> List.indexedMap
-                                        (\index { process } ->
+                                        (\index process ->
                                             let
                                                 operationResult =
                                                     lifeCycle.assembly
