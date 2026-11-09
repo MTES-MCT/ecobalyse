@@ -473,77 +473,43 @@ update ({ navKey } as session) msg model =
     in
     case msg of
         AppendModal modal ->
-            { model | modals = modal :: model.modals }
-                |> createPageUpdate session
+            { model | modals = modal :: model.modals } |> createPageUpdate session
 
         CopyToClipBoard shareableLink ->
-            createPageUpdate session model
-                |> App.withCmds [ Ports.copyToClipboard shareableLink ]
+            createPageUpdate session model |> App.withCmds [ Ports.copyToClipboard shareableLink ]
 
         CreateExampleContrib ->
             if Session.isAuthenticated session then
                 case createExampleContribData model of
-                    Ok contribData ->
-                        { model | contributionRequestPending = True }
-                            |> createPageUpdate session
-                            |> App.withCmds [ Contrib.createExampleContrib session contribData ExampleContribCreated ]
-
                     Err errors ->
-                        { model | contributionRequestPending = False }
-                            |> createPageUpdate session
-                            |> App.notifyError "Erreur lors de la création de votre contribution" (String.join ", " errors)
+                        { model | contributionRequestPending = False } |> createPageUpdate session |> App.notifyError "Erreur lors de la création de votre contribution" (String.join ", " errors)
+
+                    Ok contribData ->
+                        { model | contributionRequestPending = True } |> createPageUpdate session |> App.withCmds [ Contrib.createExampleContrib session contribData ExampleContribCreated ]
 
             else
-                { model | contributionRequestPending = False }
-                    |> createPageUpdate session
-                    |> App.notifyWarning "Vous devez être authentifié pour soumettre une contribution"
+                { model | contributionRequestPending = False } |> createPageUpdate session |> App.notifyWarning "Vous devez être authentifié pour soumettre une contribution"
 
         DeleteBookmark bookmark ->
-            model
-                |> createPageUpdate (session |> Session.deleteBookmark bookmark)
+            model |> createPageUpdate (session |> Session.deleteBookmark bookmark)
 
         ExampleContribCreated (RemoteData.Failure error) ->
-            { model | contributionRequestPending = False }
-                |> createPageUpdate session
-                |> App.notifyError "Erreur de contribution" (BackendHttpError.errorToString error)
+            { model | contributionRequestPending = False } |> createPageUpdate session |> App.notifyError "Erreur de contribution" (BackendHttpError.errorToString error)
 
         ExampleContribCreated (RemoteData.Success { pullRequestUrl }) ->
-            { model | contributionRequestPending = False }
-                |> createPageUpdate session
-                |> App.notifySuccess
-                    ("""La contribution est soumise à validation par l’équipe méthode d’Ecobalyse.
-                        Vous pouvez suivre [sur ce lien](pr_url) l’état d’avancement de l’intégration de votre exemple de produit.
-                        """
-                        |> String.replace "pr_url" pullRequestUrl
-                    )
+            { model | contributionRequestPending = False } |> createPageUpdate session |> App.notifySuccess ("La contribution est soumise à validation par l’équipe méthode d’Ecobalyse.\n                              Vous pouvez suivre [sur ce lien](pr_url) l’état d’avancement de l’intégration de votre exemple de produit.\n                              " |> String.replace "pr_url" pullRequestUrl)
 
         ExampleContribCreated _ ->
             createPageUpdate session model
 
         ExportBookmarks ->
-            createPageUpdate session model
-                |> App.withCmds [ Ports.exportBookmarks () ]
+            createPageUpdate session model |> App.withCmds [ Ports.exportBookmarks () ]
 
         ImportBookmarks ->
-            createPageUpdate session model
-                |> App.withCmds [ Ports.importBookmarks () ]
+            createPageUpdate session model |> App.withCmds [ Ports.importBookmarks () ]
 
         NoOp ->
             createPageUpdate session model
-
-        OnAutocompleteAddProductionItem autocompleteMsg ->
-            case model.modals of
-                (AddProductionItemModal autocompleteState) :: otherModals ->
-                    let
-                        ( newAutocompleteState, autoCompleteCmd ) =
-                            Autocomplete.update autocompleteMsg autocompleteState
-                    in
-                    { model | modals = AddProductionItemModal newAutocompleteState :: otherModals }
-                        |> createPageUpdate session
-                        |> App.withCmds [ Cmd.map OnAutocompleteAddProductionItem autoCompleteCmd ]
-
-                _ ->
-                    createPageUpdate session model
 
         OnAutocompleteAddAssemblyOperation autocompleteMsg ->
             case model.modals of
@@ -587,6 +553,20 @@ update ({ navKey } as session) msg model =
                 _ ->
                     createPageUpdate session model
 
+        OnAutocompleteAddProductionItem autocompleteMsg ->
+            case model.modals of
+                (AddProductionItemModal autocompleteState) :: otherModals ->
+                    let
+                        ( newAutocompleteState, autoCompleteCmd ) =
+                            Autocomplete.update autocompleteMsg autocompleteState
+                    in
+                    { model | modals = AddProductionItemModal newAutocompleteState :: otherModals }
+                        |> createPageUpdate session
+                        |> App.withCmds [ Cmd.map OnAutocompleteAddProductionItem autoCompleteCmd ]
+
+                _ ->
+                    createPageUpdate session model
+
         OnAutocompleteExample autocompleteMsg ->
             case model.modals of
                 (SelectExampleModal autocompleteState) :: otherModals ->
@@ -611,15 +591,6 @@ update ({ navKey } as session) msg model =
                     { model | modals = SelectPackagingModal newAutocompleteState :: otherModals }
                         |> createPageUpdate session
                         |> App.withCmds [ Cmd.map OnAutocompletePackaging autoCompleteCmd ]
-
-                _ ->
-                    createPageUpdate session model
-
-        OnAutocompleteSelectProductionItem ->
-            case model.modals of
-                (AddProductionItemModal autocompleteState) :: _ ->
-                    createPageUpdate session model
-                        |> selectProductionItem query autocompleteState
 
                 _ ->
                     createPageUpdate session model
@@ -669,6 +640,15 @@ update ({ navKey } as session) msg model =
                 _ ->
                     createPageUpdate session model
 
+        OnAutocompleteSelectProductionItem ->
+            case model.modals of
+                (AddProductionItemModal autocompleteState) :: _ ->
+                    createPageUpdate session model
+                        |> selectProductionItem query autocompleteState
+
+                _ ->
+                    createPageUpdate session model
+
         OnDragLeaveBookmark ->
             { model | bookmarkBeingOvered = Nothing }
                 |> createPageUpdate session
@@ -701,6 +681,10 @@ update ({ navKey } as session) msg model =
                     , Ports.loadCharts ()
                     ]
 
+        RemoveAssemblyOperation index ->
+            createPageUpdate session model
+                |> updateQuery (query |> Component.removeAssemblyOperation requirements index)
+
         RemoveComponentItem itemIndex ->
             { model
                 | detailedComponents =
@@ -711,10 +695,6 @@ update ({ navKey } as session) msg model =
                 |> createPageUpdate session
                 |> updateQuery (query |> Component.mapItems (LE.removeAt itemIndex))
                 |> App.withCmds [ Plausible.send session <| Plausible.ComponentUpdated globalScope ]
-
-        RemoveAssemblyOperation index ->
-            createPageUpdate session model
-                |> updateQuery (query |> Component.removeAssemblyOperation requirements index)
 
         RemoveConsumption index ->
             createPageUpdate session model
@@ -902,9 +882,6 @@ update ({ navKey } as session) msg model =
                 |> applyAmountInputState state
                     (\newModel -> applyElementAmount session newModel query targetElement)
 
-        UpdateItemUnitMass itemIndex state ->
-            applyUnitMassInputState session model query itemIndex state
-
         UpdateElementMaterialCountry targetElement maybeCountryCode ->
             createPageUpdate session model
                 |> updateQuery
@@ -922,6 +899,9 @@ update ({ navKey } as session) msg model =
                             (Component.updateElementTransformCountry targetElement transformIndex maybeCountryCode)
                     )
                 |> App.withCmds [ Plausible.send session <| Plausible.ComponentUpdated globalScope ]
+
+        UpdateItemUnitMass itemIndex state ->
+            applyUnitMassInputState session model query itemIndex state
 
         UpdatePackagingAmount index state ->
             ( session, model )
