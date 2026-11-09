@@ -16,7 +16,7 @@ module Data.Sector exposing
     , isGeneric
     , parse
     , parseGeneric
-    , toGenericScope
+    , toGenericSector
     , toLabel
     , toString
     , toStringGeneric
@@ -176,8 +176,8 @@ parseGeneric =
     Parser.custom "GENERIC_SCOPE" (fromStringGeneric >> Result.toMaybe)
 
 
-toGenericScope : Sector -> Maybe GenericSector
-toGenericScope sector =
+toGenericSector : Sector -> Maybe GenericSector
+toGenericSector sector =
     case sector of
         Generic genericSector ->
             Just genericSector

@@ -32,7 +32,7 @@ suite =
         , describe "allGeneric"
             [ asTest "matches the generic entries of all"
                 (Sector.all
-                    |> List.filterMap Sector.toGenericScope
+                    |> List.filterMap Sector.toGenericSector
                     |> Expect.equal Sector.allGeneric
                 )
             ]

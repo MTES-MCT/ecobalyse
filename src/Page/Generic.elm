@@ -1471,7 +1471,7 @@ simulatorView ({ componentConfig } as session) ({ genericSector } as model) =
 
 durabilityView : Component.Config -> Sector -> Maybe Unit.Ratio -> Html Msg
 durabilityView componentConfig sector maybeDurability =
-    if componentConfig.durability |> Config.scopeEnabled sector |> not then
+    if componentConfig.durability |> Config.sectorEnabled sector |> not then
         text ""
 
     else

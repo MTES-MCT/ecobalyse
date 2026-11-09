@@ -6,7 +6,7 @@ module Data.Component.Config exposing
     , EndOfLifeStrategy
     , getDocLink
     , parse
-    , scopeEnabled
+    , sectorEnabled
     )
 
 import Data.Common.DecodeUtils as DU
@@ -124,7 +124,7 @@ decodeDistributionConfig : List Process -> List Country -> Decoder DistributionC
 decodeDistributionConfig processes countries =
     Decode.succeed DistributionConfig
         |> Decode.required "country" (Country.decodeFromCode countries)
-        |> Decode.required "defaultProcess" (decodeScopedMaybeProcess processes)
+        |> Decode.required "defaultProcess" (decodeSectoredMaybeProcess processes)
 
 
 decodeDocLinksConfig : Decoder DocLinksConfig
@@ -198,8 +198,8 @@ decodeProductionConfig processes =
         |> Decode.requiredAt [ "defaultProcesses", "heat" ] (Process.decodeFromId processes)
 
 
-decodeScopedMaybeProcess : List Process -> Decoder (Sector.Dict (Maybe Process))
-decodeScopedMaybeProcess processes =
+decodeSectoredMaybeProcess : List Process -> Decoder (Sector.Dict (Maybe Process))
+decodeSectoredMaybeProcess processes =
     Sector.decodeDict (Decode.maybe (Process.decodeFromId processes))
 
 
@@ -233,8 +233,8 @@ parse db =
         >> Result.mapError Decode.errorToString
 
 
-scopeEnabled : Sector -> { a | enabled : Sector.Dict Bool } -> Bool
-scopeEnabled sector =
+sectorEnabled : Sector -> { a | enabled : Sector.Dict Bool } -> Bool
+sectorEnabled sector =
     .enabled
         >> Sector.dictGet sector
         >> Maybe.withDefault False

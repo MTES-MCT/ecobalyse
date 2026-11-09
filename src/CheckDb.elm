@@ -138,14 +138,14 @@ checkComponentsProcessIds knownProcessStringIds db =
 
 {-| Ensures a component-referenced process is allowed for the component sector.
 -}
-checkComponentProcessScope :
+checkComponentProcessSector :
     Dict String Process
     -> Component
     -> Example query
     -> String
     -> Process.Id
     -> List Error
-checkComponentProcessScope processes component example fieldName processId =
+checkComponentProcessSector processes component example fieldName processId =
     let
         processIdString =
             Process.idToString processId
@@ -153,17 +153,17 @@ checkComponentProcessScope processes component example fieldName processId =
     case processes |> Dict.get processIdString of
         Just process ->
             let
-                missingScopes =
+                missingSectors =
                     component.sectors
                         |> List.filter (\sector -> List.member sector process.sectors |> not)
             in
-            if List.isEmpty missingScopes then
+            if List.isEmpty missingSectors then
                 []
 
             else
                 formatError
                     [ "Process " ++ processLabel process
-                    , "is not sectored for " ++ backtick (missingScopes |> List.map Sector.toString |> String.join ", ")
+                    , "is not sectored for " ++ backtick (missingSectors |> List.map Sector.toString |> String.join ", ")
                     , "but is referenced in " ++ backtick fieldName
                     , "by component " ++ componentLabel component
                     , "used by example " ++ exampleLabel example
@@ -175,10 +175,10 @@ checkComponentProcessScope processes component example fieldName processId =
 
 {-| Validates example/component sector compatibility and nested process sectors.
 -}
-checkComponentScopeMismatch : Dict String Process -> Example query -> Component -> List Error
-checkComponentScopeMismatch processes example component =
+checkComponentSectorMismatch : Dict String Process -> Example query -> Component -> List Error
+checkComponentSectorMismatch processes example component =
     let
-        scopeMismatchErrors =
+        sectorMismatchErrors =
             if List.member example.sector component.sectors then
                 []
 
@@ -189,16 +189,16 @@ checkComponentScopeMismatch processes example component =
                     , "but sectors are incompatible"
                     ]
 
-        processScopeErrors =
+        processSectorErrors =
             component.elements
                 |> List.concatMap
                     (\{ material, transforms } ->
                         []
-                            |> (++) (material.id |> checkComponentProcessScope processes component example "element.material")
-                            |> (++) (transforms |> List.map .id |> List.concatMap (checkComponentProcessScope processes component example "element.transforms"))
+                            |> (++) (material.id |> checkComponentProcessSector processes component example "element.material")
+                            |> (++) (transforms |> List.map .id |> List.concatMap (checkComponentProcessSector processes component example "element.transforms"))
                     )
     in
-    scopeMismatchErrors ++ processScopeErrors
+    sectorMismatchErrors ++ processSectorErrors
 
 
 {-| Checks that an Example consumptions are linked to existing sector-compatible processes.
@@ -243,7 +243,7 @@ checkExampleComponentItem processes components example =
     .id
         >> Maybe.map Component.idToString
         >> Maybe.andThen (\id -> Dict.get id components)
-        >> Maybe.map (checkComponentScopeMismatch processes example)
+        >> Maybe.map (checkComponentSectorMismatch processes example)
         >> Maybe.withDefault []
 
 
@@ -269,8 +269,8 @@ checkExamplesComponentIds knownComponentStringIds db =
 
 {-| Runs sector checks between examples, their components, and referenced processes.
 -}
-checkExamplesScope : Db -> List Error
-checkExamplesScope db =
+checkExamplesSector : Db -> List Error
+checkExamplesSector db =
     let
         ( processesMap, componentsMap ) =
             ( processById db.processes
@@ -435,7 +435,7 @@ checkStaticDatabase dbName config dbResult =
                 |> addGroupedErrors (section "Components processes checks") (checkComponentsProcessIds knownProcessStringIds db)
                 |> addGroupedErrors (section "Product category assembly checks") (checkProductCategoryAssemblies db)
                 |> addGroupedErrors (section "Product category consumptions checks") (checkProductCategoryConsumptions db)
-                |> addGroupedErrors (section "Scoping checks") (checkExamplesScope db)
+                |> addGroupedErrors (section "Scoping checks") (checkExamplesSector db)
                 |> addGroupedErrors (section "Component config checks") (checkComponentConfig db config)
 
 

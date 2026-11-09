@@ -2460,7 +2460,7 @@ getEndOfLifeDetailedImpacts { config, sector } recyclable lifeCycle =
 
 getEndOfLifeImpacts : Requirements db -> Bool -> LifeCycle -> Impacts
 getEndOfLifeImpacts ({ config, sector } as requirements) recyclable lifeCycle =
-    if config.endOfLife |> Config.scopeEnabled sector then
+    if config.endOfLife |> Config.sectorEnabled sector then
         lifeCycle
             |> getEndOfLifeDetailedImpacts requirements recyclable
             |> AnyDict.map
@@ -3524,7 +3524,7 @@ validateDistribution { db, sector } maybeProcessId =
 
 validateDurability : Requirements db -> Maybe Unit.Ratio -> Result String (Maybe Unit.Ratio)
 validateDurability { config, sector } durability =
-    case ( config.durability |> Config.scopeEnabled sector, durability ) of
+    case ( config.durability |> Config.sectorEnabled sector, durability ) of
         ( False, Just _ ) ->
             Err <| "La durabilité n'est pas activée pour le périmètre " ++ Sector.toLabel sector
 

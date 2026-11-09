@@ -156,7 +156,7 @@ update session msg model =
                             Dataset.Processes sector Nothing
 
                         Dataset.ProductCategory _ _ ->
-                            case Sector.toGenericScope sector of
+                            case Sector.toGenericSector sector of
                                 Just newGenericScope ->
                                     Dataset.ProductCategory newGenericScope Nothing
 
@@ -445,11 +445,11 @@ processesExplorer :
     -> List (Html Msg)
 processesExplorer session sector tableConfig tableState maybeId =
     let
-        scopedProcesses =
+        sectoredProcesses =
             session.db.processes
                 |> Sector.anyOf [ sector ]
     in
-    [ scopedProcesses
+    [ sectoredProcesses
         |> List.sortBy Process.getDisplayName
         |> Table.viewList (.id >> Process.idToString >> OpenDetail)
             tableConfig
@@ -459,7 +459,7 @@ processesExplorer session sector tableConfig tableState maybeId =
     , case maybeId of
         Just id ->
             detailsModal
-                (case Process.findById id scopedProcesses of
+                (case Process.findById id sectoredProcesses of
                     Err error ->
                         alert error
 
@@ -482,10 +482,10 @@ componentsExplorer :
     -> List (Html Msg)
 componentsExplorer session sector tableConfig tableState maybeId =
     let
-        scopedComponents =
+        sectoredComponents =
             session.db.components |> List.filter (.sectors >> List.member sector)
     in
-    [ scopedComponents
+    [ sectoredComponents
         |> List.sortBy .name
         |> Table.viewList
             -- @FIXME: the need for a Maybe.withDefault here looks bad
@@ -497,7 +497,7 @@ componentsExplorer session sector tableConfig tableState maybeId =
     , case maybeId of
         Just id ->
             detailsModal
-                (case Component.findById id scopedComponents of
+                (case Component.findById id sectoredComponents of
                     Err error ->
                         alert error
 

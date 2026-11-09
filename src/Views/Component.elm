@@ -904,7 +904,7 @@ endOfLifeView ({ componentConfig, query, sector, updateRecyclable } as config) l
             , documentationLink config "eol"
             ]
         , div [ class "card-body table-responsive p-0" ]
-            [ if config.componentConfig.endOfLife |> Config.scopeEnabled sector then
+            [ if config.componentConfig.endOfLife |> Config.sectorEnabled sector then
                 div []
                     [ table [ class "table mb-0 fs-7" ]
                         [ thead []
@@ -1037,12 +1037,12 @@ type alias ProductCategorySelector msg =
 productCategorySelectorView : ProductCategorySelector msg -> Html msg
 productCategorySelectorView { onSelect, products, query, sector } =
     let
-        scopedProducts =
+        sectoredProducts =
             products
                 |> ProductCategory.findByScope sector
                 |> List.sortBy .label
     in
-    if List.isEmpty scopedProducts || List.isEmpty query.items then
+    if List.isEmpty sectoredProducts || List.isEmpty query.items then
         text ""
 
     else
@@ -1075,6 +1075,6 @@ productCategorySelectorView { onSelect, products, query, sector } =
                                 ]
                                 [ text product.label ]
                         )
-                        scopedProducts
+                        sectoredProducts
                 )
             ]

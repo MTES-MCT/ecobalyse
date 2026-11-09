@@ -214,7 +214,7 @@ managerView : ManagerConfig msg -> Html msg
 managerView cfg =
     let
         bookmarks =
-            scopedBookmarks cfg.session cfg.sector
+            sectoredBookmarks cfg.session cfg.sector
 
         ( queryExists, nameExists ) =
             ( bookmarks
@@ -268,7 +268,7 @@ bookmarksView : ManagerConfig msg -> Html msg
 bookmarksView ({ compare, sector, session } as cfg) =
     let
         bookmarks =
-            scopedBookmarks session sector
+            sectoredBookmarks session sector
     in
     div []
         [ div [ class "card-header border-top rounded-0 d-flex justify-content-between align-items-center gap-1" ]
@@ -415,7 +415,7 @@ contributeExampleTabView ({ sector, session } as config) =
             Session.isAuthenticated session
 
         currentQuery =
-            case Sector.toGenericScope sector of
+            case Sector.toGenericSector sector of
                 Just genericSector ->
                     Session.genericQuery genericSector session
 
@@ -499,8 +499,8 @@ queryFromScope session sector =
             Bookmark.Textile session.queries.textile
 
 
-scopedBookmarks : Session -> Sector -> List Bookmark
-scopedBookmarks session sector =
+sectoredBookmarks : Session -> Sector -> List Bookmark
+sectoredBookmarks session sector =
     session.store.bookmarks
         |> List.filter
             (case sector of
