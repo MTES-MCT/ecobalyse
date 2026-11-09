@@ -432,10 +432,10 @@ Le même flag `ENABLE_FLOWERS_SECTION` pilote le menu et la visibilité du scope
 
 ### Registre API
 
-Dans [`lib/scopes.js`](../lib/scopes.js), `GENERIC_SCOPE_CONFIG` expose le registre de l'API générique :
+Dans [`lib/scopes.js`](../lib/scopes.js), `GENERIC_SECTOR_CONFIG` expose le registre de l'API générique :
 
 ```js
-const GENERIC_SCOPE_CONFIG = {
+const GENERIC_SECTOR_CONFIG = {
   flowers: { env: "ENABLE_FLOWERS_SECTION", label: "Fleurs" },
   food2: { env: "ENABLE_FOOD2_SECTION", label: "Alimentaire BÉTA" },
   object: { env: "ENABLE_OBJECTS_SECTION", label: "Objets" },
