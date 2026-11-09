@@ -585,12 +585,12 @@ Notes:
   - No transport is applied between operations.
 
 -}
-applyAssemblyOperations : Requirements db -> Maybe CountryCode.Code -> List ExpandedLocalizedProcess -> Results -> Result String Results
-applyAssemblyOperations requirements maybeAssemblyCountry expandedProcesses initialResults =
-    expandedProcesses
+applyAssemblyOperations : Requirements db -> Maybe CountryCode.Code -> List Process -> Results -> Result String Results
+applyAssemblyOperations requirements maybeAssemblyCountry processes initialResults =
+    processes
         |> validateAssemblyProcessesUnit
         |> Result.andThen
-            (\processes ->
+            (\() ->
                 requirements.db.countries
                     |> Country.resolveMaybe maybeAssemblyCountry
                     |> Result.andThen
@@ -598,7 +598,7 @@ applyAssemblyOperations requirements maybeAssemblyCountry expandedProcesses init
                             >> Result.andThen
                                 (\mixes ->
                                     List.foldl
-                                        (\{ process } -> Result.map (applyProcessStep AssemblyStage process mixes))
+                                        (\process -> Result.map (applyProcessStep AssemblyStage process mixes))
                                         (Ok initialResults)
                                         processes
                                 )
@@ -871,7 +871,7 @@ computeAssemblyImpacts requirements ({ assembly } as query) lifeCycle =
 
     else
         operations
-            |> expandAssembly requirements.db assembly.country
+            |> expandAssembly requirements.db.processes
             |> Result.andThen
                 (\expandedProcesses ->
                     assemblyResultsFromMass productionMass
@@ -2079,26 +2079,12 @@ errors =
     }
 
 
-{-| Expand assembly operations into a list of ExpandedLocalizedProcess localized to the assembly
-country when set
+{-| Map assembly operations to their Process.
 -}
-expandAssembly : DataContainer db -> Maybe CountryCode.Code -> List Process.Id -> Result String (List ExpandedLocalizedProcess)
-expandAssembly { countries, processes } country operations =
-    -- first retrieve the optional assembly country
-    countries
-        |> Country.resolveMaybe country
-        |> Result.andThen
-            -- then expand operations to use this optional country; so that each operation process
-            -- will use the same localized energy mix
-            (\resolvedCountry ->
-                operations
-                    |> RE.combineMap
-                        (\id ->
-                            processes
-                                |> Process.findById id
-                                |> Result.map (\process -> { country = resolvedCountry, process = process })
-                        )
-            )
+expandAssembly : List Process -> List Process.Id -> Result String (List Process)
+expandAssembly processes operations =
+    operations
+        |> RE.combineMap (\id -> processes |> Process.findById id)
 
 
 {-| Resolve full use consumption processes linked to their respective ids
@@ -3439,19 +3425,19 @@ validateAssembly requirements query =
             )
 
 
-validateAssemblyProcessesUnit : List ExpandedLocalizedProcess -> Result String (List ExpandedLocalizedProcess)
+validateAssemblyProcessesUnit : List Process -> Result String ()
 validateAssemblyProcessesUnit processes =
-    if not <| List.all (.process >> .unit >> (==) Process.Kilogram) processes then
+    if not <| List.all (.unit >> (==) Process.Kilogram) processes then
         "Les procédés d’assemblage doivent être exprimés en kg\u{00A0}: "
             ++ (processes
-                    |> List.filter (.process >> .unit >> (/=) Process.Kilogram)
-                    |> List.map (\{ process } -> Process.getDisplayName process ++ " (" ++ Process.unitToString process.unit ++ ")")
+                    |> List.filter (.unit >> (/=) Process.Kilogram)
+                    |> List.map (\process -> Process.getDisplayName process ++ " (" ++ Process.unitToString process.unit ++ ")")
                     |> String.join ", "
                )
             |> Err
 
     else
-        Ok processes
+        Ok ()
 
 
 validateAssemblyProcessId : Requirements db -> Process.Id -> Result String Process.Id
