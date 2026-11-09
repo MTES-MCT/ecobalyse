@@ -22,7 +22,7 @@ Cet espace a deux vocation :
 
 ### 📅 Agenda et jalons à venir
 
-<table><thead><tr><th>Date</th><th>Événement</th><th width="205.6666259765625">Type</th></tr></thead><tbody><tr><td>Jeudi 26/11/2026</td><td><a href="https://events.teams.microsoft.com/event/0de6a065-059d-4d1b-9364-e593d78bb4b6@cb6c2492-4a85-4b15-85a1-ed94d47e5849">webinaire méthode linge de maison et accessoires</a></td><td>Atelier / Webinaire</td></tr><tr><td>[Date]</td><td>[Objet]</td><td>[Type]</td></tr></tbody></table>
+<table><thead><tr><th>Date</th><th>Événement  (avec liens)</th><th width="205.6666259765625">Type</th></tr></thead><tbody><tr><td>Vendredi 06/11/2026</td><td><a href="https://ademecloud.sharepoint.com/:p:/s/C-GroupeAffichageEnvironnemental/IQAz0B9NKdnuRrzXQj3o7VdDAUU2UkOKKpHbB2TgBYXgugM?e=Ckw2Dp">Feuille de route et temps d'échange</a></td><td>Atelier / Webinaire</td></tr><tr><td>Jeudi 26/11/2026</td><td><a href="https://events.teams.microsoft.com/event/0de6a065-059d-4d1b-9364-e593d78bb4b6@cb6c2492-4a85-4b15-85a1-ed94d47e5849">webinaire méthode linge de maison et accessoires</a></td><td>Atelier / Webinaire</td></tr><tr><td>[Date]</td><td>[Objet]</td><td>[Type]</td></tr></tbody></table>
 
 
 
@@ -103,6 +103,8 @@ Données concernées :&#x20;
 <summary>📁 Niveau 2 — Paramétrage avancé</summary>
 
 A compléter
+
+Ajouter liste des contributeurs
 
 </details>
 
