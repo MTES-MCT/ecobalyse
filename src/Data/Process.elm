@@ -68,8 +68,8 @@ type alias Process =
     , massPerUnit : Maybe Float
     , metadata : Maybe Metadata
     , qtyVariationRatio : Unit.QuantityVariationRatio
-    , sectors : List Sector
     , searchableText : String
+    , sectors : List Sector
     , source : String
     , unit : Unit
     , visible : Bool
@@ -158,8 +158,8 @@ decode impactsDecoder =
         |> Pipe.required "massPerUnit" (Decode.maybe Decode.float)
         |> DU.strictOptional "metadata" Metadata.decode
         |> Pipe.required "qtyVariationRatio" Unit.decodeQuantityVariationRatio
-        |> Pipe.required "scopes" (Decode.list Sector.decode)
         |> Pipe.hardcoded ""
+        |> Pipe.required "scopes" (Decode.list Sector.decode)
         |> Pipe.required "source" Decode.string
         |> Pipe.required "unit" (Decode.string |> Decode.andThen (DE.fromResult << unitFromString))
         |> Pipe.optional "visible" Decode.bool True
