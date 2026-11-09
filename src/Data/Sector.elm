@@ -43,7 +43,7 @@ type GenericSector
     | Veli
 
 
-{-| A dict where keys are typed as `Scope`
+{-| A dict where keys are typed as `Sector`
 -}
 type alias Dict a =
     AnyDict String Sector a
@@ -51,9 +51,9 @@ type alias Dict a =
 
 all : List Sector
 all =
-    -- Legacy scopes
+    -- Legacy sectors
     [ Food, Textile ]
-        -- Generic scopes
+        -- Generic sectors
         ++ List.map Generic allGeneric
 
 
@@ -66,13 +66,13 @@ allGeneric =
     ]
 
 
-{-| Filter a list of scoped records against any passed allowed scopes
+{-| Filter a list of sectored records against any passed allowed sectors
 -}
 anyOf : List Sector -> List { a | sectors : List Sector } -> List { a | sectors : List Sector }
-anyOf scopes =
+anyOf sectors =
     List.filter <|
         .sectors
-            >> List.any (\sector -> List.member sector scopes)
+            >> List.any (\sector -> List.member sector sectors)
 
 
 decode : Decoder Sector

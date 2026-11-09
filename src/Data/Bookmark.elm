@@ -126,7 +126,7 @@ encodeQuery v =
         Food query ->
             FoodQuery.encode query
 
-        -- Note: generic scope is encoded at the parent bookmark record level
+        -- Note: generic sector is encoded at the parent bookmark record level
         Generic _ query ->
             Component.encodeQuery query
 

@@ -271,7 +271,7 @@ initFromExample session genericSector uuid =
 {-| Initializes the initial query to load, using the URL query if any, or falling back to use:
 
   - the session query if it's not empty
-  - the default configured example for this scope, if any
+  - the default configured example for this sector, if any
   - an empty query
 
 -}

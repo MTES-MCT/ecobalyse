@@ -280,7 +280,7 @@ encodeIngredients ingredients =
 {-| Retrieve a filtered list of processes; filters are applied using `AND` logic, and:
 
   - only `visible` processes are returned;
-  - processes are always filtered against the generic scope provided.
+  - processes are always filtered against the generic sector provided.
 
 -}
 genericProcessesResponse : Db -> GenericSector -> List (Process -> Bool) -> JsonResponse

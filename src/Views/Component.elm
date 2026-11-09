@@ -492,13 +492,13 @@ genericContextStagesView config lifeCycle =
 transportToDistributionView : Config db msg -> Mass -> Transport -> Html msg
 transportToDistributionView ({ componentConfig, impact, sector } as config) mass transport =
     let
-        -- if no plane transport process is available in current scope, disable
+        -- if no plane transport process is available in current sector, disable
         airTransportAvailable =
             componentConfig.transports.modeProcesses.plane.sectors
                 |> List.member sector
 
         -- transport cooling is only available when both boat and lorry cooled transport
-        -- processes are available in current scope
+        -- processes are available in current sector
         transportCoolingAvailable =
             List.all (\{ sectors } -> List.member sector sectors)
                 [ componentConfig.transports.modeProcesses.boatCooling

@@ -911,7 +911,7 @@ computeDistributionImpacts ({ config } as requirements) query ({ distribution, p
             Err errorMessage
 
         Err DistributionNothingAvailable ->
-            -- No distribution processes are available for this scope, so no added impacts
+            -- No distribution processes are available for this sector, so no added impacts
             Ok { lifeCycle | distribution = { distribution | volume = finalProductVolume } }
 
         Ok process ->
@@ -1175,7 +1175,7 @@ Fallbacks to default config distances in case a country is not defined.
 Notes:
 
   - this only computes the transport distances, not the impacts (as a transported mass would be required)
-  - the distance to hub computation logic should eventually be backported to non-generic scopes
+  - the distance to hub computation logic should eventually be backported to non-generic sectors
 
 -}
 computeTransportDistance : Requirements db -> Split -> Maybe Country -> Maybe Country -> Result String (Maybe Transport)
@@ -1381,7 +1381,7 @@ decode =
                 |> Decode.map
                     (\scopes ->
                         if List.isEmpty scopes then
-                            -- Always ensure at least one scope is present
+                            -- Always ensure at least one sector is present
                             [ Sector.Generic Sector.Object ]
 
                         else
@@ -2331,7 +2331,7 @@ getConsumptions { db } query =
 
   - from the query itself when set
   - or the one from the product category if not set
-  - or the default one for the scope if product category is not set
+  - or the default one for the sector if product category is not set
 
 -}
 getDistributionProcessId : Requirements db -> Query -> Maybe Process.Id

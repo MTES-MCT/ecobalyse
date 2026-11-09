@@ -145,7 +145,7 @@ update session msg model =
                 |> createPageUpdate session
                 |> App.withCmds
                     [ (case model.dataset of
-                        -- Try selecting the most appropriate tab when switching scope.
+                        -- Try selecting the most appropriate tab when switching sector.
                         Dataset.Countries _ ->
                             Dataset.Countries Nothing
 

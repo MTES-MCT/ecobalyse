@@ -76,7 +76,7 @@ checkComponentConfig db jsonConfig =
 
 
 {-| Validates that default example UUIDs in config point to existing examples
-with matching scopes.
+with matching sectors.
 -}
 checkDefaultExamples : Db -> ComponentConfig.Config -> List Error
 checkDefaultExamples db config =
@@ -136,7 +136,7 @@ checkComponentsProcessIds knownProcessStringIds db =
             )
 
 
-{-| Ensures a component-referenced process is allowed for the component scope.
+{-| Ensures a component-referenced process is allowed for the component sector.
 -}
 checkComponentProcessScope :
     Dict String Process
@@ -173,7 +173,7 @@ checkComponentProcessScope processes component example fieldName processId =
             []
 
 
-{-| Validates example/component scope compatibility and nested process scopes.
+{-| Validates example/component sector compatibility and nested process sectors.
 -}
 checkComponentScopeMismatch : Dict String Process -> Example query -> Component -> List Error
 checkComponentScopeMismatch processes example component =
@@ -201,7 +201,7 @@ checkComponentScopeMismatch processes example component =
     scopeMismatchErrors ++ processScopeErrors
 
 
-{-| Checks that an Example consumptions are linked to existing scope-compatible processes.
+{-| Checks that an Example consumptions are linked to existing sector-compatible processes.
 -}
 checkExampleConsumption : Dict String Process -> Example query -> Consumption -> List Error
 checkExampleConsumption processes example consumption =
@@ -236,7 +236,7 @@ checkExampleConsumption processes example consumption =
                 ]
 
 
-{-| Resolves a component Item from within an Example query and validates its scope.
+{-| Resolves a component Item from within an Example query and validates its sector.
 -}
 checkExampleComponentItem : Dict String Process -> Dict String Component -> Example query -> Component.Item -> List Error
 checkExampleComponentItem processes components example =
@@ -267,7 +267,7 @@ checkExamplesComponentIds knownComponentStringIds db =
             )
 
 
-{-| Runs scope checks between examples, their components, and referenced processes.
+{-| Runs sector checks between examples, their components, and referenced processes.
 -}
 checkExamplesScope : Db -> List Error
 checkExamplesScope db =
@@ -344,7 +344,7 @@ checkProductCategoryAssemblies db =
             )
 
 
-{-| Checks that a product category consumption references an existing, scope-compatible process.
+{-| Checks that a product category consumption references an existing, sector-compatible process.
 Amount is required unless the process is product-mass-dependent, and forbidden otherwise.
 -}
 checkProductCategoryConsumption : Dict String Process -> ProductCategory -> Consumption -> List Error
