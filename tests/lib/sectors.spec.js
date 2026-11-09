@@ -1,20 +1,20 @@
 const {
-  ALL_SCOPES,
+  ALL_SECTORS,
   GENERIC_SECTORS,
-  LEGACY_SCOPES,
+  LEGACY_SECTORS,
   applyGenericSectorsToOpenApi,
   getEnabledGenericSectorEntries,
   getEnabledGenericSectors,
   isGenericSectorEnabled,
   parseGenericSectorFromUrl,
-  parseScopeFromUrl,
+  parseSectorFromUrl,
 } = require("../../lib/sectors");
 
 describe("lib.sectors", () => {
   describe("ALL_SECTORS", () => {
     test("should list legacy and generic sectors", () => {
-      expect(ALL_SCOPES).toEqual(["apparel", "food", "food2", "object", "textile", "veli"]);
-      expect(LEGACY_SCOPES).toEqual(["food", "textile"]);
+      expect(ALL_SECTORS).toEqual(["apparel", "food", "food2", "object", "textile", "veli"]);
+      expect(LEGACY_SECTORS).toEqual(["food", "textile"]);
       expect(GENERIC_SECTORS).toEqual(["apparel", "food2", "object", "veli"]);
     });
   });
@@ -29,7 +29,7 @@ describe("lib.sectors", () => {
       ["/generic/scopes", null],
       ["/", null],
     ])("%s → %s", (url, expected) => {
-      expect(parseScopeFromUrl(url)).toBe(expected);
+      expect(parseSectorFromUrl(url)).toBe(expected);
     });
   });
 
