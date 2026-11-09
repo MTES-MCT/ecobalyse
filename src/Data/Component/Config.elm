@@ -63,7 +63,7 @@ type alias DurabilityConfig =
 
 type alias EndOfLifeConfig =
     { enabled : Sector.Dict Bool
-    , scopeCollectionRates : Sector.Dict Split
+    , sectorCollectionRates : Sector.Dict Split
     , strategies : EndOfLifeStrategiesConfig
     }
 

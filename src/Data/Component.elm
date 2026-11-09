@@ -2489,7 +2489,7 @@ getEndOfLifeImpacts ({ config, sector } as requirements) recyclable lifeCycle =
 getEndOfLifeSectorCollectionRate : Config -> Bool -> Sector -> Split
 getEndOfLifeSectorCollectionRate { endOfLife } recyclable sector =
     if recyclable then
-        endOfLife.scopeCollectionRates
+        endOfLife.sectorCollectionRates
             |> AnyDict.get sector
             -- Assume every material is fully collected by default
             |> Maybe.withDefault Split.full
