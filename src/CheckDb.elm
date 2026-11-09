@@ -83,20 +83,20 @@ checkDefaultExamples db config =
     config.defaultExamples
         |> AnyDict.toList
         |> List.concatMap
-            (\( scope, uuid ) ->
+            (\( sector, uuid ) ->
                 case db.generic.examples |> Example.findByUuid uuid of
                     Err err ->
                         [ err ]
 
                     Ok example ->
-                        if example.sector == scope then
+                        if example.sector == sector then
                             []
 
                         else
                             [ "Default example"
                                 ++ Uuid.toString uuid
                                 ++ " doesn't belong to the scope "
-                                ++ Sector.toString scope
+                                ++ Sector.toString sector
                             ]
             )
 
@@ -155,7 +155,7 @@ checkComponentProcessScope processes component example fieldName processId =
             let
                 missingScopes =
                     component.sectors
-                        |> List.filter (\scope -> List.member scope process.sectors |> not)
+                        |> List.filter (\sector -> List.member sector process.sectors |> not)
             in
             if List.isEmpty missingScopes then
                 []

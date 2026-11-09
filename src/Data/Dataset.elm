@@ -45,8 +45,8 @@ type Dataset
 
 
 datasets : Sector -> List Dataset
-datasets scope =
-    case scope of
+datasets sector =
+    case sector of
         Sector.Food ->
             [ FoodExamples Nothing
             , Impacts Nothing
@@ -70,47 +70,47 @@ datasets scope =
 
 
 datasetsGeneric : Sector.GenericSector -> List Dataset
-datasetsGeneric scope =
-    case scope of
+datasetsGeneric sector =
+    case sector of
         Sector.Apparel ->
-            [ GenericExamples scope Nothing
-            , Components (Sector.Generic scope) Nothing
+            [ GenericExamples sector Nothing
+            , Components (Sector.Generic sector) Nothing
             , Countries Nothing
-            , Processes (Sector.Generic scope) Nothing
+            , Processes (Sector.Generic sector) Nothing
             , Impacts Nothing
-            , ProductCategory scope Nothing
+            , ProductCategory sector Nothing
             ]
 
         Sector.Food2 ->
-            [ GenericExamples scope Nothing
+            [ GenericExamples sector Nothing
             , Impacts Nothing
             , Countries Nothing
-            , Processes (Sector.Generic scope) Nothing
-            , ProductCategory scope Nothing
+            , Processes (Sector.Generic sector) Nothing
+            , ProductCategory sector Nothing
             ]
 
         Sector.Object ->
-            [ GenericExamples scope Nothing
-            , Components (Sector.Generic scope) Nothing
+            [ GenericExamples sector Nothing
+            , Components (Sector.Generic sector) Nothing
             , Countries Nothing
-            , Processes (Sector.Generic scope) Nothing
+            , Processes (Sector.Generic sector) Nothing
             , Impacts Nothing
-            , ProductCategory scope Nothing
+            , ProductCategory sector Nothing
             ]
 
         Sector.Veli ->
-            [ GenericExamples scope Nothing
-            , Components (Sector.Generic scope) Nothing
+            [ GenericExamples sector Nothing
+            , Components (Sector.Generic sector) Nothing
             , Countries Nothing
             , Impacts Nothing
-            , Processes (Sector.Generic scope) Nothing
-            , ProductCategory scope Nothing
+            , Processes (Sector.Generic sector) Nothing
+            , ProductCategory sector Nothing
             ]
 
 
 defaultDatasetFor : Sector -> Dataset
-defaultDatasetFor scope =
-    case scope of
+defaultDatasetFor sector =
+    case sector of
         Sector.Food ->
             FoodExamples Nothing
 
@@ -154,8 +154,8 @@ datasetSlugDict =
 datasetToString : Dataset -> String
 datasetToString string =
     case string of
-        Components scope _ ->
-            componentDatasetToString scope
+        Components sector _ ->
+            componentDatasetToString sector
 
         Countries _ ->
             "countries"
@@ -166,17 +166,17 @@ datasetToString string =
         FoodIngredients _ ->
             "ingredients"
 
-        GenericExamples scope _ ->
-            examplesDatasetToString scope
+        GenericExamples sector _ ->
+            examplesDatasetToString sector
 
         Impacts _ ->
             "impacts"
 
-        Processes scope _ ->
-            processesDatasetToString scope
+        Processes sector _ ->
+            processesDatasetToString sector
 
-        ProductCategory scope _ ->
-            productCategoryDatasetToString scope
+        ProductCategory sector _ ->
+            productCategoryDatasetToString sector
 
         TextileExamples _ ->
             "textile-examples"
@@ -189,8 +189,8 @@ datasetToString string =
 
 
 componentDatasetToString : Sector -> String
-componentDatasetToString scope =
-    case scope of
+componentDatasetToString sector =
+    case sector of
         Sector.Food ->
             "food-components"
 
@@ -202,8 +202,8 @@ componentDatasetToString scope =
 
 
 componentGenericDatasetToString : Sector.GenericSector -> String
-componentGenericDatasetToString scope =
-    case scope of
+componentGenericDatasetToString sector =
+    case sector of
         Sector.Apparel ->
             "apparel-components"
 
@@ -218,8 +218,8 @@ componentGenericDatasetToString scope =
 
 
 processesDatasetToString : Sector -> String
-processesDatasetToString scope =
-    case scope of
+processesDatasetToString sector =
+    case sector of
         Sector.Food ->
             "food-processes"
 
@@ -231,8 +231,8 @@ processesDatasetToString scope =
 
 
 processesDatasetGenericToString : Sector.GenericSector -> String
-processesDatasetGenericToString scope =
-    case scope of
+processesDatasetGenericToString sector =
+    case sector of
         Sector.Apparel ->
             "apparel-processes"
 
@@ -247,8 +247,8 @@ processesDatasetGenericToString scope =
 
 
 examplesDatasetToString : Sector.GenericSector -> String
-examplesDatasetToString scope =
-    case scope of
+examplesDatasetToString sector =
+    case sector of
         Sector.Apparel ->
             "apparel-examples"
 
@@ -263,8 +263,8 @@ examplesDatasetToString scope =
 
 
 productCategoryDatasetToString : Sector.GenericSector -> String
-productCategoryDatasetToString scope =
-    case scope of
+productCategoryDatasetToString sector =
+    case sector of
         Sector.Apparel ->
             "apparel-product-categories"
 
@@ -331,8 +331,8 @@ parseSlug =
 reset : Dataset -> Dataset
 reset dataset =
     case dataset of
-        Components scope _ ->
-            Components scope Nothing
+        Components sector _ ->
+            Components sector Nothing
 
         Countries _ ->
             Countries Nothing
@@ -343,17 +343,17 @@ reset dataset =
         FoodIngredients _ ->
             FoodIngredients Nothing
 
-        GenericExamples scope _ ->
-            GenericExamples scope Nothing
+        GenericExamples sector _ ->
+            GenericExamples sector Nothing
 
         Impacts _ ->
             Impacts Nothing
 
-        Processes scope _ ->
-            Processes scope Nothing
+        Processes sector _ ->
+            Processes sector Nothing
 
-        ProductCategory scope _ ->
-            ProductCategory scope Nothing
+        ProductCategory sector _ ->
+            ProductCategory sector Nothing
 
         TextileExamples _ ->
             TextileExamples Nothing
@@ -408,8 +408,8 @@ same a b =
 setIdFromString : String -> Dataset -> Dataset
 setIdFromString idString dataset =
     case dataset of
-        Components scope _ ->
-            Components scope (Component.idFromString idString |> Result.toMaybe)
+        Components sector _ ->
+            Components sector (Component.idFromString idString |> Result.toMaybe)
 
         Countries _ ->
             Countries (Just (CountryCode.fromString idString))
@@ -420,17 +420,17 @@ setIdFromString idString dataset =
         FoodIngredients _ ->
             FoodIngredients (idString |> Ingredient.idFromString |> Result.toMaybe)
 
-        GenericExamples scope _ ->
-            GenericExamples scope (idString |> Uuid.fromString |> Result.toMaybe)
+        GenericExamples sector _ ->
+            GenericExamples sector (idString |> Uuid.fromString |> Result.toMaybe)
 
         Impacts _ ->
             Impacts (Definition.toTrigram idString |> Result.toMaybe)
 
-        Processes scope _ ->
-            Processes scope (Process.idFromString idString |> Result.toMaybe)
+        Processes sector _ ->
+            Processes sector (Process.idFromString idString |> Result.toMaybe)
 
-        ProductCategory scope _ ->
-            ProductCategory scope (ProductCategory.idFromString idString |> Result.toMaybe)
+        ProductCategory sector _ ->
+            ProductCategory sector (ProductCategory.idFromString idString |> Result.toMaybe)
 
         TextileExamples _ ->
             TextileExamples (idString |> Uuid.fromString |> Result.toMaybe)
@@ -450,8 +450,8 @@ slug =
 strings : Dataset -> { label : String, slug : String }
 strings dataset =
     case dataset of
-        Components scope _ ->
-            { label = "Composants", slug = Sector.toString scope ++ "-components" }
+        Components sector _ ->
+            { label = "Composants", slug = Sector.toString sector ++ "-components" }
 
         Countries _ ->
             { label = "Pays", slug = "countries" }
@@ -468,8 +468,8 @@ strings dataset =
         Impacts _ ->
             { label = "Impacts", slug = "impacts" }
 
-        Processes scope _ ->
-            { label = "Procédés", slug = Sector.toString scope ++ "-processes" }
+        Processes sector _ ->
+            { label = "Procédés", slug = Sector.toString sector ++ "-processes" }
 
         ProductCategory genericScope _ ->
             { label = "Produits", slug = Sector.toString (Sector.Generic genericScope) ++ "-product-categories" }

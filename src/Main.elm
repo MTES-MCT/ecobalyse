@@ -154,8 +154,8 @@ loadData sessionConfig =
 
 
 scopeLoadData : Sector -> List ( String, WebData RawJsonString -> LoadingState -> LoadingState )
-scopeLoadData scope =
-    case scope of
+scopeLoadData sector =
+    case sector of
         Sector.Food ->
             [ ( "/data/food/ingredients.json", \data raw -> { raw | foodIngredients = data } )
             , ( "/data/food/examples.json", \data raw -> { raw | foodProductExamples = data } )
@@ -173,8 +173,8 @@ scopeLoadData scope =
 
 
 scopeGenericLoadData : Sector.GenericSector -> List ( String, WebData RawJsonString -> LoadingState -> LoadingState )
-scopeGenericLoadData scope =
-    case scope of
+scopeGenericLoadData sector =
+    case sector of
         Sector.Apparel ->
             [ ( "/data/apparel/categories.json", \data raw -> { raw | apparelProductCategories = data } )
             , ( "/data/apparel/components.json", \data raw -> { raw | apparelComponents = data } )
@@ -309,8 +309,8 @@ setRoute url session currentPage ( model, cmds ) =
             Editorial.init slug session
                 |> toPage model cmds EditorialPage EditorialMsg
 
-        Just (Route.Explore scope dataset) ->
-            Explore.init scope dataset session
+        Just (Route.Explore sector dataset) ->
+            Explore.init sector dataset session
                 |> toPage model cmds ExplorePage ExploreMsg
 
         Just (Route.FoodBuilder trigram maybeQuery) ->

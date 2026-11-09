@@ -67,8 +67,8 @@ findByQuery query =
 
 
 forScope : Sector -> List (Example query) -> List (Example query)
-forScope scope =
-    List.filter (.sector >> (==) scope)
+forScope sector =
+    List.filter (.sector >> (==) sector)
 
 
 parseUuid : Parser (Uuid -> a) a

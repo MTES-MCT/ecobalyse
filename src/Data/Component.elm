@@ -2295,9 +2295,9 @@ getAssemblyOperations { db } query =
 
 
 getAvailableDistributionProcesses : DataContainer db -> Sector -> List Process
-getAvailableDistributionProcesses db scope =
+getAvailableDistributionProcesses db sector =
     db.processes
-        |> Sector.anyOf [ scope ]
+        |> Sector.anyOf [ sector ]
         |> Process.listByCategory Category.Distribution
         |> List.filter (.unit >> (==) Process.CubicMeter)
 
@@ -2487,10 +2487,10 @@ getEndOfLifeImpacts ({ config, sector } as requirements) recyclable lifeCycle =
 
 
 getEndOfLifeScopeCollectionRate : Config -> Bool -> Sector -> Split
-getEndOfLifeScopeCollectionRate { endOfLife } recyclable scope =
+getEndOfLifeScopeCollectionRate { endOfLife } recyclable sector =
     if recyclable then
         endOfLife.scopeCollectionRates
-            |> AnyDict.get scope
+            |> AnyDict.get sector
             -- Assume every material is fully collected by default
             |> Maybe.withDefault Split.full
 

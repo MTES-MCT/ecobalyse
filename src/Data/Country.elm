@@ -171,19 +171,19 @@ toSearchableString country =
 
 
 validateForScope : Sector -> List Country -> Code -> Result String Code
-validateForScope scope countries countryCode =
+validateForScope sector countries countryCode =
     countries
         |> findByCode countryCode
         |> Result.andThen
             (\{ code, sectors } ->
-                if List.member scope sectors then
+                if List.member sector sectors then
                     Ok code
 
                 else
                     "Le code pays "
                         ++ CountryCode.toString countryCode
                         ++ " n’est pas utilisable dans un contexte "
-                        ++ Sector.toLabel scope
+                        ++ Sector.toLabel sector
                         ++ "."
                         |> Err
             )

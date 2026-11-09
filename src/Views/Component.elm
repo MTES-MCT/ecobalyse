@@ -134,10 +134,10 @@ FIXME: we should make these configurable in components/config.json
 
 -}
 scopeLabels : Context -> Sector -> Labels
-scopeLabels context scope =
+scopeLabels context sector =
     case context of
         Context.Generic ->
-            case scope of
+            case sector of
                 Sector.Generic Sector.Apparel ->
                     { add = "Ajouter un composant"
                     , addElement = "Ajouter un matériau"

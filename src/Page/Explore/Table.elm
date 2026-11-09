@@ -81,10 +81,10 @@ viewDetails :
     -> ({ detailed : Bool, sector : Sector } -> Table data comparable msg)
     -> data
     -> Html msg
-viewDetails scope createTable item =
+viewDetails sector createTable item =
     let
         { legend, columns } =
-            createTable { detailed = True, sector = scope }
+            createTable { detailed = True, sector = sector }
     in
     div []
         [ div [ class "text-muted fs-7" ] legend
@@ -110,10 +110,10 @@ viewList :
     -> ({ detailed : Bool, sector : Sector } -> Table data comparable msg)
     -> List data
     -> Html msg
-viewList dataToMsg defaultConfig tableState scope createTable items =
+viewList dataToMsg defaultConfig tableState sector createTable items =
     let
         ({ filename, toId, toSearchableText, facets, columns, legend } as table) =
-            createTable { detailed = False, sector = scope }
+            createTable { detailed = False, sector = sector }
 
         { customizations } =
             defaultConfig
@@ -172,7 +172,7 @@ viewList dataToMsg defaultConfig tableState scope createTable items =
             List.length resultItems
 
         csv =
-            { filename = "ecobalyse-" ++ Sector.toString scope ++ "-" ++ filename ++ ".csv"
+            { filename = "ecobalyse-" ++ Sector.toString sector ++ "-" ++ filename ++ ".csv"
             , content = resultItems |> toCSV table
             }
 
@@ -185,7 +185,7 @@ viewList dataToMsg defaultConfig tableState scope createTable items =
             , close = Nothing
             , content =
                 [ text <| "Aucun enregistrement disponible pour le secteur "
-                , strong [] [ text <| Sector.toLabel scope ]
+                , strong [] [ text <| Sector.toLabel sector ]
                 ]
             , level = Alert.Info
             , title = Nothing

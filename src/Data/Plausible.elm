@@ -91,61 +91,61 @@ send session event =
                     "auth_signup"
                     [ string "feature" "auth" ]
 
-            BookmarkSaved scope ->
+            BookmarkSaved sector ->
                 track session
                     "bookmark_saved"
                     [ string "feature" "bookmarks"
-                    , string "scope" (Sector.toString scope)
+                    , string "scope" (Sector.toString sector)
                     ]
 
-            ComparatorOpened scope ->
+            ComparatorOpened sector ->
                 track session
                     "comparator_opened"
                     [ string "feature" "comparator"
-                    , string "scope" (Sector.toString scope)
+                    , string "scope" (Sector.toString sector)
                     ]
 
-            ComparisonTypeSelected scope comparisonType ->
+            ComparisonTypeSelected sector comparisonType ->
                 track session
                     "comparison_type_selected"
                     [ string "feature" "comparator"
-                    , string "scope" (Sector.toString scope)
+                    , string "scope" (Sector.toString sector)
                     , string "comparison_type" comparisonType
                     ]
 
-            ComponentAdded scope ->
+            ComponentAdded sector ->
                 track session
                     "component_added"
                     [ string "feature" "simulator"
-                    , string "scope" (Sector.toString scope)
+                    , string "scope" (Sector.toString sector)
                     ]
 
-            ComponentUpdated scope ->
+            ComponentUpdated sector ->
                 track session
                     "component_updated"
                     [ string "feature" "simulator"
-                    , string "scope" (Sector.toString scope)
+                    , string "scope" (Sector.toString sector)
                     ]
 
-            ConsumptionAdded scope ->
+            ConsumptionAdded sector ->
                 track session
                     "consumption_added"
                     [ string "feature" "simulator"
-                    , string "scope" (Sector.toString scope)
+                    , string "scope" (Sector.toString sector)
                     ]
 
-            ExampleSelected scope ->
+            ExampleSelected sector ->
                 track session
                     "example_selected"
                     [ string "feature" "simulator"
-                    , string "scope" (Sector.toString scope)
+                    , string "scope" (Sector.toString sector)
                     ]
 
-            ImpactSelected scope trigram ->
+            ImpactSelected sector trigram ->
                 track session
                     "impact_selected"
                     [ string "feature" "simulator"
-                    , string "scope" (Sector.toString scope)
+                    , string "scope" (Sector.toString sector)
                     , string "trigram" (Definition.toString trigram)
                     ]
 
@@ -154,11 +154,11 @@ send session event =
                     "pageview"
                     [ string "url" (safeUrl url) ]
 
-            TabSelected scope tab ->
+            TabSelected sector tab ->
                 track session
                     "tab_selected"
                     [ string "feature" "share"
-                    , string "scope" (Sector.toString scope)
+                    , string "scope" (Sector.toString sector)
                     , string "tab" tab
                     ]
 

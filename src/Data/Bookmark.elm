@@ -191,8 +191,8 @@ replace bookmark =
         (always bookmark)
 
 
-scope : Bookmark -> Sector
-scope bookmark =
+sector : Bookmark -> Sector
+sector bookmark =
     case bookmark.query of
         Food _ ->
             Sector.Food
@@ -211,7 +211,7 @@ sort =
 
 toId : Bookmark -> String
 toId bookmark =
-    Sector.toString (scope bookmark) ++ ":" ++ bookmark.name
+    Sector.toString (sector bookmark) ++ ":" ++ bookmark.name
 
 
 toQueryDescription : Db -> Bookmark -> String

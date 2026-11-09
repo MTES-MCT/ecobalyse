@@ -81,7 +81,7 @@ type Msg
 
 
 init : Sector -> Dataset -> Session -> PageUpdate Model Msg
-init scope dataset session =
+init sector dataset session =
     let
         initialSort =
             case dataset of
@@ -121,7 +121,7 @@ init scope dataset session =
     createPageUpdate session
         { dataset = dataset
         , facetValues = Dict.empty
-        , sector = scope
+        , sector = sector
         , search = ""
         , tableState = SortableTable.initialSort initialSort
         }
@@ -140,8 +140,8 @@ update session msg model =
         OpenDetail id ->
             createPageUpdate session { model | dataset = model.dataset |> Dataset.setIdFromString id }
 
-        ScopeChange scope ->
-            { model | facetValues = Dict.empty, sector = scope }
+        ScopeChange sector ->
+            { model | facetValues = Dict.empty, sector = sector }
                 |> createPageUpdate session
                 |> App.withCmds
                     [ (case model.dataset of
@@ -153,20 +153,20 @@ update session msg model =
                             Dataset.Impacts Nothing
 
                         Dataset.Processes _ _ ->
-                            Dataset.Processes scope Nothing
+                            Dataset.Processes sector Nothing
 
                         Dataset.ProductCategory _ _ ->
-                            case Sector.toGenericScope scope of
+                            case Sector.toGenericScope sector of
                                 Just newGenericScope ->
                                     Dataset.ProductCategory newGenericScope Nothing
 
                                 Nothing ->
-                                    Dataset.defaultDatasetFor scope
+                                    Dataset.defaultDatasetFor sector
 
                         _ ->
-                            Dataset.defaultDatasetFor scope
+                            Dataset.defaultDatasetFor sector
                       )
-                        |> Route.Explore scope
+                        |> Route.Explore sector
                         |> Route.toString
                         |> Nav.pushUrl session.navKey
                     ]
@@ -237,12 +237,12 @@ scopesMenuView { enabledSections } model =
           ]
             |> List.filter Tuple.second
             |> List.map
-                (\( scope, _ ) ->
+                (\( sector, _ ) ->
                     option
-                        [ selected <| model.sector == scope
-                        , value <| Sector.toString scope
+                        [ selected <| model.sector == sector
+                        , value <| Sector.toString sector
                         ]
-                        [ text <| Sector.toLabel scope ]
+                        [ text <| Sector.toLabel sector ]
                 )
             |> select
                 [ class "form-select"
@@ -290,13 +290,13 @@ countriesExplorer :
     -> Sector
     -> Maybe CountryCode.Code
     -> List (Html Msg)
-countriesExplorer { distances, countries } tableConfig tableState scope maybeCode =
+countriesExplorer { distances, countries } tableConfig tableState sector maybeCode =
     [ countries
-        |> List.filter (.sectors >> List.member scope)
+        |> List.filter (.sectors >> List.member sector)
         |> Table.viewList (.code >> CountryCode.toString >> OpenDetail)
             tableConfig
             tableState
-            scope
+            sector
             (ExploreCountries.table distances countries)
     , case maybeCode of
         Just code ->
@@ -307,7 +307,7 @@ countriesExplorer { distances, countries } tableConfig tableState scope maybeCod
 
                     Ok country ->
                         country
-                            |> Table.viewDetails scope (ExploreCountries.table distances countries)
+                            |> Table.viewDetails sector (ExploreCountries.table distances countries)
                 )
 
         Nothing ->
@@ -322,17 +322,17 @@ impactsExplorer :
     -> Sector
     -> Maybe Definition.Trigram
     -> List (Html Msg)
-impactsExplorer definitions tableConfig tableState scope maybeTrigram =
+impactsExplorer definitions tableConfig tableState sector maybeTrigram =
     [ Definition.toList definitions
         |> List.sortBy (.trigram >> Definition.toString)
         |> Table.viewList (.trigram >> Definition.toString >> OpenDetail)
             tableConfig
             tableState
-            scope
+            sector
             ExploreImpacts.table
     , maybeTrigram
         |> Maybe.map (\trigram -> Definition.get trigram definitions)
-        |> Maybe.map (Table.viewDetails scope ExploreImpacts.table)
+        |> Maybe.map (Table.viewDetails sector ExploreImpacts.table)
         |> Maybe.map detailsModal
         |> Maybe.withDefault (text "")
     ]
@@ -443,18 +443,18 @@ processesExplorer :
     -> SortableTable.State
     -> Maybe Process.Id
     -> List (Html Msg)
-processesExplorer session scope tableConfig tableState maybeId =
+processesExplorer session sector tableConfig tableState maybeId =
     let
         scopedProcesses =
             session.db.processes
-                |> Sector.anyOf [ scope ]
+                |> Sector.anyOf [ sector ]
     in
     [ scopedProcesses
         |> List.sortBy Process.getDisplayName
         |> Table.viewList (.id >> Process.idToString >> OpenDetail)
             tableConfig
             tableState
-            scope
+            sector
             (Processes.table session)
     , case maybeId of
         Just id ->
@@ -465,7 +465,7 @@ processesExplorer session scope tableConfig tableState maybeId =
 
                     Ok process ->
                         process
-                            |> Table.viewDetails scope (Processes.table session)
+                            |> Table.viewDetails sector (Processes.table session)
                 )
 
         Nothing ->
@@ -480,10 +480,10 @@ componentsExplorer :
     -> SortableTable.State
     -> Maybe Component.Id
     -> List (Html Msg)
-componentsExplorer session scope tableConfig tableState maybeId =
+componentsExplorer session sector tableConfig tableState maybeId =
     let
         scopedComponents =
-            session.db.components |> List.filter (.sectors >> List.member scope)
+            session.db.components |> List.filter (.sectors >> List.member sector)
     in
     [ scopedComponents
         |> List.sortBy .name
@@ -492,7 +492,7 @@ componentsExplorer session scope tableConfig tableState maybeId =
             (.id >> Maybe.map Component.idToString >> Maybe.withDefault "" >> OpenDetail)
             tableConfig
             tableState
-            scope
+            sector
             (Components.table session)
     , case maybeId of
         Just id ->
@@ -503,7 +503,7 @@ componentsExplorer session scope tableConfig tableState maybeId =
 
                     Ok component ->
                         component
-                            |> Table.viewDetails scope (Components.table session)
+                            |> Table.viewDetails sector (Components.table session)
                 )
 
         Nothing ->
@@ -520,17 +520,17 @@ genericExamplesExplorer :
     -> List (Html Msg)
 genericExamplesExplorer session tableConfig tableState genericScope maybeId =
     let
-        scope =
+        sector =
             Sector.Generic genericScope
 
         scoredExamples =
             session.db.generic.examples
-                |> List.filter (\example -> example.sector == scope)
+                |> List.filter (\example -> example.sector == sector)
                 |> List.map
                     (\example ->
                         ( example
-                        , { score = getGenericScore session scope example
-                          , per100g = getGenericScorePer100g session scope example
+                        , { score = getGenericScore session sector example
+                          , per100g = getGenericScorePer100g session sector example
                           }
                         )
                     )
@@ -555,7 +555,7 @@ genericExamplesExplorer session tableConfig tableState genericScope maybeId =
         |> Table.viewList (Tuple.first >> .id >> Data.Uuid.toString >> OpenDetail)
             tableConfig
             tableState
-            scope
+            sector
             (GenericExamples.table max genericScope)
     , case maybeId of
         Just id ->
@@ -566,11 +566,11 @@ genericExamplesExplorer session tableConfig tableState genericScope maybeId =
 
                     Ok example ->
                         ( example
-                        , { score = getGenericScore session scope example
-                          , per100g = getGenericScorePer100g session scope example
+                        , { score = getGenericScore session sector example
+                          , per100g = getGenericScorePer100g session sector example
                           }
                         )
-                            |> Table.viewDetails scope (GenericExamples.table max genericScope)
+                            |> Table.viewDetails sector (GenericExamples.table max genericScope)
                 )
 
         Nothing ->
@@ -678,7 +678,7 @@ productCategoriesExplorer :
     -> List (Html Msg)
 productCategoriesExplorer session genericScope tableConfig tableState maybeId =
     let
-        scope =
+        sector =
             Sector.Generic genericScope
     in
     [ session.db.products
@@ -686,7 +686,7 @@ productCategoriesExplorer session genericScope tableConfig tableState maybeId =
         |> Table.viewList (.id >> ProductCategory.idToString >> OpenDetail)
             tableConfig
             tableState
-            scope
+            sector
             (ProductCategories.table session genericScope)
     , case maybeId of
         Just id ->
@@ -696,7 +696,7 @@ productCategoriesExplorer session genericScope tableConfig tableState maybeId =
                         alert error
 
                     Ok product ->
-                        Table.viewDetails scope (ProductCategories.table session genericScope) product
+                        Table.viewDetails sector (ProductCategories.table session genericScope) product
                 )
 
         Nothing ->
@@ -761,9 +761,9 @@ getFoodScorePer100g db =
 
 
 getGenericScore : Session -> Sector -> Example Component.Query -> Float
-getGenericScore { componentConfig, db } scope { query } =
+getGenericScore { componentConfig, db } sector { query } =
     query
-        |> GenericSimulator.compute { config = componentConfig, db = db, sector = scope }
+        |> GenericSimulator.compute { config = componentConfig, db = db, sector = sector }
         |> Result.map
             (Component.sumLifeCycleImpacts
                 >> Impact.getImpact Definition.Ecs
@@ -773,9 +773,9 @@ getGenericScore { componentConfig, db } scope { query } =
 
 
 getGenericScorePer100g : Session -> Sector -> Example Component.Query -> Float
-getGenericScorePer100g { componentConfig, db } scope { query } =
+getGenericScorePer100g { componentConfig, db } sector { query } =
     query
-        |> GenericSimulator.compute { config = componentConfig, db = db, sector = scope }
+        |> GenericSimulator.compute { config = componentConfig, db = db, sector = sector }
         |> Result.map
             (\lifeCycle ->
                 lifeCycle

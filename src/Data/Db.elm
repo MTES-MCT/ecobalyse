@@ -113,15 +113,15 @@ build json =
                         )
                     |> RE.andMap
                         (Sector.allGeneric
-                            |> List.map (\scope -> extractJsonString (scopeGenericExamples json scope))
+                            |> List.map (\sector -> extractJsonString (scopeGenericExamples json sector))
                             |> GenericDb.buildFromJson processes
                         )
                     |> RE.andMap (Ok processes)
                     |> RE.andMap
                         (Sector.allGeneric
                             |> List.map
-                                (\scope ->
-                                    scope
+                                (\sector ->
+                                    sector
                                         |> scopeGenericProductCategories json
                                         |> extractJsonString
                                         |> ProductCategory.decodeListFromJsonString
@@ -140,8 +140,8 @@ build json =
 
 
 scopeComponents : RawJsonStrings -> Sector -> Maybe RawJsonString
-scopeComponents json scope =
-    case scope of
+scopeComponents json sector =
+    case sector of
         Sector.Food ->
             Nothing
 
@@ -153,8 +153,8 @@ scopeComponents json scope =
 
 
 scopeGenericComponents : RawJsonStrings -> Sector.GenericSector -> RawJsonString
-scopeGenericComponents json scope =
-    case scope of
+scopeGenericComponents json sector =
+    case sector of
         Sector.Apparel ->
             json.apparelComponents
 
@@ -169,8 +169,8 @@ scopeGenericComponents json scope =
 
 
 scopeGenericExamples : RawJsonStrings -> Sector.GenericSector -> RawJsonString
-scopeGenericExamples json scope =
-    case scope of
+scopeGenericExamples json sector =
+    case sector of
         Sector.Apparel ->
             json.apparelExamples
 
@@ -185,8 +185,8 @@ scopeGenericExamples json scope =
 
 
 scopeGenericProductCategories : RawJsonStrings -> Sector.GenericSector -> RawJsonString
-scopeGenericProductCategories json scope =
-    case scope of
+scopeGenericProductCategories json sector =
+    case sector of
         Sector.Apparel ->
             json.apparelProductCategories
 
@@ -243,8 +243,8 @@ propGetters =
 
 
 scopePropGetters : Sector -> List (Properties a -> a)
-scopePropGetters scope =
-    case scope of
+scopePropGetters sector =
+    case sector of
         Sector.Food ->
             [ .foodIngredients
             , .foodProductExamples
@@ -262,8 +262,8 @@ scopePropGetters scope =
 
 
 scopeGenericPropGetters : Sector.GenericSector -> List (Properties a -> a)
-scopeGenericPropGetters scope =
-    case scope of
+scopeGenericPropGetters sector =
+    case sector of
         Sector.Apparel ->
             [ .apparelProductCategories
             , .apparelComponents

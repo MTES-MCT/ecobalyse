@@ -112,9 +112,9 @@ addElementTransformButton { db, openSelectProcessModal, query, sector } material
 
 
 createElementMaterialAutocomplete : Component.DataContainer db -> Sector -> Autocomplete Process
-createElementMaterialAutocomplete db scope =
+createElementMaterialAutocomplete db sector =
     db.processes
-        |> Process.listAvailableByCategory scope Category.Material
+        |> Process.listAvailableByCategory sector Category.Material
         -- Exclude packaging materials as they're available in a dedicated section
         |> List.filter (\{ categories } -> not <| List.member Category.Packaging categories)
         |> AutocompleteSelector.init Process.getDisplayName

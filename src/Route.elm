@@ -56,7 +56,7 @@ parser =
 
         --  Explorer
         , (Parser.s "explore" </> Sector.parse)
-            |> Parser.map (\scope -> Explore scope (Dataset.defaultDatasetFor scope))
+            |> Parser.map (\sector -> Explore sector (Dataset.defaultDatasetFor sector))
         , Parser.map Explore
             (Parser.s "explore" </> Sector.parse </> Dataset.parseSlug)
 
@@ -111,11 +111,11 @@ parseGenericSimulatorRoutes =
 scopeParser : Parser (Sector.GenericSector -> a) a
 scopeParser =
     List.map
-        (\scope ->
-            scope
+        (\sector ->
+            sector
                 |> Sector.toStringGeneric
                 |> Parser.s
-                |> Parser.map scope
+                |> Parser.map sector
         )
         Sector.allGeneric
         |> Parser.oneOf
@@ -209,8 +209,8 @@ toString route =
                 Explore Sector.Textile (Dataset.TextileExamples Nothing) ->
                     [ "explore", "textile" ]
 
-                Explore scope dataset ->
-                    "explore" :: Sector.toString scope :: Dataset.toRoutePath dataset
+                Explore sector dataset ->
+                    "explore" :: Sector.toString sector :: Dataset.toRoutePath dataset
 
                 FoodBuilder trigram Nothing ->
                     [ "food", Definition.toString trigram ]

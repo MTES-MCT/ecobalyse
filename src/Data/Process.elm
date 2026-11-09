@@ -286,10 +286,10 @@ hasValidMassPerUnit process =
 
 
 listAvailableByCategory : Sector -> Category -> List Process -> List Process
-listAvailableByCategory scope category processes =
+listAvailableByCategory sector category processes =
     processes
         |> List.filter .visible
-        |> Sector.anyOf [ scope ]
+        |> Sector.anyOf [ sector ]
         |> listByCategory category
         |> List.sortBy getDisplayName
 

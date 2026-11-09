@@ -222,12 +222,12 @@ init genericScope trigram maybeUrlQuery session =
 initFromExample : Session -> GenericSector -> Uuid -> PageUpdate Model Msg
 initFromExample session genericScope uuid =
     let
-        scope =
+        sector =
             Sector.Generic genericScope
 
         examples =
             session.db.generic.examples
-                |> Example.forScope scope
+                |> Example.forScope sector
 
         example =
             examples
@@ -259,7 +259,7 @@ initFromExample session genericScope uuid =
             |> Simulator.compute
                 { config = session.componentConfig
                 , db = session.db
-                , sector = scope
+                , sector = sector
                 }
     , genericSector = genericScope
     }
@@ -359,7 +359,7 @@ suggestBookmarkName { db, store } genericScope examples query =
 updateQuery : Query -> PageUpdate Model Msg -> PageUpdate Model Msg
 updateQuery query ({ model, session } as pageUpdate) =
     let
-        scope =
+        sector =
             Sector.Generic model.genericSector
     in
     { pageUpdate
@@ -372,7 +372,7 @@ updateQuery query ({ model, session } as pageUpdate) =
                         |> Simulator.compute
                             { config = session.componentConfig
                             , db = session.db
-                            , sector = scope
+                            , sector = sector
                             }
             }
         , session = session |> Session.updateGenericQuery model.genericSector query
@@ -1327,7 +1327,7 @@ shouldTrackUsage msg =
 editorConfig : Session -> Model -> ComponentView.Config Db Msg
 editorConfig session ({ genericSector } as model) =
     let
-        scope =
+        sector =
             Sector.Generic genericSector
     in
     { componentConfig = session.componentConfig
@@ -1336,10 +1336,10 @@ editorConfig session ({ genericSector } as model) =
     , debug = True
     , detailed = model.detailedComponents
     , docsUrl = Nothing
-    , explorerRoute = Just (Route.Explore scope (Dataset.Components scope Nothing))
+    , explorerRoute = Just (Route.Explore sector (Dataset.Components sector Nothing))
     , floatInputState = model.floatInputState
     , impact = model.impact
-    , labels = ComponentView.scopeLabels Context.Generic scope
+    , labels = ComponentView.scopeLabels Context.Generic sector
     , noOp = NoOp
     , openItemEditModal = \targetItem -> AppendModal (ItemEditModal targetItem)
     , openSelectAssemblyOperationModal = SelectAssemblyOperationModal >> AppendModal
@@ -1355,7 +1355,7 @@ editorConfig session ({ genericSector } as model) =
     , removeItem = RemoveComponentItem
     , removePackaging = RemovePackaging
     , lifeCycle = model.lifeCycle
-    , sector = scope
+    , sector = sector
     , setDetailed = SetDetailedComponents
     , toggleTransportByAir = ToggleTransportByAir
     , unitMassLocked = isItemEditModalOpen model.modals
@@ -1377,7 +1377,7 @@ editorConfig session ({ genericSector } as model) =
 simulatorView : Session -> Model -> Html Msg
 simulatorView ({ componentConfig } as session) ({ genericSector } as model) =
     let
-        scope =
+        sector =
             Sector.Generic genericSector
 
         currentQuery =
@@ -1394,7 +1394,7 @@ simulatorView ({ componentConfig } as session) ({ genericSector } as model) =
                     , helpUrl = Nothing
                     , onOpen = SelectExampleModal >> AppendModal
                     , routes =
-                        { explore = Route.Explore scope (Dataset.GenericExamples genericSector Nothing)
+                        { explore = Route.Explore sector (Dataset.GenericExamples genericSector Nothing)
                         , load = Route.GenericSimulatorExample genericSector
                         , scopeHome = Route.GenericSimulatorHome genericSector
                         }
@@ -1406,7 +1406,7 @@ simulatorView ({ componentConfig } as session) ({ genericSector } as model) =
                     , sector = genericSector
                     }
                 ]
-            , durabilityView componentConfig scope currentQuery.durability
+            , durabilityView componentConfig sector currentQuery.durability
             , editorConfig session model
                 |> ComponentView.editorView
             ]
@@ -1419,7 +1419,7 @@ simulatorView ({ componentConfig } as session) ({ genericSector } as model) =
               SidebarView.view
                 { noOp = NoOp
                 , session = session
-                , sector = scope
+                , sector = sector
 
                 -- Impact selector
                 , selectedImpact = model.impact
@@ -1470,8 +1470,8 @@ simulatorView ({ componentConfig } as session) ({ genericSector } as model) =
 
 
 durabilityView : Component.Config -> Sector -> Maybe Unit.Ratio -> Html Msg
-durabilityView componentConfig scope maybeDurability =
-    if componentConfig.durability |> Config.scopeEnabled scope |> not then
+durabilityView componentConfig sector maybeDurability =
+    if componentConfig.durability |> Config.scopeEnabled sector |> not then
         text ""
 
     else
@@ -1487,7 +1487,7 @@ durabilityView componentConfig scope maybeDurability =
             [ div [ class "card-header d-flex justify-content-between align-items-center" ]
                 [ h2 [ class "h5 mb-1 text-truncate" ] [ text "Durabilité" ]
                 , div [ class "d-flex align-items-center gap-2" ]
-                    [ case Component.getDocLink componentConfig scope "durability" of
+                    [ case Component.getDocLink componentConfig sector "durability" of
                         Just docUrl ->
                             Button.docsPillLink
                                 [ class "bg-secondary"

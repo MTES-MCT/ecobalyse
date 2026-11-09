@@ -72,7 +72,7 @@ anyOf : List Sector -> List { a | sectors : List Sector } -> List { a | sectors 
 anyOf scopes =
     List.filter <|
         .sectors
-            >> List.any (\scope -> List.member scope scopes)
+            >> List.any (\sector -> List.member sector scopes)
 
 
 decode : Decoder Sector
@@ -98,8 +98,8 @@ dictGet =
 
 
 dictGetMaybe : Sector -> Dict (Maybe a) -> Maybe a
-dictGetMaybe scope dict =
-    case dictGet scope dict of
+dictGetMaybe sector dict =
+    case dictGet sector dict of
         Just maybe ->
             maybe
 
@@ -138,8 +138,8 @@ fromString string =
 fromStringGeneric : String -> Result String GenericSector
 fromStringGeneric string =
     case Dict.get string genericNameDict of
-        Just scope ->
-            Ok scope
+        Just sector ->
+            Ok sector
 
         Nothing ->
             Err <| "Couldn't decode unknown generic scope " ++ string
@@ -149,15 +149,15 @@ genericNameDict : Dict.Dict String GenericSector
 genericNameDict =
     allGeneric
         |> List.foldl
-            (\scope dict ->
-                Dict.insert (toStringGeneric scope) scope dict
+            (\sector dict ->
+                Dict.insert (toStringGeneric sector) sector dict
             )
             Dict.empty
 
 
 isGeneric : Sector -> Bool
-isGeneric scope =
-    case scope of
+isGeneric sector =
+    case sector of
         Generic _ ->
             True
 
@@ -177,8 +177,8 @@ parseGeneric =
 
 
 toGenericScope : Sector -> Maybe GenericSector
-toGenericScope scope =
-    case scope of
+toGenericScope sector =
+    case sector of
         Generic genericScope ->
             Just genericScope
 
@@ -187,8 +187,8 @@ toGenericScope scope =
 
 
 toLabel : Sector -> String
-toLabel scope =
-    case scope of
+toLabel sector =
+    case sector of
         Food ->
             "Alimentaire"
 
@@ -216,8 +216,8 @@ toLabelGeneric genericScope =
 
 
 toString : Sector -> String
-toString scope =
-    case scope of
+toString sector =
+    case sector of
         Food ->
             "food"
 

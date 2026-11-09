@@ -218,8 +218,8 @@ decodeUseConfig processes =
 
 
 getDocLink : Config -> Sector -> String -> Maybe String
-getDocLink { docLinks } scope key =
-    case docLinks.scoped |> Sector.dictGet scope |> Maybe.andThen (Dict.get key) of
+getDocLink { docLinks } sector key =
+    case docLinks.scoped |> Sector.dictGet sector |> Maybe.andThen (Dict.get key) of
         Just link ->
             Just link
 
@@ -234,7 +234,7 @@ parse db =
 
 
 scopeEnabled : Sector -> { a | enabled : Sector.Dict Bool } -> Bool
-scopeEnabled scope =
+scopeEnabled sector =
     .enabled
-        >> Sector.dictGet scope
+        >> Sector.dictGet sector
         >> Maybe.withDefault False

@@ -97,8 +97,8 @@ view cfg =
 
 
 buildGenericApiQuery : Sector -> Maybe String -> String -> Component.Query -> String
-buildGenericApiQuery scope maybeToken clientUrl query =
-    (clientUrl ++ "/api/" ++ Sector.toString scope ++ "/simulator")
+buildGenericApiQuery sector maybeToken clientUrl query =
+    (clientUrl ++ "/api/" ++ Sector.toString sector ++ "/simulator")
         |> Text.buildCurlCommand maybeToken
             (query |> Component.encodeQuery |> Encode.encode 0)
 
@@ -487,8 +487,8 @@ contributeExampleTabView ({ sector, session } as config) =
 
 
 queryFromScope : Session -> Sector -> Bookmark.Query
-queryFromScope session scope =
-    case scope of
+queryFromScope session sector =
+    case sector of
         Sector.Food ->
             Bookmark.Food session.queries.food
 
@@ -500,10 +500,10 @@ queryFromScope session scope =
 
 
 scopedBookmarks : Session -> Sector -> List Bookmark
-scopedBookmarks session scope =
+scopedBookmarks session sector =
     session.store.bookmarks
         |> List.filter
-            (case scope of
+            (case sector of
                 Sector.Food ->
                     Bookmark.isFood
 

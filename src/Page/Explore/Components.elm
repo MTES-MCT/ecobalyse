@@ -105,11 +105,11 @@ table ({ db } as session) { sector } =
 
 
 getComponentEcoscore : Session -> Sector -> Component -> Result String Float
-getComponentEcoscore { componentConfig, db } scope =
+getComponentEcoscore { componentConfig, db } sector =
     Component.computeImpacts
         { config = componentConfig
         , db = db
-        , sector = scope
+        , sector = sector
         }
         Component.defaultTransportOptions
         >> Result.map
