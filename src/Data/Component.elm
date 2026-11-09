@@ -871,7 +871,7 @@ computeAssemblyImpacts requirements ({ assembly } as query) lifeCycle =
 
     else
         operations
-            |> expandAssembly requirements.db assembly.country
+            |> expandAssembly requirements.db
             |> Result.andThen
                 (\expandedProcesses ->
                     assemblyResultsFromMass productionMass
@@ -2082,18 +2082,10 @@ errors =
 {-| Expand assembly operations into a list of ExpandedLocalizedProcess localized to the assembly
 country when set
 -}
-expandAssembly : DataContainer db -> Maybe CountryCode.Code -> List Process.Id -> Result String (List Process)
-expandAssembly { countries, processes } country operations =
-    -- first retrieve the optional assembly country
-    countries
-        |> Country.resolveMaybe country
-        |> Result.andThen
-            -- then expand operations to use this optional country; so that each operation process
-            -- will use the same localized energy mix
-            (\resolvedCountry ->
-                operations
-                    |> RE.combineMap (\id -> processes |> Process.findById id)
-            )
+expandAssembly : DataContainer db -> List Process.Id -> Result String (List Process)
+expandAssembly { countries, processes } operations =
+    operations
+        |> RE.combineMap (\id -> processes |> Process.findById id)
 
 
 {-| Resolve full use consumption processes linked to their respective ids
