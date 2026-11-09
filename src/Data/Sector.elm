@@ -129,7 +129,7 @@ fromString string =
         genericSectorString ->
             case fromStringGeneric genericSectorString of
                 Err _ ->
-                    Err <| "Couldn't decode unknown scope " ++ genericSectorString
+                    Err <| "Couldn't decode unknown sector " ++ genericSectorString
 
                 Ok genericSector ->
                     Ok (Generic genericSector)
@@ -142,7 +142,7 @@ fromStringGeneric string =
             Ok sector
 
         Nothing ->
-            Err <| "Couldn't decode unknown generic scope " ++ string
+            Err <| "Couldn't decode unknown generic sector " ++ string
 
 
 genericNameDict : Dict.Dict String GenericSector
