@@ -167,13 +167,13 @@ isGeneric sector =
 
 parse : Parser (Sector -> a) a
 parse =
-    Parser.custom "SCOPE" <|
+    Parser.custom "SECTOR" <|
         (fromString >> Result.toMaybe)
 
 
 parseGeneric : Parser (GenericSector -> a) a
 parseGeneric =
-    Parser.custom "GENERIC_SCOPE" (fromStringGeneric >> Result.toMaybe)
+    Parser.custom "GENERIC_SECTOR" (fromStringGeneric >> Result.toMaybe)
 
 
 toGenericSector : Sector -> Maybe GenericSector
