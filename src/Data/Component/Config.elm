@@ -53,7 +53,7 @@ type alias DistributionConfig =
 
 type alias DocLinksConfig =
     { default : Dict String String
-    , scoped : Sector.Dict (Dict String String)
+    , sectored : Sector.Dict (Dict String String)
     }
 
 
@@ -219,7 +219,7 @@ decodeUseConfig processes =
 
 getDocLink : Config -> Sector -> String -> Maybe String
 getDocLink { docLinks } sector key =
-    case docLinks.scoped |> Sector.dictGet sector |> Maybe.andThen (Dict.get key) of
+    case docLinks.sectored |> Sector.dictGet sector |> Maybe.andThen (Dict.get key) of
         Just link ->
             Just link
 

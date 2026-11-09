@@ -1198,7 +1198,7 @@ simulatorView session model ({ inputs, impacts } as simulator) =
                     , routes =
                         { explore = Route.Explore Sector.Textile (Dataset.TextileExamples Nothing)
                         , load = Route.TextileSimulatorExample
-                        , scopeHome = Route.TextileSimulatorHome
+                        , sectorHome = Route.TextileSimulatorHome
                         }
                     }
                 ]

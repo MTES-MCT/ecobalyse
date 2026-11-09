@@ -1396,7 +1396,7 @@ simulatorView ({ componentConfig } as session) ({ genericSector } as model) =
                     , routes =
                         { explore = Route.Explore sector (Dataset.GenericExamples genericSector Nothing)
                         , load = Route.GenericSimulatorExample genericSector
-                        , scopeHome = Route.GenericSimulatorHome genericSector
+                        , sectorHome = Route.GenericSimulatorHome genericSector
                         }
                     }
                 , ComponentView.productCategorySelectorView

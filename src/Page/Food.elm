@@ -1669,7 +1669,7 @@ mainView ({ db } as session) model =
                 , routes =
                     { explore = Route.Explore Sector.Food (Dataset.FoodExamples Nothing)
                     , load = Route.FoodBuilderExample
-                    , scopeHome = Route.FoodBuilderHome
+                    , sectorHome = Route.FoodBuilderHome
                     }
                 }
             , case computed of
