@@ -885,7 +885,7 @@ view { dbLoadingState, feedbackModalOpen, flags, mobileNavigationOpened, state, 
                 GenericSimulatorPage simulatorModel ->
                     GenericSimulator.view session simulatorModel
                         |> mapMsg GenericSimulatorMsg
-                        |> frame (Page.Generic simulatorModel.genericScope)
+                        |> frame (Page.Generic simulatorModel.genericSector)
 
                 HomePage _ ->
                     Home.view session

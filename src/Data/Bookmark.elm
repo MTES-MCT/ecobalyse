@@ -33,7 +33,7 @@ import Time exposing (Posix)
 
 type alias Bookmark =
     { created : Posix
-    , genericScope : Maybe GenericSector
+    , genericSector : Maybe GenericSector
     , name : String
     , query : Query
     }
@@ -54,7 +54,7 @@ decode =
         |> JDP.required "query" decodeQuery
         |> Decode.map
             (\bookmark ->
-                case ( bookmark.query, bookmark.genericScope ) of
+                case ( bookmark.query, bookmark.genericSector ) of
                     ( Generic _ query, Just genericScope ) ->
                         { bookmark | query = Generic genericScope query }
 

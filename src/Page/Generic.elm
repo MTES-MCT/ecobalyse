@@ -84,7 +84,7 @@ type alias Model =
     , initialQuery : Query
     , modals : List Modal
     , lifeCycle : Result String Component.LifeCycle
-    , genericScope : GenericSector
+    , genericSector : GenericSector
     }
 
 
@@ -202,7 +202,7 @@ init genericScope trigram maybeUrlQuery session =
                 , db = session.db
                 , sector = Sector.Generic genericScope
                 }
-    , genericScope = genericScope
+    , genericSector = genericScope
     }
         |> createPageUpdate (session |> Session.updateGenericQuery genericScope initialQuery)
         |> App.withCmds
@@ -261,7 +261,7 @@ initFromExample session genericScope uuid =
                 , db = session.db
                 , sector = scope
                 }
-    , genericScope = genericScope
+    , genericSector = genericScope
     }
         |> createPageUpdate (session |> Session.updateGenericQuery genericScope exampleQuery)
         |> App.notifyErrorIf (RE.isErr example) "Exemple introuvable" ("L’exemple de produit " ++ Uuid.toString uuid ++ " n’existe pas.")
@@ -320,11 +320,11 @@ refreshResults session model =
     { model
         | lifeCycle =
             session
-                |> Session.genericQuery model.genericScope
+                |> Session.genericQuery model.genericSector
                 |> Simulator.compute
                     { config = session.componentConfig
                     , db = session.db
-                    , sector = Sector.Generic model.genericScope
+                    , sector = Sector.Generic model.genericSector
                     }
     }
 
@@ -360,13 +360,13 @@ updateQuery : Query -> PageUpdate Model Msg -> PageUpdate Model Msg
 updateQuery query ({ model, session } as pageUpdate) =
     let
         scope =
-            Sector.Generic model.genericScope
+            Sector.Generic model.genericSector
     in
     { pageUpdate
         | model =
             { model
                 | initialQuery = query
-                , bookmarkName = query |> suggestBookmarkName session model.genericScope model.examples
+                , bookmarkName = query |> suggestBookmarkName session model.genericSector model.examples
                 , lifeCycle =
                     query
                         |> Simulator.compute
@@ -375,7 +375,7 @@ updateQuery query ({ model, session } as pageUpdate) =
                             , sector = scope
                             }
             }
-        , session = session |> Session.updateGenericQuery model.genericScope query
+        , session = session |> Session.updateGenericQuery model.genericSector query
     }
 
 
@@ -459,11 +459,11 @@ update : Session -> Msg -> Model -> PageUpdate Model Msg
 update ({ navKey } as session) msg model =
     let
         globalScope =
-            Sector.Generic model.genericScope
+            Sector.Generic model.genericSector
 
         query =
             session
-                |> Session.genericQuery model.genericScope
+                |> Session.genericQuery model.genericSector
 
         requirements =
             { config = session.componentConfig
@@ -736,7 +736,7 @@ update ({ navKey } as session) msg model =
                     [ Time.now
                         |> Task.perform
                             (query
-                                |> Bookmark.Generic model.genericScope
+                                |> Bookmark.Generic model.genericSector
                                 |> SaveBookmarkWithTime model.bookmarkName
                             )
                     , Plausible.send session <| Plausible.BookmarkSaved globalScope
@@ -750,7 +750,7 @@ update ({ navKey } as session) msg model =
                             { name = String.trim name
                             , query = bookmarkQuery
                             , created = now
-                            , genericScope = Nothing
+                            , genericSector = Nothing
                             }
                     )
 
@@ -774,7 +774,7 @@ update ({ navKey } as session) msg model =
             { model | bookmarkTab = bookmarkTab }
                 |> createPageUpdate session
                 |> App.withCmds
-                    [ Plausible.TabSelected (Sector.Generic model.genericScope) "Partager"
+                    [ Plausible.TabSelected (Sector.Generic model.genericSector) "Partager"
                         |> Plausible.sendIf session (bookmarkTab == BookmarkView.ShareTab)
                     ]
 
@@ -795,7 +795,7 @@ update ({ navKey } as session) msg model =
             createPageUpdate session model
                 |> App.withCmds
                     [ Just query
-                        |> Route.GenericSimulator model.genericScope trigram
+                        |> Route.GenericSimulator model.genericSector trigram
                         |> Route.toString
                         |> Navigation.pushUrl navKey
                     , Plausible.send session <| Plausible.ImpactSelected globalScope trigram
@@ -958,7 +958,7 @@ createExampleContribData model =
             { description = cleanDescription
             , name = cleanName
             , query = model.initialQuery
-            , sector = Sector.Generic model.genericScope
+            , sector = Sector.Generic model.genericSector
             }
 
 
@@ -1007,14 +1007,14 @@ selectExample autocompleteState ({ model } as pageUpdate) =
     pageUpdate
         |> updateQuery exampleQuery
         |> App.apply update (SetModals [])
-        |> App.withCmds [ Plausible.send pageUpdate.session <| Plausible.ExampleSelected (Sector.Generic model.genericScope) ]
+        |> App.withCmds [ Plausible.send pageUpdate.session <| Plausible.ExampleSelected (Sector.Generic model.genericSector) ]
 
 
 selectProductionItem : Query -> Autocomplete Component.ProductionItem -> PageUpdate Model Msg -> PageUpdate Model Msg
 selectProductionItem query autocompleteState ({ model, session } as pageUpdate) =
     let
         plausibleCommand =
-            Plausible.send pageUpdate.session <| Plausible.ComponentAdded (Sector.Generic model.genericScope)
+            Plausible.send pageUpdate.session <| Plausible.ComponentAdded (Sector.Generic model.genericSector)
     in
     case Autocomplete.selectedValue autocompleteState of
         Just (Component.ComponentItem component) ->
@@ -1080,7 +1080,7 @@ selectConsumption requirements query autocompleteState ({ model } as pageUpdate)
             pageUpdate
                 |> updateQuery (query |> Component.addConsumption requirements process)
                 |> App.apply update (SetModals [])
-                |> App.withCmds [ Plausible.send pageUpdate.session <| Plausible.ConsumptionAdded (Sector.Generic model.genericScope) ]
+                |> App.withCmds [ Plausible.send pageUpdate.session <| Plausible.ConsumptionAdded (Sector.Generic model.genericSector) ]
 
         Nothing ->
             pageUpdate |> App.notifyWarning "Aucun composant sélectionné"
@@ -1126,7 +1126,7 @@ selectProcess category targetItem maybeElementIndex autocompleteState query ({ m
                     pageUpdate
                         |> updateQuery validQuery
                         |> App.apply update (SetModals (List.drop 1 model.modals))
-                        |> App.withCmds [ Plausible.send pageUpdate.session <| Plausible.ComponentUpdated (Sector.Generic model.genericScope) ]
+                        |> App.withCmds [ Plausible.send pageUpdate.session <| Plausible.ComponentUpdated (Sector.Generic model.genericSector) ]
 
         Nothing ->
             pageUpdate |> App.notifyWarning "Aucun composant sélectionné"
@@ -1325,10 +1325,10 @@ shouldTrackUsage msg =
 
 
 editorConfig : Session -> Model -> ComponentView.Config Db Msg
-editorConfig session ({ genericScope } as model) =
+editorConfig session ({ genericSector } as model) =
     let
         scope =
-            Sector.Generic genericScope
+            Sector.Generic genericSector
     in
     { componentConfig = session.componentConfig
     , context = Context.Generic
@@ -1347,7 +1347,7 @@ editorConfig session ({ genericScope } as model) =
     , openSelectPackagingModal = SelectPackagingModal >> AppendModal
     , openSelectProcessModal = \c ti mi ac -> AppendModal (SelectProcessModal c ti mi ac)
     , openSelectProductionItem = AddProductionItemModal >> AppendModal
-    , query = session |> Session.genericQuery genericScope
+    , query = session |> Session.genericQuery genericSector
     , removeAssemblyOperation = RemoveAssemblyOperation
     , removeConsumption = RemoveConsumption
     , removeElement = RemoveElement
@@ -1375,13 +1375,13 @@ editorConfig session ({ genericScope } as model) =
 
 
 simulatorView : Session -> Model -> Html Msg
-simulatorView ({ componentConfig } as session) ({ genericScope } as model) =
+simulatorView ({ componentConfig } as session) ({ genericSector } as model) =
     let
         scope =
-            Sector.Generic genericScope
+            Sector.Generic genericSector
 
         currentQuery =
-            session |> Session.genericQuery genericScope
+            session |> Session.genericQuery genericSector
     in
     div [ class "row" ]
         [ div [ class "col-lg-8 bg-white" ]
@@ -1394,16 +1394,16 @@ simulatorView ({ componentConfig } as session) ({ genericScope } as model) =
                     , helpUrl = Nothing
                     , onOpen = SelectExampleModal >> AppendModal
                     , routes =
-                        { explore = Route.Explore scope (Dataset.GenericExamples genericScope Nothing)
-                        , load = Route.GenericSimulatorExample genericScope
-                        , scopeHome = Route.GenericSimulatorHome genericScope
+                        { explore = Route.Explore scope (Dataset.GenericExamples genericSector Nothing)
+                        , load = Route.GenericSimulatorExample genericSector
+                        , scopeHome = Route.GenericSimulatorHome genericSector
                         }
                     }
                 , ComponentView.productCategorySelectorView
                     { onSelect = UpdateProduct
                     , products = session.db.products
                     , query = currentQuery
-                    , sector = genericScope
+                    , sector = genericSector
                     }
                 ]
             , durabilityView componentConfig scope currentQuery.durability
@@ -1568,7 +1568,7 @@ modalView : Session -> Model -> Modal -> Html Msg
 modalView session ({ modals } as model) modal =
     let
         scopeLabels =
-            ComponentView.scopeLabels Context.Generic (Sector.Generic model.genericScope)
+            ComponentView.scopeLabels Context.Generic (Sector.Generic model.genericSector)
     in
     case modal of
         AddProductionItemModal autocompleteState ->

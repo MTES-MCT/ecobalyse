@@ -50,7 +50,7 @@ suite =
                 )
             , it "should encode and decode generic food2 bookmarks"
                 ([ { created = Time.millisToPosix 1
-                   , genericScope = Just Sector.Food2
+                   , genericSector = Just Sector.Food2
                    , name = "food2 bookmark"
                    , query = Bookmark.Generic Sector.Food2 Component.emptyQuery
                    }
@@ -61,7 +61,7 @@ suite =
                 )
             , it "should encode and decode generic object bookmarks"
                 ([ { created = Time.millisToPosix 1
-                   , genericScope = Just Sector.Object
+                   , genericSector = Just Sector.Object
                    , name = "object bookmark"
                    , query = Bookmark.Generic Sector.Object Component.emptyQuery
                    }
@@ -72,7 +72,7 @@ suite =
                 )
             , it "should encode and decode generic veli bookmarks"
                 ([ { created = Time.millisToPosix 1
-                   , genericScope = Just Sector.Veli
+                   , genericSector = Just Sector.Veli
                    , name = "veli bookmark"
                    , query = Bookmark.Generic Sector.Veli Component.emptyQuery
                    }
@@ -83,7 +83,7 @@ suite =
                 )
             , it "should encode and decode generic bookmarks when genericScope field is missing"
                 ([ { created = Time.millisToPosix 1
-                   , genericScope = Nothing
+                   , genericSector = Nothing
                    , name = "food2 bookmark"
                    , query = Bookmark.Generic Sector.Food2 Component.emptyQuery
                    }
@@ -109,14 +109,14 @@ suite =
                 (let
                     food2Bookmark =
                         { created = Time.millisToPosix 1
-                        , genericScope = Just Sector.Food2
+                        , genericSector = Just Sector.Food2
                         , name = "food2 bookmark"
                         , query = Bookmark.Generic Sector.Food2 Component.emptyQuery
                         }
 
                     objectBookmark =
                         { created = Time.millisToPosix 2
-                        , genericScope = Just Sector.Object
+                        , genericSector = Just Sector.Object
                         , name = "object bookmark"
                         , query = Bookmark.Generic Sector.Object Component.emptyQuery
                         }
@@ -127,7 +127,7 @@ suite =
                 )
             , it "should not match a bookmark from another generic scope"
                 ([ { created = Time.millisToPosix 1
-                   , genericScope = Just Sector.Object
+                   , genericSector = Just Sector.Object
                    , name = "object bookmark"
                    , query = Bookmark.Generic Sector.Object Component.emptyQuery
                    }

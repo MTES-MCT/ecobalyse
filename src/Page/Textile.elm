@@ -494,7 +494,7 @@ update ({ db, queries, navKey } as session) msg model =
                         { name = String.trim name
                         , query = foodQuery
                         , created = now
-                        , genericScope = Nothing
+                        , genericSector = Nothing
                         }
                 )
                 model

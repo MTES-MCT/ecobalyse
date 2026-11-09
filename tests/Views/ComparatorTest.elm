@@ -112,7 +112,7 @@ cookedHamBookmark db =
         |> Result.map
             (\query ->
                 { created = Time.millisToPosix 0
-                , genericScope = Just Sector.Food2
+                , genericSector = Just Sector.Food2
                 , name = "Test bookmark"
                 , query = Bookmark.Generic Sector.Food2 query
                 }

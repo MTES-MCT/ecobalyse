@@ -419,7 +419,7 @@ update ({ db, queries } as session) msg model =
                         { name = String.trim name
                         , query = foodQuery
                         , created = now
-                        , genericScope = Nothing
+                        , genericSector = Nothing
                         }
                 )
                 model

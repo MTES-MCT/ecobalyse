@@ -78,7 +78,7 @@ type alias JsonResponse =
 type alias GenericRequirements =
     { config : Component.Config
     , db : Db
-    , genericScope : GenericSector
+    , genericSector : GenericSector
     }
 
 
@@ -193,15 +193,15 @@ executeFoodQuery request db encoder =
 
 
 executeGenericQuery : GenericRequirements -> Request -> Component.Query -> JsonResponse
-executeGenericQuery { config, db, genericScope } request query =
+executeGenericQuery { config, db, genericSector } request query =
     query
         |> GenericSimulator.compute
             { config = config
             , db = db
-            , sector = Sector.Generic genericScope
+            , sector = Sector.Generic genericSector
             }
         |> Result.mapError Validation.fromErrorString
-        |> Result.map (toGenericResults request db genericScope query)
+        |> Result.map (toGenericResults request db genericSector query)
         |> toResponse request
 
 
