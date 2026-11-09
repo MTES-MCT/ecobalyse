@@ -95,7 +95,7 @@ checkDefaultExamples db config =
                         else
                             [ "Default example"
                                 ++ Uuid.toString uuid
-                                ++ " doesn't belong to the scope "
+                                ++ " doesn't belong to the sector "
                                 ++ Sector.toString sector
                             ]
             )
@@ -163,7 +163,7 @@ checkComponentProcessScope processes component example fieldName processId =
             else
                 formatError
                     [ "Process " ++ processLabel process
-                    , "is not scoped for " ++ backtick (missingScopes |> List.map Sector.toString |> String.join ", ")
+                    , "is not sectored for " ++ backtick (missingScopes |> List.map Sector.toString |> String.join ", ")
                     , "but is referenced in " ++ backtick fieldName
                     , "by component " ++ componentLabel component
                     , "used by example " ++ exampleLabel example
@@ -186,7 +186,7 @@ checkComponentScopeMismatch processes example component =
                 formatError
                     [ "Example " ++ exampleLabel example
                     , "references component " ++ componentLabel component
-                    , "but scopes are incompatible"
+                    , "but sectors are incompatible"
                     ]
 
         processScopeErrors =
@@ -226,7 +226,7 @@ checkExampleConsumption processes example consumption =
                 formatError
                     [ "Example " ++ exampleLabel example
                     , "references process " ++ processLabel process
-                    , "in consumptions but isn't scoped for " ++ backtick (Sector.toString example.sector)
+                    , "in consumptions but isn't sectored for " ++ backtick (Sector.toString example.sector)
                     ]
 
         Nothing ->
@@ -305,7 +305,7 @@ checkProductCategoryAssembly processes product processId =
                 formatError
                     [ "Product category " ++ productCategoryLabel product
                     , "references process " ++ processLabel process
-                    , "in assembly but isn't scoped for " ++ backtick (Sector.toStringGeneric product.sector)
+                    , "in assembly but isn't sectored for " ++ backtick (Sector.toStringGeneric product.sector)
                     ]
 
             else if not (List.member ProcessCategory.Assembly process.categories) then
@@ -359,7 +359,7 @@ checkProductCategoryConsumption processes product consumption =
                 formatError
                     [ "Product category " ++ productCategoryLabel product
                     , "references process " ++ processLabel process
-                    , "in consumptions but isn't scoped for " ++ backtick (Sector.toStringGeneric product.sector)
+                    , "in consumptions but isn't sectored for " ++ backtick (Sector.toStringGeneric product.sector)
                     ]
 
             else
