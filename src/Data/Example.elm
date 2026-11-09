@@ -26,7 +26,7 @@ type alias Example query =
     , name : String
     , query : query
     , recyclable : Bool
-    , scope : Sector
+    , sector : Sector
     }
 
 
@@ -68,7 +68,7 @@ findByQuery query =
 
 forScope : Sector -> List (Example query) -> List (Example query)
 forScope scope =
-    List.filter (.scope >> (==) scope)
+    List.filter (.sector >> (==) scope)
 
 
 parseUuid : Parser (Uuid -> a) a
@@ -111,5 +111,5 @@ toSearchableString example =
     String.join " "
         [ example.id |> Uuid.toString
         , example.name
-        , example.scope |> Sector.toString
+        , example.sector |> Sector.toString
         ]

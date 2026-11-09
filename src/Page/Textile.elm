@@ -1048,7 +1048,7 @@ simulatorFormView session model ({ inputs } as simulator) =
                 |> Component.compute
                     { config = session.componentConfig
                     , db = session.db
-                    , scope = Sector.Textile
+                    , sector = Sector.Textile
                     }
         , noOp = NoOp
         , openItemEditModal = \_ -> NoOp
@@ -1064,7 +1064,7 @@ simulatorFormView session model ({ inputs } as simulator) =
         , removeElement = \_ -> NoOp
         , removeElementTransform = \_ _ -> NoOp
         , removeItem = RemoveTrim
-        , scope = Sector.Textile
+        , sector = Sector.Textile
         , setDetailed = \_ -> NoOp
         , toggleTransportByAir = \_ -> NoOp
         , unitMassLocked = False
@@ -1231,7 +1231,7 @@ simulatorView session model ({ inputs, impacts } as simulator) =
             [ SidebarView.view
                 { noOp = NoOp
                 , session = session
-                , scope = Sector.Textile
+                , sector = Sector.Textile
 
                 -- Impact selector
                 , selectedImpact = model.impact

@@ -29,11 +29,11 @@ withTitle str =
     span [ title str ] [ text str ]
 
 
-table : Session -> { detailed : Bool, scope : Sector } -> Table Product String msg
-table { db } { detailed, scope } =
+table : Session -> { detailed : Bool, sector : Sector } -> Table Product String msg
+table { db } { detailed, sector } =
     { filename = "products"
     , toId = .id >> Product.idToString
-    , toRoute = .id >> Just >> Dataset.TextileProducts >> Route.Explore scope
+    , toRoute = .id >> Just >> Dataset.TextileProducts >> Route.Explore sector
     , toSearchableText = Product.toSearchableString >> Text.toSearchable
     , facets =
         [ Table.Facet "Confection (complexité)" (.making >> .complexity >> MakingComplexity.toLabel >> List.singleton)

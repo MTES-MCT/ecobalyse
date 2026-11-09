@@ -12,15 +12,15 @@ type alias Config msg =
     { attributes : List (Attribute msg)
     , countries : List Country
     , onSelect : CountryCode.Code -> msg
-    , scope : Sector
+    , sector : Sector
     , selectedCountry : CountryCode.Code
     }
 
 
 view : Config msg -> Html msg
-view { attributes, countries, onSelect, scope, selectedCountry } =
+view { attributes, countries, onSelect, sector, selectedCountry } =
     countries
-        |> Sector.anyOf [ scope ]
+        |> Sector.anyOf [ sector ]
         |> List.sortBy .name
         |> List.map
             (\{ code, name } ->

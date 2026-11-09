@@ -1741,7 +1741,7 @@ sidebarView session model results =
     SidebarView.view
         { noOp = NoOp
         , session = session
-        , scope = Sector.Food
+        , sector = Sector.Food
 
         -- Impact selector
         , selectedImpact = model.impact

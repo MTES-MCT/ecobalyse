@@ -20,11 +20,11 @@ import Route
 import Views.Format as Format
 
 
-table : Session -> { detailed : Bool, scope : Sector } -> Table Process String msg
-table session { detailed, scope } =
+table : Session -> { detailed : Bool, sector : Sector } -> Table Process String msg
+table session { detailed, sector } =
     { filename = "processes"
     , toId = .id >> Process.idToString
-    , toRoute = .id >> Just >> Dataset.Processes scope >> Route.Explore scope
+    , toRoute = .id >> Just >> Dataset.Processes sector >> Route.Explore sector
     , toSearchableText = .searchableText
     , facets =
         [ Table.Facet "Catégories" (.categories >> List.map ProcessCategory.toLabel)

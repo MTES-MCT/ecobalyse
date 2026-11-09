@@ -458,7 +458,7 @@ type Stage
 type alias Requirements db =
     { config : Config
     , db : DataContainer db
-    , scope : Sector
+    , sector : Sector
     }
 
 
@@ -2335,7 +2335,7 @@ getConsumptions { db } query =
 
 -}
 getDistributionProcessId : Requirements db -> Query -> Maybe Process.Id
-getDistributionProcessId { config, db, scope } query =
+getDistributionProcessId { config, db, sector } query =
     case query.distribution of
         Just processId ->
             Just processId
@@ -2356,7 +2356,7 @@ getDistributionProcessId { config, db, scope } query =
 
                 Nothing ->
                     config.distribution.defaultProcess
-                        |> Sector.dictGetMaybe scope
+                        |> Sector.dictGetMaybe sector
                         |> Maybe.map .id
 
 
@@ -2373,10 +2373,10 @@ when provided, falling back to the selected product category default, then to th
 scoped default from config.
 -}
 getDistributionProcess : Requirements db -> Query -> Result DistributionProcessError Process
-getDistributionProcess ({ db, scope } as requirements) query =
+getDistributionProcess ({ db, sector } as requirements) query =
     case getDistributionProcessId requirements query of
         Just processId ->
-            getAvailableDistributionProcesses db scope
+            getAvailableDistributionProcesses db sector
                 |> Process.findById processId
                 |> Result.mapError DistributionGenericError
 
@@ -2403,7 +2403,7 @@ getElementResult ( itemIndex, elementIndex ) productionResults =
 
 
 getEndOfLifeDetailedImpacts : Requirements db -> Bool -> LifeCycle -> DetailedEndOfLifeImpacts
-getEndOfLifeDetailedImpacts { config, scope } recyclable lifeCycle =
+getEndOfLifeDetailedImpacts { config, sector } recyclable lifeCycle =
     let
         productionMass =
             extractMass lifeCycle.production
@@ -2419,7 +2419,7 @@ getEndOfLifeDetailedImpacts { config, scope } recyclable lifeCycle =
                 Mass.inKilograms lifeCycle.productMass / Mass.inKilograms productionMass
 
         collectionRatio =
-            scope |> getEndOfLifeScopeCollectionRate config recyclable
+            sector |> getEndOfLifeScopeCollectionRate config recyclable
 
         nonCollectionRatio =
             Split.complement collectionRatio
@@ -2459,8 +2459,8 @@ getEndOfLifeDetailedImpacts { config, scope } recyclable lifeCycle =
 
 
 getEndOfLifeImpacts : Requirements db -> Bool -> LifeCycle -> Impacts
-getEndOfLifeImpacts ({ config, scope } as requirements) recyclable lifeCycle =
-    if config.endOfLife |> Config.scopeEnabled scope then
+getEndOfLifeImpacts ({ config, sector } as requirements) recyclable lifeCycle =
+    if config.endOfLife |> Config.scopeEnabled sector then
         lifeCycle
             |> getEndOfLifeDetailedImpacts requirements recyclable
             |> AnyDict.map
@@ -3455,16 +3455,16 @@ validateAssemblyProcessesUnit processes =
 
 
 validateAssemblyProcessId : Requirements db -> Process.Id -> Result String Process.Id
-validateAssemblyProcessId { db, scope } processId =
+validateAssemblyProcessId { db, sector } processId =
     case
         db.processes
-            |> Sector.anyOf [ scope ]
+            |> Sector.anyOf [ sector ]
             |> Process.findById processId
     of
         Err _ ->
             Err <|
                 "Aucun procédé d’assemblage scopé "
-                    ++ Sector.toLabel scope
+                    ++ Sector.toLabel sector
                     ++ " avec cet id\u{202F}: "
                     ++ Process.idToString processId
 
@@ -3486,11 +3486,11 @@ validateConsumption requirements useConsumption =
 
 
 validateCountry : Requirements db -> Maybe CountryCode.Code -> Result String (Maybe CountryCode.Code)
-validateCountry { db, scope } maybeCountryCode =
+validateCountry { db, sector } maybeCountryCode =
     case maybeCountryCode of
         Just countryCode ->
             countryCode
-                |> Country.validateForScope scope db.countries
+                |> Country.validateForScope sector db.countries
                 |> Result.map Just
 
         Nothing ->
@@ -3498,7 +3498,7 @@ validateCountry { db, scope } maybeCountryCode =
 
 
 validateDistribution : Requirements db -> Maybe Process.Id -> Result String (Maybe Process.Id)
-validateDistribution { db, scope } maybeProcessId =
+validateDistribution { db, sector } maybeProcessId =
     case maybeProcessId of
         Just processId ->
             case Process.findById processId db.processes of
@@ -3512,8 +3512,8 @@ validateDistribution { db, scope } maybeProcessId =
                     else if process.unit /= Process.CubicMeter then
                         Err "Le procédé de distribution doit accepter un volume"
 
-                    else if not <| List.member scope process.scopes then
-                        Err <| "Le procédé " ++ Process.idToString processId ++ " n'est pas disponible pour le périmètre " ++ Sector.toLabel scope
+                    else if not <| List.member sector process.scopes then
+                        Err <| "Le procédé " ++ Process.idToString processId ++ " n'est pas disponible pour le périmètre " ++ Sector.toLabel sector
 
                     else
                         Ok (Just processId)
@@ -3523,10 +3523,10 @@ validateDistribution { db, scope } maybeProcessId =
 
 
 validateDurability : Requirements db -> Maybe Unit.Ratio -> Result String (Maybe Unit.Ratio)
-validateDurability { config, scope } durability =
-    case ( config.durability |> Config.scopeEnabled scope, durability ) of
+validateDurability { config, sector } durability =
+    case ( config.durability |> Config.scopeEnabled sector, durability ) of
         ( False, Just _ ) ->
-            Err <| "La durabilité n'est pas activée pour le périmètre " ++ Sector.toLabel scope
+            Err <| "La durabilité n'est pas activée pour le périmètre " ++ Sector.toLabel sector
 
         _ ->
             Ok durability
@@ -3561,15 +3561,15 @@ validatePackaging requirements (Packaging quantifiedProcess) =
 
 
 validateProcessId : Requirements db -> Process.Id -> Result String Process.Id
-validateProcessId { db, scope } processId =
+validateProcessId { db, sector } processId =
     db.processes
-        |> Sector.anyOf [ scope ]
+        |> Sector.anyOf [ sector ]
         |> Process.findById processId
         |> Result.map .id
         |> Result.mapError
             (always <|
                 "Aucun procédé scopé "
-                    ++ Sector.toLabel scope
+                    ++ Sector.toLabel sector
                     ++ " avec cet id: "
                     ++ Process.idToString processId
             )
@@ -3609,7 +3609,7 @@ validateProduct requirements maybeProductId =
                 |> ProductCategory.findById productId
                 |> Result.andThen
                     (\product ->
-                        if requirements.scope == Sector.Generic product.scope then
+                        if requirements.sector == Sector.Generic product.sector then
                             Ok productId
 
                         else
@@ -3617,7 +3617,7 @@ validateProduct requirements maybeProductId =
                                 "La catégorie de produit "
                                     ++ product.label
                                     ++ " n’est pas disponible pour le périmètre "
-                                    ++ Sector.toLabel requirements.scope
+                                    ++ Sector.toLabel requirements.sector
                     )
                 |> Result.map Just
 

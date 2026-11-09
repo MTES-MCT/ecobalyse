@@ -78,13 +78,13 @@ type alias Config data msg =
 
 viewDetails :
     Sector
-    -> ({ detailed : Bool, scope : Sector } -> Table data comparable msg)
+    -> ({ detailed : Bool, sector : Sector } -> Table data comparable msg)
     -> data
     -> Html msg
 viewDetails scope createTable item =
     let
         { legend, columns } =
-            createTable { detailed = True, scope = scope }
+            createTable { detailed = True, sector = scope }
     in
     div []
         [ div [ class "text-muted fs-7" ] legend
@@ -107,13 +107,13 @@ viewList :
     -> Config data msg
     -> SortableTable.State
     -> Sector
-    -> ({ detailed : Bool, scope : Sector } -> Table data comparable msg)
+    -> ({ detailed : Bool, sector : Sector } -> Table data comparable msg)
     -> List data
     -> Html msg
 viewList dataToMsg defaultConfig tableState scope createTable items =
     let
         ({ filename, toId, toSearchableText, facets, columns, legend } as table) =
-            createTable { detailed = False, scope = scope }
+            createTable { detailed = False, sector = scope }
 
         { customizations } =
             defaultConfig

@@ -20,12 +20,12 @@ import Views.Icon as Icon
 table :
     { maxScore : Float, maxPer100g : Float }
     -> Sector.GenericSector
-    -> { detailed : Bool, scope : Sector }
+    -> { detailed : Bool, sector : Sector }
     -> Table ( Example Component.Query, { score : Float, per100g : Float } ) String msg
-table { maxScore, maxPer100g } genericScope { detailed, scope } =
-    { filename = Sector.toString scope ++ "-examples"
+table { maxScore, maxPer100g } genericScope { detailed, sector } =
+    { filename = Sector.toString sector ++ "-examples"
     , toId = Tuple.first >> .id >> Uuid.toString
-    , toRoute = Tuple.first >> .id >> Just >> Dataset.GenericExamples genericScope >> Route.Explore scope
+    , toRoute = Tuple.first >> .id >> Just >> Dataset.GenericExamples genericScope >> Route.Explore sector
     , toSearchableText = Tuple.first >> Example.toSearchableString >> Text.toSearchable
     , facets = []
     , legend = []
@@ -35,8 +35,8 @@ table { maxScore, maxPer100g } genericScope { detailed, scope } =
           , toCell = Tuple.first >> .name >> text
           }
         , { label = "Famille"
-          , toValue = Table.StringValue (Tuple.first >> .scope >> Sector.toLabel)
-          , toCell = Tuple.first >> .scope >> Sector.toLabel >> text
+          , toValue = Table.StringValue (Tuple.first >> .sector >> Sector.toLabel)
+          , toCell = Tuple.first >> .sector >> Sector.toLabel >> text
           }
 
         -- FIXME: this column should eventually be replaced with the product category

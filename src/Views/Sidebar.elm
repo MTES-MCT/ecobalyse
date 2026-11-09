@@ -33,7 +33,7 @@ type alias Config msg =
     , productMass : Mass
     , renameBookmark : msg
     , saveBookmark : msg
-    , scope : Sector
+    , sector : Sector
     , selectedImpact : Definition
     , session : Session
     , switchBookmarkTab : BookmarkView.ActiveTab -> msg
@@ -96,7 +96,7 @@ view config =
             , noOp = config.noOp
             , rename = config.renameBookmark
             , save = config.saveBookmark
-            , scope = config.scope
+            , sector = config.sector
             , session = config.session
             , switchTab = config.switchBookmarkTab
             , update = config.updateBookmarkName

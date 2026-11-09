@@ -200,7 +200,7 @@ init genericScope trigram maybeUrlQuery session =
             |> Simulator.compute
                 { config = session.componentConfig
                 , db = session.db
-                , scope = Sector.Generic genericScope
+                , sector = Sector.Generic genericScope
                 }
     , genericScope = genericScope
     }
@@ -259,7 +259,7 @@ initFromExample session genericScope uuid =
             |> Simulator.compute
                 { config = session.componentConfig
                 , db = session.db
-                , scope = scope
+                , sector = scope
                 }
     , genericScope = genericScope
     }
@@ -324,7 +324,7 @@ refreshResults session model =
                 |> Simulator.compute
                     { config = session.componentConfig
                     , db = session.db
-                    , scope = Sector.Generic model.genericScope
+                    , sector = Sector.Generic model.genericScope
                     }
     }
 
@@ -372,7 +372,7 @@ updateQuery query ({ model, session } as pageUpdate) =
                         |> Simulator.compute
                             { config = session.componentConfig
                             , db = session.db
-                            , scope = scope
+                            , sector = scope
                             }
             }
         , session = session |> Session.updateGenericQuery model.genericScope query
@@ -468,7 +468,7 @@ update ({ navKey } as session) msg model =
         requirements =
             { config = session.componentConfig
             , db = session.db
-            , scope = globalScope
+            , sector = globalScope
             }
     in
     case msg of
@@ -958,7 +958,7 @@ createExampleContribData model =
             { description = cleanDescription
             , name = cleanName
             , query = model.initialQuery
-            , scope = Sector.Generic model.genericScope
+            , sector = Sector.Generic model.genericScope
             }
 
 
@@ -1355,7 +1355,7 @@ editorConfig session ({ genericScope } as model) =
     , removeItem = RemoveComponentItem
     , removePackaging = RemovePackaging
     , lifeCycle = model.lifeCycle
-    , scope = scope
+    , sector = scope
     , setDetailed = SetDetailedComponents
     , toggleTransportByAir = ToggleTransportByAir
     , unitMassLocked = isItemEditModalOpen model.modals
@@ -1403,7 +1403,7 @@ simulatorView ({ componentConfig } as session) ({ genericScope } as model) =
                     { onSelect = UpdateProduct
                     , products = session.db.products
                     , query = currentQuery
-                    , scope = genericScope
+                    , sector = genericScope
                     }
                 ]
             , durabilityView componentConfig scope currentQuery.durability
@@ -1419,7 +1419,7 @@ simulatorView ({ componentConfig } as session) ({ genericScope } as model) =
               SidebarView.view
                 { noOp = NoOp
                 , session = session
-                , scope = scope
+                , sector = scope
 
                 -- Impact selector
                 , selectedImpact = model.impact

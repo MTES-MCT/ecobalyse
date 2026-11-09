@@ -22,11 +22,11 @@ import Views.Icon as Icon
 import Views.Link as Link
 
 
-table : { detailed : Bool, scope : Sector } -> Table Ingredient String msg
-table { detailed, scope } =
+table : { detailed : Bool, sector : Sector } -> Table Ingredient String msg
+table { detailed, sector } =
     { filename = "ingredients"
     , toId = .id >> Ingredient.idToString
-    , toRoute = .id >> Just >> Dataset.FoodIngredients >> Route.Explore scope
+    , toRoute = .id >> Just >> Dataset.FoodIngredients >> Route.Explore sector
     , toSearchableText = Ingredient.toSearchableString >> Text.toSearchable
     , facets = []
     , legend = []

@@ -14,11 +14,11 @@ import Views.Format as Format
 import Views.Markdown as Markdown
 
 
-table : { detailed : Bool, scope : Sector } -> Table Definition String msg
-table { detailed, scope } =
+table : { detailed : Bool, sector : Sector } -> Table Definition String msg
+table { detailed, sector } =
     { filename = "impacts"
     , toId = .trigram >> Definition.toString
-    , toRoute = .trigram >> Just >> Dataset.Impacts >> Route.Explore scope
+    , toRoute = .trigram >> Just >> Dataset.Impacts >> Route.Explore sector
     , toSearchableText = Definition.toSearchableString >> Text.toSearchable
     , facets =
         [ Table.Facet "Unité" (.unit >> List.singleton)

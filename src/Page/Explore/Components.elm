@@ -18,11 +18,11 @@ import Views.Alert as Alert
 import Views.Format as Format
 
 
-table : Session -> { detailed : Bool, scope : Sector } -> Table Component.Component String msg
-table ({ db } as session) { scope } =
+table : Session -> { detailed : Bool, sector : Sector } -> Table Component.Component String msg
+table ({ db } as session) { sector } =
     { filename = "components"
     , toId = .id >> Maybe.map Component.idToString >> Maybe.withDefault ""
-    , toRoute = .id >> Dataset.Components scope >> Route.Explore scope
+    , toRoute = .id >> Dataset.Components sector >> Route.Explore sector
     , toSearchableText = Component.toSearchableString db >> Text.toSearchable
     , facets = []
     , legend = []
@@ -94,9 +94,9 @@ table ({ db } as session) { scope } =
           , toCell = .comment >> Maybe.withDefault Table.emptyLabel >> text
           }
         , { label = "Coût environnemental"
-          , toValue = Table.FloatValue <| getComponentEcoscore session scope >> Result.withDefault 0
+          , toValue = Table.FloatValue <| getComponentEcoscore session sector >> Result.withDefault 0
           , toCell =
-                getComponentEcoscore session scope
+                getComponentEcoscore session sector
                     >> Result.map (Format.formatImpactFloat { decimals = 2, unit = "Pts par composant" })
                     >> Result.withDefault (text Table.emptyLabel)
           }
@@ -109,7 +109,7 @@ getComponentEcoscore { componentConfig, db } scope =
     Component.computeImpacts
         { config = componentConfig
         , db = db
-        , scope = scope
+        , sector = scope
         }
         Component.defaultTransportOptions
         >> Result.map

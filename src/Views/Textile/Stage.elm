@@ -99,7 +99,7 @@ countryField { current, db, updateCountry } =
                     ]
                 , countries = db.countries
                 , onSelect = updateCountry current.label
-                , scope = Sector.Textile
+                , sector = Sector.Textile
                 , selectedCountry = current.country.code
                 }
 

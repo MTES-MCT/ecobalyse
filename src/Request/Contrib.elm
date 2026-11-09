@@ -17,7 +17,7 @@ type alias ExampleContribData =
     { description : String
     , name : String
     , query : Component.Query
-    , scope : Sector
+    , sector : Sector
     }
 
 
@@ -53,5 +53,5 @@ encodeExampleContribData contribData =
         [ ( "description", Encode.string contribData.description )
         , ( "name", Encode.string contribData.name )
         , ( "query", Component.encodeQuery contribData.query )
-        , ( "scope", contribData.scope |> Sector.toString |> Encode.string )
+        , ( "scope", contribData.sector |> Sector.toString |> Encode.string )
         ]

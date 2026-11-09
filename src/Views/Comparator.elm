@@ -159,7 +159,7 @@ addToComparison { componentConfig, db } { name, query } =
                 |> GenericSimulator.compute
                     { config = componentConfig
                     , db = db
-                    , scope = Sector.Generic genericScope
+                    , sector = Sector.Generic genericScope
                     }
                 |> Result.map
                     (\lifeCycle ->

@@ -40,7 +40,7 @@ type alias ManagerConfig msg =
     , noOp : msg
     , rename : msg
     , save : msg
-    , scope : Sector
+    , sector : Sector
     , session : Session
     , switchTab : ActiveTab -> msg
     , update : String -> msg
@@ -65,7 +65,7 @@ view cfg =
             ]
 
         tabs =
-            if Sector.isGeneric cfg.scope then
+            if Sector.isGeneric cfg.sector then
                 baseTabs ++ [ ( ContributeExampleTab, text "Contribuer" ) ]
 
             else
@@ -122,10 +122,10 @@ shareGenericScope impact session genericScope =
 
 
 shareTabView : ManagerConfig msg -> Html msg
-shareTabView { copyToClipBoard, impact, scope, session } =
+shareTabView { copyToClipBoard, impact, sector, session } =
     let
         ( shareableLink, apiCall, jsonParams ) =
-            case scope of
+            case sector of
                 Sector.Food ->
                     let
                         query =
@@ -214,12 +214,12 @@ managerView : ManagerConfig msg -> Html msg
 managerView cfg =
     let
         bookmarks =
-            scopedBookmarks cfg.session cfg.scope
+            scopedBookmarks cfg.session cfg.sector
 
         ( queryExists, nameExists ) =
             ( bookmarks
                 |> List.map .query
-                |> List.member (queryFromScope cfg.session cfg.scope)
+                |> List.member (queryFromScope cfg.session cfg.sector)
             , bookmarks
                 |> List.map .name
                 |> List.member cfg.bookmarkName
@@ -265,10 +265,10 @@ managerView cfg =
 
 
 bookmarksView : ManagerConfig msg -> Html msg
-bookmarksView ({ compare, scope, session } as cfg) =
+bookmarksView ({ compare, sector, session } as cfg) =
     let
         bookmarks =
-            scopedBookmarks session scope
+            scopedBookmarks session sector
     in
     div []
         [ div [ class "card-header border-top rounded-0 d-flex justify-content-between align-items-center gap-1" ]
@@ -302,13 +302,13 @@ bookmarksView ({ compare, scope, session } as cfg) =
                 (\{ query } ->
                     case query of
                         Bookmark.Food _ ->
-                            scope == Sector.Food
+                            sector == Sector.Food
 
                         Bookmark.Generic genericScope _ ->
-                            scope == Sector.Generic genericScope
+                            sector == Sector.Generic genericScope
 
                         Bookmark.Textile _ ->
-                            scope == Sector.Textile
+                            sector == Sector.Textile
                 )
             |> List.map (bookmarkView cfg)
             |> ul
@@ -322,7 +322,7 @@ bookmarkView : ManagerConfig msg -> Bookmark -> Html msg
 bookmarkView cfg ({ name, query } as bookmark) =
     let
         currentQuery =
-            queryFromScope cfg.session cfg.scope
+            queryFromScope cfg.session cfg.sector
 
         bookmarkRoute =
             case query of
@@ -409,13 +409,13 @@ bookmarkView cfg ({ name, query } as bookmark) =
 
 
 contributeExampleTabView : ManagerConfig msg -> Html msg
-contributeExampleTabView ({ scope, session } as config) =
+contributeExampleTabView ({ sector, session } as config) =
     let
         isAuthenticated =
             Session.isAuthenticated session
 
         currentQuery =
-            case Sector.toGenericScope scope of
+            case Sector.toGenericScope sector of
                 Just genericScope ->
                     Session.genericQuery genericScope session
 
@@ -439,7 +439,7 @@ contributeExampleTabView ({ scope, session } as config) =
         [ div [ class "fs-7 text-muted" ]
             [ text <|
                 "Proposez l’ajout de votre simulation à la base de données d’exemples "
-                    ++ Sector.toLabel scope
+                    ++ Sector.toLabel sector
                     ++ " sur Ecobalyse."
             ]
         , input

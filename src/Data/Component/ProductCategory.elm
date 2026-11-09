@@ -38,7 +38,7 @@ type alias ProductCategory =
     , distribution : Maybe Process.Id
     , id : Id
     , label : String
-    , scope : Sector.GenericSector
+    , sector : Sector.GenericSector
     }
 
 
@@ -107,7 +107,7 @@ findById id =
 
 findByScope : Sector.GenericSector -> List ProductCategory -> List ProductCategory
 findByScope genericScope =
-    List.filter (.scope >> (==) genericScope)
+    List.filter (.sector >> (==) genericScope)
 
 
 idFromString : String -> Result String Id
@@ -125,5 +125,5 @@ toSearchableString product =
     String.join " "
         [ idToString product.id
         , product.label
-        , Sector.toStringGeneric product.scope
+        , Sector.toStringGeneric product.sector
         ]

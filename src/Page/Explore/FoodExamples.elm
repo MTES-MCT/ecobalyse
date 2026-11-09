@@ -16,12 +16,12 @@ import Views.Icon as Icon
 
 table :
     { maxScore : Float, maxPer100g : Float }
-    -> { detailed : Bool, scope : Sector }
+    -> { detailed : Bool, sector : Sector }
     -> Table ( Example Query, { score : Float, per100g : Float } ) String msg
-table { maxScore, maxPer100g } { detailed, scope } =
+table { maxScore, maxPer100g } { detailed, sector } =
     { filename = "examples"
     , toId = Tuple.first >> .id >> Uuid.toString
-    , toRoute = Tuple.first >> .id >> Just >> Dataset.FoodExamples >> Route.Explore scope
+    , toRoute = Tuple.first >> .id >> Just >> Dataset.FoodExamples >> Route.Explore sector
     , toSearchableText = Tuple.first >> Example.toSearchableString >> Text.toSearchable
     , facets = []
     , legend = []

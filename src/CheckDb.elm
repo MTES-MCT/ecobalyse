@@ -89,7 +89,7 @@ checkDefaultExamples db config =
                         [ err ]
 
                     Ok example ->
-                        if example.scope == scope then
+                        if example.sector == scope then
                             []
 
                         else
@@ -179,7 +179,7 @@ checkComponentScopeMismatch : Dict String Process -> Example query -> Component 
 checkComponentScopeMismatch processes example component =
     let
         scopeMismatchErrors =
-            if List.member example.scope component.scopes then
+            if List.member example.sector component.scopes then
                 []
 
             else
@@ -211,7 +211,7 @@ checkExampleConsumption processes example consumption =
     in
     case processes |> Dict.get processIdString of
         Just process ->
-            if List.member example.scope process.scopes then
+            if List.member example.sector process.scopes then
                 case Consumption.validate (Dict.values processes) consumption of
                     Err error ->
                         formatError
@@ -226,7 +226,7 @@ checkExampleConsumption processes example consumption =
                 formatError
                     [ "Example " ++ exampleLabel example
                     , "references process " ++ processLabel process
-                    , "in consumptions but isn't scoped for " ++ backtick (Sector.toString example.scope)
+                    , "in consumptions but isn't scoped for " ++ backtick (Sector.toString example.sector)
                     ]
 
         Nothing ->
@@ -252,7 +252,7 @@ checkExampleComponentItem processes components example =
 checkExamplesComponentIds : Set String -> Db -> List Error
 checkExamplesComponentIds knownComponentStringIds db =
     db.generic.examples
-        |> List.filter (.scope >> Sector.isGeneric)
+        |> List.filter (.sector >> Sector.isGeneric)
         |> List.concatMap
             (\example ->
                 example.query.items
@@ -278,7 +278,7 @@ checkExamplesScope db =
             )
     in
     db.generic.examples
-        |> List.filter (.scope >> Sector.isGeneric)
+        |> List.filter (.sector >> Sector.isGeneric)
         |> List.concatMap
             (\example ->
                 List.concat
@@ -301,11 +301,11 @@ checkProductCategoryAssembly processes product processId =
     in
     case processes |> Dict.get processIdString of
         Just process ->
-            if process.scopes |> List.member (Sector.Generic product.scope) |> not then
+            if process.scopes |> List.member (Sector.Generic product.sector) |> not then
                 formatError
                     [ "Product category " ++ productCategoryLabel product
                     , "references process " ++ processLabel process
-                    , "in assembly but isn't scoped for " ++ backtick (Sector.toStringGeneric product.scope)
+                    , "in assembly but isn't scoped for " ++ backtick (Sector.toStringGeneric product.sector)
                     ]
 
             else if not (List.member ProcessCategory.Assembly process.categories) then
@@ -355,11 +355,11 @@ checkProductCategoryConsumption processes product consumption =
     in
     case processes |> Dict.get processIdString of
         Just process ->
-            if process.scopes |> List.member (Sector.Generic product.scope) |> not then
+            if process.scopes |> List.member (Sector.Generic product.sector) |> not then
                 formatError
                     [ "Product category " ++ productCategoryLabel product
                     , "references process " ++ processLabel process
-                    , "in consumptions but isn't scoped for " ++ backtick (Sector.toStringGeneric product.scope)
+                    , "in consumptions but isn't scoped for " ++ backtick (Sector.toStringGeneric product.sector)
                     ]
 
             else
@@ -505,7 +505,7 @@ exampleLabel : Example query -> String
 exampleLabel example =
     quote example.name
         ++ " ("
-        ++ backtick (Sector.toString example.scope)
+        ++ backtick (Sector.toString example.sector)
         ++ ", "
         ++ Uuid.toString example.id
         ++ ")"
@@ -567,7 +567,7 @@ productCategoryLabel : ProductCategory -> String
 productCategoryLabel product =
     quote product.label
         ++ " ("
-        ++ backtick (Sector.toStringGeneric product.scope)
+        ++ backtick (Sector.toStringGeneric product.sector)
         ++ ", "
         ++ ProductCategory.idToString product.id
         ++ ")"

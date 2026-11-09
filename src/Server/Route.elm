@@ -103,7 +103,7 @@ decodeGenericQueryBody config db genericScope body =
             (Component.validateQuery
                 { config = config
                 , db = db
-                , scope = Sector.Generic genericScope
+                , sector = Sector.Generic genericScope
                 }
                 >> Result.mapError Validation.fromErrorString
             )

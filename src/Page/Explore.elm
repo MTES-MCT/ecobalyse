@@ -64,7 +64,7 @@ import Views.Modal as ModalView
 type alias Model =
     { dataset : Dataset
     , facetValues : Table.Facets
-    , scope : Sector
+    , sector : Sector
     , search : String
     , tableState : SortableTable.State
     }
@@ -121,7 +121,7 @@ init scope dataset session =
     createPageUpdate session
         { dataset = dataset
         , facetValues = Dict.empty
-        , scope = scope
+        , sector = scope
         , search = ""
         , tableState = SortableTable.initialSort initialSort
         }
@@ -141,7 +141,7 @@ update session msg model =
             createPageUpdate session { model | dataset = model.dataset |> Dataset.setIdFromString id }
 
         ScopeChange scope ->
-            { model | facetValues = Dict.empty, scope = scope }
+            { model | facetValues = Dict.empty, sector = scope }
                 |> createPageUpdate session
                 |> App.withCmds
                     [ (case model.dataset of
@@ -207,14 +207,14 @@ createPageUpdate session model =
 
 
 datasetsMenuView : Model -> Html Msg
-datasetsMenuView { scope, dataset } =
-    Dataset.datasets scope
+datasetsMenuView { sector, dataset } =
+    Dataset.datasets sector
         |> List.map
             (\ds ->
                 a
                     [ class "TabsTab nav-link"
                     , classList [ ( "active", Dataset.same ds dataset ) ]
-                    , Route.href (Route.Explore scope ds)
+                    , Route.href (Route.Explore sector ds)
                     ]
                     [ text (Dataset.label ds) ]
             )
@@ -239,7 +239,7 @@ scopesMenuView { enabledSections } model =
             |> List.map
                 (\( scope, _ ) ->
                     option
-                        [ selected <| model.scope == scope
+                        [ selected <| model.sector == scope
                         , value <| Sector.toString scope
                         ]
                         [ text <| Sector.toLabel scope ]
@@ -525,7 +525,7 @@ genericExamplesExplorer session tableConfig tableState genericScope maybeId =
 
         scoredExamples =
             session.db.generic.examples
-                |> List.filter (\example -> example.scope == scope)
+                |> List.filter (\example -> example.sector == scope)
                 |> List.map
                     (\example ->
                         ( example
@@ -763,7 +763,7 @@ getFoodScorePer100g db =
 getGenericScore : Session -> Sector -> Example Component.Query -> Float
 getGenericScore { componentConfig, db } scope { query } =
     query
-        |> GenericSimulator.compute { config = componentConfig, db = db, scope = scope }
+        |> GenericSimulator.compute { config = componentConfig, db = db, sector = scope }
         |> Result.map
             (Component.sumLifeCycleImpacts
                 >> Impact.getImpact Definition.Ecs
@@ -775,7 +775,7 @@ getGenericScore { componentConfig, db } scope { query } =
 getGenericScorePer100g : Session -> Sector -> Example Component.Query -> Float
 getGenericScorePer100g { componentConfig, db } scope { query } =
     query
-        |> GenericSimulator.compute { config = componentConfig, db = db, scope = scope }
+        |> GenericSimulator.compute { config = componentConfig, db = db, sector = scope }
         |> Result.map
             (\lifeCycle ->
                 lifeCycle
@@ -809,7 +809,7 @@ getTextileScorePer100g { componentConfig, db } { query } =
 
 
 exploreView : Session -> Model -> List (Html Msg)
-exploreView ({ db } as session) { facetValues, scope, dataset, tableState, search } =
+exploreView ({ db } as session) { facetValues, sector, dataset, tableState, search } =
     let
         tableConfig =
             { toId = always "" -- Placeholder
@@ -830,7 +830,7 @@ exploreView ({ db } as session) { facetValues, scope, dataset, tableState, searc
             componentsExplorer session scope_ tableConfig tableState maybeId
 
         Dataset.Countries maybeCode ->
-            countriesExplorer db tableConfig tableState scope maybeCode
+            countriesExplorer db tableConfig tableState sector maybeCode
 
         Dataset.FoodExamples maybeId ->
             foodExamplesExplorer db tableConfig tableState maybeId
@@ -842,7 +842,7 @@ exploreView ({ db } as session) { facetValues, scope, dataset, tableState, searc
             genericExamplesExplorer session tableConfig tableState genericScope maybeId
 
         Dataset.Impacts maybeTrigram ->
-            impactsExplorer db.definitions tableConfig tableState scope maybeTrigram
+            impactsExplorer db.definitions tableConfig tableState sector maybeTrigram
 
         Dataset.Processes scope_ maybeId ->
             processesExplorer session scope_ tableConfig tableState maybeId

@@ -198,7 +198,7 @@ executeGenericQuery { config, db, genericScope } request query =
         |> GenericSimulator.compute
             { config = config
             , db = db
-            , scope = Sector.Generic genericScope
+            , sector = Sector.Generic genericScope
             }
         |> Result.mapError Validation.fromErrorString
         |> Result.map (toGenericResults request db genericScope query)
