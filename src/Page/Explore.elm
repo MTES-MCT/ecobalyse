@@ -226,7 +226,7 @@ datasetsMenuView { sector, dataset } =
 sectorsMenuView : Session -> Model -> Html Msg
 sectorsMenuView { enabledSections } model =
     div [ class "d-flex align-items-center gap-3" ]
-        [ label [ class "fw-bold d-none d-sm-block", for "scope-selector" ]
+        [ label [ class "fw-bold d-none d-sm-block", for "sector-selector" ]
             [ text "Secteur" ]
         , [ ( Sector.Food, enabledSections.food )
           , ( Sector.Generic Sector.Food2, enabledSections.food2 )
@@ -246,7 +246,7 @@ sectorsMenuView { enabledSections } model =
                 )
             |> select
                 [ class "form-select"
-                , id "scope-selector"
+                , id "sector-selector"
                 , onInput
                     (Sector.fromString
                         >> Result.toMaybe
