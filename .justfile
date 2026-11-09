@@ -41,6 +41,7 @@ create-activities:
 
 export-all:
     {{ python-cmd-data }} {{ export-script }} processes-legacy
+    {{ python-cmd-data }} {{ export-script }} processes
     {{ python-cmd-data }} {{ export-script }} metadata
     {{ python-cmd-data }} {{ export-script }} merge-processes
 
@@ -57,7 +58,7 @@ export-food:
 
 export-generic:
     {{ python-cmd-data }} {{ export-script }} processes-legacy --scopes object --merge
-    {{ python-cmd-data }} {{ export-script }} metadata --scopes generic
+    {{ python-cmd-data }} {{ export-script }} processes
     {{ python-cmd-data }} {{ export-script }} merge-processes
 
 export-textile:
@@ -67,6 +68,7 @@ export-textile:
 
 export-veli:
     {{ python-cmd-data }} {{ export-script }} processes-legacy --scopes veli --merge
+    {{ python-cmd-data }} {{ export-script }} processes --scopes veli
     {{ python-cmd-data }} {{ export-script }} merge-processes
 
 compute-distances:

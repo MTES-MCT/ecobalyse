@@ -17,7 +17,7 @@ from ecobalyse_data.export import export_generic
 from ecobalyse_data.export import food as export_food
 from ecobalyse_data.export import process as export_process
 from ecobalyse_data.export import textile as export_textile
-from models.process import GENERIC_SCOPES, Scope
+from models.process import GENERIC_SCOPES, GenericScope, Scope
 
 app = typer.Typer(pretty_exceptions_show_locals=False)
 
@@ -114,27 +114,68 @@ def metadata(
                 raw_to_transformed_file_path=raw_to_transformed_file_path,
             )
 
-        elif s == MetadataScope.generic:
-            # Export all generic processes (object + veli + food2) to processes_generic.json
-            generic_activities = [
-                activity
-                for activity in activities
-                if GENERIC_SCOPES & set(activity["scopes"])
-            ]
 
-            export_dir = root_dir / settings.export_dir
+@app.command()
+def processes(
+    scopes: Annotated[
+        list[GenericScope] | None,
+        typer.Option(
+            help="The generic scope to export. If not specified, exports all scopes."
+        ),
+    ] = None,
+    verbose: bool = typer.Option(False, "--verbose", "-v"),
+    root_dir: Path = DATA_ROOT_DIR,
+):
+    """
+    Export generic processes. If scope is specified, only exports processes for that scope.
+    """
+    if verbose:
+        logger.setLevel(logging.DEBUG)
 
-            export_generic.activities_to_processes_generic_json(
-                generic_activities,
-                processes_impacts_path=processes_impacts_path,
-                ecs_output_paths=[export_dir / settings.processes_generic_ecs_file],
-                impacts_output_paths=[
-                    export_dir / settings.processes_generic_impacts_file
-                ],
-                ecosystemic_factors_path=ecosystemic_factors_path,
-                feed_file_path=feed_file_path,
-                raw_to_transformed_file_path=raw_to_transformed_file_path,
-            )
+    scope_dirname = settings.scopes.get(MetadataScope.generic).dirname
+    es_files_path = root_dir / scope_dirname
+
+    processes_impacts_path = (
+        root_dir / settings.export_dir / settings.processes_legacy_impacts_full_file
+    )
+
+    ecosystemic_factors_path = (
+        es_files_path / settings.scopes.food.ecosystemic_factors_file
+    )
+    raw_to_transformed_file_path = (
+        es_files_path / settings.scopes.food.raw_to_transformed_ratios_file
+    )
+
+    feed_file_path = es_files_path / settings.scopes.food.feed_file
+
+    activities = _get_lcis(root_dir)
+
+    # Filter activities by scope if specified
+    if scopes:
+        all_activities_number = len(activities)
+        activities = [
+            a for a in activities if any(s.value in a.get("scopes", []) for s in scopes)
+        ]
+        logger.info(
+            f"-> Filtered activities to scopes: {scopes}, {len(activities)} activities remaining for a total of {all_activities_number}"
+        )
+
+    # Export all generic processes (object + veli + food2) to processes_generic.json
+    generic_activities = [
+        activity for activity in activities if GENERIC_SCOPES & set(activity["scopes"])
+    ]
+
+    export_dir = root_dir / settings.export_dir
+
+    export_generic.activities_to_processes_generic_json(
+        generic_activities,
+        processes_impacts_path=processes_impacts_path,
+        ecs_output_paths=[export_dir / settings.processes_generic_ecs_file],
+        impacts_output_paths=[export_dir / settings.processes_generic_impacts_file],
+        ecosystemic_factors_path=ecosystemic_factors_path,
+        feed_file_path=feed_file_path,
+        raw_to_transformed_file_path=raw_to_transformed_file_path,
+    )
 
 
 @app.command()
@@ -167,6 +208,8 @@ def processes_legacy(
         logger.info(
             f"-> Filtered activities to scopes: {scopes}, activities remaining: {len(activities)}"
         )
+    else:
+        logger.info(f"-> Exporting {len(activities)} activities")
 
     export_process.activities_to_processes(
         activities=activities,
@@ -214,6 +257,7 @@ def _get_lcis(root_dir):
     activities = []
     for lci_path in lci_catalog.glob("*/*.json"):
         if lci_path.is_file():
+            logger.debug(f"-> {lci_path}")
             with open(lci_path, "r") as file:
                 activity = json.load(file)
             try:
