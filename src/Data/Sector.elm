@@ -1,6 +1,6 @@
 module Data.Sector exposing
     ( Dict
-    , GenericScope(..)
+    , GenericSector(..)
     , Sector(..)
     , all
     , allGeneric
@@ -32,11 +32,11 @@ import Url.Parser as Parser exposing (Parser)
 
 type Sector
     = Food
-    | Generic GenericScope
+    | Generic GenericSector
     | Textile
 
 
-type GenericScope
+type GenericSector
     = Apparel
     | Food2
     | Object
@@ -57,7 +57,7 @@ all =
         ++ List.map Generic allGeneric
 
 
-allGeneric : List GenericScope
+allGeneric : List GenericSector
 allGeneric =
     [ Apparel
     , Food2
@@ -86,7 +86,7 @@ decodeDict =
     AnyDict.decode_ (\key _ -> fromString key) toString
 
 
-decodeGeneric : Decoder GenericScope
+decodeGeneric : Decoder GenericSector
 decodeGeneric =
     Decode.string
         |> Decode.andThen (fromStringGeneric >> DE.fromResult)
@@ -112,7 +112,7 @@ encode =
     toString >> Encode.string
 
 
-encodeGeneric : GenericScope -> Encode.Value
+encodeGeneric : GenericSector -> Encode.Value
 encodeGeneric =
     toStringGeneric >> Encode.string
 
@@ -135,7 +135,7 @@ fromString string =
                     Ok (Generic genericScope)
 
 
-fromStringGeneric : String -> Result String GenericScope
+fromStringGeneric : String -> Result String GenericSector
 fromStringGeneric string =
     case Dict.get string genericNameDict of
         Just scope ->
@@ -145,7 +145,7 @@ fromStringGeneric string =
             Err <| "Couldn't decode unknown generic scope " ++ string
 
 
-genericNameDict : Dict.Dict String GenericScope
+genericNameDict : Dict.Dict String GenericSector
 genericNameDict =
     allGeneric
         |> List.foldl
@@ -171,12 +171,12 @@ parse =
         (fromString >> Result.toMaybe)
 
 
-parseGeneric : Parser (GenericScope -> a) a
+parseGeneric : Parser (GenericSector -> a) a
 parseGeneric =
     Parser.custom "GENERIC_SCOPE" (fromStringGeneric >> Result.toMaybe)
 
 
-toGenericScope : Sector -> Maybe GenericScope
+toGenericScope : Sector -> Maybe GenericSector
 toGenericScope scope =
     case scope of
         Generic genericScope ->
@@ -199,7 +199,7 @@ toLabel scope =
             "Textile"
 
 
-toLabelGeneric : GenericScope -> String
+toLabelGeneric : GenericSector -> String
 toLabelGeneric genericScope =
     case genericScope of
         Apparel ->
@@ -228,7 +228,7 @@ toString scope =
             "textile"
 
 
-toStringGeneric : GenericScope -> String
+toStringGeneric : GenericSector -> String
 toStringGeneric genericScope =
     case genericScope of
         Apparel ->

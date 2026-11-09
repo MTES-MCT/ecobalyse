@@ -515,7 +515,7 @@ genericExamplesExplorer :
     Session
     -> Table.Config ( Example Component.Query, { score : Float, per100g : Float } ) Msg
     -> SortableTable.State
-    -> Sector.GenericScope
+    -> Sector.GenericSector
     -> Maybe Uuid
     -> List (Html Msg)
 genericExamplesExplorer session tableConfig tableState genericScope maybeId =
@@ -671,7 +671,7 @@ textileProductsExplorer session tableConfig tableState maybeId =
 
 productCategoriesExplorer :
     Session
-    -> Sector.GenericScope
+    -> Sector.GenericSector
     -> Table.Config ProductCategory Msg
     -> SortableTable.State
     -> Maybe ProductCategory.Id

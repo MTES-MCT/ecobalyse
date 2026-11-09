@@ -12,7 +12,7 @@ import Data.Impact as Impact
 import Data.Impact.Definition as Definition
 import Data.Process exposing (Process)
 import Data.Process.Category as ProcessCategory
-import Data.Sector as Sector exposing (GenericScope)
+import Data.Sector as Sector exposing (GenericSector)
 import Data.Textile.Query as TextileQuery
 import Data.Textile.Validation as TextileValidation
 import Data.Validation as Validation
@@ -46,17 +46,17 @@ type Route
       --
       -- Generic Routes
       --   GET
-    | GenericGetAssemblyList GenericScope
-    | GenericGetCatalogList GenericScope
-    | GenericGetCategoryList GenericScope
-    | GenericGetConsumptionList GenericScope
-    | GenericGetCountryList GenericScope
-    | GenericGetDistributionList GenericScope
-    | GenericGetMaterialList GenericScope
-    | GenericGetPackagingList GenericScope
-    | GenericGetTransformList GenericScope (Result String ProcessCategory.Material)
+    | GenericGetAssemblyList GenericSector
+    | GenericGetCatalogList GenericSector
+    | GenericGetCategoryList GenericSector
+    | GenericGetConsumptionList GenericSector
+    | GenericGetCountryList GenericSector
+    | GenericGetDistributionList GenericSector
+    | GenericGetMaterialList GenericSector
+    | GenericGetPackagingList GenericSector
+    | GenericGetTransformList GenericSector (Result String ProcessCategory.Material)
       --   POST
-    | GenericPostSimulator GenericScope (Result Validation.Errors Component.Query)
+    | GenericPostSimulator GenericSector (Result Validation.Errors Component.Query)
       --
       -- Textile Routes
       --   GET
@@ -96,7 +96,7 @@ decodeGenericQuery processes body =
             |> Result.mapError Validation.fromDecodingError
 
 
-decodeGenericQueryBody : Component.Config -> Db -> GenericScope -> Encode.Value -> Result Validation.Errors Component.Query
+decodeGenericQueryBody : Component.Config -> Db -> GenericSector -> Encode.Value -> Result Validation.Errors Component.Query
 decodeGenericQueryBody config db genericScope body =
     decodeGenericQuery db.processes body
         |> Result.andThen
@@ -126,7 +126,7 @@ endpoint db config { body, method, url } =
         |> Maybe.andThen (Parser.parse (parser db config body))
 
 
-genericGet : List String -> (GenericScope -> Route) -> Parser (Route -> a) a
+genericGet : List String -> (GenericSector -> Route) -> Parser (Route -> a) a
 genericGet path toRoute =
     path
         |> List.foldl

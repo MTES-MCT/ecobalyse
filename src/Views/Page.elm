@@ -12,7 +12,7 @@ import Browser exposing (Document)
 import Data.Dataset as Dataset
 import Data.Env as Env
 import Data.Notification as Notification exposing (Notification)
-import Data.Sector as Sector exposing (GenericScope)
+import Data.Sector as Sector exposing (GenericSector)
 import Data.Session as Session
 import Html exposing (..)
 import Html.Attributes exposing (..)
@@ -38,7 +38,7 @@ type ActivePage
     | Editorial String
     | Explore
     | Food
-    | Generic GenericScope
+    | Generic GenericSector
     | Home
     | Other
     | Stats
@@ -155,7 +155,7 @@ commonNotices msg activePage =
             text ""
 
 
-commonNoticesForGeneric : GenericScope -> Html msg
+commonNoticesForGeneric : GenericSector -> Html msg
 commonNoticesForGeneric genericPage =
     case genericPage of
         Sector.Apparel ->

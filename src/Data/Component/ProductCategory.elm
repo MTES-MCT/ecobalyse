@@ -38,7 +38,7 @@ type alias ProductCategory =
     , distribution : Maybe Process.Id
     , id : Id
     , label : String
-    , scope : Sector.GenericScope
+    , scope : Sector.GenericSector
     }
 
 
@@ -105,7 +105,7 @@ findById id =
         >> Result.fromMaybe ("Catégorie de produit introuvable id=" ++ idToString id ++ ".")
 
 
-findByScope : Sector.GenericScope -> List ProductCategory -> List ProductCategory
+findByScope : Sector.GenericSector -> List ProductCategory -> List ProductCategory
 findByScope genericScope =
     List.filter (.scope >> (==) genericScope)
 

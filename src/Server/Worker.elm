@@ -22,7 +22,7 @@ import Data.Impact as Impact
 import Data.Impact.Definition as Definition
 import Data.Process as Process exposing (Process)
 import Data.Process.Category as ProcessCategory
-import Data.Sector as Sector exposing (GenericScope)
+import Data.Sector as Sector exposing (GenericSector)
 import Data.Textile.Inputs as Inputs
 import Data.Textile.Material as Material exposing (Material)
 import Data.Textile.Product as TextileProduct exposing (Product)
@@ -78,7 +78,7 @@ type alias JsonResponse =
 type alias GenericRequirements =
     { config : Component.Config
     , db : Db
-    , genericScope : GenericScope
+    , genericScope : GenericSector
     }
 
 
@@ -283,7 +283,7 @@ encodeIngredients ingredients =
   - processes are always filtered against the generic scope provided.
 
 -}
-genericProcessesResponse : Db -> GenericScope -> List (Process -> Bool) -> JsonResponse
+genericProcessesResponse : Db -> GenericSector -> List (Process -> Bool) -> JsonResponse
 genericProcessesResponse db genericScope filters =
     filters
         |> List.foldl List.filter
@@ -296,7 +296,7 @@ genericProcessesResponse db genericScope filters =
         |> respondWith 200
 
 
-toGenericResults : Request -> Db -> GenericScope -> Component.Query -> Component.LifeCycle -> Encode.Value
+toGenericResults : Request -> Db -> GenericSector -> Component.Query -> Component.LifeCycle -> Encode.Value
 toGenericResults request db genericScope query lifeCycle =
     EU.optionalPropertiesObject
         ([ ( "webUrl", toGenericWebUrl request genericScope query |> Encode.string |> Just )
@@ -310,7 +310,7 @@ toGenericResults request db genericScope query lifeCycle =
         )
 
 
-toGenericWebUrl : Request -> GenericScope -> Component.Query -> String
+toGenericWebUrl : Request -> GenericSector -> Component.Query -> String
 toGenericWebUrl request genericScope query =
     Just query
         |> WebRoute.GenericSimulator genericScope Impact.default

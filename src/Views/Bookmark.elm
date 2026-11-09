@@ -103,7 +103,7 @@ buildGenericApiQuery scope maybeToken clientUrl query =
             (query |> Component.encodeQuery |> Encode.encode 0)
 
 
-shareGenericScope : Definition -> Session -> Sector.GenericScope -> ( String, String, String )
+shareGenericScope : Definition -> Session -> Sector.GenericSector -> ( String, String, String )
 shareGenericScope impact session genericScope =
     let
         query =

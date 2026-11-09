@@ -19,7 +19,7 @@ import Views.Icon as Icon
 
 table :
     { maxScore : Float, maxPer100g : Float }
-    -> Sector.GenericScope
+    -> Sector.GenericSector
     -> { detailed : Bool, scope : Sector }
     -> Table ( Example Component.Query, { score : Float, per100g : Float } ) String msg
 table { maxScore, maxPer100g } genericScope { detailed, scope } =

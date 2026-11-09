@@ -35,10 +35,10 @@ type Dataset
     | Countries (Maybe CountryCode.Code)
     | FoodExamples (Maybe Uuid)
     | FoodIngredients (Maybe Ingredient.Id)
-    | GenericExamples Sector.GenericScope (Maybe Uuid)
+    | GenericExamples Sector.GenericSector (Maybe Uuid)
     | Impacts (Maybe Definition.Trigram)
     | Processes Sector (Maybe Process.Id)
-    | ProductCategory Sector.GenericScope (Maybe ProductCategory.Id)
+    | ProductCategory Sector.GenericSector (Maybe ProductCategory.Id)
     | TextileExamples (Maybe Uuid)
     | TextileMaterials (Maybe Material.Id)
     | TextileProducts (Maybe Product.Id)
@@ -69,7 +69,7 @@ datasets scope =
             ]
 
 
-datasetsGeneric : Sector.GenericScope -> List Dataset
+datasetsGeneric : Sector.GenericSector -> List Dataset
 datasetsGeneric scope =
     case scope of
         Sector.Apparel ->
@@ -201,7 +201,7 @@ componentDatasetToString scope =
             "textile-components"
 
 
-componentGenericDatasetToString : Sector.GenericScope -> String
+componentGenericDatasetToString : Sector.GenericSector -> String
 componentGenericDatasetToString scope =
     case scope of
         Sector.Apparel ->
@@ -230,7 +230,7 @@ processesDatasetToString scope =
             "processes"
 
 
-processesDatasetGenericToString : Sector.GenericScope -> String
+processesDatasetGenericToString : Sector.GenericSector -> String
 processesDatasetGenericToString scope =
     case scope of
         Sector.Apparel ->
@@ -246,7 +246,7 @@ processesDatasetGenericToString scope =
             "veli-processes"
 
 
-examplesDatasetToString : Sector.GenericScope -> String
+examplesDatasetToString : Sector.GenericSector -> String
 examplesDatasetToString scope =
     case scope of
         Sector.Apparel ->
@@ -262,7 +262,7 @@ examplesDatasetToString scope =
             "veli-examples"
 
 
-productCategoryDatasetToString : Sector.GenericScope -> String
+productCategoryDatasetToString : Sector.GenericSector -> String
 productCategoryDatasetToString scope =
     case scope of
         Sector.Apparel ->

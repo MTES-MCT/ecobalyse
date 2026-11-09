@@ -21,7 +21,7 @@ import Data.Component as Component
 import Data.Db exposing (Db)
 import Data.Food.Query as FoodQuery
 import Data.Food.Recipe as Recipe
-import Data.Sector as Sector exposing (GenericScope, Sector)
+import Data.Sector as Sector exposing (GenericSector, Sector)
 import Data.Textile.Inputs as Inputs
 import Data.Textile.Query as TextileQuery
 import Json.Decode as Decode exposing (Decoder)
@@ -33,7 +33,7 @@ import Time exposing (Posix)
 
 type alias Bookmark =
     { created : Posix
-    , genericScope : Maybe GenericScope
+    , genericScope : Maybe GenericSector
     , name : String
     , query : Query
     }
@@ -41,7 +41,7 @@ type alias Bookmark =
 
 type Query
     = Food FoodQuery.Query
-    | Generic GenericScope Component.Query
+    | Generic GenericSector Component.Query
     | Textile TextileQuery.Query
 
 
@@ -144,7 +144,7 @@ isFood { query } =
             False
 
 
-isGeneric : GenericScope -> Bookmark -> Bool
+isGeneric : GenericSector -> Bookmark -> Bool
 isGeneric genericScope { query } =
     case query of
         Generic bookmarkScope _ ->
@@ -174,7 +174,7 @@ findByFoodQuery foodQuery =
     findByQuery (Food foodQuery)
 
 
-findByGenericQuery : GenericScope -> Component.Query -> List Bookmark -> Maybe Bookmark
+findByGenericQuery : GenericSector -> Component.Query -> List Bookmark -> Maybe Bookmark
 findByGenericQuery genericScope =
     Generic genericScope >> findByQuery
 

@@ -1030,7 +1030,7 @@ type alias ProductCategorySelector msg =
     { onSelect : Maybe ProductCategory.Id -> msg
     , products : List ProductCategory
     , query : Query
-    , scope : Sector.GenericScope
+    , scope : Sector.GenericSector
     }
 
 

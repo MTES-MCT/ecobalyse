@@ -30,9 +30,9 @@ type Route
     | FoodBuilder Definition.Trigram (Maybe FoodQuery.Query)
     | FoodBuilderExample Uuid
     | FoodBuilderHome
-    | GenericSimulator Sector.GenericScope Definition.Trigram (Maybe Component.Query)
-    | GenericSimulatorExample Sector.GenericScope Uuid
-    | GenericSimulatorHome Sector.GenericScope
+    | GenericSimulator Sector.GenericSector Definition.Trigram (Maybe Component.Query)
+    | GenericSimulatorExample Sector.GenericSector Uuid
+    | GenericSimulatorHome Sector.GenericSector
     | Home
     | Stats
     | TextileSimulator Definition.Trigram (Maybe TextileQuery.Query)
@@ -108,7 +108,7 @@ parseGenericSimulatorRoutes =
         ]
 
 
-scopeParser : Parser (Sector.GenericScope -> a) a
+scopeParser : Parser (Sector.GenericSector -> a) a
 scopeParser =
     List.map
         (\scope ->

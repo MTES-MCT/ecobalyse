@@ -42,7 +42,7 @@ import Data.Component as Component
 import Data.Component.Config as ComponentConfig
 import Data.Db as Db exposing (Db)
 import Data.Food.Query as FoodQuery
-import Data.Sector as Sector exposing (GenericScope)
+import Data.Sector as Sector exposing (GenericSector)
 import Data.Textile.Query as TextileQuery
 import Data.User as User
 import Json.Decode as Decode exposing (Decoder)
@@ -204,7 +204,7 @@ saveBookmark bookmark =
 -- Queries
 
 
-genericQuery : GenericScope -> Session -> Component.Query
+genericQuery : GenericSector -> Session -> Component.Query
 genericQuery genericScope session =
     case genericScope of
         Sector.Apparel ->
@@ -225,7 +225,7 @@ updateFoodQuery foodQuery ({ queries } as session) =
     { session | queries = { queries | food = foodQuery } }
 
 
-updateGenericQuery : GenericScope -> Component.Query -> Session -> Session
+updateGenericQuery : GenericSector -> Component.Query -> Session -> Session
 updateGenericQuery genericScope query ({ queries } as session) =
     case genericScope of
         Sector.Apparel ->

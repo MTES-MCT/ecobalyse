@@ -152,7 +152,7 @@ scopeComponents json scope =
             Just json.textileComponents
 
 
-scopeGenericComponents : RawJsonStrings -> Sector.GenericScope -> RawJsonString
+scopeGenericComponents : RawJsonStrings -> Sector.GenericSector -> RawJsonString
 scopeGenericComponents json scope =
     case scope of
         Sector.Apparel ->
@@ -168,7 +168,7 @@ scopeGenericComponents json scope =
             json.veliComponents
 
 
-scopeGenericExamples : RawJsonStrings -> Sector.GenericScope -> RawJsonString
+scopeGenericExamples : RawJsonStrings -> Sector.GenericSector -> RawJsonString
 scopeGenericExamples json scope =
     case scope of
         Sector.Apparel ->
@@ -184,7 +184,7 @@ scopeGenericExamples json scope =
             json.veliExamples
 
 
-scopeGenericProductCategories : RawJsonStrings -> Sector.GenericScope -> RawJsonString
+scopeGenericProductCategories : RawJsonStrings -> Sector.GenericSector -> RawJsonString
 scopeGenericProductCategories json scope =
     case scope of
         Sector.Apparel ->
@@ -261,7 +261,7 @@ scopePropGetters scope =
             ]
 
 
-scopeGenericPropGetters : Sector.GenericScope -> List (Properties a -> a)
+scopeGenericPropGetters : Sector.GenericSector -> List (Properties a -> a)
 scopeGenericPropGetters scope =
     case scope of
         Sector.Apparel ->

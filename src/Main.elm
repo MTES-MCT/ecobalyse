@@ -172,7 +172,7 @@ scopeLoadData scope =
             ]
 
 
-scopeGenericLoadData : Sector.GenericScope -> List ( String, WebData RawJsonString -> LoadingState -> LoadingState )
+scopeGenericLoadData : Sector.GenericSector -> List ( String, WebData RawJsonString -> LoadingState -> LoadingState )
 scopeGenericLoadData scope =
     case scope of
         Sector.Apparel ->

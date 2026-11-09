@@ -29,7 +29,7 @@ import Data.Key as Key
 import Data.Plausible as Plausible
 import Data.Process as Process exposing (Process)
 import Data.Process.Category as Category exposing (Category)
-import Data.Sector as Sector exposing (GenericScope, Sector)
+import Data.Sector as Sector exposing (GenericSector, Sector)
 import Data.Session as Session exposing (Session)
 import Data.Split exposing (Split)
 import Data.Unit as Unit
@@ -84,7 +84,7 @@ type alias Model =
     , initialQuery : Query
     , modals : List Modal
     , lifeCycle : Result String Component.LifeCycle
-    , genericScope : GenericScope
+    , genericScope : GenericSector
     }
 
 
@@ -164,7 +164,7 @@ type Msg
     | UpdateRenamedBookmarkName Bookmark String
 
 
-init : GenericScope -> Definition.Trigram -> Maybe Query -> Session -> PageUpdate Model Msg
+init : GenericSector -> Definition.Trigram -> Maybe Query -> Session -> PageUpdate Model Msg
 init genericScope trigram maybeUrlQuery session =
     let
         initialQuery =
@@ -219,7 +219,7 @@ init genericScope trigram maybeUrlQuery session =
             )
 
 
-initFromExample : Session -> GenericScope -> Uuid -> PageUpdate Model Msg
+initFromExample : Session -> GenericSector -> Uuid -> PageUpdate Model Msg
 initFromExample session genericScope uuid =
     let
         scope =
@@ -275,7 +275,7 @@ initFromExample session genericScope uuid =
   - an empty query
 
 -}
-initQuery : Session -> GenericScope -> Maybe Query -> Query
+initQuery : Session -> GenericSector -> Maybe Query -> Query
 initQuery session genericScope =
     Maybe.withDefault <|
         let
@@ -329,7 +329,7 @@ refreshResults session model =
     }
 
 
-suggestBookmarkName : Session -> GenericScope -> List (Example Query) -> Query -> String
+suggestBookmarkName : Session -> GenericSector -> List (Example Query) -> Query -> String
 suggestBookmarkName { db, store } genericScope examples query =
     let
         -- Existing user bookmark?

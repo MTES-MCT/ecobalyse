@@ -11,7 +11,7 @@ import Page.Explore.Table as Table exposing (Table)
 import Route
 
 
-table : Session -> Sector.GenericScope -> { detailed : Bool, scope : Sector } -> Table ProductCategory String msg
+table : Session -> Sector.GenericSector -> { detailed : Bool, scope : Sector } -> Table ProductCategory String msg
 table { db } genericScope _ =
     { filename = Sector.toStringGeneric genericScope ++ "-product-categories"
     , toId = .id >> ProductCategory.idToString
