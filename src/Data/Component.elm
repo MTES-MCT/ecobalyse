@@ -2370,7 +2370,7 @@ getDocLink =
 
 {-| Retrieves a distribution process for a query, using an explicit distribution id
 when provided, falling back to the selected product category default, then to the
-scoped default from config.
+sectored default from config.
 -}
 getDistributionProcess : Requirements db -> Query -> Result DistributionProcessError Process
 getDistributionProcess ({ db, sector } as requirements) query =

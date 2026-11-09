@@ -291,7 +291,7 @@ checkExamplesSector db =
             )
 
 
-{-| Checks that a product category assembly process exists, is scoped, is an assembly process, and is in kg.
+{-| Checks that a product category assembly process exists, is sectored, is an assembly process, and is in kg.
 -}
 checkProductCategoryAssembly : Dict String Process -> ProductCategory -> Process.Id -> List Error
 checkProductCategoryAssembly processes product processId =

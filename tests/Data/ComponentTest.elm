@@ -2897,7 +2897,7 @@ suite =
                                 , it "should reject a consumption referencing a process with the wrong scope" <|
                                     ({ emptyQuery
                                         | consumptions =
-                                            -- Note: the sawing process isn't scoped for Food2
+                                            -- Note: the sawing process isn't sectored for Food2
                                             Just [ Component.consumption (Just (Amount.fromFloat 1)) sawingProcess.id ]
                                      }
                                         |> Component.validateQuery { requirements | sector = Sector.Generic Sector.Food2 }
@@ -2935,7 +2935,7 @@ suite =
                                 , it "should reject a packaging referencing a process with the wrong scope" <|
                                     ({ emptyQuery
                                         | packagings =
-                                            -- Note: the sawing process isn't scoped for Food2
+                                            -- Note: the sawing process isn't sectored for Food2
                                             [ Component.packaging (Amount.fromFloat 1) sawingProcess.id
                                             ]
                                      }

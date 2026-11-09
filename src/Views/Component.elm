@@ -128,7 +128,7 @@ type alias Labels =
     }
 
 
-{-| Scoped label.
+{-| Sectored label.
 
 FIXME: we should make these configurable in components/config.json
 
