@@ -29,7 +29,7 @@ import Data.Key as Key
 import Data.Plausible as Plausible
 import Data.Process as Process exposing (Process)
 import Data.Process.Category as Category exposing (Category)
-import Data.Scope as Scope exposing (GenericScope, Scope)
+import Data.Sector as Scope exposing (GenericScope, Scope)
 import Data.Session as Session exposing (Session)
 import Data.Split exposing (Split)
 import Data.Unit as Unit

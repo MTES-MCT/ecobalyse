@@ -5,7 +5,7 @@ import Data.Complement as Complement
 import Data.Component as Component
 import Data.Db exposing (Db)
 import Data.Process as Process
-import Data.Scope as Scope
+import Data.Sector as Scope
 import Data.Unit as Unit
 import Expect exposing (Expectation)
 import Json.Decode as Decode

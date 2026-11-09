@@ -13,7 +13,7 @@ module Page.Explore.Table exposing
 
 import Csv.Encode exposing (Csv)
 import Data.Env as Env
-import Data.Scope as Scope exposing (Scope)
+import Data.Sector as Scope exposing (Scope)
 import Data.Text as Text
 import Dict exposing (Dict)
 import Html exposing (..)

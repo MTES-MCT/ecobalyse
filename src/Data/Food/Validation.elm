@@ -6,7 +6,7 @@ import Data.Food.Ingredient as Ingredient
 import Data.Food.Preparation as Preparation
 import Data.Food.Query exposing (IngredientQuery, PackagingAmount, PackagingQuery, ProcessQuery, Query, packagingAmountToFloat)
 import Data.Process as Process
-import Data.Scope as Scope
+import Data.Sector as Scope
 import Data.Validation as Validation
 import Mass exposing (Mass)
 import Result.Extra as RE

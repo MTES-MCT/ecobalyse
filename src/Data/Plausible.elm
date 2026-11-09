@@ -5,7 +5,7 @@ module Data.Plausible exposing
     )
 
 import Data.Impact.Definition as Definition exposing (Trigram)
-import Data.Scope as Scope exposing (Scope)
+import Data.Sector as Scope exposing (Scope)
 import Data.Session as Session exposing (Session)
 import Json.Encode as Encode
 import Ports

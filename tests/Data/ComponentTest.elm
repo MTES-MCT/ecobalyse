@@ -21,7 +21,7 @@ import Data.Impact as Impact exposing (Impacts)
 import Data.Impact.Definition as Definition
 import Data.Process as Process exposing (Process)
 import Data.Process.Category as Category
-import Data.Scope as Scope
+import Data.Sector as Scope
 import Data.Split as Split
 import Data.Transport as Transport
 import Data.Unit as Unit

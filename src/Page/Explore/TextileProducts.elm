@@ -4,7 +4,7 @@ import Data.Component as Component
 import Data.Dataset as Dataset
 import Data.Env as Env
 import Data.Process as Process
-import Data.Scope exposing (Scope)
+import Data.Sector exposing (Scope)
 import Data.Session exposing (Session)
 import Data.Split as Split
 import Data.Text as Text

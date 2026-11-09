@@ -27,7 +27,7 @@ import Data.Impact as Impact
 import Data.Impact.Definition as Definition exposing (Definition)
 import Data.Key as Key
 import Data.Plausible as Plausible
-import Data.Scope as Scope
+import Data.Sector as Scope
 import Data.Session as Session exposing (Session)
 import Data.Split exposing (Split)
 import Data.Textile.Db as TextileDb

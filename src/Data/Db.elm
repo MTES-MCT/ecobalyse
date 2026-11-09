@@ -17,7 +17,7 @@ import Data.Generic.Db as GenericDb
 import Data.Impact as Impact
 import Data.Impact.Definition as Definition exposing (Definitions)
 import Data.Process as Process exposing (Process)
-import Data.Scope as Scope exposing (Scope)
+import Data.Sector as Scope exposing (Scope)
 import Data.Textile.Db as TextileDb
 import Data.Transport as Transport exposing (Distances)
 import Json.Decode as Decode

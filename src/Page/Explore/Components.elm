@@ -6,7 +6,7 @@ import Data.Dataset as Dataset
 import Data.Impact as Impact
 import Data.Impact.Definition as Definition
 import Data.Process as Process
-import Data.Scope exposing (Scope)
+import Data.Sector exposing (Scope)
 import Data.Session exposing (Session)
 import Data.Text as Text
 import Data.Unit as Unit

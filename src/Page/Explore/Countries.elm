@@ -5,7 +5,7 @@ import Data.Country.Code as CountryCode
 import Data.Dataset as Dataset
 import Data.Gitbook as Gitbook
 import Data.Process as Process
-import Data.Scope as Scope exposing (Scope)
+import Data.Sector as Scope exposing (Scope)
 import Data.Split as Split
 import Data.Text as Text
 import Data.Transport as Transport

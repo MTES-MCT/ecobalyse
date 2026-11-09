@@ -13,7 +13,7 @@ import Browser.Navigation as Nav
 import Data.ApiToken as ApiToken exposing (CreatedToken, Token)
 import Data.Env as Env
 import Data.Plausible as Plausible
-import Data.Scope as Scope
+import Data.Sector as Scope
 import Data.Session as Session exposing (Session)
 import Data.User as User exposing (AccessTokenData, FormErrors, ProfileForm, SignupForm, User)
 import Dict

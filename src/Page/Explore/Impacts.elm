@@ -2,7 +2,7 @@ module Page.Explore.Impacts exposing (table)
 
 import Data.Dataset as Dataset
 import Data.Impact.Definition as Definition exposing (Definition)
-import Data.Scope exposing (Scope)
+import Data.Sector exposing (Scope)
 import Data.Split as Split
 import Data.Text as Text
 import Data.Unit as Unit

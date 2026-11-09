@@ -10,7 +10,7 @@ import App exposing (Msg, PageUpdate)
 import Browser.Navigation as Nav
 import Data.Dataset as Dataset
 import Data.Env as Env
-import Data.Scope as Scope
+import Data.Sector as Scope
 import Data.Session exposing (Session)
 import Html exposing (..)
 import Html.Attributes exposing (..)

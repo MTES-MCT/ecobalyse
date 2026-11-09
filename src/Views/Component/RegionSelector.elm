@@ -5,7 +5,7 @@ module Views.Component.RegionSelector exposing
 
 import Data.Country exposing (Country)
 import Data.Country.Code as CountryCode
-import Data.Scope as Scope exposing (Scope)
+import Data.Sector as Scope exposing (Scope)
 import Html exposing (..)
 import Html.Attributes exposing (..)
 import Html.Events exposing (..)

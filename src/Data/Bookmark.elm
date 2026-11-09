@@ -21,7 +21,7 @@ import Data.Component as Component
 import Data.Db exposing (Db)
 import Data.Food.Query as FoodQuery
 import Data.Food.Recipe as Recipe
-import Data.Scope as Scope exposing (GenericScope, Scope)
+import Data.Sector as Scope exposing (GenericScope, Scope)
 import Data.Textile.Inputs as Inputs
 import Data.Textile.Query as TextileQuery
 import Json.Decode as Decode exposing (Decoder)

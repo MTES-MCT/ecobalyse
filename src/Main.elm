@@ -14,7 +14,7 @@ import Data.Impact as Impact
 import Data.Key as Key
 import Data.Notification as Notification exposing (Notification)
 import Data.Plausible as Plausible
-import Data.Scope as Scope exposing (Scope)
+import Data.Sector as Scope exposing (Scope)
 import Data.Session as Session exposing (Session)
 import Data.Textile.Query as TextileQuery
 import Html

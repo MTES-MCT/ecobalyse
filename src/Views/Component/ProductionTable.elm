@@ -18,7 +18,7 @@ import Data.Component.Amount as Amount
 import Data.Impact.Definition exposing (Definition)
 import Data.Process as Process
 import Data.Process.Category as Category
-import Data.Scope exposing (Scope)
+import Data.Sector exposing (Scope)
 import Html exposing (..)
 import Html.Attributes as Attr exposing (..)
 import Html.Events exposing (..)

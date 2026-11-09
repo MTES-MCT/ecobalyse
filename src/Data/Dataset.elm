@@ -17,7 +17,7 @@ import Data.Country.Code as CountryCode
 import Data.Food.Ingredient as Ingredient
 import Data.Impact.Definition as Definition
 import Data.Process as Process
-import Data.Scope as Scope exposing (Scope)
+import Data.Sector as Scope exposing (Scope)
 import Data.Textile.Material as Material
 import Data.Textile.Product as Product
 import Data.Uuid as Uuid exposing (Uuid)

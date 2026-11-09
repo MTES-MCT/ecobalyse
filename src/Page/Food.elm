@@ -34,7 +34,7 @@ import Data.Key as Key
 import Data.Plausible as Plausible
 import Data.Process as Process exposing (Process)
 import Data.Process.Category as ProcessCategory
-import Data.Scope as Scope
+import Data.Sector as Scope
 import Data.Session as Session exposing (Session)
 import Data.Unit as Unit
 import Data.Uuid exposing (Uuid)

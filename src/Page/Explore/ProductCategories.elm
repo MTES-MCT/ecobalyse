@@ -3,7 +3,7 @@ module Page.Explore.ProductCategories exposing (table)
 import Data.Component.ProductCategory as ProductCategory exposing (ProductCategory)
 import Data.Dataset as Dataset
 import Data.Process as Process
-import Data.Scope as Scope exposing (Scope)
+import Data.Sector as Scope exposing (Scope)
 import Data.Session exposing (Session)
 import Data.Text as Text
 import Html exposing (..)

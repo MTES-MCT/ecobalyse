@@ -22,7 +22,7 @@ import Data.Impact as Impact
 import Data.Impact.Definition as Definition
 import Data.Process as Process exposing (Process)
 import Data.Process.Category as ProcessCategory
-import Data.Scope as Scope exposing (GenericScope)
+import Data.Sector as Scope exposing (GenericScope)
 import Data.Textile.Inputs as Inputs
 import Data.Textile.Material as Material exposing (Material)
 import Data.Textile.Product as TextileProduct exposing (Product)

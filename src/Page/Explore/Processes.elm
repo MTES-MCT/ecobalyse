@@ -9,7 +9,7 @@ import Data.Impact as Impact
 import Data.Impact.Definition as Definition exposing (Definitions)
 import Data.Process as Process exposing (Process)
 import Data.Process.Category as ProcessCategory
-import Data.Scope exposing (Scope)
+import Data.Sector exposing (Scope)
 import Data.Session as Session exposing (Session)
 import Data.Unit as Unit
 import Energy

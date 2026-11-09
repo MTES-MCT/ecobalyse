@@ -3,7 +3,7 @@ module Page.Explore.TextileExamples exposing (table)
 import Data.Component as Component
 import Data.Dataset as Dataset
 import Data.Example as Example exposing (Example)
-import Data.Scope exposing (Scope)
+import Data.Sector exposing (Scope)
 import Data.Session exposing (Session)
 import Data.Text as Text
 import Data.Textile.Product as Product

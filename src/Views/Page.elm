@@ -12,7 +12,7 @@ import Browser exposing (Document)
 import Data.Dataset as Dataset
 import Data.Env as Env
 import Data.Notification as Notification exposing (Notification)
-import Data.Scope as Scope exposing (GenericScope)
+import Data.Sector as Scope exposing (GenericScope)
 import Data.Session as Session
 import Html exposing (..)
 import Html.Attributes exposing (..)

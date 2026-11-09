@@ -6,7 +6,7 @@ import Data.Dataset as Dataset
 import Data.Db exposing (Db)
 import Data.Gitbook as Gitbook
 import Data.Process as Process
-import Data.Scope exposing (Scope)
+import Data.Sector exposing (Scope)
 import Data.Split as Split
 import Data.Text as Text
 import Data.Textile.Material as Material exposing (Id, Material)

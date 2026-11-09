@@ -16,7 +16,7 @@ import Data.Common.DecodeUtils as DU
 import Data.Common.EncodeUtils as EU
 import Data.Component.Consumption as Consumption exposing (Consumption)
 import Data.Process as Process
-import Data.Scope as Scope
+import Data.Sector as Scope
 import Data.Uuid as Uuid exposing (Uuid)
 import Json.Decode as Decode exposing (Decoder)
 import Json.Decode.Pipeline as Pipe

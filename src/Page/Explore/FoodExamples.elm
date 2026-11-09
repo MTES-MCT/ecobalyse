@@ -3,7 +3,7 @@ module Page.Explore.FoodExamples exposing (table)
 import Data.Dataset as Dataset
 import Data.Example as Example exposing (Example)
 import Data.Food.Query exposing (Query)
-import Data.Scope exposing (Scope)
+import Data.Sector exposing (Scope)
 import Data.Text as Text
 import Data.Uuid as Uuid
 import Html exposing (..)

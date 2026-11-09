@@ -42,7 +42,7 @@ import Data.Component as Component
 import Data.Component.Config as ComponentConfig
 import Data.Db as Db exposing (Db)
 import Data.Food.Query as FoodQuery
-import Data.Scope as Scope exposing (GenericScope)
+import Data.Sector as Scope exposing (GenericScope)
 import Data.Textile.Query as TextileQuery
 import Data.User as User
 import Json.Decode as Decode exposing (Decoder)

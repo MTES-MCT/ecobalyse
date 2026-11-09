@@ -11,7 +11,7 @@ import Data.Gitbook as Gitbook
 import Data.Impact as Impact
 import Data.Impact.Definition as Definition exposing (Definition)
 import Data.Process as Process
-import Data.Scope as Scope
+import Data.Sector as Scope
 import Data.Split as Split exposing (Split)
 import Data.Textile.Dyeing as Dyeing exposing (ProcessType)
 import Data.Textile.Fabric as Fabric exposing (Fabric)

@@ -10,7 +10,7 @@ import Data.Bookmark as Bookmark exposing (Bookmark)
 import Data.Component as Component
 import Data.Food.Query as FoodQuery
 import Data.Impact.Definition exposing (Definition)
-import Data.Scope as Scope exposing (Scope)
+import Data.Sector as Scope exposing (Scope)
 import Data.Session as Session exposing (Session)
 import Data.Text as Text
 import Data.Textile.Query as TextileQuery

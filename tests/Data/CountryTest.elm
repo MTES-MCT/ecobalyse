@@ -2,7 +2,7 @@ module Data.CountryTest exposing (..)
 
 import Data.Country as Country
 import Data.Country.Code as CountryCode
-import Data.Scope as Scope
+import Data.Sector as Scope
 import Expect
 import Test exposing (..)
 import TestUtils exposing (expectResultErrorContains, it, suiteWithDb)

@@ -4,7 +4,7 @@ import Data.Component as Component
 import Data.Country as Country
 import Data.Db exposing (Db)
 import Data.Env as Env
-import Data.Scope as Scope
+import Data.Sector as Scope
 import Data.Split as Split exposing (Split)
 import Data.Textile.Economics as Economics
 import Data.Textile.Material as Material

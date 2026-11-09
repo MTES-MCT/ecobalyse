@@ -28,7 +28,7 @@ import Data.Impact as Impact
 import Data.Impact.Definition as Definition exposing (Definition, Definitions)
 import Data.Key as Key
 import Data.Process as Process exposing (Process)
-import Data.Scope as Scope exposing (Scope)
+import Data.Sector as Scope exposing (Scope)
 import Data.Session exposing (Session)
 import Data.Textile.Material as Material exposing (Material)
 import Data.Textile.Product as Product exposing (Product)

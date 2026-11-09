@@ -1,4 +1,4 @@
-module Data.Scope exposing
+module Data.Sector exposing
     ( Dict
     , GenericScope(..)
     , Scope(..)

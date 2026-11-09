@@ -6,7 +6,7 @@ module Page.Explore.GenericExamples exposing (table)
 import Data.Component as Component
 import Data.Dataset as Dataset
 import Data.Example as Example exposing (Example)
-import Data.Scope as Scope exposing (Scope)
+import Data.Sector as Scope exposing (Scope)
 import Data.Text as Text
 import Data.Uuid as Uuid
 import Html exposing (..)

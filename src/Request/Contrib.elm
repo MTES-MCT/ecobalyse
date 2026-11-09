@@ -5,7 +5,7 @@ module Request.Contrib exposing
     )
 
 import Data.Component as Component
-import Data.Scope as Scope exposing (Scope)
+import Data.Sector as Scope exposing (Scope)
 import Data.Session exposing (Session)
 import Json.Decode as Decode exposing (Decoder)
 import Json.Decode.Pipeline as Decode

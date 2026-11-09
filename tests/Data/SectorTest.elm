@@ -1,6 +1,6 @@
-module Data.ScopeTest exposing (..)
+module Data.SectorTest exposing (..)
 
-import Data.Scope as Scope
+import Data.Sector as Scope
 import Expect
 import Test exposing (..)
 import TestUtils exposing (asTest)

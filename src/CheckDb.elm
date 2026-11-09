@@ -8,7 +8,7 @@ import Data.Db exposing (Db)
 import Data.Example as Example exposing (Example)
 import Data.Process as Process exposing (Process)
 import Data.Process.Category as ProcessCategory
-import Data.Scope as Scope
+import Data.Sector as Scope
 import Data.Uuid as Uuid
 import Dict exposing (Dict)
 import Dict.Any as AnyDict

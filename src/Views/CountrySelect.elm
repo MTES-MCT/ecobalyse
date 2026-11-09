@@ -2,7 +2,7 @@ module Views.CountrySelect exposing (view)
 
 import Data.Country exposing (Country)
 import Data.Country.Code as CountryCode
-import Data.Scope as Scope exposing (Scope)
+import Data.Sector as Scope exposing (Scope)
 import Html exposing (..)
 import Html.Attributes exposing (..)
 import Html.Events exposing (..)

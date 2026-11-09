@@ -12,7 +12,7 @@ import Data.Impact as Impact
 import Data.Impact.Definition as Definition
 import Data.Process exposing (Process)
 import Data.Process.Category as ProcessCategory
-import Data.Scope as Scope exposing (GenericScope)
+import Data.Sector as Scope exposing (GenericScope)
 import Data.Textile.Query as TextileQuery
 import Data.Textile.Validation as TextileValidation
 import Data.Validation as Validation

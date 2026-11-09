@@ -17,7 +17,7 @@ import Data.Db exposing (Db)
 import Data.Env as Env
 import Data.Impact as Impact exposing (Impacts)
 import Data.Impact.Definition as Definition
-import Data.Scope as Scope
+import Data.Sector as Scope
 import Data.Split as Split
 import Data.Textile.Dyeing as Dyeing
 import Data.Textile.Economics as Economics

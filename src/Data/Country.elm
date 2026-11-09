@@ -15,7 +15,7 @@ module Data.Country exposing
 import Data.Common.DecodeUtils as DU
 import Data.Country.Code as CountryCode exposing (Code)
 import Data.Process as Process exposing (Process)
-import Data.Scope as Scope exposing (Scope)
+import Data.Sector as Scope exposing (Scope)
 import Data.Split as Split exposing (Split)
 import Data.Zone as Zone exposing (Zone)
 import Json.Decode as Decode exposing (Decoder)

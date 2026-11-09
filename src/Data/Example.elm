@@ -12,7 +12,7 @@ module Data.Example exposing
     )
 
 import Data.Common.DecodeUtils as DU
-import Data.Scope as Scope exposing (Scope)
+import Data.Sector as Scope exposing (Scope)
 import Data.Uuid as Uuid exposing (Uuid)
 import Json.Decode as Decode exposing (Decoder)
 import Json.Decode.Pipeline as Pipe

@@ -2,7 +2,7 @@ module Data.BookmarkTest exposing (..)
 
 import Data.Bookmark as Bookmark
 import Data.Component as Component
-import Data.Scope as Scope
+import Data.Sector as Scope
 import Data.Session as Session
 import Expect
 import Json.Decode as Decode

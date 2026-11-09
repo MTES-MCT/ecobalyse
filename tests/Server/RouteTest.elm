@@ -7,7 +7,7 @@ import Data.Example as Example
 import Data.Food.Preparation as Preparation
 import Data.Food.Query as FoodQuery exposing (PackagingAmount(..))
 import Data.Process.Category as ProcessCategory
-import Data.Scope as Scope
+import Data.Sector as Scope
 import Data.Split as Split
 import Data.Textile.Material as Material
 import Data.Textile.Product as Product

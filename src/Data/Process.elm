@@ -34,7 +34,7 @@ import Data.Impact as Impact exposing (Impacts)
 import Data.Impact.Definition as Definition
 import Data.Process.Category as Category exposing (Category)
 import Data.Process.Metadata as Metadata exposing (Metadata)
-import Data.Scope as Scope exposing (Scope)
+import Data.Sector as Scope exposing (Scope)
 import Data.Text as Text
 import Data.Unit as Unit
 import Data.Uuid as Uuid exposing (Uuid)
