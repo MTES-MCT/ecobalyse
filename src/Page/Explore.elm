@@ -74,7 +74,7 @@ type Msg
     = CloseModal
     | DownloadCsv String Csv
     | OpenDetail String
-    | ScopeChange Sector
+    | SectorChange Sector
     | SetTableState SortableTable.State
     | ToggleFacetValue String String Bool
     | UpdateSearch String
@@ -140,7 +140,7 @@ update session msg model =
         OpenDetail id ->
             createPageUpdate session { model | dataset = model.dataset |> Dataset.setIdFromString id }
 
-        ScopeChange sector ->
+        SectorChange sector ->
             { model | facetValues = Dict.empty, sector = sector }
                 |> createPageUpdate session
                 |> App.withCmds
@@ -251,7 +251,7 @@ sectorsMenuView { enabledSections } model =
                     (Sector.fromString
                         >> Result.toMaybe
                         >> Maybe.withDefault Sector.Textile
-                        >> ScopeChange
+                        >> SectorChange
                     )
                 ]
         ]
