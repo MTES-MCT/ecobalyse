@@ -31,7 +31,7 @@ const {
   getEnabledGenericScopeEntries,
   isGenericScopeEnabled,
   parseGenericScopeFromUrl,
-} = require("./lib/scopes");
+} = require("./lib/sectors");
 const express = require("express");
 
 const expressHost = "0.0.0.0";

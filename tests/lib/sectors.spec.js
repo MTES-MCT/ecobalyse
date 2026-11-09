@@ -8,7 +8,7 @@ const {
   isGenericScopeEnabled,
   parseGenericScopeFromUrl,
   parseScopeFromUrl,
-} = require("../../lib/scopes");
+} = require("../../lib/sectors");
 
 describe("lib.sectors", () => {
   describe("ALL_SECTORS", () => {
